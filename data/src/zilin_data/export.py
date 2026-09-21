@@ -341,11 +341,13 @@ def charger_paires(chemin: Path | None = None) -> list[list[str]]:
 def _jours_par_caractere(parcours: Mapping[str, Mapping[str, object]]) -> dict[str, tuple[str, int, str | None]]:
     """Pour chaque caractère posé : son parcours de référence, son jour, la brique du jour.
 
-    Le parcours de référence est le premier qui pose le caractère, dans l'ordre
-    des noms (`hsk` puis `lire`) ; `lire` l'emporte, puisqu'il passe en dernier.
+    Les parcours sont parcourus dans l'ordre des noms (`hsk` puis `lire`) et la
+    dernière écriture l'emporte : pour un caractère posé par les deux, c'est
+    `lire` qui fait référence — le parcours des seuils français, celui que le
+    reste du pipeline prend par défaut.
     """
     poses: dict[str, tuple[str, int, str | None]] = {}
-    for nom in sorted(parcours, reverse=True):
+    for nom in sorted(parcours):
         document = parcours[nom]
         for jour in document.get("jours") or ():  # type: ignore[union-attr]
             brique = jour.get("brique")

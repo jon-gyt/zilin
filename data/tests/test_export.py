@@ -275,6 +275,20 @@ def test_l_element_ajoute_est_celui_du_jour(atelier: Path) -> None:
     assert 休["nouveau"] == [1], "木 est posé le même jour que 休 : c'est lui, le cinabre"
 
 
+def test_le_parcours_de_reference_d_un_caractere_des_deux_listes_est_lire() -> None:
+    """Un caractère posé par les deux parcours prend `lire` pour référence.
+
+    C'est `lire` qui donne alors la brique du jour, donc l'élément en cinabre.
+    """
+    poses = export_mod._jours_par_caractere(
+        {
+            "hsk": {"jours": [{"jour": 7, "brique": "口", "composes": ["休"]}]},
+            "lire": {"jours": [{"jour": 2, "brique": "木", "composes": ["休"]}]},
+        }
+    )
+    assert poses["休"] == ("lire", 2, "木")
+
+
 def test_le_pinyin_vient_d_unihan(atelier: Path) -> None:
     rapport = export("0.1.0")
     assert fiche_de(rapport.dossier, "日", "明")["pinyin"] == "míng"
