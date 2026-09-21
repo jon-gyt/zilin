@@ -44,7 +44,7 @@ h1{font-family:var(--head);font-weight:700;font-size:30px;line-height:1.15;lette
 .brand .cn{color:var(--zhu)}
 .brand .day{margin-left:auto}
 
-/* Miao, aux moments d'émotion seulement */
+/* Tao, au centre de l'écran quand elle s'y montre */
 .mood{display:flex;justify-content:center;align-items:center;margin:-6px 0 8px}
 /* le caractère du jour, au pinceau, dans le blanc entre le chemin et le bouton */
 .today{flex:1;min-height:0;display:flex;align-items:center;justify-content:center;padding:10px 0}
@@ -67,25 +67,6 @@ h1{font-family:var(--head);font-weight:700;font-size:30px;line-height:1.15;lette
 .btn{display:flex;align-items:center;justify-content:center;gap:8px;min-height:50px;padding:0 18px;border-radius:12px;background:var(--indigo);color:var(--on);font-weight:600;font-size:17px;width:100%}
 .btn.ghost{background:transparent;border:1px solid var(--line);color:var(--ink)}
 .btn:disabled{opacity:.4}
-
-/* Miao 苗 */
-.miao{display:inline-block;overflow:visible}
-.miao .body{transform-origin:100px 150px;animation:breathe 3.2s ease-in-out infinite}
-.miao .leaves{transform-origin:100px 68px;animation:sway 2.6s ease-in-out infinite alternate}
-.miao .eyes{transform-origin:100px 92px;animation:blink 4.5s infinite}
-.miao.joy .body{animation:jump .9s cubic-bezier(.3,0,.2,1) infinite alternate}
-.miao.joy .arms{transform-origin:100px 118px;animation:wave .45s ease-in-out infinite alternate}
-.miao.joy .spark{animation:spark .9s ease-in-out infinite alternate}
-.miao.sleep .body{animation:breathe 4.5s ease-in-out infinite}
-.miao.sleep .zz{animation:zz 2.4s ease-in-out infinite}
-@keyframes breathe{0%,100%{transform:scale(1,1)}50%{transform:scale(1.025,.975)}}
-@keyframes sway{from{transform:rotate(-5deg)}to{transform:rotate(5deg)}}
-@keyframes blink{0%,92%,100%{transform:scaleY(1)}95%{transform:scaleY(.1)}}
-@keyframes jump{from{transform:translateY(0) scale(1.02,.98)}to{transform:translateY(-14px) scale(.98,1.03)}}
-@keyframes wave{from{transform:rotate(-8deg)}to{transform:rotate(8deg)}}
-@keyframes spark{from{opacity:.4;transform:scale(.9)}to{opacity:1;transform:scale(1.08)}}
-@keyframes zz{0%{opacity:0;transform:translate(0,6px)}30%{opacity:1}100%{opacity:0;transform:translate(6px,-14px)}}
-@media (prefers-reduced-motion:reduce){.miao *{animation:none!important}}
 
 /* quitter : discret en haut d'écran, sauvegarde sans question */
 .quit{min-height:44px;align-self:flex-start}
@@ -139,3 +120,29 @@ h1{font-family:var(--head);font-weight:700;font-size:30px;line-height:1.15;lette
 /* le réglage : ne plus proposer le tracé */
 .pref{display:flex;align-items:center;gap:8px;margin-top:16px;font-size:15px;color:var(--ink2);min-height:44px}
 .pref input{width:20px;height:20px;accent-color:var(--indigo)}
+/* Tao 桃, la graine de pêcher. Un seul rose, celui des fleurs. */
+:root{ --fleur:#E7A2B4; }
+.tao{display:inline-block;overflow:visible}
+.tao .plante{transform-origin:100px 160px;animation:respire 3.4s ease-in-out infinite}
+.tao .feuilles{transform-origin:100px 98px;animation:balance 2.8s ease-in-out infinite alternate}
+.tao .houppier{transform-origin:100px 108px;animation:balance 3.6s ease-in-out infinite alternate}
+.tao .yeux{transform-origin:100px 126px;animation:cligne 4.8s infinite}
+/* humeurs : la joie saute sur place, l'ennui balance la tête, le calme respire */
+.tao.joie .plante{animation:bond 1s cubic-bezier(.3,0,.2,1) infinite alternate}
+.tao.ennui .plante{transform-origin:100px 160px;animation:soupire 2.6s ease-in-out infinite alternate}
+/* postures : la marche avance, l'assise s'installe, le pot attend */
+.tao.chemin .vivant{transform-origin:100px 168px;animation:marche .9s ease-in-out infinite alternate}
+.tao.anecdote .vivant{transform-origin:100px 170px;transform:translateY(6px) rotate(-4deg)}
+.tao.pot .vivant{transform-origin:100px 150px;animation:redresse 2s cubic-bezier(.25,1,.3,1) forwards}
+.tao.pot .plante{animation:respire 5s ease-in-out infinite}
+.tao .lanterne{transform-origin:164px 26px;animation:balance 3s ease-in-out infinite alternate}
+.tao .trait{stroke-dasharray:44;stroke-dashoffset:44;animation:tirer 1.8s ease-in-out infinite}
+@keyframes respire{0%,100%{transform:scale(1,1)}50%{transform:scale(1.02,.98)}}
+@keyframes balance{from{transform:rotate(-4deg)}to{transform:rotate(4deg)}}
+@keyframes cligne{0%,93%,100%{transform:scaleY(1)}96%{transform:scaleY(.1)}}
+@keyframes bond{from{transform:translateY(0) scale(1.02,.98)}to{transform:translateY(-12px) scale(.98,1.02)}}
+@keyframes soupire{from{transform:rotate(-3deg)}to{transform:rotate(3deg)}}
+@keyframes marche{from{transform:translateY(0) rotate(-3deg)}to{transform:translateY(-6px) rotate(3deg)}}
+@keyframes redresse{from{transform:rotate(-9deg)}to{transform:rotate(0)}}
+@keyframes tirer{0%{stroke-dashoffset:44}60%,100%{stroke-dashoffset:0}}
+@media (prefers-reduced-motion:reduce){.tao *{animation:none!important}}
