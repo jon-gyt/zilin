@@ -1,0 +1,20 @@
+:root{
+  --paper:#F4EEE2; --card:#FBF7EE; --ink:#1F1B18; --ink2:#4A443E; --mist:#8B857C; --line:#D9D1C2;
+  --indigo:#2B4C7E; --indigo-soft:#DCE3EF; --zhu:#C8371F; --zhu-soft:#F6DED6; --ocre:#8C5A2B; --ocre-soft:#EFE3D3; --jade:#5E8A6A; --jade-soft:#DDE8DE; --on:#F4EEE2;
+  --hz:"Noto Serif SC","Songti SC","PingFang SC",serif; --sans:"Source Sans 3","Helvetica Neue",Arial,sans-serif; --head:"Manrope","Helvetica Neue",Arial,sans-serif;
+}
+@media (prefers-color-scheme: dark){ :root:not([data-theme="light"]){ --paper:#1A1714; --card:#241F1B; --ink:#EDE6D8; --ink2:#C9C1B3; --mist:#8E877D; --line:#3A332C; --indigo:#8FA9D6; --indigo-soft:#26303F; --zhu:#E0553A; --zhu-soft:#3F2520; --ocre:#C89A6A; --ocre-soft:#3A2E22; --jade:#8FB79A; --jade-soft:#243228; --on:#1A1714; } }
+*{box-sizing:border-box} html,body{margin:0;height:100%}
+body{background:var(--paper);color:var(--ink);font-family:var(--sans);font-size:17px;line-height:1.45}
+.screen{max-width:520px;margin:0 auto;padding:calc(env(safe-area-inset-top) + 20px) 22px 28px;display:flex;flex-direction:column;min-height:100%}
+.screen > *{flex-shrink:0}
+h1{font-family:var(--head);font-weight:700;font-size:30px;letter-spacing:-.02em;margin:0 0 8px}
+.guide{color:var(--ink2);margin:0 0 24px}
+.btn{min-height:50px;border:0;border-radius:12px;background:var(--indigo);color:var(--on);font:600 17px var(--sans);width:100%;margin-top:auto}
+.path{list-style:none;margin:0;padding:0 0 0 34px;position:relative}
+.path::before{content:"";position:absolute;left:13px;top:18px;bottom:18px;width:2px;background:var(--line)}
+.path li{position:relative;display:flex;justify-content:space-between;padding:12px 0;color:var(--ink2);font-weight:600}
+.path li::before{content:"";position:absolute;left:-27px;top:50%;width:12px;height:12px;border-radius:50%;background:var(--paper);border:2px solid var(--line);box-sizing:border-box;transform:translateY(-50%)}
+.path li.done{color:var(--mist);font-weight:400} .path li.done::before{background:var(--jade);border-color:var(--jade)}
+.path li.now{color:var(--ink)} .path li.now::before{background:var(--zhu);border-color:var(--zhu)}
+.path small{color:var(--mist);font-weight:400}

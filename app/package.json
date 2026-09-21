@@ -1,0 +1,30 @@
+{
+  "name": "zilin-app",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "test": "vitest run",
+    "check": "svelte-check --tsconfig ./tsconfig.json"
+  },
+  "dependencies": {
+    "@capacitor/core": "^6",
+    "@capacitor/ios": "^6",
+    "dexie": "^4",
+    "hanzi-writer": "^3.7",
+    "ts-fsrs": "^4"
+  },
+  "devDependencies": {
+    "@capacitor/cli": "^6",
+    "@sveltejs/vite-plugin-svelte": "^4",
+    "svelte": "^5",
+    "svelte-check": "^4",
+    "typescript": "^5",
+    "vite": "^5",
+    "vite-plugin-pwa": "^0.20",
+    "vitest": "^2"
+  }
+}

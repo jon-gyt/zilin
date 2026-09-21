@@ -1,0 +1,68 @@
+name: ios-testflight
+on:
+  push:
+    tags: ['ios-*']
+jobs:
+  build:
+    runs-on: macos-latest
+    defaults: { run: { working-directory: app } }
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: 22, cache: npm, cache-dependency-path: app/package-lock.json }
+      - run: npm ci
+      - run: npm run build
+      - name: Générer le projet iOS
+        run: |
+          rm -rf ios
+          npx cap add ios
+          npx cap sync ios
+      - name: Scheme partagé
+        run: |
+          mkdir -p ios/App/App.xcodeproj/xcshareddata/xcschemes
+          cat > ios/App/App.xcodeproj/xcshareddata/xcschemes/App.xcscheme <<'XML'
+          <?xml version="1.0" encoding="UTF-8"?>
+          <Scheme LastUpgradeVersion="1500" version="1.7">
+            <BuildAction parallelizeBuildables="YES" buildImplicitDependencies="YES">
+              <BuildActionEntries><BuildActionEntry buildForRunning="YES" buildForArchiving="YES" buildForTesting="YES" buildForProfiling="YES" buildForAnalyzing="YES">
+                <BuildableReference BuildableIdentifier="primary" BlueprintIdentifier="504EC3031FED79650016851F" BuildableName="App.app" BlueprintName="App" ReferencedContainer="container:App.xcodeproj"/>
+              </BuildActionEntry></BuildActionEntries>
+            </BuildAction>
+            <ArchiveAction buildConfiguration="Release" revealArchiveInOrganizer="YES"/>
+            <LaunchAction buildConfiguration="Debug"/><ProfileAction buildConfiguration="Release"/><AnalyzeAction buildConfiguration="Debug"/>
+          </Scheme>
+          XML
+      - name: Signature
+        env:
+          IOS_CERT_P12: ${{ secrets.IOS_CERT_P12 }}
+          IOS_CERT_PASSWORD: ${{ secrets.IOS_CERT_PASSWORD }}
+          IOS_PROFILE: ${{ secrets.IOS_PROFILE }}
+        run: |
+          echo "$IOS_CERT_P12" | base64 -d > cert.p12
+          echo "$IOS_PROFILE" | base64 -d > profile.mobileprovision
+          security create-keychain -p ci build.keychain
+          security default-keychain -s build.keychain
+          security unlock-keychain -p ci build.keychain
+          security import cert.p12 -k build.keychain -P "$IOS_CERT_PASSWORD" -T /usr/bin/codesign
+          security set-key-partition-list -S apple-tool:,apple: -s -k ci build.keychain
+          mkdir -p ~/Library/MobileDevice/Provisioning\ Profiles
+          cp profile.mobileprovision ~/Library/MobileDevice/Provisioning\ Profiles/
+      - name: Archive et export
+        run: |
+          cd ios/App && pod install
+          xcodebuild -workspace App.xcworkspace -scheme App -configuration Release -archivePath build/App.xcarchive archive CODE_SIGN_STYLE=Manual DEVELOPMENT_TEAM="${{ secrets.APPLE_TEAM_ID }}" PROVISIONING_PROFILE_SPECIFIER="Zilin AppStore" CODE_SIGN_IDENTITY="Apple Distribution"
+          cat > ExportOptions.plist <<'PL'
+          <?xml version="1.0" encoding="UTF-8"?><!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+          <plist version="1.0"><dict><key>method</key><string>app-store-connect</string><key>signingStyle</key><string>manual</string>
+          <key>provisioningProfiles</key><dict><key>com.zilin.app</key><string>Zilin AppStore</string></dict></dict></plist>
+          PL
+          xcodebuild -exportArchive -archivePath build/App.xcarchive -exportOptionsPlist ExportOptions.plist -exportPath build/out
+      - name: TestFlight
+        env:
+          ASC_KEY_ID: ${{ secrets.ASC_KEY_ID }}
+          ASC_ISSUER_ID: ${{ secrets.ASC_ISSUER_ID }}
+          ASC_KEY_P8: ${{ secrets.ASC_KEY_P8 }}
+        run: |
+          mkdir -p ~/.appstoreconnect/private_keys
+          echo "$ASC_KEY_P8" | base64 -d > ~/.appstoreconnect/private_keys/AuthKey_$ASC_KEY_ID.p8
+          xcrun altool --upload-app -f ios/App/build/out/App.ipa -t ios --apiKey "$ASC_KEY_ID" --apiIssuer "$ASC_ISSUER_ID"

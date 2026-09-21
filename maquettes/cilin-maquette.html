@@ -1,0 +1,727 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="theme-color" content="#f5f1e8">
+<title>词林 Cilin</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;700&family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Noto+Sans+SC:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#F5F1E8; --card:#FBF8F1; --ink:#1F1E1C; --ink2:#4A4742; --mist:#8B877F; --line:#DAD4C6;
+  --bleu:#2F4B8F; --bleu-soft:#DEE3F1; --rouge:#B5382F; --rouge-soft:#F4DEDB; --ocre:#8C6A3E; --ocre-soft:#EFE5D6; --olive:#6B7F4E; --olive-soft:#E3E8D8; --on:#F5F1E8;
+  --zh:"Noto Sans SC","PingFang SC","Microsoft YaHei",sans-serif;
+  --fr:"Fraunces",Georgia,serif;
+  --head:"Manrope","Noto Sans SC",sans-serif;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){ --paper:#1A1917; --card:#24221F; --ink:#EDE8DD; --ink2:#C7C1B4; --mist:#8E8A81; --line:#3A3733; --bleu:#9DB1E6; --bleu-soft:#26304A; --rouge:#E0655A; --rouge-soft:#3F2622; --ocre:#C9A778; --ocre-soft:#3A3126; --olive:#A6B98A; --olive-soft:#2A3324; --on:#1A1917; }
+}
+:root[data-theme="dark"]{ --paper:#1A1917; --card:#24221F; --ink:#EDE8DD; --ink2:#C7C1B4; --mist:#8E8A81; --line:#3A3733; --bleu:#9DB1E6; --bleu-soft:#26304A; --rouge:#E0655A; --rouge-soft:#3F2622; --ocre:#C9A778; --ocre-soft:#3A3126; --olive:#A6B98A; --olive-soft:#2A3324; --on:#1A1917; }
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{height:100%;margin:0}
+body{background:var(--paper);color:var(--ink);font-family:var(--zh);font-size:16.5px;line-height:1.55;overscroll-behavior:none}
+.fr{font-family:var(--fr);font-weight:500;line-height:1.1}
+button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:pointer;text-align:left}
+.app{position:fixed;inset:0;display:flex;flex-direction:column;max-width:520px;margin:0 auto;background:var(--paper)}
+.app::before{content:"";position:absolute;inset:0;pointer-events:none;opacity:.05;background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .5 0'/></filter><rect width='160' height='160' filter='url(%23n)'/></svg>");z-index:0}
+.app>*{position:relative;z-index:1}
+.screen{display:none;flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch;padding:calc(env(safe-area-inset-top) + 20px) 22px 28px}
+.screen.on{display:flex;flex-direction:column;animation:page .22s ease-out}
+@keyframes page{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+.tabs{display:none;border-top:1px solid var(--line);background:var(--paper);padding:6px 6px calc(env(safe-area-inset-bottom) + 6px)}
+.tabs.on{display:flex}
+.tab{flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;padding:6px 0;font-size:11.5px;color:var(--mist);min-height:44px}
+.tab svg{width:24px;height:24px;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.tab.on{color:var(--bleu)}
+.brand{display:flex;align-items:center;gap:10px;margin-bottom:14px}
+.brand .name{font-family:var(--head);font-weight:700;font-size:22px;letter-spacing:-.03em;line-height:1}
+.brand .cn{color:var(--rouge);font-weight:500}
+h1{font-family:var(--head);font-weight:700;font-size:28px;margin:0 0 8px;line-height:1.2;letter-spacing:-.01em}
+.guide{font-size:16.5px;color:var(--ink2);margin:0 0 22px;line-height:1.55}
+.k{font-size:13px;color:var(--mist)}
+.card{background:var(--card);border-radius:16px;padding:18px}
+.card + .card{margin-top:14px}
+.row{display:flex;align-items:center;gap:14px}
+.grow{flex:1;min-width:0}
+.big{font-family:var(--head);font-weight:700;font-size:34px;line-height:1;letter-spacing:-.02em}
+.btn{display:flex;align-items:center;justify-content:center;gap:8px;min-height:50px;padding:0 18px;border-radius:12px;background:var(--bleu);color:var(--on);font-weight:600;font-size:17px;width:100%}
+.btn.ghost{background:transparent;border:1px solid var(--line);color:var(--ink)}
+.btn.sm{width:auto;min-height:40px;padding:0 14px;font-size:15px}
+.btn:disabled{opacity:.4}
+.foot{margin-top:auto;padding-top:18px}
+.dots{display:flex;gap:6px;margin:4px 0 16px}
+.dots i{flex:1;height:4px;border-radius:2px;background:var(--line)}
+.dots i.on{background:var(--bleu)}
+.dots i.cur{background:var(--rouge)}
+.center{text-align:center}
+.word{font-family:var(--fr);font-weight:600;font-size:56px;letter-spacing:-.01em;line-height:1.05;color:var(--ink)}
+.word .new{color:var(--rouge)}
+.word .root{color:var(--ocre)}
+.word .suf{color:var(--mist)}
+.word .silent{color:var(--mist);opacity:.55}
+.ipa{font-family:var(--fr);font-size:20px;color:var(--bleu);margin-top:6px}
+.zh{font-size:19px;margin-top:2px}
+.formula{display:flex;align-items:center;gap:8px;flex-wrap:wrap;justify-content:center;margin:12px 0 6px;font-family:var(--fr);font-weight:600;font-size:30px}
+.formula .p{color:var(--ocre)}
+.formula .p.new{color:var(--rouge)}
+.formula .p.suf{color:var(--mist)}
+.formula .op{color:var(--mist);font-size:20px;font-family:var(--zh)}
+.formula .r{color:var(--ink);font-size:40px}
+.tree{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-top:10px}
+.tree span{font-family:var(--fr);font-size:20px;padding:6px 12px;border-radius:10px;background:var(--paper);color:var(--ink2)}
+.tree span b{color:var(--rouge);font-weight:600}
+.tree span small{font-family:var(--zh);font-size:13px;color:var(--mist);margin-left:6px}
+.path{position:relative;padding-left:34px;margin:6px 0}
+.path::before{content:"";position:absolute;left:13px;top:18px;bottom:18px;width:2px;background:var(--line)}
+.node{position:relative;display:flex;align-items:center;gap:14px;padding:12px 0;width:100%}
+.node::before{content:"";position:absolute;left:-27px;top:50%;width:12px;height:12px;border-radius:50%;background:var(--paper);border:2px solid var(--line);box-sizing:border-box;transform:translateY(-50%)}
+.node.done::before{background:var(--olive);border-color:var(--olive)}
+.node.now::before{background:var(--rouge);border-color:var(--rouge)}
+.node .t{font-weight:600;color:var(--ink2)}
+.node.done .t{color:var(--mist);font-weight:400}
+.node.now .t{color:var(--ink)}
+.node .d{font-size:13.5px;color:var(--ink2)}
+.node.lock{opacity:.5}
+.choices{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.choices button{min-height:68px;border:1.5px solid var(--line);border-radius:12px;background:var(--card);display:flex;flex-direction:column;align-items:center;justify-content:center;font-weight:600;gap:2px;text-align:center;padding:8px}
+.choices button .fr{font-size:22px}
+.choices button small{font-weight:400;font-size:13px;color:var(--mist)}
+.choices button.ok{border-color:var(--olive);background:var(--olive-soft)}
+.choices button.ko{border-color:var(--rouge);background:var(--rouge-soft)}
+.q{background:var(--card);border-radius:18px;padding:22px 16px;text-align:center}
+.q .ask{font-size:17px;color:var(--ink2);margin:0 0 12px}
+.q .stim{margin:6px 0 16px}
+.q .stim .blank{display:inline-block;width:70px;border-bottom:3px solid var(--rouge);vertical-align:-4px}
+.fb{margin-top:12px;min-height:44px;font-size:15px;color:var(--ink2);text-align:left;padding:10px 12px;border-radius:10px;background:var(--paper)}
+.fb b{color:var(--ink)}
+.fb .next{display:block;margin-top:4px;font-size:13px;color:var(--mist)}
+.prog{height:5px;border-radius:3px;background:var(--line);overflow:hidden;margin:6px 0 18px}
+.prog i{display:block;height:100%;background:var(--bleu);width:0;transition:width .2s}
+.res{display:flex;flex-direction:column;gap:2px;margin-top:14px;text-align:left}
+.res div{display:flex;align-items:center;gap:10px;padding:8px 0;border-top:1px solid var(--line);font-size:14.5px}
+.res .ok{color:var(--olive);font-weight:600}.res .ko{color:var(--rouge);font-weight:600}
+.read{font-family:var(--fr);font-size:27px;line-height:1.6}
+.read b{font-weight:500;cursor:pointer}
+.read .new{color:var(--rouge)}
+.read .li{position:relative}
+.read .li::after{content:"";position:absolute;left:0;right:0;bottom:-2px;height:8px;border:1.5px solid var(--bleu);border-top:0;border-radius:0 0 8px 8px}
+.dlg{display:flex;flex-direction:column;gap:6px}
+.dlg .line{display:grid;grid-template-columns:auto 1fr;gap:2px 10px;align-items:baseline;padding:8px 10px;border-radius:10px;background:var(--paper);width:100%}
+.dlg .who{font-size:12px;color:var(--mist);grid-row:span 2;align-self:start;padding-top:4px}
+.dlg .fr{font-size:20px}
+.dlg .zh2{font-size:13.5px;color:var(--ink2)}
+.gloss{margin-top:12px;min-height:48px;background:var(--paper);border-radius:10px;padding:10px 12px;font-size:15px;color:var(--ink2)}
+.stat{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.stat .card{padding:14px 12px}
+.tog{display:flex;align-items:center;justify-content:space-between;min-height:52px;padding:0 2px;gap:12px}
+.tog + .tog{border-top:1px solid var(--line)}
+.sw{width:46px;height:28px;border-radius:999px;background:var(--line);position:relative;flex-shrink:0}
+.sw::after{content:"";position:absolute;top:3px;left:3px;width:22px;height:22px;border-radius:50%;background:#fff;transition:transform .15s}
+.sw.on{background:var(--bleu)}.sw.on::after{transform:translateX(18px)}
+.seg{display:flex;border:1px solid var(--line);border-radius:10px;overflow:hidden;flex-shrink:0}
+.seg button{padding:6px 12px;font-size:14px;color:var(--ink2)}
+.seg button.on{background:var(--bleu);color:var(--on)}
+.opt{display:flex;flex-direction:column;gap:10px}
+.opt button{border:1px solid var(--line);border-radius:14px;background:var(--card);padding:14px 16px;display:flex;align-items:center;gap:14px;min-height:64px;width:100%}
+.opt button.on{border-color:var(--bleu);background:var(--bleu-soft)}
+.opt .fr{font-size:26px;color:var(--bleu);width:44px;text-align:center}
+.opt .t{font-weight:600}.opt .d{font-size:14px;color:var(--ink2)}
+.seeds{display:flex;gap:6px;margin:10px 0 6px}
+.seeds i{flex:1;height:34px;border-radius:9px;border:1px solid var(--line);display:flex;align-items:center;justify-content:center;font-style:normal;font-size:12px;color:var(--mist)}
+.seeds i.on{background:var(--olive);border-color:var(--olive);color:var(--on)}
+.seeds i.today{border-color:var(--rouge);color:var(--rouge)}
+.streak{text-align:center}
+.streak .n{font-family:var(--head);font-weight:700;font-size:72px;letter-spacing:-.04em;line-height:1;margin:6px 0 0}
+.streak .seeds i{opacity:0;transform:scale(.6);animation:seedin .3s cubic-bezier(.2,1.3,.5,1) forwards}
+.streak .seeds i.pop{animation:seedpop .55s cubic-bezier(.2,1.5,.4,1) forwards}
+@keyframes seedin{to{opacity:1;transform:none}}
+@keyframes seedpop{0%{opacity:0;transform:scale(.4)}60%{opacity:1;transform:scale(1.25)}100%{opacity:1;transform:none}}
+.anec{flex:1;display:flex;flex-direction:column;justify-content:center;text-align:center;position:relative}
+.anec .water{position:absolute;left:50%;top:50%;transform:translate(-50%,-56%);opacity:.06;pointer-events:none;font-family:var(--fr);font-weight:600;font-size:260px;line-height:1;white-space:nowrap}
+.anec>*:not(.water){position:relative}
+.anec h1{font-size:23px;margin-top:12px}
+.anec p{color:var(--ink2);font-size:16px;margin:0 auto;max-width:32ch;text-align:left}
+.forest{border-radius:16px;overflow:hidden;background:var(--card)}
+.forest svg{display:block;width:100%;height:auto}
+.forest .lab{font-family:var(--fr);font-size:20px;fill:var(--ink2)}
+.forest .grass{stroke:var(--olive);stroke-width:2.2;stroke-linecap:round;opacity:.85}
+.forest .tree{stroke:var(--ink);stroke-width:5;stroke-linecap:round;fill:none}
+.forest .young{stroke:var(--mist)}
+.forest .hill{fill:var(--olive-soft)}.forest .hill2{fill:var(--bleu-soft);opacity:.6}.forest .sun{fill:var(--rouge);opacity:.9}
+.forest .far{fill:var(--bleu-soft);opacity:.5}.forest .river{fill:var(--bleu-soft)}.forest .road{stroke:var(--ocre-soft);stroke-width:6;fill:none;stroke-linecap:round}
+.forest .house{fill:var(--card);stroke:var(--ink);stroke-width:3}.forest .roof{fill:var(--rouge);opacity:.8}.forest .bird{stroke:var(--ink2);stroke-width:2;fill:none;stroke-linecap:round}
+.forest .fruit{fill:var(--rouge)}
+.can{display:flex;align-items:center;gap:10px;padding:8px 10px;border-radius:10px;background:var(--paper);font-size:14.5px}
+.can .fr{font-size:16px;color:var(--ink)}
+.can.lock{opacity:.45}
+.splash{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:18px;width:100%;cursor:default}
+.splash .cs{stroke-dasharray:360;stroke-dashoffset:360;animation:cs .55s cubic-bezier(.5,0,.3,1) .1s forwards}
+.splash .cd{transform-origin:154px 100px;transform:scale(0);animation:cd .3s cubic-bezier(.2,1.4,.5,1) .65s forwards}
+.splash .ct{opacity:0;animation:ct .4s ease-out .85s forwards}
+@keyframes cs{to{stroke-dashoffset:0}}@keyframes cd{to{transform:scale(1)}}@keyframes ct{to{opacity:1}}
+.lulu{display:inline-block;overflow:visible}
+.lulu .body{transform-origin:100px 150px;animation:breathe 3.2s ease-in-out infinite}
+.lulu .eyes{transform-origin:100px 80px;animation:blink 4.5s infinite}
+.lulu .stalks{transform-origin:100px 110px;animation:sway 2.6s ease-in-out infinite alternate}
+.lulu.joy .body{animation:jump .9s cubic-bezier(.3,0,.2,1) infinite alternate}
+.lulu.joy .spark{animation:spark .9s ease-in-out infinite alternate}
+.lulu.sleep .zz{animation:zz 2.4s ease-in-out infinite}
+.lulu.think .qm{transform-origin:150px 40px;animation:qm 1.6s ease-in-out infinite alternate}
+.lulu.hop .body{animation:hop .5s cubic-bezier(.2,1.4,.5,1) 2}
+.lulu.shake .body{animation:shake .5s ease-in-out}
+@keyframes breathe{0%,100%{transform:scale(1,1)}50%{transform:scale(1.025,.975)}}
+@keyframes sway{from{transform:rotate(-4deg)}to{transform:rotate(4deg)}}
+@keyframes blink{0%,92%,100%{transform:scaleY(1)}95%{transform:scaleY(.1)}}
+@keyframes jump{from{transform:translateY(0) scale(1.02,.98)}to{transform:translateY(-12px) scale(.98,1.03)}}
+@keyframes spark{from{opacity:.4;transform:scale(.9)}to{opacity:1;transform:scale(1.08)}}
+@keyframes zz{0%{opacity:0;transform:translate(0,6px)}30%{opacity:1}100%{opacity:0;transform:translate(6px,-14px)}}
+@keyframes qm{from{transform:rotate(-8deg)}to{transform:rotate(8deg) translateY(-4px)}}
+@keyframes hop{0%{transform:translateY(0)}50%{transform:translateY(-22px) scale(.96,1.06)}100%{transform:translateY(0)}}
+@keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-7px) rotate(-3deg)}75%{transform:translateX(7px) rotate(3deg)}}
+@media (prefers-reduced-motion:reduce){.lulu *,.splash *,.streak .seeds i{animation:none!important;opacity:1;transform:none;stroke-dashoffset:0}}
+.toast{position:fixed;left:50%;bottom:calc(env(safe-area-inset-bottom) + 84px);transform:translateX(-50%);background:var(--ink);color:var(--paper);padding:10px 16px;border-radius:10px;font-size:14px;opacity:0;pointer-events:none;transition:opacity .2s;max-width:90%;text-align:center}
+.toast.on{opacity:1}
+</style>
+</head>
+<body>
+<div class="app">
+
+<!-- 开场 -->
+<section class="screen" id="splash">
+  <button class="splash" data-go="after-splash" aria-label="跳过">
+    <svg width="160" height="160" viewBox="0 0 200 200" aria-hidden="true">
+      <path class="cs" d="M150 60A58 58 0 1 0 150 140" fill="none" stroke="var(--ink)" stroke-width="18" stroke-linecap="round"/>
+      <circle class="cd" cx="154" cy="100" r="13" fill="var(--rouge)"/>
+    </svg>
+    <div class="ct"><span style="font-family:var(--head);font-weight:700;font-size:34px;letter-spacing:-.04em">Cilin</span><span style="font-size:24px;color:var(--rouge);margin-left:10px;font-weight:500">词林</span></div>
+  </button>
+</section>
+
+<!-- 第一课：五分钟读懂一个词 -->
+<section class="screen" id="f1">
+  <div class="brand"><span class="name">Cilin</span><span class="cn">词林</span></div>
+  <div class="dots"><i class="cur"></i><i></i><i></i><i></i></div>
+  <p class="guide">法语单词是有家族的。先认识一个词根，然后认识它生出来的所有词。</p>
+  <div class="card center">
+    <button data-say="port"><div class="word root">port</div></button>
+    <div class="ipa">/pɔʁ/</div>
+    <div class="zh">词根：搬、运、带（拉丁语 portare）</div>
+    <p style="margin:12px 0 0;font-size:15px;color:var(--ink2)">这一个词根，在法语里生出了三十多个常用词。今天先看三个。</p>
+  </div>
+  <div class="foot"><button class="btn" data-go="f2">知道了，下一步</button></div>
+</section>
+<section class="screen" id="f2">
+  <div class="dots"><i class="on"></i><i class="cur"></i><i></i><i></i></div>
+  <p class="guide">加上动词词尾 -er，词根就变成一个动词。</p>
+  <div class="card center">
+    <div class="formula"><span class="p">port</span><span class="op">+</span><span class="p new">er</span><span class="op">=</span><button data-say="porter"><span class="r">porter</span></button></div>
+    <div class="ipa">/pɔʁ.te/</div>
+    <div class="zh">拿、拿着、穿着</div>
+    <p style="margin:12px 0 0;font-size:15px;color:var(--ink2)">红色是新加上的部分。以后永远如此：红色是新元素。注意词尾 -er 读 /e/，最后的 r 不发音。</p>
+  </div>
+  <div class="foot"><button class="btn" data-go="f3">下一步</button></div>
+</section>
+<section class="screen" id="f3">
+  <div class="dots"><i class="on"></i><i class="on"></i><i class="cur"></i><i></i></div>
+  <p class="guide">现在在前面加一个前缀。前缀改变方向，词根不变。</p>
+  <div class="card center">
+    <div class="formula"><span class="p new">trans</span><span class="op">+</span><span class="p">port</span><span class="op">+</span><span class="p suf">er</span><span class="op">=</span><button data-say="transporter"><span class="r">transporter</span></button></div>
+    <div class="ipa">/tʁɑ̃s.pɔʁ.te/</div>
+    <div class="zh">运输、运送</div>
+    <p style="margin:12px 0 0;font-size:15px;color:var(--ink2)">trans- 意思是「穿过、从一边到另一边」。搬 + 穿过 = 运输。同一个前缀你还会在 transfert（转移）、translation（平移）里看到。</p>
+  </div>
+  <div class="foot"><button class="btn" data-go="f4">下一步</button></div>
+</section>
+<section class="screen" id="f4">
+  <div class="dots"><i class="on"></i><i class="on"></i><i class="on"></i><i class="cur"></i></div>
+  <p class="guide">你已经能猜词了。这个词是什么意思？</p>
+  <div class="card center">
+    <button data-say="apporter"><div class="word">ap<span class="root">port</span>er</div></button>
+    <div class="k" style="margin:6px 0 14px">提示：前缀 ap-（来自 ad-）表示「朝向、过来」</div>
+    <div class="choices" id="fq">
+      <button data-ok="0">带走</button><button data-ok="1">带来</button><button data-ok="0">港口</button><button data-ok="0">出口</button>
+    </div>
+    <div class="fb" id="ffb">朝向 + 搬 = ？</div>
+  </div>
+  <div class="foot"><button class="btn" id="fnext" data-go="f5" disabled>下一步</button></div>
+</section>
+<section class="screen" id="f5">
+  <div class="card center" style="padding:28px 16px">
+    <div data-lulu="joy" data-size="130"></div>
+    <div class="tree"><span>porter</span><span><b>trans</b>porter</span><span><b>ap</b>porter</span></div>
+    <h1 style="margin-top:12px">三个词，一个家族。</h1>
+    <p class="guide" style="margin-bottom:8px">四分钟。每天一节课就是这么长。回答两个问题，然后开始。</p>
+    <div class="k">五十个词之后，你就能在咖啡店点单、说自己是谁。那是 A1.1，词林的第一片山坡。</div>
+  </div>
+  <div class="foot"><button class="btn" data-go="ob2">两个问题，然后出发</button></div>
+</section>
+
+<!-- 设置向导 -->
+<section class="screen" id="ob2">
+  <div class="dots"><i class="cur"></i><i></i></div>
+  <h1>你为什么学法语？</h1>
+  <p class="guide">我们会按你最想先做到的事来排词族的顺序。</p>
+  <div class="opt">
+    <button class="on"><span class="fr">à</span><div><div class="t">去法国生活或留学</div><div class="d">行政、租房、超市、学校用语优先</div></div></button>
+    <button><span class="fr">B1</span><div><div class="t">考 DELF / TCF</div><div class="d">按 CECRL A1 到 B2 的官方词表</div></div></button>
+    <button><span class="fr">✈</span><div><div class="t">旅行</div><div class="d">车站、菜单、问路、买东西</div></div></button>
+    <button><span class="fr">♥</span><div><div class="t">兴趣与文化</div><div class="d">电影、歌曲、文学、美食</div></div></button>
+  </div>
+  <div class="foot"><button class="btn" data-go="ob3">下一步</button></div>
+</section>
+<section class="screen" id="ob3">
+  <div class="dots"><i class="on"></i><i class="cur"></i></div>
+  <h1>每天多长时间？</h1>
+  <p class="guide">每天十分钟胜过周末一小时。我们只给你这么多。</p>
+  <div class="opt">
+    <button><span class="fr">5</span><div><div class="t">5 分钟</div><div class="d">只复习，学 1 个新词</div></div></button>
+    <button class="on"><span class="fr">10</span><div><div class="t">10 分钟</div><div class="d">复习，加 2 到 3 个新词</div></div></button>
+    <button><span class="fr">20</span><div><div class="t">20 分钟</div><div class="d">一周学完一个词族</div></div></button>
+  </div>
+  <div class="card" style="margin-top:14px"><div class="row"><div class="grow"><div style="font-weight:600">跟读练发音？</div><div class="k">每个新词第一次出现时提议一次，可关闭。</div></div><button class="sw on" aria-label="跟读"></button></div></div>
+  <div class="foot"><button class="btn" data-go="s-home" data-ob="1">出发</button></div>
+</section>
+
+<!-- 每日趣闻 -->
+<section class="screen" id="s-anec">
+  <div class="anec">
+    <div style="display:flex;justify-content:center;margin-bottom:6px"><svg width="64" height="64" viewBox="0 0 200 200" aria-hidden="true"><path d="M150 60A58 58 0 1 0 150 140" fill="none" stroke="var(--ink)" stroke-width="18" stroke-linecap="round"/><circle cx="154" cy="100" r="13" fill="var(--rouge)"/></svg></div>
+    <div style="font-family:var(--head);font-weight:700;font-size:26px;letter-spacing:-.03em;margin-bottom:2px">Cilin <span style="color:var(--rouge);font-size:22px;font-weight:500">词林</span></div>
+    <div id="anec-w" class="fr" style="font-size:44px;font-weight:600;margin-top:10px"></div>
+    <div id="anec-z" class="k"></div>
+    <h1 id="anec-t"></h1>
+    <p id="anec-p"></p>
+  </div>
+  <div class="foot"><button class="btn" data-go="next" data-done="0">开始今天</button></div>
+</section>
+
+<!-- 今天：路径 -->
+<section class="screen" id="s-home">
+  <div class="brand"><span class="name">Cilin</span><span class="cn">词林</span><span class="k" style="margin-left:auto" id="home-day"></span></div>
+  <h1 id="home-h1">今天</h1>
+  <p class="guide" id="home-guide"></p>
+  <div id="home-lulu" style="display:none;text-align:center;margin:-6px 0 8px"></div>
+  <div class="path" id="plan"></div>
+  <div class="foot"><button class="btn" id="home-go">继续</button></div>
+</section>
+
+<!-- 学习 1：前缀 -->
+<section class="screen" id="s-l1">
+  <button class="k" data-go="s-home" style="min-height:44px">✕ 退出</button>
+  <div class="dots"><i class="cur"></i><i></i><i></i><i></i><i></i></div>
+  <p class="guide">先看积木。今天的前缀。</p>
+  <div class="card center">
+    <button data-say="em"><div class="word new">em-</div></button>
+    <div class="ipa">/ɑ̃/</div>
+    <div class="zh">前缀：进入、带着离开（来自拉丁语 in-）</div>
+    <p style="margin:12px 0 0;font-size:15px;color:var(--ink2)">em- 和 en- 是同一个前缀，在 b、m、p 前写成 em-。它把动作「装进去、带走」。你已经见过它：emmener（带某人走）。</p>
+    <div class="tree"><span><b>em</b>mener<small>带某人走</small></span><span><b>en</b>trer<small>进入</small></span></div>
+  </div>
+  <div class="foot"><button class="btn" data-go="s-l2">看过了，下一步</button></div>
+</section>
+
+<!-- 学习 2：组合 -->
+<section class="screen" id="s-l2">
+  <button class="k" data-go="s-l1" style="min-height:44px">‹ 前缀 em-</button>
+  <div class="dots"><i class="on"></i><i class="cur"></i><i></i><i></i><i></i></div>
+  <p class="guide">前缀放到词根前面，就是另一个词。</p>
+  <div class="card center">
+    <div class="formula"><span class="p new">em</span><span class="op">+</span><span class="p">port</span><span class="op">+</span><span class="p suf">er</span><span class="op">=</span><button data-say="emporter"><span class="r">emporter</span></button></div>
+    <div class="ipa">/ɑ̃.pɔʁ.te/</div>
+    <div class="zh">带走、拿走</div>
+    <p style="margin:12px 0 0;font-size:15px;color:var(--ink2)">带着 + 搬 = 带走。对比 apporter（朝向 + 搬 = 带来）。方向由前缀决定，词根一直是"搬"。</p>
+    <div class="tree" style="margin-top:14px"><span><b>ap</b>porter<small>带来</small></span><span><b>em</b>porter<small>带走</small></span><span><b>rap</b>porter<small>带回来</small></span></div>
+  </div>
+  <div class="foot"><button class="btn" data-go="s-l3" data-done="2">下一步</button></div>
+</section>
+
+<!-- 学习 3：用起来 -->
+<section class="screen" id="s-l3">
+  <button class="k" data-go="s-home" style="min-height:44px">✕ 退出</button>
+  <div class="dots"><i class="on"></i><i class="on"></i><i class="cur"></i><i></i><i></i></div>
+  <p class="guide">一个词要说出口才算你的。先听，再跟读，最后自己说。</p>
+  <div class="card">
+    <div class="k" style="margin-bottom:8px">今天的对话 · 咖啡店</div>
+    <div class="dlg"><button class="line" data-say="Un café, s'il vous plaît."><span class="who">你</span><span class="fr">Un café, s'il vous plaît.</span><span class="zh2">一杯咖啡，麻烦您。</span></button>
+    <button class="line" data-say="Sur place ou à emporter ?"><span class="who">店员</span><span class="fr">Sur place ou <b style="color:var(--rouge)">à emporter</b> ?</span><span class="zh2">堂食还是外带？</span></button>
+    <button class="line" data-say="À emporter, merci."><span class="who">你</span><span class="fr">À emporter, merci.</span><span class="zh2">外带，谢谢。</span></button></div>
+    <div class="row" style="margin-top:12px;gap:8px"><button class="btn ghost sm" data-say-slow="Un café, s'il vous plaît. Sur place ou à emporter ? À emporter, merci.">慢速听全段</button><button class="btn sm" data-toast="录音跟读会在正式版里打分：节奏、鼻音、联诵。">跟读</button></div>
+  </div>
+  <div class="card">
+    <div class="tree" style="justify-content:flex-start"><span>à emporter<small>外带</small></span><span>emporter un livre<small>带走一本书</small></span></div>
+    <div style="margin:18px 0 4px" class="k">用你认识的词读一句话。灰色字母不发音，蓝色弧线是联诵。</div>
+    <div class="read" id="read"></div>
+    <div class="gloss" id="gloss">点一个词试试。</div>
+    <div class="row" style="margin-top:14px"><button class="btn ghost" style="flex:1" data-say="Un café à emporter, s'il vous plaît.">听整句</button></div>
+  </div>
+  <div class="foot"><button class="btn" data-go="s-l4">下一步</button></div>
+</section>
+
+<!-- 学习 4：检验 -->
+<section class="screen" id="s-l4">
+  <button class="k" data-go="s-home" style="min-height:44px">✕ 退出</button>
+  <div class="dots"><i class="on"></i><i class="on"></i><i class="on"></i><i class="cur"></i><i></i></div>
+  <div class="row" style="align-items:flex-start;gap:10px"><div data-lulu="think" data-size="72" style="flex-shrink:0;margin-top:-10px"></div><p class="guide">检验一下。哪个词是"带走"？</p></div>
+  <div class="choices" id="quiz">
+    <button data-ok="0"><span class="fr">apporter</span><small>/a.pɔʁ.te/</small></button>
+    <button data-ok="1"><span class="fr">emporter</span><small>/ɑ̃.pɔʁ.te/</small></button>
+    <button data-ok="0"><span class="fr">importer</span><small>/ɛ̃.pɔʁ.te/</small></button>
+    <button data-ok="0"><span class="fr">porter</span><small>/pɔʁ.te/</small></button>
+  </div>
+  <p class="k" id="quiz-fb" style="margin-top:12px;min-height:22px"></p>
+  <div class="foot"><button class="btn" id="quiz-next" data-go="s-l5" data-done="4" disabled>下一步</button></div>
+</section>
+
+<!-- 学习 5：收尾 -->
+<section class="screen" id="s-l5">
+  <div class="dots"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="cur"></i></div>
+  <div class="card center" style="padding:28px 16px">
+    <div data-lulu="joy" data-size="120"></div>
+    <div class="word" style="font-size:40px"><span class="new">em</span><span class="root">port</span>er</div>
+    <h1 style="margin-top:10px">emporter 进了你的词林。</h1>
+    <p class="guide" style="margin-bottom:8px">明早再见它一次，然后四天后。</p>
+    <div class="k">已认识 63 个词。下一个：rapporter，等你学过 re- 就开。</div>
+  </div>
+  <div class="foot"><button class="btn" data-go="s-home" data-done="5" data-toast="今天的种子种下了。明早见。">结束今天</button></div>
+</section>
+
+<!-- 复习 -->
+<section class="screen" id="s-rev">
+  <div class="row" style="align-items:flex-end"><div class="grow"><h1 style="margin:0">复习</h1><div class="k"><span id="rev-n">1</span> / 8 · <span id="rev-type"></span></div></div><div data-lulu="think" data-size="64" style="margin-bottom:-6px"></div></div>
+  <div class="prog"><i id="rev-bar"></i></div>
+  <div id="rev-body" style="display:flex;flex-direction:column;flex:1"></div>
+</section>
+
+<!-- 连胜 -->
+<section class="screen" id="s-streak">
+  <div class="streak" style="flex:1;display:flex;flex-direction:column;justify-content:center">
+    <div data-lulu="joy" data-size="150"></div>
+    <div class="k">连续天数</div>
+    <div class="n" id="stk-n">5</div>
+    <div class="seeds" id="stk-seeds" style="margin:18px 0 10px"></div>
+    <p class="guide" id="stk-msg" style="margin:0 auto;max-width:30ch">再坚持一天，送你一天完整版。</p>
+    <p class="k" id="stk-sum" style="margin-top:14px"></p>
+  </div>
+  <div class="foot"><button class="btn" data-go="next" data-done="1">回到路径</button><button class="btn ghost" style="margin-top:10px" data-go="s-rev-sum">看详情</button></div>
+</section>
+
+<!-- 我的词林 -->
+<section class="screen" id="s-me">
+  <h1>我的词林</h1>
+  <p class="guide" id="me-guide"></p>
+  <div id="forest" class="forest"></div>
+  <div class="card" style="margin-top:14px">
+    <div class="row"><div class="grow"><div style="font-weight:600" id="lv-name"></div><div class="k" id="lv-next"></div></div><div class="seg" id="lv-seg"><button data-lv="0">A1.1</button><button data-lv="1">A1</button><button data-lv="2">A2</button><button data-lv="3">B1</button><button data-lv="4">B2</button></div></div>
+    <div class="prog" style="margin:12px 0 14px"><i id="lv-bar"></i></div>
+    <div class="k" style="margin-bottom:6px">到这一级，你能开口说：</div>
+    <div id="lv-can" style="display:flex;flex-direction:column;gap:6px"></div>
+  </div>
+  <div class="stat" style="margin-top:14px">
+    <div class="card"><div class="k">已认识</div><div class="big" id="st-n">63</div></div>
+    <div class="card"><div class="k">在长</div><div class="big">21</div></div>
+    <div class="card"><div class="k">记住率</div><div class="big">91<span style="font-size:18px">%</span></div></div>
+  </div>
+  <button class="card" style="width:100%;margin-top:14px" data-go="s-path"><div class="row"><div class="grow"><div style="font-weight:600">词族</div><div class="k">port · terre · voir · venir · prendre</div></div><span class="k">›</span></div></button>
+  <button class="card" style="width:100%" data-go="s-streak"><div class="row"><div class="grow"><div style="font-weight:600">这一周</div><div class="k">连续 5 天</div></div><span class="k">›</span></div></button>
+  <div class="card" style="border:1px solid var(--bleu)">
+    <div style="font-family:var(--head);font-weight:700;font-size:21px">词林完整版</div>
+    <div class="k" style="margin:4px 0 12px">A2 到 B2 词表、3 000 个词的词源树、发音规则全集、按已学词生成的阅读、iCloud 同步。</div>
+    <div class="row"><button class="btn" style="flex:1" data-toast="买断：¥198">买断 ¥198</button><button class="btn ghost" style="flex:1" data-toast="订阅：¥28 / 月">¥28 / 月</button></div>
+  </div>
+</section>
+
+<!-- 词族 -->
+<section class="screen" id="s-path">
+  <button class="k" data-go="s-me" style="min-height:44px">‹ 我的词林</button>
+  <h1>词族</h1>
+  <p class="guide">一个词要等它的前缀和词根都学过才会打开。红点是你现在的位置。</p>
+  <div style="font-family:var(--fr);font-weight:600;font-size:22px;margin:16px 0 4px;color:var(--ocre)">port <span class="k" style="font-family:var(--zh)">搬 · 6 / 12</span></div>
+  <div class="path">
+    <div class="node done"><div class="grow"><div class="t fr">porter</div><div class="d">port + er · 拿</div></div></div>
+    <div class="node done"><div class="grow"><div class="t fr">apporter</div><div class="d">ap + port + er · 带来</div></div></div>
+    <div class="node done"><div class="grow"><div class="t fr">transporter</div><div class="d">trans + port + er · 运输</div></div></div>
+    <div class="node now"><div class="grow"><div class="t fr">emporter</div><div class="d">今天正在学</div></div></div>
+    <div class="node"><div class="grow"><div class="t fr">rapporter</div><div class="d">等学过 re-（再、回）</div></div></div>
+    <div class="node lock"><div class="grow"><div class="t fr">important</div><div class="d">等学过后缀 -ant</div></div></div>
+  </div>
+  <div style="font-family:var(--fr);font-weight:600;font-size:22px;margin:22px 0 4px;color:var(--ocre)">terre <span class="k" style="font-family:var(--zh)">土地 · 4 / 4</span></div>
+  <div class="path">
+    <div class="node done"><div class="grow"><div class="t fr">terrain</div><div class="d">terre + ain · 场地</div></div></div>
+    <div class="node done"><div class="grow"><div class="t fr">atterrir</div><div class="d">a + terre + ir · 着陆</div></div></div>
+    <div class="node done"><div class="grow"><div class="t fr">souterrain</div><div class="d">sous + terre + ain · 地下的</div></div></div>
+  </div>
+  <div style="font-family:var(--fr);font-weight:600;font-size:22px;margin:22px 0 4px;color:var(--ocre)">voir <span class="k" style="font-family:var(--zh)">看 · 0 / 9</span></div>
+  <div class="path">
+    <div class="node lock"><div class="grow"><div class="t fr">revoir</div><div class="d">re + voir · 再见</div></div></div>
+    <div class="node lock"><div class="grow"><div class="t fr">prévoir</div><div class="d">pré + voir · 预见</div></div></div>
+  </div>
+</section>
+
+<!-- 设置 -->
+<section class="screen" id="s-set">
+  <h1>设置</h1>
+  <div class="card">
+    <div class="tog"><div><div>目标</div><div class="k">去法国生活或留学</div></div><button class="btn sm ghost" data-go="ob2">更改</button></div>
+    <div class="tog"><div><div>节奏</div><div class="k">每天 10 分钟</div></div><button class="btn sm ghost" data-go="ob3">更改</button></div>
+    <div class="tog"><div><div>每日提醒</div><div class="k">8:30，只发一条</div></div><button class="sw on" aria-label="提醒"></button></div>
+    <div class="tog"><div><div>跟读练发音</div></div><button class="sw on" aria-label="跟读"></button></div>
+    <div class="tog"><div><div>朗读声音</div><div class="k" id="voice-k">系统法语</div></div><button class="btn sm ghost" data-say="Bonjour, un café à emporter.">试听</button></div>
+    <div class="tog"><div><div>释义语言</div></div><div class="seg"><button class="on">中文</button><button>EN</button></div></div>
+    <div class="tog"><div><div>外观</div></div><div class="seg"><button data-t="light">浅色</button><button class="on" data-t="auto">自动</button><button data-t="dark">深色</button></div></div>
+  </div>
+  <div class="card" style="background:transparent;border:1px dashed var(--line)">
+    <div class="k" style="margin-bottom:6px">演示</div>
+    <div class="tog"><div><div>模拟四天没打开</div><div class="k">路径切换到补课模式</div></div><button class="sw" id="sim-catch" aria-label="补课"></button></div>
+    <div class="tog"><div><div>重置今天</div></div><button class="btn sm ghost" id="sim-reset">重置</button></div>
+    <div class="tog"><div><div>重看第一课</div></div><button class="btn sm ghost" data-go="f1">打开</button></div>
+  </div>
+</section>
+
+<nav class="tabs" id="tabs">
+  <button class="tab on" data-tab="s-home"><svg viewBox="0 0 24 24"><path d="M6 20V10M6 10a4 4 0 1 1 0-8 4 4 0 0 1 0 8M18 4v10M18 14a4 4 0 1 0 0 8 4 4 0 0 0 0-8"/></svg>今天</button>
+  <button class="tab" data-tab="s-me"><svg viewBox="0 0 24 24"><path d="M12 21V11M4 11c0-5 4-8 8-8s8 3 8 8H4z"/></svg>我的词林</button>
+  <button class="tab" data-tab="s-set"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 3v3M12 18v3M3 12h3M18 12h3M5.6 5.6l2.1 2.1M16.3 16.3l2.1 2.1M5.6 18.4l2.1-2.1M16.3 7.7l2.1-2.1"/></svg>设置</button>
+</nav>
+</div>
+<div class="toast" id="toast"></div>
+
+<script>
+/* 露露 Lulu，小蜗牛。四种心情，会动。 */
+function lulu(pose,size){
+  const eyes = pose==="joy" ? `<path d="M72 78q7-8 14 0M114 78q7-8 14 0" stroke="var(--ink)" stroke-width="5" fill="none" stroke-linecap="round"/>`
+    : pose==="sleep" ? `<path d="M72 80h14M114 80h14" stroke="var(--ink)" stroke-width="5" stroke-linecap="round"/>`
+    : pose==="oops" ? `<circle cx="79" cy="78" r="7" fill="none" stroke="var(--ink)" stroke-width="4"/><circle cx="121" cy="78" r="7" fill="none" stroke="var(--ink)" stroke-width="4"/>`
+    : `<g class="eyes"><circle cx="79" cy="78" r="4.5" fill="var(--ink)"/><circle cx="121" cy="78" r="4.5" fill="var(--ink)"/></g>`;
+  const mouth = pose==="joy" ? `<path d="M90 100q10 12 20 0" stroke="var(--ink)" stroke-width="5" fill="none" stroke-linecap="round"/>`
+    : pose==="sleep" ? `<circle cx="100" cy="102" r="4" fill="var(--ink)"/>`
+    : pose==="think" ? `<path d="M93 102h14" stroke="var(--ink)" stroke-width="5" stroke-linecap="round"/>`
+    : pose==="oops" ? `<ellipse cx="100" cy="102" rx="5" ry="7" fill="var(--ink)"/>`
+    : `<path d="M92 100q8 7 16 0" stroke="var(--ink)" stroke-width="5" fill="none" stroke-linecap="round"/>`;
+  const extra = pose==="sleep" ? `<g class="zz"><text x="150" y="70" font-family="Manrope,sans-serif" font-weight="700" font-size="22" fill="var(--mist)">z</text><text x="162" y="52" font-family="Manrope,sans-serif" font-weight="700" font-size="16" fill="var(--mist)">z</text></g>`
+    : pose==="think" ? `<text class="qm" x="146" y="50" font-family="Manrope,sans-serif" font-weight="700" font-size="30" fill="var(--rouge)">?</text>`
+    : pose==="joy" ? `<g class="spark"><path d="M40 60l-10-10M160 60l10-10M36 88h-12M164 88h12" stroke="var(--rouge)" stroke-width="4" stroke-linecap="round"/></g>` : "";
+  return `<svg class="lulu ${pose}" width="${size}" height="${size}" viewBox="0 0 200 200" aria-hidden="true">
+    <path d="M40 160q60 12 120 0" stroke="var(--line)" stroke-width="4" fill="none" stroke-linecap="round"/>
+    <g class="body">
+      <path d="M118 150q44 0 46-36q0-38-40-38q-30 0-32 30q0 24 24 24q16 0 16-14" fill="var(--ocre)" stroke="var(--ink)" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M38 152q0-30 34-52q10-6 28-6q20 0 22 22q0 20-16 32z" fill="var(--card)" stroke="var(--ink)" stroke-width="5" stroke-linejoin="round"/>
+      <g class="stalks"><path d="M78 96V66M120 96V66" stroke="var(--ink)" stroke-width="5" stroke-linecap="round"/><circle cx="78" cy="62" r="8" fill="var(--card)" stroke="var(--ink)" stroke-width="4"/><circle cx="120" cy="62" r="8" fill="var(--card)" stroke="var(--ink)" stroke-width="4"/></g>
+      <circle cx="66" cy="108" r="6" fill="var(--rouge)" opacity=".5"/><circle cx="110" cy="112" r="6" fill="var(--rouge)" opacity=".5"/>
+      <g transform="translate(0 20)">${eyes}${mouth}</g>
+    </g>${extra}
+  </svg>`;
+}
+document.querySelectorAll("[data-lulu]").forEach(el=>{ el.innerHTML=lulu(el.dataset.lulu,+el.dataset.size||120); });
+function luluReact(root,ok){ const el=root.querySelector("[data-lulu]"); if(!el) return; const size=+el.dataset.size||120; el.innerHTML=lulu(ok?"joy":"oops",size); el.firstElementChild.classList.add(ok?"hop":"shake"); setTimeout(()=>{ el.innerHTML=lulu(el.dataset.lulu,size); },ok?1400:900); }
+
+/* 每日趣闻：一个词，一段文化 */
+const ANEC=[
+ {w:"bonjour",z:"/bɔ̃.ʒuʁ/",t:"进店不说 bonjour，会被当成没礼貌。",p:"在法国，进面包店、上公交车、进电梯，第一句永远是 bonjour。不打招呼直接问价格，店员可能会先回你一句 « Bonjour ! » 再接着说。这不是客套，是法国人心里的一道门槛：先承认对方是人，再谈事。"},
+ {w:"bise",z:"/biz/",t:"亲几下？看你在哪个省。",p:"法国人见面贴面礼叫 la bise，但次数没有全国标准：巴黎两下，普罗旺斯三下，诺曼底四下。同事之间也可能天天做，但握手仍然是初次见面的默认。拿不准的时候，等对方先靠过来。"},
+ {w:"quatre-vingts",z:"/ka.tʁə.vɛ̃/",t:"八十 = 四个二十。",p:"法语里 80 说成 quatre-vingts（四个二十），90 是 quatre-vingt-dix（四个二十加十）。这是古高卢人二十进制的遗迹。比利时和瑞士人受不了，直接说 septante、nonante。法国人自己也觉得麻烦，但改不了。"},
+ {w:"baguette",z:"/ba.ɡɛt/",t:"法棍是联合国认证的文化遗产。",p:"2022 年，法棍的手艺被列入联合国教科文组织非物质文化遗产。法国每天卖出大约一千万根。买的时候你可以说 « bien cuite »（烤得焦一点）或 « pas trop cuite »（浅一点），面包师会照做。"},
+ {w:"vous",z:"/vu/",t:"什么时候能改口叫 tu？",p:"法语的「您」（vous）和「你」（tu）是一条真实的界线。同事、邻居、店员一律 vous；改成 tu 需要一方开口提议：« On peut se tutoyer ? » 年轻人之间快一些，但对长辈或客户，vous 可以用一辈子。"},
+ {w:"fromage",z:"/fʁɔ.maʒ/",t:"三百六十五种奶酪，每天一种。",p:"戴高乐说过一句名言：一个有三百多种奶酪的国家没法治理。奶酪在法国正餐里排在主菜之后、甜点之前，单独一道。切的时候按形状：圆的切扇形，方的切条，千万别把布里的尖端切走。"},
+ {w:"apéro",z:"/a.pe.ʁo/",t:"晚饭前的那一小时，才是社交主场。",p:"apéro 是 apéritif 的口语缩写：晚饭前一杯酒、几样小吃、一群朋友。被邀请 « prendre l'apéro » 不等于被邀请吃饭，通常 19 点到 20 点半之间就结束。带一瓶酒或一盒零食去，是最保险的礼节。"},
+ {w:"h",z:"/aʃ/",t:"这个字母从来不发音，却分两种。",p:"法语的 h 不发音，但分「哑音 h」和「嘘音 h」。哑音 h 像不存在：l'hôtel、les‿hommes 要联诵。嘘音 h 挡住联诵：le héros、les hiboux，中间不连读。字典里嘘音 h 前会标一个星号。这是法语最常被外国人踩的坑之一。"}
+];
+(function(){ const a=ANEC[Math.floor(Date.now()/86400000)%ANEC.length]; document.getElementById("anec-w").textContent=a.w; document.getElementById("anec-z").textContent=a.z; document.getElementById("anec-t").textContent=a.t; document.getElementById("anec-p").textContent=a.p; document.querySelector(".anec").insertAdjacentHTML("afterbegin",`<div class="water">${a.w.slice(0,2)}</div>`); })();
+
+/* 导航与会话状态 */
+const tabOf={"s-home":"s-home","s-anec":"s-home","s-l1":"s-home","s-l2":"s-home","s-l3":"s-home","s-l4":"s-home","s-l5":"s-home","s-rev":"s-home","s-streak":"s-home","s-me":"s-me","s-path":"s-me","s-set":"s-set"};
+const STEPS=[
+ {t:"开场",d:"今天的趣闻",m:"20 秒",go:"s-anec"},
+ {t:"热身",d:"14 张卡片，答题式",m:"3 分钟",go:"s-rev"},
+ {t:"学习",d:"前缀 em-，然后 emporter",m:"3 分钟",go:"s-l1"},
+ {t:"开口说",d:"一段两句的对话，听、跟读",m:"2 分钟",go:"s-l3"},
+ {t:"巩固",d:"一道检验题",m:"1 分钟",go:"s-l4"},
+ {t:"收尾",d:"今天的结论，种一颗种子",m:"20 秒",go:"s-l5"}
+];
+const CATCH=[
+ {t:"复习",d:"最急的 14 张",m:"5 分钟",go:"s-rev"},
+ {t:"复习",d:"14 张",m:"5 分钟",go:"s-rev"},
+ {t:"复习",d:"13 张",m:"5 分钟",go:"s-rev"},
+ {t:"新词",d:"周四回来，等卡片堆降下去",m:"",go:null}
+];
+let ST={done:[],catch:false};
+try{ ST=Object.assign(ST,JSON.parse(localStorage.getItem("cilin-sess")||"{}")); }catch(e){}
+function saveST(){ try{ localStorage.setItem("cilin-sess",JSON.stringify(ST)); }catch(e){} }
+function steps(){ return ST.catch?CATCH:STEPS; }
+function nextIdx(){ const s=steps(); for(let i=0;i<s.length;i++) if(!ST.done[i]&&s[i].go) return i; return -1; }
+function markDone(i){ ST.done[i]=true; saveST(); }
+function renderHome(){
+  const s=steps(), n=nextIdx(), all=n<0;
+  document.getElementById("home-day").textContent=ST.catch?"4 天没打开":"第 12 天";
+  document.getElementById("home-h1").textContent=ST.catch?"我们接着来":(all?"今天完成了":"今天");
+  document.getElementById("home-guide").textContent=ST.catch?"有 41 张卡片在等。三段五分钟，堆降下去之前不学新词。周四就恢复正常。"
+    :(all?"六步，十分钟。今天的种子种下了。明早 8:30 见。":(ST.done.some(Boolean)?"从上次停下的地方接着来。":"六步，十分钟，一个按钮。"));
+  const hl=document.getElementById("home-lulu"); hl.style.display=(ST.catch||all)?"block":"none"; hl.innerHTML=ST.catch?lulu("sleep",110):(all?lulu("joy",110):"");
+  document.getElementById("plan").innerHTML=s.map((x,i)=>`<div class="node ${ST.done[i]?'done':(i===n?'now':'')} ${!x.go?'lock':''}"><div class="grow"><div class="t">${x.t}</div>${i===n||!x.go?`<div class="d">${x.d}</div>`:""}</div>${x.m?`<span class="k">${x.m}</span>`:""}</div>`).join("");
+  const b=document.getElementById("home-go"); b.textContent=all?"再来一节":(ST.done.some(Boolean)&&n>0?"继续":"开始"); b.dataset.go=all?"reset":"next";
+}
+let SPL=null, seen=false; try{ seen=localStorage.getItem("cilin-ob")==="1"; }catch(e){}
+function go(id){
+  if(id==="next"){ const n=nextIdx(); id=n<0?"s-home":steps()[n].go; }
+  if(id==="reset"){ ST.done=[]; saveST(); id="s-home"; }
+  if(id==="after-splash"){ clearTimeout(SPL); id=seen?"s-anec":"f1"; }
+  if(id==="s-rev-sum") id="s-rev";
+  document.querySelectorAll(".screen").forEach(s=>s.classList.toggle("on",s.id===id));
+  document.querySelectorAll(".tab").forEach(t=>t.classList.toggle("on",t.dataset.tab===tabOf[id]));
+  document.getElementById("tabs").classList.toggle("on",!/^(ob|f\d|splash)/.test(id) && id!=="s-anec");
+  document.getElementById(id).scrollTop=0;
+  if(id==="s-home") renderHome();
+  if(id==="s-rev"){ if(SUM) renderQ(); else startRev(); }
+  if(id==="s-streak") renderStreak();
+  if(id==="s-l3") initRead();
+  if(id==="s-l4") resetQuiz();
+  if(id==="s-me") renderForest();
+  if(id==="s-set") document.getElementById("sim-catch").classList.toggle("on",ST.catch);
+}
+go("splash"); SPL=setTimeout(()=>{ if(document.getElementById("splash").classList.contains("on")) go("after-splash"); },1600);
+document.addEventListener("click",e=>{
+  const t=e.target.closest("[data-tab]"); if(t) return go(t.dataset.tab);
+  const ss=e.target.closest("[data-say-slow]"); if(ss) return say(ss.dataset.saySlow,.6);
+  const s=e.target.closest("[data-say]"); if(s) return say(s.dataset.say);
+  const b=e.target.closest("[data-toast]"); if(b) toast(b.dataset.toast);
+  const d=e.target.closest("[data-done]"); if(d && !d.disabled) markDone(+d.dataset.done);
+  const g=e.target.closest("[data-go]"); if(g && !g.disabled){ if(g.dataset.ob){ seen=true; try{localStorage.setItem("cilin-ob","1");}catch(e){} } return go(g.dataset.go); }
+  const sw=e.target.closest(".sw"); if(sw){ sw.classList.toggle("on"); if(sw.id==="sim-catch"){ ST.catch=sw.classList.contains("on"); ST.done=[]; saveST(); toast(ST.catch?"补课模式已开":"正常模式"); } }
+  if(e.target.closest("#sim-reset")){ ST.done=[]; saveST(); toast("今天已重置"); }
+  const o=e.target.closest(".opt button"); if(o){ o.parentElement.querySelectorAll("button").forEach(x=>x.classList.remove("on")); o.classList.add("on"); }
+  const seg=e.target.closest(".seg button"); if(seg){ seg.parentElement.querySelectorAll("button").forEach(x=>x.classList.remove("on")); seg.classList.add("on"); if(seg.dataset.t) setTheme(seg.dataset.t); }
+  const q=e.target.closest("#quiz button"); if(q) answer(q);
+  const fq=e.target.closest("#fq button"); if(fq&&!fq.disabled){ if(fq.dataset.ok==="1"){ fq.classList.add("ok"); document.querySelectorAll("#fq button").forEach(x=>x.disabled=true); document.getElementById("ffb").innerHTML="<b>对。</b>朝向 + 搬 = 带来。你刚才猜出了一个没学过的词。"; document.getElementById("fnext").disabled=false; say("apporter"); } else { fq.classList.add("ko"); fq.disabled=true; document.getElementById("ffb").textContent="不是这个。看前缀：ap- 是「朝向」。"; } }
+  const rb=e.target.closest("#read b"); if(rb){ document.getElementById("gloss").innerHTML=`<b>${rb.dataset.w}</b> ${rb.dataset.i}，${rb.dataset.z}`; say(rb.dataset.w); }
+});
+function setTheme(t){ if(t==="auto") document.documentElement.removeAttribute("data-theme"); else document.documentElement.setAttribute("data-theme",t); }
+let tt; function toast(m){ const el=document.getElementById("toast"); el.textContent=m; el.classList.add("on"); clearTimeout(tt); tt=setTimeout(()=>el.classList.remove("on"),2200); }
+
+/* 朗读：优先用手机里更自然的法语声音 */
+let VOICE=null;
+function pickVoice(){ try{ const vs=speechSynthesis.getVoices().filter(v=>/^fr[-_]FR/i.test(v.lang)); VOICE=vs.find(v=>/enhanced|premium|siri|neural/i.test(v.name+" "+(v.voiceURI||"")))||vs.find(v=>/thomas|am[ée]lie|audrey/i.test(v.name))||vs[0]||null; const k=document.getElementById("voice-k"); if(k) k.textContent=VOICE?VOICE.name.replace(/\(.*?\)/g,"").trim():"没有法语声音"; }catch(e){} }
+pickVoice(); try{ speechSynthesis.onvoiceschanged=pickVoice; }catch(e){}
+function say(txt,rate){ try{ const u=new SpeechSynthesisUtterance(txt); u.lang="fr-FR"; if(VOICE) u.voice=VOICE; u.rate=rate||.82; speechSynthesis.cancel(); speechSynthesis.speak(u);}catch(e){ toast("这里没有语音"); } }
+
+/* 阅读：灰色 = 不发音，弧线 = 联诵 */
+const READ=[["Un","un","一个","/œ̃/"],["café","café","咖啡","/ka.fe/"],["à","à","（用于）","/a/"],["emporter","emporter","带走","/ɑ̃.pɔʁ.te/",1],[",",null],["s'il","s'il","如果它","/sil/"],["vous","vous","您","/vu/",0,"li"],["plaît","plaît","使高兴","/plɛ/",0,null,"plaî"+"t"],[".",null]];
+function initRead(){
+  document.getElementById("read").innerHTML=`Un café à <b class="new" data-w="emporter" data-i="带走" data-z="/ɑ̃.pɔʁ.te/">emporter</b>, s'il <b class="li" data-w="vous" data-i="您" data-z="/vu/，s 与下一个元音联诵">vous</b> <b data-w="plaît" data-i="使高兴；s'il vous plaît 请" data-z="/plɛ/">plaî<span class="silent" style="color:var(--mist);opacity:.55">t</span></b>.`;
+  document.getElementById("gloss").textContent="点一个词试试。";
+}
+
+/* 检验 */
+function resetQuiz(){ document.querySelectorAll("#quiz button").forEach(b=>{b.classList.remove("ok","ko");b.disabled=false;}); document.getElementById("quiz-fb").textContent=""; document.getElementById("quiz-next").disabled=true; }
+function answer(btn){
+  const fb=document.getElementById("quiz-fb"); luluReact(document.getElementById("s-l4"),btn.dataset.ok==="1");
+  if(btn.dataset.ok==="1"){ btn.classList.add("ok"); fb.textContent="对。em-（带着）+ port（搬）：带走。"; document.querySelectorAll("#quiz button").forEach(b=>b.disabled=true); document.getElementById("quiz-next").disabled=false; say("emporter"); }
+  else { btn.classList.add("ko"); btn.disabled=true; fb.textContent="不是这个。看前缀，它决定方向。"; }
+}
+
+/* 复习：答题式，自动评分 */
+const Q=[
+ {type:"sens",label:"词义",w:"apporter",ask:"这个词什么意思？",opts:["带来","带走","运输","港口"],ok:0,why:"ap-（朝向）+ port（搬）：带来。"},
+ {type:"word",label:"选词",ask:"哪个词是「运输」？",opts:["transporter","apporter","emporter","importer"],ok:0,why:"trans-（穿过）+ port：从一边运到另一边。"},
+ {type:"parts",label:"拼装",ask:"把积木拼起来。",parts:["em","port","er"],opts:["emporter","apporter","importer","exporter"],ok:0,why:"em-（带着）+ port + er：带走。"},
+ {type:"cloze",label:"填空",ask:"填空：« 一杯外带咖啡 »",before:"Un café à ",after:".",opts:["emporter","apporter","porter","importer"],ok:0,why:"à emporter 是固定搭配：外带。"},
+ {type:"audio",label:"听音",ask:"听一遍，选出你听到的词。",say:"importer",opts:["importer","emporter","apporter","exporter"],ok:0,why:"im- 读 /ɛ̃/，鼻音 in；em- 读 /ɑ̃/，鼻音 an。两个鼻音是中国学习者最常混的。"},
+ {type:"role",label:"表意部分",ask:"在 souterrain 里，哪部分表示「地下」？",w:"souterrain",opts:["sous","terre","-ain"],ok:0,why:"sous = 在……下面，terre = 土地，-ain 是形容词后缀。"},
+ {type:"pron",label:"发音",ask:"transporter 的词尾 -er 怎么读？",w:"transporter",opts:["/e/","/ɛʁ/","/əʁ/","/ɛ/"],ok:0,why:"动词不定式 -er 读 /e/，r 不发音。名词如 fer（铁）里的 -er 才读 /ɛʁ/。"},
+ {type:"sens",label:"词义",w:"atterrir",ask:"这个词什么意思？",opts:["着陆","起飞","埋葬","挖掘"],ok:0,why:"a-（到达）+ terre（土地）+ ir：到地上，着陆。"}
+];
+let qi=0,t0=0,tries=0,RES=[],SUM=false;
+const NEXT={4:"12 天",3:"4 天",2:"1 天",1:"10 分钟"};
+function startRev(){ qi=0; RES=[]; SUM=false; Q.forEach(q=>{ const okv=q.opts[q.ok]; for(let i=q.opts.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [q.opts[i],q.opts[j]]=[q.opts[j],q.opts[i]]; } q.ok=q.opts.indexOf(okv); }); renderQ(); }
+const isFr=s=>/^[a-zàâçéèêëîïôûùüÿœ' -]+$/i.test(s);
+function renderQ(){
+  const body=document.getElementById("rev-body");
+  document.getElementById("rev-n").textContent=Math.min(qi+1,Q.length);
+  document.getElementById("rev-bar").style.width=(qi/Q.length*100)+"%";
+  if(qi>=Q.length && !SUM){ SUM=true; document.getElementById("stk-sum").textContent=`${Q.length} 题，${RES.filter(r=>r.g>=3).length} 题一次答对。`; go("s-streak"); return; }
+  if(qi>=Q.length){
+    document.getElementById("rev-type").textContent="完成";
+    body.innerHTML=`<div class="q"><div class="fr" style="font-size:44px;font-weight:600">bravo</div><h1 style="margin-top:10px">${RES.filter(r=>r.g>=3).length} / ${Q.length} 一次答对。</h1><p class="guide" style="margin-bottom:0">犹豫过的会更早回来。明早见。</p>
+      <div class="res">${RES.map(r=>`<div><span class="fr" style="font-size:18px">${r.w}</span><span class="grow k">${r.label}</span><span class="${r.g>=3?'ok':'ko'}">${r.g>=3?'稳':'再来'} · ${NEXT[r.g]}</span></div>`).join("")}</div>
+      <button class="btn" style="margin-top:16px" data-go="next" data-done="1">回到路径</button></div>`;
+    document.getElementById("rev-bar").style.width="100%"; return;
+  }
+  const q=Q[qi]; tries=0; t0=Date.now(); document.getElementById("rev-type").textContent=q.label;
+  let stim="";
+  if(q.type==="sens"||q.type==="role"||q.type==="pron") stim=`<div class="stim"><button data-say="${q.w}"><span class="word" style="font-size:44px">${q.w}</span></button></div>`;
+  if(q.type==="parts") stim=`<div class="stim formula" style="margin-top:0"><span class="p new">${q.parts[0]}</span><span class="op">+</span><span class="p">${q.parts[1]}</span><span class="op">+</span><span class="p suf">${q.parts[2]}</span><span class="op">=</span><span class="r" style="color:var(--mist)">?</span></div>`;
+  if(q.type==="cloze") stim=`<div class="stim fr" style="font-size:26px">${q.before}<span class="blank"></span>${q.after}</div>`;
+  if(q.type==="audio") stim=`<div class="stim"><button class="btn ghost" style="width:auto;margin:0 auto" data-say="${q.say}">再听一遍</button></div>`;
+  const choices=`<div class="choices" id="qc">${q.opts.map((o,i)=>isFr(o)?`<button data-i="${i}"><span class="fr">${o}</span></button>`:`<button data-i="${i}">${o}</button>`).join("")}</div>`;
+  body.innerHTML=`<div class="q"><p class="ask">${q.ask}</p>${stim}${choices}<div class="fb" id="fb"></div></div><div class="foot"><button class="btn" id="qn" disabled>下一题</button></div>`;
+  document.getElementById("qn").onclick=()=>{ qi++; renderQ(); };
+  if(q.type==="audio") setTimeout(()=>say(q.say),300);
+  document.getElementById("qc").onclick=e=>{ const b=e.target.closest("button"); if(b&&!b.disabled) judge(q,b); };
+}
+function grade(ok){ const s=(Date.now()-t0)/1000; return !ok?1:(tries>0?2:(s<6?4:3)); }
+function finish(q,g){
+  RES.push({w:q.w||q.opts[q.ok],label:q.label,g});
+  document.getElementById("fb").innerHTML=`<b>${g>=3?"对。":g===2?"对了，但犹豫了一下。":"不对。"}</b> ${q.why}<span class="next">下次：${NEXT[g]}后。</span>`;
+  const qn=document.getElementById("qn"); qn.disabled=false;
+  if(g>=2){ const mine=qi; setTimeout(()=>{ if(qi===mine && document.getElementById("s-rev").classList.contains("on")){ qi++; renderQ(); } },1300); }
+}
+function judge(q,b){
+  const i=+b.dataset.i; luluReact(document.getElementById("s-rev"),i===q.ok);
+  if(i===q.ok){ b.classList.add("ok"); document.querySelectorAll("#qc button").forEach(x=>x.disabled=true); if(isFr(q.opts[i])) say(q.opts[i]); finish(q,grade(true)); }
+  else { b.classList.add("ko"); b.disabled=true; tries++; document.getElementById("fb").innerHTML=tries>=2?`<b>给你看答案。</b> ${q.why}`:"不是这个。看前缀，或者听一遍鼻音。";
+    if(tries>=2){ document.querySelectorAll("#qc button").forEach((x,k)=>{ x.disabled=true; if(k===q.ok) x.classList.add("ok"); }); finish(q,1); } }
+}
+
+/* 连胜 */
+function renderStreak(){
+  const days=["一","二","三","四","五","六","日"], today=5, done=5;
+  const box=document.getElementById("stk-seeds");
+  box.innerHTML=days.map((d,i)=>`<i class="${i<done?'on':''} ${i===today?'today':''}" style="animation-delay:${(.15+i*.12).toFixed(2)}s">${d}</i>`).join("");
+  const n=document.getElementById("stk-n"); n.textContent=done;
+  setTimeout(()=>{ const s=box.children[today]; s.classList.add("on","pop"); s.style.animationDelay="0s"; n.textContent=done+1; },150+today*120+500);
+}
+
+/* 我的词林：森林随等级扩张。每个等级解锁一片风景，和一批能说出口的话。 */
+const LV=[
+ {n:"A1.1 · 活下来",w:60,can:["Bonjour, un café s'il vous plaît.|打招呼、点单","Je m'appelle Wang Ming.|说自己是谁","C'est combien ?|问价钱"]},
+ {n:"A1 · 站稳脚跟",w:300,can:["Je cherche la gare, s'il vous plaît.|问路","Je voudrais un billet pour Lyon.|买票、买东西","Je suis chinois, j'habite à Paris depuis un mois.|自我介绍"]},
+ {n:"A2 · 日常生活",w:800,can:["Hier, je suis allé au marché.|讲昨天发生的事","On peut se voir samedi à 15 h ?|约时间","Je voudrais louer un studio.|租房、办事"]},
+ {n:"B1 · 说出想法",w:1500,can:["Je pense que c'est une bonne idée, mais...|表达看法","J'ai besoin d'un rendez-vous à la préfecture.|应付行政","Ça m'est arrivé l'année dernière.|讲述经历"]},
+ {n:"B2 · 自如交流",w:3000,can:["Je ne suis pas d'accord, parce que...|讨论、辩论","Passons au point suivant.|开会、工作","J'ai lu dans le journal que...|看新闻、聊时事"]}
+];
+let LVI=0, LVP=0.35;
+const FAMS=[["port",6,12],["terre",4,4],["voir",0,9],["venir",3,8],["prendre",2,10],["donner",0,7],["mettre",0,9],["tenir",0,8],["faire",0,12],["dire",0,6],["passer",0,8],["écrire",0,5]];
+function rnd(seed){ let x=seed*9301+49297; return ()=>{ x=(x*9301+49297)%233280; return x/233280; }; }
+function renderForest(){
+  const lv=LVI, W=520,H=300, r=rnd(11+lv); let out=`<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="我的词林">`;
+  out+=`<circle class="sun" cx="440" cy="62" r="18"/>`;
+  if(lv>=3) out+=`<path class="far" d="M0 150 L70 90 L130 130 L200 70 L270 120 L340 80 L420 130 L520 90 V300 H0z"/>`;
+  out+=`<path class="hill2" d="M0 190 Q120 120 260 160 T520 150 V300 H0z"/>`;
+  if(lv>=2) out+=`<path class="river" d="M0 250 Q130 236 260 252 T520 240 V272 Q390 262 260 276 T0 268z"/><path d="M228 246 q32 -22 64 0" fill="none" stroke="var(--ocre)" stroke-width="6" stroke-linecap="round"/>`;
+  out+=`<path class="hill" d="M0 230 Q140 170 260 205 T520 200 V300 H0z"/>`;
+  if(lv>=1) out+=`<path class="road" d="M40 296 Q140 250 250 262 T500 220"/>`;
+  if(lv>=3) out+=`<g><path class="house" d="M300 190 h44 v26 h-44z"/><path class="roof" d="M296 190 L322 168 L348 190z"/><rect x="316" y="202" width="10" height="14" fill="var(--ocre)"/></g>`;
+  if(lv>=4) out+=`<path class="bird" d="M120 60 q8 -8 16 0 M136 60 q8 -8 16 0 M180 84 q7 -7 14 0"/>`;
+  const gy=x=>205+22*Math.sin((x/520)*Math.PI*2-.6)+(x<260?(25)*(1-x/260)*.3:0);
+  const nGrass=[63,300,800,1500,3000][lv]/([1,4,10,18,34][lv]);
+  for(let i=0;i<nGrass;i++){ const x=14+r()*492, y=gy(x)+6+r()*60, h=6+r()*8, dx=(r()-.5)*4; out+=`<line class="grass" x1="${x.toFixed(1)}" y1="${y.toFixed(1)}" x2="${(x+dx).toFixed(1)}" y2="${(y-h).toFixed(1)}"/>`; }
+  const fams=FAMS.slice(0,[5,7,9,11,12][lv]); const gap=Math.min(100,470/fams.length);
+  fams.forEach(([c,done,total],i)=>{ const x=40+i*gap+gap/2, base=gy(x)+4, p=lv===0?done/total:Math.min(1,.6+lv*.1+r()*.3), s=0.45+p*0.75+lv*.05;
+    out+=`<g class="tree ${p===0?'young':''}" transform="translate(${x} ${base}) scale(${s})"><path d="M0 0V-70M-26 -44H26M0 -30L-22 -2M0 -30L22 -2"/>${lv>=2&&p>.8?`<circle class="fruit" cx="-14" cy="-52" r="4"/><circle class="fruit" cx="16" cy="-56" r="4"/>`:""}</g>`;
+    if(gap>=60) out+=`<text class="lab" x="${x}" y="${base+28}" text-anchor="middle" font-size="${gap<80?14:20}">${c}</text>`; });
+  out+=`<g transform="translate(${lv>=3?"120":"386"} ${gy(lv>=3?162:428)-60}) scale(.42)">${lulu("calm",200).replace(/<svg[^>]*>|<\/svg>/g,"")}</g></svg>`;
+  document.getElementById("forest").innerHTML=out;
+  const L=LV[lv]; document.getElementById("lv-name").textContent=L.n;
+  document.getElementById("lv-next").textContent=lv<4?`再认识 ${Math.round(LV[lv].w*(1-LVP))} 个词，到 ${LV[lv+1].n.split(" ")[0]}，风景会再展开一片。`:"最高一级。词林已经是一整片。";
+  document.getElementById("lv-bar").style.width=(LVP*100)+"%";
+  document.getElementById("lv-can").innerHTML=LV.slice(0,lv+1).flatMap((x,k)=>x.can.map(c=>{ const [f,z]=c.split("|"); return `<div class="can"><span class="fr">${f}</span><span class="grow k">${z}</span><button class="k" data-say="${f}" style="min-height:32px">▶</button></div>`; })).join("")+(lv<4?LV[lv+1].can.slice(0,1).map(c=>{ const [f,z]=c.split("|"); return `<div class="can lock"><span class="fr">${f}</span><span class="grow k">${z} · 下一级</span></div>`; }).join(""):"");
+  document.querySelectorAll("#lv-seg button").forEach(b=>b.classList.toggle("on",+b.dataset.lv===lv));
+  document.getElementById("me-guide").textContent=[`${L.n.split(" · ")[1]}。63 个词，5 个词族。每个词族一棵树，每个词一根草。`,`一条小路出现了：你能问路、买票了。`,`河和桥：你能讲昨天的事、约时间了。`,`山和房子：你能表达看法、应付行政了。`,`鸟飞起来了：你能讨论、开会、聊时事了。`][lv];
+  document.getElementById("st-n").textContent=[63,300,800,1500,3000][lv];
+}
+document.addEventListener("click",e=>{ const b=e.target.closest("#lv-seg button"); if(b){ LVI=+b.dataset.lv; renderForest(); } });
+</script>
+</body>
+</html>
