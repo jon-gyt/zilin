@@ -308,6 +308,46 @@ h1{font-family:var(--head);font-weight:700;font-size:30px;line-height:1.15;lette
 .fiche .sens{font-weight:600}
 .fiche .sens .py{font-size:17px;margin-left:6px}
 /* ---- story 3.4, la série : l'écran de série et les récompenses (maquette s-streak, s-rew) ---- */
+/* l'écran de série : le compteur, le chemin, les graines, le cadeau */
+.streak .serie{flex:1;display:flex;flex-direction:column;justify-content:center;text-align:center}
+.streak .n{font-family:var(--head);font-weight:700;font-size:72px;letter-spacing:-.04em;line-height:1;margin:6px 0 0}
+.streak .guide{margin:4px auto 0;max-width:32ch;min-height:23px}
+.streak .semaine{margin-top:0}
+.streak .seeds i{opacity:0;transform:scale(.6);animation:seedin .3s cubic-bezier(.2,1.3,.5,1) forwards}
+.streak .seeds i.pop{animation:seedpop .55s cubic-bezier(.2,1.5,.4,1) forwards}
+@keyframes seedin{to{opacity:1;transform:none}}
+@keyframes seedpop{0%{opacity:0;transform:scale(.4)}60%{opacity:1;transform:scale(1.25)}100%{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){.streak .seeds i{animation:none;opacity:1;transform:none}}
+
+/* le chemin en perspective : des aplats et des traits, ni dégradé ni ombre */
+.road{margin:10px -22px 0;overflow:hidden}
+.road>svg{display:block;width:100%;height:auto}
+/* Tao et Que sont des SVG imbriqués dans le chemin : ils suivent le repère du dessin,
+   pas la mise en page CSS. Sans cela, `display:inline-block` les sort de la perspective. */
+.road svg svg{display:inline;overflow:visible}
+.road .ciel{fill:var(--indigo-soft);opacity:.35}
+.road .loin{fill:var(--indigo-soft);opacity:.7}
+.road .pre{fill:var(--jade-soft);opacity:.55}
+.road .soleil{fill:var(--ocre);opacity:.9}
+.road .voie{fill:var(--card);stroke:var(--line);stroke-width:1.5}
+.road .arbre{stroke:var(--ink);stroke-width:4;stroke-linecap:round;fill:none;opacity:.9}
+.road .arbre.jeune{stroke:var(--mist);opacity:.5}
+.road .case{fill:var(--paper);stroke:var(--line);stroke-width:2}
+.road .case.on{fill:var(--jade);stroke:var(--jade)}
+.road .borne{fill:var(--indigo-soft);stroke:var(--indigo);stroke-width:2}
+.road .borne-l{font-family:var(--head);font-weight:700;fill:var(--indigo)}
+/* la position sur le chemin, et rien d'autre, porte le cinabre */
+.road .case.ici,.road .borne.ici{fill:var(--zhu);stroke:var(--zhu)}
+/* Tao avance d'une case : un pas, une seule fois, à l'ouverture de l'écran */
+.road .marche{animation:avance 1.2s cubic-bezier(.3,0,.2,1) .3s both}
+@keyframes avance{from{transform:translate(var(--dx),var(--dy))}to{transform:none}}
+@media (prefers-reduced-motion:reduce){.road .marche{animation:none}}
+
+/* le cadeau remis par Que, une fois Tao arrivée */
+.giftcard{margin-top:12px;background:var(--card);border-radius:14px;padding:14px 16px;text-align:left;animation:paraitre .35s ease-out 1.6s both}
+.giftcard b{display:block;font-family:var(--head);font-weight:700;font-size:18px}
+@keyframes paraitre{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){.giftcard{animation:none}}
 /* Que 雀, le moineau : encre, gorge claire, bec à l'ocre */
 .que{display:inline-block;overflow:visible}
 .que .aile{transform-origin:96px 112px;animation:bat .5s ease-in-out infinite alternate}

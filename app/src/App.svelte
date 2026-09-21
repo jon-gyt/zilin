@@ -9,6 +9,7 @@
   import Splash from './lib/Splash.svelte';
   import Settings from './lib/Settings.svelte';
   import Tabs, { type Onglet } from './lib/Tabs.svelte';
+  import Streak from './lib/Streak.svelte';
   import Today from './lib/Today.svelte';
   import Tree from './lib/Tree.svelte';
   import Use from './lib/Use.svelte';
@@ -22,6 +23,7 @@
     markDone,
     nextIndex,
     noterActivite,
+    noterJourTravaille,
     noterRevision,
     openDay,
     resetDay,
@@ -45,7 +47,7 @@
   import { loadProgress, saveProgress, today } from './lib/db';
 
   /** Un écran par pas, au fur et à mesure des stories. Pas de routeur. */
-  type Ecran = 'splash' | 'premiere' | 'home' | 'anec' | 'learn' | 'use' | 'check' | 'close';
+  type Ecran = 'splash' | 'premiere' | 'home' | 'anec' | 'learn' | 'use' | 'check' | 'close' | 'streak';
 
   /** Les pas qui ont leur écran. Les autres se marquent faits au tap, en attendant. */
   const ECRANS = ['anec', 'learn', 'use', 'check', 'close'] as const;
@@ -240,10 +242,14 @@
     enregistrer();
   }
 
-  /** Pas 6, Clore : la journée est faite, retour au chemin qui le constate. */
+  /**
+   * Pas 6, Clore : la graine du jour est plantée, puis l'écran de série la montre sur le
+   * chemin (story 3.4). Le retour au chemin se fait depuis cet écran.
+   */
   function clore(): void {
     fairePasCourant();
-    ecran = 'home';
+    p = noterJourTravaille(p, today());
+    ecran = 'streak';
     enregistrer();
   }
 
@@ -287,6 +293,8 @@
   />
 {:else if ecran === 'close'}
   <Close {p} onterminer={clore} onquitter={quitter} />
+{:else if ecran === 'streak'}
+  <Streak {p} onretour={quitter} />
 {:else}
   <div class="onglets">
     {#if onglet === 'foret'}

@@ -65,6 +65,9 @@ export const CADEAUX: Record<Palier, Cadeau> = {
   }
 };
 
+/** La seule réserve du brief sur la remise, écrite là où elle se lit. */
+export const NOTE_REMISE = 'La remise ne vaut pas pour l’abonnement mensuel.';
+
 /** Les deux façons d'acheter Zilin. La remise du 100e jour ne vaut que pour l'achat à vie. */
 export type Achat = 'vie' | 'mensuel';
 
