@@ -11,14 +11,14 @@
   import Glyph from './Glyph.svelte';
   import Tao from './Tao.svelte';
   import {
-    FICHIER_FAMILLE_DEMO,
-    familleOnce,
     foretOnce,
-    pairesOnce,
-    voisinsOnce,
-    type Famille
+    pairesExport,
+    toutesLesFamilles,
+    toutesLesFiches,
+    traitsDeFamilles,
+    voisinsOnce
   } from './content';
-  import { FICHIER_FAMILLE_DEPART } from './premiere';
+  import { racinesDesCaracteres } from './foret';
   import { lirePaires } from './questions';
   import { strokesOnce } from './strokes';
   import {
@@ -72,22 +72,49 @@
   let corpus = $state<CorpusJeux>(corpusVide());
   let chargee = $state(false);
 
-  void Promise.all([
-    familleOnce(FICHIER_FAMILLE_DEPART).catch(() => null),
-    familleOnce(FICHIER_FAMILLE_DEMO).catch(() => null),
-    voisinsOnce().catch(() => null),
-    foretOnce().catch(() => null),
-    pairesOnce().catch(() => null),
-    strokesOnce().catch(() => ({}))
-  ]).then(([depart, demo, voisins, foret, paires, traits]) => {
+  /**
+   * Le corpus des jeux vient de l'export versionné : les fiches de `data/0.1.0/` (sens,
+   * pinyin et décompositions canoniques), les paires à ne pas confondre de l'export, et
+   * les tracés des familles concernées — un jeu ne montre que ce qu'il sait dessiner,
+   * jamais un caractère en police. Le cercle de démonstration ne sert plus qu'à deux
+   * choses, documentées dans `jeux.corpusDeJeu` : compléter un sens que le pipeline n'a
+   * pas encore relu, et fournir un acquis de repli tant que la progression n'en a pas
+   * assez pour jouer.
+   */
+  void (async () => {
+    const [fiches, familles, voisins, foret, paires, demo] = await Promise.all([
+      toutesLesFiches().catch(() => []),
+      toutesLesFamilles().catch(() => []),
+      voisinsOnce().catch(() => null),
+      foretOnce().catch(() => null),
+      pairesExport().catch(() => null),
+      strokesOnce().catch(() => ({}))
+    ]);
+    const groupes = lirePaires(paires);
+    const racines = racinesDesCaracteres(familles);
+    /* Un premier corpus sans tracés, juste pour savoir quels caractères sont en jeu. */
+    const pressenti = corpusDeJeu({ fiches, voisins, foret, paires: groupes, cartes: p.cartes });
+    const voulus = new Set<string>([
+      ...pressenti.acquis,
+      ...groupes.flat(),
+      ...Object.values(pressenti.decompositions).flat()
+    ]);
+    const aLire = [...voulus].flatMap((c) => {
+      const r = racines.get(c);
+      return r === undefined ? [] : [r];
+    });
+    const traits = await traitsDeFamilles(aLire).catch(() => ({}));
     corpus = corpusDeJeu({
-      familles: [depart, demo].filter((x): x is Famille => x !== null),
+      fiches,
       voisins,
       foret,
-      paires: lirePaires(paires),
-      traits: Object.keys(traits),
+      paires: groupes,
+      /* Les tracés de l'export d'abord, ceux de la maquette pour le reste. */
+      traits: [...new Set([...Object.keys(traits), ...Object.keys(demo)])],
       cartes: p.cartes
     });
+    chargee = true;
+  })().catch(() => {
     chargee = true;
   });
 

@@ -12,7 +12,7 @@
  * aucune horloge, aucun `Math.random`. Les données sont injectées dans un `CorpusJeux`
  * et tout tirage part d'une graine : la même graine rend toujours la même manche.
  */
-import type { Famille, Foret, Noeud, Voisins } from './content';
+import type { Famille, Fiche, Foret, Noeud, Voisins } from './content';
 import { etat } from './foret';
 import {
   BONUS_MEME_NOMBRE,
@@ -78,7 +78,7 @@ export type CorpusJeux = {
   formes: Readonly<Record<string, readonly string[]>>;
   /** Le pinyin et le sens de chaque caractère connu. */
   gloses: Readonly<Record<string, Glose>>;
-  /** Les paires à ne pas confondre (`app/public/data/demo/paires.json`). */
+  /** Les paires à ne pas confondre (`data/<version>/paires.json`). */
   paires: Paires;
   /** Les caractères dont on a les traits : les seuls qu'un jeu peut montrer. */
   traits: readonly string[];
@@ -132,11 +132,13 @@ export function acquisDeDemo(foret: Foret | null): string[] {
 
 /** Les sources du contenu, telles que l'écran hôte les charge. */
 export type Sources = {
+  /** Les fiches de l'export versionné, déjà surcouchées par `content.fiche`. */
+  fiches?: readonly Fiche[];
   familles?: readonly Famille[];
   voisins?: Voisins | null;
   foret?: Foret | null;
   paires?: Paires;
-  /** Les caractères dont `strokes-demo.json` donne les traits. */
+  /** Les caractères dont on a les tracés : `traits/<racine>.json`, puis `strokes-demo.json`. */
   traits?: readonly string[];
   /** Les cartes de la progression : l'acquis réel, ou directement leurs stabilités. */
   cartes?: readonly Acquis[];
@@ -167,6 +169,10 @@ export function corpusDeJeu(s: Sources): CorpusJeux {
     if (v.parts.length >= 2) decompositions[v.c] = [...v.parts];
     gloses[v.c] = { pinyin: v.pinyin, fr: v.fr };
   }
+  for (const x of s.fiches ?? []) {
+    if (x.parts.length >= 2) decompositions[x.c] = [...x.parts];
+    gloses[x.c] = { pinyin: x.pinyin, fr: x.fr };
+  }
   for (const f of s.familles ?? []) {
     gloses[f.racine.c] = { pinyin: f.racine.pinyin, fr: f.racine.fr };
     for (const x of f.fiches) {
@@ -178,7 +184,11 @@ export function corpusDeJeu(s: Sources): CorpusJeux {
   const formes: Record<string, readonly string[]> = { ...decompositions };
   for (const fam of s.foret?.familles ?? []) {
     for (const n of noeuds(fam)) {
-      if (!gloses[n.c]) gloses[n.c] = { pinyin: n.pinyin, fr: n.fr };
+      /* Le cercle de démonstration ne complète que ce que l'export laisse vide : sans
+         fiche relue, une fiche exportée n'a ni sens ni pinyin à donner à un énoncé. */
+      const g = gloses[n.c];
+      if (!g) gloses[n.c] = { pinyin: n.pinyin, fr: n.fr };
+      else if (g.fr === '' && n.fr !== '') gloses[n.c] = { pinyin: g.pinyin || n.pinyin, fr: n.fr };
     }
     for (const membre of fam.membres) {
       if (!formes[membre.c]) formes[membre.c] = [fam.c];
