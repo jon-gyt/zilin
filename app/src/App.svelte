@@ -3,12 +3,17 @@
   import Close from './lib/Close.svelte';
   import FirstSession from './lib/FirstSession.svelte';
   import Fix from './lib/Fix.svelte';
+  import Forest from './lib/Forest.svelte';
   import Learn from './lib/Learn.svelte';
   import Open from './lib/Open.svelte';
   import Splash from './lib/Splash.svelte';
+  import Settings from './lib/Settings.svelte';
+  import Tabs, { type Onglet } from './lib/Tabs.svelte';
   import Today from './lib/Today.svelte';
+  import Tree from './lib/Tree.svelte';
   import Use from './lib/Use.svelte';
   import { apresSplash, briques, familleDepart } from './lib/premiere';
+  import type { Noeud } from './lib/content';
   import {
     allDone,
     currentStep,
@@ -52,6 +57,23 @@
   /** L'ouverture attend deux choses : la progression relue et le logo écrit. */
   let chargee = $state(false);
   let logoEcrit = $state(false);
+
+  /** L'onglet courant. La barre ne se montre qu'ici, jamais pendant les pas. */
+  let onglet: Onglet = $state('home');
+  /** La famille ouverte dans Ma forêt, `null` quand on est sur le cercle. */
+  let famille: Noeud | null = $state(null);
+
+  /** Un onglet, un écran. Revenir à Ma forêt rouvre le cercle. */
+  function allerOnglet(o: Onglet): void {
+    if (o === 'foret') famille = null;
+    onglet = o;
+  }
+
+  /** Réglages : le budget, le tracé, une progression importée. */
+  function remplacer(nouvelle: Progress): void {
+    p = nouvelle;
+    enregistrer();
+  }
 
   /** Au démarrage : on relit la progression et on ouvre la journée. */
   void loadProgress().then((stored) => {
@@ -266,5 +288,25 @@
 {:else if ecran === 'close'}
   <Close {p} onterminer={clore} onquitter={quitter} />
 {:else}
-  <Today {p} ontap={tap} />
+  <div class="onglets">
+    {#if onglet === 'foret'}
+      {#if famille}
+        <Tree
+          fam={famille}
+          onretour={() => (famille = null)}
+          onlecon={() => {
+            famille = null;
+            onglet = 'home';
+          }}
+        />
+      {:else}
+        <Forest {p} jour={today()} onfamille={(f) => (famille = f)} />
+      {/if}
+    {:else if onglet === 'reglages'}
+      <Settings {p} onprogression={remplacer} />
+    {:else}
+      <Today {p} ontap={tap} />
+    {/if}
+    <Tabs {onglet} onchoisir={allerOnglet} />
+  </div>
 {/if}
