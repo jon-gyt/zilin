@@ -11,6 +11,7 @@
    * (`data/demo/textes/住.json`) : l'export ne porte encore aucun texte ni conte.
    * Le cinabre ne sert qu'à une chose sur cet écran : le caractère du jour dans le texte.
    */
+  import Glyph from './Glyph.svelte';
   import {
     LIGNE_SANS_FICHE,
     glosable,
@@ -131,10 +132,13 @@
     <p class="guide">Un caractère se lit dans des mots.</p>
     <div class="card">
       {#if mots.length === 0 && !phrase}
-        <!-- Les mots et la phrase viennent d'une fiche relue : sans elle, on ne feint rien. -->
-        <div class="hz phrase">{compo.c}</div>
-        <div class="trad">{compo.pinyin}</div>
-        <p class="origine k">{LIGNE_SANS_FICHE}</p>
+        <!-- Les mots et la phrase viennent d'une fiche relue : sans elle, on ne feint rien.
+             Le caractère, lui, se dessine depuis ses traits comme partout ailleurs. -->
+        <div class="center">
+          <Glyph char={compo.c} size={96} />
+          <div class="py">{compo.pinyin}</div>
+          <p class="origine k">{LIGNE_SANS_FICHE}</p>
+        </div>
       {/if}
       <div class="words">
         {#each mots as m (m.hanzi)}
