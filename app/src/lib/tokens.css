@@ -1,3 +1,10 @@
+/* Polices de la charte, auto-hébergées (aucune requête réseau) : `uv run zilin fonts`. */
+@font-face{font-family:"Manrope";font-style:normal;font-weight:500;font-display:swap;src:url(/fonts/manrope-500.woff2) format("woff2")}
+@font-face{font-family:"Manrope";font-style:normal;font-weight:700;font-display:swap;src:url(/fonts/manrope-700.woff2) format("woff2")}
+@font-face{font-family:"Source Sans 3";font-style:normal;font-weight:400;font-display:swap;src:url(/fonts/source-sans-3-400.woff2) format("woff2")}
+@font-face{font-family:"Source Sans 3";font-style:normal;font-weight:600;font-display:swap;src:url(/fonts/source-sans-3-600.woff2) format("woff2")}
+@font-face{font-family:"Noto Serif SC";font-style:normal;font-weight:500;font-display:swap;src:url(/fonts/noto-serif-sc-500.woff2) format("woff2")}
+
 :root{
   --paper:#F4EEE2; --card:#FBF7EE; --ink:#1F1B18; --ink2:#4A443E; --mist:#8B857C; --line:#D9D1C2;
   --indigo:#2B4C7E; --indigo-soft:#DCE3EF; --zhu:#C8371F; --zhu-soft:#F6DED6; --ocre:#8C5A2B; --ocre-soft:#EFE3D3; --jade:#5E8A6A; --jade-soft:#DDE8DE; --on:#F4EEE2;
