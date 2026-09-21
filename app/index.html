@@ -3,11 +3,20 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="color-scheme" content="light dark">
+<meta name="theme-color" content="#F4EEE2" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#1A1714" media="(prefers-color-scheme: dark)">
 <meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="theme-color" content="#F4EEE2">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Zilin">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
 <link rel="manifest" href="./manifest.webmanifest">
+<link rel="icon" type="image/svg+xml" href="./icons/favicon.svg">
+<link rel="apple-touch-icon" href="./icons/apple-touch-icon.png">
 <link rel="preload" as="font" type="font/woff2" href="/fonts/source-sans-3-400.woff2" crossorigin>
 <link rel="preload" as="font" type="font/woff2" href="/fonts/manrope-700.woff2" crossorigin>
+<!-- Le papier avant la feuille de styles : au lancement, pas d'éclair blanc en mode sombre. -->
+<style>html{background:#F4EEE2}@media (prefers-color-scheme:dark){html{background:#1A1714}}</style>
 <title>Zilin 字林</title>
 </head>
 <body><div id="app"></div><script type="module" src="./src/main.ts"></script></body>
