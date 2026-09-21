@@ -191,3 +191,17 @@ h1{font-family:var(--head);font-weight:700;font-size:30px;line-height:1.15;lette
 @keyframes tombe{to{transform:translateY(74px)}}
 @keyframes pousse{to{stroke-dashoffset:0}}
 @media (prefers-reduced-motion:reduce){.seed .sd{animation:none;transform:translateY(74px)}.seed .st,.seed .lf{animation:none;stroke-dashoffset:0}}
+
+/* ---- ouverture : le logo s'écrit en 1,6 s (maquette splash) ---- */
+.ouverture{justify-content:center}
+.splash{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:18px;width:100%;cursor:default}
+.splash .nom{font-family:var(--head);font-weight:700;font-size:34px;letter-spacing:-.04em}
+.splash .cn{font-size:24px;color:var(--zhu);margin-left:10px}
+/* le Z se trace en un trait, le point cinabre se pose à la fin, le nom vient après */
+.splash .zs{stroke-dasharray:340;stroke-dashoffset:340;animation:zs .5s cubic-bezier(.5,0,.3,1) .1s forwards}
+.splash .zd{transform-origin:100px 42px;transform:scale(0);animation:zd .3s cubic-bezier(.2,1.4,.5,1) .6s forwards}
+.splash .zt{opacity:0;animation:zt .4s ease-out .8s forwards}
+@keyframes zs{to{stroke-dashoffset:0}}
+@keyframes zd{to{transform:scale(1)}}
+@keyframes zt{to{opacity:1}}
+@media (prefers-reduced-motion:reduce){.splash .zs{animation:none;stroke-dashoffset:0}.splash .zd{animation:none;transform:none}.splash .zt{animation:none;opacity:1}}
