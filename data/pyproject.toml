@@ -11,6 +11,14 @@ dependencies = [
     "fonttools[woff]>=4.53",
 ]
 
+[project.optional-dependencies]
+# Voix locale (story 1.5). Hors installation de base : `kokoro` tire torch et
+# transformers, soit plusieurs centaines de Mo dont le reste du pipeline n'a que
+# faire. `uv sync --extra audio` avant `zilin audio generer`.
+# `misaki[zh]` porte le G2P mandarin (jieba, pypinyin, cn2an) ; sans lui, Kokoro
+# n'a pas de voix chinoise.
+audio = ["kokoro>=0.9.4", "misaki[zh]>=0.9.4"]
+
 [dependency-groups]
 dev = ["pytest>=8"]
 
