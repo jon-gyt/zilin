@@ -10,6 +10,7 @@
     learnNext,
     markDone,
     nextIndex,
+    noterActivite,
     openDay,
     resetDay,
     setLearnView,
@@ -66,7 +67,10 @@
 
   /** L'anecdote vue ou passée : le pas Ouvrir est fait, retour au chemin. */
   function ouvrirFait(): void {
-    if (currentStep(p)?.go === 'anec') fairePasCourant();
+    if (currentStep(p)?.go === 'anec') {
+      fairePasCourant();
+      p = noterActivite(p, today(), 'anecdote');
+    }
     ecran = 'home';
     enregistrer();
   }
