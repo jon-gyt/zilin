@@ -101,3 +101,41 @@ h1{font-family:var(--head);font-weight:700;font-size:30px;line-height:1.15;lette
 .anec .sceau{display:flex;justify-content:center;margin-bottom:6px;color:var(--ink)}
 .anec .nom{font-family:var(--head);font-weight:700;font-size:26px;letter-spacing:-.03em;margin-bottom:2px}
 .anec .nom .cn{color:var(--zhu);font-size:22px}
+
+/* ---- pas 3, Apprendre : la brique, le tracé, le composé (maquette s-l1, s-trace, s-l2) ---- */
+.card{background:var(--card);border-radius:16px;padding:18px}
+.card + .card{margin-top:14px}
+/* la position dans la leçon : un point par écran, le cinabre marque où l'on est */
+.dots{display:flex;gap:6px;margin:4px 0 16px}
+.dots i{flex:1;height:4px;border-radius:2px;background:var(--line)}
+.dots i.on{background:var(--indigo)}
+.dots i.cur{background:var(--zhu)}
+/* la formule : les briques, puis le caractère. Seul l'élément ajouté porte le cinabre. */
+.formula{display:flex;align-items:center;gap:10px;flex-wrap:wrap;justify-content:center;margin:10px 0}
+.formula .p{display:inline-flex;color:var(--ocre)}
+.formula .p.new{color:var(--zhu)}
+.formula .op{color:var(--mist);font-size:22px}
+.say{display:inline-flex;align-items:center;justify-content:center;min-height:44px}
+.py{color:var(--indigo);font-weight:600;font-size:22px}
+.sens{font-size:19px}
+.origine{margin:6px 0 0;font-size:15.5px;color:var(--ink2)}
+/* l'étiquette : attesté ou mnémotechnique, jamais l'un pour l'autre */
+.tag{display:inline-block;margin-top:10px;padding:2px 10px;border:1px solid var(--line);border-radius:999px;font-size:13px;color:var(--mist)}
+.acts{display:flex;gap:10px;margin-top:16px}
+.acts .btn{flex:1}
+/* les mots et la phrase */
+.words{display:flex;flex-wrap:wrap;gap:8px}
+.words span{border-radius:8px;padding:8px 12px;font-size:15px;color:var(--ink2);background:var(--paper)}
+.words span .hz{font-size:19px;color:var(--ink);margin-right:6px}
+.label{margin:18px 0 4px}
+.phrase{font-size:30px;line-height:1.5}
+.trad{color:var(--ink2);font-size:15px}
+/* le tracé : la zone de Hanzi Writer et sa grille */
+.writer{width:280px;height:280px;margin:0 auto;background:var(--card);border:1px solid var(--line);border-radius:14px;touch-action:none;position:relative;overflow:hidden}
+.writer svg{display:block}
+.writer .grid{position:absolute;inset:0;pointer-events:none}
+.writer .repli{position:absolute;inset:0;display:flex;align-items:center;justify-content:center}
+.retour{margin-top:10px;min-height:22px}
+/* le réglage : ne plus proposer le tracé */
+.pref{display:flex;align-items:center;gap:8px;margin-top:16px;font-size:15px;color:var(--ink2);min-height:44px}
+.pref input{width:20px;height:20px;accent-color:var(--indigo)}
