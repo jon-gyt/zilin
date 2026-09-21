@@ -5,29 +5,37 @@
    * principal par vue, « Quitter » sauvegarde sans question.
    *
    * Aucun texte de contenu n'est écrit ici : les mots et la phrase viennent de la fiche
-   * du composé, le texte et ses gloses du JSON versionné de `app/public/data/`.
+   * du caractère que le parcours pose aujourd'hui (export versionné, surcouché par la
+   * démonstration) ; sans fiche relue, l'écran le dit au lieu d'emprunter les mots d'un
+   * autre caractère. Les trois lignes à lire, elles, restent celles de la maquette
+   * (`data/demo/textes/住.json`) : l'export ne porte encore aucun texte ni conte.
    * Le cinabre ne sert qu'à une chose sur cet écran : le caractère du jour dans le texte.
    */
+  import Glyph from './Glyph.svelte';
   import {
-    compose,
-    familleOnce,
+    LIGNE_SANS_FICHE,
     glosable,
     glose,
+    lecon,
     lignesNues,
     texteOnce,
-    type Famille,
-    type Fiche,
+    type FicheLue,
     type Signe,
     type Texte
   } from './content';
+  import Tao from './Tao.svelte';
   import { aAudio, dire, manifesteOnce, type Manifeste } from './audio';
-  import type { UseView } from './session';
+  import { jourParcours, type Progress, type UseView } from './session';
+  import { humeur, stade } from './tao';
 
   let {
+    p,
     vue,
     onsuivant,
     onquitter
   }: {
+    /** La progression : Tao y lit son stade et son humeur, la brique du jour et ses textes. */
+    p: Progress;
     vue: UseView;
     /** Enchaîne vers la vue suivante, ou termine le pas après la dernière. */
     onsuivant: () => void;
@@ -38,7 +46,7 @@
   const PAS_LECON = 5;
   const RANG = 2;
 
-  let f = $state(null as Famille | null);
+  let ficheDuJour = $state(null as FicheLue | null);
   let t = $state(null as Texte | null);
   /** Le manifeste audio : il dit quels textes ont une voix. Absent, l'écran se tait. */
   let son = $state(null as Manifeste | null);
@@ -46,13 +54,15 @@
   let touche: Signe | null = $state(null);
 
   $effect(() => {
+    const n = jourParcours(p);
+    const choisi = p.parcours;
     let vivant = true;
-    void familleOnce()
-      .then((x) => {
-        if (vivant) f = x;
+    void lecon(choisi, n)
+      .then((l) => {
+        if (vivant) ficheDuJour = l.composes[0] ?? l.brique;
       })
       .catch(() => {
-        if (vivant) f = null;
+        if (vivant) ficheDuJour = null;
       });
     return () => {
       vivant = false;
@@ -83,11 +93,16 @@
     };
   });
 
-  const compo: Fiche | null = $derived(f ? compose(f) : null);
+  /** Le caractère du jour : le composé du parcours, la brique quand le jour n'en pose pas. */
+  const compo: FicheLue | null = $derived(ficheDuJour);
   const mots = $derived(compo?.mots ?? []);
   const phrase = $derived(compo?.phrase ?? null);
   /** Le texte nu : ce qui se dirait à voix haute, quand l'audio sera embarqué. */
   const nu = $derived(t ? lignesNues(t).join('') : '');
+
+  /* Tao lit par-dessus l'épaule. Elle accompagne la lecture, elle ne la commente pas. */
+  const taoHumeur = $derived(humeur(p.tao.activites, p.day));
+  const taoStade = $derived(stade(p.tao.croissance));
 
   /**
    * Audio au toucher du caractère : le fichier pré-généré, servi avec l'app. Rien ne se
@@ -121,8 +136,20 @@
   {/if}
 
   {#if vue === 'mots' && compo}
-    <p class="guide">Un caractère se lit dans des mots.</p>
+    <div class="verif-tete">
+      <Tao stade={taoStade} posture="lecture" humeur={taoHumeur} size={72} />
+      <p class="guide grow">Un caractère se lit dans des mots.</p>
+    </div>
     <div class="card">
+      {#if mots.length === 0 && !phrase}
+        <!-- Les mots et la phrase viennent d'une fiche relue : sans elle, on ne feint rien.
+             Le caractère, lui, se dessine depuis ses traits comme partout ailleurs. -->
+        <div class="center">
+          <Glyph char={compo.c} size={96} />
+          <div class="py">{compo.pinyin}</div>
+          <p class="origine k">{LIGNE_SANS_FICHE}</p>
+        </div>
+      {/if}
       <div class="words">
         {#each mots as m (m.hanzi)}
           <span><span class="hz">{m.hanzi}</span>{m.fr}</span>
@@ -145,10 +172,13 @@
     <div class="foot"><button class="btn" onclick={onsuivant}>Lire trois lignes</button></div>
   {:else if vue === 'texte' && t}
     <h1>Lire</h1>
-    <p class="guide">
-      Trois lignes, uniquement avec tes caractères. Le cinabre est celui d'aujourd'hui.
-      Touche un caractère si tu hésites.
-    </p>
+    <div class="verif-tete">
+      <Tao stade={taoStade} posture="lecture" humeur={taoHumeur} size={72} />
+      <p class="guide grow">
+        Trois lignes, uniquement avec tes caractères. Le cinabre est celui d'aujourd'hui.
+        Touche un caractère si tu hésites.
+      </p>
+    </div>
     <div class="card">
       <div class="read">
         {#each t.lignes as ligne, l (l)}

@@ -2,8 +2,19 @@
   /** Aujourd'hui : le chemin des six pas, un seul bouton en bas. */
   import Glyph from './Glyph.svelte';
   import Tao from './Tao.svelte';
+  import { caractereDuJour, lecon } from './content';
   import { propose } from './jeux';
-  import { allDone, buttonLabel, dayLabel, guide, nextIndex, steps, title, type Progress } from './session';
+  import {
+    allDone,
+    buttonLabel,
+    dayLabel,
+    guide,
+    jourParcours,
+    nextIndex,
+    steps,
+    title,
+    type Progress
+  } from './session';
   import { humeur, poseDuJour, stade } from './tao';
 
   let {
@@ -17,8 +28,24 @@
     onjouer: () => void;
   } = $props();
 
-  /** Le caractère du jour. Démonstration, en attendant le contenu du pipeline `data/`. */
-  const CARACTERE_DU_JOUR = '住';
+  /** Le caractère du jour : celui que le parcours de l'index pose aujourd'hui. */
+  let caractere = $state('');
+
+  $effect(() => {
+    const n = jourParcours(p);
+    const choisi = p.parcours;
+    let vivant = true;
+    void lecon(choisi, n)
+      .then((l) => {
+        if (vivant) caractere = caractereDuJour(l);
+      })
+      .catch(() => {
+        if (vivant) caractere = '';
+      });
+    return () => {
+      vivant = false;
+    };
+  });
 
   const liste = $derived(steps(p));
   const n = $derived(nextIndex(p));
@@ -70,8 +97,8 @@
     {/each}
   </div>
 
-  {#if !pose}
-    <div class="today"><Glyph char={CARACTERE_DU_JOUR} size={110} /></div>
+  {#if !pose && caractere !== ''}
+    <div class="today"><Glyph char={caractere} size={110} /></div>
   {/if}
 
   <div class="foot">

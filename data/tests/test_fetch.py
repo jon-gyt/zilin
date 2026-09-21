@@ -272,3 +272,12 @@ def test_repli_unihan_sur_le_miroir(tmp_path: Path, monkeypatch: pytest.MonkeyPa
     dest = tmp_path / "Unihan.zip"
     assert telecharger(source_unihan(), dest) == Resultat(REPLI, UNIHAN_MIROIR)
     assert entete_presente(dest, ENTETE_UNIHAN, membre="Unihan_Readings.txt")
+
+
+def test_l_empreinte_est_la_meme_fonction_partout() -> None:
+    """Une seule implémentation du SHA-256 d'un fichier, partagée (`outils.py`)."""
+    from zilin_data import export as export_mod
+    from zilin_data.outils import empreinte_fichier
+
+    assert empreinte is empreinte_fichier
+    assert export_mod.empreinte_fichier is empreinte_fichier

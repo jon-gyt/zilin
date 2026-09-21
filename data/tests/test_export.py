@@ -249,6 +249,25 @@ def test_un_fichier_devenu_hors_perimetre_est_retire(atelier: Path) -> None:
     assert "familles/林.json" in suivant.supprimes
 
 
+def test_l_audio_deja_exporte_survit_a_un_reexport(atelier: Path) -> None:
+    """`audio/` appartient à `zilin audio exporter` : l'export ne le purge pas.
+
+    Sans cela, réexporter effaçait la voix de tous les caractères, et rien ne le
+    disait — le manifeste de `data/work/` restait, lui, intact.
+    """
+    rapport = export("0.1.0")
+    audio = rapport.dossier / "audio"
+    audio.mkdir()
+    (audio / "manifeste.json").write_text('{"chemins": {}}', encoding="utf-8")
+    (audio / "0123456789abcdef.mp3").write_bytes(b"ID3")
+
+    suivant = export("0.1.0")
+    assert suivant.supprimes == []
+    assert (audio / "0123456789abcdef.mp3").exists()
+    assert (audio / "manifeste.json").exists()
+    assert suivant.date == rapport.date, "un dossier étranger ne rend pas l'export périmé"
+
+
 # ------------------------------------------------------------------------- validation
 
 
@@ -273,6 +292,20 @@ def test_l_element_ajoute_est_celui_du_jour(atelier: Path) -> None:
     休 = fiche_de(rapport.dossier, "亻", "休")
     assert 休["parts"] == ["亻", "木"]
     assert 休["nouveau"] == [1], "木 est posé le même jour que 休 : c'est lui, le cinabre"
+
+
+def test_le_parcours_de_reference_d_un_caractere_des_deux_listes_est_lire() -> None:
+    """Un caractère posé par les deux parcours prend `lire` pour référence.
+
+    C'est `lire` qui donne alors la brique du jour, donc l'élément en cinabre.
+    """
+    poses = export_mod._jours_par_caractere(
+        {
+            "hsk": {"jours": [{"jour": 7, "brique": "口", "composes": ["休"]}]},
+            "lire": {"jours": [{"jour": 2, "brique": "木", "composes": ["休"]}]},
+        }
+    )
+    assert poses["休"] == ("lire", 2, "木")
 
 
 def test_le_pinyin_vient_d_unihan(atelier: Path) -> None:
@@ -469,6 +502,19 @@ def test_un_nom_de_fichier_sans_point_de_code_passe_par_unicode() -> None:
 
 
 # ---------------------------------------------------------------------------- check
+
+
+def test_le_controle_voit_un_texte_de_licence_disparu(atelier: Path) -> None:
+    """L'APL veut sa licence à côté des tracés : la retirer est une faute bloquante."""
+    rapport = export("0.1.0")
+    (rapport.dossier / "traits" / ARPHIC).unlink()
+
+    resultats = {
+        c.nom: c for c in controles(export_mod.EXPORT, build=export_mod.BUILD, ingest=export_mod.INGEST)
+    }
+    controle = resultats["export : textes de licence"]
+    assert not controle.ok and controle.bloquant
+    assert f"traits/{ARPHIC}" in controle.detail
 
 
 def test_le_controle_dit_si_l_export_est_a_jour(atelier: Path) -> None:

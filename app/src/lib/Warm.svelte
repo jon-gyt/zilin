@@ -11,10 +11,16 @@
   import Ask from './Ask.svelte';
   import Glyph from './Glyph.svelte';
   import Tao from './Tao.svelte';
-  import { familleOnce, pairesOnce, voisinsOnce, type Famille, type Voisins } from './content';
-  import { FICHIER_PAIRES, lirePaires, type Paires, type Question } from './questions';
+  import {
+    pairesExport,
+    toutesLesFiches,
+    voisinsOnce,
+    type FicheLue,
+    type Voisins
+  } from './content';
+  import { lirePaires, type Paires, type Question } from './questions';
   import { corpusRevision, questionsRevision, resume, sures } from './revision';
-  import { echeance, type Progress, type Revision } from './session';
+  import { echeance, repriseRev, type Progress, type Revision } from './session';
   import { humeur, stade } from './tao';
 
   let {
@@ -25,8 +31,11 @@
     onquitter
   }: {
     p: Progress;
-    /** La réponse notée, dès qu'une question est jugée : la carte est replanifiée. */
-    onrepondu: (r: Revision) => void;
+    /**
+     * La réponse notée, dès qu'une question est jugée : la carte est replanifiée et le
+     * rang de la question est marqué répondu, pour qu'elle ne se repose pas.
+     */
+    onrepondu: (r: Revision, i: number) => void;
     /** La question suivante : la reprise se fait à celle-ci. */
     onavancer: (i: number) => void;
     onfini: () => void;
@@ -39,18 +48,35 @@
    */
   const cartesDeLaSeance = untrack(() => $state.snapshot(p.cartes));
 
-  let f = $state(null as Famille | null);
+  /**
+   * La question par laquelle la séance reprend, lue une seule fois à l'ouverture : une
+   * question déjà notée est passée. Lue à chaque changement, la réponse qu'on vient de
+   * donner chasserait sa propre correction avant qu'elle soit lue.
+   */
+  const debut = untrack(() => repriseRev(p));
+
+  /**
+   * Le corpus vient de l'export versionné : toutes les fiches de `data/0.1.0/`, déjà
+   * surcouchées par les textes de démonstration là où le pipeline n'a rien relu. Les
+   * voisins de forme de la maquette restent en appoint pour les leurres, et les paires
+   * à ne pas confondre sont celles de l'export.
+   */
+  let f = $state([] as FicheLue[]);
   let v = $state(null as Voisins | null);
   let paires = $state([] as Paires);
+  let chargee = $state(false);
 
   $effect(() => {
     let vivant = true;
-    void familleOnce()
+    void toutesLesFiches()
       .then((x) => {
         if (vivant) f = x;
       })
       .catch(() => {
-        if (vivant) f = null;
+        if (vivant) f = [];
+      })
+      .finally(() => {
+        if (vivant) chargee = true;
       });
     return () => {
       vivant = false;
@@ -73,7 +99,7 @@
 
   $effect(() => {
     let vivant = true;
-    void pairesOnce(FICHIER_PAIRES)
+    void pairesExport()
       .then((x) => {
         if (vivant) paires = lirePaires(x);
       })
@@ -85,16 +111,16 @@
     };
   });
 
-  const pret = $derived(f !== null && v !== null);
+  const pret = $derived(chargee && v !== null);
 
   const corpus = $derived(
-    corpusRevision({ famille: f, voisins: v, cartes: cartesDeLaSeance, paires, trace: p.trace })
+    corpusRevision({ fiches: f, voisins: v, cartes: cartesDeLaSeance, paires, trace: p.trace })
   );
 
   /** Une question par carte de la pile, dans l'ordre. La graine du jour fait le reste. */
   const liste: Question[] = $derived(pret ? questionsRevision(p.revue, corpus, p.day) : []);
   /** L'index de la question en cours ; au-delà de la dernière, c'est le résumé. */
-  const i = $derived(Math.min(p.rev, liste.length));
+  const i = $derived(Math.min(Math.max(p.rev, debut), liste.length));
   const q: Question | null = $derived(liste[i] ?? null);
 
   /** Le résumé lit les cartes : la note et l'échéance sont celles que FSRS a écrites. */
@@ -132,7 +158,7 @@
       cle={i}
       {corpus}
       echeanceDe={(c) => echeance(p, c)}
-      onnote={onrepondu}
+      onnote={(r) => onrepondu(r, i)}
       onsuivant={() => onavancer(i + 1)}
       dernier={i + 1 >= liste.length}
     />

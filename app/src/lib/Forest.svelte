@@ -3,54 +3,123 @@
    * Ma forêt (story 4.1) : le cercle des familles, le zoom et le déplacement au doigt,
    * la semaine des graines, et Tao posée sur la colline — elle est chez elle ici.
    *
-   * Le dessin vient des données (`data/demo/foret.json`) et les caractères des traits
-   * (style 楷), jamais d'une police. Le cinabre ne marque que la famille en cours.
+   * Les familles sont celles de l'export versionné (238 dans `index.json`) et leur
+   * avancement se lit sur les cartes, jamais dans un fichier. Le cercle n'en porte
+   * qu'une partie — les ouvertes et les prochaines, voir `famillesDuCercle` — et les
+   * autres s'atteignent par la recherche, juste en dessous. Les caractères du cercle
+   * sont dessinés depuis les traits (style 楷) ; ceux de la liste, qui n'est qu'un
+   * index, restent en Noto Serif SC tant que leur arbre n'est pas ouvert. Le cinabre
+   * ne marque que la famille du moment.
    */
   import Tao from './Tao.svelte';
-  import { foretOnce, type Foret, type Noeud } from './content';
+  import {
+    contenu,
+    lecon,
+    nomParcours,
+    racineDe,
+    toutesLesFamilles,
+    traitsDeFamilles,
+    type Famille,
+    type Foret,
+    type Index,
+    type Noeud
+  } from './content';
   import { glyph } from './glyph';
   import {
     acquis,
+    construireForet,
     famille,
     graines,
     ligneSemaine,
+    noeudDeFamille,
     placerCercle,
     semaine,
     type Cercle
   } from './foret';
-  import type { Progress } from './session';
-  import { strokesOnce, type StrokeSet } from './strokes';
+  import { jourParcours, type Progress } from './session';
+  import { type StrokeSet } from './strokes';
   import { stade } from './tao';
 
   let {
     p,
     jour,
     onfamille,
-    onjouer
+    onjouer,
+    onrecompenses
   }: {
     p: Progress;
     jour: string;
     onfamille: (fam: Noeud) => void;
     /** Les jeux (épic 4b) : une ligne, le choix se fait sur l'écran hôte. */
     onjouer: () => void;
+    /** Les récompenses vivent dans Ma forêt : c'est d'ici qu'on y entre. */
+    onrecompenses: () => void;
   } = $props();
 
+  let index = $state<Index | null>(null);
+  let familles = $state<Famille[]>([]);
   let foret = $state<Foret | null>(null);
   let traits = $state<StrokeSet>({});
+  /** Le filtre de la liste des 238 familles : un caractère, un pinyin, un sens. */
+  let cherche = $state('');
 
-  void foretOnce().then((f) => (foret = f));
-  void strokesOnce()
-    .then((s) => (traits = s))
-    .catch(() => (traits = {}));
+  $effect(() => {
+    const n = jourParcours(p);
+    const choisi = p.parcours;
+    const cartes = $state.snapshot(p.cartes);
+    let vivant = true;
+    void (async () => {
+      const [i, lues, l] = await Promise.all([contenu(), toutesLesFamilles(), lecon(choisi, n)]);
+      if (!vivant) return;
+      index = i;
+      familles = lues;
+      const nom = nomParcours(i, choisi);
+      /* La famille du moment : celle de la brique que le parcours pose aujourd'hui. */
+      const moment = l.brique === null ? null : await racineDe(l.brique.c, l.pistes);
+      if (!vivant) return;
+      foret = construireForet({ index: i, familles: lues, cartes, nom, jour: n }, moment);
+      /* On ne charge que les tracés des familles posées sur le cercle. */
+      const set = await traitsDeFamilles(foret.familles.map((f) => f.c));
+      if (vivant) traits = set;
+    })().catch(() => undefined);
+    return () => {
+      vivant = false;
+    };
+  });
 
   const cercle: Cercle | null = $derived(foret ? placerCercle(foret) : null);
+  /** Lus : les caractères dont une carte dit qu'ils sont acquis, dans toutes les familles. */
   const lus = $derived(
-    foret ? foret.familles.reduce((n, f) => n + acquis(f) + (f.avancement >= 1 ? 1 : 0), 0) : 0
+    familles.reduce(
+      (n, f) =>
+        n +
+        noeudDeFamille(f, p.cartes).membres.filter((k) => k.avancement >= 1).length +
+        (noeudDeFamille(f, p.cartes).avancement >= 1 ? 1 : 0),
+      0
+    )
   );
-  const ouvertes = $derived(foret ? foret.familles.filter((f) => f.avancement > 0).length : 0);
+  const ouvertes = $derived(
+    familles.filter((f) => {
+      const n = noeudDeFamille(f, p.cartes);
+      return n.avancement > 0 || n.membres.some((k) => k.avancement > 0);
+    }).length
+  );
   const cases = $derived(semaine(p, jour));
   const n = $derived(graines(p, jour));
   const stadeDeTao = $derived(stade(p.tao.croissance));
+
+  /** Les familles de la liste : toutes celles de l'index, filtrées par la recherche. */
+  const listees = $derived(
+    (index?.familles ?? []).filter(
+      (f) => cherche === '' || f.racine.includes(cherche) || String(f.n).startsWith(cherche)
+    )
+  );
+
+  /** Ouvre l'arbre d'une famille de la liste : ses membres viennent de l'export. */
+  function ouvrirListe(racine: string): void {
+    const f = familles.find((x) => x.racine.c === racine);
+    if (f) onfamille(noeudDeFamille(f, p.cartes));
+  }
 
   /**
    * Le caractère d'un nœud, dessiné trait par trait (style 楷), statique : ni pinceau
@@ -300,6 +369,34 @@
   </div>
   <div class="k center">Pince pour zoomer, glisse pour te déplacer, double tape pour recentrer.</div>
 
+  <div class="card famlist">
+    <div class="row">
+      <div class="grow" style="font-weight:600">Toutes les familles</div>
+      <div class="k">{index?.familles.length ?? 0}</div>
+    </div>
+    <div class="k">
+      Le cercle montre les familles ouvertes et les prochaines. Les autres sont ici.
+    </div>
+    <input
+      class="cherche"
+      type="search"
+      placeholder="Cherche une famille"
+      aria-label="Chercher une famille"
+      bind:value={cherche}
+    />
+    <div class="liste">
+      {#each listees as f (f.racine)}
+        <button class="famrow" onclick={() => ouvrirListe(f.racine)}>
+          <span class="hz">{f.racine}</span>
+          <span class="grow k">{f.n} caractère{f.n > 1 ? 's' : ''}</span>
+        </button>
+      {/each}
+      {#if listees.length === 0}
+        <div class="k">Aucune famille ne porte ce caractère.</div>
+      {/if}
+    </div>
+  </div>
+
   <div class="colline">
     <svg class="sol" viewBox="0 0 320 96" preserveAspectRatio="none" aria-hidden="true">
       <path class="hill2" d="M0 96 Q 74 30 168 58 T 320 46 V96 Z" />
@@ -313,7 +410,10 @@
     <div class="card"><div class="k">Familles ouvertes</div><div class="big">{ouvertes}</div></div>
   </div>
 
-  <button class="btn ghost jouer" onclick={onjouer}>Jouer</button>
+  <div class="acts">
+    <button class="btn ghost" onclick={onjouer}>Jouer</button>
+    <button class="btn ghost" onclick={onrecompenses}>Récompenses</button>
+  </div>
 
   <div class="card semaine">
     <div class="row">

@@ -30,6 +30,7 @@ from pathlib import Path
 from typing import Iterable, Iterator, TextIO, cast
 
 from . import cjkdecomp, unihan
+from .outils import ecrire_json
 from .paths import INGEST, LISTES, SOURCES
 
 # Blocs Unicode des sinogrammes (idéogrammes unifiés et compatibilité).
@@ -244,11 +245,6 @@ def charger_listes(dossier: Path | None = None) -> dict[str, list[str]]:
 # --------------------------------------------------------------------------- ingestion
 
 
-def _ecrire(chemin: Path, contenu: object) -> None:
-    chemin.parent.mkdir(parents=True, exist_ok=True)
-    chemin.write_text(json.dumps(contenu, ensure_ascii=False, indent=1), encoding="utf-8")
-
-
 CEDICT = "cedict_1_0_ts_utf-8_mdbg.txt.gz"
 CJKDECOMP = "cjk-decomp.txt"
 # Unihan est servi en archive ; un dossier de fichiers extraits fait aussi l'affaire.
@@ -279,15 +275,15 @@ def ingest(
     sortie.mkdir(parents=True, exist_ok=True)
 
     caracteres = [asdict(c) for c in lire_dictionnaire(sources / "dictionary.txt")]
-    _ecrire(sortie / "caracteres.json", caracteres)
+    ecrire_json(sortie / "caracteres.json", caracteres)
 
     graphies = [asdict(g) for g in lire_graphies(sources / "graphics.txt")]
-    _ecrire(sortie / "graphies.json", graphies)
+    ecrire_json(sortie / "graphies.json", graphies)
 
     fichier_cedict = sources / CEDICT
     if fichier_cedict.exists():
         mots = [asdict(m) for m in lire_cedict(fichier_cedict)]
-        _ecrire(sortie / "mots.json", mots)
+        ecrire_json(sortie / "mots.json", mots)
         nombre_mots: object = len(mots)
     else:
         nombre_mots = f"source absente ({CEDICT})"
@@ -295,11 +291,11 @@ def ingest(
     origine = source_unihan(sources)
     if origine is not None:
         donnees = unihan.collecter(origine)
-        _ecrire(
+        ecrire_json(
             sortie / "unihan.json",
             unihan.document(donnees, url=unihan.URL_OFFICIELLE, licence=unihan.LICENCE),
         )
-        _ecrire(
+        ecrire_json(
             sortie / "unihan-definitions.json",
             unihan.document_definitions(
                 donnees, url=unihan.URL_OFFICIELLE, licence=unihan.LICENCE
@@ -320,13 +316,13 @@ def ingest(
     fichier_cjkdecomp = sources / CJKDECOMP
     if fichier_cjkdecomp.exists():
         ids_secondaires = cjkdecomp.ids_par_caractere(cjkdecomp.charger(fichier_cjkdecomp))
-        _ecrire(sortie / "ids-secondaires.json", cjkdecomp.document(ids_secondaires))
+        ecrire_json(sortie / "ids-secondaires.json", cjkdecomp.document(ids_secondaires))
         resume_ids: object = len(ids_secondaires)
     else:
         resume_ids = f"source absente ({CJKDECOMP})"
 
     niveaux = charger_listes(listes)
-    _ecrire(sortie / "listes.json", niveaux)
+    ecrire_json(sortie / "listes.json", niveaux)
 
     connus = {c["c"] for c in caracteres}
     rapport: dict[str, object] = {
@@ -344,5 +340,5 @@ def ingest(
             for nom, v in niveaux.items()
         },
     }
-    _ecrire(sortie / "rapport.json", rapport)
+    ecrire_json(sortie / "rapport.json", rapport)
     return rapport

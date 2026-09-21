@@ -382,6 +382,15 @@ Format : MP3 mono 24 kHz à 48 kbit/s, soit environ 6 Ko par seconde de parole �
 mais la lecture d'un Ogg Opus par un `HTMLAudioElement` n'est acquise sur iOS que depuis
 Safari 17.5, et c'est l'iPhone qui est visé en premier.
 
+Le fournisseur local rend des échantillons, pas un fichier : c'est `EncodeurFfmpeg` qui
+les met au format ci-dessus (`ffmpeg -f s16le -ar 24000 -ac 1 … -b:a 48k -f mp3`), en
+mémoire, sans fichier intermédiaire. ffmpeg n'est pas une dépendance Python : il est
+utilisé s'il est sur le chemin. Sans lui, le repli documenté est un WAV PCM 16 bits mono
+24 kHz écrit par le module `wave` de la bibliothèque standard — lisible partout, mais
+environ dix fois plus lourd, donc bon pour écouter un lot, pas pour l'embarqué. Le format
+entre dans le nom de fichier et dans le manifeste : repasser une fois ffmpeg installé
+refait les fichiers en MP3 sans écraser les WAV, et la commande prévient du repli.
+
 ### Périmètre
 
 `perimetre()` prend les fiches **relues** du parcours (leur caractère et leurs deux mots)
@@ -391,8 +400,9 @@ liste. Une fiche non relue n'entre pas : son texte peut encore changer.
 
 ### Fichiers et manifeste, hors dépôt
 
-`uv run zilin audio generer [--parcours lire] [--seuil 255] [--voix …]` écrit
-`data/work/audio/<empreinte>.mp3` et le manifeste `data/work/audio/audio.json` :
+`uv run zilin audio generer [--fournisseur local|azure] [--parcours lire] [--seuil 255]
+[--voix …]` écrit `data/work/audio/<empreinte>.mp3` et le manifeste
+`data/work/audio/audio.json` :
 
 ```json
 {
@@ -403,7 +413,7 @@ liste. Une fiche non relue n'entre pas : son texte peut encore changer.
  "entrees": [
   {
    "texte": "住", "genre": "caractere", "fichier": "2f6a1c0b9d4e8a37.mp3",
-   "fournisseur": "azure-speech", "voix": "zh-CN-XiaoxiaoNeural", "format": "mp3",
+   "fournisseur": "kokoro", "voix": "zf_001", "format": "mp3",
    "date": "2026-09-21T10:00:00Z", "empreinte": "sha256:…", "octets": 7412
   }
  ]
@@ -417,13 +427,31 @@ avec le même fournisseur, la même voix et le même format, dont le fichier est
 n'est pas redemandé. `genre` vaut `caractere` ou `mot`.
 
 Le fournisseur est une interface (`audio.Fournisseur` : `synthetiser(texte, voix) -> bytes`,
-plus `nom`, `voix`, `format` et une `Licence`). Deux implémentations : `FournisseurSimule`
-pour les tests (aucun réseau, octets déterministes, jamais accessible depuis la CLI) et
-`FournisseurAzure` (REST, clé dans `AZURE_SPEECH_KEY`, région dans `AZURE_SPEECH_REGION`).
-Sans clé, la commande refuse de partir, sort en code 2 et n'écrit rien. La `Licence` porte
-ce que le fournisseur déclare sur l'usage commercial, la redistribution, l'attribution et
-la redevance par écoute ; elle est aujourd'hui « à vérifier » sur les quatre points, et la
-commande le rappelle à chaque passage (voir `docs/sources-licences.md`).
+plus `nom`, `voix`, `format` et une `Licence`). Trois implémentations, dont deux seulement
+sont accessibles depuis la ligne de commande (`--fournisseur local|azure`) :
+
+| `--fournisseur` | Implémentation | Ce qu'il faut | Licence |
+|---|---|---|---|
+| `local` (défaut) | `FournisseurLocal` — Kokoro, 82 M paramètres, exécuté dans le pipeline | le groupe optionnel `audio` (`uv sync --extra audio`) | Apache 2.0, **vérifiée** le 21 septembre 2026 |
+| `azure` | `FournisseurAzure` — REST, `AZURE_SPEECH_KEY`, `AZURE_SPEECH_REGION` | une clé | **à vérifier**, conditions non lues |
+| — | `FournisseurSimule` — octets déterministes, pour les tests | rien | sans objet |
+
+`FournisseurSimule` n'est pas atteignable depuis la CLI, et ne le sera pas : ce qui sort du
+pipeline est une voix réelle ou rien. Un nom hors de `local`/`azure` sort en code 1.
+
+Le fournisseur local charge paresseusement : `import kokoro` est à l'intérieur de
+`MoteurKokoro.pipeline()`, appelé au premier texte. Le pipeline reste donc utilisable — et
+`zilin check` reste instantané — sans le groupe optionnel installé, qui tire torch et
+transformers. Sans le paquet, `generer` sort en code 2 avec la commande à lancer, et
+n'écrit rien. Le moteur est injectable (`FournisseurLocal(moteur=…)`), ce dont les tests se
+servent : ils contrôlent format, manifeste et licence sans poids ni réseau. La voix par
+défaut est `zf_001` (Kokoro v1.1-zh, `hexgrad/Kokoro-82M-v1.1-zh`), `--voix` la change.
+
+Sans clé, `--fournisseur azure` refuse de partir, sort en code 2 et n'écrit rien. La
+`Licence` porte ce que le fournisseur déclare sur l'usage commercial, la redistribution,
+l'attribution et la redevance par écoute, avec l'URL lue et la date ; `verifie` ne passe à
+vrai que sur lecture d'une source primaire. C'est le cas pour la voix locale et pas pour
+Azure, dont la commande rappelle le doute à chaque passage (voir `docs/sources-licences.md`).
 
 `uv run zilin check` ajoute le contrôle « audio : textes sans audio » : il compte les
 textes du périmètre qui n'ont pas de fichier. Signalé, jamais bloquant — l'audio arrive
@@ -431,24 +459,27 @@ après le texte, et l'app se tait sur ce qui n'a pas de voix.
 
 ### Ce que l'app lira (export)
 
-`uv run zilin audio exporter [--version 0.1.0] [--parcours lire] [--seuil 255]` copie les
-fichiers du périmètre dans `app/public/data/<version>/audio/` et écrit à côté
-`manifeste.json` :
+`uv run zilin audio exporter [--version 0.1.0] [--fournisseur local|azure]
+[--parcours lire] [--seuil 255]` copie les fichiers du périmètre dans
+`app/public/data/<version>/audio/` et écrit à côté `manifeste.json` :
 
 ```json
 {
  "version": "0.1.0",
- "license": "audio synthétisé — droits du fournisseur (Azure AI Speech (Microsoft))",
- "source": "Azure AI Speech (Microsoft), voix zh-CN-XiaoxiaoNeural",
- "source_url": "https://learn.microsoft.com/azure/ai-services/speech-service/text-to-speech",
+ "license": "audio synthétisé — droits du fournisseur (Kokoro (hexgrad), modèle ouvert exécuté dans le pipeline)",
+ "source": "Kokoro (hexgrad), modèle ouvert exécuté dans le pipeline, voix zf_001",
+ "source_url": "https://raw.githubusercontent.com/hexgrad/kokoro/main/LICENSE",
  "modified": "2026-09-21",
- "fournisseur": "Azure AI Speech (Microsoft)",
+ "fournisseur": "Kokoro (hexgrad), modèle ouvert exécuté dans le pipeline",
  "format": "mp3",
  "debit": "mono 24 kHz, 48 kbit/s",
- "licence": {"usage_commercial": "à vérifier", "redistribution": "à vérifier", "…": "…"},
+ "licence": {"usage_commercial": "autorisé sans condition : Apache License 2.0 §2…", "verifie": true, "…": "…"},
  "chemins": {"住": "data/0.1.0/audio/2f6a1c0b9d4e8a37.mp3"}
 }
 ```
+
+`--fournisseur` ne choisit ici que la licence jointe à l'export ; les fichiers copiés sont
+ceux que le manifeste de travail porte.
 
 `chemins` est le contrat : un chemin relatif à `app/public/`, tel quel, que
 `app/src/lib/audio.ts` préfixe de `import.meta.env.BASE_URL` pour jouer le fichier.

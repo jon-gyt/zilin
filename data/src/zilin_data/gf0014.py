@@ -28,6 +28,7 @@ from pathlib import Path
 from typing import Iterable, Iterator, Mapping, Sequence
 
 from .cjkdecomp import SOURCE as SOURCE_SECONDAIRE
+from .outils import ecrire_json
 from .paths import BUILD, GF0014, INGEST
 
 # Opérateurs de description idéographique (Unicode 2FF0..2FFB) et leur arité.
@@ -504,11 +505,6 @@ def rapport_ecarts(
 # --------------------------------------------------------------------------- build
 
 
-def _ecrire(chemin: Path, contenu: object) -> None:
-    chemin.parent.mkdir(parents=True, exist_ok=True)
-    chemin.write_text(json.dumps(contenu, ensure_ascii=False, indent=1), encoding="utf-8")
-
-
 IDS_SECONDAIRES = "ids-secondaires.json"
 
 
@@ -569,7 +565,7 @@ def build(
 
     decompositions = reconcilier(caracteres, table, secondaires)
     sortie.mkdir(parents=True, exist_ok=True)
-    _ecrire(sortie / "decompositions.json", document_decompositions(decompositions, table))
+    ecrire_json(sortie / "decompositions.json", document_decompositions(decompositions, table))
     (sortie / "ecarts.md").write_text(rapport_ecarts(decompositions, table, listes), encoding="utf-8")
 
     ok = sum(1 for d in decompositions if d.reconcilie)
@@ -627,8 +623,10 @@ def controles(sortie: Path | None = None) -> list[Controle]:
             compte[x] = compte.get(x, 0) + 1
     cycles = [c for c in caracteres if c["cycle"]]
     en_ecart = [c for c in caracteres if not c["reconcilie"]]
+    # Même tri que `_frequence_inconnus` : la forme départage les ex æquo, sinon
+    # deux passages sur les mêmes données n'affichent pas la même liste.
     pires = ", ".join(
-        f"{forme} ({n})" for forme, n in sorted(compte.items(), key=lambda kv: -kv[1])[:5]
+        f"{forme} ({n})" for forme, n in sorted(compte.items(), key=lambda kv: (-kv[1], kv[0]))[:5]
     )
     return [
         Controle(

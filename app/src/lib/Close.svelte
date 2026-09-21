@@ -7,8 +7,8 @@
    * ni ombre. Le rendez-vous se donne sans heure tant que le réglage n'existe pas.
    */
   import Tao from './Tao.svelte';
-  import { compose, familleOnce, type Famille } from './content';
-  import { constat, rendezVous, type Progress } from './session';
+  import { caractereDuJour, lecon } from './content';
+  import { constat, jourParcours, rendezVous, type Progress } from './session';
   import { stade } from './tao';
 
   let {
@@ -21,24 +21,26 @@
   const PAS_LECON = 5;
   const RANG = 4;
 
-  let f = $state(null as Famille | null);
+  /** Le caractère du jour : le composé de la session, la brique quand il n'y en a pas. */
+  let caractere = $state('');
 
   $effect(() => {
+    const n = jourParcours(p);
+    const choisi = p.parcours;
     let vivant = true;
-    void familleOnce()
-      .then((x) => {
-        if (vivant) f = x;
+    void lecon(choisi, n)
+      .then((l) => {
+        if (vivant) caractere = caractereDuJour(l);
       })
       .catch(() => {
-        if (vivant) f = null;
+        if (vivant) caractere = '';
       });
     return () => {
       vivant = false;
     };
   });
 
-  /** Le caractère du jour : le composé de la session. */
-  const c = $derived(f ? (compose(f)?.c ?? f.racine.c) : '');
+  const c = $derived(caractere);
   const taoStade = $derived(stade(p.tao.croissance));
 </script>
 

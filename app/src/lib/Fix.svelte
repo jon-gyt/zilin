@@ -12,10 +12,18 @@
   import { untrack } from 'svelte';
   import Ask from './Ask.svelte';
   import Tao from './Tao.svelte';
-  import { familleOnce, pairesOnce, voisinsOnce, type Famille, type Voisins } from './content';
-  import { FICHIER_PAIRES, lirePaires, type Paires, type Question } from './questions';
-  import { corpusFixer, questionsFixer } from './revision';
-  import { echeance, type Progress, type Revision } from './session';
+  import {
+    LIGNE_SANS_FICHE,
+    lecon,
+    pairesExport,
+    toutesLesFiches,
+    voisinsOnce,
+    type FicheLue,
+    type Voisins
+  } from './content';
+  import { lirePaires, type Paires, type Question } from './questions';
+  import { corpusFixer, questionsFixerDuJour } from './revision';
+  import { echeance, jourParcours, repriseFix, type Progress, type Revision } from './session';
   import { humeur, stade } from './tao';
 
   let {
@@ -26,8 +34,8 @@
     onquitter
   }: {
     p: Progress;
-    /** L'événement de révision, dès qu'une question est notée. */
-    onrepondu: (r: Revision) => void;
+    /** L'événement de révision, et le rang de la question notée : elle ne se repose pas. */
+    onrepondu: (r: Revision, i: number) => void;
     onavancer: (i: number) => void;
     onfini: () => void;
     onquitter: () => void;
@@ -40,18 +48,49 @@
   /** Les cartes de l'ouverture du pas : la vérification ne change pas en cours de route. */
   const cartesDuPas = untrack(() => $state.snapshot(p.cartes));
 
-  let f = $state(null as Famille | null);
+  /** La question par laquelle la vérification reprend : les questions notées sont passées. */
+  const debut = untrack(() => repriseFix(p));
+
+  /**
+   * Le corpus vient de l'export versionné, comme au pas Échauffer ; la vérification, elle,
+   * ne porte que sur la brique et le composé que le parcours a posés aujourd'hui.
+   */
+  let f = $state([] as FicheLue[]);
   let v = $state(null as Voisins | null);
   let paires = $state([] as Paires);
+  /** La brique et le composé du jour : les deux seuls caractères vérifiés. */
+  let brique = $state(null as string | null);
+  let compose = $state(null as string | null);
 
   $effect(() => {
     let vivant = true;
-    void familleOnce()
+    void toutesLesFiches()
       .then((x) => {
         if (vivant) f = x;
       })
       .catch(() => {
-        if (vivant) f = null;
+        if (vivant) f = [];
+      });
+    return () => {
+      vivant = false;
+    };
+  });
+
+  $effect(() => {
+    const n = jourParcours(p);
+    const choisi = p.parcours;
+    let vivant = true;
+    void lecon(choisi, n)
+      .then((l) => {
+        if (!vivant) return;
+        brique = l.brique?.c ?? null;
+        compose = l.composes[0]?.c ?? null;
+      })
+      .catch(() => {
+        if (vivant) {
+          brique = null;
+          compose = null;
+        }
       });
     return () => {
       vivant = false;
@@ -74,7 +113,7 @@
 
   $effect(() => {
     let vivant = true;
-    void pairesOnce(FICHIER_PAIRES)
+    void pairesExport()
       .then((x) => {
         if (vivant) paires = lirePaires(x);
       })
@@ -87,12 +126,14 @@
   });
 
   const corpus = $derived(
-    corpusFixer({ famille: f, voisins: v, cartes: cartesDuPas, paires, trace: p.trace })
+    corpusFixer({ fiches: f, voisins: v, cartes: cartesDuPas, paires, trace: p.trace })
   );
 
   /** La graine du jour : la même vérification toute la journée, jamais deux fois la même. */
-  const liste: Question[] = $derived(f && v ? questionsFixer(f, corpus, p.day) : []);
-  const i = $derived(Math.min(p.fix, Math.max(0, liste.length - 1)));
+  /** Le contenu est-il lu ? Tant qu'il ne l'est pas, on ne dit pas que la vérification a échoué. */
+  const pret = $derived(f.length > 0 && v !== null);
+  const liste: Question[] = $derived(pret ? questionsFixerDuJour(brique, compose, corpus, p.day) : []);
+  const i = $derived(Math.min(Math.max(p.fix, debut), liste.length));
   const q: Question | null = $derived(liste[i] ?? null);
 
   const taoHumeur = $derived(humeur(p.tao.activites, p.day));
@@ -125,12 +166,19 @@
       cle={i}
       {corpus}
       echeanceDe={(c) => echeance(p, c)}
-      onnote={onrepondu}
+      onnote={(r) => onrepondu(r, i)}
       onsuivant={suivant}
       dernier={i + 1 >= liste.length}
     />
+  {:else if !pret}
+    <p class="guide">Un instant.</p>
+  {:else if liste.length > 0}
+    <!-- Toutes les questions ont déjà été notées : la vérification est faite. -->
+    <p class="guide">La vérification est faite.</p>
+    <div class="foot"><button class="btn" onclick={onfini}>Retour au chemin</button></div>
   {:else}
-    <p class="guide">La vérification n'a pas pu être préparée.</p>
-    <div class="foot"><button class="btn" onclick={onquitter}>Revenir au chemin</button></div>
+    <!-- Rien de vérifiable : la fiche du jour n'a pas encore de quoi poser une question. -->
+    <p class="guide">Rien à vérifier aujourd'hui. {LIGNE_SANS_FICHE}</p>
+    <div class="foot"><button class="btn" onclick={onfini}>Continuer</button></div>
   {/if}
 </main>

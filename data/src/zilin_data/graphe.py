@@ -46,6 +46,10 @@ ou deux composés qui deviennent lisibles avec elle. Un jour sans brique
 disponible est un jour de consolidation (`brique` nul). Les caractères de la
 liste dont la décomposition n'est pas réconciliée ferment le parcours, marqués
 `non_reconcilie` : ils ne sont jamais oubliés.
+
+Rapport : `gf0014.build` écrit `ecarts.md` (réconciliation, IDS secondaire,
+listes prioritaires) ; ce module y ajoute ensuite la section « Briques muettes »,
+la seule qui demande le graphe.
 """
 from __future__ import annotations
 
@@ -55,6 +59,7 @@ from pathlib import Path
 from typing import Callable, Iterable, Mapping, Sequence
 
 from .gf0014 import Controle
+from .outils import ecrire_json
 from .paths import BUILD, INGEST
 
 BRIQUE = "brique"
@@ -230,7 +235,10 @@ def construire(caracteres: Iterable[Mapping[str, object]]) -> Graphe:
         prerequis = tuple(dict.fromkeys(x for x in composants if x != c))
         noeuds[c] = Noeud(c=c, genre=CARACTERE, prerequis=prerequis, reconcilie=reconcilie)
 
-    for prerequis in {p for n in list(noeuds.values()) for p in n.prerequis}:
+    # Trié : l'itération d'un ensemble de chaînes dépend du grain de hachage, et
+    # les feuilles muettes sortiraient dans un ordre différent à chaque passage —
+    # donc un `graphe.json` différent à contenu égal.
+    for prerequis in sorted({p for n in list(noeuds.values()) for p in n.prerequis}):
         if prerequis not in noeuds:
             noeuds[prerequis] = Noeud(c=prerequis, genre=MUETTE)
     return Graphe(noeuds)
@@ -579,9 +587,55 @@ def document_parcours(p: Parcours) -> dict[str, object]:
     }
 
 
-def _ecrire(chemin: Path, contenu: object) -> None:
+#: Titre de la section que ce module tient dans `ecarts.md`, écrit par `gf0014`.
+SECTION_MUETTES = "## Briques muettes"
+
+
+def rapport_muettes(graphe: Graphe, parcours: Sequence[Parcours]) -> str:
+    """Section « Briques muettes » d'`ecarts.md` : les feuilles sans fiche à poser.
+
+    Une brique muette est acquise d'entrée : le parcours ne peut rien en
+    enseigner. Ce qui compte pour la relecture, c'est quels caractères de liste
+    en dépendent — ce sont eux dont la décomposition est incomplète à l'écran.
+    """
+    lignes = [
+        SECTION_MUETTES,
+        "",
+        "Feuilles sans fiche : composant de la norme sans point de code, ou forme"
+        " absente du dictionnaire. Acquises d'entrée, faute d'avoir quoi que ce soit"
+        " à poser. Voir le docstring de `graphe.py`.",
+        "",
+        f"Le graphe en compte {len(graphe.par_genre(MUETTE))} sur {len(graphe)} nœuds.",
+        "",
+    ]
+    for p in parcours:
+        lignes += [f"### {p.nom} ({p.liste})", ""]
+        if not p.muettes:
+            lignes += ["Aucune : toute brique de ce parcours porte une fiche.", ""]
+            continue
+        lignes += ["| Brique muette | Point de code | Caractères de la liste qui en dépendent |", "|---|---|---|"]
+        cibles = set(p.cible)
+        for muette in p.muettes:
+            point = f"U+{ord(muette):04X}" if len(muette) == 1 else "—"
+            dependants = sorted(
+                c for c in cibles if c in graphe and muette in graphe.prerequis_transitifs(c)
+            )
+            lignes.append(f"| `{muette}` | {point} | {' '.join(dependants) or '—'} |")
+        lignes.append("")
+    return "\n".join(lignes).rstrip() + "\n"
+
+
+def ajouter_muettes_aux_ecarts(chemin: Path, section: str) -> Path:
+    """Pose (ou remplace) la section des briques muettes à la fin d'`ecarts.md`.
+
+    Remplacer plutôt qu'ajouter : deux passages de `zilin build` doivent laisser
+    le même fichier, même si `gf0014.build` n'a pas réécrit le rapport entre-temps.
+    """
+    ancien = chemin.read_text(encoding="utf-8") if chemin.exists() else ""
+    tete = ancien.split(SECTION_MUETTES, 1)[0].rstrip()
     chemin.parent.mkdir(parents=True, exist_ok=True)
-    chemin.write_text(json.dumps(contenu, ensure_ascii=False, indent=1), encoding="utf-8")
+    chemin.write_text((f"{tete}\n\n{section}" if tete else section), encoding="utf-8")
+    return chemin
 
 
 def build(
@@ -595,7 +649,7 @@ def build(
     document = json.loads((sortie / "decompositions.json").read_text(encoding="utf-8"))
     graphe = construire(document["caracteres"])
     boucles = cycles(graphe)
-    _ecrire(sortie / "graphe.json", document_graphe(graphe, boucles))
+    ecrire_json(sortie / "graphe.json", document_graphe(graphe, boucles))
 
     fichier_listes = ingest / "listes.json"
     listes = json.loads(fichier_listes.read_text(encoding="utf-8")) if fichier_listes.exists() else {}
@@ -617,18 +671,21 @@ def build(
         "cycles": len(boucles),
         "frequence": "rang ingéré" if rangs else "nombre de dépendants",
     }
+    ecrits: list[Parcours] = []
     for nom, liste in PARCOURS.items():
         cible = listes.get(liste)
         if not cible:
             rapport[f"parcours_{nom}"] = f"liste {liste} absente : parcours non écrit"
             continue
         p = parcours(graphe, cible, nom=nom, liste=liste, rangs=rangs)
-        _ecrire(sortie / f"parcours-{nom}.json", document_parcours(p))
+        ecrits.append(p)
+        ecrire_json(sortie / f"parcours-{nom}.json", document_parcours(p))
         rapport[f"parcours_{nom}"] = (
             f"{len(p.jours)} jours pour {p.cibles} caractères"
             f" ({len(p.briques)} briques, {len(p.non_reconcilies)} non réconciliés,"
             f" {len(p.muettes)} briques muettes)"
         )
+    ajouter_muettes_aux_ecarts(sortie / "ecarts.md", rapport_muettes(graphe, ecrits))
     return rapport
 
 

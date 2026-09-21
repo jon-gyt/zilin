@@ -59,6 +59,7 @@ from . import fiches as fiches_mod
 from .gf0014 import Controle
 from .graphe import BRIQUE, MUETTE, PARCOURS
 from .models import Brique, Famille, Fiche, Mot
+from .outils import empreinte_fichier
 from .paths import BUILD, DATA, EXPORT, GF0014, INGEST
 
 #: Version par défaut de l'export.
@@ -111,14 +112,6 @@ class FamilleInvalide(ValueError):
 # ------------------------------------------------------------------------ empreinte
 
 
-def _empreinte_fichier(chemin: Path) -> str:
-    h = hashlib.sha256()
-    with chemin.open("rb") as f:
-        for bloc in iter(lambda: f.read(1 << 20), b""):
-            h.update(bloc)
-    return h.hexdigest()
-
-
 def fichiers_sources(
     *,
     build: Path,
@@ -157,7 +150,7 @@ def empreinte_build(fichiers: Sequence[tuple[str, Path]]) -> str:
     Un fichier absent compte pour `—` : son absence fait partie de l'état.
     """
     lignes = [
-        f"{nom} {_empreinte_fichier(chemin) if chemin.exists() else '—'}"
+        f"{nom} {empreinte_fichier(chemin) if chemin.exists() else '—'}"
         for nom, chemin in fichiers
     ]
     return "sha256:" + hashlib.sha256("\n".join(lignes).encode("utf-8")).hexdigest()
@@ -341,11 +334,13 @@ def charger_paires(chemin: Path | None = None) -> list[list[str]]:
 def _jours_par_caractere(parcours: Mapping[str, Mapping[str, object]]) -> dict[str, tuple[str, int, str | None]]:
     """Pour chaque caractère posé : son parcours de référence, son jour, la brique du jour.
 
-    Le parcours de référence est le premier qui pose le caractère, dans l'ordre
-    des noms (`hsk` puis `lire`) ; `lire` l'emporte, puisqu'il passe en dernier.
+    Les parcours sont parcourus dans l'ordre des noms (`hsk` puis `lire`) et la
+    dernière écriture l'emporte : pour un caractère posé par les deux, c'est
+    `lire` qui fait référence — le parcours des seuils français, celui que le
+    reste du pipeline prend par défaut.
     """
     poses: dict[str, tuple[str, int, str | None]] = {}
-    for nom in sorted(parcours, reverse=True):
+    for nom in sorted(parcours):
         document = parcours[nom]
         for jour in document.get("jours") or ():  # type: ignore[union-attr]
             brique = jour.get("brique")
@@ -837,12 +832,27 @@ def _date_precedente(dossier: Path) -> datetime | None:
         return None
 
 
+#: Dossiers d'une version qu'une autre commande remplit : `export` les laisse
+#: intacts. `zilin audio exporter` écrit `audio/`, et le purger à chaque export
+#: effaçait la voix de tous les caractères.
+DOSSIERS_ETRANGERS: tuple[str, ...] = ("audio/",)
+
+
+def _etranger(relatif: str) -> bool:
+    """Vrai si ce chemin appartient à une autre commande que `export`."""
+    return relatif.startswith(DOSSIERS_ETRANGERS)
+
+
 def _identique(dossier: Path, textes: Mapping[str, str]) -> bool:
-    """Vrai si le dossier porte exactement ces fichiers, au même contenu."""
+    """Vrai si le dossier porte exactement ces fichiers, au même contenu.
+
+    Ce qui appartient à une autre commande (`audio/`) ne compte pas : l'export
+    n'en est pas l'auteur et n'a pas à se croire périmé parce qu'il a bougé.
+    """
     presents = {
         str(f.relative_to(dossier)).replace("\\", "/")
         for f in dossier.rglob("*")
-        if f.is_file()
+        if f.is_file() and not _etranger(str(f.relative_to(dossier)).replace("\\", "/"))
     }
     if presents != set(textes):
         return False
@@ -953,7 +963,11 @@ def export(
     licences: Path | None = None,
     moment: datetime | None = None,
 ) -> Rapport:
-    """Écrit `app/public/data/<version>/`. Idempotent : deux passes, mêmes octets."""
+    """Écrit `app/public/data/<version>/`. Idempotent : deux passes, mêmes octets.
+
+    Tout ce que l'export n'écrit pas est effacé du dossier de version — sauf les
+    dossiers d'une autre commande (`DOSSIERS_ETRANGERS`).
+    """
     textes, per, relues = assembler(
         version,
         build=build,
@@ -974,7 +988,7 @@ def export(
     for fichier in sorted(dossier.rglob("*")):
         if fichier.is_file():
             relatif = str(fichier.relative_to(dossier)).replace("\\", "/")
-            if relatif not in finaux:
+            if relatif not in finaux and not _etranger(relatif):
                 fichier.unlink()
                 supprimes.append(relatif)
     for relatif, texte in sorted(finaux.items()):
@@ -1008,6 +1022,17 @@ def export(
 
 #: En-tête exigé de chaque JSON exporté (`docs/sources-licences.md` §8).
 ENTETE_LICENCE: tuple[str, ...] = ("license", "source", "source_url", "modified")
+
+#: Textes que chaque version exportée doit porter, en plus des JSON : l'APL §1
+#: veut sa licence inaltérée à côté des tracés, l'APL §2 a) la note de
+#: modification, et le pinyin d'Unihan sa notice de permission.
+TEXTES_DE_LICENCE: tuple[str, ...] = (
+    ARPHIC,
+    UNICODE_NOTICE,
+    "LICENCES.md",
+    f"traits/{ARPHIC}",
+    "traits/MODIFICATIONS.md",
+)
 
 
 def fautes_de_licence(relatif: str, document: object) -> list[str]:
@@ -1061,7 +1086,9 @@ def controles(
     signalé. « séparation des licences » vérifie l'en-tête de chaque fichier et
     qu'aucun ne mêle deux régimes (`docs/sources-licences.md` §8) — bloquant.
     « familles sans fiche relue » compte ce qui reste à relire avant que l'app
-    puisse enseigner ces familles : signalé, jamais bloquant.
+    puisse enseigner ces familles : signalé, jamais bloquant. « textes de licence »
+    vérifie que les fichiers que l'APL et la notice Unicode exigent à côté des
+    données sont bien là : leur absence est une faute de licence, donc bloquante.
     """
     dossiers = versions_exportees(destination)
     if not dossiers:
@@ -1077,9 +1104,15 @@ def controles(
     perimes: list[str] = []
     sans_fiche: list[str] = []
     melanges: list[str] = []
+    absents: list[str] = []
     total_familles = 0
     total_fichiers = 0
     for dossier in dossiers:
+        absents += [
+            f"{dossier.name}/{relatif}"
+            for relatif in TEXTES_DE_LICENCE
+            if not (dossier / relatif).exists()
+        ]
         index = json.loads((dossier / "index.json").read_text(encoding="utf-8"))
         if str(index.get("empreinte")) != attendue:
             perimes.append(dossier.name)
@@ -1089,6 +1122,8 @@ def controles(
             f"{dossier.name}:{f['racine']}" for f in familles if not f.get("avancement_possible")
         ]
         for chemin in sorted(dossier.rglob("*.json")):
+            if _etranger(str(chemin.relative_to(dossier)).replace("\\", "/")):
+                continue  # `audio/manifeste.json` a son propre régime, voir audio.py
             total_fichiers += 1
             melanges += [
                 f"{dossier.name}/{chemin.relative_to(dossier)} : {faute}"
@@ -1113,6 +1148,14 @@ def controles(
             f"{total_fichiers} fichiers : en-tête de licence présent, aucun mélange de régimes"
             if not melanges
             else f"{len(melanges)} écarts — " + " ; ".join(melanges[:5]),
+            bloquant=True,
+        ),
+        Controle(
+            "export : textes de licence",
+            not absents,
+            f"les {len(TEXTES_DE_LICENCE)} textes de licence sont à côté des données"
+            if not absents
+            else f"{len(absents)} absents : {', '.join(absents)}",
             bloquant=True,
         ),
         Controle(

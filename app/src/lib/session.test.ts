@@ -1,5 +1,7 @@
 import { describe, it, expect } from 'vitest';
 import {
+  CARTES_PAR_BLOC,
+  ajouterCartes,
   STEP_ORDER,
   SEUIL_ABSENCE,
   PILE_REDESCENDUE,
@@ -9,6 +11,16 @@ import {
   carte,
   cartesDues,
   echeance,
+  faitPasCourant,
+  finApprendre,
+  finEchauffer,
+  finFixer,
+  finUtiliser,
+  nombreDues,
+  repriseFix,
+  repriseRev,
+  setFixNotee,
+  setRevNotee,
   planifierCarte,
   setRev,
   setRevue,
@@ -18,6 +30,7 @@ import {
   dayLabel,
   emptyProgress,
   fromJSON,
+  jourParcours,
   guide,
   learnNext,
   markDone,
@@ -33,6 +46,7 @@ import {
   traceProposee,
   traceVue,
   title,
+  setJourParcours,
   toJSON,
   useNext,
   bilan,
@@ -153,6 +167,89 @@ describe('blocs de rattrapage', () => {
       '14 cartes',
       '13 cartes'
     ]);
+  });
+});
+
+describe('la pile due vient des cartes', () => {
+  const T0 = new Date('2026-03-06T08:00:00Z');
+  /** `n` cartes neuves, toutes dues depuis un moment. */
+  const pile = (n: number): Progress => ({
+    ...neuf(),
+    cartes: Array.from({ length: n }, (_, k) =>
+      newCard(`c${k}`, new Date(T0.getTime() - (n - k) * 60_000))
+    )
+  });
+
+  it('compte toutes les cartes dues, sans le plafond de la séance', () => {
+    const p = pile(41);
+    expect(cartesDues(p, T0)).toHaveLength(CARTES_PAR_SEANCE);
+    expect(nombreDues(p, T0)).toBe(41);
+    expect(nombreDues(neuf(), T0)).toBe(0);
+  });
+
+  it('ouvre le rattrapage sur la pile réelle après une absence, et pas avant', () => {
+    const retour = '2026-03-06';
+    let p: Progress = { ...pile(41), lastWorked: '2026-03-02' };
+    p = openDay(p, retour);
+    /* Sans recompte, la progression relue croit la pile vide : aucun rattrapage. */
+    expect(p.catchup).toBe(false);
+    p = setDue(p, nombreDues(p, T0), retour);
+    expect(p.due).toBe(41);
+    expect(p.catchup).toBe(true);
+    expect(currentStep(p)?.id).toBe('reviser');
+  });
+
+  it('sort du rattrapage dès que la pile est redescendue', () => {
+    const retour = '2026-03-06';
+    let p = setDue(openDay({ ...pile(41), lastWorked: '2026-03-02' }, retour), 41, retour);
+    expect(p.catchup).toBe(true);
+    p = markDone(p, 0, retour);
+    /* Le bloc fait : les cartes révisées ne sont plus dues, la pile redescend. */
+    for (const c of p.cartes.slice(0, 30).map((x) => x.id)) {
+      p = planifierCarte(p, c, { correct: true, tries: 0, seconds: 2 }, T0);
+    }
+    expect(nombreDues(p, T0)).toBe(11);
+    p = setDue(p, nombreDues(p, T0), retour);
+    expect(p.catchup).toBe(false);
+    expect(p.done).toEqual([]);
+    expect(steps(p).map((s) => s.id)).toEqual([...STEP_ORDER]);
+  });
+
+  it("n'annonce jamais plus de cartes que la séance n'en absorbe", () => {
+    const echauffer = (due: number) => steps({ ...neuf(), due })[1].d;
+    expect(echauffer(0)).toBe('Les révisions dues');
+    expect(echauffer(5)).toBe('5 cartes en questions');
+    expect(echauffer(41)).toBe(`${CARTES_PAR_SEANCE} cartes en questions`);
+  });
+
+  it("ne promet jamais plus d'un bloc de cinq minutes par bloc", () => {
+    const blocs = catchupSteps(90).filter((s) => s.go);
+    expect(blocs).toHaveLength(3);
+    expect(blocs.map((s) => s.d)).toEqual([
+      `${CARTES_PAR_BLOC} cartes, les plus urgentes`,
+      `${CARTES_PAR_BLOC} cartes`,
+      `${CARTES_PAR_BLOC} cartes`
+    ]);
+  });
+
+  it('la séance finie, la pile se vide : le bloc suivant tire des cartes fraîches', () => {
+    let p = setRev(setRevue(markDone(neuf(), 0, '2026-03-06'), ['c0', 'c1']), 1);
+    p = finEchauffer(p, '2026-03-06');
+    expect(p.revue).toEqual([]);
+    expect(p.rev).toBe(0);
+    expect(p.done[1]).toBe(true);
+  });
+
+  it('la vérification finie repart à zéro, et rien ne bouge la journée finie', () => {
+    let p = neuf();
+    [0, 1, 2, 3].forEach((i) => {
+      p = markDone(p, i, JOUR);
+    });
+    p = finFixer(setFix(p, 2), JOUR);
+    expect(p.fix).toBe(0);
+    expect(currentStep(p)?.id).toBe('clore');
+    p = markDone(p, 5, JOUR);
+    expect(faitPasCourant(p, JOUR)).toBe(p);
   });
 });
 
@@ -339,6 +436,33 @@ describe('pas 3, Apprendre', () => {
   });
 });
 
+describe('la leçon du jour entre dans le journal de Tao', () => {
+  const T0 = new Date('2026-03-02T08:00:00Z');
+
+  it('le pas Apprendre note la brique apprise, et le constat du soir la dit', () => {
+    let p = markDone(markDone(neuf(), 0, JOUR), 1, JOUR);
+    expect(currentStep(p)?.id).toBe('apprendre');
+    p = finApprendre(p, JOUR, T0, ['主', '住']);
+    expect(currentStep(p)?.id).toBe('utiliser');
+    /* Ce qui vient d'être appris entre en révision : une carte neuve par caractère. */
+    expect(p.cartes.map((c) => c.id)).toEqual(['主', '住']);
+    expect(p.learn).toBe('brique');
+    expect(p.tao.activites).toEqual([{ jour: JOUR, type: 'lecon' }]);
+    expect(constat(p, JOUR)).toBe("Aujourd'hui, une brique apprise.");
+  });
+
+  it('le pas Utiliser note la lecture, comme avant', () => {
+    let p = neuf();
+    [0, 1, 2].forEach((i) => {
+      p = markDone(p, i, JOUR);
+    });
+    p = finUtiliser(setUseView(p, 'texte'), JOUR);
+    expect(currentStep(p)?.id).toBe('fixer');
+    expect(p.use).toBe('mots');
+    expect(p.tao.activites).toEqual([{ jour: JOUR, type: 'lecture' }]);
+  });
+});
+
 describe('pas 4, Utiliser', () => {
   it("s'ouvre sur les mots et la phrase, puis sur les trois lignes à lire", () => {
     let p = neuf();
@@ -472,7 +596,51 @@ describe('Utiliser, Fixer, Clore, puis la journée finie', () => {
   });
 });
 
+describe('une question notée ne se repose pas', () => {
+  it('la reprise saute la question déjà répondue, à Échauffer comme à Fixer', () => {
+    let p = setRevue(neuf(), ['c0', 'c1', 'c2']);
+    expect(repriseRev(p)).toBe(0);
+    /* Répondu à la question 0, puis quitté avant l'avance automatique : `rev` vaut encore 0. */
+    p = setRevNotee(p, 0);
+    expect(p.rev).toBe(0);
+    expect(repriseRev(p)).toBe(1);
+    /* Le repère ne recule jamais : une question notée reste notée. */
+    p = setRev(p, 1);
+    expect(repriseRev(p)).toBe(1);
+    expect(setRevNotee(p, 0).revNotee).toBe(0);
+
+    let q = setFixNotee(neuf(), 1);
+    expect(repriseFix(q)).toBe(2);
+    q = openDay(q, '2026-03-03');
+    expect(q.fixNotee).toBe(-1);
+    expect(repriseFix(q)).toBe(0);
+    expect(repriseRev(resetDay(setRevNotee(neuf(), 2)))).toBe(0);
+  });
+
+  it('la séance et la vérification finies remettent le repère à zéro', () => {
+    let p = markDone(neuf(), 0, JOUR);
+    p = finEchauffer(setRevNotee(setRevue(p, ['c0']), 0), JOUR);
+    expect(p.revNotee).toBe(-1);
+    let q = neuf();
+    [0, 1, 2, 3].forEach((i) => {
+      q = markDone(q, i, JOUR);
+    });
+    q = finFixer(setFixNotee(q, 2), JOUR);
+    expect(q.fixNotee).toBe(-1);
+  });
+
+  it("garde le repère à l'aller-retour, et le relit d'un export plus ancien", () => {
+    const p = setFixNotee(setRevNotee(neuf(), 1), 0);
+    expect(fromJSON(toJSON(p), JOUR)).toEqual(p);
+    const ancien = JSON.stringify({ version: 1, day: JOUR, done: [true], budget: 10 });
+    expect(fromJSON(ancien, JOUR).revNotee).toBe(-1);
+    expect(fromJSON(ancien, JOUR).fixNotee).toBe(-1);
+    expect(fromJSON(JSON.stringify({ ...neuf(), revNotee: 'oui' }), JOUR).revNotee).toBe(-1);
+  });
+});
+
 describe('export et import', () => {
+
   it("rend le même état à l'aller-retour", () => {
     let p: Progress = { ...neuf(), due: 22, days: 11, budget: 20 };
     p = markDone(p, 0, JOUR);
@@ -555,5 +723,43 @@ describe('export et import', () => {
     const p = noterActivite(neuf(), JOUR, 'anecdote');
     expect(p.tao.activites).toEqual([{ jour: JOUR, type: 'anecdote' }]);
     expect(fromJSON(toJSON(p), JOUR)).toEqual(p);
+  });
+});
+
+describe('le jour du parcours', () => {
+  it("suit les journées travaillées tant que rien n'est rangé", () => {
+    const p = neuf();
+    expect(jourParcours(p)).toBe(1);
+    expect(jourParcours({ ...p, days: 7 })).toBe(7);
+  });
+
+  it("prend l'index rangé dans la progression quand il y est", () => {
+    const p = setJourParcours({ ...neuf(), days: 7 }, 12);
+    expect(p.jourParcours).toBe(12);
+    expect(jourParcours(p)).toBe(12);
+  });
+
+  it('ne descend jamais sous le premier jour', () => {
+    expect(jourParcours(setJourParcours(neuf(), 0))).toBe(1);
+    expect(jourParcours({ ...neuf(), days: 0 })).toBe(1);
+  });
+
+  it('se relit à l’aller-retour, et se passe d’un export plus ancien', () => {
+    const p = setJourParcours({ ...neuf(), days: 3 }, 9);
+    expect(fromJSON(toJSON(p), JOUR).jourParcours).toBe(9);
+    const avant = JSON.stringify({ version: 1, day: JOUR, days: 5, lastWorked: JOUR });
+    const relu = fromJSON(avant, JOUR);
+    expect(relu.jourParcours).toBeUndefined();
+    expect(jourParcours(relu)).toBe(5);
+  });
+});
+
+describe('une seule aide pour donner une carte neuve', () => {
+  it('`ajouterCartes` et `assurerCartes` sont la même fonction', () => {
+    const T0 = new Date('2026-03-02T08:00:00Z');
+    expect(ajouterCartes).toBe(assurerCartes);
+    const p = ajouterCartes(neuf(), ['人', '', '人'], T0);
+    expect(p.cartes.map((c) => c.id)).toEqual(['人']);
+    expect(ajouterCartes(p, ['人'], T0)).toBe(p);
   });
 });

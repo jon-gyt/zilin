@@ -3,14 +3,22 @@
    * L'arbre d'une famille (story 4.2) : la racine et ses générations, la fiche courte
    * au tap, et la prochaine leçon qui ramène à Aujourd'hui.
    *
-   * La fiche courte vient de la famille de démonstration quand elle la porte — elle
-   * seule donne l'origine et son étiquette. Sinon, le cercle donne le pinyin et le
-   * sens, et l'écran dit que l'origine reste à venir : jamais une origine sans étiquette.
+   * La famille et ses tracés viennent de l'export versionné : un fichier de fiches et un
+   * fichier de traits, ceux de cette famille et d'elle seule. La fiche courte affiche
+   * l'origine et son étiquette quand une fiche relue (ou la surcouche de démonstration)
+   * en porte une ; sinon elle le dit, et n'étiquette rien.
    */
-  import { ETIQUETTES, familleOnce, fiche, type Famille, type Noeud } from './content';
+  import {
+    ETIQUETTES,
+    LIGNE_SANS_FICHE,
+    fiche,
+    traits as traitsDeFamille,
+    type FicheLue,
+    type Noeud
+  } from './content';
   import { acquis, etat, noeud, placerArbre } from './foret';
   import { glyph } from './glyph';
-  import { strokesOnce, type StrokeSet } from './strokes';
+  import { type StrokeSet } from './strokes';
 
   let {
     fam,
@@ -19,22 +27,47 @@
   }: { fam: Noeud; onretour: () => void; onlecon: () => void } = $props();
 
   let traits = $state<StrokeSet>({});
-  let demo = $state<Famille | null>(null);
+  let lue = $state<FicheLue | null>(null);
   /** Le caractère dont la fiche est ouverte ; vide, c'est la racine de la famille. */
   let selection = $state('');
 
-  void strokesOnce()
-    .then((s) => (traits = s))
-    .catch(() => (traits = {}));
-  void familleOnce()
-    .then((f) => (demo = f))
-    .catch(() => (demo = null));
+  $effect(() => {
+    const racine = fam.c;
+    let vivant = true;
+    void traitsDeFamille(racine)
+      .then((t) => {
+        if (vivant) traits = t;
+      })
+      .catch(() => {
+        if (vivant) traits = {};
+      });
+    return () => {
+      vivant = false;
+    };
+  });
 
   const arbre = $derived(placerArbre(fam));
   const choisi = $derived(selection === '' ? fam.c : selection);
   const courant = $derived(noeud(fam, choisi) ?? fam);
-  /** La fiche complète, quand une famille de `data/` porte ce caractère. */
-  const pleine = $derived(demo ? fiche(demo, choisi) : null);
+
+  $effect(() => {
+    const c = choisi;
+    const racine = fam.c;
+    let vivant = true;
+    void fiche(c, [racine])
+      .then((f) => {
+        if (vivant) lue = f;
+      })
+      .catch(() => {
+        if (vivant) lue = null;
+      });
+    return () => {
+      vivant = false;
+    };
+  });
+
+  /** La fiche du caractère choisi, telle que `content` la sert. */
+  const pleine: FicheLue | null = $derived(lue !== null && lue.c === choisi ? lue : null);
 
   function dessin(c: string, r: number): string {
     const d = traits[c];
@@ -103,8 +136,8 @@
       </div>
       <div class="grow">
         <div class="sens">
-          {pleine ? pleine.fr : courant.fr}
-          <span class="py">{pleine ? pleine.pinyin : courant.pinyin}</span>
+          {pleine && pleine.fr !== '' ? pleine.fr : courant.fr}
+          <span class="py">{pleine && pleine.pinyin !== '' ? pleine.pinyin : courant.pinyin}</span>
         </div>
         <div class="k">
           {etat(courant.avancement) === 'acquis'
@@ -115,11 +148,14 @@
         </div>
       </div>
     </div>
-    {#if pleine}
+    {#if pleine && pleine.origine_fr !== ''}
       <p class="origine">{pleine.origine_fr}</p>
-      <span class="tag">{ETIQUETTES[pleine.etiquette]}</span>
+      {#if pleine.etiquette}<span class="tag">{ETIQUETTES[pleine.etiquette]}</span>{/if}
     {:else}
-      <p class="origine k">L'origine et son étiquette viennent avec la fiche complète.</p>
+      <p class="origine k">{LIGNE_SANS_FICHE}</p>
+    {/if}
+    {#if pleine && pleine.parts.length > 0}
+      <div class="k">{pleine.parts.join(' + ')} = {pleine.c}</div>
     {/if}
   </div>
 

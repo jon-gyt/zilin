@@ -295,3 +295,39 @@ def test_controles_passent_sur_un_graphe_sain(tmp_path: Path) -> None:
     build_dir, ingest_dir = _preparer(tmp_path, CARACTERES, ["林", "古"])
     build(sortie=build_dir, ingest=ingest_dir)
     assert all(c.ok for c in controles(sortie=build_dir))
+
+
+def test_build_ecrit_les_briques_muettes_dans_ecarts(tmp_path: Path) -> None:
+    """`ecarts.md` dit quelles feuilles sont muettes et qui en dépend."""
+    build_dir, ingest_dir = _preparer(tmp_path, CARACTERES, ["卡"])
+    (build_dir / "ecarts.md").write_text("# Écarts\n\ntête\n", encoding="utf-8")
+    build(sortie=build_dir, ingest=ingest_dir)
+
+    ecarts = (build_dir / "ecarts.md").read_text(encoding="utf-8")
+    assert "tête" in ecarts, "la section s'ajoute au rapport de gf0014, elle ne le remplace pas"
+    assert "## Briques muettes" in ecarts
+    assert "| `⺊` | U+2E8A | 卡 |" in ecarts
+
+    build(sortie=build_dir, ingest=ingest_dir)
+    assert (build_dir / "ecarts.md").read_text(encoding="utf-8").count("## Briques muettes") == 1
+
+
+def test_les_feuilles_muettes_sortent_triees(tmp_path: Path) -> None:
+    """`graphe.json` doit être le même à contenu égal, quel que soit le grain de hachage.
+
+    Les feuilles muettes sont ajoutées après coup à partir d'un ensemble : sans
+    tri, leur ordre suit le hachage du processus et le fichier bouge sans raison.
+    """
+    caracteres = [entree("卡", "⺊", "卜"), entree("旦", "日", "⺀"), entree("卜"), entree("日")]
+    document = document_graphe(construire(caracteres), [])
+    ordre = [n["c"] for n in document["noeuds"]]  # type: ignore[index, union-attr]
+    muettes = ordre[-2:]
+    assert set(muettes) == {"⺀", "⺊"}
+    assert muettes == sorted(muettes), "les muettes ferment la liste, dans l'ordre des formes"
+
+    # Et le fichier écrit ne bouge pas d'un passage à l'autre.
+    build_dir, ingest_dir = _preparer(tmp_path, caracteres, ["卡"])
+    build(sortie=build_dir, ingest=ingest_dir)
+    premier = (build_dir / "graphe.json").read_text(encoding="utf-8")
+    build(sortie=build_dir, ingest=ingest_dir)
+    assert (build_dir / "graphe.json").read_text(encoding="utf-8") == premier

@@ -1,6 +1,31 @@
-"""zilin fetch | fonts | ingest | build | audio | check | export
+"""Ligne de commande du pipeline de contenu Zilin.
 
-Chaque commande est idempotente et écrit dans data/work/. L'export final va dans app/public/data/.
+Ordre et dépendances — chaque étape lit ce que la précédente a écrit :
+
+    fetch  →  ingest  →  build  →  export  →  check
+                                    ↘  fonts
+
+- `fetch` : télécharge les sources dans `data/work/sources/`. Ne dépend de rien.
+- `ingest` : normalise ces sources et les listes de niveaux dans `data/work/ingest/`.
+  Exige `fetch`.
+- `build` : réconcilie les décompositions avec GF 0014-2009, construit le graphe et
+  les parcours dans `data/work/build/`. Exige `ingest`.
+- `export` : assemble `app/public/data/<version>/`, les seuls fichiers que l'app lira.
+  Exige `build`.
+- `fonts` : produit les woff2 de `app/public/fonts/`. À lancer après `export`, qui
+  seul dit quels caractères l'app écrit ; il lit aussi les listes versionnées et
+  `app/public/strokes-demo.json`.
+- `check` : contrôles qualité sur tout ce qui précède. Ne réécrit rien.
+- `tout` : enchaîne fetch, ingest, build, export, check et s'arrête à la première erreur.
+
+`audio`, `contes` et `fiches` sont des familles de commandes à part : elles demandent
+une clé d'API et se lancent à la main, jamais dans `tout`.
+
+Toutes les commandes sont idempotentes : deux passages écrivent les mêmes octets.
+Seul `data/work/sources/PROVENANCE.md` s'allonge, d'un bloc daté par passage.
+
+Codes de sortie, les mêmes partout : 0 tout va bien, 1 erreur de données (source
+absente, contrôle bloquant en échec, caractère hors parcours), 2 clé d'API absente.
 """
 from __future__ import annotations
 
@@ -14,10 +39,6 @@ from .fonts import commande as _fonts
 from .paths import BUILD, INGEST, SOURCES
 
 app = typer.Typer(help="Pipeline de contenu Zilin")
-app.command(name="fonts")(_fonts)
-app.add_typer(_audio, name="audio")
-app.add_typer(_contes, name="contes")
-app.add_typer(_fiches, name="fiches")
 
 
 @app.command()
@@ -37,10 +58,14 @@ def fetch(force: bool = typer.Option(False, help="Retélécharger même si le fi
 
 @app.command()
 def ingest() -> None:
-    """Normalise les sources et les listes de niveaux dans data/work/ingest/."""
+    """Normalise les sources et les listes de niveaux dans data/work/ingest/. Exige `fetch`."""
     from .ingest import ingest as _ingest
 
-    rapport = _ingest()
+    try:
+        rapport = _ingest()
+    except OSError as erreur:
+        typer.echo(f"{erreur} — lancer `zilin fetch` d'abord.", err=True)
+        raise typer.Exit(code=1) from erreur
     for cle, valeur in rapport.items():
         typer.echo(f"{cle} : {valeur}")
     typer.echo(f"JSON normalisé dans {INGEST}.")
@@ -48,16 +73,45 @@ def ingest() -> None:
 
 @app.command()
 def build() -> None:
-    """Réconcilie les décompositions, construit le graphe et les parcours dans data/work/build/."""
+    """Réconcilie les décompositions, construit le graphe et les parcours dans data/work/build/. Exige `ingest`."""
     from .gf0014 import build as _build
     from .graphe import build as _graphe
 
-    rapport = _build()
+    try:
+        rapport = _build()
+        suite = _graphe()
+    except OSError as erreur:
+        typer.echo(f"{erreur} — lancer `zilin ingest` d'abord.", err=True)
+        raise typer.Exit(code=1) from erreur
+    # Deux rapports, deux boucles : `cycles` figure dans les deux et une fusion
+    # en perdrait un.
     for cle, valeur in rapport.items():
         typer.echo(f"{cle} : {valeur}")
-    for cle, valeur in _graphe().items():
+    for cle, valeur in suite.items():
         typer.echo(f"{cle} : {valeur}")
     typer.echo(f"Décompositions, écarts, graphe et parcours dans {BUILD}.")
+
+
+
+@app.command()
+def export(version: str = typer.Option(VERSION, help="Version exportée, en dossier.")) -> None:
+    """Exporte l'index, les familles, les traits, les contes et les licences dans app/public/data/<version>/. Exige `build`."""
+    from .export import ExportImpossible, export as _export
+
+    try:
+        rapport = _export(version)
+    except ExportImpossible as erreur:
+        typer.echo(str(erreur), err=True)
+        raise typer.Exit(code=1) from erreur
+    for cle, valeur in rapport.en_lignes().items():
+        typer.echo(f"{cle} : {valeur}")
+    if rapport.fiches_relues == 0:
+        typer.echo("Aucune fiche relue : les fiches exportées sont vides (statut sans_fiche).")
+    typer.echo(f"Export écrit dans {rapport.dossier}.")
+
+
+# Après `export` : c'est lui qui dit quels caractères l'app écrit.
+app.command(name="fonts")(_fonts)
 
 
 @app.command()
@@ -88,21 +142,38 @@ def check() -> None:
         raise typer.Exit(code=1)
 
 
-@app.command()
-def export(version: str = typer.Option(VERSION, help="Version exportée, en dossier.")) -> None:
-    """Exporte l'index, les familles, les traits, les contes et les licences dans app/public/data/<version>/."""
-    from .export import ExportImpossible, export as _export
+#: Les étapes de `zilin tout`, dans l'ordre de leurs dépendances. `fonts` n'en est
+#: pas : il télécharge trois familles de polices et pèse une minute de calcul, pour
+#: un résultat qui ne bouge que si le périmètre exporté change.
+ETAPES = ("fetch", "ingest", "build", "export", "check")
 
-    try:
-        rapport = _export(version)
-    except ExportImpossible as erreur:
-        typer.echo(str(erreur), err=True)
-        raise typer.Exit(code=1) from erreur
-    for cle, valeur in rapport.en_lignes().items():
-        typer.echo(f"{cle} : {valeur}")
-    if rapport.fiches_relues == 0:
-        typer.echo("Aucune fiche relue : les fiches exportées sont vides (statut sans_fiche).")
-    typer.echo(f"Export écrit dans {rapport.dossier}.")
+
+@app.command()
+def tout(
+    version: str = typer.Option(VERSION, help="Version exportée, en dossier."),
+    force: bool = typer.Option(False, help="Retélécharger les sources déjà présentes."),
+) -> None:
+    """Enchaîne fetch, ingest, build, export et check. S'arrête à la première erreur.
+
+    Idempotent, comme chacune des étapes : un second passage ne retélécharge rien
+    et réécrit les mêmes octets. `fonts` n'en fait pas partie.
+    """
+    etapes = {
+        "fetch": lambda: fetch(force=force),
+        "ingest": ingest,
+        "build": build,
+        "export": lambda: export(version),
+        "check": check,
+    }
+    for nom in ETAPES:
+        typer.echo(f"── zilin {nom}")
+        etapes[nom]()
+    typer.echo(f"── {len(ETAPES)} étapes menées à bien.")
+
+
+app.add_typer(_audio, name="audio")
+app.add_typer(_contes, name="contes")
+app.add_typer(_fiches, name="fiches")
 
 
 if __name__ == "__main__":

@@ -1183,10 +1183,20 @@ def controles(
     elif non_revalidees:
         detail += f" ; {non_revalidees} hors parcours ou sans corpus, non revalidées"
 
+    # Sans la liste du seuil, il n'y a rien à comparer : le dire, plutôt que de
+    # rendre un contrôle vert sur un ensemble vide.
+    chemin_seuil = (listes or LISTES) / f"seuil-{SEUIL_RELECTURE}.txt"
     try:
-        seuil = set(charger_liste((listes or LISTES) / f"seuil-{SEUIL_RELECTURE}.txt"))
-    except OSError:
-        seuil = set()
+        seuil = set(charger_liste(chemin_seuil))
+    except (OSError, ValueError) as erreur:  # absente, ou `ListeInvalide`
+        return [
+            Controle("fiches : validation", not fautifs, detail, bloquant=True),
+            Controle(
+                f"fiches : relecture du seuil {SEUIL_RELECTURE}",
+                False,
+                f"liste du seuil illisible ({chemin_seuil}) : relecture non contrôlée — {erreur}",
+            ),
+        ]
     du_seuil = [f for f in fiches if f.c in seuil]
     a_relire = [f.c for f in du_seuil if f.statut != RELU]
     sans_fiche = len(seuil) - len(du_seuil)

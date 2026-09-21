@@ -130,6 +130,12 @@ export type Progress = {
   /** Question en cours du pas Fixer : la reprise reprend la vérification où elle en est. */
   fix: number;
   /**
+   * Rang de la dernière question déjà notée au pas Fixer, `-1` tant qu'aucune ne l'est.
+   * Une question notée ne se repose jamais : sans ce repère, quitter entre la réponse et
+   * l'avance automatique la reposerait, et la réponse serait comptée deux fois.
+   */
+  fixNotee: number;
+  /**
    * Les cartes FSRS, une par caractère ou brique appris. Sérialisées par `srs.ts` :
    * une progression plus ancienne, sans ce champ, se relit avec aucune carte.
    */
@@ -142,6 +148,8 @@ export type Progress = {
   revue: string[];
   /** Question en cours du pas Échauffer : la reprise reprend la séance où elle en est. */
   rev: number;
+  /** Rang de la dernière question déjà notée au pas Échauffer, `-1` tant qu'aucune ne l'est. */
+  revNotee: number;
   /** Les réponses notées de la journée. Repart à zéro à chaque journée. */
   revisions: Revision[];
   /** L'état de Tao. Ajouté après coup : une progression sans ce champ se relit vide. */
@@ -152,7 +160,26 @@ export type Progress = {
   premiereVue: EtapeDepart;
   /** Le parcours choisi à la première session. `null` tant que la question n'est pas posée. */
   parcours: Parcours | null;
+  /**
+   * Le jour du parcours de l'index à poser à la prochaine session. Absent d'une
+   * progression plus ancienne : on retombe alors sur le nombre de journées travaillées
+   * (`jourParcours`). C'est le seul lien entre la progression et `data/`.
+   */
+  jourParcours?: number;
 };
+
+/**
+ * Le jour du parcours que la session pose : l'index rangé dans la progression s'il y
+ * est, sinon le nombre de journées travaillées. Le premier jour vaut 1.
+ */
+export function jourParcours(p: Progress): number {
+  return Math.max(1, Math.floor(p.jourParcours ?? p.days));
+}
+
+/** Range le jour du parcours atteint. Le parcours n'avance jamais tout seul. */
+export function setJourParcours(p: Progress, jour: number): Progress {
+  return { ...p, jourParcours: Math.max(1, Math.floor(jour)) };
+}
 
 export function emptyProgress(aujourdhui: string): Progress {
   return {
@@ -170,9 +197,11 @@ export function emptyProgress(aujourdhui: string): Progress {
     tracees: [],
     use: 'mots',
     fix: 0,
+    fixNotee: -1,
     cartes: [],
     revue: [],
     rev: 0,
+    revNotee: -1,
     revisions: [],
     tao: taoVide(),
     premiere: true,
@@ -214,8 +243,10 @@ export function openDay(p: Progress, aujourdhui: string): Progress {
     learn: 'brique',
     use: 'mots',
     fix: 0,
+    fixNotee: -1,
     revue: [],
     rev: 0,
+    revNotee: -1,
     revisions: [],
     catchup: rattrapage(p, aujourdhui)
   };
@@ -242,6 +273,12 @@ export function markDone(p: Progress, i: number, aujourdhui: string): Progress {
   return { ...p, done, days: premier ? p.days + 1 : p.days, lastWorked: aujourdhui };
 }
 
+/** Marque fait le pas courant, s'il en reste un. L'aiguillage n'a rien à décider. */
+export function faitPasCourant(p: Progress, aujourdhui: string): Progress {
+  const i = nextIndex(p);
+  return i < 0 ? p : markDone(p, i, aujourdhui);
+}
+
 /**
  * Plante la graine du jour : la journée entre dans les journées travaillées. Appelé à la
  * clôture, une seule fois par journée. Une graine plantée ne se retire jamais.
@@ -258,7 +295,18 @@ export function noterActivite(p: Progress, jour: string, type: TypeActivite): Pr
 
 /** Recommence la journée : les pas repartent de zéro, le compteur de jour ne bouge pas. */
 export function resetDay(p: Progress): Progress {
-  return { ...p, done: [], learn: 'brique', use: 'mots', fix: 0, revue: [], rev: 0, revisions: [] };
+  return {
+    ...p,
+    done: [],
+    learn: 'brique',
+    use: 'mots',
+    fix: 0,
+    fixNotee: -1,
+    revue: [],
+    rev: 0,
+    revNotee: -1,
+    revisions: []
+  };
 }
 
 /* ---------- les cartes de révision ---------- */
@@ -318,6 +366,14 @@ export function cartesDues(
   return due(p.cartes, maintenant).slice(0, Math.max(0, max));
 }
 
+/**
+ * Le nombre réel de cartes dues, sans plafond : c'est lui, et non ce qu'une séance
+ * absorbe, qui dit si la pile a débordé et si le rattrapage tient (`setDue`).
+ */
+export function nombreDues(p: Progress, maintenant: Date): number {
+  return due(p.cartes, maintenant).length;
+}
+
 /** Fige la pile de la séance : elle ne bouge plus de la journée. */
 export function setRevue(p: Progress, ids: readonly string[]): Progress {
   return { ...p, revue: [...ids] };
@@ -326,6 +382,26 @@ export function setRevue(p: Progress, ids: readonly string[]): Progress {
 /** Ouvre une question du pas Échauffer : la reprise reprend la séance où elle en est. */
 export function setRev(p: Progress, i: number): Progress {
   return { ...p, rev: Math.max(0, Math.floor(i)) };
+}
+
+/** Note que la question `i` du pas Échauffer a été répondue : elle ne se repose plus. */
+export function setRevNotee(p: Progress, i: number): Progress {
+  const n = Math.floor(i);
+  return n <= p.revNotee ? p : { ...p, revNotee: Math.max(-1, n) };
+}
+
+/**
+ * La question à poser en entrant (ou en revenant) dans le pas Échauffer : celle où la
+ * séance en est, jamais une question déjà notée. Se lit une fois, à l'ouverture de
+ * l'écran : une réponse ne doit pas chasser sa propre correction.
+ */
+export function repriseRev(p: Progress): number {
+  return Math.max(p.rev, p.revNotee + 1);
+}
+
+/** Fin de la séance d'Échauffer : le pas est fait, et la pile se vide pour le bloc suivant. */
+export function finEchauffer(p: Progress, aujourdhui: string): Progress {
+  return { ...faitPasCourant(p, aujourdhui), revue: [], rev: 0, revNotee: -1 };
 }
 
 /* ---------- la première session ---------- */
@@ -346,12 +422,11 @@ export function setParcours(p: Progress, parcours: Parcours): Progress {
   return { ...p, parcours };
 }
 
-/** Ajoute une carte neuve par caractère encore inconnu. Une carte par caractère, jamais deux. */
-export function ajouterCartes(p: Progress, ids: readonly string[], maintenant: Date): Progress {
-  const connues = new Set(p.cartes.map((c) => c.id));
-  const neuves = ids.filter((id) => !connues.has(id)).map((id) => newCard(id, maintenant));
-  return neuves.length === 0 ? p : { ...p, cartes: [...p.cartes, ...neuves] };
-}
+/**
+ * Ajoute une carte neuve par caractère encore inconnu : c'est `assurerCartes`, sous le
+ * nom que la première session lui donne. Une carte par caractère, jamais deux.
+ */
+export const ajouterCartes = assurerCartes;
 
 /**
  * La première session est finie : une carte par brique vue, les activités notées pour
@@ -405,6 +480,23 @@ export function learnNext(p: Progress, brique: string): LearnView | null {
   return p.learn === 'trace' ? 'compose' : null;
 }
 
+/**
+ * Fin du pas Apprendre : le pas est fait, la brique et le composé entrent en révision
+ * avec une carte neuve, et la leçon est notée pour Tao — c'est l'acte de la journée, et
+ * le constat du soir le dit.
+ */
+export function finApprendre(
+  p: Progress,
+  aujourdhui: string,
+  maintenant: Date,
+  appris: readonly string[]
+): Progress {
+  let n = faitPasCourant(p, aujourdhui);
+  n = assurerCartes(n, appris, maintenant);
+  n = noterActivite(n, aujourdhui, 'lecon');
+  return setLearnView(n, 'brique');
+}
+
 /* ---------- pas 4, Utiliser ---------- */
 
 /** Ouvre une vue du pas Utiliser. La progression est sauvegardée à chaque tap. */
@@ -420,11 +512,33 @@ export function useNext(p: Progress): UseView | null {
   return p.use === 'mots' ? 'texte' : null;
 }
 
+/** Fin du pas Utiliser : le pas est fait et le texte compte comme une lecture pour Tao. */
+export function finUtiliser(p: Progress, aujourdhui: string): Progress {
+  const n = noterActivite(faitPasCourant(p, aujourdhui), aujourdhui, 'lecture');
+  return setUseView(n, 'mots');
+}
+
 /* ---------- pas 5, Fixer ---------- */
 
 /** Ouvre une question du pas Fixer : la reprise reprend la vérification où elle en est. */
 export function setFix(p: Progress, i: number): Progress {
   return { ...p, fix: Math.max(0, Math.floor(i)) };
+}
+
+/** Note que la question `i` du pas Fixer a été répondue : elle ne se repose plus. */
+export function setFixNotee(p: Progress, i: number): Progress {
+  const n = Math.floor(i);
+  return n <= p.fixNotee ? p : { ...p, fixNotee: Math.max(-1, n) };
+}
+
+/** La question à poser en entrant dans le pas Fixer, les questions notées passées. */
+export function repriseFix(p: Progress): number {
+  return Math.max(p.fix, p.fixNotee + 1);
+}
+
+/** Fin de la vérification : le pas est fait, la vérification repart à zéro. */
+export function finFixer(p: Progress, aujourdhui: string): Progress {
+  return { ...faitPasCourant(p, aujourdhui), fix: 0, fixNotee: -1 };
 }
 
 /**
@@ -477,7 +591,8 @@ export function sessionSteps(p: Progress): Step[] {
     {
       id: 'echauffer',
       t: 'Échauffer',
-      d: p.due > 0 ? `${p.due} cartes en questions` : 'Les révisions dues',
+      /* Ce que la séance absorbe vraiment : le reste de la pile attend le lendemain. */
+      d: p.due > 0 ? `${Math.min(p.due, CARTES_PAR_SEANCE)} cartes en questions` : 'Les révisions dues',
       m: m[1],
       go: 'rev'
     },
@@ -495,7 +610,8 @@ export function catchupSteps(due: number): Step[] {
   const reste = due % n;
   const blocs: Step[] = [];
   for (let i = 0; i < n; i++) {
-    const cartes = base + (i < reste ? 1 : 0);
+    /* Un bloc, cinq minutes : ce qu'il ne prend pas attend le bloc ou la journée d'après. */
+    const cartes = Math.min(CARTES_PAR_BLOC, base + (i < reste ? 1 : 0));
     blocs.push({
       id: 'reviser',
       t: 'Réviser',
@@ -634,6 +750,11 @@ function lireRevisions(brut: unknown): Revision[] {
   });
 }
 
+/** Relit un rang de question déjà notée. Absent ou aberrant : aucune question notée. */
+function lireNotee(v: unknown): number {
+  return typeof v === 'number' && v >= 0 ? Math.floor(v) : -1;
+}
+
 const FORMAT_JOUR = /^\d{4}-\d{2}-\d{2}$/;
 
 /**
@@ -696,15 +817,22 @@ export function fromJSON(texte: string, aujourdhui: string): Progress {
     /* Champs des pas Utiliser et Fixer : absents d'un export plus ancien, ils reprennent leur défaut. */
     use: isUseView(o.use) ? o.use : vide.use,
     fix: typeof o.fix === 'number' && o.fix >= 0 ? Math.floor(o.fix) : 0,
+    fixNotee: lireNotee(o.fixNotee),
     /* Cartes et pile d'échauffement : absentes d'un export plus ancien, elles se relisent vides. */
     cartes: lireCartesJSON(o.cartes),
     revue: Array.isArray(o.revue) ? o.revue.filter((c): c is string => typeof c === 'string') : [],
     rev: typeof o.rev === 'number' && o.rev >= 0 ? Math.floor(o.rev) : 0,
+    revNotee: lireNotee(o.revNotee),
     revisions: lireRevisions(o.revisions),
     tao,
     /* Champs de la première session et des cartes : absents d'un export plus ancien. */
     premiere: lirePremiere(o),
     premiereVue: isEtapeDepart(o.premiereVue) ? o.premiereVue : vide.premiereVue,
-    parcours: isParcours(o.parcours) ? o.parcours : null
+    parcours: isParcours(o.parcours) ? o.parcours : null,
+    /* Le jour du parcours : absent d'un export plus ancien, il se déduit des journées. */
+    jourParcours:
+      typeof o.jourParcours === 'number' && o.jourParcours >= 1
+        ? Math.floor(o.jourParcours)
+        : undefined
   };
 }

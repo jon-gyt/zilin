@@ -17,17 +17,22 @@
   import Use from './lib/Use.svelte';
   import { apresSplash, briques, familleDepart } from './lib/premiere';
   import { planifier, type JeuId } from './lib/jeux';
-  import type { Noeud } from './lib/content';
+  import { toutesLesFamilles, type Noeud } from './lib/content';
   import Warm from './lib/Warm.svelte';
   import {
+    CARTES_PAR_BLOC,
+    CARTES_PAR_SEANCE,
     allDone,
-    assurerCartes,
     cartesDues,
     currentStep,
     emptyProgress,
+    faitPasCourant,
+    finApprendre,
+    finEchauffer,
+    finFixer,
+    finUtiliser,
     learnNext,
-    markDone,
-    nextIndex,
+    nombreDues,
     noterActivite,
     noterJourTravaille,
     noterRevision,
@@ -38,10 +43,13 @@
     departNext,
     finDepart,
     setBudget,
-    setParcours,
+    setDue,
     setFix,
+    setFixNotee,
     setLearnView,
+    setParcours,
     setRev,
+    setRevNotee,
     setRevue,
     setTrace,
     setUseView,
@@ -88,12 +96,23 @@
   /** Réglages : le budget, le tracé, une progression importée. */
   function remplacer(nouvelle: Progress): void {
     p = nouvelle;
+    majDue();
     enregistrer();
   }
 
+  /*
+   * Contenu (export versionné) : l'appartenance des 485 caractères à leurs 238 familles
+   * se réchauffe dès l'ouverture. `index.json` ne porte pas les membres des familles ;
+   * sans ce réchauffage, le premier écran qui cherche la famille d'un composé la
+   * reconstruirait au moment où il en a besoin. Les fichiers sont précachés (509 entrées).
+   */
+  void toutesLesFamilles().catch(() => undefined);
+
   /** Au démarrage : on relit la progression et on ouvre la journée. */
   void loadProgress().then((stored) => {
-    const ouvert = openDay(stored, today());
+    const jour = today();
+    /* La pile due est recomptée sur les cartes : c'est elle qui ouvre et ferme le rattrapage. */
+    const ouvert = setDue(openDay(stored, jour), nombreDues(stored, new Date()), jour);
     p = ouvert;
     if (ouvert !== stored) void saveProgress(ouvert);
     chargee = true;
@@ -120,8 +139,17 @@
 
   /** Marque le pas courant fait, s'il en reste un. */
   function fairePasCourant(): void {
-    const n = nextIndex(p);
-    if (n >= 0) p = markDone(p, n, today());
+    p = faitPasCourant(p, today());
+  }
+
+  /**
+   * Recompte la pile due sur les cartes. C'est la seule entrée du rattrapage : il
+   * s'ouvre quand la pile a débordé après une absence, et se referme dès qu'elle est
+   * redescendue. Appelé aux moments où les cartes changent, jamais au milieu d'une
+   * question : la liste des pas ne doit pas bouger sous les doigts.
+   */
+  function majDue(): void {
+    p = setDue(p, nombreDues(p, new Date()), today());
   }
 
   /**
@@ -131,9 +159,11 @@
    */
   function ouvrirRevision(): void {
     if (p.revue.length === 0) {
+      /* Un bloc de rattrapage prend cinq minutes de cartes, une séance en prend quatorze. */
+      const max = p.catchup ? CARTES_PAR_BLOC : CARTES_PAR_SEANCE;
       p = setRevue(
         p,
-        cartesDues(p, new Date()).map((c) => c.id)
+        cartesDues(p, new Date(), max).map((c) => c.id)
       );
       if (p.revue.length === 0) fairePasCourant();
     }
@@ -196,6 +226,7 @@
       .catch(() => [])
       .then((cs) => {
         p = finDepart(p, today(), new Date(), cs);
+        majDue();
         ecran = 'home';
         enregistrer();
       });
@@ -205,9 +236,11 @@
    * Pas 2, Échauffer : chaque réponse replanifie la carte avec FSRS et alimente Tao.
    * La notation vient de l'écran, qui la tient de `questions.ts` et de `grade`.
    */
-  function echaufferRepondu(r: Revision): void {
+  function echaufferRepondu(r: Revision, i: number): void {
     p = planifierCarte(p, r.c, r, new Date());
     p = noterRevision(p, today(), r);
+    /* La question est notée : quitter avant l'avance automatique ne la reposera pas. */
+    p = setRevNotee(p, i);
     enregistrer();
   }
 
@@ -217,9 +250,11 @@
     enregistrer();
   }
 
-  /** La séance finie : le pas est fait, retour au chemin. */
+  /** La séance finie : le pas est fait, la pile se vide, retour au chemin. */
   function echaufferFini(): void {
-    fairePasCourant();
+    p = finEchauffer(p, today());
+    /* La pile a baissé : le rattrapage se referme quand elle est redescendue. */
+    majDue();
     ecran = 'home';
     enregistrer();
   }
@@ -239,15 +274,16 @@
    * principal enchaîne les vues ; après la dernière, le pas est fait et on revient au chemin.
    */
   function apprendreSuivant(brique: string, compose: string | null): void {
-    const vue = learnNext(p, brique);
+    let vue = learnNext(p, brique);
+    /* Un jour du parcours sans composé s'arrête après la brique : pas de vue « composé ». */
+    if (vue === 'compose' && compose === null) vue = null;
     if (p.learn === 'trace') p = traceVue(p, brique);
     if (vue) {
       p = setLearnView(p, vue);
     } else {
-      fairePasCourant();
-      /* Ce qui vient d'être appris entre en révision : une carte neuve par caractère. */
-      p = assurerCartes(p, [brique, ...(compose === null ? [] : [compose])], new Date());
-      p = setLearnView(p, 'brique');
+      /* Le pas fait, la brique apprise entre en révision et dans le journal de Tao. */
+      p = finApprendre(p, today(), new Date(), [brique, ...(compose === null ? [] : [compose])]);
+      majDue();
       ecran = 'home';
     }
     enregistrer();
@@ -274,18 +310,18 @@
     if (vue) {
       p = setUseView(p, vue);
     } else {
-      fairePasCourant();
-      p = noterActivite(p, today(), 'lecture');
-      p = setUseView(p, 'mots');
+      p = finUtiliser(p, today());
       ecran = 'home';
     }
     enregistrer();
   }
 
   /** Pas 5, Fixer : chaque réponse replanifie la carte, comme au pas Échauffer. */
-  function fixerRepondu(r: Revision): void {
+  function fixerRepondu(r: Revision, i: number): void {
     p = planifierCarte(p, r.c, r, new Date());
     p = noterRevision(p, today(), r);
+    /* Comme au pas Échauffer : une question notée ne se repose pas. */
+    p = setFixNotee(p, i);
     enregistrer();
   }
 
@@ -297,8 +333,8 @@
 
   /** La vérification finie : le pas est fait, retour au chemin. */
   function fixerFini(): void {
-    fairePasCourant();
-    p = setFix(p, 0);
+    p = finFixer(p, today());
+    majDue();
     ecran = 'home';
     enregistrer();
   }
@@ -336,6 +372,7 @@
   /** La manche finie : une activité « jeu » pour Tao, une seule par manche. */
   function jeuFini(): void {
     p = noterActivite(p, today(), 'jeu');
+    majDue();
     enregistrer();
   }
 
@@ -384,7 +421,7 @@
     onquitter={quitter}
   />
 {:else if ecran === 'use'}
-  <Use vue={p.use} onsuivant={utiliserSuivant} onquitter={quitter} />
+  <Use {p} vue={p.use} onsuivant={utiliserSuivant} onquitter={quitter} />
 {:else if ecran === 'check'}
   <Fix
     {p}
@@ -408,7 +445,7 @@
     onretour={quitterJeu}
   />
 {:else if ecran === 'rewards'}
-  <!-- Récompenses : Ma forêt y mènera (épic 4). L'aiguillage est prêt. -->
+  <!-- Récompenses : on y entre depuis Ma forêt, et le retour y ramène. -->
   <Rewards {p} onretour={quitter} />
 {:else}
   <div class="onglets">
@@ -428,6 +465,7 @@
           jour={today()}
           onfamille={(f) => (famille = f)}
           onjouer={() => ouvrirJeux('foret')}
+          onrecompenses={() => (ecran = 'rewards')}
         />
       {/if}
     {:else if onglet === 'reglages'}

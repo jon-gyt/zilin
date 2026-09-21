@@ -31,7 +31,7 @@ import { lirePaires } from './questions';
 import { emptyProgress, noterActivite, noterRevision, type Progress } from './session';
 import { grade, newCard, RETOUR_MINUTES, SEUIL_DEBLOCAGE, type Outcome } from './srs';
 import { POIDS, journal } from './tao';
-import type { Famille, Fiche, Foret, Voisins } from './content';
+import { VERSION_DONNEES, type Famille, type Fiche, type Foret, type Index, type Voisins } from './content';
 
 /* ---------- corpus de test, en dur : aucun réseau, aucun fichier de contenu ---------- */
 
@@ -506,5 +506,75 @@ describe('le corpus des données de démonstration', () => {
         voisins.voisins.find((x) => x.c === t.c)?.parts;
       expect(t.reponse).toEqual(source);
     }
+  });
+});
+
+/* ---------- les paires de l'export, jouables dès que les tracés sont là ---------- */
+
+describe("les paires à ne pas confondre de l'export", () => {
+  const dossier = `../../public/data/${VERSION_DONNEES}`;
+  const indexExport = JSON.parse(
+    readFileSync(new URL(`${dossier}/index.json`, import.meta.url), 'utf8')
+  ) as Index;
+  const pairesExport = lirePaires(
+    JSON.parse(readFileSync(new URL(`${dossier}/paires.json`, import.meta.url), 'utf8'))
+  );
+  /** Les fiches et les tracés des familles qui portent les caractères des paires. */
+  const caracteresDesPaires = [...new Set(pairesExport.flat())];
+  const famillesLues = indexExport.familles.flatMap((f) => {
+    const fam = JSON.parse(
+      readFileSync(new URL(`${dossier}/${f.fichier}`, import.meta.url), 'utf8')
+    ) as Famille;
+    return fam.fiches.some((x) => caracteresDesPaires.includes(x.c)) ? [{ f, fam }] : [];
+  });
+  const fichesLues = famillesLues.flatMap(({ fam }) => fam.fiches);
+  const traitsLus = famillesLues.flatMap(({ f }) =>
+    Object.keys(
+      (
+        JSON.parse(readFileSync(new URL(`${dossier}/${f.traits}`, import.meta.url), 'utf8')) as {
+          traits: Record<string, unknown>;
+        }
+      ).traits
+    )
+  );
+
+  it('porte des groupes, tous dessinables depuis les tracés de leur famille', () => {
+    expect(pairesExport.length).toBeGreaterThan(0);
+    for (const groupe of pairesExport) {
+      expect(groupe.length).toBeGreaterThanOrEqual(2);
+      for (const c of groupe) expect(traitsLus).toContain(c);
+    }
+  });
+
+  it('devient jouable aux jumeaux dès que les caractères ont leurs traits', () => {
+    const corpusExport = corpusDeJeu({
+      fiches: fichesLues,
+      paires: pairesExport,
+      traits: traitsLus,
+      /* L'acquis : les caractères des paires, déjà stables. */
+      cartes: caracteresDesPaires.map((c) => ({ c, stabilite: SEUIL_DEBLOCAGE + 1 }))
+    });
+    const manche = JEUX.jumeaux.preparer(corpusExport, '2026-03-02');
+    expect(manche).not.toBeNull();
+    const opposees = (manche as Manche).tours.filter((t) => t.paire);
+    expect(opposees.length).toBeGreaterThan(0);
+    /* Une paire opposée ne tire que dans son groupe : jamais deux inconnus. */
+    for (const t of opposees) {
+      const groupe = pairesExport.find((g) => g.includes(t.c));
+      expect(groupe).toBeDefined();
+      for (const choix of t.choix) expect(groupe).toContain(choix);
+    }
+    /* Les paires passent devant : elles ouvrent la manche. */
+    expect((manche as Manche).tours[0].paire).toBe(true);
+  });
+
+  it('ne montre jamais un caractère dont on n’a pas les traits', () => {
+    const sansTraits = corpusDeJeu({
+      fiches: fichesLues,
+      paires: pairesExport,
+      traits: [],
+      cartes: caracteresDesPaires.map((c) => ({ c, stabilite: SEUIL_DEBLOCAGE + 1 }))
+    });
+    expect(JEUX.jumeaux.preparer(sansTraits, '2026-03-02')).toBeNull();
   });
 });

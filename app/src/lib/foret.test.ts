@@ -2,22 +2,36 @@ import { describe, it, expect } from 'vitest';
 import { readFileSync } from 'node:fs';
 import {
   FICHIER_FORET_DEMO,
+  VERSION_DONNEES,
   caracteres,
   loadForet,
+  type Famille,
   type Foret,
+  type Index,
   type Noeud
 } from './content';
 import {
   ANNEAUX,
+  ARBRE_H,
+  ARBRE_PAR_RANG,
+  ARBRE_Y1,
+  AVANCEMENT_ENCOURS,
+  CENTRE,
   CX,
   CY,
   LETTRES,
   R_RACINE_MAX,
   R_RACINE_MIN,
+  FAMILLES_CERCLE,
+  FENETRE_JOURS,
   acquis,
+  avancement,
+  construireForet,
   decale,
   etat,
   famille,
+  famillesDuCercle,
+  noeudDeFamille,
   graines,
   joursTravailles,
   jourSemaine,
@@ -29,6 +43,7 @@ import {
   semaine
 } from './foret';
 import { emptyProgress, fromJSON, toJSON, markDone, type Progress } from './session';
+import { newCard, schedule, type ReviewCard } from './srs';
 import { ajouter } from './tao';
 
 const fichier = JSON.parse(
@@ -266,6 +281,14 @@ describe('la semaine des graines', () => {
     expect(graines(p, lundi1)).toBe(1);
   });
 
+  it('plante les mêmes graines que la série : celles de la clôture', () => {
+    /* La journée en cours, pas encore close, n'a pas de graine : l'écran de série non plus. */
+    let p = progressionAvecJours([lundi1, '2026-03-03']);
+    p = { ...p, joursTravailles: [lundi1], tao: ajouter(p.tao, '2026-03-04', 'lecon') };
+    expect(joursTravailles(p)).toEqual([lundi1]);
+    expect(graines(p, '2026-03-04')).toBe(1);
+  });
+
   it('compte une journée commencée sans activité notée', () => {
     const p = markDone(emptyProgress(lundi1), 0, lundi1);
     expect(graines(p, lundi1)).toBe(1);
@@ -297,5 +320,175 @@ describe('la progression exportée', () => {
 
   it('refuse un fichier qui n\'est pas une progression', () => {
     expect(() => fromJSON('pas du json', lundi1)).toThrow(/illisible/);
+  });
+});
+
+/* ---------- le cercle construit depuis l'index et les cartes ---------- */
+
+const indexExport = JSON.parse(
+  readFileSync(
+    new URL(`../../public/data/${VERSION_DONNEES}/index.json`, import.meta.url),
+    'utf8'
+  )
+) as Index;
+
+/** Les familles de l'export, lues sur disque : aucune requête dans un test. */
+function familleExport(racine: string): Famille {
+  return JSON.parse(
+    readFileSync(
+      new URL(`../../public/data/${VERSION_DONNEES}/familles/${racine}.json`, import.meta.url),
+      'utf8'
+    )
+  ) as Famille;
+}
+
+const TJ = new Date('2026-03-02T08:00:00Z');
+const JUSTE = { correct: true, tries: 0, seconds: 2 };
+
+/** Une carte neuve : elle existe, donc la famille est ouverte, mais rien n'est acquis. */
+const neuve = (c: string): ReviewCard => newCard(c, TJ);
+/** Une carte sue : la stabilité passe le seuil de déblocage de `srs.ts`. */
+const sue = (c: string): ReviewCard => schedule(newCard(c, TJ), JUSTE, TJ).card;
+
+describe("l'avancement d'une famille, lu sur les cartes", () => {
+  it('a trois états, et trois seulement', () => {
+    const cartes = [sue('月'), neuve('朋')];
+    expect(avancement('月', cartes)).toBe(1);
+    expect(avancement('朋', cartes)).toBe(AVANCEMENT_ENCOURS);
+    expect(avancement('有', cartes)).toBe(0);
+    expect(etat(avancement('月', cartes))).toBe('acquis');
+    expect(etat(avancement('朋', cartes))).toBe('encours');
+    expect(etat(avancement('有', cartes))).toBe('avenir');
+  });
+
+  it("ne lit l'avancement nulle part ailleurs que dans les cartes", () => {
+    const f = familleExport('月');
+    /* L'index annonce ce que le pipeline permet d'enseigner, pas ce qui est acquis. */
+    expect(indexExport.familles.find((x) => x.racine === '月')?.avancement_possible).toBe(0);
+    const n = noeudDeFamille(f, [sue('月'), neuve('朋')]);
+    expect(n.c).toBe('月');
+    expect(n.avancement).toBe(1);
+    expect(n.membres.map((m) => m.c)).toEqual(f.fiches.filter((x) => x.c !== '月').map((x) => x.c));
+    expect(n.membres.find((m) => m.c === '朋')?.avancement).toBe(AVANCEMENT_ENCOURS);
+    expect(n.membres.find((m) => m.c === '有')?.avancement).toBe(0);
+    expect(acquis(n)).toBe(0);
+  });
+});
+
+describe('les familles posées sur le cercle', () => {
+  const nom = 'lire';
+  const premiers = indexExport.parcours[nom].jours.slice(0, 40);
+  const racines = premiers
+    .map((j) => j.brique)
+    .filter((b): b is string => b !== null)
+    .slice(0, 12);
+  const familles = racines.map(familleExport);
+
+  it('prend les prochaines familles du parcours, dans son ordre', () => {
+    const posees = famillesDuCercle({
+      index: indexExport,
+      familles,
+      cartes: [],
+      nom,
+      jour: 1,
+      fenetre: 5
+    });
+    expect(posees.length).toBeGreaterThan(0);
+    /* Les cinq premiers jours : la famille de la brique de chaque jour, dans l'ordre. */
+    expect(posees.slice(0, 5)).toEqual(racines.slice(0, 5));
+  });
+
+  it('garde les familles ouvertes, même loin derrière dans le parcours', () => {
+    const tardive = familles[10];
+    const posees = famillesDuCercle({
+      index: indexExport,
+      familles,
+      cartes: [sue(tardive.racine.c)],
+      nom,
+      jour: 1,
+      fenetre: 2
+    });
+    expect(posees).toContain(tardive.racine.c);
+  });
+
+  it("borne le cercle pour qu'il reste lisible, et laisse le reste à la recherche", () => {
+    const posees = famillesDuCercle({
+      index: indexExport,
+      familles,
+      cartes: [],
+      nom,
+      jour: 1,
+      fenetre: FENETRE_JOURS,
+      max: 4
+    });
+    expect(posees).toHaveLength(4);
+    expect(FAMILLES_CERCLE).toBeLessThan(indexExport.familles.length);
+  });
+
+  it('met le cinabre sur la famille du moment, et sur elle seule', () => {
+    const moment = racines[2];
+    const foret = construireForet(
+      { index: indexExport, familles, cartes: [neuve(racines[0])], nom, jour: 1, fenetre: 5 },
+      moment
+    );
+    expect(foret.centre).toBe(CENTRE);
+    expect(foret.moment).toBe(moment);
+    const cercle = placerCercle(foret);
+    const marques = cercle.noeuds.filter((n) => n.cinabre);
+    expect(marques).toHaveLength(1);
+    expect(marques[0].c).toBe(moment);
+    expect(marques[0].generation).toBe(0);
+  });
+});
+
+describe("l'arbre d'une grande famille", () => {
+  /** La famille 口 de l'export : dix-sept caractères, plus que ne tient un rang. */
+  const grande: Noeud = {
+    c: '口',
+    pinyin: 'kǒu',
+    fr: '',
+    avancement: 0,
+    membres: [...'别只叫右号吃吗吧听呢哪唱跑路加否'].map((c) => ({
+      c,
+      pinyin: '',
+      fr: '',
+      avancement: 0,
+      membres: []
+    }))
+  };
+
+  it('passe à la ligne plutôt que de faire se chevaucher les caractères', () => {
+    const arbre = placerArbre(grande);
+    const membres = arbre.noeuds.filter((n) => n.generation === 1);
+    expect(membres).toHaveLength(grande.membres.length);
+    const rangs = [...new Set(membres.map((n) => n.y))];
+    expect(rangs.length).toBeGreaterThan(1);
+    for (const y of rangs) {
+      const rang = membres.filter((n) => n.y === y).sort((a, b) => a.x - b.x);
+      expect(rang.length).toBeLessThanOrEqual(ARBRE_PAR_RANG);
+      /* Deux voisins d'un même rang ne se recouvrent jamais. */
+      for (let i = 1; i < rang.length; i++) {
+        expect(rang[i].x - rang[i - 1].x).toBeGreaterThanOrEqual(2 * rang[i].r);
+      }
+    }
+    /* Le dessin s'agrandit d'autant : aucun nœud ne sort de la boîte. */
+    for (const n of arbre.noeuds) expect(n.y + n.r).toBeLessThanOrEqual(arbre.hauteur);
+  });
+
+  it("garde le dessin d'une petite famille tel quel", () => {
+    const petite: Noeud = { ...grande, membres: grande.membres.slice(0, 4) };
+    const arbre = placerArbre(petite);
+    const membres = arbre.noeuds.filter((n) => n.generation === 1);
+    expect(new Set(membres.map((n) => n.y))).toEqual(new Set([ARBRE_Y1]));
+    expect(arbre.hauteur).toBe(ARBRE_H);
+  });
+});
+
+describe('les écrans de Ma forêt', () => {
+  it("mène aux récompenses : l'écran existait sans porte d'entrée", () => {
+    const foret = readFileSync(new URL('Forest.svelte', import.meta.url), 'utf8');
+    const app = readFileSync(new URL('../App.svelte', import.meta.url), 'utf8');
+    expect(foret).toContain('onrecompenses');
+    expect(app).toContain("onrecompenses={() => (ecran = 'rewards')}");
   });
 });

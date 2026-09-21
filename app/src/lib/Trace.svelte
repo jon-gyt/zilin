@@ -50,6 +50,13 @@
     const c = char;
     const cible = boite;
     let vivant = true;
+    /* Le dessin du caractère précédent s'en va : deux questions de tracé d'affilée
+       changent `char` sans remonter le composant, et les tracés s'empileraient. */
+    let ajoute: Element | null = null;
+    traits = 0;
+    sansDonnees = false;
+    retour = '';
+    fautes = 0;
     if (!cible) return;
     void strokesOnce()
       .then((s) => {
@@ -77,6 +84,7 @@
           /* Les traits sont déjà chargés : aucune requête ne sort de l'app. */
           charDataLoader: (_c, done) => done({ strokes: d.s, medians: d.m })
         });
+        ajoute = cible.lastElementChild;
         /* En question, on ne montre rien d'abord : le doigt part tout de suite. */
         if (quiz) tracer();
       })
@@ -87,6 +95,8 @@
       vivant = false;
       writer?.cancelQuiz();
       writer = null;
+      ajoute?.remove();
+      ajoute = null;
     };
   });
 
