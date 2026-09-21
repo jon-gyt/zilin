@@ -14,6 +14,19 @@ Règle : l'app ne lit que ces fichiers. Aucune donnée de contenu dans le code.
 - `graphies.json` : `[{c, strokes[], medians[]}]` depuis `graphics.txt`, autant de médianes que de traits.
 - `mots.json` : `[{traditionnel, simplifie, pinyin, definitions_en[]}]` depuis CC-CEDICT.
 - `listes.json` : `{ "<nom de liste>": [caractères] }`, chargé depuis `data/sources/listes/*.txt` (un sinogramme par ligne, `#` en commentaire, ni doublon ni non-sinogramme).
+- `unihan.json` : `{source, licence, url, version, date, fichiers[], champs[], frequence,
+  caracteres: [{c, code, pinyin, lectures[], traits, frequence}]}` depuis `Unihan.zip`
+  (UCD, Unicode License). `pinyin` est la première lecture de `kMandarin`, la plus
+  courante en zh-CN selon UAX #38 ; `lectures` les garde toutes. `traits` vient de
+  `kTotalStrokes`, `frequence` de `kFrequency` — absent d'Unihan 17.0.0 et 18.0.0, où il
+  vaut donc `null` ; il existait encore en 12.0.0. `fichiers` reprend l'en-tête officiel
+  de chaque `Unihan_*.txt` lu (nom, date, version), qui vaut preuve de provenance.
+- `unihan-definitions.json` : `{…, definitions: [{c, definition_en}]}` depuis
+  `kDefinition`. Fichier séparé parce que ces gloses sont anglaises : comme celles de
+  CC-CEDICT, elles ne doivent jamais alimenter la génération des fiches FR.
+- `ids-secondaires.json` : `{source, licence, url, usage, ids: {caractère: IDS}}` depuis
+  `cjk-decomp.txt` (MIT), converti en IDS par `cjkdecomp.py`. Source de repli, utilisée
+  seulement là où Make Me a Hanzi donne `？` ou rien.
 - `rapport.json` : décomptes du passage et caractères des listes absents du dictionnaire.
 
 ## Table GF 0014-2009 (story 1.2)
@@ -33,16 +46,20 @@ Quatre points de code portent deux composants distincts de la norme : ⺈, 丁, 
 `uv run zilin build` écrit dans `data/work/build/`, hors dépôt :
 
 - `decompositions.json` : `{norme, table: {fichier, composants, groupes}, source_ids,
-  caracteres: [{c, composants[], structure, reconcilie, inconnus[], cycle[]}]}`.
+  source_ids_secondaire,
+  caracteres: [{c, composants[], structure, reconcilie, inconnus[], cycle[], sources[]}]}`.
   `composants` est la liste ordonnée des feuilles atteintes en descendant l'IDS de Make
   Me a Hanzi jusqu'aux composants de la norme, dans l'ordre des opérandes IDS, qui est
   l'ordre d'écriture. Un composant de la norme est une feuille : on n'y descend plus.
   `structure` est l'IDS réduit à ces feuilles. `inconnus` liste les feuilles absentes de
   la norme — elles figurent quand même dans `composants` — et `cycle` le chemin de
-  descente qui boucle. `reconcilie` vaut vrai quand les deux sont vides.
+  descente qui boucle. `reconcilie` vaut vrai quand les deux sont vides. `sources` nomme
+  les sources d'IDS descendues (`makemeahanzi`, `cjk-decomp`) : un caractère marqué
+  `cjk-decomp` est à relire, ses feuilles étant plus sûres que sa structure.
 - `ecarts.md` : décompte des caractères réconciliés, composants inconnus classés par
-  fréquence avec leur point de code, cycles, et état des listes prioritaires
-  (seuil 255, HSK 1).
+  fréquence avec leur point de code, cycles, apport de l'IDS secondaire, et état des
+  listes prioritaires (seuil 255, HSK 1) avec les caractères que l'IDS secondaire a
+  réconciliés, à relire.
 
 `uv run zilin check` relit `decompositions.json` : le contrôle « composants inconnus »
 signale sans bloquer (la norme ne couvre que 3 500 caractères), le contrôle « cycles »
@@ -106,6 +123,102 @@ briques_muettes[], non_reconcilies[], absents[]}`.
 
 `uv run zilin check` ajoute trois contrôles : « cycles du graphe » (bloquant),
 « caractères de liste absents du parcours » (bloquant) et « briques muettes » (signalé).
+
+## Fiches FR et EN (story 1.4)
+
+Une fiche explique un caractère du parcours par ses composants : origine en exactement
+trois phrases FR et EN, étiquette `atteste` ou `mnemotechnique`, rôle de chaque
+composant, deux mots et une phrase. Aucun texte de fiche n'est écrit à la main : il
+sort du pipeline, puis d'une relecture humaine.
+
+### Contexte soumis au modèle
+
+Assemblé par `fiches.Corpus` depuis `decompositions.json`, `graphe.json`,
+`parcours-<nom>.json`, `caracteres.json` et `mots.json` :
+
+- le caractère, son pinyin (`caracteres.json`), sa famille et son genre (`graphe.json`) ;
+- sa décomposition canonique GF 0014-2009 (`decompositions.json`), avec le nom normalisé
+  (部件名称) de chaque composant, pris dans `composants.tsv` ;
+- le rôle probable d'un composant quand l'étymologie de Make Me a Hanzi le désigne comme
+  `phonetic` (son) ou `semantic` (sens). C'est une donnée factuelle, donnée au modèle
+  pour vérification, jamais un verdict ;
+- son `type` d'étymologie et son `hint` anglais, ce dernier nommément marqué comme
+  indice à vérifier, à ne ni traduire ni recopier (`docs/sources-licences.md` §2.2) ;
+- les mots candidats : mots de deux caractères de CC-CEDICT contenant le caractère et
+  dont tous les caractères sont déjà vus au jour du parcours, avec leur pinyin et rien
+  d'autre. Les entrées au pinyin capitalisé (noms propres) sont écartées. La définition
+  anglaise n'est jamais lue ni transmise (`docs/sources-licences.md` §4.2) ;
+- les caractères acquis à ce jour, caractère du jour compris : les seuls autorisés dans
+  la phrase.
+
+La réponse est contrainte par `output_config.format` (JSON structuré). La validation
+refuse une fiche dont l'origine FR ou EN ne fait pas exactement trois phrases (points
+finaux comptés), dont l'étiquette sort des deux valeurs, dont un mot n'est pas dans les
+candidats, ou dont la phrase emploie un caractère hors de l'acquis — les intrus sont
+listés exactement. La relance signale les motifs de refus, au plus trois essais. Rôle
+manquant, traduction vide, phrase sans le caractère du jour et manque de mots candidats
+sont des écarts signalés à la relecture, pas des rejets.
+
+### Fiche générée, hors dépôt
+
+`uv run zilin fiches generer [--parcours lire] [--jusqua N] [--c 住]` puis
+`uv run zilin fiches recuperer` écrivent `data/work/fiches/<c>.json` :
+
+```json
+{
+ "c": "住",
+ "parcours": "lire",
+ "jour": 160,
+ "pinyin": ["zhù"],
+ "composants": ["亻", "主"],
+ "structure": "⿰亻主",
+ "origine_fr": "…",
+ "origine_en": "…",
+ "etiquette": "atteste",
+ "memo_fr": null,
+ "memo_en": null,
+ "roles": {"亻": "sens", "主": "son"},
+ "mots": [{"hanzi": "住口", "pinyin": "zhù kǒu", "fr": "…", "en": "…"}],
+ "phrase": {"zh": "…", "pinyin": "…", "fr": "…", "en": "…"},
+ "generation": {
+  "modele": "claude-opus-5",
+  "api": "messages.batches",
+  "date": "2026-09-21T10:00:00Z",
+  "empreinte_invite": "sha256:…",
+  "essais": 2,
+  "refus": []
+ },
+ "statut": "a_relire"
+}
+```
+
+`roles` donne, par composant de la décomposition canonique, `son`, `sens` ou `forme`.
+`etiquette` vaut `atteste` seulement si l'origine est établie par le Shuowen ou la
+paléographie, `mnemotechnique` sinon — jamais l'un pour l'autre. `memo_fr` et `memo_en`
+sont facultatifs. `generation` est la traçabilité : d'où vient la fiche et comment.
+`statut` vaut `a_relire` à la sortie du pipeline, `rejete` s'il reste un motif de refus
+après trois essais, `relu` une fois la relecture humaine faite
+(`uv run zilin fiches relire --c 住 --statut relu`). Seules les fiches relues sont
+exportables : la relecture est obligatoire sur le seuil 255 (brief §17).
+
+Le journal des lots est dans `data/work/fiches/lots/<lot>.json` : identifiant du lot,
+parcours, modèle, date de soumission, statut, et une entrée par requête (`custom_id`,
+caractère, numéro d'essai, empreinte de l'invite).
+
+`uv run zilin check` relit ces fichiers s'ils existent : le contrôle
+« fiches : validation » est bloquant, le contrôle « fiches : relecture du seuil 255 »
+compte ce qui reste à relire et les caractères du seuil sans fiche — il signale, il ne
+bloque pas. `uv run zilin fiches valider` refait le même contrôle à la demande.
+
+### Ce que l'app lira (export, story 1.6)
+
+L'export d'une famille reprend d'une fiche générée `origine_fr`, `origine_en`,
+`etiquette`, `memo_fr`, `memo_en`, `mots` et `phrase`, et remplit le reste de `Fiche`
+(`models.py`) depuis le graphe et les graphies : `parts` vient de `composants`,
+`nouveau` du graphe, `role` et les rôles par brique de `roles`, `traits` et `medianes`
+de `graphies.json`, `audio` de la story 1.5. `generation` et `statut` ne sont pas
+exportés : ils restent côté pipeline. Une fiche dont le `statut` n'est pas `relu`
+n'entre pas dans l'export du seuil 255.
 
 ## Contes par niveau (story 1.7)
 

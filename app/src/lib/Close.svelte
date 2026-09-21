@@ -76,5 +76,5 @@
     <div class="k">{constat(p, p.day)}</div>
   </div>
 
-  <div class="foot"><button class="btn" onclick={onterminer}>Terminer la session</button></div>
+  <div class="foot"><button class="btn" onclick={onterminer}>Voir ta série</button></div>
 </main>

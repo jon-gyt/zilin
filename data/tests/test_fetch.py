@@ -2,6 +2,8 @@
 from __future__ import annotations
 
 import gzip
+import io
+import zipfile
 from pathlib import Path
 
 import pytest
@@ -11,11 +13,14 @@ from zilin_data.fetch import (
     CEDICT_MDBG,
     CEDICT_MIROIR,
     ENTETE_CEDICT,
+    ENTETE_UNIHAN,
     INCHANGE,
     PRESENT,
     REPLI,
     SOURCES_DISTANTES,
     TELECHARGE,
+    UNIHAN_MIROIR,
+    UNIHAN_UNICODE,
     Resultat,
     Source,
     ecrire_sommes,
@@ -100,9 +105,15 @@ def test_journal_de_provenance(tmp_path: Path) -> None:
 
 
 def test_sources_declarees() -> None:
-    """Les trois sources de la story 1.1 sont déclarées, avec leur licence."""
+    """Les sources du pipeline sont déclarées, avec leur licence."""
     fichiers = {s.fichier for s in SOURCES_DISTANTES}
-    assert fichiers == {"dictionary.txt", "graphics.txt", "cedict_1_0_ts_utf-8_mdbg.txt.gz"}
+    assert fichiers == {
+        "dictionary.txt",
+        "graphics.txt",
+        "cedict_1_0_ts_utf-8_mdbg.txt.gz",
+        "Unihan.zip",
+        "cjk-decomp.txt",
+    }
     assert all(s.url.startswith("https://") and s.licence for s in SOURCES_DISTANTES)
 
 
@@ -191,3 +202,73 @@ def test_echec_de_toutes_les_urls(tmp_path: Path, monkeypatch: pytest.MonkeyPatc
     assert resultat.echec
     assert OFFICIELLE in resultat.etat and MIROIR in resultat.etat
     assert not dest.exists()
+
+
+# ------------------------------------------------------------------------ Unihan
+
+# En-tête réel d'Unihan 17.0.0.
+ENTETE_LECTURES = (
+    "# Unihan_Readings.txt\n"
+    "# Date: 2025-07-24 00:00:00 GMT [KL]\n"
+    "# Unicode Version 17.0.0\n"
+    "#\n"
+)
+
+
+def archive(contenu: str) -> bytes:
+    """Archive zip d'un seul membre `Unihan_Readings.txt`."""
+    tampon = io.BytesIO()
+    with zipfile.ZipFile(tampon, "w") as zip_:
+        zip_.writestr("Unihan_Readings.txt", contenu)
+    return tampon.getvalue()
+
+
+def source_unihan() -> Source:
+    (unihan,) = [s for s in SOURCES_DISTANTES if s.fichier == "Unihan.zip"]
+    return unihan
+
+
+def test_unihan_declare_unicode_puis_un_miroir() -> None:
+    """Unihan : l'archive officielle d'unicode.org d'abord, le miroir GitHub ensuite."""
+    unihan = source_unihan()
+    assert unihan.urls == (UNIHAN_UNICODE, UNIHAN_MIROIR)
+    assert unihan.url.startswith("https://www.unicode.org/")
+    assert unihan.entete_attendue == ENTETE_UNIHAN
+    assert unihan.membre == "Unihan_Readings.txt"
+    assert unihan.licence == "Unicode License"
+
+
+def test_entete_unihan_lue_dans_l_archive(tmp_path: Path) -> None:
+    """L'en-tête officiel est cherché dans un membre de l'archive, pas à sa racine."""
+    dest = tmp_path / "Unihan.zip"
+    dest.write_bytes(archive(ENTETE_LECTURES + "U+4E00\tkMandarin\tyī\n"))
+    assert entete_presente(dest, ENTETE_UNIHAN, membre="Unihan_Readings.txt")
+    assert not entete_presente(dest, ENTETE_UNIHAN)
+
+
+def test_archive_unihan_sans_entete_refusee(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    """Une archive qui ne porte pas l'en-tête d'Unicode est refusée, rien n'est écrit."""
+    monkeypatch.setattr(
+        module,
+        "recuperer",
+        servir({UNIHAN_UNICODE: None, UNIHAN_MIROIR: archive("# autre chose\n")}),
+    )
+    dest = tmp_path / "Unihan.zip"
+    resultat = telecharger(source_unihan(), dest)
+    assert resultat.echec
+    assert "en-tête officiel absent" in resultat.etat
+    assert not dest.exists()
+
+
+def test_repli_unihan_sur_le_miroir(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
+    """unicode.org injoignable : le miroir sert la même archive, l'en-tête est vérifiée."""
+    monkeypatch.setattr(
+        module,
+        "recuperer",
+        servir({UNIHAN_UNICODE: None, UNIHAN_MIROIR: archive(ENTETE_LECTURES)}),
+    )
+    dest = tmp_path / "Unihan.zip"
+    assert telecharger(source_unihan(), dest) == Resultat(REPLI, UNIHAN_MIROIR)
+    assert entete_presente(dest, ENTETE_UNIHAN, membre="Unihan_Readings.txt")

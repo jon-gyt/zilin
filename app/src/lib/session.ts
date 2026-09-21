@@ -6,11 +6,33 @@
  * La journée courante est toujours passée en argument (`aujourdhui`, au format AAAA-MM-JJ)
  * et chaque transition renvoie un nouvel état. La persistance est dans `db.ts`.
  */
+import {
+  newCard,
+  fromJSON as cartesFromJSON,
+  toJSON as cartesToJSON,
+  type ReviewCard
+} from './srs';
 import { ajouter, journal, lireTao, taoVide, type Tao, type TypeActivite } from './tao';
 
 
 /** Budget choisi par l'utilisateur, en minutes. */
 export type Budget = 5 | 10 | 20;
+
+/**
+ * Le parcours choisi à la première session : « Lire » suit les seuils français,
+ * « Passer le HSK » suit le référentiel 2026, « Voyager » ordonne le même arbre
+ * par ce qui se lit en gare et au restaurant. Même arbre, ordre différent.
+ */
+export type Parcours = 'lire' | 'hsk' | 'voyage';
+
+/**
+ * Les écrans de la première session, dans l'ordre de la maquette : les trois briques
+ * (f1 人, f2 大, f3 天), le mot lu (f4 天天), le bilan (f5), puis les deux questions
+ * (objectif, rythme). La reprise se fait à l'écran exact.
+ */
+export type EtapeDepart = 'f1' | 'f2' | 'f3' | 'f4' | 'f5' | 'objectif' | 'rythme';
+
+export const ETAPES_DEPART = ['f1', 'f2', 'f3', 'f4', 'f5', 'objectif', 'rythme'] as const;
 
 export type StepId =
   | 'ouvrir'
@@ -81,6 +103,12 @@ export type Progress = {
   days: number;
   /** Dernière journée où au moins un pas a été fait. */
   lastWorked: string | null;
+  /**
+   * Les journées travaillées, une par graine plantée, dans l'ordre. C'est la seule
+   * mémoire de la série (`serie.ts`). Ajouté après coup : une progression sans ce champ
+   * se relit depuis ce qu'on sait déjà d'elle.
+   */
+  joursTravailles: string[];
   /** Vue en cours du pas Apprendre : la reprise se fait au pas exact, vue comprise. */
   learn: LearnView;
   /** Réglage : proposer le tracé d'une brique de base. Désactivable depuis l'écran de tracé. */
@@ -95,6 +123,14 @@ export type Progress = {
   revisions: Revision[];
   /** L'état de Tao. Ajouté après coup : une progression sans ce champ se relit vide. */
   tao: Tao;
+  /** Vrai tant que la première session n'a pas été faite : elle passe avant tout. */
+  premiere: boolean;
+  /** Écran en cours de la première session : la reprise se fait à celui-ci. */
+  premiereVue: EtapeDepart;
+  /** Le parcours choisi à la première session. `null` tant que la question n'est pas posée. */
+  parcours: Parcours | null;
+  /** Les cartes de révision, une par caractère rencontré. Sérialisées par `srs.ts`. */
+  cartes: ReviewCard[];
 };
 
 export function emptyProgress(aujourdhui: string): Progress {
@@ -107,13 +143,18 @@ export function emptyProgress(aujourdhui: string): Progress {
     due: 0,
     days: 0,
     lastWorked: null,
+    joursTravailles: [],
     learn: 'brique',
     trace: true,
     tracees: [],
     use: 'mots',
     fix: 0,
     revisions: [],
-    tao: taoVide()
+    tao: taoVide(),
+    premiere: true,
+    premiereVue: 'f1',
+    parcours: null,
+    cartes: []
   };
 }
 
@@ -176,6 +217,15 @@ export function markDone(p: Progress, i: number, aujourdhui: string): Progress {
   return { ...p, done, days: premier ? p.days + 1 : p.days, lastWorked: aujourdhui };
 }
 
+/**
+ * Plante la graine du jour : la journée entre dans les journées travaillées. Appelé à la
+ * clôture, une seule fois par journée. Une graine plantée ne se retire jamais.
+ */
+export function noterJourTravaille(p: Progress, jour: string): Progress {
+  if (p.joursTravailles.includes(jour)) return p;
+  return { ...p, joursTravailles: [...p.joursTravailles, jour].sort() };
+}
+
 /** Note une activité pour Tao : elle grandit de ce qui est fait, et rien d'autre. */
 export function noterActivite(p: Progress, jour: string, type: TypeActivite): Progress {
   return { ...p, tao: ajouter(p.tao, jour, type) };
@@ -184,6 +234,49 @@ export function noterActivite(p: Progress, jour: string, type: TypeActivite): Pr
 /** Recommence la journée : les pas repartent de zéro, le compteur de jour ne bouge pas. */
 export function resetDay(p: Progress): Progress {
   return { ...p, done: [], learn: 'brique', use: 'mots', fix: 0, revisions: [] };
+}
+
+/* ---------- la première session ---------- */
+
+/** Ouvre un écran de la première session. La progression est sauvegardée à chaque tap. */
+export function setDepart(p: Progress, vue: EtapeDepart): Progress {
+  return { ...p, premiereVue: vue };
+}
+
+/** L'écran suivant de la première session. `null` après le dernier : elle est finie. */
+export function departNext(vue: EtapeDepart): EtapeDepart | null {
+  const i = ETAPES_DEPART.indexOf(vue);
+  return i < 0 || i + 1 >= ETAPES_DEPART.length ? null : ETAPES_DEPART[i + 1];
+}
+
+/** Première des deux questions : le parcours. Même arbre, ordre différent. */
+export function setParcours(p: Progress, parcours: Parcours): Progress {
+  return { ...p, parcours };
+}
+
+/** Ajoute une carte neuve par caractère encore inconnu. Une carte par caractère, jamais deux. */
+export function ajouterCartes(p: Progress, ids: readonly string[], maintenant: Date): Progress {
+  const connues = new Set(p.cartes.map((c) => c.id));
+  const neuves = ids.filter((id) => !connues.has(id)).map((id) => newCard(id, maintenant));
+  return neuves.length === 0 ? p : { ...p, cartes: [...p.cartes, ...neuves] };
+}
+
+/**
+ * La première session est finie : une carte par brique vue, les activités notées pour
+ * Tao (trois leçons, une lecture), et le drapeau tombe. On n'y revient plus.
+ */
+export function finDepart(
+  p: Progress,
+  jour: string,
+  maintenant: Date,
+  briques: readonly string[]
+): Progress {
+  let n = ajouterCartes(p, briques, maintenant);
+  briques.forEach(() => {
+    n = noterActivite(n, jour, 'lecon');
+  });
+  n = noterActivite(n, jour, 'lecture');
+  return { ...n, premiere: false, premiereVue: 'f1' };
 }
 
 /* ---------- pas 3, Apprendre ---------- */
@@ -396,8 +489,9 @@ export function buttonLabel(p: Progress): string {
 
 /* ---------- export et import ---------- */
 
+/** Les cartes passent par `srs.ts` : les dates y sont en ISO, et se relisent telles quelles. */
 export function toJSON(p: Progress): string {
-  return JSON.stringify(p, null, 2);
+  return JSON.stringify({ ...p, cartes: JSON.parse(cartesToJSON(p.cartes)) }, null, 2);
 }
 
 function isBudget(v: unknown): v is Budget {
@@ -410,6 +504,36 @@ function isLearnView(v: unknown): v is LearnView {
 
 function isUseView(v: unknown): v is UseView {
   return USE_VIEWS.includes(v as UseView);
+}
+
+function isEtapeDepart(v: unknown): v is EtapeDepart {
+  return ETAPES_DEPART.includes(v as EtapeDepart);
+}
+
+function isParcours(v: unknown): v is Parcours {
+  return v === 'lire' || v === 'hsk' || v === 'voyage';
+}
+
+/**
+ * Relit les cartes de révision, sérialisées par `srs.ts`. Une progression exportée
+ * avant les cartes en rend zéro : le champ est rétrocompatible.
+ */
+function lireCartes(brut: unknown): ReviewCard[] {
+  if (typeof brut !== 'object' || brut === null) return [];
+  try {
+    return cartesFromJSON(JSON.stringify(brut));
+  } catch {
+    return [];
+  }
+}
+
+/**
+ * La première session passe avant tout, et une seule fois. Un export d'avant ce
+ * drapeau vient forcément d'une progression déjà commencée : elle est donc faite.
+ */
+function lirePremiere(o: Record<string, unknown>): boolean {
+  if (o.premiere !== undefined) return o.premiere === true;
+  return o.lastWorked === null || o.lastWorked === undefined;
 }
 
 /** Relit les événements de révision d'un export. Une entrée aberrante est écartée. */
@@ -430,6 +554,20 @@ function lireRevisions(brut: unknown): Revision[] {
   });
 }
 
+const FORMAT_JOUR = /^\d{4}-\d{2}-\d{2}$/;
+
+/**
+ * Relit les journées travaillées. Le champ est arrivé avec la série : un export plus
+ * ancien n'en a pas, et on le reconstitue de ce qu'il sait déjà, le journal de Tao et la
+ * dernière journée travaillée. Ni plus ni moins : on ne devine aucune journée.
+ */
+function lireJoursTravailles(o: Record<string, unknown>, tao: Tao, lastWorked: string | null): string[] {
+  const garder = (l: readonly unknown[]): string[] =>
+    [...new Set(l.filter((x): x is string => typeof x === 'string' && FORMAT_JOUR.test(x)))].sort();
+  if (Array.isArray(o.joursTravailles)) return garder(o.joursTravailles);
+  return garder([...tao.activites.map((a) => a.jour), lastWorked]);
+}
+
 /** Relit une progression exportée. Les champs absents ou aberrants reprennent leur défaut. */
 export function fromJSON(texte: string, aujourdhui: string): Progress {
   let brut: unknown;
@@ -441,6 +579,8 @@ export function fromJSON(texte: string, aujourdhui: string): Progress {
   if (typeof brut !== 'object' || brut === null) throw new Error('Fichier illisible');
   const o = brut as Record<string, unknown>;
   const vide = emptyProgress(aujourdhui);
+  const tao = lireTao(o.tao);
+  const lastWorked = typeof o.lastWorked === 'string' ? o.lastWorked : null;
   return {
     version: 1,
     day: typeof o.day === 'string' ? o.day : vide.day,
@@ -449,7 +589,8 @@ export function fromJSON(texte: string, aujourdhui: string): Progress {
     budget: isBudget(o.budget) ? o.budget : vide.budget,
     due: typeof o.due === 'number' && o.due >= 0 ? Math.floor(o.due) : 0,
     days: typeof o.days === 'number' && o.days >= 0 ? Math.floor(o.days) : 0,
-    lastWorked: typeof o.lastWorked === 'string' ? o.lastWorked : null,
+    lastWorked,
+    joursTravailles: lireJoursTravailles(o, tao, lastWorked),
     /* Champs du pas Apprendre : absents d'un export plus ancien, ils reprennent leur défaut. */
     learn: isLearnView(o.learn) ? o.learn : vide.learn,
     trace: o.trace === undefined ? vide.trace : o.trace !== false,
@@ -458,6 +599,11 @@ export function fromJSON(texte: string, aujourdhui: string): Progress {
     use: isUseView(o.use) ? o.use : vide.use,
     fix: typeof o.fix === 'number' && o.fix >= 0 ? Math.floor(o.fix) : 0,
     revisions: lireRevisions(o.revisions),
-    tao: lireTao(o.tao)
+    tao,
+    /* Champs de la première session et des cartes : absents d'un export plus ancien. */
+    premiere: lirePremiere(o),
+    premiereVue: isEtapeDepart(o.premiereVue) ? o.premiereVue : vide.premiereVue,
+    parcours: isParcours(o.parcours) ? o.parcours : null,
+    cartes: lireCartes(o.cartes)
   };
 }

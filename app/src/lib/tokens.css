@@ -191,3 +191,192 @@ h1{font-family:var(--head);font-weight:700;font-size:30px;line-height:1.15;lette
 @keyframes tombe{to{transform:translateY(74px)}}
 @keyframes pousse{to{stroke-dashoffset:0}}
 @media (prefers-reduced-motion:reduce){.seed .sd{animation:none;transform:translateY(74px)}.seed .st,.seed .lf{animation:none;stroke-dashoffset:0}}
+
+/* ---- ouverture : le logo s'écrit en 1,6 s (maquette splash) ---- */
+.ouverture{justify-content:center}
+.splash{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:18px;width:100%;cursor:default}
+.splash .nom{font-family:var(--head);font-weight:700;font-size:34px;letter-spacing:-.04em}
+.splash .cn{font-size:24px;color:var(--zhu);margin-left:10px}
+/* le Z se trace en un trait, le point cinabre se pose à la fin, le nom vient après */
+.splash .zs{stroke-dasharray:340;stroke-dashoffset:340;animation:zs .5s cubic-bezier(.5,0,.3,1) .1s forwards}
+.splash .zd{transform-origin:100px 42px;transform:scale(0);animation:zd .3s cubic-bezier(.2,1.4,.5,1) .6s forwards}
+.splash .zt{opacity:0;animation:zt .4s ease-out .8s forwards}
+@keyframes zs{to{stroke-dashoffset:0}}
+@keyframes zd{to{transform:scale(1)}}
+@keyframes zt{to{opacity:1}}
+@media (prefers-reduced-motion:reduce){.splash .zs{animation:none;stroke-dashoffset:0}.splash .zd{animation:none;transform:none}.splash .zt{animation:none;opacity:1}}
+
+/* ---- première session : 人, 大, 天, lire 天天 (maquette f1 à f5, ob2, ob3) ---- */
+.depart .quit{margin-bottom:6px}
+.depart .seul{margin:6px 0}
+.depart .py{color:var(--indigo);font-weight:600;font-size:22px}
+.depart .sens{font-size:19px}
+.depart .origine{margin:10px 0 0;font-size:15.5px;color:var(--ink2)}
+.depart .mot{display:flex;justify-content:center;gap:10px}
+.depart .mot .s{min-height:44px;display:inline-flex;align-items:center;border-bottom:2px solid transparent}
+.depart .mot .s:active{border-color:var(--indigo)}
+.depart .bilan{padding:28px 16px}
+.depart .bilan h1{margin-top:6px}
+.depart .bilan .guide{margin-bottom:8px}
+/* les deux questions : une liste de choix, celui qui tient est en indigo */
+.opt{display:flex;flex-direction:column;gap:10px}
+.opt button{border:1px solid var(--line);border-radius:14px;background:var(--card);padding:14px 16px;display:flex;align-items:center;gap:14px;min-height:64px;width:100%}
+.opt button.on{border-color:var(--indigo);background:var(--indigo-soft)}
+.opt .vignette{width:36px;display:flex;justify-content:center;color:var(--indigo)}
+.opt .t{font-weight:600}
+.opt .d{font-size:14px;color:var(--ink2)}
+/* ---- la barre des trois onglets (maquette id="tabs") ---- */
+/* Hors session seulement : pendant les pas, l'écran n'a qu'un bouton. */
+.onglets{flex:1;display:flex;flex-direction:column;min-height:0}
+.tabs{position:sticky;bottom:0;z-index:2;display:flex;border-top:1px solid var(--line);background:var(--paper);padding:6px 6px calc(env(safe-area-inset-bottom) + 6px)}
+.tab{flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;padding:6px 0;font-size:11.5px;color:var(--mist);min-height:44px;text-align:center}
+.tab svg{width:24px;height:24px;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.tab.on{color:var(--indigo)}
+
+/* ---- pièces communes reprises de la maquette ---- */
+.row{display:flex;align-items:center;gap:14px}
+.big{font-family:var(--head);font-weight:700;font-size:34px;line-height:1;letter-spacing:-.02em}
+.stat{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-top:14px}
+.stat .card{padding:14px 12px}
+.tog{display:flex;align-items:center;justify-content:space-between;min-height:52px;padding:0 2px;gap:12px}
+.tog + .tog{border-top:1px solid var(--line)}
+.sw{width:46px;height:28px;border-radius:999px;background:var(--line);position:relative;flex-shrink:0}
+.sw::after{content:"";position:absolute;top:3px;left:3px;width:22px;height:22px;border-radius:50%;background:#fff;transition:transform .15s}
+.sw.on{background:var(--indigo)}
+.sw.on::after{transform:translateX(18px)}
+.seg{display:flex;border:1px solid var(--line);border-radius:10px;overflow:hidden;flex-shrink:0}
+.seg button{padding:10px 12px;font-size:14px;color:var(--ink2)}
+.seg button.on{background:var(--indigo);color:var(--on)}
+.cache{display:none}
+
+/* ---- story 4.1, Ma forêt : le cercle des familles (maquette s-me, renderForest) ---- */
+.forest{border-radius:16px;overflow:hidden;background:var(--card);min-height:200px;padding:6px}
+.forest > svg{display:block;width:100%;height:auto}
+.zoombox{position:relative;border-radius:16px;overflow:hidden;background:var(--card);touch-action:none;user-select:none;-webkit-user-select:none;width:100%}
+.zoombox::before{content:"";display:block;padding-top:100%}
+.zoombox .forest{position:absolute;left:0;top:0;width:100%;height:100%;transform-origin:0 0;will-change:transform;min-height:0}
+.zoombox .forest > svg{width:100%;height:100%}
+.zoomctl{position:absolute;right:8px;bottom:8px;display:flex;flex-direction:column;gap:4px}
+.zoomctl button{width:36px;height:36px;border-radius:9px;background:var(--paper);border:1px solid var(--line);font-size:18px;display:flex;align-items:center;justify-content:center;color:var(--ink2)}
+/* le secteur d'une famille */
+.forest .wg{fill:var(--paper);opacity:.5}
+.forest .wg.acquis{fill:var(--jade-soft);opacity:.9}
+.forest .wg.encours{fill:var(--jade-soft);opacity:.45}
+.forest .ring{fill:none;stroke:var(--line);stroke-width:1}
+.forest .lk{stroke:var(--line);stroke-width:2;fill:none}
+.forest .lk.acquis{stroke:var(--jade);stroke-width:2.5}
+/* les états : jade acquis, indigo en cours, brume à venir */
+.forest .nd{fill:var(--card);stroke:var(--line);stroke-width:2}
+.forest .nd.acquis{stroke:var(--jade);stroke-width:2.5}
+.forest .nd.encours{stroke:var(--indigo);stroke-width:2.5}
+.forest .nd.avenir{stroke:var(--mist);opacity:.6}
+.forest .nd.verrouille{stroke-dasharray:3 3;opacity:.45}
+.forest .nd.avenir ~ g{opacity:.6}
+/* le cinabre ne marque que la famille en cours, rien d'autre */
+.forest .nd.cinabre{stroke:var(--zhu);stroke-width:3;opacity:1}
+.forest .fam,.forest .tn{cursor:pointer}
+.forest .fam:focus,.forest .tn:focus{outline:none}
+.forest .fam:focus-visible .nd,.forest .tn:focus-visible .nd{stroke:var(--indigo);stroke-width:3}
+.forest .tn.sel .nd{fill:var(--indigo-soft)}
+.forest .g{color:var(--ink)}
+/* la légende des trois états */
+.legende{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:4px 12px;margin-top:10px}
+.legende span{display:inline-flex;align-items:center;gap:5px}
+.legende i{width:9px;height:9px;border-radius:50%;display:inline-block}
+.legende .d1{background:var(--jade)}
+.legende .d2{background:var(--zhu)}
+.legende .d3{background:var(--mist);opacity:.6}
+.legende .d4{background:var(--indigo)}
+/* la colline : Tao est chez elle ici, assise, au calme */
+.colline{position:relative;display:flex;justify-content:center;align-items:flex-end;height:108px;margin:6px 0 0}
+.colline .sol{position:absolute;left:-22px;bottom:0;width:calc(100% + 44px);height:96px}
+.colline .hill{fill:var(--jade-soft)}
+.colline .hill2{fill:var(--indigo-soft);opacity:.6}
+.colline .hote{position:relative;margin-bottom:4px}
+/* la semaine : une graine par jour travaillé, jamais un compteur de jours perdus */
+.semaine{margin-top:14px}
+.seeds{display:flex;gap:6px;margin:10px 0 6px}
+.seeds i{flex:1;height:34px;border-radius:9px;border:1px solid var(--line);display:flex;align-items:center;justify-content:center;font-style:normal;font-size:12px;color:var(--mist)}
+.seeds i.on{background:var(--jade);border-color:var(--jade);color:var(--on)}
+.seeds i.today{border-color:var(--zhu);color:var(--zhu)}
+
+/* ---- story 4.2, l'arbre d'une famille (maquette s-tree, renderTree) ---- */
+.tete{margin:4px 0 12px}
+.tete h1{margin:0;font-size:24px}
+.tete-g{display:flex;align-items:center;color:var(--ink)}
+.fiche{margin-top:12px}
+.fiche .sens{font-weight:600}
+.fiche .sens .py{font-size:17px;margin-left:6px}
+/* ---- story 3.4, la série : l'écran de série et les récompenses (maquette s-streak, s-rew) ---- */
+/* blocs communs aux deux écrans */
+.row{display:flex;align-items:center;gap:14px}
+.big{font-family:var(--head);font-weight:700;font-size:34px;line-height:1;letter-spacing:-.02em}
+/* les sept graines de la semaine, du lundi au dimanche */
+.seeds{display:flex;gap:6px;margin:10px 0 6px}
+.seeds i{flex:1;height:34px;border-radius:9px;border:1px solid var(--line);display:flex;align-items:center;justify-content:center;font-style:normal;font-size:12px;color:var(--mist)}
+.seeds i.on{background:var(--jade);border-color:var(--jade);color:var(--on)}
+/* le cinabre ne marque qu'une chose ici : où l'on en est */
+.seeds i.today{border-color:var(--zhu);color:var(--zhu)}
+.seeds i.on.today{color:var(--on)}
+/* un palier et son cadeau */
+.mile{display:flex;align-items:center;gap:14px;padding:12px 0;border-top:1px solid var(--line)}
+.mile .n{font-family:var(--head);font-weight:700;font-size:22px;width:62px;color:var(--indigo);letter-spacing:-.02em;flex-shrink:0}
+.mile .t{font-weight:600}
+.mile .d{font-size:14px;color:var(--ink2)}
+.mile.got .n{color:var(--mist)}
+.pill{font-size:12.5px;border-radius:6px;padding:2px 8px;white-space:nowrap}
+.pill.new{background:var(--indigo-soft);color:var(--indigo)}
+.pill.got{background:var(--jade-soft);color:var(--jade)}
+.porteur{display:flex;align-items:center;gap:10px;margin-bottom:4px}
+.repos{margin-top:6px}
+
+/* l'écran de série : le compteur, le chemin, les graines, le cadeau */
+.streak .serie{flex:1;display:flex;flex-direction:column;justify-content:center;text-align:center}
+.streak .n{font-family:var(--head);font-weight:700;font-size:72px;letter-spacing:-.04em;line-height:1;margin:6px 0 0}
+.streak .guide{margin:4px auto 0;max-width:32ch;min-height:23px}
+.streak .semaine{margin-top:0}
+.streak .seeds i{opacity:0;transform:scale(.6);animation:seedin .3s cubic-bezier(.2,1.3,.5,1) forwards}
+.streak .seeds i.pop{animation:seedpop .55s cubic-bezier(.2,1.5,.4,1) forwards}
+@keyframes seedin{to{opacity:1;transform:none}}
+@keyframes seedpop{0%{opacity:0;transform:scale(.4)}60%{opacity:1;transform:scale(1.25)}100%{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){.streak .seeds i{animation:none;opacity:1;transform:none}}
+
+/* le chemin en perspective : des aplats et des traits, ni dégradé ni ombre */
+.road{margin:10px -22px 0;overflow:hidden}
+.road>svg{display:block;width:100%;height:auto}
+/* Tao et Que sont des SVG imbriqués dans le chemin : ils suivent le repère du dessin,
+   pas la mise en page CSS. Sans cela, `display:inline-block` les sort de la perspective. */
+.road svg svg{display:inline;overflow:visible}
+.road .ciel{fill:var(--indigo-soft);opacity:.35}
+.road .loin{fill:var(--indigo-soft);opacity:.7}
+.road .pre{fill:var(--jade-soft);opacity:.55}
+.road .soleil{fill:var(--ocre);opacity:.9}
+.road .voie{fill:var(--card);stroke:var(--line);stroke-width:1.5}
+.road .arbre{stroke:var(--ink);stroke-width:4;stroke-linecap:round;fill:none;opacity:.9}
+.road .arbre.jeune{stroke:var(--mist);opacity:.5}
+.road .case{fill:var(--paper);stroke:var(--line);stroke-width:2}
+.road .case.on{fill:var(--jade);stroke:var(--jade)}
+.road .borne{fill:var(--indigo-soft);stroke:var(--indigo);stroke-width:2}
+.road .borne-l{font-family:var(--head);font-weight:700;fill:var(--indigo)}
+/* la position sur le chemin, et rien d'autre, porte le cinabre */
+.road .case.ici,.road .borne.ici{fill:var(--zhu);stroke:var(--zhu)}
+/* Tao avance d'une case : un pas, une seule fois, à l'ouverture de l'écran */
+.road .marche{animation:avance 1.2s cubic-bezier(.3,0,.2,1) .3s both}
+@keyframes avance{from{transform:translate(var(--dx),var(--dy))}to{transform:none}}
+@media (prefers-reduced-motion:reduce){.road .marche{animation:none}}
+
+/* le cadeau remis par Que, une fois Tao arrivée */
+.giftcard{margin-top:12px;background:var(--card);border-radius:14px;padding:14px 16px;text-align:left;animation:paraitre .35s ease-out 1.6s both}
+.giftcard b{display:block;font-family:var(--head);font-weight:700;font-size:18px}
+@keyframes paraitre{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){.giftcard{animation:none}}
+
+/* Que 雀, le moineau : encre, gorge claire, bec à l'ocre */
+.que{display:inline-block;overflow:visible}
+.que .aile{transform-origin:96px 112px;animation:bat .5s ease-in-out infinite alternate}
+.que.pose .aile{animation:none}
+@keyframes bat{from{transform:rotate(-14deg)}to{transform:rotate(10deg)}}
+.que .couvercle{transform-origin:100px 96px}
+.que .paquet.ouvert .couvercle{animation:couvercle .5s cubic-bezier(.2,1.4,.5,1) 1.9s both}
+@keyframes couvercle{from{transform:none}to{transform:translateY(-30px) rotate(-14deg)}}
+@media (prefers-reduced-motion:reduce){.que *{animation:none!important}}

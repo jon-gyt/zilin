@@ -12,6 +12,8 @@ import pytest
 
 from zilin_data.gf0014 import (
     COLONNES,
+    SOURCE_MMAH,
+    SOURCE_SECONDAIRE,
     Composant,
     IdsInvalide,
     TableGF0014,
@@ -19,6 +21,7 @@ from zilin_data.gf0014 import (
     analyser_ids,
     build,
     charger_table,
+    combiner_ids,
     controles,
     decomposer,
     parse_table,
@@ -252,3 +255,95 @@ def test_rapport_classe_les_inconnus_par_frequence() -> None:
     nombres = [int(ligne.split("|")[2]) for ligne in frequences]
     assert nombres == sorted(nombres, reverse=True)
     assert "### hsk-1" in texte
+
+
+# ------------------------------------------------------------------ IDS secondaire
+
+# Make Me a Hanzi ne décompose pas 甲 : son IDS porte le `？`. La source
+# secondaire (cjk-decomp converti en IDS) prend le relais, et seulement là.
+IDS_MMAH = {"甲": "⿰乙？", "乙": "？", "丁": "？", "戊": "？", "好": "⿰女子", "女": "？", "子": "？"}
+IDS_SECONDAIRE = {"甲": "⿰乙丙", "丙": "⿱丁戊", "好": "⿱子女"}
+
+
+def _decomposition(c: str, gf: TableGF0014, secondaires: dict[str, str]):
+    (d,) = [
+        d
+        for d in reconcilier([{"c": c, "decomposition": IDS_MMAH[c]}], gf, secondaires)
+        if d.c == c
+    ]
+    return d
+
+
+def test_ids_secondaire_quand_make_me_a_hanzi_donne_un_point_d_interrogation() -> None:
+    """Un IDS qui porte `？` est remplacé par celui de la source secondaire."""
+    d = _decomposition("甲", table("乙", "丙"), IDS_SECONDAIRE)
+    assert d.composants == ("乙", "丙")
+    assert d.reconcilie
+    assert d.sources == (SOURCE_SECONDAIRE,)
+
+
+def test_ids_secondaire_ignore_quand_make_me_a_hanzi_decompose() -> None:
+    """Tant que Make Me a Hanzi décompose, sa décomposition prime."""
+    d = _decomposition("好", table("女", "子"), IDS_SECONDAIRE)
+    assert d.structure == "⿰女子"
+    assert d.sources == (SOURCE_MMAH,)
+
+
+def test_ids_secondaire_pour_un_caractere_ignore_de_make_me_a_hanzi() -> None:
+    """La descente ouvre aussi les composants que Make Me a Hanzi ne connaît pas."""
+    d = _decomposition("甲", table("乙", "丁", "戊"), IDS_SECONDAIRE)
+    assert d.composants == ("乙", "丁", "戊")
+    assert d.sources == (SOURCE_SECONDAIRE,)
+
+
+def test_combiner_ids_dit_la_source_de_chaque_ids() -> None:
+    """La fusion garde trace de la source retenue pour chaque caractère."""
+    ids, sources = combiner_ids(IDS_MMAH, IDS_SECONDAIRE)
+    assert ids["甲"] == "⿰乙丙"
+    assert sources["甲"] == SOURCE_SECONDAIRE
+    assert ids["好"] == "⿰女子"
+    assert sources["好"] == SOURCE_MMAH
+    assert sources["丙"] == SOURCE_SECONDAIRE
+
+
+def test_build_lit_les_ids_secondaires(tmp_path: Path) -> None:
+    """build charge `ids-secondaires.json` et compte ce qu'il réconcilie en plus."""
+    ingest = tmp_path / "ingest"
+    ingest.mkdir(parents=True)
+    (ingest / "caracteres.json").write_text(
+        json.dumps(
+            [{"c": c, "decomposition": d} for c, d in IDS_MMAH.items()], ensure_ascii=False
+        ),
+        encoding="utf-8",
+    )
+    (ingest / "listes.json").write_text(
+        json.dumps({"hsk-1": ["甲"]}, ensure_ascii=False), encoding="utf-8"
+    )
+    (ingest / "ids-secondaires.json").write_text(
+        json.dumps({"source": SOURCE_SECONDAIRE, "ids": IDS_SECONDAIRE}, ensure_ascii=False),
+        encoding="utf-8",
+    )
+    rapport = build(
+        ingest=ingest, sortie=tmp_path / "build", table=table("乙", "丙", "女", "子")
+    )
+    assert rapport["ids_secondaires"] == len(IDS_SECONDAIRE)
+    assert rapport["reconcilies_via_secondaire"] == 1
+    assert rapport["hsk-1_non_reconcilies"] == 0
+
+    document = json.loads((tmp_path / "build" / "decompositions.json").read_text(encoding="utf-8"))
+    par_caractere = {c["c"]: c for c in document["caracteres"]}
+    assert par_caractere["甲"]["sources"] == [SOURCE_SECONDAIRE]
+    assert SOURCE_SECONDAIRE in document["source_ids_secondaire"]
+
+    ecarts = (tmp_path / "build" / "ecarts.md").read_text(encoding="utf-8")
+    assert SOURCE_SECONDAIRE in ecarts
+    assert "Réconciliés grâce à l'IDS secondaire, à relire : 甲" in ecarts
+
+
+def test_build_sans_ids_secondaires(tmp_path: Path) -> None:
+    """Sans `ids-secondaires.json`, la réconciliation reste celle de Make Me a Hanzi."""
+    rapport = build(
+        ingest=_ingest(tmp_path / "ingest"), sortie=tmp_path / "build", table=table("女", "子")
+    )
+    assert rapport["ids_secondaires"] == "source absente (ids-secondaires.json)"
+    assert rapport["reconcilies_via_secondaire"] == 0

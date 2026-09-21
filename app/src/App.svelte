@@ -1,11 +1,21 @@
 <script lang="ts">
   /** L'aiguillage : un état d'écran, la progression partagée, rien d'autre. */
   import Close from './lib/Close.svelte';
+  import FirstSession from './lib/FirstSession.svelte';
   import Fix from './lib/Fix.svelte';
+  import Forest from './lib/Forest.svelte';
   import Learn from './lib/Learn.svelte';
   import Open from './lib/Open.svelte';
+  import Splash from './lib/Splash.svelte';
+  import Settings from './lib/Settings.svelte';
+  import Tabs, { type Onglet } from './lib/Tabs.svelte';
+  import Rewards from './lib/Rewards.svelte';
+  import Streak from './lib/Streak.svelte';
   import Today from './lib/Today.svelte';
+  import Tree from './lib/Tree.svelte';
   import Use from './lib/Use.svelte';
+  import { apresSplash, briques, familleDepart } from './lib/premiere';
+  import type { Noeud } from './lib/content';
   import {
     allDone,
     currentStep,
@@ -14,36 +24,81 @@
     markDone,
     nextIndex,
     noterActivite,
+    noterJourTravaille,
     noterRevision,
     openDay,
     resetDay,
+    setDepart,
+    departNext,
+    finDepart,
+    setBudget,
+    setParcours,
     setFix,
     setLearnView,
     setTrace,
     setUseView,
     traceVue,
     useNext,
+    type Budget,
     type LearnView,
+    type Parcours,
     type Progress,
     type Revision
   } from './lib/session';
   import { loadProgress, saveProgress, today } from './lib/db';
 
   /** Un écran par pas, au fur et à mesure des stories. Pas de routeur. */
-  type Ecran = 'home' | 'anec' | 'learn' | 'use' | 'check' | 'close';
+  type Ecran = 'splash' | 'premiere' | 'home' | 'anec' | 'learn' | 'use' | 'check' | 'close' | 'streak' | 'rewards';
 
   /** Les pas qui ont leur écran. Les autres se marquent faits au tap, en attendant. */
   const ECRANS = ['anec', 'learn', 'use', 'check', 'close'] as const;
 
   let p: Progress = $state(emptyProgress(today()));
-  let ecran: Ecran = $state('home');
+  /** L'app s'ouvre sur le logo : ce qui vient après dépend de la progression relue. */
+  let ecran: Ecran = $state('splash');
+
+  /** L'ouverture attend deux choses : la progression relue et le logo écrit. */
+  let chargee = $state(false);
+  let logoEcrit = $state(false);
+
+  /** L'onglet courant. La barre ne se montre qu'ici, jamais pendant les pas. */
+  let onglet: Onglet = $state('home');
+  /** La famille ouverte dans Ma forêt, `null` quand on est sur le cercle. */
+  let famille: Noeud | null = $state(null);
+
+  /** Un onglet, un écran. Revenir à Ma forêt rouvre le cercle. */
+  function allerOnglet(o: Onglet): void {
+    if (o === 'foret') famille = null;
+    onglet = o;
+  }
+
+  /** Réglages : le budget, le tracé, une progression importée. */
+  function remplacer(nouvelle: Progress): void {
+    p = nouvelle;
+    enregistrer();
+  }
 
   /** Au démarrage : on relit la progression et on ouvre la journée. */
   void loadProgress().then((stored) => {
     const ouvert = openDay(stored, today());
     p = ouvert;
     if (ouvert !== stored) void saveProgress(ouvert);
+    chargee = true;
+    aiguiller();
   });
+
+  /**
+   * Après le logo : la première session au tout premier lancement, le chemin sinon.
+   * Tant que la progression n'est pas relue, le logo reste : on ne devine pas.
+   */
+  function aiguiller(): void {
+    if (chargee && logoEcrit && ecran === 'splash') ecran = apresSplash(p);
+  }
+
+  function splashFini(): void {
+    logoEcrit = true;
+    aiguiller();
+  }
 
   /** Sauvegarde à chaque tap. */
   function enregistrer(): void {
@@ -74,6 +129,42 @@
     }
     fairePasCourant();
     enregistrer();
+  }
+
+  /* ---------- la première session, avant tout le reste ---------- */
+
+  /** Un écran de plus dans la première session. La reprise se fera à celui-ci. */
+  function departSuivant(): void {
+    const vue = departNext(p.premiereVue);
+    if (vue) p = setDepart(p, vue);
+    enregistrer();
+  }
+
+  /** Première question : le parcours. */
+  function departObjectif(parcours: Parcours): void {
+    p = setParcours(p, parcours);
+    enregistrer();
+  }
+
+  /** Seconde question : le rythme, qui devient le budget de la session. */
+  function departRythme(budget: Budget): void {
+    p = setBudget(p, budget);
+    enregistrer();
+  }
+
+  /**
+   * La première session est finie : une carte par brique, les activités notées pour Tao,
+   * le drapeau tombe, et le chemin du jour s'ouvre.
+   */
+  function departFini(): void {
+    void familleDepart()
+      .then((f) => briques(f))
+      .catch(() => [])
+      .then((cs) => {
+        p = finDepart(p, today(), new Date(), cs);
+        ecran = 'home';
+        enregistrer();
+      });
   }
 
   /** L'anecdote vue ou passée : le pas Ouvrir est fait, retour au chemin. */
@@ -152,10 +243,14 @@
     enregistrer();
   }
 
-  /** Pas 6, Clore : la journée est faite, retour au chemin qui le constate. */
+  /**
+   * Pas 6, Clore : la graine du jour est plantée, puis l'écran de série la montre sur le
+   * chemin (story 3.4). Le retour au chemin se fait depuis cet écran.
+   */
   function clore(): void {
     fairePasCourant();
-    ecran = 'home';
+    p = noterJourTravaille(p, today());
+    ecran = 'streak';
     enregistrer();
   }
 
@@ -166,7 +261,18 @@
   }
 </script>
 
-{#if ecran === 'anec'}
+{#if ecran === 'splash'}
+  <Splash onfini={splashFini} />
+{:else if ecran === 'premiere'}
+  <FirstSession
+    {p}
+    onsuivant={departSuivant}
+    onobjectif={departObjectif}
+    onrythme={departRythme}
+    onfini={departFini}
+    onquitter={quitter}
+  />
+{:else if ecran === 'anec'}
   <Open jour={today()} oncontinuer={ouvrirFait} onquitter={quitter} />
 {:else if ecran === 'learn'}
   <Learn
@@ -188,6 +294,31 @@
   />
 {:else if ecran === 'close'}
   <Close {p} onterminer={clore} onquitter={quitter} />
+{:else if ecran === 'streak'}
+  <Streak {p} onretour={quitter} />
+{:else if ecran === 'rewards'}
+  <!-- Récompenses : Ma forêt y mènera (épic 4). L'aiguillage est prêt. -->
+  <Rewards {p} onretour={quitter} />
 {:else}
-  <Today {p} ontap={tap} />
+  <div class="onglets">
+    {#if onglet === 'foret'}
+      {#if famille}
+        <Tree
+          fam={famille}
+          onretour={() => (famille = null)}
+          onlecon={() => {
+            famille = null;
+            onglet = 'home';
+          }}
+        />
+      {:else}
+        <Forest {p} jour={today()} onfamille={(f) => (famille = f)} />
+      {/if}
+    {:else if onglet === 'reglages'}
+      <Settings {p} onprogression={remplacer} />
+    {:else}
+      <Today {p} ontap={tap} />
+    {/if}
+    <Tabs {onglet} onchoisir={allerOnglet} />
+  </div>
 {/if}

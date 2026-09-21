@@ -13,6 +13,11 @@ opérandes IDS, qui est l'ordre d'écriture, est conservé.
 Un caractère est en écart quand sa décomposition atteint une feuille absente de
 la table (composant inconnu), quand son IDS est vide ou illisible, ou quand la
 descente boucle (cycle).
+
+Make Me a Hanzi note `？` l'élément qu'il ne décompose pas : ces caractères ne
+peuvent pas être réconciliés. Une source d'IDS secondaire sous licence permissive
+(cjk-decomp, voir `cjkdecomp.py`) prend alors le relais, et seulement alors. Le
+caractère garde la trace des sources d'IDS consultées (`sources`).
 """
 from __future__ import annotations
 
@@ -22,6 +27,7 @@ from dataclasses import dataclass
 from pathlib import Path
 from typing import Iterable, Iterator, Mapping, Sequence
 
+from .cjkdecomp import SOURCE as SOURCE_SECONDAIRE
 from .paths import BUILD, GF0014, INGEST
 
 # Opérateurs de description idéographique (Unicode 2FF0..2FFB) et leur arité.
@@ -33,6 +39,8 @@ OPERATEURS_IDS: dict[str, int] = {
 # Make Me a Hanzi note d'un point d'interrogation pleine chasse un caractère
 # qu'il ne décompose pas.
 INCONNU = "？"
+
+SOURCE_MMAH = "makemeahanzi"
 
 COLONNES = (
     "sequence", "groupe", "forme", "type_forme", "nom",
@@ -199,7 +207,8 @@ class Decomposition:
 
     `composants` est la liste ordonnée des feuilles atteintes, dans l'ordre
     d'écriture. Une feuille hors table y figure quand même : `inconnus` la
-    signale. `structure` est l'IDS réduit à ces feuilles.
+    signale. `structure` est l'IDS réduit à ces feuilles. `sources` nomme les
+    sources d'IDS descendues, dans l'ordre de leur première consultation.
     """
 
     c: str
@@ -207,6 +216,7 @@ class Decomposition:
     structure: str
     inconnus: tuple[str, ...] = ()
     cycle: tuple[str, ...] = ()
+    sources: tuple[str, ...] = ()  # sources d'IDS réellement consultées
 
     @property
     def reconcilie(self) -> bool:
@@ -218,11 +228,17 @@ def decomposer(
     c: str,
     table: TableGF0014,
     ids_par_caractere: Mapping[str, str],
+    sources_ids: Mapping[str, str] | None = None,
 ) -> Decomposition:
-    """Décompose `c` jusqu'aux composants GF 0014-2009, dans l'ordre d'écriture."""
+    """Décompose `c` jusqu'aux composants GF 0014-2009, dans l'ordre d'écriture.
+
+    `sources_ids` dit de quelle source vient l'IDS de chaque caractère ; les
+    sources descendues sont reportées dans `Decomposition.sources`.
+    """
     composants: list[str] = []
     inconnus: list[str] = []
     cycle: list[str] = []
+    sources: dict[str, None] = {}
 
     def feuille(x: str, chemin: tuple[str, ...]) -> str:
         if x in table:
@@ -244,6 +260,8 @@ def decomposer(
             inconnus.append(x)
             composants.append(x)
             return x
+        if sources_ids is not None:
+            sources[sources_ids.get(x, SOURCE_MMAH)] = None
         return descendre(noeud, chemin + (x,))
 
     def descendre(noeud: Noeud, chemin: tuple[str, ...]) -> str:
@@ -261,6 +279,7 @@ def decomposer(
         structure=structure,
         inconnus=tuple(dict.fromkeys(inconnus)),
         cycle=tuple(cycle),
+        sources=tuple(sources),
     )
 
 
@@ -269,13 +288,44 @@ def index_ids(caracteres: Iterable[Mapping[str, object]]) -> dict[str, str]:
     return {str(c["c"]): str(c.get("decomposition") or "") for c in caracteres}
 
 
+def a_remplacer(ids: str, c: str) -> bool:
+    """Vrai si l'IDS de Make Me a Hanzi ne dit rien d'exploitable sur `c`.
+
+    Trois cas : IDS vide, IDS qui se réduit au caractère lui-même, et IDS qui
+    porte le `？` de Make Me a Hanzi — fût-ce sur un seul opérande, car la
+    descente s'y arrête et le caractère reste en écart.
+    """
+    return not ids or ids == c or INCONNU in ids
+
+
+def combiner_ids(
+    principaux: Mapping[str, str],
+    secondaires: Mapping[str, str] | None = None,
+) -> tuple[dict[str, str], dict[str, str]]:
+    """Fusionne les deux sources d'IDS. Rend (IDS retenus, source de chaque IDS).
+
+    La source secondaire ne sert que là où Make Me a Hanzi ne donne rien
+    d'exploitable, et pour les caractères qu'il ignore — ceux que la descente
+    rencontre sans pouvoir les ouvrir.
+    """
+    ids = dict(principaux)
+    sources = {c: SOURCE_MMAH for c in principaux}
+    for c, secondaire in (secondaires or {}).items():
+        if c not in ids or a_remplacer(ids[c], c):
+            ids[c] = secondaire
+            sources[c] = SOURCE_SECONDAIRE
+    return ids, sources
+
+
 def reconcilier(
     caracteres: Iterable[Mapping[str, object]],
     table: TableGF0014,
+    ids_secondaires: Mapping[str, str] | None = None,
 ) -> list[Decomposition]:
     """Décompose tous les caractères ingérés, dans l'ordre de la source."""
-    ids = index_ids(caracteres)
-    return [decomposer(c, table, ids) for c in ids]
+    principaux = index_ids(caracteres)
+    ids, sources = combiner_ids(principaux, ids_secondaires)
+    return [decomposer(c, table, ids, sources) for c in principaux]
 
 
 # ------------------------------------------------------------------------- rapport
@@ -302,6 +352,15 @@ def forme_de_radical(forme: str) -> bool:
     return nom_unicode(forme).startswith(("CJK RADICAL", "KANGXI RADICAL"))
 
 
+def forme_de_trait(forme: str) -> bool:
+    """Vrai si `forme` est un point de code du bloc des traits (㇐, ㇑), non un idéogramme.
+
+    L'IDS secondaire descend parfois jusqu'au trait isolé là où la norme donne
+    l'idéogramme correspondant (一, 丨, 丶) : écart de notation, pas de contenu.
+    """
+    return nom_unicode(forme).startswith("CJK STROKE")
+
+
 def _frequence_inconnus(decompositions: Sequence[Decomposition]) -> list[tuple[str, int]]:
     compte: dict[str, int] = {}
     for d in decompositions:
@@ -321,13 +380,15 @@ def rapport_ecarts(
     ok = [d for d in decompositions if d.reconcilie]
     cycles = [d for d in decompositions if d.cycle]
     inconnus = _frequence_inconnus(decompositions)
+    secondaire = [d for d in decompositions if SOURCE_SECONDAIRE in d.sources]
 
     part = f"{100 * len(ok) / total:.1f} %" if total else "—"
     lignes = [
         "# Écarts de réconciliation avec GF 0014-2009",
         "",
         "Produit par `uv run zilin build`. Source des IDS : `dictionary.txt`",
-        "(Make Me a Hanzi), non canonique. Table : `data/sources/gf0014-2009/composants.tsv`.",
+        f"(Make Me a Hanzi), non canonique, avec `{SOURCE_SECONDAIRE}` en repli là où elle",
+        f"donne `{INCONNU}` ou rien. Table : `data/sources/gf0014-2009/composants.tsv`.",
         "",
         "## Décompte",
         "",
@@ -339,6 +400,8 @@ def rapport_ecarts(
         f"| Caractères en écart | {total - len(ok)} |",
         f"| Composants inconnus distincts | {len(inconnus)} |",
         f"| Caractères avec cycle | {len(cycles)} |",
+        f"| Caractères descendus avec l'IDS secondaire | {len(secondaire)}"
+        f" ({sum(1 for d in secondaire if d.reconcilie)} réconciliés) |",
         "",
         "## Composants inconnus, par fréquence",
         "",
@@ -357,17 +420,31 @@ def rapport_ecarts(
         d for d in decompositions
         if d.inconnus and not d.cycle and all(forme_de_radical(x) for x in d.inconnus)
     ]
+    traits = [f for f, _ in inconnus if forme_de_trait(f)]
+    seuls_traits = [
+        d for d in decompositions
+        if d.inconnus and not d.cycle and all(forme_de_trait(x) for x in d.inconnus)
+    ]
     inconnu_mmah = sum(1 for d in decompositions if INCONNU in d.inconnus)
     lignes += [
         "## Lecture",
         "",
         f"- `{INCONNU}` est la marque de Make Me a Hanzi pour un élément qu'il ne décompose"
-        f" pas : {inconnu_mmah} caractères. Aucune table ne peut les réconcilier, il faut"
-        " une autre source d'IDS.",
+        f" pas : {inconnu_mmah} caractères restent dessus. Aucune table ne peut les"
+        " réconcilier : c'est le rôle de la source d'IDS secondaire, qui ne sert que là.",
+        f"- {len(secondaire)} caractères ont été descendus avec un IDS de"
+        f" `{SOURCE_SECONDAIRE}` (licence permissive), dont"
+        f" {sum(1 for d in secondaire if d.reconcilie)} réconciliés. Les feuilles en"
+        " sortent fiables, la structure moins : les codes de disposition de cette source"
+        " sont plus fins que les douze opérateurs IDS. À relire avant publication.",
         f"- {len(radicaux)} composants inconnus sont des points de code des blocs de"
         f" radicaux ({' '.join(radicaux)}) là où la norme donne l'idéogramme ou l'une de"
         f" ses variantes : écart de notation, pas de contenu. Les normaliser réconcilierait"
         f" {len(seuls_radicaux)} caractères de plus.",
+        f"- {len(traits)} composants inconnus sont des points de code de traits"
+        f" ({' '.join(traits)}), apportés par l'IDS secondaire là où la norme donne"
+        f" l'idéogramme (一, 丨, 丶) : même écart de notation. Les normaliser réconcilierait"
+        f" {len(seuls_traits)} caractères de plus.",
         "- Les autres composants inconnus sont des idéogrammes absents de la norme, qui ne"
         " couvre que les 3 500 caractères usuels de l'écriture simplifiée : attendu sur le"
         " reste du dictionnaire.",
@@ -400,6 +477,18 @@ def rapport_ecarts(
             f" ({len(absents)} absents de la source, {len(manques)} en écart)."
         )
         lignes.append("")
+        repris = [
+            c
+            for c in caracteres
+            if c in par_caractere
+            and par_caractere[c].reconcilie
+            and SOURCE_SECONDAIRE in par_caractere[c].sources
+        ]
+        if repris:
+            lignes += [
+                f"Réconciliés grâce à l'IDS secondaire, à relire : {' '.join(repris)}",
+                "",
+            ]
         if manques:
             lignes += ["| Caractère | Composants | Inconnus | Cycle |", "|---|---|---|---|"]
             for d in manques:
@@ -420,6 +509,18 @@ def _ecrire(chemin: Path, contenu: object) -> None:
     chemin.write_text(json.dumps(contenu, ensure_ascii=False, indent=1), encoding="utf-8")
 
 
+IDS_SECONDAIRES = "ids-secondaires.json"
+
+
+def charger_ids_secondaires(ingest: Path) -> dict[str, str]:
+    """Charge `ids-secondaires.json` s'il existe, sinon rend un dictionnaire vide."""
+    fichier = ingest / IDS_SECONDAIRES
+    if not fichier.exists():
+        return {}
+    document = json.loads(fichier.read_text(encoding="utf-8"))
+    return {str(c): str(ids) for c, ids in document.get("ids", {}).items()}
+
+
 def document_decompositions(
     decompositions: Sequence[Decomposition],
     table: TableGF0014,
@@ -433,6 +534,9 @@ def document_decompositions(
             "groupes": table.groupes,
         },
         "source_ids": "Make Me a Hanzi, dictionary.txt (non canonique)",
+        "source_ids_secondaire": (
+            f"{SOURCE_SECONDAIRE} (IDS de repli quand Make Me a Hanzi donne ？ ou rien)"
+        ),
         "caracteres": [
             {
                 "c": d.c,
@@ -441,6 +545,7 @@ def document_decompositions(
                 "reconcilie": d.reconcilie,
                 "inconnus": list(d.inconnus),
                 "cycle": list(d.cycle),
+                "sources": list(d.sources),
             }
             for d in decompositions
         ],
@@ -460,8 +565,9 @@ def build(
     caracteres = json.loads((ingest / "caracteres.json").read_text(encoding="utf-8"))
     fichier_listes = ingest / "listes.json"
     listes = json.loads(fichier_listes.read_text(encoding="utf-8")) if fichier_listes.exists() else {}
+    secondaires = charger_ids_secondaires(ingest)
 
-    decompositions = reconcilier(caracteres, table)
+    decompositions = reconcilier(caracteres, table, secondaires)
     sortie.mkdir(parents=True, exist_ok=True)
     _ecrire(sortie / "decompositions.json", document_decompositions(decompositions, table))
     (sortie / "ecarts.md").write_text(rapport_ecarts(decompositions, table, listes), encoding="utf-8")
@@ -475,6 +581,10 @@ def build(
         "en_ecart": len(decompositions) - ok,
         "composants_inconnus": len(_frequence_inconnus(decompositions)),
         "cycles": sum(1 for d in decompositions if d.cycle),
+        "ids_secondaires": len(secondaires) or f"source absente ({IDS_SECONDAIRES})",
+        "reconcilies_via_secondaire": sum(
+            1 for d in decompositions if d.reconcilie and SOURCE_SECONDAIRE in d.sources
+        ),
     }
     for nom in PRIORITAIRES:
         attendus = listes.get(nom, [])

@@ -14,7 +14,8 @@ Hypothèse de distribution : PWA gratuite sur le web, app iOS payante (achat à 
 | `hanzi-writer-data` | traits et médianes (JSON) | Arphic Public License | utilisable avec obligations ; redondant avec `graphics.txt` |
 | Hanzi Writer (bibliothèque) | animation et quiz de tracé | MIT | utilisable avec obligations |
 | CC-CEDICT | mots, pinyin | CC BY-SA 4.0 | utilisable avec obligations |
-| Unihan / UCD | décompositions (kIDS), pinyin, traits | Unicode License | utilisable avec obligations ; source à privilégier |
+| Unihan / UCD | pinyin, traits (pas de décomposition : `kIDS` n'existe pas) | Unicode License | utilisable avec obligations ; source à privilégier |
+| cjk-decomp | décompositions converties en IDS, source de repli | MIT (au choix parmi six licences) | utilisable avec obligations |
 | Norme GF 0014-2009 | 514 composants | texte normatif, non vérifié en ligne | utilisable pour la logique ; ne pas reproduire le document |
 | Listes Eduscol | parcours Lire | publication officielle, page non consultable | utilisable comme liste de caractères ; pas de reprise de texte |
 | Référentiel HSK 3.0 | parcours HSK | publication officielle, page non consultable | idem ; ne pas rediffuser le PDF |
@@ -72,7 +73,7 @@ Ce que la LGPL impose concrètement à un fichier de données, et non à du code
 
 Décision opérationnelle : ne pas embarquer `dictionary.txt` ni un export qui en dérive. Le conserver comme source de contrôle hors distribution, pour vérifier la réconciliation avec GF 0014-2009 et repérer les écarts. Cette position évite d'avoir à trancher une question juridique inédite.
 
-Alternative retenue : Unihan et l'UCD, sous Unicode License, qui est permissive et sans partage à l'identique. Elle fournit le pinyin (`kMandarin`, `kHanyuPinyin`), le nombre de traits, et une propriété de décomposition `kIDS` annoncée à partir d'Unicode 17.0. À vérifier au moment de l'ingestion, `unicode.org` n'ayant pas pu être consulté depuis cet environnement. Les définitions anglaises et l'étymologie anglaise de `dictionary.txt` ne nous servent pas : le brief impose des textes rédigés pour l'app.
+Alternative retenue : Unihan et l'UCD, sous Unicode License, qui est permissive et sans partage à l'identique. Elle fournit le pinyin (`kMandarin`, `kHanyuPinyin`) et le nombre de traits, mais aucune décomposition : `kIDS` n'existe pas (vérifié sur Unihan 17.0.0, voir §5). Les décompositions de repli viennent de cjk-decomp (§5.1). Les définitions anglaises et l'étymologie anglaise de `dictionary.txt` ne nous servent pas : le brief impose des textes rédigés pour l'app.
 
 À écarter : `cjkvi/cjkvi-ids` (consulté le 21 septembre 2026), distribué sous GPL v2, donc incompatible avec un export propriétaire.
 
@@ -144,7 +145,17 @@ Alternative : n'utiliser CC-CEDICT que comme source de vérification hors distri
 
 Licence Unicode, telle que reproduite dans le fichier `LGPL` de Make Me a Hanzi (consulté le 21 septembre 2026) : usage sans restriction, y compris commercial, à trois conditions — conserver la notice de copyright et la notice de permission avec toutes les copies, les faire figurer dans la documentation associée, et indiquer clairement dans chaque fichier modifié que les données ont été modifiées.
 
-Décision : **utilisable avec obligations**. C'est la source la moins contraignante du lot. Elle devient la source de référence pour le pinyin, le nombre de traits et, si `kIDS` est bien disponible, les décompositions. `unicode.org` étant bloqué depuis cet environnement, la présence et la couverture de `kIDS` restent à confirmer au moment de la story 1.1.
+Décision : **utilisable avec obligations**. C'est la source la moins contraignante du lot. Elle devient la source de référence pour le pinyin et le nombre de traits.
+
+Vérification faite le 21 septembre 2026 sur Unihan 17.0.0 (archive `Unihan.zip` du 24 juillet 2025, en-tête « Unicode Version 17.0.0 », obtenue par un miroir GitHub, `unicode.org` restant bloqué) : **aucun champ `kIDS`**. Les en-têtes des huit fichiers de l'archive annoncent leurs champs ; `Unihan_IRGSources.txt` s'arrête à `kRSUnicode` et `kTotalStrokes`, et aucun autre fichier ne porte de décomposition. Même constat sur les huit fichiers d'Unihan 18.0.0 (31 juillet 2026), et `PropertyAliases-17.0.0.txt` ne déclare aucune propriété de décomposition côté Han. `kFrequency` a disparu des deux versions — il existait encore en 12.0.0 : Unihan ne fournit plus de fréquence, et le pipeline ne la lit que si une version la rétablit.
+
+### 5.1 cjk-decomp — décompositions de repli
+
+`https://github.com/amake/cjk-decomp`, consulté le 21 septembre 2026 (fork du projet de Gavin Grover, l'original CodePlex ayant fermé). Le README annonce une distribution **au choix sous six licences** — Apache 2.0, LGPL 3.0, CC BY-SA 3.0, MIT, ODC-By 1.0, EPL — et le dépôt porte le texte de l'Apache 2.0. Le projet retient la **MIT** : permissive, sans partage à l'identique, compatible avec un export propriétaire.
+
+Décision : **utilisable avec obligations** (reproduire la notice de copyright et le texte MIT sur l'écran « Licences »). Usage limité : le pipeline convertit ces décompositions en IDS et ne s'en sert que là où Make Me a Hanzi note `？` ou ne dit rien. Les codes de disposition de cette source étant plus fins que les douze opérateurs IDS, les composants obtenus sont fiables mais la structure est approchée : les caractères concernés sont marqués dans `decompositions.json` et listés dans `ecarts.md` pour relecture.
+
+À écarter, confirmé : les tables IDS de CHISE et de `cjkvi/cjkvi-ids`, sous GPL.
 
 ## 6. Normes et listes officielles
 
@@ -216,7 +227,7 @@ App Store :
 
 - L'atténuation retenue pour l'App Store — publier hors de l'app les données APL et CC BY-SA — n'a pas été validée par un conseil. Le texte des conditions d'usage d'Apple n'a pas pu être lu : `www.apple.com` est bloqué par le proxy de sortie. À faire relire avant la phase 4.
 - La clause APL §5 « no further restrictions » et la clause CC BY-SA 3 b) 3) sur les mesures techniques n'ont pas de jurisprudence connue appliquée à l'App Store pour des données. Risque résiduel assumé, à réévaluer.
-- Présence, nom exact et couverture des propriétés Unihan `kIDS` et `kSEAL_MCJK` : `unicode.org` est bloqué depuis cet environnement. À confirmer en story 1.1.
+- `kIDS` : tranché le 21 septembre 2026 — la propriété n'existe ni dans Unihan 17.0.0 ni dans 18.0.0 ; les décompositions de repli viennent de cjk-decomp (§5.1). `kSEAL_MCJK` reste à confirmer, `unicode.org` étant toujours bloqué depuis cet environnement.
 - Conditions de réutilisation exactes des listes Eduscol et du référentiel HSK 3.0 : pages non consultées. À vérifier avant la story 1.1.
 - Statut juridique du texte de GF 0014-2009 pour un éditeur non chinois : non vérifié.
 - Aucune police oraculaire sous licence ouverte vérifiée. Décision reportée.

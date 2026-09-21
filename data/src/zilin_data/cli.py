@@ -9,17 +9,19 @@ import json
 import typer
 
 from .contes import app as _contes
+from .fiches import app as _fiches
 from .fonts import commande as _fonts
 from .paths import BUILD, EXPORT, INGEST, SOURCES
 
 app = typer.Typer(help="Pipeline de contenu Zilin")
 app.command(name="fonts")(_fonts)
 app.add_typer(_contes, name="contes")
+app.add_typer(_fiches, name="fiches")
 
 
 @app.command()
 def fetch(force: bool = typer.Option(False, help="Retélécharger même si le fichier est présent.")) -> None:
-    """Télécharge les sources (Make Me a Hanzi, CC-CEDICT) dans data/work/sources/."""
+    """Télécharge les sources (Make Me a Hanzi, CC-CEDICT, Unihan, cjk-decomp) dans data/work/sources/."""
     from .fetch import fetch as _fetch
 
     etat = _fetch(force=force)
@@ -59,13 +61,14 @@ def build() -> None:
 
 @app.command()
 def check() -> None:
-    """Contrôles : composants inconnus, cycles, graphe, couverture des listes, briques muettes, contes hors liste."""
+    """Contrôles : composants inconnus, cycles, graphe, listes, briques muettes, contes hors liste, fiches invalides."""
     from .contes import controles as controles_contes
+    from .fiches import controles as controles_fiches
     from .gf0014 import controles
     from .graphe import controles as controles_graphe
 
     bloquants = []
-    for controle in [*controles(), *controles_graphe(), *controles_contes()]:
+    for controle in [*controles(), *controles_graphe(), *controles_contes(), *controles_fiches()]:
         typer.echo(f"{'ok   ' if controle.ok else 'écart'} {controle.nom} : {controle.detail}")
         if not controle.ok and controle.bloquant:
             bloquants.append(controle.nom)
