@@ -6,7 +6,7 @@
  * La journée courante est toujours passée en argument (`aujourdhui`, au format AAAA-MM-JJ)
  * et chaque transition renvoie un nouvel état. La persistance est dans `db.ts`.
  */
-import { ajouter, lireTao, taoVide, type Tao, type TypeActivite } from './tao';
+import { ajouter, journal, lireTao, taoVide, type Tao, type TypeActivite } from './tao';
 
 
 /** Budget choisi par l'utilisateur, en minutes. */
@@ -53,6 +53,18 @@ export type LearnView = 'brique' | 'trace' | 'compose';
 
 export const LEARN_VIEWS = ['brique', 'trace', 'compose'] as const;
 
+/** Les deux vues du pas Utiliser, dans l'ordre : les mots et la phrase, puis le texte. */
+export type UseView = 'mots' | 'texte';
+
+export const USE_VIEWS = ['mots', 'texte'] as const;
+
+/**
+ * Une réponse notée au pas Fixer : le caractère, juste ou faux, les essais, le temps.
+ * C'est l'événement de révision tel qu'il est rangé dans la progression ; `srs.ts`
+ * le note (`grade`), ce module ne fait que le garder.
+ */
+export type Revision = { c: string; correct: boolean; tries: number; seconds: number };
+
 /** L'état complet d'une progression. Sérialisable tel quel. */
 export type Progress = {
   version: 1;
@@ -75,6 +87,12 @@ export type Progress = {
   trace: boolean;
   /** Briques dont le tracé a déjà été proposé : une seule fois par brique. */
   tracees: string[];
+  /** Vue en cours du pas Utiliser : la reprise se fait au pas exact, vue comprise. */
+  use: UseView;
+  /** Question en cours du pas Fixer : la reprise reprend la vérification où elle en est. */
+  fix: number;
+  /** Les réponses notées de la journée. Repart à zéro à chaque journée. */
+  revisions: Revision[];
   /** L'état de Tao. Ajouté après coup : une progression sans ce champ se relit vide. */
   tao: Tao;
 };
@@ -92,6 +110,9 @@ export function emptyProgress(aujourdhui: string): Progress {
     learn: 'brique',
     trace: true,
     tracees: [],
+    use: 'mots',
+    fix: 0,
+    revisions: [],
     tao: taoVide()
   };
 }
@@ -122,7 +143,16 @@ function rattrapage(p: Progress, aujourdhui: string): boolean {
  */
 export function openDay(p: Progress, aujourdhui: string): Progress {
   if (p.day === aujourdhui) return p;
-  return { ...p, day: aujourdhui, done: [], learn: 'brique', catchup: rattrapage(p, aujourdhui) };
+  return {
+    ...p,
+    day: aujourdhui,
+    done: [],
+    learn: 'brique',
+    use: 'mots',
+    fix: 0,
+    revisions: [],
+    catchup: rattrapage(p, aujourdhui)
+  };
 }
 
 /**
@@ -153,7 +183,7 @@ export function noterActivite(p: Progress, jour: string, type: TypeActivite): Pr
 
 /** Recommence la journée : les pas repartent de zéro, le compteur de jour ne bouge pas. */
 export function resetDay(p: Progress): Progress {
-  return { ...p, done: [], learn: 'brique' };
+  return { ...p, done: [], learn: 'brique', use: 'mots', fix: 0, revisions: [] };
 }
 
 /* ---------- pas 3, Apprendre ---------- */
@@ -188,6 +218,62 @@ export function setLearnView(p: Progress, vue: LearnView): Progress {
 export function learnNext(p: Progress, brique: string): LearnView | null {
   if (p.learn === 'brique') return traceProposee(p, brique) ? 'trace' : 'compose';
   return p.learn === 'trace' ? 'compose' : null;
+}
+
+/* ---------- pas 4, Utiliser ---------- */
+
+/** Ouvre une vue du pas Utiliser. La progression est sauvegardée à chaque tap. */
+export function setUseView(p: Progress, vue: UseView): Progress {
+  return { ...p, use: vue };
+}
+
+/**
+ * La vue suivante du pas Utiliser : les mots et la phrase, puis les trois lignes à
+ * lire. `null` quand il n'y a plus de vue : le pas est fini.
+ */
+export function useNext(p: Progress): UseView | null {
+  return p.use === 'mots' ? 'texte' : null;
+}
+
+/* ---------- pas 5, Fixer ---------- */
+
+/** Ouvre une question du pas Fixer : la reprise reprend la vérification où elle en est. */
+export function setFix(p: Progress, i: number): Progress {
+  return { ...p, fix: Math.max(0, Math.floor(i)) };
+}
+
+/**
+ * Note une réponse : l'événement de révision est rangé dans la journée, et une
+ * activité « révision » est comptée pour Tao. Une réponse, une bouchée.
+ */
+export function noterRevision(p: Progress, jour: string, r: Revision): Progress {
+  return { ...p, revisions: [...p.revisions, r], tao: ajouter(p.tao, jour, 'revision') };
+}
+
+/** Le bilan de la vérification : les questions posées, et celles sues du premier coup. */
+export function bilan(p: Progress): { questions: number; sures: number } {
+  return {
+    questions: p.revisions.length,
+    sures: p.revisions.filter((r) => r.correct && r.tries === 0).length
+  };
+}
+
+/* ---------- pas 6, Clore ---------- */
+
+/**
+ * Le constat de clôture : une ligne, des nombres réels, la forme du journal du soir
+ * de Tao. Jamais une félicitation, jamais un reproche.
+ */
+export function constat(p: Progress, jour: string): string {
+  return journal(p.tao.activites, jour);
+}
+
+/**
+ * Le rendez-vous de demain. Sans heure : le réglage de l'heure de notification
+ * n'existe pas encore, et on ne promet pas ce qu'on ne tient pas.
+ */
+export function rendezVous(): string {
+  return 'On te le remontre demain.';
 }
 
 /* ---------- les pas ---------- */
@@ -322,6 +408,28 @@ function isLearnView(v: unknown): v is LearnView {
   return LEARN_VIEWS.includes(v as LearnView);
 }
 
+function isUseView(v: unknown): v is UseView {
+  return USE_VIEWS.includes(v as UseView);
+}
+
+/** Relit les événements de révision d'un export. Une entrée aberrante est écartée. */
+function lireRevisions(brut: unknown): Revision[] {
+  if (!Array.isArray(brut)) return [];
+  return brut.flatMap((x) => {
+    if (typeof x !== 'object' || x === null) return [];
+    const r = x as Record<string, unknown>;
+    if (typeof r.c !== 'string' || r.c === '') return [];
+    return [
+      {
+        c: r.c,
+        correct: r.correct === true,
+        tries: typeof r.tries === 'number' && r.tries >= 0 ? Math.floor(r.tries) : 0,
+        seconds: typeof r.seconds === 'number' && r.seconds >= 0 ? r.seconds : 0
+      }
+    ];
+  });
+}
+
 /** Relit une progression exportée. Les champs absents ou aberrants reprennent leur défaut. */
 export function fromJSON(texte: string, aujourdhui: string): Progress {
   let brut: unknown;
@@ -346,6 +454,10 @@ export function fromJSON(texte: string, aujourdhui: string): Progress {
     learn: isLearnView(o.learn) ? o.learn : vide.learn,
     trace: o.trace === undefined ? vide.trace : o.trace !== false,
     tracees: Array.isArray(o.tracees) ? o.tracees.filter((c): c is string => typeof c === 'string') : [],
+    /* Champs des pas Utiliser et Fixer : absents d'un export plus ancien, ils reprennent leur défaut. */
+    use: isUseView(o.use) ? o.use : vide.use,
+    fix: typeof o.fix === 'number' && o.fix >= 0 ? Math.floor(o.fix) : 0,
+    revisions: lireRevisions(o.revisions),
     tao: lireTao(o.tao)
   };
 }

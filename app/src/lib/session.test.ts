@@ -17,17 +17,25 @@ import {
   openDay,
   resetDay,
   setDue,
+  setFix,
   setLearnView,
   setTrace,
+  setUseView,
   steps,
   traceProposee,
   traceVue,
   title,
   toJSON,
+  useNext,
+  bilan,
+  constat,
   noterActivite,
-  type Progress
+  noterRevision,
+  rendezVous,
+  type Progress,
+  type Revision
 } from './session';
-import { taoVide } from './tao';
+import { journal, taoVide } from './tao';
 
 const JOUR = '2026-03-02';
 const neuf = (): Progress => emptyProgress(JOUR);
@@ -216,6 +224,139 @@ describe('pas 3, Apprendre', () => {
   });
 });
 
+describe('pas 4, Utiliser', () => {
+  it("s'ouvre sur les mots et la phrase, puis sur les trois lignes à lire", () => {
+    let p = neuf();
+    expect(p.use).toBe('mots');
+    expect(useNext(p)).toBe('texte');
+    p = setUseView(p, 'texte');
+    expect(useNext(p)).toBeNull();
+  });
+
+  it('reprend la vue exacte après un rechargement', () => {
+    let p = neuf();
+    [0, 1, 2].forEach((i) => {
+      p = markDone(p, i, JOUR);
+    });
+    p = setUseView(p, 'texte');
+    const relu = fromJSON(toJSON(p), JOUR);
+    expect(relu.use).toBe('texte');
+    expect(steps(relu)[nextIndex(relu)].id).toBe('utiliser');
+  });
+
+  it('repart des mots à la journée suivante et à la session suivante', () => {
+    const p = setUseView(neuf(), 'texte');
+    expect(openDay(p, '2026-03-03').use).toBe('mots');
+    expect(resetDay(p).use).toBe('mots');
+  });
+});
+
+describe('pas 5, Fixer', () => {
+  const juste: Revision = { c: '住', correct: true, tries: 0, seconds: 3 };
+  const hesite: Revision = { c: '主', correct: true, tries: 1, seconds: 9 };
+  const faux: Revision = { c: '住', correct: false, tries: 2, seconds: 12 };
+
+  it('range chaque réponse en événement de révision', () => {
+    let p = noterRevision(neuf(), JOUR, juste);
+    p = noterRevision(p, JOUR, faux);
+    expect(p.revisions).toEqual([juste, faux]);
+    expect(fromJSON(toJSON(p), JOUR).revisions).toEqual([juste, faux]);
+  });
+
+  it('note une activité de révision pour Tao par événement', () => {
+    let p = neuf();
+    [juste, hesite, faux].forEach((r) => {
+      p = noterRevision(p, JOUR, r);
+    });
+    expect(p.tao.activites).toEqual([
+      { jour: JOUR, type: 'revision' },
+      { jour: JOUR, type: 'revision' },
+      { jour: JOUR, type: 'revision' }
+    ]);
+    expect(p.tao.croissance).toBe(3);
+  });
+
+  it('compte les questions posées et celles sues du premier coup', () => {
+    let p = neuf();
+    [juste, hesite, faux].forEach((r) => {
+      p = noterRevision(p, JOUR, r);
+    });
+    expect(bilan(p)).toEqual({ questions: 3, sures: 1 });
+  });
+
+  it('reprend à la question exacte après un rechargement', () => {
+    let p = neuf();
+    [0, 1, 2, 3].forEach((i) => {
+      p = markDone(p, i, JOUR);
+    });
+    p = setFix(noterRevision(p, JOUR, juste), 1);
+    const relu = fromJSON(toJSON(p), JOUR);
+    expect(relu.fix).toBe(1);
+    expect(steps(relu)[nextIndex(relu)].id).toBe('fixer');
+  });
+
+  it('repart de la première question à la journée suivante', () => {
+    const p = setFix(noterRevision(neuf(), JOUR, juste), 2);
+    const demain = openDay(p, '2026-03-03');
+    expect(demain.fix).toBe(0);
+    expect(demain.revisions).toEqual([]);
+    /* Tao, elle, garde le journal : la croissance ne redescend jamais. */
+    expect(demain.tao.activites).toHaveLength(1);
+  });
+});
+
+describe('pas 6, Clore', () => {
+  it('constate la journée avec ses nombres réels, dans la forme du journal', () => {
+    let p = noterActivite(neuf(), JOUR, 'anecdote');
+    p = noterActivite(p, JOUR, 'lecture');
+    [1, 2, 3].forEach(() => {
+      p = noterRevision(p, JOUR, { c: '住', correct: true, tries: 0, seconds: 2 });
+    });
+    expect(constat(p, JOUR)).toBe("Aujourd'hui, un texte lu, 3 cartes révisées, une anecdote.");
+    expect(constat(p, JOUR)).toBe(journal(p.tao.activites, JOUR));
+  });
+
+  it('ne dit ni bravo ni reproche, même une journée vide', () => {
+    const p = neuf();
+    expect(constat(p, JOUR)).toBe("Aujourd'hui, rien de noté.");
+    expect(constat(p, JOUR)).not.toMatch(/bravo|félicit/i);
+  });
+
+  it('donne le rendez-vous de demain, sans heure', () => {
+    expect(rendezVous()).toBe('On te le remontre demain.');
+    expect(rendezVous()).not.toMatch(/matin|soir|\d/);
+  });
+});
+
+describe('Utiliser, Fixer, Clore, puis la journée finie', () => {
+  it("s'enchaînent dans l'ordre et ferment la journée", () => {
+    let p = neuf();
+    [0, 1, 2].forEach((i) => {
+      p = markDone(p, i, JOUR);
+    });
+
+    expect(currentStep(p)?.id).toBe('utiliser');
+    expect(currentStep(p)?.go).toBe('use');
+    p = setUseView(p, 'texte');
+    p = noterActivite(markDone(p, 3, JOUR), JOUR, 'lecture');
+    p = setUseView(p, 'mots');
+
+    expect(currentStep(p)?.id).toBe('fixer');
+    expect(currentStep(p)?.go).toBe('check');
+    p = noterRevision(p, JOUR, { c: '住', correct: true, tries: 0, seconds: 4 });
+    p = setFix(markDone(p, 4, JOUR), 0);
+
+    expect(currentStep(p)?.id).toBe('clore');
+    expect(currentStep(p)?.go).toBe('close');
+    expect(constat(p, JOUR)).toBe("Aujourd'hui, un texte lu, une carte révisée.");
+
+    p = markDone(p, 5, JOUR);
+    expect(allDone(p)).toBe(true);
+    expect(title(p)).toBe("C'est fait pour aujourd'hui");
+    expect(guide(p)).toContain('Rendez-vous demain');
+  });
+});
+
 describe('export et import', () => {
   it("rend le même état à l'aller-retour", () => {
     let p: Progress = { ...neuf(), due: 22, days: 11, budget: 20 };
@@ -233,6 +374,27 @@ describe('export et import', () => {
     expect(p.learn).toBe('brique');
     expect(p.trace).toBe(true);
     expect(p.tracees).toEqual([]);
+  });
+
+  it('relit un export plus ancien, sans les champs des pas Utiliser et Fixer', () => {
+    const ancien = JSON.stringify({ version: 1, day: JOUR, done: [true], budget: 10, days: 3 });
+    const p = fromJSON(ancien, JOUR);
+    expect(p.use).toBe('mots');
+    expect(p.fix).toBe(0);
+    expect(p.revisions).toEqual([]);
+  });
+
+  it('écarte une vue, une question ou une révision aberrantes', () => {
+    const cassé = JSON.stringify({
+      ...neuf(),
+      use: 'ailleurs',
+      fix: -3,
+      revisions: [{ c: '住', correct: true, tries: 1, seconds: 4 }, { tries: 2 }, 'rien']
+    });
+    const p = fromJSON(cassé, JOUR);
+    expect(p.use).toBe('mots');
+    expect(p.fix).toBe(0);
+    expect(p.revisions).toEqual([{ c: '住', correct: true, tries: 1, seconds: 4 }]);
   });
 
   it('ignore une vue ou une liste de briques aberrantes', () => {
