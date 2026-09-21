@@ -600,6 +600,16 @@ def test_controle_check_signale_le_seuil_255_non_relu(corpus, tmp_path: Path) ->
     assert "0 fiches sur 1" in controles(tmp_path, corpus)[1].detail
 
 
+def test_controle_check_avoue_ne_pas_avoir_lu_la_liste_du_seuil(corpus, tmp_path: Path) -> None:
+    """Liste du seuil absente : le contrôle est en écart, pas vert sur un ensemble vide."""
+    fiche = lire_reponse(CONFORME, contexte=corpus.contexte("住"), generation=generation_de_test())
+    ecrire_fiche(fiche, tmp_path)
+
+    _, relecture = controles(tmp_path, corpus, tmp_path / "sans-listes")
+    assert not relecture.ok and not relecture.bloquant
+    assert "relecture non contrôlée" in relecture.detail
+
+
 def test_controle_check_sans_fiche_ne_bloque_pas(tmp_path: Path) -> None:
     """Le contrôle lit les fichiers s'ils existent, et se tait sinon."""
     assert controles(tmp_path, None, tmp_path)[0].ok
