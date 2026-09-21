@@ -43,3 +43,34 @@ cd data && uv run zilin fonts        # --force pour retélécharger les sources
 ```
 
 La commande écrit les fichiers d'origine dans `data/work/fonts/` (ignoré par git) avec leurs SHA-256 et un journal de provenance, puis sous-ensemble et convertit avec fonttools. Le résultat est reproductible octet pour octet : relancer la commande sans changer les listes ne modifie pas le dépôt.
+
+## Estampes
+
+Chaque anecdote du pas Ouvrir porte une petite image, l'estampe, au-dessus du caractère au pinceau. Fichiers dans `app/public/data/demo/estampes/`, un par caractère d'anecdote (`estampes/<caractère>.svg`), référencés par le champ `estampe` de `anecdotes.json`.
+
+Règles du dessin :
+
+- SVG vectoriel, monochrome, en traits d'encre : `currentColor`, `stroke-width="6"` déclarée une seule fois sur la racine, bouts et jointures arrondis. Épaisseur constante : aucun enfant ne redéfinit l'épaisseur, et aucune transformation d'échelle (une rotation est permise, elle garde le trait).
+- Format carré, `viewBox="0 0 240 240"`, marge d'au moins 8 unités. Le motif doit rester lisible à 120 px.
+- Un seul motif clair par anecdote : l'objet ou le geste que raconte le texte.
+- Aucune couleur écrite en dur. À côté de l'encre, au plus un aplat très pâle en `var(--ocre-soft)` ou `var(--jade-soft)`, jamais autre chose.
+- Jamais de cinabre, de doré, de dégradé, d'ombre, de visage réaliste, de dragon, d'emoji.
+- Pas de police : aucun `<text>`. Quand l'anecdote parle d'un caractère collé (福 sur la porte, 囍 des mariages), le caractère est dessiné trait par trait.
+- Pas de script, pas de `<style>`, aucun renvoi hors de l'app (`href`, `url()`). Moins de 4 Ko.
+
+Mode sombre : le SVG est posé **en ligne** dans la page (`fetch` de l'asset puis `{@html}`, après contrôle que le chemin est bien `estampes/<fichier>.svg` et que le contenu ne porte ni script ni renvoi extérieur, voir `app/src/lib/estampe.ts`). Une balise `<img>` ne reçoit pas le `currentColor` de la page : il aurait fallu un filtre d'inversion, qui fausse aussi l'aplat pâle. En ligne, l'encre suit `--ink` et l'aplat suit son token : rien à inverser. Les `.svg` sont précachés par le service worker (`globPatterns` de `vite.config.ts`).
+
+| Caractère | Motif |
+|---|---|
+| 福 | le caractère collé à l'envers, en losange, sur une porte à deux battants |
+| 四 | un immeuble dont il manque un étage |
+| 钟 | une horloge nouée d'un ruban de cadeau |
+| 红 | l'enveloppe du Nouvel An et son médaillon |
+| 姓 | le livre cousu des cent vieux noms |
+| 茶 | la tasse servie et deux doigts pliés qui tapotent la table |
+| 龙 | le nuage, la pluie, l'eau où vit le dragon (aucun dragon dessiné) |
+| 面 | le masque d'opéra tenu par ses cordons |
+| 筷 | les baguettes couchées sur leur porte-baguettes, à côté du bol |
+| 岁 | le calendrier, un jour entouré |
+| 春 | le train du retour |
+| 喜 | 囍 collé sur le papier des mariages |
