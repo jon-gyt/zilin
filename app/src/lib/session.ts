@@ -103,6 +103,12 @@ export type Progress = {
   days: number;
   /** Dernière journée où au moins un pas a été fait. */
   lastWorked: string | null;
+  /**
+   * Les journées travaillées, une par graine plantée, dans l'ordre. C'est la seule
+   * mémoire de la série (`serie.ts`). Ajouté après coup : une progression sans ce champ
+   * se relit depuis ce qu'on sait déjà d'elle.
+   */
+  joursTravailles: string[];
   /** Vue en cours du pas Apprendre : la reprise se fait au pas exact, vue comprise. */
   learn: LearnView;
   /** Réglage : proposer le tracé d'une brique de base. Désactivable depuis l'écran de tracé. */
@@ -137,6 +143,7 @@ export function emptyProgress(aujourdhui: string): Progress {
     due: 0,
     days: 0,
     lastWorked: null,
+    joursTravailles: [],
     learn: 'brique',
     trace: true,
     tracees: [],
@@ -208,6 +215,15 @@ export function markDone(p: Progress, i: number, aujourdhui: string): Progress {
   const done = steps(p).map((_, k) => (k === i ? true : (p.done[k] ?? false)));
   const premier = p.lastWorked !== aujourdhui;
   return { ...p, done, days: premier ? p.days + 1 : p.days, lastWorked: aujourdhui };
+}
+
+/**
+ * Plante la graine du jour : la journée entre dans les journées travaillées. Appelé à la
+ * clôture, une seule fois par journée. Une graine plantée ne se retire jamais.
+ */
+export function noterJourTravaille(p: Progress, jour: string): Progress {
+  if (p.joursTravailles.includes(jour)) return p;
+  return { ...p, joursTravailles: [...p.joursTravailles, jour].sort() };
 }
 
 /** Note une activité pour Tao : elle grandit de ce qui est fait, et rien d'autre. */
@@ -538,6 +554,20 @@ function lireRevisions(brut: unknown): Revision[] {
   });
 }
 
+const FORMAT_JOUR = /^\d{4}-\d{2}-\d{2}$/;
+
+/**
+ * Relit les journées travaillées. Le champ est arrivé avec la série : un export plus
+ * ancien n'en a pas, et on le reconstitue de ce qu'il sait déjà, le journal de Tao et la
+ * dernière journée travaillée. Ni plus ni moins : on ne devine aucune journée.
+ */
+function lireJoursTravailles(o: Record<string, unknown>, tao: Tao, lastWorked: string | null): string[] {
+  const garder = (l: readonly unknown[]): string[] =>
+    [...new Set(l.filter((x): x is string => typeof x === 'string' && FORMAT_JOUR.test(x)))].sort();
+  if (Array.isArray(o.joursTravailles)) return garder(o.joursTravailles);
+  return garder([...tao.activites.map((a) => a.jour), lastWorked]);
+}
+
 /** Relit une progression exportée. Les champs absents ou aberrants reprennent leur défaut. */
 export function fromJSON(texte: string, aujourdhui: string): Progress {
   let brut: unknown;
@@ -549,6 +579,8 @@ export function fromJSON(texte: string, aujourdhui: string): Progress {
   if (typeof brut !== 'object' || brut === null) throw new Error('Fichier illisible');
   const o = brut as Record<string, unknown>;
   const vide = emptyProgress(aujourdhui);
+  const tao = lireTao(o.tao);
+  const lastWorked = typeof o.lastWorked === 'string' ? o.lastWorked : null;
   return {
     version: 1,
     day: typeof o.day === 'string' ? o.day : vide.day,
@@ -557,7 +589,8 @@ export function fromJSON(texte: string, aujourdhui: string): Progress {
     budget: isBudget(o.budget) ? o.budget : vide.budget,
     due: typeof o.due === 'number' && o.due >= 0 ? Math.floor(o.due) : 0,
     days: typeof o.days === 'number' && o.days >= 0 ? Math.floor(o.days) : 0,
-    lastWorked: typeof o.lastWorked === 'string' ? o.lastWorked : null,
+    lastWorked,
+    joursTravailles: lireJoursTravailles(o, tao, lastWorked),
     /* Champs du pas Apprendre : absents d'un export plus ancien, ils reprennent leur défaut. */
     learn: isLearnView(o.learn) ? o.learn : vide.learn,
     trace: o.trace === undefined ? vide.trace : o.trace !== false,
@@ -566,7 +599,7 @@ export function fromJSON(texte: string, aujourdhui: string): Progress {
     use: isUseView(o.use) ? o.use : vide.use,
     fix: typeof o.fix === 'number' && o.fix >= 0 ? Math.floor(o.fix) : 0,
     revisions: lireRevisions(o.revisions),
-    tao: lireTao(o.tao),
+    tao,
     /* Champs de la première session et des cartes : absents d'un export plus ancien. */
     premiere: lirePremiere(o),
     premiereVue: isEtapeDepart(o.premiereVue) ? o.premiereVue : vide.premiereVue,
