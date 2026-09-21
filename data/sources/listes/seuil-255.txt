@@ -1,45 +1,294 @@
 # Seuil sinographique 255 (Éducation nationale, France)
 #
-# Référence : « Chinois — Seuil de 255 caractères », ministère de l'Éducation
-#   nationale (seuils sinographiques de Joël Bellassen et Françoise Audry-Iljic,
-#   255 / 405 / 505 / 805 / 1555 ; le seuil 1 est la liste des caractères actifs,
-#   programmes de langues vivantes, BO n° 32 du 8 septembre 2011 et publications
-#   Eduscol ultérieures).
-# Sources officielles à dépouiller :
-#   https://eduscol.education.fr/document/14728/download
+# Référentiel : seuils sinographiques de l'Éducation nationale (Joël Bellassen
+#   et Françoise Audry-Iljic ; 255 / 405 / 505 / 805 / 1555). Le seuil de 255 est
+#   à la fois la liste des caractères actifs de LV3 en terminale (BO n° 32 du
+#   8 septembre 2011, « Acquisition de la compétence graphique dans le cadre des
+#   enseignements de langues chinoise et japonaise au lycée ») et le seuil de fin
+#   d'école élémentaire.
+# Source officielle : « Chinois — Seuil de 255 caractères », ministère de
+#   l'Éducation nationale, ressource d'accompagnement Eduscol (cycles 2, 3, 4 et
+#   lycée), PDF d'une page produit le 28 mars 2018, avec couche texte.
+#
+# Transcriptions utilisées, relevées le 2026-09-21 depuis un poste qui atteint
+# Eduscol, concordantes caractère par caractère et dans le même ordre
+# (255 caractères, aucun doublon) :
+#   1. https://eduscol.education.fr/document/14728/download
+#      (redirige vers https://eduscol.education.gouv.fr/sites/default/files/document/ra16c2c3c4lyceelvchinoisseuil-255-caracteres958390pdf-75339.pdf ;
+#      texte extrait par pdftotext)
+#      sha256 a28040e2bba7e89c6beed4b7c89d1e74567c704f889579677bcc6fab8fd64e5f
+#   2. https://www.afpc.asso.fr/wp-content/uploads/2013/12/SEUILS-SINOGRAPHIQUES.pdf
+#      (reprise AFPC du BO n° 32 du 8 septembre 2011, 7 pages ; la liste y figure
+#      deux fois, « LV3 : seuil des 255 caractères actifs » et « Seuil
+#      sinographique de 255 caractères (fin d'école élémentaire) », toutes deux
+#      identiques à la transcription 1)
+#      sha256 63d955070a88909b94e308412324dfea30279274462769c252cc2e0918da7d8c
+# Non consultées (403 y compris depuis ce poste) :
 #   https://eduscol.education.gouv.fr/media/75339/download?attachment=
 #   https://www.education.gouv.fr/media/8543/download (BO n° 15 du 12 avril 2018)
-#   https://www.afpc.asso.fr/wp-content/uploads/2013/12/SEUILS-SINOGRAPHIQUES.pdf
-#     (reprise AFPC du BO n° 32 du 8 septembre 2011)
+# Les PDF ne sont pas versionnés (licence de rediffusion non établie) ; les
+# empreintes ci-dessus permettent de les revérifier.
 #
-# ÉTAT AU 2026-09-21 : LISTE NON RENSEIGNÉE, AUCUNE TRANSCRIPTION VÉRIFIABLE.
+# Actifs / passifs : les 255 caractères sont tous actifs (lecture oralisée,
+# compréhension et production écrites). Le document ne marque aucun passif à
+# l'intérieur de cette liste ; les passifs de LV3 sont les 150 caractères
+# supplémentaires du seuil de 405, qui n'est pas repris ici.
 #
-# Relevé du 2026-09-21. Les domaines officiels et associatifs ci-dessus sont
-# refusés par le filtrage réseau de l'environnement de développement
-# (eduscol.education.fr, eduscol.education.gouv.fr, education.gouv.fr,
-# afpc.asso.fr : « blocked by the network egress proxy » ; quizlet.com,
-# hanzidico.com, chine-nouvelle.com, ankiweb.net, web.archive.org, grep.app :
-# injoignables également). Seuls github.com et raw.githubusercontent.com
-# répondent.
+# Ordre : celui du document officiel (ordre alphabétique du pinyin).
 #
-# Recherche menée sur GitHub le 2026-09-21, sans résultat (recherche de code
-# sur l'ensemble de GitHub, 0 transcription trouvée) :
-#   "seuil de 255 caractères" · "seuil des 255" · "seuil 255" · "seuil-255"
-#   "seuils sinographiques" · "255 caractères" · "caractères actifs" chinois
-#   "Éducation nationale" chinois caractères hanzi liste · bellassen
-#   filename:seuil.txt · path:seuil 汉字 · seuil 汉字 · "爱八爸吧白百半办杯北"
-#   "255" "405" "505" "805" "1555" caractères
-# Dépôts candidats inspectés et écartés (aucun ne porte la liste) :
-#   thomas-schaller/grille-caractere-chinois · CNurt/Chinese-character-lists
-#   yannickmahe/HanziList · hugolpz/OpenEdx-hanzi · hugolpz/Cat-is-smart
-#   iannisjap/cours-chinois · alexandrejacquemin/AEFC
-#
-# La liste n'est volontairement pas reconstituée de mémoire : sans deux
-# transcriptions concordantes (ou, à défaut, une transcription traçable), elle
-# reste vide. À reprendre depuis un poste qui atteint Eduscol, ou depuis le PDF
-# officiel déposé à la main dans le dépôt.
-#
-# Format attendu : un caractère par ligne, 255 lignes, ordre du document
-# officiel, distinction actifs / passifs à documenter en commentaire, en-tête
-# sur le modèle de hsk-1.txt (source officielle, URL des transcriptions, date du
-# relevé, SHA-256 de chaque fichier, écarts constatés).
+# Un caractère par ligne.
+爱
+八
+爸
+吧
+白
+百
+半
+办
+杯
+北
+本
+比
+笔
+边
+别
+病
+不
+菜
+茶
+长
+常
+车
+城
+吃
+出
+从
+打
+大
+到
+道
+的
+得
+地
+点
+电
+店
+冬
+东
+懂
+都
+对
+多
+儿
+二
+法
+饭
+方
+房
+飞
+非
+分
+夫
+父
+干
+刚
+高
+哥
+个
+给
+跟
+工
+古
+关
+馆
+贵
+国
+果
+过
+还
+孩
+海
+汉
+好
+喝
+和
+很
+红
+后
+候
+花
+画
+话
+欢
+回
+会
+活
+火
+机
+几
+家
+间
+见
+叫
+今
+近
+进
+京
+九
+酒
+就
+觉
+开
+看
+可
+课
+口
+块
+快
+筷
+来
+老
+了
+累
+冷
+李
+里
+两
+六
+妈
+吗
+买
+卖
+忙
+毛
+么
+没
+每
+美
+门
+们
+米
+面
+名
+明
+母
+哪
+那
+男
+南
+难
+呢
+能
+你
+年
+念
+您
+女
+朋
+票
+七
+期
+其
+气
+汽
+前
+钱
+亲
+请
+去
+让
+人
+认
+日
+肉
+如
+三
+山
+商
+上
+少
+谁
+什
+生
+师
+十
+时
+识
+是
+书
+水
+说
+思
+四
+岁
+他
+她
+它
+太
+题
+天
+听
+同
+图
+外
+完
+玩
+晚
+王
+为
+文
+问
+我
+五
+午
+西
+喜
+下
+先
+现
+想
+小
+些
+写
+谢
+心
+新
+信
+星
+姓
+兴
+许
+学
+样
+要
+也
+一
+以
+意
+因
+影
+用
+友
+有
+又
+雨
+语
+远
+月
+在
+再
+早
+怎
+张
+这
+只
+知
+中
+重
+住
+子
+字
+走
+昨
+坐
+作
