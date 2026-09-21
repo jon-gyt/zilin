@@ -307,3 +307,13 @@ h1{font-family:var(--head);font-weight:700;font-size:30px;line-height:1.15;lette
 .fiche{margin-top:12px}
 .fiche .sens{font-weight:600}
 .fiche .sens .py{font-size:17px;margin-left:6px}
+/* ---- story 3.4, la série : l'écran de série et les récompenses (maquette s-streak, s-rew) ---- */
+/* Que 雀, le moineau : encre, gorge claire, bec à l'ocre */
+.que{display:inline-block;overflow:visible}
+.que .aile{transform-origin:96px 112px;animation:bat .5s ease-in-out infinite alternate}
+.que.pose .aile{animation:none}
+@keyframes bat{from{transform:rotate(-14deg)}to{transform:rotate(10deg)}}
+.que .couvercle{transform-origin:100px 96px}
+.que .paquet.ouvert .couvercle{animation:couvercle .5s cubic-bezier(.2,1.4,.5,1) 1.9s both}
+@keyframes couvercle{from{transform:none}to{transform:translateY(-30px) rotate(-14deg)}}
+@media (prefers-reduced-motion:reduce){.que *{animation:none!important}}
