@@ -215,13 +215,19 @@ export function title(p: Progress): string {
   return allDone(p) ? "C'est fait pour aujourd'hui" : "Aujourd'hui";
 }
 
+const EN_TOUTES_LETTRES: Record<Budget, string> = { 5: 'cinq', 10: 'dix', 20: 'vingt' };
+const BLOCS_EN_TOUTES_LETTRES = ['', 'Un bloc', 'Deux blocs', 'Trois blocs'];
+
 /** Message neutre en rattrapage : la pile, les blocs, rien sur les jours manqués. */
 export function guide(p: Progress): string {
-  if (p.catchup)
-    return `${p.due} cartes attendent. Des blocs de cinq minutes, pas de nouveau caractère tant que la pile n'est pas redescendue.`;
-  if (allDone(p)) return 'La graine du jour est plantée. Rendez-vous demain.';
+  if (p.catchup) {
+    const blocs = catchupSteps(p.due).filter((s) => s.go !== null).length;
+    return `${p.due} cartes attendent. ${BLOCS_EN_TOUTES_LETTRES[blocs]} de cinq minutes, pas de nouveau caractère tant que la pile n'est pas redescendue.`;
+  }
+  const budget = `Six pas, ${EN_TOUTES_LETTRES[p.budget]} minutes.`;
+  if (allDone(p)) return `${budget} La graine du jour est plantée. Rendez-vous demain.`;
   if (started(p)) return "On reprend là où on s'est arrêté.";
-  return `Six pas, ${p.budget} minutes. Un seul bouton.`;
+  return `${budget} Un seul bouton.`;
 }
 
 export function buttonLabel(p: Progress): string {

@@ -12,3 +12,18 @@ export async function loadStrokes(
   if (!r.ok) throw new Error(`Traits introuvables : ${file} (${r.status})`);
   return (await r.json()) as StrokeSet;
 }
+
+const cache = new Map<string, Promise<StrokeSet>>();
+
+/** Même chose, mais une seule requête par fichier pour toute la durée de vie de l'app. */
+export function strokesOnce(file = 'strokes-demo.json'): Promise<StrokeSet> {
+  let p = cache.get(file);
+  if (!p) {
+    p = loadStrokes(file).catch((e) => {
+      cache.delete(file);
+      throw e;
+    });
+    cache.set(file, p);
+  }
+  return p;
+}
