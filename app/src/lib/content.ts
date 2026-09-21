@@ -381,3 +381,114 @@ export function foretOnce(file = FICHIER_FORET_DEMO): Promise<Foret> {
 export function caracteres(n: Noeud): string[] {
   return [n.c, ...n.membres.flatMap(caracteres)];
 }
+
+/* ---------- l'index de l'export versionné ---------- */
+
+/**
+ * Une famille dans l'index : où lire ses fiches, où lire ses tracés, sa taille.
+ * `avancement_possible` est la part des caractères de la famille qui portent une
+ * fiche relue — le plafond de ce que l'app peut enseigner aujourd'hui, pas la
+ * progression de l'apprenant, qui vient d'IndexedDB.
+ */
+export type IndexFamille = {
+  racine: string;
+  fichier: string;
+  traits: string;
+  n: number;
+  avancement_possible: number;
+};
+
+/** Un conte disponible : ses versions par seuil, et le fichier qui les porte. */
+export type IndexConte = { id: string; titre_fr: string; seuils: number[]; fichier: string };
+
+/** Un jour de parcours : une brique nouvelle au plus, puis un ou deux composés. */
+export type IndexJour = {
+  jour: number;
+  brique: string | null;
+  composes: string[];
+  non_reconcilie: boolean;
+};
+
+/** Un parcours : sa liste cible et ses jours, dans l'ordre. */
+export type IndexParcours = { liste: string; regle: string; jours: IndexJour[] };
+
+/**
+ * `index.json` : la porte d'entrée de l'export versionné (`data/schema.md`).
+ * `empreinte` est celle du build dont l'export est tiré ; `date` est la seule
+ * chose qui bouge à contenu égal.
+ */
+export type Index = {
+  version: string;
+  date: string;
+  empreinte: string;
+  norme: string;
+  perimetre: string;
+  licences: string;
+  listes: Record<string, string[]>;
+  parcours: Record<string, IndexParcours>;
+  familles: IndexFamille[];
+  contes: IndexConte[];
+  paires: string;
+};
+
+/** La version de données que l'app lit. Les écrans lisent encore `data/demo/`. */
+export const VERSION_DONNEES = '0.1.0';
+
+/** Le dossier d'une version exportée, à la racine publique. */
+export function dossierVersion(version = VERSION_DONNEES): string {
+  return `data/${version}`;
+}
+
+/** Lit l'index d'une version exportée. `fetchFn` est injecté dans les tests. */
+export async function loadIndex(
+  version = VERSION_DONNEES,
+  fetchFn: typeof fetch = fetch
+): Promise<Index> {
+  const file = `${dossierVersion(version)}/index.json`;
+  const r = await fetchFn(`${import.meta.env.BASE_URL}${file}`);
+  if (!r.ok) throw new Error(`Index introuvable : ${file} (${r.status})`);
+  const brut = (await r.json()) as Partial<Index>;
+  if (!Array.isArray(brut.familles) || typeof brut.version !== 'string') {
+    throw new Error(`Index illisible : ${file}`);
+  }
+  return {
+    version: brut.version,
+    date: typeof brut.date === 'string' ? brut.date : '',
+    empreinte: typeof brut.empreinte === 'string' ? brut.empreinte : '',
+    norme: typeof brut.norme === 'string' ? brut.norme : '',
+    perimetre: typeof brut.perimetre === 'string' ? brut.perimetre : '',
+    licences: typeof brut.licences === 'string' ? brut.licences : '',
+    listes: brut.listes ?? {},
+    parcours: brut.parcours ?? {},
+    familles: brut.familles,
+    contes: Array.isArray(brut.contes) ? brut.contes : [],
+    paires: typeof brut.paires === 'string' ? brut.paires : ''
+  };
+}
+
+const index = new Map<string, Promise<Index>>();
+
+/** Même chose, mais une seule requête par version pour toute la durée de vie de l'app. */
+export function indexOnce(version = VERSION_DONNEES): Promise<Index> {
+  let p = index.get(version);
+  if (!p) {
+    p = loadIndex(version).catch((e) => {
+      index.delete(version);
+      throw e;
+    });
+    index.set(version, p);
+  }
+  return p;
+}
+
+/** Le chemin du fichier d'une famille, prêt pour `loadFamille`. */
+export function fichierFamille(i: Index, racine: string): string | null {
+  const f = i.familles.find((x) => x.racine === racine);
+  return f ? `${dossierVersion(i.version)}/${f.fichier}` : null;
+}
+
+/** Le chemin du fichier de tracés d'une famille, prêt pour `loadStrokes`. */
+export function fichierTraits(i: Index, racine: string): string | null {
+  const f = i.familles.find((x) => x.racine === racine);
+  return f ? `${dossierVersion(i.version)}/${f.traits}` : null;
+}
