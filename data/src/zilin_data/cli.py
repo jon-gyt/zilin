@@ -92,8 +92,6 @@ def build() -> None:
     typer.echo(f"Décompositions, écarts, graphe et parcours dans {BUILD}.")
 
 
-app.command(name="fonts")(_fonts)
-
 
 @app.command()
 def export(version: str = typer.Option(VERSION, help="Version exportée, en dossier.")) -> None:
@@ -110,6 +108,10 @@ def export(version: str = typer.Option(VERSION, help="Version exportée, en doss
     if rapport.fiches_relues == 0:
         typer.echo("Aucune fiche relue : les fiches exportées sont vides (statut sans_fiche).")
     typer.echo(f"Export écrit dans {rapport.dossier}.")
+
+
+# Après `export` : c'est lui qui dit quels caractères l'app écrit.
+app.command(name="fonts")(_fonts)
 
 
 @app.command()

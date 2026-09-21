@@ -280,7 +280,7 @@ def produire(fonte: Fonte, caracteres: str, dossier: Path, dest: Path) -> int:
 
 
 def commande(force: bool = False) -> None:
-    """Télécharge les polices de la charte et écrit les woff2 dans app/public/fonts/."""
+    """Télécharge les polices de la charte et écrit les woff2 dans app/public/fonts/. Après `export`."""
     import typer
 
     etat = fonts(force=force)
