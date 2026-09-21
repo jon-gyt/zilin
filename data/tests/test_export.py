@@ -249,6 +249,25 @@ def test_un_fichier_devenu_hors_perimetre_est_retire(atelier: Path) -> None:
     assert "familles/林.json" in suivant.supprimes
 
 
+def test_l_audio_deja_exporte_survit_a_un_reexport(atelier: Path) -> None:
+    """`audio/` appartient à `zilin audio exporter` : l'export ne le purge pas.
+
+    Sans cela, réexporter effaçait la voix de tous les caractères, et rien ne le
+    disait — le manifeste de `data/work/` restait, lui, intact.
+    """
+    rapport = export("0.1.0")
+    audio = rapport.dossier / "audio"
+    audio.mkdir()
+    (audio / "manifeste.json").write_text('{"chemins": {}}', encoding="utf-8")
+    (audio / "0123456789abcdef.mp3").write_bytes(b"ID3")
+
+    suivant = export("0.1.0")
+    assert suivant.supprimes == []
+    assert (audio / "0123456789abcdef.mp3").exists()
+    assert (audio / "manifeste.json").exists()
+    assert suivant.date == rapport.date, "un dossier étranger ne rend pas l'export périmé"
+
+
 # ------------------------------------------------------------------------- validation
 
 

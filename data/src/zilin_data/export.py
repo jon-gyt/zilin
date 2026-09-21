@@ -832,12 +832,27 @@ def _date_precedente(dossier: Path) -> datetime | None:
         return None
 
 
+#: Dossiers d'une version qu'une autre commande remplit : `export` les laisse
+#: intacts. `zilin audio exporter` écrit `audio/`, et le purger à chaque export
+#: effaçait la voix de tous les caractères.
+DOSSIERS_ETRANGERS: tuple[str, ...] = ("audio/",)
+
+
+def _etranger(relatif: str) -> bool:
+    """Vrai si ce chemin appartient à une autre commande que `export`."""
+    return relatif.startswith(DOSSIERS_ETRANGERS)
+
+
 def _identique(dossier: Path, textes: Mapping[str, str]) -> bool:
-    """Vrai si le dossier porte exactement ces fichiers, au même contenu."""
+    """Vrai si le dossier porte exactement ces fichiers, au même contenu.
+
+    Ce qui appartient à une autre commande (`audio/`) ne compte pas : l'export
+    n'en est pas l'auteur et n'a pas à se croire périmé parce qu'il a bougé.
+    """
     presents = {
         str(f.relative_to(dossier)).replace("\\", "/")
         for f in dossier.rglob("*")
-        if f.is_file()
+        if f.is_file() and not _etranger(str(f.relative_to(dossier)).replace("\\", "/"))
     }
     if presents != set(textes):
         return False
@@ -948,7 +963,11 @@ def export(
     licences: Path | None = None,
     moment: datetime | None = None,
 ) -> Rapport:
-    """Écrit `app/public/data/<version>/`. Idempotent : deux passes, mêmes octets."""
+    """Écrit `app/public/data/<version>/`. Idempotent : deux passes, mêmes octets.
+
+    Tout ce que l'export n'écrit pas est effacé du dossier de version — sauf les
+    dossiers d'une autre commande (`DOSSIERS_ETRANGERS`).
+    """
     textes, per, relues = assembler(
         version,
         build=build,
@@ -969,7 +988,7 @@ def export(
     for fichier in sorted(dossier.rglob("*")):
         if fichier.is_file():
             relatif = str(fichier.relative_to(dossier)).replace("\\", "/")
-            if relatif not in finaux:
+            if relatif not in finaux and not _etranger(relatif):
                 fichier.unlink()
                 supprimes.append(relatif)
     for relatif, texte in sorted(finaux.items()):
@@ -1103,6 +1122,8 @@ def controles(
             f"{dossier.name}:{f['racine']}" for f in familles if not f.get("avancement_possible")
         ]
         for chemin in sorted(dossier.rglob("*.json")):
+            if _etranger(str(chemin.relative_to(dossier)).replace("\\", "/")):
+                continue  # `audio/manifeste.json` a son propre régime, voir audio.py
             total_fichiers += 1
             melanges += [
                 f"{dossier.name}/{chemin.relative_to(dossier)} : {faute}"
