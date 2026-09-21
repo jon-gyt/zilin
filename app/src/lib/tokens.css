@@ -145,3 +145,16 @@ h1{font-family:var(--head);font-weight:700;font-size:30px;line-height:1.15;lette
 @keyframes marche{from{transform:translateY(0) rotate(-3deg)}to{transform:translateY(-6px) rotate(3deg)}}
 @keyframes redresse{from{transform:rotate(-9deg)}to{transform:rotate(0)}}
 @media (prefers-reduced-motion:reduce){.tao *{animation:none!important}}
+
+/* ---- pas 4, Utiliser : les trois lignes à lire et la glose (maquette s-l3, s-read) ---- */
+.read{font-family:var(--hz);font-size:30px;line-height:1.7;letter-spacing:.06em}
+.read .ligne{display:flex;flex-wrap:wrap}
+/* un caractère glosé se touche ; la ponctuation, non */
+.read .s{font:inherit;color:var(--ink);min-height:44px;display:inline-flex;align-items:center;border-bottom:2px solid transparent}
+.read button.s:active{border-color:var(--indigo)}
+.read .s.muet{color:var(--ink2)}
+/* le seul cinabre de cet écran : le caractère du jour, l'élément ajouté */
+.read .s.new{color:var(--zhu)}
+.gloss{margin-top:12px;min-height:48px;background:var(--paper);border-radius:10px;padding:10px 12px;font-size:15px;color:var(--ink2)}
+.gloss b{color:var(--ink);font-size:19px;margin-right:6px}
+.trad-pleine{margin-top:4px}
