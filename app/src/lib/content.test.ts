@@ -1,12 +1,19 @@
 import { describe, it, expect } from 'vitest';
 import { readFileSync } from 'node:fs';
 import {
+  ETIQUETTES,
   FICHIER_ANECDOTES,
+  FICHIER_FAMILLE_DEMO,
   anecdoteDuJour,
+  compose,
+  fiche,
   jourDepuisEpoque,
   loadAnecdotes,
+  loadFamille,
   type Anecdote,
-  type Anecdotes
+  type Anecdotes,
+  type Famille,
+  type Fiche
 } from './content';
 
 const fichier = JSON.parse(
@@ -102,5 +109,104 @@ describe('le chargeur', () => {
   it('refuse un fichier sans liste', async () => {
     const faux2: typeof fetch = async () => reponse(true, { version: '1' });
     await expect(loadAnecdotes(FICHIER_ANECDOTES, faux2)).rejects.toThrow('illisibles');
+  });
+});
+
+const famille = JSON.parse(
+  readFileSync(new URL('../../public/data/demo/familles/主.json', import.meta.url), 'utf8')
+) as Famille;
+
+/** Tout ce qui s'affiche d'une fiche, et doit donc venir de la source citée. */
+function textes(f: Fiche): string[] {
+  return [
+    f.c,
+    f.pinyin,
+    f.fr,
+    f.origine_fr,
+    ...f.parts,
+    ...f.mots.flatMap((m) => [m.hanzi, m.pinyin, m.fr]),
+    ...(f.phrase ? [f.phrase.hanzi, f.phrase.pinyin, f.phrase.fr] : [])
+  ].filter((t) => t !== '');
+}
+
+describe('la famille de démonstration', () => {
+  it('est versionnée et cite sa source', () => {
+    expect(famille.version).not.toBe('');
+    expect(famille.source).toBe('maquettes/zilin-maquette.html');
+  });
+
+  it('a la brique pour racine, et un composé', () => {
+    expect(famille.racine.c).toBe('主');
+    expect(famille.fiches.map((f) => f.c)).toEqual(['主', '住']);
+    expect(fiche(famille, '主')?.c).toBe('主');
+    expect(compose(famille)?.c).toBe('住');
+    expect(fiche(famille, '人')).toBeNull();
+  });
+
+  it('ne contient aucun texte écrit hors de sa source', () => {
+    for (const f of famille.fiches) for (const t of textes(f)) expect(maquette).toContain(t);
+    expect(maquette).toContain(famille.racine.fr);
+    expect(maquette).toContain(famille.racine.pinyin);
+  });
+
+  it('étiquette chaque fiche, attesté ou mnémotechnique', () => {
+    for (const f of famille.fiches) {
+      expect(Object.keys(ETIQUETTES)).toContain(f.etiquette);
+      expect(ETIQUETTES[f.etiquette]).not.toBe('');
+    }
+    expect(Object.keys(ETIQUETTES)).toContain(famille.racine.etiquette);
+  });
+
+  it("désigne l'élément ajouté dans la décomposition, et lui seul", () => {
+    for (const f of famille.fiches) {
+      expect(f.nouveau.length).toBeGreaterThan(0);
+      expect(f.nouveau.length).toBeLessThan(f.parts.length);
+      for (const i of f.nouveau) expect(f.parts[i]).toBeDefined();
+    }
+    /* 住 = 亻 + 主 : le cinabre va sur 主, l'élément ajouté, et sur lui seul. */
+    const c = compose(famille);
+    expect(c?.parts).toEqual(['亻', '主']);
+    expect(c?.nouveau.map((i) => c.parts[i])).toEqual(['主']);
+  });
+
+  it('ne duplique pas les traits : ils viennent de strokes-demo.json', () => {
+    for (const f of famille.fiches) {
+      expect(f.traits).toEqual([]);
+      expect(f.medianes).toEqual([]);
+    }
+  });
+
+  it('porte deux mots et une phrase sur le composé', () => {
+    const c = compose(famille);
+    expect(c?.mots).toHaveLength(2);
+    expect(c?.phrase?.hanzi).not.toBe('');
+  });
+});
+
+describe('le chargeur de famille', () => {
+  const reponse = (ok: boolean, corps: unknown): Response =>
+    ({ ok, status: ok ? 200 : 404, json: async () => corps }) as Response;
+
+  it("lit le fichier servi avec l'app, et lui seul", async () => {
+    const appels: string[] = [];
+    const faux2: typeof fetch = async (u) => {
+      appels.push(String(u));
+      return reponse(true, famille);
+    };
+    const lu = await loadFamille(FICHIER_FAMILLE_DEMO, faux2);
+    expect(appels).toEqual([`${import.meta.env.BASE_URL}${FICHIER_FAMILLE_DEMO}`]);
+    expect(lu.racine.c).toBe(famille.racine.c);
+    expect(lu.fiches).toHaveLength(famille.fiches.length);
+    expect(lu.version).toBe(famille.version);
+  });
+
+  it('refuse un fichier absent', async () => {
+    const faux2: typeof fetch = async () => reponse(false, null);
+    await expect(loadFamille(FICHIER_FAMILLE_DEMO, faux2)).rejects.toThrow('introuvable');
+  });
+
+  it('refuse un fichier sans racine ni fiches', async () => {
+    const faux2: typeof fetch = async () => reponse(true, { version: '1' });
+    await expect(loadFamille(FICHIER_FAMILLE_DEMO, faux2)).rejects.toThrow('illisible');
   });
 });

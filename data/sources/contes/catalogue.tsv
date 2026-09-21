@@ -1,0 +1,29 @@
+# Catalogue des contes à adapter par seuil (story 1.7).
+#
+# Dix récits traditionnels chinois, tous tirés d'ouvrages classiques tombés dans le
+# domaine public depuis des siècles. La colonne `ouvrage` trace l'origine du récit :
+# c'est une citation de référence, pas une source de texte. Aucun texte de ces
+# ouvrages n'est recopié ici ni transmis au modèle ; seuls le titre, l'ouvrage et le
+# résumé d'intrigue ci-dessous entrent dans l'invite (voir `contes.py`).
+#
+# La colonne `resume_fr` résume l'intrigue du récit traditionnel en une phrase. Elle
+# sert à cadrer la réécriture ; ce n'est pas un texte de l'app.
+#
+# Les versions chinoises sont produites par le pipeline (`zilin contes generer`) avec
+# les seuls caractères du seuil visé, puis relues. Elles ne sont jamais écrites ici.
+#
+# TSV, `#` en commentaire, cinq colonnes séparées par une tabulation.
+#
+# Note : 拔苗助长 est la forme moderne du récit ; 《孟子》 écrit 揠苗助长.
+#
+id	titre_zh	titre_fr	ouvrage	resume_fr
+shou-zhu-dai-tu	守株待兔	Guetter la souche en attendant le lièvre	《韩非子·五蠹》	Un paysan voit un lièvre se rompre le cou contre une souche, abandonne ses champs pour guetter la souche et finit par ne plus rien récolter.
+sai-weng-shi-ma	塞翁失马	Le vieillard de la frontière perd son cheval	《淮南子·人间训》	Le cheval perdu d'un vieillard revient accompagné d'un autre, son fils tombe de ce cheval et se casse la jambe, et cette blessure lui évite d'être envoyé à la guerre.
+yu-gong-yi-shan	愚公移山	Le vieux fou déplace les montagnes	《列子·汤问》	Un vieillard entreprend d'ôter deux montagnes panier par panier et répond à celui qui le raille que ses fils et ses petits-fils continueront après lui.
+hua-she-tian-zu	画蛇添足	Ajouter des pattes au serpent	《战国策·齐策二》	Le premier à finir son dessin de serpent y ajoute des pattes pour montrer son avance, et perd le pari qu'il avait déjà gagné.
+jing-di-zhi-wa	井底之蛙	La grenouille au fond du puits	《庄子·秋水》	Une grenouille vante son puits à une tortue venue de la mer de l'Est et découvre en l'écoutant la petitesse de son monde.
+hu-jia-hu-wei	狐假虎威	Le renard emprunte la puissance du tigre	《战国策·楚策一》	Un renard pris par un tigre le persuade de marcher devant lui, et le tigre croit que les bêtes s'enfuient devant le renard.
+ba-miao-zhu-zhang	拔苗助长	Tirer sur les pousses pour les faire grandir	《孟子·公孙丑上》	Un homme trop pressé tire sur ses jeunes pousses pour les allonger d'un jour et les fait toutes mourir.
+mang-ren-mo-xiang	盲人摸象	Les aveugles tâtent l'éléphant	《大般涅槃经》	Des aveugles touchent chacun une partie d'un éléphant et décrivent chacun une bête différente, sûrs d'avoir raison.
+ye-gong-hao-long	叶公好龙	Monsieur Ye aime les dragons	刘向《新序·杂事五》	Monsieur Ye couvre sa maison d'images de dragons, puis s'enfuit épouvanté le jour où un vrai dragon vient le voir.
+wang-yang-bu-lao	亡羊补牢	Réparer l'enclos après la perte des moutons	《战国策·楚策四》	Un berger néglige le trou de son enclos, perd un second mouton, puis répare le trou : il n'est jamais trop tard pour réparer.

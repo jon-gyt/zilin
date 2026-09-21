@@ -1,8 +1,9 @@
 <script lang="ts">
   /** Aujourd'hui : le chemin des six pas, un seul bouton en bas. */
   import Glyph from './Glyph.svelte';
-  import Miao from './Miao.svelte';
-  import { buttonLabel, dayLabel, guide, miaoPose, nextIndex, steps, title, type Progress } from './session';
+  import Tao from './Tao.svelte';
+  import { allDone, buttonLabel, dayLabel, guide, nextIndex, steps, title, type Progress } from './session';
+  import { humeur, poseDuJour, stade } from './tao';
 
   let { p, ontap }: { p: Progress; ontap: () => void } = $props();
 
@@ -11,7 +12,8 @@
 
   const liste = $derived(steps(p));
   const n = $derived(nextIndex(p));
-  const pose = $derived(miaoPose(p));
+  const pose = $derived(poseDuJour({ rattrapage: p.catchup, fini: allDone(p) }, humeur(p.tao.activites, p.day)));
+  const stadeDeTao = $derived(stade(p.tao.croissance));
 </script>
 
 <main class="screen">
@@ -33,7 +35,9 @@
   <p class="guide">{guide(p)}</p>
 
   {#if pose}
-    <div class="mood"><Miao {pose} size={110} /></div>
+    <div class="mood">
+      <Tao stade={stadeDeTao} posture={pose.posture} humeur={pose.humeur} size={120} />
+    </div>
   {/if}
 
   <div class="path">
