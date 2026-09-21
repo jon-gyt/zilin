@@ -7,10 +7,14 @@
  * et chaque transition renvoie un nouvel état. La persistance est dans `db.ts`.
  */
 import {
-  newCard,
+  due,
   fromJSON as cartesFromJSON,
+  newCard,
+  schedule,
   toJSON as cartesToJSON,
-  type ReviewCard
+  type Outcome,
+  type ReviewCard,
+  type SrsParams
 } from './srs';
 import { ajouter, journal, lireTao, taoVide, type Tao, type TypeActivite } from './tao';
 
@@ -60,6 +64,12 @@ export const SEUIL_ABSENCE = 3;
 
 /** Ce qu'un bloc de cinq minutes de révisions absorbe. */
 export const CARTES_PAR_BLOC = 15;
+
+/**
+ * Ce qu'une séance d'échauffement absorbe : quatorze cartes, comme la maquette.
+ * Au-delà, la pile attend le lendemain ou le rattrapage.
+ */
+export const CARTES_PAR_SEANCE = 14;
 
 /** Nombre maximum de blocs de cinq minutes proposés dans une journée de rattrapage. */
 export const BLOCS_MAX = 3;
@@ -119,6 +129,19 @@ export type Progress = {
   use: UseView;
   /** Question en cours du pas Fixer : la reprise reprend la vérification où elle en est. */
   fix: number;
+  /**
+   * Les cartes FSRS, une par caractère ou brique appris. Sérialisées par `srs.ts` :
+   * une progression plus ancienne, sans ce champ, se relit avec aucune carte.
+   */
+  cartes: ReviewCard[];
+  /**
+   * La pile du pas Échauffer, figée à l'ouverture du pas : les cartes dues de la séance,
+   * dans l'ordre. Elle ne bouge plus de la journée, pour que la reprise tombe sur la
+   * question exacte même quand une carte répondue n'est plus due.
+   */
+  revue: string[];
+  /** Question en cours du pas Échauffer : la reprise reprend la séance où elle en est. */
+  rev: number;
   /** Les réponses notées de la journée. Repart à zéro à chaque journée. */
   revisions: Revision[];
   /** L'état de Tao. Ajouté après coup : une progression sans ce champ se relit vide. */
@@ -129,8 +152,6 @@ export type Progress = {
   premiereVue: EtapeDepart;
   /** Le parcours choisi à la première session. `null` tant que la question n'est pas posée. */
   parcours: Parcours | null;
-  /** Les cartes de révision, une par caractère rencontré. Sérialisées par `srs.ts`. */
-  cartes: ReviewCard[];
 };
 
 export function emptyProgress(aujourdhui: string): Progress {
@@ -149,12 +170,14 @@ export function emptyProgress(aujourdhui: string): Progress {
     tracees: [],
     use: 'mots',
     fix: 0,
+    cartes: [],
+    revue: [],
+    rev: 0,
     revisions: [],
     tao: taoVide(),
     premiere: true,
     premiereVue: 'f1',
-    parcours: null,
-    cartes: []
+    parcours: null
   };
 }
 
@@ -191,6 +214,8 @@ export function openDay(p: Progress, aujourdhui: string): Progress {
     learn: 'brique',
     use: 'mots',
     fix: 0,
+    revue: [],
+    rev: 0,
     revisions: [],
     catchup: rattrapage(p, aujourdhui)
   };
@@ -233,7 +258,74 @@ export function noterActivite(p: Progress, jour: string, type: TypeActivite): Pr
 
 /** Recommence la journée : les pas repartent de zéro, le compteur de jour ne bouge pas. */
 export function resetDay(p: Progress): Progress {
-  return { ...p, done: [], learn: 'brique', use: 'mots', fix: 0, revisions: [] };
+  return { ...p, done: [], learn: 'brique', use: 'mots', fix: 0, revue: [], rev: 0, revisions: [] };
+}
+
+/* ---------- les cartes de révision ---------- */
+
+/** La carte d'un caractère, `null` si la progression n'en porte pas encore. */
+export function carte(p: Progress, id: string): ReviewCard | null {
+  return p.cartes.find((c) => c.id === id) ?? null;
+}
+
+/**
+ * Donne une carte neuve à chaque caractère qui n'en a pas. Appelé à la fin du pas
+ * Apprendre : la brique et le composé du jour entrent en révision.
+ */
+export function assurerCartes(p: Progress, ids: readonly string[], maintenant: Date): Progress {
+  const cartes = [...p.cartes];
+  for (const id of ids) {
+    if (id !== '' && !cartes.some((c) => c.id === id)) cartes.push(newCard(id, maintenant));
+  }
+  return cartes.length === p.cartes.length ? p : { ...p, cartes };
+}
+
+/**
+ * Note une réponse et replanifie la carte avec FSRS (`schedule` de `srs.ts`).
+ * Une carte absente est créée à la volée : on ne perd jamais une réponse.
+ */
+export function planifierCarte(
+  p: Progress,
+  id: string,
+  outcome: Outcome,
+  maintenant: Date,
+  params: SrsParams = {}
+): Progress {
+  const avant = carte(p, id) ?? newCard(id, maintenant);
+  const { card } = schedule(avant, outcome, maintenant, params);
+  const cartes = p.cartes.some((c) => c.id === id)
+    ? p.cartes.map((c) => (c.id === id ? card : c))
+    : [...p.cartes, card];
+  return { ...p, cartes };
+}
+
+/** L'échéance FSRS d'une carte : la dernière planifiée. `null` si la carte n'existe pas. */
+export function echeance(p: Progress, id: string): Date | null {
+  return carte(p, id)?.card.due ?? null;
+}
+
+/* ---------- pas 2, Échauffer ---------- */
+
+/**
+ * Les cartes dues, les plus urgentes d'abord (`due` de `srs.ts`), coupées à ce qu'une
+ * séance absorbe. Le reste attend le lendemain.
+ */
+export function cartesDues(
+  p: Progress,
+  maintenant: Date,
+  max: number = CARTES_PAR_SEANCE
+): ReviewCard[] {
+  return due(p.cartes, maintenant).slice(0, Math.max(0, max));
+}
+
+/** Fige la pile de la séance : elle ne bouge plus de la journée. */
+export function setRevue(p: Progress, ids: readonly string[]): Progress {
+  return { ...p, revue: [...ids] };
+}
+
+/** Ouvre une question du pas Échauffer : la reprise reprend la séance où elle en est. */
+export function setRev(p: Progress, i: number): Progress {
+  return { ...p, rev: Math.max(0, Math.floor(i)) };
 }
 
 /* ---------- la première session ---------- */
@@ -491,7 +583,8 @@ export function buttonLabel(p: Progress): string {
 
 /** Les cartes passent par `srs.ts` : les dates y sont en ISO, et se relisent telles quelles. */
 export function toJSON(p: Progress): string {
-  return JSON.stringify({ ...p, cartes: JSON.parse(cartesToJSON(p.cartes)) }, null, 2);
+  /* Les cartes sortent par `toJSON` de `srs.ts` : dates en ISO, version du format. */
+  return JSON.stringify({ ...p, cartes: JSON.parse(cartesToJSON(p.cartes)) as unknown }, null, 2);
 }
 
 function isBudget(v: unknown): v is Budget {
@@ -512,19 +605,6 @@ function isEtapeDepart(v: unknown): v is EtapeDepart {
 
 function isParcours(v: unknown): v is Parcours {
   return v === 'lire' || v === 'hsk' || v === 'voyage';
-}
-
-/**
- * Relit les cartes de révision, sérialisées par `srs.ts`. Une progression exportée
- * avant les cartes en rend zéro : le champ est rétrocompatible.
- */
-function lireCartes(brut: unknown): ReviewCard[] {
-  if (typeof brut !== 'object' || brut === null) return [];
-  try {
-    return cartesFromJSON(JSON.stringify(brut));
-  } catch {
-    return [];
-  }
 }
 
 /**
@@ -568,6 +648,24 @@ function lireJoursTravailles(o: Record<string, unknown>, tao: Tao, lastWorked: s
   return garder([...tao.activites.map((a) => a.jour), lastWorked]);
 }
 
+/**
+ * Relit les cartes d'un export, par `fromJSON` de `srs.ts`. Le champ est accepté sous ses
+ * deux formes : l'enveloppe `{version, cards}` de `srs.ts`, ou la simple liste de cartes
+ * telle que la rend IndexedDB. Absent ou illisible : aucune carte, et la session continue.
+ */
+export function lireCartesJSON(brut: unknown): ReviewCard[] {
+  if (brut === undefined || brut === null) return [];
+  const texte =
+    typeof brut === 'string'
+      ? brut
+      : JSON.stringify(Array.isArray(brut) ? { version: 1, cards: brut } : brut);
+  try {
+    return cartesFromJSON(texte);
+  } catch {
+    return [];
+  }
+}
+
 /** Relit une progression exportée. Les champs absents ou aberrants reprennent leur défaut. */
 export function fromJSON(texte: string, aujourdhui: string): Progress {
   let brut: unknown;
@@ -598,12 +696,15 @@ export function fromJSON(texte: string, aujourdhui: string): Progress {
     /* Champs des pas Utiliser et Fixer : absents d'un export plus ancien, ils reprennent leur défaut. */
     use: isUseView(o.use) ? o.use : vide.use,
     fix: typeof o.fix === 'number' && o.fix >= 0 ? Math.floor(o.fix) : 0,
+    /* Cartes et pile d'échauffement : absentes d'un export plus ancien, elles se relisent vides. */
+    cartes: lireCartesJSON(o.cartes),
+    revue: Array.isArray(o.revue) ? o.revue.filter((c): c is string => typeof c === 'string') : [],
+    rev: typeof o.rev === 'number' && o.rev >= 0 ? Math.floor(o.rev) : 0,
     revisions: lireRevisions(o.revisions),
     tao,
     /* Champs de la première session et des cartes : absents d'un export plus ancien. */
     premiere: lirePremiere(o),
     premiereVue: isEtapeDepart(o.premiereVue) ? o.premiereVue : vide.premiereVue,
-    parcours: isParcours(o.parcours) ? o.parcours : null,
-    cartes: lireCartes(o.cartes)
+    parcours: isParcours(o.parcours) ? o.parcours : null
   };
 }

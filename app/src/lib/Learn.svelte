@@ -18,8 +18,11 @@
     onquitter
   }: {
     p: Progress;
-    /** Enchaîne vers la vue suivante ; la brique de la session est passée à la session. */
-    onsuivant: (brique: string) => void;
+    /**
+     * Enchaîne vers la vue suivante. La brique et le composé de la session remontent :
+     * à la fin du pas, ils reçoivent chacun une carte de révision.
+     */
+    onsuivant: (brique: string, compose: string | null) => void;
     onvue: (v: LearnView) => void;
     ontrace: (actif: boolean) => void;
     onquitter: () => void;
@@ -111,7 +114,7 @@
       {/if}
     </div>
     <div class="foot">
-      <button class="btn" onclick={() => onsuivant(brique.c)}>J'ai vu {brique.c}, suivant</button>
+      <button class="btn" onclick={() => onsuivant(brique.c, compo?.c ?? null)}>J'ai vu {brique.c}, suivant</button>
     </div>
   {:else if vue === 'trace' && brique}
     <Trace char={brique.c} />
@@ -120,7 +123,7 @@
       Ne plus proposer le tracé
     </label>
     <div class="foot">
-      <button class="btn ghost" onclick={() => onsuivant(brique.c)}>Continuer sans tracer</button>
+      <button class="btn ghost" onclick={() => onsuivant(brique.c, compo?.c ?? null)}>Continuer sans tracer</button>
     </div>
   {:else if vue === 'compose' && compo}
     <p class="guide">Une personne devant, et c'est un autre mot.</p>
@@ -158,7 +161,7 @@
         {/if}
       </div>
     {/if}
-    <div class="foot"><button class="btn" onclick={() => onsuivant(f?.racine.c ?? '')}>Suivant</button></div>
+    <div class="foot"><button class="btn" onclick={() => onsuivant(f?.racine.c ?? '', compo?.c ?? null)}>Suivant</button></div>
   {:else}
     <p class="guide">Le contenu de la leçon n'a pas pu être lu.</p>
     <div class="foot"><button class="btn" onclick={onquitter}>Revenir au chemin</button></div>

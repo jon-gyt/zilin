@@ -15,6 +15,7 @@ import {
   lignesNues,
   loadAnecdotes,
   loadFamille,
+  loadPaires,
   loadTexte,
   loadVoisins,
   type Anecdote,
@@ -376,5 +377,27 @@ describe('le chargeur de voisins', () => {
   it('refuse un fichier sans liste', async () => {
     const faux: typeof fetch = async () => reponse(true, { version: '1' });
     await expect(loadVoisins(FICHIER_VOISINS_DEMO, faux)).rejects.toThrow('illisibles');
+  });
+});
+
+describe('le chargeur de paires à ne pas confondre', () => {
+  const FICHIER = 'data/demo/paires.json';
+  const reponse = (ok: boolean, corps: unknown): Response =>
+    ({ ok, status: ok ? 200 : 404, json: async () => corps }) as Response;
+
+  it("lit le fichier servi avec l'app, et lui seul", async () => {
+    const appels: string[] = [];
+    const faux: typeof fetch = async (u) => {
+      appels.push(String(u));
+      return reponse(true, { paires: [['天', '夫']] });
+    };
+    const lu = await loadPaires(FICHIER, faux);
+    expect(appels).toEqual([`${import.meta.env.BASE_URL}${FICHIER}`]);
+    expect(lu).toEqual({ paires: [['天', '夫']] });
+  });
+
+  it('refuse un fichier absent', async () => {
+    const faux: typeof fetch = async () => reponse(false, null);
+    await expect(loadPaires(FICHIER, faux)).rejects.toThrow('introuvables');
   });
 });

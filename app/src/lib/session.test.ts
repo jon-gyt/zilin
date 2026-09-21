@@ -3,7 +3,15 @@ import {
   STEP_ORDER,
   SEUIL_ABSENCE,
   PILE_REDESCENDUE,
+  CARTES_PAR_SEANCE,
   allDone,
+  assurerCartes,
+  carte,
+  cartesDues,
+  echeance,
+  planifierCarte,
+  setRev,
+  setRevue,
   budgetNewBricks,
   catchupSteps,
   currentStep,
@@ -36,6 +44,7 @@ import {
   type Revision
 } from './session';
 import { journal, taoVide } from './tao';
+import { RETOUR_MINUTES, grade, isNew, newCard, stability } from './srs';
 
 const JOUR = '2026-03-02';
 const neuf = (): Progress => emptyProgress(JOUR);
@@ -166,6 +175,112 @@ describe('journée finie', () => {
     p = resetDay(p);
     expect(nextIndex(p)).toBe(0);
     expect(p.days).toBe(1);
+  });
+});
+
+describe('les cartes de révision', () => {
+  const T0 = new Date('2026-03-02T08:00:00Z');
+  const juste = { correct: true, tries: 0, seconds: 2 };
+  const faux = { correct: false, tries: 2, seconds: 12 };
+
+  it('la fin du pas Apprendre donne une carte neuve à la brique et au composé', () => {
+    const p = assurerCartes(neuf(), ['主', '住'], T0);
+    expect(p.cartes.map((c) => c.id)).toEqual(['主', '住']);
+    expect(p.cartes.every(isNew)).toBe(true);
+    /* Une carte neuve est due tout de suite : elle sera révisée dès la prochaine séance. */
+    expect(cartesDues(p, T0).map((c) => c.id)).toEqual(['主', '住']);
+  });
+
+  it('ne redonne jamais de carte à un caractère qui en a déjà une', () => {
+    const p = assurerCartes(neuf(), ['主'], T0);
+    const encore = assurerCartes(p, ['主', '住'], new Date('2026-03-03T08:00:00Z'));
+    expect(encore.cartes).toHaveLength(2);
+    expect(carte(encore, '主')).toBe(carte(p, '主'));
+  });
+
+  it('chaque réponse reprogramme la carte par FSRS', () => {
+    let p = assurerCartes(neuf(), ['住'], T0);
+    p = planifierCarte(p, '住', juste, T0);
+    const c = carte(p, '住');
+    expect(c?.history).toHaveLength(1);
+    expect(c?.history[0].rating).toBe(grade(juste));
+    expect(stability(c!)).toBeGreaterThan(0);
+    const quand = echeance(p, '住');
+    expect(quand!.getTime()).toBeGreaterThan(T0.getTime());
+    /* Replanifiée, la carte n'est plus due : elle sort de la pile du jour. */
+    expect(cartesDues(p, T0)).toEqual([]);
+  });
+
+  it('faux deux fois : la réponse est montrée, la carte revient dans dix minutes', () => {
+    let p = assurerCartes(neuf(), ['住'], T0);
+    p = planifierCarte(p, '住', faux, T0);
+    expect(echeance(p, '住')?.getTime()).toBe(T0.getTime() + RETOUR_MINUTES * 60_000);
+  });
+
+  it('note une réponse même sans carte : elle est créée à la volée', () => {
+    const p = planifierCarte(neuf(), '天', juste, T0);
+    expect(p.cartes.map((c) => c.id)).toEqual(['天']);
+    expect(carte(p, '天')?.history).toHaveLength(1);
+  });
+});
+
+describe('pas 2, Échauffer', () => {
+  const T0 = new Date('2026-03-02T08:00:00Z');
+  /** Des cartes dues, de la plus en retard à la plus récente. */
+  const pile = (n: number): Progress => ({
+    ...neuf(),
+    cartes: Array.from({ length: n }, (_, k) =>
+      newCard(`c${k}`, new Date(T0.getTime() - (n - k) * 60_000))
+    )
+  });
+
+  it('ne propose que les cartes dues, la plus en retard devant', () => {
+    const p: Progress = {
+      ...neuf(),
+      cartes: [
+        newCard('après-demain', new Date('2026-03-04T08:00:00Z')),
+        newCard('hier', new Date('2026-03-01T08:00:00Z')),
+        newCard('ce matin', T0)
+      ]
+    };
+    expect(cartesDues(p, T0).map((c) => c.id)).toEqual(['hier', 'ce matin']);
+  });
+
+  it("ne dépasse pas les quatorze cartes d'une séance", () => {
+    const p = pile(20);
+    expect(CARTES_PAR_SEANCE).toBe(14);
+    const dues = cartesDues(p, T0);
+    expect(dues).toHaveLength(14);
+    expect(dues[0].id).toBe('c0');
+    expect(dues[13].id).toBe('c13');
+  });
+
+  it('fige la pile de la séance et reprend à la question exacte', () => {
+    let p = markDone(pile(3), 0, JOUR);
+    p = setRevue(
+      p,
+      cartesDues(p, T0).map((c) => c.id)
+    );
+    p = planifierCarte(p, 'c0', { correct: true, tries: 0, seconds: 2 }, T0);
+    p = setRev(p, 1);
+    const relu = fromJSON(toJSON(p), JOUR);
+    expect(relu.rev).toBe(1);
+    /* La carte répondue n'est plus due, mais la pile ne bouge pas : même question au retour. */
+    expect(relu.revue).toEqual(['c0', 'c1', 'c2']);
+    expect(steps(relu)[nextIndex(relu)].id).toBe('echauffer');
+  });
+
+  it('repart à zéro à la journée suivante, les cartes restent', () => {
+    let p = setRev(setRevue(pile(2), ['c0', 'c1']), 1);
+    p = openDay(p, '2026-03-03');
+    expect(p.rev).toBe(0);
+    expect(p.revue).toEqual([]);
+    expect(p.cartes).toHaveLength(2);
+  });
+
+  it('une question négative ou décimale retombe sur une question entière', () => {
+    expect(setRev(neuf(), -2).rev).toBe(0);
+    expect(setRev(neuf(), 2.7).rev).toBe(2);
   });
 });
 
@@ -402,6 +517,31 @@ describe('export et import', () => {
     const p = fromJSON(cassé, JOUR);
     expect(p.learn).toBe('brique');
     expect(p.tracees).toEqual(['主']);
+  });
+
+  it("garde les cartes et la pile de la séance à l'aller-retour", () => {
+    const T0 = new Date('2026-03-02T08:00:00Z');
+    let p = assurerCartes(neuf(), ['主', '住'], T0);
+    p = planifierCarte(p, '主', { correct: true, tries: 0, seconds: 2 }, T0);
+    p = setRev(setRevue(p, ['主', '住']), 1);
+    const relu = fromJSON(toJSON(p), JOUR);
+    expect(relu).toEqual(p);
+    expect(echeance(relu, '主')).toEqual(echeance(p, '主'));
+  });
+
+  it('relit un export plus ancien, sans cartes ni pile de séance', () => {
+    const ancien = JSON.stringify({ version: 1, day: JOUR, done: [true], budget: 10, days: 3 });
+    const p = fromJSON(ancien, JOUR);
+    expect(p.cartes).toEqual([]);
+    expect(p.revue).toEqual([]);
+    expect(p.rev).toBe(0);
+  });
+
+  it('écarte des cartes illisibles sans casser la session', () => {
+    const cassé = JSON.stringify({ ...neuf(), cartes: { version: 9, cards: 'rien' }, revue: [1, '主'] });
+    const p = fromJSON(cassé, JOUR);
+    expect(p.cartes).toEqual([]);
+    expect(p.revue).toEqual(['主']);
   });
 
   it('relit une progression exportée avant Tao', () => {
