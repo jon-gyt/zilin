@@ -4,15 +4,14 @@ Chaque commande est idempotente et écrit dans data/work/. L'export final va dan
 """
 from __future__ import annotations
 
-import json
-
 import typer
 
 from .audio import app as _audio
 from .contes import app as _contes
+from .export import VERSION
 from .fiches import app as _fiches
 from .fonts import commande as _fonts
-from .paths import BUILD, EXPORT, INGEST, SOURCES
+from .paths import BUILD, INGEST, SOURCES
 
 app = typer.Typer(help="Pipeline de contenu Zilin")
 app.command(name="fonts")(_fonts)
@@ -63,9 +62,10 @@ def build() -> None:
 
 @app.command()
 def check() -> None:
-    """Contrôles : composants inconnus, cycles, graphe, listes, briques muettes, contes hors liste, fiches invalides, textes sans audio."""
+    """Contrôles : composants inconnus, cycles, graphe, listes, briques muettes, contes hors liste, fiches invalides, textes sans audio, export à jour."""
     from .audio import controles as controles_audio
     from .contes import controles as controles_contes
+    from .export import controles as controles_export
     from .fiches import controles as controles_fiches
     from .gf0014 import controles
     from .graphe import controles as controles_graphe
@@ -77,6 +77,7 @@ def check() -> None:
         *controles_contes(),
         *controles_fiches(),
         *controles_audio(),
+        *controles_export(),
     ]:
         typer.echo(f"{'ok   ' if controle.ok else 'écart'} {controle.nom} : {controle.detail}")
         if not controle.ok and controle.bloquant:
@@ -88,12 +89,20 @@ def check() -> None:
 
 
 @app.command()
-def export(version: str = "0.1.0") -> None:
-    """Exporte un JSON par famille dans app/public/data/<version>/."""
-    dest = EXPORT / version
-    dest.mkdir(parents=True, exist_ok=True)
-    (dest / "index.json").write_text(json.dumps({"version": version, "familles": []}, ensure_ascii=False, indent=1))
-    typer.echo(f"Export vide écrit dans {dest}.")
+def export(version: str = typer.Option(VERSION, help="Version exportée, en dossier.")) -> None:
+    """Exporte l'index, les familles, les traits, les contes et les licences dans app/public/data/<version>/."""
+    from .export import ExportImpossible, export as _export
+
+    try:
+        rapport = _export(version)
+    except ExportImpossible as erreur:
+        typer.echo(str(erreur), err=True)
+        raise typer.Exit(code=1) from erreur
+    for cle, valeur in rapport.en_lignes().items():
+        typer.echo(f"{cle} : {valeur}")
+    if rapport.fiches_relues == 0:
+        typer.echo("Aucune fiche relue : les fiches exportées sont vides (statut sans_fiche).")
+    typer.echo(f"Export écrit dans {rapport.dossier}.")
 
 
 if __name__ == "__main__":
