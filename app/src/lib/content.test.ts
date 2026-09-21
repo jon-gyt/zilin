@@ -4,16 +4,25 @@ import {
   ETIQUETTES,
   FICHIER_ANECDOTES,
   FICHIER_FAMILLE_DEMO,
+  FICHIER_TEXTE_DEMO,
+  FICHIER_VOISINS_DEMO,
   anecdoteDuJour,
   compose,
   fiche,
+  glosable,
+  glose,
   jourDepuisEpoque,
+  lignesNues,
   loadAnecdotes,
   loadFamille,
+  loadTexte,
+  loadVoisins,
   type Anecdote,
   type Anecdotes,
   type Famille,
-  type Fiche
+  type Fiche,
+  type Texte,
+  type Voisins
 } from './content';
 
 const fichier = JSON.parse(
@@ -208,5 +217,164 @@ describe('le chargeur de famille', () => {
   it('refuse un fichier sans racine ni fiches', async () => {
     const faux2: typeof fetch = async () => reponse(true, { version: '1' });
     await expect(loadFamille(FICHIER_FAMILLE_DEMO, faux2)).rejects.toThrow('illisible');
+  });
+});
+
+/* ---------- le texte de lecture ---------- */
+
+const texte = JSON.parse(
+  readFileSync(new URL('../../public/data/demo/textes/住.json', import.meta.url), 'utf8')
+) as Texte;
+
+const traits = JSON.parse(
+  readFileSync(new URL('../../public/strokes-demo.json', import.meta.url), 'utf8')
+) as Record<string, unknown>;
+
+describe('le texte de trois lignes', () => {
+  it('est versionné et cite sa source', () => {
+    expect(texte.version).not.toBe('');
+    expect(texte.source).toBe('maquettes/zilin-maquette.html');
+  });
+
+  it('fait trois lignes, autour du caractère du jour', () => {
+    expect(texte.lignes).toHaveLength(3);
+    expect(texte.c).toBe('住');
+  });
+
+  it('est recopié mot pour mot de sa source, traduction comprise', () => {
+    expect(maquette).toContain(lignesNues(texte).join(''));
+    for (const l of lignesNues(texte)) expect(maquette).toContain(l);
+    expect(maquette).toContain(texte.traduction);
+  });
+
+  it("ne glose aucun caractère autrement que la source, et n'en invente aucune", () => {
+    for (const s of texte.lignes.flat()) {
+      if (!glosable(s)) continue;
+      expect(maquette).toContain(`"${s.c}","${s.pinyin}","${s.fr}"`);
+      expect(glose(s)).toBe(`${s.pinyin}, ${s.fr}`);
+    }
+  });
+
+  it('laisse sans glose ce que la source ne glose pas : la ponctuation ne se touche pas', () => {
+    const muets = texte.lignes.flat().filter((s) => !glosable(s));
+    expect(muets.length).toBeGreaterThan(0);
+    for (const s of muets) {
+      expect(s.c).toBe('。');
+      expect(glose(s)).toBeNull();
+    }
+  });
+
+  it("marque le caractère du jour, et lui seul : c'est le seul cinabre du texte", () => {
+    const marques = texte.lignes.flat().filter((s) => s.nouveau);
+    expect(marques).toHaveLength(1);
+    expect(marques[0].c).toBe(texte.c);
+    expect(maquette).toContain(`["${marques[0].c}","${marques[0].pinyin}","${marques[0].fr}",1]`);
+  });
+
+  it("n'embarque aucun audio : il n'y en a pas encore", () => {
+    expect(texte.audio).toBeNull();
+  });
+});
+
+describe('le chargeur de texte', () => {
+  const reponse = (ok: boolean, corps: unknown): Response =>
+    ({ ok, status: ok ? 200 : 404, json: async () => corps }) as Response;
+
+  it("lit le fichier servi avec l'app, et lui seul", async () => {
+    const appels: string[] = [];
+    const faux: typeof fetch = async (u) => {
+      appels.push(String(u));
+      return reponse(true, texte);
+    };
+    const lu = await loadTexte(FICHIER_TEXTE_DEMO, faux);
+    expect(appels).toEqual([`${import.meta.env.BASE_URL}${FICHIER_TEXTE_DEMO}`]);
+    expect(lignesNues(lu)).toEqual(lignesNues(texte));
+    expect(lu.traduction).toBe(texte.traduction);
+  });
+
+  it('refuse un fichier absent', async () => {
+    const faux: typeof fetch = async () => reponse(false, null);
+    await expect(loadTexte(FICHIER_TEXTE_DEMO, faux)).rejects.toThrow('introuvable');
+  });
+
+  it('refuse un fichier sans lignes', async () => {
+    const faux: typeof fetch = async () => reponse(true, { version: '1', lignes: [] });
+    await expect(loadTexte(FICHIER_TEXTE_DEMO, faux)).rejects.toThrow('illisible');
+  });
+});
+
+/* ---------- les voisins de forme ---------- */
+
+const voisins = JSON.parse(
+  readFileSync(new URL('../../public/data/demo/voisins.json', import.meta.url), 'utf8')
+) as Voisins;
+
+/** Les 514 composants de la norme, lus dans la table versionnée du pipeline. */
+const lignesNorme = readFileSync(
+  new URL('../../../data/sources/gf0014-2009/composants.tsv', import.meta.url),
+  'utf8'
+)
+  .split('\n')
+  .filter((l) => l !== '' && !l.startsWith('#') && !l.startsWith('sequence'));
+/* Quelques points de code portent deux composants de la norme : les formes sont moins nombreuses. */
+const composants = new Set(lignesNorme.map((l) => l.split('\t')[2]));
+
+describe('les voisins de forme', () => {
+  it('sont versionnés, citent leur source et la norme de décomposition', () => {
+    expect(voisins.version).not.toBe('');
+    expect(voisins.source).toBe('maquettes/zilin-maquette.html');
+    expect(voisins.norme).toBe('GF 0014-2009');
+  });
+
+  it('ne se décomposent que sur des composants de la norme', () => {
+    expect(lignesNorme).toHaveLength(514);
+    for (const v of voisins.voisins) {
+      expect(v.parts.length).toBeGreaterThan(0);
+      for (const part of v.parts) expect(composants).toContain(part);
+    }
+  });
+
+  it('se dessinent tous depuis les données de traits, jamais depuis une police', () => {
+    for (const v of voisins.voisins) {
+      expect(Object.keys(traits)).toContain(v.c);
+      for (const part of v.parts) expect(Object.keys(traits)).toContain(part);
+    }
+  });
+
+  it('ne portent aucun sens ni pinyin écrit hors de leur source', () => {
+    for (const v of voisins.voisins) {
+      expect(maquette).toContain(v.fr);
+      expect(maquette).toContain(v.pinyin);
+    }
+  });
+
+  it('portent la brique et le composé de la famille du jour', () => {
+    expect(voisins.voisins.map((v) => v.c)).toEqual(expect.arrayContaining(['主', '住']));
+  });
+});
+
+describe('le chargeur de voisins', () => {
+  const reponse = (ok: boolean, corps: unknown): Response =>
+    ({ ok, status: ok ? 200 : 404, json: async () => corps }) as Response;
+
+  it("lit le fichier servi avec l'app, et lui seul", async () => {
+    const appels: string[] = [];
+    const faux: typeof fetch = async (u) => {
+      appels.push(String(u));
+      return reponse(true, voisins);
+    };
+    const lu = await loadVoisins(FICHIER_VOISINS_DEMO, faux);
+    expect(appels).toEqual([`${import.meta.env.BASE_URL}${FICHIER_VOISINS_DEMO}`]);
+    expect(lu.voisins).toHaveLength(voisins.voisins.length);
+  });
+
+  it('refuse un fichier absent', async () => {
+    const faux: typeof fetch = async () => reponse(false, null);
+    await expect(loadVoisins(FICHIER_VOISINS_DEMO, faux)).rejects.toThrow('introuvables');
+  });
+
+  it('refuse un fichier sans liste', async () => {
+    const faux: typeof fetch = async () => reponse(true, { version: '1' });
+    await expect(loadVoisins(FICHIER_VOISINS_DEMO, faux)).rejects.toThrow('illisibles');
   });
 });
