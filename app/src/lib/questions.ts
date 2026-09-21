@@ -61,8 +61,11 @@ export const BONUS_PAIRE = 2;
 /** Tracé : au-delà de deux erreurs, la réponse est fausse. */
 export const ERREURS_TRACE_MAX = 2;
 
-/** Liste versionnée des paires à ne pas confondre, chargée par l'appelant. */
-export const FICHIER_PAIRES = 'data/demo/paires.json';
+/**
+ * Les paires à ne pas confondre sont celles de l'export versionné : `content.pairesExport`
+ * les charge (`data/<version>/paires.json`) et `lirePaires` les valide ici. La liste de
+ * démonstration reste lisible par `content.pairesOnce`, pour les tests de la maquette.
+ */
 
 /* ---------- le corpus injecté ---------- */
 
@@ -80,7 +83,7 @@ export type Corpus = {
   decompositions: Readonly<Record<string, readonly string[]>>;
   /** L'acquis de l'utilisateur, avec la stabilité FSRS de chaque caractère. */
   acquis: readonly Acquis[];
-  /** Les paires à ne pas confondre (`app/public/data/demo/paires.json`). */
+  /** Les paires à ne pas confondre (`data/<version>/paires.json`). */
   paires?: Paires;
   /** Stabilité minimale pour compter comme acquis. Défaut : le seuil de déblocage. */
   seuil?: number;
@@ -365,7 +368,9 @@ export function expliquer(f: Fiche, corpus: Corpus): Explication {
     const g = fiche(p, corpus);
     return { c: p, fr: g?.fr ?? '', role: g?.role ?? null };
   });
-  const tete = `${f.c} ${f.pinyin}, ${f.fr}.`;
+  /* Sans fiche relue, il n'y a ni sens ni origine : l'explication se tait plutôt que
+     d'afficher une virgule vide. Elle garde la décomposition, qui, elle, est établie. */
+  const tete = f.fr === '' ? `${f.c} ${f.pinyin}.` : `${f.c} ${f.pinyin}, ${f.fr}.`;
   const lignes = briques.map((b) => (b.fr === '' ? b.c : `${b.c} ${b.fr}`));
   const corps = briques.length > 0 ? ` ${f.parts.join(' + ')} : ${lignes.join(', ')}.` : '';
   const origine = f.origine_fr === '' ? '' : ` ${f.origine_fr}`;
@@ -449,7 +454,10 @@ export function question(
       (c) => c,
       f.parts
     );
-    q.enonce = `« ${f.fr} » : assemble les briques dans l'ordre d'écriture.`;
+    q.enonce =
+      f.fr === ''
+        ? "Assemble les briques dans l'ordre d'écriture."
+        : `« ${f.fr} » : assemble les briques dans l'ordre d'écriture.`;
     q.reponse = [...f.parts];
     q.leurres = tirage.leurres;
     q.manqueLeurres = tirage.manque;

@@ -64,7 +64,13 @@ export function graineDuJour(pas: string, jour: string): string {
 
 /** Tout ce que l'appelant a chargé. Rien n'est lu ici, rien n'est inventé ici. */
 export type SourcesCorpus = {
-  famille: Famille | null;
+  /**
+   * Les fiches de l'export versionné, déjà surcouchées par `content.fiche`. C'est la
+   * source principale depuis que les écrans lisent `data/0.1.0/`.
+   */
+  fiches?: readonly Fiche[];
+  /** Une famille entière, quand l'appelant n'a chargé que celle-là. */
+  famille?: Famille | null;
   voisins: Voisins | null;
   /** L'acquis de l'utilisateur : ses cartes FSRS. */
   cartes: readonly ReviewCard[];
@@ -121,10 +127,18 @@ export function ficheMinimale(c: string, role: Role = 'forme'): Fiche {
   return ficheDeVoisin({ c, pinyin: '', fr: '', parts: [] }, role);
 }
 
-/** Les fiches du corpus : la famille, les voisins, puis les briques citées en composant. */
-export function fichesDuCorpus(famille: Famille | null, voisins: Voisins | null): Fiche[] {
-  const roles = rolesDesElements(famille?.fiches ?? []);
-  const out: Fiche[] = (famille?.fiches ?? []).map((f) => ({ ...f, role: roles[f.c] ?? f.role }));
+/**
+ * Les fiches du corpus : celles de l'export d'abord, puis la famille chargée seule, les
+ * voisins, et enfin les briques citées en composant qu'aucune source ne décrit.
+ */
+export function fichesDuCorpus(
+  famille: Famille | null,
+  voisins: Voisins | null,
+  base: readonly Fiche[] = []
+): Fiche[] {
+  const toutes = [...base, ...(famille?.fiches ?? []).filter((f) => !base.some((b) => b.c === f.c))];
+  const roles = rolesDesElements(toutes);
+  const out: Fiche[] = toutes.map((f) => ({ ...f, role: roles[f.c] ?? f.role }));
   const porte = (c: string) => out.some((x) => x.c === c);
   for (const v of voisins?.voisins ?? []) {
     if (!porte(v.c)) out.push(ficheDeVoisin(v, roles[v.c] ?? 'forme'));
@@ -152,7 +166,7 @@ export function decompositionsDe(fiches: readonly Fiche[]): Record<string, strin
  * décompositions, l'acquis (les cartes), les paires à ne pas confondre, le réglage tracé.
  */
 export function corpusRevision(s: SourcesCorpus): Corpus {
-  const fiches = fichesDuCorpus(s.famille, s.voisins);
+  const fiches = fichesDuCorpus(s.famille ?? null, s.voisins, s.fiches ?? []);
   return {
     fiches,
     decompositions: decompositionsDe(fiches),
@@ -198,20 +212,30 @@ const PLAN_FIXER: readonly ['racine' | 'compose', TypeQuestion][] = [
 
 /**
  * La vérification du jour : la brique et le composé de la session, en trois questions
- * prises dans les sept types. Une question que la fiche ne permet pas est écartée.
+ * prises dans les sept types. Une question que la fiche ne permet pas est écartée — un
+ * jour sans composé, ou sans fiche relue, en pose donc moins.
  */
-export function questionsFixer(famille: Famille, corpus: Corpus, jour: string): Question[] {
+export function questionsFixerDuJour(
+  brique: string | null,
+  compose: string | null,
+  corpus: Corpus,
+  jour: string
+): Question[] {
   const graine = graineDuJour('fix', jour);
-  const racine = ficheDeLaFamille(famille, famille.racine.c);
-  const compo = compose(famille);
   const out: Question[] = [];
   for (const [qui, type] of PLAN_FIXER) {
-    const source = qui === 'racine' ? racine : compo;
-    const f = source ? ficheDuCorpus(source.c, corpus) : null;
+    const c = qui === 'racine' ? brique : compose;
+    const f = c === null ? null : ficheDuCorpus(c, corpus);
     if (f === null || !typesPossibles(f, corpus).includes(type)) continue;
     out.push(question(f, type, corpus, graine));
   }
   return out;
+}
+
+/** La même vérification, quand l'appelant n'a qu'une famille sous la main. */
+export function questionsFixer(famille: Famille, corpus: Corpus, jour: string): Question[] {
+  const racine = ficheDeLaFamille(famille, famille.racine.c);
+  return questionsFixerDuJour(racine?.c ?? null, compose(famille)?.c ?? null, corpus, jour);
 }
 
 /* ---------- ce que FSRS a décidé, en clair ---------- */

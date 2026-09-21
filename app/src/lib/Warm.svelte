@@ -11,8 +11,14 @@
   import Ask from './Ask.svelte';
   import Glyph from './Glyph.svelte';
   import Tao from './Tao.svelte';
-  import { familleOnce, pairesOnce, voisinsOnce, type Famille, type Voisins } from './content';
-  import { FICHIER_PAIRES, lirePaires, type Paires, type Question } from './questions';
+  import {
+    pairesExport,
+    toutesLesFiches,
+    voisinsOnce,
+    type FicheLue,
+    type Voisins
+  } from './content';
+  import { lirePaires, type Paires, type Question } from './questions';
   import { corpusRevision, questionsRevision, resume, sures } from './revision';
   import { echeance, type Progress, type Revision } from './session';
   import { humeur, stade } from './tao';
@@ -39,18 +45,28 @@
    */
   const cartesDeLaSeance = untrack(() => $state.snapshot(p.cartes));
 
-  let f = $state(null as Famille | null);
+  /**
+   * Le corpus vient de l'export versionné : toutes les fiches de `data/0.1.0/`, déjà
+   * surcouchées par les textes de démonstration là où le pipeline n'a rien relu. Les
+   * voisins de forme de la maquette restent en appoint pour les leurres, et les paires
+   * à ne pas confondre sont celles de l'export.
+   */
+  let f = $state([] as FicheLue[]);
   let v = $state(null as Voisins | null);
   let paires = $state([] as Paires);
+  let chargee = $state(false);
 
   $effect(() => {
     let vivant = true;
-    void familleOnce()
+    void toutesLesFiches()
       .then((x) => {
         if (vivant) f = x;
       })
       .catch(() => {
-        if (vivant) f = null;
+        if (vivant) f = [];
+      })
+      .finally(() => {
+        if (vivant) chargee = true;
       });
     return () => {
       vivant = false;
@@ -73,7 +89,7 @@
 
   $effect(() => {
     let vivant = true;
-    void pairesOnce(FICHIER_PAIRES)
+    void pairesExport()
       .then((x) => {
         if (vivant) paires = lirePaires(x);
       })
@@ -85,10 +101,10 @@
     };
   });
 
-  const pret = $derived(f !== null && v !== null);
+  const pret = $derived(chargee && v !== null);
 
   const corpus = $derived(
-    corpusRevision({ famille: f, voisins: v, cartes: cartesDeLaSeance, paires, trace: p.trace })
+    corpusRevision({ fiches: f, voisins: v, cartes: cartesDeLaSeance, paires, trace: p.trace })
   );
 
   /** Une question par carte de la pile, dans l'ordre. La graine du jour fait le reste. */
