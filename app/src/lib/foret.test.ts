@@ -281,6 +281,14 @@ describe('la semaine des graines', () => {
     expect(graines(p, lundi1)).toBe(1);
   });
 
+  it('plante les mêmes graines que la série : celles de la clôture', () => {
+    /* La journée en cours, pas encore close, n'a pas de graine : l'écran de série non plus. */
+    let p = progressionAvecJours([lundi1, '2026-03-03']);
+    p = { ...p, joursTravailles: [lundi1], tao: ajouter(p.tao, '2026-03-04', 'lecon') };
+    expect(joursTravailles(p)).toEqual([lundi1]);
+    expect(graines(p, '2026-03-04')).toBe(1);
+  });
+
   it('compte une journée commencée sans activité notée', () => {
     const p = markDone(emptyProgress(lundi1), 0, lundi1);
     expect(graines(p, lundi1)).toBe(1);

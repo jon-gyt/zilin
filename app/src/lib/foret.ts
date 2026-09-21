@@ -360,10 +360,15 @@ export function lundi(dateISO: string): string {
 }
 
 /**
- * Les journées travaillées que la progression garde : les journées où Tao a vu
- * quelque chose, plus la dernière journée de session. Sans doublon, triées.
+ * Les journées travaillées de la progression : les graines plantées à la clôture
+ * (`joursTravailles` de `session.ts`), qui sont la seule mémoire de la série. Ma forêt
+ * et l'écran de série montrent ainsi les mêmes graines, aux mêmes journées.
+ *
+ * Une progression d'avant ce champ n'en a pas : on la relit alors de ce que Tao a vu
+ * et de la dernière journée de session. Sans doublon, triées.
  */
 export function joursTravailles(p: Progress): string[] {
+  if (p.joursTravailles.length > 0) return [...new Set(p.joursTravailles)].sort();
   const jours = new Set(p.tao.activites.map((a) => a.jour));
   if (p.lastWorked) jours.add(p.lastWorked);
   return [...jours].sort();
