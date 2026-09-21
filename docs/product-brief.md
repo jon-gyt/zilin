@@ -73,6 +73,7 @@ Fluidité : un tap par écran, bouton principal unique en bas, avance automatiqu
 - Tracé : proposé une fois par brique de base à la première rencontre, désactivable. Jamais demandé pour les composés. Par niveau, aligné sur « actifs / passifs » côté France et sur la liste d'écriture du HSK côté international.
 - Paires à ne pas confondre injectées quand deux caractères proches sont acquis (己/已, 未/末, 天/夫, 日/曰, 人/入, 土/士).
 - Le mot avant le caractère seul : chaque fiche porte deux mots et une phrase ; lecture de textes générés avec les seuls caractères acquis dès une vingtaine.
+- Contes : des contes et histoires chinoises réécrits à chaque seuil avec les seuls caractères du seuil. Le même conte existe en plusieurs versions (255, 405, 505, 805, 1555) ; l'utilisateur relit la même histoire, plus riche, à mesure que son acquis grandit. Les versions sont générées par lots dans le pipeline puis relues, jamais dans l'app.
 
 ## 8. Motivation
 
@@ -117,6 +118,7 @@ Règle : chaque jeu doit répondre à « qu'est-ce que l'utilisateur sait lire d
 
 - Seuil 255 et HSK 1 (2026) complets : décomposition, origines, révision en questions, audio, tracé, anecdotes, série, forêt.
 - Consultation en lecture seule de l'arbre complet.
+- Trois contes au seuil 255.
 - Tao complète ; jeux gratuits : assembler, la chaîne, les jumeaux, la coquille, le dictionnaire éclair, une devinette par jour, la cuisine (trois plats).
 
 ### Payant (achat à vie ou abonnement mensuel)
@@ -125,6 +127,7 @@ Règle : chaque jeu doit répondre à « qu'est-ce que l'utilisateur sait lire d
 - Dictionnaire complet : 9 000 caractères décomposés et expliqués.
 - Formes anciennes à côté de chaque brique.
 - Textes de lecture générés avec les seuls caractères acquis.
+- Bibliothèque complète de contes, à tous les seuils.
 - Exercices « paires à ne pas confondre ».
 - Synchronisation iCloud.
 - Jeux complets : les lettres de Que, le message WeChat, toutes les devinettes, dix plats, les saisons avec caractères bonus.

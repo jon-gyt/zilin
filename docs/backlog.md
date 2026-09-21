@@ -15,6 +15,7 @@ Format BMAD : épics puis stories. Priorité dans l'ordre. Une story se termine 
 - 1.4 Génération FR et EN des fiches (origine en trois phrases, deux mots, une phrase), étiquette attesté / mnémotechnique. Relecture du seuil 255.
 - 1.5 Audio pré-généré (voix neuronale), un fichier par caractère et par mot.
 - 1.6 Export JSON versionné par famille, schéma dans `data/schema.md`.
+- 1.7 Contes par niveau : un même conte ou une même histoire chinoise réécrit à chaque seuil (255, 405, 505, 805, 1555) avec les seuls caractères du seuil, généré par lots avec Claude dans le pipeline puis relu ; source du conte tracée, glose par caractère, une version par seuil dans le JSON exporté.
 
 ## Épic 2 · Session
 - 2.1 État de session (six pas, reprise au pas exact, rattrapage).
@@ -24,6 +25,10 @@ Format BMAD : épics puis stories. Priorité dans l'ordre. Une story se termine 
 - 2.5 Pas 4 Utiliser : mots, phrase, texte de trois lignes avec glose.
 - 2.6 Pas 5 Fixer et pas 6 Clore : vérification, graine plantée.
 - 2.7 Première session : 人, 大, 天, lire 天天, puis objectif et rythme.
+
+## Épic 2c · Contes
+- 2c.1 Mode Lire : bibliothèque de contes, version choisie d'après l'acquis (le seuil le plus haut dont tous les caractères sont acquis), lecture avec glose au toucher, audio.
+- 2c.2 Le même conte remonte d'un niveau quand l'acquis le permet ; l'app signale qu'une version plus riche est ouverte. Trois contes gratuits au seuil 255, bibliothèque complète en payant.
 
 ## Épic 3 · Révision
 - 3.1 FSRS (ts-fsrs), rétention cible, planification.
