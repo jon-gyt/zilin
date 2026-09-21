@@ -19,7 +19,7 @@ app.add_typer(_contes, name="contes")
 
 @app.command()
 def fetch(force: bool = typer.Option(False, help="Retélécharger même si le fichier est présent.")) -> None:
-    """Télécharge les sources (Make Me a Hanzi, CC-CEDICT) dans data/work/sources/."""
+    """Télécharge les sources (Make Me a Hanzi, CC-CEDICT, Unihan, cjk-decomp) dans data/work/sources/."""
     from .fetch import fetch as _fetch
 
     etat = _fetch(force=force)

@@ -13,6 +13,7 @@ from __future__ import annotations
 
 import gzip
 import hashlib
+import zipfile
 from dataclasses import dataclass, field
 from datetime import UTC, datetime
 from pathlib import Path
@@ -21,6 +22,7 @@ import httpx
 
 from .ingest import ouvrir_texte
 from .paths import SOURCES
+from . import cjkdecomp, unihan
 
 MMAH = "https://raw.githubusercontent.com/skishore/makemeahanzi/master/"
 
@@ -33,6 +35,18 @@ CEDICT_MIROIR = "https://raw.githubusercontent.com/qundao/backup-cc-cedict/main/
 # Ligne d'en-tête officielle de CC-CEDICT : son absence vaut refus du fichier.
 ENTETE_CEDICT = "#! license=https://creativecommons.org/licenses/by-sa/4.0/"
 
+# Unihan : l'archive officielle d'Unicode d'abord. `unicode.org` étant bloqué
+# depuis certains réseaux, le repli est un miroir GitHub qui sert la même
+# archive (empreinte relevée dans PROVENANCE.md). L'en-tête officiel est
+# cherché dans un membre de l'archive, pas à sa racine.
+UNIHAN_UNICODE = unihan.URL_OFFICIELLE
+UNIHAN_MIROIR = unihan.URL_MIROIR
+ENTETE_UNIHAN = unihan.ENTETE
+
+# cjk-decomp : décompositions sous licence permissive, source d'IDS de repli.
+# Le projet d'origine (codeplex) a fermé ; le fork `amake` fait référence.
+CJKDECOMP = cjkdecomp.URL
+
 
 @dataclass(frozen=True)
 class Source:
@@ -42,6 +56,7 @@ class Source:
     licence: str
     replis: tuple[str, ...] = field(default_factory=tuple)
     entete_attendue: str | None = None
+    membre: str | None = None  # fichier à ouvrir dans l'archive pour l'en-tête
 
     @property
     def urls(self) -> tuple[str, ...]:
@@ -69,6 +84,21 @@ SOURCES_DISTANTES: tuple[Source, ...] = (
         licence="CC BY-SA 4.0",
         replis=(CEDICT_MIROIR,),
         entete_attendue=ENTETE_CEDICT,
+    ),
+    Source(
+        nom="Unihan (UCD)",
+        fichier=unihan.ARCHIVE,
+        url=UNIHAN_UNICODE,
+        licence=unihan.LICENCE,
+        replis=(UNIHAN_MIROIR,),
+        entete_attendue=ENTETE_UNIHAN,
+        membre=unihan.MEMBRE_TEMOIN,
+    ),
+    Source(
+        nom="cjk-decomp",
+        fichier="cjk-decomp.txt",
+        url=CJKDECOMP,
+        licence=cjkdecomp.LICENCE,
     ),
 )
 
@@ -115,9 +145,20 @@ def recuperer(url: str, dest: Path) -> str | None:
     return None
 
 
-def entete_presente(chemin: Path, attendue: str, *, lignes: int = 60) -> bool:
-    """Vrai si `attendue` figure dans les premières lignes, compressées ou non."""
+def entete_presente(
+    chemin: Path, attendue: str, *, lignes: int = 60, membre: str | None = None
+) -> bool:
+    """Vrai si `attendue` figure dans les premières lignes, compressées ou non.
+
+    `membre` nomme le fichier à ouvrir quand la source est une archive zip :
+    l'en-tête officiel d'Unihan est porté par chaque `Unihan_*.txt`, pas par
+    l'archive.
+    """
     try:
+        if membre is not None:
+            with zipfile.ZipFile(chemin) as archive:
+                tete = archive.read(membre).decode("utf-8", "replace").splitlines()[:lignes]
+            return any(attendue in ligne for ligne in tete)
         with ouvrir_texte(chemin) as f:
             for _ in range(lignes):
                 ligne = f.readline()
@@ -125,7 +166,7 @@ def entete_presente(chemin: Path, attendue: str, *, lignes: int = 60) -> bool:
                     return False
                 if attendue in ligne:
                     return True
-    except (OSError, gzip.BadGzipFile, UnicodeDecodeError):
+    except (OSError, KeyError, gzip.BadGzipFile, UnicodeDecodeError, zipfile.BadZipFile):
         return False
     return False
 
@@ -140,7 +181,7 @@ def telecharger(source: Source, dest: Path, *, force: bool = False) -> Resultat:
     for url in source.urls:
         erreur = recuperer(url, partiel)
         if erreur is None and source.entete_attendue is not None:
-            if not entete_presente(partiel, source.entete_attendue):
+            if not entete_presente(partiel, source.entete_attendue, membre=source.membre):
                 partiel.unlink(missing_ok=True)
                 erreur = f"{ENTETE_ABSENTE} ({source.entete_attendue})"
         if erreur is None:
