@@ -14,6 +14,19 @@ Règle : l'app ne lit que ces fichiers. Aucune donnée de contenu dans le code.
 - `graphies.json` : `[{c, strokes[], medians[]}]` depuis `graphics.txt`, autant de médianes que de traits.
 - `mots.json` : `[{traditionnel, simplifie, pinyin, definitions_en[]}]` depuis CC-CEDICT.
 - `listes.json` : `{ "<nom de liste>": [caractères] }`, chargé depuis `data/sources/listes/*.txt` (un sinogramme par ligne, `#` en commentaire, ni doublon ni non-sinogramme).
+- `unihan.json` : `{source, licence, url, version, date, fichiers[], champs[], frequence,
+  caracteres: [{c, code, pinyin, lectures[], traits, frequence}]}` depuis `Unihan.zip`
+  (UCD, Unicode License). `pinyin` est la première lecture de `kMandarin`, la plus
+  courante en zh-CN selon UAX #38 ; `lectures` les garde toutes. `traits` vient de
+  `kTotalStrokes`, `frequence` de `kFrequency` — absent d'Unihan 17.0.0 et 18.0.0, où il
+  vaut donc `null` ; il existait encore en 12.0.0. `fichiers` reprend l'en-tête officiel
+  de chaque `Unihan_*.txt` lu (nom, date, version), qui vaut preuve de provenance.
+- `unihan-definitions.json` : `{…, definitions: [{c, definition_en}]}` depuis
+  `kDefinition`. Fichier séparé parce que ces gloses sont anglaises : comme celles de
+  CC-CEDICT, elles ne doivent jamais alimenter la génération des fiches FR.
+- `ids-secondaires.json` : `{source, licence, url, usage, ids: {caractère: IDS}}` depuis
+  `cjk-decomp.txt` (MIT), converti en IDS par `cjkdecomp.py`. Source de repli, utilisée
+  seulement là où Make Me a Hanzi donne `？` ou rien.
 - `rapport.json` : décomptes du passage et caractères des listes absents du dictionnaire.
 
 ## Table GF 0014-2009 (story 1.2)
@@ -33,16 +46,20 @@ Quatre points de code portent deux composants distincts de la norme : ⺈, 丁, 
 `uv run zilin build` écrit dans `data/work/build/`, hors dépôt :
 
 - `decompositions.json` : `{norme, table: {fichier, composants, groupes}, source_ids,
-  caracteres: [{c, composants[], structure, reconcilie, inconnus[], cycle[]}]}`.
+  source_ids_secondaire,
+  caracteres: [{c, composants[], structure, reconcilie, inconnus[], cycle[], sources[]}]}`.
   `composants` est la liste ordonnée des feuilles atteintes en descendant l'IDS de Make
   Me a Hanzi jusqu'aux composants de la norme, dans l'ordre des opérandes IDS, qui est
   l'ordre d'écriture. Un composant de la norme est une feuille : on n'y descend plus.
   `structure` est l'IDS réduit à ces feuilles. `inconnus` liste les feuilles absentes de
   la norme — elles figurent quand même dans `composants` — et `cycle` le chemin de
-  descente qui boucle. `reconcilie` vaut vrai quand les deux sont vides.
+  descente qui boucle. `reconcilie` vaut vrai quand les deux sont vides. `sources` nomme
+  les sources d'IDS descendues (`makemeahanzi`, `cjk-decomp`) : un caractère marqué
+  `cjk-decomp` est à relire, ses feuilles étant plus sûres que sa structure.
 - `ecarts.md` : décompte des caractères réconciliés, composants inconnus classés par
-  fréquence avec leur point de code, cycles, et état des listes prioritaires
-  (seuil 255, HSK 1).
+  fréquence avec leur point de code, cycles, apport de l'IDS secondaire, et état des
+  listes prioritaires (seuil 255, HSK 1) avec les caractères que l'IDS secondaire a
+  réconciliés, à relire.
 
 `uv run zilin check` relit `decompositions.json` : le contrôle « composants inconnus »
 signale sans bloquer (la norme ne couvre que 3 500 caractères), le contrôle « cycles »
