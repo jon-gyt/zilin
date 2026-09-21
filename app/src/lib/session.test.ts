@@ -1,6 +1,7 @@
 import { describe, it, expect } from 'vitest';
 import {
   CARTES_PAR_BLOC,
+  ajouterCartes,
   STEP_ORDER,
   SEUIL_ABSENCE,
   PILE_REDESCENDUE,
@@ -750,5 +751,15 @@ describe('le jour du parcours', () => {
     const relu = fromJSON(avant, JOUR);
     expect(relu.jourParcours).toBeUndefined();
     expect(jourParcours(relu)).toBe(5);
+  });
+});
+
+describe('une seule aide pour donner une carte neuve', () => {
+  it('`ajouterCartes` et `assurerCartes` sont la même fonction', () => {
+    const T0 = new Date('2026-03-02T08:00:00Z');
+    expect(ajouterCartes).toBe(assurerCartes);
+    const p = ajouterCartes(neuf(), ['人', '', '人'], T0);
+    expect(p.cartes.map((c) => c.id)).toEqual(['人']);
+    expect(ajouterCartes(p, ['人'], T0)).toBe(p);
   });
 });

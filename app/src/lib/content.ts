@@ -261,9 +261,6 @@ export function lignesNues(t: Texte): string[] {
   return t.lignes.map((l) => l.map((s) => s.c).join(''));
 }
 
-/* ---------- les paires à ne pas confondre ---------- */
-
-
 /* ---------- les voisins de forme, pour les leurres ---------- */
 
 /**

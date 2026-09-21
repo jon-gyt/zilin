@@ -422,12 +422,11 @@ export function setParcours(p: Progress, parcours: Parcours): Progress {
   return { ...p, parcours };
 }
 
-/** Ajoute une carte neuve par caractère encore inconnu. Une carte par caractère, jamais deux. */
-export function ajouterCartes(p: Progress, ids: readonly string[], maintenant: Date): Progress {
-  const connues = new Set(p.cartes.map((c) => c.id));
-  const neuves = ids.filter((id) => !connues.has(id)).map((id) => newCard(id, maintenant));
-  return neuves.length === 0 ? p : { ...p, cartes: [...p.cartes, ...neuves] };
-}
+/**
+ * Ajoute une carte neuve par caractère encore inconnu : c'est `assurerCartes`, sous le
+ * nom que la première session lui donne. Une carte par caractère, jamais deux.
+ */
+export const ajouterCartes = assurerCartes;
 
 /**
  * La première session est finie : une carte par brique vue, les activités notées pour
