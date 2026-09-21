@@ -8,11 +8,13 @@ import json
 
 import typer
 
+from .contes import app as _contes
 from .fonts import commande as _fonts
 from .paths import BUILD, EXPORT, INGEST, SOURCES
 
 app = typer.Typer(help="Pipeline de contenu Zilin")
 app.command(name="fonts")(_fonts)
+app.add_typer(_contes, name="contes")
 
 
 @app.command()
@@ -54,11 +56,12 @@ def build() -> None:
 
 @app.command()
 def check() -> None:
-    """Contrôles : composants inconnus, cycles, doublons, fiches sans étiquette, longueur des origines (3 phrases)."""
+    """Contrôles : composants inconnus, cycles, doublons, fiches sans étiquette, longueur des origines (3 phrases), contes hors liste."""
+    from .contes import controles as controles_contes
     from .gf0014 import controles
 
     bloquants = []
-    for controle in controles():
+    for controle in [*controles(), *controles_contes()]:
         typer.echo(f"{'ok   ' if controle.ok else 'écart'} {controle.nom} : {controle.detail}")
         if not controle.ok and controle.bloquant:
             bloquants.append(controle.nom)
