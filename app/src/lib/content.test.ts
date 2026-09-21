@@ -12,11 +12,13 @@ import {
   aDesTextes,
   anecdoteDuJour,
   briquesPosees,
+  caractereDuJour,
   contenu,
   famille as chargerFamille,
   fiche,
   fichierPaires,
   jourDuParcours,
+  lecon,
   nomParcours,
   pairesExport,
   racineDe,
@@ -815,5 +817,25 @@ describe("le chargement de l'export", () => {
   it("lit les paires à ne pas confondre de l'export", async () => {
     servir(V, fichiers);
     expect(await pairesExport(V)).toEqual({ paires: [['日', '曰']] });
+  });
+
+  it('assemble la leçon du jour : la brique, ses composés, les briques déjà posées', async () => {
+    servir(V, fichiers);
+    const l = await lecon(null, 1, V);
+    expect(l.nom).toBe('lire');
+    expect(l.jour?.jour).toBe(1);
+    expect(l.brique?.c).toBe('月');
+    expect(l.composes.map((f) => f.c)).toEqual(['朋']);
+    expect(l.pistes).toEqual(['月']);
+    expect(caractereDuJour(l)).toBe('朋');
+  });
+
+  it('ne pose plus rien quand le parcours est fini', async () => {
+    servir(V, fichiers);
+    const l = await lecon(null, 2, V);
+    expect(l.jour).toBeNull();
+    expect(l.brique).toBeNull();
+    expect(l.composes).toEqual([]);
+    expect(caractereDuJour(l)).toBe('');
   });
 });

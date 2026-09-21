@@ -5,7 +5,10 @@
    * principal par vue, « Quitter » sauvegarde sans question.
    *
    * Aucun texte de contenu n'est écrit ici : les mots et la phrase viennent de la fiche
-   * du composé, le texte et ses gloses du JSON versionné de `app/public/data/`.
+   * du caractère que le parcours pose aujourd'hui (export versionné, surcouché par la
+   * démonstration) ; sans fiche relue, l'écran le dit au lieu d'emprunter les mots d'un
+   * autre caractère. Les trois lignes à lire, elles, restent celles de la maquette
+   * (`data/demo/textes/住.json`) : l'export ne porte encore aucun texte ni conte.
    * Le cinabre ne sert qu'à une chose sur cet écran : le caractère du jour dans le texte.
    */
   import {

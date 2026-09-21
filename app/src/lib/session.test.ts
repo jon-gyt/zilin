@@ -18,6 +18,7 @@ import {
   dayLabel,
   emptyProgress,
   fromJSON,
+  jourParcours,
   guide,
   learnNext,
   markDone,
@@ -33,6 +34,7 @@ import {
   traceProposee,
   traceVue,
   title,
+  setJourParcours,
   toJSON,
   useNext,
   bilan,
@@ -555,5 +557,33 @@ describe('export et import', () => {
     const p = noterActivite(neuf(), JOUR, 'anecdote');
     expect(p.tao.activites).toEqual([{ jour: JOUR, type: 'anecdote' }]);
     expect(fromJSON(toJSON(p), JOUR)).toEqual(p);
+  });
+});
+
+describe('le jour du parcours', () => {
+  it("suit les journées travaillées tant que rien n'est rangé", () => {
+    const p = neuf();
+    expect(jourParcours(p)).toBe(1);
+    expect(jourParcours({ ...p, days: 7 })).toBe(7);
+  });
+
+  it("prend l'index rangé dans la progression quand il y est", () => {
+    const p = setJourParcours({ ...neuf(), days: 7 }, 12);
+    expect(p.jourParcours).toBe(12);
+    expect(jourParcours(p)).toBe(12);
+  });
+
+  it('ne descend jamais sous le premier jour', () => {
+    expect(jourParcours(setJourParcours(neuf(), 0))).toBe(1);
+    expect(jourParcours({ ...neuf(), days: 0 })).toBe(1);
+  });
+
+  it('se relit à l’aller-retour, et se passe d’un export plus ancien', () => {
+    const p = setJourParcours({ ...neuf(), days: 3 }, 9);
+    expect(fromJSON(toJSON(p), JOUR).jourParcours).toBe(9);
+    const avant = JSON.stringify({ version: 1, day: JOUR, days: 5, lastWorked: JOUR });
+    const relu = fromJSON(avant, JOUR);
+    expect(relu.jourParcours).toBeUndefined();
+    expect(jourParcours(relu)).toBe(5);
   });
 });
