@@ -46,6 +46,11 @@ export const BLOCS_MAX = 3;
  */
 export const PILE_REDESCENDUE = CARTES_PAR_BLOC;
 
+/** Les trois vues du pas Apprendre, dans l'ordre : la brique, son tracé, le composé. */
+export type LearnView = 'brique' | 'trace' | 'compose';
+
+export const LEARN_VIEWS = ['brique', 'trace', 'compose'] as const;
+
 /** L'état complet d'une progression. Sérialisable tel quel. */
 export type Progress = {
   version: 1;
@@ -62,10 +67,28 @@ export type Progress = {
   days: number;
   /** Dernière journée où au moins un pas a été fait. */
   lastWorked: string | null;
+  /** Vue en cours du pas Apprendre : la reprise se fait au pas exact, vue comprise. */
+  learn: LearnView;
+  /** Réglage : proposer le tracé d'une brique de base. Désactivable depuis l'écran de tracé. */
+  trace: boolean;
+  /** Briques dont le tracé a déjà été proposé : une seule fois par brique. */
+  tracees: string[];
 };
 
 export function emptyProgress(aujourdhui: string): Progress {
-  return { version: 1, day: aujourdhui, done: [], catchup: false, budget: 10, due: 0, days: 0, lastWorked: null };
+  return {
+    version: 1,
+    day: aujourdhui,
+    done: [],
+    catchup: false,
+    budget: 10,
+    due: 0,
+    days: 0,
+    lastWorked: null,
+    learn: 'brique',
+    trace: true,
+    tracees: []
+  };
 }
 
 /* ---------- dates ---------- */
@@ -94,7 +117,7 @@ function rattrapage(p: Progress, aujourdhui: string): boolean {
  */
 export function openDay(p: Progress, aujourdhui: string): Progress {
   if (p.day === aujourdhui) return p;
-  return { ...p, day: aujourdhui, done: [], catchup: rattrapage(p, aujourdhui) };
+  return { ...p, day: aujourdhui, done: [], learn: 'brique', catchup: rattrapage(p, aujourdhui) };
 }
 
 /**
@@ -120,7 +143,41 @@ export function markDone(p: Progress, i: number, aujourdhui: string): Progress {
 
 /** Recommence la journée : les pas repartent de zéro, le compteur de jour ne bouge pas. */
 export function resetDay(p: Progress): Progress {
-  return { ...p, done: [] };
+  return { ...p, done: [], learn: 'brique' };
+}
+
+/* ---------- pas 3, Apprendre ---------- */
+
+/**
+ * Le tracé est proposé une fois par brique de base, et seulement si le réglage est actif.
+ * Jamais pour un composé : l'appelant ne passe ici que la brique de la session.
+ */
+export function traceProposee(p: Progress, brique: string): boolean {
+  return p.trace && !p.tracees.includes(brique);
+}
+
+/** Change le réglage « ne plus proposer le tracé ». */
+export function setTrace(p: Progress, actif: boolean): Progress {
+  return { ...p, trace: actif };
+}
+
+/** Note que le tracé de cette brique a été proposé : on ne le proposera plus. */
+export function traceVue(p: Progress, brique: string): Progress {
+  return p.tracees.includes(brique) ? p : { ...p, tracees: [...p.tracees, brique] };
+}
+
+/** Ouvre une vue du pas Apprendre. La progression est sauvegardée à chaque tap. */
+export function setLearnView(p: Progress, vue: LearnView): Progress {
+  return { ...p, learn: vue };
+}
+
+/**
+ * La vue suivante du pas Apprendre : la brique, le tracé quand il est proposé, puis le
+ * composé. `null` quand il n'y a plus de vue : le pas est fini.
+ */
+export function learnNext(p: Progress, brique: string): LearnView | null {
+  if (p.learn === 'brique') return traceProposee(p, brique) ? 'trace' : 'compose';
+  return p.learn === 'trace' ? 'compose' : null;
 }
 
 /* ---------- les pas ---------- */
@@ -257,6 +314,10 @@ function isBudget(v: unknown): v is Budget {
   return v === 5 || v === 10 || v === 20;
 }
 
+function isLearnView(v: unknown): v is LearnView {
+  return LEARN_VIEWS.includes(v as LearnView);
+}
+
 /** Relit une progression exportée. Les champs absents ou aberrants reprennent leur défaut. */
 export function fromJSON(texte: string, aujourdhui: string): Progress {
   let brut: unknown;
@@ -276,6 +337,10 @@ export function fromJSON(texte: string, aujourdhui: string): Progress {
     budget: isBudget(o.budget) ? o.budget : vide.budget,
     due: typeof o.due === 'number' && o.due >= 0 ? Math.floor(o.due) : 0,
     days: typeof o.days === 'number' && o.days >= 0 ? Math.floor(o.days) : 0,
-    lastWorked: typeof o.lastWorked === 'string' ? o.lastWorked : null
+    lastWorked: typeof o.lastWorked === 'string' ? o.lastWorked : null,
+    /* Champs du pas Apprendre : absents d'un export plus ancien, ils reprennent leur défaut. */
+    learn: isLearnView(o.learn) ? o.learn : vide.learn,
+    trace: o.trace === undefined ? vide.trace : o.trace !== false,
+    tracees: Array.isArray(o.tracees) ? o.tracees.filter((c): c is string => typeof c === 'string') : []
   };
 }

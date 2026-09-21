@@ -11,13 +11,18 @@ import {
   emptyProgress,
   fromJSON,
   guide,
+  learnNext,
   markDone,
   miaoPose,
   nextIndex,
   openDay,
   resetDay,
   setDue,
+  setLearnView,
+  setTrace,
   steps,
+  traceProposee,
+  traceVue,
   title,
   toJSON,
   type Progress
@@ -157,6 +162,61 @@ describe('journée finie', () => {
   });
 });
 
+describe('pas 3, Apprendre', () => {
+  const BRIQUE = '主';
+
+  it("s'ouvre sur la brique, puis le tracé, puis le composé", () => {
+    let p = neuf();
+    expect(p.learn).toBe('brique');
+    expect(learnNext(p, BRIQUE)).toBe('trace');
+    p = setLearnView(p, 'trace');
+    expect(learnNext(p, BRIQUE)).toBe('compose');
+    p = setLearnView(p, 'compose');
+    expect(learnNext(p, BRIQUE)).toBeNull();
+  });
+
+  it('reprend la vue exacte après un rechargement', () => {
+    let p = markDone(markDone(neuf(), 0, JOUR), 1, JOUR);
+    p = setLearnView(p, 'compose');
+    const relu = fromJSON(toJSON(p), JOUR);
+    expect(relu.learn).toBe('compose');
+    expect(steps(relu)[nextIndex(relu)].id).toBe('apprendre');
+  });
+
+  it('propose le tracé une seule fois par brique', () => {
+    let p = neuf();
+    expect(traceProposee(p, BRIQUE)).toBe(true);
+    p = traceVue(p, BRIQUE);
+    expect(traceProposee(p, BRIQUE)).toBe(false);
+    expect(learnNext(p, BRIQUE)).toBe('compose');
+    expect(traceProposee(p, '王')).toBe(true);
+    expect(traceVue(p, BRIQUE).tracees).toEqual([BRIQUE]);
+  });
+
+  it('se souvient du réglage « ne plus proposer le tracé »', () => {
+    const p = setTrace(neuf(), false);
+    expect(traceProposee(p, BRIQUE)).toBe(false);
+    expect(learnNext(p, BRIQUE)).toBe('compose');
+    expect(fromJSON(toJSON(p), JOUR).trace).toBe(false);
+    expect(traceProposee(setTrace(p, true), BRIQUE)).toBe(true);
+  });
+
+  it('le pas fait, Utiliser devient le pas courant', () => {
+    let p = markDone(markDone(neuf(), 0, JOUR), 1, JOUR);
+    expect(currentStep(p)?.id).toBe('apprendre');
+    expect(currentStep(p)?.go).toBe('learn');
+    p = setLearnView(markDone(p, 2, JOUR), 'brique');
+    expect(currentStep(p)?.id).toBe('utiliser');
+    expect(p.learn).toBe('brique');
+  });
+
+  it('repart de la brique à la journée suivante et à la session suivante', () => {
+    const p = setLearnView(neuf(), 'compose');
+    expect(openDay(p, '2026-03-03').learn).toBe('brique');
+    expect(resetDay(p).learn).toBe('brique');
+  });
+});
+
 describe('export et import', () => {
   it("rend le même état à l'aller-retour", () => {
     let p: Progress = { ...neuf(), due: 22, days: 11, budget: 20 };
@@ -166,5 +226,20 @@ describe('export et import', () => {
 
   it('refuse un fichier illisible', () => {
     expect(() => fromJSON('pas du json', JOUR)).toThrow();
+  });
+
+  it('relit un export plus ancien, sans les champs du pas Apprendre', () => {
+    const ancien = JSON.stringify({ version: 1, day: JOUR, done: [true], budget: 10, days: 3 });
+    const p = fromJSON(ancien, JOUR);
+    expect(p.learn).toBe('brique');
+    expect(p.trace).toBe(true);
+    expect(p.tracees).toEqual([]);
+  });
+
+  it('ignore une vue ou une liste de briques aberrantes', () => {
+    const cassé = JSON.stringify({ ...neuf(), learn: 'ailleurs', tracees: [1, '主'] });
+    const p = fromJSON(cassé, JOUR);
+    expect(p.learn).toBe('brique');
+    expect(p.tracees).toEqual(['主']);
   });
 });
