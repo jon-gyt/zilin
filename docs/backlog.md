@@ -15,6 +15,7 @@ Format BMAD : épics puis stories. Priorité dans l'ordre. Une story se termine 
 - 1.4 Génération FR et EN des fiches (origine en trois phrases, deux mots, une phrase), étiquette attesté / mnémotechnique. Relecture du seuil 255.
 - 1.5 Audio pré-généré (voix neuronale), un fichier par caractère et par mot.
 - 1.6 Export JSON versionné par famille, schéma dans `data/schema.md`.
+- 1.7 Contes par niveau : un même conte ou une même histoire chinoise réécrit à chaque seuil (255, 405, 505, 805, 1555) avec les seuls caractères du seuil, généré par lots avec Claude dans le pipeline puis relu ; source du conte tracée, glose par caractère, une version par seuil dans le JSON exporté.
 
 ## Épic 2 · Session
 - 2.1 État de session (six pas, reprise au pas exact, rattrapage).
@@ -25,6 +26,10 @@ Format BMAD : épics puis stories. Priorité dans l'ordre. Une story se termine 
 - 2.6 Pas 5 Fixer et pas 6 Clore : vérification, graine plantée.
 - 2.7 Première session : 人, 大, 天, lire 天天, puis objectif et rythme.
 
+## Épic 2c · Contes
+- 2c.1 Mode Lire : bibliothèque de contes, version choisie d'après l'acquis (le seuil le plus haut dont tous les caractères sont acquis), lecture avec glose au toucher, audio.
+- 2c.2 Le même conte remonte d'un niveau quand l'acquis le permet ; l'app signale qu'une version plus riche est ouverte. Trois contes gratuits au seuil 255, bibliothèque complète en payant.
+
 ## Épic 3 · Révision
 - 3.1 FSRS (ts-fsrs), rétention cible, planification.
 - 3.2 Sept types de questions, leurres par ressemblance de composants.
@@ -34,7 +39,18 @@ Format BMAD : épics puis stories. Priorité dans l'ordre. Une story se termine 
 ## Épic 4 · Ma forêt
 - 4.1 Cercle des familles, zoom et déplacement, ouverture d'un arbre par famille.
 - 4.2 Arbre d'une famille, fiche courte, lancement de la prochaine leçon.
-- 4.3 Miao qui grandit (paliers 100, 300, 1 000).
+- 4.3 Tao qui grandit (paliers 100, 300, 1 000), postures par activité, humeur par variété, journal du soir, collection visible.
+
+## Épic 4b · Jeux
+- 4b.1 Moteur de mini-jeux : un contrat commun (entrée : caractères acquis ; sortie : événements de révision notés), écran hôte, retour vers la session.
+- 4b.2 Assembler contre la montre et les jumeaux (données : décompositions, paires à ne pas confondre).
+- 4b.3 La chaîne (parcours du graphe sur l'acquis) et la coquille.
+- 4b.4 Le dictionnaire éclair (mots CC-CEDICT dont les deux caractères sont acquis) et le compteur « mots devinés ».
+- 4b.5 Les devinettes de lanternes : base de 100 devinettes rédigées, une par jour, portée par Tao.
+- 4b.6 La cuisine de Tao : dix recettes, ingrédients, erreurs plausibles (牛奶 pour 牛肉).
+- 4b.7 Le message WeChat : arbres de dialogue par famille.
+- 4b.8 Les lettres de Que : douze lettres pour le seuil 255, générées puis relues.
+- 4b.9 Les saisons : calendrier chinois, décor du cercle, caractère bonus par fête.
 
 ## Épic 5 · PWA et site
 - 5.1 Manifest, service worker, hors ligne, écran d'accueil iOS.

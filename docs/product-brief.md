@@ -42,7 +42,7 @@ Positionnement : l'arbre étymologique qui apprend à lire, conforme aux seuils 
 - Logo : un Z tracé en un trait, un point cinabre au-dessus, le point de 之. Logotype Manrope 700.
 - Palette : papier de riz #F4EEE2, encre #1F1B18, cinabre #C8371F (logo, élément ajouté, position sur le chemin), indigo #2B4C7E (action, progression, briques de son), ocre #8C5A2B (briques de sens), vert bambou #5E8A6A (acquis). Mode sombre encre.
 - Typographie : Manrope (titres, voix du guide), Source Sans 3 (interface), Noto Serif SC (mots et phrases). Les grands caractères ne sont pas une police : ils sont dessinés trait par trait à partir des données de tracé, style 楷, et s'écrivent au pinceau à l'apparition.
-- Mascotte : Miao 苗, une pousse à deux feuilles et un visage. Quatre humeurs (joie, réflexion, sommeil, calme). Présente aux moments d'émotion, jamais pendant l'apprentissage. Grandit avec la forêt de l'utilisateur (paliers 100, 300, 1 000 caractères).
+- Mascotte : Tao 桃, une graine de pêcher qui grandit (graine, pousse, jeune pêcher, pêcher en fleur à 300 caractères, pêches à 1 000). Compagne de toutes les activités, voir section 9. Ami : Que 雀, le moineau, qui remet les cadeaux de la série.
 - Principes : un écran, une action ; le rouge est un sceau, pas une alerte ; pas de doré, pas de dragon, pas d'emoji, pas d'illustration réaliste.
 
 ## 6. Structure de l'app
@@ -73,6 +73,7 @@ Fluidité : un tap par écran, bouton principal unique en bas, avance automatiqu
 - Tracé : proposé une fois par brique de base à la première rencontre, désactivable. Jamais demandé pour les composés. Par niveau, aligné sur « actifs / passifs » côté France et sur la liste d'écriture du HSK côté international.
 - Paires à ne pas confondre injectées quand deux caractères proches sont acquis (己/已, 未/末, 天/夫, 日/曰, 人/入, 土/士).
 - Le mot avant le caractère seul : chaque fiche porte deux mots et une phrase ; lecture de textes générés avec les seuls caractères acquis dès une vingtaine.
+- Contes : des contes et histoires chinoises réécrits à chaque seuil avec les seuls caractères du seuil. Le même conte existe en plusieurs versions (255, 405, 505, 805, 1555) ; l'utilisateur relit la même histoire, plus riche, à mesure que son acquis grandit. Les versions sont générées par lots dans le pipeline puis relues, jamais dans l'app.
 
 ## 8. Motivation
 
@@ -82,12 +83,43 @@ Fluidité : un tap par écran, bouton principal unique en bas, avance automatiqu
 - Ma forêt : une colline, un arbre par famille dont la taille suit la progression, un brin d'herbe par caractère, Miao dessus. Le dimanche, récapitulatif de la semaine partageable en image.
 - Notification : une par jour, à l'heure choisie, avec le début de l'anecdote.
 
-## 9. Périmètre de la version 1
+## 9. Tao et les jeux
+
+### Tao, la compagne
+
+Tao suit toutes les activités et adopte la posture de l'utilisateur : bulle avec le caractère en leçon, mange pendant la révision (une carte, une bouchée ; erreur, grimace ; série juste, bond), lit par-dessus l'épaule en lecture, tient un pinceau au tracé, porte la lanterne aux devinettes, goûte en cuisine, marche sur le chemin de la série, écoute l'anecdote assise.
+
+- Croissance : additionne toutes les activités. Paliers 100, 300 (fleurs), 1 000 (pêches).
+- Humeur : vient de la variété, adoucie par les jours de repos. Trois fois la même activité d'affilée, elle s'ennuie et propose un jeu ; une semaine sans lecture, elle apporte un texte. C'est elle qui pousse vers les jeux, pas une notification.
+- Journal : chaque soir, une ligne (« Aujourd'hui j'ai appris 住, mangé 14 cartes, résolu une devinette, cuisiné un 蛋炒饭 »). Le dimanche, la semaine en image partageable.
+- Collection : ce que les jeux rapportent se voit sur elle (lanterne des devinettes, bol des recettes, sceau de famille sur le pot, flocon au Nouvel An, fleur de prunier au Printemps). Rien ne s'achète.
+- Interdits : tomber malade, mourir, pleurer, culpabiliser. Sans l'utilisateur elle se met en pot et attend ; à son retour elle se redresse sans reproche.
+
+### Les jeux retenus
+
+Règle : chaque jeu doit répondre à « qu'est-ce que l'utilisateur sait lire de plus après ? ». Pas de points au temps passé, pas de vies, pas de classements, pas de coffres. Détail et exemples dans `docs/jeux.md`.
+
+| Jeu | Ce qu'il fait lire | Où |
+|---|---|---|
+| Assembler contre la montre | produire le caractère à partir des briques, 8 s | pas Fixer, révision (1 sur 5) |
+| La chaîne | chaque caractère contient le précédent (人 → 大 → 天) | révision, week-end |
+| Le dictionnaire éclair | deviner un mot jamais appris (火车, 电脑) | pas Utiliser, compteur « mots devinés » |
+| La coquille | trouver le caractère faux dans un message (夫 pour 天) | paires à ne pas confondre |
+| Le message WeChat | répondre à un message avec l'acquis | pas Utiliser, dès la 2e semaine |
+| Les jumeaux | 己 已 巳 en flash de 700 ms | métro, révision |
+| Les lettres de Que | feuilleton hebdomadaire écrit avec l'acquis | dimanche |
+| Les saisons | le cercle change avec le calendrier chinois, un caractère bonus par fête | Ma forêt |
+| Les devinettes de lanternes | 灯谜 : la décomposition déguisée (« une bouche mord la queue du bœuf » : 告) | chaque matin avec Tao, fête des Lanternes |
+| La cuisine de Tao | recette en chinois, ingrédients sur l'étal, dix plats de cantine | nourrir Tao |
+
+## 10. Périmètre de la version 1
 
 ### Gratuit
 
 - Seuil 255 et HSK 1 (2026) complets : décomposition, origines, révision en questions, audio, tracé, anecdotes, série, forêt.
 - Consultation en lecture seule de l'arbre complet.
+- Trois contes au seuil 255.
+- Tao complète ; jeux gratuits : assembler, la chaîne, les jumeaux, la coquille, le dictionnaire éclair, une devinette par jour, la cuisine (trois plats).
 
 ### Payant (achat à vie ou abonnement mensuel)
 
@@ -95,8 +127,10 @@ Fluidité : un tap par écran, bouton principal unique en bas, avance automatiqu
 - Dictionnaire complet : 9 000 caractères décomposés et expliqués.
 - Formes anciennes à côté de chaque brique.
 - Textes de lecture générés avec les seuls caractères acquis.
+- Bibliothèque complète de contes, à tous les seuils.
 - Exercices « paires à ne pas confondre ».
 - Synchronisation iCloud.
+- Jeux complets : les lettres de Que, le message WeChat, toutes les devinettes, dix plats, les saisons avec caractères bonus.
 
 ### Hors périmètre V1
 
@@ -104,7 +138,7 @@ Fluidité : un tap par écran, bouton principal unique en bas, avance automatiqu
 - Comptes utilisateurs, social, classements.
 - Android (V2, même code web).
 
-## 10. Contenu et données
+## 11. Contenu et données
 
 Sources à valider en licence avant usage commercial :
 
@@ -118,20 +152,20 @@ Sources à valider en licence avant usage commercial :
 
 Pipeline (Python, dépôt séparé) : ingestion, réconciliation des décompositions avec la norme GF 0014-2009, construction du graphe, génération FR et EN, contrôle qualité (composants inconnus, cycles, doublons, étiquetage attesté / mnémotechnique), export JSON versionné.
 
-## 11. Architecture
+## 12. Architecture
 
 - PWA, TypeScript, Vite, Svelte, Workbox. Données statiques JSON par famille. Progression dans IndexedDB, export et import JSON.
 - Grands caractères rendus en SVG depuis les données de tracé ; animation pinceau par ligne médiane.
 - Hébergement : GitHub Pages ou Cloudflare Pages, site public inclus, une page par caractère (FR et EN).
 - Phase App Store : Capacitor, StoreKit 2, CloudKit, retour haptique, widget « caractère du jour », Apple Pencil sur iPad. Nécessite un Mac ou un Mac cloud pour compiler et soumettre.
 
-## 12. Monétisation
+## 13. Monétisation
 
 - Web : gratuit, périmètre gratuit et pages publiques. Rôle : acquisition et référencement.
 - iOS : achats intégrés. Achat à vie non consommable autour de 29,99 €. Abonnement mensuel autour de 3,99 €. Grilles Apple par pays.
 - Small Business Program (15 %). Entité porteuse du compte développeur à trancher.
 
-## 13. Lancement sans budget publicitaire
+## 14. Lancement sans budget publicitaire
 
 1. Site public indexable, une page par caractère, FR et EN.
 2. Bêta TestFlight de 200 testeurs recrutés dans les communautés d'apprenants et les sections de chinois.
@@ -140,25 +174,26 @@ Pipeline (Python, dépôt séparé) : ingestion, réconciliation des décomposit
 5. Vingt créateurs de contenu FR et EN équipés d'une licence à vie.
 6. Sortie : début février 2027, Nouvel An chinois.
 
-## 14. Indicateurs
+## 15. Indicateurs
 
 - Sessions terminées : plus de 80 %. Une session plus longue que le budget annoncé est un défaut.
 - Retour à J7 : plus de 30 %.
 - Note App Store 4,7 avec 100 avis à trois mois ; 5 000 téléchargements ; conversion payante 3 à 5 % des actifs à 30 jours.
 - Rétention réelle par caractère, taux d'erreur par type de question, temps par pas.
 
-## 15. Feuille de route
+## 16. Feuille de route
 
 | Phase | Contenu | Livrable |
 |---|---|---|
 | 0 | Licences, nom de domaine, PDF HSK 2026 dépouillé | décisions |
 | 1 | Pipeline, seuil 255 et HSK 1 complets FR et EN, audio | JSON versionné |
-| 2 | PWA : chemin, session, révision en questions, tracé, forêt, série | app web utilisable au quotidien |
+| 2 | PWA : chemin, session, révision en questions, tracé, cercle, série, Tao | app web utilisable au quotidien |
+| 2b | Jeux gratuits et devinette du jour | jouable dans la session |
 | 3 | Site public, pages caractères, seuils suivants et HSK 2 à 4 | acquisition |
 | 4 | Bêta TestFlight, Capacitor, achats, iCloud, haptique, widget | build App Store |
 | 5 | Lancement | App Store |
 
-## 16. Risques
+## 17. Risques
 
 - Licences incompatibles avec un produit payant : à lever en phase 0.
 - Qualité des origines générées : relecture obligatoire sur le seuil 255 et le HSK 1 à 3, étiquetage attesté / mnémotechnique systématique.
@@ -166,7 +201,7 @@ Pipeline (Python, dépôt séparé) : ingestion, réconciliation des décomposit
 - Marché de niche : le bilingue FR et EN conditionne la taille du marché.
 - Solo : le périmètre gratuit doit être irréprochable avant d'ouvrir le payant.
 
-## 17. Questions ouvertes
+## 18. Questions ouvertes
 
 1. Nom de domaine.
 2. Entité porteuse du compte Apple et de l'encaissement.
