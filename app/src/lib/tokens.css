@@ -169,6 +169,7 @@ h1{font-family:var(--head);font-weight:700;font-size:30px;line-height:1.15;lette
 .q .parts .op{color:var(--mist);font-size:22px}
 .choices{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:12px}
 .choices button{min-height:76px;border:1.5px solid var(--line);border-radius:12px;background:var(--card);display:flex;flex-direction:column;align-items:center;justify-content:center;font-weight:600;gap:2px;text-align:center}
+.choices button small{font-weight:400;font-size:13px;color:var(--mist)}
 .choices button.txt{font-size:16px;padding:8px 10px;min-height:60px}
 .choices button.ok{border-color:var(--jade);background:var(--jade-soft)}
 .choices button.ko{border-color:var(--zhu);background:var(--zhu-soft)}

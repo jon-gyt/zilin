@@ -130,6 +130,11 @@
     }
   }
 
+  /** Le pinyin sous un choix de caractère : il se lit, il ne se devine pas. */
+  function pinyin(c: string): string {
+    return v?.voisins.find((x) => x.c === c)?.pinyin ?? '';
+  }
+
   const taoHumeur = $derived(humeur(p.tao.activites, p.day));
   const taoStade = $derived(stade(p.tao.croissance));
 </script>
@@ -175,6 +180,7 @@
           >
             {#if q.caracteres}
               <Glyph char={o} size={48} write={false} />
+              <small>{pinyin(o)}</small>
             {:else}
               {o}
             {/if}
