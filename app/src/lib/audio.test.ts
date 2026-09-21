@@ -2,6 +2,11 @@ import { describe, it, expect, beforeEach } from 'vitest';
 import {
   FICHIER_AUDIO,
   aAudio,
+  aFichier,
+  aVoixTelephone,
+  direParLeTelephone,
+  voixMandarin,
+  type Synthese,
   chemin,
   configurerAudio,
   dire,
@@ -146,5 +151,69 @@ describe('le préchargement', () => {
       `${import.meta.env.BASE_URL}${FICHIER_AUDIO}`,
       `${import.meta.env.BASE_URL}${MANIFESTE.chemins['人']}`
     ]);
+  });
+});
+
+/** Une synthèse d'essai : des voix, et la liste de ce qu'on lui a fait dire. */
+function syntheseDEssai(langs: string[]): Synthese & { dits: string[]; annulations: number } {
+  const dits: string[] = [];
+  const s = {
+    dits,
+    annulations: 0,
+    getVoices: () => langs.map((lang) => ({ lang, name: lang, voiceURI: lang, default: false, localService: true })),
+    speak: (u: SpeechSynthesisUtterance) => { dits.push(u.text); },
+    cancel() { s.annulations += 1; }
+  };
+  return s as unknown as Synthese & { dits: string[]; annulations: number };
+}
+
+class UtteranceDEssai {
+  text: string;
+  voice: unknown = null;
+  lang = '';
+  rate = 1;
+  constructor(text: string) { this.text = text; }
+}
+
+describe('la voix du téléphone en repli', () => {
+  beforeEach(() => {
+    (globalThis as { SpeechSynthesisUtterance?: unknown }).SpeechSynthesisUtterance = UtteranceDEssai;
+  });
+
+  it('préfère le mandarin standard et écarte le cantonais', () => {
+    configurerAudio({ synthese: () => syntheseDEssai(['en-US', 'zh-HK', 'zh-TW', 'zh-CN']) });
+    expect(voixMandarin()?.lang).toBe('zh-CN');
+    configurerAudio({ synthese: () => syntheseDEssai(['zh-HK', 'zh-TW']) });
+    expect(voixMandarin()?.lang).toBe('zh-TW');
+    configurerAudio({ synthese: () => syntheseDEssai(['zh-HK', 'fr-FR']) });
+    expect(aVoixTelephone()).toBe(false);
+  });
+
+  it("dit par le téléphone un texte sans fichier, et rend le bouton actif", async () => {
+    const s = syntheseDEssai(['zh-CN']);
+    const l = lecteurDEssai();
+    configurerAudio({ synthese: () => s, lecteur: () => l, fetchFn: async () => ({ ok: true, json: async () => MANIFESTE }) as Response });
+    expect(aFichier(MANIFESTE, '住')).toBe(false);
+    expect(aAudio(MANIFESTE, '住')).toBe(true);
+    expect(await dire('住')).toBe(true);
+    expect(s.dits).toEqual(['住']);
+    expect(s.annulations).toBe(1);
+    expect(l.joues).toEqual([]);
+  });
+
+  it('joue le fichier quand il existe, sans passer par le téléphone', async () => {
+    const s = syntheseDEssai(['zh-CN']);
+    const l = lecteurDEssai();
+    configurerAudio({ synthese: () => s, lecteur: () => l, fetchFn: async () => ({ ok: true, json: async () => MANIFESTE }) as Response });
+    expect(await dire('人')).toBe(true);
+    expect(l.joues).toHaveLength(1);
+    expect(s.dits).toEqual([]);
+  });
+
+  it('se tait sans fichier ni voix mandarin', async () => {
+    configurerAudio({ synthese: () => null, lecteur: () => lecteurDEssai(), fetchFn: async () => ({ ok: true, json: async () => MANIFESTE }) as Response });
+    expect(aAudio(MANIFESTE, '住')).toBe(false);
+    expect(await dire('住')).toBe(false);
+    expect(direParLeTelephone('住')).toBe(false);
   });
 });

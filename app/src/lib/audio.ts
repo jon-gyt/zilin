@@ -1,12 +1,13 @@
 /**
- * L'audio de l'app : une voix neuronale pré-générée, servie avec l'app.
+ * L'audio de l'app : une voix neuronale pré-générée, servie avec l'app, et en repli
+ * la voix du téléphone.
  *
- * Le brief §11 est net : « voix neuronale pré-générée et embarquée pour tous les
- * caractères et mots. Aucune dépendance à la voix du téléphone ». Ce module ne
- * synthétise donc rien — ni `speechSynthesis`, ni requête à un service. Il lit un
- * fichier déjà là, dont le chemin vient du manifeste écrit par `zilin audio exporter`
- * (voir `data/schema.md`). Un texte sans fichier ne dit rien, en silence : pas
- * d'erreur à l'écran, pas de voix de secours.
+ * Brief §11 : « voix neuronale pré-générée et embarquée pour tous les caractères et
+ * mots ; la voix du téléphone en repli ». Ce module lit d'abord un fichier déjà là,
+ * dont le chemin vient du manifeste écrit par `zilin audio exporter` (voir
+ * `data/schema.md`). Un texte sans fichier est dit par la synthèse du téléphone
+ * (`speechSynthesis`, voix mandarin) quand elle existe ; sinon il ne dit rien, en
+ * silence. Aucune requête à un service.
  *
  * Un seul `HTMLAudioElement` pour toute l'app, réutilisé d'un texte à l'autre : sur
  * iOS, un élément déjà débloqué par un geste continue de jouer, et n'en créer qu'un
@@ -32,6 +33,15 @@ export const FICHIER_AUDIO = 'data/demo/audio/manifeste.json';
 /** Ce que ce module demande à un lecteur : de quoi jouer un fichier, rien de plus. */
 export type Lecteur = Pick<HTMLAudioElement, 'src' | 'currentTime' | 'preload' | 'play' | 'pause'>;
 
+/** Ce que ce module demande à la synthèse du téléphone : ses voix, parler, se taire. */
+export type Synthese = Pick<SpeechSynthesis, 'getVoices' | 'speak' | 'cancel'>;
+
+function syntheseParDefaut(): Synthese | null {
+  return typeof window === 'undefined' || !('speechSynthesis' in window) ? null : window.speechSynthesis;
+}
+
+let synthese: () => Synthese | null = syntheseParDefaut;
+
 /** Un manifeste vide : ce que rend un fichier absent. L'app se tait, sans erreur. */
 const VIDE: Manifeste = { version: '', fournisseur: '', format: '', chemins: {} };
 
@@ -52,9 +62,10 @@ let charge: Manifeste | null = null;
  * pourra y poser son propre lecteur sans toucher au reste.
  */
 export function configurerAudio(
-  options: { lecteur?: () => Lecteur | null; fetchFn?: typeof fetch } = {}
+  options: { lecteur?: () => Lecteur | null; fetchFn?: typeof fetch; synthese?: () => Synthese | null } = {}
 ): void {
   fabrique = options.lecteur ?? lecteurParDefaut;
+  synthese = options.synthese ?? syntheseParDefaut;
   requete = options.fetchFn ?? ((...args) => fetch(...args));
   unique = null;
   cree = false;
@@ -123,28 +134,69 @@ export function chemin(m: Manifeste | null, texte: string): string | null {
   return m?.chemins[texte] ?? null;
 }
 
-/** Ce texte a-t-il une voix ? C'est ce qui décide d'un bouton « Écouter » actif. */
-export function aAudio(m: Manifeste | null, texte: string): boolean {
+/** Ce texte a-t-il un fichier pré-généré ? */
+export function aFichier(m: Manifeste | null, texte: string): boolean {
   return chemin(m, texte) !== null;
 }
 
 /**
- * Dit un texte. Rend `true` si un fichier a été joué, `false` sinon — et dans ce cas
- * il ne se passe rien du tout : aucune synthèse par le téléphone, aucune erreur.
+ * La voix mandarin du téléphone, `null` s'il n'en a pas. Le mandarin standard d'abord
+ * (`zh-CN`), puis toute voix chinoise sauf le cantonais (`zh-HK`).
+ */
+export function voixMandarin(): SpeechSynthesisVoice | null {
+  const s = synthese();
+  if (s === null) return null;
+  const voix = s.getVoices().filter((v) => /^zh([-_]|$)/i.test(v.lang) && !/hk/i.test(v.lang));
+  return voix.find((v) => /^zh[-_]cn/i.test(v.lang)) ?? voix[0] ?? null;
+}
+
+/** Le téléphone peut-il dire du mandarin ? */
+export function aVoixTelephone(): boolean {
+  return voixMandarin() !== null;
+}
+
+/**
+ * Ce texte peut-il être dit ? Par un fichier pré-généré, ou à défaut par la voix du
+ * téléphone. C'est ce qui décide d'un bouton « Écouter » actif.
+ */
+export function aAudio(m: Manifeste | null, texte: string): boolean {
+  return aFichier(m, texte) || aVoixTelephone();
+}
+
+/**
+ * Dit un texte. Le fichier pré-généré d'abord ; sinon la voix du téléphone ; sinon
+ * rien du tout, en silence. Rend `true` si quelque chose a été dit.
  */
 export async function dire(texte: string, file = FICHIER_AUDIO): Promise<boolean> {
   const m = await manifesteOnce(file);
   const c = chemin(m, texte);
-  if (c === null) return false;
-  const l = lecteur();
-  if (l === null) return false;
-  l.src = urlAudio(c);
-  l.currentTime = 0;
-  try {
-    await l.play();
-  } catch {
-    return false;
+  if (c !== null) {
+    const l = lecteur();
+    if (l !== null) {
+      l.src = urlAudio(c);
+      l.currentTime = 0;
+      try {
+        await l.play();
+        return true;
+      } catch {
+        /* lecture refusée : on tente la voix du téléphone */
+      }
+    }
   }
+  return direParLeTelephone(texte);
+}
+
+/** La voix du téléphone : une seule phrase à la fois, en mandarin, un peu ralentie. */
+export function direParLeTelephone(texte: string): boolean {
+  const s = synthese();
+  const voix = voixMandarin();
+  if (s === null || voix === null) return false;
+  s.cancel();
+  const u = new SpeechSynthesisUtterance(texte);
+  u.voice = voix;
+  u.lang = voix.lang;
+  u.rate = 0.9;
+  s.speak(u);
   return true;
 }
 
