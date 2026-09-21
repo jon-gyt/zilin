@@ -1,0 +1,163 @@
+/**
+ * L'audio de l'app : une voix neuronale pré-générée, servie avec l'app.
+ *
+ * Le brief §11 est net : « voix neuronale pré-générée et embarquée pour tous les
+ * caractères et mots. Aucune dépendance à la voix du téléphone ». Ce module ne
+ * synthétise donc rien — ni `speechSynthesis`, ni requête à un service. Il lit un
+ * fichier déjà là, dont le chemin vient du manifeste écrit par `zilin audio exporter`
+ * (voir `data/schema.md`). Un texte sans fichier ne dit rien, en silence : pas
+ * d'erreur à l'écran, pas de voix de secours.
+ *
+ * Un seul `HTMLAudioElement` pour toute l'app, réutilisé d'un texte à l'autre : sur
+ * iOS, un élément déjà débloqué par un geste continue de jouer, et n'en créer qu'un
+ * évite d'empiler des lecteurs à chaque toucher.
+ */
+
+/** Le manifeste audio exporté : texte → chemin du fichier servi avec l'app. */
+export type Manifeste = {
+  version: string;
+  fournisseur: string;
+  format: string;
+  /** Texte (caractère ou mot) → chemin relatif à `app/public/`. */
+  chemins: Record<string, string>;
+};
+
+/**
+ * Le manifeste servi avec l'app. `zilin audio exporter` l'écrit dans
+ * `app/public/data/<version>/audio/manifeste.json` ; tant que l'export versionné
+ * n'est pas là, c'est le dossier de démonstration qui est lu, et il n'a pas d'audio.
+ */
+export const FICHIER_AUDIO = 'data/demo/audio/manifeste.json';
+
+/** Ce que ce module demande à un lecteur : de quoi jouer un fichier, rien de plus. */
+export type Lecteur = Pick<HTMLAudioElement, 'src' | 'currentTime' | 'preload' | 'play' | 'pause'>;
+
+/** Un manifeste vide : ce que rend un fichier absent. L'app se tait, sans erreur. */
+const VIDE: Manifeste = { version: '', fournisseur: '', format: '', chemins: {} };
+
+function lecteurParDefaut(): Lecteur | null {
+  return typeof Audio === 'undefined' ? null : new Audio();
+}
+
+let fabrique: () => Lecteur | null = lecteurParDefaut;
+let requete: typeof fetch = (...args) => fetch(...args);
+let unique: Lecteur | null = null;
+let cree = false;
+const manifestes = new Map<string, Promise<Manifeste>>();
+let charge: Manifeste | null = null;
+
+/**
+ * Le point d'injection : le lecteur et le `fetch` du manifeste. Remet à zéro le
+ * lecteur unique et le manifeste déjà chargé. Les tests s'en servent ; le shell iOS
+ * pourra y poser son propre lecteur sans toucher au reste.
+ */
+export function configurerAudio(
+  options: { lecteur?: () => Lecteur | null; fetchFn?: typeof fetch } = {}
+): void {
+  fabrique = options.lecteur ?? lecteurParDefaut;
+  requete = options.fetchFn ?? ((...args) => fetch(...args));
+  unique = null;
+  cree = false;
+  charge = null;
+  manifestes.clear();
+}
+
+/** Le lecteur de l'app : le même à chaque appel, créé à la première lecture. */
+export function lecteur(): Lecteur | null {
+  if (!cree) {
+    unique = fabrique();
+    cree = true;
+  }
+  return unique;
+}
+
+/** L'URL d'un fichier du manifeste, sous la base de l'app (sous-dossier, PWA, iOS). */
+export function urlAudio(chemin: string): string {
+  return `${import.meta.env.BASE_URL}${chemin}`;
+}
+
+/** Lit le manifeste servi avec l'app. `fetchFn` est injecté dans les tests. */
+export async function loadManifeste(
+  file = FICHIER_AUDIO,
+  fetchFn: typeof fetch = requete
+): Promise<Manifeste> {
+  const r = await fetchFn(`${import.meta.env.BASE_URL}${file}`);
+  if (!r.ok) throw new Error(`Manifeste audio introuvable : ${file} (${r.status})`);
+  const brut = (await r.json()) as Partial<Manifeste>;
+  if (!brut.chemins || typeof brut.chemins !== 'object') {
+    throw new Error(`Manifeste audio illisible : ${file}`);
+  }
+  return {
+    version: typeof brut.version === 'string' ? brut.version : '',
+    fournisseur: typeof brut.fournisseur === 'string' ? brut.fournisseur : '',
+    format: typeof brut.format === 'string' ? brut.format : '',
+    chemins: brut.chemins
+  };
+}
+
+/**
+ * Le manifeste, chargé une seule fois pour toute la durée de vie de l'app.
+ * Un fichier absent ou illisible donne un manifeste vide : l'app se tait.
+ */
+export function manifesteOnce(file = FICHIER_AUDIO): Promise<Manifeste> {
+  let p = manifestes.get(file);
+  if (!p) {
+    p = loadManifeste(file)
+      .catch(() => VIDE)
+      .then((m) => {
+        charge = m;
+        return m;
+      });
+    manifestes.set(file, p);
+  }
+  return p;
+}
+
+/** Le manifeste déjà chargé, `null` tant qu'il ne l'est pas. Lecture synchrone. */
+export function manifesteCharge(): Manifeste | null {
+  return charge;
+}
+
+/** Le chemin d'un texte dans un manifeste, `null` s'il n'a pas de voix. */
+export function chemin(m: Manifeste | null, texte: string): string | null {
+  return m?.chemins[texte] ?? null;
+}
+
+/** Ce texte a-t-il une voix ? C'est ce qui décide d'un bouton « Écouter » actif. */
+export function aAudio(m: Manifeste | null, texte: string): boolean {
+  return chemin(m, texte) !== null;
+}
+
+/**
+ * Dit un texte. Rend `true` si un fichier a été joué, `false` sinon — et dans ce cas
+ * il ne se passe rien du tout : aucune synthèse par le téléphone, aucune erreur.
+ */
+export async function dire(texte: string, file = FICHIER_AUDIO): Promise<boolean> {
+  const m = await manifesteOnce(file);
+  const c = chemin(m, texte);
+  if (c === null) return false;
+  const l = lecteur();
+  if (l === null) return false;
+  l.src = urlAudio(c);
+  l.currentTime = 0;
+  try {
+    await l.play();
+  } catch {
+    return false;
+  }
+  return true;
+}
+
+/**
+ * Préchargement facultatif : va chercher les fichiers d'une liste de textes pour que
+ * le premier toucher ne tourne pas dans le vide. Sans effet sur ce qui n'a pas de voix,
+ * et silencieux en cas d'échec — le service worker précache déjà ces fichiers.
+ */
+export async function precharger(textes: string[], file = FICHIER_AUDIO): Promise<number> {
+  const m = await manifesteOnce(file);
+  const chemins = textes.map((t) => chemin(m, t)).filter((c): c is string => c !== null);
+  await Promise.all(
+    chemins.map((c) => requete(urlAudio(c)).catch(() => undefined))
+  );
+  return chemins.length;
+}

@@ -20,6 +20,7 @@
     type Signe,
     type Texte
   } from './content';
+  import { aAudio, dire, manifesteOnce, type Manifeste } from './audio';
   import type { UseView } from './session';
 
   let {
@@ -39,6 +40,8 @@
 
   let f = $state(null as Famille | null);
   let t = $state(null as Texte | null);
+  /** Le manifeste audio : il dit quels textes ont une voix. Absent, l'écran se tait. */
+  let son = $state(null as Manifeste | null);
   /** La glose du caractère touché. Rien tant qu'on n'a touché personne. */
   let touche: Signe | null = $state(null);
 
@@ -70,6 +73,16 @@
     };
   });
 
+  $effect(() => {
+    let vivant = true;
+    void manifesteOnce().then((m) => {
+      if (vivant) son = m;
+    });
+    return () => {
+      vivant = false;
+    };
+  });
+
   const compo: Fiche | null = $derived(f ? compose(f) : null);
   const mots = $derived(compo?.mots ?? []);
   const phrase = $derived(compo?.phrase ?? null);
@@ -77,12 +90,19 @@
   const nu = $derived(t ? lignesNues(t).join('') : '');
 
   /**
-   * Audio au toucher du caractère. Aucun fichier audio n'est encore embarqué : le bouton
-   * existe et ne fait que porter l'intention, la voix pré-générée arrive avec le pipeline.
+   * Audio au toucher du caractère : le fichier pré-généré, servi avec l'app. Rien ne se
+   * passe si ce texte n'a pas de voix — le téléphone ne synthétise jamais (brief §11).
    */
-  function ecouter(_texte: string): void {}
+  function ecouter(texte: string): void {
+    void dire(texte);
+  }
 
-  /** Un caractère touché : sa glose s'affiche, et il se dirait à voix haute. */
+  /** Ce texte a-t-il une voix ? Sinon le bouton reste là, visible et inactif. */
+  function parle(texte: string): boolean {
+    return aAudio(son, texte);
+  }
+
+  /** Un caractère touché : sa glose s'affiche, et il se dit à voix haute s'il en a une. */
   function toucher(s: Signe): void {
     touche = s;
     ecouter(s.c);
@@ -113,7 +133,12 @@
         <div class="hz phrase">{phrase.hanzi}</div>
         <div class="trad">{phrase.pinyin} {phrase.fr}</div>
         <div class="acts">
-          <button class="btn ghost" onclick={() => ecouter(phrase.hanzi)}>♪ Écouter</button>
+          <button
+            class="btn ghost"
+            disabled={!parle(phrase.hanzi)}
+            aria-disabled={!parle(phrase.hanzi)}
+            onclick={() => ecouter(phrase.hanzi)}>♪ Écouter</button
+          >
         </div>
       {/if}
     </div>
@@ -147,7 +172,12 @@
         {/if}
       </div>
       <div class="acts">
-        <button class="btn ghost" onclick={() => ecouter(nu)}>♪ Écouter</button>
+        <button
+          class="btn ghost"
+          disabled={!parle(nu)}
+          aria-disabled={!parle(nu)}
+          onclick={() => ecouter(nu)}>♪ Écouter</button
+        >
       </div>
     </div>
     <div class="card">

@@ -8,9 +8,9 @@ export default defineConfig({
     VitePWA({
       registerType: 'autoUpdate',
       manifest: false,
-      // Le manifest, les icônes, les polices et le contenu JSON servi avec l'app :
-      // tout ce qui doit répondre hors ligne est précaché.
-      workbox: { globPatterns: ['**/*.{js,css,html,webmanifest,json,svg,png,woff2}'] }
+      // Le manifest, les icônes, les polices, le contenu JSON et la voix pré-générée
+      // servis avec l'app : tout ce qui doit répondre hors ligne est précaché.
+      workbox: { globPatterns: ['**/*.{js,css,html,webmanifest,json,svg,png,woff2,mp3}'] }
     })
   ],
   base: process.env.BASE_PATH ?? '/',

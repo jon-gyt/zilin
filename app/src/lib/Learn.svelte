@@ -8,6 +8,7 @@
   import Glyph from './Glyph.svelte';
   import Trace from './Trace.svelte';
   import { ETIQUETTES, compose, familleOnce, fiche, type Famille, type Fiche } from './content';
+  import { aAudio, dire, manifesteOnce, type Manifeste } from './audio';
   import { traceProposee, type LearnView, type Progress } from './session';
 
   let {
@@ -37,6 +38,18 @@
   const PAS_LECON = 5;
 
   let f = $state(null as Famille | null);
+  /** Le manifeste audio : il dit quels caractères ont une voix. Absent, l'écran se tait. */
+  let son = $state(null as Manifeste | null);
+
+  $effect(() => {
+    let vivant = true;
+    void manifesteOnce().then((m) => {
+      if (vivant) son = m;
+    });
+    return () => {
+      vivant = false;
+    };
+  });
 
   $effect(() => {
     let vivant = true;
@@ -60,10 +73,17 @@
   const traceOfferte = $derived(brique ? traceProposee(p, brique.c) : false);
 
   /**
-   * Audio au toucher du caractère. Aucun fichier audio n'est encore embarqué : le bouton
-   * existe et ne fait que porter l'intention, la voix pré-générée arrive avec le pipeline.
+   * Audio au toucher du caractère : le fichier pré-généré, servi avec l'app. Rien ne se
+   * passe si ce caractère n'a pas de voix — le téléphone ne synthétise jamais (brief §11).
    */
-  function ecouter(_texte: string): void {}
+  function ecouter(texte: string): void {
+    void dire(texte);
+  }
+
+  /** Ce caractère a-t-il une voix ? Sinon il se touche encore, mais ne dit rien. */
+  function parle(texte: string): boolean {
+    return aAudio(son, texte);
+  }
 
   /** L'élément ajouté, et lui seul, porte le cinabre ; les autres briques sont en ocre. */
   function couleur(x: Fiche, i: number): string {
@@ -90,7 +110,13 @@
   {#if vue === 'brique' && brique}
     <p class="guide">D'abord la brique.</p>
     <div class="card center">
-      <button class="say" onclick={() => ecouter(brique.c)} aria-label="écouter">
+      <button
+        class="say"
+        disabled={!parle(brique.c)}
+        aria-disabled={!parle(brique.c)}
+        onclick={() => ecouter(brique.c)}
+        aria-label="écouter"
+      >
         <Glyph char={brique.c} size={150} />
       </button>
       <div class="py">{brique.pinyin}</div>
@@ -136,7 +162,13 @@
           </span>
         {/each}
         <span class="op">=</span>
-        <button class="say" onclick={() => ecouter(compo.c)} aria-label="écouter">
+        <button
+          class="say"
+          disabled={!parle(compo.c)}
+          aria-disabled={!parle(compo.c)}
+          onclick={() => ecouter(compo.c)}
+          aria-label="écouter"
+        >
           <Glyph char={compo.c} size={84} />
         </button>
       </div>
