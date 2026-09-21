@@ -195,7 +195,7 @@ def test_le_perimetre_des_listes_ajoute_les_mots_candidats(tmp_path: Path) -> No
 
 def test_le_perimetre_hsk_lit_sa_propre_liste(tmp_path: Path) -> None:
     dossier = _listes(tmp_path, nom="hsk-1", caracteres="口门")
-    assert [t.texte for t in perimetre_listes("hsk", listes=dossier, corpus=None)] == ["口", "门"]
+    assert [t.texte for t in perimetre_listes("hsk", listes=dossier, corpus=None, chercher_corpus=False)] == ["口", "门"]
 
 
 def test_un_parcours_inconnu_est_refuse() -> None:
