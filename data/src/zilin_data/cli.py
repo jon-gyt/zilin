@@ -1,4 +1,4 @@
-"""zilin fetch | build | check | export
+"""zilin fetch | ingest | build | check | export
 
 Chaque commande est idempotente et écrit dans data/work/. L'export final va dans app/public/data/.
 """
@@ -8,7 +8,7 @@ import json
 
 import typer
 
-from .paths import EXPORT, SOURCES
+from .paths import EXPORT, INGEST, SOURCES
 
 app = typer.Typer(help="Pipeline de contenu Zilin")
 
@@ -26,6 +26,17 @@ def fetch(force: bool = typer.Option(False, help="Retélécharger même si le fi
     if echecs:
         typer.echo(f"Sources non récupérées : {', '.join(echecs)}", err=True)
         raise typer.Exit(code=1)
+
+
+@app.command()
+def ingest() -> None:
+    """Normalise les sources et les listes de niveaux dans data/work/ingest/."""
+    from .ingest import ingest as _ingest
+
+    rapport = _ingest()
+    for cle, valeur in rapport.items():
+        typer.echo(f"{cle} : {valeur}")
+    typer.echo(f"JSON normalisé dans {INGEST}.")
 
 
 @app.command()
