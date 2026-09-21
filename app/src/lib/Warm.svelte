@@ -127,6 +127,7 @@
   {:else if q}
     <Ask
       {q}
+      cle={i}
       {corpus}
       echeanceDe={(c) => echeance(p, c)}
       onnote={onrepondu}

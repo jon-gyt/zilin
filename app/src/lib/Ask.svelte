@@ -18,6 +18,7 @@
 
   let {
     q,
+    cle,
     corpus,
     echeanceDe,
     onnote,
@@ -25,6 +26,12 @@
     dernier = false
   }: {
     q: Question;
+    /**
+     * Le rang de la question dans la série. C'est lui qui remet la question à zéro, et
+     * pas la question elle-même : noter une réponse met la progression à jour, donc la
+     * série se recalcule, et la correction disparaîtrait avant d'avoir été lue.
+     */
+    cle: number;
     corpus: Corpus;
     /** L'échéance de la carte, relue après la note : ce que FSRS a planifié. */
     echeanceDe: (c: string) => Date | null;
@@ -56,7 +63,7 @@
 
   /** Remise à zéro à chaque question : le chronomètre repart, les essais aussi. */
   $effect(() => {
-    void q;
+    void cle;
     essais = 0;
     rates = [];
     construit = [];
