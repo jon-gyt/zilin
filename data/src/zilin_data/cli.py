@@ -1,22 +1,42 @@
-"""zilin fetch | build | check | export
+"""zilin fetch | ingest | build | check | export
 
 Chaque commande est idempotente et écrit dans data/work/. L'export final va dans app/public/data/.
 """
 from __future__ import annotations
+
 import json
-from pathlib import Path
+
 import typer
 
+from .paths import EXPORT, INGEST, SOURCES
+
 app = typer.Typer(help="Pipeline de contenu Zilin")
-WORK = Path(__file__).resolve().parents[2] / "work"
-OUT = Path(__file__).resolve().parents[3] / "app" / "public" / "data"
 
 
 @app.command()
-def fetch() -> None:
-    """Télécharge les sources (Make Me a Hanzi, hanzi-writer-data, CC-CEDICT, listes) dans data/work/sources/."""
-    WORK.joinpath("sources").mkdir(parents=True, exist_ok=True)
-    typer.echo("À implémenter : téléchargement et empreinte SHA-256 de chaque source (story 1.1).")
+def fetch(force: bool = typer.Option(False, help="Retélécharger même si le fichier est présent.")) -> None:
+    """Télécharge les sources (Make Me a Hanzi, CC-CEDICT) dans data/work/sources/."""
+    from .fetch import fetch as _fetch
+
+    etat = _fetch(force=force)
+    for fichier, action in etat.items():
+        typer.echo(f"{action} : {fichier}")
+    typer.echo(f"Empreintes et journal dans {SOURCES}.")
+    echecs = [f for f, action in etat.items() if action.startswith("échec")]
+    if echecs:
+        typer.echo(f"Sources non récupérées : {', '.join(echecs)}", err=True)
+        raise typer.Exit(code=1)
+
+
+@app.command()
+def ingest() -> None:
+    """Normalise les sources et les listes de niveaux dans data/work/ingest/."""
+    from .ingest import ingest as _ingest
+
+    rapport = _ingest()
+    for cle, valeur in rapport.items():
+        typer.echo(f"{cle} : {valeur}")
+    typer.echo(f"JSON normalisé dans {INGEST}.")
 
 
 @app.command()
@@ -34,7 +54,7 @@ def check() -> None:
 @app.command()
 def export(version: str = "0.1.0") -> None:
     """Exporte un JSON par famille dans app/public/data/<version>/."""
-    dest = OUT / version
+    dest = EXPORT / version
     dest.mkdir(parents=True, exist_ok=True)
     (dest / "index.json").write_text(json.dumps({"version": version, "familles": []}, ensure_ascii=False, indent=1))
     typer.echo(f"Export vide écrit dans {dest}.")
