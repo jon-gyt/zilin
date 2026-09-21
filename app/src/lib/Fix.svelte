@@ -5,12 +5,12 @@
    * d'auto-évaluation. Avance automatique après une bonne réponse, un tap va plus vite.
    * La correction explique par les briques, avec le texte de la fiche. Des constats.
    *
-   * Les questions sont construites par `questions.ts`, à partir du JSON versionné.
+   * Les questions sont construites par `verification.ts`, à partir du JSON versionné.
    */
   import Glyph from './Glyph.svelte';
   import Tao from './Tao.svelte';
   import { familleOnce, jourDepuisEpoque, voisinsOnce, type Famille, type Voisins } from './content';
-  import { AVANCE_MS, PROCHAINE_FOIS, VERDICTS, questions, type Question } from './questions';
+  import { AVANCE_MS, PROCHAINE_FOIS, VERDICTS, questions, type Question } from './verification';
   import type { Progress, Revision } from './session';
   import { grade } from './srs';
   import { humeur, stade } from './tao';
