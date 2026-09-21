@@ -11,3 +11,35 @@ Logo : un Z tracé en un trait, point cinabre au-dessus (le point de 之). Icôn
 Mascottes : Miao 苗 (pousse, quatre humeurs, réagit aux réponses), Que 雀 (moineau, remet les cadeaux).
 
 Principes : un écran une action ; coins 12 px ; aucune ombre, aucun dégradé, aucun emoji, aucune illustration réaliste ; pas de doré ni de dragon.
+
+## Polices
+
+Auto-hébergées en woff2 dans `app/public/fonts/`, versionnées avec l'app. Aucune requête réseau à l'exécution : pas de Google Fonts. Les `@font-face` sont en tête de `app/src/lib/tokens.css`, en `font-display: swap`, avec des URL `/fonts/…` que Vite réécrit selon `BASE_PATH` (`/zilin/fonts/…` en production). `vite-plugin-pwa` précache les cinq fichiers. `app/index.html` précharge les deux plus critiques au premier rendu : `source-sans-3-400.woff2` (tout le texte d'interface) et `manrope-700.woff2` (titres et logotype).
+
+| Fichier | Famille CSS | Graisse | Usage | Sous-ensemble |
+|---|---|---|---|---|
+| `manrope-500.woff2` | Manrope | 500 | voix du guide | latin étendu |
+| `manrope-700.woff2` | Manrope | 700 | titres, nom, chiffres | latin étendu |
+| `source-sans-3-400.woff2` | Source Sans 3 | 400 | interface | latin étendu |
+| `source-sans-3-600.woff2` | Source Sans 3 | 600 | interface, libellés | latin étendu |
+| `noto-serif-sc-500.woff2` | Noto Serif SC | 500 | mots et phrases chinois | caractères utilisés |
+
+Sous-ensemble latin étendu : Latin-1 imprimable et Latin Extended-A, guillemets français, apostrophes et guillemets courbes, tirets, espaces fines et insécables, points de suspension, symboles courants.
+
+Sous-ensemble chinois : les clés de `app/public/strokes-demo.json`, tous les caractères des listes `data/sources/listes/*.txt`, la ponctuation `。，、；：？！「」『』（）《》—…·` et les chiffres. La liste exacte est écrite dans `app/public/fonts/noto-serif-sc.subset.txt` à chaque régénération, pour que le fichier soit rejouable. Aujourd'hui 347 caractères, 61 Ko.
+
+Les grands caractères restent rendus depuis les données de traits (style 楷) : aucune police n'est utilisée pour eux.
+
+Sources, toutes sous SIL Open Font License 1.1, avec leur texte de licence copié tel quel à côté des woff2 (`OFL-Manrope.txt`, `OFL-SourceSans3.txt`, `OFL-NotoSerifSC.txt`) :
+
+- Manrope, fonte variable `ofl/manrope/Manrope[wght].ttf` du dépôt `google/fonts`, © 2018 The Manrope Project Authors.
+- Source Sans 3, archive OTF 3.052R publiée par `adobe-fonts/source-sans`, © 2010-2024 Adobe, nom de fonte réservé « Source ».
+- Noto Serif SC, fonte variable `ofl/notoserifsc/NotoSerifSC[wght].ttf` du dépôt `google/fonts`, © 2012 Google Inc.
+
+Pour régénérer :
+
+```bash
+cd data && uv run zilin fonts        # --force pour retélécharger les sources
+```
+
+La commande écrit les fichiers d'origine dans `data/work/fonts/` (ignoré par git) avec leurs SHA-256 et un journal de provenance, puis sous-ensemble et convertit avec fonttools. Le résultat est reproductible octet pour octet : relancer la commande sans changer les listes ne modifie pas le dépôt.
