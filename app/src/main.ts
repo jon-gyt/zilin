@@ -1,7 +1,11 @@
 import { mount } from 'svelte';
 import { registerSW } from 'virtual:pwa-register';
 import App from './App.svelte';
+import { initTheme } from './lib/theme';
 import './lib/tokens.css';
+
+/* Le thème choisi (système, clair ou sombre) est posé avant le premier écran. */
+initTheme();
 
 /**
  * Service worker : l'app et son contenu sont précachés, donc utilisables hors ligne.
