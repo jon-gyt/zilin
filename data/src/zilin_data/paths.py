@@ -12,6 +12,7 @@ INGEST = WORK / "ingest"
 FONTES = WORK / "fonts"
 BUILD = WORK / "build"
 CONTES_WORK = WORK / "contes"
+FICHES_WORK = WORK / "fiches"
 
 LISTES = DATA / "sources" / "listes"
 CONTES = DATA / "sources" / "contes"
