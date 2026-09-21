@@ -153,14 +153,6 @@ def _membres(source: Path) -> Iterator[tuple[str, list[str]]]:
                 yield nom, archive.read(nom).decode("utf-8").splitlines()
 
 
-def ouvrir_membre(source: Path, nom: str) -> list[str]:
-    """Lignes d'un membre de l'archive (ou d'un fichier du dossier)."""
-    if source.is_dir():
-        return (source / nom).read_text(encoding="utf-8").splitlines()
-    with zipfile.ZipFile(source) as archive:
-        return archive.read(nom).decode("utf-8").splitlines()
-
-
 @dataclass(frozen=True)
 class Unihan:
     """Unihan ingéré : provenance, caractères, définitions anglaises à part."""
