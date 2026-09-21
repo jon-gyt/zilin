@@ -279,3 +279,77 @@ export function voisinsOnce(file = FICHIER_VOISINS_DEMO): Promise<Voisins> {
   }
   return p;
 }
+
+/* ---------- le cercle des familles (Ma forêt) ---------- */
+
+/**
+ * Un nœud du cercle : un caractère, son avancement, et les caractères qu'il engendre.
+ * `avancement` va de 0 (à venir) à 1 (acquis) ; entre les deux, c'est en cours.
+ */
+export type Noeud = {
+  c: string;
+  pinyin: string;
+  fr: string;
+  avancement: number;
+  membres: Noeud[];
+};
+
+/**
+ * Le cercle des familles : un caractère au centre, puis une famille par secteur.
+ *
+ * Format attendu, à terme, depuis `data/` : le pipeline écrit `graphe.json`
+ * (`familles: [{racine, genre, n, membres[]}]`, voir `data/schema.md`) et l'export
+ * en dérive un fichier de cette forme — un `Noeud` par racine, ses `membres` dans
+ * l'ordre du parcours, deux générations au plus, le pinyin et le sens repris de la
+ * fiche du caractère. `avancement` viendra alors de la progression (stabilité FSRS
+ * des briques) et non du fichier : le champ n'est ici qu'une démonstration, recopiée
+ * de la maquette en attendant le parcours.
+ */
+export type Foret = {
+  version: string;
+  source: string;
+  norme: string;
+  /** Le caractère posé au centre du cercle. */
+  centre: string;
+  familles: Noeud[];
+};
+
+export const FICHIER_FORET_DEMO = 'data/demo/foret.json';
+
+/** Lit le cercle des familles servi avec l'app. `fetchFn` est injecté dans les tests. */
+export async function loadForet(
+  file = FICHIER_FORET_DEMO,
+  fetchFn: typeof fetch = fetch
+): Promise<Foret> {
+  const r = await fetchFn(`${import.meta.env.BASE_URL}${file}`);
+  if (!r.ok) throw new Error(`Forêt introuvable : ${file} (${r.status})`);
+  const brut = (await r.json()) as Partial<Foret>;
+  if (!Array.isArray(brut.familles)) throw new Error(`Forêt illisible : ${file}`);
+  return {
+    version: typeof brut.version === 'string' ? brut.version : '',
+    source: typeof brut.source === 'string' ? brut.source : '',
+    norme: typeof brut.norme === 'string' ? brut.norme : '',
+    centre: typeof brut.centre === 'string' ? brut.centre : '',
+    familles: brut.familles
+  };
+}
+
+const forets = new Map<string, Promise<Foret>>();
+
+/** Même chose, mais une seule requête par fichier pour toute la durée de vie de l'app. */
+export function foretOnce(file = FICHIER_FORET_DEMO): Promise<Foret> {
+  let p = forets.get(file);
+  if (!p) {
+    p = loadForet(file).catch((e) => {
+      forets.delete(file);
+      throw e;
+    });
+    forets.set(file, p);
+  }
+  return p;
+}
+
+/** Tous les caractères d'un nœud, lui compris, dans l'ordre du cercle. */
+export function caracteres(n: Noeud): string[] {
+  return [n.c, ...n.membres.flatMap(caracteres)];
+}
