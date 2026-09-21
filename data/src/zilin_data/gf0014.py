@@ -627,8 +627,10 @@ def controles(sortie: Path | None = None) -> list[Controle]:
             compte[x] = compte.get(x, 0) + 1
     cycles = [c for c in caracteres if c["cycle"]]
     en_ecart = [c for c in caracteres if not c["reconcilie"]]
+    # Même tri que `_frequence_inconnus` : la forme départage les ex æquo, sinon
+    # deux passages sur les mêmes données n'affichent pas la même liste.
     pires = ", ".join(
-        f"{forme} ({n})" for forme, n in sorted(compte.items(), key=lambda kv: -kv[1])[:5]
+        f"{forme} ({n})" for forme, n in sorted(compte.items(), key=lambda kv: (-kv[1], kv[0]))[:5]
     )
     return [
         Controle(

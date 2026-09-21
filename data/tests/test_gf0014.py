@@ -242,6 +242,20 @@ def test_check_exige_un_build(tmp_path: Path) -> None:
     assert not controle.ok and controle.bloquant
 
 
+def test_check_classe_les_inconnus_ex_aequo_par_forme(tmp_path: Path) -> None:
+    """À nombre de caractères égal, la forme départage : le détail est reproductible."""
+    ids = {"甲": "⿰丁乙", "丙": "⿰乙丁"}
+    ingest = tmp_path / "ingest"
+    ingest.mkdir(parents=True)
+    (ingest / "caracteres.json").write_text(
+        json.dumps([{"c": c, "decomposition": d} for c, d in ids.items()], ensure_ascii=False),
+        encoding="utf-8",
+    )
+    build(ingest=ingest, sortie=tmp_path / "build", table=table("女"))
+    resultats = {c.nom: c for c in controles(sortie=tmp_path / "build")}
+    assert "丁 (2), 乙 (2)" in resultats["composants inconnus"].detail
+
+
 def test_rapport_classe_les_inconnus_par_frequence() -> None:
     """Le rapport liste les composants inconnus du plus fréquent au moins fréquent."""
     gf = table("女", "日", "刀", "口")
