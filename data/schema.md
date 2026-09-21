@@ -1,10 +1,158 @@
 # Schéma d'export
 
-`app/public/data/<version>/index.json` : `{ version, parcours: {lire: [...], hsk: [...]}, familles: [{racine, fichier, n}] }`.
-
-`app/public/data/<version>/familles/<racine>.json` : `Famille` (voir `models.py`). Une fiche par caractère, décomposition canonique GF 0014-2009, origine en trois phrases FR et EN, étiquette `atteste` ou `mnemotechnique`, deux mots et une phrase, traits et médianes (rendu et tracé), chemin audio.
+`uv run zilin export --version 0.1.0` écrit `app/public/data/0.1.0/`, les seuls
+fichiers que l'app lira. Cette section décrit ce qui est réellement écrit
+(story 1.6) ; les sections suivantes décrivent les formats intermédiaires de
+`data/work/`, qui restent hors dépôt.
 
 Règle : l'app ne lit que ces fichiers. Aucune donnée de contenu dans le code.
+
+## Périmètre d'une version
+
+Les caractères des listes cibles — `seuil-255` et `hsk-1` — et **leurs briques**
+(prérequis transitifs de la décomposition canonique), pas tout le dictionnaire.
+Une famille n'est exportée qu'avec ses membres du périmètre ; la famille 口 en a
+17 ici, contre 525 dans le graphe complet. Version 0.1.0 : 238 familles,
+485 caractères (222 briques, 13 feuilles muettes), 1,33 Mio.
+
+## Arborescence
+
+```
+app/public/data/0.1.0/
+  index.json                 la porte d'entrée
+  LICENCES.md                chaque source, sa licence, son attribution
+  ARPHICPL.TXT               texte de l'Arphic Public License, inaltéré
+  UNICODE-LICENSE.txt        notice de permission Unicode (pinyin)
+  paires.json                les caractères à ne pas confondre
+  familles/<racine>.json     une famille : `Famille` de models.py
+  traits/<racine>.json       les tracés de la famille, sous APL, et rien d'autre
+  traits/ARPHICPL.TXT        la même licence, à côté des fichiers qu'elle couvre
+  traits/MODIFICATIONS.md    comment et quand les tracés ont été dérivés
+  contes/<id>.json           un conte, une version par seuil (aucun aujourd'hui)
+```
+
+Trois régimes de licence, trois familles de fichiers, jamais mêlés
+(`docs/sources-licences.md` §8). Chaque JSON porte en tête `version`, `license`,
+`source`, `source_url`, `modified`.
+
+## `index.json`
+
+```json
+{
+ "version": "0.1.0",
+ "date": "2026-09-21T21:48:14Z",
+ "empreinte": "sha256:…",
+ "license": "propriétaire", "source": "…", "source_url": "…", "modified": "…",
+ "norme": "GF 0014-2009",
+ "perimetre": "seuil 255 et HSK 1 : les caractères des deux listes et leurs briques",
+ "licences": "LICENCES.md",
+ "compte": {"familles": 238, "caracteres": 485, "briques": 222, "muettes": 13,
+            "fiches_relues": 0, "contes": 0},
+ "listes": {"seuil-255": ["…"], "hsk-1": ["…"]},
+ "parcours": {"lire": {"liste": "seuil-255", "regle": "…",
+                       "jours": [{"jour": 1, "brique": "月", "composes": ["朋", "有"],
+                                  "non_reconcilie": false}]},
+              "hsk": {"…": "…"}},
+ "familles": [{"racine": "亻", "fichier": "familles/亻.json",
+               "traits": "traits/亻.json", "n": 14, "avancement_possible": 0.0}],
+ "contes": [{"id": "…", "titre_fr": "…", "seuils": [255], "fichier": "contes/….json"}],
+ "paires": "paires.json"
+}
+```
+
+- `date` est le seul champ qui change à contenu égal — et encore : l'export relit
+  la date de la version précédente tant que rien d'autre n'a bougé, si bien que
+  deux passes écrivent les mêmes octets.
+- `empreinte` est celle du build dont l'export est tiré : `sha256` de la liste
+  `nom sha256` des fichiers lus (`decompositions.json`, `graphe.json`,
+  `parcours-*.json`, `listes.json`, `graphies.json`, `unihan.json`,
+  `composants.tsv`, les paires, les textes de licence, chaque fiche et chaque
+  conte écrits). `zilin check` la recalcule pour dire si l'export est périmé.
+  `mots.json` (CC-CEDICT) n'en est pas : l'export ne le lit pas.
+- `parcours` reprend les jours de `parcours-<nom>.json` : une brique nouvelle par
+  session de 10 minutes, puis un ou deux composés.
+- `avancement_possible` est la part des caractères de la famille qui portent une
+  fiche relue — le plafond de ce que l'app peut enseigner, pas la progression de
+  l'apprenant, qui vient d'IndexedDB.
+- Le nom de fichier d'une famille est sa racine ; un composant de la norme sans
+  point de code (écrit en IDS, sur plusieurs caractères) prend un nom en
+  `U+XXXX-U+XXXX`.
+
+## `familles/<racine>.json`
+
+`Famille` de `models.py`, validé par pydantic avant écriture, précédé de
+l'en-tête de licence : `{version, license, source, source_url, modified, norme,
+racine, fiches}`.
+
+`racine` est une `Brique` : `{c, pinyin, fr, en, origine, etiquette}`. `fiches`
+porte une `Fiche` par caractère de la famille, triée par caractère :
+
+- `c`, `pinyin` — le pinyin vient d'Unihan (`kMandarin`), jamais de
+  `dictionary.txt` ni de CC-CEDICT (`docs/sources-licences.md` §2.2 et §4.2).
+- `parts` : la décomposition canonique GF 0014-2009, dans l'ordre d'écriture ;
+  vide pour une brique, qui est une feuille de la norme.
+- `sources` : d'où vient la chaîne IDS descendue pour cette décomposition,
+  `makemeahanzi` ou `cjk-decomp`. Nommée par caractère pour que la question de
+  licence de `dictionary.txt` (LGPL, §2.2) reste tranchable fichier par fichier.
+- `nouveau` : les index, dans `parts`, de l'élément ajouté — le composant posé le
+  même jour que le caractère dans son parcours de référence (`lire`, sinon
+  `hsk`). C'est le seul élément que l'app met en cinabre.
+- `role` : le rôle de cet élément ajouté ; `roles` : le rôle de chaque brique de
+  la décomposition (`son`, `sens`, `forme`). Nuls sans fiche relue.
+- `origine_fr`, `origine_en`, `etiquette`, `memo_fr`, `memo_en`, `mots`,
+  `phrase` : repris d'une fiche **relue** de `data/work/fiches/`. Sans fiche
+  relue, les textes sont vides, `etiquette` et `role` nuls — jamais d'étiquette
+  sans origine — et `statut` vaut `sans_fiche` au lieu de `relu`.
+- `niveaux` : `{"seuil": 255}` ou `{"hsk": 1}`, selon les listes qui portent le
+  caractère.
+- `fr`, `en` : vides tant qu'ils ne viennent pas d'une fiche relue. Aucune
+  définition anglaise n'entre dans l'export, ni `kDefinition` d'Unihan, ni
+  CC-CEDICT.
+- `traits`, `medianes` : **toujours vides ici**. Les tracés sont sous Arphic
+  Public License et vivent dans `traits/`, jamais dans un fichier propriétaire.
+- `audio` : `null` en attendant la story 1.5.
+
+## `traits/<racine>.json`
+
+```json
+{"version": "0.1.0", "license": "Arphic Public License",
+ "license_file": "ARPHICPL.TXT", "source": "Make Me a Hanzi — graphics.txt",
+ "source_url": "https://github.com/skishore/makemeahanzi",
+ "modified": "2026-09-21 : conversion de format … et sous-ensemble de caractères …",
+ "traits": {"人": {"s": ["M 475 485 …"], "m": [[[483, 736], …]]}}}
+```
+
+`s` les tracés, `m` les médianes, comme `strokes-demo.json`. Le fichier ne porte
+rien d'autre : c'est la séparation physique exigée par l'APL §2 et par
+`docs/sources-licences.md` §8. `modified` est la mention exigée par l'APL §2 a),
+reprise en toutes lettres dans `traits/MODIFICATIONS.md`. Les tracés et les
+médianes ne sont ni arrondis ni simplifiés. Écriture compacte (sans indentation) :
+indentés, ces milliers de nombres pèseraient dix fois plus.
+
+## `paires.json`
+
+`{version, license, source, source_url, modified, paires: [["天", "夫"], …]}`.
+Les caractères à ne pas confondre, versionnés dans
+`data/sources/paires/paires.tsv` (source : `docs/jeux.md`). Un groupe est réduit
+au périmètre de la version et tombe s'il n'y reste pas deux formes : l'app ne
+montre que ce qu'elle sait dessiner.
+
+## `LICENCES.md`
+
+Écrit par l'export. Un tableau `source | usage | licence | attribution | texte de
+la licence` pour chaque source embarquée, la séparation des fichiers, ce que
+l'export ne contient pas, la question de licence ouverte sur `dictionary.txt`, et
+les obligations hors app (publier les tracés dérivés sous APL). Il fait foi pour
+ce que l'app embarque ; `docs/sources-licences.md` fait foi pour la décision.
+
+## Contrôles (`uv run zilin check`)
+
+- « export : à jour » — bloquant : l'empreinte de `index.json` doit valoir celle
+  du build présent. Un export absent n'est pas une faute.
+- « export : séparation des licences » — bloquant : chaque JSON porte son
+  en-tête, `traits/` ne porte que des tracés, aucune fiche ne porte de tracé.
+- « export : familles sans fiche relue » — signalé : ce qui reste à relire avant
+  que l'app puisse enseigner ces familles.
 
 ## Format intermédiaire (story 1.1)
 
@@ -212,13 +360,15 @@ bloque pas. `uv run zilin fiches valider` refait le même contrôle à la demand
 
 ### Ce que l'app lira (export, story 1.6)
 
-L'export d'une famille reprend d'une fiche générée `origine_fr`, `origine_en`,
-`etiquette`, `memo_fr`, `memo_en`, `mots` et `phrase`, et remplit le reste de `Fiche`
-(`models.py`) depuis le graphe et les graphies : `parts` vient de `composants`,
-`nouveau` du graphe, `role` et les rôles par brique de `roles`, `traits` et `medianes`
-de `graphies.json`, `audio` de la story 1.5. `generation` et `statut` ne sont pas
-exportés : ils restent côté pipeline. Une fiche dont le `statut` n'est pas `relu`
-n'entre pas dans l'export du seuil 255.
+L'export d'une famille reprend d'une fiche **relue** `origine_fr`, `origine_en`,
+`etiquette`, `memo_fr`, `memo_en`, `mots`, `phrase` et `roles`, et remplit le reste de
+`Fiche` (`models.py`) depuis le build : `parts` et `sources` de
+`decompositions.json`, `nouveau` du parcours, `pinyin` d'Unihan, `niveaux` des listes,
+`audio` de la story 1.5. `generation` n'est pas exporté : il reste côté pipeline. Le
+`statut` exporté ne dit plus que deux choses : `relu`, ou `sans_fiche` quand aucune
+fiche relue ne porte ce caractère — il s'exporte alors pour sa décomposition et ses
+traits, textes vides. Les tracés, eux, ne sont jamais dans le fichier d'une famille :
+ils sont sous Arphic Public License, dans `traits/` (voir « Schéma d'export »).
 
 ## Audio pré-généré (story 1.5)
 
@@ -376,11 +526,12 @@ par seuil :
  "version": "0.1.0",
  "license": "propriétaire",
  "source": "récit traditionnel, 《韩非子·五蠹》 (domaine public) ; texte réécrit pour l'app",
- "modified": "2026-09-21",
+ "source_url": "https://github.com/jon-gyt/zilin",
+ "modified": "2026-09-21 : assemblé par `zilin export`",
  "conte": "shou-zhu-dai-tu",
  "titre_fr": "Guetter la souche en attendant le lièvre",
  "versions": {
-  "255": {"titre": "…", "phrases": [{"zh": "…", "pinyin": "…", "fr": "…", "audio": "…"}], "glose": {"…": "…"}}
+  "255": {"titre": "…", "phrases": [{"zh": "…", "pinyin": "…", "fr": "…"}], "glose": {"…": "…"}}
  }
 }
 ```
