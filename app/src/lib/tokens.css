@@ -177,3 +177,16 @@ h1{font-family:var(--head);font-weight:700;font-size:30px;line-height:1.15;lette
 .fb{margin-top:12px;min-height:44px;font-size:15px;color:var(--ink2);text-align:left;padding:10px 12px;border-radius:10px;background:var(--paper)}
 .fb b{color:var(--ink)}
 .fb .next{display:block;margin-top:4px;font-size:13px;color:var(--mist)}
+
+/* ---- pas 6, Clore : la graine plantée (maquette s-l5) ---- */
+/* encre et jade, un trait par élément : ni dégradé, ni ombre */
+.clore{padding:28px 16px}
+.clore h1{margin-top:6px}
+.clore .guide{margin-bottom:8px}
+.seed{display:flex;justify-content:center;margin:8px 0 4px}
+.seed .sd{animation:tombe .9s cubic-bezier(.4,0,.6,1) forwards}
+.seed .st{stroke-dasharray:40;stroke-dashoffset:40;animation:pousse .7s ease-out 1s forwards}
+.seed .lf{stroke-dasharray:40;stroke-dashoffset:40;animation:pousse .6s ease-out 1.6s forwards}
+@keyframes tombe{to{transform:translateY(74px)}}
+@keyframes pousse{to{stroke-dashoffset:0}}
+@media (prefers-reduced-motion:reduce){.seed .sd{animation:none;transform:translateY(74px)}.seed .st,.seed .lf{animation:none;stroke-dashoffset:0}}
