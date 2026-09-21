@@ -234,7 +234,10 @@ def construire(caracteres: Iterable[Mapping[str, object]]) -> Graphe:
         prerequis = tuple(dict.fromkeys(x for x in composants if x != c))
         noeuds[c] = Noeud(c=c, genre=CARACTERE, prerequis=prerequis, reconcilie=reconcilie)
 
-    for prerequis in {p for n in list(noeuds.values()) for p in n.prerequis}:
+    # Trié : l'itération d'un ensemble de chaînes dépend du grain de hachage, et
+    # les feuilles muettes sortiraient dans un ordre différent à chaque passage —
+    # donc un `graphe.json` différent à contenu égal.
+    for prerequis in sorted({p for n in list(noeuds.values()) for p in n.prerequis}):
         if prerequis not in noeuds:
             noeuds[prerequis] = Noeud(c=prerequis, genre=MUETTE)
     return Graphe(noeuds)
