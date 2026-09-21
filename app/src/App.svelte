@@ -23,13 +23,14 @@
     CARTES_PAR_BLOC,
     CARTES_PAR_SEANCE,
     allDone,
-    assurerCartes,
     cartesDues,
     currentStep,
     emptyProgress,
     faitPasCourant,
+    finApprendre,
     finEchauffer,
     finFixer,
+    finUtiliser,
     learnNext,
     nombreDues,
     noterActivite,
@@ -276,10 +277,8 @@
     if (vue) {
       p = setLearnView(p, vue);
     } else {
-      fairePasCourant();
-      /* Ce qui vient d'être appris entre en révision : une carte neuve par caractère. */
-      p = assurerCartes(p, [brique, ...(compose === null ? [] : [compose])], new Date());
-      p = setLearnView(p, 'brique');
+      /* Le pas fait, la brique apprise entre en révision et dans le journal de Tao. */
+      p = finApprendre(p, today(), new Date(), [brique, ...(compose === null ? [] : [compose])]);
       majDue();
       ecran = 'home';
     }
@@ -307,9 +306,7 @@
     if (vue) {
       p = setUseView(p, vue);
     } else {
-      fairePasCourant();
-      p = noterActivite(p, today(), 'lecture');
-      p = setUseView(p, 'mots');
+      p = finUtiliser(p, today());
       ecran = 'home';
     }
     enregistrer();

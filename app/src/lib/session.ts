@@ -443,6 +443,23 @@ export function learnNext(p: Progress, brique: string): LearnView | null {
   return p.learn === 'trace' ? 'compose' : null;
 }
 
+/**
+ * Fin du pas Apprendre : le pas est fait, la brique et le composé entrent en révision
+ * avec une carte neuve, et la leçon est notée pour Tao — c'est l'acte de la journée, et
+ * le constat du soir le dit.
+ */
+export function finApprendre(
+  p: Progress,
+  aujourdhui: string,
+  maintenant: Date,
+  appris: readonly string[]
+): Progress {
+  let n = faitPasCourant(p, aujourdhui);
+  n = assurerCartes(n, appris, maintenant);
+  n = noterActivite(n, aujourdhui, 'lecon');
+  return setLearnView(n, 'brique');
+}
+
 /* ---------- pas 4, Utiliser ---------- */
 
 /** Ouvre une vue du pas Utiliser. La progression est sauvegardée à chaque tap. */
@@ -456,6 +473,12 @@ export function setUseView(p: Progress, vue: UseView): Progress {
  */
 export function useNext(p: Progress): UseView | null {
   return p.use === 'mots' ? 'texte' : null;
+}
+
+/** Fin du pas Utiliser : le pas est fait et le texte compte comme une lecture pour Tao. */
+export function finUtiliser(p: Progress, aujourdhui: string): Progress {
+  const n = noterActivite(faitPasCourant(p, aujourdhui), aujourdhui, 'lecture');
+  return setUseView(n, 'mots');
 }
 
 /* ---------- pas 5, Fixer ---------- */

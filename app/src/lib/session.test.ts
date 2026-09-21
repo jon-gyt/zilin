@@ -11,8 +11,10 @@ import {
   cartesDues,
   echeance,
   faitPasCourant,
+  finApprendre,
   finEchauffer,
   finFixer,
+  finUtiliser,
   nombreDues,
   planifierCarte,
   setRev,
@@ -426,6 +428,33 @@ describe('pas 3, Apprendre', () => {
     const p = setLearnView(neuf(), 'compose');
     expect(openDay(p, '2026-03-03').learn).toBe('brique');
     expect(resetDay(p).learn).toBe('brique');
+  });
+});
+
+describe('la leçon du jour entre dans le journal de Tao', () => {
+  const T0 = new Date('2026-03-02T08:00:00Z');
+
+  it('le pas Apprendre note la brique apprise, et le constat du soir la dit', () => {
+    let p = markDone(markDone(neuf(), 0, JOUR), 1, JOUR);
+    expect(currentStep(p)?.id).toBe('apprendre');
+    p = finApprendre(p, JOUR, T0, ['主', '住']);
+    expect(currentStep(p)?.id).toBe('utiliser');
+    /* Ce qui vient d'être appris entre en révision : une carte neuve par caractère. */
+    expect(p.cartes.map((c) => c.id)).toEqual(['主', '住']);
+    expect(p.learn).toBe('brique');
+    expect(p.tao.activites).toEqual([{ jour: JOUR, type: 'lecon' }]);
+    expect(constat(p, JOUR)).toBe("Aujourd'hui, une brique apprise.");
+  });
+
+  it('le pas Utiliser note la lecture, comme avant', () => {
+    let p = neuf();
+    [0, 1, 2].forEach((i) => {
+      p = markDone(p, i, JOUR);
+    });
+    p = finUtiliser(setUseView(p, 'texte'), JOUR);
+    expect(currentStep(p)?.id).toBe('fixer');
+    expect(p.use).toBe('mots');
+    expect(p.tao.activites).toEqual([{ jour: JOUR, type: 'lecture' }]);
   });
 });
 
