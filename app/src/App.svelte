@@ -1,11 +1,14 @@
 <script lang="ts">
   /** L'aiguillage : un état d'écran, la progression partagée, rien d'autre. */
   import Close from './lib/Close.svelte';
+  import FirstSession from './lib/FirstSession.svelte';
   import Fix from './lib/Fix.svelte';
   import Learn from './lib/Learn.svelte';
   import Open from './lib/Open.svelte';
+  import Splash from './lib/Splash.svelte';
   import Today from './lib/Today.svelte';
   import Use from './lib/Use.svelte';
+  import { apresSplash, briques, familleDepart } from './lib/premiere';
   import {
     allDone,
     currentStep,
@@ -17,33 +20,60 @@
     noterRevision,
     openDay,
     resetDay,
+    setDepart,
+    departNext,
+    finDepart,
+    setBudget,
+    setParcours,
     setFix,
     setLearnView,
     setTrace,
     setUseView,
     traceVue,
     useNext,
+    type Budget,
     type LearnView,
+    type Parcours,
     type Progress,
     type Revision
   } from './lib/session';
   import { loadProgress, saveProgress, today } from './lib/db';
 
   /** Un écran par pas, au fur et à mesure des stories. Pas de routeur. */
-  type Ecran = 'home' | 'anec' | 'learn' | 'use' | 'check' | 'close';
+  type Ecran = 'splash' | 'premiere' | 'home' | 'anec' | 'learn' | 'use' | 'check' | 'close';
 
   /** Les pas qui ont leur écran. Les autres se marquent faits au tap, en attendant. */
   const ECRANS = ['anec', 'learn', 'use', 'check', 'close'] as const;
 
   let p: Progress = $state(emptyProgress(today()));
-  let ecran: Ecran = $state('home');
+  /** L'app s'ouvre sur le logo : ce qui vient après dépend de la progression relue. */
+  let ecran: Ecran = $state('splash');
+
+  /** L'ouverture attend deux choses : la progression relue et le logo écrit. */
+  let chargee = $state(false);
+  let logoEcrit = $state(false);
 
   /** Au démarrage : on relit la progression et on ouvre la journée. */
   void loadProgress().then((stored) => {
     const ouvert = openDay(stored, today());
     p = ouvert;
     if (ouvert !== stored) void saveProgress(ouvert);
+    chargee = true;
+    aiguiller();
   });
+
+  /**
+   * Après le logo : la première session au tout premier lancement, le chemin sinon.
+   * Tant que la progression n'est pas relue, le logo reste : on ne devine pas.
+   */
+  function aiguiller(): void {
+    if (chargee && logoEcrit && ecran === 'splash') ecran = apresSplash(p);
+  }
+
+  function splashFini(): void {
+    logoEcrit = true;
+    aiguiller();
+  }
 
   /** Sauvegarde à chaque tap. */
   function enregistrer(): void {
@@ -74,6 +104,42 @@
     }
     fairePasCourant();
     enregistrer();
+  }
+
+  /* ---------- la première session, avant tout le reste ---------- */
+
+  /** Un écran de plus dans la première session. La reprise se fera à celui-ci. */
+  function departSuivant(): void {
+    const vue = departNext(p.premiereVue);
+    if (vue) p = setDepart(p, vue);
+    enregistrer();
+  }
+
+  /** Première question : le parcours. */
+  function departObjectif(parcours: Parcours): void {
+    p = setParcours(p, parcours);
+    enregistrer();
+  }
+
+  /** Seconde question : le rythme, qui devient le budget de la session. */
+  function departRythme(budget: Budget): void {
+    p = setBudget(p, budget);
+    enregistrer();
+  }
+
+  /**
+   * La première session est finie : une carte par brique, les activités notées pour Tao,
+   * le drapeau tombe, et le chemin du jour s'ouvre.
+   */
+  function departFini(): void {
+    void familleDepart()
+      .then((f) => briques(f))
+      .catch(() => [])
+      .then((cs) => {
+        p = finDepart(p, today(), new Date(), cs);
+        ecran = 'home';
+        enregistrer();
+      });
   }
 
   /** L'anecdote vue ou passée : le pas Ouvrir est fait, retour au chemin. */
@@ -166,7 +232,18 @@
   }
 </script>
 
-{#if ecran === 'anec'}
+{#if ecran === 'splash'}
+  <Splash onfini={splashFini} />
+{:else if ecran === 'premiere'}
+  <FirstSession
+    {p}
+    onsuivant={departSuivant}
+    onobjectif={departObjectif}
+    onrythme={departRythme}
+    onfini={departFini}
+    onquitter={quitter}
+  />
+{:else if ecran === 'anec'}
   <Open jour={today()} oncontinuer={ouvrirFait} onquitter={quitter} />
 {:else if ecran === 'learn'}
   <Learn
