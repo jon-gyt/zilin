@@ -48,6 +48,65 @@ Quatre points de code portent deux composants distincts de la norme : ⺈, 丁, 
 signale sans bloquer (la norme ne couvre que 3 500 caractères), le contrôle « cycles »
 est bloquant.
 
+## Graphe et parcours (story 1.3)
+
+`uv run zilin build` écrit ensuite, toujours dans `data/work/build/` :
+
+### `graphe.json`
+
+`{norme, source, critere_racine, compte, noeuds[], aretes[], familles[], cycles[]}`.
+
+- `compte` : `{noeuds, aretes, familles, familles_non_vides, briques, caracteres,
+  muettes, cycles}`.
+- `noeuds` : `[{c, genre, prerequis[], dependants, racine, reconcilie}]`. `genre` vaut
+  `brique` (composant GF 0014-2009 présent au dictionnaire, il porte une fiche et se
+  pose en une session), `caractere` (caractère du dictionnaire qui n'est pas un
+  composant de la norme) ou `muette` (feuille sans fiche : composant sans point de code,
+  ou forme absente du dictionnaire, à commencer par `？`, la marque de Make Me a Hanzi
+  pour un élément qu'il ne décompose pas). `prerequis` est la liste ordonnée et sans
+  doublon des composants canoniques, dans l'ordre d'écriture ; une brique et une feuille
+  muette n'en ont pas, puisque la norme découpe en un seul niveau. `dependants` est le
+  nombre de caractères qui contiennent le nœud — c'est la mesure de fréquence du
+  parcours. `racine` est la famille d'appartenance.
+- `aretes` : `[[prerequis, dependant]]`, une arête par dépendance distincte ; un
+  composant répété (森) ne compte qu'une fois, et un nœud n'est jamais son propre
+  prérequis.
+- `familles` : `[{racine, genre, n, membres[]}]`, triées par taille décroissante.
+  `membres` exclut la racine, `n` vaut `len(membres)`. Critère de racine : la première
+  brique dans l'ordre d'écriture, en remontant de proche en proche jusqu'à une feuille —
+  simple et déterministe, en attendant les rôles son / sens de la story 1.4. Les
+  familles partitionnent le graphe : chaque nœud appartient à une et une seule.
+- `cycles` : chemins qui bouclent. Doit être vide.
+
+### `parcours-lire.json`, `parcours-hsk.json`
+
+`{parcours, liste, regle, critere_frequence, cible[], compte, jours[], briques[],
+briques_muettes[], non_reconcilies[], absents[]}`.
+
+- `parcours` vaut `lire` (liste cible `seuil-255`, puis les seuils suivants) ou `hsk`
+  (liste cible `hsk-1`). Même graphe, seule la liste change.
+- `cible` : la liste cible dans l'ordre du référentiel ; le fichier se contrôle seul.
+- `compte` : `{cibles, jours, jours_reconcilies, briques, muettes, non_reconcilies,
+  absents}`.
+- `jours` : `[{jour, brique, composes[], non_reconcilie}]`. Un jour est une session de
+  10 minutes : au plus une brique nouvelle, puis un ou deux composés qui deviennent
+  lisibles avec elle. `brique` est nul les jours de consolidation, quand il ne reste que
+  des composés à poser. Les jours `non_reconcilie` ferment le parcours.
+- Ordre : tri topologique — une brique avant tout ce qui la contient. Parmi les
+  candidats prêts, priorité aux caractères de la liste cible, puis à ce qui devient
+  lisible le jour même, puis à la fréquence, puis à l'ordre de la liste. Make Me a Hanzi
+  ne fournit aucun rang de fréquence : le repli documenté (`critere_frequence`) est le
+  nombre de caractères qui dépendent du candidat. Si l'ingestion vient à produire un
+  rang sous la clé `frequence`, il prend le pas sans autre changement.
+- `briques_muettes` : les feuilles sans fiche employées par des caractères de la liste.
+  Acquises d'entrée, elles ne prennent jamais de jour ; `zilin check` les signale.
+- `non_reconcilies` et `absents` : caractères de la liste dont la décomposition n'est pas
+  réconciliée (22 pour le seuil 255, 31 pour le HSK 1) ou qui manquent au dictionnaire.
+  Ils ferment le parcours, marqués `non_reconcilie` : jamais oubliés.
+
+`uv run zilin check` ajoute trois contrôles : « cycles du graphe » (bloquant),
+« caractères de liste absents du parcours » (bloquant) et « briques muettes » (signalé).
+
 ## Contes par niveau (story 1.7)
 
 Un même récit traditionnel est réécrit à chaque seuil (255, 405, 505, 805, 1555) avec
