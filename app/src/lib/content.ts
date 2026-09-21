@@ -867,3 +867,55 @@ export async function pairesExport(version = VERSION_DONNEES): Promise<unknown> 
   if (file === '') return { paires: [] };
   return pairesOnce(file);
 }
+
+/* ---------- la leçon du jour, telle que les écrans de session la lisent ---------- */
+
+/**
+ * Ce qu'une session pose aujourd'hui : la brique du jour, ses composés, et les briques
+ * déjà posées — les `pistes` qui évitent de relire toutes les familles. C'est la seule
+ * lecture du parcours : les quatre écrans de la session passent par là, et voient donc
+ * tous le même jour.
+ */
+export type Lecon = {
+  /** Le parcours lu dans l'index : `lire` ou `hsk`. */
+  nom: string;
+  /** Le jour retenu, sauts compris. `null` quand le parcours est fini. */
+  jour: JourChoisi | null;
+  pistes: string[];
+  brique: FicheLue | null;
+  composes: FicheLue[];
+};
+
+const lecons = new Map<string, Promise<Lecon>>();
+
+/** La leçon d'un jour, lue une fois : les écrans d'un même pas en partagent le résultat. */
+export function lecon(
+  choisi: string | null,
+  jour: number,
+  version = VERSION_DONNEES
+): Promise<Lecon> {
+  const cle = `${version}/${choisi ?? ''}/${jour}`;
+  let p = lecons.get(cle);
+  if (!p) {
+    p = (async () => {
+      const i = await contenu(version);
+      const nom = nomParcours(i, choisi);
+      const j = jourDuParcours(i, nom, jour);
+      if (j === null) return { nom, jour: null, pistes: [], brique: null, composes: [] };
+      const pistes = briquesPosees(i, nom, j.jour);
+      const brique = j.brique === null ? null : await fiche(j.brique, pistes, version);
+      const composes = await fiches(j.composes, pistes, version);
+      return { nom, jour: j, pistes, brique, composes };
+    })().catch((e) => {
+      lecons.delete(cle);
+      throw e;
+    });
+    lecons.set(cle, p);
+  }
+  return p;
+}
+
+/** Le caractère du jour : le composé quand il y en a un, la brique sinon. */
+export function caractereDuJour(l: Lecon): string {
+  return l.composes[0]?.c ?? l.brique?.c ?? '';
+}

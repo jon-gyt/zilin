@@ -17,7 +17,7 @@
   import Use from './lib/Use.svelte';
   import { apresSplash, briques, familleDepart } from './lib/premiere';
   import { planifier, type JeuId } from './lib/jeux';
-  import type { Noeud } from './lib/content';
+  import { toutesLesFamilles, type Noeud } from './lib/content';
   import Warm from './lib/Warm.svelte';
   import {
     allDone,
@@ -90,6 +90,14 @@
     p = nouvelle;
     enregistrer();
   }
+
+  /*
+   * Contenu (export versionné) : l'appartenance des 485 caractères à leurs 238 familles
+   * se réchauffe dès l'ouverture. `index.json` ne porte pas les membres des familles ;
+   * sans ce réchauffage, le premier écran qui cherche la famille d'un composé la
+   * reconstruirait au moment où il en a besoin. Les fichiers sont précachés (509 entrées).
+   */
+  void toutesLesFamilles().catch(() => undefined);
 
   /** Au démarrage : on relit la progression et on ouvre la journée. */
   void loadProgress().then((stored) => {
@@ -239,7 +247,9 @@
    * principal enchaîne les vues ; après la dernière, le pas est fait et on revient au chemin.
    */
   function apprendreSuivant(brique: string, compose: string | null): void {
-    const vue = learnNext(p, brique);
+    let vue = learnNext(p, brique);
+    /* Un jour du parcours sans composé s'arrête après la brique : pas de vue « composé ». */
+    if (vue === 'compose' && compose === null) vue = null;
     if (p.learn === 'trace') p = traceVue(p, brique);
     if (vue) {
       p = setLearnView(p, vue);
@@ -384,7 +394,7 @@
     onquitter={quitter}
   />
 {:else if ecran === 'use'}
-  <Use vue={p.use} onsuivant={utiliserSuivant} onquitter={quitter} />
+  <Use {p} vue={p.use} onsuivant={utiliserSuivant} onquitter={quitter} />
 {:else if ecran === 'check'}
   <Fix
     {p}

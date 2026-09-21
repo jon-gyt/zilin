@@ -152,7 +152,26 @@ export type Progress = {
   premiereVue: EtapeDepart;
   /** Le parcours choisi à la première session. `null` tant que la question n'est pas posée. */
   parcours: Parcours | null;
+  /**
+   * Le jour du parcours de l'index à poser à la prochaine session. Absent d'une
+   * progression plus ancienne : on retombe alors sur le nombre de journées travaillées
+   * (`jourParcours`). C'est le seul lien entre la progression et `data/`.
+   */
+  jourParcours?: number;
 };
+
+/**
+ * Le jour du parcours que la session pose : l'index rangé dans la progression s'il y
+ * est, sinon le nombre de journées travaillées. Le premier jour vaut 1.
+ */
+export function jourParcours(p: Progress): number {
+  return Math.max(1, Math.floor(p.jourParcours ?? p.days));
+}
+
+/** Range le jour du parcours atteint. Le parcours n'avance jamais tout seul. */
+export function setJourParcours(p: Progress, jour: number): Progress {
+  return { ...p, jourParcours: Math.max(1, Math.floor(jour)) };
+}
 
 export function emptyProgress(aujourdhui: string): Progress {
   return {
@@ -705,6 +724,11 @@ export function fromJSON(texte: string, aujourdhui: string): Progress {
     /* Champs de la première session et des cartes : absents d'un export plus ancien. */
     premiere: lirePremiere(o),
     premiereVue: isEtapeDepart(o.premiereVue) ? o.premiereVue : vide.premiereVue,
-    parcours: isParcours(o.parcours) ? o.parcours : null
+    parcours: isParcours(o.parcours) ? o.parcours : null,
+    /* Le jour du parcours : absent d'un export plus ancien, il se déduit des journées. */
+    jourParcours:
+      typeof o.jourParcours === 'number' && o.jourParcours >= 1
+        ? Math.floor(o.jourParcours)
+        : undefined
   };
 }

@@ -1,15 +1,21 @@
 <script lang="ts">
   /**
-   * Pas 3, Apprendre : la brique, son tracé (optionnel), puis le composé.
+   * Pas 3, Apprendre : la brique du jour, son tracé (optionnel), puis son composé.
    * Trois vues successives, un seul bouton principal par vue, « Quitter » sauvegarde
-   * sans question. Aucun texte de contenu n'est écrit ici : origine, rôle, étiquette,
-   * mots et phrase viennent du JSON versionné de `app/public/data/`.
+   * sans question.
+   *
+   * La brique et les composés sont ceux du parcours de l'index (`parcours.lire` ou
+   * `parcours.hsk`, selon le parcours choisi), au jour de la progression. Un jour sans
+   * composé ne montre que la brique ; un jour non réconcilié est sauté, et la trace part
+   * dans la console. Aucun texte de contenu n'est écrit ici : origine, rôle, étiquette,
+   * mots et phrase viennent du JSON versionné de `app/public/data/`, et la ligne neutre
+   * `LIGNE_SANS_FICHE` tient lieu d'origine tant que la fiche n'est pas écrite.
    */
   import Glyph from './Glyph.svelte';
   import Trace from './Trace.svelte';
-  import { ETIQUETTES, compose, familleOnce, fiche, type Famille, type Fiche } from './content';
+  import { ETIQUETTES, LIGNE_SANS_FICHE, lecon, type FicheLue } from './content';
   import { aAudio, dire, manifesteOnce, type Manifeste } from './audio';
-  import { traceProposee, type LearnView, type Progress } from './session';
+  import { jourParcours, traceProposee, type LearnView, type Progress } from './session';
 
   let {
     p,
@@ -29,15 +35,20 @@
     onquitter: () => void;
   } = $props();
 
-  const vue = $derived(p.learn);
-
   /**
    * Les cinq écrans de la leçon dans la maquette ; les trois derniers arrivent avec les
    * pas Utiliser, Fixer et Clore. Le cinabre marque la position sur le chemin.
    */
   const PAS_LECON = 5;
 
-  let f = $state(null as Famille | null);
+  let briqueDuJour = $state(null as FicheLue | null);
+  let composeDuJour = $state(null as FicheLue | null);
+  /* Des constantes dérivées : le rétrécissement de type tient jusque dans les gestionnaires. */
+  const brique: FicheLue | null = $derived(briqueDuJour);
+  const compo: FicheLue | null = $derived(composeDuJour);
+  /** Les briques déjà posées : elles disent à `content` où chercher les familles. */
+  let pistes = $state([] as string[]);
+  let chargee = $state(false);
   /** Le manifeste audio : il dit quels caractères ont une voix. Absent, l'écran se tait. */
   let son = $state(null as Manifeste | null);
 
@@ -52,21 +63,33 @@
   });
 
   $effect(() => {
+    const n = jourParcours(p);
+    const choisi = p.parcours;
     let vivant = true;
-    void familleOnce()
-      .then((x) => {
-        if (vivant) f = x;
+    void lecon(choisi, n)
+      .then((l) => {
+        if (!vivant) return;
+        if (l.jour && l.jour.sautes.length > 0) {
+          /* La trace d'un jour sauté : sa décomposition n'est pas réconciliée avec la norme. */
+          console.warn(
+            `Zilin : parcours ${l.nom}, jours non réconciliés sautés : ${l.jour.sautes.join(', ')}`
+          );
+        }
+        pistes = l.pistes;
+        briqueDuJour = l.brique;
+        composeDuJour = l.composes[0] ?? null;
+        chargee = true;
       })
       .catch(() => {
-        if (vivant) f = null;
+        if (vivant) chargee = true;
       });
     return () => {
       vivant = false;
     };
   });
 
-  const brique: Fiche | null = $derived(f ? fiche(f, f.racine.c) : null);
-  const compo: Fiche | null = $derived(f ? compose(f) : null);
+  /** Un jour sans composé s'arrête après la brique : la vue « composé » n'existe pas. */
+  const vue = $derived(p.learn === 'compose' && compo === null ? 'brique' : p.learn);
   const mots = $derived(compo?.mots ?? []);
   const phrase = $derived(compo?.phrase ?? null);
   /** Le tracé est-il dans l'enchaînement de cette session ? Une fois par brique, et réglable. */
@@ -86,16 +109,19 @@
   }
 
   /** L'élément ajouté, et lui seul, porte le cinabre ; les autres briques sont en ocre. */
-  function couleur(x: Fiche, i: number): string {
+  function couleur(x: FicheLue, i: number): string {
     return x.nouveau.includes(i) ? 'var(--zhu)' : 'var(--ocre)';
   }
+
+  /** Le composé à apprendre avec la brique, quand le jour en pose un. */
+  const suivantDuJour = $derived(compo?.c ?? null);
 </script>
 
 <main class="screen">
   {#if vue === 'brique'}
     <button class="k quit" onclick={onquitter}>✕ Quitter</button>
   {:else}
-    <button class="k quit" onclick={() => onvue('brique')}>‹ La brique {f?.racine.c ?? ''}</button>
+    <button class="k quit" onclick={() => onvue('brique')}>‹ La brique {brique?.c ?? ''}</button>
   {/if}
 
   {#if vue !== 'trace'}
@@ -117,22 +143,28 @@
         onclick={() => ecouter(brique.c)}
         aria-label="écouter"
       >
-        <Glyph char={brique.c} size={150} />
+        <Glyph char={brique.c} size={150} {pistes} />
       </button>
       <div class="py">{brique.pinyin}</div>
-      <div class="sens">{brique.fr}</div>
-      <div class="formula">
-        {#each brique.parts as part, i (part + i)}
-          {#if i > 0}<span class="op">+</span>{/if}
-          <span class="p" class:new={brique.nouveau.includes(i)}>
-            <Glyph char={part} size={40} write={false} color={couleur(brique, i)} />
-          </span>
-        {/each}
-        <span class="op">=</span>
-        <Glyph char={brique.c} size={52} write={false} />
-      </div>
-      <p class="origine">{brique.origine_fr}</p>
-      <div class="tag">{ETIQUETTES[brique.etiquette]}</div>
+      {#if brique.fr !== ''}<div class="sens">{brique.fr}</div>{/if}
+      {#if brique.parts.length > 0}
+        <div class="formula">
+          {#each brique.parts as part, i (part + i)}
+            {#if i > 0}<span class="op">+</span>{/if}
+            <span class="p" class:new={brique.nouveau.includes(i)}>
+              <Glyph char={part} size={40} write={false} color={couleur(brique, i)} {pistes} />
+            </span>
+          {/each}
+          <span class="op">=</span>
+          <Glyph char={brique.c} size={52} write={false} {pistes} />
+        </div>
+      {/if}
+      {#if brique.origine_fr !== ''}
+        <p class="origine">{brique.origine_fr}</p>
+        {#if brique.etiquette}<div class="tag">{ETIQUETTES[brique.etiquette]}</div>{/if}
+      {:else}
+        <p class="origine k">{LIGNE_SANS_FICHE}</p>
+      {/if}
       {#if !traceOfferte}
         <div class="acts">
           <button class="btn ghost" onclick={() => onvue('trace')}>Tracer {brique.c}</button>
@@ -140,7 +172,9 @@
       {/if}
     </div>
     <div class="foot">
-      <button class="btn" onclick={() => onsuivant(brique.c, compo?.c ?? null)}>J'ai vu {brique.c}, suivant</button>
+      <button class="btn" onclick={() => onsuivant(brique.c, suivantDuJour)}
+        >J'ai vu {brique.c}, suivant</button
+      >
     </div>
   {:else if vue === 'trace' && brique}
     <Trace char={brique.c} />
@@ -149,16 +183,18 @@
       Ne plus proposer le tracé
     </label>
     <div class="foot">
-      <button class="btn ghost" onclick={() => onsuivant(brique.c, compo?.c ?? null)}>Continuer sans tracer</button>
+      <button class="btn ghost" onclick={() => onsuivant(brique.c, suivantDuJour)}
+        >Continuer sans tracer</button
+      >
     </div>
   {:else if vue === 'compose' && compo}
-    <p class="guide">Une personne devant, et c'est un autre mot.</p>
+    <p class="guide">La brique est posée : voici ce qu'elle donne.</p>
     <div class="card center">
       <div class="formula">
         {#each compo.parts as part, i (part + i)}
           {#if i > 0}<span class="op">+</span>{/if}
           <span class="p" class:new={compo.nouveau.includes(i)}>
-            <Glyph char={part} size={48} write={false} color={couleur(compo, i)} />
+            <Glyph char={part} size={48} write={false} color={couleur(compo, i)} {pistes} />
           </span>
         {/each}
         <span class="op">=</span>
@@ -169,13 +205,17 @@
           onclick={() => ecouter(compo.c)}
           aria-label="écouter"
         >
-          <Glyph char={compo.c} size={84} />
+          <Glyph char={compo.c} size={84} {pistes} />
         </button>
       </div>
       <div class="py">{compo.pinyin}</div>
-      <div class="sens">{compo.fr}</div>
-      <p class="origine">{compo.origine_fr}</p>
-      <div class="tag">{ETIQUETTES[compo.etiquette]}</div>
+      {#if compo.fr !== ''}<div class="sens">{compo.fr}</div>{/if}
+      {#if compo.origine_fr !== ''}
+        <p class="origine">{compo.origine_fr}</p>
+        {#if compo.etiquette}<div class="tag">{ETIQUETTES[compo.etiquette]}</div>{/if}
+      {:else}
+        <p class="origine k">{LIGNE_SANS_FICHE}</p>
+      {/if}
     </div>
     {#if mots.length > 0 || phrase}
       <div class="card">
@@ -193,7 +233,11 @@
         {/if}
       </div>
     {/if}
-    <div class="foot"><button class="btn" onclick={() => onsuivant(f?.racine.c ?? '', compo?.c ?? null)}>Suivant</button></div>
+    <div class="foot">
+      <button class="btn" onclick={() => onsuivant(brique?.c ?? '', compo.c)}>Suivant</button>
+    </div>
+  {:else if !chargee}
+    <p class="guide">Un instant.</p>
   {:else}
     <p class="guide">Le contenu de la leçon n'a pas pu être lu.</p>
     <div class="foot"><button class="btn" onclick={onquitter}>Revenir au chemin</button></div>

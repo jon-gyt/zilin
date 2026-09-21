@@ -9,25 +9,26 @@
    * Le cinabre ne sert qu'à une chose sur cet écran : le caractère du jour dans le texte.
    */
   import {
-    compose,
-    familleOnce,
+    LIGNE_SANS_FICHE,
     glosable,
     glose,
+    lecon,
     lignesNues,
     texteOnce,
-    type Famille,
-    type Fiche,
+    type FicheLue,
     type Signe,
     type Texte
   } from './content';
   import { aAudio, dire, manifesteOnce, type Manifeste } from './audio';
-  import type { UseView } from './session';
+  import { jourParcours, type Progress, type UseView } from './session';
 
   let {
+    p,
     vue,
     onsuivant,
     onquitter
   }: {
+    p: Progress;
     vue: UseView;
     /** Enchaîne vers la vue suivante, ou termine le pas après la dernière. */
     onsuivant: () => void;
@@ -38,7 +39,7 @@
   const PAS_LECON = 5;
   const RANG = 2;
 
-  let f = $state(null as Famille | null);
+  let ficheDuJour = $state(null as FicheLue | null);
   let t = $state(null as Texte | null);
   /** Le manifeste audio : il dit quels textes ont une voix. Absent, l'écran se tait. */
   let son = $state(null as Manifeste | null);
@@ -46,13 +47,15 @@
   let touche: Signe | null = $state(null);
 
   $effect(() => {
+    const n = jourParcours(p);
+    const choisi = p.parcours;
     let vivant = true;
-    void familleOnce()
-      .then((x) => {
-        if (vivant) f = x;
+    void lecon(choisi, n)
+      .then((l) => {
+        if (vivant) ficheDuJour = l.composes[0] ?? l.brique;
       })
       .catch(() => {
-        if (vivant) f = null;
+        if (vivant) ficheDuJour = null;
       });
     return () => {
       vivant = false;
@@ -83,7 +86,8 @@
     };
   });
 
-  const compo: Fiche | null = $derived(f ? compose(f) : null);
+  /** Le caractère du jour : le composé du parcours, la brique quand le jour n'en pose pas. */
+  const compo: FicheLue | null = $derived(ficheDuJour);
   const mots = $derived(compo?.mots ?? []);
   const phrase = $derived(compo?.phrase ?? null);
   /** Le texte nu : ce qui se dirait à voix haute, quand l'audio sera embarqué. */
@@ -123,6 +127,12 @@
   {#if vue === 'mots' && compo}
     <p class="guide">Un caractère se lit dans des mots.</p>
     <div class="card">
+      {#if mots.length === 0 && !phrase}
+        <!-- Les mots et la phrase viennent d'une fiche relue : sans elle, on ne feint rien. -->
+        <div class="hz phrase">{compo.c}</div>
+        <div class="trad">{compo.pinyin}</div>
+        <p class="origine k">{LIGNE_SANS_FICHE}</p>
+      {/if}
       <div class="words">
         {#each mots as m (m.hanzi)}
           <span><span class="hz">{m.hanzi}</span>{m.fr}</span>
