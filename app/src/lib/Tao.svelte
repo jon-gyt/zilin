@@ -71,91 +71,96 @@
       />
     {/if}
 
-    <g class="plante">
-      {#if arbre}
-        <g class="houppier">
-          {#if grand}
-            <ellipse cx="100" cy="74" rx="46" ry="34" fill="var(--jade)" />
-          {:else}
-            <ellipse cx="100" cy="80" rx="36" ry="26" fill="var(--jade)" />
+    <!-- en pot, elle se tient plus haut que le bord : son visage reste entier -->
+    <g class="enterree" transform={posture === 'pot' ? 'translate(0,-22)' : ''}>
+      <g class="plante">
+        {#if arbre}
+          <g class="houppier">
+            {#if grand}
+              <ellipse cx="100" cy="74" rx="46" ry="34" fill="var(--jade)" />
+            {:else}
+              <ellipse cx="100" cy="80" rx="36" ry="26" fill="var(--jade)" />
+            {/if}
+            {#if stade === 'fleur'}
+              {#each FLEURS as [x, y] (x)}
+                <circle cx={x} cy={y} r="6.5" fill="var(--fleur)" />
+              {/each}
+            {:else if stade === 'peches'}
+              {#each PECHES as [x, y] (x)}
+                <!-- deux lobes : la silhouette de la pêche, sans rose ni dégradé -->
+                <g>
+                  <circle cx={x - 4} cy={y} r="8.5" fill="var(--ocre)" />
+                  <circle cx={x + 4} cy={y} r="8.5" fill="var(--ocre)" />
+                  <path d={`M${x} ${y - 9}v5`} stroke="var(--jade)" stroke-width="3" stroke-linecap="round" />
+                </g>
+              {/each}
+            {/if}
+          </g>
+          <path
+            class="tronc"
+            d="M74 158q5-28 1-50h50q-4 22 1 50z"
+            fill="var(--card)"
+            stroke="var(--ink)"
+            stroke-width="5"
+            stroke-linejoin="round"
+          />
+        {:else}
+          {#if stade === 'pousse'}
+            <g class="feuilles">
+              <path d="M100 96q-30-8-34-40q26 4 34 30M100 96q30-8 34-40q-26 4-34 30" fill="var(--jade)" />
+              <path d="M100 98v-18" stroke="var(--jade)" stroke-width="7" stroke-linecap="round" />
+            </g>
           {/if}
-          {#if stade === 'fleur'}
-            {#each FLEURS as [x, y] (x)}
-              <circle cx={x} cy={y} r="6.5" fill="var(--fleur)" />
-            {/each}
-          {:else if stade === 'peches'}
-            {#each PECHES as [x, y] (x)}
-              <g>
-                <circle cx={x} cy={y} r="9" fill="var(--ocre)" />
-                <path d={`M${x} ${y - 8}v16`} stroke="var(--paper)" stroke-width="2" opacity=".45" fill="none" />
-              </g>
-            {/each}
+          <!-- le noyau : une amande d'encre, la graine de pêche -->
+          <path
+            class="noyau"
+            d="M100 98q36 6 36 30t-36 30q-36-6-36-30t36-30z"
+            fill="var(--card)"
+            stroke="var(--ink)"
+            stroke-width="5"
+            stroke-linejoin="round"
+          />
+          <path
+            class="sillons"
+            d="M76 140q7 6 11 12M124 140q-7 6-11 12"
+            stroke="var(--ink)"
+            stroke-width="3"
+            fill="none"
+            opacity=".3"
+            stroke-linecap="round"
+          />
+        {/if}
+
+        <g class="visage">
+          {#if regard === 'joie'}
+            <path
+              d="M81 127q7-8 14 0M105 127q7-8 14 0"
+              stroke="var(--ink)"
+              stroke-width="5"
+              fill="none"
+              stroke-linecap="round"
+            />
+            <path d="M91 138q9 10 18 0" stroke="var(--ink)" stroke-width="5" fill="none" stroke-linecap="round" />
+          {:else if regard === 'ennui'}
+            <path d="M82 127h12M106 127h12" stroke="var(--ink)" stroke-width="5" stroke-linecap="round" />
+            <path d="M93 140h14" stroke="var(--ink)" stroke-width="5" stroke-linecap="round" />
+          {:else if regard === 'pot'}
+            <path
+              d="M81 126q7 6 14 0M105 126q7 6 14 0"
+              stroke="var(--ink)"
+              stroke-width="5"
+              fill="none"
+              stroke-linecap="round"
+            />
+            <path d="M95 140h10" stroke="var(--ink)" stroke-width="5" stroke-linecap="round" />
+          {:else}
+            <g class="yeux">
+              <circle cx="88" cy="126" r="4.5" fill="var(--ink)" />
+              <circle cx="112" cy="126" r="4.5" fill="var(--ink)" />
+            </g>
+            <path d="M93 139q7 5 14 0" stroke="var(--ink)" stroke-width="5" fill="none" stroke-linecap="round" />
           {/if}
         </g>
-        <path
-          class="tronc"
-          d="M78 158q5-28 1-50h42q-4 22 1 50z"
-          fill="var(--card)"
-          stroke="var(--ink)"
-          stroke-width="5"
-          stroke-linejoin="round"
-        />
-      {:else}
-        {#if stade === 'pousse'}
-          <g class="feuilles">
-            <path d="M100 96q-30-8-34-40q26 4 34 30M100 96q30-8 34-40q-26 4-34 30" fill="var(--jade)" />
-            <path d="M100 98v-18" stroke="var(--jade)" stroke-width="7" stroke-linecap="round" />
-          </g>
-        {/if}
-        <!-- le noyau : une amande d'encre, la graine de pêche -->
-        <path
-          class="noyau"
-          d="M100 98q36 6 36 30t-36 30q-36-6-36-30t36-30z"
-          fill="var(--card)"
-          stroke="var(--ink)"
-          stroke-width="5"
-          stroke-linejoin="round"
-        />
-        <path
-          class="sillons"
-          d="M76 140q7 6 11 12M124 140q-7 6-11 12"
-          stroke="var(--ink)"
-          stroke-width="3"
-          fill="none"
-          opacity=".3"
-          stroke-linecap="round"
-        />
-      {/if}
-
-      <g class="visage">
-        {#if regard === 'joie'}
-          <path
-            d="M81 127q7-8 14 0M105 127q7-8 14 0"
-            stroke="var(--ink)"
-            stroke-width="5"
-            fill="none"
-            stroke-linecap="round"
-          />
-          <path d="M91 138q9 10 18 0" stroke="var(--ink)" stroke-width="5" fill="none" stroke-linecap="round" />
-        {:else if regard === 'ennui'}
-          <path d="M82 127h12M106 127h12" stroke="var(--ink)" stroke-width="5" stroke-linecap="round" />
-          <path d="M93 140h14" stroke="var(--ink)" stroke-width="5" stroke-linecap="round" />
-        {:else if regard === 'pot'}
-          <path
-            d="M81 126q7 6 14 0M105 126q7 6 14 0"
-            stroke="var(--ink)"
-            stroke-width="5"
-            fill="none"
-            stroke-linecap="round"
-          />
-          <path d="M95 140h10" stroke="var(--ink)" stroke-width="5" stroke-linecap="round" />
-        {:else}
-          <g class="yeux">
-            <circle cx="88" cy="126" r="4.5" fill="var(--ink)" />
-            <circle cx="112" cy="126" r="4.5" fill="var(--ink)" />
-          </g>
-          <path d="M93 139q7 5 14 0" stroke="var(--ink)" stroke-width="5" fill="none" stroke-linecap="round" />
-        {/if}
       </g>
     </g>
   </g>
@@ -193,12 +198,13 @@
     <g class="pinceau">
       <path d="M150 104l26-26" stroke="var(--ocre)" stroke-width="7" stroke-linecap="round" />
       <path d="M142 112l10-10" stroke="var(--ink)" stroke-width="11" stroke-linecap="round" />
-      <path class="trait" d="M28 150h44" stroke="var(--ink)" stroke-width="5" stroke-linecap="round" fill="none" />
+      <path class="trait" d="M136 126h40" stroke="var(--ink)" stroke-width="5" stroke-linecap="round" fill="none" />
     </g>
   {:else if posture === 'jeu'}
     <g class="lanterne">
       <path d="M164 26v12" stroke="var(--ink)" stroke-width="3" stroke-linecap="round" />
-      <ellipse cx="164" cy="56" rx="15" ry="18" fill="var(--card)" stroke="var(--ocre)" stroke-width="4" />
+      <ellipse cx="164" cy="56" rx="17" ry="18" fill="var(--card)" stroke="var(--ocre)" stroke-width="4" />
+      <path d="M152 40h24M152 72h24" stroke="var(--ocre)" stroke-width="4" stroke-linecap="round" />
       <path d="M164 38v36" stroke="var(--ocre)" stroke-width="2" opacity=".5" />
       <path d="M164 74v10" stroke="var(--ocre)" stroke-width="3" stroke-linecap="round" />
     </g>
