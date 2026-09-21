@@ -25,8 +25,15 @@
   let {
     p,
     jour,
-    onfamille
-  }: { p: Progress; jour: string; onfamille: (fam: Noeud) => void } = $props();
+    onfamille,
+    onjouer
+  }: {
+    p: Progress;
+    jour: string;
+    onfamille: (fam: Noeud) => void;
+    /** Les jeux (épic 4b) : une ligne, le choix se fait sur l'écran hôte. */
+    onjouer: () => void;
+  } = $props();
 
   let foret = $state<Foret | null>(null);
   let traits = $state<StrokeSet>({});
@@ -305,6 +312,8 @@
     <div class="card"><div class="k">Lus</div><div class="big">{lus}</div></div>
     <div class="card"><div class="k">Familles ouvertes</div><div class="big">{ouvertes}</div></div>
   </div>
+
+  <button class="btn ghost jouer" onclick={onjouer}>Jouer</button>
 
   <div class="card semaine">
     <div class="row">

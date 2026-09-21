@@ -2,10 +2,20 @@
   /** Aujourd'hui : le chemin des six pas, un seul bouton en bas. */
   import Glyph from './Glyph.svelte';
   import Tao from './Tao.svelte';
+  import { propose } from './jeux';
   import { allDone, buttonLabel, dayLabel, guide, nextIndex, steps, title, type Progress } from './session';
   import { humeur, poseDuJour, stade } from './tao';
 
-  let { p, ontap }: { p: Progress; ontap: () => void } = $props();
+  let {
+    p,
+    ontap,
+    onjouer
+  }: {
+    p: Progress;
+    ontap: () => void;
+    /** Tao s'ennuie : elle propose un jeu. Une proposition, jamais un reproche. */
+    onjouer: () => void;
+  } = $props();
 
   /** Le caractère du jour. Démonstration, en attendant le contenu du pipeline `data/`. */
   const CARACTERE_DU_JOUR = '住';
@@ -14,6 +24,7 @@
   const n = $derived(nextIndex(p));
   const pose = $derived(poseDuJour({ rattrapage: p.catchup, fini: allDone(p) }, humeur(p.tao.activites, p.day)));
   const stadeDeTao = $derived(stade(p.tao.croissance));
+  const jeuPropose = $derived(propose(p, p.day));
 </script>
 
 <main class="screen">
@@ -38,6 +49,13 @@
     <div class="mood">
       <Tao stade={stadeDeTao} posture={pose.posture} humeur={pose.humeur} size={120} />
     </div>
+  {/if}
+
+  {#if jeuPropose}
+    <button class="propose" onclick={onjouer}>
+      <span class="grow">Tao propose un jeu.</span>
+      <span class="k">Jouer</span>
+    </button>
   {/if}
 
   <div class="path">

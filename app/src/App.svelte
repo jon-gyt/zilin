@@ -4,6 +4,7 @@
   import FirstSession from './lib/FirstSession.svelte';
   import Fix from './lib/Fix.svelte';
   import Forest from './lib/Forest.svelte';
+  import Game from './lib/Game.svelte';
   import Learn from './lib/Learn.svelte';
   import Open from './lib/Open.svelte';
   import Splash from './lib/Splash.svelte';
@@ -15,6 +16,7 @@
   import Tree from './lib/Tree.svelte';
   import Use from './lib/Use.svelte';
   import { apresSplash, briques, familleDepart } from './lib/premiere';
+  import { planifier, type JeuId } from './lib/jeux';
   import type { Noeud } from './lib/content';
   import Warm from './lib/Warm.svelte';
   import {
@@ -54,7 +56,7 @@
   import { loadProgress, saveProgress, today } from './lib/db';
 
   /** Un écran par pas, au fur et à mesure des stories. Pas de routeur. */
-  type Ecran = 'splash' | 'premiere' | 'home' | 'anec' | 'rev' | 'learn' | 'use' | 'check' | 'close' | 'streak' | 'rewards';
+  type Ecran = 'splash' | 'premiere' | 'home' | 'anec' | 'rev' | 'learn' | 'use' | 'check' | 'close' | 'streak' | 'rewards' | 'game';
 
   /** Les pas qui ont leur écran. Les autres se marquent faits au tap, en attendant. */
   const ECRANS = ['anec', 'rev', 'learn', 'use', 'check', 'close'] as const;
@@ -71,6 +73,11 @@
   let onglet: Onglet = $state('home');
   /** La famille ouverte dans Ma forêt, `null` quand on est sur le cercle. */
   let famille: Noeud | null = $state(null);
+
+  /** Le jeu ouvert, `null` quand l'écran hôte montre le choix. */
+  let jeu: JeuId | null = $state(null);
+  /** D'où l'on est entré dans les jeux : la sortie y ramène. */
+  let retourJeu: 'home' | 'foret' = $state('home');
 
   /** Un onglet, un écran. Revenir à Ma forêt rouvre le cercle. */
   function allerOnglet(o: Onglet): void {
@@ -307,6 +314,39 @@
     enregistrer();
   }
 
+  /* ---------- les jeux (épic 4b) ---------- */
+
+  /** Ouvre l'écran hôte des jeux, sur le choix : le jeu se prend là. */
+  function ouvrirJeux(depuis: 'home' | 'foret'): void {
+    retourJeu = depuis;
+    jeu = null;
+    ecran = 'game';
+  }
+
+  /**
+   * Un tour de jeu noté : l'événement de révision est rangé dans la progression,
+   * comme une question, et la carte du caractère est replanifiée par `schedule`.
+   */
+  function jeuRepondu(r: Revision): void {
+    p = noterRevision(p, today(), r);
+    p = { ...p, cartes: planifier(p.cartes, r, new Date()) };
+    enregistrer();
+  }
+
+  /** La manche finie : une activité « jeu » pour Tao, une seule par manche. */
+  function jeuFini(): void {
+    p = noterActivite(p, today(), 'jeu');
+    enregistrer();
+  }
+
+  /** Sortir d'un jeu : on revient là d'où l'on venait. */
+  function quitterJeu(): void {
+    if (retourJeu === 'foret') famille = null;
+    onglet = retourJeu === 'foret' ? 'foret' : 'home';
+    ecran = 'home';
+    enregistrer();
+  }
+
   /** Quitter : retour au chemin sans question, la progression est sauvegardée. */
   function quitter(): void {
     ecran = 'home';
@@ -357,6 +397,16 @@
   <Close {p} onterminer={clore} onquitter={quitter} />
 {:else if ecran === 'streak'}
   <Streak {p} onretour={quitter} />
+{:else if ecran === 'game'}
+  <Game
+    {p}
+    {jeu}
+    retour={retourJeu}
+    onchoisir={(id) => (jeu = id)}
+    onrepondu={jeuRepondu}
+    onfini={jeuFini}
+    onretour={quitterJeu}
+  />
 {:else if ecran === 'rewards'}
   <!-- Récompenses : Ma forêt y mènera (épic 4). L'aiguillage est prêt. -->
   <Rewards {p} onretour={quitter} />
@@ -373,12 +423,17 @@
           }}
         />
       {:else}
-        <Forest {p} jour={today()} onfamille={(f) => (famille = f)} />
+        <Forest
+          {p}
+          jour={today()}
+          onfamille={(f) => (famille = f)}
+          onjouer={() => ouvrirJeux('foret')}
+        />
       {/if}
     {:else if onglet === 'reglages'}
       <Settings {p} onprogression={remplacer} />
     {:else}
-      <Today {p} ontap={tap} />
+      <Today {p} ontap={tap} onjouer={() => ouvrirJeux('home')} />
     {/if}
     <Tabs {onglet} onchoisir={allerOnglet} />
   </div>

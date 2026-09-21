@@ -148,7 +148,7 @@ Sources à valider en licence avant usage commercial :
 - CC-CEDICT : mots (CC BY-SA 4.0, attribution).
 - Formes anciennes : polices sigillaires et oracle en licence ouverte, à identifier. Images de sites tiers exclues.
 - Origines et anecdotes : textes rédigés pour l'app, à partir du Shuowen et des sources ci-dessus, générés par lots avec Claude puis relus. Aucune reprise de Wiktionary.
-- Audio : voix neuronale pré-générée et embarquée pour tous les caractères et mots. Aucune dépendance à la voix du téléphone.
+- Audio : voix neuronale pré-générée et embarquée pour tous les caractères et mots, en priorité. La voix du téléphone sert de repli pour un texte qui n'a pas encore de fichier ; l'app ne dépend d'aucun service à l'exécution.
 
 Pipeline (Python, dépôt séparé) : ingestion, réconciliation des décompositions avec la norme GF 0014-2009, construction du graphe, génération FR et EN, contrôle qualité (composants inconnus, cycles, doublons, étiquetage attesté / mnémotechnique), export JSON versionné.
 

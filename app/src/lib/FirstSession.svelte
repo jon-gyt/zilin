@@ -21,6 +21,7 @@
     type MotDepart
   } from './premiere';
   import { glose, type Famille, type Signe } from './content';
+  import { dire } from './audio';
   import type { Budget, EtapeDepart, Parcours, Progress } from './session';
   import { stade } from './tao';
 
@@ -81,6 +82,16 @@
   /** Le dernier jeton d'une formule est le caractère obtenu : c'est lui qui est grand. */
   function taille(i: number, total: number): number {
     return i === total - 1 ? (TAILLE[vue] ?? TAILLE_PART) : TAILLE_PART;
+  }
+
+  /**
+   * Un caractère touché : sa glose s'affiche, et il se dit à voix haute s'il a une voix.
+   * L'audio est un fichier pré-généré, servi avec l'app ; sans lui, rien ne se passe et
+   * le caractère se touche quand même, pour la glose (brief §11).
+   */
+  function toucher(s: Signe): void {
+    touche = s;
+    void dire(s.c);
   }
 
   /** Une réponse : juste, la suite s'ouvre ; fausse, elle s'éteint et la correction s'affiche. */
@@ -163,7 +174,7 @@
     <div class="card center">
       <div class="mot">
         {#each mot ? signes(mot) : [] as s, i (i)}
-          <button class="s" onclick={() => (touche = s)} aria-label={s.c}>
+          <button class="s" onclick={() => toucher(s)} aria-label={s.c}>
             <Glyph char={s.c} size={64} write={false} />
           </button>
         {/each}

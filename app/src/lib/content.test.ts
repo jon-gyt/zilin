@@ -6,9 +6,12 @@ import {
   FICHIER_FAMILLE_DEMO,
   FICHIER_TEXTE_DEMO,
   FICHIER_VOISINS_DEMO,
+  VERSION_DONNEES,
   anecdoteDuJour,
   compose,
   fiche,
+  fichierFamille,
+  fichierTraits,
   glosable,
   glose,
   jourDepuisEpoque,
@@ -16,12 +19,14 @@ import {
   loadAnecdotes,
   loadFamille,
   loadPaires,
+  loadIndex,
   loadTexte,
   loadVoisins,
   type Anecdote,
   type Anecdotes,
   type Famille,
   type Fiche,
+  type Index,
   type Texte,
   type Voisins
 } from './content';
@@ -33,6 +38,13 @@ const maquette = readFileSync(
   new URL('../../../maquettes/zilin-maquette.html', import.meta.url),
   'utf8'
 );
+// L'export versionné du pipeline : ce que l'app servira, déjà dans le dépôt.
+const index = JSON.parse(
+  readFileSync(
+    new URL(`../../public/data/${VERSION_DONNEES}/index.json`, import.meta.url),
+    'utf8'
+  )
+) as Index;
 
 const faux = (liste: Anecdote[]): Anecdote[] => liste;
 const troisJours = ['2026-03-01', '2026-03-02', '2026-03-03'];
@@ -399,5 +411,80 @@ describe('le chargeur de paires à ne pas confondre', () => {
   it('refuse un fichier absent', async () => {
     const faux: typeof fetch = async () => reponse(false, null);
     await expect(loadPaires(FICHIER, faux)).rejects.toThrow('introuvables');
+  });
+});
+
+describe("l'index de l'export versionné", () => {
+  const reponse = (ok: boolean, corps: unknown): Response =>
+    ({ ok, status: ok ? 200 : 404, json: async () => corps }) as Response;
+
+  it('lit le fichier de la version demandée, et lui seul', async () => {
+    const appels: string[] = [];
+    const faux: typeof fetch = async (u) => {
+      appels.push(String(u));
+      return reponse(true, index);
+    };
+    const lu = await loadIndex(VERSION_DONNEES, faux);
+    expect(appels).toEqual([`${import.meta.env.BASE_URL}data/${VERSION_DONNEES}/index.json`]);
+    expect(lu.version).toBe(index.version);
+    expect(lu.familles).toHaveLength(index.familles.length);
+  });
+
+  it('refuse un index absent', async () => {
+    const faux: typeof fetch = async () => reponse(false, null);
+    await expect(loadIndex(VERSION_DONNEES, faux)).rejects.toThrow('introuvable');
+  });
+
+  it('refuse un index sans familles', async () => {
+    const faux: typeof fetch = async () => reponse(true, { version: '0.1.0' });
+    await expect(loadIndex(VERSION_DONNEES, faux)).rejects.toThrow('illisible');
+  });
+
+  it("donne le chemin des fiches et des tracés d'une famille", () => {
+    const racine = index.familles[0].racine;
+    expect(fichierFamille(index, racine)).toBe(`data/${index.version}/familles/${racine}.json`);
+    expect(fichierTraits(index, racine)).toBe(`data/${index.version}/traits/${racine}.json`);
+    expect(fichierFamille(index, '無')).toBeNull();
+  });
+});
+
+describe("le fichier d'index écrit par le pipeline", () => {
+  it('porte sa version, sa date et son empreinte de build', () => {
+    expect(index.version).toBe(VERSION_DONNEES);
+    expect(index.date).toMatch(/^\d{4}-\d{2}-\d{2}T/);
+    expect(index.empreinte).toMatch(/^sha256:[0-9a-f]{64}$/);
+    expect(index.norme).toBe('GF 0014-2009');
+  });
+
+  it('donne les deux parcours, jour par jour', () => {
+    for (const nom of ['lire', 'hsk']) {
+      const p = index.parcours[nom];
+      expect(p.jours.length).toBeGreaterThan(0);
+      expect(p.jours.map((j) => j.jour)).toEqual(p.jours.map((_, i) => i + 1));
+      const briques = p.jours.filter((j) => j.brique !== null);
+      expect(briques.length).toBe(new Set(briques.map((j) => j.brique)).size);
+    }
+  });
+
+  it('couvre les caractères des deux listes', () => {
+    const poses = new Set(
+      Object.values(index.parcours).flatMap((p) =>
+        p.jours.flatMap((j) => (j.brique ? [j.brique, ...j.composes] : j.composes))
+      )
+    );
+    for (const liste of Object.values(index.listes)) {
+      for (const c of liste) expect(poses.has(c)).toBe(true);
+    }
+  });
+
+  it('nomme un fichier de fiches et un fichier de tracés par famille', () => {
+    for (const f of index.familles) {
+      expect(f.fichier.startsWith('familles/')).toBe(true);
+      expect(f.traits.startsWith('traits/')).toBe(true);
+      expect(f.n).toBeGreaterThan(0);
+      expect(f.avancement_possible).toBeGreaterThanOrEqual(0);
+      expect(f.avancement_possible).toBeLessThanOrEqual(1);
+    }
+    expect(index.familles).toHaveLength(new Set(index.familles.map((f) => f.racine)).size);
   });
 });
