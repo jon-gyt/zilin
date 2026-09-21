@@ -266,10 +266,11 @@ def fonts(*, force: bool = False, dossier: Path | None = None, sortie: Path | No
     dossier = dossier or FONTES
     sortie = sortie or FONTES_APP
     dossier.mkdir(parents=True, exist_ok=True)
-    etat = {s.fichier: telecharger(s, dossier / s.fichier, force=force) for s in POLICES_DISTANTES}
+    resultats = {s.fichier: telecharger(s, dossier / s.fichier, force=force) for s in POLICES_DISTANTES}
     ecrire_sommes(dossier, POLICES_DISTANTES)
-    journaliser(dossier, POLICES_DISTANTES, etat)
-    if any(action.startswith("échec") for action in etat.values()):
+    journaliser(dossier, POLICES_DISTANTES, resultats)
+    etat: dict[str, str] = {fichier: r.etat for fichier, r in resultats.items()}
+    if any(r.echec for r in resultats.values()):
         return etat
 
     sortie.mkdir(parents=True, exist_ok=True)
