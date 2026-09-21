@@ -47,3 +47,84 @@ Quatre points de code portent deux composants distincts de la norme : ⺈, 丁, 
 `uv run zilin check` relit `decompositions.json` : le contrôle « composants inconnus »
 signale sans bloquer (la norme ne couvre que 3 500 caractères), le contrôle « cycles »
 est bloquant.
+
+## Contes par niveau (story 1.7)
+
+Un même récit traditionnel est réécrit à chaque seuil (255, 405, 505, 805, 1555) avec
+les seuls caractères du seuil. L'utilisateur relit la même histoire, plus riche, quand
+son acquis grandit (épic 2c).
+
+### Catalogue, versionné
+
+`data/sources/contes/catalogue.tsv` : `#` en commentaire, cinq colonnes séparées par une
+tabulation — `id`, `titre_zh`, `titre_fr`, `ouvrage`, `resume_fr`. Dix récits tirés
+d'ouvrages classiques du domaine public. `ouvrage` trace l'origine du récit, `resume_fr`
+résume l'intrigue en une phrase. Aucun texte de ces ouvrages n'est recopié, et aucun
+conte n'est écrit à la main : les versions chinoises sortent du pipeline.
+
+### Version générée, hors dépôt
+
+`uv run zilin contes generer --seuil <n> [--conte <id>]` puis `uv run zilin contes
+recuperer` écrivent `data/work/contes/<seuil>/<id>.json` :
+
+```json
+{
+ "conte": "shou-zhu-dai-tu",
+ "seuil": 255,
+ "titre": "…",
+ "titre_fr": "Guetter la souche en attendant le lièvre",
+ "source": {"ouvrage": "《韩非子·五蠹》", "resume_fr": "…"},
+ "phrases": [{"zh": "…", "pinyin": "…", "fr": "…"}],
+ "glose": {"<caractère>": "<sens court en français>"},
+ "generation": {
+  "modele": "claude-opus-5",
+  "api": "messages.batches",
+  "date": "2026-09-21T10:00:00Z",
+  "empreinte_invite": "sha256:…",
+  "essais": 2,
+  "intrus": []
+ },
+ "statut": "a_relire"
+}
+```
+
+`phrases` porte le texte phrase par phrase : c'est l'unité d'affichage, d'audio et de
+traduction. `glose` couvre chaque caractère distinct du titre et du texte, avec le sens
+qu'il a ici, en français — jamais une définition traduite d'une source anglaise
+(`docs/sources-licences.md` §4.2). `generation` est la traçabilité : d'où vient la
+version et comment. `statut` vaut `a_relire` à la sortie du pipeline, `rejete` s'il
+reste des caractères hors liste après trois essais, `relu` une fois la relecture
+humaine faite. Seules les versions relues sont exportables.
+
+Le journal des lots est dans `data/work/contes/lots/<lot>.json` : identifiant du lot,
+seuil, modèle, date de soumission, statut, et une entrée par requête (`custom_id`,
+conte, numéro d'essai, empreinte de l'invite).
+
+`uv run zilin check` relit ces fichiers s'ils existent : le contrôle « contes :
+caractères hors liste » est bloquant, le contrôle « contes : relecture » compte ce qui
+reste à relire. `uv run zilin contes valider` refait le même contrôle à la demande.
+
+### Ce que l'app lira (export, story 1.6)
+
+`app/public/data/<version>/contes/<id>.json` réunit les versions d'un même conte, une
+par seuil :
+
+```json
+{
+ "version": "0.1.0",
+ "license": "propriétaire",
+ "source": "récit traditionnel, 《韩非子·五蠹》 (domaine public) ; texte réécrit pour l'app",
+ "modified": "2026-09-21",
+ "conte": "shou-zhu-dai-tu",
+ "titre_fr": "Guetter la souche en attendant le lièvre",
+ "versions": {
+  "255": {"titre": "…", "phrases": [{"zh": "…", "pinyin": "…", "fr": "…", "audio": "…"}], "glose": {"…": "…"}}
+ }
+}
+```
+
+`app/public/data/<version>/index.json` gagne `contes: [{id, titre_fr, seuils: [255, …],
+fichier}]`. L'app choisit la version du seuil le plus haut dont tous les caractères sont
+acquis, et signale quand une version plus riche s'ouvre (épic 2c). La glose est ce qui
+s'affiche au toucher d'un caractère pendant la lecture. `generation` et `statut` ne sont
+pas exportés : ils restent côté pipeline.
