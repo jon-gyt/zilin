@@ -475,3 +475,12 @@ describe("l'arbre d'une grande famille", () => {
     expect(arbre.hauteur).toBe(ARBRE_H);
   });
 });
+
+describe('les écrans de Ma forêt', () => {
+  it("mène aux récompenses : l'écran existait sans porte d'entrée", () => {
+    const foret = readFileSync(new URL('Forest.svelte', import.meta.url), 'utf8');
+    const app = readFileSync(new URL('../App.svelte', import.meta.url), 'utf8');
+    expect(foret).toContain('onrecompenses');
+    expect(app).toContain("onrecompenses={() => (ecran = 'rewards')}");
+  });
+});

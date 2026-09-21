@@ -44,13 +44,16 @@
     p,
     jour,
     onfamille,
-    onjouer
+    onjouer,
+    onrecompenses
   }: {
     p: Progress;
     jour: string;
     onfamille: (fam: Noeud) => void;
     /** Les jeux (épic 4b) : une ligne, le choix se fait sur l'écran hôte. */
     onjouer: () => void;
+    /** Les récompenses vivent dans Ma forêt : c'est d'ici qu'on y entre. */
+    onrecompenses: () => void;
   } = $props();
 
   let index = $state<Index | null>(null);
@@ -407,7 +410,10 @@
     <div class="card"><div class="k">Familles ouvertes</div><div class="big">{ouvertes}</div></div>
   </div>
 
-  <button class="btn ghost jouer" onclick={onjouer}>Jouer</button>
+  <div class="acts">
+    <button class="btn ghost" onclick={onjouer}>Jouer</button>
+    <button class="btn ghost" onclick={onrecompenses}>Récompenses</button>
+  </div>
 
   <div class="card semaine">
     <div class="row">

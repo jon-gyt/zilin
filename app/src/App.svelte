@@ -445,7 +445,7 @@
     onretour={quitterJeu}
   />
 {:else if ecran === 'rewards'}
-  <!-- Récompenses : Ma forêt y mènera (épic 4). L'aiguillage est prêt. -->
+  <!-- Récompenses : on y entre depuis Ma forêt, et le retour y ramène. -->
   <Rewards {p} onretour={quitter} />
 {:else}
   <div class="onglets">
@@ -465,6 +465,7 @@
           jour={today()}
           onfamille={(f) => (famille = f)}
           onjouer={() => ouvrirJeux('foret')}
+          onrecompenses={() => (ecran = 'rewards')}
         />
       {/if}
     {:else if onglet === 'reglages'}
