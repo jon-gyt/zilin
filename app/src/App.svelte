@@ -20,14 +20,18 @@
   import { toutesLesFamilles, type Noeud } from './lib/content';
   import Warm from './lib/Warm.svelte';
   import {
+    CARTES_PAR_BLOC,
+    CARTES_PAR_SEANCE,
     allDone,
     assurerCartes,
     cartesDues,
     currentStep,
     emptyProgress,
+    faitPasCourant,
+    finEchauffer,
+    finFixer,
     learnNext,
-    markDone,
-    nextIndex,
+    nombreDues,
     noterActivite,
     noterJourTravaille,
     noterRevision,
@@ -38,6 +42,7 @@
     departNext,
     finDepart,
     setBudget,
+    setDue,
     setParcours,
     setFix,
     setLearnView,
@@ -88,6 +93,7 @@
   /** Réglages : le budget, le tracé, une progression importée. */
   function remplacer(nouvelle: Progress): void {
     p = nouvelle;
+    majDue();
     enregistrer();
   }
 
@@ -101,7 +107,9 @@
 
   /** Au démarrage : on relit la progression et on ouvre la journée. */
   void loadProgress().then((stored) => {
-    const ouvert = openDay(stored, today());
+    const jour = today();
+    /* La pile due est recomptée sur les cartes : c'est elle qui ouvre et ferme le rattrapage. */
+    const ouvert = setDue(openDay(stored, jour), nombreDues(stored, new Date()), jour);
     p = ouvert;
     if (ouvert !== stored) void saveProgress(ouvert);
     chargee = true;
@@ -128,8 +136,17 @@
 
   /** Marque le pas courant fait, s'il en reste un. */
   function fairePasCourant(): void {
-    const n = nextIndex(p);
-    if (n >= 0) p = markDone(p, n, today());
+    p = faitPasCourant(p, today());
+  }
+
+  /**
+   * Recompte la pile due sur les cartes. C'est la seule entrée du rattrapage : il
+   * s'ouvre quand la pile a débordé après une absence, et se referme dès qu'elle est
+   * redescendue. Appelé aux moments où les cartes changent, jamais au milieu d'une
+   * question : la liste des pas ne doit pas bouger sous les doigts.
+   */
+  function majDue(): void {
+    p = setDue(p, nombreDues(p, new Date()), today());
   }
 
   /**
@@ -139,9 +156,11 @@
    */
   function ouvrirRevision(): void {
     if (p.revue.length === 0) {
+      /* Un bloc de rattrapage prend cinq minutes de cartes, une séance en prend quatorze. */
+      const max = p.catchup ? CARTES_PAR_BLOC : CARTES_PAR_SEANCE;
       p = setRevue(
         p,
-        cartesDues(p, new Date()).map((c) => c.id)
+        cartesDues(p, new Date(), max).map((c) => c.id)
       );
       if (p.revue.length === 0) fairePasCourant();
     }
@@ -204,6 +223,7 @@
       .catch(() => [])
       .then((cs) => {
         p = finDepart(p, today(), new Date(), cs);
+        majDue();
         ecran = 'home';
         enregistrer();
       });
@@ -225,9 +245,11 @@
     enregistrer();
   }
 
-  /** La séance finie : le pas est fait, retour au chemin. */
+  /** La séance finie : le pas est fait, la pile se vide, retour au chemin. */
   function echaufferFini(): void {
-    fairePasCourant();
+    p = finEchauffer(p, today());
+    /* La pile a baissé : le rattrapage se referme quand elle est redescendue. */
+    majDue();
     ecran = 'home';
     enregistrer();
   }
@@ -258,6 +280,7 @@
       /* Ce qui vient d'être appris entre en révision : une carte neuve par caractère. */
       p = assurerCartes(p, [brique, ...(compose === null ? [] : [compose])], new Date());
       p = setLearnView(p, 'brique');
+      majDue();
       ecran = 'home';
     }
     enregistrer();
@@ -307,8 +330,8 @@
 
   /** La vérification finie : le pas est fait, retour au chemin. */
   function fixerFini(): void {
-    fairePasCourant();
-    p = setFix(p, 0);
+    p = finFixer(p, today());
+    majDue();
     ecran = 'home';
     enregistrer();
   }
@@ -346,6 +369,7 @@
   /** La manche finie : une activité « jeu » pour Tao, une seule par manche. */
   function jeuFini(): void {
     p = noterActivite(p, today(), 'jeu');
+    majDue();
     enregistrer();
   }
 

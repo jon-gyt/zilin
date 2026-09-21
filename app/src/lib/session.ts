@@ -261,6 +261,12 @@ export function markDone(p: Progress, i: number, aujourdhui: string): Progress {
   return { ...p, done, days: premier ? p.days + 1 : p.days, lastWorked: aujourdhui };
 }
 
+/** Marque fait le pas courant, s'il en reste un. L'aiguillage n'a rien à décider. */
+export function faitPasCourant(p: Progress, aujourdhui: string): Progress {
+  const i = nextIndex(p);
+  return i < 0 ? p : markDone(p, i, aujourdhui);
+}
+
 /**
  * Plante la graine du jour : la journée entre dans les journées travaillées. Appelé à la
  * clôture, une seule fois par journée. Une graine plantée ne se retire jamais.
@@ -337,6 +343,14 @@ export function cartesDues(
   return due(p.cartes, maintenant).slice(0, Math.max(0, max));
 }
 
+/**
+ * Le nombre réel de cartes dues, sans plafond : c'est lui, et non ce qu'une séance
+ * absorbe, qui dit si la pile a débordé et si le rattrapage tient (`setDue`).
+ */
+export function nombreDues(p: Progress, maintenant: Date): number {
+  return due(p.cartes, maintenant).length;
+}
+
 /** Fige la pile de la séance : elle ne bouge plus de la journée. */
 export function setRevue(p: Progress, ids: readonly string[]): Progress {
   return { ...p, revue: [...ids] };
@@ -345,6 +359,11 @@ export function setRevue(p: Progress, ids: readonly string[]): Progress {
 /** Ouvre une question du pas Échauffer : la reprise reprend la séance où elle en est. */
 export function setRev(p: Progress, i: number): Progress {
   return { ...p, rev: Math.max(0, Math.floor(i)) };
+}
+
+/** Fin de la séance d'Échauffer : le pas est fait, et la pile se vide pour le bloc suivant. */
+export function finEchauffer(p: Progress, aujourdhui: string): Progress {
+  return { ...faitPasCourant(p, aujourdhui), revue: [], rev: 0 };
 }
 
 /* ---------- la première session ---------- */
@@ -446,6 +465,11 @@ export function setFix(p: Progress, i: number): Progress {
   return { ...p, fix: Math.max(0, Math.floor(i)) };
 }
 
+/** Fin de la vérification : le pas est fait, la vérification repart à zéro. */
+export function finFixer(p: Progress, aujourdhui: string): Progress {
+  return { ...faitPasCourant(p, aujourdhui), fix: 0 };
+}
+
 /**
  * Note une réponse : l'événement de révision est rangé dans la journée, et une
  * activité « révision » est comptée pour Tao. Une réponse, une bouchée.
@@ -496,7 +520,8 @@ export function sessionSteps(p: Progress): Step[] {
     {
       id: 'echauffer',
       t: 'Échauffer',
-      d: p.due > 0 ? `${p.due} cartes en questions` : 'Les révisions dues',
+      /* Ce que la séance absorbe vraiment : le reste de la pile attend le lendemain. */
+      d: p.due > 0 ? `${Math.min(p.due, CARTES_PAR_SEANCE)} cartes en questions` : 'Les révisions dues',
       m: m[1],
       go: 'rev'
     },
@@ -514,7 +539,8 @@ export function catchupSteps(due: number): Step[] {
   const reste = due % n;
   const blocs: Step[] = [];
   for (let i = 0; i < n; i++) {
-    const cartes = base + (i < reste ? 1 : 0);
+    /* Un bloc, cinq minutes : ce qu'il ne prend pas attend le bloc ou la journée d'après. */
+    const cartes = Math.min(CARTES_PAR_BLOC, base + (i < reste ? 1 : 0));
     blocs.push({
       id: 'reviser',
       t: 'Réviser',
