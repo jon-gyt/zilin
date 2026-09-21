@@ -242,10 +242,21 @@ function courbe(x1: number, y1: number, x2: number, y2: number, acquis: boolean)
   return { d: `M ${d2(x1)} ${y1} C ${d2(x1)} ${m} ${d2(x2)} ${m} ${d2(x2)} ${y2}`, acquis };
 }
 
+/**
+ * Combien de membres tiennent sur un rang, et de combien les rangs se succèdent.
+ * Les familles de l'export vont jusqu'à dix-sept membres (口) : au-delà d'un rang,
+ * les caractères se chevaucheraient, alors on passe à la ligne.
+ */
+export const ARBRE_PAR_RANG = 9;
+export const ARBRE_RANG_H = 78;
+export const ARBRE_Y1 = 190;
+
 /** Pose l'arbre d'une famille : la racine en haut, ses générations en dessous. */
 export function placerArbre(fam: Noeud): Arbre {
   const n = fam.membres.length;
-  const ecart = Math.min(88, n > 0 ? 440 / n : 88);
+  const rangs = Math.max(1, Math.ceil(n / ARBRE_PAR_RANG));
+  const parRang = Math.ceil(n / rangs);
+  const ecart = Math.min(88, parRang > 0 ? 440 / parRang : 88);
   const ouverte = fam.avancement > 0;
   const liens: LienPose[] = [];
   const noeuds: NoeudArbre[] = [
@@ -259,24 +270,33 @@ export function placerArbre(fam: Noeud): Arbre {
       verrouille: !ouverte
     }
   ];
+  let basse = ARBRE_Y1;
   fam.membres.forEach((k, j) => {
-    const x = d2(260 + (j - (n - 1) / 2) * ecart);
-    liens.push(courbe(260, 60 + ARBRE_R0, x, 190 - ARBRE_R1, k.avancement > 0));
+    const rang = Math.floor(j / parRang);
+    /* Le dernier rang peut être plus court : il reste centré comme les autres. */
+    const dansLeRang = Math.min(parRang, n - rang * parRang);
+    const place = j - rang * parRang;
+    const x = d2(260 + (place - (dansLeRang - 1) / 2) * ecart);
+    const y = ARBRE_Y1 + rang * ARBRE_RANG_H;
+    basse = Math.max(basse, y);
+    liens.push(courbe(260, 60 + ARBRE_R0, x, y - ARBRE_R1, k.avancement > 0));
     noeuds.push({
       c: k.c,
       x,
-      y: 190,
+      y,
       r: ARBRE_R1,
       etat: etat(k.avancement),
       generation: 1,
       verrouille: !ouverte && k.avancement <= 0
     });
     k.membres.forEach((g) => {
-      liens.push(courbe(x, 190 + ARBRE_R1, x, 310 - ARBRE_R2, g.avancement >= 1));
+      const gy = y + 120;
+      basse = Math.max(basse, gy);
+      liens.push(courbe(x, y + ARBRE_R1, x, gy - ARBRE_R2, g.avancement >= 1));
       noeuds.push({
         c: g.c,
         x,
-        y: 310,
+        y: gy,
         r: ARBRE_R2,
         etat: etat(g.avancement),
         generation: 2,
@@ -284,7 +304,12 @@ export function placerArbre(fam: Noeud): Arbre {
       });
     });
   });
-  return { largeur: ARBRE_L, hauteur: ARBRE_H, liens, noeuds };
+  return {
+    largeur: ARBRE_L,
+    hauteur: Math.max(ARBRE_H, basse + ARBRE_R1 + 30),
+    liens,
+    noeuds
+  };
 }
 
 /** La famille d'index `i`, `null` si le cercle ne la porte pas. */

@@ -12,6 +12,9 @@ import {
 } from './content';
 import {
   ANNEAUX,
+  ARBRE_H,
+  ARBRE_PAR_RANG,
+  ARBRE_Y1,
   AVANCEMENT_ENCOURS,
   CENTRE,
   CX,
@@ -427,5 +430,48 @@ describe('les familles posées sur le cercle', () => {
     expect(marques).toHaveLength(1);
     expect(marques[0].c).toBe(moment);
     expect(marques[0].generation).toBe(0);
+  });
+});
+
+describe("l'arbre d'une grande famille", () => {
+  /** La famille 口 de l'export : dix-sept caractères, plus que ne tient un rang. */
+  const grande: Noeud = {
+    c: '口',
+    pinyin: 'kǒu',
+    fr: '',
+    avancement: 0,
+    membres: [...'别只叫右号吃吗吧听呢哪唱跑路加否'].map((c) => ({
+      c,
+      pinyin: '',
+      fr: '',
+      avancement: 0,
+      membres: []
+    }))
+  };
+
+  it('passe à la ligne plutôt que de faire se chevaucher les caractères', () => {
+    const arbre = placerArbre(grande);
+    const membres = arbre.noeuds.filter((n) => n.generation === 1);
+    expect(membres).toHaveLength(grande.membres.length);
+    const rangs = [...new Set(membres.map((n) => n.y))];
+    expect(rangs.length).toBeGreaterThan(1);
+    for (const y of rangs) {
+      const rang = membres.filter((n) => n.y === y).sort((a, b) => a.x - b.x);
+      expect(rang.length).toBeLessThanOrEqual(ARBRE_PAR_RANG);
+      /* Deux voisins d'un même rang ne se recouvrent jamais. */
+      for (let i = 1; i < rang.length; i++) {
+        expect(rang[i].x - rang[i - 1].x).toBeGreaterThanOrEqual(2 * rang[i].r);
+      }
+    }
+    /* Le dessin s'agrandit d'autant : aucun nœud ne sort de la boîte. */
+    for (const n of arbre.noeuds) expect(n.y + n.r).toBeLessThanOrEqual(arbre.hauteur);
+  });
+
+  it("garde le dessin d'une petite famille tel quel", () => {
+    const petite: Noeud = { ...grande, membres: grande.membres.slice(0, 4) };
+    const arbre = placerArbre(petite);
+    const membres = arbre.noeuds.filter((n) => n.generation === 1);
+    expect(new Set(membres.map((n) => n.y))).toEqual(new Set([ARBRE_Y1]));
+    expect(arbre.hauteur).toBe(ARBRE_H);
   });
 });
