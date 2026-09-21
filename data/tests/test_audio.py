@@ -6,6 +6,9 @@ la parole. Aucun fichier audio réel n'entre dans le dépôt, et aucun n'est inv
 from __future__ import annotations
 
 import json
+import struct
+import sys
+import wave
 from pathlib import Path
 
 import pytest
@@ -16,22 +19,35 @@ from zilin_data.audio import (
     CARACTERE,
     DES_FICHES,
     DES_LISTES,
+    ECHANTILLONNAGE,
     FORMAT,
+    FORMAT_REPLI,
     LONGUEUR_NOM,
     MANIFESTE,
     MANIFESTE_EXPORT,
     MOT,
+    NOM_LOCAL,
     VOIX_DEFAUT,
+    VOIX_LOCALE_DEFAUT,
     CleAbsente,
+    EncodeurFfmpeg,
+    EncodeurWav,
     FournisseurAzure,
+    FournisseurInconnu,
+    FournisseurLocal,
     FournisseurSimule,
     Licence,
+    MoteurKokoro,
+    PaquetAbsent,
     ParcoursInconnu,
     TexteAudio,
     chemins_exportes,
     controles,
+    encodeur_defaut,
     exporter,
+    fabriquer,
     fournisseur_azure,
+    fournisseur_local,
     generer,
     lire_manifeste,
     nom_fichier,
@@ -143,9 +159,10 @@ def test_sans_cle_le_fournisseur_refuse_de_partir(monkeypatch: pytest.MonkeyPatc
 
 
 def test_sans_cle_rien_nest_ecrit(monkeypatch: pytest.MonkeyPatch, tmp_path: Path) -> None:
+    """Azure n'est plus le défaut : il faut le nommer pour qu'il réclame sa clé."""
     monkeypatch.delenv(module.CLE_ENV, raising=False)
     monkeypatch.setattr(module, "AUDIO_WORK", tmp_path / "audio")
-    resultat = CliRunner().invoke(cli, ["audio", "generer"])
+    resultat = CliRunner().invoke(cli, ["audio", "generer", "--fournisseur", "azure"])
     assert resultat.exit_code == 2
     assert not (tmp_path / "audio").exists()
 
@@ -167,6 +184,251 @@ def test_le_ssml_echappe_le_texte(monkeypatch: pytest.MonkeyPatch) -> None:
     ssml = FournisseurAzure().ssml("人 & <人>", VOIX_DEFAUT)
     assert "&amp;" in ssml and "&lt;人&gt;" in ssml
     assert ssml.count("<voice") == 1
+
+
+# --------------------------------------------------------------------------- voix locale
+
+
+class MoteurDeTest:
+    """Moteur injecté : des échantillons déterministes, aucun modèle, aucun poids.
+
+    Il rend une rampe, pas de la parole — comme `FournisseurSimule`, il ne prétend
+    pas le contraire. Il sert à contrôler le format du fichier, le manifeste et la
+    licence sans télécharger 300 Mo de poids ni installer torch.
+    """
+
+    echantillonnage = ECHANTILLONNAGE
+
+    def __init__(self, duree: float = 0.05) -> None:
+        self.duree = duree
+        self.appels: list[tuple[str, str]] = []
+
+    @property
+    def nombre(self) -> int:
+        return int(self.echantillonnage * self.duree)
+
+    def echantillons(self, texte: str, voix: str) -> list[float]:
+        self.appels.append((texte, voix))
+        return [(i % 100) / 50.0 - 1.0 for i in range(self.nombre)]
+
+
+def _local(moteur: MoteurDeTest | None = None, **kw: object) -> FournisseurLocal:
+    """Fournisseur local de test : moteur injecté, WAV, jamais ffmpeg ni Kokoro."""
+    return FournisseurLocal(moteur=moteur or MoteurDeTest(), encodeur=EncodeurWav(), **kw)  # type: ignore[arg-type]
+
+
+def _sans_paquet(monkeypatch: pytest.MonkeyPatch) -> None:
+    monkeypatch.setattr(module, "paquet_local_present", lambda: False)
+
+
+def _avec_paquet(monkeypatch: pytest.MonkeyPatch) -> None:
+    monkeypatch.setattr(module, "paquet_local_present", lambda: True)
+
+
+def test_le_fournisseur_local_est_selectionnable(monkeypatch: pytest.MonkeyPatch) -> None:
+    """`fabriquer` rend la voix locale, et c'est elle le défaut."""
+    _avec_paquet(monkeypatch)
+    assert isinstance(fabriquer("local"), FournisseurLocal)
+    assert isinstance(fabriquer(), FournisseurLocal)
+    assert fabriquer("local").voix == VOIX_LOCALE_DEFAUT
+    assert fabriquer("local", "zm_010").voix == "zm_010"
+
+
+def test_le_fournisseur_azure_reste_selectionnable(monkeypatch: pytest.MonkeyPatch) -> None:
+    monkeypatch.setenv(module.CLE_ENV, "clé-de-test")
+    fournisseur = fabriquer("azure")
+    assert isinstance(fournisseur, FournisseurAzure) and fournisseur.voix == VOIX_DEFAUT
+
+
+def test_le_moteur_simule_nest_pas_accessible_depuis_la_cli(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
+    """Ce qui sort du pipeline est une voix réelle ou rien."""
+    with pytest.raises(FournisseurInconnu):
+        fabriquer("simule")
+
+    monkeypatch.setattr(module, "AUDIO_WORK", tmp_path / "audio")
+    resultat = CliRunner().invoke(cli, ["audio", "generer", "--fournisseur", "simule"])
+    assert resultat.exit_code == 1
+    assert not (tmp_path / "audio").exists()
+
+
+def test_sans_le_paquet_le_fournisseur_local_refuse_de_partir(monkeypatch: pytest.MonkeyPatch) -> None:
+    _sans_paquet(monkeypatch)
+    with pytest.raises(PaquetAbsent) as erreur:
+        fournisseur_local()
+    assert module.PAQUET_LOCAL in str(erreur.value)
+    assert "uv sync --extra audio" in str(erreur.value)
+
+
+def test_sans_le_paquet_la_cli_sort_en_deux_et_necrit_rien(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    _sans_paquet(monkeypatch)
+    monkeypatch.setattr(module, "AUDIO_WORK", tmp_path / "audio")
+    resultat = CliRunner().invoke(cli, ["audio", "generer", "--fournisseur", "local"])
+    assert resultat.exit_code == 2
+    assert module.PAQUET_LOCAL in resultat.output
+    assert not (tmp_path / "audio").exists()
+
+
+def test_le_chargement_du_modele_est_paresseux(monkeypatch: pytest.MonkeyPatch) -> None:
+    """Construire le fournisseur n'importe rien : ni kokoro, ni torch."""
+    _sans_paquet(monkeypatch)
+    monkeypatch.delitem(sys.modules, "kokoro", raising=False)
+
+    fournisseur = _local()
+    assert fournisseur.nom == NOM_LOCAL
+    assert "kokoro" not in sys.modules
+
+    assert fournisseur.synthetiser("人", fournisseur.voix)
+    assert "kokoro" not in sys.modules
+
+
+def test_le_moteur_kokoro_nimporte_quau_premier_texte(monkeypatch: pytest.MonkeyPatch) -> None:
+    """Le moteur réel se construit sans le paquet ; c'est `pipeline()` qui exige."""
+    monkeypatch.setitem(sys.modules, "kokoro", None)  # l'import lèvera ImportError
+
+    moteur = MoteurKokoro()
+    assert moteur.modele == module.MODELE_LOCAL and moteur.langue == module.LANGUE_LOCALE
+    with pytest.raises(PaquetAbsent):
+        moteur.pipeline()
+
+
+def test_le_moteur_injecte_produit_un_fichier_au_bon_format(tmp_path: Path) -> None:
+    """Mono, 24 kHz, 16 bits : ce que le WAV de repli doit porter, en-tête comprise."""
+    moteur = MoteurDeTest()
+    fournisseur = _local(moteur)
+    assert fournisseur.format == FORMAT_REPLI
+
+    rapport = generer(CARACTERES, fournisseur, dossier=tmp_path)
+    assert rapport.crees == ["人", "大"]
+    assert [t for t, _ in moteur.appels] == ["人", "大"]
+
+    fichier = tmp_path / lire_manifeste(tmp_path).entrees["人"].fichier
+    assert fichier.suffix == f".{FORMAT_REPLI}"
+    with wave.open(str(fichier), "rb") as lu:
+        assert lu.getnchannels() == module.CANAUX
+        assert lu.getsampwidth() == 2
+        assert lu.getframerate() == ECHANTILLONNAGE
+        assert lu.getnframes() == moteur.nombre
+
+
+def test_le_manifeste_porte_le_fournisseur_et_la_voix_locaux(tmp_path: Path) -> None:
+    generer(MOTS, _local(), dossier=tmp_path, )
+    entree = lire_manifeste(tmp_path).entrees["天天"]
+    assert entree.fournisseur == NOM_LOCAL
+    assert entree.voix == VOIX_LOCALE_DEFAUT
+    assert entree.format == FORMAT_REPLI
+    assert entree.fichier == nom_fichier("天天", VOIX_LOCALE_DEFAUT, NOM_LOCAL, FORMAT_REPLI)
+
+
+def test_la_cli_locale_ecrit_le_manifeste_du_bon_fournisseur(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    """Le chemin complet : `--fournisseur local --voix …`, sans paquet ni poids."""
+    _avec_paquet(monkeypatch)
+    monkeypatch.setattr(module, "AUDIO_WORK", tmp_path)
+    monkeypatch.setattr(module, "perimetre", lambda *a, **k: list(CARACTERES))
+    monkeypatch.setattr(module, "fabriquer", lambda nom, voix: _local(voix=voix or "zm_010"))
+
+    resultat = CliRunner().invoke(cli, ["audio", "generer", "--fournisseur", "local", "--voix", "zf_003"])
+    assert resultat.exit_code == 0, resultat.output
+    assert f"Fournisseur {NOM_LOCAL}, voix zf_003" in resultat.output
+
+    entrees = lire_manifeste(tmp_path).entrees
+    assert {e.fournisseur for e in entrees.values()} == {NOM_LOCAL}
+    assert {e.voix for e in entrees.values()} == {"zf_003"}
+
+
+def test_la_licence_locale_est_declaree_et_verifiee() -> None:
+    """Lue sur une source primaire : le dépôt de l'auteur, le 21 septembre 2026."""
+    licence = _local().licence
+    assert licence.verifie is True
+    assert licence.url.startswith("https://raw.githubusercontent.com/hexgrad/kokoro/")
+    assert licence.date_lecture == "2026-09-21"
+    assert module.A_VERIFIER not in licence.usage_commercial
+    assert module.A_VERIFIER not in licence.redevance_par_ecoute
+    assert "Apache" in licence.usage_commercial
+    assert licence.en_json()["verifie"] is True
+
+
+def test_la_licence_locale_ne_declenche_pas_lavertissement(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    """L'avertissement « à vérifier » est pour Azure, pas pour la voix locale."""
+    _avec_paquet(monkeypatch)
+    monkeypatch.setattr(module, "AUDIO_WORK", tmp_path)
+    monkeypatch.setattr(module, "perimetre", lambda *a, **k: list(CARACTERES))
+    monkeypatch.setattr(module, "fabriquer", lambda nom, voix: _local())
+
+    resultat = CliRunner().invoke(cli, ["audio", "generer"])
+    assert resultat.exit_code == 0, resultat.output
+    assert module.A_VERIFIER not in resultat.output
+
+
+# --------------------------------------------------------------------------- encodage
+
+
+def test_sans_ffmpeg_lencodeur_est_le_repli_wav(monkeypatch: pytest.MonkeyPatch) -> None:
+    monkeypatch.setattr(module.shutil, "which", lambda _: None)
+    encodeur = encodeur_defaut()
+    assert isinstance(encodeur, EncodeurWav) and encodeur.format == FORMAT_REPLI
+
+
+def test_avec_ffmpeg_lencodeur_vise_le_mp3(monkeypatch: pytest.MonkeyPatch) -> None:
+    monkeypatch.setattr(module.shutil, "which", lambda _: "/usr/bin/ffmpeg")
+    encodeur = encodeur_defaut()
+    assert isinstance(encodeur, EncodeurFfmpeg) and encodeur.format == FORMAT
+
+
+def test_la_commande_ffmpeg_demande_mono_24_khz_48_kbit() -> None:
+    """Le format du brief, mot pour mot, et le même que celui demandé à Azure."""
+    commande = EncodeurFfmpeg("/usr/bin/ffmpeg").commande(ECHANTILLONNAGE)
+    assert commande[0] == "/usr/bin/ffmpeg"
+    assert commande[commande.index("-b:a") + 1] == "48k"
+    assert commande[-3:] == ["-f", "mp3", "pipe:1"]
+    apres = commande[commande.index("-i") :]
+    assert apres[apres.index("-ac") + 1] == "1"
+    assert apres[apres.index("-ar") + 1] == str(ECHANTILLONNAGE)
+
+
+class _EncodeurFactice:
+    """Un encodeur qui annonce le MP3 sans ffmpeg : sert au seul test de nommage."""
+
+    format = FORMAT
+
+    def encoder(self, echantillons: object, echantillonnage: int) -> bytes:
+        return b"ID3" + bytes(64)
+
+
+def test_le_repli_ne_se_confond_pas_avec_le_mp3(tmp_path: Path) -> None:
+    """Le format entre dans le nom : repasser avec ffmpeg refait sans écraser."""
+    assert nom_fichier("人", VOIX_LOCALE_DEFAUT, NOM_LOCAL, FORMAT_REPLI) != nom_fichier(
+        "人", VOIX_LOCALE_DEFAUT, NOM_LOCAL, FORMAT
+    )
+    generer(CARACTERES, _local(), dossier=tmp_path)
+    rapport = generer(
+        CARACTERES,
+        FournisseurLocal(moteur=MoteurDeTest(), encodeur=_EncodeurFactice()),
+        dossier=tmp_path,
+    )
+    assert rapport.crees == ["人", "大"]
+    assert len(list(tmp_path.glob(f"*.{FORMAT_REPLI}"))) == 2
+    assert len(list(tmp_path.glob(f"*.{FORMAT}"))) == 2
+
+
+def test_un_moteur_muet_est_un_echec_pas_un_fichier_vide(tmp_path: Path) -> None:
+    class Muet(MoteurDeTest):
+        def echantillons(self, texte: str, voix: str) -> list[float]:
+            return []
+
+    rapport = generer(CARACTERES, _local(Muet()), dossier=tmp_path)
+    assert rapport.crees == [] and len(rapport.echecs) == 2
+    assert list(tmp_path.glob(f"*.{FORMAT_REPLI}")) == []
+
+
+def test_les_echantillons_hors_bornes_sont_ecretes() -> None:
+    """Un dépassement ne doit pas s'entendre comme un claquement."""
+    assert struct.unpack("<3h", module._pcm16([2.0, -2.0, 0.0])) == (32767, -32768, 0)
 
 
 # --------------------------------------------------------------------------- périmètre

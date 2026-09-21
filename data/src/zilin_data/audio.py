@@ -12,16 +12,28 @@ manifeste `data/work/audio/audio.json`, `exporter()` copie le périmètre dans
 `app/public/data/<version>/audio/` avec son manifeste. `controles()` signale les
 textes du périmètre qui n'ont pas de voix.
 
-Licence (`docs/sources-licences.md`, ligne « Audio ») : le critère posé est le droit
+Licence (`docs/sources-licences.md`, lignes « Audio ») : le critère posé est le droit
 de redistribuer les fichiers générés, embarqués dans une app payante, sans redevance
-par écoute. Aucune page de conditions n'a pu être lue depuis cet environnement (le
-proxy de sortie bloque `aws.amazon.com`, `learn.microsoft.com`, `elevenlabs.io`,
-`openai.com` et `docs.cloud.google.com`) : la `Licence` du fournisseur réel est donc
-remplie « à vérifier », `verifie=False`, et `zilin audio generer` le dit à chaque
-passage. Tant que cette ligne n'est pas vérifiée sur une source primaire, aucun
-fichier synthétisé n'entre dans un artefact distribué.
+par écoute. Deux fournisseurs réels, et le défaut a changé.
 
-Format retenu : MP3 mono 24 kHz à 48 kbit/s. Le débit tient la cible de taille — 6 Ko
+`FournisseurLocal` (Kokoro) est le défaut : un modèle ouvert de 82 millions de
+paramètres, exécuté dans le pipeline. Rien n'est appelé, rien n'est facturé, et nous
+ne redistribuons ni le code ni les poids — seulement des fichiers produits chez nous.
+L'Apache 2.0 a été lue en entier sur le dépôt de l'auteur le 21 septembre 2026, donc
+`verifie=True`. La question de la redistribution disparaît au lieu d'être tranchée.
+
+`FournisseurAzure` reste en second, inchangé : aucune page de conditions n'a pu être
+lue depuis cet environnement (le proxy de sortie bloque `learn.microsoft.com`), sa
+`Licence` est donc « à vérifier », `verifie=False`, et `zilin audio generer
+--fournisseur azure` le dit à chaque passage. Tant que cette ligne n'est pas vérifiée
+sur une source primaire, aucun fichier synthétisé par Azure n'entre dans un artefact
+distribué.
+
+Format retenu, quel que soit le fournisseur : MP3 mono 24 kHz à 48 kbit/s. Azure le
+rend directement ; le fournisseur local rend des échantillons à 24 kHz — la fréquence
+native de Kokoro, sans rééchantillonnage — que `EncodeurFfmpeg` met au même format.
+Sans ffmpeg, le repli est un WAV PCM 16 bits documenté, dix fois plus lourd, bon pour
+écouter un lot mais pas pour l'embarqué. Le débit tient la cible de taille — 6 Ko
 par seconde de parole, donc moins de 15 Ko pour un caractère (0,6 à 1 s) comme pour un
 mot de deux caractères. Opus descendrait encore de moitié, mais la lecture d'un Ogg
 Opus par un `HTMLAudioElement` n'est acquise sur iOS que depuis Safari 17.5 ; le MP3
@@ -33,9 +45,15 @@ sert aux tests, et lui seul. Ce qui sort du pipeline est une voix réelle ou rie
 from __future__ import annotations
 
 import hashlib
+import importlib.util
+import io
 import json
 import os
 import shutil
+import subprocess
+import sys
+import wave
+from array import array
 from dataclasses import dataclass, field
 from datetime import UTC, datetime
 from pathlib import Path
@@ -89,6 +107,19 @@ class ParcoursInconnu(ValueError):
 
 class CleAbsente(RuntimeError):
     """Aucune clé de fournisseur : rien n'est synthétisé, rien n'est écrit."""
+
+
+class PaquetAbsent(RuntimeError):
+    """Le paquet du fournisseur local n'est pas installé : rien n'est écrit.
+
+    Le pendant de `CleAbsente` pour la voix locale. Le pipeline reste utilisable sans
+    le groupe optionnel `audio` de `pyproject.toml` ; seule la génération s'arrête,
+    avant le premier octet écrit.
+    """
+
+
+class FournisseurInconnu(ValueError):
+    """Nom de fournisseur hors de ceux qu'expose la ligne de commande."""
 
 
 class SyntheseImpossible(RuntimeError):
@@ -292,6 +323,329 @@ class FournisseurAzure:
 def fournisseur_azure(voix: str = VOIX_DEFAUT) -> Fournisseur:
     """Fournisseur réel. Refuse de partir sans clé, sans rien écrire."""
     return FournisseurAzure(voix)
+
+
+# --------------------------------------------------------------- fournisseur local (Kokoro)
+
+#: Nom du fournisseur local dans le manifeste. C'est le modèle, pas le service.
+NOM_LOCAL = "kokoro"
+
+#: Paquet PyPI à installer : groupe optionnel `audio` de `data/pyproject.toml`.
+PAQUET_LOCAL = "kokoro"
+
+#: Dépôt des poids. La version 1.1-zh est celle qui porte les voix mandarin ; le dépôt
+#: de base `hexgrad/Kokoro-82M` n'en a pas. `KPipeline` s'en sert aussi pour choisir la
+#: génération du G2P chinois (`misaki.zh.ZHG2P(version='1.1')`).
+MODELE_LOCAL = "hexgrad/Kokoro-82M-v1.1-zh"
+
+#: Code de langue Kokoro du mandarin (`KPipeline(lang_code=...)`), vu dans `pipeline.py`.
+LANGUE_LOCALE = "z"
+
+#: Voix par défaut : une voix féminine mandarin de Kokoro v1.1-zh.
+VOIX_LOCALE_DEFAUT = "zf_001"
+
+#: Fréquence rendue par Kokoro, qui est aussi celle que vise le pipeline. Aucun
+#: rééchantillonnage n'est nécessaire : c'est l'une des raisons du choix.
+ECHANTILLONNAGE = 24_000
+CANAUX = 1
+DEBIT_KBIT = 48
+
+#: Encodeur MP3 : ffmpeg, appelé en sous-processus. Voir `EncodeurFfmpeg`.
+FFMPEG = "ffmpeg"
+
+#: Format du repli quand ffmpeg n'est pas là. Voir `EncodeurWav`.
+FORMAT_REPLI = "wav"
+
+#: Licence du fournisseur local. Lue le 21 septembre 2026 sur le dépôt de l'auteur,
+#: seule source primaire accessible depuis cet environnement (`huggingface.co` est
+#: bloqué par le proxy de sortie) :
+#:
+#: - `https://raw.githubusercontent.com/hexgrad/kokoro/main/LICENSE` : Apache License
+#:   2.0, texte intégral et inchangé (11 357 octets, aucune clause ajoutée).
+#: - `https://raw.githubusercontent.com/hexgrad/kokoro/main/README.md` : « With
+#:   Apache-licensed weights, Kokoro can be deployed anywhere from production
+#:   environments to personal projects. » — les poids aussi, dit l'auteur.
+#:
+#: Ce qui décide, et que `docs/sources-licences.md` pose comme critère : nous ne
+#: redistribuons ni le code ni les poids, seulement des fichiers audio produits chez
+#: nous. L'Apache 2.0 n'encadre pas la sortie d'un modèle ; il n'y a ni redevance par
+#: écoute, ni compteur, ni service à appeler. C'est exactement ce que le montage
+#: cherchait : plus de question de redistribution du tout.
+LICENCE_KOKORO = Licence(
+    fournisseur="Kokoro (hexgrad), modèle ouvert exécuté dans le pipeline",
+    usage_commercial="autorisé sans condition : Apache License 2.0 §2, texte intégral lu sur le dépôt",
+    redistribution=(
+        "sans objet pour nos fichiers : le modèle tourne chez nous et n'est pas "
+        "redistribué ; l'Apache 2.0 n'encadre pas la sortie du modèle. Code et poids "
+        "annoncés Apache 2.0 (LICENSE et README du dépôt) ; la carte de modèle "
+        "Hugging Face n'a pas pu être lue, huggingface.co étant bloqué par le proxy"
+    ),
+    attribution="aucune obligation sur la sortie ; le modèle est cité sur l'écran « Licences » pour la traçabilité",
+    redevance_par_ecoute="aucune : pas de service appelé, pas de facturation à l'usage",
+    url="https://raw.githubusercontent.com/hexgrad/kokoro/main/LICENSE",
+    date_lecture="2026-09-21",
+    verifie=True,
+)
+
+
+class Moteur(Protocol):
+    """Ce qui transforme un texte en échantillons. Injectable : les tests en donnent un.
+
+    Séparer le moteur du fournisseur permet de contrôler tout le reste — format,
+    manifeste, idempotence, licence — sans modèle ni poids téléchargés.
+    """
+
+    echantillonnage: int
+
+    def echantillons(self, texte: str, voix: str) -> Sequence[float]:
+        """Rend la parole en flottants dans [-1, 1], à `echantillonnage` hertz."""
+
+
+class MoteurKokoro:
+    """Kokoro, chargé paresseusement : l'import est dans `pipeline()`, pas ailleurs.
+
+    Importer `kokoro` tire `torch` et `transformers`, quelques secondes et beaucoup de
+    mémoire. Le pipeline doit rester utilisable sans le groupe optionnel `audio` — et
+    `zilin check`, qui touche au module `audio`, ne doit rien charger du tout. D'où
+    l'import à l'intérieur de la méthode, et une instance de `KPipeline` gardée pour
+    tous les textes du lot : les poids ne sont lus qu'une fois.
+    """
+
+    echantillonnage = ECHANTILLONNAGE
+
+    def __init__(self, *, modele: str = MODELE_LOCAL, langue: str = LANGUE_LOCALE) -> None:
+        self.modele = modele
+        self.langue = langue
+        self._pipeline: object | None = None
+
+    def pipeline(self) -> object:
+        """Le `KPipeline`, construit au premier texte. Lève `PaquetAbsent` s'il manque."""
+        if self._pipeline is None:
+            try:
+                from kokoro import KPipeline
+            except ImportError as erreur:  # paquet absent, ou une de ses dépendances
+                raise PaquetAbsent(message_paquet_absent()) from erreur
+            self._pipeline = KPipeline(lang_code=self.langue, repo_id=self.modele)
+        return self._pipeline
+
+    def echantillons(self, texte: str, voix: str) -> Sequence[float]:
+        morceaux = [
+            morceau
+            for _, _, morceau in self.pipeline()(texte, voice=voix)  # type: ignore[operator]
+            if morceau is not None
+        ]
+        valeurs: list[float] = []
+        for morceau in morceaux:
+            # Kokoro rend un tenseur torch ; `tolist` évite d'importer torch ici.
+            valeurs.extend(morceau.tolist() if hasattr(morceau, "tolist") else list(morceau))
+        if not valeurs:
+            raise SyntheseImpossible(f"aucun échantillon rendu pour {texte!r}")
+        return valeurs
+
+
+def message_paquet_absent() -> str:
+    """Le message que lit l'utilisateur quand le paquet local n'est pas installé."""
+    return (
+        f"paquet « {PAQUET_LOCAL} » absent : la voix locale n'est pas installée. "
+        "Installez le groupe optionnel depuis data/ : `uv sync --extra audio`. "
+        "Aucun appel n'est fait et aucun fichier n'est écrit."
+    )
+
+
+def _pcm16(echantillons: Sequence[float]) -> bytes:
+    """Les flottants en PCM 16 bits petit-boutiste, écrêtés à [-1, 1].
+
+    L'écrêtage est explicite : un modèle peut dépasser 1,0 sur une attaque, et un
+    débordement silencieux s'entendrait comme un claquement.
+    """
+    gabarit = array(
+        "h", (max(-32768, min(32767, int(round(v * 32767.0)))) for v in echantillons)
+    )
+    if sys.byteorder == "big":
+        gabarit.byteswap()
+    return gabarit.tobytes()
+
+
+class Encodeur(Protocol):
+    """Ce qui met les échantillons au format des fichiers du pipeline."""
+
+    format: str
+
+    def encoder(self, echantillons: Sequence[float], echantillonnage: int) -> bytes:
+        """Rend le fichier complet, en-tête compris."""
+
+
+class EncodeurFfmpeg:
+    """MP3 mono 24 kHz 48 kbit/s, par ffmpeg en sous-processus, tout en mémoire.
+
+    Pourquoi ffmpeg et pas un paquet Python : c'est le seul moyen d'obtenir exactement
+    le format déjà retenu pour Azure (`SORTIE_AZURE`), donc des fichiers comparables
+    quel que soit le fournisseur. `soundfile` sait écrire du MP3 depuis libsndfile 1.1,
+    mais ne règle qu'un « compression level » sans correspondance stable en kbit/s, et
+    ajouterait une roue binaire à l'installation de base. ffmpeg n'est pas une
+    dépendance Python : il est utilisé s'il est là, et son absence est un repli, pas
+    une erreur (voir `encodeur_defaut`).
+    """
+
+    format = FORMAT
+
+    def __init__(self, binaire: str = FFMPEG, *, debit: int = DEBIT_KBIT, timeout: float = 60.0) -> None:
+        self.binaire = binaire
+        self.debit = debit
+        self.timeout = timeout
+
+    def commande(self, echantillonnage: int) -> list[str]:
+        return [
+            self.binaire,
+            "-hide_banner",
+            "-loglevel", "error",
+            "-f", "s16le",
+            "-ar", str(echantillonnage),
+            "-ac", str(CANAUX),
+            "-i", "pipe:0",
+            "-ar", str(ECHANTILLONNAGE),
+            "-ac", str(CANAUX),
+            "-b:a", f"{self.debit}k",
+            "-f", "mp3",
+            "pipe:1",
+        ]
+
+    def encoder(self, echantillons: Sequence[float], echantillonnage: int) -> bytes:
+        resultat = subprocess.run(  # noqa: S603 — binaire résolu par shutil.which
+            self.commande(echantillonnage),
+            input=_pcm16(echantillons),
+            capture_output=True,
+            timeout=self.timeout,
+        )
+        if resultat.returncode != 0 or not resultat.stdout:
+            motif = resultat.stderr.decode("utf-8", "replace").strip() or "sortie vide"
+            raise SyntheseImpossible(f"{self.binaire} : {motif}")
+        return resultat.stdout
+
+
+class EncodeurWav:
+    """Repli documenté : WAV PCM 16 bits mono 24 kHz, par le module `wave` standard.
+
+    Sans ffmpeg, on ne fabrique pas de MP3 — et on ne fait pas semblant. Le WAV est
+    lisible partout, y compris par un `HTMLAudioElement` sur iOS, mais il pèse environ
+    dix fois le MP3 visé (48 Ko par seconde contre 6). Il tient donc pour écouter un
+    lot et vérifier une voix ; le format embarqué reste le MP3, et `zilin audio
+    exporter` recopie ce que le manifeste porte. Le format entre dans le nom de
+    fichier et dans `a_jour()` : repasser avec ffmpeg installé refait les fichiers en
+    MP3 sans écraser les WAV.
+    """
+
+    format = FORMAT_REPLI
+
+    def encoder(self, echantillons: Sequence[float], echantillonnage: int) -> bytes:
+        tampon = io.BytesIO()
+        with wave.open(tampon, "wb") as sortie:
+            sortie.setnchannels(CANAUX)
+            sortie.setsampwidth(2)
+            sortie.setframerate(echantillonnage)
+            sortie.writeframes(_pcm16(echantillons))
+        return tampon.getvalue()
+
+
+def encodeur_defaut(binaire: str = FFMPEG) -> Encodeur:
+    """ffmpeg s'il est sur le chemin, WAV sinon. Jamais d'échec à la construction."""
+    chemin = shutil.which(binaire)
+    return EncodeurFfmpeg(chemin) if chemin else EncodeurWav()
+
+
+class FournisseurLocal:
+    """Kokoro, exécuté dans le pipeline : aucun service, aucune clé, aucun réseau.
+
+    Pourquoi celui-ci plutôt que MeloTTS ou CosyVoice 2 (comparaison du 21 septembre
+    2026, licences lues sur les dépôts) : les trois sont permissifs — Kokoro et
+    CosyVoice en Apache 2.0, MeloTTS en MIT — mais Kokoro est le seul à cumuler une
+    installation par `uv` sans compilation ni binaire système (paquet `kokoro` sur
+    PyPI, dépendances `misaki[zh]` toutes en Python pur : jieba, pypinyin, cn2an,
+    ordered-set, pypinyin-dict), 82 millions de paramètres qui tiennent sur un CPU, et
+    une sortie déjà à 24 kHz, la fréquence que vise le pipeline. MeloTTS n'a pas de
+    version publiée sur PyPI dans son dépôt officiel — l'installation passe par un
+    clone et `pip install -e .` —, épingle `transformers==4.27.4` et `librosa==0.9.1`,
+    demande `mecab-python3` (extension C) puis un `python -m unidic download`.
+    CosyVoice demande conda, des sous-modules git et `sox` système, pour un modèle de
+    0,5 milliard de paramètres. Voir `docs/sources-licences.md` §9.
+
+    Chargement paresseux : rien n'est importé à la construction. Le moteur n'est bâti
+    qu'au premier texte, et un moteur injecté remplace Kokoro entièrement — c'est ce
+    que font les tests, qui n'ont ni le paquet ni les poids.
+    """
+
+    nom = NOM_LOCAL
+
+    def __init__(
+        self,
+        voix: str = VOIX_LOCALE_DEFAUT,
+        *,
+        modele: str = MODELE_LOCAL,
+        moteur: Moteur | None = None,
+        encodeur: Encodeur | None = None,
+    ) -> None:
+        self.voix = voix
+        self.modele = modele
+        self.licence = LICENCE_KOKORO
+        self.encodeur = encodeur if encodeur is not None else encodeur_defaut()
+        self.format = self.encodeur.format
+        self._moteur = moteur
+
+    @property
+    def moteur(self) -> Moteur:
+        """Le moteur, bâti au premier appel. Aucun import tant qu'on ne synthétise pas."""
+        if self._moteur is None:
+            self._moteur = MoteurKokoro(modele=self.modele)
+        return self._moteur
+
+    def synthetiser(self, texte: str, voix: str) -> bytes:
+        echantillons = self.moteur.echantillons(texte, voix)
+        if not len(echantillons):
+            raise SyntheseImpossible(f"aucun échantillon rendu pour {texte!r}")
+        audio = self.encodeur.encoder(echantillons, self.moteur.echantillonnage)
+        if not audio:
+            raise SyntheseImpossible(f"encodage vide pour {texte!r}")
+        return audio
+
+
+def paquet_local_present() -> bool:
+    """Le paquet est-il installé ? Cherché sans l'importer : torch reste au repos."""
+    return importlib.util.find_spec(PAQUET_LOCAL) is not None
+
+
+def fournisseur_local(voix: str | None = None) -> Fournisseur:
+    """Fournisseur local. Refuse de partir sans le paquet, sans rien écrire."""
+    if not paquet_local_present():
+        raise PaquetAbsent(message_paquet_absent())
+    return FournisseurLocal(voix or VOIX_LOCALE_DEFAUT)
+
+
+# --------------------------------------------------------------------------- choix
+
+LOCAL = "local"
+AZURE = "azure"
+
+#: Ce que la ligne de commande accepte. `FournisseurSimule` n'y est pas, et n'y sera
+#: pas : ce qui sort du pipeline est une voix réelle ou rien.
+FOURNISSEURS = (LOCAL, AZURE)
+
+
+def licence_de(nom: str) -> Licence:
+    """La licence déclarée d'un fournisseur, sans le construire."""
+    if nom == LOCAL:
+        return LICENCE_KOKORO
+    if nom == AZURE:
+        return LICENCE_AZURE
+    raise FournisseurInconnu(f"fournisseur {nom!r} inconnu : {', '.join(FOURNISSEURS)}")
+
+
+def fabriquer(nom: str = LOCAL, voix: str | None = None) -> Fournisseur:
+    """Le fournisseur demandé. Seul point d'entrée de la CLI vers une voix."""
+    if nom == LOCAL:
+        return fournisseur_local(voix)
+    if nom == AZURE:
+        return fournisseur_azure(voix or VOIX_DEFAUT)
+    raise FournisseurInconnu(f"fournisseur {nom!r} inconnu : {', '.join(FOURNISSEURS)}")
 
 
 # --------------------------------------------------------------------------- périmètre
@@ -745,12 +1099,20 @@ def controles(
 app = typer.Typer(help="Audio pré-généré : génération par fournisseur, export dans l'app.")
 
 
-def _fournisseur(voix: str) -> Fournisseur:
+def _fournisseur(nom: str, voix: str | None) -> Fournisseur:
+    """Le fournisseur demandé, ou un refus propre avant la première écriture.
+
+    Code 2 quand il manque de quoi parler — le paquet local ou la clé Azure —, code 1
+    quand le nom demandé n'existe pas. Dans les trois cas, rien n'est écrit.
+    """
     try:
-        return fournisseur_azure(voix)
-    except CleAbsente as erreur:
+        return fabriquer(nom, voix)
+    except (PaquetAbsent, CleAbsente) as erreur:
         typer.echo(str(erreur), err=True)
         raise typer.Exit(code=2) from erreur
+    except FournisseurInconnu as erreur:
+        typer.echo(str(erreur), err=True)
+        raise typer.Exit(code=1) from erreur
 
 
 def _perimetre(parcours: str, seuil: int) -> list[TexteAudio]:
@@ -763,12 +1125,15 @@ def _perimetre(parcours: str, seuil: int) -> list[TexteAudio]:
 
 @app.command("generer")
 def commande_generer(
+    fournisseur_nom: str = typer.Option(
+        LOCAL, "--fournisseur", help="local (Kokoro, hors ligne) ou azure (service, clé requise)."
+    ),
     parcours: str = typer.Option("lire", "--parcours", help="lire ou hsk."),
     seuil: int = typer.Option(SEUIL_DEFAUT, "--seuil", help="Seuil de la liste cible du parcours lire."),
-    voix: str = typer.Option(VOIX_DEFAUT, "--voix", help="Voix neuronale du fournisseur."),
+    voix: str = typer.Option(None, "--voix", help="Voix du fournisseur. Par défaut, la sienne."),
 ) -> None:
     """Synthétise un fichier par caractère et par mot du périmètre. Idempotent."""
-    fournisseur = _fournisseur(voix)
+    fournisseur = _fournisseur(fournisseur_nom, voix)
     if not fournisseur.licence.verifie:
         typer.echo(
             f"Licence {fournisseur.licence.fournisseur} : {A_VERIFIER} "
@@ -777,10 +1142,20 @@ def commande_generer(
             "— voir docs/sources-licences.md.",
             err=True,
         )
+    if fournisseur.format != FORMAT:
+        typer.echo(
+            f"ffmpeg introuvable : repli en {fournisseur.format.upper()} au lieu de "
+            f"{FORMAT.upper()} {DEBIT}. Les fichiers sont environ dix fois plus lourds "
+            "et ne sont pas ceux qu'on embarque — installez ffmpeg et repassez.",
+            err=True,
+        )
     cibles = _perimetre(parcours, seuil)
     if not cibles:
         typer.echo("Périmètre vide : ni fiche relue, ni liste. Rien à synthétiser.")
         return
+    typer.echo(
+        f"Fournisseur {fournisseur.nom}, voix {fournisseur.voix}, format {fournisseur.format}."
+    )
     rapport = generer(cibles, fournisseur)
     typer.echo(
         f"{len(rapport.crees)} créés, {len(rapport.deja)} déjà présents, "
@@ -798,12 +1173,20 @@ def commande_generer(
 @app.command("exporter")
 def commande_exporter(
     version: str = typer.Option("0.1.0", "--version", help="Version de l'export."),
+    fournisseur_nom: str = typer.Option(
+        LOCAL, "--fournisseur", help="Fournisseur dont la licence accompagne l'export."
+    ),
     parcours: str = typer.Option("lire", "--parcours", help="lire ou hsk."),
     seuil: int = typer.Option(SEUIL_DEFAUT, "--seuil", help="Seuil de la liste cible du parcours lire."),
 ) -> None:
     """Copie l'audio du périmètre dans app/public/data/<version>/audio/."""
     cibles = _perimetre(parcours, seuil)
-    rapport = exporter(version, cibles, LICENCE_AZURE)
+    try:
+        licence = licence_de(fournisseur_nom)
+    except FournisseurInconnu as erreur:
+        typer.echo(str(erreur), err=True)
+        raise typer.Exit(code=1) from erreur
+    rapport = exporter(version, cibles, licence)
     manquants = rapport["manquants"]
     assert isinstance(manquants, list)
     typer.echo(f"{rapport['copies']} fichiers copiés, {len(manquants)} textes sans audio.")
