@@ -29,6 +29,20 @@ cd app && npm install && npm run dev
 - À chaque fusion sur `main`, le workflow `pages.yml` publie l'app sur GitHub Pages : testable sur l'iPhone sans rien installer. Activer Pages (Settings, Pages, Source : GitHub Actions).
 - Le conteneur LXD reste optionnel, pour le pipeline de données et le débogage local.
 
+## Hors ligne et écran d'accueil
+
+L'app s'installe : sur iPhone, Safari, Partager, « Sur l'écran d'accueil ». Elle s'ouvre alors en plein écran sous le nom Zilin, icône encre sur papier.
+
+Le service worker (`vite-plugin-pwa`, `registerType: 'autoUpdate'`) précache la page, le JS, le CSS, les polices, les icônes, le manifest et le JSON servi avec l'app : après un premier chargement, tout répond sans réseau. Une nouvelle version s'installe en arrière-plan et s'applique au lancement suivant ou au retour du second plan, jamais au milieu d'une session, sans fenêtre à fermer.
+
+Les icônes de `app/public/icons/` sont engendrées depuis la marque, pas dessinées à la main :
+
+```bash
+cd app && npm run icons   # mode d'emploi en tête de app/scripts/icons.mjs
+```
+
+Le script rastérise le SVG avec un Chromium de Playwright, qui reste un outil de fabrication : il n'est pas une dépendance de l'app et se donne par `NODE_PATH`.
+
 ## Règles
 
 Voir `CLAUDE.md`. Le brief produit fait foi : `docs/product-brief.md`.
