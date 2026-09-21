@@ -1,4 +1,4 @@
-"""zilin fetch | ingest | build | check | export
+"""zilin fetch | fonts | ingest | build | check | export
 
 Chaque commande est idempotente et écrit dans data/work/. L'export final va dans app/public/data/.
 """
@@ -8,9 +8,11 @@ import json
 
 import typer
 
+from .fonts import commande as _fonts
 from .paths import EXPORT, INGEST, SOURCES
 
 app = typer.Typer(help="Pipeline de contenu Zilin")
+app.command(name="fonts")(_fonts)
 
 
 @app.command()
