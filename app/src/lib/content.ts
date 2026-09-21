@@ -308,6 +308,38 @@ export function voisinsOnce(file = FICHIER_VOISINS_DEMO): Promise<Voisins> {
   return p;
 }
 
+/* ---------- les paires à ne pas confondre ---------- */
+
+export const FICHIER_PAIRES_DEMO = 'data/demo/paires.json';
+
+/**
+ * Lit le fichier des paires à ne pas confondre (己 已 巳, 未 末, …), tel quel : c'est
+ * `questions.lirePaires` qui le valide, pour que ce module ne dépende de rien.
+ */
+export async function loadPaires(
+  file = FICHIER_PAIRES_DEMO,
+  fetchFn: typeof fetch = fetch
+): Promise<unknown> {
+  const r = await fetchFn(`${import.meta.env.BASE_URL}${file}`);
+  if (!r.ok) throw new Error(`Paires introuvables : ${file} (${r.status})`);
+  return (await r.json()) as unknown;
+}
+
+const paires = new Map<string, Promise<unknown>>();
+
+/** Même chose, mais une seule requête par fichier pour toute la durée de vie de l'app. */
+export function pairesOnce(file = FICHIER_PAIRES_DEMO): Promise<unknown> {
+  let p = paires.get(file);
+  if (!p) {
+    p = loadPaires(file).catch((e) => {
+      paires.delete(file);
+      throw e;
+    });
+    paires.set(file, p);
+  }
+  return p;
+}
+
 /* ---------- le cercle des familles (Ma forêt) ---------- */
 
 /**
