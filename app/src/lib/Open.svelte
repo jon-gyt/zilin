@@ -5,6 +5,7 @@
    */
   import Glyph from './Glyph.svelte';
   import { anecdoteDuJour, anecdotesOnce, type Anecdote } from './content';
+  import { loadEstampe } from './estampe';
 
   let {
     jour,
@@ -16,13 +17,21 @@
   const DUREE_MS = 20000;
 
   let a: Anecdote | null = $state(null);
+  /** Le SVG de l'estampe, posé en ligne pour que l'encre suive `currentColor`. */
+  let estampe: string | null = $state(null);
 
   $effect(() => {
     const j = jour;
     let vivant = true;
+    estampe = null;
     void anecdotesOnce()
-      .then((f) => {
-        if (vivant) a = anecdoteDuJour(f.anecdotes, j);
+      .then(async (f) => {
+        if (!vivant) return;
+        const choisie = anecdoteDuJour(f.anecdotes, j);
+        a = choisie;
+        if (!choisie?.estampe) return;
+        const svg = await loadEstampe(choisie.estampe).catch(() => null);
+        if (vivant) estampe = svg;
       })
       .catch(() => {
         if (vivant) a = null;
@@ -55,6 +64,11 @@
       </svg>
     </div>
     <div class="nom">Zilin <span class="cn hz">字林</span></div>
+
+    {#if estampe}
+      <!-- eslint-disable-next-line svelte/no-at-html-tags -->
+      <div class="estampe" aria-hidden="true">{@html estampe}</div>
+    {/if}
 
     {#if a}
       <div class="grand"><Glyph char={a.c} size={120} /></div>

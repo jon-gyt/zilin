@@ -8,7 +8,7 @@ export default defineConfig({
     VitePWA({
       registerType: 'autoUpdate',
       manifest: false,
-      workbox: { globPatterns: ['**/*.{js,css,html,json,woff2}'] }
+      workbox: { globPatterns: ['**/*.{js,css,html,json,svg,woff2}'] }
     })
   ],
   base: process.env.BASE_PATH ?? '/',

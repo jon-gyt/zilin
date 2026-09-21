@@ -144,3 +144,6 @@ h1{font-family:var(--head);font-weight:700;font-size:30px;line-height:1.15;lette
 @keyframes marche{from{transform:translateY(0) rotate(-3deg)}to{transform:translateY(-6px) rotate(3deg)}}
 @keyframes redresse{from{transform:rotate(-9deg)}to{transform:rotate(0)}}
 @media (prefers-reduced-motion:reduce){.tao *{animation:none!important}}
+/* l'estampe de l'anecdote : posée en ligne, l'encre suit currentColor (mode sombre compris) */
+.anec .estampe{display:flex;justify-content:center;color:var(--ink);margin-bottom:2px}
+.anec .estampe svg{width:130px;height:130px;display:block}
