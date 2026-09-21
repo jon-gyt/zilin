@@ -1,18 +1,45 @@
 # Seuil sinographique 255 (Éducation nationale, France)
 #
 # Référence : « Chinois — Seuil de 255 caractères », ministère de l'Éducation
-#   nationale, liste des caractères actifs de fin d'école élémentaire
-#   (programmes de langues vivantes, BO n° 32 du 8 septembre 2011 et
-#   publications Eduscol ultérieures).
-# Sources à dépouiller :
+#   nationale (seuils sinographiques de Joël Bellassen et Françoise Audry-Iljic,
+#   255 / 405 / 505 / 805 / 1555 ; le seuil 1 est la liste des caractères actifs,
+#   programmes de langues vivantes, BO n° 32 du 8 septembre 2011 et publications
+#   Eduscol ultérieures).
+# Sources officielles à dépouiller :
 #   https://eduscol.education.fr/document/14728/download
 #   https://eduscol.education.gouv.fr/media/75339/download?attachment=
 #   https://www.education.gouv.fr/media/8543/download (BO n° 15 du 12 avril 2018)
+#   https://www.afpc.asso.fr/wp-content/uploads/2013/12/SEUILS-SINOGRAPHIQUES.pdf
+#     (reprise AFPC du BO n° 32 du 8 septembre 2011)
 #
-# À COMPLÉTER depuis Eduscol : au 2026-09-21, ces domaines sont refusés par le
-# filtrage réseau de l'environnement de développement (403 du mandataire), et
-# aucune transcription complète et vérifiable des 255 caractères n'a pu être
-# obtenue ailleurs. La liste n'est volontairement pas reconstituée de mémoire.
+# ÉTAT AU 2026-09-21 : LISTE NON RENSEIGNÉE, AUCUNE TRANSCRIPTION VÉRIFIABLE.
+#
+# Relevé du 2026-09-21. Les domaines officiels et associatifs ci-dessus sont
+# refusés par le filtrage réseau de l'environnement de développement
+# (eduscol.education.fr, eduscol.education.gouv.fr, education.gouv.fr,
+# afpc.asso.fr : « blocked by the network egress proxy » ; quizlet.com,
+# hanzidico.com, chine-nouvelle.com, ankiweb.net, web.archive.org, grep.app :
+# injoignables également). Seuls github.com et raw.githubusercontent.com
+# répondent.
+#
+# Recherche menée sur GitHub le 2026-09-21, sans résultat (recherche de code
+# sur l'ensemble de GitHub, 0 transcription trouvée) :
+#   "seuil de 255 caractères" · "seuil des 255" · "seuil 255" · "seuil-255"
+#   "seuils sinographiques" · "255 caractères" · "caractères actifs" chinois
+#   "Éducation nationale" chinois caractères hanzi liste · bellassen
+#   filename:seuil.txt · path:seuil 汉字 · seuil 汉字 · "爱八爸吧白百半办杯北"
+#   "255" "405" "505" "805" "1555" caractères
+# Dépôts candidats inspectés et écartés (aucun ne porte la liste) :
+#   thomas-schaller/grille-caractere-chinois · CNurt/Chinese-character-lists
+#   yannickmahe/HanziList · hugolpz/OpenEdx-hanzi · hugolpz/Cat-is-smart
+#   iannisjap/cours-chinois · alexandrejacquemin/AEFC
+#
+# La liste n'est volontairement pas reconstituée de mémoire : sans deux
+# transcriptions concordantes (ou, à défaut, une transcription traçable), elle
+# reste vide. À reprendre depuis un poste qui atteint Eduscol, ou depuis le PDF
+# officiel déposé à la main dans le dépôt.
 #
 # Format attendu : un caractère par ligne, 255 lignes, ordre du document
-# officiel, distinction actifs / passifs à documenter en commentaire.
+# officiel, distinction actifs / passifs à documenter en commentaire, en-tête
+# sur le modèle de hsk-1.txt (source officielle, URL des transcriptions, date du
+# relevé, SHA-256 de chaque fichier, écarts constatés).
