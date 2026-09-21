@@ -372,6 +372,11 @@ export type Foret = {
   /** Le caractère posé au centre du cercle. */
   centre: string;
   familles: Noeud[];
+  /**
+   * La famille du moment : celle de la brique que le parcours pose aujourd'hui. C'est
+   * la seule à porter le cinabre sur le cercle.
+   */
+  moment?: string;
 };
 
 export const FICHIER_FORET_DEMO = 'data/demo/foret.json';

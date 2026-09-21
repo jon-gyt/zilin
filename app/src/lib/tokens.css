@@ -293,6 +293,14 @@ h1{font-family:var(--head);font-weight:700;font-size:30px;line-height:1.15;lette
 .colline .hill{fill:var(--jade-soft)}
 .colline .hill2{fill:var(--indigo-soft);opacity:.6}
 .colline .hote{position:relative;margin-bottom:4px}
+/* la liste des familles : un index, pas une leçon ; le tracé vient avec l'arbre */
+.famlist{margin-top:14px}
+.famlist .cherche{width:100%;margin:10px 0 6px;padding:10px 12px;border:1px solid var(--line);border-radius:12px;background:var(--bg);color:var(--ink);font:inherit;font-size:15px}
+.famlist .liste{max-height:224px;overflow-y:auto;-webkit-overflow-scrolling:touch}
+.famrow{display:flex;align-items:center;gap:10px;width:100%;padding:8px 6px;border:0;border-bottom:1px solid var(--line);background:none;color:var(--ink);font:inherit;text-align:left;cursor:pointer}
+.famrow:last-child{border-bottom:0}
+.famrow .hz{font-size:22px;min-width:30px}
+
 /* la semaine : une graine par jour travaillé, jamais un compteur de jours perdus */
 .semaine{margin-top:14px}
 .seeds{display:flex;gap:6px;margin:10px 0 6px}

@@ -8,8 +8,9 @@
  *
  * Port de `renderForest` et `renderTree` de `maquettes/zilin-maquette.html`.
  */
-import type { Foret, Noeud } from './content';
+import type { Famille, Foret, Index, Noeud } from './content';
 import type { Progress } from './session';
+import { SEUIL_DEBLOCAGE, stability, type ReviewCard } from './srs';
 
 /* ---------- les états ---------- */
 
@@ -127,8 +128,13 @@ export function placerCercle(f: Foret): Cercle {
   const tailles = familles.map((x) => x.membres.length);
   const max = tailles.length > 0 ? Math.max(...tailles) : 0;
   const min = tailles.length > 0 ? Math.min(...tailles) : 0;
-  /* Une seule famille porte le cinabre : la première en cours dans l'ordre du cercle. */
-  const enCours = familles.findIndex((x) => etat(x.avancement) === 'encours');
+  /*
+   * Une seule famille porte le cinabre : la famille du moment, celle de la brique du
+   * jour, quand la forêt la nomme ; à défaut, la première en cours dans l'ordre du cercle.
+   */
+  const duMoment = f.moment === undefined ? -1 : familles.findIndex((x) => x.c === f.moment);
+  const enCours =
+    duMoment >= 0 ? duMoment : familles.findIndex((x) => etat(x.avancement) === 'encours');
 
   const secteurs: SecteurPose[] = [];
   const liens: LienPose[] = [];
@@ -364,4 +370,167 @@ export function ligneSemaine(n: number): string {
   if (n === 0) return `Aucune graine cette semaine. Sept graines font un arbre.`;
   if (n >= JOURS_SEMAINE) return `Sept graines : la semaine fait un arbre.`;
   return n === 1 ? `Une graine cette semaine.` : `${n} graines cette semaine.`;
+}
+
+/* ---------- le cercle, construit depuis l'index et les cartes ---------- */
+
+/**
+ * L'avancement ne se lit nulle part ailleurs que dans les cartes : acquis quand la
+ * stabilité FSRS passe le seuil de déblocage de `srs.ts`, en cours dès qu'une carte
+ * existe, à venir tant qu'il n'y en a pas. `avancement_possible` de l'index dit
+ * seulement ce que le pipeline permet d'enseigner : ce n'est pas une progression.
+ */
+export const AVANCEMENT_ENCOURS = 0.5;
+
+/** L'avancement d'un caractère, d'après les cartes de la progression. */
+export function avancement(
+  c: string,
+  cartes: readonly ReviewCard[],
+  seuil: number = SEUIL_DEBLOCAGE
+): number {
+  const carte = cartes.find((x) => x.id === c);
+  if (carte === undefined) return 0;
+  return stability(carte) >= seuil ? 1 : AVANCEMENT_ENCOURS;
+}
+
+/**
+ * Une famille de l'export en nœud du cercle : la racine, puis ses membres. L'export
+ * range une famille à plat (une racine, ses caractères) : la deuxième génération du
+ * cercle reste donc vide tant que le pipeline n'écrit pas la filiation.
+ */
+export function noeudDeFamille(
+  f: Famille,
+  cartes: readonly ReviewCard[],
+  seuil: number = SEUIL_DEBLOCAGE
+): Noeud {
+  const membres = f.fiches
+    .filter((x) => x.c !== f.racine.c)
+    .map((x) => ({
+      c: x.c,
+      pinyin: x.pinyin,
+      fr: x.fr,
+      avancement: avancement(x.c, cartes, seuil),
+      membres: []
+    }));
+  return {
+    c: f.racine.c,
+    pinyin: f.racine.pinyin,
+    fr: f.racine.fr,
+    avancement: avancement(f.racine.c, cartes, seuil),
+    membres
+  };
+}
+
+/**
+ * La règle du cercle, et elle seule : avec 238 familles, on n'en pose sur le cercle que
+ * celles qui parlent aujourd'hui.
+ *
+ * 1. les familles **ouvertes** : au moins un de leurs caractères porte une carte ;
+ * 2. les familles **prochaines** : celles que les `FENETRE_JOURS` prochains jours du
+ *    parcours touchent, brique et composés compris ;
+ * 3. la famille du moment, toujours.
+ *
+ * Le tout est trié par l'ordre du parcours, puis ramené aux `FAMILLES_CERCLE` plus
+ * proches du jour courant : le cercle reste lisible sur un iPhone. Les 238 familles
+ * restent atteignables par la recherche, sous le cercle.
+ */
+export const FENETRE_JOURS = 30;
+export const FAMILLES_CERCLE = 24;
+
+/** Le caractère au centre du cercle : 字, la deuxième moitié du nom de l'app. */
+export const CENTRE = '字';
+
+/** Ce qu'il faut pour poser le cercle : l'index, les familles lues, et les cartes. */
+export type SourcesForet = {
+  index: Index;
+  familles: readonly Famille[];
+  cartes: readonly ReviewCard[];
+  /** Le parcours lu dans l'index (`lire` ou `hsk`). */
+  nom: string;
+  /** Le jour courant du parcours. */
+  jour: number;
+  seuil?: number;
+  fenetre?: number;
+  max?: number;
+};
+
+/** La racine de chaque caractère, d'après les familles lues. */
+export function racinesDesCaracteres(familles: readonly Famille[]): Map<string, string> {
+  const out = new Map<string, string>();
+  for (const f of familles) {
+    out.set(f.racine.c, f.racine.c);
+    for (const x of f.fiches) out.set(x.c, f.racine.c);
+  }
+  return out;
+}
+
+/** Le premier jour du parcours où chaque famille est touchée. */
+export function joursDesFamilles(
+  index: Index,
+  nom: string,
+  racines: Map<string, string>
+): Map<string, number> {
+  const out = new Map<string, number>();
+  for (const j of index.parcours[nom]?.jours ?? []) {
+    const cs = j.brique === null ? j.composes : [j.brique, ...j.composes];
+    for (const c of cs) {
+      const r = racines.get(c) ?? c;
+      if (!out.has(r)) out.set(r, j.jour);
+    }
+  }
+  return out;
+}
+
+/** Les racines posées sur le cercle, dans l'ordre du parcours. */
+export function famillesDuCercle(s: SourcesForet): string[] {
+  const fenetre = s.fenetre ?? FENETRE_JOURS;
+  const max = s.max ?? FAMILLES_CERCLE;
+  const racines = racinesDesCaracteres(s.familles);
+  const premier = joursDesFamilles(s.index, s.nom, racines);
+  const retenues = new Set<string>();
+
+  /* Ouvertes : une carte quelque part dans la famille. */
+  for (const carte of s.cartes) {
+    const r = racines.get(carte.id);
+    if (r !== undefined) retenues.add(r);
+  }
+  /* Prochaines : ce que les jours à venir vont poser. */
+  for (const j of s.index.parcours[s.nom]?.jours ?? []) {
+    if (j.jour < s.jour || j.jour >= s.jour + fenetre) continue;
+    const cs = j.brique === null ? j.composes : [j.brique, ...j.composes];
+    for (const c of cs) {
+      const r = racines.get(c);
+      if (r !== undefined) retenues.add(r);
+    }
+  }
+  const loin = Number.MAX_SAFE_INTEGER;
+  return [...retenues]
+    .sort((a, b) => {
+      const da = Math.abs((premier.get(a) ?? loin) - s.jour);
+      const db = Math.abs((premier.get(b) ?? loin) - s.jour);
+      return da - db || (a < b ? -1 : 1);
+    })
+    .slice(0, Math.max(0, max))
+    .sort((a, b) => (premier.get(a) ?? loin) - (premier.get(b) ?? loin) || (a < b ? -1 : 1));
+}
+
+/**
+ * Le cercle des familles : les familles retenues, leur avancement lu sur les cartes, et
+ * la famille du moment — celle de la brique du jour, la seule à porter le cinabre.
+ */
+export function construireForet(s: SourcesForet, moment: string | null = null): Foret {
+  const retenues = famillesDuCercle(s);
+  const parRacine = new Map(s.familles.map((f) => [f.racine.c, f]));
+  const familles = retenues
+    .map((r) => parRacine.get(r))
+    .filter((f): f is Famille => f !== undefined)
+    .map((f) => noeudDeFamille(f, s.cartes, s.seuil));
+  return {
+    version: s.index.version,
+    source: `index.json (${s.index.norme})`,
+    norme: s.index.norme,
+    centre: CENTRE,
+    familles,
+    moment: moment ?? undefined
+  };
 }
