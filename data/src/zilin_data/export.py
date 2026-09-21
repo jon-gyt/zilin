@@ -1011,6 +1011,17 @@ def export(
 #: En-tête exigé de chaque JSON exporté (`docs/sources-licences.md` §8).
 ENTETE_LICENCE: tuple[str, ...] = ("license", "source", "source_url", "modified")
 
+#: Textes que chaque version exportée doit porter, en plus des JSON : l'APL §1
+#: veut sa licence inaltérée à côté des tracés, l'APL §2 a) la note de
+#: modification, et le pinyin d'Unihan sa notice de permission.
+TEXTES_DE_LICENCE: tuple[str, ...] = (
+    ARPHIC,
+    UNICODE_NOTICE,
+    "LICENCES.md",
+    f"traits/{ARPHIC}",
+    "traits/MODIFICATIONS.md",
+)
+
 
 def fautes_de_licence(relatif: str, document: object) -> list[str]:
     """Ce qui cloche dans un fichier exporté, du point de vue des licences.
@@ -1063,7 +1074,9 @@ def controles(
     signalé. « séparation des licences » vérifie l'en-tête de chaque fichier et
     qu'aucun ne mêle deux régimes (`docs/sources-licences.md` §8) — bloquant.
     « familles sans fiche relue » compte ce qui reste à relire avant que l'app
-    puisse enseigner ces familles : signalé, jamais bloquant.
+    puisse enseigner ces familles : signalé, jamais bloquant. « textes de licence »
+    vérifie que les fichiers que l'APL et la notice Unicode exigent à côté des
+    données sont bien là : leur absence est une faute de licence, donc bloquante.
     """
     dossiers = versions_exportees(destination)
     if not dossiers:
@@ -1079,9 +1092,15 @@ def controles(
     perimes: list[str] = []
     sans_fiche: list[str] = []
     melanges: list[str] = []
+    absents: list[str] = []
     total_familles = 0
     total_fichiers = 0
     for dossier in dossiers:
+        absents += [
+            f"{dossier.name}/{relatif}"
+            for relatif in TEXTES_DE_LICENCE
+            if not (dossier / relatif).exists()
+        ]
         index = json.loads((dossier / "index.json").read_text(encoding="utf-8"))
         if str(index.get("empreinte")) != attendue:
             perimes.append(dossier.name)
@@ -1115,6 +1134,14 @@ def controles(
             f"{total_fichiers} fichiers : en-tête de licence présent, aucun mélange de régimes"
             if not melanges
             else f"{len(melanges)} écarts — " + " ; ".join(melanges[:5]),
+            bloquant=True,
+        ),
+        Controle(
+            "export : textes de licence",
+            not absents,
+            f"les {len(TEXTES_DE_LICENCE)} textes de licence sont à côté des données"
+            if not absents
+            else f"{len(absents)} absents : {', '.join(absents)}",
             bloquant=True,
         ),
         Controle(

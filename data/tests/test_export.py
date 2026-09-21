@@ -485,6 +485,19 @@ def test_un_nom_de_fichier_sans_point_de_code_passe_par_unicode() -> None:
 # ---------------------------------------------------------------------------- check
 
 
+def test_le_controle_voit_un_texte_de_licence_disparu(atelier: Path) -> None:
+    """L'APL veut sa licence à côté des tracés : la retirer est une faute bloquante."""
+    rapport = export("0.1.0")
+    (rapport.dossier / "traits" / ARPHIC).unlink()
+
+    resultats = {
+        c.nom: c for c in controles(export_mod.EXPORT, build=export_mod.BUILD, ingest=export_mod.INGEST)
+    }
+    controle = resultats["export : textes de licence"]
+    assert not controle.ok and controle.bloquant
+    assert f"traits/{ARPHIC}" in controle.detail
+
+
 def test_le_controle_dit_si_l_export_est_a_jour(atelier: Path) -> None:
     absent = controles(export_mod.EXPORT, build=export_mod.BUILD, ingest=export_mod.INGEST)
     assert [c.nom for c in absent] == ["export : à jour"]
