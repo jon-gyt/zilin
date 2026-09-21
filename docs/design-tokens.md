@@ -8,6 +8,6 @@ Typographie : Manrope 700 (titres, nom, chiffres), Manrope 500 (voix du guide), 
 
 Logo : un Z tracé en un trait, point cinabre au-dessus (le point de 之). Icône App Store : mark encre sur papier.
 
-Mascottes : Miao 苗 (pousse, quatre humeurs, réagit aux réponses), Que 雀 (moineau, remet les cadeaux).
+Mascottes : Tao 桃 (graine de pêcher, grandit, adopte la posture de l'activité en cours, réagit aux réponses, s'ennuie de la répétition, ne culpabilise jamais), Que 雀 (moineau, remet les cadeaux de la série). Fleurs de Tao : rose #E7A2B4, seul rose autorisé.
 
 Principes : un écran une action ; coins 12 px ; aucune ombre, aucun dégradé, aucun emoji, aucune illustration réaliste ; pas de doré ni de dragon.

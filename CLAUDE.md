@@ -14,7 +14,8 @@ Une PWA (TypeScript, Vite, Svelte) pour apprendre à lire le chinois par les fam
 - Une seule brique nouvelle par session de 10 minutes. Une session = six pas dans le même ordre.
 - Le rouge cinabre marque l'élément ajouté et la position sur le chemin, rien d'autre. Pas de doré, pas de dragon, pas d'emoji, pas d'ombre, pas de dégradé.
 - Les grands caractères sont rendus depuis les données de traits (style 楷), jamais depuis une police.
-- Miao n'apparaît qu'aux moments d'émotion (fin de session, série, rattrapage, vérification), jamais pendant l'apprentissage.
+- Tao accompagne toutes les activités dans la posture correspondante (voir brief, section 9). Elle ne meurt jamais, ne tombe pas malade, ne culpabilise jamais. Son humeur vient de la variété des activités, jamais de l'horloge.
+- Un jeu n'existe que s'il fait lire quelque chose de plus. Pas de points au temps passé, pas de vies, pas de classements, pas de coffres.
 
 ## Conventions de code
 

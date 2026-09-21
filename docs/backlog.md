@@ -34,7 +34,18 @@ Format BMAD : épics puis stories. Priorité dans l'ordre. Une story se termine 
 ## Épic 4 · Ma forêt
 - 4.1 Cercle des familles, zoom et déplacement, ouverture d'un arbre par famille.
 - 4.2 Arbre d'une famille, fiche courte, lancement de la prochaine leçon.
-- 4.3 Miao qui grandit (paliers 100, 300, 1 000).
+- 4.3 Tao qui grandit (paliers 100, 300, 1 000), postures par activité, humeur par variété, journal du soir, collection visible.
+
+## Épic 4b · Jeux
+- 4b.1 Moteur de mini-jeux : un contrat commun (entrée : caractères acquis ; sortie : événements de révision notés), écran hôte, retour vers la session.
+- 4b.2 Assembler contre la montre et les jumeaux (données : décompositions, paires à ne pas confondre).
+- 4b.3 La chaîne (parcours du graphe sur l'acquis) et la coquille.
+- 4b.4 Le dictionnaire éclair (mots CC-CEDICT dont les deux caractères sont acquis) et le compteur « mots devinés ».
+- 4b.5 Les devinettes de lanternes : base de 100 devinettes rédigées, une par jour, portée par Tao.
+- 4b.6 La cuisine de Tao : dix recettes, ingrédients, erreurs plausibles (牛奶 pour 牛肉).
+- 4b.7 Le message WeChat : arbres de dialogue par famille.
+- 4b.8 Les lettres de Que : douze lettres pour le seuil 255, générées puis relues.
+- 4b.9 Les saisons : calendrier chinois, décor du cercle, caractère bonus par fête.
 
 ## Épic 5 · PWA et site
 - 5.1 Manifest, service worker, hors ligne, écran d'accueil iOS.
