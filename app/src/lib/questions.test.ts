@@ -42,6 +42,10 @@ const f = (
   origine_en: '',
   etiquette: 'atteste',
   mots: [],
+  nouveau: [],
+  niveaux: {},
+  traits: [],
+  medianes: [],
   ...extra
 });
 
