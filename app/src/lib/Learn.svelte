@@ -186,9 +186,9 @@
       >
     </div>
   {:else if vue === 'trace' && brique}
+    <!-- Tao au pinceau, en tête et sans un mot : la consigne du tracé se suffit. -->
     <div class="verif-tete">
       <Tao stade={taoStade} posture="trace" humeur={taoHumeur} size={64} />
-      <p class="guide grow">Elle tient le pinceau avec toi.</p>
     </div>
     <Trace char={brique.c} />
     <label class="pref">
