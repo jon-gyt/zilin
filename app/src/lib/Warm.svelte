@@ -111,13 +111,15 @@
     <div class="grow">
       <h1>Réviser</h1>
       <div class="k">
-        {#if q}{i + 1} / {liste.length} · {q.label}{:else}terminé{/if}
+        {#if q}{i + 1} / {liste.length} · {q.label}{:else if p.revue.length > 0}terminé{/if}
       </div>
     </div>
     <Tao stade={taoStade} posture="revision" humeur={taoHumeur} size={64} />
   </div>
 
-  <div class="prog" aria-hidden="true"><i style="width:{avance}%"></i></div>
+  {#if p.revue.length > 0}
+    <div class="prog" aria-hidden="true"><i style="width:{avance}%"></i></div>
+  {/if}
 
   {#if p.revue.length === 0}
     <p class="guide">Aucune carte n'est due aujourd'hui.</p>
