@@ -31,7 +31,7 @@ ce qui est intermédiaire va dans `data/work/`, hors dépôt ; seuls l'export
 
 ```
 fetch  →  ingest  →  build  →  export  →  check
-                       ↘  fonts
+                                 ↘  fonts
 ```
 
 | Commande | Ce qu'elle fait | Dépend de | Écrit dans |
@@ -39,7 +39,7 @@ fetch  →  ingest  →  build  →  export  →  check
 | `zilin fetch` | télécharge Make Me a Hanzi, CC-CEDICT, Unihan, cjk-decomp, avec empreintes et journal de provenance | — | `data/work/sources/` |
 | `zilin ingest` | normalise ces sources et les listes de niveaux | `fetch` | `data/work/ingest/` |
 | `zilin build` | réconcilie les décompositions avec GF 0014-2009, construit le graphe, les familles et les parcours, écrit `ecarts.md` | `ingest` | `data/work/build/` |
-| `zilin fonts` | sous-ensemble et woff2 des trois familles de la charte | listes versionnées | `app/public/fonts/` |
+| `zilin fonts` | sous-ensemble et woff2 des trois familles de la charte | `export` (il dit quels caractères l'app écrit) | `app/public/fonts/` |
 | `zilin export` | assemble les seuls fichiers que l'app lira, séparés par régime de licence | `build` | `app/public/data/<version>/` |
 | `zilin check` | contrôles qualité sur tout ce qui précède, sans rien réécrire | `build`, `export` | — |
 | `zilin tout` | enchaîne fetch, ingest, build, export, check et s'arrête à la première erreur | — | tout ce qui précède |
@@ -49,8 +49,13 @@ cd data && uv run zilin tout      # la chaîne complète
 cd data && uv run zilin check     # les seuls contrôles
 ```
 
-`audio`, `contes` et `fiches` sont à part : elles appellent une API, demandent une
-clé et se lancent à la main, jamais dans `zilin tout`.
+`zilin fonts` ne fait pas partie de `zilin tout` : il télécharge trois familles de
+polices et met une minute à produire les woff2. Il se lance à la main, après
+`export`, quand le périmètre exporté a changé — sinon Noto Serif SC n'embarque pas
+les caractères que « Ma forêt » affiche.
+
+`audio`, `contes` et `fiches` sont à part aussi : elles appellent une API, demandent
+une clé et se lancent à la main, jamais dans `zilin tout`.
 
 Toutes les commandes sont idempotentes : deux passages écrivent les mêmes octets,
 et le résultat ne dépend pas du grain de hachage du processus. Seul

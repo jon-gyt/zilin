@@ -1,13 +1,18 @@
 """Sous-ensembles de caractères des polices embarquées. Aucun accès réseau."""
 from __future__ import annotations
 
+import json
+from pathlib import Path
+
 from zilin_data.fonts import (
     CHIFFRES,
     FONTES_A_PRODUIRE,
     LICENCES,
     PONCTUATION_CHINOISE,
     POLICES_DISTANTES,
+    caracteres_de_lapp,
     caracteres_de_liste,
+    caracteres_exportes,
     sous_ensemble_chinois,
     sous_ensemble_latin,
 )
@@ -65,3 +70,35 @@ def test_polices_declarees() -> None:
     assert {f.source for f in FONTES_A_PRODUIRE} <= sources
     assert set(LICENCES) <= sources  # chaque licence OFL est téléchargée puis copiée
     assert all(s.url.startswith("https://") and "Open Font License" in s.licence for s in POLICES_DISTANTES)
+
+
+def _export_factice(racine: Path) -> Path:
+    """Un export minuscule : un index, une famille de tracés."""
+    version = racine / "0.1.0"
+    (version / "traits").mkdir(parents=True)
+    (version / "index.json").write_text("{}", encoding="utf-8")
+    (version / "traits" / "bois.json").write_text(
+        json.dumps({"traits": {"木": {"s": [], "m": []}, "⺊": {"s": [], "m": []}}}, ensure_ascii=False),
+        encoding="utf-8",
+    )
+    return racine
+
+
+def test_le_sous_ensemble_couvre_les_caracteres_de_l_export(tmp_path: Path) -> None:
+    """Une racine de famille comme ⺊ n'est dans aucune liste, mais « Ma forêt » l'écrit."""
+    export = _export_factice(tmp_path / "public")
+    assert caracteres_exportes(export) == {"木", "⺊"}
+
+    listes = tmp_path / "listes"
+    listes.mkdir()
+    (listes / "seuil-255.txt").write_text(LISTE, encoding="utf-8")
+    traits = tmp_path / "strokes-demo.json"
+    traits.write_text(json.dumps({"字": {}}, ensure_ascii=False), encoding="utf-8")
+
+    retenus = set(caracteres_de_lapp(traits, listes, export))
+    assert {"木", "⺊", "字", "人", "大", "天"} <= retenus
+
+
+def test_sans_export_le_sous_ensemble_se_limite_aux_listes(tmp_path: Path) -> None:
+    """`zilin fonts` doit rester lançable avant tout export."""
+    assert caracteres_exportes(tmp_path / "jamais-ecrit") == set()

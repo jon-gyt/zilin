@@ -3,17 +3,18 @@
 Ordre et dépendances — chaque étape lit ce que la précédente a écrit :
 
     fetch  →  ingest  →  build  →  export  →  check
-                          ↘  fonts
+                                    ↘  fonts
 
 - `fetch` : télécharge les sources dans `data/work/sources/`. Ne dépend de rien.
 - `ingest` : normalise ces sources et les listes de niveaux dans `data/work/ingest/`.
   Exige `fetch`.
 - `build` : réconcilie les décompositions avec GF 0014-2009, construit le graphe et
   les parcours dans `data/work/build/`. Exige `ingest`.
-- `fonts` : produit les woff2 de `app/public/fonts/`. Indépendant du build : il ne lit
-  que les listes versionnées et `app/public/strokes-demo.json`.
 - `export` : assemble `app/public/data/<version>/`, les seuls fichiers que l'app lira.
   Exige `build`.
+- `fonts` : produit les woff2 de `app/public/fonts/`. À lancer après `export`, qui
+  seul dit quels caractères l'app écrit ; il lit aussi les listes versionnées et
+  `app/public/strokes-demo.json`.
 - `check` : contrôles qualité sur tout ce qui précède. Ne réécrit rien.
 - `tout` : enchaîne fetch, ingest, build, export, check et s'arrête à la première erreur.
 
@@ -140,7 +141,8 @@ def check() -> None:
 
 
 #: Les étapes de `zilin tout`, dans l'ordre de leurs dépendances. `fonts` n'en est
-#: pas : les woff2 ne dépendent pas du build et pèsent une minute de calcul.
+#: pas : il télécharge trois familles de polices et pèse une minute de calcul, pour
+#: un résultat qui ne bouge que si le périmètre exporté change.
 ETAPES = ("fetch", "ingest", "build", "export", "check")
 
 

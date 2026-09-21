@@ -7,7 +7,10 @@ les trois familles de la charte sont servies avec les assets de l'app.
 de provenance écrits par les fonctions de `fetch.py`), puis produit avec fonttools :
 
 - Manrope 500 et 700, Source Sans 3 400 et 600, en sous-ensemble latin étendu ;
-- Noto Serif SC 500, réduit aux seuls caractères que l'app affiche.
+- Noto Serif SC 500, réduit aux seuls caractères que l'app affiche — ceux de l'export
+  versionné, des listes de niveaux et des tracés de démonstration.
+
+À lancer après `zilin export` : c'est l'export qui dit quels caractères l'app écrit.
 
 Toutes les sources sont sous SIL Open Font License 1.1 ; le texte de licence de chaque
 famille est copié tel quel à côté des woff2.
@@ -22,7 +25,7 @@ from io import BytesIO
 from pathlib import Path
 
 from .fetch import Source, ecrire_sommes, journaliser, telecharger
-from .paths import FONTES, FONTES_APP, LISTES, TRAITS_APP
+from .paths import EXPORT, FONTES, FONTES_APP, LISTES, TRAITS_APP
 
 GF = "https://raw.githubusercontent.com/google/fonts/main/ofl/"
 ADOBE = "https://github.com/adobe-fonts/source-sans/releases/download/3.052R/"
@@ -178,11 +181,40 @@ def sous_ensemble_chinois(cles_traits: Iterable[str], listes: Iterable[str]) -> 
     return "".join(sorted(caracteres))
 
 
-def caracteres_de_lapp(traits: Path | None = None, listes: Path | None = None) -> str:
-    """Le sous-ensemble chinois, lu depuis les fichiers du dépôt."""
+def caracteres_exportes(export: Path | None = None) -> set[str]:
+    """Caractères dont l'export porte les tracés, toutes versions confondues.
+
+    Ce sont eux que l'app affiche : racines de familles et briques comprises.
+    Les listes de niveaux ne les couvrent pas — un composant comme ⺊ n'est dans
+    aucune liste, mais « Ma forêt » l'écrit en toutes lettres.
+    """
+    export = export or EXPORT
+    trouves: set[str] = set()
+    if not export.exists():
+        return trouves
+    for index in sorted(export.glob("*/index.json")):
+        for fichier in sorted((index.parent / "traits").glob("*.json")):
+            document = json.loads(fichier.read_text(encoding="utf-8"))
+            trouves.update(
+                c for cle in (document.get("traits") or {}) for c in cle if not c.isspace()
+            )
+    return trouves
+
+
+def caracteres_de_lapp(
+    traits: Path | None = None, listes: Path | None = None, export: Path | None = None
+) -> str:
+    """Le sous-ensemble chinois, lu depuis les fichiers du dépôt.
+
+    Trois origines : les tracés de démonstration, les listes de niveaux et, quand
+    il est écrit, l'export versionné — la seule qui dise ce que l'app affiche
+    vraiment. Lancer `zilin fonts` avant `zilin export` laisse donc des glyphes
+    manquants : c'est dit dans le README.
+    """
     traits = traits or TRAITS_APP
     listes = listes or LISTES
-    cles = json.loads(traits.read_text(encoding="utf-8")).keys() if traits.exists() else []
+    cles = list(json.loads(traits.read_text(encoding="utf-8")).keys()) if traits.exists() else []
+    cles += sorted(caracteres_exportes(export))
     textes = [f.read_text(encoding="utf-8") for f in sorted(listes.glob("*.txt"))]
     return sous_ensemble_chinois(cles, textes)
 
@@ -191,8 +223,8 @@ def ecrire_sous_ensemble(chemin: Path, caracteres: str) -> Path:
     """Écrit la liste des caractères retenus, pour que le woff2 soit rejouable."""
     chemin.write_text(
         "# Caractères embarqués dans noto-serif-sc-500.woff2, écrit par `uv run zilin fonts`.\n"
-        "# Origine : clés de app/public/strokes-demo.json, listes data/sources/listes/*.txt,\n"
-        "# ponctuation chinoise courante et chiffres.\n"
+        "# Origine : clés de app/public/strokes-demo.json, tracés de l'export versionné,\n"
+        "# listes data/sources/listes/*.txt, ponctuation chinoise courante et chiffres.\n"
         f"{caracteres}\n",
         encoding="utf-8",
     )
