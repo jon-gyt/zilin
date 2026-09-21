@@ -8,6 +8,11 @@ Trois entrées :
 - `cedict_1_0_ts_utf-8_mdbg.txt.gz` (CC-CEDICT) : une ligne par mot. Le fichier est
   lu compressé ou non : le miroir de repli sert le fichier officiel non compressé
   sous le même nom, et c'est la signature gzip qui tranche.
+- `Unihan.zip` (UCD, Unicode License) : pinyin, traits et, si la version le porte
+  encore, fréquence. Voir `unihan.py` ; les définitions anglaises partent dans un
+  fichier séparé, comme les gloses de CC-CEDICT.
+- `cjk-decomp.txt` (MIT) : décompositions converties en IDS, source de repli
+  quand Make Me a Hanzi note `？`. Voir `cjkdecomp.py`.
 
 L'étymologie de Make Me a Hanzi alimente la couche étymologique. Elle ne fait pas
 autorité sur la décomposition canonique GF 0014-2009, réconciliée en story 1.2 :
@@ -24,6 +29,7 @@ from dataclasses import asdict, dataclass, field
 from pathlib import Path
 from typing import Iterable, Iterator, TextIO, cast
 
+from . import cjkdecomp, unihan
 from .paths import INGEST, LISTES, SOURCES
 
 # Blocs Unicode des sinogrammes (idéogrammes unifiés et compatibilité).
@@ -244,6 +250,17 @@ def _ecrire(chemin: Path, contenu: object) -> None:
 
 
 CEDICT = "cedict_1_0_ts_utf-8_mdbg.txt.gz"
+CJKDECOMP = "cjk-decomp.txt"
+# Unihan est servi en archive ; un dossier de fichiers extraits fait aussi l'affaire.
+DOSSIER_UNIHAN = "unihan"
+
+
+def source_unihan(sources: Path) -> Path | None:
+    """Archive `Unihan.zip` si elle est là, sinon le dossier extrait, sinon None."""
+    for candidat in (sources / unihan.ARCHIVE, sources / DOSSIER_UNIHAN):
+        if candidat.exists():
+            return candidat
+    return None
 
 
 def ingest(
@@ -253,8 +270,9 @@ def ingest(
 ) -> dict[str, object]:
     """Normalise les sources et les listes dans `sortie`. Retourne un décompte.
 
-    `dictionary.txt` et `graphics.txt` sont obligatoires. CC-CEDICT est facultatif :
-    s'il manque, `mots.json` n'est pas écrit et le rapport le signale.
+    `dictionary.txt` et `graphics.txt` sont obligatoires. CC-CEDICT, Unihan et
+    cjk-decomp sont facultatifs : s'ils manquent, leur JSON n'est pas écrit et le
+    rapport le signale.
     """
     sources = sources or SOURCES
     sortie = sortie or INGEST
@@ -274,6 +292,39 @@ def ingest(
     else:
         nombre_mots = f"source absente ({CEDICT})"
 
+    origine = source_unihan(sources)
+    if origine is not None:
+        donnees = unihan.collecter(origine)
+        _ecrire(
+            sortie / "unihan.json",
+            unihan.document(donnees, url=unihan.URL_OFFICIELLE, licence=unihan.LICENCE),
+        )
+        _ecrire(
+            sortie / "unihan-definitions.json",
+            unihan.document_definitions(
+                donnees, url=unihan.URL_OFFICIELLE, licence=unihan.LICENCE
+            ),
+        )
+        resume_unihan: object = f"{len(donnees.caracteres)} caractères (Unicode {donnees.version})"
+        frequence_unihan: object = (
+            f"{unihan.FREQUENCE} présent"
+            if donnees.avec_frequence
+            else f"{unihan.FREQUENCE} absent de cette version"
+        )
+        definitions_unihan: object = len(donnees.definitions)
+    else:
+        resume_unihan = f"source absente ({unihan.ARCHIVE})"
+        frequence_unihan = "—"
+        definitions_unihan = "—"
+
+    fichier_cjkdecomp = sources / CJKDECOMP
+    if fichier_cjkdecomp.exists():
+        ids_secondaires = cjkdecomp.ids_par_caractere(cjkdecomp.charger(fichier_cjkdecomp))
+        _ecrire(sortie / "ids-secondaires.json", cjkdecomp.document(ids_secondaires))
+        resume_ids: object = len(ids_secondaires)
+    else:
+        resume_ids = f"source absente ({CJKDECOMP})"
+
     niveaux = charger_listes(listes)
     _ecrire(sortie / "listes.json", niveaux)
 
@@ -283,6 +334,10 @@ def ingest(
         "caracteres_avec_etymologie": sum(1 for c in caracteres if c["etymologie"]),
         "graphies": len(graphies),
         "mots": nombre_mots,
+        "unihan": resume_unihan,
+        "unihan_frequence": frequence_unihan,
+        "unihan_definitions": definitions_unihan,
+        "ids_secondaires": resume_ids,
         **{f"liste_{nom}": len(v) for nom, v in niveaux.items()},
         **{
             f"liste_{nom}_absents_du_dictionnaire": sum(1 for c in v if c not in connus)
