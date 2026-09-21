@@ -61,3 +61,53 @@ Format BMAD : épics puis stories. Priorité dans l'ordre. Une story se termine 
 - 6.2 Achats StoreKit 2 (à vie, mensuel), Small Business Program.
 - 6.3 iCloud (CloudKit), haptique, widget caractère du jour.
 - 6.4 Fiche App Store, captures, candidature au featuring.
+
+## État au 21 septembre 2026
+
+Relevé sur le dépôt après une revue du pipeline. Les numéros ci-dessus ne bougent pas.
+
+### Livrées
+
+- Épic 0 : 0.1, 0.2, 0.3, 0.4 (décision écrite dans `docs/sources-licences.md`).
+- Épic 1 : 1.1, 1.2, 1.3, 1.6. La chaîne complète tourne — `uv run zilin tout` enchaîne
+  fetch, ingest, build, export et check, et deux passages écrivent les mêmes octets.
+  8 148 caractères sur 9 574 réconciliés ; 241 du seuil 255 sur 255, 280 du HSK 1 sur 300 ;
+  238 familles exportées en 1,33 Mio.
+- Épic 2 : 2.1 à 2.7. Épic 3 : 3.1 à 3.4. Épic 4 : 4.1, 4.2, 4.3.
+- Épic 4b : 4b.1 et 4b.2. Épic 5 : 5.1.
+
+### Livrées à moitié : le code attend une clé d'API
+
+Les trois chaînes sont écrites, testées sans réseau, et refusent de partir sans clé
+(code de sortie 2). Aucun contenu n'a donc encore été produit.
+
+- **1.4, fiches** : génération, validation et relecture en place ; 0 fiche écrite,
+  0 relue. Les 485 caractères s'exportent au statut `sans_fiche`, avec leur
+  décomposition et leurs tracés, sans texte. `ANTHROPIC_API_KEY`.
+- **1.7, contes** : catalogue versionné, génération par lots en place ; 0 version
+  écrite. `ANTHROPIC_API_KEY`. Bloque 2c.1 et 2c.2.
+- **1.5, audio** : périmètre, manifeste et export en place ; 0 fichier sur les
+  731 textes du périmètre. Clé du fournisseur, **et** décision de licence ci-dessous.
+
+### En attente d'une décision
+
+- **Licence de l'audio** : le critère est le droit de redistribuer les fichiers
+  générés dans une app payante, sans redevance par écoute. Les conditions d'Azure
+  Speech n'ont pas pu être lues (proxy). Tant que la ligne n'est pas vérifiée sur une
+  source primaire, aucun fichier synthétisé n'entre dans un artefact distribué.
+- **Licence des décompositions** : la chaîne IDS descendue vient de `dictionary.txt`
+  (Make Me a Hanzi, LGPL 3.0+), que §2.2 écarte de l'embarqué. Chaque fiche exportée
+  nomme la source de sa décomposition (`sources`) pour que la décision se tranche
+  caractère par caractère ; `LICENCES.md` la pose noir sur blanc. Non tranchée.
+- **Images des anecdotes (2.3)** : l'écran Ouvrir affiche une estampe. Aucune source
+  d'images sous licence compatible avec un usage commercial n'est retenue ; les images
+  de sites tiers sont exclues (brief §11).
+- **Formes anciennes** : aucune police oraculaire sous licence ouverte vérifiée,
+  couverture sigillaire insuffisante (§7). Reporté.
+- **Listes Eduscol et référentiel HSK 3.0** : conditions de réutilisation non
+  consultées (§6).
+
+### Non commencées
+
+2c.1, 2c.2, 4b.3 à 4b.9, 5.2, et toute la phase 6 — hors le workflow CI macOS et la
+configuration Capacitor, déjà versionnés.
