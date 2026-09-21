@@ -12,10 +12,12 @@
    * `LIGNE_SANS_FICHE` tient lieu d'origine tant que la fiche n'est pas écrite.
    */
   import Glyph from './Glyph.svelte';
+  import Tao from './Tao.svelte';
   import Trace from './Trace.svelte';
   import { ETIQUETTES, LIGNE_SANS_FICHE, lecon, type FicheLue } from './content';
   import { aAudio, dire, manifesteOnce, type Manifeste } from './audio';
   import { jourParcours, traceProposee, type LearnView, type Progress } from './session';
+  import { humeur, stade } from './tao';
 
   let {
     p,
@@ -95,6 +97,10 @@
   /** Le tracé est-il dans l'enchaînement de cette session ? Une fois par brique, et réglable. */
   const traceOfferte = $derived(brique ? traceProposee(p, brique.c) : false);
 
+  /* Tao en posture leçon, la bulle sur le caractère du moment. Elle ne dit rien. */
+  const taoHumeur = $derived(humeur(p.tao.activites, p.day));
+  const taoStade = $derived(stade(p.tao.croissance));
+
   /**
    * Audio au toucher du caractère : le fichier pré-généré, servi avec l'app. Rien ne se
    * passe si ce caractère n'a pas de voix — le téléphone ne synthétise jamais (brief §11).
@@ -134,7 +140,10 @@
   {/if}
 
   {#if vue === 'brique' && brique}
-    <p class="guide">D'abord la brique.</p>
+    <div class="verif-tete">
+      <Tao stade={taoStade} posture="lecon" humeur={taoHumeur} size={72} caractere={brique.c} />
+      <p class="guide grow">D'abord la brique.</p>
+    </div>
     <div class="card center">
       <button
         class="say"
@@ -177,6 +186,10 @@
       >
     </div>
   {:else if vue === 'trace' && brique}
+    <div class="verif-tete">
+      <Tao stade={taoStade} posture="trace" humeur={taoHumeur} size={64} />
+      <p class="guide grow">Elle tient le pinceau avec toi.</p>
+    </div>
     <Trace char={brique.c} />
     <label class="pref">
       <input type="checkbox" checked={!p.trace} onchange={(e) => ontrace(!e.currentTarget.checked)} />
@@ -188,7 +201,10 @@
       >
     </div>
   {:else if vue === 'compose' && compo}
-    <p class="guide">La brique est posée : voici ce qu'elle donne.</p>
+    <div class="verif-tete">
+      <Tao stade={taoStade} posture="lecon" humeur={taoHumeur} size={72} caractere={compo.c} />
+      <p class="guide grow">La brique est posée : voici ce qu'elle donne.</p>
+    </div>
     <div class="card center">
       <div class="formula">
         {#each compo.parts as part, i (part + i)}

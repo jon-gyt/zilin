@@ -1,3 +1,4 @@
+import { readFileSync } from 'node:fs';
 import { describe, it, expect } from 'vitest';
 import { SEUIL_ABSENCE } from './session';
 import {
@@ -16,6 +17,7 @@ import {
   stade,
   taoVide,
   type Activite,
+  type PostureVue,
   type Tao,
   type TypeActivite
 } from './tao';
@@ -201,5 +203,32 @@ describe('sérialisation', () => {
     expect(t.croissance).toBe(7);
     expect(t.activites).toEqual([{ jour: JOUR, type: 'lecon' }]);
     expect(t.collection).toEqual(['bol']);
+  });
+});
+
+describe('Tao accompagne les activités dans leur posture (brief §9)', () => {
+  /** Ce que chaque écran d'activité doit poser, et rien d'autre : une posture, sans un mot. */
+  const ECRANS: [string, PostureVue[]][] = [
+    ['Learn.svelte', ['lecon', 'trace']],
+    ['Use.svelte', ['lecture']],
+    ['Warm.svelte', ['revision']],
+    ['Fix.svelte', ['revision']],
+    ['Game.svelte', ['jeu']],
+    ['Close.svelte', ['chemin']]
+  ];
+
+  it('est à sa place sur chaque écran, dans la posture de l’activité', () => {
+    for (const [fichier, postures] of ECRANS) {
+      const source = readFileSync(new URL(fichier, import.meta.url), 'utf8');
+      expect(source, fichier).toContain('<Tao');
+      for (const pose of postures) expect(source, fichier).toContain(`posture="${pose}"`);
+    }
+  });
+
+  it('ne commente jamais une réponse : elle n’a aucune bulle de texte', () => {
+    const source = readFileSync(new URL('Tao.svelte', import.meta.url), 'utf8');
+    /* La seule bulle est celle de la leçon, et elle ne porte qu'un caractère. */
+    expect(source).toContain('{caractere}');
+    expect(source).not.toMatch(/VERDICTS|correct|bravo/i);
   });
 });

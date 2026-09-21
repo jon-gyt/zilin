@@ -23,8 +23,10 @@
     type Signe,
     type Texte
   } from './content';
+  import Tao from './Tao.svelte';
   import { aAudio, dire, manifesteOnce, type Manifeste } from './audio';
   import { jourParcours, type Progress, type UseView } from './session';
+  import { humeur, stade } from './tao';
 
   let {
     p,
@@ -32,6 +34,7 @@
     onsuivant,
     onquitter
   }: {
+    /** La progression : Tao y lit son stade et son humeur, la brique du jour et ses textes. */
     p: Progress;
     vue: UseView;
     /** Enchaîne vers la vue suivante, ou termine le pas après la dernière. */
@@ -97,6 +100,10 @@
   /** Le texte nu : ce qui se dirait à voix haute, quand l'audio sera embarqué. */
   const nu = $derived(t ? lignesNues(t).join('') : '');
 
+  /* Tao lit par-dessus l'épaule. Elle accompagne la lecture, elle ne la commente pas. */
+  const taoHumeur = $derived(humeur(p.tao.activites, p.day));
+  const taoStade = $derived(stade(p.tao.croissance));
+
   /**
    * Audio au toucher du caractère : le fichier pré-généré, servi avec l'app. Rien ne se
    * passe si ce texte n'a pas de voix — le téléphone ne synthétise jamais (brief §11).
@@ -129,7 +136,10 @@
   {/if}
 
   {#if vue === 'mots' && compo}
-    <p class="guide">Un caractère se lit dans des mots.</p>
+    <div class="verif-tete">
+      <Tao stade={taoStade} posture="lecture" humeur={taoHumeur} size={72} />
+      <p class="guide grow">Un caractère se lit dans des mots.</p>
+    </div>
     <div class="card">
       {#if mots.length === 0 && !phrase}
         <!-- Les mots et la phrase viennent d'une fiche relue : sans elle, on ne feint rien.
@@ -162,10 +172,13 @@
     <div class="foot"><button class="btn" onclick={onsuivant}>Lire trois lignes</button></div>
   {:else if vue === 'texte' && t}
     <h1>Lire</h1>
-    <p class="guide">
-      Trois lignes, uniquement avec tes caractères. Le cinabre est celui d'aujourd'hui.
-      Touche un caractère si tu hésites.
-    </p>
+    <div class="verif-tete">
+      <Tao stade={taoStade} posture="lecture" humeur={taoHumeur} size={72} />
+      <p class="guide grow">
+        Trois lignes, uniquement avec tes caractères. Le cinabre est celui d'aujourd'hui.
+        Touche un caractère si tu hésites.
+      </p>
+    </div>
     <div class="card">
       <div class="read">
         {#each t.lignes as ligne, l (l)}
