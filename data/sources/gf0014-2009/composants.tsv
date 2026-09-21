@@ -1,0 +1,588 @@
+# GF 0014-2009 《现代常用字部件及部件名称规范》 — 现代常用字部件表
+#
+# Les 514 composants (441 groupes) de la norme, sous la forme réutilisable dont
+# le pipeline a besoin. Seules les données factuelles de la norme sont reprises
+# (forme, numéro d'ordre, numéro de groupe, nom) ; ni le texte du document, ni
+# sa mise en page, ni ses exemples, ni ses annexes. Voir docs/sources-licences.md §6.
+#
+# Établi le 2026-09-21 par recoupement de deux transcriptions indépendantes,
+# arbitré sur le fac-similé de la norme.
+#
+# Source A — transcription tabulaire (forme, 序号, 组号, 名称, 例字)
+#   https://raw.githubusercontent.com/zispace/hanzi-chars-ext/main/汉字部件/GF 0014-2009《现代常用字部件及部件名称规范》-现代常用字部件表.txt
+#   relevé le 2026-09-21, 14 794 octets
+#   SHA-256 4a09dba18c73ac317615dd7cea903197584d1979f2fee2bc71f0283f065f02a2
+#   dépôt sans fichier de licence ; retenue pour les formes des 514 composants.
+#
+# Source B — transcription structurée (序号, 组号, 简洁部件名, 俗称, 成字, 到主形, traits)
+#   https://raw.githubusercontent.com/edt-yxz-zzd/python3_src/master/nn_ns/CJK/CJK_data/output/handle_现代常用字部件表.py.out/现代常用字部件及部件名称规范_GF0014_2009_main_result.json.txt
+#   relevé le 2026-09-21, 217 882 octets
+#   SHA-256 6e53038e65ec692569f4e77068a08048ede57cc7ba0671988f5a45df9a7b8cdd
+#   dépôt sans fichier de licence ; retenue pour les groupes, les noms et le
+#   caractère « plein » (成字) de chaque composant.
+#
+# Source C — fac-similé de la norme, consulté page par page pour arbitrer
+#   https://github.com/Haixing-Hu/typesetting-standard/blob/master/数字文字/【GF 0014-2009】现代常用字部件及部件名称规范.pdf
+#   relevé le 2026-09-21, 17 623 733 octets, 42 pages, images sans couche texte
+#   SHA-256 faca89e8009086890f2f9aa6f7c6ac2a38e6f2fa70a0361490faa6dbc6006cc6
+#   Pages du 部件表 lues : 7, 8, 9, 11, 12, 14 (numérotation du document).
+#   Le PDF n'est pas redistribué ici ; il sert de pièce de contrôle.
+#
+# Concordance des sources A et B
+#   - 514 lignes de part et d'autre, numéros d'ordre 1 à 514 identiques.
+#   - 441 groupes de part et d'autre.
+#   - Formes : aucun désaccord sur les 353 composants 成字 (seuls ceux pour
+#     lesquels la source B donne la forme).
+#   - Groupes : 5 groupes divergents, tous entre les lignes 171 et 182.
+#     La source A donne 糸 (172) et 㔾 (176) en groupes propres et réunit
+#     角+卩 puis 今+金. Le fac-similé (page 11) donne 纟+糸 = groupe 147,
+#     角 = 148, 卩+卩省+㔾 = 149, 巾 = 151, 斤 = 152, 今 = 153, 金+钅 = 154 :
+#     la source B est exacte, la source A décale une colonne. Groupes retenus : B.
+#   - Noms : 39 lignes formulées différemment. 34 relèvent de la mise en forme
+#     (la source A écrit « 朿/刺字旁 », la source B « 刺字旁 » plus un俗称).
+#     5 sont de vrais désaccords, arbitrés sur le fac-similé :
+#       ligne   1  卬     A « 卬 »        B « 昂字底 »  norme « 卬/昂字底 » (p. 7)
+#       ligne  65  歺     A « 餐字角 »     B « 餐左角 »  norme « 餐左角 »    (p. 8)
+#       ligne  77  丶     A « 丶 »        B « 点 »      norme « 点 »        (p. 9)
+#       ligne 192  勹     A « 句子框 »     B « 句字框 »  norme « 句字框 »    (p. 12)
+#       ligne 268  丿     A « 丿 »        B « 撇 »      norme « 撇 »        (p. 14)
+#
+# Écarts restants, assumés
+#   - Les noms sont donnés sans leur pinyin, que la norme place entre parenthèses.
+#   - Quatre points de code portent deux composants distincts de la norme :
+#     ⺈ (尔字头 89, 负字头 295), 丁 (丁 80, 可字框 199), 丷 (倒八 6, 刀中 70),
+#     𧘇 (旅下角 226, 衣省 441). `forme` n'est donc pas une clé unique.
+#   - 30 composants n'ont pas de point de code Unicode : `type_forme` vaut alors
+#     `ids` et `forme` porte la description IDS relevée par la source A, en
+#     l'état. Ces formes ne peuvent pas être appariées avec une décomposition
+#     de Make Me a Hanzi ; elles sont présentes pour la complétude de la table.
+#   - 43 composants sont hors du plan multilingue de base : ils exigent une
+#     police couvrant les extensions B et C.
+#
+# Colonnes
+#   sequence         numéro d'ordre dans la norme, 1 à 514
+#   groupe           numéro de groupe, 1 à 441 ; un groupe réunit un composant
+#                    principal et ses variantes de forme (部件变体)
+#   forme            le composant : un caractère Unicode, ou une description IDS
+#   type_forme       `unicode` ou `ids`
+#   nom              nom normalisé (部件名称), sans pinyin ; « A/B » quand la
+#                    norme donne deux appellations
+#   nom_simple       appellation unique, utilisable en interface
+#   principal        forme du composant principal du groupe ; égale `forme`
+#                    pour un composant principal
+#   caractere_plein  1 si le composant est aussi un caractère (成字部件)
+sequence	groupe	forme	type_forme	nom	nom_simple	principal	caractere_plein
+1	1	卬	unicode	卬/昂字底	昂字底	卬	1
+2	2	凹	unicode	凹	凹	凹	1
+3	3	𫠤	unicode	敖字旁	敖字旁	𫠤	0
+4	4	⿱丿𭁨	ids	奥字头	奥字头	⿱丿𭁨	0
+5	5	八	unicode	八	八	八	1
+6	5	丷	unicode	倒八	倒八	八	0
+7	6	巴	unicode	巴	巴	巴	1
+8	7	白	unicode	白	白	白	1
+9	8	百	unicode	百	百	百	1
+10	9	⿱一丰	ids	拜字边	拜字边	⿱一丰	0
+11	10	办	unicode	办	办	办	1
+12	11	半	unicode	半	半	半	1
+13	12	宀	unicode	宝盖	宝盖	宀	0
+14	13	卑	unicode	卑	卑	卑	1
+15	14	贝	unicode	贝	贝	贝	1
+16	15	卄	unicode	贲字腰	贲字腰	卄	0
+17	16	本	unicode	本	本	本	1
+18	17	丌	unicode	鼻字底	鼻字底	丌	0
+19	18	匕	unicode	匕	匕	匕	1
+20	18	⿰二丨	ids	北字旁	北字旁	匕	0
+21	19	必	unicode	必	必	必	1
+22	20	㡀	unicode	敝字旁	敝字旁	㡀	0
+23	21	釆	unicode	釆/番字头	番字头	釆	1
+24	22	丙	unicode	丙	丙	丙	1
+25	23	秉	unicode	秉	秉	秉	1
+26	24	疒	unicode	病字框	病字框	疒	0
+27	25	卜	unicode	卜	卜	卜	1
+28	25	⺊	unicode	卢字头	卢字头	卜	0
+29	26	不	unicode	不	不	不	1
+30	27	才	unicode	才	才	才	1
+31	28	⿻[:-1]艹日	ids	曹字头	曹字头	⿻[:-1]艹日	0
+32	29	艹	unicode	草字头	草字头	艹	0
+33	30	册	unicode	册	册	册	1
+34	30	𠕁	unicode	扁字心	扁字心	册	0
+35	30	⿻〢𠔼	ids	典字头	典字头	册	0
+36	31	⿱丷⿴囗⺌	ids	曾字头	曾字头	⿱丷⿴囗⺌	0
+37	32	叉	unicode	叉	叉	叉	1
+38	33	产	unicode	产	产	产	1
+39	34	长	unicode	长	长	长	1
+40	35	厂	unicode	厂	厂	厂	1
+41	36	车	unicode	车	车	车	1
+42	37	臣	unicode	臣	臣	臣	1
+43	37	〢	unicode	临字旁	临字旁	臣	0
+44	38	辰	unicode	辰	辰	辰	1
+45	39	丞	unicode	丞	丞	丞	1
+46	40	承	unicode	承	承	承	1
+47	41	尺	unicode	尺	尺	尺	1
+48	42	斥	unicode	斥	斥	斥	1
+49	43	赤	unicode	赤	赤	赤	1
+50	44	虫	unicode	虫	虫	虫	1
+51	45	丑	unicode	丑	丑	丑	1
+52	46	出	unicode	出	出	出	1
+53	47	川	unicode	川	川	川	1
+54	47	𫶧	unicode	荒字底	荒字底	川	0
+55	47	巛	unicode	巡字心	巡字心	川	0
+56	48	串	unicode	串	串	串	1
+57	49	垂	unicode	垂	垂	垂	1
+58	50	𡗗	unicode	春字头	春字头	𡗗	0
+59	51	朿	unicode	朿/刺字旁	刺字旁	朿	1
+60	52	匆	unicode	匆	匆	匆	1
+61	53	囱	unicode	囱	囱	囱	1
+62	54	寸	unicode	寸	寸	寸	1
+63	55	大	unicode	大	大	大	1
+64	56	歹	unicode	歹	歹	歹	1
+65	56	歺	unicode	餐左角	餐左角	歹	0
+66	57	卅	unicode	带字头	带字头	卅	0
+67	58	丹	unicode	丹	丹	丹	1
+68	59	单	unicode	单	单	单	1
+69	60	刀	unicode	刀	刀	刀	1
+70	60	丷	unicode	刀中	刀中	刀	0
+71	60	⿹勹丿	ids	黎右角	黎右角	刀	0
+72	60	刂	unicode	立刀	立刀	刀	0
+73	61	癶	unicode	登字头	登字头	癶	0
+74	62	⿳亠丷冖	ids	帝字头	帝字头	⿳亠丷冖	0
+75	63	弟	unicode	弟	弟	弟	1
+76	63	𢎨	unicode	弟省	弟省	弟	0
+77	64	丶	unicode	点	点	丶	0
+78	65	电	unicode	电	电	电	1
+79	66	刁	unicode	刁	刁	刁	1
+80	67	丁	unicode	丁	丁	丁	1
+81	68	鼎	unicode	鼎	鼎	鼎	1
+82	69	夂	unicode	冬字头	冬字头	夂	0
+83	70	东	unicode	东	东	东	1
+84	71	兜	unicode	兜	兜	兜	1
+85	72	斗	unicode	斗	斗	斗	1
+86	73	豆	unicode	豆	豆	豆	1
+87	74	⿷⿻𠂆一二	ids	段字旁	段字旁	⿷⿻𠂆一二	0
+88	75	而	unicode	而	而	而	1
+89	76	⺈	unicode	尔字头	尔字头	⺈	0
+90	77	耳	unicode	耳	耳	耳	1
+91	78	二	unicode	二	二	二	1
+92	79	发	unicode	发	发	发	1
+93	80	凡	unicode	凡	凡	凡	1
+94	81	𠂆	unicode	反字框	反字框	𠂆	0
+95	82	攵	unicode	反文	反文	攵	0
+96	82	攴	unicode	攴/敲字边	敲字边	攵	1
+97	83	方	unicode	方	方	方	1
+98	84	飞	unicode	飞	飞	飞	1
+99	85	非	unicode	非	非	非	1
+100	86	丰	unicode	丰	丰	丰	1
+101	86	⿻三丿	ids	寿字头	寿字头	丰	0
+102	87	风	unicode	风	风	风	1
+103	87	𠘨	unicode	风省	风省	风	0
+104	88	缶	unicode	缶	缶	缶	1
+105	89	夫	unicode	夫	夫	夫	1
+106	90	巿	unicode	巿/肺字边	肺字边	巿	1
+107	91	弗	unicode	弗	弗	弗	1
+108	92	甫	unicode	甫	甫	甫	1
+109	93	父	unicode	父	父	父	1
+110	94	丐	unicode	丐	丐	丐	1
+111	95	干	unicode	干	干	干	1
+112	96	尢	unicode	尴字框	尴字框	尢	0
+113	97	甘	unicode	甘	甘	甘	1
+114	98	高	unicode	高	高	高	1
+115	99	戈	unicode	戈	戈	戈	1
+116	100	革	unicode	革	革	革	1
+117	101	个	unicode	个	个	个	1
+118	102	艮	unicode	艮/根字边	根字边	艮	1
+119	103	⿻人⺕	ids	庚字心	庚字心	⿻人⺕	0
+120	104	更	unicode	更	更	更	1
+121	105	工	unicode	工	工	工	1
+122	106	弓	unicode	弓	弓	弓	1
+123	107	冎	unicode	骨字头	骨字头	冎	0
+124	108	谷	unicode	谷	谷	谷	1
+125	109	瓜	unicode	瓜	瓜	瓜	1
+126	110	夬	unicode	夬/决字边	决字边	夬	1
+127	111	毌	unicode	毌/贯字头	贯字头	毌	1
+128	112	广	unicode	广	广	广	1
+129	113	龟	unicode	龟	龟	龟	1
+130	114	鬼	unicode	鬼	鬼	鬼	1
+131	115	果	unicode	果	果	果	1
+132	116	亥	unicode	亥	亥	亥	1
+133	117	𠀎	unicode	寒字腰	寒字腰	𠀎	0
+134	118	丂	unicode	号字底	号字底	丂	0
+135	119	禾	unicode	禾	禾	禾	1
+136	120	隺	unicode	鹤字旁	鹤字旁	隺	0
+137	121	黑	unicode	黑	黑	黑	1
+138	122	一	unicode	横/一	横	一	1
+139	123	乙	unicode	横折弯钩/乙	横折弯钩	乙	1
+140	123	乛	unicode	横钩	横钩	乙	0
+141	123	𠃍	unicode	横折	横折	乙	0
+142	123	𠃌	unicode	横折钩	横折钩	乙	0
+143	124	后	unicode	后	后	后	1
+144	125	乎	unicode	乎	乎	乎	1
+145	126	虍	unicode	虎字头	虎字头	虍	0
+146	127	互	unicode	互	互	互	1
+147	128	户	unicode	户	户	户	1
+148	129	凵	unicode	画字框	画字框	凵	0
+149	130	奂	unicode	奂	奂	奂	1
+150	131	黄	unicode	黄	黄	黄	1
+151	132	⿱⿻十日⿰一丶	ids	惠字头	惠字头	⿱⿻十日⿰一丶	0
+152	133	火	unicode	火	火	火	1
+153	133	灬	unicode	横四点	横四点	火	0
+154	134	击	unicode	击	击	击	1
+155	135	及	unicode	及	及	及	1
+156	136	⿸𢀳丶	ids	即字旁	即字旁	⿸𢀳丶	0
+157	137	几	unicode	几	几	几	1
+158	138	己	unicode	己	己	己	1
+159	138	已	unicode	已	已	己	1
+160	138	⿰𠄌丶	ids	以字旁	以字旁	己	0
+161	138	巳	unicode	巳	巳	己	1
+162	139	旡	unicode	旡/既字边	既字边	旡	1
+163	140	夹	unicode	夹	夹	夹	1
+164	141	甲	unicode	甲	甲	甲	1
+165	142	叚	unicode	叚/假字边	假字边	叚	1
+166	143	兼	unicode	兼	兼	兼	1
+167	144	柬	unicode	柬	柬	柬	1
+168	144	𫠣	unicode	拣字边	拣字边	柬	0
+169	145	廴	unicode	建之	建之	廴	0
+170	146	见	unicode	见	见	见	1
+171	147	纟	unicode	绞丝旁	绞丝旁	纟	0
+172	147	糸	unicode	绞丝底	绞丝底	纟	0
+173	148	角	unicode	角	角	角	1
+174	149	卩	unicode	卩/单耳	单耳	卩	1
+175	149	𰆊	unicode	节字底	节字底	卩	0
+176	149	㔾	unicode	仓字底	仓字底	卩	0
+177	150	疌	unicode	疌/捷字边	捷字边	疌	1
+178	151	巾	unicode	巾	巾	巾	1
+179	152	斤	unicode	斤	斤	斤	1
+180	153	今	unicode	今	今	今	1
+181	154	金	unicode	金	金	金	1
+182	154	钅	unicode	金旁	金旁	金	0
+183	155	堇	unicode	堇/谨字边	谨字边	堇	1
+184	156	京	unicode	京	京	京	1
+185	157	井	unicode	井	井	井	1
+186	158	丩	unicode	丩/纠字边	纠字边	丩	1
+187	159	九	unicode	九	九	九	1
+188	160	久	unicode	久	久	久	1
+189	161	韭	unicode	韭	韭	韭	1
+190	162	臼	unicode	臼	臼	臼	1
+191	163	𰀁	unicode	举字底	举字底	𰀁	0
+192	164	勹	unicode	句字框	句字框	勹	0
+193	165	巨	unicode	巨	巨	巨	1
+194	166	乑	unicode	聚字底	聚字底	乑	0
+195	167	具	unicode	具	具	具	1
+196	168	龹	unicode	卷字头	卷字头	龹	0
+197	169	卡	unicode	卡	卡	卡	1
+198	170	开	unicode	开	开	开	1
+199	171	丁	unicode	可字框	可字框	丁	0
+200	172	口	unicode	口	口	口	1
+201	173	来	unicode	来	来	来	1
+202	174	老	unicode	老	老	老	1
+203	174	耂	unicode	老省	老省	老	0
+204	175	乐	unicode	乐	乐	乐	1
+205	176	耒	unicode	耒	耒	耒	1
+206	177	禸	unicode	离字底	离字底	禸	0
+207	178	里	unicode	里	里	里	1
+208	179	力	unicode	力	力	力	1
+209	180	立	unicode	立	立	立	1
+210	181	吏	unicode	吏	吏	吏	1
+211	182	丽	unicode	丽	丽	丽	1
+212	183	隶	unicode	隶	隶	隶	1
+213	184	鬲	unicode	鬲/隔字边	隔字边	鬲	1
+214	185	冫	unicode	两点水/冰字旁	冰字旁	冫	0
+215	185	⺀	unicode	两点/冬字底	冬字底	冫	0
+216	186	两	unicode	两	两	两	1
+217	187	𡗜	unicode	尞字头	尞字头	𡗜	0
+218	188	了	unicode	了	了	了	1
+219	189	⿱𠂉丶	ids	临右角	临右角	⿱𠂉丶	0
+220	190	𫩏	unicode	临下角	临下角	𫩏	0
+221	191	六	unicode	六	六	六	1
+222	192	龙	unicode	龙	龙	龙	1
+223	193	卤	unicode	卤	卤	卤	1
+224	194	彐	unicode	录字头	录字头	彐	0
+225	195	鹿	unicode	鹿	鹿	鹿	1
+226	196	𧘇	unicode	旅下角	旅下角	𧘇	0
+227	197	卵	unicode	卵	卵	卵	1
+228	198	仑	unicode	仑	仑	仑	1
+229	199	罒	unicode	罗字头	罗字头	罒	0
+230	200	马	unicode	马	马	马	1
+231	201	毛	unicode	毛	毛	毛	1
+232	202	矛	unicode	矛	矛	矛	1
+233	203	卯	unicode	卯	卯	卯	1
+234	203	⿰𱍸刀	ids	留字头	留字头	卯	0
+235	204	冃	unicode	冒字头	冒字头	冃	0
+236	205	么	unicode	么	么	么	1
+237	206	𠃜	unicode	眉字框	眉字框	𠃜	0
+238	207	门	unicode	门	门	门	1
+239	208	米	unicode	米	米	米	1
+240	209	免	unicode	免	免	免	1
+241	210	面	unicode	面	面	面	1
+242	211	民	unicode	民	民	民	1
+243	212	皿	unicode	皿	皿	皿	1
+244	213	末	unicode	末	末	末	1
+245	214	母	unicode	母	母	母	1
+246	215	木	unicode	木	木	木	1
+247	216	目	unicode	目	目	目	1
+248	217	𭃂	unicode	那字旁	那字旁	𭃂	0
+249	218	乃	unicode	乃	乃	乃	1
+250	219	南	unicode	南	南	南	1
+251	220	⿱𰀉冖	ids	囊字头	囊字头	⿱𰀉冖	0
+252	221	内	unicode	内	内	内	1
+253	222	屰	unicode	屰/逆字心	逆字心	屰	1
+254	223	年	unicode	年	年	年	1
+255	224	廿	unicode	廿	廿	廿	1
+256	225	鸟	unicode	鸟	鸟	鸟	1
+257	225	⿱丿⿴#(-𠃌㇉)丶	ids	鸟省	鸟省	鸟	0
+258	226	牛	unicode	牛	牛	牛	1
+259	226	𠂒	unicode	告字头	告字头	牛	0
+260	227	农	unicode	农	农	农	1
+261	228	廾	unicode	弄字底	弄字底	廾	0
+262	228	⿱一八	ids	共字底	共字底	廾	0
+263	229	女	unicode	女	女	女	1
+264	230	爿	unicode	爿	爿	爿	1
+265	230	丬	unicode	将字旁	将字旁	爿	0
+266	231	皮	unicode	皮	皮	皮	1
+267	232	片	unicode	片	片	片	1
+268	233	丿	unicode	撇	撇	丿	0
+269	234	乒	unicode	乒	乒	乒	1
+270	234	乓	unicode	乓	乓	乒	1
+271	235	平	unicode	平	平	平	1
+272	236	七	unicode	七	七	七	1
+273	237	妻	unicode	妻	妻	妻	1
+274	238	其	unicode	其	其	其	1
+275	239	气	unicode	气	气	气	1
+276	240	千	unicode	千	千	千	1
+277	241	䒑	unicode	前字头	前字头	䒑	0
+278	242	戋	unicode	钱字边	钱字边	戋	0
+279	243	欠	unicode	欠	欠	欠	1
+280	244	⿰丿丨	ids	乔字底	乔字底	⿰丿丨	0
+281	245	且	unicode	且	且	且	1
+282	246	龶	unicode	青字头	青字头	龶	0
+283	247	𢀖	unicode	轻字边	轻字边	𢀖	0
+284	248	丘	unicode	丘	丘	丘	1
+285	249	求	unicode	求	求	求	1
+286	250	匚	unicode	区字框	区字框	匚	0
+287	251	曲	unicode	曲	曲	曲	1
+288	252	去	unicode	去	去	去	1
+289	253	犬	unicode	犬	犬	犬	1
+290	253	犭	unicode	反犬旁	反犬旁	犬	0
+291	254	冉	unicode	冉	冉	冉	1
+292	255	人	unicode	人	人	人	1
+293	255	亻	unicode	单立人	单立人	人	0
+294	255	儿	unicode	儿	儿	人	1
+295	255	⺈	unicode	负字头	负字头	人	0
+296	255	𠂉	unicode	卧人	卧人	人	0
+297	256	壬	unicode	壬	壬	壬	1
+298	257	刃	unicode	刃	刃	刃	1
+299	258	日	unicode	日	日	日	1
+300	258	曰	unicode	曰	曰	日	1
+301	259	入	unicode	入	入	入	1
+302	260	三	unicode	三	三	三	1
+303	261	伞	unicode	伞	伞	伞	1
+304	262	⿻土丷	ids	丧字头	丧字头	⿻土丷	0
+305	263	色	unicode	色	色	色	1
+306	264	山	unicode	山	山	山	1
+307	265	彡	unicode	彡	彡	彡	1
+308	266	⿳亠丷冂	ids	商字头	商字头	⿳亠丷冂	0
+309	267	上	unicode	上	上	上	1
+310	268	勺	unicode	勺	勺	勺	1
+311	269	少	unicode	少	少	少	1
+312	270	舌	unicode	舌	舌	舌	1
+313	271	申	unicode	申	申	申	1
+314	272	身	unicode	身	身	身	1
+315	273	升	unicode	升	升	升	1
+316	274	生	unicode	生	生	生	1
+317	275	尸	unicode	尸	尸	尸	1
+318	276	失	unicode	失	失	失	1
+319	277	十	unicode	十	十	十	1
+320	278	石	unicode	石	石	石	1
+321	279	食	unicode	食	食	食	1
+322	279	饣	unicode	食旁	食旁	食	0
+323	280	史	unicode	史	史	史	1
+324	281	矢	unicode	矢	矢	矢	1
+325	282	豕	unicode	豕	豕	豕	1
+326	282	𧰨	unicode	豕省	豕省	豕	0
+327	283	士	unicode	士	士	士	1
+328	284	氏	unicode	氏	氏	氏	1
+329	285	示	unicode	示	示	示	1
+330	285	礻	unicode	示旁	示旁	示	0
+331	286	世	unicode	世	世	世	1
+332	287	事	unicode	事	事	事	1
+333	288	手	unicode	手	手	手	1
+334	288	扌	unicode	提手	提手	手	0
+335	289	首	unicode	首	首	首	1
+336	290	殳	unicode	殳/设字边	设字边	殳	1
+337	291	书	unicode	书	书	书	1
+338	292	鼠	unicode	鼠	鼠	鼠	1
+339	293	丨	unicode	竖	竖	丨	0
+340	294	𠃊	unicode	竖折	竖折	𠃊	0
+341	294	乚	unicode	竖弯钩	竖弯钩	𠃊	0
+342	295	术	unicode	术	术	术	1
+343	296	束	unicode	束	束	束	1
+344	297	⿻口一	ids	衰字腰	衰字腰	⿻口一	0
+345	298	甩	unicode	甩	甩	甩	1
+346	299	⿰冫⿱丿丶	ids	率字腰	率字腰	⿰冫⿱丿丶	0
+347	300	阝	unicode	双耳	双耳	阝	0
+348	301	彳	unicode	双立人	双立人	彳	0
+349	302	水	unicode	水	水	水	1
+350	302	氵	unicode	三点水	三点水	水	0
+351	302	氺	unicode	水底	水底	水	0
+352	302	⿱䒑八	ids	益字头	益字头	水	0
+353	303	厶	unicode	厶/私字边	私字边	厶	1
+354	304	司	unicode	司	司	司	1
+355	305	丝	unicode	丝	丝	丝	1
+356	306	四	unicode	四	四	四	1
+357	307	镸	unicode	肆字旁	肆字旁	镸	0
+358	308	𦥔	unicode	叟字头	叟字头	𦥔	0
+359	309	肃	unicode	肃	肃	肃	1
+360	310	太	unicode	太	太	太	1
+361	311	肀	unicode	唐字心	唐字心	肀	0
+362	312	天	unicode	天	天	天	1
+363	313	田	unicode	田	田	田	1
+364	314	冂	unicode	同字框	同字框	冂	0
+365	315	头	unicode	头	头	头	1
+366	316	冖	unicode	秃宝盖	秃宝盖	冖	0
+367	317	凸	unicode	凸	凸	凸	1
+368	318	土	unicode	土	土	土	1
+369	319	屯	unicode	屯	屯	屯	1
+370	320	乇	unicode	乇/托字边	托字边	乇	1
+371	321	瓦	unicode	瓦	瓦	瓦	1
+372	322	丸	unicode	丸	丸	丸	1
+373	323	万	unicode	万	万	万	1
+374	324	亡	unicode	亡	亡	亡	1
+375	325	王	unicode	王	王	王	1
+376	326	囗	unicode	囗/围字框	围字框	囗	1
+377	327	韦	unicode	韦	韦	韦	1
+378	328	卫	unicode	卫	卫	卫	1
+379	329	𰀠	unicode	畏字底	畏字底	𰀠	0
+380	330	为	unicode	为	为	为	1
+381	331	未	unicode	未	未	未	1
+382	332	文	unicode	文	文	文	1
+383	333	我	unicode	我	我	我	1
+384	334	乌	unicode	乌	乌	乌	1
+385	335	无	unicode	无	无	无	1
+386	336	五	unicode	五	五	五	1
+387	337	午	unicode	午	午	午	1
+388	338	⿳𠂉卌一	ids	舞字头	舞字头	⿳𠂉卌一	0
+389	339	兀	unicode	兀	兀	兀	1
+390	340	勿	unicode	勿	勿	勿	1
+391	341	戊	unicode	戊	戊	戊	1
+392	342	夕	unicode	夕	夕	夕	1
+393	342	⿴夂丶	ids	夜下角	夜下角	夕	0
+394	343	龷	unicode	昔字头	昔字头	龷	0
+395	344	西	unicode	西	西	西	1
+396	344	覀	unicode	要字头	要字头	西	0
+397	345	习	unicode	习	习	习	1
+398	346	丆	unicode	夏字头	夏字头	丆	0
+399	347	下	unicode	下	下	下	1
+400	348	乡	unicode	乡	乡	乡	1
+401	349	向	unicode	向	向	向	1
+402	350	象	unicode	象	象	象	1
+403	351	小	unicode	小	小	小	1
+404	351	⺌	unicode	尚字头	尚字头	小	0
+405	352	𦈢	unicode	卸字旁	卸字旁	𦈢	0
+406	353	心	unicode	心	心	心	1
+407	353	㣺	unicode	恭字底	恭字底	心	0
+408	353	忄	unicode	竖心	竖心	心	0
+409	354	辛	unicode	辛	辛	辛	1
+410	355	囟	unicode	囟	囟	囟	1
+411	356	戌	unicode	戌	戌	戌	1
+412	357	亠	unicode	玄字头	玄字头	亠	0
+413	358	𭕄	unicode	学字头	学字头	𭕄	0
+414	359	穴	unicode	穴	穴	穴	1
+415	360	𫜹	unicode	雪字底	雪字底	𫜹	0
+416	360	𰀂	unicode	虐字底	虐字底	𫜹	0
+417	361	血	unicode	血	血	血	1
+418	362	熏	unicode	熏	熏	熏	1
+419	363	卂	unicode	讯字边	讯字边	卂	0
+420	364	丫	unicode	丫	丫	丫	1
+421	365	牙	unicode	牙	牙	牙	1
+422	366	亚	unicode	亚	亚	亚	1
+423	367	⿹⿺㇉一灬	ids	焉字底	焉字底	⿹⿺㇉一灬	0
+424	368	𠂛	unicode	延字心	延字心	𠂛	0
+425	369	严	unicode	严	严	严	1
+426	370	言	unicode	言	言	言	1
+427	370	讠	unicode	言旁	言旁	言	0
+428	371	央	unicode	央	央	央	1
+429	372	𠃓	unicode	杨字边	杨字边	𠃓	0
+430	373	羊	unicode	羊	羊	羊	1
+431	373	𦍌	unicode	美字头	美字头	羊	0
+432	373	⿱䒑夫	ids	养字头	养字头	羊	0
+433	374	幺	unicode	幺/幼字旁	幼字旁	幺	1
+434	375	夭	unicode	夭	夭	夭	1
+435	376	𭠍	unicode	尧字头	尧字头	𭠍	0
+436	377	也	unicode	也	也	也	1
+437	378	业	unicode	业	业	业	1
+438	379	页	unicode	页	页	页	1
+439	380	曳	unicode	曳/拽字边	拽字边	曳	1
+440	381	衣	unicode	衣	衣	衣	1
+441	381	𧘇	unicode	衣省	衣省	衣	0
+442	381	衤	unicode	衣旁	衣旁	衣	0
+443	382	彑	unicode	彝字头	彝字头	彑	0
+444	383	夷	unicode	夷	夷	夷	1
+445	384	𦣞	unicode	颐字旁	颐字旁	𦣞	0
+446	385	乂	unicode	乂/艾字底	艾字底	乂	1
+447	386	弋	unicode	弋/代字边	代字边	弋	1
+448	387	义	unicode	义	义	义	1
+449	388	亦	unicode	亦	亦	亦	1
+450	389	㐆	unicode	殷字旁	殷字旁	㐆	0
+451	390	冘	unicode	冘/枕字边	枕字边	冘	1
+452	391	尹	unicode	尹	尹	尹	1
+453	392	庸	unicode	庸	庸	庸	1
+454	393	龴	unicode	勇字头	勇字头	龴	0
+455	394	永	unicode	永	永	永	1
+456	395	用	unicode	用	用	用	1
+457	396	尤	unicode	尤	尤	尤	1
+458	397	由	unicode	由	由	由	1
+459	398	酉	unicode	酉	酉	酉	1
+460	399	又	unicode	又	又	又	1
+461	400	于	unicode	于	于	于	1
+462	401	鱼	unicode	鱼	鱼	鱼	1
+463	402	禺	unicode	禺/愚字头	愚字头	禺	1
+464	403	与	unicode	与	与	与	1
+465	404	予	unicode	予	予	予	1
+466	405	雨	unicode	雨	雨	雨	1
+467	406	禹	unicode	禹	禹	禹	1
+468	407	玉	unicode	玉	玉	玉	1
+469	407	𤣩	unicode	斜玉	斜玉	玉	0
+470	408	聿	unicode	聿/律字边	律字边	聿	1
+471	409	月	unicode	月/肉月	月	月	1
+472	409	肉	unicode	肉	肉	月	1
+473	409	⺝	unicode	青字底	青字底	月	0
+474	409	𱼀	unicode	然左角	然左角	月	0
+475	410	戉	unicode	戉/越字心	越字心	戉	1
+476	411	云	unicode	云	云	云	1
+477	412	再	unicode	再	再	再	1
+478	413	乍	unicode	乍	乍	乍	1
+479	414	丈	unicode	丈	丈	丈	1
+480	415	爪	unicode	爪	爪	爪	1
+481	415	𰀄	unicode	印字旁	印字旁	爪	0
+482	415	爫	unicode	爪头	爪头	爪	0
+483	416	兆	unicode	兆	兆	兆	1
+484	417	争	unicode	争	争	争	1
+485	418	正	unicode	正	正	正	1
+486	419	之	unicode	之	之	之	1
+487	420	直	unicode	直	直	直	1
+488	421	止	unicode	止	止	止	1
+489	421	㐄	unicode	降下角	降下角	止	0
+490	421	龰	unicode	足字底	足字底	止	0
+491	421	𣥂	unicode	步字底	步字底	止	0
+492	422	至	unicode	至	至	至	1
+493	423	⿻牛冂	ids	制字旁	制字旁	⿻牛冂	0
+494	424	豸	unicode	豸/豹字旁	豹字旁	豸	1
+495	425	中	unicode	中	中	中	1
+496	426	重	unicode	重	重	重	1
+497	427	⺆	unicode	周字框	周字框	⺆	0
+498	428	舟	unicode	舟	舟	舟	1
+499	429	州	unicode	州	州	州	1
+500	430	朱	unicode	朱	朱	朱	1
+501	431	竹	unicode	竹	竹	竹	1
+502	431	𥫗	unicode	竹头	竹头	竹	0
+503	432	主	unicode	主	主	主	1
+504	433	专	unicode	专	专	专	1
+505	434	𠂤	unicode	追字心	追字心	𠂤	0
+506	434	㠯	unicode	官字底	官字底	𠂤	0
+507	434	リ	unicode	师字旁	师字旁	𠂤	0
+508	435	隹	unicode	隹/锥字边	锥字边	隹	1
+509	436	豖	unicode	啄字边	啄字边	豖	0
+510	437	子	unicode	子	子	子	1
+511	438	𠂔	unicode	姊字边	姊字边	𠂔	0
+512	439	自	unicode	自	自	自	1
+513	440	辶	unicode	走之	走之	辶	0
+514	441	𠂇	unicode	左字框	左字框	𠂇	0
