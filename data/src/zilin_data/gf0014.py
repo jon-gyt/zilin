@@ -28,6 +28,7 @@ from pathlib import Path
 from typing import Iterable, Iterator, Mapping, Sequence
 
 from .cjkdecomp import SOURCE as SOURCE_SECONDAIRE
+from .outils import ecrire_json
 from .paths import BUILD, GF0014, INGEST
 
 # Opérateurs de description idéographique (Unicode 2FF0..2FFB) et leur arité.
@@ -504,11 +505,6 @@ def rapport_ecarts(
 # --------------------------------------------------------------------------- build
 
 
-def _ecrire(chemin: Path, contenu: object) -> None:
-    chemin.parent.mkdir(parents=True, exist_ok=True)
-    chemin.write_text(json.dumps(contenu, ensure_ascii=False, indent=1), encoding="utf-8")
-
-
 IDS_SECONDAIRES = "ids-secondaires.json"
 
 
@@ -569,7 +565,7 @@ def build(
 
     decompositions = reconcilier(caracteres, table, secondaires)
     sortie.mkdir(parents=True, exist_ok=True)
-    _ecrire(sortie / "decompositions.json", document_decompositions(decompositions, table))
+    ecrire_json(sortie / "decompositions.json", document_decompositions(decompositions, table))
     (sortie / "ecarts.md").write_text(rapport_ecarts(decompositions, table, listes), encoding="utf-8")
 
     ok = sum(1 for d in decompositions if d.reconcilie)

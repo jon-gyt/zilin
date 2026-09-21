@@ -12,7 +12,6 @@ data/work/sources/PROVENANCE.md (URL réellement servie, date, taille, empreinte
 from __future__ import annotations
 
 import gzip
-import hashlib
 import zipfile
 from dataclasses import dataclass, field
 from datetime import UTC, datetime
@@ -21,6 +20,9 @@ from pathlib import Path
 import httpx
 
 from .ingest import ouvrir_texte
+
+# `empreinte` : le SHA-256 d'un fichier, le même que celui d'`export` (`outils.py`).
+from .outils import empreinte_fichier as empreinte
 from .paths import SOURCES
 from . import cjkdecomp, unihan
 
@@ -101,15 +103,6 @@ SOURCES_DISTANTES: tuple[Source, ...] = (
         licence=cjkdecomp.LICENCE,
     ),
 )
-
-
-def empreinte(chemin: Path) -> str:
-    """SHA-256 du fichier, en hexadécimal."""
-    h = hashlib.sha256()
-    with chemin.open("rb") as f:
-        for bloc in iter(lambda: f.read(1 << 20), b""):
-            h.update(bloc)
-    return h.hexdigest()
 
 
 PRESENT = "déjà présent"

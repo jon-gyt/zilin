@@ -59,6 +59,7 @@ from . import fiches as fiches_mod
 from .gf0014 import Controle
 from .graphe import BRIQUE, MUETTE, PARCOURS
 from .models import Brique, Famille, Fiche, Mot
+from .outils import empreinte_fichier
 from .paths import BUILD, DATA, EXPORT, GF0014, INGEST
 
 #: Version par défaut de l'export.
@@ -111,14 +112,6 @@ class FamilleInvalide(ValueError):
 # ------------------------------------------------------------------------ empreinte
 
 
-def _empreinte_fichier(chemin: Path) -> str:
-    h = hashlib.sha256()
-    with chemin.open("rb") as f:
-        for bloc in iter(lambda: f.read(1 << 20), b""):
-            h.update(bloc)
-    return h.hexdigest()
-
-
 def fichiers_sources(
     *,
     build: Path,
@@ -157,7 +150,7 @@ def empreinte_build(fichiers: Sequence[tuple[str, Path]]) -> str:
     Un fichier absent compte pour `—` : son absence fait partie de l'état.
     """
     lignes = [
-        f"{nom} {_empreinte_fichier(chemin) if chemin.exists() else '—'}"
+        f"{nom} {empreinte_fichier(chemin) if chemin.exists() else '—'}"
         for nom, chemin in fichiers
     ]
     return "sha256:" + hashlib.sha256("\n".join(lignes).encode("utf-8")).hexdigest()

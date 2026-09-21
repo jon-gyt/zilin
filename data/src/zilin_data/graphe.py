@@ -59,6 +59,7 @@ from pathlib import Path
 from typing import Callable, Iterable, Mapping, Sequence
 
 from .gf0014 import Controle
+from .outils import ecrire_json
 from .paths import BUILD, INGEST
 
 BRIQUE = "brique"
@@ -586,11 +587,6 @@ def document_parcours(p: Parcours) -> dict[str, object]:
     }
 
 
-def _ecrire(chemin: Path, contenu: object) -> None:
-    chemin.parent.mkdir(parents=True, exist_ok=True)
-    chemin.write_text(json.dumps(contenu, ensure_ascii=False, indent=1), encoding="utf-8")
-
-
 #: Titre de la section que ce module tient dans `ecarts.md`, écrit par `gf0014`.
 SECTION_MUETTES = "## Briques muettes"
 
@@ -653,7 +649,7 @@ def build(
     document = json.loads((sortie / "decompositions.json").read_text(encoding="utf-8"))
     graphe = construire(document["caracteres"])
     boucles = cycles(graphe)
-    _ecrire(sortie / "graphe.json", document_graphe(graphe, boucles))
+    ecrire_json(sortie / "graphe.json", document_graphe(graphe, boucles))
 
     fichier_listes = ingest / "listes.json"
     listes = json.loads(fichier_listes.read_text(encoding="utf-8")) if fichier_listes.exists() else {}
@@ -683,7 +679,7 @@ def build(
             continue
         p = parcours(graphe, cible, nom=nom, liste=liste, rangs=rangs)
         ecrits.append(p)
-        _ecrire(sortie / f"parcours-{nom}.json", document_parcours(p))
+        ecrire_json(sortie / f"parcours-{nom}.json", document_parcours(p))
         rapport[f"parcours_{nom}"] = (
             f"{len(p.jours)} jours pour {p.cibles} caractères"
             f" ({len(p.briques)} briques, {len(p.non_reconcilies)} non réconciliés,"
