@@ -156,3 +156,126 @@ export function fiche(f: Famille, c: string): Fiche | null {
 export function compose(f: Famille): Fiche | null {
   return f.fiches.find((x) => x.c !== f.racine.c) ?? null;
 }
+
+/* ---------- les textes de lecture ---------- */
+
+/**
+ * Un signe du texte : le caractère, sa glose quand la source en donne une, et le
+ * drapeau de l'élément ajouté. Sans glose, le signe ne se touche pas (la ponctuation).
+ */
+export type Signe = {
+  c: string;
+  pinyin?: string | null;
+  fr?: string | null;
+  /** Le caractère du jour : l'élément ajouté, le seul en cinabre dans le texte. */
+  nouveau?: boolean;
+};
+
+/** Un texte de lecture : trois lignes avec uniquement l'acquis, et sa traduction. */
+export type Texte = {
+  version: string;
+  source: string;
+  /** Le caractère du jour, celui autour duquel le texte est écrit. */
+  c: string;
+  lignes: Signe[][];
+  traduction: string;
+  audio?: string | null;
+};
+
+export const FICHIER_TEXTE_DEMO = 'data/demo/textes/住.json';
+
+/** Lit un texte de lecture servi avec l'app. `fetchFn` est injecté dans les tests. */
+export async function loadTexte(
+  file = FICHIER_TEXTE_DEMO,
+  fetchFn: typeof fetch = fetch
+): Promise<Texte> {
+  const r = await fetchFn(`${import.meta.env.BASE_URL}${file}`);
+  if (!r.ok) throw new Error(`Texte introuvable : ${file} (${r.status})`);
+  const brut = (await r.json()) as Partial<Texte>;
+  if (!Array.isArray(brut.lignes) || brut.lignes.length === 0) {
+    throw new Error(`Texte illisible : ${file}`);
+  }
+  return {
+    version: typeof brut.version === 'string' ? brut.version : '',
+    source: typeof brut.source === 'string' ? brut.source : '',
+    c: typeof brut.c === 'string' ? brut.c : '',
+    lignes: brut.lignes,
+    traduction: typeof brut.traduction === 'string' ? brut.traduction : '',
+    audio: brut.audio ?? null
+  };
+}
+
+const textes = new Map<string, Promise<Texte>>();
+
+/** Même chose, mais une seule requête par fichier pour toute la durée de vie de l'app. */
+export function texteOnce(file = FICHIER_TEXTE_DEMO): Promise<Texte> {
+  let p = textes.get(file);
+  if (!p) {
+    p = loadTexte(file).catch((e) => {
+      textes.delete(file);
+      throw e;
+    });
+    textes.set(file, p);
+  }
+  return p;
+}
+
+/** Un signe se touche s'il porte une glose ; la ponctuation n'en a pas. */
+export function glosable(s: Signe): boolean {
+  return Boolean(s.fr) || Boolean(s.pinyin);
+}
+
+/** La glose au toucher, courte : « zhù, habiter ». `null` quand la source n'en donne pas. */
+export function glose(s: Signe): string | null {
+  if (!glosable(s)) return null;
+  return [s.pinyin, s.fr].filter(Boolean).join(', ');
+}
+
+/** Le texte nu, ligne par ligne : ce qui s'écouterait, et ce qui se compare à la source. */
+export function lignesNues(t: Texte): string[] {
+  return t.lignes.map((l) => l.map((s) => s.c).join(''));
+}
+
+/* ---------- les voisins de forme, pour les leurres ---------- */
+
+/**
+ * Un voisin de forme : un caractère avec sa décomposition canonique GF 0014-2009.
+ * Sert à choisir les leurres d'une question par ressemblance de composants.
+ */
+export type Voisin = { c: string; pinyin: string; fr: string; parts: string[] };
+
+export type Voisins = { version: string; source: string; norme: string; voisins: Voisin[] };
+
+export const FICHIER_VOISINS_DEMO = 'data/demo/voisins.json';
+
+/** Lit la liste des voisins servie avec l'app. `fetchFn` est injecté dans les tests. */
+export async function loadVoisins(
+  file = FICHIER_VOISINS_DEMO,
+  fetchFn: typeof fetch = fetch
+): Promise<Voisins> {
+  const r = await fetchFn(`${import.meta.env.BASE_URL}${file}`);
+  if (!r.ok) throw new Error(`Voisins introuvables : ${file} (${r.status})`);
+  const brut = (await r.json()) as Partial<Voisins>;
+  if (!Array.isArray(brut.voisins)) throw new Error(`Voisins illisibles : ${file}`);
+  return {
+    version: typeof brut.version === 'string' ? brut.version : '',
+    source: typeof brut.source === 'string' ? brut.source : '',
+    norme: typeof brut.norme === 'string' ? brut.norme : '',
+    voisins: brut.voisins
+  };
+}
+
+const voisins = new Map<string, Promise<Voisins>>();
+
+/** Même chose, mais une seule requête par fichier pour toute la durée de vie de l'app. */
+export function voisinsOnce(file = FICHIER_VOISINS_DEMO): Promise<Voisins> {
+  let p = voisins.get(file);
+  if (!p) {
+    p = loadVoisins(file).catch((e) => {
+      voisins.delete(file);
+      throw e;
+    });
+    voisins.set(file, p);
+  }
+  return p;
+}
