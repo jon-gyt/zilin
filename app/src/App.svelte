@@ -16,8 +16,11 @@
   import Use from './lib/Use.svelte';
   import { apresSplash, briques, familleDepart } from './lib/premiere';
   import type { Noeud } from './lib/content';
+  import Warm from './lib/Warm.svelte';
   import {
     allDone,
+    assurerCartes,
+    cartesDues,
     currentStep,
     emptyProgress,
     learnNext,
@@ -27,6 +30,7 @@
     noterJourTravaille,
     noterRevision,
     openDay,
+    planifierCarte,
     resetDay,
     setDepart,
     departNext,
@@ -35,6 +39,8 @@
     setParcours,
     setFix,
     setLearnView,
+    setRev,
+    setRevue,
     setTrace,
     setUseView,
     traceVue,
@@ -48,10 +54,10 @@
   import { loadProgress, saveProgress, today } from './lib/db';
 
   /** Un écran par pas, au fur et à mesure des stories. Pas de routeur. */
-  type Ecran = 'splash' | 'premiere' | 'home' | 'anec' | 'learn' | 'use' | 'check' | 'close' | 'streak' | 'rewards';
+  type Ecran = 'splash' | 'premiere' | 'home' | 'anec' | 'rev' | 'learn' | 'use' | 'check' | 'close' | 'streak' | 'rewards';
 
   /** Les pas qui ont leur écran. Les autres se marquent faits au tap, en attendant. */
-  const ECRANS = ['anec', 'learn', 'use', 'check', 'close'] as const;
+  const ECRANS = ['anec', 'rev', 'learn', 'use', 'check', 'close'] as const;
 
   let p: Progress = $state(emptyProgress(today()));
   /** L'app s'ouvre sur le logo : ce qui vient après dépend de la progression relue. */
@@ -112,9 +118,26 @@
   }
 
   /**
+   * Ouvre le pas Échauffer : la pile de la séance est figée à l'entrée, les cartes dues
+   * les plus urgentes d'abord. Aucune carte due : le pas est fait tout de suite, et
+   * l'écran le dit.
+   */
+  function ouvrirRevision(): void {
+    if (p.revue.length === 0) {
+      p = setRevue(
+        p,
+        cartesDues(p, new Date()).map((c) => c.id)
+      );
+      if (p.revue.length === 0) fairePasCourant();
+    }
+    ecran = 'rev';
+    enregistrer();
+  }
+
+  /**
    * Un tap, un seul bouton. La journée finie, on recommence ; sinon on ouvre l'écran
    * du pas courant quand il existe, et à défaut on le marque fait, le temps que les
-   * écrans suivants arrivent (Échauffer, story 3.2).
+   * écrans suivants arrivent.
    */
   function tap(): void {
     if (allDone(p)) {
@@ -123,6 +146,10 @@
       return;
     }
     const go = currentStep(p)?.go;
+    if (go === 'rev') {
+      ouvrirRevision();
+      return;
+    }
     if (go && (ECRANS as readonly string[]).includes(go)) {
       ecran = go as Ecran;
       return;
@@ -167,6 +194,29 @@
       });
   }
 
+  /**
+   * Pas 2, Échauffer : chaque réponse replanifie la carte avec FSRS et alimente Tao.
+   * La notation vient de l'écran, qui la tient de `questions.ts` et de `grade`.
+   */
+  function echaufferRepondu(r: Revision): void {
+    p = planifierCarte(p, r.c, r, new Date());
+    p = noterRevision(p, today(), r);
+    enregistrer();
+  }
+
+  /** La question suivante de la séance : la reprise se fait à celle-ci. */
+  function echaufferAvancer(i: number): void {
+    p = setRev(p, i);
+    enregistrer();
+  }
+
+  /** La séance finie : le pas est fait, retour au chemin. */
+  function echaufferFini(): void {
+    fairePasCourant();
+    ecran = 'home';
+    enregistrer();
+  }
+
   /** L'anecdote vue ou passée : le pas Ouvrir est fait, retour au chemin. */
   function ouvrirFait(): void {
     if (currentStep(p)?.go === 'anec') {
@@ -181,13 +231,15 @@
    * Pas 3, Apprendre : la brique, son tracé s'il est proposé, puis le composé. Le bouton
    * principal enchaîne les vues ; après la dernière, le pas est fait et on revient au chemin.
    */
-  function apprendreSuivant(brique: string): void {
+  function apprendreSuivant(brique: string, compose: string | null): void {
     const vue = learnNext(p, brique);
     if (p.learn === 'trace') p = traceVue(p, brique);
     if (vue) {
       p = setLearnView(p, vue);
     } else {
       fairePasCourant();
+      /* Ce qui vient d'être appris entre en révision : une carte neuve par caractère. */
+      p = assurerCartes(p, [brique, ...(compose === null ? [] : [compose])], new Date());
       p = setLearnView(p, 'brique');
       ecran = 'home';
     }
@@ -223,8 +275,9 @@
     enregistrer();
   }
 
-  /** Pas 5, Fixer : chaque réponse notée est rangée dans la progression, tap par tap. */
+  /** Pas 5, Fixer : chaque réponse replanifie la carte, comme au pas Échauffer. */
   function fixerRepondu(r: Revision): void {
+    p = planifierCarte(p, r.c, r, new Date());
     p = noterRevision(p, today(), r);
     enregistrer();
   }
@@ -274,6 +327,14 @@
   />
 {:else if ecran === 'anec'}
   <Open jour={today()} oncontinuer={ouvrirFait} onquitter={quitter} />
+{:else if ecran === 'rev'}
+  <Warm
+    {p}
+    onrepondu={echaufferRepondu}
+    onavancer={echaufferAvancer}
+    onfini={echaufferFini}
+    onquitter={quitter}
+  />
 {:else if ecran === 'learn'}
   <Learn
     {p}

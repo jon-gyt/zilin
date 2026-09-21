@@ -3,12 +3,29 @@
    * Le tracé d'une brique de base, avec Hanzi Writer. Les traits viennent du JSON servi
    * avec l'app (`charDataLoader`) : la bibliothèque ne va jamais les chercher en ligne.
    * Proposé une fois par brique, jamais pour un composé.
+   *
+   * Deux emplois : au pas Apprendre, on montre l'ordre puis on trace ; au pas Échauffer,
+   * le tracé est une question (`quiz`), il démarre seul et rend le nombre d'erreurs à
+   * l'appelant, qui le convertit en note (`outcomeDuTrace` de `questions.ts`).
    */
   import HanziWriter from 'hanzi-writer';
   import Glyph from './Glyph.svelte';
   import { strokesOnce } from './strokes';
 
-  let { char }: { char: string } = $props();
+  let {
+    char,
+    quiz = false,
+    onresultat,
+    onindisponible
+  }: {
+    char: string;
+    /** Question de tracé : ni titre, ni boutons, le tracé démarre tout seul. */
+    quiz?: boolean;
+    /** Le caractère est tracé en entier : le nombre d'erreurs, pour la note. */
+    onresultat?: (erreurs: number) => void;
+    /** Les traits de ce caractère ne sont pas embarqués : rien à noter. */
+    onindisponible?: () => void;
+  } = $props();
 
   /** Côté de la zone de tracé, comme la maquette. */
   const COTE = 280;
@@ -21,6 +38,8 @@
   /** Vrai quand les traits de ce caractère ne sont pas embarqués : repli sur le glyphe. */
   let sansDonnees = $state(false);
   let retour = $state('');
+  /** Les erreurs du tracé en cours : c'est ce que la question fait noter. */
+  let fautes = 0;
   let writer: HanziWriter | null = null;
 
   function couleur(nom: string): string {
@@ -38,6 +57,7 @@
         if (!vivant) return;
         if (!d) {
           sansDonnees = true;
+          if (quiz) onindisponible?.();
           return;
         }
         traits = d.s.length;
@@ -57,6 +77,8 @@
           /* Les traits sont déjà chargés : aucune requête ne sort de l'app. */
           charDataLoader: (_c, done) => done({ strokes: d.s, medians: d.m })
         });
+        /* En question, on ne montre rien d'abord : le doigt part tout de suite. */
+        if (quiz) tracer();
       })
       .catch(() => {
         if (vivant) sansDonnees = true;
@@ -75,28 +97,33 @@
 
   function tracer(): void {
     retour = '';
+    fautes = 0;
     void writer?.quiz({
       onCorrectStroke: (d) => {
         retour = `Trait ${d.strokeNum + 1} sur ${traits}, c'est bon.`;
       },
       onMistake: (d) => {
+        fautes += 1;
         retour =
           d.mistakesOnStroke >= 3
             ? 'On te montre le trait, puis on continue.'
             : 'Pas tout à fait. Regarde la direction du trait.';
       },
       onComplete: () => {
-        retour = `${char} tracé en entier. On y reviendra dans quatre jours.`;
+        retour = `${char} tracé en entier.`;
+        onresultat?.(fautes);
       }
     });
   }
 </script>
 
-<h1>Tracer {char}</h1>
-<p class="guide">
-  {traits > 0 ? `${NOMBRES[traits]} traits. ` : ''}Regarde l'ordre une fois, puis trace au doigt. Le
-  trait en cours est en cinabre.
-</p>
+{#if !quiz}
+  <h1>Tracer {char}</h1>
+  <p class="guide">
+    {traits > 0 ? `${NOMBRES[traits]} traits. ` : ''}Regarde l'ordre une fois, puis trace au doigt.
+    Le trait en cours est en cinabre.
+  </p>
+{/if}
 
 <div class="writer" bind:this={boite}>
   <svg class="grid" viewBox="0 0 280 280" aria-hidden="true">
@@ -114,7 +141,7 @@
 
 <p class="k center retour" aria-live="polite">{retour}</p>
 
-{#if !sansDonnees}
+{#if !sansDonnees && !quiz}
   <div class="acts">
     <button class="btn ghost" onclick={montrer}>Montrer l'ordre</button>
     <button class="btn" onclick={tracer}>Tracer au doigt</button>
