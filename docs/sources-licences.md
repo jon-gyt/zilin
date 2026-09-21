@@ -22,7 +22,7 @@ Hypothèse de distribution : PWA gratuite sur le web, app iOS payante (achat à 
 | LxgwSeal (小篆) | formes sigillaires | SIL OFL 1.1 | utilisable avec obligations ; couverture insuffisante aujourd'hui |
 | Kaiyuan Small Seal (小篆) | formes sigillaires | SIL OFL 1.1 annoncée | à surveiller ; police non encore publiée |
 | Polices 甲骨文 | formes oraculaires | aucune licence ouverte vérifiée | à écarter en l'état |
-| Audio | voix neuronale pré-générée | dépend du fournisseur | ouvert, hors périmètre de cette story |
+| Audio — Azure AI Speech (Microsoft) | voix neuronale pré-générée | **à vérifier** : conditions non lues, `learn.microsoft.com` bloqué par le proxy de sortie (21 septembre 2026) | fournisseur retenu pour l'implémentation (story 1.5) ; aucun fichier synthétisé n'entre dans un artefact distribué avant lecture des conditions |
 
 Règle inchangée : aucune reprise de Wiktionary ni de sites d'étymologie tiers. Les textes d'origine sont rédigés pour l'app.
 
@@ -232,5 +232,5 @@ App Store :
 - Statut juridique du texte de GF 0014-2009 pour un éditeur non chinois : non vérifié.
 - Aucune police oraculaire sous licence ouverte vérifiée. Décision reportée.
 - Couverture sigillaire insuffisante aujourd'hui. Choix à refaire quand Kaiyuan sera publiée.
-- Audio : fournisseur non choisi, donc droit d'usage commercial non vérifié. Critère à retenir : droit de redistribution des fichiers générés, embarqués dans une app payante, sans redevance par écoute.
+- Audio : fournisseur retenu pour l'implémentation (Azure AI Speech, facturé aux caractères synthétisés et non aux écoutes), mais conditions non lues — `aws.amazon.com`, `learn.microsoft.com`, `docs.cloud.google.com`, `elevenlabs.io` et `openai.com` sont bloqués par le proxy de sortie (21 septembre 2026). Critère inchangé : droit de redistribution des fichiers générés, embarqués dans une app payante, sans redevance par écoute. `zilin audio generer` le rappelle à chaque passage tant que la ligne n'est pas vérifiée.
 - Entité juridique porteuse du compte développeur, qui sera le titulaire des obligations d'attribution.
