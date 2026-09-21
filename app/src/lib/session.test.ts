@@ -25,8 +25,10 @@ import {
   traceVue,
   title,
   toJSON,
+  noterActivite,
   type Progress
 } from './session';
+import { taoVide } from './tao';
 
 const JOUR = '2026-03-02';
 const neuf = (): Progress => emptyProgress(JOUR);
@@ -241,5 +243,18 @@ describe('export et import', () => {
     const p = fromJSON(cassé, JOUR);
     expect(p.learn).toBe('brique');
     expect(p.tracees).toEqual(['主']);
+  });
+
+  it('relit une progression exportée avant Tao', () => {
+    const avant = JSON.stringify({ version: 1, day: JOUR, done: [true], catchup: false, budget: 10, due: 3, days: 4 });
+    const p = fromJSON(avant, JOUR);
+    expect(p.tao).toEqual(taoVide());
+    expect(p.days).toBe(4);
+  });
+
+  it("garde les activités de Tao à l'aller-retour", () => {
+    const p = noterActivite(neuf(), JOUR, 'anecdote');
+    expect(p.tao.activites).toEqual([{ jour: JOUR, type: 'anecdote' }]);
+    expect(fromJSON(toJSON(p), JOUR)).toEqual(p);
   });
 });

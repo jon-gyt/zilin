@@ -6,6 +6,8 @@
  * La journée courante est toujours passée en argument (`aujourdhui`, au format AAAA-MM-JJ)
  * et chaque transition renvoie un nouvel état. La persistance est dans `db.ts`.
  */
+import { ajouter, lireTao, taoVide, type Tao, type TypeActivite } from './tao';
+
 
 /** Budget choisi par l'utilisateur, en minutes. */
 export type Budget = 5 | 10 | 20;
@@ -73,6 +75,8 @@ export type Progress = {
   trace: boolean;
   /** Briques dont le tracé a déjà été proposé : une seule fois par brique. */
   tracees: string[];
+  /** L'état de Tao. Ajouté après coup : une progression sans ce champ se relit vide. */
+  tao: Tao;
 };
 
 export function emptyProgress(aujourdhui: string): Progress {
@@ -87,7 +91,8 @@ export function emptyProgress(aujourdhui: string): Progress {
     lastWorked: null,
     learn: 'brique',
     trace: true,
-    tracees: []
+    tracees: [],
+    tao: taoVide()
   };
 }
 
@@ -139,6 +144,11 @@ export function markDone(p: Progress, i: number, aujourdhui: string): Progress {
   const done = steps(p).map((_, k) => (k === i ? true : (p.done[k] ?? false)));
   const premier = p.lastWorked !== aujourdhui;
   return { ...p, done, days: premier ? p.days + 1 : p.days, lastWorked: aujourdhui };
+}
+
+/** Note une activité pour Tao : elle grandit de ce qui est fait, et rien d'autre. */
+export function noterActivite(p: Progress, jour: string, type: TypeActivite): Progress {
+  return { ...p, tao: ajouter(p.tao, jour, type) };
 }
 
 /** Recommence la journée : les pas repartent de zéro, le compteur de jour ne bouge pas. */
@@ -341,6 +351,7 @@ export function fromJSON(texte: string, aujourdhui: string): Progress {
     /* Champs du pas Apprendre : absents d'un export plus ancien, ils reprennent leur défaut. */
     learn: isLearnView(o.learn) ? o.learn : vide.learn,
     trace: o.trace === undefined ? vide.trace : o.trace !== false,
-    tracees: Array.isArray(o.tracees) ? o.tracees.filter((c): c is string => typeof c === 'string') : []
+    tracees: Array.isArray(o.tracees) ? o.tracees.filter((c): c is string => typeof c === 'string') : [],
+    tao: lireTao(o.tao)
   };
 }
