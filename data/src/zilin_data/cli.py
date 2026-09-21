@@ -1,4 +1,4 @@
-"""zilin fetch | fonts | ingest | build | check | export
+"""zilin fetch | fonts | ingest | build | audio | check | export
 
 Chaque commande est idempotente et écrit dans data/work/. L'export final va dans app/public/data/.
 """
@@ -8,6 +8,7 @@ import json
 
 import typer
 
+from .audio import app as _audio
 from .contes import app as _contes
 from .fiches import app as _fiches
 from .fonts import commande as _fonts
@@ -15,6 +16,7 @@ from .paths import BUILD, EXPORT, INGEST, SOURCES
 
 app = typer.Typer(help="Pipeline de contenu Zilin")
 app.command(name="fonts")(_fonts)
+app.add_typer(_audio, name="audio")
 app.add_typer(_contes, name="contes")
 app.add_typer(_fiches, name="fiches")
 
@@ -61,14 +63,21 @@ def build() -> None:
 
 @app.command()
 def check() -> None:
-    """Contrôles : composants inconnus, cycles, graphe, listes, briques muettes, contes hors liste, fiches invalides."""
+    """Contrôles : composants inconnus, cycles, graphe, listes, briques muettes, contes hors liste, fiches invalides, textes sans audio."""
+    from .audio import controles as controles_audio
     from .contes import controles as controles_contes
     from .fiches import controles as controles_fiches
     from .gf0014 import controles
     from .graphe import controles as controles_graphe
 
     bloquants = []
-    for controle in [*controles(), *controles_graphe(), *controles_contes(), *controles_fiches()]:
+    for controle in [
+        *controles(),
+        *controles_graphe(),
+        *controles_contes(),
+        *controles_fiches(),
+        *controles_audio(),
+    ]:
         typer.echo(f"{'ok   ' if controle.ok else 'écart'} {controle.nom} : {controle.detail}")
         if not controle.ok and controle.bloquant:
             bloquants.append(controle.nom)

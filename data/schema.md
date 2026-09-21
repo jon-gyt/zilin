@@ -220,6 +220,96 @@ de `graphies.json`, `audio` de la story 1.5. `generation` et `statut` ne sont pa
 exportés : ils restent côté pipeline. Une fiche dont le `statut` n'est pas `relu`
 n'entre pas dans l'export du seuil 255.
 
+## Audio pré-généré (story 1.5)
+
+Un fichier par caractère et par mot, synthétisé une fois dans le pipeline puis embarqué
+avec l'app (brief §11 : « voix neuronale pré-générée et embarquée pour tous les
+caractères et mots. Aucune dépendance à la voix du téléphone »). L'app ne synthétise
+jamais ; elle lit un fichier servi avec elle, et se tait sur ce qui n'en a pas.
+
+Format : MP3 mono 24 kHz à 48 kbit/s, soit environ 6 Ko par seconde de parole — moins de
+15 Ko pour un caractère comme pour un mot de deux caractères. Opus descendrait de moitié,
+mais la lecture d'un Ogg Opus par un `HTMLAudioElement` n'est acquise sur iOS que depuis
+Safari 17.5, et c'est l'iPhone qui est visé en premier.
+
+### Périmètre
+
+`perimetre()` prend les fiches **relues** du parcours (leur caractère et leurs deux mots)
+et, à défaut, la liste cible (`seuil-255` pour `lire`, `hsk-1` pour `hsk`) plus, quand
+`zilin build` a tourné, au plus deux mots candidats par caractère, tous caractères de la
+liste. Une fiche non relue n'entre pas : son texte peut encore changer.
+
+### Fichiers et manifeste, hors dépôt
+
+`uv run zilin audio generer [--parcours lire] [--seuil 255] [--voix …]` écrit
+`data/work/audio/<empreinte>.mp3` et le manifeste `data/work/audio/audio.json` :
+
+```json
+{
+ "version": 1,
+ "genere": "2026-09-21T10:00:00Z",
+ "format": "mp3",
+ "debit": "mono 24 kHz, 48 kbit/s",
+ "entrees": [
+  {
+   "texte": "住", "genre": "caractere", "fichier": "2f6a1c0b9d4e8a37.mp3",
+   "fournisseur": "azure-speech", "voix": "zh-CN-XiaoxiaoNeural", "format": "mp3",
+   "date": "2026-09-21T10:00:00Z", "empreinte": "sha256:…", "octets": 7412
+  }
+ ]
+}
+```
+
+Le nom de fichier est l'empreinte SHA-256 de `fournisseur\nvoix\nformat\ntexte`, tronquée
+à 16 hexadécimaux : deux passages donnent le même nom, et un changement de voix donne un
+fichier neuf sans écraser l'ancien. La commande est idempotente — un texte déjà synthétisé
+avec le même fournisseur, la même voix et le même format, dont le fichier est toujours là,
+n'est pas redemandé. `genre` vaut `caractere` ou `mot`.
+
+Le fournisseur est une interface (`audio.Fournisseur` : `synthetiser(texte, voix) -> bytes`,
+plus `nom`, `voix`, `format` et une `Licence`). Deux implémentations : `FournisseurSimule`
+pour les tests (aucun réseau, octets déterministes, jamais accessible depuis la CLI) et
+`FournisseurAzure` (REST, clé dans `AZURE_SPEECH_KEY`, région dans `AZURE_SPEECH_REGION`).
+Sans clé, la commande refuse de partir, sort en code 2 et n'écrit rien. La `Licence` porte
+ce que le fournisseur déclare sur l'usage commercial, la redistribution, l'attribution et
+la redevance par écoute ; elle est aujourd'hui « à vérifier » sur les quatre points, et la
+commande le rappelle à chaque passage (voir `docs/sources-licences.md`).
+
+`uv run zilin check` ajoute le contrôle « audio : textes sans audio » : il compte les
+textes du périmètre qui n'ont pas de fichier. Signalé, jamais bloquant — l'audio arrive
+après le texte, et l'app se tait sur ce qui n'a pas de voix.
+
+### Ce que l'app lira (export)
+
+`uv run zilin audio exporter [--version 0.1.0] [--parcours lire] [--seuil 255]` copie les
+fichiers du périmètre dans `app/public/data/<version>/audio/` et écrit à côté
+`manifeste.json` :
+
+```json
+{
+ "version": "0.1.0",
+ "license": "audio synthétisé — droits du fournisseur (Azure AI Speech (Microsoft))",
+ "source": "Azure AI Speech (Microsoft), voix zh-CN-XiaoxiaoNeural",
+ "source_url": "https://learn.microsoft.com/azure/ai-services/speech-service/text-to-speech",
+ "modified": "2026-09-21",
+ "fournisseur": "Azure AI Speech (Microsoft)",
+ "format": "mp3",
+ "debit": "mono 24 kHz, 48 kbit/s",
+ "licence": {"usage_commercial": "à vérifier", "redistribution": "à vérifier", "…": "…"},
+ "chemins": {"住": "data/0.1.0/audio/2f6a1c0b9d4e8a37.mp3"}
+}
+```
+
+`chemins` est le contrat : un chemin relatif à `app/public/`, tel quel, que
+`app/src/lib/audio.ts` préfixe de `import.meta.env.BASE_URL` pour jouer le fichier.
+Seul le périmètre est copié : l'app n'embarque pas les essais.
+
+Contrat pour l'export des fiches (story 1.6) : il lit ce manifeste —
+`audio.chemins_exportes(version)` rend le dictionnaire — et remplit `Fiche.audio` avec
+`chemins[c]` et `Mot.audio` avec `chemins[mot.hanzi]`. Un texte absent du manifeste vaut
+`null` : le bouton « Écouter » reste visible et inactif, et le toucher du caractère ne dit
+rien.
+
 ## Contes par niveau (story 1.7)
 
 Un même récit traditionnel est réécrit à chaque seuil (255, 405, 505, 805, 1555) avec

@@ -13,6 +13,7 @@ FONTES = WORK / "fonts"
 BUILD = WORK / "build"
 CONTES_WORK = WORK / "contes"
 FICHES_WORK = WORK / "fiches"
+AUDIO_WORK = WORK / "audio"
 
 LISTES = DATA / "sources" / "listes"
 CONTES = DATA / "sources" / "contes"
