@@ -6,6 +6,7 @@ import {
   allDone,
   budgetNewBricks,
   catchupSteps,
+  currentStep,
   dayLabel,
   emptyProgress,
   fromJSON,
@@ -40,6 +41,33 @@ describe('reprise', () => {
     p = markDone(p, 1, JOUR);
     expect(nextIndex(p)).toBe(2);
     expect(steps(p)[nextIndex(p)].id).toBe('apprendre');
+  });
+});
+
+describe('pas 1, Ouvrir', () => {
+  it("est le premier pas, et son écran est l'anecdote", () => {
+    const p = neuf();
+    expect(currentStep(p)?.id).toBe('ouvrir');
+    expect(currentStep(p)?.go).toBe('anec');
+  });
+
+  it("une fois l'anecdote vue, le pas est fait et le chemin avance", () => {
+    const p = markDone(neuf(), 0, JOUR);
+    expect(p.done[0]).toBe(true);
+    expect(currentStep(p)?.id).toBe('echauffer');
+    expect(allDone(p)).toBe(false);
+  });
+
+  it('le rattrapage ne passe pas par Ouvrir', () => {
+    const p: Progress = { ...neuf(), catchup: true, due: 40 };
+    expect(currentStep(p)?.id).toBe('reviser');
+    expect(currentStep(p)?.go).toBe('rev');
+  });
+
+  it('la journée finie, il n’y a plus de pas courant', () => {
+    let p = neuf();
+    for (let i = 0; i < steps(p).length; i++) p = markDone(p, i, JOUR);
+    expect(currentStep(p)).toBeNull();
   });
 });
 
