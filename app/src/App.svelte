@@ -41,7 +41,7 @@
   function tap(): void {
     if (allDone(p)) p = resetDay(p);
     else if (n >= 0) p = markDone(p, n, today());
-    void saveProgress(p);
+    void saveProgress($state.snapshot(p));
   }
 </script>
 
