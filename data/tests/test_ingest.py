@@ -11,8 +11,10 @@ from zilin_data.ingest import (
     ListeInvalide,
     SourceInvalide,
     charger_liste,
+    est_gzip,
     est_sinogramme,
     ingest,
+    lire_cedict,
     parse_ligne_cedict,
     parse_ligne_dictionnaire,
     parse_ligne_graphies,
@@ -118,6 +120,19 @@ def test_cedict_ligne_illisible() -> None:
     """Une ligne qui ne suit pas le format est refusée."""
     with pytest.raises(SourceInvalide):
         parse_ligne_cedict("好 好 hao3 good")
+
+
+def test_cedict_lu_compresse_ou_non(tmp_path: Path) -> None:
+    """Le nom local se termine par .gz, mais le miroir sert du texte : les deux se lisent."""
+    compresse = tmp_path / "compresse.txt.gz"
+    with gzip.open(compresse, "wt", encoding="utf-8") as f:
+        f.write("# CC-CEDICT\n" + LIGNE_CEDICT + "\n")
+    texte = tmp_path / "texte.txt.gz"
+    texte.write_text("# CC-CEDICT\n" + LIGNE_CEDICT + "\n", encoding="utf-8")
+
+    assert est_gzip(compresse) and not est_gzip(texte)
+    assert [m.simplifie for m in lire_cedict(compresse)] == ["好"]
+    assert [m.simplifie for m in lire_cedict(texte)] == ["好"]
 
 
 def test_charger_liste(tmp_path: Path) -> None:

@@ -5,7 +5,9 @@ Trois entrées :
 - `dictionary.txt` (Make Me a Hanzi) : une ligne JSON par caractère, décomposition IDS,
   radical, pinyin, définition EN et, quand elle existe, une étymologie EN.
 - `graphics.txt` (Make Me a Hanzi) : une ligne JSON par caractère, traits SVG et médianes.
-- `cedict_1_0_ts_utf-8_mdbg.txt.gz` (CC-CEDICT) : une ligne par mot.
+- `cedict_1_0_ts_utf-8_mdbg.txt.gz` (CC-CEDICT) : une ligne par mot. Le fichier est
+  lu compressé ou non : le miroir de repli sert le fichier officiel non compressé
+  sous le même nom, et c'est la signature gzip qui tranche.
 
 L'étymologie de Make Me a Hanzi alimente la couche étymologique. Elle ne fait pas
 autorité sur la décomposition canonique GF 0014-2009, réconciliée en story 1.2 :
@@ -20,7 +22,7 @@ import json
 import re
 from dataclasses import asdict, dataclass, field
 from pathlib import Path
-from typing import Iterable, Iterator
+from typing import Iterable, Iterator, TextIO, cast
 
 from .paths import INGEST, LISTES, SOURCES
 
@@ -174,9 +176,25 @@ def lire_graphies(chemin: Path) -> Iterator[GraphieSource]:
                 yield parse_ligne_graphies(ligne)
 
 
+def est_gzip(chemin: Path) -> bool:
+    """Vrai si le fichier porte la signature gzip (1f 8b), quel que soit son nom."""
+    with chemin.open("rb") as f:
+        return f.read(2) == b"\x1f\x8b"
+
+
+def ouvrir_texte(chemin: Path) -> TextIO:
+    """Ouvre un fichier en texte UTF-8, en le décompressant s'il est gzip.
+
+    Le nom local de CC-CEDICT se termine par `.gz`, mais le miroir de repli sert
+    le fichier officiel non compressé : c'est le contenu qui décide, pas le nom.
+    """
+    if est_gzip(chemin):
+        return cast(TextIO, gzip.open(chemin, "rt", encoding="utf-8"))
+    return chemin.open("rt", encoding="utf-8")
+
+
 def lire_cedict(chemin: Path) -> Iterator[MotSource]:
-    ouvrir = gzip.open if chemin.suffix == ".gz" else open
-    with ouvrir(chemin, "rt", encoding="utf-8") as f:  # type: ignore[operator]
+    with ouvrir_texte(chemin) as f:
         for ligne in f:
             mot = parse_ligne_cedict(ligne)
             if mot is not None:
