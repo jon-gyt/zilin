@@ -152,8 +152,6 @@ export type Progress = {
   premiereVue: EtapeDepart;
   /** Le parcours choisi à la première session. `null` tant que la question n'est pas posée. */
   parcours: Parcours | null;
-  /** Les cartes de révision, une par caractère rencontré. Sérialisées par `srs.ts`. */
-  cartes: ReviewCard[];
 };
 
 export function emptyProgress(aujourdhui: string): Progress {
@@ -179,8 +177,7 @@ export function emptyProgress(aujourdhui: string): Progress {
     tao: taoVide(),
     premiere: true,
     premiereVue: 'f1',
-    parcours: null,
-    cartes: []
+    parcours: null
   };
 }
 
