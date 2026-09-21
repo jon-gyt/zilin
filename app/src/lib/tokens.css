@@ -205,3 +205,23 @@ h1{font-family:var(--head);font-weight:700;font-size:30px;line-height:1.15;lette
 @keyframes zd{to{transform:scale(1)}}
 @keyframes zt{to{opacity:1}}
 @media (prefers-reduced-motion:reduce){.splash .zs{animation:none;stroke-dashoffset:0}.splash .zd{animation:none;transform:none}.splash .zt{animation:none;opacity:1}}
+
+/* ---- première session : 人, 大, 天, lire 天天 (maquette f1 à f5, ob2, ob3) ---- */
+.depart .quit{margin-bottom:6px}
+.depart .seul{margin:6px 0}
+.depart .py{color:var(--indigo);font-weight:600;font-size:22px}
+.depart .sens{font-size:19px}
+.depart .origine{margin:10px 0 0;font-size:15.5px;color:var(--ink2)}
+.depart .mot{display:flex;justify-content:center;gap:10px}
+.depart .mot .s{min-height:44px;display:inline-flex;align-items:center;border-bottom:2px solid transparent}
+.depart .mot .s:active{border-color:var(--indigo)}
+.depart .bilan{padding:28px 16px}
+.depart .bilan h1{margin-top:6px}
+.depart .bilan .guide{margin-bottom:8px}
+/* les deux questions : une liste de choix, celui qui tient est en indigo */
+.opt{display:flex;flex-direction:column;gap:10px}
+.opt button{border:1px solid var(--line);border-radius:14px;background:var(--card);padding:14px 16px;display:flex;align-items:center;gap:14px;min-height:64px;width:100%}
+.opt button.on{border-color:var(--indigo);background:var(--indigo-soft)}
+.opt .vignette{width:36px;display:flex;justify-content:center;color:var(--indigo)}
+.opt .t{font-weight:600}
+.opt .d{font-size:14px;color:var(--ink2)}
