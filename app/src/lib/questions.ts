@@ -104,8 +104,11 @@ export type Explication = {
   c: string;
   pinyin: string;
   fr: string;
-  /** L'origine est attestée ou mnémotechnique, jamais l'un pour l'autre. */
-  etiquette: Etiquette;
+  /**
+   * L'origine est attestée ou mnémotechnique, jamais l'un pour l'autre. Nulle quand
+   * la fiche n'a pas encore d'origine : pas d'étiquette sans texte derrière.
+   */
+  etiquette: Etiquette | null;
   /** Une ligne par brique, dans l'ordre d'écriture. */
   briques: { c: string; fr: string; role: Role | null }[];
   /** Le texte de correction, assemblé à partir des fiches. Rien n'est rédigé ici. */

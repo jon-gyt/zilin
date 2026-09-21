@@ -1,4 +1,4 @@
-import { describe, it, expect } from 'vitest';
+import { afterEach, describe, it, expect, vi } from 'vitest';
 import { readFileSync } from 'node:fs';
 import {
   ETIQUETTES,
@@ -6,10 +6,25 @@ import {
   FICHIER_FAMILLE_DEMO,
   FICHIER_TEXTE_DEMO,
   FICHIER_VOISINS_DEMO,
+  LIGNE_SANS_FICHE,
+  PARCOURS_DEFAUT,
   VERSION_DONNEES,
+  aDesTextes,
   anecdoteDuJour,
-  compose,
+  briquesPosees,
+  contenu,
+  famille as chargerFamille,
   fiche,
+  fichierPaires,
+  jourDuParcours,
+  nomParcours,
+  pairesExport,
+  racineDe,
+  surcoucher,
+  traits as chargerTraits,
+  traitsDe,
+  compose,
+  ficheDeFamille,
   fichierFamille,
   fichierTraits,
   glosable,
@@ -24,6 +39,7 @@ import {
   loadVoisins,
   type Anecdote,
   type Anecdotes,
+  type Etiquette,
   type Famille,
   type Fiche,
   type Index,
@@ -160,9 +176,9 @@ describe('la famille de démonstration', () => {
   it('a la brique pour racine, et un composé', () => {
     expect(famille.racine.c).toBe('主');
     expect(famille.fiches.map((f) => f.c)).toEqual(['主', '住']);
-    expect(fiche(famille, '主')?.c).toBe('主');
+    expect(ficheDeFamille(famille, '主')?.c).toBe('主');
     expect(compose(famille)?.c).toBe('住');
-    expect(fiche(famille, '人')).toBeNull();
+    expect(ficheDeFamille(famille, '人')).toBeNull();
   });
 
   it('ne contient aucun texte écrit hors de sa source', () => {
@@ -173,8 +189,9 @@ describe('la famille de démonstration', () => {
 
   it('étiquette chaque fiche, attesté ou mnémotechnique', () => {
     for (const f of famille.fiches) {
+      expect(f.etiquette).not.toBeNull();
       expect(Object.keys(ETIQUETTES)).toContain(f.etiquette);
-      expect(ETIQUETTES[f.etiquette]).not.toBe('');
+      expect(ETIQUETTES[f.etiquette as Etiquette]).not.toBe('');
     }
     expect(Object.keys(ETIQUETTES)).toContain(famille.racine.etiquette);
   });
@@ -486,5 +503,317 @@ describe("le fichier d'index écrit par le pipeline", () => {
       expect(f.avancement_possible).toBeLessThanOrEqual(1);
     }
     expect(index.familles).toHaveLength(new Set(index.familles.map((f) => f.racine)).size);
+  });
+});
+
+/* ---------- la couche d'accès à l'export versionné ---------- */
+
+/** La famille 亻 de l'export : c'est elle qui porte 住, le composé de la maquette. */
+const familleExport = JSON.parse(
+  readFileSync(
+    new URL(`../../public/data/${VERSION_DONNEES}/familles/亻.json`, import.meta.url),
+    'utf8'
+  )
+) as Famille;
+
+const familleDemoPeuple = JSON.parse(
+  readFileSync(new URL('../../public/data/demo/familles/人.json', import.meta.url), 'utf8')
+) as Famille;
+
+describe('la surcouche de démonstration', () => {
+  const exportee = ficheDeFamille(familleExport, '住') as Fiche;
+  const demo = ficheDeFamille(famille, '住') as Fiche;
+
+  it("part d'une fiche exportée sans texte : le pipeline n'a encore rien relu", () => {
+    expect(exportee.statut).toBe('sans_fiche');
+    expect(exportee.origine_fr).toBe('');
+    expect(exportee.fr).toBe('');
+    expect(exportee.etiquette).toBeNull();
+    expect(aDesTextes(exportee)).toBe(false);
+  });
+
+  it('prend les textes de la démonstration tant que la fiche exportée est vide', () => {
+    const lue = surcoucher(exportee, demo);
+    expect(lue.source).toBe('demonstration');
+    expect(lue.fr).toBe(demo.fr);
+    expect(lue.origine_fr).toBe(demo.origine_fr);
+    expect(lue.etiquette).toBe(demo.etiquette);
+    expect(lue.mots).toHaveLength(2);
+  });
+
+  it("garde de l'export ce qui ne se surcouche pas : décomposition, pinyin, niveaux", () => {
+    const lue = surcoucher(exportee, demo);
+    expect(lue.parts).toEqual(exportee.parts);
+    expect(lue.nouveau).toEqual(exportee.nouveau);
+    expect(lue.pinyin).toBe(exportee.pinyin);
+    expect(lue.niveaux).toEqual(exportee.niveaux);
+    expect(lue.statut).toBe('sans_fiche');
+  });
+
+  it("ne reprend pas le rôle quand la démonstration ne découpe pas comme la norme", () => {
+    /* 主 est une brique de GF 0014-2009 : l'export ne la décompose pas, la maquette si. */
+    const brique = ficheDeFamille(
+      JSON.parse(
+        readFileSync(
+          new URL(`../../public/data/${VERSION_DONNEES}/familles/主.json`, import.meta.url),
+          'utf8'
+        )
+      ) as Famille,
+      '主'
+    ) as Fiche;
+    const demoBrique = ficheDeFamille(famille, '主') as Fiche;
+    expect(demoBrique.parts).not.toEqual(brique.parts);
+    const lue = surcoucher(brique, demoBrique);
+    expect(lue.parts).toEqual([]);
+    expect(lue.role).toBe(brique.role);
+    expect(lue.origine_fr).toBe(demoBrique.origine_fr);
+  });
+
+  it('laisse passer la fiche relue devant la démonstration', () => {
+    const relue: Fiche = {
+      ...exportee,
+      statut: 'relu',
+      fr: 'demeurer',
+      origine_fr: 'Trois phrases relues.',
+      etiquette: 'atteste'
+    };
+    const lue = surcoucher(relue, demo);
+    expect(lue.source).toBe('export');
+    expect(lue.fr).toBe('demeurer');
+    expect(lue.origine_fr).toBe('Trois phrases relues.');
+  });
+
+  it("ne montre ni texte ni étiquette quand personne n'en a", () => {
+    const lue = surcoucher(exportee, null);
+    expect(lue.source).toBe('aucune');
+    expect(lue.origine_fr).toBe('');
+    expect(lue.etiquette).toBeNull();
+    expect(LIGNE_SANS_FICHE).not.toBe('');
+  });
+
+  it("n'étiquette jamais un sens sans origine : les voisins de forme n'ont pas d'étiquette", () => {
+    const voisin: Fiche = {
+      ...exportee,
+      fr: '',
+      origine_fr: ''
+    };
+    const sansOrigine: Fiche = { ...demo, origine_fr: '', etiquette: 'atteste' };
+    const lue = surcoucher(voisin, sansOrigine);
+    expect(lue.fr).toBe(sansOrigine.fr);
+    expect(lue.etiquette).toBeNull();
+  });
+});
+
+describe('le parcours de l’index', () => {
+  it('pose une brique et ses composés au jour demandé', () => {
+    const j = jourDuParcours(index, 'lire', 1);
+    expect(j).not.toBeNull();
+    expect(j?.jour).toBe(1);
+    expect(j?.brique).toBe(index.parcours.lire.jours[0].brique);
+    expect(j?.composes).toEqual(index.parcours.lire.jours[0].composes);
+    expect(j?.sautes).toEqual([]);
+  });
+
+  it('suit le parcours choisi, et rabat « voyager » sur « lire »', () => {
+    expect(nomParcours(index, 'hsk')).toBe('hsk');
+    expect(nomParcours(index, 'voyage')).toBe(PARCOURS_DEFAUT);
+    expect(nomParcours(index, null)).toBe(PARCOURS_DEFAUT);
+    const hsk = jourDuParcours(index, 'hsk', 2);
+    expect(hsk?.brique).toBe(index.parcours.hsk.jours[1].brique);
+  });
+
+  it('ne montre que la brique les jours sans composé', () => {
+    const jours = index.parcours.lire.jours;
+    const seule = jours.find((j) => j.brique !== null && j.composes.length === 0);
+    expect(seule).toBeDefined();
+    const j = jourDuParcours(index, 'lire', seule?.jour ?? 0);
+    expect(j?.brique).toBe(seule?.brique);
+    expect(j?.composes).toEqual([]);
+  });
+
+  it('saute un jour non réconcilié et en garde la trace', () => {
+    const jours = index.parcours.lire.jours;
+    const premier = jours.find((j) => j.non_reconcilie);
+    expect(premier).toBeDefined();
+    const j = jourDuParcours(index, 'lire', premier?.jour ?? 0);
+    /* Les jours non réconciliés ferment le parcours : il n'y a plus rien après. */
+    expect(j).toBeNull();
+    /* Un jour non réconcilié isolé est franchi, et son numéro reste dans la trace. */
+    const bricole: Index = {
+      ...index,
+      parcours: {
+        lire: {
+          liste: 'seuil-255',
+          regle: '',
+          jours: [
+            { jour: 1, brique: null, composes: ['吃'], non_reconcilie: true },
+            { jour: 2, brique: '月', composes: ['朋'], non_reconcilie: false }
+          ]
+        }
+      }
+    };
+    const saute = jourDuParcours(bricole, 'lire', 1);
+    expect(saute?.jour).toBe(2);
+    expect(saute?.brique).toBe('月');
+    expect(saute?.sautes).toEqual([1]);
+  });
+
+  it('rend les briques déjà posées, la plus récente en tête', () => {
+    const posees = briquesPosees(index, 'lire', 3);
+    expect(posees).toEqual(
+      index.parcours.lire.jours
+        .slice(0, 3)
+        .map((j) => j.brique)
+        .reverse()
+    );
+  });
+
+  it("nomme le fichier des paires de l'export", () => {
+    expect(fichierPaires(index)).toBe(`data/${index.version}/paires.json`);
+  });
+});
+
+describe("le chargement de l'export", () => {
+  /** Un export simulé, servi par un `fetch` de test : rien ne sort de l'origine. */
+  function servir(version: string, fichiers: Record<string, unknown>): string[] {
+    const appels: string[] = [];
+    vi.stubGlobal('fetch', (async (u: RequestInfo | URL) => {
+      const url = String(u);
+      appels.push(url);
+      const chemin = url.slice(import.meta.env.BASE_URL.length);
+      if (chemin in fichiers) {
+        return { ok: true, status: 200, json: async () => fichiers[chemin] } as Response;
+      }
+      /* Les fichiers de démonstration sont servis depuis le dépôt, tels quels. */
+      try {
+        const brut = readFileSync(new URL(`../../public/${chemin}`, import.meta.url), 'utf8');
+        return { ok: true, status: 200, json: async () => JSON.parse(brut) as unknown } as Response;
+      } catch {
+        return { ok: false, status: 404, json: async () => null } as Response;
+      }
+    }) as typeof fetch);
+    return appels;
+  }
+
+  const V = 'test-export';
+  const indexSimule = {
+    version: V,
+    date: '2026-09-21T00:00:00Z',
+    empreinte: 'sha256:0',
+    norme: 'GF 0014-2009',
+    perimetre: 'test',
+    licences: 'LICENCES.md',
+    listes: { 'seuil-255': ['月', '朋'] },
+    parcours: {
+      lire: {
+        liste: 'seuil-255',
+        regle: 'une seule brique nouvelle par session de 10 minutes',
+        jours: [{ jour: 1, brique: '月', composes: ['朋'], non_reconcilie: false }]
+      }
+    },
+    familles: [
+      { racine: '月', fichier: 'familles/月.json', traits: 'traits/月.json', n: 1, avancement_possible: 0 }
+    ],
+    contes: [],
+    paires: 'paires.json'
+  };
+  const vide = {
+    en: '',
+    nouveau: [],
+    role: null,
+    roles: {},
+    sources: [],
+    origine_fr: '',
+    origine_en: '',
+    etiquette: null,
+    memo_fr: null,
+    memo_en: null,
+    mots: [],
+    phrase: null,
+    traits: [],
+    medianes: [],
+    audio: null,
+    statut: 'sans_fiche'
+  };
+  const familleSimulee = {
+    version: V,
+    source: 'test',
+    norme: 'GF 0014-2009',
+    racine: { c: '月', pinyin: 'yuè', fr: '', en: '', origine: '', etiquette: null },
+    fiches: [
+      { ...vide, c: '月', pinyin: 'yuè', fr: '', parts: [], niveaux: { seuil: 255 } },
+      { ...vide, c: '朋', pinyin: 'péng', fr: '', parts: ['月', '月'], niveaux: { seuil: 255 } }
+    ]
+  };
+  const traitsSimules = {
+    version: V,
+    license: 'Arphic Public License',
+    source: 'Make Me a Hanzi — graphics.txt',
+    traits: { 月: { s: ['M 0 0'], m: [[[0, 0]]] } }
+  };
+
+  const fichiers: Record<string, unknown> = {
+    [`data/${V}/index.json`]: indexSimule,
+    [`data/${V}/familles/月.json`]: familleSimulee,
+    [`data/${V}/traits/月.json`]: traitsSimules,
+    [`data/${V}/paires.json`]: { paires: [['日', '曰']] }
+  };
+
+  afterEach(() => {
+    vi.unstubAllGlobals();
+  });
+
+  it("ne lit l'index qu'une fois, quel que soit le nombre d'appels", async () => {
+    const appels = servir(V, fichiers);
+    const a = await contenu(V);
+    const b = await contenu(V);
+    expect(a.version).toBe(V);
+    expect(b).toBe(a);
+    expect(appels.filter((u) => u.endsWith('index.json'))).toHaveLength(1);
+  });
+
+  it("lit une famille et ses tracés à la demande, une requête par fichier", async () => {
+    const appels = servir(V, fichiers);
+    const f = await chargerFamille('月', V);
+    await chargerFamille('月', V);
+    expect(f?.racine.c).toBe('月');
+    expect(f?.fiches.map((x) => x.c)).toEqual(['月', '朋']);
+    const t = await chargerTraits('月', V);
+    await chargerTraits('月', V);
+    expect(Object.keys(t)).toEqual(['月']);
+    expect(appels.filter((u) => u.includes('familles/月.json'))).toHaveLength(1);
+    expect(appels.filter((u) => u.includes('traits/月.json'))).toHaveLength(1);
+    expect(await chargerFamille('無', V)).toBeNull();
+  });
+
+  it("trouve la famille d'un caractère par l'index, et ne sort jamais de l'origine", async () => {
+    const appels = servir(V, fichiers);
+    expect(await racineDe('月', [], V)).toBe('月');
+    expect(await racineDe('朋', [], V)).toBe('月');
+    const f = await fiche('朋', [], V);
+    expect(f?.c).toBe('朋');
+    expect(f?.parts).toEqual(['月', '月']);
+    expect(f?.source).toBe('aucune');
+    for (const u of appels) expect(u.startsWith(import.meta.env.BASE_URL)).toBe(true);
+  });
+
+  it('surcouche la fiche exportée avec la démonstration quand elle est vide', async () => {
+    servir(V, fichiers);
+    const lue = await fiche('人', [], V);
+    /* 人 n'est pas dans l'export simulé : la démonstration le porte seule. */
+    expect(lue?.fr).toBe(ficheDeFamille(familleDemoPeuple, '人')?.fr);
+    expect(lue?.source).toBe('demonstration');
+  });
+
+  it("prend les tracés de l'export, et retombe sur strokes-demo pour le reste", async () => {
+    servir(V, { ...fichiers, 'strokes-demo.json': { 安: { s: ['M 1 1'], m: [[[1, 1]]] } } });
+    expect((await traitsDe('月', [], V))?.s).toEqual(['M 0 0']);
+    expect((await traitsDe('安', [], V))?.s).toEqual(['M 1 1']);
+    expect(await traitsDe('無', [], V)).toBeNull();
+  });
+
+  it("lit les paires à ne pas confondre de l'export", async () => {
+    servir(V, fichiers);
+    expect(await pairesExport(V)).toEqual({ paires: [['日', '曰']] });
   });
 });

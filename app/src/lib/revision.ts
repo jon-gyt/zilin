@@ -13,7 +13,7 @@
 import { Rating, type Grade } from 'ts-fsrs';
 import {
   compose,
-  fiche as ficheDeLaFamille,
+  ficheDeFamille as ficheDeLaFamille,
   type Famille,
   type Fiche,
   type Role,
@@ -82,9 +82,11 @@ export type SourcesCorpus = {
 export function rolesDesElements(fiches: readonly Fiche[]): Record<string, Role> {
   const out: Record<string, Role> = {};
   for (const f of fiches) {
+    /* `roles` dit le rôle de chaque brique ; il prime quand la fiche relue le porte. */
+    for (const [part, role] of Object.entries(f.roles ?? {})) out[part] = role;
     for (const i of f.nouveau) {
       const part = f.parts[i];
-      if (part !== undefined) out[part] = f.role;
+      if (part !== undefined && f.role !== null) out[part] = f.role;
     }
   }
   return out;
