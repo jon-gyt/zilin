@@ -23,7 +23,7 @@
   } from './content';
   import { lirePaires, type Paires, type Question } from './questions';
   import { corpusFixer, questionsFixerDuJour } from './revision';
-  import { echeance, jourParcours, type Progress, type Revision } from './session';
+  import { echeance, jourParcours, repriseFix, type Progress, type Revision } from './session';
   import { humeur, stade } from './tao';
 
   let {
@@ -34,8 +34,8 @@
     onquitter
   }: {
     p: Progress;
-    /** L'événement de révision, dès qu'une question est notée. */
-    onrepondu: (r: Revision) => void;
+    /** L'événement de révision, et le rang de la question notée : elle ne se repose pas. */
+    onrepondu: (r: Revision, i: number) => void;
     onavancer: (i: number) => void;
     onfini: () => void;
     onquitter: () => void;
@@ -47,6 +47,9 @@
 
   /** Les cartes de l'ouverture du pas : la vérification ne change pas en cours de route. */
   const cartesDuPas = untrack(() => $state.snapshot(p.cartes));
+
+  /** La question par laquelle la vérification reprend : les questions notées sont passées. */
+  const debut = untrack(() => repriseFix(p));
 
   /**
    * Le corpus vient de l'export versionné, comme au pas Échauffer ; la vérification, elle,
@@ -127,10 +130,10 @@
   );
 
   /** La graine du jour : la même vérification toute la journée, jamais deux fois la même. */
-  const liste: Question[] = $derived(
-    f.length > 0 && v !== null ? questionsFixerDuJour(brique, compose, corpus, p.day) : []
-  );
-  const i = $derived(Math.min(p.fix, Math.max(0, liste.length - 1)));
+  /** Le contenu est-il lu ? Tant qu'il ne l'est pas, on ne dit pas que la vérification a échoué. */
+  const pret = $derived(f.length > 0 && v !== null);
+  const liste: Question[] = $derived(pret ? questionsFixerDuJour(brique, compose, corpus, p.day) : []);
+  const i = $derived(Math.min(Math.max(p.fix, debut), liste.length));
   const q: Question | null = $derived(liste[i] ?? null);
 
   const taoHumeur = $derived(humeur(p.tao.activites, p.day));
@@ -163,12 +166,16 @@
       cle={i}
       {corpus}
       echeanceDe={(c) => echeance(p, c)}
-      onnote={onrepondu}
+      onnote={(r) => onrepondu(r, i)}
       onsuivant={suivant}
       dernier={i + 1 >= liste.length}
     />
-  {:else if f.length === 0 || v === null}
+  {:else if !pret}
     <p class="guide">Un instant.</p>
+  {:else if liste.length > 0}
+    <!-- Toutes les questions ont déjà été notées : la vérification est faite. -->
+    <p class="guide">La vérification est faite.</p>
+    <div class="foot"><button class="btn" onclick={onfini}>Retour au chemin</button></div>
   {:else}
     <!-- Rien de vérifiable : la fiche du jour n'a pas encore de quoi poser une question. -->
     <p class="guide">Rien à vérifier aujourd'hui. {LIGNE_SANS_FICHE}</p>

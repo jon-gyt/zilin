@@ -44,10 +44,12 @@
     finDepart,
     setBudget,
     setDue,
-    setParcours,
     setFix,
+    setFixNotee,
     setLearnView,
+    setParcours,
     setRev,
+    setRevNotee,
     setRevue,
     setTrace,
     setUseView,
@@ -234,9 +236,11 @@
    * Pas 2, Échauffer : chaque réponse replanifie la carte avec FSRS et alimente Tao.
    * La notation vient de l'écran, qui la tient de `questions.ts` et de `grade`.
    */
-  function echaufferRepondu(r: Revision): void {
+  function echaufferRepondu(r: Revision, i: number): void {
     p = planifierCarte(p, r.c, r, new Date());
     p = noterRevision(p, today(), r);
+    /* La question est notée : quitter avant l'avance automatique ne la reposera pas. */
+    p = setRevNotee(p, i);
     enregistrer();
   }
 
@@ -313,9 +317,11 @@
   }
 
   /** Pas 5, Fixer : chaque réponse replanifie la carte, comme au pas Échauffer. */
-  function fixerRepondu(r: Revision): void {
+  function fixerRepondu(r: Revision, i: number): void {
     p = planifierCarte(p, r.c, r, new Date());
     p = noterRevision(p, today(), r);
+    /* Comme au pas Échauffer : une question notée ne se repose pas. */
+    p = setFixNotee(p, i);
     enregistrer();
   }
 

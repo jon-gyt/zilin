@@ -16,6 +16,10 @@ import {
   finFixer,
   finUtiliser,
   nombreDues,
+  repriseFix,
+  repriseRev,
+  setFixNotee,
+  setRevNotee,
   planifierCarte,
   setRev,
   setRevue,
@@ -591,7 +595,51 @@ describe('Utiliser, Fixer, Clore, puis la journée finie', () => {
   });
 });
 
+describe('une question notée ne se repose pas', () => {
+  it('la reprise saute la question déjà répondue, à Échauffer comme à Fixer', () => {
+    let p = setRevue(neuf(), ['c0', 'c1', 'c2']);
+    expect(repriseRev(p)).toBe(0);
+    /* Répondu à la question 0, puis quitté avant l'avance automatique : `rev` vaut encore 0. */
+    p = setRevNotee(p, 0);
+    expect(p.rev).toBe(0);
+    expect(repriseRev(p)).toBe(1);
+    /* Le repère ne recule jamais : une question notée reste notée. */
+    p = setRev(p, 1);
+    expect(repriseRev(p)).toBe(1);
+    expect(setRevNotee(p, 0).revNotee).toBe(0);
+
+    let q = setFixNotee(neuf(), 1);
+    expect(repriseFix(q)).toBe(2);
+    q = openDay(q, '2026-03-03');
+    expect(q.fixNotee).toBe(-1);
+    expect(repriseFix(q)).toBe(0);
+    expect(repriseRev(resetDay(setRevNotee(neuf(), 2)))).toBe(0);
+  });
+
+  it('la séance et la vérification finies remettent le repère à zéro', () => {
+    let p = markDone(neuf(), 0, JOUR);
+    p = finEchauffer(setRevNotee(setRevue(p, ['c0']), 0), JOUR);
+    expect(p.revNotee).toBe(-1);
+    let q = neuf();
+    [0, 1, 2, 3].forEach((i) => {
+      q = markDone(q, i, JOUR);
+    });
+    q = finFixer(setFixNotee(q, 2), JOUR);
+    expect(q.fixNotee).toBe(-1);
+  });
+
+  it("garde le repère à l'aller-retour, et le relit d'un export plus ancien", () => {
+    const p = setFixNotee(setRevNotee(neuf(), 1), 0);
+    expect(fromJSON(toJSON(p), JOUR)).toEqual(p);
+    const ancien = JSON.stringify({ version: 1, day: JOUR, done: [true], budget: 10 });
+    expect(fromJSON(ancien, JOUR).revNotee).toBe(-1);
+    expect(fromJSON(ancien, JOUR).fixNotee).toBe(-1);
+    expect(fromJSON(JSON.stringify({ ...neuf(), revNotee: 'oui' }), JOUR).revNotee).toBe(-1);
+  });
+});
+
 describe('export et import', () => {
+
   it("rend le même état à l'aller-retour", () => {
     let p: Progress = { ...neuf(), due: 22, days: 11, budget: 20 };
     p = markDone(p, 0, JOUR);
