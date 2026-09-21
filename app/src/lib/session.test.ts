@@ -13,7 +13,6 @@ import {
   guide,
   learnNext,
   markDone,
-  miaoPose,
   nextIndex,
   openDay,
   resetDay,
@@ -119,7 +118,6 @@ describe('rattrapage après absence', () => {
     expect(title(p)).toBe('Reprenons');
     expect(guide(p)).not.toMatch(/jour/);
     expect(dayLabel(p)).toBe('12e jour');
-    expect(miaoPose(p)).toBe('sleep');
   });
 
   it('se referme quand la pile est redescendue', () => {
@@ -157,7 +155,6 @@ describe('journée finie', () => {
     });
     expect(allDone(p)).toBe(true);
     expect(title(p)).toBe("C'est fait pour aujourd'hui");
-    expect(miaoPose(p)).toBe('joy');
     p = resetDay(p);
     expect(nextIndex(p)).toBe(0);
     expect(p.days).toBe(1);

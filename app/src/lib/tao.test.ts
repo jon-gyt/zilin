@@ -189,7 +189,7 @@ describe('sérialisation', () => {
   it('relit une progression sans Tao', () => {
     expect(lireTao(undefined)).toEqual(taoVide());
     expect(lireTao(null)).toEqual(taoVide());
-    expect(lireTao('miao')).toEqual(taoVide());
+    expect(lireTao('pousse')).toEqual(taoVide());
   });
 
   it('jette les activités aberrantes sans perdre le reste', () => {

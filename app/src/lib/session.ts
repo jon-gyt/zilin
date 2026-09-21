@@ -308,12 +308,6 @@ export function buttonLabel(p: Progress): string {
   return started(p) ? 'Continuer' : 'Commencer';
 }
 
-/** Miao n'apparaît qu'aux moments d'émotion : la journée finie, ou le retour après absence. */
-export function miaoPose(p: Progress): 'joy' | 'sleep' | null {
-  if (p.catchup) return 'sleep';
-  return allDone(p) ? 'joy' : null;
-}
-
 /* ---------- export et import ---------- */
 
 export function toJSON(p: Progress): string {
