@@ -9,6 +9,7 @@
   import Splash from './lib/Splash.svelte';
   import Settings from './lib/Settings.svelte';
   import Tabs, { type Onglet } from './lib/Tabs.svelte';
+  import Rewards from './lib/Rewards.svelte';
   import Streak from './lib/Streak.svelte';
   import Today from './lib/Today.svelte';
   import Tree from './lib/Tree.svelte';
@@ -47,7 +48,7 @@
   import { loadProgress, saveProgress, today } from './lib/db';
 
   /** Un écran par pas, au fur et à mesure des stories. Pas de routeur. */
-  type Ecran = 'splash' | 'premiere' | 'home' | 'anec' | 'learn' | 'use' | 'check' | 'close' | 'streak';
+  type Ecran = 'splash' | 'premiere' | 'home' | 'anec' | 'learn' | 'use' | 'check' | 'close' | 'streak' | 'rewards';
 
   /** Les pas qui ont leur écran. Les autres se marquent faits au tap, en attendant. */
   const ECRANS = ['anec', 'learn', 'use', 'check', 'close'] as const;
@@ -295,6 +296,9 @@
   <Close {p} onterminer={clore} onquitter={quitter} />
 {:else if ecran === 'streak'}
   <Streak {p} onretour={quitter} />
+{:else if ecran === 'rewards'}
+  <!-- Récompenses : Ma forêt y mènera (épic 4). L'aiguillage est prêt. -->
+  <Rewards {p} onretour={quitter} />
 {:else}
   <div class="onglets">
     {#if onglet === 'foret'}
