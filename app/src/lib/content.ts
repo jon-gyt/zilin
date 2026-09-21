@@ -4,8 +4,8 @@
  * Aucune requête réseau hors des assets de l'app.
  */
 
-/** Une anecdote du jour : un caractère, un titre, quelques phrases, une estampe. */
-export type Anecdote = { c: string; titre: string; texte: string; estampe?: string };
+/** Une anecdote du jour : un caractère, un titre, quelques phrases. */
+export type Anecdote = { c: string; titre: string; texte: string };
 
 /** Un fichier d'anecdotes, versionné, avec la source du texte (traçabilité). */
 export type Anecdotes = { version: string; source: string; anecdotes: Anecdote[] };
