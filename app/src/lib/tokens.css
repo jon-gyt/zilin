@@ -400,3 +400,42 @@ h1{font-family:var(--head);font-weight:700;font-size:30px;line-height:1.15;lette
 .res div{display:flex;align-items:center;gap:10px;padding:8px 0;border-top:1px solid var(--line);font-size:14.5px}
 .res .ok{color:var(--jade);font-weight:600}
 .res .ko{color:var(--zhu);font-weight:600}
+
+/* ---- stories 4b.1 et 4b.2, les jeux : le choix, une manche, le constat ---- */
+/* Un jeu ne compte pas les points : aucun style de score, de vie ni de classement ici. */
+.jeu .opt{margin-top:4px}
+.jeu .opt .t,.jeu .opt .d{display:block}
+/* l'avancement d'une manche : un trait par tour, le cinabre marque où l'on en est */
+.tours{display:flex;gap:4px;margin:2px 0 14px}
+.tours i{flex:1;height:3px;border-radius:2px;background:var(--line)}
+.tours i.on{background:var(--indigo)}
+.tours i.cur{background:var(--zhu)}
+/* le chronomètre : il borne le tour, il ne donne aucun point */
+.chrono{height:4px;border-radius:2px;background:var(--line);overflow:hidden;margin:0 0 14px}
+.chrono i{display:block;height:100%;background:var(--indigo)}
+/* la réponse en cours : les briques posées, dans l'ordre d'écriture */
+.assemblee{display:flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:8px;min-height:64px;margin-bottom:6px}
+.assemblee .op{color:var(--mist);font-size:22px}
+.tuile{display:inline-flex;align-items:center;justify-content:center;width:58px;height:58px;border-radius:12px;border:1.5px solid var(--line);background:var(--paper)}
+.tuile.vide{border-style:dashed;opacity:.5}
+.tuile.faite{border-color:var(--jade);background:var(--jade-soft)}
+/* les briques en vrac : les vraies et les deux leurres, dans le désordre */
+.choices.vrac{grid-template-columns:repeat(4,1fr);gap:8px}
+.choices.vrac button{min-height:66px}
+.choices.vrac button.pris{opacity:.3}
+/* les jumeaux : deux caractères, vus en un éclair de 700 ms */
+.choices.deux{grid-template-columns:1fr 1fr}
+.choices.deux button{min-height:118px}
+.flash{display:inline-flex;transition:opacity .1s linear}
+.flash.cache{opacity:0}
+@media (prefers-reduced-motion:reduce){.flash,.flash.cache{opacity:1;transition:none}}
+/* la correction ne prend de place que lorsqu'elle a quelque chose à dire */
+.fb.vide{background:none}
+/* le constat : une ligne, des nombres réels, jamais un score */
+.jeu .bilan{padding:24px 16px}
+.jeu .bilan h1{margin-top:4px;font-size:24px}
+.jeu .constat{font-family:var(--head);font-weight:700;font-size:22px;margin:0 0 8px}
+.jeu .foot .acts{margin-top:10px}
+/* l'entrée des jeux : une ligne sur Ma forêt, une proposition neutre sur le chemin */
+.jouer{margin-top:14px}
+.propose{display:flex;align-items:center;gap:10px;width:100%;min-height:48px;padding:10px 14px;margin:0 0 12px;border:1px solid var(--line);border-radius:12px;background:var(--card)}
