@@ -45,23 +45,27 @@ def ingest() -> None:
 
 @app.command()
 def build() -> None:
-    """Réconcilie les décompositions avec GF 0014-2009 dans data/work/build/."""
+    """Réconcilie les décompositions, construit le graphe et les parcours dans data/work/build/."""
     from .gf0014 import build as _build
+    from .graphe import build as _graphe
 
     rapport = _build()
     for cle, valeur in rapport.items():
         typer.echo(f"{cle} : {valeur}")
-    typer.echo(f"Décompositions et rapport d'écarts dans {BUILD}.")
+    for cle, valeur in _graphe().items():
+        typer.echo(f"{cle} : {valeur}")
+    typer.echo(f"Décompositions, écarts, graphe et parcours dans {BUILD}.")
 
 
 @app.command()
 def check() -> None:
-    """Contrôles : composants inconnus, cycles, doublons, fiches sans étiquette, longueur des origines (3 phrases), contes hors liste."""
+    """Contrôles : composants inconnus, cycles, graphe, couverture des listes, briques muettes, contes hors liste."""
     from .contes import controles as controles_contes
     from .gf0014 import controles
+    from .graphe import controles as controles_graphe
 
     bloquants = []
-    for controle in [*controles(), *controles_contes()]:
+    for controle in [*controles(), *controles_graphe(), *controles_contes()]:
         typer.echo(f"{'ok   ' if controle.ok else 'écart'} {controle.nom} : {controle.detail}")
         if not controle.ok and controle.bloquant:
             bloquants.append(controle.nom)
