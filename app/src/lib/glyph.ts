@@ -17,4 +17,4 @@ export function glyph(c: string, d: StrokeData | undefined, size: number, opts: 
   });
   return `<svg class="g write" width="${size}" height="${size}" viewBox="0 0 1024 1024" aria-label="${c}"${style}><defs>${defs}</defs><g transform="scale(1,-1) translate(0,-900)">${body}</g></svg>`;
 }
-/* CSS attendu : .g path{fill:currentColor} .g.write .br{fill:none;stroke:currentColor;stroke-width:230;stroke-linecap:round;stroke-linejoin:round;animation:brush linear forwards} .g.write .fill{opacity:0;animation:hold 0s linear forwards} @keyframes brush{to{stroke-dashoffset:0}} @keyframes hold{to{opacity:1}} */
+/* Le CSS de .g, .g.write, .br, .fill et les @keyframes brush / hold vivent dans tokens.css. */
