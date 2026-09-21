@@ -36,7 +36,8 @@
   } from './jeux';
   import type { Progress, Revision } from './session';
   import { humeur, stade } from './tao';
-  import { AVANCE_MS, PROCHAINE_FOIS, VERDICTS } from './verification';
+  import { AVANCE_MS, VERDICTS, delai } from './revision';
+  import { echeance } from './session';
 
   let {
     p,
@@ -338,7 +339,8 @@
       <div class="fb" class:vide={resultat === null}>
         {#if resultat !== null}
           <b>{resultat.montre ? 'On te montre.' : VERDICTS[resultat.note]}</b>
-          <span class="next">Prochaine fois : dans {PROCHAINE_FOIS[resultat.note]}.</span>
+          {@const quand = echeance(p, resultat.evenement.c)}
+          {#if quand}<span class="next">Prochaine fois : dans {delai(new Date(), quand)}.</span>{/if}
         {/if}
       </div>
     </div>
