@@ -18,3 +18,14 @@ h1{font-family:var(--head);font-weight:700;font-size:30px;letter-spacing:-.02em;
 .path li.done{color:var(--mist);font-weight:400} .path li.done::before{background:var(--jade);border-color:var(--jade)}
 .path li.now{color:var(--ink)} .path li.now::before{background:var(--zhu);border-color:var(--zhu)}
 .path small{color:var(--mist);font-weight:400}
+/* grands caractères : SVG depuis les traits (glyph.ts), pinceau le long des médianes */
+.hz{font-family:var(--hz);font-weight:500;line-height:1}
+.g{display:inline-block;vertical-align:middle;color:var(--ink)}
+.g path{fill:currentColor}
+.g.write .br{fill:none;stroke:currentColor;stroke-width:230;stroke-linecap:round;stroke-linejoin:round;animation:brush linear forwards}
+.g.write .fill{opacity:0;animation:hold 0s linear forwards}
+@keyframes brush{to{stroke-dashoffset:0}}
+@keyframes hold{to{opacity:1}}
+@media (prefers-reduced-motion:reduce){.g.write .br{display:none}.g.write .fill{opacity:1;animation:none}}
+.today{display:flex;flex-direction:column;align-items:center;gap:6px;margin:0 0 24px;min-height:120px}
+.today .k{color:var(--mist);font-size:15px}
