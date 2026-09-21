@@ -9,7 +9,7 @@ import json
 import typer
 
 from .fonts import commande as _fonts
-from .paths import EXPORT, INGEST, SOURCES
+from .paths import BUILD, EXPORT, INGEST, SOURCES
 
 app = typer.Typer(help="Pipeline de contenu Zilin")
 app.command(name="fonts")(_fonts)
@@ -42,15 +42,30 @@ def ingest() -> None:
 
 
 @app.command()
-def build(parcours: str = "lire") -> None:
-    """Construit le graphe de dépendances et l'ordre d'apprentissage (story 1.2, 1.3)."""
-    typer.echo(f"À implémenter : graphe pour le parcours {parcours}.")
+def build() -> None:
+    """Réconcilie les décompositions avec GF 0014-2009 dans data/work/build/."""
+    from .gf0014 import build as _build
+
+    rapport = _build()
+    for cle, valeur in rapport.items():
+        typer.echo(f"{cle} : {valeur}")
+    typer.echo(f"Décompositions et rapport d'écarts dans {BUILD}.")
 
 
 @app.command()
 def check() -> None:
     """Contrôles : composants inconnus, cycles, doublons, fiches sans étiquette, longueur des origines (3 phrases)."""
-    typer.echo("À implémenter : rapport dans data/work/check.md.")
+    from .gf0014 import controles
+
+    bloquants = []
+    for controle in controles():
+        typer.echo(f"{'ok   ' if controle.ok else 'écart'} {controle.nom} : {controle.detail}")
+        if not controle.ok and controle.bloquant:
+            bloquants.append(controle.nom)
+    typer.echo(f"Rapport d'écarts : {BUILD / 'ecarts.md'}.")
+    if bloquants:
+        typer.echo(f"Contrôles bloquants en échec : {', '.join(bloquants)}", err=True)
+        raise typer.Exit(code=1)
 
 
 @app.command()
