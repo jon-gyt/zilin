@@ -9,6 +9,11 @@ RACINE = DATA.parent
 WORK = DATA / "work"
 SOURCES = WORK / "sources"
 INGEST = WORK / "ingest"
+FONTES = WORK / "fonts"
+BUILD = WORK / "build"
 
 LISTES = DATA / "sources" / "listes"
+GF0014 = DATA / "sources" / "gf0014-2009"
 EXPORT = RACINE / "app" / "public" / "data"
+FONTES_APP = RACINE / "app" / "public" / "fonts"
+TRAITS_APP = RACINE / "app" / "public" / "strokes-demo.json"

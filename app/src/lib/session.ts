@@ -189,6 +189,12 @@ export function allDone(p: Progress): boolean {
   return nextIndex(p) < 0;
 }
 
+/** Le pas courant lui-même, `null` si la journée est finie. L'écran à ouvrir est dans `go`. */
+export function currentStep(p: Progress): Step | null {
+  const i = nextIndex(p);
+  return i < 0 ? null : steps(p)[i];
+}
+
 export function started(p: Progress): boolean {
   return p.done.some(Boolean);
 }

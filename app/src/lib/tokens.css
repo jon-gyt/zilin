@@ -1,3 +1,10 @@
+/* Polices de la charte, auto-hébergées (aucune requête réseau) : `uv run zilin fonts`. */
+@font-face{font-family:"Manrope";font-style:normal;font-weight:500;font-display:swap;src:url(/fonts/manrope-500.woff2) format("woff2")}
+@font-face{font-family:"Manrope";font-style:normal;font-weight:700;font-display:swap;src:url(/fonts/manrope-700.woff2) format("woff2")}
+@font-face{font-family:"Source Sans 3";font-style:normal;font-weight:400;font-display:swap;src:url(/fonts/source-sans-3-400.woff2) format("woff2")}
+@font-face{font-family:"Source Sans 3";font-style:normal;font-weight:600;font-display:swap;src:url(/fonts/source-sans-3-600.woff2) format("woff2")}
+@font-face{font-family:"Noto Serif SC";font-style:normal;font-weight:500;font-display:swap;src:url(/fonts/noto-serif-sc-500.woff2) format("woff2")}
+
 :root{
   --paper:#F4EEE2; --card:#FBF7EE; --ink:#1F1B18; --ink2:#4A443E; --mist:#8B857C; --line:#D9D1C2;
   --indigo:#2B4C7E; --indigo-soft:#DCE3EF; --zhu:#C8371F; --zhu-soft:#F6DED6; --ocre:#8C5A2B; --ocre-soft:#EFE3D3; --jade:#5E8A6A; --jade-soft:#DDE8DE; --on:#F4EEE2;
@@ -79,3 +86,18 @@ h1{font-family:var(--head);font-weight:700;font-size:30px;line-height:1.15;lette
 @keyframes spark{from{opacity:.4;transform:scale(.9)}to{opacity:1;transform:scale(1.08)}}
 @keyframes zz{0%{opacity:0;transform:translate(0,6px)}30%{opacity:1}100%{opacity:0;transform:translate(6px,-14px)}}
 @media (prefers-reduced-motion:reduce){.miao *{animation:none!important}}
+
+/* quitter : discret en haut d'écran, sauvegarde sans question */
+.quit{min-height:44px;align-self:flex-start}
+
+/* l'anecdote du jour, en estampe : le caractère au pinceau, le même en filigrane derrière */
+#app{overflow-x:clip}
+.anec{flex:1;display:flex;flex-direction:column;justify-content:center;text-align:center;position:relative}
+.anec .water{position:absolute;left:50%;top:50%;transform:translate(-50%,-56%);opacity:.055;pointer-events:none;color:var(--ink)}
+.anec>*:not(.water){position:relative}
+.anec .k{margin-bottom:14px}
+.anec h1{font-size:24px;margin-top:14px}
+.anec p{color:var(--ink2);font-size:16.5px;margin:0 auto;max-width:34ch}
+.anec .sceau{display:flex;justify-content:center;margin-bottom:6px;color:var(--ink)}
+.anec .nom{font-family:var(--head);font-weight:700;font-size:26px;letter-spacing:-.03em;margin-bottom:2px}
+.anec .nom .cn{color:var(--zhu);font-size:22px}
