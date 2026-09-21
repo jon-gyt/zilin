@@ -158,3 +158,22 @@ h1{font-family:var(--head);font-weight:700;font-size:30px;line-height:1.15;lette
 .gloss{margin-top:12px;min-height:48px;background:var(--paper);border-radius:10px;padding:10px 12px;font-size:15px;color:var(--ink2)}
 .gloss b{color:var(--ink);font-size:19px;margin-right:6px}
 .trad-pleine{margin-top:4px}
+
+/* ---- pas 5, Fixer : la question, les choix, la correction (maquette s-l4, s-rev) ---- */
+.verif-tete{display:flex;align-items:flex-start;gap:10px;margin-bottom:4px}
+.verif-tete .guide{margin-bottom:16px}
+.q{background:var(--card);border-radius:18px;padding:22px 16px;text-align:center}
+.q .stim{margin:6px 0 14px}
+.q .stim .vide{font-size:40px;color:var(--mist)}
+.q .parts{display:flex;align-items:center;justify-content:center;gap:10px}
+.q .parts .op{color:var(--mist);font-size:22px}
+.choices{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:12px}
+.choices button{min-height:76px;border:1.5px solid var(--line);border-radius:12px;background:var(--card);display:flex;flex-direction:column;align-items:center;justify-content:center;font-weight:600;gap:2px;text-align:center}
+.choices button.txt{font-size:16px;padding:8px 10px;min-height:60px}
+.choices button.ok{border-color:var(--jade);background:var(--jade-soft)}
+.choices button.ko{border-color:var(--zhu);background:var(--zhu-soft)}
+.choices button:disabled{cursor:default}
+/* la correction : un constat, l'explication par les briques, l'échéance */
+.fb{margin-top:12px;min-height:44px;font-size:15px;color:var(--ink2);text-align:left;padding:10px 12px;border-radius:10px;background:var(--paper)}
+.fb b{color:var(--ink)}
+.fb .next{display:block;margin-top:4px;font-size:13px;color:var(--mist)}
