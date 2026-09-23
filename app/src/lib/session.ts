@@ -7,6 +7,8 @@
  * et chaque transition renvoie un nouvel état. La persistance est dans `db.ts`.
  */
 import {
+  RETENTION_DEFAUT,
+  bornerRetention,
   due,
   fromJSON as cartesFromJSON,
   newCard,
@@ -166,6 +168,20 @@ export type Progress = {
    * (`jourParcours`). C'est le seul lien entre la progression et `data/`.
    */
   jourParcours?: number;
+  /**
+   * Rétention cible FSRS, réglable (brief §7) : la chance de savoir encore une carte au
+   * moment où elle revient. Entre `RETENTION_MIN` et `RETENTION_MAX` de `srs.ts`, 0,9
+   * par défaut. Ajoutée après coup : une progression sans ce champ se relit au défaut.
+   */
+  retention: number;
+  /**
+   * Les cartes mises de côté : le contenu servi n'a pas de quoi les poser en question
+   * (pas de fiche, ou aucun type que la fiche permette). Elles restent dans `cartes`,
+   * intactes, mais ne comptent plus dans la pile due tant qu'elles attendent ; le pas
+   * Échauffer réévalue la liste à chaque ouverture et les rend dès que le contenu le
+   * permet. Ajoutée après coup : une progression sans ce champ n'a rien de côté.
+   */
+  enAttente: string[];
 };
 
 /**
@@ -206,7 +222,9 @@ export function emptyProgress(aujourdhui: string): Progress {
     tao: taoVide(),
     premiere: true,
     premiereVue: 'f1',
-    parcours: null
+    parcours: null,
+    retention: RETENTION_DEFAUT,
+    enAttente: []
   };
 }
 
@@ -250,6 +268,20 @@ export function openDay(p: Progress, aujourdhui: string): Progress {
     revisions: [],
     catchup: rattrapage(p, aujourdhui)
   };
+}
+
+/**
+ * La bascule de journée, telle que l'écran Aujourd'hui la fait : au retour au chemin et
+ * au retour au premier plan. Le jour de référence est `p.day`, jamais l'horloge : une
+ * session commencée reste sur sa journée jusqu'à sa clôture, même close après minuit,
+ * et ses activités y sont rangées. La journée ne bascule donc que lorsqu'aucune session
+ * n'est en cours — rien de fait, ou tout fait. Au rechargement, `openDay` ouvre la
+ * journée quoi qu'il arrive : une session interrompue ne se reprend que le jour même.
+ */
+export function basculerJournee(p: Progress, aujourdhui: string): Progress {
+  if (p.day === aujourdhui) return p;
+  if (started(p) && !allDone(p)) return p;
+  return openDay(p, aujourdhui);
 }
 
 /**
@@ -328,9 +360,38 @@ export function assurerCartes(p: Progress, ids: readonly string[], maintenant: D
   return cartes.length === p.cartes.length ? p : { ...p, cartes };
 }
 
+/* ---------- la rétention cible ---------- */
+
+/** Change la rétention cible. Ramenée dans les bornes : un réglage ne sort jamais du cadre. */
+export function setRetention(p: Progress, retention: number): Progress {
+  return { ...p, retention: bornerRetention(retention) };
+}
+
+/** Ce que FSRS reçoit de la progression : la rétention cible réglée. */
+export function srsParams(p: Progress): SrsParams {
+  return { retention: bornerRetention(p.retention) };
+}
+
+/** Une position du réglage : un nom sans jargon, et la rétention qu'elle règle. */
+export type ReglageRetention = { t: string; retention: number };
+
+/** Les trois positions du réglage, de la plus serrée à la plus lâche. */
+export const REGLAGES_RETENTION: readonly ReglageRetention[] = [
+  { t: 'Plus de révisions', retention: 0.95 },
+  { t: 'Équilibré', retention: RETENTION_DEFAUT },
+  { t: 'Moins de révisions', retention: 0.85 }
+];
+
+/** L'effet du réglage, en une ligne : ce qu'on sait encore d'une carte quand elle revient. */
+export function effetRetention(retention: number): string {
+  const n = Math.round(bornerRetention(retention) * 100);
+  return `Une carte revient quand tu as encore environ ${n} chances sur 100 de la savoir.`;
+}
+
 /**
- * Note une réponse et replanifie la carte avec FSRS (`schedule` de `srs.ts`).
- * Une carte absente est créée à la volée : on ne perd jamais une réponse.
+ * Note une réponse et replanifie la carte avec FSRS (`schedule` de `srs.ts`), à la
+ * rétention cible de la progression. Une carte absente est créée à la volée : on ne
+ * perd jamais une réponse.
  */
 export function planifierCarte(
   p: Progress,
@@ -340,7 +401,7 @@ export function planifierCarte(
   params: SrsParams = {}
 ): Progress {
   const avant = carte(p, id) ?? newCard(id, maintenant);
-  const { card } = schedule(avant, outcome, maintenant, params);
+  const { card } = schedule(avant, outcome, maintenant, { ...srsParams(p), ...params });
   const cartes = p.cartes.some((c) => c.id === id)
     ? p.cartes.map((c) => (c.id === id ? card : c))
     : [...p.cartes, card];
@@ -354,24 +415,45 @@ export function echeance(p: Progress, id: string): Date | null {
 
 /* ---------- pas 2, Échauffer ---------- */
 
+/** Les cartes dues qui peuvent se poser : celles mises de côté attendent leur fiche. */
+function duesPosables(p: Progress, maintenant: Date): ReviewCard[] {
+  const cote = new Set(p.enAttente);
+  return due(p.cartes, maintenant).filter((c) => !cote.has(c.id));
+}
+
 /**
  * Les cartes dues, les plus urgentes d'abord (`due` de `srs.ts`), coupées à ce qu'une
- * séance absorbe. Le reste attend le lendemain.
+ * séance absorbe. Le reste attend le lendemain. Une carte mise de côté (`enAttente`)
+ * n'y entre pas : sans fiche, elle occuperait la tête de la pile tous les jours.
  */
 export function cartesDues(
   p: Progress,
   maintenant: Date,
   max: number = CARTES_PAR_SEANCE
 ): ReviewCard[] {
-  return due(p.cartes, maintenant).slice(0, Math.max(0, max));
+  return duesPosables(p, maintenant).slice(0, Math.max(0, max));
 }
 
 /**
  * Le nombre réel de cartes dues, sans plafond : c'est lui, et non ce qu'une séance
- * absorbe, qui dit si la pile a débordé et si le rattrapage tient (`setDue`).
+ * absorbe, qui dit si la pile a débordé et si le rattrapage tient (`setDue`). Les
+ * cartes mises de côté n'y comptent pas : elles ne tiendraient pas le rattrapage ouvert.
  */
 export function nombreDues(p: Progress, maintenant: Date): number {
-  return due(p.cartes, maintenant).length;
+  return duesPosables(p, maintenant).length;
+}
+
+/**
+ * Range la liste des cartes mises de côté, telle que le pas Échauffer l'a réévaluée sur
+ * le contenu. Seules les cartes que la progression porte y entrent ; aucune n'est
+ * retirée de `cartes`. Même liste : l'état est rendu tel quel.
+ */
+export function setEnAttente(p: Progress, ids: readonly string[]): Progress {
+  const connues = new Set(p.cartes.map((c) => c.id));
+  const enAttente = [...new Set(ids)].filter((c) => connues.has(c)).sort();
+  const meme =
+    enAttente.length === p.enAttente.length && enAttente.every((c, i) => c === p.enAttente[i]);
+  return meme ? p : { ...p, enAttente };
 }
 
 /** Fige la pile de la séance : elle ne bouge plus de la journée. */
@@ -833,6 +915,12 @@ export function fromJSON(texte: string, aujourdhui: string): Progress {
     jourParcours:
       typeof o.jourParcours === 'number' && o.jourParcours >= 1
         ? Math.floor(o.jourParcours)
-        : undefined
+        : undefined,
+    /* La rétention cible : absente d'un export plus ancien, elle reprend le défaut. */
+    retention: bornerRetention(o.retention),
+    /* Les cartes mises de côté : absentes d'un export plus ancien, rien n'est de côté. */
+    enAttente: Array.isArray(o.enAttente)
+      ? [...new Set(o.enAttente.filter((c): c is string => typeof c === 'string' && c !== ''))].sort()
+      : []
   };
 }

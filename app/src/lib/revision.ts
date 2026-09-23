@@ -22,6 +22,7 @@ import {
 } from './content';
 import {
   fiche as ficheDuCorpus,
+  horsSerie,
   question,
   serie,
   typesPossibles,
@@ -201,6 +202,31 @@ export function questionsRevision(
   jour: string
 ): Question[] {
   return serie(pile, corpus, graineDuJour('rev', jour));
+}
+
+/**
+ * Les cartes à garder de côté après cette séance : celles de la pile que le corpus ne
+ * permet pas de poser, et celles déjà de côté qui ne le permettent toujours pas. Une
+ * carte de côté que le contenu sait désormais poser en sort : elle redevient due.
+ */
+export function cartesEnAttente(
+  pile: readonly Due[],
+  enAttente: readonly string[],
+  corpus: Corpus
+): string[] {
+  return horsSerie([...pile, ...enAttente], corpus);
+}
+
+/**
+ * La ligne du résumé pour les cartes passées : un constat neutre, ni excuse ni alerte.
+ * Vide quand aucune carte n'a été passée.
+ */
+export function ligneEnAttente(ids: readonly string[]): string {
+  if (ids.length === 0) return '';
+  if (ids.length === 1) {
+    return `${ids[0]} attend sa fiche : la carte est gardée, elle reviendra quand le contenu la portera.`;
+  }
+  return `${ids.join(' ')} attendent leur fiche : les cartes sont gardées, elles reviendront quand le contenu les portera.`;
 }
 
 /** L'ordre de la vérification : le sens du composé, la brique, puis l'assemblage. */

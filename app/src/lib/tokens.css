@@ -83,6 +83,9 @@ h1{font-family:var(--head);font-weight:700;font-size:30px;line-height:1.15;lette
 .anec .sceau{display:flex;justify-content:center;margin-bottom:6px;color:var(--ink)}
 .anec .nom{font-family:var(--head);font-weight:700;font-size:26px;letter-spacing:-.03em;margin-bottom:2px}
 .anec .nom .cn{color:var(--zhu);font-size:22px}
+/* Tao écoute assise, dans le coin haut : hors du flux, l'estampe ne bouge pas */
+.screen.ouvrir{position:relative}
+.ouvrir .tao-assise{position:absolute;top:calc(env(safe-area-inset-top) + 14px);right:16px;pointer-events:none}
 
 /* ---- pas 3, Apprendre : la brique, le tracé, le composé (maquette s-l1, s-trace, s-l2) ---- */
 .card{background:var(--card);border-radius:16px;padding:18px}
@@ -247,6 +250,9 @@ h1{font-family:var(--head);font-weight:700;font-size:30px;line-height:1.15;lette
 .seg{display:flex;border:1px solid var(--line);border-radius:10px;overflow:hidden;flex-shrink:0}
 .seg button{padding:10px 12px;font-size:14px;color:var(--ink2)}
 .seg button.on{background:var(--indigo);color:var(--on)}
+/* un réglage à trois positions nommées : le titre et son effet au-dessus, les positions en dessous */
+.tog.pile{flex-direction:column;align-items:stretch;padding:12px 2px;gap:10px}
+.tog.pile .seg button{flex:1;padding:10px 6px;line-height:1.2}
 .cache{display:none}
 
 /* ---- story 4.1, Ma forêt : le cercle des familles (maquette s-me, renderForest) ---- */
@@ -408,6 +414,8 @@ h1{font-family:var(--head);font-weight:700;font-size:30px;line-height:1.15;lette
 .res div{display:flex;align-items:center;gap:10px;padding:8px 0;border-top:1px solid var(--line);font-size:14.5px}
 .res .ok{color:var(--jade);font-weight:600}
 .res .ko{color:var(--zhu);font-weight:600}
+/* une carte passée faute de fiche : une ligne neutre, sans couleur */
+.q .attente{margin-top:12px;text-align:left}
 
 /* ---- stories 4b.1 et 4b.2, les jeux : le choix, une manche, le constat ---- */
 /* Un jeu ne compte pas les points : aucun style de score, de vie ni de classement ici. */
@@ -447,3 +455,9 @@ h1{font-family:var(--head);font-weight:700;font-size:30px;line-height:1.15;lette
 /* l'entrée des jeux : une ligne sur Ma forêt, une proposition neutre sur le chemin */
 .jouer{margin-top:14px}
 .propose{display:flex;align-items:center;gap:10px;width:100%;min-height:48px;padding:10px 14px;margin:0 0 12px;border:1px solid var(--line);border-radius:12px;background:var(--card)}
+
+/* la cible d'un assemblage : ce qu'on cherche, en grand, avant les briques */
+.q .cible{display:flex;flex-direction:column;align-items:center;gap:2px;margin:4px 0 10px}
+.q .cible b{font-family:var(--head);font-weight:700;font-size:24px;color:var(--ink)}
+.q .cible .py{font-family:var(--head);font-weight:500;font-size:18px;color:var(--indigo)}
+.q .parts .case{display:inline-block;width:56px;height:56px;border:2px dashed var(--line);border-radius:12px}

@@ -12,6 +12,7 @@
   import Trace from './Trace.svelte';
   import { corriger, type Corpus, type Question } from './questions';
   import { AVANCE_MS, VERDICTS, delai, pinyinDe } from './revision';
+  import { fiche } from './questions';
   import type { Revision } from './session';
   import { grade } from './srs';
   import type { Grade } from 'ts-fsrs';
@@ -153,13 +154,27 @@
   {#if q.type === 'sens' || q.type === 'son'}
     <div class="stim"><Glyph char={q.c} size={120} /></div>
   {:else if q.type === 'assemblage'}
+    {@const f = fiche(q.c, corpus)}
+    <!-- La cible en grand : ce qu'on cherche, avant les briques. Le sens s'il existe, le pinyin toujours. -->
+    <div class="cible">
+      {#if f && f.fr !== ''}<b>« {f.fr} »</b>{/if}
+      <span class="py">{pinyinDe(q.c, corpus)}</span>
+    </div>
     <div class="stim parts">
-      {#each construit as k, n (k)}
+      {#each q.reponse as _, n (n)}
         {#if n > 0}<span class="op">+</span>{/if}
-        <Glyph char={q.choix[k]} size={56} write={false} color="var(--ocre)" />
+        {#if construit[n] !== undefined}
+          <Glyph char={q.choix[construit[n]]} size={56} write={false} color="var(--ocre)" />
+        {:else}
+          <span class="case" aria-label="brique à poser"></span>
+        {/if}
       {/each}
-      {#if construit.length > 0}<span class="op">=</span>{/if}
-      <span class="hz vide">?</span>
+      <span class="op">=</span>
+      {#if note !== null}
+        <Glyph char={q.c} size={56} write={false} />
+      {:else}
+        <span class="hz vide">?</span>
+      {/if}
     </div>
   {:else if q.type === 'trou'}
     <div class="stim">

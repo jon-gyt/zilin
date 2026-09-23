@@ -1,5 +1,12 @@
+import { readFileSync } from 'node:fs';
 import { describe, it, expect } from 'vitest';
 import {
+  REGLAGES_RETENTION,
+  basculerJournee,
+  effetRetention,
+  setRetention,
+  srsParams,
+  noterJourTravaille,
   CARTES_PAR_BLOC,
   ajouterCartes,
   STEP_ORDER,
@@ -58,7 +65,18 @@ import {
   type Revision
 } from './session';
 import { journal, taoVide } from './tao';
-import { RETOUR_MINUTES, grade, isNew, newCard, stability } from './srs';
+import {
+  RETENTION_DEFAUT,
+  RETENTION_MAX,
+  RETENTION_MIN,
+  RETOUR_MINUTES,
+  grade,
+  isNew,
+  newCard,
+  schedule,
+  stability
+} from './srs';
+import { planifier } from './jeux';
 
 const JOUR = '2026-03-02';
 const neuf = (): Progress => emptyProgress(JOUR);
@@ -596,6 +614,82 @@ describe('Utiliser, Fixer, Clore, puis la journée finie', () => {
   });
 });
 
+describe('une session à cheval sur minuit', () => {
+  const VEILLE = '2026-03-02';
+  const LENDEMAIN = '2026-03-03';
+  /** 23 h 50 la veille, puis 0 h 10 le lendemain : l'horloge passe minuit entre deux pas. */
+  const AVANT = new Date('2026-03-02T23:50:00');
+  const APRES = new Date('2026-03-03T00:10:00');
+
+  /** Ouvrir, Échauffer et Apprendre faits avant minuit, sur le jour de la session. */
+  function commenceeLaVeille(): Progress {
+    let p = emptyProgress(VEILLE);
+    p = noterActivite(faitPasCourant(p, p.day), p.day, 'anecdote');
+    p = finEchauffer(p, p.day);
+    p = finApprendre(p, p.day, AVANT, ['主', '住']);
+    return p;
+  }
+
+  it('reste sur sa journée : la bascule attend la clôture', () => {
+    const p = commenceeLaVeille();
+    expect(currentStep(p)?.id).toBe('utiliser');
+    /* Retour au chemin après minuit, session en cours : rien ne bascule. */
+    expect(basculerJournee(p, LENDEMAIN)).toBe(p);
+  });
+
+  it('range sur le jour de la session les activités d’une session close après minuit', () => {
+    let p = commenceeLaVeille();
+    /* Après minuit : Utiliser, Fixer, Clore notent sur `p.day`, jamais sur l'horloge. */
+    p = finUtiliser(p, p.day);
+    p = noterRevision(p, p.day, { c: '住', correct: true, tries: 0, seconds: 3 });
+    p = planifierCarte(p, '住', { correct: true, tries: 0, seconds: 3 }, APRES);
+    p = finFixer(p, p.day);
+    expect(currentStep(p)?.id).toBe('clore');
+    /* L'écran Clore lit `constat(p, p.day)` : la journée de la session, entière. */
+    expect(constat(p, p.day)).toBe(
+      "Aujourd'hui, une brique apprise, un texte lu, une carte révisée, une anecdote."
+    );
+    p = noterJourTravaille(faitPasCourant(p, p.day), p.day);
+
+    expect(allDone(p)).toBe(true);
+    expect(p.day).toBe(VEILLE);
+    expect(p.lastWorked).toBe(VEILLE);
+    expect(p.joursTravailles).toEqual([VEILLE]);
+    expect(p.tao.activites.every((a) => a.jour === VEILLE)).toBe(true);
+    expect(constat(p, LENDEMAIN)).toBe("Aujourd'hui, rien de noté.");
+    /* La planification FSRS, elle, suit l'instant réel. */
+    expect(echeance(p, '住')!.getTime()).toBeGreaterThan(APRES.getTime());
+  });
+
+  it('bascule au retour au chemin, une fois la session close', () => {
+    let p = commenceeLaVeille();
+    p = finFixer(finUtiliser(p, p.day), p.day);
+    p = noterJourTravaille(faitPasCourant(p, p.day), p.day);
+    const demain = basculerJournee(p, LENDEMAIN);
+    expect(demain.day).toBe(LENDEMAIN);
+    expect(demain.done).toEqual([]);
+    expect(currentStep(demain)?.id).toBe('ouvrir');
+    /* Rien de ce qui a été rangé la veille ne bouge. */
+    expect(demain.joursTravailles).toEqual([VEILLE]);
+    expect(demain.tao).toEqual(p.tao);
+    /* Même journée : rien à faire. Aucune session commencée : la bascule est libre. */
+    expect(basculerJournee(demain, LENDEMAIN)).toBe(demain);
+    expect(basculerJournee(emptyProgress(VEILLE), LENDEMAIN).day).toBe(LENDEMAIN);
+  });
+
+  it("l'aiguillage note sur `p.day` et ne bascule qu'au chemin", () => {
+    const app = readFileSync(new URL('../App.svelte', import.meta.url), 'utf8');
+    /* Aucune note ne prend l'horloge pour jour : `today()` ne sert qu'à la bascule. */
+    expect(app).not.toMatch(/\(p, today\(\)/);
+    expect(app).not.toContain('jour={today()}');
+    expect(app).toContain('basculerJournee(p, jour)');
+    expect(app).toContain("addEventListener('visibilitychange'");
+    /* Un seul retour au chemin, `auChemin`, et il bascule. */
+    expect(app.match(/ecran = 'home'/g)).toHaveLength(1);
+    expect(app).toMatch(/ecran = 'home';\s*basculer\(\);/);
+  });
+});
+
 describe('une question notée ne se repose pas', () => {
   it('la reprise saute la question déjà répondue, à Échauffer comme à Fixer', () => {
     let p = setRevue(neuf(), ['c0', 'c1', 'c2']);
@@ -761,5 +855,83 @@ describe('une seule aide pour donner une carte neuve', () => {
     const p = ajouterCartes(neuf(), ['人', '', '人'], T0);
     expect(p.cartes.map((c) => c.id)).toEqual(['人']);
     expect(ajouterCartes(p, ['人'], T0)).toBe(p);
+  });
+});
+
+describe('la rétention cible, réglable (brief §7)', () => {
+  const T0 = new Date('2026-03-02T08:00:00Z');
+  const BIEN = { correct: true, tries: 0, seconds: 8 };
+  const JOUR_MS = 86_400_000;
+
+  /** Une carte vue une fois, puis revue juste à son échéance : l'intervalle suivant compte. */
+  function echeanceA(retention: number): Date {
+    let p = setRetention(neuf(), retention);
+    p = planifierCarte(p, '住', BIEN, T0);
+    const revue = echeance(p, '住')!;
+    p = planifierCarte(p, '住', BIEN, revue);
+    return echeance(p, '住')!;
+  }
+
+  it('vaut 0,9 par défaut, et reste dans ses bornes', () => {
+    expect(neuf().retention).toBe(RETENTION_DEFAUT);
+    expect(RETENTION_DEFAUT).toBe(0.9);
+    expect(setRetention(neuf(), 0.5).retention).toBe(RETENTION_MIN);
+    expect(setRetention(neuf(), 0.999).retention).toBe(RETENTION_MAX);
+    expect(setRetention(neuf(), 0.95).retention).toBe(0.95);
+    expect([RETENTION_MIN, RETENTION_MAX]).toEqual([0.8, 0.97]);
+  });
+
+  it('est passée à FSRS : une rétention plus haute donne une échéance plus proche', () => {
+    const serree = echeanceA(0.95);
+    const equilibree = echeanceA(0.9);
+    const lache = echeanceA(0.85);
+    expect(serree.getTime()).toBeLessThan(equilibree.getTime());
+    expect(equilibree.getTime()).toBeLessThan(lache.getTime());
+    expect((lache.getTime() - serree.getTime()) / JOUR_MS).toBeGreaterThan(1);
+  });
+
+  it('planifie exactement ce que `schedule` rend à cette rétention', () => {
+    const p = setRetention(neuf(), 0.95);
+    expect(srsParams(p)).toEqual({ retention: 0.95 });
+    const attendu = schedule(newCard('住', T0), BIEN, T0, { retention: 0.95 }).due;
+    expect(echeance(planifierCarte(p, '住', BIEN, T0), '住')).toEqual(attendu);
+    /* Un paramètre explicite passe devant le réglage. */
+    const force = planifierCarte(p, '住', BIEN, T0, { retention: 0.85 });
+    expect(echeance(force, '住')).toEqual(schedule(newCard('住', T0), BIEN, T0, { retention: 0.85 }).due);
+  });
+
+  it('les jeux planifient à la même rétention que les questions', () => {
+    const p = setRetention(neuf(), 0.95);
+    const r: Revision = { c: '日', ...BIEN };
+    const parJeu = planifier(p.cartes, r, T0, srsParams(p));
+    expect(parJeu[0].card.due).toEqual(echeance(planifierCarte(p, '日', r, T0), '日'));
+    const app = readFileSync(new URL('../App.svelte', import.meta.url), 'utf8');
+    expect(app).toContain('planifier(p.cartes, r, new Date(), srsParams(p))');
+  });
+
+  it("s'exporte, se réimporte, et se relit au défaut d'un export plus ancien", () => {
+    const p = setRetention(neuf(), 0.85);
+    expect(fromJSON(toJSON(p), JOUR).retention).toBe(0.85);
+    const ancien = JSON.stringify({ version: 1, day: JOUR, done: [true], budget: 10, days: 3 });
+    expect(fromJSON(ancien, JOUR).retention).toBe(RETENTION_DEFAUT);
+    expect(fromJSON(JSON.stringify({ ...p, retention: 0.2 }), JOUR).retention).toBe(RETENTION_MIN);
+    expect(fromJSON(JSON.stringify({ ...p, retention: 'haute' }), JOUR).retention).toBe(RETENTION_DEFAUT);
+  });
+
+  it('se règle en trois positions nommées sans jargon, avec une ligne qui dit l’effet', () => {
+    expect(REGLAGES_RETENTION.map((r) => r.t)).toEqual([
+      'Plus de révisions',
+      'Équilibré',
+      'Moins de révisions'
+    ]);
+    expect(REGLAGES_RETENTION.map((r) => r.retention)).toEqual([0.95, 0.9, 0.85]);
+    for (const r of REGLAGES_RETENTION) {
+      expect(setRetention(neuf(), r.retention).retention).toBe(r.retention);
+      expect(`${r.t} ${effetRetention(r.retention)}`).not.toMatch(/rétention|FSRS|stabilit|%/i);
+    }
+    expect(effetRetention(0.95)).toContain('95 chances sur 100');
+    const reglages = readFileSync(new URL('Settings.svelte', import.meta.url), 'utf8');
+    expect(reglages).toContain('REGLAGES_RETENTION');
+    expect(reglages).toContain('effetRetention(p.retention)');
   });
 });

@@ -23,6 +23,7 @@
     CARTES_PAR_BLOC,
     CARTES_PAR_SEANCE,
     allDone,
+    basculerJournee,
     cartesDues,
     currentStep,
     emptyProgress,
@@ -44,6 +45,7 @@
     finDepart,
     setBudget,
     setDue,
+    setEnAttente,
     setFix,
     setFixNotee,
     setLearnView,
@@ -53,6 +55,7 @@
     setRevue,
     setTrace,
     setUseView,
+    srsParams,
     traceVue,
     useNext,
     type Budget,
@@ -137,9 +140,46 @@
     void saveProgress($state.snapshot(p));
   }
 
+  /*
+   * Le jour de référence est `p.day`, jamais l'horloge : tout ce qu'une session note
+   * (pas faits, activités de Tao, graine) est rangé sur la journée où elle a commencé,
+   * même quand elle se clôt après minuit. `today()` ne sert qu'à voir que la journée a
+   * changé, et la bascule ne se fait qu'à l'écran Aujourd'hui (`basculer`).
+   */
+
+  /**
+   * Bascule la journée si l'horloge a passé minuit et qu'aucune session n'est en cours
+   * (`basculerJournee`). Appelé au retour au chemin, au retour au premier plan et au tap
+   * sur le chemin ; jamais au milieu d'un pas. Avant la relecture, rien ne bascule : on
+   * n'écrase pas la progression stockée par un état vide.
+   */
+  function basculer(): void {
+    if (!chargee) return;
+    const jour = today();
+    const ouvert = basculerJournee(p, jour);
+    if (ouvert === p) return;
+    p = setDue(ouvert, nombreDues(ouvert, new Date()), jour);
+    enregistrer();
+  }
+
+  /** Retour au chemin : c'est là, et seulement là, que la journée peut basculer. */
+  function auChemin(): void {
+    ecran = 'home';
+    basculer();
+  }
+
+  /* Au retour au premier plan, sur le chemin seulement : un pas ouvert ne bouge pas. */
+  $effect(() => {
+    const auPremierPlan = (): void => {
+      if (document.visibilityState === 'visible' && ecran === 'home') basculer();
+    };
+    document.addEventListener('visibilitychange', auPremierPlan);
+    return () => document.removeEventListener('visibilitychange', auPremierPlan);
+  });
+
   /** Marque le pas courant fait, s'il en reste un. */
   function fairePasCourant(): void {
-    p = faitPasCourant(p, today());
+    p = faitPasCourant(p, p.day);
   }
 
   /**
@@ -149,7 +189,7 @@
    * question : la liste des pas ne doit pas bouger sous les doigts.
    */
   function majDue(): void {
-    p = setDue(p, nombreDues(p, new Date()), today());
+    p = setDue(p, nombreDues(p, new Date()), p.day);
   }
 
   /**
@@ -177,6 +217,8 @@
    * écrans suivants arrivent.
    */
   function tap(): void {
+    /* Le chemin resté ouvert passé minuit : la nouvelle journée s'ouvre avant le pas. */
+    basculer();
     if (allDone(p)) {
       p = resetDay(p);
       enregistrer();
@@ -225,9 +267,9 @@
       .then((f) => briques(f))
       .catch(() => [])
       .then((cs) => {
-        p = finDepart(p, today(), new Date(), cs);
+        p = finDepart(p, p.day, new Date(), cs);
         majDue();
-        ecran = 'home';
+        auChemin();
         enregistrer();
       });
   }
@@ -238,7 +280,7 @@
    */
   function echaufferRepondu(r: Revision, i: number): void {
     p = planifierCarte(p, r.c, r, new Date());
-    p = noterRevision(p, today(), r);
+    p = noterRevision(p, p.day, r);
     /* La question est notée : quitter avant l'avance automatique ne la reposera pas. */
     p = setRevNotee(p, i);
     enregistrer();
@@ -250,12 +292,21 @@
     enregistrer();
   }
 
+  /**
+   * Les cartes sans fiche, mises de côté par le pas Échauffer : gardées dans la
+   * progression, hors de la pile due. La pile n'est recomptée qu'à la fin du pas.
+   */
+  function echaufferAttente(ids: string[]): void {
+    p = setEnAttente(p, ids);
+    enregistrer();
+  }
+
   /** La séance finie : le pas est fait, la pile se vide, retour au chemin. */
   function echaufferFini(): void {
-    p = finEchauffer(p, today());
+    p = finEchauffer(p, p.day);
     /* La pile a baissé : le rattrapage se referme quand elle est redescendue. */
     majDue();
-    ecran = 'home';
+    auChemin();
     enregistrer();
   }
 
@@ -263,9 +314,9 @@
   function ouvrirFait(): void {
     if (currentStep(p)?.go === 'anec') {
       fairePasCourant();
-      p = noterActivite(p, today(), 'anecdote');
+      p = noterActivite(p, p.day, 'anecdote');
     }
-    ecran = 'home';
+    auChemin();
     enregistrer();
   }
 
@@ -282,9 +333,9 @@
       p = setLearnView(p, vue);
     } else {
       /* Le pas fait, la brique apprise entre en révision et dans le journal de Tao. */
-      p = finApprendre(p, today(), new Date(), [brique, ...(compose === null ? [] : [compose])]);
+      p = finApprendre(p, p.day, new Date(), [brique, ...(compose === null ? [] : [compose])]);
       majDue();
-      ecran = 'home';
+      auChemin();
     }
     enregistrer();
   }
@@ -310,8 +361,8 @@
     if (vue) {
       p = setUseView(p, vue);
     } else {
-      p = finUtiliser(p, today());
-      ecran = 'home';
+      p = finUtiliser(p, p.day);
+      auChemin();
     }
     enregistrer();
   }
@@ -319,7 +370,7 @@
   /** Pas 5, Fixer : chaque réponse replanifie la carte, comme au pas Échauffer. */
   function fixerRepondu(r: Revision, i: number): void {
     p = planifierCarte(p, r.c, r, new Date());
-    p = noterRevision(p, today(), r);
+    p = noterRevision(p, p.day, r);
     /* Comme au pas Échauffer : une question notée ne se repose pas. */
     p = setFixNotee(p, i);
     enregistrer();
@@ -333,9 +384,9 @@
 
   /** La vérification finie : le pas est fait, retour au chemin. */
   function fixerFini(): void {
-    p = finFixer(p, today());
+    p = finFixer(p, p.day);
     majDue();
-    ecran = 'home';
+    auChemin();
     enregistrer();
   }
 
@@ -345,7 +396,7 @@
    */
   function clore(): void {
     fairePasCourant();
-    p = noterJourTravaille(p, today());
+    p = noterJourTravaille(p, p.day);
     ecran = 'streak';
     enregistrer();
   }
@@ -364,14 +415,15 @@
    * comme une question, et la carte du caractère est replanifiée par `schedule`.
    */
   function jeuRepondu(r: Revision): void {
-    p = noterRevision(p, today(), r);
-    p = { ...p, cartes: planifier(p.cartes, r, new Date()) };
+    p = noterRevision(p, p.day, r);
+    /* La rétention cible réglée passe à `schedule`, comme au pas Échauffer. */
+    p = { ...p, cartes: planifier(p.cartes, r, new Date(), srsParams(p)) };
     enregistrer();
   }
 
   /** La manche finie : une activité « jeu » pour Tao, une seule par manche. */
   function jeuFini(): void {
-    p = noterActivite(p, today(), 'jeu');
+    p = noterActivite(p, p.day, 'jeu');
     majDue();
     enregistrer();
   }
@@ -380,13 +432,13 @@
   function quitterJeu(): void {
     if (retourJeu === 'foret') famille = null;
     onglet = retourJeu === 'foret' ? 'foret' : 'home';
-    ecran = 'home';
+    auChemin();
     enregistrer();
   }
 
   /** Quitter : retour au chemin sans question, la progression est sauvegardée. */
   function quitter(): void {
-    ecran = 'home';
+    auChemin();
     enregistrer();
   }
 </script>
@@ -403,13 +455,14 @@
     onquitter={quitter}
   />
 {:else if ecran === 'anec'}
-  <Open jour={today()} oncontinuer={ouvrirFait} onquitter={quitter} />
+  <Open {p} oncontinuer={ouvrirFait} onquitter={quitter} />
 {:else if ecran === 'rev'}
   <Warm
     {p}
     onrepondu={echaufferRepondu}
     onavancer={echaufferAvancer}
     onfini={echaufferFini}
+    onattente={echaufferAttente}
     onquitter={quitter}
   />
 {:else if ecran === 'learn'}
@@ -462,7 +515,7 @@
       {:else}
         <Forest
           {p}
-          jour={today()}
+          jour={p.day}
           onfamille={(f) => (famille = f)}
           onjouer={() => ouvrirJeux('foret')}
           onrecompenses={() => (ecran = 'rewards')}

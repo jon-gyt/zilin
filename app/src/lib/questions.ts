@@ -454,10 +454,8 @@ export function question(
       (c) => c,
       f.parts
     );
-    q.enonce =
-      f.fr === ''
-        ? "Assemble les briques dans l'ordre d'écriture."
-        : `« ${f.fr} » : assemble les briques dans l'ordre d'écriture.`;
+    /* La cible (sens et pinyin) est affichée en grand par l'écran ; l'énoncé dit le geste. */
+    q.enonce = `Touche les ${f.parts.length} briques dans l'ordre d'écriture pour former ce caractère :`;
     q.reponse = [...f.parts];
     q.leurres = tirage.leurres;
     q.manqueLeurres = tirage.manque;
@@ -521,19 +519,42 @@ function caractereDu(d: Due): string {
 }
 
 /**
+ * Une carte se pose en question quand le corpus porte sa fiche et que la fiche permet au
+ * moins un des sept types. Sinon `serie` la passe, et `horsSerie` la nomme.
+ */
+export function posable(c: string, corpus: Corpus): boolean {
+  const f = fiche(c, corpus);
+  return f !== null && typesPossibles(f, corpus).length > 0;
+}
+
+/**
+ * Les cartes d'une pile que `serie` passe : sans fiche dans le corpus, ou sans type que
+ * la fiche permette (une brique sans texte, le tracé désactivé). Chacune une fois, dans
+ * l'ordre reçu. On les signale pour qu'aucune ne reste due en silence ; la carte, elle,
+ * n'est jamais perdue.
+ */
+export function horsSerie(dues: readonly Due[], corpus: Corpus): string[] {
+  const out: string[] = [];
+  for (const d of dues) {
+    const c = caractereDu(d);
+    if (!out.includes(c) && !posable(c, corpus)) out.push(c);
+  }
+  return out;
+}
+
+/**
  * Les questions d'une pile de cartes dues, dans l'ordre reçu. Le type varie : jamais deux
  * fois le même type d'affilée tant que la fiche permet autre chose. Les cartes sans fiche
- * ou sans type possible sont passées.
+ * ou sans type possible sont passées : `horsSerie` les nomme.
  */
 export function serie(dues: readonly Due[], corpus: Corpus, graine: string): Question[] {
   const out: Question[] = [];
   let precedent: TypeQuestion | null = null;
   dues.forEach((d, i) => {
     const c = caractereDu(d);
-    const f = fiche(c, corpus);
-    if (f === null) return;
+    if (!posable(c, corpus)) return;
+    const f = fiche(c, corpus) as Fiche;
     const possibles = typesPossibles(f, corpus);
-    if (possibles.length === 0) return;
     const classes = [...possibles].sort(
       (x, y) => hachage(`${graine}/${i}/${c}/${x}`) - hachage(`${graine}/${i}/${c}/${y}`)
     );
