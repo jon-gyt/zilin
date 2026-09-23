@@ -470,3 +470,30 @@ h1{font-family:var(--head);font-weight:700;font-size:30px;line-height:1.15;lette
 /* une case par brique, en pointillé, qui se remplit au fur et à mesure */
 .jeu .tuile.vide{border-width:2px;opacity:.7}
 .jeu .tuile.inconnu{font-family:var(--head);color:var(--mist);font-size:20px}
+
+/* ---- story 4b.3, la chaîne et la coquille ---- */
+/* un jeu que l'acquis ne permet pas encore : la même ligne, sans couleur d'alerte */
+.jeu .opt button.indispo{opacity:.6}
+/* la chaîne : les maillons déjà posés, le dernier en grand, sans cinabre */
+.chaine{display:flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:6px;min-height:104px;margin:0 0 8px}
+.chaine .op{color:var(--mist);font-size:20px}
+.chaine .maillon{display:inline-flex;align-items:center;justify-content:center;border:1.5px solid transparent;border-radius:12px;padding:2px}
+.chaine .maillon.dernier{border-color:var(--indigo);background:var(--card);padding:6px}
+.chaine .maillon.faite{border-color:var(--jade);background:var(--jade-soft);padding:4px;animation:paraitre .25s ease-out both}
+.choices.quatre{grid-template-columns:1fr 1fr}
+.choices.quatre button{min-height:92px}
+/* la coquille : le message, mot après mot, chaque caractère se touche */
+.message{display:flex;flex-wrap:wrap;justify-content:center;gap:4px;margin:4px 0 6px}
+.message .coupe{width:10px}
+.message .signe{display:inline-flex;align-items:center;justify-content:center;width:48px;height:52px;border:1.5px solid var(--line);border-radius:10px;background:var(--card)}
+.message .signe.ok{border-color:var(--jade);background:var(--jade-soft)}
+.message .signe.ko{border-color:var(--zhu);background:var(--zhu-soft)}
+.message .signe:disabled{cursor:default}
+/* la correction par les briques : l'intrus, puis le caractère qu'il remplaçait */
+.correction{display:flex;flex-direction:column;gap:8px;margin-top:12px}
+.correction .ligne{display:flex;align-items:center;gap:8px;padding:8px 10px;border-radius:12px;background:var(--card)}
+.correction .op{color:var(--mist);font-size:18px}
+.correction .tuile.intrus{border-style:dashed;border-color:var(--ink2)}
+.correction .gl{display:flex;flex-direction:column;margin-left:auto;text-align:right;font-size:15px;color:var(--ink2)}
+.correction .gl .py{font-size:16px}
+@media (prefers-reduced-motion:reduce){.chaine .maillon.faite{animation:none}}
