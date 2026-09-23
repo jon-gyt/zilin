@@ -839,3 +839,11 @@ describe("le chargement de l'export", () => {
     expect(caractereDuJour(l)).toBe('');
   });
 });
+
+describe("l'écran Ouvrir", () => {
+  it("ne passe jamais tout seul : l'anecdote se lit à son rythme, on continue au tap", () => {
+    const src = readFileSync(new URL('Open.svelte', import.meta.url), 'utf8');
+    expect(src).not.toMatch(/setTimeout|setInterval/);
+    expect(src).toContain('onclick={oncontinuer}');
+  });
+});

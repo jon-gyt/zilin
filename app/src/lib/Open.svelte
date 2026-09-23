@@ -23,8 +23,11 @@
   const taoStade = $derived(stade(p.tao.croissance));
   const taoHumeur = $derived(humeur(p.tao.activites, p.day));
 
-  /** Vingt secondes, puis la journée s'ouvre d'elle-même. Le bouton passe avant. */
-  const DUREE_MS = 20000;
+  /*
+   * Aucune minuterie : l'anecdote se lit à son rythme, et la journée ne s'ouvre qu'au
+   * tap. Les « 20 s » du brief sont un ordre de grandeur de lecture, pas un compte à
+   * rebours. Retour du propriétaire : on n'avait pas le temps de lire.
+   */
 
   let a: Anecdote | null = $state(null);
 
@@ -43,10 +46,6 @@
     };
   });
 
-  $effect(() => {
-    const t = setTimeout(oncontinuer, DUREE_MS);
-    return () => clearTimeout(t);
-  });
 </script>
 
 <main class="screen ouvrir">
