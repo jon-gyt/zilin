@@ -7,6 +7,7 @@
    * événements de révision, notés par `grade` de `srs.ts` comme une question de
    * révision. Le chronomètre borne un tour, il ne donne aucun point ; il n'y a ni vie,
    * ni classement, ni coffre. Les grands caractères viennent des traits (`Glyph`).
+   * Chaque manche pose d'abord ce qu'on cherche, lisible d'un coup d'œil, puis les choix.
    */
   import Glyph from './Glyph.svelte';
   import Tao from './Tao.svelte';
@@ -28,6 +29,7 @@
     corpusVide,
     disponibles,
     fini,
+    glose,
     tour,
     type CorpusJeux,
     type JeuId,
@@ -290,8 +292,8 @@
     </div>
   {:else if t !== null}
     <div class="verif-tete">
-      <Tao stade={taoStade} posture="jeu" humeur={taoHumeur} size={72} caractere={t.c} />
-      <p class="guide grow">{jeuCourant?.titre}. {t.enonce}</p>
+      <Tao stade={taoStade} posture="jeu" humeur={taoHumeur} size={72} />
+      <p class="guide grow">{jeuCourant?.titre}</p>
     </div>
 
     <div class="tours k" aria-label="Avancement de la manche">
@@ -307,6 +309,15 @@
             <i style="width:{Math.round(reste * 100)}%"></i>
           </div>
         {/if}
+        <!-- La cible en grand : ce qu'on cherche, avant les briques. -->
+        {@const g = glose(t.c, corpus)}
+        <div class="jeu-cible">
+          {#if g.fr !== ''}<b>« {g.fr} »</b>{/if}
+          {#if g.pinyin !== ''}<span class="py">{g.pinyin}</span>{/if}
+        </div>
+        <p class="consigne">
+          Touche les {t.reponse.length} briques dans l'ordre d'écriture pour former ce caractère :
+        </p>
         <div class="assemblee">
           {#if resultat !== null}
             <!-- La réponse : les briques dans l'ordre d'écriture, et ce qu'elles font. -->
@@ -325,8 +336,10 @@
             {/each}
             {#each { length: Math.max(0, t.reponse.length - choisies.length) } as _, k (k)}
               {#if choisies.length + k > 0}<span class="op">+</span>{/if}
-              <span class="tuile vide" aria-hidden="true"></span>
+              <span class="tuile vide" aria-label="brique à poser"></span>
             {/each}
+            <span class="op">=</span>
+            <span class="tuile vide inconnu" aria-hidden="true">?</span>
           {/if}
         </div>
         <div class="choices vrac">
@@ -343,6 +356,7 @@
           {/each}
         </div>
       {:else}
+        <p class="consigne">{t.enonce}</p>
         <div class="choices deux">
           {#each t.choix as c, k (c + k)}
             <button
