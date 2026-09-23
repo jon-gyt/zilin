@@ -7,6 +7,8 @@
  * et chaque transition renvoie un nouvel état. La persistance est dans `db.ts`.
  */
 import {
+  RETENTION_DEFAUT,
+  bornerRetention,
   due,
   fromJSON as cartesFromJSON,
   newCard,
@@ -166,6 +168,12 @@ export type Progress = {
    * (`jourParcours`). C'est le seul lien entre la progression et `data/`.
    */
   jourParcours?: number;
+  /**
+   * Rétention cible FSRS, réglable (brief §7) : la chance de savoir encore une carte au
+   * moment où elle revient. Entre `RETENTION_MIN` et `RETENTION_MAX` de `srs.ts`, 0,9
+   * par défaut. Ajoutée après coup : une progression sans ce champ se relit au défaut.
+   */
+  retention: number;
 };
 
 /**
@@ -206,7 +214,8 @@ export function emptyProgress(aujourdhui: string): Progress {
     tao: taoVide(),
     premiere: true,
     premiereVue: 'f1',
-    parcours: null
+    parcours: null,
+    retention: RETENTION_DEFAUT
   };
 }
 
@@ -342,9 +351,38 @@ export function assurerCartes(p: Progress, ids: readonly string[], maintenant: D
   return cartes.length === p.cartes.length ? p : { ...p, cartes };
 }
 
+/* ---------- la rétention cible ---------- */
+
+/** Change la rétention cible. Ramenée dans les bornes : un réglage ne sort jamais du cadre. */
+export function setRetention(p: Progress, retention: number): Progress {
+  return { ...p, retention: bornerRetention(retention) };
+}
+
+/** Ce que FSRS reçoit de la progression : la rétention cible réglée. */
+export function srsParams(p: Progress): SrsParams {
+  return { retention: bornerRetention(p.retention) };
+}
+
+/** Une position du réglage : un nom sans jargon, et la rétention qu'elle règle. */
+export type ReglageRetention = { t: string; retention: number };
+
+/** Les trois positions du réglage, de la plus serrée à la plus lâche. */
+export const REGLAGES_RETENTION: readonly ReglageRetention[] = [
+  { t: 'Plus de révisions', retention: 0.95 },
+  { t: 'Équilibré', retention: RETENTION_DEFAUT },
+  { t: 'Moins de révisions', retention: 0.85 }
+];
+
+/** L'effet du réglage, en une ligne : ce qu'on sait encore d'une carte quand elle revient. */
+export function effetRetention(retention: number): string {
+  const n = Math.round(bornerRetention(retention) * 100);
+  return `Une carte revient quand tu as encore environ ${n} chances sur 100 de la savoir.`;
+}
+
 /**
- * Note une réponse et replanifie la carte avec FSRS (`schedule` de `srs.ts`).
- * Une carte absente est créée à la volée : on ne perd jamais une réponse.
+ * Note une réponse et replanifie la carte avec FSRS (`schedule` de `srs.ts`), à la
+ * rétention cible de la progression. Une carte absente est créée à la volée : on ne
+ * perd jamais une réponse.
  */
 export function planifierCarte(
   p: Progress,
@@ -354,7 +392,7 @@ export function planifierCarte(
   params: SrsParams = {}
 ): Progress {
   const avant = carte(p, id) ?? newCard(id, maintenant);
-  const { card } = schedule(avant, outcome, maintenant, params);
+  const { card } = schedule(avant, outcome, maintenant, { ...srsParams(p), ...params });
   const cartes = p.cartes.some((c) => c.id === id)
     ? p.cartes.map((c) => (c.id === id ? card : c))
     : [...p.cartes, card];
@@ -847,6 +885,8 @@ export function fromJSON(texte: string, aujourdhui: string): Progress {
     jourParcours:
       typeof o.jourParcours === 'number' && o.jourParcours >= 1
         ? Math.floor(o.jourParcours)
-        : undefined
+        : undefined,
+    /* La rétention cible : absente d'un export plus ancien, elle reprend le défaut. */
+    retention: bornerRetention(o.retention)
   };
 }

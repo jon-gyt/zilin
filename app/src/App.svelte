@@ -54,6 +54,7 @@
     setRevue,
     setTrace,
     setUseView,
+    srsParams,
     traceVue,
     useNext,
     type Budget,
@@ -405,7 +406,8 @@
    */
   function jeuRepondu(r: Revision): void {
     p = noterRevision(p, p.day, r);
-    p = { ...p, cartes: planifier(p.cartes, r, new Date()) };
+    /* La rétention cible réglée passe à `schedule`, comme au pas Échauffer. */
+    p = { ...p, cartes: planifier(p.cartes, r, new Date(), srsParams(p)) };
     enregistrer();
   }
 

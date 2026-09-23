@@ -247,6 +247,9 @@ h1{font-family:var(--head);font-weight:700;font-size:30px;line-height:1.15;lette
 .seg{display:flex;border:1px solid var(--line);border-radius:10px;overflow:hidden;flex-shrink:0}
 .seg button{padding:10px 12px;font-size:14px;color:var(--ink2)}
 .seg button.on{background:var(--indigo);color:var(--on)}
+/* un réglage à trois positions nommées : le titre et son effet au-dessus, les positions en dessous */
+.tog.pile{flex-direction:column;align-items:stretch;padding:12px 2px;gap:10px}
+.tog.pile .seg button{flex:1;padding:10px 6px;line-height:1.2}
 .cache{display:none}
 
 /* ---- story 4.1, Ma forêt : le cercle des familles (maquette s-me, renderForest) ---- */

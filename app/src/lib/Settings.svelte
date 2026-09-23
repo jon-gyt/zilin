@@ -1,13 +1,21 @@
 <script lang="ts">
   /**
-   * Réglages : l'ossature. Le rythme, le tracé, le thème, et la progression qui
-   * s'exporte et se réimporte en JSON.
+   * Réglages : l'ossature. Le rythme, les révisions (rétention cible FSRS), le tracé,
+   * le thème, et la progression qui s'exporte et se réimporte en JSON.
    *
    * Ni compte, ni réseau : le fichier est écrit et relu par le navigateur, la
    * progression reste dans IndexedDB.
    */
   import { exportProgress, importProgress } from './db';
-  import { setBudget, setTrace, type Budget, type Progress } from './session';
+  import {
+    REGLAGES_RETENTION,
+    effetRetention,
+    setBudget,
+    setRetention,
+    setTrace,
+    type Budget,
+    type Progress
+  } from './session';
   import { THEMES, ecrireTheme, lireTheme, type Theme } from './theme';
 
   let {
@@ -23,6 +31,11 @@
 
   function choisirBudget(b: Budget): void {
     onprogression(setBudget(p, b));
+  }
+
+  /** La rétention cible : trois positions nommées, sans jargon. Rangée avec la progression. */
+  function choisirRetention(r: number): void {
+    onprogression(setRetention(p, r));
   }
 
   function choisirTrace(): void {
@@ -70,6 +83,21 @@
       <div class="seg">
         {#each BUDGETS as b (b)}
           <button class:on={p.budget === b} onclick={() => choisirBudget(b)}>{b} min</button>
+        {/each}
+      </div>
+    </div>
+    <div class="tog pile">
+      <div>
+        <div>Révisions</div>
+        <div class="k">{effetRetention(p.retention)}</div>
+      </div>
+      <div class="seg" role="group" aria-label="Révisions">
+        {#each REGLAGES_RETENTION as r (r.retention)}
+          <button
+            class:on={Math.abs(p.retention - r.retention) < 0.001}
+            aria-pressed={Math.abs(p.retention - r.retention) < 0.001}
+            onclick={() => choisirRetention(r.retention)}>{r.t}</button
+          >
         {/each}
       </div>
     </div>

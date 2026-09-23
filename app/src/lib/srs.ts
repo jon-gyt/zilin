@@ -31,6 +31,19 @@ export type SrsParams = {
 };
 
 export const RETENTION_DEFAUT = 0.9;
+/**
+ * Bornes de la rétention cible réglable (brief §7). Sous 0,8 on oublie trop pour que la
+ * correction par les briques suffise ; au-delà de 0,97 les révisions se multiplient
+ * pour presque rien.
+ */
+export const RETENTION_MIN = 0.8;
+export const RETENTION_MAX = 0.97;
+
+/** Une rétention cible lisible : un nombre ramené dans les bornes, le défaut sinon. */
+export function bornerRetention(r: unknown): number {
+  if (typeof r !== 'number' || !Number.isFinite(r)) return RETENTION_DEFAUT;
+  return Math.min(RETENTION_MAX, Math.max(RETENTION_MIN, r));
+}
 /** Faux deux fois : la réponse est montrée, retour dans 10 minutes. */
 export const RETOUR_MINUTES = 10;
 /** Stabilité minimale d'une brique pour qu'un caractère se débloque, en jours. */
