@@ -30,7 +30,7 @@ import { grade, newCard, schedule, type Outcome, type ReviewCard, type SrsParams
 import { humeur, proposeUnJeu } from './tao';
 import type { Grade } from 'ts-fsrs';
 
-/* ---------- les constantes des deux jeux ---------- */
+/* ---------- les constantes des jeux ---------- */
 
 /** Une manche dure de une à trois minutes, jamais plus. */
 export const MINUTES_MIN = 1;
@@ -50,6 +50,22 @@ export const FLASH_MS = 700;
 
 /** Les jumeaux : quinze paires par minute au plus. */
 export const PAIRES_PAR_MINUTE = 15;
+
+/** La chaîne : quatre propositions, dont une seule contient le dernier caractère. */
+export const PROPOSITIONS_CHAINE = 4;
+
+/** La chaîne s'arrête d'elle-même après trois minutes, où qu'elle en soit. */
+export const LIMITE_CHAINE_MS = MINUTES_MAX * 60_000;
+
+/** La chaîne ne pose pas plus de maillons que trois minutes n'en laissent lire. */
+export const MAILLONS_MAX = 12;
+
+/** La coquille : un message de six à douze caractères. */
+export const MESSAGE_MIN = 6;
+export const MESSAGE_MAX = 12;
+
+/** La coquille : quatre messages par manche, un intrus dans chacun. */
+export const TOURS_COQUILLE = 4;
 
 /**
  * Sous ce nombre de caractères acquis, la progression ne suffit pas encore à jouer
@@ -82,10 +98,23 @@ export type CorpusJeux = {
   paires: Paires;
   /** Les caractères dont on a les traits : les seuls qu'un jeu peut montrer. */
   traits: readonly string[];
+  /**
+   * Les mots et les phrases des fiches (surcouchées), tels que le contenu les donne :
+   * la source des messages de la coquille. Le code n'en écrit aucun.
+   */
+  textes: readonly string[];
 };
 
 export function corpusVide(): CorpusJeux {
-  return { acquis: [], decompositions: {}, formes: {}, gloses: {}, paires: [], traits: [] };
+  return {
+    acquis: [],
+    decompositions: {},
+    formes: {},
+    gloses: {},
+    paires: [],
+    traits: [],
+    textes: []
+  };
 }
 
 /** Le corpus tel que `questions.ts` le lit : la ressemblance et les paires y sont déjà. */
@@ -164,6 +193,13 @@ export type Sources = {
 export function corpusDeJeu(s: Sources): CorpusJeux {
   const decompositions: Record<string, string[]> = {};
   const gloses: Record<string, Glose> = {};
+  const textes: string[] = [];
+  /* Les phrases d'abord, les mots ensuite : c'est le contenu qui parle, jamais le code. */
+  const retenirTextes = (x: Fiche): void => {
+    for (const t of [x.phrase?.hanzi ?? '', ...(x.mots ?? []).map((m) => m.hanzi)]) {
+      if (t !== '' && !textes.includes(t)) textes.push(t);
+    }
+  };
 
   for (const v of s.voisins?.voisins ?? []) {
     if (v.parts.length >= 2) decompositions[v.c] = [...v.parts];
@@ -172,12 +208,14 @@ export function corpusDeJeu(s: Sources): CorpusJeux {
   for (const x of s.fiches ?? []) {
     if (x.parts.length >= 2) decompositions[x.c] = [...x.parts];
     gloses[x.c] = { pinyin: x.pinyin, fr: x.fr };
+    retenirTextes(x);
   }
   for (const f of s.familles ?? []) {
     gloses[f.racine.c] = { pinyin: f.racine.pinyin, fr: f.racine.fr };
     for (const x of f.fiches) {
       if (x.parts.length >= 2) decompositions[x.c] = [...x.parts];
       gloses[x.c] = { pinyin: x.pinyin, fr: x.fr };
+      retenirTextes(x);
     }
   }
 
@@ -211,16 +249,20 @@ export function corpusDeJeu(s: Sources): CorpusJeux {
     formes,
     gloses,
     paires: s.paires ?? [],
-    traits: s.traits ?? []
+    traits: s.traits ?? [],
+    textes
   };
 }
 
 /* ---------- le contrat commun ---------- */
 
-export type JeuId = 'assembler' | 'jumeaux';
+export type JeuId = 'assembler' | 'jumeaux' | 'chaine' | 'coquille';
 
 /** L'ordre de référence des jeux, celui du choix sur Ma forêt. */
-export const IDS: readonly JeuId[] = ['assembler', 'jumeaux'];
+export const IDS: readonly JeuId[] = ['assembler', 'jumeaux', 'chaine', 'coquille'];
+
+/** Un caractère et sa décomposition : ce que montre la correction par les briques. */
+export type Correction = { c: string; briques: string[] };
 
 /**
  * Un tour : ce qui est demandé, ce qu'il faut rendre, ce qu'on montre.
@@ -237,6 +279,14 @@ export type Tour = {
   ordre: boolean;
   /** Le tour oppose deux caractères d'un groupe à ne pas confondre. */
   paire: boolean;
+  /** La chaîne : les caractères déjà enchaînés, du départ au dernier. */
+  suite?: string[];
+  /** D'autres caractères notés par la même réponse (la coquille : l'intrus). */
+  aussi?: string[];
+  /** La coquille : l'indice, dans `choix`, où commence chaque mot ou phrase du message. */
+  coupes?: number[];
+  /** La correction par les briques, montrée après la réponse. */
+  correction?: Correction[];
 };
 
 /** Une manche : la suite des tours, où l'on en est, et ce qui a été noté. */
@@ -248,6 +298,8 @@ export type Manche = {
   i: number;
   /** Les événements de révision produits, dans l'ordre des tours. */
   evenements: Revision[];
+  /** Les tours réussis : un fait, pas un score. */
+  trouves: number;
 };
 
 /** La réponse de l'utilisateur : une option, ou une suite de briques. */
@@ -256,7 +308,10 @@ export type Reponse = string | readonly string[];
 /** Ce qu'un tour rend : un événement de révision, et rien qui ressemble à un score. */
 export type Resultat = {
   manche: Manche;
+  /** Le premier événement du tour : celui du caractère demandé. */
   evenement: Revision;
+  /** Tous les événements du tour (la coquille en rend deux : le substitué et l'intrus). */
+  evenements: Revision[];
   correct: boolean;
   /** La note de `grade` : c'est `srs.ts` qui note, jamais le jeu. */
   note: Grade;
@@ -275,6 +330,10 @@ export type Jeu = {
   tours: number;
   /** Le temps laissé pour un tour, en millisecondes. Zéro : pas de chronomètre. */
   chrono: number;
+  /** Le temps laissé à la manche entière, en millisecondes. Zéro : pas de limite. */
+  limite: number;
+  /** La ligne neutre dite quand l'acquis ou le contenu ne permettent pas encore d'y jouer. */
+  indisponible: string;
   /** Prépare une manche. `null` quand l'acquis ne permet pas encore d'y jouer. */
   preparer: (corpus: CorpusJeux, graine: string) => Manche | null;
   /** Note une réponse : un événement de révision, prêt pour `grade`. */
@@ -410,10 +469,268 @@ function toursJumeaux(corpus: CorpusJeux, graine: string, max: number): Tour[] {
   return [...tours.filter((t) => t.paire), ...tours.filter((t) => !t.paire)].slice(0, max);
 }
 
+/* ---------- jeu 3 : la chaîne ---------- */
+
+/**
+ * Ce qu'un caractère apporte comme motif dans un autre : sa décomposition canonique,
+ * ou lui-même quand il est une brique (le contenu ne le décompose pas).
+ */
+function motif(c: string, corpus: CorpusJeux): string[] {
+  const d = briques(c, corpus);
+  return d.length >= 2 ? d : [c];
+}
+
+/**
+ * `suivant` contient `precedent` comme composant, d'après les `parts` du contenu.
+ *
+ * Deux cas, et rien d'autre : `precedent` est l'une des parts de `suivant` (吞 = 天 口) ;
+ * ou sa propre décomposition y paraît d'un seul tenant, dans l'ordre d'écriture. Le
+ * second cas vient de l'export : ses parts descendent jusqu'aux composants de la norme
+ * GF 0014-2009 (哥 = 丁 口 丁 口), si bien qu'un composé n'y est jamais nommé comme
+ * part. 可 = 丁 口 paraît d'un seul tenant dans 哥 : 哥 contient 可.
+ */
+export function contient(suivant: string, precedent: string, corpus: CorpusJeux): boolean {
+  if (suivant === precedent) return false;
+  const parts = briques(suivant, corpus);
+  if (parts.length < 2) return false;
+  if (parts.includes(precedent)) return true;
+  const m = motif(precedent, corpus);
+  if (m.length < 2 || m.length >= parts.length) return false;
+  for (let i = 0; i + m.length <= parts.length; i++) {
+    if (m.every((x, k) => parts[i + k] === x)) return true;
+  }
+  return false;
+}
+
+/**
+ * Plus large que `contient` : tous les éléments du motif de `precedent` se trouvent dans
+ * `suivant`, dans n'importe quel ordre. Sert à écarter un leurre : une proposition qui
+ * porte les pièces du dernier caractère, même éparses, ne peut pas être un leurre sûr.
+ */
+function porte(suivant: string, precedent: string, corpus: CorpusJeux): boolean {
+  if (suivant === precedent) return true;
+  if (contient(suivant, precedent, corpus)) return true;
+  const reste = [...briques(suivant, corpus)];
+  if (reste.length < 2) return false;
+  for (const x of motif(precedent, corpus)) {
+    const k = reste.indexOf(x);
+    if (k === -1) return false;
+    reste.splice(k, 1);
+  }
+  return true;
+}
+
+/** Les caractères qu'une chaîne peut traverser : acquis, montrables. */
+function maillonsPossibles(corpus: CorpusJeux): string[] {
+  return corpus.acquis.filter((c) => montrable(c, corpus));
+}
+
+/** Les caractères acquis qui prolongent la chaîne après `c`. */
+export function prolongements(c: string, corpus: CorpusJeux): string[] {
+  return maillonsPossibles(corpus).filter((s) => contient(s, c, corpus));
+}
+
+/**
+ * La chaîne la plus longue que l'acquis permet, à graine égale toujours la même.
+ *
+ * Le départ est une brique acquise qui ouvre la plus longue chaîne ; à chaque pas, on
+ * prend le caractère acquis qui la mène le plus loin ; la graine ne départage que les
+ * ex aequo. La chaîne s'arrête quand aucun caractère acquis ne la prolonge : c'est
+ * l'acquis qui la borne, jamais le jeu.
+ */
+export function chaine(corpus: CorpusJeux, graine: string): string[] {
+  const possibles = maillonsPossibles(corpus);
+  const suites = new Map<string, string[]>(
+    possibles.map((c) => [c, possibles.filter((s) => contient(s, c, corpus))])
+  );
+  const loin = new Map<string, number>();
+  const enCours = new Set<string>();
+  /* La longueur de la plus longue chaîne qui part de `c`. Un cycle (donnée fautive) est coupé. */
+  const portee = (c: string): number => {
+    const connue = loin.get(c);
+    if (connue !== undefined) return connue;
+    if (enCours.has(c)) return 0;
+    enCours.add(c);
+    let n = 1;
+    for (const s of suites.get(c) ?? []) n = Math.max(n, 1 + portee(s));
+    enCours.delete(c);
+    loin.set(c, n);
+    return n;
+  };
+  const meilleur = (cs: readonly string[], sel: string): string | null => {
+    let choix: string | null = null;
+    let best = -1;
+    let h = 0;
+    for (const c of cs) {
+      const n = portee(c);
+      const hc = hachage(`${graine}/${sel}/${c}`);
+      if (n > best || (n === best && hc < h)) {
+        choix = c;
+        best = n;
+        h = hc;
+      }
+    }
+    return choix;
+  };
+
+  const departs = possibles.filter((c) => (suites.get(c) ?? []).length > 0);
+  const depart = meilleur(departs, 'depart');
+  if (depart === null) return [];
+  const out = [depart];
+  while (out.length <= MAILLONS_MAX) {
+    const dernier = out[out.length - 1];
+    const libres = (suites.get(dernier) ?? []).filter((s) => !out.includes(s));
+    const suivant = meilleur(libres, dernier);
+    if (suivant === null) break;
+    out.push(suivant);
+  }
+  return out;
+}
+
+function toursChaine(corpus: CorpusJeux, graine: string): Tour[] {
+  const suite = chaine(corpus, graine);
+  const tours: Tour[] = [];
+  for (let k = 1; k < suite.length; k++) {
+    const precedent = suite[k - 1];
+    const c = suite[k];
+    /* Les leurres : des caractères acquis, pris par ressemblance avec la bonne réponse,
+       qui ne portent pas le dernier caractère, même en pièces éparses. */
+    const candidats = maillonsPossibles(corpus).filter(
+      (x) => !suite.includes(x) && !porte(x, precedent, corpus)
+    );
+    const leurres = proches([c], candidats, corpus, `${graine}/${c}`, PROPOSITIONS_CHAINE - 1);
+    /* Sans trois leurres sûrs, le maillon ne se pose pas : la chaîne s'arrête là. */
+    if (leurres.length < PROPOSITIONS_CHAINE - 1) break;
+    tours.push({
+      c,
+      enonce: 'Lequel des quatre contient ce caractère ?',
+      reponse: [c],
+      choix: melange([c, ...leurres], `${graine}/${c}/choix`),
+      ordre: false,
+      paire: false,
+      suite: suite.slice(0, k)
+    });
+  }
+  return tours;
+}
+
+/* ---------- jeu 4 : la coquille ---------- */
+
+const HAN = /\p{Script=Han}/u;
+
+/** Les caractères chinois d'un texte, sans la ponctuation. */
+export function signes(texte: string): string[] {
+  return [...texte].filter((x) => HAN.test(x));
+}
+
+/**
+ * Les morceaux dont un message peut être fait, dans l'ordre où on les essaie.
+ *
+ * D'abord les mots et les phrases des fiches, entiers, quand tous leurs caractères sont
+ * acquis et montrables. À défaut, et seulement pour compléter, les caractères acquis des
+ * paires à ne pas confondre, un par un. Rien n'est écrit par le code.
+ */
+function morceaux(corpus: CorpusJeux): { textes: string[][]; seuls: string[] } {
+  const lisible = (c: string): boolean => corpus.acquis.includes(c) && montrable(c, corpus);
+  const vus = new Set<string>();
+  const textes: string[][] = [];
+  for (const t of corpus.textes) {
+    const s = signes(t);
+    const cle = s.join('');
+    if (s.length === 0 || s.length > MESSAGE_MAX || vus.has(cle) || !s.every(lisible)) continue;
+    vus.add(cle);
+    textes.push(s);
+  }
+  const seuls = [...new Set(corpus.paires.flat())].filter(lisible);
+  return { textes, seuls };
+}
+
+/**
+ * Le remplaçant d'un caractère : un autre membre de son groupe à ne pas confondre,
+ * montrable, absent du message (il ne doit y avoir qu'un seul caractère faux). Un
+ * remplaçant acquis passe devant.
+ */
+function remplacants(c: string, message: readonly string[], corpus: CorpusJeux): string[] {
+  const autres = corpus.paires
+    .filter((g) => g.includes(c))
+    .flat()
+    .filter((x) => x !== c && montrable(x, corpus) && !message.includes(x));
+  const uniques = [...new Set(autres)];
+  return [
+    ...uniques.filter((x) => corpus.acquis.includes(x)),
+    ...uniques.filter((x) => !corpus.acquis.includes(x))
+  ];
+}
+
+/** La correction par les briques : la décomposition quand on sait la dessiner, sinon le caractère seul. */
+function corrige(c: string, corpus: CorpusJeux): Correction {
+  const d = briques(c, corpus);
+  return { c, briques: d.length >= 2 && d.every((b) => montrable(b, corpus)) ? d : [c] };
+}
+
+/** Un message : ses caractères, et l'indice où commence chacun de ses morceaux. */
+type Message = { signes: string[]; coupes: number[] };
+
+function composer(
+  textes: readonly string[][],
+  seuls: readonly string[],
+  graine: string
+): Message | null {
+  const out: string[] = [];
+  const coupes: number[] = [];
+  const poser = (m: readonly string[]): void => {
+    coupes.push(out.length);
+    out.push(...m);
+  };
+  for (const t of melange(textes, `${graine}/textes`)) {
+    if (out.length >= MESSAGE_MIN) break;
+    if (out.length + t.length <= MESSAGE_MAX) poser(t);
+  }
+  for (const c of melange(seuls, `${graine}/seuls`)) {
+    if (out.length >= MESSAGE_MIN) break;
+    if (!out.includes(c)) poser([c]);
+  }
+  return out.length >= MESSAGE_MIN ? { signes: out, coupes } : null;
+}
+
+function toursCoquille(corpus: CorpusJeux, graine: string): Tour[] {
+  const { textes, seuls } = morceaux(corpus);
+  const tours: Tour[] = [];
+  const vus = new Set<string>();
+  /* Quelques essais de plus que de tours : deux arrangements peuvent donner le même message. */
+  for (let essai = 0; essai < TOURS_COQUILLE * 3 && tours.length < TOURS_COQUILLE; essai++) {
+    const g = `${graine}/coquille/${essai}`;
+    const message = composer(textes, seuls, g);
+    if (message === null) break;
+    const places = message.signes.flatMap((c, i) => {
+      const r = remplacants(c, message.signes, corpus);
+      return r.length === 0 ? [] : [{ i, c, intrus: r[0] }];
+    });
+    if (places.length === 0) continue;
+    const { i, c, intrus } = places[hachage(`${g}/place`) % places.length];
+    const choix = message.signes.map((x, k) => (k === i ? intrus : x));
+    const cle = choix.join('');
+    if (vus.has(cle)) continue;
+    vus.add(cle);
+    tours.push({
+      c,
+      enonce: 'Un caractère s’est glissé à la place d’un autre. Touche-le.',
+      reponse: [intrus],
+      choix,
+      ordre: false,
+      paire: true,
+      aussi: [intrus],
+      coupes: message.coupes,
+      correction: [corrige(intrus, corpus), corrige(c, corpus)]
+    });
+  }
+  return tours;
+}
+
 /* ---------- une manche ---------- */
 
 function manche(jeu: JeuId, graine: string, tours: Tour[]): Manche | null {
-  return tours.length === 0 ? null : { jeu, graine, tours, i: 0, evenements: [] };
+  return tours.length === 0 ? null : { jeu, graine, tours, i: 0, evenements: [], trouves: 0 };
 }
 
 /** Le tour courant, `null` quand la manche est finie. */
@@ -423,6 +740,14 @@ export function tour(m: Manche): Tour | null {
 
 export function fini(m: Manche): boolean {
   return m.i >= m.tours.length;
+}
+
+/**
+ * Clôt la manche là où elle en est : les tours non joués tombent, rien n'est noté pour
+ * eux. C'est ce que fait la limite de temps de la chaîne, sans reproche.
+ */
+export function clore(m: Manche): Manche {
+  return { ...m, tours: m.tours.slice(0, m.i) };
 }
 
 function memeSuite(a: readonly string[], b: readonly string[]): boolean {
@@ -442,15 +767,24 @@ export function repondre(m: Manche, reponse: Reponse, outcome: Outcome): Resulta
   const correct = t.ordre
     ? memeSuite(donnee, t.reponse)
     : donnee.length === 1 && donnee[0] === t.reponse[0];
-  const evenement: Revision = {
-    c: t.c,
+  /* Un événement par caractère noté : le demandé, puis ceux que la même réponse engage
+     (la coquille : l'intrus). Même réponse, même outcome, et `grade` pour chacun. */
+  const evenements: Revision[] = [t.c, ...(t.aussi ?? [])].map((c) => ({
+    c,
     correct,
     tries: outcome.tries,
     seconds: outcome.seconds
-  };
+  }));
+  const evenement = evenements[0];
   return {
-    manche: { ...m, i: m.i + 1, evenements: [...m.evenements, evenement] },
+    manche: {
+      ...m,
+      i: m.i + 1,
+      evenements: [...m.evenements, ...evenements],
+      trouves: m.trouves + (correct ? 1 : 0)
+    },
     evenement,
+    evenements,
     correct,
     note: grade(evenement),
     montre: !correct
@@ -470,23 +804,39 @@ const COMPTES: Record<JeuId, { un: string; plusieurs: string; aucun: string }> =
     un: 'paire distinguée',
     plusieurs: 'paires distinguées',
     aucun: 'aucune paire distinguée'
+  },
+  chaine: { un: 'maillon trouvé', plusieurs: 'maillons trouvés', aucun: 'aucun maillon trouvé' },
+  coquille: {
+    un: 'coquille trouvée',
+    plusieurs: 'coquilles trouvées',
+    aucun: 'aucune coquille trouvée'
   }
 };
 
 /**
  * Le constat d'une manche : une ligne, deux nombres réels, rien d'autre. Ni score, ni
- * temps, ni félicitation. « 5 caractères revus, 1 paire distinguée. »
+ * temps, ni félicitation. « 5 caractères revus, 1 paire distinguée. » Les caractères
+ * revus sont comptés une fois chacun ; la coquille en revoit deux par message.
+ *
+ * La chaîne dit sa longueur, départ compris, et c'est tout son constat :
+ * « Chaîne de 4, 3 maillons trouvés. » Un maillon manqué est montré, la chaîne
+ * continue : il n'y a pas de vie à perdre.
  */
 export function constat(m: Manche): string {
-  const n = m.evenements.length;
-  if (n === 0) return 'Rien de revu cette fois.';
-  const justes = m.evenements.filter((e) => e.correct).length;
+  if (m.evenements.length === 0) return 'Rien de revu cette fois.';
   const { un, plusieurs, aucun } = COMPTES[m.jeu];
-  const second = justes === 0 ? aucun : pluriel(justes, un, plusieurs);
-  return `${pluriel(n, 'caractère revu', 'caractères revus')}, ${second}.`;
+  const second = m.trouves === 0 ? aucun : pluriel(m.trouves, un, plusieurs);
+  if (m.jeu === 'chaine') return `Chaîne de ${longueur(m)}, ${second}.`;
+  const revus = new Set(m.evenements.map((e) => e.c)).size;
+  return `${pluriel(revus, 'caractère revu', 'caractères revus')}, ${second}.`;
 }
 
-/* ---------- les deux jeux ---------- */
+/** La longueur d'une chaîne jouée : le départ, et un maillon par tour joué. */
+export function longueur(m: Manche): number {
+  return m.i === 0 ? 0 : m.i + 1;
+}
+
+/* ---------- les jeux ---------- */
 
 export const JEUX: Record<JeuId, Jeu> = {
   assembler: {
@@ -496,6 +846,8 @@ export const JEUX: Record<JeuId, Jeu> = {
     minutes: 2,
     tours: TOURS_ASSEMBLAGE,
     chrono: CHRONO_ASSEMBLAGE_MS,
+    limite: 0,
+    indisponible: 'Pas encore de caractère acquis dont on connaisse les briques.',
     preparer: (corpus, graine) => manche('assembler', graine, toursAssemblage(corpus, graine)),
     repondre,
     constat
@@ -507,8 +859,36 @@ export const JEUX: Record<JeuId, Jeu> = {
     minutes: 1,
     tours: PAIRES_PAR_MINUTE,
     chrono: 0,
+    limite: 0,
+    indisponible: 'Pas encore de caractères acquis assez proches pour les opposer.',
     preparer: (corpus, graine) =>
       manche('jumeaux', graine, toursJumeaux(corpus, graine, PAIRES_PAR_MINUTE)),
+    repondre,
+    constat
+  },
+  chaine: {
+    id: 'chaine',
+    titre: 'La chaîne',
+    lit: 'Voir un caractère à l’intérieur d’un autre, maillon après maillon.',
+    minutes: MINUTES_MAX,
+    tours: MAILLONS_MAX,
+    chrono: 0,
+    limite: LIMITE_CHAINE_MS,
+    indisponible: 'Aucun caractère acquis n’en contient encore un autre.',
+    preparer: (corpus, graine) => manche('chaine', graine, toursChaine(corpus, graine)),
+    repondre,
+    constat
+  },
+  coquille: {
+    id: 'coquille',
+    titre: 'La coquille',
+    lit: 'Trouver le caractère faux dans un message écrit avec l’acquis.',
+    minutes: 2,
+    tours: TOURS_COQUILLE,
+    chrono: 0,
+    limite: 0,
+    indisponible: 'Pas encore de mot ni de phrase écrits avec les caractères acquis.',
+    preparer: (corpus, graine) => manche('coquille', graine, toursCoquille(corpus, graine)),
     repondre,
     constat
   }
