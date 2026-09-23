@@ -454,10 +454,8 @@ export function question(
       (c) => c,
       f.parts
     );
-    q.enonce =
-      f.fr === ''
-        ? "Assemble les briques dans l'ordre d'écriture."
-        : `« ${f.fr} » : assemble les briques dans l'ordre d'écriture.`;
+    /* La cible (sens et pinyin) est affichée en grand par l'écran ; l'énoncé dit le geste. */
+    q.enonce = `Touche les ${f.parts.length} briques dans l'ordre d'écriture pour former ce caractère :`;
     q.reponse = [...f.parts];
     q.leurres = tirage.leurres;
     q.manqueLeurres = tirage.manque;
