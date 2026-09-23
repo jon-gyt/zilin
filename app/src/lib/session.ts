@@ -253,6 +253,20 @@ export function openDay(p: Progress, aujourdhui: string): Progress {
 }
 
 /**
+ * La bascule de journée, telle que l'écran Aujourd'hui la fait : au retour au chemin et
+ * au retour au premier plan. Le jour de référence est `p.day`, jamais l'horloge : une
+ * session commencée reste sur sa journée jusqu'à sa clôture, même close après minuit,
+ * et ses activités y sont rangées. La journée ne bascule donc que lorsqu'aucune session
+ * n'est en cours — rien de fait, ou tout fait. Au rechargement, `openDay` ouvre la
+ * journée quoi qu'il arrive : une session interrompue ne se reprend que le jour même.
+ */
+export function basculerJournee(p: Progress, aujourdhui: string): Progress {
+  if (p.day === aujourdhui) return p;
+  if (started(p) && !allDone(p)) return p;
+  return openDay(p, aujourdhui);
+}
+
+/**
  * Met à jour la pile de révisions. Si le mode change, la liste des pas change aussi :
  * les pas faits sont remis à zéro pour que la reprise reste exacte.
  */

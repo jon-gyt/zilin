@@ -1,5 +1,8 @@
+import { readFileSync } from 'node:fs';
 import { describe, it, expect } from 'vitest';
 import {
+  basculerJournee,
+  noterJourTravaille,
   CARTES_PAR_BLOC,
   ajouterCartes,
   STEP_ORDER,
@@ -593,6 +596,82 @@ describe('Utiliser, Fixer, Clore, puis la journée finie', () => {
     expect(allDone(p)).toBe(true);
     expect(title(p)).toBe("C'est fait pour aujourd'hui");
     expect(guide(p)).toContain('Rendez-vous demain');
+  });
+});
+
+describe('une session à cheval sur minuit', () => {
+  const VEILLE = '2026-03-02';
+  const LENDEMAIN = '2026-03-03';
+  /** 23 h 50 la veille, puis 0 h 10 le lendemain : l'horloge passe minuit entre deux pas. */
+  const AVANT = new Date('2026-03-02T23:50:00');
+  const APRES = new Date('2026-03-03T00:10:00');
+
+  /** Ouvrir, Échauffer et Apprendre faits avant minuit, sur le jour de la session. */
+  function commenceeLaVeille(): Progress {
+    let p = emptyProgress(VEILLE);
+    p = noterActivite(faitPasCourant(p, p.day), p.day, 'anecdote');
+    p = finEchauffer(p, p.day);
+    p = finApprendre(p, p.day, AVANT, ['主', '住']);
+    return p;
+  }
+
+  it('reste sur sa journée : la bascule attend la clôture', () => {
+    const p = commenceeLaVeille();
+    expect(currentStep(p)?.id).toBe('utiliser');
+    /* Retour au chemin après minuit, session en cours : rien ne bascule. */
+    expect(basculerJournee(p, LENDEMAIN)).toBe(p);
+  });
+
+  it('range sur le jour de la session les activités d’une session close après minuit', () => {
+    let p = commenceeLaVeille();
+    /* Après minuit : Utiliser, Fixer, Clore notent sur `p.day`, jamais sur l'horloge. */
+    p = finUtiliser(p, p.day);
+    p = noterRevision(p, p.day, { c: '住', correct: true, tries: 0, seconds: 3 });
+    p = planifierCarte(p, '住', { correct: true, tries: 0, seconds: 3 }, APRES);
+    p = finFixer(p, p.day);
+    expect(currentStep(p)?.id).toBe('clore');
+    /* L'écran Clore lit `constat(p, p.day)` : la journée de la session, entière. */
+    expect(constat(p, p.day)).toBe(
+      "Aujourd'hui, une brique apprise, un texte lu, une carte révisée, une anecdote."
+    );
+    p = noterJourTravaille(faitPasCourant(p, p.day), p.day);
+
+    expect(allDone(p)).toBe(true);
+    expect(p.day).toBe(VEILLE);
+    expect(p.lastWorked).toBe(VEILLE);
+    expect(p.joursTravailles).toEqual([VEILLE]);
+    expect(p.tao.activites.every((a) => a.jour === VEILLE)).toBe(true);
+    expect(constat(p, LENDEMAIN)).toBe("Aujourd'hui, rien de noté.");
+    /* La planification FSRS, elle, suit l'instant réel. */
+    expect(echeance(p, '住')!.getTime()).toBeGreaterThan(APRES.getTime());
+  });
+
+  it('bascule au retour au chemin, une fois la session close', () => {
+    let p = commenceeLaVeille();
+    p = finFixer(finUtiliser(p, p.day), p.day);
+    p = noterJourTravaille(faitPasCourant(p, p.day), p.day);
+    const demain = basculerJournee(p, LENDEMAIN);
+    expect(demain.day).toBe(LENDEMAIN);
+    expect(demain.done).toEqual([]);
+    expect(currentStep(demain)?.id).toBe('ouvrir');
+    /* Rien de ce qui a été rangé la veille ne bouge. */
+    expect(demain.joursTravailles).toEqual([VEILLE]);
+    expect(demain.tao).toEqual(p.tao);
+    /* Même journée : rien à faire. Aucune session commencée : la bascule est libre. */
+    expect(basculerJournee(demain, LENDEMAIN)).toBe(demain);
+    expect(basculerJournee(emptyProgress(VEILLE), LENDEMAIN).day).toBe(LENDEMAIN);
+  });
+
+  it("l'aiguillage note sur `p.day` et ne bascule qu'au chemin", () => {
+    const app = readFileSync(new URL('../App.svelte', import.meta.url), 'utf8');
+    /* Aucune note ne prend l'horloge pour jour : `today()` ne sert qu'à la bascule. */
+    expect(app).not.toMatch(/\(p, today\(\)/);
+    expect(app).not.toContain('jour={today()}');
+    expect(app).toContain('basculerJournee(p, jour)');
+    expect(app).toContain("addEventListener('visibilitychange'");
+    /* Un seul retour au chemin, `auChemin`, et il bascule. */
+    expect(app.match(/ecran = 'home'/g)).toHaveLength(1);
+    expect(app).toMatch(/ecran = 'home';\s*basculer\(\);/);
   });
 });
 
