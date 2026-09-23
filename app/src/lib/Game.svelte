@@ -1,12 +1,13 @@
 <script lang="ts">
   /**
-   * L'écran hôte des jeux (stories 4b.1 et 4b.2) : le choix, une manche, le constat.
+   * L'écran hôte des jeux (stories 4b.1 à 4b.3) : le choix, une manche, le constat.
    * Tao y est dans la posture « joue », et le retour se fait vers Ma forêt ou le chemin.
    *
    * L'écran ne note rien lui-même : il pose ce que `jeux.ts` prépare et renvoie les
    * événements de révision, notés par `grade` de `srs.ts` comme une question de
    * révision. Le chronomètre borne un tour, il ne donne aucun point ; il n'y a ni vie,
    * ni classement, ni coffre. Les grands caractères viennent des traits (`Glyph`).
+   * Chaque manche pose d'abord ce qu'on cherche, lisible d'un coup d'œil, puis les choix.
    */
   import Glyph from './Glyph.svelte';
   import Tao from './Tao.svelte';
@@ -23,11 +24,14 @@
   import { strokesOnce } from './strokes';
   import {
     FLASH_MS,
+    IDS,
     JEUX,
+    clore,
     corpusDeJeu,
     corpusVide,
     disponibles,
     fini,
+    glose,
     tour,
     type CorpusJeux,
     type JeuId,
@@ -54,7 +58,7 @@
     /** D'où l'on vient : le bouton de sortie y ramène. */
     retour?: 'home' | 'foret';
     onchoisir: (id: JeuId | null) => void;
-    /** Un tour noté : l'événement de révision, rangé dans la progression. */
+    /** Un événement de révision noté, rangé dans la progression. Un tour peut en rendre plusieurs. */
     onrepondu: (r: Revision) => void;
     /** La manche est finie : une activité « jeu » pour Tao. */
     onfini: () => void;
@@ -135,11 +139,38 @@
   let cache = $state(false);
   /** Ce qui a été répondu au tour courant : la correction montre où l'on s'est trompé. */
   let donnee = $state<string[]>([]);
+  /** La coquille : le rang de la case touchée dans le message. */
+  let touche = $state(-1);
   let resultat = $state<Resultat | null>(null);
 
   let horloge: ReturnType<typeof setInterval> | null = null;
   let flash: ReturnType<typeof setTimeout> | null = null;
   let minuteur: ReturnType<typeof setTimeout> | null = null;
+  /** La limite de la manche entière (la chaîne : trois minutes). Elle ne note rien. */
+  let limite: ReturnType<typeof setTimeout> | null = null;
+  /** La limite est passée : la manche se clôt au prochain tour, sans reproche. */
+  let echue = $state(false);
+
+  function arreterLimite(): void {
+    if (limite !== null) clearTimeout(limite);
+    limite = null;
+  }
+
+  /**
+   * La limite de temps : un tour en attente de réponse tombe, rien n'est noté pour lui ;
+   * un tour déjà corrigé se laisse lire, et la manche se clôt au bouton suivant.
+   */
+  function echoir(): void {
+    limite = null;
+    echue = true;
+    const courante = m;
+    if (courante === null || fini(courante) || resultat !== null) return;
+    arreter();
+    m = clore(courante);
+    onfini();
+  }
+
+  $effect(() => arreterLimite);
 
   function arreterChrono(): void {
     if (horloge !== null) clearInterval(horloge);
@@ -164,6 +195,7 @@
     arreter();
     pris = [];
     donnee = [];
+    touche = -1;
     resultat = null;
     reste = 1;
     depart = Date.now();
@@ -188,6 +220,7 @@
     if (!chargee) return;
     if (id === null) {
       preparee = '';
+      arreterLimite();
       m = null;
       return;
     }
@@ -196,6 +229,9 @@
     preparee = cle;
     const manche = JEUX[id].preparer(corpus, cle);
     m = manche;
+    arreterLimite();
+    echue = false;
+    if (manche !== null && JEUX[id].limite > 0) limite = setTimeout(echoir, JEUX[id].limite);
     ouvrirTour(manche);
   });
 
@@ -212,8 +248,9 @@
     donnee = rep;
     resultat = r;
     cache = false;
-    onrepondu(r.evenement);
-    if (r.correct) minuteur = setTimeout(suivant, AVANCE_MS);
+    for (const e of r.evenements) onrepondu(e);
+    /* La coquille laisse lire sa correction : on n'avance pas tout seul. */
+    if (r.correct && courante.jeu !== 'coquille') minuteur = setTimeout(suivant, AVANCE_MS);
   }
 
   /** Le tour suivant, ou le constat quand la manche est finie. */
@@ -221,10 +258,13 @@
     const r = resultat;
     if (r === null) return;
     arreter();
-    m = r.manche;
+    const apres = echue ? clore(r.manche) : r.manche;
+    m = apres;
     resultat = null;
-    if (fini(r.manche)) onfini();
-    else ouvrirTour(r.manche);
+    if (fini(apres)) {
+      arreterLimite();
+      onfini();
+    } else ouvrirTour(apres);
   }
 
   /** Une brique prise : quand le compte y est, la réponse part telle quelle. */
@@ -245,6 +285,13 @@
     n += 1;
   }
 
+  /** Un caractère du message touché : on garde sa place, un même caractère peut y paraître deux fois. */
+  function toucher(k: number): void {
+    if (resultat !== null || t === null) return;
+    touche = k;
+    valider([t.choix[k]]);
+  }
+
   const taoHumeur = $derived(humeur(p.tao.activites, p.day));
   const taoStade = $derived(stade(p.tao.croissance));
   const jeuCourant = $derived(jeu ? JEUX[jeu] : null);
@@ -262,23 +309,34 @@
     <div class="mood">
       <Tao stade={taoStade} posture="jeu" humeur={taoHumeur} size={120} />
     </div>
-    {#if dispo.length > 0}
+    {#if chargee}
+      {#if dispo.length === 0}
+        <p class="guide">
+          Il n'y a pas encore assez de caractères acquis pour jouer. Reviens après quelques
+          révisions.
+        </p>
+      {/if}
       <div class="opt">
-        {#each dispo as id (id)}
-          <button onclick={() => onchoisir(id)}>
-            <span class="grow">
-              <span class="t">{JEUX[id].titre}</span>
-              <span class="d">{JEUX[id].lit}</span>
-            </span>
-            <span class="k">{JEUX[id].minutes} min</span>
-          </button>
+        {#each IDS as id (id)}
+          {#if dispo.includes(id)}
+            <button onclick={() => onchoisir(id)}>
+              <span class="grow">
+                <span class="t">{JEUX[id].titre}</span>
+                <span class="d">{JEUX[id].lit}</span>
+              </span>
+              <span class="k">{JEUX[id].minutes} min</span>
+            </button>
+          {:else}
+            <!-- Un jeu qui ne peut pas encore se jouer le dit d'une ligne neutre. -->
+            <button class="indispo" disabled>
+              <span class="grow">
+                <span class="t">{JEUX[id].titre}</span>
+                <span class="d">{JEUX[id].indisponible}</span>
+              </span>
+            </button>
+          {/if}
         {/each}
       </div>
-    {:else if chargee}
-      <p class="guide">
-        Il n'y a pas encore assez de caractères acquis pour jouer. Reviens après quelques
-        révisions.
-      </p>
     {/if}
     <div class="foot"><button class="btn ghost" onclick={onretour}>{OU[retour]}</button></div>
   {:else if m === null}
@@ -290,15 +348,18 @@
     </div>
   {:else if t !== null}
     <div class="verif-tete">
-      <Tao stade={taoStade} posture="jeu" humeur={taoHumeur} size={72} caractere={t.c} />
-      <p class="guide grow">{jeuCourant?.titre}. {t.enonce}</p>
+      <Tao stade={taoStade} posture="jeu" humeur={taoHumeur} size={72} />
+      <p class="guide grow">{jeuCourant?.titre}</p>
     </div>
 
-    <div class="tours k" aria-label="Avancement de la manche">
-      {#each m.tours as _, k (k)}
-        <i class:on={k < m.i} class:cur={k === m.i}></i>
-      {/each}
-    </div>
+    <!-- La chaîne ne dit pas sa longueur d'avance : elle se voit grandir. -->
+    {#if jeu !== 'chaine'}
+      <div class="tours k" aria-label="Avancement de la manche">
+        {#each m.tours as _, k (k)}
+          <i class:on={k < m.i} class:cur={k === m.i}></i>
+        {/each}
+      </div>
+    {/if}
 
     <div class="q">
       {#if jeu === 'assembler'}
@@ -307,6 +368,15 @@
             <i style="width:{Math.round(reste * 100)}%"></i>
           </div>
         {/if}
+        <!-- La cible en grand : ce qu'on cherche, avant les briques. -->
+        {@const g = glose(t.c, corpus)}
+        <div class="jeu-cible">
+          {#if g.fr !== ''}<b>« {g.fr} »</b>{/if}
+          {#if g.pinyin !== ''}<span class="py">{g.pinyin}</span>{/if}
+        </div>
+        <p class="consigne">
+          Touche les {t.reponse.length} briques dans l'ordre d'écriture pour former ce caractère :
+        </p>
         <div class="assemblee">
           {#if resultat !== null}
             <!-- La réponse : les briques dans l'ordre d'écriture, et ce qu'elles font. -->
@@ -325,8 +395,10 @@
             {/each}
             {#each { length: Math.max(0, t.reponse.length - choisies.length) } as _, k (k)}
               {#if choisies.length + k > 0}<span class="op">+</span>{/if}
-              <span class="tuile vide" aria-hidden="true"></span>
+              <span class="tuile vide" aria-label="brique à poser"></span>
             {/each}
+            <span class="op">=</span>
+            <span class="tuile vide inconnu" aria-hidden="true">?</span>
           {/if}
         </div>
         <div class="choices vrac">
@@ -342,7 +414,80 @@
             </button>
           {/each}
         </div>
+      {:else if jeu === 'chaine'}
+        {@const suite = t.suite ?? []}
+        <!-- La chaîne jusque-là ; son dernier caractère, en grand, est ce qu'on cherche. -->
+        <div class="chaine" aria-label="La chaîne">
+          {#each suite as c, k (c + k)}
+            {#if k > 0}<span class="op" aria-hidden="true">→</span>{/if}
+            <span class="maillon" class:dernier={k === suite.length - 1}>
+              <Glyph char={c} size={k === suite.length - 1 ? 84 : 40} write={false} />
+            </span>
+          {/each}
+          {#if resultat !== null}
+            <span class="op" aria-hidden="true">→</span>
+            <span class="maillon faite"><Glyph char={t.c} size={56} write={false} /></span>
+          {/if}
+        </div>
+        <p class="consigne">{t.enonce}</p>
+        <div class="choices quatre">
+          {#each t.choix as c, k (c + k)}
+            <button
+              class:ok={resultat !== null && c === t.reponse[0]}
+              class:ko={resultat !== null && !resultat.correct && donnee[0] === c}
+              disabled={resultat !== null}
+              aria-label={c}
+              onclick={() => valider([c])}
+            >
+              <Glyph char={c} size={60} write={false} />
+            </button>
+          {/each}
+        </div>
+      {:else if jeu === 'coquille'}
+        <p class="consigne">{t.enonce}</p>
+        <!-- Le message, mot après mot : chaque caractère se touche. -->
+        <div class="message" aria-label="Le message">
+          {#each t.choix as c, k (c + k)}
+            {#if k > 0 && (t.coupes ?? []).includes(k)}<span class="coupe" aria-hidden="true"></span>{/if}
+            <button
+              class="signe"
+              class:ok={resultat !== null && c === t.reponse[0]}
+              class:ko={resultat !== null && !resultat.correct && touche === k}
+              disabled={resultat !== null}
+              aria-label={c}
+              onclick={() => toucher(k)}
+            >
+              <Glyph char={c} size={40} write={false} />
+            </button>
+          {/each}
+        </div>
+        {#if resultat !== null && t.correction}
+          <!-- La correction par les briques : l'intrus, puis le caractère qu'il remplaçait. -->
+          <div class="correction">
+            {#each t.correction as x, k (x.c)}
+              {@const gx = glose(x.c, corpus)}
+              <div class="ligne">
+                <span class="tuile" class:intrus={k === 0} class:faite={k === 1}>
+                  <Glyph char={x.c} size={48} write={false} />
+                </span>
+                {#if x.briques.length > 1}
+                  <span class="op">=</span>
+                  {#each x.briques as b, rang (b + rang)}
+                    {#if rang > 0}<span class="op">+</span>{/if}
+                    <Glyph char={b} size={32} write={false} color="var(--ocre)" />
+                  {/each}
+                {/if}
+                <span class="gl">
+                  <span class="k">{k === 0 ? 'Glissé' : 'À sa place'}</span>
+                  {#if gx.pinyin !== ''}<span class="py">{gx.pinyin}</span>{/if}
+                  {#if gx.fr !== ''}<span>{gx.fr}</span>{/if}
+                </span>
+              </div>
+            {/each}
+          </div>
+        {/if}
       {:else}
+        <p class="consigne">{t.enonce}</p>
         <div class="choices deux">
           {#each t.choix as c, k (c + k)}
             <button
@@ -374,7 +519,7 @@
 
     <div class="foot">
       <button class="btn" disabled={resultat === null} onclick={suivant}>
-        {resultat !== null && fini(resultat.manche) ? 'Voir le constat' : 'Suivant'}
+        {resultat !== null && (fini(resultat.manche) || echue) ? 'Voir le constat' : 'Suivant'}
       </button>
     </div>
   {:else}

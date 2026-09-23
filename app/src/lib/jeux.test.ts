@@ -8,21 +8,31 @@ import {
   IDS,
   JEUX,
   LEURRES_ASSEMBLAGE,
+  LIMITE_CHAINE_MS,
+  MESSAGE_MAX,
+  MESSAGE_MIN,
   MINUTES_MAX,
   MINUTES_MIN,
   PAIRES_PAR_MINUTE,
+  PROPOSITIONS_CHAINE,
   TOURS_ASSEMBLAGE,
+  TOURS_COQUILLE,
   acquisDeDemo,
+  chaine,
   ciblesAssemblage,
+  clore,
   constat,
+  contient,
   corpusDeJeu,
   disponibles,
   fini,
   jumeau,
   planifier,
   proches,
+  prolongements,
   propose,
   repondre,
+  signes,
   tour,
   type CorpusJeux,
   type Manche
@@ -31,7 +41,15 @@ import { lirePaires } from './questions';
 import { emptyProgress, noterActivite, noterRevision, type Progress } from './session';
 import { grade, newCard, RETOUR_MINUTES, SEUIL_DEBLOCAGE, type Outcome } from './srs';
 import { POIDS, journal } from './tao';
-import { VERSION_DONNEES, type Famille, type Fiche, type Foret, type Index, type Voisins } from './content';
+import {
+  VERSION_DONNEES,
+  surcoucher,
+  type Famille,
+  type Fiche,
+  type Foret,
+  type Index,
+  type Voisins
+} from './content';
 
 /* ---------- corpus de test, en dur : aucun réseau, aucun fichier de contenu ---------- */
 
@@ -76,7 +94,9 @@ const CORPUS: CorpusJeux = {
   formes: DECOMPOSITIONS,
   gloses: Object.fromEntries(Object.entries(GLOSES).map(([c, [pinyin, fr]]) => [c, { pinyin, fr }])),
   paires: PAIRES,
-  traits: TRAITS
+  traits: TRAITS,
+  /* Aucun texte : la coquille n'a pas de message à poser. */
+  textes: []
 };
 
 const MAINTENANT = new Date('2026-09-21T09:00:00Z');
@@ -127,7 +147,23 @@ describe('le contrat commun d’un jeu', () => {
     expect(assembler.preparer(vide, 'g')).toBeNull();
     expect(jumeaux.preparer(vide, 'g')).toBeNull();
     expect(disponibles(vide, 'g')).toEqual([]);
-    expect(disponibles(CORPUS, 'g')).toEqual([...IDS]);
+    /* Sans mot ni phrase acquis, la coquille se tait ; les trois autres se jouent. */
+    expect(disponibles(CORPUS, 'g')).toEqual(['assembler', 'jumeaux', 'chaine']);
+  });
+
+  it('dit une ligne neutre pour chaque jeu qui ne peut pas encore se jouer', () => {
+    for (const id of IDS) {
+      const ligne = JEUX[id].indisponible;
+      expect(ligne).not.toBe('');
+      expect(ligne).not.toMatch(/!|dommage|hélas|désolé|point|score|vie|classement|coffre/i);
+    }
+  });
+
+  it('ne met aucune limite de temps qui dépasse trois minutes', () => {
+    for (const id of IDS) {
+      expect(JEUX[id].limite).toBeGreaterThanOrEqual(0);
+      expect(JEUX[id].limite).toBeLessThanOrEqual(MINUTES_MAX * 60_000);
+    }
   });
 
   it('rend des événements de révision notés par grade, et rien d’autre', () => {
@@ -484,9 +520,10 @@ describe('le corpus des données de démonstration', () => {
   ];
   const corpus = corpusDeJeu({ familles, voisins, foret, paires, traits, cartes: [] });
 
-  it('rend les deux jeux jouables avec le contenu servi', () => {
+  it('rend les deux premiers jeux jouables avec le contenu de démonstration seul', () => {
     expect(corpus.acquis.length).toBeGreaterThanOrEqual(ACQUIS_MIN);
-    expect(disponibles(corpus, '2026-09-21')).toEqual([...IDS]);
+    /* La chaîne et la coquille lisent l'export : ses parts, et ses fiches surcouchées. */
+    expect(disponibles(corpus, '2026-09-21')).toEqual(['assembler', 'jumeaux']);
   });
 
   it('ne propose aucun caractère dont on n’a pas les traits', () => {
@@ -576,5 +613,381 @@ describe("les paires à ne pas confondre de l'export", () => {
       cartes: caracteresDesPaires.map((c) => ({ c, stabilite: SEUIL_DEBLOCAGE + 1 }))
     });
     expect(JEUX.jumeaux.preparer(sansTraits, '2026-03-02')).toBeNull();
+  });
+});
+
+/* ---------- jeu 3 : la chaîne ---------- */
+
+/**
+ * L'exemple de `docs/jeux.md` : 人 → 大 → 天 → 吞. Les décompositions sont celles de la
+ * spécification (chaque caractère nomme le précédent parmi ses parts), et les leurres
+ * possibles sont des caractères acquis qui ne contiennent aucun maillon.
+ */
+const DECOMPOSITIONS_CHAINE: Record<string, string[]> = {
+  大: ['一', '人'],
+  天: ['一', '大'],
+  吞: ['天', '口'],
+  夫: ['二', '人'],
+  好: ['女', '子'],
+  明: ['日', '月'],
+  休: ['亻', '木']
+};
+
+const CHAINE: CorpusJeux = {
+  acquis: ['人', '大', '天', '吞', '夫', '口', '女', '好', '日', '明', '木', '王'],
+  decompositions: DECOMPOSITIONS_CHAINE,
+  formes: DECOMPOSITIONS_CHAINE,
+  gloses: {},
+  paires: PAIRES,
+  traits: ['人', '大', '天', '吞', '夫', '口', '女', '好', '日', '明', '木', '王', '休'],
+  textes: []
+};
+
+describe('La chaîne', () => {
+  const lachaine = JEUX.chaine;
+  const m = lachaine.preparer(CHAINE, 'g');
+  if (!m) throw new Error('manche attendue');
+  const dernier = (t: NonNullable<ReturnType<typeof tour>>): string => {
+    const suite = t.suite ?? [];
+    return suite[suite.length - 1];
+  };
+
+  it('part d’une brique acquise et suit l’exemple de la spécification', () => {
+    expect(chaine(CHAINE, 'g')).toEqual(['人', '大', '天', '吞']);
+    expect(m.tours.map((t) => t.c)).toEqual(['大', '天', '吞']);
+    expect(m.tours[0].suite).toEqual(['人']);
+    expect(m.tours[2].suite).toEqual(['人', '大', '天']);
+  });
+
+  it('chaque maillon contient le précédent comme composant', () => {
+    for (const t of m.tours) expect(contient(t.c, dernier(t), CHAINE)).toBe(true);
+  });
+
+  it('lit les parts descendues de l’export : 可 d’un seul tenant dans 哥', () => {
+    const plat: CorpusJeux = {
+      ...CHAINE,
+      acquis: ['口', '可', '哥', '歌'],
+      decompositions: {
+        可: ['丁', '口'],
+        哥: ['丁', '口', '丁', '口'],
+        歌: ['丁', '口', '丁', '口', '欠'],
+        叮: ['口', '丁']
+      },
+      traits: ['口', '可', '哥', '歌', '叮']
+    };
+    expect(contient('哥', '可', plat)).toBe(true);
+    expect(contient('歌', '哥', plat)).toBe(true);
+    expect(contient('可', '口', plat)).toBe(true);
+    /* 叮 porte 口 et 丁, mais pas 可 : l'ordre d'écriture compte. */
+    expect(contient('叮', '可', plat)).toBe(false);
+    expect(contient('可', '哥', plat)).toBe(false);
+    expect(chaine(plat, 'g')).toEqual(['口', '可', '哥', '歌']);
+  });
+
+  it('pose quatre propositions, dont une seule contient le dernier caractère', () => {
+    for (const t of m.tours) {
+      expect(t.choix).toHaveLength(PROPOSITIONS_CHAINE);
+      expect(new Set(t.choix).size).toBe(PROPOSITIONS_CHAINE);
+      expect(t.reponse).toEqual([t.c]);
+      expect(t.choix.filter((x) => contient(x, dernier(t), CHAINE))).toEqual([t.c]);
+    }
+    /* 夫 contient 人 : il ne peut pas servir de leurre après 人. */
+    expect(m.tours[0].choix).not.toContain('夫');
+  });
+
+  it('prend ses leurres dans l’acquis, par ressemblance, jamais sans traits', () => {
+    for (const t of m.tours) {
+      for (const x of t.choix) {
+        expect(CHAINE.acquis).toContain(x);
+        expect(CHAINE.traits).toContain(x);
+      }
+    }
+    const sansTraits = { ...CHAINE, traits: CHAINE.traits.filter((c) => c !== '吞') };
+    expect(chaine(sansTraits, 'g')).toEqual(['人', '大', '天']);
+    const t = m.tours[0];
+    const leurres = t.choix.filter((x) => x !== t.c);
+    const candidats = CHAINE.acquis.filter(
+      (x) => !['人', '大', '天', '吞', '夫'].includes(x)
+    );
+    expect(leurres.sort()).toEqual(
+      proches([t.c], candidats, CHAINE, `g/${t.c}`, PROPOSITIONS_CHAINE - 1).sort()
+    );
+  });
+
+  it('finit sur une impasse : aucun caractère acquis ne prolonge le dernier maillon', () => {
+    const suite = chaine(CHAINE, 'g');
+    const fin = suite[suite.length - 1];
+    expect(prolongements(fin, CHAINE).filter((x) => !suite.includes(x))).toEqual([]);
+    /* L'acquis borne la chaîne : sans 吞, elle s'arrête à 天. */
+    const moins = { ...CHAINE, acquis: CHAINE.acquis.filter((c) => c !== '吞') };
+    expect(chaine(moins, 'g')).toEqual(['人', '大', '天']);
+    /* Rien ne contient rien : pas de chaîne, pas de manche. */
+    const plat = { ...CHAINE, decompositions: {}, formes: {} };
+    expect(chaine(plat, 'g')).toEqual([]);
+    expect(lachaine.preparer(plat, 'g')).toBeNull();
+  });
+
+  it('s’arrête après trois minutes, où qu’elle en soit', () => {
+    expect(lachaine.limite).toBe(LIMITE_CHAINE_MS);
+    expect(LIMITE_CHAINE_MS).toBe(3 * 60_000);
+    const t = tour(m);
+    if (!t) throw new Error('tour attendu');
+    const un = repondre(m, t.reponse, outcome()).manche;
+    const close = clore(un);
+    expect(fini(close)).toBe(true);
+    expect(close.evenements).toHaveLength(1);
+    expect(lachaine.constat(close)).toBe('Chaîne de 2, 1 maillon trouvé.');
+    expect(lachaine.constat(clore(m))).toBe('Rien de revu cette fois.');
+  });
+
+  it('note chaque maillon par grade, sur le caractère du maillon', () => {
+    const t = tour(m);
+    if (!t) throw new Error('tour attendu');
+    const r = repondre(m, t.c, outcome({ seconds: 4 }));
+    expect(r.evenements).toEqual([{ c: t.c, correct: true, tries: 0, seconds: 4 }]);
+    expect(r.note).toBe(grade(r.evenement));
+    const leurre = t.choix.find((x) => x !== t.c) ?? '';
+    const faux = repondre(m, leurre, outcome({ seconds: 4 }));
+    expect(faux.evenement).toEqual({ c: t.c, correct: false, tries: 0, seconds: 4 });
+    expect(faux.note).toBe(Rating.Again);
+    expect(faux.montre).toBe(true);
+  });
+
+  it('a pour constat sa longueur, sans score ni vie : un maillon manqué ne la coupe pas', () => {
+    const juste = jouer(m, (t) => t.reponse);
+    expect(lachaine.constat(juste)).toBe('Chaîne de 4, 3 maillons trouvés.');
+    let rate = m;
+    rate = repondre(rate, '?', outcome()).manche;
+    rate = jouer(rate, (t) => t.reponse);
+    expect(fini(rate)).toBe(true);
+    expect(lachaine.constat(rate)).toBe('Chaîne de 4, 2 maillons trouvés.');
+    expect(lachaine.constat(rate)).not.toMatch(/point|score|vie|record|classement|coffre|bravo/i);
+  });
+});
+
+/* ---------- jeu 4 : la coquille ---------- */
+
+/** Les mots et la phrase des fiches de démonstration (`data/demo/familles/`). */
+const TEXTES_DEMO = ['我住在北京。', '住在', '记住', '天天'];
+
+const COQUILLE: CorpusJeux = {
+  acquis: ['我', '住', '在', '北', '京', '天', '人', '女', '好'],
+  decompositions: { 住: ['亻', '主'], 好: ['女', '子'], 夫: ['二', '人'], 天: ['一', '大'] },
+  formes: { 住: ['亻', '主'], 好: ['女', '子'] },
+  gloses: {},
+  paires: PAIRES,
+  traits: ['我', '住', '在', '北', '京', '天', '夫', '人', '入', '女', '好', '一', '大', '二', '记'],
+  textes: TEXTES_DEMO
+};
+
+describe('La coquille', () => {
+  const coquille = JEUX.coquille;
+  const m = coquille.preparer(COQUILLE, 'g');
+  if (!m) throw new Error('manche attendue');
+  const intrus = (t: NonNullable<ReturnType<typeof tour>>): number =>
+    t.choix.findIndex((x) => x === t.reponse[0]);
+
+  it('compose un message de six à douze caractères, tous acquis hors l’intrus', () => {
+    expect(m.tours.length).toBeGreaterThan(0);
+    expect(m.tours.length).toBeLessThanOrEqual(TOURS_COQUILLE);
+    for (const t of m.tours) {
+      expect(t.choix.length).toBeGreaterThanOrEqual(MESSAGE_MIN);
+      expect(t.choix.length).toBeLessThanOrEqual(MESSAGE_MAX);
+      const k = intrus(t);
+      t.choix.forEach((x, i) => {
+        if (i !== k) expect(COQUILLE.acquis).toContain(x);
+        expect(COQUILLE.traits).toContain(x);
+      });
+    }
+  });
+
+  it('n’écrit rien : le message est fait des mots et phrases du contenu, entiers', () => {
+    const permis = TEXTES_DEMO.map((x) => signes(x).join(''));
+    for (const t of m.tours) {
+      const original = t.choix.map((x, i) => (i === intrus(t) ? t.c : x));
+      const coupes = [...(t.coupes ?? []), original.length];
+      expect(coupes[0]).toBe(0);
+      for (let k = 0; k + 1 < coupes.length; k++) {
+        expect(permis).toContain(original.slice(coupes[k], coupes[k + 1]).join(''));
+      }
+    }
+  });
+
+  it('glisse un seul intrus, tiré du groupe à ne pas confondre du caractère remplacé', () => {
+    for (const t of m.tours) {
+      const [faux] = t.reponse;
+      expect(t.choix.filter((x) => x === faux)).toHaveLength(1);
+      expect(t.c).not.toBe(faux);
+      expect(PAIRES.some((g) => g.includes(t.c) && g.includes(faux))).toBe(true);
+      expect(t.paire).toBe(true);
+    }
+    /* Dans ce corpus, seul 天 a un jumeau : 夫 pour 天, l'exemple de la spécification. */
+    expect(m.tours.every((t) => t.c === '天' && t.reponse[0] === '夫')).toBe(true);
+  });
+
+  it('se déclare indisponible sans texte, d’une ligne neutre', () => {
+    const muet = { ...COQUILLE, textes: [] };
+    expect(coquille.preparer(muet, 'g')).toBeNull();
+    expect(disponibles(muet, 'g')).not.toContain('coquille');
+    /* Un texte dont un caractère n'est pas acquis ne compte pas : 记 ne l'est pas. */
+    const nonAcquis = { ...COQUILLE, textes: ['记住'] };
+    expect(coquille.preparer(nonAcquis, 'g')).toBeNull();
+    expect(coquille.indisponible).toBe(
+      'Pas encore de mot ni de phrase écrits avec les caractères acquis.'
+    );
+  });
+
+  it('à défaut de texte, se complète des caractères acquis des paires', () => {
+    const paires = [['己', '已', '巳'], ['天', '夫'], ['日', '曰'], ['人', '入'], ['土', '士'], ['王', '玉', '主']];
+    const seul: CorpusJeux = {
+      ...COQUILLE,
+      acquis: ['己', '天', '日', '人', '土', '王'],
+      paires,
+      traits: paires.flat(),
+      textes: []
+    };
+    const manche = coquille.preparer(seul, 'g');
+    expect(manche).not.toBeNull();
+    for (const t of manche?.tours ?? []) {
+      expect(t.choix).toHaveLength(MESSAGE_MIN);
+      expect(t.coupes).toEqual([0, 1, 2, 3, 4, 5]);
+    }
+  });
+
+  it('corrige par les briques : l’intrus et le caractère remplacé, décomposés', () => {
+    const t = m.tours[0];
+    expect(t.correction).toEqual([
+      { c: '夫', briques: ['二', '人'] },
+      { c: '天', briques: ['一', '大'] }
+    ]);
+    /* Une décomposition qu'on ne sait pas dessiner n'est pas montrée : le caractère seul. */
+    const sansBriques = { ...COQUILLE, traits: COQUILLE.traits.filter((c) => c !== '二') };
+    const autre = coquille.preparer(sansBriques, 'g');
+    expect(autre?.tours[0].correction?.[0]).toEqual({ c: '夫', briques: ['夫'] });
+  });
+
+  it('note la manche par grade, sur le caractère remplacé et sur l’intrus', () => {
+    const t = tour(m);
+    if (!t) throw new Error('tour attendu');
+    const r = coquille.repondre(m, t.reponse[0], outcome({ seconds: 5 }));
+    expect(r.correct).toBe(true);
+    expect(r.evenements).toEqual([
+      { c: '天', correct: true, tries: 0, seconds: 5 },
+      { c: '夫', correct: true, tries: 0, seconds: 5 }
+    ]);
+    expect(r.note).toBe(grade(r.evenements[0]));
+    expect(r.manche.evenements).toEqual(r.evenements);
+    const faux = coquille.repondre(m, t.choix.find((x) => x !== t.reponse[0]) ?? '', outcome());
+    expect(faux.correct).toBe(false);
+    expect(faux.montre).toBe(true);
+    expect(faux.evenements.map((e) => [e.c, e.correct])).toEqual([
+      ['天', false],
+      ['夫', false]
+    ]);
+    expect(faux.note).toBe(Rating.Again);
+  });
+
+  it('constate les caractères revus, une fois chacun, et les coquilles trouvées', () => {
+    const finie = jouer(m, (t) => t.reponse);
+    expect(coquille.constat(finie)).toBe(
+      `2 caractères revus, ${finie.tours.length === 1 ? '1 coquille trouvée' : `${finie.tours.length} coquilles trouvées`}.`
+    );
+  });
+});
+
+/* ---------- les deux nouveaux jeux, joués sur l'export servi avec l'app ---------- */
+
+describe('la chaîne et la coquille sur le contenu servi (export 0.1.0)', () => {
+  const lire = (f: string): unknown => JSON.parse(readFileSync(new URL(f, import.meta.url), 'utf8'));
+  const dossier = `../../public/data/${VERSION_DONNEES}`;
+  const indexExport = lire(`${dossier}/index.json`) as Index;
+  const famillesExport = indexExport.familles.map(
+    (f) => lire(`${dossier}/${f.fichier}`) as Famille
+  );
+  const traitsExport = indexExport.familles.flatMap((f) =>
+    Object.keys((lire(`${dossier}/${f.traits}`) as { traits: Record<string, unknown> }).traits)
+  );
+  const traitsDemo = Object.keys(lire('../../public/strokes-demo.json') as Record<string, unknown>);
+  const traits = [...new Set([...traitsExport, ...traitsDemo])];
+  const paires = lirePaires(lire(`${dossier}/paires.json`));
+  const foret = lire('../../public/data/demo/foret.json') as Foret;
+  const voisins = lire('../../public/data/demo/voisins.json') as Voisins;
+  /* La surcouche telle que `content.toutesLesFiches` la fait : les familles 人 et 主. */
+  const demo = new Map<string, Fiche>();
+  for (const f of ['人', '主']) {
+    const fam = lire(`../../public/data/demo/familles/${f}.json`) as Famille;
+    for (const x of fam.fiches) if (!demo.has(x.c)) demo.set(x.c, x);
+  }
+  const fiches = famillesExport.flatMap((f) =>
+    f.fiches.map((x) => surcoucher(x, demo.get(x.c) ?? null))
+  );
+  const stables = (cs: string) =>
+    [...cs].map((c) => ({ c, stabilite: SEUIL_DEBLOCAGE + 1 }));
+
+  it('lit la chaîne dans les parts de l’export : 口 → 可 → 哥 → 歌', () => {
+    const corpus = corpusDeJeu({
+      fiches,
+      voisins,
+      foret,
+      paires,
+      traits,
+      cartes: stables('口可哥歌人女好妈日明时是吗叫吃名中')
+    });
+    expect(chaine(corpus, '2026-09-23')).toEqual(['口', '可', '哥', '歌']);
+    const m = JEUX.chaine.preparer(corpus, '2026-09-23');
+    if (!m) throw new Error('manche attendue');
+    for (const t of m.tours) {
+      const suite = t.suite ?? [];
+      expect(t.choix.filter((x) => contient(x, suite[suite.length - 1], corpus))).toEqual([t.c]);
+      for (const x of t.choix) {
+        expect(corpus.acquis).toContain(x);
+        expect(traits).toContain(x);
+      }
+    }
+    const finie = jouer(m, (t) => t.reponse);
+    expect(finie.evenements.map((e) => e.c)).toEqual(['可', '哥', '歌']);
+    expect(JEUX.chaine.constat(finie)).toBe('Chaîne de 4, 3 maillons trouvés.');
+  });
+
+  it('pose une coquille avec les mots surcouchés : 夫 pour 天', () => {
+    const corpus = corpusDeJeu({
+      fiches,
+      voisins,
+      foret,
+      paires,
+      traits,
+      cartes: stables('我住在北京天人女好妈口日明')
+    });
+    expect(corpus.textes).toEqual(expect.arrayContaining(['我住在北京。', '天天', '住在']));
+    const m = JEUX.coquille.preparer(corpus, '2026-09-23');
+    if (!m) throw new Error('manche attendue');
+    for (const t of m.tours) {
+      expect(t.c).toBe('天');
+      expect(t.reponse).toEqual(['夫']);
+      expect(t.choix.length).toBeGreaterThanOrEqual(MESSAGE_MIN);
+      expect(t.choix.length).toBeLessThanOrEqual(MESSAGE_MAX);
+      for (const x of t.choix) expect(traits).toContain(x);
+      /* 天 et 夫 sont des composants de la norme : la correction les montre entiers. */
+      expect(t.correction).toEqual([
+        { c: '夫', briques: ['夫'] },
+        { c: '天', briques: ['天'] }
+      ]);
+    }
+    const finie = jouer(m, (t) => t.reponse);
+    expect(finie.evenements).toHaveLength(2 * m.tours.length);
+    for (const e of finie.evenements) expect(grade(e)).not.toBe(Rating.Again);
+    expect(JEUX.coquille.constat(finie)).toMatch(/^2 caractères revus, \d coquilles? trouvées?\.$/);
+  });
+
+  it('avec le seul acquis de démonstration, joue la chaîne et tait la coquille', () => {
+    const corpus = corpusDeJeu({ fiches, voisins, foret, paires, traits, cartes: [] });
+    const dispo = disponibles(corpus, '2026-09-23');
+    expect(dispo).toContain('chaine');
+    /* Aucun mot surcouché n'est fait de l'acquis de démonstration (天 et 住 n'y sont pas). */
+    expect(dispo).not.toContain('coquille');
+    const m = JEUX.chaine.preparer(corpus, '2026-09-23');
+    for (const t of m?.tours ?? []) {
+      for (const x of t.choix) expect(corpus.acquis).toContain(x);
+    }
   });
 });
