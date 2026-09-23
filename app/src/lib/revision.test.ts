@@ -3,6 +3,7 @@ import { readFileSync } from 'node:fs';
 import {
   A_REVOIR,
   SUR,
+  cartesEnAttente,
   corpusFixer,
   corpusRevision,
   decompositionsDe,
@@ -11,6 +12,7 @@ import {
   ficheDeVoisin,
   fichesDuCorpus,
   graineDuJour,
+  ligneEnAttente,
   pinyinDe,
   questionsFixer,
   questionsRevision,
@@ -22,12 +24,32 @@ import {
   acquis,
   composantSon,
   fiche as ficheDuCorpus,
+  horsSerie,
   lirePaires,
+  posable,
   ressemblance,
   typesPossibles
 } from './questions';
 import { RETOUR_MINUTES, SEUIL_DEBLOCAGE, newCard, schedule, stability } from './srs';
-import type { Famille, Voisins } from './content';
+import {
+  VERSION_DONNEES,
+  surcoucher,
+  type Famille,
+  type Fiche,
+  type Foret,
+  type Index,
+  type Voisins
+} from './content';
+import { ciblesAssemblage, ciblesJumeaux, corpusDeJeu } from './jeux';
+import {
+  carte,
+  cartesDues,
+  emptyProgress,
+  fromJSON,
+  nombreDues,
+  setEnAttente,
+  toJSON
+} from './session';
 import type { ReviewCard } from './srs';
 
 /* ---------- le contenu servi avec l'app, lu sur disque : aucune requête ---------- */
@@ -246,5 +268,142 @@ describe('le résumé de fin de séance', () => {
     expect(lignes[0].quand).toBe('');
     expect(lignes[0].sure).toBe(false);
     expect(derniereNote(null)).toBeNull();
+  });
+});
+
+/* ---------- une carte sans fiche ne reste pas due en silence ---------- */
+
+describe('une carte sans fiche au pas Échauffer', () => {
+  /* 龍 n'est ni dans l'export, ni dans la démonstration : une carte hors export. */
+  const HORS = '龍';
+  const corpus = corpusRevision(sources);
+
+  it('est passée par la série, et nommée', () => {
+    expect(ficheDuCorpus(HORS, corpus)).toBeNull();
+    const pile = ['主', HORS, '住'];
+    const qs = questionsRevision(pile, corpus, JOUR);
+    expect(qs.map((q) => q.c)).toEqual(['主', '住']);
+    expect(horsSerie(pile, corpus)).toEqual([HORS]);
+    /* La série et les cartes nommées couvrent toute la pile : rien ne se perd en route. */
+    for (const c of pile) expect(posable(c, corpus) !== horsSerie(pile, corpus).includes(c)).toBe(true);
+  });
+
+  it('se dit dans le résumé par une ligne neutre', () => {
+    expect(ligneEnAttente([])).toBe('');
+    const une = ligneEnAttente([HORS]);
+    expect(une).toContain(HORS);
+    expect(une).toContain('gardée');
+    const deux = ligneEnAttente([HORS, '龜']);
+    expect(deux).toContain('龍 龜');
+    for (const l of [une, deux]) {
+      expect(l).not.toMatch(/erreur|échec|désolé|bravo|!|impossible/i);
+    }
+  });
+
+  it('sort de la pile due sans quitter la progression, et revient avec sa fiche', () => {
+    const T1 = new Date('2026-03-05T08:00:00Z');
+    let p = emptyProgress(JOUR);
+    p = { ...p, cartes: [newCard('主', T0), newCard(HORS, T0)] };
+    expect(cartesDues(p, T1).map((c) => c.id)).toEqual(['主', HORS]);
+
+    /* Le pas Échauffer réévalue : la carte hors export est mise de côté. */
+    const attente = cartesEnAttente(['主', HORS], p.enAttente, corpus);
+    expect(attente).toEqual([HORS]);
+    p = setEnAttente(p, attente);
+    expect(p.enAttente).toEqual([HORS]);
+    expect(cartesDues(p, T1).map((c) => c.id)).toEqual(['主']);
+    expect(nombreDues(p, T1)).toBe(1);
+    /* Jamais perdue : la carte reste, avec son échéance, et passe l'export. */
+    expect(carte(p, HORS)).not.toBeNull();
+    const relue = fromJSON(toJSON(p), JOUR);
+    expect(relue.enAttente).toEqual([HORS]);
+    expect(carte(relue, HORS)).not.toBeNull();
+    expect(fromJSON(JSON.stringify({ version: 1, day: JOUR }), JOUR).enAttente).toEqual([]);
+    /* Une carte que la progression ne porte pas ne se met pas de côté. */
+    expect(setEnAttente(p, [HORS, 'inconnu']).enAttente).toEqual([HORS]);
+    expect(setEnAttente(p, [HORS])).toBe(p);
+
+    /* Le contenu porte enfin sa fiche : la réévaluation la rend, elle redevient due. */
+    const avecFiche = corpusRevision({
+      ...sources,
+      voisins: { ...voisins, voisins: [...voisins.voisins, { c: HORS, pinyin: 'lóng', fr: 'dragon', parts: [] }] }
+    });
+    expect(cartesEnAttente([], p.enAttente, avecFiche)).toEqual([]);
+    p = setEnAttente(p, []);
+    expect(cartesDues(p, T1).map((c) => c.id)).toEqual(['主', HORS]);
+  });
+
+  it("l'écran la signale, et l'aiguillage la range", () => {
+    const warm = readFileSync(new URL('Warm.svelte', import.meta.url), 'utf8');
+    expect(warm).toContain('horsSerie(p.revue, corpus)');
+    expect(warm).toContain('cartesEnAttente(p.revue, p.enAttente, corpus)');
+    expect(warm).toContain('ligneEnAttente(passees)');
+    const app = readFileSync(new URL('../App.svelte', import.meta.url), 'utf8');
+    expect(app).toContain('onattente={echaufferAttente}');
+    expect(app).toContain('setEnAttente(p, ids)');
+  });
+});
+
+/* ---------- l'export versionné, tel que le pas Échauffer le lit ---------- */
+
+describe("les cartes de la première session et des jeux, dans le corpus d'Échauffer", () => {
+  const lire = (f: string): unknown => JSON.parse(readFileSync(new URL(f, import.meta.url), 'utf8'));
+  const dossier = `../../public/data/${VERSION_DONNEES}`;
+  const index = lire(`${dossier}/index.json`) as Index;
+  const familles = index.familles.map((f) => lire(`${dossier}/${f.fichier}`) as Famille);
+  /* La surcouche de `content.surcouchesDemo` : les familles 人 et 主, puis les voisins. */
+  const demo = new Map<string, Fiche>();
+  for (const nom of ['人', '主']) {
+    for (const x of (lire(`../../public/data/demo/familles/${nom}.json`) as Famille).fiches) {
+      if (!demo.has(x.c)) demo.set(x.c, x);
+    }
+  }
+  for (const v of voisins.voisins) {
+    if (!demo.has(v.c)) demo.set(v.c, { ...ficheDeVoisin(v), parts: [], role: null, etiquette: null });
+  }
+  /* `content.toutesLesFiches` : toutes les fiches de l'export, surcouchées. */
+  const fiches = familles.flatMap((f) => f.fiches.map((x) => surcoucher(x, demo.get(x.c) ?? null)));
+  const pairesExport = lirePaires(lire(`${dossier}/paires.json`));
+  const premiere = ['人', '大', '天'];
+  const cartesPremiere = premiere.map((c) => newCard(c, T0));
+  const corpusDe = (trace: boolean) =>
+    corpusRevision({ fiches, voisins, cartes: cartesPremiere, paires: pairesExport, trace });
+
+  it('pose 人, 大 et 天 en question, tracé activé ou non', () => {
+    for (const trace of [true, false]) {
+      const corpus = corpusDe(trace);
+      for (const c of premiere) {
+        expect(fiches.some((f) => f.c === c), c).toBe(true);
+        expect(posable(c, corpus), c).toBe(true);
+      }
+      expect(questionsRevision(premiere, corpus, JOUR).map((q) => q.c)).toEqual(premiere);
+    }
+  });
+
+  it('pose les cartes que les jeux créent, ou les nomme : aucune ne se perd', () => {
+    const foret = lire('../../public/data/demo/foret.json') as Foret;
+    const traitsExport = index.familles.flatMap((f) =>
+      Object.keys((lire(`${dossier}/${f.traits}`) as { traits: Record<string, unknown> }).traits)
+    );
+    const traitsDemo = Object.keys(lire('../../public/strokes-demo.json') as Record<string, unknown>);
+    const jeux = corpusDeJeu({
+      fiches,
+      voisins,
+      foret,
+      paires: pairesExport,
+      traits: [...new Set([...traitsExport, ...traitsDemo])],
+      cartes: cartesPremiere
+    });
+    /* Un jeu ne crée de carte que pour le caractère d'un tour : une cible. */
+    const cibles = [...new Set([...ciblesAssemblage(jeux), ...ciblesJumeaux(jeux)])];
+    expect(cibles.length).toBeGreaterThan(0);
+    for (const trace of [true, false]) {
+      const corpus = corpusDe(trace);
+      const posees = questionsRevision(cibles, corpus, JOUR).map((q) => q.c);
+      const nommees = horsSerie(cibles, corpus);
+      expect([...posees, ...nommees].sort()).toEqual([...cibles].sort());
+    }
+    /* Tracé activé, le cas par défaut : toutes se posent. */
+    expect(horsSerie(cibles, corpusDe(true))).toEqual([]);
   });
 });

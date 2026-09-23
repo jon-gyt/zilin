@@ -18,8 +18,15 @@
     type FicheLue,
     type Voisins
   } from './content';
-  import { lirePaires, type Paires, type Question } from './questions';
-  import { corpusRevision, questionsRevision, resume, sures } from './revision';
+  import { horsSerie, lirePaires, type Paires, type Question } from './questions';
+  import {
+    cartesEnAttente,
+    corpusRevision,
+    ligneEnAttente,
+    questionsRevision,
+    resume,
+    sures
+  } from './revision';
   import { echeance, repriseRev, type Progress, type Revision } from './session';
   import { humeur, stade } from './tao';
 
@@ -28,6 +35,7 @@
     onrepondu,
     onavancer,
     onfini,
+    onattente,
     onquitter
   }: {
     p: Progress;
@@ -39,6 +47,11 @@
     /** La question suivante : la reprise se fait à celle-ci. */
     onavancer: (i: number) => void;
     onfini: () => void;
+    /**
+     * Les cartes à garder de côté, réévaluées sur le contenu : celles qu'aucune fiche ne
+     * permet de poser. Appelé seulement quand la liste change.
+     */
+    onattente: (ids: string[]) => void;
     onquitter: () => void;
   } = $props();
 
@@ -119,6 +132,22 @@
 
   /** Une question par carte de la pile, dans l'ordre. La graine du jour fait le reste. */
   const liste: Question[] = $derived(pret ? questionsRevision(p.revue, corpus, p.day) : []);
+
+  /*
+   * Une carte de la pile sans fiche est passée par la série : on la nomme dans le résumé,
+   * et elle est mise de côté pour ne pas rester due en silence. On ne juge que sur un
+   * export effectivement lu : un chargement raté ne met rien de côté.
+   */
+  const exportLu = $derived(pret && f.length > 0);
+  const passees = $derived(exportLu ? horsSerie(p.revue, corpus) : []);
+
+  $effect(() => {
+    if (!exportLu) return;
+    const attente = cartesEnAttente(p.revue, p.enAttente, corpus);
+    const meme =
+      attente.length === p.enAttente.length && attente.every((c) => p.enAttente.includes(c));
+    if (!meme) onattente(attente);
+  });
   /** L'index de la question en cours ; au-delà de la dernière, c'est le résumé. */
   const i = $derived(Math.min(Math.max(p.rev, debut), liste.length));
   const q: Question | null = $derived(liste[i] ?? null);
@@ -177,7 +206,11 @@
           </div>
         {/each}
       </div>
+      {#if passees.length > 0}<p class="k attente">{ligneEnAttente(passees)}</p>{/if}
     </div>
+    <div class="foot"><button class="btn" onclick={onfini}>Retour au chemin</button></div>
+  {:else if passees.length > 0}
+    <p class="guide">{ligneEnAttente(passees)}</p>
     <div class="foot"><button class="btn" onclick={onfini}>Retour au chemin</button></div>
   {:else}
     <p class="guide">Les questions n'ont pas pu être préparées.</p>

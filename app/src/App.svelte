@@ -45,6 +45,7 @@
     finDepart,
     setBudget,
     setDue,
+    setEnAttente,
     setFix,
     setFixNotee,
     setLearnView,
@@ -291,6 +292,15 @@
     enregistrer();
   }
 
+  /**
+   * Les cartes sans fiche, mises de côté par le pas Échauffer : gardées dans la
+   * progression, hors de la pile due. La pile n'est recomptée qu'à la fin du pas.
+   */
+  function echaufferAttente(ids: string[]): void {
+    p = setEnAttente(p, ids);
+    enregistrer();
+  }
+
   /** La séance finie : le pas est fait, la pile se vide, retour au chemin. */
   function echaufferFini(): void {
     p = finEchauffer(p, p.day);
@@ -452,6 +462,7 @@
     onrepondu={echaufferRepondu}
     onavancer={echaufferAvancer}
     onfini={echaufferFini}
+    onattente={echaufferAttente}
     onquitter={quitter}
   />
 {:else if ecran === 'learn'}

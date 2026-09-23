@@ -174,6 +174,14 @@ export type Progress = {
    * par défaut. Ajoutée après coup : une progression sans ce champ se relit au défaut.
    */
   retention: number;
+  /**
+   * Les cartes mises de côté : le contenu servi n'a pas de quoi les poser en question
+   * (pas de fiche, ou aucun type que la fiche permette). Elles restent dans `cartes`,
+   * intactes, mais ne comptent plus dans la pile due tant qu'elles attendent ; le pas
+   * Échauffer réévalue la liste à chaque ouverture et les rend dès que le contenu le
+   * permet. Ajoutée après coup : une progression sans ce champ n'a rien de côté.
+   */
+  enAttente: string[];
 };
 
 /**
@@ -215,7 +223,8 @@ export function emptyProgress(aujourdhui: string): Progress {
     premiere: true,
     premiereVue: 'f1',
     parcours: null,
-    retention: RETENTION_DEFAUT
+    retention: RETENTION_DEFAUT,
+    enAttente: []
   };
 }
 
@@ -406,24 +415,45 @@ export function echeance(p: Progress, id: string): Date | null {
 
 /* ---------- pas 2, Échauffer ---------- */
 
+/** Les cartes dues qui peuvent se poser : celles mises de côté attendent leur fiche. */
+function duesPosables(p: Progress, maintenant: Date): ReviewCard[] {
+  const cote = new Set(p.enAttente);
+  return due(p.cartes, maintenant).filter((c) => !cote.has(c.id));
+}
+
 /**
  * Les cartes dues, les plus urgentes d'abord (`due` de `srs.ts`), coupées à ce qu'une
- * séance absorbe. Le reste attend le lendemain.
+ * séance absorbe. Le reste attend le lendemain. Une carte mise de côté (`enAttente`)
+ * n'y entre pas : sans fiche, elle occuperait la tête de la pile tous les jours.
  */
 export function cartesDues(
   p: Progress,
   maintenant: Date,
   max: number = CARTES_PAR_SEANCE
 ): ReviewCard[] {
-  return due(p.cartes, maintenant).slice(0, Math.max(0, max));
+  return duesPosables(p, maintenant).slice(0, Math.max(0, max));
 }
 
 /**
  * Le nombre réel de cartes dues, sans plafond : c'est lui, et non ce qu'une séance
- * absorbe, qui dit si la pile a débordé et si le rattrapage tient (`setDue`).
+ * absorbe, qui dit si la pile a débordé et si le rattrapage tient (`setDue`). Les
+ * cartes mises de côté n'y comptent pas : elles ne tiendraient pas le rattrapage ouvert.
  */
 export function nombreDues(p: Progress, maintenant: Date): number {
-  return due(p.cartes, maintenant).length;
+  return duesPosables(p, maintenant).length;
+}
+
+/**
+ * Range la liste des cartes mises de côté, telle que le pas Échauffer l'a réévaluée sur
+ * le contenu. Seules les cartes que la progression porte y entrent ; aucune n'est
+ * retirée de `cartes`. Même liste : l'état est rendu tel quel.
+ */
+export function setEnAttente(p: Progress, ids: readonly string[]): Progress {
+  const connues = new Set(p.cartes.map((c) => c.id));
+  const enAttente = [...new Set(ids)].filter((c) => connues.has(c)).sort();
+  const meme =
+    enAttente.length === p.enAttente.length && enAttente.every((c, i) => c === p.enAttente[i]);
+  return meme ? p : { ...p, enAttente };
 }
 
 /** Fige la pile de la séance : elle ne bouge plus de la journée. */
@@ -887,6 +917,10 @@ export function fromJSON(texte: string, aujourdhui: string): Progress {
         ? Math.floor(o.jourParcours)
         : undefined,
     /* La rétention cible : absente d'un export plus ancien, elle reprend le défaut. */
-    retention: bornerRetention(o.retention)
+    retention: bornerRetention(o.retention),
+    /* Les cartes mises de côté : absentes d'un export plus ancien, rien n'est de côté. */
+    enAttente: Array.isArray(o.enAttente)
+      ? [...new Set(o.enAttente.filter((c): c is string => typeof c === 'string' && c !== ''))].sort()
+      : []
   };
 }
