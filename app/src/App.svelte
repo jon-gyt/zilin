@@ -445,7 +445,7 @@
     onquitter={quitter}
   />
 {:else if ecran === 'anec'}
-  <Open jour={p.day} oncontinuer={ouvrirFait} onquitter={quitter} />
+  <Open {p} oncontinuer={ouvrirFait} onquitter={quitter} />
 {:else if ecran === 'rev'}
   <Warm
     {p}

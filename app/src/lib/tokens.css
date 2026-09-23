@@ -83,6 +83,9 @@ h1{font-family:var(--head);font-weight:700;font-size:30px;line-height:1.15;lette
 .anec .sceau{display:flex;justify-content:center;margin-bottom:6px;color:var(--ink)}
 .anec .nom{font-family:var(--head);font-weight:700;font-size:26px;letter-spacing:-.03em;margin-bottom:2px}
 .anec .nom .cn{color:var(--zhu);font-size:22px}
+/* Tao écoute assise, dans le coin haut : hors du flux, l'estampe ne bouge pas */
+.screen.ouvrir{position:relative}
+.ouvrir .tao-assise{position:absolute;top:calc(env(safe-area-inset-top) + 14px);right:16px;pointer-events:none}
 
 /* ---- pas 3, Apprendre : la brique, le tracé, le composé (maquette s-l1, s-trace, s-l2) ---- */
 .card{background:var(--card);border-radius:16px;padding:18px}

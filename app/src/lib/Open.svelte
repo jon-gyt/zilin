@@ -2,15 +2,26 @@
   /**
    * Pas 1, Ouvrir : l'anecdote du jour, en estampe. Vingt secondes, sautable.
    * Le texte vient du JSON versionné de `app/public/data/`, jamais du code.
+   *
+   * Tao écoute l'anecdote assise (brief §9) : petite, dans le coin, sans un mot. Elle
+   * est posée hors du flux, la mise en page de l'estampe ne bouge pas.
    */
   import Glyph from './Glyph.svelte';
+  import Tao from './Tao.svelte';
   import { anecdoteDuJour, anecdotesOnce, type Anecdote } from './content';
+  import type { Progress } from './session';
+  import { humeur, stade } from './tao';
 
   let {
-    jour,
+    p,
     oncontinuer,
     onquitter
-  }: { jour: string; oncontinuer: () => void; onquitter: () => void } = $props();
+  }: { p: Progress; oncontinuer: () => void; onquitter: () => void } = $props();
+
+  /** L'anecdote est celle de la journée de la session, pas celle de l'horloge. */
+  const jour = $derived(p.day);
+  const taoStade = $derived(stade(p.tao.croissance));
+  const taoHumeur = $derived(humeur(p.tao.activites, p.day));
 
   /** Vingt secondes, puis la journée s'ouvre d'elle-même. Le bouton passe avant. */
   const DUREE_MS = 20000;
@@ -38,8 +49,9 @@
   });
 </script>
 
-<main class="screen">
+<main class="screen ouvrir">
   <button class="k quit" onclick={onquitter}>✕ Quitter</button>
+  <div class="tao-assise"><Tao stade={taoStade} posture="anecdote" humeur={taoHumeur} size={56} /></div>
 
   <div class="anec">
     {#if a}

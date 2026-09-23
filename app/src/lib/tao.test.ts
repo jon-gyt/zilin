@@ -209,6 +209,7 @@ describe('sérialisation', () => {
 describe('Tao accompagne les activités dans leur posture (brief §9)', () => {
   /** Ce que chaque écran d'activité doit poser, et rien d'autre : une posture, sans un mot. */
   const ECRANS: [string, PostureVue[]][] = [
+    ['Open.svelte', ['anecdote']],
     ['Learn.svelte', ['lecon', 'trace']],
     ['Use.svelte', ['lecture']],
     ['Warm.svelte', ['revision']],
@@ -223,6 +224,22 @@ describe('Tao accompagne les activités dans leur posture (brief §9)', () => {
       expect(source, fichier).toContain('<Tao');
       for (const pose of postures) expect(source, fichier).toContain(`posture="${pose}"`);
     }
+  });
+
+  it('écoute l’anecdote assise : petite, sans un mot, hors du flux de l’estampe', () => {
+    const source = readFileSync(new URL('Open.svelte', import.meta.url), 'utf8');
+    const balise = source.match(/<Tao [^>]*\/>/)?.[0] ?? '';
+    expect(balise).toContain('posture="anecdote"');
+    /* Petite : plus petite que l'estampe (72) et que Tao sur les écrans de question (64). */
+    const taille = Number(balise.match(/size=\{(\d+)\}/)?.[1]);
+    expect(taille).toBeGreaterThan(0);
+    expect(taille).toBeLessThanOrEqual(64);
+    /* Sans commentaire : ni bulle, ni texte à côté d'elle. */
+    expect(balise).not.toContain('caractere');
+    expect(source).toMatch(/<div class="tao-assise"><Tao [^>]*\/><\/div>/);
+    /* Hors du flux : la mise en page de l'anecdote ne bouge pas. */
+    const css = readFileSync(new URL('tokens.css', import.meta.url), 'utf8');
+    expect(css).toMatch(/\.ouvrir \.tao-assise\{position:absolute/);
   });
 
   it('ne commente jamais une réponse : elle n’a aucune bulle de texte', () => {
