@@ -76,7 +76,7 @@ Relevé sur le dépôt après une revue du pipeline. Les numéros ci-dessus ne b
   8 148 caractères sur 9 574 réconciliés ; 241 du seuil 255 sur 255, 280 du HSK 1 sur 300 ;
   238 familles exportées en 1,33 Mio.
 - Épic 2 : 2.1 à 2.8 (2.2 et 2.8 revues le 24 septembre : le menu et le parcours du prototype validé). Épic 3 : 3.1 à 3.4. Épic 4 : 4.1 à 4.4 (4.4, Chercher, le 24 septembre : la recherche en français ne trouvera rien tant qu'aucune fiche n'est relue).
-- Épic 4b : 4b.1 à 4b.6 et 4b.9 (textes des jeux à relire). Épic 5 : 5.1, et 5.2 (24 septembre).
+- Épic 4b : 4b.1 à 4b.6, 4b.8 et 4b.9 (textes des jeux à relire). Épic 5 : 5.1, et 5.2 (24 septembre).
 - 5.2, le site public : `app/scripts/site/` génère du HTML statique depuis l'export
   versionné, dans l'artefact Pages de l'app, après `vite build`. 480 caractères dessinables
   sur 493, une page chacun en français (`/zilin/c/<c>/`) et en anglais
@@ -158,6 +158,22 @@ Relevé sur le dépôt après une revue du pipeline. Les numéros ci-dessus ne b
   touché, le caractère se dit et montre sa fête ou son terme. Le tableau des trophées en
   compte huit (sceau 节), une case que le tableau du brief (§8) ne liste pas encore. Reste
   une relecture des textes des termes par le propriétaire.
+
+- 4b.8, les lettres de Que (24 septembre), **à relire par le propriétaire** : douze lettres
+  rédigées sans API par une session Claude Code, dans le circuit des contes — fil
+  `data/sources/lettres/feuilleton.tsv`, brouillons `lettres-brouillons/`, `wenlu lettres
+  contexte | importer | exporter-relecture | appliquer-relecture | apercu`, versions
+  `lettres-versions/` au statut `a_relire`, traçabilité « session Claude Code (sans API) ».
+  La lettre n n'emploie que les caractères posés par le parcours Lire au jour 7n (rejet
+  sinon), 42 à 62 sinogrammes, glose par mot (pinyin, fr, en), traduction par phrase,
+  question finale à un mot ; huit contrôles dans `wenlu check`. `lettres.json` ne porte que
+  les relues (aucune aujourd'hui), `apercu/lettres.json` les autres, visibles en mode
+  relecture. Dans l'app : une lettre par semaine, le dimanche ou à la première session de la
+  semaine, quand tous ses caractères ont une carte (`lettres.ts`) ; section « Lettres de
+  Que » de Lire, lecteur des contes signé de Que (posture avec sa lettre), case Lire du menu
+  « Une lettre de Que » la semaine de l'arrivée ; lue, notée dans la progression. Reste :
+  relire les douze lettres ; des lettres pour le parcours HSK (只, 姓, 每, 如, 念, 古, 长
+  n'y sont pas posés : dix lettres sur douze ne s'y ouvrent jamais).
 
 ### Livrées à moitié : le code attend une clé d'API
 
@@ -247,5 +263,5 @@ anglaise, glose par mot.
 
 ### Non commencées
 
-2c.1, 2c.2, 4b.7, 4b.8, et toute la phase 6 — hors le workflow CI macOS et la
+2c.1, 2c.2, 4b.7, et toute la phase 6 — hors le workflow CI macOS et la
 configuration Capacitor, déjà versionnés.
