@@ -1,0 +1,11 @@
+# Équivalences de notation avec la table GF 0014-2009.
+#
+# Make Me a Hanzi écrit certains composants avec un point de code du bloc des
+# radicaux, là où la norme en donne un autre pour le même composant. Quand la
+# forme de la source porte des tracés et celle de la norme non, on garde la forme
+# de la source : la feuille reste dessinable, et prend le nom et le numéro
+# d'ordre de la norme. Sinon, on renomme par une ligne de `ids.tsv`.
+#
+# Format : `#` en commentaire ; trois colonnes séparées par une tabulation :
+# forme de la source, composant de la norme, raison.
+⺮	𥫗	radical 竹 en tête : la norme le donne en 𥫗 (502, 竹头), sans tracé dans Make Me a Hanzi, qui dessine ⺮ (笔, 筷)

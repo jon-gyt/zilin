@@ -1,7 +1,7 @@
 {
  "version": "0.1.0",
- "date": "2026-09-24T20:48:04Z",
- "empreinte": "sha256:b5c731c7456fb53098aebde0d3a90ed7dd74f1c1f92c75ed8e10b21f611167b5",
+ "date": "2026-09-24T20:52:35Z",
+ "empreinte": "sha256:715a91832cf6e882534f6a2c935f3d016dbfbf03d5bb295781f0b83b01d471da",
  "license": "propriétaire",
  "source": "décomposition GF 0014-2009 réconciliée par le pipeline wenlu ; pinyin d'Unihan (kMandarin) ; textes rédigés pour l'app",
  "source_url": "https://github.com/jon-gyt/zilin",
@@ -10,10 +10,10 @@
  "perimetre": "seuil 255 et HSK 1 : les caractères des deux listes et leurs briques ; les caractères dessinés des fêtes et des termes solaires, et leurs briques",
  "licences": "LICENCES.md",
  "compte": {
-  "familles": 243,
-  "caracteres": 512,
-  "briques": 225,
-  "muettes": 15,
+  "familles": 244,
+  "caracteres": 513,
+  "briques": 230,
+  "muettes": 13,
   "fiches_relues": 0,
   "contes": 0
  },
@@ -585,6 +585,15 @@
    "jours": [
     {
      "jour": 1,
+     "brique": "人",
+     "composes": [
+      "从",
+      "介"
+     ],
+     "non_reconcilie": false
+    },
+    {
+     "jour": 2,
      "brique": "月",
      "composes": [
       "朋",
@@ -593,7 +602,7 @@
      "non_reconcilie": false
     },
     {
-     "jour": 2,
+     "jour": 3,
      "brique": "口",
      "composes": [
       "右"
@@ -601,7 +610,7 @@
      "non_reconcilie": false
     },
     {
-     "jour": 3,
+     "jour": 4,
      "brique": "日",
      "composes": [
       "明"
@@ -609,7 +618,7 @@
      "non_reconcilie": false
     },
     {
-     "jour": 4,
+     "jour": 5,
      "brique": "门",
      "composes": [
       "间",
@@ -618,15 +627,15 @@
      "non_reconcilie": false
     },
     {
-     "jour": 5,
-     "brique": "人",
+     "jour": 6,
+     "brique": "一",
      "composes": [
-      "从"
+      "是"
      ],
      "non_reconcilie": false
     },
     {
-     "jour": 6,
+     "jour": 7,
      "brique": "十",
      "composes": [
       "早"
@@ -634,7 +643,23 @@
      "non_reconcilie": false
     },
     {
-     "jour": 7,
+     "jour": 8,
+     "brique": "儿",
+     "composes": [
+      "先"
+     ],
+     "non_reconcilie": false
+    },
+    {
+     "jour": 9,
+     "brique": "二",
+     "composes": [
+      "元"
+     ],
+     "non_reconcilie": false
+    },
+    {
+     "jour": 10,
      "brique": "工",
      "composes": [
       "左"
@@ -642,7 +667,32 @@
      "non_reconcilie": false
     },
     {
-     "jour": 8,
+     "jour": 11,
+     "brique": "子",
+     "composes": [
+      "学"
+     ],
+     "non_reconcilie": false
+    },
+    {
+     "jour": 12,
+     "brique": "女",
+     "composes": [
+      "好"
+     ],
+     "non_reconcilie": false
+    },
+    {
+     "jour": 13,
+     "brique": "马",
+     "composes": [
+      "妈",
+      "吗"
+     ],
+     "non_reconcilie": false
+    },
+    {
+     "jour": 14,
      "brique": "牛",
      "composes": [
       "告"
@@ -650,31 +700,15 @@
      "non_reconcilie": false
     },
     {
-     "jour": 9,
-     "brique": "马",
+     "jour": 15,
+     "brique": "见",
      "composes": [
-      "吗"
+      "觉"
      ],
      "non_reconcilie": false
     },
     {
-     "jour": 10,
-     "brique": "女",
-     "composes": [
-      "妈"
-     ],
-     "non_reconcilie": false
-    },
-    {
-     "jour": 11,
-     "brique": "子",
-     "composes": [
-      "好"
-     ],
-     "non_reconcilie": false
-    },
-    {
-     "jour": 12,
+     "jour": 16,
      "brique": "生",
      "composes": [
       "星"
@@ -682,21 +716,7 @@
      "non_reconcilie": false
     },
     {
-     "jour": 13,
-     "brique": "也",
-     "composes": [
-      "她"
-     ],
-     "non_reconcilie": false
-    },
-    {
-     "jour": 14,
-     "brique": "一",
-     "composes": [],
-     "non_reconcilie": false
-    },
-    {
-     "jour": 15,
+     "jour": 17,
      "brique": "手",
      "composes": [
       "拿"
@@ -704,172 +724,160 @@
      "non_reconcilie": false
     },
     {
-     "jour": 16,
-     "brique": "八",
-     "composes": [],
-     "non_reconcilie": false
-    },
-    {
-     "jour": 17,
-     "brique": "二",
-     "composes": [],
-     "non_reconcilie": false
-    },
-    {
      "jour": 18,
-     "brique": "儿",
+     "brique": "也",
      "composes": [
-      "元"
+      "她"
      ],
      "non_reconcilie": false
     },
     {
      "jour": 19,
-     "brique": "大",
+     "brique": "八",
      "composes": [],
      "non_reconcilie": false
     },
     {
      "jour": 20,
-     "brique": "火",
+     "brique": "大",
      "composes": [],
      "non_reconcilie": false
     },
     {
      "jour": 21,
-     "brique": "山",
+     "brique": "火",
      "composes": [],
      "non_reconcilie": false
     },
     {
      "jour": 22,
-     "brique": "米",
+     "brique": "山",
      "composes": [],
      "non_reconcilie": false
     },
     {
      "jour": 23,
-     "brique": "几",
+     "brique": "米",
      "composes": [],
      "non_reconcilie": false
     },
     {
      "jour": 24,
-     "brique": "白",
+     "brique": "几",
      "composes": [],
      "non_reconcilie": false
     },
     {
      "jour": 25,
-     "brique": "小",
+     "brique": "白",
      "composes": [],
      "non_reconcilie": false
     },
     {
      "jour": 26,
-     "brique": "车",
+     "brique": "小",
      "composes": [],
      "non_reconcilie": false
     },
     {
      "jour": 27,
-     "brique": "方",
+     "brique": "车",
      "composes": [],
      "non_reconcilie": false
     },
     {
      "jour": 28,
-     "brique": "干",
+     "brique": "方",
      "composes": [],
      "non_reconcilie": false
     },
     {
      "jour": 29,
-     "brique": "衣",
+     "brique": "干",
      "composes": [],
      "non_reconcilie": false
     },
     {
      "jour": 30,
-     "brique": "雨",
+     "brique": "衣",
      "composes": [],
      "non_reconcilie": false
     },
     {
      "jour": 31,
-     "brique": "习",
+     "brique": "雨",
      "composes": [],
      "non_reconcilie": false
     },
     {
      "jour": 32,
-     "brique": "页",
+     "brique": "习",
      "composes": [],
      "non_reconcilie": false
     },
     {
      "jour": 33,
-     "brique": "水",
+     "brique": "页",
      "composes": [],
      "non_reconcilie": false
     },
     {
      "jour": 34,
-     "brique": "文",
+     "brique": "水",
      "composes": [],
      "non_reconcilie": false
     },
     {
      "jour": 35,
-     "brique": "中",
+     "brique": "文",
      "composes": [],
      "non_reconcilie": false
     },
     {
      "jour": 36,
-     "brique": "里",
+     "brique": "中",
      "composes": [],
      "non_reconcilie": false
     },
     {
      "jour": 37,
-     "brique": "天",
+     "brique": "里",
      "composes": [],
      "non_reconcilie": false
     },
     {
      "jour": 38,
-     "brique": "毛",
+     "brique": "天",
      "composes": [],
      "non_reconcilie": false
     },
     {
      "jour": 39,
-     "brique": "六",
+     "brique": "毛",
      "composes": [],
      "non_reconcilie": false
     },
     {
      "jour": 40,
-     "brique": "非",
+     "brique": "六",
      "composes": [],
      "non_reconcilie": false
     },
     {
      "jour": 41,
-     "brique": "高",
+     "brique": "非",
      "composes": [],
      "non_reconcilie": false
     },
     {
      "jour": 42,
-     "brique": "今",
+     "brique": "高",
      "composes": [],
      "non_reconcilie": false
     },
     {
      "jour": 43,
-     "brique": "见",
+     "brique": "今",
      "composes": [],
      "non_reconcilie": false
     },
@@ -1145,15 +1153,6 @@
     },
     {
      "jour": 89,
-     "brique": "土",
-     "composes": [
-      "地",
-      "坏"
-     ],
-     "non_reconcilie": false
-    },
-    {
-     "jour": 90,
      "brique": "亻",
      "composes": [
       "们",
@@ -1162,7 +1161,7 @@
      "non_reconcilie": false
     },
     {
-     "jour": 91,
+     "jour": 90,
      "brique": "木",
      "composes": [
       "杯",
@@ -1171,11 +1170,20 @@
      "non_reconcilie": false
     },
     {
-     "jour": 92,
+     "jour": 91,
      "brique": "讠",
      "composes": [
       "课",
       "楼"
+     ],
+     "non_reconcilie": false
+    },
+    {
+     "jour": 92,
+     "brique": "土",
+     "composes": [
+      "地",
+      "坏"
      ],
      "non_reconcilie": false
     },
@@ -1208,24 +1216,6 @@
     },
     {
      "jour": 96,
-     "brique": "丷",
-     "composes": [
-      "关",
-      "树"
-     ],
-     "non_reconcilie": false
-    },
-    {
-     "jour": 97,
-     "brique": "夕",
-     "composes": [
-      "多",
-      "名"
-     ],
-     "non_reconcilie": false
-    },
-    {
-     "jour": 98,
      "brique": "氵",
      "composes": [
       "汉",
@@ -1234,7 +1224,61 @@
      "non_reconcilie": false
     },
     {
+     "jour": 97,
+     "brique": "丷",
+     "composes": [
+      "关",
+      "树"
+     ],
+     "non_reconcilie": false
+    },
+    {
+     "jour": 98,
+     "brique": "⺮",
+     "composes": [
+      "答",
+      "等"
+     ],
+     "non_reconcilie": false
+    },
+    {
      "jour": 99,
+     "brique": "夕",
+     "composes": [
+      "第",
+      "多"
+     ],
+     "non_reconcilie": false
+    },
+    {
+     "jour": 100,
+     "brique": "阝",
+     "composes": [
+      "名",
+      "哪"
+     ],
+     "non_reconcilie": false
+    },
+    {
+     "jour": 101,
+     "brique": "宀",
+     "composes": [
+      "那",
+      "说"
+     ],
+     "non_reconcilie": false
+    },
+    {
+     "jour": 102,
+     "brique": "夂",
+     "composes": [
+      "客",
+      "路"
+     ],
+     "non_reconcilie": false
+    },
+    {
+     "jour": 103,
      "brique": "匕",
      "composes": [
       "北",
@@ -1243,7 +1287,7 @@
      "non_reconcilie": false
     },
     {
-     "jour": 100,
+     "jour": 104,
      "brique": "艹",
      "composes": [
       "茶",
@@ -1252,7 +1296,7 @@
      "non_reconcilie": false
     },
     {
-     "jour": 101,
+     "jour": 105,
      "brique": "隹",
      "composes": [
       "难",
@@ -1261,34 +1305,16 @@
      "non_reconcilie": false
     },
     {
-     "jour": 102,
-     "brique": "夂",
-     "composes": [
-      "路",
-      "说"
-     ],
-     "non_reconcilie": false
-    },
-    {
-     "jour": 103,
-     "brique": "宀",
-     "composes": [
-      "客",
-      "送"
-     ],
-     "non_reconcilie": false
-    },
-    {
-     "jour": 104,
+     "jour": 106,
      "brique": "王",
      "composes": [
-      "岁",
-      "他"
+      "送",
+      "岁"
      ],
      "non_reconcilie": false
     },
     {
-     "jour": 105,
+     "jour": 107,
      "brique": "刂",
      "composes": [
       "班",
@@ -1297,7 +1323,16 @@
      "non_reconcilie": false
     },
     {
-     "jour": 106,
+     "jour": 108,
+     "brique": "勹",
+     "composes": [
+      "喝",
+      "渴"
+     ],
+     "non_reconcilie": false
+    },
+    {
+     "jour": 109,
      "brique": "力",
      "composes": [
       "边",
@@ -1306,7 +1341,7 @@
      "non_reconcilie": false
     },
     {
-     "jour": 107,
+     "jour": 110,
      "brique": "田",
      "composes": [
       "备",
@@ -1315,97 +1350,43 @@
      "non_reconcilie": false
     },
     {
-     "jour": 108,
+     "jour": 111,
      "brique": "止",
      "composes": [
-      "体",
-      "条"
-     ],
-     "non_reconcilie": false
-    },
-    {
-     "jour": 109,
-     "brique": "攵",
-     "composes": [
-      "放",
-      "玩"
-     ],
-     "non_reconcilie": false
-    },
-    {
-     "jour": 110,
-     "brique": "羊",
-     "composes": [
-      "差",
-      "喜"
-     ],
-     "non_reconcilie": false
-    },
-    {
-     "jour": 111,
-     "brique": "目",
-     "composes": [
-      "看",
-      "现"
+      "他",
+      "体"
      ],
      "non_reconcilie": false
     },
     {
      "jour": 112,
-     "brique": "云",
+     "brique": "攵",
      "composes": [
-      "动",
-      "会"
+      "放",
+      "条"
      ],
      "non_reconcilie": false
     },
     {
      "jour": 113,
-     "brique": "己",
+     "brique": "羊",
      "composes": [
-      "记",
-      "起"
+      "差",
+      "玩"
      ],
      "non_reconcilie": false
     },
     {
      "jour": 114,
-     "brique": "乍",
+     "brique": "目",
      "composes": [
-      "些",
-      "谢"
+      "看",
+      "洗"
      ],
      "non_reconcilie": false
     },
     {
      "jour": 115,
-     "brique": "心",
-     "composes": [
-      "想",
-      "休"
-     ],
-     "non_reconcilie": false
-    },
-    {
-     "jour": 116,
-     "brique": "⺈",
-     "composes": [
-      "你",
-      "您"
-     ],
-     "non_reconcilie": false
-    },
-    {
-     "jour": 117,
-     "brique": "阝",
-     "composes": [
-      "样",
-      "友"
-     ],
-     "non_reconcilie": false
-    },
-    {
-     "jour": 118,
      "brique": "耂",
      "composes": [
       "都",
@@ -1414,723 +1395,7 @@
      "non_reconcilie": false
     },
     {
-     "jour": 119,
-     "brique": "丂",
-     "composes": [
-      "号",
-      "考"
-     ],
-     "non_reconcilie": false
-    },
-    {
-     "jour": 120,
-     "brique": "乂",
-     "composes": [
-      "校",
-      "语"
-     ],
-     "non_reconcilie": false
-    },
-    {
-     "jour": 121,
-     "brique": "立",
-     "composes": [
-      "旁",
-      "远"
-     ],
-     "non_reconcilie": false
-    },
-    {
-     "jour": 122,
-     "brique": "⺊",
-     "composes": [
-      "院",
-      "怎"
-     ],
-     "non_reconcilie": false
-    },
-    {
-     "jour": 123,
-     "brique": "广",
-     "composes": [
-      "床",
-      "店"
-     ],
-     "non_reconcilie": false
-    },
-    {
-     "jour": 124,
-     "brique": "斤",
-     "composes": [
-      "听",
-      "新"
-     ],
-     "non_reconcilie": false
-    },
-    {
-     "jour": 125,
-     "brique": "灬",
-     "composes": [
-      "点",
-      "站"
-     ],
-     "non_reconcilie": false
-    },
-    {
-     "jour": 126,
-     "brique": "禾",
-     "composes": [
-      "和",
-      "这"
-     ],
-     "non_reconcilie": false
-    },
-    {
-     "jour": 127,
-     "brique": "纟",
-     "composes": [
-      "给",
-      "着"
-     ],
-     "non_reconcilie": false
-    },
-    {
-     "jour": 128,
-     "brique": "刀",
-     "composes": [
-      "分",
-      "绍"
-     ],
-     "non_reconcilie": false
-    },
-    {
-     "jour": 129,
-     "brique": "贝",
-     "composes": [
-      "贵",
-      "桌"
-     ],
-     "non_reconcilie": false
-    },
-    {
-     "jour": 130,
-     "brique": "巾",
-     "composes": [
-      "师",
-      "字"
-     ],
-     "non_reconcilie": false
-    },
-    {
-     "jour": 131,
-     "brique": "囗",
-     "composes": [
-      "回",
-      "走"
-     ],
-     "non_reconcilie": false
-    },
-    {
-     "jour": 132,
-     "brique": "尸",
-     "composes": [
-      "呢",
-      "昨"
-     ],
-     "non_reconcilie": false
-    },
-    {
-     "jour": 133,
-     "brique": "冂",
-     "composes": [
-      "网",
-      "作"
-     ],
-     "non_reconcilie": false
-    },
-    {
-     "jour": 134,
-     "brique": "亠",
-     "composes": [
-      "商",
-      "坐"
-     ],
-     "non_reconcilie": false
-    },
-    {
-     "jour": 135,
-     "brique": "厶",
-     "composes": [
-      "能",
-      "做"
-     ],
-     "non_reconcilie": false
-    },
-    {
-     "jour": 136,
-     "brique": "丁",
-     "composes": [
-      "哥"
-     ],
-     "non_reconcilie": false
-    },
-    {
-     "jour": 137,
-     "brique": "欠",
-     "composes": [
-      "歌",
-      "欢"
-     ],
-     "non_reconcilie": false
-    },
-    {
-     "jour": 138,
-     "brique": "彳",
-     "composes": [
-      "得",
-      "行"
-     ],
-     "non_reconcilie": false
-    },
-    {
-     "jour": 139,
-     "brique": "艮",
-     "composes": [
-      "跟",
-      "很"
-     ],
-     "non_reconcilie": false
-    },
-    {
-     "jour": 140,
-     "brique": "冫",
-     "composes": [
-      "次",
-      "准"
-     ],
-     "non_reconcilie": false
-    },
-    {
-     "jour": 141,
-     "brique": "扌",
-     "composes": [
-      "打"
-     ],
-     "non_reconcilie": false
-    },
-    {
-     "jour": 142,
-     "brique": "戈",
-     "composes": [
-      "找"
-     ],
-     "non_reconcilie": false
-    },
-    {
-     "jour": 143,
-     "brique": "爫",
-     "composes": [
-      "菜"
-     ],
-     "non_reconcilie": false
-    },
-    {
-     "jour": 144,
-     "brique": "冖",
-     "composes": [
-      "爱"
-     ],
-     "non_reconcilie": false
-    },
-    {
-     "jour": 145,
-     "brique": "耳",
-     "composes": [
-      "最"
-     ],
-     "non_reconcilie": false
-    },
-    {
-     "jour": 146,
-     "brique": "⺌",
-     "composes": [
-      "常"
-     ],
-     "non_reconcilie": false
-    },
-    {
-     "jour": 147,
-     "brique": "彡",
-     "composes": [
-      "影"
-     ],
-     "non_reconcilie": false
-    },
-    {
-     "jour": 148,
-     "brique": "凵",
-     "composes": [
-      "脑"
-     ],
-     "non_reconcilie": false
-    },
-    {
-     "jour": 149,
-     "brique": "户",
-     "composes": [
-      "房"
-     ],
-     "non_reconcilie": false
-    },
-    {
-     "jour": 150,
-     "brique": "鸟",
-     "composes": [
-      "鸡"
-     ],
-     "non_reconcilie": false
-    },
-    {
-     "jour": 151,
-     "brique": "龶",
-     "composes": [
-      "请"
-     ],
-     "non_reconcilie": false
-    },
-    {
-     "jour": 152,
-     "brique": "殳",
-     "composes": [
-      "没"
-     ],
-     "non_reconcilie": false
-    },
-    {
-     "jour": 153,
-     "brique": "豕",
-     "composes": [
-      "家"
-     ],
-     "non_reconcilie": false
-    },
-    {
-     "jour": 154,
-     "brique": "丰",
-     "composes": [
-      "帮"
-     ],
-     "non_reconcilie": false
-    },
-    {
-     "jour": 155,
-     "brique": "糸",
-     "composes": [
-      "累"
-     ],
-     "non_reconcilie": false
-    },
-    {
-     "jour": 156,
-     "brique": "矢",
-     "composes": [
-      "知"
-     ],
-     "non_reconcilie": false
-    },
-    {
-     "jour": 157,
-     "brique": "厂",
-     "composes": [
-      "候"
-     ],
-     "non_reconcilie": false
-    },
-    {
-     "jour": 158,
-     "brique": "饣",
-     "composes": [
-      "饿",
-      "饭"
-     ],
-     "non_reconcilie": false
-    },
-    {
-     "jour": 159,
-     "brique": "勿",
-     "composes": [
-      "场"
-     ],
-     "non_reconcilie": false
-    },
-    {
-     "jour": 160,
-     "brique": "丿",
-     "composes": [
-      "系"
-     ],
-     "non_reconcilie": false
-    },
-    {
-     "jour": 161,
-     "brique": "覀",
-     "composes": [
-      "要"
-     ],
-     "non_reconcilie": false
-    },
-    {
-     "jour": 162,
-     "brique": "示",
-     "composes": [
-      "票"
-     ],
-     "non_reconcilie": false
-    },
-    {
-     "jour": 163,
-     "brique": "礻",
-     "composes": [
-      "视"
-     ],
-     "non_reconcilie": false
-    },
-    {
-     "jour": 164,
-     "brique": "凡",
-     "composes": [
-      "同"
-     ],
-     "non_reconcilie": false
-    },
-    {
-     "jour": 165,
-     "brique": "且",
-     "composes": [
-      "姐"
-     ],
-     "non_reconcilie": false
-    },
-    {
-     "jour": 166,
-     "brique": "卩",
-     "composes": [
-      "服"
-     ],
-     "non_reconcilie": false
-    },
-    {
-     "jour": 167,
-     "brique": "自",
-     "composes": [
-      "息"
-     ],
-     "non_reconcilie": false
-    },
-    {
-     "jour": 168,
-     "brique": "亡",
-     "composes": [
-      "忘"
-     ],
-     "non_reconcilie": false
-    },
-    {
-     "jour": 169,
-     "brique": "忄",
-     "composes": [
-      "忙"
-     ],
-     "non_reconcilie": false
-    },
-    {
-     "jour": 170,
-     "brique": "夬",
-     "composes": [
-      "块",
-      "快"
-     ],
-     "non_reconcilie": false
-    },
-    {
-     "jour": 171,
-     "brique": "罒",
-     "composes": [
-      "慢"
-     ],
-     "non_reconcilie": false
-    },
-    {
-     "jour": 172,
-     "brique": "巴",
-     "composes": [
-      "吧"
-     ],
-     "non_reconcilie": false
-    },
-    {
-     "jour": 173,
-     "brique": "父",
-     "composes": [
-      "爸",
-      "爷"
-     ],
-     "non_reconcilie": false
-    },
-    {
-     "jour": 174,
-     "brique": "㠯",
-     "composes": [
-      "馆"
-     ],
-     "non_reconcilie": false
-    },
-    {
-     "jour": 175,
-     "brique": "井",
-     "composes": [
-      "进"
-     ],
-     "non_reconcilie": false
-    },
-    {
-     "jour": 176,
-     "brique": "弋",
-     "composes": [
-      "试"
-     ],
-     "non_reconcilie": false
-    },
-    {
-     "jour": 177,
-     "brique": "卜",
-     "composes": [
-      "外"
-     ],
-     "non_reconcilie": false
-    },
-    {
-     "jour": 178,
-     "brique": "丸",
-     "composes": [
-      "热"
-     ],
-     "non_reconcilie": false
-    },
-    {
-     "jour": 179,
-     "brique": "至",
-     "composes": [
-      "到"
-     ],
-     "non_reconcilie": false
-    },
-    {
-     "jour": 180,
-     "brique": "舌",
-     "composes": [
-      "话"
-     ],
-     "non_reconcilie": false
-    },
-    {
-     "jour": 181,
-     "brique": "⺀",
-     "composes": [
-      "图"
-     ],
-     "non_reconcilie": false
-    },
-    {
-     "jour": 182,
-     "brique": "玉",
-     "composes": [
-      "国"
-     ],
-     "non_reconcilie": false
-    },
-    {
-     "jour": 183,
-     "brique": "直",
-     "composes": [
-      "真"
-     ],
-     "non_reconcilie": false
-    },
-    {
-     "jour": 184,
-     "brique": "乃",
-     "composes": [
-      "奶"
-     ],
-     "non_reconcilie": false
-    },
-    {
-     "jour": 185,
-     "brique": "免",
-     "composes": [
-      "晚"
-     ],
-     "non_reconcilie": false
-    },
-    {
-     "jour": 186,
-     "brique": "其",
-     "composes": [
-      "期"
-     ],
-     "non_reconcilie": false
-    },
-    {
-     "jour": 187,
-     "brique": "亥",
-     "composes": [
-      "孩"
-     ],
-     "non_reconcilie": false
-    },
-    {
-     "jour": 188,
-     "brique": "勺",
-     "composes": [
-      "的"
-     ],
-     "non_reconcilie": false
-    },
-    {
-     "jour": 189,
-     "brique": "尤",
-     "composes": [
-      "就"
-     ],
-     "non_reconcilie": false
-    },
-    {
-     "jour": 190,
-     "brique": "主",
-     "composes": [
-      "住"
-     ],
-     "non_reconcilie": false
-    },
-    {
-     "jour": 191,
-     "brique": "才",
-     "composes": [
-      "在"
-     ],
-     "non_reconcilie": false
-    },
-    {
-     "jour": 192,
-     "brique": "曰",
-     "composes": [
-      "唱"
-     ],
-     "non_reconcilie": false
-    },
-    {
-     "jour": 193,
-     "brique": "叚",
-     "composes": [
-      "假"
-     ],
-     "non_reconcilie": false
-    },
-    {
-     "jour": 194,
-     "brique": "未",
-     "composes": [
-      "妹"
-     ],
-     "non_reconcilie": false
-    },
-    {
-     "jour": 195,
-     "brique": "争",
-     "composes": [
-      "净"
-     ],
-     "non_reconcilie": false
-    },
-    {
-     "jour": 196,
-     "brique": "垂",
-     "composes": [
-      "睡"
-     ],
-     "non_reconcilie": false
-    },
-    {
-     "jour": 197,
-     "brique": "丩",
-     "composes": [
-      "叫"
-     ],
-     "non_reconcilie": false
-    },
-    {
-     "jour": 198,
-     "brique": "求",
-     "composes": [
-      "球"
-     ],
-     "non_reconcilie": false
-    },
-    {
-     "jour": 199,
-     "brique": "斥",
-     "composes": [
-      "诉"
-     ],
-     "non_reconcilie": false
-    },
-    {
-     "jour": 200,
-     "brique": "首",
-     "composes": [
-      "道"
-     ],
-     "non_reconcilie": false
-    },
-    {
-     "jour": 201,
-     "brique": "与",
-     "composes": [
-      "写"
-     ],
-     "non_reconcilie": false
-    },
-    {
-     "jour": 202,
-     "brique": "钅",
-     "composes": [],
-     "non_reconcilie": false
-    },
-    {
-     "jour": 203,
-     "brique": "廿",
-     "composes": [
-      "错"
-     ],
-     "non_reconcilie": false
-    },
-    {
-     "jour": 204,
-     "brique": "戋",
-     "composes": [
-      "钱"
-     ],
-     "non_reconcilie": false
-    },
-    {
-     "jour": 205,
-     "brique": "勹",
-     "composes": [],
-     "non_reconcilie": false
-    },
-    {
-     "jour": 206,
+     "jour": 116,
      "brique": "巳",
      "composes": [
       "包",
@@ -2139,37 +1404,794 @@
      "non_reconcilie": false
     },
     {
+     "jour": 117,
+     "brique": "云",
+     "composes": [
+      "动",
+      "会"
+     ],
+     "non_reconcilie": false
+    },
+    {
+     "jour": 118,
+     "brique": "丂",
+     "composes": [
+      "号",
+      "考"
+     ],
+     "non_reconcilie": false
+    },
+    {
+     "jour": 119,
+     "brique": "己",
+     "composes": [
+      "记",
+      "起"
+     ],
+     "non_reconcilie": false
+    },
+    {
+     "jour": 120,
+     "brique": "乍",
+     "composes": [
+      "现",
+      "些"
+     ],
+     "non_reconcilie": false
+    },
+    {
+     "jour": 121,
+     "brique": "心",
+     "composes": [
+      "想",
+      "谢"
+     ],
+     "non_reconcilie": false
+    },
+    {
+     "jour": 122,
+     "brique": "⺈",
+     "composes": [
+      "你",
+      "您"
+     ],
+     "non_reconcilie": false
+    },
+    {
+     "jour": 123,
+     "brique": "丨",
+     "composes": [
+      "休",
+      "样"
+     ],
+     "non_reconcilie": false
+    },
+    {
+     "jour": 124,
+     "brique": "丶",
+     "composes": [
+      "零",
+      "友"
+     ],
+     "non_reconcilie": false
+    },
+    {
+     "jour": 125,
+     "brique": "冫",
+     "composes": [
+      "冷",
+      "语"
+     ],
+     "non_reconcilie": false
+    },
+    {
+     "jour": 126,
+     "brique": "欠",
+     "composes": [
+      "次",
+      "欢"
+     ],
+     "non_reconcilie": false
+    },
+    {
+     "jour": 127,
+     "brique": "丁",
+     "composes": [
+      "哥",
+      "歌"
+     ],
+     "non_reconcilie": false
+    },
+    {
+     "jour": 128,
+     "brique": "彳",
+     "composes": [
+      "得",
+      "行"
+     ],
+     "non_reconcilie": false
+    },
+    {
+     "jour": 129,
+     "brique": "艮",
+     "composes": [
+      "跟",
+      "很"
+     ],
+     "non_reconcilie": false
+    },
+    {
+     "jour": 130,
+     "brique": "扌",
+     "composes": [
+      "打",
+      "远"
+     ],
+     "non_reconcilie": false
+    },
+    {
+     "jour": 131,
+     "brique": "厶",
+     "composes": [
+      "能",
+      "院"
+     ],
+     "non_reconcilie": false
+    },
+    {
+     "jour": 132,
+     "brique": "乂",
+     "composes": [
+      "校",
+      "在"
+     ],
+     "non_reconcilie": false
+    },
+    {
+     "jour": 133,
+     "brique": "立",
+     "composes": [
+      "旁",
+      "怎"
+     ],
+     "non_reconcilie": false
+    },
+    {
+     "jour": 134,
+     "brique": "⺊",
+     "composes": [
+      "站",
+      "这"
+     ],
+     "non_reconcilie": false
+    },
+    {
+     "jour": 135,
+     "brique": "广",
+     "composes": [
+      "床",
+      "店"
+     ],
+     "non_reconcilie": false
+    },
+    {
+     "jour": 136,
+     "brique": "斤",
+     "composes": [
+      "听",
+      "新"
+     ],
+     "non_reconcilie": false
+    },
+    {
+     "jour": 137,
+     "brique": "灬",
+     "composes": [
+      "点",
+      "着"
+     ],
+     "non_reconcilie": false
+    },
+    {
+     "jour": 138,
+     "brique": "禾",
+     "composes": [
+      "和",
+      "准"
+     ],
+     "non_reconcilie": false
+    },
+    {
+     "jour": 139,
+     "brique": "纟",
+     "composes": [
+      "给",
+      "桌"
+     ],
+     "non_reconcilie": false
+    },
+    {
+     "jour": 140,
+     "brique": "刀",
+     "composes": [
+      "分",
+      "绍"
+     ],
+     "non_reconcilie": false
+    },
+    {
+     "jour": 141,
+     "brique": "贝",
+     "composes": [
+      "贵",
+      "字"
+     ],
+     "non_reconcilie": false
+    },
+    {
+     "jour": 142,
+     "brique": "巾",
+     "composes": [
+      "师",
+      "走"
+     ],
+     "non_reconcilie": false
+    },
+    {
+     "jour": 143,
+     "brique": "囗",
+     "composes": [
+      "回",
+      "昨"
+     ],
+     "non_reconcilie": false
+    },
+    {
+     "jour": 144,
+     "brique": "尸",
+     "composes": [
+      "呢",
+      "作"
+     ],
+     "non_reconcilie": false
+    },
+    {
+     "jour": 145,
+     "brique": "冂",
+     "composes": [
+      "网",
+      "坐"
+     ],
+     "non_reconcilie": false
+    },
+    {
+     "jour": 146,
+     "brique": "亠",
+     "composes": [
+      "商",
+      "做"
+     ],
+     "non_reconcilie": false
+    },
+    {
+     "jour": 147,
+     "brique": "戈",
+     "composes": [
+      "找"
+     ],
+     "non_reconcilie": false
+    },
+    {
+     "jour": 148,
+     "brique": "爫",
+     "composes": [
+      "菜"
+     ],
+     "non_reconcilie": false
+    },
+    {
+     "jour": 149,
+     "brique": "冖",
+     "composes": [
+      "爱"
+     ],
+     "non_reconcilie": false
+    },
+    {
+     "jour": 150,
+     "brique": "士",
+     "composes": [
+      "喜"
+     ],
+     "non_reconcilie": false
+    },
+    {
+     "jour": 151,
+     "brique": "耳",
+     "composes": [
+      "最"
+     ],
+     "non_reconcilie": false
+    },
+    {
+     "jour": 152,
+     "brique": "⺌",
+     "composes": [
+      "常"
+     ],
+     "non_reconcilie": false
+    },
+    {
+     "jour": 153,
+     "brique": "彡",
+     "composes": [
+      "影"
+     ],
+     "non_reconcilie": false
+    },
+    {
+     "jour": 154,
+     "brique": "凵",
+     "composes": [
+      "脑"
+     ],
+     "non_reconcilie": false
+    },
+    {
+     "jour": 155,
+     "brique": "户",
+     "composes": [
+      "房"
+     ],
+     "non_reconcilie": false
+    },
+    {
+     "jour": 156,
+     "brique": "鸟",
+     "composes": [
+      "鸡"
+     ],
+     "non_reconcilie": false
+    },
+    {
+     "jour": 157,
+     "brique": "龶",
+     "composes": [
+      "请"
+     ],
+     "non_reconcilie": false
+    },
+    {
+     "jour": 158,
+     "brique": "殳",
+     "composes": [
+      "没"
+     ],
+     "non_reconcilie": false
+    },
+    {
+     "jour": 159,
+     "brique": "豕",
+     "composes": [
+      "家"
+     ],
+     "non_reconcilie": false
+    },
+    {
+     "jour": 160,
+     "brique": "丰",
+     "composes": [
+      "帮"
+     ],
+     "non_reconcilie": false
+    },
+    {
+     "jour": 161,
+     "brique": "糸",
+     "composes": [
+      "累"
+     ],
+     "non_reconcilie": false
+    },
+    {
+     "jour": 162,
+     "brique": "丿",
+     "composes": [
+      "系"
+     ],
+     "non_reconcilie": false
+    },
+    {
+     "jour": 163,
+     "brique": "矢",
+     "composes": [
+      "知"
+     ],
+     "non_reconcilie": false
+    },
+    {
+     "jour": 164,
+     "brique": "厂",
+     "composes": [
+      "候"
+     ],
+     "non_reconcilie": false
+    },
+    {
+     "jour": 165,
+     "brique": "饣",
+     "composes": [
+      "饿",
+      "饭"
+     ],
+     "non_reconcilie": false
+    },
+    {
+     "jour": 166,
+     "brique": "匚",
+     "composes": [
+      "医"
+     ],
+     "non_reconcilie": false
+    },
+    {
+     "jour": 167,
+     "brique": "勿",
+     "composes": [
+      "场"
+     ],
+     "non_reconcilie": false
+    },
+    {
+     "jour": 168,
+     "brique": "覀",
+     "composes": [
+      "要"
+     ],
+     "non_reconcilie": false
+    },
+    {
+     "jour": 169,
+     "brique": "示",
+     "composes": [
+      "票"
+     ],
+     "non_reconcilie": false
+    },
+    {
+     "jour": 170,
+     "brique": "礻",
+     "composes": [
+      "视"
+     ],
+     "non_reconcilie": false
+    },
+    {
+     "jour": 171,
+     "brique": "凡",
+     "composes": [
+      "同"
+     ],
+     "non_reconcilie": false
+    },
+    {
+     "jour": 172,
+     "brique": "且",
+     "composes": [
+      "姐"
+     ],
+     "non_reconcilie": false
+    },
+    {
+     "jour": 173,
+     "brique": "卩",
+     "composes": [
+      "服"
+     ],
+     "non_reconcilie": false
+    },
+    {
+     "jour": 174,
+     "brique": "自",
+     "composes": [
+      "息"
+     ],
+     "non_reconcilie": false
+    },
+    {
+     "jour": 175,
+     "brique": "亡",
+     "composes": [
+      "忘"
+     ],
+     "non_reconcilie": false
+    },
+    {
+     "jour": 176,
+     "brique": "忄",
+     "composes": [
+      "忙"
+     ],
+     "non_reconcilie": false
+    },
+    {
+     "jour": 177,
+     "brique": "夬",
+     "composes": [
+      "块",
+      "快"
+     ],
+     "non_reconcilie": false
+    },
+    {
+     "jour": 178,
+     "brique": "罒",
+     "composes": [
+      "慢"
+     ],
+     "non_reconcilie": false
+    },
+    {
+     "jour": 179,
+     "brique": "巴",
+     "composes": [
+      "吧"
+     ],
+     "non_reconcilie": false
+    },
+    {
+     "jour": 180,
+     "brique": "父",
+     "composes": [
+      "爸",
+      "爷"
+     ],
+     "non_reconcilie": false
+    },
+    {
+     "jour": 181,
+     "brique": "㠯",
+     "composes": [
+      "馆"
+     ],
+     "non_reconcilie": false
+    },
+    {
+     "jour": 182,
+     "brique": "井",
+     "composes": [
+      "进"
+     ],
+     "non_reconcilie": false
+    },
+    {
+     "jour": 183,
+     "brique": "弋",
+     "composes": [
+      "试"
+     ],
+     "non_reconcilie": false
+    },
+    {
+     "jour": 184,
+     "brique": "卜",
+     "composes": [
+      "外"
+     ],
+     "non_reconcilie": false
+    },
+    {
+     "jour": 185,
+     "brique": "夭",
+     "composes": [
+      "笑"
+     ],
+     "non_reconcilie": false
+    },
+    {
+     "jour": 186,
+     "brique": "丸",
+     "composes": [
+      "热"
+     ],
+     "non_reconcilie": false
+    },
+    {
+     "jour": 187,
+     "brique": "至",
+     "composes": [
+      "到"
+     ],
+     "non_reconcilie": false
+    },
+    {
+     "jour": 188,
+     "brique": "舌",
+     "composes": [
+      "话"
+     ],
+     "non_reconcilie": false
+    },
+    {
+     "jour": 189,
+     "brique": "⺀",
+     "composes": [
+      "图"
+     ],
+     "non_reconcilie": false
+    },
+    {
+     "jour": 190,
+     "brique": "玉",
+     "composes": [
+      "国"
+     ],
+     "non_reconcilie": false
+    },
+    {
+     "jour": 191,
+     "brique": "直",
+     "composes": [
+      "真"
+     ],
+     "non_reconcilie": false
+    },
+    {
+     "jour": 192,
+     "brique": "乙",
+     "composes": [
+      "吃"
+     ],
+     "non_reconcilie": false
+    },
+    {
+     "jour": 193,
+     "brique": "乃",
+     "composes": [
+      "奶"
+     ],
+     "non_reconcilie": false
+    },
+    {
+     "jour": 194,
+     "brique": "免",
+     "composes": [
+      "晚"
+     ],
+     "non_reconcilie": false
+    },
+    {
+     "jour": 195,
+     "brique": "其",
+     "composes": [
+      "期"
+     ],
+     "non_reconcilie": false
+    },
+    {
+     "jour": 196,
+     "brique": "亥",
+     "composes": [
+      "孩"
+     ],
+     "non_reconcilie": false
+    },
+    {
+     "jour": 197,
+     "brique": "勺",
+     "composes": [
+      "的"
+     ],
+     "non_reconcilie": false
+    },
+    {
+     "jour": 198,
+     "brique": "尤",
+     "composes": [
+      "就"
+     ],
+     "non_reconcilie": false
+    },
+    {
+     "jour": 199,
+     "brique": "主",
+     "composes": [
+      "住"
+     ],
+     "non_reconcilie": false
+    },
+    {
+     "jour": 200,
+     "brique": "曰",
+     "composes": [
+      "唱"
+     ],
+     "non_reconcilie": false
+    },
+    {
+     "jour": 201,
+     "brique": "叚",
+     "composes": [
+      "假"
+     ],
+     "non_reconcilie": false
+    },
+    {
+     "jour": 202,
+     "brique": "未",
+     "composes": [
+      "妹"
+     ],
+     "non_reconcilie": false
+    },
+    {
+     "jour": 203,
+     "brique": "争",
+     "composes": [
+      "净"
+     ],
+     "non_reconcilie": false
+    },
+    {
+     "jour": 204,
+     "brique": "垂",
+     "composes": [
+      "睡"
+     ],
+     "non_reconcilie": false
+    },
+    {
+     "jour": 205,
+     "brique": "丩",
+     "composes": [
+      "叫"
+     ],
+     "non_reconcilie": false
+    },
+    {
+     "jour": 206,
+     "brique": "求",
+     "composes": [
+      "球"
+     ],
+     "non_reconcilie": false
+    },
+    {
      "jour": 207,
-     "brique": "疒",
-     "composes": [],
+     "brique": "斥",
+     "composes": [
+      "诉"
+     ],
      "non_reconcilie": false
     },
     {
      "jour": 208,
-     "brique": "丙",
+     "brique": "首",
      "composes": [
-      "病"
+      "道"
      ],
      "non_reconcilie": false
     },
     {
      "jour": 209,
-     "brique": "穴",
-     "composes": [],
+     "brique": "与",
+     "composes": [
+      "写"
+     ],
      "non_reconcilie": false
     },
     {
      "jour": 210,
-     "brique": "牙",
-     "composes": [
-      "穿"
-     ],
+     "brique": "虫",
+     "composes": [],
      "non_reconcilie": false
     },
     {
      "jour": 211,
      "brique": "乛",
-     "composes": [],
+     "composes": [
+      "蛋"
+     ],
      "non_reconcilie": false
     },
     {
@@ -2183,91 +2205,59 @@
     },
     {
      "jour": 213,
-     "brique": null,
-     "composes": [
-      "吃",
-      "答"
-     ],
-     "non_reconcilie": true
+     "brique": "钅",
+     "composes": [],
+     "non_reconcilie": false
     },
     {
      "jour": 214,
-     "brique": null,
+     "brique": "廿",
      "composes": [
-      "蛋",
-      "等"
+      "错"
      ],
-     "non_reconcilie": true
+     "non_reconcilie": false
     },
     {
      "jour": 215,
-     "brique": null,
+     "brique": "戋",
      "composes": [
-      "第",
-      "喝"
+      "钱"
      ],
-     "non_reconcilie": true
+     "non_reconcilie": false
     },
     {
      "jour": 216,
-     "brique": null,
-     "composes": [
-      "觉",
-      "介"
-     ],
-     "non_reconcilie": true
+     "brique": "疒",
+     "composes": [],
+     "non_reconcilie": false
     },
     {
      "jour": 217,
-     "brique": null,
+     "brique": "丙",
      "composes": [
-      "渴",
-      "冷"
+      "病"
      ],
-     "non_reconcilie": true
+     "non_reconcilie": false
     },
     {
      "jour": 218,
-     "brique": null,
-     "composes": [
-      "零",
-      "哪"
-     ],
-     "non_reconcilie": true
+     "brique": "穴",
+     "composes": [],
+     "non_reconcilie": false
     },
     {
      "jour": 219,
-     "brique": null,
+     "brique": "牙",
      "composes": [
-      "那",
-      "是"
+      "穿"
      ],
-     "non_reconcilie": true
+     "non_reconcilie": false
     },
     {
      "jour": 220,
      "brique": null,
      "composes": [
-      "洗",
-      "先"
-     ],
-     "non_reconcilie": true
-    },
-    {
-     "jour": 221,
-     "brique": null,
-     "composes": [
-      "笑",
       "兴"
-     ],
-     "non_reconcilie": true
-    },
-    {
-     "jour": 222,
-     "brique": null,
-     "composes": [
-      "学",
-      "医"
      ],
      "non_reconcilie": true
     }
@@ -2279,31 +2269,51 @@
    "jours": [
     {
      "jour": 1,
+     "brique": "人",
+     "composes": [],
+     "non_reconcilie": false
+    },
+    {
+     "jour": 2,
+     "brique": "大",
+     "composes": [],
+     "non_reconcilie": false
+    },
+    {
+     "jour": 3,
+     "brique": "天",
+     "composes": [],
+     "non_reconcilie": false
+    },
+    {
+     "jour": 4,
      "brique": "月",
      "composes": [
-      "朋",
+      "从",
+      "朋"
+     ],
+     "non_reconcilie": false
+    },
+    {
+     "jour": 5,
+     "brique": "日",
+     "composes": [
+      "明",
+      "以"
+     ],
+     "non_reconcilie": false
+    },
+    {
+     "jour": 6,
+     "brique": "一",
+     "composes": [
+      "是",
       "有"
      ],
      "non_reconcilie": false
     },
     {
-     "jour": 2,
-     "brique": "日",
-     "composes": [
-      "明"
-     ],
-     "non_reconcilie": false
-    },
-    {
-     "jour": 3,
-     "brique": "人",
-     "composes": [
-      "从"
-     ],
-     "non_reconcilie": false
-    },
-    {
-     "jour": 4,
+     "jour": 7,
      "brique": "十",
      "composes": [
       "早"
@@ -2311,7 +2321,7 @@
      "non_reconcilie": false
     },
     {
-     "jour": 5,
+     "jour": 8,
      "brique": "口",
      "composes": [
       "古"
@@ -2319,7 +2329,7 @@
      "non_reconcilie": false
     },
     {
-     "jour": 6,
+     "jour": 9,
      "brique": "门",
      "composes": [
       "间",
@@ -2328,7 +2338,7 @@
      "non_reconcilie": false
     },
     {
-     "jour": 7,
+     "jour": 10,
      "brique": "八",
      "composes": [
       "只"
@@ -2336,7 +2346,7 @@
      "non_reconcilie": false
     },
     {
-     "jour": 8,
+     "jour": 11,
      "brique": "又",
      "composes": [
       "友"
@@ -2344,7 +2354,7 @@
      "non_reconcilie": false
     },
     {
-     "jour": 9,
+     "jour": 12,
      "brique": "女",
      "composes": [
       "如"
@@ -2352,7 +2362,16 @@
      "non_reconcilie": false
     },
     {
-     "jour": 10,
+     "jour": 13,
+     "brique": "子",
+     "composes": [
+      "好",
+      "学"
+     ],
+     "non_reconcilie": false
+    },
+    {
+     "jour": 14,
      "brique": "生",
      "composes": [
       "星",
@@ -2361,15 +2380,15 @@
      "non_reconcilie": false
     },
     {
-     "jour": 11,
-     "brique": "子",
+     "jour": 15,
+     "brique": "儿",
      "composes": [
-      "好"
+      "先"
      ],
      "non_reconcilie": false
     },
     {
-     "jour": 12,
+     "jour": 16,
      "brique": "母",
      "composes": [
       "每"
@@ -2377,7 +2396,31 @@
      "non_reconcilie": false
     },
     {
-     "jour": 13,
+     "jour": 17,
+     "brique": "见",
+     "composes": [
+      "觉"
+     ],
+     "non_reconcilie": false
+    },
+    {
+     "jour": 18,
+     "brique": "王",
+     "composes": [
+      "现"
+     ],
+     "non_reconcilie": false
+    },
+    {
+     "jour": 19,
+     "brique": "二",
+     "composes": [
+      "玩"
+     ],
+     "non_reconcilie": false
+    },
+    {
+     "jour": 20,
      "brique": "其",
      "composes": [
       "期"
@@ -2385,7 +2428,7 @@
      "non_reconcilie": false
     },
     {
-     "jour": 14,
+     "jour": 21,
      "brique": "也",
      "composes": [
       "她"
@@ -2393,43 +2436,25 @@
      "non_reconcilie": false
     },
     {
-     "jour": 15,
-     "brique": "一",
-     "composes": [],
-     "non_reconcilie": false
-    },
-    {
-     "jour": 16,
-     "brique": "二",
-     "composes": [],
-     "non_reconcilie": false
-    },
-    {
-     "jour": 17,
-     "brique": "大",
-     "composes": [],
-     "non_reconcilie": false
-    },
-    {
-     "jour": 18,
+     "jour": 22,
      "brique": "火",
      "composes": [],
      "non_reconcilie": false
     },
     {
-     "jour": 19,
+     "jour": 23,
      "brique": "山",
      "composes": [],
      "non_reconcilie": false
     },
     {
-     "jour": 20,
+     "jour": 24,
      "brique": "心",
      "composes": [],
      "non_reconcilie": false
     },
     {
-     "jour": 21,
+     "jour": 25,
      "brique": "今",
      "composes": [
       "念"
@@ -2437,108 +2462,80 @@
      "non_reconcilie": false
     },
     {
-     "jour": 22,
-     "brique": "王",
-     "composes": [],
-     "non_reconcilie": false
-    },
-    {
-     "jour": 23,
-     "brique": "儿",
-     "composes": [
-      "玩"
-     ],
-     "non_reconcilie": false
-    },
-    {
-     "jour": 24,
-     "brique": "见",
-     "composes": [
-      "现"
-     ],
-     "non_reconcilie": false
-    },
-    {
-     "jour": 25,
+     "jour": 26,
      "brique": "工",
      "composes": [],
      "non_reconcilie": false
     },
     {
-     "jour": 26,
+     "jour": 27,
      "brique": "米",
      "composes": [],
      "non_reconcilie": false
     },
     {
-     "jour": 27,
+     "jour": 28,
      "brique": "几",
      "composes": [],
      "non_reconcilie": false
     },
     {
-     "jour": 28,
+     "jour": 29,
      "brique": "白",
      "composes": [],
      "non_reconcilie": false
     },
     {
-     "jour": 29,
+     "jour": 30,
      "brique": "小",
      "composes": [],
      "non_reconcilie": false
     },
     {
-     "jour": 30,
+     "jour": 31,
      "brique": "车",
      "composes": [],
      "non_reconcilie": false
     },
     {
-     "jour": 31,
+     "jour": 32,
      "brique": "方",
      "composes": [],
      "non_reconcilie": false
     },
     {
-     "jour": 32,
+     "jour": 33,
      "brique": "干",
      "composes": [],
      "non_reconcilie": false
     },
     {
-     "jour": 33,
+     "jour": 34,
      "brique": "雨",
      "composes": [],
      "non_reconcilie": false
     },
     {
-     "jour": 34,
+     "jour": 35,
      "brique": "水",
      "composes": [],
      "non_reconcilie": false
     },
     {
-     "jour": 35,
+     "jour": 36,
      "brique": "文",
      "composes": [],
      "non_reconcilie": false
     },
     {
-     "jour": 36,
+     "jour": 37,
      "brique": "中",
      "composes": [],
      "non_reconcilie": false
     },
     {
-     "jour": 37,
-     "brique": "里",
-     "composes": [],
-     "non_reconcilie": false
-    },
-    {
      "jour": 38,
-     "brique": "天",
+     "brique": "里",
      "composes": [],
      "non_reconcilie": false
     },
@@ -2865,33 +2862,24 @@
     },
     {
      "jour": 91,
-     "brique": "土",
+     "brique": "亻",
      "composes": [
-      "地",
-      "机"
+      "机",
+      "李"
      ],
      "non_reconcilie": false
     },
     {
      "jour": 92,
-     "brique": "亻",
+     "brique": "辶",
      "composes": [
-      "李",
+      "还",
       "们"
      ],
      "non_reconcilie": false
     },
     {
      "jour": 93,
-     "brique": "辶",
-     "composes": [
-      "还",
-      "汽"
-     ],
-     "non_reconcilie": false
-    },
-    {
-     "jour": 94,
      "brique": "寸",
      "composes": [
       "对",
@@ -2900,7 +2888,7 @@
      "non_reconcilie": false
     },
     {
-     "jour": 95,
+     "jour": 94,
      "brique": "夕",
      "composes": [
       "多",
@@ -2909,10 +2897,19 @@
      "non_reconcilie": false
     },
     {
-     "jour": 96,
+     "jour": 95,
      "brique": "乍",
      "composes": [
-      "认",
+      "汽",
+      "认"
+     ],
+     "non_reconcilie": false
+    },
+    {
+     "jour": 96,
+     "brique": "土",
+     "composes": [
+      "地",
       "什"
      ],
      "non_reconcilie": false
@@ -2946,6 +2943,15 @@
     },
     {
      "jour": 100,
+     "brique": "阝",
+     "composes": [
+      "哪",
+      "那"
+     ],
+     "non_reconcilie": false
+    },
+    {
+     "jour": 101,
      "brique": "隹",
      "composes": [
       "难",
@@ -2954,7 +2960,7 @@
      "non_reconcilie": false
     },
     {
-     "jour": 101,
+     "jour": 102,
      "brique": "立",
      "composes": [
       "亲",
@@ -2963,7 +2969,7 @@
      "non_reconcilie": false
     },
     {
-     "jour": 102,
+     "jour": 103,
      "brique": "斤",
      "composes": [
       "近",
@@ -2972,7 +2978,7 @@
      "non_reconcilie": false
     },
     {
-     "jour": 103,
+     "jour": 104,
      "brique": "丷",
      "composes": [
       "关",
@@ -2981,7 +2987,7 @@
      "non_reconcilie": false
     },
     {
-     "jour": 104,
+     "jour": 105,
      "brique": "纟",
      "composes": [
       "给",
@@ -2990,7 +2996,7 @@
      "non_reconcilie": false
     },
     {
-     "jour": 105,
+     "jour": 106,
      "brique": "⺈",
      "composes": [
       "你",
@@ -2999,7 +3005,7 @@
      "non_reconcilie": false
     },
     {
-     "jour": 106,
+     "jour": 107,
      "brique": "止",
      "composes": [
       "它",
@@ -3008,7 +3014,7 @@
      "non_reconcilie": false
     },
     {
-     "jour": 107,
+     "jour": 108,
      "brique": "囗",
      "composes": [
       "回",
@@ -3017,7 +3023,7 @@
      "non_reconcilie": false
     },
     {
-     "jour": 108,
+     "jour": 109,
      "brique": "丁",
      "composes": [
       "哥",
@@ -3026,16 +3032,16 @@
      "non_reconcilie": false
     },
     {
-     "jour": 109,
+     "jour": 110,
      "brique": "羊",
      "composes": [
       "美",
-      "喜"
+      "些"
      ],
      "non_reconcilie": false
     },
     {
-     "jour": 110,
+     "jour": 111,
      "brique": "马",
      "composes": [
       "妈",
@@ -3044,7 +3050,7 @@
      "non_reconcilie": false
     },
     {
-     "jour": 111,
+     "jour": 112,
      "brique": "巴",
      "composes": [
       "爸",
@@ -3053,7 +3059,7 @@
      "non_reconcilie": false
     },
     {
-     "jour": 112,
+     "jour": 113,
      "brique": "舌",
      "composes": [
       "话",
@@ -3062,34 +3068,43 @@
      "non_reconcilie": false
     },
     {
-     "jour": 113,
-     "brique": "目",
-     "composes": [
-      "想",
-      "些"
-     ],
-     "non_reconcilie": false
-    },
-    {
      "jour": 114,
-     "brique": "扌",
+     "brique": "丨",
      "composes": [
-      "打",
-      "新"
-     ],
-     "non_reconcilie": false
-    },
-    {
-     "jour": 115,
-     "brique": "田",
-     "composes": [
-      "思",
+      "新",
       "许"
      ],
      "non_reconcilie": false
     },
     {
+     "jour": 115,
+     "brique": "目",
+     "composes": [
+      "想",
+      "样"
+     ],
+     "non_reconcilie": false
+    },
+    {
      "jour": 116,
+     "brique": "扌",
+     "composes": [
+      "打",
+      "意"
+     ],
+     "non_reconcilie": false
+    },
+    {
+     "jour": 117,
+     "brique": "田",
+     "composes": [
+      "思",
+      "因"
+     ],
+     "non_reconcilie": false
+    },
+    {
+     "jour": 118,
      "brique": "力",
      "composes": [
       "边",
@@ -3098,7 +3113,7 @@
      "non_reconcilie": false
     },
     {
-     "jour": 117,
+     "jour": 119,
      "brique": "刂",
      "composes": [
       "别",
@@ -3107,25 +3122,34 @@
      "non_reconcilie": false
     },
     {
-     "jour": 118,
+     "jour": 120,
      "brique": "言",
      "composes": [
       "信",
-      "样"
+      "语"
      ],
      "non_reconcilie": false
     },
     {
-     "jour": 119,
+     "jour": 121,
+     "brique": "厶",
+     "composes": [
+      "能",
+      "远"
+     ],
+     "non_reconcilie": false
+    },
+    {
+     "jour": 122,
      "brique": "忄",
      "composes": [
       "懂",
-      "意"
+      "在"
      ],
      "non_reconcilie": false
     },
     {
-     "jour": 120,
+     "jour": 123,
      "brique": "夬",
      "composes": [
       "块",
@@ -3134,97 +3158,119 @@
      "non_reconcilie": false
     },
     {
-     "jour": 121,
-     "brique": "禾",
-     "composes": [
-      "和",
-      "因"
-     ],
-     "non_reconcilie": false
-    },
-    {
-     "jour": 122,
-     "brique": "贝",
-     "composes": [
-      "贵",
-      "语"
-     ],
-     "non_reconcilie": false
-    },
-    {
-     "jour": 123,
-     "brique": "巾",
-     "composes": [
-      "师",
-      "远"
-     ],
-     "non_reconcilie": false
-    },
-    {
      "jour": 124,
-     "brique": "尸",
+     "brique": "⺮",
      "composes": [
-      "呢",
-      "怎"
+      "笔",
+      "筷"
      ],
      "non_reconcilie": false
     },
     {
      "jour": 125,
-     "brique": "戈",
+     "brique": "禾",
      "composes": [
-      "城",
-      "这"
+      "和",
+      "怎"
      ],
      "non_reconcilie": false
     },
     {
      "jour": 126,
-     "brique": "爫",
+     "brique": "勹",
      "composes": [
-      "菜",
-      "字"
+      "喝",
+      "这"
      ],
      "non_reconcilie": false
     },
     {
      "jour": 127,
-     "brique": "冖",
+     "brique": "贝",
      "composes": [
-      "爱",
-      "走"
+      "贵",
+      "字"
      ],
      "non_reconcilie": false
     },
     {
      "jour": 128,
-     "brique": "彡",
+     "brique": "巾",
      "composes": [
-      "影",
-      "昨"
+      "师",
+      "走"
      ],
      "non_reconcilie": false
     },
     {
      "jour": 129,
-     "brique": "刀",
+     "brique": "尸",
      "composes": [
-      "分",
-      "坐"
+      "呢",
+      "昨"
      ],
      "non_reconcilie": false
     },
     {
      "jour": 130,
-     "brique": "欠",
+     "brique": "戈",
      "composes": [
-      "欢",
-      "作"
+      "城",
+      "坐"
      ],
      "non_reconcilie": false
     },
     {
      "jour": 131,
+     "brique": "爫",
+     "composes": [
+      "菜",
+      "作"
+     ],
+     "non_reconcilie": false
+    },
+    {
+     "jour": 132,
+     "brique": "冖",
+     "composes": [
+      "爱"
+     ],
+     "non_reconcilie": false
+    },
+    {
+     "jour": 133,
+     "brique": "士",
+     "composes": [
+      "喜"
+     ],
+     "non_reconcilie": false
+    },
+    {
+     "jour": 134,
+     "brique": "彡",
+     "composes": [
+      "影"
+     ],
+     "non_reconcilie": false
+    },
+    {
+     "jour": 135,
+     "brique": "刀",
+     "composes": [
+      "分"
+     ],
+     "non_reconcilie": false
+    },
+    {
+     "jour": 136,
+     "brique": "欠",
+     "composes": [
+      "欢"
+     ],
+     "non_reconcilie": false
+    },
+    {
+     "jour": 137,
      "brique": "彳",
      "composes": [
       "得"
@@ -3232,7 +3278,7 @@
      "non_reconcilie": false
     },
     {
-     "jour": 132,
+     "jour": 138,
      "brique": "艮",
      "composes": [
       "跟",
@@ -3241,7 +3287,7 @@
      "non_reconcilie": false
     },
     {
-     "jour": 133,
+     "jour": 139,
      "brique": "凵",
      "composes": [
       "画"
@@ -3249,7 +3295,7 @@
      "non_reconcilie": false
     },
     {
-     "jour": 134,
+     "jour": 140,
      "brique": "酉",
      "composes": [
       "酒"
@@ -3257,7 +3303,7 @@
      "non_reconcilie": false
     },
     {
-     "jour": 135,
+     "jour": 141,
      "brique": "户",
      "composes": [
       "房"
@@ -3265,7 +3311,7 @@
      "non_reconcilie": false
     },
     {
-     "jour": 136,
+     "jour": 142,
      "brique": "龶",
      "composes": [
       "请"
@@ -3273,7 +3319,7 @@
      "non_reconcilie": false
     },
     {
-     "jour": 137,
+     "jour": 143,
      "brique": "殳",
      "composes": [
       "没"
@@ -3281,7 +3327,7 @@
      "non_reconcilie": false
     },
     {
-     "jour": 138,
+     "jour": 144,
      "brique": "豕",
      "composes": [
       "家"
@@ -3289,7 +3335,7 @@
      "non_reconcilie": false
     },
     {
-     "jour": 139,
+     "jour": 145,
      "brique": "弓",
      "composes": [
       "张"
@@ -3297,7 +3343,7 @@
      "non_reconcilie": false
     },
     {
-     "jour": 140,
+     "jour": 146,
      "brique": "糸",
      "composes": [
       "累"
@@ -3305,7 +3351,7 @@
      "non_reconcilie": false
     },
     {
-     "jour": 141,
+     "jour": 147,
      "brique": "矢",
      "composes": [
       "知"
@@ -3313,7 +3359,7 @@
      "non_reconcilie": false
     },
     {
-     "jour": 142,
+     "jour": 148,
      "brique": "厂",
      "composes": [
       "候"
@@ -3321,263 +3367,15 @@
      "non_reconcilie": false
     },
     {
-     "jour": 143,
-     "brique": "覀",
-     "composes": [
-      "要"
-     ],
-     "non_reconcilie": false
-    },
-    {
-     "jour": 144,
-     "brique": "示",
-     "composes": [
-      "票"
-     ],
-     "non_reconcilie": false
-    },
-    {
-     "jour": 145,
-     "brique": "饣",
-     "composes": [
-      "饭"
-     ],
-     "non_reconcilie": false
-    },
-    {
-     "jour": 146,
-     "brique": "凡",
-     "composes": [
-      "同"
-     ],
-     "non_reconcilie": false
-    },
-    {
-     "jour": 147,
-     "brique": "云",
-     "composes": [
-      "会"
-     ],
-     "non_reconcilie": false
-    },
-    {
-     "jour": 148,
-     "brique": "亡",
-     "composes": [
-      "忙"
-     ],
-     "non_reconcilie": false
-    },
-    {
      "jour": 149,
-     "brique": "㠯",
+     "brique": "页",
      "composes": [
-      "馆"
+      "题"
      ],
      "non_reconcilie": false
     },
     {
      "jour": 150,
-     "brique": "井",
-     "composes": [
-      "进"
-     ],
-     "non_reconcilie": false
-    },
-    {
-     "jour": 151,
-     "brique": "卜",
-     "composes": [
-      "外"
-     ],
-     "non_reconcilie": false
-    },
-    {
-     "jour": 152,
-     "brique": "至",
-     "composes": [
-      "到"
-     ],
-     "non_reconcilie": false
-    },
-    {
-     "jour": 153,
-     "brique": "玉",
-     "composes": [
-      "国"
-     ],
-     "non_reconcilie": false
-    },
-    {
-     "jour": 154,
-     "brique": "手",
-     "composes": [
-      "看"
-     ],
-     "non_reconcilie": false
-    },
-    {
-     "jour": 155,
-     "brique": "免",
-     "composes": [
-      "晚"
-     ],
-     "non_reconcilie": false
-    },
-    {
-     "jour": 156,
-     "brique": "亥",
-     "composes": [
-      "孩"
-     ],
-     "non_reconcilie": false
-    },
-    {
-     "jour": 157,
-     "brique": "勺",
-     "composes": [
-      "的"
-     ],
-     "non_reconcilie": false
-    },
-    {
-     "jour": 158,
-     "brique": "尤",
-     "composes": [
-      "就"
-     ],
-     "non_reconcilie": false
-    },
-    {
-     "jour": 159,
-     "brique": "身",
-     "composes": [
-      "谢"
-     ],
-     "non_reconcilie": false
-    },
-    {
-     "jour": 160,
-     "brique": "主",
-     "composes": [
-      "住"
-     ],
-     "non_reconcilie": false
-    },
-    {
-     "jour": 161,
-     "brique": "才",
-     "composes": [
-      "在"
-     ],
-     "non_reconcilie": false
-    },
-    {
-     "jour": 162,
-     "brique": "丩",
-     "composes": [
-      "叫"
-     ],
-     "non_reconcilie": false
-    },
-    {
-     "jour": 163,
-     "brique": "首",
-     "composes": [
-      "道"
-     ],
-     "non_reconcilie": false
-    },
-    {
-     "jour": 164,
-     "brique": "与",
-     "composes": [
-      "写"
-     ],
-     "non_reconcilie": false
-    },
-    {
-     "jour": 165,
-     "brique": "亠",
-     "composes": [],
-     "non_reconcilie": false
-    },
-    {
-     "jour": 166,
-     "brique": "厶",
-     "composes": [
-      "能"
-     ],
-     "non_reconcilie": false
-    },
-    {
-     "jour": 167,
-     "brique": "冂",
-     "composes": [
-      "商"
-     ],
-     "non_reconcilie": false
-    },
-    {
-     "jour": 168,
-     "brique": "乂",
-     "composes": [
-      "刚"
-     ],
-     "non_reconcilie": false
-    },
-    {
-     "jour": 169,
-     "brique": "⺌",
-     "composes": [
-      "常"
-     ],
-     "non_reconcilie": false
-    },
-    {
-     "jour": 170,
-     "brique": "灬",
-     "composes": [],
-     "non_reconcilie": false
-    },
-    {
-     "jour": 171,
-     "brique": "⺊",
-     "composes": [
-      "点"
-     ],
-     "non_reconcilie": false
-    },
-    {
-     "jour": 172,
-     "brique": "广",
-     "composes": [
-      "店"
-     ],
-     "non_reconcilie": false
-    },
-    {
-     "jour": 173,
-     "brique": "钅",
-     "composes": [],
-     "non_reconcilie": false
-    },
-    {
-     "jour": 174,
-     "brique": "戋",
-     "composes": [
-      "钱"
-     ],
-     "non_reconcilie": false
-    },
-    {
-     "jour": 175,
-     "brique": "阝",
-     "composes": [],
-     "non_reconcilie": false
-    },
-    {
-     "jour": 176,
      "brique": "耂",
      "composes": [
       "都"
@@ -3585,13 +3383,269 @@
      "non_reconcilie": false
     },
     {
+     "jour": 151,
+     "brique": "覀",
+     "composes": [
+      "要"
+     ],
+     "non_reconcilie": false
+    },
+    {
+     "jour": 152,
+     "brique": "示",
+     "composes": [
+      "票"
+     ],
+     "non_reconcilie": false
+    },
+    {
+     "jour": 153,
+     "brique": "饣",
+     "composes": [
+      "饭"
+     ],
+     "non_reconcilie": false
+    },
+    {
+     "jour": 154,
+     "brique": "凡",
+     "composes": [
+      "同"
+     ],
+     "non_reconcilie": false
+    },
+    {
+     "jour": 155,
+     "brique": "云",
+     "composes": [
+      "会"
+     ],
+     "non_reconcilie": false
+    },
+    {
+     "jour": 156,
+     "brique": "亡",
+     "composes": [
+      "忙"
+     ],
+     "non_reconcilie": false
+    },
+    {
+     "jour": 157,
+     "brique": "㠯",
+     "composes": [
+      "馆"
+     ],
+     "non_reconcilie": false
+    },
+    {
+     "jour": 158,
+     "brique": "井",
+     "composes": [
+      "进"
+     ],
+     "non_reconcilie": false
+    },
+    {
+     "jour": 159,
+     "brique": "卜",
+     "composes": [
+      "外"
+     ],
+     "non_reconcilie": false
+    },
+    {
+     "jour": 160,
+     "brique": "至",
+     "composes": [
+      "到"
+     ],
+     "non_reconcilie": false
+    },
+    {
+     "jour": 161,
+     "brique": "玉",
+     "composes": [
+      "国"
+     ],
+     "non_reconcilie": false
+    },
+    {
+     "jour": 162,
+     "brique": "手",
+     "composes": [
+      "看"
+     ],
+     "non_reconcilie": false
+    },
+    {
+     "jour": 163,
+     "brique": "乙",
+     "composes": [
+      "吃"
+     ],
+     "non_reconcilie": false
+    },
+    {
+     "jour": 164,
+     "brique": "免",
+     "composes": [
+      "晚"
+     ],
+     "non_reconcilie": false
+    },
+    {
+     "jour": 165,
+     "brique": "亥",
+     "composes": [
+      "孩"
+     ],
+     "non_reconcilie": false
+    },
+    {
+     "jour": 166,
+     "brique": "勺",
+     "composes": [
+      "的"
+     ],
+     "non_reconcilie": false
+    },
+    {
+     "jour": 167,
+     "brique": "尤",
+     "composes": [
+      "就"
+     ],
+     "non_reconcilie": false
+    },
+    {
+     "jour": 168,
+     "brique": "身",
+     "composes": [
+      "谢"
+     ],
+     "non_reconcilie": false
+    },
+    {
+     "jour": 169,
+     "brique": "主",
+     "composes": [
+      "住"
+     ],
+     "non_reconcilie": false
+    },
+    {
+     "jour": 170,
+     "brique": "丩",
+     "composes": [
+      "叫"
+     ],
+     "non_reconcilie": false
+    },
+    {
+     "jour": 171,
+     "brique": "首",
+     "composes": [
+      "道"
+     ],
+     "non_reconcilie": false
+    },
+    {
+     "jour": 172,
+     "brique": "与",
+     "composes": [
+      "写"
+     ],
+     "non_reconcilie": false
+    },
+    {
+     "jour": 173,
+     "brique": "丶",
+     "composes": [],
+     "non_reconcilie": false
+    },
+    {
+     "jour": 174,
+     "brique": "冫",
+     "composes": [
+      "冷"
+     ],
+     "non_reconcilie": false
+    },
+    {
+     "jour": 175,
+     "brique": "灬",
+     "composes": [],
+     "non_reconcilie": false
+    },
+    {
+     "jour": 176,
+     "brique": "⺊",
+     "composes": [
+      "点"
+     ],
+     "non_reconcilie": false
+    },
+    {
      "jour": 177,
+     "brique": "广",
+     "composes": [
+      "店"
+     ],
+     "non_reconcilie": false
+    },
+    {
+     "jour": 178,
+     "brique": "钅",
+     "composes": [],
+     "non_reconcilie": false
+    },
+    {
+     "jour": 179,
+     "brique": "戋",
+     "composes": [
+      "钱"
+     ],
+     "non_reconcilie": false
+    },
+    {
+     "jour": 180,
+     "brique": "亠",
+     "composes": [],
+     "non_reconcilie": false
+    },
+    {
+     "jour": 181,
+     "brique": "冂",
+     "composes": [
+      "商"
+     ],
+     "non_reconcilie": false
+    },
+    {
+     "jour": 182,
+     "brique": "乂",
+     "composes": [
+      "刚"
+     ],
+     "non_reconcilie": false
+    },
+    {
+     "jour": 183,
+     "brique": "⺌",
+     "composes": [
+      "常"
+     ],
+     "non_reconcilie": false
+    },
+    {
+     "jour": 184,
      "brique": "夂",
      "composes": [],
      "non_reconcilie": false
     },
     {
-     "jour": 178,
+     "jour": 185,
      "brique": "⺀",
      "composes": [
       "冬",
@@ -3600,13 +3654,13 @@
      "non_reconcilie": false
     },
     {
-     "jour": 179,
+     "jour": 186,
      "brique": "疒",
      "composes": [],
      "non_reconcilie": false
     },
     {
-     "jour": 180,
+     "jour": 187,
      "brique": "丙",
      "composes": [
       "病"
@@ -3614,13 +3668,13 @@
      "non_reconcilie": false
     },
     {
-     "jour": 181,
+     "jour": 188,
      "brique": "乛",
      "composes": [],
      "non_reconcilie": false
     },
     {
-     "jour": 182,
+     "jour": 189,
      "brique": "头",
      "composes": [
       "买",
@@ -3629,65 +3683,10 @@
      "non_reconcilie": false
     },
     {
-     "jour": 183,
+     "jour": 190,
      "brique": null,
      "composes": [
-      "笔",
-      "吃"
-     ],
-     "non_reconcilie": true
-    },
-    {
-     "jour": 184,
-     "brique": null,
-     "composes": [
-      "喝",
-      "觉"
-     ],
-     "non_reconcilie": true
-    },
-    {
-     "jour": 185,
-     "brique": null,
-     "composes": [
-      "筷",
-      "冷"
-     ],
-     "non_reconcilie": true
-    },
-    {
-     "jour": 186,
-     "brique": null,
-     "composes": [
-      "哪",
-      "那"
-     ],
-     "non_reconcilie": true
-    },
-    {
-     "jour": 187,
-     "brique": null,
-     "composes": [
-      "是",
-      "题"
-     ],
-     "non_reconcilie": true
-    },
-    {
-     "jour": 188,
-     "brique": null,
-     "composes": [
-      "先",
       "兴"
-     ],
-     "non_reconcilie": true
-    },
-    {
-     "jour": 189,
-     "brique": null,
-     "composes": [
-      "学",
-      "以"
      ],
      "non_reconcilie": true
     }
@@ -3699,13 +3698,6 @@
    "racine": "⺀",
    "fichier": "familles/⺀.json",
    "traits": "traits/⺀.json",
-   "n": 1,
-   "avancement_possible": 0.0
-  },
-  {
-   "racine": "⺆",
-   "fichier": "familles/⺆.json",
-   "traits": "traits/⺆.json",
    "n": 1,
    "avancement_possible": 0.0
   },
@@ -3738,58 +3730,23 @@
    "avancement_possible": 0.0
   },
   {
-   "racine": "⺧",
-   "fichier": "familles/⺧.json",
-   "traits": "traits/⺧.json",
-   "n": 1,
-   "avancement_possible": 0.0
-  },
-  {
    "racine": "⺮",
    "fichier": "familles/⺮.json",
    "traits": "traits/⺮.json",
+   "n": 7,
+   "avancement_possible": 0.0
+  },
+  {
+   "racine": "⿰丿丨",
+   "fichier": "familles/U+2FF0-U+4E3F-U+4E28.json",
+   "traits": "traits/U+2FF0-U+4E3F-U+4E28.json",
    "n": 1,
    "avancement_possible": 0.0
   },
   {
-   "racine": "㇆",
-   "fichier": "familles/㇆.json",
-   "traits": "traits/㇆.json",
-   "n": 1,
-   "avancement_possible": 0.0
-  },
-  {
-   "racine": "㇑",
-   "fichier": "familles/㇑.json",
-   "traits": "traits/㇑.json",
-   "n": 1,
-   "avancement_possible": 0.0
-  },
-  {
-   "racine": "㇔",
-   "fichier": "familles/㇔.json",
-   "traits": "traits/㇔.json",
-   "n": 1,
-   "avancement_possible": 0.0
-  },
-  {
-   "racine": "㇖",
-   "fichier": "familles/㇖.json",
-   "traits": "traits/㇖.json",
-   "n": 1,
-   "avancement_possible": 0.0
-  },
-  {
-   "racine": "㇗",
-   "fichier": "familles/㇗.json",
-   "traits": "traits/㇗.json",
-   "n": 1,
-   "avancement_possible": 0.0
-  },
-  {
-   "racine": "㇠",
-   "fichier": "familles/㇠.json",
-   "traits": "traits/㇠.json",
+   "racine": "⿰𠄌丶",
+   "fichier": "familles/U+2FF0-U+2010C-U+4E36.json",
+   "traits": "traits/U+2FF0-U+2010C-U+4E36.json",
    "n": 1,
    "avancement_possible": 0.0
   },
@@ -3797,6 +3754,13 @@
    "racine": "㠯",
    "fichier": "familles/㠯.json",
    "traits": "traits/㠯.json",
+   "n": 1,
+   "avancement_possible": 0.0
+  },
+  {
+   "racine": "䒑",
+   "fichier": "familles/䒑.json",
+   "traits": "traits/䒑.json",
    "n": 1,
    "avancement_possible": 0.0
   },
@@ -3892,6 +3856,13 @@
    "avancement_possible": 0.0
   },
   {
+   "racine": "丨",
+   "fichier": "familles/丨.json",
+   "traits": "traits/丨.json",
+   "n": 2,
+   "avancement_possible": 0.0
+  },
+  {
    "racine": "丩",
    "fichier": "familles/丩.json",
    "traits": "traits/丩.json",
@@ -3917,6 +3888,13 @@
    "fichier": "familles/丰.json",
    "traits": "traits/丰.json",
    "n": 2,
+   "avancement_possible": 0.0
+  },
+  {
+   "racine": "丶",
+   "fichier": "familles/丶.json",
+   "traits": "traits/丶.json",
+   "n": 1,
    "avancement_possible": 0.0
   },
   {
@@ -3983,10 +3961,17 @@
    "avancement_possible": 0.0
   },
   {
+   "racine": "乙",
+   "fichier": "familles/乙.json",
+   "traits": "traits/乙.json",
+   "n": 1,
+   "avancement_possible": 0.0
+  },
+  {
    "racine": "乛",
    "fichier": "familles/乛.json",
    "traits": "traits/乛.json",
-   "n": 2,
+   "n": 3,
    "avancement_possible": 0.0
   },
   {
@@ -4042,7 +4027,7 @@
    "racine": "二",
    "fichier": "familles/二.json",
    "traits": "traits/二.json",
-   "n": 3,
+   "n": 2,
    "avancement_possible": 0.0
   },
   {
@@ -4070,7 +4055,7 @@
    "racine": "亠",
    "fichier": "familles/亠.json",
    "traits": "traits/亠.json",
-   "n": 4,
+   "n": 3,
    "avancement_possible": 0.0
   },
   {
@@ -4098,7 +4083,7 @@
    "racine": "人",
    "fichier": "familles/人.json",
    "traits": "traits/人.json",
-   "n": 8,
+   "n": 7,
    "avancement_possible": 0.0
   },
   {
@@ -4168,7 +4153,7 @@
    "racine": "冖",
    "fichier": "familles/冖.json",
    "traits": "traits/冖.json",
-   "n": 4,
+   "n": 2,
    "avancement_possible": 0.0
   },
   {
@@ -4263,10 +4248,10 @@
    "avancement_possible": 0.0
   },
   {
-   "racine": "匸",
-   "fichier": "familles/匸.json",
-   "traits": "traits/匸.json",
-   "n": 1,
+   "racine": "匚",
+   "fichier": "familles/匚.json",
+   "traits": "traits/匚.json",
+   "n": 2,
    "avancement_possible": 0.0
   },
   {
@@ -4378,7 +4363,7 @@
    "racine": "土",
    "fichier": "familles/土.json",
    "traits": "traits/土.json",
-   "n": 10,
+   "n": 8,
    "avancement_possible": 0.0
   },
   {
@@ -4386,6 +4371,13 @@
    "fichier": "familles/垂.json",
    "traits": "traits/垂.json",
    "n": 1,
+   "avancement_possible": 0.0
+  },
+  {
+   "racine": "士",
+   "fichier": "familles/士.json",
+   "traits": "traits/士.json",
+   "n": 2,
    "avancement_possible": 0.0
   },
   {
@@ -4441,7 +4433,7 @@
    "racine": "夭",
    "fichier": "familles/夭.json",
    "traits": "traits/夭.json",
-   "n": 2,
+   "n": 1,
    "avancement_possible": 0.0
   },
   {
@@ -4462,7 +4454,7 @@
    "racine": "子",
    "fichier": "familles/子.json",
    "traits": "traits/子.json",
-   "n": 2,
+   "n": 3,
    "avancement_possible": 0.0
   },
   {
@@ -4602,7 +4594,7 @@
    "racine": "弟",
    "fichier": "familles/弟.json",
    "traits": "traits/弟.json",
-   "n": 2,
+   "n": 1,
    "avancement_possible": 0.0
   },
   {
@@ -4637,7 +4629,7 @@
    "racine": "忄",
    "fichier": "familles/忄.json",
    "traits": "traits/忄.json",
-   "n": 6,
+   "n": 5,
    "avancement_possible": 0.0
   },
   {
@@ -4680,13 +4672,6 @@
    "fichier": "familles/扌.json",
    "traits": "traits/扌.json",
    "n": 4,
-   "avancement_possible": 0.0
-  },
-  {
-   "racine": "才",
-   "fichier": "familles/才.json",
-   "traits": "traits/才.json",
-   "n": 2,
    "avancement_possible": 0.0
   },
   {
@@ -4742,7 +4727,7 @@
    "racine": "月",
    "fichier": "familles/月.json",
    "traits": "traits/月.json",
-   "n": 4,
+   "n": 5,
    "avancement_possible": 0.0
   },
   {
@@ -4819,7 +4804,7 @@
    "racine": "毛",
    "fichier": "familles/毛.json",
    "traits": "traits/毛.json",
-   "n": 2,
+   "n": 1,
    "avancement_possible": 0.0
   },
   {
@@ -4980,7 +4965,7 @@
    "racine": "矢",
    "fichier": "familles/矢.json",
    "traits": "traits/矢.json",
-   "n": 3,
+   "n": 2,
    "avancement_possible": 0.0
   },
   {
@@ -5120,7 +5105,7 @@
    "racine": "虫",
    "fichier": "familles/虫.json",
    "traits": "traits/虫.json",
-   "n": 2,
+   "n": 1,
    "avancement_possible": 0.0
   },
   {
@@ -5148,7 +5133,7 @@
    "racine": "见",
    "fichier": "familles/见.json",
    "traits": "traits/见.json",
-   "n": 1,
+   "n": 2,
    "avancement_possible": 0.0
   },
   {
@@ -5253,7 +5238,7 @@
    "racine": "阝",
    "fichier": "familles/阝.json",
    "traits": "traits/阝.json",
-   "n": 2,
+   "n": 3,
    "avancement_possible": 0.0
   },
   {
@@ -5362,13 +5347,6 @@
    "avancement_possible": 0.0
   },
   {
-   "racine": "？",
-   "fichier": "familles/？.json",
-   "traits": "traits/？.json",
-   "n": 1,
-   "avancement_possible": 0.0
-  },
-  {
    "racine": "𠀎",
    "fichier": "familles/𠀎.json",
    "traits": "traits/𠀎.json",
@@ -5390,9 +5368,37 @@
    "avancement_possible": 0.0
   },
   {
+   "racine": "𠂒",
+   "fichier": "familles/𠂒.json",
+   "traits": "traits/𠂒.json",
+   "n": 1,
+   "avancement_possible": 0.0
+  },
+  {
+   "racine": "𠃊",
+   "fichier": "familles/𠃊.json",
+   "traits": "traits/𠃊.json",
+   "n": 1,
+   "avancement_possible": 0.0
+  },
+  {
    "racine": "𡗗",
    "fichier": "familles/𡗗.json",
    "traits": "traits/𡗗.json",
+   "n": 1,
+   "avancement_possible": 0.0
+  },
+  {
+   "racine": "𭃂",
+   "fichier": "familles/𭃂.json",
+   "traits": "traits/𭃂.json",
+   "n": 1,
+   "avancement_possible": 0.0
+  },
+  {
+   "racine": "𭕄",
+   "fichier": "familles/𭕄.json",
+   "traits": "traits/𭕄.json",
    "n": 1,
    "avancement_possible": 0.0
   }

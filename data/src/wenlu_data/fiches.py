@@ -49,7 +49,7 @@ import hashlib
 import json
 from dataclasses import dataclass, field, replace
 from pathlib import Path
-from typing import Callable, Iterable, Mapping, Optional, Sequence
+from typing import Callable, Collection, Iterable, Mapping, Optional, Sequence
 
 import typer
 
@@ -72,6 +72,7 @@ from .fonts import PONCTUATION_CHINOISE
 from .gf0014 import Controle, TableGF0014, charger_table
 from .ingest import charger_liste, est_sinogramme
 from .paths import BUILD, DATA, FICHES_WORK, INGEST, LISTES, RACINE, WORK
+from .surcharges import charger_mots_exclus, charger_pinyin
 
 
 #: Au plus trois appels pour une même fiche.
@@ -196,6 +197,8 @@ class Corpus:
         table: TableGF0014,
         *,
         max_candidats: int = MAX_CANDIDATS,
+        exclus: Collection[str] = (),
+        depart: Sequence[str] = (),
     ) -> None:
         if parcours not in PARCOURS:
             raise ParcoursInconnu(f"parcours {parcours!r} inconnu : {', '.join(PARCOURS)}")
@@ -220,9 +223,21 @@ class Corpus:
                 self._jour.setdefault(c, numero)
                 self._acquis.setdefault(c, instantane)
         self.ordre = tuple(vus)
+        # La première session pose le départ d'un coup (graphe.DEPART) : la fiche de
+        # chacun de ses caractères se lit après elle, avec tout le départ acquis.
+        self.depart = tuple(c for c in depart if c in self._acquis)
+        if self.depart:
+            fin = max((self._acquis[c] for c in self.depart), key=len)
+            for c in self.depart:
+                self._acquis[c] = fin
 
+        self.exclus = frozenset(exclus)
         self._mots: list[MotCandidat] = [
-            m for m in mots if len(m.hanzi) == 2 and not _pinyin_de_nom_propre(m.pinyin)
+            m
+            for m in mots
+            if len(m.hanzi) == 2
+            and not _pinyin_de_nom_propre(m.pinyin)
+            and m.hanzi not in self.exclus
         ]
 
     def __contains__(self, c: object) -> bool:
@@ -237,7 +252,11 @@ class Corpus:
             ) from erreur
 
     def acquis(self, c: str) -> tuple[str, ...]:
-        """Caractères acquis le jour où `c` est posé, `c` compris."""
+        """Caractères acquis le jour où `c` est posé, `c` compris.
+
+        Pour un caractère du départ, ceux de toute la première session, qui les
+        pose ensemble.
+        """
         self.jour(c)
         return self._acquis[c]
 
@@ -245,7 +264,9 @@ class Corpus:
         """Mots de deux caractères contenant `c`, entièrement lisibles ce jour-là.
 
         Un mot n'est candidat que si ses deux caractères sont déjà vus : la fiche
-        ne fait jamais lire ce qui n'a pas été posé.
+        ne fait jamais lire ce qui n'a pas été posé. Les mots de
+        `data/sources/mots-exclus.tsv` (argot, mahjong, mots rares, fragments de
+        locution) ne le sont jamais.
         """
         lisibles = set(self.acquis(c))
         retenus: dict[str, MotCandidat] = {}
@@ -319,7 +340,12 @@ def charger_corpus(
     ingest: Path | None = None,
     table: TableGF0014 | None = None,
 ) -> Corpus:
-    """Charge le corpus depuis `data/work/build/` et `data/work/ingest/`."""
+    """Charge le corpus depuis `data/work/build/` et `data/work/ingest/`.
+
+    Deux surcharges versionnées s'y appliquent : le pinyin de
+    `data/sources/surcharges/pinyin.tsv` remplace celui de Make Me a Hanzi, et les
+    mots de `data/sources/mots-exclus.tsv` ne sont jamais candidats.
+    """
     if parcours not in PARCOURS:
         raise ParcoursInconnu(f"parcours {parcours!r} inconnu : {', '.join(PARCOURS)}")
     build = build or BUILD
@@ -330,14 +356,20 @@ def charger_corpus(
     caracteres = _lire_json(ingest / "caracteres.json")
     assert isinstance(chemin_parcours, dict) and isinstance(decompositions, dict)
     assert isinstance(graphe, dict) and isinstance(caracteres, list)
+    lectures = charger_pinyin()
     return Corpus(
         parcours=parcours,
         jours=chemin_parcours["jours"],
         decompositions={str(d["c"]): d for d in decompositions["caracteres"]},
         noeuds={str(n["c"]): n for n in graphe["noeuds"]},
-        caracteres={str(c["c"]): c for c in caracteres},
+        caracteres={
+            str(c["c"]): ({**c, "pinyin": list(lectures[str(c["c"])])} if str(c["c"]) in lectures else c)
+            for c in caracteres
+        },
         mots=charger_mots(ingest / "mots.json"),
         table=table or charger_table(),
+        exclus=charger_mots_exclus(),
+        depart=[str(c) for c in (chemin_parcours.get("depart") or [])],
     )
 
 
@@ -423,7 +455,8 @@ ajoute quelque chose à l'origine. Sinon, laisse-les vides.
 prononciation, `sens` s'il donne le sens, `forme` s'il ne fait ni l'un ni l'autre — \
 il n'est là que pour le trait, ou son rôle est perdu.
 6. Les deux mots sont pris dans la liste des mots candidats, écrits exactement comme \
-elle les donne. Tu en donnes le pinyin avec les tons, puis une traduction que tu \
+elle les donne. Un candidat rare, d'argot ou douteux ne se prend pas : mieux vaut un \
+mot de moins, ou aucun. Tu en donnes le pinyin avec les tons, puis une traduction que tu \
 rédiges toi-même, en français et en anglais. Aucune définition d'une autre source \
 n'est recopiée ni traduite.
 7. La phrase n'emploie QUE les caractères acquis fournis. Aucun autre, même courant, \
@@ -469,7 +502,7 @@ def invite(contexte: Contexte, *, refus: Sequence[str] = ()) -> Invite:
     lignes += [
         "",
         f"Mots candidats ({len(contexte.candidats)}) — le mot et son pinyin, rien d'autre. "
-        f"Choisis-en {min(MOTS_PAR_FICHE, len(contexte.candidats))} :",
+        f"Choisis-en au plus {min(MOTS_PAR_FICHE, len(contexte.candidats))} :",
     ]
     lignes += [f"- {m.hanzi} ({m.pinyin})" for m in contexte.candidats] or ["- aucun"]
     lignes += [
@@ -740,8 +773,10 @@ class Rapport:
 def valider(fiche: Fiche, contexte: Contexte) -> Rapport:
     """Contrôle strict : trois phrases, étiquette, mots candidats, phrase sans intrus.
 
-    Les autres défauts (rôle manquant, mémo trop long, traduction vide) sont des
-    écarts signalés à la relecture, pas des rejets.
+    Les autres défauts (rôle manquant, traduction vide, moins de deux mots) sont
+    des écarts signalés à la relecture, pas des rejets. Une fiche peut prendre
+    moins de mots qu'il n'y a de candidats : un mot rare ou douteux ne s'impose
+    jamais faute de mieux ; le manque se voit à la relecture.
     """
     refus: list[str] = []
     ecarts: list[str] = []
@@ -758,13 +793,17 @@ def valider(fiche: Fiche, contexte: Contexte) -> Rapport:
     hors = [m.hanzi for m in fiche.mots if m.hanzi not in candidats]
     if hors:
         refus.append(f"mots hors des candidats : {' '.join(hors)}")
-    attendus = min(MOTS_PAR_FICHE, len(contexte.candidats))
-    if len(fiche.mots) != attendus:
-        refus.append(f"{len(fiche.mots)} mot(s) au lieu de {attendus}")
+    if len(fiche.mots) > MOTS_PAR_FICHE:
+        refus.append(f"{len(fiche.mots)} mots au lieu de {MOTS_PAR_FICHE} au plus")
     if len(contexte.candidats) < MOTS_PAR_FICHE:
         ecarts.append(
             f"{len(contexte.candidats)} mot candidat lisible au jour {contexte.jour} "
             f"au lieu de {MOTS_PAR_FICHE}"
+        )
+    elif len(fiche.mots) < MOTS_PAR_FICHE:
+        ecarts.append(
+            f"{len(fiche.mots)} mot(s) au lieu de {MOTS_PAR_FICHE}, pour "
+            f"{len(contexte.candidats)} candidats lisibles au jour {contexte.jour}"
         )
     if len({m.hanzi for m in fiche.mots}) != len(fiche.mots):
         refus.append("deux fois le même mot")
@@ -1254,6 +1293,14 @@ class Import:
     inchange: bool = False
     #: Statut de la fiche remplacée, s'il y en avait une.
     remplace: str | None = None
+    #: Même brouillon, mais le contexte a bougé (jour, pinyin, décomposition) :
+    #: les faits de la fiche sont mis à jour, son texte et sa traçabilité restent.
+    contexte_change: bool = False
+
+
+def _faits(fiche: Fiche) -> tuple[object, ...]:
+    """Ce que la fiche tient du contexte, et non du rédacteur."""
+    return (fiche.parcours, fiche.jour, tuple(fiche.pinyin), tuple(fiche.composants), fiche.structure)
 
 
 def importer_brouillon(
@@ -1267,6 +1314,12 @@ def importer_brouillon(
 
     Un brouillon inchangé ne réécrit rien : une fiche relue le reste. Un brouillon
     modifié repart au statut `a_relire`, sa relecture est à refaire.
+
+    Un brouillon inchangé dont le contexte a bougé — le parcours l'a déplacé, une
+    surcharge a corrigé son pinyin ou sa décomposition — met à jour les faits de la
+    fiche (parcours, jour, pinyin, composants, structure) sans toucher à son texte
+    ni à sa traçabilité. Le jour seul ne défait pas une relecture ; un pinyin ou une
+    décomposition changés, si : ce que la relecture a validé n'est plus le même.
     """
     contexte = corpus.contexte(brouillon.c)
     chemin = chemin_fiche(brouillon.c, dossier)
@@ -1285,7 +1338,28 @@ def importer_brouillon(
         and precedente.generation.empreinte_invite == brouillon.empreinte
         and precedente.generation.refus == rapport.refus
     ):
-        return Import(fiche=precedente, rapport=rapport, chemin=chemin, inchange=True)
+        if _faits(precedente) == _faits(fiche):
+            return Import(fiche=precedente, rapport=rapport, chemin=chemin, inchange=True)
+        seul_le_jour = _faits(precedente)[2:] == _faits(fiche)[2:]
+        a_jour = replace(
+            precedente,
+            parcours=fiche.parcours,
+            jour=fiche.jour,
+            pinyin=fiche.pinyin,
+            composants=fiche.composants,
+            structure=fiche.structure,
+            statut=precedente.statut
+            if seul_le_jour or precedente.statut != RELU
+            else A_RELIRE,
+        )
+        ecrire_fiche(a_jour, dossier)
+        return Import(
+            fiche=a_jour,
+            rapport=rapport,
+            chemin=chemin,
+            inchange=True,
+            contexte_change=True,
+        )
     fiche.generation = replace(fiche.generation, refus=rapport.refus)
     fiche.statut = A_RELIRE if rapport.conforme else REJETE
     ecrire_fiche(fiche, dossier)
@@ -1306,12 +1380,15 @@ traduite mot à mot.
 bronzes, petit sceau) établissent l'origine ; « mnémotechnique » dans tous les autres cas, \
 et dans le doute. Sous « mnémotechnique », décrire ce que l'on voit dans la forme actuelle, \
 jamais prétendre dire ce que le caractère a voulu dire autrefois.
-- mots : exactement {MOTS_PAR_FICHE} (moins s'il y a moins de candidats), pris dans les \
-mots candidats, écrits à l'identique, sans doublon ; pinyin avec les tons ; traductions \
-fr et en rédigées soi-même, jamais reprises d'un dictionnaire.
+- mots : au plus {MOTS_PAR_FICHE}, pris dans les mots candidats, écrits à l'identique, \
+sans doublon ; pinyin avec les tons du dictionnaire (sans sandhi : yī, bù), d'un seul \
+tenant, ton neutre comme CC-CEDICT ; traductions fr et en rédigées soi-même, jamais \
+reprises d'un dictionnaire.
 - phrase.zh : les seuls caractères acquis ce jour-là, et la ponctuation \
 {PONCTUATION_CHINOISE} ; ni chiffre ni lettre.
 Écarts, signalés à la relecture :
+- moins de {MOTS_PAR_FICHE} mots : un candidat rare, d'argot ou douteux ne se prend pas \
+faute de mieux ;
 - un rôle ({', '.join(ROLES)}) pour chaque composant de la décomposition, et pour eux seuls ;
 - la phrase emploie le caractère du jour ;
 - traductions fr et en non vides.
@@ -1369,7 +1446,7 @@ def decrire_contexte(contexte: Contexte, *, brouillons: Path | None = None) -> l
         "".join(contexte.acquis),
         "",
         f"Mots candidats ({len(contexte.candidats)}), déjà lisibles ce jour-là — "
-        f"en choisir {min(MOTS_PAR_FICHE, len(contexte.candidats))} :",
+        f"en choisir au plus {min(MOTS_PAR_FICHE, len(contexte.candidats))} :",
     ]
     lignes += [f"- {m.hanzi} ({m.pinyin})" for m in contexte.candidats] or ["- aucun"]
     chemin = (brouillons or BROUILLONS) / f"{contexte.c}.json"
@@ -1721,7 +1798,9 @@ def commande_importer(
             typer.echo(f"erreur {chemin.stem} : {erreur.args[0]}, rien n'est écrit")
             continue
         fiche, rapport = resultat.fiche, resultat.rapport
-        if resultat.inchange:
+        if resultat.contexte_change:
+            etat = f"contexte mis à jour, statut {fiche.statut}"
+        elif resultat.inchange:
             etat = f"inchangée, statut {fiche.statut}"
         elif rapport.conforme:
             etat = "à relire"

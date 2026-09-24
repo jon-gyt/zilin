@@ -30,7 +30,10 @@ cd app && npm install && npm run dev
 Sept commandes, une par étape, chacune lisant ce que la précédente a écrit. Tout
 ce qui est intermédiaire va dans `data/work/`, hors dépôt ; seuls l'export
 (`app/public/data/<version>/`), les polices (`app/public/fonts/`), les fiches
-(`data/sources/fiches/`) et les contes (`data/sources/contes-versions/`) sont versionnés.
+(`data/sources/fiches/`), les contes (`data/sources/contes-versions/`) et les corrections
+des sources (`data/sources/surcharges/`) sont versionnés. Une source téléchargée ne se
+corrige jamais sur place : une erreur de pinyin ou de décomposition se corrige par une
+ligne de surcharge, avec sa raison.
 
 ```
 fetch  →  ingest  →  build  →  export  →  check

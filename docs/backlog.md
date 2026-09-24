@@ -91,8 +91,8 @@ Relevé sur le dépôt après une revue du pipeline. Les numéros ci-dessus ne b
   caractère (le bouton ouvre l'accueil), la déclaration du plan du site dans la Search
   Console (`robots.txt` sous `/zilin/` n'est pas lu), les 12 composants sans traits
   (㇆, 龰, 𠂇…) et le « ? » du pipeline, sans page.
-- 4b.5, les devinettes de lanternes (24 septembre) : 142 devinettes rédigées pour l'app
-  dans `data/sources/devinettes/` (121 du seuil 255, 21 du HSK 1), dont six avec leur 字谜
+- 4b.5, les devinettes de lanternes (24 septembre) : 141 devinettes rédigées pour l'app
+  dans `data/sources/devinettes/` (120 du seuil 255, 21 du HSK 1), dont six avec leur 字谜
   traditionnel ; leurres choisis à l'export par ressemblance de composants ;
   `devinettes.json` et cinq contrôles bloquants. Une devinette par jour, portée par Tao,
   parmi celles dont la réponse et les briques ont une carte ; résolue, elle remplit la

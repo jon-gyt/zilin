@@ -47,6 +47,12 @@ disponible est un jour de consolidation (`brique` nul). Les caractères de la
 liste dont la décomposition n'est pas réconciliée ferment le parcours, marqués
 `non_reconcilie` : ils ne sont jamais oubliés.
 
+Départ : le parcours « lire » commence par ce que la première session enseigne
+(brief §6, story 2.7) — 人, 大, 天, un jour chacun, sans composé. La première
+session couvre ces trois jours d'un coup, et la session complète du lendemain
+reprend au jour 4 (`app/src/lib/premiere.ts`). C'est la seule entorse à l'ordre
+de priorité ; la règle d'une brique nouvelle par jour, elle, tient.
+
 Rapport : `gf0014.build` écrit `ecarts.md` (réconciliation, IDS secondaire,
 listes prioritaires) ; ce module y ajoute ensuite la section « Briques muettes »,
 la seule qui demande le graphe.
@@ -72,6 +78,12 @@ COMPOSES_PAR_JOUR = 2
 # Parcours livrés en version 1 : nom du parcours -> nom de la liste cible.
 PARCOURS: dict[str, str] = {"lire": "seuil-255", "hsk": "hsk-1"}
 
+#: Ce que la première session enseigne, dans l'ordre (brief §6, story 2.7), et donc
+#: le début imposé du parcours : un jour par caractère, sans composé. La famille de
+#: départ de l'app (`app/public/data/demo/familles/人.json`) montre les mêmes, et un
+#: test Vitest le vérifie contre l'export.
+DEPART: dict[str, tuple[str, ...]] = {"lire": ("人", "大", "天")}
+
 CRITERE_RACINE = "première brique dans l'ordre d'écriture"
 CRITERE_FREQUENCE = (
     "nombre de caractères qui dépendent du candidat"
@@ -87,6 +99,10 @@ class CycleDetecte(ValueError):
 
 class ParcoursBloque(ValueError):
     """Plus aucun candidat prêt alors que la liste cible n'est pas couverte."""
+
+
+class DepartImpossible(ValueError):
+    """Un caractère du départ imposé n'est pas à apprendre, ou pas encore lisible."""
 
 
 # ---------------------------------------------------------------------------- graphe
@@ -344,6 +360,7 @@ class Parcours:
     non_reconcilies: tuple[str, ...] = ()
     absents: tuple[str, ...] = ()
     cible: tuple[str, ...] = ()
+    depart: tuple[str, ...] = ()
 
     @property
     def cibles(self) -> int:
@@ -414,11 +431,17 @@ def parcours(
     liste: str = "seuil-255",
     rangs: Mapping[str, int] | None = None,
     composes_par_jour: int = COMPOSES_PAR_JOUR,
+    depart: Sequence[str] = (),
 ) -> Parcours:
     """Ordre d'apprentissage de `cible` : une brique nouvelle par jour.
 
     Les briques muettes sont acquises d'entrée, faute de fiche à poser. Les
     caractères absents du graphe ou non réconciliés ferment le parcours.
+
+    `depart` impose les premiers jours : un caractère par jour, dans l'ordre donné,
+    sans composé — c'est ce que la première session enseigne, rien de plus. Une
+    brique y reste seule de son jour ; un caractère composé n'y entre que si ses
+    briques sont déjà posées. Sinon, `DepartImpossible`.
     """
     rangs = rangs or {}
     positions = {c: i for i, c in enumerate(cible)}
@@ -460,6 +483,19 @@ def parcours(
             restant.discard(c)
             for p in graphe.prerequis_transitifs(c):
                 besoin[p] = besoin.get(p, 1) - 1
+
+    for c in depart:
+        if c not in a_apprendre or c in acquis:
+            raise DepartImpossible(f"{nom} : {c} n'est pas à apprendre dans {liste}, ou deux fois")
+        if not pret(c):
+            manque = " ".join(p for p in graphe[c].prerequis if p not in acquis)
+            raise DepartImpossible(f"{nom} : {c} n'est pas lisible au départ (il manque {manque})")
+        poser(c)
+        if graphe[c].genre == BRIQUE:
+            briques.append(c)
+            jours.append(Jour(jour=len(jours) + 1, brique=c))
+        else:
+            jours.append(Jour(jour=len(jours) + 1, brique=None, composes=(c,)))
 
     while restant:
         cle = _cle_priorite(graphe, positions, rangs, debloque())
@@ -511,6 +547,7 @@ def parcours(
         non_reconcilies=tuple(non_reconcilies),
         absents=absents,
         cible=tuple(cible),
+        depart=tuple(depart),
     )
 
 
@@ -561,6 +598,7 @@ def document_parcours(p: Parcours) -> dict[str, object]:
         "liste": p.liste,
         "regle": "une seule brique nouvelle par session de 10 minutes",
         "critere_frequence": CRITERE_FREQUENCE,
+        "depart": list(p.depart),
         "cible": list(p.cible),
         "compte": {
             "cibles": p.cibles,
@@ -641,10 +679,16 @@ def ajouter_muettes_aux_ecarts(chemin: Path, section: str) -> Path:
 def build(
     sortie: Path | None = None,
     ingest: Path | None = None,
+    depart: Mapping[str, Sequence[str]] | None = None,
 ) -> dict[str, object]:
-    """Écrit `graphe.json` et un `parcours-<nom>.json` par parcours."""
+    """Écrit `graphe.json` et un `parcours-<nom>.json` par parcours.
+
+    `depart` vaut par défaut `DEPART` : le parcours « lire » commence par la
+    première session.
+    """
     sortie = sortie or BUILD
     ingest = ingest or INGEST
+    depart = DEPART if depart is None else depart
 
     document = json.loads((sortie / "decompositions.json").read_text(encoding="utf-8"))
     graphe = construire(document["caracteres"])
@@ -677,7 +721,7 @@ def build(
         if not cible:
             rapport[f"parcours_{nom}"] = f"liste {liste} absente : parcours non écrit"
             continue
-        p = parcours(graphe, cible, nom=nom, liste=liste, rangs=rangs)
+        p = parcours(graphe, cible, nom=nom, liste=liste, rangs=rangs, depart=depart.get(nom, ()))
         ecrits.append(p)
         ecrire_json(sortie / f"parcours-{nom}.json", document_parcours(p))
         rapport[f"parcours_{nom}"] = (

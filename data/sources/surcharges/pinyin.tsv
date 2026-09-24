@@ -1,0 +1,46 @@
+# Surcharges de pinyin, par caractère.
+#
+# Deux sources donnent le pinyin d'un caractère, et aucune ne se corrige sur
+# place : Make Me a Hanzi (`dictionary.txt`, le contexte des fiches) et Unihan
+# (`kMandarin`, le pinyin exporté). Une ligne ici remplace les deux.
+#
+# La première lecture est la principale, celle que l'app affiche sous le
+# caractère ; les suivantes sont les autres lectures en usage, celles que les
+# mots des fiches emploient. Contrôle : les lectures de `kXHC1983` (Unihan,
+# 现代汉语词典) et la fréquence de `kHanyuPinlu`.
+#
+# Format : `#` en commentaire ; trois colonnes séparées par une tabulation :
+# caractère, lectures séparées par une espace, raison.
+#
+# 1. Lectures erronées ou incomplètes relevées à la rédaction des fiches.
+地	dì de	Make Me a Hanzi ne donne que la particule de, Unihan la met en tête ; dì (la terre, 地方) est la lecture du caractère
+吧	ba	Make Me a Hanzi donne bā ; la particule, seul emploi courant, est au ton neutre (Unihan : ba)
+呢	ne ní	Make Me a Hanzi donne né, lecture inexistante ; la particule ne, et ní du drap de laine (呢子)
+谁	shéi shuí	Make Me a Hanzi ne donne que shuí ; shéi est la lecture courante du mandarin parlé, shuí la lecture soutenue
+觉	jué jiào	Make Me a Hanzi et Unihan ne donnent que jué ; jiào pour le sommeil (睡觉, 午觉)
+兴	xīng xìng	Make Me a Hanzi et Unihan ne donnent que xìng ; xīng (prospérer, 新兴) est la lecture d'entrée du dictionnaire, xìng celle de 高兴
+那	nà	lecture unique retenue ; nèi et nā, variantes orales ou patronyme, restent hors du seuil
+#
+# 2. Autres polyphones des listes, vérifiés sur kXHC1983 : lecture principale
+#    corrigée, ou seconde lecture qu'un mot des fiches ou du HSK 1 emploie.
+只	zhǐ zhī	Make Me a Hanzi met en tête zhī (classificateur) ; zhǐ (seulement, 只有) est la plus fréquente (kHanyuPinlu)
+子	zǐ	Make Me a Hanzi donne zi, le suffixe au ton neutre ; le caractère se lit zǐ (子女), le ton neutre est celui du mot (日子 rìzi)
+的	de dì dí	Make Me a Hanzi ne donne que de ; dì dans 目的
+得	dé de děi	Make Me a Hanzi ne donne que dé ; de dans 懂得, děi (devoir)
+都	dōu dū	Make Me a Hanzi ne donne que dōu ; dū (la capitale) dans 首都, 古都
+还	hái huán	Make Me a Hanzi ne donne que hái ; huán (rendre) dans 还书, 还给
+为	wèi wéi	Make Me a Hanzi ne donne que wèi ; wéi dans 为人, 为难
+少	shǎo shào	Make Me a Hanzi ne donne que shǎo ; shào (jeune) dans 少女
+干	gàn gān	Make Me a Hanzi ne donne que gàn ; gān (sec, les dix troncs célestes) dans 十干
+长	zhǎng cháng	Make Me a Hanzi et Unihan ne donnent que zhǎng ; cháng (long) est aussi courant
+重	zhòng chóng	Make Me a Hanzi ne donne que zhòng ; chóng (de nouveau) dans 重新
+好	hǎo hào	Make Me a Hanzi ne donne que hǎo ; hào (aimer) dans 爱好, HSK 1
+教	jiào jiāo	Make Me a Hanzi ne donne que jiào ; jiāo (enseigner) est un verbe du HSK 1
+行	xíng háng	Make Me a Hanzi ne donne que xíng ; háng dans 银行, HSK 1
+着	zhe zháo zhuó	Make Me a Hanzi ne donne que zhe ; zháo dans 睡着 et 着急, zhuó dans 着手
+差	chà chā chāi	Make Me a Hanzi ne donne que chà ; chā dans 差别, chāi dans 出差
+答	dá dā	Make Me a Hanzi ne donne que dá ; dā dans 答应
+吗	ma má	Make Me a Hanzi ne donne que la particule ma ; má dans 干吗
+么	me ma	Make Me a Hanzi ne donne que me ; ma, particule interrogative (variante de 吗), dans 好么 (écrit ancien ou familier)
+假	jiǎ jià	Make Me a Hanzi ne donne que jiǎ ; jià (congé) dans 放假, HSK 1
+系	xì jì	Make Me a Hanzi ne donne que xì ; jì (nouer) dans 系鞋带

@@ -9,7 +9,7 @@ Etiquette = Literal["atteste", "mnemotechnique"]
 #: sans aucun texte — il n'y a pas encore de fiche relue pour lui (brief §17).
 Statut = Literal["relu", "sans_fiche"]
 #: D'où vient la chaîne IDS descendue pour la décomposition (traçabilité de licence).
-SourceIds = Literal["makemeahanzi", "cjk-decomp"]
+SourceIds = Literal["makemeahanzi", "cjk-decomp", "surcharge"]
 
 
 class Brique(BaseModel):

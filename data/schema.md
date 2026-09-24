@@ -17,7 +17,7 @@ Une famille n'est exportée qu'avec ses membres du périmètre ; la famille 口 
 dessinent depuis leurs traits (`data/sources/fetes/textes.tsv` : le caractère
 bonus de chaque anecdote et le 福 du vœu) y entrent aussi, avec leurs briques,
 comme le caractère à lire de chaque terme solaire (`data/sources/saisons/textes.tsv`).
-Version 0.1.0 : 243 familles, 512 caractères (225 briques, 15 feuilles muettes),
+Version 0.1.0 : 244 familles, 513 caractères (230 briques, 13 feuilles muettes),
 1,46 Mio.
 
 ## Arborescence
@@ -58,7 +58,7 @@ Trois régimes de licence, trois familles de fichiers, jamais mêlés
             "fiches_relues": 0, "contes": 0},
  "listes": {"seuil-255": ["…"], "hsk-1": ["…"]},
  "parcours": {"lire": {"liste": "seuil-255", "regle": "…",
-                       "jours": [{"jour": 1, "brique": "月", "composes": ["朋", "有"],
+                       "jours": [{"jour": 1, "brique": "人", "composes": [],
                                   "non_reconcilie": false}]},
               "hsk": {"…": "…"}},
  "familles": [{"racine": "亻", "fichier": "familles/亻.json",
@@ -105,11 +105,14 @@ racine, fiches}`.
 porte une `Fiche` par caractère de la famille, triée par caractère :
 
 - `c`, `pinyin` — le pinyin vient d'Unihan (`kMandarin`), jamais de
-  `dictionary.txt` ni de CC-CEDICT (`docs/sources-licences.md` §2.2 et §4.2).
+  `dictionary.txt` ni de CC-CEDICT (`docs/sources-licences.md` §2.2 et §4.2), sauf
+  là où `data/sources/surcharges/pinyin.tsv` le corrige : sa première lecture, la
+  principale, est alors celle de l'export (地 dì et non la particule de).
 - `parts` : la décomposition canonique GF 0014-2009, dans l'ordre d'écriture ;
   vide pour une brique, qui est une feuille de la norme.
 - `sources` : d'où vient la chaîne IDS descendue pour cette décomposition,
-  `makemeahanzi` ou `cjk-decomp`. Nommée par caractère pour que la question de
+  `makemeahanzi`, `cjk-decomp` ou `surcharge` (une correction versionnée de
+  `data/sources/surcharges/ids.tsv`, rédigée pour le projet). Nommée par caractère pour que la question de
   licence de `dictionary.txt` (LGPL, §2.2) reste tranchable fichier par fichier.
 - `nouveau` : les index, dans `parts`, de l'élément ajouté — le composant posé le
   même jour que le caractère dans son parcours de référence (`lire`, sinon
@@ -316,7 +319,7 @@ Quatre points de code portent deux composants distincts de la norme : ⺈, 丁, 
 `uv run wenlu build` écrit dans `data/work/build/`, hors dépôt :
 
 - `decompositions.json` : `{norme, table: {fichier, composants, groupes}, source_ids,
-  source_ids_secondaire,
+  source_ids_secondaire, source_ids_surcharge,
   caracteres: [{c, composants[], structure, reconcilie, inconnus[], cycle[], sources[]}]}`.
   `composants` est la liste ordonnée des feuilles atteintes en descendant l'IDS de Make
   Me a Hanzi jusqu'aux composants de la norme, dans l'ordre des opérandes IDS, qui est
@@ -324,12 +327,33 @@ Quatre points de code portent deux composants distincts de la norme : ⺈, 丁, 
   `structure` est l'IDS réduit à ces feuilles. `inconnus` liste les feuilles absentes de
   la norme — elles figurent quand même dans `composants` — et `cycle` le chemin de
   descente qui boucle. `reconcilie` vaut vrai quand les deux sont vides. `sources` nomme
-  les sources d'IDS descendues (`makemeahanzi`, `cjk-decomp`) : un caractère marqué
-  `cjk-decomp` est à relire, ses feuilles étant plus sûres que sa structure.
+  les sources d'IDS descendues (`makemeahanzi`, `cjk-decomp`, `surcharge`) : un
+  caractère marqué `cjk-decomp` est à relire, ses feuilles étant plus sûres que sa
+  structure.
 - `ecarts.md` : décompte des caractères réconciliés, composants inconnus classés par
   fréquence avec leur point de code, cycles, apport de l'IDS secondaire, et état des
   listes prioritaires (seuil 255, HSK 1) avec les caractères que l'IDS secondaire a
   réconciliés, à relire.
+
+### Surcharges des sources, versionnées
+
+Les fichiers téléchargés ne se corrigent jamais sur place. Une erreur relevée se
+corrige dans `data/sources/surcharges/`, une ligne et une raison par correction
+(`surcharges.py`) :
+
+- `ids.tsv` (`c`, `ids`, `raison`) : l'IDS passe devant Make Me a Hanzi et cjk-decomp,
+  et la décomposition qui le descend porte la source `surcharge`. Une surcharge n'entre
+  que si la table de la norme la justifie : un composant propre (那字旁 pour 那,
+  学字头 pour 学), un point de code de notation ramené à celui de la norme (㇔ → 丶,
+  ⺼ → 月), ou une source qui se trompe de composant (壴, 在). Les 30 composants sans
+  point de code s'y écrivent entre accolades : `⿰{⿰𠄌丶}人`.
+- `equivalences.tsv` (`forme`, `composant`, `raison`) : un point de code de la source
+  qui porte des tracés est apparié au composant que la norme écrit autrement, sans
+  être renommé (⺮ pour 𥫗, 竹头) : la feuille reste dessinable.
+- `pinyin.tsv` (`c`, `lectures`, `raison`) : les lectures remplacent celles de Make Me
+  a Hanzi (contexte des fiches) et d'Unihan (export). La première est la principale.
+- `decompositions-non-corrigees.md` : ce qui a été vérifié contre la table et laissé
+  tel quel, avec la raison.
 
 `uv run wenlu check` relit `decompositions.json` : le contrôle « composants inconnus »
 signale sans bloquer (la norme ne couvre que 3 500 caractères), le contrôle « cycles »
@@ -367,7 +391,7 @@ est bloquant.
 
 ### `parcours-lire.json`, `parcours-hsk.json`
 
-`{parcours, liste, regle, critere_frequence, cible[], compte, jours[], briques[],
+`{parcours, liste, regle, critere_frequence, depart[], cible[], compte, jours[], briques[],
 briques_muettes[], non_reconcilies[], absents[]}`.
 
 - `parcours` vaut `lire` (liste cible `seuil-255`, puis les seuils suivants) ou `hsk`
@@ -379,6 +403,12 @@ briques_muettes[], non_reconcilies[], absents[]}`.
   10 minutes : au plus une brique nouvelle, puis un ou deux composés qui deviennent
   lisibles avec elle. `brique` est nul les jours de consolidation, quand il ne reste que
   des composés à poser. Les jours `non_reconcilie` ferment le parcours.
+- `depart` : ce que la première session enseigne (brief §6, story 2.7), `人 大 天`
+  pour `lire`, vide pour `hsk` (`DEPART` de `graphe.py`). Ces caractères ouvrent le
+  parcours, un jour chacun, dans cet ordre et sans composé : la première session les
+  pose d'un coup, et la session complète reprend au jour qui suit (`jourApresDepart`
+  de `app/src/lib/premiere.ts`). La règle d'une brique nouvelle par jour tient ; seul
+  l'ordre de priorité cède.
 - Ordre : tri topologique — une brique avant tout ce qui la contient. Parmi les
   candidats prêts, priorité aux caractères de la liste cible, puis à ce qui devient
   lisible le jour même, puis à la fréquence, puis à l'ordre de la liste. Make Me a Hanzi
@@ -388,7 +418,9 @@ briques_muettes[], non_reconcilies[], absents[]}`.
 - `briques_muettes` : les feuilles sans fiche employées par des caractères de la liste.
   Acquises d'entrée, elles ne prennent jamais de jour ; `wenlu check` les signale.
 - `non_reconcilies` et `absents` : caractères de la liste dont la décomposition n'est pas
-  réconciliée (22 pour le seuil 255, 31 pour le HSK 1) ou qui manquent au dictionnaire.
+  réconciliée (1 pour le seuil 255 et 1 pour le HSK 1, 兴 ; voir
+  `data/sources/surcharges/decompositions-non-corrigees.md`) ou qui manquent au
+  dictionnaire.
   Ils ferment le parcours, marqués `non_reconcilie` : jamais oubliés.
 
 `uv run wenlu check` ajoute trois contrôles : « cycles du graphe » (bloquant),
@@ -407,7 +439,8 @@ brouillon rédigé sans API, avec les mêmes contrôles, puis d'une relecture hu
 Assemblé par `fiches.Corpus` depuis `decompositions.json`, `graphe.json`,
 `parcours-<nom>.json`, `caracteres.json` et `mots.json` :
 
-- le caractère, son pinyin (`caracteres.json`), sa famille et son genre (`graphe.json`) ;
+- le caractère, son pinyin (`caracteres.json`, corrigé par
+  `data/sources/surcharges/pinyin.tsv`), sa famille et son genre (`graphe.json`) ;
 - sa décomposition canonique GF 0014-2009 (`decompositions.json`), avec le nom normalisé
   (部件名称) de chaque composant, pris dans `composants.tsv` ;
 - le rôle probable d'un composant quand l'étymologie de Make Me a Hanzi le désigne comme
@@ -417,18 +450,23 @@ Assemblé par `fiches.Corpus` depuis `decompositions.json`, `graphe.json`,
   indice à vérifier, à ne ni traduire ni recopier (`docs/sources-licences.md` §2.2) ;
 - les mots candidats : mots de deux caractères de CC-CEDICT contenant le caractère et
   dont tous les caractères sont déjà vus au jour du parcours, avec leur pinyin et rien
-  d'autre. Les entrées au pinyin capitalisé (noms propres) sont écartées. La définition
-  anglaise n'est jamais lue ni transmise (`docs/sources-licences.md` §4.2) ;
+  d'autre. Les entrées au pinyin capitalisé (noms propres) sont écartées, et celles de
+  `data/sources/mots-exclus.tsv` (`mot`, `raison` : argot, termes de mahjong, mots rares
+  ou spécialisés, fragments de locution). La définition anglaise n'est jamais lue ni
+  transmise (`docs/sources-licences.md` §4.2) ;
 - les caractères acquis à ce jour, caractère du jour compris : les seuls autorisés dans
-  la phrase.
+  la phrase. Pour un caractère du départ, ceux de toute la première session, qui les
+  pose ensemble : 人, 大 et 天 ont chacun les trois.
 
 La réponse est contrainte par `output_config.format` (JSON structuré). La validation
 refuse une fiche dont l'origine FR ou EN ne fait pas exactement trois phrases (points
 finaux comptés), dont l'étiquette sort des deux valeurs, dont un mot n'est pas dans les
-candidats, ou dont la phrase emploie un caractère hors de l'acquis — les intrus sont
-listés exactement. La relance signale les motifs de refus, au plus trois essais. Rôle
-manquant, traduction vide, phrase sans le caractère du jour et manque de mots candidats
-sont des écarts signalés à la relecture, pas des rejets.
+candidats, qui porte plus de deux mots, ou dont la phrase emploie un caractère hors de
+l'acquis — les intrus sont listés exactement. La relance signale les motifs de refus,
+au plus trois essais. Rôle manquant, traduction vide, phrase sans le caractère du jour
+et moins de deux mots sont des écarts signalés à la relecture, pas des rejets : une
+fiche peut prendre moins de mots qu'il n'y a de candidats, pour qu'un mot rare,
+d'argot ou douteux ne s'impose jamais faute de mieux.
 
 ### Fiche écrite, versionnée
 
@@ -516,9 +554,15 @@ versionné, un fichier par caractère, nommé d'après lui.
   garde le code `atteste` ou `mnemotechnique`.
 - `roles` est un objet `{composant: "son" | "sens" | "forme"}`, un rôle par composant
   de la décomposition canonique.
-- `mots` : deux objets `{hanzi, pinyin, fr, en}`, pris dans les mots candidats ;
+- `mots` : au plus deux objets `{hanzi, pinyin, fr, en}`, pris dans les mots
+  candidats ; moins, voire aucun, quand les candidats sont rares ou douteux ;
   `phrase` : un objet `{zh, pinyin, fr, en}`. Les traductions sont rédigées, jamais
   reprises d'un dictionnaire.
+- Pinyin des mots et de la phrase : les tons du dictionnaire, sans sandhi (`yī`,
+  `bù`, même devant un quatrième ton) ; un mot d'un seul tenant (`bùhǎo`, `nǚ'ér`) ; le
+  ton neutre d'un mot comme CC-CEDICT (`dōngxi`, `péngyou`, `duōshao`, `rènshi`).
+  `tests/test_pinyin.py` relit chaque brouillon contre les lectures du caractère
+  (`pinyin.py`) et le pinyin CC-CEDICT du mot.
 - Le reste de la fiche (`parcours`, `jour`, `pinyin`, `composants`, `structure`) ne
   s'écrit pas : l'import le prend dans le contexte du caractère.
 
@@ -548,7 +592,12 @@ Traçabilité, dans `generation` : `api` vaut `session Claude Code (sans API)`,
 brouillon (`sha256sum` la retrouve), `date` le jour de l'import (`AAAA-MM-JJ`),
 `essais` le nombre de versions du brouillon importées, `refus` les motifs de rejet.
 Réimporter un brouillon inchangé ne réécrit rien — une fiche relue le reste ; un
-brouillon modifié remet la fiche au statut `a_relire`.
+brouillon modifié remet la fiche au statut `a_relire`. Un brouillon inchangé dont le
+contexte a bougé (le parcours l'a déplacé, une surcharge a corrigé son pinyin ou sa
+décomposition) met à jour `parcours`, `jour`, `pinyin`, `composants` et `structure`,
+sans toucher au texte ni à `generation` ; l'import le dit (« contexte mis à jour »).
+Le jour seul ne défait pas une relecture ; un pinyin ou une décomposition changés
+remettent une fiche relue à `a_relire`.
 
 ### Relecture
 

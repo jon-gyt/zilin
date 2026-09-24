@@ -12,11 +12,15 @@ from pathlib import Path
 
 import pytest
 
+from wenlu_data.export import VERSION
+from wenlu_data.paths import EXPORT
 from wenlu_data.graphe import (
     BRIQUE,
     CARACTERE,
+    DEPART,
     MUETTE,
     CycleDetecte,
+    DepartImpossible,
     Graphe,
     construire,
     controles,
@@ -219,6 +223,60 @@ def test_brique_muette_ne_prend_pas_de_jour_et_est_signalee() -> None:
     assert p.jours[0].composes == ("卡",)
 
 
+def test_le_depart_ouvre_le_parcours_un_jour_par_caractere() -> None:
+    """La première session d'abord : un caractère par jour, dans l'ordre, sans composé.
+
+    Sans départ, 日 ouvre le parcours et 明 vient avec 月 au jour 2. Avec le départ
+    亻 puis 月, ces deux-là prennent les deux premiers jours, seuls ; 明 et 休, qui
+    en dépendent, n'arrivent qu'ensuite, chacun avec sa dernière brique.
+    """
+    g = graphe()
+    cible = ["林", "明", "休", "日", "月"]
+    assert parcours(g, cible).jours[0].brique == "日"
+
+    p = parcours(g, cible, depart=("亻", "月"))
+    assert p.depart == ("亻", "月")
+    assert [(j.brique, j.composes) for j in p.jours[:2]] == [("亻", ()), ("月", ())]
+    assert [j.jour for j in p.jours] == list(range(1, len(p.jours) + 1))
+    # Une brique nouvelle par jour, ensuite comme avant ; rien n'est posé deux fois.
+    assert all(j.brique is None or g[j.brique].genre == BRIQUE for j in p.jours)
+    assert len(p.caracteres) == len(set(p.caracteres))
+    assert p.jours[2].brique == "日" and "明" in p.jours[2].composes
+    assert set(cible) <= set(p.caracteres)
+
+
+def test_le_depart_respecte_les_dependances() -> None:
+    """Un caractère du départ doit être lisible à son tour, et à apprendre."""
+    g = graphe()
+    with pytest.raises(DepartImpossible, match="il manque 日 月"):
+        parcours(g, ["明"], depart=("明",))
+    with pytest.raises(DepartImpossible, match="pas à apprendre"):
+        parcours(g, ["林"], depart=("日",))
+    p = parcours(g, ["明"], depart=("日", "月", "明"))
+    assert [j.caracteres for j in p.jours] == [("日",), ("月",), ("明",)]
+
+
+def test_le_parcours_lire_commence_par_la_premiere_session() -> None:
+    """Le départ du parcours « lire » est ce que l'app enseigne à la première session."""
+    assert DEPART["lire"] == ("人", "大", "天")
+
+
+def test_l_export_versionne_commence_par_la_premiere_session() -> None:
+    """Jours 1 à 3 de l'index exporté : 人, 大, 天, seuls. Le jour 4 reprend l'ordre du graphe."""
+    index = EXPORT / VERSION / "index.json"
+    if not index.exists():
+        pytest.skip("aucun export versionné")
+    jours = json.loads(index.read_text(encoding="utf-8"))["parcours"]["lire"]["jours"]
+    assert [(j["jour"], j["brique"], j["composes"]) for j in jours[:3]] == [
+        (1, "人", []),
+        (2, "大", []),
+        (3, "天", []),
+    ]
+    assert jours[3]["brique"] not in ("人", "大", "天")
+    vus = [c for j in jours for c in ([j["brique"]] if j["brique"] else []) + j["composes"]]
+    assert len(vus) == len(set(vus))
+
+
 def test_rang_de_frequence_ingere_prend_le_pas() -> None:
     """Make Me a Hanzi n'en fournit pas ; s'il en arrive un, il gouverne l'ordre."""
     assert rangs_frequence([{"c": "木"}, {"c": "亻"}]) == {}
@@ -246,7 +304,7 @@ def _preparer(tmp_path: Path, caracteres: list[dict[str, object]], cible: list[s
 
 def test_build_ecrit_graphe_et_parcours(tmp_path: Path) -> None:
     build_dir, ingest_dir = _preparer(tmp_path, CARACTERES, ["林", "古", "看"])
-    rapport = build(sortie=build_dir, ingest=ingest_dir)
+    rapport = build(sortie=build_dir, ingest=ingest_dir, depart={})
 
     graphe_json = json.loads((build_dir / "graphe.json").read_text(encoding="utf-8"))
     assert graphe_json["compte"]["noeuds"] == rapport["noeuds"]
@@ -272,7 +330,7 @@ def test_controle_cycles_bloquant(tmp_path: Path) -> None:
 
 def test_controle_caractere_de_liste_absent_du_parcours_bloquant(tmp_path: Path) -> None:
     build_dir, ingest_dir = _preparer(tmp_path, CARACTERES, ["林", "古"])
-    build(sortie=build_dir, ingest=ingest_dir)
+    build(sortie=build_dir, ingest=ingest_dir, depart={})
     chemin = build_dir / "parcours-lire.json"
     document = json.loads(chemin.read_text(encoding="utf-8"))
     document["jours"] = [j for j in document["jours"] if "古" not in j["composes"]]
@@ -286,14 +344,14 @@ def test_controle_caractere_de_liste_absent_du_parcours_bloquant(tmp_path: Path)
 
 def test_controle_briques_muettes_signale_sans_bloquer(tmp_path: Path) -> None:
     build_dir, ingest_dir = _preparer(tmp_path, CARACTERES, ["卡"])
-    build(sortie=build_dir, ingest=ingest_dir)
+    build(sortie=build_dir, ingest=ingest_dir, depart={})
     controle = next(c for c in controles(sortie=build_dir) if c.nom == "briques muettes")
     assert not controle.ok and not controle.bloquant and "⺊" in controle.detail
 
 
 def test_controles_passent_sur_un_graphe_sain(tmp_path: Path) -> None:
     build_dir, ingest_dir = _preparer(tmp_path, CARACTERES, ["林", "古"])
-    build(sortie=build_dir, ingest=ingest_dir)
+    build(sortie=build_dir, ingest=ingest_dir, depart={})
     assert all(c.ok for c in controles(sortie=build_dir))
 
 
@@ -301,14 +359,14 @@ def test_build_ecrit_les_briques_muettes_dans_ecarts(tmp_path: Path) -> None:
     """`ecarts.md` dit quelles feuilles sont muettes et qui en dépend."""
     build_dir, ingest_dir = _preparer(tmp_path, CARACTERES, ["卡"])
     (build_dir / "ecarts.md").write_text("# Écarts\n\ntête\n", encoding="utf-8")
-    build(sortie=build_dir, ingest=ingest_dir)
+    build(sortie=build_dir, ingest=ingest_dir, depart={})
 
     ecarts = (build_dir / "ecarts.md").read_text(encoding="utf-8")
     assert "tête" in ecarts, "la section s'ajoute au rapport de gf0014, elle ne le remplace pas"
     assert "## Briques muettes" in ecarts
     assert "| `⺊` | U+2E8A | 卡 |" in ecarts
 
-    build(sortie=build_dir, ingest=ingest_dir)
+    build(sortie=build_dir, ingest=ingest_dir, depart={})
     assert (build_dir / "ecarts.md").read_text(encoding="utf-8").count("## Briques muettes") == 1
 
 
@@ -327,7 +385,7 @@ def test_les_feuilles_muettes_sortent_triees(tmp_path: Path) -> None:
 
     # Et le fichier écrit ne bouge pas d'un passage à l'autre.
     build_dir, ingest_dir = _preparer(tmp_path, caracteres, ["卡"])
-    build(sortie=build_dir, ingest=ingest_dir)
+    build(sortie=build_dir, ingest=ingest_dir, depart={})
     premier = (build_dir / "graphe.json").read_text(encoding="utf-8")
-    build(sortie=build_dir, ingest=ingest_dir)
+    build(sortie=build_dir, ingest=ingest_dir, depart={})
     assert (build_dir / "graphe.json").read_text(encoding="utf-8") == premier

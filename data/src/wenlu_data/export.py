@@ -31,7 +31,8 @@ Ce qui n'entre jamais dans l'export :
   assurer ;
 - `dictionary.txt` et ce qui en dérive comme texte (§2.2). Sa chaîne IDS sert à
   la réconciliation et la décomposition exportée nomme sa source
-  (`sources: ["makemeahanzi"]` ou `["cjk-decomp"]`) : la question de licence
+  (`sources: ["makemeahanzi"]`, `["cjk-decomp"]`, ou `["surcharge"]` pour une
+  correction versionnée de `data/sources/surcharges/ids.tsv`) : la question de licence
   reste ouverte et l'export la pose noir sur blanc dans `LICENCES.md`, pour
   qu'elle se tranche caractère par caractère ;
 - une fiche ou un conte qui n'est pas au statut `relu` (brief §17). Un caractère
@@ -39,7 +40,8 @@ Ce qui n'entre jamais dans l'export :
   de ses traits — avec les champs de texte vides et `statut: "sans_fiche"`.
 
 Le pinyin vient d'Unihan (`kMandarin`, Unicode License), jamais de
-`dictionary.txt` ni de CC-CEDICT.
+`dictionary.txt` ni de CC-CEDICT, sauf là où `data/sources/surcharges/pinyin.tsv`
+le corrige : sa première lecture est alors la lecture exportée.
 
 Déterminisme : deux exports du même contenu écrivent les mêmes octets. Les
 fichiers sont triés, les dictionnaires écrits dans un ordre fixe, et la date est
@@ -66,6 +68,7 @@ from . import devinettes as devinettes_mod
 from . import fetes as fetes_mod
 from . import fiches as fiches_mod
 from . import saisons as saisons_mod
+from . import surcharges as surcharges_mod
 from .gf0014 import Controle
 from .graphe import BRIQUE, MUETTE, PARCOURS
 from .models import Brique, Famille, Fiche, Mot
@@ -158,6 +161,9 @@ def fichiers_sources(
         ("graphies", ingest / "graphies.json"),
         ("unihan", ingest / "unihan.json"),
         ("composants", GF0014 / "composants.tsv"),
+        ("surcharges-ids", surcharges_mod.IDS),
+        ("surcharges-equivalences", surcharges_mod.EQUIVALENCES),
+        ("surcharges-pinyin", surcharges_mod.PINYIN),
         ("paires", PAIRES),
         ("fetes-calendrier", fetes_mod.CALENDRIER),
         ("fetes-textes", fetes_mod.TEXTES),
@@ -296,16 +302,29 @@ def charger_listes(ingest: Path) -> dict[str, list[str]]:
     return {str(nom): [str(c) for c in liste] for nom, liste in document.items()}
 
 
-def charger_pinyin(ingest: Path, caracteres: Iterable[str]) -> dict[str, str]:
-    """Pinyin d'Unihan (`kMandarin`) pour les caractères demandés, et eux seuls."""
+def charger_pinyin(
+    ingest: Path,
+    caracteres: Iterable[str],
+    surcharges: Mapping[str, Sequence[str]] | None = None,
+) -> dict[str, str]:
+    """Pinyin d'Unihan (`kMandarin`) pour les caractères demandés, et eux seuls.
+
+    Une surcharge de `data/sources/surcharges/pinyin.tsv` passe devant : sa
+    première lecture est la lecture principale (地 dì, et non la particule de).
+    """
     document = _lire(ingest / "unihan.json")
     assert isinstance(document, dict)
+    surcharges = surcharges_mod.charger_pinyin() if surcharges is None else surcharges
     voulus = set(caracteres)
-    return {
+    lus = {
         str(e["c"]): str(e.get("pinyin") or "")
         for e in document["caracteres"]
         if str(e["c"]) in voulus and e.get("pinyin")
     }
+    for c, lectures in surcharges.items():
+        if c in voulus and lectures:
+            lus[c] = lectures[0]
+    return lus
 
 
 def charger_graphies(ingest: Path, caracteres: Iterable[str]) -> dict[str, dict[str, object]]:
@@ -866,6 +885,13 @@ TABLEAU_LICENCES: tuple[tuple[str, str, str, str, str], ...] = (
         "faits de calendrier ; bibliothèque MIT, non embarquée",
         "lunar_python, Copyright (c) 6tail",
         "https://github.com/6tail/lunar-python",
+    ),
+    (
+        "Surcharges du pipeline wenlu (`data/sources/surcharges/`)",
+        "pinyin et IDS corrigés, chacun avec sa raison (`sources: [\"surcharge\"]`)",
+        LICENCE_PROPRIETAIRE,
+        "corrections relues des sources ci-dessus",
+        "—",
     ),
     (
         "Fiches, contes, paires, fêtes, saisons, devinettes (pipeline wenlu)",

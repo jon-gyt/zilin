@@ -13,6 +13,7 @@
 | Norme GF 0014-2009 | les 514 composants : règle de décomposition | texte normatif, non reproduit | 《现代常用字部件及部件名称规范》 | — |
 | Seuils sinographiques (Éducation nationale) et référentiel HSK 3.0 | listes cibles (`listes`, `parcours`) | publications officielles, listes de faits | Eduscol ; Chinese Testing International | — |
 | Calendrier luni-solaire chinois | dates des fêtes (`fetes.json`) et des termes solaires (`saisons.json`), calculées par lunar_python | faits de calendrier ; bibliothèque MIT, non embarquée | lunar_python, Copyright (c) 6tail | https://github.com/6tail/lunar-python |
+| Surcharges du pipeline wenlu (`data/sources/surcharges/`) | pinyin et IDS corrigés, chacun avec sa raison (`sources: ["surcharge"]`) | propriétaire | corrections relues des sources ci-dessus | — |
 | Fiches, contes, paires, fêtes, saisons, devinettes (pipeline wenlu) | `familles/`, `contes/`, `paires.json`, `fetes.json`, `saisons.json`, `devinettes.json` | propriétaire | textes rédigés pour l'app, relus | — |
 
 ## Séparation des fichiers

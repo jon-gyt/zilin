@@ -18,6 +18,13 @@ Make Me a Hanzi note `？` l'élément qu'il ne décompose pas : ces caractères
 peuvent pas être réconciliés. Une source d'IDS secondaire sous licence permissive
 (cjk-decomp, voir `cjkdecomp.py`) prend alors le relais, et seulement alors. Le
 caractère garde la trace des sources d'IDS consultées (`sources`).
+
+Surcharges : une erreur de source relevée à la relecture se corrige dans
+`data/sources/surcharges/ids.tsv` (voir `surcharges.py`), jamais dans le fichier
+téléchargé. Un IDS de surcharge passe devant les deux sources, et la
+décomposition qui le descend porte la source `surcharge`. Il peut nommer entre
+accolades un composant de la norme écrit en IDS, faute de point de code :
+`⿰{⿰𠄌丶}人`.
 """
 from __future__ import annotations
 
@@ -30,6 +37,7 @@ from typing import Iterable, Iterator, Mapping, Sequence
 from .cjkdecomp import SOURCE as SOURCE_SECONDAIRE
 from .outils import ecrire_json
 from .paths import BUILD, GF0014, INGEST
+from .surcharges import SOURCE_SURCHARGE, charger_equivalences, charger_ids
 
 # Opérateurs de description idéographique (Unicode 2FF0..2FFB) et leur arité.
 OPERATEURS_IDS: dict[str, int] = {
@@ -83,23 +91,41 @@ class TableGF0014:
     """Les composants de la norme, indexés par forme.
 
     Seuls les composants ayant un point de code Unicode sont appariables avec une
-    décomposition IDS ; les autres restent dans `composants` pour la complétude.
+    feuille IDS ordinaire (`par_forme`). Les 30 autres, écrits en IDS (`par_ids`),
+    ne se rencontrent que nommés entre accolades par une surcharge versionnée.
+
+    `equivalences` apparie en plus un point de code de notation au composant que
+    la norme écrit autrement (⺮ pour 𥫗, 竹头) : la feuille garde le point de code
+    de la source, qui porte les tracés, et prend le nom et le numéro de la norme.
 
     Quatre points de code portent deux composants distincts de la norme (⺈, 丁,
     丷, 𧘇) : `par_forme` associe donc une forme à toutes ses lignes, et
     `__getitem__` rend la première, celle du plus petit numéro d'ordre.
     """
 
-    def __init__(self, composants: Sequence[Composant]) -> None:
+    def __init__(
+        self,
+        composants: Sequence[Composant],
+        equivalences: Mapping[str, str] | None = None,
+    ) -> None:
         self.composants: tuple[Composant, ...] = tuple(composants)
         self.par_forme: dict[str, tuple[Composant, ...]] = {}
+        self.par_ids: dict[str, Composant] = {}
         for c in self.composants:
             if c.type_forme != "unicode":
+                self.par_ids.setdefault(c.forme, c)
                 continue
             self.par_forme[c.forme] = self.par_forme.get(c.forme, ()) + (c,)
+        self.equivalences: dict[str, str] = {}
+        for forme, cible in (equivalences or {}).items():
+            if forme in self.par_forme or cible not in self.par_forme:
+                raise TableInvalide(
+                    f"équivalence {forme} → {cible} : {forme} doit être hors table, {cible} dedans"
+                )
+            self.equivalences[forme] = cible
 
     def __contains__(self, forme: object) -> bool:
-        return forme in self.par_forme
+        return forme in self.par_forme or forme in self.par_ids or forme in self.equivalences
 
     def __len__(self) -> int:
         return len(self.composants)
@@ -108,7 +134,9 @@ class TableGF0014:
         return iter(self.composants)
 
     def __getitem__(self, forme: str) -> Composant:
-        return self.par_forme[forme][0]
+        if forme in self.par_ids:
+            return self.par_ids[forme]
+        return self.par_forme[self.equivalences.get(forme, forme)][0]
 
     @property
     def groupes(self) -> int:
@@ -122,7 +150,7 @@ class TableGF0014:
 
     def principal(self, forme: str) -> str:
         """Forme du composant principal du groupe de `forme`, ou `forme` si inconnue."""
-        composants = self.par_forme.get(forme)
+        composants = self.par_forme.get(self.equivalences.get(forme, forme))
         return composants[0].principal if composants else forme
 
 
@@ -162,10 +190,19 @@ def parse_table(lignes: Iterable[str]) -> list[Composant]:
     return composants
 
 
-def charger_table(chemin: Path | None = None) -> TableGF0014:
-    """Charge `data/sources/gf0014-2009/composants.tsv`."""
+def charger_table(
+    chemin: Path | None = None,
+    equivalences: Mapping[str, str] | None = None,
+) -> TableGF0014:
+    """Charge `data/sources/gf0014-2009/composants.tsv`.
+
+    `equivalences` vaut par défaut `data/sources/surcharges/equivalences.tsv`.
+    """
     chemin = chemin or (GF0014 / "composants.tsv")
-    return TableGF0014(parse_table(chemin.read_text(encoding="utf-8").splitlines()))
+    return TableGF0014(
+        parse_table(chemin.read_text(encoding="utf-8").splitlines()),
+        charger_equivalences() if equivalences is None else equivalences,
+    )
 
 
 # ----------------------------------------------------------------------------- IDS
@@ -178,6 +215,12 @@ def _lire_ids(ids: str, i: int) -> tuple[Noeud, int]:
     if i >= len(ids):
         raise IdsInvalide(f"IDS tronqué : {ids!r}")
     tete = ids[i]
+    if tete == "{":
+        # Un composant de la norme écrit en IDS, faute de point de code : une feuille.
+        fin = ids.find("}", i + 1)
+        if fin <= i + 1:
+            raise IdsInvalide(f"accolade non refermée ou vide : {ids!r}")
+        return ids[i + 1 : fin], fin + 1
     arite = OPERATEURS_IDS.get(tete)
     if arite is None:
         return tete, i + 1
@@ -302,12 +345,14 @@ def a_remplacer(ids: str, c: str) -> bool:
 def combiner_ids(
     principaux: Mapping[str, str],
     secondaires: Mapping[str, str] | None = None,
+    surcharges: Mapping[str, str] | None = None,
 ) -> tuple[dict[str, str], dict[str, str]]:
-    """Fusionne les deux sources d'IDS. Rend (IDS retenus, source de chaque IDS).
+    """Fusionne les sources d'IDS. Rend (IDS retenus, source de chaque IDS).
 
     La source secondaire ne sert que là où Make Me a Hanzi ne donne rien
     d'exploitable, et pour les caractères qu'il ignore — ceux que la descente
-    rencontre sans pouvoir les ouvrir.
+    rencontre sans pouvoir les ouvrir. Une surcharge versionnée passe devant les
+    deux : c'est une correction relue, avec sa raison.
     """
     ids = dict(principaux)
     sources = {c: SOURCE_MMAH for c in principaux}
@@ -315,6 +360,9 @@ def combiner_ids(
         if c not in ids or a_remplacer(ids[c], c):
             ids[c] = secondaire
             sources[c] = SOURCE_SECONDAIRE
+    for c, surcharge in (surcharges or {}).items():
+        ids[c] = surcharge
+        sources[c] = SOURCE_SURCHARGE
     return ids, sources
 
 
@@ -322,10 +370,11 @@ def reconcilier(
     caracteres: Iterable[Mapping[str, object]],
     table: TableGF0014,
     ids_secondaires: Mapping[str, str] | None = None,
+    surcharges: Mapping[str, str] | None = None,
 ) -> list[Decomposition]:
     """Décompose tous les caractères ingérés, dans l'ordre de la source."""
     principaux = index_ids(caracteres)
-    ids, sources = combiner_ids(principaux, ids_secondaires)
+    ids, sources = combiner_ids(principaux, ids_secondaires, surcharges)
     return [decomposer(c, table, ids, sources) for c in principaux]
 
 
@@ -374,14 +423,17 @@ def rapport_ecarts(
     decompositions: Sequence[Decomposition],
     table: TableGF0014,
     listes: Mapping[str, Sequence[str]],
+    surcharges: Mapping[str, str] | None = None,
 ) -> str:
     """Rapport Markdown : réconciliés, composants inconnus, listes prioritaires."""
+    surcharges = surcharges or {}
     total = len(decompositions)
     par_caractere = {d.c: d for d in decompositions}
     ok = [d for d in decompositions if d.reconcilie]
     cycles = [d for d in decompositions if d.cycle]
     inconnus = _frequence_inconnus(decompositions)
     secondaire = [d for d in decompositions if SOURCE_SECONDAIRE in d.sources]
+    surcharges_descendues = [d for d in decompositions if SOURCE_SURCHARGE in d.sources]
 
     part = f"{100 * len(ok) / total:.1f} %" if total else "—"
     lignes = [
@@ -403,6 +455,8 @@ def rapport_ecarts(
         f"| Caractères avec cycle | {len(cycles)} |",
         f"| Caractères descendus avec l'IDS secondaire | {len(secondaire)}"
         f" ({sum(1 for d in secondaire if d.reconcilie)} réconciliés) |",
+        f"| Surcharges d'IDS (`data/sources/surcharges/ids.tsv`) | {len(surcharges)} lignes,"
+        f" {len(surcharges_descendues)} caractères descendus avec |",
         "",
         "## Composants inconnus, par fréquence",
         "",
@@ -449,9 +503,11 @@ def rapport_ecarts(
         "- Les autres composants inconnus sont des idéogrammes absents de la norme, qui ne"
         " couvre que les 3 500 caractères usuels de l'écriture simplifiée : attendu sur le"
         " reste du dictionnaire.",
-        "- 30 des 514 composants n'ont pas de point de code Unicode et ne peuvent donc"
-        " jamais être appariés à une feuille IDS. Le composant 北字旁 (⿰二丨) en fait"
-        " partie, d'où l'écart sur 北.",
+        "- 30 des 514 composants n'ont pas de point de code Unicode : seule une surcharge"
+        " peut les nommer, entre accolades (`⿰{⿰𠄌丶}人`). Le composant 北字旁 (⿰二丨)"
+        " en fait partie.",
+        "- Les surcharges d'IDS corrigent une source fautive ou ramènent un point de code"
+        " de notation à la forme de la norme ; chaque ligne porte sa raison.",
         "",
     ]
 
@@ -488,6 +544,16 @@ def rapport_ecarts(
         if repris:
             lignes += [
                 f"Réconciliés grâce à l'IDS secondaire, à relire : {' '.join(repris)}",
+                "",
+            ]
+        corriges = [
+            c
+            for c in caracteres
+            if c in par_caractere and SOURCE_SURCHARGE in par_caractere[c].sources
+        ]
+        if corriges:
+            lignes += [
+                f"Décomposés à travers une surcharge d'IDS : {' '.join(corriges)}",
                 "",
             ]
         if manques:
@@ -533,6 +599,9 @@ def document_decompositions(
         "source_ids_secondaire": (
             f"{SOURCE_SECONDAIRE} (IDS de repli quand Make Me a Hanzi donne ？ ou rien)"
         ),
+        "source_ids_surcharge": (
+            f"{SOURCE_SURCHARGE} (data/sources/surcharges/ids.tsv, devant les deux sources)"
+        ),
         "caracteres": [
             {
                 "c": d.c,
@@ -552,21 +621,28 @@ def build(
     ingest: Path | None = None,
     sortie: Path | None = None,
     table: TableGF0014 | None = None,
+    surcharges: Mapping[str, str] | None = None,
 ) -> dict[str, object]:
-    """Réconcilie toutes les décompositions et écrit decompositions.json et ecarts.md."""
+    """Réconcilie toutes les décompositions et écrit decompositions.json et ecarts.md.
+
+    `surcharges` vaut par défaut `data/sources/surcharges/ids.tsv`.
+    """
     ingest = ingest or INGEST
     sortie = sortie or BUILD
     table = table or charger_table()
+    surcharges = charger_ids() if surcharges is None else surcharges
 
     caracteres = json.loads((ingest / "caracteres.json").read_text(encoding="utf-8"))
     fichier_listes = ingest / "listes.json"
     listes = json.loads(fichier_listes.read_text(encoding="utf-8")) if fichier_listes.exists() else {}
     secondaires = charger_ids_secondaires(ingest)
 
-    decompositions = reconcilier(caracteres, table, secondaires)
+    decompositions = reconcilier(caracteres, table, secondaires, surcharges)
     sortie.mkdir(parents=True, exist_ok=True)
     ecrire_json(sortie / "decompositions.json", document_decompositions(decompositions, table))
-    (sortie / "ecarts.md").write_text(rapport_ecarts(decompositions, table, listes), encoding="utf-8")
+    (sortie / "ecarts.md").write_text(
+        rapport_ecarts(decompositions, table, listes, surcharges), encoding="utf-8"
+    )
 
     ok = sum(1 for d in decompositions if d.reconcilie)
     rapport: dict[str, object] = {
@@ -581,6 +657,7 @@ def build(
         "reconcilies_via_secondaire": sum(
             1 for d in decompositions if d.reconcilie and SOURCE_SECONDAIRE in d.sources
         ),
+        "surcharges_ids": len(surcharges),
     }
     for nom in PRIORITAIRES:
         attendus = listes.get(nom, [])

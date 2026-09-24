@@ -23,7 +23,7 @@
   import Tree from './lib/Tree.svelte';
   import Use from './lib/Use.svelte';
   import Warm from './lib/Warm.svelte';
-  import { apresSplash, briques, familleDepart } from './lib/premiere';
+  import { apresSplash, suiteDepart } from './lib/premiere';
   import {
     anecdoteFaite,
     caseReviser,
@@ -352,18 +352,16 @@
   /**
    * La première session est finie : une carte par brique, les activités notées pour Tao,
    * le drapeau tombe, la première graine est plantée. Le menu s'ouvre sur la journée
-   * faite : la session complète commence demain.
+   * faite : la session complète commence demain, au jour du parcours qui suit ce que la
+   * première session a enseigné.
    */
   function departFini(): void {
-    void familleDepart()
-      .then((f) => briques(f))
-      .catch(() => [])
-      .then((cs) => {
-        p = finDepart(p, p.day, new Date(), cs);
-        majDue();
-        enregistrer();
-        allerAuMenu();
-      });
+    void suiteDepart(p.parcours).then(({ appris, jour }) => {
+      p = finDepart(p, p.day, new Date(), appris, jour);
+      majDue();
+      enregistrer();
+      allerAuMenu();
+    });
   }
 
   /* ---------- pas 1, Ouvrir ---------- */
