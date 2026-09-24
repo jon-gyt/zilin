@@ -30,8 +30,8 @@
       <circle class="zd" cx="100" cy="42" r="13" fill="var(--zhu)" />
     </svg>
     <div class="zt">
-      <span class="nom">Zilin</span>
-      <span class="cn hz">字林</span>
+      <span class="nom">Wenlu</span>
+      <span class="cn hz">文路</span>
     </div>
   </button>
 </main>

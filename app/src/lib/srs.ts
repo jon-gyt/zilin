@@ -61,7 +61,7 @@ export function grade(o: Outcome): Grade {
 }
 
 /**
- * Paramètres FSRS de Zilin.
+ * Paramètres FSRS de Wenlu.
  * `enable_short_term` est désactivé : les paliers en minutes de FSRS remplaceraient les
  * intervalles en jours du brief. Le retour à 10 minutes après une réponse montrée est la
  * seule exception, et c'est nous qui l'appliquons.

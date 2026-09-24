@@ -58,14 +58,14 @@
     {/if}
 
     <div class="sceau">
-      <svg width="72" height="72" viewBox="0 0 200 200" aria-label="Zilin">
+      <svg width="72" height="72" viewBox="0 0 200 200" aria-label="Wenlu">
         <g fill="none" stroke="currentColor" stroke-width="18" stroke-linecap="round" stroke-linejoin="round">
           <path d="M50 84h100L50 160h100" />
         </g>
         <circle cx="100" cy="42" r="13" fill="var(--zhu)" />
       </svg>
     </div>
-    <div class="nom">Zilin <span class="cn hz">字林</span></div>
+    <div class="nom">Wenlu <span class="cn hz">文路</span></div>
 
     {#if a}
       <div class="grand"><Glyph char={a.c} size={120} /></div>

@@ -40,26 +40,26 @@ export type Cadeau = {
 
 export const CADEAUX: Record<Palier, Cadeau> = {
   7: {
-    court: 'un jour de Zilin complet',
-    titre: 'Un jour de Zilin complet',
-    detail: '24 heures avec tout Zilin ouvert.',
+    court: 'un jour de Wenlu complet',
+    titre: 'Un jour de Wenlu complet',
+    detail: '24 heures avec tout Wenlu ouvert.',
     remise: false
   },
   30: {
-    court: 'une semaine de Zilin complet',
-    titre: 'Une semaine de Zilin complet',
-    detail: 'Sept jours avec tout Zilin ouvert.',
+    court: 'une semaine de Wenlu complet',
+    titre: 'Une semaine de Wenlu complet',
+    detail: 'Sept jours avec tout Wenlu ouvert.',
     remise: false
   },
   100: {
     court: 'moins 30 % sur l’achat à vie',
-    titre: 'Zilin complet à vie, moins 30 %',
+    titre: 'Wenlu complet à vie, moins 30 %',
     detail: 'Un code à usage unique sur l’achat à vie.',
     remise: true
   },
   365: {
-    court: 'Zilin complet offert',
-    titre: 'Zilin complet à vie, offert',
+    court: 'Wenlu complet offert',
+    titre: 'Wenlu complet à vie, offert',
     detail: 'Un an sans manquer. La forêt est à toi.',
     remise: false
   }
@@ -68,7 +68,7 @@ export const CADEAUX: Record<Palier, Cadeau> = {
 /** La seule réserve du brief sur la remise, écrite là où elle se lit. */
 export const NOTE_REMISE = 'La remise ne vaut pas pour l’abonnement mensuel.';
 
-/** Les deux façons d'acheter Zilin. La remise du 100e jour ne vaut que pour l'achat à vie. */
+/** Les deux façons d'acheter Wenlu. La remise du 100e jour ne vaut que pour l'achat à vie. */
 export type Achat = 'vie' | 'mensuel';
 
 /** Pas de remise sur l'abonnement mensuel : la règle est ici, pas dans un écran. */

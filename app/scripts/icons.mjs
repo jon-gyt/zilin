@@ -1,5 +1,5 @@
 /**
- * Icônes de l'app, engendrées depuis la marque Zilin.
+ * Icônes de l'app, engendrées depuis la marque Wenlu.
  *
  * La marque : un Z tracé en un trait, encre sur papier, surmonté du point cinabre
  * (le point de 之). Le tracé est celui de la ligne de marque de `src/lib/Today.svelte`

@@ -117,15 +117,15 @@
   {#if vue === 'f1'}
     <div class="brand">
       <span class="mark">
-        <svg width="30" height="30" viewBox="0 0 200 200" aria-label="Zilin">
+        <svg width="30" height="30" viewBox="0 0 200 200" aria-label="Wenlu">
           <g fill="none" stroke="currentColor" stroke-width="18" stroke-linecap="round" stroke-linejoin="round">
             <path d="M50 84h100L50 160h100" />
           </g>
           <circle cx="100" cy="42" r="13" fill="var(--zhu)" />
         </svg>
       </span>
-      <span class="name">Zilin</span>
-      <span class="cn hz">字林</span>
+      <span class="name">Wenlu</span>
+      <span class="cn hz">文路</span>
     </div>
   {/if}
 

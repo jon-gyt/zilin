@@ -47,6 +47,9 @@ jobs:
           security set-key-partition-list -S apple-tool:,apple: -s -k ci build.keychain
           mkdir -p ~/Library/MobileDevice/Provisioning\ Profiles
           cp profile.mobileprovision ~/Library/MobileDevice/Provisioning\ Profiles/
+      # Le bundle id `com.zilin.app` et le profil « Zilin AppStore » gardent le nom d'avant
+      # Wenlu : ils sont enregistrés chez Apple (App Store Connect, developer.apple.com) et
+      # un bundle id ne se renomme pas. Le nom affiché vient d'appName (capacitor.config.ts).
       - name: Archive et export
         run: |
           cd ios/App && pod install

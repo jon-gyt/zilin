@@ -53,7 +53,7 @@
     const url = URL.createObjectURL(new Blob([texte], { type: 'application/json' }));
     const a = document.createElement('a');
     a.href = url;
-    a.download = `zilin-${p.day}.json`;
+    a.download = `wenlu-${p.day}.json`;
     a.click();
     URL.revokeObjectURL(url);
     mot = 'Progression exportée.';
@@ -68,7 +68,7 @@
       onprogression(nouvelle);
       mot = 'Progression importée.';
     } catch {
-      mot = "Ce fichier n'est pas une progression Zilin.";
+      mot = "Ce fichier n'est pas une progression Wenlu.";
     }
     if (fichier) fichier.value = '';
   }
