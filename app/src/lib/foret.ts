@@ -451,6 +451,38 @@ export function noeudDeFamille(
   };
 }
 
+/* ---------- les deux nombres de Ma forêt, lus sur la progression ---------- */
+
+/** Les caractères d'une famille de l'export : la racine, puis chaque fiche. */
+function caracteresDe(f: Famille): string[] {
+  return [f.racine.c, ...f.fiches.map((x) => x.c)];
+}
+
+/**
+ * « Lus » : les caractères de l'export dont la carte est acquise, c'est-à-dire dont la
+ * stabilité FSRS passe le seuil de déblocage de `srs.ts`. Chacun compte une fois, même
+ * s'il paraissait dans deux familles.
+ */
+export function caracteresLus(
+  familles: readonly Famille[],
+  cartes: readonly ReviewCard[],
+  seuil: number = SEUIL_DEBLOCAGE
+): number {
+  const acquises = new Set(cartes.filter((k) => stability(k) >= seuil).map((k) => k.id));
+  const lus = new Set<string>();
+  for (const f of familles) for (const c of caracteresDe(f)) if (acquises.has(c)) lus.add(c);
+  return lus.size;
+}
+
+/** « Familles ouvertes » : les familles de l'export dont au moins un caractère a une carte. */
+export function famillesOuvertes(
+  familles: readonly Famille[],
+  cartes: readonly ReviewCard[]
+): number {
+  const avecCarte = new Set(cartes.map((k) => k.id));
+  return familles.filter((f) => caracteresDe(f).some((c) => avecCarte.has(c))).length;
+}
+
 /**
  * La règle du cercle, et elle seule : avec 238 familles, on n'en pose sur le cercle que
  * celles qui parlent aujourd'hui.

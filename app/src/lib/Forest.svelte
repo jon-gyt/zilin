@@ -27,8 +27,10 @@
   import { glyph } from './glyph';
   import {
     acquis,
+    caracteresLus,
     construireForet,
     famille,
+    famillesOuvertes,
     graines,
     ligneSemaine,
     noeudDeFamille,
@@ -88,22 +90,9 @@
   });
 
   const cercle: Cercle | null = $derived(foret ? placerCercle(foret) : null);
-  /** Lus : les caractères dont une carte dit qu'ils sont acquis, dans toutes les familles. */
-  const lus = $derived(
-    familles.reduce(
-      (n, f) =>
-        n +
-        noeudDeFamille(f, p.cartes).membres.filter((k) => k.avancement >= 1).length +
-        (noeudDeFamille(f, p.cartes).avancement >= 1 ? 1 : 0),
-      0
-    )
-  );
-  const ouvertes = $derived(
-    familles.filter((f) => {
-      const n = noeudDeFamille(f, p.cartes);
-      return n.avancement > 0 || n.membres.some((k) => k.avancement > 0);
-    }).length
-  );
+  /** Les deux nombres du bas, lus sur les cartes de la progression : voir `foret.ts`. */
+  const lus = $derived(caracteresLus(familles, p.cartes));
+  const ouvertes = $derived(famillesOuvertes(familles, p.cartes));
   const cases = $derived(semaine(p, jour));
   const n = $derived(graines(p, jour));
   const stadeDeTao = $derived(stade(p.tao.croissance));
