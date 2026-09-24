@@ -36,6 +36,7 @@ app/public/data/0.1.0/
   coquilles.json             les messages de la coquille
   cuisine.json               la cuisine de Tao : dix recettes, l'étal, Tao qui goûte
   lettres.json               les lettres de Que relues (aucune aujourd'hui)
+  wechat.json                le message WeChat : les dialogues avec l'ami
   familles/<racine>.json     une famille : `Famille` de models.py
   traits/<racine>.json       les tracés de la famille, sous APL, et rien d'autre
   traits/ARPHICPL.TXT        la même licence, à côté des fichiers qu'elle couvre
@@ -365,6 +366,39 @@ et rédigées sans API (voir « Lettres de Que » plus bas). Seules les lettres 
 - L'app décide quand une lettre arrive (`app/src/lib/lettres.ts`) : une par semaine au
   plus, la semaine commençant le dimanche, quand tous ses caractères ont une carte.
 
+## `wechat.json`
+
+Tiré de `data/sources/wechat/` (story 4b.7), rédigé pour l'app et à relire :
+`ami.tsv`, `dialogues.tsv`, `echanges.tsv`. Un ami écrit un court message ; on choisit
+la bonne réplique parmi trois ou quatre, toutes écrites avec l'acquis.
+
+```json
+{"version": "0.1.0", "license": "propriétaire", "source": "…", "source_url": "…", "modified": "…",
+ "ami": {"zh": "大明", "pinyin": "Dàmíng", "fr": "ton ami de Pékin", "en": "your friend from Beijing"},
+ "dialogues": [{"id": "nihaoma", "cle": "吗", "famille": "口", "fr": "Ça va ?", "en": "How are you?",
+                "echanges": [{"ami": {"zh": "你好吗？", "pinyin": "Nǐ hǎo ma?", "fr": "…", "en": "…",
+                                      "syllabes": ["nǐ", "hǎo", "ma"]},
+                              "repliques": [{"zh": "我很好，你呢？", "…": "…", "juste": true},
+                                            {"zh": "再见！", "…": "…", "juste": false, "erreur": "contresens"}],
+                              "notes": ["我", "很", "好", "你", "呢"]}],
+                "fin": null,
+                "caracteres": ["你", "好", "吗", "…"],
+                "jours": {"hsk": 159, "lire": 144}}],
+ "racines": {"你": "亻", "…": "…"}}
+```
+
+- `cle` : le caractère clé, écrit dans le dialogue ; `famille` est sa racine.
+- `echanges` : de deux à quatre. `repliques` : la bonne d'abord (`juste`), puis deux ou
+  trois mauvaises, chacune `hors-sujet` ou `contresens` ; l'app les mélange. `notes` :
+  les caractères que la bonne réplique note, sauf ceux qu'une réplique précédente du
+  dialogue a déjà notés. Une mauvaise réplique ne note rien.
+- `syllabes` : le pinyin de chaque sinogramme du texte, dans l'ordre, aligné sur Unihan
+  et les surcharges ; l'app le montre au toucher d'un caractère.
+- `fin` : le mot de la fin de l'ami, sans réplique, ou `null`.
+- `caracteres` : tout le dialogue, mauvaises répliques comprises ; il ne se propose que
+  lorsque tous sont acquis. `jours` : par parcours, le jour où tous sont posés.
+- `racines` : la famille de chaque caractère écrit. Aucun n'est hors du périmètre.
+
 ## `LICENCES.md`
 
 Écrit par l'export. Un tableau `source | usage | licence | attribution | texte de
@@ -426,6 +460,14 @@ ce que l'app embarque ; `docs/sources-licences.md` fait foi pour la décision.
   son pinyin ; chaque caractère écrit a ses traits et est posé par un parcours, et les
   plats gratuits se cuisinent dans chaque parcours ; `cuisine.json` dit toutes les
   recettes et leurs caractères à acquérir.
+- « wechat : sources », « pinyin », « périmètre », « parcours », « export » —
+  bloquants : un ami, de 40 à 60 dialogues sourcés, une clé écrite dans chacun, de deux
+  à quatre échanges, une bonne réplique et deux ou trois mauvaises par échange, chacune
+  avec son erreur, jamais deux répliques pareilles ; chaque texte se lit dans son
+  pinyin ; chaque caractère a ses traits et est posé par un parcours, chaque dialogue est
+  possible dans l'un d'eux, et chaque parcours en ouvre un avant le jour 30 ;
+  `wechat.json` dit tous les dialogues, leurs caractères, des notes prises dans la bonne
+  réplique, et une syllabe par caractère.
 
 ## Format intermédiaire (story 1.1)
 
