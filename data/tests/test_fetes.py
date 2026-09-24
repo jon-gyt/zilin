@@ -203,7 +203,7 @@ def test_chaque_fete_fait_decouvrir_un_caractere_bonus() -> None:
 
 
 def test_les_textes_de_fete_ne_parlent_pas_de_dragon() -> None:
-    """La charte exclut le dragon : ni le mot, ni le caractère, même à 端午."""
+    """Le dragon reste au décor du Nouvel An et de 端午 : les textes ne le nomment jamais."""
     for t in charger_textes():
         assert "dragon" not in t.valeur.lower() and "龙" not in t.valeur, f"textes.tsv:{t.numero}"
 
