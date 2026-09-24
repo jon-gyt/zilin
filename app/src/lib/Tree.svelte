@@ -8,6 +8,7 @@
    * l'origine et son étiquette quand une fiche relue (ou la surcouche de démonstration)
    * en porte une ; sinon elle le dit, et n'étiquette rien.
    */
+  import { untrack } from 'svelte';
   import {
     ETIQUETTES,
     LIGNE_SANS_FICHE,
@@ -22,9 +23,19 @@
 
   let {
     fam,
+    choix = '',
+    retour = 'Ma forêt',
     onretour,
     onlecon
-  }: { fam: Noeud; onretour: () => void; onlecon: () => void } = $props();
+  }: {
+    fam: Noeud;
+    /** Le caractère dont la fiche s'ouvre d'abord (depuis Chercher) ; vide, la racine. */
+    choix?: string;
+    /** Où ramène le retour : Ma forêt, ou Chercher. */
+    retour?: string;
+    onretour: () => void;
+    onlecon: () => void;
+  } = $props();
 
   /**
    * Le rayon de la zone de tap d'un nœud, en unités du dessin (520 de large) : l'arbre
@@ -35,7 +46,7 @@
   let traits = $state<StrokeSet>({});
   let lue = $state<FicheLue | null>(null);
   /** Le caractère dont la fiche est ouverte ; vide, c'est la racine de la famille. */
-  let selection = $state('');
+  let selection = $state(untrack(() => choix));
 
   $effect(() => {
     const racine = fam.c;
@@ -85,7 +96,7 @@
 </script>
 
 <main class="screen">
-  <button class="k quit" onclick={onretour}>‹ Ma forêt</button>
+  <button class="k quit" onclick={onretour}>‹ {retour}</button>
 
   <div class="row tete">
     <div class="tete-g">

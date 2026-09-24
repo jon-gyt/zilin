@@ -7,6 +7,7 @@
    * fin. « Quitter » sauvegarde et ramène au menu, qui propose de reprendre au pas exact.
    * Ce qui s'ouvre après quoi se décide dans `parcours.ts`, pas ici.
    */
+  import Chercher from './lib/Chercher.svelte';
   import Close from './lib/Close.svelte';
   import FirstSession from './lib/FirstSession.svelte';
   import Fix from './lib/Fix.svelte';
@@ -99,7 +100,8 @@
     | 'lire'
     | 'foret'
     | 'rewards'
-    | 'reglages';
+    | 'reglages'
+    | 'chercher';
 
   let p: Progress = $state(emptyProgress(today()));
 
@@ -124,6 +126,17 @@
 
   /** La famille ouverte dans Ma forêt, `null` quand on est sur le cercle. */
   let famille: Noeud | null = $state(null);
+
+  /** Chercher : la saisie, gardée pour le retour depuis l'arbre, et la famille ouverte. */
+  let requete = $state('');
+  let trouvee: { fam: Noeud; c: string } | null = $state(null);
+
+  /** La loupe du menu : une recherche neuve. */
+  function ouvrirChercher(): void {
+    requete = '';
+    trouvee = null;
+    ecran = 'chercher';
+  }
 
   /** Le jeu ouvert, `null` quand l'écran hôte montre le choix. */
   let jeu: JeuId | null = $state(null);
@@ -597,8 +610,15 @@
   {/if}
 {:else if ecran === 'rewards'}
   <Rewards {p} onretour={() => (ecran = 'foret')} />
+{:else if ecran === 'chercher'}
+  <!-- Chercher, puis l'arbre de la famille touchée ; son retour ramène à Chercher. -->
+  {#if trouvee}
+    <Tree fam={trouvee.fam} choix={trouvee.c} retour="Chercher" onretour={() => (trouvee = null)} onlecon={quitter} />
+  {:else}
+    <Chercher {p} bind:q={requete} onfamille={(fam, c) => (trouvee = { fam, c })} onretour={allerAuMenu} />
+  {/if}
 {:else if ecran === 'reglages'}
   <Settings {p} onprogression={remplacer} onretour={allerAuMenu} />
 {:else}
-  <Menu {p} fete={feteJour} {fetes} ondemarrer={boutonMenu} oncase={caseMenu} onreglages={() => (ecran = 'reglages')} />
+  <Menu {p} fete={feteJour} {fetes} ondemarrer={boutonMenu} oncase={caseMenu} onchercher={ouvrirChercher} onreglages={() => (ecran = 'reglages')} />
 {/if}
