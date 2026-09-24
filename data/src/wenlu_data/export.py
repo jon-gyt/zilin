@@ -3,7 +3,7 @@
 `wenlu export --version 0.1.0` écrit `app/public/data/0.1.0/`, les seuls fichiers
 que l'app lira. Rien n'est calculé ici : l'export assemble ce que `wenlu build` a
 produit (`decompositions.json`, `graphe.json`, `parcours-*.json`), les graphies,
-le pinyin d'Unihan, les fiches et les contes relus.
+le pinyin d'Unihan, les fiches, les contes et les lettres de Que relus.
 
 Périmètre de la version 0.1.0 : les caractères du seuil 255 et du HSK 1, plus
 toutes leurs briques (prérequis transitifs). Pas tout le dictionnaire : une
@@ -25,7 +25,8 @@ familles de fichiers, jamais mêlés :
 - `familles/<racine>.json` : décomposition canonique GF 0014-2009 et textes des
   fiches relues, propriétaires. Aucun tracé n'y entre.
 - `paires.json`, `contes/<id>.json`, `fetes.json`, `saisons.json`, `devinettes.json`,
-  `eclair.json`, `coquilles.json`, `cuisine.json` : propriétaires, source citée.
+  `eclair.json`, `coquilles.json`, `cuisine.json`, `lettres.json` : propriétaires, source
+  citée. `lettres.json` ne porte que les lettres de Que relues (`lettres.py`).
 - `apercu/` : les textes encore à relire (voir plus bas), propriétaires eux aussi.
 
 Ce qui n'entre jamais dans l'export :
@@ -39,8 +40,8 @@ Ce qui n'entre jamais dans l'export :
   correction versionnée de `data/sources/surcharges/ids.tsv`) : la question de licence
   reste ouverte et l'export la pose noir sur blanc dans `LICENCES.md`, pour
   qu'elle se tranche caractère par caractère ;
-- une fiche ou un conte qui n'est pas au statut `relu` (brief §17), hors de
-  `apercu/`. Un caractère sans fiche relue s'exporte quand même — l'app a besoin de
+- une fiche, un conte ou une lettre de Que qui n'est pas au statut `relu` (brief §17),
+  hors de `apercu/`. Un caractère sans fiche relue s'exporte quand même — l'app a besoin de
   sa décomposition et de ses traits — avec les champs de texte vides et
   `statut: "sans_fiche"`.
 
@@ -50,7 +51,8 @@ de les valider. L'app ne les charge que si le mode relecture des Réglages est
 allumé, et chacun y porte la mention « à relire ».
 `apercu/index.json` les recense (familles et contes), `apercu/familles/<racine>.json`
 porte les textes des fiches d'une famille, `apercu/contes/<id>.json` les versions d'un
-conte ; chaque entrée est marquée `statut: "a_relire"`. `index.json` y renvoie par son
+conte, `apercu/lettres.json` les lettres de Que à relire ; chaque entrée est marquée
+`statut: "a_relire"`. `index.json` y renvoie par son
 champ `apercu`, absent quand il n'y a rien à relire. Un texte relu n'y entre jamais,
 un texte rejeté non plus : `wenlu check` le vérifie.
 
@@ -86,6 +88,7 @@ from . import devinettes as devinettes_mod
 from . import eclair as eclair_mod
 from . import fetes as fetes_mod
 from . import fiches as fiches_mod
+from . import lettres as lettres_mod
 from . import saisons as saisons_mod
 from . import surcharges as surcharges_mod
 from .gf0014 import Controle
@@ -100,7 +103,7 @@ VERSION = "0.1.0"
 #: Version du format écrit par ce module. À incrémenter à chaque changement de
 #: ce que l'export produit à entrées égales (clé ajoutée, ordre, règle de
 #: sélection) : elle entre dans l'empreinte, et l'export versionné devient périmé.
-FORMAT_EXPORT = 4
+FORMAT_EXPORT = 5
 
 #: Le code de l'exporteur, lui aussi dans l'empreinte : un changement de ce
 #: fichier où l'on aurait oublié `FORMAT_EXPORT` rend quand même l'export périmé.
@@ -176,6 +179,7 @@ def fichiers_sources(
         ("exporteur-eclair", Path(eclair_mod.__file__).resolve()),
         ("exporteur-coquilles", Path(coquilles_mod.__file__).resolve()),
         ("exporteur-cuisine", Path(cuisine_mod.__file__).resolve()),
+        ("exporteur-lettres", Path(lettres_mod.__file__).resolve()),
         ("decompositions", build / "decompositions.json"),
         ("graphe", build / "graphe.json"),
         *[(f"parcours-{nom}", build / f"parcours-{nom}.json") for nom in sorted(PARCOURS)],
@@ -204,6 +208,7 @@ def fichiers_sources(
         ("cuisine-ingredients", cuisine_mod.INGREDIENTS),
         ("cuisine-etal", cuisine_mod.ETAL),
         ("cuisine-tao", cuisine_mod.TAO),
+        ("lettres-feuilleton", lettres_mod.FEUILLETON),
         ("interface", INTERFACE),
         ("arphicpl", LICENCES_SOURCE / ARPHIC),
         ("unicode", LICENCES_SOURCE / UNICODE_NOTICE),
@@ -212,6 +217,8 @@ def fichiers_sources(
         lus.append((f"fiche:{chemin.stem}", chemin))
     for chemin in contes_mod.versions_ecrites(contes):
         lus.append((f"conte:{chemin.parent.name}/{chemin.stem}", chemin))
+    for chemin in lettres_mod.lettres_ecrites():
+        lus.append((f"lettre:{chemin.stem}", chemin))
     return lus
 
 
@@ -881,6 +888,17 @@ def document_cuisine(
     )
 
 
+def en_tete_lettres(version: str) -> dict[str, object]:
+    """L'en-tête de `lettres.json` et de `apercu/lettres.json` (story 4b.8), voir `lettres.py`."""
+    return {
+        "version": version,
+        "license": LICENCE_PROPRIETAIRE,
+        "source": lettres_mod.SOURCE_EXPORT,
+        "source_url": URL_PIPELINE,
+        "modified": f"{JETON_JOUR} : assemblé par `wenlu export`",
+    }
+
+
 def document_conte(
     conte: str, versions: Sequence[contes_mod.Version], version_export: str
 ) -> dict[str, object]:
@@ -1012,18 +1030,22 @@ def document_apercu_index(
     version: str,
     familles: Sequence[tuple[str, str, Sequence[str]]],
     contes: Mapping[str, Sequence[contes_mod.Version]],
+    lettres: int = 0,
 ) -> dict[str, object]:
     """Le JSON écrit dans `apercu/index.json` : ce que l'aperçu porte, et où.
 
     `familles` : la racine, le fichier et les caractères qui y ont une fiche à relire,
-    pour que l'app ne demande que les fichiers qui existent.
+    pour que l'app ne demande que les fichiers qui existent. `lettres` : le nombre de
+    lettres de Que à relire ; `apercu/lettres.json` n'est recensé que s'il y en a.
     """
+    en_plus: dict[str, object] = {"lettres": f"{APERCU}/lettres.json"} if lettres else {}
     return {
         **_en_tete_apercu(version, "fiches et contes à relire du pipeline wenlu"),
         "compte": {
             "fiches": sum(len(cs) for _, _, cs in familles),
             "contes": len(contes),
             "versions": sum(len(v) for v in contes.values()),
+            **({"lettres": lettres} if lettres else {}),
         },
         "familles": [
             {"racine": racine, "fichier": fichier, "caracteres": list(cs)}
@@ -1040,6 +1062,7 @@ def document_apercu_index(
             }
             for conte, versions in sorted(contes.items())
         ],
+        **en_plus,
     }
 
 
@@ -1085,8 +1108,16 @@ def assembler_apercu(
         familles.append((racine, nom, [str(e["c"]) for e in entrees]))
     for conte, lues in sorted(versions.items()):
         textes[f"{APERCU}/contes/{conte}.json"] = _json(document_apercu_conte(conte, lues, version))
+    # Les lettres de Que à relire (story 4b.8) : un seul fichier, `lettres.py` l'assemble.
+    lettres = lettres_mod.lettres(statut=lettres_mod.A_RELIRE)
+    if lettres:
+        textes[f"{APERCU}/lettres.json"] = _json(
+            lettres_mod.document(lettres, en_tete=en_tete_lettres(version), statut=STATUT_APERCU)
+        )
     if textes:
-        textes[f"{APERCU}/index.json"] = _json(document_apercu_index(version, familles, versions))
+        textes[f"{APERCU}/index.json"] = _json(
+            document_apercu_index(version, familles, versions, lettres=len(lettres))
+        )
     return textes
 
 
@@ -1177,6 +1208,7 @@ def document_index(
         "eclair": "eclair.json",
         "coquilles": "coquilles.json",
         "cuisine": "cuisine.json",
+        "lettres": "lettres.json",
     }
     if apercu:
         document["apercu"] = f"{APERCU}/index.json"
@@ -1254,9 +1286,11 @@ TABLEAU_LICENCES: tuple[tuple[str, str, str, str, str], ...] = (
         "—",
     ),
     (
-        "Fiches, contes, paires, fêtes, saisons, devinettes, dictionnaire éclair, coquilles, cuisine (pipeline wenlu)",
+        "Fiches, contes, paires, fêtes, saisons, devinettes, dictionnaire éclair, coquilles, cuisine,"
+        " lettres de Que (pipeline wenlu)",
         "`familles/`, `contes/`, `paires.json`, `fetes.json`, `saisons.json`, `devinettes.json`,"
-        " `eclair.json`, `coquilles.json`, `cuisine.json`, et `apercu/` pour les textes encore à relire",
+        " `eclair.json`, `coquilles.json`, `cuisine.json`, `lettres.json`, et `apercu/` pour les"
+        " textes encore à relire",
         LICENCE_PROPRIETAIRE,
         "textes rédigés pour l'app, relus",
         "—",
@@ -1287,7 +1321,7 @@ def licences_md(version: str) -> str:
         f"- `traits/` : tracés sous {LICENCE_TRAITS}, avec `{ARPHIC}` inaltéré à côté"
         " et `traits/MODIFICATIONS.md` qui dit comment et quand ils ont été dérivés.",
         "- `familles/`, `contes/`, `paires.json`, `fetes.json`, `saisons.json`, `devinettes.json`,"
-        " `eclair.json`, `coquilles.json`, `cuisine.json`, `apercu/` : décomposition canonique et"
+        " `eclair.json`, `coquilles.json`, `cuisine.json`, `lettres.json`, `apercu/` : décomposition canonique et"
         " textes rédigés pour l'app, propriétaires.",
         f"- `{UNICODE_NOTICE}` : notice de permission Unicode, qui couvre le pinyin.",
         "",
@@ -1298,7 +1332,7 @@ def licences_md(version: str) -> str:
         " hanzi, le pinyin et les traductions rédigées pour l'app.",
         "- Aucun texte de `dictionary.txt` : ni définition, ni étymologie anglaise"
         " (§2.2).",
-        "- Aucune fiche ni aucun conte non relu hors de `apercu/` (brief §17). Ce dossier"
+        "- Aucune fiche, aucun conte ni aucune lettre non relus hors de `apercu/` (brief §17). Ce dossier"
         " porte les textes encore à relire, chacun marqué `statut: \"a_relire\"`, que"
         " l'app ne charge que sur demande (Réglages, mode relecture)."
         " Un texte rejeté n'est nulle part.",
@@ -1628,6 +1662,9 @@ def assembler(
     textes["eclair.json"] = _json(document_eclair(version, per, noeuds, graphies))
     textes["coquilles.json"] = _json(document_coquilles(version, per, noeuds, graphies, groupes))
     textes["cuisine.json"] = _json(document_cuisine(version, per, noeuds, documents_parcours))
+    textes["lettres.json"] = _json(
+        lettres_mod.document(lettres_mod.lettres(statut=lettres_mod.RELU), en_tete=en_tete_lettres(version))
+    )
     textes["LICENCES.md"] = licences_md(version)
     textes["traits/MODIFICATIONS.md"] = modifications_md(version, len(graphies), decoupes)
     for nom in (ARPHIC, UNICODE_NOTICE):
@@ -1803,6 +1840,9 @@ def fautes_d_apercu(
     if apercu.get("statut") != STATUT_APERCU:
         fautes.append(f"{nom}/{entree} : statut {apercu.get('statut')!r}")
     recenses = {str(entree)}
+    # Les lettres de Que à relire : leur contenu est contrôlé par `lettres.controles`.
+    if apercu.get("lettres"):
+        recenses.add(str(apercu["lettres"]))
 
     relues_principal: set[str] = set()
     for famille in index.get("familles") or ():  # type: ignore[union-attr]

@@ -35,6 +35,7 @@ app/public/data/0.1.0/
   eclair.json                le dictionnaire éclair : des mots à deviner
   coquilles.json             les messages de la coquille
   cuisine.json               la cuisine de Tao : dix recettes, l'étal, Tao qui goûte
+  lettres.json               les lettres de Que relues (aucune aujourd'hui)
   familles/<racine>.json     une famille : `Famille` de models.py
   traits/<racine>.json       les tracés de la famille, sous APL, et rien d'autre
   traits/ARPHICPL.TXT        la même licence, à côté des fichiers qu'elle couvre
@@ -337,6 +338,32 @@ cantine ; Tao lit la recette, on prend les ingrédients sur l'étal, Tao goûte.
   parcours n'y mène pas.
 - `etal` : le sens de chaque mot de l'étal, que la correction montre.
 - `racines` : la famille de chaque caractère écrit. Aucun n'est hors du périmètre.
+
+## `lettres.json`
+
+Les lettres de Que (story 4b.8), tirées de `data/sources/lettres-versions/<nn>.json`
+et rédigées sans API (voir « Lettres de Que » plus bas). Seules les lettres au statut
+`relu` y entrent ; celles à relire vont dans `apercu/lettres.json`, même format, avec
+`statut: "a_relire"` en tête et sur chaque lettre, recensé par `apercu/index.json`
+(`"lettres": "apercu/lettres.json"`, `compte.lettres`).
+
+```json
+{"version": "0.1.0", "license": "propriétaire", "source": "…", "source_url": "…", "modified": "…",
+ "parcours": "lire", "semaine": 7,
+ "lettres": [{"n": 1, "jour": 7, "parcours": "lire",
+              "titre_fr": "Le premier matin", "titre_en": "The first morning",
+              "phrases": [{"zh": "早！", "pinyin": "zǎo", "fr": "…", "en": "…"}],
+              "glose": {"早": {"pinyin": "zǎo", "fr": "tôt ; bonjour", "en": "early; good morning"}}}]}
+```
+
+- `n` : le rang dans le feuilleton, 1 à 12 ; `jour` : 7n, le jour du parcours `lire`
+  dont la lettre n'emploie que l'acquis.
+- `phrases` : une syllabe de pinyin par sinogramme, séparées par une espace, tons du
+  dictionnaire sans sandhi ; la dernière est une question.
+- `glose` : par caractère ou par mot ; le lecteur découpe chaque phrase par l'entrée
+  la plus longue, comme pour les contes.
+- L'app décide quand une lettre arrive (`app/src/lib/lettres.ts`) : une par semaine au
+  plus, la semaine commençant le dimanche, quand tous ses caractères ont une carte.
 
 ## `LICENCES.md`
 
@@ -1137,3 +1164,35 @@ Au toucher d'un caractère, le lecteur retrouve l'entrée de glose qui le couvre
 découpage ci-dessus et l'affiche avec son pinyin ; le pinyin de la phrase s'aligne
 syllabe par sinogramme. `generation` et `statut` ne sont pas exportés : ils restent
 côté pipeline.
+
+## Lettres de Que (story 4b.8)
+
+Douze lettres, une par semaine, écrites par Que 雀 à l'apprenant ; la lettre n n'emploie
+que les caractères que le parcours `lire` a posés au jour 7n. Même circuit que les
+contes rédigés sans API (`data/src/wenlu_data/lettres.py`).
+
+- Le fil, `data/sources/lettres/feuilleton.tsv`, versionné : `n`, `titre_fr`,
+  `titre_en`, `resume_fr` (ce qui s'y passe, pour la relecture).
+- Brouillon, `data/sources/lettres-brouillons/<nn>.json` : `{"lettre": 1, "phrases":
+  [{zh, pinyin, fr, en}], "glose": [{zh, pinyin, fr, en}]}`, aucune autre clé.
+  `uv run wenlu lettres contexte <n>` donne l'acquis du jour 7n, les caractères nouveaux
+  de la semaine, les lettres d'avant, les contraintes et un squelette.
+- `uv run wenlu lettres importer [<n>…]` valide et écrit
+  `data/sources/lettres-versions/<nn>.json` : le brouillon, le titre et le résumé du fil,
+  `parcours`, `jour`, `generation` (`api` « session Claude Code (sans API) », `modele`
+  « rédaction manuelle », `empreinte_invite` le `sha256` du brouillon, `date`, `essais`,
+  `intrus`) et `statut` : `a_relire`, ou `rejete` si un caractère sort de l'acquis du
+  jour. Un brouillon inchangé ne réécrit rien ; modifié, la lettre repart à relire.
+- Relecture : `uv run wenlu lettres exporter-relecture` écrit
+  `data/work/relecture-lettres.json` (hors dépôt, chaque lettre avec ses `ecarts`),
+  `uv run wenlu lettres appliquer-relecture <fichier>` applique `{"1": "relu", "2":
+  "rejete", "3": null}`, tout ou rien ; une lettre rejetée aux contrôles ne se relit pas.
+  `uv run wenlu lettres apercu` affiche les lettres, phrase par phrase.
+- Contrôles (`wenlu check`), bloquants : « lettres : feuilleton » (douze lettres, dans
+  le fil, chaque brouillon importé tel qu'il est écrit), « acquis du jour », « pinyin »
+  (une syllabe par sinogramme, tons du dictionnaire sans sandhi, chacune une lecture
+  du caractère), « glose » (chaque sinogramme couvert, pinyin syllabe pour syllabe, fr
+  et en), « forme » (40 à 120 sinogrammes, traductions, question finale), « export »
+  (`lettres.json` porte exactement les relues, `apercu/lettres.json` exactement les
+  lettres à relire). Signalés : « relecture » et « parcours HSK », le jour du parcours
+  HSK où chaque lettre devient lisible, ou les caractères qu'il ne pose jamais.

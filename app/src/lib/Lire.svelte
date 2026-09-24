@@ -14,10 +14,16 @@
    * En tête, au-dessus des contes : l'anecdote du jour, son caractère dessiné depuis ses
    * traits. Vue le matin, elle se relit ici autant qu'on veut ; l'écran d'anecdote
    * ramène à Lire, et rien ne se compte deux fois (`parcours.anecdoteRelue`).
+   *
+   * Les lettres de Que (story 4b.8) ont leur section, « Lettres de Que » : celles arrivées,
+   * dans l'ordre du feuilleton, lues dans le même lecteur que les contes, signées de Que.
+   * La semaine où une lettre arrive, la section passe en tête et Que se pose avec sa
+   * lettre. La règle d'arrivée est dans `lettres.ts`.
    */
   import ARelire from './ARelire.svelte';
   import Conte from './Conte.svelte';
   import Glyph from './Glyph.svelte';
+  import Que from './Que.svelte';
   import Tao from './Tao.svelte';
   import {
     anecdotesOnce,
@@ -34,6 +40,15 @@
     type EntreeConte
   } from './lecture';
   import { anecdoteDeLaJournee, type AnecdoteDeLaJournee } from './saisons';
+  import {
+    LIGNE_AVANT_LETTRE,
+    MENTION_PAS_ARRIVEE,
+    entreesLettres,
+    lettresExport,
+    versionDeLettre,
+    type EntreeLettre,
+    type Lettre
+  } from './lettres';
   import type { Progress } from './session';
   import { humeur, stade } from './tao';
 
@@ -41,7 +56,8 @@
     p,
     onretour,
     onlu,
-    onanecdote
+    onanecdote,
+    onlettre = () => undefined
   }: {
     p: Progress;
     onretour: () => void;
@@ -49,6 +65,8 @@
     onlu: (conte: string, seuil: number) => void;
     /** Rouvre l'anecdote du jour, qui ramène ici. */
     onanecdote: () => void;
+    /** Une lettre de Que lue en entier : son rang dans le feuilleton. */
+    onlettre?: (n: number) => void;
   } = $props();
 
   /** L'anecdote de la journée de la session, la même que l'écran Ouvrir. */
@@ -72,6 +90,67 @@
   let lus = $state.raw<{ index: IndexConte[]; contes: Map<string, ConteExporte> } | null>(null);
   /** Le conte ouvert dans le lecteur, `null` pour la bibliothèque. */
   let ouvert: string | null = $state(null);
+  /** Les lettres de Que de l'export (et de l'aperçu en mode relecture), `null` avant lecture. */
+  let lettres = $state.raw<Lettre[] | null>(null);
+  /** La lettre ouverte dans le lecteur, par son rang. */
+  let lettreOuverte: number | null = $state(null);
+
+  $effect(() => {
+    let vivant = true;
+    void lettresExport()
+      .then((l) => {
+        if (vivant) lettres = l;
+      })
+      .catch(() => {
+        if (vivant) lettres = [];
+      });
+    return () => {
+      vivant = false;
+    };
+  });
+
+  const lesLettres = $derived(
+    lettres === null ? [] : entreesLettres(lettres, p.lettres, p.day, p.relecture)
+  );
+  /** La semaine où une lettre arrive, sa section passe devant les contes. */
+  const lettreNouvelle = $derived(lesLettres.some((e) => e.nouvelle));
+  const lectureLettre = $derived(
+    lettreOuverte === null ? null : (lesLettres.find((e) => e.lettre.n === lettreOuverte) ?? null)
+  );
+
+  /** Une lettre, habillée pour le lecteur des contes. */
+  function entreeDeLettre(e: EntreeLettre): EntreeConte {
+    return {
+      id: `lettre-${e.lettre.n}`,
+      titre_zh: '',
+      titre_pinyin: '',
+      titre_fr: e.lettre.titre_fr,
+      gratuit: false,
+      version: versionDeLettre(e.lettre),
+      attend: null,
+      reste: 0,
+      lue: e.lue,
+      plusRiche: false,
+      horsAcquis: false,
+      sansCompte: e.sansCompte
+    };
+  }
+
+  function ouvrirLettre(e: EntreeLettre): void {
+    lettreOuverte = e.lettre.n;
+    haut();
+  }
+
+  function fermerLettre(): void {
+    lettreOuverte = null;
+    haut();
+  }
+
+  /** Une lettre lue le note ; ce que seul le mode relecture ouvre ne compte pas. */
+  function lettreFinie(e: EntreeLettre): void {
+    if (!e.sansCompte) onlettre(e.lettre.n);
+    fermerLettre();
+  }
 
   $effect(() => {
     let vivant = true;
@@ -129,7 +208,53 @@
   }
 </script>
 
-{#if lecture}
+{#snippet signe()}
+  <div class="signature">
+    <span>Que</span>
+    <Que size={44} pose="pose" />
+  </div>
+{/snippet}
+
+{#snippet sectionLettres()}
+  {#if lettres !== null && lettres.length > 0}
+    <div class="sec" class:suite={!lettreNouvelle}>Lettres de Que</div>
+    {#if lesLettres.length === 0}
+      <div class="entry ferme">
+        <span class="ico que" aria-hidden="true"><Que size={40} pose="pose" /></span>
+        <span class="grow"><span class="d">{LIGNE_AVANT_LETTRE}</span></span>
+      </div>
+    {/if}
+    {#each lesLettres as e (e.lettre.n)}
+      <button class="entry" class:nouvelle={e.nouvelle} onclick={() => ouvrirLettre(e)}>
+        <span class="ico que" aria-hidden="true">
+          <Que size={44} pose="pose" cadeau={e.nouvelle ? 'lettre' : 'aucun'} />
+        </span>
+        <span class="grow">
+          <span class="t">Lettre {e.lettre.n} · {e.lettre.titre_fr}</span>
+          <span class="d">
+            {e.nouvelle ? 'Arrivée cette semaine' : `Semaine ${e.lettre.n}`}{e.lue ? ' · lue' : ''}
+            <ARelire de={e.lettre} />
+            {#if e.horsArrivee}<span class="mention">{MENTION_PAS_ARRIVEE}</span>{/if}
+          </span>
+        </span>
+        <span class="chev" aria-hidden="true">
+          <svg viewBox="0 0 24 24"><path d="M9 6l6 6-6 6" /></svg>
+        </span>
+      </button>
+    {/each}
+  {/if}
+{/snippet}
+
+{#if lectureLettre}
+  <Conte
+    {p}
+    entree={entreeDeLettre(lectureLettre)}
+    surtitre={`Lettre ${lectureLettre.lettre.n} de Que${lectureLettre.horsArrivee ? ` · ${MENTION_PAS_ARRIVEE}` : ''}`}
+    signature={signe}
+    onlu={() => lettreFinie(lectureLettre)}
+    onretour={fermerLettre}
+  />
+{:else if lecture}
   <Conte {p} entree={lecture} onlu={() => fini(lecture)} onretour={fermer} />
 {:else}
   <main class="screen">
@@ -162,6 +287,8 @@
       plus riche que tu peux lire.
     </p>
 
+    {#if lettreNouvelle}{@render sectionLettres()}{/if}
+
     {#if entrees === null}
       <p class="guide">Un instant.</p>
     {:else if entrees.length === 0}
@@ -173,7 +300,7 @@
         </p>
       </div>
     {:else}
-      <div class="sec">Contes</div>
+      <div class="sec" class:suite={lettreNouvelle}>Contes</div>
       {#snippet titre(e: EntreeConte)}
         {#if e.titre_zh}
           <span class="t"><span class="hz" lang="zh-Hans">{e.titre_zh}</span> <span class="py">{e.titre_pinyin}</span></span>
@@ -219,6 +346,8 @@
         {/if}
       {/each}
     {/if}
+
+    {#if !lettreNouvelle}{@render sectionLettres()}{/if}
   </main>
 {/if}
 
@@ -295,6 +424,27 @@
     color: var(--ink);
     line-height: 1.3;
     margin-top: 2px;
+  }
+  /* les lettres : Que dans la case, sans cadre ; celle de la semaine, un filet indigo */
+  .entry .ico.que {
+    border: none;
+  }
+  .entry.nouvelle {
+    outline: 1.5px solid var(--indigo);
+    outline-offset: -1.5px;
+  }
+  .sec.suite {
+    margin-top: 24px;
+  }
+  .signature {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 4px;
+    margin-top: 8px;
+    font-family: var(--head);
+    font-weight: 700;
+    color: var(--ink2);
   }
   .entry .riche {
     font-size: 14.5px;

@@ -12,6 +12,7 @@ import typer
 from typer.testing import CliRunner
 
 from wenlu_data import cli as cli_mod
+from wenlu_data import decoupes as decoupes_mod
 from wenlu_data import gf0014 as gf0014_mod
 from wenlu_data import graphe as graphe_mod
 from wenlu_data import ingest as ingest_mod
@@ -62,6 +63,10 @@ def test_ingest_sans_sources_sort_en_1_et_nomme_l_etape_a_lancer(
 def test_build_sans_ingest_sort_en_1_et_nomme_l_etape_a_lancer(
     tmp_path: Path, monkeypatch: pytest.MonkeyPatch
 ) -> None:
+    # Les découpes passent les premières : sans ce détour, elles écriraient un
+    # `decoupes.json` vide dans le vrai `data/work/build/`.
+    monkeypatch.setattr(decoupes_mod, "INGEST", tmp_path / "vide")
+    monkeypatch.setattr(decoupes_mod, "BUILD", tmp_path / "build")
     monkeypatch.setattr(gf0014_mod, "INGEST", tmp_path / "vide")
     monkeypatch.setattr(gf0014_mod, "BUILD", tmp_path / "build")
     monkeypatch.setattr(graphe_mod, "INGEST", tmp_path / "vide")

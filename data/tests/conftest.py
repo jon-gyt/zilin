@@ -39,3 +39,16 @@ def _sans_surcharges(monkeypatch: pytest.MonkeyPatch, tmp_path: Path) -> None:
     """
     for nom in SURCHARGES_REELLES:
         monkeypatch.setattr(surcharges, nom, tmp_path / f"sans-surcharge-{nom.lower()}.tsv")
+
+
+@pytest.fixture(autouse=True)
+def _sans_lettres(monkeypatch: pytest.MonkeyPatch, tmp_path: Path) -> None:
+    """Les exports de test ne tirent pas les lettres de Que du vrai dépôt.
+
+    `data/sources/lettres-versions/` porte les douze lettres, qui rempliraient l'aperçu
+    de chaque export factice. Un test qui veut les vraies lettres passe le dossier
+    explicitement (`lettres.VERSIONS_REELLES`).
+    """
+    from wenlu_data import lettres
+
+    monkeypatch.setattr(lettres, "VERSIONS", tmp_path / "sans-lettres")
