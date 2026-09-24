@@ -3,8 +3,8 @@
 `uv run wenlu export --version 0.1.0` écrit `app/public/data/0.1.0/`, les seuls
 fichiers que l'app lira. Cette section décrit ce qui est réellement écrit
 (story 1.6) ; les sections suivantes décrivent les formats intermédiaires de
-`data/work/`, qui restent hors dépôt, et les fiches de `data/sources/fiches/`,
-versionnées.
+`data/work/`, qui restent hors dépôt, et les fiches de `data/sources/fiches/` et les
+contes de `data/sources/contes-versions/`, versionnés.
 
 Règle : l'app ne lit que ces fichiers. Aucune donnée de contenu dans le code.
 
@@ -62,7 +62,8 @@ Trois régimes de licence, trois familles de fichiers, jamais mêlés
               "hsk": {"…": "…"}},
  "familles": [{"racine": "亻", "fichier": "familles/亻.json",
                "traits": "traits/亻.json", "n": 14, "avancement_possible": 0.0}],
- "contes": [{"id": "…", "titre_fr": "…", "seuils": [255], "fichier": "contes/….json"}],
+ "contes": [{"id": "…", "titre_fr": "…", "titre_en": "…", "seuils": [255],
+             "fichier": "contes/….json"}],
  "paires": "paires.json"
 }
 ```
@@ -666,80 +667,212 @@ rien.
 
 Un même récit traditionnel est réécrit à chaque seuil (255, 405, 505, 805, 1555) avec
 les seuls caractères du seuil. L'utilisateur relit la même histoire, plus riche, quand
-son acquis grandit (épic 2c).
+son acquis grandit (épic 2c). Aucun texte de conte n'entre dans le dépôt sans passer par
+le pipeline : il sort de la génération par l'API ou de l'import d'un brouillon rédigé
+sans API, avec les mêmes contrôles, puis d'une relecture humaine.
 
 ### Catalogue, versionné
 
-`data/sources/contes/catalogue.tsv` : `#` en commentaire, cinq colonnes séparées par une
-tabulation — `id`, `titre_zh`, `titre_fr`, `ouvrage`, `resume_fr`. Dix récits tirés
-d'ouvrages classiques du domaine public. `ouvrage` trace l'origine du récit, `resume_fr`
-résume l'intrigue en une phrase. Aucun texte de ces ouvrages n'est recopié, et aucun
-conte n'est écrit à la main : les versions chinoises sortent du pipeline.
+`data/sources/contes/catalogue.tsv` : `#` en commentaire, six colonnes séparées par une
+tabulation — `id`, `titre_zh`, `titre_fr`, `titre_en`, `ouvrage`, `resume_fr`. Onze
+récits tirés d'ouvrages classiques du domaine public. `titre_fr` et `titre_en` sont les
+noms du récit dans l'app, `ouvrage` trace l'origine du récit, `resume_fr` résume
+l'intrigue en une phrase. Aucun texte de ces ouvrages n'est recopié, et aucune version
+chinoise n'est écrite dans le catalogue.
 
-### Version générée, hors dépôt
+### Version écrite, versionnée
 
 `uv run wenlu contes generer --seuil <n> [--conte <id>]` puis `uv run wenlu contes
-recuperer` écrivent `data/work/contes/<seuil>/<id>.json` :
+recuperer` écrivent `data/sources/contes-versions/<seuil>/<id>.json`, versionné : le
+texte d'un conte est un contenu, sa relecture se lit dans l'historique git.
+`uv run wenlu contes importer` y écrit aussi, depuis un brouillon rédigé sans API (voir
+« Brouillons de contes ») :
 
 ```json
 {
- "conte": "shou-zhu-dai-tu",
+ "conte": "nan-yuan-bei-zhe",
  "seuil": 255,
- "titre": "…",
- "titre_fr": "Guetter la souche en attendant le lièvre",
- "source": {"ouvrage": "《韩非子·五蠹》", "resume_fr": "…"},
- "phrases": [{"zh": "…", "pinyin": "…", "fr": "…"}],
- "glose": {"<caractère>": "<sens court en français>"},
+ "titre": "要去南方的人",
+ "titre_pinyin": "yào qù nán fāng de rén",
+ "titre_fr": "Rouler vers le nord pour aller au sud",
+ "titre_en": "Heading North to Go South",
+ "source": {"ouvrage": "《战国策·魏策四》", "resume_fr": "…"},
+ "phrases": [
+  {"zh": "有人问他：「你去哪里？」", "pinyin": "yǒu rén wèn tā nǐ qù nǎ lǐ",
+   "fr": "Quelqu'un lui demanda : « Où vas-tu ? »", "en": "Someone asked him, \"Where are you going?\""}
+ ],
+ "glose": {
+  "有人": {"pinyin": "yǒu rén", "fr": "quelqu'un", "en": "someone"},
+  "哪里": {"pinyin": "nǎ lǐ", "fr": "où", "en": "where"}
+ },
  "generation": {
-  "modele": "claude-opus-5",
-  "api": "messages.batches",
-  "date": "2026-09-21T10:00:00Z",
+  "modele": "rédaction manuelle",
+  "api": "session Claude Code (sans API)",
+  "date": "2026-09-24",
   "empreinte_invite": "sha256:…",
-  "essais": 2,
+  "essais": 1,
   "intrus": []
  },
  "statut": "a_relire"
 }
 ```
 
-`phrases` porte le texte phrase par phrase : c'est l'unité d'affichage, d'audio et de
-traduction. `glose` couvre chaque caractère distinct du titre et du texte, avec le sens
-qu'il a ici, en français — jamais une définition traduite d'une source anglaise
-(`docs/sources-licences.md` §4.2). `generation` est la traçabilité : d'où vient la
-version et comment. `statut` vaut `a_relire` à la sortie du pipeline, `rejete` s'il
-reste des caractères hors liste après trois essais, `relu` une fois la relecture
-humaine faite. Seules les versions relues sont exportables.
+- `titre` et `phrases[].zh` : le chinois, phrase par phrase — l'unité d'affichage,
+  d'audio et de traduction. `titre_fr` et `titre_en` viennent du catalogue : ce sont
+  les noms du récit, pas la traduction du titre chinois de la version.
+- `titre_pinyin` et `phrases[].pinyin` : **une syllabe par sinogramme**, dans l'ordre,
+  séparées par une espace, en minuscules, tons marqués, sans ponctuation. Tons du
+  dictionnaire, sans sandhi (一 reste `yī`, 不 reste `bù`) ; ton neutre sans marque,
+  comme CC-CEDICT le note (儿子 `ér zi`, 一个 `yī ge`). La k-ième syllabe est celle du
+  k-ième sinogramme : le lecteur les aligne sans autre calcul.
+- `phrases[].fr` et `phrases[].en` : traductions rédigées pour un lecteur de chaque
+  langue.
+- `glose` : un objet `{entrée: {pinyin, fr, en}}` où l'entrée est un caractère ou un
+  mot du texte. Le lecteur découpe le titre et chaque phrase comme `contes.segmenter()`
+  : à chaque position, l'entrée la plus longue qui commence là ; la ponctuation est
+  sautée. Le sens est court (un à trois mots), dans le sens qu'a l'entrée ici, rédigé
+  pour l'app — jamais une définition traduite d'une source anglaise
+  (`docs/sources-licences.md` §4.2). Une version écrite avant ce format, dont la glose
+  ne portait que le français (`{"山": "montagne"}`), se relit avec `pinyin` et `en`
+  vides.
+- `source.ouvrage` vaut `""` quand le rédacteur ne cite pas l'ouvrage.
+- `generation` est la traçabilité : d'où vient la version et comment. Pour une version
+  générée, `modele` est le modèle Claude, `api` vaut `messages` ou `messages.batches`,
+  `empreinte_invite` est celle de l'invite, `date` est horodatée. Pour un brouillon
+  importé, voir plus bas.
+- `statut` vaut `a_relire` à la sortie du pipeline, `rejete` s'il reste des caractères
+  hors liste (après trois essais pour une version générée), `relu` une fois la
+  relecture humaine faite. Seules les versions relues sont exportables.
 
-Le journal des lots est dans `data/work/contes/lots/<lot>.json` : identifiant du lot,
-seuil, modèle, date de soumission, statut, et une entrée par requête (`custom_id`,
-conte, numéro d'essai, empreinte de l'invite).
+Validation (`contes.valider()`, la même pour les deux chemins). **Rejet** : un caractère
+du titre ou du texte hors de la liste du seuil (`data/sources/listes/seuil-<n>.txt`),
+ponctuation `。，、；：？！「」『』（）《》—…·` exceptée ; les intrus sont listés exactement.
+**Écarts**, signalés à la relecture sans rejeter : longueur hors cible (255 : 60 à 120
+sinogrammes, phrases seules), phrase vide, traduction anglaise absente, pinyin qui ne
+compte pas une syllabe par sinogramme ou hors forme, ton de 一 ou 不 modifié (sandhi),
+sinogramme qu'aucune entrée de glose ne couvre dans le découpage du lecteur, entrée de
+glose absente du texte, pinyin d'une entrée différent de celui de la phrase où on la
+touche, entrée sans pinyin, sans `fr` ou sans `en`.
 
-`uv run wenlu check` relit ces fichiers s'ils existent : le contrôle « contes :
-caractères hors liste » est bloquant, le contrôle « contes : relecture » compte ce qui
-reste à relire. `uv run wenlu contes valider` refait le même contrôle à la demande.
+Le journal des lots d'API, lui, reste hors dépôt, dans `data/work/contes/lots/<lot>.json`
+: c'est l'état d'un passage, pas un contenu. Il porte l'identifiant du lot, le seuil, le
+modèle, la date de soumission, le statut, et une entrée par requête (`custom_id`, conte,
+numéro d'essai, empreinte de l'invite).
+
+`uv run wenlu check` relit les versions : le contrôle « contes : caractères hors liste »
+est bloquant, le contrôle « contes : relecture » compte ce qui reste à relire.
+`uv run wenlu contes valider` refait toute la validation à la demande, écarts compris.
+
+### Brouillons de contes, versionnés (rédaction sans API)
+
+Une version peut être rédigée sans clé d'API, par un agent Claude Code dans sa session
+ou par une personne, dans un brouillon : `data/sources/contes-brouillons/<id>/<seuil>.json`,
+versionné, un dossier par conte, un fichier par seuil.
+
+```json
+{
+ "conte": "nan-yuan-bei-zhe",
+ "seuil": 255,
+ "ouvrage": "《战国策·魏策四》",
+ "titre": {"zh": "要去南方的人", "pinyin": "yào qù nán fāng de rén"},
+ "phrases": [
+  {"zh": "有人问他：「你去哪里？」", "pinyin": "yǒu rén wèn tā nǐ qù nǎ lǐ",
+   "fr": "Quelqu'un lui demanda : « Où vas-tu ? »", "en": "Someone asked him, \"Where are you going?\""}
+ ],
+ "glose": [
+  {"zh": "有人", "pinyin": "yǒu rén", "fr": "quelqu'un", "en": "someone"},
+  {"zh": "哪里", "pinyin": "nǎ lǐ", "fr": "où", "en": "where"}
+ ]
+}
+```
+
+- Toutes les clés sont obligatoires, aucune autre n'est admise : une faute de frappe
+  ne passe pas en silence. `conte` et `seuil` redisent le chemin.
+- `ouvrage` : l'ouvrage du catalogue, à l'identique, ou `null` pour ne pas le citer.
+  Une source qui diffère du catalogue est refusée : on corrige l'un ou l'autre.
+- `titre` : `{zh, pinyin}` ; `phrases` : une liste non vide de `{zh, pinyin, fr, en}` ;
+  `glose` : une liste de `{zh, pinyin, fr, en}`, dans l'ordre d'apparition, sans
+  doublon. Même règle de pinyin et de glose que ci-dessus.
+- Le reste de la version (`titre_fr`, `titre_en`, `source.resume_fr`) ne s'écrit pas :
+  l'import le prend dans le catalogue.
+
+Commandes :
+
+- `uv run wenlu contes contexte <id> [<id> …] --seuil 255` affiche les contraintes de
+  `valider()`, puis, par conte : titres, ouvrage, intrigue du catalogue, longueur visée,
+  les caractères du titre traditionnel hors du seuil, **la liste exacte des caractères
+  autorisés**, le chemin du brouillon et un squelette.
+- `uv run wenlu contes importer [<id> …] [--seuil 255]` lit les brouillons (tous, ou
+  ceux des contes nommés), construit la version, lance `valider()` et l'écrit dans
+  `data/sources/contes-versions/<seuil>/<id>.json` au statut `a_relire` si elle est
+  conforme, `rejete` sinon. Les intrus et les écarts s'affichent par version ; on
+  corrige le brouillon et on relance. Un brouillon illisible (JSON, clé manquante ou
+  inconnue, `conte` ou `seuil` qui ne redit pas le chemin, conte hors catalogue,
+  ouvrage inexact) n'écrit rien. Code de sortie 1 dès qu'un brouillon est rejeté ou
+  illisible.
+
+Traçabilité, dans `generation` : `api` vaut `session Claude Code (sans API)`, `modele`
+vaut `rédaction manuelle`, `empreinte_invite` est le `sha256` des octets du brouillon
+(`sha256sum` la retrouve), `date` le jour de l'import (`AAAA-MM-JJ`), `essais` le nombre
+de versions du brouillon importées, `intrus` les caractères hors liste. Réimporter un
+brouillon inchangé ne réécrit rien — une version relue le reste ; un brouillon modifié
+remet la version au statut `a_relire`.
+
+### Relecture
+
+La relecture reste humaine (brief §7). `uv run wenlu contes relire --conte <id> --seuil 255
+--statut relu` marque une version ; pour une page de relecture :
+
+- `uv run wenlu contes exporter-relecture [--sortie …]` écrit
+  `data/work/relecture-contes.json`, hors dépôt : `{date, source, decisions, retour,
+  contes}`, où `contes` porte chaque version `a_relire` (format ci-dessus), avec sa
+  `cle` (`255/yu-gong-yi-shan`) et ses `ecarts`, triée par seuil puis par conte ;
+- `uv run wenlu contes appliquer-relecture <fichier>` lit
+  `{"255/yu-gong-yi-shan": "relu", "255/ba-miao-zhu-zhang": "rejete", "255/nan-yuan-bei-zhe": null}`
+  et applique `relire` à chaque version. `null` laisse une version en attente. Tout ou
+  rien : une clé mal formée, une décision inconnue, une version absente ou une version
+  rejetée aux contrôles marquée `relu`, et rien n'est appliqué.
 
 ### Ce que l'app lira (export, story 1.6)
 
-`app/public/data/<version>/contes/<id>.json` réunit les versions d'un même conte, une
-par seuil :
+`app/public/data/<version>/contes/<id>.json` réunit les versions **relues** d'un même
+conte, une par seuil, dans l'ordre des seuils :
 
 ```json
 {
  "version": "0.1.0",
  "license": "propriétaire",
- "source": "récit traditionnel, 《韩非子·五蠹》 (domaine public) ; texte réécrit pour l'app",
+ "source": "récit traditionnel, 《战国策·魏策四》 (domaine public) ; texte réécrit pour l'app",
  "source_url": "https://github.com/jon-gyt/zilin",
- "modified": "2026-09-21 : assemblé par `wenlu export`",
- "conte": "shou-zhu-dai-tu",
- "titre_fr": "Guetter la souche en attendant le lièvre",
+ "modified": "2026-09-24 : assemblé par `wenlu export`",
+ "conte": "nan-yuan-bei-zhe",
+ "titre_fr": "Rouler vers le nord pour aller au sud",
+ "titre_en": "Heading North to Go South",
  "versions": {
-  "255": {"titre": "…", "phrases": [{"zh": "…", "pinyin": "…", "fr": "…"}], "glose": {"…": "…"}}
+  "255": {
+   "titre": "要去南方的人",
+   "titre_pinyin": "yào qù nán fāng de rén",
+   "phrases": [
+    {"zh": "有人问他：「你去哪里？」", "pinyin": "yǒu rén wèn tā nǐ qù nǎ lǐ",
+     "fr": "Quelqu'un lui demanda : « Où vas-tu ? »", "en": "Someone asked him, \"Where are you going?\""}
+   ],
+   "glose": {
+    "哪里": {"pinyin": "nǎ lǐ", "fr": "où", "en": "where"},
+    "有人": {"pinyin": "yǒu rén", "fr": "quelqu'un", "en": "someone"}
+   }
+  }
  }
 }
 ```
 
-`app/public/data/<version>/index.json` gagne `contes: [{id, titre_fr, seuils: [255, …],
-fichier}]`. L'app choisit la version du seuil le plus haut dont tous les caractères sont
-acquis, et signale quand une version plus riche s'ouvre (épic 2c). La glose est ce qui
-s'affiche au toucher d'un caractère pendant la lecture. `generation` et `statut` ne sont
-pas exportés : ils restent côté pipeline.
+`source` ne cite l'ouvrage que si la version le cite (`"récit traditionnel (domaine
+public) ; …"` sinon). Dans l'export, les entrées de `glose` sont triées ; l'ordre ne
+porte aucun sens, le découpage se fait par la plus longue entrée.
+
+`app/public/data/<version>/index.json` gagne `contes: [{id, titre_fr, titre_en,
+seuils: [255, …], fichier}]`. L'app choisit la version du seuil le plus haut dont tous
+les caractères sont acquis, et signale quand une version plus riche s'ouvre (épic 2c).
+Au toucher d'un caractère, le lecteur retrouve l'entrée de glose qui le couvre par le
+découpage ci-dessus et l'affiche avec son pinyin ; le pinyin de la phrase s'aligne
+syllabe par sinogramme. `generation` et `statut` ne sont pas exportés : ils restent
+côté pipeline.
