@@ -481,7 +481,9 @@
         <!-- L'énoncé, puis quatre caractères dessinés depuis leurs traits. -->
         <p class="riddle">« {t.enonce} »</p>
         {#if riddle?.zh}<p class="zh" lang="zh-Hans">{riddle.zh}</p>{/if}
-        <div class="choices quatre devinette">
+        <!-- Répondue, la grille se resserre en une rangée : la correction et le verdict
+             tiennent au-dessus du bouton du bas, même sur un petit écran (393 × 660). -->
+        <div class="choices quatre devinette" class:repondue={resultat !== null}>
           {#each t.choix as c, k (c + k)}
             <button
               class:ok={resultat !== null && c === t.reponse[0]}
@@ -490,7 +492,7 @@
               aria-label={c}
               onclick={() => deviner(c)}
             >
-              <Glyph char={c} size={52} write={false} />
+              <Glyph char={c} size={resultat !== null ? 38 : 52} write={false} />
             </button>
           {/each}
         </div>
@@ -749,6 +751,13 @@
   }
   .choices.devinette button {
     min-height: 72px;
+  }
+  .choices.devinette.repondue {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 8px;
+  }
+  .choices.devinette.repondue button {
+    min-height: 54px;
   }
   .zh {
     font-family: var(--hz);
