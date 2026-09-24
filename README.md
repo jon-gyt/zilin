@@ -138,7 +138,7 @@ relue s'exporte. Après un import, l'empreinte de l'export change : `wenlu expor
 
 L'app s'installe : sur iPhone, Safari, Partager, « Sur l'écran d'accueil ». Elle s'ouvre alors en plein écran sous le nom Wenlu, icône encre sur papier.
 
-Le service worker (`vite-plugin-pwa`, `registerType: 'autoUpdate'`) précache la page, le JS, le CSS, les polices, les icônes, le manifest et le JSON servi avec l'app : après un premier chargement, tout répond sans réseau. Une nouvelle version s'installe en arrière-plan et s'applique au lancement suivant ou au retour du second plan, jamais au milieu d'une session, sans fenêtre à fermer.
+Le service worker (`vite-plugin-pwa`, `registerType: 'prompt'`) précache la page, le JS, le CSS, les polices, les icônes, le manifest et le JSON servi avec l'app : après un premier chargement, tout répond sans réseau. Une nouvelle version se télécharge en arrière-plan et ne s'applique (avec son rechargement) qu'au passage de l'app au second plan : jamais sous les yeux, ni pendant l'anecdote ni au milieu d'une session, sans fenêtre à fermer.
 
 Les icônes de `app/public/icons/` sont engendrées depuis la marque, pas dessinées à la main :
 

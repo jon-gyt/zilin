@@ -143,3 +143,15 @@ describe('la chaîne : la limite de trois minutes ne ferme pas le tour en cours'
     expect(echoir).not.toContain('onfini(');
   });
 });
+
+describe('la mise à jour ne ferme rien sous les yeux', () => {
+  it('la version neuve attend (pas de rechargement automatique au premier plan)', () => {
+    const v = readFileSync(new URL('../../vite.config.ts', import.meta.url), 'utf8');
+    expect(v).toContain("registerType: 'prompt'");
+    expect(v).not.toContain("registerType: 'autoUpdate'");
+  });
+  it('elle ne s’applique qu’au passage au second plan', () => {
+    const m = readFileSync(new URL('../main.ts', import.meta.url), 'utf8');
+    expect(m).toContain("document.visibilityState === 'hidden' && versionPrete");
+  });
+});

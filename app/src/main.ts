@@ -17,21 +17,28 @@ try {
 /**
  * Service worker : l'app et son contenu sont précachés, donc utilisables hors ligne.
  *
- * Mise à jour, choix retenu : `registerType: 'autoUpdate'` installe la version neuve
- * et recharge la page dès qu'elle est active. Pour que ce rechargement reste discret,
- * on ne cherche jamais de mise à jour pendant que l'app est au premier plan : la
- * recherche a lieu au lancement, puis au retour du second plan. Le rechargement tombe
- * ainsi à l'ouverture ou au retour, jamais au milieu d'un pas, et il n'y a ni fenêtre
- * modale ni bandeau à fermer — la progression est écrite dans IndexedDB à chaque tap.
+ * Mise à jour : la version neuve se télécharge en silence et attend (`registerType:
+ * 'prompt'`). Elle ne s'applique — rechargement compris — que lorsque l'app passe au
+ * second plan : jamais sous les yeux de l'utilisateur, jamais au milieu de l'anecdote
+ * ou d'un pas. Retour du propriétaire : l'anecdote « se fermait seule », c'était le
+ * rechargement de la mise à jour. La recherche d'une version a lieu au lancement et au
+ * retour du second plan ; la progression est écrite dans IndexedDB à chaque tap.
  */
-registerSW({
+let versionPrete = false;
+const appliquer = registerSW({
   immediate: true,
+  onNeedRefresh() {
+    versionPrete = true;
+  },
   onRegisteredSW(_url, sw) {
     if (!sw) return;
     document.addEventListener('visibilitychange', () => {
       if (document.visibilityState === 'visible') void sw.update();
     });
   }
+});
+document.addEventListener('visibilitychange', () => {
+  if (document.visibilityState === 'hidden' && versionPrete) void appliquer(true);
 });
 
 export default mount(App, { target: document.getElementById('app')! });

@@ -7,7 +7,9 @@ export default defineConfig({
   plugins: [
     svelte(),
     VitePWA({
-      registerType: 'autoUpdate',
+      // `prompt` : la version neuve attend ; `main.ts` ne l'applique que quand l'app passe
+      // au second plan, jamais sous les yeux de l'utilisateur (l'anecdote se fermait seule).
+      registerType: 'prompt',
       manifest: false,
       // Le manifest, les icônes, les polices, le contenu JSON et la voix pré-générée :
       // tout ce qui doit répondre hors ligne est précaché. `md` et `txt` y sont
