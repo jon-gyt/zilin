@@ -33,8 +33,8 @@ Deux chemins d'appel, même invite :
   en une fois à l'API Message Batches (moitié prix, résultat sous 24 h), puis
   `wenlu fiches recuperer` récupère, valide, écrit, et resoumet ce qui a été rejeté.
 
-Sortie : `data/work/fiches/<c>.json` (format dans `data/schema.md`), journal des lots
-dans `data/work/fiches/lots/<lot>.json`.
+Sortie : `data/sources/fiches/<c>.json`, versionné (format dans `data/schema.md`) ;
+journal des lots, état de travail hors dépôt, dans `data/work/fiches/lots/<lot>.json`.
 """
 from __future__ import annotations
 
@@ -63,7 +63,7 @@ from .claude import sans_cloture as _sans_cloture
 from .fonts import PONCTUATION_CHINOISE
 from .gf0014 import Controle, TableGF0014, charger_table
 from .ingest import charger_liste, est_sinogramme
-from .paths import BUILD, FICHES_WORK, INGEST, LISTES
+from .paths import BUILD, FICHES_WORK, INGEST, LISTES, WORK
 
 
 #: Au plus trois appels pour une même fiche.
@@ -77,6 +77,9 @@ MOTS_PAR_FICHE = 2
 
 #: Au-delà, l'invite devient un annuaire : on garde les premiers mots candidats.
 MAX_CANDIDATS = 40
+
+#: Journal des lots soumis à l'API : état de travail, hors dépôt, à côté des autres.
+LOTS_WORK = WORK / "fiches" / "lots"
 
 #: Seuil sur lequel la relecture humaine est obligatoire avant export (brief §17).
 SEUIL_RELECTURE = 255
@@ -633,7 +636,7 @@ def lire_reponse(
 
 
 def fiche_depuis_json(document: Mapping[str, object]) -> Fiche:
-    """Relit une fiche écrite dans `data/work/fiches/`."""
+    """Relit une fiche écrite dans `data/sources/fiches/`."""
     generation = document.get("generation") or {}
     phrase = document.get("phrase") or {}
     if not isinstance(generation, dict) or not isinstance(phrase, dict):
@@ -884,7 +887,12 @@ def generer_fiche(
 
 
 def dossier_lots(dossier: Path | None = None) -> Path:
-    return (dossier or FICHES_WORK) / "lots"
+    """Le journal des lots : `data/work/fiches/lots/`, ou `<dossier>/lots` s'il est donné.
+
+    Les fiches sont versionnées, le journal ne l'est pas : c'est l'état d'un passage,
+    que la CI garde en cache d'un passage à l'autre.
+    """
+    return dossier / "lots" if dossier is not None else LOTS_WORK
 
 
 def custom_id(parcours: str, c: str, essai: int) -> str:

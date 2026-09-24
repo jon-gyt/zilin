@@ -3,7 +3,8 @@
 `uv run wenlu export --version 0.1.0` écrit `app/public/data/0.1.0/`, les seuls
 fichiers que l'app lira. Cette section décrit ce qui est réellement écrit
 (story 1.6) ; les sections suivantes décrivent les formats intermédiaires de
-`data/work/`, qui restent hors dépôt.
+`data/work/`, qui restent hors dépôt, et les fiches de `data/sources/fiches/`,
+versionnées.
 
 Règle : l'app ne lit que ces fichiers. Aucune donnée de contenu dans le code.
 
@@ -111,7 +112,7 @@ porte une `Fiche` par caractère de la famille, triée par caractère :
 - `role` : le rôle de cet élément ajouté ; `roles` : le rôle de chaque brique de
   la décomposition (`son`, `sens`, `forme`). Nuls sans fiche relue.
 - `origine_fr`, `origine_en`, `etiquette`, `memo_fr`, `memo_en`, `mots`,
-  `phrase` : repris d'une fiche **relue** de `data/work/fiches/`. Sans fiche
+  `phrase` : repris d'une fiche **relue** de `data/sources/fiches/`. Sans fiche
   relue, les textes sont vides, `etiquette` et `role` nuls — jamais d'étiquette
   sans origine — et `statut` vaut `sans_fiche` au lieu de `relu`.
 - `niveaux` : `{"seuil": 255}` ou `{"hsk": 1}`, selon les listes qui portent le
@@ -350,10 +351,13 @@ listés exactement. La relance signale les motifs de refus, au plus trois essais
 manquant, traduction vide, phrase sans le caractère du jour et manque de mots candidats
 sont des écarts signalés à la relecture, pas des rejets.
 
-### Fiche générée, hors dépôt
+### Fiche écrite, versionnée
 
 `uv run wenlu fiches generer [--parcours lire] [--jusqua N] [--c 住]` puis
-`uv run wenlu fiches recuperer` écrivent `data/work/fiches/<c>.json` :
+`uv run wenlu fiches recuperer` écrivent `data/sources/fiches/<c>.json`, versionné :
+le texte d'une fiche est un contenu, sa relecture se lit dans l'historique git.
+`uv run wenlu fiches importer` y écrit aussi, depuis un brouillon rédigé sans API
+(voir « Brouillons de fiches ») :
 
 ```json
 {
@@ -392,8 +396,9 @@ après trois essais, `relu` une fois la relecture humaine faite
 (`uv run wenlu fiches relire --c 住 --statut relu`). Seules les fiches relues sont
 exportables : la relecture est obligatoire sur le seuil 255 (brief §17).
 
-Le journal des lots est dans `data/work/fiches/lots/<lot>.json` : identifiant du lot,
-parcours, modèle, date de soumission, statut, et une entrée par requête (`custom_id`,
+Le journal des lots, lui, reste hors dépôt, dans `data/work/fiches/lots/<lot>.json` :
+c'est l'état d'un passage, pas un contenu. Il porte l'identifiant du lot, le
+parcours, le modèle, la date de soumission, le statut, et une entrée par requête (`custom_id`,
 caractère, numéro d'essai, empreinte de l'invite).
 
 `uv run wenlu check` relit ces fichiers s'ils existent : le contrôle

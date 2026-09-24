@@ -12,10 +12,11 @@ INGEST = WORK / "ingest"
 FONTES = WORK / "fonts"
 BUILD = WORK / "build"
 CONTES_WORK = WORK / "contes"
-FICHES_WORK = WORK / "fiches"
 AUDIO_WORK = WORK / "audio"
 
 LISTES = DATA / "sources" / "listes"
+#: Les fiches sont versionnées, hors de `work/` ; le nom est historique.
+FICHES_WORK = DATA / "sources" / "fiches"
 INTERFACE = DATA / "sources" / "interface" / "caracteres.txt"
 CONTES = DATA / "sources" / "contes"
 GF0014 = DATA / "sources" / "gf0014-2009"
