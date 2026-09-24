@@ -329,7 +329,8 @@ export function faitPasCourant(p: Progress, aujourdhui: string): Progress {
 
 /**
  * Plante la graine du jour : la journée entre dans les journées travaillées. Appelé à la
- * clôture, une seule fois par journée. Une graine plantée ne se retire jamais.
+ * clôture, ou à la fin d'un bloc de rattrapage, une seule fois par journée. Une graine
+ * plantée ne se retire jamais.
  */
 export function noterJourTravaille(p: Progress, jour: string): Progress {
   if (p.joursTravailles.includes(jour)) return p;
@@ -537,9 +538,18 @@ export function repriseRev(p: Progress): number {
   return Math.max(p.rev, p.revNotee + 1);
 }
 
-/** Fin de la séance d'Échauffer : le pas est fait, et la pile se vide pour le bloc suivant. */
+/**
+ * Fin de la séance d'Échauffer : le pas est fait, et la pile se vide pour le bloc suivant.
+ *
+ * En rattrapage, il n'y a pas de Clore : le bloc fait est la fin de la journée travaillée,
+ * et il plante la graine du jour. Une seule par jour, comme partout (`noterJourTravaille`) :
+ * les blocs suivants, ou la session normale rouverte quand la pile est redescendue, n'en
+ * plantent pas de seconde.
+ */
 export function finEchauffer(p: Progress, aujourdhui: string): Progress {
-  return { ...faitPasCourant(p, aujourdhui), revue: [], rev: 0, revNotee: -1 };
+  const bloc = p.catchup && currentStep(p)?.id === 'reviser';
+  const n: Progress = { ...faitPasCourant(p, aujourdhui), revue: [], rev: 0, revNotee: -1 };
+  return bloc ? noterJourTravaille(n, aujourdhui) : n;
 }
 
 /* ---------- la première session ---------- */

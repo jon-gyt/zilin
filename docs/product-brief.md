@@ -99,7 +99,7 @@ Fluidité : un tap par écran, bouton principal unique en bas, avance automatiqu
 
 ## 8. Motivation
 
-- Une graine par jour travaillé, sept graines font un arbre. Écran de série animé après chaque révision.
+- Une graine par jour travaillé, sept graines font un arbre. Écran de série animé après chaque révision. Un jour de rattrapage est un jour travaillé : le premier bloc fait plante la graine, une seule par jour.
 - Jour de repos : un par semaine complète, deux en réserve au plus, protège la série.
 - Paliers : 7 jours, un jour de Wenlu complet ; 30 jours, une semaine ; 100 jours, moins 30 % sur l'achat à vie (code à usage unique) ; 365 jours, Wenlu complet offert. Pas de remise sur l'abonnement mensuel.
 - Ma forêt : une colline, un arbre par famille dont la taille suit la progression, un brin d'herbe par caractère, Miao dessus. Le dimanche, récapitulatif de la semaine partageable en image.
