@@ -16,6 +16,7 @@ jobs:
       - run: npm ci
       - run: npm test
       - run: BASE_PATH=/zilin/ npm run build
+      - run: BASE_PATH=/zilin/ SITE_ORIGIN=https://${{ github.repository_owner }}.github.io npm run site
       - uses: actions/upload-pages-artifact@v3
         with: { path: app/dist }
   deploy:
