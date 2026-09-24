@@ -14,7 +14,7 @@
   import EnTetePas from './EnTetePas.svelte';
   import Que from './Que.svelte';
   import Tao from './Tao.svelte';
-  import { caractereDuJour, lecon } from './content';
+  import { caractereDuJour, contenuTrophees, lecon, type ContenuTropheesLu } from './content';
   import {
     CADEAUX,
     NOTE_REMISE,
@@ -24,14 +24,44 @@
     messageProchain,
     messageSemaine
   } from './serie';
-  import { constat, jourLecon, rendezVous, type Progress } from './session';
+  import { cloreSession, constat, jourLecon, rendezVous, type Progress } from './session';
   import { stade } from './tao';
+  import { nouveauxAcquis, tableau } from './trophees';
 
   let {
     p,
     onterminer,
     onquitter
-  }: { p: Progress; onterminer: () => void; onquitter: () => void } = $props();
+  }: {
+    p: Progress;
+    /**
+     * Terminer : la session se clôt. Les trophées que la journée a fait obtenir remontent,
+     * pour être notés avec leur date : un trophée obtenu le reste.
+     */
+    onterminer: (obtenus: string[]) => void;
+    onquitter: () => void;
+  } = $props();
+
+  /** Le contenu que lit le tableau des trophées. Absent, la clôture ne note rien de plus. */
+  let contenuLu = $state(null as ContenuTropheesLu | null);
+
+  $effect(() => {
+    let vivant = true;
+    contenuTrophees()
+      .then((c) => {
+        if (vivant) contenuLu = c;
+      })
+      .catch(() => undefined);
+    return () => {
+      vivant = false;
+    };
+  });
+
+  /** Les trophées obtenus une fois la session close, graine du jour comprise. */
+  function terminer(): void {
+    const close = cloreSession(p, p.day);
+    onterminer(contenuLu ? nouveauxAcquis(tableau(close, contenuLu), close.tropheesAcquis) : []);
+  }
 
   /** Le caractère du jour : le composé de la session, la brique quand il n'y en a pas. */
   let caractere = $state('');
@@ -123,7 +153,7 @@
     </div>
   {/if}
 
-  <div class="foot"><button class="btn" onclick={onterminer}>Terminer</button></div>
+  <div class="foot"><button class="btn" onclick={terminer}>Terminer</button></div>
 </main>
 
 <style>

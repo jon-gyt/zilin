@@ -94,11 +94,19 @@ export type UseView = 'mots' | 'texte';
 export const USE_VIEWS = ['mots', 'texte'] as const;
 
 /**
- * Une réponse notée au pas Fixer : le caractère, juste ou faux, les essais, le temps.
- * C'est l'événement de révision tel qu'il est rangé dans la progression ; `srs.ts`
- * le note (`grade`), ce module ne fait que le garder.
+ * Une réponse notée au pas Fixer : le caractère, juste ou faux, les essais, le temps, et
+ * les leurres pris quand un choix a été faux (`Outcome.leurres` de `srs.ts`). C'est
+ * l'événement de révision tel qu'il est rangé dans la progression ; `srs.ts` le note
+ * (`grade`) et range les leurres dans l'historique de la carte, ce module ne fait que le
+ * garder.
  */
-export type Revision = { c: string; correct: boolean; tries: number; seconds: number };
+export type Revision = {
+  c: string;
+  correct: boolean;
+  tries: number;
+  seconds: number;
+  leurres?: string[];
+};
 
 /**
  * Une session de plus, en cours : Apprendre, Utiliser, Fixer, Clore, et Échauffer devant
@@ -135,6 +143,13 @@ export type Progress = {
   trace: boolean;
   /** Briques dont le tracé a déjà été proposé : une seule fois par brique. */
   tracees: string[];
+  /**
+   * Briques tracées en entier au doigt, chacune une fois, dans l'ordre. Proposer le tracé
+   * (`tracees`) ne suffit pas : seul le tracé achevé compte. C'est ce que lit le pinceau
+   * des trophées. Ajouté après coup : une progression sans ce champ n'a rien d'achevé, et
+   * rien n'est déduit des tracés proposés.
+   */
+  tracesAchevees: string[];
   /** Vue en cours du pas Utiliser : la reprise se fait au pas exact, vue comprise. */
   use: UseView;
   /** Question en cours du pas Fixer : la reprise reprend la vérification où elle en est. */
@@ -200,6 +215,27 @@ export type Progress = {
    * permet. Ajoutée après coup : une progression sans ce champ n'a rien de côté.
    */
   enAttente: string[];
+  /**
+   * Les trophées obtenus, chacun avec la journée où il l'a été (AAAA-MM-JJ), par leur
+   * identifiant (`trophees.ts`). Un trophée obtenu le reste : le tableau fusionne ce qui
+   * se calcule et ce qui est noté ici, même quand l'historique des cartes, borné, ne le
+   * montre plus. Ajouté après coup : une progression sans ce champ n'a rien de noté, et
+   * le tableau recalcule ce qu'il peut.
+   */
+  tropheesAcquis: Record<string, string>;
+  /**
+   * Les devinettes de lanternes résolues, par identifiant, chacune une fois, dans l'ordre.
+   * La lanterne des trophées en compte dix. Le jeu n'existe pas encore : la liste attend
+   * son point d'entrée (`noterDevinette`). Absente d'une progression plus ancienne : vide.
+   */
+  devinettes: string[];
+  /**
+   * Les contes lus : pour chaque conte (identifiant de l'index), les seuils dont la version
+   * a été lue, triés. Le même conte se relit plus riche à chaque seuil, et chaque version
+   * est un trophée. Le lecteur n'existe pas encore : la liste attend son point d'entrée
+   * (`noterConteLu`). Absente d'une progression plus ancienne : aucun conte lu.
+   */
+  contesLus: Record<string, number[]>;
 };
 
 /**
@@ -238,6 +274,7 @@ export function emptyProgress(aujourdhui: string): Progress {
     learn: 'brique',
     trace: true,
     tracees: [],
+    tracesAchevees: [],
     use: 'mots',
     fix: 0,
     fixNotee: -1,
@@ -253,7 +290,10 @@ export function emptyProgress(aujourdhui: string): Progress {
     plus: 0,
     enPlus: null,
     retention: RETENTION_DEFAUT,
-    enAttente: []
+    enAttente: [],
+    tropheesAcquis: {},
+    devinettes: [],
+    contesLus: {}
   };
 }
 
@@ -329,7 +369,8 @@ export function faitPasCourant(p: Progress, aujourdhui: string): Progress {
 
 /**
  * Plante la graine du jour : la journée entre dans les journées travaillées. Appelé à la
- * clôture, une seule fois par journée. Une graine plantée ne se retire jamais.
+ * clôture, ou à la fin d'un bloc de rattrapage, une seule fois par journée. Une graine
+ * plantée ne se retire jamais.
  */
 export function noterJourTravaille(p: Progress, jour: string): Progress {
   if (p.joursTravailles.includes(jour)) return p;
@@ -537,9 +578,18 @@ export function repriseRev(p: Progress): number {
   return Math.max(p.rev, p.revNotee + 1);
 }
 
-/** Fin de la séance d'Échauffer : le pas est fait, et la pile se vide pour le bloc suivant. */
+/**
+ * Fin de la séance d'Échauffer : le pas est fait, et la pile se vide pour le bloc suivant.
+ *
+ * En rattrapage, il n'y a pas de Clore : le bloc fait est la fin de la journée travaillée,
+ * et il plante la graine du jour. Une seule par jour, comme partout (`noterJourTravaille`) :
+ * les blocs suivants, ou la session normale rouverte quand la pile est redescendue, n'en
+ * plantent pas de seconde.
+ */
 export function finEchauffer(p: Progress, aujourdhui: string): Progress {
-  return { ...faitPasCourant(p, aujourdhui), revue: [], rev: 0, revNotee: -1 };
+  const bloc = p.catchup && currentStep(p)?.id === 'reviser';
+  const n: Progress = { ...faitPasCourant(p, aujourdhui), revue: [], rev: 0, revNotee: -1 };
+  return bloc ? noterJourTravaille(n, aujourdhui) : n;
 }
 
 /* ---------- la première session ---------- */
@@ -613,6 +663,62 @@ export function setTrace(p: Progress, actif: boolean): Progress {
 /** Note que le tracé de cette brique a été proposé : on ne le proposera plus. */
 export function traceVue(p: Progress, brique: string): Progress {
   return p.tracees.includes(brique) ? p : { ...p, tracees: [...p.tracees, brique] };
+}
+
+/**
+ * Note que la brique a été tracée en entier : le dernier trait posé, pas seulement le
+ * tracé ouvert. Une brique compte une fois, même tracée encore.
+ */
+export function traceAchevee(p: Progress, brique: string): Progress {
+  if (brique === '' || p.tracesAchevees.includes(brique)) return p;
+  return { ...p, tracesAchevees: [...p.tracesAchevees, brique] };
+}
+
+/* ---------- les trophées obtenus ---------- */
+
+/**
+ * Note les trophées obtenus, datés du jour. Un trophée déjà noté garde sa date : on ne la
+ * repousse jamais. Rien de nouveau : l'état est rendu tel quel, et rien n'est à sauvegarder.
+ */
+export function noterTrophees(p: Progress, ids: readonly string[], jour: string): Progress {
+  const nouveaux = ids.filter((id) => id !== '' && p.tropheesAcquis[id] === undefined);
+  if (nouveaux.length === 0) return p;
+  const tropheesAcquis = { ...p.tropheesAcquis };
+  for (const id of nouveaux) tropheesAcquis[id] = jour;
+  return { ...p, tropheesAcquis };
+}
+
+/* ---------- les devinettes et les contes ---------- */
+
+/**
+ * Note une devinette de lanterne résolue. Une devinette compte une fois, même résolue de
+ * nouveau : la lanterne compte ce qui a été lu de plus, pas les essais.
+ */
+export function noterDevinette(p: Progress, id: string): Progress {
+  if (id === '' || p.devinettes.includes(id)) return p;
+  return { ...p, devinettes: [...p.devinettes, id] };
+}
+
+/**
+ * Note la lecture d'un conte, dans la version d'un seuil. Chaque version compte une fois ;
+ * relire le même conte à un autre seuil en est une autre.
+ */
+export function noterConteLu(p: Progress, conte: string, seuil: number): Progress {
+  const s = Math.floor(seuil);
+  if (conte === '' || !Number.isFinite(s) || s <= 0) return p;
+  const lus = p.contesLus[conte] ?? [];
+  if (lus.includes(s)) return p;
+  return { ...p, contesLus: { ...p.contesLus, [conte]: [...lus, s].sort((a, b) => a - b) } };
+}
+
+/** Le nombre de devinettes résolues. */
+export function devinettesResolues(p: Progress): number {
+  return p.devinettes.length;
+}
+
+/** Le nombre de versions de contes lues, tous seuils comptés. */
+export function contesLus(p: Progress): number {
+  return Object.values(p.contesLus).reduce((n, seuils) => n + seuils.length, 0);
 }
 
 /** Ouvre une vue du pas Apprendre. La progression est sauvegardée à chaque tap. */
@@ -927,15 +1033,48 @@ function lireRevisions(brut: unknown): Revision[] {
     if (typeof x !== 'object' || x === null) return [];
     const r = x as Record<string, unknown>;
     if (typeof r.c !== 'string' || r.c === '') return [];
-    return [
-      {
-        c: r.c,
-        correct: r.correct === true,
-        tries: typeof r.tries === 'number' && r.tries >= 0 ? Math.floor(r.tries) : 0,
-        seconds: typeof r.seconds === 'number' && r.seconds >= 0 ? r.seconds : 0
-      }
-    ];
+    const lue: Revision = {
+      c: r.c,
+      correct: r.correct === true,
+      tries: typeof r.tries === 'number' && r.tries >= 0 ? Math.floor(r.tries) : 0,
+      seconds: typeof r.seconds === 'number' && r.seconds >= 0 ? r.seconds : 0
+    };
+    /* Les leurres pris : absents d'un événement plus ancien, on ne les devine pas. */
+    if (Array.isArray(r.leurres)) lue.leurres = listeDeCaracteres(r.leurres);
+    return [lue];
   });
+}
+
+/** Relit une liste de caractères, sans doublon, dans l'ordre. Absente ou aberrante : vide. */
+function listeDeCaracteres(v: unknown): string[] {
+  if (!Array.isArray(v)) return [];
+  return [...new Set(v.filter((c): c is string => typeof c === 'string' && c !== ''))];
+}
+
+/** Relit les trophées obtenus : un identifiant, une journée. Une entrée aberrante est écartée. */
+function lireTropheesAcquis(v: unknown): Record<string, string> {
+  if (typeof v !== 'object' || v === null || Array.isArray(v)) return {};
+  const out: Record<string, string> = {};
+  for (const [id, jour] of Object.entries(v as Record<string, unknown>)) {
+    if (id !== '' && typeof jour === 'string' && FORMAT_JOUR.test(jour)) out[id] = jour;
+  }
+  return out;
+}
+
+/** Relit les contes lus : un conte, des seuils entiers positifs, sans doublon, triés. */
+function lireContesLus(v: unknown): Record<string, number[]> {
+  if (typeof v !== 'object' || v === null || Array.isArray(v)) return {};
+  const out: Record<string, number[]> = {};
+  for (const [conte, seuils] of Object.entries(v as Record<string, unknown>)) {
+    if (conte === '' || !Array.isArray(seuils)) continue;
+    const lus = [
+      ...new Set(
+        seuils.filter((x): x is number => typeof x === 'number' && Number.isInteger(x) && x > 0)
+      )
+    ].sort((a, b) => a - b);
+    if (lus.length > 0) out[conte] = lus;
+  }
+  return out;
 }
 
 /** Relit un rang de question déjà notée. Absent ou aberrant : aucune question notée. */
@@ -1002,6 +1141,8 @@ export function fromJSON(texte: string, aujourdhui: string): Progress {
     learn: isLearnView(o.learn) ? o.learn : vide.learn,
     trace: o.trace === undefined ? vide.trace : o.trace !== false,
     tracees: Array.isArray(o.tracees) ? o.tracees.filter((c): c is string => typeof c === 'string') : [],
+    /* Les tracés achevés : absents d'un export plus ancien, rien n'est achevé. */
+    tracesAchevees: listeDeCaracteres(o.tracesAchevees),
     /* Champs des pas Utiliser et Fixer : absents d'un export plus ancien, ils reprennent leur défaut. */
     use: isUseView(o.use) ? o.use : vide.use,
     fix: typeof o.fix === 'number' && o.fix >= 0 ? Math.floor(o.fix) : 0,
@@ -1032,6 +1173,11 @@ export function fromJSON(texte: string, aujourdhui: string): Progress {
     /* Les cartes mises de côté : absentes d'un export plus ancien, rien n'est de côté. */
     enAttente: Array.isArray(o.enAttente)
       ? [...new Set(o.enAttente.filter((c): c is string => typeof c === 'string' && c !== ''))].sort()
-      : []
+      : [],
+    /* Les trophées obtenus : absents d'un export plus ancien, rien n'est noté. */
+    tropheesAcquis: lireTropheesAcquis(o.tropheesAcquis),
+    /* Les devinettes et les contes lus : absents d'un export plus ancien, rien n'est lu. */
+    devinettes: listeDeCaracteres(o.devinettes),
+    contesLus: lireContesLus(o.contesLus)
   };
 }

@@ -4,7 +4,14 @@ import { Rating } from 'ts-fsrs';
 import { VERSION_DONNEES, type Famille, type Index } from './content';
 import { caracteresLus } from './foret';
 import { CADEAUX, PALIERS } from './serie';
-import { emptyProgress, type Progress } from './session';
+import {
+  emptyProgress,
+  noterConteLu,
+  noterDevinette,
+  noterTrophees,
+  traceAchevee,
+  type Progress
+} from './session';
 import { SEUIL_DEBLOCAGE, newCard, schedule, stability, type ReviewCard } from './srs';
 import {
   FAMILLES_TROPHEES,
@@ -14,8 +21,11 @@ import {
   SCEAUX_MIN,
   SEUILS_LIRE,
   UNITES,
+  confondu,
   famillesDesSceaux,
   ligneEntree,
+  ligneObtenu,
+  nouveauxAcquis,
   meilleureSuite,
   prochain,
   suiteEnCours,
@@ -204,6 +214,34 @@ describe('les pièges déjoués', () => {
     expect(t.actuel).toBe(3);
   });
 
+  it('ne cassent la suite que si le leurre pris est l’autre caractère de la paire', () => {
+    const faux = (leurres?: string[]) => ({ rating: Rating.Again as const, leurres });
+    /* Le leurre gardé : la confusion est exacte, même rattrapée au second essai. */
+    expect(confondu(faux(['大']), '天', ['天', '夫'])).toBe(false);
+    expect(confondu(faux(['夫']), '天', ['天', '夫'])).toBe(true);
+    expect(confondu({ rating: Rating.Hard, leurres: ['夫'] }, '天', ['天', '夫'])).toBe(true);
+    expect(confondu(faux([]), '天', ['天', '夫'])).toBe(false);
+    /* Sans leurre gardé (événement d'avant, tracé, jeu) : prudent, l'erreur casse. */
+    expect(confondu(faux(), '天', ['天', '夫'])).toBe(true);
+    expect(confondu({ rating: Rating.Hard }, '天', ['天', '夫'])).toBe(false);
+
+    /* Neuf lectures justes de 天, une erreur sur 夫, puis une juste de 天. */
+    const suite = (leurre: string): ReviewCard[] => {
+      const tian = avecHistorique('天', justes(10));
+      const fu = avecHistorique('夫', [Rating.Again], 9);
+      return [
+        { ...tian, history: tian.history.map((h, i) => (i === 9 ? { ...h, at: new Date(h.at.getTime() + 60_000) } : h)) },
+        { ...fu, history: fu.history.map((h) => ({ ...h, leurres: [leurre] })) }
+      ];
+    };
+    /* L'erreur venait d'ailleurs : dix lectures de suite sans confusion. */
+    expect(tropheesPieges(paires, suite('大'))[0].obtenu).toBe(true);
+    /* 天 pris pour 夫 : la suite repart après la confusion. */
+    const [t] = tropheesPieges(paires, suite('天'));
+    expect(t.obtenu).toBe(false);
+    expect(t.actuel).toBe(1);
+  });
+
   it('viennent de paires.json, trios compris', () => {
     const t = tableau(progression(), contenuExport);
     const s = t.sections.find((x) => x.famille === 'pieges')!;
@@ -229,6 +267,18 @@ describe('les contes', () => {
     expect(t[0].progres).toBe('à lire');
   });
 
+  it('se gagnent version par version quand la progression compte un conte lu', () => {
+    const index: Index = {
+      ...indexExport,
+      contes: [{ id: 'lievre', titre_fr: 'Le lièvre et la souche', seuils: [255, 405], fichier: 'x' }]
+    };
+    const p = noterConteLu(progression(), 'lievre', 255);
+    const t = tropheesContes(index, 300, {}, p.contesLus);
+    expect(t.map((x) => x.obtenu)).toEqual([true, false]);
+    /* Aucun lecteur ne l'alimente encore : ce qui n'est pas lu reste verrouillé. */
+    expect(t[1].suivi).toBe(false);
+  });
+
   it("font une section vide tant que l'export n'en porte aucun", () => {
     const s = tableau(progression(), contenuExport).sections.find((x) => x.famille === 'contes')!;
     expect(indexExport.contes).toEqual([]);
@@ -244,6 +294,30 @@ describe('les objets de Tao', () => {
     expect(tropheesObjets(neuf)[0].obtenu).toBe(false);
     expect(tropheesObjets([...neuf, '人'])[0].progres).toBe(`9 / ${PINCEAU_BRIQUES}`);
     expect(tropheesObjets([...neuf, '口'])[0].obtenu).toBe(true);
+  });
+
+  it('ne comptent au pinceau que les tracés achevés, pas les tracés proposés', () => {
+    const dix = '人大天日月木水火土口'.split('');
+    const pinceau = (p: Progress) =>
+      tous(tableau(p, contenuExport)).find((x) => x.id === 'objet-pinceau')!;
+    const proposes = progression({ tracees: dix });
+    expect(pinceau(proposes).actuel).toBe(0);
+    expect(pinceau(proposes).obtenu).toBe(false);
+    let acheves = progression({ tracees: dix });
+    for (const c of dix) acheves = traceAchevee(acheves, c);
+    expect(pinceau(acheves).obtenu).toBe(true);
+  });
+
+  it('donnent la lanterne à dix devinettes résolues, comptées par la progression', () => {
+    let p = progression();
+    for (const id of 'abcdefghi'.split('')) p = noterDevinette(p, id);
+    const lanterne = (q: Progress) =>
+      tous(tableau(q, contenuExport)).find((x) => x.id === 'objet-lanterne')!;
+    expect(lanterne(p).progres).toBe('9 / 10');
+    expect(lanterne(p).obtenu).toBe(false);
+    /* Le jeu n'existe pas encore : elle reste verrouillée, jamais proposée comme prochaine. */
+    expect(lanterne(p).suivi).toBe(false);
+    expect(lanterne(noterDevinette(p, 'j')).obtenu).toBe(true);
   });
 
   it('verrouillent la lanterne et le bol tant que rien ne les suit', () => {
@@ -324,6 +398,77 @@ describe('chaque trophée se gagne en lisant, jamais au temps passé', () => {
       /* Le cinabre ne marque que l'élément ajouté et la position sur le chemin. */
       expect(s).not.toContain('--zhu');
     }
+  });
+});
+
+/* ---------- ce qui est obtenu le reste ---------- */
+
+describe('un trophée obtenu le reste', () => {
+  const paires = [['天', '夫']];
+  const justes = (n: number) => Array.from({ length: n }, () => Rating.Good);
+
+  it('se note avec sa date, une fois, et la date ne bouge plus', () => {
+    const p = progression({ cartes: '月朋有日明人从十早口古'.split('').map(sue) });
+    const t = tableau(p, contenuExport);
+    const ids = nouveauxAcquis(t, p.tropheesAcquis);
+    expect(ids).toContain('lire-10');
+    expect(ids).toEqual(tous(t).filter((x) => x.obtenu).map((x) => x.id));
+    const note = noterTrophees(p, ids, JOUR);
+    expect(note.tropheesAcquis['lire-10']).toBe(JOUR);
+    expect(nouveauxAcquis(tableau(note, contenuExport), note.tropheesAcquis)).toEqual([]);
+    /* Noté de nouveau un autre jour : la première date reste. */
+    expect(noterTrophees(note, ['lire-10'], '2026-04-01')).toBe(note);
+    const lire10 = tous(tableau(note, contenuExport)).find((x) => x.id === 'lire-10')!;
+    expect(lire10.obtenuLe).toBe(JOUR);
+    expect(ligneObtenu(lire10.obtenuLe)).toBe('Obtenu le 2 mars 2026.');
+  });
+
+  it("ne se perd pas quand l'historique borné ne le montre plus", () => {
+    /* Le piège déjoué, puis vingt révisions récentes dont une confusion : l'historique ne
+       garde plus la suite de dix. Le calcul seul le perdrait ; la progression le garde. */
+    const deJoue = [avecHistorique('天', justes(10)), sue('夫')];
+    const t = tableau(progression({ cartes: deJoue }), contenuExport);
+    expect(tous(t).find((x) => x.id === 'piege-天夫')?.obtenu).toBe(true);
+    const plusTard = (acquis: Record<string, string>) =>
+      tropheesPieges(paires, [avecHistorique('天', [Rating.Again, ...justes(3)]), sue('夫')], new Map(), new Map(), undefined, acquis)[0];
+    expect(plusTard({}).obtenu).toBe(false);
+    const garde = plusTard({ 'piege-天夫': JOUR });
+    expect(garde.obtenu).toBe(true);
+    expect(garde.suivi).toBe(true);
+    expect(garde.detail).not.toMatch(/Encore/);
+  });
+
+  it('garde chaque famille de trophées, même quand le calcul redescend', () => {
+    const acquis = { 'lire-10': JOUR, 'objet-pinceau': JOUR, 'serie-7': JOUR, 'sceau-月': JOUR };
+    const p = progression({ tropheesAcquis: acquis });
+    const t = tableau(p, contenuExport);
+    for (const id of Object.keys(acquis)) {
+      const x = tous(t).find((y) => y.id === id);
+      expect(x?.obtenu).toBe(true);
+      expect(x?.obtenuLe).toBe(JOUR);
+    }
+    expect(t.obtenus).toBe(4);
+    expect(tropheesLire(0, { 'lire-10': JOUR })[0].detail).toBe('10 caractères que tu sais lire.');
+    expect(tropheesObjets([], { 'objet-pinceau': JOUR })[0].obtenu).toBe(true);
+    expect(tropheesSerie([], JOUR, { 'serie-7': JOUR })[0].obtenu).toBe(true);
+  });
+
+  it('dit sa date en français, sans rien inventer sur une date illisible', () => {
+    expect(ligneObtenu('2026-01-01')).toBe('Obtenu le 1er janvier 2026.');
+    expect(ligneObtenu('2026-08-15')).toBe('Obtenu le 15 août 2026.');
+    expect(ligneObtenu('hier')).toBe('');
+    expect(ligneObtenu(undefined)).toBe('');
+  });
+
+  it("montre la date dans le détail, et la clôture fait noter ce qui est obtenu", () => {
+    const rewards = readFileSync(new URL('Rewards.svelte', import.meta.url), 'utf8');
+    expect(rewards).toContain('ligneObtenu(detail.obtenuLe)');
+    expect(rewards).toContain('nouveauxAcquis(t, p.tropheesAcquis)');
+    const close = readFileSync(new URL('Close.svelte', import.meta.url), 'utf8');
+    expect(close).toContain('nouveauxAcquis(tableau(close, contenuLu), close.tropheesAcquis)');
+    const app = readFileSync(new URL('../App.svelte', import.meta.url), 'utf8');
+    expect(app).toContain('noterTrophees(cloreSession(p, p.day), obtenus, p.day)');
+    expect(app).toContain('onacquis={tropheesObtenus}');
   });
 });
 

@@ -53,6 +53,7 @@
     nombreDues,
     noterActivite,
     noterRevision,
+    noterTrophees,
     openDay,
     planifierCarte,
     setDepart,
@@ -71,6 +72,7 @@
     setTrace,
     setUseView,
     srsParams,
+    traceAchevee,
     traceVue,
     useNext,
     type Budget,
@@ -445,6 +447,12 @@
     enregistrer();
   }
 
+  /** La brique tracée en entier : le pinceau des trophées la compte. */
+  function traceFinie(brique: string): void {
+    p = traceAchevee(p, brique);
+    enregistrer();
+  }
+
   /** Réglage « ne plus proposer le tracé », mémorisé dans la progression. */
   function reglerTrace(actif: boolean): void {
     p = setTrace(p, actif);
@@ -497,10 +505,18 @@
    * Le constat, la graine et la semaine sont sur l'écran Clore. La graine du jour est
    * plantée une fois par journée ; une session de plus n'en plante pas de seconde.
    */
-  function clore(): void {
-    p = cloreSession(p, p.day);
+  function clore(obtenus: string[] = []): void {
+    p = noterTrophees(cloreSession(p, p.day), obtenus, p.day);
     enregistrer();
     allerAuMenu();
+  }
+
+  /** Des trophées obtenus, pas encore notés : ils le sont, datés du jour, et le restent. */
+  function tropheesObtenus(ids: string[]): void {
+    const n = noterTrophees(p, ids, p.day);
+    if (n === p) return;
+    p = n;
+    enregistrer();
   }
 
   /* ---------- les jeux (épic 4b), par la seule case Jouer ---------- */
@@ -570,6 +586,7 @@
     onsuivant={apprendreSuivant}
     onvue={apprendreVue}
     ontrace={reglerTrace}
+    ontraceachevee={traceFinie}
     onquitter={quitter}
   />
 {:else if ecran === 'use'}
@@ -609,7 +626,7 @@
     />
   {/if}
 {:else if ecran === 'rewards'}
-  <Rewards {p} onretour={() => (ecran = 'foret')} />
+  <Rewards {p} onretour={() => (ecran = 'foret')} onacquis={tropheesObtenus} />
 {:else if ecran === 'chercher'}
   <!-- Chercher, puis l'arbre de la famille touchée ; son retour ramène à Chercher. -->
   {#if trouvee}

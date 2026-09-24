@@ -99,7 +99,7 @@ Fluidité : un tap par écran, bouton principal unique en bas, avance automatiqu
 
 ## 8. Motivation
 
-- Une graine par jour travaillé, sept graines font un arbre. Écran de série animé après chaque révision.
+- Une graine par jour travaillé, sept graines font un arbre. Écran de série animé après chaque révision. Un jour de rattrapage est un jour travaillé : le premier bloc fait plante la graine, une seule par jour.
 - Jour de repos : un par semaine complète, deux en réserve au plus, protège la série.
 - Paliers : 7 jours, un jour de Wenlu complet ; 30 jours, une semaine ; 100 jours, moins 30 % sur l'achat à vie (code à usage unique) ; 365 jours, Wenlu complet offert. Pas de remise sur l'abonnement mensuel.
 - Ma forêt : une colline, un arbre par famille dont la taille suit la progression, un brin d'herbe par caractère, Miao dessus. Le dimanche, récapitulatif de la semaine partageable en image.
@@ -115,12 +115,12 @@ On y entre depuis Ma forêt (« Tes trophées », N sur M et le prochain). Règl
 | Sceaux de famille | une famille d'au moins deux caractères lue en entier ; on montre les familles commencées et quelques suivantes du parcours | la racine |
 | Pièges déjoués | une paire de `paires.json` lue dix fois de suite sans confusion, une fois les deux caractères acquis | la paire |
 | Contes | chaque conte lu, relu à chaque seuil | le seuil |
-| Objets de Tao | pinceau (dix briques tracées), lanterne (dix devinettes), bol (la première recette) | pictogramme au trait |
+| Objets de Tao | pinceau (dix briques tracées en entier, le dernier trait posé : un tracé seulement proposé ne compte pas), lanterne (dix devinettes), bol (la première recette) | pictogramme au trait |
 | Série | 7, 30, 100, 365 jours, les cadeaux remis par Que 雀 | « 7 j » |
 
-Un trophée est un sceau carré 印 : obtenu, gravé en clair sur l'encre avec un double filet ; à venir, en pointillés avec sa progression (« 62 / 100 »). Le toucher montre son détail dans la carte du résumé, sans fenêtre modale.
+Un trophée est un sceau carré 印 : obtenu, gravé en clair sur l'encre avec un double filet ; à venir, en pointillés avec sa progression (« 62 / 100 »). Le toucher montre son détail dans la carte du résumé, sans fenêtre modale, et la date où il a été obtenu. Un trophée obtenu le reste : la progression garde chaque trophée obtenu avec sa date (noté à la clôture de la session et à l'ouverture du tableau), même quand l'historique des cartes, borné, ne le montre plus.
 
-Ce que la progression ne suit pas encore reste verrouillé, jamais estimé : la lecture des contes, les devinettes et les recettes. Pour les pièges, la progression ne garde pas le leurre choisi : une lecture compte « sans confusion » quand la révision d'un des caractères de la paire n'est pas ratée, quelle que soit sa vitesse.
+Ce qu'aucun écran n'alimente encore reste verrouillé, jamais estimé. La progression compte déjà les devinettes résolues (chacune une fois) et les contes lus (une fois par conte et par seuil), et le tableau les lit ; mais ni le jeu des devinettes ni le lecteur de contes n'existent encore, et les recettes ne sont pas suivies. Pour les pièges, la révision garde le leurre pris quand un choix est faux : une lecture compte « sans confusion » tant qu'aucun caractère de la paire n'a été pris pour l'autre, même rattrapé au second essai, quelle que soit sa vitesse. Une erreur venue d'un autre leurre ne casse pas la série ; une erreur dont le leurre n'est pas connu (révision d'avant ce suivi, tracé, jeu) la casse, par prudence.
 
 ## 9. Tao et les jeux
 

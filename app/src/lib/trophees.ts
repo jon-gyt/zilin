@@ -8,9 +8,14 @@
  *
  * Module pur, comme `foret.ts` et `serie.ts` : aucune fonction ne lit l'horloge,
  * n'écrit dans un stockage ni ne touche au DOM. Tout se calcule depuis la progression
- * et le contenu exporté, passés en arguments. Ce que la progression ne suit pas encore
- * (la lecture des contes, les devinettes, les recettes) est rendu verrouillé, avec
- * `suivi: false` : on n'affiche jamais un chiffre inventé.
+ * et le contenu exporté, passés en arguments. Un trophée obtenu le reste : ceux que la
+ * progression a notés (`tropheesAcquis`, avec leur date) sont fusionnés avec ce qui se
+ * calcule, et `nouveauxAcquis` dit ceux qu'il reste à noter.
+ *
+ * Ce qu'aucun écran n'alimente encore est rendu verrouillé, avec `suivi: false` : on
+ * n'affiche jamais un chiffre inventé. Les devinettes et les contes lus sont déjà comptés
+ * dans la progression (`devinettes`, `contesLus`) et le tableau les lit ; le jeu et le
+ * lecteur manquent. Les recettes ne sont pas suivies.
  */
 import { Rating } from 'ts-fsrs';
 import { nomParcours, type Famille, type Index } from './content';
@@ -75,6 +80,8 @@ export type Trophee = {
   /** Ce qu'il faut atteindre. */
   cible: number;
   obtenu: boolean;
+  /** La journée où le trophée a été noté obtenu (AAAA-MM-JJ), s'il l'a été. */
+  obtenuLe?: string;
   /** Faux quand la progression ne trace pas encore ce que la règle compte : verrouillé. */
   suivi: boolean;
   /** La progression en petit : « 62 / 100 », « pas encore vus », « au seuil 255 ». */
@@ -100,6 +107,12 @@ export type Tableau = {
   /** Le trophée le plus proche parmi ceux que la progression suit, `null` s'il n'en reste pas. */
   prochain: Trophee | null;
 };
+
+/**
+ * Les trophées déjà obtenus, notés dans la progression : l'identifiant et la journée.
+ * Un trophée qui y figure est obtenu, même si le calcul ne le montre plus.
+ */
+export type Acquis = Readonly<Record<string, string>>;
 
 /** Ce que le tableau lit du contenu exporté. */
 export type ContenuTrophees = {
@@ -170,6 +183,11 @@ function liste(cs: readonly string[], max: number): string {
   return cs.length > max ? `${vus}…` : vus;
 }
 
+/** Le trophée est-il déjà noté obtenu ? */
+function dejaAcquis(acquis: Acquis, id: string): boolean {
+  return acquis[id] !== undefined;
+}
+
 function nombre(n: number, un: string, plusieurs: string): string {
   return `${n} ${n > 1 ? plusieurs : un}`;
 }
@@ -191,9 +209,9 @@ function pinyins(familles: readonly Famille[]): Map<string, string> {
 
 /* ---------- 1. lire ---------- */
 
-export function tropheesLire(lus: number): Trophee[] {
+export function tropheesLire(lus: number, acquis: Acquis = {}): Trophee[] {
   return SEUILS_LIRE.map((n) => {
-    const obtenu = lus >= n;
+    const obtenu = lus >= n || dejaAcquis(acquis, `lire-${n}`);
     const premier = n === SEUILS_FRANCAIS[0];
     const nom = premier ? 'Premier seuil' : SEUILS_FRANCAIS.includes(n) ? `Seuil ${n}` : `${n} caractères`;
     const reste = n - lus;
@@ -253,15 +271,16 @@ export function tropheesSceaux(
   cartes: readonly ReviewCard[],
   premierJour: ReadonlyMap<string, number>,
   sens: ReadonlyMap<string, string> = new Map(),
-  seuil: number = SEUIL_DEBLOCAGE
+  seuil: number = SEUIL_DEBLOCAGE,
+  acquis: Acquis = {}
 ): Trophee[] {
   return famillesDesSceaux(familles, cartes, premierJour).map((f) => {
     const cs = membres(f);
     const lus = cs.filter((c) => avancement(c, cartes, seuil) >= 1);
     const restants = cs.filter((c) => !lus.includes(c));
     const commencee = cs.some((c) => cartes.some((k) => k.id === c));
-    const obtenu = restants.length === 0;
     const r = f.racine.c;
+    const obtenu = restants.length === 0 || dejaAcquis(acquis, `sceau-${r}`);
     const glose = f.racine.fr || sens.get(r) || '';
     const jour = premierJour.get(r);
     const detail = obtenu
@@ -292,12 +311,28 @@ export function tropheesSceaux(
 /* ---------- 3. pièges déjoués ---------- */
 
 /**
- * Les lectures d'un groupe de caractères proches, dans l'ordre : les révisions notées
- * de chacun, mises bout à bout. Une lecture est « sans confusion » quand elle n'est pas
- * ratée ; la vitesse de la réponse n'y change rien (Facile, Bien et Dur comptent pareil).
+ * Une lecture d'un caractère du groupe l'a-t-elle confondu avec un autre du groupe ?
  *
- * La progression ne garde pas le leurre choisi : une erreur sur l'un des caractères
- * casse la suite, qu'elle vienne de la paire ou non. C'est la lecture prudente.
+ * Quand la révision a gardé les leurres pris (`leurres` de l'historique), la confusion
+ * est exacte : un leurre qui est un autre caractère du groupe, même rattrapé au second
+ * essai. Une erreur venue d'ailleurs (un autre leurre, des briques dans le désordre) ne
+ * compte pas. Quand la révision ne les a pas gardés (un événement d'avant ce suivi, un
+ * tracé, un jeu), on reste prudent : une lecture ratée est une confusion.
+ */
+export function confondu(
+  h: Pick<ReviewCard['history'][number], 'rating' | 'leurres'>,
+  c: string,
+  groupe: readonly string[]
+): boolean {
+  if (h.leurres !== undefined) return h.leurres.some((x) => x !== c && groupe.includes(x));
+  return h.rating === Rating.Again;
+}
+
+/**
+ * Les lectures d'un groupe de caractères proches, dans l'ordre : les révisions notées
+ * de chacun, mises bout à bout. Une lecture est « sans confusion » quand elle ne prend pas
+ * un caractère du groupe pour un autre (`confondu`) ; la vitesse de la réponse n'y change
+ * rien (Facile, Bien et Dur comptent pareil).
  */
 export function lecturesDuGroupe(
   groupe: readonly string[],
@@ -305,7 +340,9 @@ export function lecturesDuGroupe(
 ): boolean[] {
   return cartes
     .filter((k) => groupe.includes(k.id))
-    .flatMap((k) => k.history.map((h) => ({ t: new Date(h.at).getTime(), juste: h.rating !== Rating.Again })))
+    .flatMap((k) =>
+      k.history.map((h) => ({ t: new Date(h.at).getTime(), juste: !confondu(h, k.id, groupe) }))
+    )
     .sort((a, b) => a.t - b.t)
     .map((x) => x.juste);
 }
@@ -333,25 +370,29 @@ export function tropheesPieges(
   cartes: readonly ReviewCard[],
   pinyin: ReadonlyMap<string, string> = new Map(),
   sens: ReadonlyMap<string, string> = new Map(),
-  seuil: number = SEUIL_DEBLOCAGE
+  seuil: number = SEUIL_DEBLOCAGE,
+  acquis: Acquis = {}
 ): Trophee[] {
   return paires
     .filter((g) => g.length >= 2)
     .map((g) => {
       const vus = g.every((c) => avancement(c, cartes, seuil) >= 1);
       const lectures = vus ? lecturesDuGroupe(g, cartes) : [];
-      const obtenu = vus && meilleureSuite(lectures) >= PIEGE_SUITE;
+      const obtenu =
+        (vus && meilleureSuite(lectures) >= PIEGE_SUITE) || dejaAcquis(acquis, `piege-${g.join('')}`);
       const actuel = obtenu ? PIEGE_SUITE : suiteEnCours(lectures);
       const nom = g.length === 2 ? `${g[0]} et ${g[1]}` : `${g.slice(0, -1).join(', ')} et ${g[g.length - 1]}`;
       const gloses = g
         .map((c) => [pinyin.get(c), sens.get(c)].filter(Boolean).join(', '))
         .filter((x) => x !== '');
       const tous = g.length === 2 ? 'les deux' : `les ${g.length}`;
-      const detail = !vus
+      const detail = !vus && !obtenu
         ? `Ils arrivent quand ${tous} sont acquis.`
         : gloses.length === g.length
           ? `${gloses.join(' ; ')}.`
-          : `Encore ${nombre(PIEGE_SUITE - actuel, 'lecture', 'lectures')} de suite sans les confondre.`;
+          : obtenu
+            ? `Lus ${PIEGE_SUITE} fois de suite sans les confondre.`
+            : `Encore ${nombre(PIEGE_SUITE - actuel, 'lecture', 'lectures')} de suite sans les confondre.`;
       return {
         id: `piege-${g.join('')}`,
         famille: 'pieges',
@@ -363,8 +404,8 @@ export function tropheesPieges(
         actuel,
         cible: PIEGE_SUITE,
         obtenu,
-        suivi: vus,
-        progres: vus ? fraction(actuel, PIEGE_SUITE) : 'pas encore vus',
+        suivi: vus || obtenu,
+        progres: vus || obtenu ? fraction(actuel, PIEGE_SUITE) : 'pas encore vus',
         part: part(actuel, PIEGE_SUITE)
       };
     });
@@ -374,30 +415,40 @@ export function tropheesPieges(
 
 /**
  * Un trophée par conte et par seuil : le même conte, relu plus riche. La progression
- * n'enregistre pas encore la lecture d'un conte : ils restent verrouillés, avec leur seuil.
+ * compte les versions lues (`contesLus`), mais aucun lecteur ne l'alimente encore : ils
+ * restent verrouillés, avec leur seuil, jusqu'à ce qu'une version soit lue.
  */
-export function tropheesContes(index: Index, lus: number): Trophee[] {
+export function tropheesContes(
+  index: Index,
+  lus: number,
+  acquis: Acquis = {},
+  contesLus: Readonly<Record<string, readonly number[]>> = {}
+): Trophee[] {
   return index.contes.flatMap((conte) =>
     [...conte.seuils]
       .sort((a, b) => a - b)
       .map((s): Trophee => {
         const ouvert = lus >= s;
+        const id = `conte-${conte.id}-${s}`;
+        const obtenu = (contesLus[conte.id] ?? []).includes(s) || dejaAcquis(acquis, id);
         return {
-          id: `conte-${conte.id}-${s}`,
+          id,
           famille: 'contes',
           forme: 'nombre',
           sceau: String(s),
           nom: conte.titre_fr,
-          detail: ouvert
-            ? `La version du seuil ${s} t'est ouverte.`
-            : `La version du seuil ${s}, quand tu liras ${s} caractères.`,
+          detail: obtenu
+            ? `La version du seuil ${s} est lue.`
+            : ouvert
+              ? `La version du seuil ${s} t'est ouverte.`
+              : `La version du seuil ${s}, quand tu liras ${s} caractères.`,
           unite: 'conte lu',
-          actuel: 0,
+          actuel: obtenu ? 1 : 0,
           cible: 1,
-          obtenu: false,
+          obtenu,
           suivi: false,
           progres: ouvert ? 'à lire' : `au seuil ${s}`,
-          part: 0
+          part: obtenu ? 1 : 0
         };
       })
   );
@@ -406,13 +457,22 @@ export function tropheesContes(index: Index, lus: number): Trophee[] {
 /* ---------- 5. objets de Tao ---------- */
 
 /**
- * Le pinceau se lit sur `tracees` : les briques dont le tracé a été ouvert à la première
- * rencontre (`session.traceVue`). La lanterne et le bol attendent leurs jeux : la
- * progression ne suit encore ni les devinettes ni les recettes, ils restent verrouillés.
+ * Le pinceau se lit sur `tracesAchevees` : les briques tracées en entier au doigt
+ * (`session.traceAchevee`), pas celles dont le tracé a seulement été proposé. La lanterne
+ * se lit sur `devinettes`, les devinettes résolues, que la progression compte déjà ; le
+ * jeu n'existant pas encore, elle reste verrouillée tant qu'elle n'est pas obtenue. Le
+ * bol attend la cuisine : les recettes ne sont pas suivies.
  */
-export function tropheesObjets(tracees: readonly string[]): Trophee[] {
-  const n = new Set(tracees).size;
-  const pinceau = n >= PINCEAU_BRIQUES;
+export function tropheesObjets(
+  tracesAchevees: readonly string[],
+  acquis: Acquis = {},
+  devinettes: readonly string[] = []
+): Trophee[] {
+  const n = new Set(tracesAchevees).size;
+  const d = new Set(devinettes).size;
+  const pinceau = n >= PINCEAU_BRIQUES || dejaAcquis(acquis, 'objet-pinceau');
+  const lanterne = d >= LANTERNE_DEVINETTES || dejaAcquis(acquis, 'objet-lanterne');
+  const bol = dejaAcquis(acquis, 'objet-bol');
   return [
     {
       id: 'objet-pinceau',
@@ -439,14 +499,16 @@ export function tropheesObjets(tracees: readonly string[]): Trophee[] {
       objet: 'lanterne',
       sceau: '',
       nom: 'Lanterne',
-      detail: 'Dix devinettes de lanternes résolues. Le jeu n’est pas encore ouvert.',
+      detail: lanterne
+        ? 'Dix devinettes de lanternes résolues. Tao la porte aux devinettes.'
+        : 'Dix devinettes de lanternes résolues. Le jeu n’est pas encore ouvert.',
       unite: 'devinette resolue',
-      actuel: 0,
+      actuel: d,
       cible: LANTERNE_DEVINETTES,
-      obtenu: false,
+      obtenu: lanterne,
       suivi: false,
-      progres: `${LANTERNE_DEVINETTES} devinettes`,
-      part: 0
+      progres: d > 0 ? fraction(d, LANTERNE_DEVINETTES) : `${LANTERNE_DEVINETTES} devinettes`,
+      part: part(d, LANTERNE_DEVINETTES)
     },
     {
       id: 'objet-bol',
@@ -459,7 +521,7 @@ export function tropheesObjets(tracees: readonly string[]): Trophee[] {
       unite: 'recette cuisinee',
       actuel: 0,
       cible: BOL_RECETTES,
-      obtenu: false,
+      obtenu: bol,
       suivi: false,
       progres: 'première recette',
       part: 0
@@ -470,10 +532,14 @@ export function tropheesObjets(tracees: readonly string[]): Trophee[] {
 /* ---------- 6. série ---------- */
 
 /** Les quatre paliers de `serie.ts`, leurs cadeaux remis par Que, sans rien y changer. */
-export function tropheesSerie(joursTravailles: readonly string[], aujourdhui: string): Trophee[] {
+export function tropheesSerie(
+  joursTravailles: readonly string[],
+  aujourdhui: string,
+  acquis: Acquis = {}
+): Trophee[] {
   const s = etatSerie(joursTravailles, aujourdhui);
   return PALIERS.map((m) => {
-    const obtenu = s.atteints.includes(m);
+    const obtenu = s.atteints.includes(m) || dejaAcquis(acquis, `serie-${m}`);
     const cadeau = CADEAUX[m];
     return {
       id: `serie-${m}`,
@@ -562,13 +628,16 @@ export function tableau(
   const premierJour = joursDesFamilles(c.index, nom, racinesDesCaracteres(c.familles));
   const sens = c.sens ?? new Map<string, string>();
   const paires = lirePaires(c.paires);
+  const a: Acquis = p.tropheesAcquis;
+  const date = (ts: Trophee[]): Trophee[] =>
+    ts.map((t) => (a[t.id] !== undefined && t.obtenu ? { ...t, obtenuLe: a[t.id] } : t));
   const sections = [
-    section('lire', tropheesLire(lus)),
-    section('sceaux', tropheesSceaux(c.familles, p.cartes, premierJour, sens, seuil)),
-    section('pieges', tropheesPieges(paires, p.cartes, pinyins(c.familles), sens, seuil)),
-    section('contes', tropheesContes(c.index, lus)),
-    section('objets', tropheesObjets(p.tracees)),
-    section('serie', tropheesSerie(p.joursTravailles, p.day))
+    section('lire', date(tropheesLire(lus, a))),
+    section('sceaux', date(tropheesSceaux(c.familles, p.cartes, premierJour, sens, seuil, a))),
+    section('pieges', date(tropheesPieges(paires, p.cartes, pinyins(c.familles), sens, seuil, a))),
+    section('contes', date(tropheesContes(c.index, lus, a, p.contesLus))),
+    section('objets', date(tropheesObjets(p.tracesAchevees, a, p.devinettes))),
+    section('serie', date(tropheesSerie(p.joursTravailles, p.day, a)))
   ];
   const tous = sections.flatMap((s) => s.trophees);
   return {
@@ -579,7 +648,43 @@ export function tableau(
   };
 }
 
+/**
+ * Les trophées obtenus que la progression n'a pas encore notés : ceux que l'appelant
+ * range avec `noterTrophees` de `session.ts`, datés du jour.
+ */
+export function nouveauxAcquis(t: Tableau, acquis: Acquis): string[] {
+  return t.sections
+    .flatMap((s) => s.trophees)
+    .filter((x) => x.obtenu && acquis[x.id] === undefined)
+    .map((x) => x.id);
+}
+
 /* ---------- les phrases ---------- */
+
+const MOIS = [
+  'janvier',
+  'février',
+  'mars',
+  'avril',
+  'mai',
+  'juin',
+  'juillet',
+  'août',
+  'septembre',
+  'octobre',
+  'novembre',
+  'décembre'
+];
+
+/** « Obtenu le 3 mars 2026 », pour le détail d'un trophée noté. Vide pour une date illisible. */
+export function ligneObtenu(jour: string | undefined): string {
+  const m = /^(\d{4})-(\d{2})-(\d{2})$/.exec(jour ?? '');
+  if (m === null) return '';
+  const mois = MOIS[Number(m[2]) - 1];
+  if (mois === undefined) return '';
+  const j = Number(m[3]);
+  return `Obtenu le ${j === 1 ? '1er' : j} ${mois} ${m[1]}.`;
+}
 
 /** « 7 trophées sur 28 », pour le résumé. */
 export function ligneCompte(t: Tableau): string {

@@ -7,7 +7,9 @@
    * Chaque trophée se gagne en lisant, jamais au temps passé : pas de points, pas de
    * classement, pas de doré, ni ombre ni dégradé. Un trophée est un sceau carré 印 :
    * gravé en blanc sur l'encre quand il est obtenu, en pointillés quand il est à venir.
-   * Le toucher montre son détail dans la carte du résumé, sans fenêtre modale.
+   * Le toucher montre son détail dans la carte du résumé, sans fenêtre modale, avec la
+   * date où il a été obtenu. Un trophée obtenu le reste : l'écran fait noter ceux que la
+   * progression n'a pas encore rangés (`onacquis`).
    *
    * Les sceaux portent des caractères de moins de 30 px : la police suffit, la règle
    * des traits vaut pour les grands caractères.
@@ -17,9 +19,25 @@
   import { contenuTrophees, type ContenuTropheesLu } from './content';
   import type { Progress } from './session';
   import { humeur, stade } from './tao';
-  import { SECTION_VIDE, tableau, type Objet, type Trophee } from './trophees';
+  import {
+    SECTION_VIDE,
+    ligneObtenu,
+    nouveauxAcquis,
+    tableau,
+    type Objet,
+    type Trophee
+  } from './trophees';
 
-  let { p, onretour }: { p: Progress; onretour: () => void } = $props();
+  let {
+    p,
+    onretour,
+    onacquis
+  }: {
+    p: Progress;
+    onretour: () => void;
+    /** Les trophées obtenus que la progression n'a pas encore notés : à ranger, datés du jour. */
+    onacquis?: (ids: string[]) => void;
+  } = $props();
 
   let lu = $state<ContenuTropheesLu | null>(null);
   /** Le trophée touché ; à défaut, la carte montre le prochain. */
@@ -39,6 +57,13 @@
 
   const t = $derived(lu ? tableau(p, lu) : null);
   const tous = $derived(t ? t.sections.flatMap((s) => s.trophees) : []);
+
+  /* Ce qui est obtenu se note une fois ; la progression rangée, il n'y a plus rien à noter. */
+  $effect(() => {
+    if (t === null) return;
+    const ids = nouveauxAcquis(t, p.tropheesAcquis);
+    if (ids.length > 0) onacquis?.(ids);
+  });
   const detail: Trophee | null = $derived(
     tous.find((x) => x.id === choisi) ?? t?.prochain ?? tous.find((x) => x.obtenu) ?? null
   );
@@ -85,6 +110,9 @@
       <div class="det" aria-live="polite">
         <div class="fort">{entete(detail)} · {detail.nom}</div>
         <div class="k">{detail.detail}</div>
+        {#if detail.obtenu && detail.obtenuLe}
+          <div class="k date">{ligneObtenu(detail.obtenuLe)}</div>
+        {/if}
         {#if !detail.obtenu && detail.suivi}
           <div class="barre" aria-hidden="true"><i style="width:{Math.round(detail.part * 100)}%"></i></div>
           <div class="k chiffre">{detail.progres}</div>
@@ -183,6 +211,9 @@
     margin-top: 2px;
     font-size: 14px;
     color: var(--ink2);
+  }
+  .det .date {
+    color: var(--mist);
   }
   .det .chiffre {
     color: var(--mist);

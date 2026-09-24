@@ -300,6 +300,21 @@ describe('le rattrapage : un bloc à la fois', () => {
     expect(menu(finEchauffer(p, JOUR)).tao.posture).toBe('chemin');
   });
 
+  it('un bloc fait plante la graine du jour, une seule, comme un jour ordinaire', () => {
+    let p = rattrapage();
+    expect(p.joursTravailles).toEqual([]);
+    /* L'anecdote ne fait pas un bloc : pas de graine pour elle seule. */
+    p = anecdoteFaite(p, JOUR);
+    expect(p.joursTravailles).toEqual([]);
+    p = setDue(finEchauffer(p, JOUR), 27, JOUR);
+    expect(p.joursTravailles).toEqual([JOUR]);
+    /* Le deuxième bloc, puis la pile redescendue et la session normale : jamais deux graines. */
+    p = setDue(finEchauffer(p, JOUR), 10, JOUR);
+    expect(p.catchup).toBe(false);
+    expect(p.joursTravailles).toEqual([JOUR]);
+    expect(sessionFaite(p).joursTravailles).toEqual([JOUR]);
+  });
+
   it("l'anecdote s'ouvre aussi au retour, sans compter pour un bloc", () => {
     const p = rattrapage();
     expect(apresSplash(p)).toBe('anec');
