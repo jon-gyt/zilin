@@ -3,11 +3,14 @@ import { readFileSync } from 'node:fs';
 import {
   A_REVOIR,
   SUR,
+  AVANCE_MS,
+  LECTURE_MAX_MS,
   cartesEnAttente,
   corpusFixer,
   corpusRevision,
   decompositionsDe,
   delai,
+  delaiAvance,
   derniereNote,
   ficheDeVoisin,
   fichesDuCorpus,
@@ -405,5 +408,30 @@ describe("les cartes de la première session et des jeux, dans le corpus d'Écha
     }
     /* Tracé activé, le cas par défaut : toutes se posent. */
     expect(horsSerie(cibles, corpusDe(true))).toEqual([]);
+  });
+});
+
+describe("avance automatique : la correction se lit avant de partir", () => {
+  it('une correction courte part après 1,3 s, pas avant', () => {
+    expect(delaiAvance('Oui.')).toBe(AVANCE_MS);
+  });
+
+  it('une correction de deux lignes laisse le temps de la lire', () => {
+    const d = delaiAvance('Oui. 大 dà, grand. Ajoute un trait horizontal aux bras.');
+    expect(d).not.toBeNull();
+    expect(d as number).toBeGreaterThan(AVANCE_MS);
+    expect(d as number).toBeLessThanOrEqual(LECTURE_MAX_MS);
+  });
+
+  it('une correction trop longue ne part pas toute seule : on avance au tap', () => {
+    const texte =
+      "Oui. 人 rén, personne. Deux traits : un homme de profil, qui marche. C'est le radical le plus fréquent de toute la langue.";
+    expect(delaiAvance(texte)).toBeNull();
+  });
+
+  it("l'écran de question cale l'avance sur la correction, plus sur une constante", () => {
+    const src = readFileSync(new URL('Ask.svelte', import.meta.url), 'utf8');
+    expect(src).toContain('delaiAvance(');
+    expect(src).not.toMatch(/setTimeout\(avancer, AVANCE_MS\)/);
   });
 });

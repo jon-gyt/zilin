@@ -47,6 +47,28 @@ export const VERDICTS: Record<Grade, string> = {
 /** Avance automatique après une bonne réponse. Un tap va plus vite. */
 export const AVANCE_MS = 1300;
 
+/**
+ * La vitesse de lecture prêtée à un débutant pour lire une correction : douze signes
+ * par seconde, en français mêlé de caractères et de pinyin.
+ */
+export const SIGNES_PAR_SECONDE = 12;
+
+/** Au-delà de ce temps de lecture, la correction ne part plus toute seule. */
+export const LECTURE_MAX_MS = 6000;
+
+/**
+ * Le délai d'avance automatique après une bonne réponse, calé sur la correction affichée :
+ * jamais moins que `AVANCE_MS`, le temps de la lire sinon. Une correction trop longue
+ * pour être lue d'un coup d'œil ne part pas toute seule (`null`) : on avance au tap.
+ * Retour du propriétaire : l'écran filait avant la fin de la lecture.
+ */
+export function delaiAvance(correction: string): number | null {
+  const signes = correction.replace(/\s+/g, ' ').trim().length;
+  const lecture = Math.round((signes / SIGNES_PAR_SECONDE) * 1000);
+  if (lecture > LECTURE_MAX_MS) return null;
+  return Math.max(AVANCE_MS, lecture);
+}
+
 /** Ce que dit le résumé d'une carte : sue, ou à revoir. */
 export const SUR = 'sûr';
 export const A_REVOIR = 'à revoir';

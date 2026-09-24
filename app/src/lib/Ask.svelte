@@ -11,7 +11,7 @@
   import Glyph from './Glyph.svelte';
   import Trace from './Trace.svelte';
   import { corriger, type Corpus, type Question } from './questions';
-  import { AVANCE_MS, VERDICTS, delai, pinyinDe } from './revision';
+  import { VERDICTS, delai, delaiAvance, pinyinDe } from './revision';
   import { fiche } from './questions';
   import type { Revision } from './session';
   import { grade } from './srs';
@@ -38,7 +38,7 @@
     echeanceDe: (c: string) => Date | null;
     /** La réponse notée : l'appelant replanifie la carte et range l'événement. */
     onnote: (r: Revision) => void;
-    /** Question suivante : au tap, ou tout seul 1,3 s après une bonne réponse. */
+    /** Question suivante : au tap, ou tout seul après une bonne réponse, le temps de lire la correction. */
     onsuivant: () => void;
     /** Dernière question de la série : le bouton le dit. */
     dernier?: boolean;
@@ -75,7 +75,7 @@
     depart = Date.now();
   });
 
-  /** L'avance automatique, 1,3 s après une bonne réponse. Annulée si on tape avant. */
+  /** L'avance automatique après une bonne réponse (`delaiAvance`). Annulée si on tape avant. */
   let minuteur: ReturnType<typeof setTimeout> | null = null;
 
   function arreter(): void {
@@ -101,7 +101,9 @@
     onnote({ c: q.c, ...c.outcome });
     const due = echeanceDe(q.c);
     prochaine = due === null ? '' : delai(new Date(), due);
-    if (c.correct) minuteur = setTimeout(avancer, AVANCE_MS);
+    /* L'avance automatique laisse lire la correction ; trop longue, on avance au tap. */
+    const attente = c.correct ? delaiAvance(`${VERDICTS[note]} ${q.explication.texte}`) : null;
+    if (attente !== null) minuteur = setTimeout(avancer, attente);
   }
 
   /** Un choix. Juste : la question est notée. Faux : un essai de plus, et on explique. */
