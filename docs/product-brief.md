@@ -118,7 +118,7 @@ On y entre depuis Ma forêt (« Tes trophées », N sur M et le prochain). Règl
 | Objets de Tao | pinceau (dix briques tracées en entier, le dernier trait posé : un tracé seulement proposé ne compte pas), lanterne (dix devinettes), bol (la première recette) | pictogramme au trait |
 | Série | 7, 30, 100, 365 jours, les cadeaux remis par Que 雀 | « 7 j » |
 
-Un trophée est un sceau carré 印 : obtenu, gravé en clair sur l'encre avec un double filet ; à venir, en pointillés avec sa progression (« 62 / 100 »). Le toucher montre son détail dans la carte du résumé, sans fenêtre modale.
+Un trophée est un sceau carré 印 : obtenu, gravé en clair sur l'encre avec un double filet ; à venir, en pointillés avec sa progression (« 62 / 100 »). Le toucher montre son détail dans la carte du résumé, sans fenêtre modale, et la date où il a été obtenu. Un trophée obtenu le reste : la progression garde chaque trophée obtenu avec sa date (noté à la clôture de la session et à l'ouverture du tableau), même quand l'historique des cartes, borné, ne le montre plus.
 
 Ce que la progression ne suit pas encore reste verrouillé, jamais estimé : la lecture des contes, les devinettes et les recettes. Pour les pièges, la révision garde le leurre pris quand un choix est faux : une lecture compte « sans confusion » tant qu'aucun caractère de la paire n'a été pris pour l'autre, même rattrapé au second essai, quelle que soit sa vitesse. Une erreur venue d'un autre leurre ne casse pas la série ; une erreur dont le leurre n'est pas connu (révision d'avant ce suivi, tracé, jeu) la casse, par prudence.
 

@@ -215,6 +215,14 @@ export type Progress = {
    * permet. Ajoutée après coup : une progression sans ce champ n'a rien de côté.
    */
   enAttente: string[];
+  /**
+   * Les trophées obtenus, chacun avec la journée où il l'a été (AAAA-MM-JJ), par leur
+   * identifiant (`trophees.ts`). Un trophée obtenu le reste : le tableau fusionne ce qui
+   * se calcule et ce qui est noté ici, même quand l'historique des cartes, borné, ne le
+   * montre plus. Ajouté après coup : une progression sans ce champ n'a rien de noté, et
+   * le tableau recalcule ce qu'il peut.
+   */
+  tropheesAcquis: Record<string, string>;
 };
 
 /**
@@ -269,7 +277,8 @@ export function emptyProgress(aujourdhui: string): Progress {
     plus: 0,
     enPlus: null,
     retention: RETENTION_DEFAUT,
-    enAttente: []
+    enAttente: [],
+    tropheesAcquis: {}
   };
 }
 
@@ -650,6 +659,20 @@ export function traceAchevee(p: Progress, brique: string): Progress {
   return { ...p, tracesAchevees: [...p.tracesAchevees, brique] };
 }
 
+/* ---------- les trophées obtenus ---------- */
+
+/**
+ * Note les trophées obtenus, datés du jour. Un trophée déjà noté garde sa date : on ne la
+ * repousse jamais. Rien de nouveau : l'état est rendu tel quel, et rien n'est à sauvegarder.
+ */
+export function noterTrophees(p: Progress, ids: readonly string[], jour: string): Progress {
+  const nouveaux = ids.filter((id) => id !== '' && p.tropheesAcquis[id] === undefined);
+  if (nouveaux.length === 0) return p;
+  const tropheesAcquis = { ...p.tropheesAcquis };
+  for (const id of nouveaux) tropheesAcquis[id] = jour;
+  return { ...p, tropheesAcquis };
+}
+
 /** Ouvre une vue du pas Apprendre. La progression est sauvegardée à chaque tap. */
 export function setLearnView(p: Progress, vue: LearnView): Progress {
   return { ...p, learn: vue };
@@ -980,6 +1003,16 @@ function listeDeCaracteres(v: unknown): string[] {
   return [...new Set(v.filter((c): c is string => typeof c === 'string' && c !== ''))];
 }
 
+/** Relit les trophées obtenus : un identifiant, une journée. Une entrée aberrante est écartée. */
+function lireTropheesAcquis(v: unknown): Record<string, string> {
+  if (typeof v !== 'object' || v === null || Array.isArray(v)) return {};
+  const out: Record<string, string> = {};
+  for (const [id, jour] of Object.entries(v as Record<string, unknown>)) {
+    if (id !== '' && typeof jour === 'string' && FORMAT_JOUR.test(jour)) out[id] = jour;
+  }
+  return out;
+}
+
 /** Relit un rang de question déjà notée. Absent ou aberrant : aucune question notée. */
 function lireNotee(v: unknown): number {
   return typeof v === 'number' && v >= 0 ? Math.floor(v) : -1;
@@ -1076,6 +1109,8 @@ export function fromJSON(texte: string, aujourdhui: string): Progress {
     /* Les cartes mises de côté : absentes d'un export plus ancien, rien n'est de côté. */
     enAttente: Array.isArray(o.enAttente)
       ? [...new Set(o.enAttente.filter((c): c is string => typeof c === 'string' && c !== ''))].sort()
-      : []
+      : [],
+    /* Les trophées obtenus : absents d'un export plus ancien, rien n'est noté. */
+    tropheesAcquis: lireTropheesAcquis(o.tropheesAcquis)
   };
 }

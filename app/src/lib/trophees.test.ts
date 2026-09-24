@@ -4,7 +4,7 @@ import { Rating } from 'ts-fsrs';
 import { VERSION_DONNEES, type Famille, type Index } from './content';
 import { caracteresLus } from './foret';
 import { CADEAUX, PALIERS } from './serie';
-import { emptyProgress, traceAchevee, type Progress } from './session';
+import { emptyProgress, noterTrophees, traceAchevee, type Progress } from './session';
 import { SEUIL_DEBLOCAGE, newCard, schedule, stability, type ReviewCard } from './srs';
 import {
   FAMILLES_TROPHEES,
@@ -17,6 +17,8 @@ import {
   confondu,
   famillesDesSceaux,
   ligneEntree,
+  ligneObtenu,
+  nouveauxAcquis,
   meilleureSuite,
   prochain,
   suiteEnCours,
@@ -365,6 +367,77 @@ describe('chaque trophée se gagne en lisant, jamais au temps passé', () => {
       /* Le cinabre ne marque que l'élément ajouté et la position sur le chemin. */
       expect(s).not.toContain('--zhu');
     }
+  });
+});
+
+/* ---------- ce qui est obtenu le reste ---------- */
+
+describe('un trophée obtenu le reste', () => {
+  const paires = [['天', '夫']];
+  const justes = (n: number) => Array.from({ length: n }, () => Rating.Good);
+
+  it('se note avec sa date, une fois, et la date ne bouge plus', () => {
+    const p = progression({ cartes: '月朋有日明人从十早口古'.split('').map(sue) });
+    const t = tableau(p, contenuExport);
+    const ids = nouveauxAcquis(t, p.tropheesAcquis);
+    expect(ids).toContain('lire-10');
+    expect(ids).toEqual(tous(t).filter((x) => x.obtenu).map((x) => x.id));
+    const note = noterTrophees(p, ids, JOUR);
+    expect(note.tropheesAcquis['lire-10']).toBe(JOUR);
+    expect(nouveauxAcquis(tableau(note, contenuExport), note.tropheesAcquis)).toEqual([]);
+    /* Noté de nouveau un autre jour : la première date reste. */
+    expect(noterTrophees(note, ['lire-10'], '2026-04-01')).toBe(note);
+    const lire10 = tous(tableau(note, contenuExport)).find((x) => x.id === 'lire-10')!;
+    expect(lire10.obtenuLe).toBe(JOUR);
+    expect(ligneObtenu(lire10.obtenuLe)).toBe('Obtenu le 2 mars 2026.');
+  });
+
+  it("ne se perd pas quand l'historique borné ne le montre plus", () => {
+    /* Le piège déjoué, puis vingt révisions récentes dont une confusion : l'historique ne
+       garde plus la suite de dix. Le calcul seul le perdrait ; la progression le garde. */
+    const deJoue = [avecHistorique('天', justes(10)), sue('夫')];
+    const t = tableau(progression({ cartes: deJoue }), contenuExport);
+    expect(tous(t).find((x) => x.id === 'piege-天夫')?.obtenu).toBe(true);
+    const plusTard = (acquis: Record<string, string>) =>
+      tropheesPieges(paires, [avecHistorique('天', [Rating.Again, ...justes(3)]), sue('夫')], new Map(), new Map(), undefined, acquis)[0];
+    expect(plusTard({}).obtenu).toBe(false);
+    const garde = plusTard({ 'piege-天夫': JOUR });
+    expect(garde.obtenu).toBe(true);
+    expect(garde.suivi).toBe(true);
+    expect(garde.detail).not.toMatch(/Encore/);
+  });
+
+  it('garde chaque famille de trophées, même quand le calcul redescend', () => {
+    const acquis = { 'lire-10': JOUR, 'objet-pinceau': JOUR, 'serie-7': JOUR, 'sceau-月': JOUR };
+    const p = progression({ tropheesAcquis: acquis });
+    const t = tableau(p, contenuExport);
+    for (const id of Object.keys(acquis)) {
+      const x = tous(t).find((y) => y.id === id);
+      expect(x?.obtenu).toBe(true);
+      expect(x?.obtenuLe).toBe(JOUR);
+    }
+    expect(t.obtenus).toBe(4);
+    expect(tropheesLire(0, { 'lire-10': JOUR })[0].detail).toBe('10 caractères que tu sais lire.');
+    expect(tropheesObjets([], { 'objet-pinceau': JOUR })[0].obtenu).toBe(true);
+    expect(tropheesSerie([], JOUR, { 'serie-7': JOUR })[0].obtenu).toBe(true);
+  });
+
+  it('dit sa date en français, sans rien inventer sur une date illisible', () => {
+    expect(ligneObtenu('2026-01-01')).toBe('Obtenu le 1er janvier 2026.');
+    expect(ligneObtenu('2026-08-15')).toBe('Obtenu le 15 août 2026.');
+    expect(ligneObtenu('hier')).toBe('');
+    expect(ligneObtenu(undefined)).toBe('');
+  });
+
+  it("montre la date dans le détail, et la clôture fait noter ce qui est obtenu", () => {
+    const rewards = readFileSync(new URL('Rewards.svelte', import.meta.url), 'utf8');
+    expect(rewards).toContain('ligneObtenu(detail.obtenuLe)');
+    expect(rewards).toContain('nouveauxAcquis(t, p.tropheesAcquis)');
+    const close = readFileSync(new URL('Close.svelte', import.meta.url), 'utf8');
+    expect(close).toContain('nouveauxAcquis(tableau(close, contenuLu), close.tropheesAcquis)');
+    const app = readFileSync(new URL('../App.svelte', import.meta.url), 'utf8');
+    expect(app).toContain('noterTrophees(cloreSession(p, p.day), obtenus, p.day)');
+    expect(app).toContain('onacquis={tropheesObtenus}');
   });
 });
 

@@ -52,6 +52,7 @@ import {
   setTrace,
   setUseView,
   steps,
+  noterTrophees,
   traceAchevee,
   traceProposee,
   traceVue,
@@ -967,6 +968,7 @@ function progressionAncienne(): Record<string, unknown> {
   p = traceVue(p, '人');
   const o: Record<string, unknown> = { ...p };
   delete o.tracesAchevees;
+  delete o.tropheesAcquis;
   return o;
 }
 
@@ -984,7 +986,7 @@ describe('le suivi des trophées dans la progression', () => {
 
   it('relit une progression plus ancienne sans rien perdre, depuis un export comme depuis IndexedDB', () => {
     const ancien = progressionAncienne();
-    const avant = fromJSON(JSON.stringify({ ...ancien, tracesAchevees: [] }), JOUR);
+    const avant = fromJSON(JSON.stringify({ ...ancien, tracesAchevees: [], tropheesAcquis: {} }), JOUR);
     for (const texte of [
       /* L'export JSON : les cartes dans leur enveloppe de `srs.ts`. */
       toJSON(ancien as unknown as Progress),
@@ -992,10 +994,12 @@ describe('le suivi des trophées dans la progression', () => {
       JSON.stringify(ancien)
     ]) {
       expect(texte).not.toContain('tracesAchevees');
+      expect(texte).not.toContain('tropheesAcquis');
       const p = fromJSON(texte, JOUR);
       /* Rien n'est déduit des tracés proposés : le pinceau ne s'estime pas. */
       expect(p.tracees).toEqual(['人']);
       expect(p.tracesAchevees).toEqual([]);
+      expect(p.tropheesAcquis).toEqual({});
       expect(p.cartes).toEqual(avant.cartes);
       expect(p).toEqual(avant);
     }
@@ -1019,6 +1023,17 @@ describe('le suivi des trophées dans la progression', () => {
     expect('leurres' in vieux.revisions[0]).toBe(false);
   });
 
+  it('garde les trophées obtenus et leur date, sans jamais la repousser', () => {
+    let p = noterTrophees(neuf(), ['lire-10', 'piege-天夫'], JOUR);
+    expect(p.tropheesAcquis).toEqual({ 'lire-10': JOUR, 'piege-天夫': JOUR });
+    p = noterTrophees(p, ['lire-10', 'lire-50'], '2026-03-09');
+    expect(p.tropheesAcquis).toEqual({ 'lire-10': JOUR, 'piege-天夫': JOUR, 'lire-50': '2026-03-09' });
+    expect(noterTrophees(p, ['lire-10'], '2026-04-01')).toBe(p);
+    for (const texte of [toJSON(p), JSON.stringify(p)]) {
+      expect(fromJSON(texte, JOUR).tropheesAcquis).toEqual(p.tropheesAcquis);
+    }
+  });
+
   it('écarte des entrées de suivi aberrantes', () => {
     const cassé = JSON.stringify({ ...neuf(), tracesAchevees: ['人', 3, '', '人', null, '大'] });
     expect(fromJSON(cassé, JOUR).tracesAchevees).toEqual(['人', '大']);
@@ -1027,5 +1042,8 @@ describe('le suivi des trophées dans la progression', () => {
       revisions: [{ c: '天', correct: false, tries: 1, seconds: 2, leurres: ['夫', 3, ''] }]
     });
     expect(fromJSON(leurres, JOUR).revisions[0].leurres).toEqual(['夫']);
+    const acquis = JSON.stringify({ ...neuf(), tropheesAcquis: { 'lire-10': JOUR, x: 'hier', y: 3, '': JOUR } });
+    expect(fromJSON(acquis, JOUR).tropheesAcquis).toEqual({ 'lire-10': JOUR });
+    expect(fromJSON(JSON.stringify({ ...neuf(), tropheesAcquis: ['lire-10'] }), JOUR).tropheesAcquis).toEqual({});
   });
 });
