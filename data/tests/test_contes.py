@@ -124,11 +124,11 @@ def ecrire_liste(dossier: Path, seuil: int, caracteres: list[str]) -> Path:
 # --------------------------------------------------------------------------- catalogue
 
 
-def test_catalogue_dix_contes_avec_leur_source() -> None:
-    """Dix récits, identifiants uniques, titres FR et EN, ouvrage d'origine et résumé."""
+def test_catalogue_onze_contes_avec_leur_source() -> None:
+    """Onze récits, identifiants uniques, titres FR et EN, ouvrage d'origine et résumé."""
     catalogue = charger_catalogue()
-    assert len(catalogue) == 10
-    assert len({c.id for c in catalogue}) == 10
+    assert len(catalogue) == 11
+    assert len({c.id for c in catalogue}) == 11
     for conte in catalogue:
         assert conte.id == conte.id.lower() and " " not in conte.id
         assert conte.titre_zh and conte.titre_fr and conte.titre_en
