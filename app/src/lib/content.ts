@@ -993,6 +993,8 @@ export function fetesOnce(version = VERSION_DONNEES): Promise<Fetes> {
     lesFetes.set(version, p);
   }
   return p;
+}
+
 /* ---------- ce que le tableau des trophées lit ---------- */
 
 /**
