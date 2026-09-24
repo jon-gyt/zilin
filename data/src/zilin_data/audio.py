@@ -386,8 +386,9 @@ LICENCE_KOKORO = Licence(
     redistribution=(
         "sans objet pour nos fichiers : le modèle tourne chez nous et n'est pas "
         "redistribué ; l'Apache 2.0 n'encadre pas la sortie du modèle. Code et poids "
-        "annoncés Apache 2.0 (LICENSE et README du dépôt) ; la carte de modèle "
-        "Hugging Face n'a pas pu être lue, huggingface.co étant bloqué par le proxy"
+        "Apache 2.0 : LICENSE et README du dépôt, et carte du modèle "
+        "hexgrad/Kokoro-82M-v1.1-zh (`license: apache-2.0`) lue par le workflow donnees "
+        "le 2026-09-24"
     ),
     attribution="aucune obligation sur la sortie ; le modèle est cité sur l'écran « Licences » pour la traçabilité",
     redevance_par_ecoute="aucune : pas de service appelé, pas de facturation à l'usage",
