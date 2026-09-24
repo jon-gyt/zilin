@@ -507,3 +507,7 @@ h1{font-family:var(--head);font-weight:700;font-size:30px;line-height:1.15;lette
    résumé de révision) ; sur les onglets, la barre occupe déjà le bas : il suit le flux */
 .foot{position:sticky;bottom:0;z-index:1;background:var(--paper);padding-bottom:calc(env(safe-area-inset-bottom) + 10px);margin-bottom:-10px}
 .onglets .foot{position:static;padding-bottom:0;margin-bottom:0;background:none}
+/* un libellé de bouton qui passe à la ligne reste centré, et deux boutons côte à côte
+   gardent assez de place pour « Une autre manche » ou « Exporter en JSON » */
+.btn{text-align:center;line-height:1.2}
+.acts .btn{padding:0 10px}

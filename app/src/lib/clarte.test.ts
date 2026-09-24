@@ -87,6 +87,12 @@ describe('le bouton principal reste visible quand le contenu défile', () => {
   });
 });
 
+describe('un libellé de bouton sur deux lignes reste centré', () => {
+  it('le bouton annule l’alignement à gauche hérité de `button`', () => {
+    expect(source('tokens.css')).toContain('.btn{text-align:center;');
+  });
+});
+
 describe('la chaîne : la limite de trois minutes ne ferme pas le tour en cours', () => {
   const echoir = corps(source('Game.svelte'), 'echoir');
 
