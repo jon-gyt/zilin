@@ -1,13 +1,15 @@
-# Zilin 字林
+# Wenlu 文路
 
 Apprendre à lire le chinois par l'arbre des caractères. PWA d'abord, App Store ensuite via Capacitor, sans Mac.
+
+Wenlu (wénlù : 文 l'écrit, 路 le chemin) s'appelait Zilin 字林. Gardent l'ancien nom, pour ne rien casser : le dépôt `jon-gyt/zilin` et le chemin GitHub Pages `/zilin/`, la base IndexedDB et la clé du thème (les progressions existantes doivent se relire), le bundle id iOS `com.zilin.app` et son profil de signature, les fichiers de `maquettes/`.
 
 ## Structure
 
 - `docs/` : product brief, backlog, charte, procédures (iOS sans Mac, sources et licences).
 - `data/` : pipeline Python (uv). Ingestion des sources, graphe de dépendances, génération des fiches FR et EN, export JSON versionné.
 - `app/` : PWA TypeScript, Vite, Svelte. Consomme le JSON exporté par `data/`.
-- `maquettes/` : maquettes HTML validées (Zilin et Cilin). Référence visuelle et fonctionnelle, pas du code de production.
+- `maquettes/` : maquettes HTML validées (`zilin-maquette.html` pour Wenlu, sous son ancien nom, et `cilin-maquette.html`). Référence visuelle et fonctionnelle, pas du code de production.
 - `.github/workflows/` : publication sur GitHub Pages, pipeline de données (`donnees.yml`), build iOS sur runner macOS et envoi TestFlight.
 - `scripts/` : outillage (certificat de signature sous Linux).
 
@@ -17,7 +19,7 @@ Conteneur de dev (LXD) : `new-lxd.sh zilin` puis VS Code Remote-SSH.
 
 ```bash
 # données
-cd data && uv sync && uv run zilin --help
+cd data && uv sync && uv run wenlu --help
 
 # app
 cd app && npm install && npm run dev
@@ -36,26 +38,26 @@ fetch  →  ingest  →  build  →  export  →  check
 
 | Commande | Ce qu'elle fait | Dépend de | Écrit dans |
 |---|---|---|---|
-| `zilin fetch` | télécharge Make Me a Hanzi, CC-CEDICT, Unihan, cjk-decomp, avec empreintes et journal de provenance | — | `data/work/sources/` |
-| `zilin ingest` | normalise ces sources et les listes de niveaux | `fetch` | `data/work/ingest/` |
-| `zilin build` | réconcilie les décompositions avec GF 0014-2009, construit le graphe, les familles et les parcours, écrit `ecarts.md` | `ingest` | `data/work/build/` |
-| `zilin fonts` | sous-ensemble et woff2 des trois familles de la charte | `export` (il dit quels caractères l'app écrit) | `app/public/fonts/` |
-| `zilin export` | assemble les seuls fichiers que l'app lira, séparés par régime de licence | `build` | `app/public/data/<version>/` |
-| `zilin check` | contrôles qualité sur tout ce qui précède, sans rien réécrire | `build`, `export` | — |
-| `zilin tout` | enchaîne fetch, ingest, build, export, check et s'arrête à la première erreur | — | tout ce qui précède |
+| `wenlu fetch` | télécharge Make Me a Hanzi, CC-CEDICT, Unihan, cjk-decomp, avec empreintes et journal de provenance | — | `data/work/sources/` |
+| `wenlu ingest` | normalise ces sources et les listes de niveaux | `fetch` | `data/work/ingest/` |
+| `wenlu build` | réconcilie les décompositions avec GF 0014-2009, construit le graphe, les familles et les parcours, écrit `ecarts.md` | `ingest` | `data/work/build/` |
+| `wenlu fonts` | sous-ensemble et woff2 des trois familles de la charte | `export` (il dit quels caractères l'app écrit) | `app/public/fonts/` |
+| `wenlu export` | assemble les seuls fichiers que l'app lira, séparés par régime de licence | `build` | `app/public/data/<version>/` |
+| `wenlu check` | contrôles qualité sur tout ce qui précède, sans rien réécrire | `build`, `export` | — |
+| `wenlu tout` | enchaîne fetch, ingest, build, export, check et s'arrête à la première erreur | — | tout ce qui précède |
 
 ```bash
-cd data && uv run zilin tout      # la chaîne complète
-cd data && uv run zilin check     # les seuls contrôles
+cd data && uv run wenlu tout      # la chaîne complète
+cd data && uv run wenlu check     # les seuls contrôles
 ```
 
-`zilin fonts` ne fait pas partie de `zilin tout` : il télécharge trois familles de
+`wenlu fonts` ne fait pas partie de `wenlu tout` : il télécharge trois familles de
 polices et met une minute à produire les woff2. Il se lance à la main, après
 `export`, quand le périmètre exporté a changé — sinon Noto Serif SC n'embarque pas
 les caractères que « Ma forêt » affiche.
 
 `audio`, `contes` et `fiches` sont à part aussi : elles se lancent à la main, jamais
-dans `zilin tout`. `contes` et `fiches` appellent l'API Anthropic et demandent une
+dans `wenlu tout`. `contes` et `fiches` appellent l'API Anthropic et demandent une
 clé ; `audio` fait tourner Kokoro en local (`uv sync --extra audio`, poids téléchargés
 depuis Hugging Face au premier passage).
 
@@ -78,9 +80,9 @@ gh workflow run donnees.yml -f etapes=audio -f parcours=lire -f seuil=255
 gh run watch   # puis le résumé du run
 ```
 
-Chaque passage refait `zilin tout`, puis l'étape choisie. `audio` synthétise la voix
+Chaque passage refait `wenlu tout`, puis l'étape choisie. `audio` synthétise la voix
 Kokoro en local (sans clé) et l'exporte dans `app/public/data/<version>/audio/` ;
-`zilin audio voix` liste les voix du modèle, l'entrée `voix` en choisit une autre.
+`wenlu audio voix` liste les voix du modèle, l'entrée `voix` en choisit une autre.
 Ce qui change sous `app/public/data/` ou `data/sources/` part en un commit sur la
 branche `donnees/<étape>`, repartie de `main` et poussée en force à chaque passage :
 le résumé du run donne les chiffres (fichiers, taille, textes sans audio, voix) et le
@@ -103,7 +105,7 @@ relire » : la relecture humaine est obligatoire avant tout export.
 
 ## Hors ligne et écran d'accueil
 
-L'app s'installe : sur iPhone, Safari, Partager, « Sur l'écran d'accueil ». Elle s'ouvre alors en plein écran sous le nom Zilin, icône encre sur papier.
+L'app s'installe : sur iPhone, Safari, Partager, « Sur l'écran d'accueil ». Elle s'ouvre alors en plein écran sous le nom Wenlu, icône encre sur papier.
 
 Le service worker (`vite-plugin-pwa`, `registerType: 'autoUpdate'`) précache la page, le JS, le CSS, les polices, les icônes, le manifest et le JSON servi avec l'app : après un premier chargement, tout répond sans réseau. Une nouvelle version s'installe en arrière-plan et s'applique au lancement suivant ou au retour du second plan, jamais au milieu d'une session, sans fenêtre à fermer.
 

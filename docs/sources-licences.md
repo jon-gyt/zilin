@@ -130,7 +130,7 @@ Non, à condition de tenir la règle du brief : ne pas dériver les définitions
 
 Raisonnement. Le partage à l'identique ne se propage qu'à ce qui est dérivé du matériel licencié. Une fiche FR rédigée pour l'app, dont l'origine, l'anecdote et les exemples ne sont pas traduits ni réécrits à partir d'une entrée CC-CEDICT, est une œuvre indépendante. La section 3 b) ne s'y applique pas. La cohabitation dans le même bundle relève de l'agrégation, pas de l'adaptation.
 
-Ce qui détruirait ce raisonnement : traduire une glose anglaise de CC-CEDICT, même reformulée, ou faire traduire ces gloses par un modèle. Le pipeline doit donc ne jamais exposer la colonne de définition anglaise de CC-CEDICT aux invites de génération FR. Ce contrôle est à ajouter à `uv run zilin check`.
+Ce qui détruirait ce raisonnement : traduire une glose anglaise de CC-CEDICT, même reformulée, ou faire traduire ces gloses par un modèle. Le pipeline doit donc ne jamais exposer la colonne de définition anglaise de CC-CEDICT aux invites de génération FR. Ce contrôle est à ajouter à `uv run wenlu check`.
 
 Ce qui reste couvert : la liste des mots, le pinyin et leur organisation. On les traite comme un fichier à part, sous CC BY-SA 4.0.
 
@@ -208,8 +208,8 @@ Pipeline `data/` :
 
 - Chaque JSON exporté porte un en-tête `license`, `source`, `source_url`, `modified` indiquant comment et quand le fichier a été dérivé. Exigé par l'APL §2 a).
 - Séparation physique : traits sous APL, mots sous CC BY-SA 4.0, fiches FR et EN propriétaires, dans des fichiers distincts. Ne jamais fusionner ces trois familles dans un même fichier.
-- `uv run zilin check` échoue si un export n'a pas d'en-tête de licence, ou si un fichier mélange deux régimes.
-- `uv run zilin build` n'expose jamais la colonne de définition anglaise de CC-CEDICT aux invites de génération FR. Contrôle à ajouter et à tester.
+- `uv run wenlu check` échoue si un export n'a pas d'en-tête de licence, ou si un fichier mélange deux régimes.
+- `uv run wenlu build` n'expose jamais la colonne de définition anglaise de CC-CEDICT aux invites de génération FR. Contrôle à ajouter et à tester.
 - `dictionary.txt` reste hors des artefacts distribués.
 
 Publication hors app :

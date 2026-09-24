@@ -5,9 +5,9 @@ Le binaire iOS est compilé et signé sur un runner macOS de GitHub Actions, à 
 ## Une fois
 
 1. Inscription au Developer Program depuis l'app Apple Developer sur l'iPhone.
-2. App Store Connect : créer l'app (bundle id `com.zilin.app`), une clé API (rôle App Manager). Noter Issuer ID, Key ID, et télécharger le `.p8`.
+2. App Store Connect : créer l'app (bundle id `com.zilin.app` : l'identifiant d'avant Wenlu, gardé parce qu'un bundle id ne se renomme pas ; le nom affiché vient d'`appName`), une clé API (rôle App Manager). Noter Issuer ID, Key ID, et télécharger le `.p8`.
 3. Certificat de distribution, sous Linux : `scripts/ios-cert.sh` génère la clé privée et la CSR. Déposer la CSR sur developer.apple.com (Certificates, Apple Distribution), télécharger le `.cer`, puis relancer le script pour produire le `.p12`. La clé privée reste chez toi : ne jamais la laisser générer par le runner, elle disparaîtrait avec lui.
-4. Profil de provisioning App Store pour le bundle id, téléchargé en `.mobileprovision`.
+4. Profil de provisioning App Store pour le bundle id, nommé « Zilin AppStore » (le nom que `ios-testflight.yml` attend), téléchargé en `.mobileprovision`.
 5. Secrets GitHub : `ASC_KEY_ID`, `ASC_ISSUER_ID`, `ASC_KEY_P8` (base64), `IOS_CERT_P12` (base64), `IOS_CERT_PASSWORD`, `IOS_PROFILE` (base64).
 
 ## À chaque livraison

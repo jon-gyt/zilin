@@ -1,4 +1,4 @@
-# Charte Zilin, tokens
+# Charte Wenlu, tokens
 
 Couleurs (clair) : papier #F4EEE2, carte #FBF7EE, encre #1F1B18, encre 2 #4A443E, brume #8B857C, trait #D9D1C2, indigo #2B4C7E (action, progression, briques de son), indigo doux #DCE3EF, cinabre #C8371F (élément ajouté, position, logo), cinabre doux #F6DED6, ocre #8C5A2B (briques de sens), ocre doux #EFE3D3, jade #5E8A6A (acquis), jade doux #DDE8DE.
 
@@ -39,7 +39,7 @@ Sources, toutes sous SIL Open Font License 1.1, avec leur texte de licence copi�
 Pour régénérer :
 
 ```bash
-cd data && uv run zilin fonts        # --force pour retélécharger les sources
+cd data && uv run wenlu fonts        # --force pour retélécharger les sources
 ```
 
 La commande écrit les fichiers d'origine dans `data/work/fonts/` (ignoré par git) avec leurs SHA-256 et un journal de provenance, puis sous-ensemble et convertit avec fonttools. Le résultat est reproductible octet pour octet : relancer la commande sans changer les listes ne modifie pas le dépôt.
