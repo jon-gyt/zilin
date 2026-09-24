@@ -10,6 +10,12 @@
  *    famille d'un caractère et `traitsDe()` ses tracés ;
  * 2. les fichiers de démonstration, `data/demo/`, qui servent de **surcouche** aux
  *    textes tant que l'export n'a aucune fiche relue (voir `surcoucher`).
+ *
+ * Et, sur demande seulement, l'aperçu des textes à relire (`data/0.1.0/apercu/`) : les
+ * fiches et les contes que le pipeline a écrits mais que personne n'a encore relus. Il
+ * ne se charge que si le mode relecture des Réglages est allumé (`reglerApercu`) ; il passe
+ * alors devant la démonstration, jamais devant un texte relu, et chacun de ses textes
+ * porte la mention « à relire » (`MENTION_A_RELIRE`).
  */
 import type { StrokeData } from './glyph';
 import { strokesOnce, type StrokeSet } from './strokes';
@@ -86,8 +92,11 @@ export const ETIQUETTES: Record<Etiquette, string> = {
 /** Un mot ou une phrase : le chinois, le pinyin, la traduction. */
 export type Mot = { hanzi: string; pinyin: string; fr: string; en: string; audio?: string | null };
 
-/** Ce que l'export dit d'une fiche : relue par un humain, ou exportée sans texte. */
-export type Statut = 'relu' | 'sans_fiche';
+/**
+ * Ce que l'export dit d'une fiche : relue par un humain, ou exportée sans texte. `a_relire`
+ * ne vient que de l'aperçu : des textes écrits, pas encore relus.
+ */
+export type Statut = 'relu' | 'sans_fiche' | 'a_relire';
 
 /** Un composant de la norme GF 0014-2009, racine d'une famille. */
 export type Brique = {
@@ -439,6 +448,9 @@ export type IndexFamille = {
  */
 export type IndexConte = {
   id: string;
+  /** Le vrai titre du récit (愚公移山) et son pinyin ; vides dans un export plus ancien. */
+  titre_zh?: string;
+  titre_pinyin?: string;
   titre_fr: string;
   seuils: number[];
   fichier: string;
@@ -458,6 +470,8 @@ export function lireContesIndex(v: unknown): IndexConte[] {
       : [];
     out.push({
       id: o.id,
+      titre_zh: typeof o.titre_zh === 'string' ? o.titre_zh : '',
+      titre_pinyin: typeof o.titre_pinyin === 'string' ? o.titre_pinyin : '',
       titre_fr: typeof o.titre_fr === 'string' ? o.titre_fr : '',
       seuils,
       fichier: o.fichier,
@@ -501,6 +515,14 @@ export type Index = {
   saisons: string;
   /** Le fichier des devinettes, `devinettes.json` ; vide pour un export qui n'en porte pas. */
   devinettes: string;
+  /**
+   * L'index de l'aperçu des textes à relire, `apercu/index.json` ; vide quand l'export n'a
+   * rien à relire. Champ optionnel du pipeline : rien ne le lit tant que l'interrupteur
+   * des Réglages est éteint.
+   */
+  apercu: string;
+  /** Le fichier du dictionnaire éclair, `eclair.json` ; vide pour un export qui n'en porte pas. */
+  eclair: string;
 };
 
 /** La version de données que l'app lit : le dossier exporté par `wenlu export`. */
@@ -537,7 +559,9 @@ export async function loadIndex(
     paires: typeof brut.paires === 'string' ? brut.paires : '',
     fetes: typeof brut.fetes === 'string' ? brut.fetes : '',
     saisons: typeof brut.saisons === 'string' ? brut.saisons : '',
-    devinettes: typeof brut.devinettes === 'string' ? brut.devinettes : ''
+    devinettes: typeof brut.devinettes === 'string' ? brut.devinettes : '',
+    apercu: typeof brut.apercu === 'string' ? brut.apercu : '',
+    eclair: typeof brut.eclair === 'string' ? brut.eclair : ''
   };
 }
 
@@ -679,7 +703,7 @@ export async function racineDe(
  * D'où viennent les textes d'une fiche affichée. L'écran le trace : on ne fait jamais
  * passer une démonstration pour une fiche relue.
  */
-export type SourceTextes = 'export' | 'demonstration' | 'aucune';
+export type SourceTextes = 'export' | 'demonstration' | 'apercu' | 'aucune';
 
 /** Une fiche prête à s'afficher : la fiche de l'export, et d'où viennent ses textes. */
 export type FicheLue = Fiche & { source: SourceTextes };
@@ -778,7 +802,10 @@ export function surcoucher(exportee: Fiche, demo: Fiche | null): FicheLue {
   };
 }
 
-/** La fiche d'un caractère : sa famille est trouvée par l'index, puis surcouchée. */
+/**
+ * La fiche d'un caractère : sa famille est trouvée par l'index, puis surcouchée. L'aperçu
+ * allumé, une fiche à relire passe devant la démonstration (`appliquerApercu`).
+ */
 export async function fiche(
   c: string,
   pistes: readonly string[] = [],
@@ -789,7 +816,9 @@ export async function fiche(
   const exportee = f === null ? null : ficheDeFamille(f, c);
   const demo = (await surcouchesDemo()).get(c) ?? null;
   if (exportee === null) return demo === null ? null : { ...demo, source: 'demonstration' };
-  return surcoucher(exportee, demo);
+  const lue = surcoucher(exportee, demo);
+  if (!apercuAllume || racine === null || lue.source === 'export') return lue;
+  return appliquerApercu(lue, await ficheApercu(c, racine, version).catch(() => null));
 }
 
 /** Les fiches de plusieurs caractères, dans l'ordre demandé. Les inconnus sont écartés. */
@@ -806,7 +835,11 @@ export async function fiches(
   return out;
 }
 
-/** Toutes les fiches de l'export, surcouchées : le corpus de la révision et des jeux. */
+/**
+ * Toutes les fiches de l'export, surcouchées : le corpus de la révision et des jeux.
+ * L'aperçu n'y entre jamais : une question ne se pose pas sur un texte que personne n'a
+ * relu, et l'interrupteur ne change ni la pile ni les cartes mises de côté.
+ */
 export async function toutesLesFiches(version = VERSION_DONNEES): Promise<FicheLue[]> {
   const [lues, demo] = await Promise.all([toutesLesFamilles(version), surcouchesDemo()]);
   return lues.flatMap((f) => f.fiches.map((x) => surcoucher(x, demo.get(x.c) ?? null)));
@@ -1359,6 +1392,8 @@ export type VersionConte = {
   titre: string;
   phrases: PhraseConte[];
   glose: Record<string, string>;
+  /** `a_relire` pour une version de l'aperçu, qui porte alors la mention « à relire ». */
+  statut?: 'a_relire';
 };
 
 /** Un conte de l'export (`contes/<id>.json`) : ses versions, triées par seuil croissant. */
@@ -1366,6 +1401,9 @@ export type Conte = {
   version: string;
   source: string;
   id: string;
+  /** Le vrai titre du récit (愚公移山) et son pinyin, montrés tels quels. */
+  titre_zh?: string;
+  titre_pinyin?: string;
   titre_fr: string;
   versions: VersionConte[];
 };
@@ -1401,7 +1439,9 @@ function lireVersion(seuil: number, v: unknown): VersionConte | null {
       if (k !== '' && fr !== '') glose[k] = fr;
     }
   }
-  return { seuil, titre: chaine(o.titre), phrases, glose };
+  const lue: VersionConte = { seuil, titre: chaine(o.titre), phrases, glose };
+  if (o.statut === STATUT_A_RELIRE) lue.statut = STATUT_A_RELIRE;
+  return lue;
 }
 
 /**
@@ -1427,6 +1467,8 @@ export function lireConte(brut: unknown, file = ''): Conte {
     version: chaine(o.version),
     source: chaine(o.source),
     id,
+    titre_zh: chaine(o.titre_zh),
+    titre_pinyin: chaine(o.titre_pinyin),
     titre_fr: chaine(o.titre_fr),
     versions
   };
@@ -1479,7 +1521,16 @@ export async function contesExport(
     const c = lus[k];
     if (c) contes.set(x.id, c);
   });
-  return { index: i.contes, contes };
+  const exportes = { index: i.contes, contes };
+  if (!apercuAllume || i.apercu === '') return exportes;
+  return fusionnerContes(exportes, await contesApercu(version).catch(() => null));
+}
+
+/** Le nombre de contes que la bibliothèque montre : ceux de l'aperçu en plus, s'il est allumé. */
+export async function nombreDeContes(version = VERSION_DONNEES): Promise<number> {
+  const i = await contenu(version);
+  if (!apercuAllume || i.apercu === '') return i.contes.length;
+  return (await contesExport(version)).index.length;
 }
 
 /* ---------- ce que le tableau des trophées lit ---------- */
@@ -1538,7 +1589,8 @@ export function lecon(
   jour: number,
   version = VERSION_DONNEES
 ): Promise<Lecon> {
-  const cle = `${version}/${choisi ?? ''}/${jour}`;
+  /* L'aperçu entre dans la clé : l'allumer ou l'éteindre relit la leçon. */
+  const cle = `${version}/${choisi ?? ''}/${jour}/${apercuAllume ? 'apercu' : ''}`;
   let p = lecons.get(cle);
   if (!p) {
     p = (async () => {
@@ -1562,4 +1614,275 @@ export function lecon(
 /** Le caractère du jour : le composé quand il y en a un, la brique sinon. */
 export function caractereDuJour(l: Lecon): string {
   return l.composes[0]?.c ?? l.brique?.c ?? '';
+}
+
+/* ---------- l'aperçu des textes à relire ---------- */
+
+/**
+ * Le statut de tout ce que l'aperçu porte, tel que le pipeline l'écrit (`wenlu export`,
+ * `apercu/`). Un texte relu n'y figure jamais : `wenlu check` le vérifie.
+ */
+export const STATUT_A_RELIRE = 'a_relire';
+
+/** La mention que porte chaque texte de l'aperçu à l'écran. Une ligne d'interface. */
+export const MENTION_A_RELIRE = 'à relire';
+
+/**
+ * Le mode relecture des Réglages, tel que la progression le range (`Progress.relecture`).
+ * Éteint, ce module ne demande aucun fichier de `apercu/`.
+ */
+let apercuAllume = false;
+
+/** Allume ou éteint l'aperçu. `App.svelte` le règle d'après la progression. */
+export function reglerApercu(allume: boolean): void {
+  apercuAllume = allume;
+}
+
+/** L'aperçu est-il allumé ? */
+export function apercuActif(): boolean {
+  return apercuAllume;
+}
+
+/** La mention à poser à côté d'un texte : « à relire » pour un texte de l'aperçu, rien sinon. */
+export function mention(
+  x: { statut?: string; source?: SourceTextes } | null | undefined
+): string | null {
+  if (!x) return null;
+  return x.statut === STATUT_A_RELIRE || x.source === 'apercu' ? MENTION_A_RELIRE : null;
+}
+
+/** Une famille dans l'index de l'aperçu : son fichier, et les caractères qui y ont une fiche. */
+export type FamilleApercu = { racine: string; fichier: string; caracteres: string[] };
+
+/** `apercu/index.json` : ce que l'aperçu porte, et où. */
+export type IndexApercu = { familles: FamilleApercu[]; contes: IndexConte[] };
+
+/** Les textes à relire d'une fiche : ceux qu'une fiche relue porterait. */
+export type FicheApercu = {
+  c: string;
+  statut: typeof STATUT_A_RELIRE;
+  role: Role | null;
+  roles: Record<string, Role>;
+  origine_fr: string;
+  origine_en: string;
+  etiquette: Etiquette | null;
+  memo_fr: string | null;
+  memo_en: string | null;
+  mots: Mot[];
+  phrase: Mot | null;
+};
+
+const APERCU_VIDE: IndexApercu = { familles: [], contes: [] };
+
+function estRole(v: unknown): v is Role {
+  return v === 'son' || v === 'sens' || v === 'forme';
+}
+
+function estMot(v: unknown): v is Mot {
+  if (v === null || typeof v !== 'object') return false;
+  const m = v as Record<string, unknown>;
+  return (
+    typeof m.hanzi === 'string' &&
+    m.hanzi !== '' &&
+    typeof m.pinyin === 'string' &&
+    typeof m.fr === 'string'
+  );
+}
+
+/** Relit l'index de l'aperçu : une entrée sans fichier est écartée. */
+export function lireIndexApercu(v: unknown): IndexApercu {
+  if (v === null || typeof v !== 'object') return APERCU_VIDE;
+  const o = v as Record<string, unknown>;
+  const familles: FamilleApercu[] = [];
+  for (const x of Array.isArray(o.familles) ? o.familles : []) {
+    if (x === null || typeof x !== 'object') continue;
+    const f = x as Record<string, unknown>;
+    if (typeof f.racine !== 'string' || typeof f.fichier !== 'string' || f.fichier === '') continue;
+    const caracteres = Array.isArray(f.caracteres)
+      ? f.caracteres.filter((c): c is string => typeof c === 'string' && c !== '')
+      : [];
+    familles.push({ racine: f.racine, fichier: f.fichier, caracteres });
+  }
+  return { familles, contes: lireContesIndex(o.contes) };
+}
+
+/**
+ * Relit les fiches d'une famille de l'aperçu, par caractère. Seules celles marquées
+ * `a_relire` sont gardées : l'aperçu ne fait jamais passer un autre statut pour le sien.
+ */
+export function lireFamilleApercu(v: unknown): Map<string, FicheApercu> {
+  const out = new Map<string, FicheApercu>();
+  if (v === null || typeof v !== 'object') return out;
+  const fiches = (v as Record<string, unknown>).fiches;
+  for (const x of Array.isArray(fiches) ? fiches : []) {
+    if (x === null || typeof x !== 'object') continue;
+    const f = x as Record<string, unknown>;
+    if (typeof f.c !== 'string' || f.c === '' || f.statut !== STATUT_A_RELIRE) continue;
+    const roles: Record<string, Role> = {};
+    if (f.roles !== null && typeof f.roles === 'object') {
+      for (const [k, r] of Object.entries(f.roles as Record<string, unknown>)) {
+        if (estRole(r)) roles[k] = r;
+      }
+    }
+    const origine_fr = chaine(f.origine_fr);
+    out.set(f.c, {
+      c: f.c,
+      statut: STATUT_A_RELIRE,
+      role: estRole(f.role) ? f.role : null,
+      roles,
+      origine_fr,
+      origine_en: chaine(f.origine_en),
+      /* Jamais d'étiquette sans origine derrière, ni d'étiquette inconnue. */
+      etiquette:
+        origine_fr !== '' && (f.etiquette === 'atteste' || f.etiquette === 'mnemotechnique')
+          ? f.etiquette
+          : null,
+      memo_fr: typeof f.memo_fr === 'string' && f.memo_fr !== '' ? f.memo_fr : null,
+      memo_en: typeof f.memo_en === 'string' && f.memo_en !== '' ? f.memo_en : null,
+      mots: Array.isArray(f.mots) ? f.mots.filter(estMot) : [],
+      phrase: estMot(f.phrase) ? f.phrase : null
+    });
+  }
+  return out;
+}
+
+async function lireJSON(file: string): Promise<unknown> {
+  const r = await fetch(`${import.meta.env.BASE_URL}${file}`);
+  if (!r.ok) throw new Error(`Aperçu introuvable : ${file} (${r.status})`);
+  return (await r.json()) as unknown;
+}
+
+const indexApercus = new Map<string, Promise<IndexApercu>>();
+const famillesApercu = new Map<string, Promise<Map<string, FicheApercu>>>();
+
+/**
+ * L'index de l'aperçu d'une version, lu une fois. Éteint, ou sans aperçu dans l'export,
+ * il est vide et rien n'est demandé.
+ */
+export function apercuOnce(version = VERSION_DONNEES): Promise<IndexApercu> {
+  if (!apercuAllume) return Promise.resolve(APERCU_VIDE);
+  let p = indexApercus.get(version);
+  if (!p) {
+    p = contenu(version)
+      .then((i) =>
+        i.apercu === ''
+          ? APERCU_VIDE
+          : lireJSON(`${dossierVersion(version)}/${i.apercu}`).then(lireIndexApercu)
+      )
+      .catch((e) => {
+        indexApercus.delete(version);
+        throw e;
+      });
+    indexApercus.set(version, p);
+  }
+  return p;
+}
+
+/** La fiche à relire d'un caractère de la famille `racine`, `null` sans aperçu ou éteint. */
+export async function ficheApercu(
+  c: string,
+  racine: string,
+  version = VERSION_DONNEES
+): Promise<FicheApercu | null> {
+  if (!apercuAllume) return null;
+  const a = await apercuOnce(version);
+  const f = a.familles.find((x) => x.racine === racine && x.caracteres.includes(c));
+  if (!f) return null;
+  const file = `${dossierVersion(version)}/${f.fichier}`;
+  let p = famillesApercu.get(file);
+  if (!p) {
+    p = lireJSON(file)
+      .then(lireFamilleApercu)
+      .catch((e) => {
+        famillesApercu.delete(file);
+        throw e;
+      });
+    famillesApercu.set(file, p);
+  }
+  return (await p).get(c) ?? null;
+}
+
+/**
+ * La fiche telle qu'elle s'affiche l'aperçu allumé. Un texte relu passe toujours devant :
+ * une fiche de l'export qui porte ses textes reste telle quelle. Sinon les textes de la
+ * fiche à relire remplacent ceux de la démonstration, tous ensemble, comme une fiche relue
+ * les remplacerait ; la décomposition, le pinyin et les niveaux restent ceux de l'export.
+ * Le sens (`fr`) aussi : le pipeline n'en écrit pas, relu ou non, et l'aperçu montre ce
+ * que l'app montrera une fois la fiche relue.
+ */
+export function appliquerApercu(lue: FicheLue, a: FicheApercu | null): FicheLue {
+  if (a === null || lue.source === 'export' || lue.statut === 'relu') return lue;
+  return {
+    ...lue,
+    fr: '',
+    en: '',
+    role: a.role,
+    roles: a.roles,
+    origine_fr: a.origine_fr,
+    origine_en: a.origine_en,
+    etiquette: a.origine_fr === '' ? null : a.etiquette,
+    memo_fr: a.memo_fr,
+    memo_en: a.memo_en,
+    mots: a.mots,
+    phrase: a.phrase,
+    statut: STATUT_A_RELIRE,
+    source: 'apercu'
+  };
+}
+
+/** Les contes de l'aperçu, chacun lu une fois ; un fichier absent manque, sans erreur. */
+async function contesApercu(
+  version = VERSION_DONNEES
+): Promise<{ index: IndexConte[]; contes: Map<string, Conte> }> {
+  const a = await apercuOnce(version);
+  const lus = await Promise.all(
+    a.contes.map((x) => conteOnce(`${dossierVersion(version)}/${x.fichier}`).catch(() => null))
+  );
+  const contes = new Map<string, Conte>();
+  a.contes.forEach((x, k) => {
+    const c = lus[k];
+    if (c) contes.set(x.id, c);
+  });
+  return { index: a.contes, contes };
+}
+
+/**
+ * Les contes de l'export et ceux de l'aperçu, réunis. Une version relue passe devant la
+ * version à relire du même seuil ; chaque version de l'aperçu est marquée `a_relire`. Un
+ * conte que seul l'aperçu porte vient après ceux de l'export.
+ */
+export function fusionnerContes(
+  exportes: { index: readonly IndexConte[]; contes: ReadonlyMap<string, Conte> },
+  apercu: { index: readonly IndexConte[]; contes: ReadonlyMap<string, Conte> } | null
+): { index: IndexConte[]; contes: Map<string, Conte> } {
+  const index = exportes.index.map((x) => ({ ...x, seuils: [...x.seuils] }));
+  const contes = new Map(exportes.contes);
+  if (apercu === null) return { index, contes };
+  for (const x of apercu.index) {
+    const lu = apercu.contes.get(x.id);
+    const releve = contes.get(x.id);
+    const seuilsRelus = new Set((releve?.versions ?? []).map((v) => v.seuil));
+    const ajout: VersionConte[] = (lu?.versions ?? [])
+      .filter((v) => !seuilsRelus.has(v.seuil))
+      .map((v) => ({ ...v, statut: STATUT_A_RELIRE }));
+    const entree = index.find((y) => y.id === x.id);
+    if (entree) {
+      entree.seuils = [...new Set([...entree.seuils, ...x.seuils])].sort((a, b) => a - b);
+    } else {
+      index.push({ ...x, seuils: [...x.seuils] });
+    }
+    if (ajout.length === 0) continue;
+    const base: Conte = releve ?? {
+      version: lu?.version ?? '',
+      source: lu?.source ?? '',
+      id: x.id,
+      titre_fr: lu?.titre_fr || x.titre_fr,
+      versions: []
+    };
+    contes.set(x.id, {
+      ...base,
+      versions: [...base.versions, ...ajout].sort((a, b) => a.seuil - b.seuil)
+    });
+  }
+  return { index, contes };
 }

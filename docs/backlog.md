@@ -76,7 +76,7 @@ Relevé sur le dépôt après une revue du pipeline. Les numéros ci-dessus ne b
   8 148 caractères sur 9 574 réconciliés ; 241 du seuil 255 sur 255, 280 du HSK 1 sur 300 ;
   238 familles exportées en 1,33 Mio.
 - Épic 2 : 2.1 à 2.8 (2.2 et 2.8 revues le 24 septembre : le menu et le parcours du prototype validé). Épic 3 : 3.1 à 3.4. Épic 4 : 4.1 à 4.4 (4.4, Chercher, le 24 septembre : la recherche en français ne trouvera rien tant qu'aucune fiche n'est relue).
-- Épic 4b : 4b.1, 4b.2 et 4b.5. Épic 5 : 5.1, et 5.2 (24 septembre).
+- Épic 4b : 4b.1, 4b.2, 4b.4 et 4b.5. Épic 5 : 5.1, et 5.2 (24 septembre).
 - 5.2, le site public : `app/scripts/site/` génère du HTML statique depuis l'export
   versionné, dans l'artefact Pages de l'app, après `vite build`. 480 caractères dessinables
   sur 493, une page chacun en français (`/zilin/c/<c>/`) et en anglais
@@ -97,6 +97,21 @@ Relevé sur le dépôt après une revue du pipeline. Les numéros ci-dessus ne b
   `devinettes.json` et cinq contrôles bloquants. Une devinette par jour, portée par Tao,
   parmi celles dont la réponse et les briques ont une carte ; résolue, elle remplit la
   lanterne des trophées.
+- 4b.4, le dictionnaire éclair (24 septembre) : 222 mots de deux caractères du seuil 255
+  et du HSK 1, fréquents et transparents (电脑, 手机, 大水, 医院…), relevés parmi les
+  entrées de CC-CEDICT (le mot seul) et hors des mots de fiche ; sens français et anglais
+  rédigés pour l'app dans `data/sources/eclair/mots.tsv`, **à relire par le
+  propriétaire** (sens et leurres : `wenlu eclair apercu`). Pinyin écrit dans la source
+  et contrôlé contre Unihan et les surcharges ; trois leurres par mot, les sens de mots
+  voisins, choisis à l'export (jamais un mot de même étiquette `proches`) ;
+  `eclair.json` et six contrôles bloquants. Le jeu ne propose qu'un mot dont les deux
+  caractères sont acquis et qu'aucune fiche apprise n'a fait lire ; quatre sens, une
+  réponse, les deux caractères notés par `grade` ; la correction réécrit le mot au
+  pinceau, caractère par caractère. Le compteur « mots devinés » (`Progress.motsDevines`,
+  un mot une fois, export et import JSON compris) se lit sur l'écran Jouer et au
+  constat ; Tao joue la tête penchée, sans lanterne. Reste : le brancher au pas Utiliser
+  (brief §9), qui demanderait une vue de plus dans `UseView` et la reprise au pas exact
+  de `session.ts` ; laissé pour ne pas toucher la session.
 - 4b.9, à moitié (24 septembre) : les huit fêtes du calendrier chinois sont en place, du
   pipeline (`data/sources/fetes/`, dates vérifiées contre la table des fêtes de
   `lunar_python`) au décor de l'app (menu à 393 × 660, anecdote, `theme-color`). Chaque
@@ -197,5 +212,5 @@ anglaise, glose par mot.
 
 ### Non commencées
 
-2c.1, 2c.2, 4b.3, 4b.4, 4b.6 à 4b.8, et toute la phase 6 — hors le workflow CI macOS et la
+2c.1, 2c.2, 4b.3, 4b.6 à 4b.8, et toute la phase 6 — hors le workflow CI macOS et la
 configuration Capacitor, déjà versionnés.

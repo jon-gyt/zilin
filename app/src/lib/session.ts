@@ -248,6 +248,21 @@ export type Progress = {
    * (`noterConteLu`). Absente d'une progression plus ancienne : aucun conte lu.
    */
   contesLus: Record<string, number[]>;
+  /**
+   * Réglage : le mode relecture. Allumé, l'app charge l'aperçu de l'export (`apercu/`), les
+   * fiches et les contes que le pipeline a écrits mais que personne n'a encore relus, chacun
+   * marqué « à relire » ; et un conte que l'acquis ne permet pas encore de lire s'ouvre quand
+   * même, marqué « pas encore dans ton acquis ». Ce qu'il ouvre ainsi ne compte pas comme
+   * lu. Décision du propriétaire, pour essayer les textes avant de les valider. Éteint par
+   * défaut ; absent d'une progression plus ancienne : éteint.
+   */
+  relecture: boolean;
+  /**
+   * Les mots devinés au dictionnaire éclair, par identifiant, chacun une fois, dans
+   * l'ordre : le compteur « mots devinés » (`eclair.ts`, `noterMotDevine`). Absent d'une
+   * progression plus ancienne : aucun mot deviné.
+   */
+  motsDevines: string[];
 };
 
 /**
@@ -306,7 +321,9 @@ export function emptyProgress(aujourdhui: string): Progress {
     tropheesAcquis: {},
     devinettes: [],
     devinetteDuJour: null,
-    contesLus: {}
+    contesLus: {},
+    relecture: false,
+    motsDevines: []
   };
 }
 
@@ -675,6 +692,11 @@ export function traceProposee(p: Progress, brique: string): boolean {
 /** Change le réglage « ne plus proposer le tracé ». */
 export function setTrace(p: Progress, actif: boolean): Progress {
   return { ...p, trace: actif };
+}
+
+/** Allume ou éteint le mode relecture (Réglages). */
+export function setRelecture(p: Progress, allume: boolean): Progress {
+  return { ...p, relecture: allume };
 }
 
 /** Note que le tracé de cette brique a été proposé : on ne le proposera plus. */
@@ -1234,6 +1256,10 @@ export function fromJSON(texte: string, aujourdhui: string): Progress {
     /* Les devinettes et les contes lus : absents d'un export plus ancien, rien n'est lu. */
     devinettes: listeDeCaracteres(o.devinettes),
     devinetteDuJour: lireDevinetteDuJour(o.devinetteDuJour),
-    contesLus: lireContesLus(o.contesLus)
+    contesLus: lireContesLus(o.contesLus),
+    /* Le mode relecture : absent d'un export plus ancien, éteint. */
+    relecture: o.relecture === true,
+    /* Les mots devinés : absents d'un export plus ancien, aucun n'est deviné. */
+    motsDevines: listeDeCaracteres(o.motsDevines)
   };
 }

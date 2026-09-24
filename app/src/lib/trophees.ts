@@ -436,7 +436,7 @@ export function tropheesContes(
           famille: 'contes',
           forme: 'nombre',
           sceau: String(s),
-          nom: conte.titre_fr,
+          nom: conte.titre_zh ? `${conte.titre_zh} · ${conte.titre_fr}` : conte.titre_fr,
           detail: obtenu
             ? `La version du seuil ${s} est lue.`
             : ouvert

@@ -1,0 +1,2864 @@
+{
+ "version": "0.1.0",
+ "license": "propriétaire",
+ "source": "data/sources/eclair/ : mots de deux caractères relevés parmi les entrées de CC-CEDICT (le mot seul) ; sens français et anglais rédigés pour l'app ; pinyin lu dans Unihan et les surcharges ; leurres choisis parmi les sens des autres mots",
+ "source_url": "https://github.com/jon-gyt/zilin",
+ "modified": "2026-09-24 : assemblé par `wenlu export`",
+ "mots": [
+  {
+   "id": "电脑",
+   "mot": "电脑",
+   "pinyin": "diànnǎo",
+   "fr": "ordinateur",
+   "en": "computer",
+   "leurres": [
+    "大脑",
+    "电视",
+    "远视"
+   ]
+  },
+  {
+   "id": "电视",
+   "mot": "电视",
+   "pinyin": "diànshì",
+   "fr": "télévision",
+   "en": "television",
+   "leurres": [
+    "远视",
+    "近视",
+    "电脑"
+   ]
+  },
+  {
+   "id": "手机",
+   "mot": "手机",
+   "pinyin": "shǒujī",
+   "fr": "téléphone portable",
+   "en": "mobile phone",
+   "leurres": [
+    "手工",
+    "手写",
+    "手语"
+   ]
+  },
+  {
+   "id": "网上",
+   "mot": "网上",
+   "pinyin": "wǎngshàng",
+   "fr": "en ligne, sur internet",
+   "en": "online",
+   "leurres": [
+    "天上",
+    "网站",
+    "楼上"
+   ]
+  },
+  {
+   "id": "上网",
+   "mot": "上网",
+   "pinyin": "shàngwǎng",
+   "fr": "aller sur internet",
+   "en": "to go online",
+   "leurres": [
+    "上学",
+    "上次",
+    "上山"
+   ]
+  },
+  {
+   "id": "网站",
+   "mot": "网站",
+   "pinyin": "wǎngzhàn",
+   "fr": "site web",
+   "en": "website",
+   "leurres": [
+    "车站",
+    "网上",
+    "网球"
+   ]
+  },
+  {
+   "id": "网友",
+   "mot": "网友",
+   "pinyin": "wǎngyǒu",
+   "fr": "ami rencontré en ligne",
+   "en": "online friend",
+   "leurres": [
+    "男友",
+    "网上",
+    "网站"
+   ]
+  },
+  {
+   "id": "商店",
+   "mot": "商店",
+   "pinyin": "shāngdiàn",
+   "fr": "magasin",
+   "en": "shop, store",
+   "leurres": [
+    "花店",
+    "吃完",
+    "鸡肉"
+   ]
+  },
+  {
+   "id": "商场",
+   "mot": "商场",
+   "pinyin": "shāngchǎng",
+   "fr": "centre commercial",
+   "en": "shopping mall",
+   "leurres": [
+    "机场",
+    "球场",
+    "百年"
+   ]
+  },
+  {
+   "id": "花店",
+   "mot": "花店",
+   "pinyin": "huādiàn",
+   "fr": "fleuriste",
+   "en": "flower shop",
+   "leurres": [
+    "商店",
+    "红花",
+    "鸡肉"
+   ]
+  },
+  {
+   "id": "学校",
+   "mot": "学校",
+   "pinyin": "xuéxiào",
+   "fr": "école",
+   "en": "school",
+   "leurres": [
+    "学生",
+    "学习",
+    "校长"
+   ]
+  },
+  {
+   "id": "小学",
+   "mot": "小学",
+   "pinyin": "xiǎoxué",
+   "fr": "école primaire",
+   "en": "primary school",
+   "leurres": [
+    "小孩",
+    "同学",
+    "小鸡"
+   ]
+  },
+  {
+   "id": "中学",
+   "mot": "中学",
+   "pinyin": "zhōngxué",
+   "fr": "collège et lycée",
+   "en": "secondary school",
+   "leurres": [
+    "上学",
+    "同学",
+    "放学"
+   ]
+  },
+  {
+   "id": "学生",
+   "mot": "学生",
+   "pinyin": "xuésheng",
+   "fr": "élève, étudiant",
+   "en": "student",
+   "leurres": [
+    "学习",
+    "医生",
+    "学校"
+   ]
+  },
+  {
+   "id": "女生",
+   "mot": "女生",
+   "pinyin": "nǚshēng",
+   "fr": "élève fille",
+   "en": "female student",
+   "leurres": [
+    "女孩",
+    "医生",
+    "男女"
+   ]
+  },
+  {
+   "id": "同学",
+   "mot": "同学",
+   "pinyin": "tóngxué",
+   "fr": "camarade de classe",
+   "en": "classmate",
+   "leurres": [
+    "小学",
+    "上学",
+    "同时"
+   ]
+  },
+  {
+   "id": "考试",
+   "mot": "考试",
+   "pinyin": "kǎoshì",
+   "fr": "examen",
+   "en": "exam",
+   "leurres": [
+    "唱歌",
+    "衣服",
+    "明年"
+   ]
+  },
+  {
+   "id": "回答",
+   "mot": "回答",
+   "pinyin": "huídá",
+   "fr": "répondre",
+   "en": "to answer",
+   "leurres": [
+    "回国",
+    "来回",
+    "每天"
+   ]
+  },
+  {
+   "id": "学习",
+   "mot": "学习",
+   "pinyin": "xuéxí",
+   "fr": "étudier",
+   "en": "to study",
+   "leurres": [
+    "学校",
+    "学生",
+    "上学"
+   ]
+  },
+  {
+   "id": "读书",
+   "mot": "读书",
+   "pinyin": "dúshū",
+   "fr": "lire, faire des études",
+   "en": "to read, to study",
+   "leurres": [
+    "教书",
+    "书包",
+    "书名"
+   ]
+  },
+  {
+   "id": "教书",
+   "mot": "教书",
+   "pinyin": "jiāoshū",
+   "fr": "enseigner",
+   "en": "to teach",
+   "leurres": [
+    "读书",
+    "书桌",
+    "书名"
+   ]
+  },
+  {
+   "id": "下课",
+   "mot": "下课",
+   "pinyin": "xiàkè",
+   "fr": "fin du cours",
+   "en": "end of class",
+   "leurres": [
+    "下车",
+    "下面",
+    "下次"
+   ]
+  },
+  {
+   "id": "放学",
+   "mot": "放学",
+   "pinyin": "fàngxué",
+   "fr": "sortie de l'école",
+   "en": "school is out",
+   "leurres": [
+    "中学",
+    "小学",
+    "放假"
+   ]
+  },
+  {
+   "id": "上学",
+   "mot": "上学",
+   "pinyin": "shàngxué",
+   "fr": "aller à l'école",
+   "en": "to go to school",
+   "leurres": [
+    "小学",
+    "同学",
+    "上面"
+   ]
+  },
+  {
+   "id": "上班",
+   "mot": "上班",
+   "pinyin": "shàngbān",
+   "fr": "aller au travail",
+   "en": "to go to work",
+   "leurres": [
+    "上学",
+    "上山",
+    "上次"
+   ]
+  },
+  {
+   "id": "下班",
+   "mot": "下班",
+   "pinyin": "xiàbān",
+   "fr": "quitter le travail",
+   "en": "to finish work",
+   "leurres": [
+    "下面",
+    "下次",
+    "下课"
+   ]
+  },
+  {
+   "id": "校长",
+   "mot": "校长",
+   "pinyin": "xiàozhǎng",
+   "fr": "directeur d'école",
+   "en": "headmaster",
+   "leurres": [
+    "学校",
+    "回国",
+    "病假"
+   ]
+  },
+  {
+   "id": "大门",
+   "mot": "大门",
+   "pinyin": "dàmén",
+   "fr": "grande porte",
+   "en": "main gate",
+   "leurres": [
+    "大脑",
+    "大衣",
+    "大风"
+   ]
+  },
+  {
+   "id": "球门",
+   "mot": "球门",
+   "pinyin": "qiúmén",
+   "fr": "but (au football)",
+   "en": "goal (in football)",
+   "leurres": [
+    "球场",
+    "大门",
+    "地球"
+   ]
+  },
+  {
+   "id": "球场",
+   "mot": "球场",
+   "pinyin": "qiúchǎng",
+   "fr": "terrain de sport",
+   "en": "sports ground",
+   "leurres": [
+    "商场",
+    "球门",
+    "机场"
+   ]
+  },
+  {
+   "id": "打球",
+   "mot": "打球",
+   "pinyin": "dǎqiú",
+   "fr": "jouer au ballon",
+   "en": "to play ball",
+   "leurres": [
+    "地球",
+    "网球",
+    "打字"
+   ]
+  },
+  {
+   "id": "网球",
+   "mot": "网球",
+   "pinyin": "wǎngqiú",
+   "fr": "tennis",
+   "en": "tennis",
+   "leurres": [
+    "网上",
+    "打球",
+    "网友"
+   ]
+  },
+  {
+   "id": "气球",
+   "mot": "气球",
+   "pinyin": "qìqiú",
+   "fr": "ballon de baudruche",
+   "en": "balloon",
+   "leurres": [
+    "地球",
+    "网球",
+    "打球"
+   ]
+  },
+  {
+   "id": "影星",
+   "mot": "影星",
+   "pinyin": "yǐngxīng",
+   "fr": "vedette de cinéma",
+   "en": "film star",
+   "leurres": [
+    "上网",
+    "男友",
+    "小学"
+   ]
+  },
+  {
+   "id": "歌手",
+   "mot": "歌手",
+   "pinyin": "gēshǒu",
+   "fr": "chanteur",
+   "en": "singer",
+   "leurres": [
+    "高手",
+    "水手",
+    "右手"
+   ]
+  },
+  {
+   "id": "唱歌",
+   "mot": "唱歌",
+   "pinyin": "chànggē",
+   "fr": "chanter",
+   "en": "to sing",
+   "leurres": [
+    "歌手",
+    "手写",
+    "小弟"
+   ]
+  },
+  {
+   "id": "地球",
+   "mot": "地球",
+   "pinyin": "dìqiú",
+   "fr": "la Terre",
+   "en": "the Earth",
+   "leurres": [
+    "打球",
+    "网球",
+    "地面"
+   ]
+  },
+  {
+   "id": "机场",
+   "mot": "机场",
+   "pinyin": "jīchǎng",
+   "fr": "aéroport",
+   "en": "airport",
+   "leurres": [
+    "球场",
+    "机票",
+    "商场"
+   ]
+  },
+  {
+   "id": "机票",
+   "mot": "机票",
+   "pinyin": "jīpiào",
+   "fr": "billet d'avion",
+   "en": "plane ticket",
+   "leurres": [
+    "机场",
+    "手机",
+    "今晚"
+   ]
+  },
+  {
+   "id": "起飞",
+   "mot": "起飞",
+   "pinyin": "qǐfēi",
+   "fr": "décoller",
+   "en": "to take off",
+   "leurres": [
+    "起床",
+    "姐妹",
+    "衣服"
+   ]
+  },
+  {
+   "id": "车站",
+   "mot": "车站",
+   "pinyin": "chēzhàn",
+   "fr": "gare, arrêt",
+   "en": "station, stop",
+   "leurres": [
+    "网站",
+    "风车",
+    "下车"
+   ]
+  },
+  {
+   "id": "开车",
+   "mot": "开车",
+   "pinyin": "kāichē",
+   "fr": "conduire",
+   "en": "to drive",
+   "leurres": [
+    "跑车",
+    "马车",
+    "风车"
+   ]
+  },
+  {
+   "id": "下车",
+   "mot": "下车",
+   "pinyin": "xiàchē",
+   "fr": "descendre du véhicule",
+   "en": "to get off",
+   "leurres": [
+    "风车",
+    "下课",
+    "开车"
+   ]
+  },
+  {
+   "id": "跑车",
+   "mot": "跑车",
+   "pinyin": "pǎochē",
+   "fr": "voiture de sport",
+   "en": "sports car",
+   "leurres": [
+    "开车",
+    "马车",
+    "风车"
+   ]
+  },
+  {
+   "id": "马车",
+   "mot": "马车",
+   "pinyin": "mǎchē",
+   "fr": "voiture à cheval",
+   "en": "horse carriage",
+   "leurres": [
+    "开车",
+    "风车",
+    "马路"
+   ]
+  },
+  {
+   "id": "风车",
+   "mot": "风车",
+   "pinyin": "fēngchē",
+   "fr": "moulin à vent",
+   "en": "windmill",
+   "leurres": [
+    "下车",
+    "开车",
+    "马车"
+   ]
+  },
+  {
+   "id": "零钱",
+   "mot": "零钱",
+   "pinyin": "língqián",
+   "fr": "petite monnaie",
+   "en": "small change",
+   "leurres": [
+    "零下",
+    "钱包",
+    "西医"
+   ]
+  },
+  {
+   "id": "钱包",
+   "mot": "钱包",
+   "pinyin": "qiánbāo",
+   "fr": "portefeuille",
+   "en": "wallet",
+   "leurres": [
+    "书包",
+    "红包",
+    "零钱"
+   ]
+  },
+  {
+   "id": "书包",
+   "mot": "书包",
+   "pinyin": "shūbāo",
+   "fr": "cartable",
+   "en": "schoolbag",
+   "leurres": [
+    "钱包",
+    "书名",
+    "书桌"
+   ]
+  },
+  {
+   "id": "红包",
+   "mot": "红包",
+   "pinyin": "hóngbāo",
+   "fr": "enveloppe rouge (d'argent offert)",
+   "en": "red envelope (gift of money)",
+   "leurres": [
+    "红花",
+    "钱包",
+    "书包"
+   ]
+  },
+  {
+   "id": "马路",
+   "mot": "马路",
+   "pinyin": "mǎlù",
+   "fr": "rue, chaussée",
+   "en": "street, road",
+   "leurres": [
+    "马车",
+    "问路",
+    "走路"
+   ]
+  },
+  {
+   "id": "山路",
+   "mot": "山路",
+   "pinyin": "shānlù",
+   "fr": "chemin de montagne",
+   "en": "mountain path",
+   "leurres": [
+    "问路",
+    "走路",
+    "路边"
+   ]
+  },
+  {
+   "id": "路口",
+   "mot": "路口",
+   "pinyin": "lùkǒu",
+   "fr": "carrefour",
+   "en": "crossroads",
+   "leurres": [
+    "出口",
+    "路边",
+    "问路"
+   ]
+  },
+  {
+   "id": "行人",
+   "mot": "行人",
+   "pinyin": "xíngrén",
+   "fr": "piéton",
+   "en": "pedestrian",
+   "leurres": [
+    "好人",
+    "病人",
+    "爱人"
+   ]
+  },
+  {
+   "id": "路边",
+   "mot": "路边",
+   "pinyin": "lùbiān",
+   "fr": "bord de la route",
+   "en": "roadside",
+   "leurres": [
+    "左边",
+    "南边",
+    "外边"
+   ]
+  },
+  {
+   "id": "问路",
+   "mot": "问路",
+   "pinyin": "wènlù",
+   "fr": "demander son chemin",
+   "en": "to ask the way",
+   "leurres": [
+    "山路",
+    "马路",
+    "走路"
+   ]
+  },
+  {
+   "id": "走路",
+   "mot": "走路",
+   "pinyin": "zǒulù",
+   "fr": "marcher",
+   "en": "to walk",
+   "leurres": [
+    "问路",
+    "马路",
+    "山路"
+   ]
+  },
+  {
+   "id": "来回",
+   "mot": "来回",
+   "pinyin": "láihuí",
+   "fr": "aller-retour",
+   "en": "round trip",
+   "leurres": [
+    "来信",
+    "拿来",
+    "回国"
+   ]
+  },
+  {
+   "id": "出口",
+   "mot": "出口",
+   "pinyin": "chūkǒu",
+   "fr": "sortie",
+   "en": "exit",
+   "leurres": [
+    "路口",
+    "出国",
+    "日出"
+   ]
+  },
+  {
+   "id": "口渴",
+   "mot": "口渴",
+   "pinyin": "kǒukě",
+   "fr": "avoir soif",
+   "en": "thirsty",
+   "leurres": [
+    "路口",
+    "出口",
+    "姐妹"
+   ]
+  },
+  {
+   "id": "回国",
+   "mot": "回国",
+   "pinyin": "huíguó",
+   "fr": "rentrer dans son pays",
+   "en": "to return to one's country",
+   "leurres": [
+    "回答",
+    "出国",
+    "国画"
+   ]
+  },
+  {
+   "id": "出国",
+   "mot": "出国",
+   "pinyin": "chūguó",
+   "fr": "partir à l'étranger",
+   "en": "to go abroad",
+   "leurres": [
+    "出口",
+    "回国",
+    "外出"
+   ]
+  },
+  {
+   "id": "国外",
+   "mot": "国外",
+   "pinyin": "guówài",
+   "fr": "à l'étranger",
+   "en": "abroad",
+   "leurres": [
+    "国王",
+    "国画",
+    "外边"
+   ]
+  },
+  {
+   "id": "外出",
+   "mot": "外出",
+   "pinyin": "wàichū",
+   "fr": "sortir",
+   "en": "to go out",
+   "leurres": [
+    "外边",
+    "日出",
+    "国外"
+   ]
+  },
+  {
+   "id": "国王",
+   "mot": "国王",
+   "pinyin": "guówáng",
+   "fr": "roi",
+   "en": "king",
+   "leurres": [
+    "国画",
+    "国外",
+    "出国"
+   ]
+  },
+  {
+   "id": "国画",
+   "mot": "国画",
+   "pinyin": "guóhuà",
+   "fr": "peinture chinoise traditionnelle",
+   "en": "traditional Chinese painting",
+   "leurres": [
+    "国王",
+    "国外",
+    "画家"
+   ]
+  },
+  {
+   "id": "画家",
+   "mot": "画家",
+   "pinyin": "huàjiā",
+   "fr": "peintre",
+   "en": "painter",
+   "leurres": [
+    "作家",
+    "老家",
+    "画笔"
+   ]
+  },
+  {
+   "id": "作家",
+   "mot": "作家",
+   "pinyin": "zuòjiā",
+   "fr": "écrivain",
+   "en": "writer",
+   "leurres": [
+    "老家",
+    "画家",
+    "家人"
+   ]
+  },
+  {
+   "id": "画笔",
+   "mot": "画笔",
+   "pinyin": "huàbǐ",
+   "fr": "pinceau de peintre",
+   "en": "paintbrush",
+   "leurres": [
+    "画家",
+    "笔记",
+    "国画"
+   ]
+  },
+  {
+   "id": "文字",
+   "mot": "文字",
+   "pinyin": "wénzì",
+   "fr": "écriture, signes écrits",
+   "en": "script, written characters",
+   "leurres": [
+    "打字",
+    "字母",
+    "南边"
+   ]
+  },
+  {
+   "id": "字母",
+   "mot": "字母",
+   "pinyin": "zìmǔ",
+   "fr": "lettre de l'alphabet",
+   "en": "letter of the alphabet",
+   "leurres": [
+    "打字",
+    "文字",
+    "东边"
+   ]
+  },
+  {
+   "id": "手写",
+   "mot": "手写",
+   "pinyin": "shǒuxiě",
+   "fr": "écrit à la main",
+   "en": "handwritten",
+   "leurres": [
+    "手工",
+    "手语",
+    "手机"
+   ]
+  },
+  {
+   "id": "手工",
+   "mot": "手工",
+   "pinyin": "shǒugōng",
+   "fr": "fait main",
+   "en": "handmade",
+   "leurres": [
+    "手机",
+    "手写",
+    "手语"
+   ]
+  },
+  {
+   "id": "手语",
+   "mot": "手语",
+   "pinyin": "shǒuyǔ",
+   "fr": "langue des signes",
+   "en": "sign language",
+   "leurres": [
+    "手工",
+    "手机",
+    "手写"
+   ]
+  },
+  {
+   "id": "左手",
+   "mot": "左手",
+   "pinyin": "zuǒshǒu",
+   "fr": "main gauche",
+   "en": "left hand",
+   "leurres": [
+    "左边",
+    "高手",
+    "水手"
+   ]
+  },
+  {
+   "id": "右手",
+   "mot": "右手",
+   "pinyin": "yòushǒu",
+   "fr": "main droite",
+   "en": "right hand",
+   "leurres": [
+    "歌手",
+    "洗手",
+    "水手"
+   ]
+  },
+  {
+   "id": "洗手",
+   "mot": "洗手",
+   "pinyin": "xǐshǒu",
+   "fr": "se laver les mains",
+   "en": "to wash one's hands",
+   "leurres": [
+    "右手",
+    "高手",
+    "歌手"
+   ]
+  },
+  {
+   "id": "洗衣",
+   "mot": "洗衣",
+   "pinyin": "xǐyī",
+   "fr": "faire la lessive",
+   "en": "to do the laundry",
+   "leurres": [
+    "大衣",
+    "洗手",
+    "雨衣"
+   ]
+  },
+  {
+   "id": "帮忙",
+   "mot": "帮忙",
+   "pinyin": "bāngmáng",
+   "fr": "aider, donner un coup de main",
+   "en": "to help",
+   "leurres": [
+    "中医",
+    "热水",
+    "听话"
+   ]
+  },
+  {
+   "id": "高手",
+   "mot": "高手",
+   "pinyin": "gāoshǒu",
+   "fr": "expert, as",
+   "en": "master, ace",
+   "leurres": [
+    "水手",
+    "右手",
+    "左手"
+   ]
+  },
+  {
+   "id": "水手",
+   "mot": "水手",
+   "pinyin": "shuǐshǒu",
+   "fr": "marin",
+   "en": "sailor",
+   "leurres": [
+    "洗手",
+    "高手",
+    "歌手"
+   ]
+  },
+  {
+   "id": "笔记",
+   "mot": "笔记",
+   "pinyin": "bǐjì",
+   "fr": "notes",
+   "en": "notes",
+   "leurres": [
+    "忘记",
+    "日记",
+    "记得"
+   ]
+  },
+  {
+   "id": "日记",
+   "mot": "日记",
+   "pinyin": "rìjì",
+   "fr": "journal intime",
+   "en": "diary",
+   "leurres": [
+    "日出",
+    "笔记",
+    "忘记"
+   ]
+  },
+  {
+   "id": "姓名",
+   "mot": "姓名",
+   "pinyin": "xìngmíng",
+   "fr": "nom et prénom",
+   "en": "full name",
+   "leurres": [
+    "书名",
+    "地面",
+    "病假"
+   ]
+  },
+  {
+   "id": "书名",
+   "mot": "书名",
+   "pinyin": "shūmíng",
+   "fr": "titre d'un livre",
+   "en": "book title",
+   "leurres": [
+    "书桌",
+    "书包",
+    "姓名"
+   ]
+  },
+  {
+   "id": "课本",
+   "mot": "课本",
+   "pinyin": "kèběn",
+   "fr": "manuel scolaire",
+   "en": "textbook",
+   "leurres": [
+    "下课",
+    "小弟",
+    "好事"
+   ]
+  },
+  {
+   "id": "书桌",
+   "mot": "书桌",
+   "pinyin": "shūzhuō",
+   "fr": "bureau (le meuble)",
+   "en": "desk",
+   "leurres": [
+    "书名",
+    "书包",
+    "饭桌"
+   ]
+  },
+  {
+   "id": "饭桌",
+   "mot": "饭桌",
+   "pinyin": "fànzhuō",
+   "fr": "table à manger",
+   "en": "dining table",
+   "leurres": [
+    "书桌",
+    "早饭",
+    "做饭"
+   ]
+  },
+  {
+   "id": "客人",
+   "mot": "客人",
+   "pinyin": "kèrén",
+   "fr": "invité",
+   "en": "guest",
+   "leurres": [
+    "坏人",
+    "行人",
+    "爱人"
+   ]
+  },
+  {
+   "id": "客房",
+   "mot": "客房",
+   "pinyin": "kèfáng",
+   "fr": "chambre d'amis",
+   "en": "guest room",
+   "leurres": [
+    "客人",
+    "病房",
+    "小马"
+   ]
+  },
+  {
+   "id": "高楼",
+   "mot": "高楼",
+   "pinyin": "gāolóu",
+   "fr": "tour, immeuble haut",
+   "en": "high-rise",
+   "leurres": [
+    "高手",
+    "楼上",
+    "身高"
+   ]
+  },
+  {
+   "id": "楼上",
+   "mot": "楼上",
+   "pinyin": "lóushàng",
+   "fr": "à l'étage",
+   "en": "upstairs",
+   "leurres": [
+    "网上",
+    "楼下",
+    "天上"
+   ]
+  },
+  {
+   "id": "上面",
+   "mot": "上面",
+   "pinyin": "shàngmiàn",
+   "fr": "dessus",
+   "en": "on top",
+   "leurres": [
+    "上次",
+    "上学",
+    "上班"
+   ]
+  },
+  {
+   "id": "楼下",
+   "mot": "楼下",
+   "pinyin": "lóuxià",
+   "fr": "en bas",
+   "en": "downstairs",
+   "leurres": [
+    "零下",
+    "楼上",
+    "下车"
+   ]
+  },
+  {
+   "id": "下面",
+   "mot": "下面",
+   "pinyin": "xiàmiàn",
+   "fr": "dessous",
+   "en": "underneath",
+   "leurres": [
+    "下车",
+    "下次",
+    "上面"
+   ]
+  },
+  {
+   "id": "地下",
+   "mot": "地下",
+   "pinyin": "dìxià",
+   "fr": "sous terre",
+   "en": "underground",
+   "leurres": [
+    "地面",
+    "零下",
+    "地球"
+   ]
+  },
+  {
+   "id": "地面",
+   "mot": "地面",
+   "pinyin": "dìmiàn",
+   "fr": "le sol",
+   "en": "ground surface",
+   "leurres": [
+    "地下",
+    "上面",
+    "下面"
+   ]
+  },
+  {
+   "id": "天上",
+   "mot": "天上",
+   "pinyin": "tiānshàng",
+   "fr": "dans le ciel",
+   "en": "in the sky",
+   "leurres": [
+    "楼上",
+    "网上",
+    "上面"
+   ]
+  },
+  {
+   "id": "家人",
+   "mot": "家人",
+   "pinyin": "jiārén",
+   "fr": "les proches, la famille",
+   "en": "family members",
+   "leurres": [
+    "客人",
+    "家里",
+    "病人"
+   ]
+  },
+  {
+   "id": "老家",
+   "mot": "老家",
+   "pinyin": "lǎojiā",
+   "fr": "pays natal",
+   "en": "hometown",
+   "leurres": [
+    "老年",
+    "作家",
+    "画家"
+   ]
+  },
+  {
+   "id": "家里",
+   "mot": "家里",
+   "pinyin": "jiālǐ",
+   "fr": "à la maison",
+   "en": "at home",
+   "leurres": [
+    "家人",
+    "画家",
+    "里边"
+   ]
+  },
+  {
+   "id": "身体",
+   "mot": "身体",
+   "pinyin": "shēntǐ",
+   "fr": "corps",
+   "en": "body",
+   "leurres": [
+    "身高",
+    "体重",
+    "做饭"
+   ]
+  },
+  {
+   "id": "体重",
+   "mot": "体重",
+   "pinyin": "tǐzhòng",
+   "fr": "poids (du corps)",
+   "en": "body weight",
+   "leurres": [
+    "身体",
+    "百年",
+    "家里"
+   ]
+  },
+  {
+   "id": "身高",
+   "mot": "身高",
+   "pinyin": "shēngāo",
+   "fr": "taille (d'une personne)",
+   "en": "height",
+   "leurres": [
+    "身体",
+    "高手",
+    "高楼"
+   ]
+  },
+  {
+   "id": "旁边",
+   "mot": "旁边",
+   "pinyin": "pángbiān",
+   "fr": "à côté",
+   "en": "beside",
+   "leurres": [
+    "前边",
+    "左边",
+    "后边"
+   ]
+  },
+  {
+   "id": "大脑",
+   "mot": "大脑",
+   "pinyin": "dànǎo",
+   "fr": "cerveau",
+   "en": "brain",
+   "leurres": [
+    "大事",
+    "大衣",
+    "大风"
+   ]
+  },
+  {
+   "id": "医生",
+   "mot": "医生",
+   "pinyin": "yīshēng",
+   "fr": "médecin",
+   "en": "doctor",
+   "leurres": [
+    "医院",
+    "学生",
+    "女生"
+   ]
+  },
+  {
+   "id": "医院",
+   "mot": "医院",
+   "pinyin": "yīyuàn",
+   "fr": "hôpital",
+   "en": "hospital",
+   "leurres": [
+    "医生",
+    "西医",
+    "中医"
+   ]
+  },
+  {
+   "id": "中医",
+   "mot": "中医",
+   "pinyin": "zhōngyī",
+   "fr": "médecine chinoise",
+   "en": "traditional Chinese medicine",
+   "leurres": [
+    "西医",
+    "中学",
+    "医院"
+   ]
+  },
+  {
+   "id": "西医",
+   "mot": "西医",
+   "pinyin": "xīyī",
+   "fr": "médecine occidentale",
+   "en": "Western medicine",
+   "leurres": [
+    "中医",
+    "西边",
+    "医生"
+   ]
+  },
+  {
+   "id": "病人",
+   "mot": "病人",
+   "pinyin": "bìngrén",
+   "fr": "malade, patient",
+   "en": "patient",
+   "leurres": [
+    "坏人",
+    "爱人",
+    "客人"
+   ]
+  },
+  {
+   "id": "病房",
+   "mot": "病房",
+   "pinyin": "bìngfáng",
+   "fr": "chambre d'hôpital",
+   "en": "hospital ward",
+   "leurres": [
+    "病人",
+    "病假",
+    "客房"
+   ]
+  },
+  {
+   "id": "病假",
+   "mot": "病假",
+   "pinyin": "bìngjià",
+   "fr": "congé maladie",
+   "en": "sick leave",
+   "leurres": [
+    "放假",
+    "病人",
+    "病房"
+   ]
+  },
+  {
+   "id": "假期",
+   "mot": "假期",
+   "pinyin": "jiàqī",
+   "fr": "vacances",
+   "en": "holidays",
+   "leurres": [
+    "假话",
+    "病假",
+    "课本"
+   ]
+  },
+  {
+   "id": "放假",
+   "mot": "放假",
+   "pinyin": "fàngjià",
+   "fr": "être en vacances",
+   "en": "to be on holiday",
+   "leurres": [
+    "放心",
+    "病假",
+    "放学"
+   ]
+  },
+  {
+   "id": "休息",
+   "mot": "休息",
+   "pinyin": "xiūxi",
+   "fr": "se reposer",
+   "en": "to rest",
+   "leurres": [
+    "记得",
+    "打字",
+    "每次"
+   ]
+  },
+  {
+   "id": "睡觉",
+   "mot": "睡觉",
+   "pinyin": "shuìjiào",
+   "fr": "dormir",
+   "en": "to sleep",
+   "leurres": [
+    "午睡",
+    "今天",
+    "出国"
+   ]
+  },
+  {
+   "id": "午睡",
+   "mot": "午睡",
+   "pinyin": "wǔshuì",
+   "fr": "sieste",
+   "en": "nap",
+   "leurres": [
+    "睡觉",
+    "零钱",
+    "医生"
+   ]
+  },
+  {
+   "id": "起床",
+   "mot": "起床",
+   "pinyin": "qǐchuáng",
+   "fr": "se lever",
+   "en": "to get up",
+   "leurres": [
+    "起飞",
+    "书桌",
+    "回答"
+   ]
+  },
+  {
+   "id": "早饭",
+   "mot": "早饭",
+   "pinyin": "zǎofàn",
+   "fr": "petit-déjeuner",
+   "en": "breakfast",
+   "leurres": [
+    "做饭",
+    "饭桌",
+    "国外"
+   ]
+  },
+  {
+   "id": "做饭",
+   "mot": "做饭",
+   "pinyin": "zuòfàn",
+   "fr": "faire la cuisine",
+   "en": "to cook",
+   "leurres": [
+    "早饭",
+    "饭桌",
+    "小鸡"
+   ]
+  },
+  {
+   "id": "点菜",
+   "mot": "点菜",
+   "pinyin": "diǎncài",
+   "fr": "commander (au restaurant)",
+   "en": "to order dishes",
+   "leurres": [
+    "正好",
+    "假期",
+    "洗衣"
+   ]
+  },
+  {
+   "id": "面条",
+   "mot": "面条",
+   "pinyin": "miàntiáo",
+   "fr": "nouilles",
+   "en": "noodles",
+   "leurres": [
+    "下面",
+    "地面",
+    "上面"
+   ]
+  },
+  {
+   "id": "鸡蛋",
+   "mot": "鸡蛋",
+   "pinyin": "jīdàn",
+   "fr": "œuf de poule",
+   "en": "hen's egg",
+   "leurres": [
+    "鸡肉",
+    "小鸡",
+    "学生"
+   ]
+  },
+  {
+   "id": "鸡肉",
+   "mot": "鸡肉",
+   "pinyin": "jīròu",
+   "fr": "viande de poulet",
+   "en": "chicken meat",
+   "leurres": [
+    "牛肉",
+    "鸡蛋",
+    "小鸡"
+   ]
+  },
+  {
+   "id": "牛肉",
+   "mot": "牛肉",
+   "pinyin": "niúròu",
+   "fr": "viande de bœuf",
+   "en": "beef",
+   "leurres": [
+    "牛奶",
+    "鸡肉",
+    "水牛"
+   ]
+  },
+  {
+   "id": "牛奶",
+   "mot": "牛奶",
+   "pinyin": "niúnǎi",
+   "fr": "lait de vache",
+   "en": "cow's milk",
+   "leurres": [
+    "牛肉",
+    "奶茶",
+    "水牛"
+   ]
+  },
+  {
+   "id": "奶茶",
+   "mot": "奶茶",
+   "pinyin": "nǎichá",
+   "fr": "thé au lait",
+   "en": "milk tea",
+   "leurres": [
+    "热茶",
+    "牛奶",
+    "去年"
+   ]
+  },
+  {
+   "id": "热茶",
+   "mot": "热茶",
+   "pinyin": "rèchá",
+   "fr": "thé chaud",
+   "en": "hot tea",
+   "leurres": [
+    "热心",
+    "奶茶",
+    "热水"
+   ]
+  },
+  {
+   "id": "米酒",
+   "mot": "米酒",
+   "pinyin": "mǐjiǔ",
+   "fr": "alcool de riz",
+   "en": "rice wine",
+   "leurres": [
+    "画家",
+    "手机",
+    "考试"
+   ]
+  },
+  {
+   "id": "开水",
+   "mot": "开水",
+   "pinyin": "kāishuǐ",
+   "fr": "eau bouillie",
+   "en": "boiled water",
+   "leurres": [
+    "开车",
+    "大水",
+    "雨水"
+   ]
+  },
+  {
+   "id": "热水",
+   "mot": "热水",
+   "pinyin": "rèshuǐ",
+   "fr": "eau chaude",
+   "en": "hot water",
+   "leurres": [
+    "热茶",
+    "热心",
+    "大水"
+   ]
+  },
+  {
+   "id": "雨水",
+   "mot": "雨水",
+   "pinyin": "yǔshuǐ",
+   "fr": "eau de pluie",
+   "en": "rainwater",
+   "leurres": [
+    "大水",
+    "雨天",
+    "热水"
+   ]
+  },
+  {
+   "id": "水牛",
+   "mot": "水牛",
+   "pinyin": "shuǐniú",
+   "fr": "buffle",
+   "en": "water buffalo",
+   "leurres": [
+    "水手",
+    "热水",
+    "雨水"
+   ]
+  },
+  {
+   "id": "小马",
+   "mot": "小马",
+   "pinyin": "xiǎomǎ",
+   "fr": "poulain",
+   "en": "foal",
+   "leurres": [
+    "小妹",
+    "小弟",
+    "小学"
+   ]
+  },
+  {
+   "id": "小鸡",
+   "mot": "小鸡",
+   "pinyin": "xiǎojī",
+   "fr": "poussin",
+   "en": "chick",
+   "leurres": [
+    "小弟",
+    "小事",
+    "小妹"
+   ]
+  },
+  {
+   "id": "上山",
+   "mot": "上山",
+   "pinyin": "shàngshān",
+   "fr": "monter dans la montagne",
+   "en": "to go up the mountain",
+   "leurres": [
+    "上次",
+    "上班",
+    "上网"
+   ]
+  },
+  {
+   "id": "大水",
+   "mot": "大水",
+   "pinyin": "dàshuǐ",
+   "fr": "inondation",
+   "en": "flood",
+   "leurres": [
+    "大门",
+    "大笑",
+    "热水"
+   ]
+  },
+  {
+   "id": "大风",
+   "mot": "大风",
+   "pinyin": "dàfēng",
+   "fr": "vent fort",
+   "en": "strong wind",
+   "leurres": [
+    "大笑",
+    "大衣",
+    "大水"
+   ]
+  },
+  {
+   "id": "北风",
+   "mot": "北风",
+   "pinyin": "běifēng",
+   "fr": "vent du nord",
+   "en": "north wind",
+   "leurres": [
+    "大风",
+    "海风",
+    "北边"
+   ]
+  },
+  {
+   "id": "海风",
+   "mot": "海风",
+   "pinyin": "hǎifēng",
+   "fr": "brise de mer",
+   "en": "sea breeze",
+   "leurres": [
+    "北风",
+    "大风",
+    "风车"
+   ]
+  },
+  {
+   "id": "雨天",
+   "mot": "雨天",
+   "pinyin": "yǔtiān",
+   "fr": "jour de pluie",
+   "en": "rainy day",
+   "leurres": [
+    "今天",
+    "雨水",
+    "雨衣"
+   ]
+  },
+  {
+   "id": "雨衣",
+   "mot": "雨衣",
+   "pinyin": "yǔyī",
+   "fr": "imperméable",
+   "en": "raincoat",
+   "leurres": [
+    "毛衣",
+    "雨水",
+    "洗衣"
+   ]
+  },
+  {
+   "id": "大衣",
+   "mot": "大衣",
+   "pinyin": "dàyī",
+   "fr": "manteau",
+   "en": "overcoat",
+   "leurres": [
+    "毛衣",
+    "大事",
+    "大水"
+   ]
+  },
+  {
+   "id": "毛衣",
+   "mot": "毛衣",
+   "pinyin": "máoyī",
+   "fr": "pull en laine",
+   "en": "sweater",
+   "leurres": [
+    "大衣",
+    "洗衣",
+    "雨衣"
+   ]
+  },
+  {
+   "id": "衣服",
+   "mot": "衣服",
+   "pinyin": "yīfu",
+   "fr": "vêtements",
+   "en": "clothes",
+   "leurres": [
+    "洗衣",
+    "大衣",
+    "雨衣"
+   ]
+  },
+  {
+   "id": "日出",
+   "mot": "日出",
+   "pinyin": "rìchū",
+   "fr": "lever du soleil",
+   "en": "sunrise",
+   "leurres": [
+    "日记",
+    "外出",
+    "出国"
+   ]
+  },
+  {
+   "id": "白天",
+   "mot": "白天",
+   "pinyin": "báitiān",
+   "fr": "la journée, le jour",
+   "en": "daytime",
+   "leurres": [
+    "每天",
+    "今天",
+    "雨天"
+   ]
+  },
+  {
+   "id": "今天",
+   "mot": "今天",
+   "pinyin": "jīntiān",
+   "fr": "aujourd'hui",
+   "en": "today",
+   "leurres": [
+    "雨天",
+    "白天",
+    "今晚"
+   ]
+  },
+  {
+   "id": "今晚",
+   "mot": "今晚",
+   "pinyin": "jīnwǎn",
+   "fr": "ce soir",
+   "en": "tonight",
+   "leurres": [
+    "今天",
+    "昨晚",
+    "笑话"
+   ]
+  },
+  {
+   "id": "昨晚",
+   "mot": "昨晚",
+   "pinyin": "zuówǎn",
+   "fr": "hier soir",
+   "en": "last night",
+   "leurres": [
+    "今晚",
+    "牛奶",
+    "网友"
+   ]
+  },
+  {
+   "id": "每天",
+   "mot": "每天",
+   "pinyin": "měitiān",
+   "fr": "chaque jour",
+   "en": "every day",
+   "leurres": [
+    "白天",
+    "每次",
+    "今天"
+   ]
+  },
+  {
+   "id": "明年",
+   "mot": "明年",
+   "pinyin": "míngnián",
+   "fr": "l'an prochain",
+   "en": "next year",
+   "leurres": [
+    "去年",
+    "老年",
+    "百年"
+   ]
+  },
+  {
+   "id": "去年",
+   "mot": "去年",
+   "pinyin": "qùnián",
+   "fr": "l'an dernier",
+   "en": "last year",
+   "leurres": [
+    "老年",
+    "百年",
+    "半年"
+   ]
+  },
+  {
+   "id": "半年",
+   "mot": "半年",
+   "pinyin": "bànnián",
+   "fr": "six mois",
+   "en": "half a year",
+   "leurres": [
+    "老年",
+    "百年",
+    "去年"
+   ]
+  },
+  {
+   "id": "百年",
+   "mot": "百年",
+   "pinyin": "bǎinián",
+   "fr": "un siècle",
+   "en": "a century",
+   "leurres": [
+    "去年",
+    "明年",
+    "老年"
+   ]
+  },
+  {
+   "id": "下次",
+   "mot": "下次",
+   "pinyin": "xiàcì",
+   "fr": "la prochaine fois",
+   "en": "next time",
+   "leurres": [
+    "每次",
+    "下班",
+    "下课"
+   ]
+  },
+  {
+   "id": "上次",
+   "mot": "上次",
+   "pinyin": "shàngcì",
+   "fr": "la dernière fois",
+   "en": "last time",
+   "leurres": [
+    "上网",
+    "每次",
+    "下次"
+   ]
+  },
+  {
+   "id": "每次",
+   "mot": "每次",
+   "pinyin": "měicì",
+   "fr": "chaque fois",
+   "en": "every time",
+   "leurres": [
+    "下次",
+    "上次",
+    "每天"
+   ]
+  },
+  {
+   "id": "第一",
+   "mot": "第一",
+   "pinyin": "dìyī",
+   "fr": "premier",
+   "en": "first",
+   "leurres": [
+    "体重",
+    "听话",
+    "点菜"
+   ]
+  },
+  {
+   "id": "同时",
+   "mot": "同时",
+   "pinyin": "tóngshí",
+   "fr": "en même temps",
+   "en": "at the same time",
+   "leurres": [
+    "同事",
+    "同学",
+    "画家"
+   ]
+  },
+  {
+   "id": "同事",
+   "mot": "同事",
+   "pinyin": "tóngshì",
+   "fr": "collègue",
+   "en": "colleague",
+   "leurres": [
+    "大事",
+    "同时",
+    "小事"
+   ]
+  },
+  {
+   "id": "正好",
+   "mot": "正好",
+   "pinyin": "zhènghǎo",
+   "fr": "tomber juste",
+   "en": "just right",
+   "leurres": [
+    "好笑",
+    "好事",
+    "好人"
+   ]
+  },
+  {
+   "id": "东边",
+   "mot": "东边",
+   "pinyin": "dōngbian",
+   "fr": "côté est",
+   "en": "east side",
+   "leurres": [
+    "北边",
+    "西边",
+    "南边"
+   ]
+  },
+  {
+   "id": "西边",
+   "mot": "西边",
+   "pinyin": "xībiān",
+   "fr": "côté ouest",
+   "en": "west side",
+   "leurres": [
+    "东边",
+    "外边",
+    "里边"
+   ]
+  },
+  {
+   "id": "南边",
+   "mot": "南边",
+   "pinyin": "nánbian",
+   "fr": "côté sud",
+   "en": "south side",
+   "leurres": [
+    "后边",
+    "路边",
+    "北边"
+   ]
+  },
+  {
+   "id": "北边",
+   "mot": "北边",
+   "pinyin": "běibiān",
+   "fr": "côté nord",
+   "en": "north side",
+   "leurres": [
+    "右边",
+    "左边",
+    "路边"
+   ]
+  },
+  {
+   "id": "左边",
+   "mot": "左边",
+   "pinyin": "zuǒbian",
+   "fr": "à gauche",
+   "en": "left side",
+   "leurres": [
+    "路边",
+    "左手",
+    "里边"
+   ]
+  },
+  {
+   "id": "右边",
+   "mot": "右边",
+   "pinyin": "yòubian",
+   "fr": "à droite",
+   "en": "right side",
+   "leurres": [
+    "右手",
+    "外边",
+    "后边"
+   ]
+  },
+  {
+   "id": "里边",
+   "mot": "里边",
+   "pinyin": "lǐbian",
+   "fr": "dedans",
+   "en": "inside",
+   "leurres": [
+    "北边",
+    "旁边",
+    "后边"
+   ]
+  },
+  {
+   "id": "外边",
+   "mot": "外边",
+   "pinyin": "wàibian",
+   "fr": "dehors",
+   "en": "outside",
+   "leurres": [
+    "北边",
+    "东边",
+    "外出"
+   ]
+  },
+  {
+   "id": "前边",
+   "mot": "前边",
+   "pinyin": "qiánbian",
+   "fr": "devant",
+   "en": "in front",
+   "leurres": [
+    "旁边",
+    "西边",
+    "后边"
+   ]
+  },
+  {
+   "id": "后边",
+   "mot": "后边",
+   "pinyin": "hòubian",
+   "fr": "derrière",
+   "en": "behind",
+   "leurres": [
+    "左边",
+    "右边",
+    "北边"
+   ]
+  },
+  {
+   "id": "进城",
+   "mot": "进城",
+   "pinyin": "jìnchéng",
+   "fr": "aller en ville",
+   "en": "to go into town",
+   "leurres": [
+    "地面",
+    "跑车",
+    "难看"
+   ]
+  },
+  {
+   "id": "工地",
+   "mot": "工地",
+   "pinyin": "gōngdì",
+   "fr": "chantier",
+   "en": "building site",
+   "leurres": [
+    "手工",
+    "地面",
+    "地球"
+   ]
+  },
+  {
+   "id": "男友",
+   "mot": "男友",
+   "pinyin": "nányǒu",
+   "fr": "petit ami",
+   "en": "boyfriend",
+   "leurres": [
+    "男女",
+    "网友",
+    "笔记"
+   ]
+  },
+  {
+   "id": "男女",
+   "mot": "男女",
+   "pinyin": "nánnǚ",
+   "fr": "hommes et femmes",
+   "en": "men and women",
+   "leurres": [
+    "男友",
+    "女孩",
+    "女生"
+   ]
+  },
+  {
+   "id": "姐妹",
+   "mot": "姐妹",
+   "pinyin": "jiěmèi",
+   "fr": "sœurs",
+   "en": "sisters",
+   "leurres": [
+    "小妹",
+    "小姐",
+    "国画"
+   ]
+  },
+  {
+   "id": "小妹",
+   "mot": "小妹",
+   "pinyin": "xiǎomèi",
+   "fr": "petite sœur",
+   "en": "little sister",
+   "leurres": [
+    "小事",
+    "小马",
+    "小吃"
+   ]
+  },
+  {
+   "id": "小弟",
+   "mot": "小弟",
+   "pinyin": "xiǎodì",
+   "fr": "petit frère",
+   "en": "little brother",
+   "leurres": [
+    "小鸡",
+    "小吃",
+    "小马"
+   ]
+  },
+  {
+   "id": "小孩",
+   "mot": "小孩",
+   "pinyin": "xiǎohái",
+   "fr": "enfant",
+   "en": "child",
+   "leurres": [
+    "女孩",
+    "小马",
+    "小学"
+   ]
+  },
+  {
+   "id": "女孩",
+   "mot": "女孩",
+   "pinyin": "nǚhái",
+   "fr": "fillette",
+   "en": "girl",
+   "leurres": [
+    "小孩",
+    "女生",
+    "男女"
+   ]
+  },
+  {
+   "id": "少年",
+   "mot": "少年",
+   "pinyin": "shàonián",
+   "fr": "adolescent",
+   "en": "teenager",
+   "leurres": [
+    "去年",
+    "半年",
+    "老年"
+   ]
+  },
+  {
+   "id": "老年",
+   "mot": "老年",
+   "pinyin": "lǎonián",
+   "fr": "vieillesse",
+   "en": "old age",
+   "leurres": [
+    "百年",
+    "老家",
+    "少年"
+   ]
+  },
+  {
+   "id": "小姐",
+   "mot": "小姐",
+   "pinyin": "xiǎojie",
+   "fr": "mademoiselle",
+   "en": "miss",
+   "leurres": [
+    "小弟",
+    "小学",
+    "小妹"
+   ]
+  },
+  {
+   "id": "小吃",
+   "mot": "小吃",
+   "pinyin": "xiǎochī",
+   "fr": "en-cas",
+   "en": "snack",
+   "leurres": [
+    "小马",
+    "小鸡",
+    "小学"
+   ]
+  },
+  {
+   "id": "小事",
+   "mot": "小事",
+   "pinyin": "xiǎoshì",
+   "fr": "broutille",
+   "en": "trifle",
+   "leurres": [
+    "小孩",
+    "小学",
+    "小妹"
+   ]
+  },
+  {
+   "id": "大事",
+   "mot": "大事",
+   "pinyin": "dàshì",
+   "fr": "grande affaire",
+   "en": "major event",
+   "leurres": [
+    "大脑",
+    "坏事",
+    "大笑"
+   ]
+  },
+  {
+   "id": "好事",
+   "mot": "好事",
+   "pinyin": "hǎoshì",
+   "fr": "bonne chose",
+   "en": "good thing",
+   "leurres": [
+    "好人",
+    "同事",
+    "小事"
+   ]
+  },
+  {
+   "id": "坏事",
+   "mot": "坏事",
+   "pinyin": "huàishì",
+   "fr": "mauvaise action",
+   "en": "bad deed",
+   "leurres": [
+    "坏人",
+    "大事",
+    "好事"
+   ]
+  },
+  {
+   "id": "好人",
+   "mot": "好人",
+   "pinyin": "hǎorén",
+   "fr": "quelqu'un de bien",
+   "en": "good person",
+   "leurres": [
+    "家人",
+    "好事",
+    "病人"
+   ]
+  },
+  {
+   "id": "坏人",
+   "mot": "坏人",
+   "pinyin": "huàirén",
+   "fr": "méchant",
+   "en": "bad person",
+   "leurres": [
+    "爱人",
+    "行人",
+    "坏事"
+   ]
+  },
+  {
+   "id": "假话",
+   "mot": "假话",
+   "pinyin": "jiǎhuà",
+   "fr": "mensonge",
+   "en": "lie",
+   "leurres": [
+    "听话",
+    "笑话",
+    "假期"
+   ]
+  },
+  {
+   "id": "笑话",
+   "mot": "笑话",
+   "pinyin": "xiàohua",
+   "fr": "blague",
+   "en": "joke",
+   "leurres": [
+    "假话",
+    "听话",
+    "可笑"
+   ]
+  },
+  {
+   "id": "大笑",
+   "mot": "大笑",
+   "pinyin": "dàxiào",
+   "fr": "éclater de rire",
+   "en": "to laugh out loud",
+   "leurres": [
+    "大衣",
+    "大风",
+    "可笑"
+   ]
+  },
+  {
+   "id": "好笑",
+   "mot": "好笑",
+   "pinyin": "hǎoxiào",
+   "fr": "drôle",
+   "en": "funny",
+   "leurres": [
+    "大笑",
+    "好人",
+    "好事"
+   ]
+  },
+  {
+   "id": "可笑",
+   "mot": "可笑",
+   "pinyin": "kěxiào",
+   "fr": "ridicule",
+   "en": "ridiculous",
+   "leurres": [
+    "大笑",
+    "笑话",
+    "点菜"
+   ]
+  },
+  {
+   "id": "难看",
+   "mot": "难看",
+   "pinyin": "nánkàn",
+   "fr": "laid",
+   "en": "ugly",
+   "leurres": [
+    "难听",
+    "难吃",
+    "看到"
+   ]
+  },
+  {
+   "id": "难吃",
+   "mot": "难吃",
+   "pinyin": "nánchī",
+   "fr": "mauvais au goût",
+   "en": "tastes bad",
+   "leurres": [
+    "难看",
+    "小吃",
+    "难听"
+   ]
+  },
+  {
+   "id": "难听",
+   "mot": "难听",
+   "pinyin": "nántīng",
+   "fr": "désagréable à entendre",
+   "en": "unpleasant to hear",
+   "leurres": [
+    "难看",
+    "难吃",
+    "听到"
+   ]
+  },
+  {
+   "id": "爱人",
+   "mot": "爱人",
+   "pinyin": "àiren",
+   "fr": "époux, épouse",
+   "en": "spouse",
+   "leurres": [
+    "爱心",
+    "客人",
+    "好人"
+   ]
+  },
+  {
+   "id": "爱心",
+   "mot": "爱心",
+   "pinyin": "àixīn",
+   "fr": "bienveillance",
+   "en": "compassion",
+   "leurres": [
+    "放心",
+    "爱人",
+    "好人"
+   ]
+  },
+  {
+   "id": "热心",
+   "mot": "热心",
+   "pinyin": "rèxīn",
+   "fr": "serviable",
+   "en": "warm-hearted",
+   "leurres": [
+    "热水",
+    "放心",
+    "热茶"
+   ]
+  },
+  {
+   "id": "放心",
+   "mot": "放心",
+   "pinyin": "fàngxīn",
+   "fr": "être rassuré",
+   "en": "to feel relieved",
+   "leurres": [
+    "放学",
+    "放假",
+    "热心"
+   ]
+  },
+  {
+   "id": "忘记",
+   "mot": "忘记",
+   "pinyin": "wàngjì",
+   "fr": "oublier",
+   "en": "to forget",
+   "leurres": [
+    "日记",
+    "笔记",
+    "记得"
+   ]
+  },
+  {
+   "id": "记得",
+   "mot": "记得",
+   "pinyin": "jìde",
+   "fr": "se souvenir",
+   "en": "to remember",
+   "leurres": [
+    "日记",
+    "笔记",
+    "忘记"
+   ]
+  },
+  {
+   "id": "看到",
+   "mot": "看到",
+   "pinyin": "kàndào",
+   "fr": "voir",
+   "en": "to see",
+   "leurres": [
+    "听到",
+    "找到",
+    "难看"
+   ]
+  },
+  {
+   "id": "听到",
+   "mot": "听到",
+   "pinyin": "tīngdào",
+   "fr": "entendre",
+   "en": "to hear",
+   "leurres": [
+    "听话",
+    "找到",
+    "听写"
+   ]
+  },
+  {
+   "id": "找到",
+   "mot": "找到",
+   "pinyin": "zhǎodào",
+   "fr": "trouver",
+   "en": "to find",
+   "leurres": [
+    "听到",
+    "看到",
+    "起床"
+   ]
+  },
+  {
+   "id": "拿来",
+   "mot": "拿来",
+   "pinyin": "nálái",
+   "fr": "apporter",
+   "en": "to bring",
+   "leurres": [
+    "来回",
+    "来信",
+    "听到"
+   ]
+  },
+  {
+   "id": "送给",
+   "mot": "送给",
+   "pinyin": "sònggěi",
+   "fr": "offrir à",
+   "en": "to give as a gift",
+   "leurres": [
+    "外边",
+    "起飞",
+    "打字"
+   ]
+  },
+  {
+   "id": "来信",
+   "mot": "来信",
+   "pinyin": "láixìn",
+   "fr": "lettre reçue",
+   "en": "letter received",
+   "leurres": [
+    "来回",
+    "拿来",
+    "商店"
+   ]
+  },
+  {
+   "id": "卖完",
+   "mot": "卖完",
+   "pinyin": "màiwán",
+   "fr": "épuisé (tout vendu)",
+   "en": "sold out",
+   "leurres": [
+    "吃完",
+    "口渴",
+    "路口"
+   ]
+  },
+  {
+   "id": "吃完",
+   "mot": "吃完",
+   "pinyin": "chīwán",
+   "fr": "finir de manger",
+   "en": "to finish eating",
+   "leurres": [
+    "卖完",
+    "难吃",
+    "小吃"
+   ]
+  },
+  {
+   "id": "听写",
+   "mot": "听写",
+   "pinyin": "tīngxiě",
+   "fr": "dictée",
+   "en": "dictation",
+   "leurres": [
+    "听到",
+    "听话",
+    "手写"
+   ]
+  },
+  {
+   "id": "听话",
+   "mot": "听话",
+   "pinyin": "tīnghuà",
+   "fr": "obéissant",
+   "en": "obedient",
+   "leurres": [
+    "假话",
+    "笑话",
+    "听写"
+   ]
+  },
+  {
+   "id": "打字",
+   "mot": "打字",
+   "pinyin": "dǎzì",
+   "fr": "taper au clavier",
+   "en": "to type",
+   "leurres": [
+    "文字",
+    "打球",
+    "字母"
+   ]
+  },
+  {
+   "id": "近视",
+   "mot": "近视",
+   "pinyin": "jìnshì",
+   "fr": "myope",
+   "en": "short-sighted",
+   "leurres": [
+    "远视",
+    "电视",
+    "小鸡"
+   ]
+  },
+  {
+   "id": "远视",
+   "mot": "远视",
+   "pinyin": "yuǎnshì",
+   "fr": "hypermétrope",
+   "en": "long-sighted",
+   "leurres": [
+    "电视",
+    "近视",
+    "上面"
+   ]
+  },
+  {
+   "id": "零下",
+   "mot": "零下",
+   "pinyin": "língxià",
+   "fr": "au-dessous de zéro",
+   "en": "below zero",
+   "leurres": [
+    "地下",
+    "楼下",
+    "零钱"
+   ]
+  },
+  {
+   "id": "果树",
+   "mot": "果树",
+   "pinyin": "guǒshù",
+   "fr": "arbre fruitier",
+   "en": "fruit tree",
+   "leurres": [
+    "水牛",
+    "同事",
+    "大衣"
+   ]
+  },
+  {
+   "id": "红花",
+   "mot": "红花",
+   "pinyin": "hónghuā",
+   "fr": "fleur rouge",
+   "en": "red flower",
+   "leurres": [
+    "红包",
+    "花店",
+    "商场"
+   ]
+  }
+ ],
+ "racines": {
+  "一": "一",
+  "上": "上",
+  "下": "下",
+  "东": "东",
+  "中": "中",
+  "习": "习",
+  "书": "书",
+  "事": "事",
+  "人": "人",
+  "今": "今",
+  "休": "亻",
+  "体": "亻",
+  "作": "亻",
+  "信": "亻",
+  "假": "亻",
+  "做": "亻",
+  "写": "冖",
+  "出": "出",
+  "到": "至",
+  "前": "丷",
+  "包": "勹",
+  "北": "匕",
+  "医": "匚",
+  "午": "午",
+  "半": "半",
+  "卖": "十",
+  "南": "南",
+  "去": "去",
+  "友": "又",
+  "口": "口",
+  "可": "丁",
+  "右": "口",
+  "吃": "口",
+  "同": "凡",
+  "名": "夕",
+  "后": "后",
+  "听": "口",
+  "唱": "口",
+  "商": "亠",
+  "回": "囗",
+  "国": "囗",
+  "地": "土",
+  "场": "土",
+  "坏": "土",
+  "城": "土",
+  "外": "夕",
+  "大": "大",
+  "天": "天",
+  "女": "女",
+  "奶": "女",
+  "好": "女",
+  "妹": "女",
+  "姐": "女",
+  "姓": "女",
+  "字": "宀",
+  "学": "子",
+  "孩": "子",
+  "完": "宀",
+  "客": "宀",
+  "家": "宀",
+  "小": "小",
+  "少": "少",
+  "山": "山",
+  "工": "工",
+  "左": "工",
+  "帮": "丰",
+  "年": "年",
+  "床": "广",
+  "店": "广",
+  "开": "开",
+  "弟": "弟",
+  "影": "日",
+  "得": "彳",
+  "心": "心",
+  "忘": "亡",
+  "忙": "忄",
+  "息": "自",
+  "房": "户",
+  "手": "手",
+  "打": "扌",
+  "找": "扌",
+  "拿": "人",
+  "放": "方",
+  "教": "耂",
+  "文": "文",
+  "旁": "立",
+  "日": "日",
+  "早": "日",
+  "时": "日",
+  "明": "日",
+  "星": "日",
+  "昨": "日",
+  "晚": "日",
+  "服": "月",
+  "期": "其",
+  "本": "本",
+  "机": "木",
+  "条": "夂",
+  "来": "来",
+  "果": "果",
+  "树": "木",
+  "校": "木",
+  "桌": "⺊",
+  "楼": "木",
+  "次": "冫",
+  "歌": "丁",
+  "正": "正",
+  "母": "母",
+  "每": "母",
+  "毛": "毛",
+  "气": "气",
+  "水": "水",
+  "洗": "氵",
+  "海": "氵",
+  "渴": "氵",
+  "点": "⺊",
+  "热": "扌",
+  "爱": "爫",
+  "牛": "牛",
+  "王": "王",
+  "班": "王",
+  "球": "王",
+  "生": "生",
+  "电": "电",
+  "男": "田",
+  "画": "一",
+  "病": "疒",
+  "白": "白",
+  "百": "百",
+  "看": "手",
+  "睡": "目",
+  "票": "覀",
+  "站": "立",
+  "笑": "⺮",
+  "笔": "⺮",
+  "第": "⺮",
+  "答": "⺮",
+  "米": "米",
+  "红": "纟",
+  "给": "纟",
+  "网": "冂",
+  "老": "老",
+  "考": "耂",
+  "肉": "肉",
+  "脑": "月",
+  "花": "艹",
+  "茶": "艹",
+  "菜": "艹",
+  "蛋": "乛",
+  "行": "彳",
+  "衣": "衣",
+  "西": "西",
+  "视": "礻",
+  "觉": "见",
+  "记": "讠",
+  "试": "讠",
+  "话": "讠",
+  "语": "讠",
+  "读": "讠",
+  "课": "讠",
+  "走": "土",
+  "起": "土",
+  "跑": "口",
+  "路": "口",
+  "身": "身",
+  "车": "车",
+  "边": "辶",
+  "近": "辶",
+  "进": "辶",
+  "远": "辶",
+  "送": "辶",
+  "酒": "氵",
+  "里": "里",
+  "重": "重",
+  "钱": "钅",
+  "长": "长",
+  "门": "门",
+  "问": "门",
+  "院": "阝",
+  "难": "又",
+  "雨": "雨",
+  "零": "雨",
+  "面": "面",
+  "风": "风",
+  "飞": "飞",
+  "饭": "饣",
+  "马": "马",
+  "高": "高",
+  "鸡": "又"
+ }
+}

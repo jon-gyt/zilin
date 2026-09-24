@@ -408,6 +408,8 @@ def test_un_conte_non_relu_n_entre_pas_dans_l_export(atelier: Path) -> None:
     assert index["contes"] == [
         {
             "id": "temoin",
+            "titre_zh": "",
+            "titre_pinyin": "",
             "titre_fr": "Témoin",
             "titre_en": "Witness",
             "seuils": [255],
@@ -419,6 +421,149 @@ def test_un_conte_non_relu_n_entre_pas_dans_l_export(atelier: Path) -> None:
     assert lue["titre_pinyin"] == "míng rì"
     assert lue["phrases"] == [{"zh": "明日。", "pinyin": "míng rì", "fr": "Demain.", "en": "Tomorrow."}]
     assert lue["glose"] == {"明": {"pinyin": "", "fr": "clair", "en": ""}}
+
+
+# ---------------------------------------------------------------------------- aperçu
+
+
+def version_conte(statut: str, *, seuil: int = 255, conte: str = "temoin") -> contes_mod.Version:
+    """Une version de conte reconnaissable, au statut voulu."""
+    return contes_mod.Version(
+        conte=conte,
+        seuil=seuil,
+        titre="明日",
+        titre_pinyin="míng rì",
+        titre_fr="Témoin",
+        titre_en="Witness",
+        ouvrage="《témoin》",
+        resume_fr="Un témoin.",
+        phrases=[contes_mod.Phrase(zh="明日休。", pinyin="míng rì xiū", fr="Demain, repos.", en="Rest tomorrow.")],
+        glose={"明": "clair"},
+        generation=contes_mod.Generation(
+            modele="claude-opus-5", api="messages", date="2026-09-21T10:00:00Z",
+            empreinte_invite="sha256:0", essais=1,
+        ),
+        statut=statut,
+    )
+
+
+def _controle_apercu() -> object:
+    resultats = {
+        c.nom: c for c in controles(export_mod.EXPORT, build=export_mod.BUILD, ingest=export_mod.INGEST)
+    }
+    return resultats["export : aperçu"]
+
+
+def test_une_fiche_a_relire_entre_dans_l_apercu_et_pas_dans_l_export(atelier: Path) -> None:
+    fiches_mod.ecrire_fiche(fiche_generee("休", statut=fiches_mod.A_RELIRE))
+    rapport = export("0.1.0")
+    assert fiche_de(rapport.dossier, "亻", "休")["statut"] == "sans_fiche", "l'export principal reste sans texte"
+
+    index = lire(rapport.dossier, "index.json")
+    assert index["apercu"] == "apercu/index.json"
+    apercu = lire(rapport.dossier, "apercu/index.json")
+    assert apercu["statut"] == "a_relire"
+    assert apercu["familles"] == [
+        {"racine": "亻", "fichier": "apercu/familles/亻.json", "caracteres": ["休"]}
+    ]
+    assert apercu["compte"] == {"fiches": 1, "contes": 0, "versions": 0}
+
+    famille = lire(rapport.dossier, "apercu/familles/亻.json")
+    assert famille["statut"] == "a_relire" and famille["racine"] == "亻"
+    (休,) = famille["fiches"]  # type: ignore[misc]
+    assert 休["statut"] == "a_relire"
+    assert 休["origine_fr"].startswith("Une personne")
+    assert 休["etiquette"] == "atteste"
+    assert 休["role"] == "sens", "le rôle de l'élément ajouté, lu sur la décomposition exportée"
+    assert 休["mots"][0]["hanzi"] == "休息"
+    assert 休["phrase"]["hanzi"] == "人休。"
+    assert "parts" not in 休 and "pinyin" not in 休, "la décomposition reste celle de familles/"
+    assert rapport.apercu_fiches == 1 and rapport.octets_apercu > 0
+    assert _controle_apercu().ok  # type: ignore[attr-defined]
+
+
+def test_une_fiche_relue_ou_rejetee_n_entre_jamais_dans_l_apercu(atelier: Path) -> None:
+    fiches_mod.ecrire_fiche(fiche_generee("休", statut=fiches_mod.RELU))
+    fiches_mod.ecrire_fiche(fiche_generee("明", statut=fiches_mod.REJETE))
+    rapport = export("0.1.0")
+    assert not (rapport.dossier / "apercu").exists()
+    assert "apercu" not in lire(rapport.dossier, "index.json"), "le champ est optionnel : rien à relire, rien à renvoyer"
+    assert rapport.apercu_fiches == 0
+    assert _controle_apercu().ok  # type: ignore[attr-defined]
+
+
+def test_un_conte_a_relire_entre_dans_l_apercu(atelier: Path) -> None:
+    contes_mod.ecrire_version(version_conte(contes_mod.A_RELIRE))
+    contes_mod.ecrire_version(version_conte(contes_mod.REJETE, conte="rejete"))
+    rapport = export("0.1.0")
+    assert lire(rapport.dossier, "index.json")["contes"] == []
+    assert not (rapport.dossier / "contes").exists()
+
+    apercu = lire(rapport.dossier, "apercu/index.json")
+    assert apercu["contes"] == [
+        {
+            "id": "temoin",
+            "titre_fr": "Témoin",
+            "titre_en": "Witness",
+            "seuils": [255],
+            "fichier": "apercu/contes/temoin.json",
+            "statut": "a_relire",
+        }
+    ]
+    conte = lire(rapport.dossier, "apercu/contes/temoin.json")
+    assert conte["statut"] == "a_relire" and conte["conte"] == "temoin"
+    assert conte["versions"]["255"]["statut"] == "a_relire"  # type: ignore[index]
+    assert conte["versions"]["255"]["phrases"][0]["zh"] == "明日休。"  # type: ignore[index]
+    assert rapport.apercu_versions == 1
+    assert _controle_apercu().ok  # type: ignore[attr-defined]
+
+
+def test_l_apercu_est_deterministe_et_dans_l_empreinte(atelier: Path) -> None:
+    fiches_mod.ecrire_fiche(fiche_generee("休", statut=fiches_mod.A_RELIRE))
+    contes_mod.ecrire_version(version_conte(contes_mod.A_RELIRE))
+    premier = export("0.1.0")
+    avant = {c: c.read_bytes() for c in sorted(premier.dossier.rglob("*")) if c.is_file()}
+    second = export("0.1.0")
+    apres = {c: c.read_bytes() for c in sorted(second.dossier.rglob("*")) if c.is_file()}
+    assert avant == apres
+    assert _a_jour()
+
+    # Relire la fiche change sa source : l'export est périmé, et l'aperçu fautif.
+    fiches_mod.relire("休", fiches_mod.RELU)
+    assert not _a_jour()
+    controle = _controle_apercu()
+    assert not controle.ok and controle.bloquant  # type: ignore[attr-defined]
+    assert "休 n'est plus à relire" in controle.detail  # type: ignore[attr-defined]
+
+    # Réexporter la range dans l'export principal et la retire de l'aperçu.
+    rapport = export("0.1.0")
+    assert fiche_de(rapport.dossier, "亻", "休")["statut"] == "relu"
+    assert not (rapport.dossier / "apercu" / "familles").exists()
+    assert _controle_apercu().ok  # type: ignore[attr-defined]
+
+
+def test_le_controle_refuse_un_texte_relu_dans_l_apercu(atelier: Path) -> None:
+    fiches_mod.ecrire_fiche(fiche_generee("休", statut=fiches_mod.A_RELIRE))
+    rapport = export("0.1.0")
+    chemin = rapport.dossier / "apercu" / "familles" / "亻.json"
+    famille = lire(rapport.dossier, "apercu/familles/亻.json")
+    famille["fiches"][0]["statut"] = "relu"  # type: ignore[index]
+    chemin.write_text(json.dumps(famille, ensure_ascii=False), encoding="utf-8")
+    controle = _controle_apercu()
+    assert not controle.ok and controle.bloquant  # type: ignore[attr-defined]
+    assert "au statut 'relu'" in controle.detail  # type: ignore[attr-defined]
+
+
+def test_le_controle_refuse_un_fichier_d_apercu_hors_index(atelier: Path) -> None:
+    rapport = export("0.1.0")
+    intrus = rapport.dossier / "apercu" / "contes" / "intrus.json"
+    intrus.parent.mkdir(parents=True)
+    intrus.write_text("{}", encoding="utf-8")
+    controle = _controle_apercu()
+    assert not controle.ok  # type: ignore[attr-defined]
+    assert "apercu/contes/intrus.json : hors de l'index" in controle.detail  # type: ignore[attr-defined]
+    export("0.1.0")
+    assert not intrus.exists(), "l'export retire ce qu'il n'écrit pas"
 
 
 # -------------------------------------------------------------------------- licences

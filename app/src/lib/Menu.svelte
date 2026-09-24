@@ -38,10 +38,10 @@
   import Tao from './Tao.svelte';
   import { aAudio, dire, manifesteOnce, type Manifeste } from './audio';
   import {
-    contenu,
     devinettesOnce,
     fiche,
     lecon,
+    nombreDeContes,
     toutesLesFamilles,
     traitsDe,
     type Devinette,
@@ -228,9 +228,10 @@
         if (vivant) familles = l;
       })
       .catch(() => undefined);
-    void contenu()
-      .then((i) => {
-        if (vivant) contes = i.contes.length;
+    /* L'aperçu allumé, les contes à relire comptent : la case dit ce que Lire ouvre. */
+    void nombreDeContes()
+      .then((n) => {
+        if (vivant) contes = n;
       })
       .catch(() => undefined);
     void devinettesOnce()

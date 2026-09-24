@@ -26,6 +26,7 @@ import {
   type Corpus as CorpusQuestions,
   type Paires
 } from './questions';
+import { TOURS_ECLAIR, dictionnaire, toursEclair, type Dictionnaire, type Eclair } from './eclair';
 import { devinetteFaite, type Progress, type Revision } from './session';
 import { grade, newCard, schedule, type Outcome, type ReviewCard, type SrsParams } from './srs';
 import { humeur, proposeUnJeu } from './tao';
@@ -112,6 +113,8 @@ export type CorpusJeux = {
   textes: readonly string[];
   /** Les devinettes de lanternes et ce qu'il faut pour choisir celle du jour. Absent : pas de devinette. */
   lanternes?: Lanternes;
+  /** Le dictionnaire éclair (`eclair.ts`) : ses mots et ce qu'il faut pour les choisir. Absent : pas d'éclair. */
+  eclair?: Dictionnaire;
 };
 
 /**
@@ -207,6 +210,10 @@ export type Sources = {
   resolues?: readonly string[];
   /** La devinette déjà posée aujourd'hui, s'il y en a une. */
   posee?: string | null;
+  /** Le dictionnaire éclair de l'export (`eclair.json`). */
+  eclair?: Eclair | null;
+  /** Les mots déjà devinés, `Progress.motsDevines`. */
+  devines?: readonly string[];
 };
 
 /**
@@ -295,18 +302,20 @@ export function corpusDeJeu(s: Sources): CorpusJeux {
       posee: s.posee ?? null
     };
   }
+  const d = dictionnaire(s);
+  if (d !== null) corpus.eclair = d;
   return corpus;
 }
 
 /* ---------- le contrat commun ---------- */
 
-export type JeuId = 'devinette' | 'assembler' | 'jumeaux' | 'chaine' | 'coquille';
+export type JeuId = 'devinette' | 'assembler' | 'jumeaux' | 'chaine' | 'coquille' | 'eclair';
 
 /**
  * L'ordre de référence des jeux, celui de l'écran Jouer. La devinette du jour passe en
  * tête : c'est elle que la case Jouer du menu annonce.
  */
-export const IDS: readonly JeuId[] = ['devinette', 'assembler', 'jumeaux', 'chaine', 'coquille'];
+export const IDS: readonly JeuId[] = ['devinette', 'assembler', 'jumeaux', 'chaine', 'coquille', 'eclair'];
 
 /** Un caractère et sa décomposition : ce que montre la correction par les briques. */
 export type Correction = { c: string; briques: string[] };
@@ -336,6 +345,8 @@ export type Tour = {
   correction?: Correction[];
   /** La devinette : son identifiant, que la progression range une fois résolue. */
   devinette?: string;
+  /** Le dictionnaire éclair : le mot à deviner, que la progression range une fois deviné. */
+  mot?: string;
 };
 
 /** Une manche : la suite des tours, où l'on en est, et ce qui a été noté. */
@@ -979,7 +990,8 @@ const COMPTES: Record<JeuId, { un: string; plusieurs: string; aucun: string }> =
     un: 'coquille trouvée',
     plusieurs: 'coquilles trouvées',
     aucun: 'aucune coquille trouvée'
-  }
+  },
+  eclair: { un: 'mot deviné', plusieurs: 'mots devinés', aucun: 'aucun mot deviné' }
 };
 
 /**
@@ -1072,6 +1084,19 @@ export const JEUX: Record<JeuId, Jeu> = {
     limite: 0,
     indisponible: 'Pas encore de mot ni de phrase écrits avec les caractères acquis.',
     preparer: (corpus, graine) => manche('coquille', graine, toursCoquille(corpus, graine)),
+    repondre,
+    constat
+  },
+  eclair: {
+    id: 'eclair',
+    titre: 'Le dictionnaire éclair',
+    lit: 'Deviner le sens d’un mot jamais appris, depuis ses deux caractères.',
+    minutes: 2,
+    tours: TOURS_ECLAIR,
+    chrono: 0,
+    limite: 0,
+    indisponible: 'Pas encore de mot nouveau dont les deux caractères soient acquis.',
+    preparer: (corpus, graine) => manche('eclair', graine, toursEclair(corpus, graine)),
     repondre,
     constat
   }

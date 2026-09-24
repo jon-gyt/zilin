@@ -32,6 +32,7 @@ app/public/data/0.1.0/
   fetes.json                 le calendrier des fêtes et leurs textes
   saisons.json               les vingt-quatre termes solaires et leurs textes
   devinettes.json            les devinettes de lanternes (灯谜)
+  eclair.json                le dictionnaire éclair : des mots à deviner
   familles/<racine>.json     une famille : `Famille` de models.py
   traits/<racine>.json       les tracés de la famille, sous APL, et rien d'autre
   traits/ARPHICPL.TXT        la même licence, à côté des fichiers qu'elle couvre
@@ -248,6 +249,33 @@ décomposition GF 0014-2009 exportée et leur disposition.
 - `racines` : la famille de chaque caractère dessiné (réponse, briques, leurres).
   Aucun n'est hors du périmètre : les devinettes n'y font entrer aucun caractère.
 
+## `eclair.json`
+
+Tiré de `data/sources/eclair/mots.tsv` (story 4b.4) : des mots de deux caractères
+des listes cibles, dont le sens se devine depuis les deux caractères. La liste des
+mots est relevée parmi les entrées de CC-CEDICT, dont seul le mot est repris ; le
+sens, en français et en anglais, est rédigé pour l'app ; le pinyin, écrit dans la
+source, se lit dans les lectures d'Unihan ou des surcharges.
+
+```json
+{"version": "0.1.0", "license": "propriétaire", "source": "…", "source_url": "…", "modified": "…",
+ "mots": [{"id": "电脑", "mot": "电脑", "pinyin": "diànnǎo", "fr": "ordinateur", "en": "computer",
+           "leurres": ["大脑", "电视", "远视"]}],
+ "racines": {"电": "电", "脑": "月", "…": "…"}}
+```
+
+- `id` est le mot. La progression range les mots devinés par `id`
+  (`Progress.motsDevines`), chacun une fois : c'est le compteur « mots devinés ».
+- `leurres` : trois autres mots du même fichier, dont l'app montre le sens `fr` ;
+  choisis à l'export, les voisins d'abord (un caractère partagé, au même rang puis à
+  l'autre), jamais un mot de même étiquette `proches` dans la source, jamais un sens
+  identique.
+- `racines` : la famille de chaque caractère des mots, pour trouver ses traits. Un mot
+  dont un caractère ne se dessine pas n'est pas exporté : l'éclair ne fait entrer aucun
+  caractère dans le périmètre.
+- L'app ne propose un mot que si ses deux caractères sont acquis (stabilité FSRS au
+  seuil) et qu'il n'est pas un mot de la fiche d'un caractère déjà appris.
+
 ## `LICENCES.md`
 
 Écrit par l'export. Un tableau `source | usage | licence | attribution | texte de
@@ -280,6 +308,14 @@ ce que l'app embarque ; `docs/sources-licences.md` fait foi pour la décision.
   disposition celle de la structure IDS ; trois leurres distincts, jamais la réponse
   ni une seconde réponse ; tout ce qui se dessine a ses traits ; la réponse et ses
   briques sont posées par un parcours, sans quoi la devinette ne viendrait jamais.
+- « éclair : sources », « pinyin », « périmètre », « leurres », « parcours »,
+  « CC-CEDICT » — bloquants : deux caractères distincts, sens fr et en et source
+  présents, aucun mot ni sens en double, aucun mot de `mots-exclus.tsv` ; le pinyin
+  se lit dans Unihan et les surcharges ; les deux caractères sont dans les listes
+  cibles et dans les traits exportés, chaque mot est exporté ; trois leurres
+  distincts, jamais un proche ; chaque caractère est posé par un parcours ; chaque mot
+  est une entrée de CC-CEDICT, pas un nom propre. « éclair : mots de fiche » —
+  signalé : un mot qu'une fiche fait déjà lire ne sera proposé qu'avant elle.
 
 ## Format intermédiaire (story 1.1)
 

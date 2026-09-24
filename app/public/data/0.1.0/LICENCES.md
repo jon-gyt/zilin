@@ -9,26 +9,26 @@
 | Unihan (Unicode Character Database) | pinyin (`kMandarin`) des fiches | Unicode License | Copyright © 1991-2009 Unicode, Inc. | `UNICODE-LICENSE.txt` |
 | Make Me a Hanzi — dictionary.txt | chaîne IDS réconciliée avec GF 0014-2009 (`parts`, `sources: ["makemeahanzi"]`) | LGPL 3.0 ou ultérieure | Copyright (C) 2016 Shaunak Kishore | https://www.gnu.org/licenses/lgpl-3.0.html — question ouverte, voir ci-dessous |
 | cjk-decomp | chaîne IDS de repli (`sources: ["cjk-decomp"]`) | MIT (au choix parmi six licences) | Copyright (c) Gavin Grover | https://github.com/amake/cjk-decomp |
-| CC-CEDICT (MDBG) | mots candidats (hanzi et pinyin) des fiches relues | CC BY-SA 4.0 | CC-CEDICT, publié par MDBG, CC BY-SA 4.0 — fichier modifié | https://creativecommons.org/licenses/by-sa/4.0/ |
+| CC-CEDICT (MDBG) | mots candidats (hanzi et pinyin) des fiches relues ; mots du dictionnaire éclair (le mot seul, `eclair.json`) | CC BY-SA 4.0 | CC-CEDICT, publié par MDBG, CC BY-SA 4.0 — fichier modifié | https://creativecommons.org/licenses/by-sa/4.0/ |
 | Norme GF 0014-2009 | les 514 composants : règle de décomposition | texte normatif, non reproduit | 《现代常用字部件及部件名称规范》 | — |
 | Seuils sinographiques (Éducation nationale) et référentiel HSK 3.0 | listes cibles (`listes`, `parcours`) | publications officielles, listes de faits | Eduscol ; Chinese Testing International | — |
 | Calendrier luni-solaire chinois | dates des fêtes (`fetes.json`) et des termes solaires (`saisons.json`), calculées par lunar_python | faits de calendrier ; bibliothèque MIT, non embarquée | lunar_python, Copyright (c) 6tail | https://github.com/6tail/lunar-python |
 | Surcharges du pipeline wenlu (`data/sources/surcharges/`) | pinyin et IDS corrigés, chacun avec sa raison (`sources: ["surcharge"]`) | propriétaire | corrections relues des sources ci-dessus | — |
-| Fiches, contes, paires, fêtes, saisons, devinettes (pipeline wenlu) | `familles/`, `contes/`, `paires.json`, `fetes.json`, `saisons.json`, `devinettes.json` | propriétaire | textes rédigés pour l'app, relus | — |
+| Fiches, contes, paires, fêtes, saisons, devinettes, dictionnaire éclair (pipeline wenlu) | `familles/`, `contes/`, `paires.json`, `fetes.json`, `saisons.json`, `devinettes.json`, `eclair.json`, et `apercu/` pour les textes encore à relire | propriétaire | textes rédigés pour l'app, relus | — |
 
 ## Séparation des fichiers
 
 Les trois régimes ne se mélangent jamais dans un même fichier (`docs/sources-licences.md` §2.1 et §8) :
 
 - `traits/` : tracés sous Arphic Public License, avec `ARPHICPL.TXT` inaltéré à côté et `traits/MODIFICATIONS.md` qui dit comment et quand ils ont été dérivés.
-- `familles/`, `contes/`, `paires.json`, `fetes.json`, `saisons.json`, `devinettes.json` : décomposition canonique et textes rédigés pour l'app, propriétaires.
+- `familles/`, `contes/`, `paires.json`, `fetes.json`, `saisons.json`, `devinettes.json`, `eclair.json`, `apercu/` : décomposition canonique et textes rédigés pour l'app, propriétaires.
 - `UNICODE-LICENSE.txt` : notice de permission Unicode, qui couvre le pinyin.
 
 ## Ce que l'export ne contient pas
 
 - Aucune définition anglaise : ni `kDefinition` d'Unihan, ni CC-CEDICT (`docs/sources-licences.md` §4.2). Les mots exportés ne portent que le hanzi, le pinyin et les traductions rédigées pour l'app.
 - Aucun texte de `dictionary.txt` : ni définition, ni étymologie anglaise (§2.2).
-- Aucune fiche ni aucun conte non relu (brief §17).
+- Aucune fiche ni aucun conte non relu hors de `apercu/` (brief §17). Ce dossier porte les textes encore à relire, chacun marqué `statut: "a_relire"`, que l'app ne charge que sur demande (Réglages, mode relecture). Un texte rejeté n'est nulle part.
 
 ## Question ouverte
 

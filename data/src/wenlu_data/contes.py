@@ -98,7 +98,7 @@ REJETE = "rejete"
 RELU = "relu"
 STATUTS = (A_RELIRE, REJETE, RELU)
 
-COLONNES = ("id", "titre_zh", "titre_fr", "titre_en", "ouvrage", "resume_fr")
+COLONNES = ("id", "titre_zh", "titre_pinyin", "titre_fr", "titre_en", "ouvrage", "resume_fr")
 
 
 class CatalogueInvalide(ValueError):
@@ -126,6 +126,8 @@ class Conte:
     ouvrage: str
     resume_fr: str
     titre_en: str = ""
+    #: Le pinyin du vrai titre, une syllabe par caractère, aux tons du dictionnaire.
+    titre_pinyin: str = ""
 
 
 def parse_catalogue(lignes: Iterable[str]) -> list[Conte]:
@@ -150,7 +152,10 @@ def parse_catalogue(lignes: Iterable[str]) -> list[Conte]:
         if cellules[0] in vus:
             raise CatalogueInvalide(f"ligne {numero} : doublon d'identifiant {cellules[0]!r}")
         vus.add(cellules[0])
-        contes.append(Conte(**dict(zip(COLONNES, cellules))))
+        conte = Conte(**dict(zip(COLONNES, cellules)))
+        if len(conte.titre_pinyin.split()) != len(conte.titre_zh):
+            raise CatalogueInvalide(f"ligne {numero} : une syllabe de pinyin par caractère du titre")
+        contes.append(conte)
     if entete is None:
         raise CatalogueInvalide("catalogue sans en-tête")
     return contes

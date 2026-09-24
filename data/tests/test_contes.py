@@ -140,11 +140,23 @@ def test_catalogue_refuse_un_doublon() -> None:
     """Deux fois le même identifiant, c'est deux fichiers de sortie pour un conte."""
     lignes = [
         "\t".join(contes.COLONNES),
-        "a\t山\tTitre\tTitle\t《测试》\tRésumé.",
-        "a\t水\tAutre\tOther\t《测试》\tRésumé.",
+        "a\t山\tshān\tTitre\tTitle\t《测试》\tRésumé.",
+        "a\t水\tshuǐ\tAutre\tOther\t《测试》\tRésumé.",
     ]
     with pytest.raises(CatalogueInvalide, match="doublon"):
         parse_catalogue(lignes)
+
+
+def test_catalogue_veut_une_syllabe_par_caractere_du_vrai_titre() -> None:
+    """Le vrai titre (愚公移山) se montre avec son pinyin : une syllabe par caractère."""
+    lignes = ["\t".join(contes.COLONNES), "a\t山水\tshān\tTitre\tTitle\t《测试》\tRésumé."]
+    with pytest.raises(CatalogueInvalide, match="syllabe"):
+        parse_catalogue(lignes)
+
+
+def test_le_catalogue_donne_le_vrai_titre_et_son_pinyin() -> None:
+    conte = contes.conte_par_id("yu-gong-yi-shan")
+    assert (conte.titre_zh, conte.titre_pinyin) == ("愚公移山", "yú gōng yí shān")
 
 
 def test_catalogue_refuse_un_entete_inattendu() -> None:

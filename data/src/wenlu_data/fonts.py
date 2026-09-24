@@ -210,7 +210,9 @@ def caracteres_des_textes(export: Path | None = None) -> set[str]:
     """Caractères chinois écrits dans les textes exportés : fêtes, fiches, contes.
 
     Les tracés ne couvrent que ce qui se dessine ; un vœu (中秋快乐) ou une anecdote
-    (嫦娥, 月饼) s'écrit en police et doit donc être dans le sous-ensemble.
+    (嫦娥, 月饼) s'écrit en police et doit donc être dans le sous-ensemble. Les textes
+    à relire de `apercu/` en sont aussi : l'app les montre quand le mode relecture des
+    Réglages est allumé.
     Les fichiers de tracés sont laissés à `caracteres_exportes`.
     """
     export = export or EXPORT
