@@ -294,16 +294,19 @@ describe('budget', () => {
 });
 
 describe('journée finie', () => {
-  it('se reconnaît et se recommence', () => {
+  it('se reconnaît, et ne repart de zéro qu’au changement de jour', () => {
     let p = neuf();
     steps(p).forEach((_, i) => {
       p = markDone(p, i, JOUR);
     });
     expect(allDone(p)).toBe(true);
     expect(title(p)).toBe("C'est fait pour aujourd'hui");
-    p = resetDay(p);
-    expect(nextIndex(p)).toBe(0);
-    expect(p.days).toBe(1);
+    /* Même journée : rien ne la remet à zéro. Le lendemain, `openDay` passe par `resetDay`. */
+    expect(openDay(p, JOUR)).toBe(p);
+    const demain = openDay(p, '2026-03-03');
+    expect(demain).toEqual({ ...resetDay(p), day: '2026-03-03', catchup: false });
+    expect(nextIndex(demain)).toBe(0);
+    expect(demain.days).toBe(1);
   });
 });
 

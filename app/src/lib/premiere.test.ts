@@ -227,11 +227,15 @@ describe('la fin de la première session', () => {
     expect(fini.tao.croissance).toBe(3 * 5 + 3);
   });
 
-  it('baisse le drapeau et remet la première vue, sans toucher au chemin du jour', () => {
+  it('baisse le drapeau, remet la première vue et laisse la journée faite', () => {
     expect(fini.premiere).toBe(false);
     expect(fini.premiereVue).toBe('f1');
-    expect(fini.done).toEqual([]);
-    expect(fini.days).toBe(0);
+    /* Le premier jour arrive au menu en état « fait » : la session complète commence demain. */
+    expect(fini.done).toEqual([true, true, true, true, true, true]);
+    expect(fini.days).toBe(1);
+    expect(fini.lastWorked).toBe(JOUR);
+    expect(fini.joursTravailles).toEqual([JOUR]);
+    expect(fini.jourParcours).toBe(1);
   });
 
   it('relit les cartes exportées à la date près', () => {
