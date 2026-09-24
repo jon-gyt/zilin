@@ -52,7 +52,7 @@ Format BMAD : épics puis stories. Priorité dans l'ordre. Une story se termine 
 - 4b.6 La cuisine de Tao : dix recettes, ingrédients, erreurs plausibles (牛奶 pour 牛肉).
 - 4b.7 Le message WeChat : arbres de dialogue par famille.
 - 4b.8 Les lettres de Que : douze lettres pour le seuil 255, générées puis relues.
-- 4b.9 Les saisons : calendrier chinois, décor du cercle, caractère bonus par fête.
+- 4b.9 Les saisons : calendrier chinois, décor du cercle, caractère bonus par fête. Huit fêtes (春节, 元宵, 清明, 端午, 七夕, 中秋, 重阳, 冬至), dates 2026 à 2035 par `lunar_python`, termes solaires compris ; palette, décor, emblème, vœu, accessoire de Tao et anecdote pour chacune ; un caractère bonus par fête, exporté avec ses traits.
 
 ## Épic 5 · PWA et site
 - 5.1 Manifest, service worker, hors ligne, écran d'accueil iOS.
@@ -77,6 +77,11 @@ Relevé sur le dépôt après une revue du pipeline. Les numéros ci-dessus ne b
   238 familles exportées en 1,33 Mio.
 - Épic 2 : 2.1 à 2.8 (2.2 et 2.8 revues le 24 septembre : le menu et le parcours du prototype validé). Épic 3 : 3.1 à 3.4. Épic 4 : 4.1 à 4.4 (4.4, Chercher, le 24 septembre : la recherche en français ne trouvera rien tant qu'aucune fiche n'est relue).
 - Épic 4b : 4b.1 et 4b.2. Épic 5 : 5.1.
+- 4b.9, à moitié (24 septembre) : les huit fêtes du calendrier chinois sont en place, du
+  pipeline (`data/sources/fetes/`, dates vérifiées contre la table des fêtes de
+  `lunar_python`) au décor de l'app (menu à 393 × 660, anecdote, `theme-color`). Chaque
+  anecdote fait découvrir un caractère bonus (灯, 雨, 粽, 桥, 菊, 冬…). Reste le décor du
+  cercle de Ma forêt, et le suivi des caractères bonus découverts.
 
 ### Livrées à moitié : le code attend une clé d'API
 
@@ -135,5 +140,5 @@ les fiches générées. La chaîne API reste en place et utilisable.
 
 ### Non commencées
 
-2c.1, 2c.2, 4b.3 à 4b.9, 5.2, et toute la phase 6 — hors le workflow CI macOS et la
+2c.1, 2c.2, 4b.3 à 4b.8, 5.2, et toute la phase 6 — hors le workflow CI macOS et la
 configuration Capacitor, déjà versionnés.

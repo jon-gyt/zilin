@@ -20,15 +20,27 @@ Principes : un écran une action ; coins 12 px ; aucune ombre, aucun dégradé, 
 
 ## Thèmes de fête
 
-`App.svelte` pose `data-fete` sur `<html>` quand la journée tombe dans la fenêtre d'une fête de `fetes.json` ; les blocs `[data-fete="chunjie"]` et `[data-fete="zhongqiu"]` de `tokens.css` repeignent l'app. Le même attribut sur un élément ne repeint que lui : `Embleme` et `Voeu` le portent, et gardent leurs couleurs même hors d'une page en fête.
+`App.svelte` pose `data-fete` sur `<html>` quand la journée tombe dans la fenêtre d'une fête de `fetes.json` ; les blocs `[data-fete="…"]` de `tokens.css`, un par fête, repeignent l'app. `fetes.poserFete` pose aussi le `--paper` de la fête sur la meta `theme-color`, et rend la valeur d'origine après. Le même attribut sur un élément ne repeint que lui : `Embleme` et `Voeu` le portent, et gardent leurs couleurs même hors d'une page en fête.
 
-春节, le Nouvel An lunaire (du réveillon −1 à 元宵 +14) : papier #F7ECDD, carte #FCF4E8, trait #E5D6C0, filet #D9C6AA, grille #D4BE9C ; rouge de fête `--fete` #9E1F2A et son encre #FBEBD8, abricot `--apricot` #E3A33B (aplat), prunier #F2B8C6 et #FBE3E8 ; cases `--tile-bg` #A3222B, caractère #FBEBD8, titre #FFF4E6, ligne #F4CDAE ; bouton `--act` #2A1D1A, encre #FBEBD8 ; pigments 松 pin #2F6B4F, rouge #9E1F2A, prunier #B0456A, bambou #5E7A2E.
+春节, le Nouvel An lunaire (du réveillon −1 au 14e jour, +13) : papier #F7ECDD, carte #FCF4E8, trait #E5D6C0, filet #D9C6AA, grille #D4BE9C ; rouge de fête `--fete` #9E1F2A et son encre #FBEBD8, abricot `--apricot` #E3A33B (aplat), prunier #F2B8C6 et #FBE3E8 ; cases `--tile-bg` #A3222B, caractère #FBEBD8, titre #FFF4E6, ligne #F4CDAE ; bouton `--act` #2A1D1A, encre #FBEBD8 ; pigments 松 pin #2F6B4F, rouge #9E1F2A, prunier #B0456A, bambou #5E7A2E.
 
 中秋, la mi-automne (−3 à +1), toujours de nuit : papier #141B2E, carte #1D2640, encre #F1E9D6, encre 2 #C9C3B4, brume #8F97AD, trait #2E3856, filet #3A4566, grille #46527A ; indigo #A9BEE6, cinabre #EC6B4B (éclairci pour la nuit ; sur la lune, le caractère garde le cinabre #C8371F et l'encre de nuit `--nuit` #18203A), ocre #C89A6A, jade #8FC0A0 ; lune `--moon` #F3E3B5 et son ombre #DCC792, osmanthe `--gui` #E9B949, collines #1A2238 et #202A45, lanternes célestes #F6C36A ; cases `--tile-bg` #1B2440 bordées de #34405F, caractère #F3E3B5 ; bouton `--act` #F3E3B5 (la lune), encre #141B2E ; gabarit du tracé `--guide` #46527A ; grain clair.
 
-Le rouge de fête #9E1F2A ne sert qu'au décor : la rosace, la lanterne, les cases et le 福. Il ne remplace jamais le cinabre, qui marque l'élément ajouté et la position. Décision du propriétaire, en attente de l'amendement de CLAUDE.md.
+元宵, la fête des Lanternes (son jour) : papier #F8EBD7, carte #FDF4E7 ; rouge de fête `--fete` #9E1F2A pour les lanternes, abricot #E3A33B, papier des devinettes `--mi` #F6DFA4 et son encre #7A4A2E ; cases #F5DDB9, caractère #9E1F2A ; bouton #2A1D1A.
 
-Composants : `FeteDecor.svelte` (le calque derrière tout, `pointer-events: none`, coupé par `prefers-reduced-motion`), `Embleme.svelte` (la lune ou la rosace qui porte le caractère du jour), `Voeu.svelte` (le vœu de l'en-tête, prononcé au toucher). Tao porte un flocon au Nouvel An, un gâteau de lune à la mi-automne.
+清明 (−1 à +1) : papier #EDF1EA, carte #F7F9F4 ; saule #7FA36A et #58804D, pluie #8FA7AB, cerf-volant #1E5A8A et sa queue #A8506B ; disque de l'emblème #DFEADB ; cases #DFEADF, caractère #3F6B4E ; bouton #2F4F3E.
+
+端午, la fête des bateaux (−2 à +1) : papier #F2EFE2, carte #FAF8EF ; eau #3E7C8C et #A9CBCF, roseau #4F7F3F et #9DBF7A, ficelle #C9A46A, armoise #6F8F5E, bateau #8C5A2B et sa bande #1E5A8A ; disque #E2ECD6 ; cases #2F5E46, caractère #F6F2E2 ; bouton #1F2A22.
+
+七夕 (−2 au soir même), toujours de nuit : papier #1B1B35, carte #252547, encre #EFE9F5, cinabre éclairci #EC6B4B ; Voie lactée #262650 et #302F5E, étoiles #F4E9C8, pies #0E0E24 et leur blanc #DCD6EC ; disque de l'emblème #E8E2F3, sa Voie lactée #D6CDEA, le caractère à l'encre #1B1B35 et au vrai cinabre ; cases #242449 bordées de #3A3969 ; bouton #E6DDF5 ; gabarit du tracé #4B4978.
+
+重阳, le double neuf (−1 à +1) : papier #F5EEDF, carte #FCF7EC ; chrysanthème #E39A34, #F2CB78 et son cœur #9A5A17 (aplats, jamais un doré), montagne #A9A993 et #C9C8B2, oies #6B6558 ; cases #F3E2BD, caractère #8A5A12 ; bouton #3B3326.
+
+冬至, le solstice d'hiver (−1 à +1) : papier #ECF0F4, carte #F8FAFC ; neige #FFFFFF et #C3CFDB, bol #2E4A6B, collines #F7F9FB et #DDE4EB ; disque #DCE5EE ; cases #DCE5EE, caractère #2E4A6B ; bouton #24364F.
+
+Le rouge de fête #9E1F2A ne sert qu'au décor du Nouvel An et de 元宵 : la rosace, les lanternes, les cases et le 福. Il ne remplace jamais le cinabre, qui marque l'élément ajouté et la position. Décision du propriétaire, en attente de l'amendement de CLAUDE.md.
+
+Composants : `FeteDecor.svelte` (le calque derrière tout, `pointer-events: none`, coupé par `prefers-reduced-motion`), `Embleme.svelte` (la rosace, la lanterne, la lune… qui porte le caractère du jour), `Voeu.svelte` (le vœu de l'en-tête, prononcé au toucher, avec son dessin). Tao porte un flocon au Nouvel An, un bol de 汤圆 à 元宵, un brin de saule à 清明, un 粽子 à 端午, une étoile à 七夕, un gâteau de lune à la mi-automne, un chrysanthème à 重阳, un 饺子 à 冬至.
 
 ## Polices
 
