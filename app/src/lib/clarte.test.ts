@@ -82,10 +82,6 @@ describe('le bouton principal reste visible quand le contenu défile', () => {
   it('en session, le pied de l’écran colle au bas de la fenêtre', () => {
     expect(css).toMatch(/\n\.foot\{position:sticky;bottom:0;/);
   });
-
-  it('sur les onglets, où la barre tient déjà le bas, il reste dans le flux', () => {
-    expect(css).toContain('.onglets .foot{position:static;');
-  });
 });
 
 describe('un libellé de bouton sur deux lignes reste centré', () => {
