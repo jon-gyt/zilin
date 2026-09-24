@@ -26,12 +26,14 @@
   import { apresSplash, suiteDepart } from './lib/premiere';
   import {
     anecdoteFaite,
+    anecdoteRelue,
     caseReviser,
     demarrer,
     ecranSuivant,
     finRevisionLibre,
     versEchauffer,
-    type Destination
+    type Destination,
+    type RetourAnecdote
   } from './lib/parcours';
   import { planifier, type JeuId } from './lib/jeux';
   import { noterMotDevine } from './lib/eclair';
@@ -140,6 +142,12 @@
   /** L'anecdote vue à l'ouverture ramène au menu ; ouverte en session, elle enchaîne. */
   let anecOuverture = $state(true);
 
+  /**
+   * L'anecdote rouverte depuis Lire ou l'en-tête du menu : on la relit, et « Continuer »
+   * comme « Quitter » ramènent là d'où l'on vient. `null` : l'ouverture ou la session.
+   */
+  let anecRetour: RetourAnecdote | null = $state(null);
+
   /** La famille ouverte dans Ma forêt, `null` quand on est sur le cercle. */
   let famille: Noeud | null = $state(null);
 
@@ -193,6 +201,7 @@
   function aiguiller(): void {
     if (!chargee || !logoEcrit || ecran !== 'splash') return;
     anecOuverture = true;
+    anecRetour = null;
     ecran = apresSplash(p);
   }
 
@@ -259,7 +268,10 @@
     else if (d === 'rev') ouvrirRevision();
     else if (d === 'libre') ouvrirRevisionLibre();
     else {
-      if (d === 'anec') anecOuverture = false;
+      if (d === 'anec') {
+        anecOuverture = false;
+        anecRetour = null;
+      }
       ecran = d;
     }
   }
@@ -382,6 +394,28 @@
     enregistrer();
     if (anecOuverture) allerAuMenu();
     else enchainer();
+  }
+
+  /** Rouvre l'anecdote du jour, depuis Lire ou l'en-tête du menu, pour la relire. */
+  function relireAnecdote(depuis: RetourAnecdote): void {
+    anecRetour = depuis;
+    ecran = 'anec';
+  }
+
+  /**
+   * L'anecdote relue, refermée : retour là d'où l'on venait. Déjà vue, rien ne se compte
+   * deux fois (`anecdoteRelue`) ; pas encore vue, elle compte comme à l'ouverture.
+   */
+  function anecdoteRefermee(): void {
+    const n = anecdoteRelue(p, p.day);
+    if (n !== p) {
+      p = noterTrouve(n, rencontreDuJour(laJournee), p.day);
+      enregistrer();
+    }
+    const retour = anecRetour;
+    anecRetour = null;
+    if (retour === 'lire') ecran = 'lire';
+    else allerAuMenu();
   }
 
   /* ---------- pas 2, Échauffer, et la révision en plus ---------- */
@@ -617,6 +651,8 @@
     onfini={departFini}
     onquitter={quitter}
   />
+{:else if ecran === 'anec' && anecRetour !== null}
+  <Open {p} oncontinuer={anecdoteRefermee} onquitter={anecdoteRefermee} />
 {:else if ecran === 'anec'}
   <Open {p} oncontinuer={ouvrirFait} onquitter={anecOuverture ? ouvrirFait : quitter} />
 {:else if ecran === 'rev'}
@@ -672,7 +708,7 @@
     onretour={quitter}
   />
 {:else if ecran === 'lire'}
-  <Lire {p} onretour={allerAuMenu} onlu={conteLu} />
+  <Lire {p} onretour={allerAuMenu} onlu={conteLu} onanecdote={() => relireAnecdote('lire')} />
 {:else if ecran === 'foret'}
   <!-- Ma forêt, deux niveaux au plus : le cercle, puis une famille ou les récompenses. -->
   {#if famille}
@@ -698,5 +734,5 @@
 {:else if ecran === 'reglages'}
   <Settings {p} onprogression={remplacer} onretour={allerAuMenu} />
 {:else}
-  <Menu {p} fete={feteJour} {fetes} terme={laJournee.terme} {saisons} ondemarrer={boutonMenu} oncase={caseMenu} onchercher={ouvrirChercher} onreglages={() => (ecran = 'reglages')} />
+  <Menu {p} fete={feteJour} {fetes} terme={laJournee.terme} {saisons} ondemarrer={boutonMenu} oncase={caseMenu} onanecdote={() => relireAnecdote('menu')} onchercher={ouvrirChercher} onreglages={() => (ecran = 'reglages')} />
 {/if}

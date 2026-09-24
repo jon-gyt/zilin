@@ -69,6 +69,19 @@ export function anecdoteFaite(p: Progress, jour: string): Progress {
   return anecdoteVue(n) ? n : noterActivite(n, jour, 'anecdote');
 }
 
+/** D'où l'on rouvre l'anecdote du jour, et où « Continuer » et « Quitter » ramènent. */
+export type RetourAnecdote = 'lire' | 'menu';
+
+/**
+ * L'anecdote rouverte depuis Lire ou l'en-tête du menu, puis refermée. Déjà vue, elle est
+ * relue : rien ne bouge, ni le pas Ouvrir, ni le journal de Tao, ni les trouvés.
+ * Pas encore vue (la journée a basculé le menu ouvert), c'est la lecture du jour, comptée
+ * une fois comme à l'ouverture. La première session passe avant tout : rien n'y compte.
+ */
+export function anecdoteRelue(p: Progress, jour: string): Progress {
+  return anecdoteVue(p) || p.premiere ? p : anecdoteFaite(p, jour);
+}
+
 /* ---------- l'enchaînement des pas ---------- */
 
 /**

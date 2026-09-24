@@ -5,6 +5,7 @@
 import { describe, it, expect } from 'vitest';
 import {
   anecdoteFaite,
+  anecdoteRelue,
   apresSplash,
   caseReviser,
   carteDuMenu,
@@ -89,6 +90,38 @@ describe("l'ouverture : le logo, l'anecdote, puis le menu", () => {
   it("l'anecdote ne compte qu'une fois dans le journal de Tao", () => {
     const deux = anecdoteFaite(anecdoteFaite(journee(), JOUR), JOUR);
     expect(deux.tao.activites.filter((a) => a.type === 'anecdote')).toHaveLength(1);
+  });
+});
+
+describe("l'anecdote du jour se relit, depuis Lire ou l'en-tête du menu", () => {
+  it('relue après l’ouverture, elle ne change rien à la progression', () => {
+    const vue = ouverte();
+    expect(anecdoteRelue(vue, JOUR)).toBe(vue);
+    /* Même la session avancée ou la journée faite : aucun pas ne bouge, Tao ne note rien. */
+    const avancee = finEchauffer(vue, JOUR);
+    expect(anecdoteRelue(avancee, JOUR)).toBe(avancee);
+    const faite = sessionFaite(vue);
+    const relue = anecdoteRelue(anecdoteRelue(faite, JOUR), JOUR);
+    expect(relue).toBe(faite);
+    expect(relue.tao.activites.filter((a) => a.type === 'anecdote')).toHaveLength(1);
+  });
+
+  it("relue en rattrapage, elle ne compte pas pour un bloc", () => {
+    const vue = anecdoteFaite(rattrapage(), JOUR);
+    expect(anecdoteRelue(vue, JOUR)).toBe(vue);
+  });
+
+  it("pas encore vue, elle compte une fois, comme à l'ouverture", () => {
+    const p = journee();
+    const lue = anecdoteRelue(p, JOUR);
+    expect(lue).toEqual(anecdoteFaite(p, JOUR));
+    expect(currentStep(lue)?.id).toBe('echauffer');
+    expect(anecdoteRelue(lue, JOUR)).toBe(lue);
+  });
+
+  it('la première session passe avant tout : rien ne se compte', () => {
+    const p = { ...journee(), premiere: true };
+    expect(anecdoteRelue(p, JOUR)).toBe(p);
   });
 });
 

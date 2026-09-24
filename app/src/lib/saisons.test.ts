@@ -2,7 +2,7 @@ import { describe, expect, it } from 'vitest';
 import { readFileSync } from 'node:fs';
 import { fichierSaisons, loadFetes, loadSaisons, type Fetes, type Index, type Saisons } from './content';
 import { feteDuJour, poserFete } from './fetes';
-import { annonceLeTerme, journee, phrasesDeTao, pistes, termeDuJour, theme } from './saisons';
+import { anecdoteDeLaJournee, annonceLeTerme, journee, phrasesDeTao, pistes, termeDuJour, theme } from './saisons';
 
 /* Les fichiers servis avec l'app, tels que `wenlu export` les écrit. */
 const lire = (f: string): string => readFileSync(new URL(`../../public/data/0.1.0/${f}`, import.meta.url), 'utf8');
@@ -147,6 +147,39 @@ describe('la fête a priorité', () => {
   });
 });
 
+describe("l'anecdote de la journée, la même partout où elle se lit", () => {
+  const liste = [
+    { c: '人', titre: 'Un', texte: 'Premier.' },
+    { c: '大', titre: 'Deux', texte: 'Second.' }
+  ];
+
+  it('un jour de fête, celle de la fête, avec la famille de son caractère', () => {
+    const r = anecdoteDeLaJournee(liste, fetes, saisons, '2026-09-25');
+    const f = feteDuJour(fetes, '2026-09-25');
+    expect(r?.fete?.id).toBe('zhongqiu');
+    expect(r?.terme).toBeNull();
+    expect(r?.a).toEqual({ c: f?.anecdote.c, titre: f?.anecdote.titre, texte: f?.anecdote.texte });
+  });
+
+  it('le jour où commence un terme, celle du terme ; le lendemain, celle du fichier', () => {
+    const hanlu = anecdoteDeLaJournee(liste, fetes, saisons, '2026-10-08');
+    const t = termeDuJour(saisons, '2026-10-08');
+    expect(hanlu?.terme?.id).toBe('hanlu');
+    expect(hanlu?.a.c).toBe(t?.caractere.c);
+    expect(hanlu?.a.titre).toBe(`${t?.nomZh} · ${t?.fr}`);
+    expect(hanlu?.pistes).toEqual(pistes(saisons, t?.caractere.c ?? ''));
+    const lendemain = anecdoteDeLaJournee(liste, fetes, saisons, '2026-10-09');
+    expect(lendemain?.fete).toBeNull();
+    expect(lendemain?.terme).toBeNull();
+    expect(liste).toContainEqual(lendemain?.a);
+  });
+
+  it("sans rien à lire, pas d'anecdote", () => {
+    expect(anecdoteDeLaJournee(null, null, null, '2026-10-09')).toBeNull();
+    expect(anecdoteDeLaJournee([], null, null, '2026-10-09')).toBeNull();
+  });
+});
+
 describe('Tao', () => {
   it('commence par le terme, revient à la journée, puis dit son autre phrase de terme', () => {
     const t = termeDuJour(saisons, '2026-10-24');
@@ -262,5 +295,12 @@ describe("l'en-tête du menu", () => {
 
   it('le caractère du terme est dessiné depuis ses traits', () => {
     expect(entete).toContain('<Glyph char={terme.caractere.c}');
+  });
+
+  it("toucher la ligne de fête ou de terme rouvre l'anecdote du jour", () => {
+    expect(entete).toContain('onouvrir={onanecdote}');
+    expect(entete).toMatch(/<button class="terme"[^>]*onclick=\{onanecdote\}/);
+    const app = source('../App.svelte');
+    expect(app).toContain("onanecdote={() => relireAnecdote('menu')}");
   });
 });

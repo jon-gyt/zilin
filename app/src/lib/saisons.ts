@@ -14,8 +14,15 @@
  *
  * La journée est celle de la session (`p.day`), comme pour les fêtes et l'anecdote.
  */
-import { jourDepuisEpoque, type FeteId, type Fetes, type Saisons } from './content';
-import { feteDuJour, type FeteDuJour } from './fetes';
+import {
+  anecdoteDuJour,
+  jourDepuisEpoque,
+  type Anecdote,
+  type FeteId,
+  type Fetes,
+  type Saisons
+} from './content';
+import { feteDuJour, pistes as pistesFete, type FeteDuJour } from './fetes';
 
 /** Ce que l'app montre d'un terme, pour une journée. */
 export type TermeDuJour = {
@@ -116,4 +123,38 @@ export function annonceLeTerme(fete: FeteDuJour | null, terme: TermeDuJour | nul
 export function pistes(s: Saisons, c: string): string[] {
   const r = s.racines[c];
   return r ? [r] : [];
+}
+
+/**
+ * L'anecdote d'une journée, telle que l'écran Ouvrir la montre : celle de la fête un jour
+ * de fête, celle du terme le jour où il commence, sinon celle du fichier d'anecdotes.
+ * `fete` et `terme` disent laquelle ; `pistes`, la famille où lire les traits de son
+ * caractère. `null` quand rien ne se lit. Lire et l'en-tête du menu la rouvrent : c'est
+ * la même, calculée au même endroit.
+ */
+export type AnecdoteDeLaJournee = {
+  a: Anecdote;
+  fete: FeteDuJour | null;
+  terme: TermeDuJour | null;
+  pistes: string[];
+};
+
+export function anecdoteDeLaJournee(
+  anecdotes: Anecdote[] | null,
+  fetes: Fetes | null,
+  saisons: Saisons | null,
+  jour: string
+): AnecdoteDeLaJournee | null {
+  const fete = fetes ? feteDuJour(fetes, jour) : null;
+  if (fete && fetes) {
+    const { c, titre, texte } = fete.anecdote;
+    return { a: { c, titre, texte }, fete, terme: null, pistes: pistesFete(fetes, c) };
+  }
+  const t = saisons ? termeDuJour(saisons, jour) : null;
+  if (t && saisons && annonceLeTerme(fete, t)) {
+    const a = { c: t.caractere.c, titre: `${t.nomZh} · ${t.fr}`, texte: t.ligne };
+    return { a, fete: null, terme: t, pistes: pistes(saisons, t.caractere.c) };
+  }
+  const a = anecdotes ? anecdoteDuJour(anecdotes, jour) : null;
+  return a ? { a, fete: null, terme: null, pistes: [] } : null;
 }

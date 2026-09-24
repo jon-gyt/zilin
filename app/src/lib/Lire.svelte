@@ -10,30 +10,64 @@
    *
    * Sans conte dans l'export, l'écran le dit simplement, sans rien feindre. Un seul
    * retour, vers le menu ; le lecteur, lui, revient ici. Tao lit par-dessus l'épaule.
+   *
+   * En tête, au-dessus des contes : l'anecdote du jour, son caractère dessiné depuis ses
+   * traits. Vue le matin, elle se relit ici autant qu'on veut ; l'écran d'anecdote
+   * ramène à Lire, et rien ne se compte deux fois (`parcours.anecdoteRelue`).
    */
   import ARelire from './ARelire.svelte';
   import Conte from './Conte.svelte';
+  import Glyph from './Glyph.svelte';
   import Tao from './Tao.svelte';
-  import { contesExport, type Conte as ConteExporte, type IndexConte } from './content';
+  import {
+    anecdotesOnce,
+    contesExport,
+    fetesOnce,
+    saisonsOnce,
+    type Conte as ConteExporte,
+    type IndexConte
+  } from './content';
   import {
     MENTION_HORS_ACQUIS,
     bibliotheque,
     caracteresAcquis,
     type EntreeConte
   } from './lecture';
+  import { anecdoteDeLaJournee, type AnecdoteDeLaJournee } from './saisons';
   import type { Progress } from './session';
   import { humeur, stade } from './tao';
 
   let {
     p,
     onretour,
-    onlu
+    onlu,
+    onanecdote
   }: {
     p: Progress;
     onretour: () => void;
     /** Une version lue en entier : le conte et son seuil. */
     onlu: (conte: string, seuil: number) => void;
+    /** Rouvre l'anecdote du jour, qui ramène ici. */
+    onanecdote: () => void;
   } = $props();
+
+  /** L'anecdote de la journée de la session, la même que l'écran Ouvrir. */
+  let anecdote = $state.raw<AnecdoteDeLaJournee | null>(null);
+
+  $effect(() => {
+    const j = p.day;
+    let vivant = true;
+    void Promise.all([
+      anecdotesOnce().catch(() => null),
+      fetesOnce().catch(() => null),
+      saisonsOnce().catch(() => null)
+    ]).then(([liste, fetes, saisons]) => {
+      if (vivant) anecdote = anecdoteDeLaJournee(liste?.anecdotes ?? null, fetes, saisons, j);
+    });
+    return () => {
+      vivant = false;
+    };
+  });
 
   let lus = $state.raw<{ index: IndexConte[]; contes: Map<string, ConteExporte> } | null>(null);
   /** Le conte ouvert dans le lecteur, `null` pour la bibliothèque. */
@@ -108,6 +142,21 @@
       </div>
       <Tao stade={taoStade} posture="lecture" humeur={taoHumeur} size={72} />
     </div>
+    {#if anecdote}
+      <button class="entry anecdote" onclick={onanecdote}>
+        <span class="ico" aria-hidden="true">
+          <Glyph char={anecdote.a.c} size={34} write={false} color="var(--ink)" pistes={anecdote.pistes} />
+        </span>
+        <span class="grow">
+          <span class="t">L'anecdote du jour</span>
+          <span class="d">{anecdote.a.titre}</span>
+        </span>
+        <span class="chev" aria-hidden="true">
+          <svg viewBox="0 0 24 24"><path d="M9 6l6 6-6 6" /></svg>
+        </span>
+      </button>
+    {/if}
+
     <p class="guide">
       Uniquement avec les caractères que tu sais lire. Chaque conte s'ouvre dans la version la
       plus riche que tu peux lire.
@@ -194,6 +243,10 @@
   }
   .entry + .entry {
     margin-top: 8px;
+  }
+  /* l'anecdote du jour, seule au-dessus des contes */
+  .entry.anecdote {
+    margin-bottom: 18px;
   }
   .entry .ico {
     width: 44px;
