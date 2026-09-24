@@ -432,8 +432,40 @@ export type IndexFamille = {
   avancement_possible: number;
 };
 
-/** Un conte disponible : ses versions par seuil, et le fichier qui les porte. */
-export type IndexConte = { id: string; titre_fr: string; seuils: number[]; fichier: string };
+/**
+ * Un conte disponible : ses versions par seuil, et le fichier qui les porte. `gratuit`
+ * marque les contes de l'offre gratuite (brief §10 : trois contes au seuil 255) ; l'index
+ * ne le porte pas encore, il vaut alors `false`, et rien ne s'en sert pour fermer un conte.
+ */
+export type IndexConte = {
+  id: string;
+  titre_fr: string;
+  seuils: number[];
+  fichier: string;
+  gratuit?: boolean;
+};
+
+/** Relit les contes de l'index : une entrée sans identifiant ni fichier est écartée. */
+export function lireContesIndex(v: unknown): IndexConte[] {
+  if (!Array.isArray(v)) return [];
+  const out: IndexConte[] = [];
+  for (const x of v) {
+    if (x === null || typeof x !== 'object') continue;
+    const o = x as Record<string, unknown>;
+    if (typeof o.id !== 'string' || o.id === '' || typeof o.fichier !== 'string') continue;
+    const seuils = Array.isArray(o.seuils)
+      ? o.seuils.filter((s): s is number => Number.isInteger(s) && (s as number) > 0)
+      : [];
+    out.push({
+      id: o.id,
+      titre_fr: typeof o.titre_fr === 'string' ? o.titre_fr : '',
+      seuils,
+      fichier: o.fichier,
+      gratuit: o.gratuit === true
+    });
+  }
+  return out;
+}
 
 /** Un jour de parcours : une brique nouvelle au plus, puis un ou deux composés. */
 export type IndexJour = {
@@ -499,7 +531,7 @@ export async function loadIndex(
     listes: brut.listes ?? {},
     parcours: brut.parcours ?? {},
     familles: brut.familles,
-    contes: Array.isArray(brut.contes) ? brut.contes : [],
+    contes: lireContesIndex(brut.contes),
     paires: typeof brut.paires === 'string' ? brut.paires : '',
     fetes: typeof brut.fetes === 'string' ? brut.fetes : '',
     saisons: typeof brut.saisons === 'string' ? brut.saisons : ''
@@ -1160,6 +1192,136 @@ export function saisonsOnce(version = VERSION_DONNEES): Promise<Saisons> {
     lesSaisons.set(version, p);
   }
   return p;
+}
+
+/* ---------- les contes (story 1.7, épic 2c) ---------- */
+
+/** Une phrase d'un conte : l'unité d'affichage, d'audio et de traduction. */
+export type PhraseConte = { zh: string; pinyin: string; fr: string };
+
+/**
+ * Une version d'un conte, réécrite avec les seuls caractères d'un seuil. `glose` donne,
+ * pour chaque caractère distinct du titre et du texte, le sens qu'il a ici, en français.
+ */
+export type VersionConte = {
+  seuil: number;
+  titre: string;
+  phrases: PhraseConte[];
+  glose: Record<string, string>;
+};
+
+/** Un conte de l'export (`contes/<id>.json`) : ses versions, triées par seuil croissant. */
+export type Conte = {
+  version: string;
+  source: string;
+  id: string;
+  titre_fr: string;
+  versions: VersionConte[];
+};
+
+function chaine(v: unknown): string {
+  return typeof v === 'string' ? v : '';
+}
+
+/** Relit une version : sans phrase lisible, elle est écartée (`null`). */
+function lireVersion(seuil: number, v: unknown): VersionConte | null {
+  if (v === null || typeof v !== 'object') return null;
+  const o = v as Record<string, unknown>;
+  const phrases: PhraseConte[] = [];
+  if (Array.isArray(o.phrases)) {
+    for (const x of o.phrases) {
+      if (x === null || typeof x !== 'object') continue;
+      const ph = x as Record<string, unknown>;
+      if (chaine(ph.zh) === '') continue;
+      phrases.push({ zh: chaine(ph.zh), pinyin: chaine(ph.pinyin), fr: chaine(ph.fr) });
+    }
+  }
+  if (phrases.length === 0) return null;
+  const glose: Record<string, string> = {};
+  if (o.glose !== null && typeof o.glose === 'object') {
+    for (const [k, sens] of Object.entries(o.glose as Record<string, unknown>)) {
+      if (k !== '' && typeof sens === 'string' && sens !== '') glose[k] = sens;
+    }
+  }
+  return { seuil, titre: chaine(o.titre), phrases, glose };
+}
+
+/**
+ * Relit un conte exporté. Les versions sont rangées sous leur seuil (`"255"`) ; une clé
+ * qui n'est pas un seuil entier positif, ou une version sans phrase, est écartée.
+ */
+export function lireConte(brut: unknown, file = ''): Conte {
+  if (brut === null || typeof brut !== 'object') throw new Error(`Conte illisible : ${file}`);
+  const o = brut as Record<string, unknown>;
+  const id = chaine(o.conte);
+  if (id === '' || o.versions === null || typeof o.versions !== 'object') {
+    throw new Error(`Conte illisible : ${file}`);
+  }
+  const versions: VersionConte[] = [];
+  for (const [cle, v] of Object.entries(o.versions as Record<string, unknown>)) {
+    const seuil = Number(cle);
+    if (!Number.isInteger(seuil) || seuil <= 0) continue;
+    const lue = lireVersion(seuil, v);
+    if (lue !== null) versions.push(lue);
+  }
+  versions.sort((a, b) => a.seuil - b.seuil);
+  return {
+    version: chaine(o.version),
+    source: chaine(o.source),
+    id,
+    titre_fr: chaine(o.titre_fr),
+    versions
+  };
+}
+
+/** Lit un conte servi avec l'app. `fetchFn` est injecté dans les tests. */
+export async function loadConte(file: string, fetchFn: typeof fetch = fetch): Promise<Conte> {
+  const r = await fetchFn(`${import.meta.env.BASE_URL}${file}`);
+  if (!r.ok) throw new Error(`Conte introuvable : ${file} (${r.status})`);
+  return lireConte(await r.json(), file);
+}
+
+const contesCharges = new Map<string, Promise<Conte>>();
+
+/** Même chose, mais une seule requête par fichier pour toute la durée de vie de l'app. */
+export function conteOnce(file: string): Promise<Conte> {
+  let p = contesCharges.get(file);
+  if (!p) {
+    p = loadConte(file).catch((e) => {
+      contesCharges.delete(file);
+      throw e;
+    });
+    contesCharges.set(file, p);
+  }
+  return p;
+}
+
+/** Le chemin du fichier d'un conte, prêt pour `loadConte`. */
+export function fichierConte(i: Index, id: string): string | null {
+  const c = i.contes.find((x) => x.id === id);
+  return c ? `${dossierVersion(i.version)}/${c.fichier}` : null;
+}
+
+/**
+ * Les contes de l'export, chacun lu une fois. Un fichier absent ou illisible manque à la
+ * table : la bibliothèque garde l'entrée de l'index, fermée, plutôt que de la taire.
+ */
+export async function contesExport(
+  version = VERSION_DONNEES
+): Promise<{ index: IndexConte[]; contes: Map<string, Conte> }> {
+  const i = await contenu(version);
+  const lus = await Promise.all(
+    i.contes.map((x) => {
+      const file = fichierConte(i, x.id);
+      return file === null ? Promise.resolve(null) : conteOnce(file).catch(() => null);
+    })
+  );
+  const contes = new Map<string, Conte>();
+  i.contes.forEach((x, k) => {
+    const c = lus[k];
+    if (c) contes.set(x.id, c);
+  });
+  return { index: i.contes, contes };
 }
 
 /* ---------- ce que le tableau des trophées lit ---------- */
