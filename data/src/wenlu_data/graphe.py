@@ -47,8 +47,8 @@ disponible est un jour de consolidation (`brique` nul). Les caractères de la
 liste dont la décomposition n'est pas réconciliée ferment le parcours, marqués
 `non_reconcilie` : ils ne sont jamais oubliés.
 
-Départ : le parcours « lire » commence par ce que la première session enseigne
-(brief §6, story 2.7) — 人, 大, 天, un jour chacun, sans composé. La première
+Départ : chaque parcours, « lire » comme « hsk », commence par ce que la première
+session enseigne (brief §6, story 2.7) — 人, 大, 天, un jour chacun, sans composé. La première
 session couvre ces trois jours d'un coup, et la session complète du lendemain
 reprend au jour 4 (`app/src/lib/premiere.ts`). C'est la seule entorse à l'ordre
 de priorité ; la règle d'une brique nouvelle par jour, elle, tient.
@@ -79,10 +79,13 @@ COMPOSES_PAR_JOUR = 2
 PARCOURS: dict[str, str] = {"lire": "seuil-255", "hsk": "hsk-1"}
 
 #: Ce que la première session enseigne, dans l'ordre (brief §6, story 2.7), et donc
-#: le début imposé du parcours : un jour par caractère, sans composé. La famille de
-#: départ de l'app (`app/public/data/demo/familles/人.json`) montre les mêmes, et un
-#: test Vitest le vérifie contre l'export.
-DEPART: dict[str, tuple[str, ...]] = {"lire": ("人", "大", "天")}
+#: le début imposé de chaque parcours : un jour par caractère, sans composé. La
+#: première session est la même quel que soit le parcours choisi ensuite, « Lire » ou
+#: « Passer le HSK » (décision du propriétaire). La famille de départ de l'app
+#: (`app/public/data/demo/familles/人.json`) montre les mêmes, et un test Vitest le
+#: vérifie contre l'export, pour chaque parcours.
+PREMIERE_SESSION: tuple[str, ...] = ("人", "大", "天")
+DEPART: dict[str, tuple[str, ...]] = {nom: PREMIERE_SESSION for nom in PARCOURS}
 
 CRITERE_RACINE = "première brique dans l'ordre d'écriture"
 CRITERE_FREQUENCE = (
@@ -683,7 +686,7 @@ def build(
 ) -> dict[str, object]:
     """Écrit `graphe.json` et un `parcours-<nom>.json` par parcours.
 
-    `depart` vaut par défaut `DEPART` : le parcours « lire » commence par la
+    `depart` vaut par défaut `DEPART` : chaque parcours commence par la
     première session.
     """
     sortie = sortie or BUILD

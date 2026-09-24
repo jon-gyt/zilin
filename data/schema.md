@@ -404,7 +404,8 @@ briques_muettes[], non_reconcilies[], absents[]}`.
   lisibles avec elle. `brique` est nul les jours de consolidation, quand il ne reste que
   des composés à poser. Les jours `non_reconcilie` ferment le parcours.
 - `depart` : ce que la première session enseigne (brief §6, story 2.7), `人 大 天`
-  pour `lire`, vide pour `hsk` (`DEPART` de `graphe.py`). Ces caractères ouvrent le
+  pour `lire` comme pour `hsk` (`DEPART` de `graphe.py`) : la première session est
+  la même quel que soit le parcours choisi ensuite. Ces caractères ouvrent le
   parcours, un jour chacun, dans cet ordre et sans composé : la première session les
   pose d'un coup, et la session complète reprend au jour qui suit (`jourApresDepart`
   de `app/src/lib/premiere.ts`). La règle d'une brique nouvelle par jour tient ; seul

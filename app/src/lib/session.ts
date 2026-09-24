@@ -635,8 +635,8 @@ export const ajouterCartes = assurerCartes;
  *
  * La journée est faite : la première graine est plantée, les six pas sont marqués, et
  * la session complète commence le lendemain, au jour `jourSuivant` du parcours. La
- * première session enseigne d'un coup les premiers jours du parcours « Lire » (人, 大,
- * 天) : l'appelant donne le jour qui les suit (`jourApresDepart` de `premiere.ts`), pour
+ * première session enseigne d'un coup les premiers jours du parcours choisi, « Lire »
+ * comme « Passer le HSK » (人, 大, 天) : l'appelant donne le jour qui les suit (`jourApresDepart` de `premiere.ts`), pour
  * que rien ne soit enseigné deux fois. Par défaut, le premier jour.
  */
 export function finDepart(

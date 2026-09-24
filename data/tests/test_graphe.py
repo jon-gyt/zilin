@@ -19,6 +19,7 @@ from wenlu_data.graphe import (
     CARACTERE,
     DEPART,
     MUETTE,
+    PARCOURS,
     CycleDetecte,
     DepartImpossible,
     Graphe,
@@ -256,17 +257,20 @@ def test_le_depart_respecte_les_dependances() -> None:
     assert [j.caracteres for j in p.jours] == [("日",), ("月",), ("明",)]
 
 
-def test_le_parcours_lire_commence_par_la_premiere_session() -> None:
-    """Le départ du parcours « lire » est ce que l'app enseigne à la première session."""
+def test_chaque_parcours_commence_par_la_premiere_session() -> None:
+    """Le départ de « lire » comme de « hsk » est ce que l'app enseigne à la première session."""
     assert DEPART["lire"] == ("人", "大", "天")
+    assert DEPART["hsk"] == ("人", "大", "天")
+    assert set(DEPART) == set(PARCOURS)
 
 
-def test_l_export_versionne_commence_par_la_premiere_session() -> None:
+@pytest.mark.parametrize("nom", ["lire", "hsk"])
+def test_l_export_versionne_commence_par_la_premiere_session(nom: str) -> None:
     """Jours 1 à 3 de l'index exporté : 人, 大, 天, seuls. Le jour 4 reprend l'ordre du graphe."""
     index = EXPORT / VERSION / "index.json"
     if not index.exists():
         pytest.skip("aucun export versionné")
-    jours = json.loads(index.read_text(encoding="utf-8"))["parcours"]["lire"]["jours"]
+    jours = json.loads(index.read_text(encoding="utf-8"))["parcours"][nom]["jours"]
     assert [(j["jour"], j["brique"], j["composes"]) for j in jours[:3]] == [
         (1, "人", []),
         (2, "大", []),
