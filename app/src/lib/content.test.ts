@@ -17,6 +17,9 @@ import {
   famille as chargerFamille,
   fiche,
   fichierPaires,
+  fichierDevinettes,
+  loadDevinettes,
+  type Devinettes,
   jourDuParcours,
   lecon,
   nomParcours,
@@ -961,5 +964,88 @@ describe('le chargeur des contes', () => {
     expect([...contes.keys()]).toEqual(['essai']);
     expect(appels).toContain(`${import.meta.env.BASE_URL}data/${V}/contes/essai.json`);
     await expect(loadConte(`data/${V}/contes/absent.json`)).rejects.toThrow('introuvable');
+  });
+});
+
+describe('le chargeur de devinettes', () => {
+  const FICHIER = `data/${VERSION_DONNEES}/devinettes.json`;
+  const reponse = (ok: boolean, corps: unknown): Response =>
+    ({ ok, status: ok ? 200 : 404, json: async () => corps }) as Response;
+  const servi = JSON.parse(
+    readFileSync(new URL(`../../public/${FICHIER}`, import.meta.url), 'utf8')
+  ) as Devinettes;
+  const juste = {
+    id: '休',
+    c: '休',
+    pinyin: 'xiū',
+    sens: 'se reposer',
+    enonce: 'Un homme adossé à un arbre',
+    zh: null,
+    disposition: 'cote',
+    briques: ['亻', '木'],
+    leurres: ['作', '机', '们']
+  };
+
+  it("lit le fichier nommé par l'index, et lui seul", async () => {
+    expect(fichierDevinettes(index)).toBe(FICHIER);
+    const appels: string[] = [];
+    const faux: typeof fetch = async (u) => {
+      appels.push(String(u));
+      return reponse(true, servi);
+    };
+    const lu = await loadDevinettes(FICHIER, faux);
+    expect(appels).toEqual([`${import.meta.env.BASE_URL}${FICHIER}`]);
+    expect(lu.devinettes).toHaveLength(servi.devinettes.length);
+  });
+
+  it('écarte une devinette illisible : sans énoncé, une brique seule, la réponse parmi les leurres', async () => {
+    const corps = {
+      devinettes: [
+        juste,
+        { ...juste, id: 'a', enonce: '' },
+        { ...juste, id: 'b', briques: ['亻'] },
+        { ...juste, id: 'c', leurres: ['休', '作', '机'] },
+        { ...juste, id: 'd', leurres: ['作', '作', '机'] },
+        { ...juste }
+      ],
+      noms: { 亻: 'un homme', 木: 'un arbre', x: 3 },
+      racines: { 休: '亻' }
+    };
+    const lu = await loadDevinettes(FICHIER, async () => reponse(true, corps));
+    expect(lu.devinettes.map((d) => d.id)).toEqual(['休']);
+    expect(lu.noms).toEqual({ 亻: 'un homme', 木: 'un arbre' });
+  });
+
+  it('refuse un fichier absent ou sans liste', async () => {
+    await expect(loadDevinettes(FICHIER, async () => reponse(false, null))).rejects.toThrow(
+      'introuvables'
+    );
+    await expect(loadDevinettes(FICHIER, async () => reponse(true, {}))).rejects.toThrow(
+      'illisibles'
+    );
+  });
+
+  it("vient du pipeline : l'export versionné porte les devinettes, leur en-tête et leurs racines", () => {
+    expect(index.devinettes).toBe('devinettes.json');
+    const brut = servi as unknown as Record<string, unknown>;
+    for (const cle of ['license', 'source', 'source_url', 'modified']) {
+      expect(brut[cle]).toBeTruthy();
+    }
+    expect(servi.devinettes.length).toBeGreaterThanOrEqual(60);
+    for (const d of servi.devinettes) {
+      expect(d.leurres).toHaveLength(3);
+      for (const x of [d.c, ...d.briques, ...d.leurres]) expect(servi.racines[x]).toBeTruthy();
+      for (const b of d.briques) expect(servi.noms[b]).toBeTruthy();
+    }
+  });
+
+  it("n'écrit aucune devinette dans le code de l'app", () => {
+    for (const f of ['Game.svelte', 'jeux.ts', '../App.svelte']) {
+      const src = readFileSync(new URL(f, import.meta.url), 'utf8');
+      for (const d of servi.devinettes) {
+        expect(src).not.toContain(d.enonce);
+        if (d.zh) expect(src).not.toContain(d.zh);
+      }
+    }
   });
 });
