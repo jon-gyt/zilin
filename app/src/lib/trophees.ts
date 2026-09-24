@@ -406,12 +406,13 @@ export function tropheesContes(index: Index, lus: number): Trophee[] {
 /* ---------- 5. objets de Tao ---------- */
 
 /**
- * Le pinceau se lit sur `tracees` : les briques dont le tracé a été ouvert à la première
- * rencontre (`session.traceVue`). La lanterne et le bol attendent leurs jeux : la
- * progression ne suit encore ni les devinettes ni les recettes, ils restent verrouillés.
+ * Le pinceau se lit sur `tracesAchevees` : les briques tracées en entier au doigt
+ * (`session.traceAchevee`), pas celles dont le tracé a seulement été proposé. La lanterne
+ * et le bol attendent leurs jeux : la progression ne suit encore ni les devinettes ni les
+ * recettes, ils restent verrouillés.
  */
-export function tropheesObjets(tracees: readonly string[]): Trophee[] {
-  const n = new Set(tracees).size;
+export function tropheesObjets(tracesAchevees: readonly string[]): Trophee[] {
+  const n = new Set(tracesAchevees).size;
   const pinceau = n >= PINCEAU_BRIQUES;
   return [
     {
@@ -567,7 +568,7 @@ export function tableau(
     section('sceaux', tropheesSceaux(c.familles, p.cartes, premierJour, sens, seuil)),
     section('pieges', tropheesPieges(paires, p.cartes, pinyins(c.familles), sens, seuil)),
     section('contes', tropheesContes(c.index, lus)),
-    section('objets', tropheesObjets(p.tracees)),
+    section('objets', tropheesObjets(p.tracesAchevees)),
     section('serie', tropheesSerie(p.joursTravailles, p.day))
   ];
   const tous = sections.flatMap((s) => s.trophees);

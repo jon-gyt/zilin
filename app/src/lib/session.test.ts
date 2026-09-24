@@ -52,6 +52,7 @@ import {
   setTrace,
   setUseView,
   steps,
+  traceAchevee,
   traceProposee,
   traceVue,
   title,
@@ -950,5 +951,58 @@ describe('la rétention cible, réglable (brief §7)', () => {
     const reglages = readFileSync(new URL('Settings.svelte', import.meta.url), 'utf8');
     expect(reglages).toContain('REGLAGES_RETENTION');
     expect(reglages).toContain('effetRetention(p.retention)');
+  });
+});
+
+/* ---------- le suivi des trophées ---------- */
+
+/**
+ * Une progression telle qu'une version plus ancienne l'a rangée : sans aucun des champs
+ * du suivi des trophées. Les cartes y sont comme IndexedDB les rend, dates en objets.
+ */
+function progressionAncienne(): Record<string, unknown> {
+  const T0 = new Date('2026-03-02T08:00:00Z');
+  let p = assurerCartes({ ...neuf(), premiere: false, lastWorked: JOUR }, ['天', '夫'], T0);
+  p = planifierCarte(p, '天', { correct: false, tries: 2, seconds: 5 }, T0);
+  p = traceVue(p, '人');
+  const o: Record<string, unknown> = { ...p };
+  delete o.tracesAchevees;
+  return o;
+}
+
+describe('le suivi des trophées dans la progression', () => {
+  it('note un tracé achevé, une fois par brique, et pas un tracé seulement proposé', () => {
+    let p = traceVue(neuf(), '人');
+    expect(p.tracesAchevees).toEqual([]);
+    p = traceAchevee(p, '人');
+    p = traceAchevee(p, '人');
+    p = traceAchevee(p, '大');
+    expect(p.tracesAchevees).toEqual(['人', '大']);
+    expect(traceAchevee(p, '人')).toBe(p);
+    expect(fromJSON(toJSON(p), JOUR).tracesAchevees).toEqual(['人', '大']);
+  });
+
+  it('relit une progression plus ancienne sans rien perdre, depuis un export comme depuis IndexedDB', () => {
+    const ancien = progressionAncienne();
+    const avant = fromJSON(JSON.stringify({ ...ancien, tracesAchevees: [] }), JOUR);
+    for (const texte of [
+      /* L'export JSON : les cartes dans leur enveloppe de `srs.ts`. */
+      toJSON(ancien as unknown as Progress),
+      /* IndexedDB : l'objet rangé tel quel, relu par `loadProgress`. */
+      JSON.stringify(ancien)
+    ]) {
+      expect(texte).not.toContain('tracesAchevees');
+      const p = fromJSON(texte, JOUR);
+      /* Rien n'est déduit des tracés proposés : le pinceau ne s'estime pas. */
+      expect(p.tracees).toEqual(['人']);
+      expect(p.tracesAchevees).toEqual([]);
+      expect(p.cartes).toEqual(avant.cartes);
+      expect(p).toEqual(avant);
+    }
+  });
+
+  it('écarte des entrées de suivi aberrantes', () => {
+    const cassé = JSON.stringify({ ...neuf(), tracesAchevees: ['人', 3, '', '人', null, '大'] });
+    expect(fromJSON(cassé, JOUR).tracesAchevees).toEqual(['人', '大']);
   });
 });

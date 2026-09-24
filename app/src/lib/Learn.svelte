@@ -25,6 +25,7 @@
     onsuivant,
     onvue,
     ontrace,
+    ontraceachevee,
     onquitter
   }: {
     p: Progress;
@@ -36,6 +37,11 @@
     onsuivant: (brique: string, compose: string | null, jour: number) => void;
     onvue: (v: LearnView) => void;
     ontrace: (actif: boolean) => void;
+    /**
+     * La brique vient d'être tracée en entier, dernier trait compris : c'est ce que le
+     * pinceau des trophées compte. Ouvrir le tracé, ou le passer, ne l'appelle pas.
+     */
+    ontraceachevee: (brique: string) => void;
     onquitter: () => void;
   } = $props();
 
@@ -120,6 +126,12 @@
     return x.nouveau.includes(i) ? 'var(--zhu)' : 'var(--ocre)';
   }
 
+  /** Le dernier trait posé : le bouton du bas change, et le tracé achevé est noté. */
+  function traceTermine(c: string): void {
+    traceFait = true;
+    ontraceachevee(c);
+  }
+
   /** Le composé à apprendre avec la brique, quand le jour en pose un. */
   const suivantDuJour = $derived(compo?.c ?? null);
 </script>
@@ -182,7 +194,7 @@
     <div class="verif-tete">
       <Tao stade={taoStade} posture="trace" humeur={taoHumeur} size={64} />
     </div>
-    <Trace char={brique.c} onresultat={() => (traceFait = true)} />
+    <Trace char={brique.c} onresultat={() => traceTermine(brique.c)} />
     <label class="pref">
       <input type="checkbox" checked={!p.trace} onchange={(e) => ontrace(!e.currentTarget.checked)} />
       Ne plus proposer le tracé

@@ -71,6 +71,7 @@
     setTrace,
     setUseView,
     srsParams,
+    traceAchevee,
     traceVue,
     useNext,
     type Budget,
@@ -445,6 +446,12 @@
     enregistrer();
   }
 
+  /** La brique tracée en entier : le pinceau des trophées la compte. */
+  function traceFinie(brique: string): void {
+    p = traceAchevee(p, brique);
+    enregistrer();
+  }
+
   /** Réglage « ne plus proposer le tracé », mémorisé dans la progression. */
   function reglerTrace(actif: boolean): void {
     p = setTrace(p, actif);
@@ -570,6 +577,7 @@
     onsuivant={apprendreSuivant}
     onvue={apprendreVue}
     ontrace={reglerTrace}
+    ontraceachevee={traceFinie}
     onquitter={quitter}
   />
 {:else if ecran === 'use'}

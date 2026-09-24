@@ -35,7 +35,8 @@ describe('apprendre, le tracé : une fois tracé, le bouton du bas ne dit plus �
   const trace = source('Trace.svelte');
 
   it('le tracé complet remonte à l\'écran, qui change le libellé et rend le bouton principal', () => {
-    expect(learn).toContain('onresultat={() => (traceFait = true)}');
+    expect(learn).toContain('onresultat={() => traceTermine(brique.c)}');
+    expect(learn).toMatch(/function traceTermine\(c: string\): void \{\s*traceFait = true;\s*ontraceachevee\(c\);/);
     expect(learn).toContain("{traceFait ? 'Suivant' : 'Continuer sans tracer'}");
     expect(learn).toContain('class:ghost={!traceFait}');
   });

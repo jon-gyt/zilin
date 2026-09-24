@@ -4,7 +4,7 @@ import { Rating } from 'ts-fsrs';
 import { VERSION_DONNEES, type Famille, type Index } from './content';
 import { caracteresLus } from './foret';
 import { CADEAUX, PALIERS } from './serie';
-import { emptyProgress, type Progress } from './session';
+import { emptyProgress, traceAchevee, type Progress } from './session';
 import { SEUIL_DEBLOCAGE, newCard, schedule, stability, type ReviewCard } from './srs';
 import {
   FAMILLES_TROPHEES,
@@ -244,6 +244,18 @@ describe('les objets de Tao', () => {
     expect(tropheesObjets(neuf)[0].obtenu).toBe(false);
     expect(tropheesObjets([...neuf, '人'])[0].progres).toBe(`9 / ${PINCEAU_BRIQUES}`);
     expect(tropheesObjets([...neuf, '口'])[0].obtenu).toBe(true);
+  });
+
+  it('ne comptent au pinceau que les tracés achevés, pas les tracés proposés', () => {
+    const dix = '人大天日月木水火土口'.split('');
+    const pinceau = (p: Progress) =>
+      tous(tableau(p, contenuExport)).find((x) => x.id === 'objet-pinceau')!;
+    const proposes = progression({ tracees: dix });
+    expect(pinceau(proposes).actuel).toBe(0);
+    expect(pinceau(proposes).obtenu).toBe(false);
+    let acheves = progression({ tracees: dix });
+    for (const c of dix) acheves = traceAchevee(acheves, c);
+    expect(pinceau(acheves).obtenu).toBe(true);
   });
 
   it('verrouillent la lanterne et le bol tant que rien ne les suit', () => {

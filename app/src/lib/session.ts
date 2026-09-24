@@ -135,6 +135,13 @@ export type Progress = {
   trace: boolean;
   /** Briques dont le tracé a déjà été proposé : une seule fois par brique. */
   tracees: string[];
+  /**
+   * Briques tracées en entier au doigt, chacune une fois, dans l'ordre. Proposer le tracé
+   * (`tracees`) ne suffit pas : seul le tracé achevé compte. C'est ce que lit le pinceau
+   * des trophées. Ajouté après coup : une progression sans ce champ n'a rien d'achevé, et
+   * rien n'est déduit des tracés proposés.
+   */
+  tracesAchevees: string[];
   /** Vue en cours du pas Utiliser : la reprise se fait au pas exact, vue comprise. */
   use: UseView;
   /** Question en cours du pas Fixer : la reprise reprend la vérification où elle en est. */
@@ -238,6 +245,7 @@ export function emptyProgress(aujourdhui: string): Progress {
     learn: 'brique',
     trace: true,
     tracees: [],
+    tracesAchevees: [],
     use: 'mots',
     fix: 0,
     fixNotee: -1,
@@ -625,6 +633,15 @@ export function traceVue(p: Progress, brique: string): Progress {
   return p.tracees.includes(brique) ? p : { ...p, tracees: [...p.tracees, brique] };
 }
 
+/**
+ * Note que la brique a été tracée en entier : le dernier trait posé, pas seulement le
+ * tracé ouvert. Une brique compte une fois, même tracée encore.
+ */
+export function traceAchevee(p: Progress, brique: string): Progress {
+  if (brique === '' || p.tracesAchevees.includes(brique)) return p;
+  return { ...p, tracesAchevees: [...p.tracesAchevees, brique] };
+}
+
 /** Ouvre une vue du pas Apprendre. La progression est sauvegardée à chaque tap. */
 export function setLearnView(p: Progress, vue: LearnView): Progress {
   return { ...p, learn: vue };
@@ -948,6 +965,12 @@ function lireRevisions(brut: unknown): Revision[] {
   });
 }
 
+/** Relit une liste de caractères, sans doublon, dans l'ordre. Absente ou aberrante : vide. */
+function listeDeCaracteres(v: unknown): string[] {
+  if (!Array.isArray(v)) return [];
+  return [...new Set(v.filter((c): c is string => typeof c === 'string' && c !== ''))];
+}
+
 /** Relit un rang de question déjà notée. Absent ou aberrant : aucune question notée. */
 function lireNotee(v: unknown): number {
   return typeof v === 'number' && v >= 0 ? Math.floor(v) : -1;
@@ -1012,6 +1035,8 @@ export function fromJSON(texte: string, aujourdhui: string): Progress {
     learn: isLearnView(o.learn) ? o.learn : vide.learn,
     trace: o.trace === undefined ? vide.trace : o.trace !== false,
     tracees: Array.isArray(o.tracees) ? o.tracees.filter((c): c is string => typeof c === 'string') : [],
+    /* Les tracés achevés : absents d'un export plus ancien, rien n'est achevé. */
+    tracesAchevees: listeDeCaracteres(o.tracesAchevees),
     /* Champs des pas Utiliser et Fixer : absents d'un export plus ancien, ils reprennent leur défaut. */
     use: isUseView(o.use) ? o.use : vide.use,
     fix: typeof o.fix === 'number' && o.fix >= 0 ? Math.floor(o.fix) : 0,

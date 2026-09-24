@@ -115,7 +115,7 @@ On y entre depuis Ma forêt (« Tes trophées », N sur M et le prochain). Règl
 | Sceaux de famille | une famille d'au moins deux caractères lue en entier ; on montre les familles commencées et quelques suivantes du parcours | la racine |
 | Pièges déjoués | une paire de `paires.json` lue dix fois de suite sans confusion, une fois les deux caractères acquis | la paire |
 | Contes | chaque conte lu, relu à chaque seuil | le seuil |
-| Objets de Tao | pinceau (dix briques tracées), lanterne (dix devinettes), bol (la première recette) | pictogramme au trait |
+| Objets de Tao | pinceau (dix briques tracées en entier, le dernier trait posé : un tracé seulement proposé ne compte pas), lanterne (dix devinettes), bol (la première recette) | pictogramme au trait |
 | Série | 7, 30, 100, 365 jours, les cadeaux remis par Que 雀 | « 7 j » |
 
 Un trophée est un sceau carré 印 : obtenu, gravé en clair sur l'encre avec un double filet ; à venir, en pointillés avec sa progression (« 62 / 100 »). Le toucher montre son détail dans la carte du résumé, sans fenêtre modale.
