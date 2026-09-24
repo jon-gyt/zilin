@@ -21,6 +21,7 @@ Référence jouable : `maquettes/zilin-jeu.html` (démos des mécaniques) et `ma
 8. Les saisons. Décor selon le calendrier chinois : Nouvel An 年, fête des Lanternes 灯, Qingming 雨, fête des bateaux-dragons 粽 (le dragon au décor seulement), Qixi 桥, mi-automne 月, double neuf 菊, solstice d'hiver 冬. Un caractère bonus et une anecdote par fête, dans `data/sources/fetes/textes.tsv`. Entre les fêtes, les vingt-quatre termes solaires (`data/sources/saisons/textes.tsv`) : une ambiance légère, et un caractère à lire par terme (露, 霜, 雪, 雷…). Le décor de l'app est en place ; celui du cercle de Ma forêt reste à faire.
 9. Les devinettes de lanternes (灯谜). Une devinette = une décomposition déguisée. « Une bouche mord la queue du bœuf » : 告. « Un homme sous un arbre » : 休. « Le soleil et la lune ensemble » : 明. « Dix bouches » : 古. « Une femme et un enfant » : 好. Base de 100, une par matin, portée par Tao ; la lanterne s'allume pour la journée.
 10. La cuisine de Tao. Recette en chinois, ingrédients sur l'étal, erreurs plausibles. 蛋炒饭 = 鸡蛋 + 米饭 + 油 ; 牛肉面 = 牛肉 + 面 + 汤 ; piège 牛奶 (lait) pour 牛肉 (bœuf). Dix plats de cantine, un par famille alimentaire (米 面 肉 菜 汤).
+    Réalisé (4b.6) avec les seuls caractères du seuil 255 et du HSK 1 : 大肉面, 米饭, 菜饭 (gratuits), 冷面, 面条, 包子, 牛肉面, 鸡蛋面, 牛肉饭, 蛋包饭. 蛋炒饭, 番茄炒蛋 et 饺子 attendent 炒, 番, 茄, 饺 ; 汤 n'est dans aucune des deux listes. Tao demande un ingrédient en français, on le prend sur l'étal parmi des mots chinois.
 
 ## Tao
 
