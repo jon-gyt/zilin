@@ -75,6 +75,18 @@ describe("l'assemblage de révision tient dans l'écran, bouton du bas compris",
   });
 });
 
+describe('le bouton principal reste visible quand le contenu défile', () => {
+  const css = source('tokens.css');
+
+  it('en session, le pied de l’écran colle au bas de la fenêtre', () => {
+    expect(css).toMatch(/\n\.foot\{position:sticky;bottom:0;/);
+  });
+
+  it('sur les onglets, où la barre tient déjà le bas, il reste dans le flux', () => {
+    expect(css).toContain('.onglets .foot{position:static;');
+  });
+});
+
 describe('la chaîne : la limite de trois minutes ne ferme pas le tour en cours', () => {
   const echoir = corps(source('Game.svelte'), 'echoir');
 

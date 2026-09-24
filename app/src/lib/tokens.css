@@ -503,3 +503,7 @@ h1{font-family:var(--head);font-weight:700;font-size:30px;line-height:1.15;lette
 .q .parts.serre{gap:4px}
 .q .parts.serre .case{width:36px;height:36px}
 .q .parts.serre .op{font-size:18px}
+/* le bouton principal reste en bas de l'écran, même quand le contenu défile (un long
+   résumé de révision) ; sur les onglets, la barre occupe déjà le bas : il suit le flux */
+.foot{position:sticky;bottom:0;z-index:1;background:var(--paper);padding-bottom:calc(env(safe-area-inset-bottom) + 10px);margin-bottom:-10px}
+.onglets .foot{position:static;padding-bottom:0;margin-bottom:0;background:none}
