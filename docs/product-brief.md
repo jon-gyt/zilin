@@ -86,6 +86,23 @@ Fluidité : un tap par écran, bouton principal unique en bas, avance automatiqu
 - Ma forêt : une colline, un arbre par famille dont la taille suit la progression, un brin d'herbe par caractère, Miao dessus. Le dimanche, récapitulatif de la semaine partageable en image.
 - Notification : une par jour, à l'heure choisie, avec le début de l'anecdote.
 
+### Le tableau des trophées
+
+On y entre depuis Ma forêt (« Tes trophées », N sur M et le prochain). Règle : chaque trophée se gagne en lisant, jamais au temps passé. Aucune règle ne lit une durée, un budget ou un temps de réponse. Pas de points, pas de classement, pas de doré. Tout se calcule depuis la progression et le contenu exporté (`app/src/lib/trophees.ts`).
+
+| Famille | Ce qui le donne | Sceau |
+|---|---|---|
+| Lire | 10, 50, 100, 255 (premier seuil), 505, 1555 caractères lus, au seuil de stabilité de Ma forêt | le nombre |
+| Sceaux de famille | une famille d'au moins deux caractères lue en entier ; on montre les familles commencées et quelques suivantes du parcours | la racine |
+| Pièges déjoués | une paire de `paires.json` lue dix fois de suite sans confusion, une fois les deux caractères acquis | la paire |
+| Contes | chaque conte lu, relu à chaque seuil | le seuil |
+| Objets de Tao | pinceau (dix briques tracées), lanterne (dix devinettes), bol (la première recette) | pictogramme au trait |
+| Série | 7, 30, 100, 365 jours, les cadeaux remis par Que 雀 | « 7 j » |
+
+Un trophée est un sceau carré 印 : obtenu, gravé en clair sur l'encre avec un double filet ; à venir, en pointillés avec sa progression (« 62 / 100 »). Le toucher montre son détail dans la carte du résumé, sans fenêtre modale.
+
+Ce que la progression ne suit pas encore reste verrouillé, jamais estimé : la lecture des contes, les devinettes et les recettes. Pour les pièges, la progression ne garde pas le leurre choisi : une lecture compte « sans confusion » quand la révision d'un des caractères de la paire n'est pas ratée, quelle que soit sa vitesse.
+
 ## 9. Tao et les jeux
 
 ### Tao, la compagne
