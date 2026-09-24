@@ -246,13 +246,44 @@ def caracteres_de_lapp(
     return sous_ensemble_chinois(cles, textes)
 
 
-def ecrire_sous_ensemble(chemin: Path, caracteres: str) -> Path:
-    """Écrit la liste des caractères retenus, pour que le woff2 soit rejouable."""
+def dessine_hors_police(c: str) -> bool:
+    """Vrai si l'app dessine `c` depuis ses traits même en petit, sans essayer la police.
+
+    La règle de `horsPolice` dans `app/src/lib/glyph.ts` : plusieurs points de code (un
+    composant sans point de code, écrit en IDS) ou un point de code hors du plan
+    multilingue de base (les extensions B et suivantes, que Noto Serif SC ne couvre
+    qu'en partie).
+    """
+    return len(c) != 1 or ord(c) > 0xFFFF
+
+
+def absents_de_la_police(caracteres: str, cmap: set[int] | dict[int, str]) -> tuple[str, str]:
+    """Les caractères demandés que la police n'a pas : (dessinés par l'app, en carré vide).
+
+    Les premiers ne se voient qu'en traits dans l'app (`dessine_hors_police`) ; les
+    seconds s'afficheraient en carré vide partout où l'app les écrit en police.
+    """
+    absents = [c for c in caracteres if ord(c) not in cmap]
+    dessines = "".join(c for c in absents if dessine_hors_police(c))
+    vides = "".join(c for c in absents if not dessine_hors_police(c))
+    return dessines, vides
+
+
+def ecrire_sous_ensemble(chemin: Path, caracteres: str, absents: str = "") -> Path:
+    """Écrit la liste des caractères retenus, pour que le woff2 soit rejouable.
+
+    `absents` : ceux que Noto Serif SC n'a pas, et que l'app dessine depuis leurs traits.
+    """
     chemin.write_text(
         "# Caractères embarqués dans noto-serif-sc-500.woff2, écrit par `uv run wenlu fonts`.\n"
         "# Origine : clés de app/public/strokes-demo.json, tracés et textes de l'export versionné,\n"
         "# listes data/sources/listes/*.txt, ponctuation chinoise courante et chiffres.\n"
-        f"{caracteres}\n",
+        + (
+            f"# Absents de Noto Serif SC, que l'app dessine depuis leurs traits : {absents}\n"
+            if absents
+            else ""
+        )
+        + f"{caracteres}\n",
         encoding="utf-8",
     )
     return chemin
@@ -337,9 +368,18 @@ def fonts(*, force: bool = False, dossier: Path | None = None, sortie: Path | No
         (sortie / licence).write_text((dossier / licence).read_text(encoding="utf-8"), encoding="utf-8")
 
     chinois = caracteres_de_lapp()
-    ecrire_sous_ensemble(sortie / SOUS_ENSEMBLE, chinois)
+    noto = next(f for f in FONTES_A_PRODUIRE if f.jeu == "chinois")
+    police = _ouvrir(noto, dossier)
+    dessines, vides = absents_de_la_police(chinois, police.getBestCmap())
+    police.close()
+    ecrire_sous_ensemble(sortie / SOUS_ENSEMBLE, chinois, dessines)
     latin = sous_ensemble_latin()
     for fonte in FONTES_A_PRODUIRE:
         octets = produire(fonte, latin if fonte.jeu == "latin" else chinois, dossier, sortie / fonte.sortie)
         etat[fonte.sortie] = f"écrit, {octets} octets"
+    if dessines:
+        etat["absents de Noto Serif SC"] = f"dessinés depuis leurs traits : {dessines}"
+    if vides:
+        # Un carré vide à l'écran : la commande échoue, comme pour une source manquante.
+        etat["absents de Noto Serif SC"] = f"échec, carrés vides dans l'app : {vides}"
     return etat
