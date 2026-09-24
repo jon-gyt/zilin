@@ -233,7 +233,7 @@
         <span class="next">Prochaine fois : dans {prochaine}.</span>
       {/if}
     {:else if sautable}
-      Le tracé de ce caractère n'est pas embarqué. On passe.
+      Ce caractère ne se trace pas encore ici. Continue avec le bouton du bas.
     {:else if essais > 0}
       {indiceErreur(q)}
     {/if}

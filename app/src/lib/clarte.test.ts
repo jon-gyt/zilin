@@ -108,6 +108,14 @@ describe('des zones de tap d’au moins 44 pt', () => {
   });
 });
 
+describe("un tracé indisponible dit quoi faire, sans mot d'atelier", () => {
+  it('la ligne renvoie au bouton du bas et ne parle pas de données « embarquées »', () => {
+    const ask = source('Ask.svelte');
+    expect(ask).toContain('Ce caractère ne se trace pas encore ici. Continue avec le bouton du bas.');
+    expect(ask).not.toContain("n'est pas embarqué. On passe.");
+  });
+});
+
 describe('la chaîne : la limite de trois minutes ne ferme pas le tour en cours', () => {
   const echoir = corps(source('Game.svelte'), 'echoir');
 
