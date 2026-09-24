@@ -18,6 +18,7 @@ famille est copié tel quel à côté des woff2.
 from __future__ import annotations
 
 import json
+import re
 import zipfile
 from collections.abc import Iterable
 from dataclasses import dataclass
@@ -201,6 +202,29 @@ def caracteres_exportes(export: Path | None = None) -> set[str]:
     return trouves
 
 
+#: Idéogrammes, extensions et composants : ce qu'un texte exporté peut afficher en chinois.
+_CJK = re.compile(r"[\u2e80-\u2fdf\u31c0-\u31ef\u3400-\u4dbf\u4e00-\u9fff\U00020000-\U0003134f]")
+
+
+def caracteres_des_textes(export: Path | None = None) -> set[str]:
+    """Caractères chinois écrits dans les textes exportés : fêtes, fiches, contes.
+
+    Les tracés ne couvrent que ce qui se dessine ; un vœu (中秋快乐) ou une anecdote
+    (嫦娥, 月饼) s'écrit en police et doit donc être dans le sous-ensemble.
+    Les fichiers de tracés sont laissés à `caracteres_exportes`.
+    """
+    export = export or EXPORT
+    trouves: set[str] = set()
+    if not export.exists():
+        return trouves
+    for index in sorted(export.glob("*/index.json")):
+        for fichier in sorted(index.parent.rglob("*.json")):
+            if "traits" in fichier.relative_to(index.parent).parts:
+                continue
+            trouves.update(_CJK.findall(fichier.read_text(encoding="utf-8")))
+    return trouves
+
+
 def caracteres_de_lapp(
     traits: Path | None = None, listes: Path | None = None, export: Path | None = None
 ) -> str:
@@ -215,6 +239,7 @@ def caracteres_de_lapp(
     listes = listes or LISTES
     cles = list(json.loads(traits.read_text(encoding="utf-8")).keys()) if traits.exists() else []
     cles += sorted(caracteres_exportes(export))
+    cles += sorted(caracteres_des_textes(export))
     textes = [f.read_text(encoding="utf-8") for f in sorted(listes.glob("*.txt"))]
     return sous_ensemble_chinois(cles, textes)
 
@@ -223,7 +248,7 @@ def ecrire_sous_ensemble(chemin: Path, caracteres: str) -> Path:
     """Écrit la liste des caractères retenus, pour que le woff2 soit rejouable."""
     chemin.write_text(
         "# Caractères embarqués dans noto-serif-sc-500.woff2, écrit par `uv run wenlu fonts`.\n"
-        "# Origine : clés de app/public/strokes-demo.json, tracés de l'export versionné,\n"
+        "# Origine : clés de app/public/strokes-demo.json, tracés et textes de l'export versionné,\n"
         "# listes data/sources/listes/*.txt, ponctuation chinoise courante et chiffres.\n"
         f"{caracteres}\n",
         encoding="utf-8",

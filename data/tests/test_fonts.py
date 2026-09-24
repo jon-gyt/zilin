@@ -5,6 +5,7 @@ import json
 from pathlib import Path
 
 from wenlu_data.fonts import (
+    caracteres_des_textes,
     CHIFFRES,
     FONTES_A_PRODUIRE,
     LICENCES,
@@ -102,3 +103,20 @@ def test_le_sous_ensemble_couvre_les_caracteres_de_l_export(tmp_path: Path) -> N
 def test_sans_export_le_sous_ensemble_se_limite_aux_listes(tmp_path: Path) -> None:
     """`wenlu fonts` doit rester lançable avant tout export."""
     assert caracteres_exportes(tmp_path / "jamais-ecrit") == set()
+
+
+def test_le_sous_ensemble_couvre_les_textes_exportes(tmp_path: Path) -> None:
+    """Un vœu ou une anecdote s'écrit en police : ses caractères doivent être embarqués."""
+    export = _export_factice(tmp_path / "public")
+    version = next(export.glob("*/index.json")).parent
+    (version / "fetes.json").write_text(
+        json.dumps({"fetes": {"zhongqiu": {"voeu": {"zh": "中秋快乐"}, "texte": "嫦娥, 月饼"}}}, ensure_ascii=False),
+        encoding="utf-8",
+    )
+    textes = caracteres_des_textes(export)
+    assert {"中", "秋", "快", "乐", "嫦", "娥", "月", "饼"} <= textes
+    assert "木" not in textes  # les tracés restent à caracteres_exportes
+
+    vide = tmp_path / "listes"
+    vide.mkdir()
+    assert {"秋", "嫦"} <= set(caracteres_de_lapp(tmp_path / "absent.json", vide, export))
