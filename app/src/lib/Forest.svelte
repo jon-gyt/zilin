@@ -11,6 +11,7 @@
    * index, restent en Noto Serif SC tant que leur arbre n'est pas ouvert. Le cinabre
    * ne marque que la famille du moment.
    */
+  import Hz from './Hz.svelte';
   import Tao from './Tao.svelte';
   import TropheesEntree from './TropheesEntree.svelte';
   import {
@@ -378,7 +379,7 @@
     <div class="liste">
       {#each listees as f (f.racine)}
         <button class="famrow" onclick={() => ouvrirListe(f.racine)}>
-          <span class="hz">{f.racine}</span>
+          <Hz c={f.racine} size={22} pistes={[f.racine]} />
           <span class="grow k">{f.n} caractère{f.n > 1 ? 's' : ''}</span>
         </button>
       {/each}

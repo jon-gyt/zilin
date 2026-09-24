@@ -1,6 +1,6 @@
 import { describe, it, expect } from 'vitest';
 import { readFileSync } from 'node:fs';
-import { glyph, type StrokeData } from './glyph';
+import { glyph, horsPolice, type StrokeData } from './glyph';
 import { lireTraits, loadStrokes } from './strokes';
 
 const demo = JSON.parse(readFileSync(new URL('../../public/strokes-demo.json', import.meta.url), 'utf8')) as Record<string, StrokeData>;
@@ -18,6 +18,12 @@ describe('rendu depuis les traits', () => {
     expect(h).toContain('aria-label="住"');
     expect(all(/<path d="M /g, h)).toHaveLength(14); // 7 clipPaths + 7 remplissages
     expect(h).not.toContain('class="hz"');
+  });
+  it('hors du plan de base ou écrit en IDS, un composant se dessine même en petit', () => {
+    expect(horsPolice('𠂒')).toBe(true);
+    expect(horsPolice('⿰𠄌丶')).toBe(true);
+    expect(horsPolice('䒑')).toBe(false);
+    expect(horsPolice('人')).toBe(false);
   });
   it('sans données de traits, repli sur la police avec le caractère en clair', () => {
     const h = glyph('龘', undefined, 120);

@@ -9,6 +9,19 @@ let GID = 0;
  */
 export type GlyphOptions = { write?: boolean; color?: string; cinabre?: readonly number[]; label?: string };
 
+/**
+ * Vrai si `c` ne s'écrit pas en police, même en petit : plusieurs points de code (un
+ * composant de la norme sans point de code, écrit en IDS, comme ⿰𠄌丶) ou un point de
+ * code hors du plan de base (extension B et suivantes : Noto Serif SC n'a ni 𠂒, ni 𠃊,
+ * ni 𭃂). Ceux-là se dessinent depuis leurs traits partout, texte courant compris.
+ * `wenlu fonts` suppose la même règle (`dessine_hors_police`) et signale les autres
+ * caractères absents de la police.
+ */
+export function horsPolice(c: string): boolean {
+  const points = [...c];
+  return points.length !== 1 || (c.codePointAt(0) ?? 0) > 0xffff;
+}
+
 export function glyph(c: string, d: StrokeData | undefined, size: number, opts: GlyphOptions = {}): string {
   if (!d) return `<span class="hz" style="font-size:${Math.round(size * 0.88)}px">${c}</span>`;
   const write = opts.write ?? size >= 84;
