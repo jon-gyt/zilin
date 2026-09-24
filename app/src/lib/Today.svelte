@@ -98,7 +98,11 @@
   </div>
 
   {#if !pose && caractere !== ''}
-    <div class="today"><Glyph char={caractere} size={110} /></div>
+    <!-- Un grand caractère seul ne dit rien à qui débute : une ligne dit ce qu'il fait là. -->
+    <div class="today">
+      <Glyph char={caractere} size={110} />
+      <div class="k">Le caractère du jour</div>
+    </div>
   {/if}
 
   <div class="foot">

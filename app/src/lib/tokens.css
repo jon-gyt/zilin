@@ -495,3 +495,7 @@ h1{font-family:var(--head);font-weight:700;font-size:30px;line-height:1.15;lette
 .correction .gl{display:flex;flex-direction:column;margin-left:auto;text-align:right;font-size:15px;color:var(--ink2)}
 .correction .gl .py{font-size:16px}
 @media (prefers-reduced-motion:reduce){.chaine .maillon.faite{animation:none}}
+
+/* ---- clarté pour un débutant : ce que l'écran attend se voit d'un coup d'œil ---- */
+/* le caractère du jour, sur le chemin, avec la ligne qui dit ce qu'il fait là */
+.today{flex-direction:column;gap:6px}

@@ -45,6 +45,14 @@ describe('apprendre, le tracé : une fois tracé, le bouton du bas ne dit plus �
   });
 });
 
+describe("aujourd'hui : le grand caractère du chemin dit ce qu'il fait là", () => {
+  it('une ligne le nomme sous le caractère', () => {
+    const today = source('Today.svelte');
+    const bloc = today.slice(today.indexOf('<div class="today">'));
+    expect(bloc.slice(0, bloc.indexOf('</div>\n'))).toContain('Le caractère du jour');
+  });
+});
+
 describe('la chaîne : la limite de trois minutes ne ferme pas le tour en cours', () => {
   const echoir = corps(source('Game.svelte'), 'echoir');
 
