@@ -33,6 +33,8 @@ import {
   setRevue,
   budgetNewBricks,
   catchupSteps,
+  cartesAOuvrir,
+  repartirBlocs,
   currentStep,
   dayLabel,
   emptyProgress,
@@ -185,6 +187,18 @@ describe('blocs de rattrapage', () => {
       '14 cartes',
       '13 cartes'
     ]);
+  });
+
+  it("le bloc ouvert prend exactement le nombre de cartes que le chemin annonce", () => {
+    /* 20 cartes : deux blocs de 10. L'écran en posait 15 après en avoir annoncé 10. */
+    expect(repartirBlocs(20)).toEqual([10, 10]);
+    const p: Progress = { ...neuf(), catchup: true, due: 20 };
+    expect(catchupSteps(20)[0].d).toBe(`${cartesAOuvrir(p)} cartes, les plus urgentes`);
+    expect(cartesAOuvrir(p)).toBe(10);
+  });
+
+  it('hors rattrapage, la séance en prend quatorze, comme annoncé', () => {
+    expect(cartesAOuvrir({ ...neuf(), due: 41 })).toBe(CARTES_PAR_SEANCE);
   });
 });
 

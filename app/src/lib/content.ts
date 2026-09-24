@@ -643,8 +643,11 @@ export type SourceTextes = 'export' | 'demonstration' | 'aucune';
 /** Une fiche prête à s'afficher : la fiche de l'export, et d'où viennent ses textes. */
 export type FicheLue = Fiche & { source: SourceTextes };
 
-/** Ce que l'écran dit quand ni l'export ni la démonstration n'ont de texte. */
-export const LIGNE_SANS_FICHE = 'La fiche arrive avec le pipeline.';
+/**
+ * Ce que l'écran dit quand ni l'export ni la démonstration n'ont de texte. Une ligne
+ * d'interface, pour quelqu'un qui débute : pas de mot de l'atelier (« pipeline »).
+ */
+export const LIGNE_SANS_FICHE = "La fiche de ce caractère n'est pas encore écrite.";
 
 /** Les familles de démonstration qui servent de surcouche, dans l'ordre de priorité. */
 export const FICHIERS_SURCOUCHE = ['data/demo/familles/人.json', 'data/demo/familles/主.json'];

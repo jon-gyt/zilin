@@ -51,6 +51,8 @@
   /** Les briques déjà posées : elles disent à `content` où chercher les familles. */
   let pistes = $state([] as string[]);
   let chargee = $state(false);
+  /** La brique a été tracée en entier dans cette vue : le bouton du bas le dit. */
+  let traceFait = $state(false);
   /** Le manifeste audio : il dit quels caractères ont une voix. Absent, l'écran se tait. */
   let son = $state(null as Manifeste | null);
 
@@ -190,14 +192,18 @@
     <div class="verif-tete">
       <Tao stade={taoStade} posture="trace" humeur={taoHumeur} size={64} />
     </div>
-    <Trace char={brique.c} />
+    <Trace char={brique.c} onresultat={() => (traceFait = true)} />
     <label class="pref">
       <input type="checkbox" checked={!p.trace} onchange={(e) => ontrace(!e.currentTarget.checked)} />
       Ne plus proposer le tracé
     </label>
     <div class="foot">
-      <button class="btn ghost" onclick={() => onsuivant(brique.c, suivantDuJour)}
-        >Continuer sans tracer</button
+      <!-- Le caractère tracé en entier, le bouton ne dit plus « sans tracer » : on continue. -->
+      <button
+        class="btn"
+        class:ghost={!traceFait}
+        onclick={() => onsuivant(brique.c, suivantDuJour)}
+        >{traceFait ? 'Suivant' : 'Continuer sans tracer'}</button
       >
     </div>
   {:else if vue === 'compose' && compo}

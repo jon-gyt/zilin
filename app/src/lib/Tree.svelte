@@ -26,6 +26,12 @@
     onlecon
   }: { fam: Noeud; onretour: () => void; onlecon: () => void } = $props();
 
+  /**
+   * Le rayon de la zone de tap d'un nœud, en unités du dessin (520 de large) : l'arbre
+   * s'affiche à environ 0,65 sur un écran de 393 px, et 34 unités y font 44 pt de diamètre.
+   */
+  const RAYON_TAP = 34;
+
   let traits = $state<StrokeSet>({});
   let lue = $state<FicheLue | null>(null);
   /** Le caractère dont la fiche est ouverte ; vide, c'est la racine de la famille. */
@@ -118,6 +124,8 @@
             }
           }}
         >
+          <!-- Le disque de tap : 34 unités, soit 44 pt à la largeur d'un iPhone. -->
+          <circle class="hit" r={Math.max(nd.r, RAYON_TAP)} />
           <circle class="nd {nd.etat}" class:verrouille={nd.verrouille} r={nd.r} />
           <g transform="translate({-nd.r * 0.78} {-nd.r * 0.78})">
             <!-- eslint-disable-next-line svelte/no-at-html-tags -->

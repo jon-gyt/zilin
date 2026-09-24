@@ -495,3 +495,30 @@ h1{font-family:var(--head);font-weight:700;font-size:30px;line-height:1.15;lette
 .correction .gl{display:flex;flex-direction:column;margin-left:auto;text-align:right;font-size:15px;color:var(--ink2)}
 .correction .gl .py{font-size:16px}
 @media (prefers-reduced-motion:reduce){.chaine .maillon.faite{animation:none}}
+
+/* ---- clarté pour un débutant : ce que l'écran attend se voit d'un coup d'œil ---- */
+/* le caractère du jour, sur le chemin, avec la ligne qui dit ce qu'il fait là */
+.today{flex-direction:column;gap:4px;padding:4px 0}
+/* l'assemblage de révision : quatre briques ou plus tiennent sur une ligne */
+.q .parts.serre{gap:4px}
+.q .parts.serre .case{width:36px;height:36px}
+.q .parts.serre .op{font-size:18px}
+/* le bouton principal reste en bas de l'écran, même quand le contenu défile (un long
+   résumé de révision) ; sur les onglets, la barre occupe déjà le bas : il suit le flux */
+.foot{position:sticky;bottom:0;z-index:1;padding-bottom:calc(env(safe-area-inset-bottom) + 10px);margin-bottom:-10px}
+.onglets .foot{position:static;padding-bottom:0;margin-bottom:0;background:none}
+/* un libellé de bouton qui passe à la ligne reste centré, et deux boutons côte à côte
+   gardent assez de place pour « Une autre manche » ou « Exporter en JSON » */
+.btn{text-align:center;line-height:1.2}
+.acts .btn{padding:0 10px}
+/* des zones de tap d'au moins 44 pt : le zoom du cercle, la liste des familles et
+   les nœuds d'un arbre (un disque transparent autour du caractère) */
+.zoomctl button{width:44px;height:44px}
+.famrow{min-height:44px}
+.tn .hit{fill:transparent;stroke:none}
+/* les sélecteurs des réglages : un choix sur deux lignes reste centré dans sa case */
+.seg button{text-align:center;line-height:1.25}
+/* le gabarit gris du tracé : en sombre, le trait de séparation se perdait sur la carte */
+:root{--guide:#D9D1C2}
+@media (prefers-color-scheme: dark){ :root:not([data-theme="light"]){ --guide:#5E554B } }
+:root[data-theme="dark"]{ --guide:#5E554B }

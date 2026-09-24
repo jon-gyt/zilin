@@ -11,8 +11,8 @@
   import Glyph from './Glyph.svelte';
   import Trace from './Trace.svelte';
   import { corriger, type Corpus, type Question } from './questions';
-  import { AVANCE_MS, VERDICTS, delai, pinyinDe } from './revision';
-  import { fiche } from './questions';
+  import { VERDICTS, delai, delaiAvance, pinyinDe } from './revision';
+  import { fiche, indiceErreur } from './questions';
   import type { Revision } from './session';
   import { grade } from './srs';
   import type { Grade } from 'ts-fsrs';
@@ -38,7 +38,7 @@
     echeanceDe: (c: string) => Date | null;
     /** La réponse notée : l'appelant replanifie la carte et range l'événement. */
     onnote: (r: Revision) => void;
-    /** Question suivante : au tap, ou tout seul 1,3 s après une bonne réponse. */
+    /** Question suivante : au tap, ou tout seul après une bonne réponse, le temps de lire la correction. */
     onsuivant: () => void;
     /** Dernière question de la série : le bouton le dit. */
     dernier?: boolean;
@@ -50,6 +50,9 @@
   /** Les choix sont des caractères partout, sauf pour le sens. */
   const caracteres = $derived(q.type !== 'sens');
   const bon = $derived(q.choix.indexOf(q.reponse[0]));
+  /** Assemblage de plus de trois briques : des cases plus petites, la ligne tient à 393 px. */
+  const serre = $derived(q.reponse.length > 3);
+  const tailleCase = $derived(serre ? 36 : 56);
 
   /* L'état de la question : les essais, le chronomètre, les choix éliminés, l'assemblage. */
   let essais = $state(0);
@@ -75,7 +78,7 @@
     depart = Date.now();
   });
 
-  /** L'avance automatique, 1,3 s après une bonne réponse. Annulée si on tape avant. */
+  /** L'avance automatique après une bonne réponse (`delaiAvance`). Annulée si on tape avant. */
   let minuteur: ReturnType<typeof setTimeout> | null = null;
 
   function arreter(): void {
@@ -101,7 +104,9 @@
     onnote({ c: q.c, ...c.outcome });
     const due = echeanceDe(q.c);
     prochaine = due === null ? '' : delai(new Date(), due);
-    if (c.correct) minuteur = setTimeout(avancer, AVANCE_MS);
+    /* L'avance automatique laisse lire la correction ; trop longue, on avance au tap. */
+    const attente = c.correct ? delaiAvance(`${VERDICTS[note]} ${q.explication.texte}`) : null;
+    if (attente !== null) minuteur = setTimeout(avancer, attente);
   }
 
   /** Un choix. Juste : la question est notée. Faux : un essai de plus, et on explique. */
@@ -160,18 +165,19 @@
       {#if f && f.fr !== ''}<b>« {f.fr} »</b>{/if}
       <span class="py">{pinyinDe(q.c, corpus)}</span>
     </div>
-    <div class="stim parts">
+    <!-- Plus de trois briques : la ligne se resserre pour tenir sur 393 px. -->
+    <div class="stim parts" class:serre={serre}>
       {#each q.reponse as _, n (n)}
         {#if n > 0}<span class="op">+</span>{/if}
         {#if construit[n] !== undefined}
-          <Glyph char={q.choix[construit[n]]} size={56} write={false} color="var(--ocre)" />
+          <Glyph char={q.choix[construit[n]]} size={tailleCase} write={false} color="var(--ocre)" />
         {:else}
           <span class="case-vide" aria-label="brique à poser"></span>
         {/if}
       {/each}
       <span class="op">=</span>
       {#if note !== null}
-        <Glyph char={q.c} size={56} write={false} />
+        <Glyph char={q.c} size={tailleCase} write={false} />
       {:else}
         <span class="hz vide">?</span>
       {/if}
@@ -196,13 +202,14 @@
   {/if}
 
   {#if q.type !== 'trace'}
-    <div class="choices">
+    <!-- L'assemblage pose ses briques en vrac sur quatre colonnes : le bouton du bas reste visible. -->
+    <div class="choices" class:vrac={q.type === 'assemblage'}>
       {#each q.choix as o, k (o + k)}
         <button
           class:txt={!caracteres}
           class:ok={note !== null && (q.type === 'assemblage' ? q.reponse.includes(o) : k === bon)}
           class:ko={rates.includes(k)}
-          class:pris={q.type === 'assemblage' && construit.includes(k)}
+          class:pris={q.type === 'assemblage' && note === null && construit.includes(k)}
           disabled={note !== null || rates.includes(k) || construit.includes(k)}
           onclick={() => (q.type === 'assemblage' ? assembler(k) : repondre(k))}
         >
@@ -217,7 +224,8 @@
     </div>
   {/if}
 
-  <div class="fb">
+  <!-- Rien à dire encore : pas de cadre vide sous les choix. -->
+  <div class="fb" class:vide={note === null && !sautable && essais === 0}>
     {#if note !== null}
       <b>{montree ? 'On te montre.' : VERDICTS[note]}</b>
       {q.explication.texte}
@@ -225,9 +233,9 @@
         <span class="next">Prochaine fois : dans {prochaine}.</span>
       {/if}
     {:else if sautable}
-      Le tracé de ce caractère n'est pas embarqué. On passe.
+      Ce caractère ne se trace pas encore ici. Continue avec le bouton du bas.
     {:else if essais > 0}
-      Pas celui-là. Regarde les briques.
+      {indiceErreur(q)}
     {/if}
   </div>
 </div>
