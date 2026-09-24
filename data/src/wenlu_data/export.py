@@ -25,7 +25,7 @@ familles de fichiers, jamais mêlés :
 - `familles/<racine>.json` : décomposition canonique GF 0014-2009 et textes des
   fiches relues, propriétaires. Aucun tracé n'y entre.
 - `paires.json`, `contes/<id>.json`, `fetes.json`, `saisons.json`, `devinettes.json`,
-  `eclair.json` : propriétaires, source citée.
+  `eclair.json`, `coquilles.json` : propriétaires, source citée.
 - `apercu/` : les textes encore à relire (voir plus bas), propriétaires eux aussi.
 
 Ce qui n'entre jamais dans l'export :
@@ -80,6 +80,7 @@ from pydantic import ValidationError
 
 from . import contes as contes_mod
 from . import decoupes as decoupes_mod
+from . import coquilles as coquilles_mod
 from . import devinettes as devinettes_mod
 from . import eclair as eclair_mod
 from . import fetes as fetes_mod
@@ -172,6 +173,7 @@ def fichiers_sources(
         ("exporteur", EXPORTEUR),
         ("exporteur-devinettes", Path(devinettes_mod.__file__).resolve()),
         ("exporteur-eclair", Path(eclair_mod.__file__).resolve()),
+        ("exporteur-coquilles", Path(coquilles_mod.__file__).resolve()),
         ("decompositions", build / "decompositions.json"),
         ("graphe", build / "graphe.json"),
         *[(f"parcours-{nom}", build / f"parcours-{nom}.json") for nom in sorted(PARCOURS)],
@@ -194,6 +196,7 @@ def fichiers_sources(
         ("devinettes", devinettes_mod.DEVINETTES),
         ("devinettes-briques", devinettes_mod.BRIQUES),
         ("eclair", eclair_mod.MOTS),
+        ("coquilles", coquilles_mod.COQUILLES),
         ("interface", INTERFACE),
         ("arphicpl", LICENCES_SOURCE / ARPHIC),
         ("unicode", LICENCES_SOURCE / UNICODE_NOTICE),
@@ -818,6 +821,34 @@ def document_eclair(
     )
 
 
+def document_coquilles(
+    version: str,
+    per: Perimetre,
+    noeuds: Mapping[str, Noeud],
+    graphies: Mapping[str, object],
+    paires: Sequence[Sequence[str]],
+) -> dict[str, object]:
+    """Le JSON écrit dans `coquilles.json` (story 4b.3), voir `coquilles.py`.
+
+    Les messages s'écrivent avec le seuil 255 et les intrus viennent des groupes de
+    `paires.json`, déjà réduits au périmètre : la coquille n'y fait entrer aucun caractère.
+    """
+    dessinables = [c for c in per.caracteres if c in graphies]
+    return coquilles_mod.document(
+        version,
+        caracteres=dessinables,
+        paires=paires,
+        racines={c: noeuds[c].racine for c in dessinables},
+        en_tete={
+            "version": version,
+            "license": LICENCE_PROPRIETAIRE,
+            "source": coquilles_mod.SOURCE_EXPORT,
+            "source_url": URL_PIPELINE,
+            "modified": f"{JETON_JOUR} : assemblé par `wenlu export`",
+        },
+    )
+
+
 def document_conte(
     conte: str, versions: Sequence[contes_mod.Version], version_export: str
 ) -> dict[str, object]:
@@ -1112,6 +1143,7 @@ def document_index(
         "saisons": "saisons.json",
         "devinettes": "devinettes.json",
         "eclair": "eclair.json",
+        "coquilles": "coquilles.json",
     }
     if apercu:
         document["apercu"] = f"{APERCU}/index.json"
@@ -1189,9 +1221,9 @@ TABLEAU_LICENCES: tuple[tuple[str, str, str, str, str], ...] = (
         "—",
     ),
     (
-        "Fiches, contes, paires, fêtes, saisons, devinettes, dictionnaire éclair (pipeline wenlu)",
+        "Fiches, contes, paires, fêtes, saisons, devinettes, dictionnaire éclair, coquilles (pipeline wenlu)",
         "`familles/`, `contes/`, `paires.json`, `fetes.json`, `saisons.json`, `devinettes.json`,"
-        " `eclair.json`, et `apercu/` pour les textes encore à relire",
+        " `eclair.json`, `coquilles.json`, et `apercu/` pour les textes encore à relire",
         LICENCE_PROPRIETAIRE,
         "textes rédigés pour l'app, relus",
         "—",
@@ -1222,8 +1254,8 @@ def licences_md(version: str) -> str:
         f"- `traits/` : tracés sous {LICENCE_TRAITS}, avec `{ARPHIC}` inaltéré à côté"
         " et `traits/MODIFICATIONS.md` qui dit comment et quand ils ont été dérivés.",
         "- `familles/`, `contes/`, `paires.json`, `fetes.json`, `saisons.json`, `devinettes.json`,"
-        " `eclair.json`, `apercu/` : décomposition canonique et textes rédigés pour l'app,"
-        " propriétaires.",
+        " `eclair.json`, `coquilles.json`, `apercu/` : décomposition canonique et textes rédigés"
+        " pour l'app, propriétaires.",
         f"- `{UNICODE_NOTICE}` : notice de permission Unicode, qui couvre le pinyin.",
         "",
         "## Ce que l'export ne contient pas",
@@ -1561,6 +1593,7 @@ def assembler(
     )
     textes.update(apercu)
     textes["eclair.json"] = _json(document_eclair(version, per, noeuds, graphies))
+    textes["coquilles.json"] = _json(document_coquilles(version, per, noeuds, graphies, groupes))
     textes["LICENCES.md"] = licences_md(version)
     textes["traits/MODIFICATIONS.md"] = modifications_md(version, len(graphies), decoupes)
     for nom in (ARPHIC, UNICODE_NOTICE):

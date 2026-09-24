@@ -26,6 +26,7 @@ une clé d'API et se lancent à la main, jamais dans `tout`. `fetes calendrier` 
 des sources versionnées que `export` lit. `devinettes apercu` et `devinettes a-rediger`
 servent à relire et à compléter la base des devinettes, qu'`export` lit aussi ;
 `eclair apercu` montre les mots du dictionnaire éclair et leurs leurres.
+`coquilles apercu` relit les messages de la coquille.
 
 Toutes les commandes sont idempotentes : deux passages écrivent les mêmes octets.
 Seul `data/work/sources/PROVENANCE.md` s'allonge, d'un bloc daté par passage.
@@ -39,6 +40,7 @@ import typer
 
 from .audio import app as _audio
 from .contes import app as _contes
+from .coquilles import app as _coquilles
 from .devinettes import app as _devinettes
 from .eclair import app as _eclair
 from .export import VERSION
@@ -131,10 +133,11 @@ app.command(name="fonts")(_fonts)
 
 @app.command()
 def check() -> None:
-    """Contrôles : composants inconnus, cycles, graphe, listes, briques muettes, découpes, contes hors liste, fiches invalides, rôle son loin de la lecture moderne, textes sans audio, export à jour, aperçu des textes à relire, fêtes, termes solaires, devinettes, dictionnaire éclair."""
+    """Contrôles : composants inconnus, cycles, graphe, listes, briques muettes, découpes, contes hors liste, fiches invalides, rôle son loin de la lecture moderne, textes sans audio, export à jour, aperçu des textes à relire, fêtes, termes solaires, devinettes, dictionnaire éclair, coquilles."""
     from .audio import controles as controles_audio
     from .contes import controles as controles_contes
     from .decoupes import controles as controles_decoupes
+    from .coquilles import controles as controles_coquilles
     from .devinettes import controles as controles_devinettes
     from .eclair import controles as controles_eclair
     from .export import controles as controles_export
@@ -159,6 +162,7 @@ def check() -> None:
         *controles_saisons(),
         *controles_devinettes(),
         *controles_eclair(),
+        *controles_coquilles(),
     ]:
         typer.echo(f"{'ok   ' if controle.ok else 'écart'} {controle.nom} : {controle.detail}")
         if not controle.ok and controle.bloquant:
@@ -200,6 +204,7 @@ def tout(
 
 app.add_typer(_audio, name="audio")
 app.add_typer(_contes, name="contes")
+app.add_typer(_coquilles, name="coquilles")
 app.add_typer(_devinettes, name="devinettes")
 app.add_typer(_eclair, name="eclair")
 app.add_typer(_fetes, name="fetes")

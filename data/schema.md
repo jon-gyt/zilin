@@ -33,6 +33,7 @@ app/public/data/0.1.0/
   saisons.json               les vingt-quatre termes solaires et leurs textes
   devinettes.json            les devinettes de lanternes (灯谜)
   eclair.json                le dictionnaire éclair : des mots à deviner
+  coquilles.json             les messages de la coquille
   familles/<racine>.json     une famille : `Famille` de models.py
   traits/<racine>.json       les tracés de la famille, sous APL, et rien d'autre
   traits/ARPHICPL.TXT        la même licence, à côté des fichiers qu'elle couvre
@@ -280,6 +281,29 @@ source, se lit dans les lectures d'Unihan ou des surcharges.
 - L'app ne propose un mot que si ses deux caractères sont acquis (stabilité FSRS au
   seuil) et qu'il n'est pas un mot de la fiche d'un caractère déjà appris.
 
+## `coquilles.json`
+
+Tiré de `data/sources/coquilles/coquilles.tsv` (story 4b.3) : des messages courts,
+rédigés pour l'app avec les seuls caractères du seuil 255, à relire par le
+propriétaire. La coquille en montre un où un caractère a pris la place d'un autre de
+son groupe à ne pas confondre (夫 pour 天).
+
+```json
+{"version": "0.1.0", "license": "propriétaire", "source": "…", "source_url": "…", "modified": "…",
+ "coquilles": [{"id": "今天天气很好", "message": "今天天气很好。", "pieges": ["天"],
+                "fr": "Il fait beau aujourd'hui.", "en": "The weather is nice today."}],
+ "racines": {"今": "人", "天": "大", "夫": "大", "…": "…"}}
+```
+
+- `id` : les caractères du message, sans la ponctuation. `message` garde la ponctuation.
+- `pieges` : les caractères du message que l'app peut remplacer. Chacun appartient à
+  un groupe de `paires.json` et y garde un autre membre absent du message ; l'export
+  ne garde que les pièges dont un tel intrus se dessine. L'intrus n'est pas écrit :
+  l'app le prend dans `paires.json`, parmi les caractères acquis.
+- `fr`, `en` : la traduction, que la correction montre.
+- `racines` : la famille de chaque caractère dessiné, message et intrus possibles.
+  Aucun n'est hors du périmètre.
+
 ## `LICENCES.md`
 
 Écrit par l'export. Un tableau `source | usage | licence | attribution | texte de
@@ -328,6 +352,12 @@ ce que l'app embarque ; `docs/sources-licences.md` fait foi pour la décision.
   distincts, jamais un proche ; chaque caractère est posé par un parcours ; chaque mot
   est une entrée de CC-CEDICT, pas un nom propre. « éclair : mots de fiche » —
   signalé : un mot qu'une fiche fait déjà lire ne sera proposé qu'avant elle.
+- « coquilles : sources », « export », « parcours » — bloquants : de 40 à 60
+  messages de 6 à 12 caractères, tous du seuil 255, traduits, sourcés, sans doublon,
+  chaque piège dans son message et dans un groupe de `paires.tsv`, avec un intrus
+  absent du message ; chaque message exporté, ne piégeant qu'avec un groupe de
+  `paires.json`, tout dessinable ; chaque caractère et un intrus par message posés par
+  un parcours.
 
 ## Format intermédiaire (story 1.1)
 
