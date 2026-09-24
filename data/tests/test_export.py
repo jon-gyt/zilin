@@ -240,6 +240,26 @@ def test_deux_passes_ecrivent_les_memes_octets(atelier: Path) -> None:
     assert premier.date == second.date, "la date ne bouge pas tant que le contenu ne bouge pas"
 
 
+def test_seul_l_index_bouge_quand_seule_l_empreinte_change(atelier: Path, monkeypatch) -> None:
+    """Un fichier dont le contenu n'a pas changé garde sa date, même un autre jour.
+
+    Sans cela, corriger l'exporteur (donc l'empreinte) réécrivait des centaines de
+    fichiers pour la seule note de modification.
+    """
+    from datetime import datetime, timezone
+
+    import zilin_data.export as module
+
+    premier = module.export("0.1.0", moment=datetime(2026, 9, 21, tzinfo=timezone.utc))
+    avant = {c: c.read_bytes() for c in sorted(premier.dossier.rglob("*")) if c.is_file()}
+    monkeypatch.setattr(module, "FORMAT_EXPORT", module.FORMAT_EXPORT + 1)
+    second = module.export("0.1.0", moment=datetime(2026, 9, 24, tzinfo=timezone.utc))
+    apres = {c: c.read_bytes() for c in sorted(second.dossier.rglob("*")) if c.is_file()}
+    changes = sorted(str(c.relative_to(second.dossier)) for c in apres if avant.get(c) != apres[c])
+    assert changes == ["index.json"]
+    assert second.date.startswith("2026-09-24")
+
+
 def test_un_fichier_devenu_hors_perimetre_est_retire(atelier: Path) -> None:
     rapport = export("0.1.0")
     intrus = rapport.dossier / "familles" / "林.json"

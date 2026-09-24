@@ -39,8 +39,8 @@ Le pinyin vient d'Unihan (`kMandarin`, Unicode License), jamais de
 
 Déterminisme : deux exports du même contenu écrivent les mêmes octets. Les
 fichiers sont triés, les dictionnaires écrits dans un ordre fixe, et la date est
-celle du dernier changement de contenu — elle est relue de l'export précédent
-tant que rien n'a bougé. `index.json` porte l'empreinte du build dont il est
+celle du dernier changement de contenu, fichier par fichier — un fichier dont le
+contenu n'a pas bougé garde sa date, même quand l'empreinte de l'index change. `index.json` porte l'empreinte du build dont il est
 tiré ; `zilin check` la recalcule pour dire si l'export est à jour. Cette
 empreinte couvre aussi le code qui écrit l'export — `FORMAT_EXPORT` et ce
 fichier lui-même : corriger l'exporteur rend l'export périmé.
@@ -49,6 +49,7 @@ from __future__ import annotations
 
 import hashlib
 import json
+import re
 from dataclasses import dataclass, field
 from datetime import datetime, timezone
 from pathlib import Path
@@ -834,16 +835,46 @@ def _dater(textes: Mapping[str, str], moment: datetime) -> dict[str, str]:
     }
 
 
-def _date_precedente(dossier: Path) -> datetime | None:
-    """La date de l'export déjà écrit, s'il y en a un de lisible."""
-    index = dossier / "index.json"
-    if not index.exists():
+def _dates_ecrites(modele: str, ecrit: str) -> tuple[str, str] | None:
+    """Les dates (jour, instant) qu'un fichier déjà écrit porte à la place des jetons.
+
+    `None` si le fichier écrit ne correspond pas au modèle : son contenu a changé.
+    """
+    motif = re.escape(modele)
+    for jeton, nom, forme in (
+        (JETON_JOUR, "jour", r"\d{4}-\d{2}-\d{2}"),
+        (JETON_DATE, "instant", r"\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}Z"),
+    ):
+        echappe = re.escape(jeton)
+        if echappe in motif:
+            premier = motif.index(echappe)
+            motif = (
+                motif[:premier]
+                + f"(?P<{nom}>{forme})"
+                + motif[premier + len(echappe):].replace(echappe, f"(?P={nom})")
+            )
+    trouve = re.fullmatch(motif, ecrit, flags=re.S)
+    if trouve is None:
         return None
-    try:
-        date = json.loads(index.read_text(encoding="utf-8")).get("date")
-        return datetime.strptime(str(date), "%Y-%m-%dT%H:%M:%SZ").replace(tzinfo=timezone.utc)
-    except (json.JSONDecodeError, TypeError, ValueError):
-        return None
+    groupes = trouve.groupdict()
+    return groupes.get("jour") or "", groupes.get("instant") or ""
+
+
+def _dater_par_fichier(dossier: Path, textes: Mapping[str, str], moment: datetime) -> dict[str, str]:
+    """Date chaque fichier à part : un fichier dont le contenu n'a pas changé garde sa date.
+
+    Seul un fichier réellement modifié prend la date du jour. Ainsi un changement qui ne
+    touche que l'empreinte ne réécrit qu'`index.json`, et la note de modification de
+    chaque fichier dérivé (licence Arphic §2 a) reste celle de son dernier changement.
+    """
+    neufs = _dater(textes, moment)
+    finaux: dict[str, str] = {}
+    for chemin, modele in textes.items():
+        fichier = dossier / chemin
+        ecrit = fichier.read_text(encoding="utf-8") if fichier.is_file() else None
+        dates = _dates_ecrites(modele, ecrit) if ecrit is not None else None
+        finaux[chemin] = ecrit if dates is not None else neufs[chemin]
+    return finaux
 
 
 #: Dossiers d'une version qu'une autre commande remplit : `export` les laisse
@@ -855,25 +886,6 @@ DOSSIERS_ETRANGERS: tuple[str, ...] = ("audio/",)
 def _etranger(relatif: str) -> bool:
     """Vrai si ce chemin appartient à une autre commande que `export`."""
     return relatif.startswith(DOSSIERS_ETRANGERS)
-
-
-def _identique(dossier: Path, textes: Mapping[str, str]) -> bool:
-    """Vrai si le dossier porte exactement ces fichiers, au même contenu.
-
-    Ce qui appartient à une autre commande (`audio/`) ne compte pas : l'export
-    n'en est pas l'auteur et n'a pas à se croire périmé parce qu'il a bougé.
-    """
-    presents = {
-        str(f.relative_to(dossier)).replace("\\", "/")
-        for f in dossier.rglob("*")
-        if f.is_file() and not _etranger(str(f.relative_to(dossier)).replace("\\", "/"))
-    }
-    if presents != set(textes):
-        return False
-    return all(
-        (dossier / chemin).read_text(encoding="utf-8") == texte
-        for chemin, texte in textes.items()
-    )
 
 
 def assembler(
@@ -994,9 +1006,7 @@ def export(
     dossier = (destination or EXPORT) / version
     dossier.mkdir(parents=True, exist_ok=True)
 
-    precedente = _date_precedente(dossier)
-    date = precedente if precedente and _identique(dossier, _dater(textes, precedente)) else None
-    finaux = _dater(textes, date or moment or _maintenant())
+    finaux = _dater_par_fichier(dossier, textes, moment or _maintenant())
 
     supprimes = []
     for fichier in sorted(dossier.rglob("*")):
