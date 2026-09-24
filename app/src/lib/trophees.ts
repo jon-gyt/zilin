@@ -1,8 +1,9 @@
 /**
  * Le tableau des trophées : ce que l'utilisateur a su lire, rien d'autre.
  *
- * Six familles de trophées : lire (des seuils de caractères), les sceaux de famille,
- * les pièges déjoués, les contes, les objets de Tao, la série. Chacun se gagne en lisant,
+ * Sept familles de trophées : lire (des seuils de caractères), les sceaux de famille,
+ * les pièges déjoués, les contes, les objets de Tao, les caractères trouvés en chemin
+ * (fêtes et termes solaires), la série. Chacun se gagne en lisant,
  * jamais au temps passé : aucune règle ne lit une durée, un nombre de minutes, le budget
  * de session ou le temps de réponse. Pas de points, pas de classement.
  *
@@ -33,8 +34,8 @@ import { SEUIL_DEBLOCAGE, type ReviewCard } from './srs';
 
 /* ---------- les formes ---------- */
 
-/** Les six familles de trophées, dans l'ordre de l'écran. */
-export const FAMILLES_TROPHEES = ['lire', 'sceaux', 'pieges', 'contes', 'objets', 'serie'] as const;
+/** Les sept familles de trophées, dans l'ordre de l'écran. */
+export const FAMILLES_TROPHEES = ['lire', 'sceaux', 'pieges', 'contes', 'objets', 'chemin', 'serie'] as const;
 
 export type FamilleTrophee = (typeof FAMILLES_TROPHEES)[number];
 
@@ -51,6 +52,7 @@ export const UNITES = [
   'brique tracee',
   'devinette resolue',
   'recette cuisinee',
+  'caractere trouve en chemin',
   'journee travaillee'
 ] as const;
 
@@ -146,6 +148,12 @@ export const LANTERNE_DEVINETTES = 10;
 
 /** Le bol : la première recette. */
 export const BOL_RECETTES = 1;
+
+/**
+ * Trouvés en chemin : huit caractères que l'anecdote d'une fête ou d'un terme solaire a
+ * fait découvrir — une saison de fêtes et de termes.
+ */
+export const CHEMIN_TROUVES = 8;
 
 /** Au moins six sceaux de famille à l'écran : deux rangées de la grille. */
 export const SCEAUX_MIN = 6;
@@ -529,7 +537,38 @@ export function tropheesObjets(
   ];
 }
 
-/* ---------- 6. série ---------- */
+/* ---------- 6. trouvés en chemin ---------- */
+
+/**
+ * Les caractères trouvés en chemin se lisent sur `trouves` (`trouves.ts`), un par
+ * caractère : l'anecdote d'une fête, ou celle du premier jour d'un terme solaire. Ils
+ * n'entrent pas en révision ; le trophée compte ce qui a été lu, pas le temps passé.
+ */
+export function tropheesChemin(trouves: readonly { c: string }[], acquis: Acquis = {}): Trophee[] {
+  const n = new Set(trouves.map((t) => t.c)).size;
+  const obtenu = n >= CHEMIN_TROUVES || dejaAcquis(acquis, 'chemin-8');
+  return [
+    {
+      id: 'chemin-8',
+      famille: 'chemin',
+      forme: 'caractere',
+      sceau: '节',
+      nom: 'Huit trouvés',
+      detail: obtenu
+        ? 'Huit caractères trouvés aux fêtes et aux termes solaires.'
+        : `Encore ${nombre(CHEMIN_TROUVES - n, 'caractère', 'caractères')} à trouver : l’anecdote d’une fête, ou du premier jour d’un terme, en fait découvrir un.`,
+      unite: 'caractere trouve en chemin',
+      actuel: n,
+      cible: CHEMIN_TROUVES,
+      obtenu,
+      suivi: true,
+      progres: fraction(n, CHEMIN_TROUVES),
+      part: part(n, CHEMIN_TROUVES)
+    }
+  ];
+}
+
+/* ---------- 7. série ---------- */
 
 /** Les quatre paliers de `serie.ts`, leurs cadeaux remis par Que, sans rien y changer. */
 export function tropheesSerie(
@@ -581,6 +620,11 @@ const TITRES: Record<FamilleTrophee, { titre: string; explication: string }> = {
   objets: {
     titre: 'Objets de Tao',
     explication: "Ce que les jeux rapportent, Tao le porte. Rien ne s'achète."
+  },
+  chemin: {
+    titre: 'Trouvés en chemin',
+    explication:
+      'Un caractère par fête et par terme solaire, lu dans l’anecdote du jour. Il n’entre pas en révision.'
   },
   serie: {
     titre: 'Série',
@@ -637,6 +681,7 @@ export function tableau(
     section('pieges', date(tropheesPieges(paires, p.cartes, pinyins(c.familles), sens, seuil, a))),
     section('contes', date(tropheesContes(c.index, lus, a, p.contesLus))),
     section('objets', date(tropheesObjets(p.tracesAchevees, a, p.devinettes))),
+    section('chemin', date(tropheesChemin(p.trouves, a))),
     section('serie', date(tropheesSerie(p.joursTravailles, p.day, a)))
   ];
   const tous = sections.flatMap((s) => s.trophees);
@@ -703,6 +748,8 @@ export function ligneProchain(t: Trophee | null): string {
       return `le prochain au ${t.cible}e jour`;
     case 'objets':
       return `le prochain : le ${t.nom.toLocaleLowerCase('fr')}`;
+    case 'chemin':
+      return `le prochain à ${t.cible} caractères trouvés en chemin`;
     default:
       return `le prochain : ${t.nom}`;
   }

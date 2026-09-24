@@ -14,6 +14,7 @@ import {
 } from './session';
 import { SEUIL_DEBLOCAGE, newCard, schedule, stability, type ReviewCard } from './srs';
 import {
+  CHEMIN_TROUVES,
   FAMILLES_TROPHEES,
   FAMILLE_MIN,
   PIEGE_SUITE,
@@ -30,6 +31,7 @@ import {
   prochain,
   suiteEnCours,
   tableau,
+  tropheesChemin,
   tropheesContes,
   tropheesLire,
   tropheesObjets,
@@ -504,5 +506,30 @@ describe('le tableau', () => {
     const foret = readFileSync(new URL('Forest.svelte', import.meta.url), 'utf8');
     expect(foret).toContain('<TropheesEntree');
     expect(foret).not.toContain('>Récompenses</button>');
+  });
+});
+
+/* ---------- trouvés en chemin ---------- */
+
+describe('le trophée « trouvés en chemin »', () => {
+  it(`huit caractères trouvés, fêtes et termes confondus, le donnent`, () => {
+    expect(CHEMIN_TROUVES).toBe(8);
+    const sept = 'abcdefg'.split('').map((c) => ({ c }));
+    const [t] = tropheesChemin(sept);
+    expect(t.obtenu).toBe(false);
+    expect(t.progres).toBe('7 / 8');
+    expect(tropheesChemin([...sept, { c: 'h' }])[0].obtenu).toBe(true);
+    /* noté obtenu, il le reste */
+    expect(tropheesChemin([], { 'chemin-8': '2027-01-01' })[0].obtenu).toBe(true);
+  });
+
+  it('le tableau les lit sur la progression, entre les objets de Tao et la série', () => {
+    const trouves = [
+      { c: '露', jour: '2026-09-07', terme: 'bailu' },
+      { c: '月', jour: '2026-09-25', fete: 'zhongqiu' as const }
+    ];
+    const s = tableau(progression({ trouves }), contenuExport).sections.find((x) => x.famille === 'chemin')!;
+    expect(s.trophees.map((x) => [x.id, x.actuel, x.suivi])).toEqual([['chemin-8', 2, true]]);
+    expect(FAMILLES_TROPHEES.indexOf('chemin')).toBe(FAMILLES_TROPHEES.indexOf('objets') + 1);
   });
 });
