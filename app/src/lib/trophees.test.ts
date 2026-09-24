@@ -315,14 +315,15 @@ describe('les objets de Tao', () => {
       tous(tableau(q, contenuExport)).find((x) => x.id === 'objet-lanterne')!;
     expect(lanterne(p).progres).toBe('9 / 10');
     expect(lanterne(p).obtenu).toBe(false);
-    /* Le jeu n'existe pas encore : elle reste verrouillée, jamais proposée comme prochaine. */
-    expect(lanterne(p).suivi).toBe(false);
+    /* Le jeu de la devinette du jour la suit : elle est à venir, avec ce qu'il reste. */
+    expect(lanterne(p).suivi).toBe(true);
+    expect(lanterne(p).detail).toBe('Encore 1 devinette à résoudre, une par jour.');
     expect(lanterne(noterDevinette(p, 'j')).obtenu).toBe(true);
   });
 
-  it('verrouillent la lanterne et le bol tant que rien ne les suit', () => {
+  it('suivent la lanterne, et verrouillent le bol tant que rien ne le suit', () => {
     const [, lanterne, bol] = tropheesObjets([]);
-    expect(lanterne.suivi).toBe(false);
+    expect(lanterne.suivi).toBe(true);
     expect(bol.suivi).toBe(false);
     expect(lanterne.obtenu || bol.obtenu).toBe(false);
   });

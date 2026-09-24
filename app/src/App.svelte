@@ -77,7 +77,10 @@
     traceAchevee,
     traceVue,
     useNext,
+    conclureDevinette,
+    poserDevinette,
     type Budget,
+    type IssueDevinette,
     type LearnView,
     type Parcours,
     type Progress,
@@ -540,6 +543,18 @@
     enregistrer();
   }
 
+  /**
+   * La devinette du jour : posée à l'ouverture, une seule par jour ; résolue, elle entre
+   * dans la lanterne des trophées (`noterDevinette`) ; montrée, elle ne compte pas.
+   */
+  function devinetteJouee(id: string, issue: IssueDevinette): void {
+    p =
+      issue === 'posee'
+        ? poserDevinette(p, p.day, id)
+        : conclureDevinette(p, p.day, id, issue === 'resolue');
+    enregistrer();
+  }
+
   /** La manche finie : une activité « jeu » pour Tao, une seule par manche. */
   function jeuFini(): void {
     p = noterActivite(p, p.day, 'jeu');
@@ -626,6 +641,7 @@
     {jeu}
     onchoisir={(id) => (jeu = id)}
     onrepondu={jeuRepondu}
+    ondevinette={devinetteJouee}
     onfini={jeuFini}
     onretour={quitter}
   />

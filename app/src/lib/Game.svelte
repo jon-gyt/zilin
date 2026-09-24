@@ -1,7 +1,12 @@
 <script lang="ts">
   /**
-   * L'écran hôte des jeux (stories 4b.1 à 4b.3) : le choix, une manche, le constat.
-   * Tao y est dans la posture « joue », et le retour se fait vers Ma forêt ou le chemin.
+   * L'écran hôte des jeux (stories 4b.1 à 4b.3, et 4b.5 pour la devinette du jour) : le
+   * choix, une manche, le constat. Tao y est dans la posture « joue », la lanterne à la
+   * main, et le retour se fait vers Ma forêt ou le chemin.
+   *
+   * La devinette du jour passe en tête : une par jour, posée à l'ouverture, deux essais,
+   * puis la correction par les briques. Son énoncé, ses leurres et le nom des briques
+   * viennent de `devinettes.json` ; l'écran n'en écrit aucun.
    *
    * L'écran ne note rien lui-même : il pose ce que `jeux.ts` prépare et renvoie les
    * événements de révision, notés par `grade` de `srs.ts` comme une question de
@@ -12,6 +17,7 @@
   import Glyph from './Glyph.svelte';
   import Tao from './Tao.svelte';
   import {
+    devinettesOnce,
     foretOnce,
     pairesExport,
     toutesLesFamilles,
@@ -29,16 +35,20 @@
     clore,
     corpusDeJeu,
     corpusVide,
+    devinetteDe,
+    devinetteDuJour,
     disponibles,
+    essayer,
     fini,
     glose,
+    nomDeBrique,
     tour,
     type CorpusJeux,
     type JeuId,
     type Manche,
     type Resultat
   } from './jeux';
-  import type { Progress, Revision } from './session';
+  import { devinetteFaite, type IssueDevinette, type Progress, type Revision } from './session';
   import { humeur, stade } from './tao';
   import { AVANCE_MS, VERDICTS, delai } from './revision';
   import { echeance } from './session';
@@ -49,6 +59,7 @@
     retour = 'home',
     onchoisir,
     onrepondu,
+    ondevinette = () => undefined,
     onfini,
     onretour
   }: {
@@ -60,6 +71,8 @@
     onchoisir: (id: JeuId | null) => void;
     /** Un événement de révision noté, rangé dans la progression. Un tour peut en rendre plusieurs. */
     onrepondu: (r: Revision) => void;
+    /** La devinette du jour : posée à l'ouverture, puis résolue ou montrée. */
+    ondevinette?: (id: string, issue: IssueDevinette) => void;
     /** La manche est finie : une activité « jeu » pour Tao. */
     onfini: () => void;
     onretour: () => void;
@@ -86,28 +99,51 @@
    * assez pour jouer.
    */
   void (async () => {
-    const [fiches, familles, voisins, foret, paires, demo] = await Promise.all([
+    const [fiches, familles, voisins, foret, paires, demo, devinettes] = await Promise.all([
       toutesLesFiches().catch(() => []),
       toutesLesFamilles().catch(() => []),
       voisinsOnce().catch(() => null),
       foretOnce().catch(() => null),
       pairesExport().catch(() => null),
-      strokesOnce().catch(() => ({}))
+      strokesOnce().catch(() => ({})),
+      devinettesOnce().catch(() => null)
     ]);
     const groupes = lirePaires(paires);
     const racines = racinesDesCaracteres(familles);
+    /* La devinette du jour, si elle est déjà posée : elle le reste toute la journée. */
+    const lanternes = {
+      devinettes,
+      resolues: p.devinettes,
+      posee: p.devinetteDuJour?.jour === p.day ? p.devinetteDuJour.id : null
+    };
     /* Un premier corpus sans tracés, juste pour savoir quels caractères sont en jeu. */
-    const pressenti = corpusDeJeu({ fiches, voisins, foret, paires: groupes, cartes: p.cartes });
+    const pressenti = corpusDeJeu({
+      fiches,
+      voisins,
+      foret,
+      paires: groupes,
+      cartes: p.cartes,
+      ...lanternes
+    });
+    /* Les devinettes qui pourraient se poser : leur réponse, leurs briques, leurs leurres. */
+    const connus = new Set(pressenti.lanternes?.connus ?? []);
+    const aDessiner = (devinettes?.devinettes ?? [])
+      .filter(
+        (d) =>
+          d.id === lanternes.posee || (connus.has(d.c) && d.briques.every((b) => connus.has(b)))
+      )
+      .flatMap((d) => [d.c, ...d.briques, ...d.leurres]);
     const voulus = new Set<string>([
       ...pressenti.acquis,
       ...groupes.flat(),
-      ...Object.values(pressenti.decompositions).flat()
+      ...Object.values(pressenti.decompositions).flat(),
+      ...aDessiner
     ]);
     const aLire = [...voulus].flatMap((c) => {
-      const r = racines.get(c);
+      const r = devinettes?.racines[c] ?? racines.get(c);
       return r === undefined ? [] : [r];
     });
-    const traits = await traitsDeFamilles(aLire).catch(() => ({}));
+    const traits = await traitsDeFamilles([...new Set(aLire)]).catch(() => ({}));
     corpus = corpusDeJeu({
       fiches,
       voisins,
@@ -115,7 +151,8 @@
       paires: groupes,
       /* Les tracés de l'export d'abord, ceux de la maquette pour le reste. */
       traits: [...new Set([...Object.keys(traits), ...Object.keys(demo)])],
-      cartes: p.cartes
+      cartes: p.cartes,
+      ...lanternes
     });
     chargee = true;
   })().catch(() => {
@@ -143,6 +180,8 @@
   let donnee = $state<string[]>([]);
   /** La coquille : le rang de la case touchée dans le message. */
   let touche = $state(-1);
+  /** La devinette : les choix faux déjà écartés, avant que le tour soit noté. */
+  let faux = $state<string[]>([]);
   let resultat = $state<Resultat | null>(null);
 
   let horloge: ReturnType<typeof setInterval> | null = null;
@@ -194,6 +233,7 @@
     pris = [];
     donnee = [];
     touche = -1;
+    faux = [];
     resultat = null;
     reste = 1;
     depart = Date.now();
@@ -235,11 +275,14 @@
       m = null;
       return;
     }
-    const cle = `${p.day}/${id}/${n}`;
+    /* La devinette ne se rejoue pas : une seule par jour, la même graine toute la journée. */
+    const cle = id === 'devinette' ? `${p.day}/devinette/0` : `${p.day}/${id}/${n}`;
     if (preparee === cle) return;
     preparee = cle;
     const manche = JEUX[id].preparer(corpus, cle);
     m = manche;
+    const posee = manche?.tours[0]?.devinette;
+    if (posee) ondevinette(posee, 'posee');
     arreterLimite();
     echue = false;
     if (manche !== null && JEUX[id].limite > 0) limite = setTimeout(echoir, JEUX[id].limite);
@@ -296,6 +339,25 @@
     n += 1;
   }
 
+  /**
+   * La devinette, au tap : juste, le tour est noté ; faux au premier essai, le choix est
+   * écarté et l'on essaie encore ; faux au second, la réponse est montrée. Pas d'avance
+   * automatique : la correction par les briques se lit à son rythme.
+   */
+  function deviner(c: string): void {
+    const courante = m;
+    if (courante === null || resultat !== null || fini(courante) || faux.includes(c)) return;
+    const id = tour(courante)?.devinette ?? '';
+    const seconds = Math.max(0, (Date.now() - depart) / 1000);
+    const e = essayer(courante, c, faux, seconds);
+    faux = e.pris;
+    if (e.resultat === null) return;
+    donnee = [c];
+    resultat = e.resultat;
+    for (const ev of e.resultat.evenements) onrepondu(ev);
+    ondevinette(id, e.resultat.correct ? 'resolue' : 'montree');
+  }
+
   /** Un caractère du message touché : on garde sa place, un même caractère peut y paraître deux fois. */
   function toucher(k: number): void {
     if (resultat !== null || t === null) return;
@@ -306,6 +368,18 @@
   const taoHumeur = $derived(humeur(p.tao.activites, p.day));
   const taoStade = $derived(stade(p.tao.croissance));
   const jeuCourant = $derived(jeu ? JEUX[jeu] : null);
+
+  /* ---------- la devinette du jour ---------- */
+
+  /** Déjà résolue ou montrée aujourd'hui : la suivante attend demain. */
+  const faite = $derived(devinetteFaite(p, p.day));
+  /** Celle que l'entrée du choix annonce, sans la poser : on la pose en l'ouvrant. */
+  const annoncee = $derived(chargee && !faite ? devinetteDuJour(corpus, `${p.day}/devinette/0`) : null);
+  const riddle = $derived(t && jeu === 'devinette' ? devinetteDe(t, corpus) : null);
+  /** Le constat de la devinette : la manche porte un événement, juste ou montré. */
+  const lanterneAllumee = $derived(
+    jeu === 'devinette' && m !== null && fini(m) && m.trouves > 0
+  );
 </script>
 
 <main class="screen jeu">
@@ -329,7 +403,26 @@
       {/if}
       <div class="opt">
         {#each IDS as id (id)}
-          {#if dispo.includes(id)}
+          {#if id === 'devinette' && faite}
+            <!-- Une par jour : résolue ou montrée, la suivante attend demain. -->
+            <button class="indispo" disabled>
+              <span class="grow">
+                <span class="t">{JEUX[id].titre}</span>
+                <span class="d">
+                  {p.devinetteDuJour?.issue === 'resolue' ? 'Résolue aujourd’hui' : 'Lue aujourd’hui'}.
+                  La suivante demain.
+                </span>
+              </span>
+            </button>
+          {:else if id === 'devinette' && annoncee !== null}
+            <button onclick={() => onchoisir(id)}>
+              <span class="grow">
+                <span class="t">{JEUX[id].titre}</span>
+                <span class="d">« {annoncee.enonce} » : quel caractère ?</span>
+              </span>
+              <span class="k">{JEUX[id].minutes} min</span>
+            </button>
+          {:else if dispo.includes(id)}
             <button onclick={() => onchoisir(id)}>
               <span class="grow">
                 <span class="t">{JEUX[id].titre}</span>
@@ -358,13 +451,24 @@
       <button class="btn" onclick={() => onchoisir(null)}>Choisir un autre jeu</button>
     </div>
   {:else if t !== null}
-    <div class="verif-tete">
-      <Tao stade={taoStade} posture="jeu" humeur={taoHumeur} size={72} />
-      <p class="guide grow">{jeuCourant?.titre}</p>
-    </div>
+    {#if jeu === 'devinette'}
+      <!-- Tao porte la lanterne : la devinette du jour, comme au prototype validé. -->
+      <div class="devinette-tete">
+        <div class="grow">
+          <div class="eyebrow">{jeuCourant?.titre}</div>
+          <h1>Devine le caractère</h1>
+        </div>
+        <Tao stade={taoStade} posture="jeu" humeur={taoHumeur} size={72} />
+      </div>
+    {:else}
+      <div class="verif-tete">
+        <Tao stade={taoStade} posture="jeu" humeur={taoHumeur} size={72} />
+        <p class="guide grow">{jeuCourant?.titre}</p>
+      </div>
+    {/if}
 
-    <!-- La chaîne ne dit pas sa longueur d'avance : elle se voit grandir. -->
-    {#if jeu !== 'chaine'}
+    <!-- La chaîne ne dit pas sa longueur d'avance : elle se voit grandir. La devinette n'a qu'un tour. -->
+    {#if jeu !== 'chaine' && jeu !== 'devinette'}
       <div class="tours k" aria-label="Avancement de la manche">
         {#each m.tours as _, k (k)}
           <i class:on={k < m.i} class:cur={k === m.i}></i>
@@ -373,7 +477,44 @@
     {/if}
 
     <div class="q">
-      {#if jeu === 'assembler'}
+      {#if jeu === 'devinette'}
+        <!-- L'énoncé, puis quatre caractères dessinés depuis leurs traits. -->
+        <p class="riddle">« {t.enonce} »</p>
+        {#if riddle?.zh}<p class="zh" lang="zh-Hans">{riddle.zh}</p>{/if}
+        <div class="choices quatre devinette">
+          {#each t.choix as c, k (c + k)}
+            <button
+              class:ok={resultat !== null && c === t.reponse[0]}
+              class:ko={faux.includes(c)}
+              disabled={resultat !== null || faux.includes(c)}
+              aria-label={c}
+              onclick={() => deviner(c)}
+            >
+              <Glyph char={c} size={52} write={false} />
+            </button>
+          {/each}
+        </div>
+        {#if resultat !== null && riddle}
+          <!-- La correction par les briques : la réponse, chaque brique et son nom, le sens. -->
+          <div class="correction">
+            <div class="ligne decompose">
+              <span class="tuile faite"><Glyph char={riddle.c} size={48} write={false} /></span>
+              <span class="op">=</span>
+              {#each riddle.briques as b, rang (b + rang)}
+                {#if rang > 0}<span class="op">+</span>{/if}
+                <span class="brique">
+                  <Glyph char={b} size={32} write={false} color="var(--ocre)" />
+                  {#if nomDeBrique(b, corpus) !== ''}<small>{nomDeBrique(b, corpus)}</small>{/if}
+                </span>
+              {/each}
+            </div>
+            <p class="sens">
+              {#if riddle.pinyin !== ''}<span class="py">{riddle.pinyin}</span>{/if}
+              {riddle.sens}
+            </p>
+          </div>
+        {/if}
+      {:else if jeu === 'assembler'}
         {#if jeuCourant && jeuCourant.chrono > 0}
           <div class="chrono" aria-label="Le temps du tour">
             <i style="width:{Math.round(reste * 100)}%"></i>
@@ -521,11 +662,15 @@
         {/if}
       {/if}
 
-      <div class="fb" class:vide={resultat === null}>
+      <div class="fb" class:vide={resultat === null && jeu !== 'devinette'}>
         {#if resultat !== null}
           <b>{resultat.montre ? 'On te montre.' : VERDICTS[resultat.note]}</b>
           {@const quand = echeance(p, resultat.evenement.c)}
           {#if quand}<span class="next">Prochaine fois : dans {delai(new Date(), quand)}.</span>{/if}
+        {:else if jeu === 'devinette'}
+          {faux.length > 0
+            ? 'Pas celui-là. Relis l’énoncé, une brique après l’autre.'
+            : 'Chaque devinette cache une décomposition.'}
         {/if}
       </div>
     </div>
@@ -536,7 +681,9 @@
         <button class="btn" onclick={montrer}>Montrer</button>
       {:else}
         <button class="btn" disabled={resultat === null} onclick={suivant}>
-          {resultat !== null && (fini(resultat.manche) || echue) ? 'Voir le constat' : 'Suivant'}
+          {jeu === 'devinette' || (resultat !== null && (fini(resultat.manche) || echue))
+            ? 'Voir le constat'
+            : 'Suivant'}
         </button>
       {/if}
     </div>
@@ -547,14 +694,94 @@
     <div class="card center bilan">
       <h1>{jeuCourant?.titre}</h1>
       <p class="constat">{jeuCourant?.constat(m)}</p>
+      {#if jeu === 'devinette'}
+        <!-- Un constat, pas un score : la lanterne s'allume pour la journée. -->
+        <p class="guide">
+          {lanterneAllumee
+            ? 'La lanterne de Tao reste allumée aujourd’hui. La suivante demain.'
+            : 'La suivante demain.'}
+        </p>
+      {/if}
       <div class="k">Ce qui vient d'être revu repasse dans tes révisions, aux échéances dites.</div>
     </div>
     <div class="foot">
       <button class="btn" onclick={onretour}>{OU[retour]}</button>
       <div class="acts">
-        <button class="btn ghost" onclick={rejouer}>Une autre manche</button>
+        {#if jeu !== 'devinette'}
+          <button class="btn ghost" onclick={rejouer}>Une autre manche</button>
+        {/if}
         <button class="btn ghost" onclick={() => onchoisir(null)}>Un autre jeu</button>
       </div>
     </div>
   {/if}
 </main>
+
+<style>
+  /* La devinette du jour, d'après l'écran `s-riddle` du prototype validé. Aucune
+     animation sur les boutons ; le cinabre n'y marque rien. */
+  .devinette-tete {
+    display: flex;
+    align-items: flex-end;
+    gap: 10px;
+    padding-bottom: 12px;
+    margin-bottom: 18px;
+    border-bottom: 1px solid var(--rule);
+  }
+  .devinette-tete h1 {
+    margin: 0;
+    font-size: 26px;
+  }
+  .eyebrow {
+    font-size: 11.5px;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--mist);
+    margin-bottom: 6px;
+  }
+  .riddle {
+    font-family: var(--head);
+    font-weight: 700;
+    font-size: 22px;
+    line-height: 1.25;
+    color: var(--ink);
+    margin: 0 0 6px;
+  }
+  .choices.devinette button {
+    min-height: 72px;
+  }
+  .zh {
+    font-family: var(--hz);
+    font-size: 17px;
+    color: var(--ink2);
+    margin: 0 0 6px;
+  }
+  .decompose {
+    flex-wrap: wrap;
+    justify-content: center;
+    row-gap: 4px;
+  }
+  .brique {
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 72px;
+  }
+  .brique small {
+    font-size: 12px;
+    line-height: 1.2;
+    color: var(--ink2);
+    text-align: center;
+  }
+  .sens {
+    margin: 0;
+    font-size: 15px;
+    color: var(--ink2);
+  }
+  .sens .py {
+    font-family: var(--head);
+    font-weight: 500;
+    color: var(--indigo);
+    margin-right: 6px;
+  }
+</style>

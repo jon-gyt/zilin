@@ -499,6 +499,8 @@ export type Index = {
   fetes: string;
   /** Le fichier des termes solaires, `saisons.json` ; vide pour un export qui n'en porte pas. */
   saisons: string;
+  /** Le fichier des devinettes, `devinettes.json` ; vide pour un export qui n'en porte pas. */
+  devinettes: string;
 };
 
 /** La version de données que l'app lit : le dossier exporté par `wenlu export`. */
@@ -534,7 +536,8 @@ export async function loadIndex(
     contes: lireContesIndex(brut.contes),
     paires: typeof brut.paires === 'string' ? brut.paires : '',
     fetes: typeof brut.fetes === 'string' ? brut.fetes : '',
-    saisons: typeof brut.saisons === 'string' ? brut.saisons : ''
+    saisons: typeof brut.saisons === 'string' ? brut.saisons : '',
+    devinettes: typeof brut.devinettes === 'string' ? brut.devinettes : ''
   };
 }
 
@@ -1190,6 +1193,154 @@ export function saisonsOnce(version = VERSION_DONNEES): Promise<Saisons> {
         throw e;
       });
     lesSaisons.set(version, p);
+  }
+  return p;
+}
+
+/* ---------- les devinettes de lanternes ---------- */
+
+/** Comment les briques se disposent, au premier niveau de la structure du caractère. */
+export type Disposition = 'cote' | 'superpose' | 'dedans' | 'enveloppe' | 'mele';
+
+const DISPOSITIONS: readonly Disposition[] = ['cote', 'superpose', 'dedans', 'enveloppe', 'mele'];
+
+/**
+ * Une devinette de lanterne (灯谜) : une décomposition déguisée, rédigée dans le pipeline
+ * (`data/sources/devinettes/`). `enonce` décrit les `briques` et leur disposition ; `zh`
+ * est l'énoncé chinois traditionnel, `null` quand il n'y en a pas d'exact. Les trois
+ * `leurres` sont choisis à l'export par ressemblance de composants.
+ */
+export type Devinette = {
+  id: string;
+  c: string;
+  pinyin: string;
+  sens: string;
+  enonce: string;
+  zh: string | null;
+  disposition: Disposition;
+  briques: string[];
+  leurres: string[];
+};
+
+/**
+ * `devinettes.json` : les devinettes, le nom de chaque brique citée (la correction le
+ * montre), et la famille de chaque caractère dessiné, pour trouver ses traits.
+ */
+export type Devinettes = {
+  version: string;
+  source: string;
+  devinettes: Devinette[];
+  noms: Record<string, string>;
+  racines: Record<string, string>;
+};
+
+function listeDeTextes(v: unknown): string[] | null {
+  return Array.isArray(v) && v.every((x) => typeof x === 'string' && x !== '')
+    ? (v as string[])
+    : null;
+}
+
+function tableDeTextes(v: unknown): Record<string, string> {
+  if (typeof v !== 'object' || v === null) return {};
+  const out: Record<string, string> = {};
+  for (const [k, x] of Object.entries(v as Record<string, unknown>)) {
+    if (typeof x === 'string') out[k] = x;
+  }
+  return out;
+}
+
+/** Une devinette lisible, ou `null` : mieux vaut une devinette de moins qu'une énigme fausse. */
+function lireDevinette(v: unknown): Devinette | null {
+  if (typeof v !== 'object' || v === null) return null;
+  const d = v as Record<string, unknown>;
+  const briques = listeDeTextes(d.briques);
+  const leurres = listeDeTextes(d.leurres);
+  if (
+    typeof d.id !== 'string' ||
+    d.id === '' ||
+    typeof d.c !== 'string' ||
+    d.c === '' ||
+    typeof d.enonce !== 'string' ||
+    d.enonce === '' ||
+    !briques ||
+    briques.length < 2 ||
+    !leurres ||
+    leurres.length === 0 ||
+    leurres.includes(d.c) ||
+    new Set(leurres).size !== leurres.length
+  ) {
+    return null;
+  }
+  return {
+    id: d.id,
+    c: d.c,
+    pinyin: typeof d.pinyin === 'string' ? d.pinyin : '',
+    sens: typeof d.sens === 'string' ? d.sens : '',
+    enonce: d.enonce,
+    zh: typeof d.zh === 'string' && d.zh !== '' ? d.zh : null,
+    disposition: (DISPOSITIONS as readonly unknown[]).includes(d.disposition)
+      ? (d.disposition as Disposition)
+      : 'cote',
+    briques,
+    leurres
+  };
+}
+
+/** Lit et valide un fichier de devinettes. `fetchFn` est injecté dans les tests. */
+export async function loadDevinettes(
+  file: string,
+  fetchFn: typeof fetch = fetch
+): Promise<Devinettes> {
+  const r = await fetchFn(`${import.meta.env.BASE_URL}${file}`);
+  if (!r.ok) throw new Error(`Devinettes introuvables : ${file} (${r.status})`);
+  const brut = (await r.json()) as Record<string, unknown>;
+  if (!Array.isArray(brut.devinettes)) throw new Error(`Devinettes illisibles : ${file}`);
+  const vues = new Set<string>();
+  const devinettes = brut.devinettes.flatMap((v: unknown) => {
+    const d = lireDevinette(v);
+    if (d === null || vues.has(d.id)) return [];
+    vues.add(d.id);
+    return [d];
+  });
+  return {
+    version: typeof brut.version === 'string' ? brut.version : '',
+    source: typeof brut.source === 'string' ? brut.source : '',
+    devinettes,
+    noms: tableDeTextes(brut.noms),
+    racines: tableDeTextes(brut.racines)
+  };
+}
+
+/** Le fichier des devinettes d'une version, tel que l'index le nomme. */
+export function fichierDevinettes(i: Index): string {
+  return i.devinettes === '' ? '' : `${dossierVersion(i.version)}/${i.devinettes}`;
+}
+
+/** Aucune devinette : ce que rend un export sans `devinettes.json`. Le jeu se tait. */
+const SANS_DEVINETTE: Devinettes = {
+  version: '',
+  source: '',
+  devinettes: [],
+  noms: {},
+  racines: {}
+};
+
+const lesDevinettes = new Map<string, Promise<Devinettes>>();
+
+/** Les devinettes de la version courante, lues une fois pour toute la durée de vie de l'app. */
+export function devinettesOnce(version = VERSION_DONNEES): Promise<Devinettes> {
+  let p = lesDevinettes.get(version);
+  if (!p) {
+    p = contenu(version)
+      .then((i) => {
+        const file = fichierDevinettes(i);
+        return file === '' ? SANS_DEVINETTE : loadDevinettes(file);
+      })
+      .catch((e) => {
+        lesDevinettes.delete(version);
+        throw e;
+      });
+    lesDevinettes.set(version, p);
   }
   return p;
 }

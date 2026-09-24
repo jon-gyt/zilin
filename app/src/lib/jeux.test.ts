@@ -32,9 +32,18 @@ import {
   prolongements,
   propose,
   repondre,
+  ESSAIS_DEVINETTE,
+  devinetteAAnnoncer,
+  devinetteDe,
+  devinetteDuJour,
+  devinettesPossibles,
+  essayer,
+  nomDeBrique,
   signes,
   tour,
+  corpusVide,
   type CorpusJeux,
+  type Lanternes,
   type Manche
 } from './jeux';
 import { lirePaires } from './questions';
@@ -44,6 +53,8 @@ import { POIDS, journal } from './tao';
 import {
   VERSION_DONNEES,
   surcoucher,
+  type Devinette,
+  type Devinettes,
   type Famille,
   type Fiche,
   type Foret,
@@ -988,6 +999,199 @@ describe('la chaîne et la coquille sur le contenu servi (export 0.1.0)', () => 
     const m = JEUX.chaine.preparer(corpus, '2026-09-23');
     for (const t of m?.tours ?? []) {
       for (const x of t.choix) expect(corpus.acquis).toContain(x);
+    }
+  });
+});
+
+/* ---------- les devinettes de lanternes (story 4b.5) ---------- */
+
+describe('la devinette du jour', () => {
+  const devinette = (c: string, briques: string[], leurres: string[]): Devinette => ({
+    id: c,
+    c,
+    pinyin: '',
+    sens: `sens de ${c}`,
+    enonce: `énoncé de ${c}`,
+    zh: null,
+    disposition: 'cote',
+    briques,
+    leurres
+  });
+  const MING = devinette('明', ['日', '月'], ['朋', '早', '间']);
+  const HAO = devinette('好', ['女', '子'], ['如', '妈', '她']);
+  const XIU = devinette('休', ['亻', '木'], ['作', '机', '们']);
+  const TOUT = [...'明日月朋早间好女子如妈她休亻木作机们'];
+  const lanternes = (o: Partial<Lanternes> = {}): Lanternes => ({
+    devinettes: [MING, HAO, XIU],
+    noms: { 日: 'le soleil', 月: 'la lune', 女: 'une femme', 子: 'un enfant' },
+    connus: [...'明日月好女子'],
+    resolues: [],
+    posee: null,
+    ...o
+  });
+  const corpus = (o: Partial<Lanternes> = {}, traits: readonly string[] = TOUT): CorpusJeux => ({
+    ...corpusVide(),
+    traits,
+    lanternes: lanternes(o)
+  });
+  const devinetteJeu = JEUX.devinette;
+
+  it('ne se pose que si la réponse et toutes ses briques sont acquises ou en cours', () => {
+    expect(devinettesPossibles(corpus()).map((d) => d.id)).toEqual(['明', '好']);
+    /* 月 n'a pas de carte : 明 attend. */
+    expect(devinettesPossibles(corpus({ connus: [...'明日好女子'] })).map((d) => d.id)).toEqual([
+      '好'
+    ]);
+    expect(devinetteJeu.preparer(corpus({ connus: [] }), 'g')).toBeNull();
+    expect(devinetteJeu.preparer({ ...corpusVide(), traits: TOUT }, 'g')).toBeNull();
+  });
+
+  it('prend les cartes en cours comme acquises, et jamais l’acquis de démonstration', () => {
+    const avecCartes = corpusDeJeu({
+      traits: TOUT,
+      devinettes: { version: '', source: '', devinettes: [MING], noms: {}, racines: {} },
+      cartes: [...'明日月'].map((c) => ({ c, stabilite: 0.5 }))
+    });
+    expect(devinettesPossibles(avecCartes).map((d) => d.id)).toEqual(['明']);
+    const foret = JSON.parse(
+      readFileSync(new URL('../../public/data/demo/foret.json', import.meta.url), 'utf8')
+    ) as Foret;
+    const demo = corpusDeJeu({
+      traits: TOUT,
+      foret,
+      devinettes: { version: '', source: '', devinettes: [MING, HAO, XIU], noms: {}, racines: {} },
+      cartes: []
+    });
+    expect(demo.acquis.length).toBeGreaterThan(0);
+    expect(devinettesPossibles(demo)).toEqual([]);
+  });
+
+  it('ne montre rien qu’elle ne sait dessiner', () => {
+    const sansTraits = corpus({}, TOUT.filter((c) => c !== '间'));
+    expect(devinettesPossibles(sansTraits).map((d) => d.id)).toEqual(['好']);
+    const m = devinetteJeu.preparer(corpus(), '2026-09-24/devinette/0');
+    for (const t of m?.tours ?? []) for (const x of [t.c, ...t.choix]) expect(TOUT).toContain(x);
+  });
+
+  it('est la même toute la journée, et garde celle déjà posée', () => {
+    const a = devinetteDuJour(corpus(), '2026-09-24/devinette/0');
+    expect(a).not.toBeNull();
+    expect(devinetteDuJour(corpus(), '2026-09-24/devinette/0')).toEqual(a);
+    /* Posée ce matin, elle reste celle du jour même si l'acquis ne la permettrait plus. */
+    const autre = a?.id === '明' ? '好' : '明';
+    expect(devinetteDuJour(corpus({ posee: autre, connus: [] }), 'x')?.id).toBe(autre);
+  });
+
+  it('préfère une devinette pas encore résolue', () => {
+    expect(devinetteDuJour(corpus({ resolues: ['明'] }), 'g')?.id).toBe('好');
+    expect(devinetteDuJour(corpus({ resolues: ['好'] }), 'g')?.id).toBe('明');
+    /* Toutes résolues : elles reviennent, la lanterne ne les compte qu'une fois. */
+    expect(devinetteDuJour(corpus({ resolues: ['明', '好'] }), 'g')).not.toBeNull();
+  });
+
+  it('pose quatre choix, la réponse et ses trois leurres, et la correction par les briques', () => {
+    const m = devinetteJeu.preparer(corpus({ posee: '明' }), 'g');
+    if (!m) throw new Error('manche attendue');
+    expect(m.tours).toHaveLength(1);
+    const t = m.tours[0];
+    expect(t.enonce).toBe(MING.enonce);
+    expect([...t.choix].sort()).toEqual([...'明朋早间'].sort());
+    expect(t.correction).toEqual([{ c: '明', briques: ['日', '月'] }]);
+    expect(devinetteDe(t, corpus())).toEqual(MING);
+    expect(nomDeBrique('日', corpus())).toBe('le soleil');
+  });
+
+  it('note juste du premier coup comme une question : Facile, ou Bien si lent', () => {
+    const m = devinetteJeu.preparer(corpus({ posee: '明' }), 'g') as Manche;
+    const vite = essayer(m, '明', [], 3);
+    expect(vite.resultat?.note).toBe(Rating.Easy);
+    expect(vite.resultat?.evenement).toEqual({
+      c: '明',
+      correct: true,
+      tries: 0,
+      seconds: 3,
+      leurres: []
+    });
+    expect(essayer(m, '明', [], 8).resultat?.note).toBe(Rating.Good);
+  });
+
+  it('laisse un second essai après une erreur, noté Difficile', () => {
+    const m = devinetteJeu.preparer(corpus({ posee: '明' }), 'g') as Manche;
+    const premier = essayer(m, '朋', [], 2);
+    expect(premier.resultat).toBeNull();
+    expect(premier.pris).toEqual(['朋']);
+    const second = essayer(m, '明', premier.pris, 5);
+    expect(second.resultat?.correct).toBe(true);
+    expect(second.resultat?.note).toBe(Rating.Hard);
+    expect(second.resultat?.evenement.leurres).toEqual(['朋']);
+    expect(second.resultat?.manche.trouves).toBe(1);
+  });
+
+  it(`montre la réponse après ${ESSAIS_DEVINETTE} erreurs : la carte revient dans dix minutes`, () => {
+    const m = devinetteJeu.preparer(corpus({ posee: '明' }), 'g') as Manche;
+    const premier = essayer(m, '朋', [], 2);
+    const second = essayer(m, '间', premier.pris, 4);
+    if (!second.resultat) throw new Error('résultat attendu');
+    expect(second.resultat.montre).toBe(true);
+    expect(second.resultat.note).toBe(Rating.Again);
+    expect(second.resultat.evenements).toHaveLength(1);
+    expect(second.resultat.evenement.leurres).toEqual(['朋', '间']);
+    const cartes = planifier([], second.resultat.evenement, MAINTENANT);
+    expect(cartes[0].card.due.getTime() - MAINTENANT.getTime()).toBe(RETOUR_MINUTES * 60_000);
+  });
+
+  it('finit par un constat, sans score ni chronomètre', () => {
+    const m = devinetteJeu.preparer(corpus({ posee: '明' }), 'g') as Manche;
+    const resolue = essayer(m, '明', [], 3).resultat?.manche as Manche;
+    expect(fini(resolue)).toBe(true);
+    expect(devinetteJeu.constat(resolue)).toBe('1 caractère revu, 1 devinette résolue.');
+    const montree = essayer(m, '间', ['朋'], 3).resultat?.manche as Manche;
+    expect(devinetteJeu.constat(montree)).toBe('1 caractère revu, la réponse montrée.');
+    expect(devinetteJeu.chrono).toBe(0);
+    expect(devinetteJeu.limite).toBe(0);
+  });
+
+  it('s’annonce sur la case Jouer tant qu’elle n’est pas faite aujourd’hui', () => {
+    const jour = '2026-09-24';
+    const cartes = [...'明日月'].map((c) => newCard(c, MAINTENANT));
+    const p: Progress = { ...emptyProgress(jour), cartes };
+    expect(devinetteAAnnoncer(p, [MING, HAO])).toBe(true);
+    expect(devinetteAAnnoncer({ ...p, cartes: [] }, [MING, HAO])).toBe(false);
+    const faite: Progress = { ...p, devinetteDuJour: { jour, id: '明', issue: 'resolue' } };
+    expect(devinetteAAnnoncer(faite, [MING, HAO])).toBe(false);
+  });
+});
+
+describe('les devinettes servies avec l’app (export 0.1.0)', () => {
+  const lire = (f: string): unknown => JSON.parse(readFileSync(new URL(f, import.meta.url), 'utf8'));
+  const dossier = `../../public/data/${VERSION_DONNEES}`;
+  const indexExport = lire(`${dossier}/index.json`) as Index;
+  const devinettes = lire(`${dossier}/devinettes.json`) as Devinettes;
+  const racines = new Set(Object.values(devinettes.racines));
+  const traits = indexExport.familles
+    .filter((f) => racines.has(f.racine))
+    .flatMap((f) =>
+      Object.keys((lire(`${dossier}/${f.traits}`) as { traits: Record<string, unknown> }).traits)
+    );
+
+  it('pose 休 à qui a une carte pour 休, 亻 et 木, avec quatre choix dessinables', () => {
+    const corpus = corpusDeJeu({
+      traits,
+      devinettes,
+      cartes: [...'休亻木'].map((c) => ({ c, stabilite: 1 }))
+    });
+    const m = JEUX.devinette.preparer(corpus, '2026-09-24/devinette/0');
+    if (!m) throw new Error('manche attendue');
+    const t = m.tours[0];
+    expect(t.c).toBe('休');
+    expect(t.choix).toHaveLength(4);
+    for (const x of [...t.choix, '亻', '木']) expect(traits).toContain(x);
+  });
+
+  it('dessine chaque devinette depuis les traits des racines que le fichier nomme', () => {
+    const tout = new Set(traits);
+    for (const d of devinettes.devinettes) {
+      for (const x of [d.c, ...d.briques, ...d.leurres]) expect(tout.has(x)).toBe(true);
     }
   });
 });

@@ -31,6 +31,7 @@ app/public/data/0.1.0/
   paires.json                les caractères à ne pas confondre
   fetes.json                 le calendrier des fêtes et leurs textes
   saisons.json               les vingt-quatre termes solaires et leurs textes
+  devinettes.json            les devinettes de lanternes (灯谜)
   familles/<racine>.json     une famille : `Famille` de models.py
   traits/<racine>.json       les tracés de la famille, sous APL, et rien d'autre
   traits/ARPHICPL.TXT        la même licence, à côté des fichiers qu'elle couvre
@@ -214,6 +215,35 @@ et `textes.tsv` (rédigés pour l'app).
   ses traits ; `pinyin` vient d'Unihan, `sens` est rédigé pour l'app.
 - `rubrique` et `explication` présentent le terme dans l'anecdote du jour où il
   commence.
+## `devinettes.json`
+
+Tiré de `data/sources/devinettes/` (story 4b.5) : `devinettes.tsv`, une devinette
+par caractère réponse, rédigée pour l'app, et `briques.tsv`, le nom de chaque brique
+citée. Une devinette cache une décomposition : l'énoncé décrit les briques de la
+décomposition GF 0014-2009 exportée et leur disposition.
+
+```json
+{"version": "0.1.0", "license": "propriétaire", "source": "…", "source_url": "…", "modified": "…",
+ "devinettes": [{"id": "明", "c": "明", "pinyin": "míng", "sens": "clair, lumineux",
+                 "enonce": "Le soleil et la lune, côte à côte", "zh": "一月一日非今天",
+                 "disposition": "cote", "briques": ["日", "月"], "leurres": ["昨", "期", "晚"]}],
+ "noms": {"日": "le soleil", "月": "la lune", "…": "…"},
+ "racines": {"明": "日", "昨": "日", "期": "月", "…": "…"}}
+```
+
+- `id` est la réponse : une seule devinette par caractère. La progression range les
+  devinettes résolues par `id` (`Progress.devinettes`).
+- `enonce` s'écrit sans guillemets extérieurs, que l'app pose. `zh`, l'énoncé chinois
+  traditionnel (字谜), n'est donné que s'il est exact et connu ; sinon `null`.
+- `disposition` : `cote` (⿰ ⿲), `superpose` (⿱ ⿳), `dedans` (⿴ ⿵ ⿶ ⿷),
+  `enveloppe` (⿸ ⿹ ⿺) ou `mele` (⿻), l'opérateur de premier niveau de la structure.
+- `briques` : exactement les `parts` exportées de la réponse, dans l'ordre d'écriture.
+- `leurres` : trois caractères des listes cibles, choisis à l'export par ressemblance
+  de composants (la mesure de `questions.ts`), une brique citée après l'autre ; jamais
+  la réponse, jamais une brique citée, jamais un caractère qui porte toutes les briques.
+- `noms` : le nom de chaque brique citée, montré par la correction.
+- `racines` : la famille de chaque caractère dessiné (réponse, briques, leurres).
+  Aucun n'est hors du périmètre : les devinettes n'y font entrer aucun caractère.
 
 ## `LICENCES.md`
 
@@ -239,6 +269,12 @@ ce que l'app embarque ; `docs/sources-licences.md` fait foi pour la décision.
 - « fêtes : caractères dessinés » — bloquant : le caractère bonus de chaque
   anecdote et le 福 du vœu ont
   leurs traits dans chaque version exportée.
+- « devinettes : sources », « décomposition », « leurres », « traits », « parcours »
+  — bloquants : une devinette par réponse, énoncé, sens et source présents, chaque
+  brique citée nommée ; les briques citées sont les `parts` exportées et la
+  disposition celle de la structure IDS ; trois leurres distincts, jamais la réponse
+  ni une seconde réponse ; tout ce qui se dessine a ses traits ; la réponse et ses
+  briques sont posées par un parcours, sans quoi la devinette ne viendrait jamais.
 
 ## Format intermédiaire (story 1.1)
 

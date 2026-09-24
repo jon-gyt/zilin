@@ -14,8 +14,8 @@
  *
  * Ce qu'aucun écran n'alimente encore est rendu verrouillé, avec `suivi: false` : on
  * n'affiche jamais un chiffre inventé. Les devinettes et les contes lus sont déjà comptés
- * dans la progression (`devinettes`, `contesLus`) et le tableau les lit ; le jeu et le
- * lecteur manquent. Les recettes ne sont pas suivies.
+ * dans la progression (`devinettes`, `contesLus`) et le tableau les lit ; la devinette du
+ * jour alimente la lanterne. Les recettes ne sont pas suivies.
  */
 import { Rating } from 'ts-fsrs';
 import { nomParcours, type Famille, type Index } from './content';
@@ -459,9 +459,9 @@ export function tropheesContes(
 /**
  * Le pinceau se lit sur `tracesAchevees` : les briques tracées en entier au doigt
  * (`session.traceAchevee`), pas celles dont le tracé a seulement été proposé. La lanterne
- * se lit sur `devinettes`, les devinettes résolues, que la progression compte déjà ; le
- * jeu n'existant pas encore, elle reste verrouillée tant qu'elle n'est pas obtenue. Le
- * bol attend la cuisine : les recettes ne sont pas suivies.
+ * se lit sur `devinettes`, les devinettes résolues que le jeu de la devinette du jour
+ * range (`session.conclureDevinette`), une par jour au plus. Le bol attend la cuisine :
+ * les recettes ne sont pas suivies.
  */
 export function tropheesObjets(
   tracesAchevees: readonly string[],
@@ -501,12 +501,12 @@ export function tropheesObjets(
       nom: 'Lanterne',
       detail: lanterne
         ? 'Dix devinettes de lanternes résolues. Tao la porte aux devinettes.'
-        : 'Dix devinettes de lanternes résolues. Le jeu n’est pas encore ouvert.',
+        : `Encore ${nombre(LANTERNE_DEVINETTES - d, 'devinette', 'devinettes')} à résoudre, une par jour.`,
       unite: 'devinette resolue',
       actuel: d,
       cible: LANTERNE_DEVINETTES,
       obtenu: lanterne,
-      suivi: false,
+      suivi: true,
       progres: d > 0 ? fraction(d, LANTERNE_DEVINETTES) : `${LANTERNE_DEVINETTES} devinettes`,
       part: part(d, LANTERNE_DEVINETTES)
     },

@@ -21,7 +21,7 @@ familles de fichiers, jamais mêlés :
   (APL §2 a). Chaque fichier porte la même mention dans son en-tête.
 - `familles/<racine>.json` : décomposition canonique GF 0014-2009 et textes des
   fiches relues, propriétaires. Aucun tracé n'y entre.
-- `paires.json`, `contes/<id>.json`, `fetes.json`, `saisons.json` : propriétaires,
+- `paires.json`, `contes/<id>.json`, `fetes.json`, `saisons.json`, `devinettes.json` : propriétaires,
   source citée.
 
 Ce qui n'entre jamais dans l'export :
@@ -62,6 +62,7 @@ from typing import Iterable, Mapping, Sequence
 from pydantic import ValidationError
 
 from . import contes as contes_mod
+from . import devinettes as devinettes_mod
 from . import fetes as fetes_mod
 from . import fiches as fiches_mod
 from . import saisons as saisons_mod
@@ -149,6 +150,7 @@ def fichiers_sources(
     """
     lus: list[tuple[str, Path]] = [
         ("exporteur", EXPORTEUR),
+        ("exporteur-devinettes", Path(devinettes_mod.__file__).resolve()),
         ("decompositions", build / "decompositions.json"),
         ("graphe", build / "graphe.json"),
         *[(f"parcours-{nom}", build / f"parcours-{nom}.json") for nom in sorted(PARCOURS)],
@@ -162,6 +164,8 @@ def fichiers_sources(
         ("fetes-animaux", fetes_mod.ANIMAUX),
         ("saisons-termes", saisons_mod.TERMES),
         ("saisons-textes", saisons_mod.TEXTES),
+        ("devinettes", devinettes_mod.DEVINETTES),
+        ("devinettes-briques", devinettes_mod.BRIQUES),
         ("interface", INTERFACE),
         ("arphicpl", LICENCES_SOURCE / ARPHIC),
         ("unicode", LICENCES_SOURCE / UNICODE_NOTICE),
@@ -649,6 +653,46 @@ def document_fetes(
     }
 
 
+def document_devinettes(
+    version: str,
+    per: Perimetre,
+    noeuds: Mapping[str, Noeud],
+    decompositions: Mapping[str, Mapping[str, object]],
+    listes: Mapping[str, Sequence[str]],
+    pinyin: Mapping[str, str],
+    graphies: Mapping[str, object],
+    paires: Sequence[Sequence[str]],
+) -> dict[str, object]:
+    """Le JSON écrit dans `devinettes.json` (story 4b.5), voir `devinettes.py`.
+
+    Les leurres se choisissent parmi les caractères des listes cibles dont l'export
+    porte les traits ; les réponses, les briques et les leurres restent dans le
+    périmètre, si bien que les devinettes n'y font entrer aucun caractère.
+    """
+    dessinables = [c for c in per.caracteres if c in graphies]
+    cibles = {c for nom in LISTES_CIBLES for c in listes.get(nom, ())}
+    return devinettes_mod.document(
+        version,
+        caracteres=dessinables,
+        candidats=[c for c in dessinables if c in cibles],
+        decompositions={
+            c: [str(x) for x in (d.get("composants") or [])]  # type: ignore[union-attr]
+            for c, d in decompositions.items()
+        },
+        pinyin=pinyin,
+        racines={c: noeuds[c].racine for c in dessinables},
+        paires=paires,
+        structures={c: str(d.get("structure") or "") for c, d in decompositions.items()},
+        en_tete={
+            "version": version,
+            "license": LICENCE_PROPRIETAIRE,
+            "source": devinettes_mod.SOURCE_EXPORT,
+            "source_url": URL_PIPELINE,
+            "modified": f"{JETON_JOUR} : assemblé par `wenlu export`",
+        },
+    )
+
+
 def document_conte(
     conte: str, versions: Sequence[contes_mod.Version], version_export: str
 ) -> dict[str, object]:
@@ -757,6 +801,7 @@ def document_index(
         "paires": "paires.json",
         "fetes": "fetes.json",
         "saisons": "saisons.json",
+        "devinettes": "devinettes.json",
     }
 
 
@@ -823,8 +868,8 @@ TABLEAU_LICENCES: tuple[tuple[str, str, str, str, str], ...] = (
         "https://github.com/6tail/lunar-python",
     ),
     (
-        "Fiches, contes, paires, fêtes, saisons (pipeline wenlu)",
-        "`familles/`, `contes/`, `paires.json`, `fetes.json`, `saisons.json`",
+        "Fiches, contes, paires, fêtes, saisons, devinettes (pipeline wenlu)",
+        "`familles/`, `contes/`, `paires.json`, `fetes.json`, `saisons.json`, `devinettes.json`",
         LICENCE_PROPRIETAIRE,
         "textes rédigés pour l'app, relus",
         "—",
@@ -854,7 +899,7 @@ def licences_md(version: str) -> str:
         "",
         f"- `traits/` : tracés sous {LICENCE_TRAITS}, avec `{ARPHIC}` inaltéré à côté"
         " et `traits/MODIFICATIONS.md` qui dit comment et quand ils ont été dérivés.",
-        "- `familles/`, `contes/`, `paires.json`, `fetes.json`, `saisons.json` : décomposition"
+        "- `familles/`, `contes/`, `paires.json`, `fetes.json`, `saisons.json`, `devinettes.json` : décomposition"
         " canonique et textes"
         " rédigés pour l'app, propriétaires.",
         f"- `{UNICODE_NOTICE}` : notice de permission Unicode, qui couvre le pinyin.",
@@ -1115,6 +1160,9 @@ def assembler(
     textes["paires.json"] = _json(document_paires(groupes, version))
     textes["fetes.json"] = _json(document_fetes(version, noeuds, pinyin))
     textes["saisons.json"] = _json(document_saisons(version, noeuds, pinyin))
+    textes["devinettes.json"] = _json(
+        document_devinettes(version, per, noeuds, decompositions, listes, pinyin, graphies, groupes)
+    )
     textes["LICENCES.md"] = licences_md(version)
     textes["traits/MODIFICATIONS.md"] = modifications_md(version, len(graphies))
     for nom in (ARPHIC, UNICODE_NOTICE):

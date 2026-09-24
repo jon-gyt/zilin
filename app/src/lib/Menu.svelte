@@ -37,10 +37,19 @@
   import Pinceaux from './Pinceaux.svelte';
   import Tao from './Tao.svelte';
   import { aAudio, dire, manifesteOnce, type Manifeste } from './audio';
-  import { contenu, fiche, lecon, toutesLesFamilles, traitsDe, type Famille } from './content';
+  import {
+    contenu,
+    devinettesOnce,
+    fiche,
+    lecon,
+    toutesLesFamilles,
+    traitsDe,
+    type Devinette,
+    type Famille
+  } from './content';
   import { caracteresLus } from './foret';
   import { glyph, type StrokeData } from './glyph';
-  import { MINUTES_MAX, MINUTES_MIN, propose } from './jeux';
+  import { MINUTES_MAX, MINUTES_MIN, devinetteAAnnoncer, propose } from './jeux';
   import { caseReviser, carteDuMenu, menu, traitsDeLAjout } from './parcours';
   import { familleDepart, fichesDepart } from './premiere';
   import { cartesDues, type Progress } from './session';
@@ -197,6 +206,8 @@
   let casesPinyin = $state<Record<string, string>>({});
   let familles = $state<Famille[]>([]);
   let contes = $state<number | null>(null);
+  /** Les devinettes de l'export : la case Jouer annonce celle du jour. */
+  let devinettes = $state<Devinette[]>([]);
 
   $effect(() => {
     let vivant = true;
@@ -222,6 +233,11 @@
         if (vivant) contes = i.contes.length;
       })
       .catch(() => undefined);
+    void devinettesOnce()
+      .then((d) => {
+        if (vivant) devinettes = d.devinettes;
+      })
+      .catch(() => undefined);
     return () => {
       vivant = false;
     };
@@ -232,7 +248,10 @@
 
   function info(id: CaseId): string {
     if (id === 'reviser') return reviser.info;
-    if (id === 'jouer') return propose(p, p.day) ? 'Tao propose un jeu' : `${MINUTES_MIN} à ${MINUTES_MAX} minutes`;
+    if (id === 'jouer') {
+      if (propose(p, p.day)) return 'Tao propose un jeu';
+      return devinetteAAnnoncer(p, devinettes) ? 'La devinette du jour' : `${MINUTES_MIN} à ${MINUTES_MAX} minutes`;
+    }
     if (id === 'lire') {
       if (contes === null) return '';
       return contes > 0 ? `${contes} conte${contes > 1 ? 's' : ''}` : 'Les contes arrivent';
