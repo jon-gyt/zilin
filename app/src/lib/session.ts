@@ -271,6 +271,12 @@ export type Progress = {
    * révision. Absents d'une progression plus ancienne : aucun.
    */
   trouves: Trouve[];
+  /**
+   * Les plats de la cuisine de Tao réussis, par identifiant, chacun une fois, dans l'ordre :
+   * chaque ingrédient trouvé, Tao contente. Le bol des trophées se gagne au premier. Le
+   * jeu les note par `noterRecette`. Absente d'une progression plus ancienne : vide.
+   */
+  recettes: string[];
 };
 
 /**
@@ -332,7 +338,8 @@ export function emptyProgress(aujourdhui: string): Progress {
     contesLus: {},
     relecture: false,
     motsDevines: [],
-    trouves: []
+    trouves: [],
+    recettes: []
   };
 }
 
@@ -785,6 +792,15 @@ export function noterConteLu(p: Progress, conte: string, seuil: number): Progres
   const lus = p.contesLus[conte] ?? [];
   if (lus.includes(s)) return p;
   return { ...p, contesLus: { ...p.contesLus, [conte]: [...lus, s].sort((a, b) => a - b) } };
+}
+
+/**
+ * Note un plat de la cuisine de Tao réussi. Un plat compte une fois, même refait : le bol
+ * compte ce qui a été lu de plus, pas les essais. Un plat grimacé ne compte pas.
+ */
+export function noterRecette(p: Progress, id: string): Progress {
+  if (id === '' || p.recettes.includes(id)) return p;
+  return { ...p, recettes: [...p.recettes, id] };
 }
 
 /** Le nombre de devinettes résolues. */
@@ -1271,6 +1287,8 @@ export function fromJSON(texte: string, aujourdhui: string): Progress {
     /* Les mots devinés : absents d'un export plus ancien, aucun n'est deviné. */
     motsDevines: listeDeCaracteres(o.motsDevines),
     /* Les caractères trouvés en chemin : absents d'un export plus ancien, aucun. */
-    trouves: lireTrouves(o.trouves)
+    trouves: lireTrouves(o.trouves),
+    /* Les plats cuisinés : absents d'un export plus ancien, aucun n'est fait. */
+    recettes: listeDeCaracteres(o.recettes)
   };
 }

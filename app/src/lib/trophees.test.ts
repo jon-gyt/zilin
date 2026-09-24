@@ -8,6 +8,7 @@ import {
   emptyProgress,
   noterConteLu,
   noterDevinette,
+  noterRecette,
   noterTrophees,
   traceAchevee,
   type Progress
@@ -322,11 +323,23 @@ describe('les objets de Tao', () => {
     expect(lanterne(noterDevinette(p, 'j')).obtenu).toBe(true);
   });
 
-  it('suivent la lanterne, et verrouillent le bol tant que rien ne le suit', () => {
+  it('suivent la lanterne et le bol, sans rien donner d’avance', () => {
     const [, lanterne, bol] = tropheesObjets([]);
     expect(lanterne.suivi).toBe(true);
-    expect(bol.suivi).toBe(false);
+    expect(bol.suivi).toBe(true);
     expect(lanterne.obtenu || bol.obtenu).toBe(false);
+  });
+
+  it('donnent le bol au premier plat réussi dans la cuisine de Tao', () => {
+    const p = progression();
+    const bol = (q: Progress) => tous(tableau(q, contenuExport)).find((x) => x.id === 'objet-bol')!;
+    expect(bol(p).obtenu).toBe(false);
+    expect(bol(p).progres).toBe('première recette');
+    const cuisine = noterRecette(p, 'daroumian');
+    expect(bol(cuisine).obtenu).toBe(true);
+    expect(bol(cuisine).actuel).toBe(1);
+    /* Un plat refait ne compte pas deux fois. */
+    expect(noterRecette(cuisine, 'daroumian').recettes).toEqual(['daroumian']);
   });
 });
 

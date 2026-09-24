@@ -14,9 +14,9 @@
  * calcule, et `nouveauxAcquis` dit ceux qu'il reste à noter.
  *
  * Ce qu'aucun écran n'alimente encore est rendu verrouillé, avec `suivi: false` : on
- * n'affiche jamais un chiffre inventé. Les devinettes et les contes lus sont déjà comptés
- * dans la progression (`devinettes`, `contesLus`) et le tableau les lit ; la devinette du
- * jour alimente la lanterne. Les recettes ne sont pas suivies.
+ * n'affiche jamais un chiffre inventé. Les devinettes, les contes lus et les plats cuisinés
+ * sont comptés dans la progression (`devinettes`, `contesLus`, `recettes`) et le tableau
+ * les lit ; la devinette du jour alimente la lanterne, la cuisine de Tao le bol.
  */
 import { Rating } from 'ts-fsrs';
 import { nomParcours, type Famille, type Index } from './content';
@@ -468,19 +468,21 @@ export function tropheesContes(
  * Le pinceau se lit sur `tracesAchevees` : les briques tracées en entier au doigt
  * (`session.traceAchevee`), pas celles dont le tracé a seulement été proposé. La lanterne
  * se lit sur `devinettes`, les devinettes résolues que le jeu de la devinette du jour
- * range (`session.conclureDevinette`), une par jour au plus. Le bol attend la cuisine :
- * les recettes ne sont pas suivies.
+ * range (`session.conclureDevinette`), une par jour au plus. Le bol se lit sur `recettes`,
+ * les plats de la cuisine de Tao réussis (`session.noterRecette`) : le premier le donne.
  */
 export function tropheesObjets(
   tracesAchevees: readonly string[],
   acquis: Acquis = {},
-  devinettes: readonly string[] = []
+  devinettes: readonly string[] = [],
+  recettes: readonly string[] = []
 ): Trophee[] {
   const n = new Set(tracesAchevees).size;
   const d = new Set(devinettes).size;
+  const r = new Set(recettes).size;
   const pinceau = n >= PINCEAU_BRIQUES || dejaAcquis(acquis, 'objet-pinceau');
   const lanterne = d >= LANTERNE_DEVINETTES || dejaAcquis(acquis, 'objet-lanterne');
-  const bol = dejaAcquis(acquis, 'objet-bol');
+  const bol = r >= BOL_RECETTES || dejaAcquis(acquis, 'objet-bol');
   return [
     {
       id: 'objet-pinceau',
@@ -525,14 +527,16 @@ export function tropheesObjets(
       objet: 'bol',
       sceau: '',
       nom: 'Bol',
-      detail: 'La première recette de la cuisine de Tao. Le jeu n’est pas encore ouvert.',
+      detail: bol
+        ? 'Un premier plat réussi dans la cuisine de Tao. Tao y goûte en cuisine.'
+        : 'Un plat à réussir dans la cuisine de Tao, chaque ingrédient trouvé sur l’étal.',
       unite: 'recette cuisinee',
-      actuel: 0,
+      actuel: r,
       cible: BOL_RECETTES,
       obtenu: bol,
-      suivi: false,
-      progres: 'première recette',
-      part: 0
+      suivi: true,
+      progres: r > 0 ? fraction(r, BOL_RECETTES) : 'première recette',
+      part: part(r, BOL_RECETTES)
     }
   ];
 }
@@ -680,7 +684,7 @@ export function tableau(
     section('sceaux', date(tropheesSceaux(c.familles, p.cartes, premierJour, sens, seuil, a))),
     section('pieges', date(tropheesPieges(paires, p.cartes, pinyins(c.familles), sens, seuil, a))),
     section('contes', date(tropheesContes(c.index, lus, a, p.contesLus))),
-    section('objets', date(tropheesObjets(p.tracesAchevees, a, p.devinettes))),
+    section('objets', date(tropheesObjets(p.tracesAchevees, a, p.devinettes, p.recettes))),
     section('chemin', date(tropheesChemin(p.trouves, a))),
     section('serie', date(tropheesSerie(p.joursTravailles, p.day, a)))
   ];
