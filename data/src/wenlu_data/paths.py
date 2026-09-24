@@ -16,6 +16,7 @@ FICHES_WORK = WORK / "fiches"
 AUDIO_WORK = WORK / "audio"
 
 LISTES = DATA / "sources" / "listes"
+INTERFACE = DATA / "sources" / "interface" / "caracteres.txt"
 CONTES = DATA / "sources" / "contes"
 GF0014 = DATA / "sources" / "gf0014-2009"
 EXPORT = RACINE / "app" / "public" / "data"

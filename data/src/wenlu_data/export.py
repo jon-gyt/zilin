@@ -66,7 +66,7 @@ from .gf0014 import Controle
 from .graphe import BRIQUE, MUETTE, PARCOURS
 from .models import Brique, Famille, Fiche, Mot
 from .outils import empreinte_fichier
-from .paths import BUILD, DATA, EXPORT, GF0014, INGEST
+from .paths import BUILD, DATA, EXPORT, GF0014, INGEST, INTERFACE
 
 #: Version par défaut de l'export.
 VERSION = "0.1.0"
@@ -157,6 +157,7 @@ def fichiers_sources(
         ("fetes-calendrier", fetes_mod.CALENDRIER),
         ("fetes-textes", fetes_mod.TEXTES),
         ("fetes-animaux", fetes_mod.ANIMAUX),
+        ("interface", INTERFACE),
         ("arphicpl", LICENCES_SOURCE / ARPHIC),
         ("unicode", LICENCES_SOURCE / UNICODE_NOTICE),
     ]
@@ -525,6 +526,22 @@ SOURCE_FETES = (
     "data/sources/fetes/ : dates du calendrier luni-solaire chinois calculées par"
     " lunar_python (MIT) ; textes rédigés pour l'app"
 )
+
+
+def caracteres_interface(chemin: Path | None = None) -> list[str]:
+    """Les caractères que l'interface dessine (`data/sources/interface/caracteres.txt`).
+
+    Un par ligne, `#` commente. Absent, la liste est vide : l'export reste possible.
+    """
+    chemin = chemin or INTERFACE
+    if not chemin.exists():
+        return []
+    vus: list[str] = []
+    for brute in chemin.read_text(encoding="utf-8").splitlines():
+        ligne = brute.strip()
+        if ligne and not ligne.startswith("#"):
+            vus += [c for c in ligne if not c.isspace() and c not in vus]
+    return vus
 
 
 def document_fetes(version: str, noeuds: Mapping[str, Noeud]) -> dict[str, object]:
@@ -999,6 +1016,8 @@ def assembler(
     # Les caractères que les fêtes dessinent (anecdote, 福 du vœu) : leurs traits
     # doivent être exportés, `wenlu check` le vérifie.
     cibles += fetes_mod.caracteres_dessines(fetes_mod.charger_textes())
+    # Les caractères de l'interface (la marque, les cases du menu) : même règle.
+    cibles += caracteres_interface()
     per = perimetre(noeuds, cibles)
     pinyin = charger_pinyin(ingest, per.caracteres)
     graphies = charger_graphies(ingest, per.caracteres)

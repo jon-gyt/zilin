@@ -652,3 +652,22 @@ def test_l_export_versionne_ne_porte_aucun_texte_anglais_de_source() -> None:
             if fiche["statut"] == "sans_fiche":
                 assert fiche["en"] == "" and fiche["origine_en"] == "" and fiche["fr"] == ""
                 assert fiche["mots"] == []
+
+
+def test_les_caracteres_de_l_interface_se_lisent(tmp_path: Path) -> None:
+    """La marque et les cases du menu : un par ligne, commentaires ignorés, sans doublon."""
+    from wenlu_data.export import caracteres_interface
+
+    f = tmp_path / "caracteres.txt"
+    f.write_text("# commentaire\n文\n温\n\n温\n玩 读\n", encoding="utf-8")
+    assert caracteres_interface(f) == ["文", "温", "玩", "读"]
+    assert caracteres_interface(tmp_path / "absent.txt") == []
+
+
+def test_les_cases_du_menu_sont_dans_le_fichier_d_interface() -> None:
+    """Les caractères des cases (Menu.svelte) doivent avoir leurs traits dans l'export."""
+    from wenlu_data.export import caracteres_interface
+
+    from wenlu_data.paths import INTERFACE
+
+    assert {"文", "温", "玩", "读", "林"} <= set(caracteres_interface(INTERFACE))
