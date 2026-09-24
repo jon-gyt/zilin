@@ -50,6 +50,9 @@
   /** Les choix sont des caractères partout, sauf pour le sens. */
   const caracteres = $derived(q.type !== 'sens');
   const bon = $derived(q.choix.indexOf(q.reponse[0]));
+  /** Assemblage de plus de trois briques : des cases plus petites, la ligne tient à 393 px. */
+  const serre = $derived(q.reponse.length > 3);
+  const tailleCase = $derived(serre ? 36 : 56);
 
   /* L'état de la question : les essais, le chronomètre, les choix éliminés, l'assemblage. */
   let essais = $state(0);
@@ -162,18 +165,19 @@
       {#if f && f.fr !== ''}<b>« {f.fr} »</b>{/if}
       <span class="py">{pinyinDe(q.c, corpus)}</span>
     </div>
-    <div class="stim parts">
+    <!-- Plus de trois briques : la ligne se resserre pour tenir sur 393 px. -->
+    <div class="stim parts" class:serre={serre}>
       {#each q.reponse as _, n (n)}
         {#if n > 0}<span class="op">+</span>{/if}
         {#if construit[n] !== undefined}
-          <Glyph char={q.choix[construit[n]]} size={56} write={false} color="var(--ocre)" />
+          <Glyph char={q.choix[construit[n]]} size={tailleCase} write={false} color="var(--ocre)" />
         {:else}
           <span class="case-vide" aria-label="brique à poser"></span>
         {/if}
       {/each}
       <span class="op">=</span>
       {#if note !== null}
-        <Glyph char={q.c} size={56} write={false} />
+        <Glyph char={q.c} size={tailleCase} write={false} />
       {:else}
         <span class="hz vide">?</span>
       {/if}
@@ -198,13 +202,14 @@
   {/if}
 
   {#if q.type !== 'trace'}
-    <div class="choices">
+    <!-- L'assemblage pose ses briques en vrac sur quatre colonnes : le bouton du bas reste visible. -->
+    <div class="choices" class:vrac={q.type === 'assemblage'}>
       {#each q.choix as o, k (o + k)}
         <button
           class:txt={!caracteres}
           class:ok={note !== null && (q.type === 'assemblage' ? q.reponse.includes(o) : k === bon)}
           class:ko={rates.includes(k)}
-          class:pris={q.type === 'assemblage' && construit.includes(k)}
+          class:pris={q.type === 'assemblage' && note === null && construit.includes(k)}
           disabled={note !== null || rates.includes(k) || construit.includes(k)}
           onclick={() => (q.type === 'assemblage' ? assembler(k) : repondre(k))}
         >

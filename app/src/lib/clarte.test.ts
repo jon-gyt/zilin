@@ -61,6 +61,20 @@ describe('une question : pas de cadre de correction vide avant la réponse', () 
   });
 });
 
+describe("l'assemblage de révision tient dans l'écran, bouton du bas compris", () => {
+  const ask = source('Ask.svelte');
+
+  it('les briques en vrac se posent sur quatre colonnes', () => {
+    expect(ask).toContain("class:vrac={q.type === 'assemblage'}");
+  });
+
+  it('au-delà de trois briques, la ligne de cases se resserre', () => {
+    expect(ask).toContain('class:serre={serre}');
+    expect(ask).toContain('const serre = $derived(q.reponse.length > 3)');
+    expect(source('tokens.css')).toContain('.q .parts.serre .case{');
+  });
+});
+
 describe('la chaîne : la limite de trois minutes ne ferme pas le tour en cours', () => {
   const echoir = corps(source('Game.svelte'), 'echoir');
 
