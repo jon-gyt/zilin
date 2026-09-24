@@ -17,13 +17,15 @@
    * Les dessins de gauche prennent la place du 福, ceux qui pendent (lanterne, cerf-volant)
    * se balancent à droite : l'en-tête garde sa hauteur.
    *
-   * Toucher le vœu le prononce (`audio.dire`, voix embarquée ou voix du téléphone).
+   * Toucher le vœu le prononce (`audio.dire`, voix embarquée ou voix du téléphone), et
+   * rouvre l'anecdote du jour, celle de la fête (`onouvrir`).
    *
    * Props :
    * - `fete` : la fête du jour, telle que `fetes.feteDuJour` la rend (jetons remplis).
    *   Obligatoire ; le composant ne s'affiche que les jours de fête.
    * - `pistes` : les familles où chercher les traits du 福 (`fetes.pistes(f, '福')`), pour
    *   ne pas relire toutes les familles. Défaut : aucune.
+   * - `onouvrir` : rouvre l'anecdote du jour au toucher. Défaut : rien.
    *
    * Le 福 est dessiné depuis ses traits, jamais depuis une police. Le cramoisi de fête
    * (--fete) ne sert qu'au 福 et aux lanternes du Nouvel An et de 元宵 ; l'abricot est un
@@ -34,7 +36,17 @@
   import type { FeteDuJour } from './fetes';
   import { glyph, type StrokeData } from './glyph';
 
-  let { fete, pistes = [] }: { fete: FeteDuJour; pistes?: readonly string[] } = $props();
+  let {
+    fete,
+    pistes = [],
+    onouvrir = () => undefined
+  }: { fete: FeteDuJour; pistes?: readonly string[]; onouvrir?: () => void } = $props();
+
+  /** Le vœu se dit, et l'anecdote de la fête se rouvre. */
+  function toucher(): void {
+    void dire(fete.voeu.zh);
+    onouvrir();
+  }
 
   const fu = $derived(fete.id === 'chunjie' ? fete.caractereVoeu : null);
 
@@ -68,8 +80,8 @@
 <button
   class="voeu {fete.id}"
   data-fete={fete.id}
-  onclick={() => void dire(fete.voeu.zh)}
-  aria-label="{fete.voeu.zh}, {fete.voeu.pinyin}. {fete.voeu.fr}. Écouter"
+  onclick={toucher}
+  aria-label="{fete.voeu.zh}, {fete.voeu.pinyin}. {fete.voeu.fr}. Écouter, et relire l'anecdote du jour"
 >
   {#if fete.id === 'duanwu'}
     <svg class="picto" width="30" height="30" viewBox="0 0 30 30" aria-hidden="true">

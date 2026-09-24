@@ -57,8 +57,9 @@ describe('la charte des fêtes', () => {
     expect(embleme).toContain('clip-path="url(#{clip})"');
   });
 
-  it('toucher le vœu le prononce', () => {
-    expect(voeu).toContain('onclick={() => void dire(fete.voeu.zh)}');
+  it("toucher le vœu le prononce et rouvre l'anecdote du jour", () => {
+    expect(voeu).toContain('onclick={toucher}');
+    expect(voeu).toMatch(/function toucher\(\): void \{\s*void dire\(fete\.voeu\.zh\);\s*onouvrir\(\);/);
   });
 
   it("la mi-automne est toujours de nuit : ses couleurs ne dépendent pas de l'heure", () => {

@@ -17,7 +17,18 @@ import {
   type CuisineDonnees,
   type Recette
 } from './cuisine';
-import { IDS, JEUX, corpusDeJeu, disponibles, fini, repondre, tour, type Manche } from './jeux';
+import {
+  ERREUR_SANS_NOTE,
+  IDS,
+  JEUX,
+  corpusDeJeu,
+  disponibles,
+  evenementsANoter,
+  fini,
+  repondre,
+  tour,
+  type Manche
+} from './jeux';
 import { emptyProgress, fromJSON, noterRecette, toJSON } from './session';
 import { SEUIL_DEBLOCAGE, grade } from './srs';
 import { journal, posture, POIDS, ajouter, taoVide } from './tao';
@@ -219,6 +230,28 @@ describe('l’étal', () => {
     const r = repondre(m, '鸡肉', montre.outcome!);
     expect(r.montre).toBe(true);
     expect(grade(r.evenement)).toBe(Rating.Again);
+  });
+
+  it('un ingrédient manqué ne note rien ; trouvé, même au second essai, il est noté', () => {
+    expect(ERREUR_SANS_NOTE).toContain('cuisine');
+    const m = mancheCuisine(BOEUF, 'g');
+    if (!m) throw new Error('manche attendue');
+    const t = tour(m);
+    if (!t) throw new Error('tour attendu');
+    const rate = choisir(t, '牛奶', [], 2);
+    const manque = repondre(m, '鸡肉', choisir(t, '鸡肉', rate.pris, 4).outcome!);
+    expect(manque.montre).toBe(true);
+    expect(evenementsANoter('cuisine', manque)).toEqual([]);
+    const second = repondre(m, '牛肉', choisir(t, '牛肉', rate.pris, 4).outcome!);
+    expect(evenementsANoter('cuisine', second)).toEqual(second.evenements);
+    expect(grade(evenementsANoter('cuisine', second)[0])).toBe(Rating.Hard);
+    /* L'exception est propre à l'éclair et à la cuisine : les autres jeux notent l'erreur. */
+    expect(evenementsANoter('assembler', manque)).toEqual(manque.evenements);
+    /* L'écran passe par elle ; le bol des trophées et le goût de Tao ne changent pas. */
+    const ecran = readFileSync(new URL('Cuisine.svelte', import.meta.url), 'utf8');
+    expect(ecran).toContain("for (const ev of evenementsANoter('cuisine', r)) onrepondu(ev);");
+    expect(ecran).not.toContain('of r.evenements');
+    expect(ecran).toContain("oncuisine(recette.id, gout(r.manche) === 'bon')");
   });
 
   it('garde le leurre pris, caractère par caractère : 牛奶 pour 牛肉, c’est 奶', () => {

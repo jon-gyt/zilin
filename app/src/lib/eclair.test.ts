@@ -17,7 +17,18 @@ import {
   toursEclair,
   type Eclair
 } from './eclair';
-import { IDS, JEUX, constat, corpusDeJeu, corpusVide, disponibles, tour, type CorpusJeux } from './jeux';
+import {
+  ERREUR_SANS_NOTE,
+  IDS,
+  JEUX,
+  constat,
+  corpusDeJeu,
+  corpusVide,
+  disponibles,
+  evenementsANoter,
+  tour,
+  type CorpusJeux
+} from './jeux';
 import { emptyProgress, fromJSON, toJSON } from './session';
 import { SEUIL_DEBLOCAGE } from './srs';
 import { VERSION_DONNEES, type Famille, type Fiche, type Index } from './content';
@@ -199,6 +210,34 @@ describe('une manche du dictionnaire éclair', () => {
     expect(faux.montre).toBe(true);
     expect(faux.note).toBe(Rating.Again);
     expect(constat(faux.manche)).toBe('4 caractères revus, 1 mot deviné.');
+  });
+
+  it('une mauvaise réponse ne note rien : rater 大水 ne veut pas dire oublier 大 ou 水', () => {
+    expect(ERREUR_SANS_NOTE).toContain('eclair');
+    const m = JEUX.eclair.preparer(corpus(), JOUR)!;
+    const t = tour(m)!;
+    const leurre = t.choix.find((x) => x !== t.reponse[0])!;
+    const faux = JEUX.eclair.repondre(m, leurre, { correct: true, tries: 0, seconds: 3 });
+    expect(faux.correct).toBe(false);
+    expect(faux.montre).toBe(true);
+    /* Aucun événement pour la progression : la carte ne revient pas dans dix minutes. */
+    expect(evenementsANoter('eclair', faux)).toEqual([]);
+    /* Une bonne réponse reste notée, les deux caractères, comme une question. */
+    const juste = JEUX.eclair.repondre(m, t.reponse[0], { correct: true, tries: 0, seconds: 3 });
+    expect(evenementsANoter('eclair', juste)).toEqual(juste.evenements);
+    expect(evenementsANoter('eclair', juste).map((e) => e.c)).toEqual([t.c, ...(t.aussi ?? [])]);
+    /* Le constat de la manche ne change pas. */
+    expect(constat(faux.manche)).toBe('2 caractères revus, aucun mot deviné.');
+  });
+
+  it('l’écran ne range dans la progression que ce que `evenementsANoter` garde', () => {
+    const game = readFileSync(new URL('Game.svelte', import.meta.url), 'utf8');
+    const valider = game.slice(game.indexOf('function valider('));
+    const corps = valider.slice(0, valider.indexOf('\n  }\n'));
+    expect(corps).toContain('for (const e of evenementsANoter(courante.jeu, r)) onrepondu(e);');
+    expect(corps).not.toContain('r.evenements');
+    /* Le compteur « mots devinés » ne bouge que sur un mot deviné, comme avant. */
+    expect(corps).toContain("if (r.correct && mot !== '') onmotdevine(mot);");
   });
 });
 

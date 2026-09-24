@@ -93,3 +93,30 @@ describe('le cinabre marque un élément ajouté, jamais le caractère entier', 
     expect(m).toContain('const enCinabre = (i: number): boolean => !toutNeuf');
   });
 });
+
+describe("l'anecdote du jour se relit depuis Lire", () => {
+  const lire = source('Lire.svelte');
+  const app = source('../App.svelte');
+
+  it('Lire porte en tête « L’anecdote du jour », au-dessus des contes, son caractère dessiné', () => {
+    const entree = lire.indexOf('<button class="entry anecdote" onclick={onanecdote}>');
+    expect(entree).toBeGreaterThan(0);
+    expect(lire.indexOf("L'anecdote du jour", entree)).toBeGreaterThan(entree);
+    expect(entree).toBeLessThan(lire.indexOf('<div class="sec">Contes</div>'));
+    expect(lire.slice(entree)).toMatch(/^[^]*?<Glyph char=\{anecdote\.a\.c\}/);
+    /* La même anecdote que l'écran Ouvrir, calculée au même endroit. */
+    expect(lire).toContain('anecdoteDeLaJournee(');
+    expect(source('Open.svelte')).toContain('anecdoteDeLaJournee(');
+  });
+
+  it("rouverte, elle ramène là d'où l'on vient, sans refaire le pas Ouvrir", () => {
+    expect(app).toContain("onanecdote={() => relireAnecdote('lire')}");
+    expect(app).toContain('<Open {p} oncontinuer={anecdoteRefermee} onquitter={anecdoteRefermee} />');
+    const f = app.slice(app.indexOf('function anecdoteRefermee('));
+    const corps = f.slice(0, f.indexOf('\n  }\n'));
+    expect(corps).toContain('anecdoteRelue(p, p.day)');
+    expect(corps).not.toContain('anecdoteFaite(');
+    expect(corps).not.toContain('enchainer(');
+    expect(corps).toContain("if (retour === 'lire') ecran = 'lire';");
+  });
+});

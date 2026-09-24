@@ -25,6 +25,9 @@
    * boutons : l'appui ne change que le fond. Le caractère s'écrit au pinceau à l'arrivée
    * et au toucher, Tao saute quand on la touche ; rien ne bouge si l'on réduit les
    * animations.
+   *
+   * La ligne de fête (le vœu) ou de terme sous la marque se touche : elle rouvre
+   * l'anecdote du jour, qui ramène au menu.
    */
   import Bulle from './Bulle.svelte';
   import Embleme from './Embleme.svelte';
@@ -64,7 +67,8 @@
     ondemarrer,
     oncase,
     onchercher,
-    onreglages
+    onreglages,
+    onanecdote = () => undefined
   }: {
     p: Progress;
     /** La fête du jour : le vœu prend la place de la marque, l'emblème porte le caractère. */
@@ -79,6 +83,8 @@
     /** La loupe : chercher un caractère de l'export. */
     onchercher: () => void;
     onreglages: () => void;
+    /** La ligne de fête ou de terme de l'en-tête : rouvre l'anecdote du jour. */
+    onanecdote?: () => void;
   } = $props();
 
   /* ---------- la carte du jour ---------- */
@@ -272,7 +278,7 @@
 <main class="menu">
   <header class="mhead">
     {#if fete}
-      <div class="marque"><Voeu {fete} pistes={fetes ? pistesFete(fetes, '福') : []} /></div>
+      <div class="marque"><Voeu {fete} pistes={fetes ? pistesFete(fetes, '福') : []} onouvrir={onanecdote} /></div>
     {:else}
       <div class="marque">
         <span class="logo"><Marque size={30} /></span>
@@ -280,12 +286,12 @@
           <span class="rangee"><span class="nom">Wenlu</span><span class="cn hz">文路</span></span>
           {#if terme}
             <!-- le terme solaire qui court, discret : son caractère, son nom, sa traduction -->
-            <span class="terme" aria-label="{terme.nomZh}, {terme.fr}">
+            <button class="terme" aria-label="{terme.nomZh}, {terme.fr}. L'anecdote du jour" onclick={onanecdote}>
               <span class="tc" aria-hidden="true"
                 ><Glyph char={terme.caractere.c} size={17} write={false} color="var(--ink2)" pistes={saisons ? pistesSaison(saisons, terme.caractere.c) : []}
                 /></span
               ><span class="hz" aria-hidden="true">{terme.nomZh}</span><span aria-hidden="true"> · {terme.fr}</span>
-            </span>
+            </button>
           {/if}
         </span>
       </div>
@@ -508,6 +514,11 @@
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+    max-width: 100%;
+  }
+  /* elle rouvre l'anecdote du jour : l'appui ne change que la couleur */
+  .terme:active {
+    color: var(--ink);
   }
   .terme .tc {
     line-height: 0;

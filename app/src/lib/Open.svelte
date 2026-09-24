@@ -21,9 +21,9 @@
   import Glyph from './Glyph.svelte';
   import Marque from './Marque.svelte';
   import Tao from './Tao.svelte';
-  import { anecdoteDuJour, anecdotesOnce, fetesOnce, saisonsOnce, type Anecdote } from './content';
-  import { feteDuJour, pistes, type FeteDuJour } from './fetes';
-  import { annonceLeTerme, pistes as pistesSaison, termeDuJour, type TermeDuJour } from './saisons';
+  import { anecdotesOnce, fetesOnce, saisonsOnce, type Anecdote } from './content';
+  import type { FeteDuJour } from './fetes';
+  import { anecdoteDeLaJournee, type TermeDuJour } from './saisons';
   import type { Progress } from './session';
   import { humeur, stade } from './tao';
 
@@ -69,21 +69,15 @@
     ]).then(
       ([liste, fetes, saisons]) => {
         if (!vivant) return;
-        const f = fetes ? feteDuJour(fetes, j) : null;
-        fete = f;
-        pistesFete = f && fetes ? pistes(fetes, f.anecdote.c) : [];
-        const t = saisons ? termeDuJour(saisons, j) : null;
-        terme = annonceLeTerme(f, t) ? t : null;
+        /* La même anecdote que Lire et l'en-tête du menu rouvrent (`anecdoteDeLaJournee`). */
+        const r = anecdoteDeLaJournee(liste?.anecdotes ?? null, fetes, saisons, j);
+        fete = r?.fete ?? null;
+        pistesFete = fete ? (r?.pistes ?? []) : [];
+        terme = r?.terme ?? null;
         rubriqueTerme = saisons?.rubrique ?? '';
         explicationTerme = saisons?.explication ?? '';
-        pistesTerme = terme && saisons ? pistesSaison(saisons, terme.caractere.c) : [];
-        a = f
-          ? { c: f.anecdote.c, titre: f.anecdote.titre, texte: f.anecdote.texte }
-          : terme
-            ? { c: terme.caractere.c, titre: `${terme.nomZh} · ${terme.fr}`, texte: terme.ligne }
-            : liste
-            ? anecdoteDuJour(liste.anecdotes, j)
-            : null;
+        pistesTerme = terme ? (r?.pistes ?? []) : [];
+        a = r?.a ?? null;
       }
     );
     return () => {

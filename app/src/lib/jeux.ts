@@ -421,7 +421,10 @@ export type Resultat = {
   correct: boolean;
   /** La note de `grade` : c'est `srs.ts` qui note, jamais le jeu. */
   note: Grade;
-  /** Faux : la réponse est montrée, et la carte revient dans dix minutes. */
+  /**
+   * Faux : la réponse est montrée, et la carte revient dans dix minutes, sauf aux jeux
+   * où une erreur ne note rien (`ERREUR_SANS_NOTE`).
+   */
   montre: boolean;
 };
 
@@ -1137,6 +1140,22 @@ export function repondre(m: Manche, reponse: Reponse, outcome: Outcome): Resulta
     note: grade(evenement),
     montre: !correct
   };
+}
+
+/**
+ * Les jeux où une mauvaise réponse ne note rien : le dictionnaire éclair et la cuisine de
+ * Tao. Décision du propriétaire : rater 大水 ne veut pas dire qu'on a oublié 大 ou 水, ni
+ * prendre 牛奶 pour 牛肉 qu'on a oublié 肉. La réponse est montrée, la carte ne revient
+ * pas dans dix minutes ; une bonne réponse reste notée par `grade`, comme une question.
+ */
+export const ERREUR_SANS_NOTE: readonly JeuId[] = ['eclair', 'cuisine'];
+
+/**
+ * Les événements d'un tour à ranger dans la progression et à passer à `schedule`. La
+ * manche, elle, les garde tous : son constat ne change pas.
+ */
+export function evenementsANoter(jeu: JeuId, r: Pick<Resultat, 'correct' | 'evenements'>): Revision[] {
+  return r.correct || !ERREUR_SANS_NOTE.includes(jeu) ? r.evenements : [];
 }
 
 /* ---------- le constat ---------- */

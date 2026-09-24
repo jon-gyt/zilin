@@ -10,8 +10,10 @@
    * autres disent ce qu'il reste à lire, sans rien vendre.
    *
    * Chaque ingrédient est une question à choix, deux essais, notée par `grade` de
-   * `srs.ts` : l'écran ne note rien lui-même. Pas de chronomètre, pas de vie, pas de
-   * point. À la fin, Tao goûte : contente quand chaque ingrédient a été trouvé, une
+   * `srs.ts` : l'écran ne note rien lui-même. Un ingrédient manqué n'est pas noté
+   * (`jeux.evenementsANoter`) : prendre un mot pour un autre sur l'étal ne dit pas
+   * qu'on a oublié ses caractères.
+   * Pas de chronomètre, pas de vie, pas de point. À la fin, Tao goûte : contente quand chaque ingrédient a été trouvé, une
    * grimace sinon, qui propose d'en refaire un. Jamais de reproche.
    */
   import Glyph from './Glyph.svelte';
@@ -24,7 +26,16 @@
     manquants,
     type Recette
   } from './cuisine';
-  import { JEUX, fini, repondre, tour, type CorpusJeux, type Manche, type Resultat } from './jeux';
+  import {
+    JEUX,
+    evenementsANoter,
+    fini,
+    repondre,
+    tour,
+    type CorpusJeux,
+    type Manche,
+    type Resultat
+  } from './jeux';
   import { AVANCE_MS, VERDICTS, delai } from './revision';
   import { echeance, type Progress, type Revision } from './session';
   import { humeur, stade } from './tao';
@@ -129,7 +140,7 @@
     const r = repondre(courante, mot, e.outcome);
     resultat = r;
     panier = [...panier, { zh: t.reponse[0], mis: mot }];
-    for (const ev of r.evenements) onrepondu(ev);
+    for (const ev of evenementsANoter('cuisine', r)) onrepondu(ev);
     if (r.correct) minuteur = setTimeout(suivant, AVANCE_MS);
   }
 

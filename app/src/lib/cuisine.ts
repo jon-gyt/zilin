@@ -5,7 +5,9 @@
  * Ce qu'il fait lire de plus : une recette entière, des phrases courtes écrites avec
  * l'acquis, puis des mots qu'il faut distinguer sur l'étal (牛肉 du bœuf, 牛奶 du lait).
  * Chaque ingrédient est une question à choix, notée par `grade` de `srs.ts` comme une
- * question de révision : juste du premier coup, juste au second essai, ou montré. Pas de
+ * question de révision quand il est trouvé, du premier coup ou au second essai. Manqué,
+ * il est montré et rien n'est noté (`jeux.ERREUR_SANS_NOTE`) : prendre 牛奶 pour 牛肉 ne
+ * dit pas qu'on a oublié 肉, la carte ne revient pas dans dix minutes. Pas de
  * chronomètre, pas de vie, pas de point. Tao goûte à la fin : contente quand chaque
  * ingrédient a été trouvé, une grimace sinon, qui propose d'en refaire un. Jamais de
  * reproche, jamais malade.
