@@ -463,6 +463,8 @@ export type Index = {
   familles: IndexFamille[];
   contes: IndexConte[];
   paires: string;
+  /** Le fichier des fêtes, `fetes.json` ; vide pour un export qui n'en porte pas. */
+  fetes: string;
 };
 
 /** La version de données que l'app lit : le dossier exporté par `wenlu export`. */
@@ -496,7 +498,8 @@ export async function loadIndex(
     parcours: brut.parcours ?? {},
     familles: brut.familles,
     contes: Array.isArray(brut.contes) ? brut.contes : [],
-    paires: typeof brut.paires === 'string' ? brut.paires : ''
+    paires: typeof brut.paires === 'string' ? brut.paires : '',
+    fetes: typeof brut.fetes === 'string' ? brut.fetes : ''
   };
 }
 
@@ -871,6 +874,125 @@ export async function pairesExport(version = VERSION_DONNEES): Promise<unknown> 
   const file = fichierPaires(i);
   if (file === '') return { paires: [] };
   return pairesOnce(file);
+}
+
+/* ---------- les fêtes ---------- */
+
+/** Les fêtes que l'app connaît : le Nouvel An lunaire 春节, la mi-automne 中秋. */
+export type FeteId = 'chunjie' | 'zhongqiu';
+
+export const FETES: readonly FeteId[] = ['chunjie', 'zhongqiu'];
+
+/** L'animal de l'année lunaire, pour le vœu du Nouvel An. `fr` porte son article. */
+export type Animal = { c: string; pinyin: string; fr: string };
+
+/**
+ * Une fête d'une année : sa date grégorienne (calculée par le pipeline sur le calendrier
+ * luni-solaire) et sa fenêtre, `avant` et `apres` en jours autour de la date.
+ */
+export type EntreeFete = {
+  fete: FeteId;
+  date: string;
+  avant: number;
+  apres: number;
+  annee: number;
+  animal: Animal;
+};
+
+/**
+ * Les textes d'une fête, rédigés pour l'app. `{animal}` et `{quand}` sont des jetons que
+ * `fetes.ts` remplit au jour de la fête.
+ */
+export type TextesFete = {
+  nom: string;
+  nom_zh: string;
+  voeu: { zh: string; pinyin: string; fr: string };
+  /** Le caractère dessiné à côté du vœu (le 福 à l'envers), `null` sans caractère. */
+  caractere_voeu: string | null;
+  tao: string[];
+  anecdote: { rubrique: string; c: string; titre: string; texte: string };
+};
+
+/**
+ * `fetes.json` : le calendrier, les textes, et la famille de chaque caractère dessiné
+ * (`racines`), pour trouver ses traits sans relire toutes les familles.
+ */
+export type Fetes = {
+  version: string;
+  source: string;
+  calendrier: EntreeFete[];
+  fetes: Partial<Record<FeteId, TextesFete>>;
+  racines: Record<string, string>;
+};
+
+function estFete(v: unknown): v is FeteId {
+  return typeof v === 'string' && (FETES as readonly string[]).includes(v);
+}
+
+/**
+ * Lit et valide un fichier de fêtes. Une entrée illisible ou d'une fête inconnue est
+ * écartée : mieux vaut une fête de moins qu'un décor faux. `fetchFn` est injecté dans
+ * les tests.
+ */
+export async function loadFetes(file: string, fetchFn: typeof fetch = fetch): Promise<Fetes> {
+  const r = await fetchFn(`${import.meta.env.BASE_URL}${file}`);
+  if (!r.ok) throw new Error(`Fêtes introuvables : ${file} (${r.status})`);
+  const brut = (await r.json()) as Partial<Record<keyof Fetes, unknown>>;
+  if (!Array.isArray(brut.calendrier) || typeof brut.fetes !== 'object' || brut.fetes === null) {
+    throw new Error(`Fêtes illisibles : ${file}`);
+  }
+  const calendrier = (brut.calendrier as Partial<EntreeFete>[]).filter(
+    (e): e is EntreeFete =>
+      estFete(e.fete) &&
+      typeof e.date === 'string' &&
+      /^\d{4}-\d{2}-\d{2}$/.test(e.date) &&
+      typeof e.avant === 'number' &&
+      typeof e.apres === 'number' &&
+      typeof e.animal === 'object' &&
+      e.animal !== null
+  );
+  const fetes: Partial<Record<FeteId, TextesFete>> = {};
+  for (const [id, t] of Object.entries(brut.fetes as Record<string, TextesFete>)) {
+    if (estFete(id) && t && t.voeu && t.anecdote && Array.isArray(t.tao)) fetes[id] = t;
+  }
+  return {
+    version: typeof brut.version === 'string' ? brut.version : '',
+    source: typeof brut.source === 'string' ? brut.source : '',
+    calendrier,
+    fetes,
+    racines:
+      typeof brut.racines === 'object' && brut.racines !== null
+        ? (brut.racines as Record<string, string>)
+        : {}
+  };
+}
+
+const lesFetes = new Map<string, Promise<Fetes>>();
+
+/** Le fichier des fêtes d'une version, tel que l'index le nomme. */
+export function fichierFetes(i: Index): string {
+  return i.fetes === '' ? '' : `${dossierVersion(i.version)}/${i.fetes}`;
+}
+
+/** Une fête vide : ce que rend un export sans `fetes.json`. L'app ne se met jamais en fête. */
+const SANS_FETE: Fetes = { version: '', source: '', calendrier: [], fetes: {}, racines: {} };
+
+/** Les fêtes de la version courante, lues une fois pour toute la durée de vie de l'app. */
+export function fetesOnce(version = VERSION_DONNEES): Promise<Fetes> {
+  let p = lesFetes.get(version);
+  if (!p) {
+    p = contenu(version)
+      .then((i) => {
+        const file = fichierFetes(i);
+        return file === '' ? SANS_FETE : loadFetes(file);
+      })
+      .catch((e) => {
+        lesFetes.delete(version);
+        throw e;
+      });
+    lesFetes.set(version, p);
+  }
+  return p;
 }
 
 /* ---------- la leçon du jour, telle que les écrans de session la lisent ---------- */
