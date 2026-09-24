@@ -1,22 +1,24 @@
 {
  "c": "在",
  "parcours": "lire",
- "jour": 161,
+ "jour": 122,
  "pinyin": [
   "zài"
  ],
  "composants": [
-  "才",
+  "𠂇",
+  "丨",
   "土"
  ],
- "structure": "⿸才土",
- "origine_fr": "Sur les os oraculaires, le mot s'écrit le plus souvent avec 才 seul, que le Shuowen jiezi décrit comme une jeune pousse. Le Shuowen analyse 在 en idéo-phonétique : 土, la terre, donne le sens, « exister, se trouver », et 才 le son. Dans la forme actuelle, 才 est tassé en haut à gauche, au-dessus de 土, et se lit cái, un son proche de zài.",
- "origine_en": "On oracle bones the word is usually written with 才 alone, which the Shuowen jiezi describes as a young shoot. The Shuowen analyses 在 as a phonetic compound: 土, earth, gives the meaning, “to exist, to be somewhere”, and 才 the sound. In the modern form, 才 is squeezed into the upper left above 土, and it reads cái, close to zài.",
+ "structure": "⿸𠂇⿰丨土",
+ "origine_fr": "Sur les os oraculaires, le mot s'écrit le plus souvent avec 才 seul, que le Shuowen jiezi décrit comme une jeune pousse. Le Shuowen analyse 在 en idéo-phonétique : 土, la terre, donne le sens, « exister, se trouver », et 才 le son. Dans la forme actuelle, 才 ne se voit plus : il s'est réduit au cadre 𠂇 et à un trait vertical, 丨, au-dessus de 土 ; seul, 才 se lit cái, un son proche de zài.",
+ "origine_en": "On oracle bones the word is usually written with 才 alone, which the Shuowen jiezi describes as a young shoot. The Shuowen analyses 在 as a phonetic compound: 土, earth, gives the meaning, “to exist, to be somewhere”, and 才 the sound. In the modern form 才 can no longer be seen: it has shrunk to the frame 𠂇 and a vertical stroke, 丨, above 土; on its own, 才 reads cái, close to zài.",
  "etiquette": "atteste",
  "memo_fr": null,
  "memo_en": null,
  "roles": {
-  "才": "son",
+  "𠂇": "son",
+  "丨": "son",
   "土": "sens"
  },
  "mots": [
@@ -27,24 +29,24 @@
    "en": "now"
   },
   {
-   "hanzi": "在家",
-   "pinyin": "zàijiā",
-   "fr": "être à la maison",
-   "en": "to be at home"
+   "hanzi": "不在",
+   "pinyin": "bùzài",
+   "fr": "être absent, ne pas être là",
+   "en": "to be out, not to be in"
   }
  ],
  "phrase": {
-  "zh": "我妈妈不在家。",
-  "pinyin": "Wǒ māma bù zài jiā.",
-  "fr": "Ma mère n'est pas à la maison.",
-  "en": "My mother isn't home."
+  "zh": "我妈妈现在不在。",
+  "pinyin": "Wǒ māma xiànzài bù zài.",
+  "fr": "Ma mère n'est pas là en ce moment.",
+  "en": "My mother isn't in at the moment."
  },
  "generation": {
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-24",
-  "empreinte_invite": "sha256:e93f3fa357f7d9f0f93f373077761dd02a46351d57dc9a71922ad3928f1b1828",
-  "essais": 1,
+  "empreinte_invite": "sha256:f733de08ee185770611a4c196b04c21c1da7075c8dcadf247138054452a6f04f",
+  "essais": 2,
   "refus": []
  },
  "statut": "a_relire"
