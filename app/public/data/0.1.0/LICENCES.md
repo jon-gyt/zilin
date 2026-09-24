@@ -14,21 +14,21 @@
 | Seuils sinographiques (Éducation nationale) et référentiel HSK 3.0 | listes cibles (`listes`, `parcours`) | publications officielles, listes de faits | Eduscol ; Chinese Testing International | — |
 | Calendrier luni-solaire chinois | dates des fêtes (`fetes.json`) et des termes solaires (`saisons.json`), calculées par lunar_python | faits de calendrier ; bibliothèque MIT, non embarquée | lunar_python, Copyright (c) 6tail | https://github.com/6tail/lunar-python |
 | Surcharges du pipeline wenlu (`data/sources/surcharges/`) | pinyin et IDS corrigés, chacun avec sa raison (`sources: ["surcharge"]`) | propriétaire | corrections relues des sources ci-dessus | — |
-| Fiches, contes, paires, fêtes, saisons, devinettes, dictionnaire éclair, coquilles, cuisine (pipeline wenlu) | `familles/`, `contes/`, `paires.json`, `fetes.json`, `saisons.json`, `devinettes.json`, `eclair.json`, `coquilles.json`, `cuisine.json`, et `apercu/` pour les textes encore à relire | propriétaire | textes rédigés pour l'app, relus | — |
+| Fiches, contes, paires, fêtes, saisons, devinettes, dictionnaire éclair, coquilles, cuisine, lettres de Que (pipeline wenlu) | `familles/`, `contes/`, `paires.json`, `fetes.json`, `saisons.json`, `devinettes.json`, `eclair.json`, `coquilles.json`, `cuisine.json`, `lettres.json`, et `apercu/` pour les textes encore à relire | propriétaire | textes rédigés pour l'app, relus | — |
 
 ## Séparation des fichiers
 
 Les trois régimes ne se mélangent jamais dans un même fichier (`docs/sources-licences.md` §2.1 et §8) :
 
 - `traits/` : tracés sous Arphic Public License, avec `ARPHICPL.TXT` inaltéré à côté et `traits/MODIFICATIONS.md` qui dit comment et quand ils ont été dérivés.
-- `familles/`, `contes/`, `paires.json`, `fetes.json`, `saisons.json`, `devinettes.json`, `eclair.json`, `coquilles.json`, `cuisine.json`, `apercu/` : décomposition canonique et textes rédigés pour l'app, propriétaires.
+- `familles/`, `contes/`, `paires.json`, `fetes.json`, `saisons.json`, `devinettes.json`, `eclair.json`, `coquilles.json`, `cuisine.json`, `lettres.json`, `apercu/` : décomposition canonique et textes rédigés pour l'app, propriétaires.
 - `UNICODE-LICENSE.txt` : notice de permission Unicode, qui couvre le pinyin.
 
 ## Ce que l'export ne contient pas
 
 - Aucune définition anglaise : ni `kDefinition` d'Unihan, ni CC-CEDICT (`docs/sources-licences.md` §4.2). Les mots exportés ne portent que le hanzi, le pinyin et les traductions rédigées pour l'app.
 - Aucun texte de `dictionary.txt` : ni définition, ni étymologie anglaise (§2.2).
-- Aucune fiche ni aucun conte non relu hors de `apercu/` (brief §17). Ce dossier porte les textes encore à relire, chacun marqué `statut: "a_relire"`, que l'app ne charge que sur demande (Réglages, mode relecture). Un texte rejeté n'est nulle part.
+- Aucune fiche, aucun conte ni aucune lettre non relus hors de `apercu/` (brief §17). Ce dossier porte les textes encore à relire, chacun marqué `statut: "a_relire"`, que l'app ne charge que sur demande (Réglages, mode relecture). Un texte rejeté n'est nulle part.
 
 ## Question ouverte
 
