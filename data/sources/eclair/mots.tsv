@@ -1,0 +1,251 @@
+# Le dictionnaire éclair (story 4b.4) : deviner le sens d'un mot jamais appris.
+#
+# Des mots de deux caractères du seuil 255 et du HSK 1, fréquents et transparents :
+# le sens se devine depuis les deux caractères (电 l'électricité + 脑 le cerveau,
+# l'ordinateur). L'app ne propose un mot que si ses deux caractères sont acquis et
+# qu'aucune fiche apprise ne l'a déjà fait lire.
+#
+# Source : la liste des mots a été relevée parmi les entrées de CC-CEDICT, dont seul
+# le mot est repris (docs/sources-licences.md §4.2) ; aucune définition n'est lue.
+# Le sens, en français et en anglais, est rédigé pour l'app par une session Claude
+# Code, sans API, et reste à relire par le propriétaire. Le pinyin est écrit ici, en
+# diacritiques, d'un seul tenant, avec les tons du dictionnaire et le ton neutre du
+# mot ; `wenlu check` vérifie qu'il se lit dans les lectures d'Unihan (kMandarin)
+# ou des surcharges (`data/sources/surcharges/pinyin.tsv`).
+#
+# Format : TSV, `#` en commentaire, six colonnes séparées par une tabulation.
+#
+# - `mot` : deux caractères distincts, qui servent d'identifiant ;
+# - `pinyin` ;
+# - `fr`, `en` : le sens, court, tel que l'écran le propose parmi quatre ; deux mots
+#   n'ont jamais le même sens ;
+# - `proches` : une étiquette facultative ; deux mots de même étiquette ont des sens
+#   trop voisins pour servir de leurre l'un à l'autre (学校 école, 小学 école primaire) ;
+# - `source`.
+#
+# Les leurres ne s'écrivent pas ici : `wenlu export` prend le sens de trois autres
+# mots, les voisins d'abord (ceux qui partagent un caractère), et `wenlu check` les
+# contrôle. `wenlu eclair apercu` les montre pour la relecture.
+mot	pinyin	fr	en	proches	source
+电脑	diànnǎo	ordinateur	computer		rédigé pour l'app ; mot relevé dans CC-CEDICT
+电视	diànshì	télévision	television		rédigé pour l'app ; mot relevé dans CC-CEDICT
+手机	shǒujī	téléphone portable	mobile phone		rédigé pour l'app ; mot relevé dans CC-CEDICT
+网上	wǎngshàng	en ligne, sur internet	online	internet	rédigé pour l'app ; mot relevé dans CC-CEDICT
+上网	shàngwǎng	aller sur internet	to go online	internet	rédigé pour l'app ; mot relevé dans CC-CEDICT
+网站	wǎngzhàn	site web	website		rédigé pour l'app ; mot relevé dans CC-CEDICT
+网友	wǎngyǒu	ami rencontré en ligne	online friend		rédigé pour l'app ; mot relevé dans CC-CEDICT
+商店	shāngdiàn	magasin	shop, store	magasin	rédigé pour l'app ; mot relevé dans CC-CEDICT
+商场	shāngchǎng	centre commercial	shopping mall	magasin	rédigé pour l'app ; mot relevé dans CC-CEDICT
+花店	huādiàn	fleuriste	flower shop		rédigé pour l'app ; mot relevé dans CC-CEDICT
+学校	xuéxiào	école	school	ecole	rédigé pour l'app ; mot relevé dans CC-CEDICT
+小学	xiǎoxué	école primaire	primary school	ecole	rédigé pour l'app ; mot relevé dans CC-CEDICT
+中学	zhōngxué	collège et lycée	secondary school	ecole	rédigé pour l'app ; mot relevé dans CC-CEDICT
+学生	xuésheng	élève, étudiant	student	eleve	rédigé pour l'app ; mot relevé dans CC-CEDICT
+女生	nǚshēng	élève fille	female student	eleve	rédigé pour l'app ; mot relevé dans CC-CEDICT
+同学	tóngxué	camarade de classe	classmate	eleve	rédigé pour l'app ; mot relevé dans CC-CEDICT
+考试	kǎoshì	examen	exam		rédigé pour l'app ; mot relevé dans CC-CEDICT
+回答	huídá	répondre	to answer		rédigé pour l'app ; mot relevé dans CC-CEDICT
+学习	xuéxí	étudier	to study	etudier	rédigé pour l'app ; mot relevé dans CC-CEDICT
+读书	dúshū	lire, faire des études	to read, to study	etudier	rédigé pour l'app ; mot relevé dans CC-CEDICT
+教书	jiāoshū	enseigner	to teach		rédigé pour l'app ; mot relevé dans CC-CEDICT
+下课	xiàkè	fin du cours	end of class	sortie	rédigé pour l'app ; mot relevé dans CC-CEDICT
+放学	fàngxué	sortie de l'école	school is out	sortie	rédigé pour l'app ; mot relevé dans CC-CEDICT
+上学	shàngxué	aller à l'école	to go to school		rédigé pour l'app ; mot relevé dans CC-CEDICT
+上班	shàngbān	aller au travail	to go to work		rédigé pour l'app ; mot relevé dans CC-CEDICT
+下班	xiàbān	quitter le travail	to finish work		rédigé pour l'app ; mot relevé dans CC-CEDICT
+校长	xiàozhǎng	directeur d'école	headmaster		rédigé pour l'app ; mot relevé dans CC-CEDICT
+大门	dàmén	grande porte	main gate		rédigé pour l'app ; mot relevé dans CC-CEDICT
+球门	qiúmén	but (au football)	goal (in football)		rédigé pour l'app ; mot relevé dans CC-CEDICT
+球场	qiúchǎng	terrain de sport	sports ground		rédigé pour l'app ; mot relevé dans CC-CEDICT
+打球	dǎqiú	jouer au ballon	to play ball		rédigé pour l'app ; mot relevé dans CC-CEDICT
+网球	wǎngqiú	tennis	tennis		rédigé pour l'app ; mot relevé dans CC-CEDICT
+气球	qìqiú	ballon de baudruche	balloon		rédigé pour l'app ; mot relevé dans CC-CEDICT
+影星	yǐngxīng	vedette de cinéma	film star	vedette	rédigé pour l'app ; mot relevé dans CC-CEDICT
+歌手	gēshǒu	chanteur	singer	vedette	rédigé pour l'app ; mot relevé dans CC-CEDICT
+唱歌	chànggē	chanter	to sing		rédigé pour l'app ; mot relevé dans CC-CEDICT
+地球	dìqiú	la Terre	the Earth		rédigé pour l'app ; mot relevé dans CC-CEDICT
+机场	jīchǎng	aéroport	airport		rédigé pour l'app ; mot relevé dans CC-CEDICT
+机票	jīpiào	billet d'avion	plane ticket		rédigé pour l'app ; mot relevé dans CC-CEDICT
+起飞	qǐfēi	décoller	to take off		rédigé pour l'app ; mot relevé dans CC-CEDICT
+车站	chēzhàn	gare, arrêt	station, stop		rédigé pour l'app ; mot relevé dans CC-CEDICT
+开车	kāichē	conduire	to drive		rédigé pour l'app ; mot relevé dans CC-CEDICT
+下车	xiàchē	descendre du véhicule	to get off		rédigé pour l'app ; mot relevé dans CC-CEDICT
+跑车	pǎochē	voiture de sport	sports car		rédigé pour l'app ; mot relevé dans CC-CEDICT
+马车	mǎchē	voiture à cheval	horse carriage		rédigé pour l'app ; mot relevé dans CC-CEDICT
+风车	fēngchē	moulin à vent	windmill		rédigé pour l'app ; mot relevé dans CC-CEDICT
+零钱	língqián	petite monnaie	small change		rédigé pour l'app ; mot relevé dans CC-CEDICT
+钱包	qiánbāo	portefeuille	wallet		rédigé pour l'app ; mot relevé dans CC-CEDICT
+书包	shūbāo	cartable	schoolbag		rédigé pour l'app ; mot relevé dans CC-CEDICT
+红包	hóngbāo	enveloppe rouge (d'argent offert)	red envelope (gift of money)		rédigé pour l'app ; mot relevé dans CC-CEDICT
+马路	mǎlù	rue, chaussée	street, road	route	rédigé pour l'app ; mot relevé dans CC-CEDICT
+山路	shānlù	chemin de montagne	mountain path	route	rédigé pour l'app ; mot relevé dans CC-CEDICT
+路口	lùkǒu	carrefour	crossroads		rédigé pour l'app ; mot relevé dans CC-CEDICT
+行人	xíngrén	piéton	pedestrian		rédigé pour l'app ; mot relevé dans CC-CEDICT
+路边	lùbiān	bord de la route	roadside		rédigé pour l'app ; mot relevé dans CC-CEDICT
+问路	wènlù	demander son chemin	to ask the way		rédigé pour l'app ; mot relevé dans CC-CEDICT
+走路	zǒulù	marcher	to walk		rédigé pour l'app ; mot relevé dans CC-CEDICT
+来回	láihuí	aller-retour	round trip		rédigé pour l'app ; mot relevé dans CC-CEDICT
+出口	chūkǒu	sortie	exit		rédigé pour l'app ; mot relevé dans CC-CEDICT
+口渴	kǒukě	avoir soif	thirsty		rédigé pour l'app ; mot relevé dans CC-CEDICT
+回国	huíguó	rentrer dans son pays	to return to one's country		rédigé pour l'app ; mot relevé dans CC-CEDICT
+出国	chūguó	partir à l'étranger	to go abroad	etranger	rédigé pour l'app ; mot relevé dans CC-CEDICT
+国外	guówài	à l'étranger	abroad	etranger	rédigé pour l'app ; mot relevé dans CC-CEDICT
+外出	wàichū	sortir	to go out		rédigé pour l'app ; mot relevé dans CC-CEDICT
+国王	guówáng	roi	king		rédigé pour l'app ; mot relevé dans CC-CEDICT
+国画	guóhuà	peinture chinoise traditionnelle	traditional Chinese painting		rédigé pour l'app ; mot relevé dans CC-CEDICT
+画家	huàjiā	peintre	painter		rédigé pour l'app ; mot relevé dans CC-CEDICT
+作家	zuòjiā	écrivain	writer		rédigé pour l'app ; mot relevé dans CC-CEDICT
+画笔	huàbǐ	pinceau de peintre	paintbrush		rédigé pour l'app ; mot relevé dans CC-CEDICT
+文字	wénzì	écriture, signes écrits	script, written characters		rédigé pour l'app ; mot relevé dans CC-CEDICT
+字母	zìmǔ	lettre de l'alphabet	letter of the alphabet		rédigé pour l'app ; mot relevé dans CC-CEDICT
+手写	shǒuxiě	écrit à la main	handwritten		rédigé pour l'app ; mot relevé dans CC-CEDICT
+手工	shǒugōng	fait main	handmade		rédigé pour l'app ; mot relevé dans CC-CEDICT
+手语	shǒuyǔ	langue des signes	sign language		rédigé pour l'app ; mot relevé dans CC-CEDICT
+左手	zuǒshǒu	main gauche	left hand		rédigé pour l'app ; mot relevé dans CC-CEDICT
+右手	yòushǒu	main droite	right hand		rédigé pour l'app ; mot relevé dans CC-CEDICT
+洗手	xǐshǒu	se laver les mains	to wash one's hands		rédigé pour l'app ; mot relevé dans CC-CEDICT
+洗衣	xǐyī	faire la lessive	to do the laundry		rédigé pour l'app ; mot relevé dans CC-CEDICT
+帮忙	bāngmáng	aider, donner un coup de main	to help		rédigé pour l'app ; mot relevé dans CC-CEDICT
+高手	gāoshǒu	expert, as	master, ace		rédigé pour l'app ; mot relevé dans CC-CEDICT
+水手	shuǐshǒu	marin	sailor		rédigé pour l'app ; mot relevé dans CC-CEDICT
+笔记	bǐjì	notes	notes		rédigé pour l'app ; mot relevé dans CC-CEDICT
+日记	rìjì	journal intime	diary		rédigé pour l'app ; mot relevé dans CC-CEDICT
+姓名	xìngmíng	nom et prénom	full name		rédigé pour l'app ; mot relevé dans CC-CEDICT
+书名	shūmíng	titre d'un livre	book title		rédigé pour l'app ; mot relevé dans CC-CEDICT
+课本	kèběn	manuel scolaire	textbook		rédigé pour l'app ; mot relevé dans CC-CEDICT
+书桌	shūzhuō	bureau (le meuble)	desk		rédigé pour l'app ; mot relevé dans CC-CEDICT
+饭桌	fànzhuō	table à manger	dining table		rédigé pour l'app ; mot relevé dans CC-CEDICT
+客人	kèrén	invité	guest		rédigé pour l'app ; mot relevé dans CC-CEDICT
+客房	kèfáng	chambre d'amis	guest room		rédigé pour l'app ; mot relevé dans CC-CEDICT
+高楼	gāolóu	tour, immeuble haut	high-rise		rédigé pour l'app ; mot relevé dans CC-CEDICT
+楼上	lóushàng	à l'étage	upstairs	haut	rédigé pour l'app ; mot relevé dans CC-CEDICT
+上面	shàngmiàn	dessus	on top	haut	rédigé pour l'app ; mot relevé dans CC-CEDICT
+楼下	lóuxià	en bas	downstairs	bas	rédigé pour l'app ; mot relevé dans CC-CEDICT
+下面	xiàmiàn	dessous	underneath	bas	rédigé pour l'app ; mot relevé dans CC-CEDICT
+地下	dìxià	sous terre	underground	bas	rédigé pour l'app ; mot relevé dans CC-CEDICT
+地面	dìmiàn	le sol	ground surface		rédigé pour l'app ; mot relevé dans CC-CEDICT
+天上	tiānshàng	dans le ciel	in the sky		rédigé pour l'app ; mot relevé dans CC-CEDICT
+家人	jiārén	les proches, la famille	family members		rédigé pour l'app ; mot relevé dans CC-CEDICT
+老家	lǎojiā	pays natal	hometown		rédigé pour l'app ; mot relevé dans CC-CEDICT
+家里	jiālǐ	à la maison	at home		rédigé pour l'app ; mot relevé dans CC-CEDICT
+身体	shēntǐ	corps	body		rédigé pour l'app ; mot relevé dans CC-CEDICT
+体重	tǐzhòng	poids (du corps)	body weight		rédigé pour l'app ; mot relevé dans CC-CEDICT
+身高	shēngāo	taille (d'une personne)	height		rédigé pour l'app ; mot relevé dans CC-CEDICT
+旁边	pángbiān	à côté	beside		rédigé pour l'app ; mot relevé dans CC-CEDICT
+大脑	dànǎo	cerveau	brain		rédigé pour l'app ; mot relevé dans CC-CEDICT
+医生	yīshēng	médecin	doctor		rédigé pour l'app ; mot relevé dans CC-CEDICT
+医院	yīyuàn	hôpital	hospital		rédigé pour l'app ; mot relevé dans CC-CEDICT
+中医	zhōngyī	médecine chinoise	traditional Chinese medicine		rédigé pour l'app ; mot relevé dans CC-CEDICT
+西医	xīyī	médecine occidentale	Western medicine		rédigé pour l'app ; mot relevé dans CC-CEDICT
+病人	bìngrén	malade, patient	patient		rédigé pour l'app ; mot relevé dans CC-CEDICT
+病房	bìngfáng	chambre d'hôpital	hospital ward		rédigé pour l'app ; mot relevé dans CC-CEDICT
+病假	bìngjià	congé maladie	sick leave		rédigé pour l'app ; mot relevé dans CC-CEDICT
+假期	jiàqī	vacances	holidays	vacances	rédigé pour l'app ; mot relevé dans CC-CEDICT
+放假	fàngjià	être en vacances	to be on holiday	vacances	rédigé pour l'app ; mot relevé dans CC-CEDICT
+休息	xiūxi	se reposer	to rest		rédigé pour l'app ; mot relevé dans CC-CEDICT
+睡觉	shuìjiào	dormir	to sleep		rédigé pour l'app ; mot relevé dans CC-CEDICT
+午睡	wǔshuì	sieste	nap		rédigé pour l'app ; mot relevé dans CC-CEDICT
+起床	qǐchuáng	se lever	to get up		rédigé pour l'app ; mot relevé dans CC-CEDICT
+早饭	zǎofàn	petit-déjeuner	breakfast		rédigé pour l'app ; mot relevé dans CC-CEDICT
+做饭	zuòfàn	faire la cuisine	to cook		rédigé pour l'app ; mot relevé dans CC-CEDICT
+点菜	diǎncài	commander (au restaurant)	to order dishes		rédigé pour l'app ; mot relevé dans CC-CEDICT
+面条	miàntiáo	nouilles	noodles		rédigé pour l'app ; mot relevé dans CC-CEDICT
+鸡蛋	jīdàn	œuf de poule	hen's egg		rédigé pour l'app ; mot relevé dans CC-CEDICT
+鸡肉	jīròu	viande de poulet	chicken meat		rédigé pour l'app ; mot relevé dans CC-CEDICT
+牛肉	niúròu	viande de bœuf	beef		rédigé pour l'app ; mot relevé dans CC-CEDICT
+牛奶	niúnǎi	lait de vache	cow's milk		rédigé pour l'app ; mot relevé dans CC-CEDICT
+奶茶	nǎichá	thé au lait	milk tea		rédigé pour l'app ; mot relevé dans CC-CEDICT
+热茶	rèchá	thé chaud	hot tea		rédigé pour l'app ; mot relevé dans CC-CEDICT
+米酒	mǐjiǔ	alcool de riz	rice wine		rédigé pour l'app ; mot relevé dans CC-CEDICT
+开水	kāishuǐ	eau bouillie	boiled water	eau chaude	rédigé pour l'app ; mot relevé dans CC-CEDICT
+热水	rèshuǐ	eau chaude	hot water	eau chaude	rédigé pour l'app ; mot relevé dans CC-CEDICT
+雨水	yǔshuǐ	eau de pluie	rainwater		rédigé pour l'app ; mot relevé dans CC-CEDICT
+水牛	shuǐniú	buffle	water buffalo		rédigé pour l'app ; mot relevé dans CC-CEDICT
+小马	xiǎomǎ	poulain	foal		rédigé pour l'app ; mot relevé dans CC-CEDICT
+小鸡	xiǎojī	poussin	chick		rédigé pour l'app ; mot relevé dans CC-CEDICT
+上山	shàngshān	monter dans la montagne	to go up the mountain		rédigé pour l'app ; mot relevé dans CC-CEDICT
+大水	dàshuǐ	inondation	flood		rédigé pour l'app ; mot relevé dans CC-CEDICT
+大风	dàfēng	vent fort	strong wind		rédigé pour l'app ; mot relevé dans CC-CEDICT
+北风	běifēng	vent du nord	north wind		rédigé pour l'app ; mot relevé dans CC-CEDICT
+海风	hǎifēng	brise de mer	sea breeze		rédigé pour l'app ; mot relevé dans CC-CEDICT
+雨天	yǔtiān	jour de pluie	rainy day		rédigé pour l'app ; mot relevé dans CC-CEDICT
+雨衣	yǔyī	imperméable	raincoat	manteau	rédigé pour l'app ; mot relevé dans CC-CEDICT
+大衣	dàyī	manteau	overcoat	manteau	rédigé pour l'app ; mot relevé dans CC-CEDICT
+毛衣	máoyī	pull en laine	sweater		rédigé pour l'app ; mot relevé dans CC-CEDICT
+衣服	yīfu	vêtements	clothes		rédigé pour l'app ; mot relevé dans CC-CEDICT
+日出	rìchū	lever du soleil	sunrise		rédigé pour l'app ; mot relevé dans CC-CEDICT
+白天	báitiān	la journée, le jour	daytime		rédigé pour l'app ; mot relevé dans CC-CEDICT
+今天	jīntiān	aujourd'hui	today		rédigé pour l'app ; mot relevé dans CC-CEDICT
+今晚	jīnwǎn	ce soir	tonight		rédigé pour l'app ; mot relevé dans CC-CEDICT
+昨晚	zuówǎn	hier soir	last night		rédigé pour l'app ; mot relevé dans CC-CEDICT
+每天	měitiān	chaque jour	every day		rédigé pour l'app ; mot relevé dans CC-CEDICT
+明年	míngnián	l'an prochain	next year		rédigé pour l'app ; mot relevé dans CC-CEDICT
+去年	qùnián	l'an dernier	last year		rédigé pour l'app ; mot relevé dans CC-CEDICT
+半年	bànnián	six mois	half a year		rédigé pour l'app ; mot relevé dans CC-CEDICT
+百年	bǎinián	un siècle	a century		rédigé pour l'app ; mot relevé dans CC-CEDICT
+下次	xiàcì	la prochaine fois	next time		rédigé pour l'app ; mot relevé dans CC-CEDICT
+上次	shàngcì	la dernière fois	last time		rédigé pour l'app ; mot relevé dans CC-CEDICT
+每次	měicì	chaque fois	every time		rédigé pour l'app ; mot relevé dans CC-CEDICT
+第一	dìyī	premier	first		rédigé pour l'app ; mot relevé dans CC-CEDICT
+同时	tóngshí	en même temps	at the same time		rédigé pour l'app ; mot relevé dans CC-CEDICT
+同事	tóngshì	collègue	colleague		rédigé pour l'app ; mot relevé dans CC-CEDICT
+正好	zhènghǎo	tomber juste	just right		rédigé pour l'app ; mot relevé dans CC-CEDICT
+东边	dōngbian	côté est	east side		rédigé pour l'app ; mot relevé dans CC-CEDICT
+西边	xībiān	côté ouest	west side		rédigé pour l'app ; mot relevé dans CC-CEDICT
+南边	nánbian	côté sud	south side		rédigé pour l'app ; mot relevé dans CC-CEDICT
+北边	běibiān	côté nord	north side		rédigé pour l'app ; mot relevé dans CC-CEDICT
+左边	zuǒbian	à gauche	left side		rédigé pour l'app ; mot relevé dans CC-CEDICT
+右边	yòubian	à droite	right side		rédigé pour l'app ; mot relevé dans CC-CEDICT
+里边	lǐbian	dedans	inside		rédigé pour l'app ; mot relevé dans CC-CEDICT
+外边	wàibian	dehors	outside		rédigé pour l'app ; mot relevé dans CC-CEDICT
+前边	qiánbian	devant	in front		rédigé pour l'app ; mot relevé dans CC-CEDICT
+后边	hòubian	derrière	behind		rédigé pour l'app ; mot relevé dans CC-CEDICT
+进城	jìnchéng	aller en ville	to go into town		rédigé pour l'app ; mot relevé dans CC-CEDICT
+工地	gōngdì	chantier	building site		rédigé pour l'app ; mot relevé dans CC-CEDICT
+男友	nányǒu	petit ami	boyfriend		rédigé pour l'app ; mot relevé dans CC-CEDICT
+男女	nánnǚ	hommes et femmes	men and women		rédigé pour l'app ; mot relevé dans CC-CEDICT
+姐妹	jiěmèi	sœurs	sisters		rédigé pour l'app ; mot relevé dans CC-CEDICT
+小妹	xiǎomèi	petite sœur	little sister		rédigé pour l'app ; mot relevé dans CC-CEDICT
+小弟	xiǎodì	petit frère	little brother		rédigé pour l'app ; mot relevé dans CC-CEDICT
+小孩	xiǎohái	enfant	child		rédigé pour l'app ; mot relevé dans CC-CEDICT
+女孩	nǚhái	fillette	girl		rédigé pour l'app ; mot relevé dans CC-CEDICT
+少年	shàonián	adolescent	teenager		rédigé pour l'app ; mot relevé dans CC-CEDICT
+老年	lǎonián	vieillesse	old age		rédigé pour l'app ; mot relevé dans CC-CEDICT
+小姐	xiǎojie	mademoiselle	miss		rédigé pour l'app ; mot relevé dans CC-CEDICT
+小吃	xiǎochī	en-cas	snack		rédigé pour l'app ; mot relevé dans CC-CEDICT
+小事	xiǎoshì	broutille	trifle		rédigé pour l'app ; mot relevé dans CC-CEDICT
+大事	dàshì	grande affaire	major event		rédigé pour l'app ; mot relevé dans CC-CEDICT
+好事	hǎoshì	bonne chose	good thing		rédigé pour l'app ; mot relevé dans CC-CEDICT
+坏事	huàishì	mauvaise action	bad deed		rédigé pour l'app ; mot relevé dans CC-CEDICT
+好人	hǎorén	quelqu'un de bien	good person		rédigé pour l'app ; mot relevé dans CC-CEDICT
+坏人	huàirén	méchant	bad person		rédigé pour l'app ; mot relevé dans CC-CEDICT
+假话	jiǎhuà	mensonge	lie		rédigé pour l'app ; mot relevé dans CC-CEDICT
+笑话	xiàohua	blague	joke		rédigé pour l'app ; mot relevé dans CC-CEDICT
+大笑	dàxiào	éclater de rire	to laugh out loud		rédigé pour l'app ; mot relevé dans CC-CEDICT
+好笑	hǎoxiào	drôle	funny	drole	rédigé pour l'app ; mot relevé dans CC-CEDICT
+可笑	kěxiào	ridicule	ridiculous	drole	rédigé pour l'app ; mot relevé dans CC-CEDICT
+难看	nánkàn	laid	ugly		rédigé pour l'app ; mot relevé dans CC-CEDICT
+难吃	nánchī	mauvais au goût	tastes bad		rédigé pour l'app ; mot relevé dans CC-CEDICT
+难听	nántīng	désagréable à entendre	unpleasant to hear		rédigé pour l'app ; mot relevé dans CC-CEDICT
+爱人	àiren	époux, épouse	spouse		rédigé pour l'app ; mot relevé dans CC-CEDICT
+爱心	àixīn	bienveillance	compassion	coeur	rédigé pour l'app ; mot relevé dans CC-CEDICT
+热心	rèxīn	serviable	warm-hearted	coeur	rédigé pour l'app ; mot relevé dans CC-CEDICT
+放心	fàngxīn	être rassuré	to feel relieved		rédigé pour l'app ; mot relevé dans CC-CEDICT
+忘记	wàngjì	oublier	to forget		rédigé pour l'app ; mot relevé dans CC-CEDICT
+记得	jìde	se souvenir	to remember		rédigé pour l'app ; mot relevé dans CC-CEDICT
+看到	kàndào	voir	to see		rédigé pour l'app ; mot relevé dans CC-CEDICT
+听到	tīngdào	entendre	to hear		rédigé pour l'app ; mot relevé dans CC-CEDICT
+找到	zhǎodào	trouver	to find		rédigé pour l'app ; mot relevé dans CC-CEDICT
+拿来	nálái	apporter	to bring		rédigé pour l'app ; mot relevé dans CC-CEDICT
+送给	sònggěi	offrir à	to give as a gift		rédigé pour l'app ; mot relevé dans CC-CEDICT
+来信	láixìn	lettre reçue	letter received		rédigé pour l'app ; mot relevé dans CC-CEDICT
+卖完	màiwán	épuisé (tout vendu)	sold out		rédigé pour l'app ; mot relevé dans CC-CEDICT
+吃完	chīwán	finir de manger	to finish eating		rédigé pour l'app ; mot relevé dans CC-CEDICT
+听写	tīngxiě	dictée	dictation		rédigé pour l'app ; mot relevé dans CC-CEDICT
+听话	tīnghuà	obéissant	obedient		rédigé pour l'app ; mot relevé dans CC-CEDICT
+打字	dǎzì	taper au clavier	to type		rédigé pour l'app ; mot relevé dans CC-CEDICT
+近视	jìnshì	myope	short-sighted		rédigé pour l'app ; mot relevé dans CC-CEDICT
+远视	yuǎnshì	hypermétrope	long-sighted		rédigé pour l'app ; mot relevé dans CC-CEDICT
+零下	língxià	au-dessous de zéro	below zero		rédigé pour l'app ; mot relevé dans CC-CEDICT
+果树	guǒshù	arbre fruitier	fruit tree		rédigé pour l'app ; mot relevé dans CC-CEDICT
+红花	hónghuā	fleur rouge	red flower		rédigé pour l'app ; mot relevé dans CC-CEDICT

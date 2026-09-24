@@ -21,8 +21,8 @@ familles de fichiers, jamais mêlés :
   (APL §2 a). Chaque fichier porte la même mention dans son en-tête.
 - `familles/<racine>.json` : décomposition canonique GF 0014-2009 et textes des
   fiches relues, propriétaires. Aucun tracé n'y entre.
-- `paires.json`, `contes/<id>.json`, `fetes.json`, `saisons.json`, `devinettes.json` : propriétaires,
-  source citée.
+- `paires.json`, `contes/<id>.json`, `fetes.json`, `saisons.json`, `devinettes.json`,
+  `eclair.json` : propriétaires, source citée.
 - `apercu/` : les textes encore à relire (voir plus bas), propriétaires eux aussi.
 
 Ce qui n'entre jamais dans l'export :
@@ -77,6 +77,7 @@ from pydantic import ValidationError
 
 from . import contes as contes_mod
 from . import devinettes as devinettes_mod
+from . import eclair as eclair_mod
 from . import fetes as fetes_mod
 from . import fiches as fiches_mod
 from . import saisons as saisons_mod
@@ -166,6 +167,7 @@ def fichiers_sources(
     lus: list[tuple[str, Path]] = [
         ("exporteur", EXPORTEUR),
         ("exporteur-devinettes", Path(devinettes_mod.__file__).resolve()),
+        ("exporteur-eclair", Path(eclair_mod.__file__).resolve()),
         ("decompositions", build / "decompositions.json"),
         ("graphe", build / "graphe.json"),
         *[(f"parcours-{nom}", build / f"parcours-{nom}.json") for nom in sorted(PARCOURS)],
@@ -185,6 +187,7 @@ def fichiers_sources(
         ("contes-catalogue", CONTES / "catalogue.tsv"),
         ("devinettes", devinettes_mod.DEVINETTES),
         ("devinettes-briques", devinettes_mod.BRIQUES),
+        ("eclair", eclair_mod.MOTS),
         ("interface", INTERFACE),
         ("arphicpl", LICENCES_SOURCE / ARPHIC),
         ("unicode", LICENCES_SOURCE / UNICODE_NOTICE),
@@ -763,6 +766,29 @@ def titre_original(conte: str) -> dict[str, str]:
     return {"titre_zh": "", "titre_pinyin": ""}
 
 
+def document_eclair(
+    version: str, per: Perimetre, noeuds: Mapping[str, Noeud], graphies: Mapping[str, object]
+) -> dict[str, object]:
+    """Le JSON écrit dans `eclair.json` (story 4b.4), voir `eclair.py`.
+
+    Un mot n'est exporté que si ses deux caractères sont dessinables : les mots
+    n'ajoutent aucun caractère au périmètre.
+    """
+    dessinables = [c for c in per.caracteres if c in graphies]
+    return eclair_mod.document(
+        version,
+        caracteres=dessinables,
+        racines={c: noeuds[c].racine for c in dessinables},
+        en_tete={
+            "version": version,
+            "license": LICENCE_PROPRIETAIRE,
+            "source": eclair_mod.SOURCE_EXPORT,
+            "source_url": URL_PIPELINE,
+            "modified": f"{JETON_JOUR} : assemblé par `wenlu export`",
+        },
+    )
+
+
 def document_conte(
     conte: str, versions: Sequence[contes_mod.Version], version_export: str
 ) -> dict[str, object]:
@@ -1055,6 +1081,7 @@ def document_index(
         "fetes": "fetes.json",
         "saisons": "saisons.json",
         "devinettes": "devinettes.json",
+        "eclair": "eclair.json",
     }
     if apercu:
         document["apercu"] = f"{APERCU}/index.json"
@@ -1096,7 +1123,8 @@ TABLEAU_LICENCES: tuple[tuple[str, str, str, str, str], ...] = (
     ),
     (
         "CC-CEDICT (MDBG)",
-        "mots candidats (hanzi et pinyin) des fiches relues",
+        "mots candidats (hanzi et pinyin) des fiches relues ; mots du dictionnaire éclair"
+        " (le mot seul, `eclair.json`)",
         "CC BY-SA 4.0",
         "CC-CEDICT, publié par MDBG, CC BY-SA 4.0 — fichier modifié",
         "https://creativecommons.org/licenses/by-sa/4.0/",
@@ -1131,9 +1159,9 @@ TABLEAU_LICENCES: tuple[tuple[str, str, str, str, str], ...] = (
         "—",
     ),
     (
-        "Fiches, contes, paires, fêtes, saisons, devinettes (pipeline wenlu)",
+        "Fiches, contes, paires, fêtes, saisons, devinettes, dictionnaire éclair (pipeline wenlu)",
         "`familles/`, `contes/`, `paires.json`, `fetes.json`, `saisons.json`, `devinettes.json`,"
-        " et `apercu/` pour les textes encore à relire",
+        " `eclair.json`, et `apercu/` pour les textes encore à relire",
         LICENCE_PROPRIETAIRE,
         "textes rédigés pour l'app, relus",
         "—",
@@ -1164,7 +1192,8 @@ def licences_md(version: str) -> str:
         f"- `traits/` : tracés sous {LICENCE_TRAITS}, avec `{ARPHIC}` inaltéré à côté"
         " et `traits/MODIFICATIONS.md` qui dit comment et quand ils ont été dérivés.",
         "- `familles/`, `contes/`, `paires.json`, `fetes.json`, `saisons.json`, `devinettes.json`,"
-        " `apercu/` : décomposition canonique et textes rédigés pour l'app, propriétaires.",
+        " `eclair.json`, `apercu/` : décomposition canonique et textes rédigés pour l'app,"
+        " propriétaires.",
         f"- `{UNICODE_NOTICE}` : notice de permission Unicode, qui couvre le pinyin.",
         "",
         "## Ce que l'export ne contient pas",
@@ -1446,6 +1475,7 @@ def assembler(
         contes=contes,
     )
     textes.update(apercu)
+    textes["eclair.json"] = _json(document_eclair(version, per, noeuds, graphies))
     textes["LICENCES.md"] = licences_md(version)
     textes["traits/MODIFICATIONS.md"] = modifications_md(version, len(graphies))
     for nom in (ARPHIC, UNICODE_NOTICE):
