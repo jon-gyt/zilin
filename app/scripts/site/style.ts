@@ -98,6 +98,7 @@ a.part:hover{background:var(--paper)}
 .part.son .g{color:var(--indigo)}
 .part.nouveau .g,.part.nouveau .muet{color:var(--zhu)}
 .egal{font-size:15px;color:var(--ink2);margin:0}
+.hz-trace .g{vertical-align:-0.12em}
 .egal .hz{font-size:19px;color:var(--ink)}
 .note{font-size:14px;color:var(--mist);margin:8px 0 0}
 

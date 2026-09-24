@@ -48,6 +48,18 @@ describe('site public', () => {
     expect(parChemin.has('c/？/index.html')).toBe(false);
   });
 
+  it('un composant découpé a sa page, et ce qui sort de la police s’écrit en traits', () => {
+    for (const c of ['𠂒', '⿰𠄌丶', '𭕄']) expect(dessinables.has(c), c).toBe(true);
+    const xian = page(cheminPage('fr', 'caractere', '先'));
+    const egal = xian.match(/<p class="egal">(.*?)<\/p>/s)?.[1] ?? '';
+    expect(egal).toContain('aria-label="𠂒"');
+    expect(egal).not.toMatch(/>𠂒</);
+    const yi = page(cheminPage('fr', 'caractere', '⿰𠄌丶'));
+    const h1 = yi.match(/<h1>(.*?)<\/h1>/s)?.[1] ?? '';
+    expect(h1).toContain('<svg');
+    expect(h1).not.toMatch(/>⿰/);
+  });
+
   it("n'a que des liens internes valides", () => {
     let vus = 0;
     for (const f of fichiers.filter((x) => x.chemin.endsWith('.html'))) {
