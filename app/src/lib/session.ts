@@ -634,13 +634,17 @@ export const ajouterCartes = assurerCartes;
  * Tao (trois leçons, une lecture), et le drapeau tombe. On n'y revient plus.
  *
  * La journée est faite : la première graine est plantée, les six pas sont marqués, et
- * la session complète commence le lendemain, au premier jour du parcours.
+ * la session complète commence le lendemain, au jour `jourSuivant` du parcours. La
+ * première session enseigne d'un coup les premiers jours du parcours « Lire » (人, 大,
+ * 天) : l'appelant donne le jour qui les suit (`jourApresDepart` de `premiere.ts`), pour
+ * que rien ne soit enseigné deux fois. Par défaut, le premier jour.
  */
 export function finDepart(
   p: Progress,
   jour: string,
   maintenant: Date,
-  briques: readonly string[]
+  briques: readonly string[],
+  jourSuivant = 1
 ): Progress {
   let n = ajouterCartes(p, briques, maintenant);
   briques.forEach(() => {
@@ -654,7 +658,7 @@ export function finDepart(
     done: sessionSteps(n).map(() => true),
     days: premier ? n.days + 1 : n.days,
     lastWorked: jour,
-    jourParcours: n.jourParcours ?? 1
+    jourParcours: Math.max(n.jourParcours ?? 1, Math.floor(jourSuivant), 1)
   };
 }
 

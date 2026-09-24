@@ -6,7 +6,15 @@
  * viennent du JSON versionné de `app/public/data/`, jamais du code. Ne restent ici
  * que les libellés d'interface des deux questions, comme les six pas dans `session.ts`.
  */
-import { familleOnce, type Famille, type Fiche, type Signe } from './content';
+import {
+  contenu,
+  familleOnce,
+  nomParcours,
+  type Famille,
+  type Fiche,
+  type Index,
+  type Signe
+} from './content';
 import { budgetNewBricks, type Budget, type EtapeDepart, type Parcours } from './session';
 
 export const FICHIER_FAMILLE_DEPART = 'data/demo/familles/人.json';
@@ -142,6 +150,42 @@ export function ficheDe(f: Famille | null, vue: EtapeDepart): FicheDepart | null
 export function briques(f: Famille | null): string[] {
   const vues: EtapeDepart[] = ['f1', 'f2', 'f3'];
   return vues.map((v) => ficheDe(f, v)?.c).filter((c): c is string => typeof c === 'string');
+}
+
+/* ---------- la suite : le parcours reprend après ce que la première session a posé ---------- */
+
+/**
+ * Le jour du parcours où la session complète reprend après la première session. Le
+ * pipeline ouvre le parcours « Lire » par ce qu'elle enseigne, un jour par brique (人, 大,
+ * 天 : `DEPART` de `data/src/wenlu_data/graphe.py`) ; ces jours, déjà faits, sont passés,
+ * pour que rien ne soit enseigné deux fois. Le premier jour qui pose autre chose est celui
+ * de la prochaine session. Un parcours qui ne commence pas par eux reprend au jour 1.
+ */
+export function jourApresDepart(i: Index, nom: string, appris: readonly string[]): number {
+  const jours = i.parcours[nom]?.jours ?? [];
+  const vus = new Set(appris);
+  for (const j of jours) {
+    const poses = [...(j.brique === null ? [] : [j.brique]), ...j.composes];
+    if (poses.length === 0 || !poses.every((c) => vus.has(c))) return j.jour;
+  }
+  return (jours[jours.length - 1]?.jour ?? 0) + 1;
+}
+
+/**
+ * Ce que la première session a posé, et le jour du parcours choisi où la session complète
+ * reprendra. Sans index lisible, le premier jour : mieux vaut revoir une brique que d'en
+ * sauter une.
+ */
+export async function suiteDepart(
+  choisi: string | null
+): Promise<{ appris: string[]; jour: number }> {
+  const appris = await familleDepart()
+    .then((f) => briques(f))
+    .catch(() => [] as string[]);
+  const jour = await contenu()
+    .then((i) => jourApresDepart(i, nomParcours(i, choisi), appris))
+    .catch(() => 1);
+  return { appris, jour };
 }
 
 /** Les écrans de la leçon, avant les deux questions. */

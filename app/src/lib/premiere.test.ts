@@ -1,4 +1,4 @@
-import { describe, it, expect } from 'vitest';
+import { afterEach, describe, it, expect, vi } from 'vitest';
 import { readFileSync } from 'node:fs';
 import {
   FICHIER_FAMILLE_DEPART,
@@ -11,6 +11,8 @@ import {
   briques,
   estOperateur,
   ficheDe,
+  jourApresDepart,
+  suiteDepart,
   fichesDepart,
   ligneRythme,
   loadMot,
@@ -19,7 +21,15 @@ import {
   type FicheDepart,
   type MotDepart
 } from './premiere';
-import { ETIQUETTES, glose, type Famille } from './content';
+import {
+  ETIQUETTES,
+  VERSION_DONNEES,
+  glose,
+  lecon,
+  nomParcours,
+  type Famille,
+  type Index
+} from './content';
 import {
   ETAPES_DEPART,
   ajouterCartes,
@@ -27,6 +37,7 @@ import {
   departNext,
   emptyProgress,
   finDepart,
+  jourParcours,
   fromJSON,
   markDone,
   openDay,
@@ -386,5 +397,93 @@ describe('le chargeur du mot', () => {
   it('refuse un fichier sans mot ni réponses', async () => {
     const faux: typeof fetch = async () => reponse(true, { version: '1' });
     await expect(loadMot(FICHIER_MOT_DEPART, faux)).rejects.toThrow('illisible');
+  });
+});
+
+/* ---------- 8. la suite : le parcours Lire exporté commence par la première session ---------- */
+
+/** L'index de l'export versionné, lu sur disque : celui que le pipeline vient d'écrire. */
+const indexExport = JSON.parse(
+  readFileSync(new URL(`../../public/data/${VERSION_DONNEES}/index.json`, import.meta.url), 'utf8')
+) as Index;
+
+/** Sert les fichiers de `public/` depuis le disque, comme le ferait l'app : aucun réseau. */
+function servirDepuisLeDisque(): void {
+  vi.stubGlobal('fetch', (async (u: RequestInfo | URL) => {
+    const chemin = String(u).slice(import.meta.env.BASE_URL.length);
+    try {
+      const brut = readFileSync(new URL(`../../public/${chemin}`, import.meta.url), 'utf8');
+      return { ok: true, status: 200, json: async () => JSON.parse(brut) as unknown } as Response;
+    } catch {
+      return { ok: false, status: 404, json: async () => null } as Response;
+    }
+  }) as typeof fetch);
+}
+
+describe('le parcours Lire exporté commence par la première session', () => {
+  afterEach(() => {
+    vi.unstubAllGlobals();
+  });
+
+  const appris = briques(famille);
+  const lire = indexExport.parcours[nomParcours(indexExport, 'lire')];
+
+  it('pose les caractères de la première session, un par jour, sans rien d’autre', () => {
+    expect(appris).toEqual(['人', '大', '天']);
+    const debut = lire.jours.slice(0, appris.length);
+    expect(debut.map((j) => j.jour)).toEqual([1, 2, 3]);
+    expect(debut.map((j) => [j.brique, ...j.composes])).toEqual(appris.map((c) => [c]));
+  });
+
+  it('reprend au jour suivant, sans enseigner une seconde fois 人, 大 et 天', () => {
+    const jour = jourApresDepart(indexExport, 'lire', appris);
+    expect(jour).toBe(appris.length + 1);
+    for (const j of lire.jours.filter((x) => x.jour >= jour)) {
+      for (const c of [j.brique, ...j.composes]) expect(appris).not.toContain(c);
+    }
+    const fini = finDepart(emptyProgress(JOUR), JOUR, MAINTENANT, appris, jour);
+    expect(fini.jourParcours).toBe(jour);
+    expect(jourParcours(fini)).toBe(jour);
+    /* « Voyager » n'a pas de parcours : il suit « Lire », et reprend au même jour. */
+    expect(jourApresDepart(indexExport, nomParcours(indexExport, 'voyage'), appris)).toBe(jour);
+  });
+
+  it('reprend au jour 1 un parcours qui ne commence pas par eux', () => {
+    const i: Index = {
+      ...indexExport,
+      parcours: {
+        autre: {
+          liste: 'test',
+          regle: '',
+          jours: [
+            { jour: 1, brique: '人', composes: ['从'], non_reconcilie: false },
+            { jour: 2, brique: '大', composes: [], non_reconcilie: false }
+          ]
+        }
+      }
+    };
+    expect(jourApresDepart(i, 'autre', appris)).toBe(1);
+    expect(jourApresDepart(i, 'absent', appris)).toBe(1);
+  });
+
+  it("lit le jour où l'on reprend, depuis les fichiers servis avec l'app", async () => {
+    servirDepuisLeDisque();
+    expect(await suiteDepart('lire')).toEqual({ appris: ['人', '大', '天'], jour: 4 });
+  });
+
+  it('lit la leçon du jour qui suit dans l’export réécrit', async () => {
+    servirDepuisLeDisque();
+    const attendu = lire.jours[3];
+    const l = await lecon('lire', 4);
+    expect(l.nom).toBe('lire');
+    expect(l.jour?.jour).toBe(4);
+    expect(l.brique?.c).toBe(attendu.brique);
+    expect(l.composes.map((f) => f.c)).toEqual(attendu.composes);
+    /* Les briques déjà posées : celle du jour, puis celles de la première session. */
+    expect(l.pistes).toEqual([attendu.brique, '天', '大', '人']);
+    for (const f of l.composes) {
+      expect(f.parts.length).toBeGreaterThan(0);
+      for (const part of f.parts) expect(l.pistes).toContain(part);
+    }
   });
 });
