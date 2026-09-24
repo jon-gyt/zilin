@@ -7,12 +7,14 @@
    * des fleurs, et seulement au stade « pêcher en fleur ». Ni ombre, ni dégradé, ni doré.
    * Elle ne tombe jamais malade et ne pleure jamais : l'absence la met en pot, rien de plus.
    *
-   * Les jours de fête, elle porte l'accessoire de la fête : un flocon au Nouvel An 春节
-   * (brief §9), un gâteau de lune 月饼 à la mi-automne 中秋. Les deux sont toujours
-   * dessinés et cachés ; `data-fete` sur <html> montre le bon (`tokens.css`), sans que
-   * chaque écran ait à passer la fête. Pas d'accessoire là où la main est déjà prise :
-   * le flocon cède la place à la bulle et à la lanterne, le gâteau au bol, à la feuille
-   * et au pot.
+   * Les jours de fête, elle porte l'accessoire de la fête (brief §9). Au-dessus de la tête :
+   * un flocon au Nouvel An 春节, un brin de saule à 清明, une étoile à 七夕, un chrysanthème
+   * au double neuf 重阳. À côté d'elle : un bol de 汤圆 à la fête des Lanternes 元宵, un
+   * 粽子 à la fête des bateaux 端午, un gâteau de lune 月饼 à la mi-automne 中秋, un 饺子 au
+   * solstice d'hiver 冬至. Tous sont toujours dessinés et cachés ; `data-fete` sur <html>
+   * montre le bon (`tokens.css`), sans que chaque écran ait à passer la fête. Pas
+   * d'accessoire là où la place est déjà prise : ceux de la tête cèdent la place à la bulle
+   * et à la lanterne, ceux d'à côté au bol, à la feuille et au pot.
    */
   import type { Humeur, PostureVue, Stade } from './tao';
 
@@ -217,16 +219,58 @@
     </g>
   {/if}
 
+  <!-- au-dessus de la tête, là où la bulle et la lanterne ne sont pas -->
   {#if posture !== 'lecon' && posture !== 'jeu'}
     <g class="fete-acc flocon" transform="translate(140 62)" stroke="var(--t1)" stroke-width="4" stroke-linecap="round">
       <path d="M0-13v26M-11.3-6.5l22.6 13M-11.3 6.5l22.6-13" />
     </g>
+    <!-- 清明 : un brin de saule, qu'on porte ce jour-là -->
+    <g class="fete-acc saule" transform="translate(140 62)">
+      <path d="M-14 18q4-18 20-30" stroke="var(--saule-fonce)" stroke-width="3.5" fill="none" stroke-linecap="round" />
+      <g fill="var(--saule)">
+        <ellipse cx="-9" cy="6" rx="3" ry="7" transform="rotate(-35 -9 6)" />
+        <ellipse cx="-2" cy="-3" rx="3" ry="7" transform="rotate(-50 -2 -3)" />
+        <ellipse cx="4" cy="-9" rx="3" ry="7" transform="rotate(-65 4 -9)" />
+        <ellipse cx="-4" cy="12" rx="3" ry="6.5" transform="rotate(40 -4 12)" />
+        <ellipse cx="3" cy="2" rx="3" ry="6.5" transform="rotate(25 3 2)" />
+      </g>
+    </g>
+    <!-- 七夕 : une étoile, Véga ou Altaïr -->
+    <g class="fete-acc etoile" transform="translate(140 62)">
+      <path d="M0-15q2.4 12.6 15 15q-12.6 2.4-15 15q-2.4-12.6-15-15q12.6-2.4 15-15z" fill="var(--etoile)" />
+    </g>
+    <!-- 重阳 : un chrysanthème -->
+    <g class="fete-acc ju" transform="translate(140 62)">
+      <g fill="var(--ju)">
+        {#each [0, 36, 72, 108, 144, 180, 216, 252, 288, 324] as a (a)}<ellipse cx="0" cy="-8" rx="3.2" ry="7" transform="rotate({a})" />{/each}
+      </g>
+      <circle r="4.5" fill="var(--ju-coeur)" />
+    </g>
   {/if}
+  <!-- à côté d'elle, là où le bol, la feuille et le pot ne sont pas -->
   {#if posture !== 'pot' && posture !== 'revision' && posture !== 'lecture'}
     <g class="fete-acc yuebing">
       <circle cx="46" cy="148" r="19" fill="var(--t2)" stroke="var(--ink)" stroke-width="4" />
       <circle cx="46" cy="148" r="10" fill="none" stroke="var(--ink)" stroke-width="3" opacity=".55" />
       <path d="M46 138v20M36 148h20" stroke="var(--ink)" stroke-width="3" opacity=".55" />
+    </g>
+    <!-- 元宵 : un bol de 汤圆 -->
+    <g class="fete-acc tangyuan">
+      <circle cx="36" cy="146" r="7" fill="var(--tangyuan)" stroke="var(--ink)" stroke-width="3" />
+      <circle cx="52" cy="144" r="7" fill="var(--tangyuan)" stroke="var(--ink)" stroke-width="3" />
+      <circle cx="44" cy="139" r="6" fill="var(--tangyuan)" stroke="var(--ink)" stroke-width="3" />
+      <path d="M22 150h48q-2 18-24 18t-24-18z" fill="var(--card)" stroke="var(--ink)" stroke-width="4" stroke-linejoin="round" />
+    </g>
+    <!-- 端午 : un 粽子 ficelé -->
+    <g class="fete-acc zongzi">
+      <path d="M26 164L46 128L66 164Z" fill="var(--roseau)" stroke="var(--ink)" stroke-width="4" stroke-linejoin="round" />
+      <path d="M36 146L56 164M46 128L41 164" stroke="var(--roseau-clair)" stroke-width="2.5" opacity=".8" />
+      <path d="M33 152h26" stroke="var(--ficelle)" stroke-width="4" stroke-linecap="round" />
+    </g>
+    <!-- 冬至 : un 饺子 -->
+    <g class="fete-acc jiaozi">
+      <path d="M22 158q24-34 48 0q-24 9-48 0z" fill="var(--raviole)" stroke="var(--ink)" stroke-width="4" stroke-linejoin="round" />
+      <path d="M36 146q3 5 1 9M46 141v10M56 146q-3 5-1 9" stroke="var(--ink)" stroke-width="3" opacity=".45" fill="none" stroke-linecap="round" />
     </g>
   {/if}
 </svg>
