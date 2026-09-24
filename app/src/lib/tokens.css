@@ -186,6 +186,9 @@ h1{font-family:var(--head);font-weight:700;font-size:30px;line-height:1.15;lette
 @keyframes marche{from{transform:translateY(0) rotate(-3deg)}to{transform:translateY(-6px) rotate(3deg)}}
 @keyframes redresse{from{transform:rotate(-9deg)}to{transform:rotate(0)}}
 @media (prefers-reduced-motion:reduce){.tao *{animation:none!important}}
+/* les accessoires de fête de Tao : toujours dessinés, montrés par la fête du jour */
+.tao .fete-acc{display:none}
+[data-fete="chunjie"] .tao .flocon,[data-fete="zhongqiu"] .tao .yuebing{display:inline}
 
 /* ---- pas 4, Utiliser : les trois lignes à lire et la glose (maquette s-l3, s-read) ---- */
 .read{font-family:var(--hz);font-size:30px;line-height:1.7;letter-spacing:.06em}
