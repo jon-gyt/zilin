@@ -1,0 +1,53 @@
+# Les ingrédients des recettes de la cuisine de Tao (story 4b.6), et les erreurs
+# plausibles qui les attendent sur l'étal.
+#
+# Source : rédigé pour l'app, sans API ; à relire. Chaque ingrédient est une
+# question : Tao dit ce qu'il lui faut (`fr`, `en`), et l'on choisit le mot sur
+# l'étal, parmi la bonne réponse et ses leurres.
+#
+# Format : TSV, `#` en commentaire, cinq colonnes séparées par une tabulation.
+#
+# - `recette` : l'`id` de `recettes.tsv` ; l'ordre des lignes est celui des questions ;
+# - `zh` : le mot de l'étal qui répond, écrit dans l'une des étapes de la recette ;
+# - `fr`, `en` : ce qu'il faut, avec l'article, tel que Tao le demande ;
+# - `leurres` : deux ou trois mots de l'étal, séparés par une espace, écrits à la
+#   main. Ce sont des erreurs plausibles : un caractère en commun (牛奶 pour 牛肉,
+#   米酒 pour 米), une clé en commun (茶 pour 菜, 酒 pour 水), ou le voisin sur
+#   l'étal (米 pour 面). Jamais la bonne réponse, jamais un autre ingrédient de la
+#   même recette, chacun avec son sens dans `etal.tsv`.
+#
+# Le premier leurre est l'erreur type : les caractères de la réponse qu'il n'a pas
+# sont ceux que la question note (牛肉 contre 牛奶 : 肉). `wenlu check` exige qu'il
+# en reste au moins un.
+recette	zh	fr	en	leurres
+daroumian	肉	de la viande	meat	牛奶 鸡蛋 米酒
+daroumian	面	des nouilles	noodles	米 面包 米饭
+daroumian	水	de l'eau	water	酒 茶 牛奶
+mifan	米	du riz	rice	面 米酒 菜
+mifan	水	de l'eau	water	酒 茶 牛奶
+caifan	米	du riz	rice	面 米酒 水果
+caifan	水	de l'eau	water	酒 白酒 茶
+caifan	白菜	du chou chinois	Chinese cabbage	白酒 茶 水果
+caifan	肉	de la viande	meat	牛奶 鸡蛋 面包
+lengmian	面	des nouilles	noodles	米 面包 米饭
+lengmian	冷水	de l'eau froide	cold water	开水 酒 牛奶
+lengmian	肉	de la viande	meat	牛奶 鸡蛋 米酒
+lengmian	菜	des légumes	vegetables	茶 水果 米
+miantiao	面条	des nouilles	noodles	面包 米饭 米
+miantiao	水	de l'eau	water	酒 茶 牛奶
+miantiao	菜	des légumes	vegetables	茶 水果 白酒
+baozi	面	de la farine	flour	米 面包 牛奶
+baozi	水	de l'eau	water	酒 茶 米酒
+baozi	肉	de la viande	meat	牛奶 鸡蛋 面包
+baozi	菜	des légumes	vegetables	茶 水果 白酒
+niuroumian	牛肉	du bœuf	beef	牛奶 鸡肉 鸡蛋
+niuroumian	面	des nouilles	noodles	米 面包 米饭
+niuroumian	菜	des légumes	vegetables	茶 水果 白酒
+jidanmian	鸡蛋	des œufs	eggs	鸡肉 牛奶 面包
+jidanmian	面	des nouilles	noodles	米 面包 米饭
+jidanmian	菜	des légumes	vegetables	茶 水果 米酒
+niuroufan	米	du riz	rice	面 米酒 水果
+niuroufan	牛肉	du bœuf	beef	牛奶 鸡肉 白菜
+niuroufan	菜	des légumes	vegetables	茶 水果 白酒
+danbaofan	米饭	du riz cuit	cooked rice	米酒 面条 面包
+danbaofan	鸡蛋	des œufs	eggs	鸡肉 牛奶 面包
