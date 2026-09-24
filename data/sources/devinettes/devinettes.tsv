@@ -1,0 +1,168 @@
+# Les devinettes de lanternes (灯谜, story 4b.5) : une décomposition déguisée.
+#
+# Source : rédigé pour l'app. Chaque énoncé décrit les briques de la décomposition
+# canonique GF 0014-2009 exportée, et leur disposition ; les noms des briques sont
+# ceux de `briques.tsv`. Aucun énoncé tiers n'est recopié, sauf l'énoncé chinois
+# traditionnel, donné seulement quand la devinette est un 字谜 connu, cité mot pour
+# mot et du domaine public (trois vers du quatrain « 请坐奉茶 », « 一月一日非今天 »,
+# « 一口咬掉牛尾巴 », « 一人一张口，口下长只手 »). Sinon la colonne reste vide.
+#
+# Format : TSV, `#` en commentaire, sept colonnes séparées par une tabulation.
+#
+# - `c` : le caractère réponse, qui sert aussi d'identifiant (une devinette par
+#   caractère) ;
+# - `disposition` : la disposition de premier niveau de la décomposition, que
+#   `wenlu check` compare à la structure IDS du build — `cote` (⿰ ⿲), `superpose`
+#   (⿱ ⿳), `dedans` (⿴ ⿵ ⿶ ⿷), `enveloppe` (⿸ ⿹ ⿺), `mele` (⿻) ;
+# - `briques` : les briques que l'énoncé cite, séparées par une espace, dans l'ordre
+#   d'écriture. Elles doivent être exactement les `parts` exportées du caractère ;
+# - `enonce_fr` : court et imagé, sans guillemets extérieurs (l'app les pose) ;
+# - `enonce_zh` : l'énoncé chinois traditionnel, vide s'il n'y en a pas d'exact ;
+# - `sens` : le sens du caractère réponse, pour la correction ;
+# - `source`.
+#
+# Les leurres ne s'écrivent pas ici : `wenlu export` les choisit par ressemblance de
+# composants parmi les caractères des listes cibles, et `wenlu check` les contrôle.
+c	disposition	briques	enonce_fr	enonce_zh	sens	source
+明	cote	日 月	Le soleil et la lune, côte à côte	一月一日非今天	clair, lumineux	rédigé pour l'app ; énoncé chinois : 字谜 traditionnel
+好	cote	女 子	Une femme et un enfant, côte à côte		bien, bon	rédigé pour l'app
+休	cote	亻 木	Un homme adossé à un arbre		se reposer	rédigé pour l'app
+古	superpose	十 口	Dix, posé sur une bouche		ancien	rédigé pour l'app
+告	superpose	牛 口	Une bouche mord la queue du bœuf	一口咬掉牛尾巴	annoncer, dire	rédigé pour l'app ; énoncé chinois : 字谜 traditionnel
+从	cote	人 人	Un homme en suit un autre		suivre ; depuis	rédigé pour l'app
+朋	cote	月 月	Deux lunes côte à côte		ami	rédigé pour l'app
+多	superpose	夕 夕	Un soir posé sur un autre soir		nombreux, beaucoup	rédigé pour l'app
+男	superpose	田 力	Un champ, et la force dessous		homme (masculin)	rédigé pour l'app
+思	superpose	田 心	Un champ posé sur un cœur		penser	rédigé pour l'app
+累	superpose	田 糸	Un champ posé sur un fil de soie		fatigué	rédigé pour l'app
+早	superpose	日 十	Le soleil posé sur dix		tôt, le matin	rédigé pour l'app
+星	superpose	日 生	Le soleil au-dessus de ce qui naît		étoile	rédigé pour l'app
+李	superpose	木 子	Un enfant sous un arbre		prune ; Li (nom de famille)	rédigé pour l'app
+字	superpose	宀 子	Un enfant sous un toit		caractère d'écriture	rédigé pour l'app
+家	superpose	宀 豕	Un cochon sous un toit		maison, famille	rédigé pour l'app
+它	superpose	宀 匕	Une cuillère sous un toit		il, elle (une chose, un animal)	rédigé pour l'app
+回	dedans	囗 口	Une petite bouche dans un enclos		revenir	rédigé pour l'app
+因	dedans	囗 大	Un grand, enfermé dans un enclos		cause ; parce que	rédigé pour l'app
+国	dedans	囗 玉	Du jade gardé dans un enclos		pays	rédigé pour l'app
+图	dedans	囗 夂 ⺀	Dans un enclos, un pas qui traîne sur deux glaçons		image, plan	rédigé pour l'app
+问	dedans	门 口	Une bouche dans l'embrasure d'une porte		demander	rédigé pour l'app
+间	dedans	门 日	Le soleil dans l'embrasure d'une porte		entre ; une pièce	rédigé pour l'app
+们	cote	亻 门	Un homme à côté d'une porte		marque du pluriel (personnes)	rédigé pour l'app
+住	cote	亻 主	Un homme à côté du maître		habiter	rédigé pour l'app
+信	cote	亻 言	Un homme à côté de sa parole		lettre ; croire	rédigé pour l'app
+什	cote	亻 十	Un homme à côté de dix		quoi (dans 什么)	rédigé pour l'app
+他	cote	亻 也	Un homme, lui aussi		il, lui	rédigé pour l'app
+她	cote	女 也	Une femme, elle aussi		elle	rédigé pour l'app
+地	cote	土 也	La terre, elle aussi		la terre, le sol	rédigé pour l'app
+作	cote	亻 乍	Un homme, et tout à coup à côté		faire, travailler	rédigé pour l'app
+昨	cote	日 乍	Le soleil, et tout à coup à côté		hier	rédigé pour l'app
+怎	superpose	乍 心	Tout à coup, posé sur un cœur		comment	rédigé pour l'app
+妈	cote	女 马	Une femme à côté d'un cheval		maman	rédigé pour l'app
+吗	cote	口 马	Une bouche à côté d'un cheval		particule de question	rédigé pour l'app
+吧	cote	口 巴	Une bouche à côté d'un serpent		particule de suggestion	rédigé pour l'app
+爸	superpose	父 巴	Le père posé sur un serpent		papa	rédigé pour l'app
+听	cote	口 斤	Une bouche à côté d'une hache		écouter	rédigé pour l'app
+和	cote	禾 口	Une céréale à côté d'une bouche		et, avec ; la paix	rédigé pour l'app
+知	cote	矢 口	Une flèche à côté d'une bouche		savoir	rédigé pour l'app
+如	cote	女 口	Une femme à côté d'une bouche		comme ; si	rédigé pour l'app
+名	enveloppe	夕 口	Une bouche sous l'aile du soir		le nom	rédigé pour l'app
+只	superpose	口 八	Une bouche posée sur huit		seulement	rédigé pour l'app
+岁	superpose	山 夕	Une montagne, et le soir dessous		an (d'âge)	rédigé pour l'app
+美	superpose	羊 大	Un mouton posé sur un grand		beau	rédigé pour l'app
+看	superpose	手 目	Une main posée sur un œil		regarder	rédigé pour l'app
+想	superpose	木 目 心	Un arbre et un œil, posés sur un cœur		penser ; vouloir	rédigé pour l'app
+念	superpose	今 心	Maintenant, posé sur un cœur		lire à voix haute ; penser à	rédigé pour l'app
+忙	cote	忄 亡	Un cœur debout à côté de “perdu”		occupé	rédigé pour l'app
+忘	superpose	亡 心	“Perdu”, posé sur un cœur		oublier	rédigé pour l'app
+快	cote	忄 夬	Un cœur debout à côté de “trancher”		rapide	rédigé pour l'app
+杯	cote	木 不	Un arbre à côté de “non”		verre, tasse	rédigé pour l'app
+坏	cote	土 不	La terre à côté de “non”		mauvais, cassé	rédigé pour l'app
+机	cote	木 几	Un arbre à côté d'une petite table		machine	rédigé pour l'app
+样	cote	木 羊	Un arbre à côté d'un mouton		manière, forme	rédigé pour l'app
+床	enveloppe	广 木	Un arbre sous un abri		lit	rédigé pour l'app
+条	superpose	夂 木	Un pas qui traîne, posé sur un arbre		bande ; spécificatif des choses longues	rédigé pour l'app
+备	superpose	夂 田	Un pas qui traîne, posé sur un champ		préparer	rédigé pour l'app
+汉	cote	氵 又	L'eau à côté d'une main		chinois (han)	rédigé pour l'app
+法	cote	氵 去	L'eau à côté de “s'en aller”		la loi ; une méthode	rédigé pour l'app
+活	cote	氵 舌	L'eau à côté d'une langue		vivre	rédigé pour l'app
+酒	cote	氵 酉	L'eau à côté d'une jarre		l'alcool	rédigé pour l'app
+汽	cote	氵 气	L'eau à côté de la vapeur		la vapeur	rédigé pour l'app
+话	cote	讠 舌	La parole à côté d'une langue		la parole, ce qu'on dit	rédigé pour l'app
+认	cote	讠 人	La parole à côté d'un homme		reconnaître	rédigé pour l'app
+让	cote	讠 上	La parole à côté de “en haut”		laisser, faire faire	rédigé pour l'app
+许	cote	讠 午	La parole à côté de midi		permettre	rédigé pour l'app
+课	cote	讠 果	La parole à côté d'un fruit		la leçon	rédigé pour l'app
+谁	cote	讠 隹	La parole à côté d'un oiseau		qui	rédigé pour l'app
+语	cote	讠 五 口	La parole, et à côté cinq posé sur une bouche		la langue	rédigé pour l'app
+识	cote	讠 口 八	La parole, et à côté une bouche posée sur huit		connaître	rédigé pour l'app
+说	cote	讠 丷 口 儿	La parole, et à côté deux points sur une bouche sur deux jambes		parler	rédigé pour l'app
+请	cote	讠 龶 月	La parole, et à côté une pousse posée sur la lune	言对青山不是青	prier, inviter	rédigé pour l'app ; énoncé chinois : 字谜 traditionnel (« 请坐奉茶 »)
+谢	cote	讠 身 寸	La parole, un corps et un pouce, côte à côte		remercier	rédigé pour l'app
+难	cote	又 隹	Une main à côté d'un oiseau		difficile	rédigé pour l'app
+对	cote	又 寸	Une main à côté d'un pouce		juste, correct	rédigé pour l'app
+欢	cote	又 欠	Une main à côté de quelqu'un qui bâille		joyeux	rédigé pour l'app
+时	cote	日 寸	Le soleil à côté d'un pouce		le temps, l'heure	rédigé pour l'app
+晚	cote	日 免	Le soleil à côté de “éviter”		le soir ; tard	rédigé pour l'app
+红	cote	纟 工	Un fil de soie à côté d'une équerre		rouge	rédigé pour l'app
+给	cote	纟 人 一 口	Un fil de soie, et à côté un homme, un trait, une bouche		donner	rédigé pour l'app
+城	cote	土 丁 戈	La terre, un clou et une hallebarde, côte à côte		la ville, la muraille	rédigé pour l'app
+走	superpose	土 止	La terre posée sur un pied		marcher	rédigé pour l'app
+坐	mele	人 人 土	Deux hommes assis sur la terre	二人土上说分明	s'asseoir	rédigé pour l'app ; énoncé chinois : 字谜 traditionnel (« 请坐奉茶 »)
+在	enveloppe	才 土	La terre à l'abri du talent		être (quelque part)	rédigé pour l'app
+茶	superpose	艹 人 木	Un homme entre l'herbe et l'arbre	草木之中有一人	le thé	rédigé pour l'app ; énoncé chinois : 字谜 traditionnel (« 请坐奉茶 »)
+菜	superpose	艹 爫 木	L'herbe, une main qui cueille, un arbre, l'un sur l'autre		légume ; un plat	rédigé pour l'app
+花	superpose	艹 亻 匕	L'herbe posée sur un homme et une cuillère		fleur	rédigé pour l'app
+元	superpose	二 儿	Deux traits posés sur deux jambes		premier ; le yuan	rédigé pour l'app
+完	superpose	宀 二 儿	Sous un toit, deux traits sur deux jambes		finir	rédigé pour l'app
+玩	cote	王 二 儿	Un roi, et à côté deux traits sur deux jambes		jouer	rédigé pour l'app
+远	enveloppe	辶 二 儿	Deux traits sur deux jambes, emportés par la marche		loin	rédigé pour l'app
+边	enveloppe	辶 力	La force emportée par la marche		le côté, le bord	rédigé pour l'app
+过	enveloppe	辶 寸	Un pouce emporté par la marche		passer	rédigé pour l'app
+近	enveloppe	辶 斤	Une hache emportée par la marche		proche	rédigé pour l'app
+还	enveloppe	辶 不	“Non”, emporté par la marche		encore ; rendre	rédigé pour l'app
+这	enveloppe	辶 文	L'écrit emporté par la marche		ceci	rédigé pour l'app
+进	enveloppe	辶 井	Un puits emporté par la marche		entrer	rédigé pour l'app
+道	enveloppe	辶 首	Une tête emportée par la marche		la voie, le chemin	rédigé pour l'app
+房	enveloppe	户 方	Un carré sous une porte battante		la maison, la pièce	rédigé pour l'app
+店	enveloppe	广 ⺊ 口	Sous un abri, une baguette de devin posée sur une bouche		le magasin	rédigé pour l'app
+点	superpose	⺊ 口 灬	Une baguette de devin sur une bouche, et le feu dessous		le point ; l'heure	rédigé pour l'app
+分	superpose	八 刀	Huit posé sur un couteau		diviser ; la minute	rédigé pour l'app
+冬	superpose	夂 ⺀	Un pas qui traîne, et deux glaçons dessous		l'hiver	rédigé pour l'app
+关	superpose	丷 天	Deux points posés sur le ciel		fermer ; concerner	rédigé pour l'app
+贵	superpose	中 一 贝	Le milieu, un trait, et un coquillage dessous		cher	rédigé pour l'app
+票	superpose	覀 示	Un chapeau posé sur un autel		le billet	rédigé pour l'app
+要	superpose	覀 女	Un chapeau posé sur une femme		vouloir	rédigé pour l'app
+饭	cote	饣 厂 又	La nourriture, et à côté une main sous une falaise		le repas, le riz cuit	rédigé pour l'app
+饿	cote	饣 我	La nourriture à côté de moi		avoir faim	rédigé pour l'app
+张	cote	弓 长	Un arc à côté de “long”		tendre ; spécificatif des choses plates	rédigé pour l'app
+意	superpose	立 日 心	Debout, le soleil, un cœur, l'un sur l'autre		l'idée, le sens	rédigé pour l'app
+旁	superpose	立 方	Debout, posé sur un carré		à côté	rédigé pour l'app
+影	cote	日 京 彡	Le soleil sur la capitale, et trois traits à côté		l'ombre, l'image	rédigé pour l'app
+现	cote	王 见	Un roi à côté de “voir”		maintenant ; apparaître	rédigé pour l'app
+姓	cote	女 生	Une femme à côté de “naître”		le nom de famille	rédigé pour l'app
+别	cote	口 力 刂	Une bouche posée sur la force, et un couteau à côté		autre ; ne… pas	rédigé pour l'app
+到	cote	至 刂	“Arriver”, et un couteau à côté		arriver à	rédigé pour l'app
+班	cote	王 刂 王	Un couteau entre deux rois		la classe	rédigé pour l'app
+可	mele	丁 口	Une bouche accrochée à un clou		pouvoir	rédigé pour l'app
+哥	superpose	丁 口 丁 口	Une bouche accrochée à un clou, deux fois, l'une sur l'autre		grand frère	rédigé pour l'app
+打	cote	扌 丁	Une main à côté d'un clou		frapper	rédigé pour l'app
+找	cote	扌 戈	Une main à côté d'une hallebarde		chercher	rédigé pour l'app
+拿	superpose	人 一 口 手	Un homme, un trait, une bouche, et une main dessous	一人一张口，口下长只手	prendre	rédigé pour l'app ; énoncé chinois : 字谜 traditionnel
+画	superpose	一 凵 田	Un trait, posé sur un champ dans une boîte ouverte		dessiner ; un tableau	rédigé pour l'app
+会	superpose	人 云	Un homme posé sur un nuage		savoir faire ; la réunion	rédigé pour l'app
+动	cote	云 力	Un nuage à côté de la force		bouger	rédigé pour l'app
+外	cote	夕 卜	Le soir à côté d'une baguette de devin		dehors	rédigé pour l'app
+写	superpose	冖 与	Un couvercle posé sur “donner”		écrire	rédigé pour l'app
+懂	cote	忄 艹 重	Un cœur debout, et à côté l'herbe posée sur “lourd”		comprendre	rédigé pour l'app
+期	cote	其 月	Un van à côté de la lune		la période	rédigé pour l'app
+孩	cote	子 亥	Un enfant à côté du cochon du zodiaque		l'enfant	rédigé pour l'app
+些	superpose	止 匕 二	Un pied et une cuillère, posés sur deux traits		quelques	rédigé pour l'app
+买	superpose	乛 头	Un crochet posé sur une tête		acheter	rédigé pour l'app
+卖	superpose	十 乛 头	Dix, posé sur un crochet posé sur une tête		vendre	rédigé pour l'app
+客	superpose	宀 夂 口	Sous un toit, un pas qui traîne sur une bouche		l'invité	rédigé pour l'app
+楼	cote	木 米 女	Un arbre, et à côté du riz posé sur une femme		l'étage, l'immeuble	rédigé pour l'app
+树	cote	木 又 寸	Un arbre, une main et un pouce, côte à côte		l'arbre	rédigé pour l'app
+校	cote	木 六 乂	Un arbre, et à côté six posé sur une croix		l'école	rédigé pour l'app
+网	dedans	冂 乂 乂	Deux croix dans un cadre		le filet ; internet	rédigé pour l'app
+行	cote	彳 一 丁	Un pas, et à côté un trait posé sur un clou		aller ; ça va	rédigé pour l'app
+差	enveloppe	羊 工	Une équerre sous un mouton		la différence ; manquer	rédigé pour l'app
