@@ -89,10 +89,12 @@ def _corps(module, invites: list) -> tuple[list[dict], list[dict]]:
     return sdk.messages.corps, sdk.messages.batches.envoyees
 
 
-#: Relevées avant l'extraction de `claude.py` (commit parent).
+#: Relevées avant l'extraction de `claude.py` (commit parent). Celle des contes a été
+#: relevée de nouveau quand l'invite a demandé le pinyin du titre, la traduction
+#: anglaise et la glose par mot (rédaction des contes sans API).
 EMPREINTES = {
     "fiches": "4f3bf9950ad9eff8845de3a00d3ea9e71aacb2462104755d8dc52e54ae0cf61c",
-    "contes": "ca817f2fa974ce0562d92764ad79e7c129725e846015ce7d05f03053df7f3696",
+    "contes": "0597d5221a2d6665510e9f0e8c7c63bc3e56c5fae00554b7fd99151ea05256af",
 }
 
 

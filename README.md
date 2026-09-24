@@ -29,8 +29,8 @@ cd app && npm install && npm run dev
 
 Sept commandes, une par étape, chacune lisant ce que la précédente a écrit. Tout
 ce qui est intermédiaire va dans `data/work/`, hors dépôt ; seuls l'export
-(`app/public/data/<version>/`), les polices (`app/public/fonts/`) et les fiches
-(`data/sources/fiches/`) sont versionnés.
+(`app/public/data/<version>/`), les polices (`app/public/fonts/`), les fiches
+(`data/sources/fiches/`) et les contes (`data/sources/contes-versions/`) sont versionnés.
 
 ```
 fetch  →  ingest  →  build  →  export  →  check
@@ -59,7 +59,7 @@ les caractères que « Ma forêt » affiche.
 
 `audio`, `contes` et `fiches` sont à part aussi : elles se lancent à la main, jamais
 dans `wenlu tout`. `contes` et `fiches generer` appellent l'API Anthropic et
-demandent une clé (les fiches peuvent aussi s'écrire sans, voir plus bas) ; `audio` fait tourner Kokoro en local (`uv sync --extra audio`, poids téléchargés
+demandent une clé (fiches et contes peuvent aussi s'écrire sans, voir plus bas) ; `audio` fait tourner Kokoro en local (`uv sync --extra audio`, poids téléchargés
 depuis Hugging Face au premier passage).
 
 Toutes les commandes sont idempotentes : deux passages écrivent les mêmes octets,
@@ -127,6 +127,40 @@ dans le doute, `mnémotechnique`. Les fiches de 人, 大 et 天 servent d'exempl
 
 Brouillons et fiches sont versionnés ; la relecture reste humaine et seule une fiche
 relue s'exporte. Après un import, l'empreinte de l'export change : `wenlu export`.
+
+### Rédiger des contes sans API
+
+Les contes aussi (story 1.7) : un agent Claude Code les rédige dans sa session, sans
+clé, et `importer` leur applique la validation des contes générés. Seuls le catalogue et
+la liste du seuil servent : pas besoin du build.
+
+```bash
+cd data
+uv run wenlu contes contexte yu-gong-yi-shan --seuil 255   # liste du seuil, intrigue, contraintes, squelette
+# écrire data/sources/contes-brouillons/<id>/<seuil>.json (format dans data/schema.md)
+uv run wenlu contes importer                               # valider(), écriture a_relire ou rejete, écarts
+uv run wenlu contes exporter-relecture                     # data/work/relecture-contes.json
+uv run wenlu contes appliquer-relecture decisions.json     # {"255/yu-gong-yi-shan": "relu"}
+```
+
+`contexte` donne la liste exacte des caractères du seuil (la contrainte dure : un seul
+intrus et le conte est rejeté), le résumé et l'ouvrage du catalogue, la longueur visée
+(60 à 120 sinogrammes au seuil 255) et les caractères du titre traditionnel hors du
+seuil. Le brouillon porte le titre et les phrases en chinois, le pinyin (une syllabe par
+sinogramme, tons du dictionnaire, sans sandhi), les traductions française et anglaise
+de chaque phrase, une glose par caractère ou par mot (pinyin, sens en français et en
+anglais) et l'ouvrage d'origine, cité à l'identique du catalogue ou `null`. `importer`
+écrit dans `data/sources/contes-versions/<seuil>/<id>.json` et affiche les intrus et les
+écarts (glose qui ne couvre pas un caractère, pinyin mal aligné, traduction absente,
+longueur) : on corrige et on relance, jusqu'à 0 rejet et 0 écart. La version le dit :
+`generation.api` vaut « session Claude Code (sans API) », `generation.modele`
+« rédaction manuelle », et `empreinte_invite` est l'empreinte du brouillon.
+
+Les trois contes gratuits du seuil 255 sont rédigés ainsi : 愚公移山, 拔苗助长 et
+南辕北辙, à relire. Le seuil 255 n'a presque aucun nom d'animal : les récits qui
+tiennent sur un lièvre, un cheval ou un serpent attendent un seuil plus haut. Seule une
+version relue s'exporte ; après un import, l'empreinte de l'export change :
+`wenlu export`.
 
 ## Développer sans machine locale
 

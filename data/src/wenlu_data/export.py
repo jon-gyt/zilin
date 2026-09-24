@@ -654,21 +654,26 @@ def document_conte(
 ) -> dict[str, object]:
     """Le JSON écrit dans `contes/<id>.json` : un récit, une version par seuil."""
     tete = versions[0]
+    origine = f"récit traditionnel, {tete.ouvrage}" if tete.ouvrage else "récit traditionnel"
     return {
         "version": version_export,
         "license": LICENCE_PROPRIETAIRE,
-        "source": f"récit traditionnel, {tete.ouvrage} (domaine public) ; texte réécrit pour l'app",
+        "source": f"{origine} (domaine public) ; texte réécrit pour l'app",
         "source_url": URL_PIPELINE,
         "modified": f"{JETON_JOUR} : assemblé par `wenlu export`",
         "conte": conte,
         "titre_fr": tete.titre_fr,
+        "titre_en": tete.titre_en,
         "versions": {
             str(v.seuil): {
                 "titre": v.titre,
-                "phrases": [{"zh": p.zh, "pinyin": p.pinyin, "fr": p.fr} for p in v.phrases],
-                "glose": {c: v.glose[c] for c in sorted(v.glose)},
+                "titre_pinyin": v.titre_pinyin,
+                "phrases": [
+                    {"zh": p.zh, "pinyin": p.pinyin, "fr": p.fr, "en": p.en} for p in v.phrases
+                ],
+                "glose": {zh: v.glose[zh].en_json() for zh in sorted(v.glose)},
             }
-            for v in versions
+            for v in sorted(versions, key=lambda v: v.seuil)
         },
     }
 
@@ -743,6 +748,7 @@ def document_index(
             {
                 "id": conte,
                 "titre_fr": versions[0].titre_fr,
+                "titre_en": versions[0].titre_en,
                 "seuils": [v.seuil for v in versions],
                 "fichier": f"contes/{conte}.json",
             }

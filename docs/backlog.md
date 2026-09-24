@@ -15,7 +15,7 @@ Format BMAD : épics puis stories. Priorité dans l'ordre. Une story se termine 
 - 1.4 Génération FR et EN des fiches (origine en trois phrases, deux mots, une phrase), étiquette attesté / mnémotechnique. Relecture du seuil 255.
 - 1.5 Audio pré-généré (voix neuronale), un fichier par caractère et par mot.
 - 1.6 Export JSON versionné par famille, schéma dans `data/schema.md`.
-- 1.7 Contes par niveau : un même conte ou une même histoire chinoise réécrit à chaque seuil (255, 405, 505, 805, 1555) avec les seuls caractères du seuil, généré par lots avec Claude dans le pipeline puis relu ; source du conte tracée, glose par caractère, une version par seuil dans le JSON exporté.
+- 1.7 Contes par niveau : un même conte ou une même histoire chinoise réécrit à chaque seuil (255, 405, 505, 805, 1555) avec les seuls caractères du seuil, généré par lots avec Claude dans le pipeline, ou rédigé sans API et importé avec les mêmes contrôles, puis relu ; source du conte tracée, glose par caractère ou par mot, traductions FR et EN, une version par seuil dans le JSON exporté.
 
 ## Épic 2 · Session
 - 2.1 État de session (six pas, reprise au pas exact, rattrapage).
@@ -112,8 +112,9 @@ Les trois chaînes sont écrites, testées sans réseau, et refusent de partir s
   rédaction passe par des brouillons (ci-dessous). 3 fiches écrites, 0 relue. Les
   caractères sans fiche relue s'exportent au statut `sans_fiche`, avec leur
   décomposition et leurs tracés, sans texte.
-- **1.7, contes** : catalogue versionné, génération par lots en place ; 0 version
-  écrite. `ANTHROPIC_API_KEY`. Bloque 2c.1 et 2c.2.
+- **1.7, contes** : catalogue versionné, génération par lots en place ; sans clé, la
+  rédaction passe par des brouillons (ci-dessous). 3 versions écrites au seuil 255, 0
+  relue : 2c.1 et 2c.2 attendent la relecture pour avoir un conte exporté.
 - **1.5, audio** : périmètre, manifeste et export en place ; 0 fichier sur les
   731 textes du périmètre. Clé du fournisseur, **et** décision de licence ci-dessous.
 
@@ -139,6 +140,36 @@ les fiches générées. La chaîne API reste en place et utilisable.
   seuil n'ont pas deux mots candidats lisibles à leur jour : leur fiche en portera moins,
   écart signalé à la relecture.
 - Lots conseillés : `--sur 13`, une vingtaine de caractères par agent.
+
+### Rédiger des contes sans API (1.7)
+
+Même démarche que les fiches : les contes sont rédigés par des agents Claude Code dans
+leur session, sans clé, et importés avec la validation des contes générés. La chaîne API
+reste en place, et demande désormais le même format : pinyin du titre, traduction
+anglaise, glose par mot.
+
+- Brouillon versionné, `data/sources/contes-brouillons/<id>/<seuil>.json` : `conte`,
+  `seuil`, `ouvrage` (celui du catalogue, ou `null`), `titre` `{zh, pinyin}`, `phrases`
+  `[{zh, pinyin, fr, en}]`, `glose` `[{zh, pinyin, fr, en}]` par caractère ou par mot
+  (format dans `data/schema.md`).
+- `wenlu contes contexte <id> --seuil 255` donne la liste exacte du seuil, l'intrigue du
+  catalogue et les contraintes ; `wenlu contes importer` valide (caractères hors seuil :
+  rejet ; longueur, pinyin, glose, traductions : écarts) et écrit dans
+  `data/sources/contes-versions/<seuil>/<id>.json`, `a_relire` ou `rejete`, avec la
+  traçabilité « session Claude Code (sans API) », « rédaction manuelle » et l'empreinte
+  du brouillon. Le journal des lots d'API reste dans `data/work/contes/lots/`.
+- Relecture humaine : `wenlu contes exporter-relecture` rassemble les versions à relire
+  dans `data/work/relecture-contes.json`, `wenlu contes appliquer-relecture` applique
+  `{"<seuil>/<id>": "relu" | "rejete"}`.
+- Fait, à relire : les trois contes gratuits du seuil 255 (brief §10), 愚公移山,
+  拔苗助长 et 南辕北辙, de 117 à 119 sinogrammes, 0 rejet, 0 écart. 南辕北辙 a rejoint
+  le catalogue pour l'occasion : les récits animaliers (守株待兔, 塞翁失马, 画蛇添足…)
+  ne s'écrivent pas avec les 255 caractères, qui n'ont ni 兔, ni 马, ni 蛇.
+- Pour le lecteur (2c.1) : l'export d'un conte relu porte `titre_en`, `titre_pinyin`,
+  une syllabe de pinyin par sinogramme, `fr` et `en` par phrase, et la glose
+  `{entrée: {pinyin, fr, en}}` que le lecteur découpe par la plus longue entrée.
+- Reste : relire les trois contes, puis les versions des seuils suivants quand leurs
+  listes seront versionnées.
 
 ### En attente d'une décision
 

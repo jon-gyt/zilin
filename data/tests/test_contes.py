@@ -57,11 +57,20 @@ CONTE = Conte(
 def reponse(titre: str, phrases: list[str], glose: list[str] | None = None) -> str:
     """Une réponse du modèle, telle que `output_config.format` la contraint."""
     distincts = glose if glose is not None else list(dict.fromkeys(titre + "".join(phrases)))
+
+    def syllabes(zh: str) -> str:
+        return " ".join("pīn" for c in zh if c not in "。，、")
+
     return json.dumps(
         {
             "titre": titre,
-            "phrases": [{"zh": zh, "pinyin": "pīn yīn", "fr": "Traduction."} for zh in phrases],
-            "glose": [{"c": c, "fr": "sens"} for c in distincts if c not in "。，、"],
+            "titre_pinyin": syllabes(titre),
+            "phrases": [
+                {"zh": zh, "pinyin": syllabes(zh), "fr": "Traduction.", "en": "Translation."} for zh in phrases
+            ],
+            "glose": [
+                {"zh": c, "pinyin": "pīn", "fr": "sens", "en": "meaning"} for c in distincts if c not in "。，、"
+            ],
         },
         ensure_ascii=False,
     )
@@ -115,14 +124,14 @@ def ecrire_liste(dossier: Path, seuil: int, caracteres: list[str]) -> Path:
 # --------------------------------------------------------------------------- catalogue
 
 
-def test_catalogue_dix_contes_avec_leur_source() -> None:
-    """Dix récits, identifiants uniques, ouvrage d'origine et résumé pour chacun."""
+def test_catalogue_onze_contes_avec_leur_source() -> None:
+    """Onze récits, identifiants uniques, titres FR et EN, ouvrage d'origine et résumé."""
     catalogue = charger_catalogue()
-    assert len(catalogue) == 10
-    assert len({c.id for c in catalogue}) == 10
+    assert len(catalogue) == 11
+    assert len({c.id for c in catalogue}) == 11
     for conte in catalogue:
         assert conte.id == conte.id.lower() and " " not in conte.id
-        assert conte.titre_zh and conte.titre_fr
+        assert conte.titre_zh and conte.titre_fr and conte.titre_en
         assert "《" in conte.ouvrage and "》" in conte.ouvrage
         assert conte.resume_fr.endswith(".")
 
@@ -131,8 +140,8 @@ def test_catalogue_refuse_un_doublon() -> None:
     """Deux fois le même identifiant, c'est deux fichiers de sortie pour un conte."""
     lignes = [
         "\t".join(contes.COLONNES),
-        "a\t山\tTitre\t《测试》\tRésumé.",
-        "a\t水\tAutre\t《测试》\tRésumé.",
+        "a\t山\tTitre\tTitle\t《测试》\tRésumé.",
+        "a\t水\tAutre\tOther\t《测试》\tRésumé.",
     ]
     with pytest.raises(CatalogueInvalide, match="doublon"):
         parse_catalogue(lignes)
@@ -181,11 +190,20 @@ def test_invite_porte_la_liste_du_seuil_et_la_source() -> None:
     assert demande.empreinte.startswith("sha256:")
 
 
-def test_invite_demande_la_glose_en_francais() -> None:
-    """La glose vient du modèle, en français : rien n'est traduit d'une source anglaise."""
+def test_invite_demande_une_glose_redigee_par_le_modele() -> None:
+    """La glose vient du modèle, en français et en anglais, en ses propres mots : rien
+    n'est traduit ni repris d'un dictionnaire (`docs/sources-licences.md` §4.2)."""
     demande = invite(CONTE, 255, LISTE)
-    assert "en français" in demande.systeme
-    assert "Jamais d'anglais" in demande.systeme
+    assert "en français" in demande.systeme and "en anglais" in demande.systeme
+    assert "rédigé par toi" in demande.systeme
+    assert "jamais de définition reprise d'un dictionnaire" in demande.systeme
+
+
+def test_invite_demande_le_pinyin_du_dictionnaire() -> None:
+    """Une syllabe par caractère, les tons du dictionnaire : ni sandhi ni ponctuation."""
+    demande = invite(CONTE, 255, LISTE)
+    assert "une syllabe par caractère" in demande.systeme
+    assert "sans sandhi" in demande.systeme
 
 
 def test_invite_ne_touche_jamais_aux_definitions_anglaises_de_cedict() -> None:
@@ -304,7 +322,9 @@ def test_tracabilite_complete_dans_le_fichier_ecrit(tmp_path: Path) -> None:
     assert document["source"] == {"ouvrage": CONTE.ouvrage, "resume_fr": CONTE.resume_fr}
     assert document["statut"] == A_RELIRE
     assert [p["zh"] for p in document["phrases"]] == ["日月。", "人大天。"]
-    assert document["glose"]["山"] == "sens"
+    assert document["glose"]["山"] == {"pinyin": "pīn", "fr": "sens", "en": "meaning"}
+    assert [p["en"] for p in document["phrases"]] == ["Translation.", "Translation."]
+    assert document["titre_pinyin"] == "pīn pīn"
     generation = document["generation"]
     assert generation["modele"] == "modele-de-test"
     assert generation["api"] == "messages"

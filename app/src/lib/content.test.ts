@@ -922,6 +922,26 @@ describe('le chargeur des contes', () => {
     expect(() => lireConte({ titre_fr: 'sans id' })).toThrow('illisible');
   });
 
+  it('lit la glose au format du pipeline : un objet {pinyin, fr, en} par clé', () => {
+    const c = lireConte({
+      conte: 'nan-yuan-bei-zhe',
+      titre_fr: 'Rouler vers le nord pour aller au sud',
+      versions: {
+        '255': {
+          titre: '要去南方的人',
+          titre_pinyin: 'yào qù nán fāng de rén',
+          phrases: [{ zh: '有人问他：「你去哪里？」', pinyin: 'yǒu rén wèn tā nǐ qù nǎ lǐ', fr: 'Quelqu’un lui demanda : « Où vas-tu ? »', en: 'Someone asked him.' }],
+          glose: {
+            哪里: { pinyin: 'nǎ lǐ', fr: 'où', en: 'where' },
+            有人: { pinyin: 'yǒu rén', fr: 'quelqu’un', en: 'someone' },
+            空: { pinyin: 'kōng', en: 'empty' }
+          }
+        }
+      }
+    });
+    expect(c.versions[0].glose).toEqual({ 哪里: 'où', 有人: 'quelqu’un' });
+  });
+
   it("marque les contes gratuits d'après l'index, faux par défaut, et écarte une entrée sans identifiant", () => {
     const lus = lireContesIndex(indexSimule.contes);
     expect(lus.map((x) => [x.id, x.gratuit, x.seuils])).toEqual([

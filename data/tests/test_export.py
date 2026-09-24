@@ -376,13 +376,14 @@ def test_un_conte_non_relu_n_entre_pas_dans_l_export(atelier: Path) -> None:
         empreinte_invite="sha256:0", essais=1,
     )
     commun = dict(
-        conte="temoin", titre="明日", titre_fr="Témoin", ouvrage="《témoin》",
-        resume_fr="Un témoin.", glose={"明": "clair"}, generation=generation,
+        conte="temoin", titre="明日", titre_pinyin="míng rì", titre_fr="Témoin",
+        titre_en="Witness", ouvrage="《témoin》", resume_fr="Un témoin.",
+        glose={"明": "clair"}, generation=generation,
     )
     contes_mod.ecrire_version(
         contes_mod.Version(
             seuil=255,
-            phrases=[contes_mod.Phrase(zh="明日。", pinyin="míng rì.", fr="Demain.")],
+            phrases=[contes_mod.Phrase(zh="明日。", pinyin="míng rì", fr="Demain.", en="Tomorrow.")],
             statut=contes_mod.A_RELIRE,
             **commun,  # type: ignore[arg-type]
         )
@@ -394,7 +395,7 @@ def test_un_conte_non_relu_n_entre_pas_dans_l_export(atelier: Path) -> None:
     contes_mod.ecrire_version(
         contes_mod.Version(
             seuil=255,
-            phrases=[contes_mod.Phrase(zh="明日。", pinyin="míng rì.", fr="Demain.")],
+            phrases=[contes_mod.Phrase(zh="明日。", pinyin="míng rì", fr="Demain.", en="Tomorrow.")],
             statut=contes_mod.RELU,
             **commun,  # type: ignore[arg-type]
         )
@@ -405,8 +406,19 @@ def test_un_conte_non_relu_n_entre_pas_dans_l_export(atelier: Path) -> None:
     assert list(conte["versions"]) == ["255"]  # type: ignore[arg-type]
     index = lire(rapport.dossier, "index.json")
     assert index["contes"] == [
-        {"id": "temoin", "titre_fr": "Témoin", "seuils": [255], "fichier": "contes/temoin.json"}
+        {
+            "id": "temoin",
+            "titre_fr": "Témoin",
+            "titre_en": "Witness",
+            "seuils": [255],
+            "fichier": "contes/temoin.json",
+        }
     ]
+    assert conte["titre_en"] == "Witness"
+    lue = conte["versions"]["255"]  # type: ignore[index]
+    assert lue["titre_pinyin"] == "míng rì"
+    assert lue["phrases"] == [{"zh": "明日。", "pinyin": "míng rì", "fr": "Demain.", "en": "Tomorrow."}]
+    assert lue["glose"] == {"明": {"pinyin": "", "fr": "clair", "en": ""}}
 
 
 # -------------------------------------------------------------------------- licences
