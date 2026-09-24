@@ -29,7 +29,8 @@ cd app && npm install && npm run dev
 
 Sept commandes, une par étape, chacune lisant ce que la précédente a écrit. Tout
 ce qui est intermédiaire va dans `data/work/`, hors dépôt ; seuls l'export
-(`app/public/data/<version>/`) et les polices (`app/public/fonts/`) sont versionnés.
+(`app/public/data/<version>/`), les polices (`app/public/fonts/`) et les fiches
+(`data/sources/fiches/`) sont versionnés.
 
 ```
 fetch  →  ingest  →  build  →  export  →  check
@@ -57,8 +58,8 @@ polices et met une minute à produire les woff2. Il se lance à la main, après
 les caractères que « Ma forêt » affiche.
 
 `audio`, `contes` et `fiches` sont à part aussi : elles se lancent à la main, jamais
-dans `wenlu tout`. `contes` et `fiches` appellent l'API Anthropic et demandent une
-clé ; `audio` fait tourner Kokoro en local (`uv sync --extra audio`, poids téléchargés
+dans `wenlu tout`. `contes` et `fiches generer` appellent l'API Anthropic et
+demandent une clé (les fiches peuvent aussi s'écrire sans, voir plus bas) ; `audio` fait tourner Kokoro en local (`uv sync --extra audio`, poids téléchargés
 depuis Hugging Face au premier passage).
 
 Toutes les commandes sont idempotentes : deux passages écrivent les mêmes octets,
@@ -96,6 +97,36 @@ second déclenchement, `etapes: recuperer`, une fois les lots terminés (moins d
 secret `ANTHROPIC_API_KEY` (Settings, Secrets and variables, Actions) ; sans lui,
 elles sont sautées et le résumé le dit. Une fiche ou un conte généré reste « à
 relire » : la relecture humaine est obligatoire avant tout export.
+
+### Rédiger des fiches sans API
+
+Les fiches peuvent aussi être rédigées sans clé d'API, par des agents Claude Code
+dans leur session, puis importées avec les mêmes contrôles que les fiches générées.
+Il faut le build (`wenlu tout`, ou au moins `fetch`, `ingest`, `build`).
+
+```bash
+cd data
+uv run wenlu fiches a-rediger --lot 3 --sur 13   # les caractères du lot 3, dans l'ordre du parcours
+uv run wenlu fiches contexte 人 大 天             # ce qu'il faut savoir pour chacun, et un squelette
+# écrire data/sources/fiches-brouillons/<c>.json (format dans data/schema.md)
+uv run wenlu fiches importer 人 大 天             # contexte, valider(), écriture a_relire ou rejete
+uv run wenlu fiches exporter-relecture           # data/work/relecture.json, pour la relecture humaine
+uv run wenlu fiches appliquer-relecture decisions.json   # {"人": "relu", "大": "rejete"}
+```
+
+`contexte` donne le pinyin, la décomposition GF 0014-2009, le jour du parcours, les
+caractères acquis ce jour-là (les seuls permis dans les mots et la phrase), les mots
+candidats de CC-CEDICT sans leur définition, et les contraintes de `valider()`.
+`importer` affiche, par brouillon, les refus (phrases comptées, étiquette, mots hors
+candidats, caractères hors de l'acquis) et les écarts : on corrige le brouillon et on
+relance, jusqu'à ce qu'il passe. La fiche écrite dans `data/sources/fiches/` le dit :
+`generation.api` vaut « session Claude Code (sans API) », `generation.modele`
+« rédaction manuelle », et `empreinte_invite` est l'empreinte du brouillon.
+L'étiquette `attesté` suppose une origine établie (Shuowen, formes oraculaires) ;
+dans le doute, `mnémotechnique`. Les fiches de 人, 大 et 天 servent d'exemples.
+
+Brouillons et fiches sont versionnés ; la relecture reste humaine et seule une fiche
+relue s'exporte. Après un import, l'empreinte de l'export change : `wenlu export`.
 
 ## Développer sans machine locale
 

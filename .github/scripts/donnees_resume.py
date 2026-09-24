@@ -14,6 +14,7 @@ from collections import Counter
 from pathlib import Path
 
 from wenlu_data.audio import MANIFESTE_EXPORT, dossier_export, perimetre
+from wenlu_data.fiches import dossier_lots
 from wenlu_data.paths import AUDIO_WORK, CONTES_WORK, FICHES_WORK
 
 
@@ -66,17 +67,17 @@ def bilan_audio(version: str, parcours: str, seuil: int) -> list[str]:
     return lignes
 
 
-def bilan_textes(nom: str, dossier: Path) -> list[str]:
+def bilan_textes(nom: str, dossier: Path, lots_dossier: Path | None = None) -> list[str]:
     statuts = Counter(
         _json(f).get("statut", "?")
         for f in sorted(dossier.rglob("*.json"))
         if "lots" not in f.relative_to(dossier).parts
     )
-    lots = [_json(f) for f in sorted((dossier / "lots").glob("*.json"))]
+    lots = [_json(f) for f in sorted((lots_dossier or dossier / "lots").glob("*.json"))]
     en_cours = [str(lot.get("lot")) for lot in lots if lot.get("statut") == "en_cours"]
     lignes = [f"### {nom.capitalize()}", ""]
     if not statuts and not lots:
-        return lignes + ["Aucun lot ni aucun texte dans `data/work/`.", ""]
+        return lignes + ["Aucun lot ni aucun texte.", ""]
     detail = ", ".join(f"{n} {s}" for s, n in sorted(statuts.items())) or "aucun"
     lignes += [
         f"- Textes écrits : {sum(statuts.values())} ({detail}).",
@@ -97,7 +98,8 @@ def main() -> None:
     if etape in ("audio", "tout") and version:
         lignes += bilan_audio(version, parcours, seuil)
     if etape in ("fiches", "recuperer", "tout"):
-        lignes += bilan_textes("fiches", FICHES_WORK)
+        # Les fiches sont versionnées (data/sources/fiches), le journal des lots reste dans data/work.
+        lignes += bilan_textes("fiches", FICHES_WORK, dossier_lots())
     if etape in ("contes", "recuperer", "tout"):
         lignes += bilan_textes("contes", CONTES_WORK)
     print("\n".join(lignes))

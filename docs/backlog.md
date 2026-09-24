@@ -81,15 +81,39 @@ Relevé sur le dépôt après une revue du pipeline. Les numéros ci-dessus ne b
 ### Livrées à moitié : le code attend une clé d'API
 
 Les trois chaînes sont écrites, testées sans réseau, et refusent de partir sans clé
-(code de sortie 2). Aucun contenu n'a donc encore été produit.
+(code de sortie 2). Aucun contenu n'a donc été produit par l'API.
 
-- **1.4, fiches** : génération, validation et relecture en place ; 0 fiche écrite,
-  0 relue. Les 485 caractères s'exportent au statut `sans_fiche`, avec leur
-  décomposition et leurs tracés, sans texte. `ANTHROPIC_API_KEY`.
+- **1.4, fiches** : génération, validation et relecture en place ; sans clé, la
+  rédaction passe par des brouillons (ci-dessous). 3 fiches écrites, 0 relue. Les
+  caractères sans fiche relue s'exportent au statut `sans_fiche`, avec leur
+  décomposition et leurs tracés, sans texte.
 - **1.7, contes** : catalogue versionné, génération par lots en place ; 0 version
   écrite. `ANTHROPIC_API_KEY`. Bloque 2c.1 et 2c.2.
 - **1.5, audio** : périmètre, manifeste et export en place ; 0 fichier sur les
   731 textes du périmètre. Clé du fournisseur, **et** décision de licence ci-dessous.
+
+### Rédiger des fiches sans API (1.4)
+
+L'API n'est pas payée : les fiches du seuil 255 sont rédigées par des agents Claude
+Code dans leur session, sans clé ni réseau, et importées avec les mêmes contrôles que
+les fiches générées. La chaîne API reste en place et utilisable.
+
+- Brouillon versionné, `data/sources/fiches-brouillons/<c>.json` : `c`, `origine_fr`,
+  `origine_en`, `etiquette`, `roles`, `mots`, `phrase`, et `memo_fr`, `memo_en`
+  facultatifs (format dans `data/schema.md`).
+- `wenlu fiches a-rediger --lot N --sur M` partage le seuil entre rédacteurs, en lots
+  stables ; `wenlu fiches contexte <c>` donne l'acquis du jour, les mots candidats et
+  les contraintes ; `wenlu fiches importer` valide et écrit dans `data/sources/fiches/`,
+  `a_relire` ou `rejete`, avec la traçabilité « session Claude Code (sans API) »,
+  « rédaction manuelle » et l'empreinte du brouillon.
+- Relecture humaine inchangée : `wenlu fiches exporter-relecture` rassemble les fiches à
+  relire dans `data/work/relecture.json`, `wenlu fiches appliquer-relecture` applique
+  `{c: "relu" | "rejete"}`.
+- Fait : 人, 大 et 天, à relire. Reste : 252 caractères du seuil, puis les 95 briques du
+  parcours Lire hors liste (亻, 氵, 木…), que l'export embarque aussi. 24 caractères du
+  seuil n'ont pas deux mots candidats lisibles à leur jour : leur fiche en portera moins,
+  écart signalé à la relecture.
+- Lots conseillés : `--sur 13`, une vingtaine de caractères par agent.
 
 ### En attente d'une décision
 

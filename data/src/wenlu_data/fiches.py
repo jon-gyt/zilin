@@ -3,8 +3,8 @@
 Une fiche explique un caractère du parcours par ses composants : une origine en
 exactement trois phrases en français et en anglais, l'étiquette `atteste` ou
 `mnemotechnique`, le rôle de chaque composant (son, sens, forme), deux mots et une
-phrase. Aucun texte de fiche n'est écrit à la main dans le dépôt : il sort du
-pipeline, puis d'une relecture humaine.
+phrase. Aucun texte de fiche n'entre dans le dépôt sans passer par le pipeline : il
+sort de la génération ou de l'import d'un brouillon, puis d'une relecture humaine.
 
 Chaîne : `contexte()` assemble les faits (décomposition canonique GF 0014-2009 et
 nom normalisé de chaque composant, pinyin, rôles probables, mots candidats,
@@ -26,18 +26,26 @@ Licences (`docs/sources-licences.md`) :
   texte à reprendre : il est donné au modèle nommément marqué comme indice à
   vérifier, à ne ni traduire ni recopier.
 
-Deux chemins d'appel, même invite :
+Deux chemins d'appel à l'API, même invite :
 
 - unitaire : `wenlu fiches generer --c 住`, réponse immédiate, relance automatique ;
 - par lots : `wenlu fiches generer --parcours lire --jusqua 40` soumet les caractères
   en une fois à l'API Message Batches (moitié prix, résultat sous 24 h), puis
   `wenlu fiches recuperer` récupère, valide, écrit, et resoumet ce qui a été rejeté.
 
-Sortie : `data/work/fiches/<c>.json` (format dans `data/schema.md`), journal des lots
-dans `data/work/fiches/lots/<lot>.json`.
+Sans API : un rédacteur (un agent Claude Code dans sa session, sans clé ni réseau)
+lit `wenlu fiches contexte 住` — les mêmes faits que l'invite —, écrit un brouillon
+dans `data/sources/fiches-brouillons/<c>.json`, et `wenlu fiches importer` le fait
+passer par le même `valider()`. La traçabilité le dit : `api` vaut
+« session Claude Code (sans API) », `modele` « rédaction manuelle », l'empreinte est
+celle du brouillon.
+
+Sortie : `data/sources/fiches/<c>.json`, versionné (format dans `data/schema.md`) ;
+journal des lots, état de travail hors dépôt, dans `data/work/fiches/lots/<lot>.json`.
 """
 from __future__ import annotations
 
+import hashlib
 import json
 from dataclasses import dataclass, field, replace
 from pathlib import Path
@@ -63,7 +71,7 @@ from .claude import sans_cloture as _sans_cloture
 from .fonts import PONCTUATION_CHINOISE
 from .gf0014 import Controle, TableGF0014, charger_table
 from .ingest import charger_liste, est_sinogramme
-from .paths import BUILD, FICHES_WORK, INGEST, LISTES
+from .paths import BUILD, DATA, FICHES_WORK, INGEST, LISTES, RACINE, WORK
 
 
 #: Au plus trois appels pour une même fiche.
@@ -77,6 +85,9 @@ MOTS_PAR_FICHE = 2
 
 #: Au-delà, l'invite devient un annuaire : on garde les premiers mots candidats.
 MAX_CANDIDATS = 40
+
+#: Journal des lots soumis à l'API : état de travail, hors dépôt, à côté des autres.
+LOTS_WORK = WORK / "fiches" / "lots"
 
 #: Seuil sur lequel la relecture humaine est obligatoire avant export (brief §17).
 SEUIL_RELECTURE = 255
@@ -633,7 +644,7 @@ def lire_reponse(
 
 
 def fiche_depuis_json(document: Mapping[str, object]) -> Fiche:
-    """Relit une fiche écrite dans `data/work/fiches/`."""
+    """Relit une fiche écrite dans `data/sources/fiches/`."""
     generation = document.get("generation") or {}
     phrase = document.get("phrase") or {}
     if not isinstance(generation, dict) or not isinstance(phrase, dict):
@@ -884,7 +895,12 @@ def generer_fiche(
 
 
 def dossier_lots(dossier: Path | None = None) -> Path:
-    return (dossier or FICHES_WORK) / "lots"
+    """Le journal des lots : `data/work/fiches/lots/`, ou `<dossier>/lots` s'il est donné.
+
+    Les fiches sont versionnées, le journal ne l'est pas : c'est l'état d'un passage,
+    que la CI garde en cache d'un passage à l'autre.
+    """
+    return dossier / "lots" if dossier is not None else LOTS_WORK
 
 
 def custom_id(parcours: str, c: str, essai: int) -> str:
@@ -1015,6 +1031,464 @@ def recuperer_lot(
     return journal
 
 
+# --------------------------------------------------------------------------- rédaction sans API
+#
+# Une fiche peut aussi être rédigée à la main — par un agent Claude Code dans sa
+# session, sans clé ni réseau — dans un brouillon versionné. `importer_brouillon()`
+# la fait passer par le même contexte (`Corpus.contexte`) et le même `valider()` que
+# les fiches générées, puis l'écrit au statut `a_relire` ou `rejete`, avec une
+# traçabilité qui dit ce qu'elle est : une rédaction manuelle, pas un appel d'API.
+
+#: Brouillons rédigés à la main, versionnés : un fichier `<c>.json` par caractère.
+BROUILLONS = DATA / "sources" / "fiches-brouillons"
+
+#: Traçabilité d'une fiche rédigée dans une session Claude Code, sans appel d'API.
+API_SESSION = "session Claude Code (sans API)"
+MODELE_MANUEL = "rédaction manuelle"
+
+#: Fiches à relire, rassemblées pour une page de relecture. Hors dépôt.
+RELECTURE = WORK / "relecture.json"
+
+CHAMPS_OBLIGATOIRES = ("c", "origine_fr", "origine_en", "etiquette", "roles", "mots", "phrase")
+CHAMPS_FACULTATIFS = ("memo_fr", "memo_en")
+
+#: Ce que le rédacteur écrit, accentué ou non, et le code que la fiche garde.
+ETIQUETTES_REDIGEES = {
+    "attesté": "atteste",
+    "atteste": "atteste",
+    "mnémotechnique": "mnemotechnique",
+    "mnemotechnique": "mnemotechnique",
+}
+
+#: Les deux décisions de la relecture humaine.
+DECISIONS = (RELU, REJETE)
+
+
+class BrouillonInvalide(ValueError):
+    """Le brouillon ne se lit pas comme une fiche : rien n'est écrit."""
+
+    def __init__(self, c: str, problemes: Sequence[str]) -> None:
+        self.c = c
+        self.problemes = list(problemes)
+        super().__init__(f"{c} : " + " ; ".join(self.problemes))
+
+
+class RelectureInvalide(ValueError):
+    """Le fichier de relecture ne s'applique pas : rien n'est changé."""
+
+    def __init__(self, problemes: Sequence[str]) -> None:
+        self.problemes = list(problemes)
+        super().__init__(" ; ".join(self.problemes))
+
+
+def _aujourdhui() -> str:
+    return _maintenant()[:10]
+
+
+@dataclass(frozen=True)
+class Brouillon:
+    """Une fiche rédigée à la main, telle que son rédacteur l'a écrite."""
+
+    c: str
+    empreinte: str
+    origine_fr: str
+    origine_en: str
+    etiquette: str
+    roles: dict[str, str]
+    mots: list[Mot]
+    phrase: Phrase
+    memo_fr: str | None = None
+    memo_en: str | None = None
+
+
+def empreinte_brouillon(octets: bytes) -> str:
+    """Empreinte des octets du brouillon : `sha256sum` la retrouve."""
+    return "sha256:" + hashlib.sha256(octets).hexdigest()
+
+
+def _textes(valeur: object, cles: Sequence[str], nom: str, problemes: list[str]) -> dict[str, str] | None:
+    """Un objet aux clés `cles`, toutes des chaînes. `None`, et le problème noté, sinon."""
+    if not isinstance(valeur, dict):
+        problemes.append(f"{nom} : attendu un objet {{{', '.join(cles)}}}")
+        return None
+    manquantes = [k for k in cles if not isinstance(valeur.get(k), str)]
+    inconnues = [k for k in valeur if k not in cles]
+    if manquantes:
+        problemes.append(f"{nom} : {', '.join(manquantes)} manquant ou non textuel")
+    if inconnues:
+        problemes.append(f"{nom} : clé inconnue {', '.join(inconnues)}")
+    if manquantes or inconnues:
+        return None
+    return {k: str(valeur[k]).strip() for k in cles}
+
+
+def brouillon_depuis_json(document: object, *, empreinte: str, nom: str | None = None) -> Brouillon:
+    """Lit un brouillon déjà décodé. Relève tous les problèmes de format d'un coup.
+
+    Le format seul est vérifié ici ; le fond (trois phrases, mots candidats, phrase
+    dans l'acquis) l'est par `valider()`, comme pour une fiche générée.
+    """
+    c = nom or "?"
+    if not isinstance(document, dict):
+        raise BrouillonInvalide(c, ["attendu un objet JSON"])
+    c = str(document.get("c") or c)
+    problemes: list[str] = []
+    manquants = [k for k in CHAMPS_OBLIGATOIRES if k not in document]
+    if manquants:
+        problemes.append(f"champ manquant : {', '.join(manquants)}")
+    inconnus = [k for k in document if k not in CHAMPS_OBLIGATOIRES + CHAMPS_FACULTATIFS]
+    if inconnus:
+        problemes.append(f"champ inconnu : {', '.join(inconnus)}")
+    if nom is not None and "c" in document and document["c"] != nom:
+        problemes.append(f"c vaut {document['c']!r} dans un fichier nommé {nom}.json")
+    for cle in ("c", "origine_fr", "origine_en", "etiquette"):
+        if cle in document and not isinstance(document[cle], str):
+            problemes.append(f"{cle} : attendu un texte")
+    for cle in CHAMPS_FACULTATIFS:
+        if document.get(cle) is not None and not isinstance(document[cle], str):
+            problemes.append(f"{cle} : attendu un texte ou null")
+
+    roles: dict[str, str] = {}
+    if "roles" in document:
+        brut = document["roles"]
+        if not isinstance(brut, dict) or not all(isinstance(r, str) for r in brut.values()):
+            problemes.append('roles : attendu un objet {"composant": "son" | "sens" | "forme"}')
+        else:
+            roles = {str(k): str(v).strip() for k, v in brut.items()}
+
+    mots: list[Mot] = []
+    if "mots" in document:
+        brut = document["mots"]
+        if not isinstance(brut, list):
+            problemes.append("mots : attendu une liste de deux objets {hanzi, pinyin, fr, en}")
+        else:
+            for rang, element in enumerate(brut, start=1):
+                lu = _textes(element, ("hanzi", "pinyin", "fr", "en"), f"mot {rang}", problemes)
+                if lu is not None:
+                    mots.append(Mot(**lu))
+
+    phrase: Phrase | None = None
+    if "phrase" in document:
+        lu = _textes(document["phrase"], ("zh", "pinyin", "fr", "en"), "phrase", problemes)
+        if lu is not None:
+            phrase = Phrase(**lu)
+
+    if problemes or phrase is None:
+        raise BrouillonInvalide(c, problemes or ["phrase illisible"])
+    etiquette = str(document["etiquette"]).strip()
+    return Brouillon(
+        c=c,
+        empreinte=empreinte,
+        origine_fr=str(document["origine_fr"]).strip(),
+        origine_en=str(document["origine_en"]).strip(),
+        # Une étiquette inconnue passe telle quelle : `valider()` la refuse, nommément.
+        etiquette=ETIQUETTES_REDIGEES.get(etiquette.lower(), etiquette),
+        roles=roles,
+        mots=mots,
+        phrase=phrase,
+        memo_fr=_texte_ou_none(document.get("memo_fr")),
+        memo_en=_texte_ou_none(document.get("memo_en")),
+    )
+
+
+def lire_brouillon(chemin: Path) -> Brouillon:
+    """Lit `data/sources/fiches-brouillons/<c>.json`."""
+    octets = chemin.read_bytes()
+    try:
+        document = json.loads(octets.decode("utf-8"))
+    except (UnicodeDecodeError, json.JSONDecodeError) as erreur:
+        raise BrouillonInvalide(chemin.stem, [f"JSON illisible : {erreur}"]) from erreur
+    return brouillon_depuis_json(document, empreinte=empreinte_brouillon(octets), nom=chemin.stem)
+
+
+def brouillons_ecrits(dossier: Path | None = None) -> list[Path]:
+    """Tous les brouillons, dans l'ordre des noms de fichier."""
+    dossier = dossier or BROUILLONS
+    if not dossier.exists():
+        return []
+    return sorted(dossier.glob("*.json"))
+
+
+def fiche_depuis_brouillon(
+    brouillon: Brouillon,
+    contexte: Contexte,
+    *,
+    essais: int = 1,
+    horloge: Callable[[], str] = _aujourdhui,
+) -> Fiche:
+    """La fiche d'un brouillon : le texte du rédacteur, les faits du contexte."""
+    return Fiche(
+        c=contexte.c,
+        parcours=contexte.parcours,
+        jour=contexte.jour,
+        pinyin=contexte.pinyin,
+        composants=contexte.formes,
+        structure=contexte.structure,
+        origine_fr=brouillon.origine_fr,
+        origine_en=brouillon.origine_en,
+        etiquette=brouillon.etiquette,
+        memo_fr=brouillon.memo_fr,
+        memo_en=brouillon.memo_en,
+        roles=dict(brouillon.roles),
+        mots=list(brouillon.mots),
+        phrase=brouillon.phrase,
+        generation=Generation(
+            modele=MODELE_MANUEL,
+            api=API_SESSION,
+            date=horloge(),
+            empreinte_invite=brouillon.empreinte,
+            essais=essais,
+        ),
+    )
+
+
+@dataclass(frozen=True)
+class Import:
+    """Ce qu'a donné l'import d'un brouillon."""
+
+    fiche: Fiche
+    rapport: Rapport
+    chemin: Path
+    #: Même brouillon, même verdict : la fiche écrite est gardée telle quelle,
+    #: statut de relecture compris.
+    inchange: bool = False
+    #: Statut de la fiche remplacée, s'il y en avait une.
+    remplace: str | None = None
+
+
+def importer_brouillon(
+    brouillon: Brouillon,
+    corpus: Corpus,
+    *,
+    dossier: Path | None = None,
+    horloge: Callable[[], str] = _aujourdhui,
+) -> Import:
+    """Contexte, fiche, `valider()`, écriture : les contrôles des fiches générées.
+
+    Un brouillon inchangé ne réécrit rien : une fiche relue le reste. Un brouillon
+    modifié repart au statut `a_relire`, sa relecture est à refaire.
+    """
+    contexte = corpus.contexte(brouillon.c)
+    chemin = chemin_fiche(brouillon.c, dossier)
+    precedente = lire_fiche(chemin) if chemin.exists() else None
+    manuelle = precedente is not None and precedente.generation.api == API_SESSION
+    fiche = fiche_depuis_brouillon(
+        brouillon,
+        contexte,
+        essais=precedente.generation.essais + 1 if manuelle and precedente else 1,
+        horloge=horloge,
+    )
+    rapport = valider(fiche, contexte)
+    if (
+        manuelle
+        and precedente is not None
+        and precedente.generation.empreinte_invite == brouillon.empreinte
+        and precedente.generation.refus == rapport.refus
+    ):
+        return Import(fiche=precedente, rapport=rapport, chemin=chemin, inchange=True)
+    fiche.generation = replace(fiche.generation, refus=rapport.refus)
+    fiche.statut = A_RELIRE if rapport.conforme else REJETE
+    ecrire_fiche(fiche, dossier)
+    return Import(
+        fiche=fiche,
+        rapport=rapport,
+        chemin=chemin,
+        remplace=precedente.statut if precedente is not None else None,
+    )
+
+
+CONTRAINTES = f"""Contraintes, vérifiées par `wenlu fiches importer` comme pour une fiche générée.
+Rejet :
+- origine_fr et origine_en : exactement {PHRASES_ORIGINE} phrases chacune (fins de phrase \
+comptées : {' '.join(FINS_DE_PHRASE)}) ; l'anglaise est rédigée pour un anglophone, pas \
+traduite mot à mot.
+- etiquette : « attesté » seulement si le Shuowen jiezi ou la paléographie (os oraculaires, \
+bronzes, petit sceau) établissent l'origine ; « mnémotechnique » dans tous les autres cas, \
+et dans le doute. Sous « mnémotechnique », décrire ce que l'on voit dans la forme actuelle, \
+jamais prétendre dire ce que le caractère a voulu dire autrefois.
+- mots : exactement {MOTS_PAR_FICHE} (moins s'il y a moins de candidats), pris dans les \
+mots candidats, écrits à l'identique, sans doublon ; pinyin avec les tons ; traductions \
+fr et en rédigées soi-même, jamais reprises d'un dictionnaire.
+- phrase.zh : les seuls caractères acquis ce jour-là, et la ponctuation \
+{PONCTUATION_CHINOISE} ; ni chiffre ni lettre.
+Écarts, signalés à la relecture :
+- un rôle ({', '.join(ROLES)}) pour chaque composant de la décomposition, et pour eux seuls ;
+- la phrase emploie le caractère du jour ;
+- traductions fr et en non vides.
+memo_fr et memo_en sont facultatifs (null) : une phrase courte, quand elle ajoute à \
+l'origine. Des constats, pas des félicitations ; ni emoji ni dragon."""
+
+
+def squelette(contexte: Contexte) -> dict[str, object]:
+    """Un brouillon vide pour ce caractère : les rôles pré-remplis du rôle probable."""
+    vide_mot = {"hanzi": "", "pinyin": "", "fr": "", "en": ""}
+    return {
+        "c": contexte.c,
+        "origine_fr": "",
+        "origine_en": "",
+        "etiquette": "",
+        "memo_fr": None,
+        "memo_en": None,
+        "roles": {e.forme: e.role_probable or "" for e in contexte.elements},
+        "mots": [dict(vide_mot) for _ in range(min(MOTS_PAR_FICHE, len(contexte.candidats)))],
+        "phrase": {"zh": "", "pinyin": "", "fr": "", "en": ""},
+    }
+
+
+def decrire_contexte(contexte: Contexte, *, brouillons: Path | None = None) -> list[str]:
+    """Ce qu'un rédacteur doit savoir d'un caractère, en lignes à afficher.
+
+    Les mêmes faits que l'invite des fiches générées. Des mots candidats, le mot et
+    son pinyin seulement : aucune définition de CC-CEDICT (`docs/sources-licences.md` §4.2).
+    """
+    lignes = [
+        f"== {contexte.c} ({', '.join(contexte.pinyin) or 'pinyin inconnu'}) — parcours "
+        f"{contexte.parcours}, jour {contexte.jour}, famille {contexte.famille} ==",
+        f"Décomposition GF 0014-2009 : {contexte.structure}"
+        + ("" if contexte.reconcilie else " (non réconciliée, à traiter avec prudence)"),
+        "Composants, dans l'ordre d'écriture :",
+    ]
+    for element in contexte.elements:
+        nom = f" « {element.nom} »" if element.nom else " (hors table de la norme)"
+        role = (
+            f" — rôle probable : {element.role_probable} (Make Me a Hanzi, à vérifier)"
+            if element.role_probable
+            else ""
+        )
+        lignes.append(f"- {element.forme}{nom}{role}")
+    if contexte.type_etymologie:
+        lignes.append(
+            f"Type d'étymologie relevé par Make Me a Hanzi : {contexte.type_etymologie} (à vérifier)."
+        )
+    if contexte.indice_en:
+        lignes.append(f"{MARQUE_INDICE} : « {contexte.indice_en} »")
+    lignes += [
+        "",
+        f"Caractères acquis au jour {contexte.jour} ({len(contexte.acquis)}), "
+        "seuls autorisés dans les mots et la phrase :",
+        "".join(contexte.acquis),
+        "",
+        f"Mots candidats ({len(contexte.candidats)}), déjà lisibles ce jour-là — "
+        f"en choisir {min(MOTS_PAR_FICHE, len(contexte.candidats))} :",
+    ]
+    lignes += [f"- {m.hanzi} ({m.pinyin})" for m in contexte.candidats] or ["- aucun"]
+    chemin = (brouillons or BROUILLONS) / f"{contexte.c}.json"
+    lignes += [
+        "",
+        f"Brouillon à écrire : {_relatif(chemin)}",
+        json.dumps(squelette(contexte), ensure_ascii=False, indent=1),
+    ]
+    return lignes
+
+
+def a_rediger(
+    seuil: int,
+    corpus: Corpus,
+    *,
+    lot: int = 1,
+    sur: int = 1,
+    dossier: Path | None = None,
+    listes: Path | None = None,
+) -> list[str]:
+    """Caractères du seuil sans fiche conforme, dans l'ordre du parcours, lot `lot` sur `sur`.
+
+    Les lots découpent le seuil entier, pas ce qui reste : un caractère garde son lot
+    quand les autres avancent, et des rédacteurs en parallèle ne se marchent pas dessus.
+    Une fiche manque, est rejetée (aux contrôles ou à la relecture), ou ne passe plus
+    `valider()` : le caractère est à rédiger.
+    """
+    if sur < 1 or not 1 <= lot <= sur:
+        raise ValueError(f"lot {lot} sur {sur} : attendu 1 ≤ lot ≤ sur")
+    liste = charger_liste((listes or LISTES) / f"seuil-{seuil}.txt")
+    rang = {c: i for i, c in enumerate(corpus.ordre)}
+    ordonnee = sorted(liste, key=lambda c: (rang.get(c, len(rang)), liste.index(c)))
+    taille, reste = divmod(len(ordonnee), sur)
+    debut = (lot - 1) * taille + min(lot - 1, reste)
+    part = ordonnee[debut : debut + taille + (1 if lot - 1 < reste else 0)]
+    return [c for c in part if not _fiche_conforme(c, corpus, dossier)]
+
+
+def _fiche_conforme(c: str, corpus: Corpus, dossier: Path | None) -> bool:
+    chemin = chemin_fiche(c, dossier)
+    if not chemin.exists() or c not in corpus:
+        return False
+    fiche = lire_fiche(chemin)
+    return fiche.statut != REJETE and valider(fiche, corpus.contexte(c)).conforme
+
+
+def exporter_relecture(
+    *,
+    corpus: Corpus | None = None,
+    dossier: Path | None = None,
+    sortie: Path | None = None,
+    horloge: Callable[[], str] = _maintenant,
+) -> tuple[Path, int]:
+    """Rassemble les fiches `a_relire` en un seul JSON, pour une page de relecture."""
+    a_relire = sorted(
+        (f for f in map(lire_fiche, fiches_ecrites(dossier)) if f.statut == A_RELIRE),
+        key=lambda f: (f.jour, f.c),
+    )
+    entrees: list[dict[str, object]] = []
+    for fiche in a_relire:
+        entree = fiche.en_json()
+        if corpus is not None and fiche.c in corpus:
+            entree["ecarts"] = valider(fiche, corpus.contexte(fiche.c)).ecarts
+        entrees.append(entree)
+    document = {
+        "date": horloge(),
+        "source": _relatif(dossier or FICHES_WORK),
+        "decisions": list(DECISIONS),
+        "retour": '{"<caractère>": "relu" | "rejete", …}, appliqué par '
+        "`wenlu fiches appliquer-relecture <fichier>`",
+        "fiches": entrees,
+    }
+    sortie = sortie or RELECTURE
+    sortie.parent.mkdir(parents=True, exist_ok=True)
+    sortie.write_text(json.dumps(document, ensure_ascii=False, indent=1), encoding="utf-8")
+    return sortie, len(entrees)
+
+
+def appliquer_relecture(decisions: object, dossier: Path | None = None) -> list[Fiche]:
+    """Applique `{c: "relu" | "rejete"}` par `relire()`. Tout ou rien.
+
+    Une valeur `null` est une fiche pas encore décidée : elle est laissée telle quelle.
+    Une fiche rejetée aux contrôles ne peut pas être relue : il faut corriger son
+    brouillon et le réimporter.
+    """
+    if not isinstance(decisions, dict):
+        raise RelectureInvalide(['attendu un objet JSON {"<caractère>": "relu" | "rejete"}'])
+    problemes: list[str] = []
+    retenues: list[tuple[str, str]] = []
+    for c, statut in decisions.items():
+        if statut is None:
+            continue
+        if statut not in DECISIONS:
+            problemes.append(f"{c} : décision {statut!r}, attendu {' ou '.join(DECISIONS)}")
+            continue
+        chemin = chemin_fiche(str(c), dossier)
+        if not chemin.exists():
+            problemes.append(f"{c} : aucune fiche ({_relatif(chemin)})")
+            continue
+        fiche = lire_fiche(chemin)
+        if statut == RELU and fiche.generation.refus:
+            problemes.append(
+                f"{c} : rejetée aux contrôles ({' ; '.join(fiche.generation.refus)}), "
+                "à corriger avant relecture"
+            )
+            continue
+        retenues.append((str(c), str(statut)))
+    if problemes:
+        raise RelectureInvalide(problemes)
+    return [relire(c, statut, dossier) for c, statut in retenues]
+
+
+def _relatif(chemin: Path) -> str:
+    try:
+        return str(chemin.relative_to(RACINE))
+    except ValueError:
+        return str(chemin)
+
+
 # --------------------------------------------------------------------------- check
 
 
@@ -1091,7 +1565,9 @@ def controles(
 
 # --------------------------------------------------------------------------- cli
 
-app = typer.Typer(help="Fiches FR et EN : génération par lots, récupération, validation, relecture.")
+app = typer.Typer(
+    help="Fiches FR et EN : génération par lots ou rédaction sans API, validation, relecture."
+)
 
 
 def _client(modele: str) -> ClientClaude:
@@ -1201,3 +1677,158 @@ def commande_relire(
         typer.echo(str(erreur), err=True)
         raise typer.Exit(code=1) from erreur
     typer.echo(f"{fiche.c} : statut {fiche.statut}.")
+
+
+# --------------------------------------------------------------------------- cli : rédaction sans API
+
+
+@app.command("importer")
+def commande_importer(
+    caracteres: Optional[list[str]] = typer.Argument(
+        None, help="Les caractères à importer (défaut : tous les brouillons)."
+    ),
+    parcours: str = typer.Option("lire", "--parcours", help="lire ou hsk."),
+) -> None:
+    """Importe les brouillons rédigés sans API : mêmes contrôles que les fiches générées."""
+    chemins = brouillons_ecrits()
+    absents: list[str] = []
+    if caracteres:
+        voulus = {c for arg in caracteres for c in arg}
+        chemins = [p for p in chemins if p.stem in voulus]
+        absents = sorted(voulus - {p.stem for p in chemins})
+        for c in absents:
+            typer.echo(f"erreur {c} : aucun brouillon {_relatif(BROUILLONS / f'{c}.json')}")
+    if not chemins:
+        typer.echo(f"Aucun brouillon à importer dans {_relatif(BROUILLONS)}.")
+        if absents:
+            raise typer.Exit(code=1)
+        return
+    corpus = _corpus(parcours)
+    rejetes = 0
+    erreurs = len(absents)
+    conformes = 0
+    for chemin in chemins:
+        try:
+            resultat = importer_brouillon(lire_brouillon(chemin), corpus)
+        except BrouillonInvalide as erreur:
+            erreurs += 1
+            typer.echo(f"erreur {erreur.c} : brouillon illisible, rien n'est écrit")
+            for probleme in erreur.problemes:
+                typer.echo(f"  format : {probleme}")
+            continue
+        except CaractereHorsParcours as erreur:
+            erreurs += 1
+            typer.echo(f"erreur {chemin.stem} : {erreur.args[0]}, rien n'est écrit")
+            continue
+        fiche, rapport = resultat.fiche, resultat.rapport
+        if resultat.inchange:
+            etat = f"inchangée, statut {fiche.statut}"
+        elif rapport.conforme:
+            etat = "à relire"
+        else:
+            etat = "rejetée"
+        remplace = f", remplace une fiche {resultat.remplace}" if resultat.remplace else ""
+        typer.echo(
+            f"{'ok   ' if rapport.conforme else 'rejet'} {fiche.c} : {etat}, "
+            f"jour {fiche.jour} → {_relatif(resultat.chemin)}{remplace}"
+        )
+        for motif in rapport.refus:
+            typer.echo(f"  refus : {motif}")
+        if rapport.intrus:
+            typer.echo(
+                f"  acquis au jour {fiche.jour} : {''.join(corpus.acquis(fiche.c))} "
+                f"(voir `wenlu fiches contexte {fiche.c}`)"
+            )
+        for ecart in rapport.ecarts:
+            typer.echo(f"  écart : {ecart}")
+        if rapport.conforme:
+            conformes += 1
+        else:
+            rejetes += 1
+    typer.echo(f"{conformes} conformes, {rejetes} rejetées, {erreurs} en erreur.")
+    if rejetes or erreurs:
+        typer.echo("Corriger les brouillons signalés, puis relancer l'import.", err=True)
+        raise typer.Exit(code=1)
+
+
+@app.command("contexte")
+def commande_contexte(
+    caracteres: list[str] = typer.Argument(..., help="Un ou plusieurs caractères : 人 大 天, ou 人大天."),
+    parcours: str = typer.Option("lire", "--parcours", help="lire ou hsk."),
+) -> None:
+    """Ce qu'un rédacteur doit savoir d'un caractère avant d'écrire son brouillon."""
+    corpus = _corpus(parcours)
+    voulus: list[str] = []
+    for arg in caracteres:
+        voulus.extend([arg] if arg in corpus or len(arg) == 1 else list(arg))
+    typer.echo(CONTRAINTES)
+    hors = 0
+    for c in dict.fromkeys(voulus):
+        typer.echo("")
+        try:
+            contexte = corpus.contexte(c)
+        except CaractereHorsParcours as erreur:
+            hors += 1
+            typer.echo(f"== {c} == {erreur.args[0]}")
+            continue
+        for ligne in decrire_contexte(contexte):
+            typer.echo(ligne)
+    if hors:
+        raise typer.Exit(code=1)
+
+
+@app.command("a-rediger")
+def commande_a_rediger(
+    seuil: int = typer.Option(SEUIL_RELECTURE, "--seuil", help="Liste `seuil-<N>.txt`."),
+    lot: int = typer.Option(1, "--lot", help="Numéro du lot, de 1 à --sur."),
+    sur: int = typer.Option(1, "--sur", help="Nombre de lots entre lesquels découper le seuil."),
+    parcours: str = typer.Option("lire", "--parcours", help="lire ou hsk."),
+) -> None:
+    """Liste les caractères du seuil sans fiche conforme, dans l'ordre du parcours."""
+    corpus = _corpus(parcours)
+    try:
+        restants = a_rediger(seuil, corpus, lot=lot, sur=sur)
+    except (OSError, ValueError) as erreur:
+        typer.echo(str(erreur), err=True)
+        raise typer.Exit(code=1) from erreur
+    lot_dit = f", lot {lot} sur {sur}" if sur > 1 else ""
+    typer.echo(f"Seuil {seuil}, parcours {parcours}{lot_dit} : {len(restants)} caractères à rédiger.")
+    if restants:
+        typer.echo(" ".join(restants))
+
+
+@app.command("exporter-relecture")
+def commande_exporter_relecture(
+    sortie: Optional[Path] = typer.Option(
+        None, "--sortie", help="Fichier JSON écrit (défaut : data/work/relecture.json)."
+    ),
+    parcours: str = typer.Option("lire", "--parcours", help="lire ou hsk, pour les écarts."),
+) -> None:
+    """Rassemble les fiches à relire en un seul JSON, pour une page de relecture."""
+    try:
+        corpus: Corpus | None = charger_corpus(parcours)
+    except (CorpusAbsent, ParcoursInconnu):
+        corpus = None
+    chemin, nombre = exporter_relecture(corpus=corpus, sortie=sortie)
+    typer.echo(f"{nombre} fiches à relire → {_relatif(chemin)}.")
+
+
+@app.command("appliquer-relecture")
+def commande_appliquer_relecture(
+    fichier: Path = typer.Argument(..., help='JSON {"<caractère>": "relu" | "rejete", …}.'),
+) -> None:
+    """Applique les décisions d'une relecture humaine : `relire` sur chaque fiche."""
+    try:
+        decisions = json.loads(fichier.read_text(encoding="utf-8"))
+        relues = appliquer_relecture(decisions)
+    except (OSError, json.JSONDecodeError) as erreur:
+        typer.echo(f"{fichier} illisible : {erreur}", err=True)
+        raise typer.Exit(code=1) from erreur
+    except RelectureInvalide as erreur:
+        typer.echo("Rien n'est appliqué :", err=True)
+        for probleme in erreur.problemes:
+            typer.echo(f"  {probleme}", err=True)
+        raise typer.Exit(code=1) from erreur
+    for fiche in relues:
+        typer.echo(f"{fiche.c} : statut {fiche.statut}.")
+    typer.echo(f"{len(relues)} décisions appliquées.")
