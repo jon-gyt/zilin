@@ -30,7 +30,8 @@
   import Embleme from './Embleme.svelte';
   import Voeu from './Voeu.svelte';
   import { pistes as pistesFete, type FeteDuJour } from './fetes';
-  import type { Fetes } from './content';
+  import type { Fetes, Saisons } from './content';
+  import { phrasesDeTao, pistes as pistesSaison, type TermeDuJour } from './saisons';
   import Glyph from './Glyph.svelte';
   import Marque from './Marque.svelte';
   import Pinceaux from './Pinceaux.svelte';
@@ -49,6 +50,8 @@
     p,
     fete = null,
     fetes = null,
+    terme = null,
+    saisons = null,
     ondemarrer,
     oncase,
     onchercher,
@@ -58,6 +61,9 @@
     /** La fête du jour : le vœu prend la place de la marque, l'emblème porte le caractère. */
     fete?: FeteDuJour | null;
     fetes?: Fetes | null;
+    /** Le terme solaire qui court : une ligne sous la marque, jamais un jour de fête. */
+    terme?: TermeDuJour | null;
+    saisons?: Saisons | null;
     /** Le bouton plein (ou en contour) : ce qu'il ouvre se décide dans `parcours.ts`. */
     ondemarrer: () => void;
     oncase: (id: CaseId) => void;
@@ -167,8 +173,8 @@
   const taoStade = $derived(stade(p.tao.croissance));
   const pct = $derived(((m.position + 0.5) / Math.max(1, m.coups.length)) * 100);
   const aDroite = $derived(pct < 55);
-  /* Un jour de fête, Tao commence par la fête, puis revient à la journée. */
-  const phrases = $derived(fete && fete.tao.length > 0 ? [fete.tao[0], ...m.phrases, ...fete.tao.slice(1)] : m.phrases);
+  /* Un jour de fête, Tao commence par la fête, un jour de terme par le terme, puis revient à la journée. */
+  const phrases = $derived(phrasesDeTao(fete, terme, m.phrases));
   const texte = $derived(phrases.length === 0 ? '' : phrases[phrase % phrases.length]);
 
   function toucherTao(): void {
@@ -244,8 +250,18 @@
     {:else}
       <div class="marque">
         <span class="logo"><Marque size={30} /></span>
-        <span class="nom">Wenlu</span>
-        <span class="cn hz">文路</span>
+        <span class="lignes">
+          <span class="rangee"><span class="nom">Wenlu</span><span class="cn hz">文路</span></span>
+          {#if terme}
+            <!-- le terme solaire qui court, discret : son caractère, son nom, sa traduction -->
+            <span class="terme" aria-label="{terme.nomZh}, {terme.fr}">
+              <span class="tc" aria-hidden="true"
+                ><Glyph char={terme.caractere.c} size={17} write={false} color="var(--ink2)" pistes={saisons ? pistesSaison(saisons, terme.caractere.c) : []}
+                /></span
+              ><span class="hz" aria-hidden="true">{terme.nomZh}</span><span aria-hidden="true"> · {terme.fr}</span>
+            </span>
+          {/if}
+        </span>
       </div>
     {/if}
     <button class="icone" aria-label="Chercher un caractère" onclick={onchercher}>
@@ -442,6 +458,33 @@
   .logo {
     line-height: 0;
     color: var(--ink);
+  }
+  .lignes {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+  }
+  .rangee {
+    display: flex;
+    align-items: baseline;
+    gap: 8px;
+  }
+  /* le terme solaire : une ligne sous la marque, dans la hauteur de l'en-tête */
+  .terme {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    margin-top: 3px;
+    font-size: 13px;
+    line-height: 1.1;
+    color: var(--ink2);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .terme .tc {
+    line-height: 0;
+    flex-shrink: 0;
   }
   .nom {
     font-family: var(--head);

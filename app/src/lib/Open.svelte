@@ -11,13 +11,19 @@
    * de la fête — la pleine lune, la rosace de papier découpé, la lanterne… C'est le
    * caractère bonus de la fête (灯, 雨, 粽, 桥, 菊, 冬…) : son pinyin et son sens suivent,
    * tels que `fetes.json` les donne, et l'anecdote dit ses briques.
+   *
+   * Le jour où commence un terme solaire (`saisons.json`), sauf un jour de fête, l'anecdote
+   * est celle du terme : sa rubrique, son caractère à lire écrit au pinceau (露, 霜, 雪…) avec
+   * son pinyin et son sens, le nom du terme et sa traduction, ce qui se passe dans la nature,
+   * et en une phrase ce qu'est un terme solaire. Tout vient de `saisons.json`.
    */
   import Embleme from './Embleme.svelte';
   import Glyph from './Glyph.svelte';
   import Marque from './Marque.svelte';
   import Tao from './Tao.svelte';
-  import { anecdoteDuJour, anecdotesOnce, fetesOnce, type Anecdote } from './content';
+  import { anecdoteDuJour, anecdotesOnce, fetesOnce, saisonsOnce, type Anecdote } from './content';
   import { feteDuJour, pistes, type FeteDuJour } from './fetes';
+  import { annonceLeTerme, pistes as pistesSaison, termeDuJour, type TermeDuJour } from './saisons';
   import type { Progress } from './session';
   import { humeur, stade } from './tao';
 
@@ -43,6 +49,11 @@
   let fete: FeteDuJour | null = $state(null);
   /** La famille du caractère de la fête : ses traits se lisent sans tout relire. */
   let pistesFete: string[] = $state([]);
+  /** Le terme solaire qui commence ce jour-là, `null` les autres jours et les jours de fête. */
+  let terme: TermeDuJour | null = $state(null);
+  let rubriqueTerme = $state('');
+  let explicationTerme = $state('');
+  let pistesTerme: string[] = $state([]);
 
   /*
    * L'anecdote du jour et les fêtes sont lues ensemble : un jour de fête, on ne montre
@@ -51,15 +62,26 @@
   $effect(() => {
     const j = jour;
     let vivant = true;
-    void Promise.all([anecdotesOnce().catch(() => null), fetesOnce().catch(() => null)]).then(
-      ([liste, fetes]) => {
+    void Promise.all([
+      anecdotesOnce().catch(() => null),
+      fetesOnce().catch(() => null),
+      saisonsOnce().catch(() => null)
+    ]).then(
+      ([liste, fetes, saisons]) => {
         if (!vivant) return;
         const f = fetes ? feteDuJour(fetes, j) : null;
         fete = f;
         pistesFete = f && fetes ? pistes(fetes, f.anecdote.c) : [];
+        const t = saisons ? termeDuJour(saisons, j) : null;
+        terme = annonceLeTerme(f, t) ? t : null;
+        rubriqueTerme = saisons?.rubrique ?? '';
+        explicationTerme = saisons?.explication ?? '';
+        pistesTerme = terme && saisons ? pistesSaison(saisons, terme.caractere.c) : [];
         a = f
           ? { c: f.anecdote.c, titre: f.anecdote.titre, texte: f.anecdote.texte }
-          : liste
+          : terme
+            ? { c: terme.caractere.c, titre: `${terme.nomZh} · ${terme.fr}`, texte: terme.ligne }
+            : liste
             ? anecdoteDuJour(liste.anecdotes, j)
             : null;
       }
@@ -77,7 +99,7 @@
 
   <div class="anec">
     {#if a}
-      <div class="water" aria-hidden="true"><Glyph char={a.c} size={420} pistes={pistesFete} /></div>
+      <div class="water" aria-hidden="true"><Glyph char={a.c} size={420} pistes={fete ? pistesFete : pistesTerme} /></div>
     {/if}
 
     <div class="sceau">
@@ -99,6 +121,21 @@
       {/if}
       <h1>{a.titre}</h1>
       <p>{a.texte}</p>
+    {:else if a && terme}
+      <!-- le jour où commence un terme solaire : son caractère à lire, puis son nom -->
+      {#if rubriqueTerme}<div class="k rubrique">{rubriqueTerme}</div>{/if}
+      <div class="grand terme"><Glyph char={a.c} size={120} pistes={pistesTerme} /></div>
+      {#if terme.caractere.pinyin || terme.caractere.sens}
+        <p class="bonus">
+          {#if terme.caractere.pinyin}<span class="py">{terme.caractere.pinyin}</span>{/if}{terme.caractere.pinyin &&
+          terme.caractere.sens
+            ? ' · '
+            : ''}{terme.caractere.sens}
+        </p>
+      {/if}
+      <h1><span class="hz">{terme.nomZh}</span> <span class="py-terme">{terme.pinyin}</span> · {terme.fr}</h1>
+      <p>{a.texte}</p>
+      {#if explicationTerme}<p class="explication">{explicationTerme}</p>{/if}
     {:else if a}
       <div class="grand"><Glyph char={a.c} size={120} /></div>
       <h1>{a.titre}</h1>
@@ -133,5 +170,21 @@
   .bonus .py {
     font-style: italic;
     color: var(--ink);
+  }
+
+  /* un terme solaire commence : son pinyin plus léger dans le titre, l'explication en retrait */
+  .grand.terme {
+    margin-top: 10px;
+  }
+  .py-terme {
+    font-family: var(--sans);
+    font-weight: 400;
+    font-style: italic;
+    color: var(--ink2);
+  }
+  .explication {
+    margin-top: 12px;
+    font-size: 14px;
+    color: var(--mist);
   }
 </style>
