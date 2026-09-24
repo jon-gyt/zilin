@@ -69,6 +69,14 @@ Trois régimes de licence, trois familles de fichiers, jamais mêlés
   `composants.tsv`, les paires, les textes de licence, chaque fiche et chaque
   conte écrits). `zilin check` la recalcule pour dire si l'export est périmé.
   `mots.json` (CC-CEDICT) n'en est pas : l'export ne le lit pas.
+- L'empreinte couvre aussi le code qui écrit l'export : sa première ligne est
+  `format N`, où `N` est `FORMAT_EXPORT` d'`export.py`, et `export.py` lui-même
+  y entre comme un fichier lu (`exporteur`). Règle : **incrémenter
+  `FORMAT_EXPORT` à chaque changement de ce que l'export écrit à entrées égales**
+  (clé ajoutée ou renommée, ordre, règle de sélection). Toucher `export.py`
+  suffit déjà à rendre l'export périmé, même sans changement de format — un
+  commentaire aussi : on réexporte. Comme l'empreinte change, `date` avance, et
+  avec elle le jour du champ `modified` de chaque fichier.
 - `parcours` reprend les jours de `parcours-<nom>.json` : une brique nouvelle par
   session de 10 minutes, puis un ou deux composés.
 - `avancement_possible` est la part des caractères de la famille qui portent une

@@ -41,7 +41,9 @@ Déterminisme : deux exports du même contenu écrivent les mêmes octets. Les
 fichiers sont triés, les dictionnaires écrits dans un ordre fixe, et la date est
 celle du dernier changement de contenu — elle est relue de l'export précédent
 tant que rien n'a bougé. `index.json` porte l'empreinte du build dont il est
-tiré ; `zilin check` la recalcule pour dire si l'export est à jour.
+tiré ; `zilin check` la recalcule pour dire si l'export est à jour. Cette
+empreinte couvre aussi le code qui écrit l'export — `FORMAT_EXPORT` et ce
+fichier lui-même : corriger l'exporteur rend l'export périmé.
 """
 from __future__ import annotations
 
@@ -64,6 +66,15 @@ from .paths import BUILD, DATA, EXPORT, GF0014, INGEST
 
 #: Version par défaut de l'export.
 VERSION = "0.1.0"
+
+#: Version du format écrit par ce module. À incrémenter à chaque changement de
+#: ce que l'export produit à entrées égales (clé ajoutée, ordre, règle de
+#: sélection) : elle entre dans l'empreinte, et l'export versionné devient périmé.
+FORMAT_EXPORT = 1
+
+#: Le code de l'exporteur, lui aussi dans l'empreinte : un changement de ce
+#: fichier où l'on aurait oublié `FORMAT_EXPORT` rend quand même l'export périmé.
+EXPORTEUR = Path(__file__).resolve()
 
 #: Listes cibles de la version 0.1.0 : le périmètre en découle.
 LISTES_CIBLES: tuple[str, ...] = ("seuil-255", "hsk-1")
@@ -123,9 +134,11 @@ def fichiers_sources(
 
     Seuls ceux que l'export lit vraiment : `mots.json` (CC-CEDICT) et
     `unihan-definitions.json` n'en sont pas, et n'ont donc pas à rendre un
-    export périmé quand la source change.
+    export périmé quand la source change. `export.py` en est : le code qui
+    écrit l'export fait partie de ce dont il est tiré.
     """
     lus: list[tuple[str, Path]] = [
+        ("exporteur", EXPORTEUR),
         ("decompositions", build / "decompositions.json"),
         ("graphe", build / "graphe.json"),
         *[(f"parcours-{nom}", build / f"parcours-{nom}.json") for nom in sorted(PARCOURS)],
@@ -145,11 +158,12 @@ def fichiers_sources(
 
 
 def empreinte_build(fichiers: Sequence[tuple[str, Path]]) -> str:
-    """Empreinte du build : une ligne par fichier lu, `nom sha256`, puis sha256.
+    """Empreinte du build : `format N`, une ligne `nom sha256` par fichier lu, puis sha256.
 
-    Un fichier absent compte pour `—` : son absence fait partie de l'état.
+    `N` est `FORMAT_EXPORT`. Un fichier absent compte pour `—` : son absence
+    fait partie de l'état.
     """
-    lignes = [
+    lignes = [f"format {FORMAT_EXPORT}"] + [
         f"{nom} {empreinte_fichier(chemin) if chemin.exists() else '—'}"
         for nom, chemin in fichiers
     ]

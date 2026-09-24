@@ -541,6 +541,36 @@ def test_le_controle_dit_si_l_export_est_a_jour(atelier: Path) -> None:
     assert "0.1.0" in perime["export : à jour"].detail
 
 
+def _a_jour() -> bool:
+    resultats = {
+        c.nom: c for c in controles(export_mod.EXPORT, build=export_mod.BUILD, ingest=export_mod.INGEST)
+    }
+    return resultats["export : à jour"].ok
+
+
+def test_corriger_l_exporteur_rend_l_export_perime(
+    atelier: Path, tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    """Le code qui écrit l'export fait partie de l'empreinte : entrées égales, code changé, export périmé."""
+    copie = tmp_path / "export.py"
+    copie.write_bytes(export_mod.EXPORTEUR.read_bytes())
+    monkeypatch.setattr(export_mod, "EXPORTEUR", copie)
+    export("0.1.0")
+    assert _a_jour()
+
+    copie.write_bytes(copie.read_bytes() + b"\n# correction de l'exporteur\n")
+    assert not _a_jour()
+
+
+def test_changer_de_format_rend_l_export_perime(
+    atelier: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    export("0.1.0")
+    assert _a_jour()
+    monkeypatch.setattr(export_mod, "FORMAT_EXPORT", export_mod.FORMAT_EXPORT + 1)
+    assert not _a_jour()
+
+
 def test_la_commande_export_ecrit_et_rapporte(atelier: Path) -> None:
     resultat = CliRunner().invoke(cli, ["export", "--version", "0.2.0"])
     assert resultat.exit_code == 0, resultat.output
