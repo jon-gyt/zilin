@@ -91,6 +91,10 @@ describe('un libellé de bouton sur deux lignes reste centré', () => {
   it('le bouton annule l’alignement à gauche hérité de `button`', () => {
     expect(source('tokens.css')).toContain('.btn{text-align:center;');
   });
+
+  it('les sélecteurs des réglages aussi (« Plus de révisions »)', () => {
+    expect(source('tokens.css')).toContain('.seg button{text-align:center;');
+  });
 });
 
 describe('des zones de tap d’au moins 44 pt', () => {
