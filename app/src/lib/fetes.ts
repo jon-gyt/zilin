@@ -31,7 +31,8 @@ export type FeteDuJour = {
   caractereVoeu: string | null;
   /** Les phrases de Tao pendant la fête, dans l'ordre. */
   tao: string[];
-  anecdote: { rubrique: string; c: string; titre: string; texte: string };
+  /** L'anecdote de la fête ; `c` est le caractère bonus, `pinyin` et `sens` le présentent. */
+  anecdote: { rubrique: string; c: string; pinyin: string; sens: string; titre: string; texte: string };
 };
 
 /** Jours de `de` à `a`, deux dates AAAA-MM-JJ : positif si `a` est après `de`. */
@@ -77,7 +78,7 @@ export function feteDuJour(f: Fetes, jour: string): FeteDuJour | null {
       voeu: { zh: t.voeu.zh, pinyin: t.voeu.pinyin, fr: remplir(t.voeu.fr, jetons) },
       caractereVoeu: t.caractere_voeu || null,
       tao: t.tao.map((l) => remplir(l, jetons)),
-      anecdote: { ...t.anecdote }
+      anecdote: { ...t.anecdote, pinyin: t.anecdote.pinyin ?? '', sens: t.anecdote.sens ?? '' }
     };
   }
   return null;
