@@ -240,6 +240,38 @@ export function unites(phrase: PhraseConte, glose: Readonly<Record<string, strin
   return out;
 }
 
+/** Les ponctuations qui ouvrent : elles restent avec ce qui les suit. */
+const OUVRANTES = new Set(Array.from('“‘《〈（(「『【〔'));
+
+/**
+ * Groupe les unités pour le passage à la ligne : une ponctuation reste collée au mot
+ * qu'elle suit (« 天， »), une ponctuation ouvrante à celui qu'elle précède, si bien
+ * qu'aucune ligne ne commence par une virgule ni ne finit par un guillemet ouvrant.
+ */
+export function grouper(us: readonly Unite[]): Unite[][] {
+  const out: Unite[][] = [];
+  let attente: Unite[] = [];
+  for (const u of us) {
+    if (u.touchable) {
+      out.push([...attente, u]);
+      attente = [];
+      continue;
+    }
+    const cs = Array.from(u.texte);
+    const k = cs.findIndex((c) => OUVRANTES.has(c));
+    const fermante = k === -1 ? u.texte : cs.slice(0, k).join('');
+    const ouvrante = k === -1 ? '' : cs.slice(k).join('');
+    const muet = (t: string): Unite => ({ texte: t, pinyin: null, sens: null, touchable: false });
+    if (fermante !== '') {
+      if (out.length > 0 && attente.length === 0) out[out.length - 1].push(muet(fermante));
+      else attente.push(muet(fermante));
+    }
+    if (ouvrante !== '') attente.push(muet(ouvrante));
+  }
+  if (attente.length > 0) out.push(attente);
+  return out;
+}
+
 /** Le titre chinois d'une version, en unités : l'export ne lui donne pas de pinyin. */
 export function unitesDuTitre(v: VersionConte): Unite[] {
   return unites({ zh: v.titre, pinyin: '', fr: '' }, v.glose);

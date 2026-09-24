@@ -53,6 +53,7 @@
     learnNext,
     nombreDues,
     noterActivite,
+    noterConteLu,
     noterRevision,
     noterTrophees,
     openDay,
@@ -546,6 +547,17 @@
     enregistrer();
   }
 
+  /* ---------- les contes (épic 2c), par la case Lire ---------- */
+
+  /**
+   * « J'ai lu » : la version du seuil entre dans les contes lus (le trophée se remplit),
+   * et Tao note un conte lu, qu'elle lit par-dessus l'épaule.
+   */
+  function conteLu(conte: string, seuil: number): void {
+    p = noterActivite(noterConteLu(p, conte, seuil), p.day, 'conte');
+    enregistrer();
+  }
+
   /** Quitter : retour au menu sans question, la progression est sauvegardée. */
   function quitter(): void {
     enregistrer();
@@ -618,7 +630,7 @@
     onretour={quitter}
   />
 {:else if ecran === 'lire'}
-  <Lire {p} onretour={allerAuMenu} />
+  <Lire {p} onretour={allerAuMenu} onlu={conteLu} />
 {:else if ecran === 'foret'}
   <!-- Ma forêt, deux niveaux au plus : le cercle, puis une famille ou les récompenses. -->
   {#if famille}

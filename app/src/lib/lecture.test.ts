@@ -4,13 +4,18 @@
  * conte lu à l'exécution vient de l'export (`contes/<id>.json`, `data/schema.md`).
  */
 import { describe, it, expect } from 'vitest';
-import type { Conte, IndexConte, VersionConte } from './content';
+import { readFileSync } from 'node:fs';
+import type { Conte, Index, IndexConte, VersionConte } from './content';
+import { emptyProgress, noterActivite, noterConteLu } from './session';
+import { POIDS, posture } from './tao';
+import { tropheesContes } from './trophees';
 import {
   bibliotheque,
   caracteresAcquis,
   caracteresDeVersion,
   entreeConte,
   estHan,
+  grouper,
   ligneGlose,
   manquants,
   syllabes,
@@ -215,10 +220,49 @@ describe('le découpage en unités qui se touchent', () => {
     ]);
   });
 
+  it('aucune ligne ne commence par une ponctuation fermante ni ne finit par une ouvrante', () => {
+    const u = unites({ zh: '他说：“等兔子！”人来。', pinyin: '', fr: '' }, V405.glose);
+    expect(grouper(u).map((g) => g.map((x) => x.texte).join(''))).toEqual([
+      '他', '说：', '“等', '兔子！”', '人', '来。'
+    ]);
+    expect(grouper(unites({ zh: '“人”', pinyin: '', fr: '' }, {})).map((g) => g.length)).toEqual([3]);
+  });
+
   it("la glose au toucher s'écrit « pinyin, sens », sans vide quand l'un manque", () => {
     expect(ligneGlose({ pinyin: 'tù', sens: 'lièvre' })).toBe('tù, lièvre');
     expect(ligneGlose({ pinyin: null, sens: 'lièvre' })).toBe('lièvre');
     expect(ligneGlose({ pinyin: null, sens: null })).toBe('');
+  });
+});
+
+describe("« J'ai lu »", () => {
+  it('remplit le trophée du conte à ce seuil et nourrit Tao, qui lit par-dessus l’épaule', () => {
+    const avant = emptyProgress('2026-03-02');
+    const p = noterActivite(noterConteLu(avant, 'essai', 255), avant.day, 'conte');
+    const index = { contes: [INDEX] } as unknown as Index;
+    const t = tropheesContes(index, 0, {}, p.contesLus);
+    expect(t.find((x) => x.id === 'conte-essai-255')?.obtenu).toBe(true);
+    expect(t.find((x) => x.id === 'conte-essai-405')?.obtenu).toBe(false);
+    expect(p.tao.croissance - avant.tao.croissance).toBe(POIDS.conte);
+    expect(posture('conte')).toBe('lecture');
+  });
+});
+
+describe('le lecteur', () => {
+  const src = readFileSync(new URL('Conte.svelte', import.meta.url), 'utf8');
+
+  it("écrit le conte en police, comme le texte du pas Utiliser : c'est un texte courant", () => {
+    expect(src).not.toMatch(/import Glyph|<Glyph/);
+    expect(src).toContain('class="read');
+  });
+
+  it("n'a pas de cinabre : un conte n'a pas d'élément ajouté", () => {
+    expect(src).not.toMatch(/--zhu|class:new/);
+  });
+
+  it('dit ce qu’on touche, et Tao y lit', () => {
+    expect(src).toContain('dire(u.texte)');
+    expect(src).toContain('posture="lecture"');
   });
 });
 
