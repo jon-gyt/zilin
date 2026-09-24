@@ -50,20 +50,39 @@ Positionnement : l'arbre étymologique qui apprend à lire, conforme aux seuils 
 
 ## 6. Structure de l'app
 
-Trois onglets : Aujourd'hui (le chemin), Ma forêt (colline, familles, série, récompenses), Réglages.
+Une maison, une ligne, des détours. Le menu est la maison : tout en part, tout y revient. La session est la ligne : ses pas s'enchaînent sans repasser par le menu. Réviser, Jouer, Lire, Ma forêt et Réglages sont les détours, et aucun ne dérègle la session. Il n'y a pas de barre d'onglets.
 
-Ouverture : le logo s'écrit (1,6 s), puis l'anecdote du jour. Au tout premier lancement, la première session passe avant tout : 人, 大, 天, puis lire 天天. Quatre minutes, un mot lu. Deux questions ensuite (objectif, rythme).
+Ouverture : le logo s'écrit (1,6 s), puis l'anecdote du jour, qui compte comme le pas 1, Ouvrir, puis le menu. Au tout premier lancement, la première session passe avant tout : 人, 大, 天, puis lire 天天. Quatre minutes, un mot lu. Deux questions ensuite (objectif, rythme). On arrive alors sur le menu, la journée faite : la première graine est plantée, la session complète commence le lendemain.
+
+### Le menu
+
+Il tient sur un écran de téléphone, sans défiler.
+
+- En-tête : la marque, puis Réglages, par une icône.
+- La carte du jour : le caractère dans son 米字格, dessiné depuis les traits, la brique nouvelle en cinabre ; son pinyin, qui se fait entendre ; son sens et sa décomposition (亻 + 主). Toucher le caractère le réécrit au pinceau et le prononce.
+- Le chemin : six coups de pinceau, un par pas (faits en jade, en cours à l'encre, à venir en filet). Tao marche sur le pas en cours et dit une phrase qui dépend de l'état de la journée ; la toucher la fait sauter et changer de phrase. Dessous, « Pas 2 sur 6 · Échauffer » et la durée.
+- Un seul bouton plein : « Commencer la session », « Reprendre au pas 3 ». La journée faite, il devient « Une session de plus · une brique », en contour.
+- Quatre cases identiques : Réviser 温, Jouer 玩, Lire 读, Ma forêt 林. Avant la session, Réviser dit « Dans la session » et ouvre le pas Échauffer, pour que la pile ne se vide jamais en douce ; après, elle ouvre une révision en plus. Jouer est la seule porte des jeux. Lire ouvre les contes. Ma forêt garde les familles, la série et les récompenses, deux niveaux au plus.
+- Chaque écran ouvert depuis le menu a un seul retour, qui y ramène.
+
+États du menu : nouvelle journée ; session entamée (reprise au pas exact, sauvegarde à chaque tap) ; journée faite (« Graine plantée, une seule par jour ») ; session de plus en cours ; retour après absence (mode rattrapage : révisions seules par blocs de cinq minutes, annoncés un à la fois, « Bloc 1 · 14 cartes », Tao en pot, aucun nouveau caractère tant que la pile n'est pas redescendue, message neutre, jamais de compteur de jours perdus).
 
 ### La session, six pas dans le même ordre
 
-1. Ouvrir : l'anecdote du jour, culturelle, accrochée à un caractère (20 s, sautable).
+1. Ouvrir : l'anecdote du jour, culturelle, accrochée à un caractère (20 s, sautable). Elle se lit à l'ouverture.
 2. Échauffer : les révisions dues, en questions (2 à 4 min).
 3. Apprendre : une brique, puis un ou deux composés. Une seule brique nouvelle par session de 10 minutes.
 4. Utiliser : deux mots, une phrase, trois lignes à lire avec uniquement l'acquis. Le caractère du jour en rouge.
 5. Fixer : une vérification sur ce qui vient d'être vu.
-6. Clore : le constat en une ligne, la graine plantée (animation), le rendez-vous de demain.
+6. Clore : le constat en une ligne, la graine plantée (animation), la semaine et la série, le rendez-vous de demain. C'est la seule fin : on revient ensuite au menu.
 
-Budget choisi par l'utilisateur : 5, 10 ou 20 minutes. Trois états du chemin : nouvelle journée ; session interrompue (reprise au pas exact, sauvegarde à chaque tap) ; retour après absence (mode rattrapage : révisions seules par blocs de cinq minutes, aucun nouveau caractère tant que la pile n'est pas redescendue, message neutre, jamais de compteur de jours perdus).
+Les pas s'enchaînent sans repasser par le menu. Chaque pas porte en tête la même barre de six coups de pinceau, et « Quitter », qui sauvegarde et ramène au menu ; le menu propose alors de reprendre au pas exact.
+
+Budget choisi par l'utilisateur : 5, 10 ou 20 minutes.
+
+### Travailler plus : la session de plus
+
+La journée faite, « Une session de plus » ajoute une brique : quatre pas, Apprendre (la brique suivante du parcours), Utiliser, Fixer, Clore. Pas d'anecdote ; Échauffer passe devant seulement s'il reste des cartes dues. Jamais une seconde graine : la série compte les jours, pas les sessions, et le menu garde le compte (« Graine plantée · 2 sessions de plus »). Pas de limite par jour. Jamais en rattrapage : aucune brique nouvelle n'entre tant que la pile n'est pas redescendue. Rien ne remet la journée à zéro avant le lendemain.
 
 Fluidité : un tap par écran, bouton principal unique en bas, avance automatique après une bonne réponse (1,3 s, tap pour aller plus vite), audio au toucher du caractère, pas de menu ni de fenêtre modale en session, « Quitter » sauvegarde sans question. Explications en trois phrases ; la suite dans la fiche, d'un tap.
 
