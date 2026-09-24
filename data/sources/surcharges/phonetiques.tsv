@@ -1,0 +1,13 @@
+# Phonétiques des fiches, par caractère.
+#
+# Le contrôle « fiches : rôle son » de `wenlu check` (`phonetiques.py`) compare la
+# lecture moderne du caractère à celle de sa phonétique, le caractère que ses
+# composants de rôle `son` écrivent. Il le retrouve seul dans la décomposition
+# (un composant seul, ou le groupe qui forme 青 dans 请). Une ligne ici le lui
+# donne quand la forme moderne l'a réduit au point qu'on ne le retrouve plus, et
+# que la fiche le nomme : c'est une décision de rédaction, qui se relit.
+#
+# Format : `#` en commentaire ; trois colonnes séparées par une tabulation :
+# caractère, phonétique, raison.
+有	又	la main 又 yòu, réduite à 𠂇 en haut du caractère, donne le son de yǒu (bronzes ; la fiche le dit)
+新	辛	辛 xīn, posé sur 木 et découpé en 立, 一 et 小, donne le son de xīn ; le groupe a le tracé de 亲 qīn, que la fiche distingue

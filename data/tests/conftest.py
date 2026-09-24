@@ -13,6 +13,7 @@ SURCHARGES_REELLES = {
     "IDS": surcharges.IDS,
     "EQUIVALENCES": surcharges.EQUIVALENCES,
     "MOTS_EXCLUS": surcharges.MOTS_EXCLUS,
+    "PHONETIQUES": surcharges.PHONETIQUES,
 }
 
 
