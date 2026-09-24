@@ -34,7 +34,7 @@
     type Destination
   } from './lib/parcours';
   import { planifier, type JeuId } from './lib/jeux';
-  import { toutesLesFamilles, type Noeud } from './lib/content';
+  import { reglerApercu, toutesLesFamilles, type Noeud } from './lib/content';
   import FeteDecor from './lib/FeteDecor.svelte';
   import { fetesOnce, saisonsOnce, type Fetes, type Saisons } from './lib/content';
   import { poserFete } from './lib/fetes';
@@ -156,6 +156,8 @@
 
   /** Réglages : le budget, le tracé, une progression importée. */
   function remplacer(nouvelle: Progress): void {
+    /* Le mode relecture règle l'aperçu avant que le menu ne relise le contenu. */
+    reglerApercu(nouvelle.relecture);
     p = nouvelle;
     majDue();
     enregistrer();
@@ -174,6 +176,7 @@
     const jour = today();
     /* La pile due est recomptée sur les cartes : c'est elle qui ouvre et ferme le rattrapage. */
     const ouvert = setDue(openDay(stored, jour), nombreDues(stored, new Date()), jour);
+    reglerApercu(ouvert.relecture);
     p = ouvert;
     if (ouvert !== stored) void saveProgress(ouvert);
     chargee = true;

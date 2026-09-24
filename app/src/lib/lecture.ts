@@ -8,7 +8,8 @@
  *   passe le seuil de stabilité FSRS de `srs.ts` ;
  * - l'app ouvre, de chaque conte, la version du seuil le plus haut dont tous les
  *   caractères sont acquis ; sans version lisible, le conte est fermé et dit le seuil
- *   qu'il attend ;
+ *   qu'il attend — sauf en mode relecture (Réglages) : un conte fermé s'ouvre quand même,
+ *   marqué « pas encore dans ton acquis », et ce que ce mode ouvre ne compte pas comme lu ;
  * - quand la version ouverte est plus riche que toutes celles déjà lues, l'app le signale ;
  * - `gratuit` est un marqueur porté par l'index, et rien d'autre : aucun conte ne se ferme
  *   pour une raison d'achat.
@@ -61,6 +62,17 @@ export function versionLisible(conte: Conte, acquis: ReadonlySet<string>): Versi
   return choisie;
 }
 
+/** Ce que la bibliothèque et le lecteur disent d'une version que l'acquis n'ouvre pas encore. */
+export const MENTION_HORS_ACQUIS = 'pas encore dans ton acquis';
+
+/**
+ * La version qu'ouvre le mode relecture quand l'acquis n'en ouvre aucune : la première
+ * relue, sinon la première à relire. Une version relue passe devant l'aperçu.
+ */
+export function versionDeRelecture(conte: Conte): VersionConte | null {
+  return conte.versions.find((v) => v.statut !== 'a_relire') ?? conte.versions[0] ?? null;
+}
+
 /* ---------- la bibliothèque ---------- */
 
 /** Un conte dans la bibliothèque, tel que l'écran le montre. */
@@ -82,6 +94,16 @@ export type EntreeConte = {
   lue: boolean;
   /** 2c.2 : la version ouverte est plus riche que toutes celles déjà lues. */
   plusRiche: boolean;
+  /**
+   * Mode relecture : la version ouverte a des caractères que l'acquis n'a pas encore. Elle
+   * se lit quand même, marquée « pas encore dans ton acquis ».
+   */
+  horsAcquis: boolean;
+  /**
+   * La version ouverte ne compte pas comme lue : elle est à relire (aperçu), ou hors de
+   * l'acquis. Ni les contes lus, ni les trophées, ni Tao ne la notent.
+   */
+  sansCompte: boolean;
 };
 
 /**
@@ -92,16 +114,21 @@ export function entreeConte(
   i: IndexConte,
   conte: Conte | null,
   acquis: ReadonlySet<string>,
-  lus: readonly number[] = []
+  lus: readonly number[] = [],
+  relecture = false
 ): EntreeConte {
   const base = {
     id: i.id,
     titre_zh: conte?.titre_zh || i.titre_zh || '',
     titre_pinyin: conte?.titre_pinyin || i.titre_pinyin || '',
     titre_fr: conte?.titre_fr || i.titre_fr,
-    gratuit: i.gratuit === true
+    gratuit: i.gratuit === true,
+    horsAcquis: false,
+    sansCompte: false
   };
-  const version = conte === null ? null : versionLisible(conte, acquis);
+  const lisible = conte === null ? null : versionLisible(conte, acquis);
+  const version =
+    lisible ?? (relecture && conte !== null ? versionDeRelecture(conte) : null);
   if (version === null) {
     const premiere = conte?.versions[0] ?? null;
     const seuils = premiere ? [premiere.seuil] : [...i.seuils];
@@ -115,8 +142,11 @@ export function entreeConte(
     };
   }
   const deja = lus.length > 0 ? Math.max(...lus) : null;
+  const horsAcquis = lisible === null;
   return {
     ...base,
+    horsAcquis,
+    sansCompte: horsAcquis || version.statut === 'a_relire',
     version,
     attend: null,
     reste: 0,
@@ -127,16 +157,18 @@ export function entreeConte(
 
 /**
  * La bibliothèque : les contes ouverts d'abord, puis les fermés, chacun dans l'ordre de
- * l'index. Un index sans conte donne une bibliothèque vide.
+ * l'index. Un index sans conte donne une bibliothèque vide. En mode relecture, tout conte
+ * qui a une version s'ouvre.
  */
 export function bibliotheque(
   index: readonly IndexConte[],
   contes: ReadonlyMap<string, Conte>,
   acquis: ReadonlySet<string>,
-  contesLus: Readonly<Record<string, readonly number[]>> = {}
+  contesLus: Readonly<Record<string, readonly number[]>> = {},
+  relecture = false
 ): EntreeConte[] {
   const toutes = index.map((i) =>
-    entreeConte(i, contes.get(i.id) ?? null, acquis, contesLus[i.id] ?? [])
+    entreeConte(i, contes.get(i.id) ?? null, acquis, contesLus[i.id] ?? [], relecture)
   );
   return [...toutes.filter((e) => e.version !== null), ...toutes.filter((e) => e.version === null)];
 }

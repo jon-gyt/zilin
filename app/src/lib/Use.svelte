@@ -7,10 +7,12 @@
    * Aucun texte de contenu n'est écrit ici : les mots et la phrase viennent de la fiche
    * du caractère que le parcours pose aujourd'hui (export versionné, surcouché par la
    * démonstration) ; sans fiche relue, l'écran le dit au lieu d'emprunter les mots d'un
-   * autre caractère. Les trois lignes à lire, elles, restent celles de la maquette
+   * autre caractère. L'aperçu allumé (Réglages), les mots et la phrase d'une fiche à
+   * relire portent la mention « à relire ». Les trois lignes à lire, elles, restent celles de la maquette
    * (`data/demo/textes/住.json`) : l'export ne porte encore aucun texte ni conte.
    * Le cinabre ne sert qu'à une chose sur cet écran : le caractère du jour dans le texte.
    */
+  import ARelire from './ARelire.svelte';
   import EnTetePas from './EnTetePas.svelte';
   import Glyph from './Glyph.svelte';
   import {
@@ -157,6 +159,7 @@
           >
         </div>
       {/if}
+      {#if mots.length > 0 || phrase}<ARelire de={compo} bloc />{/if}
     </div>
     <div class="foot"><button class="btn" onclick={onsuivant}>Lire trois lignes</button></div>
   {:else if vue === 'texte' && t}

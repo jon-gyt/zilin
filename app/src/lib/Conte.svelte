@@ -8,11 +8,17 @@
    * et son sens dans la bande du bas, et le dit (`audio.dire`, silencieux sans voix). La
    * traduction se replie. « J'ai lu » en fin de conte note la version lue. Tao lit
    * par-dessus l'épaule. Aucun cinabre ici : le conte n'a pas d'élément ajouté.
+   *
+   * En mode relecture (Réglages), une version de l'aperçu porte la mention « à relire » en
+   * tête, une version que l'acquis n'ouvre pas encore « pas encore dans ton acquis » ; leur
+   * « J'ai lu » ne note rien (`Lire.fini`) : un texte qu'on essaie n'est pas un conte lu.
    */
+  import ARelire from './ARelire.svelte';
   import Tao from './Tao.svelte';
   import { dire } from './audio';
   import { fiche } from './content';
   import {
+    MENTION_HORS_ACQUIS,
     grouper,
     ligneGlose,
     traduction,
@@ -85,7 +91,11 @@
 
   <div class="verif-tete">
     <div class="grow">
-      <div class="k">Version du seuil {v?.seuil}</div>
+      <div class="k">
+        Version du seuil {v?.seuil}
+        <ARelire de={v} />
+        {#if entree.horsAcquis}<span class="mention">{MENTION_HORS_ACQUIS}</span>{/if}
+      </div>
       {#if entree.titre_zh}
         <h1 class="vrai" lang="zh-Hans">{entree.titre_zh}</h1>
         <div class="py">{entree.titre_pinyin}</div>

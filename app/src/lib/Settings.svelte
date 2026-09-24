@@ -1,8 +1,8 @@
 <script lang="ts">
   /**
    * Réglages : l'ossature. Le rythme, les révisions (rétention cible FSRS), le tracé,
-   * et la progression qui s'exporte et se réimporte en JSON. Un seul thème, le papier
-   * clair : il n'y a rien à régler.
+   * le mode relecture, et la progression qui s'exporte et se réimporte en
+   * JSON. Un seul thème, le papier clair : il n'y a rien à régler.
    *
    * Ni compte, ni réseau : le fichier est écrit et relu par le navigateur, la
    * progression reste dans IndexedDB.
@@ -11,6 +11,7 @@
   import {
     REGLAGES_RETENTION,
     effetRetention,
+    setRelecture,
     setBudget,
     setRetention,
     setTrace,
@@ -45,6 +46,15 @@
 
   function choisirTrace(): void {
     onprogression(setTrace(p, !p.trace));
+  }
+
+  /**
+   * Le mode relecture : les fiches et les contes que le pipeline a écrits et que personne n'a
+   * encore relus (« à relire »), et les contes que l'acquis n'ouvre pas encore (« pas encore
+   * dans ton acquis »). Éteint par défaut ; ce qu'il ouvre ne compte pas comme lu.
+   */
+  function choisirRelecture(): void {
+    onprogression(setRelecture(p, !p.relecture));
   }
 
   /** Export : un fichier JSON, téléchargé depuis le navigateur. */
@@ -114,6 +124,23 @@
         aria-checked={p.trace}
         aria-label="Tracé des briques"
         onclick={choisirTrace}
+      ></button>
+    </div>
+    <div class="tog">
+      <div>
+        <div>Mode relecture</div>
+        <div class="k">
+          Ouvre aussi les textes à relire et les contes pas encore lisibles, chacun signalé. Ce
+          qui s'y lit ne compte pas.
+        </div>
+      </div>
+      <button
+        class="sw"
+        class:on={p.relecture}
+        role="switch"
+        aria-checked={p.relecture}
+        aria-label="Mode relecture"
+        onclick={choisirRelecture}
       ></button>
     </div>
   </div>

@@ -9,8 +9,10 @@
    * composé ne montre que la brique ; un jour non réconcilié est sauté, et la trace part
    * dans la console. Aucun texte de contenu n'est écrit ici : origine, rôle, étiquette,
    * mots et phrase viennent du JSON versionné de `app/public/data/`, et la ligne neutre
-   * `LIGNE_SANS_FICHE` tient lieu d'origine tant que la fiche n'est pas écrite.
+   * `LIGNE_SANS_FICHE` tient lieu d'origine tant que la fiche n'est pas écrite. L'aperçu
+   * allumé (Réglages), une fiche à relire porte la mention « à relire ».
    */
+  import ARelire from './ARelire.svelte';
   import EnTetePas from './EnTetePas.svelte';
   import Glyph from './Glyph.svelte';
   import Tao from './Tao.svelte';
@@ -178,6 +180,7 @@
       {:else}
         <p class="origine k">{LIGNE_SANS_FICHE}</p>
       {/if}
+      <ARelire de={brique} bloc />
       {#if !traceOfferte}
         <div class="acts">
           <button class="btn ghost" onclick={() => onvue('trace')}>Tracer {brique.c}</button>
@@ -240,6 +243,7 @@
       {:else}
         <p class="origine k">{LIGNE_SANS_FICHE}</p>
       {/if}
+      <ARelire de={compo} bloc />
     </div>
     {#if mots.length > 0 || phrase}
       <div class="card">
@@ -255,6 +259,7 @@
           <div class="hz phrase">{phrase.hanzi}</div>
           <div class="trad">{phrase.pinyin} {phrase.fr}</div>
         {/if}
+        <ARelire de={compo} bloc />
       </div>
     {/if}
     <div class="foot">

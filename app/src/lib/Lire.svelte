@@ -4,15 +4,23 @@
    * avec les seuls caractères du seuil (brief §7, stories 2c.1 et 2c.2). Chaque conte
    * s'ouvre dans la version la plus riche que l'acquis permet de lire ; sans version
    * lisible, il reste fermé et dit le seuil qu'il attend. Quand une version plus riche
-   * qu'avant s'ouvre, l'entrée le dit. Toute la logique est dans `lecture.ts`.
+   * qu'avant s'ouvre, l'entrée le dit. Toute la logique est dans `lecture.ts`. En mode
+   * relecture (Réglages), les contes à relire s'y ajoutent, marqués « à relire », et un
+   * conte fermé s'ouvre quand même, marqué « pas encore dans ton acquis ».
    *
    * Sans conte dans l'export, l'écran le dit simplement, sans rien feindre. Un seul
    * retour, vers le menu ; le lecteur, lui, revient ici. Tao lit par-dessus l'épaule.
    */
+  import ARelire from './ARelire.svelte';
   import Conte from './Conte.svelte';
   import Tao from './Tao.svelte';
   import { contesExport, type Conte as ConteExporte, type IndexConte } from './content';
-  import { bibliotheque, caracteresAcquis, type EntreeConte } from './lecture';
+  import {
+    MENTION_HORS_ACQUIS,
+    bibliotheque,
+    caracteresAcquis,
+    type EntreeConte
+  } from './lecture';
   import type { Progress } from './session';
   import { humeur, stade } from './tao';
 
@@ -47,7 +55,7 @@
 
   const acquis = $derived(caracteresAcquis(p.cartes));
   const entrees = $derived(
-    lus === null ? null : bibliotheque(lus.index, lus.contes, acquis, p.contesLus)
+    lus === null ? null : bibliotheque(lus.index, lus.contes, acquis, p.contesLus, p.relecture)
   );
   const lecture = $derived(
     ouvert === null ? null : (entrees?.find((e) => e.id === ouvert && e.version !== null) ?? null)
@@ -71,8 +79,12 @@
     haut();
   }
 
+  /**
+   * Ce que le mode relecture a ouvert (une version à relire, ou hors de l'acquis) ne compte
+   * pas comme lu : ni les contes lus, ni les trophées, ni Tao ne le notent.
+   */
   function fini(e: EntreeConte): void {
-    if (e.version !== null) onlu(e.id, e.version.seuil);
+    if (e.version !== null && !e.sansCompte) onlu(e.id, e.version.seuil);
     fermer();
   }
 
@@ -127,7 +139,11 @@
             <span class="ico"><span class="hz">{Array.from(e.titre_zh || e.version.titre)[0] ?? ''}</span></span>
             <span class="grow">
               {@render titre(e)}
-              <span class="d">seuil {e.version.seuil}{e.lue ? ' · lu' : ''}</span>
+              <span class="d">
+                seuil {e.version.seuil}{e.lue ? ' · lu' : ''}
+                <ARelire de={e.version} />
+                {#if e.horsAcquis}<span class="mention">{MENTION_HORS_ACQUIS}</span>{/if}
+              </span>
               {#if e.plusRiche}
                 <span class="riche">Une version plus riche de ce conte est ouverte.</span>
               {/if}

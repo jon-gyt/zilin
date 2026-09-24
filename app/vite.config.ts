@@ -21,10 +21,24 @@ export default defineConfig({
       // Le site public (story 5.2, `scripts/site/`) partage l'artefact Pages et la base :
       // il ne doit ni être précaché, ni recevoir `index.html` de l'app par la route de
       // navigation du service worker, dont la portée couvre toute la base.
+      //
+      // L'aperçu des textes à relire (`data/<version>/apercu/`) n'est pas précaché : ~440 Kio
+      // que seul le propriétaire lit, interrupteur allumé dans les Réglages, et que chaque
+      // installation téléchargerait sinon. Il est mis en cache au fil de la lecture
+      // (`NetworkFirst`) : ce qui a été ouvert une fois se relit hors ligne, le reste attend
+      // le réseau — acceptable pour un aperçu. Ce sont des fichiers de l'app, servis avec
+      // elle : aucune requête ne sort de son origine.
       workbox: {
         globPatterns: ['**/*.{js,css,html,webmanifest,json,svg,png,woff2,mp3,md,txt,TXT}'],
-        globIgnores: ['**/node_modules/**/*', ...GLOB_HORS_PRECACHE],
-        navigateFallbackDenylist: [motifPagesDuSite(process.env.BASE_PATH)]
+        globIgnores: ['**/node_modules/**/*', 'data/*/apercu/**', ...GLOB_HORS_PRECACHE],
+        navigateFallbackDenylist: [motifPagesDuSite(process.env.BASE_PATH)],
+        runtimeCaching: [
+          {
+            urlPattern: /\/data\/[^/]+\/apercu\/.+\.json$/,
+            handler: 'NetworkFirst',
+            options: { cacheName: 'wenlu-apercu', expiration: { maxEntries: 400 } }
+          }
+        ]
       }
     })
   ],

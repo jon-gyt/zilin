@@ -6,7 +6,8 @@
    * La famille et ses tracés viennent de l'export versionné : un fichier de fiches et un
    * fichier de traits, ceux de cette famille et d'elle seule. La fiche courte affiche
    * l'origine et son étiquette quand une fiche relue (ou la surcouche de démonstration)
-   * en porte une ; sinon elle le dit, et n'étiquette rien.
+   * en porte une ; sinon elle le dit, et n'étiquette rien. L'aperçu allumé (Réglages),
+   * une fiche à relire porte la mention « à relire ».
    */
   import { untrack } from 'svelte';
   import {
@@ -17,6 +18,7 @@
     type FicheLue,
     type Noeud
   } from './content';
+  import ARelire from './ARelire.svelte';
   import { acquis, etat, noeud, placerArbre } from './foret';
   import { glyph } from './glyph';
   import { type StrokeSet } from './strokes';
@@ -170,6 +172,7 @@
     {#if pleine && pleine.origine_fr !== ''}
       <p class="origine">{pleine.origine_fr}</p>
       {#if pleine.etiquette}<span class="tag">{ETIQUETTES[pleine.etiquette]}</span>{/if}
+      <ARelire de={pleine} />
     {:else}
       <p class="origine k">{LIGNE_SANS_FICHE}</p>
     {/if}
