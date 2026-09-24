@@ -18,7 +18,7 @@ Référence jouable : `maquettes/zilin-jeu.html` (démos des mécaniques) et `ma
 5. Le message WeChat. Un message reçu, trois réponses dont une tient. 你好吗？→ 我很好，你呢？ Arbre de 3 à 10 échanges par famille.
 6. Les jumeaux. Flash de 700 ms, deux caractères proches, quinze paires par minute.
 7. Les lettres de Que. Une lettre par semaine, 40 à 120 caractères, uniquement acquis, question finale à un mot. Feuilleton : Que voyage de 西安 à 喀什.
-8. Les saisons. Décor du cercle selon le calendrier chinois : Printemps 春, fête des Lanternes 灯, Qingming 清, fête des Bateaux-Dragons 龙, Mi-Automne 月, Nouvel An 雪. Un caractère bonus et une anecdote par fête.
+8. Les saisons. Décor selon le calendrier chinois : Nouvel An 年, fête des Lanternes 灯, Qingming 雨, fête des bateaux 粽 (des bateaux sans tête de bête), Qixi 桥, mi-automne 月, double neuf 菊, solstice d'hiver 冬. Un caractère bonus et une anecdote par fête, dans `data/sources/fetes/textes.tsv`. Le décor de l'app est en place ; celui du cercle de Ma forêt reste à faire.
 9. Les devinettes de lanternes (灯谜). Une devinette = une décomposition déguisée. « Une bouche mord la queue du bœuf » : 告. « Un homme sous un arbre » : 休. « Le soleil et la lune ensemble » : 明. « Dix bouches » : 古. « Une femme et un enfant » : 好. Base de 100, une par matin, portée par Tao ; la lanterne s'allume pour la journée.
 10. La cuisine de Tao. Recette en chinois, ingrédients sur l'étal, erreurs plausibles. 蛋炒饭 = 鸡蛋 + 米饭 + 油 ; 牛肉面 = 牛肉 + 面 + 汤 ; piège 牛奶 (lait) pour 牛肉 (bœuf). Dix plats de cantine, un par famille alimentaire (米 面 肉 菜 汤).
 

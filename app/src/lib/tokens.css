@@ -25,9 +25,9 @@
    `data-fete` sur <html> (App.svelte, d'après fetes.json) repeint l'app quelques jours par
    an ; le même attribut sur un élément ne repeint que lui (Embleme, Voeu). Le cinabre garde
    son rôle : l'élément ajouté et la position. Pas de doré ni de dégradé : l'abricot est plat.
-   Le rouge de fête #9E1F2A (cramoisi, distinct du cinabre #C8371F) ne sert qu'au décor : la
-   rosace, la lanterne, les cases et le 福. Décision du propriétaire, en attente de
-   l'amendement de CLAUDE.md. */
+   Le rouge de fête #9E1F2A (cramoisi, distinct du cinabre #C8371F) ne sert qu'au décor du
+   Nouvel An et de 元宵 : la rosace, les lanternes, les cases et le 福. Décision du
+   propriétaire, en attente de l'amendement de CLAUDE.md. Les six autres fêtes s'en passent. */
 
 /* 春节, le Nouvel An lunaire : papier chaud, les trois amis de l'hiver (松 pin, 梅 prunier,
    竹 bambou) et le rouge des lanternes. */
@@ -46,6 +46,49 @@
   --lampion:#F6C36A; --lampion-clair:#FBE6B8; --lampion-fil:#E0983C; --lampion-feu:#FFE9B8;
   --tile-bg:#1B2440; --tile-fg:#F3E3B5; --tile-ink:#F1E9D6; --tile-ink2:#B9B6B0; --tile-bd:#34405F; --act:#F3E3B5; --act-ink:#141B2E;
   --grain:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1 0 0 0 0 .95 0 0 0 0 .88 0 0 0 .5 0'/></filter><rect width='160' height='160' filter='url(%23n)'/></svg>"); --grain-o:.05; }
+
+/* 元宵, la fête des Lanternes : le papier chaud du Nouvel An, plus abricot. Les lanternes et
+   leurs devinettes 灯谜, les boulettes 汤圆. Le cramoisi y garde son rôle de décor : la
+   lanterne et le texte des cases. */
+[data-fete="yuanxiao"]{ --paper:#F8EBD7; --card:#FDF4E7; --line:#EAD5B9; --rule:#DEC4A1; --grille:#D6BA92;
+  --fete:#9E1F2A; --apricot:#E3A33B; --mi:#F6DFA4; --mi-ink:#7A4A2E; --tangyuan:#FFFBF2;
+  --tile-bg:#F5DDB9; --tile-fg:#9E1F2A; --tile-ink:#2A1D1A; --tile-ink2:#7A4A2E; --act:#2A1D1A; --act-ink:#FBEBD8; }
+
+/* 清明, le temps pur et lumineux : un papier de pluie fine, gris-vert, le saule 柳 et le
+   cerf-volant. Doux, jamais triste. */
+[data-fete="qingming"]{ --paper:#EDF1EA; --card:#F7F9F4; --line:#D5DDD2; --rule:#C6D0C3; --grille:#BCC8B9;
+  --saule:#7FA36A; --saule-fonce:#58804D; --pluie:#8FA7AB; --cerf:#1E5A8A; --cerf-clair:#DCE7F1; --cerf-queue:#A8506B;
+  --qm-disque:#DFEADB; --qm-ombre:#B7CAB2;
+  --tile-bg:#DFEADF; --tile-fg:#3F6B4E; --tile-ink:#1F2A22; --tile-ink2:#4E5E52; --act:#2F4F3E; --act-ink:#EDF1EA; }
+
+/* 端午, la fête des bateaux : l'été, les feuilles de bambou du 粽子, l'eau et l'armoise 艾.
+   Des bateaux sans tête de bête, comme le veut la charte. */
+[data-fete="duanwu"]{ --paper:#F2EFE2; --card:#FAF8EF; --line:#DCD8C2; --rule:#CFCAB0; --grille:#C5BFA0;
+  --eau:#3E7C8C; --eau-clair:#A9CBCF; --roseau:#4F7F3F; --roseau-clair:#9DBF7A; --ficelle:#C9A46A; --ai:#6F8F5E; --bateau:#8C5A2B; --bateau-bande:#1E5A8A;
+  --dw-disque:#E2ECD6; --dw-ombre:#B9CCA6;
+  --tile-bg:#2F5E46; --tile-fg:#F6F2E2; --tile-ink:#FBF8EE; --tile-ink2:#CFE0C8; --act:#1F2A22; --act-ink:#F2EFE2; }
+
+/* 七夕 : la nuit d'été, la Voie lactée 银河 en aplat, le pont des pies 鹊桥 et deux étoiles,
+   Véga et Altaïr. Toujours de nuit, comme la mi-automne. */
+[data-fete="qixi"]{ color-scheme:dark; --paper:#1B1B35; --card:#252547; --ink:#EFE9F5; --ink2:#C8C2D4; --mist:#948FB0; --line:#34335A; --rule:#403E6A; --grille:#4B4978;
+  --indigo:#B7C2F0; --indigo-soft:#2C2B55; --zhu:#EC6B4B; --zhu-soft:#3F2527; --ocre:#C89A6A; --ocre-soft:#3A2E28; --jade:#8FC0A0; --jade-soft:#22333D; --on:#1B1B35;
+  --voie:#262650; --voie-clair:#302F5E; --etoile:#F4E9C8; --pie:#0E0E24; --pie-blanc:#DCD6EC;
+  --qx-disque:#E8E2F3; --qx-voie:#D6CDEA; --qx-ombre:#BDB2DA; --qx-etoile:#8E82B8; --qx-nuit:#1B1B35;
+  --tile-bg:#242449; --tile-fg:#E6DDF5; --tile-ink:#EFE9F5; --tile-ink2:#B6B1C6; --tile-bd:#3A3969; --act:#E6DDF5; --act-ink:#1B1B35;
+  --grain:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1 0 0 0 0 .95 0 0 0 0 .88 0 0 0 .5 0'/></filter><rect width='160' height='160' filter='url(%23n)'/></svg>"); --grain-o:.05; }
+
+/* 重阳, le double neuf : l'automne clair, la montagne où l'on monte et le chrysanthème 菊,
+   jaune d'aplat, jamais doré. */
+[data-fete="chongyang"]{ --paper:#F5EEDF; --card:#FCF7EC; --line:#E3D8C1; --rule:#D6C8AA; --grille:#CDBB98;
+  --ju:#E39A34; --ju-clair:#F2CB78; --ju-coeur:#9A5A17; --mont:#A9A993; --mont2:#C9C8B2; --yan:#6B6558;
+  --tile-bg:#F3E2BD; --tile-fg:#8A5A12; --tile-ink:#2B2418; --tile-ink2:#6E5A3A; --act:#3B3326; --act-ink:#F5EEDF; }
+
+/* 冬至, le solstice d'hiver : un papier de neige, bleu-gris, la neige légère, le bol de
+   raviolis 饺子 du nord et de boulettes 汤圆 du sud. */
+[data-fete="dongzhi"]{ --paper:#ECF0F4; --card:#F8FAFC; --line:#D5DCE3; --rule:#C6CFD8; --grille:#BAC6D2;
+  --neige:#FFFFFF; --neige-bleu:#C3CFDB; --bol:#2E4A6B; --raviole:#FBF7EE; --tangyuan:#FFFFFF; --colline:#F7F9FB; --colline2:#DDE4EB;
+  --dz-disque:#DCE5EE; --dz-ombre:#B6C4D2;
+  --tile-bg:#DCE5EE; --tile-fg:#2E4A6B; --tile-ink:#1F2630; --tile-ink2:#4A5563; --act:#24364F; --act-ink:#ECF0F4; }
 /* un élément en fête porte son papier et son encre, même au milieu d'une page qui ne l'est pas */
 [data-fete]:not(html){ color:var(--ink) }
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent} html,body{margin:0;height:100%}
@@ -178,6 +221,7 @@ h1{font-family:var(--head);font-weight:700;font-size:30px;line-height:1.15;lette
 /* les accessoires de fête de Tao : toujours dessinés, montrés par la fête du jour */
 .tao .fete-acc{display:none}
 [data-fete="chunjie"] .tao .flocon,[data-fete="zhongqiu"] .tao .yuebing{display:inline}
+[data-fete="yuanxiao"] .tao .tangyuan,[data-fete="qingming"] .tao .saule,[data-fete="duanwu"] .tao .zongzi,[data-fete="qixi"] .tao .etoile,[data-fete="chongyang"] .tao .ju,[data-fete="dongzhi"] .tao .jiaozi{display:inline}
 
 /* ---- pas 4, Utiliser : les trois lignes à lire et la glose (maquette s-l3, s-read) ---- */
 .read{font-family:var(--hz);font-size:30px;line-height:1.7;letter-spacing:.06em}
@@ -537,3 +581,4 @@ h1{font-family:var(--head);font-weight:700;font-size:30px;line-height:1.15;lette
 /* le gabarit gris du tracé : sa propre couleur, pour qu'une fête de nuit la change */
 :root{--guide:#D9D1C2}
 :root[data-fete="zhongqiu"],[data-fete="zhongqiu"]{--guide:#46527A}
+:root[data-fete="qixi"],[data-fete="qixi"]{--guide:#4B4978}

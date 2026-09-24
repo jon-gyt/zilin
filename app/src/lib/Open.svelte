@@ -8,7 +8,9 @@
    *
    * Un jour de fête (`fetes.json`), l'anecdote est celle de la fête : sa rubrique
    * (« L'anecdote de la mi-automne »), et son caractère écrit au pinceau devant l'emblème
-   * de la fête — la pleine lune, ou la rosace de papier découpé.
+   * de la fête — la pleine lune, la rosace de papier découpé, la lanterne… C'est le
+   * caractère bonus de la fête (灯, 雨, 粽, 桥, 菊, 冬…) : son pinyin et son sens suivent,
+   * tels que `fetes.json` les donne, et l'anecdote dit ses briques.
    */
   import Embleme from './Embleme.svelte';
   import Glyph from './Glyph.svelte';
@@ -86,6 +88,15 @@
     {#if a && fete}
       <div class="k rubrique">{fete.anecdote.rubrique}</div>
       <div class="grand fete"><Embleme fete={fete.id} c={a.c} size={160} pistes={pistesFete} /></div>
+      {#if fete.anecdote.pinyin || fete.anecdote.sens}
+        <!-- le caractère bonus de la fête : son pinyin et son sens, sous l'emblème -->
+        <p class="bonus">
+          {#if fete.anecdote.pinyin}<span class="py">{fete.anecdote.pinyin}</span>{/if}{fete.anecdote.pinyin &&
+          fete.anecdote.sens
+            ? ' · '
+            : ''}{fete.anecdote.sens}
+        </p>
+      {/if}
       <h1>{a.titre}</h1>
       <p>{a.texte}</p>
     {:else if a}
@@ -113,5 +124,14 @@
     display: flex;
     justify-content: center;
     margin: 14px 0 2px;
+  }
+  .bonus {
+    margin: 10px auto 4px;
+    font-size: 15px;
+    color: var(--ink2);
+  }
+  .bonus .py {
+    font-style: italic;
+    color: var(--ink);
   }
 </style>

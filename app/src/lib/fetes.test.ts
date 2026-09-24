@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import { readFileSync } from 'node:fs';
-import { fichierFetes, loadFetes, type Fetes, type Index } from './content';
+import { FETES, fichierFetes, loadFetes, type Fetes, type Index } from './content';
 import { ecartJours, feteDuJour, pistes, poserFete, quand, remplir } from './fetes';
 
 /* Le fichier servi avec l'app, tel que `wenlu export` l'écrit. */
@@ -22,8 +22,9 @@ describe('le fichier des fêtes vient du pipeline', () => {
     expect(fetes.source).toContain('lunar_python');
   });
 
-  it('il couvre 2026 à 2035 pour les deux fêtes', () => {
-    for (const id of ['chunjie', 'zhongqiu'] as const) {
+  it('il couvre 2026 à 2035 pour les huit fêtes, et chacune a ses textes', () => {
+    expect(Object.keys(fetes.fetes).sort()).toEqual([...FETES].sort());
+    for (const id of FETES) {
       const annees = fetes.calendrier.filter((e) => e.fete === id).map((e) => e.annee);
       for (let a = 2026; a <= 2035; a++) expect(annees).toContain(a);
     }
@@ -70,11 +71,56 @@ describe('la fête du jour', () => {
     expect(feteDuJour(fetes, '2026-09-27')).toBeNull();
   });
 
-  it('le Nouvel An va du réveillon à la fête des Lanternes', () => {
+  it('le Nouvel An va du réveillon au 14e jour, la fête des Lanternes prend le 15e', () => {
     expect(feteDuJour(fetes, '2027-02-04')).toBeNull();
     expect(feteDuJour(fetes, '2027-02-05')?.id).toBe('chunjie');
-    expect(feteDuJour(fetes, '2027-02-20')?.id).toBe('chunjie');
+    expect(feteDuJour(fetes, '2027-02-19')?.id).toBe('chunjie');
+    const yuanxiao = feteDuJour(fetes, '2027-02-20');
+    expect(yuanxiao?.id).toBe('yuanxiao');
+    expect(yuanxiao?.voeu.fr).toBe('Ce soir, fête des Lanternes');
+    expect(yuanxiao?.anecdote).toMatchObject({ c: '灯', pinyin: 'dēng', sens: 'la lampe, la lanterne' });
     expect(feteDuJour(fetes, '2027-02-21')).toBeNull();
+  });
+
+  it('chaque fête de 2026 tombe à sa date, avec son caractère bonus', () => {
+    const jours: [string, string, string][] = [
+      ['2026-03-03', 'yuanxiao', '灯'],
+      ['2026-04-05', 'qingming', '雨'],
+      ['2026-06-19', 'duanwu', '粽'],
+      ['2026-08-19', 'qixi', '桥'],
+      ['2026-09-25', 'zhongqiu', '月'],
+      ['2026-10-18', 'chongyang', '菊'],
+      ['2026-12-22', 'dongzhi', '冬']
+    ];
+    for (const [jour, id, c] of jours) {
+      const f = feteDuJour(fetes, jour);
+      expect(f?.id, jour).toBe(id);
+      expect(f?.ecart, jour).toBe(0);
+      expect(f?.anecdote.c, jour).toBe(c);
+      expect(f?.anecdote.pinyin, jour).not.toBe('');
+      expect(f?.anecdote.sens, jour).not.toBe('');
+      expect(f?.tao.length, jour).toBeGreaterThan(0);
+    }
+  });
+
+  it('les fenêtres des nouvelles fêtes : 清明 −1 à +1, 端午 −2 à +1, 七夕 −2 au soir même', () => {
+    expect(feteDuJour(fetes, '2026-04-03')).toBeNull();
+    expect(feteDuJour(fetes, '2026-04-04')?.id).toBe('qingming');
+    expect(feteDuJour(fetes, '2026-04-06')?.id).toBe('qingming');
+    expect(feteDuJour(fetes, '2026-04-07')).toBeNull();
+    expect(feteDuJour(fetes, '2026-06-17')?.id).toBe('duanwu');
+    expect(feteDuJour(fetes, '2026-06-20')?.id).toBe('duanwu');
+    expect(feteDuJour(fetes, '2026-06-21')).toBeNull();
+    expect(feteDuJour(fetes, '2026-08-17')?.voeu.fr).toBe('Dans 2 jours, le pont des pies');
+    expect(feteDuJour(fetes, '2026-08-20')).toBeNull();
+    expect(feteDuJour(fetes, '2026-12-21')?.voeu.fr).toBe('Demain soir, la plus longue nuit');
+  });
+
+  it("aucune fête n'est un dragon : 2036, année du Dragon, reste hors du calendrier", () => {
+    expect(Math.max(...fetes.calendrier.map((e) => e.annee))).toBe(2035);
+    expect(fetes.calendrier.some((e) => e.animal.c === '龙')).toBe(false);
+    expect(feteDuJour(fetes, '2036-01-28')).toBeNull();
+    for (const t of Object.values(fetes.fetes)) expect(JSON.stringify(t)).not.toMatch(/dragon|龙/i);
   });
 
   it("l'animal suit l'année lunaire : le Cheval en 2026, la Chèvre en 2027", () => {
@@ -129,5 +175,42 @@ describe('les outils', () => {
     expect(attrs.get('data-fete')).toBe('zhongqiu');
     poserFete(el, null);
     expect(attrs.has('data-fete')).toBe(false);
+  });
+
+  it("la meta theme-color prend le papier de la fête, puis retrouve sa valeur d'origine", () => {
+    const meta = new Map<string, string>([['content', '#F4EEE2']]);
+    let papier = '';
+    const doc = {
+      querySelector: (s: string) =>
+        s === 'meta[name="theme-color"]'
+          ? {
+              getAttribute: (k: string) => meta.get(k) ?? null,
+              setAttribute: (k: string, v: string) => void meta.set(k, v)
+            }
+          : null,
+      defaultView: { getComputedStyle: () => ({ getPropertyValue: (p: string) => (p === '--paper' ? papier : '') }) }
+    };
+    const attrs = new Map<string, string>();
+    const el = {
+      ownerDocument: doc,
+      setAttribute: (k: string, v: string) => {
+        attrs.set(k, v);
+        papier = ' #141B2E';
+      },
+      removeAttribute: (k: string) => {
+        attrs.delete(k);
+        papier = '#F4EEE2';
+      }
+    };
+    poserFete(el, 'zhongqiu');
+    expect(meta.get('content')).toBe('#141B2E');
+    poserFete(el, 'qixi');
+    expect(meta.get('content')).toBe('#141B2E');
+    poserFete(el, null);
+    expect(meta.get('content')).toBe('#F4EEE2');
+    /* sans papier lisible, la valeur d'origine reste */
+    papier = '';
+    poserFete({ ...el, setAttribute: () => undefined }, 'dongzhi');
+    expect(meta.get('content')).toBe('#F4EEE2');
   });
 });

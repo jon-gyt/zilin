@@ -1,7 +1,8 @@
 <script lang="ts">
   /**
    * Que 雀, le moineau. L'ami de Tao : il attend sur le chemin de la série et remet le
-   * cadeau du palier. Il ne fait rien d'autre, et n'apparaît nulle part ailleurs.
+   * cadeau du palier. Il ne fait rien d'autre. Ailleurs, on ne le voit qu'à 七夕 : tout
+   * petit, dans le même dessin, il se pose sur le pont de pies (`FeteDecor`, `Embleme`).
    *
    * Traits simples, à l'encre, dans l'esprit de la maquette : le corps est une tache
    * d'encre, la gorge reste claire, le bec est à l'ocre. Aucun cinabre : sur cet écran

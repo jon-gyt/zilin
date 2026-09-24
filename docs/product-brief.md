@@ -42,10 +42,20 @@ Positionnement : l'arbre étymologique qui apprend à lire, conforme aux seuils 
 - Logo : le caractère 文, dessiné depuis ses données de traits comme tout grand caractère, son premier trait, le point 丶, en cinabre. Il s'écrit trait par trait à l'ouverture, le point d'abord. Logotype Manrope 700.
 - Palette : papier de riz #F4EEE2, encre #1F1B18, cinabre #C8371F (logo, élément ajouté, position sur le chemin), indigo #2B4C7E (action, progression, briques de son), ocre #8C5A2B (briques de sens), vert bambou #5E8A6A (acquis). Un seul thème, le papier clair : ni mode sombre, ni réglage de thème.
 - Pigments : les quatre cases du menu prennent les pigments de la peinture chinoise, 石青 azurite #1E5A8A, 藤黄 gomme-gutte #9A6300, 桃红 rouge de pêcher #A8506B, 石绿 malachite #1F7A5A, chacun sur son fond pâle.
-- Thèmes de fête : l'app se met en fête quelques jours par an, aux dates du calendrier luni-solaire que le pipeline calcule (`data/sources/fetes/`). Le Nouvel An 春节, du réveillon à la fête des Lanternes : papier chaud, fleurs de prunier qui tombent, cases rouges, rosace de papier découpé autour du caractère du jour, vœu 新年快乐 avec un 福 à l'envers et une lanterne, flocon pour Tao. La mi-automne 中秋, de trois jours avant au lendemain, toujours de nuit : bleu 黛, pleine lune qui porte le caractère du jour, lapin de jade, osmanthe, lanternes célestes, gâteau de lune pour Tao. Ce jour-là, l'anecdote est celle de la fête. Le décor passe derrière tout, ne se touche pas, et disparaît si l'on réduit les animations.
-- Pigments de fête : le rouge de fête #9E1F2A, cramoisi, distinct du cinabre, ne sert qu'au décor (rosace, lanterne, cases, 福) ; le cinabre garde son rôle. L'abricot #E3A33B est un aplat, jamais un doré. Décision du propriétaire, en attente de l'amendement de CLAUDE.md.
+- Thèmes de fête : l'app se met en fête quelques jours par an, aux dates que le pipeline calcule sur le calendrier luni-solaire et les termes solaires (`data/sources/fetes/`). Huit fêtes, chacune avec sa palette, son décor, un emblème qui porte le caractère du jour, un vœu dans l'en-tête et un accessoire pour Tao :
+  - le Nouvel An 春节, du réveillon au 14e jour : papier chaud, fleurs de prunier qui tombent, cases rouges, rosace de papier découpé, vœu 新年快乐 avec un 福 à l'envers et une lanterne, flocon pour Tao ;
+  - la fête des Lanternes 元宵, le 15e jour : grande lanterne rouge, lanternes pendues avec leurs devinettes 灯谜, bol de 汤圆 pour Tao ;
+  - 清明, au terme solaire de début avril, de la veille au lendemain, doux et jamais triste : papier de pluie fine, saule, cerf-volant, brin de saule pour Tao ;
+  - la fête des bateaux 端午, le 5e jour du 5e mois : l'eau, des bateaux sans tête de bête, l'armoise à la porte, 粽子 pour Tao ;
+  - 七夕, le 7e soir du 7e mois, de nuit : la Voie lactée en aplat, Véga et Altaïr, le pont de pies où Que 雀 s'est posé, étoile pour Tao ;
+  - la mi-automne 中秋, de trois jours avant au lendemain, toujours de nuit : bleu 黛, pleine lune, lapin de jade, osmanthe, lanternes célestes, gâteau de lune pour Tao ;
+  - le double neuf 重阳 : chrysanthème qui tourne, montagne, vol d'oies, chrysanthème pour Tao ;
+  - le solstice d'hiver 冬至 : neige légère, collines enneigées, bol de 饺子 et de 汤圆, 饺子 pour Tao.
+
+  Les fenêtres ne se chevauchent jamais. Ce jour-là, l'anecdote est celle de la fête, et elle fait découvrir son caractère bonus (年, 灯, 雨, 粽, 桥, 月, 菊, 冬), dessiné depuis ses traits dans l'emblème, avec son pinyin et son sens. La couleur du papier de la fête passe sur `theme-color`, pour que la barre d'état suive. Le décor passe derrière tout, ne se touche pas, et disparaît si l'on réduit les animations. Le calendrier va jusqu'en 2035 : 2036 est une année du Dragon, dont l'animal ne se dessine jamais.
+- Pigments de fête : le rouge de fête #9E1F2A, cramoisi, distinct du cinabre, ne sert qu'au décor du Nouvel An et de la fête des Lanternes (rosace, lanternes, cases, 福) ; les six autres fêtes s'en passent, et le cinabre garde son rôle. L'abricot #E3A33B est un aplat, jamais un doré. Décision du propriétaire, en attente de l'amendement de CLAUDE.md.
 - Typographie : Manrope (titres, voix du guide), Source Sans 3 (interface), Noto Serif SC (mots et phrases). Les grands caractères ne sont pas une police : ils sont dessinés trait par trait à partir des données de tracé, style 楷, et s'écrivent au pinceau à l'apparition.
-- Mascotte : Tao 桃, une graine de pêcher qui grandit (graine, pousse, jeune pêcher, pêcher en fleur à 300 caractères, pêches à 1 000). Compagne de toutes les activités, voir section 9. Ami : Que 雀, le moineau, qui remet les cadeaux de la série.
+- Mascotte : Tao 桃, une graine de pêcher qui grandit (graine, pousse, jeune pêcher, pêcher en fleur à 300 caractères, pêches à 1 000). Compagne de toutes les activités, voir section 9. Ami : Que 雀, le moineau, qui remet les cadeaux de la série, et se pose sur le pont de pies à 七夕.
 - Principes : un écran, une action ; le rouge est un sceau, pas une alerte ; pas de doré, pas de dragon, pas d'emoji, pas d'illustration réaliste.
 
 ## 6. Structure de l'app
@@ -131,7 +141,7 @@ Tao suit toutes les activités et adopte la posture de l'utilisateur : bulle ave
 - Croissance : additionne toutes les activités. Paliers 100, 300 (fleurs), 1 000 (pêches).
 - Humeur : vient de la variété, adoucie par les jours de repos. Trois fois la même activité d'affilée, elle s'ennuie et propose un jeu ; une semaine sans lecture, elle apporte un texte. C'est elle qui pousse vers les jeux, pas une notification.
 - Journal : chaque soir, une ligne (« Aujourd'hui j'ai appris 住, mangé 14 cartes, résolu une devinette, cuisiné un 蛋炒饭 »). Le dimanche, la semaine en image partageable.
-- Collection : ce que les jeux rapportent se voit sur elle (lanterne des devinettes, bol des recettes, sceau de famille sur le pot, flocon au Nouvel An, fleur de prunier au Printemps). Rien ne s'achète.
+- Collection : ce que les jeux rapportent se voit sur elle (lanterne des devinettes, bol des recettes, sceau de famille sur le pot, et, les jours de fête, l'accessoire de la fête : flocon au Nouvel An, gâteau de lune à la mi-automne…). Rien ne s'achète.
 - Interdits : tomber malade, mourir, pleurer, culpabiliser. Sans l'utilisateur elle se met en pot et attend ; à son retour elle se redresse sans reproche.
 
 ### Les jeux retenus

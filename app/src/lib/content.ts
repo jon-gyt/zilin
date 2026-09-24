@@ -878,10 +878,31 @@ export async function pairesExport(version = VERSION_DONNEES): Promise<unknown> 
 
 /* ---------- les fêtes ---------- */
 
-/** Les fêtes que l'app connaît : le Nouvel An lunaire 春节, la mi-automne 中秋. */
-export type FeteId = 'chunjie' | 'zhongqiu';
+/**
+ * Les fêtes que l'app connaît, dans l'ordre de l'année : le Nouvel An lunaire 春节, la fête
+ * des Lanternes 元宵, 清明, la fête des bateaux 端午, 七夕, la mi-automne 中秋, le double neuf
+ * 重阳 et le solstice d'hiver 冬至. Leurs dates et leurs textes viennent de `fetes.json`.
+ */
+export type FeteId =
+  | 'chunjie'
+  | 'yuanxiao'
+  | 'qingming'
+  | 'duanwu'
+  | 'qixi'
+  | 'zhongqiu'
+  | 'chongyang'
+  | 'dongzhi';
 
-export const FETES: readonly FeteId[] = ['chunjie', 'zhongqiu'];
+export const FETES: readonly FeteId[] = [
+  'chunjie',
+  'yuanxiao',
+  'qingming',
+  'duanwu',
+  'qixi',
+  'zhongqiu',
+  'chongyang',
+  'dongzhi'
+];
 
 /** L'animal de l'année lunaire, pour le vœu du Nouvel An. `fr` porte son article. */
 export type Animal = { c: string; pinyin: string; fr: string };
@@ -910,7 +931,11 @@ export type TextesFete = {
   /** Le caractère dessiné à côté du vœu (le 福 à l'envers), `null` sans caractère. */
   caractere_voeu: string | null;
   tao: string[];
-  anecdote: { rubrique: string; c: string; titre: string; texte: string };
+  /**
+   * L'anecdote de la fête. `c` est son caractère bonus, dessiné depuis ses traits ;
+   * `pinyin` (Unihan, vide s'il manque) et `sens` le présentent sous l'emblème.
+   */
+  anecdote: { rubrique: string; c: string; pinyin?: string; sens?: string; titre: string; texte: string };
 };
 
 /**

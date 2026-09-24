@@ -3,32 +3,94 @@
 # Écrit par `uv run wenlu fetes calendrier` : ne pas éditer à la main.
 # Source : calendrier luni-solaire chinois (农历), dates calculées hors ligne
 # par la bibliothèque lunar_python 1.4.8 (MIT, https://github.com/6tail/lunar-python).
-# Contrôlées par les tests contre des dates connues : 春节 2026-02-17 et
-# 2027-02-06, 中秋 2026-09-25 et 2027-09-15.
+# Contrôlées par les tests contre des dates connues, dont pour 2026 : 春节 02-17,
+# 元宵 03-03, 清明 04-05, 端午 06-19, 七夕 08-19, 中秋 09-25, 重阳 10-18, 冬至 12-22.
+# 清明 et 冬至 sont des termes solaires (节气), comptés au jour de Pékin (UTC+8).
 #
 # `avant` et `apres` : jours de fête avant et après la date. 春节 va du réveillon
-# 除夕 (−1) à la fête des Lanternes 元宵 (+14) ; 中秋 de −3 à +1.
+# 除夕 (−1) au 14e jour (+13) et 元宵 prend le 15e (0, 0) ; 清明 −1 à +1 ;
+# 端午 −2 à +1 ; 七夕 −2 à 0 ; 中秋 −3 à +1 ; 重阳 −1 à +1 ; 冬至 −1 à +1.
 # `annee_lunaire` : l'année lunaire qui porte la fête ; `animal`, son animal
 # (voir `animaux.tsv`, rang = (année − 4) mod 12).
 #
 fete	date	avant	apres	annee_lunaire	animal	source
-chunjie	2026-02-17	1	14	2026	马	lunar_python 1.4.8, Lunar.fromYmd(2026, 1, 1)
+chunjie	2026-02-17	1	13	2026	马	lunar_python 1.4.8, Lunar.fromYmd(2026, 1, 1)
+yuanxiao	2026-03-03	0	0	2026	马	lunar_python 1.4.8, Lunar.fromYmd(2026, 1, 15)
+qingming	2026-04-05	1	1	2026	马	lunar_python 1.4.8, Solar.fromYmd(2026, 4, 1).getLunar().getNextJieQi() → 清明
+duanwu	2026-06-19	2	1	2026	马	lunar_python 1.4.8, Lunar.fromYmd(2026, 5, 5)
+qixi	2026-08-19	2	0	2026	马	lunar_python 1.4.8, Lunar.fromYmd(2026, 7, 7)
 zhongqiu	2026-09-25	3	1	2026	马	lunar_python 1.4.8, Lunar.fromYmd(2026, 8, 15)
-chunjie	2027-02-06	1	14	2027	羊	lunar_python 1.4.8, Lunar.fromYmd(2027, 1, 1)
+chongyang	2026-10-18	1	1	2026	马	lunar_python 1.4.8, Lunar.fromYmd(2026, 9, 9)
+dongzhi	2026-12-22	1	1	2026	马	lunar_python 1.4.8, Solar.fromYmd(2026, 12, 1).getLunar().getNextJieQi() → 冬至
+chunjie	2027-02-06	1	13	2027	羊	lunar_python 1.4.8, Lunar.fromYmd(2027, 1, 1)
+yuanxiao	2027-02-20	0	0	2027	羊	lunar_python 1.4.8, Lunar.fromYmd(2027, 1, 15)
+qingming	2027-04-05	1	1	2027	羊	lunar_python 1.4.8, Solar.fromYmd(2027, 4, 1).getLunar().getNextJieQi() → 清明
+duanwu	2027-06-09	2	1	2027	羊	lunar_python 1.4.8, Lunar.fromYmd(2027, 5, 5)
+qixi	2027-08-08	2	0	2027	羊	lunar_python 1.4.8, Lunar.fromYmd(2027, 7, 7)
 zhongqiu	2027-09-15	3	1	2027	羊	lunar_python 1.4.8, Lunar.fromYmd(2027, 8, 15)
-chunjie	2028-01-26	1	14	2028	猴	lunar_python 1.4.8, Lunar.fromYmd(2028, 1, 1)
+chongyang	2027-10-08	1	1	2027	羊	lunar_python 1.4.8, Lunar.fromYmd(2027, 9, 9)
+dongzhi	2027-12-22	1	1	2027	羊	lunar_python 1.4.8, Solar.fromYmd(2027, 12, 1).getLunar().getNextJieQi() → 冬至
+chunjie	2028-01-26	1	13	2028	猴	lunar_python 1.4.8, Lunar.fromYmd(2028, 1, 1)
+yuanxiao	2028-02-09	0	0	2028	猴	lunar_python 1.4.8, Lunar.fromYmd(2028, 1, 15)
+qingming	2028-04-04	1	1	2028	猴	lunar_python 1.4.8, Solar.fromYmd(2028, 4, 1).getLunar().getNextJieQi() → 清明
+duanwu	2028-05-28	2	1	2028	猴	lunar_python 1.4.8, Lunar.fromYmd(2028, 5, 5)
+qixi	2028-08-26	2	0	2028	猴	lunar_python 1.4.8, Lunar.fromYmd(2028, 7, 7)
 zhongqiu	2028-10-03	3	1	2028	猴	lunar_python 1.4.8, Lunar.fromYmd(2028, 8, 15)
-chunjie	2029-02-13	1	14	2029	鸡	lunar_python 1.4.8, Lunar.fromYmd(2029, 1, 1)
+chongyang	2028-10-26	1	1	2028	猴	lunar_python 1.4.8, Lunar.fromYmd(2028, 9, 9)
+dongzhi	2028-12-21	1	1	2028	猴	lunar_python 1.4.8, Solar.fromYmd(2028, 12, 1).getLunar().getNextJieQi() → 冬至
+chunjie	2029-02-13	1	13	2029	鸡	lunar_python 1.4.8, Lunar.fromYmd(2029, 1, 1)
+yuanxiao	2029-02-27	0	0	2029	鸡	lunar_python 1.4.8, Lunar.fromYmd(2029, 1, 15)
+qingming	2029-04-04	1	1	2029	鸡	lunar_python 1.4.8, Solar.fromYmd(2029, 4, 1).getLunar().getNextJieQi() → 清明
+duanwu	2029-06-16	2	1	2029	鸡	lunar_python 1.4.8, Lunar.fromYmd(2029, 5, 5)
+qixi	2029-08-16	2	0	2029	鸡	lunar_python 1.4.8, Lunar.fromYmd(2029, 7, 7)
 zhongqiu	2029-09-22	3	1	2029	鸡	lunar_python 1.4.8, Lunar.fromYmd(2029, 8, 15)
-chunjie	2030-02-03	1	14	2030	狗	lunar_python 1.4.8, Lunar.fromYmd(2030, 1, 1)
+chongyang	2029-10-16	1	1	2029	鸡	lunar_python 1.4.8, Lunar.fromYmd(2029, 9, 9)
+dongzhi	2029-12-21	1	1	2029	鸡	lunar_python 1.4.8, Solar.fromYmd(2029, 12, 1).getLunar().getNextJieQi() → 冬至
+chunjie	2030-02-03	1	13	2030	狗	lunar_python 1.4.8, Lunar.fromYmd(2030, 1, 1)
+yuanxiao	2030-02-17	0	0	2030	狗	lunar_python 1.4.8, Lunar.fromYmd(2030, 1, 15)
+qingming	2030-04-05	1	1	2030	狗	lunar_python 1.4.8, Solar.fromYmd(2030, 4, 1).getLunar().getNextJieQi() → 清明
+duanwu	2030-06-05	2	1	2030	狗	lunar_python 1.4.8, Lunar.fromYmd(2030, 5, 5)
+qixi	2030-08-05	2	0	2030	狗	lunar_python 1.4.8, Lunar.fromYmd(2030, 7, 7)
 zhongqiu	2030-09-12	3	1	2030	狗	lunar_python 1.4.8, Lunar.fromYmd(2030, 8, 15)
-chunjie	2031-01-23	1	14	2031	猪	lunar_python 1.4.8, Lunar.fromYmd(2031, 1, 1)
+chongyang	2030-10-05	1	1	2030	狗	lunar_python 1.4.8, Lunar.fromYmd(2030, 9, 9)
+dongzhi	2030-12-22	1	1	2030	狗	lunar_python 1.4.8, Solar.fromYmd(2030, 12, 1).getLunar().getNextJieQi() → 冬至
+chunjie	2031-01-23	1	13	2031	猪	lunar_python 1.4.8, Lunar.fromYmd(2031, 1, 1)
+yuanxiao	2031-02-06	0	0	2031	猪	lunar_python 1.4.8, Lunar.fromYmd(2031, 1, 15)
+qingming	2031-04-05	1	1	2031	猪	lunar_python 1.4.8, Solar.fromYmd(2031, 4, 1).getLunar().getNextJieQi() → 清明
+duanwu	2031-06-24	2	1	2031	猪	lunar_python 1.4.8, Lunar.fromYmd(2031, 5, 5)
+qixi	2031-08-24	2	0	2031	猪	lunar_python 1.4.8, Lunar.fromYmd(2031, 7, 7)
 zhongqiu	2031-10-01	3	1	2031	猪	lunar_python 1.4.8, Lunar.fromYmd(2031, 8, 15)
-chunjie	2032-02-11	1	14	2032	鼠	lunar_python 1.4.8, Lunar.fromYmd(2032, 1, 1)
+chongyang	2031-10-24	1	1	2031	猪	lunar_python 1.4.8, Lunar.fromYmd(2031, 9, 9)
+dongzhi	2031-12-22	1	1	2031	猪	lunar_python 1.4.8, Solar.fromYmd(2031, 12, 1).getLunar().getNextJieQi() → 冬至
+chunjie	2032-02-11	1	13	2032	鼠	lunar_python 1.4.8, Lunar.fromYmd(2032, 1, 1)
+yuanxiao	2032-02-25	0	0	2032	鼠	lunar_python 1.4.8, Lunar.fromYmd(2032, 1, 15)
+qingming	2032-04-04	1	1	2032	鼠	lunar_python 1.4.8, Solar.fromYmd(2032, 4, 1).getLunar().getNextJieQi() → 清明
+duanwu	2032-06-12	2	1	2032	鼠	lunar_python 1.4.8, Lunar.fromYmd(2032, 5, 5)
+qixi	2032-08-12	2	0	2032	鼠	lunar_python 1.4.8, Lunar.fromYmd(2032, 7, 7)
 zhongqiu	2032-09-19	3	1	2032	鼠	lunar_python 1.4.8, Lunar.fromYmd(2032, 8, 15)
-chunjie	2033-01-31	1	14	2033	牛	lunar_python 1.4.8, Lunar.fromYmd(2033, 1, 1)
+chongyang	2032-10-12	1	1	2032	鼠	lunar_python 1.4.8, Lunar.fromYmd(2032, 9, 9)
+dongzhi	2032-12-21	1	1	2032	鼠	lunar_python 1.4.8, Solar.fromYmd(2032, 12, 1).getLunar().getNextJieQi() → 冬至
+chunjie	2033-01-31	1	13	2033	牛	lunar_python 1.4.8, Lunar.fromYmd(2033, 1, 1)
+yuanxiao	2033-02-14	0	0	2033	牛	lunar_python 1.4.8, Lunar.fromYmd(2033, 1, 15)
+qingming	2033-04-04	1	1	2033	牛	lunar_python 1.4.8, Solar.fromYmd(2033, 4, 1).getLunar().getNextJieQi() → 清明
+duanwu	2033-06-01	2	1	2033	牛	lunar_python 1.4.8, Lunar.fromYmd(2033, 5, 5)
+qixi	2033-08-01	2	0	2033	牛	lunar_python 1.4.8, Lunar.fromYmd(2033, 7, 7)
 zhongqiu	2033-09-08	3	1	2033	牛	lunar_python 1.4.8, Lunar.fromYmd(2033, 8, 15)
-chunjie	2034-02-19	1	14	2034	虎	lunar_python 1.4.8, Lunar.fromYmd(2034, 1, 1)
+chongyang	2033-10-01	1	1	2033	牛	lunar_python 1.4.8, Lunar.fromYmd(2033, 9, 9)
+dongzhi	2033-12-21	1	1	2033	牛	lunar_python 1.4.8, Solar.fromYmd(2033, 12, 1).getLunar().getNextJieQi() → 冬至
+chunjie	2034-02-19	1	13	2034	虎	lunar_python 1.4.8, Lunar.fromYmd(2034, 1, 1)
+yuanxiao	2034-03-05	0	0	2034	虎	lunar_python 1.4.8, Lunar.fromYmd(2034, 1, 15)
+qingming	2034-04-05	1	1	2034	虎	lunar_python 1.4.8, Solar.fromYmd(2034, 4, 1).getLunar().getNextJieQi() → 清明
+duanwu	2034-06-20	2	1	2034	虎	lunar_python 1.4.8, Lunar.fromYmd(2034, 5, 5)
+qixi	2034-08-20	2	0	2034	虎	lunar_python 1.4.8, Lunar.fromYmd(2034, 7, 7)
 zhongqiu	2034-09-27	3	1	2034	虎	lunar_python 1.4.8, Lunar.fromYmd(2034, 8, 15)
-chunjie	2035-02-08	1	14	2035	兔	lunar_python 1.4.8, Lunar.fromYmd(2035, 1, 1)
+chongyang	2034-10-20	1	1	2034	虎	lunar_python 1.4.8, Lunar.fromYmd(2034, 9, 9)
+dongzhi	2034-12-22	1	1	2034	虎	lunar_python 1.4.8, Solar.fromYmd(2034, 12, 1).getLunar().getNextJieQi() → 冬至
+chunjie	2035-02-08	1	13	2035	兔	lunar_python 1.4.8, Lunar.fromYmd(2035, 1, 1)
+yuanxiao	2035-02-22	0	0	2035	兔	lunar_python 1.4.8, Lunar.fromYmd(2035, 1, 15)
+qingming	2035-04-05	1	1	2035	兔	lunar_python 1.4.8, Solar.fromYmd(2035, 4, 1).getLunar().getNextJieQi() → 清明
+duanwu	2035-06-10	2	1	2035	兔	lunar_python 1.4.8, Lunar.fromYmd(2035, 5, 5)
+qixi	2035-08-10	2	0	2035	兔	lunar_python 1.4.8, Lunar.fromYmd(2035, 7, 7)
 zhongqiu	2035-09-16	3	1	2035	兔	lunar_python 1.4.8, Lunar.fromYmd(2035, 8, 15)
+chongyang	2035-10-09	1	1	2035	兔	lunar_python 1.4.8, Lunar.fromYmd(2035, 9, 9)
+dongzhi	2035-12-22	1	1	2035	兔	lunar_python 1.4.8, Solar.fromYmd(2035, 12, 1).getLunar().getNextJieQi() → 冬至

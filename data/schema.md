@@ -14,9 +14,10 @@ Les caractères des listes cibles — `seuil-255` et `hsk-1` — et **leurs briq
 (prérequis transitifs de la décomposition canonique), pas tout le dictionnaire.
 Une famille n'est exportée qu'avec ses membres du périmètre ; la famille 口 en a
 17 ici, contre 525 dans le graphe complet. Les caractères que les fêtes
-dessinent depuis leurs traits (`data/sources/fetes/textes.tsv` : l'anecdote et le
-福 du vœu) y entrent aussi, avec leurs briques. Version 0.1.0 : 238 familles,
-486 caractères (222 briques, 13 feuilles muettes), 1,34 Mio.
+dessinent depuis leurs traits (`data/sources/fetes/textes.tsv` : le caractère
+bonus de chaque anecdote et le 福 du vœu) y entrent aussi, avec leurs briques.
+Version 0.1.0 : 239 familles, 493 caractères (223 briques, 13 feuilles muettes),
+1,38 Mio.
 
 ## Arborescence
 
@@ -157,17 +158,26 @@ calendrier`, dates du calendrier luni-solaire calculées par `lunar_python`),
 
 ```json
 {"version": "0.1.0", "license": "propriétaire", "source": "…", "source_url": "…", "modified": "…",
- "calendrier": [{"fete": "chunjie", "date": "2027-02-06", "avant": 1, "apres": 14, "annee": 2027,
+ "calendrier": [{"fete": "chunjie", "date": "2027-02-06", "avant": 1, "apres": 13, "annee": 2027,
                  "animal": {"c": "羊", "pinyin": "yáng", "fr": "de la Chèvre"}}],
  "fetes": {"chunjie": {"nom": "Nouvel An lunaire", "nom_zh": "春节",
                        "voeu": {"zh": "新年快乐", "pinyin": "xīnnián kuàilè", "fr": "Bonne année {animal}"},
                        "caractere_voeu": "福", "tao": ["…"],
-                       "anecdote": {"rubrique": "…", "c": "年", "titre": "…", "texte": "…"}}},
- "racines": {"年": "年", "月": "月", "福": "礻"}}
+                       "anecdote": {"rubrique": "…", "c": "年", "pinyin": "nián", "sens": "l'année",
+                                    "titre": "…", "texte": "…"}}},
+ "racines": {"年": "年", "月": "月", "福": "礻", "灯": "火", "…": "…"}}
 ```
 
+- Huit fêtes : `chunjie` 春节, `yuanxiao` 元宵, `qingming` 清明, `duanwu` 端午,
+  `qixi` 七夕, `zhongqiu` 中秋, `chongyang` 重阳, `dongzhi` 冬至. Six tombent à un
+  jour du calendrier lunaire ; 清明 et 冬至 suivent leur terme solaire (节气), au
+  jour de Pékin.
 - Une fête est active du jour `date − avant` au jour `date + apres` inclus.
-  春节 : du réveillon 除夕 (−1) à la fête des Lanternes 元宵 (+14) ; 中秋 : −3 à +1.
+  春节 : du réveillon 除夕 (−1) au 14e jour (+13) ; 元宵 : son jour seul ;
+  清明 −1 à +1 ; 端午 −2 à +1 ; 七夕 −2 à 0 ; 中秋 −3 à +1 ; 重阳 −1 à +1 ;
+  冬至 −1 à +1. Les fenêtres ne se chevauchent jamais.
+- `anecdote.c` est le caractère bonus de la fête, dessiné depuis ses traits dans
+  l'anecdote ; `pinyin` vient d'Unihan, `sens` est rédigé pour l'app.
 - `{animal}` et `{quand}` sont des jetons que l'app remplit au jour de la fête :
   l'animal de l'entrée du calendrier (« de la Chèvre 羊 ») et le délai jusqu'au soir
   de la fête (« Demain soir »).
@@ -195,7 +205,8 @@ ce que l'app embarque ; `docs/sources-licences.md` fait foi pour la décision.
   pour chaque fête, aucun chevauchement.
 - « fêtes : textes » — bloquant : chaque fête a toutes ses clés, aucune vide,
   des jetons connus, une source.
-- « fêtes : caractères dessinés » — bloquant : l'anecdote et le 福 du vœu ont
+- « fêtes : caractères dessinés » — bloquant : le caractère bonus de chaque
+  anecdote et le 福 du vœu ont
   leurs traits dans chaque version exportée.
 
 ## Format intermédiaire (story 1.1)
