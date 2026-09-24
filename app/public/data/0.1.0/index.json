@@ -1,19 +1,19 @@
 {
  "version": "0.1.0",
- "date": "2026-09-24T20:01:26Z",
- "empreinte": "sha256:a8358e1a0b7ff73a88a49099af1bb2190bd0778421383d31825251e7abfea017",
+ "date": "2026-09-24T20:20:37Z",
+ "empreinte": "sha256:2ef2861e6687b09006d2b516121a315c54a6ad5bdec060116a9c0a92e8469677",
  "license": "propriétaire",
  "source": "décomposition GF 0014-2009 réconciliée par le pipeline wenlu ; pinyin d'Unihan (kMandarin) ; textes rédigés pour l'app",
  "source_url": "https://github.com/jon-gyt/zilin",
  "modified": "2026-09-24 : assemblé par `wenlu export`",
  "norme": "GF 0014-2009",
- "perimetre": "seuil 255 et HSK 1 : les caractères des deux listes et leurs briques ; les caractères dessinés des fêtes et leurs briques",
+ "perimetre": "seuil 255 et HSK 1 : les caractères des deux listes et leurs briques ; les caractères dessinés des fêtes et des termes solaires, et leurs briques",
  "licences": "LICENCES.md",
  "compte": {
-  "familles": 239,
-  "caracteres": 493,
-  "briques": 223,
-  "muettes": 13,
+  "familles": 243,
+  "caracteres": 512,
+  "briques": 225,
+  "muettes": 15,
   "fiches_relues": 0,
   "contes": 0
  },
@@ -3804,7 +3804,7 @@
    "racine": "一",
    "fichier": "familles/一.json",
    "traits": "traits/一.json",
-   "n": 3,
+   "n": 4,
    "avancement_possible": 0.0
   },
   {
@@ -4070,7 +4070,7 @@
    "racine": "亠",
    "fichier": "familles/亠.json",
    "traits": "traits/亠.json",
-   "n": 3,
+   "n": 4,
    "avancement_possible": 0.0
   },
   {
@@ -4175,7 +4175,7 @@
    "racine": "冫",
    "fichier": "familles/冫.json",
    "traits": "traits/冫.json",
-   "n": 5,
+   "n": 7,
    "avancement_possible": 0.0
   },
   {
@@ -4469,7 +4469,7 @@
    "racine": "宀",
    "fichier": "familles/宀.json",
    "traits": "traits/宀.json",
-   "n": 6,
+   "n": 7,
    "avancement_possible": 0.0
   },
   {
@@ -4606,6 +4606,13 @@
    "avancement_possible": 0.0
   },
   {
+   "racine": "彐",
+   "fichier": "familles/彐.json",
+   "traits": "traits/彐.json",
+   "n": 1,
+   "avancement_possible": 0.0
+  },
+  {
    "racine": "彡",
    "fichier": "familles/彡.json",
    "traits": "traits/彡.json",
@@ -4721,7 +4728,7 @@
    "racine": "日",
    "fichier": "familles/日.json",
    "traits": "traits/日.json",
-   "n": 11,
+   "n": 13,
    "avancement_possible": 0.0
   },
   {
@@ -4742,7 +4749,7 @@
    "racine": "木",
    "fichier": "familles/木.json",
    "traits": "traits/木.json",
-   "n": 11,
+   "n": 12,
    "avancement_possible": 0.0
   },
   {
@@ -4833,7 +4840,7 @@
    "racine": "氵",
    "fichier": "familles/氵.json",
    "traits": "traits/氵.json",
-   "n": 11,
+   "n": 12,
    "avancement_possible": 0.0
   },
   {
@@ -4994,7 +5001,7 @@
    "racine": "禾",
    "fichier": "familles/禾.json",
    "traits": "traits/禾.json",
-   "n": 2,
+   "n": 3,
    "avancement_possible": 0.0
   },
   {
@@ -5159,6 +5166,13 @@
    "avancement_possible": 0.0
   },
   {
+   "racine": "谷",
+   "fichier": "familles/谷.json",
+   "traits": "traits/谷.json",
+   "n": 1,
+   "avancement_possible": 0.0
+  },
+  {
    "racine": "豕",
    "fichier": "familles/豕.json",
    "traits": "traits/豕.json",
@@ -5253,7 +5267,7 @@
    "racine": "雨",
    "fichier": "familles/雨.json",
    "traits": "traits/雨.json",
-   "n": 2,
+   "n": 6,
    "avancement_possible": 0.0
   },
   {
@@ -5344,13 +5358,20 @@
    "racine": "龶",
    "fichier": "familles/龶.json",
    "traits": "traits/龶.json",
-   "n": 1,
+   "n": 2,
    "avancement_possible": 0.0
   },
   {
    "racine": "？",
    "fichier": "familles/？.json",
    "traits": "traits/？.json",
+   "n": 1,
+   "avancement_possible": 0.0
+  },
+  {
+   "racine": "𠀎",
+   "fichier": "familles/𠀎.json",
+   "traits": "traits/𠀎.json",
    "n": 1,
    "avancement_possible": 0.0
   },
@@ -5367,9 +5388,17 @@
    "traits": "traits/𠂉.json",
    "n": 1,
    "avancement_possible": 0.0
+  },
+  {
+   "racine": "𡗗",
+   "fichier": "familles/𡗗.json",
+   "traits": "traits/𡗗.json",
+   "n": 1,
+   "avancement_possible": 0.0
   }
  ],
  "contes": [],
  "paires": "paires.json",
- "fetes": "fetes.json"
+ "fetes": "fetes.json",
+ "saisons": "saisons.json"
 }
