@@ -11,12 +11,14 @@ SOURCES = WORK / "sources"
 INGEST = WORK / "ingest"
 FONTES = WORK / "fonts"
 BUILD = WORK / "build"
-CONTES_WORK = WORK / "contes"
 AUDIO_WORK = WORK / "audio"
 
 LISTES = DATA / "sources" / "listes"
 #: Les fiches sont versionnées, hors de `work/` ; le nom est historique.
 FICHES_WORK = DATA / "sources" / "fiches"
+#: Les versions de contes sont versionnées, hors de `work/` ; le nom est historique.
+#: Le journal des lots d'API, lui, reste dans `work/contes/lots/`.
+CONTES_WORK = DATA / "sources" / "contes-versions"
 INTERFACE = DATA / "sources" / "interface" / "caracteres.txt"
 CONTES = DATA / "sources" / "contes"
 GF0014 = DATA / "sources" / "gf0014-2009"
