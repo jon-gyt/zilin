@@ -58,7 +58,7 @@ Trois régimes de licence, trois familles de fichiers, jamais mêlés
             "fiches_relues": 0, "contes": 0},
  "listes": {"seuil-255": ["…"], "hsk-1": ["…"]},
  "parcours": {"lire": {"liste": "seuil-255", "regle": "…",
-                       "jours": [{"jour": 1, "brique": "月", "composes": ["朋", "有"],
+                       "jours": [{"jour": 1, "brique": "人", "composes": [],
                                   "non_reconcilie": false}]},
               "hsk": {"…": "…"}},
  "familles": [{"racine": "亻", "fichier": "familles/亻.json",
@@ -391,7 +391,7 @@ est bloquant.
 
 ### `parcours-lire.json`, `parcours-hsk.json`
 
-`{parcours, liste, regle, critere_frequence, cible[], compte, jours[], briques[],
+`{parcours, liste, regle, critere_frequence, depart[], cible[], compte, jours[], briques[],
 briques_muettes[], non_reconcilies[], absents[]}`.
 
 - `parcours` vaut `lire` (liste cible `seuil-255`, puis les seuils suivants) ou `hsk`
@@ -403,6 +403,12 @@ briques_muettes[], non_reconcilies[], absents[]}`.
   10 minutes : au plus une brique nouvelle, puis un ou deux composés qui deviennent
   lisibles avec elle. `brique` est nul les jours de consolidation, quand il ne reste que
   des composés à poser. Les jours `non_reconcilie` ferment le parcours.
+- `depart` : ce que la première session enseigne (brief §6, story 2.7), `人 大 天`
+  pour `lire`, vide pour `hsk` (`DEPART` de `graphe.py`). Ces caractères ouvrent le
+  parcours, un jour chacun, dans cet ordre et sans composé : la première session les
+  pose d'un coup, et la session complète reprend au jour qui suit (`jourApresDepart`
+  de `app/src/lib/premiere.ts`). La règle d'une brique nouvelle par jour tient ; seul
+  l'ordre de priorité cède.
 - Ordre : tri topologique — une brique avant tout ce qui la contient. Parmi les
   candidats prêts, priorité aux caractères de la liste cible, puis à ce qui devient
   lisible le jour même, puis à la fréquence, puis à l'ordre de la liste. Make Me a Hanzi
@@ -447,7 +453,8 @@ Assemblé par `fiches.Corpus` depuis `decompositions.json`, `graphe.json`,
   d'autre. Les entrées au pinyin capitalisé (noms propres) sont écartées. La définition
   anglaise n'est jamais lue ni transmise (`docs/sources-licences.md` §4.2) ;
 - les caractères acquis à ce jour, caractère du jour compris : les seuls autorisés dans
-  la phrase.
+  la phrase. Pour un caractère du départ, ceux de toute la première session, qui les
+  pose ensemble : 人, 大 et 天 ont chacun les trois.
 
 La réponse est contrainte par `output_config.format` (JSON structuré). La validation
 refuse une fiche dont l'origine FR ou EN ne fait pas exactement trois phrases (points

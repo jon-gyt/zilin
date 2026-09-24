@@ -427,6 +427,28 @@ def test_validation_signale_le_manque_de_mots_candidats(corpus) -> None:
     assert any("mot candidat lisible" in e for e in rapport.ecarts)
 
 
+def test_le_depart_se_lit_avec_toute_la_premiere_session(table) -> None:
+    """人, 大, 天 sont posés ensemble par la première session : chacun a les trois acquis."""
+    jours = [
+        {"jour": 1, "brique": "人", "composes": []},
+        {"jour": 2, "brique": "口", "composes": []},
+        {"jour": 3, "brique": "门", "composes": ["问"]},
+    ]
+    depart = Corpus(
+        parcours="lire",
+        jours=jours,
+        decompositions=DECOMPOSITIONS,
+        noeuds=NOEUDS,
+        caracteres=CARACTERES,
+        mots=MOTS,
+        table=table,
+        depart=("人", "口"),
+    )
+    assert depart.acquis("人") == depart.acquis("口") == ("人", "口")
+    assert depart.jour("人") == 1
+    assert depart.acquis("问") == ("人", "口", "门", "问")
+
+
 # --------------------------------------------------------------------------- génération
 
 

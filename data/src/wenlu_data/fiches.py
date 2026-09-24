@@ -197,6 +197,7 @@ class Corpus:
         table: TableGF0014,
         *,
         max_candidats: int = MAX_CANDIDATS,
+        depart: Sequence[str] = (),
     ) -> None:
         if parcours not in PARCOURS:
             raise ParcoursInconnu(f"parcours {parcours!r} inconnu : {', '.join(PARCOURS)}")
@@ -221,6 +222,13 @@ class Corpus:
                 self._jour.setdefault(c, numero)
                 self._acquis.setdefault(c, instantane)
         self.ordre = tuple(vus)
+        # La première session pose le départ d'un coup (graphe.DEPART) : la fiche de
+        # chacun de ses caractères se lit après elle, avec tout le départ acquis.
+        self.depart = tuple(c for c in depart if c in self._acquis)
+        if self.depart:
+            fin = max((self._acquis[c] for c in self.depart), key=len)
+            for c in self.depart:
+                self._acquis[c] = fin
 
         self._mots: list[MotCandidat] = [
             m for m in mots if len(m.hanzi) == 2 and not _pinyin_de_nom_propre(m.pinyin)
@@ -238,7 +246,11 @@ class Corpus:
             ) from erreur
 
     def acquis(self, c: str) -> tuple[str, ...]:
-        """Caractères acquis le jour où `c` est posé, `c` compris."""
+        """Caractères acquis le jour où `c` est posé, `c` compris.
+
+        Pour un caractère du départ, ceux de toute la première session, qui les
+        pose ensemble.
+        """
         self.jour(c)
         return self._acquis[c]
 
@@ -347,6 +359,7 @@ def charger_corpus(
         },
         mots=charger_mots(ingest / "mots.json"),
         table=table or charger_table(),
+        depart=[str(c) for c in (chemin_parcours.get("depart") or [])],
     )
 
 
