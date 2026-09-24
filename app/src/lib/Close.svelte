@@ -1,14 +1,30 @@
 <script lang="ts">
   /**
-   * Pas 6, Clore : le constat en une ligne, la graine plantée, le rendez-vous de demain.
-   * C'est un moment d'émotion : Tao est là, en joie.
+   * Pas 6, Clore : la seule fin de la session. Le constat en une ligne, la graine qui
+   * pousse, la semaine et la série sur le même écran, puis le menu. L'ancien écran de
+   * série est fondu ici : il n'y a plus deux fins.
    *
-   * La graine est une animation sobre, encre et jade (maquette `.seed`) : ni dégradé,
-   * ni ombre. Le rendez-vous se donne sans heure tant que le réglage n'existe pas.
+   * La graine du jour se voit plantée dès l'arrivée ; elle ne se range dans la progression
+   * qu'au tap sur « Terminer » (`cloreSession`), une fois par journée. Une session de plus
+   * le dit : la graine du jour est déjà plantée, il n'y en a jamais une seconde.
+   *
+   * Encre et jade, des aplats et des traits : ni dégradé, ni ombre. Le cinabre ne marque
+   * que la case du jour dans la semaine. Jamais un compteur de jours manqués.
    */
+  import EnTetePas from './EnTetePas.svelte';
+  import Que from './Que.svelte';
   import Tao from './Tao.svelte';
   import { caractereDuJour, lecon } from './content';
-  import { constat, jourParcours, rendezVous, type Progress } from './session';
+  import {
+    CADEAUX,
+    NOTE_REMISE,
+    etatSerie,
+    libelleJours,
+    messageCadeau,
+    messageProchain,
+    messageSemaine
+  } from './serie';
+  import { constat, jourLecon, rendezVous, type Progress } from './session';
   import { stade } from './tao';
 
   let {
@@ -17,15 +33,11 @@
     onquitter
   }: { p: Progress; onterminer: () => void; onquitter: () => void } = $props();
 
-  /** Les cinq écrans de la leçon dans la maquette ; Clore est le cinquième. */
-  const PAS_LECON = 5;
-  const RANG = 4;
-
   /** Le caractère du jour : le composé de la session, la brique quand il n'y en a pas. */
   let caractere = $state('');
 
   $effect(() => {
-    const n = jourParcours(p);
+    const n = jourLecon(p);
     const choisi = p.parcours;
     let vivant = true;
     void lecon(choisi, n)
@@ -40,26 +52,20 @@
     };
   });
 
-  const c = $derived(caractere);
+  /** La graine du jour est-elle déjà plantée ? Oui après une première session close. */
+  const dejaPlantee = $derived(p.joursTravailles.includes(p.day));
+  /** La série telle qu'elle sera une fois la graine du jour plantée. */
+  const s = $derived(etatSerie([...p.joursTravailles, p.day], p.day));
   const taoStade = $derived(stade(p.tao.croissance));
 </script>
 
 <main class="screen">
-  <button class="k quit" onclick={onquitter}>✕ Quitter</button>
-
-  <div class="dots" aria-hidden="true">
-    {#each { length: PAS_LECON } as _, i (i)}
-      <i class:on={i < RANG} class:cur={i === RANG}></i>
-    {/each}
-  </div>
-
-  <div class="mood">
-    <Tao stade={taoStade} posture="chemin" humeur="joie" size={96} />
-  </div>
+  <EnTetePas {p} {onquitter} />
 
   <div class="card center clore">
+    <div class="tao-joie"><Tao stade={taoStade} posture="chemin" humeur="joie" size={72} /></div>
     <div class="seed" aria-hidden="true">
-      <svg viewBox="0 0 120 120" width="120" height="120">
+      <svg viewBox="0 0 120 120" width="104" height="104">
         <line x1="10" y1="92" x2="110" y2="92" stroke="var(--line)" stroke-width="3" stroke-linecap="round" />
         <circle class="sd" cx="60" cy="20" r="6" fill="var(--ink)" />
         <path class="st" d="M60 92 V60" stroke="var(--jade)" stroke-width="4" stroke-linecap="round" fill="none" />
@@ -73,10 +79,86 @@
         />
       </svg>
     </div>
-    {#if c}<h1>{c} entre dans ta forêt.</h1>{/if}
-    <p class="guide">{rendezVous()}</p>
+    {#if caractere}<h1>{caractere} entre dans ta forêt.</h1>{/if}
+    <p class="guide">
+      {dejaPlantee ? 'La graine du jour est déjà plantée : une par jour, jamais deux.' : rendezVous()}
+    </p>
     <div class="k">{constat(p, p.day)}</div>
   </div>
 
-  <div class="foot"><button class="btn" onclick={onterminer}>Voir ta série</button></div>
+  <div class="card semaine-serie">
+    <div class="row">
+      <div class="grow">
+        <div class="t">{s.jours} {libelleJours(s)}</div>
+        <div class="k">{messageSemaine(s)}</div>
+      </div>
+    </div>
+    <div class="seeds" aria-label="Les graines de la semaine">
+      {#each s.semaine as g, i (g.jour)}
+        <i
+          class:on={g.travaille}
+          class:today={g.aujourdhui}
+          class:pop={g.aujourdhui && g.travaille && !dejaPlantee}
+          style="animation-delay:{(1.4 + 0.05 * i).toFixed(2)}s">{g.lettre}</i
+        >
+      {/each}
+    </div>
+    {#if s.palier === null && messageProchain(s) !== ''}
+      <div class="k">{messageProchain(s)}</div>
+    {/if}
+  </div>
+
+  {#if s.palier !== null && !dejaPlantee}
+    <div class="giftcard">
+      <div class="row">
+        <Que size={56} cadeau="ouvert" />
+        <div class="grow">
+          <b>{messageCadeau(s.palier)}</b>
+          <span class="k">
+            {CADEAUX[s.palier].detail}
+            {#if CADEAUX[s.palier].remise}{NOTE_REMISE}{/if}
+          </span>
+        </div>
+      </div>
+    </div>
+  {/if}
+
+  <div class="foot"><button class="btn" onclick={onterminer}>Terminer</button></div>
 </main>
+
+<style>
+  .clore {
+    padding: 14px 16px 18px;
+  }
+  .tao-joie {
+    display: flex;
+    justify-content: center;
+    margin-bottom: -8px;
+  }
+  .semaine-serie .t {
+    font-family: var(--head);
+    font-weight: 700;
+    font-size: 18px;
+    letter-spacing: -0.02em;
+  }
+  /* la graine du jour apparaît une fois la graine tombée dans la carte du dessus */
+  .seeds i.pop {
+    animation: pop 0.55s cubic-bezier(0.2, 1.5, 0.4, 1) both;
+  }
+  @keyframes pop {
+    0% {
+      transform: scale(0.4);
+    }
+    60% {
+      transform: scale(1.2);
+    }
+    100% {
+      transform: none;
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .seeds i.pop {
+      animation: none;
+    }
+  }
+</style>

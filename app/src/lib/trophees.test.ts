@@ -133,10 +133,11 @@ describe('les sceaux de famille', () => {
     expect(sceau(complete).sceau).toBe('月');
   });
 
-  it('montrent les familles commencées et quelques suivantes du parcours, pas les 238', () => {
+  it('montrent les familles commencées et quelques suivantes du parcours, pas toutes', () => {
     const p = progression({ cartes: [sue('月'), neuve('日')] });
     const s = tableau(p, contenuExport).sections.find((x) => x.famille === 'sceaux')!;
-    expect(indexExport.familles.length).toBe(238);
+    /* L'export compte plus de deux cents familles (239 avec 皿, brique de 温) ; le tableau n'en montre qu'une poignée. */
+    expect(indexExport.familles.length).toBeGreaterThan(200);
     expect(s.total).toBeGreaterThanOrEqual(SCEAUX_MIN);
     expect(s.total).toBeLessThan(20);
     expect(s.total % 3).toBe(0);

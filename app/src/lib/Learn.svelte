@@ -11,12 +11,13 @@
    * mots et phrase viennent du JSON versionné de `app/public/data/`, et la ligne neutre
    * `LIGNE_SANS_FICHE` tient lieu d'origine tant que la fiche n'est pas écrite.
    */
+  import EnTetePas from './EnTetePas.svelte';
   import Glyph from './Glyph.svelte';
   import Tao from './Tao.svelte';
   import Trace from './Trace.svelte';
   import { ETIQUETTES, LIGNE_SANS_FICHE, lecon, type FicheLue } from './content';
   import { aAudio, dire, manifesteOnce, type Manifeste } from './audio';
-  import { jourParcours, traceProposee, type LearnView, type Progress } from './session';
+  import { jourLecon, traceProposee, type LearnView, type Progress } from './session';
   import { humeur, stade } from './tao';
 
   let {
@@ -29,19 +30,14 @@
     p: Progress;
     /**
      * Enchaîne vers la vue suivante. La brique et le composé de la session remontent :
-     * à la fin du pas, ils reçoivent chacun une carte de révision.
+     * à la fin du pas, ils reçoivent chacun une carte de révision. `jour` est le jour du
+     * parcours posé, sauts compris : le parcours reprend au suivant.
      */
-    onsuivant: (brique: string, compose: string | null) => void;
+    onsuivant: (brique: string, compose: string | null, jour: number) => void;
     onvue: (v: LearnView) => void;
     ontrace: (actif: boolean) => void;
     onquitter: () => void;
   } = $props();
-
-  /**
-   * Les cinq écrans de la leçon dans la maquette ; les trois derniers arrivent avec les
-   * pas Utiliser, Fixer et Clore. Le cinabre marque la position sur le chemin.
-   */
-  const PAS_LECON = 5;
 
   let briqueDuJour = $state(null as FicheLue | null);
   let composeDuJour = $state(null as FicheLue | null);
@@ -50,6 +46,8 @@
   const compo: FicheLue | null = $derived(composeDuJour);
   /** Les briques déjà posées : elles disent à `content` où chercher les familles. */
   let pistes = $state([] as string[]);
+  /** Le jour du parcours que l'écran pose, sauts compris. */
+  let jourPose = $state(0);
   let chargee = $state(false);
   /** La brique a été tracée en entier dans cette vue : le bouton du bas le dit. */
   let traceFait = $state(false);
@@ -67,7 +65,7 @@
   });
 
   $effect(() => {
-    const n = jourParcours(p);
+    const n = jourLecon(p);
     const choisi = p.parcours;
     let vivant = true;
     void lecon(choisi, n)
@@ -80,6 +78,7 @@
           );
         }
         pistes = l.pistes;
+        jourPose = l.jour?.jour ?? n;
         briqueDuJour = l.brique;
         composeDuJour = l.composes[0] ?? null;
         chargee = true;
@@ -126,20 +125,11 @@
 </script>
 
 <main class="screen">
-  {#if vue === 'brique'}
-    <button class="k quit" onclick={onquitter}>✕ Quitter</button>
-  {:else}
-    <button class="k quit" onclick={() => onvue('brique')}>‹ La brique {brique?.c ?? ''}</button>
-  {/if}
-
-  {#if vue !== 'trace'}
-    <div class="dots" aria-hidden="true">
-      {#each { length: PAS_LECON } as _, i (i)}
-        <i class:on={i < (vue === 'compose' ? 1 : 0)} class:cur={i === (vue === 'compose' ? 1 : 0)}
-        ></i>
-      {/each}
-    </div>
-  {/if}
+  <EnTetePas
+    {p}
+    {onquitter}
+    lien={vue === 'brique' ? null : { texte: `‹ La brique ${brique?.c ?? ''}`, action: () => onvue('brique') }}
+  />
 
   {#if vue === 'brique' && brique}
     <div class="verif-tete">
@@ -183,7 +173,7 @@
       {/if}
     </div>
     <div class="foot">
-      <button class="btn" onclick={() => onsuivant(brique.c, suivantDuJour)}
+      <button class="btn" onclick={() => onsuivant(brique.c, suivantDuJour, jourPose)}
         >J'ai vu {brique.c}, suivant</button
       >
     </div>
@@ -202,7 +192,7 @@
       <button
         class="btn"
         class:ghost={!traceFait}
-        onclick={() => onsuivant(brique.c, suivantDuJour)}
+        onclick={() => onsuivant(brique.c, suivantDuJour, jourPose)}
         >{traceFait ? 'Suivant' : 'Continuer sans tracer'}</button
       >
     </div>
@@ -256,12 +246,12 @@
       </div>
     {/if}
     <div class="foot">
-      <button class="btn" onclick={() => onsuivant(brique?.c ?? '', compo.c)}>Suivant</button>
+      <button class="btn" onclick={() => onsuivant(brique?.c ?? '', compo.c, jourPose)}>Suivant</button>
     </div>
   {:else if !chargee}
     <p class="guide">Un instant.</p>
   {:else}
     <p class="guide">Le contenu de la leçon n'a pas pu être lu.</p>
-    <div class="foot"><button class="btn" onclick={onquitter}>Revenir au chemin</button></div>
+    <div class="foot"><button class="btn" onclick={onquitter}>Revenir au menu</button></div>
   {/if}
 </main>

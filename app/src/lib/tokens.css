@@ -89,17 +89,6 @@ h1{font-family:var(--head);font-weight:700;font-size:30px;line-height:1.15;lette
 .today{flex:1;min-height:0;display:flex;align-items:center;justify-content:center;padding:10px 0}
 
 /* le chemin */
-.path{position:relative;padding-left:34px;margin:6px 0}
-.path::before{content:"";position:absolute;left:13px;top:18px;bottom:18px;width:2px;background:var(--line)}
-.node{position:relative;display:flex;align-items:center;gap:14px;padding:12px 0;margin:0;width:100%}
-.node::before{content:"";position:absolute;left:-27px;top:50%;width:12px;height:12px;border-radius:50%;background:var(--paper);border:2px solid var(--line);box-sizing:border-box;transform:translateY(-50%)}
-.node .t{font-weight:600;color:var(--ink2)}
-.node .d{font-size:13.5px;color:var(--ink2)}
-.node.done::before{background:var(--jade);border-color:var(--jade)}
-.node.done .t{color:var(--mist);font-weight:400}
-.node.now .t{color:var(--ink)}
-.node.now::before{background:var(--zhu);border-color:var(--zhu)}
-.node.lock{opacity:.5}
 
 /* un seul bouton, en bas */
 .foot{margin-top:auto;padding-top:18px}
@@ -267,8 +256,6 @@ h1{font-family:var(--head);font-weight:700;font-size:30px;line-height:1.15;lette
 .opt .d{font-size:14px;color:var(--ink2)}
 /* ---- la barre des trois onglets (maquette id="tabs") ---- */
 /* Hors session seulement : pendant les pas, l'écran n'a qu'un bouton. */
-.onglets{flex:1;display:flex;flex-direction:column;min-height:0}
-.tabs{position:sticky;bottom:0;z-index:2;display:flex;border-top:1px solid var(--line);background:var(--paper);padding:6px 6px calc(env(safe-area-inset-bottom) + 6px)}
 .tab{flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;padding:6px 0;font-size:11.5px;color:var(--mist);min-height:44px;text-align:center}
 .tab svg{width:24px;height:24px;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
 .tab.on{color:var(--indigo)}
@@ -382,15 +369,8 @@ h1{font-family:var(--head);font-weight:700;font-size:30px;line-height:1.15;lette
 .repos{margin-top:6px}
 
 /* l'écran de série : le compteur, le chemin, les graines, le cadeau */
-.streak .serie{flex:1;display:flex;flex-direction:column;justify-content:center;text-align:center}
-.streak .n{font-family:var(--head);font-weight:700;font-size:72px;letter-spacing:-.04em;line-height:1;margin:6px 0 0}
-.streak .guide{margin:4px auto 0;max-width:32ch;min-height:23px}
-.streak .semaine{margin-top:0}
-.streak .seeds i{opacity:0;transform:scale(.6);animation:seedin .3s cubic-bezier(.2,1.3,.5,1) forwards}
-.streak .seeds i.pop{animation:seedpop .55s cubic-bezier(.2,1.5,.4,1) forwards}
 @keyframes seedin{to{opacity:1;transform:none}}
 @keyframes seedpop{0%{opacity:0;transform:scale(.4)}60%{opacity:1;transform:scale(1.25)}100%{opacity:1;transform:none}}
-@media (prefers-reduced-motion:reduce){.streak .seeds i{animation:none;opacity:1;transform:none}}
 
 /* le chemin en perspective : des aplats et des traits, ni dégradé ni ombre */
 .road{margin:10px -22px 0;overflow:hidden}
@@ -543,7 +523,6 @@ h1{font-family:var(--head);font-weight:700;font-size:30px;line-height:1.15;lette
 /* le bouton principal reste en bas de l'écran, même quand le contenu défile (un long
    résumé de révision) ; sur les onglets, la barre occupe déjà le bas : il suit le flux */
 .foot{position:sticky;bottom:0;z-index:1;padding-bottom:calc(env(safe-area-inset-bottom) + 10px);margin-bottom:-10px}
-.onglets .foot{position:static;padding-bottom:0;margin-bottom:0;background:none}
 /* un libellé de bouton qui passe à la ligne reste centré, et deux boutons côte à côte
    gardent assez de place pour « Une autre manche » ou « Exporter en JSON » */
 .btn{text-align:center;line-height:1.2}

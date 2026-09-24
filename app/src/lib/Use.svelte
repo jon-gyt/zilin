@@ -11,6 +11,7 @@
    * (`data/demo/textes/住.json`) : l'export ne porte encore aucun texte ni conte.
    * Le cinabre ne sert qu'à une chose sur cet écran : le caractère du jour dans le texte.
    */
+  import EnTetePas from './EnTetePas.svelte';
   import Glyph from './Glyph.svelte';
   import {
     LIGNE_SANS_FICHE,
@@ -25,7 +26,7 @@
   } from './content';
   import Tao from './Tao.svelte';
   import { aAudio, dire, manifesteOnce, type Manifeste } from './audio';
-  import { jourParcours, type Progress, type UseView } from './session';
+  import { jourLecon, type Progress, type UseView } from './session';
   import { humeur, stade } from './tao';
 
   let {
@@ -42,10 +43,6 @@
     onquitter: () => void;
   } = $props();
 
-  /** Les cinq écrans de la leçon dans la maquette ; Utiliser est le troisième. */
-  const PAS_LECON = 5;
-  const RANG = 2;
-
   let ficheDuJour = $state(null as FicheLue | null);
   let t = $state(null as Texte | null);
   /** Le manifeste audio : il dit quels textes ont une voix. Absent, l'écran se tait. */
@@ -54,7 +51,7 @@
   let touche: Signe | null = $state(null);
 
   $effect(() => {
-    const n = jourParcours(p);
+    const n = jourLecon(p);
     const choisi = p.parcours;
     let vivant = true;
     void lecon(choisi, n)
@@ -125,15 +122,7 @@
 </script>
 
 <main class="screen">
-  <button class="k quit" onclick={onquitter}>✕ Quitter</button>
-
-  {#if vue === 'mots'}
-    <div class="dots" aria-hidden="true">
-      {#each { length: PAS_LECON } as _, i (i)}
-        <i class:on={i < RANG} class:cur={i === RANG}></i>
-      {/each}
-    </div>
-  {/if}
+  <EnTetePas {p} {onquitter} />
 
   {#if vue === 'mots' && compo}
     <div class="verif-tete">
@@ -217,6 +206,6 @@
     <div class="foot"><button class="btn" onclick={onsuivant}>J'ai tout lu</button></div>
   {:else}
     <p class="guide">Le texte du jour n'a pas pu être lu.</p>
-    <div class="foot"><button class="btn" onclick={onquitter}>Revenir au chemin</button></div>
+    <div class="foot"><button class="btn" onclick={onquitter}>Revenir au menu</button></div>
   {/if}
 </main>

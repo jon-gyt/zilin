@@ -1,6 +1,7 @@
 /**
  * L'état d'une session : six pas, toujours dans le même ordre, reprise au pas exact,
- * remise à zéro à chaque nouvelle journée, rattrapage après une absence.
+ * remise à zéro à chaque nouvelle journée, rattrapage après une absence, et la session
+ * de plus (quatre pas, une brique, jamais une seconde graine) une fois la journée faite.
  *
  * Tout ce module est pur : aucune fonction ne lit l'horloge ni n'écrit dans un stockage.
  * La journée courante est toujours passée en argument (`aujourdhui`, au format AAAA-MM-JJ)
@@ -99,6 +100,13 @@ export const USE_VIEWS = ['mots', 'texte'] as const;
  */
 export type Revision = { c: string; correct: boolean; tries: number; seconds: number };
 
+/**
+ * Une session de plus, en cours : Apprendre, Utiliser, Fixer, Clore, et Échauffer devant
+ * s'il restait des cartes dues quand elle a commencé. Figé au départ : la liste des pas
+ * ne bouge pas sous les doigts quand la pile baisse.
+ */
+export type SessionPlus = { echauffer: boolean };
+
 /** L'état complet d'une progression. Sérialisable tel quel. */
 export type Progress = {
   version: 1;
@@ -169,6 +177,16 @@ export type Progress = {
    */
   jourParcours?: number;
   /**
+   * Le jour du parcours que la session a appris, posé à la fin du pas Apprendre.
+   * Utiliser, Fixer et Clore lisent la même leçon ; le menu la montre une fois la journée
+   * faite. Repart à vide chaque journée, et au début d'une session de plus.
+   */
+  jourAppris?: number;
+  /** Les sessions de plus terminées dans la journée. Repart à zéro chaque journée. */
+  plus: number;
+  /** La session de plus en cours, `null` sinon. La liste des pas est alors la sienne. */
+  enPlus: SessionPlus | null;
+  /**
    * Rétention cible FSRS, réglable (brief §7) : la chance de savoir encore une carte au
    * moment où elle revient. Entre `RETENTION_MIN` et `RETENTION_MAX` de `srs.ts`, 0,9
    * par défaut. Ajoutée après coup : une progression sans ce champ se relit au défaut.
@@ -190,6 +208,15 @@ export type Progress = {
  */
 export function jourParcours(p: Progress): number {
   return Math.max(1, Math.floor(p.jourParcours ?? p.days));
+}
+
+/**
+ * Le jour du parcours que les écrans de la session lisent : celui que la session a
+ * appris, dès la fin du pas Apprendre ; le prochain à apprendre, avant. Apprendre,
+ * Utiliser, Fixer et Clore voient ainsi la même leçon, même une fois le parcours avancé.
+ */
+export function jourLecon(p: Progress): number {
+  return p.jourAppris ?? jourParcours(p);
 }
 
 /** Range le jour du parcours atteint. Le parcours n'avance jamais tout seul. */
@@ -223,6 +250,8 @@ export function emptyProgress(aujourdhui: string): Progress {
     premiere: true,
     premiereVue: 'f1',
     parcours: null,
+    plus: 0,
+    enPlus: null,
     retention: RETENTION_DEFAUT,
     enAttente: []
   };
@@ -254,20 +283,7 @@ function rattrapage(p: Progress, aujourdhui: string): boolean {
  */
 export function openDay(p: Progress, aujourdhui: string): Progress {
   if (p.day === aujourdhui) return p;
-  return {
-    ...p,
-    day: aujourdhui,
-    done: [],
-    learn: 'brique',
-    use: 'mots',
-    fix: 0,
-    fixNotee: -1,
-    revue: [],
-    rev: 0,
-    revNotee: -1,
-    revisions: [],
-    catchup: rattrapage(p, aujourdhui)
-  };
+  return { ...resetDay(p), day: aujourdhui, catchup: rattrapage(p, aujourdhui) };
 }
 
 /**
@@ -325,8 +341,8 @@ export function noterActivite(p: Progress, jour: string, type: TypeActivite): Pr
   return { ...p, tao: ajouter(p.tao, jour, type) };
 }
 
-/** Recommence la journée : les pas repartent de zéro, le compteur de jour ne bouge pas. */
-export function resetDay(p: Progress): Progress {
+/** Les pas repartent de zéro, vues et questions comprises. */
+function pasAZero(p: Progress): Progress {
   return {
     ...p,
     done: [],
@@ -336,9 +352,49 @@ export function resetDay(p: Progress): Progress {
     fixNotee: -1,
     revue: [],
     rev: 0,
-    revNotee: -1,
-    revisions: []
+    revNotee: -1
   };
+}
+
+/**
+ * Remet la journée à zéro : les pas, les réponses, les sessions de plus. Le compteur de
+ * jour ne bouge pas. Ne sert qu'au changement de journée (`openDay`) : une journée faite
+ * ne se recommence pas, elle se prolonge par une session de plus (`commencerPlus`).
+ */
+export function resetDay(p: Progress): Progress {
+  return { ...pasAZero(p), revisions: [], plus: 0, enPlus: null, jourAppris: undefined };
+}
+
+/* ---------- la session de plus ---------- */
+
+/**
+ * Une session de plus se propose une fois la journée faite, et jamais en rattrapage :
+ * aucune brique nouvelle n'entre tant que la pile n'est pas redescendue.
+ */
+export function peutPlus(p: Progress): boolean {
+  return !p.premiere && !p.catchup && p.enPlus === null && allDone(p);
+}
+
+/**
+ * Commence une session de plus : quatre pas, une brique nouvelle, la suivante du
+ * parcours. Échauffer passe devant s'il reste des cartes dues. Sans effet quand elle
+ * n'est pas proposée.
+ */
+export function commencerPlus(p: Progress): Progress {
+  if (!peutPlus(p)) return p;
+  return { ...pasAZero(p), enPlus: { echauffer: p.due > 0 }, jourAppris: undefined };
+}
+
+/**
+ * Clore, la seule fin d'une session : le pas est fait et la graine du jour plantée, une
+ * fois par journée (`noterJourTravaille`). Une session de plus close rend la journée
+ * faite et compte une session de plus ; elle ne plante jamais une seconde graine.
+ */
+export function cloreSession(p: Progress, jour: string): Progress {
+  const n = noterJourTravaille(faitPasCourant(p, jour), jour);
+  if (n.enPlus === null) return n;
+  const journee: Progress = { ...n, enPlus: null, plus: n.plus + 1 };
+  return { ...journee, done: sessionSteps(journee).map(() => true) };
 }
 
 /* ---------- les cartes de révision ---------- */
@@ -513,6 +569,9 @@ export const ajouterCartes = assurerCartes;
 /**
  * La première session est finie : une carte par brique vue, les activités notées pour
  * Tao (trois leçons, une lecture), et le drapeau tombe. On n'y revient plus.
+ *
+ * La journée est faite : la première graine est plantée, les six pas sont marqués, et
+ * la session complète commence le lendemain, au premier jour du parcours.
  */
 export function finDepart(
   p: Progress,
@@ -525,7 +584,15 @@ export function finDepart(
     n = noterActivite(n, jour, 'lecon');
   });
   n = noterActivite(n, jour, 'lecture');
-  return { ...n, premiere: false, premiereVue: 'f1' };
+  n = noterJourTravaille({ ...n, premiere: false, premiereVue: 'f1' }, jour);
+  const premier = n.lastWorked !== jour;
+  return {
+    ...n,
+    done: sessionSteps(n).map(() => true),
+    days: premier ? n.days + 1 : n.days,
+    lastWorked: jour,
+    jourParcours: n.jourParcours ?? 1
+  };
 }
 
 /* ---------- pas 3, Apprendre ---------- */
@@ -566,17 +633,23 @@ export function learnNext(p: Progress, brique: string): LearnView | null {
  * Fin du pas Apprendre : le pas est fait, la brique et le composé entrent en révision
  * avec une carte neuve, et la leçon est notée pour Tao — c'est l'acte de la journée, et
  * le constat du soir le dit.
+ *
+ * Le parcours avance ici : `jour` est le jour du parcours que l'écran a posé, sauts
+ * compris. La suite de la session relit ce jour (`jourLecon`) ; la session suivante, de
+ * plus ou du lendemain, prend le jour d'après.
  */
 export function finApprendre(
   p: Progress,
   aujourdhui: string,
   maintenant: Date,
-  appris: readonly string[]
+  appris: readonly string[],
+  jour: number = jourLecon(p)
 ): Progress {
   let n = faitPasCourant(p, aujourdhui);
   n = assurerCartes(n, appris, maintenant);
   n = noterActivite(n, aujourdhui, 'lecon');
-  return setLearnView(n, 'brique');
+  const j = Math.max(1, Math.floor(jour));
+  return setLearnView({ ...n, jourAppris: j, jourParcours: j + 1 }, 'brique');
 }
 
 /* ---------- pas 4, Utiliser ---------- */
@@ -728,8 +801,24 @@ export function catchupSteps(due: number): Step[] {
   return blocs;
 }
 
+/**
+ * La session de plus : Apprendre, Utiliser, Fixer, Clore, dans l'ordre des six pas.
+ * Pas d'anecdote ; Échauffer seulement s'il restait des cartes dues au départ.
+ */
+export function plusSteps(p: Progress): Step[] {
+  const echauffer = p.enPlus?.echauffer ?? false;
+  return sessionSteps(p)
+    .filter((s) => s.id !== 'ouvrir' && (s.id !== 'echauffer' || echauffer))
+    .map((s) => {
+      if (s.id === 'apprendre') return { ...s, d: 'Une brique nouvelle, la suivante du parcours' };
+      if (s.id === 'clore') return { ...s, d: 'Le constat, sans seconde graine' };
+      return s;
+    });
+}
+
 export function steps(p: Progress): Step[] {
-  return p.catchup ? catchupSteps(p.due) : sessionSteps(p);
+  if (p.catchup) return catchupSteps(p.due);
+  return p.enPlus === null ? sessionSteps(p) : plusSteps(p);
 }
 
 /** Le pas courant : le premier pas ouvrable qui n'est pas fait. -1 si la journée est finie. */
@@ -788,11 +877,6 @@ export function guide(p: Progress): string {
   return `${budget} Un seul bouton.`;
 }
 
-export function buttonLabel(p: Progress): string {
-  if (allDone(p)) return 'Recommencer une session';
-  return started(p) ? 'Continuer' : 'Commencer';
-}
-
 /* ---------- export et import ---------- */
 
 /** Les cartes passent par `srs.ts` : les dates y sont en ISO, et se relisent telles quelles. */
@@ -819,6 +903,12 @@ function isEtapeDepart(v: unknown): v is EtapeDepart {
 
 function isParcours(v: unknown): v is Parcours {
   return v === 'lire' || v === 'hsk' || v === 'voyage';
+}
+
+/** Relit la session de plus en cours. Absente ou aberrante : aucune. */
+function lirePlus(v: unknown): SessionPlus | null {
+  if (typeof v !== 'object' || v === null) return null;
+  return { echauffer: (v as Record<string, unknown>).echauffer === true };
 }
 
 /**
@@ -932,6 +1022,11 @@ export function fromJSON(texte: string, aujourdhui: string): Progress {
       typeof o.jourParcours === 'number' && o.jourParcours >= 1
         ? Math.floor(o.jourParcours)
         : undefined,
+    /* Le jour appris et la session de plus : absents d'un export plus ancien. */
+    jourAppris:
+      typeof o.jourAppris === 'number' && o.jourAppris >= 1 ? Math.floor(o.jourAppris) : undefined,
+    plus: typeof o.plus === 'number' && o.plus >= 0 ? Math.floor(o.plus) : 0,
+    enPlus: lirePlus(o.enPlus),
     /* La rétention cible : absente d'un export plus ancien, elle reprend le défaut. */
     retention: bornerRetention(o.retention),
     /* Les cartes mises de côté : absentes d'un export plus ancien, rien n'est de côté. */

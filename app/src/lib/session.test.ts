@@ -294,16 +294,19 @@ describe('budget', () => {
 });
 
 describe('journée finie', () => {
-  it('se reconnaît et se recommence', () => {
+  it('se reconnaît, et ne repart de zéro qu’au changement de jour', () => {
     let p = neuf();
     steps(p).forEach((_, i) => {
       p = markDone(p, i, JOUR);
     });
     expect(allDone(p)).toBe(true);
     expect(title(p)).toBe("C'est fait pour aujourd'hui");
-    p = resetDay(p);
-    expect(nextIndex(p)).toBe(0);
-    expect(p.days).toBe(1);
+    /* Même journée : rien ne la remet à zéro. Le lendemain, `openDay` passe par `resetDay`. */
+    expect(openDay(p, JOUR)).toBe(p);
+    const demain = openDay(p, '2026-03-03');
+    expect(demain).toEqual({ ...resetDay(p), day: '2026-03-03', catchup: false });
+    expect(nextIndex(demain)).toBe(0);
+    expect(demain.days).toBe(1);
   });
 });
 
@@ -691,16 +694,16 @@ describe('une session à cheval sur minuit', () => {
     expect(basculerJournee(emptyProgress(VEILLE), LENDEMAIN).day).toBe(LENDEMAIN);
   });
 
-  it("l'aiguillage note sur `p.day` et ne bascule qu'au chemin", () => {
+  it("l'aiguillage note sur `p.day` et ne bascule qu'au menu", () => {
     const app = readFileSync(new URL('../App.svelte', import.meta.url), 'utf8');
     /* Aucune note ne prend l'horloge pour jour : `today()` ne sert qu'à la bascule. */
     expect(app).not.toMatch(/\(p, today\(\)/);
     expect(app).not.toContain('jour={today()}');
     expect(app).toContain('basculerJournee(p, jour)');
     expect(app).toContain("addEventListener('visibilitychange'");
-    /* Un seul retour au chemin, `auChemin`, et il bascule. */
-    expect(app.match(/ecran = 'home'/g)).toHaveLength(1);
-    expect(app).toMatch(/ecran = 'home';\s*basculer\(\);/);
+    /* Un seul retour au menu, `allerAuMenu`, et il bascule. */
+    expect(app.match(/ecran = 'menu'/g)).toHaveLength(1);
+    expect(app).toMatch(/ecran = 'menu';\s*basculer\(\);/);
   });
 });
 

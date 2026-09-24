@@ -9,6 +9,7 @@
    */
   import { untrack } from 'svelte';
   import Ask from './Ask.svelte';
+  import EnTetePas from './EnTetePas.svelte';
   import Glyph from './Glyph.svelte';
   import Tao from './Tao.svelte';
   import {
@@ -36,9 +37,16 @@
     onavancer,
     onfini,
     onattente,
-    onquitter
+    onquitter,
+    libre = false
   }: {
     p: Progress;
+    /**
+     * Une révision en plus, ouverte depuis la case Réviser une fois la session faite :
+     * ce n'est pas un pas, l'écran n'a ni la barre de la session ni de suite, il ramène
+     * au menu.
+     */
+    libre?: boolean;
     /**
      * La réponse notée, dès qu'une question est jugée : la carte est replanifiée et le
      * rang de la question est marqué répondu, pour qu'elle ne se repose pas.
@@ -157,10 +165,20 @@
   const taoHumeur = $derived(humeur(p.tao.activites, p.day));
   const taoStade = $derived(stade(p.tao.croissance));
   const avance = $derived(liste.length === 0 ? 100 : Math.round((i / liste.length) * 100));
+
+  /**
+   * Le bouton de fin : le pas suivant s'enchaîne, sans repasser par le menu. Une révision
+   * en plus et un bloc de rattrapage, eux, ramènent au menu, qui annonce la suite.
+   */
+  const fin = $derived(libre || p.catchup ? 'Retour au menu' : 'Continuer');
 </script>
 
 <main class="screen">
-  <button class="k quit" onclick={onquitter}>✕ Quitter</button>
+  {#if libre}
+    <button class="k quit" onclick={onquitter}>‹ Retour</button>
+  {:else}
+    <EnTetePas {p} {onquitter} />
+  {/if}
 
   <div class="rev-tete">
     <div class="grow">
@@ -178,7 +196,7 @@
 
   {#if p.revue.length === 0}
     <p class="guide">Aucune carte n'est due aujourd'hui.</p>
-    <div class="foot"><button class="btn" onclick={onquitter}>Continuer</button></div>
+    <div class="foot"><button class="btn" onclick={onfini}>{fin}</button></div>
   {:else if !pret}
     <p class="guide">Un instant.</p>
   {:else if q}
@@ -208,12 +226,12 @@
       </div>
       {#if passees.length > 0}<p class="k attente">{ligneEnAttente(passees)}</p>{/if}
     </div>
-    <div class="foot"><button class="btn" onclick={onfini}>Retour au chemin</button></div>
+    <div class="foot"><button class="btn" onclick={onfini}>{fin}</button></div>
   {:else if passees.length > 0}
     <p class="guide">{ligneEnAttente(passees)}</p>
-    <div class="foot"><button class="btn" onclick={onfini}>Retour au chemin</button></div>
+    <div class="foot"><button class="btn" onclick={onfini}>{fin}</button></div>
   {:else}
     <p class="guide">Les questions n'ont pas pu être préparées.</p>
-    <div class="foot"><button class="btn" onclick={onfini}>Revenir au chemin</button></div>
+    <div class="foot"><button class="btn" onclick={onfini}>{fin}</button></div>
   {/if}
 </main>

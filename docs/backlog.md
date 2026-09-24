@@ -19,12 +19,13 @@ Format BMAD : épics puis stories. Priorité dans l'ordre. Une story se termine 
 
 ## Épic 2 · Session
 - 2.1 État de session (six pas, reprise au pas exact, rattrapage).
-- 2.2 Écran Aujourd'hui : le chemin, un bouton.
+- 2.2 Le menu : la carte du jour, le chemin à six coups de pinceau, un bouton, quatre cases (Réviser, Jouer, Lire, Ma forêt). Il remplace l'écran Aujourd'hui et la barre d'onglets.
 - 2.3 Pas 1 Ouvrir : anecdote du jour, estampe.
 - 2.4 Pas 3 Apprendre : brique, composé, tracé optionnel (Hanzi Writer).
 - 2.5 Pas 4 Utiliser : mots, phrase, texte de trois lignes avec glose.
 - 2.6 Pas 5 Fixer et pas 6 Clore : vérification, graine plantée.
-- 2.7 Première session : 人, 大, 天, lire 天天, puis objectif et rythme.
+- 2.7 Première session : 人, 大, 天, lire 天天, puis objectif et rythme. On arrive sur le menu, la journée faite.
+- 2.8 Le parcours : logo, anecdote, menu ; les pas enchaînés sans repasser par le menu, « Quitter » au pas exact ; une seule fin (Clore) ; la session de plus (quatre pas, une brique, jamais une seconde graine) ; le rattrapage annoncé un bloc à la fois.
 
 ## Épic 2c · Contes
 - 2c.1 Mode Lire : bibliothèque de contes, version choisie d'après l'acquis (le seuil le plus haut dont tous les caractères sont acquis), lecture avec glose au toucher, audio.
@@ -34,7 +35,7 @@ Format BMAD : épics puis stories. Priorité dans l'ordre. Une story se termine 
 - 3.1 FSRS (ts-fsrs), rétention cible, planification.
 - 3.2 Sept types de questions, leurres par ressemblance de composants.
 - 3.3 Notation automatique (juste rapide, juste lent, juste après erreur, montré).
-- 3.4 Écran de série : chemin en perspective, Miao avance, Que et les cadeaux.
+- 3.4 Écran de série : chemin en perspective, Miao avance, Que et les cadeaux. Fondu dans Clore par la story 2.8 : la graine, la semaine et le cadeau de Que y sont, sans second écran de fin.
 
 ## Épic 4 · Ma forêt
 - 4.1 Cercle des familles, zoom et déplacement, ouverture d'un arbre par famille.
@@ -73,7 +74,7 @@ Relevé sur le dépôt après une revue du pipeline. Les numéros ci-dessus ne b
   fetch, ingest, build, export et check, et deux passages écrivent les mêmes octets.
   8 148 caractères sur 9 574 réconciliés ; 241 du seuil 255 sur 255, 280 du HSK 1 sur 300 ;
   238 familles exportées en 1,33 Mio.
-- Épic 2 : 2.1 à 2.7. Épic 3 : 3.1 à 3.4. Épic 4 : 4.1, 4.2, 4.3.
+- Épic 2 : 2.1 à 2.8 (2.2 et 2.8 revues le 24 septembre : le menu et le parcours du prototype validé). Épic 3 : 3.1 à 3.4. Épic 4 : 4.1, 4.2, 4.3.
 - Épic 4b : 4b.1 et 4b.2. Épic 5 : 5.1.
 
 ### Livrées à moitié : le code attend une clé d'API
