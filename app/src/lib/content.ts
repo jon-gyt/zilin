@@ -465,6 +465,8 @@ export type Index = {
   paires: string;
   /** Le fichier des fêtes, `fetes.json` ; vide pour un export qui n'en porte pas. */
   fetes: string;
+  /** Le fichier des termes solaires, `saisons.json` ; vide pour un export qui n'en porte pas. */
+  saisons: string;
 };
 
 /** La version de données que l'app lit : le dossier exporté par `wenlu export`. */
@@ -499,7 +501,8 @@ export async function loadIndex(
     familles: brut.familles,
     contes: Array.isArray(brut.contes) ? brut.contes : [],
     paires: typeof brut.paires === 'string' ? brut.paires : '',
-    fetes: typeof brut.fetes === 'string' ? brut.fetes : ''
+    fetes: typeof brut.fetes === 'string' ? brut.fetes : '',
+    saisons: typeof brut.saisons === 'string' ? brut.saisons : ''
   };
 }
 
@@ -1016,6 +1019,145 @@ export function fetesOnce(version = VERSION_DONNEES): Promise<Fetes> {
         throw e;
       });
     lesFetes.set(version, p);
+  }
+  return p;
+}
+
+/* ---------- les vingt-quatre termes solaires ---------- */
+
+/**
+ * Un terme d'une année : le jour où il commence et celui où commence le suivant (exclu),
+ * calculés par le pipeline à l'heure de Pékin. `terme` est l'identifiant, le pinyin sans
+ * ton (`bailu`, `qiufen`).
+ */
+export type EntreeTerme = { terme: string; debut: string; fin: string };
+
+/** Les textes d'un terme, rédigés pour l'app (`data/sources/saisons/textes.tsv`). */
+export type TextesTerme = {
+  nom_zh: string;
+  pinyin: string;
+  fr: string;
+  /** L'ambiance de saison : la palette légère et le décor (`[data-saison]`). */
+  ambiance: string;
+  /** Une phrase : ce qui se passe dans la nature. */
+  ligne: string;
+  tao: string[];
+  /** Le caractère à lire, dessiné depuis ses traits ; son pinyin (Unihan) et son sens. */
+  caractere: { c: string; pinyin: string; sens: string };
+};
+
+/** `saisons.json` : le calendrier des termes, leurs textes, et les racines des caractères. */
+export type Saisons = {
+  version: string;
+  source: string;
+  /** La rubrique et l'explication de l'anecdote du jour où un terme commence. */
+  rubrique: string;
+  explication: string;
+  ambiances: string[];
+  calendrier: EntreeTerme[];
+  termes: Record<string, TextesTerme>;
+  racines: Record<string, string>;
+};
+
+const DATE_ISO = /^\d{4}-\d{2}-\d{2}$/;
+
+function estTextesTerme(t: unknown): t is TextesTerme {
+  if (typeof t !== 'object' || t === null) return false;
+  const x = t as Partial<TextesTerme>;
+  return (
+    typeof x.nom_zh === 'string' &&
+    typeof x.fr === 'string' &&
+    typeof x.ambiance === 'string' &&
+    typeof x.ligne === 'string' &&
+    Array.isArray(x.tao) &&
+    typeof x.caractere === 'object' &&
+    x.caractere !== null &&
+    typeof x.caractere.c === 'string'
+  );
+}
+
+/**
+ * Lit et valide un fichier de termes solaires. Une entrée illisible, ou d'un terme sans
+ * textes, est écartée : ce jour-là, l'app reste sur son papier ordinaire. `fetchFn` est
+ * injecté dans les tests.
+ */
+export async function loadSaisons(file: string, fetchFn: typeof fetch = fetch): Promise<Saisons> {
+  const r = await fetchFn(`${import.meta.env.BASE_URL}${file}`);
+  if (!r.ok) throw new Error(`Termes solaires introuvables : ${file} (${r.status})`);
+  const brut = (await r.json()) as Partial<Record<keyof Saisons, unknown>>;
+  if (!Array.isArray(brut.calendrier) || typeof brut.termes !== 'object' || brut.termes === null) {
+    throw new Error(`Termes solaires illisibles : ${file}`);
+  }
+  const ambiances = Array.isArray(brut.ambiances)
+    ? (brut.ambiances as unknown[]).filter((a): a is string => typeof a === 'string')
+    : [];
+  const termes: Record<string, TextesTerme> = {};
+  for (const [id, t] of Object.entries(brut.termes as Record<string, unknown>)) {
+    if (estTextesTerme(t) && ambiances.includes(t.ambiance)) {
+      termes[id] = {
+        ...t,
+        pinyin: t.pinyin ?? '',
+        caractere: { c: t.caractere.c, pinyin: t.caractere.pinyin ?? '', sens: t.caractere.sens ?? '' }
+      };
+    }
+  }
+  const calendrier = (brut.calendrier as Partial<EntreeTerme>[]).filter(
+    (e): e is EntreeTerme =>
+      typeof e.terme === 'string' &&
+      e.terme in termes &&
+      typeof e.debut === 'string' &&
+      DATE_ISO.test(e.debut) &&
+      typeof e.fin === 'string' &&
+      DATE_ISO.test(e.fin)
+  );
+  return {
+    version: typeof brut.version === 'string' ? brut.version : '',
+    source: typeof brut.source === 'string' ? brut.source : '',
+    rubrique: typeof brut.rubrique === 'string' ? brut.rubrique : '',
+    explication: typeof brut.explication === 'string' ? brut.explication : '',
+    ambiances,
+    calendrier,
+    termes,
+    racines:
+      typeof brut.racines === 'object' && brut.racines !== null
+        ? (brut.racines as Record<string, string>)
+        : {}
+  };
+}
+
+const lesSaisons = new Map<string, Promise<Saisons>>();
+
+/** Le fichier des termes solaires d'une version, tel que l'index le nomme. */
+export function fichierSaisons(i: Index): string {
+  return i.saisons === '' ? '' : `${dossierVersion(i.version)}/${i.saisons}`;
+}
+
+/** Aucun terme : ce que rend un export sans `saisons.json`. L'app garde son papier. */
+const SANS_SAISON: Saisons = {
+  version: '',
+  source: '',
+  rubrique: '',
+  explication: '',
+  ambiances: [],
+  calendrier: [],
+  termes: {},
+  racines: {}
+};
+
+/** Les termes solaires de la version courante, lus une fois pour toute la vie de l'app. */
+export function saisonsOnce(version = VERSION_DONNEES): Promise<Saisons> {
+  let p = lesSaisons.get(version);
+  if (!p) {
+    p = contenu(version)
+      .then((i) => {
+        const file = fichierSaisons(i);
+        return file === '' ? SANS_SAISON : loadSaisons(file);
+      })
+      .catch((e) => {
+        lesSaisons.delete(version);
+        throw e;
+      });
+    lesSaisons.set(version, p);
   }
   return p;
 }
