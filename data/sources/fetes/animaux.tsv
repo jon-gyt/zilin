@@ -1,0 +1,27 @@
+# Les douze animaux de l'année lunaire (生肖), dans l'ordre du cycle.
+#
+# Rang : (année lunaire − 4) mod 12. L'année 4 de notre ère ouvre un cycle sur le
+# Rat ; 2026 donne 6, le Cheval 马 ; 2027 donne 7, la Chèvre 羊. `wenlu check`
+# vérifie que le calendrier (`calendrier.tsv`) nomme bien l'animal de ce rang.
+#
+# Source : cycle sexagésimal chinois, fait de calendrier. `fr` est rédigé pour
+# l'app, avec son article, pour s'insérer dans « Bonne année {animal} ».
+#
+# Le Dragon 龙 fait partie du cycle (prochaine année : 2036) : le mot seul
+# s'affiche, jamais un dessin — la charte exclut le dragon des visuels.
+#
+# Format : TSV, `#` en commentaire, cinq colonnes séparées par une tabulation.
+#
+rang	hanzi	pinyin	fr	source
+0	鼠	shǔ	du Rat	cycle des douze animaux
+1	牛	niú	du Bœuf	cycle des douze animaux
+2	虎	hǔ	du Tigre	cycle des douze animaux
+3	兔	tù	du Lapin	cycle des douze animaux
+4	龙	lóng	du Dragon	cycle des douze animaux
+5	蛇	shé	du Serpent	cycle des douze animaux
+6	马	mǎ	du Cheval	cycle des douze animaux
+7	羊	yáng	de la Chèvre	cycle des douze animaux
+8	猴	hóu	du Singe	cycle des douze animaux
+9	鸡	jī	du Coq	cycle des douze animaux
+10	狗	gǒu	du Chien	cycle des douze animaux
+11	猪	zhū	du Cochon	cycle des douze animaux

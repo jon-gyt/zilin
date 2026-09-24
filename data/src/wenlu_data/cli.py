@@ -19,7 +19,9 @@ Ordre et dépendances — chaque étape lit ce que la précédente a écrit :
 - `tout` : enchaîne fetch, ingest, build, export, check et s'arrête à la première erreur.
 
 `audio`, `contes` et `fiches` sont des familles de commandes à part : elles demandent
-une clé d'API et se lancent à la main, jamais dans `tout`.
+une clé d'API et se lancent à la main, jamais dans `tout`. `fetes calendrier` aussi se
+lance à la main : il recalcule les dates des fêtes dans `data/sources/fetes/`, une
+source versionnée que `export` lit.
 
 Toutes les commandes sont idempotentes : deux passages écrivent les mêmes octets.
 Seul `data/work/sources/PROVENANCE.md` s'allonge, d'un bloc daté par passage.
@@ -34,6 +36,7 @@ import typer
 from .audio import app as _audio
 from .contes import app as _contes
 from .export import VERSION
+from .fetes import app as _fetes
 from .fiches import app as _fiches
 from .fonts import commande as _fonts
 from .paths import BUILD, INGEST, SOURCES
@@ -116,10 +119,11 @@ app.command(name="fonts")(_fonts)
 
 @app.command()
 def check() -> None:
-    """Contrôles : composants inconnus, cycles, graphe, listes, briques muettes, contes hors liste, fiches invalides, textes sans audio, export à jour."""
+    """Contrôles : composants inconnus, cycles, graphe, listes, briques muettes, contes hors liste, fiches invalides, textes sans audio, export à jour, fêtes."""
     from .audio import controles as controles_audio
     from .contes import controles as controles_contes
     from .export import controles as controles_export
+    from .fetes import controles as controles_fetes
     from .fiches import controles as controles_fiches
     from .gf0014 import controles
     from .graphe import controles as controles_graphe
@@ -132,6 +136,7 @@ def check() -> None:
         *controles_fiches(),
         *controles_audio(),
         *controles_export(),
+        *controles_fetes(),
     ]:
         typer.echo(f"{'ok   ' if controle.ok else 'écart'} {controle.nom} : {controle.detail}")
         if not controle.ok and controle.bloquant:
@@ -173,6 +178,7 @@ def tout(
 
 app.add_typer(_audio, name="audio")
 app.add_typer(_contes, name="contes")
+app.add_typer(_fetes, name="fetes")
 app.add_typer(_fiches, name="fiches")
 
 

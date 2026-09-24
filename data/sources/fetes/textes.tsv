@@ -1,0 +1,44 @@
+# Textes des fêtes : le vœu, les phrases de Tao, l'anecdote du jour de fête.
+#
+# Source : textes rédigés pour l'app, repris du prototype validé par le
+# propriétaire (menu de départ et anecdote de fête, septembre 2026). Aucun texte
+# tiers n'est recopié ; les faits (légende de 年, lapin de jade 玉兔, 福 à
+# l'envers) relèvent du folklore commun.
+#
+# Format : TSV, `#` en commentaire, quatre colonnes séparées par une tabulation.
+# Une clé par ligne ; `tao` se répète, une ligne par phrase, dans l'ordre où Tao
+# les dit. Deux jetons sont remplis par l'app au jour de la fête :
+#
+# - `{animal}` : l'animal de l'année lunaire, pris dans `animaux.tsv` par
+#   l'année du calendrier (« de la Chèvre 羊 » en 2027) ;
+# - `{quand}` : le délai jusqu'au soir de la fête (« Demain soir », « Ce soir »).
+#
+# `caractere_voeu` est le caractère dessiné à côté du vœu (le 福 à l'envers du
+# Nouvel An) ; `anecdote_c`, celui de l'anecdote. Tous deux sont dessinés depuis
+# leurs traits : `wenlu check` vérifie qu'ils sont dans les traits exportés.
+#
+fete	cle	valeur	source
+chunjie	nom	Nouvel An lunaire	rédigé pour l'app
+chunjie	nom_zh	春节	rédigé pour l'app
+chunjie	voeu_zh	新年快乐	rédigé pour l'app
+chunjie	voeu_pinyin	xīnnián kuàilè	rédigé pour l'app
+chunjie	voeu_fr	Bonne année {animal}	rédigé pour l'app
+chunjie	caractere_voeu	福	rédigé pour l'app
+chunjie	tao	新年好 ! Bonne année !	rédigé pour l'app
+chunjie	tao	Un 福 à l'envers : le bonheur arrive.	rédigé pour l'app
+chunjie	anecdote_rubrique	L'anecdote du Nouvel An	rédigé pour l'app
+chunjie	anecdote_c	年	rédigé pour l'app
+chunjie	anecdote_titre	Pourquoi tout est rouge au Nouvel An.	rédigé pour l'app
+chunjie	anecdote_texte	La légende raconte qu'un monstre nommé 年 nián sortait chaque hiver dévorer les villages. Il avait peur de trois choses : le rouge, le feu et le bruit. D'où les papiers rouges sur les portes, les lanternes et les pétards. Et on colle 福 fú, le bonheur, à l'envers : « à l'envers » se dit 倒 dào, comme 到 dào, arriver. Le bonheur arrive.	rédigé pour l'app
+zhongqiu	nom	Fête de la mi-automne	rédigé pour l'app
+zhongqiu	nom_zh	中秋节	rédigé pour l'app
+zhongqiu	voeu_zh	中秋快乐	rédigé pour l'app
+zhongqiu	voeu_pinyin	zhōngqiū kuàilè	rédigé pour l'app
+zhongqiu	voeu_fr	{quand}, pleine lune	rédigé pour l'app
+zhongqiu	tao	{quand}, pleine lune !	rédigé pour l'app
+zhongqiu	tao	Un 月饼 ? Miam.	rédigé pour l'app
+zhongqiu	tao	Tu vois le lapin ?	rédigé pour l'app
+zhongqiu	anecdote_rubrique	L'anecdote de la mi-automne	rédigé pour l'app
+zhongqiu	anecdote_c	月	rédigé pour l'app
+zhongqiu	anecdote_titre	Pourquoi un lapin sur la lune ?	rédigé pour l'app
+zhongqiu	anecdote_texte	Le soir de la mi-automne, 中秋, la lune est la plus ronde de l'année. La légende dit que Chang'e 嫦娥 y vit depuis qu'elle a bu l'élixir d'immortalité, avec un lapin de jade 玉兔 qui pile des herbes. On partage des gâteaux de lune 月饼, ronds comme elle : rond se dit 圆 yuán, comme dans 团圆 tuányuán, être tous réunis.	rédigé pour l'app
