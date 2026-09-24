@@ -14,6 +14,7 @@
  */
 import type { Devinette, Devinettes, Famille, Fiche, Foret, Noeud, Voisins } from './content';
 import type { MessageCoquille } from './coquilles';
+import { preparerCuisine, type Cuisine, type CuisineDonnees } from './cuisine';
 import { etat } from './foret';
 import {
   BONUS_MEME_NOMBRE,
@@ -127,6 +128,8 @@ export type CorpusJeux = {
    * n'y entre pas. Absent : aucune restriction (données de test).
    */
   exportes?: readonly string[];
+  /** La cuisine de Tao (`cuisine.ts`) : les recettes et l'acquis réel. Absente : pas de cuisine. */
+  cuisine?: Cuisine;
 };
 
 /**
@@ -228,6 +231,10 @@ export type Sources = {
   devines?: readonly string[];
   /** Les messages de la coquille (`coquilles.json`). */
   coquilles?: readonly MessageCoquille[];
+  /** Les recettes de la cuisine de Tao (`cuisine.json`). */
+  cuisine?: CuisineDonnees | null;
+  /** Les plats déjà cuisinés, `Progress.recettes`. */
+  cuisinees?: readonly string[];
 };
 
 /**
@@ -326,18 +333,31 @@ export function corpusDeJeu(s: Sources): CorpusJeux {
   }
   const d = dictionnaire(s);
   if (d !== null) corpus.eclair = d;
+  /* La cuisine ne lit que l'acquis réel : une recette se cuisine quand tous ses caractères
+     sont acquis, jamais sur la démonstration. */
+  if (s.cuisine) {
+    corpus.cuisine = { donnees: s.cuisine, acquis: stables, cuisinees: s.cuisinees ?? [] };
+  }
   return corpus;
 }
 
 /* ---------- le contrat commun ---------- */
 
-export type JeuId = 'devinette' | 'assembler' | 'jumeaux' | 'chaine' | 'coquille' | 'eclair';
+export type JeuId = 'devinette' | 'assembler' | 'jumeaux' | 'chaine' | 'coquille' | 'eclair' | 'cuisine';
 
 /**
  * L'ordre de référence des jeux, celui de l'écran Jouer. La devinette du jour passe en
  * tête : c'est elle que la case Jouer du menu annonce.
  */
-export const IDS: readonly JeuId[] = ['devinette', 'assembler', 'jumeaux', 'chaine', 'coquille', 'eclair'];
+export const IDS: readonly JeuId[] = [
+  'devinette',
+  'assembler',
+  'jumeaux',
+  'chaine',
+  'coquille',
+  'eclair',
+  'cuisine'
+];
 
 /** Un caractère et sa décomposition : ce que montre la correction par les briques. */
 export type Correction = { c: string; briques: string[] };
@@ -1144,7 +1164,12 @@ const COMPTES: Record<JeuId, { un: string; plusieurs: string; aucun: string }> =
     plusieurs: 'coquilles trouvées',
     aucun: 'aucune coquille trouvée'
   },
-  eclair: { un: 'mot deviné', plusieurs: 'mots devinés', aucun: 'aucun mot deviné' }
+  eclair: { un: 'mot deviné', plusieurs: 'mots devinés', aucun: 'aucun mot deviné' },
+  cuisine: {
+    un: 'ingrédient trouvé',
+    plusieurs: 'ingrédients trouvés',
+    aucun: 'aucun ingrédient trouvé'
+  }
 };
 
 /**
@@ -1270,6 +1295,20 @@ export const JEUX: Record<JeuId, Jeu> = {
     limite: 0,
     indisponible: 'Pas encore de mot nouveau dont les deux caractères soient acquis.',
     preparer: (corpus, graine) => manche('eclair', graine, toursEclair(corpus, graine)),
+    repondre,
+    constat
+  },
+  cuisine: {
+    id: 'cuisine',
+    titre: 'La cuisine de Tao',
+    lit: 'Lire une recette en chinois, puis prendre les bons ingrédients sur l’étal.',
+    minutes: 2,
+    tours: 4,
+    chrono: 0,
+    limite: 0,
+    indisponible: 'Pas encore de plat dont tous les caractères soient acquis.',
+    /* La recette à proposer d'abord ; l'écran de la cuisine laisse choisir parmi les autres. */
+    preparer: (corpus, graine) => preparerCuisine(corpus.cuisine, graine),
     repondre,
     constat
   }

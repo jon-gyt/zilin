@@ -523,6 +523,8 @@ export type Index = {
   apercu: string;
   /** Le fichier du dictionnaire éclair, `eclair.json` ; vide pour un export qui n'en porte pas. */
   eclair: string;
+  /** Le fichier de la cuisine de Tao, `cuisine.json` ; vide pour un export qui n'en porte pas. */
+  cuisine: string;
 };
 
 /** La version de données que l'app lit : le dossier exporté par `wenlu export`. */
@@ -561,7 +563,8 @@ export async function loadIndex(
     saisons: typeof brut.saisons === 'string' ? brut.saisons : '',
     devinettes: typeof brut.devinettes === 'string' ? brut.devinettes : '',
     apercu: typeof brut.apercu === 'string' ? brut.apercu : '',
-    eclair: typeof brut.eclair === 'string' ? brut.eclair : ''
+    eclair: typeof brut.eclair === 'string' ? brut.eclair : '',
+    cuisine: typeof brut.cuisine === 'string' ? brut.cuisine : ''
   };
 }
 

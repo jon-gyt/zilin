@@ -19,6 +19,12 @@
    * devinés » de la progression, que l'écran de choix montre d'une ligne.
    */
   import EclairTour from './EclairTour.svelte';
+  /**
+   * La cuisine de Tao (4b.6) a son propre écran, `Cuisine.svelte`, ouvert d'ici : le choix
+   * d'un plat, la recette, l'étal, Tao qui goûte.
+   */
+  import Cuisine from './Cuisine.svelte';
+  import { cuisineOnce } from './cuisine';
   import Glyph from './Glyph.svelte';
   import Tao from './Tao.svelte';
   import {
@@ -70,6 +76,7 @@
     onrepondu,
     ondevinette = () => undefined,
     onmotdevine = () => undefined,
+    oncuisine = () => undefined,
     onfini,
     onretour
   }: {
@@ -85,6 +92,8 @@
     ondevinette?: (id: string, issue: IssueDevinette) => void;
     /** Le dictionnaire éclair : un mot deviné, que le compteur range une fois. */
     onmotdevine?: (id: string) => void;
+    /** La cuisine de Tao : un plat goûté, bon ou grimacé. Tient lieu de `onfini`. */
+    oncuisine?: (id: string, bon: boolean) => void;
     /** La manche est finie : une activité « jeu » pour Tao. */
     onfini: () => void;
     onretour: () => void;
@@ -111,7 +120,7 @@
    * assez pour jouer.
    */
   void (async () => {
-    const [fiches, familles, voisins, foret, paires, demo, devinettes, eclair] = await Promise.all([
+    const [fiches, familles, voisins, foret, paires, demo, devinettes, eclair, cuisine] = await Promise.all([
       toutesLesFiches().catch(() => []),
       toutesLesFamilles().catch(() => []),
       voisinsOnce().catch(() => null),
@@ -119,7 +128,8 @@
       pairesExport().catch(() => null),
       strokesOnce().catch(() => ({})),
       devinettesOnce().catch(() => null),
-      eclairOnce().catch(() => null)
+      eclairOnce().catch(() => null),
+      cuisineOnce().catch(() => null)
     ]);
     /* Les messages rédigés de la coquille (`coquilles.json`) : l'écran n'en écrit aucun. */
     const coquilles = await coquillesOnce();
@@ -129,7 +139,10 @@
     const lanternes = {
       devinettes,
       resolues: p.devinettes,
-      posee: p.devinetteDuJour?.jour === p.day ? p.devinetteDuJour.id : null
+      posee: p.devinetteDuJour?.jour === p.day ? p.devinetteDuJour.id : null,
+      /* La cuisine de Tao : ses recettes, et les plats déjà réussis. */
+      cuisine,
+      cuisinees: p.recettes
     };
     /* Le dictionnaire éclair : ses mots, les mots déjà devinés. */
     const eclairs = { eclair, devines: p.motsDevines };
@@ -300,7 +313,8 @@
   $effect(() => {
     const id = jeu;
     if (!chargee) return;
-    if (id === null) {
+    /* La cuisine prépare ses manches elle-même, une fois le plat choisi. */
+    if (id === null || id === 'cuisine') {
       preparee = '';
       arreterLimite();
       m = null;
@@ -483,6 +497,16 @@
       </div>
     {/if}
     <div class="foot"><button class="btn ghost" onclick={onretour}>{OU[retour]}</button></div>
+  {:else if jeu === 'cuisine'}
+    <Cuisine
+      {p}
+      {corpus}
+      retour={OU[retour]}
+      {onrepondu}
+      {oncuisine}
+      onautre={() => onchoisir(null)}
+      {onretour}
+    />
   {:else if m === null}
     <p class="guide">
       {chargee ? "Ce jeu n'a pas pu être préparé." : 'Un instant.'}

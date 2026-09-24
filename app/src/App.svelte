@@ -81,6 +81,7 @@
     useNext,
     conclureDevinette,
     poserDevinette,
+    noterRecette,
     type Budget,
     type IssueDevinette,
     type LearnView,
@@ -574,6 +575,17 @@
     enregistrer();
   }
 
+  /**
+   * La cuisine de Tao : Tao a goûté. Le plat compte une activité « cuisine » ; réussi,
+   * chaque ingrédient trouvé, il entre dans les plats cuisinés (le bol des trophées).
+   */
+  function recetteGoutee(id: string, bon: boolean): void {
+    p = noterActivite(p, p.day, 'cuisine');
+    if (bon) p = noterRecette(p, id);
+    majDue();
+    enregistrer();
+  }
+
   /* ---------- les contes (épic 2c), par la case Lire ---------- */
 
   /**
@@ -655,6 +667,7 @@
     onrepondu={jeuRepondu}
     ondevinette={devinetteJouee}
     onmotdevine={motDevine}
+    oncuisine={recetteGoutee}
     onfini={jeuFini}
     onretour={quitter}
   />
