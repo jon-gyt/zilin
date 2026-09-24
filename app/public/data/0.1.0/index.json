@@ -1,7 +1,7 @@
 {
  "version": "0.1.0",
- "date": "2026-09-24T20:52:35Z",
- "empreinte": "sha256:715a91832cf6e882534f6a2c935f3d016dbfbf03d5bb295781f0b83b01d471da",
+ "date": "2026-09-24T21:23:10Z",
+ "empreinte": "sha256:ff88b98bb4fc3f683a8bdbb6eb13165abe27346eca74bed122734d44e98c9edc",
  "license": "propriétaire",
  "source": "décomposition GF 0014-2009 réconciliée par le pipeline wenlu ; pinyin d'Unihan (kMandarin) ; textes rédigés pour l'app",
  "source_url": "https://github.com/jon-gyt/zilin",
@@ -15,7 +15,7 @@
   "briques": 230,
   "muettes": 13,
   "fiches_relues": 0,
-  "contes": 0
+  "contes": 3
  },
  "listes": {
   "seuil-255": [
@@ -5403,7 +5403,35 @@
    "avancement_possible": 0.0
   }
  ],
- "contes": [],
+ "contes": [
+  {
+   "id": "ba-miao-zhu-zhang",
+   "titre_fr": "Tirer sur les pousses pour les faire grandir",
+   "titre_en": "Pulling Up the Shoots to Help Them Grow",
+   "seuils": [
+    255
+   ],
+   "fichier": "contes/ba-miao-zhu-zhang.json"
+  },
+  {
+   "id": "nan-yuan-bei-zhe",
+   "titre_fr": "Rouler vers le nord pour aller au sud",
+   "titre_en": "Heading North to Go South",
+   "seuils": [
+    255
+   ],
+   "fichier": "contes/nan-yuan-bei-zhe.json"
+  },
+  {
+   "id": "yu-gong-yi-shan",
+   "titre_fr": "Le vieux fou déplace les montagnes",
+   "titre_en": "The Foolish Old Man Moves the Mountains",
+   "seuils": [
+    255
+   ],
+   "fichier": "contes/yu-gong-yi-shan.json"
+  }
+ ],
  "paires": "paires.json",
  "fetes": "fetes.json",
  "saisons": "saisons.json",
