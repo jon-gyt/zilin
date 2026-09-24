@@ -4,8 +4,10 @@
  * 火车 : 火 le feu, 车 le véhicule ; le train. Un mot n'est proposé que si ses deux
  * caractères sont acquis (stabilité FSRS au seuil de `srs.ts`, jamais l'acquis de
  * démonstration) et qu'aucune fiche apprise ne l'a déjà fait lire : c'est un mot
- * « jamais appris », que l'on devine depuis ses caractères. Quatre sens, un seul juste,
- * notés automatiquement comme une question ; pas de temps, pas de vie.
+ * « jamais appris », que l'on devine depuis ses caractères. Quatre sens, un seul juste ;
+ * une bonne réponse est notée automatiquement comme une question, une mauvaise ne note
+ * rien (`jeux.ERREUR_SANS_NOTE`) : rater 大水 ne veut pas dire qu'on a oublié 大 ou 水.
+ * Pas de temps, pas de vie.
  *
  * Les mots, leur pinyin, leur sens et leurs leurres viennent de `eclair.json`, rédigé
  * et contrôlé dans le pipeline (`data/sources/eclair/`) ; ce module n'en écrit aucun.

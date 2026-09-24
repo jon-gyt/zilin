@@ -52,6 +52,7 @@
     devinetteDuJour,
     disponibles,
     essayer,
+    evenementsANoter,
     fini,
     glose,
     nomDeBrique,
@@ -348,7 +349,8 @@
     donnee = rep;
     resultat = r;
     cache = false;
-    for (const e of r.evenements) onrepondu(e);
+    /* L'éclair et la cuisine ne notent pas une mauvaise réponse (`evenementsANoter`). */
+    for (const e of evenementsANoter(courante.jeu, r)) onrepondu(e);
     /* Le dictionnaire éclair : un mot deviné compte une fois, dans la progression. */
     if (r.correct && mot !== '') onmotdevine(mot);
     /* La coquille et l'éclair laissent lire leur correction : on n'avance pas tout seul. */
