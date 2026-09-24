@@ -365,6 +365,53 @@ def test_la_licence_locale_ne_declenche_pas_lavertissement(
     assert module.A_VERIFIER not in resultat.output
 
 
+# --------------------------------------------------------------------------- voix du modèle
+
+
+class MoteurAvecVoix(MoteurDeTest):
+    """Moteur de test qui, comme Kokoro, sait lister les voix de son dépôt."""
+
+    def __init__(self, voix: list[str]) -> None:
+        super().__init__()
+        self.voix = voix
+
+    def voix_disponibles(self) -> list[str]:
+        return list(self.voix)
+
+
+def test_les_voix_du_depot_sont_ses_fichiers_voices() -> None:
+    fichiers = ["config.json", "voices/zm_010.pt", "voices/zf_002.pt", "voices/zf_002.pt", "kokoro.pth"]
+    assert module.voix_du_depot(fichiers) == ["zf_002", "zm_010"]
+
+
+def test_zilin_audio_voix_liste_les_voix_du_modele(monkeypatch: pytest.MonkeyPatch) -> None:
+    moteur = MoteurAvecVoix([VOIX_LOCALE_DEFAUT, "zm_010"])
+    monkeypatch.setattr(module, "fabriquer", lambda nom, voix: _local(moteur))
+
+    resultat = CliRunner().invoke(cli, ["audio", "voix"])
+    assert resultat.exit_code == 0, resultat.output
+    assert f"{VOIX_LOCALE_DEFAUT}  (défaut)" in resultat.output
+    assert "zm_010" in resultat.output
+    assert moteur.appels == []  # lister ne synthétise rien
+
+
+def test_une_voix_absente_du_modele_est_refusee_en_citant_les_disponibles(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    """La voix par défaut n'a jamais été vue sur le dépôt : `generer` doit le dire."""
+    moteur = MoteurAvecVoix(["zf_002", "zm_010"])
+    monkeypatch.setattr(module, "AUDIO_WORK", tmp_path / "audio")
+    monkeypatch.setattr(module, "perimetre", lambda *a, **k: list(CARACTERES))
+    monkeypatch.setattr(module, "fabriquer", lambda nom, voix: _local(moteur))
+
+    resultat = CliRunner().invoke(cli, ["audio", "generer"])
+    assert resultat.exit_code == 1
+    assert f"« {VOIX_LOCALE_DEFAUT} »" in resultat.output
+    assert "zf_002, zm_010" in resultat.output
+    assert moteur.appels == []
+    assert not (tmp_path / "audio").exists()
+
+
 # --------------------------------------------------------------------------- encodage
 
 

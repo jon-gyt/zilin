@@ -454,6 +454,9 @@ transformers. Sans le paquet, `generer` sort en code 2 avec la commande à lance
 n'écrit rien. Le moteur est injectable (`FournisseurLocal(moteur=…)`), ce dont les tests se
 servent : ils contrôlent format, manifeste et licence sans poids ni réseau. La voix par
 défaut est `zf_001` (Kokoro v1.1-zh, `hexgrad/Kokoro-82M-v1.1-zh`), `--voix` la change.
+`uv run zilin audio voix` liste les voix du dépôt de poids (ses fichiers `voices/*.pt`, lus
+sur le hub, ou dans le cache local hors ligne) ; `generer` refuse en code 1, sans rien
+écrire, une voix qui n'y est pas, et cite les voix disponibles.
 
 Sans clé, `--fournisseur azure` refuse de partir, sort en code 2 et n'écrit rien. La
 `Licence` porte ce que le fournisseur déclare sur l'usage commercial, la redistribution,
