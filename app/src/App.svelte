@@ -43,6 +43,7 @@
   import { poserFete } from './lib/fetes';
   import { journee } from './lib/saisons';
   import { noterTrouve, rencontreDuJour } from './lib/trouves';
+  import { lettresRelues, noterLettreLue, ouvrirLettreDuJour, type Lettre } from './lib/lettres';
   import {
     CARTES_PAR_SEANCE,
     cartesAOuvrir,
@@ -192,7 +193,30 @@
     if (ouvert !== stored) void saveProgress(ouvert);
     chargee = true;
     aiguiller();
+    /* Les lettres de Que relues : celle de la semaine arrive dès qu'elles sont lues. */
+    void lettresRelues()
+      .then((l) => {
+        lettres = l;
+        lettreDuJour();
+      })
+      .catch(() => undefined);
   });
+
+  /*
+   * Les lettres de Que (story 4b.8) : la règle d'arrivée est dans `lettres.ts` (une par
+   * semaine, le dimanche ou à la première session de la semaine). Elle est relue à
+   * l'ouverture, au retour au menu (après la session aussi) et quand la journée bascule ;
+   * une lettre arrivée est notée dans la progression, et la case Lire l'annonce.
+   */
+  let lettres: Lettre[] | null = null;
+
+  function lettreDuJour(): void {
+    if (!chargee || lettres === null) return;
+    const n = ouvrirLettreDuJour(p, lettres, p.day);
+    if (n === p) return;
+    p = n;
+    enregistrer();
+  }
 
   /**
    * Après le logo : la première session au tout premier lancement ; sinon l'anecdote du
@@ -235,12 +259,14 @@
     if (ouvert === p) return;
     p = setDue(ouvert, nombreDues(ouvert, new Date()), jour);
     enregistrer();
+    lettreDuJour();
   }
 
   /** Retour au menu : c'est là, et seulement là, que la journée peut basculer. */
   function allerAuMenu(): void {
     ecran = 'menu';
     basculer();
+    lettreDuJour();
   }
 
   /* Au retour au premier plan, sur le menu seulement : un pas ouvert ne bouge pas. */
@@ -631,6 +657,15 @@
     enregistrer();
   }
 
+  /**
+   * Une lettre de Que lue : notée une fois dans la progression, et Tao note une lecture,
+   * qu'elle lit par-dessus l'épaule. Pas de point.
+   */
+  function lettreLue(n: number): void {
+    p = noterActivite(noterLettreLue(p, n, p.day), p.day, 'lecture');
+    enregistrer();
+  }
+
   /** Quitter : retour au menu sans question, la progression est sauvegardée. */
   function quitter(): void {
     enregistrer();
@@ -708,7 +743,13 @@
     onretour={quitter}
   />
 {:else if ecran === 'lire'}
-  <Lire {p} onretour={allerAuMenu} onlu={conteLu} onanecdote={() => relireAnecdote('lire')} />
+  <Lire
+    {p}
+    onretour={allerAuMenu}
+    onlu={conteLu}
+    onanecdote={() => relireAnecdote('lire')}
+    onlettre={lettreLue}
+  />
 {:else if ecran === 'foret'}
   <!-- Ma forêt, deux niveaux au plus : le cercle, puis une famille ou les récompenses. -->
   {#if famille}

@@ -12,7 +12,12 @@
    * En mode relecture (Réglages), une version de l'aperçu porte la mention « à relire » en
    * tête, une version que l'acquis n'ouvre pas encore « pas encore dans ton acquis » ; leur
    * « J'ai lu » ne note rien (`Lire.fini`) : un texte qu'on essaie n'est pas un conte lu.
+   *
+   * Les lettres de Que (story 4b.8) passent par le même lecteur : `surtitre` remplace la
+   * ligne du seuil, la lettre n'a pas de titre chinois, et `signature` se pose sous le
+   * texte (Que, qui l'a écrite).
    */
+  import type { Snippet } from 'svelte';
   import ARelire from './ARelire.svelte';
   import Tao from './Tao.svelte';
   import { dire } from './audio';
@@ -34,7 +39,9 @@
     p,
     entree,
     onlu,
-    onretour
+    onretour,
+    surtitre,
+    signature
   }: {
     /** La progression : Tao y lit son stade et son humeur. */
     p: Progress;
@@ -43,6 +50,10 @@
     /** « J'ai lu » : la version est notée lue, puis retour à la bibliothèque. */
     onlu: () => void;
     onretour: () => void;
+    /** La ligne au-dessus du titre ; par défaut, le seuil de la version. */
+    surtitre?: string;
+    /** Sous le texte, dans la même carte : la signature d'une lettre. */
+    signature?: Snippet;
   } = $props();
 
   const v = $derived(entree.version);
@@ -92,7 +103,7 @@
   <div class="verif-tete">
     <div class="grow">
       <div class="k">
-        Version du seuil {v?.seuil}
+        {surtitre ?? `Version du seuil ${v?.seuil}`}
         <ARelire de={v} />
         {#if entree.horsAcquis}<span class="mention">{MENTION_HORS_ACQUIS}</span>{/if}
       </div>
@@ -125,10 +136,11 @@
 
   {#if v}
     <div class="card">
-      {#if !entree.titre_zh}
+      {#if !entree.titre_zh && v.titre}
         <div class="read titre" lang="zh-Hans">{@render ligne(titre)}</div>
       {/if}
       <div class="read texte" lang="zh-Hans">{@render ligne(texte)}</div>
+      {#if signature}{@render signature()}{/if}
     </div>
 
     {#if trad}
