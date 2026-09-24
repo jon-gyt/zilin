@@ -13,6 +13,7 @@
  * et tout tirage part d'une graine : la même graine rend toujours la même manche.
  */
 import type { Devinette, Devinettes, Famille, Fiche, Foret, Noeud, Voisins } from './content';
+import type { MessageCoquille } from './coquilles';
 import { etat } from './foret';
 import {
   BONUS_MEME_NOMBRE,
@@ -29,7 +30,7 @@ import {
 import { TOURS_ECLAIR, dictionnaire, toursEclair, type Dictionnaire, type Eclair } from './eclair';
 import { devinetteFaite, type Progress, type Revision } from './session';
 import { grade, newCard, schedule, type Outcome, type ReviewCard, type SrsParams } from './srs';
-import { humeur, proposeUnJeu } from './tao';
+import { humeur, proposeUnJeu, type Posture } from './tao';
 import type { Grade } from 'ts-fsrs';
 
 /* ---------- les constantes des jeux ---------- */
@@ -115,6 +116,11 @@ export type CorpusJeux = {
   lanternes?: Lanternes;
   /** Le dictionnaire éclair (`eclair.ts`) : ses mots et ce qu'il faut pour les choisir. Absent : pas d'éclair. */
   eclair?: Dictionnaire;
+  /**
+   * Les messages rédigés pour la coquille (`coquilles.json`), avec leurs pièges. Ils
+   * passent avant les mots et les phrases des fiches. Absent : les fiches seules.
+   */
+  coquilles?: readonly MessageCoquille[];
 };
 
 /**
@@ -214,6 +220,8 @@ export type Sources = {
   eclair?: Eclair | null;
   /** Les mots déjà devinés, `Progress.motsDevines`. */
   devines?: readonly string[];
+  /** Les messages de la coquille (`coquilles.json`). */
+  coquilles?: readonly MessageCoquille[];
 };
 
 /**
@@ -293,6 +301,7 @@ export function corpusDeJeu(s: Sources): CorpusJeux {
     traits: s.traits ?? [],
     textes
   };
+  if (s.coquilles && s.coquilles.length > 0) corpus.coquilles = s.coquilles;
   if (s.devinettes) {
     corpus.lanternes = {
       devinettes: s.devinettes.devinettes,
@@ -341,6 +350,10 @@ export type Tour = {
   aussi?: string[];
   /** La coquille : l'indice, dans `choix`, où commence chaque mot ou phrase du message. */
   coupes?: number[];
+  /** La coquille : la ponctuation qui suit chaque caractère de `choix`, vide s'il n'y en a pas. */
+  ponctuation?: string[];
+  /** La coquille : la traduction du message rédigé, que la correction montre. */
+  traduction?: string;
   /** La correction par les briques, montrée après la réponse. */
   correction?: Correction[];
   /** La devinette : son identifiant, que la progression range une fois résolue. */
@@ -684,42 +697,59 @@ export function signes(texte: string): string[] {
 }
 
 /**
- * Les morceaux dont un message peut être fait, dans l'ordre où on les essaie.
- *
- * D'abord les mots et les phrases des fiches, entiers, quand tous leurs caractères sont
- * acquis et montrables. À défaut, et seulement pour compléter, les caractères acquis des
- * paires à ne pas confondre, un par un. Rien n'est écrit par le code.
+ * Un message découpé : ses caractères, et la ponctuation qui suit chacun (vide s'il n'y
+ * en a pas). La ponctuation se lit, elle ne se touche pas.
  */
-function morceaux(corpus: CorpusJeux): { textes: string[][]; seuls: string[] } {
-  const lisible = (c: string): boolean => corpus.acquis.includes(c) && montrable(c, corpus);
+export function decouper(message: string): { signes: string[]; ponctuation: string[] } {
+  const out: string[] = [];
+  const ponctuation: string[] = [];
+  for (const x of message) {
+    if (HAN.test(x)) {
+      out.push(x);
+      ponctuation.push('');
+    } else if (out.length > 0 && x.trim() !== '') {
+      ponctuation[ponctuation.length - 1] += x;
+    }
+  }
+  return { signes: out, ponctuation };
+}
+
+/** Un caractère qu'un message peut porter, ou qu'on peut y glisser : acquis, et dessinable. */
+function lisible(c: string, corpus: CorpusJeux): boolean {
+  return corpus.acquis.includes(c) && montrable(c, corpus);
+}
+
+/**
+ * Les mots et les phrases des fiches dont un message peut être fait, entiers, quand tous
+ * leurs caractères sont acquis et montrables. Rien n'est écrit par le code : sans eux et
+ * sans message rédigé, la coquille se tait plutôt que d'aligner des caractères sans suite.
+ */
+function morceaux(corpus: CorpusJeux): string[][] {
   const vus = new Set<string>();
   const textes: string[][] = [];
   for (const t of corpus.textes) {
     const s = signes(t);
     const cle = s.join('');
-    if (s.length === 0 || s.length > MESSAGE_MAX || vus.has(cle) || !s.every(lisible)) continue;
+    if (s.length === 0 || s.length > MESSAGE_MAX || vus.has(cle)) continue;
+    if (!s.every((c) => lisible(c, corpus))) continue;
     vus.add(cle);
     textes.push(s);
   }
-  const seuls = [...new Set(corpus.paires.flat())].filter(lisible);
-  return { textes, seuls };
+  return textes;
 }
 
 /**
- * Le remplaçant d'un caractère : un autre membre de son groupe à ne pas confondre,
- * montrable, absent du message (il ne doit y avoir qu'un seul caractère faux). Un
- * remplaçant acquis passe devant.
+ * Les intrus possibles à la place d'un caractère : les autres membres de ses groupes de
+ * `paires.json`, et rien d'autre. Un intrus est acquis (on ne piège qu'avec deux
+ * caractères qu'on sait lire, brief §7) et absent du message : il ne doit y avoir qu'un
+ * seul caractère faux.
  */
-function remplacants(c: string, message: readonly string[], corpus: CorpusJeux): string[] {
+export function remplacants(c: string, message: readonly string[], corpus: CorpusJeux): string[] {
   const autres = corpus.paires
     .filter((g) => g.includes(c))
     .flat()
-    .filter((x) => x !== c && montrable(x, corpus) && !message.includes(x));
-  const uniques = [...new Set(autres)];
-  return [
-    ...uniques.filter((x) => corpus.acquis.includes(x)),
-    ...uniques.filter((x) => !corpus.acquis.includes(x))
-  ];
+    .filter((x) => x !== c && lisible(x, corpus) && !message.includes(x));
+  return [...new Set(autres)];
 }
 
 /** La correction par les briques : la décomposition quand on sait la dessiner, sinon le caractère seul. */
@@ -731,60 +761,110 @@ function corrige(c: string, corpus: CorpusJeux): Correction {
 /** Un message : ses caractères, et l'indice où commence chacun de ses morceaux. */
 type Message = { signes: string[]; coupes: number[] };
 
-function composer(
-  textes: readonly string[][],
-  seuls: readonly string[],
-  graine: string
-): Message | null {
+function composer(textes: readonly string[][], graine: string): Message | null {
   const out: string[] = [];
   const coupes: number[] = [];
-  const poser = (m: readonly string[]): void => {
-    coupes.push(out.length);
-    out.push(...m);
-  };
   for (const t of melange(textes, `${graine}/textes`)) {
     if (out.length >= MESSAGE_MIN) break;
-    if (out.length + t.length <= MESSAGE_MAX) poser(t);
-  }
-  for (const c of melange(seuls, `${graine}/seuls`)) {
-    if (out.length >= MESSAGE_MIN) break;
-    if (!out.includes(c)) poser([c]);
+    if (out.length + t.length <= MESSAGE_MAX) {
+      coupes.push(out.length);
+      out.push(...t);
+    }
   }
   return out.length >= MESSAGE_MIN ? { signes: out, coupes } : null;
 }
 
-function toursCoquille(corpus: CorpusJeux, graine: string): Tour[] {
-  const { textes, seuls } = morceaux(corpus);
+/** Un tour de coquille : le caractère à la place `i` du message cède la place à `intrus`. */
+function tourCoquille(
+  corpus: CorpusJeux,
+  message: readonly string[],
+  i: number,
+  intrus: string,
+  enPlus: Pick<Tour, 'coupes' | 'ponctuation' | 'traduction'>
+): Tour {
+  const c = message[i];
+  return {
+    c,
+    enonce: 'Un caractère s’est glissé à la place d’un autre. Touche-le.',
+    reponse: [intrus],
+    choix: message.map((x, k) => (k === i ? intrus : x)),
+    ordre: false,
+    paire: true,
+    aussi: [intrus],
+    ...enPlus,
+    correction: [corrige(intrus, corpus), corrige(c, corpus)]
+  };
+}
+
+/**
+ * Les messages rédigés pour l'app (`coquilles.json`) qu'on peut poser : tous leurs
+ * caractères acquis, et au moins un de leurs pièges avec un intrus possible. Le piège et
+ * l'intrus sont tirés d'après la graine.
+ */
+function toursRediges(corpus: CorpusJeux, graine: string): Tour[] {
   const tours: Tour[] = [];
-  const vus = new Set<string>();
+  for (const q of melange(corpus.coquilles ?? [], `${graine}/rediges`)) {
+    if (tours.length >= TOURS_COQUILLE) break;
+    const { signes: s, ponctuation } = decouper(q.message);
+    if (s.length < MESSAGE_MIN || s.length > MESSAGE_MAX) continue;
+    if (!s.every((c) => lisible(c, corpus))) continue;
+    const places = s.flatMap((c, i) => {
+      if (!q.pieges.includes(c)) return [];
+      const r = remplacants(c, s, corpus);
+      return r.length === 0 ? [] : [{ i, r }];
+    });
+    if (places.length === 0) continue;
+    const g = `${graine}/${q.id}`;
+    const { i, r } = places[hachage(`${g}/place`) % places.length];
+    const intrus = r[hachage(`${g}/intrus`) % r.length];
+    tours.push(tourCoquille(corpus, s, i, intrus, { ponctuation, traduction: q.fr }));
+  }
+  return tours;
+}
+
+/**
+ * Les messages faits des mots et des phrases des fiches, pour compléter la manche quand
+ * les messages rédigés ne suffisent pas. Tout caractère d'un groupe à ne pas confondre
+ * peut y être piégé.
+ */
+function toursDesFiches(
+  corpus: CorpusJeux,
+  graine: string,
+  deja: ReadonlySet<string>,
+  n: number
+): Tour[] {
+  const textes = morceaux(corpus);
+  const tours: Tour[] = [];
+  const vus = new Set(deja);
   /* Quelques essais de plus que de tours : deux arrangements peuvent donner le même message. */
-  for (let essai = 0; essai < TOURS_COQUILLE * 3 && tours.length < TOURS_COQUILLE; essai++) {
+  for (let essai = 0; essai < TOURS_COQUILLE * 3 && tours.length < n; essai++) {
     const g = `${graine}/coquille/${essai}`;
-    const message = composer(textes, seuls, g);
+    const message = composer(textes, g);
     if (message === null) break;
     const places = message.signes.flatMap((c, i) => {
       const r = remplacants(c, message.signes, corpus);
-      return r.length === 0 ? [] : [{ i, c, intrus: r[0] }];
+      return r.length === 0 ? [] : [{ i, r }];
     });
     if (places.length === 0) continue;
-    const { i, c, intrus } = places[hachage(`${g}/place`) % places.length];
-    const choix = message.signes.map((x, k) => (k === i ? intrus : x));
-    const cle = choix.join('');
+    const { i, r } = places[hachage(`${g}/place`) % places.length];
+    const t = tourCoquille(corpus, message.signes, i, r[0], { coupes: message.coupes });
+    const cle = t.choix.join('');
     if (vus.has(cle)) continue;
     vus.add(cle);
-    tours.push({
-      c,
-      enonce: 'Un caractère s’est glissé à la place d’un autre. Touche-le.',
-      reponse: [intrus],
-      choix,
-      ordre: false,
-      paire: true,
-      aussi: [intrus],
-      coupes: message.coupes,
-      correction: [corrige(intrus, corpus), corrige(c, corpus)]
-    });
+    tours.push(t);
   }
   return tours;
+}
+
+/**
+ * La manche de la coquille : les messages rédigés d'abord, ceux des fiches ensuite.
+ * Chaque tour ne piège qu'avec un groupe de `paires.json`, et ne montre que de l'acquis.
+ */
+function toursCoquille(corpus: CorpusJeux, graine: string): Tour[] {
+  const rediges = toursRediges(corpus, graine);
+  if (rediges.length >= TOURS_COQUILLE) return rediges;
+  const vus = new Set(rediges.map((t) => t.choix.join('')));
+  return [...rediges, ...toursDesFiches(corpus, graine, vus, TOURS_COQUILLE - rediges.length)];
 }
 
 /* ---------- jeu 5 : les devinettes de lanternes ---------- */
@@ -923,6 +1003,26 @@ export function clore(m: Manche): Manche {
   return { ...m, tours: m.tours.slice(0, m.i) };
 }
 
+/**
+ * Les leurres qu'une réponse désigne, pour le caractère `c` du tour, quand l'écran ne
+ * les dit pas. Juste : aucun. Un choix unique faux désigne le caractère pris pour la
+ * réponse (la chaîne, les jumeaux). La coquille est à part : ne pas voir l'intrus, c'est
+ * avoir lu l'un pour l'autre, l'intrus pour le caractère remplacé et inversement. Un
+ * assemblage, où l'ordre compte, ne désigne aucun caractère : `undefined`, et les pièges
+ * déjoués restent prudents.
+ */
+function leurresDuTour(
+  t: Tour,
+  c: string,
+  donnee: readonly string[],
+  correct: boolean
+): string[] | undefined {
+  if (t.ordre) return undefined;
+  if (correct) return [];
+  if (t.aussi !== undefined && t.aussi.length > 0) return c === t.c ? [...t.aussi] : [t.c];
+  return donnee.filter((x) => x !== t.reponse[0]);
+}
+
 function memeSuite(a: readonly string[], b: readonly string[]): boolean {
   return a.length === b.length && a.every((x, i) => x === b[i]);
 }
@@ -942,14 +1042,18 @@ export function repondre(m: Manche, reponse: Reponse, outcome: Outcome): Resulta
     : donnee.length === 1 && donnee[0] === t.reponse[0];
   /* Un événement par caractère noté : le demandé, puis ceux que la même réponse engage
      (la coquille : l'intrus). Même réponse, même outcome, et `grade` pour chacun. */
-  const evenements: Revision[] = [t.c, ...(t.aussi ?? [])].map((c) => ({
-    c,
-    correct,
-    tries: outcome.tries,
-    seconds: outcome.seconds,
-    /* Les leurres pris, quand l'écran les connaît : les pièges déjoués les lisent. */
-    ...(outcome.leurres === undefined ? {} : { leurres: [...outcome.leurres] })
-  }));
+  const evenements: Revision[] = [t.c, ...(t.aussi ?? [])].map((c) => {
+    /* Les leurres pris, que l'écran les dise ou que le tour les connaisse : les pièges
+       déjoués les lisent. */
+    const leurres = outcome.leurres ?? leurresDuTour(t, c, donnee, correct);
+    return {
+      c,
+      correct,
+      tries: outcome.tries,
+      seconds: outcome.seconds,
+      ...(leurres === undefined ? {} : { leurres: [...leurres] })
+    };
+  });
   const evenement = evenements[0];
   return {
     manche: {
@@ -1082,7 +1186,8 @@ export const JEUX: Record<JeuId, Jeu> = {
     tours: TOURS_COQUILLE,
     chrono: 0,
     limite: 0,
-    indisponible: 'Pas encore de mot ni de phrase écrits avec les caractères acquis.',
+    indisponible:
+      'Elle s’ouvre quand les deux caractères d’une paire à ne pas confondre sont acquis.',
     preparer: (corpus, graine) => manche('coquille', graine, toursCoquille(corpus, graine)),
     repondre,
     constat
@@ -1120,6 +1225,15 @@ export function disponibles(corpus: CorpusJeux, graine: string): JeuId[] {
  */
 export function propose(p: Progress, jour: string): boolean {
   return proposeUnJeu(humeur(p.tao.activites, jour));
+}
+
+/**
+ * La posture de Tao pendant une manche (brief §9). La coquille se lit comme un texte :
+ * elle lit le message par-dessus l'épaule. Les autres jeux la trouvent en posture de
+ * jeu, la lanterne à la main, la tête penchée sur ce qu'on cherche.
+ */
+export function postureDuJeu(id: JeuId | null): Posture {
+  return id === 'coquille' ? 'lecture' : 'jeu';
 }
 
 /* ---------- ce que la manche rend à la progression ---------- */

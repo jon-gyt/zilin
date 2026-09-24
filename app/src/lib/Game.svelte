@@ -32,6 +32,7 @@
   } from './content';
   import { eclairOnce, ligneMotsDevines, TAO_ECLAIR } from './eclair';
   import { racinesDesCaracteres } from './foret';
+  import { coquillesOnce } from './coquilles';
   import { lirePaires } from './questions';
   import { strokesOnce } from './strokes';
   import {
@@ -48,6 +49,8 @@
     fini,
     glose,
     nomDeBrique,
+    postureDuJeu,
+    signes,
     tour,
     type CorpusJeux,
     type JeuId,
@@ -118,6 +121,8 @@
       devinettesOnce().catch(() => null),
       eclairOnce().catch(() => null)
     ]);
+    /* Les messages rédigés de la coquille (`coquilles.json`) : l'écran n'en écrit aucun. */
+    const coquilles = await coquillesOnce();
     const groupes = lirePaires(paires);
     const racines = racinesDesCaracteres(familles);
     /* La devinette du jour, si elle est déjà posée : elle le reste toute la journée. */
@@ -156,10 +161,15 @@
       ...motsADessiner,
       ...groupes.flat(),
       ...Object.values(pressenti.decompositions).flat(),
-      ...aDessiner
+      ...aDessiner,
+      /* Les messages de la coquille que l'acquis permet de lire. */
+      ...coquilles.coquilles
+        .map((q) => signes(q.message))
+        .filter((s) => s.every((c) => pressenti.acquis.includes(c)))
+        .flat()
     ]);
     const aLire = [...voulus].flatMap((c) => {
-      const r = devinettes?.racines[c] ?? eclair?.racines[c] ?? racines.get(c);
+      const r = devinettes?.racines[c] ?? eclair?.racines[c] ?? coquilles.racines[c] ?? racines.get(c);
       return r === undefined ? [] : [r];
     });
     const traits = await traitsDeFamilles([...new Set(aLire)]).catch(() => ({}));
@@ -171,6 +181,7 @@
       /* Les tracés de l'export d'abord, ceux de la maquette pour le reste. */
       traits: [...new Set([...Object.keys(traits), ...Object.keys(demo)])],
       cartes: p.cartes,
+      coquilles: coquilles.coquilles,
       ...lanternes,
       ...eclairs
     });
@@ -491,9 +502,10 @@
       </div>
     {:else}
       <div class="verif-tete">
+        <!-- La coquille se lit comme un texte : Tao lit par-dessus l'épaule. -->
         <Tao
           stade={taoStade}
-          posture="jeu"
+          posture={postureDuJeu(jeu)}
           humeur={taoHumeur}
           size={72}
           penchee={jeu === 'eclair' && TAO_ECLAIR.penchee}
@@ -650,11 +662,16 @@
             >
               <Glyph char={c} size={40} write={false} />
             </button>
+            <!-- La ponctuation du message se lit, elle ne se touche pas. -->
+            {#if t.ponctuation?.[k]}<span class="ponct" lang="zh-Hans" aria-hidden="true">{t.ponctuation[k]}</span>{/if}
           {/each}
         </div>
+        {#if resultat !== null && t.traduction}
+          <p class="traduction">« {t.traduction} »</p>
+        {/if}
         {#if resultat !== null && t.correction}
-          <!-- La correction par les briques : l'intrus, puis le caractère qu'il remplaçait. -->
-          <div class="correction">
+          <!-- La correction par les briques : l'intrus, puis le caractère qu'il remplaçait, côte à côte. -->
+          <div class="correction cote">
             {#each t.correction as x, k (x.c)}
               {@const gx = glose(x.c, corpus)}
               <div class="ligne">
@@ -844,5 +861,40 @@
     margin-top: 2px;
     font-size: 13px;
     color: var(--mist);
+  }
+  /* La coquille : la ponctuation du message rédigé, au pied de la case, et sa traduction. */
+  .ponct {
+    align-self: flex-end;
+    margin: 0 0 2px -2px;
+    font-family: var(--hz);
+    font-size: 22px;
+    line-height: 1;
+    color: var(--ink2);
+  }
+  .traduction {
+    margin: 4px 0 0;
+    text-align: center;
+    font-size: 15px;
+    color: var(--ink2);
+  }
+  /* L'intrus et le caractère remplacé, côte à côte : la correction tient dans l'écran. */
+  .correction.cote {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+  .correction.cote .ligne {
+    flex-wrap: wrap;
+    align-content: flex-start;
+    justify-content: center;
+    row-gap: 4px;
+  }
+  .correction.cote .gl {
+    flex-basis: 100%;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    column-gap: 6px;
+    margin-left: 0;
+    text-align: center;
   }
 </style>
