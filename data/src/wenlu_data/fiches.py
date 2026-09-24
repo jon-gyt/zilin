@@ -28,10 +28,10 @@ Licences (`docs/sources-licences.md`) :
 
 Deux chemins d'appel, même invite :
 
-- unitaire : `zilin fiches generer --c 住`, réponse immédiate, relance automatique ;
-- par lots : `zilin fiches generer --parcours lire --jusqua 40` soumet les caractères
+- unitaire : `wenlu fiches generer --c 住`, réponse immédiate, relance automatique ;
+- par lots : `wenlu fiches generer --parcours lire --jusqua 40` soumet les caractères
   en une fois à l'API Message Batches (moitié prix, résultat sous 24 h), puis
-  `zilin fiches recuperer` récupère, valide, écrit, et resoumet ce qui a été rejeté.
+  `wenlu fiches recuperer` récupère, valide, écrit, et resoumet ce qui a été rejeté.
 
 Sortie : `data/work/fiches/<c>.json` (format dans `data/schema.md`), journal des lots
 dans `data/work/fiches/lots/<lot>.json`.
@@ -103,7 +103,7 @@ class ParcoursInconnu(ValueError):
 
 
 class CorpusAbsent(FileNotFoundError):
-    """Le résultat de `zilin build` manque : rien à assembler."""
+    """Le résultat de `wenlu build` manque : rien à assembler."""
 
 
 class CaractereHorsParcours(KeyError):
@@ -169,7 +169,7 @@ def _pinyin_de_nom_propre(pinyin: str) -> bool:
 
 
 class Corpus:
-    """Ce que `zilin build` et `zilin ingest` donnent à lire pour une fiche.
+    """Ce que `wenlu build` et `wenlu ingest` donnent à lire pour une fiche.
 
     Injectable : les tests en construisent un en mémoire, sans fichier ni réseau.
     """
@@ -289,7 +289,7 @@ class Corpus:
 
 def _lire_json(chemin: Path) -> object:
     if not chemin.exists():
-        raise CorpusAbsent(f"{chemin} absent : lancer `uv run zilin fetch`, `ingest` puis `build`.")
+        raise CorpusAbsent(f"{chemin} absent : lancer `uv run wenlu fetch`, `ingest` puis `build`.")
     return json.loads(chemin.read_text(encoding="utf-8"))
 
 
@@ -1023,7 +1023,7 @@ def controles(
     corpus: Corpus | None = None,
     listes: Path | None = None,
 ) -> list[Controle]:
-    """Contrôles des fiches, appelés par `zilin check`.
+    """Contrôles des fiches, appelés par `wenlu check`.
 
     « fiches invalides » est bloquant : une fiche hors cadre ne s'exporte pas.
     « relecture du seuil 255 » est signalé : la relecture est humaine (brief §17).
@@ -1138,7 +1138,7 @@ def commande_generer(
     client = _client(modele)
     lot = soumettre_lot([corpus.contexte(x) for x in caracteres], client)
     typer.echo(f"Lot {lot['lot']} soumis : {len(caracteres)} fiches du parcours {parcours}.")
-    typer.echo("Récupération : `zilin fiches recuperer` (les lots aboutissent sous 24 h).")
+    typer.echo("Récupération : `wenlu fiches recuperer` (les lots aboutissent sous 24 h).")
 
 
 @app.command("recuperer")

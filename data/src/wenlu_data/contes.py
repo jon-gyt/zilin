@@ -18,11 +18,11 @@ de Make Me a Hanzi ; la glose est demandée à Claude en français, en ses propr
 
 Deux chemins d'appel, même invite :
 
-- unitaire : `zilin contes generer --seuil 255 --conte shou-zhu-dai-tu`, réponse
+- unitaire : `wenlu contes generer --seuil 255 --conte shou-zhu-dai-tu`, réponse
   immédiate, relance automatique sur intrus ;
-- par lots : `zilin contes generer --seuil 255` soumet tous les contes du seuil en une
+- par lots : `wenlu contes generer --seuil 255` soumet tous les contes du seuil en une
   fois à l'API Message Batches (moitié prix, résultat sous 24 h), puis
-  `zilin contes recuperer` récupère, valide, écrit, et resoumet ce qui a été rejeté.
+  `wenlu contes recuperer` récupère, valide, écrit, et resoumet ce qui a été rejeté.
 
 Sortie : `data/work/contes/<seuil>/<id>.json` (format dans `data/schema.md`),
 journal des lots dans `data/work/contes/lots/<lot>.json`.
@@ -689,7 +689,7 @@ def recuperer_lot(
 
 
 def controles(dossier: Path | None = None, listes: Path | None = None) -> list[Controle]:
-    """Contrôles des contes, appelés par `zilin check`.
+    """Contrôles des contes, appelés par `wenlu check`.
 
     « caractères hors liste » est bloquant : un conte d'un seuil ne peut pas
     contenir un caractère que l'apprenant n'a pas encore vu.
@@ -776,7 +776,7 @@ def commande_generer(
 
     lot = soumettre_lot(catalogue, seuil, autorises, client)
     typer.echo(f"Lot {lot['lot']} soumis : {len(catalogue)} contes au seuil {seuil}.")
-    typer.echo("Récupération : `zilin contes recuperer` (les lots aboutissent sous 24 h).")
+    typer.echo("Récupération : `wenlu contes recuperer` (les lots aboutissent sous 24 h).")
 
 
 @app.command("recuperer")

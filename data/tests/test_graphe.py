@@ -12,7 +12,7 @@ from pathlib import Path
 
 import pytest
 
-from zilin_data.graphe import (
+from wenlu_data.graphe import (
     BRIQUE,
     CARACTERE,
     MUETTE,

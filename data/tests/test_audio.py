@@ -14,8 +14,8 @@ from pathlib import Path
 import pytest
 from typer.testing import CliRunner
 
-from zilin_data import audio as module
-from zilin_data.audio import (
+from wenlu_data import audio as module
+from wenlu_data.audio import (
     CARACTERE,
     DES_FICHES,
     DES_LISTES,
@@ -54,7 +54,7 @@ from zilin_data.audio import (
     perimetre,
     perimetre_listes,
 )
-from zilin_data.cli import app as cli
+from wenlu_data.cli import app as cli
 
 CARACTERES = [TexteAudio("人", CARACTERE), TexteAudio("大", CARACTERE)]
 MOTS = [TexteAudio("天天", MOT)]
@@ -384,7 +384,7 @@ def test_les_voix_du_depot_sont_ses_fichiers_voices() -> None:
     assert module.voix_du_depot(fichiers) == ["zf_002", "zm_010"]
 
 
-def test_zilin_audio_voix_liste_les_voix_du_modele(monkeypatch: pytest.MonkeyPatch) -> None:
+def test_wenlu_audio_voix_liste_les_voix_du_modele(monkeypatch: pytest.MonkeyPatch) -> None:
     moteur = MoteurAvecVoix([VOIX_LOCALE_DEFAUT, "zm_010"])
     monkeypatch.setattr(module, "fabriquer", lambda nom, voix: _local(moteur))
 
@@ -513,7 +513,7 @@ def test_un_parcours_inconnu_est_refuse() -> None:
 
 
 def test_les_fiches_relues_passent_avant_les_listes(tmp_path: Path) -> None:
-    from zilin_data.fiches import RELU, Fiche, Generation, Mot, Phrase, ecrire_fiche
+    from wenlu_data.fiches import RELU, Fiche, Generation, Mot, Phrase, ecrire_fiche
 
     def fiche(c: str, statut: str) -> Fiche:
         return Fiche(

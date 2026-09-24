@@ -1,7 +1,7 @@
 """Export JSON versionné par famille (story 1.6).
 
-`zilin export --version 0.1.0` écrit `app/public/data/0.1.0/`, les seuls fichiers
-que l'app lira. Rien n'est calculé ici : l'export assemble ce que `zilin build` a
+`wenlu export --version 0.1.0` écrit `app/public/data/0.1.0/`, les seuls fichiers
+que l'app lira. Rien n'est calculé ici : l'export assemble ce que `wenlu build` a
 produit (`decompositions.json`, `graphe.json`, `parcours-*.json`), les graphies,
 le pinyin d'Unihan, les fiches et les contes relus.
 
@@ -41,7 +41,7 @@ Déterminisme : deux exports du même contenu écrivent les mêmes octets. Les
 fichiers sont triés, les dictionnaires écrits dans un ordre fixe, et la date est
 celle du dernier changement de contenu, fichier par fichier — un fichier dont le
 contenu n'a pas bougé garde sa date, même quand l'empreinte de l'index change. `index.json` porte l'empreinte du build dont il est
-tiré ; `zilin check` la recalcule pour dire si l'export est à jour. Cette
+tiré ; `wenlu check` la recalcule pour dire si l'export est à jour. Cette
 empreinte couvre aussi le code qui écrit l'export — `FORMAT_EXPORT` et ce
 fichier lui-même : corriger l'exporteur rend l'export périmé.
 """
@@ -107,14 +107,14 @@ MODIF_TRAITS = (
 
 LICENCE_PROPRIETAIRE = "propriétaire"
 SOURCE_FAMILLES = (
-    "décomposition GF 0014-2009 réconciliée par le pipeline zilin ;"
+    "décomposition GF 0014-2009 réconciliée par le pipeline wenlu ;"
     " pinyin d'Unihan (kMandarin) ; textes rédigés pour l'app"
 )
 URL_PIPELINE = "https://github.com/jon-gyt/zilin"
 
 
 class ExportImpossible(FileNotFoundError):
-    """Le résultat de `zilin build` manque : rien à exporter."""
+    """Le résultat de `wenlu build` manque : rien à exporter."""
 
 
 class FamilleInvalide(ValueError):
@@ -233,7 +233,7 @@ def perimetre(noeuds: Mapping[str, Noeud], cibles: Iterable[str]) -> Perimetre:
 
 def _lire(chemin: Path) -> object:
     if not chemin.exists():
-        raise ExportImpossible(f"{chemin} absent : lancer `zilin build`")
+        raise ExportImpossible(f"{chemin} absent : lancer `wenlu build`")
     return json.loads(chemin.read_text(encoding="utf-8"))
 
 
@@ -261,7 +261,7 @@ def charger_decompositions(build: Path) -> dict[str, dict[str, object]]:
 
 
 def charger_parcours(build: Path) -> dict[str, dict[str, object]]:
-    """Les parcours écrits par `zilin build`, par nom."""
+    """Les parcours écrits par `wenlu build`, par nom."""
     trouves: dict[str, dict[str, object]] = {}
     for nom in sorted(PARCOURS):
         chemin = build / f"parcours-{nom}.json"
@@ -472,7 +472,7 @@ def document_famille(famille: Famille) -> dict[str, object]:
         "license": LICENCE_PROPRIETAIRE,
         "source": SOURCE_FAMILLES,
         "source_url": URL_PIPELINE,
-        "modified": f"{JETON_JOUR} : assemblé par `zilin export`",
+        "modified": f"{JETON_JOUR} : assemblé par `wenlu export`",
         "norme": "GF 0014-2009",
         **famille.model_dump(),
     }
@@ -506,7 +506,7 @@ def document_paires(paires: Sequence[Sequence[str]], version: str) -> dict[str, 
         "license": LICENCE_PROPRIETAIRE,
         "source": "data/sources/paires/paires.tsv (docs/jeux.md)",
         "source_url": URL_PIPELINE,
-        "modified": f"{JETON_JOUR} : assemblé par `zilin export`",
+        "modified": f"{JETON_JOUR} : assemblé par `wenlu export`",
         "paires": [list(groupe) for groupe in paires],
     }
 
@@ -521,7 +521,7 @@ def document_conte(
         "license": LICENCE_PROPRIETAIRE,
         "source": f"récit traditionnel, {tete.ouvrage} (domaine public) ; texte réécrit pour l'app",
         "source_url": URL_PIPELINE,
-        "modified": f"{JETON_JOUR} : assemblé par `zilin export`",
+        "modified": f"{JETON_JOUR} : assemblé par `wenlu export`",
         "conte": conte,
         "titre_fr": tete.titre_fr,
         "versions": {
@@ -571,7 +571,7 @@ def document_index(
         "license": LICENCE_PROPRIETAIRE,
         "source": SOURCE_FAMILLES,
         "source_url": URL_PIPELINE,
-        "modified": f"{JETON_JOUR} : assemblé par `zilin export`",
+        "modified": f"{JETON_JOUR} : assemblé par `wenlu export`",
         "norme": "GF 0014-2009",
         "perimetre": PERIMETRE,
         "licences": "LICENCES.md",
@@ -669,7 +669,7 @@ TABLEAU_LICENCES: tuple[tuple[str, str, str, str, str], ...] = (
         "—",
     ),
     (
-        "Fiches, contes, paires (pipeline zilin)",
+        "Fiches, contes, paires (pipeline wenlu)",
         "`familles/`, `contes/`, `paires.json`",
         LICENCE_PROPRIETAIRE,
         "textes rédigés pour l'app, relus",
@@ -683,7 +683,7 @@ def licences_md(version: str) -> str:
     lignes = [
         f"# Licences des données exportées (version {version})",
         "",
-        "Écrit par `zilin export`. Fait foi pour ce que l'app embarque ;",
+        "Écrit par `wenlu export`. Fait foi pour ce que l'app embarque ;",
         "`docs/sources-licences.md` fait foi pour la décision d'ensemble.",
         "",
         "| Source | Usage dans l'export | Licence | Attribution | Texte de la licence |",
@@ -878,7 +878,7 @@ def _dater_par_fichier(dossier: Path, textes: Mapping[str, str], moment: datetim
 
 
 #: Dossiers d'une version qu'une autre commande remplit : `export` les laisse
-#: intacts. `zilin audio exporter` écrit `audio/`, et le purger à chaque export
+#: intacts. `wenlu audio exporter` écrit `audio/`, et le purger à chaque export
 #: effaçait la voix de tous les caractères.
 DOSSIERS_ETRANGERS: tuple[str, ...] = ("audio/",)
 
@@ -1102,7 +1102,7 @@ def controles(
     fiches: Path | None = None,
     contes: Path | None = None,
 ) -> list[Controle]:
-    """Contrôles de l'export, pour `zilin check`.
+    """Contrôles de l'export, pour `wenlu check`.
 
     « export à jour » compare l'empreinte de `index.json` à celle du build
     présent : un export périmé livrerait à l'app un contenu que le pipeline a
@@ -1117,7 +1117,7 @@ def controles(
     dossiers = versions_exportees(destination)
     if not dossiers:
         return [
-            Controle("export : à jour", True, "aucun export écrit : lancer `zilin export`")
+            Controle("export : à jour", True, "aucun export écrit : lancer `wenlu export`")
         ]
 
     attendue = empreinte_build(

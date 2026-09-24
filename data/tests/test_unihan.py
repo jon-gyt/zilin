@@ -11,7 +11,7 @@ from pathlib import Path
 
 import pytest
 
-from zilin_data.unihan import (
+from wenlu_data.unihan import (
     FREQUENCE,
     UnihanInvalide,
     collecter,

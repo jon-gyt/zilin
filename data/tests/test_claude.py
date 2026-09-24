@@ -16,7 +16,7 @@ from types import SimpleNamespace
 import pytest
 import typer
 
-from zilin_data import claude, contes, fiches
+from wenlu_data import claude, contes, fiches
 
 
 class _Lots:

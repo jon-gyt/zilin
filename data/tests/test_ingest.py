@@ -7,7 +7,7 @@ from pathlib import Path
 
 import pytest
 
-from zilin_data.ingest import (
+from wenlu_data.ingest import (
     ListeInvalide,
     SourceInvalide,
     charger_liste,
@@ -166,7 +166,7 @@ def test_est_sinogramme() -> None:
 
 def test_liste_hsk_1_du_depot() -> None:
     """La liste HSK 1 versionnée est valide et complète (300 caractères)."""
-    from zilin_data.paths import LISTES
+    from wenlu_data.paths import LISTES
 
     assert charger_liste(LISTES / "hsk-1.txt") == charger_liste(LISTES / "hsk-1.txt")
     assert len(charger_liste(LISTES / "hsk-1.txt")) == 300

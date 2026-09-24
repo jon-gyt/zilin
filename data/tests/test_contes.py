@@ -13,9 +13,9 @@ from pathlib import Path
 import pytest
 from typer.testing import CliRunner
 
-from zilin_data import contes
-from zilin_data.cli import app as cli
-from zilin_data.contes import (
+from wenlu_data import contes
+from wenlu_data.cli import app as cli
+from wenlu_data.contes import (
     A_RELIRE,
     ESSAIS_MAX,
     REJETE,
@@ -371,7 +371,7 @@ def test_lot_non_termine_ne_recupere_rien(tmp_path: Path) -> None:
 
 
 def test_controle_check_detecte_les_caracteres_hors_liste(tmp_path: Path) -> None:
-    """`zilin check` relit les versions écrites : un intrus est bloquant."""
+    """`wenlu check` relit les versions écrites : un intrus est bloquant."""
     listes = tmp_path / "listes"
     ecrire_liste(listes, 255, LISTE)
     version = lire_reponse(INTRUS, conte=CONTE, seuil=255, generation=generation_de_test())

@@ -8,8 +8,8 @@ from pathlib import Path
 
 import pytest
 
-from zilin_data import fetch as module
-from zilin_data.fetch import (
+from wenlu_data import fetch as module
+from wenlu_data.fetch import (
     CEDICT_MDBG,
     CEDICT_MIROIR,
     ENTETE_CEDICT,
@@ -65,8 +65,8 @@ def servir(reponses: dict[str, bytes | None]):
 def test_empreinte(tmp_path: Path) -> None:
     """SHA-256 du contenu, en hexadécimal."""
     f = tmp_path / "a.txt"
-    f.write_bytes(b"zilin")
-    assert empreinte(f) == "dcbbe1af4fe6cfde59a47e4bacebf132afa3ce3250fc40a3e7089ffef2bc197c"
+    f.write_bytes(b"wenlu")
+    assert empreinte(f) == "2ecebda7cafa8097a930ecbccb7bb94eea281eeabc8318d36cacc9c5797e2e2b"
 
 
 def test_telecharger_est_idempotent(tmp_path: Path) -> None:
@@ -81,7 +81,7 @@ def test_telecharger_est_idempotent(tmp_path: Path) -> None:
 def test_sommes_au_format_sha256sum(tmp_path: Path) -> None:
     """SHA256SUMS : empreinte, deux espaces, nom de fichier."""
     source = Source(nom="essai", fichier="a.txt", url=OFFICIELLE, licence="—")
-    (tmp_path / "a.txt").write_bytes(b"zilin")
+    (tmp_path / "a.txt").write_bytes(b"wenlu")
     ligne = ecrire_sommes(tmp_path, (source,)).read_text(encoding="utf-8").strip()
     somme, nom = ligne.split("  ")
     assert nom == "a.txt"
@@ -91,7 +91,7 @@ def test_sommes_au_format_sha256sum(tmp_path: Path) -> None:
 def test_journal_de_provenance(tmp_path: Path) -> None:
     """PROVENANCE.md garde l'URL, la taille, l'empreinte et l'action de chaque source."""
     source = Source(nom="essai", fichier="a.txt", url=OFFICIELLE, licence="CC BY-SA 4.0")
-    (tmp_path / "a.txt").write_bytes(b"zilin")
+    (tmp_path / "a.txt").write_bytes(b"wenlu")
     journaliser(tmp_path, (source,), {"a.txt": Resultat(TELECHARGE, OFFICIELLE)})
     journaliser(tmp_path, (source,), {"a.txt": Resultat(PRESENT)})
     texte = (tmp_path / "PROVENANCE.md").read_text(encoding="utf-8")
@@ -276,8 +276,8 @@ def test_repli_unihan_sur_le_miroir(tmp_path: Path, monkeypatch: pytest.MonkeyPa
 
 def test_l_empreinte_est_la_meme_fonction_partout() -> None:
     """Une seule implémentation du SHA-256 d'un fichier, partagée (`outils.py`)."""
-    from zilin_data import export as export_mod
-    from zilin_data.outils import empreinte_fichier
+    from wenlu_data import export as export_mod
+    from wenlu_data.outils import empreinte_fichier
 
     assert empreinte is empreinte_fichier
     assert export_mod.empreinte_fichier is empreinte_fichier

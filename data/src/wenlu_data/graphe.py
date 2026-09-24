@@ -18,7 +18,7 @@ Trois genres de nœuds :
   norme, qui ne peuvent jamais être appariés à une feuille IDS) ou forme absente
   du dictionnaire, à commencer par `？`, la marque de Make Me a Hanzi pour un
   élément qu'il ne décompose pas. Une brique muette n'a rien à apprendre : elle
-  est acquise d'entrée et signalée par `zilin check`.
+  est acquise d'entrée et signalée par `wenlu check`.
 
 Familles : la racine d'un caractère est sa première brique dans l'ordre
 d'écriture — critère volontairement simple et déterministe, en attendant les
@@ -251,7 +251,7 @@ def cycles(graphe: Graphe) -> list[tuple[str, ...]]:
     """Cycles du graphe, chacun donné comme le chemin qui revient sur lui-même.
 
     Doit être vide : la décomposition canonique est un arbre fini. Un cycle est
-    un défaut de données, bloquant pour `zilin check`.
+    un défaut de données, bloquant pour `wenlu check`.
     """
     BLANC, GRIS, NOIR = 0, 1, 2
     couleur: dict[str, int] = {c: BLANC for c in graphe.noeuds}
@@ -628,7 +628,7 @@ def rapport_muettes(graphe: Graphe, parcours: Sequence[Parcours]) -> str:
 def ajouter_muettes_aux_ecarts(chemin: Path, section: str) -> Path:
     """Pose (ou remplace) la section des briques muettes à la fin d'`ecarts.md`.
 
-    Remplacer plutôt qu'ajouter : deux passages de `zilin build` doivent laisser
+    Remplacer plutôt qu'ajouter : deux passages de `wenlu build` doivent laisser
     le même fichier, même si `gf0014.build` n'a pas réécrit le rapport entre-temps.
     """
     ancien = chemin.read_text(encoding="utf-8") if chemin.exists() else ""
@@ -693,7 +693,7 @@ def build(
 
 
 def controles(sortie: Path | None = None) -> list[Controle]:
-    """Contrôles du graphe et des parcours, pour `zilin check`.
+    """Contrôles du graphe et des parcours, pour `wenlu check`.
 
     Un cycle rend l'ordre d'apprentissage impossible : bloquant. Un caractère de
     liste absent de son parcours serait un caractère jamais enseigné : bloquant.
@@ -702,7 +702,7 @@ def controles(sortie: Path | None = None) -> list[Controle]:
     sortie = sortie or BUILD
     fichier = sortie / "graphe.json"
     if not fichier.exists():
-        return [Controle("graphe", False, f"{fichier} absent : lancer `zilin build`", True)]
+        return [Controle("graphe", False, f"{fichier} absent : lancer `wenlu build`", True)]
 
     document = json.loads(fichier.read_text(encoding="utf-8"))
     boucles = document.get("cycles") or []
@@ -722,7 +722,7 @@ def controles(sortie: Path | None = None) -> list[Controle]:
         chemin = sortie / f"parcours-{nom}.json"
         if not chemin.exists():
             resultats.append(
-                Controle(f"parcours {nom}", False, f"{chemin} absent : lancer `zilin build`", True)
+                Controle(f"parcours {nom}", False, f"{chemin} absent : lancer `wenlu build`", True)
             )
             continue
         p = json.loads(chemin.read_text(encoding="utf-8"))

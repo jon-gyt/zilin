@@ -387,7 +387,7 @@ def rapport_ecarts(
     lignes = [
         "# Écarts de réconciliation avec GF 0014-2009",
         "",
-        "Produit par `uv run zilin build`. Source des IDS : `dictionary.txt`",
+        "Produit par `uv run wenlu build`. Source des IDS : `dictionary.txt`",
         f"(Make Me a Hanzi), non canonique, avec `{SOURCE_SECONDAIRE}` en repli là où elle",
         f"donne `{INCONNU}` ou rien. Table : `data/sources/gf0014-2009/composants.tsv`.",
         "",
@@ -596,7 +596,7 @@ def build(
 
 @dataclass(frozen=True)
 class Controle:
-    """Résultat d'un contrôle qualité. `bloquant` fait échouer `zilin check`."""
+    """Résultat d'un contrôle qualité. `bloquant` fait échouer `wenlu check`."""
 
     nom: str
     ok: bool
@@ -613,7 +613,7 @@ def controles(sortie: Path | None = None) -> list[Controle]:
     sortie = sortie or BUILD
     fichier = sortie / "decompositions.json"
     if not fichier.exists():
-        return [Controle("décompositions", False, f"{fichier} absent : lancer `zilin build`", True)]
+        return [Controle("décompositions", False, f"{fichier} absent : lancer `wenlu build`", True)]
 
     document = json.loads(fichier.read_text(encoding="utf-8"))
     caracteres = document["caracteres"]

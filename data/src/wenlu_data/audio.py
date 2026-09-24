@@ -24,7 +24,7 @@ L'Apache 2.0 a été lue en entier sur le dépôt de l'auteur le 21 septembre 20
 
 `FournisseurAzure` reste en second, inchangé : aucune page de conditions n'a pu être
 lue depuis cet environnement (le proxy de sortie bloque `learn.microsoft.com`), sa
-`Licence` est donc « à vérifier », `verifie=False`, et `zilin audio generer
+`Licence` est donc « à vérifier », `verifie=False`, et `wenlu audio generer
 --fournisseur azure` le dit à chaque passage. Tant que cette ligne n'est pas vérifiée
 sur une source primaire, aucun fichier synthétisé par Azure n'entre dans un artefact
 distribué.
@@ -313,7 +313,7 @@ class FournisseurAzure:
                 "Ocp-Apim-Subscription-Key": self._cle,
                 "Content-Type": "application/ssml+xml",
                 "X-Microsoft-OutputFormat": self.sortie,
-                "User-Agent": "zilin-data",
+                "User-Agent": "wenlu-data",
             },
             content=self.ssml(texte, voix).encode("utf-8"),
         )
@@ -346,8 +346,8 @@ MODELE_LOCAL = "hexgrad/Kokoro-82M-v1.1-zh"
 LANGUE_LOCALE = "z"
 
 #: Voix par défaut : une voix féminine mandarin de Kokoro v1.1-zh. Jamais vérifiée
-#: depuis cet environnement (`huggingface.co` bloqué) : `zilin audio voix` liste celles
-#: du dépôt, et `zilin audio generer` refuse une voix qui n'y est pas.
+#: depuis cet environnement (`huggingface.co` bloqué) : `wenlu audio voix` liste celles
+#: du dépôt, et `wenlu audio generer` refuse une voix qui n'y est pas.
 VOIX_LOCALE_DEFAUT = "zf_001"
 
 #: Dossier des voix dans le dépôt de poids : un fichier `<voix>.pt` par voix.
@@ -416,7 +416,7 @@ class MoteurKokoro:
 
     Importer `kokoro` tire `torch` et `transformers`, quelques secondes et beaucoup de
     mémoire. Le pipeline doit rester utilisable sans le groupe optionnel `audio` — et
-    `zilin check`, qui touche au module `audio`, ne doit rien charger du tout. D'où
+    `wenlu check`, qui touche au module `audio`, ne doit rien charger du tout. D'où
     l'import à l'intérieur de la méthode, et une instance de `KPipeline` gardée pour
     tous les textes du lot : les poids ne sont lus qu'une fois.
     """
@@ -581,7 +581,7 @@ class EncodeurWav:
     Sans ffmpeg, on ne fabrique pas de MP3 — et on ne fait pas semblant. Le WAV est
     lisible partout, y compris par un `HTMLAudioElement` sur iOS, mais il pèse environ
     dix fois le MP3 visé (48 Ko par seconde contre 6). Il tient donc pour écouter un
-    lot et vérifier une voix ; le format embarqué reste le MP3, et `zilin audio
+    lot et vérifier une voix ; le format embarqué reste le MP3, et `wenlu audio
     exporter` recopie ce que le manifeste porte. Le format entre dans le nom de
     fichier et dans `a_jour()` : repasser avec ffmpeg installé refait les fichiers en
     MP3 sans écraser les WAV.
@@ -764,7 +764,7 @@ def perimetre_listes(
 
     Les mots viennent du corpus des fiches (`fiches.Corpus`), qui ne lit de CC-CEDICT
     que le mot et son pinyin (`docs/sources-licences.md` §4.2). Sans corpus construit,
-    le périmètre se limite aux caractères : c'est le cas tant que `zilin build` n'a
+    le périmètre se limite aux caractères : c'est le cas tant que `wenlu build` n'a
     pas tourné.
     """
     cible = liste_cible(parcours, seuil)
@@ -1126,7 +1126,7 @@ def controles(
     fiches_dossier: Path | None = None,
     listes: Path | None = None,
 ) -> list[Controle]:
-    """Contrôle « audio : textes sans audio », appelé par `zilin check`.
+    """Contrôle « audio : textes sans audio », appelé par `wenlu check`.
 
     Signalé, non bloquant : l'audio se fabrique par lots et coûte une clé, il arrive
     après le texte. Ce qui n'a pas de voix ne casse rien — l'app se tait dessus.

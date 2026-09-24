@@ -4,7 +4,7 @@ Les extraits sont des lignes réelles de `cjk-decomp.txt`.
 """
 from __future__ import annotations
 
-from zilin_data.cjkdecomp import Entree, document, en_ids, ids_par_caractere, lire, parse_ligne
+from wenlu_data.cjkdecomp import Entree, document, en_ids, ids_par_caractere, lire, parse_ligne
 
 EXTRAIT = """的:a(白,勺)
 照:d(昭,灬)

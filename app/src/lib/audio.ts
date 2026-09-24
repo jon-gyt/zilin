@@ -4,7 +4,7 @@
  *
  * Brief §11 : « voix neuronale pré-générée et embarquée pour tous les caractères et
  * mots ; la voix du téléphone en repli ». Ce module lit d'abord un fichier déjà là,
- * dont le chemin vient du manifeste écrit par `zilin audio exporter` (voir
+ * dont le chemin vient du manifeste écrit par `wenlu audio exporter` (voir
  * `data/schema.md`). Un texte sans fichier est dit par la synthèse du téléphone
  * (`speechSynthesis`, voix mandarin) quand elle existe ; sinon il ne dit rien, en
  * silence. Aucune requête à un service.
@@ -25,7 +25,7 @@ export type Manifeste = {
 };
 
 /**
- * Le manifeste servi avec l'app : celui de l'export versionné, que `zilin audio
+ * Le manifeste servi avec l'app : celui de l'export versionné, que `wenlu audio
  * exporter` écrit dans `app/public/data/<version>/audio/manifeste.json`, pour la
  * version que lit `content.ts`.
  */
