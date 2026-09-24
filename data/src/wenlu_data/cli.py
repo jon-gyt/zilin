@@ -8,8 +8,9 @@ Ordre et dépendances — chaque étape lit ce que la précédente a écrit :
 - `fetch` : télécharge les sources dans `data/work/sources/`. Ne dépend de rien.
 - `ingest` : normalise ces sources et les listes de niveaux dans `data/work/ingest/`.
   Exige `fetch`.
-- `build` : réconcilie les décompositions avec GF 0014-2009, construit le graphe et
-  les parcours dans `data/work/build/`. Exige `ingest`.
+- `build` : découpe dans un hôte les composants que `graphics.txt` ne dessine pas,
+  réconcilie les décompositions avec GF 0014-2009, construit le graphe et les
+  parcours dans `data/work/build/`. Exige `ingest`.
 - `export` : assemble `app/public/data/<version>/`, les seuls fichiers que l'app lira.
   Exige `build`.
 - `fonts` : produit les woff2 de `app/public/fonts/`. À lancer après `export`, qui
@@ -82,15 +83,20 @@ def ingest() -> None:
 
 @app.command()
 def build() -> None:
-    """Réconcilie les décompositions, construit le graphe et les parcours dans data/work/build/. Exige `ingest`."""
+    """Découpe les composants sans tracé, réconcilie les décompositions, construit le graphe et les parcours dans data/work/build/. Exige `ingest`."""
+    from .decoupes import DecoupeInvalide, build as _decoupes
     from .gf0014 import build as _build
     from .graphe import build as _graphe
 
     try:
-        rapport = _build()
+        # Les découpes d'abord : la réconciliation fait une brique de chaque composant découpé.
+        rapport = {**_decoupes(), **_build()}
         suite = _graphe()
     except OSError as erreur:
         typer.echo(f"{erreur} — lancer `wenlu ingest` d'abord.", err=True)
+        raise typer.Exit(code=1) from erreur
+    except DecoupeInvalide as erreur:
+        typer.echo(str(erreur), err=True)
         raise typer.Exit(code=1) from erreur
     # Deux rapports, deux boucles : `cycles` figure dans les deux et une fusion
     # en perdrait un.
@@ -125,9 +131,10 @@ app.command(name="fonts")(_fonts)
 
 @app.command()
 def check() -> None:
-    """Contrôles : composants inconnus, cycles, graphe, listes, briques muettes, contes hors liste, fiches invalides, rôle son loin de la lecture moderne, textes sans audio, export à jour, aperçu des textes à relire, fêtes, termes solaires, devinettes, dictionnaire éclair."""
+    """Contrôles : composants inconnus, cycles, graphe, listes, briques muettes, découpes, contes hors liste, fiches invalides, rôle son loin de la lecture moderne, textes sans audio, export à jour, aperçu des textes à relire, fêtes, termes solaires, devinettes, dictionnaire éclair."""
     from .audio import controles as controles_audio
     from .contes import controles as controles_contes
+    from .decoupes import controles as controles_decoupes
     from .devinettes import controles as controles_devinettes
     from .eclair import controles as controles_eclair
     from .export import controles as controles_export
@@ -142,6 +149,7 @@ def check() -> None:
     for controle in [
         *controles(),
         *controles_graphe(),
+        *controles_decoupes(),
         *controles_contes(),
         *controles_fiches(),
         *controles_phonetiques(),

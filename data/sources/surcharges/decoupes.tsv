@@ -1,0 +1,38 @@
+# Découpes : les traits d'un composant de la norme pris dans un caractère hôte.
+#
+# Make Me a Hanzi (`graphics.txt`, Arphic Public License) ne dessine pas certains
+# composants de GF 0014-2009 : sans traits, l'app ne les montre pas, et le graphe
+# en fait des briques muettes. Un composant sans tracé propre se découpe ici dans
+# un caractère hôte qui le contient : on en garde les seuls traits désignés, dans
+# l'ordre d'écriture de l'hôte. Rien n'est dessiné à la main : les tracés et les
+# médianes sont ceux de la source, tout au plus recadrés dans la boîte de 1024.
+# Chaque découpe est décrite dans `traits/MODIFICATIONS.md` de l'export (APL §2 a).
+#
+# Règles, que `wenlu check` vérifie :
+# - le composant est dans la table de la norme et n'a pas de tracé propre ;
+# - l'hôte est dans `graphics.txt`, et sa décomposition canonique le contient ;
+# - les indices désignent des traits de l'hôte, en ordre croissant.
+#
+# Format : `#` en commentaire ; cinq colonnes séparées par une tabulation :
+# composant, hôte, indices, recadrage, raison.
+# - indices : traits de l'hôte comptés à partir de 0, dans l'ordre de
+#   `graphics.txt` (l'ordre d'écriture) ; `3-6` vaut `3,4,5,6`.
+# - recadrage : `aucun` garde les traits à leur place dans l'hôte ; `centre`
+#   met la boîte englobante des traits retenus au centre de la boîte de
+#   Make Me a Hanzi (512, 388), à l'échelle qui porte son plus grand côté à
+#   760 unités, sans jamais agrandir plus de deux fois (voir `decoupes.py`).
+# - raison : le nom de la norme (numéro d'ordre entre parenthèses) et ce qui
+#   justifie l'hôte.
+⿰𠄌丶	以	0,1	centre	以字旁 (160) : les deux premiers traits de 以, 竖提 et 点, que la norme nomme d'après lui
+⿰丿丨	介	2,3	centre	乔字底 (280) : les deux derniers traits de 介, seul caractère du périmètre qui le porte (乔 se décompose 夭 丨 丨)
+䒑	喜	6-8	centre	前字头 (277) : 点, 撇 et 横 entre les deux 口 de 喜, où la norme le place (前 se décompose 丷 一 月 刂)
+龰	足	3-6	centre	足字底 (490) : les quatre derniers traits de 足, que la norme nomme d'après lui
+龴	令	3,4	centre	勇字头 (454) : 横撇 et 点 au bas de 令, la forme que lisent 冷 et 零
+𠀎	寒	3-7	centre	寒字腰 (133) : les cinq traits sous 宀 dans 寒, que la norme nomme d'après lui
+𠂇	左	0,1	centre	左字框 (514) : 横 puis 撇 de 左, que la norme nomme d'après lui
+𠂉	乞	0,1	centre	卧人 (296) : 撇 et 横 en tête de 乞, la forme que lit 吃
+𠂒	先	0-3	centre	告字头 (259) : les quatre premiers traits de 先, la forme que lisent 先 et 洗
+𠃊	喝	11	centre	竖折 (340) : le dernier trait de 喝, la forme que lisent 喝 et 渴
+𡗗	春	0-4	centre	春字头 (58) : les cinq premiers traits de 春, que la norme nomme d'après lui
+𭃂	那	0-3	centre	那字旁 (248) : les quatre premiers traits de 那, que la norme nomme d'après lui
+𭕄	学	0-4	centre	学字头 (413) : les cinq premiers traits de 学, que la norme nomme d'après lui

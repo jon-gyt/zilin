@@ -12,6 +12,7 @@ SURCHARGES_REELLES = {
     "PINYIN": surcharges.PINYIN,
     "IDS": surcharges.IDS,
     "EQUIVALENCES": surcharges.EQUIVALENCES,
+    "DECOUPES": surcharges.DECOUPES,
     "MOTS_EXCLUS": surcharges.MOTS_EXCLUS,
     "PHONETIQUES": surcharges.PHONETIQUES,
 }

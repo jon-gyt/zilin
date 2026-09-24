@@ -17,8 +17,8 @@ Une famille n'est exportée qu'avec ses membres du périmètre ; la famille 口 
 dessinent depuis leurs traits (`data/sources/fetes/textes.tsv` : le caractère
 bonus de chaque anecdote et le 福 du vœu) y entrent aussi, avec leurs briques,
 comme le caractère à lire de chaque terme solaire (`data/sources/saisons/textes.tsv`).
-Version 0.1.0 : 244 familles, 513 caractères (230 briques, 13 feuilles muettes),
-1,46 Mio.
+Version 0.1.0 : 244 familles, 513 caractères (230 briques, 13 feuilles découpées,
+aucune muette), 1,52 Mio. Tout caractère exporté a ses traits.
 
 ## Arborescence
 
@@ -55,7 +55,7 @@ Trois régimes de licence, trois familles de fichiers, jamais mêlés
  "norme": "GF 0014-2009",
  "perimetre": "seuil 255 et HSK 1 : les caractères des deux listes et leurs briques",
  "licences": "LICENCES.md",
- "compte": {"familles": 238, "caracteres": 485, "briques": 222, "muettes": 13,
+ "compte": {"familles": 238, "caracteres": 485, "briques": 222, "muettes": 0, "decoupees": 13,
             "fiches_relues": 0, "contes": 0},
  "listes": {"seuil-255": ["…"], "hsk-1": ["…"]},
  "parcours": {"lire": {"liste": "seuil-255", "regle": "…",
@@ -147,8 +147,12 @@ porte une `Fiche` par caractère de la famille, triée par caractère :
 rien d'autre : c'est la séparation physique exigée par l'APL §2 et par
 `docs/sources-licences.md` §8. `modified` est la mention exigée par l'APL §2 a),
 reprise en toutes lettres dans `traits/MODIFICATIONS.md`. Les tracés et les
-médianes ne sont ni arrondis ni simplifiés. Écriture compacte (sans indentation) :
-indentés, ces milliers de nombres pèseraient dix fois plus.
+médianes ne sont ni arrondis ni simplifiés, sauf ceux des composants découpés dans
+un caractère hôte (`data/sources/surcharges/decoupes.tsv`) : les traits désignés de
+l'hôte, recadrés par une homothétie arrondie à l'entier. `modified` nomme ces
+composants dans les fichiers qui en portent, et `MODIFICATIONS.md` décrit chaque
+découpe (hôte, indices des traits, échelle et décalage). Écriture compacte (sans
+indentation) : indentés, ces milliers de nombres pèseraient dix fois plus.
 
 ## `paires.json`
 
@@ -294,6 +298,14 @@ ce que l'app embarque ; `docs/sources-licences.md` fait foi pour la décision.
   en-tête, `traits/` ne porte que des tracés, aucune fiche ne porte de tracé.
 - « export : familles sans fiche relue » — signalé : ce qui reste à relire avant
   que l'app puisse enseigner ces familles.
+- « export : caractères sans traits » — signalé : ce que l'app ne saurait dessiner
+  (et à quoi le site ne fait pas de page).
+- « découpes : table » — bloquant : chaque ligne de `decoupes.tsv` nomme un composant
+  de la norme sans tracé propre, un hôte présent dans `graphics.txt` dont la
+  décomposition canonique le contient, et des indices de traits valides.
+- « découpes : traits » — bloquant : chaque composant découpé a ses traits dans
+  `decoupes.json`, n'est plus muet dans le graphe, et ses traits sont dans chaque
+  version exportée qui le porte.
 - « fêtes : calendrier » — bloquant : dates lisibles et égales au calcul du
   calendrier lunaire, fenêtres positives, animal de l'année, 2026 à 2035 couverts
   pour chaque fête, aucun chevauchement.
@@ -390,6 +402,15 @@ corrige dans `data/sources/surcharges/`, une ligne et une raison par correction
   être renommé (⺮ pour 𥫗, 竹头) : la feuille reste dessinable.
 - `pinyin.tsv` (`c`, `lectures`, `raison`) : les lectures remplacent celles de Make Me
   a Hanzi (contexte des fiches) et d'Unihan (export). La première est la principale.
+- `decoupes.tsv` (`composant`, `hôte`, `indices`, `recadrage`, `raison`) : un composant
+  de la norme que `graphics.txt` ne dessine pas prend les traits désignés d'un caractère
+  hôte qui le contient (以 pour 以字旁, 左 pour 𠂇, 学 pour 𭕄…), comptés à partir de 0
+  dans l'ordre d'écriture (`0,1`, `3-6`). `recadrage` vaut `centre` (homothétie qui
+  porte la boîte des traits retenus au centre de la boîte de 1024, plus grand côté à
+  760, jamais agrandie plus de deux fois) ou `aucun`. `wenlu build` en écrit
+  `decoupes.json` : `{source, source_traits, licence_traits, recadrage, decoupes[]}`,
+  chaque découpe `{c, hote, indices[], traits_hote, recadrage, echelle, dx, dy,
+  raison, strokes[], medians[]}` ; `wenlu export` en tire les traits (`decoupes.py`).
 - `decompositions-non-corrigees.md` : ce qui a été vérifié contre la table et laissé
   tel quel, avec la raison.
 
@@ -406,13 +427,15 @@ est bloquant.
 `{norme, source, critere_racine, compte, noeuds[], aretes[], familles[], cycles[]}`.
 
 - `compte` : `{noeuds, aretes, familles, familles_non_vides, briques, caracteres,
-  muettes, cycles}`.
+  muettes, decoupees, cycles}`.
 - `noeuds` : `[{c, genre, prerequis[], dependants, racine, reconcilie}]`. `genre` vaut
   `brique` (composant GF 0014-2009 présent au dictionnaire, il porte une fiche et se
   pose en une session), `caractere` (caractère du dictionnaire qui n'est pas un
-  composant de la norme) ou `muette` (feuille sans fiche : composant sans point de code,
-  ou forme absente du dictionnaire, à commencer par `？`, la marque de Make Me a Hanzi
-  pour un élément qu'il ne décompose pas). `prerequis` est la liste ordonnée et sans
+  composant de la norme), `decoupee` (feuille sans fiche mais dessinée : composant de
+  la norme absent du dictionnaire, découpé dans un hôte par `decoupes.tsv`) ou `muette`
+  (feuille sans fiche ni traits : composant sans point de code ni découpe, ou forme
+  absente du dictionnaire, à commencer par `？`, la marque de Make Me a Hanzi pour un
+  élément qu'il ne décompose pas). `prerequis` est la liste ordonnée et sans
   doublon des composants canoniques, dans l'ordre d'écriture ; une brique et une feuille
   muette n'en ont pas, puisque la norme découpe en un seul niveau. `dependants` est le
   nombre de caractères qui contiennent le nœud — c'est la mesure de fréquence du
@@ -430,13 +453,13 @@ est bloquant.
 ### `parcours-lire.json`, `parcours-hsk.json`
 
 `{parcours, liste, regle, critere_frequence, depart[], cible[], compte, jours[], briques[],
-briques_muettes[], non_reconcilies[], absents[]}`.
+briques_muettes[], briques_decoupees[], non_reconcilies[], absents[]}`.
 
 - `parcours` vaut `lire` (liste cible `seuil-255`, puis les seuils suivants) ou `hsk`
   (liste cible `hsk-1`). Même graphe, seule la liste change.
 - `cible` : la liste cible dans l'ordre du référentiel ; le fichier se contrôle seul.
-- `compte` : `{cibles, jours, jours_reconcilies, briques, muettes, non_reconcilies,
-  absents}`.
+- `compte` : `{cibles, jours, jours_reconcilies, briques, muettes, decoupees,
+  non_reconcilies, absents}`.
 - `jours` : `[{jour, brique, composes[], non_reconcilie}]`. Un jour est une session de
   10 minutes : au plus une brique nouvelle, puis un ou deux composés qui deviennent
   lisibles avec elle. `brique` est nul les jours de consolidation, quand il ne reste que
@@ -456,6 +479,10 @@ briques_muettes[], non_reconcilies[], absents[]}`.
   rang sous la clé `frequence`, il prend le pas sans autre changement.
 - `briques_muettes` : les feuilles sans fiche employées par des caractères de la liste.
   Acquises d'entrée, elles ne prennent jamais de jour ; `wenlu check` les signale.
+- `briques_decoupees` : les feuilles découpées employées par des caractères de la
+  liste. Dessinées, elles ne sont plus signalées ; elles restent acquises d'entrée,
+  pour que le parcours — et l'acquis dont dépendent les phrases des fiches — ne
+  bouge pas.
 - `non_reconcilies` et `absents` : caractères de la liste dont la décomposition n'est pas
   réconciliée (1 pour le seuil 255 et 1 pour le HSK 1, 兴 ; voir
   `data/sources/surcharges/decompositions-non-corrigees.md`) ou qui manquent au

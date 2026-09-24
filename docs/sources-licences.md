@@ -216,6 +216,7 @@ Fichiers de licence à embarquer, tels quels :
 Pipeline `data/` :
 
 - Chaque JSON exporté porte un en-tête `license`, `source`, `source_url`, `modified` indiquant comment et quand le fichier a été dérivé. Exigé par l'APL §2 a).
+- Composants découpés : un composant de GF 0014-2009 que `graphics.txt` ne dessine pas prend les traits désignés d'un caractère hôte (`data/sources/surcharges/decoupes.tsv`), recadrés par une homothétie arrondie à l'entier. C'est une modification de glyphe au sens de l'APL, toujours sous l'APL : `traits/MODIFICATIONS.md` décrit chaque découpe (hôte, indices, échelle, décalage) et le `modified` des fichiers qui en portent les nomme. Aucun trait n'est dessiné.
 - Séparation physique : traits sous APL, mots sous CC BY-SA 4.0, fiches FR et EN propriétaires, dans des fichiers distincts. Ne jamais fusionner ces trois familles dans un même fichier.
 - `uv run wenlu check` échoue si un export n'a pas d'en-tête de licence, ou si un fichier mélange deux régimes.
 - `uv run wenlu build` n'expose jamais la colonne de définition anglaise de CC-CEDICT aux invites de génération FR. Contrôle à ajouter et à tester.
