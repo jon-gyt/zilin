@@ -76,7 +76,7 @@ Relevé sur le dépôt après une revue du pipeline. Les numéros ci-dessus ne b
   8 148 caractères sur 9 574 réconciliés ; 241 du seuil 255 sur 255, 280 du HSK 1 sur 300 ;
   238 familles exportées en 1,33 Mio.
 - Épic 2 : 2.1 à 2.8 (2.2 et 2.8 revues le 24 septembre : le menu et le parcours du prototype validé). Épic 3 : 3.1 à 3.4. Épic 4 : 4.1 à 4.4 (4.4, Chercher, le 24 septembre : la recherche en français ne trouvera rien tant qu'aucune fiche n'est relue).
-- Épic 4b : 4b.1 et 4b.2. Épic 5 : 5.1, et 5.2 (24 septembre).
+- Épic 4b : 4b.1, 4b.2 et 4b.5. Épic 5 : 5.1, et 5.2 (24 septembre).
 - 5.2, le site public : `app/scripts/site/` génère du HTML statique depuis l'export
   versionné, dans l'artefact Pages de l'app, après `vite build`. 480 caractères dessinables
   sur 493, une page chacun en français (`/zilin/c/<c>/`) et en anglais
@@ -91,6 +91,12 @@ Relevé sur le dépôt après une revue du pipeline. Les numéros ci-dessus ne b
   caractère (le bouton ouvre l'accueil), la déclaration du plan du site dans la Search
   Console (`robots.txt` sous `/zilin/` n'est pas lu), les 12 composants sans traits
   (㇆, 龰, 𠂇…) et le « ? » du pipeline, sans page.
+- 4b.5, les devinettes de lanternes (24 septembre) : 142 devinettes rédigées pour l'app
+  dans `data/sources/devinettes/` (121 du seuil 255, 21 du HSK 1), dont six avec leur 字谜
+  traditionnel ; leurres choisis à l'export par ressemblance de composants ;
+  `devinettes.json` et cinq contrôles bloquants. Une devinette par jour, portée par Tao,
+  parmi celles dont la réponse et les briques ont une carte ; résolue, elle remplit la
+  lanterne des trophées.
 - 4b.9, à moitié (24 septembre) : les huit fêtes du calendrier chinois sont en place, du
   pipeline (`data/sources/fetes/`, dates vérifiées contre la table des fêtes de
   `lunar_python`) au décor de l'app (menu à 393 × 660, anecdote, `theme-color`). Chaque
@@ -191,5 +197,5 @@ anglaise, glose par mot.
 
 ### Non commencées
 
-2c.1, 2c.2, 4b.3 à 4b.8, et toute la phase 6 — hors le workflow CI macOS et la
+2c.1, 2c.2, 4b.3, 4b.4, 4b.6 à 4b.8, et toute la phase 6 — hors le workflow CI macOS et la
 configuration Capacitor, déjà versionnés.
