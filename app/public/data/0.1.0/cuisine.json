@@ -1,0 +1,1254 @@
+{
+ "version": "0.1.0",
+ "license": "propriétaire",
+ "source": "data/sources/cuisine/ : recettes, étapes, étal et phrases de Tao rédigés pour l'app (à relire) ; leurres écrits à la main",
+ "source_url": "https://github.com/jon-gyt/zilin",
+ "modified": "2026-09-24 : assemblé par `wenlu export`",
+ "recettes": [
+  {
+   "id": "daroumian",
+   "zh": "大肉面",
+   "pinyin": "dàròumiàn",
+   "fr": "les nouilles au porc braisé",
+   "en": "braised pork noodles",
+   "gratuit": true,
+   "etapes": [
+    {
+     "zh": "肉先下水，用小火。",
+     "pinyin": "Ròu xiān xià shuǐ, yòng xiǎo huǒ.",
+     "fr": "D'abord la viande dans l'eau, à petit feu.",
+     "en": "First the meat into the water, on a low flame."
+    },
+    {
+     "zh": "水开了，下面。",
+     "pinyin": "Shuǐ kāi le, xià miàn.",
+     "fr": "L'eau bout : mets les nouilles.",
+     "en": "The water is boiling: put in the noodles."
+    },
+    {
+     "zh": "面上有大肉。",
+     "pinyin": "Miàn shàng yǒu dà ròu.",
+     "fr": "Sur les nouilles, un gros morceau de viande.",
+     "en": "A big slice of meat on top of the noodles."
+    },
+    {
+     "zh": "大肉面好了！",
+     "pinyin": "Dàròumiàn hǎo le!",
+     "fr": "Les nouilles au porc braisé sont prêtes !",
+     "en": "The braised pork noodles are ready!"
+    }
+   ],
+   "ingredients": [
+    {
+     "zh": "肉",
+     "pinyin": "ròu",
+     "fr": "de la viande",
+     "en": "meat",
+     "leurres": [
+      "牛奶",
+      "鸡蛋",
+      "米酒"
+     ],
+     "notes": [
+      "肉"
+     ]
+    },
+    {
+     "zh": "面",
+     "pinyin": "miàn",
+     "fr": "des nouilles",
+     "en": "noodles",
+     "leurres": [
+      "米",
+      "面包",
+      "米饭"
+     ],
+     "notes": [
+      "面"
+     ]
+    },
+    {
+     "zh": "水",
+     "pinyin": "shuǐ",
+     "fr": "de l'eau",
+     "en": "water",
+     "leurres": [
+      "酒",
+      "茶",
+      "牛奶"
+     ],
+     "notes": [
+      "水"
+     ]
+    }
+   ],
+   "caracteres": [
+    "大",
+    "肉",
+    "面",
+    "先",
+    "下",
+    "水",
+    "用",
+    "小",
+    "火",
+    "开",
+    "了",
+    "上",
+    "有",
+    "好"
+   ],
+   "jours": {
+    "hsk": 83,
+    "lire": 83
+   }
+  },
+  {
+   "id": "mifan",
+   "zh": "米饭",
+   "pinyin": "mǐfàn",
+   "fr": "le riz blanc",
+   "en": "plain rice",
+   "gratuit": true,
+   "etapes": [
+    {
+     "zh": "水里下米。",
+     "pinyin": "Shuǐ lǐ xià mǐ.",
+     "fr": "Mets le riz dans l'eau.",
+     "en": "Put the rice in the water."
+    },
+    {
+     "zh": "水比米多一些。",
+     "pinyin": "Shuǐ bǐ mǐ duō yīxiē.",
+     "fr": "Un peu plus d'eau que de riz.",
+     "en": "A little more water than rice."
+    },
+    {
+     "zh": "开大火，水开了，再用小火。",
+     "pinyin": "Kāi dà huǒ, shuǐ kāi le, zài yòng xiǎo huǒ.",
+     "fr": "Feu vif ; quand l'eau bout, passe à petit feu.",
+     "en": "High flame; once the water boils, turn it down low."
+    },
+    {
+     "zh": "米饭好了！",
+     "pinyin": "Mǐfàn hǎo le!",
+     "fr": "Le riz est prêt !",
+     "en": "The rice is ready!"
+    }
+   ],
+   "ingredients": [
+    {
+     "zh": "米",
+     "pinyin": "mǐ",
+     "fr": "du riz",
+     "en": "rice",
+     "leurres": [
+      "面",
+      "米酒",
+      "菜"
+     ],
+     "notes": [
+      "米"
+     ]
+    },
+    {
+     "zh": "水",
+     "pinyin": "shuǐ",
+     "fr": "de l'eau",
+     "en": "water",
+     "leurres": [
+      "酒",
+      "茶",
+      "牛奶"
+     ],
+     "notes": [
+      "水"
+     ]
+    }
+   ],
+   "caracteres": [
+    "米",
+    "饭",
+    "水",
+    "里",
+    "下",
+    "比",
+    "多",
+    "一",
+    "些",
+    "开",
+    "大",
+    "火",
+    "了",
+    "再",
+    "用",
+    "小",
+    "好"
+   ],
+   "jours": {
+    "hsk": 165,
+    "lire": 153
+   }
+  },
+  {
+   "id": "caifan",
+   "zh": "菜饭",
+   "pinyin": "càifàn",
+   "fr": "le riz aux légumes",
+   "en": "rice with greens",
+   "gratuit": true,
+   "etapes": [
+    {
+     "zh": "先下米，再下水。",
+     "pinyin": "Xiān xià mǐ, zài xià shuǐ.",
+     "fr": "D'abord le riz, puis l'eau.",
+     "en": "First the rice, then the water."
+    },
+    {
+     "zh": "水开了，下白菜，也下一些肉。",
+     "pinyin": "Shuǐ kāi le, xià báicài, yě xià yīxiē ròu.",
+     "fr": "Quand l'eau bout, ajoute le chou chinois, et aussi un peu de viande.",
+     "en": "Once the water boils, add the Chinese cabbage, and a little meat too."
+    },
+    {
+     "zh": "小火，不要大火。",
+     "pinyin": "Xiǎo huǒ, bù yào dà huǒ.",
+     "fr": "À petit feu, pas à feu vif.",
+     "en": "On a low flame, not a high one."
+    },
+    {
+     "zh": "菜饭好了！",
+     "pinyin": "Càifàn hǎo le!",
+     "fr": "Le riz aux légumes est prêt !",
+     "en": "The rice with greens is ready!"
+    }
+   ],
+   "ingredients": [
+    {
+     "zh": "米",
+     "pinyin": "mǐ",
+     "fr": "du riz",
+     "en": "rice",
+     "leurres": [
+      "面",
+      "米酒",
+      "水果"
+     ],
+     "notes": [
+      "米"
+     ]
+    },
+    {
+     "zh": "水",
+     "pinyin": "shuǐ",
+     "fr": "de l'eau",
+     "en": "water",
+     "leurres": [
+      "酒",
+      "白酒",
+      "茶"
+     ],
+     "notes": [
+      "水"
+     ]
+    },
+    {
+     "zh": "白菜",
+     "pinyin": "báicài",
+     "fr": "du chou chinois",
+     "en": "Chinese cabbage",
+     "leurres": [
+      "白酒",
+      "茶",
+      "水果"
+     ],
+     "notes": [
+      "菜"
+     ]
+    },
+    {
+     "zh": "肉",
+     "pinyin": "ròu",
+     "fr": "de la viande",
+     "en": "meat",
+     "leurres": [
+      "牛奶",
+      "鸡蛋",
+      "面包"
+     ],
+     "notes": [
+      "肉"
+     ]
+    }
+   ],
+   "caracteres": [
+    "菜",
+    "饭",
+    "先",
+    "下",
+    "米",
+    "再",
+    "水",
+    "开",
+    "了",
+    "白",
+    "也",
+    "一",
+    "些",
+    "肉",
+    "小",
+    "火",
+    "不",
+    "要",
+    "大",
+    "好"
+   ],
+   "jours": {
+    "hsk": 168,
+    "lire": 153
+   }
+  },
+  {
+   "id": "lengmian",
+   "zh": "冷面",
+   "pinyin": "lěngmiàn",
+   "fr": "les nouilles froides",
+   "en": "cold noodles",
+   "gratuit": false,
+   "etapes": [
+    {
+     "zh": "水开了，下面。",
+     "pinyin": "Shuǐ kāi le, xià miàn.",
+     "fr": "L'eau bout : mets les nouilles.",
+     "en": "The water is boiling: put in the noodles."
+    },
+    {
+     "zh": "面好了，用冷水过一下。",
+     "pinyin": "Miàn hǎo le, yòng lěngshuǐ guò yīxià.",
+     "fr": "Les nouilles cuites, passe-les à l'eau froide.",
+     "en": "When the noodles are done, rinse them in cold water."
+    },
+    {
+     "zh": "再来一点肉和菜。",
+     "pinyin": "Zài lái yīdiǎn ròu hé cài.",
+     "fr": "Ajoute un peu de viande et de légumes.",
+     "en": "Add a little meat and some vegetables."
+    },
+    {
+     "zh": "冷面好了，大口吃吧！",
+     "pinyin": "Lěngmiàn hǎo le, dà kǒu chī ba!",
+     "fr": "Les nouilles froides sont prêtes, bon appétit !",
+     "en": "The cold noodles are ready. Tuck in!"
+    }
+   ],
+   "ingredients": [
+    {
+     "zh": "面",
+     "pinyin": "miàn",
+     "fr": "des nouilles",
+     "en": "noodles",
+     "leurres": [
+      "米",
+      "面包",
+      "米饭"
+     ],
+     "notes": [
+      "面"
+     ]
+    },
+    {
+     "zh": "冷水",
+     "pinyin": "lěngshuǐ",
+     "fr": "de l'eau froide",
+     "en": "cold water",
+     "leurres": [
+      "开水",
+      "酒",
+      "牛奶"
+     ],
+     "notes": [
+      "冷"
+     ]
+    },
+    {
+     "zh": "肉",
+     "pinyin": "ròu",
+     "fr": "de la viande",
+     "en": "meat",
+     "leurres": [
+      "牛奶",
+      "鸡蛋",
+      "米酒"
+     ],
+     "notes": [
+      "肉"
+     ]
+    },
+    {
+     "zh": "菜",
+     "pinyin": "cài",
+     "fr": "des légumes",
+     "en": "vegetables",
+     "leurres": [
+      "茶",
+      "水果",
+      "米"
+     ],
+     "notes": [
+      "菜"
+     ]
+    }
+   ],
+   "caracteres": [
+    "冷",
+    "面",
+    "水",
+    "开",
+    "了",
+    "下",
+    "好",
+    "用",
+    "过",
+    "一",
+    "再",
+    "来",
+    "点",
+    "肉",
+    "和",
+    "菜",
+    "大",
+    "口",
+    "吃",
+    "吧"
+   ],
+   "jours": {
+    "hsk": 192,
+    "lire": 176
+   }
+  },
+  {
+   "id": "miantiao",
+   "zh": "面条",
+   "pinyin": "miàntiáo",
+   "fr": "les nouilles",
+   "en": "noodles",
+   "gratuit": false,
+   "etapes": [
+    {
+     "zh": "水开了，下面条。",
+     "pinyin": "Shuǐ kāi le, xià miàntiáo.",
+     "fr": "L'eau bout : mets les nouilles.",
+     "en": "The water is boiling: put in the noodles."
+    },
+    {
+     "zh": "等一会儿，面条就好了。",
+     "pinyin": "Děng yīhuìr, miàntiáo jiù hǎo le.",
+     "fr": "Attends un peu : les nouilles seront prêtes.",
+     "en": "Wait a moment and the noodles will be ready."
+    },
+    {
+     "zh": "再放一点菜。",
+     "pinyin": "Zài fàng yīdiǎn cài.",
+     "fr": "Ajoute un peu de légumes.",
+     "en": "Then add a few vegetables."
+    },
+    {
+     "zh": "面条好了，吃吧！",
+     "pinyin": "Miàntiáo hǎo le, chī ba!",
+     "fr": "Les nouilles sont prêtes, à table !",
+     "en": "The noodles are ready. Let's eat!"
+    }
+   ],
+   "ingredients": [
+    {
+     "zh": "面条",
+     "pinyin": "miàntiáo",
+     "fr": "des nouilles",
+     "en": "noodles",
+     "leurres": [
+      "面包",
+      "米饭",
+      "米"
+     ],
+     "notes": [
+      "条"
+     ]
+    },
+    {
+     "zh": "水",
+     "pinyin": "shuǐ",
+     "fr": "de l'eau",
+     "en": "water",
+     "leurres": [
+      "酒",
+      "茶",
+      "牛奶"
+     ],
+     "notes": [
+      "水"
+     ]
+    },
+    {
+     "zh": "菜",
+     "pinyin": "cài",
+     "fr": "des légumes",
+     "en": "vegetables",
+     "leurres": [
+      "茶",
+      "水果",
+      "白酒"
+     ],
+     "notes": [
+      "菜"
+     ]
+    }
+   ],
+   "caracteres": [
+    "面",
+    "条",
+    "水",
+    "开",
+    "了",
+    "下",
+    "等",
+    "一",
+    "会",
+    "儿",
+    "就",
+    "好",
+    "再",
+    "放",
+    "点",
+    "菜",
+    "吃",
+    "吧"
+   ],
+   "jours": {
+    "hsk": 198,
+    "lire": null
+   }
+  },
+  {
+   "id": "baozi",
+   "zh": "包子",
+   "pinyin": "bāozi",
+   "fr": "les petits pains farcis",
+   "en": "stuffed buns",
+   "gratuit": false,
+   "etapes": [
+    {
+     "zh": "面里放一点水。",
+     "pinyin": "Miàn lǐ fàng yīdiǎn shuǐ.",
+     "fr": "Mets un peu d'eau dans la farine.",
+     "en": "Put a little water in the flour."
+    },
+    {
+     "zh": "肉里放一点菜。",
+     "pinyin": "Ròu lǐ fàng yīdiǎn cài.",
+     "fr": "Mets un peu de légumes dans la viande.",
+     "en": "Put a few vegetables in the meat."
+    },
+    {
+     "zh": "面里包上肉和菜。",
+     "pinyin": "Miàn lǐ bāo shàng ròu hé cài.",
+     "fr": "Enferme la viande et les légumes dans la pâte.",
+     "en": "Wrap the meat and vegetables in the dough."
+    },
+    {
+     "zh": "放在火上，等一会儿。",
+     "pinyin": "Fàng zài huǒ shàng, děng yīhuìr.",
+     "fr": "Mets-les sur le feu et attends un peu.",
+     "en": "Put them over the fire and wait a moment."
+    },
+    {
+     "zh": "包子好了，很热！",
+     "pinyin": "Bāozi hǎo le, hěn rè!",
+     "fr": "Les petits pains sont prêts, et très chauds !",
+     "en": "The buns are ready, and very hot!"
+    }
+   ],
+   "ingredients": [
+    {
+     "zh": "面",
+     "pinyin": "miàn",
+     "fr": "de la farine",
+     "en": "flour",
+     "leurres": [
+      "米",
+      "面包",
+      "牛奶"
+     ],
+     "notes": [
+      "面"
+     ]
+    },
+    {
+     "zh": "水",
+     "pinyin": "shuǐ",
+     "fr": "de l'eau",
+     "en": "water",
+     "leurres": [
+      "酒",
+      "茶",
+      "米酒"
+     ],
+     "notes": [
+      "水"
+     ]
+    },
+    {
+     "zh": "肉",
+     "pinyin": "ròu",
+     "fr": "de la viande",
+     "en": "meat",
+     "leurres": [
+      "牛奶",
+      "鸡蛋",
+      "面包"
+     ],
+     "notes": [
+      "肉"
+     ]
+    },
+    {
+     "zh": "菜",
+     "pinyin": "cài",
+     "fr": "des légumes",
+     "en": "vegetables",
+     "leurres": [
+      "茶",
+      "水果",
+      "白酒"
+     ],
+     "notes": [
+      "菜"
+     ]
+    }
+   ],
+   "caracteres": [
+    "包",
+    "子",
+    "面",
+    "里",
+    "放",
+    "一",
+    "点",
+    "水",
+    "肉",
+    "菜",
+    "上",
+    "和",
+    "在",
+    "火",
+    "等",
+    "会",
+    "儿",
+    "好",
+    "了",
+    "很",
+    "热"
+   ],
+   "jours": {
+    "hsk": 186,
+    "lire": null
+   }
+  },
+  {
+   "id": "niuroumian",
+   "zh": "牛肉面",
+   "pinyin": "niúròumiàn",
+   "fr": "les nouilles au bœuf",
+   "en": "beef noodles",
+   "gratuit": false,
+   "etapes": [
+    {
+     "zh": "牛肉下水，小火两个小时。",
+     "pinyin": "Niúròu xià shuǐ, xiǎo huǒ liǎng gè xiǎoshí.",
+     "fr": "Le bœuf dans l'eau, deux heures à petit feu.",
+     "en": "Beef into the water, two hours on a low flame."
+    },
+    {
+     "zh": "再下面，一会儿就好了。",
+     "pinyin": "Zài xià miàn, yīhuìr jiù hǎo le.",
+     "fr": "Puis mets les nouilles : ce sera vite prêt.",
+     "en": "Then put in the noodles: it will soon be ready."
+    },
+    {
+     "zh": "面上放牛肉和一点菜。",
+     "pinyin": "Miàn shàng fàng niúròu hé yīdiǎn cài.",
+     "fr": "Sur les nouilles, le bœuf et un peu de légumes.",
+     "en": "Top the noodles with the beef and a few vegetables."
+    },
+    {
+     "zh": "牛肉面很热，慢慢吃！",
+     "pinyin": "Niúròumiàn hěn rè, mànmàn chī!",
+     "fr": "Les nouilles au bœuf sont très chaudes, mange doucement !",
+     "en": "The beef noodles are very hot. Eat slowly!"
+    }
+   ],
+   "ingredients": [
+    {
+     "zh": "牛肉",
+     "pinyin": "niúròu",
+     "fr": "du bœuf",
+     "en": "beef",
+     "leurres": [
+      "牛奶",
+      "鸡肉",
+      "鸡蛋"
+     ],
+     "notes": [
+      "肉"
+     ]
+    },
+    {
+     "zh": "面",
+     "pinyin": "miàn",
+     "fr": "des nouilles",
+     "en": "noodles",
+     "leurres": [
+      "米",
+      "面包",
+      "米饭"
+     ],
+     "notes": [
+      "面"
+     ]
+    },
+    {
+     "zh": "菜",
+     "pinyin": "cài",
+     "fr": "des légumes",
+     "en": "vegetables",
+     "leurres": [
+      "茶",
+      "水果",
+      "白酒"
+     ],
+     "notes": [
+      "菜"
+     ]
+    }
+   ],
+   "caracteres": [
+    "牛",
+    "肉",
+    "面",
+    "下",
+    "水",
+    "小",
+    "火",
+    "两",
+    "个",
+    "时",
+    "再",
+    "一",
+    "会",
+    "儿",
+    "就",
+    "好",
+    "了",
+    "上",
+    "放",
+    "和",
+    "点",
+    "菜",
+    "很",
+    "热",
+    "慢",
+    "吃"
+   ],
+   "jours": {
+    "hsk": 198,
+    "lire": null
+   }
+  },
+  {
+   "id": "jidanmian",
+   "zh": "鸡蛋面",
+   "pinyin": "jīdànmiàn",
+   "fr": "les nouilles à l'œuf",
+   "en": "egg noodles",
+   "gratuit": false,
+   "etapes": [
+    {
+     "zh": "先打两个鸡蛋。",
+     "pinyin": "Xiān dǎ liǎng gè jīdàn.",
+     "fr": "D'abord, bats deux œufs.",
+     "en": "First, beat two eggs."
+    },
+    {
+     "zh": "水开了，下面，再下鸡蛋。",
+     "pinyin": "Shuǐ kāi le, xià miàn, zài xià jīdàn.",
+     "fr": "L'eau bout : mets les nouilles, puis les œufs.",
+     "en": "The water is boiling: put in the noodles, then the eggs."
+    },
+    {
+     "zh": "等一会儿，放一点菜。",
+     "pinyin": "Děng yīhuìr, fàng yīdiǎn cài.",
+     "fr": "Attends un peu, ajoute quelques légumes.",
+     "en": "Wait a moment, then add a few vegetables."
+    },
+    {
+     "zh": "鸡蛋面好了！",
+     "pinyin": "Jīdànmiàn hǎo le!",
+     "fr": "Les nouilles à l'œuf sont prêtes !",
+     "en": "The egg noodles are ready!"
+    }
+   ],
+   "ingredients": [
+    {
+     "zh": "鸡蛋",
+     "pinyin": "jīdàn",
+     "fr": "des œufs",
+     "en": "eggs",
+     "leurres": [
+      "鸡肉",
+      "牛奶",
+      "面包"
+     ],
+     "notes": [
+      "蛋"
+     ]
+    },
+    {
+     "zh": "面",
+     "pinyin": "miàn",
+     "fr": "des nouilles",
+     "en": "noodles",
+     "leurres": [
+      "米",
+      "面包",
+      "米饭"
+     ],
+     "notes": [
+      "面"
+     ]
+    },
+    {
+     "zh": "菜",
+     "pinyin": "cài",
+     "fr": "des légumes",
+     "en": "vegetables",
+     "leurres": [
+      "茶",
+      "水果",
+      "米酒"
+     ],
+     "notes": [
+      "菜"
+     ]
+    }
+   ],
+   "caracteres": [
+    "鸡",
+    "蛋",
+    "面",
+    "先",
+    "打",
+    "两",
+    "个",
+    "水",
+    "开",
+    "了",
+    "下",
+    "再",
+    "等",
+    "一",
+    "会",
+    "儿",
+    "放",
+    "点",
+    "菜",
+    "好"
+   ],
+   "jours": {
+    "hsk": 211,
+    "lire": null
+   }
+  },
+  {
+   "id": "niuroufan",
+   "zh": "牛肉饭",
+   "pinyin": "niúròufàn",
+   "fr": "le riz au bœuf",
+   "en": "beef rice",
+   "gratuit": false,
+   "etapes": [
+    {
+     "zh": "水里下米，做米饭。",
+     "pinyin": "Shuǐ lǐ xià mǐ, zuò mǐfàn.",
+     "fr": "Mets le riz dans l'eau, fais-le cuire.",
+     "en": "Put the rice in the water and cook it."
+    },
+    {
+     "zh": "牛肉下水，小火，等一会儿。",
+     "pinyin": "Niúròu xià shuǐ, xiǎo huǒ, děng yīhuìr.",
+     "fr": "Le bœuf dans l'eau, à petit feu ; attends un peu.",
+     "en": "Beef into the water, on a low flame; wait a moment."
+    },
+    {
+     "zh": "米饭上放牛肉和一点菜。",
+     "pinyin": "Mǐfàn shàng fàng niúròu hé yīdiǎn cài.",
+     "fr": "Sur le riz, le bœuf et un peu de légumes.",
+     "en": "Top the rice with the beef and a few vegetables."
+    },
+    {
+     "zh": "牛肉饭好了，吃吧！",
+     "pinyin": "Niúròufàn hǎo le, chī ba!",
+     "fr": "Le riz au bœuf est prêt, à table !",
+     "en": "The beef rice is ready. Let's eat!"
+    }
+   ],
+   "ingredients": [
+    {
+     "zh": "米",
+     "pinyin": "mǐ",
+     "fr": "du riz",
+     "en": "rice",
+     "leurres": [
+      "面",
+      "米酒",
+      "水果"
+     ],
+     "notes": [
+      "米"
+     ]
+    },
+    {
+     "zh": "牛肉",
+     "pinyin": "niúròu",
+     "fr": "du bœuf",
+     "en": "beef",
+     "leurres": [
+      "牛奶",
+      "鸡肉",
+      "白菜"
+     ],
+     "notes": [
+      "肉"
+     ]
+    },
+    {
+     "zh": "菜",
+     "pinyin": "cài",
+     "fr": "des légumes",
+     "en": "vegetables",
+     "leurres": [
+      "茶",
+      "水果",
+      "白酒"
+     ],
+     "notes": [
+      "菜"
+     ]
+    }
+   ],
+   "caracteres": [
+    "牛",
+    "肉",
+    "饭",
+    "水",
+    "里",
+    "下",
+    "米",
+    "做",
+    "小",
+    "火",
+    "等",
+    "一",
+    "会",
+    "儿",
+    "上",
+    "放",
+    "和",
+    "点",
+    "菜",
+    "好",
+    "了",
+    "吃",
+    "吧"
+   ],
+   "jours": {
+    "hsk": 192,
+    "lire": null
+   }
+  },
+  {
+   "id": "danbaofan",
+   "zh": "蛋包饭",
+   "pinyin": "dànbāofàn",
+   "fr": "l'omelette au riz",
+   "en": "omelette rice",
+   "gratuit": false,
+   "etapes": [
+    {
+     "zh": "先做米饭。",
+     "pinyin": "Xiān zuò mǐfàn.",
+     "fr": "D'abord, fais cuire le riz.",
+     "en": "First, cook the rice."
+    },
+    {
+     "zh": "打两个鸡蛋，小火。",
+     "pinyin": "Dǎ liǎng gè jīdàn, xiǎo huǒ.",
+     "fr": "Bats deux œufs, à petit feu.",
+     "en": "Beat two eggs, on a low flame."
+    },
+    {
+     "zh": "米饭放在鸡蛋上，用鸡蛋包上。",
+     "pinyin": "Mǐfàn fàng zài jīdàn shàng, yòng jīdàn bāo shàng.",
+     "fr": "Pose le riz sur les œufs et enveloppe-le dans l'omelette.",
+     "en": "Lay the rice on the eggs and wrap it in the omelette."
+    },
+    {
+     "zh": "蛋包饭好了，吃吧！",
+     "pinyin": "Dànbāofàn hǎo le, chī ba!",
+     "fr": "L'omelette au riz est prête, à table !",
+     "en": "The omelette rice is ready. Let's eat!"
+    }
+   ],
+   "ingredients": [
+    {
+     "zh": "米饭",
+     "pinyin": "mǐfàn",
+     "fr": "du riz cuit",
+     "en": "cooked rice",
+     "leurres": [
+      "米酒",
+      "面条",
+      "面包"
+     ],
+     "notes": [
+      "饭"
+     ]
+    },
+    {
+     "zh": "鸡蛋",
+     "pinyin": "jīdàn",
+     "fr": "des œufs",
+     "en": "eggs",
+     "leurres": [
+      "鸡肉",
+      "牛奶",
+      "面包"
+     ],
+     "notes": [
+      "蛋"
+     ]
+    }
+   ],
+   "caracteres": [
+    "蛋",
+    "包",
+    "饭",
+    "先",
+    "做",
+    "米",
+    "打",
+    "两",
+    "个",
+    "鸡",
+    "小",
+    "火",
+    "放",
+    "在",
+    "上",
+    "用",
+    "好",
+    "了",
+    "吃",
+    "吧"
+   ],
+   "jours": {
+    "hsk": 211,
+    "lire": null
+   }
+  }
+ ],
+ "etal": {
+  "冷水": {
+   "pinyin": "lěngshuǐ",
+   "fr": "de l'eau froide",
+   "en": "cold water"
+  },
+  "开水": {
+   "pinyin": "kāishuǐ",
+   "fr": "de l'eau bouillante",
+   "en": "boiling water"
+  },
+  "水": {
+   "pinyin": "shuǐ",
+   "fr": "de l'eau",
+   "en": "water"
+  },
+  "水果": {
+   "pinyin": "shuǐguǒ",
+   "fr": "des fruits",
+   "en": "fruit"
+  },
+  "牛奶": {
+   "pinyin": "niúnǎi",
+   "fr": "du lait",
+   "en": "milk"
+  },
+  "牛肉": {
+   "pinyin": "niúròu",
+   "fr": "du bœuf",
+   "en": "beef"
+  },
+  "白菜": {
+   "pinyin": "báicài",
+   "fr": "du chou chinois",
+   "en": "Chinese cabbage"
+  },
+  "白酒": {
+   "pinyin": "báijiǔ",
+   "fr": "de l'alcool blanc",
+   "en": "Chinese liquor"
+  },
+  "米": {
+   "pinyin": "mǐ",
+   "fr": "du riz",
+   "en": "rice"
+  },
+  "米酒": {
+   "pinyin": "mǐjiǔ",
+   "fr": "du vin de riz",
+   "en": "rice wine"
+  },
+  "米饭": {
+   "pinyin": "mǐfàn",
+   "fr": "du riz cuit",
+   "en": "cooked rice"
+  },
+  "肉": {
+   "pinyin": "ròu",
+   "fr": "de la viande",
+   "en": "meat"
+  },
+  "茶": {
+   "pinyin": "chá",
+   "fr": "du thé",
+   "en": "tea"
+  },
+  "菜": {
+   "pinyin": "cài",
+   "fr": "des légumes",
+   "en": "vegetables"
+  },
+  "酒": {
+   "pinyin": "jiǔ",
+   "fr": "de l'alcool",
+   "en": "alcohol"
+  },
+  "面": {
+   "pinyin": "miàn",
+   "fr": "de la farine, des nouilles",
+   "en": "flour, noodles"
+  },
+  "面包": {
+   "pinyin": "miànbāo",
+   "fr": "du pain",
+   "en": "bread"
+  },
+  "面条": {
+   "pinyin": "miàntiáo",
+   "fr": "des nouilles",
+   "en": "noodles"
+  },
+  "鸡肉": {
+   "pinyin": "jīròu",
+   "fr": "du poulet",
+   "en": "chicken"
+  },
+  "鸡蛋": {
+   "pinyin": "jīdàn",
+   "fr": "des œufs",
+   "en": "eggs"
+  }
+ },
+ "tao": {
+  "lit": {
+   "zh": "我来看看！",
+   "pinyin": "Wǒ lái kànkan!",
+   "fr": "Voyons voir !",
+   "en": "Let me see!"
+  },
+  "bon": {
+   "zh": "好吃！",
+   "pinyin": "Hǎochī!",
+   "fr": "C'est bon !",
+   "en": "Delicious!"
+  },
+  "grimace": {
+   "zh": "不太好吃，再来一个吧！",
+   "pinyin": "Bù tài hǎochī, zài lái yī gè ba!",
+   "fr": "Pas tout à fait ça… on en refait un ?",
+   "en": "Not quite right… shall we make another?"
+  }
+ },
+ "racines": {
+  "一": "一",
+  "上": "上",
+  "下": "下",
+  "不": "不",
+  "两": "两",
+  "个": "个",
+  "也": "也",
+  "了": "了",
+  "些": "止",
+  "会": "人",
+  "做": "亻",
+  "儿": "儿",
+  "先": "儿",
+  "再": "再",
+  "冷": "冫",
+  "包": "勹",
+  "口": "口",
+  "吃": "口",
+  "吧": "口",
+  "和": "禾",
+  "在": "丨",
+  "多": "夕",
+  "大": "大",
+  "太": "太",
+  "奶": "女",
+  "好": "女",
+  "子": "子",
+  "小": "小",
+  "就": "京",
+  "开": "开",
+  "很": "彳",
+  "慢": "忄",
+  "我": "我",
+  "打": "扌",
+  "放": "方",
+  "时": "日",
+  "有": "月",
+  "条": "夂",
+  "来": "来",
+  "果": "果",
+  "比": "匕",
+  "水": "水",
+  "火": "火",
+  "点": "⺊",
+  "热": "扌",
+  "牛": "牛",
+  "用": "用",
+  "白": "白",
+  "看": "手",
+  "等": "⺮",
+  "米": "米",
+  "肉": "肉",
+  "茶": "艹",
+  "菜": "艹",
+  "蛋": "乛",
+  "要": "覀",
+  "过": "辶",
+  "酒": "氵",
+  "里": "里",
+  "面": "面",
+  "饭": "饣",
+  "鸡": "又"
+ }
+}
