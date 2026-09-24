@@ -15,9 +15,10 @@ Les caractères des listes cibles — `seuil-255` et `hsk-1` — et **leurs briq
 Une famille n'est exportée qu'avec ses membres du périmètre ; la famille 口 en a
 17 ici, contre 525 dans le graphe complet. Les caractères que les fêtes
 dessinent depuis leurs traits (`data/sources/fetes/textes.tsv` : le caractère
-bonus de chaque anecdote et le 福 du vœu) y entrent aussi, avec leurs briques.
-Version 0.1.0 : 239 familles, 493 caractères (223 briques, 13 feuilles muettes),
-1,38 Mio.
+bonus de chaque anecdote et le 福 du vœu) y entrent aussi, avec leurs briques,
+comme le caractère à lire de chaque terme solaire (`data/sources/saisons/textes.tsv`).
+Version 0.1.0 : 243 familles, 512 caractères (225 briques, 15 feuilles muettes),
+1,46 Mio.
 
 ## Arborescence
 
@@ -29,6 +30,7 @@ app/public/data/0.1.0/
   UNICODE-LICENSE.txt        notice de permission Unicode (pinyin)
   paires.json                les caractères à ne pas confondre
   fetes.json                 le calendrier des fêtes et leurs textes
+  saisons.json               les vingt-quatre termes solaires et leurs textes
   familles/<racine>.json     une famille : `Famille` de models.py
   traits/<racine>.json       les tracés de la famille, sous APL, et rien d'autre
   traits/ARPHICPL.TXT        la même licence, à côté des fichiers qu'elle couvre
@@ -183,6 +185,34 @@ calendrier`, dates du calendrier luni-solaire calculées par `lunar_python`),
   de la fête (« Demain soir »).
 - `racines` donne la famille de chaque caractère dessiné : l'app lit ses traits
   dans `traits/<racine>.json` sans relire toutes les familles.
+
+## `saisons.json`
+
+Tiré de `data/sources/saisons/` : `termes.tsv` (écrit par `wenlu saisons
+calendrier`, instants des termes calculés par `lunar_python`, à l'heure de Pékin)
+et `textes.tsv` (rédigés pour l'app).
+
+```json
+{"version": "0.1.0", "license": "propriétaire", "source": "…", "source_url": "…", "modified": "…",
+ "rubrique": "Aujourd'hui commence un terme solaire", "explication": "L'année chinoise compte…",
+ "ambiances": ["pecher", "pluie", "duvet", "lucioles", "rosee", "feuilles", "neige", "prunier"],
+ "calendrier": [{"terme": "qiufen", "debut": "2026-09-23", "fin": "2026-10-08"}],
+ "termes": {"qiufen": {"nom_zh": "秋分", "pinyin": "qiūfēn", "fr": "l'équinoxe d'automne",
+                       "ambiance": "feuilles", "ligne": "Le jour et la nuit…", "tao": ["…"],
+                       "caractere": {"c": "半", "pinyin": "bàn", "sens": "la moitié"}}},
+ "racines": {"半": "半", "露": "雨", "…": "…"}}
+```
+
+- Vingt-quatre termes, de `lichun` 立春 à `dahan` 大寒 ; l'identifiant est le pinyin
+  sans ton. Un terme court de `debut` inclus à `fin` exclu, `fin` étant le début du
+  suivant : chaque jour de 2026 à 2035 a son terme, et un seul.
+- Les fêtes gardent la priorité : un jour de fête, l'app montre la fête, pas le terme.
+- `ambiance` : l'une des huit ambiances de saison, trois termes consécutifs chacune ;
+  l'app en tire une palette légère (`[data-saison]` de `tokens.css`) et un décor.
+- `caractere.c` est le caractère à lire du terme, propre à chacun, dessiné depuis
+  ses traits ; `pinyin` vient d'Unihan, `sens` est rédigé pour l'app.
+- `rubrique` et `explication` présentent le terme dans l'anecdote du jour où il
+  commence.
 
 ## `LICENCES.md`
 
