@@ -652,7 +652,7 @@ def test_l_index_porte_la_version_les_listes_et_les_jours(atelier: Path) -> None
         "jour": 2, "brique": "木", "composes": ["休"], "non_reconcilie": False,
     }
     assert index["compte"] == {  # type: ignore[comparison-overlap]
-        "familles": 6, "caracteres": 9, "briques": 6, "muettes": 0,
+        "familles": 6, "caracteres": 9, "briques": 6, "muettes": 0, "decoupees": 0,
         "fiches_relues": 0, "contes": 0,
     }
     assert {f["racine"] for f in index["familles"]} == set(BRIQUES)  # type: ignore[union-attr]

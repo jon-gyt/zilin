@@ -1,0 +1,36 @@
+# La cuisine de Tao (story 4b.6) : dix plats de cantine chinoise.
+#
+# Source : rédigé pour l'app, sans API, dans une session Claude Code ; à relire
+# (backlog, état de 4b.6). Aucun texte tiers n'est recopié : les noms de plats sont
+# des noms communs, les étapes sont écrites pour l'app avec les seuls caractères
+# que les parcours posent.
+#
+# Contrainte de lecture : chaque caractère d'une recette (nom, étapes, mots des
+# ingrédients et de l'étal) est dans le périmètre exporté et posé par un parcours ;
+# `wenlu check` le vérifie. Les plats du brief hors de portée du seuil 255 et du
+# HSK 1 n'y sont donc pas : 番茄炒蛋, 蛋炒饭 (炒, 番, 茄) et 饺子 (饺). Les trois plats
+# gratuits (brief §10) se cuisinent dans les deux parcours, Lire et HSK, et le plus
+# tôt possible : leurs étapes n'emploient que des caractères posés avant le jour 170.
+#
+# Format : TSV, `#` en commentaire, sept colonnes séparées par une tabulation.
+#
+# - `id` : l'identifiant du plat, en pinyin sans ton ; la progression le range ;
+# - `gratuit` : `oui` pour les trois plats de l'offre gratuite, `non` sinon ;
+# - `zh`, `pinyin` : le nom du plat, pinyin aux tons du dictionnaire, d'un seul
+#   tenant ;
+# - `fr`, `en` : sa traduction ;
+# - `source`.
+#
+# Les étapes sont dans `etapes.tsv`, les ingrédients dans `ingredients.tsv`, les
+# mots de l'étal dans `etal.tsv`, les phrases de Tao qui goûte dans `tao.tsv`.
+id	gratuit	zh	pinyin	fr	en	source
+daroumian	oui	大肉面	dàròumiàn	les nouilles au porc braisé	braised pork noodles	rédigé pour l'app
+mifan	oui	米饭	mǐfàn	le riz blanc	plain rice	rédigé pour l'app
+caifan	oui	菜饭	càifàn	le riz aux légumes	rice with greens	rédigé pour l'app
+lengmian	non	冷面	lěngmiàn	les nouilles froides	cold noodles	rédigé pour l'app
+miantiao	non	面条	miàntiáo	les nouilles	noodles	rédigé pour l'app
+baozi	non	包子	bāozi	les petits pains farcis	stuffed buns	rédigé pour l'app
+niuroumian	non	牛肉面	niúròumiàn	les nouilles au bœuf	beef noodles	rédigé pour l'app
+jidanmian	non	鸡蛋面	jīdànmiàn	les nouilles à l'œuf	egg noodles	rédigé pour l'app
+niuroufan	non	牛肉饭	niúròufàn	le riz au bœuf	beef rice	rédigé pour l'app
+danbaofan	non	蛋包饭	dànbāofàn	l'omelette au riz	omelette rice	rédigé pour l'app

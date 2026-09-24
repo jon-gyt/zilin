@@ -8,12 +8,14 @@ import {
   emptyProgress,
   noterConteLu,
   noterDevinette,
+  noterRecette,
   noterTrophees,
   traceAchevee,
   type Progress
 } from './session';
 import { SEUIL_DEBLOCAGE, newCard, schedule, stability, type ReviewCard } from './srs';
 import {
+  CHEMIN_TROUVES,
   FAMILLES_TROPHEES,
   FAMILLE_MIN,
   PIEGE_SUITE,
@@ -30,6 +32,7 @@ import {
   prochain,
   suiteEnCours,
   tableau,
+  tropheesChemin,
   tropheesContes,
   tropheesLire,
   tropheesObjets,
@@ -320,11 +323,23 @@ describe('les objets de Tao', () => {
     expect(lanterne(noterDevinette(p, 'j')).obtenu).toBe(true);
   });
 
-  it('suivent la lanterne, et verrouillent le bol tant que rien ne le suit', () => {
+  it('suivent la lanterne et le bol, sans rien donner d’avance', () => {
     const [, lanterne, bol] = tropheesObjets([]);
     expect(lanterne.suivi).toBe(true);
-    expect(bol.suivi).toBe(false);
+    expect(bol.suivi).toBe(true);
     expect(lanterne.obtenu || bol.obtenu).toBe(false);
+  });
+
+  it('donnent le bol au premier plat réussi dans la cuisine de Tao', () => {
+    const p = progression();
+    const bol = (q: Progress) => tous(tableau(q, contenuExport)).find((x) => x.id === 'objet-bol')!;
+    expect(bol(p).obtenu).toBe(false);
+    expect(bol(p).progres).toBe('première recette');
+    const cuisine = noterRecette(p, 'daroumian');
+    expect(bol(cuisine).obtenu).toBe(true);
+    expect(bol(cuisine).actuel).toBe(1);
+    /* Un plat refait ne compte pas deux fois. */
+    expect(noterRecette(cuisine, 'daroumian').recettes).toEqual(['daroumian']);
   });
 });
 
@@ -504,5 +519,30 @@ describe('le tableau', () => {
     const foret = readFileSync(new URL('Forest.svelte', import.meta.url), 'utf8');
     expect(foret).toContain('<TropheesEntree');
     expect(foret).not.toContain('>Récompenses</button>');
+  });
+});
+
+/* ---------- trouvés en chemin ---------- */
+
+describe('le trophée « trouvés en chemin »', () => {
+  it(`huit caractères trouvés, fêtes et termes confondus, le donnent`, () => {
+    expect(CHEMIN_TROUVES).toBe(8);
+    const sept = 'abcdefg'.split('').map((c) => ({ c }));
+    const [t] = tropheesChemin(sept);
+    expect(t.obtenu).toBe(false);
+    expect(t.progres).toBe('7 / 8');
+    expect(tropheesChemin([...sept, { c: 'h' }])[0].obtenu).toBe(true);
+    /* noté obtenu, il le reste */
+    expect(tropheesChemin([], { 'chemin-8': '2027-01-01' })[0].obtenu).toBe(true);
+  });
+
+  it('le tableau les lit sur la progression, entre les objets de Tao et la série', () => {
+    const trouves = [
+      { c: '露', jour: '2026-09-07', terme: 'bailu' },
+      { c: '月', jour: '2026-09-25', fete: 'zhongqiu' as const }
+    ];
+    const s = tableau(progression({ trouves }), contenuExport).sections.find((x) => x.famille === 'chemin')!;
+    expect(s.trophees.map((x) => [x.id, x.actuel, x.suivi])).toEqual([['chemin-8', 2, true]]);
+    expect(FAMILLES_TROPHEES.indexOf('chemin')).toBe(FAMILLES_TROPHEES.indexOf('objets') + 1);
   });
 });

@@ -76,7 +76,7 @@ Relevé sur le dépôt après une revue du pipeline. Les numéros ci-dessus ne b
   8 148 caractères sur 9 574 réconciliés ; 241 du seuil 255 sur 255, 280 du HSK 1 sur 300 ;
   238 familles exportées en 1,33 Mio.
 - Épic 2 : 2.1 à 2.8 (2.2 et 2.8 revues le 24 septembre : le menu et le parcours du prototype validé). Épic 3 : 3.1 à 3.4. Épic 4 : 4.1 à 4.4 (4.4, Chercher, le 24 septembre : la recherche en français ne trouvera rien tant qu'aucune fiche n'est relue).
-- Épic 4b : 4b.1, 4b.2, 4b.4 et 4b.5. Épic 5 : 5.1, et 5.2 (24 septembre).
+- Épic 4b : 4b.1 à 4b.6 et 4b.9 (textes des jeux à relire). Épic 5 : 5.1, et 5.2 (24 septembre).
 - 5.2, le site public : `app/scripts/site/` génère du HTML statique depuis l'export
   versionné, dans l'artefact Pages de l'app, après `vite build`. 480 caractères dessinables
   sur 493, une page chacun en français (`/zilin/c/<c>/`) et en anglais
@@ -89,8 +89,11 @@ Relevé sur le dépôt après une revue du pipeline. Les numéros ci-dessus ne b
   la page des licences (APL §2 b). Le service worker ne précache pas le site et ne sert
   plus `index.html` de l'app à ses adresses. Reste : un lien profond de l'app vers un
   caractère (le bouton ouvre l'accueil), la déclaration du plan du site dans la Search
-  Console (`robots.txt` sous `/zilin/` n'est pas lu), les 12 composants sans traits
-  (㇆, 龰, 𠂇…) et le « ? » du pipeline, sans page.
+  Console (`robots.txt` sous `/zilin/` n'est pas lu). Les composants sans traits (龰,
+  𠂇, ⿰𠄌丶…) ont leur page depuis le 24 septembre : leurs traits sont découpés dans un
+  caractère hôte (`data/sources/surcharges/decoupes.tsv`), et ce que Noto Serif SC n'a
+  pas (𠂒, 𠃊, 𭃂…) s'écrit en traits, dans l'app comme sur le site. 513 caractères
+  exportés, 513 pages.
 - 4b.5, les devinettes de lanternes (24 septembre) : 141 devinettes rédigées pour l'app
   dans `data/sources/devinettes/` (120 du seuil 255, 21 du HSK 1), dont six avec leur 字谜
   traditionnel ; leurres choisis à l'export par ressemblance de composants ;
@@ -112,7 +115,33 @@ Relevé sur le dépôt après une revue du pipeline. Les numéros ci-dessus ne b
   constat ; Tao joue la tête penchée, sans lanterne. Reste : le brancher au pas Utiliser
   (brief §9), qui demanderait une vue de plus dans `UseView` et la reprise au pas exact
   de `session.ts` ; laissé pour ne pas toucher la session.
-- 4b.9, à moitié (24 septembre) : les huit fêtes du calendrier chinois sont en place, du
+- 4b.3, la chaîne et la coquille (24 septembre). La chaîne suit les `parts` de l'export,
+  sur l'acquis et les seuls caractères exportés ; les décompositions canoniques étant
+  plates (人, 大, 天 sont des composants de la norme), une manche enchaîne plusieurs
+  chaînes sans caractère commun, jusqu'à douze maillons. La coquille lit
+  `coquilles.json` : 58 messages de 6 à 12 caractères du seuil 255, rédigés pour l'app
+  dans `data/sources/coquilles/` avec leurs pièges (天, 夫, 日, 王) et leur traduction,
+  trois contrôles bloquants ; l'intrus vient d'un groupe de `paires.json` et doit être
+  acquis, si bien que le jeu s'ouvre avec 夫 (jour 54 du parcours Lire). Chaque choix
+  est noté par `grade` et dit le leurre pris, que les pièges déjoués lisent ; Tao lit la
+  coquille par-dessus l'épaule. **Les 58 messages sont à relire par le propriétaire**
+  (`wenlu coquilles apercu`).
+- 4b.6, la cuisine de Tao (24 septembre), **textes à relire** : dix recettes rédigées pour
+  l'app, sans API, dans `data/sources/cuisine/` (recettes, étapes, ingrédients, étal, phrases
+  de Tao), traçabilité « rédigé pour l'app ». Dix plats de cantine écrits avec les seuls
+  caractères que les parcours posent : 大肉面, 米饭, 菜饭 (les trois gratuits, `gratuit` dans
+  les données, cuisinables dans les deux parcours dès les jours 83, 153 et 153 de Lire), puis
+  冷面, 面条, 包子, 牛肉面, 鸡蛋面, 牛肉饭, 蛋包饭 (HSK). 蛋炒饭, 番茄炒蛋 et 饺子 sont hors de
+  portée (炒, 番, 茄, 饺). Chaque ingrédient a deux ou trois leurres écrits à la main (牛奶
+  pour 牛肉, 米酒 pour 米, 茶 pour 菜) ; la question note les caractères que le premier
+  leurre n'a pas (肉). `cuisine.json`, nommé par l'index et dans l'empreinte ; cinq contrôles
+  bloquants (sources, pinyin, périmètre, parcours, export) ; `wenlu cuisine apercu` pour
+  relire. Dans l'app : case « La cuisine de Tao » de Jouer, un plat ne s'ouvre que lorsque
+  tous ses caractères sont acquis ; Tao lit la recette, on prend les ingrédients sur l'étal
+  (deux essais, notés par `grade`), Tao goûte (posture `goute`) : contente, ou une grimace
+  qui propose d'en refaire un. Le premier plat réussi donne le bol des trophées. Pas encore
+  d'achat : les dix plats sont ouverts. Reste : relire les textes.
+- 4b.9, les saisons (24 septembre) : les huit fêtes du calendrier chinois sont en place, du
   pipeline (`data/sources/fetes/`, dates vérifiées contre la table des fêtes de
   `lunar_python`) au décor de l'app (menu à 393 × 660, anecdote, `theme-color`). Chaque
   anecdote fait découvrir un caractère bonus (灯, 雨, 粽, 桥, 菊, 冬…). Les vingt-quatre
@@ -120,9 +149,15 @@ Relevé sur le dépôt après une revue du pipeline. Les numéros ci-dessus ne b
   vérifiées contre `lunar_python` dans les deux sens) : huit ambiances légères de trois
   termes, le terme sous la marque du menu (« 半 秋分 · l'équinoxe d'automne »), la phrase
   de Tao, l'anecdote du jour où il commence, `theme-color` ; un caractère à lire par terme
-  (露, 霜, 雪, 雷…), exporté avec ses traits. Reste le décor du cercle de Ma forêt, le
-  suivi des caractères bonus découverts (fêtes et termes), et une relecture des textes des
-  termes par le propriétaire.
+  (露, 霜, 雪, 雷…), exporté avec ses traits. Le cercle de Ma forêt prend un petit décor
+  dessiné pour chaque fête et chaque ambiance (`CercleDecor.svelte`), dans les coins libres,
+  derrière le cercle, coupé si l'on réduit les animations. Le caractère de l'anecdote d'une
+  fête ou du premier jour d'un terme est noté dans la progression, une fois, avec sa
+  journée et sa source (`trouves`, export et import compris) ; il n'entre pas en révision.
+  Ma forêt les montre sous la colline, « Trouvés en chemin », dessinés depuis leurs traits ;
+  touché, le caractère se dit et montre sa fête ou son terme. Le tableau des trophées en
+  compte huit (sceau 节), une case que le tableau du brief (§8) ne liste pas encore. Reste
+  une relecture des textes des termes par le propriétaire.
 
 ### Livrées à moitié : le code attend une clé d'API
 
@@ -212,5 +247,5 @@ anglaise, glose par mot.
 
 ### Non commencées
 
-2c.1, 2c.2, 4b.3, 4b.6 à 4b.8, et toute la phase 6 — hors le workflow CI macOS et la
+2c.1, 2c.2, 4b.7, 4b.8, et toute la phase 6 — hors le workflow CI macOS et la
 configuration Capacitor, déjà versionnés.

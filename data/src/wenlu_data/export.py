@@ -18,11 +18,14 @@ familles de fichiers, jamais mêlés :
 - `traits/<racine>.json` : tracés et médianes de `graphics.txt`, sous Arphic
   Public License. `ARPHICPL.TXT` est copié inaltéré à côté (§2.1, APL §1) et
   `traits/MODIFICATIONS.md` dit comment et quand ces fichiers ont été dérivés
-  (APL §2 a). Chaque fichier porte la même mention dans son en-tête.
+  (APL §2 a). Chaque fichier porte la même mention dans son en-tête. Les
+  composants que `graphics.txt` ne dessine pas y entrent découpés dans un hôte
+  (`decoupes.py`) : `MODIFICATIONS.md` décrit chaque découpe, et l'en-tête des
+  fichiers qui en portent la nomme.
 - `familles/<racine>.json` : décomposition canonique GF 0014-2009 et textes des
   fiches relues, propriétaires. Aucun tracé n'y entre.
 - `paires.json`, `contes/<id>.json`, `fetes.json`, `saisons.json`, `devinettes.json`,
-  `eclair.json` : propriétaires, source citée.
+  `eclair.json`, `coquilles.json`, `cuisine.json` : propriétaires, source citée.
 - `apercu/` : les textes encore à relire (voir plus bas), propriétaires eux aussi.
 
 Ce qui n'entre jamais dans l'export :
@@ -76,6 +79,9 @@ from typing import Iterable, Mapping, Sequence
 from pydantic import ValidationError
 
 from . import contes as contes_mod
+from . import decoupes as decoupes_mod
+from . import coquilles as coquilles_mod
+from . import cuisine as cuisine_mod
 from . import devinettes as devinettes_mod
 from . import eclair as eclair_mod
 from . import fetes as fetes_mod
@@ -83,7 +89,7 @@ from . import fiches as fiches_mod
 from . import saisons as saisons_mod
 from . import surcharges as surcharges_mod
 from .gf0014 import Controle
-from .graphe import BRIQUE, MUETTE, PARCOURS
+from .graphe import BRIQUE, DECOUPEE, MUETTE, PARCOURS
 from .models import Brique, Famille, Fiche, Mot
 from .outils import empreinte_fichier
 from .paths import BUILD, CONTES, DATA, EXPORT, GF0014, INGEST, INTERFACE
@@ -168,6 +174,8 @@ def fichiers_sources(
         ("exporteur", EXPORTEUR),
         ("exporteur-devinettes", Path(devinettes_mod.__file__).resolve()),
         ("exporteur-eclair", Path(eclair_mod.__file__).resolve()),
+        ("exporteur-coquilles", Path(coquilles_mod.__file__).resolve()),
+        ("exporteur-cuisine", Path(cuisine_mod.__file__).resolve()),
         ("decompositions", build / "decompositions.json"),
         ("graphe", build / "graphe.json"),
         *[(f"parcours-{nom}", build / f"parcours-{nom}.json") for nom in sorted(PARCOURS)],
@@ -178,6 +186,8 @@ def fichiers_sources(
         ("surcharges-ids", surcharges_mod.IDS),
         ("surcharges-equivalences", surcharges_mod.EQUIVALENCES),
         ("surcharges-pinyin", surcharges_mod.PINYIN),
+        ("surcharges-decoupes", surcharges_mod.DECOUPES),
+        ("decoupes", build / decoupes_mod.FICHIER),
         ("paires", PAIRES),
         ("fetes-calendrier", fetes_mod.CALENDRIER),
         ("fetes-textes", fetes_mod.TEXTES),
@@ -188,6 +198,12 @@ def fichiers_sources(
         ("devinettes", devinettes_mod.DEVINETTES),
         ("devinettes-briques", devinettes_mod.BRIQUES),
         ("eclair", eclair_mod.MOTS),
+        ("coquilles", coquilles_mod.COQUILLES),
+        ("cuisine-recettes", cuisine_mod.RECETTES),
+        ("cuisine-etapes", cuisine_mod.ETAPES),
+        ("cuisine-ingredients", cuisine_mod.INGREDIENTS),
+        ("cuisine-etal", cuisine_mod.ETAL),
+        ("cuisine-tao", cuisine_mod.TAO),
         ("interface", INTERFACE),
         ("arphicpl", LICENCES_SOURCE / ARPHIC),
         ("unicode", LICENCES_SOURCE / UNICODE_NOTICE),
@@ -343,16 +359,26 @@ def charger_pinyin(
     return lus
 
 
-def charger_graphies(ingest: Path, caracteres: Iterable[str]) -> dict[str, dict[str, object]]:
-    """Tracés et médianes de `graphics.txt` pour les caractères demandés."""
+def charger_graphies(
+    ingest: Path, caracteres: Iterable[str], decoupes: Mapping[str, Mapping[str, object]] | None = None
+) -> dict[str, dict[str, object]]:
+    """Tracés et médianes de `graphics.txt` pour les caractères demandés.
+
+    `decoupes` : les traits des composants découpés dans un hôte (`decoupes.traits`),
+    pour ceux que `graphics.txt` ne dessine pas.
+    """
     document = _lire(ingest / "graphies.json")
     assert isinstance(document, list)
     voulus = set(caracteres)
-    return {
+    graphies: dict[str, dict[str, object]] = {
         str(e["c"]): {"s": e["strokes"], "m": e["medians"]}
         for e in document
         if str(e["c"]) in voulus
     }
+    for c, d in sorted((decoupes or {}).items()):
+        if c in voulus and c not in graphies:
+            graphies[c] = {"s": d["s"], "m": d["m"]}
+    return graphies
 
 
 def charger_fiches_relues(dossier: Path | None = None) -> dict[str, fiches_mod.Fiche]:
@@ -558,22 +584,35 @@ def document_famille(famille: Famille) -> dict[str, object]:
 
 
 def document_traits(
-    racine: str, caracteres: Sequence[str], graphies: Mapping[str, Mapping[str, object]], version: str
+    racine: str,
+    caracteres: Sequence[str],
+    graphies: Mapping[str, Mapping[str, object]],
+    version: str,
+    decoupes: Iterable[str] = (),
 ) -> dict[str, object]:
     """Le JSON écrit dans `traits/<racine>.json`.
 
     Fichier sous Arphic Public License, séparé de tout le reste : il ne porte que
     des tracés, leur en-tête de licence et la mention de modification exigée par
     l'APL §2 a). Un caractère par clé, `{s: tracés, m: médianes}` comme
-    `strokes-demo.json`.
+    `strokes-demo.json`. Un composant découpé dans un hôte (`decoupes`) est nommé
+    dans la mention : ses tracés, eux, sont modifiés.
     """
+    decoupes = set(decoupes)
+    decoupes_ici = [c for c in caracteres if c in decoupes and c in graphies]
+    modifie = MODIF_TRAITS
+    if decoupes_ici:
+        modifie += (
+            f" Sauf {' '.join(decoupes_ici)} : traits découpés dans un caractère hôte et"
+            " recadrés, voir MODIFICATIONS.md."
+        )
     return {
         "version": version,
         "license": LICENCE_TRAITS,
         "license_file": ARPHIC,
         "source": SOURCE_TRAITS,
         "source_url": URL_TRAITS,
-        "modified": MODIF_TRAITS,
+        "modified": modifie,
         "traits": {c: graphies[c] for c in caracteres if c in graphies},
     }
 
@@ -783,6 +822,59 @@ def document_eclair(
             "version": version,
             "license": LICENCE_PROPRIETAIRE,
             "source": eclair_mod.SOURCE_EXPORT,
+            "source_url": URL_PIPELINE,
+            "modified": f"{JETON_JOUR} : assemblé par `wenlu export`",
+        },
+    )
+
+
+def document_coquilles(
+    version: str,
+    per: Perimetre,
+    noeuds: Mapping[str, Noeud],
+    graphies: Mapping[str, object],
+    paires: Sequence[Sequence[str]],
+) -> dict[str, object]:
+    """Le JSON écrit dans `coquilles.json` (story 4b.3), voir `coquilles.py`.
+
+    Les messages s'écrivent avec le seuil 255 et les intrus viennent des groupes de
+    `paires.json`, déjà réduits au périmètre : la coquille n'y fait entrer aucun caractère.
+    """
+    dessinables = [c for c in per.caracteres if c in graphies]
+    return coquilles_mod.document(
+        version,
+        caracteres=dessinables,
+        paires=paires,
+        racines={c: noeuds[c].racine for c in dessinables},
+        en_tete={
+            "version": version,
+            "license": LICENCE_PROPRIETAIRE,
+            "source": coquilles_mod.SOURCE_EXPORT,
+            "source_url": URL_PIPELINE,
+            "modified": f"{JETON_JOUR} : assemblé par `wenlu export`",
+        },
+    )
+
+
+def document_cuisine(
+    version: str,
+    per: Perimetre,
+    noeuds: Mapping[str, Noeud],
+    parcours: Mapping[str, Mapping[str, object]],
+) -> dict[str, object]:
+    """Le JSON écrit dans `cuisine.json` (story 4b.6), voir `cuisine.py`.
+
+    La cuisine ne fait entrer aucun caractère dans le périmètre : ses textes s'écrivent
+    avec ce que les parcours posent, et `wenlu check` le vérifie.
+    """
+    return cuisine_mod.document(
+        version,
+        parcours=parcours,
+        racines={c: noeuds[c].racine for c in per.caracteres},
+        en_tete={
+            "version": version,
+            "license": LICENCE_PROPRIETAIRE,
+            "source": cuisine_mod.SOURCE_EXPORT,
             "source_url": URL_PIPELINE,
             "modified": f"{JETON_JOUR} : assemblé par `wenlu export`",
         },
@@ -1045,6 +1137,7 @@ def document_index(
             "caracteres": len(per.caracteres),
             "briques": sum(1 for c in per.caracteres if noeuds[c].genre == BRIQUE),
             "muettes": sum(1 for c in per.caracteres if noeuds[c].genre == MUETTE),
+            "decoupees": sum(1 for c in per.caracteres if noeuds[c].genre == DECOUPEE),
             "fiches_relues": sum(1 for c in per.caracteres if c in relues),
             "contes": len(contes),
         },
@@ -1082,6 +1175,8 @@ def document_index(
         "saisons": "saisons.json",
         "devinettes": "devinettes.json",
         "eclair": "eclair.json",
+        "coquilles": "coquilles.json",
+        "cuisine": "cuisine.json",
     }
     if apercu:
         document["apercu"] = f"{APERCU}/index.json"
@@ -1159,9 +1254,9 @@ TABLEAU_LICENCES: tuple[tuple[str, str, str, str, str], ...] = (
         "—",
     ),
     (
-        "Fiches, contes, paires, fêtes, saisons, devinettes, dictionnaire éclair (pipeline wenlu)",
+        "Fiches, contes, paires, fêtes, saisons, devinettes, dictionnaire éclair, coquilles, cuisine (pipeline wenlu)",
         "`familles/`, `contes/`, `paires.json`, `fetes.json`, `saisons.json`, `devinettes.json`,"
-        " `eclair.json`, et `apercu/` pour les textes encore à relire",
+        " `eclair.json`, `coquilles.json`, `cuisine.json`, et `apercu/` pour les textes encore à relire",
         LICENCE_PROPRIETAIRE,
         "textes rédigés pour l'app, relus",
         "—",
@@ -1192,8 +1287,8 @@ def licences_md(version: str) -> str:
         f"- `traits/` : tracés sous {LICENCE_TRAITS}, avec `{ARPHIC}` inaltéré à côté"
         " et `traits/MODIFICATIONS.md` qui dit comment et quand ils ont été dérivés.",
         "- `familles/`, `contes/`, `paires.json`, `fetes.json`, `saisons.json`, `devinettes.json`,"
-        " `eclair.json`, `apercu/` : décomposition canonique et textes rédigés pour l'app,"
-        " propriétaires.",
+        " `eclair.json`, `coquilles.json`, `cuisine.json`, `apercu/` : décomposition canonique et"
+        " textes rédigés pour l'app, propriétaires.",
         f"- `{UNICODE_NOTICE}` : notice de permission Unicode, qui couvre le pinyin.",
         "",
         "## Ce que l'export ne contient pas",
@@ -1228,8 +1323,60 @@ def licences_md(version: str) -> str:
     return "\n".join(lignes)
 
 
-def modifications_md(version: str, caracteres: int) -> str:
-    """`traits/MODIFICATIONS.md` : la mention exigée par l'APL §2 a), en tête du dossier."""
+def _nombre(x: float) -> str:
+    """Un nombre à la française, sans zéro inutile : 1,3194 ; −30,5 ; 0."""
+    texte = f"{x:.4f}".rstrip("0").rstrip(".")
+    return texte.replace("-", "−").replace(".", ",")
+
+
+def section_decoupes(decoupes: Sequence[Mapping[str, object]]) -> list[str]:
+    """La part de `MODIFICATIONS.md` qui décrit chaque composant découpé."""
+    if not decoupes:
+        return []
+    lignes = [
+        "## Composants découpés dans un caractère hôte",
+        "",
+        f"{len(decoupes)} composants de la norme GF 0014-2009 n'ont pas de tracé propre"
+        " dans `graphics.txt`. Leurs tracés et leurs médianes sont ceux d'un caractère"
+        " hôte qui les contient, réduits aux seuls traits désignés, dans l'ordre"
+        " d'écriture de l'hôte ; aucun trait n'est dessiné ni retouché. Seule"
+        " transformation : un recadrage dans la boîte de 1024, l'homothétie"
+        " x' = e·x + dx, y' = e·y + dy appliquée à chaque coordonnée des tracés et des"
+        " médianes, puis arrondie à l'entier. Elle porte la boîte englobante des traits"
+        f" retenus au centre ({_nombre(decoupes_mod.CENTRE_BOITE[0])} ;"
+        f" {_nombre(decoupes_mod.CENTRE_BOITE[1])}), son plus grand côté à"
+        f" {_nombre(decoupes_mod.CIBLE)} unités, sans agrandir plus de"
+        f" {_nombre(decoupes_mod.ECHELLE_MAX)} fois. Table versionnée :"
+        " `data/sources/surcharges/decoupes.tsv` du dépôt.",
+        "",
+        "| Composant | Hôte | Traits de l'hôte retenus (à partir de 0) | e | dx | dy |",
+        "|---|---|---|---|---|---|",
+    ]
+    for d in decoupes:
+        indices = ", ".join(str(i) for i in d["indices"])  # type: ignore[attr-defined]
+        e, dx, dy = (float(d[k]) for k in ("echelle", "dx", "dy"))  # type: ignore[arg-type]
+        lignes.append(
+            f"| {d['c']} | {d['hote']} | {indices} (sur {d['traits_hote']}) |"
+            f" {_nombre(e)} | {_nombre(dx)} | {_nombre(dy)} |"
+        )
+    return lignes + [""]
+
+
+def modifications_md(
+    version: str, caracteres: int, decoupes: Sequence[Mapping[str, object]] = ()
+) -> str:
+    """`traits/MODIFICATIONS.md` : la mention exigée par l'APL §2 a), en tête du dossier.
+
+    `decoupes` : les découpes des composants exportés (`decoupes.charger`).
+    """
+    retouche = (
+        "- Les tracés et les médianes ne sont pas retouchés : ni arrondi, ni"
+        " simplification, ni renommage."
+        if not decoupes
+        else "- Les tracés et les médianes ne sont pas retouchés — ni arrondi, ni"
+        " simplification, ni renommage —, hors les composants découpés décrits"
+        " ci-dessous."
+    )
     return "\n".join(
         [
             "# Tracés dérivés de Make Me a Hanzi",
@@ -1246,9 +1393,9 @@ def modifications_md(version: str, caracteres: int) -> str:
             f"- Sous-ensemble : {caracteres} caractères seulement — le seuil 255, le"
             " HSK 1, les caractères dessinés des fêtes et des termes solaires, et leurs"
             " briques.",
-            "- Les tracés et les médianes ne sont pas retouchés : ni arrondi, ni"
-            " simplification, ni renommage.",
+            retouche,
             "",
+            *section_decoupes(decoupes),
             "Chaque fichier de ce dossier porte la même mention dans son en-tête"
             " (`license`, `source`, `source_url`, `modified`), comme l'exige l'APL §2 a).",
             "",
@@ -1418,12 +1565,15 @@ def assembler(
     cibles += caracteres_interface()
     per = perimetre(noeuds, cibles)
     pinyin = charger_pinyin(ingest, per.caracteres)
-    graphies = charger_graphies(ingest, per.caracteres)
+    dans_le_perimetre = set(per.caracteres)
+    # Les composants découpés dans un hôte : leurs traits rejoignent ceux de la source.
+    decoupes =[d for d in decoupes_mod.charger(build) if str(d["c"]) in dans_le_perimetre]
+    graphies = charger_graphies(ingest, per.caracteres, decoupes_mod.traits(build))
+    decoupes_exportes = [str(d["c"]) for d in decoupes]
     relues = charger_fiches_relues(fiches)
     versions_contes = charger_contes_relus(contes)
     # Un groupe ne sert qu'aux caractères que l'app sait dessiner : on le réduit
     # au périmètre, et il tombe s'il n'y reste pas au moins deux formes à confondre.
-    dans_le_perimetre = set(per.caracteres)
     groupes = [
         retenus
         for groupe in charger_paires(paires)
@@ -1451,7 +1601,7 @@ def assembler(
         famille = famille_exportee(racine, liste_fiches, version)
         textes[nom] = _json(document_famille(famille))
         textes[f"traits/{nom_fichier(racine)}.json"] = _json_compact(
-            document_traits(racine, membres, graphies, version)
+            document_traits(racine, membres, graphies, version, decoupes_exportes)
         )
 
     for conte, versions in sorted(versions_contes.items()):
@@ -1476,8 +1626,10 @@ def assembler(
     )
     textes.update(apercu)
     textes["eclair.json"] = _json(document_eclair(version, per, noeuds, graphies))
+    textes["coquilles.json"] = _json(document_coquilles(version, per, noeuds, graphies, groupes))
+    textes["cuisine.json"] = _json(document_cuisine(version, per, noeuds, documents_parcours))
     textes["LICENCES.md"] = licences_md(version)
-    textes["traits/MODIFICATIONS.md"] = modifications_md(version, len(graphies))
+    textes["traits/MODIFICATIONS.md"] = modifications_md(version, len(graphies), decoupes)
     for nom in (ARPHIC, UNICODE_NOTICE):
         texte = (licences / nom).read_text(encoding="utf-8")
         textes[nom] = texte
@@ -1740,7 +1892,8 @@ def controles(
     signalé. « séparation des licences » vérifie l'en-tête de chaque fichier et
     qu'aucun ne mêle deux régimes (`docs/sources-licences.md` §8) — bloquant.
     « familles sans fiche relue » compte ce qui reste à relire avant que l'app
-    puisse enseigner ces familles : signalé, jamais bloquant. « textes de licence »
+    puisse enseigner ces familles : signalé, jamais bloquant. « caractères sans
+    traits » liste ce que l'app ne saurait dessiner : signalé. « textes de licence »
     vérifie que les fichiers que l'APL et la notice Unicode exigent à côté des
     données sont bien là : leur absence est une faute de licence, donc bloquante.
     « aperçu » vérifie que `apercu/` ne porte que des textes encore à relire, jamais
@@ -1764,6 +1917,7 @@ def controles(
     fautes_apercu: list[str] = []
     apercu_fiches = 0
     apercu_versions = 0
+    sans_traits: list[str] = []
     total_familles = 0
     total_fichiers = 0
     statuts_fiches = {
@@ -1774,6 +1928,7 @@ def controles(
         for v in map(contes_mod.lire_version, contes_mod.versions_ecrites(contes))
     }
     for dossier in dossiers:
+        sans_traits += [f"{dossier.name}:{c}" for c in caracteres_sans_traits(dossier)]
         absents += [
             f"{dossier.name}/{relatif}"
             for relatif in TEXTES_DE_LICENCE
@@ -1845,4 +2000,26 @@ def controles(
             if sans_fiche
             else f"les {total_familles} familles exportées portent au moins une fiche relue",
         ),
+        Controle(
+            "export : caractères sans traits",
+            not sans_traits,
+            f"{len(sans_traits)} caractères exportés que l'app ne sait pas dessiner : {' '.join(sans_traits)}"
+            if sans_traits
+            else "tout caractère exporté a ses traits",
+        ),
     ]
+
+
+def caracteres_sans_traits(dossier: Path) -> list[str]:
+    """Les caractères d'une version exportée dont aucun fichier de `traits/` ne porte les tracés.
+
+    L'app ne les dessinerait qu'avec une police, et le site ne leur fait pas de page.
+    """
+    fiches: set[str] = set()
+    for chemin in sorted((dossier / "familles").glob("*.json")):
+        document = json.loads(chemin.read_text(encoding="utf-8"))
+        fiches |= {str(f["c"]) for f in document.get("fiches") or ()}
+    dessines: set[str] = set()
+    for chemin in sorted((dossier / "traits").glob("*.json")):
+        dessines |= set(json.loads(chemin.read_text(encoding="utf-8")).get("traits") or {})
+    return sorted(fiches - dessines)

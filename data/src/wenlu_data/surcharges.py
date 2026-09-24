@@ -3,7 +3,7 @@
 Les sources brutes (`data/work/sources/`) ne se corrigent jamais sur place : elles
 sont retéléchargées, et leur empreinte fait foi. Une erreur relevée dans une source
 se corrige ici, par une ligne versionnée qui dit ce qu'elle change et pourquoi.
-Trois fichiers, tous en TSV, `#` en commentaire, une raison obligatoire par ligne :
+Des fichiers en TSV, `#` en commentaire, une raison obligatoire par ligne :
 
 - `data/sources/surcharges/pinyin.tsv` : `c`, `lectures`, `raison`. Les lectures
   remplacent celles de Make Me a Hanzi (`caracteres.json`, contexte des fiches) et
@@ -25,6 +25,10 @@ Trois fichiers, tous en TSV, `#` en commentaire, une raison obligatoire par lign
   caractère dont un composant de rôle `son` écrit la phonétique, quand le contrôle
   du rôle son (`phonetiques.py`) ne peut pas le retrouver seul dans la
   décomposition : 又 réduit à 𠂇 dans 有, 辛 posé sur 木 dans 新.
+- `data/sources/surcharges/decoupes.tsv` : `composant`, `hôte`, `indices`,
+  `recadrage`, `raison`. Un composant de la norme que `graphics.txt` ne dessine
+  pas prend les traits désignés d'un caractère hôte qui le contient (voir
+  `decoupes.py`).
 - `data/sources/mots-exclus.tsv` : `mot`, `raison`. Mots de CC-CEDICT qui ne sont
   jamais proposés comme candidats d'une fiche : argot, termes de mahjong, mots
   rares ou spécialisés, fragments de locution.
@@ -48,6 +52,9 @@ PINYIN = SURCHARGES / "pinyin.tsv"
 IDS = SURCHARGES / "ids.tsv"
 EQUIVALENCES = SURCHARGES / "equivalences.tsv"
 PHONETIQUES = SURCHARGES / "phonetiques.tsv"
+
+#: Les découpes de composants dans un caractère hôte, lues par `decoupes.py`.
+DECOUPES = SURCHARGES / "decoupes.tsv"
 MOTS_EXCLUS = DATA / "sources" / "mots-exclus.tsv"
 
 #: La source d'IDS que porte une décomposition tirée de `ids.tsv`.

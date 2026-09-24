@@ -20,6 +20,7 @@ import {
   type SrsParams
 } from './srs';
 import { ajouter, journal, lireTao, taoVide, type Tao, type TypeActivite } from './tao';
+import { lireTrouves, type Trouve } from './trouves';
 
 
 /** Budget choisi par l'utilisateur, en minutes. */
@@ -263,6 +264,19 @@ export type Progress = {
    * progression plus ancienne : aucun mot deviné.
    */
   motsDevines: string[];
+  /**
+   * Les caractères trouvés en chemin : celui que l'anecdote d'une fête ou d'un terme
+   * solaire fait découvrir, une entrée par caractère, avec sa journée et sa source
+   * (`trouves.ts`). Ce ne sont pas des briques du parcours : aucune carte, aucune
+   * révision. Absents d'une progression plus ancienne : aucun.
+   */
+  trouves: Trouve[];
+  /**
+   * Les plats de la cuisine de Tao réussis, par identifiant, chacun une fois, dans l'ordre :
+   * chaque ingrédient trouvé, Tao contente. Le bol des trophées se gagne au premier. Le
+   * jeu les note par `noterRecette`. Absente d'une progression plus ancienne : vide.
+   */
+  recettes: string[];
 };
 
 /**
@@ -323,7 +337,9 @@ export function emptyProgress(aujourdhui: string): Progress {
     devinetteDuJour: null,
     contesLus: {},
     relecture: false,
-    motsDevines: []
+    motsDevines: [],
+    trouves: [],
+    recettes: []
   };
 }
 
@@ -776,6 +792,15 @@ export function noterConteLu(p: Progress, conte: string, seuil: number): Progres
   const lus = p.contesLus[conte] ?? [];
   if (lus.includes(s)) return p;
   return { ...p, contesLus: { ...p.contesLus, [conte]: [...lus, s].sort((a, b) => a - b) } };
+}
+
+/**
+ * Note un plat de la cuisine de Tao réussi. Un plat compte une fois, même refait : le bol
+ * compte ce qui a été lu de plus, pas les essais. Un plat grimacé ne compte pas.
+ */
+export function noterRecette(p: Progress, id: string): Progress {
+  if (id === '' || p.recettes.includes(id)) return p;
+  return { ...p, recettes: [...p.recettes, id] };
 }
 
 /** Le nombre de devinettes résolues. */
@@ -1260,6 +1285,10 @@ export function fromJSON(texte: string, aujourdhui: string): Progress {
     /* Le mode relecture : absent d'un export plus ancien, éteint. */
     relecture: o.relecture === true,
     /* Les mots devinés : absents d'un export plus ancien, aucun n'est deviné. */
-    motsDevines: listeDeCaracteres(o.motsDevines)
+    motsDevines: listeDeCaracteres(o.motsDevines),
+    /* Les caractères trouvés en chemin : absents d'un export plus ancien, aucun. */
+    trouves: lireTrouves(o.trouves),
+    /* Les plats cuisinés : absents d'un export plus ancien, aucun n'est fait. */
+    recettes: listeDeCaracteres(o.recettes)
   };
 }

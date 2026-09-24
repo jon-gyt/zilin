@@ -12,15 +12,16 @@ Référence jouable : `maquettes/zilin-jeu.html` (démos des mécaniques) et `ma
 ## Les dix jeux
 
 1. Assembler contre la montre. Sens donné, briques en vrac (les vraies plus deux leurres visuellement proches), 8 secondes, ordre d'écriture exigé. Exemples : « maman » → 女 + 马 parmi 马 口 女 子 ; « habiter » → 亻 + 主 parmi 王 主 亻 丶. Erreur = montré, retour dans 10 minutes.
-2. La chaîne. Départ sur une brique acquise, quatre propositions dont une seule contient le dernier caractère. 人 → 大 → 天 → 吞. Longueur = score, limitée par l'acquis.
+2. La chaîne. Départ sur une brique acquise, quatre propositions dont une seule contient le dernier caractère. 人 → 大 → 天 → 吞. La longueur, limitée par l'acquis, est un constat, pas un score. Les `parts` de l'export étant plates, une manche enchaîne plusieurs chaînes (口 → 可 → 哥 → 歌, puis 女 → 如…).
 3. Le dictionnaire éclair. Mot de deux caractères acquis, jamais appris comme mot. Quatre sens dont un juste. 火车 (train), 电脑 (ordinateur), 手机 (téléphone), 水果 (fruits), 大人 (adulte), 好看 (joli). Compteur « mots devinés » distinct.
-4. La coquille. Message de 6 à 12 caractères avec un intrus tiré des paires à ne pas confondre. 我今夫很好 (夫 pour 天). Paires : 己 已 巳, 未 末, 天 夫, 日 曰, 人 入, 土 士, 王 玉 主.
+4. La coquille. Message de 6 à 12 caractères avec un intrus tiré des paires à ne pas confondre. 我今夫很好 (夫 pour 天). Messages rédigés dans `data/sources/coquilles/` (`coquilles.json`), intrus acquis. Paires : 己 已 巳, 未 末, 天 夫, 日 曰, 人 入, 土 士, 王 玉 主.
 5. Le message WeChat. Un message reçu, trois réponses dont une tient. 你好吗？→ 我很好，你呢？ Arbre de 3 à 10 échanges par famille.
 6. Les jumeaux. Flash de 700 ms, deux caractères proches, quinze paires par minute.
 7. Les lettres de Que. Une lettre par semaine, 40 à 120 caractères, uniquement acquis, question finale à un mot. Feuilleton : Que voyage de 西安 à 喀什.
 8. Les saisons. Décor selon le calendrier chinois : Nouvel An 年, fête des Lanternes 灯, Qingming 雨, fête des bateaux-dragons 粽 (le dragon au décor seulement), Qixi 桥, mi-automne 月, double neuf 菊, solstice d'hiver 冬. Un caractère bonus et une anecdote par fête, dans `data/sources/fetes/textes.tsv`. Entre les fêtes, les vingt-quatre termes solaires (`data/sources/saisons/textes.tsv`) : une ambiance légère, et un caractère à lire par terme (露, 霜, 雪, 雷…). Le décor de l'app est en place ; celui du cercle de Ma forêt reste à faire.
 9. Les devinettes de lanternes (灯谜). Une devinette = une décomposition déguisée. « Une bouche mord la queue du bœuf » : 告. « Un homme sous un arbre » : 休. « Le soleil et la lune ensemble » : 明. « Dix bouches » : 古. « Une femme et un enfant » : 好. Base de 100, une par matin, portée par Tao ; la lanterne s'allume pour la journée.
 10. La cuisine de Tao. Recette en chinois, ingrédients sur l'étal, erreurs plausibles. 蛋炒饭 = 鸡蛋 + 米饭 + 油 ; 牛肉面 = 牛肉 + 面 + 汤 ; piège 牛奶 (lait) pour 牛肉 (bœuf). Dix plats de cantine, un par famille alimentaire (米 面 肉 菜 汤).
+    Réalisé (4b.6) avec les seuls caractères du seuil 255 et du HSK 1 : 大肉面, 米饭, 菜饭 (gratuits), 冷面, 面条, 包子, 牛肉面, 鸡蛋面, 牛肉饭, 蛋包饭. 蛋炒饭, 番茄炒蛋 et 饺子 attendent 炒, 番, 茄, 饺 ; 汤 n'est dans aucune des deux listes. Tao demande un ingrédient en français, on le prend sur l'étal parmi des mots chinois.
 
 ## Tao
 

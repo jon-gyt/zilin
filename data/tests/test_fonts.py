@@ -5,7 +5,9 @@ import json
 from pathlib import Path
 
 from wenlu_data.fonts import (
+    absents_de_la_police,
     caracteres_des_textes,
+    dessine_hors_police,
     CHIFFRES,
     FONTES_A_PRODUIRE,
     LICENCES,
@@ -140,3 +142,15 @@ def test_le_sous_ensemble_couvre_les_textes_a_relire_de_l_apercu(tmp_path: Path)
         encoding="utf-8",
     )
     assert {"愚", "公", "移", "山", "休", "息"} <= caracteres_des_textes(export)
+
+
+def test_l_app_dessine_en_traits_ce_qui_sort_du_plan_de_base_ou_s_ecrit_en_ids() -> None:
+    """La règle de `horsPolice` (app/src/lib/glyph.ts), celle que `wenlu fonts` suppose."""
+    assert dessine_hors_police("𠂒") and dessine_hors_police("⿰𠄌丶")
+    assert not dessine_hors_police("䒑") and not dessine_hors_police("人")
+
+
+def test_un_caractere_absent_de_la_police_est_dessine_ou_signale() -> None:
+    """Absent de Noto Serif SC : dessiné depuis ses traits, sinon un carré vide à signaler."""
+    cmap = {ord(c) for c in "人䒑"}
+    assert absents_de_la_police("人䒑𠂒㐃", cmap) == ("𠂒", "㐃")

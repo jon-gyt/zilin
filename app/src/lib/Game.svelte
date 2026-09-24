@@ -19,6 +19,12 @@
    * devinés » de la progression, que l'écran de choix montre d'une ligne.
    */
   import EclairTour from './EclairTour.svelte';
+  /**
+   * La cuisine de Tao (4b.6) a son propre écran, `Cuisine.svelte`, ouvert d'ici : le choix
+   * d'un plat, la recette, l'étal, Tao qui goûte.
+   */
+  import Cuisine from './Cuisine.svelte';
+  import { cuisineOnce } from './cuisine';
   import Glyph from './Glyph.svelte';
   import Tao from './Tao.svelte';
   import {
@@ -32,6 +38,7 @@
   } from './content';
   import { eclairOnce, ligneMotsDevines, TAO_ECLAIR } from './eclair';
   import { racinesDesCaracteres } from './foret';
+  import { coquillesOnce } from './coquilles';
   import { lirePaires } from './questions';
   import { strokesOnce } from './strokes';
   import {
@@ -48,6 +55,8 @@
     fini,
     glose,
     nomDeBrique,
+    postureDuJeu,
+    signes,
     tour,
     type CorpusJeux,
     type JeuId,
@@ -67,6 +76,7 @@
     onrepondu,
     ondevinette = () => undefined,
     onmotdevine = () => undefined,
+    oncuisine = () => undefined,
     onfini,
     onretour
   }: {
@@ -82,6 +92,8 @@
     ondevinette?: (id: string, issue: IssueDevinette) => void;
     /** Le dictionnaire éclair : un mot deviné, que le compteur range une fois. */
     onmotdevine?: (id: string) => void;
+    /** La cuisine de Tao : un plat goûté, bon ou grimacé. Tient lieu de `onfini`. */
+    oncuisine?: (id: string, bon: boolean) => void;
     /** La manche est finie : une activité « jeu » pour Tao. */
     onfini: () => void;
     onretour: () => void;
@@ -108,7 +120,7 @@
    * assez pour jouer.
    */
   void (async () => {
-    const [fiches, familles, voisins, foret, paires, demo, devinettes, eclair] = await Promise.all([
+    const [fiches, familles, voisins, foret, paires, demo, devinettes, eclair, cuisine] = await Promise.all([
       toutesLesFiches().catch(() => []),
       toutesLesFamilles().catch(() => []),
       voisinsOnce().catch(() => null),
@@ -116,15 +128,21 @@
       pairesExport().catch(() => null),
       strokesOnce().catch(() => ({})),
       devinettesOnce().catch(() => null),
-      eclairOnce().catch(() => null)
+      eclairOnce().catch(() => null),
+      cuisineOnce().catch(() => null)
     ]);
+    /* Les messages rédigés de la coquille (`coquilles.json`) : l'écran n'en écrit aucun. */
+    const coquilles = await coquillesOnce();
     const groupes = lirePaires(paires);
     const racines = racinesDesCaracteres(familles);
     /* La devinette du jour, si elle est déjà posée : elle le reste toute la journée. */
     const lanternes = {
       devinettes,
       resolues: p.devinettes,
-      posee: p.devinetteDuJour?.jour === p.day ? p.devinetteDuJour.id : null
+      posee: p.devinetteDuJour?.jour === p.day ? p.devinetteDuJour.id : null,
+      /* La cuisine de Tao : ses recettes, et les plats déjà réussis. */
+      cuisine,
+      cuisinees: p.recettes
     };
     /* Le dictionnaire éclair : ses mots, les mots déjà devinés. */
     const eclairs = { eclair, devines: p.motsDevines };
@@ -156,10 +174,15 @@
       ...motsADessiner,
       ...groupes.flat(),
       ...Object.values(pressenti.decompositions).flat(),
-      ...aDessiner
+      ...aDessiner,
+      /* Les messages de la coquille que l'acquis permet de lire. */
+      ...coquilles.coquilles
+        .map((q) => signes(q.message))
+        .filter((s) => s.every((c) => pressenti.acquis.includes(c)))
+        .flat()
     ]);
     const aLire = [...voulus].flatMap((c) => {
-      const r = devinettes?.racines[c] ?? eclair?.racines[c] ?? racines.get(c);
+      const r = devinettes?.racines[c] ?? eclair?.racines[c] ?? coquilles.racines[c] ?? racines.get(c);
       return r === undefined ? [] : [r];
     });
     const traits = await traitsDeFamilles([...new Set(aLire)]).catch(() => ({}));
@@ -171,6 +194,7 @@
       /* Les tracés de l'export d'abord, ceux de la maquette pour le reste. */
       traits: [...new Set([...Object.keys(traits), ...Object.keys(demo)])],
       cartes: p.cartes,
+      coquilles: coquilles.coquilles,
       ...lanternes,
       ...eclairs
     });
@@ -289,7 +313,8 @@
   $effect(() => {
     const id = jeu;
     if (!chargee) return;
-    if (id === null) {
+    /* La cuisine prépare ses manches elle-même, une fois le plat choisi. */
+    if (id === null || id === 'cuisine') {
       preparee = '';
       arreterLimite();
       m = null;
@@ -472,6 +497,16 @@
       </div>
     {/if}
     <div class="foot"><button class="btn ghost" onclick={onretour}>{OU[retour]}</button></div>
+  {:else if jeu === 'cuisine'}
+    <Cuisine
+      {p}
+      {corpus}
+      retour={OU[retour]}
+      {onrepondu}
+      {oncuisine}
+      onautre={() => onchoisir(null)}
+      {onretour}
+    />
   {:else if m === null}
     <p class="guide">
       {chargee ? "Ce jeu n'a pas pu être préparé." : 'Un instant.'}
@@ -491,9 +526,10 @@
       </div>
     {:else}
       <div class="verif-tete">
+        <!-- La coquille se lit comme un texte : Tao lit par-dessus l'épaule. -->
         <Tao
           stade={taoStade}
-          posture="jeu"
+          posture={postureDuJeu(jeu)}
           humeur={taoHumeur}
           size={72}
           penchee={jeu === 'eclair' && TAO_ECLAIR.penchee}
@@ -610,7 +646,7 @@
           {#each suite as c, k (c + k)}
             {#if k > 0}<span class="op" aria-hidden="true">→</span>{/if}
             <span class="maillon" class:dernier={k === suite.length - 1}>
-              <Glyph char={c} size={k === suite.length - 1 ? 84 : 40} write={false} />
+              <Glyph char={c} size={k === suite.length - 1 ? 72 : 40} write={false} />
             </span>
           {/each}
           {#if resultat !== null}
@@ -619,7 +655,7 @@
           {/if}
         </div>
         <p class="consigne">{t.enonce}</p>
-        <div class="choices quatre">
+        <div class="choices quatre maillons">
           {#each t.choix as c, k (c + k)}
             <button
               class:ok={resultat !== null && c === t.reponse[0]}
@@ -628,7 +664,7 @@
               aria-label={c}
               onclick={() => valider([c])}
             >
-              <Glyph char={c} size={60} write={false} />
+              <Glyph char={c} size={56} write={false} />
             </button>
           {/each}
         </div>
@@ -650,11 +686,16 @@
             >
               <Glyph char={c} size={40} write={false} />
             </button>
+            <!-- La ponctuation du message se lit, elle ne se touche pas. -->
+            {#if t.ponctuation?.[k]}<span class="ponct" lang="zh-Hans" aria-hidden="true">{t.ponctuation[k]}</span>{/if}
           {/each}
         </div>
+        {#if resultat !== null && t.traduction}
+          <p class="traduction">« {t.traduction} »</p>
+        {/if}
         {#if resultat !== null && t.correction}
-          <!-- La correction par les briques : l'intrus, puis le caractère qu'il remplaçait. -->
-          <div class="correction">
+          <!-- La correction par les briques : l'intrus, puis le caractère qu'il remplaçait, côte à côte. -->
+          <div class="correction cote">
             {#each t.correction as x, k (x.c)}
               {@const gx = glose(x.c, corpus)}
               <div class="ligne">
@@ -844,5 +885,47 @@
     margin-top: 2px;
     font-size: 13px;
     color: var(--mist);
+  }
+  /* La coquille : la ponctuation du message rédigé, au pied de la case, et sa traduction. */
+  .ponct {
+    align-self: flex-end;
+    margin: 0 0 2px -2px;
+    font-family: var(--hz);
+    font-size: 22px;
+    line-height: 1;
+    color: var(--ink2);
+  }
+  .traduction {
+    margin: 4px 0 0;
+    text-align: center;
+    font-size: 15px;
+    color: var(--ink2);
+  }
+  /* L'intrus et le caractère remplacé, côte à côte : la correction tient dans l'écran. */
+  .correction.cote {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+  .correction.cote .ligne {
+    flex-wrap: wrap;
+    align-content: flex-start;
+    justify-content: center;
+    row-gap: 4px;
+  }
+  .correction.cote .gl {
+    flex-basis: 100%;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    column-gap: 6px;
+    margin-left: 0;
+    text-align: center;
+  }
+  /* La chaîne tient dans l'écran d'un téléphone : le dernier maillon et les quatre cases. */
+  .chaine {
+    min-height: 92px;
+  }
+  .choices.maillons button {
+    min-height: 78px;
   }
 </style>

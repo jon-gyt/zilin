@@ -19,6 +19,7 @@ import {
   TOURS_COQUILLE,
   acquisDeDemo,
   chaine,
+  chaines,
   ciblesAssemblage,
   clore,
   constat,
@@ -665,7 +666,8 @@ describe('La chaîne', () => {
 
   it('part d’une brique acquise et suit l’exemple de la spécification', () => {
     expect(chaine(CHAINE, 'g')).toEqual(['人', '大', '天', '吞']);
-    expect(m.tours.map((t) => t.c)).toEqual(['大', '天', '吞']);
+    expect(chaines(CHAINE, 'g')[0]).toEqual(['人', '大', '天', '吞']);
+    expect(m.tours.slice(0, 3).map((t) => t.c)).toEqual(['大', '天', '吞']);
     expect(m.tours[0].suite).toEqual(['人']);
     expect(m.tours[2].suite).toEqual(['人', '大', '天']);
   });
@@ -755,23 +757,26 @@ describe('La chaîne', () => {
     const t = tour(m);
     if (!t) throw new Error('tour attendu');
     const r = repondre(m, t.c, outcome({ seconds: 4 }));
-    expect(r.evenements).toEqual([{ c: t.c, correct: true, tries: 0, seconds: 4 }]);
+    expect(r.evenements).toEqual([{ c: t.c, correct: true, tries: 0, seconds: 4, leurres: [] }]);
     expect(r.note).toBe(grade(r.evenement));
     const leurre = t.choix.find((x) => x !== t.c) ?? '';
     const faux = repondre(m, leurre, outcome({ seconds: 4 }));
-    expect(faux.evenement).toEqual({ c: t.c, correct: false, tries: 0, seconds: 4 });
+    /* Le leurre pris accompagne l'événement : les pièges déjoués le lisent. */
+    expect(faux.evenement).toEqual({ c: t.c, correct: false, tries: 0, seconds: 4, leurres: [leurre] });
     expect(faux.note).toBe(Rating.Again);
     expect(faux.montre).toBe(true);
   });
 
   it('a pour constat sa longueur, sans score ni vie : un maillon manqué ne la coupe pas', () => {
+    /* Après 人 → 大 → 天 → 吞, l'impasse : deux autres chaînes, 日 → 明 et 女 → 好. */
+    expect(chaines(CHAINE, 'g').map((x) => x.length)).toEqual([4, 2, 2]);
     const juste = jouer(m, (t) => t.reponse);
-    expect(lachaine.constat(juste)).toBe('Chaîne de 4, 3 maillons trouvés.');
+    expect(lachaine.constat(juste)).toBe('3 chaînes, la plus longue de 4, 5 maillons trouvés.');
     let rate = m;
     rate = repondre(rate, '?', outcome()).manche;
     rate = jouer(rate, (t) => t.reponse);
     expect(fini(rate)).toBe(true);
-    expect(lachaine.constat(rate)).toBe('Chaîne de 4, 2 maillons trouvés.');
+    expect(lachaine.constat(rate)).toBe('3 chaînes, la plus longue de 4, 4 maillons trouvés.');
     expect(lachaine.constat(rate)).not.toMatch(/point|score|vie|record|classement|coffre|bravo/i);
   });
 });
@@ -782,7 +787,7 @@ describe('La chaîne', () => {
 const TEXTES_DEMO = ['我住在北京。', '住在', '记住', '天天'];
 
 const COQUILLE: CorpusJeux = {
-  acquis: ['我', '住', '在', '北', '京', '天', '人', '女', '好'],
+  acquis: ['我', '住', '在', '北', '京', '天', '夫', '人', '女', '好'],
   decompositions: { 住: ['亻', '主'], 好: ['女', '子'], 夫: ['二', '人'], 天: ['一', '大'] },
   formes: { 住: ['亻', '主'], 好: ['女', '子'] },
   gloses: {},
@@ -844,25 +849,25 @@ describe('La coquille', () => {
     const nonAcquis = { ...COQUILLE, textes: ['记住'] };
     expect(coquille.preparer(nonAcquis, 'g')).toBeNull();
     expect(coquille.indisponible).toBe(
-      'Pas encore de mot ni de phrase écrits avec les caractères acquis.'
+      'Elle s’ouvre quand les deux caractères d’une paire à ne pas confondre sont acquis.'
     );
   });
 
-  it('à défaut de texte, se complète des caractères acquis des paires', () => {
+  it('n’aligne jamais des caractères sans suite : sans texte, les paires seules ne font pas un message', () => {
     const paires = [['己', '已', '巳'], ['天', '夫'], ['日', '曰'], ['人', '入'], ['土', '士'], ['王', '玉', '主']];
     const seul: CorpusJeux = {
       ...COQUILLE,
-      acquis: ['己', '天', '日', '人', '土', '王'],
+      acquis: paires.flat(),
       paires,
       traits: paires.flat(),
       textes: []
     };
-    const manche = coquille.preparer(seul, 'g');
-    expect(manche).not.toBeNull();
-    for (const t of manche?.tours ?? []) {
-      expect(t.choix).toHaveLength(MESSAGE_MIN);
-      expect(t.coupes).toEqual([0, 1, 2, 3, 4, 5]);
-    }
+    expect(coquille.preparer(seul, 'g')).toBeNull();
+  });
+
+  it('ne piège qu’avec un intrus acquis : sans 夫, pas de coquille sur 天', () => {
+    const sansFu = { ...COQUILLE, acquis: COQUILLE.acquis.filter((c) => c !== '夫') };
+    expect(coquille.preparer(sansFu, 'g')).toBeNull();
   });
 
   it('corrige par les briques : l’intrus et le caractère remplacé, décomposés', () => {
@@ -883,8 +888,8 @@ describe('La coquille', () => {
     const r = coquille.repondre(m, t.reponse[0], outcome({ seconds: 5 }));
     expect(r.correct).toBe(true);
     expect(r.evenements).toEqual([
-      { c: '天', correct: true, tries: 0, seconds: 5 },
-      { c: '夫', correct: true, tries: 0, seconds: 5 }
+      { c: '天', correct: true, tries: 0, seconds: 5, leurres: [] },
+      { c: '夫', correct: true, tries: 0, seconds: 5, leurres: [] }
     ]);
     expect(r.note).toBe(grade(r.evenements[0]));
     expect(r.manche.evenements).toEqual(r.evenements);
@@ -895,6 +900,8 @@ describe('La coquille', () => {
       ['天', false],
       ['夫', false]
     ]);
+    /* L'intrus n'a pas été vu : l'un a été lu pour l'autre, dans les deux sens. */
+    expect(faux.evenements.map((e) => e.leurres)).toEqual([['夫'], ['天']]);
     expect(faux.note).toBe(Rating.Again);
   });
 
@@ -956,8 +963,8 @@ describe('la chaîne et la coquille sur le contenu servi (export 0.1.0)', () => 
       }
     }
     const finie = jouer(m, (t) => t.reponse);
-    expect(finie.evenements.map((e) => e.c)).toEqual(['可', '哥', '歌']);
-    expect(JEUX.chaine.constat(finie)).toBe('Chaîne de 4, 3 maillons trouvés.');
+    expect(finie.evenements.slice(0, 3).map((e) => e.c)).toEqual(['可', '哥', '歌']);
+    expect(JEUX.chaine.constat(finie)).toMatch(/^\d+ chaînes, la plus longue de 4, \d+ maillons trouvés\.$/);
   });
 
   it('pose une coquille avec les mots surcouchés : 夫 pour 天', () => {
@@ -967,7 +974,7 @@ describe('la chaîne et la coquille sur le contenu servi (export 0.1.0)', () => 
       foret,
       paires,
       traits,
-      cartes: stables('我住在北京天人女好妈口日明')
+      cartes: stables('我住在北京天夫人女好妈口日明')
     });
     expect(corpus.textes).toEqual(expect.arrayContaining(['我住在北京。', '天天', '住在']));
     const m = JEUX.coquille.preparer(corpus, '2026-09-23');

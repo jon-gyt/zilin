@@ -1,0 +1,81 @@
+# Les messages de « La coquille » (story 4b.3) : trouver le caractère faux.
+#
+# Source : rédigé pour l'app, en session Claude Code, sans reprise d'un texte tiers.
+# À relire par le propriétaire (docs/backlog.md, 4b.3) : aucune fiche n'est encore
+# relue, et la coquille a besoin de phrases ; celles-ci sont courtes, écrites avec les
+# seuls caractères du seuil 255, et d'abord avec ceux que le parcours Lire pose tôt.
+#
+# L'app ne rédige aucun message : elle lit `coquilles.json`, ne pose que ceux dont
+# tous les caractères sont acquis, et glisse à la place d'un caractère piégeable un
+# autre membre de son groupe de `paires.json` (夫 pour 天), acquis lui aussi et absent
+# du message. `wenlu check` contrôle chaque ligne.
+#
+# Un piège ne doit jamais former un autre texte juste : on évite 前天 (前夫), 大天
+# (大夫), 天子 (夫子), 夫人 (天人), 国王 (国主), 小王 (小玉), 主人 et 主要.
+#
+# Format : TSV, `#` en commentaire, cinq colonnes séparées par une tabulation.
+#
+# - `message` : de 6 à 12 caractères chinois, ponctuation chinoise permise ;
+# - `pieges` : les caractères du message que l'app peut remplacer, séparés par une
+#   espace ; chacun appartient à un groupe de `data/sources/paires/paires.tsv` ;
+# - `fr`, `en` : la traduction, que la correction montre ;
+# - `source` : la provenance du texte.
+message	pieges	fr	en	source
+我明天去山里。	天	Demain, je vais à la montagne.	Tomorrow I'm going to the mountains.	rédigé pour l'app
+明天是星期一。	天	Demain, c'est lundi.	Tomorrow is Monday.	rédigé pour l'app
+今天是几月几日？	天 日	Quel jour du mois sommes-nous ?	What's the date today?	rédigé pour l'app
+明天是我生日。	天 日	Demain, c'est mon anniversaire.	Tomorrow is my birthday.	rédigé pour l'app
+她每天学中文。	天	Elle étudie le chinois tous les jours.	She studies Chinese every day.	rédigé pour l'app
+今天天气不好。	天	Il ne fait pas beau aujourd'hui.	The weather is bad today.	rédigé pour l'app
+我今天不开车。	天	Aujourd'hui, je ne prends pas la voiture.	I'm not driving today.	rédigé pour l'app
+我今天不出去。	天	Aujourd'hui, je ne sors pas.	I'm not going out today.	rédigé pour l'app
+今天有雨，明天也有雨。	天	Il pleut aujourd'hui, et demain aussi.	It's raining today, and tomorrow too.	rédigé pour l'app
+她天天去山里玩。	天	Elle va jouer dans la montagne tous les jours.	She goes to play in the mountains every day.	rédigé pour l'app
+今天我不学中文。	天	Aujourd'hui, je n'étudie pas le chinois.	I'm not studying Chinese today.	rédigé pour l'app
+我每天早上学中文。	天	J'étudie le chinois tous les matins.	I study Chinese every morning.	rédigé pour l'app
+我去见大夫了。	夫	Je suis allé voir le médecin.	I went to see the doctor.	rédigé pour l'app
+我们每天学中文。	天	Nous étudions le chinois tous les jours.	We study Chinese every day.	rédigé pour l'app
+我明天去北京。	天	Demain, je vais à Pékin.	Tomorrow I'm going to Beijing.	rédigé pour l'app
+后天我们去北京。	天	Après-demain, nous allons à Pékin.	The day after tomorrow we're going to Beijing.	rédigé pour l'app
+明天你来我家吗？	天	Tu viens chez moi demain ?	Are you coming to my place tomorrow?	rédigé pour l'app
+两天后我回家。	天	Je rentre à la maison dans deux jours.	I'm going home in two days.	rédigé pour l'app
+明天会下雨吗？	天	Est-ce qu'il va pleuvoir demain ?	Will it rain tomorrow?	rédigé pour l'app
+我们今天不上课。	天	Nous n'avons pas cours aujourd'hui.	We have no class today.	rédigé pour l'app
+一天有二十四个小时。	天	Une journée compte vingt-quatre heures.	A day has twenty-four hours.	rédigé pour l'app
+我们天天说汉语。	天	Nous parlons chinois tous les jours.	We speak Chinese every day.	rédigé pour l'app
+他天天都很忙。	天	Il est occupé tous les jours.	He is busy every day.	rédigé pour l'app
+今天天气很好。	天	Il fait beau aujourd'hui.	The weather is nice today.	rédigé pour l'app
+今天我很高兴。	天	Aujourd'hui, je suis très content.	I'm very happy today.	rédigé pour l'app
+这几天我很累。	天	Ces jours-ci, je suis très fatigué.	I've been very tired these days.	rédigé pour l'app
+这两天天气很冷。	天	Il fait très froid ces deux derniers jours.	It's been very cold these past two days.	rédigé pour l'app
+天冷了，你别出去。	天	Il fait froid, ne sors pas.	It's cold, don't go out.	rédigé pour l'app
+冬天到了，天很冷。	天	L'hiver est arrivé, il fait très froid.	Winter has come, it's very cold.	rédigé pour l'app
+天上有很多星星。	天	Il y a beaucoup d'étoiles dans le ciel.	There are many stars in the sky.	rédigé pour l'app
+昨天下了一天雨。	天	Hier, il a plu toute la journée.	Yesterday it rained all day.	rédigé pour l'app
+天晚了，我们回家吧。	天	Il se fait tard, rentrons.	It's getting late, let's go home.	rédigé pour l'app
+好的，我们明天见。	天	D'accord, à demain.	All right, see you tomorrow.	rédigé pour l'app
+老师，您今天好吗？	天	Bonjour professeur, vous allez bien aujourd'hui ?	Teacher, how are you today?	rédigé pour l'app
+你今天想吃什么？	天	Qu'est-ce que tu veux manger aujourd'hui ?	What do you want to eat today?	rédigé pour l'app
+今天的菜很好吃。	天	Les plats d'aujourd'hui sont très bons.	Today's dishes are delicious.	rédigé pour l'app
+今天我请你吃饭。	天	Aujourd'hui, je t'invite à manger.	Today, dinner is on me.	rédigé pour l'app
+今天下午我没有课。	天	Cet après-midi, je n'ai pas cours.	I have no class this afternoon.	rédigé pour l'app
+我每天早上喝茶。	天	Je bois du thé tous les matins.	I drink tea every morning.	rédigé pour l'app
+昨天的题很难。	天	Les exercices d'hier étaient difficiles.	Yesterday's exercises were hard.	rédigé pour l'app
+请问今天星期几？	天	Quel jour de la semaine sommes-nous, s'il vous plaît ?	Excuse me, what day of the week is it?	rédigé pour l'app
+昨天晚上我看了电影。	天	Hier soir, j'ai vu un film.	Last night I saw a film.	rédigé pour l'app
+他明天坐飞机去上海。	天	Demain, il prend l'avion pour Shanghai.	Tomorrow he's flying to Shanghai.	rédigé pour l'app
+他一天到晚都在看书。	天	Il lit du matin au soir.	He reads from morning till night.	rédigé pour l'app
+今天是我的生日。	天 日	Aujourd'hui, c'est mon anniversaire.	Today is my birthday.	rédigé pour l'app
+我病了，要去看大夫。	夫	Je suis malade, je dois aller voir le médecin.	I'm ill, I need to see the doctor.	rédigé pour l'app
+大夫说我没有病。	夫	Le médecin dit que je ne suis pas malade.	The doctor says I'm not ill.	rédigé pour l'app
+她是一个好大夫。	夫	C'est un bon médecin.	She is a good doctor.	rédigé pour l'app
+你爸爸是大夫吗？	夫	Ton père est médecin ?	Is your father a doctor?	rédigé pour l'app
+我没有工夫看书。	夫	Je n'ai pas le temps de lire.	I don't have time to read.	rédigé pour l'app
+王老师是北京人。	王	Le professeur Wang est de Pékin.	Teacher Wang is from Beijing.	rédigé pour l'app
+王先生很喜欢喝茶。	王	M. Wang aime beaucoup le thé.	Mr Wang really likes tea.	rédigé pour l'app
+王老师今天不在家。	王 天	Le professeur Wang n'est pas chez lui aujourd'hui.	Teacher Wang isn't home today.	rédigé pour l'app
+我的生日是八月十日。	日	Mon anniversaire est le 10 août.	My birthday is on 10 August.	rédigé pour l'app
+日本在中国的东边。	日	Le Japon est à l'est de la Chine.	Japan is to the east of China.	rédigé pour l'app
+他们是日本人。	日	Ils sont japonais.	They are Japanese.	rédigé pour l'app
+星期日我们去看电影。	日	Dimanche, nous allons voir un film.	On Sunday we're going to see a film.	rédigé pour l'app
+日子过得很快。	日	Les jours passent vite.	The days go by quickly.	rédigé pour l'app

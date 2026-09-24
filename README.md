@@ -33,7 +33,10 @@ ce qui est intermédiaire va dans `data/work/`, hors dépôt ; seuls l'export
 (`data/sources/fiches/`), les contes (`data/sources/contes-versions/`) et les corrections
 des sources (`data/sources/surcharges/`) sont versionnés. Une source téléchargée ne se
 corrige jamais sur place : une erreur de pinyin ou de décomposition se corrige par une
-ligne de surcharge, avec sa raison.
+ligne de surcharge, avec sa raison. De même, un composant de la norme que Make Me a
+Hanzi ne dessine pas se découpe dans un caractère hôte qui le contient
+(`data/sources/surcharges/decoupes.tsv` : hôte, indices des traits, recadrage, raison) ;
+`traits/MODIFICATIONS.md` de l'export décrit chaque découpe.
 
 ```
 fetch  →  ingest  →  build  →  export  →  check

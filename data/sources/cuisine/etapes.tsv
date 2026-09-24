@@ -1,0 +1,54 @@
+# Les étapes des recettes de la cuisine de Tao (story 4b.6), dans l'ordre.
+#
+# Source : rédigé pour l'app, sans API ; à relire. Des phrases courtes, qui ne
+# s'écrivent qu'avec les caractères que les parcours posent (`wenlu check`).
+#
+# Conventions de pinyin, celles des fiches (`pinyin.py`) : tons du dictionnaire,
+# sans sandhi (一 s'écrit yī, 不 bù), un mot d'un seul tenant, ponctuation latine.
+# Chaque caractère doit se lire par l'une de ses lectures ; `wenlu check` aligne.
+#
+# Format : TSV, `#` en commentaire, cinq colonnes séparées par une tabulation :
+# `recette` (l'`id` de `recettes.tsv`), `zh`, `pinyin`, `fr`, `en`. L'ordre des
+# lignes d'une recette est l'ordre des étapes.
+recette	zh	pinyin	fr	en
+daroumian	肉先下水，用小火。	Ròu xiān xià shuǐ, yòng xiǎo huǒ.	D'abord la viande dans l'eau, à petit feu.	First the meat into the water, on a low flame.
+daroumian	水开了，下面。	Shuǐ kāi le, xià miàn.	L'eau bout : mets les nouilles.	The water is boiling: put in the noodles.
+daroumian	面上有大肉。	Miàn shàng yǒu dà ròu.	Sur les nouilles, un gros morceau de viande.	A big slice of meat on top of the noodles.
+daroumian	大肉面好了！	Dàròumiàn hǎo le!	Les nouilles au porc braisé sont prêtes !	The braised pork noodles are ready!
+mifan	水里下米。	Shuǐ lǐ xià mǐ.	Mets le riz dans l'eau.	Put the rice in the water.
+mifan	水比米多一些。	Shuǐ bǐ mǐ duō yīxiē.	Un peu plus d'eau que de riz.	A little more water than rice.
+mifan	开大火，水开了，再用小火。	Kāi dà huǒ, shuǐ kāi le, zài yòng xiǎo huǒ.	Feu vif ; quand l'eau bout, passe à petit feu.	High flame; once the water boils, turn it down low.
+mifan	米饭好了！	Mǐfàn hǎo le!	Le riz est prêt !	The rice is ready!
+caifan	先下米，再下水。	Xiān xià mǐ, zài xià shuǐ.	D'abord le riz, puis l'eau.	First the rice, then the water.
+caifan	水开了，下白菜，也下一些肉。	Shuǐ kāi le, xià báicài, yě xià yīxiē ròu.	Quand l'eau bout, ajoute le chou chinois, et aussi un peu de viande.	Once the water boils, add the Chinese cabbage, and a little meat too.
+caifan	小火，不要大火。	Xiǎo huǒ, bù yào dà huǒ.	À petit feu, pas à feu vif.	On a low flame, not a high one.
+caifan	菜饭好了！	Càifàn hǎo le!	Le riz aux légumes est prêt !	The rice with greens is ready!
+lengmian	水开了，下面。	Shuǐ kāi le, xià miàn.	L'eau bout : mets les nouilles.	The water is boiling: put in the noodles.
+lengmian	面好了，用冷水过一下。	Miàn hǎo le, yòng lěngshuǐ guò yīxià.	Les nouilles cuites, passe-les à l'eau froide.	When the noodles are done, rinse them in cold water.
+lengmian	再来一点肉和菜。	Zài lái yīdiǎn ròu hé cài.	Ajoute un peu de viande et de légumes.	Add a little meat and some vegetables.
+lengmian	冷面好了，大口吃吧！	Lěngmiàn hǎo le, dà kǒu chī ba!	Les nouilles froides sont prêtes, bon appétit !	The cold noodles are ready. Tuck in!
+miantiao	水开了，下面条。	Shuǐ kāi le, xià miàntiáo.	L'eau bout : mets les nouilles.	The water is boiling: put in the noodles.
+miantiao	等一会儿，面条就好了。	Děng yīhuìr, miàntiáo jiù hǎo le.	Attends un peu : les nouilles seront prêtes.	Wait a moment and the noodles will be ready.
+miantiao	再放一点菜。	Zài fàng yīdiǎn cài.	Ajoute un peu de légumes.	Then add a few vegetables.
+miantiao	面条好了，吃吧！	Miàntiáo hǎo le, chī ba!	Les nouilles sont prêtes, à table !	The noodles are ready. Let's eat!
+baozi	面里放一点水。	Miàn lǐ fàng yīdiǎn shuǐ.	Mets un peu d'eau dans la farine.	Put a little water in the flour.
+baozi	肉里放一点菜。	Ròu lǐ fàng yīdiǎn cài.	Mets un peu de légumes dans la viande.	Put a few vegetables in the meat.
+baozi	面里包上肉和菜。	Miàn lǐ bāo shàng ròu hé cài.	Enferme la viande et les légumes dans la pâte.	Wrap the meat and vegetables in the dough.
+baozi	放在火上，等一会儿。	Fàng zài huǒ shàng, děng yīhuìr.	Mets-les sur le feu et attends un peu.	Put them over the fire and wait a moment.
+baozi	包子好了，很热！	Bāozi hǎo le, hěn rè!	Les petits pains sont prêts, et très chauds !	The buns are ready, and very hot!
+niuroumian	牛肉下水，小火两个小时。	Niúròu xià shuǐ, xiǎo huǒ liǎng gè xiǎoshí.	Le bœuf dans l'eau, deux heures à petit feu.	Beef into the water, two hours on a low flame.
+niuroumian	再下面，一会儿就好了。	Zài xià miàn, yīhuìr jiù hǎo le.	Puis mets les nouilles : ce sera vite prêt.	Then put in the noodles: it will soon be ready.
+niuroumian	面上放牛肉和一点菜。	Miàn shàng fàng niúròu hé yīdiǎn cài.	Sur les nouilles, le bœuf et un peu de légumes.	Top the noodles with the beef and a few vegetables.
+niuroumian	牛肉面很热，慢慢吃！	Niúròumiàn hěn rè, mànmàn chī!	Les nouilles au bœuf sont très chaudes, mange doucement !	The beef noodles are very hot. Eat slowly!
+jidanmian	先打两个鸡蛋。	Xiān dǎ liǎng gè jīdàn.	D'abord, bats deux œufs.	First, beat two eggs.
+jidanmian	水开了，下面，再下鸡蛋。	Shuǐ kāi le, xià miàn, zài xià jīdàn.	L'eau bout : mets les nouilles, puis les œufs.	The water is boiling: put in the noodles, then the eggs.
+jidanmian	等一会儿，放一点菜。	Děng yīhuìr, fàng yīdiǎn cài.	Attends un peu, ajoute quelques légumes.	Wait a moment, then add a few vegetables.
+jidanmian	鸡蛋面好了！	Jīdànmiàn hǎo le!	Les nouilles à l'œuf sont prêtes !	The egg noodles are ready!
+niuroufan	水里下米，做米饭。	Shuǐ lǐ xià mǐ, zuò mǐfàn.	Mets le riz dans l'eau, fais-le cuire.	Put the rice in the water and cook it.
+niuroufan	牛肉下水，小火，等一会儿。	Niúròu xià shuǐ, xiǎo huǒ, děng yīhuìr.	Le bœuf dans l'eau, à petit feu ; attends un peu.	Beef into the water, on a low flame; wait a moment.
+niuroufan	米饭上放牛肉和一点菜。	Mǐfàn shàng fàng niúròu hé yīdiǎn cài.	Sur le riz, le bœuf et un peu de légumes.	Top the rice with the beef and a few vegetables.
+niuroufan	牛肉饭好了，吃吧！	Niúròufàn hǎo le, chī ba!	Le riz au bœuf est prêt, à table !	The beef rice is ready. Let's eat!
+danbaofan	先做米饭。	Xiān zuò mǐfàn.	D'abord, fais cuire le riz.	First, cook the rice.
+danbaofan	打两个鸡蛋，小火。	Dǎ liǎng gè jīdàn, xiǎo huǒ.	Bats deux œufs, à petit feu.	Beat two eggs, on a low flame.
+danbaofan	米饭放在鸡蛋上，用鸡蛋包上。	Mǐfàn fàng zài jīdàn shàng, yòng jīdàn bāo shàng.	Pose le riz sur les œufs et enveloppe-le dans l'omelette.	Lay the rice on the eggs and wrap it in the omelette.
+danbaofan	蛋包饭好了，吃吧！	Dànbāofàn hǎo le, chī ba!	L'omelette au riz est prête, à table !	The omelette rice is ready. Let's eat!

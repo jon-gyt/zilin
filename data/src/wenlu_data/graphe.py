@@ -19,6 +19,12 @@ Trois genres de nœuds :
   du dictionnaire, à commencer par `？`, la marque de Make Me a Hanzi pour un
   élément qu'il ne décompose pas. Une brique muette n'a rien à apprendre : elle
   est acquise d'entrée et signalée par `wenlu check`.
+- `decoupee` : feuille sans fiche, comme une muette, mais dessinée — composant de
+  la norme que `graphics.txt` ne dessine pas et que `data/sources/surcharges/
+  decoupes.tsv` découpe dans un caractère hôte (`decoupes.py`). L'app en a les
+  traits. Pour le parcours, elle reste acquise d'entrée : la poser comme une
+  brique décalerait tous les jours, et avec eux l'acquis dont les phrases des
+  fiches écrites dépendent. Elle n'est plus signalée comme muette.
 
 Familles : la racine d'un caractère est sa première brique dans l'ordre
 d'écriture — critère volontairement simple et déterministe, en attendant les
@@ -71,6 +77,9 @@ from .paths import BUILD, INGEST
 BRIQUE = "brique"
 CARACTERE = "caractere"
 MUETTE = "muette"
+DECOUPEE = "decoupee"
+#: Les feuilles sans fiche, acquises d'entrée par le parcours.
+SANS_FICHE: tuple[str, ...] = (MUETTE, DECOUPEE)
 
 # Une session de 10 minutes : une brique nouvelle, puis un ou deux composés.
 COMPOSES_PAR_JOUR = 2
@@ -128,8 +137,8 @@ class Noeud:
 
     @property
     def fiche(self) -> bool:
-        """Vrai si le nœud porte une fiche (tout sauf une feuille muette)."""
-        return self.genre != MUETTE
+        """Vrai si le nœud porte une fiche (tout sauf une feuille muette ou découpée)."""
+        return self.genre not in SANS_FICHE
 
 
 @dataclass(frozen=True)
@@ -235,13 +244,18 @@ class Graphe:
         return sorted(familles, key=lambda f: (-f.n, f.racine))
 
 
-def construire(caracteres: Iterable[Mapping[str, object]]) -> Graphe:
+def construire(
+    caracteres: Iterable[Mapping[str, object]], decoupees: Iterable[str] = ()
+) -> Graphe:
     """Construit le graphe depuis les entrées de `decompositions.json`.
 
     Une entrée dont les composants se réduisent au caractère lui-même est soit
     une brique de la norme (réconciliée), soit un caractère que la source ne
-    décompose pas (non réconcilié) : dans les deux cas, une feuille.
+    décompose pas (non réconcilié) : dans les deux cas, une feuille. Un
+    prérequis sans entrée est une feuille muette, ou découpée s'il est dans
+    `decoupees` (les composants dont `decoupes.json` porte les traits).
     """
+    decoupees = set(decoupees)
     noeuds: dict[str, Noeud] = {}
     for entree in caracteres:
         c = str(entree["c"])
@@ -259,7 +273,8 @@ def construire(caracteres: Iterable[Mapping[str, object]]) -> Graphe:
     # donc un `graphe.json` différent à contenu égal.
     for prerequis in sorted({p for n in list(noeuds.values()) for p in n.prerequis}):
         if prerequis not in noeuds:
-            noeuds[prerequis] = Noeud(c=prerequis, genre=MUETTE)
+            genre = DECOUPEE if prerequis in decoupees else MUETTE
+            noeuds[prerequis] = Noeud(c=prerequis, genre=genre)
     return Graphe(noeuds)
 
 
@@ -360,6 +375,7 @@ class Parcours:
     jours: tuple[Jour, ...]
     briques: tuple[str, ...] = ()
     muettes: tuple[str, ...] = ()
+    decoupees: tuple[str, ...] = ()
     non_reconcilies: tuple[str, ...] = ()
     absents: tuple[str, ...] = ()
     cible: tuple[str, ...] = ()
@@ -438,7 +454,7 @@ def parcours(
 ) -> Parcours:
     """Ordre d'apprentissage de `cible` : une brique nouvelle par jour.
 
-    Les briques muettes sont acquises d'entrée, faute de fiche à poser. Les
+    Les briques muettes et découpées sont acquises d'entrée, faute de fiche à poser. Les
     caractères absents du graphe ou non réconciliés ferment le parcours.
 
     `depart` impose les premiers jours : un caractère par jour, dans l'ordre donné,
@@ -454,16 +470,19 @@ def parcours(
 
     besoin: dict[str, int] = {}
     muettes: set[str] = set()
+    decoupees: set[str] = set()
     a_apprendre: set[str] = set(cibles_ok)
     for c in cibles_ok:
         for p in graphe.prerequis_transitifs(c):
             besoin[p] = besoin.get(p, 0) + 1
             if graphe[p].genre == MUETTE:
                 muettes.add(p)
+            elif graphe[p].genre == DECOUPEE:
+                decoupees.add(p)
             else:
                 a_apprendre.add(p)
 
-    acquis: set[str] = set(muettes)
+    acquis: set[str] = muettes | decoupees
     restant = set(cibles_ok)
     jours: list[Jour] = []
     briques: list[str] = []
@@ -547,6 +566,7 @@ def parcours(
         jours=tuple(jours),
         briques=tuple(briques),
         muettes=tuple(sorted(muettes)),
+        decoupees=tuple(sorted(decoupees)),
         non_reconcilies=tuple(non_reconcilies),
         absents=absents,
         cible=tuple(cible),
@@ -572,6 +592,7 @@ def document_graphe(graphe: Graphe, boucles: Sequence[tuple[str, ...]]) -> dict[
             "briques": len(graphe.par_genre(BRIQUE)),
             "caracteres": len(graphe.par_genre(CARACTERE)),
             "muettes": len(graphe.par_genre(MUETTE)),
+            "decoupees": len(graphe.par_genre(DECOUPEE)),
             "cycles": len(boucles),
         },
         "noeuds": [
@@ -609,6 +630,7 @@ def document_parcours(p: Parcours) -> dict[str, object]:
             "jours_reconcilies": p.jours_reconcilies,
             "briques": len(p.briques),
             "muettes": len(p.muettes),
+            "decoupees": len(p.decoupees),
             "non_reconcilies": len(p.non_reconcilies),
             "absents": len(p.absents),
         },
@@ -623,6 +645,7 @@ def document_parcours(p: Parcours) -> dict[str, object]:
         ],
         "briques": list(p.briques),
         "briques_muettes": list(p.muettes),
+        "briques_decoupees": list(p.decoupees),
         "non_reconcilies": list(p.non_reconcilies),
         "absents": list(p.absents),
     }
@@ -663,6 +686,16 @@ def rapport_muettes(graphe: Graphe, parcours: Sequence[Parcours]) -> str:
             )
             lignes.append(f"| `{muette}` | {point} | {' '.join(dependants) or '—'} |")
         lignes.append("")
+    decoupees = sorted({c for p in parcours for c in p.decoupees})
+    if decoupees:
+        lignes += [
+            "### Découpées",
+            "",
+            "Sans fiche non plus, mais dessinées : leurs traits sont découpés dans un"
+            " caractère hôte (`data/sources/surcharges/decoupes.tsv`). Acquises d'entrée"
+            f" comme les muettes : {' '.join(f'`{c}`' for c in decoupees)}.",
+            "",
+        ]
     return "\n".join(lignes).rstrip() + "\n"
 
 
@@ -687,14 +720,17 @@ def build(
     """Écrit `graphe.json` et un `parcours-<nom>.json` par parcours.
 
     `depart` vaut par défaut `DEPART` : chaque parcours commence par la
-    première session.
+    première session. Les composants découpés sont ceux de `decoupes.json`, que
+    `decoupes.build` a écrit dans `sortie`.
     """
+    from .decoupes import composants_decoupes
+
     sortie = sortie or BUILD
     ingest = ingest or INGEST
     depart = DEPART if depart is None else depart
 
     document = json.loads((sortie / "decompositions.json").read_text(encoding="utf-8"))
-    graphe = construire(document["caracteres"])
+    graphe = construire(document["caracteres"], composants_decoupes(sortie))
     boucles = cycles(graphe)
     ecrire_json(sortie / "graphe.json", document_graphe(graphe, boucles))
 
@@ -713,6 +749,7 @@ def build(
         "aretes": len(graphe.aretes),
         "briques": len(graphe.par_genre(BRIQUE)),
         "muettes": len(graphe.par_genre(MUETTE)),
+        "decoupees": len(graphe.par_genre(DECOUPEE)),
         "familles": f"{len(familles)} dont {sum(1 for f in familles if f.n)} non vides",
         "plus_grande_famille": f"{familles[0].racine} ({familles[0].n})" if familles else "—",
         "cycles": len(boucles),
@@ -730,7 +767,7 @@ def build(
         rapport[f"parcours_{nom}"] = (
             f"{len(p.jours)} jours pour {p.cibles} caractères"
             f" ({len(p.briques)} briques, {len(p.non_reconcilies)} non réconciliés,"
-            f" {len(p.muettes)} briques muettes)"
+            f" {len(p.muettes)} briques muettes, {len(p.decoupees)} découpées)"
         )
     ajouter_muettes_aux_ecarts(sortie / "ecarts.md", rapport_muettes(graphe, ecrits))
     return rapport
@@ -744,7 +781,8 @@ def controles(sortie: Path | None = None) -> list[Controle]:
 
     Un cycle rend l'ordre d'apprentissage impossible : bloquant. Un caractère de
     liste absent de son parcours serait un caractère jamais enseigné : bloquant.
-    Une brique muette est une feuille sans fiche : signalée, non bloquante.
+    Une brique muette est une feuille sans fiche ni traits : signalée, non
+    bloquante. Une brique découpée a ses traits : elle n'est pas muette.
     """
     sortie = sortie or BUILD
     fichier = sortie / "graphe.json"
@@ -765,6 +803,7 @@ def controles(sortie: Path | None = None) -> list[Controle]:
 
     manquants: list[str] = []
     muettes: list[str] = []
+    decoupees: set[str] = set()
     for nom in PARCOURS:
         chemin = sortie / f"parcours-{nom}.json"
         if not chemin.exists():
@@ -777,6 +816,7 @@ def controles(sortie: Path | None = None) -> list[Controle]:
         absents = [c for c in p["cible"] if c not in vus]
         manquants += [f"{nom} : {' '.join(absents)}"] if absents else []
         muettes += [f"{nom} : {' '.join(p['briques_muettes'])}"] if p["briques_muettes"] else []
+        decoupees.update(p.get("briques_decoupees") or ())
 
     resultats.append(
         Controle(
@@ -790,7 +830,12 @@ def controles(sortie: Path | None = None) -> list[Controle]:
         Controle(
             "briques muettes",
             not muettes,
-            "; ".join(muettes) if muettes else "aucune : toute brique de liste porte une fiche",
+            ("; ".join(muettes) if muettes else "aucune : toute brique de liste se dessine")
+            + (
+                f" ; découpées dans un hôte, acquises d'entrée : {' '.join(sorted(decoupees))}"
+                if decoupees
+                else ""
+            ),
         )
     )
     return resultats

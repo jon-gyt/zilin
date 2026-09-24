@@ -10,20 +10,33 @@
    * sont dessinés depuis les traits (style 楷) ; ceux de la liste, qui n'est qu'un
    * index, restent en Noto Serif SC tant que leur arbre n'est pas ouvert. Le cinabre
    * ne marque que la famille du moment.
+   *
+   * Le jour d'une fête ou d'un terme solaire, un petit décor se pose dans les coins du
+   * cercle (`CercleDecor`). Sous la colline, les caractères trouvés en chemin : celui que
+   * l'anecdote d'une fête ou d'un terme a fait découvrir, dessiné depuis ses traits ;
+   * touché, il se dit et montre sa fête ou son terme. Ils n'entrent pas en révision.
    */
+  import Hz from './Hz.svelte';
+  import CercleDecor from './CercleDecor.svelte';
+  import Glyph from './Glyph.svelte';
   import Tao from './Tao.svelte';
   import TropheesEntree from './TropheesEntree.svelte';
+  import { dire } from './audio';
   import {
     contenu,
+    fetesOnce,
     lecon,
     nomParcours,
     racineDe,
+    saisonsOnce,
     toutesLesFamilles,
     traitsDeFamilles,
     type Famille,
+    type Fetes,
     type Foret,
     type Index,
-    type Noeud
+    type Noeud,
+    type Saisons
   } from './content';
   import { glyph } from './glyph';
   import {
@@ -39,9 +52,11 @@
     semaine,
     type Cercle
   } from './foret';
+  import { journee } from './saisons';
   import { jourParcours, type Progress } from './session';
   import { type StrokeSet } from './strokes';
   import { stade } from './tao';
+  import { collection, decorDuCercle, ligneTrouve, montrerCollection, type Piece } from './trouves';
 
   let {
     p,
@@ -65,6 +80,22 @@
   let traits = $state<StrokeSet>({});
   /** Le filtre de la liste des 238 familles : un caractère, un pinyin, un sens. */
   let cherche = $state('');
+
+  /** Les fêtes et les termes solaires : le décor du cercle et les noms des trouvés. */
+  let fetes = $state<Fetes | null>(null);
+  let saisons = $state<Saisons | null>(null);
+  void fetesOnce().then((f) => (fetes = f)).catch(() => undefined);
+  void saisonsOnce().then((x) => (saisons = x)).catch(() => undefined);
+  const decor = $derived(decorDuCercle(journee(fetes, saisons, jour).theme));
+  const pieces = $derived(collection(p.trouves, fetes, saisons));
+  /** Le caractère trouvé qu'on a touché : il se dit, sa fête ou son terme s'affiche. */
+  let touche = $state<string | null>(null);
+  const piece = $derived(pieces.find((x) => x.c === touche) ?? null);
+
+  function toucher(x: Piece): void {
+    touche = x.c;
+    void dire(x.c);
+  }
 
   $effect(() => {
     const n = jourParcours(p);
@@ -284,8 +315,10 @@
     onwheel={molette}
   >
     <div class="forest" style="transform:translate({tx}px,{ty}px) scale({s})">
+      <CercleDecor {decor} />
       {#if cercle}
         <svg
+          class="cercle"
           viewBox="0 0 {cercle.taille} {cercle.taille}"
           role="img"
           aria-label="Le cercle de tes familles"
@@ -378,7 +411,7 @@
     <div class="liste">
       {#each listees as f (f.racine)}
         <button class="famrow" onclick={() => ouvrirListe(f.racine)}>
-          <span class="hz">{f.racine}</span>
+          <Hz c={f.racine} size={22} pistes={[f.racine]} />
           <span class="grow k">{f.n} caractère{f.n > 1 ? 's' : ''}</span>
         </button>
       {/each}
@@ -401,6 +434,38 @@
     <div class="card"><div class="k">Familles ouvertes</div><div class="big">{ouvertes}</div></div>
   </div>
 
+  {#if montrerCollection(pieces)}
+    <div class="card trouves">
+      <div class="row">
+        <div class="grow" style="font-weight:600">Trouvés en chemin</div>
+        <div class="k">{pieces.length}</div>
+      </div>
+      <div class="k">Un caractère par fête et par terme solaire. Il ne passe pas en révision.</div>
+      <div class="pieces">
+        {#each pieces as x (x.c)}
+          <button
+            class="piece"
+            class:sel={x.c === touche}
+            aria-label="{x.c}{x.pinyin ? `, ${x.pinyin}` : ''} : {x.nomZh}"
+            aria-pressed={x.c === touche}
+            onclick={() => toucher(x)}
+          >
+            <Glyph char={x.c} size={40} write={x.c === touche} pistes={x.pistes} />
+          </button>
+        {/each}
+      </div>
+      {#if piece}
+        <div class="detail" aria-live="polite">
+          <div>
+            <span class="hz">{piece.c}</span>
+            {[piece.pinyin, piece.sens].filter((x) => x !== '').join(' · ')}
+          </div>
+          <div class="k">{ligneTrouve(piece)}</div>
+        </div>
+      {/if}
+    </div>
+  {/if}
+
   <TropheesEntree {p} onouvrir={onrecompenses} />
 
   <div class="card semaine">
@@ -419,3 +484,46 @@
     <div class="k">Chaque jour travaillé plante une graine. Sept graines, un arbre.</div>
   </div>
 </main>
+
+<style>
+  /* le cercle passe devant son décor */
+  .forest > svg.cercle {
+    position: relative;
+  }
+
+  /* trouvés en chemin : une rangée de petits caractères, dessinés depuis leurs traits */
+  .trouves {
+    margin-top: 14px;
+  }
+  .pieces {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 12px;
+  }
+  .piece {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 52px;
+    height: 52px;
+    padding: 0;
+    border: 1.5px solid var(--line);
+    border-radius: 12px;
+    background: var(--paper);
+    color: var(--ink);
+    cursor: pointer;
+  }
+  .piece.sel {
+    border-color: var(--indigo);
+    background: var(--indigo-soft);
+  }
+  .detail {
+    margin-top: 12px;
+    font-size: 15px;
+  }
+  .detail .hz {
+    font-size: 17px;
+    margin-right: 6px;
+  }
+</style>

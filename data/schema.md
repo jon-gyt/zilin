@@ -17,8 +17,8 @@ Une famille n'est exportée qu'avec ses membres du périmètre ; la famille 口 
 dessinent depuis leurs traits (`data/sources/fetes/textes.tsv` : le caractère
 bonus de chaque anecdote et le 福 du vœu) y entrent aussi, avec leurs briques,
 comme le caractère à lire de chaque terme solaire (`data/sources/saisons/textes.tsv`).
-Version 0.1.0 : 244 familles, 513 caractères (230 briques, 13 feuilles muettes),
-1,46 Mio.
+Version 0.1.0 : 244 familles, 513 caractères (230 briques, 13 feuilles découpées,
+aucune muette), 1,52 Mio. Tout caractère exporté a ses traits.
 
 ## Arborescence
 
@@ -33,6 +33,8 @@ app/public/data/0.1.0/
   saisons.json               les vingt-quatre termes solaires et leurs textes
   devinettes.json            les devinettes de lanternes (灯谜)
   eclair.json                le dictionnaire éclair : des mots à deviner
+  coquilles.json             les messages de la coquille
+  cuisine.json               la cuisine de Tao : dix recettes, l'étal, Tao qui goûte
   familles/<racine>.json     une famille : `Famille` de models.py
   traits/<racine>.json       les tracés de la famille, sous APL, et rien d'autre
   traits/ARPHICPL.TXT        la même licence, à côté des fichiers qu'elle couvre
@@ -55,7 +57,7 @@ Trois régimes de licence, trois familles de fichiers, jamais mêlés
  "norme": "GF 0014-2009",
  "perimetre": "seuil 255 et HSK 1 : les caractères des deux listes et leurs briques",
  "licences": "LICENCES.md",
- "compte": {"familles": 238, "caracteres": 485, "briques": 222, "muettes": 13,
+ "compte": {"familles": 238, "caracteres": 485, "briques": 222, "muettes": 0, "decoupees": 13,
             "fiches_relues": 0, "contes": 0},
  "listes": {"seuil-255": ["…"], "hsk-1": ["…"]},
  "parcours": {"lire": {"liste": "seuil-255", "regle": "…",
@@ -147,8 +149,12 @@ porte une `Fiche` par caractère de la famille, triée par caractère :
 rien d'autre : c'est la séparation physique exigée par l'APL §2 et par
 `docs/sources-licences.md` §8. `modified` est la mention exigée par l'APL §2 a),
 reprise en toutes lettres dans `traits/MODIFICATIONS.md`. Les tracés et les
-médianes ne sont ni arrondis ni simplifiés. Écriture compacte (sans indentation) :
-indentés, ces milliers de nombres pèseraient dix fois plus.
+médianes ne sont ni arrondis ni simplifiés, sauf ceux des composants découpés dans
+un caractère hôte (`data/sources/surcharges/decoupes.tsv`) : les traits désignés de
+l'hôte, recadrés par une homothétie arrondie à l'entier. `modified` nomme ces
+composants dans les fichiers qui en portent, et `MODIFICATIONS.md` décrit chaque
+découpe (hôte, indices des traits, échelle et décalage). Écriture compacte (sans
+indentation) : indentés, ces milliers de nombres pèseraient dix fois plus.
 
 ## `paires.json`
 
@@ -276,6 +282,62 @@ source, se lit dans les lectures d'Unihan ou des surcharges.
 - L'app ne propose un mot que si ses deux caractères sont acquis (stabilité FSRS au
   seuil) et qu'il n'est pas un mot de la fiche d'un caractère déjà appris.
 
+## `coquilles.json`
+
+Tiré de `data/sources/coquilles/coquilles.tsv` (story 4b.3) : des messages courts,
+rédigés pour l'app avec les seuls caractères du seuil 255, à relire par le
+propriétaire. La coquille en montre un où un caractère a pris la place d'un autre de
+son groupe à ne pas confondre (夫 pour 天).
+
+```json
+{"version": "0.1.0", "license": "propriétaire", "source": "…", "source_url": "…", "modified": "…",
+ "coquilles": [{"id": "今天天气很好", "message": "今天天气很好。", "pieges": ["天"],
+                "fr": "Il fait beau aujourd'hui.", "en": "The weather is nice today."}],
+ "racines": {"今": "人", "天": "大", "夫": "大", "…": "…"}}
+```
+
+- `id` : les caractères du message, sans la ponctuation. `message` garde la ponctuation.
+- `pieges` : les caractères du message que l'app peut remplacer. Chacun appartient à
+  un groupe de `paires.json` et y garde un autre membre absent du message ; l'export
+  ne garde que les pièges dont un tel intrus se dessine. L'intrus n'est pas écrit :
+  l'app le prend dans `paires.json`, parmi les caractères acquis.
+- `fr`, `en` : la traduction, que la correction montre.
+- `racines` : la famille de chaque caractère dessiné, message et intrus possibles.
+  Aucun n'est hors du périmètre.
+
+## `cuisine.json`
+
+Tiré de `data/sources/cuisine/` (story 4b.6), rédigé pour l'app et à relire :
+`recettes.tsv`, `etapes.tsv`, `ingredients.tsv`, `etal.tsv`, `tao.tsv`. Dix plats de
+cantine ; Tao lit la recette, on prend les ingrédients sur l'étal, Tao goûte.
+
+```json
+{"version": "0.1.0", "license": "propriétaire", "source": "…", "source_url": "…", "modified": "…",
+ "recettes": [{"id": "niuroumian", "zh": "牛肉面", "pinyin": "niúròumiàn",
+               "fr": "les nouilles au bœuf", "en": "beef noodles", "gratuit": false,
+               "etapes": [{"zh": "牛肉下水，小火两个小时。", "pinyin": "…", "fr": "…", "en": "…"}],
+               "ingredients": [{"zh": "牛肉", "pinyin": "niúròu", "fr": "du bœuf", "en": "beef",
+                                "leurres": ["牛奶", "鸡肉", "鸡蛋"], "notes": ["肉"]}],
+               "caracteres": ["牛", "肉", "面", "下", "水", "…"],
+               "jours": {"hsk": 198, "lire": null}}],
+ "etal": {"牛奶": {"pinyin": "niúnǎi", "fr": "du lait", "en": "milk"}, "…": "…"},
+ "tao": {"lit": {"zh": "我来看看！", "…": "…"}, "bon": {"…": "…"}, "grimace": {"…": "…"}},
+ "racines": {"牛": "牛", "…": "…"}}
+```
+
+- `gratuit` : les trois premiers plats, l'offre gratuite (brief §10). Aucun achat
+  n'existe encore : l'app ouvre les dix.
+- `ingredients` : une question chacun. `fr`, `en` : ce que Tao demande. `leurres` :
+  deux ou trois mots de l'étal, écrits à la main, jamais la réponse ni un autre
+  ingrédient de la recette. `notes` : les caractères que la question note, ceux de la
+  réponse que le premier leurre n'a pas.
+- `caracteres` : le nom, les étapes et les ingrédients ; la recette ne se propose que
+  lorsque tous sont acquis. Les leurres n'en sont pas.
+- `jours` : par parcours, le jour où tous ces caractères sont posés ; `null` si le
+  parcours n'y mène pas.
+- `etal` : le sens de chaque mot de l'étal, que la correction montre.
+- `racines` : la famille de chaque caractère écrit. Aucun n'est hors du périmètre.
+
 ## `LICENCES.md`
 
 Écrit par l'export. Un tableau `source | usage | licence | attribution | texte de
@@ -294,6 +356,14 @@ ce que l'app embarque ; `docs/sources-licences.md` fait foi pour la décision.
   en-tête, `traits/` ne porte que des tracés, aucune fiche ne porte de tracé.
 - « export : familles sans fiche relue » — signalé : ce qui reste à relire avant
   que l'app puisse enseigner ces familles.
+- « export : caractères sans traits » — signalé : ce que l'app ne saurait dessiner
+  (et à quoi le site ne fait pas de page).
+- « découpes : table » — bloquant : chaque ligne de `decoupes.tsv` nomme un composant
+  de la norme sans tracé propre, un hôte présent dans `graphics.txt` dont la
+  décomposition canonique le contient, et des indices de traits valides.
+- « découpes : traits » — bloquant : chaque composant découpé a ses traits dans
+  `decoupes.json`, n'est plus muet dans le graphe, et ses traits sont dans chaque
+  version exportée qui le porte.
 - « fêtes : calendrier » — bloquant : dates lisibles et égales au calcul du
   calendrier lunaire, fenêtres positives, animal de l'année, 2026 à 2035 couverts
   pour chaque fête, aucun chevauchement.
@@ -316,6 +386,19 @@ ce que l'app embarque ; `docs/sources-licences.md` fait foi pour la décision.
   distincts, jamais un proche ; chaque caractère est posé par un parcours ; chaque mot
   est une entrée de CC-CEDICT, pas un nom propre. « éclair : mots de fiche » —
   signalé : un mot qu'une fiche fait déjà lire ne sera proposé qu'avant elle.
+- « coquilles : sources », « export », « parcours » — bloquants : de 40 à 60
+  messages de 6 à 12 caractères, tous du seuil 255, traduits, sourcés, sans doublon,
+  chaque piège dans son message et dans un groupe de `paires.tsv`, avec un intrus
+  absent du message ; chaque message exporté, ne piégeant qu'avec un groupe de
+  `paires.json`, tout dessinable ; chaque caractère et un intrus par message posés par
+  un parcours.
+- « cuisine : sources », « pinyin », « périmètre », « parcours », « export » —
+  bloquants : dix recettes, trois gratuites en tête, chaque ingrédient écrit dans une
+  étape et sur l'étal, des leurres distincts qui ne sont ni la réponse, ni un autre
+  ingrédient, ni du même sens, au moins un caractère noté ; chaque texte se lit dans
+  son pinyin ; chaque caractère écrit a ses traits et est posé par un parcours, et les
+  plats gratuits se cuisinent dans chaque parcours ; `cuisine.json` dit toutes les
+  recettes et leurs caractères à acquérir.
 
 ## Format intermédiaire (story 1.1)
 
@@ -390,6 +473,15 @@ corrige dans `data/sources/surcharges/`, une ligne et une raison par correction
   être renommé (⺮ pour 𥫗, 竹头) : la feuille reste dessinable.
 - `pinyin.tsv` (`c`, `lectures`, `raison`) : les lectures remplacent celles de Make Me
   a Hanzi (contexte des fiches) et d'Unihan (export). La première est la principale.
+- `decoupes.tsv` (`composant`, `hôte`, `indices`, `recadrage`, `raison`) : un composant
+  de la norme que `graphics.txt` ne dessine pas prend les traits désignés d'un caractère
+  hôte qui le contient (以 pour 以字旁, 左 pour 𠂇, 学 pour 𭕄…), comptés à partir de 0
+  dans l'ordre d'écriture (`0,1`, `3-6`). `recadrage` vaut `centre` (homothétie qui
+  porte la boîte des traits retenus au centre de la boîte de 1024, plus grand côté à
+  760, jamais agrandie plus de deux fois) ou `aucun`. `wenlu build` en écrit
+  `decoupes.json` : `{source, source_traits, licence_traits, recadrage, decoupes[]}`,
+  chaque découpe `{c, hote, indices[], traits_hote, recadrage, echelle, dx, dy,
+  raison, strokes[], medians[]}` ; `wenlu export` en tire les traits (`decoupes.py`).
 - `decompositions-non-corrigees.md` : ce qui a été vérifié contre la table et laissé
   tel quel, avec la raison.
 
@@ -406,13 +498,15 @@ est bloquant.
 `{norme, source, critere_racine, compte, noeuds[], aretes[], familles[], cycles[]}`.
 
 - `compte` : `{noeuds, aretes, familles, familles_non_vides, briques, caracteres,
-  muettes, cycles}`.
+  muettes, decoupees, cycles}`.
 - `noeuds` : `[{c, genre, prerequis[], dependants, racine, reconcilie}]`. `genre` vaut
   `brique` (composant GF 0014-2009 présent au dictionnaire, il porte une fiche et se
   pose en une session), `caractere` (caractère du dictionnaire qui n'est pas un
-  composant de la norme) ou `muette` (feuille sans fiche : composant sans point de code,
-  ou forme absente du dictionnaire, à commencer par `？`, la marque de Make Me a Hanzi
-  pour un élément qu'il ne décompose pas). `prerequis` est la liste ordonnée et sans
+  composant de la norme), `decoupee` (feuille sans fiche mais dessinée : composant de
+  la norme absent du dictionnaire, découpé dans un hôte par `decoupes.tsv`) ou `muette`
+  (feuille sans fiche ni traits : composant sans point de code ni découpe, ou forme
+  absente du dictionnaire, à commencer par `？`, la marque de Make Me a Hanzi pour un
+  élément qu'il ne décompose pas). `prerequis` est la liste ordonnée et sans
   doublon des composants canoniques, dans l'ordre d'écriture ; une brique et une feuille
   muette n'en ont pas, puisque la norme découpe en un seul niveau. `dependants` est le
   nombre de caractères qui contiennent le nœud — c'est la mesure de fréquence du
@@ -430,13 +524,13 @@ est bloquant.
 ### `parcours-lire.json`, `parcours-hsk.json`
 
 `{parcours, liste, regle, critere_frequence, depart[], cible[], compte, jours[], briques[],
-briques_muettes[], non_reconcilies[], absents[]}`.
+briques_muettes[], briques_decoupees[], non_reconcilies[], absents[]}`.
 
 - `parcours` vaut `lire` (liste cible `seuil-255`, puis les seuils suivants) ou `hsk`
   (liste cible `hsk-1`). Même graphe, seule la liste change.
 - `cible` : la liste cible dans l'ordre du référentiel ; le fichier se contrôle seul.
-- `compte` : `{cibles, jours, jours_reconcilies, briques, muettes, non_reconcilies,
-  absents}`.
+- `compte` : `{cibles, jours, jours_reconcilies, briques, muettes, decoupees,
+  non_reconcilies, absents}`.
 - `jours` : `[{jour, brique, composes[], non_reconcilie}]`. Un jour est une session de
   10 minutes : au plus une brique nouvelle, puis un ou deux composés qui deviennent
   lisibles avec elle. `brique` est nul les jours de consolidation, quand il ne reste que
@@ -456,6 +550,10 @@ briques_muettes[], non_reconcilies[], absents[]}`.
   rang sous la clé `frequence`, il prend le pas sans autre changement.
 - `briques_muettes` : les feuilles sans fiche employées par des caractères de la liste.
   Acquises d'entrée, elles ne prennent jamais de jour ; `wenlu check` les signale.
+- `briques_decoupees` : les feuilles découpées employées par des caractères de la
+  liste. Dessinées, elles ne sont plus signalées ; elles restent acquises d'entrée,
+  pour que le parcours — et l'acquis dont dépendent les phrases des fiches — ne
+  bouge pas.
 - `non_reconcilies` et `absents` : caractères de la liste dont la décomposition n'est pas
   réconciliée (1 pour le seuil 255 et 1 pour le HSK 1, 兴 ; voir
   `data/sources/surcharges/decompositions-non-corrigees.md`) ou qui manquent au

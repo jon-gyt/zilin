@@ -11,6 +11,7 @@
    * ici, la saisie gardée. Un seul retour, vers le menu. Tao lit par-dessus l'épaule.
    * Pas de cinabre ici : rien n'y est ajouté.
    */
+  import Hz from './Hz.svelte';
   import Tao from './Tao.svelte';
   import { dire } from './audio';
   import { toutesLesFamilles, traits as traitsDeFamille, type Famille, type Noeud } from './content';
@@ -127,7 +128,13 @@
               {#if r.fr !== ''}<span class="sens">{r.fr}</span>{/if}
             </span>
             <span class="l2">
-              <span>{r.racine === r.c ? 'racine de sa famille' : `famille ${r.racine}`}</span>
+              <span
+                >{#if r.racine === r.c}racine de sa famille{:else}famille <Hz
+                    c={r.racine}
+                    size={14}
+                    pistes={[r.racine]}
+                  />{/if}</span
+              >
               <span class="st {s}">{LIBELLES_STATUT[s]}</span>
             </span>
           </span>

@@ -40,6 +40,7 @@
   import { fetesOnce, saisonsOnce, type Fetes, type Saisons } from './lib/content';
   import { poserFete } from './lib/fetes';
   import { journee } from './lib/saisons';
+  import { noterTrouve, rencontreDuJour } from './lib/trouves';
   import {
     CARTES_PAR_SEANCE,
     cartesAOuvrir,
@@ -80,6 +81,7 @@
     useNext,
     conclureDevinette,
     poserDevinette,
+    noterRecette,
     type Budget,
     type IssueDevinette,
     type LearnView,
@@ -375,7 +377,8 @@
    * ouverte depuis le menu, la session enchaîne sur le pas suivant.
    */
   function ouvrirFait(): void {
-    p = anecdoteFaite(p, p.day);
+    /* L'anecdote d'une fête ou d'un terme fait trouver un caractère : Ma forêt le garde. */
+    p = noterTrouve(anecdoteFaite(p, p.day), rencontreDuJour(laJournee), p.day);
     enregistrer();
     if (anecOuverture) allerAuMenu();
     else enchainer();
@@ -572,6 +575,17 @@
     enregistrer();
   }
 
+  /**
+   * La cuisine de Tao : Tao a goûté. Le plat compte une activité « cuisine » ; réussi,
+   * chaque ingrédient trouvé, il entre dans les plats cuisinés (le bol des trophées).
+   */
+  function recetteGoutee(id: string, bon: boolean): void {
+    p = noterActivite(p, p.day, 'cuisine');
+    if (bon) p = noterRecette(p, id);
+    majDue();
+    enregistrer();
+  }
+
   /* ---------- les contes (épic 2c), par la case Lire ---------- */
 
   /**
@@ -653,6 +667,7 @@
     onrepondu={jeuRepondu}
     ondevinette={devinetteJouee}
     onmotdevine={motDevine}
+    oncuisine={recetteGoutee}
     onfini={jeuFini}
     onretour={quitter}
   />

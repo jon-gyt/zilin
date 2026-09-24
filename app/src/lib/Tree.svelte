@@ -20,6 +20,7 @@
   } from './content';
   import ARelire from './ARelire.svelte';
   import { acquis, etat, noeud, placerArbre } from './foret';
+  import Hz from './Hz.svelte';
   import { glyph } from './glyph';
   import { type StrokeSet } from './strokes';
 
@@ -177,7 +178,13 @@
       <p class="origine k">{LIGNE_SANS_FICHE}</p>
     {/if}
     {#if pleine && pleine.parts.length > 0}
-      <div class="k">{pleine.parts.join(' + ')} = {pleine.c}</div>
+      <div class="k">
+        {#each pleine.parts as part, i (part + i)}{#if i > 0}{' + '}{/if}<Hz
+            c={part}
+            size={14}
+            pistes={[part, fam.c]}
+          />{/each} = <Hz c={pleine.c} size={14} pistes={[fam.c]} />
+      </div>
     {/if}
   </div>
 

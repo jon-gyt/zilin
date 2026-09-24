@@ -20,7 +20,7 @@
  */
 import { readdirSync, readFileSync } from 'node:fs';
 import { join } from 'node:path';
-import { glyph, type StrokeData } from '../../src/lib/glyph';
+import { glyph, horsPolice, type StrokeData } from '../../src/lib/glyph';
 import type { Famille, Fiche, Index, Mot } from '../../src/lib/content';
 import { cheminPage, DOSSIER_COMMUN, fichierPage, LANGUES, normaliserBase, type Langue } from './chemins';
 import { echapper, markdown } from './markdown';
@@ -324,6 +324,18 @@ type Contexte = { m: Modele; base: string; origine: string };
 const ZH = 'lang="zh-Hans"';
 const hz = (c: string, cls = 'hz') => `<span class="${cls}" ${ZH}>${echapper(c)}</span>`;
 
+/**
+ * Un caractère dans le texte d'une page. Hors police (`horsPolice` : ⿰𠄌丶, 𠂒, 𠃊…),
+ * il serait un carré vide ou une suite d'opérateurs IDS : on le dessine depuis ses
+ * traits, à la taille du texte (1em), avec son nom accessible.
+ */
+function hzc(ctx: Contexte, c: string): string {
+  const d = ctx.m.traits[c];
+  if (!horsPolice(c) || !d?.s?.length) return hz(c);
+  const svg = glyph(c, d, 16, { write: false }).replace(' width="16" height="16"', ' width="1em" height="1em"');
+  return `<span class="hz hz-trace" ${ZH}>${svg}</span>`;
+}
+
 function lien(ctx: Contexte, chemin: string): string {
   return `${ctx.base}${chemin}`;
 }
@@ -362,9 +374,9 @@ function listeCaracteres(ctx: Contexte, langue: Langue, cs: string[], courant?: 
   const items = cs.map((c) => {
     const e = ctx.m.entrees.get(c);
     const py = e?.fiche.pinyin ? ` <small>${echapper(e.fiche.pinyin)}</small>` : '';
-    if (!ctx.m.pages.has(c)) return `<li><span>${hz(c)}${py}</span></li>`;
+    if (!ctx.m.pages.has(c)) return `<li><span>${hzc(ctx, c)}${py}</span></li>`;
     const cur = c === courant ? ' aria-current="page"' : '';
-    return `<li><a href="${lien(ctx, cheminPage(langue, 'caractere', c))}"${cur}>${hz(c)}${py}</a></li>`;
+    return `<li><a href="${lien(ctx, cheminPage(langue, 'caractere', c))}"${cur}>${hzc(ctx, c)}${py}</a></li>`;
   });
   return `<ul class="liste">${items.join('')}</ul>`;
 }
@@ -464,8 +476,11 @@ function pageCaractere(ctx: Contexte, c: string, langue: Langue): string {
   const tete = `<div class="carte tete fiche">
 <div class="grand">${MIZI}${glyph(c, d, 240, { write: true })}</div>
 <div>
-<h1>${hz(c)}${fiche.pinyin ? ` <span class="py">${echapper(fiche.pinyin)}</span>` : ''}</h1>
-${faits.map((f) => `<p class="fait">${echapper(f)}</p>`).join('\n')}
+<h1>${hzc(ctx, c)}${fiche.pinyin ? ` <span class="py">${echapper(fiche.pinyin)}</span>` : ''}</h1>
+${faits
+  .map((f) => (horsPolice(racine) ? echapper(f).replace(echapper(racine), hzc(ctx, racine)) : echapper(f)))
+  .map((f) => `<p class="fait">${f}</p>`)
+  .join('\n')}
 ${relu?.sens ? `<p class="sens">${echapper(relu.sens)}</p>` : ''}
 ${puces.length ? `<ul class="puces">${puces.map((p) => `<li>${echapper(p)}</li>`).join('')}</ul>` : ''}
 </div>
@@ -518,7 +533,7 @@ ${puces.length ? `<ul class="puces">${puces.map((p) => `<li>${echapper(p)}</li>`
     if (Object.values(roles).some((r) => r === 'sens' || r === 'son')) notes.push(t.roles);
     decomposition = `<section class="carte"><h2>${t.decomposition} <small class="k">GF 0014-2009</small></h2>
 <div class="formule">${tuiles.join('<span class="op" aria-hidden="true">+</span>')}</div>
-<p class="egal">${hz(c)} = ${fiche.parts.map((p) => hz(p)).join(' + ')}</p>
+<p class="egal">${hzc(ctx, c)} = ${fiche.parts.map((p) => hzc(ctx, p)).join(' + ')}</p>
 ${notes.map((x) => `<p class="note">${echapper(x)}</p>`).join('\n')}</section>`;
   } else {
     decomposition = `<section class="carte"><h2>${t.decomposition} <small class="k">GF 0014-2009</small></h2><p class="egal">${echapper(
@@ -530,11 +545,11 @@ ${notes.map((x) => `<p class="note">${echapper(x)}</p>`).join('\n')}</section>`;
     t.ordreNote
   )}</p></section>`;
 
-  const famille = `<section class="carte"><h2>${t.saFamille(hz(racine))}</h2>${listeCaracteres(ctx, langue, membres, c)}
+  const famille = `<section class="carte"><h2>${t.saFamille(hzc(ctx, racine))}</h2>${listeCaracteres(ctx, langue, membres, c)}
 <p class="plus"><a href="${lien(ctx, cheminPage(langue, 'familles'))}#f-${encodeURIComponent(racine)}">${t.toutesFamilles}</a></p></section>`;
 
   const dans = contenants.length
-    ? `<section class="carte"><h2>${t.contenu(hz(c))}</h2>${listeCaracteres(ctx, langue, contenants)}</section>`
+    ? `<section class="carte"><h2>${t.contenu(hzc(ctx, c))}</h2>${listeCaracteres(ctx, langue, contenants)}</section>`
     : '';
 
   const appel = `<div class="appel"><a class="btn" href="${ctx.base}">${t.appel}</a><p>${t.appelNote}</p></div>`;
@@ -572,7 +587,7 @@ function pageFamilles(ctx: Contexte, langue: Langue): string {
   const nb = familles.reduce((s, f) => s + f.membres.length, 0);
   const blocs = familles.map(({ r, membres }) => {
     const py = ctx.m.entrees.get(r)?.fiche.pinyin ?? '';
-    const tete = ctx.m.pages.has(r) ? `<a href="${lien(ctx, cheminPage(langue, 'caractere', r))}">${hz(r)}</a>` : hz(r);
+    const tete = ctx.m.pages.has(r) ? `<a href="${lien(ctx, cheminPage(langue, 'caractere', r))}">${hzc(ctx, r)}</a>` : hzc(ctx, r);
     return `<section class="carte famille" id="f-${encodeURIComponent(r)}"><h2>${tete}<small>${echapper(py)}${py ? ' · ' : ''}${t.familles.n(
       membres.length
     )}</small></h2>${listeCaracteres(ctx, langue, membres)}</section>`;

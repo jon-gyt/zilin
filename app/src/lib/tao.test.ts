@@ -93,6 +93,10 @@ describe('les postures', () => {
     expect(posture('conte')).toBe('lecture');
   });
 
+  it('goûtent en cuisine', () => {
+    expect(posture('cuisine')).toBe('goute');
+  });
+
   it("montrent le pot au retour d'absence et la marche la journée finie", () => {
     expect(poseDuJour({ rattrapage: false, fini: false })).toBeNull();
     expect(poseDuJour({ rattrapage: false, fini: true })).toEqual({ posture: 'chemin', humeur: 'joie' });
@@ -215,6 +219,7 @@ describe('Tao accompagne les activités dans leur posture (brief §9)', () => {
     ['Warm.svelte', ['revision']],
     ['Fix.svelte', ['revision']],
     ['Game.svelte', ['jeu']],
+    ['Cuisine.svelte', ['goute', 'lecture']],
     ['Close.svelte', ['chemin']]
   ];
 

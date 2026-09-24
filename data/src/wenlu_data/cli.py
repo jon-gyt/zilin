@@ -8,8 +8,9 @@ Ordre et dépendances — chaque étape lit ce que la précédente a écrit :
 - `fetch` : télécharge les sources dans `data/work/sources/`. Ne dépend de rien.
 - `ingest` : normalise ces sources et les listes de niveaux dans `data/work/ingest/`.
   Exige `fetch`.
-- `build` : réconcilie les décompositions avec GF 0014-2009, construit le graphe et
-  les parcours dans `data/work/build/`. Exige `ingest`.
+- `build` : découpe dans un hôte les composants que `graphics.txt` ne dessine pas,
+  réconcilie les décompositions avec GF 0014-2009, construit le graphe et les
+  parcours dans `data/work/build/`. Exige `ingest`.
 - `export` : assemble `app/public/data/<version>/`, les seuls fichiers que l'app lira.
   Exige `build`.
 - `fonts` : produit les woff2 de `app/public/fonts/`. À lancer après `export`, qui
@@ -25,6 +26,8 @@ une clé d'API et se lancent à la main, jamais dans `tout`. `fetes calendrier` 
 des sources versionnées que `export` lit. `devinettes apercu` et `devinettes a-rediger`
 servent à relire et à compléter la base des devinettes, qu'`export` lit aussi ;
 `eclair apercu` montre les mots du dictionnaire éclair et leurs leurres.
+`coquilles apercu` relit les messages de la coquille.
+`cuisine apercu` à relire les recettes de la cuisine de Tao.
 
 Toutes les commandes sont idempotentes : deux passages écrivent les mêmes octets.
 Seul `data/work/sources/PROVENANCE.md` s'allonge, d'un bloc daté par passage.
@@ -38,6 +41,8 @@ import typer
 
 from .audio import app as _audio
 from .contes import app as _contes
+from .coquilles import app as _coquilles
+from .cuisine import app as _cuisine
 from .devinettes import app as _devinettes
 from .eclair import app as _eclair
 from .export import VERSION
@@ -82,15 +87,20 @@ def ingest() -> None:
 
 @app.command()
 def build() -> None:
-    """Réconcilie les décompositions, construit le graphe et les parcours dans data/work/build/. Exige `ingest`."""
+    """Découpe les composants sans tracé, réconcilie les décompositions, construit le graphe et les parcours dans data/work/build/. Exige `ingest`."""
+    from .decoupes import DecoupeInvalide, build as _decoupes
     from .gf0014 import build as _build
     from .graphe import build as _graphe
 
     try:
-        rapport = _build()
+        # Les découpes d'abord : la réconciliation fait une brique de chaque composant découpé.
+        rapport = {**_decoupes(), **_build()}
         suite = _graphe()
     except OSError as erreur:
         typer.echo(f"{erreur} — lancer `wenlu ingest` d'abord.", err=True)
+        raise typer.Exit(code=1) from erreur
+    except DecoupeInvalide as erreur:
+        typer.echo(str(erreur), err=True)
         raise typer.Exit(code=1) from erreur
     # Deux rapports, deux boucles : `cycles` figure dans les deux et une fusion
     # en perdrait un.
@@ -125,9 +135,12 @@ app.command(name="fonts")(_fonts)
 
 @app.command()
 def check() -> None:
-    """Contrôles : composants inconnus, cycles, graphe, listes, briques muettes, contes hors liste, fiches invalides, rôle son loin de la lecture moderne, textes sans audio, export à jour, aperçu des textes à relire, fêtes, termes solaires, devinettes, dictionnaire éclair."""
+    """Contrôles : composants inconnus, cycles, graphe, listes, briques muettes, découpes, contes hors liste, fiches invalides, rôle son loin de la lecture moderne, textes sans audio, export à jour, aperçu des textes à relire, fêtes, termes solaires, devinettes, dictionnaire éclair, coquilles, cuisine."""
     from .audio import controles as controles_audio
     from .contes import controles as controles_contes
+    from .decoupes import controles as controles_decoupes
+    from .coquilles import controles as controles_coquilles
+    from .cuisine import controles as controles_cuisine
     from .devinettes import controles as controles_devinettes
     from .eclair import controles as controles_eclair
     from .export import controles as controles_export
@@ -142,6 +155,7 @@ def check() -> None:
     for controle in [
         *controles(),
         *controles_graphe(),
+        *controles_decoupes(),
         *controles_contes(),
         *controles_fiches(),
         *controles_phonetiques(),
@@ -151,6 +165,8 @@ def check() -> None:
         *controles_saisons(),
         *controles_devinettes(),
         *controles_eclair(),
+        *controles_coquilles(),
+        *controles_cuisine(),
     ]:
         typer.echo(f"{'ok   ' if controle.ok else 'écart'} {controle.nom} : {controle.detail}")
         if not controle.ok and controle.bloquant:
@@ -192,6 +208,8 @@ def tout(
 
 app.add_typer(_audio, name="audio")
 app.add_typer(_contes, name="contes")
+app.add_typer(_coquilles, name="coquilles")
+app.add_typer(_cuisine, name="cuisine")
 app.add_typer(_devinettes, name="devinettes")
 app.add_typer(_eclair, name="eclair")
 app.add_typer(_fetes, name="fetes")
