@@ -131,7 +131,7 @@ relue s'exporte. Après un import, l'empreinte de l'export change : `wenlu expor
 ## Développer sans machine locale
 
 - Claude Code sur le web (claude.ai/code) clone ce dépôt dans une VM Anthropic, travaille sur une branche et ouvre une PR ; se pilote depuis le navigateur ou l'app mobile Claude. Prérequis : installer l'app GitHub « Claude » sur le dépôt.
-- À chaque fusion sur `main`, le workflow `pages.yml` publie l'app sur GitHub Pages : testable sur l'iPhone sans rien installer. Activer Pages (Settings, Pages, Source : GitHub Actions).
+- À chaque fusion sur `main`, le workflow `pages.yml` publie l'app et le site public sur GitHub Pages : testable sur l'iPhone sans rien installer. Activer Pages (Settings, Pages, Source : GitHub Actions).
 - Le conteneur LXD reste optionnel, pour le pipeline de données et le débogage local.
 
 ## Hors ligne et écran d'accueil
@@ -147,6 +147,23 @@ cd app && npm run icons   # mode d'emploi en tête de app/scripts/icons.mjs
 ```
 
 Le script rastérise le SVG avec un Chromium de Playwright, qui reste un outil de fabrication : il n'est pas une dépendance de l'app et se donne par `NODE_PATH`.
+
+## Le site public
+
+Une page par caractère de l'export, en français (`/zilin/c/休/`) et en anglais (`/zilin/en/c/休/`), un index des familles (`/zilin/familles/`, `/zilin/en/families/`) et la page des licences (`/zilin/licences/`, `/zilin/en/licenses/`). Le générateur, `app/scripts/site/`, lit l'export versionné (`app/public/data/<version>/`, la version de `src/lib/content.ts`) et écrit du HTML statique dans `dist/`, à côté de l'app : pas de framework, pas de JavaScript dans les pages.
+
+```bash
+cd app && BASE_PATH=/zilin/ npm run build
+cd app && BASE_PATH=/zilin/ SITE_ORIGIN=https://jon-gyt.github.io npm run site
+```
+
+- L'ordre compte : `vite build` vide `dist/`. Le site vient après, et `pages.yml` fait de même.
+- `BASE_PATH` est la base de l'app, liée au nom du dépôt ; `SITE_ORIGIN` l'origine des URL canoniques, des `hreflang` et de `sitemap.xml`.
+- Le service worker de l'app ne précache rien du site et laisse ses pages au réseau (`navigateFallbackDenylist`, `globIgnores` dans `vite.config.ts`, tirés de `scripts/site/chemins.ts`). `npm run site` échoue si `sw.js` en précache une.
+- Les grands caractères et l'ordre des traits sont dessinés depuis les traits (`src/lib/glyph.ts`). Le sens, l'origine, les mots et la phrase n'apparaissent que pour une fiche relue. Un caractère sans traits dans l'export n'a pas de page.
+- Chaque page porte l'attribution de l'Arphic Public License ; la page des licences reprend `LICENCES.md` et publie les fichiers de `traits/` (APL §2 b).
+- `robots.txt` n'est lu par les moteurs qu'à la racine du domaine : sous `/zilin/`, le plan du site se déclare dans la Search Console.
+- Tests : `scripts/site/site.test.ts`, dans `npm test`.
 
 ## Règles
 

@@ -76,7 +76,21 @@ Relevé sur le dépôt après une revue du pipeline. Les numéros ci-dessus ne b
   8 148 caractères sur 9 574 réconciliés ; 241 du seuil 255 sur 255, 280 du HSK 1 sur 300 ;
   238 familles exportées en 1,33 Mio.
 - Épic 2 : 2.1 à 2.8 (2.2 et 2.8 revues le 24 septembre : le menu et le parcours du prototype validé). Épic 3 : 3.1 à 3.4. Épic 4 : 4.1 à 4.4 (4.4, Chercher, le 24 septembre : la recherche en français ne trouvera rien tant qu'aucune fiche n'est relue).
-- Épic 4b : 4b.1 et 4b.2. Épic 5 : 5.1.
+- Épic 4b : 4b.1 et 4b.2. Épic 5 : 5.1, et 5.2 (24 septembre).
+- 5.2, le site public : `app/scripts/site/` génère du HTML statique depuis l'export
+  versionné, dans l'artefact Pages de l'app, après `vite build`. 480 caractères dessinables
+  sur 493, une page chacun en français (`/zilin/c/<c>/`) et en anglais
+  (`/zilin/en/c/<c>/`), plus l'index des familles et la page des licences : 964 pages,
+  15 Mio bruts, 2 Mio compressés. Le caractère au pinceau et l'ordre des traits depuis les
+  traits, le pinyin, la décomposition GF 0014-2009 liée page à page, la famille, les
+  caractères qui le contiennent ; sens, origine, mots et phrase seulement d'une fiche
+  relue (aucune aujourd'hui). Titre, description, canonique, `hreflang`, `DefinedTerm`,
+  `sitemap.xml`. Attribution APL sur chaque page ; les fichiers de `traits/` publiés depuis
+  la page des licences (APL §2 b). Le service worker ne précache pas le site et ne sert
+  plus `index.html` de l'app à ses adresses. Reste : un lien profond de l'app vers un
+  caractère (le bouton ouvre l'accueil), la déclaration du plan du site dans la Search
+  Console (`robots.txt` sous `/zilin/` n'est pas lu), les 12 composants sans traits
+  (㇆, 龰, 𠂇…) et le « ? » du pipeline, sans page.
 - 4b.9, à moitié (24 septembre) : les huit fêtes du calendrier chinois sont en place, du
   pipeline (`data/sources/fetes/`, dates vérifiées contre la table des fêtes de
   `lunar_python`) au décor de l'app (menu à 393 × 660, anecdote, `theme-color`). Chaque
@@ -146,5 +160,5 @@ les fiches générées. La chaîne API reste en place et utilisable.
 
 ### Non commencées
 
-2c.1, 2c.2, 4b.3 à 4b.8, 5.2, et toute la phase 6 — hors le workflow CI macOS et la
+2c.1, 2c.2, 4b.3 à 4b.8, et toute la phase 6 — hors le workflow CI macOS et la
 configuration Capacitor, déjà versionnés.
