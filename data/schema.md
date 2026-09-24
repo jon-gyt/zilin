@@ -34,6 +34,7 @@ app/public/data/0.1.0/
   devinettes.json            les devinettes de lanternes (灯谜)
   eclair.json                le dictionnaire éclair : des mots à deviner
   coquilles.json             les messages de la coquille
+  cuisine.json               la cuisine de Tao : dix recettes, l'étal, Tao qui goûte
   familles/<racine>.json     une famille : `Famille` de models.py
   traits/<racine>.json       les tracés de la famille, sous APL, et rien d'autre
   traits/ARPHICPL.TXT        la même licence, à côté des fichiers qu'elle couvre
@@ -304,6 +305,39 @@ son groupe à ne pas confondre (夫 pour 天).
 - `racines` : la famille de chaque caractère dessiné, message et intrus possibles.
   Aucun n'est hors du périmètre.
 
+## `cuisine.json`
+
+Tiré de `data/sources/cuisine/` (story 4b.6), rédigé pour l'app et à relire :
+`recettes.tsv`, `etapes.tsv`, `ingredients.tsv`, `etal.tsv`, `tao.tsv`. Dix plats de
+cantine ; Tao lit la recette, on prend les ingrédients sur l'étal, Tao goûte.
+
+```json
+{"version": "0.1.0", "license": "propriétaire", "source": "…", "source_url": "…", "modified": "…",
+ "recettes": [{"id": "niuroumian", "zh": "牛肉面", "pinyin": "niúròumiàn",
+               "fr": "les nouilles au bœuf", "en": "beef noodles", "gratuit": false,
+               "etapes": [{"zh": "牛肉下水，小火两个小时。", "pinyin": "…", "fr": "…", "en": "…"}],
+               "ingredients": [{"zh": "牛肉", "pinyin": "niúròu", "fr": "du bœuf", "en": "beef",
+                                "leurres": ["牛奶", "鸡肉", "鸡蛋"], "notes": ["肉"]}],
+               "caracteres": ["牛", "肉", "面", "下", "水", "…"],
+               "jours": {"hsk": 198, "lire": null}}],
+ "etal": {"牛奶": {"pinyin": "niúnǎi", "fr": "du lait", "en": "milk"}, "…": "…"},
+ "tao": {"lit": {"zh": "我来看看！", "…": "…"}, "bon": {"…": "…"}, "grimace": {"…": "…"}},
+ "racines": {"牛": "牛", "…": "…"}}
+```
+
+- `gratuit` : les trois premiers plats, l'offre gratuite (brief §10). Aucun achat
+  n'existe encore : l'app ouvre les dix.
+- `ingredients` : une question chacun. `fr`, `en` : ce que Tao demande. `leurres` :
+  deux ou trois mots de l'étal, écrits à la main, jamais la réponse ni un autre
+  ingrédient de la recette. `notes` : les caractères que la question note, ceux de la
+  réponse que le premier leurre n'a pas.
+- `caracteres` : le nom, les étapes et les ingrédients ; la recette ne se propose que
+  lorsque tous sont acquis. Les leurres n'en sont pas.
+- `jours` : par parcours, le jour où tous ces caractères sont posés ; `null` si le
+  parcours n'y mène pas.
+- `etal` : le sens de chaque mot de l'étal, que la correction montre.
+- `racines` : la famille de chaque caractère écrit. Aucun n'est hors du périmètre.
+
 ## `LICENCES.md`
 
 Écrit par l'export. Un tableau `source | usage | licence | attribution | texte de
@@ -358,6 +392,13 @@ ce que l'app embarque ; `docs/sources-licences.md` fait foi pour la décision.
   absent du message ; chaque message exporté, ne piégeant qu'avec un groupe de
   `paires.json`, tout dessinable ; chaque caractère et un intrus par message posés par
   un parcours.
+- « cuisine : sources », « pinyin », « périmètre », « parcours », « export » —
+  bloquants : dix recettes, trois gratuites en tête, chaque ingrédient écrit dans une
+  étape et sur l'étal, des leurres distincts qui ne sont ni la réponse, ni un autre
+  ingrédient, ni du même sens, au moins un caractère noté ; chaque texte se lit dans
+  son pinyin ; chaque caractère écrit a ses traits et est posé par un parcours, et les
+  plats gratuits se cuisinent dans chaque parcours ; `cuisine.json` dit toutes les
+  recettes et leurs caractères à acquérir.
 
 ## Format intermédiaire (story 1.1)
 
