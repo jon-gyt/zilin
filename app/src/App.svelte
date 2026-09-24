@@ -34,6 +34,7 @@
     type Destination
   } from './lib/parcours';
   import { planifier, type JeuId } from './lib/jeux';
+  import { noterMotDevine } from './lib/eclair';
   import { reglerApercu, toutesLesFamilles, type Noeud } from './lib/content';
   import FeteDecor from './lib/FeteDecor.svelte';
   import { fetesOnce, saisonsOnce, type Fetes, type Saisons } from './lib/content';
@@ -556,6 +557,14 @@
     enregistrer();
   }
 
+  /** Le dictionnaire éclair : un mot deviné entre une fois dans le compteur « mots devinés ». */
+  function motDevine(id: string): void {
+    const n = noterMotDevine(p, id);
+    if (n === p) return;
+    p = n;
+    enregistrer();
+  }
+
   /** La manche finie : une activité « jeu » pour Tao, une seule par manche. */
   function jeuFini(): void {
     p = noterActivite(p, p.day, 'jeu');
@@ -643,6 +652,7 @@
     onchoisir={(id) => (jeu = id)}
     onrepondu={jeuRepondu}
     ondevinette={devinetteJouee}
+    onmotdevine={motDevine}
     onfini={jeuFini}
     onretour={quitter}
   />

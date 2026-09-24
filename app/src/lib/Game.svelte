@@ -13,7 +13,12 @@
    * révision. Le chronomètre borne un tour, il ne donne aucun point ; il n'y a ni vie,
    * ni classement, ni coffre. Les grands caractères viennent des traits (`Glyph`).
    * Chaque manche pose d'abord ce qu'on cherche, lisible d'un coup d'œil, puis les choix.
+   *
+   * Le dictionnaire éclair (4b.4) est posé par `EclairTour` : un mot jamais appris, ses
+   * deux caractères acquis, quatre sens. Deviné, il entre dans le compteur « mots
+   * devinés » de la progression, que l'écran de choix montre d'une ligne.
    */
+  import EclairTour from './EclairTour.svelte';
   import Glyph from './Glyph.svelte';
   import Tao from './Tao.svelte';
   import {
@@ -25,6 +30,7 @@
     traitsDeFamilles,
     voisinsOnce
   } from './content';
+  import { eclairOnce, ligneMotsDevines, TAO_ECLAIR } from './eclair';
   import { racinesDesCaracteres } from './foret';
   import { lirePaires } from './questions';
   import { strokesOnce } from './strokes';
@@ -60,6 +66,7 @@
     onchoisir,
     onrepondu,
     ondevinette = () => undefined,
+    onmotdevine = () => undefined,
     onfini,
     onretour
   }: {
@@ -73,6 +80,8 @@
     onrepondu: (r: Revision) => void;
     /** La devinette du jour : posée à l'ouverture, puis résolue ou montrée. */
     ondevinette?: (id: string, issue: IssueDevinette) => void;
+    /** Le dictionnaire éclair : un mot deviné, que le compteur range une fois. */
+    onmotdevine?: (id: string) => void;
     /** La manche est finie : une activité « jeu » pour Tao. */
     onfini: () => void;
     onretour: () => void;
@@ -99,14 +108,15 @@
    * assez pour jouer.
    */
   void (async () => {
-    const [fiches, familles, voisins, foret, paires, demo, devinettes] = await Promise.all([
+    const [fiches, familles, voisins, foret, paires, demo, devinettes, eclair] = await Promise.all([
       toutesLesFiches().catch(() => []),
       toutesLesFamilles().catch(() => []),
       voisinsOnce().catch(() => null),
       foretOnce().catch(() => null),
       pairesExport().catch(() => null),
       strokesOnce().catch(() => ({})),
-      devinettesOnce().catch(() => null)
+      devinettesOnce().catch(() => null),
+      eclairOnce().catch(() => null)
     ]);
     const groupes = lirePaires(paires);
     const racines = racinesDesCaracteres(familles);
@@ -116,6 +126,8 @@
       resolues: p.devinettes,
       posee: p.devinetteDuJour?.jour === p.day ? p.devinetteDuJour.id : null
     };
+    /* Le dictionnaire éclair : ses mots, les mots déjà devinés. */
+    const eclairs = { eclair, devines: p.motsDevines };
     /* Un premier corpus sans tracés, juste pour savoir quels caractères sont en jeu. */
     const pressenti = corpusDeJeu({
       fiches,
@@ -123,7 +135,8 @@
       foret,
       paires: groupes,
       cartes: p.cartes,
-      ...lanternes
+      ...lanternes,
+      ...eclairs
     });
     /* Les devinettes qui pourraient se poser : leur réponse, leurs briques, leurs leurres. */
     const connus = new Set(pressenti.lanternes?.connus ?? []);
@@ -133,14 +146,20 @@
           d.id === lanternes.posee || (connus.has(d.c) && d.briques.every((b) => connus.has(b)))
       )
       .flatMap((d) => [d.c, ...d.briques, ...d.leurres]);
+    /* Le dictionnaire éclair ne dessine que des caractères acquis, ceux de ses mots. */
+    const acquisReel = new Set(pressenti.eclair?.acquis ?? []);
+    const motsADessiner = (eclair?.mots ?? []).flatMap((x) =>
+      [...x.mot].every((c) => acquisReel.has(c)) ? [...x.mot] : []
+    );
     const voulus = new Set<string>([
       ...pressenti.acquis,
+      ...motsADessiner,
       ...groupes.flat(),
       ...Object.values(pressenti.decompositions).flat(),
       ...aDessiner
     ]);
     const aLire = [...voulus].flatMap((c) => {
-      const r = devinettes?.racines[c] ?? racines.get(c);
+      const r = devinettes?.racines[c] ?? eclair?.racines[c] ?? racines.get(c);
       return r === undefined ? [] : [r];
     });
     const traits = await traitsDeFamilles([...new Set(aLire)]).catch(() => ({}));
@@ -152,7 +171,8 @@
       /* Les tracés de l'export d'abord, ceux de la maquette pour le reste. */
       traits: [...new Set([...Object.keys(traits), ...Object.keys(demo)])],
       cartes: p.cartes,
-      ...lanternes
+      ...lanternes,
+      ...eclairs
     });
     chargee = true;
   })().catch(() => {
@@ -298,13 +318,18 @@
     if (courante === null || resultat !== null || fini(courante)) return;
     arreterChrono();
     const seconds = Math.max(0, (Date.now() - depart) / 1000);
+    const mot = tour(courante)?.mot ?? '';
     const r = JEUX[courante.jeu].repondre(courante, rep, { correct: true, tries: 0, seconds });
     donnee = rep;
     resultat = r;
     cache = false;
     for (const e of r.evenements) onrepondu(e);
-    /* La coquille laisse lire sa correction : on n'avance pas tout seul. */
-    if (r.correct && courante.jeu !== 'coquille') minuteur = setTimeout(suivant, AVANCE_MS);
+    /* Le dictionnaire éclair : un mot deviné compte une fois, dans la progression. */
+    if (r.correct && mot !== '') onmotdevine(mot);
+    /* La coquille et l'éclair laissent lire leur correction : on n'avance pas tout seul. */
+    if (r.correct && courante.jeu !== 'coquille' && courante.jeu !== 'eclair') {
+      minuteur = setTimeout(suivant, AVANCE_MS);
+    }
   }
 
   /** Le tour suivant, ou le constat quand la manche est finie. */
@@ -427,6 +452,7 @@
               <span class="grow">
                 <span class="t">{JEUX[id].titre}</span>
                 <span class="d">{JEUX[id].lit}</span>
+                {#if id === 'eclair'}<span class="d compte">{ligneMotsDevines(p.motsDevines.length)}</span>{/if}
               </span>
               <span class="k">{JEUX[id].minutes} min</span>
             </button>
@@ -436,6 +462,9 @@
               <span class="grow">
                 <span class="t">{JEUX[id].titre}</span>
                 <span class="d">{JEUX[id].indisponible}</span>
+                {#if id === 'eclair' && p.motsDevines.length > 0}
+                  <span class="d compte">{ligneMotsDevines(p.motsDevines.length)}</span>
+                {/if}
               </span>
             </button>
           {/if}
@@ -462,7 +491,13 @@
       </div>
     {:else}
       <div class="verif-tete">
-        <Tao stade={taoStade} posture="jeu" humeur={taoHumeur} size={72} />
+        <Tao
+          stade={taoStade}
+          posture="jeu"
+          humeur={taoHumeur}
+          size={72}
+          penchee={jeu === 'eclair' && TAO_ECLAIR.penchee}
+        />
         <p class="guide grow">{jeuCourant?.titre}</p>
       </div>
     {/if}
@@ -597,6 +632,8 @@
             </button>
           {/each}
         </div>
+      {:else if jeu === 'eclair'}
+        <EclairTour {t} {corpus} {resultat} {donnee} onchoisir={(s) => valider([s])} />
       {:else if jeu === 'coquille'}
         <p class="consigne">{t.enonce}</p>
         <!-- Le message, mot après mot : chaque caractère se touche. -->
@@ -691,7 +728,13 @@
     </div>
   {:else}
     <div class="mood">
-      <Tao stade={taoStade} posture="jeu" humeur={taoHumeur} size={96} />
+      <Tao
+        stade={taoStade}
+        posture="jeu"
+        humeur={taoHumeur}
+        size={96}
+        penchee={jeu === 'eclair' && TAO_ECLAIR.penchee}
+      />
     </div>
     <div class="card center bilan">
       <h1>{jeuCourant?.titre}</h1>
@@ -703,6 +746,9 @@
             ? 'La lanterne de Tao reste allumée aujourd’hui. La suivante demain.'
             : 'La suivante demain.'}
         </p>
+      {:else if jeu === 'eclair'}
+        <!-- Le compteur, sobre : un nombre réel, pas un score. -->
+        <p class="guide">En tout : {ligneMotsDevines(p.motsDevines.length).toLowerCase()}</p>
       {/if}
       <div class="k">Ce qui vient d'être revu repasse dans tes révisions, aux échéances dites.</div>
     </div>
@@ -792,5 +838,11 @@
     font-weight: 500;
     color: var(--indigo);
     margin-right: 6px;
+  }
+  /* Le compteur « mots devinés » : une ligne sobre sous la description du jeu. */
+  .compte {
+    margin-top: 2px;
+    font-size: 13px;
+    color: var(--mist);
   }
 </style>

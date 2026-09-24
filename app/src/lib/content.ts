@@ -521,6 +521,8 @@ export type Index = {
    * des Réglages est éteint.
    */
   apercu: string;
+  /** Le fichier du dictionnaire éclair, `eclair.json` ; vide pour un export qui n'en porte pas. */
+  eclair: string;
 };
 
 /** La version de données que l'app lit : le dossier exporté par `wenlu export`. */
@@ -558,7 +560,8 @@ export async function loadIndex(
     fetes: typeof brut.fetes === 'string' ? brut.fetes : '',
     saisons: typeof brut.saisons === 'string' ? brut.saisons : '',
     devinettes: typeof brut.devinettes === 'string' ? brut.devinettes : '',
-    apercu: typeof brut.apercu === 'string' ? brut.apercu : ''
+    apercu: typeof brut.apercu === 'string' ? brut.apercu : '',
+    eclair: typeof brut.eclair === 'string' ? brut.eclair : ''
   };
 }
 

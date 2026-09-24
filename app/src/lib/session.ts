@@ -257,6 +257,12 @@ export type Progress = {
    * défaut ; absent d'une progression plus ancienne : éteint.
    */
   relecture: boolean;
+  /**
+   * Les mots devinés au dictionnaire éclair, par identifiant, chacun une fois, dans
+   * l'ordre : le compteur « mots devinés » (`eclair.ts`, `noterMotDevine`). Absent d'une
+   * progression plus ancienne : aucun mot deviné.
+   */
+  motsDevines: string[];
 };
 
 /**
@@ -316,7 +322,8 @@ export function emptyProgress(aujourdhui: string): Progress {
     devinettes: [],
     devinetteDuJour: null,
     contesLus: {},
-    relecture: false
+    relecture: false,
+    motsDevines: []
   };
 }
 
@@ -1251,6 +1258,8 @@ export function fromJSON(texte: string, aujourdhui: string): Progress {
     devinetteDuJour: lireDevinetteDuJour(o.devinetteDuJour),
     contesLus: lireContesLus(o.contesLus),
     /* Le mode relecture : absent d'un export plus ancien, éteint. */
-    relecture: o.relecture === true
+    relecture: o.relecture === true,
+    /* Les mots devinés : absents d'un export plus ancien, aucun n'est deviné. */
+    motsDevines: listeDeCaracteres(o.motsDevines)
   };
 }

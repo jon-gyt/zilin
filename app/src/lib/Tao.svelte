@@ -23,7 +23,8 @@
     posture = 'chemin',
     humeur = 'calme',
     size = 110,
-    caractere = '住'
+    caractere = '住',
+    penchee = false
   }: {
     stade?: Stade;
     posture?: PostureVue;
@@ -31,6 +32,8 @@
     size?: number;
     /** Le caractère de la bulle, en posture « leçon ». */
     caractere?: string;
+    /** En posture « jeu », la tête penchée sur un mot, sans lanterne (le dictionnaire éclair). */
+    penchee?: boolean;
   } = $props();
 
   const arbre = $derived(stade === 'jeune' || stade === 'fleur' || stade === 'peches');
@@ -56,6 +59,7 @@
 
 <svg
   class="tao {stade} {posture} {humeur}"
+  class:penchee
   width={size}
   height={size}
   viewBox="0 0 200 200"
@@ -209,7 +213,7 @@
       <path d="M142 112l10-10" stroke="var(--ink)" stroke-width="11" stroke-linecap="round" />
       <path class="trait" d="M136 126h40" stroke="var(--ink)" stroke-width="5" stroke-linecap="round" fill="none" />
     </g>
-  {:else if posture === 'jeu'}
+  {:else if posture === 'jeu' && !penchee}
     <g class="lanterne">
       <path d="M164 26v12" stroke="var(--ink)" stroke-width="3" stroke-linecap="round" />
       <ellipse cx="164" cy="56" rx="17" ry="18" fill="var(--card)" stroke="var(--ocre)" stroke-width="4" />
@@ -274,3 +278,11 @@
     </g>
   {/if}
 </svg>
+
+<style>
+  /* Le dictionnaire éclair : la tête penchée sur le mot, immobile, comme on réfléchit. */
+  .penchee .vivant {
+    transform-origin: 100px 168px;
+    transform: rotate(-9deg);
+  }
+</style>
