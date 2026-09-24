@@ -73,7 +73,7 @@ from .gf0014 import Controle
 from .graphe import BRIQUE, MUETTE, PARCOURS
 from .models import Brique, Famille, Fiche, Mot
 from .outils import empreinte_fichier
-from .paths import BUILD, DATA, EXPORT, GF0014, INGEST, INTERFACE
+from .paths import BUILD, CONTES, DATA, EXPORT, GF0014, INGEST, INTERFACE
 
 #: Version par défaut de l'export.
 VERSION = "0.1.0"
@@ -81,7 +81,7 @@ VERSION = "0.1.0"
 #: Version du format écrit par ce module. À incrémenter à chaque changement de
 #: ce que l'export produit à entrées égales (clé ajoutée, ordre, règle de
 #: sélection) : elle entre dans l'empreinte, et l'export versionné devient périmé.
-FORMAT_EXPORT = 3
+FORMAT_EXPORT = 4
 
 #: Le code de l'exporteur, lui aussi dans l'empreinte : un changement de ce
 #: fichier où l'on aurait oublié `FORMAT_EXPORT` rend quand même l'export périmé.
@@ -170,6 +170,7 @@ def fichiers_sources(
         ("fetes-animaux", fetes_mod.ANIMAUX),
         ("saisons-termes", saisons_mod.TERMES),
         ("saisons-textes", saisons_mod.TEXTES),
+        ("contes-catalogue", CONTES / "catalogue.tsv"),
         ("devinettes", devinettes_mod.DEVINETTES),
         ("devinettes-briques", devinettes_mod.BRIQUES),
         ("interface", INTERFACE),
@@ -712,6 +713,19 @@ def document_devinettes(
     )
 
 
+def titre_original(conte: str) -> dict[str, str]:
+    """Le vrai titre d'un récit (愚公移山) et son pinyin, lus dans le catalogue des contes.
+
+    Vide pour un conte hors catalogue : l'app retombe alors sur le titre traduit.
+    """
+    if not (CONTES / "catalogue.tsv").exists():
+        return {"titre_zh": "", "titre_pinyin": ""}
+    for c in contes_mod.charger_catalogue(CONTES / "catalogue.tsv"):
+        if c.id == conte:
+            return {"titre_zh": c.titre_zh, "titre_pinyin": c.titre_pinyin}
+    return {"titre_zh": "", "titre_pinyin": ""}
+
+
 def document_conte(
     conte: str, versions: Sequence[contes_mod.Version], version_export: str
 ) -> dict[str, object]:
@@ -725,6 +739,7 @@ def document_conte(
         "source_url": URL_PIPELINE,
         "modified": f"{JETON_JOUR} : assemblé par `wenlu export`",
         "conte": conte,
+        **titre_original(conte),
         "titre_fr": tete.titre_fr,
         "titre_en": tete.titre_en,
         "versions": {
@@ -810,6 +825,7 @@ def document_index(
         "contes": [
             {
                 "id": conte,
+                **titre_original(conte),
                 "titre_fr": versions[0].titre_fr,
                 "titre_en": versions[0].titre_en,
                 "seuils": [v.seuil for v in versions],

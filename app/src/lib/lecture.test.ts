@@ -271,3 +271,29 @@ describe('la traduction', () => {
     expect(traduction(V405)).toBe('Le paysan attend le lièvre. Le lièvre ne vient pas.');
   });
 });
+
+describe('le vrai titre', () => {
+  it("l'entrée porte le titre chinois et son pinyin, même quand le conte est fermé", () => {
+    const e = entreeConte(
+      { ...INDEX, titre_zh: '愚公移山', titre_pinyin: 'yú gōng yí shān' },
+      { ...CONTE, titre_zh: '愚公移山', titre_pinyin: 'yú gōng yí shān' },
+      new Set()
+    );
+    expect(e.version).toBeNull();
+    expect([e.titre_zh, e.titre_pinyin, e.titre_fr]).toEqual(['愚公移山', 'yú gōng yí shān', 'Essai']);
+  });
+
+  it('un export sans vrai titre retombe sur le titre traduit', () => {
+    expect(entreeConte(INDEX, CONTE, new Set()).titre_zh).toBe('');
+  });
+
+  it("les contes de l'export portent tous leur vrai titre, une syllabe par caractère", () => {
+    const index = JSON.parse(readFileSync('public/data/0.1.0/index.json', 'utf8')) as { contes: IndexConte[] };
+    expect(index.contes.length).toBeGreaterThan(0);
+    for (const c of index.contes) {
+      expect(c.titre_zh).toMatch(/^[\u4e00-\u9fff]+$/);
+      expect(c.titre_pinyin?.split(' ').length).toBe(Array.from(c.titre_zh ?? '').length);
+    }
+  });
+});
+

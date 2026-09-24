@@ -408,6 +408,8 @@ def test_un_conte_non_relu_n_entre_pas_dans_l_export(atelier: Path) -> None:
     assert index["contes"] == [
         {
             "id": "temoin",
+            "titre_zh": "",
+            "titre_pinyin": "",
             "titre_fr": "Témoin",
             "titre_en": "Witness",
             "seuils": [255],

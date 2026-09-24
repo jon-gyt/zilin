@@ -113,17 +113,21 @@
       </div>
     {:else}
       <div class="sec">Contes</div>
+      {#snippet titre(e: EntreeConte)}
+        {#if e.titre_zh}
+          <span class="t"><span class="hz" lang="zh-Hans">{e.titre_zh}</span> <span class="py">{e.titre_pinyin}</span></span>
+          <span class="fr">{e.titre_fr}</span>
+        {:else}
+          <span class="t">{e.titre_fr}</span>
+        {/if}
+      {/snippet}
       {#each entrees as e (e.id)}
         {#if e.version}
           <button class="entry" data-gratuit={e.gratuit} onclick={() => ouvrir(e)}>
-            <span class="ico"><span class="hz">{Array.from(e.version.titre)[0] ?? ''}</span></span>
+            <span class="ico"><span class="hz">{Array.from(e.titre_zh || e.version.titre)[0] ?? ''}</span></span>
             <span class="grow">
-              <span class="t">{e.titre_fr}</span>
-              <span class="d">
-                <span class="hz">{e.version.titre}</span> · seuil {e.version.seuil}{e.lue
-                  ? ' · lu'
-                  : ''}
-              </span>
+              {@render titre(e)}
+              <span class="d">seuil {e.version.seuil}{e.lue ? ' · lu' : ''}</span>
               {#if e.plusRiche}
                 <span class="riche">Une version plus riche de ce conte est ouverte.</span>
               {/if}
@@ -141,7 +145,7 @@
               </svg>
             </span>
             <span class="grow">
-              <span class="t">{e.titre_fr}</span>
+              {@render titre(e)}
               <span class="d">
                 {e.attend === null ? 'Pas encore lisible' : `Au seuil ${e.attend}`}{reste(e)}
               </span>
@@ -205,8 +209,23 @@
     line-height: 1.3;
     margin-top: 1px;
   }
-  .entry .d .hz {
+  .entry .t .hz {
+    font-size: 21px;
+    font-weight: 500;
+    letter-spacing: 0.04em;
+  }
+  .entry .t .py {
+    font-size: 14px;
+    font-weight: 400;
+    font-style: italic;
+    color: var(--ink2);
+  }
+  .entry .fr {
+    display: block;
     font-size: 15px;
+    color: var(--ink);
+    line-height: 1.3;
+    margin-top: 2px;
   }
   .entry .riche {
     font-size: 14.5px;
@@ -215,6 +234,8 @@
     margin-top: 4px;
   }
   .entry.ferme .t,
+  .entry.ferme .t .py,
+  .entry.ferme .fr,
   .entry.ferme .d {
     color: var(--mist);
   }

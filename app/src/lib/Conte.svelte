@@ -86,7 +86,13 @@
   <div class="verif-tete">
     <div class="grow">
       <div class="k">Version du seuil {v?.seuil}</div>
-      <h1>{entree.titre_fr}</h1>
+      {#if entree.titre_zh}
+        <h1 class="vrai" lang="zh-Hans">{entree.titre_zh}</h1>
+        <div class="py">{entree.titre_pinyin}</div>
+        <div class="fr">{entree.titre_fr}</div>
+      {:else}
+        <h1>{entree.titre_fr}</h1>
+      {/if}
     </div>
     <Tao stade={taoStade} posture="lecture" humeur={taoHumeur} size={72} />
   </div>
@@ -109,7 +115,9 @@
 
   {#if v}
     <div class="card">
-      <div class="read titre" lang="zh-Hans">{@render ligne(titre)}</div>
+      {#if !entree.titre_zh}
+        <div class="read titre" lang="zh-Hans">{@render ligne(titre)}</div>
+      {/if}
       <div class="read texte" lang="zh-Hans">{@render ligne(texte)}</div>
     </div>
 
@@ -149,6 +157,19 @@
   .texte {
     display: flex;
     flex-wrap: wrap;
+  }
+  h1.vrai {
+    font-family: var(--hz);
+    font-weight: 500;
+    letter-spacing: 0.06em;
+  }
+  .verif-tete .py {
+    font-style: italic;
+    color: var(--ink2);
+  }
+  .verif-tete .fr {
+    color: var(--ink2);
+    margin-top: 2px;
   }
   .titre {
     font-size: 24px;

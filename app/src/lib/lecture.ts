@@ -66,6 +66,9 @@ export function versionLisible(conte: Conte, acquis: ReadonlySet<string>): Versi
 /** Un conte dans la bibliothèque, tel que l'écran le montre. */
 export type EntreeConte = {
   id: string;
+  /** Le vrai titre du récit (愚公移山), montré même hors de l'acquis ; vide s'il manque. */
+  titre_zh: string;
+  titre_pinyin: string;
   titre_fr: string;
   /** Marqueur de l'offre gratuite, lu dans l'index. Il ne ferme rien. */
   gratuit: boolean;
@@ -91,7 +94,13 @@ export function entreeConte(
   acquis: ReadonlySet<string>,
   lus: readonly number[] = []
 ): EntreeConte {
-  const base = { id: i.id, titre_fr: conte?.titre_fr || i.titre_fr, gratuit: i.gratuit === true };
+  const base = {
+    id: i.id,
+    titre_zh: conte?.titre_zh || i.titre_zh || '',
+    titre_pinyin: conte?.titre_pinyin || i.titre_pinyin || '',
+    titre_fr: conte?.titre_fr || i.titre_fr,
+    gratuit: i.gratuit === true
+  };
   const version = conte === null ? null : versionLisible(conte, acquis);
   if (version === null) {
     const premiere = conte?.versions[0] ?? null;

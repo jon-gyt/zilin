@@ -439,6 +439,9 @@ export type IndexFamille = {
  */
 export type IndexConte = {
   id: string;
+  /** Le vrai titre du récit (愚公移山) et son pinyin ; vides dans un export plus ancien. */
+  titre_zh?: string;
+  titre_pinyin?: string;
   titre_fr: string;
   seuils: number[];
   fichier: string;
@@ -458,6 +461,8 @@ export function lireContesIndex(v: unknown): IndexConte[] {
       : [];
     out.push({
       id: o.id,
+      titre_zh: typeof o.titre_zh === 'string' ? o.titre_zh : '',
+      titre_pinyin: typeof o.titre_pinyin === 'string' ? o.titre_pinyin : '',
       titre_fr: typeof o.titre_fr === 'string' ? o.titre_fr : '',
       seuils,
       fichier: o.fichier,
@@ -1366,6 +1371,9 @@ export type Conte = {
   version: string;
   source: string;
   id: string;
+  /** Le vrai titre du récit (愚公移山) et son pinyin, montrés tels quels. */
+  titre_zh?: string;
+  titre_pinyin?: string;
   titre_fr: string;
   versions: VersionConte[];
 };
@@ -1427,6 +1435,8 @@ export function lireConte(brut: unknown, file = ''): Conte {
     version: chaine(o.version),
     source: chaine(o.source),
     id,
+    titre_zh: chaine(o.titre_zh),
+    titre_pinyin: chaine(o.titre_pinyin),
     titre_fr: chaine(o.titre_fr),
     versions
   };
