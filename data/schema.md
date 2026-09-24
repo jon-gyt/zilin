@@ -558,6 +558,11 @@ versionné, un fichier par caractère, nommé d'après lui.
   candidats ; moins, voire aucun, quand les candidats sont rares ou douteux ;
   `phrase` : un objet `{zh, pinyin, fr, en}`. Les traductions sont rédigées, jamais
   reprises d'un dictionnaire.
+- Pinyin des mots et de la phrase : les tons du dictionnaire, sans sandhi (`yī`,
+  `bù`, même devant un quatrième ton) ; un mot d'un seul tenant (`bùhǎo`, `nǚ'ér`) ; le
+  ton neutre d'un mot comme CC-CEDICT (`dōngxi`, `péngyou`, `duōshao`, `rènshi`).
+  `tests/test_pinyin.py` relit chaque brouillon contre les lectures du caractère
+  (`pinyin.py`) et le pinyin CC-CEDICT du mot.
 - Le reste de la fiche (`parcours`, `jour`, `pinyin`, `composants`, `structure`) ne
   s'écrit pas : l'import le prend dans le contexte du caractère.
 
