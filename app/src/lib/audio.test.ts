@@ -1,6 +1,9 @@
 import { describe, it, expect, beforeEach } from 'vitest';
+import { VERSION_DONNEES } from './content';
 import {
   FICHIER_AUDIO,
+  FICHIER_AUDIO_DEMO,
+  FICHIERS_AUDIO,
   aAudio,
   aFichier,
   aVoixTelephone,
@@ -80,6 +83,40 @@ describe('le manifeste audio', () => {
   it('absent, il ne fait pas d’erreur : l’app se tait', async () => {
     configurerAudio({ fetchFn: fetchDEssai([], null, false) });
     expect((await manifesteOnce()).chemins).toEqual({});
+  });
+
+  it('est celui de l’export versionné que lit l’app, la démonstration en repli', () => {
+    expect(FICHIER_AUDIO).toBe(`data/${VERSION_DONNEES}/audio/manifeste.json`);
+    expect(FICHIERS_AUDIO).toEqual([FICHIER_AUDIO, FICHIER_AUDIO_DEMO]);
+  });
+
+  it('se lit d’abord dans l’export, sans toucher à la démonstration', async () => {
+    const urls: string[] = [];
+    configurerAudio({ fetchFn: fetchDEssai(urls) });
+    expect((await manifesteOnce()).chemins['人']).toBe(MANIFESTE.chemins['人']);
+    expect(urls).toEqual([`${import.meta.env.BASE_URL}${FICHIER_AUDIO}`]);
+  });
+
+  it('sans audio dans l’export, se replie sur la démonstration', async () => {
+    const urls: string[] = [];
+    const DEMO: Manifeste = { ...MANIFESTE, version: 'demo', chemins: { 住: 'data/demo/audio/zhu.mp3' } };
+    const fetchFn = ((entree: RequestInfo | URL) => {
+      urls.push(String(entree));
+      const demo = String(entree).endsWith(FICHIER_AUDIO_DEMO);
+      return Promise.resolve({
+        ok: demo,
+        status: demo ? 200 : 404,
+        json: () => Promise.resolve(demo ? DEMO : null)
+      } as Response);
+    }) as unknown as typeof fetch;
+    configurerAudio({ fetchFn });
+    const m = await manifesteOnce();
+    expect(m.version).toBe('demo');
+    expect(chemin(m, '住')).toBe('data/demo/audio/zhu.mp3');
+    expect(urls).toEqual([
+      `${import.meta.env.BASE_URL}${FICHIER_AUDIO}`,
+      `${import.meta.env.BASE_URL}${FICHIER_AUDIO_DEMO}`
+    ]);
   });
 
   it('dit si un texte a une voix, et laquelle', () => {

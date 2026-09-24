@@ -370,7 +370,7 @@
         {/if}
         <!-- La cible en grand : ce qu'on cherche, avant les briques. -->
         {@const g = glose(t.c, corpus)}
-        <div class="jeu-cible">
+        <div class="cible">
           {#if g.fr !== ''}<b>« {g.fr} »</b>{/if}
           {#if g.pinyin !== ''}<span class="py">{g.pinyin}</span>{/if}
         </div>

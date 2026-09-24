@@ -8,7 +8,7 @@ Apprendre à lire le chinois par l'arbre des caractères. PWA d'abord, App Store
 - `data/` : pipeline Python (uv). Ingestion des sources, graphe de dépendances, génération des fiches FR et EN, export JSON versionné.
 - `app/` : PWA TypeScript, Vite, Svelte. Consomme le JSON exporté par `data/`.
 - `maquettes/` : maquettes HTML validées (Zilin et Cilin). Référence visuelle et fonctionnelle, pas du code de production.
-- `.github/workflows/` : build iOS sur runner macOS, envoi TestFlight.
+- `.github/workflows/` : publication sur GitHub Pages, pipeline de données (`donnees.yml`), build iOS sur runner macOS et envoi TestFlight.
 - `scripts/` : outillage (certificat de signature sous Linux).
 
 ## Démarrer
@@ -54,8 +54,10 @@ polices et met une minute à produire les woff2. Il se lance à la main, après
 `export`, quand le périmètre exporté a changé — sinon Noto Serif SC n'embarque pas
 les caractères que « Ma forêt » affiche.
 
-`audio`, `contes` et `fiches` sont à part aussi : elles appellent une API, demandent
-une clé et se lancent à la main, jamais dans `zilin tout`.
+`audio`, `contes` et `fiches` sont à part aussi : elles se lancent à la main, jamais
+dans `zilin tout`. `contes` et `fiches` appellent l'API Anthropic et demandent une
+clé ; `audio` fait tourner Kokoro en local (`uv sync --extra audio`, poids téléchargés
+depuis Hugging Face au premier passage).
 
 Toutes les commandes sont idempotentes : deux passages écrivent les mêmes octets,
 et le résultat ne dépend pas du grain de hachage du processus. Seul
@@ -64,6 +66,34 @@ et le résultat ne dépend pas du grain de hachage du processus. Seul
 Codes de sortie, les mêmes partout : **0** tout va bien, **1** erreur de données
 (source absente, contrôle bloquant en échec, caractère hors parcours), **2** clé
 d'API absente.
+
+### Sur GitHub Actions
+
+Le workflow `donnees.yml` fait tourner le pipeline sur un runner GitHub, qui atteint
+ce que le poste de développement n'atteint pas (Hugging Face, MDBG, Unicode). Il se
+déclenche à la main : onglet Actions, « donnees », Run workflow ; ou
+
+```bash
+gh workflow run donnees.yml -f etapes=audio -f parcours=lire -f seuil=255
+gh run watch   # puis le résumé du run
+```
+
+Chaque passage refait `zilin tout`, puis l'étape choisie. `audio` synthétise la voix
+Kokoro en local (sans clé) et l'exporte dans `app/public/data/<version>/audio/` ;
+`zilin audio voix` liste les voix du modèle, l'entrée `voix` en choisit une autre.
+Ce qui change sous `app/public/data/` ou `data/sources/` part en un commit sur la
+branche `donnees/<étape>`, repartie de `main` et poussée en force à chaque passage :
+le résumé du run donne les chiffres (fichiers, taille, textes sans audio, voix) et le
+lien de comparaison pour ouvrir la PR. Les journaux (provenance, `qualite.md`,
+`audio.json`, carte du modèle) sont dans l'artefact du run.
+
+`fiches` et `contes` soumettent un lot à l'API Message Batches et s'arrêtent ; un
+second déclenchement, `etapes: recuperer`, une fois les lots terminés (moins de
+24 h), récupère et valide. Le journal des lots passe d'un run à l'autre par le cache
+`travail-*`, et les textes produits sont dans l'artefact. Ces étapes demandent le
+secret `ANTHROPIC_API_KEY` (Settings, Secrets and variables, Actions) ; sans lui,
+elles sont sautées et le résumé le dit. Une fiche ou un conte généré reste « à
+relire » : la relecture humaine est obligatoire avant tout export.
 
 ## Développer sans machine locale
 

@@ -38,27 +38,33 @@ dans `data/work/fiches/lots/<lot>.json`.
 """
 from __future__ import annotations
 
-import hashlib
 import json
-import os
 from dataclasses import dataclass, field, replace
-from datetime import datetime, timezone
 from pathlib import Path
-from typing import Callable, Iterable, Iterator, Mapping, Optional, Protocol, Sequence
+from typing import Callable, Iterable, Mapping, Optional, Sequence
 
 import typer
 
+from . import claude
+from .claude import (  # noqa: F401 — réexportés : les noms restent importables d'ici
+    API_LOTS,
+    API_UNITAIRE,
+    MAX_TOKENS,
+    MODELE,
+    CleAbsente,
+    ClientClaude,
+    Invite,
+    ReponseInvalide,
+    RequeteLot,
+    ResultatLot,
+)
+from .claude import maintenant as _maintenant
+from .claude import sans_cloture as _sans_cloture
 from .fonts import PONCTUATION_CHINOISE
 from .gf0014 import Controle, TableGF0014, charger_table
 from .ingest import charger_liste, est_sinogramme
 from .paths import BUILD, FICHES_WORK, INGEST, LISTES
 
-#: Modèle et API retenus : Claude Opus 5, Messages API et Message Batches.
-MODELE = "claude-opus-5"
-API_UNITAIRE = "messages"
-API_LOTS = "messages.batches"
-
-MAX_TOKENS = 8000
 
 #: Au plus trois appels pour une même fiche.
 ESSAIS_MAX = 3
@@ -102,14 +108,6 @@ class CorpusAbsent(FileNotFoundError):
 
 class CaractereHorsParcours(KeyError):
     """Le caractère demandé n'est pas posé par le parcours."""
-
-
-class CleAbsente(RuntimeError):
-    """Aucune clé d'API : rien n'est généré, rien n'est écrit."""
-
-
-class ReponseInvalide(ValueError):
-    """Réponse du modèle illisible ou hors schéma."""
 
 
 # --------------------------------------------------------------------------- contexte
@@ -428,19 +426,6 @@ d'encouragement.
 Tu réponds par le seul objet JSON demandé, sans commentaire."""
 
 
-@dataclass(frozen=True)
-class Invite:
-    """Invite complète, et son empreinte, portée par chaque fiche générée."""
-
-    systeme: str
-    utilisateur: str
-
-    @property
-    def empreinte(self) -> str:
-        brut = f"{self.systeme}\n\n{self.utilisateur}".encode("utf-8")
-        return "sha256:" + hashlib.sha256(brut).hexdigest()
-
-
 def invite(contexte: Contexte, *, refus: Sequence[str] = ()) -> Invite:
     """Construit l'invite d'une fiche, éventuellement après un refus.
 
@@ -574,19 +559,6 @@ class Fiche:
             },
             "statut": self.statut,
         }
-
-
-def _maintenant() -> str:
-    return datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
-
-
-def _sans_cloture(texte: str) -> str:
-    """Retire une éventuelle clôture ```json autour de la réponse."""
-    net = texte.strip()
-    if net.startswith("```"):
-        net = net.split("\n", 1)[-1]
-        net = net.rsplit("```", 1)[0]
-    return net.strip()
 
 
 def _texte_ou_none(valeur: object) -> str | None:
@@ -818,105 +790,18 @@ def valider(fiche: Fiche, contexte: Contexte) -> Rapport:
 # --------------------------------------------------------------------------- client
 
 
-@dataclass(frozen=True)
-class RequeteLot:
-    """Une entrée d'un lot : son `custom_id` et son invite."""
+class ClientAnthropic(claude.ClientAnthropic):
+    """Messages API pour l'unitaire, Message Batches pour les lots. Même invite.
 
-    custom_id: str
-    invite: Invite
+    Le client commun de `claude.py`, avec le schéma de réponse des fiches.
+    """
 
-
-@dataclass(frozen=True)
-class ResultatLot:
-    """Un résultat de lot, réussi ou non."""
-
-    custom_id: str
-    texte: str | None = None
-    erreur: str | None = None
-
-
-class ClientClaude(Protocol):
-    """Ce que le pipeline attend d'un client. Injectable : les tests en simulent un."""
-
-    modele: str
-
-    def generer(self, invite: Invite) -> str:
-        """Un appel unitaire. Retourne le texte JSON de la réponse."""
-
-    def soumettre(self, requetes: Sequence[RequeteLot]) -> str:
-        """Soumet un lot. Retourne son identifiant."""
-
-    def statut_lot(self, lot: str) -> str:
-        """`processing_status` du lot (`in_progress`, `ended`, …)."""
-
-    def resultats(self, lot: str) -> Iterator[ResultatLot]:
-        """Résultats d'un lot terminé, dans un ordre quelconque."""
+    SCHEMA = SCHEMA
 
 
 def client_anthropic(modele: str = MODELE, max_tokens: int = MAX_TOKENS) -> ClientClaude:
     """Client réel (SDK `anthropic`). Refuse de partir sans clé d'API."""
-    if not os.environ.get("ANTHROPIC_API_KEY"):
-        raise CleAbsente(
-            "ANTHROPIC_API_KEY absent : aucun appel n'est fait et aucun fichier n'est écrit."
-        )
-    import anthropic
-
-    return ClientAnthropic(anthropic.Anthropic(), modele=modele, max_tokens=max_tokens)
-
-
-class ClientAnthropic:
-    """Messages API pour l'unitaire, Message Batches pour les lots. Même invite."""
-
-    def __init__(self, client: object, *, modele: str = MODELE, max_tokens: int = MAX_TOKENS) -> None:
-        self._client = client
-        self.modele = modele
-        self.max_tokens = max_tokens
-
-    def parametres(self, invite: Invite) -> dict[str, object]:
-        """Corps de requête commun aux deux chemins d'appel."""
-        return {
-            "model": self.modele,
-            "max_tokens": self.max_tokens,
-            "system": invite.systeme,
-            "messages": [{"role": "user", "content": invite.utilisateur}],
-            "output_config": {"format": {"type": "json_schema", "schema": SCHEMA}},
-        }
-
-    @staticmethod
-    def _texte(message: object) -> str:
-        blocs = getattr(message, "content", [])
-        return next((b.text for b in blocs if getattr(b, "type", "") == "text"), "")
-
-    def generer(self, invite: Invite) -> str:
-        reponse = self._client.messages.create(**self.parametres(invite))  # type: ignore[attr-defined]
-        if getattr(reponse, "stop_reason", None) == "refusal":
-            raise ReponseInvalide("réponse refusée par le modèle (stop_reason: refusal)")
-        return self._texte(reponse)
-
-    def soumettre(self, requetes: Sequence[RequeteLot]) -> str:
-        from anthropic.types.message_create_params import MessageCreateParamsNonStreaming
-        from anthropic.types.messages.batch_create_params import Request
-
-        lot = self._client.messages.batches.create(  # type: ignore[attr-defined]
-            requests=[
-                Request(
-                    custom_id=r.custom_id,
-                    params=MessageCreateParamsNonStreaming(**self.parametres(r.invite)),  # type: ignore[typeddict-item]
-                )
-                for r in requetes
-            ]
-        )
-        return str(lot.id)
-
-    def statut_lot(self, lot: str) -> str:
-        return str(self._client.messages.batches.retrieve(lot).processing_status)  # type: ignore[attr-defined]
-
-    def resultats(self, lot: str) -> Iterator[ResultatLot]:
-        for resultat in self._client.messages.batches.results(lot):  # type: ignore[attr-defined]
-            if resultat.result.type == "succeeded":
-                yield ResultatLot(resultat.custom_id, texte=self._texte(resultat.result.message))
-            else:
-                yield ResultatLot(resultat.custom_id, erreur=str(resultat.result.type))
+    return claude.client_anthropic(ClientAnthropic, modele, max_tokens)
 
 
 # --------------------------------------------------------------------------- écriture
@@ -1042,24 +927,15 @@ def soumettre_lot(
         "modele": client.modele,
         "api": API_LOTS,
         "soumis": horloge(),
-        "statut": "en_cours",
+        "statut": claude.EN_COURS,
         "requetes": journal,
     }
-    fichier = dossier_lots(dossier) / f"{identifiant_lot}.json"
-    fichier.parent.mkdir(parents=True, exist_ok=True)
-    fichier.write_text(json.dumps(lot, ensure_ascii=False, indent=1), encoding="utf-8")
+    claude.ecrire_lot(dossier_lots(dossier), lot)
     return lot
 
 
 def lots_en_cours(dossier: Path | None = None) -> list[Path]:
-    chemin = dossier_lots(dossier)
-    if not chemin.exists():
-        return []
-    return [
-        f
-        for f in sorted(chemin.glob("*.json"))
-        if json.loads(f.read_text(encoding="utf-8")).get("statut") == "en_cours"
-    ]
+    return claude.lots_en_cours(dossier_lots(dossier))
 
 
 def recuperer_lot(
@@ -1124,9 +1000,7 @@ def recuperer_lot(
                 essais_suivants[c] = essai + 1
                 refus_signales[c] = rapport.refus
 
-    lot["statut"] = "recupere"
-    lot["recupere"] = horloge()
-    fichier.write_text(json.dumps(lot, ensure_ascii=False, indent=1), encoding="utf-8")
+    claude.marquer_recupere(fichier, lot, horloge())
 
     if relancer and a_relancer:
         suivant = soumettre_lot(
@@ -1221,11 +1095,7 @@ app = typer.Typer(help="Fiches FR et EN : génération par lots, récupération,
 
 
 def _client(modele: str) -> ClientClaude:
-    try:
-        return client_anthropic(modele)
-    except CleAbsente as erreur:
-        typer.echo(str(erreur), err=True)
-        raise typer.Exit(code=2) from erreur
+    return claude.client_ou_sortie(lambda: client_anthropic(modele))
 
 
 def _corpus(parcours: str) -> Corpus:

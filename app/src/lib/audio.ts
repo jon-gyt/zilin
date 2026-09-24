@@ -13,6 +13,7 @@
  * iOS, un élément déjà débloqué par un geste continue de jouer, et n'en créer qu'un
  * évite d'empiler des lecteurs à chaque toucher.
  */
+import { VERSION_DONNEES, dossierVersion } from './content';
 
 /** Le manifeste audio exporté : texte → chemin du fichier servi avec l'app. */
 export type Manifeste = {
@@ -24,11 +25,17 @@ export type Manifeste = {
 };
 
 /**
- * Le manifeste servi avec l'app. `zilin audio exporter` l'écrit dans
- * `app/public/data/<version>/audio/manifeste.json` ; tant que l'export versionné
- * n'est pas là, c'est le dossier de démonstration qui est lu, et il n'a pas d'audio.
+ * Le manifeste servi avec l'app : celui de l'export versionné, que `zilin audio
+ * exporter` écrit dans `app/public/data/<version>/audio/manifeste.json`, pour la
+ * version que lit `content.ts`.
  */
-export const FICHIER_AUDIO = 'data/demo/audio/manifeste.json';
+export const FICHIER_AUDIO = `${dossierVersion(VERSION_DONNEES)}/audio/manifeste.json`;
+
+/** Le repli : le manifeste du dossier de démonstration, lu quand l'export n'a pas d'audio. */
+export const FICHIER_AUDIO_DEMO = 'data/demo/audio/manifeste.json';
+
+/** Les manifestes essayés dans l'ordre quand aucun n'est nommé : l'export, puis la démonstration. */
+export const FICHIERS_AUDIO: readonly string[] = [FICHIER_AUDIO, FICHIER_AUDIO_DEMO];
 
 /** Ce que ce module demande à un lecteur : de quoi jouer un fichier, rien de plus. */
 export type Lecteur = Pick<HTMLAudioElement, 'src' | 'currentTime' | 'preload' | 'play' | 'pause'>;
@@ -107,19 +114,35 @@ export async function loadManifeste(
 }
 
 /**
- * Le manifeste, chargé une seule fois pour toute la durée de vie de l'app.
- * Un fichier absent ou illisible donne un manifeste vide : l'app se tait.
+ * Le premier manifeste lisible d'une liste, dans l'ordre. Un fichier absent ou
+ * illisible passe au suivant ; aucun lisible, c'est le manifeste vide.
  */
-export function manifesteOnce(file = FICHIER_AUDIO): Promise<Manifeste> {
-  let p = manifestes.get(file);
+async function premierLisible(files: readonly string[]): Promise<Manifeste> {
+  for (const f of files) {
+    try {
+      return await loadManifeste(f);
+    } catch {
+      /* absent ou illisible : le suivant */
+    }
+  }
+  return VIDE;
+}
+
+/**
+ * Le manifeste, chargé une seule fois pour toute la durée de vie de l'app. Sans
+ * fichier nommé, celui de l'export versionné, et à défaut celui de la démonstration.
+ * Aucun fichier lisible donne un manifeste vide : l'app se tait.
+ */
+export function manifesteOnce(file?: string): Promise<Manifeste> {
+  const cle = file ?? FICHIERS_AUDIO.join('|');
+  let p = manifestes.get(cle);
   if (!p) {
-    p = loadManifeste(file)
-      .catch(() => VIDE)
+    p = premierLisible(file === undefined ? FICHIERS_AUDIO : [file])
       .then((m) => {
         charge = m;
         return m;
       });
-    manifestes.set(file, p);
+    manifestes.set(cle, p);
   }
   return p;
 }
@@ -167,7 +190,7 @@ export function aAudio(m: Manifeste | null, texte: string): boolean {
  * Dit un texte. Le fichier pré-généré d'abord ; sinon la voix du téléphone ; sinon
  * rien du tout, en silence. Rend `true` si quelque chose a été dit.
  */
-export async function dire(texte: string, file = FICHIER_AUDIO): Promise<boolean> {
+export async function dire(texte: string, file?: string): Promise<boolean> {
   const m = await manifesteOnce(file);
   const c = chemin(m, texte);
   if (c !== null) {
@@ -205,7 +228,7 @@ export function direParLeTelephone(texte: string): boolean {
  * le premier toucher ne tourne pas dans le vide. Sans effet sur ce qui n'a pas de voix,
  * et silencieux en cas d'échec — le service worker précache déjà ces fichiers.
  */
-export async function precharger(textes: string[], file = FICHIER_AUDIO): Promise<number> {
+export async function precharger(textes: string[], file?: string): Promise<number> {
   const m = await manifesteOnce(file);
   const chemins = textes.map((t) => chemin(m, t)).filter((c): c is string => c !== null);
   await Promise.all(

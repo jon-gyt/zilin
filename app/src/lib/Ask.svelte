@@ -166,7 +166,7 @@
         {#if construit[n] !== undefined}
           <Glyph char={q.choix[construit[n]]} size={56} write={false} color="var(--ocre)" />
         {:else}
-          <span class="case" aria-label="brique à poser"></span>
+          <span class="case-vide" aria-label="brique à poser"></span>
         {/if}
       {/each}
       <span class="op">=</span>

@@ -130,6 +130,10 @@ class ManifesteInvalide(ValueError):
     """Manifeste audio illisible ou hors schéma."""
 
 
+class VoixInconnue(ValueError):
+    """La voix demandée n'est pas dans le dépôt de poids : rien n'est synthétisé."""
+
+
 # --------------------------------------------------------------------------- licence
 
 
@@ -341,8 +345,13 @@ MODELE_LOCAL = "hexgrad/Kokoro-82M-v1.1-zh"
 #: Code de langue Kokoro du mandarin (`KPipeline(lang_code=...)`), vu dans `pipeline.py`.
 LANGUE_LOCALE = "z"
 
-#: Voix par défaut : une voix féminine mandarin de Kokoro v1.1-zh.
+#: Voix par défaut : une voix féminine mandarin de Kokoro v1.1-zh. Jamais vérifiée
+#: depuis cet environnement (`huggingface.co` bloqué) : `zilin audio voix` liste celles
+#: du dépôt, et `zilin audio generer` refuse une voix qui n'y est pas.
 VOIX_LOCALE_DEFAUT = "zf_001"
+
+#: Dossier des voix dans le dépôt de poids : un fichier `<voix>.pt` par voix.
+DOSSIER_VOIX = "voices/"
 
 #: Fréquence rendue par Kokoro, qui est aussi celle que vise le pipeline. Aucun
 #: rééchantillonnage n'est nécessaire : c'est l'une des raisons du choix.
@@ -441,6 +450,48 @@ class MoteurKokoro:
         if not valeurs:
             raise SyntheseImpossible(f"aucun échantillon rendu pour {texte!r}")
         return valeurs
+
+    def voix_disponibles(self) -> list[str]:
+        """Les voix du dépôt de poids : ses fichiers `voices/<voix>.pt`.
+
+        Le hub d'abord ; hors ligne, ce que le cache local en a déjà. Vide si ni l'un
+        ni l'autre ne répond. `huggingface_hub` vient avec `kokoro` : importé ici.
+        """
+        try:
+            from huggingface_hub import list_repo_files
+        except ImportError as erreur:
+            raise PaquetAbsent(message_paquet_absent()) from erreur
+        try:
+            fichiers = list(list_repo_files(self.modele))
+        except Exception:  # réseau coupé, hub hors ligne : le cache local
+            fichiers = _fichiers_en_cache(self.modele)
+        return voix_du_depot(fichiers)
+
+
+def voix_du_depot(fichiers: Iterable[str]) -> list[str]:
+    """Les noms de voix d'une liste de fichiers du dépôt, triés, sans doublon."""
+    return sorted(
+        {Path(f).stem for f in fichiers if f.startswith(DOSSIER_VOIX) and f.endswith(".pt")}
+    )
+
+
+def _fichiers_en_cache(modele: str) -> list[str]:
+    """Les fichiers de voix du dépôt déjà téléchargés dans le cache Hugging Face."""
+    try:
+        from huggingface_hub.constants import HF_HUB_CACHE
+    except ImportError:
+        return []
+    racine = Path(HF_HUB_CACHE) / f"models--{modele.replace('/', '--')}" / "snapshots"
+    return [f"{DOSSIER_VOIX}{chemin.name}" for chemin in racine.glob(f"*/{DOSSIER_VOIX}*.pt")]
+
+
+def verifier_voix(voix: str, disponibles: Sequence[str]) -> None:
+    """Lève `VoixInconnue` si `voix` n'est pas parmi `disponibles`, en les citant."""
+    if voix not in disponibles:
+        raise VoixInconnue(
+            f"voix « {voix} » absente du modèle {MODELE_LOCAL} ; voix disponibles : "
+            f"{', '.join(disponibles)}. Choisissez-en une avec `--voix`."
+        )
 
 
 def message_paquet_absent() -> str:
@@ -597,6 +648,11 @@ class FournisseurLocal:
         if self._moteur is None:
             self._moteur = MoteurKokoro(modele=self.modele)
         return self._moteur
+
+    def voix_disponibles(self) -> list[str] | None:
+        """Les voix du modèle, ou `None` si le moteur ne sait pas les lister."""
+        lister = getattr(self.moteur, "voix_disponibles", None)
+        return None if lister is None else list(lister())
 
     def synthetiser(self, texte: str, voix: str) -> bytes:
         echantillons = self.moteur.echantillons(texte, voix)
@@ -1115,6 +1171,22 @@ def _fournisseur(nom: str, voix: str | None) -> Fournisseur:
         raise typer.Exit(code=1) from erreur
 
 
+def _voix_du_modele(fournisseur: Fournisseur) -> list[str] | None:
+    """Les voix que le fournisseur sait lister ; `None` s'il ne sait pas, ou si rien ne répond."""
+    lister = getattr(fournisseur, "voix_disponibles", None)
+    if lister is None:
+        return None
+    try:
+        disponibles = lister()
+    except PaquetAbsent as erreur:
+        typer.echo(str(erreur), err=True)
+        raise typer.Exit(code=2) from erreur
+    except Exception as erreur:  # le hub et le cache se taisent : on le dit
+        typer.echo(f"Voix du modèle illisibles ({erreur}).", err=True)
+        return None
+    return list(disponibles) if disponibles else None
+
+
 def _perimetre(parcours: str, seuil: int) -> list[TexteAudio]:
     try:
         return perimetre(parcours, seuil)
@@ -1134,6 +1206,18 @@ def commande_generer(
 ) -> None:
     """Synthétise un fichier par caractère et par mot du périmètre. Idempotent."""
     fournisseur = _fournisseur(fournisseur_nom, voix)
+    disponibles = _voix_du_modele(fournisseur)
+    if disponibles is not None:
+        try:
+            verifier_voix(fournisseur.voix, disponibles)
+        except VoixInconnue as erreur:
+            typer.echo(str(erreur), err=True)
+            raise typer.Exit(code=1) from erreur
+    elif hasattr(fournisseur, "voix_disponibles"):
+        typer.echo(
+            f"Liste des voix inaccessible : la voix {fournisseur.voix} n'est pas vérifiée.",
+            err=True,
+        )
     if not fournisseur.licence.verifie:
         typer.echo(
             f"Licence {fournisseur.licence.fournisseur} : {A_VERIFIER} "
@@ -1167,6 +1251,24 @@ def commande_generer(
     if rapport.echecs:
         for texte, motif in rapport.echecs[:10]:
             typer.echo(f"  échec : {texte} — {motif}", err=True)
+        raise typer.Exit(code=1)
+
+
+@app.command("voix")
+def commande_voix() -> None:
+    """Liste les voix du modèle local (Kokoro v1.1-zh), la voix par défaut marquée."""
+    disponibles = _voix_du_modele(_fournisseur(LOCAL, None))
+    if disponibles is None:
+        typer.echo(
+            f"Aucune voix trouvée pour {MODELE_LOCAL} : ni le hub ni le cache local ne répondent.",
+            err=True,
+        )
+        raise typer.Exit(code=1)
+    for nom in disponibles:
+        typer.echo(f"{nom}{'  (défaut)' if nom == VOIX_LOCALE_DEFAUT else ''}")
+    typer.echo(f"{len(disponibles)} voix dans {MODELE_LOCAL}.")
+    if VOIX_LOCALE_DEFAUT not in disponibles:
+        typer.echo(f"La voix par défaut {VOIX_LOCALE_DEFAUT} n'en fait pas partie.", err=True)
         raise typer.Exit(code=1)
 
 

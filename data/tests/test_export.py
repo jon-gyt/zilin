@@ -240,6 +240,26 @@ def test_deux_passes_ecrivent_les_memes_octets(atelier: Path) -> None:
     assert premier.date == second.date, "la date ne bouge pas tant que le contenu ne bouge pas"
 
 
+def test_seul_l_index_bouge_quand_seule_l_empreinte_change(atelier: Path, monkeypatch) -> None:
+    """Un fichier dont le contenu n'a pas changé garde sa date, même un autre jour.
+
+    Sans cela, corriger l'exporteur (donc l'empreinte) réécrivait des centaines de
+    fichiers pour la seule note de modification.
+    """
+    from datetime import datetime, timezone
+
+    import zilin_data.export as module
+
+    premier = module.export("0.1.0", moment=datetime(2026, 9, 21, tzinfo=timezone.utc))
+    avant = {c: c.read_bytes() for c in sorted(premier.dossier.rglob("*")) if c.is_file()}
+    monkeypatch.setattr(module, "FORMAT_EXPORT", module.FORMAT_EXPORT + 1)
+    second = module.export("0.1.0", moment=datetime(2026, 9, 24, tzinfo=timezone.utc))
+    apres = {c: c.read_bytes() for c in sorted(second.dossier.rglob("*")) if c.is_file()}
+    changes = sorted(str(c.relative_to(second.dossier)) for c in apres if avant.get(c) != apres[c])
+    assert changes == ["index.json"]
+    assert second.date.startswith("2026-09-24")
+
+
 def test_un_fichier_devenu_hors_perimetre_est_retire(atelier: Path) -> None:
     rapport = export("0.1.0")
     intrus = rapport.dossier / "familles" / "林.json"
@@ -539,6 +559,36 @@ def test_le_controle_dit_si_l_export_est_a_jour(atelier: Path) -> None:
     }
     assert not perime["export : à jour"].ok and perime["export : à jour"].bloquant
     assert "0.1.0" in perime["export : à jour"].detail
+
+
+def _a_jour() -> bool:
+    resultats = {
+        c.nom: c for c in controles(export_mod.EXPORT, build=export_mod.BUILD, ingest=export_mod.INGEST)
+    }
+    return resultats["export : à jour"].ok
+
+
+def test_corriger_l_exporteur_rend_l_export_perime(
+    atelier: Path, tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    """Le code qui écrit l'export fait partie de l'empreinte : entrées égales, code changé, export périmé."""
+    copie = tmp_path / "export.py"
+    copie.write_bytes(export_mod.EXPORTEUR.read_bytes())
+    monkeypatch.setattr(export_mod, "EXPORTEUR", copie)
+    export("0.1.0")
+    assert _a_jour()
+
+    copie.write_bytes(copie.read_bytes() + b"\n# correction de l'exporteur\n")
+    assert not _a_jour()
+
+
+def test_changer_de_format_rend_l_export_perime(
+    atelier: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    export("0.1.0")
+    assert _a_jour()
+    monkeypatch.setattr(export_mod, "FORMAT_EXPORT", export_mod.FORMAT_EXPORT + 1)
+    assert not _a_jour()
 
 
 def test_la_commande_export_ecrit_et_rapporte(atelier: Path) -> None:

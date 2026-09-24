@@ -456,16 +456,14 @@ h1{font-family:var(--head);font-weight:700;font-size:30px;line-height:1.15;lette
 .jouer{margin-top:14px}
 .propose{display:flex;align-items:center;gap:10px;width:100%;min-height:48px;padding:10px 14px;margin:0 0 12px;border:1px solid var(--line);border-radius:12px;background:var(--card)}
 
-/* la cible d'un assemblage : ce qu'on cherche, en grand, avant les briques */
-.q .cible{display:flex;flex-direction:column;align-items:center;gap:2px;margin:4px 0 10px}
-.q .cible b{font-family:var(--head);font-weight:700;font-size:24px;color:var(--ink)}
-.q .cible .py{font-family:var(--head);font-weight:500;font-size:18px;color:var(--indigo)}
-.q .parts .case{display:inline-block;width:56px;height:56px;border:2px dashed var(--line);border-radius:12px}
-/* ---- la cible d'un jeu, lisible d'un coup d'œil, avant les choix ---- */
-/* ce qu'on cherche : le sens en titre, le pinyin dessous */
-.jeu-cible{display:flex;flex-direction:column;align-items:center;gap:2px;margin:4px 0 10px}
-.jeu-cible b{font-family:var(--head);font-weight:700;font-size:24px;color:var(--ink)}
-.jeu-cible .py{font-family:var(--head);font-weight:500;font-size:18px;color:var(--indigo)}
+/* la cible d'un assemblage, en question comme en jeu : ce qu'on cherche, en grand,
+   avant les briques — le sens en titre, le pinyin dessous */
+.cible{display:flex;flex-direction:column;align-items:center;gap:2px;margin:4px 0 10px}
+.cible b{font-family:var(--head);font-weight:700;font-size:24px;color:var(--ink)}
+.cible .py{font-family:var(--head);font-weight:500;font-size:18px;color:var(--indigo)}
+/* une brique à poser, en pointillé ; `.case` seul est déjà pris par le chemin (Streak) */
+.case-vide{display:inline-block;width:56px;height:56px;border:2px dashed var(--line);border-radius:12px}
+/* ---- la consigne d'un jeu, avant les choix ---- */
 .jeu .consigne{font-family:var(--head);font-weight:500;font-size:17px;color:var(--ink2);text-align:center;margin:0 0 12px}
 /* une case par brique, en pointillé, qui se remplit au fur et à mesure */
 .jeu .tuile.vide{border-width:2px;opacity:.7}

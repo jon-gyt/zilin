@@ -1,0 +1,330 @@
+# Pipeline de données sur un runner GitHub, qui a l'accès réseau que le poste de
+# développement n'a pas (huggingface.co, mdbg.net, unicode.org). Déclenché à la main :
+# onglet Actions, « donnees », Run workflow ; ou `gh workflow run donnees.yml -f etapes=audio`.
+#
+# Chaque passage refait la chaîne complète (`zilin tout` : sources officielles d'abord,
+# miroirs en repli), puis l'étape demandée. Ce qui change sous app/public/data/ ou
+# data/sources/ part en un commit sur la branche `donnees/<étape>`, repartie de la
+# branche lancée à chaque passage (poussée en force) : on la relit, on ouvre la PR à la
+# main. Le résumé du job donne les chiffres et le lien de comparaison.
+#
+# Fiches et contes passent par l'API Message Batches, en deux temps : `etapes: fiches`
+# (ou `contes`) soumet le lot et s'arrête ; `etapes: recuperer`, relancé plus tard (les
+# lots aboutissent sous 24 h), récupère et valide. Le journal des lots survit d'un
+# passage à l'autre dans le cache `travail-*`. Sans le secret ANTHROPIC_API_KEY, ces
+# étapes sont sautées et le résumé le dit ; le reste du workflow passe.
+name: donnees
+
+on:
+  workflow_dispatch:
+    inputs:
+      etapes:
+        description: "Étape après zilin tout : audio, fiches, contes, recuperer (lots soumis), tout (audio + fiches + contes)"
+        type: choice
+        options: [audio, fiches, contes, recuperer, tout]
+        default: audio
+      seuil:
+        description: "Seuil de la liste cible (audio du parcours lire, contes)"
+        type: choice
+        options: ['255', '405', '505', '805', '1555']
+        default: '255'
+      parcours:
+        description: "Parcours (audio, fiches)"
+        type: choice
+        options: [lire, hsk]
+        default: lire
+      voix:
+        description: "Voix Kokoro (vide : celle du pipeline, zf_001) ; `zilin audio voix` les liste"
+        type: string
+        default: ''
+      jusqua:
+        description: "Fiches : les N premiers caractères du parcours seulement (vide : tous)"
+        type: string
+        default: ''
+
+permissions:
+  contents: write
+
+# Un seul passage à la fois : le journal des lots et l'audio déjà synthétisé passent
+# d'un passage au suivant par le cache, et deux passages concurrents se l'écraseraient.
+concurrency:
+  group: donnees
+  cancel-in-progress: false
+
+jobs:
+  pipeline:
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    defaults:
+      run:
+        working-directory: data
+        shell: bash
+    env:
+      ETAPE: ${{ inputs.etapes }}
+      SEUIL: ${{ inputs.seuil }}
+      PARCOURS: ${{ inputs.parcours }}
+      VOIX: ${{ inputs.voix }}
+      JUSQUA: ${{ inputs.jusqua }}
+      AVEC_AUDIO: ${{ inputs.etapes == 'audio' || inputs.etapes == 'tout' }}
+      AVEC_CLAUDE: ${{ inputs.etapes != 'audio' }}
+      # Après `uv sync`, `uv run` ne resynchronise plus : torch CPU, posé à la main
+      # ci-dessous, serait sinon remplacé par la roue CUDA du verrou.
+      UV_NO_SYNC: '1'
+      PYTHONUNBUFFERED: '1'
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: astral-sh/setup-uv@v6
+        with:
+          python-version: '3.12'
+          enable-cache: true
+          cache-dependency-glob: data/uv.lock
+
+      - name: ffmpeg (MP3 mono 24 kHz 48 kbit/s)
+        if: env.AVEC_AUDIO == 'true'
+        working-directory: .
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq --no-install-recommends ffmpeg
+          ffmpeg -hide_banner -version | sed -n 1p
+
+      - name: Installer le pipeline
+        run: |
+          if [ "$AVEC_AUDIO" != true ]; then
+            uv sync --locked
+            exit 0
+          fi
+          # Voix locale : l'extra `audio` tire torch, dont la roue Linux de PyPI
+          # embarque CUDA (paquets nvidia-*, cuda-*, triton : plusieurs Go) pour un
+          # modèle de 82 M de paramètres qui tourne sur CPU. On installe le verrou
+          # sans eux, puis torch à la même version depuis l'index CPU de PyTorch.
+          exclus=$(python3 -c 'import tomllib; print(" ".join("--no-install-package " + p["name"] for p in tomllib.load(open("uv.lock", "rb"))["package"] if p["name"] in ("torch", "triton") or p["name"].startswith(("nvidia-", "cuda-"))))')
+          # shellcheck disable=SC2086 # une option par mot, voulu
+          uv sync --locked --extra audio $exclus
+          torch=$(python3 -c 'import tomllib; print(next(p["version"] for p in tomllib.load(open("uv.lock", "rb"))["package"] if p["name"] == "torch"))')
+          uv pip install --python .venv/bin/python --index-url https://download.pytorch.org/whl/cpu "torch==${torch}"
+          uv run python -c 'import torch; print("torch", torch.__version__, "cuda:", torch.cuda.is_available())'
+
+      - name: Version de l'export
+        run: echo "VERSION=$(uv run python -c 'from zilin_data.export import VERSION; print(VERSION)')" >> "$GITHUB_ENV"
+
+      - name: Restaurer les poids Kokoro (cache Hugging Face)
+        id: hf
+        if: env.AVEC_AUDIO == 'true'
+        uses: actions/cache/restore@v4
+        with:
+          path: ~/.cache/huggingface
+          key: huggingface-kokoro-v1.1-zh-${{ hashFiles('data/src/zilin_data/audio.py') }}
+          restore-keys: huggingface-kokoro-v1.1-zh-
+
+      - name: Chaîne complète (zilin tout)
+        id: tout
+        run: |
+          mkdir -p work/journaux
+          uv run zilin tout 2>&1 | tee work/journaux/tout.txt
+
+      # Après `zilin tout`, pas avant : ses contrôles portent sur la chaîne de ce passage.
+      # Une fiche rejetée d'un passage précédent, bloquante pour `zilin check`, ne doit pas
+      # empêcher tous les suivants ; « Contrôles finaux » la signale dans qualite.md.
+      - name: Restaurer l'état de travail (lots, audio déjà synthétisé)
+        id: travail
+        uses: actions/cache/restore@v4
+        with:
+          path: |
+            data/work/audio
+            data/work/fiches
+            data/work/contes
+          key: travail-${{ github.run_id }}-${{ github.run_attempt }}
+          restore-keys: travail-
+
+      # ------------------------------------------------------------------ audio
+
+      - name: Voix du modèle (zilin audio voix)
+        if: env.AVEC_AUDIO == 'true'
+        continue-on-error: true
+        run: uv run zilin audio voix 2>&1 | tee work/journaux/voix.txt
+
+      - name: Carte du modèle Kokoro (licence des poids)
+        if: env.AVEC_AUDIO == 'true'
+        continue-on-error: true
+        run: |
+          mkdir -p work/audio
+          curl -fsSL https://huggingface.co/hexgrad/Kokoro-82M-v1.1-zh/raw/main/README.md -o work/audio/carte-modele.md
+          echo "Licence déclarée par la carte : $(grep -m1 -i '^license:' work/audio/carte-modele.md || echo 'ligne license: absente')"
+
+      - name: Synthèse (zilin audio generer)
+        id: generer
+        if: env.AVEC_AUDIO == 'true'
+        continue-on-error: true
+        run: |
+          args=(--fournisseur local --parcours "$PARCOURS" --seuil "$SEUIL")
+          if [ -n "$VOIX" ]; then args+=(--voix "$VOIX"); fi
+          uv run zilin audio generer "${args[@]}" 2>&1 | tee work/journaux/audio-generer.txt
+
+      - name: Export audio (zilin audio exporter)
+        if: env.AVEC_AUDIO == 'true'
+        run: |
+          if [ ! -s work/audio/audio.json ]; then
+            echo "Aucun audio synthétisé : rien à exporter."
+            exit 0
+          fi
+          uv run zilin audio exporter --version "$VERSION" --parcours "$PARCOURS" --seuil "$SEUIL" 2>&1 \
+            | tee work/journaux/audio-exporter.txt
+
+      - name: Sauver les poids Kokoro
+        if: always() && env.AVEC_AUDIO == 'true' && steps.hf.outputs.cache-hit != 'true'
+        continue-on-error: true
+        uses: actions/cache/save@v4
+        with:
+          path: ~/.cache/huggingface
+          key: huggingface-kokoro-v1.1-zh-${{ hashFiles('data/src/zilin_data/audio.py') }}
+
+      # ------------------------------------------------------- fiches et contes
+
+      - name: Clé d'API Anthropic
+        id: cle
+        if: env.AVEC_CLAUDE == 'true'
+        env:
+          CLE: ${{ secrets.ANTHROPIC_API_KEY }}
+        run: |
+          if [ -n "$CLE" ]; then
+            echo "presente=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "presente=false" >> "$GITHUB_OUTPUT"
+            {
+              echo "### Fiches et contes : étape sautée"
+              echo
+              echo "Le secret \`ANTHROPIC_API_KEY\` n'est pas défini : aucun lot n'est soumis ni récupéré."
+              echo "L'ajouter dans Settings, Secrets and variables, Actions, puis relancer avec \`etapes: $ETAPE\`."
+              echo
+            } >> "$GITHUB_STEP_SUMMARY"
+            echo "::warning::ANTHROPIC_API_KEY absent : étape $ETAPE sautée."
+          fi
+
+      - name: Fiches, soumission du lot (zilin fiches generer)
+        if: (env.ETAPE == 'fiches' || env.ETAPE == 'tout') && steps.cle.outputs.presente == 'true'
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+        run: |
+          args=(--parcours "$PARCOURS")
+          if [ -n "$JUSQUA" ]; then args+=(--jusqua "$JUSQUA"); fi
+          uv run zilin fiches generer "${args[@]}" 2>&1 | tee work/journaux/fiches-generer.txt
+
+      - name: Contes, soumission du lot (zilin contes generer)
+        if: (env.ETAPE == 'contes' || env.ETAPE == 'tout') && steps.cle.outputs.presente == 'true'
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+        run: uv run zilin contes generer --seuil "$SEUIL" 2>&1 | tee work/journaux/contes-generer.txt
+
+      - name: Récupération des lots (zilin fiches recuperer, zilin contes recuperer)
+        if: env.ETAPE == 'recuperer' && steps.cle.outputs.presente == 'true'
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+        run: |
+          uv run zilin fiches recuperer --parcours "$PARCOURS" 2>&1 | tee work/journaux/fiches-recuperer.txt
+          uv run zilin contes recuperer 2>&1 | tee work/journaux/contes-recuperer.txt
+
+      # ------------------------------------------------------------ bilan et branche
+
+      - name: Contrôles finaux (zilin check)
+        if: always() && steps.tout.outcome == 'success'
+        continue-on-error: true
+        run: |
+          {
+            echo "# Contrôles qualité, run ${{ github.run_id }}"
+            echo
+            echo '```'
+            uv run zilin check 2>&1
+            echo '```'
+          } > work/qualite.md
+
+      - name: Bilan
+        if: always() && steps.tout.outcome == 'success'
+        env:
+          GENERER: ${{ steps.generer.outcome }}
+        run: |
+          uv run python ../.github/scripts/donnees_resume.py > work/journaux/bilan.md
+          {
+            echo "## Données : étape \`$ETAPE\` (parcours $PARCOURS, seuil $SEUIL, export $VERSION)"
+            echo
+            if [ "$AVEC_AUDIO" = true ]; then echo "Synthèse : $GENERER."; echo; fi
+            cat work/journaux/bilan.md
+          } >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Commit sur donnees/${{ inputs.etapes }}
+        id: branche
+        working-directory: .
+        run: |
+          git add -A -- app/public/data data/sources
+          if git diff --cached --quiet; then
+            echo "Aucun fichier changé sous app/public/data/ ni data/sources/ : pas de branche." >> "$GITHUB_STEP_SUMMARY"
+            exit 0
+          fi
+          branche="donnees/$ETAPE"
+          if [ "$ETAPE" = audio ] || [ "$ETAPE" = tout ]; then
+            sujet="Générer l'audio du parcours $PARCOURS (seuil $SEUIL)"
+          else
+            sujet="Mettre à jour l'export des données"
+          fi
+          run_url="$GITHUB_SERVER_URL/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID"
+          {
+            echo "$sujet"
+            echo
+            echo "Produit par le workflow donnees, étape $ETAPE : $run_url"
+            echo
+            grep -E '^\| [A-Z]' data/work/journaux/bilan.md | sed -E 's/^\| (.*) \| (.*) \|$/\1 : \2/' || true
+            echo
+            git diff --cached --stat | tail -1
+            echo
+            echo "Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>"
+          } > "$RUNNER_TEMP/message.txt"
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git switch -C "$branche"
+          git commit -q -F "$RUNNER_TEMP/message.txt"
+          git push --force origin "HEAD:refs/heads/$branche"
+          comparer="$GITHUB_SERVER_URL/$GITHUB_REPOSITORY/compare/$GITHUB_REF_NAME...$branche?expand=1"
+          {
+            echo "### Branche"
+            echo
+            echo "Commit $(git rev-parse --short HEAD) poussé sur \`$branche\` ($(git show --stat --format= HEAD | tail -1))."
+            echo
+            echo "Relire et ouvrir la PR : $comparer"
+          } >> "$GITHUB_STEP_SUMMARY"
+          echo "branche=$branche" >> "$GITHUB_OUTPUT"
+
+      # Seulement si la restauration a eu lieu : sauver l'état d'un passage arrêté avant
+      # elle écraserait, pour le passage suivant, le journal des lots par un dossier vide.
+      - name: Sauver l'état de travail
+        if: always() && steps.travail.outcome == 'success'
+        continue-on-error: true
+        uses: actions/cache/save@v4
+        with:
+          path: |
+            data/work/audio
+            data/work/fiches
+            data/work/contes
+          key: travail-${{ github.run_id }}-${{ github.run_attempt }}
+
+      - name: Artefact de diagnostic
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: donnees-${{ inputs.etapes }}-${{ github.run_number }}
+          if-no-files-found: warn
+          path: |
+            data/work/audio/audio.json
+            data/work/audio/carte-modele.md
+            data/work/qualite.md
+            data/work/journaux/
+            data/work/sources/PROVENANCE.md
+            data/work/sources/SHA256SUMS
+            data/work/build/ecarts.md
+            data/work/fiches/
+            data/work/contes/
+
+      - name: Échec de la synthèse
+        if: steps.generer.outcome == 'failure'
+        run: |
+          echo "::error::zilin audio generer a échoué (voix absente du modèle, ou textes en échec) : voir work/journaux/audio-generer.txt dans l'artefact."
+          exit 1

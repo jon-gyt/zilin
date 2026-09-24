@@ -26,11 +26,13 @@ import {
   FENETRE_JOURS,
   acquis,
   avancement,
+  caracteresLus,
   construireForet,
   decale,
   etat,
   famille,
   famillesDuCercle,
+  famillesOuvertes,
   noeudDeFamille,
   graines,
   joursTravailles,
@@ -43,7 +45,7 @@ import {
   semaine
 } from './foret';
 import { emptyProgress, fromJSON, toJSON, markDone, type Progress } from './session';
-import { newCard, schedule, type ReviewCard } from './srs';
+import { SEUIL_DEBLOCAGE, newCard, schedule, stability, type ReviewCard } from './srs';
 import { ajouter } from './tao';
 
 const fichier = JSON.parse(
@@ -372,6 +374,50 @@ describe("l'avancement d'une famille, lu sur les cartes", () => {
     expect(n.membres.find((m) => m.c === '朋')?.avancement).toBe(AVANCEMENT_ENCOURS);
     expect(n.membres.find((m) => m.c === '有')?.avancement).toBe(0);
     expect(acquis(n)).toBe(0);
+  });
+});
+
+describe('les nombres de Ma forêt, lus sur la progression', () => {
+  const familles = ['月', '口', '亻'].map(familleExport);
+  const membre = (r: string) => familleExport(r).fiches.find((x) => x.c !== r)!.c;
+
+  it('ne lit rien sans carte', () => {
+    expect(caracteresLus(familles, [])).toBe(0);
+    expect(famillesOuvertes(familles, [])).toBe(0);
+  });
+
+  it("« Lus » compte les caractères dont la carte passe le seuil de srs.ts, et eux seuls", () => {
+    const cartes = [sue('月'), sue(membre('口')), neuve('朋'), neuve('亻')];
+    expect(stability(cartes[0])).toBeGreaterThanOrEqual(SEUIL_DEBLOCAGE);
+    expect(stability(cartes[2])).toBeLessThan(SEUIL_DEBLOCAGE);
+    expect(caracteresLus(familles, cartes)).toBe(2);
+    /* Le seuil est celui de `srs.ts` : le relever au-dessus de la stabilité, plus rien n'est lu. */
+    expect(caracteresLus(familles, cartes, stability(cartes[0]) + 1)).toBe(0);
+  });
+
+  it("« Lus » ne compte ni une carte hors de l'export ni deux fois le même caractère", () => {
+    expect(caracteresLus(familles, [sue('月'), sue('龘')])).toBe(1);
+    expect(caracteresLus([...familles, familleExport('月')], [sue('月')])).toBe(1);
+  });
+
+  it('« Familles ouvertes » compte les familles qui ont au moins une carte, sue ou non', () => {
+    expect(famillesOuvertes(familles, [neuve(membre('口'))])).toBe(1);
+    expect(famillesOuvertes(familles, [neuve('亻'), sue('月'), sue('朋')])).toBe(2);
+    expect(famillesOuvertes(familles, [neuve('龘')])).toBe(0);
+  });
+
+  it("sur l'export entier : une carte par caractère de la première famille ouvre une famille", () => {
+    const toutes = indexExport.familles.map((x) => familleExport(x.racine));
+    const f = toutes[0];
+    const cartes = [f.racine.c, ...f.fiches.map((x) => x.c)].map(sue);
+    expect(famillesOuvertes(toutes, cartes)).toBe(1);
+    expect(caracteresLus(toutes, cartes)).toBe(new Set(cartes.map((k) => k.id)).size);
+  });
+
+  it('Ma forêt affiche ces deux nombres, pas un fichier de démonstration', () => {
+    const ecran = readFileSync(new URL('Forest.svelte', import.meta.url), 'utf8');
+    expect(ecran).toContain('caracteresLus(familles, p.cartes)');
+    expect(ecran).toContain('famillesOuvertes(familles, p.cartes)');
   });
 });
 
