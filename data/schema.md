@@ -320,8 +320,9 @@ briques_muettes[], non_reconcilies[], absents[]}`.
 
 Une fiche explique un caractère du parcours par ses composants : origine en exactement
 trois phrases FR et EN, étiquette `atteste` ou `mnemotechnique`, rôle de chaque
-composant, deux mots et une phrase. Aucun texte de fiche n'est écrit à la main : il
-sort du pipeline, puis d'une relecture humaine.
+composant, deux mots et une phrase. Aucun texte de fiche n'entre dans le dépôt sans
+passer par le pipeline : il sort de la génération par l'API ou de l'import d'un
+brouillon rédigé sans API, avec les mêmes contrôles, puis d'une relecture humaine.
 
 ### Contexte soumis au modèle
 
@@ -405,6 +406,84 @@ caractère, numéro d'essai, empreinte de l'invite).
 « fiches : validation » est bloquant, le contrôle « fiches : relecture du seuil 255 »
 compte ce qui reste à relire et les caractères du seuil sans fiche — il signale, il ne
 bloque pas. `uv run wenlu fiches valider` refait le même contrôle à la demande.
+
+### Brouillons de fiches, versionnés (rédaction sans API)
+
+Une fiche peut être rédigée sans clé d'API, par un agent Claude Code dans sa session
+ou par une personne, dans un brouillon : `data/sources/fiches-brouillons/<c>.json`,
+versionné, un fichier par caractère, nommé d'après lui.
+
+```json
+{
+ "c": "天",
+ "origine_fr": "Trois phrases. Pas une de plus. Pas une de moins.",
+ "origine_en": "Three sentences. No more. No fewer.",
+ "etiquette": "attesté",
+ "memo_fr": null,
+ "memo_en": null,
+ "roles": {"天": "sens"},
+ "mots": [
+  {"hanzi": "天天", "pinyin": "tiāntiān", "fr": "tous les jours", "en": "every day"},
+  {"hanzi": "明天", "pinyin": "míngtiān", "fr": "demain", "en": "tomorrow"}
+ ],
+ "phrase": {"zh": "她天天见朋友。", "pinyin": "Tā tiāntiān jiàn péngyou.",
+            "fr": "Elle voit ses amis tous les jours.", "en": "She sees her friends every day."}
+}
+```
+
+- Obligatoires : `c`, `origine_fr`, `origine_en`, `etiquette`, `roles`, `mots`,
+  `phrase`. Facultatifs : `memo_fr`, `memo_en` (texte ou `null`). Toute autre clé est
+  refusée : une faute de frappe ne passe pas en silence.
+- `etiquette` s'écrit `attesté` ou `mnémotechnique` (avec ou sans accents) ; la fiche
+  garde le code `atteste` ou `mnemotechnique`.
+- `roles` est un objet `{composant: "son" | "sens" | "forme"}`, un rôle par composant
+  de la décomposition canonique.
+- `mots` : deux objets `{hanzi, pinyin, fr, en}`, pris dans les mots candidats ;
+  `phrase` : un objet `{zh, pinyin, fr, en}`. Les traductions sont rédigées, jamais
+  reprises d'un dictionnaire.
+- Le reste de la fiche (`parcours`, `jour`, `pinyin`, `composants`, `structure`) ne
+  s'écrit pas : l'import le prend dans le contexte du caractère.
+
+Trois commandes pour rédiger :
+
+- `uv run wenlu fiches a-rediger [--seuil 255] [--lot N --sur M]` liste, dans
+  l'ordre du parcours, les caractères du seuil sans fiche conforme (fiche absente,
+  rejetée aux contrôles ou à la relecture, ou qui ne passe plus `valider()`). Les
+  lots découpent le seuil entier en M parts contiguës, puis retirent ce qui est fait :
+  un caractère garde son lot quand les autres avancent.
+- `uv run wenlu fiches contexte 人 大 天` affiche, par caractère, ce que l'invite des
+  fiches générées donne au modèle : pinyin, décomposition GF 0014-2009 et composants
+  nommés, rôle probable, jour du parcours, **caractères acquis ce jour-là** (seuls
+  autorisés dans les mots et la phrase), mots candidats déjà filtrés sur l'acquis
+  (le mot et son pinyin, sans définition : `docs/sources-licences.md` §4.2), les
+  contraintes de `valider()` et un squelette de brouillon.
+- `uv run wenlu fiches importer [--parcours lire] [人 大 …]` lit les brouillons (tous,
+  ou ceux nommés), calcule le contexte par `Corpus.contexte(c)`, construit la
+  `Fiche`, lance `valider()` et l'écrit dans `data/sources/fiches/<c>.json` au statut
+  `a_relire` si elle est conforme, `rejete` sinon. Les refus, les intrus et les écarts
+  s'affichent par caractère ; on corrige le brouillon et on relance. Un brouillon
+  illisible (JSON, champ manquant ou inconnu, `c` qui ne nomme pas son fichier)
+  n'écrit rien. Code de sortie 1 dès qu'un brouillon est rejeté ou illisible.
+
+Traçabilité, dans `generation` : `api` vaut `session Claude Code (sans API)`,
+`modele` vaut `rédaction manuelle`, `empreinte_invite` est le `sha256` des octets du
+brouillon (`sha256sum` la retrouve), `date` le jour de l'import (`AAAA-MM-JJ`),
+`essais` le nombre de versions du brouillon importées, `refus` les motifs de rejet.
+Réimporter un brouillon inchangé ne réécrit rien — une fiche relue le reste ; un
+brouillon modifié remet la fiche au statut `a_relire`.
+
+### Relecture
+
+La relecture reste humaine (brief §17). `uv run wenlu fiches relire --c 住 --statut relu`
+marque une fiche ; pour une page de relecture :
+
+- `uv run wenlu fiches exporter-relecture [--sortie …]` écrit `data/work/relecture.json`,
+  hors dépôt : `{date, source, decisions, retour, fiches}`, où `fiches` porte chaque
+  fiche `a_relire` (format ci-dessus) triée par jour, avec ses `ecarts` ;
+- `uv run wenlu fiches appliquer-relecture <fichier>` lit
+  `{"人": "relu", "大": "rejete", "天": null}` et applique `relire` à chaque fiche.
+  `null` laisse une fiche en attente. Tout ou rien : une décision inconnue, une fiche
+  absente ou une fiche rejetée aux contrôles marquée `relu`, et rien n'est appliqué.
 
 ### Ce que l'app lira (export, story 1.6)
 
