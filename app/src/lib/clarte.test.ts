@@ -131,6 +131,7 @@ describe('un seul thème : le papier clair', () => {
   it('le gabarit du tracé a sa propre couleur, que la nuit de la mi-automne change', () => {
     const css = source('tokens.css');
     expect(css).toContain(':root{--guide:#D9D1C2}');
+    expect(css).toContain(':root[data-fete="zhongqiu"],[data-fete="zhongqiu"]{--guide:#46527A}');
     expect(source('Trace.svelte')).toContain("outlineColor: couleur('--guide')");
   });
 });

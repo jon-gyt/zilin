@@ -19,6 +19,9 @@
   import { planifier, type JeuId } from './lib/jeux';
   import { toutesLesFamilles, type Noeud } from './lib/content';
   import Warm from './lib/Warm.svelte';
+  import FeteDecor from './lib/FeteDecor.svelte';
+  import { fetesOnce, type Fetes } from './lib/content';
+  import { feteDuJour, poserFete } from './lib/fetes';
   import {
     allDone,
     cartesAOuvrir,
@@ -72,6 +75,15 @@
   const ECRANS = ['anec', 'rev', 'learn', 'use', 'check', 'close'] as const;
 
   let p: Progress = $state(emptyProgress(today()));
+
+  /*
+   * Les fêtes (fetes.json) : la journée de la session décide. `data-fete` sur <html> repeint
+   * l'app (tokens.css), le décor passe derrière tout. Rien d'autre ne change ici.
+   */
+  let fetes: Fetes | null = $state(null);
+  void fetesOnce().then((f) => (fetes = f)).catch(() => undefined);
+  const fete = $derived(fetes ? (feteDuJour(fetes, p.day)?.id ?? null) : null);
+  $effect(() => poserFete(document.documentElement, fete));
   /** L'app s'ouvre sur le logo : ce qui vient après dépend de la progression relue. */
   let ecran: Ecran = $state('splash');
 
@@ -441,6 +453,8 @@
     enregistrer();
   }
 </script>
+
+<FeteDecor {fete} />
 
 {#if ecran === 'splash'}
   <Splash onfini={splashFini} />
