@@ -130,6 +130,9 @@
         z = traitsDeLAjout(c.parts, c.nouveau, ds.map((x) => x?.s.length ?? null), d.s.length);
       }
       if (!vivant) return;
+      /* Le cinabre marque un élément ajouté à un tout : si l'ajout couvre tout le caractère
+         (朋 = 月 + 月, tout neuf), rien n'est en cinabre. */
+      if (d !== null && z.length >= d.s.length) z = [];
       carte = c;
       traits = d;
       cinabre = z;
@@ -165,6 +168,9 @@
   const m = $derived(menu(p, carte?.c ?? ''));
   /** Un jour sans composé : la décomposition montre la brique seule, en cinabre. */
   const briqueSeule = $derived(carte !== null && carte.parts.length === 0 && m.etat !== 'rattrapage' && m.etat !== 'premiere');
+  /* Toutes les parties sont neuves : il n'y a pas d'élément ajouté à distinguer, tout reste à l'encre. */
+  const toutNeuf = $derived(carte !== null && carte.parts.length > 0 && carte.parts.every((_, i) => carte?.nouveau.includes(i)));
+  const enCinabre = (i: number): boolean => !toutNeuf && (carte?.nouveau.includes(i) ?? false);
 
   /* ---------- Tao sur le chemin ---------- */
 
@@ -327,16 +333,16 @@
           {#if carte.fr !== ''}<div class="sens">{carte.fr}</div>{/if}
           <div class="dec">
             {#if briqueSeule}
-              <span class="part z"><Glyph char={carte.c} size={22} write={false} color="var(--zhu)" pistes={carte.pistes} /></span>
+              <span class="part"><Glyph char={carte.c} size={22} write={false} color="var(--ink)" pistes={carte.pistes} /></span>
             {:else}
               {#each carte.parts as part, i (part + i)}
                 {#if i > 0}<span class="op">+</span>{/if}
-                <span class="part" class:z={carte.nouveau.includes(i)}>
+                <span class="part" class:z={enCinabre(i)}>
                   <Glyph
                     char={part}
                     size={22}
                     write={false}
-                    color={carte.nouveau.includes(i) ? 'var(--zhu)' : 'var(--ink)'}
+                    color={enCinabre(i) ? 'var(--zhu)' : 'var(--ink)'}
                     pistes={carte.pistes}
                   />
                 </span>
@@ -424,10 +430,11 @@
 
   /* ---- un jour de fête : l'emblème déborde de la case, le texte s'écarte ---- */
   .jour.fete {
-    margin-top: 14px;
+    padding-top: 14px;
   }
   .jour.fete .jour-haut {
-    gap: 28px;
+    gap: 26px;
+    padding-left: 18px;
   }
   .jour.fete .mizi {
     background: transparent;
@@ -521,10 +528,12 @@
   }
 
   /* ---- la carte du jour ---- */
+  /* Sur un grand écran, la carte du jour et les cases se centrent : le vide se partage. */
   .jour {
     display: flex;
     flex-direction: column;
     gap: 10px;
+    margin-top: auto;
   }
   .jour-haut {
     display: flex;
@@ -682,6 +691,7 @@
   }
   .pilule.ghost {
     border-width: 1.5px;
+    background: var(--paper);
   }
   .pilule.ghost:active {
     background: var(--card);
@@ -701,8 +711,8 @@
     display: grid;
     grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
     gap: 10px;
-    margin-top: auto;
-    padding-top: 14px;
+    margin-top: 18px;
+    margin-bottom: auto;
   }
   .case {
     display: flex;

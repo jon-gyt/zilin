@@ -83,3 +83,13 @@ describe('le menu et le parcours, dans les écrans', () => {
     expect(m).not.toMatch(/class="hz"[^>]*>\{carte\.c\}/);
   });
 });
+
+describe('le cinabre marque un élément ajouté, jamais le caractère entier', () => {
+  const m = source('Menu.svelte');
+  it('un ajout qui couvre tous les traits ne met rien en cinabre (朋 = 月 + 月)', () => {
+    expect(m).toContain('if (d !== null && z.length >= d.s.length) z = [];');
+  });
+  it('dans la décomposition, des parties toutes neuves restent à l’encre', () => {
+    expect(m).toContain('const enCinabre = (i: number): boolean => !toutNeuf');
+  });
+});
