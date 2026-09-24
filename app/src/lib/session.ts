@@ -20,6 +20,7 @@ import {
   type SrsParams
 } from './srs';
 import { ajouter, journal, lireTao, taoVide, type Tao, type TypeActivite } from './tao';
+import { lireTrouves, type Trouve } from './trouves';
 
 
 /** Budget choisi par l'utilisateur, en minutes. */
@@ -263,6 +264,13 @@ export type Progress = {
    * progression plus ancienne : aucun mot deviné.
    */
   motsDevines: string[];
+  /**
+   * Les caractères trouvés en chemin : celui que l'anecdote d'une fête ou d'un terme
+   * solaire fait découvrir, une entrée par caractère, avec sa journée et sa source
+   * (`trouves.ts`). Ce ne sont pas des briques du parcours : aucune carte, aucune
+   * révision. Absents d'une progression plus ancienne : aucun.
+   */
+  trouves: Trouve[];
 };
 
 /**
@@ -323,7 +331,8 @@ export function emptyProgress(aujourdhui: string): Progress {
     devinetteDuJour: null,
     contesLus: {},
     relecture: false,
-    motsDevines: []
+    motsDevines: [],
+    trouves: []
   };
 }
 
@@ -1260,6 +1269,8 @@ export function fromJSON(texte: string, aujourdhui: string): Progress {
     /* Le mode relecture : absent d'un export plus ancien, éteint. */
     relecture: o.relecture === true,
     /* Les mots devinés : absents d'un export plus ancien, aucun n'est deviné. */
-    motsDevines: listeDeCaracteres(o.motsDevines)
+    motsDevines: listeDeCaracteres(o.motsDevines),
+    /* Les caractères trouvés en chemin : absents d'un export plus ancien, aucun. */
+    trouves: lireTrouves(o.trouves)
   };
 }

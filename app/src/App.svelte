@@ -40,6 +40,7 @@
   import { fetesOnce, saisonsOnce, type Fetes, type Saisons } from './lib/content';
   import { poserFete } from './lib/fetes';
   import { journee } from './lib/saisons';
+  import { noterTrouve, rencontreDuJour } from './lib/trouves';
   import {
     CARTES_PAR_SEANCE,
     cartesAOuvrir,
@@ -375,7 +376,8 @@
    * ouverte depuis le menu, la session enchaîne sur le pas suivant.
    */
   function ouvrirFait(): void {
-    p = anecdoteFaite(p, p.day);
+    /* L'anecdote d'une fête ou d'un terme fait trouver un caractère : Ma forêt le garde. */
+    p = noterTrouve(anecdoteFaite(p, p.day), rencontreDuJour(laJournee), p.day);
     enregistrer();
     if (anecOuverture) allerAuMenu();
     else enchainer();
