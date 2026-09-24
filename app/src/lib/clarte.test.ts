@@ -29,3 +29,13 @@ describe('les jumeaux : le flash part au tap, jamais avant la lecture de la ques
     expect(game).toContain('onclick={montrer}>Montrer</button>');
   });
 });
+
+describe('la chaîne : la limite de trois minutes ne ferme pas le tour en cours', () => {
+  const echoir = corps(source('Game.svelte'), 'echoir');
+
+  it("à l'échéance, la manche est seulement marquée ; elle se clôt au bouton suivant", () => {
+    expect(echoir).toContain('echue = true');
+    expect(echoir).not.toContain('clore(');
+    expect(echoir).not.toContain('onfini(');
+  });
+});

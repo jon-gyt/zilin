@@ -159,17 +159,13 @@
   }
 
   /**
-   * La limite de temps : un tour en attente de réponse tombe, rien n'est noté pour lui ;
-   * un tour déjà corrigé se laisse lire, et la manche se clôt au bouton suivant.
+   * La limite de temps ne ferme jamais un écran sous les yeux : le tour en cours se lit
+   * et se répond jusqu'au bout, et la manche se clôt au bouton suivant (« Voir le
+   * constat »). Aucun tour n'est ouvert après elle.
    */
   function echoir(): void {
     limite = null;
     echue = true;
-    const courante = m;
-    if (courante === null || fini(courante) || resultat !== null) return;
-    arreter();
-    m = clore(courante);
-    onfini();
   }
 
   $effect(() => arreterLimite);
