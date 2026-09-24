@@ -51,6 +51,7 @@
     fetes = null,
     ondemarrer,
     oncase,
+    onchercher,
     onreglages
   }: {
     p: Progress;
@@ -60,6 +61,8 @@
     /** Le bouton plein (ou en contour) : ce qu'il ouvre se décide dans `parcours.ts`. */
     ondemarrer: () => void;
     oncase: (id: CaseId) => void;
+    /** La loupe : chercher un caractère de l'export. */
+    onchercher: () => void;
     onreglages: () => void;
   } = $props();
 
@@ -245,6 +248,9 @@
         <span class="cn hz">文路</span>
       </div>
     {/if}
+    <button class="icone" aria-label="Chercher un caractère" onclick={onchercher}>
+      <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6" /><path d="M20 20l-4.5-4.5" /></svg>
+    </button>
     <button class="icone" aria-label="Réglages" onclick={onreglages}>
       <svg viewBox="0 0 24 24" aria-hidden="true">
         <circle cx="12" cy="12" r="3" />
@@ -451,6 +457,7 @@
   .icone {
     width: 44px;
     height: 44px;
+    flex-shrink: 0;
     display: flex;
     align-items: center;
     justify-content: center;
