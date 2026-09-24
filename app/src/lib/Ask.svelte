@@ -12,7 +12,7 @@
   import Trace from './Trace.svelte';
   import { corriger, type Corpus, type Question } from './questions';
   import { VERDICTS, delai, delaiAvance, pinyinDe } from './revision';
-  import { fiche } from './questions';
+  import { fiche, indiceErreur } from './questions';
   import type { Revision } from './session';
   import { grade } from './srs';
   import type { Grade } from 'ts-fsrs';
@@ -229,7 +229,7 @@
     {:else if sautable}
       Le tracé de ce caractère n'est pas embarqué. On passe.
     {:else if essais > 0}
-      Pas celui-là. Regarde les briques.
+      {indiceErreur(q)}
     {/if}
   </div>
 </div>

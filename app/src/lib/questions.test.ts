@@ -8,6 +8,7 @@ import {
   corriger,
   estBrique,
   expliquer,
+  indiceErreur,
   leurres,
   lirePaires,
   outcomeDuTrace,
@@ -401,5 +402,27 @@ describe('les paires à ne pas confondre', () => {
     expect(paires[2]).toEqual(['天', '夫']);
     expect(lirePaires(null)).toEqual([]);
     expect(lirePaires({ paires: 'non' })).toEqual([]);
+  });
+});
+
+describe("après une erreur : l'indice dit quoi faire, et seulement ce qui a du sens", () => {
+  it('un caractère de plusieurs briques renvoie aux briques', () => {
+    expect(indiceErreur(poser('sens'))).toBe('Pas celui-là. Regarde les briques.');
+  });
+
+  it("une brique seule ne renvoie pas à des briques qu'elle n'a pas", () => {
+    const roi = question(fiche('王'), 'caractere', CORPUS, 'g');
+    expect(indiceErreur(roi)).not.toContain('briques');
+    expect(indiceErreur(roi)).toContain('Encore un essai');
+  });
+
+  it("un assemblage raté se refait dans l'ordre d'écriture", () => {
+    expect(indiceErreur(poser('assemblage'))).toContain("l'ordre d'écriture");
+  });
+
+  it("l'écran de question se sert de l'indice, plus d'une phrase en dur", () => {
+    const src = readFileSync(new URL('Ask.svelte', import.meta.url), 'utf8');
+    expect(src).toContain('{indiceErreur(q)}');
+    expect(src).not.toContain('Pas celui-là. Regarde les briques.');
   });
 });

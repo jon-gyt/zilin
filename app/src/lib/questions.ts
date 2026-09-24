@@ -570,6 +570,17 @@ export function serie(dues: readonly Due[], corpus: Corpus, graine: string): Que
 /** La réponse de l'utilisateur : une option, une suite de briques, ou le bilan du tracé. */
 export type Reponse = string | readonly string[] | { erreurs: number };
 
+/**
+ * La ligne affichée après une première erreur : un constat et ce qu'il reste à faire.
+ * « Regarde les briques » n'a de sens que pour un caractère fait de plusieurs briques ;
+ * un assemblage raté se refait dans l'ordre d'écriture.
+ */
+export function indiceErreur(q: Question): string {
+  if (q.type === 'assemblage') return "Pas cette suite. Recommence, dans l'ordre d'écriture.";
+  if (q.briques.length > 1) return 'Pas celui-là. Regarde les briques.';
+  return 'Pas celui-là. Encore un essai.';
+}
+
 export type Correction = { correct: boolean; explication: Explication; outcome: Outcome };
 
 /**
