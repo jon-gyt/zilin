@@ -1,0 +1,232 @@
+# Textes des vingt-quatre termes solaires (二十四节气).
+#
+# Source : textes rédigés pour l'app (story 4b.9). Aucun texte tiers n'est recopié : les
+# faits de nature (hirondelles de 春分, pivoines de 谷雨, lucioles de 大暑, oies de 寒露,
+# prunier de 大寒…) relèvent de l'almanach commun des « soixante-douze pentades » 七十二候,
+# connu depuis l'Antiquité. Les traductions françaises des noms sont rédigées pour l'app.
+#
+# Format : TSV, `#` en commentaire, quatre colonnes séparées par une tabulation. Une
+# clé par ligne. Pour chaque terme (identifiant : le pinyin sans ton, comme dans
+# `termes.tsv`) :
+#
+# - `nom_zh`, `pinyin`, `fr` : le nom (白露), son pinyin (báilù), sa traduction ;
+# - `ambiance` : l'une des huit ambiances de saison, trois termes chacune, qui donnent
+#   à l'app une palette légère et un petit décor (`[data-saison]` de `tokens.css`) ;
+# - `ligne` : une phrase qui dit ce qui se passe dans la nature ;
+# - `tao` : une ou deux phrases de Tao, une ligne par phrase, dans l'ordre où elle les dit ;
+# - `c` et `sens` : le caractère à lire, pris dans le nom ou lié au terme, propre à ce
+#   terme, dessiné depuis ses traits (`wenlu check` vérifie qu'ils sont exportés) ; son
+#   sens en français. Son pinyin vient d'Unihan, par l'export.
+#
+# Les lignes `commun` portent ce qui vaut pour tous les termes : la rubrique et
+# l'explication de l'anecdote du jour où un terme commence.
+#
+# Jamais de dragon : 惊蛰, c'est le tonnerre et les insectes qui se réveillent.
+#
+terme	cle	valeur	source
+commun	rubrique	Aujourd'hui commence un terme solaire	rédigé pour l'app
+commun	explication	L'année chinoise compte vingt-quatre termes solaires, un tous les quinze jours environ ; chacun porte le nom de ce qui se passe alors dans la nature.	rédigé pour l'app
+lichun	nom_zh	立春	rédigé pour l'app
+lichun	pinyin	lìchūn	rédigé pour l'app
+lichun	fr	le début du printemps	rédigé pour l'app
+lichun	ambiance	pecher	rédigé pour l'app
+lichun	ligne	Le vent d'est dégèle la terre, et les premiers bourgeons pointent.	rédigé pour l'app
+lichun	tao	立春 : le printemps commence !	rédigé pour l'app
+lichun	tao	Je sens mes bourgeons.	rédigé pour l'app
+lichun	c	春	rédigé pour l'app
+lichun	sens	le printemps	rédigé pour l'app
+yushui	nom_zh	雨水	rédigé pour l'app
+yushui	pinyin	yǔshuǐ	rédigé pour l'app
+yushui	fr	les eaux de pluie	rédigé pour l'app
+yushui	ambiance	pecher	rédigé pour l'app
+yushui	ligne	La neige cède la place à la pluie, et l'herbe reverdit.	rédigé pour l'app
+yushui	tao	La neige devient pluie : 雨水.	rédigé pour l'app
+yushui	tao	J'ai soif : tant mieux.	rédigé pour l'app
+yushui	c	水	rédigé pour l'app
+yushui	sens	l'eau	rédigé pour l'app
+jingzhe	nom_zh	惊蛰	rédigé pour l'app
+jingzhe	pinyin	jīngzhé	rédigé pour l'app
+jingzhe	fr	le réveil des insectes	rédigé pour l'app
+jingzhe	ambiance	pecher	rédigé pour l'app
+jingzhe	ligne	Le premier tonnerre roule, et les insectes endormis sous la terre se réveillent.	rédigé pour l'app
+jingzhe	tao	Le tonnerre réveille les insectes !	rédigé pour l'app
+jingzhe	tao	Mes premières fleurs de pêcher.	rédigé pour l'app
+jingzhe	c	雷	rédigé pour l'app
+jingzhe	sens	le tonnerre	rédigé pour l'app
+chunfen	nom_zh	春分	rédigé pour l'app
+chunfen	pinyin	chūnfēn	rédigé pour l'app
+chunfen	fr	l'équinoxe de printemps	rédigé pour l'app
+chunfen	ambiance	pluie	rédigé pour l'app
+chunfen	ligne	Le jour et la nuit sont égaux, et les hirondelles reviennent.	rédigé pour l'app
+chunfen	tao	Autant de jour que de nuit.	rédigé pour l'app
+chunfen	tao	Les hirondelles sont revenues !	rédigé pour l'app
+chunfen	c	分	rédigé pour l'app
+chunfen	sens	partager, diviser	rédigé pour l'app
+qingming	nom_zh	清明	rédigé pour l'app
+qingming	pinyin	qīngmíng	rédigé pour l'app
+qingming	fr	pur et lumineux	rédigé pour l'app
+qingming	ambiance	pluie	rédigé pour l'app
+qingming	ligne	L'air devient clair et doux, et les arbres se couvrent de feuilles neuves.	rédigé pour l'app
+qingming	tao	L'air est clair : 清明.	rédigé pour l'app
+qingming	tao	Des feuilles neuves partout.	rédigé pour l'app
+qingming	c	明	rédigé pour l'app
+qingming	sens	clair, lumineux	rédigé pour l'app
+guyu	nom_zh	谷雨	rédigé pour l'app
+guyu	pinyin	gǔyǔ	rédigé pour l'app
+guyu	fr	la pluie des grains	rédigé pour l'app
+guyu	ambiance	pluie	rédigé pour l'app
+guyu	ligne	Les dernières pluies du printemps font lever les semis de céréales.	rédigé pour l'app
+guyu	tao	La pluie fait pousser le grain.	rédigé pour l'app
+guyu	tao	Les pivoines s'ouvrent.	rédigé pour l'app
+guyu	c	谷	rédigé pour l'app
+guyu	sens	les céréales ; la vallée	rédigé pour l'app
+lixia	nom_zh	立夏	rédigé pour l'app
+lixia	pinyin	lìxià	rédigé pour l'app
+lixia	fr	le début de l'été	rédigé pour l'app
+lixia	ambiance	duvet	rédigé pour l'app
+lixia	ligne	Les jours s'allongent, les grenouilles chantent et les blés montent.	rédigé pour l'app
+lixia	tao	立夏 : bonjour l'été !	rédigé pour l'app
+lixia	tao	Le duvet des saules vole partout.	rédigé pour l'app
+lixia	c	夏	rédigé pour l'app
+lixia	sens	l'été	rédigé pour l'app
+xiaoman	nom_zh	小满	rédigé pour l'app
+xiaoman	pinyin	xiǎomǎn	rédigé pour l'app
+xiaoman	fr	le petit plein	rédigé pour l'app
+xiaoman	ambiance	duvet	rédigé pour l'app
+xiaoman	ligne	Les grains de blé se remplissent, sans être encore mûrs.	rédigé pour l'app
+xiaoman	tao	Les épis se remplissent, un peu.	rédigé pour l'app
+xiaoman	tao	Pas trop plein : juste assez.	rédigé pour l'app
+xiaoman	c	满	rédigé pour l'app
+xiaoman	sens	plein	rédigé pour l'app
+mangzhong	nom_zh	芒种	rédigé pour l'app
+mangzhong	pinyin	mángzhòng	rédigé pour l'app
+mangzhong	fr	les grains à barbe	rédigé pour l'app
+mangzhong	ambiance	duvet	rédigé pour l'app
+mangzhong	ligne	On moissonne le blé barbu et l'on repique le riz dans le même temps.	rédigé pour l'app
+mangzhong	tao	Moisson et semis, vite !	rédigé pour l'app
+mangzhong	c	麦	rédigé pour l'app
+mangzhong	sens	le blé	rédigé pour l'app
+xiazhi	nom_zh	夏至	rédigé pour l'app
+xiazhi	pinyin	xiàzhì	rédigé pour l'app
+xiazhi	fr	le solstice d'été	rédigé pour l'app
+xiazhi	ambiance	lucioles	rédigé pour l'app
+xiazhi	ligne	C'est le jour le plus long de l'année, et les nuits vont rallonger.	rédigé pour l'app
+xiazhi	tao	Le jour le plus long !	rédigé pour l'app
+xiazhi	tao	Il fait jour tard, ce soir.	rédigé pour l'app
+xiazhi	c	日	rédigé pour l'app
+xiazhi	sens	le soleil, le jour	rédigé pour l'app
+xiaoshu	nom_zh	小暑	rédigé pour l'app
+xiaoshu	pinyin	xiǎoshǔ	rédigé pour l'app
+xiaoshu	fr	la petite chaleur	rédigé pour l'app
+xiaoshu	ambiance	lucioles	rédigé pour l'app
+xiaoshu	ligne	Le vent devient chaud, et les grillons cherchent l'ombre des murs.	rédigé pour l'app
+xiaoshu	tao	Il fait chaud… Un peu d'ombre ?	rédigé pour l'app
+xiaoshu	c	暑	rédigé pour l'app
+xiaoshu	sens	la chaleur de l'été	rédigé pour l'app
+dashu	nom_zh	大暑	rédigé pour l'app
+dashu	pinyin	dàshǔ	rédigé pour l'app
+dashu	fr	la grande chaleur	rédigé pour l'app
+dashu	ambiance	lucioles	rédigé pour l'app
+dashu	ligne	La chaleur est à son comble, et les lucioles volent dans l'herbe le soir.	rédigé pour l'app
+dashu	tao	Les lucioles sont sorties !	rédigé pour l'app
+dashu	tao	Trop chaud pour courir.	rédigé pour l'app
+dashu	c	热	rédigé pour l'app
+dashu	sens	chaud	rédigé pour l'app
+liqiu	nom_zh	立秋	rédigé pour l'app
+liqiu	pinyin	lìqiū	rédigé pour l'app
+liqiu	fr	le début de l'automne	rédigé pour l'app
+liqiu	ambiance	rosee	rédigé pour l'app
+liqiu	ligne	Un vent frais se lève, et la rosée commence à se former au matin.	rédigé pour l'app
+liqiu	tao	立秋 : l'automne arrive.	rédigé pour l'app
+liqiu	c	秋	rédigé pour l'app
+liqiu	sens	l'automne	rédigé pour l'app
+chushu	nom_zh	处暑	rédigé pour l'app
+chushu	pinyin	chǔshǔ	rédigé pour l'app
+chushu	fr	la fin des chaleurs	rédigé pour l'app
+chushu	ambiance	rosee	rédigé pour l'app
+chushu	ligne	La chaleur se retire, et les céréales mûrissent dans les champs.	rédigé pour l'app
+chushu	tao	Ouf, la chaleur s'en va.	rédigé pour l'app
+chushu	c	凉	rédigé pour l'app
+chushu	sens	frais	rédigé pour l'app
+bailu	nom_zh	白露	rédigé pour l'app
+bailu	pinyin	báilù	rédigé pour l'app
+bailu	fr	la rosée blanche	rédigé pour l'app
+bailu	ambiance	rosee	rédigé pour l'app
+bailu	ligne	Les nuits fraîchissent, et la rosée perle au matin sur les herbes.	rédigé pour l'app
+bailu	tao	De la rosée sur mes feuilles !	rédigé pour l'app
+bailu	c	露	rédigé pour l'app
+bailu	sens	la rosée	rédigé pour l'app
+qiufen	nom_zh	秋分	rédigé pour l'app
+qiufen	pinyin	qiūfēn	rédigé pour l'app
+qiufen	fr	l'équinoxe d'automne	rédigé pour l'app
+qiufen	ambiance	feuilles	rédigé pour l'app
+qiufen	ligne	Le jour et la nuit sont de nouveau égaux, et le tonnerre se tait.	rédigé pour l'app
+qiufen	tao	Moitié jour, moitié nuit.	rédigé pour l'app
+qiufen	c	半	rédigé pour l'app
+qiufen	sens	la moitié	rédigé pour l'app
+hanlu	nom_zh	寒露	rédigé pour l'app
+hanlu	pinyin	hánlù	rédigé pour l'app
+hanlu	fr	la rosée froide	rédigé pour l'app
+hanlu	ambiance	feuilles	rédigé pour l'app
+hanlu	ligne	La rosée devient froide, et les oies sauvages partent vers le sud.	rédigé pour l'app
+hanlu	tao	Les oies partent au sud.	rédigé pour l'app
+hanlu	c	寒	rédigé pour l'app
+hanlu	sens	le froid	rédigé pour l'app
+shuangjiang	nom_zh	霜降	rédigé pour l'app
+shuangjiang	pinyin	shuāngjiàng	rédigé pour l'app
+shuangjiang	fr	la descente du givre	rédigé pour l'app
+shuangjiang	ambiance	feuilles	rédigé pour l'app
+shuangjiang	ligne	Le premier givre blanchit les champs, et les feuilles jaunissent et tombent.	rédigé pour l'app
+shuangjiang	tao	Du givre ce matin !	rédigé pour l'app
+shuangjiang	tao	Mes feuilles tombent : c'est la saison.	rédigé pour l'app
+shuangjiang	c	霜	rédigé pour l'app
+shuangjiang	sens	le givre	rédigé pour l'app
+lidong	nom_zh	立冬	rédigé pour l'app
+lidong	pinyin	lìdōng	rédigé pour l'app
+lidong	fr	le début de l'hiver	rédigé pour l'app
+lidong	ambiance	neige	rédigé pour l'app
+lidong	ligne	L'eau commence à geler, et la terre durcit.	rédigé pour l'app
+lidong	tao	立冬 : l'hiver commence.	rédigé pour l'app
+lidong	c	冬	rédigé pour l'app
+lidong	sens	l'hiver	rédigé pour l'app
+xiaoxue	nom_zh	小雪	rédigé pour l'app
+xiaoxue	pinyin	xiǎoxuě	rédigé pour l'app
+xiaoxue	fr	la petite neige	rédigé pour l'app
+xiaoxue	ambiance	neige	rédigé pour l'app
+xiaoxue	ligne	Les premiers flocons tombent, légers, sans encore tenir au sol.	rédigé pour l'app
+xiaoxue	tao	Mes premiers flocons !	rédigé pour l'app
+xiaoxue	c	雪	rédigé pour l'app
+xiaoxue	sens	la neige	rédigé pour l'app
+daxue	nom_zh	大雪	rédigé pour l'app
+daxue	pinyin	dàxuě	rédigé pour l'app
+daxue	fr	la grande neige	rédigé pour l'app
+daxue	ambiance	neige	rédigé pour l'app
+daxue	ligne	La neige tombe dru, et les rivières se couvrent de glace.	rédigé pour l'app
+daxue	tao	Tout est blanc !	rédigé pour l'app
+daxue	c	冰	rédigé pour l'app
+daxue	sens	la glace	rédigé pour l'app
+dongzhi	nom_zh	冬至	rédigé pour l'app
+dongzhi	pinyin	dōngzhì	rédigé pour l'app
+dongzhi	fr	le solstice d'hiver	rédigé pour l'app
+dongzhi	ambiance	prunier	rédigé pour l'app
+dongzhi	ligne	C'est la nuit la plus longue de l'année, et les jours vont rallonger.	rédigé pour l'app
+dongzhi	tao	Les jours rallongent, doucement.	rédigé pour l'app
+dongzhi	c	夜	rédigé pour l'app
+dongzhi	sens	la nuit	rédigé pour l'app
+xiaohan	nom_zh	小寒	rédigé pour l'app
+xiaohan	pinyin	xiǎohán	rédigé pour l'app
+xiaohan	fr	le petit froid	rédigé pour l'app
+xiaohan	ambiance	prunier	rédigé pour l'app
+xiaohan	ligne	Le froid s'installe, et les oies sauvages songent déjà à regagner le nord.	rédigé pour l'app
+xiaohan	tao	Brr, le petit froid.	rédigé pour l'app
+xiaohan	c	冷	rédigé pour l'app
+xiaohan	sens	froid	rédigé pour l'app
+dahan	nom_zh	大寒	rédigé pour l'app
+dahan	pinyin	dàhán	rédigé pour l'app
+dahan	fr	le grand froid	rédigé pour l'app
+dahan	ambiance	prunier	rédigé pour l'app
+dahan	ligne	C'est le plus froid de l'année, et le prunier fleurit dans la neige.	rédigé pour l'app
+dahan	tao	Le prunier fleurit dans le froid.	rédigé pour l'app
+dahan	tao	Bientôt le Nouvel An !	rédigé pour l'app
+dahan	c	梅	rédigé pour l'app
+dahan	sens	le prunier	rédigé pour l'app

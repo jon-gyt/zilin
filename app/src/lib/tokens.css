@@ -89,6 +89,39 @@
   --neige:#FFFFFF; --neige-bleu:#C3CFDB; --bol:#2E4A6B; --raviole:#FBF7EE; --tangyuan:#FFFFFF; --colline:#F7F9FB; --colline2:#DDE4EB;
   --dz-disque:#DCE5EE; --dz-ombre:#B6C4D2;
   --tile-bg:#DCE5EE; --tile-fg:#2E4A6B; --tile-ink:#1F2630; --tile-ink2:#4A5563; --act:#24364F; --act-ink:#ECF0F4; }
+/* ---- Les ambiances des termes solaires ----
+   `data-saison` sur <html> (App.svelte, d'après saisons.json) suit les vingt-quatre termes
+   solaires, un tous les quinze jours, regroupés en huit ambiances de trois termes. Un jour
+   de fête, l'attribut est retiré : la fête a priorité. Plus légères que les fêtes : une
+   seule palette papier, claire, à peine teintée ; le papier, la carte et la grille changent,
+   l'encre, les cases et le bouton restent ceux de tous les jours. Les autres variables
+   colorent le petit décor de `FeteDecor`. Ni doré, ni rouge : le cinabre garde son rôle. */
+
+/* 立春, 雨水, 惊蛰 : le renouveau, les fleurs de pêcher 桃 qui s'ouvrent. */
+[data-saison="pecher"]{ --paper:#F6EEE6; --card:#FCF7F2; --grille:#D3BFAE;
+  --s-fleur:#EFC1CD; --s-fleur-pale:#F8DDE4; --s-coeur:#B97480; }
+/* 春分, 清明, 谷雨 : la pluie fine du printemps. */
+[data-saison="pluie"]{ --paper:#EFF1EA; --card:#F8F9F4; --grille:#C1CBBE;
+  --s-pluie:#8FA7AB; --s-pousse:#8DAE78; }
+/* 立夏, 小满, 芒种 : le début de l'été, le duvet des saules qui vole. */
+[data-saison="duvet"]{ --paper:#F3F1E3; --card:#FBFAF1; --grille:#CDC7A8;
+  --s-duvet:#FFFFFF; --s-duvet-fil:#B9B39A; }
+/* 夏至, 小暑, 大暑 : la chaleur, les lucioles 萤 dans l'herbe du soir. */
+[data-saison="lucioles"]{ --paper:#F0F1E2; --card:#F9FAF0; --grille:#C6C9A6;
+  --s-luciole:#A9BC3C; --s-herbe:#C5D0A4; }
+/* 立秋, 处暑, 白露 : l'herbe fraîche et la rosée 露 qui perle au matin. */
+[data-saison="rosee"]{ --paper:#F1F0E8; --card:#FAF9F4; --grille:#C9C6B3;
+  --s-herbe:#A9B68F; --s-rosee:#9DB9C6; }
+/* 秋分, 寒露, 霜降 : les feuilles qui jaunissent et tombent. */
+[data-saison="feuilles"]{ --paper:#F5EDE1; --card:#FCF7EE; --grille:#D4C3A4;
+  --s-feuille:#C98B4A; --s-feuille2:#D9A95E; --s-feuille3:#A9763F; }
+/* 立冬, 小雪, 大雪 : la neige qui tombe. */
+[data-saison="neige"]{ --paper:#EEF1F3; --card:#F9FAFB; --grille:#BFC9D2;
+  --s-neige:#FFFFFF; --s-neige-bleu:#C3CFDB; }
+/* 冬至, 小寒, 大寒 : le grand froid, le prunier 梅 qui fleurit dans la neige. */
+[data-saison="prunier"]{ --paper:#F2EFEC; --card:#FAF8F6; --grille:#CBC3BC;
+  --s-branche:#5B4A42; --s-fleur:#F3D3DA; --s-coeur:#B97480; --s-neige:#FFFFFF; }
+
 /* un élément en fête porte son papier et son encre, même au milieu d'une page qui ne l'est pas */
 [data-fete]:not(html){ color:var(--ink) }
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent} html,body{margin:0;height:100%}

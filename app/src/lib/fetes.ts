@@ -104,18 +104,23 @@ const TEINTE_DEFAUT = 'data-defaut';
 
 /**
  * Pose la fête sur la racine du document (`data-fete`), ou la retire : `tokens.css`
- * repeint l'app par cet attribut.
+ * repeint l'app par cet attribut. Un jour sans fête, l'ambiance du terme solaire
+ * (`data-saison`, voir `saisons.ts`) prend la place, plus légère ; un jour de fête, elle
+ * est retirée : la fête a priorité.
  *
- * La meta `theme-color` suit : pendant la fête, elle prend le papier de la fête (`--paper`
- * lu sur la racine repeinte), pour que la barre d'état d'iOS et celle du navigateur passent
- * à la nuit de la mi-automne ; la fête finie, elle retrouve sa valeur d'origine, gardée
- * sur la meta même (`data-defaut`). La couleur vient de `tokens.css`, jamais d'une
- * constante ici. Ce sont les seules écritures de ce module.
+ * La meta `theme-color` suit : pendant la fête ou le terme, elle prend son papier
+ * (`--paper` lu sur la racine repeinte), pour que la barre d'état d'iOS et celle du
+ * navigateur passent à la nuit de la mi-automne ; sans l'une ni l'autre, elle retrouve sa
+ * valeur d'origine, gardée sur la meta même (`data-defaut`). La couleur vient de
+ * `tokens.css`, jamais d'une constante ici. Ce sont les seules écritures de ce module.
  */
 export function poserFete(
   racine: Pick<Element, 'setAttribute' | 'removeAttribute'> & { ownerDocument?: DocumentTeinte | null },
-  id: FeteId | null
+  id: FeteId | null,
+  saison: string | null = null
 ): void {
+  if (saison && !id) racine.setAttribute('data-saison', saison);
+  else racine.removeAttribute('data-saison');
   if (id) racine.setAttribute('data-fete', id);
   else racine.removeAttribute('data-fete');
   const doc = racine.ownerDocument;
@@ -126,7 +131,7 @@ export function poserFete(
     defaut = meta.getAttribute('content') ?? '';
     meta.setAttribute(TEINTE_DEFAUT, defaut);
   }
-  const papier = id
+  const papier = id || saison
     ? (doc.defaultView?.getComputedStyle(racine as Element).getPropertyValue('--paper').trim() ?? '')
     : '';
   meta.setAttribute('content', papier || defaut);

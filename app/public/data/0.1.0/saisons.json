@@ -1,0 +1,1626 @@
+{
+ "version": "0.1.0",
+ "license": "propriétaire",
+ "source": "data/sources/saisons/ : termes solaires calculés par lunar_python (MIT), à l'heure de Pékin ; textes rédigés pour l'app",
+ "source_url": "https://github.com/jon-gyt/zilin",
+ "modified": "2026-09-24 : assemblé par `wenlu export`",
+ "rubrique": "Aujourd'hui commence un terme solaire",
+ "explication": "L'année chinoise compte vingt-quatre termes solaires, un tous les quinze jours environ ; chacun porte le nom de ce qui se passe alors dans la nature.",
+ "ambiances": [
+  "pecher",
+  "pluie",
+  "duvet",
+  "lucioles",
+  "rosee",
+  "feuilles",
+  "neige",
+  "prunier"
+ ],
+ "calendrier": [
+  {
+   "terme": "dongzhi",
+   "debut": "2025-12-21",
+   "fin": "2026-01-05"
+  },
+  {
+   "terme": "xiaohan",
+   "debut": "2026-01-05",
+   "fin": "2026-01-20"
+  },
+  {
+   "terme": "dahan",
+   "debut": "2026-01-20",
+   "fin": "2026-02-04"
+  },
+  {
+   "terme": "lichun",
+   "debut": "2026-02-04",
+   "fin": "2026-02-18"
+  },
+  {
+   "terme": "yushui",
+   "debut": "2026-02-18",
+   "fin": "2026-03-05"
+  },
+  {
+   "terme": "jingzhe",
+   "debut": "2026-03-05",
+   "fin": "2026-03-20"
+  },
+  {
+   "terme": "chunfen",
+   "debut": "2026-03-20",
+   "fin": "2026-04-05"
+  },
+  {
+   "terme": "qingming",
+   "debut": "2026-04-05",
+   "fin": "2026-04-20"
+  },
+  {
+   "terme": "guyu",
+   "debut": "2026-04-20",
+   "fin": "2026-05-05"
+  },
+  {
+   "terme": "lixia",
+   "debut": "2026-05-05",
+   "fin": "2026-05-21"
+  },
+  {
+   "terme": "xiaoman",
+   "debut": "2026-05-21",
+   "fin": "2026-06-05"
+  },
+  {
+   "terme": "mangzhong",
+   "debut": "2026-06-05",
+   "fin": "2026-06-21"
+  },
+  {
+   "terme": "xiazhi",
+   "debut": "2026-06-21",
+   "fin": "2026-07-07"
+  },
+  {
+   "terme": "xiaoshu",
+   "debut": "2026-07-07",
+   "fin": "2026-07-23"
+  },
+  {
+   "terme": "dashu",
+   "debut": "2026-07-23",
+   "fin": "2026-08-07"
+  },
+  {
+   "terme": "liqiu",
+   "debut": "2026-08-07",
+   "fin": "2026-08-23"
+  },
+  {
+   "terme": "chushu",
+   "debut": "2026-08-23",
+   "fin": "2026-09-07"
+  },
+  {
+   "terme": "bailu",
+   "debut": "2026-09-07",
+   "fin": "2026-09-23"
+  },
+  {
+   "terme": "qiufen",
+   "debut": "2026-09-23",
+   "fin": "2026-10-08"
+  },
+  {
+   "terme": "hanlu",
+   "debut": "2026-10-08",
+   "fin": "2026-10-23"
+  },
+  {
+   "terme": "shuangjiang",
+   "debut": "2026-10-23",
+   "fin": "2026-11-07"
+  },
+  {
+   "terme": "lidong",
+   "debut": "2026-11-07",
+   "fin": "2026-11-22"
+  },
+  {
+   "terme": "xiaoxue",
+   "debut": "2026-11-22",
+   "fin": "2026-12-07"
+  },
+  {
+   "terme": "daxue",
+   "debut": "2026-12-07",
+   "fin": "2026-12-22"
+  },
+  {
+   "terme": "dongzhi",
+   "debut": "2026-12-22",
+   "fin": "2027-01-05"
+  },
+  {
+   "terme": "xiaohan",
+   "debut": "2027-01-05",
+   "fin": "2027-01-20"
+  },
+  {
+   "terme": "dahan",
+   "debut": "2027-01-20",
+   "fin": "2027-02-04"
+  },
+  {
+   "terme": "lichun",
+   "debut": "2027-02-04",
+   "fin": "2027-02-19"
+  },
+  {
+   "terme": "yushui",
+   "debut": "2027-02-19",
+   "fin": "2027-03-06"
+  },
+  {
+   "terme": "jingzhe",
+   "debut": "2027-03-06",
+   "fin": "2027-03-21"
+  },
+  {
+   "terme": "chunfen",
+   "debut": "2027-03-21",
+   "fin": "2027-04-05"
+  },
+  {
+   "terme": "qingming",
+   "debut": "2027-04-05",
+   "fin": "2027-04-20"
+  },
+  {
+   "terme": "guyu",
+   "debut": "2027-04-20",
+   "fin": "2027-05-06"
+  },
+  {
+   "terme": "lixia",
+   "debut": "2027-05-06",
+   "fin": "2027-05-21"
+  },
+  {
+   "terme": "xiaoman",
+   "debut": "2027-05-21",
+   "fin": "2027-06-06"
+  },
+  {
+   "terme": "mangzhong",
+   "debut": "2027-06-06",
+   "fin": "2027-06-21"
+  },
+  {
+   "terme": "xiazhi",
+   "debut": "2027-06-21",
+   "fin": "2027-07-07"
+  },
+  {
+   "terme": "xiaoshu",
+   "debut": "2027-07-07",
+   "fin": "2027-07-23"
+  },
+  {
+   "terme": "dashu",
+   "debut": "2027-07-23",
+   "fin": "2027-08-08"
+  },
+  {
+   "terme": "liqiu",
+   "debut": "2027-08-08",
+   "fin": "2027-08-23"
+  },
+  {
+   "terme": "chushu",
+   "debut": "2027-08-23",
+   "fin": "2027-09-08"
+  },
+  {
+   "terme": "bailu",
+   "debut": "2027-09-08",
+   "fin": "2027-09-23"
+  },
+  {
+   "terme": "qiufen",
+   "debut": "2027-09-23",
+   "fin": "2027-10-08"
+  },
+  {
+   "terme": "hanlu",
+   "debut": "2027-10-08",
+   "fin": "2027-10-23"
+  },
+  {
+   "terme": "shuangjiang",
+   "debut": "2027-10-23",
+   "fin": "2027-11-07"
+  },
+  {
+   "terme": "lidong",
+   "debut": "2027-11-07",
+   "fin": "2027-11-22"
+  },
+  {
+   "terme": "xiaoxue",
+   "debut": "2027-11-22",
+   "fin": "2027-12-07"
+  },
+  {
+   "terme": "daxue",
+   "debut": "2027-12-07",
+   "fin": "2027-12-22"
+  },
+  {
+   "terme": "dongzhi",
+   "debut": "2027-12-22",
+   "fin": "2028-01-06"
+  },
+  {
+   "terme": "xiaohan",
+   "debut": "2028-01-06",
+   "fin": "2028-01-20"
+  },
+  {
+   "terme": "dahan",
+   "debut": "2028-01-20",
+   "fin": "2028-02-04"
+  },
+  {
+   "terme": "lichun",
+   "debut": "2028-02-04",
+   "fin": "2028-02-19"
+  },
+  {
+   "terme": "yushui",
+   "debut": "2028-02-19",
+   "fin": "2028-03-05"
+  },
+  {
+   "terme": "jingzhe",
+   "debut": "2028-03-05",
+   "fin": "2028-03-20"
+  },
+  {
+   "terme": "chunfen",
+   "debut": "2028-03-20",
+   "fin": "2028-04-04"
+  },
+  {
+   "terme": "qingming",
+   "debut": "2028-04-04",
+   "fin": "2028-04-19"
+  },
+  {
+   "terme": "guyu",
+   "debut": "2028-04-19",
+   "fin": "2028-05-05"
+  },
+  {
+   "terme": "lixia",
+   "debut": "2028-05-05",
+   "fin": "2028-05-20"
+  },
+  {
+   "terme": "xiaoman",
+   "debut": "2028-05-20",
+   "fin": "2028-06-05"
+  },
+  {
+   "terme": "mangzhong",
+   "debut": "2028-06-05",
+   "fin": "2028-06-21"
+  },
+  {
+   "terme": "xiazhi",
+   "debut": "2028-06-21",
+   "fin": "2028-07-06"
+  },
+  {
+   "terme": "xiaoshu",
+   "debut": "2028-07-06",
+   "fin": "2028-07-22"
+  },
+  {
+   "terme": "dashu",
+   "debut": "2028-07-22",
+   "fin": "2028-08-07"
+  },
+  {
+   "terme": "liqiu",
+   "debut": "2028-08-07",
+   "fin": "2028-08-22"
+  },
+  {
+   "terme": "chushu",
+   "debut": "2028-08-22",
+   "fin": "2028-09-07"
+  },
+  {
+   "terme": "bailu",
+   "debut": "2028-09-07",
+   "fin": "2028-09-22"
+  },
+  {
+   "terme": "qiufen",
+   "debut": "2028-09-22",
+   "fin": "2028-10-08"
+  },
+  {
+   "terme": "hanlu",
+   "debut": "2028-10-08",
+   "fin": "2028-10-23"
+  },
+  {
+   "terme": "shuangjiang",
+   "debut": "2028-10-23",
+   "fin": "2028-11-07"
+  },
+  {
+   "terme": "lidong",
+   "debut": "2028-11-07",
+   "fin": "2028-11-22"
+  },
+  {
+   "terme": "xiaoxue",
+   "debut": "2028-11-22",
+   "fin": "2028-12-06"
+  },
+  {
+   "terme": "daxue",
+   "debut": "2028-12-06",
+   "fin": "2028-12-21"
+  },
+  {
+   "terme": "dongzhi",
+   "debut": "2028-12-21",
+   "fin": "2029-01-05"
+  },
+  {
+   "terme": "xiaohan",
+   "debut": "2029-01-05",
+   "fin": "2029-01-20"
+  },
+  {
+   "terme": "dahan",
+   "debut": "2029-01-20",
+   "fin": "2029-02-03"
+  },
+  {
+   "terme": "lichun",
+   "debut": "2029-02-03",
+   "fin": "2029-02-18"
+  },
+  {
+   "terme": "yushui",
+   "debut": "2029-02-18",
+   "fin": "2029-03-05"
+  },
+  {
+   "terme": "jingzhe",
+   "debut": "2029-03-05",
+   "fin": "2029-03-20"
+  },
+  {
+   "terme": "chunfen",
+   "debut": "2029-03-20",
+   "fin": "2029-04-04"
+  },
+  {
+   "terme": "qingming",
+   "debut": "2029-04-04",
+   "fin": "2029-04-20"
+  },
+  {
+   "terme": "guyu",
+   "debut": "2029-04-20",
+   "fin": "2029-05-05"
+  },
+  {
+   "terme": "lixia",
+   "debut": "2029-05-05",
+   "fin": "2029-05-21"
+  },
+  {
+   "terme": "xiaoman",
+   "debut": "2029-05-21",
+   "fin": "2029-06-05"
+  },
+  {
+   "terme": "mangzhong",
+   "debut": "2029-06-05",
+   "fin": "2029-06-21"
+  },
+  {
+   "terme": "xiazhi",
+   "debut": "2029-06-21",
+   "fin": "2029-07-07"
+  },
+  {
+   "terme": "xiaoshu",
+   "debut": "2029-07-07",
+   "fin": "2029-07-22"
+  },
+  {
+   "terme": "dashu",
+   "debut": "2029-07-22",
+   "fin": "2029-08-07"
+  },
+  {
+   "terme": "liqiu",
+   "debut": "2029-08-07",
+   "fin": "2029-08-23"
+  },
+  {
+   "terme": "chushu",
+   "debut": "2029-08-23",
+   "fin": "2029-09-07"
+  },
+  {
+   "terme": "bailu",
+   "debut": "2029-09-07",
+   "fin": "2029-09-23"
+  },
+  {
+   "terme": "qiufen",
+   "debut": "2029-09-23",
+   "fin": "2029-10-08"
+  },
+  {
+   "terme": "hanlu",
+   "debut": "2029-10-08",
+   "fin": "2029-10-23"
+  },
+  {
+   "terme": "shuangjiang",
+   "debut": "2029-10-23",
+   "fin": "2029-11-07"
+  },
+  {
+   "terme": "lidong",
+   "debut": "2029-11-07",
+   "fin": "2029-11-22"
+  },
+  {
+   "terme": "xiaoxue",
+   "debut": "2029-11-22",
+   "fin": "2029-12-07"
+  },
+  {
+   "terme": "daxue",
+   "debut": "2029-12-07",
+   "fin": "2029-12-21"
+  },
+  {
+   "terme": "dongzhi",
+   "debut": "2029-12-21",
+   "fin": "2030-01-05"
+  },
+  {
+   "terme": "xiaohan",
+   "debut": "2030-01-05",
+   "fin": "2030-01-20"
+  },
+  {
+   "terme": "dahan",
+   "debut": "2030-01-20",
+   "fin": "2030-02-04"
+  },
+  {
+   "terme": "lichun",
+   "debut": "2030-02-04",
+   "fin": "2030-02-18"
+  },
+  {
+   "terme": "yushui",
+   "debut": "2030-02-18",
+   "fin": "2030-03-05"
+  },
+  {
+   "terme": "jingzhe",
+   "debut": "2030-03-05",
+   "fin": "2030-03-20"
+  },
+  {
+   "terme": "chunfen",
+   "debut": "2030-03-20",
+   "fin": "2030-04-05"
+  },
+  {
+   "terme": "qingming",
+   "debut": "2030-04-05",
+   "fin": "2030-04-20"
+  },
+  {
+   "terme": "guyu",
+   "debut": "2030-04-20",
+   "fin": "2030-05-05"
+  },
+  {
+   "terme": "lixia",
+   "debut": "2030-05-05",
+   "fin": "2030-05-21"
+  },
+  {
+   "terme": "xiaoman",
+   "debut": "2030-05-21",
+   "fin": "2030-06-05"
+  },
+  {
+   "terme": "mangzhong",
+   "debut": "2030-06-05",
+   "fin": "2030-06-21"
+  },
+  {
+   "terme": "xiazhi",
+   "debut": "2030-06-21",
+   "fin": "2030-07-07"
+  },
+  {
+   "terme": "xiaoshu",
+   "debut": "2030-07-07",
+   "fin": "2030-07-23"
+  },
+  {
+   "terme": "dashu",
+   "debut": "2030-07-23",
+   "fin": "2030-08-07"
+  },
+  {
+   "terme": "liqiu",
+   "debut": "2030-08-07",
+   "fin": "2030-08-23"
+  },
+  {
+   "terme": "chushu",
+   "debut": "2030-08-23",
+   "fin": "2030-09-07"
+  },
+  {
+   "terme": "bailu",
+   "debut": "2030-09-07",
+   "fin": "2030-09-23"
+  },
+  {
+   "terme": "qiufen",
+   "debut": "2030-09-23",
+   "fin": "2030-10-08"
+  },
+  {
+   "terme": "hanlu",
+   "debut": "2030-10-08",
+   "fin": "2030-10-23"
+  },
+  {
+   "terme": "shuangjiang",
+   "debut": "2030-10-23",
+   "fin": "2030-11-07"
+  },
+  {
+   "terme": "lidong",
+   "debut": "2030-11-07",
+   "fin": "2030-11-22"
+  },
+  {
+   "terme": "xiaoxue",
+   "debut": "2030-11-22",
+   "fin": "2030-12-07"
+  },
+  {
+   "terme": "daxue",
+   "debut": "2030-12-07",
+   "fin": "2030-12-22"
+  },
+  {
+   "terme": "dongzhi",
+   "debut": "2030-12-22",
+   "fin": "2031-01-05"
+  },
+  {
+   "terme": "xiaohan",
+   "debut": "2031-01-05",
+   "fin": "2031-01-20"
+  },
+  {
+   "terme": "dahan",
+   "debut": "2031-01-20",
+   "fin": "2031-02-04"
+  },
+  {
+   "terme": "lichun",
+   "debut": "2031-02-04",
+   "fin": "2031-02-19"
+  },
+  {
+   "terme": "yushui",
+   "debut": "2031-02-19",
+   "fin": "2031-03-06"
+  },
+  {
+   "terme": "jingzhe",
+   "debut": "2031-03-06",
+   "fin": "2031-03-21"
+  },
+  {
+   "terme": "chunfen",
+   "debut": "2031-03-21",
+   "fin": "2031-04-05"
+  },
+  {
+   "terme": "qingming",
+   "debut": "2031-04-05",
+   "fin": "2031-04-20"
+  },
+  {
+   "terme": "guyu",
+   "debut": "2031-04-20",
+   "fin": "2031-05-06"
+  },
+  {
+   "terme": "lixia",
+   "debut": "2031-05-06",
+   "fin": "2031-05-21"
+  },
+  {
+   "terme": "xiaoman",
+   "debut": "2031-05-21",
+   "fin": "2031-06-06"
+  },
+  {
+   "terme": "mangzhong",
+   "debut": "2031-06-06",
+   "fin": "2031-06-21"
+  },
+  {
+   "terme": "xiazhi",
+   "debut": "2031-06-21",
+   "fin": "2031-07-07"
+  },
+  {
+   "terme": "xiaoshu",
+   "debut": "2031-07-07",
+   "fin": "2031-07-23"
+  },
+  {
+   "terme": "dashu",
+   "debut": "2031-07-23",
+   "fin": "2031-08-08"
+  },
+  {
+   "terme": "liqiu",
+   "debut": "2031-08-08",
+   "fin": "2031-08-23"
+  },
+  {
+   "terme": "chushu",
+   "debut": "2031-08-23",
+   "fin": "2031-09-08"
+  },
+  {
+   "terme": "bailu",
+   "debut": "2031-09-08",
+   "fin": "2031-09-23"
+  },
+  {
+   "terme": "qiufen",
+   "debut": "2031-09-23",
+   "fin": "2031-10-08"
+  },
+  {
+   "terme": "hanlu",
+   "debut": "2031-10-08",
+   "fin": "2031-10-23"
+  },
+  {
+   "terme": "shuangjiang",
+   "debut": "2031-10-23",
+   "fin": "2031-11-07"
+  },
+  {
+   "terme": "lidong",
+   "debut": "2031-11-07",
+   "fin": "2031-11-22"
+  },
+  {
+   "terme": "xiaoxue",
+   "debut": "2031-11-22",
+   "fin": "2031-12-07"
+  },
+  {
+   "terme": "daxue",
+   "debut": "2031-12-07",
+   "fin": "2031-12-22"
+  },
+  {
+   "terme": "dongzhi",
+   "debut": "2031-12-22",
+   "fin": "2032-01-06"
+  },
+  {
+   "terme": "xiaohan",
+   "debut": "2032-01-06",
+   "fin": "2032-01-20"
+  },
+  {
+   "terme": "dahan",
+   "debut": "2032-01-20",
+   "fin": "2032-02-04"
+  },
+  {
+   "terme": "lichun",
+   "debut": "2032-02-04",
+   "fin": "2032-02-19"
+  },
+  {
+   "terme": "yushui",
+   "debut": "2032-02-19",
+   "fin": "2032-03-05"
+  },
+  {
+   "terme": "jingzhe",
+   "debut": "2032-03-05",
+   "fin": "2032-03-20"
+  },
+  {
+   "terme": "chunfen",
+   "debut": "2032-03-20",
+   "fin": "2032-04-04"
+  },
+  {
+   "terme": "qingming",
+   "debut": "2032-04-04",
+   "fin": "2032-04-19"
+  },
+  {
+   "terme": "guyu",
+   "debut": "2032-04-19",
+   "fin": "2032-05-05"
+  },
+  {
+   "terme": "lixia",
+   "debut": "2032-05-05",
+   "fin": "2032-05-20"
+  },
+  {
+   "terme": "xiaoman",
+   "debut": "2032-05-20",
+   "fin": "2032-06-05"
+  },
+  {
+   "terme": "mangzhong",
+   "debut": "2032-06-05",
+   "fin": "2032-06-21"
+  },
+  {
+   "terme": "xiazhi",
+   "debut": "2032-06-21",
+   "fin": "2032-07-06"
+  },
+  {
+   "terme": "xiaoshu",
+   "debut": "2032-07-06",
+   "fin": "2032-07-22"
+  },
+  {
+   "terme": "dashu",
+   "debut": "2032-07-22",
+   "fin": "2032-08-07"
+  },
+  {
+   "terme": "liqiu",
+   "debut": "2032-08-07",
+   "fin": "2032-08-22"
+  },
+  {
+   "terme": "chushu",
+   "debut": "2032-08-22",
+   "fin": "2032-09-07"
+  },
+  {
+   "terme": "bailu",
+   "debut": "2032-09-07",
+   "fin": "2032-09-22"
+  },
+  {
+   "terme": "qiufen",
+   "debut": "2032-09-22",
+   "fin": "2032-10-08"
+  },
+  {
+   "terme": "hanlu",
+   "debut": "2032-10-08",
+   "fin": "2032-10-23"
+  },
+  {
+   "terme": "shuangjiang",
+   "debut": "2032-10-23",
+   "fin": "2032-11-07"
+  },
+  {
+   "terme": "lidong",
+   "debut": "2032-11-07",
+   "fin": "2032-11-22"
+  },
+  {
+   "terme": "xiaoxue",
+   "debut": "2032-11-22",
+   "fin": "2032-12-06"
+  },
+  {
+   "terme": "daxue",
+   "debut": "2032-12-06",
+   "fin": "2032-12-21"
+  },
+  {
+   "terme": "dongzhi",
+   "debut": "2032-12-21",
+   "fin": "2033-01-05"
+  },
+  {
+   "terme": "xiaohan",
+   "debut": "2033-01-05",
+   "fin": "2033-01-20"
+  },
+  {
+   "terme": "dahan",
+   "debut": "2033-01-20",
+   "fin": "2033-02-03"
+  },
+  {
+   "terme": "lichun",
+   "debut": "2033-02-03",
+   "fin": "2033-02-18"
+  },
+  {
+   "terme": "yushui",
+   "debut": "2033-02-18",
+   "fin": "2033-03-05"
+  },
+  {
+   "terme": "jingzhe",
+   "debut": "2033-03-05",
+   "fin": "2033-03-20"
+  },
+  {
+   "terme": "chunfen",
+   "debut": "2033-03-20",
+   "fin": "2033-04-04"
+  },
+  {
+   "terme": "qingming",
+   "debut": "2033-04-04",
+   "fin": "2033-04-20"
+  },
+  {
+   "terme": "guyu",
+   "debut": "2033-04-20",
+   "fin": "2033-05-05"
+  },
+  {
+   "terme": "lixia",
+   "debut": "2033-05-05",
+   "fin": "2033-05-21"
+  },
+  {
+   "terme": "xiaoman",
+   "debut": "2033-05-21",
+   "fin": "2033-06-05"
+  },
+  {
+   "terme": "mangzhong",
+   "debut": "2033-06-05",
+   "fin": "2033-06-21"
+  },
+  {
+   "terme": "xiazhi",
+   "debut": "2033-06-21",
+   "fin": "2033-07-07"
+  },
+  {
+   "terme": "xiaoshu",
+   "debut": "2033-07-07",
+   "fin": "2033-07-22"
+  },
+  {
+   "terme": "dashu",
+   "debut": "2033-07-22",
+   "fin": "2033-08-07"
+  },
+  {
+   "terme": "liqiu",
+   "debut": "2033-08-07",
+   "fin": "2033-08-23"
+  },
+  {
+   "terme": "chushu",
+   "debut": "2033-08-23",
+   "fin": "2033-09-07"
+  },
+  {
+   "terme": "bailu",
+   "debut": "2033-09-07",
+   "fin": "2033-09-23"
+  },
+  {
+   "terme": "qiufen",
+   "debut": "2033-09-23",
+   "fin": "2033-10-08"
+  },
+  {
+   "terme": "hanlu",
+   "debut": "2033-10-08",
+   "fin": "2033-10-23"
+  },
+  {
+   "terme": "shuangjiang",
+   "debut": "2033-10-23",
+   "fin": "2033-11-07"
+  },
+  {
+   "terme": "lidong",
+   "debut": "2033-11-07",
+   "fin": "2033-11-22"
+  },
+  {
+   "terme": "xiaoxue",
+   "debut": "2033-11-22",
+   "fin": "2033-12-07"
+  },
+  {
+   "terme": "daxue",
+   "debut": "2033-12-07",
+   "fin": "2033-12-21"
+  },
+  {
+   "terme": "dongzhi",
+   "debut": "2033-12-21",
+   "fin": "2034-01-05"
+  },
+  {
+   "terme": "xiaohan",
+   "debut": "2034-01-05",
+   "fin": "2034-01-20"
+  },
+  {
+   "terme": "dahan",
+   "debut": "2034-01-20",
+   "fin": "2034-02-04"
+  },
+  {
+   "terme": "lichun",
+   "debut": "2034-02-04",
+   "fin": "2034-02-18"
+  },
+  {
+   "terme": "yushui",
+   "debut": "2034-02-18",
+   "fin": "2034-03-05"
+  },
+  {
+   "terme": "jingzhe",
+   "debut": "2034-03-05",
+   "fin": "2034-03-20"
+  },
+  {
+   "terme": "chunfen",
+   "debut": "2034-03-20",
+   "fin": "2034-04-05"
+  },
+  {
+   "terme": "qingming",
+   "debut": "2034-04-05",
+   "fin": "2034-04-20"
+  },
+  {
+   "terme": "guyu",
+   "debut": "2034-04-20",
+   "fin": "2034-05-05"
+  },
+  {
+   "terme": "lixia",
+   "debut": "2034-05-05",
+   "fin": "2034-05-21"
+  },
+  {
+   "terme": "xiaoman",
+   "debut": "2034-05-21",
+   "fin": "2034-06-05"
+  },
+  {
+   "terme": "mangzhong",
+   "debut": "2034-06-05",
+   "fin": "2034-06-21"
+  },
+  {
+   "terme": "xiazhi",
+   "debut": "2034-06-21",
+   "fin": "2034-07-07"
+  },
+  {
+   "terme": "xiaoshu",
+   "debut": "2034-07-07",
+   "fin": "2034-07-23"
+  },
+  {
+   "terme": "dashu",
+   "debut": "2034-07-23",
+   "fin": "2034-08-07"
+  },
+  {
+   "terme": "liqiu",
+   "debut": "2034-08-07",
+   "fin": "2034-08-23"
+  },
+  {
+   "terme": "chushu",
+   "debut": "2034-08-23",
+   "fin": "2034-09-07"
+  },
+  {
+   "terme": "bailu",
+   "debut": "2034-09-07",
+   "fin": "2034-09-23"
+  },
+  {
+   "terme": "qiufen",
+   "debut": "2034-09-23",
+   "fin": "2034-10-08"
+  },
+  {
+   "terme": "hanlu",
+   "debut": "2034-10-08",
+   "fin": "2034-10-23"
+  },
+  {
+   "terme": "shuangjiang",
+   "debut": "2034-10-23",
+   "fin": "2034-11-07"
+  },
+  {
+   "terme": "lidong",
+   "debut": "2034-11-07",
+   "fin": "2034-11-22"
+  },
+  {
+   "terme": "xiaoxue",
+   "debut": "2034-11-22",
+   "fin": "2034-12-07"
+  },
+  {
+   "terme": "daxue",
+   "debut": "2034-12-07",
+   "fin": "2034-12-22"
+  },
+  {
+   "terme": "dongzhi",
+   "debut": "2034-12-22",
+   "fin": "2035-01-05"
+  },
+  {
+   "terme": "xiaohan",
+   "debut": "2035-01-05",
+   "fin": "2035-01-20"
+  },
+  {
+   "terme": "dahan",
+   "debut": "2035-01-20",
+   "fin": "2035-02-04"
+  },
+  {
+   "terme": "lichun",
+   "debut": "2035-02-04",
+   "fin": "2035-02-19"
+  },
+  {
+   "terme": "yushui",
+   "debut": "2035-02-19",
+   "fin": "2035-03-06"
+  },
+  {
+   "terme": "jingzhe",
+   "debut": "2035-03-06",
+   "fin": "2035-03-21"
+  },
+  {
+   "terme": "chunfen",
+   "debut": "2035-03-21",
+   "fin": "2035-04-05"
+  },
+  {
+   "terme": "qingming",
+   "debut": "2035-04-05",
+   "fin": "2035-04-20"
+  },
+  {
+   "terme": "guyu",
+   "debut": "2035-04-20",
+   "fin": "2035-05-05"
+  },
+  {
+   "terme": "lixia",
+   "debut": "2035-05-05",
+   "fin": "2035-05-21"
+  },
+  {
+   "terme": "xiaoman",
+   "debut": "2035-05-21",
+   "fin": "2035-06-06"
+  },
+  {
+   "terme": "mangzhong",
+   "debut": "2035-06-06",
+   "fin": "2035-06-21"
+  },
+  {
+   "terme": "xiazhi",
+   "debut": "2035-06-21",
+   "fin": "2035-07-07"
+  },
+  {
+   "terme": "xiaoshu",
+   "debut": "2035-07-07",
+   "fin": "2035-07-23"
+  },
+  {
+   "terme": "dashu",
+   "debut": "2035-07-23",
+   "fin": "2035-08-07"
+  },
+  {
+   "terme": "liqiu",
+   "debut": "2035-08-07",
+   "fin": "2035-08-23"
+  },
+  {
+   "terme": "chushu",
+   "debut": "2035-08-23",
+   "fin": "2035-09-08"
+  },
+  {
+   "terme": "bailu",
+   "debut": "2035-09-08",
+   "fin": "2035-09-23"
+  },
+  {
+   "terme": "qiufen",
+   "debut": "2035-09-23",
+   "fin": "2035-10-08"
+  },
+  {
+   "terme": "hanlu",
+   "debut": "2035-10-08",
+   "fin": "2035-10-23"
+  },
+  {
+   "terme": "shuangjiang",
+   "debut": "2035-10-23",
+   "fin": "2035-11-07"
+  },
+  {
+   "terme": "lidong",
+   "debut": "2035-11-07",
+   "fin": "2035-11-22"
+  },
+  {
+   "terme": "xiaoxue",
+   "debut": "2035-11-22",
+   "fin": "2035-12-07"
+  },
+  {
+   "terme": "daxue",
+   "debut": "2035-12-07",
+   "fin": "2035-12-22"
+  },
+  {
+   "terme": "dongzhi",
+   "debut": "2035-12-22",
+   "fin": "2036-01-06"
+  }
+ ],
+ "termes": {
+  "lichun": {
+   "nom_zh": "立春",
+   "pinyin": "lìchūn",
+   "fr": "le début du printemps",
+   "ambiance": "pecher",
+   "ligne": "Le vent d'est dégèle la terre, et les premiers bourgeons pointent.",
+   "tao": [
+    "立春 : le printemps commence !",
+    "Je sens mes bourgeons."
+   ],
+   "caractere": {
+    "c": "春",
+    "pinyin": "chūn",
+    "sens": "le printemps"
+   }
+  },
+  "yushui": {
+   "nom_zh": "雨水",
+   "pinyin": "yǔshuǐ",
+   "fr": "les eaux de pluie",
+   "ambiance": "pecher",
+   "ligne": "La neige cède la place à la pluie, et l'herbe reverdit.",
+   "tao": [
+    "La neige devient pluie : 雨水.",
+    "J'ai soif : tant mieux."
+   ],
+   "caractere": {
+    "c": "水",
+    "pinyin": "shuǐ",
+    "sens": "l'eau"
+   }
+  },
+  "jingzhe": {
+   "nom_zh": "惊蛰",
+   "pinyin": "jīngzhé",
+   "fr": "le réveil des insectes",
+   "ambiance": "pecher",
+   "ligne": "Le premier tonnerre roule, et les insectes endormis sous la terre se réveillent.",
+   "tao": [
+    "Le tonnerre réveille les insectes !",
+    "Mes premières fleurs de pêcher."
+   ],
+   "caractere": {
+    "c": "雷",
+    "pinyin": "léi",
+    "sens": "le tonnerre"
+   }
+  },
+  "chunfen": {
+   "nom_zh": "春分",
+   "pinyin": "chūnfēn",
+   "fr": "l'équinoxe de printemps",
+   "ambiance": "pluie",
+   "ligne": "Le jour et la nuit sont égaux, et les hirondelles reviennent.",
+   "tao": [
+    "Autant de jour que de nuit.",
+    "Les hirondelles sont revenues !"
+   ],
+   "caractere": {
+    "c": "分",
+    "pinyin": "fēn",
+    "sens": "partager, diviser"
+   }
+  },
+  "qingming": {
+   "nom_zh": "清明",
+   "pinyin": "qīngmíng",
+   "fr": "pur et lumineux",
+   "ambiance": "pluie",
+   "ligne": "L'air devient clair et doux, et les arbres se couvrent de feuilles neuves.",
+   "tao": [
+    "L'air est clair : 清明.",
+    "Des feuilles neuves partout."
+   ],
+   "caractere": {
+    "c": "明",
+    "pinyin": "míng",
+    "sens": "clair, lumineux"
+   }
+  },
+  "guyu": {
+   "nom_zh": "谷雨",
+   "pinyin": "gǔyǔ",
+   "fr": "la pluie des grains",
+   "ambiance": "pluie",
+   "ligne": "Les dernières pluies du printemps font lever les semis de céréales.",
+   "tao": [
+    "La pluie fait pousser le grain.",
+    "Les pivoines s'ouvrent."
+   ],
+   "caractere": {
+    "c": "谷",
+    "pinyin": "gǔ",
+    "sens": "les céréales ; la vallée"
+   }
+  },
+  "lixia": {
+   "nom_zh": "立夏",
+   "pinyin": "lìxià",
+   "fr": "le début de l'été",
+   "ambiance": "duvet",
+   "ligne": "Les jours s'allongent, les grenouilles chantent et les blés montent.",
+   "tao": [
+    "立夏 : bonjour l'été !",
+    "Le duvet des saules vole partout."
+   ],
+   "caractere": {
+    "c": "夏",
+    "pinyin": "xià",
+    "sens": "l'été"
+   }
+  },
+  "xiaoman": {
+   "nom_zh": "小满",
+   "pinyin": "xiǎomǎn",
+   "fr": "le petit plein",
+   "ambiance": "duvet",
+   "ligne": "Les grains de blé se remplissent, sans être encore mûrs.",
+   "tao": [
+    "Les épis se remplissent, un peu.",
+    "Pas trop plein : juste assez."
+   ],
+   "caractere": {
+    "c": "满",
+    "pinyin": "mǎn",
+    "sens": "plein"
+   }
+  },
+  "mangzhong": {
+   "nom_zh": "芒种",
+   "pinyin": "mángzhòng",
+   "fr": "les grains à barbe",
+   "ambiance": "duvet",
+   "ligne": "On moissonne le blé barbu et l'on repique le riz dans le même temps.",
+   "tao": [
+    "Moisson et semis, vite !"
+   ],
+   "caractere": {
+    "c": "麦",
+    "pinyin": "mài",
+    "sens": "le blé"
+   }
+  },
+  "xiazhi": {
+   "nom_zh": "夏至",
+   "pinyin": "xiàzhì",
+   "fr": "le solstice d'été",
+   "ambiance": "lucioles",
+   "ligne": "C'est le jour le plus long de l'année, et les nuits vont rallonger.",
+   "tao": [
+    "Le jour le plus long !",
+    "Il fait jour tard, ce soir."
+   ],
+   "caractere": {
+    "c": "日",
+    "pinyin": "rì",
+    "sens": "le soleil, le jour"
+   }
+  },
+  "xiaoshu": {
+   "nom_zh": "小暑",
+   "pinyin": "xiǎoshǔ",
+   "fr": "la petite chaleur",
+   "ambiance": "lucioles",
+   "ligne": "Le vent devient chaud, et les grillons cherchent l'ombre des murs.",
+   "tao": [
+    "Il fait chaud… Un peu d'ombre ?"
+   ],
+   "caractere": {
+    "c": "暑",
+    "pinyin": "shǔ",
+    "sens": "la chaleur de l'été"
+   }
+  },
+  "dashu": {
+   "nom_zh": "大暑",
+   "pinyin": "dàshǔ",
+   "fr": "la grande chaleur",
+   "ambiance": "lucioles",
+   "ligne": "La chaleur est à son comble, et les lucioles volent dans l'herbe le soir.",
+   "tao": [
+    "Les lucioles sont sorties !",
+    "Trop chaud pour courir."
+   ],
+   "caractere": {
+    "c": "热",
+    "pinyin": "rè",
+    "sens": "chaud"
+   }
+  },
+  "liqiu": {
+   "nom_zh": "立秋",
+   "pinyin": "lìqiū",
+   "fr": "le début de l'automne",
+   "ambiance": "rosee",
+   "ligne": "Un vent frais se lève, et la rosée commence à se former au matin.",
+   "tao": [
+    "立秋 : l'automne arrive."
+   ],
+   "caractere": {
+    "c": "秋",
+    "pinyin": "qiū",
+    "sens": "l'automne"
+   }
+  },
+  "chushu": {
+   "nom_zh": "处暑",
+   "pinyin": "chǔshǔ",
+   "fr": "la fin des chaleurs",
+   "ambiance": "rosee",
+   "ligne": "La chaleur se retire, et les céréales mûrissent dans les champs.",
+   "tao": [
+    "Ouf, la chaleur s'en va."
+   ],
+   "caractere": {
+    "c": "凉",
+    "pinyin": "liáng",
+    "sens": "frais"
+   }
+  },
+  "bailu": {
+   "nom_zh": "白露",
+   "pinyin": "báilù",
+   "fr": "la rosée blanche",
+   "ambiance": "rosee",
+   "ligne": "Les nuits fraîchissent, et la rosée perle au matin sur les herbes.",
+   "tao": [
+    "De la rosée sur mes feuilles !"
+   ],
+   "caractere": {
+    "c": "露",
+    "pinyin": "lù",
+    "sens": "la rosée"
+   }
+  },
+  "qiufen": {
+   "nom_zh": "秋分",
+   "pinyin": "qiūfēn",
+   "fr": "l'équinoxe d'automne",
+   "ambiance": "feuilles",
+   "ligne": "Le jour et la nuit sont de nouveau égaux, et le tonnerre se tait.",
+   "tao": [
+    "Moitié jour, moitié nuit."
+   ],
+   "caractere": {
+    "c": "半",
+    "pinyin": "bàn",
+    "sens": "la moitié"
+   }
+  },
+  "hanlu": {
+   "nom_zh": "寒露",
+   "pinyin": "hánlù",
+   "fr": "la rosée froide",
+   "ambiance": "feuilles",
+   "ligne": "La rosée devient froide, et les oies sauvages partent vers le sud.",
+   "tao": [
+    "Les oies partent au sud."
+   ],
+   "caractere": {
+    "c": "寒",
+    "pinyin": "hán",
+    "sens": "le froid"
+   }
+  },
+  "shuangjiang": {
+   "nom_zh": "霜降",
+   "pinyin": "shuāngjiàng",
+   "fr": "la descente du givre",
+   "ambiance": "feuilles",
+   "ligne": "Le premier givre blanchit les champs, et les feuilles jaunissent et tombent.",
+   "tao": [
+    "Du givre ce matin !",
+    "Mes feuilles tombent : c'est la saison."
+   ],
+   "caractere": {
+    "c": "霜",
+    "pinyin": "shuāng",
+    "sens": "le givre"
+   }
+  },
+  "lidong": {
+   "nom_zh": "立冬",
+   "pinyin": "lìdōng",
+   "fr": "le début de l'hiver",
+   "ambiance": "neige",
+   "ligne": "L'eau commence à geler, et la terre durcit.",
+   "tao": [
+    "立冬 : l'hiver commence."
+   ],
+   "caractere": {
+    "c": "冬",
+    "pinyin": "dōng",
+    "sens": "l'hiver"
+   }
+  },
+  "xiaoxue": {
+   "nom_zh": "小雪",
+   "pinyin": "xiǎoxuě",
+   "fr": "la petite neige",
+   "ambiance": "neige",
+   "ligne": "Les premiers flocons tombent, légers, sans encore tenir au sol.",
+   "tao": [
+    "Mes premiers flocons !"
+   ],
+   "caractere": {
+    "c": "雪",
+    "pinyin": "xuě",
+    "sens": "la neige"
+   }
+  },
+  "daxue": {
+   "nom_zh": "大雪",
+   "pinyin": "dàxuě",
+   "fr": "la grande neige",
+   "ambiance": "neige",
+   "ligne": "La neige tombe dru, et les rivières se couvrent de glace.",
+   "tao": [
+    "Tout est blanc !"
+   ],
+   "caractere": {
+    "c": "冰",
+    "pinyin": "bīng",
+    "sens": "la glace"
+   }
+  },
+  "dongzhi": {
+   "nom_zh": "冬至",
+   "pinyin": "dōngzhì",
+   "fr": "le solstice d'hiver",
+   "ambiance": "prunier",
+   "ligne": "C'est la nuit la plus longue de l'année, et les jours vont rallonger.",
+   "tao": [
+    "Les jours rallongent, doucement."
+   ],
+   "caractere": {
+    "c": "夜",
+    "pinyin": "yè",
+    "sens": "la nuit"
+   }
+  },
+  "xiaohan": {
+   "nom_zh": "小寒",
+   "pinyin": "xiǎohán",
+   "fr": "le petit froid",
+   "ambiance": "prunier",
+   "ligne": "Le froid s'installe, et les oies sauvages songent déjà à regagner le nord.",
+   "tao": [
+    "Brr, le petit froid."
+   ],
+   "caractere": {
+    "c": "冷",
+    "pinyin": "lěng",
+    "sens": "froid"
+   }
+  },
+  "dahan": {
+   "nom_zh": "大寒",
+   "pinyin": "dàhán",
+   "fr": "le grand froid",
+   "ambiance": "prunier",
+   "ligne": "C'est le plus froid de l'année, et le prunier fleurit dans la neige.",
+   "tao": [
+    "Le prunier fleurit dans le froid.",
+    "Bientôt le Nouvel An !"
+   ],
+   "caractere": {
+    "c": "梅",
+    "pinyin": "méi",
+    "sens": "le prunier"
+   }
+  }
+ },
+ "racines": {
+  "冬": "夂",
+  "冰": "冫",
+  "冷": "冫",
+  "凉": "冫",
+  "分": "八",
+  "半": "半",
+  "夏": "一",
+  "夜": "亠",
+  "寒": "宀",
+  "日": "日",
+  "明": "日",
+  "春": "日",
+  "暑": "日",
+  "梅": "木",
+  "水": "水",
+  "满": "氵",
+  "热": "扌",
+  "秋": "禾",
+  "谷": "谷",
+  "雪": "雨",
+  "雷": "雨",
+  "霜": "雨",
+  "露": "雨",
+  "麦": "龶"
+ }
+}

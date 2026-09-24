@@ -9,7 +9,8 @@ Périmètre de la version 0.1.0 : les caractères du seuil 255 et du HSK 1, plus
 toutes leurs briques (prérequis transitifs). Pas tout le dictionnaire : une
 famille n'est exportée qu'avec ses membres du périmètre. Les caractères que les
 fêtes dessinent (l'anecdote, le 福 du vœu, `data/sources/fetes/textes.tsv`) y
-entrent aussi, avec leurs briques : l'app les trace depuis leurs traits.
+entrent aussi, avec leurs briques : l'app les trace depuis leurs traits. De même pour
+le caractère à lire de chaque terme solaire (`data/sources/saisons/textes.tsv`).
 
 Séparation des licences (`docs/sources-licences.md` §8) — trois régimes, trois
 familles de fichiers, jamais mêlés :
@@ -20,7 +21,8 @@ familles de fichiers, jamais mêlés :
   (APL §2 a). Chaque fichier porte la même mention dans son en-tête.
 - `familles/<racine>.json` : décomposition canonique GF 0014-2009 et textes des
   fiches relues, propriétaires. Aucun tracé n'y entre.
-- `paires.json`, `contes/<id>.json`, `fetes.json` : propriétaires, source citée.
+- `paires.json`, `contes/<id>.json`, `fetes.json`, `saisons.json` : propriétaires,
+  source citée.
 
 Ce qui n'entre jamais dans l'export :
 
@@ -62,6 +64,7 @@ from pydantic import ValidationError
 from . import contes as contes_mod
 from . import fetes as fetes_mod
 from . import fiches as fiches_mod
+from . import saisons as saisons_mod
 from .gf0014 import Controle
 from .graphe import BRIQUE, MUETTE, PARCOURS
 from .models import Brique, Famille, Fiche, Mot
@@ -74,7 +77,7 @@ VERSION = "0.1.0"
 #: Version du format écrit par ce module. À incrémenter à chaque changement de
 #: ce que l'export produit à entrées égales (clé ajoutée, ordre, règle de
 #: sélection) : elle entre dans l'empreinte, et l'export versionné devient périmé.
-FORMAT_EXPORT = 2
+FORMAT_EXPORT = 3
 
 #: Le code de l'exporteur, lui aussi dans l'empreinte : un changement de ce
 #: fichier où l'on aurait oublié `FORMAT_EXPORT` rend quand même l'export périmé.
@@ -88,7 +91,7 @@ NIVEAUX: dict[str, tuple[str, int]] = {"seuil-255": ("seuil", 255), "hsk-1": ("h
 
 PERIMETRE = (
     "seuil 255 et HSK 1 : les caractères des deux listes et leurs briques ;"
-    " les caractères dessinés des fêtes et leurs briques"
+    " les caractères dessinés des fêtes et des termes solaires, et leurs briques"
 )
 
 #: Sources versionnées de l'export, hors `data/work/`.
@@ -157,6 +160,8 @@ def fichiers_sources(
         ("fetes-calendrier", fetes_mod.CALENDRIER),
         ("fetes-textes", fetes_mod.TEXTES),
         ("fetes-animaux", fetes_mod.ANIMAUX),
+        ("saisons-termes", saisons_mod.TERMES),
+        ("saisons-textes", saisons_mod.TEXTES),
         ("interface", INTERFACE),
         ("arphicpl", LICENCES_SOURCE / ARPHIC),
         ("unicode", LICENCES_SOURCE / UNICODE_NOTICE),
@@ -528,6 +533,35 @@ SOURCE_FETES = (
 )
 
 
+#: La source de `saisons.json`, telle que son en-tête la cite.
+SOURCE_SAISONS = (
+    "data/sources/saisons/ : termes solaires calculés par lunar_python (MIT), à"
+    " l'heure de Pékin ; textes rédigés pour l'app"
+)
+
+
+def document_saisons(
+    version: str, noeuds: Mapping[str, Noeud], pinyin: Mapping[str, str] | None = None
+) -> dict[str, object]:
+    """Le JSON écrit dans `saisons.json` : les vingt-quatre termes solaires.
+
+    Le contenu vient de `saisons.document` ; ici, l'en-tête de licence et les racines
+    des caractères à lire, pour que l'app trouve leurs traits sans relire toutes les
+    familles.
+    """
+    return saisons_mod.document(
+        version,
+        {c: n.racine for c, n in noeuds.items()},
+        dict(pinyin or {}),
+        {
+            "license": LICENCE_PROPRIETAIRE,
+            "source": SOURCE_SAISONS,
+            "source_url": URL_PIPELINE,
+            "modified": f"{JETON_JOUR} : assemblé par `wenlu export`",
+        },
+    )
+
+
 def caracteres_interface(chemin: Path | None = None) -> list[str]:
     """Les caractères que l'interface dessine (`data/sources/interface/caracteres.txt`).
 
@@ -716,6 +750,7 @@ def document_index(
         ],
         "paires": "paires.json",
         "fetes": "fetes.json",
+        "saisons": "saisons.json",
     }
 
 
@@ -775,14 +810,15 @@ TABLEAU_LICENCES: tuple[tuple[str, str, str, str, str], ...] = (
     ),
     (
         "Calendrier luni-solaire chinois",
-        "dates des fêtes (`fetes.json`), calculées par lunar_python",
+        "dates des fêtes (`fetes.json`) et des termes solaires (`saisons.json`),"
+        " calculées par lunar_python",
         "faits de calendrier ; bibliothèque MIT, non embarquée",
         "lunar_python, Copyright (c) 6tail",
         "https://github.com/6tail/lunar-python",
     ),
     (
-        "Fiches, contes, paires, fêtes (pipeline wenlu)",
-        "`familles/`, `contes/`, `paires.json`, `fetes.json`",
+        "Fiches, contes, paires, fêtes, saisons (pipeline wenlu)",
+        "`familles/`, `contes/`, `paires.json`, `fetes.json`, `saisons.json`",
         LICENCE_PROPRIETAIRE,
         "textes rédigés pour l'app, relus",
         "—",
@@ -812,7 +848,8 @@ def licences_md(version: str) -> str:
         "",
         f"- `traits/` : tracés sous {LICENCE_TRAITS}, avec `{ARPHIC}` inaltéré à côté"
         " et `traits/MODIFICATIONS.md` qui dit comment et quand ils ont été dérivés.",
-        "- `familles/`, `contes/`, `paires.json`, `fetes.json` : décomposition canonique et textes"
+        "- `familles/`, `contes/`, `paires.json`, `fetes.json`, `saisons.json` : décomposition"
+        " canonique et textes"
         " rédigés pour l'app, propriétaires.",
         f"- `{UNICODE_NOTICE}` : notice de permission Unicode, qui couvre le pinyin.",
         "",
@@ -861,7 +898,8 @@ def modifications_md(version: str, caracteres: int) -> str:
             "- Conversion de format : les lignes JSON de `graphics.txt` deviennent un"
             " fichier par famille, `{\"<caractère>\": {\"s\": [tracés], \"m\": [médianes]}}`.",
             f"- Sous-ensemble : {caracteres} caractères seulement — le seuil 255, le"
-            " HSK 1, les caractères dessinés des fêtes et leurs briques.",
+            " HSK 1, les caractères dessinés des fêtes et des termes solaires, et leurs"
+            " briques.",
             "- Les tracés et les médianes ne sont pas retouchés : ni arrondi, ni"
             " simplification, ni renommage.",
             "",
@@ -1023,6 +1061,8 @@ def assembler(
     # Les caractères que les fêtes dessinent (anecdote, 福 du vœu) : leurs traits
     # doivent être exportés, `wenlu check` le vérifie.
     cibles += fetes_mod.caracteres_dessines(fetes_mod.charger_textes())
+    # Le caractère à lire de chaque terme solaire : même règle.
+    cibles += saisons_mod.caracteres_dessines(saisons_mod.charger_textes())
     # Les caractères de l'interface (la marque, les cases du menu) : même règle.
     cibles += caracteres_interface()
     per = perimetre(noeuds, cibles)
@@ -1068,6 +1108,7 @@ def assembler(
 
     textes["paires.json"] = _json(document_paires(groupes, version))
     textes["fetes.json"] = _json(document_fetes(version, noeuds, pinyin))
+    textes["saisons.json"] = _json(document_saisons(version, noeuds, pinyin))
     textes["LICENCES.md"] = licences_md(version)
     textes["traits/MODIFICATIONS.md"] = modifications_md(version, len(graphies))
     for nom in (ARPHIC, UNICODE_NOTICE):

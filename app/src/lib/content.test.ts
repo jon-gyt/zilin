@@ -39,6 +39,11 @@ import {
   loadIndex,
   loadTexte,
   loadVoisins,
+  contesExport,
+  fichierConte,
+  lireConte,
+  lireContesIndex,
+  loadConte,
   type Anecdote,
   type Anecdotes,
   type Etiquette,
@@ -847,5 +852,94 @@ describe("l'écran Ouvrir", () => {
     const src = readFileSync(new URL('Open.svelte', import.meta.url), 'utf8');
     expect(src).not.toMatch(/setTimeout|setInterval/);
     expect(src).toContain('onclick={oncontinuer}');
+  });
+});
+
+/* Les contes : fixtures de test, écrites pour exercer le chargeur. L'app n'en contient aucun. */
+describe('le chargeur des contes', () => {
+  afterEach(() => {
+    vi.unstubAllGlobals();
+  });
+
+  const V = 'test-contes';
+  const conteSimule = {
+    version: V,
+    license: 'propriétaire',
+    source: 'test',
+    source_url: '',
+    modified: '',
+    conte: 'essai',
+    titre_fr: 'Essai',
+    versions: {
+      '405': {
+        titre: '人和兔子',
+        phrases: [{ zh: '兔子来了。', pinyin: 'Tùzi lái le.', fr: 'Le lièvre vient.' }],
+        glose: { 兔子: 'lièvre', 来: 'venir', 了: '', 1: 7 }
+      },
+      '255': {
+        titre: '人',
+        phrases: [{ zh: '人来。', pinyin: 'Rén lái.', fr: "L'homme vient." }, { zh: '' }],
+        glose: { 人: 'homme' }
+      },
+      '505': { titre: 'vide', phrases: [] },
+      pas: { titre: 'x', phrases: [{ zh: '人', pinyin: 'rén', fr: '' }] }
+    }
+  };
+  const indexSimule = {
+    version: V,
+    familles: [],
+    contes: [
+      { id: 'essai', titre_fr: 'Essai', seuils: [255, 405], fichier: 'contes/essai.json', gratuit: true },
+      { id: 'absent', titre_fr: 'Absent', seuils: [255, 0, 'x'], fichier: 'contes/absent.json' },
+      { titre_fr: 'Sans identifiant', seuils: [255], fichier: 'contes/rien.json' }
+    ]
+  };
+  const fichiers: Record<string, unknown> = {
+    [`data/${V}/index.json`]: indexSimule,
+    [`data/${V}/contes/essai.json`]: conteSimule
+  };
+  function servir(): string[] {
+    const appels: string[] = [];
+    vi.stubGlobal('fetch', (async (u: RequestInfo | URL) => {
+      const url = String(u);
+      appels.push(url);
+      const chemin = url.slice(import.meta.env.BASE_URL.length);
+      if (chemin in fichiers) {
+        return { ok: true, status: 200, json: async () => fichiers[chemin] } as Response;
+      }
+      return { ok: false, status: 404, json: async () => null } as Response;
+    }) as typeof fetch);
+    return appels;
+  }
+
+  it('relit les versions par seuil, triées, et écarte ce qui ne se lit pas', () => {
+    const c = lireConte(conteSimule);
+    expect(c.id).toBe('essai');
+    expect(c.titre_fr).toBe('Essai');
+    expect(c.versions.map((v) => v.seuil)).toEqual([255, 405]);
+    expect(c.versions[0].phrases).toEqual([{ zh: '人来。', pinyin: 'Rén lái.', fr: "L'homme vient." }]);
+    expect(c.versions[1].glose).toEqual({ 兔子: 'lièvre', 来: 'venir' });
+    expect(() => lireConte({ titre_fr: 'sans id' })).toThrow('illisible');
+  });
+
+  it("marque les contes gratuits d'après l'index, faux par défaut, et écarte une entrée sans identifiant", () => {
+    const lus = lireContesIndex(indexSimule.contes);
+    expect(lus.map((x) => [x.id, x.gratuit, x.seuils])).toEqual([
+      ['essai', true, [255, 405]],
+      ['absent', false, [255]]
+    ]);
+    expect(lireContesIndex(undefined)).toEqual([]);
+  });
+
+  it("lit chaque conte de l'index dans le dossier de la version ; un fichier absent manque, sans erreur", async () => {
+    const appels = servir();
+    const i = await loadIndex(V);
+    expect(fichierConte(i, 'essai')).toBe(`data/${V}/contes/essai.json`);
+    expect(fichierConte(i, 'inconnu')).toBeNull();
+    const { index: entrees, contes } = await contesExport(V);
+    expect(entrees.map((x) => x.id)).toEqual(['essai', 'absent']);
+    expect([...contes.keys()]).toEqual(['essai']);
+    expect(appels).toContain(`${import.meta.env.BASE_URL}data/${V}/contes/essai.json`);
+    await expect(loadConte(`data/${V}/contes/absent.json`)).rejects.toThrow('introuvable');
   });
 });

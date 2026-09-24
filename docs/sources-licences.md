@@ -177,6 +177,8 @@ Les dates des huit fêtes (春节, 元宵, 端午, 七夕, 中秋, 重阳 au cal
 
 Décision : **utilisable**. La bibliothèque ne sort pas du pipeline ; `fetes.json` ne porte que des dates, qui ne sont pas protégeables. Les textes des fêtes (vœu, phrases de Tao, anecdote) sont rédigés pour l'app, dans `data/sources/fetes/textes.tsv`, colonne `source`.
 
+Les vingt-quatre termes solaires (二十四节气) suivent la même règle : `uv run wenlu saisons calendrier` calcule leurs instants avec la même bibliothèque, à l'heure de Pékin, et écrit `data/sources/saisons/termes.tsv` ; les tests les vérifient contre des dates connues (秋分 2026-09-23, 冬至 2026-12-22, 立春 2027-02-04…) et relisent chaque jour de début dans la bibliothèque. `saisons.json` ne porte que des dates et des textes rédigés pour l'app (`data/sources/saisons/textes.tsv`) : les faits de nature viennent de l'almanach commun des soixante-douze pentades 七十二候.
+
 ## 7. Polices anciennes
 
 ### 7.1 Sigillaire (小篆)

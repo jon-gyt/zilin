@@ -36,8 +36,9 @@
   import { planifier, type JeuId } from './lib/jeux';
   import { toutesLesFamilles, type Noeud } from './lib/content';
   import FeteDecor from './lib/FeteDecor.svelte';
-  import { fetesOnce, type Fetes } from './lib/content';
-  import { feteDuJour, poserFete } from './lib/fetes';
+  import { fetesOnce, saisonsOnce, type Fetes, type Saisons } from './lib/content';
+  import { poserFete } from './lib/fetes';
+  import { journee } from './lib/saisons';
   import {
     CARTES_PAR_SEANCE,
     cartesAOuvrir,
@@ -52,6 +53,7 @@
     learnNext,
     nombreDues,
     noterActivite,
+    noterConteLu,
     noterRevision,
     noterTrophees,
     openDay,
@@ -108,14 +110,20 @@
   let p: Progress = $state(emptyProgress(today()));
 
   /*
-   * Les fêtes (fetes.json) : la journée de la session décide. `data-fete` sur <html> repeint
-   * l'app (tokens.css), le décor passe derrière tout. Rien d'autre ne change ici.
+   * Les fêtes (fetes.json) et les termes solaires (saisons.json) : la journée de la session
+   * décide. `data-fete` sur <html> repeint l'app (tokens.css) ; un jour sans fête,
+   * `data-saison` pose l'ambiance plus légère du terme. Le décor passe derrière tout. Rien
+   * d'autre ne change ici.
    */
   let fetes: Fetes | null = $state(null);
+  let saisons: Saisons | null = $state(null);
   void fetesOnce().then((f) => (fetes = f)).catch(() => undefined);
-  const feteJour = $derived(fetes ? feteDuJour(fetes, p.day) : null);
-  const fete = $derived(feteJour?.id ?? null);
-  $effect(() => poserFete(document.documentElement, fete));
+  void saisonsOnce().then((s) => (saisons = s)).catch(() => undefined);
+  const laJournee = $derived(journee(fetes, saisons, p.day));
+  const feteJour = $derived(laJournee.fete);
+  const fete = $derived(laJournee.theme.fete);
+  const saison = $derived(laJournee.theme.saison);
+  $effect(() => poserFete(document.documentElement, fete, saison));
   /** L'app s'ouvre sur le logo : ce qui vient après dépend de la progression relue. */
   let ecran: Ecran = $state('splash');
 
@@ -539,6 +547,17 @@
     enregistrer();
   }
 
+  /* ---------- les contes (épic 2c), par la case Lire ---------- */
+
+  /**
+   * « J'ai lu » : la version du seuil entre dans les contes lus (le trophée se remplit),
+   * et Tao note un conte lu, qu'elle lit par-dessus l'épaule.
+   */
+  function conteLu(conte: string, seuil: number): void {
+    p = noterActivite(noterConteLu(p, conte, seuil), p.day, 'conte');
+    enregistrer();
+  }
+
   /** Quitter : retour au menu sans question, la progression est sauvegardée. */
   function quitter(): void {
     enregistrer();
@@ -546,7 +565,7 @@
   }
 </script>
 
-<FeteDecor {fete} />
+<FeteDecor {fete} {saison} />
 
 {#if ecran === 'splash'}
   <Splash onfini={splashFini} />
@@ -611,7 +630,7 @@
     onretour={quitter}
   />
 {:else if ecran === 'lire'}
-  <Lire {p} onretour={allerAuMenu} />
+  <Lire {p} onretour={allerAuMenu} onlu={conteLu} />
 {:else if ecran === 'foret'}
   <!-- Ma forêt, deux niveaux au plus : le cercle, puis une famille ou les récompenses. -->
   {#if famille}
@@ -637,5 +656,5 @@
 {:else if ecran === 'reglages'}
   <Settings {p} onprogression={remplacer} onretour={allerAuMenu} />
 {:else}
-  <Menu {p} fete={feteJour} {fetes} ondemarrer={boutonMenu} oncase={caseMenu} onchercher={ouvrirChercher} onreglages={() => (ecran = 'reglages')} />
+  <Menu {p} fete={feteJour} {fetes} terme={laJournee.terme} {saisons} ondemarrer={boutonMenu} oncase={caseMenu} onchercher={ouvrirChercher} onreglages={() => (ecran = 'reglages')} />
 {/if}

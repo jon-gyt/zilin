@@ -95,6 +95,68 @@
     style: `left:${f1(s(0, 98))}%;--d:${f1(s(14, 26))}s;--w:-${f1(s(0, 26))}s;--dx:${s(-50, 50).toFixed(0)}px;--t:${s(3, 6).toFixed(1)}px`,
     bleu: i % 2 === 1
   }));
+
+  /*
+   * Les ambiances des termes solaires : leur propre graine, pour ne rien déplacer des fêtes.
+   * Moins d'éléments, plus petits et plus pâles que les fêtes : le décor reste discret.
+   */
+  const t = hasard(2048);
+
+  /** Des éléments qui tombent en tournant, plus lents et plus rares que ceux des fêtes. */
+  function tombent(n: number, d: [number, number], dx: number, o: [number, number]): { style: string }[] {
+    return Array.from({ length: n }, () => ({
+      style: `left:${f1(t(0, 96))}%;--d:${f1(t(d[0], d[1]))}s;--w:-${f1(t(0, d[1]))}s;--dx:${t(-dx, dx).toFixed(0)}px;opacity:${t(o[0], o[1]).toFixed(2)}`
+    }));
+  }
+
+  /** 立春, 雨水, 惊蛰 : des pétales de pêcher, un sur deux plus pâle. */
+  const PETALES_PECHER = tombent(7, [16, 26], 70, [0.5, 0.8]).map((p, i) => ({ ...p, pale: i % 2 === 0 }));
+
+  /** 春分, 清明, 谷雨 : une pluie fine, plus rare et plus pâle que celle de 清明. */
+  const PLUIE_FINE = Array.from({ length: 12 }, () => ({
+    style: `left:${f1(t(0, 124))}%;--d:${f1(t(1.4, 2.2))}s;--w:-${f1(t(0, 2.2))}s;opacity:${t(0.14, 0.3).toFixed(2)};height:${t(8, 14).toFixed(0)}px`
+  }));
+
+  /** 立夏, 小满, 芒种 : le duvet des saules 柳絮, qui dérive lentement. */
+  const DUVET = tombent(8, [26, 40], 120, [0.6, 0.9]);
+
+  /** 夏至, 小暑, 大暑 : des lucioles qui s'allument et s'éteignent dans le bas de l'écran. */
+  const LUCIOLES = Array.from({ length: 9 }, () => ({
+    style: `left:${f1(t(4, 94))}%;top:${f1(t(48, 92))}%;--d:${f1(t(3, 5.5))}s;--w:-${f1(t(0, 5))}s;--e:${f1(t(9, 15))}s;--dx:${t(-24, 24).toFixed(0)}px;--dy:${t(-30, 10).toFixed(0)}px`
+  }));
+
+  /** 立秋, 处暑, 白露 : des brins d'herbe au pied de l'écran, la rosée qui perle dessus. */
+  const BRINS = Array.from({ length: 11 }, (_, i) => {
+    const x = 8 + i * 37 + t(-8, 8);
+    const h = t(26, 58);
+    return { x, h, c: t(-10, 10), w: `-${f1(t(0, 4))}s` };
+  });
+  const ROSEE = BRINS.filter((_, i) => i % 2 === 0).map((b) => ({
+    cx: b.x + b.c * 0.8,
+    cy: 150 - b.h * 0.9,
+    w: `-${f1(t(0, 4))}s`
+  }));
+
+  /** 秋分, 寒露, 霜降 : des feuilles qui tombent, trois teintes d'automne. */
+  const FEUILLES = tombent(8, [15, 24], 80, [0.6, 0.9]).map((f, i) => ({ ...f, teinte: ['--s-feuille', '--s-feuille2', '--s-feuille3'][i % 3] }));
+
+  /** 立冬, 小雪, 大雪 : la neige, un flocon sur deux bleuté. */
+  const FLOCONS = Array.from({ length: 16 }, (_, i) => ({
+    style: `left:${f1(t(0, 98))}%;--d:${f1(t(16, 28))}s;--w:-${f1(t(0, 28))}s;--dx:${t(-50, 50).toFixed(0)}px;--t:${t(3, 5.5).toFixed(1)}px`,
+    bleu: i % 2 === 1
+  }));
+
+  /** 冬至, 小寒, 大寒 : quelques flocons autour du prunier en fleur. */
+  const FLOCONS_RARES = FLOCONS.slice(0, 7);
+  /** Les fleurs du prunier, posées sur la branche. */
+  const FLEURS_PRUNIER = [
+    { x: 30, y: 30, r: 1 },
+    { x: 58, y: 22, r: 0.8 },
+    { x: 84, y: 40, r: 1.1 },
+    { x: 104, y: 70, r: 0.9 },
+    { x: 70, y: 58, r: 0.75 },
+    { x: 118, y: 102, r: 1 }
+  ];
 </script>
 
 <script lang="ts">
@@ -114,15 +176,29 @@
    * - 重阳 : la montagne au pied de l'écran, un vol d'oies, des pétales de chrysanthème.
    * - 冬至 : une neige légère, des collines enneigées.
    *
+   * Un jour sans fête, le terme solaire pose une ambiance plus légère (`saison`), un petit
+   * décor de quelques éléments pâles :
+   *
+   * - `pecher` (立春, 雨水, 惊蛰) : des pétales de pêcher ;
+   * - `pluie` (春分, 清明, 谷雨) : une pluie fine, rare ;
+   * - `duvet` (立夏, 小满, 芒种) : le duvet des saules qui dérive ;
+   * - `lucioles` (夏至, 小暑, 大暑) : des lucioles qui s'allument dans le bas de l'écran ;
+   * - `rosee` (立秋, 处暑, 白露) : des brins d'herbe, la rosée qui perle ;
+   * - `feuilles` (秋分, 寒露, 霜降) : des feuilles qui tombent ;
+   * - `neige` (立冬, 小雪, 大雪) : des flocons ;
+   * - `prunier` (冬至, 小寒, 大寒) : une branche de prunier en fleur, quelques flocons.
+   *
    * Props :
-   * - `fete` : l'identifiant de la fête du jour, ou `null` (aucun décor).
+   * - `fete` : l'identifiant de la fête du jour, ou `null`.
+   * - `saison` : l'ambiance du terme solaire, ou `null`. Ignorée un jour de fête : la fête a
+   *   priorité. Sans l'une ni l'autre, aucun décor.
    *
    * Aplats seulement : ni ombre, ni dégradé, ni doré, et pas de bête sur les bateaux (CLAUDE.md). Les couleurs viennent
    * des blocs `[data-fete]` de `tokens.css`.
    */
   import type { FeteId } from './content';
 
-  let { fete }: { fete: FeteId | null } = $props();
+  let { fete, saison = null }: { fete: FeteId | null; saison?: string | null } = $props();
 </script>
 
 {#if fete}
@@ -343,6 +419,76 @@
       {#each NEIGE as n, i (i)}<i class="neige" class:bleu={n.bleu} style={n.style}></i>{/each}
     {/if}
   </div>
+{:else if saison}
+  <div class="deco saison" aria-hidden="true">
+    {#if saison === 'pecher'}
+      {#each PETALES_PECHER as p, i (i)}
+        <i style={p.style}>
+          <svg width="9" height="11" viewBox="0 0 9 11">
+            <path d="M4.5 11C1 8 0 4.5 1.4 1.6Q3 .2 4.5 1.8Q6 .2 7.6 1.6C9 4.5 8 8 4.5 11z" fill={p.pale ? 'var(--s-fleur-pale)' : 'var(--s-fleur)'} />
+          </svg>
+        </i>
+      {/each}
+    {:else if saison === 'pluie'}
+      {#each PLUIE_FINE as g, i (i)}<i class="goutte fine" style={g.style}></i>{/each}
+    {:else if saison === 'duvet'}
+      {#each DUVET as d, i (i)}
+        <i class="flotte" style={d.style}>
+          <svg width="12" height="12" viewBox="-6 -6 12 12">
+            <g stroke="var(--s-duvet-fil)" stroke-width=".6" stroke-linecap="round">
+              {#each [0, 45, 90, 135, 180, 225, 270, 315] as a (a)}<path d="M0 0L0-5" transform="rotate({a})" />{/each}
+            </g>
+            <circle r="1.6" fill="var(--s-duvet)" stroke="var(--s-duvet-fil)" stroke-width=".5" />
+          </svg>
+        </i>
+      {/each}
+    {:else if saison === 'lucioles'}
+      <svg class="scene basse" viewBox="0 0 400 60" preserveAspectRatio="xMidYMax slice">
+        <path d="M0 46q50-10 100-2t100-4t100 2t100-4V60H0z" fill="var(--s-herbe)" opacity=".5" />
+      </svg>
+      {#each LUCIOLES as l, i (i)}<b class="luciole" style={l.style}></b>{/each}
+    {:else if saison === 'rosee'}
+      <svg class="scene" viewBox="0 0 400 150" preserveAspectRatio="xMidYMax slice">
+        {#each BRINS as b, i (i)}
+          <path
+            class="brin-herbe"
+            style="transform-origin:{b.x.toFixed(1)}px 150px;animation-delay:{b.w}"
+            d="M{b.x.toFixed(1)} 150q{(b.c * 0.3).toFixed(1)} {(-b.h * 0.6).toFixed(1)} {b.c.toFixed(1)} {(-b.h).toFixed(1)}"
+            stroke="var(--s-herbe)"
+            stroke-width="1.6"
+            fill="none"
+            stroke-linecap="round"
+          />
+        {/each}
+        {#each ROSEE as r, i (i)}
+          <circle class="perle" style="animation-delay:{r.w}" cx={r.cx.toFixed(1)} cy={r.cy.toFixed(1)} r="1.8" fill="var(--s-rosee)" />
+        {/each}
+      </svg>
+    {:else if saison === 'feuilles'}
+      {#each FEUILLES as f, i (i)}
+        <i style={f.style}>
+          <svg width="11" height="15" viewBox="0 0 11 15">
+            <path d="M5.5 0Q11 5 5.5 13Q0 5 5.5 0z" fill="var({f.teinte})" />
+            <path d="M5.5 2V15" stroke="var({f.teinte})" stroke-width=".9" />
+          </svg>
+        </i>
+      {/each}
+    {:else if saison === 'neige'}
+      {#each FLOCONS as n, i (i)}<i class="flocon" class:bleu={n.bleu} style={n.style}></i>{/each}
+    {:else if saison === 'prunier'}
+      <!-- une branche de prunier qui sort du coin, ses fleurs pâles ; quelques flocons -->
+      <svg class="branche" width="112" height="104" viewBox="0 0 140 130">
+        <path d="M142 4Q96 10 70 34T30 30M70 34Q96 56 104 72T120 104M96 16Q80 4 58 22" stroke="var(--s-branche)" stroke-width="2.4" fill="none" stroke-linecap="round" />
+        {#each FLEURS_PRUNIER as f, i (i)}
+          <g transform="translate({f.x} {f.y}) scale({f.r})">
+            {#each CINQ as a (a)}<ellipse cx="0" cy="-3.4" rx="2.6" ry="3.4" transform="rotate({a})" fill="var(--s-fleur)" />{/each}
+            <circle r="1.3" fill="var(--s-coeur)" />
+          </g>
+        {/each}
+      </svg>
+      {#each FLOCONS_RARES as n, i (i)}<i class="flocon" style={n.style}></i>{/each}
+    {/if}
+  </div>
 {/if}
 
 <style>
@@ -518,6 +664,58 @@
     opacity: 0.7;
   }
 
+  /* ---- les ambiances des termes solaires ---- */
+  .goutte.fine {
+    background: var(--s-pluie);
+  }
+  .flotte svg {
+    animation-duration: 9s;
+  }
+  .luciole {
+    width: 4px;
+    height: 4px;
+    background: var(--s-luciole);
+    animation:
+      luit var(--d) ease-in-out var(--w) infinite,
+      erre var(--e) ease-in-out var(--w) infinite alternate;
+  }
+  .scene.basse {
+    height: 60px;
+  }
+  .brin-herbe {
+    animation: vent 5s ease-in-out infinite alternate;
+  }
+  .perle {
+    animation: scintille 4s ease-in-out infinite;
+  }
+  .flocon {
+    width: var(--t);
+    height: var(--t);
+    border-radius: 50%;
+    background: var(--s-neige);
+    opacity: 0.9;
+  }
+  .flocon.bleu {
+    background: var(--s-neige-bleu);
+    opacity: 0.7;
+  }
+  .branche {
+    position: absolute;
+    top: 58px;
+    right: 0;
+    opacity: 0.6;
+    transform-origin: 100% 0;
+    animation: balance 7s ease-in-out infinite alternate;
+  }
+
+  @keyframes luit {
+    0%, 100% { opacity: 0; }
+    50% { opacity: 0.85; }
+  }
+  @keyframes erre {
+    from { transform: translate(0, 0); }
+    to { transform: translate(var(--dx), var(--dy)); }
+  }
   @keyframes tombe {
     from { transform: translate(0, 0); }
     to { transform: translate(var(--dx), calc(100vh + 48px)); }
