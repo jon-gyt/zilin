@@ -17,7 +17,7 @@ Une famille n'est exportée qu'avec ses membres du périmètre ; la famille 口 
 dessinent depuis leurs traits (`data/sources/fetes/textes.tsv` : le caractère
 bonus de chaque anecdote et le 福 du vœu) y entrent aussi, avec leurs briques,
 comme le caractère à lire de chaque terme solaire (`data/sources/saisons/textes.tsv`).
-Version 0.1.0 : 243 familles, 512 caractères (225 briques, 15 feuilles muettes),
+Version 0.1.0 : 244 familles, 513 caractères (230 briques, 13 feuilles muettes),
 1,46 Mio.
 
 ## Arborescence
