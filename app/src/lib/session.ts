@@ -685,15 +685,31 @@ export function sessionSteps(p: Progress): Step[] {
   ];
 }
 
-/** Rattrapage : des blocs de cinq minutes, et les nouveaux caractères verrouillés. */
-export function catchupSteps(due: number): Step[] {
+/**
+ * La pile due répartie en blocs de cinq minutes, à parts égales : le nombre de cartes de
+ * chaque bloc. C'est ce que le chemin annonce, et ce que le bloc prend à son ouverture.
+ */
+export function repartirBlocs(due: number): number[] {
   const n = Math.max(1, Math.min(BLOCS_MAX, Math.ceil(due / CARTES_PAR_BLOC)));
   const base = Math.floor(due / n);
   const reste = due % n;
+  /* Un bloc, cinq minutes : ce qu'il ne prend pas attend le bloc ou la journée d'après. */
+  return Array.from({ length: n }, (_, i) => Math.min(CARTES_PAR_BLOC, base + (i < reste ? 1 : 0)));
+}
+
+/**
+ * Le nombre de cartes que le pas Échauffer prend à son ouverture : exactement celui que
+ * le chemin vient d'annoncer. En rattrapage, c'est le bloc courant ; sinon, une séance.
+ */
+export function cartesAOuvrir(p: Progress): number {
+  if (!p.catchup) return CARTES_PAR_SEANCE;
+  return repartirBlocs(p.due)[nextIndex(p)] ?? CARTES_PAR_BLOC;
+}
+
+/** Rattrapage : des blocs de cinq minutes, et les nouveaux caractères verrouillés. */
+export function catchupSteps(due: number): Step[] {
   const blocs: Step[] = [];
-  for (let i = 0; i < n; i++) {
-    /* Un bloc, cinq minutes : ce qu'il ne prend pas attend le bloc ou la journée d'après. */
-    const cartes = Math.min(CARTES_PAR_BLOC, base + (i < reste ? 1 : 0));
+  for (const [i, cartes] of repartirBlocs(due).entries()) {
     blocs.push({
       id: 'reviser',
       t: 'Réviser',

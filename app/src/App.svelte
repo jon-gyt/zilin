@@ -20,9 +20,8 @@
   import { toutesLesFamilles, type Noeud } from './lib/content';
   import Warm from './lib/Warm.svelte';
   import {
-    CARTES_PAR_BLOC,
-    CARTES_PAR_SEANCE,
     allDone,
+    cartesAOuvrir,
     basculerJournee,
     cartesDues,
     currentStep,
@@ -199,8 +198,8 @@
    */
   function ouvrirRevision(): void {
     if (p.revue.length === 0) {
-      /* Un bloc de rattrapage prend cinq minutes de cartes, une séance en prend quatorze. */
-      const max = p.catchup ? CARTES_PAR_BLOC : CARTES_PAR_SEANCE;
+      /* Le nombre que le chemin vient d'annoncer : le bloc de rattrapage, ou une séance. */
+      const max = cartesAOuvrir(p);
       p = setRevue(
         p,
         cartesDues(p, new Date(), max).map((c) => c.id)
