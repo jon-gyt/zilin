@@ -41,6 +41,7 @@ Format BMAD : épics puis stories. Priorité dans l'ordre. Une story se termine 
 - 4.1 Cercle des familles, zoom et déplacement, ouverture d'un arbre par famille.
 - 4.2 Arbre d'une famille, fiche courte, lancement de la prochaine leçon.
 - 4.3 Tao qui grandit (paliers 100, 300, 1 000), postures par activité, humeur par variété, journal du soir, collection visible.
+- 4.4 Chercher : la loupe du menu ouvre la recherche d'un caractère de l'export, par son dessin, son pinyin (avec ou sans accents ni tons) ou le sens d'une fiche relue ; au plus vingt résultats, dessinés depuis les traits, avec la famille et le statut (lu, en cours, pas encore) ; toucher un résultat le dit et ouvre sa famille dans l'arbre.
 
 ## Épic 4b · Jeux
 - 4b.1 Moteur de mini-jeux : un contrat commun (entrée : caractères acquis ; sortie : événements de révision notés), écran hôte, retour vers la session.
@@ -74,7 +75,7 @@ Relevé sur le dépôt après une revue du pipeline. Les numéros ci-dessus ne b
   fetch, ingest, build, export et check, et deux passages écrivent les mêmes octets.
   8 148 caractères sur 9 574 réconciliés ; 241 du seuil 255 sur 255, 280 du HSK 1 sur 300 ;
   238 familles exportées en 1,33 Mio.
-- Épic 2 : 2.1 à 2.8 (2.2 et 2.8 revues le 24 septembre : le menu et le parcours du prototype validé). Épic 3 : 3.1 à 3.4. Épic 4 : 4.1, 4.2, 4.3.
+- Épic 2 : 2.1 à 2.8 (2.2 et 2.8 revues le 24 septembre : le menu et le parcours du prototype validé). Épic 3 : 3.1 à 3.4. Épic 4 : 4.1 à 4.4 (4.4, Chercher, le 24 septembre : la recherche en français ne trouvera rien tant qu'aucune fiche n'est relue).
 - Épic 4b : 4b.1 et 4b.2. Épic 5 : 5.1.
 
 ### Livrées à moitié : le code attend une clé d'API
