@@ -12,7 +12,8 @@ Une PWA (TypeScript, Vite, Svelte) pour apprendre à lire le chinois par les fam
 - Un caractère n'entre en révision que si toutes ses briques ont une stabilité FSRS suffisante.
 - Révision par questions, notation automatique (voir `app/src/lib/srs.ts`). Pas d'auto-évaluation.
 - Une seule brique nouvelle par session de 10 minutes. Une session = six pas dans le même ordre.
-- Le rouge cinabre marque l'élément ajouté et la position sur le chemin, rien d'autre. Pas de doré, pas de dragon, pas d'emoji, pas d'ombre, pas de dégradé.
+- Le rouge cinabre marque l'élément ajouté et la position sur le chemin, rien d'autre. Pas de doré, pas d'emoji, pas d'ombre, pas de dégradé.
+- Les fêtes ont leurs pigments, distincts du cinabre, pour le seul décor de fête (voir brief, section 5). Le dragon n'apparaît qu'au Nouvel An et à la fête des bateaux-dragons 端午, jamais ailleurs.
 - Les grands caractères sont rendus depuis les données de traits (style 楷), jamais depuis une police.
 - Tao accompagne toutes les activités dans la posture correspondante (voir brief, section 9). Elle ne meurt jamais, ne tombe pas malade, ne culpabilise jamais. Son humeur vient de la variété des activités, jamais de l'horloge.
 - Un jeu n'existe que s'il fait lire quelque chose de plus. Pas de points au temps passé, pas de vies, pas de classements, pas de coffres.
