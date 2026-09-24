@@ -587,7 +587,12 @@ Traçabilité, dans `generation` : `api` vaut `session Claude Code (sans API)`,
 brouillon (`sha256sum` la retrouve), `date` le jour de l'import (`AAAA-MM-JJ`),
 `essais` le nombre de versions du brouillon importées, `refus` les motifs de rejet.
 Réimporter un brouillon inchangé ne réécrit rien — une fiche relue le reste ; un
-brouillon modifié remet la fiche au statut `a_relire`.
+brouillon modifié remet la fiche au statut `a_relire`. Un brouillon inchangé dont le
+contexte a bougé (le parcours l'a déplacé, une surcharge a corrigé son pinyin ou sa
+décomposition) met à jour `parcours`, `jour`, `pinyin`, `composants` et `structure`,
+sans toucher au texte ni à `generation` ; l'import le dit (« contexte mis à jour »).
+Le jour seul ne défait pas une relecture ; un pinyin ou une décomposition changés
+remettent une fiche relue à `a_relire`.
 
 ### Relecture
 

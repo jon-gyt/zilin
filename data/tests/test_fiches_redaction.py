@@ -204,6 +204,89 @@ def test_brouillon_inchange_garde_la_relecture(corpus: Corpus, tmp_path: Path) -
     assert (fiche.statut, fiche.generation.essais, fiche.memo_fr) == (A_RELIRE, 2, "Un mémo.")
 
 
+def _corpus_deplace(table, *, jour_de_住: int, composants: tuple[str, ...] = ("亻", "主")) -> Corpus:
+    """Le corpus de test, avec 住 posé à un autre jour, ou décomposé autrement."""
+    from test_fiches import DECOMPOSITIONS, MOTS, NOEUDS
+
+    jours = [
+        {"jour": 1, "brique": "人", "composes": []},
+        {"jour": 2, "brique": "口", "composes": []},
+        {"jour": 3, "brique": "门", "composes": ["问"]},
+        {"jour": 4, "brique": "主", "composes": []},
+        {"jour": 5, "brique": "亻", "composes": []},
+        {"jour": jour_de_住, "brique": "鸟", "composes": ["住"]},
+    ]
+    decompositions = dict(DECOMPOSITIONS)
+    decompositions["住"] = {
+        "c": "住",
+        "composants": list(composants),
+        "structure": "⿰" + "".join(composants),
+        "reconcilie": True,
+    }
+    return Corpus(
+        parcours="lire",
+        jours=jours,
+        decompositions=decompositions,
+        noeuds=NOEUDS,
+        caracteres=CARACTERES,
+        mots=MOTS,
+        table=table,
+    )
+
+
+def test_brouillon_inchange_suit_le_nouveau_jour(corpus: Corpus, table, tmp_path: Path) -> None:
+    """Le parcours a bougé, pas le brouillon : la fiche prend le nouveau jour, texte et relecture gardés."""
+    chemin = ecrire_brouillon(tmp_path / "brouillons", brouillon())
+    importer_brouillon(lire_brouillon(chemin), corpus, dossier=tmp_path, horloge=aujourdhui)
+    fiches.relire("住", RELU, tmp_path)
+    avant = lire_fiche(tmp_path / "住.json")
+    assert avant.jour == 5
+
+    resultat = importer_brouillon(
+        lire_brouillon(chemin), _corpus_deplace(table, jour_de_住=6), dossier=tmp_path, horloge=lambda: "2027-01-01"
+    )
+    assert resultat.inchange and resultat.contexte_change
+    apres = lire_fiche(tmp_path / "住.json")
+    assert apres.jour == 6
+    assert apres.statut == RELU  # le jour seul ne défait pas une relecture
+    assert apres.generation == avant.generation  # même brouillon, même traçabilité
+    assert apres.origine_fr == avant.origine_fr
+
+    # Réimporter encore : plus rien ne change.
+    encore = importer_brouillon(
+        lire_brouillon(chemin), _corpus_deplace(table, jour_de_住=6), dossier=tmp_path, horloge=aujourdhui
+    )
+    assert encore.inchange and not encore.contexte_change
+
+
+def test_decomposition_corrigee_remet_une_fiche_relue_a_relire(corpus: Corpus, table, tmp_path: Path) -> None:
+    """Une surcharge change la décomposition : ce qu'on avait relu n'est plus le même."""
+    chemin = ecrire_brouillon(tmp_path / "brouillons", brouillon())
+    importer_brouillon(lire_brouillon(chemin), corpus, dossier=tmp_path, horloge=aujourdhui)
+    fiches.relire("住", RELU, tmp_path)
+
+    resultat = importer_brouillon(
+        lire_brouillon(chemin),
+        _corpus_deplace(table, jour_de_住=5, composants=("亻", "丶", "王")),
+        dossier=tmp_path,
+        horloge=aujourdhui,
+    )
+    assert resultat.contexte_change
+    fiche = lire_fiche(tmp_path / "住.json")
+    assert fiche.composants == ("亻", "丶", "王")
+    assert fiche.statut == A_RELIRE
+
+
+def test_commande_importer_dit_le_contexte_mis_a_jour(corpus: Corpus, table, depot: Path, monkeypatch) -> None:
+    ecrire_brouillon(depot / "brouillons", brouillon())
+    CliRunner().invoke(cli, ["fiches", "importer"])
+    monkeypatch.setattr(fiches, "charger_corpus", lambda *a, **k: _corpus_deplace(table, jour_de_住=6))
+    resultat = CliRunner().invoke(cli, ["fiches", "importer"])
+    assert resultat.exit_code == 0, resultat.output
+    assert "住 : contexte mis à jour, statut a_relire, jour 6" in resultat.output
+    assert lire_fiche(depot / "fiches" / "住.json").jour == 6
+
+
 # --------------------------------------------------------------------------- aide à la rédaction
 
 

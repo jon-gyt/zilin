@@ -1293,6 +1293,14 @@ class Import:
     inchange: bool = False
     #: Statut de la fiche remplacée, s'il y en avait une.
     remplace: str | None = None
+    #: Même brouillon, mais le contexte a bougé (jour, pinyin, décomposition) :
+    #: les faits de la fiche sont mis à jour, son texte et sa traçabilité restent.
+    contexte_change: bool = False
+
+
+def _faits(fiche: Fiche) -> tuple[object, ...]:
+    """Ce que la fiche tient du contexte, et non du rédacteur."""
+    return (fiche.parcours, fiche.jour, tuple(fiche.pinyin), tuple(fiche.composants), fiche.structure)
 
 
 def importer_brouillon(
@@ -1306,6 +1314,12 @@ def importer_brouillon(
 
     Un brouillon inchangé ne réécrit rien : une fiche relue le reste. Un brouillon
     modifié repart au statut `a_relire`, sa relecture est à refaire.
+
+    Un brouillon inchangé dont le contexte a bougé — le parcours l'a déplacé, une
+    surcharge a corrigé son pinyin ou sa décomposition — met à jour les faits de la
+    fiche (parcours, jour, pinyin, composants, structure) sans toucher à son texte
+    ni à sa traçabilité. Le jour seul ne défait pas une relecture ; un pinyin ou une
+    décomposition changés, si : ce que la relecture a validé n'est plus le même.
     """
     contexte = corpus.contexte(brouillon.c)
     chemin = chemin_fiche(brouillon.c, dossier)
@@ -1324,7 +1338,28 @@ def importer_brouillon(
         and precedente.generation.empreinte_invite == brouillon.empreinte
         and precedente.generation.refus == rapport.refus
     ):
-        return Import(fiche=precedente, rapport=rapport, chemin=chemin, inchange=True)
+        if _faits(precedente) == _faits(fiche):
+            return Import(fiche=precedente, rapport=rapport, chemin=chemin, inchange=True)
+        seul_le_jour = _faits(precedente)[2:] == _faits(fiche)[2:]
+        a_jour = replace(
+            precedente,
+            parcours=fiche.parcours,
+            jour=fiche.jour,
+            pinyin=fiche.pinyin,
+            composants=fiche.composants,
+            structure=fiche.structure,
+            statut=precedente.statut
+            if seul_le_jour or precedente.statut != RELU
+            else A_RELIRE,
+        )
+        ecrire_fiche(a_jour, dossier)
+        return Import(
+            fiche=a_jour,
+            rapport=rapport,
+            chemin=chemin,
+            inchange=True,
+            contexte_change=True,
+        )
     fiche.generation = replace(fiche.generation, refus=rapport.refus)
     fiche.statut = A_RELIRE if rapport.conforme else REJETE
     ecrire_fiche(fiche, dossier)
@@ -1763,7 +1798,9 @@ def commande_importer(
             typer.echo(f"erreur {chemin.stem} : {erreur.args[0]}, rien n'est écrit")
             continue
         fiche, rapport = resultat.fiche, resultat.rapport
-        if resultat.inchange:
+        if resultat.contexte_change:
+            etat = f"contexte mis à jour, statut {fiche.statut}"
+        elif resultat.inchange:
             etat = f"inchangée, statut {fiche.statut}"
         elif rapport.conforme:
             etat = "à relire"
