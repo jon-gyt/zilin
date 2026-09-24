@@ -591,6 +591,8 @@ describe('la surcouche de démonstration', () => {
     expect(lue.origine_fr).toBe('');
     expect(lue.etiquette).toBeNull();
     expect(LIGNE_SANS_FICHE).not.toBe('');
+    /* La ligne se lit par un débutant : aucun mot de l'atelier. */
+    expect(LIGNE_SANS_FICHE).not.toMatch(/pipeline|export|donnée/i);
   });
 
   it("n'étiquette jamais un sens sans origine : les voisins de forme n'ont pas d'étiquette", () => {
