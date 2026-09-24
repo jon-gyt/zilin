@@ -11,11 +11,13 @@
    * index, restent en Noto Serif SC tant que leur arbre n'est pas ouvert. Le cinabre
    * ne marque que la famille du moment.
    *
-   * Sous la colline, les caractères trouvés en chemin : celui que
+   * Le jour d'une fête ou d'un terme solaire, un petit décor se pose dans les coins du
+   * cercle (`CercleDecor`). Sous la colline, les caractères trouvés en chemin : celui que
    * l'anecdote d'une fête ou d'un terme a fait découvrir, dessiné depuis ses traits ;
    * touché, il se dit et montre sa fête ou son terme. Ils n'entrent pas en révision.
    */
   import Hz from './Hz.svelte';
+  import CercleDecor from './CercleDecor.svelte';
   import Glyph from './Glyph.svelte';
   import Tao from './Tao.svelte';
   import TropheesEntree from './TropheesEntree.svelte';
@@ -50,10 +52,11 @@
     semaine,
     type Cercle
   } from './foret';
+  import { journee } from './saisons';
   import { jourParcours, type Progress } from './session';
   import { type StrokeSet } from './strokes';
   import { stade } from './tao';
-  import { collection, ligneTrouve, montrerCollection, type Piece } from './trouves';
+  import { collection, decorDuCercle, ligneTrouve, montrerCollection, type Piece } from './trouves';
 
   let {
     p,
@@ -78,11 +81,12 @@
   /** Le filtre de la liste des 238 familles : un caractère, un pinyin, un sens. */
   let cherche = $state('');
 
-  /** Les fêtes et les termes solaires : les noms des trouvés. */
+  /** Les fêtes et les termes solaires : le décor du cercle et les noms des trouvés. */
   let fetes = $state<Fetes | null>(null);
   let saisons = $state<Saisons | null>(null);
   void fetesOnce().then((f) => (fetes = f)).catch(() => undefined);
   void saisonsOnce().then((x) => (saisons = x)).catch(() => undefined);
+  const decor = $derived(decorDuCercle(journee(fetes, saisons, jour).theme));
   const pieces = $derived(collection(p.trouves, fetes, saisons));
   /** Le caractère trouvé qu'on a touché : il se dit, sa fête ou son terme s'affiche. */
   let touche = $state<string | null>(null);
@@ -311,8 +315,10 @@
     onwheel={molette}
   >
     <div class="forest" style="transform:translate({tx}px,{ty}px) scale({s})">
+      <CercleDecor {decor} />
       {#if cercle}
         <svg
+          class="cercle"
           viewBox="0 0 {cercle.taille} {cercle.taille}"
           role="img"
           aria-label="Le cercle de tes familles"
@@ -480,6 +486,11 @@
 </main>
 
 <style>
+  /* le cercle passe devant son décor */
+  .forest > svg.cercle {
+    position: relative;
+  }
+
   /* trouvés en chemin : une rangée de petits caractères, dessinés depuis leurs traits */
   .trouves {
     margin-top: 14px;
