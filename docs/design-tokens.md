@@ -18,6 +18,18 @@ Mascottes : Tao 桃 (graine de pêcher, grandit, adopte la posture de l'activit�
 
 Principes : un écran une action ; coins 12 px ; aucune ombre, aucun dégradé, aucun emoji, aucune illustration réaliste ; pas de doré ni de dragon.
 
+## Thèmes de fête
+
+`App.svelte` pose `data-fete` sur `<html>` quand la journée tombe dans la fenêtre d'une fête de `fetes.json` ; les blocs `[data-fete="chunjie"]` et `[data-fete="zhongqiu"]` de `tokens.css` repeignent l'app. Le même attribut sur un élément ne repeint que lui : `Embleme` et `Voeu` le portent, et gardent leurs couleurs même hors d'une page en fête.
+
+春节, le Nouvel An lunaire (du réveillon −1 à 元宵 +14) : papier #F7ECDD, carte #FCF4E8, trait #E5D6C0, filet #D9C6AA, grille #D4BE9C ; rouge de fête `--fete` #9E1F2A et son encre #FBEBD8, abricot `--apricot` #E3A33B (aplat), prunier #F2B8C6 et #FBE3E8 ; cases `--tile-bg` #A3222B, caractère #FBEBD8, titre #FFF4E6, ligne #F4CDAE ; bouton `--act` #2A1D1A, encre #FBEBD8 ; pigments 松 pin #2F6B4F, rouge #9E1F2A, prunier #B0456A, bambou #5E7A2E.
+
+中秋, la mi-automne (−3 à +1), toujours de nuit : papier #141B2E, carte #1D2640, encre #F1E9D6, encre 2 #C9C3B4, brume #8F97AD, trait #2E3856, filet #3A4566, grille #46527A ; indigo #A9BEE6, cinabre #EC6B4B (éclairci pour la nuit ; sur la lune, le caractère garde le cinabre #C8371F et l'encre de nuit `--nuit` #18203A), ocre #C89A6A, jade #8FC0A0 ; lune `--moon` #F3E3B5 et son ombre #DCC792, osmanthe `--gui` #E9B949, collines #1A2238 et #202A45, lanternes célestes #F6C36A ; cases `--tile-bg` #1B2440 bordées de #34405F, caractère #F3E3B5 ; bouton `--act` #F3E3B5 (la lune), encre #141B2E ; gabarit du tracé `--guide` #46527A ; grain clair.
+
+Le rouge de fête #9E1F2A ne sert qu'au décor : la rosace, la lanterne, les cases et le 福. Il ne remplace jamais le cinabre, qui marque l'élément ajouté et la position. Décision du propriétaire, en attente de l'amendement de CLAUDE.md.
+
+Composants : `FeteDecor.svelte` (le calque derrière tout, `pointer-events: none`, coupé par `prefers-reduced-motion`), `Embleme.svelte` (la lune ou la rosace qui porte le caractère du jour), `Voeu.svelte` (le vœu de l'en-tête, prononcé au toucher). Tao porte un flocon au Nouvel An, un gâteau de lune à la mi-automne.
+
 ## Polices
 
 Auto-hébergées en woff2 dans `app/public/fonts/`, versionnées avec l'app. Aucune requête réseau à l'exécution : pas de Google Fonts. Les `@font-face` sont en tête de `app/src/lib/tokens.css`, en `font-display: swap`, avec des URL `/fonts/…` que Vite réécrit selon `BASE_PATH` (`/zilin/fonts/…` en production). `vite-plugin-pwa` précache les cinq fichiers. `app/index.html` précharge les deux plus critiques au premier rendu : `source-sans-3-400.woff2` (tout le texte d'interface) et `manrope-700.woff2` (titres et logotype).
