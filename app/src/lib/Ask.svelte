@@ -219,7 +219,8 @@
     </div>
   {/if}
 
-  <div class="fb">
+  <!-- Rien à dire encore : pas de cadre vide sous les choix. -->
+  <div class="fb" class:vide={note === null && !sautable && essais === 0}>
     {#if note !== null}
       <b>{montree ? 'On te montre.' : VERDICTS[note]}</b>
       {q.explication.texte}

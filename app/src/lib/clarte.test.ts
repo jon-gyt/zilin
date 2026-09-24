@@ -53,6 +53,14 @@ describe("aujourd'hui : le grand caractère du chemin dit ce qu'il fait là", ()
   });
 });
 
+describe('une question : pas de cadre de correction vide avant la réponse', () => {
+  it('la zone de correction est « vide » tant que rien n\'a été répondu', () => {
+    expect(source('Ask.svelte')).toContain(
+      '<div class="fb" class:vide={note === null && !sautable && essais === 0}>'
+    );
+  });
+});
+
 describe('la chaîne : la limite de trois minutes ne ferme pas le tour en cours', () => {
   const echoir = corps(source('Game.svelte'), 'echoir');
 
