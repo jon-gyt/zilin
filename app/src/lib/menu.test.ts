@@ -17,18 +17,31 @@ describe('le menu et le parcours, dans les écrans', () => {
       expect(corps, f).toContain('enchainer(');
       expect(corps, f).not.toContain('allerAuMenu(');
     }
+    const clore = app.slice(app.indexOf('function clore('));
+    expect(clore.slice(0, clore.indexOf('\n  }\n'))).toContain('allerAuMenu()');
   });
 
   it("chaque pas porte « Quitter » et la barre de la session, qui renvoient au menu", () => {
     const tete = source('EnTetePas.svelte');
     expect(tete).toContain('✕ Quitter');
     expect(tete).toContain('<Pinceaux');
-    for (const f of ['Warm.svelte', 'Learn.svelte', 'Use.svelte', 'Fix.svelte']) {
+    for (const f of ['Warm.svelte', 'Learn.svelte', 'Use.svelte', 'Fix.svelte', 'Close.svelte']) {
       expect(source(f), f).toContain('<EnTetePas');
     }
     const app = source('../App.svelte');
     const quitter = app.slice(app.indexOf('function quitter('));
     expect(quitter.slice(0, quitter.indexOf('\n  }\n'))).toContain('allerAuMenu()');
+  });
+
+  it("Clore montre le constat, la graine et la semaine ; l'écran de série n'existe plus", () => {
+    expect(existsSync(new URL('Streak.svelte', import.meta.url))).toBe(false);
+    const close = source('Close.svelte');
+    expect(close).toContain('class="seed"');
+    expect(close).toContain('s.semaine');
+    expect(close).toContain('constat(p, p.day)');
+    const app = source('../App.svelte');
+    expect(app).not.toContain('Streak');
+    expect(app).not.toContain("'streak'");
   });
 
   it("« Recommencer une session » a disparu : l'app ne remet plus la journée à zéro au tap", () => {

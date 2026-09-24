@@ -19,7 +19,6 @@
   import Splash from './lib/Splash.svelte';
   import Settings from './lib/Settings.svelte';
   import Rewards from './lib/Rewards.svelte';
-  import Streak from './lib/Streak.svelte';
   import Tree from './lib/Tree.svelte';
   import Use from './lib/Use.svelte';
   import Warm from './lib/Warm.svelte';
@@ -96,7 +95,6 @@
     | 'use'
     | 'check'
     | 'close'
-    | 'streak'
     | 'game'
     | 'lire'
     | 'foret'
@@ -479,16 +477,16 @@
     enchainer();
   }
 
-  /* ---------- pas 6, Clore ---------- */
+  /* ---------- pas 6, Clore : la seule fin ---------- */
 
   /**
-   * La graine du jour est plantée une fois par journée ; une session de plus n'en plante
-   * pas de seconde. L'écran de série la montre, puis le menu.
+   * Le constat, la graine et la semaine sont sur l'écran Clore. La graine du jour est
+   * plantée une fois par journée ; une session de plus n'en plante pas de seconde.
    */
   function clore(): void {
     p = cloreSession(p, p.day);
-    ecran = 'streak';
     enregistrer();
+    allerAuMenu();
   }
 
   /* ---------- les jeux (épic 4b), par la seule case Jouer ---------- */
@@ -572,8 +570,6 @@
   />
 {:else if ecran === 'close'}
   <Close {p} onterminer={clore} onquitter={quitter} />
-{:else if ecran === 'streak'}
-  <Streak {p} onretour={quitter} />
 {:else if ecran === 'game'}
   <Game
     {p}
