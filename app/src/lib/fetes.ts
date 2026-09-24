@@ -93,11 +93,41 @@ export function pistes(f: Fetes, c: string): string[] {
   return r ? [r] : [];
 }
 
+/** Ce que `poserFete` lit et écrit d'un document : la meta `theme-color` et le style calculé. */
+export type DocumentTeinte = {
+  querySelector(s: string): Pick<Element, 'getAttribute' | 'setAttribute'> | null;
+  defaultView: { getComputedStyle(e: Element): Pick<CSSStyleDeclaration, 'getPropertyValue'> } | null;
+};
+
+/** Le `theme-color` d'origine, lu sur la meta avant qu'une fête ne le change. */
+const TEINTE_DEFAUT = 'data-defaut';
+
 /**
  * Pose la fête sur la racine du document (`data-fete`), ou la retire : `tokens.css`
- * repeint l'app par cet attribut. La seule écriture de ce module, sur l'élément donné.
+ * repeint l'app par cet attribut.
+ *
+ * La meta `theme-color` suit : pendant la fête, elle prend le papier de la fête (`--paper`
+ * lu sur la racine repeinte), pour que la barre d'état d'iOS et celle du navigateur passent
+ * à la nuit de la mi-automne ; la fête finie, elle retrouve sa valeur d'origine, gardée
+ * sur la meta même (`data-defaut`). La couleur vient de `tokens.css`, jamais d'une
+ * constante ici. Ce sont les seules écritures de ce module.
  */
-export function poserFete(racine: Pick<HTMLElement, 'setAttribute' | 'removeAttribute'>, id: FeteId | null): void {
+export function poserFete(
+  racine: Pick<Element, 'setAttribute' | 'removeAttribute'> & { ownerDocument?: DocumentTeinte | null },
+  id: FeteId | null
+): void {
   if (id) racine.setAttribute('data-fete', id);
   else racine.removeAttribute('data-fete');
+  const doc = racine.ownerDocument;
+  const meta = doc?.querySelector('meta[name="theme-color"]');
+  if (!doc || !meta) return;
+  let defaut = meta.getAttribute(TEINTE_DEFAUT);
+  if (defaut === null) {
+    defaut = meta.getAttribute('content') ?? '';
+    meta.setAttribute(TEINTE_DEFAUT, defaut);
+  }
+  const papier = id
+    ? (doc.defaultView?.getComputedStyle(racine as Element).getPropertyValue('--paper').trim() ?? '')
+    : '';
+  meta.setAttribute('content', papier || defaut);
 }

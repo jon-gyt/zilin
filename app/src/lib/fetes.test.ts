@@ -176,4 +176,41 @@ describe('les outils', () => {
     poserFete(el, null);
     expect(attrs.has('data-fete')).toBe(false);
   });
+
+  it("la meta theme-color prend le papier de la fête, puis retrouve sa valeur d'origine", () => {
+    const meta = new Map<string, string>([['content', '#F4EEE2']]);
+    let papier = '';
+    const doc = {
+      querySelector: (s: string) =>
+        s === 'meta[name="theme-color"]'
+          ? {
+              getAttribute: (k: string) => meta.get(k) ?? null,
+              setAttribute: (k: string, v: string) => void meta.set(k, v)
+            }
+          : null,
+      defaultView: { getComputedStyle: () => ({ getPropertyValue: (p: string) => (p === '--paper' ? papier : '') }) }
+    };
+    const attrs = new Map<string, string>();
+    const el = {
+      ownerDocument: doc,
+      setAttribute: (k: string, v: string) => {
+        attrs.set(k, v);
+        papier = ' #141B2E';
+      },
+      removeAttribute: (k: string) => {
+        attrs.delete(k);
+        papier = '#F4EEE2';
+      }
+    };
+    poserFete(el, 'zhongqiu');
+    expect(meta.get('content')).toBe('#141B2E');
+    poserFete(el, 'qixi');
+    expect(meta.get('content')).toBe('#141B2E');
+    poserFete(el, null);
+    expect(meta.get('content')).toBe('#F4EEE2');
+    /* sans papier lisible, la valeur d'origine reste */
+    papier = '';
+    poserFete({ ...el, setAttribute: () => undefined }, 'dongzhi');
+    expect(meta.get('content')).toBe('#F4EEE2');
+  });
 });
