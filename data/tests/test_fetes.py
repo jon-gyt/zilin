@@ -5,6 +5,8 @@ donnent : 中秋 2026-09-25 et 2027-09-15, 春节 2026-02-17 et 2027-02-06.
 """
 from __future__ import annotations
 
+import json
+import shutil
 from pathlib import Path
 
 import pytest
@@ -110,6 +112,46 @@ def test_un_texte_vide_ou_un_jeton_inconnu_est_une_faute() -> None:
     assert "jeton inconnu {lapin}" in fautes
 
 
+# ---------------------------------------------------------------------------- export
+
+
+def test_l_export_ecrit_fetes_json_avec_son_en_tete(atelier: Path) -> None:  # noqa: F811
+    rapport = export_mod.export("0.1.0")
+    document = lire(rapport.dossier, "fetes.json")
+    assert export_mod.fautes_de_licence("fetes.json", document) == []
+    assert "rédigés pour l'app" in str(document["source"])
+    assert lire(rapport.dossier, "index.json")["fetes"] == "fetes.json"
+    chunjie = document["fetes"]["chunjie"]  # type: ignore[index]
+    assert chunjie["voeu"] == {"zh": "新年快乐", "pinyin": "xīnnián kuàilè", "fr": "Bonne année {animal}"}
+    assert chunjie["caractere_voeu"] == "福"
+    assert chunjie["anecdote"]["c"] == "年"
+    assert document["fetes"]["zhongqiu"]["caractere_voeu"] is None  # type: ignore[index]
+    annee_2027 = next(
+        e for e in document["calendrier"] if e["fete"] == "chunjie" and e["annee"] == 2027  # type: ignore[union-attr]
+    )
+    assert annee_2027["date"] == "2027-02-06"
+    assert annee_2027["animal"] == {"c": "羊", "pinyin": "yáng", "fr": "de la Chèvre"}
+
+
+def test_un_caractere_dessine_entre_dans_le_perimetre_avec_ses_briques(atelier: Path) -> None:  # noqa: F811
+    """月 est dans le build miniature : il est exporté, et `racines` dit où lire ses traits."""
+    rapport = export_mod.export("0.1.0")
+    assert lire(rapport.dossier, "fetes.json")["racines"] == {"月": "月"}
+    assert "月" in lire(rapport.dossier, "traits/月.json")["traits"]  # type: ignore[operator]
+
+
+def test_changer_un_texte_de_fete_rend_l_export_perime(atelier: Path, tmp_path: Path, monkeypatch) -> None:  # noqa: F811
+    copie = tmp_path / "textes.tsv"
+    shutil.copy(fetes_mod.TEXTES, copie)
+    monkeypatch.setattr(fetes_mod, "TEXTES", copie)
+    export_mod.export("0.1.0")
+    a_jour = {c.nom: c for c in export_mod.controles(export_mod.EXPORT, build=export_mod.BUILD, ingest=export_mod.INGEST)}
+    assert a_jour["export : à jour"].ok
+    copie.write_text(copie.read_text(encoding="utf-8").replace("Miam.", "Miam !"), encoding="utf-8")
+    perime = {c.nom: c for c in export_mod.controles(export_mod.EXPORT, build=export_mod.BUILD, ingest=export_mod.INGEST)}
+    assert not perime["export : à jour"].ok
+
+
 # ---------------------------------------------------------------------------- check
 
 
@@ -128,3 +170,13 @@ def test_le_controle_voit_un_caractere_dessine_sans_traits(atelier: Path) -> Non
 def test_sans_export_le_controle_des_caracteres_ne_bloque_pas(tmp_path: Path) -> None:
     resultats = {c.nom: c for c in controles(tmp_path / "vide")}
     assert resultats["fêtes : caractères dessinés"].ok
+
+
+VERSIONNE = export_mod.EXPORT / export_mod.VERSION
+
+
+@pytest.mark.skipif(not (VERSIONNE / "fetes.json").exists(), reason="export versionné absent")
+def test_l_export_versionne_dessine_les_caracteres_des_fetes() -> None:
+    document = json.loads((VERSIONNE / "fetes.json").read_text(encoding="utf-8"))
+    assert document["racines"] == {"年": "年", "月": "月", "福": "礻"}
+    assert all(c.ok for c in controles())

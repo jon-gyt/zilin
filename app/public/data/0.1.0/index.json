@@ -1,17 +1,17 @@
 {
  "version": "0.1.0",
- "date": "2026-09-24T17:35:24Z",
- "empreinte": "sha256:cf39b787fce8fc6e255ca34c8ebc1129133492b31636bfb64cc06705c5942a4b",
+ "date": "2026-09-24T17:47:09Z",
+ "empreinte": "sha256:91ee2e63674aa38d912833727b447719aad35c6573326d1978f7371029360b52",
  "license": "propriétaire",
  "source": "décomposition GF 0014-2009 réconciliée par le pipeline wenlu ; pinyin d'Unihan (kMandarin) ; textes rédigés pour l'app",
  "source_url": "https://github.com/jon-gyt/zilin",
  "modified": "2026-09-24 : assemblé par `wenlu export`",
  "norme": "GF 0014-2009",
- "perimetre": "seuil 255 et HSK 1 : les caractères des deux listes et leurs briques",
+ "perimetre": "seuil 255 et HSK 1 : les caractères des deux listes et leurs briques ; les caractères dessinés des fêtes et leurs briques",
  "licences": "LICENCES.md",
  "compte": {
   "familles": 238,
-  "caracteres": 485,
+  "caracteres": 486,
   "briques": 222,
   "muettes": 13,
   "fiches_relues": 0,
@@ -4980,7 +4980,7 @@
    "racine": "礻",
    "fichier": "familles/礻.json",
    "traits": "traits/礻.json",
-   "n": 2,
+   "n": 3,
    "avancement_possible": 0.0
   },
   {
@@ -5363,5 +5363,6 @@
   }
  ],
  "contes": [],
- "paires": "paires.json"
+ "paires": "paires.json",
+ "fetes": "fetes.json"
 }
