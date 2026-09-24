@@ -459,10 +459,12 @@ Assemblé par `fiches.Corpus` depuis `decompositions.json`, `graphe.json`,
 La réponse est contrainte par `output_config.format` (JSON structuré). La validation
 refuse une fiche dont l'origine FR ou EN ne fait pas exactement trois phrases (points
 finaux comptés), dont l'étiquette sort des deux valeurs, dont un mot n'est pas dans les
-candidats, ou dont la phrase emploie un caractère hors de l'acquis — les intrus sont
-listés exactement. La relance signale les motifs de refus, au plus trois essais. Rôle
-manquant, traduction vide, phrase sans le caractère du jour et manque de mots candidats
-sont des écarts signalés à la relecture, pas des rejets.
+candidats, qui porte plus de deux mots, ou dont la phrase emploie un caractère hors de
+l'acquis — les intrus sont listés exactement. La relance signale les motifs de refus,
+au plus trois essais. Rôle manquant, traduction vide, phrase sans le caractère du jour
+et moins de deux mots sont des écarts signalés à la relecture, pas des rejets : une
+fiche peut prendre moins de mots qu'il n'y a de candidats, pour qu'un mot rare,
+d'argot ou douteux ne s'impose jamais faute de mieux.
 
 ### Fiche écrite, versionnée
 
@@ -550,7 +552,8 @@ versionné, un fichier par caractère, nommé d'après lui.
   garde le code `atteste` ou `mnemotechnique`.
 - `roles` est un objet `{composant: "son" | "sens" | "forme"}`, un rôle par composant
   de la décomposition canonique.
-- `mots` : deux objets `{hanzi, pinyin, fr, en}`, pris dans les mots candidats ;
+- `mots` : au plus deux objets `{hanzi, pinyin, fr, en}`, pris dans les mots
+  candidats ; moins, voire aucun, quand les candidats sont rares ou douteux ;
   `phrase` : un objet `{zh, pinyin, fr, en}`. Les traductions sont rédigées, jamais
   reprises d'un dictionnaire.
 - Le reste de la fiche (`parcours`, `jour`, `pinyin`, `composants`, `structure`) ne

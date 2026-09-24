@@ -427,6 +427,26 @@ def test_validation_signale_le_manque_de_mots_candidats(corpus) -> None:
     assert any("mot candidat lisible" in e for e in rapport.ecarts)
 
 
+def test_validation_accepte_moins_de_mots_que_de_candidats(corpus) -> None:
+    """Un candidat rare ne s'impose jamais : un mot, ou aucun, est un écart, pas un rejet."""
+    contexte = corpus.contexte("住")
+    assert len(contexte.candidats) == 2
+    for mots in (["住口"], []):
+        fiche = lire_reponse(reponse(mots=mots), contexte=contexte, generation=generation_de_test())
+        rapport = valider(fiche, contexte)
+        assert rapport.conforme, rapport.refus
+        assert f"{len(mots)} mot(s) au lieu de 2, pour 2 candidats lisibles au jour 5" in rapport.ecarts
+
+
+def test_validation_refuse_plus_de_deux_mots(corpus) -> None:
+    contexte = corpus.contexte("住")
+    fiche = lire_reponse(
+        reponse(mots=["住口", "问住", "住口"]), contexte=contexte, generation=generation_de_test()
+    )
+    rapport = valider(fiche, contexte)
+    assert "3 mots au lieu de 2 au plus" in rapport.refus
+
+
 def test_le_depart_se_lit_avec_toute_la_premiere_session(table) -> None:
     """人, 大, 天 sont posés ensemble par la première session : chacun a les trois acquis."""
     jours = [

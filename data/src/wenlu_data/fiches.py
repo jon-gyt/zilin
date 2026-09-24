@@ -445,7 +445,8 @@ ajoute quelque chose à l'origine. Sinon, laisse-les vides.
 prononciation, `sens` s'il donne le sens, `forme` s'il ne fait ni l'un ni l'autre — \
 il n'est là que pour le trait, ou son rôle est perdu.
 6. Les deux mots sont pris dans la liste des mots candidats, écrits exactement comme \
-elle les donne. Tu en donnes le pinyin avec les tons, puis une traduction que tu \
+elle les donne. Un candidat rare, d'argot ou douteux ne se prend pas : mieux vaut un \
+mot de moins, ou aucun. Tu en donnes le pinyin avec les tons, puis une traduction que tu \
 rédiges toi-même, en français et en anglais. Aucune définition d'une autre source \
 n'est recopiée ni traduite.
 7. La phrase n'emploie QUE les caractères acquis fournis. Aucun autre, même courant, \
@@ -491,7 +492,7 @@ def invite(contexte: Contexte, *, refus: Sequence[str] = ()) -> Invite:
     lignes += [
         "",
         f"Mots candidats ({len(contexte.candidats)}) — le mot et son pinyin, rien d'autre. "
-        f"Choisis-en {min(MOTS_PAR_FICHE, len(contexte.candidats))} :",
+        f"Choisis-en au plus {min(MOTS_PAR_FICHE, len(contexte.candidats))} :",
     ]
     lignes += [f"- {m.hanzi} ({m.pinyin})" for m in contexte.candidats] or ["- aucun"]
     lignes += [
@@ -762,8 +763,10 @@ class Rapport:
 def valider(fiche: Fiche, contexte: Contexte) -> Rapport:
     """Contrôle strict : trois phrases, étiquette, mots candidats, phrase sans intrus.
 
-    Les autres défauts (rôle manquant, mémo trop long, traduction vide) sont des
-    écarts signalés à la relecture, pas des rejets.
+    Les autres défauts (rôle manquant, traduction vide, moins de deux mots) sont
+    des écarts signalés à la relecture, pas des rejets. Une fiche peut prendre
+    moins de mots qu'il n'y a de candidats : un mot rare ou douteux ne s'impose
+    jamais faute de mieux ; le manque se voit à la relecture.
     """
     refus: list[str] = []
     ecarts: list[str] = []
@@ -780,13 +783,17 @@ def valider(fiche: Fiche, contexte: Contexte) -> Rapport:
     hors = [m.hanzi for m in fiche.mots if m.hanzi not in candidats]
     if hors:
         refus.append(f"mots hors des candidats : {' '.join(hors)}")
-    attendus = min(MOTS_PAR_FICHE, len(contexte.candidats))
-    if len(fiche.mots) != attendus:
-        refus.append(f"{len(fiche.mots)} mot(s) au lieu de {attendus}")
+    if len(fiche.mots) > MOTS_PAR_FICHE:
+        refus.append(f"{len(fiche.mots)} mots au lieu de {MOTS_PAR_FICHE} au plus")
     if len(contexte.candidats) < MOTS_PAR_FICHE:
         ecarts.append(
             f"{len(contexte.candidats)} mot candidat lisible au jour {contexte.jour} "
             f"au lieu de {MOTS_PAR_FICHE}"
+        )
+    elif len(fiche.mots) < MOTS_PAR_FICHE:
+        ecarts.append(
+            f"{len(fiche.mots)} mot(s) au lieu de {MOTS_PAR_FICHE}, pour "
+            f"{len(contexte.candidats)} candidats lisibles au jour {contexte.jour}"
         )
     if len({m.hanzi for m in fiche.mots}) != len(fiche.mots):
         refus.append("deux fois le même mot")
@@ -1328,12 +1335,15 @@ traduite mot à mot.
 bronzes, petit sceau) établissent l'origine ; « mnémotechnique » dans tous les autres cas, \
 et dans le doute. Sous « mnémotechnique », décrire ce que l'on voit dans la forme actuelle, \
 jamais prétendre dire ce que le caractère a voulu dire autrefois.
-- mots : exactement {MOTS_PAR_FICHE} (moins s'il y a moins de candidats), pris dans les \
-mots candidats, écrits à l'identique, sans doublon ; pinyin avec les tons ; traductions \
-fr et en rédigées soi-même, jamais reprises d'un dictionnaire.
+- mots : au plus {MOTS_PAR_FICHE}, pris dans les mots candidats, écrits à l'identique, \
+sans doublon ; pinyin avec les tons du dictionnaire (sans sandhi : yī, bù), d'un seul \
+tenant, ton neutre comme CC-CEDICT ; traductions fr et en rédigées soi-même, jamais \
+reprises d'un dictionnaire.
 - phrase.zh : les seuls caractères acquis ce jour-là, et la ponctuation \
 {PONCTUATION_CHINOISE} ; ni chiffre ni lettre.
 Écarts, signalés à la relecture :
+- moins de {MOTS_PAR_FICHE} mots : un candidat rare, d'argot ou douteux ne se prend pas \
+faute de mieux ;
 - un rôle ({', '.join(ROLES)}) pour chaque composant de la décomposition, et pour eux seuls ;
 - la phrase emploie le caractère du jour ;
 - traductions fr et en non vides.
@@ -1391,7 +1401,7 @@ def decrire_contexte(contexte: Contexte, *, brouillons: Path | None = None) -> l
         "".join(contexte.acquis),
         "",
         f"Mots candidats ({len(contexte.candidats)}), déjà lisibles ce jour-là — "
-        f"en choisir {min(MOTS_PAR_FICHE, len(contexte.candidats))} :",
+        f"en choisir au plus {min(MOTS_PAR_FICHE, len(contexte.candidats))} :",
     ]
     lignes += [f"- {m.hanzi} ({m.pinyin})" for m in contexte.candidats] or ["- aucun"]
     chemin = (brouillons or BROUILLONS) / f"{contexte.c}.json"
