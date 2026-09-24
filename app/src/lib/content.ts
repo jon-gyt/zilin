@@ -1240,7 +1240,14 @@ function lireVersion(seuil: number, v: unknown): VersionConte | null {
   const glose: Record<string, string> = {};
   if (o.glose !== null && typeof o.glose === 'object') {
     for (const [k, sens] of Object.entries(o.glose as Record<string, unknown>)) {
-      if (k !== '' && typeof sens === 'string' && sens !== '') glose[k] = sens;
+      /* Le pipeline écrit la glose en objet {pinyin, fr, en} ; une chaîne seule reste lue. */
+      const fr =
+        typeof sens === 'string'
+          ? sens
+          : sens !== null && typeof sens === 'object' && typeof (sens as { fr?: unknown }).fr === 'string'
+            ? (sens as { fr: string }).fr
+            : '';
+      if (k !== '' && fr !== '') glose[k] = fr;
     }
   }
   return { seuil, titre: chaine(o.titre), phrases, glose };
