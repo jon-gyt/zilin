@@ -120,3 +120,23 @@ def test_le_sous_ensemble_couvre_les_textes_exportes(tmp_path: Path) -> None:
     vide = tmp_path / "listes"
     vide.mkdir()
     assert {"秋", "嫦"} <= set(caracteres_de_lapp(tmp_path / "absent.json", vide, export))
+
+
+def test_le_sous_ensemble_couvre_les_textes_a_relire_de_l_apercu(tmp_path: Path) -> None:
+    """L'aperçu (`apercu/`) s'affiche dans l'app quand on l'allume : ses caractères aussi."""
+    export = _export_factice(tmp_path / "public")
+    version = next(export.glob("*/index.json")).parent
+    (version / "apercu" / "contes").mkdir(parents=True)
+    (version / "apercu" / "contes" / "essai.json").write_text(
+        json.dumps(
+            {"statut": "a_relire", "versions": {"255": {"phrases": [{"zh": "愚公移山。"}]}}},
+            ensure_ascii=False,
+        ),
+        encoding="utf-8",
+    )
+    (version / "apercu" / "familles").mkdir()
+    (version / "apercu" / "familles" / "亻.json").write_text(
+        json.dumps({"statut": "a_relire", "fiches": [{"mots": [{"hanzi": "休息"}]}]}, ensure_ascii=False),
+        encoding="utf-8",
+    )
+    assert {"愚", "公", "移", "山", "休", "息"} <= caracteres_des_textes(export)

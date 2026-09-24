@@ -23,6 +23,7 @@ familles de fichiers, jamais mêlés :
   fiches relues, propriétaires. Aucun tracé n'y entre.
 - `paires.json`, `contes/<id>.json`, `fetes.json`, `saisons.json`, `devinettes.json` : propriétaires,
   source citée.
+- `apercu/` : les textes encore à relire (voir plus bas), propriétaires eux aussi.
 
 Ce qui n'entre jamais dans l'export :
 
@@ -35,9 +36,20 @@ Ce qui n'entre jamais dans l'export :
   correction versionnée de `data/sources/surcharges/ids.tsv`) : la question de licence
   reste ouverte et l'export la pose noir sur blanc dans `LICENCES.md`, pour
   qu'elle se tranche caractère par caractère ;
-- une fiche ou un conte qui n'est pas au statut `relu` (brief §17). Un caractère
-  sans fiche relue s'exporte quand même — l'app a besoin de sa décomposition et
-  de ses traits — avec les champs de texte vides et `statut: "sans_fiche"`.
+- une fiche ou un conte qui n'est pas au statut `relu` (brief §17), hors de
+  `apercu/`. Un caractère sans fiche relue s'exporte quand même — l'app a besoin de
+  sa décomposition et de ses traits — avec les champs de texte vides et
+  `statut: "sans_fiche"`.
+
+L'aperçu (`apercu/`) : décision du propriétaire, les fiches et les versions de contes
+encore au statut `a_relire` s'exportent à part, pour qu'il les essaie dans l'app avant
+de les valider. L'app ne les charge que si le mode relecture des Réglages est
+allumé, et chacun y porte la mention « à relire ».
+`apercu/index.json` les recense (familles et contes), `apercu/familles/<racine>.json`
+porte les textes des fiches d'une famille, `apercu/contes/<id>.json` les versions d'un
+conte ; chaque entrée est marquée `statut: "a_relire"`. `index.json` y renvoie par son
+champ `apercu`, absent quand il n'y a rien à relire. Un texte relu n'y entre jamais,
+un texte rejeté non plus : `wenlu check` le vérifie.
 
 Le pinyin vient d'Unihan (`kMandarin`, Unicode License), jamais de
 `dictionary.txt` ni de CC-CEDICT, sauf là où `data/sources/surcharges/pinyin.tsv`
@@ -360,6 +372,31 @@ def charger_contes_relus(dossier: Path | None = None) -> dict[str, list[contes_m
     for versions in relus.values():
         versions.sort(key=lambda v: v.seuil)
     return relus
+
+
+def charger_fiches_a_relire(dossier: Path | None = None) -> dict[str, fiches_mod.Fiche]:
+    """Les fiches au statut `a_relire`, par caractère : la matière de l'aperçu.
+
+    Ni les fiches relues (l'export principal les porte), ni les rejetées.
+    """
+    trouvees: dict[str, fiches_mod.Fiche] = {}
+    for chemin in fiches_mod.fiches_ecrites(dossier):
+        fiche = fiches_mod.lire_fiche(chemin)
+        if fiche.statut == fiches_mod.A_RELIRE:
+            trouvees[fiche.c] = fiche
+    return trouvees
+
+
+def charger_contes_a_relire(dossier: Path | None = None) -> dict[str, list[contes_mod.Version]]:
+    """Les versions de contes au statut `a_relire`, par identifiant de conte."""
+    trouves: dict[str, list[contes_mod.Version]] = {}
+    for chemin in contes_mod.versions_ecrites(dossier):
+        version = contes_mod.lire_version(chemin)
+        if version.statut == contes_mod.A_RELIRE:
+            trouves.setdefault(version.conte, []).append(version)
+    for versions in trouves.values():
+        versions.sort(key=lambda v: v.seuil)
+    return trouves
 
 
 def parse_paires(lignes: Iterable[str]) -> list[list[str]]:
@@ -756,6 +793,185 @@ def document_conte(
     }
 
 
+# ---------------------------------------------------------------------------- aperçu
+
+
+#: Le dossier de l'aperçu dans une version exportée.
+APERCU = "apercu"
+
+#: Le statut que porte chaque entrée de l'aperçu, et elle seule.
+STATUT_APERCU = "a_relire"
+
+#: Ce que l'en-tête de chaque fichier de l'aperçu dit de lui.
+AVERTISSEMENT_APERCU = (
+    "Textes encore à relire : ni relus, ni validés. L'app ne les charge que si"
+    " le mode relecture des Réglages est allumé,"
+    " et chacun y porte la mention « à relire »."
+)
+
+#: Les champs de texte d'une fiche que l'aperçu porte : ceux d'une fiche relue.
+CHAMPS_FICHE_APERCU: tuple[str, ...] = (
+    "role",
+    "roles",
+    "origine_fr",
+    "origine_en",
+    "etiquette",
+    "memo_fr",
+    "memo_en",
+    "mots",
+    "phrase",
+)
+
+
+def _en_tete_apercu(version: str, source: str) -> dict[str, object]:
+    return {
+        "version": version,
+        "license": LICENCE_PROPRIETAIRE,
+        "source": source,
+        "source_url": URL_PIPELINE,
+        "modified": f"{JETON_JOUR} : assemblé par `wenlu export`",
+        "statut": STATUT_APERCU,
+        "avertissement": AVERTISSEMENT_APERCU,
+    }
+
+
+def fiche_apercu(
+    c: str,
+    a_relire: fiches_mod.Fiche,
+    *,
+    noeuds: Mapping[str, Noeud],
+    decompositions: Mapping[str, Mapping[str, object]],
+    pinyin: Mapping[str, str],
+    listes: Mapping[str, Sequence[str]],
+    poses: Mapping[str, tuple[str, int, str | None]],
+) -> dict[str, object]:
+    """Les textes d'une fiche à relire, assemblés comme ceux d'une fiche relue.
+
+    Même assemblage que l'export principal (`fiche_exportee`) — le rôle de l'élément
+    ajouté se lit sur la même décomposition — mais seuls les champs de texte sortent :
+    la décomposition, le pinyin et les niveaux restent ceux de `familles/`.
+    """
+    assemblee = fiche_exportee(
+        c,
+        noeuds=noeuds,
+        decompositions=decompositions,
+        pinyin=pinyin,
+        listes=listes,
+        poses=poses,
+        relues={c: a_relire},
+    ).model_dump()
+    return {"c": c, "statut": STATUT_APERCU, **{k: assemblee[k] for k in CHAMPS_FICHE_APERCU}}
+
+
+def document_apercu_famille(
+    racine: str, fiches: Sequence[Mapping[str, object]], version: str
+) -> dict[str, object]:
+    """Le JSON écrit dans `apercu/familles/<racine>.json` : les fiches à relire d'une famille."""
+    return {
+        **_en_tete_apercu(version, "fiches à relire du pipeline wenlu (`data/sources/fiches/`)"),
+        "racine": racine,
+        "fiches": [dict(f) for f in fiches],
+    }
+
+
+def document_apercu_conte(
+    conte: str, versions: Sequence[contes_mod.Version], version_export: str
+) -> dict[str, object]:
+    """Le JSON écrit dans `apercu/contes/<id>.json` : les versions à relire d'un conte.
+
+    Le format de `contes/<id>.json`, plus le statut, en tête et sur chaque version.
+    """
+    document = document_conte(conte, versions, version_export)
+    for lue in document["versions"].values():  # type: ignore[union-attr]
+        lue["statut"] = STATUT_APERCU  # type: ignore[index]
+    return {
+        **_en_tete_apercu(version_export, str(document["source"])),
+        **{k: v for k, v in document.items() if k not in ENTETE_LICENCE and k != "version"},
+    }
+
+
+def document_apercu_index(
+    version: str,
+    familles: Sequence[tuple[str, str, Sequence[str]]],
+    contes: Mapping[str, Sequence[contes_mod.Version]],
+) -> dict[str, object]:
+    """Le JSON écrit dans `apercu/index.json` : ce que l'aperçu porte, et où.
+
+    `familles` : la racine, le fichier et les caractères qui y ont une fiche à relire,
+    pour que l'app ne demande que les fichiers qui existent.
+    """
+    return {
+        **_en_tete_apercu(version, "fiches et contes à relire du pipeline wenlu"),
+        "compte": {
+            "fiches": sum(len(cs) for _, _, cs in familles),
+            "contes": len(contes),
+            "versions": sum(len(v) for v in contes.values()),
+        },
+        "familles": [
+            {"racine": racine, "fichier": fichier, "caracteres": list(cs)}
+            for racine, fichier, cs in familles
+        ],
+        "contes": [
+            {
+                "id": conte,
+                "titre_fr": versions[0].titre_fr,
+                "titre_en": versions[0].titre_en,
+                "seuils": [v.seuil for v in versions],
+                "fichier": f"{APERCU}/contes/{conte}.json",
+                "statut": STATUT_APERCU,
+            }
+            for conte, versions in sorted(contes.items())
+        ],
+    }
+
+
+def assembler_apercu(
+    version: str,
+    *,
+    per: Perimetre,
+    noeuds: Mapping[str, Noeud],
+    decompositions: Mapping[str, Mapping[str, object]],
+    pinyin: Mapping[str, str],
+    listes: Mapping[str, Sequence[str]],
+    poses: Mapping[str, tuple[str, int, str | None]],
+    fiches: Path | None = None,
+    contes: Path | None = None,
+) -> dict[str, str]:
+    """Les fichiers de `apercu/`, datés d'un jeton. Vide quand il n'y a rien à relire.
+
+    Une fiche à relire d'un caractère hors du périmètre n'a pas de famille où se
+    ranger : elle attend que le périmètre l'atteigne.
+    """
+    a_relire = charger_fiches_a_relire(fiches)
+    versions = charger_contes_a_relire(contes)
+    textes: dict[str, str] = {}
+    familles: list[tuple[str, str, list[str]]] = []
+    for racine, membres in per.familles:
+        entrees = [
+            fiche_apercu(
+                c,
+                a_relire[c],
+                noeuds=noeuds,
+                decompositions=decompositions,
+                pinyin=pinyin,
+                listes=listes,
+                poses=poses,
+            )
+            for c in membres
+            if c in a_relire
+        ]
+        if not entrees:
+            continue
+        nom = f"{APERCU}/familles/{nom_fichier(racine)}.json"
+        textes[nom] = _json(document_apercu_famille(racine, entrees, version))
+        familles.append((racine, nom, [str(e["c"]) for e in entrees]))
+    for conte, lues in sorted(versions.items()):
+        textes[f"{APERCU}/contes/{conte}.json"] = _json(document_apercu_conte(conte, lues, version))
+    if textes:
+        textes[f"{APERCU}/index.json"] = _json(document_apercu_index(version, familles, versions))
+    return textes
+
+
 def document_index(
     *,
     version: str,
@@ -767,11 +983,13 @@ def document_index(
     relues: Mapping[str, fiches_mod.Fiche],
     contes: Mapping[str, Sequence[contes_mod.Version]],
     fichiers: Mapping[str, str],
+    apercu: bool = False,
 ) -> dict[str, object]:
     """Le JSON écrit dans `index.json` : la porte d'entrée de l'app.
 
     `date` est le seul champ qui change à contenu égal — et encore : l'export la
-    relit de la version précédente tant que rien d'autre n'a bougé.
+    relit de la version précédente tant que rien d'autre n'a bougé. `apercu`, le
+    fichier qui recense les textes à relire, n'y figure que s'il y en a.
     """
     familles = []
     for racine, membres in per.familles:
@@ -785,7 +1003,7 @@ def document_index(
                 "avancement_possible": round(relus / len(membres), 3) if membres else 0.0,
             }
         )
-    return {
+    document: dict[str, object] = {
         "version": version,
         "date": JETON_DATE,
         "empreinte": empreinte,
@@ -838,6 +1056,9 @@ def document_index(
         "saisons": "saisons.json",
         "devinettes": "devinettes.json",
     }
+    if apercu:
+        document["apercu"] = f"{APERCU}/index.json"
+    return document
 
 
 # -------------------------------------------------------------------------- licences
@@ -911,7 +1132,8 @@ TABLEAU_LICENCES: tuple[tuple[str, str, str, str, str], ...] = (
     ),
     (
         "Fiches, contes, paires, fêtes, saisons, devinettes (pipeline wenlu)",
-        "`familles/`, `contes/`, `paires.json`, `fetes.json`, `saisons.json`, `devinettes.json`",
+        "`familles/`, `contes/`, `paires.json`, `fetes.json`, `saisons.json`, `devinettes.json`,"
+        " et `apercu/` pour les textes encore à relire",
         LICENCE_PROPRIETAIRE,
         "textes rédigés pour l'app, relus",
         "—",
@@ -941,9 +1163,8 @@ def licences_md(version: str) -> str:
         "",
         f"- `traits/` : tracés sous {LICENCE_TRAITS}, avec `{ARPHIC}` inaltéré à côté"
         " et `traits/MODIFICATIONS.md` qui dit comment et quand ils ont été dérivés.",
-        "- `familles/`, `contes/`, `paires.json`, `fetes.json`, `saisons.json`, `devinettes.json` : décomposition"
-        " canonique et textes"
-        " rédigés pour l'app, propriétaires.",
+        "- `familles/`, `contes/`, `paires.json`, `fetes.json`, `saisons.json`, `devinettes.json`,"
+        " `apercu/` : décomposition canonique et textes rédigés pour l'app, propriétaires.",
         f"- `{UNICODE_NOTICE}` : notice de permission Unicode, qui couvre le pinyin.",
         "",
         "## Ce que l'export ne contient pas",
@@ -953,7 +1174,10 @@ def licences_md(version: str) -> str:
         " hanzi, le pinyin et les traductions rédigées pour l'app.",
         "- Aucun texte de `dictionary.txt` : ni définition, ni étymologie anglaise"
         " (§2.2).",
-        "- Aucune fiche ni aucun conte non relu (brief §17).",
+        "- Aucune fiche ni aucun conte non relu hors de `apercu/` (brief §17). Ce dossier"
+        " porte les textes encore à relire, chacun marqué `statut: \"a_relire\"`, que"
+        " l'app ne charge que sur demande (Réglages, mode relecture)."
+        " Un texte rejeté n'est nulle part.",
         "",
         "## Question ouverte",
         "",
@@ -1044,6 +1268,9 @@ class Rapport:
     paires: int
     octets: int
     octets_traits: int
+    apercu_fiches: int = 0
+    apercu_versions: int = 0
+    octets_apercu: int = 0
     fichiers: list[str] = field(default_factory=list)
     supprimes: list[str] = field(default_factory=list)
 
@@ -1060,6 +1287,8 @@ class Rapport:
             "paires": self.paires,
             "fichiers": len(self.fichiers),
             "taille": f"{self.octets / 1024:.0f} Kio dont {self.octets_traits / 1024:.0f} Kio de traits",
+            "apercu": f"{self.apercu_fiches} fiches et {self.apercu_versions} versions de contes à relire,"
+            f" {self.octets_apercu / 1024:.0f} Kio",
             "supprimes": len(self.supprimes),
         }
 
@@ -1205,6 +1434,18 @@ def assembler(
     textes["devinettes.json"] = _json(
         document_devinettes(version, per, noeuds, decompositions, listes, pinyin, graphies, groupes)
     )
+    apercu = assembler_apercu(
+        version,
+        per=per,
+        noeuds=noeuds,
+        decompositions=decompositions,
+        pinyin=pinyin,
+        listes=listes,
+        poses=poses,
+        fiches=fiches,
+        contes=contes,
+    )
+    textes.update(apercu)
     textes["LICENCES.md"] = licences_md(version)
     textes["traits/MODIFICATIONS.md"] = modifications_md(version, len(graphies))
     for nom in (ARPHIC, UNICODE_NOTICE):
@@ -1227,6 +1468,7 @@ def assembler(
             relues=relues,
             contes=versions_contes,
             fichiers=fichiers_familles,
+            apercu=bool(apercu),
         )
     )
     return textes, per, relues
@@ -1270,6 +1512,11 @@ def export(
             if relatif not in finaux and not _etranger(relatif):
                 fichier.unlink()
                 supprimes.append(relatif)
+    # Un dossier vidé part avec ses fichiers : `apercu/` disparaît quand tout est relu.
+    for sous in sorted((d for d in dossier.rglob("*") if d.is_dir()), key=lambda d: -len(d.parts)):
+        relatif = str(sous.relative_to(dossier)).replace("\\", "/") + "/"
+        if not _etranger(relatif) and not any(sous.iterdir()):
+            sous.rmdir()
     for relatif, texte in sorted(finaux.items()):
         chemin = dossier / relatif
         chemin.parent.mkdir(parents=True, exist_ok=True)
@@ -1278,6 +1525,7 @@ def export(
 
     index = json.loads(finaux["index.json"])
     octets = {r: len(t.encode("utf-8")) for r, t in finaux.items()}
+    apercu = json.loads(finaux[f"{APERCU}/index.json"]) if f"{APERCU}/index.json" in finaux else None
     return Rapport(
         version=version,
         dossier=dossier,
@@ -1291,6 +1539,9 @@ def export(
         paires=len(json.loads(finaux["paires.json"])["paires"]),
         octets=sum(octets.values()),
         octets_traits=sum(v for r, v in octets.items() if r.startswith("traits/")),
+        apercu_fiches=int(apercu["compte"]["fiches"]) if apercu else 0,
+        apercu_versions=int(apercu["compte"]["versions"]) if apercu else 0,
+        octets_apercu=sum(v for r, v in octets.items() if r.startswith(f"{APERCU}/")),
         fichiers=sorted(finaux),
         supprimes=supprimes,
     )
@@ -1339,6 +1590,100 @@ def fautes_de_licence(relatif: str, document: object) -> list[str]:
     return fautes
 
 
+def fautes_d_apercu(
+    dossier: Path,
+    index: Mapping[str, object],
+    statuts_fiches: Mapping[str, str],
+    statuts_contes: Mapping[tuple[str, int], str],
+) -> tuple[list[str], int, int]:
+    """Ce qui cloche dans l'aperçu d'une version : (fautes, fiches, versions de contes).
+
+    L'aperçu ne porte que des textes à relire : chaque entrée est marquée `a_relire`, sa
+    source l'est encore, et l'export principal ne la porte pas relue. Un texte relu (ou
+    rejeté) n'y figure jamais. Tout fichier de `apercu/` est recensé par son index, et
+    tout fichier recensé existe.
+    """
+    nom = dossier.name
+    racine_apercu = dossier / APERCU
+    entree = index.get("apercu")
+    presents = (
+        {str(f.relative_to(dossier)).replace("\\", "/") for f in racine_apercu.rglob("*") if f.is_file()}
+        if racine_apercu.exists()
+        else set()
+    )
+    if not entree:
+        return ([f"{nom}/{r} : hors de l'index" for r in sorted(presents)], 0, 0)
+    chemin_index = dossier / str(entree)
+    if not chemin_index.is_file():
+        return ([f"{nom}/{entree} : absent, l'index y renvoie"], 0, 0)
+    apercu = json.loads(chemin_index.read_text(encoding="utf-8"))
+    fautes: list[str] = []
+    if apercu.get("statut") != STATUT_APERCU:
+        fautes.append(f"{nom}/{entree} : statut {apercu.get('statut')!r}")
+    recenses = {str(entree)}
+
+    relues_principal: set[str] = set()
+    for famille in index.get("familles") or ():  # type: ignore[union-attr]
+        chemin = dossier / str(famille["fichier"])
+        if chemin.is_file():
+            document = json.loads(chemin.read_text(encoding="utf-8"))
+            relues_principal |= {f["c"] for f in document.get("fiches") or () if f.get("statut") == "relu"}
+    seuils_principal = {
+        (str(c["id"]), int(s)) for c in index.get("contes") or () for s in c.get("seuils") or ()  # type: ignore[union-attr]
+    }
+
+    fiches = 0
+    for famille in apercu.get("familles") or ():
+        relatif = str(famille.get("fichier"))
+        recenses.add(relatif)
+        chemin = dossier / relatif
+        if not chemin.is_file():
+            fautes.append(f"{nom}/{relatif} : absent, l'aperçu y renvoie")
+            continue
+        document = json.loads(chemin.read_text(encoding="utf-8"))
+        if document.get("statut") != STATUT_APERCU:
+            fautes.append(f"{nom}/{relatif} : statut {document.get('statut')!r}")
+        vus = [str(f.get("c")) for f in document.get("fiches") or ()]
+        if sorted(vus) != sorted(str(c) for c in famille.get("caracteres") or ()):
+            fautes.append(f"{nom}/{relatif} : caractères différents de ceux que l'index recense")
+        for f in document.get("fiches") or ():
+            fiches += 1
+            c = str(f.get("c"))
+            if f.get("statut") != STATUT_APERCU:
+                fautes.append(f"{nom}/{relatif} : {c} au statut {f.get('statut')!r}")
+            if statuts_fiches.get(c) != fiches_mod.A_RELIRE:
+                fautes.append(f"{nom}/{relatif} : {c} n'est plus à relire ({statuts_fiches.get(c, 'sans fiche')})")
+            if c in relues_principal:
+                fautes.append(f"{nom}/{relatif} : {c} est relu dans l'export principal")
+
+    versions = 0
+    for conte in apercu.get("contes") or ():
+        relatif = str(conte.get("fichier"))
+        recenses.add(relatif)
+        chemin = dossier / relatif
+        if not chemin.is_file():
+            fautes.append(f"{nom}/{relatif} : absent, l'aperçu y renvoie")
+            continue
+        document = json.loads(chemin.read_text(encoding="utf-8"))
+        ident = str(document.get("conte"))
+        if document.get("statut") != STATUT_APERCU or conte.get("statut") != STATUT_APERCU:
+            fautes.append(f"{nom}/{relatif} : statut {document.get('statut')!r}")
+        for seuil, lue in sorted((document.get("versions") or {}).items()):
+            versions += 1
+            cle = (ident, int(seuil))
+            if lue.get("statut") != STATUT_APERCU:
+                fautes.append(f"{nom}/{relatif} : version {seuil} au statut {lue.get('statut')!r}")
+            if statuts_contes.get(cle) != contes_mod.A_RELIRE:
+                fautes.append(
+                    f"{nom}/{relatif} : version {seuil} n'est plus à relire ({statuts_contes.get(cle, 'absente')})"
+                )
+            if cle in seuils_principal:
+                fautes.append(f"{nom}/{relatif} : version {seuil} est relue dans l'export principal")
+
+    fautes += [f"{nom}/{r} : hors de l'index de l'aperçu" for r in sorted(presents - recenses)]
+    return fautes, fiches, versions
+
+
 def versions_exportees(destination: Path | None = None) -> list[Path]:
     """Les dossiers d'export qui portent un `index.json`, `demo/` exclu."""
     destination = destination or EXPORT
@@ -1368,6 +1713,8 @@ def controles(
     puisse enseigner ces familles : signalé, jamais bloquant. « textes de licence »
     vérifie que les fichiers que l'APL et la notice Unicode exigent à côté des
     données sont bien là : leur absence est une faute de licence, donc bloquante.
+    « aperçu » vérifie que `apercu/` ne porte que des textes encore à relire, jamais
+    un texte relu ou rejeté (`fautes_d_apercu`) — bloquant.
     """
     dossiers = versions_exportees(destination)
     if not dossiers:
@@ -1384,8 +1731,18 @@ def controles(
     sans_fiche: list[str] = []
     melanges: list[str] = []
     absents: list[str] = []
+    fautes_apercu: list[str] = []
+    apercu_fiches = 0
+    apercu_versions = 0
     total_familles = 0
     total_fichiers = 0
+    statuts_fiches = {
+        fiche.c: fiche.statut for fiche in map(fiches_mod.lire_fiche, fiches_mod.fiches_ecrites(fiches))
+    }
+    statuts_contes = {
+        (v.conte, v.seuil): v.statut
+        for v in map(contes_mod.lire_version, contes_mod.versions_ecrites(contes))
+    }
     for dossier in dossiers:
         absents += [
             f"{dossier.name}/{relatif}"
@@ -1395,6 +1752,10 @@ def controles(
         index = json.loads((dossier / "index.json").read_text(encoding="utf-8"))
         if str(index.get("empreinte")) != attendue:
             perimes.append(dossier.name)
+        fautes, n_fiches, n_versions = fautes_d_apercu(dossier, index, statuts_fiches, statuts_contes)
+        fautes_apercu += fautes
+        apercu_fiches += n_fiches
+        apercu_versions += n_versions
         familles = index.get("familles") or []
         total_familles += len(familles)
         sans_fiche += [
@@ -1435,6 +1796,15 @@ def controles(
             f"les {len(TEXTES_DE_LICENCE)} textes de licence sont à côté des données"
             if not absents
             else f"{len(absents)} absents : {', '.join(absents)}",
+            bloquant=True,
+        ),
+        Controle(
+            "export : aperçu",
+            not fautes_apercu,
+            f"{apercu_fiches} fiches et {apercu_versions} versions de contes, toutes à relire,"
+            " aucune relue"
+            if not fautes_apercu
+            else f"{len(fautes_apercu)} écarts — " + " ; ".join(fautes_apercu[:5]),
             bloquant=True,
         ),
         Controle(

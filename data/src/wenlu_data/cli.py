@@ -102,7 +102,7 @@ def build() -> None:
 
 @app.command()
 def export(version: str = typer.Option(VERSION, help="Version exportée, en dossier.")) -> None:
-    """Exporte l'index, les familles, les traits, les contes et les licences dans app/public/data/<version>/. Exige `build`."""
+    """Exporte l'index, les familles, les traits, les contes, l'aperçu des textes à relire et les licences dans app/public/data/<version>/. Exige `build`."""
     from .export import ExportImpossible, export as _export
 
     try:
@@ -123,7 +123,7 @@ app.command(name="fonts")(_fonts)
 
 @app.command()
 def check() -> None:
-    """Contrôles : composants inconnus, cycles, graphe, listes, briques muettes, contes hors liste, fiches invalides, rôle son loin de la lecture moderne, textes sans audio, export à jour, fêtes, termes solaires, devinettes."""
+    """Contrôles : composants inconnus, cycles, graphe, listes, briques muettes, contes hors liste, fiches invalides, rôle son loin de la lecture moderne, textes sans audio, export à jour, aperçu des textes à relire, fêtes, termes solaires, devinettes."""
     from .audio import controles as controles_audio
     from .contes import controles as controles_contes
     from .devinettes import controles as controles_devinettes
