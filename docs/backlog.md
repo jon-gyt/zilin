@@ -52,7 +52,7 @@ Format BMAD : épics puis stories. Priorité dans l'ordre. Une story se termine 
 - 4b.6 La cuisine de Tao : dix recettes, ingrédients, erreurs plausibles (牛奶 pour 牛肉).
 - 4b.7 Le message WeChat : arbres de dialogue par famille.
 - 4b.8 Les lettres de Que : douze lettres pour le seuil 255, générées puis relues.
-- 4b.9 Les saisons : calendrier chinois, décor du cercle, caractère bonus par fête. Huit fêtes (春节, 元宵, 清明, 端午, 七夕, 中秋, 重阳, 冬至), dates 2026 à 2035 par `lunar_python`, termes solaires compris ; palette, décor, emblème, vœu, accessoire de Tao et anecdote pour chacune ; un caractère bonus par fête, exporté avec ses traits.
+- 4b.9 Les saisons : calendrier chinois, décor du cercle, caractère bonus par fête. Huit fêtes (春节, 元宵, 清明, 端午, 七夕, 中秋, 重阳, 冬至), dates 2026 à 2035 par `lunar_python`, termes solaires compris ; palette, décor, emblème, vœu, accessoire de Tao et anecdote pour chacune ; un caractère bonus par fête, exporté avec ses traits. Entre les fêtes, les vingt-quatre termes solaires 二十四节气 : dates 2026 à 2035 par `lunar_python` à l'heure de Pékin, textes rédigés (nom, traduction, ligne de nature, phrases de Tao, un caractère à lire par terme, exporté avec ses traits), huit ambiances légères de trois termes (palette `[data-saison]`, petit décor), le terme dans l'en-tête du menu, l'anecdote du jour où il commence ; les fêtes gardent la priorité.
 
 ## Épic 5 · PWA et site
 - 5.1 Manifest, service worker, hors ligne, écran d'accueil iOS.
@@ -80,8 +80,14 @@ Relevé sur le dépôt après une revue du pipeline. Les numéros ci-dessus ne b
 - 4b.9, à moitié (24 septembre) : les huit fêtes du calendrier chinois sont en place, du
   pipeline (`data/sources/fetes/`, dates vérifiées contre la table des fêtes de
   `lunar_python`) au décor de l'app (menu à 393 × 660, anecdote, `theme-color`). Chaque
-  anecdote fait découvrir un caractère bonus (灯, 雨, 粽, 桥, 菊, 冬…). Reste le décor du
-  cercle de Ma forêt, et le suivi des caractères bonus découverts.
+  anecdote fait découvrir un caractère bonus (灯, 雨, 粽, 桥, 菊, 冬…). Les vingt-quatre
+  termes solaires suivent entre les fêtes (`data/sources/saisons/`, `saisons.json`, dates
+  vérifiées contre `lunar_python` dans les deux sens) : huit ambiances légères de trois
+  termes, le terme sous la marque du menu (« 半 秋分 · l'équinoxe d'automne »), la phrase
+  de Tao, l'anecdote du jour où il commence, `theme-color` ; un caractère à lire par terme
+  (露, 霜, 雪, 雷…), exporté avec ses traits. Reste le décor du cercle de Ma forêt, le
+  suivi des caractères bonus découverts (fêtes et termes), et une relecture des textes des
+  termes par le propriétaire.
 
 ### Livrées à moitié : le code attend une clé d'API
 

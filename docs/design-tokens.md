@@ -1,6 +1,6 @@
 # Charte Wenlu, tokens
 
-Un seul thème : le papier clair. Ni mode sombre, ni réglage de thème ; seules les fêtes repeignent l'app, quelques jours par an (voir « Thèmes de fête »).
+Un seul thème : le papier clair. Ni mode sombre, ni réglage de thème ; les fêtes repeignent l'app quelques jours par an (voir « Thèmes de fête »), et les vingt-quatre termes solaires teintent à peine le papier le reste de l'année (voir « Ambiances des termes solaires »).
 
 Couleurs : papier #F4EEE2, carte #FBF7EE, encre #1F1B18, encre 2 #4A443E, brume #8B857C, trait #D9D1C2, filet #CFC6B5 (`--rule`), grille #C9BBA3 (`--grille`, pointillés du 米字格), indigo #2B4C7E (action, progression, briques de son), indigo doux #DCE3EF, cinabre #C8371F (élément ajouté, position, logo), cinabre doux #F6DED6, ocre #8C5A2B (briques de sens), ocre doux #EFE3D3, jade #5E8A6A (acquis), jade doux #DDE8DE.
 
@@ -40,6 +40,25 @@ Principes : un écran une action ; coins 12 px ; aucune ombre, aucun dégradé, 
 
 Le rouge de fête #9E1F2A ne sert qu'au décor du Nouvel An et de 元宵 : la rosace, les lanternes, les cases et le 福. Il ne remplace jamais le cinabre, qui marque l'élément ajouté et la position. Décision du propriétaire, en attente de l'amendement de CLAUDE.md.
 
+## Ambiances des termes solaires
+
+Les jours sans fête, `App.svelte` pose `data-saison` sur `<html>` d'après le terme solaire qui court (`saisons.json`, un terme tous les quinze jours environ). Les vingt-quatre termes sont regroupés en huit ambiances de trois termes consécutifs ; chacune a son bloc `[data-saison="…"]` dans `tokens.css`. Un jour de fête, `fetes.poserFete` retire l'attribut : la fête a priorité, et 清明 comme 冬至, qui sont aussi des termes, gardent leur thème de fête. La meta `theme-color` prend le `--paper` de l'ambiance.
+
+Plus légères que les fêtes, et une seule palette papier : seuls le papier, la carte et la grille du 米字格 changent, à peine teintés ; l'encre, les cases, le bouton et le cinabre restent ceux de tous les jours. Ni nuit, ni rouge, ni doré. Les autres variables (`--s-…`) ne colorent que le petit décor.
+
+| Ambiance | Termes | Papier | Carte | Grille | Décor |
+|---|---|---|---|---|---|
+| `pecher` | 立春, 雨水, 惊蛰 | #F6EEE6 | #FCF7F2 | #D3BFAE | pétales de pêcher #EFC1CD et #F8DDE4 |
+| `pluie` | 春分, 清明, 谷雨 | #EFF1EA | #F8F9F4 | #C1CBBE | pluie fine #8FA7AB, rare et pâle |
+| `duvet` | 立夏, 小满, 芒种 | #F3F1E3 | #FBFAF1 | #CDC7A8 | duvet des saules #FFFFFF, fils #B9B39A |
+| `lucioles` | 夏至, 小暑, 大暑 | #F0F1E2 | #F9FAF0 | #C6C9A6 | lucioles #A9BC3C, herbe #C5D0A4 |
+| `rosee` | 立秋, 处暑, 白露 | #F1F0E8 | #FAF9F4 | #C9C6B3 | brins d'herbe #A9B68F, rosée #9DB9C6 |
+| `feuilles` | 秋分, 寒露, 霜降 | #F5EDE1 | #FCF7EE | #D4C3A4 | feuilles #C98B4A, #D9A95E, #A9763F |
+| `neige` | 立冬, 小雪, 大雪 | #EEF1F3 | #F9FAFB | #BFC9D2 | flocons #FFFFFF et #C3CFDB |
+| `prunier` | 冬至, 小寒, 大寒 | #F2EFEC | #FAF8F6 | #CBC3BC | branche #5B4A42, fleurs #F3D3DA, cœur #B97480, flocons |
+
+Le décor d'ambiance vit dans `FeteDecor.svelte`, dans le même calque que celui des fêtes (derrière tout, jamais cliquable, coupé par `prefers-reduced-motion`) : moins d'éléments, plus petits et plus pâles. Le caractère, le nom et la ligne de chaque terme lui restent propres : l'en-tête du menu montre, sous la marque, le caractère du terme dessiné depuis ses traits, son nom et sa traduction (« 半 秋分 · l'équinoxe d'automne ») ; un jour de fête, c'est le vœu.
+
 Composants : `FeteDecor.svelte` (le calque derrière tout, `pointer-events: none`, coupé par `prefers-reduced-motion`), `Embleme.svelte` (la rosace, la lanterne, la lune… qui porte le caractère du jour), `Voeu.svelte` (le vœu de l'en-tête, prononcé au toucher, avec son dessin). Tao porte un flocon au Nouvel An, un bol de 汤圆 à 元宵, un brin de saule à 清明, un 粽子 à 端午, une étoile à 七夕, un gâteau de lune à la mi-automne, un chrysanthème à 重阳, un 饺子 à 冬至.
 
 ## Polices
@@ -56,7 +75,7 @@ Auto-hébergées en woff2 dans `app/public/fonts/`, versionnées avec l'app. Auc
 
 Sous-ensemble latin étendu : Latin-1 imprimable et Latin Extended-A, guillemets français, apostrophes et guillemets courbes, tirets, espaces fines et insécables, points de suspension, symboles courants.
 
-Sous-ensemble chinois : les clés de `app/public/strokes-demo.json`, tous les caractères des listes `data/sources/listes/*.txt`, la ponctuation `。，、；：？！「」『』（）《》—…·` et les chiffres. La liste exacte est écrite dans `app/public/fonts/noto-serif-sc.subset.txt` à chaque régénération, pour que le fichier soit rejouable. Aujourd'hui 347 caractères, 61 Ko.
+Sous-ensemble chinois : les clés de `app/public/strokes-demo.json`, tous les caractères des listes `data/sources/listes/*.txt`, la ponctuation `。，、；：？！「」『』（）《》—…·` et les chiffres. La liste exacte est écrite dans `app/public/fonts/noto-serif-sc.subset.txt` à chaque régénération, pour que le fichier soit rejouable. Aujourd'hui 585 caractères, 94 Ko.
 
 Les grands caractères restent rendus depuis les données de traits (style 楷) : aucune police n'est utilisée pour eux.
 
