@@ -108,6 +108,12 @@ export type Revision = {
   leurres?: string[];
 };
 
+/** Où en est la devinette du jour : posée, résolue, ou montrée après deux essais faux. */
+export type IssueDevinette = 'posee' | 'resolue' | 'montree';
+
+/** La devinette du jour : la journée, son identifiant, son issue. */
+export type DevinetteDuJour = { jour: string; id: string; issue: IssueDevinette };
+
 /**
  * Une session de plus, en cours : Apprendre, Utiliser, Fixer, Clore, et Échauffer devant
  * s'il restait des cartes dues quand elle a commencé. Figé au départ : la liste des pas
@@ -225,10 +231,16 @@ export type Progress = {
   tropheesAcquis: Record<string, string>;
   /**
    * Les devinettes de lanternes résolues, par identifiant, chacune une fois, dans l'ordre.
-   * La lanterne des trophées en compte dix. Le jeu n'existe pas encore : la liste attend
-   * son point d'entrée (`noterDevinette`). Absente d'une progression plus ancienne : vide.
+   * La lanterne des trophées en compte dix. Le jeu des devinettes les note par
+   * `noterDevinette`. Absente d'une progression plus ancienne : vide.
    */
   devinettes: string[];
+  /**
+   * La devinette du jour : une par jour, posée à l'ouverture du jeu, et son issue. Elle
+   * reste celle du jour même si l'acquis change dans la journée ; une fois résolue ou
+   * montrée, la suivante attend le lendemain. Absente d'une progression plus ancienne.
+   */
+  devinetteDuJour: DevinetteDuJour | null;
   /**
    * Les contes lus : pour chaque conte (identifiant de l'index), les seuils dont la version
    * a été lue, triés. Le même conte se relit plus riche à chaque seuil, et chaque version
@@ -293,6 +305,7 @@ export function emptyProgress(aujourdhui: string): Progress {
     enAttente: [],
     tropheesAcquis: {},
     devinettes: [],
+    devinetteDuJour: null,
     contesLus: {}
   };
 }
@@ -700,6 +713,34 @@ export function noterDevinette(p: Progress, id: string): Progress {
 }
 
 /**
+ * Pose la devinette du jour, à l'ouverture du jeu. Une seule par jour : si une devinette
+ * est déjà posée aujourd'hui, rien ne change, même si l'acquis en proposerait une autre.
+ */
+export function poserDevinette(p: Progress, jour: string, id: string): Progress {
+  if (id === '' || p.devinetteDuJour?.jour === jour) return p;
+  return { ...p, devinetteDuJour: { jour, id, issue: 'posee' } };
+}
+
+/**
+ * Conclut la devinette du jour : résolue (du premier coup ou au second essai), elle entre
+ * dans les devinettes résolues et la lanterne compte une devinette de plus ; montrée, elle
+ * ne compte pas. Une devinette déjà conclue aujourd'hui le reste : rejouer ne la change pas.
+ */
+export function conclureDevinette(p: Progress, jour: string, id: string, resolue: boolean): Progress {
+  const d = p.devinetteDuJour;
+  if (id === '' || (d?.jour === jour && d.issue !== 'posee')) return p;
+  if (d !== null && d.jour === jour && d.id !== id) return p;
+  const conclue: Progress = { ...p, devinetteDuJour: { jour, id, issue: resolue ? 'resolue' : 'montree' } };
+  return resolue ? noterDevinette(conclue, id) : conclue;
+}
+
+/** La devinette du jour a déjà été résolue ou montrée : la suivante, c'est demain. */
+export function devinetteFaite(p: Progress, jour: string): boolean {
+  const d = p.devinetteDuJour;
+  return d !== null && d.jour === jour && d.issue !== 'posee';
+}
+
+/**
  * Note la lecture d'un conte, dans la version d'un seuil. Chaque version compte une fois ;
  * relire le même conte à un autre seuil en est une autre.
  */
@@ -1062,6 +1103,16 @@ function lireTropheesAcquis(v: unknown): Record<string, string> {
 }
 
 /** Relit les contes lus : un conte, des seuils entiers positifs, sans doublon, triés. */
+/** Relit la devinette du jour. Absente ou aberrante : aucune, elle se reposera. */
+function lireDevinetteDuJour(v: unknown): DevinetteDuJour | null {
+  if (typeof v !== 'object' || v === null) return null;
+  const d = v as Record<string, unknown>;
+  if (typeof d.jour !== 'string' || !FORMAT_JOUR.test(d.jour)) return null;
+  if (typeof d.id !== 'string' || d.id === '') return null;
+  if (d.issue !== 'posee' && d.issue !== 'resolue' && d.issue !== 'montree') return null;
+  return { jour: d.jour, id: d.id, issue: d.issue };
+}
+
 function lireContesLus(v: unknown): Record<string, number[]> {
   if (typeof v !== 'object' || v === null || Array.isArray(v)) return {};
   const out: Record<string, number[]> = {};
@@ -1178,6 +1229,7 @@ export function fromJSON(texte: string, aujourdhui: string): Progress {
     tropheesAcquis: lireTropheesAcquis(o.tropheesAcquis),
     /* Les devinettes et les contes lus : absents d'un export plus ancien, rien n'est lu. */
     devinettes: listeDeCaracteres(o.devinettes),
+    devinetteDuJour: lireDevinetteDuJour(o.devinetteDuJour),
     contesLus: lireContesLus(o.contesLus)
   };
 }

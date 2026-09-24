@@ -54,6 +54,9 @@ import {
   steps,
   contesLus,
   devinettesResolues,
+  conclureDevinette,
+  devinetteFaite,
+  poserDevinette,
   noterConteLu,
   noterDevinette,
   noterTrophees,
@@ -1051,6 +1054,43 @@ describe('le suivi des trophées dans la progression', () => {
     expect(devinettesResolues(p)).toBe(2);
     expect(noterDevinette(p, '')).toBe(p);
     expect(fromJSON(toJSON(p), JOUR).devinettes).toEqual(['gao', 'ming']);
+  });
+
+  it('pose une seule devinette par jour, et la garde même si une autre se proposerait', () => {
+    let p = poserDevinette(neuf(), JOUR, '明');
+    expect(p.devinetteDuJour).toEqual({ jour: JOUR, id: '明', issue: 'posee' });
+    expect(poserDevinette(p, JOUR, '好')).toBe(p);
+    expect(devinetteFaite(p, JOUR)).toBe(false);
+    /* Le lendemain, une autre peut se poser. */
+    p = poserDevinette(p, '2026-03-03', '好');
+    expect(p.devinetteDuJour?.id).toBe('好');
+  });
+
+  it('range une devinette résolue pour la lanterne, et une montrée ne compte pas', () => {
+    let p = conclureDevinette(poserDevinette(neuf(), JOUR, '明'), JOUR, '明', true);
+    expect(p.devinettes).toEqual(['明']);
+    expect(p.devinetteDuJour?.issue).toBe('resolue');
+    expect(devinetteFaite(p, JOUR)).toBe(true);
+    /* Déjà conclue aujourd'hui : rejouer ne la change pas. */
+    expect(conclureDevinette(p, JOUR, '明', false)).toBe(p);
+    let q = conclureDevinette(poserDevinette(neuf(), JOUR, '好'), JOUR, '好', false);
+    expect(q.devinettes).toEqual([]);
+    expect(q.devinetteDuJour?.issue).toBe('montree');
+    expect(devinetteFaite(q, JOUR)).toBe(true);
+    expect(devinetteFaite(q, '2026-03-03')).toBe(false);
+    /* Une autre que celle posée ce jour-là ne se conclut pas. */
+    q = poserDevinette(neuf(), JOUR, '好');
+    expect(conclureDevinette(q, JOUR, '明', true)).toBe(q);
+    for (const texte of [toJSON(p), JSON.stringify(p)]) {
+      expect(fromJSON(texte, JOUR).devinetteDuJour).toEqual(p.devinetteDuJour);
+    }
+  });
+
+  it('relit une devinette du jour absente ou aberrante comme aucune', () => {
+    for (const v of [undefined, null, 'x', { jour: 'hier', id: '明', issue: 'posee' }, { jour: JOUR, id: '', issue: 'posee' }, { jour: JOUR, id: '明', issue: 'ratee' }]) {
+      const texte = JSON.stringify({ ...neuf(), devinetteDuJour: v });
+      expect(fromJSON(texte, JOUR).devinetteDuJour).toBeNull();
+    }
   });
 
   it('compte les contes lus, une fois par conte et par seuil', () => {
