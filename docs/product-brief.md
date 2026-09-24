@@ -50,7 +50,7 @@ Positionnement : l'arbre étymologique qui apprend à lire, conforme aux seuils 
 
 ## 6. Structure de l'app
 
-Une maison, une ligne, des détours. Le menu est la maison : tout en part, tout y revient. La session est la ligne : ses pas s'enchaînent sans repasser par le menu. Réviser, Jouer, Lire, Ma forêt et Réglages sont les détours, et aucun ne dérègle la session. Il n'y a pas de barre d'onglets.
+Une maison, une ligne, des détours. Le menu est la maison : tout en part, tout y revient. La session est la ligne : ses pas s'enchaînent sans repasser par le menu. Réviser, Jouer, Lire, Ma forêt, Chercher et Réglages sont les détours, et aucun ne dérègle la session. Il n'y a pas de barre d'onglets.
 
 Ouverture : le logo s'écrit (1,6 s), puis l'anecdote du jour, qui compte comme le pas 1, Ouvrir, puis le menu. Au tout premier lancement, la première session passe avant tout : 人, 大, 天, puis lire 天天. Quatre minutes, un mot lu. Deux questions ensuite (objectif, rythme). On arrive alors sur le menu, la journée faite : la première graine est plantée, la session complète commence le lendemain.
 
@@ -58,7 +58,7 @@ Ouverture : le logo s'écrit (1,6 s), puis l'anecdote du jour, qui compte comme 
 
 Il tient sur un écran de téléphone, sans défiler.
 
-- En-tête : la marque, puis Réglages, par une icône.
+- En-tête : la marque, puis Chercher (une loupe) et Réglages, par deux icônes. Pendant une fête, le vœu prend la place de la marque ; les icônes restent.
 - La carte du jour : le caractère dans son 米字格, dessiné depuis les traits, la brique nouvelle en cinabre ; son pinyin, qui se fait entendre ; son sens et sa décomposition (亻 + 主). Toucher le caractère le réécrit au pinceau et le prononce.
 - Le chemin : six coups de pinceau, un par pas (faits en jade, en cours à l'encre, à venir en filet). Tao marche sur le pas en cours et dit une phrase qui dépend de l'état de la journée ; la toucher la fait sauter et changer de phrase. Dessous, « Pas 2 sur 6 · Échauffer » et la durée.
 - Un seul bouton plein : « Commencer la session », « Reprendre au pas 3 ». La journée faite, il devient « Une session de plus · une brique », en contour.
