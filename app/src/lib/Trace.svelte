@@ -77,7 +77,7 @@
           padding: 24,
           showOutline: true,
           strokeColor: couleur('--ink'),
-          outlineColor: couleur('--line'),
+          outlineColor: couleur('--guide') || couleur('--line'),
           radicalColor: null,
           highlightColor: couleur('--zhu'),
           drawingColor: couleur('--indigo'),

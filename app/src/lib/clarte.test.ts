@@ -120,6 +120,14 @@ describe("un tracé indisponible dit quoi faire, sans mot d'atelier", () => {
   });
 });
 
+describe('le tracé en mode sombre : le gabarit reste visible', () => {
+  it('le gabarit a sa couleur, plus claire que le trait de séparation en sombre', () => {
+    const css = source('tokens.css');
+    expect(css).toContain(':root[data-theme="dark"]{ --guide:#5E554B }');
+    expect(source('Trace.svelte')).toContain("outlineColor: couleur('--guide')");
+  });
+});
+
 describe('la chaîne : la limite de trois minutes ne ferme pas le tour en cours', () => {
   const echoir = corps(source('Game.svelte'), 'echoir');
 

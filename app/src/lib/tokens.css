@@ -518,3 +518,7 @@ h1{font-family:var(--head);font-weight:700;font-size:30px;line-height:1.15;lette
 .tn .hit{fill:transparent;stroke:none}
 /* les sélecteurs des réglages : un choix sur deux lignes reste centré dans sa case */
 .seg button{text-align:center;line-height:1.25}
+/* le gabarit gris du tracé : en sombre, le trait de séparation se perdait sur la carte */
+:root{--guide:#D9D1C2}
+@media (prefers-color-scheme: dark){ :root:not([data-theme="light"]){ --guide:#5E554B } }
+:root[data-theme="dark"]{ --guide:#5E554B }
