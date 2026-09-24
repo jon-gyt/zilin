@@ -1,0 +1,66 @@
+# Mots de CC-CEDICT jamais proposés comme candidats d'une fiche.
+#
+# CC-CEDICT donne, parmi les mots de deux caractères lisibles un jour donné, de
+# l'argot, des termes de mahjong, des mots rares ou spécialisés et des fragments
+# de locution. Une fiche ne doit pas les faire lire à un débutant : ils sortent
+# de la liste des candidats (`fiches.Corpus.candidats`), et une fiche sans assez
+# de bons candidats garde moins de deux mots — un écart signalé à la relecture.
+#
+# Relevés par les rédacteurs des fiches du seuil 255, puis à l'harmonisation.
+# Seul le mot est lu ici ; aucune définition de CC-CEDICT n'est reprise
+# (docs/sources-licences.md §4.2).
+#
+# Format : `#` en commentaire ; deux colonnes séparées par une tabulation :
+# le mot, la raison.
+#
+# Argot, injures, familiarités d'internet
+懂哥	argot d'internet
+男大	argot d'internet (abréviation)
+吧女	argot, péjoratif
+毛子	péjoratif, vieilli (les Russes)
+么么	onomatopée familière d'internet (bisou)
+心累	néologisme familier
+我去	interjection d'argot
+工口	argot, emprunt au japonais, lu hors de ses caractères
+东东	argot d'internet (un truc)
+亲们	argot d'internet (formule d'adresse)
+为毛	argot d'internet (pour 为什么)
+小三	argot (la maîtresse)
+三八	injure, ou abréviation de date
+王八	injure
+高冷	argot d'internet
+# Mahjong
+天和	terme de mahjong
+地和	terme de mahjong
+# Mots rares, spécialisés, régionaux ou inconnus
+羊男	rare, sens incertain
+目语	rare
+新丁	rare, régional
+打新	terme de bourse
+西冷	nom propre ou emprunt (surlonge), rare
+冷字	rare
+字图	rare
+名学	terme savant (logique ancienne)
+巴先	rare, sens incertain
+念日	sens inconnu
+子京	nom propre
+李木	rare (le prunier se dit 李树)
+给水	terme technique (adduction d'eau)
+毛口	terme technique rare
+好去	formule ancienne, rare
+古早	régionalisme de Taïwan
+十干	terme savant (les dix troncs célestes se disent 天干)
+西西	emprunt d'unité (cc), rare
+呢子	terme de draperie, rare pour un débutant
+花呢	terme de draperie, rare pour un débutant
+累累	littéraire (léiléi)
+我人	littéraire, rare
+# Fragments de locution
+人从	fragment, sens incertain
+干么	variante graphique de 干吗
+那知	fragment (那知道)
+吗哪	fragment, ou transcription de « manne »
+得很	fragment (suffixe d'adjectif)
+不很	fragment de phrase
+干儿	fragment (干儿子)
+老几	fragment (排行老几)

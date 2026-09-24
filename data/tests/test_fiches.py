@@ -447,6 +447,25 @@ def test_validation_refuse_plus_de_deux_mots(corpus) -> None:
     assert "3 mots au lieu de 2 au plus" in rapport.refus
 
 
+def test_mots_exclus_jamais_candidats(table) -> None:
+    """Argot, mahjong, mots rares, fragments : `mots-exclus.tsv` les retire des candidats."""
+    exclu = Corpus(
+        parcours="lire",
+        jours=JOURS,
+        decompositions=DECOMPOSITIONS,
+        noeuds=NOEUDS,
+        caracteres=CARACTERES,
+        mots=MOTS,
+        table=table,
+        exclus={"问住"},
+    )
+    assert {m.hanzi for m in exclu.candidats("住")} == {"住口"}
+    # Une fiche qui garde le mot exclu est refusée : il n'est plus candidat.
+    contexte = exclu.contexte("住")
+    fiche = lire_reponse(CONFORME, contexte=contexte, generation=generation_de_test())
+    assert valider(fiche, contexte).mots_hors_candidats == ["问住"]
+
+
 def test_le_depart_se_lit_avec_toute_la_premiere_session(table) -> None:
     """人, 大, 天 sont posés ensemble par la première session : chacun a les trois acquis."""
     jours = [
@@ -467,6 +486,43 @@ def test_le_depart_se_lit_avec_toute_la_premiere_session(table) -> None:
     assert depart.acquis("人") == depart.acquis("口") == ("人", "口")
     assert depart.jour("人") == 1
     assert depart.acquis("问") == ("人", "口", "门", "问")
+
+
+def test_charger_corpus_applique_les_surcharges(tmp_path: Path, monkeypatch) -> None:
+    """Le pinyin de la surcharge remplace celui de Make Me a Hanzi ; les mots exclus sortent."""
+    from wenlu_data import surcharges
+
+    build = tmp_path / "build"
+    ingest = tmp_path / "ingest"
+    build.mkdir()
+    ingest.mkdir()
+    (build / "parcours-lire.json").write_text(
+        json.dumps({"jours": JOURS, "depart": ["人"]}, ensure_ascii=False), encoding="utf-8"
+    )
+    (build / "decompositions.json").write_text(
+        json.dumps({"caracteres": list(DECOMPOSITIONS.values())}, ensure_ascii=False), encoding="utf-8"
+    )
+    (build / "graphe.json").write_text(
+        json.dumps({"noeuds": list(NOEUDS.values())}, ensure_ascii=False), encoding="utf-8"
+    )
+    (ingest / "caracteres.json").write_text(
+        json.dumps(list(CARACTERES.values()), ensure_ascii=False), encoding="utf-8"
+    )
+    (ingest / "mots.json").write_text(
+        json.dumps([{"simplifie": m.hanzi, "pinyin": m.pinyin} for m in MOTS], ensure_ascii=False),
+        encoding="utf-8",
+    )
+    lectures = tmp_path / "pinyin.tsv"
+    lectures.write_text("住\tzhù zhǔ\tlecture de test\n", encoding="utf-8")
+    exclus = tmp_path / "exclus.tsv"
+    exclus.write_text("问住\tmot de test\n", encoding="utf-8")
+    monkeypatch.setattr(surcharges, "PINYIN", lectures)
+    monkeypatch.setattr(surcharges, "MOTS_EXCLUS", exclus)
+
+    corpus = fiches.charger_corpus(build=build, ingest=ingest)
+    assert corpus.contexte("住").pinyin == ("zhù", "zhǔ")
+    assert {m.hanzi for m in corpus.candidats("住")} == {"住口"}
+    assert corpus.depart == ("人",)
 
 
 # --------------------------------------------------------------------------- génération

@@ -49,7 +49,7 @@ import hashlib
 import json
 from dataclasses import dataclass, field, replace
 from pathlib import Path
-from typing import Callable, Iterable, Mapping, Optional, Sequence
+from typing import Callable, Collection, Iterable, Mapping, Optional, Sequence
 
 import typer
 
@@ -72,7 +72,7 @@ from .fonts import PONCTUATION_CHINOISE
 from .gf0014 import Controle, TableGF0014, charger_table
 from .ingest import charger_liste, est_sinogramme
 from .paths import BUILD, DATA, FICHES_WORK, INGEST, LISTES, RACINE, WORK
-from .surcharges import charger_pinyin
+from .surcharges import charger_mots_exclus, charger_pinyin
 
 
 #: Au plus trois appels pour une même fiche.
@@ -197,6 +197,7 @@ class Corpus:
         table: TableGF0014,
         *,
         max_candidats: int = MAX_CANDIDATS,
+        exclus: Collection[str] = (),
         depart: Sequence[str] = (),
     ) -> None:
         if parcours not in PARCOURS:
@@ -230,8 +231,13 @@ class Corpus:
             for c in self.depart:
                 self._acquis[c] = fin
 
+        self.exclus = frozenset(exclus)
         self._mots: list[MotCandidat] = [
-            m for m in mots if len(m.hanzi) == 2 and not _pinyin_de_nom_propre(m.pinyin)
+            m
+            for m in mots
+            if len(m.hanzi) == 2
+            and not _pinyin_de_nom_propre(m.pinyin)
+            and m.hanzi not in self.exclus
         ]
 
     def __contains__(self, c: object) -> bool:
@@ -258,7 +264,9 @@ class Corpus:
         """Mots de deux caractères contenant `c`, entièrement lisibles ce jour-là.
 
         Un mot n'est candidat que si ses deux caractères sont déjà vus : la fiche
-        ne fait jamais lire ce qui n'a pas été posé.
+        ne fait jamais lire ce qui n'a pas été posé. Les mots de
+        `data/sources/mots-exclus.tsv` (argot, mahjong, mots rares, fragments de
+        locution) ne le sont jamais.
         """
         lisibles = set(self.acquis(c))
         retenus: dict[str, MotCandidat] = {}
@@ -334,8 +342,9 @@ def charger_corpus(
 ) -> Corpus:
     """Charge le corpus depuis `data/work/build/` et `data/work/ingest/`.
 
-    Le pinyin de `data/sources/surcharges/pinyin.tsv` y remplace celui de Make Me
-    a Hanzi.
+    Deux surcharges versionnées s'y appliquent : le pinyin de
+    `data/sources/surcharges/pinyin.tsv` remplace celui de Make Me a Hanzi, et les
+    mots de `data/sources/mots-exclus.tsv` ne sont jamais candidats.
     """
     if parcours not in PARCOURS:
         raise ParcoursInconnu(f"parcours {parcours!r} inconnu : {', '.join(PARCOURS)}")
@@ -359,6 +368,7 @@ def charger_corpus(
         },
         mots=charger_mots(ingest / "mots.json"),
         table=table or charger_table(),
+        exclus=charger_mots_exclus(),
         depart=[str(c) for c in (chemin_parcours.get("depart") or [])],
     )
 

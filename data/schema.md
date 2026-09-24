@@ -450,8 +450,10 @@ Assemblé par `fiches.Corpus` depuis `decompositions.json`, `graphe.json`,
   indice à vérifier, à ne ni traduire ni recopier (`docs/sources-licences.md` §2.2) ;
 - les mots candidats : mots de deux caractères de CC-CEDICT contenant le caractère et
   dont tous les caractères sont déjà vus au jour du parcours, avec leur pinyin et rien
-  d'autre. Les entrées au pinyin capitalisé (noms propres) sont écartées. La définition
-  anglaise n'est jamais lue ni transmise (`docs/sources-licences.md` §4.2) ;
+  d'autre. Les entrées au pinyin capitalisé (noms propres) sont écartées, et celles de
+  `data/sources/mots-exclus.tsv` (`mot`, `raison` : argot, termes de mahjong, mots rares
+  ou spécialisés, fragments de locution). La définition anglaise n'est jamais lue ni
+  transmise (`docs/sources-licences.md` §4.2) ;
 - les caractères acquis à ce jour, caractère du jour compris : les seuls autorisés dans
   la phrase. Pour un caractère du départ, ceux de toute la première session, qui les
   pose ensemble : 人, 大 et 天 ont chacun les trois.

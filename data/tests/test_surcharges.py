@@ -209,3 +209,13 @@ def _feuilles(noeud: object) -> list[str]:
         return [noeud]
     _, enfants = noeud  # type: ignore[misc]
     return [f for e in enfants for f in _feuilles(e)]
+
+
+def test_les_mots_exclus_du_depot() -> None:
+    exclus = surcharges.charger_mots_exclus(reelles("MOTS_EXCLUS"))
+    for mot in (
+        "懂哥 地和 天和 男大 羊男 目语 新丁 打新 那知 吗哪 西冷 高冷 冷字 字图 名学 巴先 "
+        "么么 干么 吧女 毛子 念日 子京 人从 李木 好去 给水 毛口 得很 不很 心累 累累"
+    ).split():
+        assert mot in exclus, mot
+    assert all(raison for raison in exclus.values())
