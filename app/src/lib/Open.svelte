@@ -96,7 +96,7 @@
   </div>
 
   <div class="foot">
-    <button class="btn" onclick={oncontinuer}>Commencer la journée</button>
+    <button class="btn" onclick={oncontinuer}>Continuer</button>
   </div>
 </main>
 

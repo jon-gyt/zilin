@@ -65,7 +65,7 @@
     onretour: () => void;
   } = $props();
 
-  const OU = { home: "Revenir au chemin", foret: 'Revenir à ma forêt' };
+  const OU = { home: 'Revenir au menu', foret: 'Revenir à ma forêt' };
 
   /** Pas de flash pour qui ne veut pas d'animation : les caractères restent affichés. */
   const reduit =
