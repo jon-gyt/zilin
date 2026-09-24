@@ -137,6 +137,8 @@
   let depart = $state(0);
   let reste = $state(1);
   let cache = $state(false);
+  /** Les jumeaux : la paire a-t-elle été montrée ? Avant, on lit la question, rien ne presse. */
+  let montre = $state(true);
   /** Ce qui a été répondu au tour courant : la correction montre où l'on s'est trompé. */
   let donnee = $state<string[]>([]);
   /** La coquille : le rang de la case touchée dans le message. */
@@ -202,16 +204,29 @@
     const id = courante?.jeu ?? null;
     if (id === null || courante === null || fini(courante)) return;
     const chrono = JEUX[id].chrono;
-    /* Le flash : la paire paraît 700 ms, puis les caractères se couvrent. Sans
-       animation demandée, ils restent affichés : l'écran est fixe, jamais de flash. */
-    cache = false;
-    if (id === 'jumeaux' && !reduit) flash = setTimeout(() => (cache = true), FLASH_MS);
+    /* Les jumeaux : la paire reste couverte tant qu'on n'a pas lu la question. Le flash
+       ne part qu'au tap sur « Montrer » (`montrer`), jamais tout seul. */
+    montre = id !== 'jumeaux';
+    cache = id === 'jumeaux';
     if (chrono > 0) {
       horloge = setInterval(() => {
         reste = Math.max(0, 1 - (Date.now() - depart) / chrono);
         if (reste === 0) valider([]);
       }, 100);
     }
+  }
+
+  /**
+   * Les jumeaux, au tap : la paire paraît 700 ms, puis les caractères se couvrent. Sans
+   * animation demandée, ils restent affichés : l'écran est fixe, jamais de flash. Le temps
+   * de réponse part d'ici : lire la question ne compte pas.
+   */
+  function montrer(): void {
+    if (montre || resultat !== null) return;
+    montre = true;
+    cache = false;
+    depart = Date.now();
+    if (!reduit) flash = setTimeout(() => (cache = true), FLASH_MS);
   }
 
   /** Prépare la manche dès que le jeu change, et pas deux fois la même. */
@@ -493,8 +508,8 @@
             <button
               class:ok={resultat !== null && c === t.reponse[0]}
               class:ko={resultat !== null && !resultat.correct && donnee[0] === c}
-              disabled={resultat !== null}
-              aria-label={c}
+              disabled={resultat !== null || !montre}
+              aria-label={montre ? c : 'caractère couvert'}
               onclick={() => valider([c])}
             >
               <span class="flash" class:cache>
@@ -503,7 +518,9 @@
             </button>
           {/each}
         </div>
-        {#if cache && resultat === null}
+        {#if !montre}
+          <p class="k">Lis la question, puis touche « Montrer » : les deux caractères paraissent un instant.</p>
+        {:else if cache && resultat === null}
           <p class="k">Les deux caractères se sont couverts. Lequel était-ce ?</p>
         {/if}
       {/if}
@@ -518,9 +535,14 @@
     </div>
 
     <div class="foot">
-      <button class="btn" disabled={resultat === null} onclick={suivant}>
-        {resultat !== null && (fini(resultat.manche) || echue) ? 'Voir le constat' : 'Suivant'}
-      </button>
+      {#if !montre}
+        <!-- Les jumeaux : le flash part quand on est prêt, pas avant. -->
+        <button class="btn" onclick={montrer}>Montrer</button>
+      {:else}
+        <button class="btn" disabled={resultat === null} onclick={suivant}>
+          {resultat !== null && (fini(resultat.manche) || echue) ? 'Voir le constat' : 'Suivant'}
+        </button>
+      {/if}
     </div>
   {:else}
     <div class="mood">
