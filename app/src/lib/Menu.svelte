@@ -53,6 +53,7 @@
   import { caracteresLus } from './foret';
   import { glyph, type StrokeData } from './glyph';
   import { MINUTES_MAX, MINUTES_MIN, devinetteAAnnoncer, propose } from './jeux';
+  import { ANNONCE_LETTRE, lettreAnnoncee } from './lettres';
   import { caseReviser, carteDuMenu, menu, traitsDeLAjout } from './parcours';
   import { familleDepart, fichesDepart } from './premiere';
   import { cartesDues, type Progress } from './session';
@@ -260,6 +261,8 @@
       return devinetteAAnnoncer(p, devinettes) ? 'La devinette du jour' : `${MINUTES_MIN} à ${MINUTES_MAX} minutes`;
     }
     if (id === 'lire') {
+      /* La semaine où une lettre de Que arrive, la case Lire l'annonce, sobrement. */
+      if (lettreAnnoncee(p.lettres, p.day)) return ANNONCE_LETTRE;
       if (contes === null) return '';
       return contes > 0 ? `${contes} conte${contes > 1 ? 's' : ''}` : 'Les contes arrivent';
     }
