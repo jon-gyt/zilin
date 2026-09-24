@@ -156,8 +156,9 @@ export function briques(f: Famille | null): string[] {
 
 /**
  * Le jour du parcours où la session complète reprend après la première session. Le
- * pipeline ouvre le parcours « Lire » par ce qu'elle enseigne, un jour par brique (人, 大,
- * 天 : `DEPART` de `data/src/wenlu_data/graphe.py`) ; ces jours, déjà faits, sont passés,
+ * pipeline ouvre chaque parcours, « Lire » comme « Passer le HSK », par ce qu'elle
+ * enseigne, un jour par brique (人, 大, 天 : `DEPART` de `data/src/wenlu_data/graphe.py`) ;
+ * ces jours, déjà faits, sont passés,
  * pour que rien ne soit enseigné deux fois. Le premier jour qui pose autre chose est celui
  * de la prochaine session. Un parcours qui ne commence pas par eux reprend au jour 1.
  */

@@ -69,11 +69,7 @@
   }));
   const FEUILLES_SAULE = chute(5, [15, 22], 70, [0.6, 0.9]);
 
-  /** 端午 : deux bateaux qui passent au pied de l'écran, des feuilles de roseau qui tombent. */
-  const BATEAUX = [
-    { style: 'bottom:34px;--d:46s;--w:-6s;--k:1' },
-    { style: 'bottom:12px;--d:62s;--w:-38s;--k:.8' }
-  ];
+  /** 端午 : des feuilles de roseau qui tombent. */
   const ROSEAUX = chute(5, [16, 24], 60, [0.5, 0.8]);
 
   /** 七夕 : les pies du pont, en vol, ailes bout à bout sur un arc ; Que 雀 au sommet. */
@@ -164,12 +160,13 @@
    * Le décor de fête : un calque derrière tout l'écran, jamais cliquable, muet pour les
    * lecteurs d'écran, et coupé quand l'utilisateur réduit les animations.
    *
-   * - 春节 : des fleurs de prunier qui tombent.
+   * - 春节 : des fleurs de prunier qui tombent, et la danse du dragon qui passe au pied de
+   *   l'écran (`Dragon`).
    * - 元宵 : des lanternes pendues aux bords, chacune avec sa devinette 灯谜, et des papiers
    *   de devinettes qui descendent.
    * - 清明 : la pluie fine en biais, un saule dans le coin, un cerf-volant qui flotte.
-   * - 端午 : l'eau au pied de l'écran, deux bateaux sans tête qui passent, l'armoise 艾
-   *   pendue au coin, des feuilles de roseau.
+   * - 端午 : l'eau au pied de l'écran, deux bateaux-dragons qui font la course (`Dragon`),
+   *   l'armoise 艾 pendue au coin, des feuilles de roseau.
    * - 七夕 : la Voie lactée en aplat, les étoiles, Véga et Altaïr de chaque côté, et un vol
    *   de pies en arc — le pont —, avec Que 雀, le moineau, au milieu.
    * - 中秋 : les étoiles, les collines et la pagode, les lanternes célestes, l'osmanthe.
@@ -193,10 +190,12 @@
    * - `saison` : l'ambiance du terme solaire, ou `null`. Ignorée un jour de fête : la fête a
    *   priorité. Sans l'une ni l'autre, aucun décor.
    *
-   * Aplats seulement : ni ombre, ni dégradé, ni doré, et pas de bête sur les bateaux (CLAUDE.md). Les couleurs viennent
-   * des blocs `[data-fete]` de `tokens.css`.
+   * Aplats seulement : ni ombre, ni dégradé, ni doré. Le dragon ne sort pas des branches du
+   * Nouvel An et de 端午 (CLAUDE.md). Les couleurs viennent des blocs `[data-fete]` de
+   * `tokens.css`.
    */
   import type { FeteId } from './content';
+  import Dragon from './Dragon.svelte';
 
   let { fete, saison = null }: { fete: FeteId | null; saison?: string | null } = $props();
 </script>
@@ -214,6 +213,7 @@
           </svg>
         </i>
       {/each}
+      <Dragon sorte="danse" />
     {:else if fete === 'zhongqiu'}
       <!-- les collines et la pagode éclairée, au pied de l'écran -->
       <svg class="scene" viewBox="0 0 400 150" preserveAspectRatio="xMidYMax slice">
@@ -331,28 +331,16 @@
           <svg width="8" height="20" viewBox="0 0 8 20"><path d="M4 0q5 10 0 20q-5-10 0-20z" fill="var(--roseau-clair)" /></svg>
         </i>
       {/each}
-      <svg class="scene" viewBox="0 0 400 150" preserveAspectRatio="xMidYMax slice">
-        <path d="M0 104q25-8 50 0t50 0t50 0t50 0t50 0t50 0t50 0t50 0V150H0z" fill="var(--eau-clair)" />
-      </svg>
-      <!-- deux bateaux : une coque, un fanion, des rameurs. Ni tête ni queue de bête. -->
-      {#each BATEAUX as b, i (i)}
-        <s class="bateau" style={b.style}>
-          <svg width="96" height="34" viewBox="0 0 96 34">
-            <path d="M16 18V2l12 5l-12 5" fill="var(--bateau-bande)" />
-            <path d="M2 22h92q-5 10-14 12H16q-9-2-14-12z" fill="var(--bateau)" />
-            <path d="M5 25.5h86" stroke="var(--bateau-bande)" stroke-width="2" />
-            <g fill="var(--ink)">
-              {#each [32, 44, 56, 68, 80] as x (x)}<circle cx={x} cy="16.5" r="3" />{/each}
-            </g>
-            <g stroke="var(--ink)" stroke-width="1.6" stroke-linecap="round">
-              {#each [32, 44, 56, 68, 80] as x (x)}<path class="rame" d="M{x} 19l-8 14" />{/each}
-            </g>
-          </svg>
-        </s>
-      {/each}
-      <svg class="scene eau" viewBox="0 0 400 60" preserveAspectRatio="xMidYMax slice">
-        <path d="M0 30q20-7 40 0t40 0t40 0t40 0t40 0t40 0t40 0t40 0t40 0t40 0V60H0z" fill="var(--eau)" />
-      </svg>
+      <!-- la rivière : l'eau claire au loin, les bateaux-dragons, l'eau du premier plan -->
+      <div class="riviere">
+        <svg class="scene" viewBox="0 0 400 150" preserveAspectRatio="xMidYMax slice">
+          <path d="M0 104q25-8 50 0t50 0t50 0t50 0t50 0t50 0t50 0t50 0V150H0z" fill="var(--eau-clair)" />
+        </svg>
+        <Dragon sorte="bateau" />
+        <svg class="scene eau" viewBox="0 0 400 60" preserveAspectRatio="xMidYMax slice">
+          <path d="M0 30q20-7 40 0t40 0t40 0t40 0t40 0t40 0t40 0t40 0t40 0t40 0V60H0z" fill="var(--eau)" />
+        </svg>
+      </div>
     {:else if fete === 'qixi'}
       <!-- la Voie lactée 银河, un aplat en biais d'un coin à l'autre -->
       <svg class="ciel" viewBox="0 0 100 100" preserveAspectRatio="none">
@@ -595,22 +583,15 @@
   .eau {
     height: 60px;
   }
-  .bateau {
+  .riviere {
     position: absolute;
-    left: 0;
-    line-height: 0;
-    text-decoration: none;
-    animation: traverse var(--d) linear var(--w) infinite;
+    inset: 0;
   }
-  .bateau svg {
-    width: calc(96px * var(--k));
-    height: calc(34px * var(--k));
-    animation: tangue 2.6s ease-in-out infinite alternate;
-  }
-  .rame {
-    transform-box: fill-box;
-    transform-origin: 100% 0;
-    animation: rame 1.2s ease-in-out infinite alternate;
+  /* un écran court : la rivière descend dans la bande libre sous les cases */
+  @media (max-height: 740px) {
+    .riviere {
+      transform: translateY(27px);
+    }
   }
 
   /* ---- 七夕 ---- */
@@ -753,14 +734,6 @@
   @keyframes traverse {
     from { transform: translateX(-180px); }
     to { transform: translateX(calc(100vw + 20px)); }
-  }
-  @keyframes tangue {
-    from { transform: translateY(0) rotate(-1.5deg); }
-    to { transform: translateY(-3px) rotate(1.5deg); }
-  }
-  @keyframes rame {
-    from { transform: rotate(-14deg); }
-    to { transform: rotate(14deg); }
   }
   @keyframes bat {
     from { transform: scaleY(1); }

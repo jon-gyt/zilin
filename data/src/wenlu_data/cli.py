@@ -123,7 +123,7 @@ app.command(name="fonts")(_fonts)
 
 @app.command()
 def check() -> None:
-    """Contrôles : composants inconnus, cycles, graphe, listes, briques muettes, contes hors liste, fiches invalides, textes sans audio, export à jour, fêtes, termes solaires, devinettes."""
+    """Contrôles : composants inconnus, cycles, graphe, listes, briques muettes, contes hors liste, fiches invalides, rôle son loin de la lecture moderne, textes sans audio, export à jour, fêtes, termes solaires, devinettes."""
     from .audio import controles as controles_audio
     from .contes import controles as controles_contes
     from .devinettes import controles as controles_devinettes
@@ -132,6 +132,7 @@ def check() -> None:
     from .fiches import controles as controles_fiches
     from .gf0014 import controles
     from .graphe import controles as controles_graphe
+    from .phonetiques import controles as controles_phonetiques
     from .saisons import controles as controles_saisons
 
     bloquants = []
@@ -140,6 +141,7 @@ def check() -> None:
         *controles_graphe(),
         *controles_contes(),
         *controles_fiches(),
+        *controles_phonetiques(),
         *controles_audio(),
         *controles_export(),
         *controles_fetes(),

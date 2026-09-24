@@ -244,7 +244,8 @@ describe('la charte des ambiances', () => {
 
   it('pas de dragon, même à 惊蛰', () => {
     for (const t of Object.values(saisons.termes)) expect(JSON.stringify(t)).not.toMatch(/dragon|龙/i);
-    expect(decor).not.toMatch(/dragon|龙/i);
+    /* le dragon n'est qu'au Nouvel An et à 端午 : jamais dans les ambiances des termes */
+    expect(decor.slice(decor.indexOf('{:else if saison}'), decor.indexOf('<style>'))).not.toMatch(/dragon|龙/i);
   });
 });
 

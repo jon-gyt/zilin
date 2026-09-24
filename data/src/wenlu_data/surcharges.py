@@ -1,4 +1,4 @@
-"""Surcharges versionnées des sources téléchargées : pinyin, IDS, mots exclus.
+"""Surcharges versionnées des sources téléchargées : pinyin, IDS, mots exclus, phonétiques.
 
 Les sources brutes (`data/work/sources/`) ne se corrigent jamais sur place : elles
 sont retéléchargées, et leur empreinte fait foi. Une erreur relevée dans une source
@@ -21,6 +21,10 @@ Trois fichiers, tous en TSV, `#` en commentaire, une raison obligatoire par lign
   point de code de notation que la source emploie, et qui porte ses tracés, est le
   composant que la norme écrit autrement : ⺮ est 𥫗 (竹头). La feuille garde la
   forme de la source et prend le nom de la norme ; rien n'est renommé.
+- `data/sources/surcharges/phonetiques.tsv` : `c`, `phonetique`, `raison`. Le
+  caractère dont un composant de rôle `son` écrit la phonétique, quand le contrôle
+  du rôle son (`phonetiques.py`) ne peut pas le retrouver seul dans la
+  décomposition : 又 réduit à 𠂇 dans 有, 辛 posé sur 木 dans 新.
 - `data/sources/mots-exclus.tsv` : `mot`, `raison`. Mots de CC-CEDICT qui ne sont
   jamais proposés comme candidats d'une fiche : argot, termes de mahjong, mots
   rares ou spécialisés, fragments de locution.
@@ -43,6 +47,7 @@ SURCHARGES = DATA / "sources" / "surcharges"
 PINYIN = SURCHARGES / "pinyin.tsv"
 IDS = SURCHARGES / "ids.tsv"
 EQUIVALENCES = SURCHARGES / "equivalences.tsv"
+PHONETIQUES = SURCHARGES / "phonetiques.tsv"
 MOTS_EXCLUS = DATA / "sources" / "mots-exclus.tsv"
 
 #: La source d'IDS que porte une décomposition tirée de `ids.tsv`.
@@ -143,6 +148,21 @@ def parse_equivalences(texte: Iterable[str], nom: str = "equivalences.tsv") -> d
     return table
 
 
+def parse_phonetiques(texte: Iterable[str], nom: str = "phonetiques.tsv") -> dict[str, str]:
+    """`c` → le caractère que ses composants de rôle `son` écrivent, un caractère chacun."""
+    table: dict[str, str] = {}
+    for ligne in _lignes(texte, 3, nom):
+        c, phonetique, _raison = ligne.colonnes
+        if len(c) != 1 or len(phonetique) != 1 or c == phonetique:
+            raise SurchargeInvalide(
+                f"{nom}, ligne {ligne.numero} : deux caractères distincts attendus ({c}, {phonetique})"
+            )
+        if c in table:
+            raise SurchargeInvalide(f"{nom}, ligne {ligne.numero} : {c} a déjà une ligne")
+        table[c] = phonetique
+    return table
+
+
 def parse_mots_exclus(texte: Iterable[str], nom: str = "mots-exclus.tsv") -> dict[str, str]:
     """`mot` → raison de l'exclusion."""
     table: dict[str, str] = {}
@@ -167,6 +187,11 @@ def charger_ids(chemin: Path | None = None) -> dict[str, str]:
 def charger_equivalences(chemin: Path | None = None) -> dict[str, str]:
     chemin = chemin or EQUIVALENCES
     return parse_equivalences(_lire(chemin), chemin.name)
+
+
+def charger_phonetiques(chemin: Path | None = None) -> dict[str, str]:
+    chemin = chemin or PHONETIQUES
+    return parse_phonetiques(_lire(chemin), chemin.name)
 
 
 def charger_mots_exclus(chemin: Path | None = None) -> dict[str, str]:

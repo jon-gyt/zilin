@@ -7,12 +7,23 @@ import { FETES, type FeteId } from './content';
 
 const source = (f: string): string => readFileSync(new URL(f, import.meta.url), 'utf8');
 
+/** Les branches du décor de fête, une par fête : de `{#if fete === 'x'}` à la suivante. */
+function branches(decor: string): Map<string, string> {
+  const gabarit = decor.slice(decor.indexOf('{#if fete}'), decor.indexOf('{:else if saison}'));
+  const morceaux = gabarit.split(/\{(?:#if|:else if) fete === '([a-z]+)'\}/);
+  const m = new Map<string, string>();
+  for (let i = 1; i < morceaux.length; i += 2) m.set(morceaux[i], morceaux[i + 1]);
+  return m;
+}
+
 describe('la charte des fêtes', () => {
   const css = source('tokens.css');
   const decor = source('FeteDecor.svelte');
   const embleme = source('Embleme.svelte');
   const voeu = source('Voeu.svelte');
   const tao = source('Tao.svelte');
+  const dragon = source('Dragon.svelte');
+  const menu = source('Menu.svelte');
 
   it("le décor est derrière tout, jamais cliquable, coupé si l'on réduit les animations", () => {
     expect(decor).toContain('pointer-events: none');
@@ -21,10 +32,10 @@ describe('la charte des fêtes', () => {
     expect(decor).toContain('<div class="deco" aria-hidden="true">');
   });
 
-  it('ni ombre, ni dégradé, ni doré, ni dragon dans les fêtes', () => {
-    for (const s of [decor, embleme, voeu]) {
+  it('ni ombre, ni dégradé, ni doré dans les fêtes', () => {
+    for (const s of [decor, embleme, voeu, dragon]) {
       expect(s).not.toMatch(/gradient|box-shadow|drop-shadow/i);
-      expect(s).not.toMatch(/gold|dragon/i);
+      expect(s).not.toMatch(/gold/i);
     }
   });
 
@@ -105,7 +116,41 @@ describe('la charte des fêtes', () => {
     expect(embleme).toMatch(/\.qixi \.car \{\s*--zhu: #c8371f;/);
   });
 
-  it('les bateaux de 端午 et les pies de 七夕 : ni tête de bête, ni le mot', () => {
-    for (const s of [decor, embleme, voeu, tao, css]) expect(s).not.toMatch(/dragon|龙/i);
+  it("le dragon n'est dessiné qu'au Nouvel An et à 端午 : la danse, puis les bateaux", () => {
+    const b = branches(decor);
+    expect([...b.keys()].sort()).toEqual([...FETES].sort());
+    expect(b.get('chunjie')).toContain('<Dragon sorte="danse" />');
+    expect(b.get('duanwu')).toContain('<Dragon sorte="bateau" />');
+    expect(decor.match(/<Dragon\b/g)).toHaveLength(2);
+    expect(dragon).toContain("let { sorte }: { sorte: 'danse' | 'bateau' } = $props();");
+  });
+
+  it('aucune autre fête ne voit de dragon : ni 元宵, ni les pies de 七夕, ni les autres', () => {
+    for (const [id, branche] of branches(decor)) {
+      if (id === 'chunjie' || id === 'duanwu') continue;
+      expect(branche, id).not.toMatch(/dragon|龙/i);
+    }
+    /* ni dans les tirages du décor, ni dans ses styles : tout le dragon tient dans son composant */
+    expect(decor.slice(0, decor.indexOf('</script>')), 'tirages').not.toMatch(/dragon|龙/i);
+    expect(decor.slice(decor.indexOf('<style>')), 'styles').not.toMatch(/dragon|龙/i);
+  });
+
+  it('hors du décor, jamais de dragon : ni emblème, ni vœu, ni Tao, ni jetons, ni menu', () => {
+    for (const [nom, s] of Object.entries({ embleme, voeu, tao, css, menu })) expect(s, nom).not.toMatch(/dragon|龙/i);
+  });
+
+  it('le dragon prend les pigments de sa fête, jamais le cinabre', () => {
+    expect(dragon).not.toMatch(/--zhu|#C8371F/i);
+    const danse = dragon.slice(dragon.indexOf("{#if sorte === 'danse'}"), dragon.indexOf('{:else}'));
+    const bateau = dragon.slice(dragon.indexOf('{:else}'), dragon.indexOf('<style>'));
+    expect(danse).toContain('var(--fete)');
+    expect(danse).toContain('var(--apricot)');
+    /* le cramoisi reste au Nouvel An et à 元宵 : le bateau de 端午 s'en passe */
+    expect(bateau).not.toContain('var(--fete)');
+    expect(bateau).toContain('var(--bateau-bande)');
+  });
+
+  it("le dragon s'arrête avec le décor si l'on réduit les animations", () => {
+    expect(dragon).toMatch(/prefers-reduced-motion: reduce\)\s*\{[^}]*\.danse[^}]*\.barque[^}]*animation: none;/);
   });
 });

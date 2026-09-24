@@ -451,9 +451,12 @@ caractère a voulu dire autrefois : elle décrit ce que l'on voit dans le caract
 qu'il s'écrit aujourd'hui.
 4. memo_fr et memo_en sont facultatifs : une phrase courte pour retenir, quand elle \
 ajoute quelque chose à l'origine. Sinon, laisse-les vides.
-5. Le rôle de chaque composant fourni, et de lui seul : `son` s'il donne la \
-prononciation, `sens` s'il donne le sens, `forme` s'il ne fait ni l'un ni l'autre — \
-il n'est là que pour le trait, ou son rôle est perdu.
+5. Le rôle de chaque composant fourni, et de lui seul : `son` s'il aide à prononcer \
+le caractère aujourd'hui, c'est-à-dire si la phonétique qu'il écrit se lit en mandarin \
+moderne sur la même syllabe, ton mis à part (妈 mā ← 马 mǎ) ; `sens` s'il donne le \
+sens ; `forme` s'il ne fait ni l'un ni l'autre — il n'est là que pour le trait, ou \
+son rôle est perdu. Une phonétique seulement historique, qui ne sonne plus pareil \
+(说 shuō ← 兑 duì), est `forme` : l'origine peut dire qu'elle donnait autrefois le son.
 6. Les deux mots sont pris dans la liste des mots candidats, écrits exactement comme \
 elle les donne. Un candidat rare, d'argot ou douteux ne se prend pas : mieux vaut un \
 mot de moins, ou aucun. Tu en donnes le pinyin avec les tons, puis une traduction que tu \

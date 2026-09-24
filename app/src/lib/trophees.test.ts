@@ -279,10 +279,9 @@ describe('les contes', () => {
     expect(t[1].suivi).toBe(false);
   });
 
-  it("font une section vide tant que l'export n'en porte aucun", () => {
+  it("comptent un trophée par conte de l'export", () => {
     const s = tableau(progression(), contenuExport).sections.find((x) => x.famille === 'contes')!;
-    expect(indexExport.contes).toEqual([]);
-    expect(s.total).toBe(0);
+    expect(s.total).toBe(indexExport.contes.length);
   });
 });
 

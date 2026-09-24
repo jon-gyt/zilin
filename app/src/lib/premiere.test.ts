@@ -400,7 +400,7 @@ describe('le chargeur du mot', () => {
   });
 });
 
-/* ---------- 8. la suite : le parcours Lire exporté commence par la première session ---------- */
+/* ---------- 8. la suite : chaque parcours exporté commence par la première session ---------- */
 
 /** L'index de l'export versionné, lu sur disque : celui que le pipeline vient d'écrire. */
 const indexExport = JSON.parse(
@@ -485,5 +485,53 @@ describe('le parcours Lire exporté commence par la première session', () => {
       expect(f.parts.length).toBeGreaterThan(0);
       for (const part of f.parts) expect(l.pistes).toContain(part);
     }
+  });
+});
+
+describe('le parcours HSK exporté commence lui aussi par la première session', () => {
+  afterEach(() => {
+    vi.unstubAllGlobals();
+  });
+
+  const appris = briques(famille);
+  const hsk = indexExport.parcours[nomParcours(indexExport, 'hsk')];
+
+  it('est bien le parcours HSK, distinct de Lire', () => {
+    expect(nomParcours(indexExport, 'hsk')).toBe('hsk');
+    expect(hsk.liste).not.toBe(indexExport.parcours.lire.liste);
+  });
+
+  it('pose les caractères de la première session, un par jour, sans rien d’autre', () => {
+    expect(appris).toEqual(['人', '大', '天']);
+    const debut = hsk.jours.slice(0, appris.length);
+    expect(debut.map((j) => j.jour)).toEqual([1, 2, 3]);
+    expect(debut.map((j) => [j.brique, ...j.composes])).toEqual(appris.map((c) => [c]));
+  });
+
+  it('reprend au jour suivant, sans enseigner une seconde fois 人, 大 et 天', () => {
+    const jour = jourApresDepart(indexExport, 'hsk', appris);
+    expect(jour).toBe(appris.length + 1);
+    for (const j of hsk.jours.filter((x) => x.jour >= jour)) {
+      for (const c of [j.brique, ...j.composes]) expect(appris).not.toContain(c);
+    }
+    const fini = finDepart(emptyProgress(JOUR), JOUR, MAINTENANT, appris, jour);
+    expect(fini.jourParcours).toBe(jour);
+    expect(jourParcours(fini)).toBe(jour);
+  });
+
+  it("lit le jour où l'on reprend, depuis les fichiers servis avec l'app", async () => {
+    servirDepuisLeDisque();
+    expect(await suiteDepart('hsk')).toEqual({ appris: ['人', '大', '天'], jour: 4 });
+  });
+
+  it('lit la leçon du jour qui suit dans le parcours HSK, pas dans Lire', async () => {
+    servirDepuisLeDisque();
+    const attendu = hsk.jours[3];
+    const l = await lecon('hsk', 4);
+    expect(l.nom).toBe('hsk');
+    expect(l.jour?.jour).toBe(4);
+    expect(l.brique?.c).toBe(attendu.brique);
+    expect(l.composes.map((f) => f.c)).toEqual(attendu.composes);
+    expect(l.pistes).toEqual([attendu.brique, '天', '大', '人']);
   });
 });

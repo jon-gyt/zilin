@@ -258,6 +258,8 @@ ce que l'app embarque ; `docs/sources-licences.md` fait foi pour la décision.
 
 ## Contrôles (`uv run wenlu check`)
 
+- « fiches : rôle son » — signalé : un rôle `son` dont la phonétique ne se lit pas
+  sur la syllabe du caractère, au ton près (voir « Le rôle son »).
 - « export : à jour » — bloquant : l'empreinte de `index.json` doit valoir celle
   du build présent. Un export absent n'est pas une faute.
 - « export : séparation des licences » — bloquant : chaque JSON porte son
@@ -404,7 +406,8 @@ briques_muettes[], non_reconcilies[], absents[]}`.
   lisibles avec elle. `brique` est nul les jours de consolidation, quand il ne reste que
   des composés à poser. Les jours `non_reconcilie` ferment le parcours.
 - `depart` : ce que la première session enseigne (brief §6, story 2.7), `人 大 天`
-  pour `lire`, vide pour `hsk` (`DEPART` de `graphe.py`). Ces caractères ouvrent le
+  pour `lire` comme pour `hsk` (`DEPART` de `graphe.py`) : la première session est
+  la même quel que soit le parcours choisi ensuite. Ces caractères ouvrent le
   parcours, un jour chacun, dans cet ordre et sans composé : la première session les
   pose d'un coup, et la session complète reprend au jour qui suit (`jourApresDepart`
   de `app/src/lib/premiere.ts`). La règle d'une brique nouvelle par jour tient ; seul
@@ -504,7 +507,8 @@ le texte d'une fiche est un contenu, sa relecture se lit dans l'historique git.
 }
 ```
 
-`roles` donne, par composant de la décomposition canonique, `son`, `sens` ou `forme`.
+`roles` donne, par composant de la décomposition canonique, `son`, `sens` ou `forme`
+(voir « Le rôle son » ci-dessous : `son` veut dire « aide à prononcer aujourd'hui »).
 `etiquette` vaut `atteste` seulement si l'origine est établie par le Shuowen ou la
 paléographie, `mnemotechnique` sinon — jamais l'un pour l'autre. `memo_fr` et `memo_en`
 sont facultatifs. `generation` est la traçabilité : d'où vient la fiche et comment.
@@ -521,7 +525,44 @@ caractère, numéro d'essai, empreinte de l'invite).
 `uv run wenlu check` relit ces fichiers s'ils existent : le contrôle
 « fiches : validation » est bloquant, le contrôle « fiches : relecture du seuil 255 »
 compte ce qui reste à relire et les caractères du seuil sans fiche — il signale, il ne
-bloque pas. `uv run wenlu fiches valider` refait le même contrôle à la demande.
+bloque pas. `uv run wenlu fiches valider` refait le même contrôle à la demande. Le
+contrôle « fiches : rôle son » signale, sans bloquer, un rôle `son` loin de la lecture
+moderne (ci-dessous).
+
+### Le rôle son
+
+Décision du propriétaire : un composant n'est étiqueté `son` que s'il aide à prononcer
+le caractère **aujourd'hui**, en mandarin moderne. L'app pose la question « quel
+élément donne le son ? » et la note seule : la réponse doit s'entendre.
+
+- Critère : la phonétique se lit sur la **même syllabe** que le caractère, initiale et
+  finale identiques, **le ton libre**. 妈 mā ← 马 mǎ, 请 qǐng ← 青 qīng, 们 men ← 门
+  mén, 近 jìn ← 斤 jīn sont `son`.
+- Une phonétique seulement historique, qui ne sonne plus pareil, passe en `forme` :
+  说 shuō ← 兑 duì, 谁 shéi ← 隹 zhuī, 给 gěi ← 合 hé. De même une phonétique qui ne
+  fait plus que rimer (很 hěn ← 艮 gèn, 问 wèn ← 门 mén, 钱 qián ← 戋 jiān) ou ne garde
+  que l'initiale (打 dǎ ← 丁 dīng) : proche n'est pas pareil. Si le composant porte
+  aussi le sens, il passe en `sens` (姓 ← 生, naître).
+- Lectures comparées : la lecture **principale** du caractère (première de
+  `kMandarin`, ou de `surcharges/pinyin.tsv` qui la corrige : 呢 se lit ne, sa
+  lecture ní de 呢子 ne compte pas) contre **l'une quelconque** des lectures de la
+  phonétique (长 zhǎng ou cháng).
+- La phonétique est le caractère qu'écrivent les composants `son`, pris ensemble :
+  la norme découpe souvent la phonétique (青 en 龶 et 月, 曷 en 日, 勹, 人 et 𠃊), et
+  chacun de ses composants porte alors `son`. Le contrôle la retrouve par la
+  phonétique de Make Me a Hanzi, par le composant seul, ou par le caractère dont la
+  décomposition canonique est exactement ces composants et dont la structure se lit
+  dans celle du caractère. Quand la forme moderne l'a trop réduite pour cela, une
+  ligne de `data/sources/surcharges/phonetiques.tsv` (`c`, `phonetique`, `raison`)
+  la nomme : 又 réduit à 𠂇 dans 有, 辛 découpé en 立, 一 et 小 dans 新.
+- L'histoire reste dans l'origine : `origine_fr` et `origine_en` peuvent dire que le
+  composant « donnait autrefois le son », jamais qu'il le donne quand son rôle est
+  `forme`.
+
+Le contrôle « fiches : rôle son » (`phonetiques.py`) applique ce critère à chaque
+fiche, avec les lectures d'Unihan déjà ingérées (`unihan.json`) : il nomme le
+caractère, sa lecture, la phonétique et ses lectures, ou dit qu'il n'a pas trouvé la
+phonétique. C'est un avertissement de relecture, jamais un rejet.
 
 ### Brouillons de fiches, versionnés (rédaction sans API)
 
@@ -553,6 +594,7 @@ versionné, un fichier par caractère, nommé d'après lui.
 - `etiquette` s'écrit `attesté` ou `mnémotechnique` (avec ou sans accents) ; la fiche
   garde le code `atteste` ou `mnemotechnique`.
 - `roles` est un objet `{composant: "son" | "sens" | "forme"}`, un rôle par composant
+  (`son` seulement sur la syllabe du caractère, voir « Le rôle son »)
   de la décomposition canonique.
 - `mots` : au plus deux objets `{hanzi, pinyin, fr, en}`, pris dans les mots
   candidats ; moins, voire aucun, quand les candidats sont rares ou douteux ;

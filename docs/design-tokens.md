@@ -16,7 +16,7 @@ Logo : 文 tracé depuis les données de traits de l'export (jamais une police),
 
 Mascottes : Tao 桃 (graine de pêcher, grandit, adopte la posture de l'activité en cours, réagit aux réponses, s'ennuie de la répétition, ne culpabilise jamais), Que 雀 (moineau, remet les cadeaux de la série). Fleurs de Tao : rose #E7A2B4, seul rose autorisé.
 
-Principes : un écran une action ; coins 12 px ; aucune ombre, aucun dégradé, aucun emoji, aucune illustration réaliste ; pas de doré ni de dragon.
+Principes : un écran une action ; coins 12 px ; aucune ombre, aucun dégradé, aucun emoji, aucune illustration réaliste ; pas de doré ; pas de dragon hors du décor du Nouvel An et de 端午.
 
 ## Thèmes de fête
 
@@ -30,7 +30,7 @@ Principes : un écran une action ; coins 12 px ; aucune ombre, aucun dégradé, 
 
 清明 (−1 à +1) : papier #EDF1EA, carte #F7F9F4 ; saule #7FA36A et #58804D, pluie #8FA7AB, cerf-volant #1E5A8A et sa queue #A8506B ; disque de l'emblème #DFEADB ; cases #DFEADF, caractère #3F6B4E ; bouton #2F4F3E.
 
-端午, la fête des bateaux (−2 à +1) : papier #F2EFE2, carte #FAF8EF ; eau #3E7C8C et #A9CBCF, roseau #4F7F3F et #9DBF7A, ficelle #C9A46A, armoise #6F8F5E, bateau #8C5A2B et sa bande #1E5A8A ; disque #E2ECD6 ; cases #2F5E46, caractère #F6F2E2 ; bouton #1F2A22.
+端午, la fête des bateaux-dragons (−2 à +1) : papier #F2EFE2, carte #FAF8EF ; eau #3E7C8C et #A9CBCF, roseau #4F7F3F et #9DBF7A, ficelle #C9A46A, armoise #6F8F5E, bateau #8C5A2B et sa bande #1E5A8A ; disque #E2ECD6 ; cases #2F5E46, caractère #F6F2E2 ; bouton #1F2A22.
 
 七夕 (−2 au soir même), toujours de nuit : papier #1B1B35, carte #252547, encre #EFE9F5, cinabre éclairci #EC6B4B ; Voie lactée #262650 et #302F5E, étoiles #F4E9C8, pies #0E0E24 et leur blanc #DCD6EC ; disque de l'emblème #E8E2F3, sa Voie lactée #D6CDEA, le caractère à l'encre #1B1B35 et au vrai cinabre ; cases #242449 bordées de #3A3969 ; bouton #E6DDF5 ; gabarit du tracé #4B4978.
 
@@ -59,7 +59,7 @@ Plus légères que les fêtes, et une seule palette papier : seuls le papier, la
 
 Le décor d'ambiance vit dans `FeteDecor.svelte`, dans le même calque que celui des fêtes (derrière tout, jamais cliquable, coupé par `prefers-reduced-motion`) : moins d'éléments, plus petits et plus pâles. Le caractère, le nom et la ligne de chaque terme lui restent propres : l'en-tête du menu montre, sous la marque, le caractère du terme dessiné depuis ses traits, son nom et sa traduction (« 半 秋分 · l'équinoxe d'automne ») ; un jour de fête, c'est le vœu.
 
-Composants : `FeteDecor.svelte` (le calque derrière tout, `pointer-events: none`, coupé par `prefers-reduced-motion`), `Embleme.svelte` (la rosace, la lanterne, la lune… qui porte le caractère du jour), `Voeu.svelte` (le vœu de l'en-tête, prononcé au toucher, avec son dessin). Tao porte un flocon au Nouvel An, un bol de 汤圆 à 元宵, un brin de saule à 清明, un 粽子 à 端午, une étoile à 七夕, un gâteau de lune à la mi-automne, un chrysanthème à 重阳, un 饺子 à 冬至.
+Composants : `FeteDecor.svelte` (le calque derrière tout, `pointer-events: none`, coupé par `prefers-reduced-motion`), `Dragon.svelte` (la danse du dragon du Nouvel An, cramoisi et abricot, et les bateaux-dragons de 端午, ocre et azurite ; seulement dans ces deux branches du décor), `Embleme.svelte` (la rosace, la lanterne, la lune… qui porte le caractère du jour), `Voeu.svelte` (le vœu de l'en-tête, prononcé au toucher, avec son dessin). Tao porte un flocon au Nouvel An, un bol de 汤圆 à 元宵, un brin de saule à 清明, un 粽子 à 端午, une étoile à 七夕, un gâteau de lune à la mi-automne, un chrysanthème à 重阳, un 饺子 à 冬至.
 
 ## Polices
 
