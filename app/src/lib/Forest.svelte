@@ -412,9 +412,13 @@
         </svg>
       {/if}
     </div>
+  </div>
+  <!-- Les boutons du zoom sous le cercle, pas dessus : ils ne cachent aucun caractère. -->
+  <div class="outils">
+    <div class="k">Pince pour zoomer, glisse pour te déplacer, double tape pour recentrer.</div>
     <div class="zoomctl">
-      <button aria-label="Agrandir" onclick={() => bouton(1.4)}>+</button>
       <button aria-label="Réduire" onclick={() => bouton(1 / 1.4)}>−</button>
+      <button aria-label="Agrandir" onclick={() => bouton(1.4)}>+</button>
       <button aria-label="Recentrer" onclick={recentrer}>⌂</button>
     </div>
   </div>
@@ -424,7 +428,6 @@
     <span><i class="d3"></i>à venir</span>
     <span><i class="d2"></i>la famille du moment</span>
   </div>
-  <div class="k center">Pince pour zoomer, glisse pour te déplacer, double tape pour recentrer.</div>
 
   <div class="card famlist">
     <div class="row">
@@ -542,6 +545,23 @@
   /* le proche à venir est nommé pour être lu : son caractère reste net */
   .cercle .nd.avenir ~ g {
     opacity: 0.8;
+  }
+
+  .outils {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-top: 8px;
+  }
+  .outils .k {
+    flex: 1;
+    font-size: 13px;
+    line-height: 1.3;
+  }
+  .outils .zoomctl {
+    position: static;
+    flex-direction: row;
+    gap: 6px;
   }
 
   /* trouvés en chemin : une rangée de petits caractères, dessinés depuis leurs traits */
