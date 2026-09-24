@@ -1001,8 +1001,31 @@ describe('le suivi des trophées dans la progression', () => {
     }
   });
 
+  it('garde le leurre pris dans l’événement de révision et dans la carte', () => {
+    const T0 = new Date('2026-03-02T08:00:00Z');
+    const r: Revision = { c: '天', correct: false, tries: 2, seconds: 5, leurres: ['夫'] };
+    let p = planifierCarte(assurerCartes(neuf(), ['天'], T0), r.c, r, T0);
+    p = noterRevision(p, JOUR, r);
+    expect(carte(p, '天')?.history[0].leurres).toEqual(['夫']);
+    for (const texte of [toJSON(p), JSON.stringify(p)]) {
+      const relu = fromJSON(texte, JOUR);
+      expect(relu.revisions).toEqual([r]);
+      expect(carte(relu, '天')?.history[0].leurres).toEqual(['夫']);
+    }
+    /* Un événement d'avant le suivi se relit sans leurre : rien n'est deviné. */
+    const ancien = fromJSON(JSON.stringify(progressionAncienne()), JOUR);
+    expect(carte(ancien, '天')?.history[0].leurres).toBeUndefined();
+    const vieux = fromJSON(JSON.stringify({ ...neuf(), revisions: [{ c: '天', correct: false, tries: 2, seconds: 5 }] }), JOUR);
+    expect('leurres' in vieux.revisions[0]).toBe(false);
+  });
+
   it('écarte des entrées de suivi aberrantes', () => {
     const cassé = JSON.stringify({ ...neuf(), tracesAchevees: ['人', 3, '', '人', null, '大'] });
     expect(fromJSON(cassé, JOUR).tracesAchevees).toEqual(['人', '大']);
+    const leurres = JSON.stringify({
+      ...neuf(),
+      revisions: [{ c: '天', correct: false, tries: 1, seconds: 2, leurres: ['夫', 3, ''] }]
+    });
+    expect(fromJSON(leurres, JOUR).revisions[0].leurres).toEqual(['夫']);
   });
 });

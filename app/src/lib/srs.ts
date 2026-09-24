@@ -13,10 +13,25 @@ import {
   type Grade
 } from 'ts-fsrs';
 
-export type Outcome = { correct: boolean; tries: number; seconds: number };
+export type Outcome = {
+  correct: boolean;
+  tries: number;
+  seconds: number;
+  /**
+   * Les caractères que les choix faux désignaient, dans l'ordre des essais : le leurre
+   * pris pour la réponse. Présent seulement quand une question à choix a reçu au moins
+   * un choix faux ; vide quand la réponse fausse ne désignait aucun leurre (des briques
+   * justes dans le mauvais ordre). Absent quand on ne le sait pas : un tracé, un jeu, un
+   * événement d'avant ce champ. N'entre pas dans la note : `grade` ne le lit pas.
+   */
+  leurres?: string[];
+};
 
-/** Une ligne d'historique : quand, quelle note, pour quelle échéance. Rien de plus. */
-export type ReviewLogEntry = { at: Date; rating: Grade; due: Date };
+/**
+ * Une ligne d'historique : quand, quelle note, pour quelle échéance, et les leurres pris
+ * quand la réponse en désignait (`Outcome.leurres`). Rien de plus.
+ */
+export type ReviewLogEntry = { at: Date; rating: Grade; due: Date; leurres?: string[] };
 
 /** Carte de révision d'un caractère ou d'une brique. `id` est l'identifiant du contenu. */
 export type ReviewCard = { id: string; card: Card; history: ReviewLogEntry[] };
@@ -105,7 +120,9 @@ export function schedule(
   const retour = new Date(now.getTime() + (params.relearnMinutes ?? RETOUR_MINUTES) * MINUTE);
   const suivante: Card =
     rating === Rating.Again ? { ...planifiee, due: retour, scheduled_days: 0 } : planifiee;
-  const history = [...card.history, { at: now, rating, due: suivante.due }].slice(-HISTORIQUE_MAX);
+  const entree: ReviewLogEntry = { at: now, rating, due: suivante.due };
+  if (outcome.leurres !== undefined) entree.leurres = [...outcome.leurres];
+  const history = [...card.history, entree].slice(-HISTORIQUE_MAX);
   return { card: { id: card.id, card: suivante, history }, due: suivante.due };
 }
 
@@ -136,7 +153,7 @@ type CardJSON = Omit<Card, 'due' | 'last_review'> & { due: string; last_review?:
 type ReviewCardJSON = {
   id: string;
   card: CardJSON;
-  history: { at: string; rating: Grade; due: string }[];
+  history: { at: string; rating: Grade; due: string; leurres?: string[] }[];
 };
 export type SrsExport = { version: 1; cards: ReviewCardJSON[] };
 
@@ -154,7 +171,8 @@ export function toJSON(cards: readonly ReviewCard[]): string {
       history: history.map((h) => ({
         at: h.at.toISOString(),
         rating: h.rating,
-        due: h.due.toISOString()
+        due: h.due.toISOString(),
+        ...(h.leurres === undefined ? {} : { leurres: [...h.leurres] })
       }))
     }))
   };
@@ -174,6 +192,17 @@ export function fromJSON(text: string): ReviewCard[] {
       due: new Date(card.due),
       last_review: card.last_review ? new Date(card.last_review) : undefined
     },
-    history: history.map((h) => ({ at: new Date(h.at), rating: h.rating, due: new Date(h.due) }))
+    history: history.map((h) => lireEntree(h))
   }));
+}
+
+/**
+ * Relit une ligne d'historique. Les leurres sont gardés s'ils sont une liste de
+ * caractères ; une ligne d'avant ce champ se relit sans, et rien n'est deviné.
+ */
+function lireEntree(h: ReviewCardJSON['history'][number]): ReviewLogEntry {
+  const entree: ReviewLogEntry = { at: new Date(h.at), rating: h.rating, due: new Date(h.due) };
+  const brut: unknown = (h as { leurres?: unknown }).leurres;
+  if (Array.isArray(brut)) entree.leurres = brut.filter((x): x is string => typeof x === 'string' && x !== '');
+  return entree;
 }

@@ -131,6 +131,12 @@ export type Question = {
   enonce: string;
   reponse: string[];
   leurres: string[];
+  /**
+   * Le caractère derrière chaque leurre, dans le même ordre, quand le leurre ne l'est pas
+   * lui-même : pour `sens`, les leurres sont des sens, et chacun vient d'un caractère.
+   * Absent quand chaque leurre est son propre caractère.
+   */
+  sourcesLeurres?: string[];
   /** Les options présentées, mélangées d'après la graine. */
   choix: string[];
   /** Ce qu'il a manqué pour arriver à `NB_LEURRES` leurres. Zéro quand le compte y est. */
@@ -255,7 +261,7 @@ function choisirLeurres(
   exclus: readonly string[],
   valeur: Affichage,
   dejaVus: readonly string[]
-): { leurres: string[]; manque: number } {
+): { leurres: string[]; sources: string[]; manque: number } {
   const interdits = new Set(exclus);
   const uniques = [...new Set(candidats)].filter((c) => !interdits.has(c));
   const score = (c: string) => Math.max(...cibles.map((cible) => ressemblance(c, cible, corpus)));
@@ -264,14 +270,16 @@ function choisirLeurres(
     .sort((x, y) => y.s - x.s || x.h - y.h || (x.c < y.c ? -1 : 1));
   const vus = new Set(dejaVus);
   const out: string[] = [];
+  const sources: string[] = [];
   for (const { c } of classe) {
     if (out.length >= n) break;
     const v = valeur(c);
     if (v === '' || vus.has(v)) continue;
     vus.add(v);
     out.push(v);
+    sources.push(c);
   }
-  return { leurres: out, manque: Math.max(0, n - out.length) };
+  return { leurres: out, sources, manque: Math.max(0, n - out.length) };
 }
 
 /**
@@ -285,7 +293,8 @@ export function leurres(
   graine: string,
   n: number = NB_LEURRES
 ): { leurres: string[]; manque: number } {
-  return choisirLeurres([cible], candidats, corpus, graine, n, [cible], (c) => c, [cible]);
+  const { leurres: l, manque } = choisirLeurres([cible], candidats, corpus, graine, n, [cible], (c) => c, [cible]);
+  return { leurres: l, manque };
 }
 
 /** Les caractères qui peuvent servir de leurre : l'acquis d'abord, le reste ensuite. */
@@ -429,6 +438,7 @@ export function question(
     q.enonce = 'Que veut dire ce caractère ?';
     q.reponse = [bonne];
     q.leurres = sens.leurres;
+    q.sourcesLeurres = sens.sources;
     q.manqueLeurres = sens.manque;
     q.choix = melange([bonne, ...sens.leurres], g);
     return q;
@@ -584,6 +594,24 @@ export function indiceErreur(q: Question): string {
 export type Correction = { correct: boolean; explication: Explication; outcome: Outcome };
 
 /**
+ * Les caractères que désigne une réponse fausse : le leurre choisi, ou les leurres posés
+ * dans un assemblage. Un sens choisi désigne le caractère dont il est le sens. Une brique
+ * juste mal placée, une réponse juste ou un tracé ne désignent aucun leurre.
+ */
+export function leurresDe(q: Question, reponse: Reponse): string[] {
+  if (typeof reponse === 'object' && !Array.isArray(reponse)) return [];
+  const donnee = typeof reponse === 'string' ? [reponse] : [...(reponse as readonly string[])];
+  const out: string[] = [];
+  for (const x of donnee) {
+    const i = q.leurres.indexOf(x);
+    if (i < 0) continue;
+    const c = q.sourcesLeurres?.[i] ?? x;
+    if (!out.includes(c)) out.push(c);
+  }
+  return out;
+}
+
+/**
  * Le tracé est noté par Hanzi Writer, qui rend le nombre d'erreurs :
  * 0 erreur = juste, 1 ou 2 = juste après erreur, 3 et plus = faux.
  */
@@ -599,8 +627,17 @@ function memeSuite(a: readonly string[], b: readonly string[]): boolean {
 /**
  * Corrige une réponse. Pour `assemblage`, l'ordre d'écriture compte. L'`Outcome` rendu est
  * prêt pour `grade` de `srs.ts` : il n'est pas noté ici.
+ *
+ * `ratees` sont les réponses fausses des essais d'avant. Dès qu'un choix a été faux,
+ * l'`Outcome` garde les leurres qu'il désignait (`leurresDe`), ceux des essais d'avant
+ * puis celui-ci : c'est ce qui dit, plus tard, si deux caractères proches ont été confondus.
  */
-export function corriger(q: Question, reponse: Reponse, outcome: Outcome): Correction {
+export function corriger(
+  q: Question,
+  reponse: Reponse,
+  outcome: Outcome,
+  ratees: readonly Reponse[] = []
+): Correction {
   if (typeof reponse === 'object' && !Array.isArray(reponse)) {
     const { erreurs } = reponse as { erreurs: number };
     const o = outcomeDuTrace(erreurs, outcome.seconds);
@@ -610,9 +647,8 @@ export function corriger(q: Question, reponse: Reponse, outcome: Outcome): Corre
   const correct =
     memeSuite(donnee, q.reponse) ||
     (donnee.length === 1 && q.reponse.length > 1 && donnee[0] === q.reponse.join(''));
-  return {
-    correct,
-    explication: q.explication,
-    outcome: { correct, tries: outcome.tries, seconds: outcome.seconds }
-  };
+  const o: Outcome = { correct, tries: outcome.tries, seconds: outcome.seconds };
+  const fausses = correct ? ratees : [...ratees, reponse];
+  if (fausses.length > 0) o.leurres = [...new Set(fausses.flatMap((r) => leurresDe(q, r)))];
+  return { correct, explication: q.explication, outcome: o };
 }

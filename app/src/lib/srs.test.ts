@@ -120,3 +120,23 @@ describe('export et import', () => {
   it('un export inconnu est refusé', () =>
     expect(() => fromJSON('{"version":2,"cards":[]}')).toThrow());
 });
+
+describe('le leurre pris', () => {
+  it("se range dans l'historique, sans changer la note", () => {
+    const pris = schedule(neuve(), { ...FAUX, leurres: ['入'] }, T0);
+    const sans = apres(FAUX);
+    expect(pris.card.history[0].leurres).toEqual(['入']);
+    expect(pris.card.history[0].rating).toBe(sans.card.history[0].rating);
+    expect(pris.due).toEqual(sans.due);
+    /* Une réponse sans leurre connu n'en invente pas. */
+    expect('leurres' in sans.card.history[0]).toBe(false);
+  });
+
+  it("survit à l'export, et un export d'avant se relit sans", () => {
+    const cartes = [schedule(neuve(), { ...APRES_ERREUR, leurres: ['入'] }, T0).card];
+    expect(fromJSON(toJSON(cartes))).toEqual(cartes);
+    const ancien = toJSON([apres(FAUX).card]);
+    expect(ancien).not.toContain('leurres');
+    expect(fromJSON(ancien)[0].history[0].leurres).toBeUndefined();
+  });
+});

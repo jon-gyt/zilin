@@ -349,6 +349,31 @@ describe('correction explicative par les briques', () => {
     expect(corriger(q, q.leurres[0], brut).explication).toEqual(q.explication);
   });
 
+  it('une réponse fausse garde le leurre pris, le caractère derrière un sens compris', () => {
+    const q = poser('caractere');
+    const leurre = q.leurres[0];
+    expect(corriger(q, leurre, brut).outcome.leurres).toEqual([leurre]);
+    /* Juste au second essai : le leurre du premier reste dans l'événement. */
+    const rattrape = corriger(q, q.reponse[0], { ...brut, tries: 1 }, [leurre]);
+    expect(rattrape.correct).toBe(true);
+    expect(rattrape.outcome.leurres).toEqual([leurre]);
+    /* Juste du premier coup : aucun leurre, le champ est absent. */
+    expect('leurres' in corriger(q, q.reponse[0], brut).outcome).toBe(false);
+    /* Le sens choisi désigne le caractère dont il est le sens. */
+    const s = poser('sens');
+    const source = s.sourcesLeurres?.[0] ?? '';
+    expect(fiche(source).fr).toBe(s.leurres[0]);
+    expect(corriger(s, s.leurres[0], brut).outcome.leurres).toEqual([source]);
+  });
+
+  it('un assemblage dans le désordre ne désigne aucun leurre ; un tracé ne le sait pas', () => {
+    const q = poser('assemblage');
+    expect(corriger(q, ['子', '女'], brut).outcome.leurres).toEqual([]);
+    expect(corriger(q, [q.leurres[0], '子'], brut).outcome.leurres).toEqual([q.leurres[0]]);
+    const t = poser('trace');
+    expect('leurres' in corriger(t, { erreurs: 5 }, brut).outcome).toBe(false);
+  });
+
   it('assemblage : l’ordre d’écriture compte', () => {
     const q = poser('assemblage');
     expect(corriger(q, ['女', '子'], brut).correct).toBe(true);

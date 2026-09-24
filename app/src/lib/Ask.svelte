@@ -10,7 +10,7 @@
    */
   import Glyph from './Glyph.svelte';
   import Trace from './Trace.svelte';
-  import { corriger, type Corpus, type Question } from './questions';
+  import { corriger, type Corpus, type Question, type Reponse } from './questions';
   import { VERDICTS, delai, delaiAvance, pinyinDe } from './revision';
   import { fiche, indiceErreur } from './questions';
   import type { Revision } from './session';
@@ -59,6 +59,8 @@
   let depart = $state(0);
   let rates: number[] = $state([]);
   let construit: number[] = $state([]);
+  /** Les réponses fausses des essais d'avant : les leurres pris restent dans l'événement. */
+  let ratees: Reponse[] = [];
   let note: Grade | null = $state(null);
   let montree = $state(false);
   let prochaine = $state('');
@@ -71,6 +73,7 @@
     essais = 0;
     rates = [];
     construit = [];
+    ratees = [];
     note = null;
     montree = false;
     prochaine = '';
@@ -99,7 +102,7 @@
    */
   function noter(reponse: string | string[] | { erreurs: number }): void {
     const seconds = (Date.now() - depart) / 1000;
-    const c = corriger(q, reponse, { correct: false, tries: essais, seconds });
+    const c = corriger(q, reponse, { correct: false, tries: essais, seconds }, ratees);
     note = grade(c.outcome);
     onnote({ c: q.c, ...c.outcome });
     const due = echeanceDe(q.c);
@@ -121,6 +124,8 @@
     if (essais >= ESSAIS_MAX) {
       montree = true;
       noter(q.choix[k]);
+    } else {
+      ratees = [...ratees, q.choix[k]];
     }
   }
 
@@ -142,6 +147,7 @@
       /* La réponse est montrée : la suite juste prend la place de la suite tentée. */
       construit = q.reponse.map((b) => q.choix.indexOf(b));
     } else {
+      ratees = [...ratees, donnee];
       construit = [];
     }
   }

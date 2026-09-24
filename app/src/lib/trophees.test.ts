@@ -14,6 +14,7 @@ import {
   SCEAUX_MIN,
   SEUILS_LIRE,
   UNITES,
+  confondu,
   famillesDesSceaux,
   ligneEntree,
   meilleureSuite,
@@ -202,6 +203,34 @@ describe('les pièges déjoués', () => {
     const [t] = tropheesPieges(paires, [...erreurAvant, sue('夫')]);
     expect(t.obtenu).toBe(false);
     expect(t.actuel).toBe(3);
+  });
+
+  it('ne cassent la suite que si le leurre pris est l’autre caractère de la paire', () => {
+    const faux = (leurres?: string[]) => ({ rating: Rating.Again as const, leurres });
+    /* Le leurre gardé : la confusion est exacte, même rattrapée au second essai. */
+    expect(confondu(faux(['大']), '天', ['天', '夫'])).toBe(false);
+    expect(confondu(faux(['夫']), '天', ['天', '夫'])).toBe(true);
+    expect(confondu({ rating: Rating.Hard, leurres: ['夫'] }, '天', ['天', '夫'])).toBe(true);
+    expect(confondu(faux([]), '天', ['天', '夫'])).toBe(false);
+    /* Sans leurre gardé (événement d'avant, tracé, jeu) : prudent, l'erreur casse. */
+    expect(confondu(faux(), '天', ['天', '夫'])).toBe(true);
+    expect(confondu({ rating: Rating.Hard }, '天', ['天', '夫'])).toBe(false);
+
+    /* Neuf lectures justes de 天, une erreur sur 夫, puis une juste de 天. */
+    const suite = (leurre: string): ReviewCard[] => {
+      const tian = avecHistorique('天', justes(10));
+      const fu = avecHistorique('夫', [Rating.Again], 9);
+      return [
+        { ...tian, history: tian.history.map((h, i) => (i === 9 ? { ...h, at: new Date(h.at.getTime() + 60_000) } : h)) },
+        { ...fu, history: fu.history.map((h) => ({ ...h, leurres: [leurre] })) }
+      ];
+    };
+    /* L'erreur venait d'ailleurs : dix lectures de suite sans confusion. */
+    expect(tropheesPieges(paires, suite('大'))[0].obtenu).toBe(true);
+    /* 天 pris pour 夫 : la suite repart après la confusion. */
+    const [t] = tropheesPieges(paires, suite('天'));
+    expect(t.obtenu).toBe(false);
+    expect(t.actuel).toBe(1);
   });
 
   it('viennent de paires.json, trios compris', () => {

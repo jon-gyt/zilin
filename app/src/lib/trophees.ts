@@ -292,12 +292,28 @@ export function tropheesSceaux(
 /* ---------- 3. pièges déjoués ---------- */
 
 /**
- * Les lectures d'un groupe de caractères proches, dans l'ordre : les révisions notées
- * de chacun, mises bout à bout. Une lecture est « sans confusion » quand elle n'est pas
- * ratée ; la vitesse de la réponse n'y change rien (Facile, Bien et Dur comptent pareil).
+ * Une lecture d'un caractère du groupe l'a-t-elle confondu avec un autre du groupe ?
  *
- * La progression ne garde pas le leurre choisi : une erreur sur l'un des caractères
- * casse la suite, qu'elle vienne de la paire ou non. C'est la lecture prudente.
+ * Quand la révision a gardé les leurres pris (`leurres` de l'historique), la confusion
+ * est exacte : un leurre qui est un autre caractère du groupe, même rattrapé au second
+ * essai. Une erreur venue d'ailleurs (un autre leurre, des briques dans le désordre) ne
+ * compte pas. Quand la révision ne les a pas gardés (un événement d'avant ce suivi, un
+ * tracé, un jeu), on reste prudent : une lecture ratée est une confusion.
+ */
+export function confondu(
+  h: Pick<ReviewCard['history'][number], 'rating' | 'leurres'>,
+  c: string,
+  groupe: readonly string[]
+): boolean {
+  if (h.leurres !== undefined) return h.leurres.some((x) => x !== c && groupe.includes(x));
+  return h.rating === Rating.Again;
+}
+
+/**
+ * Les lectures d'un groupe de caractères proches, dans l'ordre : les révisions notées
+ * de chacun, mises bout à bout. Une lecture est « sans confusion » quand elle ne prend pas
+ * un caractère du groupe pour un autre (`confondu`) ; la vitesse de la réponse n'y change
+ * rien (Facile, Bien et Dur comptent pareil).
  */
 export function lecturesDuGroupe(
   groupe: readonly string[],
@@ -305,7 +321,9 @@ export function lecturesDuGroupe(
 ): boolean[] {
   return cartes
     .filter((k) => groupe.includes(k.id))
-    .flatMap((k) => k.history.map((h) => ({ t: new Date(h.at).getTime(), juste: h.rating !== Rating.Again })))
+    .flatMap((k) =>
+      k.history.map((h) => ({ t: new Date(h.at).getTime(), juste: !confondu(h, k.id, groupe) }))
+    )
     .sort((a, b) => a.t - b.t)
     .map((x) => x.juste);
 }

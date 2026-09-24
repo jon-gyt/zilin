@@ -94,11 +94,19 @@ export type UseView = 'mots' | 'texte';
 export const USE_VIEWS = ['mots', 'texte'] as const;
 
 /**
- * Une réponse notée au pas Fixer : le caractère, juste ou faux, les essais, le temps.
- * C'est l'événement de révision tel qu'il est rangé dans la progression ; `srs.ts`
- * le note (`grade`), ce module ne fait que le garder.
+ * Une réponse notée au pas Fixer : le caractère, juste ou faux, les essais, le temps, et
+ * les leurres pris quand un choix a été faux (`Outcome.leurres` de `srs.ts`). C'est
+ * l'événement de révision tel qu'il est rangé dans la progression ; `srs.ts` le note
+ * (`grade`) et range les leurres dans l'historique de la carte, ce module ne fait que le
+ * garder.
  */
-export type Revision = { c: string; correct: boolean; tries: number; seconds: number };
+export type Revision = {
+  c: string;
+  correct: boolean;
+  tries: number;
+  seconds: number;
+  leurres?: string[];
+};
 
 /**
  * Une session de plus, en cours : Apprendre, Utiliser, Fixer, Clore, et Échauffer devant
@@ -954,14 +962,15 @@ function lireRevisions(brut: unknown): Revision[] {
     if (typeof x !== 'object' || x === null) return [];
     const r = x as Record<string, unknown>;
     if (typeof r.c !== 'string' || r.c === '') return [];
-    return [
-      {
-        c: r.c,
-        correct: r.correct === true,
-        tries: typeof r.tries === 'number' && r.tries >= 0 ? Math.floor(r.tries) : 0,
-        seconds: typeof r.seconds === 'number' && r.seconds >= 0 ? r.seconds : 0
-      }
-    ];
+    const lue: Revision = {
+      c: r.c,
+      correct: r.correct === true,
+      tries: typeof r.tries === 'number' && r.tries >= 0 ? Math.floor(r.tries) : 0,
+      seconds: typeof r.seconds === 'number' && r.seconds >= 0 ? r.seconds : 0
+    };
+    /* Les leurres pris : absents d'un événement plus ancien, on ne les devine pas. */
+    if (Array.isArray(r.leurres)) lue.leurres = listeDeCaracteres(r.leurres);
+    return [lue];
   });
 }
 
