@@ -11,7 +11,6 @@ import {
   type Noeud
 } from './content';
 import {
-  ANNEAUX,
   ARBRE_H,
   ARBRE_PAR_RANG,
   ARBRE_Y1,
@@ -23,9 +22,20 @@ import {
   R_RACINE_MAX,
   R_RACINE_MIN,
   FAMILLES_CERCLE,
+  FAMILLES_FOURNIES,
   FENETRE_JOURS,
+  JOURS_PROCHES,
+  MARGE,
+  MEMBRES_NOMMES,
+  NOMMES_MAX,
+  RANGS,
+  R_BRIQUES,
+  R_MEMBRE,
+  SECTEUR_MIN,
+  TAILLE,
   acquis,
   avancement,
+  caracteresDe,
   caracteresLus,
   construireForet,
   decale,
@@ -42,7 +52,9 @@ import {
   noeud,
   placerArbre,
   placerCercle,
-  semaine
+  prochesDuParcours,
+  semaine,
+  type Cercle
 } from './foret';
 import { emptyProgress, fromJSON, toJSON, markDone, type Progress } from './session';
 import { SEUIL_DEBLOCAGE, newCard, schedule, stability, type ReviewCard } from './srs';
@@ -157,27 +169,46 @@ describe('la disposition du cercle', () => {
     expect(placerCercle(fichier)).toEqual(cercle);
   });
 
-  it('pose un secteur par famille et un nœud par caractère', () => {
+  it('pose un secteur par famille, et chaque caractère est nommé ou compté dans son badge', () => {
     expect(cercle.secteurs).toHaveLength(fichier.familles.length);
-    const attendus = fichier.familles.flatMap((f) => caracteres(f));
-    expect(cercle.noeuds).toHaveLength(attendus.length);
-    expect([...cercle.noeuds].map((n) => n.c).sort()).toEqual([...attendus].sort());
+    fichier.familles.forEach((f, i) => {
+      const nommes = cercle.noeuds.filter((n) => n.famille === i).map((n) => n.c);
+      const badge = cercle.badges.find((b) => b.famille === i)?.n ?? 0;
+      expect(nommes.length + badge).toBe(caracteres(f).length);
+      for (const c of nommes) expect(caracteres(f)).toContain(c);
+    });
   });
 
-  it('pose chaque génération sur son anneau', () => {
+  it('ne montre que deux niveaux : les briques, puis les caractères qui les contiennent', () => {
     for (const n of cercle.noeuds) {
       const d = Math.hypot(n.x - CX, n.y - CY);
-      expect(d).toBeCloseTo(ANNEAUX[n.generation], 0);
+      if (n.generation === 0) {
+        expect(R_BRIQUES.some((r) => Math.abs(d - r) < 0.5)).toBe(true);
+      } else {
+        expect(n.generation).toBe(1);
+        expect(RANGS.some((r) => Math.abs(d - r) < 0.5)).toBe(true);
+      }
+    }
+    /* La deuxième génération de la maquette tient dans les badges. */
+    const petits = fichier.familles.flatMap((f) => f.membres.flatMap((k) => k.membres));
+    expect(petits.length).toBeGreaterThan(0);
+    for (const g of petits) expect(cercle.noeuds.some((n) => n.c === g.c)).toBe(false);
+  });
+
+  it("donne à chaque nœud posé l'état de ses données", () => {
+    for (const pose of cercle.noeuds) {
+      const f = fichier.familles[pose.famille];
+      expect(pose.etat).toBe(etat(noeud(f, pose.c)!.avancement));
     }
   });
 
-  it("donne à chaque nœud l'état de ses données", () => {
-    for (const f of fichier.familles) {
-      for (const c of caracteres(f)) {
-        const pose = cercle.noeuds.find((n) => n.c === c && n.famille === fichier.familles.indexOf(f));
-        expect(pose?.etat).toBe(etat(noeud(f, c)!.avancement));
+  it('nomme tout ce qui est acquis ou en cours dans une famille de la maquette', () => {
+    fichier.familles.forEach((f, i) => {
+      const vivants = f.membres.filter((k) => k.avancement > 0).slice(0, MEMBRES_NOMMES);
+      for (const k of vivants) {
+        expect(cercle.noeuds.some((n) => n.famille === i && n.c === k.c)).toBe(true);
       }
-    }
+    });
   });
 
   it('ne met le cinabre que sur la famille en cours', () => {
@@ -196,12 +227,10 @@ describe('la disposition du cercle', () => {
     expect(racine('日').r).toBeGreaterThan(racine('水').r);
   });
 
-  it('relie le centre à chaque racine, et chaque racine à ses membres', () => {
-    const membres = fichier.familles.reduce(
-      (n, f) => n + f.membres.length + f.membres.reduce((m, k) => m + k.membres.length, 0),
-      0
-    );
-    expect(cercle.liens).toHaveLength(fichier.familles.length + membres);
+  it('relie le centre à chaque racine, et chaque racine à ses caractères et à son badge', () => {
+    const membres = cercle.noeuds.filter((n) => n.generation === 1).length;
+    expect(cercle.liens).toHaveLength(fichier.familles.length + membres + cercle.badges.length);
+    expect(cercle.liens.filter((l) => l.badge)).toHaveLength(cercle.badges.length);
   });
 });
 
@@ -541,5 +570,178 @@ describe('les écrans de Ma forêt', () => {
     const app = readFileSync(new URL('../App.svelte', import.meta.url), 'utf8');
     expect(foret).toContain('onrecompenses');
     expect(app).toContain("onrecompenses={() => (ecran = 'rewards')}");
+  });
+});
+
+/* ---------- un cercle lisible sur un téléphone ---------- */
+
+describe('le cercle se lit à 393 px, sans zoomer', () => {
+  const toutes = indexExport.familles.map((x) => familleExport(x.racine));
+  const racineDe = new Map<string, string>();
+  for (const f of toutes) for (const c of caracteresDe(f)) if (!racineDe.has(c)) racineDe.set(c, f.racine.c);
+
+  /**
+   * Une progression réelle : une carte par caractère que le parcours a posé avant `jour`,
+   * sue pour ce qui date de plus de dix jours, neuve pour le reste.
+   */
+  function progression(nom: string, jour: number): ReviewCard[] {
+    const vus = new Set<string>();
+    const cartes: ReviewCard[] = [];
+    for (const j of indexExport.parcours[nom].jours) {
+      if (j.jour >= jour) continue;
+      for (const c of j.brique === null ? j.composes : [j.brique, ...j.composes]) {
+        if (vus.has(c)) continue;
+        vus.add(c);
+        cartes.push(j.jour < jour - 10 ? sue(c) : neuve(c));
+      }
+    }
+    return cartes;
+  }
+
+  function cercleDu(nom: string, jour: number): { cercle: Cercle; proches: Set<string> } {
+    const brique = indexExport.parcours[nom].jours.find((j) => j.jour === jour)?.brique ?? null;
+    const moment = brique === null ? null : (racineDe.get(brique) ?? null);
+    const foret = construireForet(
+      { index: indexExport, familles: toutes, cartes: progression(nom, jour), nom, jour },
+      moment
+    );
+    return { cercle: placerCercle(foret), proches: new Set(foret.proches) };
+  }
+
+  const dernier = (nom: string) => Math.max(...indexExport.parcours[nom].jours.map((j) => j.jour));
+  const etats = (['lire', 'hsk'] as const).flatMap((nom) => [
+    { nom, jour: 5, quand: 'début' },
+    { nom, jour: 60, quand: 'milieu' },
+    { nom, jour: Math.round(dernier(nom) / 2), quand: 'milieu' },
+    { nom, jour: 150, quand: 'avancé' },
+    { nom, jour: dernier(nom), quand: 'fin' }
+  ]);
+
+  /** La taille à l'écran : la boîte fait 349 px de large à 393 px, moins son jeu de 6 px. */
+  const ECHELLE = (349 - 12) / TAILLE;
+
+  for (const { nom, jour, quand } of etats) {
+    describe(`parcours ${nom}, jour ${jour} (${quand})`, () => {
+      const { cercle, proches } = cercleDu(nom, jour);
+      const disques = [
+        { c: '字', x: CX, y: CY, r: cercle.rCentre },
+        ...cercle.noeuds,
+        ...cercle.badges.map((b) => ({ ...b, c: `+${b.n}` }))
+      ];
+
+      it("n'a aucune paire de nœuds plus proche que leurs rayons et la marge", () => {
+        for (let i = 0; i < disques.length; i++) {
+          for (let j = i + 1; j < disques.length; j++) {
+            const a = disques[i];
+            const b = disques[j];
+            const jeu = Math.hypot(a.x - b.x, a.y - b.y) - a.r - b.r;
+            expect(jeu, `${a.c} et ${b.c}`).toBeGreaterThanOrEqual(MARGE);
+          }
+        }
+      });
+
+      it('garde chaque nœud dans le dessin', () => {
+        for (const d of disques) {
+          expect(Math.hypot(d.x - CX, d.y - CY) + d.r).toBeLessThanOrEqual(TAILLE / 2);
+        }
+      });
+
+      it('borne ce qu\'il nomme', () => {
+        expect(cercle.secteurs.length).toBeLessThanOrEqual(FAMILLES_CERCLE);
+        expect(cercle.noeuds.length).toBeLessThanOrEqual(NOMMES_MAX);
+        for (let i = 0; i < cercle.secteurs.length; i++) {
+          const membres = cercle.noeuds.filter((n) => n.famille === i && n.generation === 1);
+          expect(membres.length).toBeLessThanOrEqual(MEMBRES_NOMMES);
+          expect(cercle.badges.filter((b) => b.famille === i).length).toBeLessThanOrEqual(1);
+        }
+      });
+
+      it("ne nomme que l'acquis, l'en-cours et le proche à venir", () => {
+        for (const n of cercle.noeuds.filter((x) => x.generation === 1)) {
+          expect(n.etat !== 'avenir' || proches.has(n.c), n.c).toBe(true);
+        }
+      });
+
+      it('dessine chaque caractère à au moins 14 px', () => {
+        for (const n of cercle.noeuds) expect(n.r * 1.56 * ECHELLE).toBeGreaterThanOrEqual(14);
+      });
+
+      it('met le cinabre sur une seule brique', () => {
+        const rouges = cercle.noeuds.filter((n) => n.cinabre);
+        expect(rouges.length).toBeLessThanOrEqual(1);
+        for (const r of rouges) expect(r.generation).toBe(0);
+      });
+    });
+  }
+
+  it('fait les secteurs à la mesure des familles, jamais plus petits que le minimum', () => {
+    const { cercle } = cercleDu('lire', 150);
+    const angle = (i: number) => {
+      const p = /M ([\d.]+) ([\d.]+) L [\d.]+ [\d.]+ A [\d.]+ [\d.]+ 0 [01] 1 [\d.]+ [\d.]+ L ([\d.]+) ([\d.]+)/.exec(
+        cercle.secteurs[i].d
+      )!;
+      const a0 = Math.atan2(Number(p[2]) - CY, Number(p[1]) - CX);
+      const a1 = Math.atan2(Number(p[4]) - CY, Number(p[3]) - CX);
+      return (a1 - a0 + 4 * Math.PI) % (2 * Math.PI);
+    };
+    const poids = cercle.secteurs.map(
+      (_, i) =>
+        cercle.noeuds.filter((n) => n.famille === i && n.generation === 1).length +
+        cercle.badges.filter((b) => b.famille === i).length
+    );
+    const lourde = poids.indexOf(Math.max(...poids));
+    const legere = poids.indexOf(Math.min(...poids));
+    expect(angle(lourde)).toBeGreaterThan(angle(legere));
+    for (let i = 0; i < cercle.secteurs.length; i++) {
+      expect(angle(i)).toBeGreaterThanOrEqual(SECTEUR_MIN - 0.03);
+    }
+  });
+
+  it('est déterministe sur l\'export réel', () => {
+    expect(cercleDu('hsk', 150).cercle).toEqual(cercleDu('hsk', 150).cercle);
+  });
+
+  it('garde la famille du moment et les familles les plus fournies', () => {
+    const jour = 150;
+    const cartes = progression('lire', jour);
+    const posees = famillesDuCercle({
+      index: indexExport,
+      familles: toutes,
+      cartes,
+      nom: 'lire',
+      jour,
+      moment: '口'
+    });
+    expect(posees).toContain('口');
+    expect(posees).toHaveLength(FAMILLES_CERCLE);
+    const parFamille = new Map<string, number>();
+    for (const k of cartes) {
+      const r = racineDe.get(k.id);
+      if (r !== undefined) parFamille.set(r, (parFamille.get(r) ?? 0) + 1);
+    }
+    const plusFournie = [...parFamille].sort((a, b) => b[1] - a[1])[0][0];
+    expect(posees).toContain(plusFournie);
+    expect(FAMILLES_FOURNIES).toBeLessThan(FAMILLES_CERCLE);
+  });
+
+  it('appelle proche à venir ce que les sept prochains jours posent', () => {
+    const proches = new Set(prochesDuParcours(indexExport, 'lire', 10));
+    for (const j of indexExport.parcours.lire.jours) {
+      const cs = j.brique === null ? j.composes : [j.brique, ...j.composes];
+      if (j.jour >= 10 && j.jour < 10 + JOURS_PROCHES) for (const c of cs) expect(proches.has(c)).toBe(true);
+    }
+    expect(proches.size).toBeGreaterThan(0);
+    expect(prochesDuParcours(indexExport, 'lire', 10000)).toEqual([]);
+  });
+
+  it('ouvre l\'arbre de sa famille au toucher d\'une brique, d\'un caractère ou d\'un badge', () => {
+    const ecran = readFileSync(new URL('Forest.svelte', import.meta.url), 'utf8');
+    expect(ecran.match(/data-famille=\{(nd|b)\.famille\}/g)?.length).toBe(3);
+    expect(ecran).toContain("closest('[data-famille]')");
+  });
+
+  it('garde assez de place sur l\'anneau pour chaque brique', () => {
+    expect(FAMILLES_CERCLE * SECTEUR_MIN).toBeLessThanOrEqual(2 * Math.PI);
+    expect(R_MEMBRE * 1.56 * ECHELLE).toBeGreaterThanOrEqual(14);
   });
 });

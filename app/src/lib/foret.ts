@@ -30,20 +30,50 @@ export const TAILLE = 640;
 export const CX = 320;
 export const CY = 320;
 
-/** Les trois anneaux : les briques, les composés, la deuxième génération. */
-export const ANNEAUX = [104, 196, 262] as const;
+/**
+ * Deux niveaux, et deux seulement : les briques autour du 字, puis les caractères qui
+ * les contiennent. Ce qu'une famille garde au-delà (le lointain à venir, la génération
+ * suivante) tient dans un seul badge « +N », qui ouvre son arbre.
+ *
+ * Les briques se posent sur le premier anneau ; quand deux voisines se toucheraient,
+ * la seconde recule sur le deuxième, en quinconce. Les caractères se posent au-delà,
+ * rang par rang, en quinconce eux aussi.
+ */
+export const R_BRIQUES = [106, 154] as const;
+export const RANGS = [172, 215, 258, 301] as const;
+
+/** Les anneaux dessinés : celui des briques, celui des caractères. */
+export const ANNEAUX = [R_BRIQUES[0], RANGS[0]] as const;
 
 /** Le jeu laissé entre deux secteurs, en radians. */
 export const ECART = 0.012;
 
-/** Rayon du centre, et rayons des nœuds par génération. */
+/** Rayon du centre, et rayon d'un caractère (le badge a la même taille). */
 export const R_CENTRE = 38;
-export const R_MEMBRE = 17;
-export const R_PETIT = 14;
+export const R_MEMBRE = 18;
 
 /** La racine d'une famille : son rayon suit la taille de la famille. */
-export const R_RACINE_MIN = 20;
-export const R_RACINE_MAX = 28;
+export const R_RACINE_MIN = 21;
+export const R_RACINE_MAX = 26;
+
+/**
+ * Le jeu minimal entre deux disques, en unités du dessin (environ 3 px sur un écran de
+ * 393 px) : aucun nœud n'en touche un autre, jamais.
+ */
+export const MARGE = 6;
+
+/** Le plus petit secteur, en radians : une brique y tient, en quinconce avec ses voisines. */
+export const SECTEUR_MIN = 0.3;
+
+/**
+ * Ce que le cercle nomme : au plus huit caractères par famille, cinquante-six en tout,
+ * briques comprises. Le reste se compte dans le badge.
+ */
+export const MEMBRES_NOMMES = 8;
+export const NOMMES_MAX = 56;
+
+/** Le proche à venir : ce que les sept prochains jours du parcours vont poser. */
+export const JOURS_PROCHES = 7;
 
 export type Generation = 0 | 1 | 2;
 
@@ -66,7 +96,11 @@ export type NoeudPose = {
   verrouille: boolean;
 };
 
-export type LienPose = { d: string; acquis: boolean };
+/** Le badge d'une famille : ce qu'elle compte de plus que ce que le cercle nomme. */
+export type BadgePose = { famille: number; n: number; x: number; y: number; r: number };
+
+/** Un lien ; celui qui mène au badge se pointille : il mène à ce qui attend. */
+export type LienPose = { d: string; acquis: boolean; badge?: boolean };
 
 /** Le secteur d'une famille : la part de cercle qui lui revient. */
 export type SecteurPose = { famille: number; c: string; d: string; etat: Etat };
@@ -81,6 +115,7 @@ export type Cercle = {
   secteurs: SecteurPose[];
   liens: LienPose[];
   noeuds: NoeudPose[];
+  badges: BadgePose[];
 };
 
 /** Deux décimales suffisent : le dessin reste identique d'un appel à l'autre. */
@@ -98,7 +133,8 @@ function arc(r0: number, r1: number, a0: number, a1: number): string {
   const p1 = pt(r1, a0);
   const p2 = pt(r1, a1);
   const p3 = pt(r0, a1);
-  return `M ${p0.x} ${p0.y} L ${p1.x} ${p1.y} A ${r1} ${r1} 0 0 1 ${p2.x} ${p2.y} L ${p3.x} ${p3.y} A ${r0} ${r0} 0 0 0 ${p0.x} ${p0.y} Z`;
+  const grand = a1 - a0 > Math.PI ? 1 : 0;
+  return `M ${p0.x} ${p0.y} L ${p1.x} ${p1.y} A ${r1} ${r1} 0 ${grand} 1 ${p2.x} ${p2.y} L ${p3.x} ${p3.y} A ${r0} ${r0} 0 ${grand} 0 ${p0.x} ${p0.y} Z`;
 }
 
 /** Un lien : une courbe qui rentre légèrement vers le centre. */
@@ -115,16 +151,144 @@ export function rayonRacine(membres: number, max: number, min: number): number {
   return d2(R_RACINE_MIN + (R_RACINE_MAX - R_RACINE_MIN) * t);
 }
 
+type Disque = { x: number; y: number; r: number };
+
+/** Un disque est libre quand il garde la marge avec chacun des disques déjà posés. */
+function libre(p: Disque, poses: readonly Disque[]): boolean {
+  return poses.every((q) => Math.hypot(p.x - q.x, p.y - q.y) >= p.r + q.r + MARGE);
+}
+
 /**
- * Pose le cercle : un secteur par famille, la racine sur le premier anneau, ses
- * composés sur le deuxième, la génération suivante sur le troisième.
- *
- * Fonction pure et déterministe : mêmes données, même dessin, au centième près.
+ * Le pas angulaire d'un rang : deux voisins y sont à une corde de 2r + marge. Un
+ * dixième d'unité de plus absorbe l'arrondi des positions au centième.
  */
-export function placerCercle(f: Foret): Cercle {
+function pas(rayon: number): number {
+  return 2 * Math.asin((2 * R_MEMBRE + MARGE + 0.1) / (2 * rayon));
+}
+
+/** Tous les caractères d'une famille, racine comprise, toutes générations confondues. */
+function taille(n: Noeud): number {
+  return 1 + n.membres.reduce((s, k) => s + taille(k), 0);
+}
+
+/**
+ * Ce que le cercle nomme d'une famille : l'en-cours d'abord, puis le proche à venir,
+ * puis l'acquis. Le lointain à venir ne se nomme pas : il se compte.
+ */
+function classe(k: Noeud, proches: ReadonlySet<string>): number {
+  const e = etat(k.avancement);
+  if (e === 'encours') return 0;
+  if (e === 'avenir') return proches.has(k.c) ? 1 : -1;
+  return 2;
+}
+
+/**
+ * Les caractères nommés de chaque famille, sous un budget commun : on prend le premier
+ * de chaque famille, puis le deuxième, et ainsi de suite, pour qu'une grande famille ne
+ * prenne pas toute la place. Chaque liste revient dans l'ordre de la famille.
+ */
+function nommes(familles: readonly Noeud[], proches: ReadonlySet<string>): Noeud[][] {
+  const listes = familles.map((f) =>
+    f.membres
+      .map((k, i) => ({ k, i, c: classe(k, proches) }))
+      .filter((x) => x.c >= 0)
+      .sort((a, b) => a.c - b.c || a.i - b.i)
+      .slice(0, MEMBRES_NOMMES)
+  );
+  const pris = familles.map(() => [] as { k: Noeud; i: number }[]);
+  let reste = NOMMES_MAX - familles.length;
+  for (let r = 0; r < MEMBRES_NOMMES && reste > 0; r++) {
+    for (let i = 0; i < listes.length && reste > 0; i++) {
+      const x = listes[i][r];
+      if (x === undefined) continue;
+      pris[i].push(x);
+      reste--;
+    }
+  }
+  return pris.map((p) => p.sort((a, b) => a.i - b.i).map((x) => x.k));
+}
+
+/**
+ * Les angles des secteurs : chaque famille a au moins `SECTEUR_MIN`, le reste du tour se
+ * partage selon ce qu'elle pose (ses caractères nommés, et son badge).
+ */
+function angles(poids: readonly number[]): number[] {
+  const n = poids.length;
+  if (n === 0) return [];
+  const min = Math.min(SECTEUR_MIN, (2 * Math.PI) / n);
+  const total = poids.reduce((s, w) => s + w, 0);
+  const libreTour = 2 * Math.PI - n * min;
+  return poids.map((w) => min + (total > 0 ? (libreTour * w) / total : libreTour / n));
+}
+
+type Place = { rang: number; a: number; x: number; y: number };
+
+/**
+ * Les places d'un rang dans un secteur, sur l'une des deux trames du quinconce : la
+ * trame paire passe par le milieu du secteur, l'impaire s'en écarte d'un demi-pas. On
+ * garde un demi-pas de chaque bord : deux secteurs voisins ne se touchent pas.
+ */
+function trame(rang: number, a0: number, a1: number, impaire: boolean): Place[] {
+  const R = RANGS[rang];
+  const d = pas(R);
+  const am = (a0 + a1) / 2;
+  const demi = (a1 - a0 - d) / 2 + 1e-9;
+  const out: Place[] = [];
+  if (demi < 0) {
+    if (!impaire) out.push({ rang, a: am, ...pt(R, am) });
+    return out;
+  }
+  const t = Math.ceil(demi / d) + 1;
+  for (let j = -t; j <= t; j++) {
+    const o = (j + (impaire ? 0.5 : 0)) * d;
+    if (Math.abs(o) <= demi) out.push({ rang, a: am + o, ...pt(R, am + o) });
+  }
+  /* Du milieu vers les bords : les premières places prises encadrent la racine. */
+  return out.sort((p, q) => Math.abs(p.a - am) - Math.abs(q.a - am) || p.a - q.a);
+}
+
+/**
+ * Les places de `m` nœuds dans un secteur : on remplit les rangs de l'intérieur vers
+ * l'extérieur, et sur chaque rang on choisit la trame qui centre le groupe (impaire pour
+ * un nombre pair). Chaque place est vérifiée contre tout ce qui est déjà posé.
+ */
+function placesDuSecteur(m: number, a0: number, a1: number, poses: Disque[]): Place[] {
+  const prises: Place[] = [];
+  for (let rang = 0; rang < RANGS.length && prises.length < m; rang++) {
+    const ok = (p: Place) => libre({ x: p.x, y: p.y, r: R_MEMBRE }, poses);
+    const paire = trame(rang, a0, a1, false).filter(ok);
+    const impaire = trame(rang, a0, a1, true).filter(ok);
+    const voulu = Math.min(m - prises.length, Math.max(paire.length, impaire.length));
+    if (voulu === 0) continue;
+    const pref = voulu % 2 === 0 ? impaire : paire;
+    const autre = pref === impaire ? paire : impaire;
+    const choisie = pref.length >= voulu ? pref : autre;
+    for (const p of choisie.slice(0, voulu)) {
+      prises.push(p);
+      poses.push({ x: p.x, y: p.y, r: R_MEMBRE });
+    }
+  }
+  return prises;
+}
+
+/** Les options du cercle : le proche à venir, que le parcours nomme. */
+export type ForetDuCercle = Foret & {
+  /** Les caractères que les `JOURS_PROCHES` prochains jours du parcours vont poser. */
+  proches?: readonly string[];
+};
+
+/**
+ * Pose le cercle : un secteur par famille, à la mesure de ce qu'elle pose ; sa brique
+ * sur le premier anneau (ou le deuxième, en quinconce) ; les caractères nommés au-delà ;
+ * un badge « +N » pour le reste.
+ *
+ * Aucun disque n'en touche un autre : chaque place est vérifiée contre tout ce qui est
+ * déjà posé, avec `MARGE` de jeu. Fonction pure et déterministe : mêmes données, même
+ * dessin, au centième près.
+ */
+export function placerCercle(f: ForetDuCercle): Cercle {
   const familles = f.familles;
-  const n = familles.length;
-  const secteur = n > 0 ? (2 * Math.PI) / n : 0;
+  const proches = new Set(f.proches ?? []);
   const tailles = familles.map((x) => x.membres.length);
   const max = tailles.length > 0 ? Math.max(...tailles) : 0;
   const min = tailles.length > 0 ? Math.min(...tailles) : 0;
@@ -136,26 +300,56 @@ export function placerCercle(f: Foret): Cercle {
   const enCours =
     duMoment >= 0 ? duMoment : familles.findIndex((x) => etat(x.avancement) === 'encours');
 
+  const choisis = nommes(familles, proches);
+  const caches = familles.map((fam, i) => taille(fam) - 1 - choisis[i].length);
+  const parts = angles(choisis.map((c, i) => c.length + (caches[i] > 0 ? 1 : 0)));
+
   const secteurs: SecteurPose[] = [];
   const liens: LienPose[] = [];
   const noeuds: NoeudPose[] = [];
+  const badges: BadgePose[] = [];
   const centre = { x: CX, y: CY };
+  const poses: Disque[] = [{ x: CX, y: CY, r: R_CENTRE }];
+
+  /* Les bornes des secteurs, depuis midi, dans le sens des aiguilles. */
+  const bornes: [number, number][] = [];
+  let debut = -Math.PI / 2;
+  for (const part of parts) {
+    bornes.push([debut + ECART, debut + part - ECART]);
+    debut += part;
+  }
+
+  /* Les briques d'abord : chacune sur le premier anneau, ou sur le deuxième si besoin. */
+  const racines = familles.map((fam, i) => {
+    const [a0, a1] = bornes[i];
+    const a = (a0 + a1) / 2;
+    const r = rayonRacine(fam.membres.length, max, min);
+    let p = { ...pt(R_BRIQUES[0], a), r };
+    for (const R of R_BRIQUES) {
+      p = { ...pt(R, a), r };
+      if (libre(p, poses)) break;
+    }
+    poses.push(p);
+    return p;
+  });
 
   familles.forEach((fam, i) => {
-    const a0 = -Math.PI / 2 + i * secteur + ECART;
-    const a1 = a0 + secteur - 2 * ECART;
-    const a = (a0 + a1) / 2;
+    const [a0, a1] = bornes[i];
     const etatFam = etat(fam.avancement);
     const ouverte = fam.avancement > 0;
-    secteurs.push({ famille: i, c: fam.c, d: arc(46, ANNEAUX[2] + 18, a0, a1), etat: etatFam });
-
-    const p = pt(ANNEAUX[0], a);
+    const p = racines[i];
+    secteurs.push({ famille: i, c: fam.c, d: arc(46, 316, a0, a1), etat: etatFam });
     liens.push(lien(centre, p, ouverte));
 
-    const m = fam.membres.length;
-    fam.membres.forEach((k, j) => {
-      const ka = m > 0 ? a0 + ((a1 - a0) * (j + 0.5)) / m : a;
-      const kp = pt(ANNEAUX[1], ka);
+    /* Les caractères nommés, puis le badge : ils prennent les places dans l'ordre de lecture. */
+    let montres = choisis[i];
+    const voulu = montres.length + (caches[i] > 0 ? 1 : 0);
+    const places = placesDuSecteur(voulu, a0, a1, poses).sort((u, v) => u.rang - v.rang || u.a - v.a);
+    if (places.length < voulu) montres = montres.slice(0, Math.max(0, places.length - 1));
+    const reste = taille(fam) - 1 - montres.length;
+
+    montres.forEach((k, j) => {
+      const kp = places[j];
       liens.push(lien(p, kp, k.avancement > 0));
       noeuds.push({
         c: k.c,
@@ -168,28 +362,18 @@ export function placerCercle(f: Foret): Cercle {
         cinabre: false,
         verrouille: !ouverte && k.avancement <= 0
       });
-      k.membres.forEach((g) => {
-        const gp = pt(ANNEAUX[2], ka);
-        liens.push(lien(kp, gp, g.avancement >= 1));
-        noeuds.push({
-          c: g.c,
-          x: gp.x,
-          y: gp.y,
-          r: R_PETIT,
-          etat: etat(g.avancement),
-          famille: i,
-          generation: 2,
-          cinabre: false,
-          verrouille: g.avancement <= 0
-        });
-      });
     });
+    const bp = places[montres.length];
+    if (reste > 0 && bp !== undefined) {
+      liens.push({ ...lien(p, bp, false), badge: true });
+      badges.push({ famille: i, n: reste, x: bp.x, y: bp.y, r: R_MEMBRE });
+    }
 
     noeuds.push({
       c: fam.c,
       x: p.x,
       y: p.y,
-      r: rayonRacine(m, max, min),
+      r: p.r,
       etat: etatFam,
       famille: i,
       generation: 0,
@@ -207,7 +391,8 @@ export function placerCercle(f: Foret): Cercle {
     rCentre: R_CENTRE,
     secteurs,
     liens,
-    noeuds
+    noeuds,
+    badges
   };
 }
 
@@ -492,12 +677,15 @@ export function famillesOuvertes(
  *    parcours touchent, brique et composés compris ;
  * 3. la famille du moment, toujours.
  *
- * Le tout est trié par l'ordre du parcours, puis ramené aux `FAMILLES_CERCLE` plus
- * proches du jour courant : le cercle reste lisible sur un iPhone. Les 238 familles
- * restent atteignables par la recherche, sous le cercle.
+ * Le tout est ramené à `FAMILLES_CERCLE` familles, pour que chaque brique garde sa
+ * place sur l'anneau d'un iPhone : celles que le parcours touche au plus près du jour
+ * courant, et les `FAMILLES_FOURNIES` ouvertes qui portent le plus de cartes (ce que la
+ * forêt a fait pousser, même loin derrière). Puis tri par l'ordre du parcours. Les
+ * autres restent atteignables par la recherche, sous le cercle.
  */
-export const FENETRE_JOURS = 30;
-export const FAMILLES_CERCLE = 24;
+export const FENETRE_JOURS = JOURS_PROCHES;
+export const FAMILLES_CERCLE = 16;
+export const FAMILLES_FOURNIES = 4;
 
 /** Le caractère au centre du cercle : 字, la deuxième moitié du nom de l'app. */
 export const CENTRE = '字';
@@ -514,6 +702,8 @@ export type SourcesForet = {
   seuil?: number;
   fenetre?: number;
   max?: number;
+  /** La famille du moment : elle est toujours sur le cercle. */
+  moment?: string | null;
 };
 
 /** La racine de chaque caractère, d'après les familles lues. */
@@ -550,38 +740,84 @@ export function famillesDuCercle(s: SourcesForet): string[] {
   const racines = racinesDesCaracteres(s.familles);
   const premier = joursDesFamilles(s.index, s.nom, racines);
   const retenues = new Set<string>();
+  /* L'écart au jour courant : le jour du parcours qui touche la famille au plus près. */
+  const ecart = new Map<string, number>();
 
   /* Ouvertes : une carte quelque part dans la famille. */
   for (const carte of s.cartes) {
     const r = racines.get(carte.id);
     if (r !== undefined) retenues.add(r);
   }
-  /* Prochaines : ce que les jours à venir vont poser. */
   for (const j of s.index.parcours[s.nom]?.jours ?? []) {
-    if (j.jour < s.jour || j.jour >= s.jour + fenetre) continue;
     const cs = j.brique === null ? j.composes : [j.brique, ...j.composes];
     for (const c of cs) {
       const r = racines.get(c);
-      if (r !== undefined) retenues.add(r);
+      if (r === undefined) continue;
+      ecart.set(r, Math.min(ecart.get(r) ?? Number.MAX_SAFE_INTEGER, Math.abs(j.jour - s.jour)));
+      /* Prochaines : ce que les jours à venir vont poser. */
+      if (j.jour >= s.jour && j.jour < s.jour + fenetre) retenues.add(r);
     }
   }
+  /* La famille du moment passe devant tout le reste. */
+  const moment = s.moment ?? null;
+  if (moment !== null && racines.has(moment)) {
+    retenues.add(moment);
+    ecart.set(moment, -1);
+  }
   const loin = Number.MAX_SAFE_INTEGER;
-  return [...retenues]
-    .sort((a, b) => {
-      const da = Math.abs((premier.get(a) ?? loin) - s.jour);
-      const db = Math.abs((premier.get(b) ?? loin) - s.jour);
-      return da - db || (a < b ? -1 : 1);
-    })
-    .slice(0, Math.max(0, max))
-    .sort((a, b) => (premier.get(a) ?? loin) - (premier.get(b) ?? loin) || (a < b ? -1 : 1));
+  const parEcart = [...retenues].sort(
+    (a, b) => (ecart.get(a) ?? loin) - (ecart.get(b) ?? loin) || (a < b ? -1 : 1)
+  );
+  /* Les familles les plus fournies en cartes : ce que la forêt a fait pousser. */
+  const cartesParFamille = new Map<string, number>();
+  for (const carte of s.cartes) {
+    const r = racines.get(carte.id);
+    if (r !== undefined) cartesParFamille.set(r, (cartesParFamille.get(r) ?? 0) + 1);
+  }
+  const fournies = [...cartesParFamille.keys()].sort(
+    (a, b) =>
+      (cartesParFamille.get(b) ?? 0) - (cartesParFamille.get(a) ?? 0) ||
+      (premier.get(a) ?? loin) - (premier.get(b) ?? loin) ||
+      (a < b ? -1 : 1)
+  );
+  const n = Math.max(0, max);
+  const garde = new Set(parEcart.slice(0, Math.max(0, n - FAMILLES_FOURNIES)));
+  for (const r of [...fournies, ...parEcart]) {
+    if (garde.size >= n) break;
+    garde.add(r);
+  }
+  return [...garde].sort(
+    (a, b) => (premier.get(a) ?? loin) - (premier.get(b) ?? loin) || (a < b ? -1 : 1)
+  );
+}
+
+/**
+ * Le proche à venir : les caractères que les `jours` prochains jours du parcours vont
+ * poser, aujourd'hui compris. Le cercle les nomme ; le lointain, il le compte.
+ */
+export function prochesDuParcours(
+  index: Index,
+  nom: string,
+  jour: number,
+  jours: number = JOURS_PROCHES
+): string[] {
+  const out = new Set<string>();
+  for (const j of index.parcours[nom]?.jours ?? []) {
+    if (j.jour < jour || j.jour >= jour + jours) continue;
+    for (const c of j.brique === null ? j.composes : [j.brique, ...j.composes]) out.add(c);
+  }
+  return [...out];
 }
 
 /**
  * Le cercle des familles : les familles retenues, leur avancement lu sur les cartes, et
  * la famille du moment — celle de la brique du jour, la seule à porter le cinabre.
  */
-export function construireForet(s: SourcesForet, moment: string | null = null): Foret {
-  const retenues = famillesDuCercle(s);
+export function construireForet(
+  s: SourcesForet,
+  moment: string | null = null
+): ForetDuCercle & { proches: string[] } {
+  const retenues = famillesDuCercle({ ...s, moment: s.moment ?? moment });
   const parRacine = new Map(s.familles.map((f) => [f.racine.c, f]));
   const familles = retenues
     .map((r) => parRacine.get(r))
@@ -593,6 +829,7 @@ export function construireForet(s: SourcesForet, moment: string | null = null): 
     norme: s.index.norme,
     centre: CENTRE,
     familles,
-    moment: moment ?? undefined
+    moment: moment ?? undefined,
+    proches: prochesDuParcours(s.index, s.nom, s.jour)
   };
 }

@@ -33,7 +33,6 @@
     traitsDeFamilles,
     type Famille,
     type Fetes,
-    type Foret,
     type Index,
     type Noeud,
     type Saisons
@@ -50,7 +49,8 @@
     noeudDeFamille,
     placerCercle,
     semaine,
-    type Cercle
+    type Cercle,
+    type ForetDuCercle
   } from './foret';
   import { journee } from './saisons';
   import { jourParcours, type Progress } from './session';
@@ -76,7 +76,7 @@
 
   let index = $state<Index | null>(null);
   let familles = $state<Famille[]>([]);
-  let foret = $state<Foret | null>(null);
+  let foret = $state<ForetDuCercle | null>(null);
   let traits = $state<StrokeSet>({});
   /** Le filtre de la liste des 238 familles : un caractère, un pinyin, un sens. */
   let cherche = $state('');
@@ -293,14 +293,38 @@
     const f = foret ? famille(foret, i) : null;
     if (f) onfamille(f);
   }
+
+  /**
+   * Un seul écouteur pour tout le cercle : la brique, ses caractères et son badge portent
+   * l'index de leur famille, et chacun ouvre son arbre.
+   */
+  function tape(e: MouseEvent): void {
+    const cible = (e.target as Element | null)?.closest('[data-famille]');
+    if (!(cible instanceof SVGElement)) return;
+    const i = Number(cible.dataset.famille);
+    if (Number.isInteger(i)) ouvrir(i);
+  }
+
+  $effect(() => {
+    const b = boite;
+    if (!b) return;
+    b.addEventListener('click', tape);
+    return () => b.removeEventListener('click', tape);
+  });
+
+  function clavier(e: KeyboardEvent, i: number): void {
+    if (e.key !== 'Enter' && e.key !== ' ') return;
+    e.preventDefault();
+    ouvrir(i, false);
+  }
 </script>
 
 <main class="screen">
   <button class="k quit" onclick={onretour}>‹ Retour</button>
   <h1>Ta forêt</h1>
   <p class="guide">
-    Au centre, les briques. Chaque anneau est une génération de plus. Touche une brique pour
-    ouvrir son arbre.
+    Autour de 字, les briques ; plus loin, les caractères qui les contiennent. Touche une
+    brique pour ouvrir son arbre : « +3 », c'est ce qui y attend encore.
   </p>
 
   <div
@@ -330,7 +354,7 @@
             <circle class="ring" cx={cercle.cx} cy={cercle.cy} r={r} />
           {/each}
           {#each cercle.liens as l, i (i)}
-            <path class="lk" class:acquis={l.acquis} d={l.d} />
+            <path class="lk" class:acquis={l.acquis} class:vers-badge={l.badge} d={l.d} />
           {/each}
           <g class="centre">
             <circle class="nd acquis" cx={cercle.cx} cy={cercle.cy} r={cercle.rCentre} />
@@ -345,15 +369,10 @@
                 class="fam"
                 role="button"
                 tabindex="0"
+                data-famille={nd.famille}
                 aria-label="Ouvrir l'arbre de {nd.c}"
                 transform="translate({nd.x} {nd.y})"
-                onclick={() => ouvrir(nd.famille)}
-                onkeydown={(e) => {
-                  if (e.key === 'Enter' || e.key === ' ') {
-                    e.preventDefault();
-                    ouvrir(nd.famille, false);
-                  }
-                }}
+                onkeydown={(e) => clavier(e, nd.famille)}
               >
                 <circle
                   class="nd {nd.etat}"
@@ -367,7 +386,7 @@
                 </g>
               </g>
             {:else}
-              <g transform="translate({nd.x} {nd.y})">
+              <g class="fam membre" data-famille={nd.famille} transform="translate({nd.x} {nd.y})">
                 <circle class="nd {nd.etat}" class:verrouille={nd.verrouille} r={nd.r} />
                 <g transform="translate({-nd.r * 0.78} {-nd.r * 0.78})">
                   <!-- eslint-disable-next-line svelte/no-at-html-tags -->
@@ -376,12 +395,30 @@
               </g>
             {/if}
           {/each}
+          {#each cercle.badges as b (b.famille)}
+            <g
+              class="fam plus"
+              role="button"
+              tabindex="0"
+              data-famille={b.famille}
+              aria-label="Ouvrir l'arbre de {foret?.familles[b.famille]?.c ?? ''} : {b.n} caractère{b.n > 1 ? 's' : ''} de plus"
+              transform="translate({b.x} {b.y})"
+              onkeydown={(e) => clavier(e, b.famille)}
+            >
+              <circle class="nd badge" r={b.r} />
+              <text class="compte" text-anchor="middle" dy="0.35em">+{b.n}</text>
+            </g>
+          {/each}
         </svg>
       {/if}
     </div>
+  </div>
+  <!-- Les boutons du zoom sous le cercle, pas dessus : ils ne cachent aucun caractère. -->
+  <div class="outils">
+    <div class="k">Pince pour zoomer, glisse pour te déplacer, double tape pour recentrer.</div>
     <div class="zoomctl">
-      <button aria-label="Agrandir" onclick={() => bouton(1.4)}>+</button>
       <button aria-label="Réduire" onclick={() => bouton(1 / 1.4)}>−</button>
+      <button aria-label="Agrandir" onclick={() => bouton(1.4)}>+</button>
       <button aria-label="Recentrer" onclick={recentrer}>⌂</button>
     </div>
   </div>
@@ -391,7 +428,6 @@
     <span><i class="d3"></i>à venir</span>
     <span><i class="d2"></i>la famille du moment</span>
   </div>
-  <div class="k center">Pince pour zoomer, glisse pour te déplacer, double tape pour recentrer.</div>
 
   <div class="card famlist">
     <div class="row">
@@ -489,6 +525,43 @@
   /* le cercle passe devant son décor */
   .forest > svg.cercle {
     position: relative;
+  }
+
+  /* le badge « +N » : ce que l'arbre garde encore, en filet, jamais en cinabre */
+  .cercle .nd.badge {
+    fill: var(--card);
+    stroke: var(--mist);
+    stroke-width: 1.5;
+    stroke-dasharray: 3 3;
+  }
+  .cercle .compte {
+    fill: var(--ink2);
+    font: 600 18px var(--sans);
+  }
+  .cercle .lk.vers-badge {
+    stroke-width: 1.5;
+    stroke-dasharray: 3 4;
+  }
+  /* le proche à venir est nommé pour être lu : son caractère reste net */
+  .cercle .nd.avenir ~ g {
+    opacity: 0.8;
+  }
+
+  .outils {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-top: 8px;
+  }
+  .outils .k {
+    flex: 1;
+    font-size: 13px;
+    line-height: 1.3;
+  }
+  .outils .zoomctl {
+    position: static;
+    flex-direction: row;
+    gap: 6px;
   }
 
   /* trouvés en chemin : une rangée de petits caractères, dessinés depuis leurs traits */
