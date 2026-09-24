@@ -12,11 +12,12 @@
  * aucune horloge, aucun `Math.random`. Les données sont injectées dans un `CorpusJeux`
  * et tout tirage part d'une graine : la même graine rend toujours la même manche.
  */
-import type { Famille, Fiche, Foret, Noeud, Voisins } from './content';
+import type { Devinette, Devinettes, Famille, Fiche, Foret, Noeud, Voisins } from './content';
 import { etat } from './foret';
 import {
   BONUS_MEME_NOMBRE,
   acquis as acquisDesCartes,
+  caractereAcquis,
   type Acquis,
   hachage,
   melange,
@@ -25,7 +26,7 @@ import {
   type Corpus as CorpusQuestions,
   type Paires
 } from './questions';
-import type { Progress, Revision } from './session';
+import { devinetteFaite, type Progress, type Revision } from './session';
 import { grade, newCard, schedule, type Outcome, type ReviewCard, type SrsParams } from './srs';
 import { humeur, proposeUnJeu } from './tao';
 import type { Grade } from 'ts-fsrs';
@@ -68,6 +69,12 @@ export const MESSAGE_MAX = 12;
 export const TOURS_COQUILLE = 4;
 
 /**
+ * La devinette : deux essais. Juste au premier, juste au second (après une erreur), ou
+ * faux deux fois : la réponse est alors montrée. C'est la notation de toute question.
+ */
+export const ESSAIS_DEVINETTE = 2;
+
+/**
  * Sous ce nombre de caractères acquis, la progression ne suffit pas encore à jouer
  * et le repli de démonstration complète l'acquis (voir `corpusDeJeu`).
  */
@@ -103,6 +110,27 @@ export type CorpusJeux = {
    * la source des messages de la coquille. Le code n'en écrit aucun.
    */
   textes: readonly string[];
+  /** Les devinettes de lanternes et ce qu'il faut pour choisir celle du jour. Absent : pas de devinette. */
+  lanternes?: Lanternes;
+};
+
+/**
+ * Ce que la devinette du jour lit, en plus du corpus commun. Les devinettes viennent de
+ * `devinettes.json` (rédigées et contrôlées dans le pipeline) ; le reste, de la progression.
+ */
+export type Lanternes = {
+  devinettes: readonly Devinette[];
+  /** Le nom de chaque brique citée, que la correction montre sous la brique. */
+  noms: Readonly<Record<string, string>>;
+  /**
+   * Les caractères qui ont une carte, acquis ou en cours : une devinette ne se pose que
+   * si sa réponse et toutes ses briques en sont. Jamais l'acquis de démonstration.
+   */
+  connus: readonly string[];
+  /** Les devinettes déjà résolues : celles qui ne le sont pas passent devant. */
+  resolues: readonly string[];
+  /** La devinette déjà posée aujourd'hui : elle reste celle du jour, quoi qu'il arrive. */
+  posee: string | null;
 };
 
 export function corpusVide(): CorpusJeux {
@@ -173,6 +201,12 @@ export type Sources = {
   cartes?: readonly Acquis[];
   /** Stabilité minimale pour compter comme acquis. Défaut : le seuil de `srs.ts`. */
   seuil?: number;
+  /** Les devinettes de l'export (`devinettes.json`). */
+  devinettes?: Devinettes | null;
+  /** Les devinettes déjà résolues, `Progress.devinettes`. */
+  resolues?: readonly string[];
+  /** La devinette déjà posée aujourd'hui, s'il y en a une. */
+  posee?: string | null;
 };
 
 /**
@@ -243,7 +277,7 @@ export function corpusDeJeu(s: Sources): CorpusJeux {
   const acquis =
     stables.length >= ACQUIS_MIN ? stables : [...new Set([...stables, ...demo])];
 
-  return {
+  const corpus: CorpusJeux = {
     acquis,
     decompositions,
     formes,
@@ -252,14 +286,27 @@ export function corpusDeJeu(s: Sources): CorpusJeux {
     traits: s.traits ?? [],
     textes
   };
+  if (s.devinettes) {
+    corpus.lanternes = {
+      devinettes: s.devinettes.devinettes,
+      noms: s.devinettes.noms,
+      connus: [...new Set((s.cartes ?? []).map(caractereAcquis))],
+      resolues: s.resolues ?? [],
+      posee: s.posee ?? null
+    };
+  }
+  return corpus;
 }
 
 /* ---------- le contrat commun ---------- */
 
-export type JeuId = 'assembler' | 'jumeaux' | 'chaine' | 'coquille';
+export type JeuId = 'devinette' | 'assembler' | 'jumeaux' | 'chaine' | 'coquille';
 
-/** L'ordre de référence des jeux, celui du choix sur Ma forêt. */
-export const IDS: readonly JeuId[] = ['assembler', 'jumeaux', 'chaine', 'coquille'];
+/**
+ * L'ordre de référence des jeux, celui de l'écran Jouer. La devinette du jour passe en
+ * tête : c'est elle que la case Jouer du menu annonce.
+ */
+export const IDS: readonly JeuId[] = ['devinette', 'assembler', 'jumeaux', 'chaine', 'coquille'];
 
 /** Un caractère et sa décomposition : ce que montre la correction par les briques. */
 export type Correction = { c: string; briques: string[] };
@@ -287,6 +334,8 @@ export type Tour = {
   coupes?: number[];
   /** La correction par les briques, montrée après la réponse. */
   correction?: Correction[];
+  /** La devinette : son identifiant, que la progression range une fois résolue. */
+  devinette?: string;
 };
 
 /** Une manche : la suite des tours, où l'on en est, et ce qui a été noté. */
@@ -727,6 +776,119 @@ function toursCoquille(corpus: CorpusJeux, graine: string): Tour[] {
   return tours;
 }
 
+/* ---------- jeu 5 : les devinettes de lanternes ---------- */
+
+/**
+ * Les devinettes qui peuvent se poser : la réponse et toutes ses briques ont une carte
+ * (acquises ou en cours), et tout ce que l'écran dessine — réponse, briques, leurres —
+ * a ses traits. L'ordre est celui de `devinettes.json`.
+ */
+export function devinettesPossibles(corpus: CorpusJeux): Devinette[] {
+  const l = corpus.lanternes;
+  if (!l) return [];
+  const connus = new Set(l.connus);
+  return l.devinettes.filter(
+    (d) =>
+      connus.has(d.c) &&
+      d.briques.every((b) => connus.has(b)) &&
+      [d.c, ...d.briques, ...d.leurres].every((x) => montrable(x, corpus))
+  );
+}
+
+/**
+ * La devinette du jour. Celle déjà posée aujourd'hui le reste, tant qu'on sait la
+ * dessiner. Sinon, parmi les possibles, une qui n'a pas encore été résolue — à défaut,
+ * n'importe laquelle — tirée d'après la graine, qui porte la journée : la même journée
+ * donne la même devinette. `null` quand aucune ne peut se poser.
+ */
+export function devinetteDuJour(corpus: CorpusJeux, graine: string): Devinette | null {
+  const l = corpus.lanternes;
+  if (!l) return null;
+  if (l.posee !== null) {
+    const deja = l.devinettes.find((d) => d.id === l.posee);
+    if (deja && [deja.c, ...deja.briques, ...deja.leurres].every((x) => montrable(x, corpus))) {
+      return deja;
+    }
+  }
+  const possibles = devinettesPossibles(corpus);
+  const resolues = new Set(l.resolues);
+  const neuves = possibles.filter((d) => !resolues.has(d.id));
+  const pool = neuves.length > 0 ? neuves : possibles;
+  let choix: Devinette | null = null;
+  let h = 0;
+  for (const d of pool) {
+    const hd = hachage(`${graine}/${d.id}`);
+    if (choix === null || hd < h) {
+      choix = d;
+      h = hd;
+    }
+  }
+  return choix;
+}
+
+function toursDevinette(corpus: CorpusJeux, graine: string): Tour[] {
+  const d = devinetteDuJour(corpus, graine);
+  if (d === null) return [];
+  return [
+    {
+      c: d.c,
+      enonce: d.enonce,
+      reponse: [d.c],
+      choix: melange([d.c, ...d.leurres], `${graine}/${d.c}/choix`),
+      ordre: false,
+      paire: false,
+      correction: [{ c: d.c, briques: [...d.briques] }],
+      devinette: d.id
+    }
+  ];
+}
+
+/** La devinette d'un tour, telle que le contenu la donne. */
+export function devinetteDe(t: Tour, corpus: CorpusJeux): Devinette | null {
+  return corpus.lanternes?.devinettes.find((d) => d.id === t.devinette) ?? null;
+}
+
+/** Le nom d'une brique citée, vide quand le contenu ne le donne pas. */
+export function nomDeBrique(b: string, corpus: CorpusJeux): string {
+  return corpus.lanternes?.noms[b] ?? '';
+}
+
+/** Ce qu'un essai rend : les choix faux déjà pris, et le résultat quand le tour est noté. */
+export type Essai = { pris: string[]; resultat: Resultat | null };
+
+/**
+ * Un essai à la devinette. Juste : le tour est noté, avec les essais faux d'avant (juste
+ * du premier coup, ou juste après une erreur). Faux au premier essai : rien n'est noté,
+ * le choix est écarté et l'on essaie encore. Faux au dernier : le tour est noté faux, la
+ * réponse est montrée. Les leurres pris accompagnent l'événement ; `grade` note.
+ */
+export function essayer(m: Manche, choix: string, pris: readonly string[], seconds: number): Essai {
+  const t = tour(m);
+  if (t === null) throw new Error('Manche finie');
+  const juste = choix === t.reponse[0];
+  const faux = juste ? [...pris] : [...pris, choix];
+  if (!juste && faux.length < ESSAIS_DEVINETTE) return { pris: faux, resultat: null };
+  const resultat = repondre(m, choix, {
+    correct: juste,
+    tries: faux.length,
+    seconds,
+    leurres: faux
+  });
+  return { pris: faux, resultat };
+}
+
+/**
+ * La case Jouer annonce la devinette du jour quand une peut se poser et qu'elle n'est pas
+ * déjà faite. Le calcul est celui du jeu, sans les traits : l'export les garantit
+ * (`wenlu check`), et le menu ne charge pas toutes les familles pour une ligne.
+ */
+export function devinetteAAnnoncer(p: Progress, devinettes: readonly Devinette[]): boolean {
+  if (devinetteFaite(p, p.day)) return false;
+  if (p.devinetteDuJour?.jour === p.day) return true;
+  const connus = new Set(p.cartes.map((x) => x.id));
+  return devinettes.some((d) => connus.has(d.c) && d.briques.every((b) => connus.has(b)));
+}
+
 /* ---------- une manche ---------- */
 
 function manche(jeu: JeuId, graine: string, tours: Tour[]): Manche | null {
@@ -773,7 +935,9 @@ export function repondre(m: Manche, reponse: Reponse, outcome: Outcome): Resulta
     c,
     correct,
     tries: outcome.tries,
-    seconds: outcome.seconds
+    seconds: outcome.seconds,
+    /* Les leurres pris, quand l'écran les connaît : les pièges déjoués les lisent. */
+    ...(outcome.leurres === undefined ? {} : { leurres: [...outcome.leurres] })
   }));
   const evenement = evenements[0];
   return {
@@ -799,6 +963,11 @@ function pluriel(n: number, un: string, plusieurs: string): string {
 
 /** Ce que chaque jeu compte en plus des caractères revus. Des faits, pas des points. */
 const COMPTES: Record<JeuId, { un: string; plusieurs: string; aucun: string }> = {
+  devinette: {
+    un: 'devinette résolue',
+    plusieurs: 'devinettes résolues',
+    aucun: 'la réponse montrée'
+  },
   assembler: { un: 'assemblé', plusieurs: 'assemblés', aucun: 'aucun assemblé' },
   jumeaux: {
     un: 'paire distinguée',
@@ -839,6 +1008,20 @@ export function longueur(m: Manche): number {
 /* ---------- les jeux ---------- */
 
 export const JEUX: Record<JeuId, Jeu> = {
+  devinette: {
+    id: 'devinette',
+    titre: 'La devinette du jour',
+    lit: 'Retrouver un caractère dans une décomposition déguisée.',
+    minutes: 1,
+    tours: 1,
+    chrono: 0,
+    limite: 0,
+    indisponible:
+      'Pas encore de devinette dont la réponse et les briques soient acquises ou en cours.',
+    preparer: (corpus, graine) => manche('devinette', graine, toursDevinette(corpus, graine)),
+    repondre,
+    constat
+  },
   assembler: {
     id: 'assembler',
     titre: 'Assembler contre la montre',
