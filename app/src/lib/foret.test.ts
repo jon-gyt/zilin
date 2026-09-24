@@ -334,11 +334,16 @@ const indexExport = JSON.parse(
   )
 ) as Index;
 
-/** Les familles de l'export, lues sur disque : aucune requête dans un test. */
+/**
+ * Les familles de l'export, lues sur disque : aucune requête dans un test. Le fichier est
+ * celui que l'index nomme : une racine écrite en IDS (⿰丿丨) a un nom en `U+XXXX`.
+ */
 function familleExport(racine: string): Famille {
+  const fichier =
+    indexExport.familles.find((x) => x.racine === racine)?.fichier ?? `familles/${racine}.json`;
   return JSON.parse(
     readFileSync(
-      new URL(`../../public/data/${VERSION_DONNEES}/familles/${racine}.json`, import.meta.url),
+      new URL(`../../public/data/${VERSION_DONNEES}/${fichier}`, import.meta.url),
       'utf8'
     )
   ) as Famille;

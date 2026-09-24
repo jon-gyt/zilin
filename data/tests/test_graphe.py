@@ -12,6 +12,8 @@ from pathlib import Path
 
 import pytest
 
+from wenlu_data.export import VERSION
+from wenlu_data.paths import EXPORT
 from wenlu_data.graphe import (
     BRIQUE,
     CARACTERE,
@@ -257,6 +259,22 @@ def test_le_depart_respecte_les_dependances() -> None:
 def test_le_parcours_lire_commence_par_la_premiere_session() -> None:
     """Le départ du parcours « lire » est ce que l'app enseigne à la première session."""
     assert DEPART["lire"] == ("人", "大", "天")
+
+
+def test_l_export_versionne_commence_par_la_premiere_session() -> None:
+    """Jours 1 à 3 de l'index exporté : 人, 大, 天, seuls. Le jour 4 reprend l'ordre du graphe."""
+    index = EXPORT / VERSION / "index.json"
+    if not index.exists():
+        pytest.skip("aucun export versionné")
+    jours = json.loads(index.read_text(encoding="utf-8"))["parcours"]["lire"]["jours"]
+    assert [(j["jour"], j["brique"], j["composes"]) for j in jours[:3]] == [
+        (1, "人", []),
+        (2, "大", []),
+        (3, "天", []),
+    ]
+    assert jours[3]["brique"] not in ("人", "大", "天")
+    vus = [c for j in jours for c in ([j["brique"]] if j["brique"] else []) + j["composes"]]
+    assert len(vus) == len(set(vus))
 
 
 def test_rang_de_frequence_ingere_prend_le_pas() -> None:
