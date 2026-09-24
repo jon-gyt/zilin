@@ -21,6 +21,7 @@ import {
 } from './srs';
 import { ajouter, journal, lireTao, taoVide, type Tao, type TypeActivite } from './tao';
 import { lireTrouves, type Trouve } from './trouves';
+import { lireLettresNotees, type LettreNotee } from './lettres';
 
 
 /** Budget choisi par l'utilisateur, en minutes. */
@@ -277,6 +278,13 @@ export type Progress = {
    * jeu les note par `noterRecette`. Absente d'une progression plus ancienne : vide.
    */
   recettes: string[];
+  /**
+   * Les lettres de Que arrivées, dans l'ordre du feuilleton, avec leur journée d'arrivée
+   * et celle où elles ont été lues (`lettres.ts` : une par semaine au plus, le dimanche
+   * ou à la première session de la semaine). Absentes d'une progression plus ancienne :
+   * aucune.
+   */
+  lettres: LettreNotee[];
 };
 
 /**
@@ -339,7 +347,8 @@ export function emptyProgress(aujourdhui: string): Progress {
     relecture: false,
     motsDevines: [],
     trouves: [],
-    recettes: []
+    recettes: [],
+    lettres: []
   };
 }
 
@@ -1289,6 +1298,8 @@ export function fromJSON(texte: string, aujourdhui: string): Progress {
     /* Les caractères trouvés en chemin : absents d'un export plus ancien, aucun. */
     trouves: lireTrouves(o.trouves),
     /* Les plats cuisinés : absents d'un export plus ancien, aucun n'est fait. */
-    recettes: listeDeCaracteres(o.recettes)
+    recettes: listeDeCaracteres(o.recettes),
+    /* Les lettres de Que : absentes d'un export plus ancien, aucune n'est arrivée. */
+    lettres: lireLettresNotees(o.lettres)
   };
 }

@@ -525,6 +525,8 @@ export type Index = {
   eclair: string;
   /** Le fichier de la cuisine de Tao, `cuisine.json` ; vide pour un export qui n'en porte pas. */
   cuisine: string;
+  /** Les lettres de Que relues, `lettres.json` (`lettres.ts`) ; vide pour un export qui n'en porte pas. */
+  lettres: string;
 };
 
 /** La version de données que l'app lit : le dossier exporté par `wenlu export`. */
@@ -564,7 +566,8 @@ export async function loadIndex(
     devinettes: typeof brut.devinettes === 'string' ? brut.devinettes : '',
     apercu: typeof brut.apercu === 'string' ? brut.apercu : '',
     eclair: typeof brut.eclair === 'string' ? brut.eclair : '',
-    cuisine: typeof brut.cuisine === 'string' ? brut.cuisine : ''
+    cuisine: typeof brut.cuisine === 'string' ? brut.cuisine : '',
+    lettres: typeof brut.lettres === 'string' ? brut.lettres : ''
   };
 }
 
