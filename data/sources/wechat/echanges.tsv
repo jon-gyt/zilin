@@ -1,0 +1,566 @@
+# Le message WeChat (story 4b.7) : les échanges de chaque dialogue, dans l'ordre.
+#
+# Source : rédigé pour l'app, sans API ; à relire. Des phrases courtes, qui ne
+# s'écrivent qu'avec les caractères que les parcours posent (`wenlu check`).
+#
+# Conventions de pinyin, celles des fiches (`pinyin.py`) : tons du dictionnaire,
+# sans sandhi (一 s'écrit yī, 不 bù), un mot d'un seul tenant, ponctuation latine.
+# Chaque caractère doit se lire par l'une de ses lectures ; `wenlu check` aligne, et
+# l'export en tire le pinyin de chaque caractère, que l'app montre au toucher.
+#
+# Format : TSV, `#` en commentaire, sept colonnes séparées par une tabulation :
+# `dialogue` (l'`id` de `dialogues.tsv`), `role`, `zh`, `pinyin`, `fr`, `en`, `erreur`.
+#
+# Un échange commence par un message de l'ami (`ami`), suivi d'une bonne réplique
+# (`juste`) et de deux ou trois mauvaises (`faux`) : trois ou quatre répliques. Une
+# mauvaise réplique dit ce qui cloche (`erreur`) : `hors-sujet` (elle parle d'autre
+# chose) ou `contresens` (elle lit mal le message : 今天 pour 明天, 茶 pour 菜, un
+# « oui » qui contredit). Un dialogue a de deux à quatre échanges ; un dernier message
+# de l'ami (`fin`), sans réplique, peut le clore.
+dialogue	role	zh	pinyin	fr	en	erreur
+zao	ami	早！	Zǎo!	Salut !	Morning!	
+zao	juste	早！	Zǎo!	Salut !	Morning!	
+zao	faux	明天见！	Míngtiān jiàn!	À demain !	See you tomorrow!	contresens
+zao	faux	她是学生。	Tā shì xuésheng.	Elle est étudiante.	She's a student.	hors-sujet
+zao	ami	明天是星期二？	Míngtiān shì xīngqī'èr?	Demain, c'est mardi ?	Is tomorrow Tuesday?	
+zao	juste	是，明天星期二。	Shì, míngtiān xīngqī'èr.	Oui, demain c'est mardi.	Yes, tomorrow's Tuesday.	
+zao	faux	是，明天星期一。	Shì, míngtiān xīngqīyī.	Oui, demain c'est lundi.	Yes, tomorrow's Monday.	contresens
+zao	faux	她有女儿。	Tā yǒu nǚ'ér.	Elle a une fille.	She has a daughter.	hors-sujet
+zao	ami	好，明天见！	Hǎo, míngtiān jiàn!	Bon, à demain !	OK, see you tomorrow!	
+zao	juste	明天见！	Míngtiān jiàn!	À demain !	See you tomorrow!	
+zao	faux	早！	Zǎo!	Salut ! (le bonjour du matin)	Morning!	contresens
+zao	faux	一月一日。	Yīyuè yī rì.	Le 1er janvier.	January 1st.	hors-sujet
+mama	ami	妈妈好吗？	Māma hǎo ma?	Ta mère va bien ?	How's your mum?	
+mama	juste	妈妈好！	Māma hǎo!	Maman va bien !	Mum's well!	
+mama	faux	马好！	Mǎ hǎo!	Le cheval va bien !	The horse is well!	contresens
+mama	faux	明天见！	Míngtiān jiàn!	À demain !	See you tomorrow!	hors-sujet
+mama	ami	妈妈生日是几月几日？	Māma shēngrì shì jǐ yuè jǐ rì?	L'anniversaire de ta mère, c'est quand ?	When is your mum's birthday?	
+mama	juste	二月十八日。	Èryuè shíbā rì.	Le 18 février.	February 18th.	
+mama	faux	她是大学生。	Tā shì dàxuésheng.	Elle est étudiante à l'université.	She's a university student.	hors-sujet
+mama	faux	早！	Zǎo!	Salut !	Morning!	hors-sujet
+shengri	ami	她生日是几月几日？	Tā shēngrì shì jǐ yuè jǐ rì?	Son anniversaire, c'est quand ?	When is her birthday?	
+shengri	juste	八月十二日。	Bāyuè shí'èr rì.	Le 12 août.	August 12th.	
+shengri	faux	她是大学生。	Tā shì dàxuésheng.	Elle est étudiante à l'université.	She's a university student.	hors-sujet
+shengri	faux	是她女儿。	Shì tā nǚ'ér.	C'est sa fille.	It's her daughter.	hors-sujet
+shengri	ami	明天是八月十二日！	Míngtiān shì bāyuè shí'èr rì!	Demain, c'est le 12 août !	Tomorrow is August 12th!	
+shengri	juste	明天是她生日？	Míngtiān shì tā shēngrì?	Son anniversaire, c'est demain ?	So her birthday is tomorrow?	
+shengri	faux	今天是她生日？	Jīntiān shì tā shēngrì?	Son anniversaire, c'est aujourd'hui ?	So her birthday is today?	contresens
+shengri	faux	八月有雨。	Bāyuè yǒu yǔ.	En août, il pleut.	It rains in August.	hors-sujet
+shengri	fin	是！	Shì!	Oui !	Yes!	
+xiayu	ami	今天有雨，我不出门了。	Jīntiān yǒu yǔ, wǒ bù chūmén le.	Il pleut aujourd'hui, je ne sors pas.	It's raining today, I'm staying in.	
+xiayu	juste	我也不出门。	Wǒ yě bù chūmén.	Moi non plus.	Me neither.	
+xiayu	faux	我也出门了。	Wǒ yě chūmén le.	Moi aussi, je suis sorti.	I went out too.	contresens
+xiayu	faux	我是学生。	Wǒ shì xuésheng.	Je suis étudiant.	I'm a student.	hors-sujet
+xiayu	ami	明天去山上？	Míngtiān qù shān shàng?	Demain, on monte à la montagne ?	Up the mountain tomorrow?	
+xiayu	juste	好！明天不下雨？	Hǎo! Míngtiān bù xià yǔ?	D'accord ! Il ne pleuvra pas demain ?	OK! Won't it rain tomorrow?	
+xiayu	faux	不，今天去。	Bù, jīntiān qù.	Non, on y va aujourd'hui.	No, let's go today.	contresens
+xiayu	faux	我有一个女儿。	Wǒ yǒu yī ge nǚ'ér.	J'ai une fille.	I have a daughter.	hors-sujet
+xiayu	fin	明天不下雨。明天见！	Míngtiān bù xià yǔ. Míngtiān jiàn!	Il ne pleuvra pas demain. À demain !	No rain tomorrow. See you then!	
+shangke	ami	下午我去上课。	Xiàwǔ wǒ qù shàngkè.	Cet après-midi, je vais en cours.	I'm going to class this afternoon.	
+shangke	juste	上午不上课？	Shàngwǔ bù shàngkè?	Pas de cours ce matin ?	No class this morning?	
+shangke	faux	好，上午见！	Hǎo, shàngwǔ jiàn!	D'accord, à ce matin !	OK, see you this morning!	contresens
+shangke	faux	我有两本书。	Wǒ yǒu liǎng běn shū.	J'ai deux livres.	I have two books.	hors-sujet
+shangke	ami	不上。上午我不出门。	Bù shàng. Shàngwǔ wǒ bù chūmén.	Non. Ce matin, je ne sors pas.	No. I'm staying in this morning.	
+shangke	juste	好，下午见！	Hǎo, xiàwǔ jiàn!	D'accord, à cet après-midi !	OK, see you this afternoon!	
+shangke	faux	上午去上课？	Shàngwǔ qù shàngkè?	Tu vas en cours ce matin ?	Going to class this morning?	contresens
+shangke	faux	我去过北京。	Wǒ qùguo Běijīng.	Je suis allé à Pékin.	I've been to Beijing.	hors-sujet
+xingqiliu	ami	星期六我们去山上？	Xīngqīliù wǒmen qù shān shàng?	Samedi, on monte à la montagne ?	Shall we go up the mountain on Saturday?	
+xingqiliu	juste	好！几个人去？	Hǎo! Jǐ ge rén qù?	D'accord ! On sera combien ?	OK! How many of us?	
+xingqiliu	faux	星期天？好！	Xīngqītiān? Hǎo!	Dimanche ? D'accord !	Sunday? OK!	contresens
+xingqiliu	faux	我有三个杯子。	Wǒ yǒu sān ge bēizi.	J'ai trois tasses.	I've got three cups.	hors-sujet
+xingqiliu	ami	四个人。	Sì ge rén.	Quatre.	Four of us.	
+xingqiliu	juste	好，星期六早上见！	Hǎo, xīngqīliù zǎoshang jiàn!	D'accord, à samedi matin !	OK, see you Saturday morning!	
+xingqiliu	faux	好，星期一见！	Hǎo, xīngqīyī jiàn!	D'accord, à lundi !	OK, see you Monday!	contresens
+xingqiliu	faux	我去过北京。	Wǒ qùguo Běijīng.	Je suis allé à Pékin.	I've been to Beijing.	hors-sujet
+nihao	ami	你好！	Nǐ hǎo!	Salut !	Hi!	
+nihao	juste	你好！	Nǐ hǎo!	Salut !	Hi!	
+nihao	faux	再见！	Zàijiàn!	Au revoir !	Bye!	contresens
+nihao	faux	他二十岁。	Tā èrshí suì.	Il a vingt ans.	He's twenty.	hors-sujet
+nihao	ami	你明天回来吗？	Nǐ míngtiān huílái ma?	Tu rentres demain ?	Are you back tomorrow?	
+nihao	juste	不，我后天回来。	Bù, wǒ hòutiān huílái.	Non, je rentre après-demain.	No, I'm back the day after tomorrow.	
+nihao	faux	不，我明天回来。	Bù, wǒ míngtiān huílái.	Non, je rentre demain.	No, I'm back tomorrow.	contresens
+nihao	faux	我有三个杯子。	Wǒ yǒu sān ge bēizi.	J'ai trois tasses.	I've got three cups.	hors-sujet
+nihao	ami	好，后天见！	Hǎo, hòutiān jiàn!	D'accord, à après-demain !	OK, see you the day after tomorrow!	
+nihao	juste	后天见！	Hòutiān jiàn!	À après-demain !	See you then!	
+nihao	faux	明天见！	Míngtiān jiàn!	À demain !	See you tomorrow!	contresens
+nihao	faux	我是学生。	Wǒ shì xuésheng.	Je suis étudiant.	I'm a student.	hors-sujet
+xinshu	ami	我有三本新书。	Wǒ yǒu sān běn xīn shū.	J'ai trois livres neufs.	I've got three new books.	
+xinshu	juste	是什么书？	Shì shénme shū?	Quels livres ?	What books?	
+xinshu	faux	三本老书？	Sān běn lǎo shū?	Trois vieux livres ?	Three old books?	contresens
+xinshu	faux	明天有雨。	Míngtiān yǒu yǔ.	Il pleuvra demain.	It'll rain tomorrow.	hors-sujet
+xinshu	ami	两本中文书，一本日文书。	Liǎng běn Zhōngwén shū, yī běn Rìwén shū.	Deux livres en chinois, un en japonais.	Two Chinese books and one Japanese book.	
+xinshu	juste	中文书难不难？	Zhōngwén shū nán bù nán?	Ceux en chinois, ils sont difficiles ?	Are the Chinese ones hard?	
+xinshu	faux	四本日文书？	Sì běn Rìwén shū?	Quatre livres en japonais ?	Four Japanese books?	contresens
+xinshu	faux	我不去日本。	Wǒ bù qù Rìběn.	Je ne vais pas au Japon.	I'm not going to Japan.	hors-sujet
+xinshu	fin	不难！	Bù nán!	Pas difficiles !	Not hard!	
+qiche	ami	我有新车了！	Wǒ yǒu xīn chē le!	J'ai une nouvelle voiture !	I've got a new car!	
+qiche	juste	什么车？	Shénme chē?	Quelle voiture ?	What car?	
+qiche	faux	老车？	Lǎo chē?	Une vieille voiture ?	An old car?	contresens
+qiche	faux	下午有课。	Xiàwǔ yǒu kè.	J'ai cours cet après-midi.	I've got class this afternoon.	hors-sujet
+qiche	ami	小汽车，是日本车。	Xiǎo qìchē, shì Rìběn chē.	Une petite voiture, japonaise.	A small car, a Japanese one.	
+qiche	juste	明天我们开车去山上！	Míngtiān wǒmen kāichē qù shān shàng!	Demain, on monte à la montagne en voiture !	Tomorrow let's drive up the mountain!	
+qiche	faux	大汽车？	Dà qìchē?	Une grosse voiture ?	A big car?	contresens
+qiche	faux	我有两本书。	Wǒ yǒu liǎng běn shū.	J'ai deux livres.	I have two books.	hors-sujet
+qiche	fin	好！明天见！	Hǎo! Míngtiān jiàn!	D'accord ! À demain !	OK! See you tomorrow!	
+beijing	ami	我明年去北京！	Wǒ míngnián qù Běijīng!	L'an prochain, je vais à Pékin !	I'm going to Beijing next year!	
+beijing	juste	太好了！去几天？	Tài hǎo le! Qù jǐ tiān?	Super ! Pour combien de jours ?	Great! For how many days?	
+beijing	faux	去年？	Qùnián?	L'an dernier ?	Last year?	contresens
+beijing	faux	下午有课。	Xiàwǔ yǒu kè.	J'ai cours cet après-midi.	I've got class this afternoon.	hors-sujet
+beijing	ami	十天。	Shí tiān.	Dix jours.	Ten days.	
+beijing	juste	十天不少！	Shí tiān bù shǎo!	Dix jours, ce n'est pas rien !	Ten days, that's a good while!	
+beijing	faux	十个月？	Shí ge yuè?	Dix mois ?	Ten months?	contresens
+beijing	faux	水不多了。	Shuǐ bù duō le.	Il ne reste plus beaucoup d'eau.	There's not much water left.	hors-sujet
+beijing	ami	你也来北京？	Nǐ yě lái Běijīng?	Tu viens à Pékin, toi aussi ?	Are you coming to Beijing too?	
+beijing	juste	我想去！	Wǒ xiǎng qù!	J'aimerais bien !	I'd love to!	
+beijing	faux	你来北京？	Nǐ lái Běijīng?	C'est toi qui viens à Pékin ?	You're coming to Beijing?	contresens
+beijing	faux	我有一个哥哥。	Wǒ yǒu yī ge gēge.	J'ai un grand frère.	I have an older brother.	hors-sujet
+nihaoma	ami	你好吗？	Nǐ hǎo ma?	Comment ça va ?	How are you?	
+nihaoma	juste	我很好，你呢？	Wǒ hěn hǎo, nǐ ne?	Très bien, et toi ?	Very well, and you?	
+nihaoma	faux	再见！	Zàijiàn!	Au revoir !	Goodbye!	contresens
+nihaoma	faux	我在北京。	Wǒ zài Běijīng.	Je suis à Pékin.	I'm in Beijing.	hors-sujet
+nihaoma	ami	我也很好。你在哪里？	Wǒ yě hěn hǎo. Nǐ zài nǎlǐ?	Bien aussi. Tu es où ?	I'm fine too. Where are you?	
+nihaoma	juste	我在家。	Wǒ zài jiā.	À la maison.	At home.	
+nihaoma	faux	我很好。	Wǒ hěn hǎo.	Je vais bien.	I'm fine.	contresens
+nihaoma	faux	明天有雨。	Míngtiān yǒu yǔ.	Il pleuvra demain.	It'll rain tomorrow.	hors-sujet
+nihaoma	ami	我也在家。下午来我家玩？	Wǒ yě zài jiā. Xiàwǔ lái wǒ jiā wán?	Moi aussi. Tu viens chez moi cet après-midi ?	Me too. Come over this afternoon?	
+nihaoma	juste	好！下午见！	Hǎo! Xiàwǔ jiàn!	D'accord ! À cet après-midi !	OK! See you this afternoon!	
+nihaoma	faux	好！上午见！	Hǎo! Shàngwǔ jiàn!	D'accord ! À ce matin !	OK! See you this morning!	contresens
+nihaoma	faux	我有一个哥哥。	Wǒ yǒu yī ge gēge.	J'ai un grand frère.	I have an older brother.	hors-sujet
+hecha	ami	我家有好茶，来喝茶吗？	Wǒ jiā yǒu hǎo chá, lái hē chá ma?	J'ai du bon thé à la maison, tu viens en boire ?	I've got some good tea at home, want to come over for a cup?	
+hecha	juste	好！什么茶？	Hǎo! Shénme chá?	Volontiers ! Quel thé ?	Sure! What tea?	
+hecha	faux	你家有很多菜？	Nǐ jiā yǒu hěn duō cài?	Tu as beaucoup de légumes chez toi ?	You've got lots of vegetables at home?	contresens
+hecha	faux	明天我去上课。	Míngtiān wǒ qù shàngkè.	Demain, je vais en cours.	I'm going to class tomorrow.	hors-sujet
+hecha	ami	花茶，很好喝。	Huāchá, hěn hǎohē.	Du thé aux fleurs, il est très bon.	Flower tea, it's really good.	
+hecha	juste	我很喜欢花茶！	Wǒ hěn xǐhuan huāchá!	J'adore le thé aux fleurs !	I love flower tea!	
+hecha	faux	你喜欢花吗？	Nǐ xǐhuan huā ma?	Tu aimes les fleurs ?	Do you like flowers?	contresens
+hecha	faux	这本书很好。	Zhè běn shū hěn hǎo.	Ce livre est très bien.	This book is great.	hors-sujet
+hecha	fin	那你现在来！	Nà nǐ xiànzài lái!	Alors viens maintenant !	Then come over now!	
+fangzi	ami	我有新房子了！	Wǒ yǒu xīn fángzi le!	J'ai un nouvel appartement !	I've got a new flat!	
+fangzi	juste	太好了！房子大吗？	Tài hǎo le! Fángzi dà ma?	Super ! Il est grand ?	Great! Is it big?	
+fangzi	faux	你有新车了？	Nǐ yǒu xīn chē le?	Tu as une nouvelle voiture ?	You've got a new car?	contresens
+fangzi	faux	我不喝茶。	Wǒ bù hē chá.	Je ne bois pas de thé.	I don't drink tea.	hors-sujet
+fangzi	ami	不太大，有两个房间。	Bù tài dà, yǒu liǎng ge fángjiān.	Pas très, il y a deux pièces.	Not very, it has two rooms.	
+fangzi	juste	两个房间很好！	Liǎng ge fángjiān hěn hǎo!	Deux pièces, c'est bien !	Two rooms is good!	
+fangzi	faux	三个房间？太大了！	Sān ge fángjiān? Tài dà le!	Trois pièces ? C'est immense !	Three rooms? That's huge!	contresens
+fangzi	faux	他二十岁。	Tā èrshí suì.	Il a vingt ans.	He's twenty.	hors-sujet
+fangzi	ami	你明天来我家玩！	Nǐ míngtiān lái wǒ jiā wán!	Viens chez moi demain !	Come over tomorrow!	
+fangzi	juste	好，明天见！	Hǎo, míngtiān jiàn!	D'accord, à demain !	OK, see you tomorrow!	
+fangzi	faux	好，你明天来我家。	Hǎo, nǐ míngtiān lái wǒ jiā.	D'accord, viens chez moi demain.	OK, come to my place tomorrow.	contresens
+fangzi	faux	我在学中文。	Wǒ zài xué Zhōngwén.	J'apprends le chinois.	I'm learning Chinese.	hors-sujet
+jidian	ami	现在几点？	Xiànzài jǐ diǎn?	Quelle heure est-il ?	What time is it?	
+jidian	juste	三点半。	Sān diǎn bàn.	Trois heures et demie.	Half past three.	
+jidian	faux	三月。	Sānyuè.	Mars.	March.	contresens
+jidian	faux	我有两个哥哥。	Wǒ yǒu liǎng ge gēge.	J'ai deux grands frères.	I have two older brothers.	hors-sujet
+jidian	ami	四点我们去看电影，好吗？	Sì diǎn wǒmen qù kàn diànyǐng, hǎo ma?	À quatre heures, on va voir un film, ça te va ?	Shall we go and see a film at four?	
+jidian	juste	好！在哪里见？	Hǎo! Zài nǎlǐ jiàn?	D'accord ! On se retrouve où ?	OK! Where shall we meet?	
+jidian	faux	好！我们去看书。	Hǎo! Wǒmen qù kàn shū.	D'accord ! On va lire.	OK! Let's go and read.	contresens
+jidian	faux	他二十岁。	Tā èrshí suì.	Il a vingt ans.	He's twenty.	hors-sujet
+jidian	ami	在书店门口见。	Zài shūdiàn ménkǒu jiàn.	Devant la librairie.	Outside the bookshop.	
+jidian	juste	好，四点见！	Hǎo, sì diǎn jiàn!	D'accord, à quatre heures !	OK, see you at four!	
+jidian	faux	好，十点见！	Hǎo, shí diǎn jiàn!	D'accord, à dix heures !	OK, see you at ten!	contresens
+jidian	faux	我想喝茶。	Wǒ xiǎng hē chá.	J'ai envie d'un thé.	I feel like some tea.	hors-sujet
+piao	ami	我有两张电影票，你想去吗？	Wǒ yǒu liǎng zhāng diànyǐng piào, nǐ xiǎng qù ma?	J'ai deux places de cinéma, tu veux venir ?	I've got two cinema tickets, want to come?	
+piao	juste	想去！什么电影？	Xiǎng qù! Shénme diànyǐng?	Oui ! Quel film ?	Yes! What film?	
+piao	faux	两张火车票？	Liǎng zhāng huǒchē piào?	Deux billets de train ?	Two train tickets?	contresens
+piao	faux	我有新房子了。	Wǒ yǒu xīn fángzi le.	J'ai un nouvel appartement.	I've got a new flat.	hors-sujet
+piao	ami	一个日本电影，很好看。	Yī ge Rìběn diànyǐng, hěn hǎokàn.	Un film japonais, très bien.	A Japanese film, a really good one.	
+piao	juste	好！什么时候？	Hǎo! Shénme shíhou?	Génial ! C'est quand ?	Great! When is it?	
+piao	faux	你去日本了？	Nǐ qù Rìběn le?	Tu es allé au Japon ?	You went to Japan?	contresens
+piao	faux	两个房间很好！	Liǎng ge fángjiān hěn hǎo!	Deux pièces, c'est bien !	Two rooms is good!	hors-sujet
+piao	ami	明天下午。	Míngtiān xiàwǔ.	Demain après-midi.	Tomorrow afternoon.	
+piao	juste	好，明天下午见！	Hǎo, míngtiān xiàwǔ jiàn!	D'accord, à demain après-midi !	OK, see you tomorrow afternoon!	
+piao	faux	好，今天下午见！	Hǎo, jīntiān xiàwǔ jiàn!	D'accord, à cet après-midi !	OK, see you this afternoon!	contresens
+piao	faux	我在学中文。	Wǒ zài xué Zhōngwén.	J'apprends le chinois.	I'm learning Chinese.	hors-sujet
+zuotian	ami	你昨天晚上去哪里了？	Nǐ zuótiān wǎnshang qù nǎlǐ le?	Tu étais où hier soir ?	Where did you go last night?	
+zuotian	juste	我去看电影了。	Wǒ qù kàn diànyǐng le.	Je suis allé voir un film.	I went to see a film.	
+zuotian	faux	我明天去看电影。	Wǒ míngtiān qù kàn diànyǐng.	Je vais voir un film demain.	I'm seeing a film tomorrow.	contresens
+zuotian	faux	我有三个杯子。	Wǒ yǒu sān ge bēizi.	J'ai trois tasses.	I've got three cups.	hors-sujet
+zuotian	ami	电影好看吗？	Diànyǐng hǎokàn ma?	Il était bien, le film ?	Was the film good?	
+zuotian	juste	很好看！	Hěn hǎokàn!	Très bien !	Very good!	
+zuotian	faux	很好吃！	Hěn hǎochī!	Très bon à manger !	Very tasty!	contresens
+zuotian	faux	我去过北京。	Wǒ qùguo Běijīng.	Je suis allé à Pékin.	I've been to Beijing.	hors-sujet
+zuotian	ami	我也想看！	Wǒ yě xiǎng kàn!	Moi aussi, je veux le voir !	I want to see it too!	
+zuotian	juste	我们星期六去？	Wǒmen xīngqīliù qù?	On y va samedi ?	Shall we go on Saturday?	
+zuotian	faux	你看过了？	Nǐ kànguo le?	Tu l'as déjà vu ?	You've already seen it?	contresens
+zuotian	faux	我家有四口人。	Wǒ jiā yǒu sì kǒu rén.	Nous sommes quatre dans ma famille.	There are four of us in my family.	hors-sujet
+zuotian	fin	好！星期六见！	Hǎo! Xīngqīliù jiàn!	D'accord ! À samedi !	OK! See you Saturday!	
+xuexiao	ami	你们学校大吗？	Nǐmen xuéxiào dà ma?	Ton école, elle est grande ?	Is your school big?	
+xuexiao	juste	很大，有很多学生。	Hěn dà, yǒu hěn duō xuésheng.	Très grande, il y a beaucoup d'élèves.	Very big, there are lots of students.	
+xuexiao	faux	我们家很大。	Wǒmen jiā hěn dà.	Notre maison est grande.	Our house is big.	contresens
+xuexiao	faux	我在做饭。	Wǒ zài zuòfàn.	Je fais à manger.	I'm cooking.	hors-sujet
+xuexiao	ami	你最喜欢什么课？	Nǐ zuì xǐhuan shénme kè?	Quel cours tu préfères ?	What's your favourite class?	
+xuexiao	juste	汉语课！	Hànyǔ kè!	Le cours de chinois !	Chinese class!	
+xuexiao	faux	汉语老师！	Hànyǔ lǎoshī!	La professeure de chinois !	The Chinese teacher!	contresens
+xuexiao	faux	在桌子上。	Zài zhuōzi shàng.	Sur le bureau.	On the desk.	hors-sujet
+xuexiao	fin	我也是！	Wǒ yě shì!	Moi aussi !	Me too!	
+mang	ami	你今天忙吗？	Nǐ jīntiān máng ma?	Tu es occupé aujourd'hui ?	Are you busy today?	
+mang	juste	很忙，下午还要上课。	Hěn máng, xiàwǔ hái yào shàngkè.	Très, j'ai encore cours cet après-midi.	Very, I still have class this afternoon.	
+mang	faux	很好，谢谢。	Hěn hǎo, xièxie.	Très bien, merci.	Very well, thanks.	contresens
+mang	faux	我有两个哥哥。	Wǒ yǒu liǎng ge gēge.	J'ai deux grands frères.	I have two older brothers.	hors-sujet
+mang	ami	晚上呢？	Wǎnshang ne?	Et ce soir ?	And this evening?	
+mang	juste	晚上不忙。	Wǎnshang bù máng.	Ce soir, non.	Not this evening.	
+mang	faux	早上不忙。	Zǎoshang bù máng.	Le matin, non.	Not in the morning.	contresens
+mang	faux	这本书很好。	Zhè běn shū hěn hǎo.	Ce livre est très bien.	This book is great.	hors-sujet
+mang	ami	晚上我请你吃饭！	Wǎnshang wǒ qǐng nǐ chīfàn!	Ce soir, je t'invite à dîner !	Dinner's on me tonight!	
+mang	juste	太好了，谢谢你！	Tài hǎo le, xièxie nǐ!	Super, merci !	Great, thank you!	
+mang	faux	好，我请你！	Hǎo, wǒ qǐng nǐ!	D'accord, c'est moi qui t'invite !	OK, my treat!	contresens
+mang	faux	他是我的汉语老师。	Tā shì wǒ de Hànyǔ lǎoshī.	C'est mon professeur de chinois.	He's my Chinese teacher.	hors-sujet
+zhu	ami	你住在哪里？	Nǐ zhù zài nǎlǐ?	Tu habites où ?	Where do you live?	
+zhu	juste	我住在北京东边。	Wǒ zhù zài Běijīng dōngbian.	J'habite dans l'est de Pékin.	I live in the east of Beijing.	
+zhu	faux	我住了两年。	Wǒ zhùle liǎng nián.	J'y habite depuis deux ans.	I've lived there for two years.	contresens
+zhu	faux	晚上不忙。	Wǎnshang bù máng.	Ce soir, je suis libre.	I'm free this evening.	hors-sujet
+zhu	ami	你家远不远？	Nǐ jiā yuǎn bù yuǎn?	C'est loin, chez toi ?	Is your place far?	
+zhu	juste	不太远，坐车很快。	Bù tài yuǎn, zuò chē hěn kuài.	Pas trop, en bus c'est rapide.	Not too far, it's quick by bus.	
+zhu	faux	很远，就在你家门口。	Hěn yuǎn, jiù zài nǐ jiā ménkǒu.	Très loin, juste devant chez toi.	Very far, right outside your door.	contresens
+zhu	faux	我女儿五岁了。	Wǒ nǚ'ér wǔ suì le.	Ma fille a cinq ans.	My daughter is five.	hors-sujet
+zhu	fin	那我明天去你家！	Nà wǒ míngtiān qù nǐ jiā!	Alors je passe chez toi demain !	Then I'll come over tomorrow!	
+laoshi	ami	那个男人是谁？你认识他吗？	Nàge nánrén shì shéi? Nǐ rènshi tā ma?	Qui est cet homme ? Tu le connais ?	Who's that man? Do you know him?	
+laoshi	juste	他是我的汉语老师。	Tā shì wǒ de Hànyǔ lǎoshī.	C'est mon professeur de chinois.	He's my Chinese teacher.	
+laoshi	faux	她是我妈妈。	Tā shì wǒ māma.	C'est ma mère.	She's my mum.	contresens
+laoshi	faux	我想喝水。	Wǒ xiǎng hē shuǐ.	J'ai envie d'eau.	I'd like some water.	hors-sujet
+laoshi	ami	他叫什么名字？	Tā jiào shénme míngzi?	Comment il s'appelle ?	What's his name?	
+laoshi	juste	他叫王明。	Tā jiào Wáng Míng.	Il s'appelle Wang Ming.	His name is Wang Ming.	
+laoshi	faux	他二十岁。	Tā èrshí suì.	Il a vingt ans.	He's twenty.	contresens
+laoshi	faux	很好看！	Hěn hǎokàn!	Très bien !	Very good!	hors-sujet
+laoshi	fin	他很高！	Tā hěn gāo!	Il est très grand !	He's very tall!	
+zhidao	ami	你知道吗？王明有女朋友了！	Nǐ zhīdào ma? Wáng Míng yǒu nǚpéngyou le!	Tu sais quoi ? Wang Ming a une copine !	Guess what? Wang Ming has a girlfriend!	
+zhidao	juste	是吗？她是谁？	Shì ma? Tā shì shéi?	Ah bon ? C'est qui ?	Really? Who is she?	
+zhidao	faux	王明有男朋友？	Wáng Míng yǒu nánpéngyou?	Wang Ming a un copain ?	Wang Ming has a boyfriend?	contresens
+zhidao	faux	坐车来，不远。	Zuò chē lái, bù yuǎn.	Viens en bus, ce n'est pas loin.	Take the bus, it's not far.	hors-sujet
+zhidao	ami	她是我们的同学，叫小月。	Tā shì wǒmen de tóngxué, jiào Xiǎoyuè.	C'est notre camarade de classe, elle s'appelle Xiaoyue.	She's in our class, her name's Xiaoyue.	
+zhidao	juste	我认识她！她很好。	Wǒ rènshi tā! Tā hěn hǎo.	Je la connais ! Elle est très sympa.	I know her! She's lovely.	
+zhidao	faux	她是老师？	Tā shì lǎoshī?	C'est une professeure ?	She's a teacher?	contresens
+zhidao	faux	我想喝水。	Wǒ xiǎng hē shuǐ.	J'ai envie d'eau.	I'd like some water.	hors-sujet
+dianhua	ami	你给我打电话了？	Nǐ gěi wǒ dǎ diànhuà le?	Tu m'as appelé ?	Did you call me?	
+dianhua	juste	是，我想问你一个问题。	Shì, wǒ xiǎng wèn nǐ yī ge wèntí.	Oui, je voulais te poser une question.	Yes, I wanted to ask you something.	
+dianhua	faux	是，我给你写了。	Shì, wǒ gěi nǐ xiě le.	Oui, je t'ai écrit.	Yes, I wrote to you.	contresens
+dianhua	faux	他二十岁。	Tā èrshí suì.	Il a vingt ans.	He's twenty.	hors-sujet
+dianhua	ami	什么问题？	Shénme wèntí?	Quelle question ?	What question?	
+dianhua	juste	明天你有时间吗？	Míngtiān nǐ yǒu shíjiān ma?	Tu as du temps demain ?	Are you free tomorrow?	
+dianhua	faux	我没有问题。	Wǒ méiyǒu wèntí.	Je n'ai pas de question.	I don't have a question.	contresens
+dianhua	faux	我有两本书。	Wǒ yǒu liǎng běn shū.	J'ai deux livres.	I have two books.	hors-sujet
+dianhua	ami	有，明天我在家。	Yǒu, míngtiān wǒ zài jiā.	Oui, demain je suis à la maison.	Yes, I'm home tomorrow.	
+dianhua	juste	好，我明天去你家！	Hǎo, wǒ míngtiān qù nǐ jiā!	Bien, je passe chez toi demain !	OK, I'll come over tomorrow!	
+dianhua	faux	好，你明天不在家。	Hǎo, nǐ míngtiān bù zài jiā.	D'accord, tu n'es pas chez toi demain.	OK, you won't be home tomorrow.	contresens
+dianhua	faux	我是学生。	Wǒ shì xuésheng.	Je suis étudiant.	I'm a student.	hors-sujet
+jiaren	ami	你家有几口人？	Nǐ jiā yǒu jǐ kǒu rén?	Vous êtes combien dans ta famille ?	How many people are there in your family?	
+jiaren	juste	四口人：爸爸、妈妈、哥哥和我。	Sì kǒu rén: bàba, māma, gēge hé wǒ.	Quatre : papa, maman, mon grand frère et moi.	Four: dad, mum, my older brother and me.	
+jiaren	faux	三口人：爸爸、妈妈、哥哥和我。	Sān kǒu rén: bàba, māma, gēge hé wǒ.	Trois : papa, maman, mon grand frère et moi.	Three: dad, mum, my older brother and me.	contresens
+jiaren	faux	我有很多书。	Wǒ yǒu hěn duō shū.	J'ai beaucoup de livres.	I've got lots of books.	hors-sujet
+jiaren	ami	你哥哥多大了？	Nǐ gēge duō dà le?	Il a quel âge, ton frère ?	How old is your brother?	
+jiaren	juste	他二十岁。	Tā èrshí suì.	Il a vingt ans.	He's twenty.	
+jiaren	faux	他很高。	Tā hěn gāo.	Il est très grand.	He's very tall.	contresens
+jiaren	faux	我想喝茶。	Wǒ xiǎng hē chá.	J'ai envie d'un thé.	I feel like some tea.	hors-sujet
+jiaren	ami	他也学中文吗？	Tā yě xué Zhōngwén ma?	Il apprend le chinois, lui aussi ?	Is he learning Chinese too?	
+jiaren	juste	不，他学日语。	Bù, tā xué Rìyǔ.	Non, il apprend le japonais.	No, he's learning Japanese.	
+jiaren	faux	是，他学日语。	Shì, tā xué Rìyǔ.	Oui, il apprend le japonais.	Yes, he's learning Japanese.	contresens
+jiaren	faux	外面很冷。	Wàimiàn hěn lěng.	Il fait très froid dehors.	It's very cold outside.	hors-sujet
+hanzi	ami	你在学写汉字吗？	Nǐ zài xué xiě Hànzì ma?	Tu apprends à écrire les caractères ?	Are you learning to write characters?	
+hanzi	juste	是，我天天写。	Shì, wǒ tiāntiān xiě.	Oui, j'écris tous les jours.	Yes, I write every day.	
+hanzi	faux	是，我天天看电影。	Shì, wǒ tiāntiān kàn diànyǐng.	Oui, je regarde un film tous les jours.	Yes, I watch a film every day.	contresens
+hanzi	faux	外面很冷。	Wàimiàn hěn lěng.	Il fait très froid dehors.	It's very cold outside.	hors-sujet
+hanzi	ami	很好！“天”字你会写吗？	Hěn hǎo! "Tiān" zì nǐ huì xiě ma?	Très bien ! Tu sais écrire le caractère « 天 » ?	Great! Can you write the character "天"?	
+hanzi	juste	会，“天”是“一”和“大”。	Huì, "tiān" shì "yī" hé "dà".	Oui : « 天 », c'est « 一 » et « 大 ».	Yes: "天" is "一" plus "大".	
+hanzi	faux	会，“天”是“人”和“口”。	Huì, "tiān" shì "rén" hé "kǒu".	Oui : « 天 », c'est « 人 » et « 口 ».	Yes: "天" is "人" plus "口".	contresens
+hanzi	faux	我有一个哥哥。	Wǒ yǒu yī ge gēge.	J'ai un grand frère.	I have an older brother.	hors-sujet
+hanzi	fin	对！你学得很好。	Duì! Nǐ xué de hěn hǎo.	Exactement ! Tu apprends bien.	Right! You're learning well.	
+leng	ami	今天很冷！	Jīntiān hěn lěng!	Il fait très froid aujourd'hui !	It's really cold today!	
+leng	juste	是，外面很冷。	Shì, wàimiàn hěn lěng.	Oui, il fait très froid dehors.	Yes, it's very cold outside.	
+leng	faux	不冷？太好了！	Bù lěng? Tài hǎo le!	Il ne fait pas froid ? Tant mieux !	Not cold? Great!	contresens
+leng	faux	这本书很好。	Zhè běn shū hěn hǎo.	Ce livre est très bien.	This book is great.	hors-sujet
+leng	ami	下午我不出门了，你呢？	Xiàwǔ wǒ bù chūmén le, nǐ ne?	Cet après-midi, je ne sors pas. Et toi ?	I'm not going out this afternoon. What about you?	
+leng	juste	我也在家。	Wǒ yě zài jiā.	Moi aussi, je reste à la maison.	I'm staying home too.	
+leng	faux	我也出门。	Wǒ yě chūmén.	Moi aussi, je sors.	I'm going out too.	contresens
+leng	faux	我有两个哥哥。	Wǒ yǒu liǎng ge gēge.	J'ai deux grands frères.	I have two older brothers.	hors-sujet
+leng	fin	好，在家喝茶！	Hǎo, zài jiā hē chá!	Bien, thé à la maison !	Right, tea at home!	
+xinpengyou	ami	我有一个新朋友，她想认识你。	Wǒ yǒu yī ge xīn péngyou, tā xiǎng rènshi nǐ.	J'ai une nouvelle amie, elle aimerait te connaître.	I've got a new friend who'd like to meet you.	
+xinpengyou	juste	好！她叫什么名字？	Hǎo! Tā jiào shénme míngzi?	Avec plaisir ! Comment s'appelle-t-elle ?	Sure! What's her name?	
+xinpengyou	faux	他叫什么名字？	Tā jiào shénme míngzi?	Comment s'appelle-t-il ?	What's his name?	contresens
+xinpengyou	faux	我在家吃饭。	Wǒ zài jiā chīfàn.	Je mange à la maison.	I'm eating at home.	hors-sujet
+xinpengyou	ami	她叫小月，是学生。	Tā jiào Xiǎoyuè, shì xuésheng.	Elle s'appelle Xiaoyue, elle est étudiante.	Her name is Xiaoyue, she's a student.	
+xinpengyou	juste	她学什么？	Tā xué shénme?	Qu'est-ce qu'elle étudie ?	What does she study?	
+xinpengyou	faux	她是老师？	Tā shì lǎoshī?	Elle est professeure ?	She's a teacher?	contresens
+xinpengyou	faux	今天很冷。	Jīntiān hěn lěng.	Il fait très froid aujourd'hui.	It's very cold today.	hors-sujet
+xinpengyou	ami	她学中文，和你一样！	Tā xué Zhōngwén, hé nǐ yīyàng!	Elle apprend le chinois, comme toi !	She's learning Chinese, like you!	
+xinpengyou	juste	太好了！我们明天见？	Tài hǎo le! Wǒmen míngtiān jiàn?	Super ! On se voit demain ?	Great! Shall we meet tomorrow?	
+xinpengyou	faux	她不学中文？	Tā bù xué Zhōngwén?	Elle n'apprend pas le chinois ?	She doesn't study Chinese?	contresens
+xinpengyou	faux	我想喝茶。	Wǒ xiǎng hē chá.	J'ai envie d'un thé.	I feel like some tea.	hors-sujet
+xinpengyou	fin	好，明天见！	Hǎo, míngtiān jiàn!	D'accord, à demain !	OK, see you tomorrow!	
+hanyu	ami	你学汉语多长时间了？	Nǐ xué Hànyǔ duō cháng shíjiān le?	Tu apprends le chinois depuis combien de temps ?	How long have you been learning Chinese?	
+hanyu	juste	三个月了。	Sān ge yuè le.	Trois mois.	Three months.	
+hanyu	faux	三点了。	Sān diǎn le.	Il est trois heures.	It's three o'clock.	contresens
+hanyu	faux	我不出门了。	Wǒ bù chūmén le.	Je ne sors plus.	I'm not going out.	hors-sujet
+hanyu	ami	汉语难不难？	Hànyǔ nán bù nán?	Le chinois, c'est difficile ?	Is Chinese hard?	
+hanyu	juste	说很难，汉字不太难。	Shuō hěn nán, Hànzì bù tài nán.	Le parler, très ; les caractères, pas trop.	Speaking is very hard, the characters not so much.	
+hanyu	faux	汉语书很贵。	Hànyǔ shū hěn guì.	Les livres de chinois sont chers.	Chinese books are expensive.	contresens
+hanyu	faux	他二十岁。	Tā èrshí suì.	Il a vingt ans.	He's twenty.	hors-sujet
+hanyu	ami	你能看这个吗？	Nǐ néng kàn zhège ma?	Tu arrives à lire ça ?	Can you read this?	
+hanyu	juste	能，我都看得懂！	Néng, wǒ dōu kàn de dǒng!	Oui, je comprends tout !	Yes, I understand all of it!	
+hanyu	faux	不能，我看不懂。	Bù néng, wǒ kàn bu dǒng.	Non, je ne comprends pas.	No, I can't understand it.	contresens
+hanyu	faux	我家有四口人。	Wǒ jiā yǒu sì kǒu rén.	Nous sommes quatre dans ma famille.	There are four of us in my family.	hors-sujet
+hanyu	fin	太好了！	Tài hǎo le!	Formidable !	Brilliant!	
+chifan	ami	你吃饭了吗？	Nǐ chīfàn le ma?	Tu as mangé ?	Have you eaten?	
+chifan	juste	还没有，你呢？	Hái méiyǒu, nǐ ne?	Pas encore, et toi ?	Not yet, and you?	
+chifan	faux	我喝了。	Wǒ hē le.	J'ai bu.	I've had a drink.	contresens
+chifan	faux	我有两本书。	Wǒ yǒu liǎng běn shū.	J'ai deux livres.	I have two books.	hors-sujet
+chifan	ami	我也没吃。我们去饭馆吃面？	Wǒ yě méi chī. Wǒmen qù fànguǎn chī miàn?	Moi non plus. On va manger des nouilles au restaurant ?	Me neither. Shall we go and have noodles at a restaurant?	
+chifan	juste	好！几点去？	Hǎo! Jǐ diǎn qù?	D'accord ! On y va à quelle heure ?	OK! What time?	
+chifan	faux	我不想吃米饭。	Wǒ bù xiǎng chī mǐfàn.	Je n'ai pas envie de riz.	I don't feel like rice.	contresens
+chifan	faux	我有三个杯子。	Wǒ yǒu sān ge bēizi.	J'ai trois tasses.	I've got three cups.	hors-sujet
+chifan	ami	十二点，饭馆门口见。	Shí'èr diǎn, fànguǎn ménkǒu jiàn.	À midi, devant le restaurant.	At twelve, outside the restaurant.	
+chifan	juste	好，十二点见！	Hǎo, shí'èr diǎn jiàn!	D'accord, à midi !	OK, see you at twelve!	
+chifan	faux	好，两点见！	Hǎo, liǎng diǎn jiàn!	D'accord, à deux heures !	OK, see you at two!	contresens
+chifan	faux	我在学中文。	Wǒ zài xué Zhōngwén.	J'apprends le chinois.	I'm learning Chinese.	hors-sujet
+fanguan	ami	我们在饭馆，你想吃什么菜？	Wǒmen zài fànguǎn, nǐ xiǎng chī shénme cài?	On est au restaurant, qu'est-ce que tu veux manger ?	We're at the restaurant, what would you like to eat?	
+fanguan	juste	我想吃肉和米饭。	Wǒ xiǎng chī ròu hé mǐfàn.	J'ai envie de viande et de riz.	I'd like meat and rice.	
+fanguan	faux	我想去饭馆。	Wǒ xiǎng qù fànguǎn.	Je veux aller au restaurant.	I want to go to a restaurant.	contresens
+fanguan	faux	他二十岁。	Tā èrshí suì.	Il a vingt ans.	He's twenty.	hors-sujet
+fanguan	ami	喝什么？茶还是水？	Hē shénme? Chá háishi shuǐ?	Et à boire ? Du thé ou de l'eau ?	What to drink? Tea or water?	
+fanguan	juste	喝茶。	Hē chá.	Du thé.	Tea.	
+fanguan	faux	吃菜。	Chī cài.	Des légumes.	Vegetables.	contresens
+fanguan	faux	我去过北京。	Wǒ qùguo Běijīng.	Je suis allé à Pékin.	I've been to Beijing.	hors-sujet
+fanguan	ami	好，我点菜了。	Hǎo, wǒ diǎn cài le.	Bien, j'ai commandé.	OK, I've ordered.	
+fanguan	juste	谢谢你！	Xièxie nǐ!	Merci !	Thank you!	
+fanguan	faux	现在几点？	Xiànzài jǐ diǎn?	Quelle heure est-il ?	What time is it?	contresens
+fanguan	faux	三个月了。	Sān ge yuè le.	Ça fait trois mois.	It's been three months.	hors-sujet
+zuoche	ami	明天怎么去你家？	Míngtiān zěnme qù nǐ jiā?	Demain, comment je viens chez toi ?	How do I get to your place tomorrow?	
+zuoche	juste	坐车来，不远。	Zuò chē lái, bù yuǎn.	Viens en bus, ce n'est pas loin.	Take the bus, it's not far.	
+zuoche	faux	明天上午来。	Míngtiān shàngwǔ lái.	Viens demain matin.	Come tomorrow morning.	contresens
+zuoche	faux	我喜欢花茶。	Wǒ xǐhuan huāchá.	J'aime le thé aux fleurs.	I like flower tea.	hors-sujet
+zuoche	ami	几点到你家好？	Jǐ diǎn dào nǐ jiā hǎo?	J'arrive chez toi à quelle heure ?	What time should I get to your place?	
+zuoche	juste	十点来，我在家。	Shí diǎn lái, wǒ zài jiā.	Viens à dix heures, je serai là.	Come at ten, I'll be home.	
+zuoche	faux	坐车来。	Zuò chē lái.	Viens en bus.	Take the bus.	contresens
+zuoche	faux	我女儿五岁了。	Wǒ nǚ'ér wǔ suì le.	Ma fille a cinq ans.	My daughter is five.	hors-sujet
+zuoche	fin	好，十点见！	Hǎo, shí diǎn jiàn!	D'accord, à dix heures !	OK, see you at ten!	
+kuai	ami	你快来，我们都在门口了！	Nǐ kuài lái, wǒmen dōu zài ménkǒu le!	Viens vite, on est tous devant la porte !	Hurry up, we're all at the door!	
+kuai	juste	我马上到！	Wǒ mǎshàng dào!	J'arrive tout de suite !	I'll be right there!	
+kuai	faux	你们都走了？	Nǐmen dōu zǒu le?	Vous êtes tous partis ?	You've all left?	contresens
+kuai	faux	我不喝茶。	Wǒ bù hē chá.	Je ne bois pas de thé.	I don't drink tea.	hors-sujet
+kuai	ami	你在哪里？	Nǐ zài nǎlǐ?	Tu es où ?	Where are you?	
+kuai	juste	我在车上。	Wǒ zài chē shàng.	Dans le bus.	On the bus.	
+kuai	faux	四点。	Sì diǎn.	Quatre heures.	Four o'clock.	contresens
+kuai	faux	我女儿五岁了。	Wǒ nǚ'ér wǔ suì le.	Ma fille a cinq ans.	My daughter is five.	hors-sujet
+kuai	fin	好，快点！	Hǎo, kuài diǎn!	D'accord, dépêche-toi !	OK, hurry!	
+xiexie	ami	谢谢你的书！很好看。	Xièxie nǐ de shū! Hěn hǎokàn.	Merci pour le livre ! Il est très bien.	Thanks for the book! It's great.	
+xiexie	juste	不谢！你看完了？	Bù xiè! Nǐ kànwán le?	De rien ! Tu l'as fini ?	No problem! Have you finished it?	
+xiexie	faux	我没有书。	Wǒ méiyǒu shū.	Je n'ai pas de livre.	I don't have a book.	contresens
+xiexie	faux	三点半。	Sān diǎn bàn.	Trois heures et demie.	Half past three.	hors-sujet
+xiexie	ami	还没有，还有五十页。	Hái méiyǒu, hái yǒu wǔshí yè.	Pas encore, il reste cinquante pages.	Not yet, fifty pages to go.	
+xiexie	juste	看完了给我打电话。	Kànwán le gěi wǒ dǎ diànhuà.	Appelle-moi quand tu l'auras fini.	Call me when you've finished.	
+xiexie	faux	你看完了？太快了！	Nǐ kànwán le? Tài kuài le!	Tu l'as fini ? Quelle vitesse !	You've finished? That was fast!	contresens
+xiexie	faux	我想喝水。	Wǒ xiǎng hē shuǐ.	J'ai envie d'eau.	I'd like some water.	hors-sujet
+faguo	ami	你是哪国人？	Nǐ shì nǎ guó rén?	Tu es de quel pays ?	Where are you from?	
+faguo	juste	我是法国人。	Wǒ shì Fǎguó rén.	Je suis français.	I'm French.	
+faguo	faux	我是学生。	Wǒ shì xuésheng.	Je suis étudiant.	I'm a student.	contresens
+faguo	faux	我想喝水。	Wǒ xiǎng hē shuǐ.	J'ai envie d'eau.	I'd like some water.	hors-sujet
+faguo	ami	法国大不大？	Fǎguó dà bù dà?	La France, c'est grand ?	Is France big?	
+faguo	juste	没有中国大。	Méiyǒu Zhōngguó dà.	Moins grand que la Chine.	Not as big as China.	
+faguo	faux	比中国大。	Bǐ Zhōngguó dà.	Plus grand que la Chine.	Bigger than China.	contresens
+faguo	faux	我有一个哥哥。	Wǒ yǒu yī ge gēge.	J'ai un grand frère.	I have an older brother.	hors-sujet
+faguo	ami	你喜欢中国菜吗？	Nǐ xǐhuan Zhōngguó cài ma?	Tu aimes la cuisine chinoise ?	Do you like Chinese food?	
+faguo	juste	很喜欢！	Hěn xǐhuan!	Beaucoup !	Very much!	
+faguo	faux	我是中国人。	Wǒ shì Zhōngguó rén.	Je suis chinois.	I'm Chinese.	contresens
+faguo	faux	三点半。	Sān diǎn bàn.	Trois heures et demie.	Half past three.	hors-sujet
+shouji	ami	我的手机不见了！	Wǒ de shǒujī bù jiàn le!	Mon téléphone a disparu !	My phone's gone missing!	
+shouji	juste	在你家吗？	Zài nǐ jiā ma?	Il est chez toi ?	Is it at your place?	
+shouji	faux	你有新手机？	Nǐ yǒu xīn shǒujī?	Tu as un nouveau téléphone ?	You've got a new phone?	contresens
+shouji	faux	我不喝茶。	Wǒ bù hē chá.	Je ne bois pas de thé.	I don't drink tea.	hors-sujet
+shouji	ami	不在家。我下午在饭馆吃饭了。	Bù zài jiā. Wǒ xiàwǔ zài fànguǎn chīfàn le.	Pas à la maison. Cet après-midi, j'ai mangé au restaurant.	Not at home. I ate at a restaurant this afternoon.	
+shouji	juste	你去饭馆问问！	Nǐ qù fànguǎn wènwen!	Va demander au restaurant !	Go and ask at the restaurant!	
+shouji	faux	你去书店问问！	Nǐ qù shūdiàn wènwen!	Va demander à la librairie !	Go and ask at the bookshop!	contresens
+shouji	faux	今天很冷。	Jīntiān hěn lěng.	Il fait très froid aujourd'hui.	It's very cold today.	hors-sujet
+shouji	ami	我去了，手机在那里！	Wǒ qù le, shǒujī zài nàlǐ!	J'y suis allé, il était là-bas !	I went, and it was there!	
+shouji	juste	太好了！	Tài hǎo le!	Tant mieux !	Great!	
+shouji	faux	手机还没有？	Shǒujī hái méiyǒu?	Toujours pas de téléphone ?	Still no phone?	contresens
+shouji	faux	三点半。	Sān diǎn bàn.	Trois heures et demie.	Half past three.	hors-sujet
+shenti	ami	你爸爸身体好吗？	Nǐ bàba shēntǐ hǎo ma?	Ton père est en bonne santé ?	Is your dad in good health?	
+shenti	juste	很好，谢谢！他还在工作。	Hěn hǎo, xièxie! Tā hái zài gōngzuò.	Très bonne, merci ! Il travaille encore.	Very good, thanks! He's still working.	
+shenti	faux	他很高，谢谢！	Tā hěn gāo, xièxie!	Il est très grand, merci !	He's very tall, thanks!	contresens
+shenti	faux	我给你介绍一个朋友。	Wǒ gěi nǐ jièshào yī ge péngyou.	Je vais te présenter un ami.	Let me introduce you to a friend.	hors-sujet
+shenti	ami	他做什么工作？	Tā zuò shénme gōngzuò?	Il fait quel travail ?	What does he do?	
+shenti	juste	他是医生。	Tā shì yīshēng.	Il est médecin.	He's a doctor.	
+shenti	faux	他在工作。	Tā zài gōngzuò.	Il est au travail.	He's at work.	contresens
+shenti	faux	在学校门口。	Zài xuéxiào ménkǒu.	Devant l'école.	Outside the school.	hors-sujet
+shenti	fin	医生很忙吧！	Yīshēng hěn máng ba!	Les médecins ont beaucoup de travail !	Doctors must be very busy!	
+kuaizi	ami	你会用筷子吗？	Nǐ huì yòng kuàizi ma?	Tu sais te servir des baguettes ?	Can you use chopsticks?	
+kuaizi	juste	会，我在家常常用。	Huì, wǒ zài jiā chángcháng yòng.	Oui, je m'en sers souvent à la maison.	Yes, I often use them at home.	
+kuaizi	faux	会，我常常用手机。	Huì, wǒ chángcháng yòng shǒujī.	Oui, j'utilise souvent mon téléphone.	Yes, I often use my phone.	contresens
+kuaizi	faux	她是我们的同学。	Tā shì wǒmen de tóngxué.	C'est notre camarade de classe.	She's in our class.	hors-sujet
+kuaizi	ami	那晚上我们去吃中国菜！	Nà wǎnshang wǒmen qù chī Zhōngguó cài!	Alors ce soir, on va manger chinois !	Then tonight we're having Chinese food!	
+kuaizi	juste	好！我很喜欢中国菜。	Hǎo! Wǒ hěn xǐhuan Zhōngguó cài.	D'accord ! J'adore la cuisine chinoise.	OK! I love Chinese food.	
+kuaizi	faux	好！我们去喝中国茶。	Hǎo! Wǒmen qù hē Zhōngguó chá.	D'accord ! On va boire du thé chinois.	OK! Let's go and drink Chinese tea.	contresens
+kuaizi	faux	不太远。	Bù tài yuǎn.	Pas trop loin.	Not too far.	hors-sujet
+tushuguan	ami	你在哪里？	Nǐ zài nǎlǐ?	Tu es où ?	Where are you?	
+tushuguan	juste	我在图书馆看书。	Wǒ zài túshūguǎn kàn shū.	À la bibliothèque, je lis.	At the library, reading.	
+tushuguan	faux	我很好。	Wǒ hěn hǎo.	Je vais bien.	I'm fine.	contresens
+tushuguan	faux	十二点见。	Shí'èr diǎn jiàn.	À midi.	See you at twelve.	hors-sujet
+tushuguan	ami	图书馆几点关门？	Túshūguǎn jǐ diǎn guānmén?	La bibliothèque ferme à quelle heure ?	What time does the library close?	
+tushuguan	juste	晚上九点。	Wǎnshang jiǔ diǎn.	À neuf heures du soir.	Nine in the evening.	
+tushuguan	faux	九月。	Jiǔyuè.	En septembre.	In September.	contresens
+tushuguan	faux	我不喝茶。	Wǒ bù hē chá.	Je ne bois pas de thé.	I don't drink tea.	hors-sujet
+tushuguan	ami	九点我来图书馆，我们去吃饭？	Jiǔ diǎn wǒ lái túshūguǎn, wǒmen qù chīfàn?	Je passe à la bibliothèque à neuf heures, et on va manger ?	I'll come by the library at nine and we'll go and eat?	
+tushuguan	juste	好，九点见！	Hǎo, jiǔ diǎn jiàn!	D'accord, à neuf heures !	OK, see you at nine!	
+tushuguan	faux	好，六点见！	Hǎo, liù diǎn jiàn!	D'accord, à six heures !	OK, see you at six!	contresens
+tushuguan	faux	他很高。	Tā hěn gāo.	Il est très grand.	He's very tall.	hors-sujet
+dongtian	ami	北京的冬天很冷。	Běijīng de dōngtiān hěn lěng.	L'hiver à Pékin est très froid.	Winters in Beijing are very cold.	
+dongtian	juste	法国的冬天也冷。	Fǎguó de dōngtiān yě lěng.	L'hiver en France aussi est froid.	French winters are cold too.	
+dongtian	faux	北京冬天不冷？	Běijīng dōngtiān bù lěng?	L'hiver à Pékin n'est pas froid ?	Beijing winters aren't cold?	contresens
+dongtian	faux	我会用筷子。	Wǒ huì yòng kuàizi.	Je sais me servir des baguettes.	I can use chopsticks.	hors-sujet
+dongtian	ami	你冬天来北京吗？	Nǐ dōngtiān lái Běijīng ma?	Tu viens à Pékin en hiver ?	Are you coming to Beijing in winter?	
+dongtian	juste	不，我八月来。	Bù, wǒ bāyuè lái.	Non, je viens en août.	No, I'm coming in August.	
+dongtian	faux	是，我八月来。	Shì, wǒ bāyuè lái.	Oui, je viens en août.	Yes, I'm coming in August.	contresens
+dongtian	faux	他是我的汉语老师。	Tā shì wǒ de Hànyǔ lǎoshī.	C'est mon professeur de chinois.	He's my Chinese teacher.	hors-sujet
+dongtian	fin	八月好，不冷！	Bāyuè hǎo, bù lěng!	Août, c'est bien, il ne fait pas froid !	August is good, it's not cold!	
+huahua	ami	你喜欢画画吗？	Nǐ xǐhuan huà huà ma?	Tu aimes dessiner ?	Do you like drawing?	
+huahua	juste	喜欢，我常常画山和水。	Xǐhuan, wǒ chángcháng huà shān hé shuǐ.	Oui, je dessine souvent des montagnes et de l'eau.	Yes, I often draw mountains and water.	
+huahua	faux	喜欢，我常常喝水。	Xǐhuan, wǒ chángcháng hē shuǐ.	Oui, je bois souvent de l'eau.	Yes, I often drink water.	contresens
+huahua	faux	北京的冬天很冷。	Běijīng de dōngtiān hěn lěng.	L'hiver à Pékin est très froid.	Winters in Beijing are very cold.	hors-sujet
+huahua	ami	我想看你的画！	Wǒ xiǎng kàn nǐ de huà!	Je voudrais voir tes dessins !	I'd love to see your drawings!	
+huahua	juste	好，明天我给你看。	Hǎo, míngtiān wǒ gěi nǐ kàn.	D'accord, je te les montre demain.	OK, I'll show you tomorrow.	
+huahua	faux	好，明天你给我看。	Hǎo, míngtiān nǐ gěi wǒ kàn.	D'accord, tu me les montres demain.	OK, you show me tomorrow.	contresens
+huahua	faux	我八月来。	Wǒ bāyuè lái.	Je viens en août.	I'm coming in August.	hors-sujet
+bing	ami	我病了，今天不去上课。	Wǒ bìng le, jīntiān bù qù shàngkè.	Je suis malade, je ne vais pas en cours aujourd'hui.	I'm ill, I'm not going to class today.	
+bing	juste	你怎么了？	Nǐ zěnme le?	Qu'est-ce que tu as ?	What's wrong?	
+bing	faux	太好了！	Tài hǎo le!	Super !	Great!	contresens
+bing	faux	我在书店。	Wǒ zài shūdiàn.	Je suis à la librairie.	I'm at the bookshop.	hors-sujet
+bing	ami	我很累，也很冷。	Wǒ hěn lèi, yě hěn lěng.	Je suis très fatigué, et j'ai très froid.	I'm very tired, and very cold.	
+bing	juste	在家多喝水，别出门。	Zài jiā duō hē shuǐ, bié chūmén.	Reste à la maison, bois beaucoup d'eau, ne sors pas.	Stay home, drink lots of water, don't go out.	
+bing	faux	我们出去玩吧！	Wǒmen chūqù wán ba!	Allons nous amuser dehors !	Let's go out and have fun!	contresens
+bing	faux	一块钱一个。	Yī kuài qián yī ge.	Un yuan pièce.	One yuan each.	hors-sujet
+bing	ami	好，谢谢你！	Hǎo, xièxie nǐ!	D'accord, merci !	OK, thanks!	
+bing	juste	不谢！你好了给我打电话。	Bù xiè! Nǐ hǎo le gěi wǒ dǎ diànhuà.	De rien ! Appelle-moi quand tu iras mieux.	No problem! Call me when you're better.	
+bing	faux	你也病了？	Nǐ yě bìng le?	Toi aussi, tu es malade ?	Are you ill too?	contresens
+bing	faux	这是我的新车。	Zhè shì wǒ de xīn chē.	C'est ma nouvelle voiture.	This is my new car.	hors-sujet
+nuer	ami	我女儿今天五岁了！	Wǒ nǚ'ér jīntiān wǔ suì le!	Ma fille a cinq ans aujourd'hui !	My daughter turns five today!	
+nuer	juste	她五岁了？太好了！	Tā wǔ suì le? Tài hǎo le!	Elle a cinq ans ? Formidable !	She's five? Wonderful!	
+nuer	faux	她十五岁了？	Tā shíwǔ suì le?	Elle a quinze ans ?	She's fifteen?	contresens
+nuer	faux	我不喝水。	Wǒ bù hē shuǐ.	Je ne bois pas d'eau.	I don't drink water.	hors-sujet
+nuer	ami	是！她想要一本书。	Shì! Tā xiǎng yào yī běn shū.	Oui ! Elle voudrait un livre.	Yes! She'd like a book.	
+nuer	juste	好，我给她买一本书。	Hǎo, wǒ gěi tā mǎi yī běn shū.	D'accord, je vais lui acheter un livre.	OK, I'll buy her a book.	
+nuer	faux	好，我给她买一个杯子。	Hǎo, wǒ gěi tā mǎi yī ge bēizi.	D'accord, je vais lui acheter une tasse.	OK, I'll buy her a cup.	contresens
+nuer	faux	我在饭馆。	Wǒ zài fànguǎn.	Je suis au restaurant.	I'm at the restaurant.	hors-sujet
+nuer	fin	谢谢你！	Xièxie nǐ!	Merci !	Thank you!	
+shuiguo	ami	我在商店，这里的水果很好。	Wǒ zài shāngdiàn, zhèlǐ de shuǐguǒ hěn hǎo.	Je suis au magasin, les fruits sont très bons ici.	I'm at the shop, the fruit here is great.	
+shuiguo	juste	多少钱？	Duōshao qián?	C'est combien ?	How much?	
+shuiguo	faux	你在饭馆？	Nǐ zài fànguǎn?	Tu es au restaurant ?	You're at the restaurant?	contresens
+shuiguo	faux	他二十岁。	Tā èrshí suì.	Il a vingt ans.	He's twenty.	hors-sujet
+shuiguo	ami	一块钱一个。	Yī kuài qián yī ge.	Un yuan pièce.	One yuan each.	
+shuiguo	juste	不贵！给我买四个。	Bù guì! Gěi wǒ mǎi sì ge.	Pas cher ! Prends-m'en quatre.	Not expensive! Get me four.	
+shuiguo	faux	太贵了！一百块！	Tài guì le! Yībǎi kuài!	Trop cher ! Cent yuans !	Too expensive! A hundred yuan!	contresens
+shuiguo	faux	我在学写字。	Wǒ zài xué xiě zì.	J'apprends à écrire.	I'm learning to write.	hors-sujet
+shuiguo	ami	好，四个，四块钱。	Hǎo, sì ge, sì kuài qián.	D'accord, quatre, ça fait quatre yuans.	OK, four, that's four yuan.	
+shuiguo	juste	好，我给你钱。	Hǎo, wǒ gěi nǐ qián.	D'accord, je te rembourse.	OK, I'll pay you back.	
+shuiguo	faux	十块钱？好。	Shí kuài qián? Hǎo.	Dix yuans ? D'accord.	Ten yuan? OK.	contresens
+shuiguo	faux	明天有雨。	Míngtiān yǒu yǔ.	Il pleuvra demain.	It'll rain tomorrow.	hors-sujet
+shuiguo	fin	谢谢！明天给我。	Xièxie! Míngtiān gěi wǒ.	Merci ! Tu me les donneras demain.	Thanks! Give it to me tomorrow.	
+chengli	ami	你在城里吗？	Nǐ zài chéng lǐ ma?	Tu es en ville ?	Are you in town?	
+chengli	juste	在，我在商店买东西。	Zài, wǒ zài shāngdiàn mǎi dōngxi.	Oui, je fais des courses au magasin.	Yes, I'm shopping.	
+chengli	faux	在，我在山上。	Zài, wǒ zài shān shàng.	Oui, je suis à la montagne.	Yes, I'm up the mountain.	contresens
+chengli	faux	我喜欢画画。	Wǒ xǐhuan huà huà.	J'aime dessiner.	I like drawing.	hors-sujet
+chengli	ami	你能给我买一个杯子吗？	Nǐ néng gěi wǒ mǎi yī ge bēizi ma?	Tu peux m'acheter une tasse ?	Can you buy me a cup?	
+chengli	juste	能，要什么样的？	Néng, yào shénme yàng de?	Oui, tu la veux comment ?	Sure, what kind?	
+chengli	faux	能，要几本？	Néng, yào jǐ běn?	Oui, combien de livres ?	Sure, how many books?	contresens
+chengli	faux	冬天很冷。	Dōngtiān hěn lěng.	L'hiver, il fait très froid.	It's very cold in winter.	hors-sujet
+chengli	ami	白的，不要太大。	Bái de, bù yào tài dà.	Une blanche, pas trop grande.	A white one, not too big.	
+chengli	juste	好，一个白的小杯子。	Hǎo, yī ge bái de xiǎo bēizi.	D'accord, une petite tasse blanche.	OK, a small white cup.	
+chengli	faux	好，一个大的红杯子。	Hǎo, yī ge dà de hóng bēizi.	D'accord, une grande tasse rouge.	OK, a big red cup.	contresens
+chengli	faux	我会用筷子。	Wǒ huì yòng kuàizi.	Je sais me servir des baguettes.	I can use chopsticks.	hors-sujet
+zhaoshu	ami	我在找我的书。	Wǒ zài zhǎo wǒ de shū.	Je cherche mon livre.	I'm looking for my book.	
+zhaoshu	juste	什么书？	Shénme shū?	Quel livre ?	Which book?	
+zhaoshu	faux	你在看书？	Nǐ zài kàn shū?	Tu lis ?	You're reading?	contresens
+zhaoshu	faux	我也饿了。	Wǒ yě è le.	Moi aussi, j'ai faim.	I'm hungry too.	hors-sujet
+zhaoshu	ami	汉语书，是新的。	Hànyǔ shū, shì xīn de.	Mon livre de chinois, le neuf.	My Chinese book, the new one.	
+zhaoshu	juste	在你的桌子上？	Zài nǐ de zhuōzi shàng?	Sur ton bureau ?	On your desk?	
+zhaoshu	faux	老的？	Lǎo de?	Le vieux ?	The old one?	contresens
+zhaoshu	faux	七点见！	Qī diǎn jiàn!	À sept heures !	See you at seven!	hors-sujet
+zhaoshu	ami	对！在桌子上！谢谢！	Duì! Zài zhuōzi shàng! Xièxie!	Oui ! Sur le bureau ! Merci !	Yes! On the desk! Thanks!	
+zhaoshu	juste	不客气！	Bù kèqi!	De rien !	You're welcome!	
+zhaoshu	faux	对不起！	Duìbuqǐ!	Pardon !	Sorry!	contresens
+zhaoshu	faux	考汉语。	Kǎo Hànyǔ.	Un examen de chinois.	A Chinese exam.	hors-sujet
+changge	ami	晚上我们去唱歌，你来吗？	Wǎnshang wǒmen qù chànggē, nǐ lái ma?	Ce soir, on va chanter, tu viens ?	We're going singing tonight, coming?	
+changge	juste	来！我很喜欢唱歌。	Lái! Wǒ hěn xǐhuan chànggē.	Je viens ! J'adore chanter.	I'm in! I love singing.	
+changge	faux	来！我很喜欢看电影。	Lái! Wǒ hěn xǐhuan kàn diànyǐng.	Je viens ! J'adore le cinéma.	I'm in! I love films.	contresens
+changge	faux	他是医生。	Tā shì yīshēng.	Il est médecin.	He's a doctor.	hors-sujet
+changge	ami	八点，学校东门见。	Bā diǎn, xuéxiào dōngmén jiàn.	À huit heures, à la porte est de l'école.	Eight o'clock, at the school's east gate.	
+changge	juste	好，八点东门见！	Hǎo, bā diǎn dōngmén jiàn!	D'accord, à huit heures à la porte est !	OK, eight at the east gate!	
+changge	faux	好，八点西门见！	Hǎo, bā diǎn xīmén jiàn!	D'accord, à huit heures à la porte ouest !	OK, eight at the west gate!	contresens
+changge	faux	他还在工作。	Tā hái zài gōngzuò.	Il travaille encore.	He's still working.	hors-sujet
+yiqi	ami	明天我去看电影，一起去吗？	Míngtiān wǒ qù kàn diànyǐng, yīqǐ qù ma?	Demain, je vais voir un film, tu viens avec moi ?	I'm seeing a film tomorrow, want to come along?	
+yiqi	juste	好！几点？	Hǎo! Jǐ diǎn?	Oui ! À quelle heure ?	Sure! What time?	
+yiqi	faux	你看过这本书？	Nǐ kànguo zhè běn shū?	Tu as lu ce livre ?	Have you read this book?	contresens
+yiqi	faux	牛奶和鸡蛋。	Niúnǎi hé jīdàn.	Du lait et des œufs.	Milk and eggs.	hors-sujet
+yiqi	ami	晚上七点，我在电影院门口等你。	Wǎnshang qī diǎn, wǒ zài diànyǐngyuàn ménkǒu děng nǐ.	À sept heures du soir, je t'attends devant le cinéma.	Seven in the evening, I'll wait for you outside the cinema.	
+yiqi	juste	好，七点见！	Hǎo, qī diǎn jiàn!	D'accord, à sept heures !	OK, see you at seven!	
+yiqi	faux	好，上午七点见！	Hǎo, shàngwǔ qī diǎn jiàn!	D'accord, à sept heures du matin !	OK, see you at seven in the morning!	contresens
+yiqi	faux	我在医院。	Wǒ zài yīyuàn.	Je suis à l'hôpital.	I'm at the hospital.	hors-sujet
+yiqi	fin	别晚了！	Bié wǎn le!	Ne sois pas en retard !	Don't be late!	
+zuofan	ami	你在做什么？	Nǐ zài zuò shénme?	Tu fais quoi ?	What are you doing?	
+zuofan	juste	我在做饭。	Wǒ zài zuòfàn.	Je fais à manger.	I'm cooking.	
+zuofan	faux	在家。	Zài jiā.	À la maison.	At home.	contresens
+zuofan	faux	牛奶很好喝。	Niúnǎi hěn hǎohē.	Le lait, c'est bon.	Milk tastes good.	hors-sujet
+zuofan	ami	做什么饭？	Zuò shénme fàn?	Tu fais quoi à manger ?	What are you making?	
+zuofan	juste	米饭和鸡蛋。	Mǐfàn hé jīdàn.	Du riz et des œufs.	Rice and eggs.	
+zuofan	faux	晚上六点。	Wǎnshang liù diǎn.	Six heures du soir.	Six in the evening.	contresens
+zuofan	faux	我在医院。	Wǒ zài yīyuàn.	Je suis à l'hôpital.	I'm at the hospital.	hors-sujet
+zuofan	ami	我也饿了！	Wǒ yě è le!	Moi aussi, j'ai faim !	I'm hungry too!	
+zuofan	juste	来我家吃吧！	Lái wǒ jiā chī ba!	Viens manger chez moi !	Come and eat at my place!	
+zuofan	faux	你不饿？	Nǐ bù è?	Tu n'as pas faim ?	You're not hungry?	contresens
+zuofan	faux	考汉语。	Kǎo Hànyǔ.	Un examen de chinois.	A Chinese exam.	hors-sujet
+daqiu	ami	下午去打球吗？	Xiàwǔ qù dǎqiú ma?	On va jouer au ballon cet après-midi ?	Want to play ball this afternoon?	
+daqiu	juste	好！在学校吗？	Hǎo! Zài xuéxiào ma?	D'accord ! À l'école ?	OK! At school?	
+daqiu	faux	好！去看书。	Hǎo! Qù kàn shū.	D'accord ! On va lire.	OK! Let's go and read.	contresens
+daqiu	faux	牛奶和鸡蛋。	Niúnǎi hé jīdàn.	Du lait et des œufs.	Milk and eggs.	hors-sujet
+daqiu	ami	对，三点在学校门口等你。	Duì, sān diǎn zài xuéxiào ménkǒu děng nǐ.	Oui, je t'attends devant l'école à trois heures.	Yes, I'll wait for you at the school gate at three.	
+daqiu	juste	好，三点见！	Hǎo, sān diǎn jiàn!	D'accord, à trois heures !	OK, see you at three!	
+daqiu	faux	好，我三点在家等你。	Hǎo, wǒ sān diǎn zài jiā děng nǐ.	D'accord, je t'attends chez moi à trois heures.	OK, I'll wait for you at my place at three.	contresens
+daqiu	faux	我在医院。	Wǒ zài yīyuàn.	Je suis à l'hôpital.	I'm at the hospital.	hors-sujet
+daqiu	fin	别忘了！	Bié wàng le!	N'oublie pas !	Don't forget!	
+niunai	ami	我去商店，你要什么？	Wǒ qù shāngdiàn, nǐ yào shénme?	Je vais au magasin, tu veux quelque chose ?	I'm going to the shop, do you want anything?	
+niunai	juste	给我买牛奶，谢谢！	Gěi wǒ mǎi niúnǎi, xièxie!	Prends-moi du lait, merci !	Get me some milk, thanks!	
+niunai	faux	我在商店。	Wǒ zài shāngdiàn.	Je suis au magasin.	I'm at the shop.	contresens
+niunai	faux	我哥哥二十岁。	Wǒ gēge èrshí suì.	Mon grand frère a vingt ans.	My older brother is twenty.	hors-sujet
+niunai	ami	牛奶，还要什么？	Niúnǎi, hái yào shénme?	Du lait, et quoi d'autre ?	Milk, and what else?	
+niunai	juste	还要一些鸡蛋。	Hái yào yīxiē jīdàn.	Des œufs aussi.	Some eggs too.	
+niunai	faux	不要牛奶。	Bù yào niúnǎi.	Pas de lait.	No milk.	contresens
+niunai	faux	坐车来，不远。	Zuò chē lái, bù yuǎn.	Viens en bus, ce n'est pas loin.	Take the bus, it's not far.	hors-sujet
+niunai	fin	好，牛奶和鸡蛋！	Hǎo, niúnǎi hé jīdàn!	D'accord, du lait et des œufs !	OK, milk and eggs!	
+jieshao	ami	我给你介绍一个朋友。	Wǒ gěi nǐ jièshào yī ge péngyou.	Je vais te présenter un ami.	Let me introduce you to a friend.	
+jieshao	juste	好！他是谁？	Hǎo! Tā shì shéi?	D'accord ! C'est qui ?	OK! Who is he?	
+jieshao	faux	你给我买书？	Nǐ gěi wǒ mǎi shū?	Tu m'achètes un livre ?	You're buying me a book?	contresens
+jieshao	faux	三点见！	Sān diǎn jiàn!	À trois heures !	See you at three!	hors-sujet
+jieshao	ami	他是我哥哥的同学，也在学汉语。	Tā shì wǒ gēge de tóngxué, yě zài xué Hànyǔ.	C'est un camarade de classe de mon frère, il apprend aussi le chinois.	He's my brother's classmate, he's learning Chinese too.	
+jieshao	juste	太好了，我想认识他！	Tài hǎo le, wǒ xiǎng rènshi tā!	Super, j'aimerais le rencontrer !	Great, I'd like to meet him!	
+jieshao	faux	他是你哥哥？	Tā shì nǐ gēge?	C'est ton frère ?	He's your brother?	contresens
+jieshao	faux	我住在北京东边。	Wǒ zhù zài Běijīng dōngbian.	J'habite dans l'est de Pékin.	I live in the east of Beijing.	hors-sujet
+shuijiao	ami	你怎么还没睡觉？	Nǐ zěnme hái méi shuìjiào?	Pourquoi tu ne dors pas encore ?	Why aren't you asleep yet?	
+shuijiao	juste	我在看书，明天有考试。	Wǒ zài kàn shū, míngtiān yǒu kǎoshì.	Je révise, j'ai un examen demain.	I'm studying, I've got an exam tomorrow.	
+shuijiao	faux	我昨天睡觉了。	Wǒ zuótiān shuìjiào le.	J'ai dormi hier.	I slept yesterday.	contresens
+shuijiao	faux	一块钱一个。	Yī kuài qián yī ge.	Un yuan pièce.	One yuan each.	hors-sujet
+shuijiao	ami	考什么？	Kǎo shénme?	Un examen de quoi ?	An exam in what?	
+shuijiao	juste	考汉语。	Kǎo Hànyǔ.	De chinois.	Chinese.	
+shuijiao	faux	明天上午。	Míngtiān shàngwǔ.	Demain matin.	Tomorrow morning.	contresens
+shuijiao	faux	我家有四口人。	Wǒ jiā yǒu sì kǒu rén.	Nous sommes quatre dans ma famille.	There are four of us in my family.	hors-sujet
+shuijiao	ami	别看太晚，早点睡！	Bié kàn tài wǎn, zǎo diǎn shuì!	Ne veille pas trop tard, couche-toi tôt !	Don't stay up too late, get to bed early!	
+shuijiao	juste	好，我现在睡。	Hǎo, wǒ xiànzài shuì.	D'accord, je vais me coucher.	OK, I'm going to bed now.	
+shuijiao	faux	好，我现在起床。	Hǎo, wǒ xiànzài qǐchuáng.	D'accord, je me lève.	OK, I'm getting up now.	contresens
+shuijiao	faux	给我买牛奶。	Gěi wǒ mǎi niúnǎi.	Prends-moi du lait.	Get me some milk.	hors-sujet
+yiyuan	ami	我在医院。	Wǒ zài yīyuàn.	Je suis à l'hôpital.	I'm at the hospital.	
+yiyuan	juste	你怎么了？病了吗？	Nǐ zěnme le? Bìng le ma?	Qu'est-ce qui t'arrive ? Tu es malade ?	What happened? Are you ill?	
+yiyuan	faux	你在学校？	Nǐ zài xuéxiào?	Tu es à l'école ?	You're at school?	contresens
+yiyuan	faux	我想喝茶。	Wǒ xiǎng hē chá.	J'ai envie d'un thé.	I feel like some tea.	hors-sujet
+yiyuan	ami	不是我，是我妈妈。	Bù shì wǒ, shì wǒ māma.	Pas moi, c'est ma mère.	Not me, it's my mum.	
+yiyuan	juste	你妈妈怎么样了？	Nǐ māma zěnmeyàng le?	Comment va ta mère ?	How's your mum?	
+yiyuan	faux	你爸爸怎么样了？	Nǐ bàba zěnmeyàng le?	Comment va ton père ?	How's your dad?	contresens
+yiyuan	faux	我在看电影。	Wǒ zài kàn diànyǐng.	Je regarde un film.	I'm watching a film.	hors-sujet
+yiyuan	ami	她好多了，明天回家。	Tā hǎo duō le, míngtiān huí jiā.	Elle va beaucoup mieux, elle rentre demain.	She's much better, she's going home tomorrow.	
+yiyuan	juste	太好了！	Tài hǎo le!	Tant mieux !	That's great!	
+yiyuan	faux	她今天回家？	Tā jīntiān huí jiā?	Elle rentre aujourd'hui ?	She's going home today?	contresens
+yiyuan	faux	考汉语。	Kǎo Hànyǔ.	Un examen de chinois.	A Chinese exam.	hors-sujet
+yifu	ami	明天很冷，多穿衣服！	Míngtiān hěn lěng, duō chuān yīfu!	Demain il fera très froid, couvre-toi bien !	It'll be very cold tomorrow, wrap up warm!	
+yifu	juste	好，谢谢！你也是。	Hǎo, xièxie! Nǐ yě shì.	D'accord, merci ! Toi aussi.	OK, thanks! You too.	
+yifu	faux	明天很热？	Míngtiān hěn rè?	Il fera chaud demain ?	Hot tomorrow?	contresens
+yifu	faux	汉语课！	Hànyǔ kè!	Le cours de chinois !	Chinese class!	hors-sujet
+yifu	ami	我明天去买新衣服，你来吗？	Wǒ míngtiān qù mǎi xīn yīfu, nǐ lái ma?	Demain je vais acheter des vêtements neufs, tu viens ?	I'm buying new clothes tomorrow, want to come?	
+yifu	juste	来！我也想买衣服。	Lái! Wǒ yě xiǎng mǎi yīfu.	Je viens ! Moi aussi, je veux des vêtements.	I'm in! I want to buy clothes too.	
+yifu	faux	我也想买书。	Wǒ yě xiǎng mǎi shū.	Moi aussi, je veux acheter des livres.	I want to buy books too.	contresens
+yifu	faux	我在医院。	Wǒ zài yīyuàn.	Je suis à l'hôpital.	I'm at the hospital.	hors-sujet

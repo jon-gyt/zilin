@@ -25,8 +25,8 @@ familles de fichiers, jamais mêlés :
 - `familles/<racine>.json` : décomposition canonique GF 0014-2009 et textes des
   fiches relues, propriétaires. Aucun tracé n'y entre.
 - `paires.json`, `contes/<id>.json`, `fetes.json`, `saisons.json`, `devinettes.json`,
-  `eclair.json`, `coquilles.json`, `cuisine.json`, `lettres.json` : propriétaires, source
-  citée. `lettres.json` ne porte que les lettres de Que relues (`lettres.py`).
+  `eclair.json`, `coquilles.json`, `cuisine.json`, `lettres.json`, `wechat.json` : propriétaires,
+  source citée. `lettres.json` ne porte que les lettres de Que relues (`lettres.py`).
 - `apercu/` : les textes encore à relire (voir plus bas), propriétaires eux aussi.
 
 Ce qui n'entre jamais dans l'export :
@@ -91,6 +91,7 @@ from . import fiches as fiches_mod
 from . import lettres as lettres_mod
 from . import saisons as saisons_mod
 from . import surcharges as surcharges_mod
+from . import wechat as wechat_mod
 from .gf0014 import Controle
 from .graphe import BRIQUE, DECOUPEE, MUETTE, PARCOURS
 from .models import Brique, Famille, Fiche, Mot
@@ -180,6 +181,7 @@ def fichiers_sources(
         ("exporteur-coquilles", Path(coquilles_mod.__file__).resolve()),
         ("exporteur-cuisine", Path(cuisine_mod.__file__).resolve()),
         ("exporteur-lettres", Path(lettres_mod.__file__).resolve()),
+        ("exporteur-wechat", Path(wechat_mod.__file__).resolve()),
         ("decompositions", build / "decompositions.json"),
         ("graphe", build / "graphe.json"),
         *[(f"parcours-{nom}", build / f"parcours-{nom}.json") for nom in sorted(PARCOURS)],
@@ -209,6 +211,9 @@ def fichiers_sources(
         ("cuisine-etal", cuisine_mod.ETAL),
         ("cuisine-tao", cuisine_mod.TAO),
         ("lettres-feuilleton", lettres_mod.FEUILLETON),
+        ("wechat-ami", wechat_mod.AMI),
+        ("wechat-dialogues", wechat_mod.DIALOGUES),
+        ("wechat-echanges", wechat_mod.ECHANGES),
         ("interface", INTERFACE),
         ("arphicpl", LICENCES_SOURCE / ARPHIC),
         ("unicode", LICENCES_SOURCE / UNICODE_NOTICE),
@@ -898,6 +903,33 @@ def en_tete_lettres(version: str) -> dict[str, object]:
         "modified": f"{JETON_JOUR} : assemblé par `wenlu export`",
     }
 
+def document_wechat(
+    version: str,
+    per: Perimetre,
+    noeuds: Mapping[str, Noeud],
+    parcours: Mapping[str, Mapping[str, object]],
+    ingest: Path,
+) -> dict[str, object]:
+    """Le JSON écrit dans `wechat.json` (story 4b.7), voir `wechat.py`.
+
+    Le message WeChat ne fait entrer aucun caractère dans le périmètre : ses dialogues
+    s'écrivent avec ce que les parcours posent, et `wenlu check` le vérifie. Le pinyin
+    par caractère s'aligne sur les lectures d'Unihan et des surcharges.
+    """
+    return wechat_mod.document(
+        version,
+        parcours=parcours,
+        racines={c: noeuds[c].racine for c in per.caracteres},
+        lues=wechat_mod.lectures_export(ingest),
+        en_tete={
+            "version": version,
+            "license": LICENCE_PROPRIETAIRE,
+            "source": wechat_mod.SOURCE_EXPORT,
+            "source_url": URL_PIPELINE,
+            "modified": f"{JETON_JOUR} : assemblé par `wenlu export`",
+        },
+    )
+
 
 def document_conte(
     conte: str, versions: Sequence[contes_mod.Version], version_export: str
@@ -1209,6 +1241,7 @@ def document_index(
         "coquilles": "coquilles.json",
         "cuisine": "cuisine.json",
         "lettres": "lettres.json",
+        "wechat": "wechat.json",
     }
     if apercu:
         document["apercu"] = f"{APERCU}/index.json"
@@ -1287,10 +1320,10 @@ TABLEAU_LICENCES: tuple[tuple[str, str, str, str, str], ...] = (
     ),
     (
         "Fiches, contes, paires, fêtes, saisons, devinettes, dictionnaire éclair, coquilles, cuisine,"
-        " lettres de Que (pipeline wenlu)",
+        " lettres de Que, message WeChat (pipeline wenlu)",
         "`familles/`, `contes/`, `paires.json`, `fetes.json`, `saisons.json`, `devinettes.json`,"
-        " `eclair.json`, `coquilles.json`, `cuisine.json`, `lettres.json`, et `apercu/` pour les"
-        " textes encore à relire",
+        " `eclair.json`, `coquilles.json`, `cuisine.json`, `lettres.json`, `wechat.json`, et `apercu/`"
+        " pour les textes encore à relire",
         LICENCE_PROPRIETAIRE,
         "textes rédigés pour l'app, relus",
         "—",
@@ -1321,7 +1354,8 @@ def licences_md(version: str) -> str:
         f"- `traits/` : tracés sous {LICENCE_TRAITS}, avec `{ARPHIC}` inaltéré à côté"
         " et `traits/MODIFICATIONS.md` qui dit comment et quand ils ont été dérivés.",
         "- `familles/`, `contes/`, `paires.json`, `fetes.json`, `saisons.json`, `devinettes.json`,"
-        " `eclair.json`, `coquilles.json`, `cuisine.json`, `lettres.json`, `apercu/` : décomposition canonique et"
+        " `eclair.json`, `coquilles.json`, `cuisine.json`, `lettres.json`, `wechat.json`, `apercu/` :"
+        " décomposition canonique et"
         " textes rédigés pour l'app, propriétaires.",
         f"- `{UNICODE_NOTICE}` : notice de permission Unicode, qui couvre le pinyin.",
         "",
@@ -1665,6 +1699,7 @@ def assembler(
     textes["lettres.json"] = _json(
         lettres_mod.document(lettres_mod.lettres(statut=lettres_mod.RELU), en_tete=en_tete_lettres(version))
     )
+    textes["wechat.json"] = _json(document_wechat(version, per, noeuds, documents_parcours, ingest))
     textes["LICENCES.md"] = licences_md(version)
     textes["traits/MODIFICATIONS.md"] = modifications_md(version, len(graphies), decoupes)
     for nom in (ARPHIC, UNICODE_NOTICE):

@@ -25,6 +25,12 @@
    */
   import Cuisine from './Cuisine.svelte';
   import { cuisineOnce } from './cuisine';
+  /**
+   * Le message WeChat (4b.7) a lui aussi son écran, `WeChat.svelte` : le choix d'un
+   * message, la conversation avec l'ami, le constat.
+   */
+  import WeChat from './WeChat.svelte';
+  import { wechatOnce } from './wechat';
   import Glyph from './Glyph.svelte';
   import Tao from './Tao.svelte';
   import {
@@ -121,7 +127,7 @@
    * assez pour jouer.
    */
   void (async () => {
-    const [fiches, familles, voisins, foret, paires, demo, devinettes, eclair, cuisine] = await Promise.all([
+    const [fiches, familles, voisins, foret, paires, demo, devinettes, eclair, cuisine, wechat] = await Promise.all([
       toutesLesFiches().catch(() => []),
       toutesLesFamilles().catch(() => []),
       voisinsOnce().catch(() => null),
@@ -130,7 +136,8 @@
       strokesOnce().catch(() => ({})),
       devinettesOnce().catch(() => null),
       eclairOnce().catch(() => null),
-      cuisineOnce().catch(() => null)
+      cuisineOnce().catch(() => null),
+      wechatOnce().catch(() => null)
     ]);
     /* Les messages rédigés de la coquille (`coquilles.json`) : l'écran n'en écrit aucun. */
     const coquilles = await coquillesOnce();
@@ -147,6 +154,8 @@
     };
     /* Le dictionnaire éclair : ses mots, les mots déjà devinés. */
     const eclairs = { eclair, devines: p.motsDevines };
+    /* Le message WeChat : ses dialogues, rangés d'après le parcours suivi. */
+    const messages = { wechat, parcours: p.parcours };
     /* Un premier corpus sans tracés, juste pour savoir quels caractères sont en jeu. */
     const pressenti = corpusDeJeu({
       fiches,
@@ -155,7 +164,8 @@
       paires: groupes,
       cartes: p.cartes,
       ...lanternes,
-      ...eclairs
+      ...eclairs,
+      ...messages
     });
     /* Les devinettes qui pourraient se poser : leur réponse, leurs briques, leurs leurres. */
     const connus = new Set(pressenti.lanternes?.connus ?? []);
@@ -197,7 +207,8 @@
       cartes: p.cartes,
       coquilles: coquilles.coquilles,
       ...lanternes,
-      ...eclairs
+      ...eclairs,
+      ...messages
     });
     chargee = true;
   })().catch(() => {
@@ -314,8 +325,8 @@
   $effect(() => {
     const id = jeu;
     if (!chargee) return;
-    /* La cuisine prépare ses manches elle-même, une fois le plat choisi. */
-    if (id === null || id === 'cuisine') {
+    /* La cuisine et le message WeChat préparent leurs manches eux-mêmes. */
+    if (id === null || id === 'cuisine' || id === 'wechat') {
       preparee = '';
       arreterLimite();
       m = null;
@@ -506,6 +517,16 @@
       retour={OU[retour]}
       {onrepondu}
       {oncuisine}
+      onautre={() => onchoisir(null)}
+      {onretour}
+    />
+  {:else if jeu === 'wechat'}
+    <WeChat
+      {p}
+      {corpus}
+      retour={OU[retour]}
+      {onrepondu}
+      {onfini}
       onautre={() => onchoisir(null)}
       {onretour}
     />

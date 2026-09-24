@@ -76,7 +76,7 @@ Relevé sur le dépôt après une revue du pipeline. Les numéros ci-dessus ne b
   8 148 caractères sur 9 574 réconciliés ; 241 du seuil 255 sur 255, 280 du HSK 1 sur 300 ;
   238 familles exportées en 1,33 Mio.
 - Épic 2 : 2.1 à 2.8 (2.2 et 2.8 revues le 24 septembre : le menu et le parcours du prototype validé). Épic 3 : 3.1 à 3.4. Épic 4 : 4.1 à 4.4 (4.4, Chercher, le 24 septembre : la recherche en français ne trouvera rien tant qu'aucune fiche n'est relue).
-- Épic 4b : 4b.1 à 4b.6, 4b.8 et 4b.9 (textes des jeux à relire). Épic 5 : 5.1, et 5.2 (24 septembre).
+- Épic 4b : 4b.1 à 4b.9 (textes des jeux à relire). Épic 5 : 5.1, et 5.2 (24 septembre).
 - 5.2, le site public : `app/scripts/site/` génère du HTML statique depuis l'export
   versionné, dans l'artefact Pages de l'app, après `vite build`. 480 caractères dessinables
   sur 493, une page chacun en français (`/zilin/c/<c>/`) et en anglais
@@ -141,6 +141,29 @@ Relevé sur le dépôt après une revue du pipeline. Les numéros ci-dessus ne b
   (deux essais, notés par `grade`), Tao goûte (posture `goute`) : contente, ou une grimace
   qui propose d'en refaire un. Le premier plat réussi donne le bol des trophées. Pas encore
   d'achat : les dix plats sont ouverts. Reste : relire les textes.
+- 4b.7, le message WeChat (24 septembre), **textes à relire** : 53 dialogues rédigés pour
+  l'app, sans API, dans `data/sources/wechat/` (`ami.tsv`, `dialogues.tsv`, `echanges.tsv`),
+  traçabilité « rédigé pour l'app ». Un ami toujours le même, 大明, sans photo ni emoji ;
+  chaque dialogue a de deux à quatre échanges, rattaché à une famille par son caractère
+  clé et à un jour de chaque parcours (celui où tous ses caractères sont posés : Lire dès
+  le jour 21, HSK dès le jour 25, puis jusqu'aux jours 189 et 219). Chaque échange : un
+  message de l'ami, une bonne réplique, deux ou trois mauvaises écrites à la main, chacune
+  `hors-sujet` ou `contresens` (今天 pour 明天, 茶 pour 菜, 马 pour 妈). L'exemple du brief,
+  你好吗？→ 我很好，你呢？, y est. Pinyin écrit dans la source, contrôlé contre Unihan et
+  les surcharges, et découpé par caractère à l'export (`syllabes`). `wechat.json`, nommé
+  par l'index et dans l'empreinte ; cinq contrôles bloquants (sources, pinyin, périmètre,
+  parcours, export) ; `wenlu wechat apercu` pour relire. Dans l'app : case « Le message
+  WeChat » de Jouer (`WeChat.svelte`, `wechat.ts`) ; un dialogue ne s'ouvre que lorsque
+  tous ses caractères sont acquis, mauvaises répliques comprises, le plus récent du
+  parcours d'abord. Conversation en bulles (l'ami à gauche, la réplique choisie à droite),
+  toucher un caractère montre son pinyin, la traduction paraît une fois l'échange répondu ;
+  Tao lit par-dessus l'épaule. Une mauvaise réplique est écartée sans aucun événement noté
+  (décision pour les jeux de sens) ; une bonne du premier coup note ses caractères par
+  `grade`, une fois par dialogue ; trouvée après une erreur, elle ne note rien
+  (`NOTER_APRES_ERREUR`, à trancher par le propriétaire). Pas encore d'achat : les 53
+  dialogues sont ouverts. Reste : relire les textes ; le brancher au pas Utiliser (brief
+  §9, « dès la 2e semaine »), qui demanderait une vue de plus dans `Use.svelte` et la
+  reprise au pas exact de `session.ts`.
 - 4b.9, les saisons (24 septembre) : les huit fêtes du calendrier chinois sont en place, du
   pipeline (`data/sources/fetes/`, dates vérifiées contre la table des fêtes de
   `lunar_python`) au décor de l'app (menu à 393 × 660, anecdote, `theme-color`). Chaque
@@ -263,5 +286,5 @@ anglaise, glose par mot.
 
 ### Non commencées
 
-2c.1, 2c.2, 4b.7, et toute la phase 6 — hors le workflow CI macOS et la
+2c.1, 2c.2, et toute la phase 6 — hors le workflow CI macOS et la
 configuration Capacitor, déjà versionnés.

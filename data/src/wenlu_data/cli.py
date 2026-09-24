@@ -30,6 +30,7 @@ servent à relire et à compléter la base des devinettes, qu'`export` lit aussi
 `cuisine apercu` à relire les recettes de la cuisine de Tao.
 `lettres` rédige sans API, importe et relit les lettres de Que (contexte, importer,
 exporter-relecture, appliquer-relecture, apercu), qu'`export` lit une fois relues.
+`wechat apercu` relit les dialogues du message WeChat.
 
 Toutes les commandes sont idempotentes : deux passages écrivent les mêmes octets.
 Seul `data/work/sources/PROVENANCE.md` s'allonge, d'un bloc daté par passage.
@@ -54,6 +55,7 @@ from .fonts import commande as _fonts
 from .lettres import app as _lettres
 from .paths import BUILD, INGEST, SOURCES
 from .saisons import app as _saisons
+from .wechat import app as _wechat
 
 app = typer.Typer(help="Pipeline de contenu Wenlu")
 
@@ -138,7 +140,7 @@ app.command(name="fonts")(_fonts)
 
 @app.command()
 def check() -> None:
-    """Contrôles : composants inconnus, cycles, graphe, listes, briques muettes, découpes, contes hors liste, fiches invalides, rôle son loin de la lecture moderne, textes sans audio, export à jour, aperçu des textes à relire, fêtes, termes solaires, devinettes, dictionnaire éclair, coquilles, cuisine, lettres de Que."""
+    """Contrôles : composants inconnus, cycles, graphe, listes, briques muettes, découpes, contes hors liste, fiches invalides, rôle son loin de la lecture moderne, textes sans audio, export à jour, aperçu des textes à relire, fêtes, termes solaires, devinettes, dictionnaire éclair, coquilles, cuisine, lettres de Que, message WeChat."""
     from .audio import controles as controles_audio
     from .contes import controles as controles_contes
     from .decoupes import controles as controles_decoupes
@@ -154,6 +156,7 @@ def check() -> None:
     from .lettres import controles as controles_lettres
     from .phonetiques import controles as controles_phonetiques
     from .saisons import controles as controles_saisons
+    from .wechat import controles as controles_wechat
 
     bloquants = []
     for controle in [
@@ -172,6 +175,7 @@ def check() -> None:
         *controles_coquilles(),
         *controles_cuisine(),
         *controles_lettres(),
+        *controles_wechat(),
     ]:
         typer.echo(f"{'ok   ' if controle.ok else 'écart'} {controle.nom} : {controle.detail}")
         if not controle.ok and controle.bloquant:
@@ -221,6 +225,7 @@ app.add_typer(_fetes, name="fetes")
 app.add_typer(_fiches, name="fiches")
 app.add_typer(_lettres, name="lettres")
 app.add_typer(_saisons, name="saisons")
+app.add_typer(_wechat, name="wechat")
 
 
 if __name__ == "__main__":

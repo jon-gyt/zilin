@@ -32,6 +32,7 @@ import { TOURS_ECLAIR, dictionnaire, toursEclair, type Dictionnaire, type Eclair
 import { devinetteFaite, type Progress, type Revision } from './session';
 import { grade, newCard, schedule, type Outcome, type ReviewCard, type SrsParams } from './srs';
 import { humeur, proposeUnJeu, type Posture } from './tao';
+import { preparerWechat, type Wechat, type WechatDonnees } from './wechat';
 import type { Grade } from 'ts-fsrs';
 
 /* ---------- les constantes des jeux ---------- */
@@ -130,6 +131,8 @@ export type CorpusJeux = {
   exportes?: readonly string[];
   /** La cuisine de Tao (`cuisine.ts`) : les recettes et l'acquis réel. Absente : pas de cuisine. */
   cuisine?: Cuisine;
+  /** Le message WeChat (`wechat.ts`) : les dialogues et l'acquis réel. Absent : pas de message. */
+  wechat?: Wechat;
 };
 
 /**
@@ -235,6 +238,10 @@ export type Sources = {
   cuisine?: CuisineDonnees | null;
   /** Les plats déjà cuisinés, `Progress.recettes`. */
   cuisinees?: readonly string[];
+  /** Les dialogues du message WeChat (`wechat.json`). */
+  wechat?: WechatDonnees | null;
+  /** Le parcours suivi, qui range les dialogues du message WeChat. */
+  parcours?: string | null;
 };
 
 /**
@@ -338,12 +345,22 @@ export function corpusDeJeu(s: Sources): CorpusJeux {
   if (s.cuisine) {
     corpus.cuisine = { donnees: s.cuisine, acquis: stables, cuisinees: s.cuisinees ?? [] };
   }
+  /* Le message WeChat aussi : un dialogue se lit quand tous ses caractères sont acquis. */
+  if (s.wechat) corpus.wechat = { donnees: s.wechat, acquis: stables, parcours: s.parcours ?? null };
   return corpus;
 }
 
 /* ---------- le contrat commun ---------- */
 
-export type JeuId = 'devinette' | 'assembler' | 'jumeaux' | 'chaine' | 'coquille' | 'eclair' | 'cuisine';
+export type JeuId =
+  | 'devinette'
+  | 'assembler'
+  | 'jumeaux'
+  | 'chaine'
+  | 'coquille'
+  | 'eclair'
+  | 'cuisine'
+  | 'wechat';
 
 /**
  * L'ordre de référence des jeux, celui de l'écran Jouer. La devinette du jour passe en
@@ -356,7 +373,8 @@ export const IDS: readonly JeuId[] = [
   'chaine',
   'coquille',
   'eclair',
-  'cuisine'
+  'cuisine',
+  'wechat'
 ];
 
 /** Un caractère et sa décomposition : ce que montre la correction par les briques. */
@@ -1188,6 +1206,11 @@ const COMPTES: Record<JeuId, { un: string; plusieurs: string; aucun: string }> =
     un: 'ingrédient trouvé',
     plusieurs: 'ingrédients trouvés',
     aucun: 'aucun ingrédient trouvé'
+  },
+  wechat: {
+    un: 'réplique trouvée du premier coup',
+    plusieurs: 'répliques trouvées du premier coup',
+    aucun: 'aucune réplique trouvée du premier coup'
   }
 };
 
@@ -1330,6 +1353,20 @@ export const JEUX: Record<JeuId, Jeu> = {
     preparer: (corpus, graine) => preparerCuisine(corpus.cuisine, graine),
     repondre,
     constat
+  },
+  wechat: {
+    id: 'wechat',
+    titre: 'Le message WeChat',
+    lit: 'Répondre à un ami qui t’écrit en chinois, avec ce que tu sais lire.',
+    minutes: 2,
+    tours: 4,
+    chrono: 0,
+    limite: 0,
+    indisponible: 'Pas encore de message dont tous les caractères soient acquis.',
+    /* Le dialogue le plus récent ; l'écran du message laisse choisir parmi les autres. */
+    preparer: (corpus, graine) => preparerWechat(corpus.wechat, graine),
+    repondre,
+    constat
   }
 };
 
@@ -1354,12 +1391,12 @@ export function propose(p: Progress, jour: string): boolean {
 }
 
 /**
- * La posture de Tao pendant une manche (brief §9). La coquille se lit comme un texte :
- * elle lit le message par-dessus l'épaule. Les autres jeux la trouvent en posture de
+ * La posture de Tao pendant une manche (brief §9). La coquille et le message WeChat se
+ * lisent comme un texte : elle lit le message par-dessus l'épaule. Les autres jeux la trouvent en posture de
  * jeu, la lanterne à la main, la tête penchée sur ce qu'on cherche.
  */
 export function postureDuJeu(id: JeuId | null): Posture {
-  return id === 'coquille' ? 'lecture' : 'jeu';
+  return id === 'coquille' || id === 'wechat' ? 'lecture' : 'jeu';
 }
 
 /* ---------- ce que la manche rend à la progression ---------- */
