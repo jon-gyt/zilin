@@ -19,6 +19,7 @@ Hypothèse de distribution : PWA gratuite sur le web, app iOS payante (achat à 
 | Norme GF 0014-2009 | 514 composants | texte normatif, non vérifié en ligne | utilisable pour la logique ; ne pas reproduire le document |
 | Listes Eduscol | parcours Lire | publication officielle, page non consultable | utilisable comme liste de caractères ; pas de reprise de texte |
 | Référentiel HSK 3.0 | parcours HSK | publication officielle, page non consultable | idem ; ne pas rediffuser le PDF |
+| `lunar_python` (6tail) | dates des fêtes (春节, 中秋) calculées dans le pipeline | MIT, `LICENSE` du paquet 1.4.8 | utilisable ; bibliothèque du pipeline seulement, jamais embarquée : l'app ne reçoit que des dates, qui sont des faits de calendrier |
 | LxgwSeal (小篆) | formes sigillaires | SIL OFL 1.1 | utilisable avec obligations ; couverture insuffisante aujourd'hui |
 | Kaiyuan Small Seal (小篆) | formes sigillaires | SIL OFL 1.1 annoncée | à surveiller ; police non encore publiée |
 | Polices 甲骨文 | formes oraculaires | aucune licence ouverte vérifiée | à écarter en l'état |
@@ -169,6 +170,12 @@ Aucune de ces trois sources n'a pu être vérifiée en ligne : `eduscol.educatio
 | Référentiel HSK 3.0 | utilisable comme liste | Idem. Le PDF n'est ni rediffusé ni extrait page par page dans l'app. Seule la table caractère/niveau entre dans le pipeline. |
 
 Dans les trois cas, l'attribution est faite sur l'écran « Licences » par courtoisie et pour la traçabilité, même si elle n'est pas exigée.
+
+### 6.1 Calendrier des fêtes — `lunar_python`
+
+Les dates du Nouvel An lunaire (春节) et de la mi-automne (中秋) suivent le calendrier luni-solaire chinois. Le pipeline les calcule hors ligne avec `lunar_python` 1.4.8 (`https://github.com/6tail/lunar-python`, MIT, sans dépendance), dans `uv run wenlu fetes calendrier`, qui écrit `data/sources/fetes/calendrier.tsv` ; les tests vérifient le calcul contre des dates connues (春节 2026-02-17 et 2027-02-06, 中秋 2026-09-25 et 2027-09-15), et `wenlu check` le refait à chaque passage.
+
+Décision : **utilisable**. La bibliothèque ne sort pas du pipeline ; `fetes.json` ne porte que des dates, qui ne sont pas protégeables. Les textes des fêtes (vœu, phrases de Tao, anecdote) sont rédigés pour l'app, dans `data/sources/fetes/textes.tsv`, colonne `source`.
 
 ## 7. Polices anciennes
 

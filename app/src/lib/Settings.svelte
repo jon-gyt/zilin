@@ -1,7 +1,8 @@
 <script lang="ts">
   /**
    * Réglages : l'ossature. Le rythme, les révisions (rétention cible FSRS), le tracé,
-   * le thème, et la progression qui s'exporte et se réimporte en JSON.
+   * et la progression qui s'exporte et se réimporte en JSON. Un seul thème, le papier
+   * clair : il n'y a rien à régler.
    *
    * Ni compte, ni réseau : le fichier est écrit et relu par le navigateur, la
    * progression reste dans IndexedDB.
@@ -16,7 +17,6 @@
     type Budget,
     type Progress
   } from './session';
-  import { THEMES, ecrireTheme, lireTheme, type Theme } from './theme';
 
   let {
     p,
@@ -25,7 +25,6 @@
 
   const BUDGETS: Budget[] = [5, 10, 20];
 
-  let theme: Theme = $state(lireTheme());
   let fichier: HTMLInputElement | undefined = $state();
   let mot = $state('');
 
@@ -40,11 +39,6 @@
 
   function choisirTrace(): void {
     onprogression(setTrace(p, !p.trace));
-  }
-
-  function choisirTheme(t: Theme): void {
-    theme = t;
-    ecrireTheme(t);
   }
 
   /** Export : un fichier JSON, téléchargé depuis le navigateur. */
@@ -114,14 +108,6 @@
         aria-label="Tracé des briques"
         onclick={choisirTrace}
       ></button>
-    </div>
-    <div class="tog">
-      <div><div>Thème</div></div>
-      <div class="seg">
-        {#each THEMES as t (t.id)}
-          <button class:on={theme === t.id} onclick={() => choisirTheme(t.id)}>{t.t}</button>
-        {/each}
-      </div>
     </div>
   </div>
 

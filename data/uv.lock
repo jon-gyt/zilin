@@ -1124,6 +1124,12 @@ wheels = [
 ]
 
 [[package]]
+name = "lunar-python"
+version = "1.4.8"
+source = { registry = "https://pypi.org/simple" }
+sdist = { url = "https://files.pythonhosted.org/packages/59/45/5154c95ae7feaab7ca508e71c3288692c09952dfe33b03b7c2f18a32e2cd/lunar_python-1.4.8.tar.gz", hash = "sha256:3aa11cc73c25e70ddf0ba5bdac7398c03acc9491a3aa512a91c9642973b669d6", size = 105862, upload-time = "2025-11-05T12:31:53.353Z" }
+
+[[package]]
 name = "markdown-it-py"
 version = "4.2.0"
 source = { registry = "https://pypi.org/simple" }
@@ -2607,6 +2613,7 @@ dependencies = [
     { name = "anthropic" },
     { name = "fonttools", extra = ["woff"] },
     { name = "httpx" },
+    { name = "lunar-python" },
     { name = "pydantic" },
     { name = "typer" },
 ]
@@ -2628,6 +2635,7 @@ requires-dist = [
     { name = "fonttools", extras = ["woff"], specifier = ">=4.53" },
     { name = "httpx", specifier = ">=0.27" },
     { name = "kokoro", marker = "extra == 'audio'", specifier = ">=0.9.4" },
+    { name = "lunar-python", specifier = ">=1.4.8" },
     { name = "misaki", extras = ["zh"], marker = "extra == 'audio'", specifier = ">=0.9.4" },
     { name = "pydantic", specifier = ">=2" },
     { name = "typer", specifier = ">=0.12" },

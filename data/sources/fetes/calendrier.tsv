@@ -1,0 +1,34 @@
+# Calendrier des fêtes : une ligne par fête et par année lunaire.
+#
+# Écrit par `uv run wenlu fetes calendrier` : ne pas éditer à la main.
+# Source : calendrier luni-solaire chinois (农历), dates calculées hors ligne
+# par la bibliothèque lunar_python 1.4.8 (MIT, https://github.com/6tail/lunar-python).
+# Contrôlées par les tests contre des dates connues : 春节 2026-02-17 et
+# 2027-02-06, 中秋 2026-09-25 et 2027-09-15.
+#
+# `avant` et `apres` : jours de fête avant et après la date. 春节 va du réveillon
+# 除夕 (−1) à la fête des Lanternes 元宵 (+14) ; 中秋 de −3 à +1.
+# `annee_lunaire` : l'année lunaire qui porte la fête ; `animal`, son animal
+# (voir `animaux.tsv`, rang = (année − 4) mod 12).
+#
+fete	date	avant	apres	annee_lunaire	animal	source
+chunjie	2026-02-17	1	14	2026	马	lunar_python 1.4.8, Lunar.fromYmd(2026, 1, 1)
+zhongqiu	2026-09-25	3	1	2026	马	lunar_python 1.4.8, Lunar.fromYmd(2026, 8, 15)
+chunjie	2027-02-06	1	14	2027	羊	lunar_python 1.4.8, Lunar.fromYmd(2027, 1, 1)
+zhongqiu	2027-09-15	3	1	2027	羊	lunar_python 1.4.8, Lunar.fromYmd(2027, 8, 15)
+chunjie	2028-01-26	1	14	2028	猴	lunar_python 1.4.8, Lunar.fromYmd(2028, 1, 1)
+zhongqiu	2028-10-03	3	1	2028	猴	lunar_python 1.4.8, Lunar.fromYmd(2028, 8, 15)
+chunjie	2029-02-13	1	14	2029	鸡	lunar_python 1.4.8, Lunar.fromYmd(2029, 1, 1)
+zhongqiu	2029-09-22	3	1	2029	鸡	lunar_python 1.4.8, Lunar.fromYmd(2029, 8, 15)
+chunjie	2030-02-03	1	14	2030	狗	lunar_python 1.4.8, Lunar.fromYmd(2030, 1, 1)
+zhongqiu	2030-09-12	3	1	2030	狗	lunar_python 1.4.8, Lunar.fromYmd(2030, 8, 15)
+chunjie	2031-01-23	1	14	2031	猪	lunar_python 1.4.8, Lunar.fromYmd(2031, 1, 1)
+zhongqiu	2031-10-01	3	1	2031	猪	lunar_python 1.4.8, Lunar.fromYmd(2031, 8, 15)
+chunjie	2032-02-11	1	14	2032	鼠	lunar_python 1.4.8, Lunar.fromYmd(2032, 1, 1)
+zhongqiu	2032-09-19	3	1	2032	鼠	lunar_python 1.4.8, Lunar.fromYmd(2032, 8, 15)
+chunjie	2033-01-31	1	14	2033	牛	lunar_python 1.4.8, Lunar.fromYmd(2033, 1, 1)
+zhongqiu	2033-09-08	3	1	2033	牛	lunar_python 1.4.8, Lunar.fromYmd(2033, 8, 15)
+chunjie	2034-02-19	1	14	2034	虎	lunar_python 1.4.8, Lunar.fromYmd(2034, 1, 1)
+zhongqiu	2034-09-27	3	1	2034	虎	lunar_python 1.4.8, Lunar.fromYmd(2034, 8, 15)
+chunjie	2035-02-08	1	14	2035	兔	lunar_python 1.4.8, Lunar.fromYmd(2035, 1, 1)
+zhongqiu	2035-09-16	3	1	2035	兔	lunar_python 1.4.8, Lunar.fromYmd(2035, 8, 15)

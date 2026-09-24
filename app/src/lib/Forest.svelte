@@ -12,6 +12,7 @@
    * ne marque que la famille du moment.
    */
   import Tao from './Tao.svelte';
+  import TropheesEntree from './TropheesEntree.svelte';
   import {
     contenu,
     lecon,
@@ -399,9 +400,10 @@
     <div class="card"><div class="k">Familles ouvertes</div><div class="big">{ouvertes}</div></div>
   </div>
 
+  <TropheesEntree {p} onouvrir={onrecompenses} />
+
   <div class="acts">
     <button class="btn ghost" onclick={onjouer}>Jouer</button>
-    <button class="btn ghost" onclick={onrecompenses}>Récompenses</button>
   </div>
 
   <div class="card semaine">

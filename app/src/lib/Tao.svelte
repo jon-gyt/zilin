@@ -6,6 +6,13 @@
    * Aucun cinabre : le rouge reste le sceau de l'app. Le seul rose (#E7A2B4) est celui
    * des fleurs, et seulement au stade « pêcher en fleur ». Ni ombre, ni dégradé, ni doré.
    * Elle ne tombe jamais malade et ne pleure jamais : l'absence la met en pot, rien de plus.
+   *
+   * Les jours de fête, elle porte l'accessoire de la fête : un flocon au Nouvel An 春节
+   * (brief §9), un gâteau de lune 月饼 à la mi-automne 中秋. Les deux sont toujours
+   * dessinés et cachés ; `data-fete` sur <html> montre le bon (`tokens.css`), sans que
+   * chaque écran ait à passer la fête. Pas d'accessoire là où la main est déjà prise :
+   * le flocon cède la place à la bulle et à la lanterne, le gâteau au bol, à la feuille
+   * et au pot.
    */
   import type { Humeur, PostureVue, Stade } from './tao';
 
@@ -207,6 +214,19 @@
       <path d="M152 40h24M152 72h24" stroke="var(--ocre)" stroke-width="4" stroke-linecap="round" />
       <path d="M164 38v36" stroke="var(--ocre)" stroke-width="2" opacity=".5" />
       <path d="M164 74v10" stroke="var(--ocre)" stroke-width="3" stroke-linecap="round" />
+    </g>
+  {/if}
+
+  {#if posture !== 'lecon' && posture !== 'jeu'}
+    <g class="fete-acc flocon" transform="translate(140 62)" stroke="var(--t1)" stroke-width="4" stroke-linecap="round">
+      <path d="M0-13v26M-11.3-6.5l22.6 13M-11.3 6.5l22.6-13" />
+    </g>
+  {/if}
+  {#if posture !== 'pot' && posture !== 'revision' && posture !== 'lecture'}
+    <g class="fete-acc yuebing">
+      <circle cx="46" cy="148" r="19" fill="var(--t2)" stroke="var(--ink)" stroke-width="4" />
+      <circle cx="46" cy="148" r="10" fill="none" stroke="var(--ink)" stroke-width="3" opacity=".55" />
+      <path d="M46 138v20M36 148h20" stroke="var(--ink)" stroke-width="3" opacity=".55" />
     </g>
   {/if}
 </svg>

@@ -1,8 +1,14 @@
 # Charte Wenlu, tokens
 
-Couleurs (clair) : papier #F4EEE2, carte #FBF7EE, encre #1F1B18, encre 2 #4A443E, brume #8B857C, trait #D9D1C2, indigo #2B4C7E (action, progression, briques de son), indigo doux #DCE3EF, cinabre #C8371F (élément ajouté, position, logo), cinabre doux #F6DED6, ocre #8C5A2B (briques de sens), ocre doux #EFE3D3, jade #5E8A6A (acquis), jade doux #DDE8DE.
+Un seul thème : le papier clair. Ni mode sombre, ni réglage de thème ; seules les fêtes repeignent l'app, quelques jours par an (voir « Thèmes de fête »).
 
-Couleurs (sombre) : papier #1A1714, carte #241F1B, encre #EDE6D8, encre 2 #C9C1B3, brume #8E877D, trait #3A332C, indigo #8FA9D6, cinabre #E0553A, ocre #C89A6A, jade #8FB79A.
+Couleurs : papier #F4EEE2, carte #FBF7EE, encre #1F1B18, encre 2 #4A443E, brume #8B857C, trait #D9D1C2, filet #CFC6B5 (`--rule`), grille #C9BBA3 (`--grille`, pointillés du 米字格), indigo #2B4C7E (action, progression, briques de son), indigo doux #DCE3EF, cinabre #C8371F (élément ajouté, position, logo), cinabre doux #F6DED6, ocre #8C5A2B (briques de sens), ocre doux #EFE3D3, jade #5E8A6A (acquis), jade doux #DDE8DE.
+
+Bouton principal : `--act` #2B4C7E (l'indigo) et `--act-ink` #F4EEE2. `.btn` les lit ; une fête les change.
+
+Cases du menu : `--tile-bg` (`var(--card)`), `--tile-fg` (`var(--indigo)`, le caractère de la case), `--tile-ink` (`var(--ink)`, le titre), `--tile-ink2` (`var(--ink2)`, la ligne d'état), `--tile-bd` (`transparent`, la bordure). Les quatre pigments de la peinture chinoise, un par case, pour l'écran qui les veut : 石青 azurite `--t1` #1E5A8A sur #DCE7F1, 藤黄 gomme-gutte `--t2` #9A6300 sur #F5E5BE, 桃红 rouge de pêcher `--t3` #A8506B sur #F6E0E6, 石绿 malachite `--t4` #1F7A5A sur #D5EADF (`--tN-bg`).
+
+Grain du papier : `--grain` (bruit fractal en SVG, jamais un dégradé) à l'opacité `--grain-o` (.05).
 
 Typographie : Manrope 700 (titres, nom, chiffres), Manrope 500 (voix du guide), Source Sans 3 400 et 600 (interface, 17 px, interligne 1,45), Noto Serif SC 500 (mots et phrases). Grands caractères : rendu depuis les traits, style 楷, animation pinceau.
 
@@ -11,6 +17,18 @@ Logo : 文 tracé depuis les données de traits de l'export (jamais une police),
 Mascottes : Tao 桃 (graine de pêcher, grandit, adopte la posture de l'activité en cours, réagit aux réponses, s'ennuie de la répétition, ne culpabilise jamais), Que 雀 (moineau, remet les cadeaux de la série). Fleurs de Tao : rose #E7A2B4, seul rose autorisé.
 
 Principes : un écran une action ; coins 12 px ; aucune ombre, aucun dégradé, aucun emoji, aucune illustration réaliste ; pas de doré ni de dragon.
+
+## Thèmes de fête
+
+`App.svelte` pose `data-fete` sur `<html>` quand la journée tombe dans la fenêtre d'une fête de `fetes.json` ; les blocs `[data-fete="chunjie"]` et `[data-fete="zhongqiu"]` de `tokens.css` repeignent l'app. Le même attribut sur un élément ne repeint que lui : `Embleme` et `Voeu` le portent, et gardent leurs couleurs même hors d'une page en fête.
+
+春节, le Nouvel An lunaire (du réveillon −1 à 元宵 +14) : papier #F7ECDD, carte #FCF4E8, trait #E5D6C0, filet #D9C6AA, grille #D4BE9C ; rouge de fête `--fete` #9E1F2A et son encre #FBEBD8, abricot `--apricot` #E3A33B (aplat), prunier #F2B8C6 et #FBE3E8 ; cases `--tile-bg` #A3222B, caractère #FBEBD8, titre #FFF4E6, ligne #F4CDAE ; bouton `--act` #2A1D1A, encre #FBEBD8 ; pigments 松 pin #2F6B4F, rouge #9E1F2A, prunier #B0456A, bambou #5E7A2E.
+
+中秋, la mi-automne (−3 à +1), toujours de nuit : papier #141B2E, carte #1D2640, encre #F1E9D6, encre 2 #C9C3B4, brume #8F97AD, trait #2E3856, filet #3A4566, grille #46527A ; indigo #A9BEE6, cinabre #EC6B4B (éclairci pour la nuit ; sur la lune, le caractère garde le cinabre #C8371F et l'encre de nuit `--nuit` #18203A), ocre #C89A6A, jade #8FC0A0 ; lune `--moon` #F3E3B5 et son ombre #DCC792, osmanthe `--gui` #E9B949, collines #1A2238 et #202A45, lanternes célestes #F6C36A ; cases `--tile-bg` #1B2440 bordées de #34405F, caractère #F3E3B5 ; bouton `--act` #F3E3B5 (la lune), encre #141B2E ; gabarit du tracé `--guide` #46527A ; grain clair.
+
+Le rouge de fête #9E1F2A ne sert qu'au décor : la rosace, la lanterne, les cases et le 福. Il ne remplace jamais le cinabre, qui marque l'élément ajouté et la position. Décision du propriétaire, en attente de l'amendement de CLAUDE.md.
+
+Composants : `FeteDecor.svelte` (le calque derrière tout, `pointer-events: none`, coupé par `prefers-reduced-motion`), `Embleme.svelte` (la lune ou la rosace qui porte le caractère du jour), `Voeu.svelte` (le vœu de l'en-tête, prononcé au toucher). Tao porte un flocon au Nouvel An, un gâteau de lune à la mi-automne.
 
 ## Polices
 

@@ -454,7 +454,7 @@ export function noeudDeFamille(
 /* ---------- les deux nombres de Ma forêt, lus sur la progression ---------- */
 
 /** Les caractères d'une famille de l'export : la racine, puis chaque fiche. */
-function caracteresDe(f: Famille): string[] {
+export function caracteresDe(f: Famille): string[] {
   return [f.racine.c, ...f.fiches.map((x) => x.c)];
 }
 

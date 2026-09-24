@@ -40,7 +40,10 @@ Positionnement : l'arbre étymologique qui apprend à lire, conforme aux seuils 
 
 - Nom : Wenlu 文路 (wénlù), le chemin de l'écrit : 文 l'écrit, 路 le chemin.
 - Logo : le caractère 文, dessiné depuis ses données de traits comme tout grand caractère, son premier trait, le point 丶, en cinabre. Il s'écrit trait par trait à l'ouverture, le point d'abord. Logotype Manrope 700.
-- Palette : papier de riz #F4EEE2, encre #1F1B18, cinabre #C8371F (logo, élément ajouté, position sur le chemin), indigo #2B4C7E (action, progression, briques de son), ocre #8C5A2B (briques de sens), vert bambou #5E8A6A (acquis). Mode sombre encre.
+- Palette : papier de riz #F4EEE2, encre #1F1B18, cinabre #C8371F (logo, élément ajouté, position sur le chemin), indigo #2B4C7E (action, progression, briques de son), ocre #8C5A2B (briques de sens), vert bambou #5E8A6A (acquis). Un seul thème, le papier clair : ni mode sombre, ni réglage de thème.
+- Pigments : les quatre cases du menu prennent les pigments de la peinture chinoise, 石青 azurite #1E5A8A, 藤黄 gomme-gutte #9A6300, 桃红 rouge de pêcher #A8506B, 石绿 malachite #1F7A5A, chacun sur son fond pâle.
+- Thèmes de fête : l'app se met en fête quelques jours par an, aux dates du calendrier luni-solaire que le pipeline calcule (`data/sources/fetes/`). Le Nouvel An 春节, du réveillon à la fête des Lanternes : papier chaud, fleurs de prunier qui tombent, cases rouges, rosace de papier découpé autour du caractère du jour, vœu 新年快乐 avec un 福 à l'envers et une lanterne, flocon pour Tao. La mi-automne 中秋, de trois jours avant au lendemain, toujours de nuit : bleu 黛, pleine lune qui porte le caractère du jour, lapin de jade, osmanthe, lanternes célestes, gâteau de lune pour Tao. Ce jour-là, l'anecdote est celle de la fête. Le décor passe derrière tout, ne se touche pas, et disparaît si l'on réduit les animations.
+- Pigments de fête : le rouge de fête #9E1F2A, cramoisi, distinct du cinabre, ne sert qu'au décor (rosace, lanterne, cases, 福) ; le cinabre garde son rôle. L'abricot #E3A33B est un aplat, jamais un doré. Décision du propriétaire, en attente de l'amendement de CLAUDE.md.
 - Typographie : Manrope (titres, voix du guide), Source Sans 3 (interface), Noto Serif SC (mots et phrases). Les grands caractères ne sont pas une police : ils sont dessinés trait par trait à partir des données de tracé, style 楷, et s'écrivent au pinceau à l'apparition.
 - Mascotte : Tao 桃, une graine de pêcher qui grandit (graine, pousse, jeune pêcher, pêcher en fleur à 300 caractères, pêches à 1 000). Compagne de toutes les activités, voir section 9. Ami : Que 雀, le moineau, qui remet les cadeaux de la série.
 - Principes : un écran, une action ; le rouge est un sceau, pas une alerte ; pas de doré, pas de dragon, pas d'emoji, pas d'illustration réaliste.
@@ -82,6 +85,23 @@ Fluidité : un tap par écran, bouton principal unique en bas, avance automatiqu
 - Paliers : 7 jours, un jour de Wenlu complet ; 30 jours, une semaine ; 100 jours, moins 30 % sur l'achat à vie (code à usage unique) ; 365 jours, Wenlu complet offert. Pas de remise sur l'abonnement mensuel.
 - Ma forêt : une colline, un arbre par famille dont la taille suit la progression, un brin d'herbe par caractère, Miao dessus. Le dimanche, récapitulatif de la semaine partageable en image.
 - Notification : une par jour, à l'heure choisie, avec le début de l'anecdote.
+
+### Le tableau des trophées
+
+On y entre depuis Ma forêt (« Tes trophées », N sur M et le prochain). Règle : chaque trophée se gagne en lisant, jamais au temps passé. Aucune règle ne lit une durée, un budget ou un temps de réponse. Pas de points, pas de classement, pas de doré. Tout se calcule depuis la progression et le contenu exporté (`app/src/lib/trophees.ts`).
+
+| Famille | Ce qui le donne | Sceau |
+|---|---|---|
+| Lire | 10, 50, 100, 255 (premier seuil), 505, 1555 caractères lus, au seuil de stabilité de Ma forêt | le nombre |
+| Sceaux de famille | une famille d'au moins deux caractères lue en entier ; on montre les familles commencées et quelques suivantes du parcours | la racine |
+| Pièges déjoués | une paire de `paires.json` lue dix fois de suite sans confusion, une fois les deux caractères acquis | la paire |
+| Contes | chaque conte lu, relu à chaque seuil | le seuil |
+| Objets de Tao | pinceau (dix briques tracées), lanterne (dix devinettes), bol (la première recette) | pictogramme au trait |
+| Série | 7, 30, 100, 365 jours, les cadeaux remis par Que 雀 | « 7 j » |
+
+Un trophée est un sceau carré 印 : obtenu, gravé en clair sur l'encre avec un double filet ; à venir, en pointillés avec sa progression (« 62 / 100 »). Le toucher montre son détail dans la carte du résumé, sans fenêtre modale.
+
+Ce que la progression ne suit pas encore reste verrouillé, jamais estimé : la lecture des contes, les devinettes et les recettes. Pour les pièges, la progression ne garde pas le leurre choisi : une lecture compte « sans confusion » quand la révision d'un des caractères de la paire n'est pas ratée, quelle que soit sa vitesse.
 
 ## 9. Tao et les jeux
 

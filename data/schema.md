@@ -12,8 +12,10 @@ Règle : l'app ne lit que ces fichiers. Aucune donnée de contenu dans le code.
 Les caractères des listes cibles — `seuil-255` et `hsk-1` — et **leurs briques**
 (prérequis transitifs de la décomposition canonique), pas tout le dictionnaire.
 Une famille n'est exportée qu'avec ses membres du périmètre ; la famille 口 en a
-17 ici, contre 525 dans le graphe complet. Version 0.1.0 : 238 familles,
-485 caractères (222 briques, 13 feuilles muettes), 1,33 Mio.
+17 ici, contre 525 dans le graphe complet. Les caractères que les fêtes
+dessinent depuis leurs traits (`data/sources/fetes/textes.tsv` : l'anecdote et le
+福 du vœu) y entrent aussi, avec leurs briques. Version 0.1.0 : 238 familles,
+486 caractères (222 briques, 13 feuilles muettes), 1,34 Mio.
 
 ## Arborescence
 
@@ -24,6 +26,7 @@ app/public/data/0.1.0/
   ARPHICPL.TXT               texte de l'Arphic Public License, inaltéré
   UNICODE-LICENSE.txt        notice de permission Unicode (pinyin)
   paires.json                les caractères à ne pas confondre
+  fetes.json                 le calendrier des fêtes et leurs textes
   familles/<racine>.json     une famille : `Famille` de models.py
   traits/<racine>.json       les tracés de la famille, sous APL, et rien d'autre
   traits/ARPHICPL.TXT        la même licence, à côté des fichiers qu'elle couvre
@@ -145,6 +148,31 @@ Les caractères à ne pas confondre, versionnés dans
 au périmètre de la version et tombe s'il n'y reste pas deux formes : l'app ne
 montre que ce qu'elle sait dessiner.
 
+## `fetes.json`
+
+Tiré de `data/sources/fetes/` : `calendrier.tsv` (écrit par `wenlu fetes
+calendrier`, dates du calendrier luni-solaire calculées par `lunar_python`),
+`textes.tsv` (rédigés pour l'app) et `animaux.tsv` (les douze animaux).
+
+```json
+{"version": "0.1.0", "license": "propriétaire", "source": "…", "source_url": "…", "modified": "…",
+ "calendrier": [{"fete": "chunjie", "date": "2027-02-06", "avant": 1, "apres": 14, "annee": 2027,
+                 "animal": {"c": "羊", "pinyin": "yáng", "fr": "de la Chèvre"}}],
+ "fetes": {"chunjie": {"nom": "Nouvel An lunaire", "nom_zh": "春节",
+                       "voeu": {"zh": "新年快乐", "pinyin": "xīnnián kuàilè", "fr": "Bonne année {animal}"},
+                       "caractere_voeu": "福", "tao": ["…"],
+                       "anecdote": {"rubrique": "…", "c": "年", "titre": "…", "texte": "…"}}},
+ "racines": {"年": "年", "月": "月", "福": "礻"}}
+```
+
+- Une fête est active du jour `date − avant` au jour `date + apres` inclus.
+  春节 : du réveillon 除夕 (−1) à la fête des Lanternes 元宵 (+14) ; 中秋 : −3 à +1.
+- `{animal}` et `{quand}` sont des jetons que l'app remplit au jour de la fête :
+  l'animal de l'entrée du calendrier (« de la Chèvre 羊 ») et le délai jusqu'au soir
+  de la fête (« Demain soir »).
+- `racines` donne la famille de chaque caractère dessiné : l'app lit ses traits
+  dans `traits/<racine>.json` sans relire toutes les familles.
+
 ## `LICENCES.md`
 
 Écrit par l'export. Un tableau `source | usage | licence | attribution | texte de
@@ -161,6 +189,13 @@ ce que l'app embarque ; `docs/sources-licences.md` fait foi pour la décision.
   en-tête, `traits/` ne porte que des tracés, aucune fiche ne porte de tracé.
 - « export : familles sans fiche relue » — signalé : ce qui reste à relire avant
   que l'app puisse enseigner ces familles.
+- « fêtes : calendrier » — bloquant : dates lisibles et égales au calcul du
+  calendrier lunaire, fenêtres positives, animal de l'année, 2026 à 2035 couverts
+  pour chaque fête, aucun chevauchement.
+- « fêtes : textes » — bloquant : chaque fête a toutes ses clés, aucune vide,
+  des jetons connus, une source.
+- « fêtes : caractères dessinés » — bloquant : l'anecdote et le 福 du vœu ont
+  leurs traits dans chaque version exportée.
 
 ## Format intermédiaire (story 1.1)
 
