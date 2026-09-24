@@ -39,7 +39,7 @@ Positionnement : l'arbre étymologique qui apprend à lire, conforme aux seuils 
 ## 5. Identité
 
 - Nom : Wenlu 文路 (wénlù), le chemin de l'écrit : 文 l'écrit, 路 le chemin.
-- Logo : un Z tracé en un trait, un point cinabre au-dessus, le point de 之. Logotype Manrope 700.
+- Logo : le caractère 文, dessiné depuis ses données de traits comme tout grand caractère, son premier trait, le point 丶, en cinabre. Il s'écrit trait par trait à l'ouverture, le point d'abord. Logotype Manrope 700.
 - Palette : papier de riz #F4EEE2, encre #1F1B18, cinabre #C8371F (logo, élément ajouté, position sur le chemin), indigo #2B4C7E (action, progression, briques de son), ocre #8C5A2B (briques de sens), vert bambou #5E8A6A (acquis). Mode sombre encre.
 - Typographie : Manrope (titres, voix du guide), Source Sans 3 (interface), Noto Serif SC (mots et phrases). Les grands caractères ne sont pas une police : ils sont dessinés trait par trait à partir des données de tracé, style 楷, et s'écrivent au pinceau à l'apparition.
 - Mascotte : Tao 桃, une graine de pêcher qui grandit (graine, pousse, jeune pêcher, pêcher en fleur à 300 caractères, pêches à 1 000). Compagne de toutes les activités, voir section 9. Ami : Que 雀, le moineau, qui remet les cadeaux de la série.

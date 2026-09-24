@@ -212,6 +212,10 @@ Pipeline `data/` :
 - `uv run wenlu build` n'expose jamais la colonne de définition anglaise de CC-CEDICT aux invites de génération FR. Contrôle à ajouter et à tester.
 - `dictionary.txt` reste hors des artefacts distribués.
 
+Marque :
+
+- La marque est 文 tracé depuis Make Me a Hanzi. Dans l'app, elle se lit dans `traits/` de l'export, sous son en-tête APL. `app/scripts/icons.mjs` recopie ces tracés, mis à l'échelle, dans `favicon.svg` ; le fichier porte la mention de source, de licence et de modification en commentaire (APL §2 a)). Les PNG en sont des rendus. Question à poser au conseil avec le §9 : une icône App Store tirée d'une glyphe APL laisse-t-elle la marque libre de dépôt ?
+
 Publication hors app :
 
 - Dépôt ou répertoire public contenant les fichiers de traits dérivés sous APL, avec `ARPHICPL.TXT` et la note de modification.

@@ -1,7 +1,7 @@
 import { describe, it, expect } from 'vitest';
 import { readFileSync } from 'node:fs';
 import { glyph, type StrokeData } from './glyph';
-import { loadStrokes } from './strokes';
+import { lireTraits, loadStrokes } from './strokes';
 
 const demo = JSON.parse(readFileSync(new URL('../../public/strokes-demo.json', import.meta.url), 'utf8')) as Record<string, StrokeData>;
 const zhu = demo['住'];
@@ -90,5 +90,37 @@ describe('chargement des traits', () => {
   it('échoue clairement si le fichier manque', async () => {
     const fake = (async () => ({ ok: false, status: 404 })) as unknown as typeof fetch;
     await expect(loadStrokes('absent.json', fake)).rejects.toThrow('absent.json');
+  });
+});
+
+describe('la marque : 文, le point 丶 en cinabre', () => {
+  /* Les traits de 文 viennent de l'export versionné, comme ceux de tout grand caractère. */
+  const wen = lireTraits(
+    JSON.parse(readFileSync(new URL('../../public/data/0.1.0/traits/文.json', import.meta.url), 'utf8'))
+  )['文'];
+
+  it('文 est dans l’export, quatre traits, le premier est le point du haut', () => {
+    expect(wen.s).toHaveLength(4);
+    expect(wen.m).toHaveLength(4);
+    /* Repère des données : y vers le haut. Le point est le trait le plus haut. */
+    const hauts = wen.m.map((m) => Math.max(...m.map((q) => q[1])));
+    expect(Math.max(...hauts)).toBe(hauts[0]);
+  });
+  it('rendu statique : seul le premier trait porte le cinabre', () => {
+    const h = glyph('文', wen, 30, { cinabre: [0], label: 'Wenlu' });
+    expect(h).toContain('aria-label="Wenlu"');
+    const chemins = all(/<path d="[^"]+"( class="zhu")?\/>/g, h);
+    expect(chemins).toHaveLength(4);
+    expect(chemins.map((c) => c[1] !== undefined)).toEqual([true, false, false, false]);
+  });
+  it('rendu écrit : le pinceau et le remplissage du point seuls en cinabre, le point d’abord', () => {
+    const h = glyph('文', wen, 160, { write: true, cinabre: [0] });
+    expect(all(/class="br zhu"/g, h)).toHaveLength(1);
+    expect(all(/class="fill zhu"/g, h)).toHaveLength(1);
+    expect(h.indexOf('class="br zhu"')).toBeLessThan(h.indexOf('class="br"'));
+  });
+  it('sans l’option, aucun trait en cinabre : le rouge reste réservé', () => {
+    expect(glyph('文', wen, 30)).not.toContain('zhu');
+    expect(glyph('文', wen, 160, { write: true })).not.toContain('zhu');
   });
 });

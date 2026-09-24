@@ -7,6 +7,7 @@
    * est posée hors du flux, la mise en page de l'estampe ne bouge pas.
    */
   import Glyph from './Glyph.svelte';
+  import Marque from './Marque.svelte';
   import Tao from './Tao.svelte';
   import { anecdoteDuJour, anecdotesOnce, type Anecdote } from './content';
   import type { Progress } from './session';
@@ -58,12 +59,7 @@
     {/if}
 
     <div class="sceau">
-      <svg width="72" height="72" viewBox="0 0 200 200" aria-label="Wenlu">
-        <g fill="none" stroke="currentColor" stroke-width="18" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M50 84h100L50 160h100" />
-        </g>
-        <circle cx="100" cy="42" r="13" fill="var(--zhu)" />
-      </svg>
+      <Marque size={72} />
     </div>
     <div class="nom">Wenlu <span class="cn hz">文路</span></div>
 
