@@ -109,7 +109,8 @@
    */
   let fetes: Fetes | null = $state(null);
   void fetesOnce().then((f) => (fetes = f)).catch(() => undefined);
-  const fete = $derived(fetes ? (feteDuJour(fetes, p.day)?.id ?? null) : null);
+  const feteJour = $derived(fetes ? feteDuJour(fetes, p.day) : null);
+  const fete = $derived(feteJour?.id ?? null);
   $effect(() => poserFete(document.documentElement, fete));
   /** L'app s'ouvre sur le logo : ce qui vient après dépend de la progression relue. */
   let ecran: Ecran = $state('splash');
@@ -599,5 +600,5 @@
 {:else if ecran === 'reglages'}
   <Settings {p} onprogression={remplacer} onretour={allerAuMenu} />
 {:else}
-  <Menu {p} ondemarrer={boutonMenu} oncase={caseMenu} onreglages={() => (ecran = 'reglages')} />
+  <Menu {p} fete={feteJour} {fetes} ondemarrer={boutonMenu} oncase={caseMenu} onreglages={() => (ecran = 'reglages')} />
 {/if}

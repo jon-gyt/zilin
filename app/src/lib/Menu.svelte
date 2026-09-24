@@ -27,6 +27,10 @@
    * animations.
    */
   import Bulle from './Bulle.svelte';
+  import Embleme from './Embleme.svelte';
+  import Voeu from './Voeu.svelte';
+  import { pistes as pistesFete, type FeteDuJour } from './fetes';
+  import type { Fetes } from './content';
   import Glyph from './Glyph.svelte';
   import Marque from './Marque.svelte';
   import Pinceaux from './Pinceaux.svelte';
@@ -43,11 +47,16 @@
 
   let {
     p,
+    fete = null,
+    fetes = null,
     ondemarrer,
     oncase,
     onreglages
   }: {
     p: Progress;
+    /** La fête du jour : le vœu prend la place de la marque, l'emblème porte le caractère. */
+    fete?: FeteDuJour | null;
+    fetes?: Fetes | null;
     /** Le bouton plein (ou en contour) : ce qu'il ouvre se décide dans `parcours.ts`. */
     ondemarrer: () => void;
     oncase: (id: CaseId) => void;
@@ -155,7 +164,9 @@
   const taoStade = $derived(stade(p.tao.croissance));
   const pct = $derived(((m.position + 0.5) / Math.max(1, m.coups.length)) * 100);
   const aDroite = $derived(pct < 55);
-  const texte = $derived(m.phrases.length === 0 ? '' : m.phrases[phrase % m.phrases.length]);
+  /* Un jour de fête, Tao commence par la fête, puis revient à la journée. */
+  const phrases = $derived(fete && fete.tao.length > 0 ? [fete.tao[0], ...m.phrases, ...fete.tao.slice(1)] : m.phrases);
+  const texte = $derived(phrases.length === 0 ? '' : phrases[phrase % phrases.length]);
 
   function toucherTao(): void {
     phrase += 1;
@@ -225,11 +236,15 @@
 
 <main class="menu">
   <header class="mhead">
-    <div class="marque">
-      <span class="logo"><Marque size={30} /></span>
-      <span class="nom">Wenlu</span>
-      <span class="cn hz">文路</span>
-    </div>
+    {#if fete}
+      <div class="marque"><Voeu {fete} pistes={fetes ? pistesFete(fetes, '福') : []} /></div>
+    {:else}
+      <div class="marque">
+        <span class="logo"><Marque size={30} /></span>
+        <span class="nom">Wenlu</span>
+        <span class="cn hz">文路</span>
+      </div>
+    {/if}
     <button class="icone" aria-label="Réglages" onclick={onreglages}>
       <svg viewBox="0 0 24 24" aria-hidden="true">
         <circle cx="12" cy="12" r="3" />
@@ -240,19 +255,28 @@
     </button>
   </header>
 
-  <section class="jour">
+  <section class="jour" class:fete={fete !== null}>
     <div class="jour-haut">
       <button
         class="mizi"
         aria-label={carte ? `Réécrire et écouter ${carte.c}` : 'Le caractère du jour'}
         onclick={toucher}
       >
+        {#if fete}
+          <!-- Un jour de fête, l'emblème (la lune, la rosace) devient la case du caractère. -->
+          <span class="emb-pos">
+            {#key ecriture}
+              <Embleme fete={fete.id} c={carte?.c ?? ''} {cinabre} pistes={carte?.pistes ?? []} size={160} />
+            {/key}
+          </span>
+        {:else}
         <!-- Le 米字格 : la grille d'exercice des écoliers, en filets fins. -->
         <svg class="grille" width="100%" height="100%" viewBox="0 0 104 104" aria-hidden="true">
           <rect x=".5" y=".5" width="103" height="103" rx="14" />
           <path d="M52 1v102M1 52h102M1 1l102 102M103 1L1 103" />
         </svg>
-        {#if carte && traits}
+        {/if}
+        {#if carte && traits && !fete}
           {#key ecriture}
             <span class="trace">
               <!-- eslint-disable-next-line svelte/no-at-html-tags -->
@@ -374,6 +398,26 @@
   }
   .menu > * {
     flex-shrink: 0;
+  }
+
+  /* ---- un jour de fête : l'emblème déborde de la case, le texte s'écarte ---- */
+  .jour.fete {
+    margin-top: 14px;
+  }
+  .jour.fete .jour-haut {
+    gap: 28px;
+  }
+  .jour.fete .mizi {
+    background: transparent;
+    overflow: visible;
+  }
+  .emb-pos {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    line-height: 0;
+    pointer-events: none;
   }
 
   /* ---- l'en-tête ---- */
