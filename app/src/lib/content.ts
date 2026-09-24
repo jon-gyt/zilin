@@ -993,6 +993,34 @@ export function fetesOnce(version = VERSION_DONNEES): Promise<Fetes> {
     lesFetes.set(version, p);
   }
   return p;
+/* ---------- ce que le tableau des trophées lit ---------- */
+
+/**
+ * Le contenu du tableau des trophées : l'index (parcours et contes), toutes les familles,
+ * les paires brutes (`trophees.ts` les relit par `questions.lirePaires`), et le sens de
+ * chaque caractère quand la surcouche en donne un. Une seule lecture, puis les caches.
+ */
+export type ContenuTropheesLu = {
+  index: Index;
+  familles: Famille[];
+  paires: unknown;
+  sens: Map<string, string>;
+};
+
+export async function contenuTrophees(version = VERSION_DONNEES): Promise<ContenuTropheesLu> {
+  const [i, familles, paires, demo] = await Promise.all([
+    contenu(version),
+    toutesLesFamilles(version),
+    pairesExport(version).catch(() => ({ paires: [] })),
+    surcouchesDemo()
+  ]);
+  const sens = new Map<string, string>();
+  for (const f of familles) {
+    if (f.racine.fr) sens.set(f.racine.c, f.racine.fr);
+    for (const x of f.fiches) if (x.fr && !sens.has(x.c)) sens.set(x.c, x.fr);
+  }
+  for (const [c, x] of demo) if (x.fr && !sens.has(c)) sens.set(c, x.fr);
+  return { index: i, familles, paires, sens };
 }
 
 /* ---------- la leçon du jour, telle que les écrans de session la lisent ---------- */
