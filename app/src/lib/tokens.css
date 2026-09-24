@@ -498,7 +498,7 @@ h1{font-family:var(--head);font-weight:700;font-size:30px;line-height:1.15;lette
 
 /* ---- clarté pour un débutant : ce que l'écran attend se voit d'un coup d'œil ---- */
 /* le caractère du jour, sur le chemin, avec la ligne qui dit ce qu'il fait là */
-.today{flex-direction:column;gap:6px}
+.today{flex-direction:column;gap:4px;padding:4px 0}
 /* l'assemblage de révision : quatre briques ou plus tiennent sur une ligne */
 .q .parts.serre{gap:4px}
 .q .parts.serre .case{width:36px;height:36px}
