@@ -72,6 +72,7 @@ from .fonts import PONCTUATION_CHINOISE
 from .gf0014 import Controle, TableGF0014, charger_table
 from .ingest import charger_liste, est_sinogramme
 from .paths import BUILD, DATA, FICHES_WORK, INGEST, LISTES, RACINE, WORK
+from .surcharges import charger_pinyin
 
 
 #: Au plus trois appels pour une même fiche.
@@ -319,7 +320,11 @@ def charger_corpus(
     ingest: Path | None = None,
     table: TableGF0014 | None = None,
 ) -> Corpus:
-    """Charge le corpus depuis `data/work/build/` et `data/work/ingest/`."""
+    """Charge le corpus depuis `data/work/build/` et `data/work/ingest/`.
+
+    Le pinyin de `data/sources/surcharges/pinyin.tsv` y remplace celui de Make Me
+    a Hanzi.
+    """
     if parcours not in PARCOURS:
         raise ParcoursInconnu(f"parcours {parcours!r} inconnu : {', '.join(PARCOURS)}")
     build = build or BUILD
@@ -330,12 +335,16 @@ def charger_corpus(
     caracteres = _lire_json(ingest / "caracteres.json")
     assert isinstance(chemin_parcours, dict) and isinstance(decompositions, dict)
     assert isinstance(graphe, dict) and isinstance(caracteres, list)
+    lectures = charger_pinyin()
     return Corpus(
         parcours=parcours,
         jours=chemin_parcours["jours"],
         decompositions={str(d["c"]): d for d in decompositions["caracteres"]},
         noeuds={str(n["c"]): n for n in graphe["noeuds"]},
-        caracteres={str(c["c"]): c for c in caracteres},
+        caracteres={
+            str(c["c"]): ({**c, "pinyin": list(lectures[str(c["c"])])} if str(c["c"]) in lectures else c)
+            for c in caracteres
+        },
         mots=charger_mots(ingest / "mots.json"),
         table=table or charger_table(),
     )

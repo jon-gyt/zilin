@@ -105,11 +105,14 @@ racine, fiches}`.
 porte une `Fiche` par caractère de la famille, triée par caractère :
 
 - `c`, `pinyin` — le pinyin vient d'Unihan (`kMandarin`), jamais de
-  `dictionary.txt` ni de CC-CEDICT (`docs/sources-licences.md` §2.2 et §4.2).
+  `dictionary.txt` ni de CC-CEDICT (`docs/sources-licences.md` §2.2 et §4.2), sauf
+  là où `data/sources/surcharges/pinyin.tsv` le corrige : sa première lecture, la
+  principale, est alors celle de l'export (地 dì et non la particule de).
 - `parts` : la décomposition canonique GF 0014-2009, dans l'ordre d'écriture ;
   vide pour une brique, qui est une feuille de la norme.
 - `sources` : d'où vient la chaîne IDS descendue pour cette décomposition,
-  `makemeahanzi` ou `cjk-decomp`. Nommée par caractère pour que la question de
+  `makemeahanzi`, `cjk-decomp` ou `surcharge` (une correction versionnée de
+  `data/sources/surcharges/ids.tsv`, rédigée pour le projet). Nommée par caractère pour que la question de
   licence de `dictionary.txt` (LGPL, §2.2) reste tranchable fichier par fichier.
 - `nouveau` : les index, dans `parts`, de l'élément ajouté — le composant posé le
   même jour que le caractère dans son parcours de référence (`lire`, sinon
@@ -316,7 +319,7 @@ Quatre points de code portent deux composants distincts de la norme : ⺈, 丁, 
 `uv run wenlu build` écrit dans `data/work/build/`, hors dépôt :
 
 - `decompositions.json` : `{norme, table: {fichier, composants, groupes}, source_ids,
-  source_ids_secondaire,
+  source_ids_secondaire, source_ids_surcharge,
   caracteres: [{c, composants[], structure, reconcilie, inconnus[], cycle[], sources[]}]}`.
   `composants` est la liste ordonnée des feuilles atteintes en descendant l'IDS de Make
   Me a Hanzi jusqu'aux composants de la norme, dans l'ordre des opérandes IDS, qui est
@@ -324,12 +327,33 @@ Quatre points de code portent deux composants distincts de la norme : ⺈, 丁, 
   `structure` est l'IDS réduit à ces feuilles. `inconnus` liste les feuilles absentes de
   la norme — elles figurent quand même dans `composants` — et `cycle` le chemin de
   descente qui boucle. `reconcilie` vaut vrai quand les deux sont vides. `sources` nomme
-  les sources d'IDS descendues (`makemeahanzi`, `cjk-decomp`) : un caractère marqué
-  `cjk-decomp` est à relire, ses feuilles étant plus sûres que sa structure.
+  les sources d'IDS descendues (`makemeahanzi`, `cjk-decomp`, `surcharge`) : un
+  caractère marqué `cjk-decomp` est à relire, ses feuilles étant plus sûres que sa
+  structure.
 - `ecarts.md` : décompte des caractères réconciliés, composants inconnus classés par
   fréquence avec leur point de code, cycles, apport de l'IDS secondaire, et état des
   listes prioritaires (seuil 255, HSK 1) avec les caractères que l'IDS secondaire a
   réconciliés, à relire.
+
+### Surcharges des sources, versionnées
+
+Les fichiers téléchargés ne se corrigent jamais sur place. Une erreur relevée se
+corrige dans `data/sources/surcharges/`, une ligne et une raison par correction
+(`surcharges.py`) :
+
+- `ids.tsv` (`c`, `ids`, `raison`) : l'IDS passe devant Make Me a Hanzi et cjk-decomp,
+  et la décomposition qui le descend porte la source `surcharge`. Une surcharge n'entre
+  que si la table de la norme la justifie : un composant propre (那字旁 pour 那,
+  学字头 pour 学), un point de code de notation ramené à celui de la norme (㇔ → 丶,
+  ⺼ → 月), ou une source qui se trompe de composant (壴, 在). Les 30 composants sans
+  point de code s'y écrivent entre accolades : `⿰{⿰𠄌丶}人`.
+- `equivalences.tsv` (`forme`, `composant`, `raison`) : un point de code de la source
+  qui porte des tracés est apparié au composant que la norme écrit autrement, sans
+  être renommé (⺮ pour 𥫗, 竹头) : la feuille reste dessinable.
+- `pinyin.tsv` (`c`, `lectures`, `raison`) : les lectures remplacent celles de Make Me
+  a Hanzi (contexte des fiches) et d'Unihan (export). La première est la principale.
+- `decompositions-non-corrigees.md` : ce qui a été vérifié contre la table et laissé
+  tel quel, avec la raison.
 
 `uv run wenlu check` relit `decompositions.json` : le contrôle « composants inconnus »
 signale sans bloquer (la norme ne couvre que 3 500 caractères), le contrôle « cycles »
@@ -388,7 +412,9 @@ briques_muettes[], non_reconcilies[], absents[]}`.
 - `briques_muettes` : les feuilles sans fiche employées par des caractères de la liste.
   Acquises d'entrée, elles ne prennent jamais de jour ; `wenlu check` les signale.
 - `non_reconcilies` et `absents` : caractères de la liste dont la décomposition n'est pas
-  réconciliée (22 pour le seuil 255, 31 pour le HSK 1) ou qui manquent au dictionnaire.
+  réconciliée (1 pour le seuil 255 et 1 pour le HSK 1, 兴 ; voir
+  `data/sources/surcharges/decompositions-non-corrigees.md`) ou qui manquent au
+  dictionnaire.
   Ils ferment le parcours, marqués `non_reconcilie` : jamais oubliés.
 
 `uv run wenlu check` ajoute trois contrôles : « cycles du graphe » (bloquant),
@@ -407,7 +433,8 @@ brouillon rédigé sans API, avec les mêmes contrôles, puis d'une relecture hu
 Assemblé par `fiches.Corpus` depuis `decompositions.json`, `graphe.json`,
 `parcours-<nom>.json`, `caracteres.json` et `mots.json` :
 
-- le caractère, son pinyin (`caracteres.json`), sa famille et son genre (`graphe.json`) ;
+- le caractère, son pinyin (`caracteres.json`, corrigé par
+  `data/sources/surcharges/pinyin.tsv`), sa famille et son genre (`graphe.json`) ;
 - sa décomposition canonique GF 0014-2009 (`decompositions.json`), avec le nom normalisé
   (部件名称) de chaque composant, pris dans `composants.tsv` ;
 - le rôle probable d'un composant quand l'étymologie de Make Me a Hanzi le désigne comme
