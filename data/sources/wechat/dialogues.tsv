@@ -1,0 +1,74 @@
+# Le message WeChat (story 4b.7) : les dialogues, un par ligne.
+#
+# Source : rédigé pour l'app, sans API, dans une session Claude Code ; à relire
+# (backlog, état de 4b.7). Aucun texte tiers n'est recopié.
+#
+# Un ami, toujours le même (`ami.tsv`), écrit un court message en chinois ; on choisit
+# la bonne réponse parmi trois ou quatre répliques. Chaque dialogue est rattaché à une
+# famille par son caractère clé (`cle`), et à un jour de chaque parcours : celui où tous
+# ses caractères sont posés, que `wenlu export` calcule. L'app ne propose un dialogue
+# que lorsque tous ses caractères sont acquis, les mauvaises répliques comprises.
+#
+# Format : TSV, `#` en commentaire, cinq colonnes séparées par une tabulation :
+#
+# - `id` : l'identifiant du dialogue, en pinyin sans ton ;
+# - `cle` : le caractère clé, écrit dans le dialogue ; sa famille est celle du dialogue ;
+# - `fr`, `en` : le titre du dialogue ;
+# - `source`.
+#
+# Les échanges sont dans `echanges.tsv`, dans l'ordre. Les dialogues sont rangés par le
+# premier jour où un parcours les rend possibles.
+id	cle	fr	en	source
+zao	见	Salut, à demain	Morning, see you tomorrow	rédigé pour l'app
+mama	妈	Des nouvelles de ta mère	News of your mum	rédigé pour l'app
+shengri	生	Son anniversaire	Her birthday	rédigé pour l'app
+xiayu	雨	Il pleut	It's raining	rédigé pour l'app
+shangke	课	Le cours de l'après-midi	Afternoon class	rédigé pour l'app
+xingqiliu	六	Samedi à la montagne	Saturday on the mountain	rédigé pour l'app
+nihao	你	Retour après-demain	Back the day after tomorrow	rédigé pour l'app
+xinshu	书	Des livres neufs	New books	rédigé pour l'app
+qiche	汽	Une voiture neuve	A new car	rédigé pour l'app
+beijing	京	Un voyage à Pékin	A trip to Beijing	rédigé pour l'app
+nihaoma	吗	Ça va ?	How are you?	rédigé pour l'app
+hecha	茶	Un thé ?	Some tea?	rédigé pour l'app
+fangzi	房	Un nouvel appartement	A new flat	rédigé pour l'app
+jidian	点	Un film à quatre heures	A film at four	rédigé pour l'app
+piao	票	Deux places de cinéma	Two cinema tickets	rédigé pour l'app
+zuotian	昨	Hier soir	Last night	rédigé pour l'app
+xuexiao	校	Ton école	Your school	rédigé pour l'app
+mang	忙	Tu es occupé ?	Are you busy?	rédigé pour l'app
+zhu	住	Où tu habites ?	Where do you live?	rédigé pour l'app
+laoshi	谁	Qui est-ce ?	Who's that?	rédigé pour l'app
+zhidao	道	Tu sais quoi ?	Guess what?	rédigé pour l'app
+dianhua	打	Un coup de fil	A phone call	rédigé pour l'app
+jiaren	家	Ta famille	Your family	rédigé pour l'app
+hanzi	字	Écrire un caractère	Writing a character	rédigé pour l'app
+leng	冷	Il fait froid	It's cold	rédigé pour l'app
+xinpengyou	叫	Une nouvelle amie	A new friend	rédigé pour l'app
+hanyu	语	Le chinois, c'est difficile ?	Is Chinese hard?	rédigé pour l'app
+chifan	吃	Tu as mangé ?	Have you eaten?	rédigé pour l'app
+fanguan	菜	Au restaurant	At the restaurant	rédigé pour l'app
+zuoche	坐	Venir chez toi	Coming to your place	rédigé pour l'app
+kuai	快	Viens vite !	Hurry up!	rédigé pour l'app
+xiexie	谢	Merci pour le livre	Thanks for the book	rédigé pour l'app
+faguo	国	D'où viens-tu ?	Where are you from?	rédigé pour l'app
+shouji	机	Le téléphone perdu	The lost phone	rédigé pour l'app
+shenti	体	La santé de ton père	Your dad's health	rédigé pour l'app
+kuaizi	筷	Les baguettes	Chopsticks	rédigé pour l'app
+tushuguan	图	À la bibliothèque	At the library	rédigé pour l'app
+dongtian	冬	L'hiver à Pékin	Winter in Beijing	rédigé pour l'app
+huahua	画	Dessiner	Drawing	rédigé pour l'app
+bing	病	Malade	Feeling ill	rédigé pour l'app
+nuer	岁	Cinq ans	Five years old	rédigé pour l'app
+shuiguo	钱	Des fruits au magasin	Fruit at the shop	rédigé pour l'app
+chengli	城	Une tasse en ville	A cup from town	rédigé pour l'app
+zhaoshu	找	Le livre perdu	The missing book	rédigé pour l'app
+changge	唱	Chanter ce soir	Singing tonight	rédigé pour l'app
+yiqi	起	On y va ensemble ?	Coming along?	rédigé pour l'app
+zuofan	做	Tu fais quoi ?	What are you up to?	rédigé pour l'app
+daqiu	球	Un match	A game of ball	rédigé pour l'app
+niunai	奶	Du lait	Milk	rédigé pour l'app
+jieshao	介	Je te présente…	Let me introduce…	rédigé pour l'app
+shuijiao	睡	Pas encore couché ?	Not asleep yet?	rédigé pour l'app
+yiyuan	医	À l'hôpital	At the hospital	rédigé pour l'app
+yifu	衣	Des vêtements chauds	Warm clothes	rédigé pour l'app
