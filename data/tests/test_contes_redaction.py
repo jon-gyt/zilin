@@ -351,3 +351,9 @@ def test_les_contes_du_depot_portent_l_empreinte_de_leur_brouillon() -> None:
         assert version.ouvrage in ("", conte.ouvrage)
         rapport = valider(version, contes.charger_seuil(lu.seuil))
         assert rapport.conforme and rapport.ecarts == [], f"{lu.nom} : {rapport.intrus} {rapport.ecarts}"
+
+
+def test_les_trois_contes_gratuits_du_seuil_255_sont_rediges() -> None:
+    """Brief §10 : trois contes gratuits au seuil 255."""
+    ecrits = {(p.parent.name, p.stem) for p in contes.brouillons_ecrits()}
+    assert len({conte for conte, seuil in ecrits if seuil == "255"}) >= 3
