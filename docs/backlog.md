@@ -89,8 +89,11 @@ Relevé sur le dépôt après une revue du pipeline. Les numéros ci-dessus ne b
   la page des licences (APL §2 b). Le service worker ne précache pas le site et ne sert
   plus `index.html` de l'app à ses adresses. Reste : un lien profond de l'app vers un
   caractère (le bouton ouvre l'accueil), la déclaration du plan du site dans la Search
-  Console (`robots.txt` sous `/zilin/` n'est pas lu), les 12 composants sans traits
-  (㇆, 龰, 𠂇…) et le « ? » du pipeline, sans page.
+  Console (`robots.txt` sous `/zilin/` n'est pas lu). Les composants sans traits (龰,
+  𠂇, ⿰𠄌丶…) ont leur page depuis le 24 septembre : leurs traits sont découpés dans un
+  caractère hôte (`data/sources/surcharges/decoupes.tsv`), et ce que Noto Serif SC n'a
+  pas (𠂒, 𠃊, 𭃂…) s'écrit en traits, dans l'app comme sur le site. 513 caractères
+  exportés, 513 pages.
 - 4b.5, les devinettes de lanternes (24 septembre) : 141 devinettes rédigées pour l'app
   dans `data/sources/devinettes/` (120 du seuil 255, 21 du HSK 1), dont six avec leur 字谜
   traditionnel ; leurres choisis à l'export par ressemblance de composants ;
