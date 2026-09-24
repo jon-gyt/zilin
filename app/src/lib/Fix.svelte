@@ -11,6 +11,7 @@
    */
   import { untrack } from 'svelte';
   import Ask from './Ask.svelte';
+  import EnTetePas from './EnTetePas.svelte';
   import Tao from './Tao.svelte';
   import {
     LIGNE_SANS_FICHE,
@@ -23,7 +24,7 @@
   } from './content';
   import { lirePaires, type Paires, type Question } from './questions';
   import { corpusFixer, questionsFixerDuJour } from './revision';
-  import { echeance, jourParcours, repriseFix, type Progress, type Revision } from './session';
+  import { echeance, jourLecon, repriseFix, type Progress, type Revision } from './session';
   import { humeur, stade } from './tao';
 
   let {
@@ -40,10 +41,6 @@
     onfini: () => void;
     onquitter: () => void;
   } = $props();
-
-  /** Les cinq écrans de la leçon dans la maquette ; Fixer est le quatrième. */
-  const PAS_LECON = 5;
-  const RANG = 3;
 
   /** Les cartes de l'ouverture du pas : la vérification ne change pas en cours de route. */
   const cartesDuPas = untrack(() => $state.snapshot(p.cartes));
@@ -77,7 +74,7 @@
   });
 
   $effect(() => {
-    const n = jourParcours(p);
+    const n = jourLecon(p);
     const choisi = p.parcours;
     let vivant = true;
     void lecon(choisi, n)
@@ -147,13 +144,7 @@
 </script>
 
 <main class="screen">
-  <button class="k quit" onclick={onquitter}>✕ Quitter</button>
-
-  <div class="dots" aria-hidden="true">
-    {#each { length: PAS_LECON } as _, k (k)}
-      <i class:on={k < RANG} class:cur={k === RANG}></i>
-    {/each}
-  </div>
+  <EnTetePas {p} {onquitter} />
 
   {#if q}
     <div class="verif-tete">
@@ -175,7 +166,7 @@
   {:else if liste.length > 0}
     <!-- Toutes les questions ont déjà été notées : la vérification est faite. -->
     <p class="guide">La vérification est faite.</p>
-    <div class="foot"><button class="btn" onclick={onfini}>Retour au chemin</button></div>
+    <div class="foot"><button class="btn" onclick={onfini}>Continuer</button></div>
   {:else}
     <!-- Rien de vérifiable : la fiche du jour n'a pas encore de quoi poser une question. -->
     <p class="guide">Rien à vérifier aujourd'hui. {LIGNE_SANS_FICHE}</p>
