@@ -102,7 +102,7 @@ describe("l'anecdote du jour se relit depuis Lire", () => {
     const entree = lire.indexOf('<button class="entry anecdote" onclick={onanecdote}>');
     expect(entree).toBeGreaterThan(0);
     expect(lire.indexOf("L'anecdote du jour", entree)).toBeGreaterThan(entree);
-    expect(entree).toBeLessThan(lire.indexOf('<div class="sec">Contes</div>'));
+    expect(entree).toBeLessThan(lire.indexOf('>Contes</div>'));
     expect(lire.slice(entree)).toMatch(/^[^]*?<Glyph char=\{anecdote\.a\.c\}/);
     /* La même anecdote que l'écran Ouvrir, calculée au même endroit. */
     expect(lire).toContain('anecdoteDeLaJournee(');
