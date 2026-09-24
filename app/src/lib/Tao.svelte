@@ -15,6 +15,11 @@
    * montre le bon (`tokens.css`), sans que chaque écran ait à passer la fête. Pas
    * d'accessoire là où la place est déjà prise : ceux de la tête cèdent la place à la bulle
    * et à la lanterne, ceux d'à côté au bol, à la feuille et au pot.
+   *
+   * En cuisine, elle goûte (`goute`) : un bol fumant à côté d'elle, la cuillère à la
+   * bouche. Contente, elle saute (l'humeur `joie`) ; quand un ingrédient a été pris pour
+   * un autre, elle grimace (`grimace`) : les yeux plissés, la bouche en vague, un frisson,
+   * et rien de plus. Ni teint malade, ni larme.
    */
   import type { Humeur, PostureVue, Stade } from './tao';
 
@@ -24,7 +29,8 @@
     humeur = 'calme',
     size = 110,
     caractere = '住',
-    penchee = false
+    penchee = false,
+    grimace = false
   }: {
     stade?: Stade;
     posture?: PostureVue;
@@ -34,12 +40,14 @@
     caractere?: string;
     /** En posture « jeu », la tête penchée sur un mot, sans lanterne (le dictionnaire éclair). */
     penchee?: boolean;
+    /** Elle vient de goûter un plat où un ingrédient a été pris pour un autre. */
+    grimace?: boolean;
   } = $props();
 
   const arbre = $derived(stade === 'jeune' || stade === 'fleur' || stade === 'peches');
   const grand = $derived(stade === 'fleur' || stade === 'peches');
   /** Les yeux se ferment en pot : elle attend, elle ne dort pas de tristesse. */
-  const regard = $derived(posture === 'pot' ? 'pot' : humeur);
+  const regard = $derived(posture === 'pot' ? 'pot' : grimace ? 'grimace' : humeur);
 
   /** Fleurs sur le houppier, au stade en fleur seulement. */
   const FLEURS = [
@@ -60,6 +68,7 @@
 <svg
   class="tao {stade} {posture} {humeur}"
   class:penchee
+  class:grimace={grimace && posture !== 'pot'}
   width={size}
   height={size}
   viewBox="0 0 200 200"
@@ -154,6 +163,23 @@
               stroke-linecap="round"
             />
             <path d="M91 138q9 10 18 0" stroke="var(--ink)" stroke-width="5" fill="none" stroke-linecap="round" />
+          {:else if regard === 'grimace'}
+            <!-- les yeux plissés, la bouche en vague : ça surprend, rien de plus -->
+            <path
+              d="M82 121l11 5-11 5M118 121l-11 5 11 5"
+              stroke="var(--ink)"
+              stroke-width="4.5"
+              fill="none"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+            <path
+              d="M88 141q3-4 6 0t6 0t6 0t6 0"
+              stroke="var(--ink)"
+              stroke-width="4.5"
+              fill="none"
+              stroke-linecap="round"
+            />
           {:else if regard === 'ennui'}
             <path d="M82 127h12M106 127h12" stroke="var(--ink)" stroke-width="5" stroke-linecap="round" />
             <path d="M93 140h14" stroke="var(--ink)" stroke-width="5" stroke-linecap="round" />
@@ -213,6 +239,17 @@
       <path d="M142 112l10-10" stroke="var(--ink)" stroke-width="11" stroke-linecap="round" />
       <path class="trait" d="M136 126h40" stroke="var(--ink)" stroke-width="5" stroke-linecap="round" fill="none" />
     </g>
+  {:else if posture === 'goute'}
+    <!-- en cuisine : le bol fumant, et la cuillère qu'elle porte à la bouche -->
+    <g class="bol-fumant">
+      <path class="vapeur" d="M38 136q-5-7 0-14M50 132q-5-7 0-14M62 136q-5-7 0-14" stroke="var(--line)" stroke-width="3" fill="none" stroke-linecap="round" />
+      <path d="M22 146h52q-2 22-26 22t-26-22z" fill="var(--card)" stroke="var(--ink)" stroke-width="4" stroke-linejoin="round" />
+      <path d="M18 146h60" stroke="var(--ink)" stroke-width="4" stroke-linecap="round" />
+    </g>
+    <g class="cuillere">
+      <path d="M121 143l26-22" stroke="var(--ink)" stroke-width="4" stroke-linecap="round" />
+      <ellipse cx="113" cy="146" rx="9" ry="5" fill="var(--card)" stroke="var(--ink)" stroke-width="3.5" />
+    </g>
   {:else if posture === 'jeu' && !penchee}
     <g class="lanterne">
       <path d="M164 26v12" stroke="var(--ink)" stroke-width="3" stroke-linecap="round" />
@@ -252,7 +289,7 @@
     </g>
   {/if}
   <!-- à côté d'elle, là où le bol, la feuille et le pot ne sont pas -->
-  {#if posture !== 'pot' && posture !== 'revision' && posture !== 'lecture'}
+  {#if posture !== 'pot' && posture !== 'revision' && posture !== 'lecture' && posture !== 'goute'}
     <g class="fete-acc yuebing">
       <circle cx="46" cy="148" r="19" fill="var(--t2)" stroke="var(--ink)" stroke-width="4" />
       <circle cx="46" cy="148" r="10" fill="none" stroke="var(--ink)" stroke-width="3" opacity=".55" />
@@ -284,5 +321,55 @@
   .penchee .vivant {
     transform-origin: 100px 168px;
     transform: rotate(-9deg);
+  }
+  /* La cuillère monte à la bouche et redescend ; la vapeur ondule. La grimace est un
+     frisson bref, trois fois, puis elle se tient tranquille. */
+  .cuillere {
+    transform-origin: 147px 121px;
+    animation: gouter 1.8s ease-in-out infinite alternate;
+  }
+  .vapeur {
+    animation: vapeur 2.4s ease-in-out infinite alternate;
+  }
+  .tao.grimace .plante {
+    transform-origin: 100px 160px;
+    animation: frisson 0.45s ease-in-out 3;
+  }
+  @keyframes gouter {
+    from {
+      transform: rotate(6deg) translateY(4px);
+    }
+    to {
+      transform: none;
+    }
+  }
+  @keyframes vapeur {
+    from {
+      opacity: 0.35;
+      transform: translateY(2px);
+    }
+    to {
+      opacity: 0.8;
+      transform: translateY(-2px);
+    }
+  }
+  @keyframes frisson {
+    0%,
+    100% {
+      transform: none;
+    }
+    25% {
+      transform: rotate(-3deg) scale(1.02, 0.98);
+    }
+    75% {
+      transform: rotate(3deg) scale(1.02, 0.98);
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .cuillere,
+    .vapeur,
+    .tao.grimace .plante {
+      animation: none;
+    }
   }
 </style>

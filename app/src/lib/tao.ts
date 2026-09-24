@@ -21,6 +21,7 @@ export type TypeActivite =
   | 'conte'
   | 'trace'
   | 'jeu'
+  | 'cuisine'
   | 'chemin'
   | 'anecdote';
 
@@ -44,7 +45,7 @@ export function taoVide(): Tao {
 /**
  * Poids d'une activité dans la croissance. L'échelle suit le travail demandé, pas
  * le temps passé : apprendre une brique est l'acte de la journée (5), un conte se
- * lit en entier (4), un texte est plus court (3), un jeu et un tracé sont des
+ * lit en entier (4), un texte est plus court (3), un jeu, un plat et un tracé sont des
  * exercices courts (2), une carte, l'anecdote et le pas sur le chemin sont l'unité (1).
  * Aux paliers, cela fait environ un mois de sessions de dix minutes pour le jeune
  * pêcher, trois pour les fleurs, un an pour les pêches.
@@ -55,6 +56,7 @@ export const POIDS: Record<TypeActivite, number> = {
   lecture: 3,
   trace: 2,
   jeu: 2,
+  cuisine: 2,
   revision: 1,
   chemin: 1,
   anecdote: 1
@@ -99,15 +101,31 @@ export function stade(croissance: number): Stade {
 
 /* ---------- les postures ---------- */
 
-/** Une posture par activité. Le pot n'en est pas une : c'est l'absence. */
-export type Posture = 'lecon' | 'revision' | 'lecture' | 'trace' | 'jeu' | 'chemin' | 'anecdote';
+/**
+ * Une posture par activité. Le pot n'en est pas une : c'est l'absence. En cuisine, Tao
+ * goûte (`goute`) : le bol et la cuillère.
+ */
+export type Posture =
+  | 'lecon'
+  | 'revision'
+  | 'lecture'
+  | 'trace'
+  | 'jeu'
+  | 'goute'
+  | 'chemin'
+  | 'anecdote';
 
 /** Ce que Tao montre à l'écran : sa posture, ou le pot quand personne n'est là. */
 export type PostureVue = Posture | 'pot';
 
-/** Le conte se lit comme un texte : même posture, elle lit par-dessus l'épaule. */
+/**
+ * Le conte se lit comme un texte : même posture, elle lit par-dessus l'épaule. En
+ * cuisine, elle goûte.
+ */
 export function posture(activite: TypeActivite): Posture {
-  return activite === 'conte' ? 'lecture' : activite;
+  if (activite === 'conte') return 'lecture';
+  if (activite === 'cuisine') return 'goute';
+  return activite;
 }
 
 /* ---------- l'humeur ---------- */
@@ -182,7 +200,17 @@ export function poseDuJour(
 /* ---------- le journal du soir ---------- */
 
 /** Ordre de la ligne du soir : ce qui pèse le plus se dit d'abord. */
-const ORDRE: TypeActivite[] = ['lecon', 'conte', 'lecture', 'trace', 'jeu', 'revision', 'anecdote', 'chemin'];
+const ORDRE: TypeActivite[] = [
+  'lecon',
+  'conte',
+  'lecture',
+  'trace',
+  'jeu',
+  'cuisine',
+  'revision',
+  'anecdote',
+  'chemin'
+];
 
 const LIBELLES: Record<TypeActivite, [string, string]> = {
   lecon: ['une brique apprise', 'briques apprises'],
@@ -190,6 +218,7 @@ const LIBELLES: Record<TypeActivite, [string, string]> = {
   lecture: ['un texte lu', 'textes lus'],
   trace: ['un caractère tracé', 'caractères tracés'],
   jeu: ['un jeu', 'jeux'],
+  cuisine: ['un plat cuisiné', 'plats cuisinés'],
   revision: ['une carte révisée', 'cartes révisées'],
   anecdote: ['une anecdote', 'anecdotes'],
   chemin: ['un pas sur le chemin', 'pas sur le chemin']
