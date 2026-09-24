@@ -196,7 +196,7 @@
 
   {#if p.revue.length === 0}
     <p class="guide">Aucune carte n'est due aujourd'hui.</p>
-    <div class="foot"><button class="btn" onclick={onquitter}>{fin}</button></div>
+    <div class="foot"><button class="btn" onclick={onfini}>{fin}</button></div>
   {:else if !pret}
     <p class="guide">Un instant.</p>
   {:else if q}

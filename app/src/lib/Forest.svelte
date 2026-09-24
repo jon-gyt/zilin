@@ -47,16 +47,16 @@
     p,
     jour,
     onfamille,
-    onjouer,
-    onrecompenses
+    onrecompenses,
+    onretour
   }: {
     p: Progress;
     jour: string;
     onfamille: (fam: Noeud) => void;
-    /** Les jeux (épic 4b) : une ligne, le choix se fait sur l'écran hôte. */
-    onjouer: () => void;
     /** Les récompenses vivent dans Ma forêt : c'est d'ici qu'on y entre. */
     onrecompenses: () => void;
+    /** Ma forêt s'ouvre par sa case du menu ; un seul retour, vers le menu. */
+    onretour: () => void;
   } = $props();
 
   let index = $state<Index | null>(null);
@@ -265,6 +265,7 @@
 </script>
 
 <main class="screen">
+  <button class="k quit" onclick={onretour}>‹ Retour</button>
   <h1>Ta forêt</h1>
   <p class="guide">
     Au centre, les briques. Chaque anneau est une génération de plus. Touche une brique pour
@@ -401,10 +402,6 @@
   </div>
 
   <TropheesEntree {p} onouvrir={onrecompenses} />
-
-  <div class="acts">
-    <button class="btn ghost" onclick={onjouer}>Jouer</button>
-  </div>
 
   <div class="card semaine">
     <div class="row">

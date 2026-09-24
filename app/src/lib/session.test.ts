@@ -694,16 +694,16 @@ describe('une session à cheval sur minuit', () => {
     expect(basculerJournee(emptyProgress(VEILLE), LENDEMAIN).day).toBe(LENDEMAIN);
   });
 
-  it("l'aiguillage note sur `p.day` et ne bascule qu'au chemin", () => {
+  it("l'aiguillage note sur `p.day` et ne bascule qu'au menu", () => {
     const app = readFileSync(new URL('../App.svelte', import.meta.url), 'utf8');
     /* Aucune note ne prend l'horloge pour jour : `today()` ne sert qu'à la bascule. */
     expect(app).not.toMatch(/\(p, today\(\)/);
     expect(app).not.toContain('jour={today()}');
     expect(app).toContain('basculerJournee(p, jour)');
     expect(app).toContain("addEventListener('visibilitychange'");
-    /* Un seul retour au chemin, `auChemin`, et il bascule. */
-    expect(app.match(/ecran = 'home'/g)).toHaveLength(1);
-    expect(app).toMatch(/ecran = 'home';\s*basculer\(\);/);
+    /* Un seul retour au menu, `allerAuMenu`, et il bascule. */
+    expect(app.match(/ecran = 'menu'/g)).toHaveLength(1);
+    expect(app).toMatch(/ecran = 'menu';\s*basculer\(\);/);
   });
 });
 

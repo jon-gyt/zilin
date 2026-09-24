@@ -7,7 +7,7 @@
  * que les libellés d'interface des deux questions, comme les six pas dans `session.ts`.
  */
 import { familleOnce, type Famille, type Fiche, type Signe } from './content';
-import { budgetNewBricks, type Budget, type EtapeDepart, type Parcours, type Progress } from './session';
+import { budgetNewBricks, type Budget, type EtapeDepart, type Parcours } from './session';
 
 export const FICHIER_FAMILLE_DEPART = 'data/demo/familles/人.json';
 export const FICHIER_MOT_DEPART = 'data/demo/textes/天天.json';
@@ -15,12 +15,10 @@ export const FICHIER_MOT_DEPART = 'data/demo/textes/天天.json';
 /* ---------- l'aiguillage d'après le logo ---------- */
 
 /**
- * Après le logo : la première session au tout premier lancement, le chemin du jour sinon.
- * C'est la seule question que l'ouverture pose.
+ * Après le logo : la première session au tout premier lancement ; ensuite l'anecdote du
+ * jour, puis le menu. L'aiguillage vit avec le reste du parcours, dans `parcours.ts`.
  */
-export function apresSplash(p: Progress): 'premiere' | 'home' {
-  return p.premiere ? 'premiere' : 'home';
-}
+export { apresSplash } from './parcours';
 
 /* ---------- la famille de départ ---------- */
 

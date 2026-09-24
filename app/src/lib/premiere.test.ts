@@ -81,16 +81,17 @@ describe("l'ouverture", () => {
     expect(apresSplash(p)).toBe('premiere');
   });
 
-  it("envoie à Aujourd'hui au deuxième lancement, la première session faite", () => {
+  it('envoie au menu au deuxième lancement du jour, la première session faite', () => {
     const p = finDepart(emptyProgress(JOUR), JOUR, MAINTENANT, briques(famille));
     expect(p.premiere).toBe(false);
-    expect(apresSplash(p)).toBe('home');
+    expect(apresSplash(p)).toBe('menu');
   });
 
   it('tient le drapeau au rechargement, et ne repropose pas la première session', () => {
     const p = finDepart(emptyProgress(JOUR), JOUR, MAINTENANT, briques(famille));
-    expect(apresSplash(fromJSON(toJSON(p), JOUR))).toBe('home');
-    expect(apresSplash(fromJSON(toJSON(p), '2026-03-09'))).toBe('home');
+    expect(apresSplash(fromJSON(toJSON(p), JOUR))).toBe('menu');
+    /* Le lendemain, la journée s'ouvre par l'anecdote, jamais par la première session. */
+    expect(apresSplash(openDay(fromJSON(toJSON(p), JOUR), '2026-03-09'))).toBe('anec');
   });
 
   it("considère faite la première session d'une progression exportée avant ce drapeau", () => {

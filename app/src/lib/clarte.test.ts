@@ -45,11 +45,12 @@ describe('apprendre, le tracé : une fois tracé, le bouton du bas ne dit plus �
   });
 });
 
-describe("aujourd'hui : le grand caractère du chemin dit ce qu'il fait là", () => {
-  it('une ligne le nomme sous le caractère', () => {
-    const today = source('Today.svelte');
-    const bloc = today.slice(today.indexOf('<div class="today">'));
-    expect(bloc.slice(0, bloc.indexOf('</div>\n'))).toContain('Le caractère du jour');
+describe("le menu : le grand caractère du jour dit ce qu'il fait là", () => {
+  it('un surtitre le nomme, et une ligne dit ce qu’est la brique en cinabre', () => {
+    const menu = source('Menu.svelte');
+    const bloc = menu.slice(menu.indexOf('<div class="jour-txt">'));
+    expect(bloc).toMatch(/^<div class="jour-txt">\s*<div class="surtitre">\{m\.surtitre\}<\/div>/);
+    expect(bloc.slice(0, bloc.indexOf('</section>'))).toContain('<span class="k">{m.brique}</span>');
   });
 });
 

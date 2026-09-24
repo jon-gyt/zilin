@@ -8,7 +8,7 @@
    */
   import Tao from './Tao.svelte';
   import { caractereDuJour, lecon } from './content';
-  import { constat, jourParcours, rendezVous, type Progress } from './session';
+  import { constat, jourLecon, rendezVous, type Progress } from './session';
   import { stade } from './tao';
 
   let {
@@ -25,7 +25,7 @@
   let caractere = $state('');
 
   $effect(() => {
-    const n = jourParcours(p);
+    const n = jourLecon(p);
     const choisi = p.parcours;
     let vivant = true;
     void lecon(choisi, n)

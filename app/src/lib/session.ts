@@ -877,11 +877,6 @@ export function guide(p: Progress): string {
   return `${budget} Un seul bouton.`;
 }
 
-export function buttonLabel(p: Progress): string {
-  if (allDone(p)) return 'Recommencer une session';
-  return started(p) ? 'Continuer' : 'Commencer';
-}
-
 /* ---------- export et import ---------- */
 
 /** Les cartes passent par `srs.ts` : les dates y sont en ISO, et se relisent telles quelles. */

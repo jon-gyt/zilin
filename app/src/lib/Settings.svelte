@@ -20,8 +20,14 @@
 
   let {
     p,
-    onprogression
-  }: { p: Progress; onprogression: (p: Progress) => void } = $props();
+    onprogression,
+    onretour
+  }: {
+    p: Progress;
+    onprogression: (p: Progress) => void;
+    /** Réglages s'ouvre par l'icône du menu ; un seul retour, vers le menu. */
+    onretour: () => void;
+  } = $props();
 
   const BUDGETS: Budget[] = [5, 10, 20];
 
@@ -69,6 +75,7 @@
 </script>
 
 <main class="screen">
+  <button class="k quit" onclick={onretour}>‹ Retour</button>
   <h1>Réglages</h1>
 
   <div class="card">
