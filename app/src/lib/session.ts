@@ -223,6 +223,19 @@ export type Progress = {
    * le tableau recalcule ce qu'il peut.
    */
   tropheesAcquis: Record<string, string>;
+  /**
+   * Les devinettes de lanternes résolues, par identifiant, chacune une fois, dans l'ordre.
+   * La lanterne des trophées en compte dix. Le jeu n'existe pas encore : la liste attend
+   * son point d'entrée (`noterDevinette`). Absente d'une progression plus ancienne : vide.
+   */
+  devinettes: string[];
+  /**
+   * Les contes lus : pour chaque conte (identifiant de l'index), les seuils dont la version
+   * a été lue, triés. Le même conte se relit plus riche à chaque seuil, et chaque version
+   * est un trophée. Le lecteur n'existe pas encore : la liste attend son point d'entrée
+   * (`noterConteLu`). Absente d'une progression plus ancienne : aucun conte lu.
+   */
+  contesLus: Record<string, number[]>;
 };
 
 /**
@@ -278,7 +291,9 @@ export function emptyProgress(aujourdhui: string): Progress {
     enPlus: null,
     retention: RETENTION_DEFAUT,
     enAttente: [],
-    tropheesAcquis: {}
+    tropheesAcquis: {},
+    devinettes: [],
+    contesLus: {}
   };
 }
 
@@ -673,6 +688,39 @@ export function noterTrophees(p: Progress, ids: readonly string[], jour: string)
   return { ...p, tropheesAcquis };
 }
 
+/* ---------- les devinettes et les contes ---------- */
+
+/**
+ * Note une devinette de lanterne résolue. Une devinette compte une fois, même résolue de
+ * nouveau : la lanterne compte ce qui a été lu de plus, pas les essais.
+ */
+export function noterDevinette(p: Progress, id: string): Progress {
+  if (id === '' || p.devinettes.includes(id)) return p;
+  return { ...p, devinettes: [...p.devinettes, id] };
+}
+
+/**
+ * Note la lecture d'un conte, dans la version d'un seuil. Chaque version compte une fois ;
+ * relire le même conte à un autre seuil en est une autre.
+ */
+export function noterConteLu(p: Progress, conte: string, seuil: number): Progress {
+  const s = Math.floor(seuil);
+  if (conte === '' || !Number.isFinite(s) || s <= 0) return p;
+  const lus = p.contesLus[conte] ?? [];
+  if (lus.includes(s)) return p;
+  return { ...p, contesLus: { ...p.contesLus, [conte]: [...lus, s].sort((a, b) => a - b) } };
+}
+
+/** Le nombre de devinettes résolues. */
+export function devinettesResolues(p: Progress): number {
+  return p.devinettes.length;
+}
+
+/** Le nombre de versions de contes lues, tous seuils comptés. */
+export function contesLus(p: Progress): number {
+  return Object.values(p.contesLus).reduce((n, seuils) => n + seuils.length, 0);
+}
+
 /** Ouvre une vue du pas Apprendre. La progression est sauvegardée à chaque tap. */
 export function setLearnView(p: Progress, vue: LearnView): Progress {
   return { ...p, learn: vue };
@@ -1013,6 +1061,22 @@ function lireTropheesAcquis(v: unknown): Record<string, string> {
   return out;
 }
 
+/** Relit les contes lus : un conte, des seuils entiers positifs, sans doublon, triés. */
+function lireContesLus(v: unknown): Record<string, number[]> {
+  if (typeof v !== 'object' || v === null || Array.isArray(v)) return {};
+  const out: Record<string, number[]> = {};
+  for (const [conte, seuils] of Object.entries(v as Record<string, unknown>)) {
+    if (conte === '' || !Array.isArray(seuils)) continue;
+    const lus = [
+      ...new Set(
+        seuils.filter((x): x is number => typeof x === 'number' && Number.isInteger(x) && x > 0)
+      )
+    ].sort((a, b) => a - b);
+    if (lus.length > 0) out[conte] = lus;
+  }
+  return out;
+}
+
 /** Relit un rang de question déjà notée. Absent ou aberrant : aucune question notée. */
 function lireNotee(v: unknown): number {
   return typeof v === 'number' && v >= 0 ? Math.floor(v) : -1;
@@ -1111,6 +1175,9 @@ export function fromJSON(texte: string, aujourdhui: string): Progress {
       ? [...new Set(o.enAttente.filter((c): c is string => typeof c === 'string' && c !== ''))].sort()
       : [],
     /* Les trophées obtenus : absents d'un export plus ancien, rien n'est noté. */
-    tropheesAcquis: lireTropheesAcquis(o.tropheesAcquis)
+    tropheesAcquis: lireTropheesAcquis(o.tropheesAcquis),
+    /* Les devinettes et les contes lus : absents d'un export plus ancien, rien n'est lu. */
+    devinettes: listeDeCaracteres(o.devinettes),
+    contesLus: lireContesLus(o.contesLus)
   };
 }

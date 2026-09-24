@@ -10,9 +10,12 @@
  * n'écrit dans un stockage ni ne touche au DOM. Tout se calcule depuis la progression
  * et le contenu exporté, passés en arguments. Un trophée obtenu le reste : ceux que la
  * progression a notés (`tropheesAcquis`, avec leur date) sont fusionnés avec ce qui se
- * calcule, et `nouveauxAcquis` dit ceux qu'il reste à noter. Ce que la progression ne suit pas encore
- * (la lecture des contes, les devinettes, les recettes) est rendu verrouillé, avec
- * `suivi: false` : on n'affiche jamais un chiffre inventé.
+ * calcule, et `nouveauxAcquis` dit ceux qu'il reste à noter.
+ *
+ * Ce qu'aucun écran n'alimente encore est rendu verrouillé, avec `suivi: false` : on
+ * n'affiche jamais un chiffre inventé. Les devinettes et les contes lus sont déjà comptés
+ * dans la progression (`devinettes`, `contesLus`) et le tableau les lit ; le jeu et le
+ * lecteur manquent. Les recettes ne sont pas suivies.
  */
 import { Rating } from 'ts-fsrs';
 import { nomParcours, type Famille, type Index } from './content';
@@ -412,16 +415,22 @@ export function tropheesPieges(
 
 /**
  * Un trophée par conte et par seuil : le même conte, relu plus riche. La progression
- * n'enregistre pas encore la lecture d'un conte : ils restent verrouillés, avec leur seuil.
+ * compte les versions lues (`contesLus`), mais aucun lecteur ne l'alimente encore : ils
+ * restent verrouillés, avec leur seuil, jusqu'à ce qu'une version soit lue.
  */
-export function tropheesContes(index: Index, lus: number, acquis: Acquis = {}): Trophee[] {
+export function tropheesContes(
+  index: Index,
+  lus: number,
+  acquis: Acquis = {},
+  contesLus: Readonly<Record<string, readonly number[]>> = {}
+): Trophee[] {
   return index.contes.flatMap((conte) =>
     [...conte.seuils]
       .sort((a, b) => a - b)
       .map((s): Trophee => {
         const ouvert = lus >= s;
         const id = `conte-${conte.id}-${s}`;
-        const obtenu = dejaAcquis(acquis, id);
+        const obtenu = (contesLus[conte.id] ?? []).includes(s) || dejaAcquis(acquis, id);
         return {
           id,
           famille: 'contes',
@@ -450,13 +459,19 @@ export function tropheesContes(index: Index, lus: number, acquis: Acquis = {}): 
 /**
  * Le pinceau se lit sur `tracesAchevees` : les briques tracées en entier au doigt
  * (`session.traceAchevee`), pas celles dont le tracé a seulement été proposé. La lanterne
- * et le bol attendent leurs jeux : la progression ne suit encore ni les devinettes ni les
- * recettes, ils restent verrouillés.
+ * se lit sur `devinettes`, les devinettes résolues, que la progression compte déjà ; le
+ * jeu n'existant pas encore, elle reste verrouillée tant qu'elle n'est pas obtenue. Le
+ * bol attend la cuisine : les recettes ne sont pas suivies.
  */
-export function tropheesObjets(tracesAchevees: readonly string[], acquis: Acquis = {}): Trophee[] {
+export function tropheesObjets(
+  tracesAchevees: readonly string[],
+  acquis: Acquis = {},
+  devinettes: readonly string[] = []
+): Trophee[] {
   const n = new Set(tracesAchevees).size;
+  const d = new Set(devinettes).size;
   const pinceau = n >= PINCEAU_BRIQUES || dejaAcquis(acquis, 'objet-pinceau');
-  const lanterne = dejaAcquis(acquis, 'objet-lanterne');
+  const lanterne = d >= LANTERNE_DEVINETTES || dejaAcquis(acquis, 'objet-lanterne');
   const bol = dejaAcquis(acquis, 'objet-bol');
   return [
     {
@@ -484,14 +499,16 @@ export function tropheesObjets(tracesAchevees: readonly string[], acquis: Acquis
       objet: 'lanterne',
       sceau: '',
       nom: 'Lanterne',
-      detail: 'Dix devinettes de lanternes résolues. Le jeu n’est pas encore ouvert.',
+      detail: lanterne
+        ? 'Dix devinettes de lanternes résolues. Tao la porte aux devinettes.'
+        : 'Dix devinettes de lanternes résolues. Le jeu n’est pas encore ouvert.',
       unite: 'devinette resolue',
-      actuel: 0,
+      actuel: d,
       cible: LANTERNE_DEVINETTES,
       obtenu: lanterne,
       suivi: false,
-      progres: `${LANTERNE_DEVINETTES} devinettes`,
-      part: 0
+      progres: d > 0 ? fraction(d, LANTERNE_DEVINETTES) : `${LANTERNE_DEVINETTES} devinettes`,
+      part: part(d, LANTERNE_DEVINETTES)
     },
     {
       id: 'objet-bol',
@@ -618,8 +635,8 @@ export function tableau(
     section('lire', date(tropheesLire(lus, a))),
     section('sceaux', date(tropheesSceaux(c.familles, p.cartes, premierJour, sens, seuil, a))),
     section('pieges', date(tropheesPieges(paires, p.cartes, pinyins(c.familles), sens, seuil, a))),
-    section('contes', date(tropheesContes(c.index, lus, a))),
-    section('objets', date(tropheesObjets(p.tracesAchevees, a))),
+    section('contes', date(tropheesContes(c.index, lus, a, p.contesLus))),
+    section('objets', date(tropheesObjets(p.tracesAchevees, a, p.devinettes))),
     section('serie', date(tropheesSerie(p.joursTravailles, p.day, a)))
   ];
   const tous = sections.flatMap((s) => s.trophees);

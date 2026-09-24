@@ -4,7 +4,14 @@ import { Rating } from 'ts-fsrs';
 import { VERSION_DONNEES, type Famille, type Index } from './content';
 import { caracteresLus } from './foret';
 import { CADEAUX, PALIERS } from './serie';
-import { emptyProgress, noterTrophees, traceAchevee, type Progress } from './session';
+import {
+  emptyProgress,
+  noterConteLu,
+  noterDevinette,
+  noterTrophees,
+  traceAchevee,
+  type Progress
+} from './session';
 import { SEUIL_DEBLOCAGE, newCard, schedule, stability, type ReviewCard } from './srs';
 import {
   FAMILLES_TROPHEES,
@@ -260,6 +267,18 @@ describe('les contes', () => {
     expect(t[0].progres).toBe('à lire');
   });
 
+  it('se gagnent version par version quand la progression compte un conte lu', () => {
+    const index: Index = {
+      ...indexExport,
+      contes: [{ id: 'lievre', titre_fr: 'Le lièvre et la souche', seuils: [255, 405], fichier: 'x' }]
+    };
+    const p = noterConteLu(progression(), 'lievre', 255);
+    const t = tropheesContes(index, 300, {}, p.contesLus);
+    expect(t.map((x) => x.obtenu)).toEqual([true, false]);
+    /* Aucun lecteur ne l'alimente encore : ce qui n'est pas lu reste verrouillé. */
+    expect(t[1].suivi).toBe(false);
+  });
+
   it("font une section vide tant que l'export n'en porte aucun", () => {
     const s = tableau(progression(), contenuExport).sections.find((x) => x.famille === 'contes')!;
     expect(indexExport.contes).toEqual([]);
@@ -287,6 +306,18 @@ describe('les objets de Tao', () => {
     let acheves = progression({ tracees: dix });
     for (const c of dix) acheves = traceAchevee(acheves, c);
     expect(pinceau(acheves).obtenu).toBe(true);
+  });
+
+  it('donnent la lanterne à dix devinettes résolues, comptées par la progression', () => {
+    let p = progression();
+    for (const id of 'abcdefghi'.split('')) p = noterDevinette(p, id);
+    const lanterne = (q: Progress) =>
+      tous(tableau(q, contenuExport)).find((x) => x.id === 'objet-lanterne')!;
+    expect(lanterne(p).progres).toBe('9 / 10');
+    expect(lanterne(p).obtenu).toBe(false);
+    /* Le jeu n'existe pas encore : elle reste verrouillée, jamais proposée comme prochaine. */
+    expect(lanterne(p).suivi).toBe(false);
+    expect(lanterne(noterDevinette(p, 'j')).obtenu).toBe(true);
   });
 
   it('verrouillent la lanterne et le bol tant que rien ne les suit', () => {

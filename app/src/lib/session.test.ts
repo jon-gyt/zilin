@@ -52,6 +52,10 @@ import {
   setTrace,
   setUseView,
   steps,
+  contesLus,
+  devinettesResolues,
+  noterConteLu,
+  noterDevinette,
   noterTrophees,
   traceAchevee,
   traceProposee,
@@ -969,6 +973,8 @@ function progressionAncienne(): Record<string, unknown> {
   const o: Record<string, unknown> = { ...p };
   delete o.tracesAchevees;
   delete o.tropheesAcquis;
+  delete o.devinettes;
+  delete o.contesLus;
   return o;
 }
 
@@ -986,7 +992,7 @@ describe('le suivi des trophées dans la progression', () => {
 
   it('relit une progression plus ancienne sans rien perdre, depuis un export comme depuis IndexedDB', () => {
     const ancien = progressionAncienne();
-    const avant = fromJSON(JSON.stringify({ ...ancien, tracesAchevees: [], tropheesAcquis: {} }), JOUR);
+    const avant = fromJSON(JSON.stringify({ ...ancien, tracesAchevees: [], tropheesAcquis: {}, devinettes: [], contesLus: {} }), JOUR);
     for (const texte of [
       /* L'export JSON : les cartes dans leur enveloppe de `srs.ts`. */
       toJSON(ancien as unknown as Progress),
@@ -995,11 +1001,14 @@ describe('le suivi des trophées dans la progression', () => {
     ]) {
       expect(texte).not.toContain('tracesAchevees');
       expect(texte).not.toContain('tropheesAcquis');
+      expect(texte).not.toMatch(/devinettes|contesLus/);
       const p = fromJSON(texte, JOUR);
       /* Rien n'est déduit des tracés proposés : le pinceau ne s'estime pas. */
       expect(p.tracees).toEqual(['人']);
       expect(p.tracesAchevees).toEqual([]);
       expect(p.tropheesAcquis).toEqual({});
+      expect(p.devinettes).toEqual([]);
+      expect(p.contesLus).toEqual({});
       expect(p.cartes).toEqual(avant.cartes);
       expect(p).toEqual(avant);
     }
@@ -1034,6 +1043,30 @@ describe('le suivi des trophées dans la progression', () => {
     }
   });
 
+  it('compte les devinettes résolues, chacune une fois', () => {
+    let p = noterDevinette(neuf(), 'gao');
+    p = noterDevinette(p, 'gao');
+    p = noterDevinette(p, 'ming');
+    expect(p.devinettes).toEqual(['gao', 'ming']);
+    expect(devinettesResolues(p)).toBe(2);
+    expect(noterDevinette(p, '')).toBe(p);
+    expect(fromJSON(toJSON(p), JOUR).devinettes).toEqual(['gao', 'ming']);
+  });
+
+  it('compte les contes lus, une fois par conte et par seuil', () => {
+    let p = noterConteLu(neuf(), 'lievre', 405);
+    p = noterConteLu(p, 'lievre', 255);
+    p = noterConteLu(p, 'lievre', 255);
+    p = noterConteLu(p, 'grue', 255);
+    expect(p.contesLus).toEqual({ lievre: [255, 405], grue: [255] });
+    expect(contesLus(p)).toBe(3);
+    expect(noterConteLu(p, 'lievre', 0)).toBe(p);
+    expect(noterConteLu(p, '', 255)).toBe(p);
+    for (const texte of [toJSON(p), JSON.stringify(p)]) {
+      expect(fromJSON(texte, JOUR).contesLus).toEqual(p.contesLus);
+    }
+  });
+
   it('écarte des entrées de suivi aberrantes', () => {
     const cassé = JSON.stringify({ ...neuf(), tracesAchevees: ['人', 3, '', '人', null, '大'] });
     expect(fromJSON(cassé, JOUR).tracesAchevees).toEqual(['人', '大']);
@@ -1045,5 +1078,13 @@ describe('le suivi des trophées dans la progression', () => {
     const acquis = JSON.stringify({ ...neuf(), tropheesAcquis: { 'lire-10': JOUR, x: 'hier', y: 3, '': JOUR } });
     expect(fromJSON(acquis, JOUR).tropheesAcquis).toEqual({ 'lire-10': JOUR });
     expect(fromJSON(JSON.stringify({ ...neuf(), tropheesAcquis: ['lire-10'] }), JOUR).tropheesAcquis).toEqual({});
+    const contes = JSON.stringify({
+      ...neuf(),
+      devinettes: ['gao', 4, 'gao'],
+      contesLus: { lievre: [405, 255, 255, -1, 'x', 2.5], vide: [], rien: 'x' }
+    });
+    const relu = fromJSON(contes, JOUR);
+    expect(relu.devinettes).toEqual(['gao']);
+    expect(relu.contesLus).toEqual({ lievre: [255, 405] });
   });
 });
