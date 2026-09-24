@@ -1,6 +1,6 @@
 # Licences des données exportées (version 0.1.0)
 
-Écrit par `zilin export`. Fait foi pour ce que l'app embarque ;
+Écrit par `wenlu export`. Fait foi pour ce que l'app embarque ;
 `docs/sources-licences.md` fait foi pour la décision d'ensemble.
 
 | Source | Usage dans l'export | Licence | Attribution | Texte de la licence |
@@ -12,7 +12,7 @@
 | CC-CEDICT (MDBG) | mots candidats (hanzi et pinyin) des fiches relues | CC BY-SA 4.0 | CC-CEDICT, publié par MDBG, CC BY-SA 4.0 — fichier modifié | https://creativecommons.org/licenses/by-sa/4.0/ |
 | Norme GF 0014-2009 | les 514 composants : règle de décomposition | texte normatif, non reproduit | 《现代常用字部件及部件名称规范》 | — |
 | Seuils sinographiques (Éducation nationale) et référentiel HSK 3.0 | listes cibles (`listes`, `parcours`) | publications officielles, listes de faits | Eduscol ; Chinese Testing International | — |
-| Fiches, contes, paires (pipeline zilin) | `familles/`, `contes/`, `paires.json` | propriétaire | textes rédigés pour l'app, relus | — |
+| Fiches, contes, paires (pipeline wenlu) | `familles/`, `contes/`, `paires.json` | propriétaire | textes rédigés pour l'app, relus | — |
 
 ## Séparation des fichiers
 

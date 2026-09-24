@@ -16,11 +16,11 @@ from pathlib import Path
 import pytest
 from typer.testing import CliRunner
 
-from zilin_data import contes as contes_mod
-from zilin_data import export as export_mod
-from zilin_data import fiches as fiches_mod
-from zilin_data.cli import app as cli
-from zilin_data.export import (
+from wenlu_data import contes as contes_mod
+from wenlu_data import export as export_mod
+from wenlu_data import fiches as fiches_mod
+from wenlu_data.cli import app as cli
+from wenlu_data.export import (
     ARPHIC,
     LICENCE_TRAITS,
     UNICODE_NOTICE,
@@ -32,7 +32,7 @@ from zilin_data.export import (
     parse_paires,
     perimetre,
 )
-from zilin_data.models import Famille
+from wenlu_data.models import Famille
 
 #: Témoin de définition anglaise : présent dans les fixtures ingérées, jamais
 #: dans l'export. Un seul mot suffit à le grep.
@@ -248,7 +248,7 @@ def test_seul_l_index_bouge_quand_seule_l_empreinte_change(atelier: Path, monkey
     """
     from datetime import datetime, timezone
 
-    import zilin_data.export as module
+    import wenlu_data.export as module
 
     premier = module.export("0.1.0", moment=datetime(2026, 9, 21, tzinfo=timezone.utc))
     avant = {c: c.read_bytes() for c in sorted(premier.dossier.rglob("*")) if c.is_file()}
@@ -270,7 +270,7 @@ def test_un_fichier_devenu_hors_perimetre_est_retire(atelier: Path) -> None:
 
 
 def test_l_audio_deja_exporte_survit_a_un_reexport(atelier: Path) -> None:
-    """`audio/` appartient à `zilin audio exporter` : l'export ne le purge pas.
+    """`audio/` appartient à `wenlu audio exporter` : l'export ne le purge pas.
 
     Sans cela, réexporter effaçait la voix de tous les caractères, et rien ne le
     disait — le manifeste de `data/work/` restait, lui, intact.
@@ -605,7 +605,7 @@ def test_la_commande_export_refuse_sans_build(tmp_path: Path, monkeypatch: pytes
     monkeypatch.setattr(export_mod, "EXPORT", tmp_path / "public")
     resultat = CliRunner().invoke(cli, ["export"])
     assert resultat.exit_code == 1
-    assert "zilin build" in resultat.output
+    assert "wenlu build" in resultat.output
 
 
 # ------------------------------------------------------- l'export versionné dans git

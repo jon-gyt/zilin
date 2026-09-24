@@ -11,15 +11,16 @@ type Ligne = { id: string; value: Progress };
 
 const CLE = 'progress';
 
-class ZilinDb extends Dexie {
+class WenluDb extends Dexie {
   progress!: Table<Ligne, string>;
   constructor() {
+    // Nom d'avant Wenlu, gardé : la base existante des utilisateurs doit se relire.
     super('zilin');
     this.version(1).stores({ progress: 'id' });
   }
 }
 
-export const db = new ZilinDb();
+export const db = new WenluDb();
 
 /** La journée civile locale, au format AAAA-MM-JJ. */
 export function today(d: Date = new Date()): string {

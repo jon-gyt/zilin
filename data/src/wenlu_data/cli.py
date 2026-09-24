@@ -1,4 +1,4 @@
-"""Ligne de commande du pipeline de contenu Zilin.
+"""Ligne de commande du pipeline de contenu Wenlu.
 
 Ordre et dépendances — chaque étape lit ce que la précédente a écrit :
 
@@ -38,7 +38,7 @@ from .fiches import app as _fiches
 from .fonts import commande as _fonts
 from .paths import BUILD, INGEST, SOURCES
 
-app = typer.Typer(help="Pipeline de contenu Zilin")
+app = typer.Typer(help="Pipeline de contenu Wenlu")
 
 
 @app.command()
@@ -64,7 +64,7 @@ def ingest() -> None:
     try:
         rapport = _ingest()
     except OSError as erreur:
-        typer.echo(f"{erreur} — lancer `zilin fetch` d'abord.", err=True)
+        typer.echo(f"{erreur} — lancer `wenlu fetch` d'abord.", err=True)
         raise typer.Exit(code=1) from erreur
     for cle, valeur in rapport.items():
         typer.echo(f"{cle} : {valeur}")
@@ -81,7 +81,7 @@ def build() -> None:
         rapport = _build()
         suite = _graphe()
     except OSError as erreur:
-        typer.echo(f"{erreur} — lancer `zilin ingest` d'abord.", err=True)
+        typer.echo(f"{erreur} — lancer `wenlu ingest` d'abord.", err=True)
         raise typer.Exit(code=1) from erreur
     # Deux rapports, deux boucles : `cycles` figure dans les deux et une fusion
     # en perdrait un.
@@ -142,7 +142,7 @@ def check() -> None:
         raise typer.Exit(code=1)
 
 
-#: Les étapes de `zilin tout`, dans l'ordre de leurs dépendances. `fonts` n'en est
+#: Les étapes de `wenlu tout`, dans l'ordre de leurs dépendances. `fonts` n'en est
 #: pas : il télécharge trois familles de polices et pèse une minute de calcul, pour
 #: un résultat qui ne bouge que si le périmètre exporté change.
 ETAPES = ("fetch", "ingest", "build", "export", "check")
@@ -166,7 +166,7 @@ def tout(
         "check": check,
     }
     for nom in ETAPES:
-        typer.echo(f"── zilin {nom}")
+        typer.echo(f"── wenlu {nom}")
         etapes[nom]()
     typer.echo(f"── {len(ETAPES)} étapes menées à bien.")
 

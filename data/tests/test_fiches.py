@@ -13,9 +13,9 @@ from pathlib import Path
 import pytest
 from typer.testing import CliRunner
 
-from zilin_data import fiches
-from zilin_data.cli import app as cli
-from zilin_data.fiches import (
+from wenlu_data import fiches
+from wenlu_data.cli import app as cli
+from wenlu_data.fiches import (
     A_RELIRE,
     ESSAIS_MAX,
     MARQUE_INDICE,
@@ -42,7 +42,7 @@ from zilin_data.fiches import (
     soumettre_lot,
     valider,
 )
-from zilin_data.gf0014 import charger_table
+from wenlu_data.gf0014 import charger_table
 
 # --------------------------------------------------------------------------- corpus de test
 
@@ -569,7 +569,7 @@ def test_lot_non_termine_ne_recupere_rien(corpus, tmp_path: Path) -> None:
 
 
 def test_controle_check_detecte_une_fiche_invalide(corpus, tmp_path: Path) -> None:
-    """`zilin check` relit les fiches écrites : une fiche hors cadre est bloquante."""
+    """`wenlu check` relit les fiches écrites : une fiche hors cadre est bloquante."""
     fiche = lire_reponse(HORS_ACQUIS, contexte=corpus.contexte("住"), generation=generation_de_test())
     ecrire_fiche(fiche, tmp_path)
 
@@ -728,12 +728,12 @@ def test_sans_cle_la_commande_sort_en_2_sans_rien_ecrire(
 
 
 def test_corpus_absent_sort_en_1(monkeypatch: pytest.MonkeyPatch, tmp_path: Path) -> None:
-    """Sans `zilin build`, la commande le dit et ne génère rien."""
+    """Sans `wenlu build`, la commande le dit et ne génère rien."""
     monkeypatch.setattr(fiches, "FICHES_WORK", tmp_path)
     monkeypatch.setattr(fiches, "BUILD", tmp_path / "build")
     monkeypatch.setattr(fiches, "INGEST", tmp_path / "ingest")
 
     resultat = CliRunner().invoke(cli, ["fiches", "generer", "--parcours", "lire"])
     assert resultat.exit_code == 1
-    assert "zilin" in resultat.output
+    assert "wenlu" in resultat.output
     assert list(tmp_path.iterdir()) == []

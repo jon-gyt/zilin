@@ -13,6 +13,7 @@ export const THEMES: { id: Theme; t: string }[] = [
   { id: 'dark', t: 'Sombre' }
 ];
 
+/** Clé d'avant Wenlu, gardée : le thème déjà choisi doit se relire. */
 const CLE = 'zilin-theme';
 
 function estTheme(v: unknown): v is Theme {

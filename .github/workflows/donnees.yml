@@ -2,7 +2,7 @@
 # développement n'a pas (huggingface.co, mdbg.net, unicode.org). Déclenché à la main :
 # onglet Actions, « donnees », Run workflow ; ou `gh workflow run donnees.yml -f etapes=audio`.
 #
-# Chaque passage refait la chaîne complète (`zilin tout` : sources officielles d'abord,
+# Chaque passage refait la chaîne complète (`wenlu tout` : sources officielles d'abord,
 # miroirs en repli), puis l'étape demandée. Ce qui change sous app/public/data/ ou
 # data/sources/ part en un commit sur la branche `donnees/<étape>`, repartie de la
 # branche lancée à chaque passage (poussée en force) : on la relit, on ouvre la PR à la
@@ -19,7 +19,7 @@ on:
   workflow_dispatch:
     inputs:
       etapes:
-        description: "Étape après zilin tout : audio, fiches, contes, recuperer (lots soumis), tout (audio + fiches + contes)"
+        description: "Étape après wenlu tout : audio, fiches, contes, recuperer (lots soumis), tout (audio + fiches + contes)"
         type: choice
         options: [audio, fiches, contes, recuperer, tout]
         default: audio
@@ -34,7 +34,7 @@ on:
         options: [lire, hsk]
         default: lire
       voix:
-        description: "Voix Kokoro (vide : celle du pipeline, zf_001) ; `zilin audio voix` les liste"
+        description: "Voix Kokoro (vide : celle du pipeline, zf_001) ; `wenlu audio voix` les liste"
         type: string
         default: ''
       jusqua:
@@ -106,7 +106,7 @@ jobs:
           uv run python -c 'import torch; print("torch", torch.__version__, "cuda:", torch.cuda.is_available())'
 
       - name: Version de l'export
-        run: echo "VERSION=$(uv run python -c 'from zilin_data.export import VERSION; print(VERSION)')" >> "$GITHUB_ENV"
+        run: echo "VERSION=$(uv run python -c 'from wenlu_data.export import VERSION; print(VERSION)')" >> "$GITHUB_ENV"
 
       - name: Restaurer les poids Kokoro (cache Hugging Face)
         id: hf
@@ -114,17 +114,17 @@ jobs:
         uses: actions/cache/restore@v4
         with:
           path: ~/.cache/huggingface
-          key: huggingface-kokoro-v1.1-zh-${{ hashFiles('data/src/zilin_data/audio.py') }}
+          key: huggingface-kokoro-v1.1-zh-${{ hashFiles('data/src/wenlu_data/audio.py') }}
           restore-keys: huggingface-kokoro-v1.1-zh-
 
-      - name: Chaîne complète (zilin tout)
+      - name: Chaîne complète (wenlu tout)
         id: tout
         run: |
           mkdir -p work/journaux
-          uv run zilin tout 2>&1 | tee work/journaux/tout.txt
+          uv run wenlu tout 2>&1 | tee work/journaux/tout.txt
 
-      # Après `zilin tout`, pas avant : ses contrôles portent sur la chaîne de ce passage.
-      # Une fiche rejetée d'un passage précédent, bloquante pour `zilin check`, ne doit pas
+      # Après `wenlu tout`, pas avant : ses contrôles portent sur la chaîne de ce passage.
+      # Une fiche rejetée d'un passage précédent, bloquante pour `wenlu check`, ne doit pas
       # empêcher tous les suivants ; « Contrôles finaux » la signale dans qualite.md.
       - name: Restaurer l'état de travail (lots, audio déjà synthétisé)
         id: travail
@@ -139,10 +139,10 @@ jobs:
 
       # ------------------------------------------------------------------ audio
 
-      - name: Voix du modèle (zilin audio voix)
+      - name: Voix du modèle (wenlu audio voix)
         if: env.AVEC_AUDIO == 'true'
         continue-on-error: true
-        run: uv run zilin audio voix 2>&1 | tee work/journaux/voix.txt
+        run: uv run wenlu audio voix 2>&1 | tee work/journaux/voix.txt
 
       - name: Carte du modèle Kokoro (licence des poids)
         if: env.AVEC_AUDIO == 'true'
@@ -152,23 +152,23 @@ jobs:
           curl -fsSL https://huggingface.co/hexgrad/Kokoro-82M-v1.1-zh/raw/main/README.md -o work/audio/carte-modele.md
           echo "Licence déclarée par la carte : $(grep -m1 -i '^license:' work/audio/carte-modele.md || echo 'ligne license: absente')"
 
-      - name: Synthèse (zilin audio generer)
+      - name: Synthèse (wenlu audio generer)
         id: generer
         if: env.AVEC_AUDIO == 'true'
         continue-on-error: true
         run: |
           args=(--fournisseur local --parcours "$PARCOURS" --seuil "$SEUIL")
           if [ -n "$VOIX" ]; then args+=(--voix "$VOIX"); fi
-          uv run zilin audio generer "${args[@]}" 2>&1 | tee work/journaux/audio-generer.txt
+          uv run wenlu audio generer "${args[@]}" 2>&1 | tee work/journaux/audio-generer.txt
 
-      - name: Export audio (zilin audio exporter)
+      - name: Export audio (wenlu audio exporter)
         if: env.AVEC_AUDIO == 'true'
         run: |
           if [ ! -s work/audio/audio.json ]; then
             echo "Aucun audio synthétisé : rien à exporter."
             exit 0
           fi
-          uv run zilin audio exporter --version "$VERSION" --parcours "$PARCOURS" --seuil "$SEUIL" 2>&1 \
+          uv run wenlu audio exporter --version "$VERSION" --parcours "$PARCOURS" --seuil "$SEUIL" 2>&1 \
             | tee work/journaux/audio-exporter.txt
 
       - name: Sauver les poids Kokoro
@@ -177,7 +177,7 @@ jobs:
         uses: actions/cache/save@v4
         with:
           path: ~/.cache/huggingface
-          key: huggingface-kokoro-v1.1-zh-${{ hashFiles('data/src/zilin_data/audio.py') }}
+          key: huggingface-kokoro-v1.1-zh-${{ hashFiles('data/src/wenlu_data/audio.py') }}
 
       # ------------------------------------------------------- fiches et contes
 
@@ -201,32 +201,32 @@ jobs:
             echo "::warning::ANTHROPIC_API_KEY absent : étape $ETAPE sautée."
           fi
 
-      - name: Fiches, soumission du lot (zilin fiches generer)
+      - name: Fiches, soumission du lot (wenlu fiches generer)
         if: (env.ETAPE == 'fiches' || env.ETAPE == 'tout') && steps.cle.outputs.presente == 'true'
         env:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
         run: |
           args=(--parcours "$PARCOURS")
           if [ -n "$JUSQUA" ]; then args+=(--jusqua "$JUSQUA"); fi
-          uv run zilin fiches generer "${args[@]}" 2>&1 | tee work/journaux/fiches-generer.txt
+          uv run wenlu fiches generer "${args[@]}" 2>&1 | tee work/journaux/fiches-generer.txt
 
-      - name: Contes, soumission du lot (zilin contes generer)
+      - name: Contes, soumission du lot (wenlu contes generer)
         if: (env.ETAPE == 'contes' || env.ETAPE == 'tout') && steps.cle.outputs.presente == 'true'
         env:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
-        run: uv run zilin contes generer --seuil "$SEUIL" 2>&1 | tee work/journaux/contes-generer.txt
+        run: uv run wenlu contes generer --seuil "$SEUIL" 2>&1 | tee work/journaux/contes-generer.txt
 
-      - name: Récupération des lots (zilin fiches recuperer, zilin contes recuperer)
+      - name: Récupération des lots (wenlu fiches recuperer, wenlu contes recuperer)
         if: env.ETAPE == 'recuperer' && steps.cle.outputs.presente == 'true'
         env:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
         run: |
-          uv run zilin fiches recuperer --parcours "$PARCOURS" 2>&1 | tee work/journaux/fiches-recuperer.txt
-          uv run zilin contes recuperer 2>&1 | tee work/journaux/contes-recuperer.txt
+          uv run wenlu fiches recuperer --parcours "$PARCOURS" 2>&1 | tee work/journaux/fiches-recuperer.txt
+          uv run wenlu contes recuperer 2>&1 | tee work/journaux/contes-recuperer.txt
 
       # ------------------------------------------------------------ bilan et branche
 
-      - name: Contrôles finaux (zilin check)
+      - name: Contrôles finaux (wenlu check)
         if: always() && steps.tout.outcome == 'success'
         continue-on-error: true
         run: |
@@ -234,7 +234,7 @@ jobs:
             echo "# Contrôles qualité, run ${{ github.run_id }}"
             echo
             echo '```'
-            uv run zilin check 2>&1
+            uv run wenlu check 2>&1
             echo '```'
           } > work/qualite.md
 
@@ -326,5 +326,5 @@ jobs:
       - name: Échec de la synthèse
         if: steps.generer.outcome == 'failure'
         run: |
-          echo "::error::zilin audio generer a échoué (voix absente du modèle, ou textes en échec) : voir work/journaux/audio-generer.txt dans l'artefact."
+          echo "::error::wenlu audio generer a échoué (voix absente du modèle, ou textes en échec) : voir work/journaux/audio-generer.txt dans l'artefact."
           exit 1

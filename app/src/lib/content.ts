@@ -465,7 +465,7 @@ export type Index = {
   paires: string;
 };
 
-/** La version de données que l'app lit : le dossier exporté par `zilin export`. */
+/** La version de données que l'app lit : le dossier exporté par `wenlu export`. */
 export const VERSION_DONNEES = '0.1.0';
 
 /** Le dossier d'une version exportée, à la racine publique. */

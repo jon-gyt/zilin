@@ -76,7 +76,7 @@
         if (l.jour && l.jour.sautes.length > 0) {
           /* La trace d'un jour sauté : sa décomposition n'est pas réconciliée avec la norme. */
           console.warn(
-            `Zilin : parcours ${l.nom}, jours non réconciliés sautés : ${l.jour.sautes.join(', ')}`
+            `Wenlu : parcours ${l.nom}, jours non réconciliés sautés : ${l.jour.sautes.join(', ')}`
           );
         }
         pistes = l.pistes;

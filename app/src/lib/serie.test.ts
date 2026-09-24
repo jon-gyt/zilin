@@ -172,10 +172,10 @@ describe('les paliers', () => {
 
   it('se remettent exactement au jour atteint, avec le cadeau du brief', () => {
     const attendus: Record<Palier, string> = {
-      7: 'Un jour de Zilin complet',
-      30: 'Une semaine de Zilin complet',
-      100: 'Zilin complet à vie, moins 30 %',
-      365: 'Zilin complet à vie, offert'
+      7: 'Un jour de Wenlu complet',
+      30: 'Une semaine de Wenlu complet',
+      100: 'Wenlu complet à vie, moins 30 %',
+      365: 'Wenlu complet à vie, offert'
     };
     for (const palier of PALIERS) {
       const s = etatSerie(suite(LUNDI, palier), dernier(LUNDI, palier));
@@ -194,7 +194,7 @@ describe('les paliers', () => {
     expect(s.prochain).toBe(7);
     expect(s.restant).toBe(2);
     expect(messageProchain(s)).toBe(
-      "Que t'attend au 7e jour avec un jour de Zilin complet. Encore 2 jours."
+      "Que t'attend au 7e jour avec un jour de Wenlu complet. Encore 2 jours."
     );
   });
 

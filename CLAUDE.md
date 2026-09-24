@@ -1,4 +1,4 @@
-# Zilin, consignes pour Claude Code
+# Wenlu, consignes pour Claude Code
 
 Lis `docs/product-brief.md` avant toute tâche. Il fait foi sur le produit. Les maquettes de `maquettes/` font foi sur l'écran et le comportement attendus ; ne pas les modifier, s'en inspirer.
 
@@ -32,8 +32,8 @@ Une PWA (TypeScript, Vite, Svelte) pour apprendre à lire le chinois par les fam
 cd app && npm run dev          # serveur local
 cd app && npm run build        # dist/
 cd app && npm test
-cd data && uv run zilin build  # graphe + export
-cd data && uv run zilin check  # contrôles qualité
+cd data && uv run wenlu build  # graphe + export
+cd data && uv run wenlu check  # contrôles qualité
 ```
 
 ## Ce qu'il ne faut pas faire

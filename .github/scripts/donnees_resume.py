@@ -13,8 +13,8 @@ import os
 from collections import Counter
 from pathlib import Path
 
-from zilin_data.audio import MANIFESTE_EXPORT, dossier_export, perimetre
-from zilin_data.paths import AUDIO_WORK, CONTES_WORK, FICHES_WORK
+from wenlu_data.audio import MANIFESTE_EXPORT, dossier_export, perimetre
+from wenlu_data.paths import AUDIO_WORK, CONTES_WORK, FICHES_WORK
 
 
 def _json(chemin: Path) -> dict:

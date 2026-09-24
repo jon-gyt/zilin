@@ -1,4 +1,4 @@
-/* Polices de la charte, auto-hébergées (aucune requête réseau) : `uv run zilin fonts`. */
+/* Polices de la charte, auto-hébergées (aucune requête réseau) : `uv run wenlu fonts`. */
 @font-face{font-family:"Manrope";font-style:normal;font-weight:500;font-display:swap;src:url(/fonts/manrope-500.woff2) format("woff2")}
 @font-face{font-family:"Manrope";font-style:normal;font-weight:700;font-display:swap;src:url(/fonts/manrope-700.woff2) format("woff2")}
 @font-face{font-family:"Source Sans 3";font-style:normal;font-weight:400;font-display:swap;src:url(/fonts/source-sans-3-400.woff2) format("woff2")}
@@ -32,6 +32,8 @@ h1{font-family:var(--head);font-weight:700;font-size:30px;line-height:1.15;lette
 .hz{font-family:var(--hz);font-weight:500;line-height:1}
 .g{display:inline-block;vertical-align:middle;color:var(--ink)}
 .g path{fill:currentColor}
+/* La marque : le point 丶 de 文 en cinabre, trait et pinceau (glyph, option `cinabre`). */
+.g .zhu{color:var(--zhu)}
 .g.write .br{fill:none;stroke:currentColor;stroke-width:230;stroke-linecap:round;stroke-linejoin:round;animation:brush linear forwards}
 .g.write .fill{opacity:0;animation:hold 0s linear forwards}
 @keyframes brush{to{stroke-dashoffset:0}}
@@ -200,14 +202,10 @@ h1{font-family:var(--head);font-weight:700;font-size:30px;line-height:1.15;lette
 .splash{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:18px;width:100%;cursor:default}
 .splash .nom{font-family:var(--head);font-weight:700;font-size:34px;letter-spacing:-.04em}
 .splash .cn{font-size:24px;color:var(--zhu);margin-left:10px}
-/* le Z se trace en un trait, le point cinabre se pose à la fin, le nom vient après */
-.splash .zs{stroke-dasharray:340;stroke-dashoffset:340;animation:zs .5s cubic-bezier(.5,0,.3,1) .1s forwards}
-.splash .zd{transform-origin:100px 42px;transform:scale(0);animation:zd .3s cubic-bezier(.2,1.4,.5,1) .6s forwards}
+/* 文 s'écrit trait par trait (animation pinceau de .g.write, environ 0,8 s), le nom vient après */
 .splash .zt{opacity:0;animation:zt .4s ease-out .8s forwards}
-@keyframes zs{to{stroke-dashoffset:0}}
-@keyframes zd{to{transform:scale(1)}}
 @keyframes zt{to{opacity:1}}
-@media (prefers-reduced-motion:reduce){.splash .zs{animation:none;stroke-dashoffset:0}.splash .zd{animation:none;transform:none}.splash .zt{animation:none;opacity:1}}
+@media (prefers-reduced-motion:reduce){.splash .zt{animation:none;opacity:1}}
 
 /* ---- première session : 人, 大, 天, lire 天天 (maquette f1 à f5, ob2, ob3) ---- */
 .depart .quit{margin-bottom:6px}

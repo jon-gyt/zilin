@@ -4,7 +4,7 @@ set -euo pipefail
 DIR="${1:-./ios-signing}"; mkdir -p "$DIR"; cd "$DIR"
 if [ ! -f distribution.key ]; then
   openssl genrsa -out distribution.key 2048
-  openssl req -new -key distribution.key -out distribution.csr -subj "/emailAddress=${EMAIL:-dev@example.com}/CN=Zilin/C=FR"
+  openssl req -new -key distribution.key -out distribution.csr -subj "/emailAddress=${EMAIL:-dev@example.com}/CN=Wenlu/C=FR"
   echo "CSR créée : $DIR/distribution.csr. Dépose-la sur developer.apple.com (Certificates > Apple Distribution), télécharge distribution.cer ici, puis relance le script."
   exit 0
 fi

@@ -1,10 +1,10 @@
 # Textes de licence, versionnés
 
 Ces fichiers sont copiés **tels quels** depuis leur source et recopiés à
-l'identique dans chaque export (`zilin export`). Ils ne se modifient pas :
+l'identique dans chaque export (`wenlu export`). Ils ne se modifient pas :
 l'Arphic Public License (§1) et la notice Unicode (condition a) l'interdisent.
 
-Ils sont versionnés ici, et non téléchargés par `zilin fetch`, pour que l'export
+Ils sont versionnés ici, et non téléchargés par `wenlu fetch`, pour que l'export
 reste possible hors ligne et que toute modification se voie dans un diff.
 
 | Fichier | Source | Relevé le | SHA-256 |

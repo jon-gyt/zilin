@@ -4,7 +4,7 @@ from __future__ import annotations
 import json
 from pathlib import Path
 
-from zilin_data.fonts import (
+from wenlu_data.fonts import (
     CHIFFRES,
     FONTES_A_PRODUIRE,
     LICENCES,
@@ -100,5 +100,5 @@ def test_le_sous_ensemble_couvre_les_caracteres_de_l_export(tmp_path: Path) -> N
 
 
 def test_sans_export_le_sous_ensemble_se_limite_aux_listes(tmp_path: Path) -> None:
-    """`zilin fonts` doit rester lançable avant tout export."""
+    """`wenlu fonts` doit rester lançable avant tout export."""
     assert caracteres_exportes(tmp_path / "jamais-ecrit") == set()

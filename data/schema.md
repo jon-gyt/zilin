@@ -1,6 +1,6 @@
 # Schéma d'export
 
-`uv run zilin export --version 0.1.0` écrit `app/public/data/0.1.0/`, les seuls
+`uv run wenlu export --version 0.1.0` écrit `app/public/data/0.1.0/`, les seuls
 fichiers que l'app lira. Cette section décrit ce qui est réellement écrit
 (story 1.6) ; les sections suivantes décrivent les formats intermédiaires de
 `data/work/`, qui restent hors dépôt.
@@ -67,7 +67,7 @@ Trois régimes de licence, trois familles de fichiers, jamais mêlés
   `nom sha256` des fichiers lus (`decompositions.json`, `graphe.json`,
   `parcours-*.json`, `listes.json`, `graphies.json`, `unihan.json`,
   `composants.tsv`, les paires, les textes de licence, chaque fiche et chaque
-  conte écrits). `zilin check` la recalcule pour dire si l'export est périmé.
+  conte écrits). `wenlu check` la recalcule pour dire si l'export est périmé.
   `mots.json` (CC-CEDICT) n'en est pas : l'export ne le lit pas.
 - L'empreinte couvre aussi le code qui écrit l'export : sa première ligne est
   `format N`, où `N` est `FORMAT_EXPORT` d'`export.py`, et `export.py` lui-même
@@ -153,7 +153,7 @@ l'export ne contient pas, la question de licence ouverte sur `dictionary.txt`, e
 les obligations hors app (publier les tracés dérivés sous APL). Il fait foi pour
 ce que l'app embarque ; `docs/sources-licences.md` fait foi pour la décision.
 
-## Contrôles (`uv run zilin check`)
+## Contrôles (`uv run wenlu check`)
 
 - « export : à jour » — bloquant : l'empreinte de `index.json` doit valoir celle
   du build présent. Un export absent n'est pas une faute.
@@ -164,7 +164,7 @@ ce que l'app embarque ; `docs/sources-licences.md` fait foi pour la décision.
 
 ## Format intermédiaire (story 1.1)
 
-`uv run zilin fetch` écrit les sources brutes dans `data/work/sources/`, avec `SHA256SUMS` et `PROVENANCE.md` (URL, date, taille, empreinte, licence). `uv run zilin ingest` les normalise dans `data/work/ingest/`, hors dépôt :
+`uv run wenlu fetch` écrit les sources brutes dans `data/work/sources/`, avec `SHA256SUMS` et `PROVENANCE.md` (URL, date, taille, empreinte, licence). `uv run wenlu ingest` les normalise dans `data/work/ingest/`, hors dépôt :
 
 - `caracteres.json` : `[{c, decomposition, radical, pinyin[], definition_en, etymologie}]` depuis `dictionary.txt`. `decomposition` est la chaîne IDS de Make Me a Hanzi, telle quelle : elle n'est pas canonique tant que la story 1.2 ne l'a pas réconciliée avec GF 0014-2009. `etymologie` est la couche étymologique EN, `{type, hint, phonetic, semantic}`, `type` parmi `pictographic`, `ideographic`, `pictophonetic` ; elle reste distincte de la décomposition.
 - `graphies.json` : `[{c, strokes[], medians[]}]` depuis `graphics.txt`, autant de médianes que de traits.
@@ -199,7 +199,7 @@ Quatre points de code portent deux composants distincts de la norme : ⺈, 丁, 
 
 ## Réconciliation (story 1.2)
 
-`uv run zilin build` écrit dans `data/work/build/`, hors dépôt :
+`uv run wenlu build` écrit dans `data/work/build/`, hors dépôt :
 
 - `decompositions.json` : `{norme, table: {fichier, composants, groupes}, source_ids,
   source_ids_secondaire,
@@ -217,13 +217,13 @@ Quatre points de code portent deux composants distincts de la norme : ⺈, 丁, 
   listes prioritaires (seuil 255, HSK 1) avec les caractères que l'IDS secondaire a
   réconciliés, à relire.
 
-`uv run zilin check` relit `decompositions.json` : le contrôle « composants inconnus »
+`uv run wenlu check` relit `decompositions.json` : le contrôle « composants inconnus »
 signale sans bloquer (la norme ne couvre que 3 500 caractères), le contrôle « cycles »
 est bloquant.
 
 ## Graphe et parcours (story 1.3)
 
-`uv run zilin build` écrit ensuite, toujours dans `data/work/build/` :
+`uv run wenlu build` écrit ensuite, toujours dans `data/work/build/` :
 
 ### `graphe.json`
 
@@ -272,12 +272,12 @@ briques_muettes[], non_reconcilies[], absents[]}`.
   nombre de caractères qui dépendent du candidat. Si l'ingestion vient à produire un
   rang sous la clé `frequence`, il prend le pas sans autre changement.
 - `briques_muettes` : les feuilles sans fiche employées par des caractères de la liste.
-  Acquises d'entrée, elles ne prennent jamais de jour ; `zilin check` les signale.
+  Acquises d'entrée, elles ne prennent jamais de jour ; `wenlu check` les signale.
 - `non_reconcilies` et `absents` : caractères de la liste dont la décomposition n'est pas
   réconciliée (22 pour le seuil 255, 31 pour le HSK 1) ou qui manquent au dictionnaire.
   Ils ferment le parcours, marqués `non_reconcilie` : jamais oubliés.
 
-`uv run zilin check` ajoute trois contrôles : « cycles du graphe » (bloquant),
+`uv run wenlu check` ajoute trois contrôles : « cycles du graphe » (bloquant),
 « caractères de liste absents du parcours » (bloquant) et « briques muettes » (signalé).
 
 ## Fiches FR et EN (story 1.4)
@@ -317,8 +317,8 @@ sont des écarts signalés à la relecture, pas des rejets.
 
 ### Fiche générée, hors dépôt
 
-`uv run zilin fiches generer [--parcours lire] [--jusqua N] [--c 住]` puis
-`uv run zilin fiches recuperer` écrivent `data/work/fiches/<c>.json` :
+`uv run wenlu fiches generer [--parcours lire] [--jusqua N] [--c 住]` puis
+`uv run wenlu fiches recuperer` écrivent `data/work/fiches/<c>.json` :
 
 ```json
 {
@@ -354,17 +354,17 @@ paléographie, `mnemotechnique` sinon — jamais l'un pour l'autre. `memo_fr` et
 sont facultatifs. `generation` est la traçabilité : d'où vient la fiche et comment.
 `statut` vaut `a_relire` à la sortie du pipeline, `rejete` s'il reste un motif de refus
 après trois essais, `relu` une fois la relecture humaine faite
-(`uv run zilin fiches relire --c 住 --statut relu`). Seules les fiches relues sont
+(`uv run wenlu fiches relire --c 住 --statut relu`). Seules les fiches relues sont
 exportables : la relecture est obligatoire sur le seuil 255 (brief §17).
 
 Le journal des lots est dans `data/work/fiches/lots/<lot>.json` : identifiant du lot,
 parcours, modèle, date de soumission, statut, et une entrée par requête (`custom_id`,
 caractère, numéro d'essai, empreinte de l'invite).
 
-`uv run zilin check` relit ces fichiers s'ils existent : le contrôle
+`uv run wenlu check` relit ces fichiers s'ils existent : le contrôle
 « fiches : validation » est bloquant, le contrôle « fiches : relecture du seuil 255 »
 compte ce qui reste à relire et les caractères du seuil sans fiche — il signale, il ne
-bloque pas. `uv run zilin fiches valider` refait le même contrôle à la demande.
+bloque pas. `uv run wenlu fiches valider` refait le même contrôle à la demande.
 
 ### Ce que l'app lira (export, story 1.6)
 
@@ -403,12 +403,12 @@ refait les fichiers en MP3 sans écraser les WAV, et la commande prévient du re
 
 `perimetre()` prend les fiches **relues** du parcours (leur caractère et leurs deux mots)
 et, à défaut, la liste cible (`seuil-255` pour `lire`, `hsk-1` pour `hsk`) plus, quand
-`zilin build` a tourné, au plus deux mots candidats par caractère, tous caractères de la
+`wenlu build` a tourné, au plus deux mots candidats par caractère, tous caractères de la
 liste. Une fiche non relue n'entre pas : son texte peut encore changer.
 
 ### Fichiers et manifeste, hors dépôt
 
-`uv run zilin audio generer [--fournisseur local|azure] [--parcours lire] [--seuil 255]
+`uv run wenlu audio generer [--fournisseur local|azure] [--parcours lire] [--seuil 255]
 [--voix …]` écrit `data/work/audio/<empreinte>.mp3` et le manifeste
 `data/work/audio/audio.json` :
 
@@ -449,12 +449,12 @@ pipeline est une voix réelle ou rien. Un nom hors de `local`/`azure` sort en co
 
 Le fournisseur local charge paresseusement : `import kokoro` est à l'intérieur de
 `MoteurKokoro.pipeline()`, appelé au premier texte. Le pipeline reste donc utilisable — et
-`zilin check` reste instantané — sans le groupe optionnel installé, qui tire torch et
+`wenlu check` reste instantané — sans le groupe optionnel installé, qui tire torch et
 transformers. Sans le paquet, `generer` sort en code 2 avec la commande à lancer, et
 n'écrit rien. Le moteur est injectable (`FournisseurLocal(moteur=…)`), ce dont les tests se
 servent : ils contrôlent format, manifeste et licence sans poids ni réseau. La voix par
 défaut est `zf_001` (Kokoro v1.1-zh, `hexgrad/Kokoro-82M-v1.1-zh`), `--voix` la change.
-`uv run zilin audio voix` liste les voix du dépôt de poids (ses fichiers `voices/*.pt`, lus
+`uv run wenlu audio voix` liste les voix du dépôt de poids (ses fichiers `voices/*.pt`, lus
 sur le hub, ou dans le cache local hors ligne) ; `generer` refuse en code 1, sans rien
 écrire, une voix qui n'y est pas, et cite les voix disponibles.
 
@@ -464,13 +464,13 @@ l'attribution et la redevance par écoute, avec l'URL lue et la date ; `verifie`
 vrai que sur lecture d'une source primaire. C'est le cas pour la voix locale et pas pour
 Azure, dont la commande rappelle le doute à chaque passage (voir `docs/sources-licences.md`).
 
-`uv run zilin check` ajoute le contrôle « audio : textes sans audio » : il compte les
+`uv run wenlu check` ajoute le contrôle « audio : textes sans audio » : il compte les
 textes du périmètre qui n'ont pas de fichier. Signalé, jamais bloquant — l'audio arrive
 après le texte, et l'app se tait sur ce qui n'a pas de voix.
 
 ### Ce que l'app lira (export)
 
-`uv run zilin audio exporter [--version 0.1.0] [--fournisseur local|azure]
+`uv run wenlu audio exporter [--version 0.1.0] [--fournisseur local|azure]
 [--parcours lire] [--seuil 255]` copie les fichiers du périmètre dans
 `app/public/data/<version>/audio/` et écrit à côté `manifeste.json` :
 
@@ -518,7 +518,7 @@ conte n'est écrit à la main : les versions chinoises sortent du pipeline.
 
 ### Version générée, hors dépôt
 
-`uv run zilin contes generer --seuil <n> [--conte <id>]` puis `uv run zilin contes
+`uv run wenlu contes generer --seuil <n> [--conte <id>]` puis `uv run wenlu contes
 recuperer` écrivent `data/work/contes/<seuil>/<id>.json` :
 
 ```json
@@ -554,9 +554,9 @@ Le journal des lots est dans `data/work/contes/lots/<lot>.json` : identifiant du
 seuil, modèle, date de soumission, statut, et une entrée par requête (`custom_id`,
 conte, numéro d'essai, empreinte de l'invite).
 
-`uv run zilin check` relit ces fichiers s'ils existent : le contrôle « contes :
+`uv run wenlu check` relit ces fichiers s'ils existent : le contrôle « contes :
 caractères hors liste » est bloquant, le contrôle « contes : relecture » compte ce qui
-reste à relire. `uv run zilin contes valider` refait le même contrôle à la demande.
+reste à relire. `uv run wenlu contes valider` refait le même contrôle à la demande.
 
 ### Ce que l'app lira (export, story 1.6)
 
@@ -569,7 +569,7 @@ par seuil :
  "license": "propriétaire",
  "source": "récit traditionnel, 《韩非子·五蠹》 (domaine public) ; texte réécrit pour l'app",
  "source_url": "https://github.com/jon-gyt/zilin",
- "modified": "2026-09-21 : assemblé par `zilin export`",
+ "modified": "2026-09-21 : assemblé par `wenlu export`",
  "conte": "shou-zhu-dai-tu",
  "titre_fr": "Guetter la souche en attendant le lièvre",
  "versions": {

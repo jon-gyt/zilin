@@ -208,7 +208,7 @@ def journaliser(
     if not chemin.exists():
         entete = (
             "# Provenance des sources\n\n"
-            "Journal produit par `uv run zilin fetch`. Un bloc par passage.\n"
+            "Journal produit par `uv run wenlu fetch`. Un bloc par passage.\n"
             "« URL servie » est l'URL dont le fichier provient réellement : l'URL\n"
             "officielle, ou un miroir de repli quand l'officielle a échoué.\n"
         )

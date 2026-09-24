@@ -3,14 +3,14 @@
 La règle produit interdit toute requête réseau à l'exécution : pas de Google Fonts,
 les trois familles de la charte sont servies avec les assets de l'app.
 
-`uv run zilin fonts` télécharge les fichiers d'origine (idempotent, SHA-256 et journal
+`uv run wenlu fonts` télécharge les fichiers d'origine (idempotent, SHA-256 et journal
 de provenance écrits par les fonctions de `fetch.py`), puis produit avec fonttools :
 
 - Manrope 500 et 700, Source Sans 3 400 et 600, en sous-ensemble latin étendu ;
 - Noto Serif SC 500, réduit aux seuls caractères que l'app affiche — ceux de l'export
   versionné, des listes de niveaux et des tracés de démonstration.
 
-À lancer après `zilin export` : c'est l'export qui dit quels caractères l'app écrit.
+À lancer après `wenlu export` : c'est l'export qui dit quels caractères l'app écrit.
 
 Toutes les sources sont sous SIL Open Font License 1.1 ; le texte de licence de chaque
 famille est copié tel quel à côté des woff2.
@@ -208,7 +208,7 @@ def caracteres_de_lapp(
 
     Trois origines : les tracés de démonstration, les listes de niveaux et, quand
     il est écrit, l'export versionné — la seule qui dise ce que l'app affiche
-    vraiment. Lancer `zilin fonts` avant `zilin export` laisse donc des glyphes
+    vraiment. Lancer `wenlu fonts` avant `wenlu export` laisse donc des glyphes
     manquants : c'est dit dans le README.
     """
     traits = traits or TRAITS_APP
@@ -222,7 +222,7 @@ def caracteres_de_lapp(
 def ecrire_sous_ensemble(chemin: Path, caracteres: str) -> Path:
     """Écrit la liste des caractères retenus, pour que le woff2 soit rejouable."""
     chemin.write_text(
-        "# Caractères embarqués dans noto-serif-sc-500.woff2, écrit par `uv run zilin fonts`.\n"
+        "# Caractères embarqués dans noto-serif-sc-500.woff2, écrit par `uv run wenlu fonts`.\n"
         "# Origine : clés de app/public/strokes-demo.json, tracés de l'export versionné,\n"
         "# listes data/sources/listes/*.txt, ponctuation chinoise courante et chiffres.\n"
         f"{caracteres}\n",

@@ -1,4 +1,4 @@
-# Backlog Zilin
+# Backlog Wenlu
 
 Format BMAD : épics puis stories. Priorité dans l'ordre. Une story se termine par un test qui passe et une capture qui ressemble à la maquette.
 
@@ -69,7 +69,7 @@ Relevé sur le dépôt après une revue du pipeline. Les numéros ci-dessus ne b
 ### Livrées
 
 - Épic 0 : 0.1, 0.2, 0.3, 0.4 (décision écrite dans `docs/sources-licences.md`).
-- Épic 1 : 1.1, 1.2, 1.3, 1.6. La chaîne complète tourne — `uv run zilin tout` enchaîne
+- Épic 1 : 1.1, 1.2, 1.3, 1.6. La chaîne complète tourne — `uv run wenlu tout` enchaîne
   fetch, ingest, build, export et check, et deux passages écrivent les mêmes octets.
   8 148 caractères sur 9 574 réconciliés ; 241 du seuil 255 sur 255, 280 du HSK 1 sur 300 ;
   238 familles exportées en 1,33 Mio.
