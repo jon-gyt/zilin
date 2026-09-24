@@ -121,6 +121,12 @@ export type CorpusJeux = {
    * passent avant les mots et les phrases des fiches. Absent : les fiches seules.
    */
   coquilles?: readonly MessageCoquille[];
+  /**
+   * Les caractères de l'export versionné (fiches et racines des familles). Quand il est
+   * donné, la chaîne ne traverse que ceux-là : un caractère de la seule démonstration
+   * n'y entre pas. Absent : aucune restriction (données de test).
+   */
+  exportes?: readonly string[];
 };
 
 /**
@@ -301,6 +307,13 @@ export function corpusDeJeu(s: Sources): CorpusJeux {
     traits: s.traits ?? [],
     textes
   };
+  const exportes = new Set<string>();
+  for (const x of s.fiches ?? []) exportes.add(x.c);
+  for (const f of s.familles ?? []) {
+    exportes.add(f.racine.c);
+    for (const x of f.fiches) exportes.add(x.c);
+  }
+  if (exportes.size > 0) corpus.exportes = [...exportes];
   if (s.coquilles && s.coquilles.length > 0) corpus.coquilles = s.coquilles;
   if (s.devinettes) {
     corpus.lanternes = {
@@ -593,9 +606,13 @@ function porte(suivant: string, precedent: string, corpus: CorpusJeux): boolean 
   return true;
 }
 
-/** Les caractères qu'une chaîne peut traverser : acquis, montrables. */
-function maillonsPossibles(corpus: CorpusJeux): string[] {
-  return corpus.acquis.filter((c) => montrable(c, corpus));
+/**
+ * Les caractères qu'une chaîne peut traverser : acquis, montrables, et de l'export quand
+ * le corpus le dit. C'est l'acquis qui borne la chaîne, jamais la démonstration.
+ */
+export function maillonsPossibles(corpus: CorpusJeux): string[] {
+  const exportes = corpus.exportes ? new Set(corpus.exportes) : null;
+  return corpus.acquis.filter((c) => montrable(c, corpus) && (exportes === null || exportes.has(c)));
 }
 
 /** Les caractères acquis qui prolongent la chaîne après `c`. */
@@ -660,29 +677,61 @@ export function chaine(corpus: CorpusJeux, graine: string): string[] {
   return out;
 }
 
+/**
+ * Les chaînes d'une manche, deux à deux sans caractère commun. La première est la plus
+ * longue que l'acquis permet (`chaine`) ; quand elle bute sur une impasse avant que la
+ * manche soit pleine, une autre part d'un caractère acquis qui n'a pas encore servi. Les
+ * décompositions canoniques sont plates (大, 天, 人 sont des composants de la norme) :
+ * au début du parcours, une chaîne a souvent deux maillons, et la manche en enchaîne
+ * plusieurs plutôt que de s'arrêter après une question.
+ */
+export function chaines(corpus: CorpusJeux, graine: string): string[][] {
+  const out: string[][] = [];
+  const servis = new Set<string>();
+  let maillons = 0;
+  while (maillons < MAILLONS_MAX) {
+    const reste = { ...corpus, acquis: corpus.acquis.filter((c) => !servis.has(c)) };
+    const suite = chaine(reste, out.length === 0 ? graine : `${graine}/${out.length}`);
+    if (suite.length < 2) break;
+    out.push(suite);
+    for (const c of suite) servis.add(c);
+    maillons += suite.length - 1;
+  }
+  return out;
+}
+
 function toursChaine(corpus: CorpusJeux, graine: string): Tour[] {
-  const suite = chaine(corpus, graine);
   const tours: Tour[] = [];
-  for (let k = 1; k < suite.length; k++) {
-    const precedent = suite[k - 1];
-    const c = suite[k];
-    /* Les leurres : des caractères acquis, pris par ressemblance avec la bonne réponse,
-       qui ne portent pas le dernier caractère, même en pièces éparses. */
-    const candidats = maillonsPossibles(corpus).filter(
-      (x) => !suite.includes(x) && !porte(x, precedent, corpus)
-    );
-    const leurres = proches([c], candidats, corpus, `${graine}/${c}`, PROPOSITIONS_CHAINE - 1);
-    /* Sans trois leurres sûrs, le maillon ne se pose pas : la chaîne s'arrête là. */
-    if (leurres.length < PROPOSITIONS_CHAINE - 1) break;
-    tours.push({
-      c,
-      enonce: 'Lequel des quatre contient ce caractère ?',
-      reponse: [c],
-      choix: melange([c, ...leurres], `${graine}/${c}/choix`),
-      ordre: false,
-      paire: false,
-      suite: suite.slice(0, k)
-    });
+  for (const suite of chaines(corpus, graine)) {
+    for (let k = 1; k < suite.length && tours.length < MAILLONS_MAX; k++) {
+      const precedent = suite[k - 1];
+      const c = suite[k];
+      /* Les leurres : des caractères acquis, pris par ressemblance avec la bonne réponse,
+         qui ne portent pas le dernier caractère, même en pièces éparses. */
+      const candidats = maillonsPossibles(corpus).filter(
+        (x) => !suite.includes(x) && !porte(x, precedent, corpus)
+      );
+      /* Pas les quatre mêmes cases d'un tour à l'autre, quand l'acquis permet d'en changer. */
+      const avant = new Set(tours.length > 0 ? tours[tours.length - 1].choix : []);
+      const tirer = (xs: string[]): string[] =>
+        proches([c], xs, corpus, `${graine}/${c}`, PROPOSITIONS_CHAINE - 1);
+      const varies = tirer(candidats.filter((x) => !avant.has(x)));
+      const leurres = varies.length >= PROPOSITIONS_CHAINE - 1 ? varies : tirer(candidats);
+      /* Sans trois leurres sûrs, le maillon ne se pose pas : cette chaîne s'arrête là. */
+      if (leurres.length < PROPOSITIONS_CHAINE - 1) break;
+      tours.push({
+        c,
+        enonce:
+          k === 1 && tours.length > 0
+            ? 'Une autre chaîne : lequel contient ce caractère ?'
+            : 'Lequel contient ce caractère ?',
+        reponse: [c],
+        choix: melange([c, ...leurres], `${graine}/${c}/choix`),
+        ordre: false,
+        paire: false,
+        suite: suite.slice(0, k)
+      });
+    }
   }
   return tours;
 }
@@ -1104,14 +1153,19 @@ const COMPTES: Record<JeuId, { un: string; plusieurs: string; aucun: string }> =
  * revus sont comptés une fois chacun ; la coquille en revoit deux par message.
  *
  * La chaîne dit sa longueur, départ compris, et c'est tout son constat :
- * « Chaîne de 4, 3 maillons trouvés. » Un maillon manqué est montré, la chaîne
- * continue : il n'y a pas de vie à perdre.
+ * « Chaîne de 4, 3 maillons trouvés. » Plusieurs chaînes disent leur nombre et la plus
+ * longue : « 3 chaînes, la plus longue de 4, 5 maillons trouvés. » Un maillon manqué
+ * est montré, la chaîne continue : il n'y a pas de vie à perdre.
  */
 export function constat(m: Manche): string {
   if (m.evenements.length === 0) return 'Rien de revu cette fois.';
   const { un, plusieurs, aucun } = COMPTES[m.jeu];
   const second = m.trouves === 0 ? aucun : pluriel(m.trouves, un, plusieurs);
-  if (m.jeu === 'chaine') return `Chaîne de ${longueur(m)}, ${second}.`;
+  if (m.jeu === 'chaine') {
+    const ls = longueurs(m);
+    if (ls.length <= 1) return `Chaîne de ${longueur(m)}, ${second}.`;
+    return `${ls.length} chaînes, la plus longue de ${Math.max(...ls)}, ${second}.`;
+  }
   const revus = new Set(m.evenements.map((e) => e.c)).size;
   return `${pluriel(revus, 'caractère revu', 'caractères revus')}, ${second}.`;
 }
@@ -1119,6 +1173,20 @@ export function constat(m: Manche): string {
 /** La longueur d'une chaîne jouée : le départ, et un maillon par tour joué. */
 export function longueur(m: Manche): number {
   return m.i === 0 ? 0 : m.i + 1;
+}
+
+/**
+ * La longueur de chaque chaîne jouée, départ compris, dans l'ordre. Une chaîne commence
+ * au tour dont la suite n'a que son départ ; les tours non joués ne comptent pas.
+ */
+export function longueurs(m: Manche): number[] {
+  const out: number[] = [];
+  for (const t of m.tours.slice(0, m.i)) {
+    const n = (t.suite ?? []).length + 1;
+    if (n === 2 || out.length === 0) out.push(n);
+    else out[out.length - 1] = n;
+  }
+  return out;
 }
 
 /* ---------- les jeux ---------- */

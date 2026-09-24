@@ -19,6 +19,7 @@ import {
   TOURS_COQUILLE,
   acquisDeDemo,
   chaine,
+  chaines,
   ciblesAssemblage,
   clore,
   constat,
@@ -665,7 +666,8 @@ describe('La chaîne', () => {
 
   it('part d’une brique acquise et suit l’exemple de la spécification', () => {
     expect(chaine(CHAINE, 'g')).toEqual(['人', '大', '天', '吞']);
-    expect(m.tours.map((t) => t.c)).toEqual(['大', '天', '吞']);
+    expect(chaines(CHAINE, 'g')[0]).toEqual(['人', '大', '天', '吞']);
+    expect(m.tours.slice(0, 3).map((t) => t.c)).toEqual(['大', '天', '吞']);
     expect(m.tours[0].suite).toEqual(['人']);
     expect(m.tours[2].suite).toEqual(['人', '大', '天']);
   });
@@ -766,13 +768,15 @@ describe('La chaîne', () => {
   });
 
   it('a pour constat sa longueur, sans score ni vie : un maillon manqué ne la coupe pas', () => {
+    /* Après 人 → 大 → 天 → 吞, l'impasse : deux autres chaînes, 日 → 明 et 女 → 好. */
+    expect(chaines(CHAINE, 'g').map((x) => x.length)).toEqual([4, 2, 2]);
     const juste = jouer(m, (t) => t.reponse);
-    expect(lachaine.constat(juste)).toBe('Chaîne de 4, 3 maillons trouvés.');
+    expect(lachaine.constat(juste)).toBe('3 chaînes, la plus longue de 4, 5 maillons trouvés.');
     let rate = m;
     rate = repondre(rate, '?', outcome()).manche;
     rate = jouer(rate, (t) => t.reponse);
     expect(fini(rate)).toBe(true);
-    expect(lachaine.constat(rate)).toBe('Chaîne de 4, 2 maillons trouvés.');
+    expect(lachaine.constat(rate)).toBe('3 chaînes, la plus longue de 4, 4 maillons trouvés.');
     expect(lachaine.constat(rate)).not.toMatch(/point|score|vie|record|classement|coffre|bravo/i);
   });
 });
@@ -959,8 +963,8 @@ describe('la chaîne et la coquille sur le contenu servi (export 0.1.0)', () => 
       }
     }
     const finie = jouer(m, (t) => t.reponse);
-    expect(finie.evenements.map((e) => e.c)).toEqual(['可', '哥', '歌']);
-    expect(JEUX.chaine.constat(finie)).toBe('Chaîne de 4, 3 maillons trouvés.');
+    expect(finie.evenements.slice(0, 3).map((e) => e.c)).toEqual(['可', '哥', '歌']);
+    expect(JEUX.chaine.constat(finie)).toMatch(/^\d+ chaînes, la plus longue de 4, \d+ maillons trouvés\.$/);
   });
 
   it('pose une coquille avec les mots surcouchés : 夫 pour 天', () => {

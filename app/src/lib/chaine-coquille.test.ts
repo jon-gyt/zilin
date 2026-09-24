@@ -1,7 +1,8 @@
 /**
- * Story 4b.3 : la coquille, jouées sur l'export servi avec l'app.
+ * Story 4b.3 : la chaîne et la coquille, jouées sur l'export servi avec l'app.
  *
- * Un test par règle : tout caractère proposé est acquis ; la coquille ne piège qu'avec un groupe
+ * Un test par règle : chaque maillon contient le précédent ; tout caractère proposé
+ * est acquis (et de l'export, pour la chaîne) ; la coquille ne piège qu'avec un groupe
  * de `paires.json` et ne pose que des messages rédigés dans le pipeline ; la notation
  * est celle de `srs.grade`, jamais une auto-évaluation ; Tao lit la coquille par-dessus
  * l'épaule.
@@ -14,10 +15,14 @@ import {
   MESSAGE_MAX,
   MESSAGE_MIN,
   TOURS_COQUILLE,
+  chaine,
+  chaines,
+  contient,
   corpusDeJeu,
   decouper,
   disponibles,
   fini,
+  maillonsPossibles,
   postureDuJeu,
   remplacants,
   repondre,
@@ -201,5 +206,71 @@ describe('la coquille, sur le parcours Lire', () => {
     expect(postureDuJeu('coquille')).toBe('lecture');
     expect(postureDuJeu('chaine')).toBe('jeu');
     expect(postureDuJeu('devinette')).toBe('jeu');
+  });
+});
+
+/* ---------- la chaîne ---------- */
+
+describe('la chaîne, sur le parcours Lire', () => {
+  const corpus = corpusAuJour(40);
+  const m = JEUX.chaine.preparer(corpus, '2026-09-24/chaine/0');
+  if (!m) throw new Error('manche attendue');
+
+  it('est valide : chaque maillon contient le précédent', () => {
+    const toutes = chaines(corpus, '2026-09-24/chaine/0');
+    for (const suite of toutes) {
+      expect(suite.length).toBeGreaterThanOrEqual(2);
+      for (let k = 1; k < suite.length; k++) expect(contient(suite[k], suite[k - 1], corpus)).toBe(true);
+    }
+    for (const t of m.tours) {
+      const s = t.suite ?? [];
+      expect(contient(t.c, s[s.length - 1], corpus)).toBe(true);
+    }
+    /* Au jour 90, 母 → 每 → 海 : trois maillons, la plus longue d'abord. */
+    const plus = corpusAuJour(90);
+    expect(chaine(plus, 'g')).toEqual(['母', '每', '海']);
+  });
+
+  it('enchaîne plusieurs chaînes sans caractère commun quand la première bute', () => {
+    const toutes = chaines(corpus, '2026-09-24/chaine/0');
+    expect(toutes.length).toBeGreaterThan(1);
+    const vus = toutes.flat();
+    expect(new Set(vus).size).toBe(vus.length);
+    /* Au jour 40, les décompositions plates ne donnent que des chaînes de deux : la
+       manche en pose plusieurs, pas une seule question. */
+    expect(m.tours.length).toBeGreaterThan(1);
+    expect(m.tours.length).toBeLessThanOrEqual(JEUX.chaine.tours);
+  });
+
+  it('ne propose que de l’acquis, et une seule proposition prolonge la chaîne', () => {
+    for (const t of m.tours) {
+      const s = t.suite ?? [];
+      expect(t.choix.filter((x) => contient(x, s[s.length - 1], corpus))).toEqual([t.c]);
+      for (const x of [...t.choix, ...s]) expect(corpus.acquis).toContain(x);
+    }
+  });
+
+  it('ne traverse que l’export : un caractère acquis hors de l’export n’y entre pas', () => {
+    expect(corpus.exportes?.length).toBeGreaterThan(0);
+    const avecIntrus: CorpusJeux = {
+      ...corpus,
+      acquis: [...corpus.acquis, '吞'],
+      decompositions: { ...corpus.decompositions, 吞: ['天', '口'] },
+      traits: [...corpus.traits, '吞']
+    };
+    expect(maillonsPossibles(avecIntrus)).not.toContain('吞');
+    for (const t of JEUX.chaine.preparer(avecIntrus, 'g')?.tours ?? []) expect(t.choix).not.toContain('吞');
+  });
+
+  it('note chaque choix comme une question, par grade, et dit le leurre pris', () => {
+    const t = tour(m) as Tour;
+    const juste = repondre(m, t.c, outcome({ seconds: 2 }));
+    expect(juste.note).toBe(grade(juste.evenement));
+    const leurre = t.choix.find((x) => x !== t.c) as string;
+    const faux = repondre(m, leurre, outcome({ seconds: 2 }));
+    expect(faux.evenement.leurres).toEqual([leurre]);
+    expect(faux.note).toBe(Rating.Again);
+    /* Un maillon manqué ne coupe pas la chaîne : pas de vie à perdre. */
+    expect(fini(faux.manche)).toBe(m.tours.length === 1);
   });
 });

@@ -622,7 +622,7 @@
           {#each suite as c, k (c + k)}
             {#if k > 0}<span class="op" aria-hidden="true">→</span>{/if}
             <span class="maillon" class:dernier={k === suite.length - 1}>
-              <Glyph char={c} size={k === suite.length - 1 ? 84 : 40} write={false} />
+              <Glyph char={c} size={k === suite.length - 1 ? 72 : 40} write={false} />
             </span>
           {/each}
           {#if resultat !== null}
@@ -631,7 +631,7 @@
           {/if}
         </div>
         <p class="consigne">{t.enonce}</p>
-        <div class="choices quatre">
+        <div class="choices quatre maillons">
           {#each t.choix as c, k (c + k)}
             <button
               class:ok={resultat !== null && c === t.reponse[0]}
@@ -640,7 +640,7 @@
               aria-label={c}
               onclick={() => valider([c])}
             >
-              <Glyph char={c} size={60} write={false} />
+              <Glyph char={c} size={56} write={false} />
             </button>
           {/each}
         </div>
@@ -896,5 +896,12 @@
     column-gap: 6px;
     margin-left: 0;
     text-align: center;
+  }
+  /* La chaîne tient dans l'écran d'un téléphone : le dernier maillon et les quatre cases. */
+  .chaine {
+    min-height: 92px;
+  }
+  .choices.maillons button {
+    min-height: 78px;
   }
 </style>
