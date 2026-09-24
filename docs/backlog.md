@@ -76,7 +76,7 @@ Relevé sur le dépôt après une revue du pipeline. Les numéros ci-dessus ne b
   8 148 caractères sur 9 574 réconciliés ; 241 du seuil 255 sur 255, 280 du HSK 1 sur 300 ;
   238 familles exportées en 1,33 Mio.
 - Épic 2 : 2.1 à 2.8 (2.2 et 2.8 revues le 24 septembre : le menu et le parcours du prototype validé). Épic 3 : 3.1 à 3.4. Épic 4 : 4.1 à 4.4 (4.4, Chercher, le 24 septembre : la recherche en français ne trouvera rien tant qu'aucune fiche n'est relue).
-- Épic 4b : 4b.1, 4b.2, 4b.4, 4b.5 et 4b.9. Épic 5 : 5.1, et 5.2 (24 septembre).
+- Épic 4b : 4b.1 à 4b.5 et 4b.9. Épic 5 : 5.1, et 5.2 (24 septembre).
 - 5.2, le site public : `app/scripts/site/` génère du HTML statique depuis l'export
   versionné, dans l'artefact Pages de l'app, après `vite build`. 480 caractères dessinables
   sur 493, une page chacun en français (`/zilin/c/<c>/`) et en anglais
@@ -115,6 +115,17 @@ Relevé sur le dépôt après une revue du pipeline. Les numéros ci-dessus ne b
   constat ; Tao joue la tête penchée, sans lanterne. Reste : le brancher au pas Utiliser
   (brief §9), qui demanderait une vue de plus dans `UseView` et la reprise au pas exact
   de `session.ts` ; laissé pour ne pas toucher la session.
+- 4b.3, la chaîne et la coquille (24 septembre). La chaîne suit les `parts` de l'export,
+  sur l'acquis et les seuls caractères exportés ; les décompositions canoniques étant
+  plates (人, 大, 天 sont des composants de la norme), une manche enchaîne plusieurs
+  chaînes sans caractère commun, jusqu'à douze maillons. La coquille lit
+  `coquilles.json` : 58 messages de 6 à 12 caractères du seuil 255, rédigés pour l'app
+  dans `data/sources/coquilles/` avec leurs pièges (天, 夫, 日, 王) et leur traduction,
+  trois contrôles bloquants ; l'intrus vient d'un groupe de `paires.json` et doit être
+  acquis, si bien que le jeu s'ouvre avec 夫 (jour 54 du parcours Lire). Chaque choix
+  est noté par `grade` et dit le leurre pris, que les pièges déjoués lisent ; Tao lit la
+  coquille par-dessus l'épaule. **Les 58 messages sont à relire par le propriétaire**
+  (`wenlu coquilles apercu`).
 - 4b.9, les saisons (24 septembre) : les huit fêtes du calendrier chinois sont en place, du
   pipeline (`data/sources/fetes/`, dates vérifiées contre la table des fêtes de
   `lunar_python`) au décor de l'app (menu à 393 × 660, anecdote, `theme-color`). Chaque
@@ -221,5 +232,5 @@ anglaise, glose par mot.
 
 ### Non commencées
 
-2c.1, 2c.2, 4b.3, 4b.6 à 4b.8, et toute la phase 6 — hors le workflow CI macOS et la
+2c.1, 2c.2, 4b.6 à 4b.8, et toute la phase 6 — hors le workflow CI macOS et la
 configuration Capacitor, déjà versionnés.

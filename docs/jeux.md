@@ -12,9 +12,9 @@ Référence jouable : `maquettes/zilin-jeu.html` (démos des mécaniques) et `ma
 ## Les dix jeux
 
 1. Assembler contre la montre. Sens donné, briques en vrac (les vraies plus deux leurres visuellement proches), 8 secondes, ordre d'écriture exigé. Exemples : « maman » → 女 + 马 parmi 马 口 女 子 ; « habiter » → 亻 + 主 parmi 王 主 亻 丶. Erreur = montré, retour dans 10 minutes.
-2. La chaîne. Départ sur une brique acquise, quatre propositions dont une seule contient le dernier caractère. 人 → 大 → 天 → 吞. Longueur = score, limitée par l'acquis.
+2. La chaîne. Départ sur une brique acquise, quatre propositions dont une seule contient le dernier caractère. 人 → 大 → 天 → 吞. La longueur, limitée par l'acquis, est un constat, pas un score. Les `parts` de l'export étant plates, une manche enchaîne plusieurs chaînes (口 → 可 → 哥 → 歌, puis 女 → 如…).
 3. Le dictionnaire éclair. Mot de deux caractères acquis, jamais appris comme mot. Quatre sens dont un juste. 火车 (train), 电脑 (ordinateur), 手机 (téléphone), 水果 (fruits), 大人 (adulte), 好看 (joli). Compteur « mots devinés » distinct.
-4. La coquille. Message de 6 à 12 caractères avec un intrus tiré des paires à ne pas confondre. 我今夫很好 (夫 pour 天). Paires : 己 已 巳, 未 末, 天 夫, 日 曰, 人 入, 土 士, 王 玉 主.
+4. La coquille. Message de 6 à 12 caractères avec un intrus tiré des paires à ne pas confondre. 我今夫很好 (夫 pour 天). Messages rédigés dans `data/sources/coquilles/` (`coquilles.json`), intrus acquis. Paires : 己 已 巳, 未 末, 天 夫, 日 曰, 人 入, 土 士, 王 玉 主.
 5. Le message WeChat. Un message reçu, trois réponses dont une tient. 你好吗？→ 我很好，你呢？ Arbre de 3 à 10 échanges par famille.
 6. Les jumeaux. Flash de 700 ms, deux caractères proches, quinze paires par minute.
 7. Les lettres de Que. Une lettre par semaine, 40 à 120 caractères, uniquement acquis, question finale à un mot. Feuilleton : Que voyage de 西安 à 喀什.
