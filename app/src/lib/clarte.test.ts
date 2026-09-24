@@ -93,6 +93,21 @@ describe('un libellé de bouton sur deux lignes reste centré', () => {
   });
 });
 
+describe('des zones de tap d’au moins 44 pt', () => {
+  const css = source('tokens.css');
+
+  it('le zoom du cercle et la liste des familles', () => {
+    expect(css).toContain('.zoomctl button{width:44px;height:44px}');
+    expect(css).toContain('.famrow{min-height:44px}');
+  });
+
+  it("chaque nœud d'un arbre a un disque de tap plus large que son dessin", () => {
+    const tree = source('Tree.svelte');
+    expect(tree).toContain('<circle class="hit" r={Math.max(nd.r, RAYON_TAP)} />');
+    expect(tree).toContain('const RAYON_TAP = 34;');
+  });
+});
+
 describe('la chaîne : la limite de trois minutes ne ferme pas le tour en cours', () => {
   const echoir = corps(source('Game.svelte'), 'echoir');
 
