@@ -120,10 +120,17 @@ describe("un tracé indisponible dit quoi faire, sans mot d'atelier", () => {
   });
 });
 
-describe('le tracé en mode sombre : le gabarit reste visible', () => {
-  it('le gabarit a sa couleur, plus claire que le trait de séparation en sombre', () => {
+describe('un seul thème : le papier clair', () => {
+  it("aucune variante sombre, ni par le système ni par un réglage", () => {
     const css = source('tokens.css');
-    expect(css).toContain(':root[data-theme="dark"]{ --guide:#5E554B }');
+    expect(css).not.toContain('prefers-color-scheme');
+    expect(css).not.toContain('data-theme');
+    expect(css).toContain('html{background:var(--paper);color-scheme:light}');
+  });
+
+  it('le gabarit du tracé a sa propre couleur, que la nuit de la mi-automne change', () => {
+    const css = source('tokens.css');
+    expect(css).toContain(':root{--guide:#D9D1C2}');
     expect(source('Trace.svelte')).toContain("outlineColor: couleur('--guide')");
   });
 });

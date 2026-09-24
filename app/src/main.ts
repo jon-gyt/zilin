@@ -1,11 +1,18 @@
 import { mount } from 'svelte';
 import { registerSW } from 'virtual:pwa-register';
 import App from './App.svelte';
-import { initTheme } from './lib/theme';
 import './lib/tokens.css';
 
-/* Le thème choisi (système, clair ou sombre) est posé avant le premier écran. */
-initTheme();
+/*
+ * Un seul thème, le papier clair : l'ancien réglage (système, clair ou sombre) n'a plus
+ * d'effet. Sa clé est effacée du stockage local ; la progression, dans IndexedDB, n'y
+ * est pour rien.
+ */
+try {
+  localStorage.removeItem('zilin-theme');
+} catch {
+  /* stockage indisponible : rien à effacer */
+}
 
 /**
  * Service worker : l'app et son contenu sont précachés, donc utilisables hors ligne.

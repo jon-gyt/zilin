@@ -6,17 +6,25 @@
 @font-face{font-family:"Noto Serif SC";font-style:normal;font-weight:500;font-display:swap;src:url(/fonts/noto-serif-sc-500.woff2) format("woff2")}
 
 :root{
-  --paper:#F4EEE2; --card:#FBF7EE; --ink:#1F1B18; --ink2:#4A443E; --mist:#8B857C; --line:#D9D1C2;
+  --paper:#F4EEE2; --card:#FBF7EE; --ink:#1F1B18; --ink2:#4A443E; --mist:#8B857C; --line:#D9D1C2; --rule:#CFC6B5; --grille:#C9BBA3;
   --indigo:#2B4C7E; --indigo-soft:#DCE3EF; --zhu:#C8371F; --zhu-soft:#F6DED6; --ocre:#8C5A2B; --ocre-soft:#EFE3D3; --jade:#5E8A6A; --jade-soft:#DDE8DE; --on:#F4EEE2;
   --hz:"Noto Serif SC","Songti SC","PingFang SC",serif; --sans:"Source Sans 3","Helvetica Neue",Arial,sans-serif; --head:"Manrope","Helvetica Neue",Arial,sans-serif;
+  /* le bouton principal : l'action, à l'indigo ; une fête peut le teindre */
+  --act:#2B4C7E; --act-ink:#F4EEE2;
+  /* le grain du papier, très léger, jamais un dégradé */
+  --grain:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .5 0'/></filter><rect width='160' height='160' filter='url(%23n)'/></svg>");
+  --grain-o:.05;
 }
-@media (prefers-color-scheme: dark){ :root:not([data-theme="light"]){ --paper:#1A1714; --card:#241F1B; --ink:#EDE6D8; --ink2:#C9C1B3; --mist:#8E877D; --line:#3A332C; --indigo:#8FA9D6; --indigo-soft:#26303F; --zhu:#E0553A; --zhu-soft:#3F2520; --ocre:#C89A6A; --ocre-soft:#3A2E22; --jade:#8FB79A; --jade-soft:#243228; --on:#1A1714; } }
-:root[data-theme="dark"]{ --paper:#1A1714; --card:#241F1B; --ink:#EDE6D8; --ink2:#C9C1B3; --mist:#8E877D; --line:#3A332C; --indigo:#8FA9D6; --indigo-soft:#26303F; --zhu:#E0553A; --zhu-soft:#3F2520; --ocre:#C89A6A; --ocre-soft:#3A2E22; --jade:#8FB79A; --jade-soft:#243228; --on:#1A1714; }
+/* Les cases du menu. Par défaut, la carte et l'indigo ; les quatre pigments de la peinture
+   chinoise (石青 azurite, 藤黄 gomme-gutte, 桃红 rouge de pêcher, 石绿 malachite) servent à
+   l'écran qui les veut. Une fête repeint les cases et le bouton, rien d'autre. */
+:root{ --tile-bg:var(--card); --tile-fg:var(--indigo); --tile-ink:var(--ink); --tile-ink2:var(--ink2); --tile-bd:transparent;
+  --t1:#1E5A8A; --t1-bg:#DCE7F1; --t2:#9A6300; --t2-bg:#F5E5BE; --t3:#A8506B; --t3-bg:#F6E0E6; --t4:#1F7A5A; --t4-bg:#D5EADF; }
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent} html,body{margin:0;height:100%}
-html{background:var(--paper);color-scheme:light dark}
+html{background:var(--paper);color-scheme:light}
 body{background:var(--paper);color:var(--ink);font-family:var(--sans);font-size:17px;line-height:1.45;overscroll-behavior:none}
 /* grain de papier */
-body::before{content:"";position:fixed;inset:0;pointer-events:none;z-index:0;opacity:.05;background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .5 0'/></filter><rect width='160' height='160' filter='url(%23n)'/></svg>")}
+body::before{content:"";position:fixed;inset:0;pointer-events:none;z-index:0;opacity:var(--grain-o);background-image:var(--grain)}
 button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:pointer;text-align:left}
 
 #app{position:relative;z-index:1;display:flex;flex-direction:column;min-height:100%;max-width:520px;margin:0 auto}
@@ -67,7 +75,7 @@ h1{font-family:var(--head);font-weight:700;font-size:30px;line-height:1.15;lette
 
 /* un seul bouton, en bas */
 .foot{margin-top:auto;padding-top:18px}
-.btn{display:flex;align-items:center;justify-content:center;gap:8px;min-height:50px;padding:0 18px;border-radius:12px;background:var(--indigo);color:var(--on);font-weight:600;font-size:17px;width:100%}
+.btn{display:flex;align-items:center;justify-content:center;gap:8px;min-height:50px;padding:0 18px;border-radius:12px;background:var(--act);color:var(--act-ink);font-weight:600;font-size:17px;width:100%}
 .btn.ghost{background:transparent;border:1px solid var(--line);color:var(--ink)}
 .btn:disabled{opacity:.4}
 
@@ -516,7 +524,5 @@ h1{font-family:var(--head);font-weight:700;font-size:30px;line-height:1.15;lette
 .tn .hit{fill:transparent;stroke:none}
 /* les sélecteurs des réglages : un choix sur deux lignes reste centré dans sa case */
 .seg button{text-align:center;line-height:1.25}
-/* le gabarit gris du tracé : en sombre, le trait de séparation se perdait sur la carte */
+/* le gabarit gris du tracé : sa propre couleur, pour qu'une fête de nuit la change */
 :root{--guide:#D9D1C2}
-@media (prefers-color-scheme: dark){ :root:not([data-theme="light"]){ --guide:#5E554B } }
-:root[data-theme="dark"]{ --guide:#5E554B }
