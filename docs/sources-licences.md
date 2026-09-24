@@ -19,7 +19,7 @@ Hypothèse de distribution : PWA gratuite sur le web, app iOS payante (achat à 
 | Norme GF 0014-2009 | 514 composants | texte normatif, non vérifié en ligne | utilisable pour la logique ; ne pas reproduire le document |
 | Listes Eduscol | parcours Lire | publication officielle, page non consultable | utilisable comme liste de caractères ; pas de reprise de texte |
 | Référentiel HSK 3.0 | parcours HSK | publication officielle, page non consultable | idem ; ne pas rediffuser le PDF |
-| `lunar_python` (6tail) | dates des fêtes (春节, 中秋) calculées dans le pipeline | MIT, `LICENSE` du paquet 1.4.8 | utilisable ; bibliothèque du pipeline seulement, jamais embarquée : l'app ne reçoit que des dates, qui sont des faits de calendrier |
+| `lunar_python` (6tail) | dates des fêtes (春节, 元宵, 清明, 端午, 七夕, 中秋, 重阳, 冬至) calculées dans le pipeline | MIT, `LICENSE` du paquet 1.4.8 | utilisable ; bibliothèque du pipeline seulement, jamais embarquée : l'app ne reçoit que des dates, qui sont des faits de calendrier |
 | LxgwSeal (小篆) | formes sigillaires | SIL OFL 1.1 | utilisable avec obligations ; couverture insuffisante aujourd'hui |
 | Kaiyuan Small Seal (小篆) | formes sigillaires | SIL OFL 1.1 annoncée | à surveiller ; police non encore publiée |
 | Polices 甲骨文 | formes oraculaires | aucune licence ouverte vérifiée | à écarter en l'état |
@@ -173,7 +173,7 @@ Dans les trois cas, l'attribution est faite sur l'écran « Licences » par cour
 
 ### 6.1 Calendrier des fêtes — `lunar_python`
 
-Les dates du Nouvel An lunaire (春节) et de la mi-automne (中秋) suivent le calendrier luni-solaire chinois. Le pipeline les calcule hors ligne avec `lunar_python` 1.4.8 (`https://github.com/6tail/lunar-python`, MIT, sans dépendance), dans `uv run wenlu fetes calendrier`, qui écrit `data/sources/fetes/calendrier.tsv` ; les tests vérifient le calcul contre des dates connues (春节 2026-02-17 et 2027-02-06, 中秋 2026-09-25 et 2027-09-15), et `wenlu check` le refait à chaque passage.
+Les dates des huit fêtes (春节, 元宵, 端午, 七夕, 中秋, 重阳 au calendrier luni-solaire chinois ; 清明 et 冬至 à leur terme solaire) sont calculées hors ligne avec `lunar_python` 1.4.8 (`https://github.com/6tail/lunar-python`, MIT, sans dépendance), dans `uv run wenlu fetes calendrier`, qui écrit `data/sources/fetes/calendrier.tsv` ; les tests vérifient le calcul contre des dates connues (春节 2026-02-17 et 2027-02-06, 中秋 2026-09-25 et 2027-09-15, 元宵 2026-03-03, 清明 2026-04-05, 端午 2026-06-19, 七夕 2026-08-19, 重阳 2026-10-18, 冬至 2026-12-22…) et relisent chaque date dans la table des fêtes de la bibliothèque, et `wenlu check` refait le calcul à chaque passage.
 
 Décision : **utilisable**. La bibliothèque ne sort pas du pipeline ; `fetes.json` ne porte que des dates, qui ne sont pas protégeables. Les textes des fêtes (vœu, phrases de Tao, anecdote) sont rédigés pour l'app, dans `data/sources/fetes/textes.tsv`, colonne `source`.
 

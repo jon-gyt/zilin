@@ -37,7 +37,13 @@ ANIMAUX = DOSSIER / "animaux.tsv"
 
 @dataclass(frozen=True)
 class Regle:
-    """Où tombe une fête dans l'année lunaire, et combien de jours l'app la fête."""
+    """Où tombe une fête dans l'année, et combien de jours l'app la fête.
+
+    Deux sortes de fêtes. La plupart tombent à un jour du calendrier lunaire :
+    `mois` et `jour` sont alors lunaires. Deux suivent un terme solaire (节气),
+    à date presque fixe du calendrier grégorien : `terme` le nomme (清明, 冬至),
+    `mois` dit le mois grégorien où le chercher à partir du 1er, et `jour` vaut 0.
+    """
 
     id: str
     mois: int
@@ -46,14 +52,30 @@ class Regle:
     avant: int
     apres: int
     description: str
+    #: Le terme solaire, pour une fête qui en suit un ; vide sinon.
+    terme: str = ""
 
 
-#: Les fêtes que l'app connaît. 春节 : du réveillon 除夕 (veille du 1er jour du
-#: 1er mois) à la fête des Lanternes 元宵 (15e jour), soit −1 à +14 jours.
-#: 中秋 : le 15e jour du 8e mois, trois jours avant et le lendemain.
+#: Les fêtes que l'app connaît, dans l'ordre de l'année. Les fenêtres ne se
+#: chevauchent jamais (`fautes_calendrier` le vérifie).
+#:
+#: - 春节 : du réveillon 除夕 (veille du 1er jour du 1er mois) au 14e jour, −1 à +13 ;
+#: - 元宵 : la fête des Lanternes, le 15e jour du 1er mois, son jour seulement ;
+#: - 清明 : le terme solaire de début avril, de la veille au lendemain ;
+#: - 端午 : le 5e jour du 5e mois, de deux jours avant au lendemain ;
+#: - 七夕 : le 7e soir du 7e mois, de deux jours avant au soir même ;
+#: - 中秋 : le 15e jour du 8e mois, de trois jours avant au lendemain ;
+#: - 重阳 : le 9e jour du 9e mois, de la veille au lendemain ;
+#: - 冬至 : le terme solaire de fin décembre, de la veille au lendemain.
 REGLES: dict[str, Regle] = {
-    "chunjie": Regle("chunjie", 1, 1, 1, 14, "1er jour du 1er mois lunaire, du réveillon à 元宵"),
+    "chunjie": Regle("chunjie", 1, 1, 1, 13, "1er jour du 1er mois lunaire, du réveillon au 14e jour"),
+    "yuanxiao": Regle("yuanxiao", 1, 15, 0, 0, "15e jour du 1er mois lunaire, fête des Lanternes"),
+    "qingming": Regle("qingming", 4, 0, 1, 1, "terme solaire 清明, début avril", terme="清明"),
+    "duanwu": Regle("duanwu", 5, 5, 2, 1, "5e jour du 5e mois lunaire"),
+    "qixi": Regle("qixi", 7, 7, 2, 0, "7e jour du 7e mois lunaire"),
     "zhongqiu": Regle("zhongqiu", 8, 15, 3, 1, "15e jour du 8e mois lunaire"),
+    "chongyang": Regle("chongyang", 9, 9, 1, 1, "9e jour du 9e mois lunaire"),
+    "dongzhi": Regle("dongzhi", 12, 0, 1, 1, "terme solaire 冬至, fin décembre", terme="冬至"),
 }
 
 #: Les années que le calendrier doit couvrir au moins.
@@ -69,6 +91,7 @@ CLES_REQUISES: tuple[str, ...] = (
     "tao",
     "anecdote_rubrique",
     "anecdote_c",
+    "anecdote_sens",
     "anecdote_titre",
     "anecdote_texte",
 )
@@ -227,11 +250,32 @@ def version_lunar() -> str:
 
 
 def date_de(regle: Regle, annee: int) -> date:
-    """La date grégorienne d'une fête pour une année lunaire, par `lunar_python`."""
-    from lunar_python import Lunar
+    """La date grégorienne d'une fête pour une année lunaire, par `lunar_python`.
 
+    Un terme solaire se cherche à partir du 1er du mois grégorien de la règle : le
+    premier terme de ce nom qui suit, au jour de Pékin (UTC+8), comme le calendrier
+    chinois le compte. 清明 et 冬至 tombent dans l'année lunaire de même numéro.
+    """
+    from lunar_python import Lunar, Solar
+
+    if regle.terme:
+        lunaire = Solar.fromYmd(annee, regle.mois, 1).getLunar()
+        for _ in range(24):
+            terme = lunaire.getNextJieQi()
+            solaire = terme.getSolar()
+            if terme.getName() == regle.terme:
+                return date(solaire.getYear(), solaire.getMonth(), solaire.getDay())
+            lunaire = solaire.next(1).getLunar()
+        raise ValueError(f"terme solaire {regle.terme} introuvable en {annee}")  # pragma: no cover
     solaire = Lunar.fromYmd(annee, regle.mois, regle.jour).getSolar()
     return date(solaire.getYear(), solaire.getMonth(), solaire.getDay())
+
+
+def appel_de(regle: Regle, annee: int) -> str:
+    """L'appel à `lunar_python` qui donne la date, tel que la colonne `source` le cite."""
+    if regle.terme:
+        return f"Solar.fromYmd({annee}, {regle.mois}, 1).getLunar().getNextJieQi() → {regle.terme}"
+    return f"Lunar.fromYmd({annee}, {regle.mois}, {regle.jour})"
 
 
 def animal_de(annee: int) -> str:
@@ -252,7 +296,7 @@ def calculer(de: int, a: int) -> list[Entree]:
             apres=regle.apres,
             annee=annee,
             animal=animal_de(annee),
-            source=f"{source}, Lunar.fromYmd({annee}, {regle.mois}, {regle.jour})",
+            source=f"{source}, {appel_de(regle, annee)}",
         )
         for annee in range(de, a + 1)
         for regle in REGLES.values()
@@ -269,11 +313,13 @@ def tsv_calendrier(entrees: Sequence[Entree]) -> str:
         "# Source : calendrier luni-solaire chinois (农历), dates calculées hors ligne",
         f"# par la bibliothèque lunar_python {version_lunar()} (MIT,"
         " https://github.com/6tail/lunar-python).",
-        "# Contrôlées par les tests contre des dates connues : 春节 2026-02-17 et",
-        "# 2027-02-06, 中秋 2026-09-25 et 2027-09-15.",
+        "# Contrôlées par les tests contre des dates connues, dont pour 2026 : 春节 02-17,",
+        "# 元宵 03-03, 清明 04-05, 端午 06-19, 七夕 08-19, 中秋 09-25, 重阳 10-18, 冬至 12-22.",
+        "# 清明 et 冬至 sont des termes solaires (节气), comptés au jour de Pékin (UTC+8).",
         "#",
         "# `avant` et `apres` : jours de fête avant et après la date. 春节 va du réveillon",
-        "# 除夕 (−1) à la fête des Lanternes 元宵 (+14) ; 中秋 de −3 à +1.",
+        "# 除夕 (−1) au 14e jour (+13) et 元宵 prend le 15e (0, 0) ; 清明 −1 à +1 ;",
+        "# 端午 −2 à +1 ; 七夕 −2 à 0 ; 中秋 −3 à +1 ; 重阳 −1 à +1 ; 冬至 −1 à +1.",
         "# `annee_lunaire` : l'année lunaire qui porte la fête ; `animal`, son animal",
         "# (voir `animaux.tsv`, rang = (année − 4) mod 12).",
         "#",

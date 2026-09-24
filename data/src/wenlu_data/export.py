@@ -544,15 +544,20 @@ def caracteres_interface(chemin: Path | None = None) -> list[str]:
     return vus
 
 
-def document_fetes(version: str, noeuds: Mapping[str, Noeud]) -> dict[str, object]:
+def document_fetes(
+    version: str, noeuds: Mapping[str, Noeud], pinyin: Mapping[str, str] | None = None
+) -> dict[str, object]:
     """Le JSON écrit dans `fetes.json` : le calendrier, les textes de chaque fête.
 
     `calendrier` donne chaque fête d'une année, sa fenêtre et l'animal de l'année
-    lunaire ; `fetes`, le vœu, les phrases de Tao et l'anecdote ; `racines`, la
+    lunaire ; `fetes`, le vœu, les phrases de Tao et l'anecdote, dont le caractère
+    bonus (`c`), son pinyin d'Unihan (`pinyin`, vide s'il n'en a pas) et son sens
+    rédigé pour l'app (`sens`) ; `racines`, la
     famille de chaque caractère dessiné, pour que l'app trouve ses traits sans
     relire toutes les familles. Les jetons `{animal}` et `{quand}` restent tels
     quels : l'app les remplit au jour de la fête.
     """
+    pinyin = pinyin or {}
     entrees = fetes_mod.charger_calendrier()
     animaux = fetes_mod.charger_animaux()
     textes = fetes_mod.charger_textes()
@@ -596,6 +601,8 @@ def document_fetes(version: str, noeuds: Mapping[str, Noeud]) -> dict[str, objec
                 "anecdote": {
                     "rubrique": un(fete, "anecdote_rubrique"),
                     "c": un(fete, "anecdote_c"),
+                    "pinyin": pinyin.get(un(fete, "anecdote_c"), ""),
+                    "sens": un(fete, "anecdote_sens"),
                     "titre": un(fete, "anecdote_titre"),
                     "texte": un(fete, "anecdote_texte"),
                 },
@@ -1060,7 +1067,7 @@ def assembler(
         textes[f"contes/{conte}.json"] = _json(document_conte(conte, versions, version))
 
     textes["paires.json"] = _json(document_paires(groupes, version))
-    textes["fetes.json"] = _json(document_fetes(version, noeuds))
+    textes["fetes.json"] = _json(document_fetes(version, noeuds, pinyin))
     textes["LICENCES.md"] = licences_md(version)
     textes["traits/MODIFICATIONS.md"] = modifications_md(version, len(graphies))
     for nom in (ARPHIC, UNICODE_NOTICE):

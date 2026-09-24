@@ -1,9 +1,12 @@
 # Textes des fêtes : le vœu, les phrases de Tao, l'anecdote du jour de fête.
 #
-# Source : textes rédigés pour l'app, repris du prototype validé par le
-# propriétaire (menu de départ et anecdote de fête, septembre 2026). Aucun texte
-# tiers n'est recopié ; les faits (légende de 年, lapin de jade 玉兔, 福 à
-# l'envers) relèvent du folklore commun.
+# Source : textes rédigés pour l'app. Ceux du Nouvel An et de la mi-automne sont
+# repris du prototype validé par le propriétaire (menu de départ et anecdote de
+# fête, septembre 2026) ; ceux des six autres fêtes sont écrits sur le même modèle
+# (story 4b.9). Aucun texte tiers n'est recopié : les faits (légende de 年, lapin
+# de jade 玉兔, 福 à l'envers, 灯谜, Qu Yuan 屈原, pont des pies 鹊桥, 登高, dicton
+# des raviolis du solstice) relèvent du folklore commun, et le vers de Du Mu 杜牧
+# cité à Qingming (清明时节雨纷纷, IXe siècle) est dans le domaine public.
 #
 # Format : TSV, `#` en commentaire, quatre colonnes séparées par une tabulation.
 # Une clé par ligne ; `tao` se répète, une ligne par phrase, dans l'ordre où Tao
@@ -12,10 +15,15 @@
 # - `{animal}` : l'animal de l'année lunaire, pris dans `animaux.tsv` par
 #   l'année du calendrier (« de la Chèvre 羊 » en 2027) ;
 # - `{quand}` : le délai jusqu'au soir de la fête (« Demain soir », « Ce soir »).
+#   Seules les fêtes du soir s'en servent ; les autres textes valent pour chaque
+#   jour de la fenêtre.
 #
 # `caractere_voeu` est le caractère dessiné à côté du vœu (le 福 à l'envers du
-# Nouvel An) ; `anecdote_c`, celui de l'anecdote. Tous deux sont dessinés depuis
-# leurs traits : `wenlu check` vérifie qu'ils sont dans les traits exportés.
+# Nouvel An) ; `anecdote_c`, celui de l'anecdote : le caractère bonus de la fête,
+# que l'anecdote fait découvrir (灯, 雨, 粽, 桥, 菊, 冬…). Tous deux sont dessinés
+# depuis leurs traits : `wenlu check` vérifie qu'ils sont dans les traits exportés.
+# `anecdote_sens` est le sens du caractère bonus, en français ; son pinyin vient
+# d'Unihan, par l'export.
 #
 fete	cle	valeur	source
 chunjie	nom	Nouvel An lunaire	rédigé pour l'app
@@ -28,8 +36,61 @@ chunjie	tao	新年好 ! Bonne année !	rédigé pour l'app
 chunjie	tao	Un 福 à l'envers : le bonheur arrive.	rédigé pour l'app
 chunjie	anecdote_rubrique	L'anecdote du Nouvel An	rédigé pour l'app
 chunjie	anecdote_c	年	rédigé pour l'app
+chunjie	anecdote_sens	l'année	rédigé pour l'app
 chunjie	anecdote_titre	Pourquoi tout est rouge au Nouvel An.	rédigé pour l'app
 chunjie	anecdote_texte	La légende raconte qu'un monstre nommé 年 nián sortait chaque hiver dévorer les villages. Il avait peur de trois choses : le rouge, le feu et le bruit. D'où les papiers rouges sur les portes, les lanternes et les pétards. Et on colle 福 fú, le bonheur, à l'envers : « à l'envers » se dit 倒 dào, comme 到 dào, arriver. Le bonheur arrive.	rédigé pour l'app
+yuanxiao	nom	Fête des Lanternes	rédigé pour l'app
+yuanxiao	nom_zh	元宵节	rédigé pour l'app
+yuanxiao	voeu_zh	元宵节快乐	rédigé pour l'app
+yuanxiao	voeu_pinyin	yuánxiāojié kuàilè	rédigé pour l'app
+yuanxiao	voeu_fr	{quand}, fête des Lanternes	rédigé pour l'app
+yuanxiao	tao	{quand}, les lanternes !	rédigé pour l'app
+yuanxiao	tao	Une devinette ? Un 灯谜 !	rédigé pour l'app
+yuanxiao	tao	Un 汤圆 tout rond. Miam.	rédigé pour l'app
+yuanxiao	anecdote_rubrique	L'anecdote de la fête des Lanternes	rédigé pour l'app
+yuanxiao	anecdote_c	灯	rédigé pour l'app
+yuanxiao	anecdote_sens	la lampe, la lanterne	rédigé pour l'app
+yuanxiao	anecdote_titre	Pourquoi des devinettes sur les lanternes ?	rédigé pour l'app
+yuanxiao	anecdote_texte	Le 15e jour de l'an, 元宵 yuánxiāo, c'est la première pleine lune, et le Nouvel An s'achève. Le soir, on allume des lanternes, 灯 dēng, et l'on y accroche des devinettes, les 灯谜 dēngmí : beaucoup se résolvent en démontant un caractère, brique par brique. Puis on mange des 汤圆 tāngyuán, boulettes de riz rondes et sucrées. Dans 灯, le feu 火 à gauche : la flamme qui éclaire.	rédigé pour l'app
+qingming	nom	Fête de Qingming	rédigé pour l'app
+qingming	nom_zh	清明节	rédigé pour l'app
+qingming	voeu_zh	清明安康	rédigé pour l'app
+qingming	voeu_pinyin	qīngmíng ānkāng	rédigé pour l'app
+qingming	voeu_fr	Temps clair, paix et santé	rédigé pour l'app
+qingming	tao	Il pleut tout fin : c'est 清明.	rédigé pour l'app
+qingming	tao	Un brin de saule ? Tiens.	rédigé pour l'app
+qingming	tao	On fait voler le cerf-volant ?	rédigé pour l'app
+qingming	anecdote_rubrique	L'anecdote de Qingming	rédigé pour l'app
+qingming	anecdote_c	雨	rédigé pour l'app
+qingming	anecdote_sens	la pluie	rédigé pour l'app
+qingming	anecdote_titre	Pourquoi dit-on qu'il pleut à Qingming ?	rédigé pour l'app
+qingming	anecdote_texte	清明 qīngmíng, « pur et lumineux », est l'un des vingt-quatre termes solaires : début avril, le printemps s'installe. Un poème attribué à Du Mu 杜牧 s'ouvre ainsi : 清明时节雨纷纷, « au temps de Qingming, la pluie tombe fine ». Les familles vont saluer leurs aïeux et poser des fleurs, puis se promènent dans l'herbe neuve et font voler des cerfs-volants. Dans 雨, les gouttes tombent sous le ciel.	rédigé pour l'app
+duanwu	nom	Fête des bateaux	rédigé pour l'app
+duanwu	nom_zh	端午节	rédigé pour l'app
+duanwu	voeu_zh	端午安康	rédigé pour l'app
+duanwu	voeu_pinyin	duānwǔ ānkāng	rédigé pour l'app
+duanwu	voeu_fr	Paix et santé, fête des bateaux	rédigé pour l'app
+duanwu	tao	Un 粽子 ? Miam.	rédigé pour l'app
+duanwu	tao	Les bateaux font la course !	rédigé pour l'app
+duanwu	tao	De l'armoise à la porte : 艾.	rédigé pour l'app
+duanwu	anecdote_rubrique	L'anecdote de la fête des bateaux	rédigé pour l'app
+duanwu	anecdote_c	粽	rédigé pour l'app
+duanwu	anecdote_sens	le zongzi, riz en feuilles	rédigé pour l'app
+duanwu	anecdote_titre	Pourquoi des courses de bateaux ?	rédigé pour l'app
+duanwu	anecdote_texte	Le 5e jour du 5e mois, c'est 端午 duānwǔ. On raconte que le poète Qu Yuan 屈原, ministre loyal écarté par son roi, disparut dans la rivière Miluo ; on partit en barque à sa recherche, et l'on jeta du riz dans l'eau en sa mémoire. De là les courses de bateaux et les 粽子 zòngzi, riz gluant ficelé dans des feuilles de bambou. À la porte, on suspend l'armoise 艾. Dans 粽, le riz 米 est à gauche.	rédigé pour l'app
+qixi	nom	Fête de Qixi	rédigé pour l'app
+qixi	nom_zh	七夕	rédigé pour l'app
+qixi	voeu_zh	七夕快乐	rédigé pour l'app
+qixi	voeu_pinyin	qīxī kuàilè	rédigé pour l'app
+qixi	voeu_fr	{quand}, le pont des pies	rédigé pour l'app
+qixi	tao	{quand}, le pont des pies !	rédigé pour l'app
+qixi	tao	Que va aider les pies.	rédigé pour l'app
+qixi	tao	Tu vois la Voie lactée ?	rédigé pour l'app
+qixi	anecdote_rubrique	L'anecdote de Qixi	rédigé pour l'app
+qixi	anecdote_c	桥	rédigé pour l'app
+qixi	anecdote_sens	le pont	rédigé pour l'app
+qixi	anecdote_titre	Pourquoi les pies font-elles un pont ?	rédigé pour l'app
+qixi	anecdote_texte	La légende dit que la tisserande 织女 zhīnǚ aimait un bouvier, 牛郎 niúláng. On les sépara par la Voie lactée, la « rivière d'argent » 银河 yínhé. Une fois par an, le 7e soir du 7e mois, les pies font de leurs ailes un pont, 鹊桥 quèqiáo, pour qu'ils se retrouvent : ce sont les étoiles Véga et Altaïr, de chaque côté de la Voie lactée. Dans 桥, le bois 木 : les premiers ponts étaient en bois.	rédigé pour l'app
 zhongqiu	nom	Fête de la mi-automne	rédigé pour l'app
 zhongqiu	nom_zh	中秋节	rédigé pour l'app
 zhongqiu	voeu_zh	中秋快乐	rédigé pour l'app
@@ -40,5 +101,32 @@ zhongqiu	tao	Un 月饼 ? Miam.	rédigé pour l'app
 zhongqiu	tao	Tu vois le lapin ?	rédigé pour l'app
 zhongqiu	anecdote_rubrique	L'anecdote de la mi-automne	rédigé pour l'app
 zhongqiu	anecdote_c	月	rédigé pour l'app
+zhongqiu	anecdote_sens	la lune	rédigé pour l'app
 zhongqiu	anecdote_titre	Pourquoi un lapin sur la lune ?	rédigé pour l'app
 zhongqiu	anecdote_texte	Le soir de la mi-automne, 中秋, la lune est la plus ronde de l'année. La légende dit que Chang'e 嫦娥 y vit depuis qu'elle a bu l'élixir d'immortalité, avec un lapin de jade 玉兔 qui pile des herbes. On partage des gâteaux de lune 月饼, ronds comme elle : rond se dit 圆 yuán, comme dans 团圆 tuányuán, être tous réunis.	rédigé pour l'app
+chongyang	nom	Fête du double neuf	rédigé pour l'app
+chongyang	nom_zh	重阳节	rédigé pour l'app
+chongyang	voeu_zh	重阳安康	rédigé pour l'app
+chongyang	voeu_pinyin	chóngyáng ānkāng	rédigé pour l'app
+chongyang	voeu_fr	Double neuf, on monte voir loin	rédigé pour l'app
+chongyang	tao	On monte voir loin ?	rédigé pour l'app
+chongyang	tao	Un 菊, tout jaune.	rédigé pour l'app
+chongyang	tao	Neuf et neuf : 重阳 !	rédigé pour l'app
+chongyang	anecdote_rubrique	L'anecdote du double neuf	rédigé pour l'app
+chongyang	anecdote_c	菊	rédigé pour l'app
+chongyang	anecdote_sens	le chrysanthème	rédigé pour l'app
+chongyang	anecdote_titre	Pourquoi monter en haut le 9 du 9 ?	rédigé pour l'app
+chongyang	anecdote_texte	Le 9e jour du 9e mois, c'est 重阳 chóngyáng, le « double yang » : neuf, le plus grand des chiffres impairs, y est deux fois. On grimpe sur une hauteur, 登高 dēnggāo, pour voir loin, et l'on admire les chrysanthèmes, 菊 jú, fleurs de l'automne. Comme 九九 jiǔjiǔ sonne comme 久久, longtemps, on souhaite aux anciens une longue vie. Dans 菊, l'herbe 艹 en haut.	rédigé pour l'app
+dongzhi	nom	Solstice d'hiver	rédigé pour l'app
+dongzhi	nom_zh	冬至	rédigé pour l'app
+dongzhi	voeu_zh	冬至快乐	rédigé pour l'app
+dongzhi	voeu_pinyin	dōngzhì kuàilè	rédigé pour l'app
+dongzhi	voeu_fr	{quand}, la plus longue nuit	rédigé pour l'app
+dongzhi	tao	{quand}, la plus longue nuit.	rédigé pour l'app
+dongzhi	tao	饺子 au nord, 汤圆 au sud !	rédigé pour l'app
+dongzhi	tao	Le soleil revient, doucement.	rédigé pour l'app
+dongzhi	anecdote_rubrique	L'anecdote du solstice d'hiver	rédigé pour l'app
+dongzhi	anecdote_c	冬	rédigé pour l'app
+dongzhi	anecdote_sens	l'hiver	rédigé pour l'app
+dongzhi	anecdote_titre	Pourquoi des raviolis au solstice ?	rédigé pour l'app
+dongzhi	anecdote_texte	冬至 dōngzhì, « l'hiver à son sommet » : c'est la nuit la plus longue de l'année, et dès le lendemain les jours rallongent. Au nord, on mange des raviolis, 饺子 jiǎozi ; un dicton dit qu'ils gardent les oreilles au chaud. Au sud, on préfère les 汤圆 tāngyuán, boulettes rondes, pour une famille réunie. Dans 冬, les deux points du bas figurent la glace.	rédigé pour l'app
