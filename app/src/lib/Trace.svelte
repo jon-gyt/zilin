@@ -38,6 +38,8 @@
   /** Vrai quand les traits de ce caractère ne sont pas embarqués : repli sur le glyphe. */
   let sansDonnees = $state(false);
   let retour = $state('');
+  /** Le caractère a été tracé en entier au moins une fois. */
+  let entier = $state(false);
   /** Les erreurs du tracé en cours : c'est ce que la question fait noter. */
   let fautes = 0;
   let writer: HanziWriter | null = null;
@@ -57,6 +59,7 @@
     sansDonnees = false;
     retour = '';
     fautes = 0;
+    entier = false;
     if (!cible) return;
     void strokesOnce()
       .then((s) => {
@@ -121,6 +124,7 @@
       },
       onComplete: () => {
         retour = `${char} tracé en entier.`;
+        entier = true;
         onresultat?.(fautes);
       }
     });
@@ -154,6 +158,9 @@
 {#if !sansDonnees && !quiz}
   <div class="acts">
     <button class="btn ghost" onclick={montrer}>Montrer l'ordre</button>
-    <button class="btn" onclick={tracer}>Tracer au doigt</button>
+    <!-- Une fois tracé, le bouton principal est en bas (« Suivant ») : celui-ci s'efface. -->
+    <button class="btn" class:ghost={entier} onclick={tracer}
+      >{entier ? 'Tracer encore' : 'Tracer au doigt'}</button
+    >
   </div>
 {/if}

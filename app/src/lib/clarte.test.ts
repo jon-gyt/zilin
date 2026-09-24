@@ -30,6 +30,21 @@ describe('les jumeaux : le flash part au tap, jamais avant la lecture de la ques
   });
 });
 
+describe('apprendre, le tracé : une fois tracé, le bouton du bas ne dit plus « sans tracer »', () => {
+  const learn = source('Learn.svelte');
+  const trace = source('Trace.svelte');
+
+  it('le tracé complet remonte à l\'écran, qui change le libellé et rend le bouton principal', () => {
+    expect(learn).toContain('onresultat={() => (traceFait = true)}');
+    expect(learn).toContain("{traceFait ? 'Suivant' : 'Continuer sans tracer'}");
+    expect(learn).toContain('class:ghost={!traceFait}');
+  });
+
+  it('après le tracé, « Tracer au doigt » s\'efface : un seul bouton principal', () => {
+    expect(trace).toContain('class:ghost={entier}');
+  });
+});
+
 describe('la chaîne : la limite de trois minutes ne ferme pas le tour en cours', () => {
   const echoir = corps(source('Game.svelte'), 'echoir');
 
