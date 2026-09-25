@@ -1,18 +1,18 @@
 {
  "version": "0.1.0",
- "date": "2026-09-24T22:31:23Z",
- "empreinte": "sha256:e85e0404eeb7f2a727c632c4943c1cdcb9c97ccdc34f20c53e5bb6436902a826",
+ "date": "2026-09-25T11:25:29Z",
+ "empreinte": "sha256:2ad2cb943e838aef01e46b99321d0c57481a9e6300ae546b50aa9063c8b55603",
  "license": "propriétaire",
  "source": "décomposition GF 0014-2009 réconciliée par le pipeline wenlu ; pinyin d'Unihan (kMandarin) ; textes rédigés pour l'app",
  "source_url": "https://github.com/jon-gyt/zilin",
- "modified": "2026-09-24 : assemblé par `wenlu export`",
+ "modified": "2026-09-25 : assemblé par `wenlu export`",
  "norme": "GF 0014-2009",
- "perimetre": "seuil 255 et HSK 1 : les caractères des deux listes et leurs briques ; les caractères dessinés des fêtes et des termes solaires, et leurs briques",
+ "perimetre": "seuil 255 et HSK 1 : les caractères des deux listes et leurs briques ; les caractères dessinés des fêtes, des termes solaires et des rangs du personnage, et leurs briques",
  "licences": "LICENCES.md",
  "compte": {
-  "familles": 244,
-  "caracteres": 513,
-  "briques": 230,
+  "familles": 247,
+  "caracteres": 527,
+  "briques": 233,
   "muettes": 0,
   "decoupees": 13,
   "fiches_relues": 0,
@@ -3768,7 +3768,7 @@
    "racine": "一",
    "fichier": "familles/一.json",
    "traits": "traits/一.json",
-   "n": 4,
+   "n": 5,
    "avancement_possible": 0.0
   },
   {
@@ -3874,6 +3874,13 @@
    "fichier": "familles/个.json",
    "traits": "traits/个.json",
    "n": 1,
+   "avancement_possible": 0.0
+  },
+  {
+   "racine": "丬",
+   "fichier": "familles/丬.json",
+   "traits": "traits/丬.json",
+   "n": 2,
    "avancement_possible": 0.0
   },
   {
@@ -4258,7 +4265,7 @@
    "racine": "十",
    "fichier": "familles/十.json",
    "traits": "traits/十.json",
-   "n": 3,
+   "n": 4,
    "avancement_possible": 0.0
   },
   {
@@ -4510,7 +4517,7 @@
    "racine": "工",
    "fichier": "familles/工.json",
    "traits": "traits/工.json",
-   "n": 2,
+   "n": 3,
    "avancement_possible": 0.0
   },
   {
@@ -4657,7 +4664,7 @@
    "racine": "户",
    "fichier": "familles/户.json",
    "traits": "traits/户.json",
-   "n": 2,
+   "n": 3,
    "avancement_possible": 0.0
   },
   {
@@ -4671,7 +4678,14 @@
    "racine": "扌",
    "fichier": "familles/扌.json",
    "traits": "traits/扌.json",
-   "n": 4,
+   "n": 5,
+   "avancement_possible": 0.0
+  },
+  {
+   "racine": "才",
+   "fichier": "familles/才.json",
+   "traits": "traits/才.json",
+   "n": 1,
    "avancement_possible": 0.0
   },
   {
@@ -4734,7 +4748,7 @@
    "racine": "木",
    "fichier": "familles/木.json",
    "traits": "traits/木.json",
-   "n": 12,
+   "n": 13,
    "avancement_possible": 0.0
   },
   {
@@ -4878,6 +4892,13 @@
    "avancement_possible": 0.0
   },
   {
+   "racine": "犬",
+   "fichier": "familles/犬.json",
+   "traits": "traits/犬.json",
+   "n": 1,
+   "avancement_possible": 0.0
+  },
+  {
    "racine": "玉",
    "fichier": "familles/玉.json",
    "traits": "traits/玉.json",
@@ -4951,7 +4972,7 @@
    "racine": "目",
    "fichier": "familles/目.json",
    "traits": "traits/目.json",
-   "n": 2,
+   "n": 3,
    "avancement_possible": 0.0
   },
   {
@@ -4986,7 +5007,7 @@
    "racine": "禾",
    "fichier": "familles/禾.json",
    "traits": "traits/禾.json",
-   "n": 3,
+   "n": 4,
    "avancement_possible": 0.0
   },
   {
@@ -5000,7 +5021,7 @@
    "racine": "立",
    "fichier": "familles/立.json",
    "traits": "traits/立.json",
-   "n": 6,
+   "n": 7,
    "avancement_possible": 0.0
   },
   {
@@ -5098,7 +5119,7 @@
    "racine": "艹",
    "fichier": "familles/艹.json",
    "traits": "traits/艹.json",
-   "n": 5,
+   "n": 6,
    "avancement_possible": 0.0
   },
   {
@@ -5447,5 +5468,6 @@
  "cuisine": "cuisine.json",
  "lettres": "lettres.json",
  "wechat": "wechat.json",
+ "heros": "heros.json",
  "apercu": "apercu/index.json"
 }
