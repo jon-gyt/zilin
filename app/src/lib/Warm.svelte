@@ -3,7 +3,7 @@
    * Pas 2, Échauffer : les cartes dues du jour, en questions (maquette `s-rev`).
    *
    * La pile est figée à l'ouverture du pas et rangée dans la progression : la reprise
-   * tombe sur la question exacte. Les sept types viennent de `questions.ts`, le corpus de
+   * tombe sur la question exacte. Les huit types viennent de `questions.ts`, le corpus de
    * `revision.ts`, la planification de `srs.ts`. Tao est là en posture révision, sans
    * commentaire : on apprend, elle ne parle pas.
    */
@@ -29,6 +29,7 @@
     sures
   } from './revision';
   import { echeance, repriseRev, type Progress, type Revision } from './session';
+  import { voixPretes } from './audio';
   import { humeur, stade } from './tao';
 
   let {
@@ -132,10 +133,38 @@
     };
   });
 
-  const pret = $derived(chargee && v !== null);
+  /**
+   * La voix mandarin de l'appareil, une fois ses voix annoncées : sans elle, la question à
+   * l'oreille ne se pose pas. Attendue avant de tirer la série, pour qu'elle ne change pas
+   * en route.
+   */
+  let voix = $state(null as boolean | null);
+
+  $effect(() => {
+    let vivant = true;
+    void voixPretes()
+      .then((x) => {
+        if (vivant) voix = x;
+      })
+      .catch(() => {
+        if (vivant) voix = false;
+      });
+    return () => {
+      vivant = false;
+    };
+  });
+
+  const pret = $derived(chargee && v !== null && voix !== null);
 
   const corpus = $derived(
-    corpusRevision({ fiches: f, voisins: v, cartes: cartesDeLaSeance, paires, trace: p.trace })
+    corpusRevision({
+      fiches: f,
+      voisins: v,
+      cartes: cartesDeLaSeance,
+      paires,
+      trace: p.trace,
+      voix: voix === true
+    })
   );
 
   /** Une question par carte de la pile, dans l'ordre. La graine du jour fait le reste. */
