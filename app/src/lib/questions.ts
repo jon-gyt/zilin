@@ -1,6 +1,6 @@
 /**
- * Les sept types de questions de la révision, et le choix des leurres par ressemblance
- * de composants.
+ * Les huit types de questions de la révision, et le choix des leurres par ressemblance
+ * de composants (et de son, pour la question posée à l'oreille).
  *
  * Tout ce module est pur : aucune requête, aucun accès au stockage, aucune horloge,
  * aucun `Math.random`. Les données (fiches, décompositions, acquis, paires à ne pas
@@ -14,26 +14,37 @@
 import { SEUIL_DEBLOCAGE, stability, type Outcome, type ReviewCard } from './srs';
 import type { Etiquette, Fiche, Mot, Role } from './content';
 
-/* ---------- les sept types ---------- */
+/* ---------- les huit types ---------- */
 
 /**
  * - `sens` : le sens d'un caractère ;
  * - `caractere` : le caractère à partir du sens ;
  * - `assemblage` : assembler les briques dans l'ordre d'écriture ;
  * - `trou` : un trou dans un mot ;
- * - `oreille` : reconnaissance à l'oreille (l'audio est une référence de fichier) ;
+ * - `oreille` : reconnaître le caractère entendu, dit par le fichier audio de la fiche ou,
+ *   à défaut, par la voix mandarin de l'appareil ;
+ * - `ton` : trouver le ton de la lecture principale, le pinyin donné sans ton ;
  * - `son` : « quel élément donne le son ? » ;
  * - `trace` : tracé au doigt, délégué à Hanzi Writer.
  */
-export type TypeQuestion = 'sens' | 'caractere' | 'assemblage' | 'trou' | 'oreille' | 'son' | 'trace';
+export type TypeQuestion =
+  | 'sens'
+  | 'caractere'
+  | 'assemblage'
+  | 'trou'
+  | 'oreille'
+  | 'ton'
+  | 'son'
+  | 'trace';
 
-/** L'ordre de référence des sept types. */
+/** L'ordre de référence des huit types. */
 export const TYPES: readonly TypeQuestion[] = [
   'sens',
   'caractere',
   'assemblage',
   'trou',
   'oreille',
+  'ton',
   'son',
   'trace'
 ];
@@ -45,6 +56,7 @@ export const LABELS: Record<TypeQuestion, string> = {
   assemblage: 'Assemblage',
   trou: 'Dans un mot',
   oreille: 'À l’oreille',
+  ton: 'Le ton',
   son: 'Son ou sens',
   trace: 'Tracé'
 };
@@ -57,6 +69,12 @@ export const BONUS_MEME_NOMBRE = 0.25;
 
 /** Une paire à ne pas confondre passe devant tout le reste. */
 export const BONUS_PAIRE = 2;
+
+/**
+ * À l'oreille, un caractère de même syllabe à un autre ton (妈 mā pour 马 mǎ) est le
+ * leurre le plus proche : il passe devant la seule ressemblance de forme.
+ */
+export const BONUS_MEME_SYLLABE = 1;
 
 /** Tracé : au-delà de deux erreurs, la réponse est fausse. */
 export const ERREURS_TRACE_MAX = 2;
@@ -89,6 +107,11 @@ export type Corpus = {
   seuil?: number;
   /** Tracé activé dans les réglages. Défaut : activé. */
   trace?: boolean;
+  /**
+   * L'appareil a une voix mandarin (`audio.voixMandarin`) : la question `oreille` peut se
+   * poser sans fichier audio. Défaut : non, jamais d'écran muet.
+   */
+  voix?: boolean;
 };
 
 /** Relit le fichier des paires à ne pas confondre. Pur : l'appelant fait la requête. */
@@ -148,8 +171,13 @@ export type Question = {
   mot?: Mot;
   avant?: string;
   apres?: string;
-  /** `oreille` : référence du fichier audio. L'app n'en a pas encore. */
+  /**
+   * `oreille` : référence du fichier audio de la fiche, quand elle en a. Sans elle, le
+   * caractère est dit par la voix de l'appareil (`audio.dire`).
+   */
   audio?: string;
+  /** `ton` : le pinyin de la lecture principale, sans son ton (`ma`). */
+  sansTon?: string;
   /** `trace` : nombre de traits, quand les données de tracé sont là. */
   traits?: number;
 };
@@ -260,11 +288,13 @@ function choisirLeurres(
   n: number,
   exclus: readonly string[],
   valeur: Affichage,
-  dejaVus: readonly string[]
+  dejaVus: readonly string[],
+  bonus: (c: string) => number = () => 0
 ): { leurres: string[]; sources: string[]; manque: number } {
   const interdits = new Set(exclus);
   const uniques = [...new Set(candidats)].filter((c) => !interdits.has(c));
-  const score = (c: string) => Math.max(...cibles.map((cible) => ressemblance(c, cible, corpus)));
+  const score = (c: string) =>
+    Math.max(...cibles.map((cible) => ressemblance(c, cible, corpus))) + bonus(c);
   const classe = uniques
     .map((c) => ({ c, s: score(c), h: hachage(`${graine}/${c}`) }))
     .sort((x, y) => y.s - x.s || x.h - y.h || (x.c < y.c ? -1 : 1));
@@ -323,6 +353,114 @@ function candidatsBriques(f: Fiche, corpus: Corpus): string[] {
   return out;
 }
 
+/* ---------- les tons ---------- */
+
+/** Les voyelles qui portent le ton, et leurs quatre marques (1 à 4). */
+const MARQUES: Readonly<Record<string, string>> = {
+  a: 'āáǎà',
+  e: 'ēéěè',
+  i: 'īíǐì',
+  o: 'ōóǒò',
+  u: 'ūúǔù',
+  ü: 'ǖǘǚǜ'
+};
+
+/** Les diacritiques des quatre tons après décomposition (NFD). Le tréma du ü n'en est pas. */
+const DIACRITIQUES_TONS: readonly string[] = ['\u0304', '\u0301', '\u030C', '\u0300'];
+
+/** Une syllabe de pinyin sans ton, en minuscules : `ma`, `lüe`. */
+const SYLLABE = /^[a-zü]+$/;
+
+/** Le ton d'une syllabe : 1 à 4, 0 pour le ton neutre (aucune marque). */
+export function tonDe(syllabe: string): number {
+  const d = syllabe.normalize('NFD');
+  let ton = 0;
+  DIACRITIQUES_TONS.forEach((m, i) => {
+    if (d.includes(m)) ton = i + 1;
+  });
+  return ton;
+}
+
+/** La syllabe sans son ton, le ü gardé : `lǜ` donne `lü`. */
+export function sansTon(syllabe: string): string {
+  let d = syllabe.normalize('NFD');
+  for (const m of DIACRITIQUES_TONS) d = d.split(m).join('');
+  return d.normalize('NFC');
+}
+
+/**
+ * Pose le ton `ton` (1 à 4) sur la voyelle qui le porte : a ou e d'abord, le o de « ou »,
+ * sinon la dernière voyelle (`gui` donne `guì`, `liu` donne `liù`). 0 : le ton neutre, la
+ * syllabe nue. `null` si la syllabe n'a pas de voyelle où le poser.
+ */
+export function marquerTon(base: string, ton: number): string | null {
+  if (ton === 0) return base;
+  const poser = (i: number) => `${base.slice(0, i)}${MARQUES[base[i]][ton - 1]}${base.slice(i + 1)}`;
+  for (const v of ['a', 'e']) {
+    const i = base.indexOf(v);
+    if (i >= 0) return poser(i);
+  }
+  const ou = base.indexOf('ou');
+  if (ou >= 0) return poser(ou);
+  for (let i = base.length - 1; i >= 0; i--) if (base[i] in MARQUES) return poser(i);
+  return null;
+}
+
+/** Les lectures valides d'une fiche, en NFC : celles de l'export, sinon son seul pinyin. */
+export function lecturesDe(f: Fiche): string[] {
+  const brutes = f.lectures && f.lectures.length > 0 ? f.lectures : [f.pinyin];
+  return brutes.map((x) => x.normalize('NFC').trim().toLowerCase()).filter((x) => x !== '');
+}
+
+/** La question de ton d'une fiche : la syllabe sans ton, la bonne lecture, les options. */
+export type SyllabesDuTon = { base: string; bonne: string; options: string[]; leurres: string[] };
+
+/**
+ * La question de ton d'une fiche : la syllabe sans ton, la bonne lecture, et les options
+ * dans l'ordre des tons (ā á ǎ à, puis le ton neutre). Seule la lecture principale
+ * exportée est acceptée ; le ton neutre n'est proposé que si c'est le sien, et aucune
+ * autre lecture valide du caractère (好 hào pour hǎo) n'est jamais un leurre.
+ *
+ * `null` quand l'export ne dit pas toutes les lectures (`lectures` absent, ou la
+ * principale n'y est pas en tête), quand le pinyin n'est pas une syllabe simple, ou
+ * quand il ne reste aucun leurre.
+ */
+export function syllabesDuTon(f: Fiche): SyllabesDuTon | null {
+  const principale = f.pinyin.normalize('NFC').trim().toLowerCase();
+  if (principale === '' || !f.lectures || f.lectures.length === 0) return null;
+  const valides = lecturesDe(f);
+  if (valides[0] !== principale) return null;
+  const base = sansTon(principale);
+  if (!SYLLABE.test(base)) return null;
+  const tons = tonDe(principale) === 0 ? [1, 2, 3, 4, 0] : [1, 2, 3, 4];
+  const options: string[] = [];
+  for (const t of tons) {
+    const o = marquerTon(base, t);
+    if (o === null) return null;
+    if (o === principale || !valides.includes(o)) options.push(o);
+  }
+  const leurres = options.filter((o) => o !== principale);
+  if (!options.includes(principale) || leurres.length === 0) return null;
+  return { base, bonne: principale, options, leurres };
+}
+
+/**
+ * Deux caractères que l'oreille ne départage pas : une lecture valide en commun (是 et
+ * 事, shì). Un caractère sans pinyin connu ne se départage pas non plus, par prudence.
+ */
+export function homophones(a: Fiche, b: Fiche): boolean {
+  const la = lecturesDe(a);
+  const lb = lecturesDe(b);
+  if (la.length === 0 || lb.length === 0) return true;
+  return la.some((x) => lb.includes(x));
+}
+
+/** Même syllabe, ton mis à part (妈 mā, 马 mǎ) : le leurre le plus proche à l'oreille. */
+function memeSyllabe(a: Fiche, b: Fiche): boolean {
+  const sa = new Set(lecturesDe(a).map(sansTon));
+  return lecturesDe(b).some((x) => sa.has(sansTon(x)));
+}
+
 /* ---------- ce que la fiche permet de demander ---------- */
 
 /** Une brique de base : elle ne se décompose pas. */
@@ -347,11 +485,29 @@ export function audioDe(f: Fiche): string | null {
   return f.mots.find((m) => m.audio)?.audio ?? null;
 }
 
+/** Le caractère peut-il être dit : son fichier audio, ou la voix mandarin de l'appareil. */
+export function peutEtreDit(f: Fiche, corpus: Corpus): boolean {
+  return f.pinyin !== '' && (audioDe(f) !== null || corpus.voix === true);
+}
+
+/**
+ * Les caractères acquis qui peuvent servir de leurre à l'oreille : jamais un homophone
+ * de la cible, que l'oreille ne départagerait pas.
+ */
+function candidatsOreille(f: Fiche, corpus: Corpus): string[] {
+  return candidatsCaracteres(f.c, corpus, true).filter((x) => {
+    const g = fiche(x, corpus);
+    return g !== null && !homophones(f, g);
+  });
+}
+
 /**
  * Les types que cette fiche permet de poser, dans l'ordre de `TYPES`.
- * `son` demande un composant de rôle son ; `trou` un mot ; `oreille` un audio ;
- * `trace` une brique de base et le tracé activé ; les QCM sur caractères demandent
- * au moins un autre caractère acquis à montrer.
+ * `son` demande un composant de rôle son ; `trou` un mot ; `oreille` un pinyin, et un
+ * fichier audio ou la voix mandarin de l'appareil (jamais d'écran muet) ; `ton` une
+ * lecture principale exportée avec toutes les autres (`syllabesDuTon`) ; `trace` une
+ * brique de base et le tracé activé ; les QCM sur caractères demandent au moins un autre
+ * caractère acquis à montrer.
  */
 export function typesPossibles(f: Fiche, corpus: Corpus): TypeQuestion[] {
   const connus = candidatsCaracteres(f.c, corpus, true).length;
@@ -360,7 +516,8 @@ export function typesPossibles(f: Fiche, corpus: Corpus): TypeQuestion[] {
   if (f.fr !== '' && connus > 0) out.push('caractere');
   if (f.parts.length >= 2) out.push('assemblage');
   if (motDuTrou(f) !== null && connus > 0) out.push('trou');
-  if (audioDe(f) !== null && connus > 0) out.push('oreille');
+  if (peutEtreDit(f, corpus) && candidatsOreille(f, corpus).length > 0) out.push('oreille');
+  if (syllabesDuTon(f) !== null) out.push('ton');
   if (composantSon(f, corpus) !== null) out.push('son');
   if (estBrique(f) && corpus.trace !== false) out.push('trace');
   return out;
@@ -489,14 +646,40 @@ export function question(
   }
 
   if (type === 'oreille') {
+    /* Les leurres ressemblent par la forme ou par le son (même syllabe, autre ton). */
+    const tirage = choisirLeurres(
+      [f.c],
+      candidatsOreille(f, corpus),
+      corpus,
+      g,
+      NB_LEURRES,
+      [f.c],
+      (c) => c,
+      [f.c],
+      (c) => {
+        const x = fiche(c, corpus);
+        return x !== null && memeSyllabe(f, x) ? BONUS_MEME_SYLLABE : 0;
+      }
+    );
     const audio = audioDe(f);
-    if (audio === null) throw new Error(`Aucun audio : ${f.c}`);
-    const tirage = leurres(f.c, candidatsCaracteres(f.c, corpus, true), corpus, g);
     q.enonce = 'Écoute, puis choisis.';
-    q.audio = audio;
+    if (audio !== null) q.audio = audio;
     q.leurres = tirage.leurres;
     q.manqueLeurres = tirage.manque;
     q.choix = melange([f.c, ...tirage.leurres], g);
+    return q;
+  }
+
+  if (type === 'ton') {
+    const t = syllabesDuTon(f);
+    if (t === null) throw new Error(`Aucune question de ton : ${f.c}`);
+    /* Les syllabes restent dans l'ordre des tons, comme on les récite : mā má mǎ mà. */
+    q.enonce = 'Avec quel ton se lit ce caractère ?';
+    q.sansTon = t.base;
+    q.reponse = [t.bonne];
+    q.leurres = t.leurres;
+    q.manqueLeurres = Math.max(0, NB_LEURRES - t.leurres.length);
+    q.choix = t.options;
     return q;
   }
 
@@ -530,7 +713,7 @@ function caractereDu(d: Due): string {
 
 /**
  * Une carte se pose en question quand le corpus porte sa fiche et que la fiche permet au
- * moins un des sept types. Sinon `serie` la passe, et `horsSerie` la nomme.
+ * moins un des huit types. Sinon `serie` la passe, et `horsSerie` la nomme.
  */
 export function posable(c: string, corpus: Corpus): boolean {
   const f = fiche(c, corpus);
@@ -587,6 +770,8 @@ export type Reponse = string | readonly string[] | { erreurs: number };
  */
 export function indiceErreur(q: Question): string {
   if (q.type === 'assemblage') return "Pas cette suite. Recommence, dans l'ordre d'écriture.";
+  if (q.type === 'ton') return 'Pas ce ton. Encore un essai.';
+  if (q.type === 'oreille') return 'Pas celui-là. Réécoute.';
   if (q.briques.length > 1) return 'Pas celui-là. Regarde les briques.';
   return 'Pas celui-là. Encore un essai.';
 }
@@ -596,10 +781,12 @@ export type Correction = { correct: boolean; explication: Explication; outcome: 
 /**
  * Les caractères que désigne une réponse fausse : le leurre choisi, ou les leurres posés
  * dans un assemblage. Un sens choisi désigne le caractère dont il est le sens. Une brique
- * juste mal placée, une réponse juste ou un tracé ne désignent aucun leurre.
+ * juste mal placée, une réponse juste, un ton ou un tracé ne désignent aucun leurre.
  */
 export function leurresDe(q: Question, reponse: Reponse): string[] {
   if (typeof reponse === 'object' && !Array.isArray(reponse)) return [];
+  /* Un ton pris pour un autre ne désigne aucun caractère. */
+  if (q.type === 'ton') return [];
   const donnee = typeof reponse === 'string' ? [reponse] : [...(reponse as readonly string[])];
   const out: string[] = [];
   for (const x of donnee) {

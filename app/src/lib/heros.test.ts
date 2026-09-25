@@ -11,6 +11,7 @@ import {
   ARTS,
   ART_DE_QUESTION,
   ECHELLES,
+  artDe,
   artsVides,
   avance,
   caracteresDeLAura,
@@ -147,12 +148,23 @@ describe('les points des quatre arts', () => {
       assemblage: 'du',
       trou: 'du',
       oreille: 'ting',
-      son: 'shuo',
+      ton: 'shuo',
+      son: 'du',
       trace: 'xie'
     });
     const p = noterRevision(emptyProgress(JOUR), JOUR, juste('大'));
     expect(p.arts).toEqual(arts({ du: 1 }));
     expect(ARTS.map((a) => a.c).join('')).toBe('读写听说');
+  });
+
+  it('听 : le caractère reconnu au son ; 说 : son ton trouvé ; l’élément de son se lit, 读', () => {
+    expect(artDe('oreille')).toBe('ting');
+    expect(artDe('ton')).toBe('shuo');
+    expect(artDe('son')).toBe('du');
+    let p = noterRevision(emptyProgress(JOUR), JOUR, juste('马', { art: artDe('oreille') }));
+    p = noterRevision(p, JOUR, juste('马', { art: artDe('ton') }));
+    p = noterRevision(p, JOUR, juste('住', { art: artDe('son') }));
+    expect(p.arts).toEqual(arts({ ting: 1, shuo: 1, du: 1 }));
   });
 
   it('un tracé achevé donne un point d’écriture, une fois par brique', () => {

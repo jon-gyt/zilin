@@ -46,9 +46,9 @@ export function total(a: Arts): number {
 
 /**
  * L'art de chaque type de question (`questions.ts`). Lecture : reconnaître ou lire un
- * caractère ou un mot. Écriture : le tracé. Écoute : la question posée au son. Les tons :
- * aucune question de ton n'existe (hors périmètre V1, brief §10) ; « quel élément donne le
- * son ? » est la plus proche, elle y va.
+ * caractère ou un mot, et « quel élément donne le son ? », qui se lit sur la forme.
+ * Écriture : le tracé. Écoute : le caractère reconnu au son (`oreille`). Les tons : trouver
+ * le ton de sa lecture (`ton`).
  */
 export const ART_DE_QUESTION: Readonly<Record<TypeQuestion, Art>> = {
   sens: 'du',
@@ -56,7 +56,8 @@ export const ART_DE_QUESTION: Readonly<Record<TypeQuestion, Art>> = {
   assemblage: 'du',
   trou: 'du',
   oreille: 'ting',
-  son: 'shuo',
+  ton: 'shuo',
+  son: 'du',
   trace: 'xie'
 };
 

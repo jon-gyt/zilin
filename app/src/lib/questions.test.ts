@@ -11,7 +11,9 @@ import {
   indiceErreur,
   leurres,
   lirePaires,
+  marquerTon,
   outcomeDuTrace,
+  syllabesDuTon,
   question,
   ressemblance,
   serie,
@@ -21,6 +23,8 @@ import {
   type TypeQuestion
 } from './questions';
 import type { Fiche } from './content';
+import { grade } from './srs';
+import { Rating } from 'ts-fsrs';
 
 /* ---------- corpus de test, en dur : aucun réseau, aucun fichier de contenu ---------- */
 
@@ -66,6 +70,7 @@ const FICHES: Fiche[] = [
   f('子', 'zǐ', 'un enfant', [], 'sens', 'Un nourrisson emmailloté.'),
   f('好', 'hǎo', 'bon', ['女', '子'], 'sens', "Une femme et un enfant : ce qui est bien.", {
     audio: 'audio/hao.mp3',
+    lectures: ['hǎo', 'hào'],
     mots: [{ hanzi: '好人', pinyin: 'hǎorén', fr: 'quelqu’un de bien', en: '' }]
   })
 ];
@@ -117,6 +122,7 @@ const PORTEUR: Record<TypeQuestion, string> = {
   assemblage: '好',
   trou: '好',
   oreille: '好',
+  ton: '好',
   son: '住',
   trace: '人'
 };
@@ -124,11 +130,11 @@ const PORTEUR: Record<TypeQuestion, string> = {
 const poser = (type: TypeQuestion, graine = 'g'): Question =>
   question(fiche(PORTEUR[type]), type, CORPUS, graine);
 
-/* ---------- les sept types ---------- */
+/* ---------- les huit types ---------- */
 
-describe('les sept types de questions', () => {
-  it('le module en produit sept, pas un de plus', () => {
-    expect(TYPES).toEqual(['sens', 'caractere', 'assemblage', 'trou', 'oreille', 'son', 'trace']);
+describe('les huit types de questions', () => {
+  it('le module en produit huit, pas un de plus', () => {
+    expect(TYPES).toEqual(['sens', 'caractere', 'assemblage', 'trou', 'oreille', 'ton', 'son', 'trace']);
   });
 
   it('chaque type se pose et porte un énoncé, une réponse et une explication', () => {
@@ -152,7 +158,7 @@ describe('les sept types de questions', () => {
     expect(q.apres).toBe('人');
   });
 
-  it('oreille : l’audio est une référence de fichier', () => {
+  it('oreille : l’audio de la fiche est une référence de fichier', () => {
     expect(poser('oreille').audio).toBe('audio/hao.mp3');
   });
 
@@ -274,9 +280,11 @@ describe('les types que la fiche permet', () => {
     expect(typesPossibles(fiche('住'), CORPUS)).not.toContain('trou');
   });
 
-  it('oreille : seulement si un audio est référencé', () => {
+  it('oreille : seulement si un audio est référencé ou si l’appareil a une voix mandarin', () => {
     expect(typesPossibles(fiche('好'), CORPUS)).toContain('oreille');
     expect(typesPossibles(fiche('天'), CORPUS)).not.toContain('oreille');
+    expect(typesPossibles(fiche('天'), { ...CORPUS, voix: false })).not.toContain('oreille');
+    expect(typesPossibles(fiche('天'), { ...CORPUS, voix: true })).toContain('oreille');
   });
 
   it('assemblage : seulement si le caractère se décompose', () => {
@@ -449,5 +457,136 @@ describe("après une erreur : l'indice dit quoi faire, et seulement ce qui a du 
     const src = readFileSync(new URL('Ask.svelte', import.meta.url), 'utf8');
     expect(src).toContain('{indiceErreur(q)}');
     expect(src).not.toContain('Pas celui-là. Regarde les briques.');
+  });
+});
+
+/* ---------- à l'oreille, avec la voix de l'appareil ---------- */
+
+/** De quoi entendre : 马 mǎ, 妈 mā (même syllabe), 吗 ma (polyphone : má, mǎ aussi). */
+const FICHES_SON: Fiche[] = [
+  ...FICHES,
+  f('马', 'mǎ', 'le cheval', [], 'sens', 'Un cheval dressé.', { lectures: ['mǎ'] }),
+  f('妈', 'mā', 'maman', ['女', '马'], 'sens', 'La femme, et le cheval pour le son.', {
+    lectures: ['mā']
+  }),
+  f('吗', 'ma', 'particule de question', ['口', '马'], 'sens', 'La bouche, et le cheval pour le son.', {
+    lectures: ['ma', 'má', 'mǎ']
+  }),
+  f('口', 'kǒu', 'la bouche', [], 'sens', 'Une bouche ouverte.', { lectures: ['kǒu'] }),
+  f('他', 'tā', 'il', ['亻', '也'], 'sens', 'Une personne.'),
+  f('无', '', '', [], null, '')
+];
+
+const CORPUS_SON: Corpus = {
+  fiches: FICHES_SON,
+  decompositions: { ...DECOMPOSITIONS, 马: ['马'], 妈: ['女', '马'], 吗: ['口', '马'], 口: ['口'] },
+  acquis: FICHES_SON.map((x) => ({ c: x.c, stabilite: 10 })),
+  paires: PAIRES
+};
+
+const ficheSon = (c: string): Fiche => {
+  const x = FICHES_SON.find((y) => y.c === c);
+  if (!x) throw new Error(c);
+  return x;
+};
+
+describe('à l’oreille, par la voix de l’appareil', () => {
+  it('sans fichier, la question ne se pose qu’avec une voix mandarin : jamais d’écran muet', () => {
+    expect(typesPossibles(ficheSon('马'), CORPUS_SON)).not.toContain('oreille');
+    expect(typesPossibles(ficheSon('马'), { ...CORPUS_SON, voix: true })).toContain('oreille');
+    const q = question(ficheSon('马'), 'oreille', { ...CORPUS_SON, voix: true }, 'g');
+    expect(q.audio).toBeUndefined();
+    expect(q.choix).toContain('马');
+  });
+
+  it('un caractère sans pinyin ne se pose pas à l’oreille, même avec une voix', () => {
+    expect(typesPossibles(ficheSon('无'), { ...CORPUS_SON, voix: true })).not.toContain('oreille');
+  });
+
+  it('jamais un homophone en leurre ; la même syllabe à un autre ton passe devant', () => {
+    const corpus = { ...CORPUS_SON, voix: true };
+    for (const g of ['a', 'b', 'c', 'd', 'e']) {
+      const q = question(ficheSon('马'), 'oreille', corpus, g);
+      /* 吗 se lit aussi mǎ : l'oreille ne le départagerait pas de 马. */
+      expect(q.leurres).not.toContain('吗');
+      /* Un caractère au pinyin inconnu ne se départage pas non plus. */
+      expect(q.leurres).not.toContain('无');
+      expect(q.leurres[0]).toBe('妈');
+    }
+  });
+
+  it('la notation reste automatique : juste vite, facile ; un leurre est noté, et désigné', () => {
+    const q = question(ficheSon('马'), 'oreille', { ...CORPUS_SON, voix: true }, 'g');
+    expect(grade(corriger(q, '马', { correct: false, tries: 0, seconds: 3 }).outcome)).toBe(Rating.Easy);
+    const faux = corriger(q, q.leurres[0], { correct: false, tries: 0, seconds: 3 });
+    expect(faux.correct).toBe(false);
+    expect(faux.outcome.leurres).toEqual([q.leurres[0]]);
+  });
+});
+
+/* ---------- le ton ---------- */
+
+describe('trouver le ton', () => {
+  it('le ton se pose sur la bonne voyelle', () => {
+    expect(marquerTon('ma', 3)).toBe('mǎ');
+    expect(marquerTon('hao', 4)).toBe('hào');
+    expect(marquerTon('zhou', 1)).toBe('zhōu');
+    expect(marquerTon('gui', 4)).toBe('guì');
+    expect(marquerTon('liu', 2)).toBe('liú');
+    expect(marquerTon('nü', 3)).toBe('nǚ');
+    expect(marquerTon('lüe', 4)).toBe('lüè');
+    expect(marquerTon('ma', 0)).toBe('ma');
+    expect(marquerTon('ng', 2)).toBeNull();
+  });
+
+  it('les quatre tons, dans leur ordre, le pinyin montré sans ton', () => {
+    const q = question(ficheSon('马'), 'ton', CORPUS_SON, 'g');
+    expect(q.sansTon).toBe('ma');
+    expect(q.choix).toEqual(['mā', 'má', 'mǎ', 'mà']);
+    expect(q.reponse).toEqual(['mǎ']);
+    expect(q.manqueLeurres).toBe(0);
+  });
+
+  it('le ton neutre n’est proposé que si la lecture l’a', () => {
+    expect(question(ficheSon('马'), 'ton', CORPUS_SON, 'g').choix).not.toContain('ma');
+    expect(question(ficheSon('吗'), 'ton', CORPUS_SON, 'g').choix).toContain('ma');
+  });
+
+  it('polyphone : seule la lecture principale est acceptée, aucune autre lecture valide n’est un leurre', () => {
+    const hao = question(fiche('好'), 'ton', CORPUS, 'g');
+    expect(hao.reponse).toEqual(['hǎo']);
+    expect(hao.choix).toEqual(['hāo', 'háo', 'hǎo']);
+    expect(hao.leurres).not.toContain('hào');
+    const ma = question(ficheSon('吗'), 'ton', CORPUS_SON, 'g');
+    expect(ma.reponse).toEqual(['ma']);
+    expect(ma.choix).toEqual(['mā', 'mà', 'ma']);
+    for (const x of FICHES_SON) {
+      const t = syllabesDuTon(x);
+      if (t === null) continue;
+      for (const l of t.leurres) expect(x.lectures ?? []).not.toContain(l);
+    }
+  });
+
+  it('sans toutes les lectures exportées, pas de question de ton', () => {
+    /* Une fiche de démonstration ne dit que son pinyin : on ne sait pas si c'est un polyphone. */
+    expect(typesPossibles(fiche('天'), CORPUS)).not.toContain('ton');
+    expect(syllabesDuTon({ ...fiche('好'), lectures: ['hào', 'hǎo'] })).toBeNull();
+    expect(syllabesDuTon({ ...fiche('好'), pinyin: 'hǎorén', lectures: ['hǎorén'] })).toBeNull();
+    expect(typesPossibles(fiche('好'), CORPUS)).toContain('ton');
+  });
+
+  it('la notation reste automatique ; un ton faux ne désigne aucun caractère', () => {
+    const q = question(fiche('好'), 'ton', CORPUS, 'g');
+    const juste = corriger(q, 'hǎo', { correct: false, tries: 0, seconds: 3 });
+    expect(juste.correct).toBe(true);
+    expect(grade(juste.outcome)).toBe(Rating.Easy);
+    expect(grade(corriger(q, 'hǎo', { correct: false, tries: 0, seconds: 9 }).outcome)).toBe(Rating.Good);
+    expect(grade(corriger(q, 'hǎo', { correct: false, tries: 1, seconds: 3 }, ['hāo']).outcome)).toBe(
+      Rating.Hard
+    );
+    const faux = corriger(q, 'hāo', { correct: false, tries: 1, seconds: 3 }, ['háo']);
+    expect(faux.correct).toBe(false);
+    expect(grade(faux.outcome)).toBe(Rating.Again);
+    expect(faux.outcome.leurres).toEqual([]);
   });
 });

@@ -2,7 +2,7 @@
  * Ce qui branche les questions sur le contenu et sur FSRS, pour les deux écrans qui
  * posent des questions : le pas 2 Échauffer et le pas 5 Fixer.
  *
- * Les sept types et le choix des leurres sont dans `questions.ts`, la notation et la
+ * Les huit types et le choix des leurres sont dans `questions.ts`, la notation et la
  * planification dans `srs.ts`, l'état de la session dans `session.ts`. Ici, on assemble
  * seulement le corpus à partir du JSON versionné servi avec l'app, on nomme la graine du
  * jour, et on met en mots ce que FSRS a décidé (le délai, le résumé de fin).
@@ -100,6 +100,8 @@ export type SourcesCorpus = {
   paires?: Paires;
   /** Réglage « proposer le tracé ». */
   trace?: boolean;
+  /** L'appareil a une voix mandarin (`audio.voixPretes`) : la question à l'oreille peut se poser. */
+  voix?: boolean;
 };
 
 /**
@@ -186,7 +188,8 @@ export function decompositionsDe(fiches: readonly Fiche[]): Record<string, strin
 
 /**
  * Le corpus du pas Échauffer : les fiches de la famille et des voisins, les
- * décompositions, l'acquis (les cartes), les paires à ne pas confondre, le réglage tracé.
+ * décompositions, l'acquis (les cartes), les paires à ne pas confondre, le réglage tracé,
+ * et la voix de l'appareil.
  */
 export function corpusRevision(s: SourcesCorpus): Corpus {
   const fiches = fichesDuCorpus(s.famille ?? null, s.voisins, s.fiches ?? []);
@@ -195,7 +198,8 @@ export function corpusRevision(s: SourcesCorpus): Corpus {
     decompositions: decompositionsDe(fiches),
     acquis: s.cartes,
     paires: s.paires ?? [],
-    trace: s.trace ?? true
+    trace: s.trace ?? true,
+    voix: s.voix ?? false
   };
 }
 
@@ -260,7 +264,7 @@ const PLAN_FIXER: readonly ['racine' | 'compose', TypeQuestion][] = [
 
 /**
  * La vérification du jour : la brique et le composé de la session, en trois questions
- * prises dans les sept types. Une question que la fiche ne permet pas est écartée — un
+ * prises dans les huit types. Une question que la fiche ne permet pas est écartée — un
  * jour sans composé, ou sans fiche relue, en pose donc moins.
  */
 export function questionsFixerDuJour(

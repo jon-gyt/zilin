@@ -116,6 +116,12 @@ export type Brique = {
 export type Fiche = {
   c: string;
   pinyin: string;
+  /**
+   * Toutes les lectures valides, la principale (`pinyin`) en tête : 好 `["hǎo", "hào"]`.
+   * Écrit par l'export (Unihan et surcharges) ; absent d'une fiche de démonstration ou
+   * d'un export plus ancien, et la question de ton ne se pose pas alors.
+   */
+  lectures?: string[];
   fr: string;
   en: string;
   /** Décomposition canonique GF 0014-2009, dans l'ordre d'écriture. */
