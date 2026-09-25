@@ -192,15 +192,15 @@ export async function suiteDepart(
 /** Les écrans de la leçon, avant les deux questions. */
 export const LECON = ['f1', 'f2', 'f3', 'f4', 'f5'] as const;
 
-/** Les deux questions, après la leçon. */
-export const QUESTIONS = ['objectif', 'rythme'] as const;
+/** Les deux questions, après la leçon, puis le choix du personnage. */
+export const QUESTIONS = ['objectif', 'rythme', 'personnage'] as const;
 
-/** La barre de progression : cinq points pendant la leçon, trois pour les questions. */
+/** La barre de progression : cinq points pendant la leçon, quatre pour les questions et le personnage. */
 export function points(vue: EtapeDepart): { total: number; index: number } {
   const i = (LECON as readonly string[]).indexOf(vue);
   if (i >= 0) return { total: LECON.length, index: i };
-  /* Les questions reprennent les trois points de la maquette : la leçon compte pour le premier. */
-  return { total: 3, index: (QUESTIONS as readonly string[]).indexOf(vue) + 1 };
+  /* Les questions reprennent les points de la maquette : la leçon compte pour le premier. */
+  return { total: QUESTIONS.length + 1, index: (QUESTIONS as readonly string[]).indexOf(vue) + 1 };
 }
 
 /* ---------- les deux questions ---------- */

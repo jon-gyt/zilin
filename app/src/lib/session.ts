@@ -22,6 +22,19 @@ import {
 import { ajouter, journal, lireTao, taoVide, type Tao, type TypeActivite } from './tao';
 import { lireTrouves, type Trouve } from './trouves';
 import { lireLettresNotees, type LettreNotee } from './lettres';
+import {
+  ajouterPoint,
+  artsVides,
+  lireArt,
+  lireArts,
+  lireHeros,
+  nettoyerNom,
+  pointsDerives,
+  type Art,
+  type Arts,
+  type BeteId,
+  type Heros
+} from './heros';
 
 
 /** Budget choisi par l'utilisateur, en minutes. */
@@ -36,12 +49,13 @@ export type Parcours = 'lire' | 'hsk' | 'voyage';
 
 /**
  * Les écrans de la première session, dans l'ordre de la maquette : les trois briques
- * (f1 人, f2 大, f3 天), le mot lu (f4 天天), le bilan (f5), puis les deux questions
- * (objectif, rythme). La reprise se fait à l'écran exact.
+ * (f1 人, f2 大, f3 天), le mot lu (f4 天天), le bilan (f5), les deux questions
+ * (objectif, rythme), puis le choix du personnage (brief §8). La reprise se fait à
+ * l'écran exact.
  */
-export type EtapeDepart = 'f1' | 'f2' | 'f3' | 'f4' | 'f5' | 'objectif' | 'rythme';
+export type EtapeDepart = 'f1' | 'f2' | 'f3' | 'f4' | 'f5' | 'objectif' | 'rythme' | 'personnage';
 
-export const ETAPES_DEPART = ['f1', 'f2', 'f3', 'f4', 'f5', 'objectif', 'rythme'] as const;
+export const ETAPES_DEPART = ['f1', 'f2', 'f3', 'f4', 'f5', 'objectif', 'rythme', 'personnage'] as const;
 
 export type StepId =
   | 'ouvrir'
@@ -108,6 +122,11 @@ export type Revision = {
   tries: number;
   seconds: number;
   leurres?: string[];
+  /**
+   * L'art du personnage que la réponse exerce (`heros.ts`) : la question le dit d'après
+   * son type. Absent (un jeu, un événement d'avant ce champ) : la lecture.
+   */
+  art?: Art;
 };
 
 /** Où en est la devinette du jour : posée, résolue, ou montrée après deux essais faux. */
@@ -285,6 +304,19 @@ export type Progress = {
    * aucune.
    */
   lettres: LettreNotee[];
+  /**
+   * Le personnage choisi (brief §8, `heros.ts`) : sa bête, son nom, le dernier rang
+   * annoncé au 放榜. `null` tant qu'il n'est pas choisi : à la fin de la première session,
+   * ou, pour une progression d'avant lui, la première fois qu'on ouvre son écran.
+   */
+  heros: Heros | null;
+  /**
+   * Les points des quatre arts : un par bonne réponse notée (`noterRevision`), un par
+   * tracé achevé (`traceAchevee`). Jamais pour le temps passé, jamais retirés. Absents
+   * d'une progression d'avant le personnage : recalculés depuis ce qu'elle garde
+   * (`pointsDerives`).
+   */
+  arts: Arts;
 };
 
 /**
@@ -348,7 +380,9 @@ export function emptyProgress(aujourdhui: string): Progress {
     motsDevines: [],
     trouves: [],
     recettes: [],
-    lettres: []
+    lettres: [],
+    heros: null,
+    arts: artsVides()
   };
 }
 
@@ -735,7 +769,28 @@ export function traceVue(p: Progress, brique: string): Progress {
  */
 export function traceAchevee(p: Progress, brique: string): Progress {
   if (brique === '' || p.tracesAchevees.includes(brique)) return p;
-  return { ...p, tracesAchevees: [...p.tracesAchevees, brique] };
+  /* Un tracé achevé est une bonne réponse d'écriture : un point de 写. */
+  return { ...p, tracesAchevees: [...p.tracesAchevees, brique], arts: ajouterPoint(p.arts, 'xie') };
+}
+
+/* ---------- le personnage ---------- */
+
+/**
+ * Choisit le personnage, ou en change. Au premier choix, `rang` est celui que les points
+ * donnent déjà : rien ne se fête après coup. Changer de bête ou de nom garde le rang
+ * annoncé et les points : rien ne se perd. Un nom vide ne se range pas.
+ */
+export function choisirHeros(p: Progress, bete: BeteId, nom: string, rang: number): Progress {
+  const propre = nettoyerNom(nom);
+  if (propre === '') return p;
+  const annonce = p.heros?.rang ?? Math.max(0, Math.floor(rang));
+  return { ...p, heros: { bete, nom: propre, rang: annonce } };
+}
+
+/** Le 放榜 vu : le rang est annoncé, il ne le sera plus. Jamais en arrière. */
+export function annoncerRang(p: Progress, rang: number): Progress {
+  if (p.heros === null || rang <= p.heros.rang) return p;
+  return { ...p, heros: { ...p.heros, rang: Math.floor(rang) } };
 }
 
 /* ---------- les trophées obtenus ---------- */
@@ -908,7 +963,9 @@ export function finFixer(p: Progress, aujourdhui: string): Progress {
  * activité « révision » est comptée pour Tao. Une réponse, une bouchée.
  */
 export function noterRevision(p: Progress, jour: string, r: Revision): Progress {
-  return { ...p, revisions: [...p.revisions, r], tao: ajouter(p.tao, jour, 'revision') };
+  /* Une bonne réponse, un point dans son art ; une erreur ne coûte rien. La vitesse n'y est pour rien. */
+  const arts = r.correct ? ajouterPoint(p.arts, r.art ?? 'du') : p.arts;
+  return { ...p, revisions: [...p.revisions, r], tao: ajouter(p.tao, jour, 'revision'), arts };
 }
 
 /** Le bilan de la vérification : les questions posées, et celles sues du premier coup. */
@@ -1142,6 +1199,8 @@ function lireRevisions(brut: unknown): Revision[] {
     };
     /* Les leurres pris : absents d'un événement plus ancien, on ne les devine pas. */
     if (Array.isArray(r.leurres)) lue.leurres = listeDeCaracteres(r.leurres);
+    const art = lireArt(r.art);
+    if (art !== undefined) lue.art = art;
     return [lue];
   });
 }
@@ -1238,6 +1297,8 @@ export function fromJSON(texte: string, aujourdhui: string): Progress {
   const vide = emptyProgress(aujourdhui);
   const tao = lireTao(o.tao);
   const lastWorked = typeof o.lastWorked === 'string' ? o.lastWorked : null;
+  const cartes = lireCartesJSON(o.cartes);
+  const tracesAchevees = listeDeCaracteres(o.tracesAchevees);
   return {
     version: 1,
     day: typeof o.day === 'string' ? o.day : vide.day,
@@ -1253,13 +1314,13 @@ export function fromJSON(texte: string, aujourdhui: string): Progress {
     trace: o.trace === undefined ? vide.trace : o.trace !== false,
     tracees: Array.isArray(o.tracees) ? o.tracees.filter((c): c is string => typeof c === 'string') : [],
     /* Les tracés achevés : absents d'un export plus ancien, rien n'est achevé. */
-    tracesAchevees: listeDeCaracteres(o.tracesAchevees),
+    tracesAchevees,
     /* Champs des pas Utiliser et Fixer : absents d'un export plus ancien, ils reprennent leur défaut. */
     use: isUseView(o.use) ? o.use : vide.use,
     fix: typeof o.fix === 'number' && o.fix >= 0 ? Math.floor(o.fix) : 0,
     fixNotee: lireNotee(o.fixNotee),
     /* Cartes et pile d'échauffement : absentes d'un export plus ancien, elles se relisent vides. */
-    cartes: lireCartesJSON(o.cartes),
+    cartes,
     revue: Array.isArray(o.revue) ? o.revue.filter((c): c is string => typeof c === 'string') : [],
     rev: typeof o.rev === 'number' && o.rev >= 0 ? Math.floor(o.rev) : 0,
     revNotee: lireNotee(o.revNotee),
@@ -1300,6 +1361,10 @@ export function fromJSON(texte: string, aujourdhui: string): Progress {
     /* Les plats cuisinés : absents d'un export plus ancien, aucun n'est fait. */
     recettes: listeDeCaracteres(o.recettes),
     /* Les lettres de Que : absentes d'un export plus ancien, aucune n'est arrivée. */
-    lettres: lireLettresNotees(o.lettres)
+    lettres: lireLettresNotees(o.lettres),
+    /* Le personnage : absent d'un export plus ancien, il se choisira. */
+    heros: lireHeros(o.heros),
+    /* Les points : absents d'un export plus ancien, ils se recalculent de ce qu'il garde. */
+    arts: lireArts(o.arts) ?? pointsDerives(cartes, tracesAchevees)
   };
 }

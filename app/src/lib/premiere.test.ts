@@ -116,13 +116,14 @@ describe("l'ouverture", () => {
 /* ---------- 2. l'enchaînement des écrans ---------- */
 
 describe('la première session', () => {
-  it('enchaîne les quatre écrans de la leçon, le bilan, puis les deux questions', () => {
+  it('enchaîne les quatre écrans de la leçon, le bilan, les deux questions, puis le personnage', () => {
     expect(LECON).toEqual(['f1', 'f2', 'f3', 'f4', 'f5']);
-    expect(QUESTIONS).toEqual(['objectif', 'rythme']);
+    expect(QUESTIONS).toEqual(['objectif', 'rythme', 'personnage']);
     const vues: EtapeDepart[] = ['f1'];
     for (let v = departNext('f1'); v !== null; v = departNext(v)) vues.push(v);
     expect(vues).toEqual([...ETAPES_DEPART]);
-    expect(departNext('rythme')).toBeNull();
+    expect(departNext('rythme')).toBe('personnage');
+    expect(departNext('personnage')).toBeNull();
   });
 
   it('montre 人, puis 大, puis 天, puis le mot', () => {
@@ -135,7 +136,7 @@ describe('la première session', () => {
     expect(mot.mot).toBe('天天');
   });
 
-  it('avance d\'un point par écran : cinq pour la leçon, trois pour les questions', () => {
+  it('avance d\'un point par écran : cinq pour la leçon, quatre pour les questions et le personnage', () => {
     expect(LECON.map((v) => points(v))).toEqual([
       { total: 5, index: 0 },
       { total: 5, index: 1 },
@@ -143,8 +144,9 @@ describe('la première session', () => {
       { total: 5, index: 3 },
       { total: 5, index: 4 }
     ]);
-    expect(points('objectif')).toEqual({ total: 3, index: 1 });
-    expect(points('rythme')).toEqual({ total: 3, index: 2 });
+    expect(points('objectif')).toEqual({ total: 4, index: 1 });
+    expect(points('rythme')).toEqual({ total: 4, index: 2 });
+    expect(points('personnage')).toEqual({ total: 4, index: 3 });
   });
 });
 
