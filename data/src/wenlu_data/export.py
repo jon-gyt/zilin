@@ -207,6 +207,7 @@ def fichiers_sources(
         ("saisons-termes", saisons_mod.TERMES),
         ("saisons-textes", saisons_mod.TEXTES),
         ("contes-catalogue", CONTES / "catalogue.tsv"),
+        ("contes-chapitres", CONTES / "chapitres.tsv"),
         ("devinettes", devinettes_mod.DEVINETTES),
         ("devinettes-briques", devinettes_mod.BRIQUES),
         ("eclair", eclair_mod.MOTS),
@@ -871,6 +872,27 @@ def document_devinettes(
     )
 
 
+def catalogue_des_contes() -> list[dict[str, object]]:
+    """Ce que le catalogue prévoit, pour la bibliothèque de l'app : chaque récit, ses vrais
+    titres, ses niveaux prévus et son nombre de chapitres. Aucun texte : ni résumé, ni
+    version ; une version n'entre dans l'export (`contes/<id>.json`) qu'une fois relue.
+    """
+    if not (CONTES / "catalogue.tsv").exists():
+        return []
+    return [
+        {
+            "id": c.id,
+            "titre_zh": c.titre_zh,
+            "titre_pinyin": c.titre_pinyin,
+            "titre_fr": c.titre_fr,
+            "titre_en": c.titre_en,
+            "niveaux": list(c.niveaux),
+            "chapitres": c.chapitres,
+        }
+        for c in contes_mod.charger_catalogue(CONTES / "catalogue.tsv")
+    ]
+
+
 def titre_original(conte: str) -> dict[str, str]:
     """Le vrai titre d'un récit (愚公移山) et son pinyin, lus dans le catalogue des contes.
 
@@ -1020,7 +1042,11 @@ def document_wechat(
 def document_conte(
     conte: str, versions: Sequence[contes_mod.Version], version_export: str
 ) -> dict[str, object]:
-    """Le JSON écrit dans `contes/<id>.json` : un récit, une version par seuil."""
+    """Le JSON écrit dans `contes/<id>.json` : un récit, une version par seuil.
+
+    Une fable porte ses `phrases` ; un récit long ses `chapitres`, chacun avec son titre
+    chinois, son pinyin, ses titres français et anglais et ses phrases.
+    """
     tete = versions[0]
     origine = f"récit traditionnel, {tete.ouvrage}" if tete.ouvrage else "récit traditionnel"
     return {
@@ -1037,9 +1063,7 @@ def document_conte(
             str(v.seuil): {
                 "titre": v.titre,
                 "titre_pinyin": v.titre_pinyin,
-                "phrases": [
-                    {"zh": p.zh, "pinyin": p.pinyin, "fr": p.fr, "en": p.en} for p in v.phrases
-                ],
+                **v.texte_en_json(),
                 "glose": {zh: v.glose[zh].en_json() for zh in sorted(v.glose)},
             }
             for v in sorted(versions, key=lambda v: v.seuil)
@@ -1319,6 +1343,9 @@ def document_index(
             }
             for conte, versions in sorted(contes.items())
         ],
+        # Ce que le catalogue prévoit : la bibliothèque montre chaque récit et ses niveaux,
+        # écrits ou pas encore (story 1.7, 2c.2).
+        "catalogue": catalogue_des_contes(),
         "paires": "paires.json",
         "fetes": "fetes.json",
         "saisons": "saisons.json",
