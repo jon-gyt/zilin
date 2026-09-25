@@ -1,7 +1,11 @@
 """Contes par niveau (story 1.7).
 
-Un même récit traditionnel est réécrit à chaque seuil (255, 405, 505, 805, 1555)
-avec les seuls caractères du seuil. Le catalogue des récits est versionné dans
+Un même récit traditionnel est réécrit à plusieurs niveaux avec les seuls caractères
+du niveau : le seuil sinographique 255 (les trois contes gratuits), puis les niveaux du
+HSK 3.0 (GF 0025-2021), de `hsk1` à `hsk6` et `hsk7-9`, chacun lu en cumul (`hsk3` :
+les caractères des niveaux 1 à 3). Les seuils 405 à 1555 restent connus du code, mais
+leurs listes ne sont pas versionnées : les contes suivent le HSK (décision du
+propriétaire). Le catalogue des récits est versionné dans
 `data/sources/contes/catalogue.tsv` ; il ne porte que le titre, l'ouvrage d'origine
 et un résumé d'intrigue en une phrase. Aucun texte de conte n'entre dans le dépôt
 sans passer par le pipeline : il sort de la génération par l'API ou de l'import d'un
@@ -84,13 +88,44 @@ from .paths import CONTES, CONTES_WORK, DATA, LISTES, RACINE, WORK
 #: Seuils sinographiques de l'Éducation nationale.
 SEUILS: tuple[int, ...] = (255, 405, 505, 805, 1555)
 
-#: Longueur visée du texte chinois, en sinogrammes, ponctuation non comprise.
-LONGUEURS: dict[int, tuple[int, int]] = {
+#: Niveaux du HSK 3.0 (GF 0025-2021) : 1 à 6, puis 7-9, que la norme ne départage pas.
+#: Chacun se lit en cumul : `hsk3` autorise les caractères des niveaux 1, 2 et 3.
+HSK: tuple[str, ...] = ("hsk1", "hsk2", "hsk3", "hsk4", "hsk5", "hsk6", "hsk7-9")
+
+#: Un niveau de conte : un seuil, nombre (255), ou un niveau HSK, chaîne ("hsk3"). C'est
+#: aussi sa forme dans les JSON (`"seuil": 255`, `"seuil": "hsk3"`) et son nom dans les
+#: chemins (`255/`, `hsk3.json`).
+Niveau = int | str
+
+#: Les caractères de chaque niveau HSK, cumul compris : 300 nouveaux par niveau de 1 à 6,
+#: 1 200 pour 7-9. C'est aussi ce qui range les niveaux d'un cadre à l'autre (255 < hsk1).
+CUMULS_HSK: dict[str, int] = {
+    "hsk1": 300,
+    "hsk2": 600,
+    "hsk3": 900,
+    "hsk4": 1200,
+    "hsk5": 1500,
+    "hsk6": 1800,
+    "hsk7-9": 3000,
+}
+
+#: Longueur visée du texte chinois, en sinogrammes, ponctuation non comprise. Un niveau
+#: HSK vise celle du seuil de taille voisine : HSK 1 (300 caractères) celle de 255, HSK 2
+#: (600) celle de 505, HSK 3 (900) celle de 805, HSK 5 (1 500) et au-delà celle de 1555 ;
+#: HSK 4 entre les deux.
+LONGUEURS: dict[Niveau, tuple[int, int]] = {
     255: (60, 120),
     405: (100, 180),
     505: (150, 260),
     805: (220, 380),
     1555: (320, 560),
+    "hsk1": (60, 120),
+    "hsk2": (150, 260),
+    "hsk3": (220, 380),
+    "hsk4": (270, 470),
+    "hsk5": (320, 560),
+    "hsk6": (320, 560),
+    "hsk7-9": (320, 560),
 }
 
 #: Au plus trois appels pour un même conte à un même seuil.
@@ -128,11 +163,97 @@ class CatalogueInvalide(ValueError):
 
 
 class SeuilInconnu(ValueError):
-    """Seuil hors des seuils sinographiques."""
+    """Niveau hors des seuils sinographiques et des niveaux HSK."""
 
 
 class SeuilSansListe(FileNotFoundError):
-    """Le seuil existe mais sa liste de caractères n'est pas encore versionnée."""
+    """Le niveau existe mais sa liste de caractères n'est pas encore versionnée."""
+
+
+# --------------------------------------------------------------------------- niveaux
+
+
+def lire_niveau(valeur: object) -> Niveau:
+    """`255`, `"255"` → 255 ; `"hsk3"`, `"HSK3"` → "hsk3". Refuse tout autre niveau."""
+    if isinstance(valeur, bool):
+        raise SeuilInconnu(f"niveau {valeur!r} inconnu")
+    if isinstance(valeur, str):
+        texte = valeur.strip().lower()
+        valeur = int(texte) if texte.isdigit() else texte
+    if valeur in SEUILS or valeur in HSK:
+        return valeur  # type: ignore[return-value]
+    raise SeuilInconnu(
+        f"niveau {valeur!r} inconnu : les seuils {', '.join(str(s) for s in SEUILS)}, "
+        f"ou les niveaux HSK {', '.join(HSK)}"
+    )
+
+
+def niveau_brut(valeur: object) -> Niveau:
+    """Un niveau tel qu'un fichier l'écrit, sans le juger : un nombre reste un nombre
+    (`"255"` → 255), une chaîne passe en minuscules. Pour relire ce que le pipeline a écrit."""
+    if isinstance(valeur, bool):
+        return 0
+    if isinstance(valeur, int):
+        return valeur
+    texte = str(valeur).strip().lower()
+    return int(texte) if texte.isdigit() else texte
+
+
+def est_hsk(niveau: Niveau) -> bool:
+    return niveau in HSK
+
+
+def rang(niveau: Niveau) -> int:
+    """Le nombre de caractères du niveau, cumul compris : 255 pour le seuil 255, 900 pour
+    `hsk3`. Il range les niveaux d'un cadre à l'autre. Un niveau inconnu passe en dernier."""
+    if isinstance(niveau, int):
+        return niveau
+    return CUMULS_HSK.get(niveau, 10**6)
+
+
+def libelle(niveau: Niveau) -> str:
+    """« seuil 255 », « HSK 3 », « HSK 7-9 » : un niveau dans une phrase."""
+    if isinstance(niveau, str) and niveau.startswith("hsk"):
+        return f"HSK {niveau[3:]}"
+    return f"seuil {niveau}"
+
+
+def au_niveau(niveau: Niveau) -> str:
+    """« au seuil 255 », « au niveau HSK 3 »."""
+    return f"au niveau {libelle(niveau)}" if est_hsk(niveau) else f"au {libelle(niveau)}"
+
+
+#: Le dernier palier de l'échelle des contes : HSK 7-9.
+DERNIER_PALIER = len(HSK)
+
+
+def palier(niveau: Niveau) -> int:
+    """La place d'un niveau sur l'échelle des contes, de 1 (HSK 1) à 7 (HSK 7-9). Le seuil
+    255 se place au palier de HSK 1 : 255 caractères contre 300, tous dans HSK 1 à 3."""
+    if niveau == 255:
+        return 1
+    if isinstance(niveau, str) and niveau in HSK:
+        return HSK.index(niveau) + 1
+    raise SeuilInconnu(f"niveau {niveau!r} hors de l'échelle des contes (255, {', '.join(HSK)})")
+
+
+def niveaux_attendus(plus_bas: Niveau, nombre: int) -> tuple[Niveau, ...]:
+    """Les niveaux d'un conte selon le critère du catalogue : le plus bas, puis chaque fois
+    deux paliers plus haut, sans dépasser HSK 7-9 ; quand le haut de l'échelle manque de
+    place, les paliers restants au-dessus du plus bas comblent, s'il y en a. `nombre` : 2
+    pour un récit simple, 3 pour un récit riche.
+
+    `hsk2` simple → hsk2, hsk4 ; riche → hsk2, hsk4, hsk6. `hsk5` riche → hsk5, hsk6,
+    hsk7-9. `hsk7-9` → hsk7-9 seul. 255 riche → 255, hsk3, hsk5.
+    """
+    depart = palier(plus_bas)
+    paliers = sorted({min(depart + 2 * k, DERNIER_PALIER) for k in range(nombre)})
+    for p in range(depart + 1, DERNIER_PALIER + 1):
+        if len(paliers) >= nombre:
+            break
+        if p not in paliers:
+            paliers = sorted([*paliers, p])
+    return (plus_bas, *(HSK[p - 1] for p in paliers[1:]))
 
 
 # --------------------------------------------------------------------------- catalogue
@@ -160,8 +281,8 @@ class Conte:
     titre_en: str = ""
     #: Le pinyin du vrai titre, une syllabe par caractère, aux tons du dictionnaire.
     titre_pinyin: str = ""
-    #: Les seuils où le récit sera écrit, croissants. Vide : non dit (fixtures de test).
-    niveaux: tuple[int, ...] = ()
+    #: Les niveaux où le récit sera écrit, croissants (255, "hsk3"…). Vide : non dit (fixtures).
+    niveaux: tuple[Niveau, ...] = ()
     #: 1 pour une fable, lue d'une traite ; plus pour un récit long, lu chapitre par chapitre.
     chapitres: int = 1
     #: Les chapitres prévus d'un récit long, de 1 à `chapitres`. Vide pour une fable.
@@ -197,23 +318,34 @@ def _lignes_tsv(lignes: Iterable[str], colonnes: tuple[str, ...], nom: str) -> l
     return lues
 
 
-def parse_niveaux(texte: str) -> tuple[int, ...]:
-    """`405,805,1555` → (405, 805, 1555) : des seuils connus, strictement croissants,
-    deux (récit simple) ou trois (récit riche)."""
+def parse_niveaux(texte: str) -> tuple[Niveau, ...]:
+    """`255,hsk3,hsk5` → (255, "hsk3", "hsk5") : des niveaux connus (seuils ou niveaux
+    HSK), strictement croissants par leur nombre de caractères, deux (récit simple) ou
+    trois (récit riche). Un seul, au dernier palier (`hsk7-9`) : l'échelle s'arrête là."""
     morceaux = [m.strip() for m in texte.split(",")]
-    if not all(m.isdigit() for m in morceaux):
-        raise CatalogueInvalide(f"niveaux {texte!r} : des seuils séparés par des virgules, 255,505")
-    niveaux = tuple(int(m) for m in morceaux)
-    inconnus = [n for n in niveaux if n not in SEUILS]
+    if not all(re.fullmatch(r"[0-9]+|[a-zA-Z0-9-]+", m) for m in morceaux):
+        raise CatalogueInvalide(f"niveaux {texte!r} : des niveaux séparés par des virgules, 255,hsk3")
+    niveaux: list[Niveau] = []
+    inconnus: list[str] = []
+    for morceau in morceaux:
+        try:
+            niveaux.append(lire_niveau(morceau))
+        except SeuilInconnu:
+            inconnus.append(morceau)
     if inconnus:
-        raise CatalogueInvalide(f"niveaux {texte!r} : {inconnus} hors des seuils {SEUILS}")
-    if list(niveaux) != sorted(set(niveaux)):
+        raise CatalogueInvalide(
+            f"niveaux {texte!r} : {', '.join(inconnus)} hors des seuils {SEUILS} et des niveaux {HSK}"
+        )
+    if [rang(n) for n in niveaux] != sorted({rang(n) for n in niveaux}):
         raise CatalogueInvalide(f"niveaux {texte!r} : strictement croissants, sans doublon")
+    if niveaux == [HSK[-1]]:
+        return tuple(niveaux)
     if len(niveaux) not in NIVEAUX_PAR_CONTE:
         raise CatalogueInvalide(
-            f"niveaux {texte!r} : deux niveaux pour un récit simple, trois pour un récit riche"
+            f"niveaux {texte!r} : deux niveaux pour un récit simple, trois pour un récit riche "
+            f"(un seul, {HSK[-1]}, quand le récit commence au dernier palier)"
         )
-    return niveaux
+    return tuple(niveaux)
 
 
 def parse_chapitres(lignes: Iterable[str]) -> dict[str, tuple[ChapitrePrevu, ...]]:
@@ -285,7 +417,7 @@ def charger_catalogue(chemin: Path | None = None) -> list[Conte]:
     return parse_catalogue(chemin.read_text(encoding="utf-8").splitlines(), chapitres)
 
 
-def contes_du_seuil(catalogue: Iterable[Conte], seuil: int) -> list[Conte]:
+def contes_du_seuil(catalogue: Iterable[Conte], seuil: Niveau) -> list[Conte]:
     """Les contes que la génération par l'API écrit à un seuil : ceux qui l'ont prévu, et
     seulement les fables. Un récit long se rédige par brouillon, chapitre par chapitre."""
     return [c for c in catalogue if not c.long and (not c.niveaux or seuil in c.niveaux)]
@@ -302,25 +434,42 @@ def conte_par_id(identifiant: str, catalogue: Sequence[Conte] | None = None) -> 
 # --------------------------------------------------------------------------- listes
 
 
-def fichier_seuil(seuil: int, dossier: Path | None = None) -> Path:
+def fichier_seuil(seuil: Niveau, dossier: Path | None = None) -> Path:
+    """Le fichier propre à un niveau : `seuil-255.txt`, `hsk-3.txt` (les seuls caractères
+    nouveaux du niveau 3), `hsk-7-9.txt`."""
+    if isinstance(seuil, str) and seuil.startswith("hsk"):
+        return (dossier or LISTES) / f"hsk-{seuil[3:]}.txt"
     return (dossier or LISTES) / f"seuil-{seuil}.txt"
 
 
-def charger_seuil(seuil: int, dossier: Path | None = None) -> list[str]:
-    """Caractères autorisés à un seuil. Refuse proprement un seuil sans liste.
+def fichiers_du_niveau(seuil: Niveau, dossier: Path | None = None) -> list[Path]:
+    """Les fichiers qu'un niveau lit : le sien pour un seuil ; pour un niveau HSK, ceux des
+    niveaux 1 à lui, dans l'ordre (le cumul : `hsk3` lit hsk-1, hsk-2 et hsk-3)."""
+    if isinstance(seuil, str) and seuil in HSK:
+        return [fichier_seuil(n, dossier) for n in HSK[: HSK.index(seuil) + 1]]
+    return [fichier_seuil(seuil, dossier)]
 
-    Les listes des seuils 405 à 1555 ne sont pas encore versionnées : le code
-    n'en connaît que le nom de fichier et accepte n'importe quelle liste.
+
+def liste_presente(seuil: Niveau, dossier: Path | None = None) -> bool:
+    """Toutes les listes que le niveau lit sont versionnées."""
+    return all(f.exists() for f in fichiers_du_niveau(seuil, dossier))
+
+
+def charger_seuil(seuil: Niveau, dossier: Path | None = None) -> list[str]:
+    """Caractères autorisés à un niveau. Refuse proprement un niveau sans liste.
+
+    Un seuil lit sa liste ; un niveau HSK lit en cumul les listes des niveaux 1 à lui,
+    dans l'ordre (`hsk3` : 900 caractères). Les listes des seuils 405 à 1555 ne sont pas
+    versionnées : le code n'en connaît que le nom de fichier.
     """
-    if seuil not in SEUILS:
-        raise SeuilInconnu(f"seuil {seuil} inconnu : {', '.join(str(s) for s in SEUILS)}")
-    chemin = fichier_seuil(seuil, dossier)
-    if not chemin.exists():
+    seuil = lire_niveau(seuil)
+    absents = [f for f in fichiers_du_niveau(seuil, dossier) if not f.exists()]
+    if absents:
         raise SeuilSansListe(
-            f"seuil {seuil} : liste absente ({chemin}). "
-            "Versionner la liste avant de générer les contes de ce seuil."
+            f"{libelle(seuil)} : liste absente ({', '.join(str(f) for f in absents)}). "
+            "Versionner la liste avant d'écrire les contes de ce niveau."
         )
-    return charger_liste(chemin)
+    return [c for f in fichiers_du_niveau(seuil, dossier) for c in charger_liste(f)]
 
 
 # --------------------------------------------------------------------------- invite
@@ -383,12 +532,12 @@ Tu réponds par le seul objet JSON demandé, sans commentaire."""
 
 def invite(
     conte: Conte,
-    seuil: int,
+    seuil: Niveau,
     autorises: Sequence[str],
     *,
     intrus: Sequence[str] = (),
 ) -> Invite:
-    """Construit l'invite d'un conte à un seuil, éventuellement après un refus.
+    """Construit l'invite d'un conte à un niveau, éventuellement après un refus.
 
     `intrus` porte les caractères hors liste de l'essai précédent : ils sont
     signalés nommément pour la relance.
@@ -399,7 +548,11 @@ def invite(
         f"Ouvrage d'origine : {conte.ouvrage} (cité pour la traçabilité ; n'en recopie rien).",
         f"Intrigue à raconter : {conte.resume_fr}",
         "",
-        f"Seuil : {seuil} caractères.",
+        (
+            f"Niveau : {libelle(seuil)}, {rang(seuil)} caractères (les niveaux HSK cumulés)."
+            if est_hsk(seuil)
+            else f"Seuil : {seuil} caractères."
+        ),
         f"Longueur visée : {minimum} à {maximum} caractères chinois, ponctuation non comprise.",
         "",
         f"Les {len(autorises)} seuls caractères autorisés :",
@@ -512,15 +665,16 @@ def chapitre_depuis_json(document: Mapping[str, object]) -> Chapitre:
 
 @dataclass
 class Version:
-    """Une version d'un conte à un seuil.
+    """Une version d'un conte à un niveau.
 
     `chapitres` porte le texte ; `phrases` en est la suite, chapitre après chapitre. Une
     fable se construit par ses seules `phrases` (un chapitre sans titre), un récit long par
-    ses `chapitres`.
+    ses `chapitres`. `seuil` est le niveau : un seuil (255) ou un niveau HSK ("hsk3") ; le
+    nom du champ est historique.
     """
 
     conte: str
-    seuil: int
+    seuil: Niveau
     titre: str
     titre_fr: str
     ouvrage: str
@@ -590,7 +744,7 @@ def lire_reponse(
     texte: str,
     *,
     conte: Conte,
-    seuil: int,
+    seuil: Niveau,
     generation: Generation,
     statut: str = A_RELIRE,
 ) -> Version:
@@ -650,7 +804,7 @@ def version_depuis_json(document: dict[str, object]) -> Version:
         raise ReponseInvalide("version illisible : chapitres hors format")
     return Version(
         conte=str(document.get("conte", "")),
-        seuil=int(document.get("seuil", 0)),
+        seuil=niveau_brut(document.get("seuil", 0)),
         titre=str(document.get("titre", "")),
         titre_pinyin=str(document.get("titre_pinyin", "")),
         titre_fr=str(document.get("titre_fr", "")),
@@ -755,12 +909,12 @@ def longueur(phrases: Iterable[Phrase]) -> int:
 
 
 def ecarts_au_catalogue(version: Version, conte: Conte) -> list[str]:
-    """Ce qu'une version dit autrement que le catalogue : un seuil que le récit n'a pas
+    """Ce qu'une version dit autrement que le catalogue : un niveau que le récit n'a pas
     prévu, un nombre de chapitres qui n'est pas celui prévu. Des écarts, jamais des rejets."""
     ecarts: list[str] = []
     if conte.niveaux and version.seuil not in conte.niveaux:
         prevus = ", ".join(str(n) for n in conte.niveaux)
-        ecarts.append(f"seuil {version.seuil} non prévu au catalogue (niveaux prévus : {prevus})")
+        ecarts.append(f"niveau {version.seuil} non prévu au catalogue (niveaux prévus : {prevus})")
     ecrits = 1 if version.courte else len(version.chapitres)
     if ecrits != conte.chapitres:
         ecarts.append(f"{ecrits} chapitre(s) pour {conte.chapitres} prévu(s) au catalogue")
@@ -883,7 +1037,8 @@ def client_anthropic(modele: str = MODELE, max_tokens: int = MAX_TOKENS) -> Clie
 # --------------------------------------------------------------------------- écriture
 
 
-def chemin_version(seuil: int, conte_id: str, dossier: Path | None = None) -> Path:
+def chemin_version(seuil: Niveau, conte_id: str, dossier: Path | None = None) -> Path:
+    """`255/<id>.json`, `hsk3/<id>.json` : un dossier par niveau."""
     return (dossier or CONTES_WORK) / str(seuil) / f"{conte_id}.json"
 
 
@@ -899,21 +1054,25 @@ def lire_version(chemin: Path) -> Version:
 
 
 def versions_ecrites(dossier: Path | None = None) -> list[Path]:
-    """Toutes les versions écrites, dossier de seuil par dossier de seuil."""
+    """Toutes les versions écrites, dossier de niveau par dossier de niveau (`255`, `hsk3`),
+    du plus petit au plus grand."""
     dossier = dossier or CONTES_WORK
     if not dossier.exists():
         return []
-    seuils = sorted((d for d in dossier.iterdir() if d.is_dir() and d.name.isdigit()), key=lambda d: int(d.name))
+    seuils = sorted(
+        (d for d in dossier.iterdir() if d.is_dir() and (d.name.isdigit() or d.name in HSK)),
+        key=lambda d: (rang(niveau_brut(d.name)), d.name),
+    )
     return [f for d in seuils for f in sorted(d.glob("*.json"))]
 
 
-def relire(conte_id: str, seuil: int, statut: str, dossier: Path | None = None) -> Version:
+def relire(conte_id: str, seuil: Niveau, statut: str, dossier: Path | None = None) -> Version:
     """Marque la relecture humaine d'une version. Le pipeline n'y touche pas."""
     if statut not in STATUTS:
         raise ValueError(f"statut {statut!r} inconnu : {', '.join(STATUTS)}")
     chemin = chemin_version(seuil, conte_id, dossier)
     if not chemin.exists():
-        raise FileNotFoundError(f"aucune version de {conte_id} au seuil {seuil} ({chemin})")
+        raise FileNotFoundError(f"aucune version de {conte_id} {au_niveau(seuil)} ({chemin})")
     version = lire_version(chemin)
     version.statut = statut
     ecrire_version(version, dossier)
@@ -925,7 +1084,7 @@ def relire(conte_id: str, seuil: int, statut: str, dossier: Path | None = None) 
 
 def generer_version(
     conte: Conte,
-    seuil: int,
+    seuil: Niveau,
     autorises: Sequence[str],
     client: ClientClaude,
     *,
@@ -972,13 +1131,13 @@ def dossier_lots(dossier: Path | None = None) -> Path:
     return dossier / "lots" if dossier is not None else LOTS_WORK
 
 
-def custom_id(seuil: int, conte_id: str, essai: int) -> str:
+def custom_id(seuil: Niveau, conte_id: str, essai: int) -> str:
     return f"{seuil}-{conte_id}-{essai}"
 
 
 def soumettre_lot(
     contes: Sequence[Conte],
-    seuil: int,
+    seuil: Niveau,
     autorises: Sequence[str],
     client: ClientClaude,
     *,
@@ -1042,7 +1201,7 @@ def recuperer_lot(
     """
     lot = json.loads(fichier.read_text(encoding="utf-8"))
     identifiant = str(lot["lot"])
-    seuil = int(lot["seuil"])
+    seuil = niveau_brut(lot["seuil"])
     statut = client.statut_lot(identifiant)
     if statut != "ended":
         return [f"{identifiant} : {statut}, rien à récupérer."]
@@ -1160,7 +1319,7 @@ class Brouillon:
     """Une version rédigée à la main, telle que son rédacteur l'a écrite."""
 
     conte: str
-    seuil: int
+    seuil: Niveau
     empreinte: str
     #: L'ouvrage d'origine, tel que le catalogue le cite ; `None` : on ne le cite pas.
     ouvrage: str | None
@@ -1202,7 +1361,7 @@ def brouillon_depuis_json(
     *,
     empreinte: str,
     conte: str | None = None,
-    seuil: int | None = None,
+    seuil: Niveau | None = None,
 ) -> Brouillon:
     """Lit un brouillon déjà décodé. Relève tous les problèmes de format d'un coup.
 
@@ -1229,10 +1388,14 @@ def brouillon_depuis_json(
         problemes.append("conte : attendu un identifiant du catalogue")
     elif conte is not None and "conte" in document and document["conte"] != conte:
         problemes.append(f"conte vaut {document['conte']!r} dans le dossier {conte}/")
-    if "seuil" in document and (isinstance(document["seuil"], bool) or not isinstance(document["seuil"], int)):
-        problemes.append("seuil : attendu un nombre (255, 405…)")
-    elif seuil is not None and "seuil" in document and document["seuil"] != seuil:
-        problemes.append(f"seuil vaut {document['seuil']!r} dans un fichier nommé {seuil}.json")
+    if "seuil" in document:
+        try:
+            lu = lire_niveau(document["seuil"])
+        except SeuilInconnu:
+            problemes.append('seuil : attendu un seuil (255) ou un niveau HSK ("hsk3")')
+        else:
+            if seuil is not None and lu != seuil:
+                problemes.append(f"seuil vaut {document['seuil']!r} dans un fichier nommé {seuil}.json")
     if document.get("ouvrage") is not None and not isinstance(document["ouvrage"], str):
         problemes.append("ouvrage : attendu un texte, ou null si l'on ne cite pas l'ouvrage")
 
@@ -1283,7 +1446,7 @@ def brouillon_depuis_json(
     ouvrage = document["ouvrage"]
     return Brouillon(
         conte=str(document["conte"]),
-        seuil=int(document["seuil"]),
+        seuil=lire_niveau(document["seuil"]),
         empreinte=empreinte,
         ouvrage=str(ouvrage).strip() if ouvrage is not None else None,
         titre=titre["zh"],
@@ -1308,22 +1471,26 @@ def _phrases_brouillon(brut: object, prefixe: str, problemes: list[str]) -> list
     return phrases
 
 
-def chemin_brouillon(conte_id: str, seuil: int, dossier: Path | None = None) -> Path:
+def chemin_brouillon(conte_id: str, seuil: Niveau, dossier: Path | None = None) -> Path:
     return (dossier or BROUILLONS) / conte_id / f"{seuil}.json"
 
 
 def lire_brouillon(chemin: Path) -> Brouillon:
-    """Lit `data/sources/contes-brouillons/<id>/<seuil>.json`."""
+    """Lit `data/sources/contes-brouillons/<id>/<niveau>.json` (`255.json`, `hsk3.json`)."""
     conte = chemin.parent.name
     nom = f"{conte}/{chemin.stem}"
-    if not chemin.stem.isdigit():
-        raise BrouillonInvalide(nom, [f"{chemin.name} : le fichier porte le nom de son seuil, 255.json"])
+    try:
+        seuil = lire_niveau(chemin.stem)
+    except SeuilInconnu as erreur:
+        raise BrouillonInvalide(
+            nom, [f"{chemin.name} : le fichier porte le nom de son niveau, 255.json ou hsk3.json"]
+        ) from erreur
     octets = chemin.read_bytes()
     try:
         document = json.loads(octets.decode("utf-8"))
     except (UnicodeDecodeError, json.JSONDecodeError) as erreur:
         raise BrouillonInvalide(nom, [f"JSON illisible : {erreur}"]) from erreur
-    return brouillon_depuis_json(document, empreinte=empreinte_brouillon(octets), conte=conte, seuil=int(chemin.stem))
+    return brouillon_depuis_json(document, empreinte=empreinte_brouillon(octets), conte=conte, seuil=seuil)
 
 
 def brouillons_ecrits(dossier: Path | None = None) -> list[Path]:
@@ -1333,7 +1500,7 @@ def brouillons_ecrits(dossier: Path | None = None) -> list[Path]:
         return []
     return sorted(
         dossier.glob("*/*.json"),
-        key=lambda p: (p.parent.name, int(p.stem) if p.stem.isdigit() else 0, p.stem),
+        key=lambda p: (p.parent.name, rang(niveau_brut(p.stem)), p.stem),
     )
 
 
@@ -1443,19 +1610,20 @@ def importer_brouillon(
     )
 
 
-def contraintes(seuil: int) -> str:
+def contraintes(seuil: Niveau) -> str:
     """Ce que `wenlu contes importer` vérifie, comme pour une version générée."""
     minimum, maximum = LONGUEURS.get(seuil, (0, 0))
     return f"""Contraintes, vérifiées par `wenlu contes importer` comme pour un conte généré.
 Rejet :
 - titre.zh, chaque phrases[].zh et, pour un récit long, chaque titre de chapitre : les \
-seuls caractères de la liste du seuil, et la ponctuation {PONCTUATION_CHINOISE} (citations entre 「」) ; ni chiffre, ni lettre, \
+seuls caractères de la liste du niveau (pour un niveau HSK, celles des niveaux 1 à lui), \
+et la ponctuation {PONCTUATION_CHINOISE} (citations entre 「」) ; ni chiffre, ni lettre, \
 aucun autre caractère, même dans un nom propre.
 Écarts, signalés à la relecture :
-- longueur : {minimum} à {maximum} sinogrammes pour le seuil {seuil}, phrases seules, \
+- longueur : {minimum} à {maximum} sinogrammes pour le {libelle(seuil)}, phrases seules, \
 ponctuation non comprise ; pour un récit long, à chaque chapitre ;
 - récit long : autant de chapitres que le catalogue en prévoit, chacun titré et non vide ;
-- seuil : l'un des niveaux que le catalogue prévoit pour le récit ;
+- niveau : l'un des niveaux que le catalogue prévoit pour le récit ;
 - pinyin du titre, de chaque titre de chapitre et de chaque phrase : {REGLE_PINYIN} ;
 - fr et en de chaque phrase non vides, rédigés pour un lecteur de chaque langue ;
 - glose : une liste d'entrées {{zh, pinyin, fr, en}}, par caractère ou par mot, qui couvre \
@@ -1465,7 +1633,8 @@ le pinyin d'une entrée est celui des phrases, syllabe pour syllabe ; fr et en e
 trois mots, dans le sens qu'a l'entrée ici, rédigés soi-même, jamais repris d'un \
 dictionnaire.
 Format (sinon rien n'est écrit) :
-- conte et seuil : ceux du chemin <id>/<seuil>.json ; aucune autre clé que \
+- conte et seuil (le niveau : 255, ou "hsk3") : ceux du chemin <id>/<niveau>.json \
+(255.json, hsk3.json) ; aucune autre clé que \
 {', '.join(CHAMPS_BROUILLON)} ;
 - récit long : chapitres [{{titre: {{zh, pinyin}}, phrases: [...]}}] à la place de phrases ;
 - ouvrage : l'ouvrage du catalogue, à l'identique, ou null pour ne pas le citer ; \
@@ -1475,7 +1644,7 @@ l'ouvrage d'origine ; des phrases courtes, un chinois simple et naturel ; des co
 ni emoji ni dragon, sauf dans 叶公好龙 dont le dragon est le sujet."""
 
 
-def squelette(conte: Conte, seuil: int) -> dict[str, object]:
+def squelette(conte: Conte, seuil: Niveau) -> dict[str, object]:
     """Un brouillon vide pour ce conte à ce seuil : des phrases pour une fable, un
     chapitre par chapitre prévu pour un récit long."""
     vide = {"zh": "", "pinyin": "", "fr": "", "en": ""}
@@ -1501,21 +1670,21 @@ def squelette(conte: Conte, seuil: int) -> dict[str, object]:
 
 def decrire_contexte(
     conte: Conte,
-    seuil: int,
+    seuil: Niveau,
     autorises: Sequence[str],
     *,
     brouillons: Path | None = None,
 ) -> list[str]:
-    """Ce qu'un rédacteur doit savoir d'un conte à un seuil, en lignes à afficher.
+    """Ce qu'un rédacteur doit savoir d'un conte à un niveau, en lignes à afficher.
 
     Les mêmes faits que l'invite des versions générées : le récit, sa source, la
-    longueur visée et la liste exacte des caractères du seuil.
+    longueur visée et la liste exacte des caractères du niveau (en cumul pour le HSK).
     """
     minimum, maximum = LONGUEURS.get(seuil, (0, 0))
     hors = caracteres_hors_liste(conte.titre_zh, autorises)
     chemin = chemin_brouillon(conte.id, seuil, brouillons)
     lignes = [
-        f"== {conte.id} — {conte.titre_zh}, seuil {seuil} ==",
+        f"== {conte.id} — {conte.titre_zh}, {libelle(seuil)} ==",
         f"Titre : « {conte.titre_fr} » / “{conte.titre_en}”",
         f"Ouvrage d'origine : {conte.ouvrage} (à citer tel quel, ou null ; n'en rien recopier)",
         f"Intrigue : {conte.resume_fr}",
@@ -1524,22 +1693,22 @@ def decrire_contexte(
         + (
             ""
             if not conte.niveaux or seuil in conte.niveaux
-            else f" ; le seuil {seuil} n'en est pas (écart signalé à l'import)"
+            else f" ; le niveau {seuil} n'en est pas (écart signalé à l'import)"
         ),
         f"Longueur visée : {minimum} à {maximum} sinogrammes"
         + (" par chapitre" if conte.long else "")
         + ", ponctuation non comprise.",
         "Titre traditionnel : "
-        + (f"{' '.join(hors)} hors du seuil, à dire autrement." if hors else "entièrement dans le seuil."),
+        + (f"{' '.join(hors)} hors du niveau, à dire autrement." if hors else "entièrement dans le niveau."),
     ]
     if conte.long:
         lignes.append(
-            f"Récit long, {conte.chapitres} chapitres, chacun titré en chinois avec les caractères du seuil :"
+            f"Récit long, {conte.chapitres} chapitres, chacun titré en chinois avec les caractères du niveau :"
         )
         lignes += [f"  {c.n}. « {c.titre_fr} » / “{c.titre_en}” : {c.resume_fr}" for c in conte.plan]
     lignes += [
         "",
-        f"Les {len(autorises)} seuls caractères autorisés au seuil {seuil} :",
+        f"Les {len(autorises)} seuls caractères autorisés {au_niveau(seuil)} :",
         "".join(autorises),
         "",
         f"Brouillon à écrire : {_relatif(chemin)}" + (" (existe déjà)" if chemin.exists() else ""),
@@ -1558,9 +1727,9 @@ def exporter_relecture(
     """Rassemble les versions `a_relire` en un seul JSON, pour une page de relecture."""
     a_relire = sorted(
         (v for v in map(lire_version, versions_ecrites(dossier)) if v.statut == A_RELIRE),
-        key=lambda v: (v.seuil, v.conte),
+        key=lambda v: (rang(v.seuil), v.conte),
     )
-    listes_par_seuil: dict[int, list[str] | None] = {}
+    listes_par_seuil: dict[Niveau, list[str] | None] = {}
     entrees: list[dict[str, object]] = []
     par_id = _catalogue_par_id()
     for version in a_relire:
@@ -1578,7 +1747,7 @@ def exporter_relecture(
         "date": horloge(),
         "source": _relatif(dossier or CONTES_WORK),
         "decisions": list(DECISIONS),
-        "retour": '{"<seuil>/<conte>": "relu" | "rejete", …}, appliqué par '
+        "retour": '{"<niveau>/<conte>": "relu" | "rejete", …}, appliqué par '
         "`wenlu contes appliquer-relecture <fichier>`",
         "contes": entrees,
     }
@@ -1588,12 +1757,15 @@ def exporter_relecture(
     return sortie, len(entrees)
 
 
-def _cle_version(cle: str) -> tuple[int, str] | None:
-    """`255/yu-gong-yi-shan` → (255, "yu-gong-yi-shan")."""
+def _cle_version(cle: str) -> tuple[Niveau, str] | None:
+    """`255/yu-gong-yi-shan` → (255, "yu-gong-yi-shan") ; `hsk3/mei-hou-wang` → ("hsk3", …)."""
     seuil, _, conte = cle.partition("/")
-    if not seuil.isdigit() or not conte:
+    if not conte:
         return None
-    return int(seuil), conte
+    try:
+        return lire_niveau(seuil), conte
+    except SeuilInconnu:
+        return None
 
 
 def appliquer_relecture(decisions: object, dossier: Path | None = None) -> list[Version]:
@@ -1606,13 +1778,13 @@ def appliquer_relecture(decisions: object, dossier: Path | None = None) -> list[
     if not isinstance(decisions, dict):
         raise RelectureInvalide(['attendu un objet JSON {"<seuil>/<conte>": "relu" | "rejete"}'])
     problemes: list[str] = []
-    retenues: list[tuple[str, int, str]] = []
+    retenues: list[tuple[str, Niveau, str]] = []
     for cle, statut in decisions.items():
         if statut is None:
             continue
         lue = _cle_version(str(cle))
         if lue is None:
-            problemes.append(f"{cle} : clé attendue <seuil>/<conte>, par exemple 255/yu-gong-yi-shan")
+            problemes.append(f"{cle} : clé attendue <niveau>/<conte>, par exemple 255/yu-gong-yi-shan ou hsk3/mei-hou-wang")
             continue
         if statut not in DECISIONS:
             problemes.append(f"{cle} : décision {statut!r}, attendu {' ou '.join(DECISIONS)}")
@@ -1659,32 +1831,33 @@ SANS_LISTE = "sans_liste"
 
 
 @dataclass(frozen=True)
-class Niveau:
+class NiveauPrevu:
     """Un niveau prévu d'un conte, et où il en est. `statut` : celui de la version écrite."""
 
     conte: str
-    seuil: int
+    seuil: Niveau
     etat: str
     statut: str | None = None
 
 
 def etat_des_niveaux(
     catalogue: Sequence[Conte], versions: Iterable[Version], listes: Path | None = None
-) -> list[Niveau]:
+) -> list[NiveauPrevu]:
     """Chaque niveau prévu de chaque conte, dans l'ordre du catalogue : écrit, à écrire
     (liste présente) ou sans liste. Un niveau prévu non écrit est un écart, jamais un
-    blocage : on ne l'écrit pas sans sa liste, et on ne reconstitue pas une liste."""
+    blocage : on ne l'écrit pas sans sa liste, et on ne reconstitue pas une liste. Un
+    niveau HSK n'est à écrire que si les listes de tous les niveaux qu'il cumule sont là."""
     ecrites = {(v.conte, v.seuil): v.statut for v in versions}
-    listes_presentes = {s: fichier_seuil(s, listes).exists() for s in SEUILS}
-    niveaux: list[Niveau] = []
+    listes_presentes = {s: liste_presente(s, listes) for s in (*SEUILS, *HSK)}
+    niveaux: list[NiveauPrevu] = []
     for conte in catalogue:
         for seuil in conte.niveaux:
             if (conte.id, seuil) in ecrites:
-                niveaux.append(Niveau(conte.id, seuil, ECRIT, ecrites[(conte.id, seuil)]))
+                niveaux.append(NiveauPrevu(conte.id, seuil, ECRIT, ecrites[(conte.id, seuil)]))
             elif listes_presentes.get(seuil):
-                niveaux.append(Niveau(conte.id, seuil, A_ECRIRE))
+                niveaux.append(NiveauPrevu(conte.id, seuil, A_ECRIRE))
             else:
-                niveaux.append(Niveau(conte.id, seuil, SANS_LISTE))
+                niveaux.append(NiveauPrevu(conte.id, seuil, SANS_LISTE))
     return niveaux
 
 
@@ -1711,7 +1884,7 @@ def controle_niveaux(
         f"{len(ecrits)} écrits, {len(a_ecrire)} à écrire, {len(sans_liste)} attendent leur liste"
     )
     if sans_liste:
-        seuils = sorted({n.seuil for n in sans_liste})
+        seuils = sorted({n.seuil for n in sans_liste}, key=rang)
         detail += f" ({', '.join(str(s) for s in seuils)})"
     if a_ecrire:
         detail += " ; à écrire : " + ", ".join(f"{n.seuil}/{n.conte}" for n in a_ecrire[:5])
@@ -1757,9 +1930,9 @@ def controles(
         return [Controle("contes : caractères hors liste", True, "aucune version générée"), *suite]
 
     fautifs: list[str] = []
-    sans_liste: set[int] = set()
+    sans_liste: set[Niveau] = set()
     a_relire = 0
-    cache: dict[int, list[str] | None] = {}
+    cache: dict[Niveau, list[str] | None] = {}
     for version in versions:
         if version.statut != RELU:
             a_relire += 1
@@ -1780,7 +1953,7 @@ def controles(
     if fautifs:
         detail = f"{len(fautifs)} versions hors liste — " + " ; ".join(fautifs[:5])
     elif sans_liste:
-        detail += f" ; seuils sans liste, non contrôlés : {', '.join(str(s) for s in sorted(sans_liste))}"
+        detail += f" ; niveaux sans liste, non contrôlés : {', '.join(str(s) for s in sorted(sans_liste, key=rang))}"
     return [
         Controle("contes : caractères hors liste", not fautifs, detail, bloquant=True),
         Controle(
@@ -1803,7 +1976,20 @@ def _client(modele: str) -> ClientClaude:
     return claude.client_ou_sortie(lambda: client_anthropic(modele))
 
 
-def _autorises(seuil: int) -> list[str]:
+#: L'aide des options `--niveau` (alias `--seuil`).
+AIDE_NIVEAU = "Le niveau : 255, ou un niveau HSK, hsk1 à hsk6 et hsk7-9 (405 à 1555 sans liste)."
+
+
+def _niveau(texte: str) -> Niveau:
+    """Le niveau d'une option de la ligne de commande ; sort en erreur s'il est inconnu."""
+    try:
+        return lire_niveau(texte)
+    except SeuilInconnu as erreur:
+        typer.echo(str(erreur), err=True)
+        raise typer.Exit(code=1) from erreur
+
+
+def _autorises(seuil: Niveau) -> list[str]:
     try:
         return charger_seuil(seuil)
     except (SeuilInconnu, SeuilSansListe) as erreur:
@@ -1813,11 +1999,12 @@ def _autorises(seuil: int) -> list[str]:
 
 @app.command("generer")
 def commande_generer(
-    seuil: int = typer.Option(..., "--seuil", help="255, 405, 505, 805 ou 1555."),
+    niveau: str = typer.Option(..., "--niveau", "--seuil", help=AIDE_NIVEAU),
     conte: Optional[str] = typer.Option(None, "--conte", help="Un seul conte, en mode unitaire."),
     modele: str = typer.Option(MODELE, "--modele", help="Modèle Claude."),
 ) -> None:
-    """Génère les contes d'un seuil : par lots, ou un seul conte en unitaire."""
+    """Génère les contes d'un niveau : par lots, ou un seul conte en unitaire."""
+    seuil = _niveau(niveau)
     autorises = _autorises(seuil)
     catalogue = charger_catalogue()
     client = _client(modele)
@@ -1827,7 +2014,7 @@ def commande_generer(
         if choisi.long:
             typer.echo(
                 f"{choisi.id} est un récit long ({choisi.chapitres} chapitres) : il se rédige par "
-                f"brouillon, chapitre par chapitre (`wenlu contes contexte {choisi.id} --seuil {seuil}`).",
+                f"brouillon, chapitre par chapitre (`wenlu contes contexte {choisi.id} --niveau {seuil}`).",
                 err=True,
             )
             raise typer.Exit(code=1)
@@ -1843,10 +2030,10 @@ def commande_generer(
 
     a_generer = contes_du_seuil(catalogue, seuil)
     if not a_generer:
-        typer.echo(f"Aucune fable ne prévoit le seuil {seuil} au catalogue.")
+        typer.echo(f"Aucune fable ne prévoit le niveau {seuil} au catalogue.")
         return
     lot = soumettre_lot(a_generer, seuil, autorises, client)
-    typer.echo(f"Lot {lot['lot']} soumis : {len(a_generer)} contes au seuil {seuil}.")
+    typer.echo(f"Lot {lot['lot']} soumis : {len(a_generer)} contes {au_niveau(seuil)}.")
     typer.echo("Récupération : `wenlu contes recuperer` (les lots aboutissent sous 24 h).")
 
 
@@ -1869,9 +2056,10 @@ def commande_recuperer(
 
 @app.command("valider")
 def commande_valider(
-    seuil: Optional[int] = typer.Option(None, "--seuil", help="Ne valider qu'un seuil."),
+    niveau: Optional[str] = typer.Option(None, "--niveau", "--seuil", help="Ne valider qu'un niveau."),
 ) -> None:
-    """Revalide les versions déjà écrites contre la liste de leur seuil."""
+    """Revalide les versions déjà écrites contre la liste de leur niveau."""
+    seuil = None if niveau is None else _niveau(niveau)
     fichiers = [f for f in versions_ecrites() if seuil is None or f.parent.name == str(seuil)]
     if not fichiers:
         typer.echo("Aucune version à valider.")
@@ -1896,12 +2084,12 @@ def commande_valider(
 @app.command("relire")
 def commande_relire(
     conte: str = typer.Option(..., "--conte", help="L'identifiant du conte relu."),
-    seuil: int = typer.Option(..., "--seuil", help="Le seuil de la version relue."),
+    niveau: str = typer.Option(..., "--niveau", "--seuil", help="Le niveau de la version relue."),
     statut: str = typer.Option(RELU, "--statut", help=f"{', '.join(STATUTS)}."),
 ) -> None:
     """Marque la relecture humaine d'une version : `--statut relu` la rend exportable."""
     try:
-        version = relire(conte, seuil, statut)
+        version = relire(conte, _niveau(niveau), statut)
     except (ValueError, FileNotFoundError) as erreur:
         typer.echo(str(erreur), err=True)
         raise typer.Exit(code=1) from erreur
@@ -1917,7 +2105,7 @@ def commande_plan() -> None:
     """Les niveaux prévus de chaque conte, et où ils en sont : écrit, à écrire, sans liste."""
     catalogue = charger_catalogue()
     versions = [lire_version(chemin) for chemin in versions_ecrites()]
-    par_conte: dict[str, list[Niveau]] = {}
+    par_conte: dict[str, list[NiveauPrevu]] = {}
     for niveau in etat_des_niveaux(catalogue, versions):
         par_conte.setdefault(niveau.conte, []).append(niveau)
     for conte in catalogue:
@@ -1935,9 +2123,10 @@ def commande_plan() -> None:
 @app.command("contexte")
 def commande_contexte(
     contes: list[str] = typer.Argument(..., help="Un ou plusieurs identifiants du catalogue."),
-    seuil: int = typer.Option(255, "--seuil", help="255, 405, 505, 805 ou 1555."),
+    niveau: str = typer.Option("255", "--niveau", "--seuil", help=AIDE_NIVEAU),
 ) -> None:
     """Ce qu'un rédacteur doit savoir d'un conte avant d'écrire son brouillon."""
+    seuil = _niveau(niveau)
     autorises = _autorises(seuil)
     catalogue = charger_catalogue()
     typer.echo(contraintes(seuil))
@@ -1961,9 +2150,12 @@ def commande_importer(
     contes: Optional[list[str]] = typer.Argument(
         None, help="Les contes à importer, par identifiant (défaut : tous les brouillons)."
     ),
-    seuil: Optional[int] = typer.Option(None, "--seuil", help="Ne prendre que les brouillons de ce seuil."),
+    niveau: Optional[str] = typer.Option(
+        None, "--niveau", "--seuil", help="Ne prendre que les brouillons de ce niveau."
+    ),
 ) -> None:
     """Importe les brouillons rédigés sans API : mêmes contrôles que les contes générés."""
+    seuil = None if niveau is None else _niveau(niveau)
     chemins = brouillons_ecrits()
     absents: list[str] = []
     if contes:
@@ -1980,7 +2172,7 @@ def commande_importer(
             raise typer.Exit(code=1)
         return
     catalogue = charger_catalogue()
-    listes: dict[int, list[str]] = {}
+    listes: dict[Niveau, list[str]] = {}
     rejetes = 0
     erreurs = len(absents)
     conformes = 0
@@ -2015,8 +2207,8 @@ def commande_importer(
             f"{longueur} sinogrammes → {_relatif(resultat.chemin)}{remplace}"
         )
         if rapport.intrus:
-            typer.echo(f"  hors du seuil {version.seuil} : {' '.join(rapport.intrus)}")
-            typer.echo(f"  (liste : `wenlu contes contexte {version.conte} --seuil {version.seuil}`)")
+            typer.echo(f"  hors du niveau {version.seuil} : {' '.join(rapport.intrus)}")
+            typer.echo(f"  (liste : `wenlu contes contexte {version.conte} --niveau {version.seuil}`)")
         for ecart in rapport.ecarts:
             typer.echo(f"  écart : {ecart}")
         if rapport.conforme:

@@ -44,7 +44,7 @@ app/public/data/0.1.0/
   traits/<racine>.json       les tracés de la famille, sous APL, et rien d'autre
   traits/ARPHICPL.TXT        la même licence, à côté des fichiers qu'elle couvre
   traits/MODIFICATIONS.md    comment et quand les tracés ont été dérivés
-  contes/<id>.json           un conte relu, une version par seuil (trois au seuil 255)
+  contes/<id>.json           un conte relu, une version par niveau (trois au seuil 255)
 ```
 
 Trois régimes de licence, trois familles de fichiers, jamais mêlés
@@ -1043,9 +1043,17 @@ rien.
 
 ## Contes par niveau (story 1.7)
 
-Un même récit traditionnel est réécrit à chaque seuil (255, 405, 505, 805, 1555) avec
-les seuls caractères du seuil. L'utilisateur relit la même histoire, plus riche, quand
-son acquis grandit (épic 2c). Aucun texte de conte n'entre dans le dépôt sans passer par
+Un même récit traditionnel est réécrit à plusieurs niveaux avec les seuls caractères du
+niveau. L'utilisateur relit la même histoire, plus riche, quand son acquis grandit
+(épic 2c). Un niveau est un seuil sinographique, nombre (`255`, le seul versionné, celui
+des trois contes gratuits), ou un niveau du HSK 3.0 (GF 0025-2021), chaîne : `hsk1` à
+`hsk6`, puis `hsk7-9`, que la norme ne départage pas. Un niveau HSK se lit **en cumul** :
+`hsk3` autorise les 900 caractères de `hsk-1.txt`, `hsk-2.txt` et `hsk-3.txt`
+(`data/sources/listes/`, chacun ne portant que les caractères nouveaux de son niveau).
+Les niveaux se rangent par leur nombre de caractères, cumul compris (`contes.rang`) :
+255 < `hsk1` (300) < `hsk2` (600) < … < `hsk6` (1 800) < `hsk7-9` (3 000). Les seuils 405
+à 1555 restent connus du code, sans liste versionnée : les contes suivent le HSK
+(décision du propriétaire). Aucun texte de conte n'entre dans le dépôt sans passer par
 le pipeline : il sort de la génération par l'API ou de l'import d'un brouillon rédigé
 sans API, avec les mêmes contrôles, puis d'une relecture humaine.
 
@@ -1083,8 +1091,9 @@ attente de sa liste.
 
 ### Version écrite, versionnée
 
-`uv run wenlu contes generer --seuil <n> [--conte <id>]` puis `uv run wenlu contes
-recuperer` écrivent `data/sources/contes-versions/<seuil>/<id>.json`, versionné : le
+`uv run wenlu contes generer --niveau <n> [--conte <id>]` (`--seuil` en est l'alias ;
+`255`, `hsk3`…) puis `uv run wenlu contes recuperer` écrivent
+`data/sources/contes-versions/<niveau>/<id>.json` (`255/`, `hsk3/`), versionné : le
 texte d'un conte est un contenu, sa relecture se lit dans l'historique git.
 `uv run wenlu contes importer` y écrit aussi, depuis un brouillon rédigé sans API (voir
 « Brouillons de contes ») :
@@ -1118,6 +1127,8 @@ texte d'un conte est un contenu, sa relecture se lit dans l'historique git.
 }
 ```
 
+- `seuil` : le niveau de la version, `255` (nombre) ou `"hsk3"` (chaîne) ; le nom du
+  champ est historique, et les versions du seuil 255 se relisent octet pour octet.
 - `titre` et `phrases[].zh` : le chinois, phrase par phrase — l'unité d'affichage,
   d'audio et de traduction.
 - Un récit long remplace `phrases` par `chapitres` : `[{titre, titre_pinyin, titre_fr,
@@ -1153,12 +1164,15 @@ texte d'un conte est un contenu, sa relecture se lit dans l'historique git.
   relecture humaine faite. Seules les versions relues sont exportables.
 
 Validation (`contes.valider()`, la même pour les deux chemins). **Rejet** : un caractère
-du titre ou du texte hors de la liste du seuil (`data/sources/listes/seuil-<n>.txt`),
-ponctuation `。，、；：？！「」『』（）《》—…·` exceptée ; les intrus sont listés exactement.
+du titre ou du texte hors de la liste du niveau (`data/sources/listes/seuil-<n>.txt` pour
+un seuil ; pour un niveau HSK, le cumul de `hsk-1.txt` à `hsk-<n>.txt`), ponctuation
+`。，、；：？！「」『』（）《》—…·` exceptée ; les intrus sont listés exactement.
 Un titre de chapitre est contrôlé comme le titre.
-**Écarts**, signalés à la relecture sans rejeter : longueur hors cible (255 : 60 à 120
-sinogrammes, phrases seules ; pour un récit long, à chaque chapitre), chapitre sans
-phrase, sans titre chinois, ou sans titre français ou anglais au catalogue, seuil que
+**Écarts**, signalés à la relecture sans rejeter : longueur hors cible (`LONGUEURS` :
+255 et `hsk1` 60 à 120 sinogrammes, `hsk2` 150 à 260, `hsk3` 220 à 380, `hsk4` 270 à
+470, `hsk5` à `hsk7-9` 320 à 560, phrases seules ; pour un récit long, à chaque
+chapitre), chapitre sans phrase, sans titre chinois, ou sans titre français ou anglais
+au catalogue, niveau que
 le catalogue ne prévoit pas pour le récit, nombre de chapitres autre que celui prévu,
 phrase vide, traduction anglaise absente, pinyin qui ne
 compte pas une syllabe par sinogramme ou hors forme, ton de 一 ou 不 modifié (sandhi),
@@ -1167,7 +1181,7 @@ glose absente du texte, pinyin d'une entrée différent de celui de la phrase o�
 touche, entrée sans pinyin, sans `fr` ou sans `en`.
 
 Le journal des lots d'API, lui, reste hors dépôt, dans `data/work/contes/lots/<lot>.json`
-: c'est l'état d'un passage, pas un contenu. Il porte l'identifiant du lot, le seuil, le
+: c'est l'état d'un passage, pas un contenu. Il porte l'identifiant du lot, le niveau, le
 modèle, la date de soumission, le statut, et une entrée par requête (`custom_id`, conte,
 numéro d'essai, empreinte de l'invite).
 
@@ -1176,11 +1190,11 @@ est bloquant, le contrôle « contes : relecture » compte ce qui reste à relir
 contrôle « contes : catalogue » (bloquant) relit le catalogue et ses chapitres, et le
 contrôle « contes : niveaux prévus » compte, pour chaque niveau prévu, s'il est écrit, à
 écrire (liste présente, aucune version) ou en attente de sa liste, et relève les
-versions qui s'écartent du catalogue (seuil non prévu, nombre de chapitres, conte hors
+versions qui s'écartent du catalogue (niveau non prévu, nombre de chapitres, conte hors
 catalogue). Il est en écart tant qu'un niveau reste à écrire, et **jamais bloquant** :
 un niveau prévu non écrit ne retient ni l'export ni l'app.
 
-`uv run wenlu contes generer` ne soumet, à un seuil, que les fables qui le prévoient
+`uv run wenlu contes generer` ne soumet, à un niveau, que les fables qui le prévoient
 (`contes_du_seuil`) ; un récit long ne part pas à l'API : il se rédige par brouillon,
 chapitre par chapitre.
 `uv run wenlu contes valider` refait toute la validation à la demande, écarts compris.
@@ -1188,8 +1202,8 @@ chapitre par chapitre.
 ### Brouillons de contes, versionnés (rédaction sans API)
 
 Une version peut être rédigée sans clé d'API, par un agent Claude Code dans sa session
-ou par une personne, dans un brouillon : `data/sources/contes-brouillons/<id>/<seuil>.json`,
-versionné, un dossier par conte, un fichier par seuil.
+ou par une personne, dans un brouillon : `data/sources/contes-brouillons/<id>/<niveau>.json`,
+versionné, un dossier par conte, un fichier par niveau (`255.json`, `hsk3.json`) ; `seuil` y vaut `255` ou `"hsk3"`.
 
 ```json
 {
@@ -1224,15 +1238,15 @@ versionné, un dossier par conte, un fichier par seuil.
 
 Commandes :
 
-- `uv run wenlu contes contexte <id> [<id> …] --seuil 255` affiche les contraintes de
+- `uv run wenlu contes contexte <id> [<id> …] --niveau 255` (ou `--niveau hsk3`) affiche les contraintes de
   `valider()`, puis, par conte : titres, ouvrage, intrigue du catalogue, niveaux prévus
-  (et si le seuil demandé n'en est pas), longueur visée (par chapitre pour un récit
+  (et si le niveau demandé n'en est pas), longueur visée (par chapitre pour un récit
   long), les chapitres prévus avec leurs titres et leurs résumés,
-  les caractères du titre traditionnel hors du seuil, **la liste exacte des caractères
+  les caractères du titre traditionnel hors du niveau, **la liste exacte des caractères
   autorisés**, le chemin du brouillon et un squelette.
-- `uv run wenlu contes importer [<id> …] [--seuil 255]` lit les brouillons (tous, ou
+- `uv run wenlu contes importer [<id> …] [--niveau 255]` lit les brouillons (tous, ou
   ceux des contes nommés), construit la version, lance `valider()` et l'écrit dans
-  `data/sources/contes-versions/<seuil>/<id>.json` au statut `a_relire` si elle est
+  `data/sources/contes-versions/<niveau>/<id>.json` au statut `a_relire` si elle est
   conforme, `rejete` sinon. Les intrus et les écarts s'affichent par version ; on
   corrige le brouillon et on relance. Un brouillon illisible (JSON, clé manquante ou
   inconnue, `conte` ou `seuil` qui ne redit pas le chemin, conte hors catalogue,
@@ -1248,13 +1262,13 @@ remet la version au statut `a_relire`.
 
 ### Relecture
 
-La relecture reste humaine (brief §7). `uv run wenlu contes relire --conte <id> --seuil 255
+La relecture reste humaine (brief §7). `uv run wenlu contes relire --conte <id> --niveau 255
 --statut relu` marque une version ; pour une page de relecture :
 
 - `uv run wenlu contes exporter-relecture [--sortie …]` écrit
   `data/work/relecture-contes.json`, hors dépôt : `{date, source, decisions, retour,
   contes}`, où `contes` porte chaque version `a_relire` (format ci-dessus), avec sa
-  `cle` (`255/yu-gong-yi-shan`) et ses `ecarts`, triée par seuil puis par conte ;
+  `cle` (`255/yu-gong-yi-shan`, `hsk3/mei-hou-wang`) et ses `ecarts`, triée par niveau puis par conte ;
 - `uv run wenlu contes appliquer-relecture <fichier>` lit
   `{"255/yu-gong-yi-shan": "relu", "255/ba-miao-zhu-zhang": "rejete", "255/nan-yuan-bei-zhe": null}`
   et applique `relire` à chaque version. `null` laisse une version en attente. Tout ou
@@ -1264,7 +1278,7 @@ La relecture reste humaine (brief §7). `uv run wenlu contes relire --conte <id>
 ### Ce que l'app lira (export, story 1.6)
 
 `app/public/data/<version>/contes/<id>.json` réunit les versions **relues** d'un même
-conte, une par seuil, dans l'ordre des seuils :
+conte, une par niveau, sous la clé du niveau (`"255"`, `"hsk3"`), du plus petit au plus grand :
 
 ```json
 {
@@ -1302,11 +1316,11 @@ Un récit long y porte `chapitres` à la place de `phrases`, au format de la ver
 suit le même format.
 
 `app/public/data/<version>/index.json` gagne `contes: [{id, titre_fr, titre_en,
-seuils: [255, …], fichier}]`, les contes relus, et `catalogue: [{id, titre_zh,
+seuils: [255, "hsk3", …], fichier}]` (un seuil en nombre, un niveau HSK en chaîne), les contes relus, et `catalogue: [{id, titre_zh,
 titre_pinyin, titre_fr, titre_en, niveaux, chapitres}]`, tout ce que le catalogue
 prévoit, écrit ou pas : la bibliothèque montre chaque récit avec ses niveaux (écrit et
 ouvert, écrit mais fermé, pas encore écrit) sans rien inventer. Ni résumé ni texte n'y
-figurent. L'app choisit la version du seuil le plus haut dont tous
+figurent. L'app choisit la version du niveau le plus haut (par son nombre de caractères) dont tous
 les caractères sont acquis, et signale quand une version plus riche s'ouvre (épic 2c).
 Au toucher d'un caractère, le lecteur retrouve l'entrée de glose qui le couvre par le
 découpage ci-dessus et l'affiche avec son pinyin ; le pinyin de la phrase s'aligne

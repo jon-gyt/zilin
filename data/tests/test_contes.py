@@ -309,6 +309,109 @@ def test_seuil_255_est_versionne() -> None:
     assert len(charger_seuil(255)) == 255
 
 
+# --------------------------------------------------------------------------- niveaux HSK
+
+
+def ecrire_hsk(dossier: Path, niveaux: dict[str, str]) -> None:
+    """Des listes HSK factices : `{"1": "人大", "2": "天"}` → hsk-1.txt, hsk-2.txt."""
+    dossier.mkdir(parents=True, exist_ok=True)
+    for niveau, caracteres in niveaux.items():
+        (dossier / f"hsk-{niveau}.txt").write_text("\n".join(caracteres) + "\n", encoding="utf-8")
+
+
+def test_un_niveau_hsk_se_lit_en_cumul(tmp_path: Path) -> None:
+    """HSK 3 = les caractères des niveaux 1, 2 et 3, dans l'ordre des listes."""
+    ecrire_hsk(tmp_path, {"1": "人大", "2": "天", "3": "山水", "4": "火"})
+    assert charger_seuil("hsk3", tmp_path) == ["人", "大", "天", "山", "水"]
+    assert charger_seuil("HSK1", tmp_path) == ["人", "大"]
+
+
+def test_un_niveau_hsk_sans_une_de_ses_listes_est_refuse(tmp_path: Path) -> None:
+    ecrire_hsk(tmp_path, {"1": "人大", "3": "山水"})
+    with pytest.raises(SeuilSansListe, match="hsk-2.txt"):
+        charger_seuil("hsk3", tmp_path)
+
+
+def test_les_niveaux_hsk_du_depot_se_lisent_en_cumul() -> None:
+    """300 caractères par niveau de 1 à 6, 1 200 de plus pour 7-9 ; le seuil 255 tient
+    tout entier dans HSK 3 : c'est pourquoi il se place au palier de HSK 1."""
+    assert [len(charger_seuil(n)) for n in contes.HSK] == [300, 600, 900, 1200, 1500, 1800, 3000]
+    assert [contes.rang(n) for n in contes.HSK] == [300, 600, 900, 1200, 1500, 1800, 3000]
+    assert set(charger_seuil(255)) <= set(charger_seuil("hsk3"))
+
+
+@pytest.mark.parametrize("valeur", ["hsk0", "hsk10", "hsk7", "300", "", True])
+def test_un_niveau_inconnu_est_refuse(valeur: object) -> None:
+    with pytest.raises(SeuilInconnu):
+        contes.lire_niveau(valeur)
+
+
+def test_un_niveau_se_lit_seuil_ou_hsk() -> None:
+    assert contes.lire_niveau("255") == 255 and contes.lire_niveau(255) == 255
+    assert contes.lire_niveau(" HSK7-9 ") == "hsk7-9"
+    assert contes.libelle(255) == "seuil 255" and contes.libelle("hsk3") == "HSK 3"
+    assert contes.au_niveau("hsk7-9") == "au niveau HSK 7-9"
+    assert sorted(["hsk2", 255, "hsk1", 1555], key=contes.rang) == [255, "hsk1", "hsk2", 1555]
+
+
+def test_le_catalogue_accepte_les_niveaux_hsk() -> None:
+    lignes = ["\t".join(contes.COLONNES), ligne_catalogue(niveaux="255,hsk3,hsk5")]
+    (conte,) = parse_catalogue(lignes)
+    assert conte.niveaux == (255, "hsk3", "hsk5")
+
+
+def test_un_seul_niveau_n_est_permis_qu_au_dernier_palier() -> None:
+    """L'échelle s'arrête à HSK 7-9 : un récit qui y commence n'a pas de niveau au-dessus."""
+    (conte,) = parse_catalogue(["\t".join(contes.COLONNES), ligne_catalogue(niveaux="hsk7-9")])
+    assert conte.niveaux == ("hsk7-9",)
+    with pytest.raises(CatalogueInvalide, match="deux niveaux"):
+        parse_catalogue(["\t".join(contes.COLONNES), ligne_catalogue(niveaux="hsk6")])
+    with pytest.raises(CatalogueInvalide, match="croissants"):
+        parse_catalogue(["\t".join(contes.COLONNES), ligne_catalogue(niveaux="hsk3,255")])
+
+
+@pytest.mark.parametrize(
+    ("plus_bas", "nombre", "attendus"),
+    [
+        (255, 2, (255, "hsk3")),
+        (255, 3, (255, "hsk3", "hsk5")),
+        ("hsk3", 2, ("hsk3", "hsk5")),
+        ("hsk4", 3, ("hsk4", "hsk6", "hsk7-9")),
+        ("hsk5", 2, ("hsk5", "hsk7-9")),
+        ("hsk5", 3, ("hsk5", "hsk6", "hsk7-9")),
+        ("hsk6", 3, ("hsk6", "hsk7-9")),
+        ("hsk7-9", 2, ("hsk7-9",)),
+    ],
+)
+def test_les_niveaux_attendus_montent_de_deux_paliers(plus_bas: object, nombre: int, attendus: tuple) -> None:
+    """Le critère du catalogue : le plus bas, puis deux paliers plus haut chaque fois,
+    sans dépasser HSK 7-9 ; au haut de l'échelle, les paliers restants comblent."""
+    assert contes.niveaux_attendus(plus_bas, nombre) == attendus  # type: ignore[arg-type]
+
+
+def test_une_version_hsk_ne_prend_que_le_cumul_de_son_niveau(tmp_path: Path) -> None:
+    """Un caractère du niveau 3 dans une version HSK 2 est un intrus ; ceux des niveaux 1
+    et 2 passent."""
+    ecrire_hsk(tmp_path, {"1": "山水日月", "2": "人大天", "3": "鸟鱼"})
+    version = lire_reponse(CONFORME, conte=CONTE, seuil="hsk2", generation=generation_de_test())
+    assert valider(version, charger_seuil("hsk2", tmp_path)).conforme
+    fautive = lire_reponse(INTRUS, conte=CONTE, seuil="hsk2", generation=generation_de_test())
+    assert "鸟" in valider(fautive, charger_seuil("hsk2", tmp_path)).intrus
+    assert "鸟" not in valider(fautive, charger_seuil("hsk3", tmp_path)).intrus
+
+
+def test_une_version_hsk_s_ecrit_sous_son_niveau(tmp_path: Path) -> None:
+    """`hsk3/<id>.json`, `"seuil": "hsk3"` ; relue telle quelle, rangée après le seuil 255."""
+    haute = lire_reponse(CONFORME, conte=CONTE, seuil="hsk3", generation=generation_de_test())
+    basse = lire_reponse(CONFORME, conte=CONTE, seuil=255, generation=generation_de_test())
+    chemin = ecrire_version(haute, tmp_path)
+    ecrire_version(basse, tmp_path)
+    assert chemin == tmp_path / "hsk3" / "conte-de-test.json"
+    assert json.loads(chemin.read_text(encoding="utf-8"))["seuil"] == "hsk3"
+    assert [contes.lire_version(c).seuil for c in contes.versions_ecrites(tmp_path)] == [255, "hsk3"]
+    assert haute.cle == "hsk3/conte-de-test"
+
+
 # --------------------------------------------------------------------------- invite
 
 
@@ -630,7 +733,7 @@ def test_le_catalogue_dit_les_niveaux_et_les_chapitres_prevus() -> None:
     version = version_longue([chapitre_de_test("日月")], seuil=505)
     rapport = valider(version, LISTE, CONTE_LONG)
     assert rapport.conforme
-    assert "seuil 505 non prévu au catalogue (niveaux prévus : 405, 805)" in rapport.ecarts
+    assert "niveau 505 non prévu au catalogue (niveaux prévus : 405, 805)" in rapport.ecarts
     assert "1 chapitre(s) pour 2 prévu(s) au catalogue" in rapport.ecarts
 
 
@@ -843,7 +946,7 @@ def test_une_version_hors_plan_est_signalee(tmp_path: Path) -> None:
     conte = Conte(id="conte-de-test", titre_zh="山水", titre_fr="T", ouvrage="《测试》", resume_fr="R.", niveaux=(405, 805))
     version = lire_reponse(CONFORME, conte=CONTE, seuil=255, generation=generation_de_test())
     controle = contes.controle_niveaux([conte], [version], listes)
-    assert "255/conte-de-test : seuil 255 non prévu au catalogue" in controle.detail
+    assert "255/conte-de-test : niveau 255 non prévu au catalogue" in controle.detail
     assert not controle.bloquant
 
 
