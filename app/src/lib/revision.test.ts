@@ -133,7 +133,7 @@ describe('le corpus assemblé pour les questions', () => {
     expect(fichesDuCorpus(null, null)).toEqual([]);
   });
 
-  it("n'offre le type « à l'oreille » qu'avec la voix de l'appareil : aucune fiche ne porte d'audio", () => {
+  it("n'offre le type « à l'oreille » qu'avec la voix de l'appareil ou un fichier du manifeste", () => {
     expect(corpus.voix).toBe(false);
     for (const f of corpus.fiches) {
       expect(typesPossibles(f, corpus)).not.toContain('oreille');
@@ -141,6 +141,11 @@ describe('le corpus assemblé pour les questions', () => {
     const avecVoix = corpusRevision({ ...sources, voix: true });
     expect(avecVoix.voix).toBe(true);
     expect(typesPossibles(ficheDuCorpus('住', avecVoix)!, avecVoix)).toContain('oreille');
+    /* Sans voix, le fichier du manifeste audio suffit, pour le seul caractère qu'il porte. */
+    const avecFichier = corpusRevision({ ...sources, manifeste: { 住: 'data/0.1.0/audio/zhu.mp3' } });
+    expect(avecFichier.voix).toBe(false);
+    expect(typesPossibles(ficheDuCorpus('住', avecFichier)!, avecFichier)).toContain('oreille');
+    expect(typesPossibles(ficheDuCorpus('他', avecFichier)!, avecFichier)).not.toContain('oreille');
   });
 
   it('laisse le tracé se couper par le réglage', () => {

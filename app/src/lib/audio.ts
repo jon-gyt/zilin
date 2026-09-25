@@ -12,6 +12,12 @@
  * Un seul `HTMLAudioElement` pour toute l'app, réutilisé d'un texte à l'autre : sur
  * iOS, un élément déjà débloqué par un geste continue de jouer, et n'en créer qu'un
  * évite d'empiler des lecteurs à chaque toucher.
+ *
+ * Hors ligne : le service worker précache le manifeste et tous les mp3 à l'installation
+ * (`vite.config.ts`, `globPatterns` avec `mp3`), rien n'est mis en cache à la demande. Une
+ * app installée dit donc ses fichiers sans réseau. Un fichier qui ne se charge pas (service
+ * worker pas encore installé ou cache vidé par le système, et pas de réseau) fait rejeter
+ * `play()` : on retombe sur la voix du téléphone, et sans elle `prononcer` le dit (`muet`).
  */
 import { VERSION_DONNEES, dossierVersion } from './content';
 
@@ -225,12 +231,35 @@ export function aAudio(m: Manifeste | null, texte: string): boolean {
 }
 
 /**
- * Dit un texte. Le fichier pré-généré d'abord ; sinon la voix du téléphone ; sinon
- * rien du tout, en silence. Rend `true` si quelque chose a été dit.
+ * Ce qu'a donné une demande de dire un texte :
+ * - `fichier` : le fichier pré-généré joue ;
+ * - `telephone` : la voix du téléphone le dit (pas de fichier, ou fichier qui ne s'est pas
+ *   chargé, ou lecture refusée) ;
+ * - `bloque` : le fichier est là mais le navigateur a refusé de le jouer (`NotAllowedError`,
+ *   geste requis, ou `AbortError`, lecture interrompue par une autre), et le téléphone n'a
+ *   pas de voix : un toucher sur « Écouter » le jouera ;
+ * - `muet` : rien à dire, ni fichier lisible ni voix du téléphone.
  */
-export async function dire(texte: string, file?: string): Promise<boolean> {
+export type Dit = 'fichier' | 'telephone' | 'bloque' | 'muet';
+
+/**
+ * Un refus de `play()` qui ne dit rien du fichier : le navigateur attend un geste, ou une
+ * autre lecture a pris la place. Tout autre rejet (`NotSupportedError` quand la ressource
+ * ne se charge pas, hors ligne et pas en cache) compte comme un fichier absent.
+ */
+function refusSansEchec(e: unknown): boolean {
+  const nom = (e as { name?: unknown } | null)?.name;
+  return nom === 'NotAllowedError' || nom === 'AbortError';
+}
+
+/**
+ * Dit un texte. Le fichier pré-généré d'abord ; s'il n'y en a pas ou qu'il ne se lit pas,
+ * la voix du téléphone ; sinon rien, en silence. Rend ce qui s'est passé (`Dit`).
+ */
+export async function prononcer(texte: string, file?: string): Promise<Dit> {
   const m = await manifesteOnce(file);
   const c = chemin(m, texte);
+  let refuse = false;
   if (c !== null) {
     const l = lecteur();
     if (l !== null) {
@@ -238,13 +267,21 @@ export async function dire(texte: string, file?: string): Promise<boolean> {
       l.currentTime = 0;
       try {
         await l.play();
-        return true;
-      } catch {
-        /* lecture refusée : on tente la voix du téléphone */
+        return 'fichier';
+      } catch (e) {
+        /* lecture refusée ou fichier introuvable : on tente la voix du téléphone */
+        refuse = refusSansEchec(e);
       }
     }
   }
-  return direParLeTelephone(texte);
+  if (direParLeTelephone(texte)) return 'telephone';
+  return refuse ? 'bloque' : 'muet';
+}
+
+/** Dit un texte, comme `prononcer`. Rend `true` si quelque chose a été dit. */
+export async function dire(texte: string, file?: string): Promise<boolean> {
+  const d = await prononcer(texte, file);
+  return d === 'fichier' || d === 'telephone';
 }
 
 /** La voix du téléphone : une seule phrase à la fois, en mandarin, un peu ralentie. */

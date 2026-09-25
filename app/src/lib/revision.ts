@@ -102,6 +102,11 @@ export type SourcesCorpus = {
   trace?: boolean;
   /** L'appareil a une voix mandarin (`audio.voixPretes`) : la question à l'oreille peut se poser. */
   voix?: boolean;
+  /**
+   * Les fichiers du manifeste audio (`audio.manifesteOnce`, ses `chemins`) : un caractère
+   * qui y figure peut se poser à l'oreille, même sans voix de l'appareil.
+   */
+  manifeste?: Readonly<Record<string, string>>;
 };
 
 /**
@@ -189,7 +194,7 @@ export function decompositionsDe(fiches: readonly Fiche[]): Record<string, strin
 /**
  * Le corpus du pas Échauffer : les fiches de la famille et des voisins, les
  * décompositions, l'acquis (les cartes), les paires à ne pas confondre, le réglage tracé,
- * et la voix de l'appareil.
+ * la voix de l'appareil et les fichiers du manifeste audio.
  */
 export function corpusRevision(s: SourcesCorpus): Corpus {
   const fiches = fichesDuCorpus(s.famille ?? null, s.voisins, s.fiches ?? []);
@@ -199,7 +204,8 @@ export function corpusRevision(s: SourcesCorpus): Corpus {
     acquis: s.cartes,
     paires: s.paires ?? [],
     trace: s.trace ?? true,
-    voix: s.voix ?? false
+    voix: s.voix ?? false,
+    manifeste: s.manifeste ?? {}
   };
 }
 
