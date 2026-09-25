@@ -685,7 +685,8 @@ class MotExplique:
     un objet clé du récit (狼 dans 亡羊补牢, 叶公 dans 叶公好龙). Le lecteur le montre avant
     le texte, dessiné, avec son pinyin, son sens et une courte explication ; il ne compte
     pas dans l'acquis qu'il faut pour ouvrir le conte. Son caractère hors du niveau doit
-    être déclaré au catalogue (`cles`), et une version en explique trois au plus."""
+    être déclaré au catalogue (`cles`) ; une fable en explique trois au plus, un récit long
+    trois nouveaux au plus par chapitre."""
 
     zh: str
     pinyin: str
@@ -992,9 +993,11 @@ def expliques_admis(
     """Les caractères hors du niveau que les mots expliqués font admettre, et les refus.
 
     Un caractère n'est admis que s'il est déclaré au catalogue du récit (`cles` : caractère
-    clé, ou personnage ou objet clé après la barre oblique) ; sans catalogue, aucun. Plus
-    de `MAX_EXPLIQUES` caractères hors du niveau, et aucun ne l'est : la version est
-    refusée. Un caractère non admis reste un intrus s'il est dans le texte."""
+    clé, ou personnage ou objet clé après la barre oblique) ; sans catalogue, aucun. Une
+    fable en explique `MAX_EXPLIQUES` au plus ; un récit long, `MAX_EXPLIQUES` nouveaux au
+    plus par chapitre, un mot expliqué le restant dans les chapitres qui suivent
+    (`nouveaux_par_chapitre`). Au-delà, aucun n'est admis : la version est refusée. Un
+    caractère non admis reste un intrus s'il est dans le texte."""
     hors = hors_niveau_expliques(version, autorises)
     if not hors:
         return [], []
@@ -1008,12 +1011,36 @@ def expliques_admis(
             + (f" de {conte.id}" if conte is not None else "")
             + ")"
         )
-    if len(hors) > MAX_EXPLIQUES:
+    if version.courte and len(hors) > MAX_EXPLIQUES:
         refus.append(
             f"{len(hors)} caractères hors du niveau expliqués ({' '.join(hors)}), {MAX_EXPLIQUES} au plus"
         )
         return [], refus
+    if not version.courte:
+        trop = [
+            f"chapitre {k} : {len(nouveaux)} caractères hors du niveau expliqués pour la première fois "
+            f"({' '.join(nouveaux)}), {MAX_EXPLIQUES} au plus par chapitre"
+            for k, nouveaux in enumerate(nouveaux_par_chapitre(version, hors), start=1)
+            if len(nouveaux) > MAX_EXPLIQUES
+        ]
+        if trop:
+            return [], refus + trop
     return [c for c in hors if c in declares], refus
+
+
+def nouveaux_par_chapitre(version: Version, caracteres: Iterable[str]) -> list[list[str]]:
+    """Pour chaque chapitre, ceux des `caracteres` qui y paraissent pour la première fois,
+    dans l'ordre du texte ; le titre de la version compte au premier chapitre. Une fable n'a
+    qu'un chapitre. C'est là que le lecteur montre la carte « Mots du conte »."""
+    cherches = set(caracteres)
+    vus: set[str] = set()
+    par_chapitre: list[list[str]] = []
+    for k, chapitre in enumerate(version.chapitres):
+        texte = (version.titre if k == 0 else "") + chapitre.titre + "".join(p.zh for p in chapitre.phrases)
+        nouveaux = [c for c in dict.fromkeys(texte) if c in cherches and c not in vus]
+        vus.update(nouveaux)
+        par_chapitre.append(nouveaux)
+    return par_chapitre
 
 
 def intrus_et_refus(
@@ -1798,9 +1825,11 @@ aucun autre caractère, même dans un nom propre ;
 personnage ou un objet clé du récit (狼 dans 亡羊补牢, 叶公 dans 叶公好龙), quand le dire \
 autrement trahirait le récit. Son caractère hors du niveau doit être déclaré au catalogue \
 (colonne cles, caractère clé ou, après la barre oblique, personnage ou objet clé) ; \
-{MAX_EXPLIQUES} caractères hors du niveau au plus par version ; tout autre caractère hors \
-du niveau reste rejeté. Le lecteur les montre avant le texte, dessinés, avec leur pinyin, \
-leur sens et l'explication, et ils ne comptent pas dans l'acquis qui ouvre le conte.
+{MAX_EXPLIQUES} caractères hors du niveau au plus pour une fable ; pour un récit long, \
+{MAX_EXPLIQUES} nouveaux au plus par chapitre (un mot expliqué le reste dans les chapitres \
+suivants) ; tout autre caractère hors du niveau reste rejeté. Le lecteur les montre avant \
+le texte (au chapitre où ils paraissent pour la première fois), dessinés, avec leur \
+pinyin, leur sens et l'explication, et ils ne comptent pas dans l'acquis qui ouvre le conte.
 Écarts, signalés à la relecture :
 - longueur : {minimum} à {maximum} sinogrammes pour le {libelle(seuil)}, phrases seules, \
 ponctuation non comprise ; pour un récit long, à chaque chapitre ;
@@ -1896,7 +1925,7 @@ def decrire_contexte(
             else (", tous dans le niveau" if conte.cles else "")
         ),
         "Mots expliqués possibles (personnages ou objets clés hors du niveau, "
-        f"{MAX_EXPLIQUES} caractères au plus, champ expliques) : "
+        f"{MAX_EXPLIQUES} caractères au plus{' nouveaux par chapitre' if conte.long else ''}, champ expliques) : "
         + (" ".join(c for c in conte.declares if c not in autorises) or "aucun, tout se dit dans le niveau")
         + (f" ; déclarés au catalogue : {' '.join(conte.expliquables)}" if conte.expliquables else ""),
         f"Longueur visée : {minimum} à {maximum} sinogrammes"

@@ -556,6 +556,31 @@ def test_plus_de_trois_caracteres_expliques_sont_refuses() -> None:
     assert rapport.expliques == list("鸟鱼虫")
 
 
+def test_un_recit_long_explique_trois_caracteres_nouveaux_par_chapitre() -> None:
+    """Récit long : trois nouveaux au plus par chapitre ; un mot expliqué le reste ensuite."""
+    conte = replace(CONTE_LONG, cles="山", expliquables="鸟鱼虫花草石竹")
+
+    def version_longue(premier: str, second: str) -> Version:
+        document = brouillon_long(expliques=[{**OISEAU, "zh": c} for c in dict.fromkeys(premier + second)])
+        for chapitre, caracteres in zip(document["chapitres"], (premier, second)):  # type: ignore[call-overload]
+            chapitre["phrases"][0] = {**PHRASE, "zh": f"山上{caracteres}。"}
+        lu = brouillon_depuis_json(document, empreinte="sha256:0")
+        return version_depuis_brouillon(lu, conte, horloge=lambda: "2026-09-25")
+
+    rapport = valider(version_longue("鸟鱼虫", "鸟花草石"), LISTE, conte)
+    assert rapport.conforme, rapport.refus
+    assert rapport.expliques == list("鸟鱼虫花草石")
+    assert contes.nouveaux_par_chapitre(version_longue("鸟鱼虫", "鸟花草石"), "鸟鱼虫花草石") == [
+        list("鸟鱼虫"),
+        list("花草石"),
+    ]
+    rapport = valider(version_longue("鸟鱼虫", "花草石竹"), LISTE, conte)
+    assert not rapport.conforme and rapport.intrus == list("鸟鱼虫花草石竹")
+    assert rapport.refus == [
+        "chapitre 2 : 4 caractères hors du niveau expliqués pour la première fois (花 草 石 竹), 3 au plus par chapitre"
+    ]
+
+
 def test_un_mot_explique_qui_n_a_rien_a_expliquer_est_un_ecart() -> None:
     """Absent du texte, déjà dans le niveau, sans explication : des écarts, pas des rejets."""
     mots = [
