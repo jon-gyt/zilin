@@ -84,7 +84,7 @@ Il tient sur un écran de téléphone, sans défiler.
 1. Ouvrir : l'anecdote du jour, culturelle, accrochée à un caractère (20 s, sautable). Elle se lit à l'ouverture. Elle se relit ensuite autant qu'on veut, depuis Lire ou en touchant la ligne de fête ou de terme de l'en-tête du menu, et ramène là d'où l'on vient ; la relire ne compte rien de plus.
 2. Échauffer : les révisions dues, en questions (2 à 4 min).
 3. Apprendre : une brique, puis un ou deux composés. Une seule brique nouvelle par session de 10 minutes.
-4. Utiliser : deux mots, une phrase, trois lignes à lire avec uniquement l'acquis. Le caractère du jour en rouge.
+4. Utiliser : deux mots, une phrase, trois lignes à lire avec uniquement l'acquis. Le caractère du jour en rouge. Certains jours, un jeu suit le texte : le dictionnaire éclair ou le message WeChat, jamais les deux (§9, « Les jeux du pas Utiliser »).
 5. Fixer : une vérification sur ce qui vient d'être vu.
 6. Clore : le constat en une ligne, la graine plantée (animation), la semaine et la série, le rendez-vous de demain. C'est la seule fin : on revient ensuite au menu.
 
@@ -195,6 +195,19 @@ Règle : chaque jeu doit répondre à « qu'est-ce que l'utilisateur sait lire d
 | Les saisons | le cercle change avec le calendrier chinois, un caractère bonus par fête | Ma forêt |
 | Les devinettes de lanternes | 灯谜 : la décomposition déguisée (« une bouche mord la queue du bœuf » : 告) | chaque matin avec Tao, fête des Lanternes |
 | La cuisine de Tao | recette en chinois, ingrédients sur l'étal, dix plats de cantine | nourrir Tao |
+
+### Les jeux du pas Utiliser
+
+Le pas Utiliser garde ses vues (les mots et la phrase, puis les trois lignes). Certains jours, un jeu s'y ajoute après le texte. La règle est déterministe : elle ne lit que le rang de la journée (celui que le menu annonce, « 8e jour »), le budget et l'acquis réel, jamais l'horloge.
+
+- Au plus un jeu par journée. Il est choisi à l'entrée du pas et gardé : la session de plus n'en pose pas un second.
+- Le message WeChat à partir du 8e jour, un jour sur trois (8e, 11e, 14e…) : un dialogue court dont tous les caractères sont acquis, pas encore lu au pas Utiliser, le plus récent du parcours d'abord.
+- Sinon le dictionnaire éclair, un jour sur deux (les jours pairs) : un mot jamais appris dont les deux caractères sont acquis, un seul tour ; le compteur « mots devinés » se lit sous la correction.
+- Jamais plus long que le budget : le pas dure ce que le chemin annonce (1, 2 ou 4 minutes) ; les mots et la phrase comptent 30 s, le texte 50 s, un mot de l'éclair 20 s, un échange du message 20 s. À 5 minutes, aucun jeu ; à 10, l'éclair ou un dialogue de deux échanges ; à 20, tous les dialogues.
+- Sans acquis suffisant (aucun mot, aucun dialogue ouvert), le pas reste tel quel.
+- Notation des jeux : une bonne réponse notée par `grade`, une erreur ne note rien ; au message, une réplique trouvée après une erreur ne note rien non plus. Aucun chronomètre, aucun point au temps.
+- « Quitter » sauvegarde le mot, le dialogue, l'échange en cours et les répliques écartées : on reprend au même écran.
+- Tao joue la tête penchée à l'éclair, lit par-dessus l'épaule au message.
 
 ## 10. Périmètre de la version 1
 
