@@ -99,6 +99,7 @@ from . import wechat as wechat_mod
 from .gf0014 import Controle
 from .graphe import BRIQUE, DECOUPEE, MUETTE, PARCOURS
 from .models import Brique, Famille, Fiche, Mot
+from .ingest import est_sinogramme
 from .outils import empreinte_fichier
 from .paths import BUILD, CONTES, DATA, EXPORT, GF0014, INGEST, INTERFACE
 
@@ -1053,15 +1054,21 @@ def caracteres_expliques(version: contes_mod.Version) -> list[str]:
 
 
 def caracteres_expliques_des_contes(dossier: Path | None = None) -> list[str]:
-    """Les caractères des mots expliqués des versions relues ou à relire : le lecteur les
-    dessine avant le texte, depuis leurs traits. Ils entrent dans le périmètre avec leurs
-    briques, comme ceux des fêtes ; une version rejetée n'en fait entrer aucun."""
+    """Les caractères des mots expliqués des versions relues ou à relire, tous (叶 et 公
+    pour 叶公) : le lecteur dessine ces mots avant le texte, depuis leurs traits. Ils entrent
+    dans le périmètre avec leurs briques, comme ceux des fêtes ; une version rejetée n'en
+    fait entrer aucun."""
     vus: dict[str, None] = {}
     for versions in (charger_contes_relus(dossier), charger_contes_a_relire(dossier)):
         for liste in versions.values():
             for v in liste:
-                vus.update(dict.fromkeys(caracteres_expliques(v)))
+                vus.update(dict.fromkeys(_dessines(v)))
     return list(vus)
+
+
+def _dessines(version: contes_mod.Version) -> list[str]:
+    """Les sinogrammes des mots expliqués d'une version, dans l'ordre, sans doublon."""
+    return list(dict.fromkeys(c for m in version.expliques for c in m.zh if est_sinogramme(c)))
 
 
 def _version_exportee(v: contes_mod.Version) -> dict[str, object]:
@@ -1092,11 +1099,11 @@ def document_conte(
     Une fable porte ses `phrases` ; un récit long ses `chapitres`, chacun avec son titre
     chinois, son pinyin, ses titres français et anglais et ses phrases. Un conte dont une
     version a des mots expliqués porte `racines`, la famille de chacun de leurs caractères
-    hors du niveau (`racines` : ceux du périmètre), pour que l'app trouve leurs traits.
+    (`racines` : ceux du périmètre), pour que l'app trouve leurs traits et dessine ces mots.
     """
     tete = versions[0]
     origine = f"récit traditionnel, {tete.ouvrage}" if tete.ouvrage else "récit traditionnel"
-    expliques = sorted({c for v in versions for c in caracteres_expliques(v)})
+    expliques = sorted({c for v in versions for c in _dessines(v)})
     racines_expliquees = {c: racines[c] for c in expliques if racines and c in racines}
     return {
         "version": version_export,

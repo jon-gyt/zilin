@@ -633,7 +633,7 @@ def test_l_export_dit_les_caracteres_expliques_et_leur_famille(depot: Path) -> N
         {**OISEAU, "caracteres": "鸟"},
         {**OISEAU, "zh": "山鸟", "pinyin": "shān niǎo", "caracteres": "鸟"},
     ]
-    assert document["racines"] == {"鸟": "鸟"}
+    assert document["racines"] == {"山": "山", "鸟": "鸟"}, "tous les caractères des mots expliqués se dessinent"
     assert export_mod.caracteres_expliques(version) == ["鸟"]
     sans = export_mod.document_conte("conte-de-test", [version_de(brouillon())], "0.1.0", {"鸟": "鸟"})
     assert "racines" not in sans and "expliques" not in sans["versions"]["255"]  # type: ignore[index]

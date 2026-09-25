@@ -2250,7 +2250,7 @@ def controles(
             fautifs.append(f"{version.conte} ({version.seuil}) : {' '.join(intrus)}" + "".join(f" ; {r}" for r in refus))
         if admis and version.statut != REJETE:
             expliquees.append(f"{version.cle} {''.join(admis)}")
-            dessines.update(dict.fromkeys(admis))
+            dessines.update(dict.fromkeys(c for m in version.expliques for c in m.zh if est_sinogramme(c)))
 
     # Le lecteur dessine les mots expliqués avant le texte : leurs traits doivent être dans
     # l'export (`export.caracteres_expliques_des_contes`), sinon il les écrit en police.
