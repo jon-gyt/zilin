@@ -6,8 +6,9 @@
  * Règles (brief §7, backlog 2c.1 et 2c.2) :
  * - un caractère est acquis selon la règle de Ma forêt (`foret.avancement`) : sa carte
  *   passe le seuil de stabilité FSRS de `srs.ts` ;
- * - l'app ouvre, de chaque conte, la version du seuil le plus haut dont tous les
- *   caractères sont acquis ; sans version lisible, le conte est fermé et dit le seuil
+ * - l'app ouvre, de chaque conte, la version du niveau le plus haut (seuil 255, puis les
+ *   niveaux HSK, rangés par leur nombre de caractères, `niveaux.ts`) dont tous les
+ *   caractères sont acquis ; sans version lisible, le conte est fermé et dit le niveau
  *   qu'il attend — sauf en mode relecture (Réglages) : un conte fermé s'ouvre quand même,
  *   marqué « pas encore dans ton acquis », et ce que ce mode ouvre ne compte pas comme lu ;
  * - quand la version ouverte est plus riche que toutes celles déjà lues, l'app le signale ;
@@ -28,6 +29,7 @@ import type {
   VersionConte
 } from './content';
 import { avancement, etat } from './foret';
+import { comparerNiveaux, plusHaut, trierNiveaux, type Niveau } from './niveaux';
 import { SEUIL_DEBLOCAGE, type ReviewCard } from './srs';
 
 /* ---------- l'acquis ---------- */
@@ -65,12 +67,12 @@ export function manquants(v: VersionConte, acquis: ReadonlySet<string>): string[
   return caracteresDeVersion(v).filter((c) => !acquis.has(c));
 }
 
-/** La version ouverte : celle du seuil le plus haut dont tous les caractères sont acquis. */
+/** La version ouverte : celle du niveau le plus haut dont tous les caractères sont acquis. */
 export function versionLisible(conte: Conte, acquis: ReadonlySet<string>): VersionConte | null {
   let choisie: VersionConte | null = null;
   for (const v of conte.versions) {
     if (manquants(v, acquis).length > 0) continue;
-    if (choisie === null || v.seuil > choisie.seuil) choisie = v;
+    if (choisie === null || comparerNiveaux(v.seuil, choisie.seuil) > 0) choisie = v;
   }
   return choisie;
 }
@@ -95,7 +97,8 @@ export function versionDeRelecture(conte: Conte): VersionConte | null {
  */
 export type EtatNiveau = 'ouvert' | 'ferme' | 'a_ecrire';
 
-export type NiveauConte = { seuil: number; etat: EtatNiveau };
+/** Un niveau d'un conte (« 255 », « hsk3 ») et son état ; le nom `seuil` est historique. */
+export type NiveauConte = { seuil: Niveau; etat: EtatNiveau };
 
 /** Ce que l'écran dit d'un niveau, pour qui ne voit pas le sceau. */
 export const ETATS_NIVEAU: Record<EtatNiveau, string> = {
@@ -106,17 +109,17 @@ export const ETATS_NIVEAU: Record<EtatNiveau, string> = {
 
 /**
  * Les niveaux d'un conte, croissants : ceux que le catalogue prévoit, et toute version
- * écrite en plus (un seuil que l'index annonce sans que son fichier se lise reste « écrit
+ * écrite en plus (un niveau que l'index annonce sans que son fichier se lise reste « écrit
  * mais fermé »). Rien n'est estimé : sans version, un niveau est « pas encore écrit ».
  */
 export function niveauxDuConte(
-  prevus: readonly number[],
-  annonces: readonly number[],
+  prevus: readonly Niveau[],
+  annonces: readonly Niveau[],
   conte: Conte | null,
   acquis: ReadonlySet<string>
 ): NiveauConte[] {
   const versions = new Map((conte?.versions ?? []).map((v) => [v.seuil, v]));
-  const seuils = [...new Set([...prevus, ...annonces, ...versions.keys()])].sort((a, b) => a - b);
+  const seuils = trierNiveaux([...prevus, ...annonces, ...versions.keys()]);
   return seuils.map((seuil) => {
     const v = versions.get(seuil);
     if (v) return { seuil, etat: manquants(v, acquis).length === 0 ? 'ouvert' : 'ferme' };
@@ -137,8 +140,8 @@ export type EntreeConte = {
   gratuit: boolean;
   /** La version ouverte, `null` quand le conte est fermé. */
   version: VersionConte | null;
-  /** Fermé : le seuil de la première version, celle qu'il attend. `null` s'il est ouvert. */
-  attend: number | null;
+  /** Fermé : le niveau de la première version, celle qu'il attend. `null` s'il est ouvert. */
+  attend: Niveau | null;
   /** Fermé : les caractères qu'il reste à acquérir pour cette première version. */
   reste: number;
   /** La version ouverte a déjà été lue. */
@@ -165,7 +168,7 @@ export type EntreeConte = {
 };
 
 /**
- * Un conte de la bibliothèque. Sans fichier lisible (`conte` nul), il reste fermé au seuil
+ * Un conte de la bibliothèque. Sans fichier lisible (`conte` nul), il reste fermé au niveau
  * le plus bas que l'index annonce, sans compte de caractères : on ne l'estime pas. `prevu`,
  * sa ligne du catalogue, dit ses niveaux prévus ; sans elle, ses niveaux sont ceux écrits.
  */
@@ -173,7 +176,7 @@ export function entreeConte(
   i: IndexConte,
   conte: Conte | null,
   acquis: ReadonlySet<string>,
-  lus: readonly number[] = [],
+  lus: readonly Niveau[] = [],
   relecture = false,
   prevu: CatalogueConte | null = null
 ): EntreeConte {
@@ -198,13 +201,13 @@ export function entreeConte(
     return {
       ...base,
       version: null,
-      attend: seuils.length > 0 ? Math.min(...seuils) : null,
+      attend: trierNiveaux(seuils)[0] ?? null,
       reste: premiere ? manquants(premiere, acquis).length : 0,
       lue: false,
       plusRiche: false
     };
   }
-  const deja = lus.length > 0 ? Math.max(...lus) : null;
+  const deja = lus.length > 0 ? lus.reduce(plusHaut) : null;
   const horsAcquis = lisible === null;
   return {
     ...base,
@@ -214,7 +217,7 @@ export function entreeConte(
     attend: null,
     reste: 0,
     lue: lus.includes(version.seuil),
-    plusRiche: deja !== null && version.seuil > deja
+    plusRiche: deja !== null && comparerNiveaux(version.seuil, deja) > 0
   };
 }
 
@@ -229,7 +232,7 @@ export function bibliotheque(
   index: readonly IndexConte[],
   contes: ReadonlyMap<string, Conte>,
   acquis: ReadonlySet<string>,
-  contesLus: Readonly<Record<string, readonly number[]>> = {},
+  contesLus: Readonly<Record<string, readonly Niveau[]>> = {},
   relecture = false,
   catalogue: readonly CatalogueConte[] = []
 ): EntreeConte[] {
@@ -277,8 +280,8 @@ export function estLongue(v: VersionConte): boolean {
  */
 export type LectureChapitres = { lus: number[]; reprise: number };
 
-/** La clé d'une lecture en chapitres dans la progression : `<seuil>/<conte>`, comme le pipeline. */
-export function cleLecture(conte: string, seuil: number): string {
+/** La clé d'une lecture en chapitres dans la progression : `<niveau>/<conte>`, comme le pipeline. */
+export function cleLecture(conte: string, seuil: Niveau): string {
   return `${seuil}/${conte}`;
 }
 

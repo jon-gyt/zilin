@@ -18,6 +18,7 @@
  * porte la mention « à relire » (`MENTION_A_RELIRE`).
  */
 import type { StrokeData } from './glyph';
+import { comparerNiveaux, lireNiveau, lireNiveaux, trierNiveaux, type Niveau } from './niveaux';
 import { strokesOnce, type StrokeSet } from './strokes';
 
 /** Une anecdote du jour : un caractère, un titre, quelques phrases. */
@@ -448,7 +449,7 @@ export type IndexFamille = {
 };
 
 /**
- * Un conte disponible : ses versions par seuil, et le fichier qui les porte. `gratuit`
+ * Un conte disponible : ses versions par niveau, et le fichier qui les porte. `gratuit`
  * marque les contes de l'offre gratuite (brief §10 : trois contes au seuil 255) ; l'index
  * ne le porte pas encore, il vaut alors `false`, et rien ne s'en sert pour fermer un conte.
  */
@@ -458,7 +459,8 @@ export type IndexConte = {
   titre_zh?: string;
   titre_pinyin?: string;
   titre_fr: string;
-  seuils: number[];
+  /** Les niveaux écrits (« 255 », « hsk3 »), du plus petit au plus grand ; le nom est historique. */
+  seuils: Niveau[];
   fichier: string;
   gratuit?: boolean;
 };
@@ -471,9 +473,7 @@ export function lireContesIndex(v: unknown): IndexConte[] {
     if (x === null || typeof x !== 'object') continue;
     const o = x as Record<string, unknown>;
     if (typeof o.id !== 'string' || o.id === '' || typeof o.fichier !== 'string') continue;
-    const seuils = Array.isArray(o.seuils)
-      ? o.seuils.filter((s): s is number => Number.isInteger(s) && (s as number) > 0)
-      : [];
+    const seuils = lireNiveaux(o.seuils);
     out.push({
       id: o.id,
       titre_zh: typeof o.titre_zh === 'string' ? o.titre_zh : '',
@@ -489,15 +489,16 @@ export function lireContesIndex(v: unknown): IndexConte[] {
 
 /**
  * Un récit du catalogue (`index.json`, `catalogue`) : ce qui est prévu, écrit ou pas. Ses
- * vrais titres, ses niveaux prévus (des seuils) et son nombre de chapitres : 1 pour une
- * fable, plus pour un récit long. Aucun texte : une version n'arrive que par `contes/`.
+ * vrais titres, ses niveaux prévus (le seuil 255, des niveaux HSK) et son nombre de
+ * chapitres : 1 pour une fable, plus pour un récit long. Aucun texte : une version
+ * n'arrive que par `contes/`.
  */
 export type CatalogueConte = {
   id: string;
   titre_zh: string;
   titre_pinyin: string;
   titre_fr: string;
-  niveaux: number[];
+  niveaux: Niveau[];
   chapitres: number;
 };
 
@@ -509,11 +510,7 @@ export function lireCatalogueContes(v: unknown): CatalogueConte[] {
     if (x === null || typeof x !== 'object') continue;
     const o = x as Record<string, unknown>;
     if (typeof o.id !== 'string' || o.id === '') continue;
-    const niveaux = Array.isArray(o.niveaux)
-      ? [...new Set(o.niveaux.filter((s): s is number => Number.isInteger(s) && (s as number) > 0))].sort(
-          (a, b) => a - b
-        )
-      : [];
+    const niveaux = lireNiveaux(o.niveaux);
     out.push({
       id: o.id,
       titre_zh: typeof o.titre_zh === 'string' ? o.titre_zh : '',
@@ -1444,11 +1441,12 @@ export function devinettesOnce(version = VERSION_DONNEES): Promise<Devinettes> {
 export type PhraseConte = { zh: string; pinyin: string; fr: string };
 
 /**
- * Une version d'un conte, réécrite avec les seuls caractères d'un seuil. `glose` donne,
+ * Une version d'un conte, réécrite avec les seuls caractères d'un niveau. `glose` donne,
  * pour chaque caractère distinct du titre et du texte, le sens qu'il a ici, en français.
  */
 export type VersionConte = {
-  seuil: number;
+  /** Le niveau de la version : « 255 », « hsk3 » ; le nom est historique. */
+  seuil: Niveau;
   titre: string;
   /** Tout le texte, phrase après phrase ; pour un récit long, chapitre après chapitre. */
   phrases: PhraseConte[];
@@ -1470,7 +1468,7 @@ export type ChapitreConte = {
   phrases: PhraseConte[];
 };
 
-/** Un conte de l'export (`contes/<id>.json`) : ses versions, triées par seuil croissant. */
+/** Un conte de l'export (`contes/<id>.json`) : ses versions, du plus petit niveau au plus grand. */
 export type Conte = {
   version: string;
   source: string;
@@ -1525,7 +1523,7 @@ function lireChapitres(v: unknown): ChapitreConte[] {
  * Relit une version : une fable par ses `phrases`, un récit long par ses `chapitres`, dont
  * les phrases font alors `phrases`. Sans phrase lisible, elle est écartée (`null`).
  */
-function lireVersion(seuil: number, v: unknown): VersionConte | null {
+function lireVersion(seuil: Niveau, v: unknown): VersionConte | null {
   if (v === null || typeof v !== 'object') return null;
   const o = v as Record<string, unknown>;
   const chapitres = lireChapitres(o.chapitres);
@@ -1551,8 +1549,8 @@ function lireVersion(seuil: number, v: unknown): VersionConte | null {
 }
 
 /**
- * Relit un conte exporté. Les versions sont rangées sous leur seuil (`"255"`) ; une clé
- * qui n'est pas un seuil entier positif, ou une version sans phrase, est écartée.
+ * Relit un conte exporté. Les versions sont rangées sous leur niveau (`"255"`, `"hsk3"`) ;
+ * une clé qui n'est pas un niveau, ou une version sans phrase, est écartée.
  */
 export function lireConte(brut: unknown, file = ''): Conte {
   if (brut === null || typeof brut !== 'object') throw new Error(`Conte illisible : ${file}`);
@@ -1563,12 +1561,12 @@ export function lireConte(brut: unknown, file = ''): Conte {
   }
   const versions: VersionConte[] = [];
   for (const [cle, v] of Object.entries(o.versions as Record<string, unknown>)) {
-    const seuil = Number(cle);
-    if (!Number.isInteger(seuil) || seuil <= 0) continue;
+    const seuil = lireNiveau(cle);
+    if (seuil === null) continue;
     const lue = lireVersion(seuil, v);
     if (lue !== null) versions.push(lue);
   }
-  versions.sort((a, b) => a.seuil - b.seuil);
+  versions.sort((a, b) => comparerNiveaux(a.seuil, b.seuil));
   return {
     version: chaine(o.version),
     source: chaine(o.source),
@@ -1983,7 +1981,7 @@ export function fusionnerContes(
       .map((v) => ({ ...v, statut: STATUT_A_RELIRE }));
     const entree = index.find((y) => y.id === x.id);
     if (entree) {
-      entree.seuils = [...new Set([...entree.seuils, ...x.seuils])].sort((a, b) => a - b);
+      entree.seuils = trierNiveaux([...entree.seuils, ...x.seuils]);
     } else {
       index.push({ ...x, seuils: [...x.seuils] });
     }
@@ -1997,7 +1995,7 @@ export function fusionnerContes(
     };
     contes.set(x.id, {
       ...base,
-      versions: [...base.versions, ...ajout].sort((a, b) => a.seuil - b.seuil)
+      versions: [...base.versions, ...ajout].sort((a, b) => comparerNiveaux(a.seuil, b.seuil))
     });
   }
   return { index, contes };

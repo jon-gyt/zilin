@@ -23,6 +23,7 @@ import { ajouter, journal, lireTao, taoVide, type Tao, type TypeActivite } from 
 import { lireTrouves, type Trouve } from './trouves';
 import { lireLettresNotees, type LettreNotee } from './lettres';
 import { cleLecture, lireChapitre, type LectureChapitres } from './lecture';
+import { lireNiveau, lireNiveaux, trierNiveaux, type Niveau } from './niveaux';
 import {
   ajouterPoint,
   artsVides,
@@ -307,14 +308,16 @@ export type Progress = {
    */
   devinetteDuJour: DevinetteDuJour | null;
   /**
-   * Les contes lus : pour chaque conte (identifiant de l'index), les seuils dont la version
-   * a été lue, triés. Le même conte se relit plus riche à chaque seuil, et chaque version
-   * est un trophée. Le lecteur les note par `noterConteLu` ; un récit long n'y entre qu'une
-   * fois tous ses chapitres lus. Absente d'une progression plus ancienne : aucun conte lu.
+   * Les contes lus : pour chaque conte (identifiant de l'index), les niveaux dont la version
+   * a été lue (« 255 », « hsk3 »), du plus petit au plus grand. Le même conte se relit plus
+   * riche à chaque niveau, et chaque version est un trophée. Le lecteur les note par
+   * `noterConteLu` ; un récit long n'y entre qu'une fois tous ses chapitres lus. Absente
+   * d'une progression plus ancienne : aucun conte lu ; un seuil noté en nombre (255) s'y
+   * relit en « 255 ».
    */
-  contesLus: Record<string, number[]>;
+  contesLus: Record<string, Niveau[]>;
   /**
-   * Les récits longs en cours, par version (`<seuil>/<conte>`) : les chapitres lus et celui
+   * Les récits longs en cours, par version (`<niveau>/<conte>`) : les chapitres lus et celui
    * où reprendre (`noterChapitreLu`, `noterReprise`). Un chapitre lu ne fait pas un conte
    * lu : `contesLus` attend le dernier. Absente d'une progression plus ancienne : aucune.
    */
@@ -907,38 +910,40 @@ export function devinetteFaite(p: Progress, jour: string): boolean {
 }
 
 /**
- * Note la lecture d'un conte, dans la version d'un seuil. Chaque version compte une fois ;
- * relire le même conte à un autre seuil en est une autre.
+ * Note la lecture d'un conte, dans la version d'un niveau. Chaque version compte une fois ;
+ * relire le même conte à un autre niveau en est une autre.
  */
-export function noterConteLu(p: Progress, conte: string, seuil: number): Progress {
-  const s = Math.floor(seuil);
-  if (conte === '' || !Number.isFinite(s) || s <= 0) return p;
+export function noterConteLu(p: Progress, conte: string, seuil: Niveau): Progress {
+  const s = lireNiveau(seuil);
+  if (conte === '' || s === null) return p;
   const lus = p.contesLus[conte] ?? [];
   if (lus.includes(s)) return p;
-  return { ...p, contesLus: { ...p.contesLus, [conte]: [...lus, s].sort((a, b) => a - b) } };
+  return { ...p, contesLus: { ...p.contesLus, [conte]: trierNiveaux([...lus, s]) } };
 }
 
 /**
- * Note un chapitre lu d'un récit long, dans la version d'un seuil (`n` chapitres) : il
+ * Note un chapitre lu d'un récit long, dans la version d'un niveau (`n` chapitres) : il
  * rejoint les chapitres lus, et la reprise passe au suivant qui reste à lire. Le conte
  * lui-même n'est pas noté ici : `noterConteLu`, une fois tous les chapitres lus.
  */
 export function noterChapitreLu(
   p: Progress,
   conte: string,
-  seuil: number,
+  seuil: Niveau,
   k: number,
   n: number
 ): Progress {
-  if (conte === '' || !Number.isInteger(k) || !Number.isInteger(n) || k < 1 || k > n) return p;
-  const cle = cleLecture(conte, Math.floor(seuil));
+  const s = lireNiveau(seuil);
+  if (conte === '' || s === null || !Number.isInteger(k) || !Number.isInteger(n) || k < 1 || k > n) return p;
+  const cle = cleLecture(conte, s);
   return { ...p, chapitres: { ...p.chapitres, [cle]: lireChapitre(p.chapitres[cle], k, n) } };
 }
 
 /** Note le chapitre ouvert d'un récit long (depuis le sommaire) : on y reprendra. */
-export function noterReprise(p: Progress, conte: string, seuil: number, k: number): Progress {
-  if (conte === '' || !Number.isInteger(k) || k < 1) return p;
-  const cle = cleLecture(conte, Math.floor(seuil));
+export function noterReprise(p: Progress, conte: string, seuil: Niveau, k: number): Progress {
+  const s = lireNiveau(seuil);
+  if (conte === '' || s === null || !Number.isInteger(k) || k < 1) return p;
+  const cle = cleLecture(conte, s);
   const l = p.chapitres[cle];
   if (l?.reprise === k) return p;
   return { ...p, chapitres: { ...p.chapitres, [cle]: { lus: l?.lus ?? [], reprise: k } } };
@@ -958,7 +963,7 @@ export function devinettesResolues(p: Progress): number {
   return p.devinettes.length;
 }
 
-/** Le nombre de versions de contes lues, tous seuils comptés. */
+/** Le nombre de versions de contes lues, tous niveaux comptés. */
 export function contesLus(p: Progress): number {
   return Object.values(p.contesLus).reduce((n, seuils) => n + seuils.length, 0);
 }
@@ -1431,16 +1436,13 @@ function lireDevinetteDuJour(v: unknown): DevinetteDuJour | null {
   return { jour: d.jour, id: d.id, issue: d.issue };
 }
 
-function lireContesLus(v: unknown): Record<string, number[]> {
+function lireContesLus(v: unknown): Record<string, Niveau[]> {
   if (typeof v !== 'object' || v === null || Array.isArray(v)) return {};
-  const out: Record<string, number[]> = {};
+  const out: Record<string, Niveau[]> = {};
   for (const [conte, seuils] of Object.entries(v as Record<string, unknown>)) {
     if (conte === '' || !Array.isArray(seuils)) continue;
-    const lus = [
-      ...new Set(
-        seuils.filter((x): x is number => typeof x === 'number' && Number.isInteger(x) && x > 0)
-      )
-    ].sort((a, b) => a - b);
+    /* Un seuil noté en nombre, avant les niveaux HSK, se relit en chaîne : 255 → « 255 ». */
+    const lus = lireNiveaux(seuils);
     if (lus.length > 0) out[conte] = lus;
   }
   return out;
@@ -1451,7 +1453,9 @@ function lireLecturesChapitres(v: unknown): Record<string, LectureChapitres> {
   if (typeof v !== 'object' || v === null || Array.isArray(v)) return {};
   const out: Record<string, LectureChapitres> = {};
   for (const [cle, x] of Object.entries(v as Record<string, unknown>)) {
-    if (!/^\d+\/.+$/.test(cle) || typeof x !== 'object' || x === null) continue;
+    const niveau = cle.slice(0, Math.max(0, cle.indexOf('/')));
+    if (lireNiveau(niveau) !== niveau || cle.length <= niveau.length + 1) continue;
+    if (typeof x !== 'object' || x === null) continue;
     const o = x as Record<string, unknown>;
     const lus = Array.isArray(o.lus)
       ? [...new Set(o.lus.filter((k): k is number => Number.isInteger(k) && (k as number) >= 1))].sort(

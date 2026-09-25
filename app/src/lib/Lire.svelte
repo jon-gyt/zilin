@@ -1,15 +1,16 @@
 <script lang="ts">
   /**
-   * Lire, depuis le menu : la bibliothèque des contes de l'export, réécrits à chaque seuil
-   * avec les seuls caractères du seuil (brief §7, stories 2c.1 et 2c.2). Chaque conte
-   * s'ouvre dans la version la plus riche que l'acquis permet de lire ; sans version
-   * lisible, il reste fermé et dit le seuil qu'il attend. Quand une version plus riche
+   * Lire, depuis le menu : la bibliothèque des contes de l'export, réécrits à chaque niveau
+   * avec les seuls caractères du niveau (brief §7, stories 2c.1 et 2c.2) : le seuil 255,
+   * puis les niveaux HSK. Chaque conte s'ouvre dans la version la plus riche que l'acquis
+   * permet de lire ; sans version lisible, il reste fermé et dit le niveau qu'il attend. Quand une version plus riche
    * qu'avant s'ouvre, l'entrée le dit. Toute la logique est dans `lecture.ts`. En mode
    * relecture (Réglages), les contes à relire s'y ajoutent, marqués « à relire », et un
    * conte fermé s'ouvre quand même, marqué « pas encore dans ton acquis ».
    *
    * La bibliothèque suit le catalogue de l'export : chaque récit prévu, écrit ou pas, et
-   * sous son titre ses niveaux en petits sceaux, un par seuil prévu : plein, écrit et ouvert
+   * sous son titre ses niveaux en petits sceaux (« 255 », « HSK 3 »), un par niveau prévu :
+   * plein, écrit et ouvert
    * par l'acquis ; au trait, écrit mais pas encore ouvert ; en pointillés, pas encore écrit.
    * Rien n'est estimé : ce qui n'est pas dans l'export n'est pas écrit. Un récit long se lit
    * chapitre par chapitre et reprend au chapitre noté dans la progression.
@@ -48,6 +49,7 @@
     cleLecture,
     type EntreeConte
   } from './lecture';
+  import { auNiveau, libelleNiveau, nomNiveau, type Niveau } from './niveaux';
   import { anecdoteDeLaJournee, type AnecdoteDeLaJournee } from './saisons';
   import {
     LIGNE_AVANT_LETTRE,
@@ -72,16 +74,16 @@
   }: {
     p: Progress;
     onretour: () => void;
-    /** Une version lue en entier : le conte et son seuil. */
-    onlu: (conte: string, seuil: number) => void;
+    /** Une version lue en entier : le conte et son niveau. */
+    onlu: (conte: string, seuil: Niveau) => void;
     /** Rouvre l'anecdote du jour, qui ramène ici. */
     onanecdote: () => void;
     /** Une lettre de Que lue en entier : son rang dans le feuilleton. */
     onlettre?: (n: number) => void;
-    /** Un chapitre d'un récit long lu en entier : le conte, son seuil, le chapitre, sur n. */
-    onchapitre?: (conte: string, seuil: number, k: number, n: number) => void;
+    /** Un chapitre d'un récit long lu en entier : le conte, son niveau, le chapitre, sur n. */
+    onchapitre?: (conte: string, seuil: Niveau, k: number, n: number) => void;
     /** Un chapitre d'un récit long ouvert depuis le sommaire : on y reprendra. */
-    onreprise?: (conte: string, seuil: number, k: number) => void;
+    onreprise?: (conte: string, seuil: Niveau, k: number) => void;
   } = $props();
 
   /** L'anecdote de la journée de la session, la même que l'écran Ouvrir. */
@@ -233,15 +235,20 @@
     if (e.version !== null && !e.sansCompte) onreprise(e.id, e.version.seuil, k);
   }
 
-  /** « 255 écrit et ouvert, 805 pas encore écrit » : les sceaux, pour un lecteur d'écran. */
+  /** « seuil 255 écrit et ouvert, HSK 5 pas encore écrit » : les sceaux, pour un lecteur d'écran. */
   function niveauxLus(e: EntreeConte): string {
-    return 'Niveaux : ' + e.niveaux.map((n) => `${n.seuil} ${ETATS_NIVEAU[n.etat]}`).join(', ');
+    return 'Niveaux : ' + e.niveaux.map((n) => `${nomNiveau(n.seuil)} ${ETATS_NIVEAU[n.etat]}`).join(', ');
   }
 
   /** « encore 12 caractères à lire » ; rien quand on ne sait pas le compter. */
   function reste(e: EntreeConte): string {
     if (e.reste <= 0) return '';
     return e.reste === 1 ? ' · encore un caractère à lire' : ` · encore ${e.reste} caractères à lire`;
+  }
+
+  /** « Au seuil 255 », « Au niveau HSK 3 » : en tête de ligne. */
+  function capitale(s: string): string {
+    return s.charAt(0).toUpperCase() + s.slice(1);
   }
 </script>
 
@@ -352,7 +359,7 @@
         {#if e.niveaux.length > 0}
           <span class="sceaux" role="img" aria-label={niveauxLus(e)}>
             {#each e.niveaux as n (n.seuil)}
-              <span class="sceau {n.etat}" title={`${n.seuil} : ${ETATS_NIVEAU[n.etat]}`}>{n.seuil}</span>
+              <span class="sceau {n.etat}" title={`${nomNiveau(n.seuil)} : ${ETATS_NIVEAU[n.etat]}`}>{libelleNiveau(n.seuil)}</span>
             {/each}
           </span>
         {/if}
@@ -372,7 +379,7 @@
             <span class="grow">
               {@render titre(e)}
               <span class="d">
-                seuil {e.version.seuil}{e.lue ? ' · lu' : ''}
+                {nomNiveau(e.version.seuil)}{e.lue ? ' · lu' : ''}
                 <ARelire de={e.version} />
                 {#if e.horsAcquis}<span class="mention">{MENTION_HORS_ACQUIS}</span>{/if}
               </span>
@@ -403,7 +410,7 @@
                 {#if !e.ecrit}
                   Pas encore écrit
                 {:else}
-                  {e.attend === null ? 'Pas encore lisible' : `Au seuil ${e.attend}`}{reste(e)}
+                  {e.attend === null ? 'Pas encore lisible' : capitale(auNiveau(e.attend))}{reste(e)}
                 {/if}
               </span>
               {@render sceaux(e)}
@@ -524,7 +531,8 @@
   .entry.ferme .d {
     color: var(--mist);
   }
-  /* Les niveaux d'un conte : un petit sceau par seuil, comme ceux des trophées. Plein,
+  /* Les niveaux d'un conte : un petit sceau par niveau (« 255 », « HSK 3 »), comme ceux des
+     trophées. Plein,
      gravé en clair sur l'encre : écrit et ouvert. Au trait : écrit, pas encore ouvert. En
      pointillés : pas encore écrit. Aucun cinabre. */
   .sceaux {
@@ -547,6 +555,7 @@
     font-weight: 700;
     letter-spacing: 0.02em;
     font-variant-numeric: tabular-nums;
+    white-space: nowrap;
     color: var(--ink2);
   }
   .sceau.ouvert {

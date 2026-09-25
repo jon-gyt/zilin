@@ -258,24 +258,27 @@ describe('les pièges déjoués', () => {
 /* ---------- 4. contes ---------- */
 
 describe('les contes', () => {
-  it("restent verrouillés avec leur seuil : leur lecture n'est pas encore enregistrée", () => {
+  it("restent verrouillés avec leur niveau : leur lecture n'est pas encore enregistrée", () => {
     const index: Index = {
       ...indexExport,
-      contes: [{ id: 'lievre', titre_fr: 'Le lièvre et la souche', seuils: [405, 255], fichier: 'x' }]
+      contes: [{ id: 'lievre', titre_fr: 'Le lièvre et la souche', seuils: ['hsk3', '405', '255'], fichier: 'x' }]
     };
     const t = tropheesContes(index, 300);
-    expect(t.map((x) => x.sceau)).toEqual(['255', '405']);
+    expect(t.map((x) => x.sceau)).toEqual(['255', '405', 'HSK 3']);
     expect(t.every((x) => !x.obtenu && !x.suivi)).toBe(true);
     expect(t[1].progres).toBe('au seuil 405');
+    expect(t[2].progres).toBe('au niveau HSK 3');
+    expect(t[2].detail).toBe('La version du niveau HSK 3, quand tu liras 900 caractères.');
+    expect(t[2].id).toBe('conte-lievre-hsk3');
     expect(t[0].progres).toBe('à lire');
   });
 
   it('se gagnent version par version quand la progression compte un conte lu', () => {
     const index: Index = {
       ...indexExport,
-      contes: [{ id: 'lievre', titre_fr: 'Le lièvre et la souche', seuils: [255, 405], fichier: 'x' }]
+      contes: [{ id: 'lievre', titre_fr: 'Le lièvre et la souche', seuils: ['255', 'hsk3'], fichier: 'x' }]
     };
-    const p = noterConteLu(progression(), 'lievre', 255);
+    const p = noterConteLu(progression(), 'lievre', '255');
     const t = tropheesContes(index, 300, {}, p.contesLus);
     expect(t.map((x) => x.obtenu)).toEqual([true, false]);
     /* Aucun lecteur ne l'alimente encore : ce qui n'est pas lu reste verrouillé. */

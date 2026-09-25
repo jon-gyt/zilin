@@ -263,8 +263,8 @@ describe('interrupteur allumé : les textes à relire, avec la mention « à rel
     expect(await nombreDeContes(V)).toBe(2);
     const entrees = bibliotheque(index, contes, new Set(), {}, true);
     expect(entrees.map((e) => [e.id, e.version?.seuil, e.version?.statut])).toEqual([
-      ['essai', 255, 'a_relire'],
-      ['neuf', 255, 'a_relire']
+      ['essai', '255', 'a_relire'],
+      ['neuf', '255', 'a_relire']
     ]);
     expect(mention(entrees[0].version)).toBe('à relire');
     expect(entrees.every((e) => e.horsAcquis && e.sansCompte)).toBe(true);
@@ -315,23 +315,23 @@ describe("un texte relu prime sur l'aperçu", () => {
     const { index, contes } = await contesExport(V);
     const essai = contes.get('essai') as Conte;
     expect(essai.versions.map((v) => [v.seuil, v.statut ?? 'relu'])).toEqual([
-      [255, 'relu'],
-      [405, 'a_relire']
+      ['255', 'relu'],
+      ['405', 'a_relire']
     ]);
     expect(essai.versions[0].phrases[0].fr).toBe('La lune (relue).');
-    expect(index.find((x) => x.id === 'essai')?.seuils).toEqual([255, 405]);
+    expect(index.find((x) => x.id === 'essai')?.seuils).toEqual(['255', '405']);
     /* L'acquis ouvre la version relue : elle compte, l'aperçu du seuil 405 attend. */
     const [entree] = bibliotheque(index, contes, new Set(['月']), {}, true);
-    expect(entree.version?.seuil).toBe(255);
+    expect(entree.version?.seuil).toBe('255');
     expect(entree.version?.statut).toBeUndefined();
     expect(entree.sansCompte).toBe(false);
     /* Sans acquis, le mode relecture ouvre d'abord la version relue, hors acquis. */
     const [hors] = bibliotheque(index, contes, new Set(), {}, true);
-    expect([hors.version?.seuil, hors.version?.statut, hors.horsAcquis]).toEqual([255, undefined, true]);
+    expect([hors.version?.seuil, hors.version?.statut, hors.horsAcquis]).toEqual(['255', undefined, true]);
   });
 
   it('fusionnerContes sans aperçu rend l’export tel quel', () => {
-    const exportes = { index: [{ id: 'a', titre_fr: 'A', seuils: [255], fichier: 'contes/a.json' }], contes: new Map() };
+    const exportes = { index: [{ id: 'a', titre_fr: 'A', seuils: ['255'], fichier: 'contes/a.json' }], contes: new Map() };
     expect(fusionnerContes(exportes, null).index).toEqual(exportes.index);
   });
 });
@@ -343,21 +343,21 @@ describe('le mode relecture ouvre les contes que l’acquis n’ouvre pas encore
     source: 'test',
     id: 'yu-gong',
     titre_fr: 'Yu Gong déplace les montagnes',
-    versions: [{ seuil: 255, titre: '愚公', phrases: [{ zh: '愚公移山。', pinyin: 'Yúgōng yí shān.', fr: 'Yu Gong.' }], glose: {} }]
+    versions: [{ seuil: '255', titre: '愚公', phrases: [{ zh: '愚公移山。', pinyin: 'Yúgōng yí shān.', fr: 'Yu Gong.' }], glose: {} }]
   };
-  const index = [{ id: 'yu-gong', titre_fr: 'Yu Gong déplace les montagnes', seuils: [255], fichier: 'contes/yu-gong.json' }];
+  const index = [{ id: 'yu-gong', titre_fr: 'Yu Gong déplace les montagnes', seuils: ['255'], fichier: 'contes/yu-gong.json' }];
   const contes = new Map([['yu-gong', relu]]);
 
   it('éteint, un conte relu hors de l’acquis reste fermé', () => {
     const [e] = bibliotheque(index, contes, new Set(['山']));
     expect(e.version).toBeNull();
-    expect(e.attend).toBe(255);
+    expect(e.attend).toBe('255');
     expect(e.reste).toBe(3);
   });
 
   it('allumé, il s’ouvre, marqué « pas encore dans ton acquis », et ne compte pas', () => {
     const [e] = bibliotheque(index, contes, new Set(['山']), {}, true);
-    expect(e.version?.seuil).toBe(255);
+    expect(e.version?.seuil).toBe('255');
     expect(e.horsAcquis).toBe(true);
     expect(e.sansCompte).toBe(true);
     expect(MENTION_HORS_ACQUIS).toBe('pas encore dans ton acquis');
@@ -366,7 +366,7 @@ describe('le mode relecture ouvre les contes que l’acquis n’ouvre pas encore
 
   it('allumé, un conte que l’acquis ouvre se lit comme d’habitude, et compte', () => {
     const e = entreeConte(index[0], relu, new Set(['愚', '公', '移', '山']), [], true);
-    expect(e.version?.seuil).toBe(255);
+    expect(e.version?.seuil).toBe('255');
     expect(e.horsAcquis).toBe(false);
     expect(e.sansCompte).toBe(false);
   });

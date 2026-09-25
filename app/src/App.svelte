@@ -46,6 +46,7 @@
   import { fetesOnce, saisonsOnce, type Fetes, type Saisons } from './lib/content';
   import { poserFete } from './lib/fetes';
   import { journee } from './lib/saisons';
+  import type { Niveau } from './lib/niveaux';
   import { noterTrouve, rencontreDuJour } from './lib/trouves';
   import { lettresRelues, noterLettreLue, ouvrirLettreDuJour, type Lettre } from './lib/lettres';
   import {
@@ -760,10 +761,10 @@
   /* ---------- les contes (épic 2c), par la case Lire ---------- */
 
   /**
-   * « J'ai lu » : la version du seuil entre dans les contes lus (le trophée se remplit),
+   * « J'ai lu » : la version du niveau entre dans les contes lus (le trophée se remplit),
    * et Tao note un conte lu, qu'elle lit par-dessus l'épaule.
    */
-  function conteLu(conte: string, seuil: number): void {
+  function conteLu(conte: string, seuil: Niveau): void {
     p = noterActivite(noterConteLu(p, conte, seuil), p.day, 'conte');
     enregistrer();
   }
@@ -773,14 +774,14 @@
    * lecture de conte pour chaque chapitre sauf le dernier, que `conteLu` note avec le conte.
    * Le conte n'est lu (trophée) qu'une fois tous ses chapitres lus.
    */
-  function chapitreLu(conte: string, seuil: number, k: number, n: number): void {
+  function chapitreLu(conte: string, seuil: Niveau, k: number, n: number): void {
     p = noterChapitreLu(p, conte, seuil, k, n);
     if (k < n) p = noterActivite(p, p.day, 'conte');
     enregistrer();
   }
 
   /** Un chapitre ouvert depuis le sommaire : on y reprendra. */
-  function chapitreOuvert(conte: string, seuil: number, k: number): void {
+  function chapitreOuvert(conte: string, seuil: Niveau, k: number): void {
     p = noterReprise(p, conte, seuil, k);
     enregistrer();
   }
