@@ -1,12 +1,15 @@
 <script lang="ts">
   /**
-   * La première session : 人, 大, 天, lire 天天, puis les deux questions.
-   * Quatre minutes, un mot lu, un seul bouton par écran. « Quitter » sauvegarde.
+   * La première session : 人, 大, 天, lire 天天, puis les deux questions et le choix du
+   * personnage (brief §8). Quatre minutes, un mot lu, un seul bouton par écran.
+   * « Quitter » sauvegarde.
    *
    * Tous les textes de contenu viennent des fichiers servis avec l'app
    * (`familles/人.json`, `textes/天天.json`) : rien n'est écrit ici.
    */
+  import ChoixHeros from './ChoixHeros.svelte';
   import Glyph from './Glyph.svelte';
+  import { herosOnce, type BeteId, type HerosDonnees } from './heros';
   import Marque from './Marque.svelte';
   import Tao from './Tao.svelte';
   import {
@@ -31,6 +34,7 @@
     onsuivant,
     onobjectif,
     onrythme,
+    onheros,
     onfini,
     onquitter
   }: {
@@ -38,6 +42,8 @@
     onsuivant: () => void;
     onobjectif: (parcours: Parcours) => void;
     onrythme: (budget: Budget) => void;
+    /** Le personnage choisi, au dernier écran : la première session se termine ensuite. */
+    onheros: (bete: BeteId, nom: string) => void;
     onfini: () => void;
     onquitter: () => void;
   } = $props();
@@ -48,6 +54,8 @@
 
   let famille: Famille | null = $state(null);
   let mot: MotDepart | null = $state(null);
+  /** Le personnage : `undefined` en chargement, `null` si l'export n'en porte pas. */
+  let heros: HerosDonnees | null | undefined = $state(undefined);
 
   /* La question du mot : la réponse tentée, et la glose du caractère touché. */
   let tentees: number[] = $state([]);
@@ -74,6 +82,13 @@
       })
       .catch(() => {
         if (vivant) mot = null;
+      });
+    void herosOnce()
+      .then((d) => {
+        if (vivant) heros = d.betes.length > 0 ? d : null;
+      })
+      .catch(() => {
+        if (vivant) heros = null;
       });
     return () => {
       vivant = false;
@@ -239,7 +254,7 @@
         }}>Suivant</button
       >
     </div>
-  {:else}
+  {:else if vue === 'rythme'}
     <!-- Seconde question : le rythme. Le budget tient la longueur de la session. -->
     <h1>Combien de temps par jour ?</h1>
     <p class="guide">
@@ -256,6 +271,23 @@
         </button>
       {/each}
     </div>
+    <div class="foot">
+      <button class="btn" onclick={onsuivant}>Suivant</button>
+    </div>
+  {:else if heros}
+    <!-- Le personnage : trois bêtes, un nom ; Tao reste celle qui aide. -->
+    <ChoixHeros
+      donnees={heros}
+      initial={p.heros}
+      surtitre="Premier lancement"
+      stade={stade(p.tao.croissance)}
+      onchoisi={(b, n) => {
+        onheros(b, n);
+        onfini();
+      }}
+    />
+  {:else if heros === null}
+    <!-- Un export sans personnage : on part quand même, il se choisira plus tard. -->
     <div class="foot">
       <button class="btn" onclick={onfini}>C'est parti</button>
     </div>
