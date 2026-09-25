@@ -487,6 +487,45 @@ export function lireContesIndex(v: unknown): IndexConte[] {
   return out;
 }
 
+/**
+ * Un récit du catalogue (`index.json`, `catalogue`) : ce qui est prévu, écrit ou pas. Ses
+ * vrais titres, ses niveaux prévus (des seuils) et son nombre de chapitres : 1 pour une
+ * fable, plus pour un récit long. Aucun texte : une version n'arrive que par `contes/`.
+ */
+export type CatalogueConte = {
+  id: string;
+  titre_zh: string;
+  titre_pinyin: string;
+  titre_fr: string;
+  niveaux: number[];
+  chapitres: number;
+};
+
+/** Relit le catalogue de l'index. Absent (export plus ancien) : vide. */
+export function lireCatalogueContes(v: unknown): CatalogueConte[] {
+  if (!Array.isArray(v)) return [];
+  const out: CatalogueConte[] = [];
+  for (const x of v) {
+    if (x === null || typeof x !== 'object') continue;
+    const o = x as Record<string, unknown>;
+    if (typeof o.id !== 'string' || o.id === '') continue;
+    const niveaux = Array.isArray(o.niveaux)
+      ? [...new Set(o.niveaux.filter((s): s is number => Number.isInteger(s) && (s as number) > 0))].sort(
+          (a, b) => a - b
+        )
+      : [];
+    out.push({
+      id: o.id,
+      titre_zh: typeof o.titre_zh === 'string' ? o.titre_zh : '',
+      titre_pinyin: typeof o.titre_pinyin === 'string' ? o.titre_pinyin : '',
+      titre_fr: typeof o.titre_fr === 'string' ? o.titre_fr : '',
+      niveaux,
+      chapitres: Number.isInteger(o.chapitres) && (o.chapitres as number) > 0 ? (o.chapitres as number) : 1
+    });
+  }
+  return out;
+}
+
 /** Un jour de parcours : une brique nouvelle au plus, puis un ou deux composés. */
 export type IndexJour = {
   jour: number;
@@ -514,6 +553,8 @@ export type Index = {
   parcours: Record<string, IndexParcours>;
   familles: IndexFamille[];
   contes: IndexConte[];
+  /** Ce que le catalogue des contes prévoit, écrit ou pas ; vide pour un export plus ancien. */
+  catalogue?: CatalogueConte[];
   paires: string;
   /** Le fichier des fêtes, `fetes.json` ; vide pour un export qui n'en porte pas. */
   fetes: string;
@@ -570,6 +611,7 @@ export async function loadIndex(
     parcours: brut.parcours ?? {},
     familles: brut.familles,
     contes: lireContesIndex(brut.contes),
+    catalogue: lireCatalogueContes(brut.catalogue),
     paires: typeof brut.paires === 'string' ? brut.paires : '',
     fetes: typeof brut.fetes === 'string' ? brut.fetes : '',
     saisons: typeof brut.saisons === 'string' ? brut.saisons : '',
@@ -1408,10 +1450,24 @@ export type PhraseConte = { zh: string; pinyin: string; fr: string };
 export type VersionConte = {
   seuil: number;
   titre: string;
+  /** Tout le texte, phrase après phrase ; pour un récit long, chapitre après chapitre. */
   phrases: PhraseConte[];
   glose: Record<string, string>;
   /** `a_relire` pour une version de l'aperçu, qui porte alors la mention « à relire ». */
   statut?: 'a_relire';
+  /**
+   * Un récit long, lu chapitre par chapitre : ses chapitres, dans l'ordre. Absent pour une
+   * fable, qui se lit d'une traite (`lecture.chapitresDe` en fait un seul chapitre).
+   */
+  chapitres?: ChapitreConte[];
+};
+
+/** Un chapitre d'un récit long : son titre chinois, son pinyin, son titre français, ses phrases. */
+export type ChapitreConte = {
+  titre: string;
+  titre_pinyin: string;
+  titre_fr: string;
+  phrases: PhraseConte[];
 };
 
 /** Un conte de l'export (`contes/<id>.json`) : ses versions, triées par seuil croissant. */
@@ -1430,19 +1486,50 @@ function chaine(v: unknown): string {
   return typeof v === 'string' ? v : '';
 }
 
-/** Relit une version : sans phrase lisible, elle est écartée (`null`). */
+/** Les phrases lisibles d'une liste : une phrase sans chinois est écartée. */
+function lirePhrases(v: unknown): PhraseConte[] {
+  const phrases: PhraseConte[] = [];
+  if (!Array.isArray(v)) return phrases;
+  for (const x of v) {
+    if (x === null || typeof x !== 'object') continue;
+    const ph = x as Record<string, unknown>;
+    if (chaine(ph.zh) === '') continue;
+    phrases.push({ zh: chaine(ph.zh), pinyin: chaine(ph.pinyin), fr: chaine(ph.fr) });
+  }
+  return phrases;
+}
+
+/**
+ * Les chapitres d'un récit long, dans l'ordre. Un chapitre sans phrase lisible est écarté,
+ * si bien que le rang d'un chapitre est celui qu'il a ici, de 1 au nombre lu.
+ */
+function lireChapitres(v: unknown): ChapitreConte[] {
+  if (!Array.isArray(v)) return [];
+  const out: ChapitreConte[] = [];
+  for (const x of v) {
+    if (x === null || typeof x !== 'object') continue;
+    const c = x as Record<string, unknown>;
+    const phrases = lirePhrases(c.phrases);
+    if (phrases.length === 0) continue;
+    out.push({
+      titre: chaine(c.titre),
+      titre_pinyin: chaine(c.titre_pinyin),
+      titre_fr: chaine(c.titre_fr),
+      phrases
+    });
+  }
+  return out;
+}
+
+/**
+ * Relit une version : une fable par ses `phrases`, un récit long par ses `chapitres`, dont
+ * les phrases font alors `phrases`. Sans phrase lisible, elle est écartée (`null`).
+ */
 function lireVersion(seuil: number, v: unknown): VersionConte | null {
   if (v === null || typeof v !== 'object') return null;
   const o = v as Record<string, unknown>;
-  const phrases: PhraseConte[] = [];
-  if (Array.isArray(o.phrases)) {
-    for (const x of o.phrases) {
-      if (x === null || typeof x !== 'object') continue;
-      const ph = x as Record<string, unknown>;
-      if (chaine(ph.zh) === '') continue;
-      phrases.push({ zh: chaine(ph.zh), pinyin: chaine(ph.pinyin), fr: chaine(ph.fr) });
-    }
-  }
+  const chapitres = lireChapitres(o.chapitres);
+  const phrases = chapitres.length > 0 ? chapitres.flatMap((c) => c.phrases) : lirePhrases(o.phrases);
   if (phrases.length === 0) return null;
   const glose: Record<string, string> = {};
   if (o.glose !== null && typeof o.glose === 'object') {
@@ -1458,6 +1545,7 @@ function lireVersion(seuil: number, v: unknown): VersionConte | null {
     }
   }
   const lue: VersionConte = { seuil, titre: chaine(o.titre), phrases, glose };
+  if (chapitres.length > 0) lue.chapitres = chapitres;
   if (o.statut === STATUT_A_RELIRE) lue.statut = STATUT_A_RELIRE;
   return lue;
 }
@@ -1521,13 +1609,25 @@ export function fichierConte(i: Index, id: string): string | null {
 }
 
 /**
- * Les contes de l'export, chacun lu une fois. Un fichier absent ou illisible manque à la
- * table : la bibliothèque garde l'entrée de l'index, fermée, plutôt que de la taire.
+ * Les contes de l'export, chacun lu une fois, et le catalogue de ce qui est prévu. Un
+ * fichier absent ou illisible manque à la table : la bibliothèque garde l'entrée de
+ * l'index, fermée, plutôt que de la taire.
  */
 export async function contesExport(
   version = VERSION_DONNEES
-): Promise<{ index: IndexConte[]; contes: Map<string, Conte> }> {
+): Promise<{ index: IndexConte[]; contes: Map<string, Conte>; catalogue: CatalogueConte[] }> {
   const i = await contenu(version);
+  const catalogue = i.catalogue ?? [];
+  const lus = await contesLus(i);
+  if (!apercuAllume || i.apercu === '') return { ...lus, catalogue };
+  return {
+    ...fusionnerContes(lus, await contesApercu(version).catch(() => null)),
+    catalogue
+  };
+}
+
+/** Les contes relus de l'index, chacun lu une fois. */
+async function contesLus(i: Index): Promise<{ index: IndexConte[]; contes: Map<string, Conte> }> {
   const lus = await Promise.all(
     i.contes.map((x) => {
       const file = fichierConte(i, x.id);
@@ -1539,9 +1639,7 @@ export async function contesExport(
     const c = lus[k];
     if (c) contes.set(x.id, c);
   });
-  const exportes = { index: i.contes, contes };
-  if (!apercuAllume || i.apercu === '') return exportes;
-  return fusionnerContes(exportes, await contesApercu(version).catch(() => null));
+  return { index: i.contes, contes };
 }
 
 /** Le nombre de contes que la bibliothèque montre : ceux de l'aperçu en plus, s'il est allumé. */

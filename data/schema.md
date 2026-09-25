@@ -44,7 +44,7 @@ app/public/data/0.1.0/
   traits/<racine>.json       les tracés de la famille, sous APL, et rien d'autre
   traits/ARPHICPL.TXT        la même licence, à côté des fichiers qu'elle couvre
   traits/MODIFICATIONS.md    comment et quand les tracés ont été dérivés
-  contes/<id>.json           un conte, une version par seuil (aucun aujourd'hui)
+  contes/<id>.json           un conte relu, une version par seuil (trois au seuil 255)
 ```
 
 Trois régimes de licence, trois familles de fichiers, jamais mêlés
@@ -73,6 +73,8 @@ Trois régimes de licence, trois familles de fichiers, jamais mêlés
                "traits": "traits/亻.json", "n": 14, "avancement_possible": 0.0}],
  "contes": [{"id": "…", "titre_fr": "…", "titre_en": "…", "seuils": [255],
              "fichier": "contes/….json"}],
+ "catalogue": [{"id": "…", "titre_zh": "…", "titre_pinyin": "…", "titre_fr": "…",
+                "titre_en": "…", "niveaux": [255, 505], "chapitres": 1}],
  "paires": "paires.json",
  "heros": "heros.json"
 }
@@ -1049,12 +1051,35 @@ sans API, avec les mêmes contrôles, puis d'une relecture humaine.
 
 ### Catalogue, versionné
 
-`data/sources/contes/catalogue.tsv` : `#` en commentaire, six colonnes séparées par une
-tabulation — `id`, `titre_zh`, `titre_fr`, `titre_en`, `ouvrage`, `resume_fr`. Onze
-récits tirés d'ouvrages classiques du domaine public. `titre_fr` et `titre_en` sont les
-noms du récit dans l'app, `ouvrage` trace l'origine du récit, `resume_fr` résume
-l'intrigue en une phrase. Aucun texte de ces ouvrages n'est recopié, et aucune version
-chinoise n'est écrite dans le catalogue.
+`data/sources/contes/catalogue.tsv` : `#` en commentaire, neuf colonnes séparées par une
+tabulation — `id`, `titre_zh`, `titre_pinyin`, `titre_fr`, `titre_en`, `ouvrage`,
+`niveaux`, `chapitres`, `resume_fr`. Treize récits tirés d'ouvrages classiques du domaine
+public : onze fables et deux récits longs. `titre_zh` et `titre_pinyin` sont le vrai
+titre du récit (une syllabe par caractère), `titre_fr` et `titre_en` ses noms dans
+l'app, `ouvrage` trace l'origine du récit, `resume_fr` résume l'intrigue en une phrase.
+Aucun texte de ces ouvrages n'est recopié, et aucune version chinoise n'est écrite dans
+le catalogue.
+
+- `niveaux` : les seuils où le récit sera écrit, croissants, séparés par des virgules :
+  deux pour un récit simple (`255,505`), trois pour un récit riche (`405,805,1555`). Le
+  critère est écrit en tête du catalogue : le plus bas est le premier seuil où le récit
+  se dit sans perdre son sujet (255 sans animal ni objet hors liste, 405 pour une fable
+  animalière, la liste 255 n'ayant aucun nom d'animal, 505 pour une morale abstraite ou
+  le merveilleux) ; un récit simple prend ensuite le seuil situé deux crans plus haut, un
+  récit riche 805 et 1555. Un niveau prévu dont la liste n'est pas versionnée (405 à 1555
+  aujourd'hui) attend sa liste ; rien n'en est écrit, et rien ne la reconstitue.
+- `chapitres` : 1 pour une fable, lue d'une traite ; plus pour un récit long, lu
+  chapitre par chapitre. Les chapitres d'un récit long sont décrits dans
+  `data/sources/contes/chapitres.tsv` (`conte`, `n`, `titre_fr`, `titre_en`,
+  `resume_fr`), de 1 au nombre prévu, sans trou : leurs titres français et anglais, que
+  le sommaire du lecteur montre, et le résumé qui cadre la réécriture. Une fable n'y a
+  aucune ligne.
+
+Un catalogue illisible (en-tête, colonne vide, doublon, niveaux mal dits, chapitres qui
+ne correspondent pas) arrête le chargement ; `wenlu check` le dit par le contrôle
+bloquant « contes : catalogue ». `uv run wenlu contes plan` montre, conte par conte,
+l'état de chaque niveau prévu : écrit (et son statut), à écrire (liste présente), ou en
+attente de sa liste.
 
 ### Version écrite, versionnée
 
@@ -1094,7 +1119,14 @@ texte d'un conte est un contenu, sa relecture se lit dans l'historique git.
 ```
 
 - `titre` et `phrases[].zh` : le chinois, phrase par phrase — l'unité d'affichage,
-  d'audio et de traduction. `titre_fr` et `titre_en` viennent du catalogue : ce sont
+  d'audio et de traduction.
+- Un récit long remplace `phrases` par `chapitres` : `[{titre, titre_pinyin, titre_fr,
+  titre_en, phrases}]`, un objet par chapitre, dans l'ordre. `titre` est le titre chinois
+  du chapitre, écrit avec les caractères du seuil, `titre_pinyin` son pinyin (même
+  règle), `titre_fr` et `titre_en` viennent de `chapitres.tsv`, `phrases` a le format
+  ci-dessus. Une fable est une version d'un seul chapitre sans titre : elle garde
+  `phrases`, si bien qu'une version écrite avant les chapitres se relit et se réécrit
+  octet pour octet. `titre_fr` et `titre_en` viennent du catalogue : ce sont
   les noms du récit, pas la traduction du titre chinois de la version.
 - `titre_pinyin` et `phrases[].pinyin` : **une syllabe par sinogramme**, dans l'ordre,
   séparées par une espace, en minuscules, tons marqués, sans ponctuation. Tons du
@@ -1123,8 +1155,12 @@ texte d'un conte est un contenu, sa relecture se lit dans l'historique git.
 Validation (`contes.valider()`, la même pour les deux chemins). **Rejet** : un caractère
 du titre ou du texte hors de la liste du seuil (`data/sources/listes/seuil-<n>.txt`),
 ponctuation `。，、；：？！「」『』（）《》—…·` exceptée ; les intrus sont listés exactement.
+Un titre de chapitre est contrôlé comme le titre.
 **Écarts**, signalés à la relecture sans rejeter : longueur hors cible (255 : 60 à 120
-sinogrammes, phrases seules), phrase vide, traduction anglaise absente, pinyin qui ne
+sinogrammes, phrases seules ; pour un récit long, à chaque chapitre), chapitre sans
+phrase, sans titre chinois, ou sans titre français ou anglais au catalogue, seuil que
+le catalogue ne prévoit pas pour le récit, nombre de chapitres autre que celui prévu,
+phrase vide, traduction anglaise absente, pinyin qui ne
 compte pas une syllabe par sinogramme ou hors forme, ton de 一 ou 不 modifié (sandhi),
 sinogramme qu'aucune entrée de glose ne couvre dans le découpage du lecteur, entrée de
 glose absente du texte, pinyin d'une entrée différent de celui de la phrase où on la
@@ -1136,7 +1172,17 @@ modèle, la date de soumission, le statut, et une entrée par requête (`custom_
 numéro d'essai, empreinte de l'invite).
 
 `uv run wenlu check` relit les versions : le contrôle « contes : caractères hors liste »
-est bloquant, le contrôle « contes : relecture » compte ce qui reste à relire.
+est bloquant, le contrôle « contes : relecture » compte ce qui reste à relire, le
+contrôle « contes : catalogue » (bloquant) relit le catalogue et ses chapitres, et le
+contrôle « contes : niveaux prévus » compte, pour chaque niveau prévu, s'il est écrit, à
+écrire (liste présente, aucune version) ou en attente de sa liste, et relève les
+versions qui s'écartent du catalogue (seuil non prévu, nombre de chapitres, conte hors
+catalogue). Il est en écart tant qu'un niveau reste à écrire, et **jamais bloquant** :
+un niveau prévu non écrit ne retient ni l'export ni l'app.
+
+`uv run wenlu contes generer` ne soumet, à un seuil, que les fables qui le prévoient
+(`contes_du_seuil`) ; un récit long ne part pas à l'API : il se rédige par brouillon,
+chapitre par chapitre.
 `uv run wenlu contes valider` refait toute la validation à la demande, écarts compris.
 
 ### Brouillons de contes, versionnés (rédaction sans API)
@@ -1167,15 +1213,21 @@ versionné, un dossier par conte, un fichier par seuil.
 - `ouvrage` : l'ouvrage du catalogue, à l'identique, ou `null` pour ne pas le citer.
   Une source qui diffère du catalogue est refusée : on corrige l'un ou l'autre.
 - `titre` : `{zh, pinyin}` ; `phrases` : une liste non vide de `{zh, pinyin, fr, en}` ;
+  un récit long écrit à la place `chapitres` : une liste non vide de `{titre: {zh,
+  pinyin}, phrases: [...]}`, un objet par chapitre prévu (l'un ou l'autre, jamais les
+  deux ; une autre clé dans un chapitre est refusée) ;
   `glose` : une liste de `{zh, pinyin, fr, en}`, dans l'ordre d'apparition, sans
   doublon. Même règle de pinyin et de glose que ci-dessus.
-- Le reste de la version (`titre_fr`, `titre_en`, `source.resume_fr`) ne s'écrit pas :
-  l'import le prend dans le catalogue.
+- Le reste de la version (`titre_fr`, `titre_en`, `source.resume_fr`, et les titres
+  français et anglais des chapitres) ne s'écrit pas : l'import le prend dans le
+  catalogue.
 
 Commandes :
 
 - `uv run wenlu contes contexte <id> [<id> …] --seuil 255` affiche les contraintes de
-  `valider()`, puis, par conte : titres, ouvrage, intrigue du catalogue, longueur visée,
+  `valider()`, puis, par conte : titres, ouvrage, intrigue du catalogue, niveaux prévus
+  (et si le seuil demandé n'en est pas), longueur visée (par chapitre pour un récit
+  long), les chapitres prévus avec leurs titres et leurs résumés,
   les caractères du titre traditionnel hors du seuil, **la liste exacte des caractères
   autorisés**, le chemin du brouillon et un squelette.
 - `uv run wenlu contes importer [<id> …] [--seuil 255]` lit les brouillons (tous, ou
@@ -1245,8 +1297,16 @@ conte, une par seuil, dans l'ordre des seuils :
 public) ; …"` sinon). Dans l'export, les entrées de `glose` sont triées ; l'ordre ne
 porte aucun sens, le découpage se fait par la plus longue entrée.
 
+Un récit long y porte `chapitres` à la place de `phrases`, au format de la version :
+`[{titre, titre_pinyin, titre_fr, titre_en, phrases}]`. L'aperçu (`apercu/contes/<id>.json`)
+suit le même format.
+
 `app/public/data/<version>/index.json` gagne `contes: [{id, titre_fr, titre_en,
-seuils: [255, …], fichier}]`. L'app choisit la version du seuil le plus haut dont tous
+seuils: [255, …], fichier}]`, les contes relus, et `catalogue: [{id, titre_zh,
+titre_pinyin, titre_fr, titre_en, niveaux, chapitres}]`, tout ce que le catalogue
+prévoit, écrit ou pas : la bibliothèque montre chaque récit avec ses niveaux (écrit et
+ouvert, écrit mais fermé, pas encore écrit) sans rien inventer. Ni résumé ni texte n'y
+figurent. L'app choisit la version du seuil le plus haut dont tous
 les caractères sont acquis, et signale quand une version plus riche s'ouvre (épic 2c).
 Au toucher d'un caractère, le lecteur retrouve l'entrée de glose qui le couvre par le
 découpage ci-dessus et l'affiche avec son pinyin ; le pinyin de la phrase s'aligne

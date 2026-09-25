@@ -12,9 +12,21 @@
  *   marqué « pas encore dans ton acquis », et ce que ce mode ouvre ne compte pas comme lu ;
  * - quand la version ouverte est plus riche que toutes celles déjà lues, l'app le signale ;
  * - `gratuit` est un marqueur porté par l'index, et rien d'autre : aucun conte ne se ferme
- *   pour une raison d'achat.
+ *   pour une raison d'achat ;
+ * - la bibliothèque suit le catalogue (`index.json`, `catalogue`) : chaque récit prévu y
+ *   est, avec ses niveaux, chacun écrit et ouvert, écrit mais fermé, ou pas encore écrit.
+ *   Rien n'est estimé : un niveau sans version exportée est « pas encore écrit » ;
+ * - un récit long se lit chapitre par chapitre, et reprend là où on l'a laissé ; il n'est
+ *   lu (contes lus, trophée) qu'une fois tous ses chapitres lus, le dernier compris.
  */
-import type { Conte, IndexConte, PhraseConte, VersionConte } from './content';
+import type {
+  CatalogueConte,
+  ChapitreConte,
+  Conte,
+  IndexConte,
+  PhraseConte,
+  VersionConte
+} from './content';
 import { avancement, etat } from './foret';
 import { SEUIL_DEBLOCAGE, type ReviewCard } from './srs';
 
@@ -38,10 +50,11 @@ export function caracteresAcquis(
   return out;
 }
 
-/** Les caractères distincts d'une version, titre compris, dans l'ordre d'apparition. */
+/** Les caractères distincts d'une version, titres compris, dans l'ordre d'apparition. */
 export function caracteresDeVersion(v: VersionConte): string[] {
   const vus = new Set<string>();
-  for (const t of [v.titre, ...v.phrases.map((p) => p.zh)]) {
+  const textes = [v.titre, ...chapitresDe(v).flatMap((c) => [c.titre, ...c.phrases.map((p) => p.zh)])];
+  for (const t of textes) {
     for (const c of Array.from(t)) if (estHan(c)) vus.add(c);
   }
   return [...vus];
@@ -71,6 +84,44 @@ export const MENTION_HORS_ACQUIS = 'pas encore dans ton acquis';
  */
 export function versionDeRelecture(conte: Conte): VersionConte | null {
   return conte.versions.find((v) => v.statut !== 'a_relire') ?? conte.versions[0] ?? null;
+}
+
+/* ---------- les niveaux ---------- */
+
+/**
+ * Où en est un niveau d'un conte : écrit et ouvert (sa version est dans l'export et tous
+ * ses caractères sont acquis), écrit mais fermé, ou pas encore écrit (prévu au catalogue,
+ * aucune version dans l'export).
+ */
+export type EtatNiveau = 'ouvert' | 'ferme' | 'a_ecrire';
+
+export type NiveauConte = { seuil: number; etat: EtatNiveau };
+
+/** Ce que l'écran dit d'un niveau, pour qui ne voit pas le sceau. */
+export const ETATS_NIVEAU: Record<EtatNiveau, string> = {
+  ouvert: 'écrit et ouvert',
+  ferme: 'écrit, pas encore ouvert',
+  a_ecrire: 'pas encore écrit'
+};
+
+/**
+ * Les niveaux d'un conte, croissants : ceux que le catalogue prévoit, et toute version
+ * écrite en plus (un seuil que l'index annonce sans que son fichier se lise reste « écrit
+ * mais fermé »). Rien n'est estimé : sans version, un niveau est « pas encore écrit ».
+ */
+export function niveauxDuConte(
+  prevus: readonly number[],
+  annonces: readonly number[],
+  conte: Conte | null,
+  acquis: ReadonlySet<string>
+): NiveauConte[] {
+  const versions = new Map((conte?.versions ?? []).map((v) => [v.seuil, v]));
+  const seuils = [...new Set([...prevus, ...annonces, ...versions.keys()])].sort((a, b) => a - b);
+  return seuils.map((seuil) => {
+    const v = versions.get(seuil);
+    if (v) return { seuil, etat: manquants(v, acquis).length === 0 ? 'ouvert' : 'ferme' };
+    return { seuil, etat: annonces.includes(seuil) ? 'ferme' : 'a_ecrire' };
+  });
 }
 
 /* ---------- la bibliothèque ---------- */
@@ -104,27 +155,39 @@ export type EntreeConte = {
    * l'acquis. Ni les contes lus, ni les trophées, ni Tao ne la notent.
    */
   sansCompte: boolean;
+  /**
+   * Ses niveaux, prévus ou écrits, chacun ouvert, fermé ou pas encore écrit. Vide pour une
+   * entrée qui n'est pas un conte (une lettre de Que).
+   */
+  niveaux: NiveauConte[];
+  /** Au moins une version est écrite (dans l'export, ou l'aperçu en mode relecture). */
+  ecrit: boolean;
 };
 
 /**
  * Un conte de la bibliothèque. Sans fichier lisible (`conte` nul), il reste fermé au seuil
- * le plus bas que l'index annonce, sans compte de caractères : on ne l'estime pas.
+ * le plus bas que l'index annonce, sans compte de caractères : on ne l'estime pas. `prevu`,
+ * sa ligne du catalogue, dit ses niveaux prévus ; sans elle, ses niveaux sont ceux écrits.
  */
 export function entreeConte(
   i: IndexConte,
   conte: Conte | null,
   acquis: ReadonlySet<string>,
   lus: readonly number[] = [],
-  relecture = false
+  relecture = false,
+  prevu: CatalogueConte | null = null
 ): EntreeConte {
+  const niveaux = niveauxDuConte(prevu?.niveaux ?? [], i.seuils, conte, acquis);
   const base = {
     id: i.id,
-    titre_zh: conte?.titre_zh || i.titre_zh || '',
-    titre_pinyin: conte?.titre_pinyin || i.titre_pinyin || '',
-    titre_fr: conte?.titre_fr || i.titre_fr,
+    titre_zh: conte?.titre_zh || i.titre_zh || prevu?.titre_zh || '',
+    titre_pinyin: conte?.titre_pinyin || i.titre_pinyin || prevu?.titre_pinyin || '',
+    titre_fr: conte?.titre_fr || i.titre_fr || prevu?.titre_fr || '',
     gratuit: i.gratuit === true,
     horsAcquis: false,
-    sansCompte: false
+    sansCompte: false,
+    niveaux,
+    ecrit: niveaux.some((n) => n.etat !== 'a_ecrire')
   };
   const lisible = conte === null ? null : versionLisible(conte, acquis);
   const version =
@@ -156,21 +219,92 @@ export function entreeConte(
 }
 
 /**
- * La bibliothèque : les contes ouverts d'abord, puis les fermés, chacun dans l'ordre de
- * l'index. Un index sans conte donne une bibliothèque vide. En mode relecture, tout conte
- * qui a une version s'ouvre.
+ * La bibliothèque : les contes ouverts d'abord, puis les fermés écrits, puis ceux qui ne
+ * sont pas encore écrits, chacun dans l'ordre du catalogue, puis de l'index pour un conte
+ * que le catalogue ne connaît pas. Sans catalogue (export plus ancien), l'index seul : un
+ * index sans conte donne une bibliothèque vide. En mode relecture, tout conte qui a une
+ * version s'ouvre.
  */
 export function bibliotheque(
   index: readonly IndexConte[],
   contes: ReadonlyMap<string, Conte>,
   acquis: ReadonlySet<string>,
   contesLus: Readonly<Record<string, readonly number[]>> = {},
-  relecture = false
+  relecture = false,
+  catalogue: readonly CatalogueConte[] = []
 ): EntreeConte[] {
-  const toutes = index.map((i) =>
-    entreeConte(i, contes.get(i.id) ?? null, acquis, contesLus[i.id] ?? [], relecture)
-  );
-  return [...toutes.filter((e) => e.version !== null), ...toutes.filter((e) => e.version === null)];
+  const parId = new Map(index.map((i) => [i.id, i]));
+  const prevus = new Map(catalogue.map((c) => [c.id, c]));
+  const ids = [...new Set([...catalogue.map((c) => c.id), ...index.map((i) => i.id)])];
+  const toutes = ids.map((id) => {
+    const prevu = prevus.get(id) ?? null;
+    const i: IndexConte = parId.get(id) ?? {
+      id,
+      titre_zh: prevu?.titre_zh ?? '',
+      titre_pinyin: prevu?.titre_pinyin ?? '',
+      titre_fr: prevu?.titre_fr ?? '',
+      seuils: [],
+      fichier: ''
+    };
+    return entreeConte(i, contes.get(id) ?? null, acquis, contesLus[id] ?? [], relecture, prevu);
+  });
+  return [
+    ...toutes.filter((e) => e.version !== null),
+    ...toutes.filter((e) => e.version === null && e.ecrit),
+    ...toutes.filter((e) => e.version === null && !e.ecrit)
+  ];
+}
+
+/* ---------- les chapitres d'un récit long ---------- */
+
+/**
+ * Les chapitres d'une version : ceux d'un récit long, ou, pour une fable, un seul chapitre
+ * sans titre qui porte toutes ses phrases.
+ */
+export function chapitresDe(v: VersionConte): ChapitreConte[] {
+  if (v.chapitres && v.chapitres.length > 0) return v.chapitres;
+  return [{ titre: '', titre_pinyin: '', titre_fr: '', phrases: v.phrases }];
+}
+
+/** Un récit long : il se lit chapitre par chapitre. */
+export function estLongue(v: VersionConte): boolean {
+  return (v.chapitres?.length ?? 0) > 0;
+}
+
+/**
+ * La lecture d'une version en chapitres, telle que la progression la garde : les chapitres
+ * lus (de 1 à n), et celui où reprendre.
+ */
+export type LectureChapitres = { lus: number[]; reprise: number };
+
+/** La clé d'une lecture en chapitres dans la progression : `<seuil>/<conte>`, comme le pipeline. */
+export function cleLecture(conte: string, seuil: number): string {
+  return `${seuil}/${conte}`;
+}
+
+/** Le chapitre où reprendre, de 1 à `n` : celui noté, sinon le premier. */
+export function chapitreDeReprise(l: LectureChapitres | undefined, n: number): number {
+  const k = l?.reprise ?? 1;
+  return Number.isInteger(k) && k >= 1 && k <= n ? k : 1;
+}
+
+/** Un récit long est lu quand tous ses chapitres le sont : un chapitre non lu ne compte pas. */
+export function tousLus(lus: readonly number[], n: number): boolean {
+  if (n <= 0) return false;
+  for (let k = 1; k <= n; k++) if (!lus.includes(k)) return false;
+  return true;
+}
+
+/**
+ * Note un chapitre lu. La reprise passe au premier chapitre non lu qui le suit, sinon au
+ * premier non lu depuis le début ; tous lus, elle revient au premier, pour relire.
+ */
+export function lireChapitre(l: LectureChapitres | undefined, k: number, n: number): LectureChapitres {
+  const lus = [...new Set([...(l?.lus ?? []), k])].filter((x) => x >= 1 && x <= n).sort((a, b) => a - b);
+  const apres = Array.from({ length: n }, (_, j) => j + 1);
+  const suivant =
+    apres.find((x) => x > k && !lus.includes(x)) ?? apres.find((x) => !lus.includes(x)) ?? 1;
+  return { lus, reprise: suivant };
 }
 
 /* ---------- le pinyin, syllabe par syllabe ---------- */
@@ -320,10 +454,20 @@ export function unitesDuTitre(v: VersionConte): Unite[] {
 
 /** La traduction d'une version, phrase après phrase. */
 export function traduction(v: VersionConte): string {
-  return v.phrases
+  return traductionDe(v.phrases);
+}
+
+/** La traduction de quelques phrases : celles d'un chapitre, par exemple. */
+export function traductionDe(phrases: readonly PhraseConte[]): string {
+  return phrases
     .map((p) => p.fr.trim())
     .filter(Boolean)
     .join(' ');
+}
+
+/** Le titre chinois d'un chapitre, en unités : son pinyin s'aligne comme celui d'une phrase. */
+export function unitesDuChapitre(c: ChapitreConte, glose: Readonly<Record<string, string>>): Unite[] {
+  return c.titre === '' ? [] : unites({ zh: c.titre, pinyin: c.titre_pinyin, fr: '' }, glose);
 }
 
 /** La glose au toucher, courte : « tù, lièvre ». Vide quand rien n'est connu. */

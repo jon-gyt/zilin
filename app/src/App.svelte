@@ -62,7 +62,9 @@
     learnNext,
     nombreDues,
     noterActivite,
+    noterChapitreLu,
     noterConteLu,
+    noterReprise,
     noterRevision,
     noterTrophees,
     openDay,
@@ -767,6 +769,23 @@
   }
 
   /**
+   * Un chapitre d'un récit long lu : noté, la reprise passe au suivant. Tao note une
+   * lecture de conte pour chaque chapitre sauf le dernier, que `conteLu` note avec le conte.
+   * Le conte n'est lu (trophée) qu'une fois tous ses chapitres lus.
+   */
+  function chapitreLu(conte: string, seuil: number, k: number, n: number): void {
+    p = noterChapitreLu(p, conte, seuil, k, n);
+    if (k < n) p = noterActivite(p, p.day, 'conte');
+    enregistrer();
+  }
+
+  /** Un chapitre ouvert depuis le sommaire : on y reprendra. */
+  function chapitreOuvert(conte: string, seuil: number, k: number): void {
+    p = noterReprise(p, conte, seuil, k);
+    enregistrer();
+  }
+
+  /**
    * Une lettre de Que lue : notée une fois dans la progression, et Tao note une lecture,
    * qu'elle lit par-dessus l'épaule. Pas de point.
    */
@@ -866,6 +885,8 @@
     {p}
     onretour={allerAuMenu}
     onlu={conteLu}
+    onchapitre={chapitreLu}
+    onreprise={chapitreOuvert}
     onanecdote={() => relireAnecdote('lire')}
     onlettre={lettreLue}
   />

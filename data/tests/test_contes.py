@@ -15,6 +15,7 @@ from typer.testing import CliRunner
 
 from wenlu_data import contes
 from wenlu_data.cli import app as cli
+from wenlu_data.ingest import est_sinogramme
 from wenlu_data.contes import (
     A_RELIRE,
     ESSAIS_MAX,
@@ -124,11 +125,13 @@ def ecrire_liste(dossier: Path, seuil: int, caracteres: list[str]) -> Path:
 # --------------------------------------------------------------------------- catalogue
 
 
-def test_catalogue_onze_contes_avec_leur_source() -> None:
-    """Onze récits, identifiants uniques, titres FR et EN, ouvrage d'origine et résumé."""
+def test_catalogue_treize_contes_avec_leur_source() -> None:
+    """Onze fables et deux récits longs, identifiants uniques, titres FR et EN, ouvrage
+    d'origine et résumé."""
     catalogue = charger_catalogue()
-    assert len(catalogue) == 11
-    assert len({c.id for c in catalogue}) == 11
+    assert len(catalogue) == 13
+    assert len({c.id for c in catalogue}) == 13
+    assert sum(1 for c in catalogue if not c.long) == 11
     for conte in catalogue:
         assert conte.id == conte.id.lower() and " " not in conte.id
         assert conte.titre_zh and conte.titre_fr and conte.titre_en
@@ -140,8 +143,8 @@ def test_catalogue_refuse_un_doublon() -> None:
     """Deux fois le même identifiant, c'est deux fichiers de sortie pour un conte."""
     lignes = [
         "\t".join(contes.COLONNES),
-        "a\t山\tshān\tTitre\tTitle\t《测试》\tRésumé.",
-        "a\t水\tshuǐ\tAutre\tOther\t《测试》\tRésumé.",
+        "a\t山\tshān\tTitre\tTitle\t《测试》\t255,505\t1\tRésumé.",
+        "a\t水\tshuǐ\tAutre\tOther\t《测试》\t255,505\t1\tRésumé.",
     ]
     with pytest.raises(CatalogueInvalide, match="doublon"):
         parse_catalogue(lignes)
@@ -149,7 +152,7 @@ def test_catalogue_refuse_un_doublon() -> None:
 
 def test_catalogue_veut_une_syllabe_par_caractere_du_vrai_titre() -> None:
     """Le vrai titre (愚公移山) se montre avec son pinyin : une syllabe par caractère."""
-    lignes = ["\t".join(contes.COLONNES), "a\t山水\tshān\tTitre\tTitle\t《测试》\tRésumé."]
+    lignes = ["\t".join(contes.COLONNES), "a\t山水\tshān\tTitre\tTitle\t《测试》\t255,505\t1\tRésumé."]
     with pytest.raises(CatalogueInvalide, match="syllabe"):
         parse_catalogue(lignes)
 
@@ -162,6 +165,124 @@ def test_le_catalogue_donne_le_vrai_titre_et_son_pinyin() -> None:
 def test_catalogue_refuse_un_entete_inattendu() -> None:
     with pytest.raises(CatalogueInvalide, match="en-tête"):
         parse_catalogue(["id\ttitre", "a\t山"])
+
+
+# --------------------------------------------------------------------------- niveaux prévus
+
+#: Les huit fables animalières : la liste 255 n'a aucun nom d'animal.
+ANIMALIERS = {
+    "shou-zhu-dai-tu": "兔",
+    "sai-weng-shi-ma": "马",
+    "hua-she-tian-zu": "蛇",
+    "jing-di-zhi-wa": "蛙",
+    "hu-jia-hu-wei": "虎",
+    "mang-ren-mo-xiang": "象",
+    "ye-gong-hao-long": "龙",
+    "wang-yang-bu-lao": "羊",
+}
+
+
+def ligne_catalogue(identifiant: str = "a", niveaux: str = "255,505", chapitres: str = "1") -> str:
+    return f"{identifiant}\t山\tshān\tTitre\tTitle\t《测试》\t{niveaux}\t{chapitres}\tRésumé."
+
+
+def test_chaque_conte_prevoit_deux_ou_trois_niveaux_croissants() -> None:
+    """Un récit simple à deux niveaux, un récit riche à trois, pris parmi les seuils."""
+    for conte in charger_catalogue():
+        assert len(conte.niveaux) in (2, 3), conte.id
+        assert list(conte.niveaux) == sorted(set(conte.niveaux))
+        assert set(conte.niveaux) <= set(contes.SEUILS)
+
+
+def test_les_fables_animalieres_ne_descendent_pas_a_255() -> None:
+    """Aucun nom d'animal dans la liste 255 : ces huit fables commencent plus haut."""
+    liste = set(charger_seuil(255))
+    par_id = {c.id: c for c in charger_catalogue()}
+    for identifiant, animal in ANIMALIERS.items():
+        assert animal not in liste
+        assert 255 not in par_id[identifiant].niveaux, identifiant
+
+
+def test_les_contes_ecrits_a_255_le_prevoient() -> None:
+    """Les trois contes relus sont écrits au seuil 255 : leur plan commence là."""
+    par_id = {c.id: c for c in charger_catalogue()}
+    for chemin in contes.versions_ecrites():
+        version = contes.lire_version(chemin)
+        assert version.seuil in par_id[version.conte].niveaux, version.cle
+
+
+@pytest.mark.parametrize(
+    ("niveaux", "motif"),
+    [
+        ("255", "deux niveaux"),
+        ("255,405,505,805", "deux niveaux"),
+        ("505,255", "croissants"),
+        ("255,255", "croissants"),
+        ("255,300", "hors des seuils"),
+        ("255;505", "virgules"),
+    ],
+)
+def test_catalogue_refuse_des_niveaux_mal_dits(niveaux: str, motif: str) -> None:
+    with pytest.raises(CatalogueInvalide, match=motif):
+        parse_catalogue(["\t".join(contes.COLONNES), ligne_catalogue(niveaux=niveaux)])
+
+
+# --------------------------------------------------------------------------- récits longs
+
+
+CHAPITRES_TEST = [
+    "\t".join(contes.COLONNES_CHAPITRES),
+    "long\t1\tUn\tOne\tLe premier.",
+    "long\t2\tDeux\tTwo\tLe second.",
+]
+
+
+def test_un_recit_long_a_ses_chapitres_prevus() -> None:
+    lignes = ["\t".join(contes.COLONNES), ligne_catalogue("long", "405,805,1555", "2")]
+    (conte,) = parse_catalogue(lignes, contes.parse_chapitres(CHAPITRES_TEST))
+    assert conte.long and conte.chapitres == 2
+    assert [c.titre_fr for c in conte.plan] == ["Un", "Deux"]
+
+
+def test_un_recit_long_sans_tous_ses_chapitres_est_refuse() -> None:
+    lignes = ["\t".join(contes.COLONNES), ligne_catalogue("long", "405,805,1555", "3")]
+    with pytest.raises(CatalogueInvalide, match="prévoit 3 chapitres"):
+        parse_catalogue(lignes, contes.parse_chapitres(CHAPITRES_TEST))
+
+
+def test_une_fable_n_a_pas_de_chapitres_et_un_chapitre_a_son_conte() -> None:
+    fable = ["\t".join(contes.COLONNES), ligne_catalogue("long")]
+    with pytest.raises(CatalogueInvalide, match="fable"):
+        parse_catalogue(fable, contes.parse_chapitres(CHAPITRES_TEST))
+    autre = ["\t".join(contes.COLONNES), ligne_catalogue("autre")]
+    with pytest.raises(CatalogueInvalide, match="hors catalogue"):
+        parse_catalogue(autre, contes.parse_chapitres(CHAPITRES_TEST))
+
+
+def test_les_chapitres_se_suivent_sans_trou() -> None:
+    with pytest.raises(CatalogueInvalide, match="attendu 2"):
+        contes.parse_chapitres([CHAPITRES_TEST[0], CHAPITRES_TEST[1], "long\t3\tTrois\tThree\tLe troisième."])
+
+
+def test_le_catalogue_prevoit_deux_recits_longs_sans_texte_chinois() -> None:
+    """Deux récits longs du domaine public, 405 et plus, un titre et un résumé par chapitre ;
+    aucune version n'est écrite : leurs listes ne sont pas versionnées."""
+    longs = [c for c in charger_catalogue() if c.long]
+    assert [c.id for c in longs] == ["mu-lan-cong-jun", "mei-hou-wang"]
+    for conte in longs:
+        assert min(conte.niveaux) >= 405
+        assert len(conte.plan) == conte.chapitres >= 2
+        for chapitre in conte.plan:
+            assert chapitre.titre_fr and chapitre.titre_en and chapitre.resume_fr.endswith(".")
+            assert not any(est_sinogramme(c) for c in chapitre.titre_fr + chapitre.resume_fr)
+        assert not (contes.BROUILLONS / conte.id).exists()
+
+
+def test_la_generation_par_l_api_ne_prend_que_les_fables_du_seuil() -> None:
+    """Un récit long se rédige par brouillon ; un conte ne s'écrit qu'aux niveaux prévus."""
+    retenus = {c.id for c in contes.contes_du_seuil(charger_catalogue(), 255)}
+    assert retenus == {"yu-gong-yi-shan", "ba-miao-zhu-zhang", "nan-yuan-bei-zhe"}
+    assert "mu-lan-cong-jun" not in {c.id for c in contes.contes_du_seuil(charger_catalogue(), 405)}
 
 
 # --------------------------------------------------------------------------- seuils
@@ -399,6 +520,120 @@ def test_lot_non_termine_ne_recupere_rien(tmp_path: Path) -> None:
     assert len(lots_en_cours(tmp_path)) == 1
 
 
+# --------------------------------------------------------------------------- chapitres
+
+
+def phrase_de_test(zh: str) -> contes.Phrase:
+    return contes.Phrase(zh=zh, pinyin=" ".join("pīn" for c in zh if est_sinogramme(c)), fr="Phrase.", en="Sentence.")
+
+
+def version_longue(chapitres: list[contes.Chapitre], seuil: int = 405) -> contes.Version:
+    """Une version en chapitres ; `pīn` partout, une glose par caractère."""
+    texte = "山水" + "".join(c.titre + "".join(p.zh for p in c.phrases) for c in chapitres)
+    return contes.Version(
+        conte="long",
+        seuil=seuil,
+        titre="山水",
+        titre_pinyin="pīn pīn",
+        titre_fr="Long",
+        titre_en="Long",
+        ouvrage="《测试》",
+        resume_fr="Résumé.",
+        phrases=[],
+        chapitres=chapitres,
+        glose={c: contes.Glose(fr="sens", pinyin="pīn", en="meaning") for c in dict.fromkeys(texte) if est_sinogramme(c)},
+        generation=generation_de_test(),
+    )
+
+
+def chapitre_de_test(titre: str, n: int = 12) -> contes.Chapitre:
+    """Un chapitre de `n` phrases de dix sinogrammes : 120, dans la cible du seuil 405."""
+    return contes.Chapitre(
+        phrases=[phrase_de_test("人大天口日月山水火木。") for _ in range(n)],
+        titre=titre,
+        titre_pinyin=" ".join("pīn" for _ in titre),
+        titre_fr="Titre",
+        titre_en="Title",
+    )
+
+
+CONTE_LONG = Conte(
+    id="long", titre_zh="山水", titre_fr="Long", ouvrage="《测试》", resume_fr="Résumé.",
+    titre_en="Long", titre_pinyin="shān shuǐ", niveaux=(405, 805), chapitres=2,
+)
+
+
+def test_une_version_courte_reste_une_suite_de_phrases() -> None:
+    """Une fable est un seul chapitre sans titre : elle s'écrit et s'exporte comme avant."""
+    version = lire_reponse(CONFORME, conte=CONTE, seuil=255, generation=generation_de_test())
+    assert version.courte and len(version.chapitres) == 1
+    assert version.chapitres[0].phrases == version.phrases
+    document = version.en_json()
+    assert "phrases" in document and "chapitres" not in document
+
+
+def test_les_trois_contes_relus_se_relisent_sans_etre_reecrits() -> None:
+    """Rétrocompatibilité : chaque version écrite se relit et se réécrit octet pour octet,
+    sans chapitres, et son export ne change pas."""
+    from wenlu_data import export as export_mod
+
+    for chemin in contes.versions_ecrites():
+        version = contes.lire_version(chemin)
+        assert version.courte, version.cle
+        texte = json.dumps(version.en_json(), ensure_ascii=False, indent=1)
+        assert texte == chemin.read_text(encoding="utf-8"), version.cle
+        publie = export_mod.EXPORT / export_mod.VERSION / "contes" / f"{version.conte}.json"
+        if publie.exists():
+            ecrit = json.loads(publie.read_text(encoding="utf-8"))["versions"][str(version.seuil)]
+            assert export_mod.document_conte(version.conte, [version], "0.1.0")["versions"][str(version.seuil)] == ecrit
+
+
+def test_une_version_longue_s_ecrit_par_chapitres_et_se_relit() -> None:
+    version = version_longue([chapitre_de_test("日月"), chapitre_de_test("火木")])
+    assert not version.courte
+    assert len(version.phrases) == 24, "les phrases sont la suite des chapitres"
+    assert "日月" in version.texte and "火木" in version.texte
+    document = version.en_json()
+    assert "phrases" not in document
+    assert [c["titre"] for c in document["chapitres"]] == ["日月", "火木"]  # type: ignore[index]
+    relue = contes.version_depuis_json(json.loads(json.dumps(document)))
+    assert relue.chapitres == version.chapitres and relue.phrases == version.phrases
+
+
+def test_une_version_longue_conforme_passe_sans_ecart() -> None:
+    version = version_longue([chapitre_de_test("日月"), chapitre_de_test("火木")])
+    rapport = valider(version, LISTE, CONTE_LONG)
+    assert rapport.conforme and rapport.ecarts == [], rapport.ecarts
+
+
+def test_un_titre_de_chapitre_hors_liste_est_un_rejet() -> None:
+    version = version_longue([chapitre_de_test("日鸟"), chapitre_de_test("火木")])
+    assert valider(version, LISTE).intrus == ["鸟"]
+
+
+def test_la_longueur_vaut_pour_chaque_chapitre() -> None:
+    version = version_longue([chapitre_de_test("日月"), chapitre_de_test("火木", n=2)])
+    ecarts = valider(version, LISTE).ecarts
+    assert ecarts == ["chapitre 2 : longueur 20 hors de la cible 100–180"]
+
+
+def test_un_chapitre_sans_titre_ni_traduction_est_un_ecart() -> None:
+    sans = contes.Chapitre(phrases=chapitre_de_test("x").phrases)
+    version = version_longue([chapitre_de_test("日月"), sans])
+    ecarts = valider(version, LISTE).ecarts
+    assert "chapitres sans titre chinois : 2" in ecarts
+    assert any(e.startswith("chapitres sans titre français ou anglais") for e in ecarts)
+
+
+def test_le_catalogue_dit_les_niveaux_et_les_chapitres_prevus() -> None:
+    """Un seuil que le récit ne prévoit pas, un chapitre de moins : des écarts, pas un rejet."""
+    version = version_longue([chapitre_de_test("日月")], seuil=505)
+    rapport = valider(version, LISTE, CONTE_LONG)
+    assert rapport.conforme
+    assert "seuil 505 non prévu au catalogue (niveaux prévus : 405, 805)" in rapport.ecarts
+    assert "1 chapitre(s) pour 2 prévu(s) au catalogue" in rapport.ecarts
+
+
 # --------------------------------------------------------------------------- check
 
 
@@ -421,7 +656,7 @@ def test_controle_check_accepte_une_version_conforme(tmp_path: Path) -> None:
     version = lire_reponse(CONFORME, conte=CONTE, seuil=255, generation=generation_de_test())
     ecrire_version(version, tmp_path)
 
-    hors_liste, relecture = controles(tmp_path, listes)
+    hors_liste, relecture, *_ = controles(tmp_path, listes)
     assert hors_liste.ok
     assert not relecture.ok and not relecture.bloquant
     assert "1 versions sur 1" in relecture.detail
@@ -557,4 +792,73 @@ def test_seuil_sans_liste_sort_en_1(monkeypatch: pytest.MonkeyPatch, tmp_path: P
     resultat = CliRunner().invoke(cli, ["contes", "generer", "--seuil", "405"])
     assert resultat.exit_code == 1
     assert "liste absente" in resultat.output
+    assert list(tmp_path.iterdir()) == []
+
+
+# --------------------------------------------------------------------------- check : niveaux prévus
+
+
+def test_un_niveau_prevu_non_ecrit_est_signale_jamais_bloquant(tmp_path: Path) -> None:
+    """Liste présente et aucune version : « à écrire » ; liste absente : « attend sa liste ».
+    Un écart, jamais un blocage."""
+    listes = tmp_path / "listes"
+    ecrire_liste(listes, 255, LISTE)
+    ecrire_liste(listes, 405, LISTE)
+    conte = Conte(
+        id="conte-de-test", titre_zh="山水", titre_fr="T", ouvrage="《测试》", resume_fr="R.",
+        niveaux=(255, 405, 805),
+    )
+    version = lire_reponse(CONFORME, conte=CONTE, seuil=255, generation=generation_de_test())
+    niveaux = contes.etat_des_niveaux([conte], [version], listes)
+    assert [(n.seuil, n.etat) for n in niveaux] == [
+        (255, contes.ECRIT), (405, contes.A_ECRIRE), (805, contes.SANS_LISTE)
+    ]
+    controle = contes.controle_niveaux([conte], [version], listes)
+    assert controle.nom == "contes : niveaux prévus"
+    assert not controle.ok and not controle.bloquant
+    assert "1 écrits, 1 à écrire, 1 attendent leur liste (805)" in controle.detail
+    assert "à écrire : 405/conte-de-test" in controle.detail
+
+
+def test_le_check_ne_bloque_pas_sur_les_niveaux_du_depot() -> None:
+    """Les listes 405 et suivantes manquent : `wenlu check` le dit, et passe."""
+    resultats = {c.nom: c for c in controles()}
+    niveaux = resultats["contes : niveaux prévus"]
+    assert not niveaux.bloquant
+    assert "attendent leur liste" in niveaux.detail
+    assert resultats["contes : catalogue"].ok and resultats["contes : catalogue"].bloquant
+
+
+def test_un_catalogue_illisible_bloque_le_check(tmp_path: Path) -> None:
+    catalogue = tmp_path / "catalogue.tsv"
+    catalogue.write_text("\t".join(contes.COLONNES) + "\n" + ligne_catalogue(niveaux="255") + "\n", encoding="utf-8")
+    resultats = {c.nom: c for c in controles(tmp_path, tmp_path, catalogue)}
+    assert not resultats["contes : catalogue"].ok and resultats["contes : catalogue"].bloquant
+    assert "contes : niveaux prévus" not in resultats
+
+
+def test_une_version_hors_plan_est_signalee(tmp_path: Path) -> None:
+    listes = tmp_path / "listes"
+    ecrire_liste(listes, 255, LISTE)
+    conte = Conte(id="conte-de-test", titre_zh="山水", titre_fr="T", ouvrage="《测试》", resume_fr="R.", niveaux=(405, 805))
+    version = lire_reponse(CONFORME, conte=CONTE, seuil=255, generation=generation_de_test())
+    controle = contes.controle_niveaux([conte], [version], listes)
+    assert "255/conte-de-test : seuil 255 non prévu au catalogue" in controle.detail
+    assert not controle.bloquant
+
+
+def test_le_plan_dit_l_etat_de_chaque_niveau() -> None:
+    resultat = CliRunner().invoke(cli, ["contes", "plan"])
+    assert resultat.exit_code == 0
+    assert "愚公移山 yu-gong-yi-shan : 255 écrit (relu) · 805 attend sa liste · 1555 attend sa liste" in resultat.output
+    assert "木兰从军 mu-lan-cong-jun, 4 chapitres : 405 attend sa liste" in resultat.output
+
+
+def test_un_recit_long_ne_part_pas_a_l_api(monkeypatch: pytest.MonkeyPatch, tmp_path: Path) -> None:
+    """Il se rédige par brouillon, chapitre par chapitre : la commande le dit, n'écrit rien."""
+    monkeypatch.setattr(contes, "CONTES_WORK", tmp_path)
+    monkeypatch.setattr(contes, "_client", lambda modele: ClientSimule([]))
+    resultat = CliRunner().invoke(cli, ["contes", "generer", "--seuil", "255", "--conte", "mu-lan-cong-jun"])
+    assert resultat.exit_code == 1
+    assert "récit long" in resultat.output
     assert list(tmp_path.iterdir()) == []

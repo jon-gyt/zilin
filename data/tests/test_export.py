@@ -468,6 +468,57 @@ def test_un_conte_non_relu_n_entre_pas_dans_l_export(atelier: Path) -> None:
     assert lue["glose"] == {"明": {"pinyin": "", "fr": "clair", "en": ""}}
 
 
+def test_un_recit_long_s_exporte_chapitre_par_chapitre(atelier: Path) -> None:
+    """Un récit long porte ses chapitres (titres et phrases), jamais une suite de phrases ;
+    l'aperçu aussi."""
+    chapitres = [
+        contes_mod.Chapitre(
+            phrases=[contes_mod.Phrase(zh="明日休。", pinyin="míng rì xiū", fr="Demain, repos.", en="Rest.")],
+            titre=titre,
+            titre_pinyin=pinyin,
+            titre_fr=fr,
+            titre_en=en,
+        )
+        for titre, pinyin, fr, en in (("明日", "míng rì", "Demain", "Tomorrow"), ("休", "xiū", "Repos", "Rest"))
+    ]
+    for statut, conte in ((contes_mod.RELU, "long"), (contes_mod.A_RELIRE, "long-a-relire")):
+        version = version_conte(statut, conte=conte)
+        version.chapitres = chapitres
+        version.phrases = []
+        contes_mod.ecrire_version(contes_mod.version_depuis_json(version.en_json()))
+    rapport = export("0.1.0")
+    for fichier in ("contes/long.json", "apercu/contes/long-a-relire.json"):
+        lue = lire(rapport.dossier, fichier)["versions"]["255"]  # type: ignore[index]
+        assert "phrases" not in lue
+        assert [c["titre"] for c in lue["chapitres"]] == ["明日", "休"]
+        assert lue["chapitres"][1] == {
+            "titre": "休",
+            "titre_pinyin": "xiū",
+            "titre_fr": "Repos",
+            "titre_en": "Rest",
+            "phrases": [{"zh": "明日休。", "pinyin": "míng rì xiū", "fr": "Demain, repos.", "en": "Rest."}],
+        }
+
+
+def test_l_index_porte_le_catalogue_sans_texte(atelier: Path) -> None:
+    """Chaque récit prévu, ses niveaux et ses chapitres : la bibliothèque les montre, écrits
+    ou pas encore. Ni résumé, ni version."""
+    catalogue = lire(export("0.1.0").dossier, "index.json")["catalogue"]
+    par_id = {c["id"]: c for c in catalogue}  # type: ignore[union-attr, index]
+    assert len(par_id) == 13
+    assert par_id["yu-gong-yi-shan"] == {
+        "id": "yu-gong-yi-shan",
+        "titre_zh": "愚公移山",
+        "titre_pinyin": "yú gōng yí shān",
+        "titre_fr": "Le vieux fou déplace les montagnes",
+        "titre_en": "The Foolish Old Man Moves the Mountains",
+        "niveaux": [255, 805, 1555],
+        "chapitres": 1,
+    }
+    assert par_id["mu-lan-cong-jun"]["chapitres"] == 4
+    assert all("resume_fr" not in c for c in catalogue)  # type: ignore[union-attr]
+
+
 # ---------------------------------------------------------------------------- aperçu
 
 

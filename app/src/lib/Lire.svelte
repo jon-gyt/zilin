@@ -8,6 +8,12 @@
    * relecture (Réglages), les contes à relire s'y ajoutent, marqués « à relire », et un
    * conte fermé s'ouvre quand même, marqué « pas encore dans ton acquis ».
    *
+   * La bibliothèque suit le catalogue de l'export : chaque récit prévu, écrit ou pas, et
+   * sous son titre ses niveaux en petits sceaux, un par seuil prévu : plein, écrit et ouvert
+   * par l'acquis ; au trait, écrit mais pas encore ouvert ; en pointillés, pas encore écrit.
+   * Rien n'est estimé : ce qui n'est pas dans l'export n'est pas écrit. Un récit long se lit
+   * chapitre par chapitre et reprend au chapitre noté dans la progression.
+   *
    * Sans conte dans l'export, l'écran le dit simplement, sans rien feindre. Un seul
    * retour, vers le menu ; le lecteur, lui, revient ici. Tao lit par-dessus l'épaule.
    *
@@ -30,13 +36,16 @@
     contesExport,
     fetesOnce,
     saisonsOnce,
+    type CatalogueConte,
     type Conte as ConteExporte,
     type IndexConte
   } from './content';
   import {
+    ETATS_NIVEAU,
     MENTION_HORS_ACQUIS,
     bibliotheque,
     caracteresAcquis,
+    cleLecture,
     type EntreeConte
   } from './lecture';
   import { anecdoteDeLaJournee, type AnecdoteDeLaJournee } from './saisons';
@@ -57,7 +66,9 @@
     onretour,
     onlu,
     onanecdote,
-    onlettre = () => undefined
+    onlettre = () => undefined,
+    onchapitre = () => undefined,
+    onreprise = () => undefined
   }: {
     p: Progress;
     onretour: () => void;
@@ -67,6 +78,10 @@
     onanecdote: () => void;
     /** Une lettre de Que lue en entier : son rang dans le feuilleton. */
     onlettre?: (n: number) => void;
+    /** Un chapitre d'un récit long lu en entier : le conte, son seuil, le chapitre, sur n. */
+    onchapitre?: (conte: string, seuil: number, k: number, n: number) => void;
+    /** Un chapitre d'un récit long ouvert depuis le sommaire : on y reprendra. */
+    onreprise?: (conte: string, seuil: number, k: number) => void;
   } = $props();
 
   /** L'anecdote de la journée de la session, la même que l'écran Ouvrir. */
@@ -87,7 +102,11 @@
     };
   });
 
-  let lus = $state.raw<{ index: IndexConte[]; contes: Map<string, ConteExporte> } | null>(null);
+  let lus = $state.raw<{
+    index: IndexConte[];
+    contes: Map<string, ConteExporte>;
+    catalogue: CatalogueConte[];
+  } | null>(null);
   /** Le conte ouvert dans le lecteur, `null` pour la bibliothèque. */
   let ouvert: string | null = $state(null);
   /** Les lettres de Que de l'export (et de l'aperçu en mode relecture), `null` avant lecture. */
@@ -132,7 +151,9 @@
       lue: e.lue,
       plusRiche: false,
       horsAcquis: false,
-      sansCompte: e.sansCompte
+      sansCompte: e.sansCompte,
+      niveaux: [],
+      ecrit: true
     };
   }
 
@@ -159,7 +180,7 @@
         if (vivant) lus = x;
       })
       .catch(() => {
-        if (vivant) lus = { index: [], contes: new Map() };
+        if (vivant) lus = { index: [], contes: new Map(), catalogue: [] };
       });
     return () => {
       vivant = false;
@@ -168,7 +189,9 @@
 
   const acquis = $derived(caracteresAcquis(p.cartes));
   const entrees = $derived(
-    lus === null ? null : bibliotheque(lus.index, lus.contes, acquis, p.contesLus, p.relecture)
+    lus === null
+      ? null
+      : bibliotheque(lus.index, lus.contes, acquis, p.contesLus, p.relecture, lus.catalogue)
   );
   const lecture = $derived(
     ouvert === null ? null : (entrees?.find((e) => e.id === ouvert && e.version !== null) ?? null)
@@ -199,6 +222,20 @@
   function fini(e: EntreeConte): void {
     if (e.version !== null && !e.sansCompte) onlu(e.id, e.version.seuil);
     fermer();
+  }
+
+  /** Un chapitre lu : noté, sauf ce que seul le mode relecture ouvre. */
+  function chapitreLu(e: EntreeConte, k: number, n: number): void {
+    if (e.version !== null && !e.sansCompte) onchapitre(e.id, e.version.seuil, k, n);
+  }
+
+  function reprendre(e: EntreeConte, k: number): void {
+    if (e.version !== null && !e.sansCompte) onreprise(e.id, e.version.seuil, k);
+  }
+
+  /** « 255 écrit et ouvert, 805 pas encore écrit » : les sceaux, pour un lecteur d'écran. */
+  function niveauxLus(e: EntreeConte): string {
+    return 'Niveaux : ' + e.niveaux.map((n) => `${n.seuil} ${ETATS_NIVEAU[n.etat]}`).join(', ');
   }
 
   /** « encore 12 caractères à lire » ; rien quand on ne sait pas le compter. */
@@ -255,7 +292,17 @@
     onretour={fermerLettre}
   />
 {:else if lecture}
-  <Conte {p} entree={lecture} onlu={() => fini(lecture)} onretour={fermer} />
+  <Conte
+    {p}
+    entree={lecture}
+    enCours={lecture.version && !lecture.sansCompte
+      ? p.chapitres[cleLecture(lecture.id, lecture.version.seuil)]
+      : undefined}
+    onlu={() => fini(lecture)}
+    onchapitre={(k, n) => chapitreLu(lecture, k, n)}
+    onreprise={(k) => reprendre(lecture, k)}
+    onretour={fermer}
+  />
 {:else}
   <main class="screen">
     <button class="k quit" onclick={onretour}>‹ Retour</button>
@@ -301,6 +348,15 @@
       </div>
     {:else}
       <div class="sec" class:suite={lettreNouvelle}>Contes</div>
+      {#snippet sceaux(e: EntreeConte)}
+        {#if e.niveaux.length > 0}
+          <span class="sceaux" role="img" aria-label={niveauxLus(e)}>
+            {#each e.niveaux as n (n.seuil)}
+              <span class="sceau {n.etat}" title={`${n.seuil} : ${ETATS_NIVEAU[n.etat]}`}>{n.seuil}</span>
+            {/each}
+          </span>
+        {/if}
+      {/snippet}
       {#snippet titre(e: EntreeConte)}
         {#if e.titre_zh}
           <span class="t"><span class="hz" lang="zh-Hans">{e.titre_zh}</span> <span class="py">{e.titre_pinyin}</span></span>
@@ -320,6 +376,7 @@
                 <ARelire de={e.version} />
                 {#if e.horsAcquis}<span class="mention">{MENTION_HORS_ACQUIS}</span>{/if}
               </span>
+              {@render sceaux(e)}
               {#if e.plusRiche}
                 <span class="riche">Une version plus riche de ce conte est ouverte.</span>
               {/if}
@@ -329,18 +386,27 @@
             </span>
           </button>
         {:else}
-          <div class="entry ferme" data-gratuit={e.gratuit} aria-disabled="true">
+          <div class="entry ferme" class:a-ecrire={!e.ecrit} data-gratuit={e.gratuit} aria-disabled="true">
             <span class="ico" aria-hidden="true">
-              <svg viewBox="0 0 24 24">
-                <rect x="5" y="11" width="14" height="9" rx="2" />
-                <path d="M8 11V8a4 4 0 0 1 8 0v3" />
-              </svg>
+              {#if e.ecrit}
+                <svg viewBox="0 0 24 24">
+                  <rect x="5" y="11" width="14" height="9" rx="2" />
+                  <path d="M8 11V8a4 4 0 0 1 8 0v3" />
+                </svg>
+              {:else}
+                <span class="hz">{Array.from(e.titre_zh)[0] ?? ''}</span>
+              {/if}
             </span>
             <span class="grow">
               {@render titre(e)}
               <span class="d">
-                {e.attend === null ? 'Pas encore lisible' : `Au seuil ${e.attend}`}{reste(e)}
+                {#if !e.ecrit}
+                  Pas encore écrit
+                {:else}
+                  {e.attend === null ? 'Pas encore lisible' : `Au seuil ${e.attend}`}{reste(e)}
+                {/if}
               </span>
+              {@render sceaux(e)}
             </span>
           </div>
         {/if}
@@ -456,6 +522,48 @@
   .entry.ferme .t .py,
   .entry.ferme .fr,
   .entry.ferme .d {
+    color: var(--mist);
+  }
+  /* Les niveaux d'un conte : un petit sceau par seuil, comme ceux des trophées. Plein,
+     gravé en clair sur l'encre : écrit et ouvert. Au trait : écrit, pas encore ouvert. En
+     pointillés : pas encore écrit. Aucun cinabre. */
+  .sceaux {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-top: 7px;
+  }
+  .sceau {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 36px;
+    height: 20px;
+    padding: 0 5px;
+    border-radius: 3px;
+    border: 1px solid var(--ink2);
+    font-family: var(--head);
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    font-variant-numeric: tabular-nums;
+    color: var(--ink2);
+  }
+  .sceau.ouvert {
+    background: var(--ink);
+    border-color: var(--ink);
+    color: var(--paper);
+  }
+  .sceau.a_ecrire {
+    border-style: dashed;
+    border-color: var(--rule);
+    color: var(--mist);
+    font-weight: 500;
+  }
+  .entry.a-ecrire .ico {
+    border-style: dashed;
+  }
+  .entry.a-ecrire .ico .hz {
     color: var(--mist);
   }
   svg {

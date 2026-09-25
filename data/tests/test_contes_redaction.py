@@ -181,6 +181,19 @@ def test_un_brouillon_inchange_garde_sa_relecture_un_brouillon_modifie_la_perd(d
             brouillon(glose=[{"zh": "山", "pinyin": "shān", "fr": "a", "en": "a"}] * 2),
             "glose 2 : 山 déjà glosé",
         ),
+        ({k: v for k, v in brouillon().items() if k != "phrases"}, "champ manquant : phrases"),
+        (brouillon(chapitres=[]), "l'un ou l'autre"),
+        (
+            {**{k: v for k, v in brouillon().items() if k != "phrases"}, "chapitres": [{"phrases": [PHRASE]}]},
+            "chapitre 1, titre : attendu un objet",
+        ),
+        (
+            {
+                **{k: v for k, v in brouillon().items() if k != "phrases"},
+                "chapitres": [{"titre": {"zh": "山", "pinyin": "shān"}, "phrases": [], "note": "x"}],
+            },
+            "chapitre 1 : clé inconnue note",
+        ),
     ],
 )
 def test_un_brouillon_hors_format_n_ecrit_rien(depot: Path, document: dict[str, object], motif: str) -> None:
@@ -357,3 +370,79 @@ def test_les_trois_contes_gratuits_du_seuil_255_sont_rediges() -> None:
     """Brief §10 : trois contes gratuits au seuil 255."""
     ecrits = {(p.parent.name, p.stem) for p in contes.brouillons_ecrits()}
     assert len({conte for conte, seuil in ecrits if seuil == "255"}) >= 3
+
+
+# --------------------------------------------------------------------------- récits longs
+
+CONTE_LONG = Conte(
+    id="conte-long",
+    titre_zh="山水",
+    titre_fr="Récit long",
+    titre_en="Long tale",
+    titre_pinyin="shān shuǐ",
+    ouvrage="《测试》",
+    resume_fr="Un récit en deux chapitres.",
+    niveaux=(255, 505),
+    chapitres=2,
+    plan=(
+        contes.ChapitrePrevu(1, "Le haut", "Up", "Le premier."),
+        contes.ChapitrePrevu(2, "Le bas", "Down", "Le second."),
+    ),
+)
+
+
+def brouillon_long(**champs: object) -> dict[str, object]:
+    """Un brouillon de récit long conforme : deux chapitres titrés de dix phrases."""
+    document = {k: v for k, v in brouillon(conte="conte-long").items() if k != "phrases"}
+    document["chapitres"] = [
+        {"titre": {"zh": "山上", "pinyin": "shān shàng"}, "phrases": [dict(PHRASE) for _ in range(10)]},
+        {"titre": {"zh": "山下", "pinyin": "shān xià"}, "phrases": [dict(PHRASE) for _ in range(10)]},
+    ]
+    document.update(champs)
+    return document
+
+
+def test_un_recit_long_s_importe_chapitre_par_chapitre(depot: Path, monkeypatch: pytest.MonkeyPatch) -> None:
+    """Mêmes contrôles qu'une fable, chapitre par chapitre ; les titres français et anglais
+    des chapitres viennent du catalogue."""
+    monkeypatch.setattr(contes, "charger_catalogue", lambda *a, **k: [CONTE, CONTE_LONG])
+    ecrire_brouillon(depot / "brouillons", brouillon_long())
+    code, sortie = importer()
+    assert code == 0, sortie
+    assert "écart" not in sortie
+    version = lire_version(depot / "versions" / "255" / "conte-long.json")
+    assert version.statut == A_RELIRE and not version.courte
+    assert [(c.titre, c.titre_fr, c.titre_en) for c in version.chapitres] == [
+        ("山上", "Le haut", "Up"),
+        ("山下", "Le bas", "Down"),
+    ]
+    assert len(version.phrases) == 20
+    brut = json.loads((depot / "versions" / "255" / "conte-long.json").read_text(encoding="utf-8"))
+    assert "phrases" not in brut and len(brut["chapitres"]) == 2
+
+
+def test_un_chapitre_de_trop_ou_un_seuil_non_prevu_sont_des_ecarts(
+    depot: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    monkeypatch.setattr(contes, "charger_catalogue", lambda *a, **k: [CONTE, CONTE_LONG])
+    document = brouillon_long()
+    document["chapitres"] = [*document["chapitres"], document["chapitres"][0]]  # type: ignore[index]
+    ecrire_brouillon(depot / "brouillons", document)
+    code, sortie = importer()
+    assert code == 0, "un écart n'est pas un rejet"
+    assert "3 chapitre(s) pour 2 prévu(s) au catalogue" in sortie
+    assert "chapitres sans titre français ou anglais (chapitres.tsv) : 3" in sortie
+
+
+def test_le_contexte_d_un_recit_long_donne_ses_chapitres_et_son_squelette(
+    depot: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    monkeypatch.setattr(contes, "charger_catalogue", lambda *a, **k: [CONTE, CONTE_LONG])
+    resultat = CliRunner().invoke(cli, ["contes", "contexte", "conte-long", "--seuil", "255"])
+    assert resultat.exit_code == 0
+    assert "Niveaux prévus : 255, 505" in resultat.output
+    assert "par chapitre" in resultat.output
+    assert "1. « Le haut » / “Up” : Le premier." in resultat.output
+    squelette = contes.squelette(CONTE_LONG, 255)
+    assert "phrases" not in squelette and len(squelette["chapitres"]) == 2  # type: ignore[arg-type]
+    assert "phrases" in contes.squelette(CONTE, 255)

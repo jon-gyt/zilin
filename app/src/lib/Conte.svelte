@@ -16,20 +16,33 @@
    * Les lettres de Que (story 4b.8) passent par le même lecteur : `surtitre` remplace la
    * ligne du seuil, la lettre n'a pas de titre chinois, et `signature` se pose sous le
    * texte (Que, qui l'a écrite).
+   *
+   * Un récit long se lit chapitre par chapitre : un chapitre à la fois, son titre en tête
+   * du texte, sa traduction ; le sommaire, replié, ouvre n'importe quel chapitre. On
+   * reprend au chapitre noté dans la progression (`enCours`). « Chapitre suivant » note le
+   * chapitre lu (`onchapitre`) et ouvre le suivant ; au dernier, « J'ai lu » note le conte
+   * lu (`onlu`) si tous les chapitres le sont, sinon ouvre le premier qui reste, et le dit :
+   * un chapitre non lu ne compte pas.
    */
-  import type { Snippet } from 'svelte';
+  import { untrack, type Snippet } from 'svelte';
   import ARelire from './ARelire.svelte';
   import Tao from './Tao.svelte';
   import { dire } from './audio';
   import { fiche } from './content';
   import {
     MENTION_HORS_ACQUIS,
+    chapitreDeReprise,
+    chapitresDe,
+    estLongue,
     grouper,
     ligneGlose,
-    traduction,
+    tousLus,
+    traductionDe,
     unites,
+    unitesDuChapitre,
     unitesDuTitre,
     type EntreeConte,
+    type LectureChapitres,
     type Unite
   } from './lecture';
   import type { Progress } from './session';
@@ -41,7 +54,10 @@
     onlu,
     onretour,
     surtitre,
-    signature
+    signature,
+    enCours,
+    onchapitre = () => undefined,
+    onreprise = () => undefined
   }: {
     /** La progression : Tao y lit son stade et son humeur. */
     p: Progress;
@@ -54,13 +70,41 @@
     surtitre?: string;
     /** Sous le texte, dans la même carte : la signature d'une lettre. */
     signature?: Snippet;
+    /** Un récit long : ses chapitres lus et celui où reprendre, lus dans la progression. */
+    enCours?: LectureChapitres;
+    /** Un chapitre d'un récit long lu en entier : son rang, sur `n`. */
+    onchapitre?: (k: number, n: number) => void;
+    /** Un chapitre ouvert depuis le sommaire : on y reprendra. */
+    onreprise?: (k: number) => void;
   } = $props();
 
   const v = $derived(entree.version);
+  const long = $derived(v ? estLongue(v) : false);
+  const chapitres = $derived(v ? chapitresDe(v) : []);
+  const n = $derived(chapitres.length);
+  /** Le chapitre ouvert, de 1 à n ; une fable n'en a qu'un. */
+  let k = $state(untrack(() => chapitreDeReprise(enCours, n)));
+  /** Les chapitres lus, ceux de la progression puis ceux de cette lecture. */
+  let lus = $state<number[]>(untrack(() => [...(enCours?.lus ?? [])]));
+  /** Au dernier chapitre, quand d'autres restent : le premier qui reste, dit à l'écran. */
+  let reste = $state<number | null>(null);
+  let sommaireOuvert = $state(false);
+  /** Les chapitres qui restent à lire. */
+  const restants = $derived(Array.from({ length: n }, (_, j) => j + 1).filter((j) => !lus.includes(j)));
+
+  const chapitre = $derived(chapitres[Math.min(Math.max(k, 1), n) - 1] ?? null);
   /* Le titre, puis le texte courant, groupés pour que la ponctuation ne passe pas seule à la ligne. */
   const titre = $derived(v ? grouper(unitesDuTitre(v)) : []);
-  const texte = $derived(v ? grouper(v.phrases.flatMap((ph) => unites(ph, v.glose))) : []);
-  const trad = $derived(v ? traduction(v) : '');
+  const titreChapitre = $derived(
+    v && chapitre && long ? grouper(unitesDuChapitre(chapitre, v.glose)) : []
+  );
+  const texte = $derived(
+    v && chapitre ? grouper(chapitre.phrases.flatMap((ph) => unites(ph, v.glose))) : []
+  );
+  const trad = $derived(chapitre ? traductionDe(chapitre.phrases) : '');
+  const ligneSeuil = $derived(
+    long ? `Version du seuil ${v?.seuil} · chapitre ${k} sur ${n}` : `Version du seuil ${v?.seuil}`
+  );
 
   /** L'unité touchée, et son pinyin quand la phrase ne le donne pas (lu dans la fiche). */
   let touchee = $state.raw<Unite | null>(null);
@@ -95,6 +139,53 @@
   const glose = $derived(
     touchee ? ligneGlose({ pinyin: touchee.pinyin ?? pinyinFiche, sens: touchee.sens }) : ''
   );
+
+  function haut(): void {
+    if (typeof window !== 'undefined') window.scrollTo(0, 0);
+  }
+
+  /** Ouvre un chapitre : la glose et la traduction repartent de zéro. */
+  function ouvrirChapitre(j: number): void {
+    k = j;
+    touchee = null;
+    pinyinFiche = null;
+    tradOuverte = false;
+    haut();
+  }
+
+  /** Depuis le sommaire : on y reprendra. */
+  function choisir(j: number): void {
+    sommaireOuvert = false;
+    reste = null;
+    ouvrirChapitre(j);
+    onreprise(j);
+  }
+
+  /**
+   * Fin d'un chapitre. Une fable est lue d'un coup ; un récit long note le chapitre, ouvre
+   * le suivant, et n'est lu qu'une fois tous ses chapitres lus.
+   */
+  function fini(): void {
+    if (!long) {
+      onlu();
+      return;
+    }
+    const courant = k;
+    lus = [...new Set([...lus, courant])].sort((a, b) => a - b);
+    onchapitre(courant, n);
+    if (courant < n) {
+      reste = null;
+      ouvrirChapitre(courant + 1);
+      return;
+    }
+    if (tousLus(lus, n)) {
+      onlu();
+      return;
+    }
+    const premier = Array.from({ length: n }, (_, j) => j + 1).find((j) => !lus.includes(j)) ?? 1;
+    reste = premier;
+    ouvrirChapitre(premier);
+  }
 </script>
 
 <main class="screen conte">
@@ -103,7 +194,7 @@
   <div class="verif-tete">
     <div class="grow">
       <div class="k">
-        {surtitre ?? `Version du seuil ${v?.seuil}`}
+        {surtitre ?? ligneSeuil}
         <ARelire de={v} />
         {#if entree.horsAcquis}<span class="mention">{MENTION_HORS_ACQUIS}</span>{/if}
       </div>
@@ -135,9 +226,50 @@
   {/snippet}
 
   {#if v}
+    {#if long}
+      <div class="card sommaire">
+        <button
+          class="replier"
+          aria-expanded={sommaireOuvert}
+          onclick={() => (sommaireOuvert = !sommaireOuvert)}
+        >
+          <span class="k">Sommaire · {lus.length} lu{lus.length > 1 ? 's' : ''} sur {n}</span>
+          <span class="k">{sommaireOuvert ? 'Replier' : 'Afficher'}</span>
+        </button>
+        {#if sommaireOuvert}
+          <ol class="chapitres">
+            {#each chapitres as c, j (j)}
+              <li>
+                <button class="chap" class:ici={j + 1 === k} onclick={() => choisir(j + 1)}>
+                  <span class="num">{j + 1}</span>
+                  <span class="grow">
+                    {#if c.titre}<span class="hz" lang="zh-Hans">{c.titre}</span>{/if}
+                    <span class="fr">{c.titre_fr}</span>
+                  </span>
+                  <span class="etat">{j + 1 === k ? 'ici' : lus.includes(j + 1) ? 'lu' : ''}</span>
+                </button>
+              </li>
+            {/each}
+          </ol>
+        {/if}
+      </div>
+    {/if}
+
+    {#if reste !== null}
+      <p class="reste">
+        {restants.length > 1
+          ? `Il reste ${restants.length} chapitres à lire, à commencer par le ${reste}`
+          : `Il reste le chapitre ${reste} à lire`} : le conte sera lu une fois tous ses chapitres lus.
+      </p>
+    {/if}
+
     <div class="card">
       {#if !entree.titre_zh && v.titre}
         <div class="read titre" lang="zh-Hans">{@render ligne(titre)}</div>
+      {/if}
+      {#if long && chapitre}
+        <div class="read titre" lang="zh-Hans">{@render ligne(titreChapitre)}</div>
+        {#if chapitre.titre_fr}<div class="chap-fr">{chapitre.titre_fr}</div>{/if}
       {/if}
       <div class="read texte" lang="zh-Hans">{@render ligne(texte)}</div>
       {#if signature}{@render signature()}{/if}
@@ -168,7 +300,7 @@
           Touche un caractère ou un mot.
         {/if}
       </div>
-      <button class="btn" onclick={onlu}>J'ai lu</button>
+      <button class="btn" onclick={fini}>{long && k < n ? 'Chapitre suivant' : "J'ai lu"}</button>
     </div>
   {/if}
 </main>
@@ -228,5 +360,59 @@
   .conte .foot .gloss {
     margin: 0 0 10px;
     background: var(--card);
+  }
+  /* le titre français du chapitre, sous son titre chinois */
+  .chap-fr {
+    color: var(--ink2);
+    margin: -2px 0 8px;
+  }
+  /* le sommaire d'un récit long : replié, une ligne ; ouvert, un chapitre par ligne */
+  .chapitres {
+    list-style: none;
+    margin: 14px 0 0;
+    padding: 0;
+  }
+  .chap {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    width: 100%;
+    min-height: 48px;
+    padding: 6px 0;
+    border-top: 1px solid var(--line);
+    text-align: left;
+  }
+  .chap .num {
+    width: 24px;
+    color: var(--mist);
+    font-variant-numeric: tabular-nums;
+    flex-shrink: 0;
+  }
+  .chap .hz {
+    font-family: var(--hz);
+    font-size: 18px;
+    margin-right: 8px;
+  }
+  .chap .fr {
+    color: var(--ink2);
+  }
+  .chap .etat {
+    font-size: 13px;
+    color: var(--mist);
+    flex-shrink: 0;
+  }
+  /* le chapitre ouvert : un filet indigo, comme l'unité touchée */
+  .chap.ici .num,
+  .chap.ici .etat {
+    color: var(--indigo);
+    font-weight: 600;
+  }
+  .reste {
+    color: var(--ink2);
+    margin: 0 0 12px;
+  }
+  .grow {
+    flex: 1;
+    min-width: 0;
   }
 </style>

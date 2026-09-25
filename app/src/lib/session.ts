@@ -22,6 +22,7 @@ import {
 import { ajouter, journal, lireTao, taoVide, type Tao, type TypeActivite } from './tao';
 import { lireTrouves, type Trouve } from './trouves';
 import { lireLettresNotees, type LettreNotee } from './lettres';
+import { cleLecture, lireChapitre, type LectureChapitres } from './lecture';
 import {
   ajouterPoint,
   artsVides,
@@ -308,10 +309,16 @@ export type Progress = {
   /**
    * Les contes lus : pour chaque conte (identifiant de l'index), les seuils dont la version
    * a été lue, triés. Le même conte se relit plus riche à chaque seuil, et chaque version
-   * est un trophée. Le lecteur n'existe pas encore : la liste attend son point d'entrée
-   * (`noterConteLu`). Absente d'une progression plus ancienne : aucun conte lu.
+   * est un trophée. Le lecteur les note par `noterConteLu` ; un récit long n'y entre qu'une
+   * fois tous ses chapitres lus. Absente d'une progression plus ancienne : aucun conte lu.
    */
   contesLus: Record<string, number[]>;
+  /**
+   * Les récits longs en cours, par version (`<seuil>/<conte>`) : les chapitres lus et celui
+   * où reprendre (`noterChapitreLu`, `noterReprise`). Un chapitre lu ne fait pas un conte
+   * lu : `contesLus` attend le dernier. Absente d'une progression plus ancienne : aucune.
+   */
+  chapitres: Record<string, LectureChapitres>;
   /**
    * Réglage : le mode relecture. Allumé, l'app charge l'aperçu de l'export (`apercu/`), les
    * fiches et les contes que le pipeline a écrits mais que personne n'a encore relus, chacun
@@ -421,6 +428,7 @@ export function emptyProgress(aujourdhui: string): Progress {
     devinettes: [],
     devinetteDuJour: null,
     contesLus: {},
+    chapitres: {},
     relecture: false,
     motsDevines: [],
     trouves: [],
@@ -908,6 +916,32 @@ export function noterConteLu(p: Progress, conte: string, seuil: number): Progres
   const lus = p.contesLus[conte] ?? [];
   if (lus.includes(s)) return p;
   return { ...p, contesLus: { ...p.contesLus, [conte]: [...lus, s].sort((a, b) => a - b) } };
+}
+
+/**
+ * Note un chapitre lu d'un récit long, dans la version d'un seuil (`n` chapitres) : il
+ * rejoint les chapitres lus, et la reprise passe au suivant qui reste à lire. Le conte
+ * lui-même n'est pas noté ici : `noterConteLu`, une fois tous les chapitres lus.
+ */
+export function noterChapitreLu(
+  p: Progress,
+  conte: string,
+  seuil: number,
+  k: number,
+  n: number
+): Progress {
+  if (conte === '' || !Number.isInteger(k) || !Number.isInteger(n) || k < 1 || k > n) return p;
+  const cle = cleLecture(conte, Math.floor(seuil));
+  return { ...p, chapitres: { ...p.chapitres, [cle]: lireChapitre(p.chapitres[cle], k, n) } };
+}
+
+/** Note le chapitre ouvert d'un récit long (depuis le sommaire) : on y reprendra. */
+export function noterReprise(p: Progress, conte: string, seuil: number, k: number): Progress {
+  if (conte === '' || !Number.isInteger(k) || k < 1) return p;
+  const cle = cleLecture(conte, Math.floor(seuil));
+  const l = p.chapitres[cle];
+  if (l?.reprise === k) return p;
+  return { ...p, chapitres: { ...p.chapitres, [cle]: { lus: l?.lus ?? [], reprise: k } } };
 }
 
 /**
@@ -1412,6 +1446,24 @@ function lireContesLus(v: unknown): Record<string, number[]> {
   return out;
 }
 
+/** Relit les récits longs en cours. Absents ou aberrants : aucun. */
+function lireLecturesChapitres(v: unknown): Record<string, LectureChapitres> {
+  if (typeof v !== 'object' || v === null || Array.isArray(v)) return {};
+  const out: Record<string, LectureChapitres> = {};
+  for (const [cle, x] of Object.entries(v as Record<string, unknown>)) {
+    if (!/^\d+\/.+$/.test(cle) || typeof x !== 'object' || x === null) continue;
+    const o = x as Record<string, unknown>;
+    const lus = Array.isArray(o.lus)
+      ? [...new Set(o.lus.filter((k): k is number => Number.isInteger(k) && (k as number) >= 1))].sort(
+          (a, b) => a - b
+        )
+      : [];
+    const reprise = Number.isInteger(o.reprise) && (o.reprise as number) >= 1 ? (o.reprise as number) : 1;
+    out[cle] = { lus, reprise };
+  }
+  return out;
+}
+
 /** Relit un rang de question déjà notée. Absent ou aberrant : aucune question notée. */
 function lireNotee(v: unknown): number {
   return typeof v === 'number' && v >= 0 ? Math.floor(v) : -1;
@@ -1521,6 +1573,8 @@ export function fromJSON(texte: string, aujourdhui: string): Progress {
     devinettes: listeDeCaracteres(o.devinettes),
     devinetteDuJour: lireDevinetteDuJour(o.devinetteDuJour),
     contesLus: lireContesLus(o.contesLus),
+    /* Les récits longs en cours : absents d'un export plus ancien, aucun. */
+    chapitres: lireLecturesChapitres(o.chapitres),
     /* Le mode relecture : absent d'un export plus ancien, éteint. */
     relecture: o.relecture === true,
     /* Les mots devinés : absents d'un export plus ancien, aucun n'est deviné. */

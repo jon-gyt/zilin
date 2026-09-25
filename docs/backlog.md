@@ -325,8 +325,30 @@ anglaise, glose par mot.
 - Pour le lecteur (2c.1) : l'export d'un conte relu porte `titre_en`, `titre_pinyin`,
   une syllabe de pinyin par sinogramme, `fr` et `en` par phrase, et la glose
   `{entrée: {pinyin, fr, en}}` que le lecteur découpe par la plus longue entrée.
-- Reste : relire les trois contes, puis les versions des seuils suivants quand leurs
-  listes seront versionnées.
+- Niveaux et contes longs (25 septembre), décision du propriétaire : le catalogue dit,
+  pour chaque conte, ses niveaux prévus (`niveaux`, deux pour un récit simple, trois pour
+  un récit riche, critère en tête du catalogue) et ses `chapitres`. Onze fables : 愚公移山
+  255, 805, 1555 ; 拔苗助长 et 南辕北辙 255, 505 ; 塞翁失马 et 盲人摸象 405, 805, 1555 ;
+  守株待兔, 画蛇添足, 狐假虎威, 叶公好龙, 亡羊补牢 405, 805 ; 井底之蛙 505, 1555. Deux récits
+  longs de quatre chapitres, titres et résumé par chapitre dans `chapitres.tsv`, sans texte
+  chinois : 木兰从军 (《乐府诗集·木兰诗》, 405, 805, 1555) et 美猴王 (《西游记》, chapitres 1 à
+  7, sans le roi-dragon, 505, 805, 1555). Une version porte ses `chapitres` (titre chinois,
+  pinyin, titres fr et en, phrases), une fable garde ses `phrases` : les trois contes relus
+  se relisent et s'exportent octet pour octet. Validation (longueur par chapitre, chapitre
+  titré, seuil et nombre de chapitres du catalogue : écarts), brouillons (`chapitres` à la
+  place de `phrases`), contexte, export, aperçu et police suivent ; `index.json` porte le
+  `catalogue` (titres, niveaux, chapitres, sans texte). `wenlu check` : « contes :
+  catalogue » bloquant, « contes : niveaux prévus » jamais bloquant (aujourd'hui 3 écrits,
+  28 attendent leur liste) ; `wenlu contes plan` dit l'état de chaque niveau. L'API ne
+  génère que les fables du seuil ; un récit long se rédige par brouillon. Dans l'app : Lire
+  montre chaque conte du catalogue et ses niveaux en sceaux (écrit et ouvert, écrit mais
+  fermé, pas encore écrit) ; le lecteur lit un récit long chapitre par chapitre (sommaire,
+  chapitre suivant, reprise notée dans `Progress.chapitres`, export et import compris) ; le
+  conte n'entre dans `contesLus` qu'une fois tous ses chapitres lus.
+- Reste : relire les trois contes, puis écrire les versions des seuils suivants et les
+  deux récits longs quand leurs listes seront versionnées (405 à 1555 ne sont pas
+  téléchargeables d'ici) ; vérifier alors, liste en main, que le caractère clé de chaque
+  fable animalière est bien dans son plus bas niveau, sinon relever ce niveau.
 
 ### En attente d'une décision
 
