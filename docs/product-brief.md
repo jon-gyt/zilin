@@ -63,18 +63,19 @@ Positionnement : l'arbre étymologique qui apprend à lire, conforme aux seuils 
 
 Une maison, une ligne, des détours. Le menu est la maison : tout en part, tout y revient. La session est la ligne : ses pas s'enchaînent sans repasser par le menu. Réviser, Jouer, Lire, Ma forêt, Chercher et Réglages sont les détours, et aucun ne dérègle la session. Il n'y a pas de barre d'onglets.
 
-Ouverture : le logo s'écrit (1,6 s), puis l'anecdote du jour, qui compte comme le pas 1, Ouvrir, puis le menu. Au tout premier lancement, la première session passe avant tout : 人, 大, 天, puis lire 天天. Quatre minutes, un mot lu. Deux questions ensuite (objectif, rythme). On arrive alors sur le menu, la journée faite : la première graine est plantée, la session complète commence le lendemain.
+Ouverture : le logo s'écrit (1,6 s), puis l'anecdote du jour, qui compte comme le pas 1, Ouvrir, puis le menu. Au tout premier lancement, la première session passe avant tout : 人, 大, 天, puis lire 天天. Quatre minutes, un mot lu. Deux questions ensuite (objectif, rythme), puis le choix du personnage (§8, « Le personnage »). On arrive alors sur le menu, la journée faite : la première graine est plantée, la session complète commence le lendemain.
 
 ### Le menu
 
 Il tient sur un écran de téléphone, sans défiler.
 
-- En-tête : la marque, puis Chercher (une loupe) et Réglages, par deux icônes. Pendant une fête, le vœu prend la place de la marque ; les icônes restent.
+- En-tête : la marque, puis le portrait du personnage, Chercher (une loupe) et Réglages, par trois icônes. Le portrait est la tête du personnage à son rang, dans la case d'une icône ; il ouvre « Mon personnage ». Pendant une fête, le vœu prend la place de la marque ; les icônes restent.
 - La carte du jour : le caractère dans son 米字格, dessiné depuis les traits, la brique nouvelle en cinabre ; son pinyin, qui se fait entendre ; son sens et sa décomposition (亻 + 主). Toucher le caractère le réécrit au pinceau et le prononce.
 - Le chemin : six coups de pinceau, un par pas (faits en jade, en cours à l'encre, à venir en filet). Tao marche sur le pas en cours et dit une phrase qui dépend de l'état de la journée ; la toucher la fait sauter et changer de phrase. Dessous, « Pas 2 sur 6 · Échauffer » et la durée.
 - Un seul bouton plein : « Commencer la session », « Reprendre au pas 3 ». La journée faite, il devient « Une session de plus · une brique », en contour.
 - Quatre cases identiques : Réviser 温, Jouer 玩, Lire 读, Ma forêt 林. Avant la session, Réviser dit « Dans la session » et ouvre le pas Échauffer, pour que la pile ne se vide jamais en douce ; après, elle ouvre une révision en plus. Jouer est la seule porte des jeux. Lire ouvre les contes, et en tête l'anecdote du jour, à relire. Ma forêt garde les familles, la série et les récompenses, deux niveaux au plus.
 - Chaque écran ouvert depuis le menu a un seul retour, qui y ramène.
+- Quand un rang du personnage est franchi, l'écran 放榜 passe au retour au menu, avant lui, jamais au milieu d'un pas.
 
 États du menu : nouvelle journée ; session entamée (reprise au pas exact, sauvegarde à chaque tap) ; journée faite (« Graine plantée, une seule par jour ») ; session de plus en cours ; retour après absence (mode rattrapage : révisions seules par blocs de cinq minutes, annoncés un à la fois, « Bloc 1 · 14 cartes », Tao en pot, aucun nouveau caractère tant que la pile n'est pas redescendue, message neutre, jamais de compteur de jours perdus).
 
@@ -134,12 +135,44 @@ Un trophée est un sceau carré 印 : obtenu, gravé en clair sur l'encre avec u
 
 Ce qu'aucun écran n'alimente encore reste verrouillé, jamais estimé. La progression compte déjà les devinettes résolues (chacune une fois) et les contes lus (une fois par conte et par seuil), et le tableau les lit ; la devinette du jour remplit la lanterne, la cuisine de Tao le bol (le premier plat réussi, chaque ingrédient trouvé), mais le lecteur de contes n'existe pas encore. Pour les pièges, la révision garde le leurre pris quand un choix est faux : une lecture compte « sans confusion » tant qu'aucun caractère de la paire n'a été pris pour l'autre, même rattrapé au second essai, quelle que soit sa vitesse. Une erreur venue d'un autre leurre ne casse pas la série ; une erreur dont le leurre n'est pas connu (révision d'avant ce suivi, tracé, jeu qui ne le dit pas) la casse, par prudence ; la devinette du jour dit les leurres pris.
 
+### Le personnage
+
+Au premier lancement, après l'objectif et le rythme, on choisit son personnage parmi trois bêtes, non genrées, pour que chacun s'y reconnaisse : 玉兔 le lapin de jade (la légende de la lune), 熊猫 le panda, 醒狮 le lion dansé (la danse du Nouvel An). On lui donne un nom : trois idées par bête, ou un nom libre, en lettres ou en caractères. Tao ne se choisit pas : elle reste celle qui aide, à côté du personnage, avec sa bulle. Une progression commencée avant le personnage le choisit la première fois qu'elle ouvre son écran. Réglages change la bête ou le nom sans rien perdre : les points et le rang restent (choix par défaut du lead).
+
+Douze rangs, du bébé à l'adulte : l'éveil, l'enfance, puis les grades des examens impériaux jusqu'au trio du palais. Chaque titre est traduit mot à mot.
+
+| Rang | Pinyin | Mot à mot | Rôle | Âge | Points |
+|---|---|---|---|---|---|
+| 启蒙 | qǐméng | lever le voile | les tout premiers caractères | bébé | 0 |
+| 蒙童 | méngtóng | l'enfant qu'on éveille | les premières leçons | tout-petit | 10 |
+| 学童 | xuétóng | l'enfant qui étudie | l'école du village, 私塾 | enfant | 25 |
+| 童生 | tóngshēng | l'enfant lettré | en route pour le premier examen | grand enfant | 50 |
+| 秀才 | xiùcai | talent éclos | reçu à l'examen du district | ado | 80 |
+| 举人 | jǔrén | la personne recommandée | reçu à l'examen de la province | ado | 120 |
+| 贡士 | gòngshì | le lettré offert au trône | reçu au concours de la capitale | jeune | 180 |
+| 进士 | jìnshì | le lettré qui s'avance | reçu à l'examen du palais | jeune | 260 |
+| 翰林 | hànlín | la forêt des pinceaux | membre de l'Académie impériale | adulte | 360 |
+| 探花 | tànhuā | cueillir les fleurs | troisième à l'examen du palais | adulte | 500 |
+| 榜眼 | bǎngyǎn | l'œil du tableau | deuxième à l'examen du palais | adulte | 700 |
+| 状元 | zhuàngyuan | tête de liste | en tête de l'examen du palais | adulte | 1 000 |
+
+Les paliers sont rapprochés au début, pour que le bébé grandisse vite, puis espacés ; 1 000 est aussi le palier des pêches de Tao.
+
+- Les points : quatre arts, 读 la lecture, 写 l'écriture, 听 l'écoute, 说 les tons. Un point par bonne réponse notée automatiquement par l'app (`srs.ts`), juste du premier coup ou rattrapée, quelle que soit sa vitesse. Lecture : reconnaître ou lire un caractère ou un mot (sens, caractère, assemblage, trou dans un mot, et tous les jeux) ; écriture : un tracé achevé, au pas Apprendre ou en question ; écoute : la question posée au son ; les tons : aucune question de ton n'existe (les tons sont hors du périmètre V1), l'art prend « quel élément donne le son ? », la plus proche. Jamais de point pour le temps passé ; une erreur ne coûte rien ; pas de vies, pas de classement, pas de coffre. Le compte ne décroît jamais, et une progression importée d'avant le personnage recalcule le sien depuis ce qu'elle garde (les réponses justes de l'historique des cartes, les tracés achevés).
+- La croissance : le personnage grandit à chaque point, sa taille glisse d'un rang au suivant ; il change de silhouette à chaque étape de vie et de tenue à chaque rang : 肚兜 et 长命锁 du bébé, 虎头鞋 du tout-petit, deux chignons 总角 et le sac à livres de l'écolier, la bande 襕 et le bonnet du 秀才, l'éventail du 贡士, la ceinture de jade et le bonnet à ailes du 进士, les nuages du 翰林, le 补子 du 探花, les vagues du 榜眼, le grand nœud de soie du 状元. Une aura l'entoure : des anneaux au pinceau, à plat, un tous les deux rangs, et les caractères déjà lus qui tournent autour.
+- La charte : ni ombre, ni dégradé, ni doré, pas de cinabre sur le personnage (il reste au chemin), pas de dragon. L'abricot est un aplat. Le personnage garde ses couleurs les jours de fête. Les animations (l'aura qui tourne, Tao qui flotte) s'arrêtent si l'on réduit les animations.
+- « Mon personnage » : le rang en haut à droite, dessiné depuis ses traits avec son pinyin ; la scène ; Tao et sa bulle ; le nom et trois lignes (le mot à mot et le rôle, la bête, l'âge et le rang) ; la barre vers le rang suivant ; les quatre arts. La bulle de Tao dépend des seuls points : l'art le moins fourni, les derniers points avant un rang, le sommet. Jamais l'horloge, jamais un reproche.
+- 放榜, « on affiche la liste » : quand un rang est franchi, le rang dessiné depuis ses traits, son pinyin, une ligne (« Ton nom est sur la liste… »), un bouton. Au retour au menu, jamais au milieu d'un pas ; une fois par rang.
+- Le personnage s'ajoute aux trophées, il ne les remplace pas : les trophées disent ce qui a été lu, le personnage combien de réponses justes.
+- Les textes (rangs, bêtes, phrases de Tao) viennent du pipeline, `data/sources/heros/` et `heros.json` ; les dessins sont du code de l'app, comme Tao.
+
 ## 9. Tao et les jeux
 
 ### Tao, la compagne
 
 Tao suit toutes les activités et adopte la posture de l'utilisateur : bulle avec le caractère en leçon, mange pendant la révision (une carte, une bouchée ; erreur, grimace ; série juste, bond), lit par-dessus l'épaule en lecture, tient un pinceau au tracé, porte la lanterne aux devinettes, goûte en cuisine, marche sur le chemin de la série, écoute l'anecdote assise.
 
+- Le personnage : Tao ne se choisit pas, elle aide celui qu'on a choisi (§8). Sur son écran, elle se tient à côté de lui avec sa bulle.
 - Croissance : additionne toutes les activités. Paliers 100, 300 (fleurs), 1 000 (pêches).
 - Humeur : vient de la variété, adoucie par les jours de repos. Trois fois la même activité d'affilée, elle s'ennuie et propose un jeu ; une semaine sans lecture, elle apporte un texte. C'est elle qui pousse vers les jeux, pas une notification.
 - Journal : chaque soir, une ligne (« Aujourd'hui j'ai appris 住, mangé 14 cartes, résolu une devinette, cuisiné un 蛋炒饭 »). Le dimanche, la semaine en image partageable.
@@ -170,7 +203,7 @@ Règle : chaque jeu doit répondre à « qu'est-ce que l'utilisateur sait lire d
 - Seuil 255 et HSK 1 (2026) complets : décomposition, origines, révision en questions, audio, tracé, anecdotes, série, forêt.
 - Consultation en lecture seule de l'arbre complet.
 - Trois contes au seuil 255.
-- Tao complète ; jeux gratuits : assembler, la chaîne, les jumeaux, la coquille, le dictionnaire éclair, une devinette par jour, la cuisine (trois plats).
+- Tao complète, le personnage et ses douze rangs ; jeux gratuits : assembler, la chaîne, les jumeaux, la coquille, le dictionnaire éclair, une devinette par jour, la cuisine (trois plats).
 
 ### Payant (achat à vie ou abonnement mensuel)
 
