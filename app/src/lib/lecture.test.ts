@@ -12,6 +12,7 @@ import {
   type Conte,
   type Index,
   type IndexConte,
+  type MotConte,
   type VersionConte
 } from './content';
 import {
@@ -28,9 +29,12 @@ import { lireNiveaux } from './niveaux';
 import { POIDS, posture } from './tao';
 import { tropheesContes } from './trophees';
 import {
+  MENTION_MOT_DU_CONTE,
   bibliotheque,
   caracteresAcquis,
   caracteresDeVersion,
+  caracteresExpliques,
+  motsDuChapitre,
   chapitreDeReprise,
   chapitresDe,
   cleLecture,
@@ -278,8 +282,19 @@ describe('le lecteur', () => {
   const src = readFileSync(new URL('Conte.svelte', import.meta.url), 'utf8');
 
   it("écrit le conte en police, comme le texte du pas Utiliser : c'est un texte courant", () => {
-    expect(src).not.toMatch(/import Glyph|<Glyph/);
     expect(src).toContain('class="read');
+    /* Seuls les mots du conte, en tête, se dessinent depuis leurs traits (grands caractères). */
+    const dessins = src.match(/<Glyph/g) ?? [];
+    expect(dessins).toHaveLength(1);
+    const carte = src.slice(src.indexOf('class="card mots"'), src.indexOf('</section>'));
+    expect(carte).toContain('<Glyph');
+  });
+
+  it('souligne les mots expliqués sans cinabre, et leur glose dit « mot du conte »', () => {
+    expect(src).toContain('class:explique={u.explique}');
+    expect(src).toMatch(/\.read \.s\.explique \{[^}]*text-decoration-color: var\(--mist\)/);
+    expect(src).toContain('explique: touchee.explique');
+    expect(src).toContain('Mots du conte');
   });
 
   it("n'a pas de cinabre : un conte n'a pas d'élément ajouté", () => {
@@ -554,5 +569,102 @@ describe('les niveaux HSK', () => {
     expect(e.plusRiche).toBe(true);
     const ferme = entreeConte({ ...INDEX, seuils: ['hsk3', '255'] }, null, new Set());
     expect(ferme.attend).toBe('255');
+  });
+});
+
+/* ---------- les mots expliqués ---------- */
+
+describe('les mots expliqués', () => {
+  const LOUP: MotConte = {
+    zh: '狼',
+    pinyin: 'láng',
+    fr: 'loup',
+    en: 'wolf',
+    explication_fr: 'La bête qui prend les moutons.',
+    explication_en: 'The beast that takes the sheep.',
+    caracteres: '狼',
+    pistes: ['犭']
+  };
+  /* Une fixture : le loup, hors du niveau, nommé en mot expliqué. */
+  const VLOUP: VersionConte = {
+    seuil: 'hsk4',
+    titre: '人和狼',
+    phrases: [{ zh: '一个人看见一只狼。', pinyin: 'yī ge rén kàn jiàn yī zhī láng', fr: 'Un homme voit un loup.' }],
+    glose: { 一个: 'un', 人: 'homme', 看见: 'voir', 一只: 'un', 狼: 'loup', 和: 'et' },
+    expliques: [LOUP]
+  };
+  const ACQUIS = new Set(Array.from('一个人看见只和'));
+
+  it("un mot expliqué ne ferme pas un conte : il n'est pas dans ce qui manque", () => {
+    expect(caracteresDeVersion(VLOUP)).toContain('狼');
+    expect(manquants(VLOUP, ACQUIS)).toEqual([]);
+    const conte: Conte = { ...CONTE, versions: [VLOUP] };
+    expect(versionLisible(conte, ACQUIS)?.seuil).toBe('hsk4');
+    expect(niveauxDuConte(['hsk4'], [], conte, ACQUIS)).toEqual([{ seuil: 'hsk4', etat: 'ouvert' }]);
+    expect(entreeConte({ ...INDEX, seuils: ['hsk4'] }, conte, ACQUIS).horsAcquis).toBe(false);
+  });
+
+  it('un autre caractère hors de l’acquis ferme toujours le conte', () => {
+    const sansHomme = new Set([...ACQUIS].filter((c) => c !== '人'));
+    expect(manquants(VLOUP, sansHomme)).toEqual(['人']);
+    const sansMot: VersionConte = { ...VLOUP, expliques: undefined };
+    expect(manquants(sansMot, ACQUIS)).toEqual(['狼']);
+    expect(versionLisible({ ...CONTE, versions: [sansMot] }, ACQUIS)).toBeNull();
+  });
+
+  it('seuls ses caractères hors du niveau sont dispensés : 公 de 叶公 reste à acquérir', () => {
+    const ye: VersionConte = {
+      ...VLOUP,
+      titre: '叶公',
+      phrases: [{ zh: '叶公爱龙。', pinyin: 'yè gōng ài lóng', fr: 'Monsieur Ye aime les dragons.' }],
+      expliques: [{ ...LOUP, zh: '叶公', pinyin: 'yè gōng', caracteres: '叶' }]
+    };
+    expect(manquants(ye, new Set(['爱', '龙']))).toEqual(['公']);
+    expect(manquants(ye, new Set(['爱', '龙', '公']))).toEqual([]);
+  });
+
+  it('dans le texte, le mot est marqué et sa glose dit « mot du conte »', () => {
+    const us = unites(VLOUP.phrases[0], VLOUP.glose, caracteresExpliques(VLOUP));
+    const loup = us.find((u) => u.texte === '狼');
+    expect(loup?.explique).toBe(true);
+    expect(us.filter((u) => u.explique)).toHaveLength(1);
+    expect(ligneGlose({ pinyin: 'láng', sens: 'loup', explique: true })).toBe(`láng, loup · ${MENTION_MOT_DU_CONTE}`);
+    expect(MENTION_MOT_DU_CONTE).toBe('mot du conte');
+    expect(unitesDuTitre(VLOUP).find((u) => u.texte === '狼')?.explique).toBe(true);
+  });
+
+  it('la carte « Mots du conte » : tout en tête d’une fable, au premier chapitre qui le nomme d’un récit long', () => {
+    expect(motsDuChapitre(VLOUP, 1)).toEqual([LOUP]);
+    const singe: MotConte = { ...LOUP, zh: '猴', caracteres: '猴' };
+    const long: VersionConte = {
+      ...VLOUP,
+      titre: '人',
+      expliques: [LOUP, singe],
+      chapitres: [
+        { titre: '人', titre_pinyin: 'rén', titre_fr: 'Un', phrases: [{ zh: '人看见狼。', pinyin: '', fr: '' }] },
+        { titre: '狼', titre_pinyin: 'láng', titre_fr: 'Deux', phrases: [{ zh: '猴看见狼。', pinyin: '', fr: '' }] }
+      ]
+    };
+    expect(motsDuChapitre(long, 1)).toEqual([LOUP]);
+    expect(motsDuChapitre(long, 2)).toEqual([singe]);
+  });
+
+  it('se lisent dans l’export, avec les familles de leurs traits ; une version sans mot expliqué se lit comme avant', () => {
+    const c = lireConte({
+      conte: 'wang-yang-bu-lao',
+      titre_fr: 'Essai',
+      versions: {
+        hsk4: {
+          titre: '人和狼',
+          phrases: VLOUP.phrases,
+          glose: { 狼: { pinyin: 'láng', fr: 'loup', en: 'wolf' } },
+          expliques: [{ ...LOUP, pistes: undefined }, { zh: '', caracteres: '' }]
+        },
+        hsk6: { titre: '人', phrases: VLOUP.phrases, glose: {} }
+      },
+      racines: { 狼: '犭' }
+    });
+    expect(c.versions[0].expliques).toEqual([LOUP]);
+    expect('expliques' in c.versions[1]).toBe(false);
   });
 });

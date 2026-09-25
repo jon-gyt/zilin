@@ -18,13 +18,17 @@
  *   est, avec ses niveaux, chacun écrit et ouvert, écrit mais fermé, ou pas encore écrit.
  *   Rien n'est estimé : un niveau sans version exportée est « pas encore écrit » ;
  * - un récit long se lit chapitre par chapitre, et reprend là où on l'a laissé ; il n'est
- *   lu (contes lus, trophée) qu'une fois tous ses chapitres lus, le dernier compris.
+ *   lu (contes lus, trophée) qu'une fois tous ses chapitres lus, le dernier compris ;
+ * - une version peut nommer hors de son niveau un personnage ou un objet clé du récit, en
+ *   mot expliqué (狼 dans 亡羊补牢) : le lecteur le montre avant le texte, et ses caractères
+ *   hors du niveau ne comptent pas dans l'acquis qui ouvre le conte (`manquants`).
  */
 import type {
   CatalogueConte,
   ChapitreConte,
   Conte,
   IndexConte,
+  MotConte,
   PhraseConte,
   VersionConte
 } from './content';
@@ -62,9 +66,41 @@ export function caracteresDeVersion(v: VersionConte): string[] {
   return [...vus];
 }
 
-/** Ce qu'il manque pour lire une version : ses caractères pas encore acquis. */
+/**
+ * Les caractères hors du niveau que les mots expliqués d'une version font entrer (狼 ; 叶,
+ * pas 公, pour 叶公). Le lecteur les explique avant le texte : ils ne ferment pas le conte.
+ */
+export function caracteresExpliques(v: VersionConte): Set<string> {
+  return new Set((v.expliques ?? []).flatMap((m) => Array.from(m.caracteres)));
+}
+
+/**
+ * Ce qu'il manque pour lire une version : ses caractères pas encore acquis. Un caractère
+ * d'un mot expliqué n'en est pas : « seulement ton acquis », plus les mots du conte.
+ */
 export function manquants(v: VersionConte, acquis: ReadonlySet<string>): string[] {
-  return caracteresDeVersion(v).filter((c) => !acquis.has(c));
+  const expliques = caracteresExpliques(v);
+  return caracteresDeVersion(v).filter((c) => !acquis.has(c) && !expliques.has(c));
+}
+
+/** Ce que la glose au toucher dit d'un mot expliqué, après son pinyin et son sens. */
+export const MENTION_MOT_DU_CONTE = 'mot du conte';
+
+/**
+ * Les mots expliqués à montrer en tête du chapitre `k` (de 1 à n) : ceux qui y paraissent
+ * pour la première fois, le titre de la version comptant au premier. Une fable les montre
+ * tous en tête ; un mot que le texte ne porte pas se montre au premier chapitre.
+ */
+export function motsDuChapitre(v: VersionConte, k: number): MotConte[] {
+  const chapitres = chapitresDe(v);
+  const textes = chapitres.map(
+    (c, j) => (j === 0 ? v.titre : '') + c.titre + c.phrases.map((p) => p.zh).join('')
+  );
+  return (v.expliques ?? []).filter((m) => {
+    const premier = textes.findIndex((t) => t.includes(m.zh));
+    const j = premier >= 0 ? premier : textes.findIndex((t) => Array.from(m.caracteres).some((c) => t.includes(c)));
+    return Math.max(j, 0) + 1 === k;
+  });
 }
 
 /** La version ouverte : celle du niveau le plus haut dont tous les caractères sont acquis. */
@@ -374,15 +410,22 @@ export type Unite = {
   sens: string | null;
   /** Un caractère ou un mot se touche ; la ponctuation, non. */
   touchable: boolean;
+  /** Un mot expliqué (hors du niveau, montré avant le texte) : souligné, « mot du conte ». */
+  explique?: boolean;
 };
 
 /**
  * Découpe une phrase en unités. Un mot de la glose (une clé de plusieurs caractères) se
  * touche d'un seul geste, au plus long d'abord ; tout autre caractère se touche seul. Le
  * pinyin vient de la phrase, aligné syllabe par syllabe sur ses caractères quand leur
- * nombre concorde ; sinon il reste nul et l'écran le cherche ailleurs.
+ * nombre concorde ; sinon il reste nul et l'écran le cherche ailleurs. Une unité qui porte
+ * un caractère de `expliques` (`caracteresExpliques`) est un mot du conte.
  */
-export function unites(phrase: PhraseConte, glose: Readonly<Record<string, string>>): Unite[] {
+export function unites(
+  phrase: PhraseConte,
+  glose: Readonly<Record<string, string>>,
+  expliques: ReadonlySet<string> = new Set()
+): Unite[] {
   const cs = Array.from(phrase.zh);
   const nHan = cs.filter(estHan).length;
   const syl = syllabes(phrase.pinyin);
@@ -406,12 +449,14 @@ export function unites(phrase: PhraseConte, glose: Readonly<Record<string, strin
     const mot = mots.find((m) => m.every((c, j) => cs[k + j] === c));
     const n = mot ? mot.length : 1;
     const texte = cs.slice(k, k + n).join('');
-    out.push({
+    const u: Unite = {
       texte,
       pinyin: aligne && syl ? syl.slice(h, h + n).join('') : null,
       sens: glose[texte] ?? null,
       touchable: true
-    });
+    };
+    if (cs.slice(k, k + n).some((c) => expliques.has(c))) u.explique = true;
+    out.push(u);
     k += n;
     h += n;
   }
@@ -452,7 +497,7 @@ export function grouper(us: readonly Unite[]): Unite[][] {
 
 /** Le titre chinois d'une version, en unités : l'export ne lui donne pas de pinyin. */
 export function unitesDuTitre(v: VersionConte): Unite[] {
-  return unites({ zh: v.titre, pinyin: '', fr: '' }, v.glose);
+  return unites({ zh: v.titre, pinyin: '', fr: '' }, v.glose, caracteresExpliques(v));
 }
 
 /** La traduction d'une version, phrase après phrase. */
@@ -469,11 +514,20 @@ export function traductionDe(phrases: readonly PhraseConte[]): string {
 }
 
 /** Le titre chinois d'un chapitre, en unités : son pinyin s'aligne comme celui d'une phrase. */
-export function unitesDuChapitre(c: ChapitreConte, glose: Readonly<Record<string, string>>): Unite[] {
-  return c.titre === '' ? [] : unites({ zh: c.titre, pinyin: c.titre_pinyin, fr: '' }, glose);
+export function unitesDuChapitre(
+  c: ChapitreConte,
+  glose: Readonly<Record<string, string>>,
+  expliques: ReadonlySet<string> = new Set()
+): Unite[] {
+  return c.titre === '' ? [] : unites({ zh: c.titre, pinyin: c.titre_pinyin, fr: '' }, glose, expliques);
 }
 
-/** La glose au toucher, courte : « tù, lièvre ». Vide quand rien n'est connu. */
-export function ligneGlose(u: Pick<Unite, 'pinyin' | 'sens'>): string {
-  return [u.pinyin, u.sens].filter(Boolean).join(', ');
+/**
+ * La glose au toucher, courte : « tù, lièvre ». Vide quand rien n'est connu. Un mot
+ * expliqué le dit : « láng, loup · mot du conte ».
+ */
+export function ligneGlose(u: Pick<Unite, 'pinyin' | 'sens' | 'explique'>): string {
+  const ligne = [u.pinyin, u.sens].filter(Boolean).join(', ');
+  if (!u.explique) return ligne;
+  return ligne === '' ? MENTION_MOT_DU_CONTE : `${ligne} · ${MENTION_MOT_DU_CONTE}`;
 }

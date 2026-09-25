@@ -13,13 +13,14 @@ Règle : l'app ne lit que ces fichiers. Aucune donnée de contenu dans le code.
 Les caractères des listes cibles — `seuil-255` et `hsk-1` — et **leurs briques**
 (prérequis transitifs de la décomposition canonique), pas tout le dictionnaire.
 Une famille n'est exportée qu'avec ses membres du périmètre ; la famille 口 en a
-17 ici, contre 525 dans le graphe complet. Les caractères que les fêtes
+18 ici, contre 525 dans le graphe complet. Les caractères que les fêtes
 dessinent depuis leurs traits (`data/sources/fetes/textes.tsv` : le caractère
 bonus de chaque anecdote et le 福 du vœu) y entrent aussi, avec leurs briques,
 comme le caractère à lire de chaque terme solaire (`data/sources/saisons/textes.tsv`)
 et les titres des douze rangs du personnage (`data/sources/heros/rangs.tsv`), dessinés
-sur son écran et au 放榜.
-Version 0.1.0 : 247 familles, 527 caractères (233 briques, 13 feuilles découpées,
+sur son écran et au 放榜, et les caractères des mots expliqués des contes (狼, 苗, 叶公),
+que le lecteur dessine avant le texte.
+Version 0.1.0 : 248 familles, 532 caractères (234 briques, 13 feuilles découpées,
 aucune muette), 2,5 Mio. Tout caractère exporté a ses traits.
 
 ## Arborescence
@@ -1082,6 +1083,10 @@ le catalogue.
 - `cles` : les caractères clés du récit, accolés (`马腿断兵`) : ses animaux et les objets
   de son intrigue, sans lesquels il perd son sujet ; le reste, noms propres compris, se
   dit autrement. L'en-tête du catalogue les relève conte par conte, avec leur niveau HSK.
+  Après une barre oblique, les personnages et objets clés que le récit peut nommer hors
+  de son niveau en mots expliqués (`羊圈补/狼`, `龙/叶`, `菜长/苗`, `虎/狐狸`) : ils ne
+  comptent pas dans le critère des niveaux. Un mot expliqué ne passe que si ses
+  caractères hors du niveau sont déclarés ici, avant ou après la barre (`Conte.declares`).
 - `chapitres` : 1 pour une fable, lue d'une traite ; plus pour un récit long, lu
   chapitre par chapitre. Les chapitres d'un récit long sont décrits dans
   `data/sources/contes/chapitres.tsv` (`conte`, `n`, `titre_fr`, `titre_en`,
@@ -1160,6 +1165,16 @@ texte d'un conte est un contenu, sa relecture se lit dans l'historique git.
   (`docs/sources-licences.md` §4.2). Une version écrite avant ce format, dont la glose
   ne portait que le français (`{"山": "montagne"}`), se relit avec `pinyin` et `en`
   vides.
+- `expliques` (facultatif, absent le plus souvent) : les mots expliqués, décision du
+  propriétaire du 25 septembre 2026 (« Quand c'est un personnage clé comme loup, tu peux
+  expliquer le mot aussi »). Un mot hors du niveau qui nomme un personnage ou un objet
+  clé du récit, plutôt qu'un détour qui le trahit : `[{zh, pinyin, fr, en,
+  explication_fr, explication_en}]`, par exemple `{"zh": "狼", "pinyin": "láng", "fr":
+  "loup", "en": "wolf", "explication_fr": "Le loup vient la nuit…", "explication_en":
+  "The wolf comes at night…"}`. `zh` est un caractère ou un mot du texte (叶公), glosé
+  comme les autres ; `pinyin` une syllabe par caractère ; l'explication, une phrase ou
+  deux sur ce qu'est ce personnage ou cet objet dans le récit. Une version sans mot
+  expliqué n'a pas la clé, et se relit et se réécrit octet pour octet.
 - `source.ouvrage` vaut `""` quand le rédacteur ne cite pas l'ouvrage.
 - `generation` est la traçabilité : d'où vient la version et comment. Pour une version
   générée, `modele` est le modèle Claude, `api` vaut `messages` ou `messages.batches`,
@@ -1173,7 +1188,14 @@ Validation (`contes.valider()`, la même pour les deux chemins). **Rejet** : un 
 du titre ou du texte hors de la liste du niveau (`data/sources/listes/seuil-<n>.txt` pour
 un seuil ; pour un niveau HSK, le cumul de `hsk-1.txt` à `hsk-<n>.txt`), ponctuation
 `。，、；：？！「」『』（）《》—…·` exceptée ; les intrus sont listés exactement.
-Un titre de chapitre est contrôlé comme le titre.
+Un titre de chapitre est contrôlé comme le titre. Seule exception, les caractères hors du
+niveau des mots expliqués (`contes.expliques_admis`), s'ils sont déclarés au catalogue
+(`cles`, avant ou après la barre oblique) et s'ils ne sont pas trop nombreux : trois au
+plus pour une fable ; pour un récit long, trois nouveaux au plus par chapitre, un mot
+expliqué le restant dans les chapitres suivants (`contes.nouveaux_par_chapitre`, le titre
+de la version comptant au premier). Un caractère non déclaré, ou un de trop, et la
+version est **rejetée** (refus nommé, et le caractère reste un intrus) ; un caractère du
+catalogue que la version n'explique pas reste un intrus.
 **Écarts**, signalés à la relecture sans rejeter : longueur hors cible (`LONGUEURS` :
 255 et `hsk1` 60 à 120 sinogrammes, `hsk2` 150 à 260, `hsk3` 220 à 380, `hsk4` 270 à
 470, `hsk5` à `hsk7-9` 320 à 560, phrases seules ; pour un récit long, à chaque
@@ -1184,7 +1206,9 @@ phrase vide, traduction anglaise absente, pinyin qui ne
 compte pas une syllabe par sinogramme ou hors forme, ton de 一 ou 不 modifié (sandhi),
 sinogramme qu'aucune entrée de glose ne couvre dans le découpage du lecteur, entrée de
 glose absente du texte, pinyin d'une entrée différent de celui de la phrase où on la
-touche, entrée sans pinyin, sans `fr` ou sans `en`.
+touche, entrée sans pinyin, sans `fr` ou sans `en` ; mot expliqué absent du texte, déjà
+dans le niveau, en double, au pinyin sans une syllabe par caractère ou autre que celui de
+la glose, ou sans `fr`, `en`, `explication_fr` ou `explication_en`.
 
 Le journal des lots d'API, lui, reste hors dépôt, dans `data/work/contes/lots/<lot>.json`
 : c'est l'état d'un passage, pas un contenu. Il porte l'identifiant du lot, le niveau, le
@@ -1202,7 +1226,11 @@ un niveau prévu non écrit ne retient ni l'export ni l'app. Le contrôle « con
 critère des niveaux », jamais bloquant lui non plus, relit le critère sur les vraies
 listes : chaque caractère clé est dans chaque niveau prévu, le niveau HSK juste
 au-dessous du plus bas ne les a pas tous, et les niveaux montent de deux paliers en
-deux (`contes.ecarts_au_critere`).
+deux (`contes.ecarts_au_critere`). Le contrôle « contes : mots expliqués », jamais
+bloquant, relève les versions qui nomment un personnage ou un objet clé hors de leur
+niveau, et signale un caractère de mot expliqué dont l'export n'a pas les traits (le
+lecteur l'écrit alors en police) ; un mot non déclaré ou de trop tombe, lui, dans
+« caractères hors liste ».
 
 `uv run wenlu contes generer` ne soumet, à un niveau, que les fables qui le prévoient
 (`contes_du_seuil`) ; un récit long ne part pas à l'API : il se rédige par brouillon,
@@ -1242,6 +1270,9 @@ versionné, un dossier par conte, un fichier par niveau (`255.json`, `hsk3.json`
   deux ; une autre clé dans un chapitre est refusée) ;
   `glose` : une liste de `{zh, pinyin, fr, en}`, dans l'ordre d'apparition, sans
   doublon. Même règle de pinyin et de glose que ci-dessus.
+- `expliques`, seule clé facultative : les mots expliqués, au format de la version
+  (`[{zh, pinyin, fr, en, explication_fr, explication_en}]`, sans doublon), à omettre
+  quand le récit n'en a pas besoin. Un brouillon écrit avant ce champ reste valide.
 - Le reste de la version (`titre_fr`, `titre_en`, `source.resume_fr`, et les titres
   français et anglais des chapitres) ne s'écrit pas : l'import le prend dans le
   catalogue.
@@ -1324,6 +1355,18 @@ porte aucun sens, le découpage se fait par la plus longue entrée.
 Un récit long y porte `chapitres` à la place de `phrases`, au format de la version :
 `[{titre, titre_pinyin, titre_fr, titre_en, phrases}]`. L'aperçu (`apercu/contes/<id>.json`)
 suit le même format.
+
+Une version qui a des mots expliqués porte `expliques` : `[{zh, pinyin, fr, en,
+explication_fr, explication_en, caracteres}]`, où `caracteres` dit ceux de ses
+caractères qui sont hors du niveau (`"叶"` pour `叶公` à `hsk3`, lus dans les listes) :
+l'app ne les compte pas dans l'acquis qui ouvre le conte et souligne les unités qui les
+portent. Le conte porte alors `racines` (`{"叶": "口", "公": "八"}`), la famille de chaque
+caractère de ses mots expliqués : tous entrent dans le périmètre avec leurs briques
+(`export.caracteres_expliques_des_contes`, versions relues et à relire), comme ceux des
+fêtes, si bien que l'app les dessine depuis `traits/` et que la police les a. Une version
+sans mot expliqué n'a pas la clé, un conte sans mot expliqué pas `racines` (format 10).
+Le lecteur montre la carte « Mots du conte » en tête du chapitre où chaque mot paraît
+pour la première fois (en tête d'une fable), et sa glose au toucher dit « mot du conte ».
 
 `app/public/data/<version>/index.json` gagne `contes: [{id, titre_fr, titre_en,
 seuils: [255, "hsk3", …], fichier}]` (un seuil en nombre, un niveau HSK en chaîne), les contes relus, et `catalogue: [{id, titre_zh,

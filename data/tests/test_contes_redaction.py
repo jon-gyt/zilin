@@ -9,6 +9,7 @@ from __future__ import annotations
 
 import hashlib
 import json
+from dataclasses import replace
 from pathlib import Path
 
 import pytest
@@ -384,8 +385,8 @@ def test_les_contes_du_depot_portent_l_empreinte_de_leur_brouillon() -> None:
         assert version.statut in (A_RELIRE, RELU)
         conte = contes.conte_par_id(lu.conte, catalogue)
         assert version.ouvrage in ("", conte.ouvrage)
-        rapport = valider(version, contes.charger_seuil(lu.seuil))
-        assert rapport.conforme and rapport.ecarts == [], f"{lu.nom} : {rapport.intrus} {rapport.ecarts}"
+        rapport = valider(version, contes.charger_seuil(lu.seuil), conte)
+        assert rapport.conforme and rapport.ecarts == [], f"{lu.nom} : {rapport.intrus} {rapport.refus} {rapport.ecarts}"
 
 
 def test_les_trois_contes_gratuits_du_seuil_255_sont_rediges() -> None:
@@ -468,3 +469,181 @@ def test_le_contexte_d_un_recit_long_donne_ses_chapitres_et_son_squelette(
     squelette = contes.squelette(CONTE_LONG, 255)
     assert "phrases" not in squelette and len(squelette["chapitres"]) == 2  # type: ignore[arg-type]
     assert "phrases" in contes.squelette(CONTE, 255)
+
+
+# --------------------------------------------------------------------------- mots expliqués
+
+#: Le récit de test, qui déclare 鸟 et 鱼 comme personnages clés, et 山 comme caractère clé.
+CONTE_OISEAU = replace(CONTE, cles="山", expliquables="鸟鱼")
+
+#: 鸟, hors de la liste de test : le personnage clé du récit.
+OISEAU = {
+    "zh": "鸟",
+    "pinyin": "niǎo",
+    "fr": "oiseau",
+    "en": "bird",
+    "explication_fr": "L'oiseau du récit, qui vit sur la montagne.",
+    "explication_en": "The bird of the tale, who lives on the mountain.",
+}
+
+
+def brouillon_oiseau(expliques: object = None, caracteres: str = "鸟") -> dict[str, object]:
+    """Un brouillon conforme dont une phrase nomme des caractères hors de la liste."""
+    phrases = [dict(PHRASE) for _ in range(10)]
+    phrases[3] = {
+        **PHRASE,
+        "zh": f"山上{caracteres}，山下火。",
+        "pinyin": "shān shàng " + " ".join("niǎo" for _ in caracteres) + " shān xià huǒ",
+    }
+    document = brouillon(phrases=phrases)
+    document["glose"] = [
+        *document["glose"],  # type: ignore[misc]
+        *({"zh": c, "pinyin": "niǎo", "fr": "oiseau", "en": "bird"} for c in caracteres),
+    ]
+    if expliques is not None:
+        document["expliques"] = expliques
+    return document
+
+
+def test_un_mot_explique_declare_est_admis_hors_du_niveau(depot: Path, monkeypatch: pytest.MonkeyPatch) -> None:
+    """Le loup de 亡羊补牢 : hors du niveau, il nomme un personnage clé déclaré au catalogue."""
+    monkeypatch.setattr(contes, "charger_catalogue", lambda *a, **k: [CONTE_OISEAU])
+    ecrire_brouillon(depot / "brouillons", brouillon_oiseau([OISEAU]))
+    code, sortie = importer()
+    assert code == 0, sortie
+    assert "écart" not in sortie
+    assert "mots expliqués, hors du niveau : 鸟" in sortie
+    version = lire_version(depot / "versions" / "255" / "conte-de-test.json")
+    assert version.statut == A_RELIRE and version.generation.intrus == []
+    assert version.expliques == [contes.MotExplique(**OISEAU)]
+    brut = json.loads((depot / "versions" / "255" / "conte-de-test.json").read_text(encoding="utf-8"))
+    assert brut["expliques"] == [OISEAU]
+
+
+def test_un_mot_explique_non_declare_au_catalogue_est_refuse(depot: Path) -> None:
+    """Le catalogue de test ne déclare rien : le mot expliqué ne passe pas, 鸟 reste un intrus."""
+    ecrire_brouillon(depot / "brouillons", brouillon_oiseau([OISEAU]))
+    code, sortie = importer()
+    assert code == 1
+    assert "mot expliqué non déclaré : 鸟" in sortie
+    assert "hors du niveau 255 : 鸟" in sortie
+    version = lire_version(depot / "versions" / "255" / "conte-de-test.json")
+    assert version.statut == REJETE and version.generation.intrus == ["鸟"]
+
+
+def test_un_personnage_declare_mais_pas_explique_reste_un_intrus(
+    depot: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    """Le catalogue permet, la version doit déclarer : sans `expliques`, 鸟 est un intrus."""
+    monkeypatch.setattr(contes, "charger_catalogue", lambda *a, **k: [CONTE_OISEAU])
+    ecrire_brouillon(depot / "brouillons", brouillon_oiseau())
+    code, sortie = importer()
+    assert code == 1
+    assert "hors du niveau 255 : 鸟" in sortie
+
+
+def test_plus_de_trois_caracteres_expliques_sont_refuses() -> None:
+    """Au plus trois caractères hors du niveau par version : au-delà, aucun ne passe."""
+    quatre = replace(CONTE, cles="鸟", expliquables="鱼虫花")
+    mots = [{**OISEAU, "zh": c} for c in "鸟鱼虫花"]
+    rapport = valider(version_de(brouillon_oiseau(mots, caracteres="鸟鱼虫花")), LISTE, quatre)
+    assert not rapport.conforme
+    assert rapport.intrus == list("鸟鱼虫花")
+    assert rapport.refus == ["4 caractères hors du niveau expliqués (鸟 鱼 虫 花), 3 au plus"]
+    trois = replace(CONTE, cles="鸟", expliquables="鱼虫")
+    rapport = valider(version_de(brouillon_oiseau(mots[:3], caracteres="鸟鱼虫")), LISTE, trois)
+    assert rapport.conforme, rapport
+    assert rapport.expliques == list("鸟鱼虫")
+
+
+def test_un_recit_long_explique_trois_caracteres_nouveaux_par_chapitre() -> None:
+    """Récit long : trois nouveaux au plus par chapitre ; un mot expliqué le reste ensuite."""
+    conte = replace(CONTE_LONG, cles="山", expliquables="鸟鱼虫花草石竹")
+
+    def version_longue(premier: str, second: str) -> Version:
+        document = brouillon_long(expliques=[{**OISEAU, "zh": c} for c in dict.fromkeys(premier + second)])
+        for chapitre, caracteres in zip(document["chapitres"], (premier, second)):  # type: ignore[call-overload]
+            chapitre["phrases"][0] = {**PHRASE, "zh": f"山上{caracteres}。"}
+        lu = brouillon_depuis_json(document, empreinte="sha256:0")
+        return version_depuis_brouillon(lu, conte, horloge=lambda: "2026-09-25")
+
+    rapport = valider(version_longue("鸟鱼虫", "鸟花草石"), LISTE, conte)
+    assert rapport.conforme, rapport.refus
+    assert rapport.expliques == list("鸟鱼虫花草石")
+    assert contes.nouveaux_par_chapitre(version_longue("鸟鱼虫", "鸟花草石"), "鸟鱼虫花草石") == [
+        list("鸟鱼虫"),
+        list("花草石"),
+    ]
+    rapport = valider(version_longue("鸟鱼虫", "花草石竹"), LISTE, conte)
+    assert not rapport.conforme and rapport.intrus == list("鸟鱼虫花草石竹")
+    assert rapport.refus == [
+        "chapitre 2 : 4 caractères hors du niveau expliqués pour la première fois (花 草 石 竹), 3 au plus par chapitre"
+    ]
+
+
+def test_un_mot_explique_qui_n_a_rien_a_expliquer_est_un_ecart() -> None:
+    """Absent du texte, déjà dans le niveau, sans explication : des écarts, pas des rejets."""
+    mots = [
+        {**OISEAU, "explication_en": ""},
+        {**OISEAU, "zh": "鱼", "pinyin": "yú"},
+        {**OISEAU, "zh": "山水", "pinyin": "shān"},
+    ]
+    rapport = valider(version_de(brouillon_oiseau(mots)), LISTE, CONTE_OISEAU)
+    assert rapport.conforme
+    assert "mot expliqué 鸟 sans explication_en" in rapport.ecarts
+    assert "mot expliqué 鱼 absent du texte" in rapport.ecarts
+    assert "mot expliqué 山水 déjà dans le niveau : inutile de l'expliquer" in rapport.ecarts
+    assert "mot expliqué 山水 : pinyin sans une syllabe par caractère" in rapport.ecarts
+
+
+@pytest.mark.parametrize(
+    "fautif, motif",
+    [
+        ("鸟", "expliques : attendu une liste"),
+        ([{"zh": "鸟"}], "mot expliqué 1 : pinyin, fr, en, explication_fr, explication_en manquant"),
+        ([OISEAU, OISEAU], "mot expliqué 2 : 鸟 déjà expliqué"),
+    ],
+)
+def test_un_mot_explique_hors_format_n_ecrit_rien(fautif: object, motif: str) -> None:
+    with pytest.raises(BrouillonInvalide, match=motif):
+        brouillon_depuis_json(brouillon_oiseau(fautif), empreinte="sha256:0")
+
+
+def test_une_version_sans_mot_explique_s_ecrit_comme_avant() -> None:
+    """Rétrocompatibilité : sans `expliques`, ni le brouillon ni la version n'en portent la
+    clé, et chaque version du dépôt se relit et se réécrit octet pour octet."""
+    version = version_de(brouillon())
+    assert version.expliques == [] and "expliques" not in version.en_json()
+    for chemin in contes.versions_ecrites():
+        texte = json.dumps(lire_version(chemin).en_json(), ensure_ascii=False, indent=1)
+        assert texte == chemin.read_text(encoding="utf-8"), chemin
+
+
+def test_l_export_dit_les_caracteres_expliques_et_leur_famille(depot: Path) -> None:
+    """`contes/<id>.json` : chaque mot expliqué, ses caractères hors du niveau (ceux que l'app
+    ne compte pas dans l'acquis), et la famille de chacun pour trouver ses traits. Une version
+    sans mot expliqué s'exporte comme avant."""
+    from wenlu_data import export as export_mod
+
+    mots = [OISEAU, {**OISEAU, "zh": "山鸟", "pinyin": "shān niǎo"}]
+    version = version_de(brouillon_oiseau(mots))
+    document = export_mod.document_conte("conte-de-test", [version], "0.1.0", {"鸟": "鸟", "山": "山"})
+    exporte = document["versions"]["255"]  # type: ignore[index]
+    assert exporte["expliques"] == [  # type: ignore[index]
+        {**OISEAU, "caracteres": "鸟"},
+        {**OISEAU, "zh": "山鸟", "pinyin": "shān niǎo", "caracteres": "鸟"},
+    ]
+    assert document["racines"] == {"山": "山", "鸟": "鸟"}, "tous les caractères des mots expliqués se dessinent"
+    assert export_mod.caracteres_expliques(version) == ["鸟"]
+    sans = export_mod.document_conte("conte-de-test", [version_de(brouillon())], "0.1.0", {"鸟": "鸟"})
+    assert "racines" not in sans and "expliques" not in sans["versions"]["255"]  # type: ignore[index]
+
+
+def test_le_contexte_dit_les_mots_expliques_possibles(depot: Path, monkeypatch: pytest.MonkeyPatch) -> None:
+    monkeypatch.setattr(contes, "charger_catalogue", lambda *a, **k: [CONTE_OISEAU])
+    resultat = CliRunner().invoke(cli, ["contes", "contexte", "conte-de-test", "--seuil", "255"])
+    assert resultat.exit_code == 0, resultat.output
+    assert "Mots expliqués possibles" in resultat.output
+    assert ": 鸟 鱼 ; déclarés au catalogue : 鸟 鱼" in resultat.output
+    assert "expliques" in contes.squelette(CONTE_OISEAU, 255)
+    assert "expliques" not in contes.squelette(CONTE, 255)
