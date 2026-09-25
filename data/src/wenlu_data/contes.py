@@ -2163,7 +2163,10 @@ def controle_critere(catalogue: Sequence[Conte], listes: Path | None = None) -> 
 
 
 def controles(
-    dossier: Path | None = None, listes: Path | None = None, catalogue: Path | None = None
+    dossier: Path | None = None,
+    listes: Path | None = None,
+    catalogue: Path | None = None,
+    export: Path | None = None,
 ) -> list[Controle]:
     """Contrôles des contes, appelés par `wenlu check`.
 
@@ -2200,6 +2203,7 @@ def controles(
     cache: dict[Niveau, list[str] | None] = {}
     par_id = {c.id: c for c in lu or ()}
     expliquees: list[str] = []
+    dessines: dict[str, None] = {}
     for version in versions:
         if version.statut != RELU:
             a_relire += 1
@@ -2215,8 +2219,20 @@ def controles(
         intrus, refus, admis = intrus_et_refus(version, autorises, par_id.get(version.conte))
         if intrus or refus:
             fautifs.append(f"{version.conte} ({version.seuil}) : {' '.join(intrus)}" + "".join(f" ; {r}" for r in refus))
-        if admis:
+        if admis and version.statut != REJETE:
             expliquees.append(f"{version.cle} {''.join(admis)}")
+            dessines.update(dict.fromkeys(admis))
+
+    # Le lecteur dessine les mots expliqués avant le texte : leurs traits doivent être dans
+    # l'export (`export.caracteres_expliques_des_contes`), sinon il les écrit en police.
+    sans_traits: list[str] = []
+    if dessines:
+        from .export import versions_exportees
+        from .fetes import traits_exportes
+
+        for dossier_export in versions_exportees(export):
+            presents = traits_exportes(dossier_export)
+            sans_traits += [f"{dossier_export.name}:{c}" for c in dessines if c not in presents]
 
     detail = f"{len(fichiers)} versions contrôlées"
     if fautifs:
@@ -2233,17 +2249,25 @@ def controles(
             f"{a_relire} versions sur {len(fichiers)} restent à relire avant export",
         ),
         *suite,
-        # Ce que les mots expliqués font entrer hors du niveau : un relevé, jamais un
-        # blocage ; un mot non déclaré ou de trop, lui, tombe dans « caractères hors liste ».
+        # Ce que les mots expliqués font entrer hors du niveau : un relevé, et leurs traits
+        # dans l'export ; jamais un blocage. Un mot non déclaré ou de trop, lui, tombe dans
+        # « caractères hors liste ».
         Controle(
             "contes : mots expliqués",
-            True,
+            not sans_traits,
             (
-                f"{len(expliquees)} versions nomment un personnage ou un objet clé hors de leur niveau, "
-                f"déclaré au catalogue, {MAX_EXPLIQUES} caractères au plus : " + " ; ".join(expliquees)
+                (
+                    f"{len(expliquees)} versions nomment un personnage ou un objet clé hors de leur niveau, "
+                    f"déclaré au catalogue, {MAX_EXPLIQUES} caractères au plus : " + " ; ".join(expliquees)
+                )
+                if expliquees
+                else "aucune version n'emploie de mot hors de son niveau"
             )
-            if expliquees
-            else "aucune version n'emploie de mot hors de son niveau",
+            + (
+                f" ; sans traits exportés, écrits en police : {' '.join(sans_traits)} (lancer `wenlu export`)"
+                if sans_traits
+                else ""
+            ),
         ),
     ]
 

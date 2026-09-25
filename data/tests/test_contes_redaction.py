@@ -594,6 +594,26 @@ def test_une_version_sans_mot_explique_s_ecrit_comme_avant() -> None:
         assert texte == chemin.read_text(encoding="utf-8"), chemin
 
 
+def test_l_export_dit_les_caracteres_expliques_et_leur_famille(depot: Path) -> None:
+    """`contes/<id>.json` : chaque mot expliqué, ses caractères hors du niveau (ceux que l'app
+    ne compte pas dans l'acquis), et la famille de chacun pour trouver ses traits. Une version
+    sans mot expliqué s'exporte comme avant."""
+    from wenlu_data import export as export_mod
+
+    mots = [OISEAU, {**OISEAU, "zh": "山鸟", "pinyin": "shān niǎo"}]
+    version = version_de(brouillon_oiseau(mots))
+    document = export_mod.document_conte("conte-de-test", [version], "0.1.0", {"鸟": "鸟", "山": "山"})
+    exporte = document["versions"]["255"]  # type: ignore[index]
+    assert exporte["expliques"] == [  # type: ignore[index]
+        {**OISEAU, "caracteres": "鸟"},
+        {**OISEAU, "zh": "山鸟", "pinyin": "shān niǎo", "caracteres": "鸟"},
+    ]
+    assert document["racines"] == {"鸟": "鸟"}
+    assert export_mod.caracteres_expliques(version) == ["鸟"]
+    sans = export_mod.document_conte("conte-de-test", [version_de(brouillon())], "0.1.0", {"鸟": "鸟"})
+    assert "racines" not in sans and "expliques" not in sans["versions"]["255"]  # type: ignore[index]
+
+
 def test_le_contexte_dit_les_mots_expliques_possibles(depot: Path, monkeypatch: pytest.MonkeyPatch) -> None:
     monkeypatch.setattr(contes, "charger_catalogue", lambda *a, **k: [CONTE_OISEAU])
     resultat = CliRunner().invoke(cli, ["contes", "contexte", "conte-de-test", "--seuil", "255"])

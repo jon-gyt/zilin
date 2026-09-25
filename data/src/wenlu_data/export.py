@@ -108,7 +108,7 @@ VERSION = "0.1.0"
 #: Version du format écrit par ce module. À incrémenter à chaque changement de
 #: ce que l'export produit à entrées égales (clé ajoutée, ordre, règle de
 #: sélection) : elle entre dans l'empreinte, et l'export versionné devient périmé.
-FORMAT_EXPORT = 9
+FORMAT_EXPORT = 10
 
 #: Le code de l'exporteur, lui aussi dans l'empreinte : un changement de ce
 #: fichier où l'on aurait oublié `FORMAT_EXPORT` rend quand même l'export périmé.
@@ -122,7 +122,8 @@ NIVEAUX: dict[str, tuple[str, int]] = {"seuil-255": ("seuil", 255), "hsk-1": ("h
 
 PERIMETRE = (
     "seuil 255 et HSK 1 : les caractères des deux listes et leurs briques ;"
-    " les caractères dessinés des fêtes, des termes solaires et des rangs du personnage,"
+    " les caractères dessinés des fêtes, des termes solaires, des rangs du personnage"
+    " et des mots expliqués des contes,"
     " et leurs briques"
 )
 
@@ -1039,16 +1040,64 @@ def document_wechat(
     )
 
 
+def caracteres_expliques(version: contes_mod.Version) -> list[str]:
+    """Les caractères hors du niveau que les mots expliqués d'une version font entrer
+    (狼 ; 叶, pas 公, pour 叶公 à HSK 3). Sans liste du niveau, tous ceux de ses mots."""
+    if not version.expliques:
+        return []
+    try:
+        autorises = contes_mod.charger_seuil(version.seuil)
+    except (contes_mod.SeuilInconnu, contes_mod.SeuilSansListe):
+        autorises = []
+    return contes_mod.hors_niveau_expliques(version, autorises)
+
+
+def caracteres_expliques_des_contes(dossier: Path | None = None) -> list[str]:
+    """Les caractères des mots expliqués des versions relues ou à relire : le lecteur les
+    dessine avant le texte, depuis leurs traits. Ils entrent dans le périmètre avec leurs
+    briques, comme ceux des fêtes ; une version rejetée n'en fait entrer aucun."""
+    vus: dict[str, None] = {}
+    for versions in (charger_contes_relus(dossier), charger_contes_a_relire(dossier)):
+        for liste in versions.values():
+            for v in liste:
+                vus.update(dict.fromkeys(caracteres_expliques(v)))
+    return list(vus)
+
+
+def _version_exportee(v: contes_mod.Version) -> dict[str, object]:
+    """Une version dans `contes/<id>.json`. Ses mots expliqués disent chacun, dans
+    `caracteres`, ceux de leurs caractères qui sont hors du niveau : l'app ne les compte pas
+    dans l'acquis qui ouvre le conte, et souligne là où ils sont."""
+    hors = caracteres_expliques(v)
+    expliques = [
+        {**m.en_json(), "caracteres": "".join(c for c in m.zh if c in hors)} for m in v.expliques
+    ]
+    return {
+        "titre": v.titre,
+        "titre_pinyin": v.titre_pinyin,
+        **v.texte_en_json(),
+        "glose": {zh: v.glose[zh].en_json() for zh in sorted(v.glose)},
+        **({"expliques": expliques} if expliques else {}),
+    }
+
+
 def document_conte(
-    conte: str, versions: Sequence[contes_mod.Version], version_export: str
+    conte: str,
+    versions: Sequence[contes_mod.Version],
+    version_export: str,
+    racines: Mapping[str, str] | None = None,
 ) -> dict[str, object]:
     """Le JSON écrit dans `contes/<id>.json` : un récit, une version par seuil.
 
     Une fable porte ses `phrases` ; un récit long ses `chapitres`, chacun avec son titre
-    chinois, son pinyin, ses titres français et anglais et ses phrases.
+    chinois, son pinyin, ses titres français et anglais et ses phrases. Un conte dont une
+    version a des mots expliqués porte `racines`, la famille de chacun de leurs caractères
+    hors du niveau (`racines` : ceux du périmètre), pour que l'app trouve leurs traits.
     """
     tete = versions[0]
     origine = f"récit traditionnel, {tete.ouvrage}" if tete.ouvrage else "récit traditionnel"
+    expliques = sorted({c for v in versions for c in caracteres_expliques(v)})
+    racines_expliquees = {c: racines[c] for c in expliques if racines and c in racines}
     return {
         "version": version_export,
         "license": LICENCE_PROPRIETAIRE,
@@ -1060,14 +1109,10 @@ def document_conte(
         "titre_fr": tete.titre_fr,
         "titre_en": tete.titre_en,
         "versions": {
-            str(v.seuil): {
-                "titre": v.titre,
-                "titre_pinyin": v.titre_pinyin,
-                **v.texte_en_json(),
-                "glose": {zh: v.glose[zh].en_json() for zh in sorted(v.glose)},
-            }
+            str(v.seuil): _version_exportee(v)
             for v in sorted(versions, key=lambda v: contes_mod.rang(v.seuil))
         },
+        **({"racines": racines_expliquees} if racines_expliquees else {}),
     }
 
 
@@ -1153,13 +1198,16 @@ def document_apercu_famille(
 
 
 def document_apercu_conte(
-    conte: str, versions: Sequence[contes_mod.Version], version_export: str
+    conte: str,
+    versions: Sequence[contes_mod.Version],
+    version_export: str,
+    racines: Mapping[str, str] | None = None,
 ) -> dict[str, object]:
     """Le JSON écrit dans `apercu/contes/<id>.json` : les versions à relire d'un conte.
 
     Le format de `contes/<id>.json`, plus le statut, en tête et sur chaque version.
     """
-    document = document_conte(conte, versions, version_export)
+    document = document_conte(conte, versions, version_export, racines)
     for lue in document["versions"].values():  # type: ignore[union-attr]
         lue["statut"] = STATUT_APERCU  # type: ignore[index]
     return {
@@ -1248,8 +1296,9 @@ def assembler_apercu(
         nom = f"{APERCU}/familles/{nom_fichier(racine)}.json"
         textes[nom] = _json(document_apercu_famille(racine, entrees, version))
         familles.append((racine, nom, [str(e["c"]) for e in entrees]))
+    racines = {c: noeuds[c].racine for c in per.caracteres}
     for conte, lues in sorted(versions.items()):
-        textes[f"{APERCU}/contes/{conte}.json"] = _json(document_apercu_conte(conte, lues, version))
+        textes[f"{APERCU}/contes/{conte}.json"] = _json(document_apercu_conte(conte, lues, version, racines))
     # Les lettres de Que à relire (story 4b.8) : un seul fichier, `lettres.py` l'assemble.
     lettres = lettres_mod.lettres(statut=lettres_mod.A_RELIRE)
     if lettres:
@@ -1574,7 +1623,8 @@ def modifications_md(
             "- Conversion de format : les lignes JSON de `graphics.txt` deviennent un"
             " fichier par famille, `{\"<caractère>\": {\"s\": [tracés], \"m\": [médianes]}}`.",
             f"- Sous-ensemble : {caracteres} caractères seulement — le seuil 255, le"
-            " HSK 1, les caractères dessinés des fêtes et des termes solaires, et leurs"
+            " HSK 1, les caractères dessinés des fêtes, des termes solaires et des mots"
+            " expliqués des contes, et leurs"
             " briques.",
             retouche,
             "",
@@ -1748,6 +1798,9 @@ def assembler(
     cibles += caracteres_interface()
     # Les titres des rangs du personnage, dessinés au 放榜 et sur son écran : même règle.
     cibles += caracteres_heros()
+    # Les caractères hors du niveau des mots expliqués des contes (狼, 苗), que le lecteur
+    # dessine avant le texte : même règle.
+    cibles += caracteres_expliques_des_contes(contes)
     per = perimetre(noeuds, cibles)
     pinyin = charger_pinyin(ingest, per.caracteres)
     lectures = charger_lectures(ingest, per.caracteres)
@@ -1791,8 +1844,9 @@ def assembler(
             document_traits(racine, membres, graphies, version, decoupes_exportes)
         )
 
+    racines_contes = {c: noeuds[c].racine for c in per.caracteres}
     for conte, versions in sorted(versions_contes.items()):
-        textes[f"contes/{conte}.json"] = _json(document_conte(conte, versions, version))
+        textes[f"contes/{conte}.json"] = _json(document_conte(conte, versions, version, racines_contes))
 
     textes["paires.json"] = _json(document_paires(groupes, version))
     textes["fetes.json"] = _json(document_fetes(version, noeuds, pinyin))
