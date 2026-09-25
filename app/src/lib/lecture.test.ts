@@ -5,15 +5,40 @@
  */
 import { describe, it, expect } from 'vitest';
 import { readFileSync } from 'node:fs';
-import type { Conte, Index, IndexConte, VersionConte } from './content';
-import { emptyProgress, noterActivite, noterConteLu } from './session';
+import {
+  lireCatalogueContes,
+  lireConte,
+  type CatalogueConte,
+  type Conte,
+  type Index,
+  type IndexConte,
+  type VersionConte
+} from './content';
+import {
+  contesLus,
+  emptyProgress,
+  fromJSON,
+  noterActivite,
+  noterChapitreLu,
+  noterConteLu,
+  noterReprise,
+  toJSON
+} from './session';
 import { POIDS, posture } from './tao';
 import { tropheesContes } from './trophees';
 import {
   bibliotheque,
   caracteresAcquis,
   caracteresDeVersion,
+  chapitreDeReprise,
+  chapitresDe,
+  cleLecture,
   entreeConte,
+  estLongue,
+  lireChapitre,
+  niveauxDuConte,
+  tousLus,
+  unitesDuChapitre,
   estHan,
   grouper,
   ligneGlose,
@@ -297,3 +322,200 @@ describe('le vrai titre', () => {
   });
 });
 
+
+/* ---------- les niveaux prévus (catalogue) ---------- */
+
+const PREVU: CatalogueConte = {
+  id: 'essai',
+  titre_zh: '守株待兔',
+  titre_pinyin: 'shǒu zhū dài tù',
+  titre_fr: 'Essai',
+  niveaux: [255, 405, 805],
+  chapitres: 1
+};
+
+const A_VENIR: CatalogueConte = {
+  id: 'a-venir',
+  titre_zh: '画蛇添足',
+  titre_pinyin: 'huà shé tiān zú',
+  titre_fr: 'À venir',
+  niveaux: [405, 805],
+  chapitres: 1
+};
+
+describe('les niveaux d’un conte', () => {
+  it('écrit et ouvert, écrit mais fermé, pas encore écrit : rien n’est estimé', () => {
+    const n = niveauxDuConte(PREVU.niveaux, INDEX.seuils, CONTE, tous(V255));
+    expect(n).toEqual([
+      { seuil: 255, etat: 'ouvert' },
+      { seuil: 405, etat: 'ferme' },
+      { seuil: 805, etat: 'a_ecrire' }
+    ]);
+  });
+
+  it('un seuil que l’index annonce sans fichier lisible reste écrit mais fermé', () => {
+    expect(niveauxDuConte([255], [255], null, new Set())).toEqual([{ seuil: 255, etat: 'ferme' }]);
+  });
+
+  it('un niveau prévu non écrit ne ferme pas le conte : la version écrite s’ouvre', () => {
+    const e = entreeConte(INDEX, CONTE, tous(V255), [], false, PREVU);
+    expect(e.version?.seuil).toBe(255);
+    expect(e.ecrit).toBe(true);
+    expect(e.niveaux.map((n) => n.etat)).toEqual(['ouvert', 'ferme', 'a_ecrire']);
+  });
+
+  it('la bibliothèque montre chaque conte du catalogue, les pas encore écrits en dernier', () => {
+    const contes = new Map([[CONTE.id, CONTE]]);
+    const b = bibliotheque([INDEX], contes, tous(V255), {}, false, [A_VENIR, PREVU]);
+    expect(b.map((e) => e.id)).toEqual(['essai', 'a-venir']);
+    const [, venir] = b;
+    expect(venir.version).toBeNull();
+    expect(venir.ecrit).toBe(false);
+    expect(venir.titre_zh).toBe('画蛇添足');
+    expect(venir.niveaux).toEqual([
+      { seuil: 405, etat: 'a_ecrire' },
+      { seuil: 805, etat: 'a_ecrire' }
+    ]);
+  });
+
+  it('sans catalogue (export plus ancien), l’index seul, niveaux écrits', () => {
+    const b = bibliotheque([INDEX], new Map([[CONTE.id, CONTE]]), tous(V255));
+    expect(b[0].niveaux.map((n) => n.seuil)).toEqual([255, 405]);
+  });
+
+  it('le catalogue de l’index se relit ; une entrée sans identifiant est écartée', () => {
+    expect(
+      lireCatalogueContes([
+        { id: 'a', titre_zh: '山', titre_pinyin: 'shān', titre_fr: 'A', niveaux: [805, 255, 255], chapitres: 4 },
+        { titre_fr: 'sans id' },
+        { id: 'b', niveaux: 'x', chapitres: 0 }
+      ])
+    ).toEqual([
+      { id: 'a', titre_zh: '山', titre_pinyin: 'shān', titre_fr: 'A', niveaux: [255, 805], chapitres: 4 },
+      { id: 'b', titre_zh: '', titre_pinyin: '', titre_fr: '', niveaux: [], chapitres: 1 }
+    ]);
+    expect(lireCatalogueContes(undefined)).toEqual([]);
+  });
+
+  it('l’export porte le catalogue : chaque conte relu y a ses niveaux', () => {
+    const index = JSON.parse(readFileSync('public/data/0.1.0/index.json', 'utf-8')) as Index;
+    const catalogue = lireCatalogueContes(index.catalogue);
+    expect(catalogue.length).toBeGreaterThanOrEqual(index.contes.length);
+    for (const c of index.contes) {
+      const prevu = catalogue.find((x) => x.id === c.id);
+      expect(prevu, c.id).toBeDefined();
+      for (const s of c.seuils) expect(prevu?.niveaux).toContain(s);
+    }
+  });
+});
+
+/* ---------- les récits longs, chapitre par chapitre ---------- */
+
+const LONGUE: VersionConte = {
+  seuil: 405,
+  titre: '人和兔',
+  phrases: [],
+  glose: { 人: 'homme', 和: 'et', 兔: 'lièvre', 天: 'jour', 大: 'grand', 山: 'montagne', 一: 'un' },
+  chapitres: [
+    { titre: '天', titre_pinyin: 'tiān', titre_fr: 'Le jour', phrases: [{ zh: '人和兔。', pinyin: 'rén hé tù', fr: 'Un homme et un lièvre.' }] },
+    { titre: '大山', titre_pinyin: 'dà shān', titre_fr: 'La montagne', phrases: [{ zh: '一人。', pinyin: 'yī rén', fr: 'Un homme.' }] },
+    { titre: '一', titre_pinyin: 'yī', titre_fr: 'Un', phrases: [{ zh: '人。', pinyin: 'rén', fr: 'Homme.' }] }
+  ]
+};
+
+describe('un récit long', () => {
+  it('se lit chapitre par chapitre ; une fable est un seul chapitre sans titre', () => {
+    expect(estLongue(LONGUE)).toBe(true);
+    expect(chapitresDe(LONGUE).map((c) => c.titre)).toEqual(['天', '大山', '一']);
+    expect(estLongue(V255)).toBe(false);
+    expect(chapitresDe(V255)).toEqual([{ titre: '', titre_pinyin: '', titre_fr: '', phrases: V255.phrases }]);
+  });
+
+  it('les titres des chapitres comptent dans ses caractères', () => {
+    const v = { ...LONGUE, phrases: LONGUE.chapitres!.flatMap((c) => c.phrases) };
+    expect(caracteresDeVersion(v)).toEqual(['人', '和', '兔', '天', '大', '山', '一']);
+    const acquis = tous(v);
+    acquis.delete('山');
+    expect(manquants(v, acquis)).toEqual(['山']);
+  });
+
+  it('le titre d’un chapitre se touche, pinyin aligné', () => {
+    const [ch] = chapitresDe(LONGUE).slice(1);
+    expect(unitesDuChapitre(ch, LONGUE.glose).map((u) => [u.texte, u.pinyin])).toEqual([
+      ['大', 'dà'],
+      ['山', 'shān']
+    ]);
+  });
+
+  it('se relit de l’export : ses chapitres, et leurs phrases à la suite', () => {
+    const c = lireConte({
+      conte: 'long',
+      titre_fr: 'Long',
+      versions: {
+        '405': {
+          titre: '人',
+          chapitres: [
+            { titre: '天', titre_pinyin: 'tiān', titre_fr: 'Le jour', phrases: [{ zh: '人。', pinyin: 'rén', fr: 'Homme.' }] },
+            { titre: '空', phrases: [] },
+            { titre: '大', titre_pinyin: 'dà', titre_fr: 'Grand', phrases: [{ zh: '大人。', pinyin: 'dà rén', fr: 'Adulte.' }] }
+          ],
+          glose: { 人: { pinyin: 'rén', fr: 'homme', en: 'man' } }
+        }
+      }
+    });
+    const [v] = c.versions;
+    expect(v.chapitres?.map((x) => x.titre)).toEqual(['天', '大']);
+    expect(v.phrases.map((p) => p.zh)).toEqual(['人。', '大人。']);
+  });
+
+  it('une fable exportée sans chapitres se relit comme avant (rétrocompatibilité)', () => {
+    const brut = JSON.parse(readFileSync('public/data/0.1.0/contes/yu-gong-yi-shan.json', 'utf-8')) as unknown;
+    const [v] = lireConte(brut).versions;
+    expect(v.chapitres).toBeUndefined();
+    expect(estLongue(v)).toBe(false);
+    expect(chapitresDe(v)[0].phrases).toBe(v.phrases);
+  });
+});
+
+describe('les chapitres lus et la reprise', () => {
+  it('un chapitre non lu ne compte pas : le conte est lu quand tous le sont', () => {
+    expect(tousLus([1, 3], 3)).toBe(false);
+    expect(tousLus([3], 3)).toBe(false);
+    expect(tousLus([1, 2, 3], 3)).toBe(true);
+    expect(tousLus([], 0)).toBe(false);
+  });
+
+  it('on reprend au chapitre qui suit le dernier lu, puis au premier qui reste', () => {
+    let l = lireChapitre(undefined, 1, 3);
+    expect(l).toEqual({ lus: [1], reprise: 2 });
+    l = lireChapitre(l, 3, 3);
+    expect(l).toEqual({ lus: [1, 3], reprise: 2 });
+    l = lireChapitre(l, 2, 3);
+    expect(l).toEqual({ lus: [1, 2, 3], reprise: 1 });
+    expect(chapitreDeReprise({ lus: [1], reprise: 2 }, 3)).toBe(2);
+    expect(chapitreDeReprise(undefined, 3)).toBe(1);
+    expect(chapitreDeReprise({ lus: [], reprise: 9 }, 3)).toBe(1);
+  });
+
+  it('la progression note chapitres et reprise, sans compter le conte avant la fin', () => {
+    let p = emptyProgress('2026-09-25');
+    p = noterChapitreLu(p, 'long', 405, 1, 3);
+    p = noterChapitreLu(p, 'long', 405, 2, 3);
+    expect(p.chapitres[cleLecture('long', 405)]).toEqual({ lus: [1, 2], reprise: 3 });
+    expect(p.contesLus).toEqual({});
+    expect(contesLus(p)).toBe(0);
+    p = noterReprise(p, 'long', 405, 1);
+    expect(p.chapitres['405/long'].reprise).toBe(1);
+    expect(noterChapitreLu(p, 'long', 405, 4, 3)).toBe(p);
+  });
+
+  it('les chapitres en cours passent par l’export et l’import JSON', () => {
+    let p = emptyProgress('2026-09-25');
+    p = noterChapitreLu(p, 'long', 405, 1, 3);
+    p = noterReprise(p, 'long', 405, 3);
+    expect(fromJSON(toJSON(p), '2026-09-25').chapitres).toEqual({ '405/long': { lus: [1], reprise: 3 } });
+    const ancien = JSON.parse(toJSON(p)) as Record<string, unknown>;
+    delete ancien.chapitres;
+    expect(fromJSON(JSON.stringify(ancien), '2026-09-25').chapitres).toEqual({});
+  });
+});
