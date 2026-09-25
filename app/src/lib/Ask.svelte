@@ -17,7 +17,7 @@
   import type { Revision } from './session';
   import { grade } from './srs';
   import { artDe } from './heros';
-  import { aAudio, dire, manifesteOnce } from './audio';
+  import { aAudio, manifesteOnce, prononcer } from './audio';
   import type { Grade } from 'ts-fsrs';
 
   let {
@@ -67,7 +67,10 @@
   let note: Grade | null = $state(null);
   let montree = $state(false);
   let prochaine = $state('');
-  /** Le tracé sans données embarquées : on passe, sans noter ce qu'on n'a pas vu. */
+  /**
+   * On passe sans noter ce qu'on n'a pas vu ni entendu : le tracé sans données embarquées,
+   * ou l'oreille dont le fichier ne se charge pas sans voix de l'appareil pour le relayer.
+   */
   let sautable = $state(false);
   /** À l'oreille : le caractère a déjà été dit une fois, le bouton propose de le redire. */
   let entendu = $state(false);
@@ -191,15 +194,22 @@
 
   /**
    * Dit le caractère : son fichier pré-généré s'il en a un, sinon la voix mandarin de
-   * l'appareil (`audio.dire`), sans réseau. `typesPossibles` ne pose la question à
-   * l'oreille que si l'un ou l'autre existe. Après la correction, écouter retient l'écran :
-   * l'avance automatique s'arrête, on avance au bouton.
+   * l'appareil (`audio.prononcer`), sans réseau. `typesPossibles` ne pose la question à
+   * l'oreille que si l'un ou l'autre existe. Un fichier qui ne se charge pas (hors ligne et
+   * pas en cache) passe la main à la voix de l'appareil ; sans elle, rien n'a été entendu :
+   * la question passe, sans être notée, jamais d'écran muet. Après la correction, écouter
+   * retient l'écran : l'avance automatique s'arrête, on avance au bouton.
    */
   function ecouter(): void {
     if (note !== null) arreter();
     const rang = cle;
-    void dire(q.c).then((dit) => {
-      if (dit && rang === cle) entendu = true;
+    void prononcer(q.c).then((dit) => {
+      if (rang !== cle) return;
+      if (dit === 'fichier' || dit === 'telephone') {
+        entendu = true;
+        /* Réécouter a fini par charger le fichier : la question se pose de nouveau. */
+        if (q.type === 'oreille' && note === null) sautable = false;
+      } else if (dit === 'muet' && q.type === 'oreille' && note === null && !entendu) sautable = true;
     });
   }
 </script>
@@ -278,7 +288,7 @@
           class:ok={note !== null && (q.type === 'assemblage' ? q.reponse.includes(o) : k === bon)}
           class:ko={rates.includes(k)}
           class:pris={q.type === 'assemblage' && note === null && construit.includes(k)}
-          disabled={note !== null || rates.includes(k) || construit.includes(k)}
+          disabled={note !== null || sautable || rates.includes(k) || construit.includes(k)}
           onclick={() => (q.type === 'assemblage' ? assembler(k) : repondre(k))}
         >
           {#if caracteres}
@@ -301,6 +311,8 @@
       {#if prochaine !== ''}
         <span class="next">Prochaine fois : dans {prochaine}.</span>
       {/if}
+    {:else if sautable && q.type === 'oreille'}
+      Le son de ce caractère ne se charge pas ici. Continue avec le bouton du bas.
     {:else if sautable}
       Ce caractère ne se trace pas encore ici. Continue avec le bouton du bas.
     {:else if essais > 0}
