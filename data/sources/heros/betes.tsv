@@ -1,0 +1,25 @@
+# Les trois bêtes qu'on peut choisir pour personnage (story 4.5, brief §8).
+#
+# Source : rédigé pour l'app, sans API, dans une session Claude Code, d'après la maquette
+# validée par le propriétaire (`wenlu-heros.html`) ; à relire. Des bêtes de la Chine, de
+# la légende et des fêtes, non genrées, pour que chacun s'y reconnaisse : 玉兔 le lapin
+# de jade de la lune, 熊猫 le panda, 醒狮 le lion des danses du Nouvel An. Jamais de
+# dragon (CLAUDE.md) : il reste au décor du Nouvel An et de 端午.
+#
+# Règles (`wenlu check`, « héros : sources ») : trois bêtes, identifiants `tu`,
+# `xiongmao`, `shi`, que l'app dessine ; trois idées de nom chacune, distinctes, de
+# seize signes au plus (le champ du nom en accepte seize) ; chaque nom chinois se lit
+# dans son pinyin.
+#
+# Format : TSV, `#` en commentaire, sept colonnes séparées par une tabulation :
+#
+# - `id` : l'identifiant, rangé dans la progression (`heros.bete`) ;
+# - `hz`, `pinyin` : le nom chinois de la bête, d'un seul tenant ;
+# - `fr` : son nom français, avec l'article ;
+# - `dit` : ce que Tao en dit quand on la choisit ;
+# - `noms` : trois idées de nom, séparées par une espace, en lettres ou en caractères ;
+# - `source`.
+id	hz	pinyin	fr	dit	noms	source
+tu	玉兔	yùtù	le lapin de jade	Oreilles dressées, rien ne lui échappe.	Yuè 月月 Pompon	rédigé pour l'app
+xiongmao	熊猫	xióngmāo	le panda	Lent, têtu, et ne lâche jamais un caractère.	Bao 宝宝 Bambou	rédigé pour l'app
+shi	醒狮	xǐngshī	le lion dansé	Toujours prêt à bondir sur un mot nouveau.	Shi 狮狮 Grelot	rédigé pour l'app
