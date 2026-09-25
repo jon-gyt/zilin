@@ -1,14 +1,20 @@
 <script lang="ts">
   /**
-   * Réglages : l'ossature. Le rythme, les révisions (rétention cible FSRS), le tracé,
-   * le mode relecture, et la progression qui s'exporte et se réimporte en
-   * JSON. Un seul thème, le papier clair : il n'y a rien à régler.
+   * Réglages : l'ossature. Le personnage (changer de bête ou de nom, sans rien perdre),
+   * le rythme, les révisions (rétention cible FSRS), le tracé, le mode relecture, et la
+   * progression qui s'exporte et se réimporte en JSON. Un seul thème, le papier clair : il
+   * n'y a rien à régler.
    *
    * Ni compte, ni réseau : le fichier est écrit et relu par le navigateur, la
    * progression reste dans IndexedDB.
    */
   import { exportProgress, importProgress } from './db';
+  import ChoixHeros from './ChoixHeros.svelte';
+  import Heros from './Heros.svelte';
+  import { beteDe, herosOnce, rangDe, sansArticle, total, type BeteId, type HerosDonnees } from './heros';
+  import { stade } from './tao';
   import {
+    choisirHeros,
     REGLAGES_RETENTION,
     effetRetention,
     setRelecture,
@@ -34,6 +40,30 @@
 
   let fichier: HTMLInputElement | undefined = $state();
   let mot = $state('');
+
+  /* ---------- le personnage ---------- */
+
+  let donnees = $state<HerosDonnees | null>(null);
+  $effect(() => {
+    let vivant = true;
+    void herosOnce()
+      .then((d) => {
+        if (vivant) donnees = d;
+      })
+      .catch(() => undefined);
+    return () => {
+      vivant = false;
+    };
+  });
+  /** Le choix rouvert : la bête et le nom se changent, les points et le rang restent. */
+  let changer = $state(false);
+  const rang = $derived(donnees ? rangDe(total(p.arts), donnees.rangs) : 0);
+  const bete = $derived(donnees && p.heros ? beteDe(donnees, p.heros.bete) : null);
+
+  function choisir(b: BeteId, nom: string): void {
+    onprogression(choisirHeros(p, b, nom, rang));
+    changer = false;
+  }
 
   function choisirBudget(b: Budget): void {
     onprogression(setBudget(p, b));
@@ -85,8 +115,32 @@
 </script>
 
 <main class="screen">
+  {#if changer && donnees}
+  <button class="k quit" onclick={() => (changer = false)}>‹ Réglages</button>
+  <ChoixHeros {donnees} initial={p.heros} surtitre="Changer de personnage" stade={stade(p.tao.croissance)} garder onchoisi={choisir} />
+  {:else}
   <button class="k quit" onclick={onretour}>‹ Retour</button>
   <h1>Réglages</h1>
+
+  {#if donnees && donnees.betes.length > 0}
+    <div class="card perso">
+      {#if p.heros}
+        <span class="portrait"><Heros bete={p.heros.bete} {rang} cadre="portrait" largeur={46} /></span>
+      {/if}
+      <div class="grow">
+        <div>{p.heros ? p.heros.nom : 'Personnage'}</div>
+        <div class="k">
+          {#if p.heros}
+            {bete ? `${bete.hz} ${sansArticle(bete.fr)}` : ''}{donnees.rangs[rang] ? ` · ${donnees.rangs[rang].hz}` : ''} ·
+            change de bête ou de nom sans rien perdre
+          {:else}
+            Pas encore choisi : trois bêtes, un nom
+          {/if}
+        </div>
+      </div>
+      <button class="btn ghost changer" onclick={() => (changer = true)}>{p.heros ? 'Changer' : 'Choisir'}</button>
+    </div>
+  {/if}
 
   <div class="card">
     <div class="tog">
@@ -163,4 +217,30 @@
     />
     {#if mot}<div class="k retour">{mot}</div>{/if}
   </div>
+  {/if}
 </main>
+
+<style>
+  .perso {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .portrait {
+    width: 50px;
+    height: 50px;
+    flex-shrink: 0;
+    border-radius: 50%;
+    background: var(--paper);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    line-height: 0;
+  }
+  .changer {
+    width: auto;
+    min-height: 40px;
+    flex-shrink: 0;
+  }
+</style>

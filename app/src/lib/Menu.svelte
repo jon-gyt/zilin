@@ -28,6 +28,10 @@
    *
    * La ligne de fête (le vœu) ou de terme sous la marque se touche : elle rouvre
    * l'anecdote du jour, qui ramène au menu.
+   *
+   * Le personnage (brief §8) s'ouvre par son portrait, la première des trois icônes de
+   * l'en-tête : sa tête à son rang, dans la case d'une icône, sans une ligne de plus, pour
+   * que le menu tienne toujours sur un écran. Sans personnage, un visage au trait.
    */
   import Bulle from './Bulle.svelte';
   import Embleme from './Embleme.svelte';
@@ -39,6 +43,8 @@
   import Marque from './Marque.svelte';
   import Pinceaux from './Pinceaux.svelte';
   import Tao from './Tao.svelte';
+  import Heros from './Heros.svelte';
+  import { herosOnce, rangDe, total, type Rang } from './heros';
   import { aAudio, dire, manifesteOnce, type Manifeste } from './audio';
   import {
     devinettesOnce,
@@ -69,6 +75,7 @@
     oncase,
     onchercher,
     onreglages,
+    onpersonnage = () => undefined,
     onanecdote = () => undefined
   }: {
     p: Progress;
@@ -84,6 +91,8 @@
     /** La loupe : chercher un caractère de l'export. */
     onchercher: () => void;
     onreglages: () => void;
+    /** Le portrait de l'en-tête : « Mon personnage ». */
+    onpersonnage?: () => void;
     /** La ligne de fête ou de terme de l'en-tête : rouvre l'anecdote du jour. */
     onanecdote?: () => void;
   } = $props();
@@ -207,6 +216,22 @@
     });
   }
 
+  /* ---------- le portrait du personnage ---------- */
+
+  let rangsHeros = $state<Rang[]>([]);
+  $effect(() => {
+    let vivant = true;
+    void herosOnce()
+      .then((d) => {
+        if (vivant) rangsHeros = d.rangs;
+      })
+      .catch(() => undefined);
+    return () => {
+      vivant = false;
+    };
+  });
+  const rangHeros = $derived(rangDe(total(p.arts), rangsHeros));
+
   /* ---------- les cases ---------- */
 
   let casesTraits = $state<Record<string, StrokeData | null>>({});
@@ -299,6 +324,15 @@
         </span>
       </div>
     {/if}
+    <button class="icone perso" aria-label={p.heros ? `Mon personnage, ${p.heros.nom}` : 'Mon personnage'} onclick={onpersonnage}>
+      {#if p.heros}
+        <span class="portrait"><Heros bete={p.heros.bete} rang={rangHeros} cadre="portrait" largeur={34} /></span>
+      {:else}
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <circle cx="12" cy="13.5" r="7" /><path d="M7.5 8.5 6.5 4l4 2.6M16.5 8.5l1-4.5-4 2.6" /><path d="M10 15.5q2 1.5 4 0" />
+        </svg>
+      {/if}
+    </button>
     <button class="icone" aria-label="Chercher un caractère" onclick={onchercher}>
       <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6" /><path d="M20 20l-4.5-4.5" /></svg>
     </button>
@@ -550,6 +584,19 @@
   }
   .icone:active {
     background: var(--card);
+  }
+  /* le portrait : la tête du personnage dans un rond de papier, à la taille d'une icône */
+  .portrait {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: var(--card);
+    border: 1.5px solid var(--line);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    line-height: 0;
   }
   .icone svg {
     width: 24px;

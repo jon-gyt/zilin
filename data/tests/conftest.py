@@ -52,3 +52,14 @@ def _sans_lettres(monkeypatch: pytest.MonkeyPatch, tmp_path: Path) -> None:
     from wenlu_data import lettres
 
     monkeypatch.setattr(lettres, "VERSIONS", tmp_path / "sans-lettres")
+
+
+@pytest.fixture(autouse=True)
+def _sans_rangs_du_personnage(monkeypatch: pytest.MonkeyPatch) -> None:
+    """Les exports de test ne tirent pas les titres des rangs du personnage.
+
+    `data/sources/heros/rangs.tsv` ajoute ses caractères au périmètre (翰林 y met 林) ;
+    un build factice n'a pas à les recevoir. Un test qui les veut appelle
+    `heros.caracteres_dessines(heros.charger())`.
+    """
+    monkeypatch.setattr("wenlu_data.export.caracteres_heros", lambda: [])

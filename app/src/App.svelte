@@ -8,6 +8,9 @@
    * Ce qui s'ouvre après quoi se décide dans `parcours.ts`, pas ici.
    */
   import Chercher from './lib/Chercher.svelte';
+  import Fangbang from './lib/Fangbang.svelte';
+  import Personnage from './lib/Personnage.svelte';
+  import { herosOnce, rangAAnnoncer, rangDe, total, type BeteId, type HerosDonnees } from './lib/heros';
   import Close from './lib/Close.svelte';
   import FirstSession from './lib/FirstSession.svelte';
   import Fix from './lib/Fix.svelte';
@@ -66,6 +69,8 @@
     setDepart,
     departNext,
     finDepart,
+    choisirHeros,
+    annoncerRang,
     setBudget,
     setDue,
     setEnAttente,
@@ -114,7 +119,9 @@
     | 'foret'
     | 'rewards'
     | 'reglages'
-    | 'chercher';
+    | 'chercher'
+    | 'personnage'
+    | 'fangbang';
 
   let p: Progress = $state(emptyProgress(today()));
 
@@ -161,6 +168,48 @@
     requete = '';
     trouvee = null;
     ecran = 'chercher';
+  }
+
+  /*
+   * Le personnage (brief §8) : ses rangs, ses bêtes, les phrases de Tao (`heros.json`).
+   * Le 放榜 passe au retour au menu quand un rang est franchi, jamais au milieu d'un pas.
+   */
+  let herosDonnees: HerosDonnees | null = $state(null);
+  void herosOnce()
+    .then((d) => {
+      herosDonnees = d;
+      if (ecran === 'menu') annoncerUnRang();
+    })
+    .catch(() => undefined);
+
+  /** Le rang à fêter, celui que montre l'écran 放榜. */
+  let rangPromu = $state(0);
+
+  /** Un rang franchi depuis le dernier 放榜 : l'écran passe avant le menu. */
+  function annoncerUnRang(): void {
+    if (herosDonnees === null) return;
+    const r = rangAAnnoncer(p.heros, p.arts, herosDonnees.rangs);
+    if (r === null) return;
+    rangPromu = r;
+    ecran = 'fangbang';
+  }
+
+  /** Le 放榜 vu : le rang est noté, on arrive au menu. */
+  function fangbangVu(): void {
+    p = annoncerRang(p, rangPromu);
+    enregistrer();
+    allerAuMenu();
+  }
+
+  /** Le rang que les points donnent, celui où un personnage choisi commence. */
+  function rangActuel(): number {
+    return rangDe(total(p.arts), herosDonnees?.rangs ?? []);
+  }
+
+  /** Le personnage choisi, sur son écran, pour une progression qui n'en avait pas. */
+  function personnageChoisi(bete: BeteId, nom: string): void {
+    p = choisirHeros(p, bete, nom, rangActuel());
+    enregistrer();
   }
 
   /** Le jeu ouvert, `null` quand l'écran hôte montre le choix. */
@@ -227,6 +276,7 @@
     anecOuverture = true;
     anecRetour = null;
     ecran = apresSplash(p);
+    if (ecran === 'menu') annoncerUnRang();
   }
 
   function splashFini(): void {
@@ -262,11 +312,15 @@
     lettreDuJour();
   }
 
-  /** Retour au menu : c'est là, et seulement là, que la journée peut basculer. */
+  /**
+   * Retour au menu : c'est là, et seulement là, que la journée peut basculer, et qu'un
+   * rang franchi passe au 放榜.
+   */
   function allerAuMenu(): void {
     ecran = 'menu';
     basculer();
     lettreDuJour();
+    annoncerUnRang();
   }
 
   /* Au retour au premier plan, sur le menu seulement : un pas ouvert ne bouge pas. */
@@ -390,6 +444,12 @@
   /** Seconde question : le rythme, qui devient le budget de la session. */
   function departRythme(budget: Budget): void {
     p = setBudget(p, budget);
+    enregistrer();
+  }
+
+  /** Le dernier écran : le personnage, sa bête et son nom. La première session se clôt ensuite. */
+  function departHeros(bete: BeteId, nom: string): void {
+    p = choisirHeros(p, bete, nom, rangActuel());
     enregistrer();
   }
 
@@ -683,6 +743,7 @@
     onsuivant={departSuivant}
     onobjectif={departObjectif}
     onrythme={departRythme}
+    onheros={departHeros}
     onfini={departFini}
     onquitter={quitter}
   />
@@ -772,8 +833,12 @@
   {:else}
     <Chercher {p} bind:q={requete} onfamille={(fam, c) => (trouvee = { fam, c })} onretour={allerAuMenu} />
   {/if}
+{:else if ecran === 'personnage'}
+  <Personnage {p} donnees={herosDonnees} onretour={allerAuMenu} onchoisi={personnageChoisi} />
+{:else if ecran === 'fangbang' && herosDonnees && p.heros}
+  <Fangbang donnees={herosDonnees} heros={p.heros} rang={rangPromu} oncontinuer={fangbangVu} />
 {:else if ecran === 'reglages'}
   <Settings {p} onprogression={remplacer} onretour={allerAuMenu} />
 {:else}
-  <Menu {p} fete={feteJour} {fetes} terme={laJournee.terme} {saisons} ondemarrer={boutonMenu} oncase={caseMenu} onanecdote={() => relireAnecdote('menu')} onchercher={ouvrirChercher} onreglages={() => (ecran = 'reglages')} />
+  <Menu {p} fete={feteJour} {fetes} terme={laJournee.terme} {saisons} ondemarrer={boutonMenu} oncase={caseMenu} onanecdote={() => relireAnecdote('menu')} onchercher={ouvrirChercher} onreglages={() => (ecran = 'reglages')} onpersonnage={() => (ecran = 'personnage')} />
 {/if}

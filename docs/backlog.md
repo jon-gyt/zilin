@@ -42,6 +42,7 @@ Format BMAD : épics puis stories. Priorité dans l'ordre. Une story se termine 
 - 4.2 Arbre d'une famille, fiche courte, lancement de la prochaine leçon.
 - 4.3 Tao qui grandit (paliers 100, 300, 1 000), postures par activité, humeur par variété, journal du soir, collection visible.
 - 4.4 Chercher : la loupe du menu ouvre la recherche d'un caractère de l'export, par son dessin, son pinyin (avec ou sans accents ni tons) ou le sens d'une fiche relue ; au plus vingt résultats, dessinés depuis les traits, avec la famille et le statut (lu, en cours, pas encore) ; toucher un résultat le dit et ouvre sa famille dans l'arbre.
+- 4.5 Le personnage (mode héros, décision du propriétaire, maquette validée `wenlu-heros.html`) : trois bêtes non genrées (玉兔, 熊猫, 醒狮) et un nom, choisis à la fin de la première session, changés dans Réglages sans rien perdre ; douze rangs du bébé à l'adulte (启蒙 à 状元, paliers 0 à 1 000) ; quatre arts (读 写 听 说), un point par bonne réponse notée, dérivé des événements de révision, des tracés achevés et des jeux ; le personnage grandit à chaque point, change de silhouette et de tenue, gagne une aura ; écran « Mon personnage » ouvert par le portrait de l'en-tête du menu ; 放榜 au retour au menu quand un rang est franchi. Textes par le pipeline (`data/sources/heros/`, `heros.json`), dessins dans l'app.
 
 ## Épic 4b · Jeux
 - 4b.1 Moteur de mini-jeux : un contrat commun (entrée : caractères acquis ; sortie : événements de révision notés), écran hôte, retour vers la session.
@@ -75,7 +76,7 @@ Relevé sur le dépôt après une revue du pipeline. Les numéros ci-dessus ne b
   fetch, ingest, build, export et check, et deux passages écrivent les mêmes octets.
   8 148 caractères sur 9 574 réconciliés ; 241 du seuil 255 sur 255, 280 du HSK 1 sur 300 ;
   238 familles exportées en 1,33 Mio.
-- Épic 2 : 2.1 à 2.8 (2.2 et 2.8 revues le 24 septembre : le menu et le parcours du prototype validé). Épic 3 : 3.1 à 3.4. Épic 4 : 4.1 à 4.4 (4.4, Chercher, le 24 septembre : la recherche en français ne trouvera rien tant qu'aucune fiche n'est relue).
+- Épic 2 : 2.1 à 2.8 (2.2 et 2.8 revues le 24 septembre : le menu et le parcours du prototype validé). Épic 3 : 3.1 à 3.4. Épic 4 : 4.1 à 4.5 (4.4, Chercher, le 24 septembre : la recherche en français ne trouvera rien tant qu'aucune fiche n'est relue ; 4.5, le personnage, le 25 septembre).
 - Épic 4b : 4b.1 à 4b.9 (textes des jeux à relire). Épic 5 : 5.1, et 5.2 (24 septembre).
 - 5.2, le site public : `app/scripts/site/` génère du HTML statique depuis l'export
   versionné, dans l'artefact Pages de l'app, après `vite build`. 480 caractères dessinables
@@ -197,6 +198,36 @@ Relevé sur le dépôt après une revue du pipeline. Les numéros ci-dessus ne b
   « Une lettre de Que » la semaine de l'arrivée ; lue, notée dans la progression. Reste :
   relire les douze lettres ; des lettres pour le parcours HSK (只, 姓, 每, 如, 念, 古, 长
   n'y sont pas posés : dix lettres sur douze ne s'y ouvrent jamais).
+
+- 4.5, le personnage (25 septembre), **textes à relire** : décision du propriétaire, maquette
+  validée `wenlu-heros.html`, brief §8 « Le personnage ». Pipeline : `data/sources/heros/`
+  (`rangs.tsv`, `betes.tsv`, `tao.tsv`), rédigé pour l'app, sans API ; `heros.json`, nommé
+  par l'index et dans l'empreinte ; quatre contrôles bloquants (sources : douze rangs, seuils
+  strictement croissants depuis 0, âges dans l'ordre, trois bêtes, trois idées de nom, huit
+  phrases de Tao sans jeton inconnu, aucun dragon ; pinyin ; périmètre ; export). Les titres
+  des rangs se dessinent depuis leurs traits : quatorze caractères de plus dans le périmètre
+  (527, donc quatorze pages de plus sur le site), et la police reprend les noms des bêtes.
+  Dans l'app : `heros.ts` (arts, rangs, taille, bulle de Tao, 放榜), `Heros.svelte` (le
+  dessin porté de la maquette : trois bêtes, douze silhouettes et tenues, taille continue,
+  aura), `ChoixHeros.svelte`, `Personnage.svelte`, `Fangbang.svelte`. Le choix est le dernier
+  écran de la première session ; une progression d'avant lui le fait à la première ouverture
+  de « Mon personnage ». L'accès : le portrait du personnage, première des trois icônes de
+  l'en-tête du menu (aucune ligne de plus, le menu tient à 393 × 660, fêtes comprises) ;
+  Réglages change la bête ou le nom sans rien perdre. Le 放榜 passe au retour au menu, jamais
+  au milieu d'un pas, une fois par rang. Les points : un par bonne réponse notée
+  (`noterRevision`), dans l'art de sa question (读 : sens, caractère, assemblage, trou, et
+  tous les jeux ; 写 : tracé, et chaque tracé achevé au pas Apprendre ; 听 : oreille ; 说 :
+  « quel élément donne le son ? »), jamais pour le temps ni la vitesse. Ils sont comptés
+  dans la progression (`arts`), un compteur de plus : l'historique des cartes est borné à
+  vingt lignes et ne dit pas le type de question, un calcul pur ferait rapetisser le
+  personnage ; une progression d'avant lui recalcule les siens depuis cet historique et les
+  tracés achevés. La progression garde aussi `heros: {bete, nom, rang}`, le rang étant le
+  dernier annoncé, pour qu'un 放榜 ne se montre jamais deux fois. Restent : relire les
+  textes, les écrire en anglais ; 听 et 说 restent à zéro tant qu'aucun audio n'est embarqué
+  (la question à l'oreille en demande un) et qu'aucune fiche relue ne porte de rôle son ;
+  une vraie question de ton ou de pinyin pour 说 (les tons sont hors du périmètre V1) ;
+  un jeu qui note plusieurs caractères pour une réponse (la coquille et son intrus, une
+  réplique WeChat) donne un point par caractère noté, à trancher.
 
 ### Livrées à moitié : le code attend une clé d'API
 

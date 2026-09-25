@@ -1,0 +1,175 @@
+{
+ "version": "0.1.0",
+ "license": "propriétaire",
+ "source": "data/sources/heros/ : rangs, bêtes et phrases de Tao rédigés pour l'app (à relire), d'après la maquette validée par le propriétaire",
+ "source_url": "https://github.com/jon-gyt/zilin",
+ "modified": "2026-09-25 : assemblé par `wenlu export`",
+ "rangs": [
+  {
+   "hz": "启蒙",
+   "pinyin": "qǐméng",
+   "fr": "lever le voile",
+   "role": "les tout premiers caractères",
+   "age": "bébé",
+   "seuil": 0
+  },
+  {
+   "hz": "蒙童",
+   "pinyin": "méngtóng",
+   "fr": "l'enfant qu'on éveille",
+   "role": "les premières leçons",
+   "age": "tout-petit",
+   "seuil": 10
+  },
+  {
+   "hz": "学童",
+   "pinyin": "xuétóng",
+   "fr": "l'enfant qui étudie",
+   "role": "l'école du village, 私塾",
+   "age": "enfant",
+   "seuil": 25
+  },
+  {
+   "hz": "童生",
+   "pinyin": "tóngshēng",
+   "fr": "l'enfant lettré",
+   "role": "en route pour le premier examen",
+   "age": "grand enfant",
+   "seuil": 50
+  },
+  {
+   "hz": "秀才",
+   "pinyin": "xiùcai",
+   "fr": "talent éclos",
+   "role": "reçu à l'examen du district",
+   "age": "ado",
+   "seuil": 80
+  },
+  {
+   "hz": "举人",
+   "pinyin": "jǔrén",
+   "fr": "la personne recommandée",
+   "role": "reçu à l'examen de la province",
+   "age": "ado",
+   "seuil": 120
+  },
+  {
+   "hz": "贡士",
+   "pinyin": "gòngshì",
+   "fr": "le lettré offert au trône",
+   "role": "reçu au concours de la capitale",
+   "age": "jeune",
+   "seuil": 180
+  },
+  {
+   "hz": "进士",
+   "pinyin": "jìnshì",
+   "fr": "le lettré qui s'avance",
+   "role": "reçu à l'examen du palais",
+   "age": "jeune",
+   "seuil": 260
+  },
+  {
+   "hz": "翰林",
+   "pinyin": "hànlín",
+   "fr": "la forêt des pinceaux",
+   "role": "membre de l'Académie impériale",
+   "age": "adulte",
+   "seuil": 360
+  },
+  {
+   "hz": "探花",
+   "pinyin": "tànhuā",
+   "fr": "cueillir les fleurs",
+   "role": "troisième à l'examen du palais",
+   "age": "adulte",
+   "seuil": 500
+  },
+  {
+   "hz": "榜眼",
+   "pinyin": "bǎngyǎn",
+   "fr": "l'œil du tableau",
+   "role": "deuxième à l'examen du palais",
+   "age": "adulte",
+   "seuil": 700
+  },
+  {
+   "hz": "状元",
+   "pinyin": "zhuàngyuan",
+   "fr": "tête de liste",
+   "role": "en tête de l'examen du palais",
+   "age": "adulte",
+   "seuil": 1000
+  }
+ ],
+ "betes": [
+  {
+   "id": "tu",
+   "hz": "玉兔",
+   "pinyin": "yùtù",
+   "fr": "le lapin de jade",
+   "dit": "Oreilles dressées, rien ne lui échappe.",
+   "noms": [
+    "Yuè",
+    "月月",
+    "Pompon"
+   ]
+  },
+  {
+   "id": "xiongmao",
+   "hz": "熊猫",
+   "pinyin": "xióngmāo",
+   "fr": "le panda",
+   "dit": "Lent, têtu, et ne lâche jamais un caractère.",
+   "noms": [
+    "Bao",
+    "宝宝",
+    "Bambou"
+   ]
+  },
+  {
+   "id": "shi",
+   "hz": "醒狮",
+   "pinyin": "xǐngshī",
+   "fr": "le lion dansé",
+   "dit": "Toujours prêt à bondir sur un mot nouveau.",
+   "noms": [
+    "Shi",
+    "狮狮",
+    "Grelot"
+   ]
+  }
+ ],
+ "tao": {
+  "accueil": "Je suis Tao. Je t'aiderai sur le chemin, à chaque pas.",
+  "choisi": "{bete}, {bete_fr} ! {dit}",
+  "depart": "On y va ?",
+  "essayer": "Et si on essayait {art}, {art_fr} ? Je t'aide.",
+  "presque": "Plus que {reste} points pour {rang} !",
+  "presque_un": "Plus qu'un point pour {rang} !",
+  "sommet": "{nom}, premier du concours. On continue de lire ensemble ?",
+  "fangbang": "Ton nom est sur la liste, {nom} : {rang}, « {rang_fr} », {role}. Tu grandis d'un cran. Tao applaudit."
+ },
+ "racines": {
+  "举": "一",
+  "人": "人",
+  "元": "二",
+  "启": "户",
+  "士": "士",
+  "学": "子",
+  "才": "才",
+  "探": "扌",
+  "林": "木",
+  "榜": "木",
+  "状": "丬",
+  "生": "生",
+  "眼": "目",
+  "秀": "禾",
+  "童": "立",
+  "翰": "十",
+  "花": "艹",
+  "蒙": "艹",
+  "贡": "工",
+  "进": "辶"
+ }
+}

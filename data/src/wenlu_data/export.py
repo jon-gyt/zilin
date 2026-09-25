@@ -10,7 +10,8 @@ toutes leurs briques (prérequis transitifs). Pas tout le dictionnaire : une
 famille n'est exportée qu'avec ses membres du périmètre. Les caractères que les
 fêtes dessinent (l'anecdote, le 福 du vœu, `data/sources/fetes/textes.tsv`) y
 entrent aussi, avec leurs briques : l'app les trace depuis leurs traits. De même pour
-le caractère à lire de chaque terme solaire (`data/sources/saisons/textes.tsv`).
+le caractère à lire de chaque terme solaire (`data/sources/saisons/textes.tsv`), et pour
+les titres des rangs du personnage (`data/sources/heros/rangs.tsv`), que l'app dessine.
 
 Séparation des licences (`docs/sources-licences.md` §8) — trois régimes, trois
 familles de fichiers, jamais mêlés :
@@ -25,8 +26,8 @@ familles de fichiers, jamais mêlés :
 - `familles/<racine>.json` : décomposition canonique GF 0014-2009 et textes des
   fiches relues, propriétaires. Aucun tracé n'y entre.
 - `paires.json`, `contes/<id>.json`, `fetes.json`, `saisons.json`, `devinettes.json`,
-  `eclair.json`, `coquilles.json`, `cuisine.json`, `lettres.json`, `wechat.json` : propriétaires,
-  source citée. `lettres.json` ne porte que les lettres de Que relues (`lettres.py`).
+  `eclair.json`, `coquilles.json`, `cuisine.json`, `lettres.json`, `wechat.json`, `heros.json` :
+  propriétaires, source citée. `lettres.json` ne porte que les lettres de Que relues (`lettres.py`).
 - `apercu/` : les textes encore à relire (voir plus bas), propriétaires eux aussi.
 
 Ce qui n'entre jamais dans l'export :
@@ -88,6 +89,7 @@ from . import devinettes as devinettes_mod
 from . import eclair as eclair_mod
 from . import fetes as fetes_mod
 from . import fiches as fiches_mod
+from . import heros as heros_mod
 from . import lettres as lettres_mod
 from . import saisons as saisons_mod
 from . import surcharges as surcharges_mod
@@ -104,7 +106,7 @@ VERSION = "0.1.0"
 #: Version du format écrit par ce module. À incrémenter à chaque changement de
 #: ce que l'export produit à entrées égales (clé ajoutée, ordre, règle de
 #: sélection) : elle entre dans l'empreinte, et l'export versionné devient périmé.
-FORMAT_EXPORT = 5
+FORMAT_EXPORT = 6
 
 #: Le code de l'exporteur, lui aussi dans l'empreinte : un changement de ce
 #: fichier où l'on aurait oublié `FORMAT_EXPORT` rend quand même l'export périmé.
@@ -118,7 +120,8 @@ NIVEAUX: dict[str, tuple[str, int]] = {"seuil-255": ("seuil", 255), "hsk-1": ("h
 
 PERIMETRE = (
     "seuil 255 et HSK 1 : les caractères des deux listes et leurs briques ;"
-    " les caractères dessinés des fêtes et des termes solaires, et leurs briques"
+    " les caractères dessinés des fêtes, des termes solaires et des rangs du personnage,"
+    " et leurs briques"
 )
 
 #: Sources versionnées de l'export, hors `data/work/`.
@@ -182,6 +185,7 @@ def fichiers_sources(
         ("exporteur-cuisine", Path(cuisine_mod.__file__).resolve()),
         ("exporteur-lettres", Path(lettres_mod.__file__).resolve()),
         ("exporteur-wechat", Path(wechat_mod.__file__).resolve()),
+        ("exporteur-heros", Path(heros_mod.__file__).resolve()),
         ("decompositions", build / "decompositions.json"),
         ("graphe", build / "graphe.json"),
         *[(f"parcours-{nom}", build / f"parcours-{nom}.json") for nom in sorted(PARCOURS)],
@@ -214,6 +218,9 @@ def fichiers_sources(
         ("wechat-ami", wechat_mod.AMI),
         ("wechat-dialogues", wechat_mod.DIALOGUES),
         ("wechat-echanges", wechat_mod.ECHANGES),
+        ("heros-rangs", heros_mod.RANGS),
+        ("heros-betes", heros_mod.BETES),
+        ("heros-tao", heros_mod.TAO),
         ("interface", INTERFACE),
         ("arphicpl", LICENCES_SOURCE / ARPHIC),
         ("unicode", LICENCES_SOURCE / UNICODE_NOTICE),
@@ -693,6 +700,15 @@ def caracteres_interface(chemin: Path | None = None) -> list[str]:
     return vus
 
 
+def caracteres_heros() -> list[str]:
+    """Les caractères des titres de rang du personnage (`data/sources/heros/rangs.tsv`).
+
+    L'app les dessine depuis leurs traits, sur l'écran du personnage et au 放榜 : ils
+    entrent dans le périmètre avec leurs briques, comme ceux des fêtes.
+    """
+    return heros_mod.caracteres_dessines(heros_mod.charger())
+
+
 def document_fetes(
     version: str, noeuds: Mapping[str, Noeud], pinyin: Mapping[str, str] | None = None
 ) -> dict[str, object]:
@@ -887,6 +903,25 @@ def document_cuisine(
             "version": version,
             "license": LICENCE_PROPRIETAIRE,
             "source": cuisine_mod.SOURCE_EXPORT,
+            "source_url": URL_PIPELINE,
+            "modified": f"{JETON_JOUR} : assemblé par `wenlu export`",
+        },
+    )
+
+
+def document_heros(version: str, per: Perimetre, noeuds: Mapping[str, Noeud]) -> dict[str, object]:
+    """Le JSON écrit dans `heros.json` (story 4.5), voir `heros.py`.
+
+    Les titres des rangs entrent dans le périmètre (`assembler`) : l'app les dessine depuis
+    leurs traits, et `racines` dit où les trouver.
+    """
+    return heros_mod.document(
+        version,
+        racines={c: noeuds[c].racine for c in per.caracteres},
+        en_tete={
+            "version": version,
+            "license": LICENCE_PROPRIETAIRE,
+            "source": heros_mod.SOURCE_EXPORT,
             "source_url": URL_PIPELINE,
             "modified": f"{JETON_JOUR} : assemblé par `wenlu export`",
         },
@@ -1242,6 +1277,7 @@ def document_index(
         "cuisine": "cuisine.json",
         "lettres": "lettres.json",
         "wechat": "wechat.json",
+        "heros": "heros.json",
     }
     if apercu:
         document["apercu"] = f"{APERCU}/index.json"
@@ -1320,10 +1356,10 @@ TABLEAU_LICENCES: tuple[tuple[str, str, str, str, str], ...] = (
     ),
     (
         "Fiches, contes, paires, fêtes, saisons, devinettes, dictionnaire éclair, coquilles, cuisine,"
-        " lettres de Que, message WeChat (pipeline wenlu)",
+        " lettres de Que, message WeChat, personnage (pipeline wenlu)",
         "`familles/`, `contes/`, `paires.json`, `fetes.json`, `saisons.json`, `devinettes.json`,"
-        " `eclair.json`, `coquilles.json`, `cuisine.json`, `lettres.json`, `wechat.json`, et `apercu/`"
-        " pour les textes encore à relire",
+        " `eclair.json`, `coquilles.json`, `cuisine.json`, `lettres.json`, `wechat.json`,"
+        " `heros.json`, et `apercu/` pour les textes encore à relire",
         LICENCE_PROPRIETAIRE,
         "textes rédigés pour l'app, relus",
         "—",
@@ -1354,7 +1390,8 @@ def licences_md(version: str) -> str:
         f"- `traits/` : tracés sous {LICENCE_TRAITS}, avec `{ARPHIC}` inaltéré à côté"
         " et `traits/MODIFICATIONS.md` qui dit comment et quand ils ont été dérivés.",
         "- `familles/`, `contes/`, `paires.json`, `fetes.json`, `saisons.json`, `devinettes.json`,"
-        " `eclair.json`, `coquilles.json`, `cuisine.json`, `lettres.json`, `wechat.json`, `apercu/` :"
+        " `eclair.json`, `coquilles.json`, `cuisine.json`, `lettres.json`, `wechat.json`, `heros.json`,"
+        " `apercu/` :"
         " décomposition canonique et"
         " textes rédigés pour l'app, propriétaires.",
         f"- `{UNICODE_NOTICE}` : notice de permission Unicode, qui couvre le pinyin.",
@@ -1631,6 +1668,8 @@ def assembler(
     cibles += saisons_mod.caracteres_dessines(saisons_mod.charger_textes())
     # Les caractères de l'interface (la marque, les cases du menu) : même règle.
     cibles += caracteres_interface()
+    # Les titres des rangs du personnage, dessinés au 放榜 et sur son écran : même règle.
+    cibles += caracteres_heros()
     per = perimetre(noeuds, cibles)
     pinyin = charger_pinyin(ingest, per.caracteres)
     dans_le_perimetre = set(per.caracteres)
@@ -1700,6 +1739,7 @@ def assembler(
         lettres_mod.document(lettres_mod.lettres(statut=lettres_mod.RELU), en_tete=en_tete_lettres(version))
     )
     textes["wechat.json"] = _json(document_wechat(version, per, noeuds, documents_parcours, ingest))
+    textes["heros.json"] = _json(document_heros(version, per, noeuds))
     textes["LICENCES.md"] = licences_md(version)
     textes["traits/MODIFICATIONS.md"] = modifications_md(version, len(graphies), decoupes)
     for nom in (ARPHIC, UNICODE_NOTICE):

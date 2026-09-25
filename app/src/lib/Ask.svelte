@@ -15,6 +15,7 @@
   import { fiche, indiceErreur } from './questions';
   import type { Revision } from './session';
   import { grade } from './srs';
+  import { artDe } from './heros';
   import type { Grade } from 'ts-fsrs';
 
   let {
@@ -104,7 +105,8 @@
     const seconds = (Date.now() - depart) / 1000;
     const c = corriger(q, reponse, { correct: false, tries: essais, seconds }, ratees);
     note = grade(c.outcome);
-    onnote({ c: q.c, ...c.outcome });
+    /* L'art du personnage que la question exerce : un point s'il est juste (`noterRevision`). */
+    onnote({ c: q.c, ...c.outcome, art: artDe(q.type) });
     const due = echeanceDe(q.c);
     prochaine = due === null ? '' : delai(new Date(), due);
     /* L'avance automatique laisse lire la correction ; trop longue, on avance au tap. */

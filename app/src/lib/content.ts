@@ -529,6 +529,8 @@ export type Index = {
   lettres: string;
   /** Le fichier du message WeChat, `wechat.json` ; vide pour un export qui n'en porte pas. */
   wechat?: string;
+  /** Le fichier du personnage, `heros.json` (`heros.ts`) ; vide pour un export qui n'en porte pas. */
+  heros?: string;
 };
 
 /** La version de données que l'app lit : le dossier exporté par `wenlu export`. */
@@ -570,7 +572,8 @@ export async function loadIndex(
     eclair: typeof brut.eclair === 'string' ? brut.eclair : '',
     cuisine: typeof brut.cuisine === 'string' ? brut.cuisine : '',
     lettres: typeof brut.lettres === 'string' ? brut.lettres : '',
-    wechat: typeof brut.wechat === 'string' ? brut.wechat : ''
+    wechat: typeof brut.wechat === 'string' ? brut.wechat : '',
+    heros: typeof brut.heros === 'string' ? brut.heros : ''
   };
 }
 

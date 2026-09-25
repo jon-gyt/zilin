@@ -1,0 +1,35 @@
+# Les douze rangs du personnage (story 4.5, brief §8 « Le personnage »).
+#
+# Source : rédigé pour l'app, sans API, dans une session Claude Code, d'après la maquette
+# validée par le propriétaire (`wenlu-heros.html`) ; à relire. L'éveil, l'enfance, puis
+# les grades des examens impériaux (科举) jusqu'au trio du palais (探花, 榜眼, 状元) : des
+# titres historiques, traduits mot à mot pour l'app, aucun texte tiers recopié.
+#
+# Règles (`wenlu check`, « héros : sources ») : douze rangs, dans l'ordre ; le premier à 0
+# point, des seuils strictement croissants ; l'âge est l'une des étapes de vie, dans
+# l'ordre (bébé, tout-petit, enfant, grand enfant, ado, jeune, adulte), jamais en arrière ;
+# chaque titre se lit dans son pinyin (« héros : pinyin ») et se dessine depuis ses traits,
+# exportés avec ses briques (« héros : périmètre »).
+#
+# Format : TSV, `#` en commentaire, sept colonnes séparées par une tabulation :
+#
+# - `hz`, `pinyin` : le titre, pinyin aux tons du dictionnaire (ton neutre de l'usage :
+#   xiùcai, zhuàngyuan), d'un seul tenant ;
+# - `fr` : la traduction mot à mot, sans guillemets (l'app les pose) ;
+# - `role` : ce qu'était ce rang, en une ligne ;
+# - `age` : l'étape de vie du personnage à ce rang ; le dessin en change la silhouette ;
+# - `seuil` : les points qu'il faut pour l'atteindre ;
+# - `source`.
+hz	pinyin	fr	role	age	seuil	source
+启蒙	qǐméng	lever le voile	les tout premiers caractères	bébé	0	rédigé pour l'app
+蒙童	méngtóng	l'enfant qu'on éveille	les premières leçons	tout-petit	10	rédigé pour l'app
+学童	xuétóng	l'enfant qui étudie	l'école du village, 私塾	enfant	25	rédigé pour l'app
+童生	tóngshēng	l'enfant lettré	en route pour le premier examen	grand enfant	50	rédigé pour l'app
+秀才	xiùcai	talent éclos	reçu à l'examen du district	ado	80	rédigé pour l'app
+举人	jǔrén	la personne recommandée	reçu à l'examen de la province	ado	120	rédigé pour l'app
+贡士	gòngshì	le lettré offert au trône	reçu au concours de la capitale	jeune	180	rédigé pour l'app
+进士	jìnshì	le lettré qui s'avance	reçu à l'examen du palais	jeune	260	rédigé pour l'app
+翰林	hànlín	la forêt des pinceaux	membre de l'Académie impériale	adulte	360	rédigé pour l'app
+探花	tànhuā	cueillir les fleurs	troisième à l'examen du palais	adulte	500	rédigé pour l'app
+榜眼	bǎngyǎn	l'œil du tableau	deuxième à l'examen du palais	adulte	700	rédigé pour l'app
+状元	zhuàngyuan	tête de liste	en tête de l'examen du palais	adulte	1000	rédigé pour l'app
