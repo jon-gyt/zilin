@@ -18,22 +18,24 @@
    * `grade`. Pas de chronomètre, pas de vie, pas de point.
    */
   import { tick } from 'svelte';
+  import FilWechat from './FilWechat.svelte';
   import Glyph from './Glyph.svelte';
+  import RepliquesWechat from './RepliquesWechat.svelte';
   import Tao from './Tao.svelte';
   import { JEUX, fini, type CorpusJeux, type Manche } from './jeux';
   import { delai } from './revision';
   import { echeance, type Progress, type Revision } from './session';
   import { humeur, stade } from './tao';
   import {
+    LIGNE_ERREUR,
     choisirReplique,
     dialoguesJouables,
-    grappes,
     mancheWechat,
     manquants,
     prochains,
     replique,
-    type Dialogue,
-    type TexteWechat
+    type Bulle,
+    type Dialogue
   } from './wechat';
 
   let {
@@ -70,9 +72,6 @@
   const taoHumeur = $derived(humeur(p.tao.activites, p.day));
   const taoStade = $derived(stade(p.tao.croissance));
 
-  /** Une bulle du fil : de l'ami, ou la réplique choisie. `cle` la nomme dans le fil. */
-  type Bulle = { de: 'ami' | 'moi'; t: TexteWechat; cle: string; tour: number };
-
   let dialogue = $state<Dialogue | null>(null);
   let m = $state<Manche | null>(null);
   let fil = $state<Bulle[]>([]);
@@ -84,11 +83,9 @@
   let notee = $state<{ premier: boolean; notes: string[] } | null>(null);
   /** L'ami écrit : sa bulle arrive. */
   let attente = $state(false);
-  /** Les caractères dont on a demandé le pinyin, par bulle et par place. */
-  let ouverts = $state<string[]>([]);
   let bas = $state<HTMLElement | null>(null);
   let depart = 0;
-  let n = 0;
+  let n = $state(0);
   let minuteur: ReturnType<typeof setTimeout> | null = null;
 
   function arreter(): void {
@@ -116,7 +113,6 @@
     ecartees = [];
     fausse = null;
     notee = null;
-    ouverts = [];
     attente = false;
     depart = Date.now();
     void defiler();
@@ -169,25 +165,10 @@
     }, REPONSE_MS);
   }
 
-  function basculer(cle: string): void {
-    ouverts = ouverts.includes(cle) ? ouverts.filter((x) => x !== cle) : [...ouverts, cle];
-  }
-
   /** Une bulle se traduit une fois l'échange répondu : on lit d'abord, le sens vient après. */
   function traduite(b: Bulle): boolean {
     return b.de === 'moi' || m === null || b.tour < m.i || fini(m);
   }
-
-  /** Un caractère ouvert dans une bulle sans pinyin par caractère : on montre la ligne entière. */
-  function ligneEntiere(b: Bulle): boolean {
-    return b.t.syllabes.length === 0 && ouverts.some((x) => x.startsWith(`${b.cle}/`));
-  }
-
-  const ERREUR = {
-    'hors-sujet': 'Cette réplique parle d’autre chose.',
-    contresens: 'Cette réplique lit mal son message : relis-le, un mot après l’autre.',
-    '': ''
-  } as const;
 
   const quand = $derived.by(() => {
     const c = notee?.notes[0];
@@ -252,60 +233,24 @@
     <Tao stade={taoStade} posture="lecture" humeur={taoHumeur} size={56} />
   </div>
 
-  <!-- La conversation : l'ami à gauche, la réplique choisie à droite. -->
-  <div class="fil" aria-label="La conversation" aria-live="polite">
-    {#each fil as b (b.cle)}
-      <div class="bulle {b.de}">
-        <p class="zh" lang="zh-Hans">
-          {#each grappes(b.t) as g, k (k)}
-            <!-- Un caractère et sa ponctuation ne se séparent pas en fin de ligne. -->
-            <span class="grappe">
-              {#each g as x, j (j)}
-                {#if x.py === null}
-                  <span class="ponct">{x.c}</span>
-                {:else}
-                  {@const cle = `${b.cle}/${k}`}
-                  <button
-                    class="signe"
-                    aria-label="{x.c} : son pinyin"
-                    aria-pressed={ouverts.includes(cle)}
-                    onclick={() => basculer(cle)}
-                  >
-                    <ruby>{x.c}{#if ouverts.includes(cle) && x.py}<rt>{x.py}</rt>{/if}</ruby>
-                  </button>
-                {/if}
-              {/each}
-            </span>
-          {/each}
-        </p>
-        {#if ligneEntiere(b)}<p class="py-ligne">{b.t.pinyin}</p>{/if}
-        {#if traduite(b)}<p class="tr">{b.t.fr}</p>{/if}
-      </div>
-    {/each}
-    {#if attente && m !== null && !(fini(m) && !dialogue.fin)}
-      <div class="bulle ami ecrit" aria-label="{ami.zh} écrit">…</div>
-    {/if}
-  </div>
+  <!-- La conversation : l'ami à gauche, la réplique choisie à droite. Une conversation
+       neuve repart sans pinyin ouvert. -->
+  {#key dialogue.id + '/' + n}
+    <FilWechat
+      {fil}
+      {ami}
+      attente={attente && m !== null && !(fini(m) && !dialogue.fin)}
+      {traduite}
+    />
+  {/key}
 
   {#if echange !== null && !attente}
-    <div class="repliques" aria-label="Tes répliques">
-      {#each choix as zh (zh)}
-        {@const r = replique(echange, zh)}
-        <button
-          class:ecartee={ecartees.includes(zh)}
-          disabled={ecartees.includes(zh)}
-          onclick={() => choisir(zh)}
-        >
-          <span class="zh" lang="zh-Hans">{zh}</span>
-          {#if ecartees.includes(zh) && r}<small>« {r.fr} »</small>{/if}
-        </button>
-      {/each}
-    </div>
+    <RepliquesWechat {echange} {choix} {ecartees} onchoisir={choisir} />
     <div class="fb">
       {#if fausse !== null}
         {@const r = replique(echange, fausse)}
         <b>Ça ne lui répond pas.</b>
-        {r ? ERREUR[r.erreur] : ''} Rien n’est noté.
+        {r ? LIGNE_ERREUR[r.erreur] : ''} Rien n’est noté.
       {:else if notee !== null}
         {#if notee.premier && notee.notes.length > 0}
           <b>Du premier coup.</b>
@@ -408,117 +353,6 @@
     opacity: 0.55;
   }
 
-  /* le fil : l'ami à gauche, sur la carte ; la réplique choisie à droite, indigo pâle */
-  .fil {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-  }
-  .bulle {
-    max-width: 84%;
-    padding: 8px 12px 9px;
-    border-radius: 14px;
-    animation: paraitre 0.2s ease-out both;
-  }
-  .bulle.ami {
-    align-self: flex-start;
-    background: var(--card);
-    border: 1px solid var(--line);
-    border-bottom-left-radius: 4px;
-  }
-  .bulle.moi {
-    align-self: flex-end;
-    background: var(--indigo-soft);
-    border: 1px solid transparent;
-    border-bottom-right-radius: 4px;
-  }
-  .bulle.ecrit {
-    color: var(--mist);
-    letter-spacing: 0.2em;
-    font-weight: 600;
-  }
-  .bulle .zh {
-    margin: 0;
-    font-family: var(--hz);
-    font-weight: 500;
-    font-size: 21px;
-    line-height: 1.5;
-    color: var(--ink);
-  }
-  .grappe {
-    display: inline-block;
-    white-space: nowrap;
-  }
-  .signe {
-    font: inherit;
-    color: inherit;
-    padding: 0 1px;
-    min-height: 32px;
-    border-radius: 4px;
-  }
-  .signe[aria-pressed='true'] {
-    background: var(--paper);
-  }
-  .bulle.moi .signe[aria-pressed='true'] {
-    background: var(--card);
-  }
-  rt {
-    font-family: var(--head);
-    font-weight: 500;
-    font-size: 11px;
-    color: var(--indigo);
-    letter-spacing: 0;
-  }
-  .py-ligne {
-    margin: 2px 0 0;
-    font-family: var(--head);
-    font-size: 13px;
-    color: var(--indigo);
-  }
-  .tr {
-    margin: 3px 0 0;
-    font-size: 14px;
-    line-height: 1.35;
-    color: var(--ink2);
-  }
-
-  /* les répliques : une par ligne, à lire en entier ; écartée, elle passe en pointillé */
-  .repliques {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-    margin-top: 16px;
-  }
-  .repliques button {
-    width: 100%;
-    min-height: 50px;
-    padding: 8px 14px;
-    border: 1.5px solid var(--line);
-    border-radius: 12px;
-    background: var(--card);
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 2px;
-  }
-  .repliques .zh {
-    font-family: var(--hz);
-    font-weight: 500;
-    font-size: 19px;
-    line-height: 1.4;
-    color: var(--ink);
-  }
-  .repliques button.ecartee {
-    border-style: dashed;
-    border-color: var(--mist);
-    background: transparent;
-    opacity: 0.6;
-    cursor: default;
-  }
-  .repliques small {
-    font-size: 13px;
-    color: var(--ink2);
-  }
   .fb .hz {
     font-size: 17px;
   }
@@ -528,10 +362,5 @@
   .ancre {
     height: 1px;
     scroll-margin-bottom: 16px;
-  }
-  @media (prefers-reduced-motion: reduce) {
-    .bulle {
-      animation: none;
-    }
   }
 </style>

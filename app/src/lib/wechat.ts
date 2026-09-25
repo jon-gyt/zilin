@@ -418,6 +418,37 @@ export function choisirReplique(
   };
 }
 
+/** Ce qui cloche dans une réplique écartée, en une ligne, sans reproche. */
+export const LIGNE_ERREUR: Record<Erreur | '', string> = {
+  'hors-sujet': 'Cette réplique parle d’autre chose.',
+  contresens: 'Cette réplique lit mal son message : relis-le, un mot après l’autre.',
+  '': ''
+};
+
+/** Une bulle du fil : de l'ami, ou la réplique choisie. `cle` la nomme dans le fil. */
+export type Bulle = { de: 'ami' | 'moi'; t: TexteWechat; cle: string; tour: number };
+
+/**
+ * Le fil d'un dialogue arrivé à l'échange `i` : chaque message de l'ami jusqu'à celui en
+ * cours, la bonne réplique de chaque échange répondu, et le mot de la fin une fois le
+ * dialogue mené à bout. C'est ce que la reprise au pas exact remontre, sans rien d'autre
+ * que `i` : les répliques écartées ne s'affichent pas dans le fil.
+ */
+export function filDuDialogue(d: Dialogue, i: number): Bulle[] {
+  const n = d.echanges.length;
+  const k = Math.max(0, Math.min(Math.floor(i), n));
+  const out: Bulle[] = [];
+  for (let t = 0; t < Math.min(k + 1, n); t++) {
+    out.push({ de: 'ami', t: d.echanges[t].ami, cle: `a${t}`, tour: t });
+    if (t < k) {
+      const juste = d.echanges[t].repliques.find((r) => r.juste);
+      if (juste) out.push({ de: 'moi', t: juste, cle: `m${t}`, tour: t });
+    }
+  }
+  if (k === n && d.fin) out.push({ de: 'ami', t: d.fin, cle: 'fin', tour: n });
+  return out;
+}
+
 /** La réplique d'un échange, par son texte. */
 export function replique(e: Echange, zh: string): Replique | null {
   return e.repliques.find((r) => r.zh === zh) ?? null;
