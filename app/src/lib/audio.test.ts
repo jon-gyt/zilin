@@ -15,6 +15,7 @@ import {
   configurerAudio,
   dire,
   lecteur,
+  prononcer,
   loadManifeste,
   manifesteCharge,
   manifesteOnce,
@@ -253,6 +254,61 @@ describe('la voix du téléphone en repli', () => {
     expect(aAudio(MANIFESTE, '住')).toBe(false);
     expect(await dire('住')).toBe(false);
     expect(direParLeTelephone('住')).toBe(false);
+  });
+});
+
+/** Un lecteur dont `play()` rejette avec l'erreur nommée, comme le fait un navigateur. */
+function lecteurQuiEchoue(nom: string): Lecteur & { essais: number } {
+  const l = {
+    src: '',
+    currentTime: 0,
+    preload: '',
+    essais: 0,
+    play() {
+      l.essais += 1;
+      return Promise.reject(Object.assign(new Error(nom), { name: nom }));
+    },
+    pause() {}
+  };
+  return l as unknown as Lecteur & { essais: number };
+}
+
+describe('un fichier qui ne se charge pas', () => {
+  beforeEach(() => {
+    (globalThis as { SpeechSynthesisUtterance?: unknown }).SpeechSynthesisUtterance = UtteranceDEssai;
+  });
+
+  it('joue le fichier quand il se charge', async () => {
+    configurerAudio({ synthese: () => null, lecteur: () => lecteurDEssai(), fetchFn: fetchDEssai([]) });
+    expect(await prononcer('人')).toBe('fichier');
+  });
+
+  it('hors ligne et pas en cache, retombe sur la voix de l’appareil', async () => {
+    const s = syntheseDEssai(['zh-CN']);
+    const l = lecteurQuiEchoue('NotSupportedError');
+    configurerAudio({ synthese: () => s, lecteur: () => l, fetchFn: fetchDEssai([]) });
+    expect(await prononcer('人')).toBe('telephone');
+    expect(l.essais).toBe(1);
+    expect(s.dits).toEqual(['人']);
+    expect(await dire('人')).toBe(true);
+  });
+
+  it('sans voix de l’appareil, rien n’est dit : la question à l’oreille passe', async () => {
+    configurerAudio({ synthese: () => null, lecteur: () => lecteurQuiEchoue('NotSupportedError'), fetchFn: fetchDEssai([]) });
+    expect(await prononcer('人')).toBe('muet');
+    expect(await dire('人')).toBe(false);
+  });
+
+  it('un refus du navigateur (geste requis) ne vaut pas un fichier absent', async () => {
+    configurerAudio({ synthese: () => null, lecteur: () => lecteurQuiEchoue('NotAllowedError'), fetchFn: fetchDEssai([]) });
+    expect(await prononcer('人')).toBe('bloque');
+    configurerAudio({ synthese: () => null, lecteur: () => lecteurQuiEchoue('AbortError'), fetchFn: fetchDEssai([]) });
+    expect(await prononcer('人')).toBe('bloque');
+  });
+
+  it('sans fichier ni voix, muet', async () => {
+    configurerAudio({ synthese: () => null, lecteur: () => lecteurDEssai(), fetchFn: fetchDEssai([]) });
+    expect(await prononcer('住')).toBe('muet');
   });
 });
 
