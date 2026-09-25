@@ -40,6 +40,7 @@
   } from './lib/parcours';
   import { planifier, type JeuId } from './lib/jeux';
   import { noterMotDevine } from './lib/eclair';
+  import type { Choix } from './lib/utiliser';
   import { reglerApercu, toutesLesFamilles, type Noeud } from './lib/content';
   import FeteDecor from './lib/FeteDecor.svelte';
   import { fetesOnce, saisonsOnce, type Fetes, type Saisons } from './lib/content';
@@ -87,6 +88,10 @@
     traceAchevee,
     traceVue,
     useNext,
+    poserJeuUtiliser,
+    repondreEclair,
+    ecarterReplique,
+    repliqueJuste,
     conclureDevinette,
     poserDevinette,
     noterRecette,
@@ -610,6 +615,45 @@
     enchainer();
   }
 
+  /** Le jeu de la journée, choisi à l'entrée du pas (`utiliser.ts`) : rangé une fois. */
+  function utiliserPoser(choix: Choix | null): void {
+    const n = poserJeuUtiliser(p, choix);
+    if (n === p) return;
+    p = n;
+    enregistrer();
+  }
+
+  /**
+   * Le dictionnaire éclair du pas : le sens choisi est rangé, la bonne réponse notée par
+   * `grade` et le mot compté une fois ; une erreur ne note rien. Répondu déjà (reprise,
+   * double tap), rien ne se note deux fois.
+   */
+  function utiliserEclair(reponse: string, evenements: Revision[], devine: string): void {
+    const n = repondreEclair(p, p.day, reponse);
+    if (n === p) return;
+    p = n;
+    for (const r of evenements) noterJeu(r);
+    if (devine !== '') p = noterMotDevine(p, devine);
+    enregistrer();
+  }
+
+  /** Le message WeChat du pas : une réplique fausse est écartée, sans rien noter. */
+  function utiliserEcarter(zh: string): void {
+    const n = ecarterReplique(p, zh);
+    if (n === p) return;
+    p = n;
+    enregistrer();
+  }
+
+  /** La bonne réplique : l'échange suivant s'ouvre, ses caractères notés du premier coup. */
+  function utiliserReplique(evenements: Revision[], echanges: number): void {
+    const n = repliqueJuste(p, p.day, echanges);
+    if (n === p) return;
+    p = n;
+    for (const r of evenements) noterJeu(r);
+    enregistrer();
+  }
+
   /* ---------- pas 5, Fixer ---------- */
 
   /** Chaque réponse replanifie la carte, comme au pas Échauffer. */
@@ -662,10 +706,15 @@
    * comme une question, et la carte du caractère est replanifiée par `schedule`.
    */
   function jeuRepondu(r: Revision): void {
+    noterJeu(r);
+    enregistrer();
+  }
+
+  /** Range un événement de jeu et replanifie sa carte, sans sauvegarder. */
+  function noterJeu(r: Revision): void {
     p = noterRevision(p, p.day, r);
     /* La rétention cible réglée passe à `schedule`, comme au pas Échauffer. */
     p = { ...p, cartes: planifier(p.cartes, r, new Date(), srsParams(p)) };
-    enregistrer();
   }
 
   /**
@@ -780,7 +829,16 @@
     onquitter={quitter}
   />
 {:else if ecran === 'use'}
-  <Use {p} vue={p.use} onsuivant={utiliserSuivant} onquitter={quitter} />
+  <Use
+    {p}
+    vue={p.use}
+    onsuivant={utiliserSuivant}
+    onquitter={quitter}
+    onposer={utiliserPoser}
+    oneclair={utiliserEclair}
+    onecarter={utiliserEcarter}
+    onreplique={utiliserReplique}
+  />
 {:else if ecran === 'check'}
   <Fix
     {p}

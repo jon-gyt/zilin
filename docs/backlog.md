@@ -113,9 +113,8 @@ Relevé sur le dépôt après une revue du pipeline. Les numéros ci-dessus ne b
   réponse, les deux caractères notés par `grade` ; la correction réécrit le mot au
   pinceau, caractère par caractère. Le compteur « mots devinés » (`Progress.motsDevines`,
   un mot une fois, export et import JSON compris) se lit sur l'écran Jouer et au
-  constat ; Tao joue la tête penchée, sans lanterne. Reste : le brancher au pas Utiliser
-  (brief §9), qui demanderait une vue de plus dans `UseView` et la reprise au pas exact
-  de `session.ts` ; laissé pour ne pas toucher la session.
+  constat ; Tao joue la tête penchée, sans lanterne. Branché au pas Utiliser le 25
+  septembre (voir « Les jeux du pas Utiliser » ci-dessous).
 - 4b.3, la chaîne et la coquille (24 septembre). La chaîne suit les `parts` de l'export,
   sur l'acquis et les seuls caractères exportés ; les décompositions canoniques étant
   plates (人, 大, 天 sont des composants de la norme), une manche enchaîne plusieurs
@@ -162,9 +161,25 @@ Relevé sur le dépôt après une revue du pipeline. Les numéros ci-dessus ne b
   (décision pour les jeux de sens) ; une bonne du premier coup note ses caractères par
   `grade`, une fois par dialogue ; trouvée après une erreur, elle ne note rien
   (`NOTER_APRES_ERREUR`, à trancher par le propriétaire). Pas encore d'achat : les 53
-  dialogues sont ouverts. Reste : relire les textes ; le brancher au pas Utiliser (brief
-  §9, « dès la 2e semaine »), qui demanderait une vue de plus dans `Use.svelte` et la
-  reprise au pas exact de `session.ts`.
+  dialogues sont ouverts. Branché au pas Utiliser le 25 septembre (ci-dessous). Reste :
+  relire les textes.
+- Les jeux du pas Utiliser (25 septembre), 4b.4 et 4b.7 : le pas garde ses vues (mots et
+  phrase, puis texte) et prend, certains jours, une vue de plus après le texte, « éclair »
+  ou « message » (`UseView`). Règle déterministe (`utiliser.ts`, brief §9 « Les jeux du
+  pas Utiliser ») : au plus un jeu par journée, choisi à l'entrée du pas et gardé (la
+  session de plus n'en pose pas un second) ; le message WeChat du 8e jour, puis un jour sur
+  trois, sur un dialogue que l'acquis réel ouvre, pas encore lu au pas, le plus récent du
+  parcours d'abord ; sinon l'éclair les jours pairs, un mot, un tour ; jamais plus long que
+  le budget (mots 30 s, texte 50 s, un mot 20 s, un échange 20 s dans les 1, 2 ou 4
+  minutes du pas : rien à 5 minutes, un dialogue de deux échanges au plus à 10). La
+  progression garde `useJeu` (journée, jeu, mot ou dialogue, échange en cours, répliques
+  écartées, sens choisi) et `messagesLus`, export et import JSON compris : « Quitter »
+  reprend au même écran, et une réponse ne se note jamais deux fois. Notation inchangée :
+  bonne réponse par `grade`, erreur non notée ; l'éclair range le mot deviné dans le
+  compteur, qui se lit sous la correction. Le fil et les répliques du message sont
+  partagés avec l'écran du jeu (`FilWechat.svelte`, `RepliquesWechat.svelte`). Vérifié à
+  393 × 660. Reste : le budget de 5 minutes ne pose jamais de jeu, les mots et le texte y
+  prennent déjà la minute du pas.
 - 4b.9, les saisons (24 septembre) : les huit fêtes du calendrier chinois sont en place, du
   pipeline (`data/sources/fetes/`, dates vérifiées contre la table des fêtes de
   `lunar_python`) au décor de l'app (menu à 393 × 660, anecdote, `theme-color`). Chaque

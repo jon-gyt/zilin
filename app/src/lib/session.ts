@@ -104,10 +104,42 @@ export type LearnView = 'brique' | 'trace' | 'compose';
 
 export const LEARN_VIEWS = ['brique', 'trace', 'compose'] as const;
 
-/** Les deux vues du pas Utiliser, dans l'ordre : les mots et la phrase, puis le texte. */
-export type UseView = 'mots' | 'texte';
+/**
+ * Les vues du pas Utiliser, dans l'ordre : les mots et la phrase, puis le texte, puis,
+ * certains jours, un jeu (`utiliser.ts` dit lesquels) : le dictionnaire éclair ou le
+ * message WeChat, jamais les deux.
+ */
+export type UseView = 'mots' | 'texte' | JeuUtiliser;
 
-export const USE_VIEWS = ['mots', 'texte'] as const;
+export const USE_VIEWS = ['mots', 'texte', 'eclair', 'message'] as const;
+
+/** Les deux jeux que le pas Utiliser peut poser après le texte (brief §9). */
+export type JeuUtiliser = 'eclair' | 'message';
+
+/**
+ * Le jeu du pas Utiliser, choisi une fois par journée, à l'entrée du pas, et figé : la
+ * reprise au pas exact retombe sur le même mot ou le même dialogue, au même échange,
+ * avec les mêmes répliques écartées. `jeu` vaut `null` quand la journée n'en pose pas ;
+ * le choix est gardé quand même, pour que la session de plus n'en pose pas un autre.
+ */
+export type UseJeu = {
+  /** La journée du choix, AAAA-MM-JJ. Un autre jour, il se refait. */
+  jour: string;
+  jeu: JeuUtiliser | null;
+  /** Le mot (`eclair.json`) ou le dialogue (`wechat.json`) posé ; vide sans jeu. */
+  id: string;
+  /**
+   * Où l'on en est. Message : l'échange en cours, égal au nombre d'échanges une fois le
+   * dialogue mené à bout. Éclair : 0, puis 1 une fois le sens choisi.
+   */
+  i: number;
+  /** Message : les répliques fausses déjà écartées à l'échange en cours. */
+  ecartees: string[];
+  /** Éclair : le sens choisi, `null` tant qu'on n'a pas répondu. */
+  reponse: string | null;
+  /** Le pas Utiliser qui l'a posé est fini : la journée n'en pose plus d'autre. */
+  fait: boolean;
+};
 
 /**
  * Une réponse notée au pas Fixer : le caractère, juste ou faux, les essais, le temps, et
@@ -179,6 +211,17 @@ export type Progress = {
   tracesAchevees: string[];
   /** Vue en cours du pas Utiliser : la reprise se fait au pas exact, vue comprise. */
   use: UseView;
+  /**
+   * Le jeu du pas Utiliser de la journée, et où il en est (`UseJeu`). `null` tant que le
+   * pas ne l'a pas choisi. Absent d'une progression plus ancienne : aucun.
+   */
+  useJeu: UseJeu | null;
+  /**
+   * Les dialogues du message WeChat menés à bout au pas Utiliser, par identifiant, chacun
+   * une fois, dans l'ordre : le pas n'en repose pas un déjà lu. Absents d'une progression
+   * plus ancienne : aucun.
+   */
+  messagesLus: string[];
   /** Question en cours du pas Fixer : la reprise reprend la vérification où elle en est. */
   fix: number;
   /**
@@ -357,6 +400,8 @@ export function emptyProgress(aujourdhui: string): Progress {
     tracees: [],
     tracesAchevees: [],
     use: 'mots',
+    useJeu: null,
+    messagesLus: [],
     fix: 0,
     fixNotee: -1,
     cartes: [],
@@ -492,7 +537,14 @@ function pasAZero(p: Progress): Progress {
  * ne se recommence pas, elle se prolonge par une session de plus (`commencerPlus`).
  */
 export function resetDay(p: Progress): Progress {
-  return { ...pasAZero(p), revisions: [], plus: 0, enPlus: null, jourAppris: undefined };
+  return {
+    ...pasAZero(p),
+    revisions: [],
+    plus: 0,
+    enPlus: null,
+    jourAppris: undefined,
+    useJeu: null
+  };
 }
 
 /* ---------- la session de plus ---------- */
@@ -922,16 +974,99 @@ export function setUseView(p: Progress, vue: UseView): Progress {
 }
 
 /**
- * La vue suivante du pas Utiliser : les mots et la phrase, puis les trois lignes à
- * lire. `null` quand il n'y a plus de vue : le pas est fini.
+ * Le rang de la journée, celui que le menu annonce (« 8e jour ») : les journées
+ * travaillées, celle-ci comprise. C'est lui, jamais l'horloge, qui dit quel jeu le pas
+ * Utiliser pose (`utiliser.ts`).
  */
-export function useNext(p: Progress): UseView | null {
-  return p.use === 'mots' ? 'texte' : null;
+export function rangDuJour(p: Progress): number {
+  return p.days + (p.lastWorked === p.day ? 0 : 1);
 }
 
-/** Fin du pas Utiliser : le pas est fait et le texte compte comme une lecture pour Tao. */
+/** Le jeu du pas Utiliser choisi pour la journée de la session, `null` s'il ne l'est pas encore. */
+export function jeuDuJour(p: Progress): UseJeu | null {
+  return p.useJeu !== null && p.useJeu.jour === p.day ? p.useJeu : null;
+}
+
+/**
+ * Range le jeu choisi pour la journée : un mot, un dialogue, ou aucun (`null`). Le choix
+ * se fait une fois par journée : déjà fait, il ne bouge plus, même si l'acquis change.
+ */
+export function poserJeuUtiliser(
+  p: Progress,
+  choix: { jeu: JeuUtiliser; id: string } | null
+): Progress {
+  if (jeuDuJour(p) !== null) return p;
+  const jeu = choix === null || choix.id === '' ? null : choix.jeu;
+  return {
+    ...p,
+    useJeu: {
+      jour: p.day,
+      jeu,
+      id: jeu === null ? '' : (choix?.id ?? ''),
+      i: 0,
+      ecartees: [],
+      reponse: null,
+      fait: false
+    }
+  };
+}
+
+/**
+ * La vue suivante du pas Utiliser : les mots et la phrase, puis les trois lignes à
+ * lire, puis le jeu de la journée s'il y en a un et que le pas ne l'a pas encore posé.
+ * `null` quand il n'y a plus de vue : le pas est fini.
+ */
+export function useNext(p: Progress): UseView | null {
+  if (p.use === 'mots') return 'texte';
+  if (p.use !== 'texte') return null;
+  const j = jeuDuJour(p);
+  return j !== null && j.jeu !== null && !j.fait ? j.jeu : null;
+}
+
+/**
+ * Le dictionnaire éclair du pas Utiliser : le sens choisi est rangé, une fois. Les
+ * événements de révision (la bonne réponse, notée par `grade` ; l'erreur, rien) et le
+ * compteur « mots devinés » sont rangés par l'appelant, comme au jeu. Une activité « jeu »
+ * pour Tao.
+ */
+export function repondreEclair(p: Progress, jour: string, reponse: string): Progress {
+  const j = jeuDuJour(p);
+  if (j === null || j.jeu !== 'eclair' || j.reponse !== null || reponse === '') return p;
+  return noterActivite({ ...p, useJeu: { ...j, i: 1, reponse } }, jour, 'jeu');
+}
+
+/** Le message WeChat du pas Utiliser : une réplique fausse est écartée, rien n'est noté. */
+export function ecarterReplique(p: Progress, zh: string): Progress {
+  const j = jeuDuJour(p);
+  if (j === null || j.jeu !== 'message' || zh === '' || j.ecartees.includes(zh)) return p;
+  return { ...p, useJeu: { ...j, ecartees: [...j.ecartees, zh] } };
+}
+
+/**
+ * Le message WeChat du pas Utiliser : la bonne réplique ouvre l'échange suivant. Après le
+ * dernier des `echanges`, le dialogue est lu : il entre dans `messagesLus`, et Tao note
+ * une activité « jeu ». Les caractères notés (du premier coup seulement) le sont par
+ * l'appelant, comme au jeu.
+ */
+export function repliqueJuste(p: Progress, jour: string, echanges: number): Progress {
+  const j = jeuDuJour(p);
+  if (j === null || j.jeu !== 'message' || j.i >= echanges) return p;
+  const i = j.i + 1;
+  const n = { ...p, useJeu: { ...j, i, ecartees: [] } };
+  if (i < echanges) return n;
+  const lus = n.messagesLus.includes(j.id) ? n.messagesLus : [...n.messagesLus, j.id];
+  return noterActivite({ ...n, messagesLus: lus }, jour, 'jeu');
+}
+
+/**
+ * Fin du pas Utiliser : le pas est fait et le texte compte comme une lecture pour Tao. Le
+ * jeu de la journée est fait ; aucun n'était choisi, la journée n'en pose plus.
+ */
 export function finUtiliser(p: Progress, aujourdhui: string): Progress {
-  const n = noterActivite(faitPasCourant(p, aujourdhui), aujourdhui, 'lecture');
+  const posee = poserJeuUtiliser(p, null);
+  const j = jeuDuJour(posee);
+  const fait = j === null ? posee : { ...posee, useJeu: { ...j, fait: true } };
+  const n = noterActivite(faitPasCourant(fait, aujourdhui), aujourdhui, 'lecture');
   return setUseView(n, 'mots');
 }
 
@@ -1161,6 +1296,36 @@ function isUseView(v: unknown): v is UseView {
   return USE_VIEWS.includes(v as UseView);
 }
 
+/** Relit le jeu du pas Utiliser. Absent ou aberrant : aucun, il se choisira de nouveau. */
+function lireUseJeu(v: unknown): UseJeu | null {
+  if (typeof v !== 'object' || v === null) return null;
+  const o = v as Record<string, unknown>;
+  if (typeof o.jour !== 'string' || !FORMAT_JOUR.test(o.jour)) return null;
+  const jeu = o.jeu === 'eclair' || o.jeu === 'message' ? o.jeu : null;
+  const id = typeof o.id === 'string' ? o.id : '';
+  if (jeu !== null && id === '') return null;
+  return {
+    jour: o.jour,
+    jeu,
+    id: jeu === null ? '' : id,
+    i: typeof o.i === 'number' && o.i >= 0 ? Math.floor(o.i) : 0,
+    ecartees: jeu === 'message' ? listeDeCaracteres(o.ecartees) : [],
+    reponse:
+      jeu === 'eclair' && typeof o.reponse === 'string' && o.reponse !== '' ? o.reponse : null,
+    fait: o.fait === true
+  };
+}
+
+/**
+ * La vue du pas Utiliser relue avec son jeu : une vue de jeu sans le jeu de la journée
+ * qui la porte (export tronqué, autre journée) retombe sur le texte.
+ */
+function lireUse(o: Record<string, unknown>, jeu: UseJeu | null): UseView {
+  if (!isUseView(o.use)) return 'mots';
+  if (o.use !== 'eclair' && o.use !== 'message') return o.use;
+  return jeu !== null && jeu.jeu === o.use && jeu.jour === o.day ? o.use : 'texte';
+}
+
 function isEtapeDepart(v: unknown): v is EtapeDepart {
   return ETAPES_DEPART.includes(v as EtapeDepart);
 }
@@ -1299,6 +1464,7 @@ export function fromJSON(texte: string, aujourdhui: string): Progress {
   const lastWorked = typeof o.lastWorked === 'string' ? o.lastWorked : null;
   const cartes = lireCartesJSON(o.cartes);
   const tracesAchevees = listeDeCaracteres(o.tracesAchevees);
+  const useJeu = lireUseJeu(o.useJeu);
   return {
     version: 1,
     day: typeof o.day === 'string' ? o.day : vide.day,
@@ -1316,7 +1482,10 @@ export function fromJSON(texte: string, aujourdhui: string): Progress {
     /* Les tracés achevés : absents d'un export plus ancien, rien n'est achevé. */
     tracesAchevees,
     /* Champs des pas Utiliser et Fixer : absents d'un export plus ancien, ils reprennent leur défaut. */
-    use: isUseView(o.use) ? o.use : vide.use,
+    use: lireUse(o, useJeu),
+    /* Le jeu du pas Utiliser et les dialogues lus : absents d'un export plus ancien, aucun. */
+    useJeu,
+    messagesLus: listeDeCaracteres(o.messagesLus),
     fix: typeof o.fix === 'number' && o.fix >= 0 ? Math.floor(o.fix) : 0,
     fixNotee: lireNotee(o.fixNotee),
     /* Cartes et pile d'échauffement : absentes d'un export plus ancien, elles se relisent vides. */
