@@ -21,8 +21,9 @@ import type { Etiquette, Fiche, Mot, Role } from './content';
  * - `caractere` : le caractère à partir du sens ;
  * - `assemblage` : assembler les briques dans l'ordre d'écriture ;
  * - `trou` : un trou dans un mot ;
- * - `oreille` : reconnaître le caractère entendu, dit par le fichier audio de la fiche ou,
- *   à défaut, par la voix mandarin de l'appareil ;
+ * - `oreille` : reconnaître le caractère entendu, dit par son fichier audio (celui de la
+ *   fiche ou celui du manifeste audio servi avec l'app) ou, à défaut, par la voix mandarin
+ *   de l'appareil ;
  * - `ton` : trouver le ton de la lecture principale, le pinyin donné sans ton ;
  * - `son` : « quel élément donne le son ? » ;
  * - `trace` : tracé au doigt, délégué à Hanzi Writer.
@@ -112,6 +113,12 @@ export type Corpus = {
    * poser sans fichier audio. Défaut : non, jamais d'écran muet.
    */
   voix?: boolean;
+  /**
+   * Les fichiers pré-générés servis avec l'app, texte → chemin (`chemins` du manifeste
+   * audio, `audio.manifesteOnce`). Un caractère qui y figure peut être dit sans voix de
+   * l'appareil. Défaut : aucun.
+   */
+  manifeste?: Readonly<Record<string, string>>;
 };
 
 /** Relit le fichier des paires à ne pas confondre. Pur : l'appelant fait la requête. */
@@ -172,8 +179,9 @@ export type Question = {
   avant?: string;
   apres?: string;
   /**
-   * `oreille` : référence du fichier audio de la fiche, quand elle en a. Sans elle, le
-   * caractère est dit par la voix de l'appareil (`audio.dire`).
+   * `oreille` : référence du fichier audio, celui de la fiche ou à défaut celui du
+   * manifeste, quand il y en a un. Sans elle, le caractère est dit par la voix de
+   * l'appareil (`audio.dire`).
    */
   audio?: string;
   /** `ton` : le pinyin de la lecture principale, sans son ton (`ma`). */
@@ -485,9 +493,18 @@ export function audioDe(f: Fiche): string | null {
   return f.mots.find((m) => m.audio)?.audio ?? null;
 }
 
-/** Le caractère peut-il être dit : son fichier audio, ou la voix mandarin de l'appareil. */
+/** Le fichier du caractère : celui de la fiche, sinon celui du manifeste audio. */
+export function fichierAudio(f: Fiche, corpus: Corpus): string | null {
+  return audioDe(f) ?? corpus.manifeste?.[f.c] ?? null;
+}
+
+/**
+ * Le caractère peut-il être dit : son fichier audio (fiche ou manifeste), ou la voix
+ * mandarin de l'appareil. Un fichier qui ne se charge pas au moment de la question se
+ * rattrape par la voix de l'appareil, ou la question passe sans être notée (`Ask`).
+ */
 export function peutEtreDit(f: Fiche, corpus: Corpus): boolean {
-  return f.pinyin !== '' && (audioDe(f) !== null || corpus.voix === true);
+  return f.pinyin !== '' && (fichierAudio(f, corpus) !== null || corpus.voix === true);
 }
 
 /**
@@ -504,7 +521,8 @@ function candidatsOreille(f: Fiche, corpus: Corpus): string[] {
 /**
  * Les types que cette fiche permet de poser, dans l'ordre de `TYPES`.
  * `son` demande un composant de rôle son ; `trou` un mot ; `oreille` un pinyin, et un
- * fichier audio ou la voix mandarin de l'appareil (jamais d'écran muet) ; `ton` une
+ * fichier audio (fiche ou manifeste) ou la voix mandarin de l'appareil (jamais d'écran
+ * muet) ; `ton` une
  * lecture principale exportée avec toutes les autres (`syllabesDuTon`) ; `trace` une
  * brique de base et le tracé activé ; les QCM sur caractères demandent au moins un autre
  * caractère acquis à montrer.
@@ -661,7 +679,7 @@ export function question(
         return x !== null && memeSyllabe(f, x) ? BONUS_MEME_SYLLABE : 0;
       }
     );
-    const audio = audioDe(f);
+    const audio = fichierAudio(f, corpus);
     q.enonce = 'Écoute, puis choisis.';
     if (audio !== null) q.audio = audio;
     q.leurres = tirage.leurres;

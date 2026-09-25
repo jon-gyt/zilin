@@ -29,7 +29,7 @@
     sures
   } from './revision';
   import { echeance, repriseRev, type Progress, type Revision } from './session';
-  import { voixPretes } from './audio';
+  import { manifesteOnce, voixPretes } from './audio';
   import { humeur, stade } from './tao';
 
   let {
@@ -154,7 +154,28 @@
     };
   });
 
-  const pret = $derived(chargee && v !== null && voix !== null);
+  /**
+   * Les fichiers du manifeste audio servi avec l'app : un caractère qui y figure se pose à
+   * l'oreille même sans voix de l'appareil. Attendus avant de tirer la série, comme la voix.
+   * Un manifeste absent ou illisible est vide (`manifesteOnce` ne rejette pas).
+   */
+  let manifeste = $state(null as Readonly<Record<string, string>> | null);
+
+  $effect(() => {
+    let vivant = true;
+    void manifesteOnce()
+      .then((m) => {
+        if (vivant) manifeste = m.chemins;
+      })
+      .catch(() => {
+        if (vivant) manifeste = {};
+      });
+    return () => {
+      vivant = false;
+    };
+  });
+
+  const pret = $derived(chargee && v !== null && voix !== null && manifeste !== null);
 
   const corpus = $derived(
     corpusRevision({
@@ -163,7 +184,8 @@
       cartes: cartesDeLaSeance,
       paires,
       trace: p.trace,
-      voix: voix === true
+      voix: voix === true,
+      manifeste: manifeste ?? {}
     })
   );
 

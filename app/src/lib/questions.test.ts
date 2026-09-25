@@ -524,6 +524,30 @@ describe('à l’oreille, par la voix de l’appareil', () => {
   });
 });
 
+describe('à l’oreille, par un fichier du manifeste audio', () => {
+  const MANIFESTE = { 马: 'data/0.1.0/audio/0123456789abcdef.mp3' };
+
+  it('un fichier du manifeste suffit, même sans voix de l’appareil', () => {
+    const corpus = { ...CORPUS_SON, voix: false, manifeste: MANIFESTE };
+    expect(typesPossibles(ficheSon('马'), corpus)).toContain('oreille');
+    const q = question(ficheSon('马'), 'oreille', corpus, 'g');
+    expect(q.audio).toBe(MANIFESTE['马']);
+    expect(q.choix).toContain('马');
+  });
+
+  it('ni fichier (fiche ou manifeste) ni voix : pas de question à l’oreille', () => {
+    /* Le manifeste dit 马, pas 妈 : 妈 reste muet sans voix de l'appareil. */
+    const corpus = { ...CORPUS_SON, voix: false, manifeste: MANIFESTE };
+    expect(typesPossibles(ficheSon('妈'), corpus)).not.toContain('oreille');
+    expect(typesPossibles(ficheSon('马'), { ...CORPUS_SON, manifeste: {} })).not.toContain('oreille');
+  });
+
+  it('un caractère sans pinyin ne se pose pas, même avec un fichier', () => {
+    const corpus = { ...CORPUS_SON, manifeste: { 无: 'data/0.1.0/audio/ffffffffffffffff.mp3' } };
+    expect(typesPossibles(ficheSon('无'), corpus)).not.toContain('oreille');
+  });
+});
+
 /* ---------- le ton ---------- */
 
 describe('trouver le ton', () => {
