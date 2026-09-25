@@ -72,7 +72,7 @@ def brouillon(**champs: object) -> dict[str, object]:
     return document
 
 
-def ecrire_brouillon(dossier: Path, document: dict[str, object], seuil: int = 255) -> Path:
+def ecrire_brouillon(dossier: Path, document: dict[str, object], seuil: int | str = 255) -> Path:
     chemin = dossier / str(document.get("conte", "conte-de-test")) / f"{seuil}.json"
     chemin.parent.mkdir(parents=True, exist_ok=True)
     chemin.write_text(json.dumps(document, ensure_ascii=False, indent=1), encoding="utf-8")
@@ -138,6 +138,28 @@ def test_un_brouillon_conforme_s_importe_a_relire_avec_sa_tracabilite(depot: Pat
     assert version.glose["山上"] == Glose(fr="sur la montagne", pinyin="shān shàng", en="on the mountain")
 
 
+def test_un_brouillon_hsk_s_importe_sous_son_niveau(depot: Path) -> None:
+    """`<id>/hsk1.json`, `"seuil": "hsk1"` : même import, même relecture, rangé sous hsk1/."""
+    (depot / "listes" / "hsk-1.txt").write_text("\n".join(LISTE) + "\n", encoding="utf-8")
+    ecrire_brouillon(depot / "brouillons", brouillon(seuil="hsk1"), seuil="hsk1")
+    code, sortie = importer("--niveau", "hsk1")
+    assert code == 0, sortie
+    assert "écart" not in sortie
+    version = lire_version(depot / "versions" / "hsk1" / "conte-de-test.json")
+    assert version.seuil == "hsk1" and version.statut == A_RELIRE
+    (relue,) = appliquer_relecture({"hsk1/conte-de-test": "relu"})
+    assert relue.statut == RELU
+
+
+def test_un_brouillon_hsk_dit_le_niveau_de_son_fichier(depot: Path) -> None:
+    chemin = ecrire_brouillon(depot / "brouillons", brouillon(seuil=255), seuil="hsk1")
+    with pytest.raises(BrouillonInvalide, match="dans un fichier nommé hsk1.json"):
+        lire_brouillon(chemin)
+    autre = ecrire_brouillon(depot / "brouillons", brouillon(seuil="hsk8"), seuil="hsk8")
+    with pytest.raises(BrouillonInvalide, match="le nom de son niveau"):
+        lire_brouillon(autre)
+
+
 def test_un_caractere_hors_seuil_est_rejete_et_nomme(depot: Path) -> None:
     """La contrainte dure : un seul caractère hors liste, et le conte est rejeté."""
     phrases = [dict(PHRASE) for _ in range(10)]
@@ -145,7 +167,7 @@ def test_un_caractere_hors_seuil_est_rejete_et_nomme(depot: Path) -> None:
     ecrire_brouillon(depot / "brouillons", brouillon(phrases=phrases))
     code, sortie = importer()
     assert code == 1
-    assert "hors du seuil 255 : 鸟" in sortie
+    assert "hors du niveau 255 : 鸟" in sortie
     version = lire_version(depot / "versions" / "255" / "conte-de-test.json")
     assert version.statut == REJETE
     assert version.generation.intrus == ["鸟"]
@@ -342,7 +364,7 @@ def test_la_relecture_est_tout_ou_rien(depot: Path) -> None:
     with pytest.raises(RelectureInvalide) as erreur:
         appliquer_relecture({"255/conte-de-test": "relu", "conte-de-test": "relu", "255/absent": "rejete"})
     assert any("rejetée aux contrôles" in p for p in erreur.value.problemes)
-    assert any("clé attendue <seuil>/<conte>" in p for p in erreur.value.problemes)
+    assert any("clé attendue <niveau>/<conte>" in p for p in erreur.value.problemes)
     assert any("aucune version" in p for p in erreur.value.problemes)
     assert lire_version(depot / "versions" / "255" / "conte-de-test.json").statut == REJETE
 

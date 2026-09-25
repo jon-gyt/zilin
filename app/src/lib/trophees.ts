@@ -27,6 +27,7 @@ import {
   joursDesFamilles,
   racinesDesCaracteres
 } from './foret';
+import { auNiveau, duNiveau, libelleNiveau, rangNiveau, trierNiveaux, type Niveau } from './niveaux';
 import { lirePaires, type Paires } from './questions';
 import { CADEAUX, NOTE_REMISE, PALIERS, etatSerie } from './serie';
 import type { Progress } from './session';
@@ -422,40 +423,40 @@ export function tropheesPieges(
 /* ---------- 4. contes ---------- */
 
 /**
- * Un trophée par conte et par seuil : le même conte, relu plus riche. La progression
- * compte les versions lues (`contesLus`), mais aucun lecteur ne l'alimente encore : ils
- * restent verrouillés, avec leur seuil, jusqu'à ce qu'une version soit lue.
+ * Un trophée par conte et par niveau (seuil 255, niveaux HSK) : le même conte, relu plus
+ * riche. La progression compte les versions lues (`contesLus`), et le trophée reste
+ * verrouillé, avec son niveau, jusqu'à ce que la version soit lue. Son sceau dit le
+ * niveau : « 255 », « HSK 3 ».
  */
 export function tropheesContes(
   index: Index,
   lus: number,
   acquis: Acquis = {},
-  contesLus: Readonly<Record<string, readonly number[]>> = {}
+  contesLus: Readonly<Record<string, readonly Niveau[]>> = {}
 ): Trophee[] {
   return index.contes.flatMap((conte) =>
-    [...conte.seuils]
-      .sort((a, b) => a - b)
+    trierNiveaux(conte.seuils)
       .map((s): Trophee => {
-        const ouvert = lus >= s;
+        const ouvert = lus >= rangNiveau(s);
         const id = `conte-${conte.id}-${s}`;
         const obtenu = (contesLus[conte.id] ?? []).includes(s) || dejaAcquis(acquis, id);
         return {
           id,
           famille: 'contes',
           forme: 'nombre',
-          sceau: String(s),
+          sceau: libelleNiveau(s),
           nom: conte.titre_zh ? `${conte.titre_zh} · ${conte.titre_fr}` : conte.titre_fr,
           detail: obtenu
-            ? `La version du seuil ${s} est lue.`
+            ? `La version ${duNiveau(s)} est lue.`
             : ouvert
-              ? `La version du seuil ${s} t'est ouverte.`
-              : `La version du seuil ${s}, quand tu liras ${s} caractères.`,
+              ? `La version ${duNiveau(s)} t'est ouverte.`
+              : `La version ${duNiveau(s)}, quand tu liras ${rangNiveau(s)} caractères.`,
           unite: 'conte lu',
           actuel: obtenu ? 1 : 0,
           cible: 1,
           obtenu,
           suivi: false,
-          progres: ouvert ? 'à lire' : `au seuil ${s}`,
+          progres: ouvert ? 'à lire' : auNiveau(s),
           part: obtenu ? 1 : 0
         };
       })
@@ -619,7 +620,7 @@ const TITRES: Record<FamilleTrophee, { titre: string; explication: string }> = {
   },
   contes: {
     titre: 'Contes',
-    explication: 'Le même conte, relu plus riche à chaque seuil.'
+    explication: 'Le même conte, relu plus riche à chaque niveau.'
   },
   objets: {
     titre: 'Objets de Tao',

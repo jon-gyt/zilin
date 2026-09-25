@@ -108,7 +108,7 @@ VERSION = "0.1.0"
 #: Version du format écrit par ce module. À incrémenter à chaque changement de
 #: ce que l'export produit à entrées égales (clé ajoutée, ordre, règle de
 #: sélection) : elle entre dans l'empreinte, et l'export versionné devient périmé.
-FORMAT_EXPORT = 8
+FORMAT_EXPORT = 9
 
 #: Le code de l'exporteur, lui aussi dans l'empreinte : un changement de ce
 #: fichier où l'on aurait oublié `FORMAT_EXPORT` rend quand même l'export périmé.
@@ -459,7 +459,7 @@ def charger_contes_relus(dossier: Path | None = None) -> dict[str, list[contes_m
         if version.statut == contes_mod.RELU:
             relus.setdefault(version.conte, []).append(version)
     for versions in relus.values():
-        versions.sort(key=lambda v: v.seuil)
+        versions.sort(key=lambda v: contes_mod.rang(v.seuil))
     return relus
 
 
@@ -484,7 +484,7 @@ def charger_contes_a_relire(dossier: Path | None = None) -> dict[str, list[conte
         if version.statut == contes_mod.A_RELIRE:
             trouves.setdefault(version.conte, []).append(version)
     for versions in trouves.values():
-        versions.sort(key=lambda v: v.seuil)
+        versions.sort(key=lambda v: contes_mod.rang(v.seuil))
     return trouves
 
 
@@ -1066,7 +1066,7 @@ def document_conte(
                 **v.texte_en_json(),
                 "glose": {zh: v.glose[zh].en_json() for zh in sorted(v.glose)},
             }
-            for v in sorted(versions, key=lambda v: v.seuil)
+            for v in sorted(versions, key=lambda v: contes_mod.rang(v.seuil))
         },
     }
 
@@ -2006,7 +2006,7 @@ def fautes_d_apercu(
             document = json.loads(chemin.read_text(encoding="utf-8"))
             relues_principal |= {f["c"] for f in document.get("fiches") or () if f.get("statut") == "relu"}
     seuils_principal = {
-        (str(c["id"]), int(s)) for c in index.get("contes") or () for s in c.get("seuils") or ()  # type: ignore[union-attr]
+        (str(c["id"]), contes_mod.niveau_brut(s)) for c in index.get("contes") or () for s in c.get("seuils") or ()  # type: ignore[union-attr]
     }
 
     fiches = 0
@@ -2047,7 +2047,7 @@ def fautes_d_apercu(
             fautes.append(f"{nom}/{relatif} : statut {document.get('statut')!r}")
         for seuil, lue in sorted((document.get("versions") or {}).items()):
             versions += 1
-            cle = (ident, int(seuil))
+            cle = (ident, contes_mod.niveau_brut(seuil))
             if lue.get("statut") != STATUT_APERCU:
                 fautes.append(f"{nom}/{relatif} : version {seuil} au statut {lue.get('statut')!r}")
             if statuts_contes.get(cle) != contes_mod.A_RELIRE:

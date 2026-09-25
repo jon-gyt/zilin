@@ -1,0 +1,338 @@
+# HSK 3.0 — 三级汉字表 (caractères du niveau 3)
+#
+# Référentiel : 《国际中文教育中文水平等级标准》 GF 0025-2021, ministère de
+#   l'Éducation de la RPC et Commission nationale de la langue, applicable au
+#   1er juillet 2026. Niveau 3 : 300 caractères.
+# Le fichier ne porte que les caractères nouveaux du niveau, comme le tableau de la
+#   norme et comme hsk-1.txt. Le niveau se lit en cumul : HSK 3 = hsk-1.txt, hsk-2.txt et
+#   ce fichier, 900 caractères (`contes.charger_seuil` fait le cumul).
+# Source officielle : http://www.moe.gov.cn/jyb_sjzl/ziliao/A19/202111/W020211118507389477190.pdf
+#   (PDF scanné, sans couche texte ; domaine inaccessible depuis l'environnement
+#   de développement, voir ci-dessous)
+#
+# Transcriptions utilisées, relevées le 2026-09-25, concordantes caractère par
+# caractère et dans le même ordre (300 caractères, aucun doublon, aucun en
+# commun avec les niveaux précédents) :
+#   1. https://raw.githubusercontent.com/elkmovie/hsk30/master/charlist.txt
+#      (OCR Pleco du PDF officiel, section « 三级汉字表 » ; licence MIT,
+#      Copyright (c) 2021 Pleco Inc.)
+#      sha256 63dc1900d81ab76f358ca3ed169a7c4a2f8f2faaeeed6c394d13a5642ccfb7a4
+#   2. https://raw.githubusercontent.com/ivankra/hsk30/master/hsk30-chars.csv
+#      (colonne Level == 3 ; licence MIT, Copyright (c) 2023 Ivan Krasilnikov,
+#      2021 Shawky, 2021 Pleco Inc.)
+#      sha256 8c5957108e6dafd120be10518a827a4d834ea3ce29acbfedeff1022cd7d05280
+# Licences lues dans le LICENSE de chaque dépôt (MIT). Le README d'ivankra/hsk30 note
+# que ses données dérivent en grande partie d'elkmovie/hsk30 et que le référentiel,
+# œuvre du gouvernement de la RPC, relève peut-être du domaine public : la question
+# de réutilisation reste ouverte au backlog (« Listes Eduscol et référentiel HSK 3.0 »).
+# Les deux transcriptions ne sont pas indépendantes pour la lecture des caractères
+# (la seconde reprend l'OCR de la première) ; sa colonne Level est recalculée depuis
+# la liste de mots (niveau de première apparition), si bien que la concordance
+# confirme le découpage par niveau.
+#
+# Reste à vérifier contre le PDF officiel : la lecture OCR de chaque caractère
+# (« OCR'ed but not extensively proofread (yet) », dit l'en-tête de la source 1),
+# l'ordre du tableau, et le sous-ensemble des caractères à écrire (手写字表, que la
+# source 1 transcrit aussi, contre les caractères seulement à reconnaître).
+#
+# Ordre : celui du 三级汉字表 (ordre pinyin de la norme).
+按
+把
+搬
+保
+被
+币
+标
+并
+播
+补
+布
+步
+材
+采
+彩
+曾
+察
+产
+厂
+朝
+吵
+衬
+城
+程
+持
+充
+初
+除
+础
+传
+创
+此
+村
+存
+达
+代
+待
+刀
+导
+底
+调
+订
+断
+顿
+烦
+反
+范
+防
+访
+啡
+费
+丰
+否
+夫
+福
+父
+付
+负
+富
+概
+赶
+敢
+格
+各
+根
+功
+姑
+古
+挂
+怪
+管
+光
+规
+哈
+害
+何
+互
+华
+化
+环
+婚
+积
+基
+及
+极
+集
+纪
+技
+济
+继
+价
+架
+坚
+简
+建
+将
+蕉
+较
+解
+界
+金
+仅
+尽
+紧
+精
+景
+警
+境
+旧
+救
+具
+剧
+据
+决
+绝
+咖
+恐
+苦
+裤
+况
+困
+浪
+类
+李
+历
+立
+丽
+连
+联
+烈
+领
+另
+龙
+录
+乱
+落
+麻
+冒
+媒
+每
+美
+迷
+民
+命
+某
+母
+木
+内
+念
+娘
+农
+暖
+拍
+牌
+派
+判
+胖
+配
+批
+皮
+啤
+品
+评
+苹
+破
+齐
+奇
+器
+强
+桥
+巧
+切
+亲
+庆
+区
+缺
+裙
+群
+任
+仍
+容
+赛
+散
+沙
+衫
+善
+伤
+设
+社
+深
+神
+升
+胜
+失
+石
+始
+世
+式
+似
+势
+首
+输
+属
+术
+束
+双
+死
+速
+台
+谈
+汤
+糖
+甜
+跳
+痛
+突
+土
+团
+退
+望
+危
+围
+伟
+卫
+握
+屋
+武
+舞
+误
+希
+戏
+显
+险
+线
+乡
+香
+箱
+象
+消
+效
+血
+形
+幸
+性
+修
+需
+续
+宣
+训
+压
+烟
+演
+验
+羊
+义
+艺
+议
+易
+营
+赢
+泳
+优
+邮
+预
+员
+约
+杂
+造
+责
+增
+展
+张
+章
+争
+整
+证
+支
+汁
+值
+职
+止
+指
+至
+志
+制
+终
+种
+众
+猪
+注
+祝
+抓
+专
+转
+状
+追
+资
+总
+足
+族

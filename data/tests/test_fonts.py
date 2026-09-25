@@ -102,6 +102,18 @@ def test_le_sous_ensemble_couvre_les_caracteres_de_l_export(tmp_path: Path) -> N
     assert {"木", "⺊", "字", "人", "大", "天"} <= retenus
 
 
+def test_seules_les_listes_servies_entrent_dans_la_police(tmp_path: Path) -> None:
+    """Une liste qui borne seulement les contes (HSK 2 et plus) n'alourdit pas la police."""
+    listes = tmp_path / "listes"
+    listes.mkdir()
+    (listes / "seuil-255.txt").write_text("人\n", encoding="utf-8")
+    (listes / "hsk-1.txt").write_text("爱\n", encoding="utf-8")
+    (listes / "hsk-5.txt").write_text("兔\n", encoding="utf-8")
+    retenus = set(caracteres_de_lapp(tmp_path / "absent.json", listes, tmp_path / "jamais-ecrit"))
+    assert {"人", "爱"} <= retenus
+    assert "兔" not in retenus
+
+
 def test_sans_export_le_sous_ensemble_se_limite_aux_listes(tmp_path: Path) -> None:
     """`wenlu fonts` doit rester lançable avant tout export."""
     assert caracteres_exportes(tmp_path / "jamais-ecrit") == set()

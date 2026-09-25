@@ -45,6 +45,7 @@
     type LectureChapitres,
     type Unite
   } from './lecture';
+  import { duNiveau } from './niveaux';
   import type { Progress } from './session';
   import { humeur, stade } from './tao';
 
@@ -66,7 +67,7 @@
     /** « J'ai lu » : la version est notée lue, puis retour à la bibliothèque. */
     onlu: () => void;
     onretour: () => void;
-    /** La ligne au-dessus du titre ; par défaut, le seuil de la version. */
+    /** La ligne au-dessus du titre ; par défaut, le niveau de la version. */
     surtitre?: string;
     /** Sous le texte, dans la même carte : la signature d'une lettre. */
     signature?: Snippet;
@@ -103,7 +104,9 @@
   );
   const trad = $derived(chapitre ? traductionDe(chapitre.phrases) : '');
   const ligneSeuil = $derived(
-    long ? `Version du seuil ${v?.seuil} · chapitre ${k} sur ${n}` : `Version du seuil ${v?.seuil}`
+    long
+      ? `Version ${duNiveau(v?.seuil ?? '')} · chapitre ${k} sur ${n}`
+      : `Version ${duNiveau(v?.seuil ?? '')}`
   );
 
   /** L'unité touchée, et son pinyin quand la phrase ne le donne pas (lu dans la fiche). */

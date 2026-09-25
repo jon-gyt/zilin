@@ -1,4 +1,4 @@
-# Catalogue des contes à adapter par seuil (story 1.7).
+# Catalogue des contes à adapter par niveau (story 1.7).
 #
 # Treize récits traditionnels chinois, tous tirés d'ouvrages classiques tombés dans le
 # domaine public depuis des siècles : onze fables, et deux récits longs qui se lisent
@@ -9,33 +9,60 @@
 #
 # `titre_zh` est le vrai titre du récit, le chengyu, montré tel quel dans l'app avec son
 # pinyin `titre_pinyin` (tons du dictionnaire : 长 zhǎng, 塞 sài), même quand ses
-# caractères dépassent le seuil. `titre_fr` et `titre_en` en sont la traduction. La colonne `resume_fr` résume l'intrigue du récit traditionnel en une
+# caractères dépassent le niveau. `titre_fr` et `titre_en` en sont la traduction. La colonne `resume_fr` résume l'intrigue du récit traditionnel en une
 # phrase. Elle sert à cadrer la réécriture ; ce n'est pas un texte de l'app.
 #
 # Les versions chinoises sont produites par le pipeline (`wenlu contes generer`, ou
 # `wenlu contes importer` depuis un brouillon de `data/sources/contes-brouillons/`)
-# avec les seuls caractères du seuil visé, puis relues. Elles ne sont jamais écrites ici.
+# avec les seuls caractères du niveau visé, puis relues. Elles ne sont jamais écrites ici.
 #
-# TSV, `#` en commentaire, neuf colonnes séparées par une tabulation.
+# TSV, `#` en commentaire, dix colonnes séparées par une tabulation.
 #
-# `niveaux` : les seuils où le récit sera écrit, dans l'ordre (`255,505`). Un niveau prévu
-# dont la liste de caractères n'est pas encore versionnée (405 à 1555 aujourd'hui) attend
-# sa liste ; `wenlu check` le signale, sans jamais bloquer. Critère, d'après le récit
-# d'origine :
-# - le niveau le plus bas est le premier où le récit se dit sans perdre son sujet : 255
-#   quand il n'a ni animal ni objet que la liste n'a pas (les trois contes écrits le
-#   montrent) ; 405 pour les récits animaliers, car la liste 255 n'a aucun nom d'animal
-#   (ni 马, ni 兔, ni 蛇, ni 羊, ni même 牛, 鸟 ou 鱼) ; 505 quand la morale passe par une
-#   description abstraite (la mer que décrit la tortue) ou par le merveilleux (immortels,
-#   palais céleste, transformations). C'est une hypothèse de rédaction, pas une lecture
-#   des listes 405 et suivantes, qui ne sont pas versionnées : si la liste n'a pas le
-#   caractère clé, on le dit autrement, ou l'on relève le niveau ici ;
+# `niveaux` : les niveaux où le récit sera écrit, dans l'ordre (`255,hsk3`,
+# `hsk4,hsk6,hsk7-9`). Les contes suivent le HSK 3.0 (GF 0025-2021, décision du
+# propriétaire du 25 septembre 2026, à la place des seuils 405 à 1555, introuvables) :
+# `hsk1` à `hsk6` puis `hsk7-9`, chacun lu en cumul (`hsk3` : les 900 caractères des
+# niveaux 1 à 3, `data/sources/listes/hsk-*.txt`). Les trois contes relus au seuil 255
+# gardent cette version, et 255 pour premier niveau ; sur l'échelle, le seuil 255 se
+# place au palier de HSK 1 (255 caractères contre 300, tous dans HSK 1 à 3). Critère,
+# d'après le récit d'origine :
+# - le niveau le plus bas est le premier niveau HSK dont le cumul a tous les caractères
+#   clés du récit (`cles` : les animaux et les objets de l'intrigue, sans lesquels il
+#   perd son sujet ; le reste, noms propres compris, se dit autrement) ; pour les trois
+#   contes relus, 255, dont la liste a les leurs. `wenlu check` le vérifie (« contes :
+#   critère des niveaux ») : chaque caractère clé est dans chaque niveau prévu, et le
+#   niveau HSK juste au-dessous du plus bas ne les a pas tous ;
 # - récit simple (un épisode, un ou deux personnages, une chute) : deux niveaux, le plus
-#   bas et deux seuils plus haut (255 et 505, 405 et 805, 505 et 1555), où il gagne les
-#   dialogues et les détails que la première version a dû couper ;
+#   bas et deux paliers plus haut (255 et hsk3, hsk3 et hsk5, hsk4 et hsk6), où il gagne
+#   les dialogues et les détails que la première version a dû couper ;
 # - récit riche (plusieurs épisodes ou retournements, plusieurs personnages, une morale
-#   portée par un dialogue) : trois niveaux, le plus bas, 805 et 1555, où il se dit en
-#   entier, épisode par épisode.
+#   portée par un dialogue) : trois niveaux, le plus bas puis deux paliers plus haut
+#   chaque fois (255, hsk3, hsk5), où il se dit en entier, épisode par épisode ;
+# - l'échelle s'arrête à hsk7-9 : un niveau qui la dépasserait y est ramené (hsk4, hsk6,
+#   hsk7-9 ; hsk5 et hsk7-9), un récit riche qui commence à hsk5 prend les trois derniers
+#   paliers (hsk5, hsk6, hsk7-9), et un récit qui commence à hsk7-9 n'en a qu'un
+#   (`contes.niveaux_attendus`).
+#
+# `cles` : les caractères clés, relevés un à un dans les listes le 2026-09-25 (entre
+# parenthèses, le niveau HSK du caractère ; « 255 » : dans la liste du seuil) :
+# - 守株待兔 : 兔 (5). La souche se dit 树 (1), 根 (3) ; 株 (7-9) n'est pas clé.
+# - 塞翁失马 : 马 (1), 腿 (2), 断 (3), 兵 (4), la guerre à laquelle le fils échappe (战 4
+#   aussi) ; 摔 (5) se dit 掉 (2), 仗 (7-9) ne sert pas.
+# - 愚公移山 : 山, 老 (255). 移 (4), 搬 (3) : la version 255 dit « 让门前没有山 ».
+# - 画蛇添足 : 蛇 (5), 画 (2), 足 (3). 添 (6), 壶 (6) se disent autrement.
+# - 井底之蛙 : 蛙 (7-9), 龟 (7-9), 井 (6) : hsk7-9 seul.
+# - 狐假虎威 : 虎 (5). 狐 et 狸 ne sont dans aucune liste, 7-9 comprise : le renard se
+#   dit autrement à tous les niveaux ; 兽 (7-9) se dit 动物 (1, 2).
+# - 拔苗助长 : 菜, 长 (255). 苗 et 禾 (7-9), 拔 (5) : la version 255 dit 菜.
+# - 盲人摸象 : 象 (3), 摸 (4). Les parties de l'éléphant se disent par 身 (1), 腿 (2),
+#   牙 (4), 尾 (4), 耳 (4) ; 鼻 (5) n'entre qu'à hsk6 ; 盲 (6) se dit 看不见.
+# - 叶公好龙 : 龙 (3). Le nom 叶 (4) se dit autrement à hsk3 (有一个人).
+# - 亡羊补牢 : 羊 (3), 圈 (4), 补 (3). Le trou se dit 破 (3) ; 牢 (6), 狼 (7-9) autrement.
+# - 南辕北辙 : 南, 北, 车 (255). 马 (1) rejoint le récit à hsk3.
+# - 木兰从军 : 马 (1), 女 (1), 兵 (4). 军 (5), 织 (5), 皇帝 (6) se disent autrement avant
+#   leur niveau (当兵, 王).
+# - 美猴王 : 猴 (5), 石 (3), 变 (2). Le Bouddha se dit 如来 (2, 1) ; 佛 (6), 宫 (6), 仙 (7-9)
+#   se disent autrement avant leur niveau.
 # Les cadres des ouvrages (Ji Liang devant le roi de Wei pour 南辕北辙, Zizhang devant le
 # duc Ai pour 叶公好龙, Zhuang Xin devant le roi de Chu pour 亡羊补牢) restent hors du
 # récit : on raconte la fable, pas le discours qui la porte.
@@ -43,7 +70,7 @@
 # `chapitres` : 1 pour une fable, qui se lit d'une traite ; plus pour un récit long, lu
 # chapitre par chapitre. Chaque chapitre d'un récit long a son titre et son résumé dans
 # `chapitres.tsv`, et chacune de ses versions en a autant (écart signalé sinon). La
-# longueur visée d'un seuil vaut alors pour chaque chapitre.
+# longueur visée d'un niveau vaut alors pour chaque chapitre.
 #
 # Note : 拔苗助长 est la forme moderne du récit ; 《孟子》 écrit 揠苗助长.
 # Note : 南辕北辙 vient du discours de Ji Liang au roi de Wei, 《战国策·魏策四》.
@@ -52,17 +79,17 @@
 # de Wu Cheng'en (XVIe siècle), sans l'épisode du roi-dragon de la mer de l'Est : pas de
 # dragon hors du Nouvel An et de 端午, et 叶公好龙 reste la seule exception, dans son texte.
 #
-id	titre_zh	titre_pinyin	titre_fr	titre_en	ouvrage	niveaux	chapitres	resume_fr
-shou-zhu-dai-tu	守株待兔	shǒu zhū dài tù	Guetter la souche en attendant le lièvre	Waiting by the Stump for a Hare	《韩非子·五蠹》	405,805	1	Un paysan voit un lièvre se rompre le cou contre une souche, abandonne ses champs pour guetter la souche et finit par ne plus rien récolter.
-sai-weng-shi-ma	塞翁失马	sài wēng shī mǎ	Le vieillard de la frontière perd son cheval	The Old Man at the Frontier Loses His Horse	《淮南子·人间训》	405,805,1555	1	Le cheval perdu d'un vieillard revient accompagné d'un autre, son fils tombe de ce cheval et se casse la jambe, et cette blessure lui évite d'être envoyé à la guerre.
-yu-gong-yi-shan	愚公移山	yú gōng yí shān	Le vieux fou déplace les montagnes	The Foolish Old Man Moves the Mountains	《列子·汤问》	255,805,1555	1	Un vieillard entreprend d'ôter deux montagnes panier par panier et répond à celui qui le raille que ses fils et ses petits-fils continueront après lui.
-hua-she-tian-zu	画蛇添足	huà shé tiān zú	Ajouter des pattes au serpent	Drawing Legs on a Snake	《战国策·齐策二》	405,805	1	Le premier à finir son dessin de serpent y ajoute des pattes pour montrer son avance, et perd le pari qu'il avait déjà gagné.
-jing-di-zhi-wa	井底之蛙	jǐng dǐ zhī wā	La grenouille au fond du puits	The Frog at the Bottom of the Well	《庄子·秋水》	505,1555	1	Une grenouille vante son puits à une tortue venue de la mer de l'Est et découvre en l'écoutant la petitesse de son monde.
-hu-jia-hu-wei	狐假虎威	hú jiǎ hǔ wēi	Le renard emprunte la puissance du tigre	The Fox Borrows the Tiger's Might	《战国策·楚策一》	405,805	1	Un renard pris par un tigre le persuade de marcher devant lui, et le tigre croit que les bêtes s'enfuient devant le renard.
-ba-miao-zhu-zhang	拔苗助长	bá miáo zhù zhǎng	Tirer sur les pousses pour les faire grandir	Pulling Up the Shoots to Help Them Grow	《孟子·公孙丑上》	255,505	1	Un homme trop pressé tire sur ses jeunes pousses pour les allonger d'un jour et les fait toutes mourir.
-mang-ren-mo-xiang	盲人摸象	máng rén mō xiàng	Les aveugles tâtent l'éléphant	The Blind Men and the Elephant	《大般涅槃经》	405,805,1555	1	Des aveugles touchent chacun une partie d'un éléphant et décrivent chacun une bête différente, sûrs d'avoir raison.
-ye-gong-hao-long	叶公好龙	yè gōng hào lóng	Monsieur Ye aime les dragons	Lord Ye Loves Dragons	刘向《新序·杂事五》	405,805	1	Monsieur Ye couvre sa maison d'images de dragons, puis s'enfuit épouvanté le jour où un vrai dragon vient le voir.
-wang-yang-bu-lao	亡羊补牢	wáng yáng bǔ láo	Réparer l'enclos après la perte des moutons	Mending the Pen after Losing a Sheep	《战国策·楚策四》	405,805	1	Un berger néglige le trou de son enclos, perd un second mouton, puis répare le trou : il n'est jamais trop tard pour réparer.
-nan-yuan-bei-zhe	南辕北辙	nán yuán běi zhé	Rouler vers le nord pour aller au sud	Heading North to Go South	《战国策·魏策四》	255,505	1	Un voyageur qui veut aller au royaume de Chu, au sud, roule vers le nord et répond à qui l'avertit que son cheval est bon, sa bourse pleine et son cocher habile : plus il avance, plus il s'éloigne.
-mu-lan-cong-jun	木兰从军	mù lán cóng jūn	Mulan part à la guerre	Mulan Goes to War	《乐府诗集·木兰诗》	405,805,1555	4	Une jeune fille prend la place de son vieux père appelé à l'armée, combat douze ans sous l'habit d'un homme, refuse les honneurs de l'empereur et rentre chez elle, où ses compagnons d'armes découvrent qui elle est.
-mei-hou-wang	美猴王	měi hóu wáng	Le beau Roi des singes	The Handsome Monkey King	吴承恩《西游记》第一回至第七回	505,805,1555	4	Un singe né d'une pierre devient roi des singes, apprend d'un maître les transformations et le saut de nuage, sème le désordre au palais céleste et finit enfermé sous une montagne pour avoir parié qu'il sortirait de la paume du Bouddha.
+id	titre_zh	titre_pinyin	titre_fr	titre_en	ouvrage	niveaux	cles	chapitres	resume_fr
+shou-zhu-dai-tu	守株待兔	shǒu zhū dài tù	Guetter la souche en attendant le lièvre	Waiting by the Stump for a Hare	《韩非子·五蠹》	hsk5,hsk7-9	兔	1	Un paysan voit un lièvre se rompre le cou contre une souche, abandonne ses champs pour guetter la souche et finit par ne plus rien récolter.
+sai-weng-shi-ma	塞翁失马	sài wēng shī mǎ	Le vieillard de la frontière perd son cheval	The Old Man at the Frontier Loses His Horse	《淮南子·人间训》	hsk4,hsk6,hsk7-9	马腿断兵	1	Le cheval perdu d'un vieillard revient accompagné d'un autre, son fils tombe de ce cheval et se casse la jambe, et cette blessure lui évite d'être envoyé à la guerre.
+yu-gong-yi-shan	愚公移山	yú gōng yí shān	Le vieux fou déplace les montagnes	The Foolish Old Man Moves the Mountains	《列子·汤问》	255,hsk3,hsk5	山老	1	Un vieillard entreprend d'ôter deux montagnes panier par panier et répond à celui qui le raille que ses fils et ses petits-fils continueront après lui.
+hua-she-tian-zu	画蛇添足	huà shé tiān zú	Ajouter des pattes au serpent	Drawing Legs on a Snake	《战国策·齐策二》	hsk5,hsk7-9	蛇画足	1	Le premier à finir son dessin de serpent y ajoute des pattes pour montrer son avance, et perd le pari qu'il avait déjà gagné.
+jing-di-zhi-wa	井底之蛙	jǐng dǐ zhī wā	La grenouille au fond du puits	The Frog at the Bottom of the Well	《庄子·秋水》	hsk7-9	蛙龟井	1	Une grenouille vante son puits à une tortue venue de la mer de l'Est et découvre en l'écoutant la petitesse de son monde.
+hu-jia-hu-wei	狐假虎威	hú jiǎ hǔ wēi	Le renard emprunte la puissance du tigre	The Fox Borrows the Tiger's Might	《战国策·楚策一》	hsk5,hsk7-9	虎	1	Un renard pris par un tigre le persuade de marcher devant lui, et le tigre croit que les bêtes s'enfuient devant le renard.
+ba-miao-zhu-zhang	拔苗助长	bá miáo zhù zhǎng	Tirer sur les pousses pour les faire grandir	Pulling Up the Shoots to Help Them Grow	《孟子·公孙丑上》	255,hsk3	菜长	1	Un homme trop pressé tire sur ses jeunes pousses pour les allonger d'un jour et les fait toutes mourir.
+mang-ren-mo-xiang	盲人摸象	máng rén mō xiàng	Les aveugles tâtent l'éléphant	The Blind Men and the Elephant	《大般涅槃经》	hsk4,hsk6,hsk7-9	象摸	1	Des aveugles touchent chacun une partie d'un éléphant et décrivent chacun une bête différente, sûrs d'avoir raison.
+ye-gong-hao-long	叶公好龙	yè gōng hào lóng	Monsieur Ye aime les dragons	Lord Ye Loves Dragons	刘向《新序·杂事五》	hsk3,hsk5	龙	1	Monsieur Ye couvre sa maison d'images de dragons, puis s'enfuit épouvanté le jour où un vrai dragon vient le voir.
+wang-yang-bu-lao	亡羊补牢	wáng yáng bǔ láo	Réparer l'enclos après la perte des moutons	Mending the Pen after Losing a Sheep	《战国策·楚策四》	hsk4,hsk6	羊圈补	1	Un berger néglige le trou de son enclos, perd un second mouton, puis répare le trou : il n'est jamais trop tard pour réparer.
+nan-yuan-bei-zhe	南辕北辙	nán yuán běi zhé	Rouler vers le nord pour aller au sud	Heading North to Go South	《战国策·魏策四》	255,hsk3	南北车	1	Un voyageur qui veut aller au royaume de Chu, au sud, roule vers le nord et répond à qui l'avertit que son cheval est bon, sa bourse pleine et son cocher habile : plus il avance, plus il s'éloigne.
+mu-lan-cong-jun	木兰从军	mù lán cóng jūn	Mulan part à la guerre	Mulan Goes to War	《乐府诗集·木兰诗》	hsk4,hsk6,hsk7-9	马女兵	4	Une jeune fille prend la place de son vieux père appelé à l'armée, combat douze ans sous l'habit d'un homme, refuse les honneurs de l'empereur et rentre chez elle, où ses compagnons d'armes découvrent qui elle est.
+mei-hou-wang	美猴王	měi hóu wáng	Le beau Roi des singes	The Handsome Monkey King	吴承恩《西游记》第一回至第七回	hsk5,hsk6,hsk7-9	猴石变	4	Un singe né d'une pierre devient roi des singes, apprend d'un maître les transformations et le saut de nuage, sème le désordre au palais céleste et finit enfermé sous une montagne pour avoir parié qu'il sortirait de la paume du Bouddha.

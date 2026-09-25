@@ -512,10 +512,11 @@ def test_l_index_porte_le_catalogue_sans_texte(atelier: Path) -> None:
         "titre_pinyin": "yú gōng yí shān",
         "titre_fr": "Le vieux fou déplace les montagnes",
         "titre_en": "The Foolish Old Man Moves the Mountains",
-        "niveaux": [255, 805, 1555],
+        "niveaux": [255, "hsk3", "hsk5"],
         "chapitres": 1,
     }
     assert par_id["mu-lan-cong-jun"]["chapitres"] == 4
+    assert par_id["mei-hou-wang"]["niveaux"] == ["hsk5", "hsk6", "hsk7-9"]
     assert all("resume_fr" not in c for c in catalogue)  # type: ignore[union-attr]
 
 

@@ -15,7 +15,7 @@ Format BMAD : épics puis stories. Priorité dans l'ordre. Une story se termine 
 - 1.4 Génération FR et EN des fiches (origine en trois phrases, deux mots, une phrase), étiquette attesté / mnémotechnique. Relecture du seuil 255.
 - 1.5 Audio pré-généré (voix neuronale), un fichier par caractère et par mot.
 - 1.6 Export JSON versionné par famille, schéma dans `data/schema.md`.
-- 1.7 Contes par niveau : un même conte ou une même histoire chinoise réécrit à chaque seuil (255, 405, 505, 805, 1555) avec les seuls caractères du seuil, généré par lots avec Claude dans le pipeline, ou rédigé sans API et importé avec les mêmes contrôles, puis relu ; source du conte tracée, glose par caractère ou par mot, traductions FR et EN, une version par seuil dans le JSON exporté.
+- 1.7 Contes par niveau : un même conte ou une même histoire chinoise réécrit à chaque niveau (le seuil 255, puis les niveaux HSK 1 à 7-9, lus en cumul) avec les seuls caractères du niveau, généré par lots avec Claude dans le pipeline, ou rédigé sans API et importé avec les mêmes contrôles, puis relu ; source du conte tracée, glose par caractère ou par mot, traductions FR et EN, une version par niveau dans le JSON exporté.
 
 ## Épic 2 · Session
 - 2.1 État de session (six pas, reprise au pas exact, rattrapage).
@@ -28,7 +28,7 @@ Format BMAD : épics puis stories. Priorité dans l'ordre. Une story se termine 
 - 2.8 Le parcours : logo, anecdote, menu ; les pas enchaînés sans repasser par le menu, « Quitter » au pas exact ; une seule fin (Clore) ; la session de plus (quatre pas, une brique, jamais une seconde graine) ; le rattrapage annoncé un bloc à la fois.
 
 ## Épic 2c · Contes
-- 2c.1 Mode Lire : bibliothèque de contes, version choisie d'après l'acquis (le seuil le plus haut dont tous les caractères sont acquis), lecture avec glose au toucher, audio.
+- 2c.1 Mode Lire : bibliothèque de contes, version choisie d'après l'acquis (le niveau le plus haut dont tous les caractères sont acquis), lecture avec glose au toucher, audio.
 - 2c.2 Le même conte remonte d'un niveau quand l'acquis le permet ; l'app signale qu'une version plus riche est ouverte. Trois contes gratuits au seuil 255, bibliothèque complète en payant.
 
 ## Épic 3 · Révision
@@ -363,10 +363,35 @@ anglaise, glose par mot.
   fermé, pas encore écrit) ; le lecteur lit un récit long chapitre par chapitre (sommaire,
   chapitre suivant, reprise notée dans `Progress.chapitres`, export et import compris) ; le
   conte n'entre dans `contesLus` qu'une fois tous ses chapitres lus.
-- Reste : relire les trois contes, puis écrire les versions des seuils suivants et les
-  deux récits longs quand leurs listes seront versionnées (405 à 1555 ne sont pas
-  téléchargeables d'ici) ; vérifier alors, liste en main, que le caractère clé de chaque
-  fable animalière est bien dans son plus bas niveau, sinon relever ce niveau.
+- Niveaux HSK (25 septembre), décision du propriétaire : les seuils 405 à 1555 restant
+  introuvables d'ici, les contes suivent le HSK 3.0 (GF 0025-2021). Listes versionnées
+  comme `hsk-1.txt` : `data/sources/listes/hsk-2.txt` à `hsk-6.txt` (300 caractères
+  chacun) et `hsk-7-9.txt` (1 200), les seuls caractères nouveaux du niveau, deux
+  transcriptions concordantes caractère par caractère et dans le même ordre à tous les
+  niveaux (elkmovie/hsk30, OCR Pleco du PDF officiel, et ivankra/hsk30, toutes deux
+  sous MIT ; sha256 et reste à vérifier contre le PDF en tête de chaque fichier). La
+  police reste bornée aux listes que l'export sert (seuil 255, HSK 1). Un niveau de conte
+  est `255` ou `hsk1` … `hsk7-9`, lu en cumul (`hsk3` : 900 caractères), rangé par son
+  nombre de caractères ; catalogue, validation, brouillons (`<id>/hsk3.json`), versions
+  (`hsk3/<id>.json`), `wenlu contes contexte|plan|importer|relire --niveau hsk3`
+  (`--seuil` en alias), export (`"seuils": [255, "hsk3"]`, format 9) et app suivent ; les
+  trois contes relus gardent leur version 255 octet pour octet. Le catalogue gagne `cles`,
+  les caractères clés de chaque conte, relevés un à un dans les listes : le plus bas niveau
+  est le premier palier HSK qui les a, puis deux paliers en deux (critère en tête du
+  catalogue, `contes.niveaux_attendus`), contrôle non bloquant « contes : critère des
+  niveaux ». Plan : 愚公移山 255, HSK 3, HSK 5 (山 老) ; 拔苗助长 255, HSK 3 (菜 长) ;
+  南辕北辙 255, HSK 3 (南 北 车) ; 叶公好龙 HSK 3, HSK 5 (龙) ; 亡羊补牢 HSK 4, HSK 6
+  (羊 圈 补) ; 塞翁失马 HSK 4, HSK 6, HSK 7-9 (马 腿 断 兵) ; 盲人摸象 HSK 4, HSK 6,
+  HSK 7-9 (象 摸) ; 木兰从军 HSK 4, HSK 6, HSK 7-9 (马 女 兵) ; 守株待兔 HSK 5, HSK 7-9
+  (兔) ; 画蛇添足 HSK 5, HSK 7-9 (蛇 画 足) ; 狐假虎威 HSK 5, HSK 7-9 (虎 ; 狐 n'est
+  dans aucune liste) ; 美猴王 HSK 5, HSK 6, HSK 7-9 (猴 石 变) ; 井底之蛙 HSK 7-9 seul
+  (蛙 龟 井). Dans Lire, les sceaux disent « 255 » ou « HSK 3 » ; une progression qui
+  notait les seuils en nombre se relit.
+- Reste : relire les trois contes, puis écrire les 27 versions HSK prévues et les deux
+  récits longs ; vérifier les listes HSK contre le PDF officiel (lecture OCR, ordre,
+  caractères à écrire). À noter : sous le HSK, les fables animalières montent haut (兔,
+  蛇, 虎, 猴 au niveau 5 ; 蛙 et 龟 à 7-9), au-delà de la cible « jusqu'au HSK 4 » du
+  brief : à trancher si l'on veut une version plus basse qui nomme l'animal autrement.
 
 ### En attente d'une décision
 
@@ -386,7 +411,10 @@ anglaise, glose par mot.
 - **Formes anciennes** : aucune police oraculaire sous licence ouverte vérifiée,
   couverture sigillaire insuffisante (§7). Reporté.
 - **Listes Eduscol et référentiel HSK 3.0** : conditions de réutilisation non
-  consultées (§6).
+  consultées (§6). Les deux transcriptions HSK utilisées sont sous MIT (LICENSE de
+  elkmovie/hsk30 et d'ivankra/hsk30, lus le 25 septembre) ; le référentiel lui-même,
+  œuvre du ministère chinois de l'Éducation, reste à trancher (le README d'ivankra/hsk30
+  le dit peut-être du domaine public, selon le droit chinois).
 
 ### Non commencées
 

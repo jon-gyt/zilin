@@ -24,6 +24,7 @@ import {
   noterReprise,
   toJSON
 } from './session';
+import { lireNiveaux } from './niveaux';
 import { POIDS, posture } from './tao';
 import { tropheesContes } from './trophees';
 import {
@@ -57,7 +58,7 @@ const neuve = (c: string): ReviewCard => newCard(c, TJ);
 const sue = (c: string): ReviewCard => schedule(newCard(c, TJ), JUSTE, TJ).card;
 
 const V255: VersionConte = {
-  seuil: 255,
+  seuil: '255',
   titre: '人和兔',
   phrases: [
     { zh: '一个人看见一只兔。', pinyin: 'Yí gè rén kànjiàn yì zhī tù.', fr: 'Un homme voit un lièvre.' }
@@ -66,7 +67,7 @@ const V255: VersionConte = {
 };
 
 const V405: VersionConte = {
-  seuil: 405,
+  seuil: '405',
   titre: '人和兔子',
   phrases: [
     { zh: '农夫天天等兔子。', pinyin: 'Nóngfū tiāntiān děng tùzi.', fr: 'Le paysan attend le lièvre.' },
@@ -76,7 +77,7 @@ const V405: VersionConte = {
 };
 
 const CONTE: Conte = { version: '0.1.0', source: 'test', id: 'essai', titre_fr: 'Essai', versions: [V255, V405] };
-const INDEX: IndexConte = { id: 'essai', titre_fr: 'Essai', seuils: [255, 405], fichier: 'contes/essai.json' };
+const INDEX: IndexConte = { id: 'essai', titre_fr: 'Essai', seuils: ['255', '405'], fichier: 'contes/essai.json' };
 
 const tous = (v: VersionConte): Set<string> => new Set(caracteresDeVersion(v));
 const union = (...vs: VersionConte[]): Set<string> => new Set(vs.flatMap(caracteresDeVersion));
@@ -94,7 +95,7 @@ describe("l'acquis suit la règle de Ma forêt", () => {
 
 describe('les caractères d’une version', () => {
   it('comptent le titre et le texte, sans ponctuation, chiffres ni espaces', () => {
-    const v: VersionConte = { seuil: 255, titre: '天', phrases: [{ zh: '人，大 3。', pinyin: '', fr: '' }], glose: {} };
+    const v: VersionConte = { seuil: '255', titre: '天', phrases: [{ zh: '人，大 3。', pinyin: '', fr: '' }], glose: {} };
     expect(caracteresDeVersion(v)).toEqual(['天', '人', '大']);
     expect(estHan('。')).toBe(false);
     expect(estHan('A')).toBe(false);
@@ -110,14 +111,14 @@ describe('les caractères d’une version', () => {
 
 describe('la version ouverte', () => {
   it('est celle du seuil le plus haut dont tous les caractères sont acquis', () => {
-    expect(versionLisible(CONTE, union(V255, V405))?.seuil).toBe(405);
-    expect(versionLisible(CONTE, tous(V255))?.seuil).toBe(255);
+    expect(versionLisible(CONTE, union(V255, V405))?.seuil).toBe('405');
+    expect(versionLisible(CONTE, tous(V255))?.seuil).toBe('255');
   });
 
   it('un seul caractère manquant ferme sa version, pas les autres', () => {
     const acquis = union(V255, V405);
     acquis.delete('等');
-    expect(versionLisible(CONTE, acquis)?.seuil).toBe(255);
+    expect(versionLisible(CONTE, acquis)?.seuil).toBe('255');
   });
 });
 
@@ -128,15 +129,15 @@ describe('un conte sans version lisible', () => {
     acquis.delete('只');
     const e = entreeConte(INDEX, CONTE, acquis);
     expect(e.version).toBeNull();
-    expect(e.attend).toBe(255);
+    expect(e.attend).toBe('255');
     expect(e.reste).toBe(2);
     expect(e.plusRiche).toBe(false);
   });
 
   it("sans fichier lisible, il attend le plus bas seuil de l'index, sans rien estimer", () => {
-    const e = entreeConte({ ...INDEX, seuils: [405, 255] }, null, union(V255, V405));
+    const e = entreeConte({ ...INDEX, seuils: ['405', '255'] }, null, union(V255, V405));
     expect(e.version).toBeNull();
-    expect(e.attend).toBe(255);
+    expect(e.attend).toBe('255');
     expect(e.reste).toBe(0);
   });
 });
@@ -145,8 +146,8 @@ describe('une version plus riche (2c.2)', () => {
   const acquis = union(V255, V405);
 
   it("est signalée quand la version ouverte dépasse toutes celles qu'on a lues", () => {
-    const e = entreeConte(INDEX, CONTE, acquis, [255]);
-    expect(e.version?.seuil).toBe(405);
+    const e = entreeConte(INDEX, CONTE, acquis, ['255']);
+    expect(e.version?.seuil).toBe('405');
     expect(e.plusRiche).toBe(true);
     expect(e.lue).toBe(false);
   });
@@ -156,7 +157,7 @@ describe('une version plus riche (2c.2)', () => {
   });
 
   it("ne l'est plus une fois cette version lue", () => {
-    const e = entreeConte(INDEX, CONTE, acquis, [255, 405]);
+    const e = entreeConte(INDEX, CONTE, acquis, ['255', '405']);
     expect(e.plusRiche).toBe(false);
     expect(e.lue).toBe(true);
   });
@@ -167,7 +168,7 @@ describe('le marqueur gratuit', () => {
     const ouvert = entreeConte({ ...INDEX, gratuit: false }, CONTE, tous(V255));
     const ferme = entreeConte({ ...INDEX, gratuit: true }, CONTE, new Set());
     expect(ouvert.gratuit).toBe(false);
-    expect(ouvert.version?.seuil).toBe(255);
+    expect(ouvert.version?.seuil).toBe('255');
     expect(ferme.gratuit).toBe(true);
     expect(ferme.version).toBeNull();
     expect(entreeConte({ ...INDEX, gratuit: undefined }, CONTE, new Set()).gratuit).toBe(false);
@@ -182,18 +183,18 @@ describe('la bibliothèque', () => {
   it("montre les contes ouverts d'abord, puis les fermés, dans l'ordre de l'index", () => {
     const autre: Conte = { ...CONTE, id: 'autre', titre_fr: 'Autre', versions: [V405] };
     const index = [
-      { ...INDEX, id: 'autre', titre_fr: 'Autre', seuils: [405] },
+      { ...INDEX, id: 'autre', titre_fr: 'Autre', seuils: ['405'] },
       INDEX,
-      { ...INDEX, id: 'absent', titre_fr: 'Absent', seuils: [255] }
+      { ...INDEX, id: 'absent', titre_fr: 'Absent', seuils: ['255'] }
     ];
     const contes = new Map([
       ['essai', CONTE],
       ['autre', autre]
     ]);
-    const b = bibliotheque(index, contes, tous(V255), { essai: [255] });
+    const b = bibliotheque(index, contes, tous(V255), { essai: ['255'] });
     expect(b.map((e) => e.id)).toEqual(['essai', 'autre', 'absent']);
     expect(b[0].lue).toBe(true);
-    expect(b[1].attend).toBe(405);
+    expect(b[1].attend).toBe('405');
   });
 });
 
@@ -263,7 +264,7 @@ describe('le découpage en unités qui se touchent', () => {
 describe("« J'ai lu »", () => {
   it('remplit le trophée du conte à ce seuil et nourrit Tao, qui lit par-dessus l’épaule', () => {
     const avant = emptyProgress('2026-03-02');
-    const p = noterActivite(noterConteLu(avant, 'essai', 255), avant.day, 'conte');
+    const p = noterActivite(noterConteLu(avant, 'essai', '255'), avant.day, 'conte');
     const index = { contes: [INDEX] } as unknown as Index;
     const t = tropheesContes(index, 0, {}, p.contesLus);
     expect(t.find((x) => x.id === 'conte-essai-255')?.obtenu).toBe(true);
@@ -330,7 +331,7 @@ const PREVU: CatalogueConte = {
   titre_zh: '守株待兔',
   titre_pinyin: 'shǒu zhū dài tù',
   titre_fr: 'Essai',
-  niveaux: [255, 405, 805],
+  niveaux: ['255', '405', '805'],
   chapitres: 1
 };
 
@@ -339,7 +340,7 @@ const A_VENIR: CatalogueConte = {
   titre_zh: '画蛇添足',
   titre_pinyin: 'huà shé tiān zú',
   titre_fr: 'À venir',
-  niveaux: [405, 805],
+  niveaux: ['405', '805'],
   chapitres: 1
 };
 
@@ -347,19 +348,19 @@ describe('les niveaux d’un conte', () => {
   it('écrit et ouvert, écrit mais fermé, pas encore écrit : rien n’est estimé', () => {
     const n = niveauxDuConte(PREVU.niveaux, INDEX.seuils, CONTE, tous(V255));
     expect(n).toEqual([
-      { seuil: 255, etat: 'ouvert' },
-      { seuil: 405, etat: 'ferme' },
-      { seuil: 805, etat: 'a_ecrire' }
+      { seuil: '255', etat: 'ouvert' },
+      { seuil: '405', etat: 'ferme' },
+      { seuil: '805', etat: 'a_ecrire' }
     ]);
   });
 
   it('un seuil que l’index annonce sans fichier lisible reste écrit mais fermé', () => {
-    expect(niveauxDuConte([255], [255], null, new Set())).toEqual([{ seuil: 255, etat: 'ferme' }]);
+    expect(niveauxDuConte(['255'], ['255'], null, new Set())).toEqual([{ seuil: '255', etat: 'ferme' }]);
   });
 
   it('un niveau prévu non écrit ne ferme pas le conte : la version écrite s’ouvre', () => {
     const e = entreeConte(INDEX, CONTE, tous(V255), [], false, PREVU);
-    expect(e.version?.seuil).toBe(255);
+    expect(e.version?.seuil).toBe('255');
     expect(e.ecrit).toBe(true);
     expect(e.niveaux.map((n) => n.etat)).toEqual(['ouvert', 'ferme', 'a_ecrire']);
   });
@@ -373,25 +374,25 @@ describe('les niveaux d’un conte', () => {
     expect(venir.ecrit).toBe(false);
     expect(venir.titre_zh).toBe('画蛇添足');
     expect(venir.niveaux).toEqual([
-      { seuil: 405, etat: 'a_ecrire' },
-      { seuil: 805, etat: 'a_ecrire' }
+      { seuil: '405', etat: 'a_ecrire' },
+      { seuil: '805', etat: 'a_ecrire' }
     ]);
   });
 
   it('sans catalogue (export plus ancien), l’index seul, niveaux écrits', () => {
     const b = bibliotheque([INDEX], new Map([[CONTE.id, CONTE]]), tous(V255));
-    expect(b[0].niveaux.map((n) => n.seuil)).toEqual([255, 405]);
+    expect(b[0].niveaux.map((n) => n.seuil)).toEqual(['255', '405']);
   });
 
   it('le catalogue de l’index se relit ; une entrée sans identifiant est écartée', () => {
     expect(
       lireCatalogueContes([
-        { id: 'a', titre_zh: '山', titre_pinyin: 'shān', titre_fr: 'A', niveaux: [805, 255, 255], chapitres: 4 },
+        { id: 'a', titre_zh: '山', titre_pinyin: 'shān', titre_fr: 'A', niveaux: ['hsk3', 805, 255, 255, 'HSK5', 'hsk10', 0], chapitres: 4 },
         { titre_fr: 'sans id' },
         { id: 'b', niveaux: 'x', chapitres: 0 }
       ])
     ).toEqual([
-      { id: 'a', titre_zh: '山', titre_pinyin: 'shān', titre_fr: 'A', niveaux: [255, 805], chapitres: 4 },
+      { id: 'a', titre_zh: '山', titre_pinyin: 'shān', titre_fr: 'A', niveaux: ['255', '805', 'hsk3', 'hsk5'], chapitres: 4 },
       { id: 'b', titre_zh: '', titre_pinyin: '', titre_fr: '', niveaux: [], chapitres: 1 }
     ]);
     expect(lireCatalogueContes(undefined)).toEqual([]);
@@ -404,7 +405,7 @@ describe('les niveaux d’un conte', () => {
     for (const c of index.contes) {
       const prevu = catalogue.find((x) => x.id === c.id);
       expect(prevu, c.id).toBeDefined();
-      for (const s of c.seuils) expect(prevu?.niveaux).toContain(s);
+      for (const s of lireNiveaux(c.seuils)) expect(prevu?.niveaux).toContain(s);
     }
   });
 });
@@ -412,7 +413,7 @@ describe('les niveaux d’un conte', () => {
 /* ---------- les récits longs, chapitre par chapitre ---------- */
 
 const LONGUE: VersionConte = {
-  seuil: 405,
+  seuil: '405',
   titre: '人和兔',
   phrases: [],
   glose: { 人: 'homme', 和: 'et', 兔: 'lièvre', 天: 'jour', 大: 'grand', 山: 'montagne', 一: 'un' },
@@ -499,23 +500,59 @@ describe('les chapitres lus et la reprise', () => {
 
   it('la progression note chapitres et reprise, sans compter le conte avant la fin', () => {
     let p = emptyProgress('2026-09-25');
-    p = noterChapitreLu(p, 'long', 405, 1, 3);
-    p = noterChapitreLu(p, 'long', 405, 2, 3);
-    expect(p.chapitres[cleLecture('long', 405)]).toEqual({ lus: [1, 2], reprise: 3 });
+    p = noterChapitreLu(p, 'long', '405', 1, 3);
+    p = noterChapitreLu(p, 'long', '405', 2, 3);
+    expect(p.chapitres[cleLecture('long', '405')]).toEqual({ lus: [1, 2], reprise: 3 });
     expect(p.contesLus).toEqual({});
     expect(contesLus(p)).toBe(0);
-    p = noterReprise(p, 'long', 405, 1);
+    p = noterReprise(p, 'long', '405', 1);
     expect(p.chapitres['405/long'].reprise).toBe(1);
-    expect(noterChapitreLu(p, 'long', 405, 4, 3)).toBe(p);
+    expect(noterChapitreLu(p, 'long', '405', 4, 3)).toBe(p);
   });
 
   it('les chapitres en cours passent par l’export et l’import JSON', () => {
     let p = emptyProgress('2026-09-25');
-    p = noterChapitreLu(p, 'long', 405, 1, 3);
-    p = noterReprise(p, 'long', 405, 3);
+    p = noterChapitreLu(p, 'long', '405', 1, 3);
+    p = noterReprise(p, 'long', '405', 3);
     expect(fromJSON(toJSON(p), '2026-09-25').chapitres).toEqual({ '405/long': { lus: [1], reprise: 3 } });
     const ancien = JSON.parse(toJSON(p)) as Record<string, unknown>;
     delete ancien.chapitres;
     expect(fromJSON(JSON.stringify(ancien), '2026-09-25').chapitres).toEqual({});
+  });
+
+  it('un récit long au niveau HSK se reprend sous `hsk5/<conte>` ; une clé hors niveau est écartée', () => {
+    let p = emptyProgress('2026-09-25');
+    p = noterChapitreLu(p, 'mei-hou-wang', 'hsk5', 1, 4);
+    const brut = JSON.parse(toJSON(p)) as { chapitres: Record<string, unknown> };
+    brut.chapitres['hsk10/x'] = { lus: [1], reprise: 2 };
+    brut.chapitres['hsk5/'] = { lus: [1], reprise: 2 };
+    expect(fromJSON(JSON.stringify(brut), '2026-09-25').chapitres).toEqual({
+      'hsk5/mei-hou-wang': { lus: [1], reprise: 2 }
+    });
+  });
+});
+
+/* ---------- les niveaux HSK ---------- */
+
+describe('les niveaux HSK', () => {
+  const VHSK3: VersionConte = { ...V405, seuil: 'hsk3' };
+  const MIXTE: Conte = { ...CONTE, versions: [VHSK3, V255] };
+
+  it('la version ouverte est celle du niveau le plus haut, par son nombre de caractères', () => {
+    expect(versionLisible(MIXTE, union(V255, V405))?.seuil).toBe('hsk3');
+    expect(versionLisible(MIXTE, tous(V255))?.seuil).toBe('255');
+  });
+
+  it('les niveaux d’un conte se rangent du seuil 255 au HSK, et le plus riche se signale', () => {
+    const n = niveauxDuConte(['hsk5', '255', 'hsk3'], [], MIXTE, tous(V255));
+    expect(n).toEqual([
+      { seuil: '255', etat: 'ouvert' },
+      { seuil: 'hsk3', etat: 'ferme' },
+      { seuil: 'hsk5', etat: 'a_ecrire' }
+    ]);
+    const e = entreeConte({ ...INDEX, seuils: ['255', 'hsk3'] }, MIXTE, union(V255, V405), ['255']);
+    expect(e.plusRiche).toBe(true);
+    const ferme = entreeConte({ ...INDEX, seuils: ['hsk3', '255'] }, null, new Set());
+    expect(ferme.attend).toBe('255');
   });
 });

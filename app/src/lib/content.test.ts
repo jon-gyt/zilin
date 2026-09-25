@@ -885,6 +885,8 @@ describe('le chargeur des contes', () => {
         glose: { 人: 'homme' }
       },
       '505': { titre: 'vide', phrases: [] },
+      hsk2: { titre: '人', phrases: [{ zh: '人来了。', pinyin: 'Rén lái le.', fr: "L'homme est venu." }], glose: {} },
+      hsk8: { titre: 'x', phrases: [{ zh: '人', pinyin: 'rén', fr: '' }] },
       pas: { titre: 'x', phrases: [{ zh: '人', pinyin: 'rén', fr: '' }] }
     }
   };
@@ -892,7 +894,7 @@ describe('le chargeur des contes', () => {
     version: V,
     familles: [],
     contes: [
-      { id: 'essai', titre_fr: 'Essai', seuils: [255, 405], fichier: 'contes/essai.json', gratuit: true },
+      { id: 'essai', titre_fr: 'Essai', seuils: ['hsk2', 255, 405], fichier: 'contes/essai.json', gratuit: true },
       { id: 'absent', titre_fr: 'Absent', seuils: [255, 0, 'x'], fichier: 'contes/absent.json' },
       { titre_fr: 'Sans identifiant', seuils: [255], fichier: 'contes/rien.json' }
     ]
@@ -915,11 +917,11 @@ describe('le chargeur des contes', () => {
     return appels;
   }
 
-  it('relit les versions par seuil, triées, et écarte ce qui ne se lit pas', () => {
+  it('relit les versions par niveau, du plus petit au plus grand, et écarte ce qui ne se lit pas', () => {
     const c = lireConte(conteSimule);
     expect(c.id).toBe('essai');
     expect(c.titre_fr).toBe('Essai');
-    expect(c.versions.map((v) => v.seuil)).toEqual([255, 405]);
+    expect(c.versions.map((v) => v.seuil)).toEqual(['255', '405', 'hsk2']);
     expect(c.versions[0].phrases).toEqual([{ zh: '人来。', pinyin: 'Rén lái.', fr: "L'homme vient." }]);
     expect(c.versions[1].glose).toEqual({ 兔子: 'lièvre', 来: 'venir' });
     expect(() => lireConte({ titre_fr: 'sans id' })).toThrow('illisible');
@@ -948,8 +950,8 @@ describe('le chargeur des contes', () => {
   it("marque les contes gratuits d'après l'index, faux par défaut, et écarte une entrée sans identifiant", () => {
     const lus = lireContesIndex(indexSimule.contes);
     expect(lus.map((x) => [x.id, x.gratuit, x.seuils])).toEqual([
-      ['essai', true, [255, 405]],
-      ['absent', false, [255]]
+      ['essai', true, ['255', '405', 'hsk2']],
+      ['absent', false, ['255']]
     ]);
     expect(lireContesIndex(undefined)).toEqual([]);
   });

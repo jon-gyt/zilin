@@ -155,7 +155,7 @@ export function caracteresDeLettre(l: Lettre): string[] {
 
 /** La lettre telle que le lecteur des contes la lit : pas de titre chinois, pas de seuil. */
 export function versionDeLettre(l: Lettre): VersionConte {
-  const v: VersionConte = { seuil: 0, titre: '', phrases: l.phrases, glose: l.glose };
+  const v: VersionConte = { seuil: '', titre: '', phrases: l.phrases, glose: l.glose };
   if (l.statut === STATUT_A_RELIRE) v.statut = STATUT_A_RELIRE;
   return v;
 }

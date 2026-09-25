@@ -8,7 +8,7 @@ de provenance écrits par les fonctions de `fetch.py`), puis produit avec fontto
 
 - Manrope 500 et 700, Source Sans 3 400 et 600, en sous-ensemble latin étendu ;
 - Noto Serif SC 500, réduit aux seuls caractères que l'app affiche — ceux de l'export
-  versionné, des listes de niveaux et des tracés de démonstration.
+  versionné, des listes de niveaux que l'export sert et des tracés de démonstration.
 
 À lancer après `wenlu export` : c'est l'export qui dit quels caractères l'app écrit.
 
@@ -118,6 +118,12 @@ FONTES_A_PRODUIRE: tuple[Fonte, ...] = (
 
 #: Liste rejouable des caractères retenus pour le chinois.
 SOUS_ENSEMBLE = "noto-serif-sc.subset.txt"
+
+#: Les listes de niveaux dont la police embarque les caractères : celles que l'export
+#: sert (`export.LISTES_CIBLES`). Les autres listes versionnées (HSK 2 à 7-9) bornent
+#: l'écriture des contes ; ce qu'un conte en écrit entre dans la police par ses textes
+#: exportés, pas par la liste entière (2 383 caractères de plus, la police quadruplerait).
+LISTES_POLICE: tuple[str, ...] = ("seuil-255", "hsk-1")
 
 # --- Sous-ensemble latin -----------------------------------------------------
 
@@ -232,9 +238,9 @@ def caracteres_de_lapp(
 ) -> str:
     """Le sous-ensemble chinois, lu depuis les fichiers du dépôt.
 
-    Trois origines : les tracés de démonstration, les listes de niveaux et, quand
-    il est écrit, l'export versionné — la seule qui dise ce que l'app affiche
-    vraiment. Lancer `wenlu fonts` avant `wenlu export` laisse donc des glyphes
+    Trois origines : les tracés de démonstration, les listes de niveaux que l'export
+    sert (`LISTES_POLICE`) et, quand il est écrit, l'export versionné — la seule qui
+    dise ce que l'app affiche vraiment. Lancer `wenlu fonts` avant `wenlu export` laisse donc des glyphes
     manquants : c'est dit dans le README.
     """
     traits = traits or TRAITS_APP
@@ -242,7 +248,9 @@ def caracteres_de_lapp(
     cles = list(json.loads(traits.read_text(encoding="utf-8")).keys()) if traits.exists() else []
     cles += sorted(caracteres_exportes(export))
     cles += sorted(caracteres_des_textes(export))
-    textes = [f.read_text(encoding="utf-8") for f in sorted(listes.glob("*.txt"))]
+    textes = [
+        f.read_text(encoding="utf-8") for f in sorted(listes.glob("*.txt")) if f.stem in LISTES_POLICE
+    ]
     return sous_ensemble_chinois(cles, textes)
 
 
