@@ -1061,7 +1061,7 @@ def version_depuis_brouillon(
     conte: Conte,
     *,
     essais: int = 1,
-    horloge: Callable[[], str] = _aujourdhui,
+    horloge: Callable[[], str] | None = None,
 ) -> Version:
     """La version d'un brouillon : le texte du rédacteur, le récit du catalogue.
 
@@ -1090,7 +1090,7 @@ def version_depuis_brouillon(
         generation=Generation(
             modele=MODELE_MANUEL,
             api=API_SESSION,
-            date=horloge(),
+            date=(horloge or _aujourdhui)(),  # lue à l'appel : un test la remplace
             empreinte_invite=brouillon.empreinte,
             essais=essais,
         ),
@@ -1117,7 +1117,7 @@ def importer_brouillon(
     autorises: Sequence[str],
     *,
     dossier: Path | None = None,
-    horloge: Callable[[], str] = _aujourdhui,
+    horloge: Callable[[], str] | None = None,
 ) -> Import:
     """Version, `valider()`, écriture : les contrôles des versions générées.
 
