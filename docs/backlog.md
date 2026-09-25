@@ -33,7 +33,7 @@ Format BMAD : épics puis stories. Priorité dans l'ordre. Une story se termine 
 
 ## Épic 3 · Révision
 - 3.1 FSRS (ts-fsrs), rétention cible, planification.
-- 3.2 Sept types de questions, leurres par ressemblance de composants.
+- 3.2 Huit types de questions, leurres par ressemblance de composants (et de son, à l'oreille) : l'oreille par la voix de l'appareil et le ton s'ajoutent aux sept de départ.
 - 3.3 Notation automatique (juste rapide, juste lent, juste après erreur, montré).
 - 3.4 Écran de série : chemin en perspective, Miao avance, Que et les cadeaux. Fondu dans Clore par la story 2.8 : la graine, la semaine et le cadeau de Que y sont, sans second écran de fin.
 
@@ -231,18 +231,34 @@ Relevé sur le dépôt après une revue du pipeline. Les numéros ci-dessus ne b
   Réglages change la bête ou le nom sans rien perdre. Le 放榜 passe au retour au menu, jamais
   au milieu d'un pas, une fois par rang. Les points : un par bonne réponse notée
   (`noterRevision`), dans l'art de sa question (读 : sens, caractère, assemblage, trou, et
-  tous les jeux ; 写 : tracé, et chaque tracé achevé au pas Apprendre ; 听 : oreille ; 说 :
-  « quel élément donne le son ? »), jamais pour le temps ni la vitesse. Ils sont comptés
+  tous les jeux, et « quel élément donne le son ? » ; 写 : tracé, et chaque tracé achevé au pas
+  Apprendre ; 听 : oreille ; 说 : ton), jamais pour le temps ni la vitesse. Ils sont comptés
   dans la progression (`arts`), un compteur de plus : l'historique des cartes est borné à
   vingt lignes et ne dit pas le type de question, un calcul pur ferait rapetisser le
   personnage ; une progression d'avant lui recalcule les siens depuis cet historique et les
   tracés achevés. La progression garde aussi `heros: {bete, nom, rang}`, le rang étant le
   dernier annoncé, pour qu'un 放榜 ne se montre jamais deux fois. Restent : relire les
-  textes, les écrire en anglais ; 听 et 说 restent à zéro tant qu'aucun audio n'est embarqué
-  (la question à l'oreille en demande un) et qu'aucune fiche relue ne porte de rôle son ;
-  une vraie question de ton ou de pinyin pour 说 (les tons sont hors du périmètre V1) ;
-  un jeu qui note plusieurs caractères pour une réponse (la coquille et son intrus, une
+  textes, les écrire en anglais ; un jeu qui note plusieurs caractères pour une réponse (la coquille et son intrus, une
   réplique WeChat) donne un point par caractère noté, à trancher.
+
+- 3.2, l'oreille par la voix de l'appareil et la question de ton (25 septembre) : décision du
+  propriétaire, validée sur la maquette du mode héros (« 听 le reconnaître au son », « 说
+  trouver son ton »). L'oreille se pose quand la fiche a un fichier ou que l'appareil a une
+  voix mandarin (`voixPretes` attend l'annonce des voix, une seconde au plus, avant de tirer
+  la série) ; « Écouter » dit le caractère à l'ouverture et se rejoue ; leurres par la forme
+  ou le son, jamais un homophone ; pinyin des choix tu jusqu'à la correction. Le ton :
+  caractère et syllabe sans ton, les quatre tons en ligne dans leur ordre, le neutre si la
+  lecture l'a ; l'export écrit désormais `lectures` sur chaque fiche (principale en tête, puis
+  surcharge, `kMandarin`, `kTGHZ2013`, `kXHC1983` d'Unihan, que `wenlu ingest` garde dans
+  `lectures_dico`), et aucune lecture valide n'est un leurre (好 : hào jamais proposé) ;
+  « Écouter » après la réponse. Notation par `grade`, points : ton en 说, oreille en 听,
+  « quel élément donne le son ? » en 读. Reste : l'oreille ne compte que le fichier de la
+  fiche (`audio`, vide dans l'export) ou la voix de l'appareil ; le manifeste audio du
+  parcours Lire (Kokoro) est déjà joué par « Écouter » quand il a le caractère, mais ne suffit
+  pas encore à poser la question sans voix de l'appareil, à brancher si le propriétaire le
+  veut. Un `data/work/` ingéré avant ce changement doit relancer `wenlu ingest` : sans les
+  lectures des dictionnaires, l'export n'écrit aucune `lectures`, l'app ne pose pas le ton,
+  et `wenlu check` le signale (« export : lectures »).
 
 ### Livrées à moitié : le code attend une clé d'API
 
