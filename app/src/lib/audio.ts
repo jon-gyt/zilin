@@ -77,6 +77,7 @@ export function configurerAudio(
   unique = null;
   cree = false;
   charge = null;
+  voixAttendues = null;
   manifestes.clear();
 }
 
@@ -176,6 +177,43 @@ export function voixMandarin(): SpeechSynthesisVoice | null {
 /** Le téléphone peut-il dire du mandarin ? */
 export function aVoixTelephone(): boolean {
   return voixMandarin() !== null;
+}
+
+/** Le temps laissé au navigateur pour annoncer ses voix. */
+export const ATTENTE_VOIX_MS = 1000;
+
+let voixAttendues: Promise<boolean> | null = null;
+
+/**
+ * Le téléphone peut-il dire du mandarin, une fois ses voix connues ? Chrome, et parfois
+ * Safari, rendent une liste vide au premier appel et annoncent leurs voix ensuite
+ * (`voiceschanged`) : on attend l'annonce, `delai` millisecondes au plus. Une seule attente
+ * pour toute la vie de l'app, pour qu'une série de questions décidée sur cette réponse ne
+ * change pas en route.
+ */
+export function voixPretes(delai = ATTENTE_VOIX_MS): Promise<boolean> {
+  if (voixAttendues !== null) return voixAttendues;
+  voixAttendues = new Promise<boolean>((resolve) => {
+    const s = synthese();
+    if (s === null) {
+      resolve(false);
+      return;
+    }
+    if (s.getVoices().length > 0) {
+      resolve(aVoixTelephone());
+      return;
+    }
+    const cible = s as Partial<Pick<EventTarget, 'addEventListener' | 'removeEventListener'>>;
+    let minuteur: ReturnType<typeof setTimeout> | null = null;
+    const finir = () => {
+      if (minuteur !== null) clearTimeout(minuteur);
+      cible.removeEventListener?.('voiceschanged', finir);
+      resolve(aVoixTelephone());
+    };
+    minuteur = setTimeout(finir, delai);
+    cible.addEventListener?.('voiceschanged', finir);
+  });
+  return voixAttendues;
 }
 
 /**

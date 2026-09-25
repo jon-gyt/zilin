@@ -9,6 +9,7 @@ import {
   aVoixTelephone,
   direParLeTelephone,
   voixMandarin,
+  voixPretes,
   type Synthese,
   chemin,
   configurerAudio,
@@ -252,5 +253,46 @@ describe('la voix du téléphone en repli', () => {
     expect(aAudio(MANIFESTE, '住')).toBe(false);
     expect(await dire('住')).toBe(false);
     expect(direParLeTelephone('住')).toBe(false);
+  });
+});
+
+describe('les voix du téléphone, une fois annoncées', () => {
+  it('répond tout de suite quand les voix sont déjà là', async () => {
+    configurerAudio({ synthese: () => syntheseDEssai(['zh-CN']) });
+    expect(await voixPretes()).toBe(true);
+    configurerAudio({ synthese: () => syntheseDEssai(['fr-FR']) });
+    expect(await voixPretes()).toBe(false);
+    configurerAudio({ synthese: () => null });
+    expect(await voixPretes()).toBe(false);
+  });
+
+  it('attend l’annonce des voix (voiceschanged) quand la liste est vide au premier appel', async () => {
+    let langs: string[] = [];
+    const ecouteurs: (() => void)[] = [];
+    const s = {
+      getVoices: () =>
+        langs.map((lang) => ({ lang, name: lang, voiceURI: lang, default: false, localService: true })),
+      speak: () => {},
+      cancel: () => {},
+      addEventListener: (_t: string, f: () => void) => ecouteurs.push(f),
+      removeEventListener: () => {}
+    } as unknown as Synthese;
+    configurerAudio({ synthese: () => s });
+    const p = voixPretes(10_000);
+    langs = ['zh-CN'];
+    ecouteurs.forEach((f) => f());
+    expect(await p).toBe(true);
+  });
+
+  it('ne l’attend pas indéfiniment : sans annonce, pas de voix', async () => {
+    const s = {
+      getVoices: () => [],
+      speak: () => {},
+      cancel: () => {},
+      addEventListener: () => {},
+      removeEventListener: () => {}
+    } as unknown as Synthese;
+    configurerAudio({ synthese: () => s });
+    expect(await voixPretes(5)).toBe(false);
   });
 });

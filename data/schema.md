@@ -117,6 +117,11 @@ porte une `Fiche` par caractère de la famille, triée par caractère :
   `dictionary.txt` ni de CC-CEDICT (`docs/sources-licences.md` §2.2 et §4.2), sauf
   là où `data/sources/surcharges/pinyin.tsv` le corrige : sa première lecture, la
   principale, est alors celle de l'export (地 dì et non la particule de).
+- `lectures` : toutes les lectures valides du caractère, la principale (`pinyin`)
+  en tête, puis celles de la surcharge, de `kMandarin`, de `kTGHZ2013` et de
+  `kXHC1983` (Unihan), sans doublon : 好 `["hǎo", "hào"]`, 得 `["dé", "de", "děi"]`.
+  Vide quand le caractère n'a pas de pinyin. La question de ton de l'app n'accepte
+  que la principale et ne propose jamais les autres comme leurres.
 - `parts` : la décomposition canonique GF 0014-2009, dans l'ordre d'écriture ;
   vide pour une brique, qui est une feuille de la norme.
 - `sources` : d'où vient la chaîne IDS descendue pour cette décomposition,
@@ -517,9 +522,11 @@ ce que l'app embarque ; `docs/sources-licences.md` fait foi pour la décision.
 - `mots.json` : `[{traditionnel, simplifie, pinyin, definitions_en[]}]` depuis CC-CEDICT.
 - `listes.json` : `{ "<nom de liste>": [caractères] }`, chargé depuis `data/sources/listes/*.txt` (un sinogramme par ligne, `#` en commentaire, ni doublon ni non-sinogramme).
 - `unihan.json` : `{source, licence, url, version, date, fichiers[], champs[], frequence,
-  caracteres: [{c, code, pinyin, lectures[], traits, frequence}]}` depuis `Unihan.zip`
-  (UCD, Unicode License). `pinyin` est la première lecture de `kMandarin`, la plus
-  courante en zh-CN selon UAX #38 ; `lectures` les garde toutes. `traits` vient de
+  caracteres: [{c, code, pinyin, lectures[], lectures_dico[], traits, frequence}]}` depuis
+  `Unihan.zip` (UCD, Unicode License). `pinyin` est la première lecture de `kMandarin`, la
+  plus courante en zh-CN selon UAX #38 ; `lectures` les garde toutes. `lectures_dico` réunit
+  les lectures de `kTGHZ2013` (通用规范汉字字典) puis de `kXHC1983` (现代汉语词典), qui
+  nomment toutes celles d'un polyphone (好 hǎo hào) là où `kMandarin` n'en donne qu'une. `traits` vient de
   `kTotalStrokes`, `frequence` de `kFrequency` — absent d'Unihan 17.0.0 et 18.0.0, où il
   vaut donc `null` ; il existait encore en 12.0.0. `fichiers` reprend l'en-tête officiel
   de chaque `Unihan_*.txt` lu (nom, date, version), qui vaut preuve de provenance.

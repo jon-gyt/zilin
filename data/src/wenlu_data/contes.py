@@ -1178,7 +1178,7 @@ Format (sinon rien n'est écrit) :
 jamais une source inexacte.
 Le récit suit l'intrigue du catalogue, sans en changer la morale, sans recopier \
 l'ouvrage d'origine ; des phrases courtes, un chinois simple et naturel ; des constats, \
-ni emoji ni dragon."""
+ni emoji ni dragon, sauf dans 叶公好龙 dont le dragon est le sujet."""
 
 
 def squelette(conte: Conte, seuil: int) -> dict[str, object]:

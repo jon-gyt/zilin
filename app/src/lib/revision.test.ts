@@ -133,10 +133,14 @@ describe('le corpus assemblé pour les questions', () => {
     expect(fichesDuCorpus(null, null)).toEqual([]);
   });
 
-  it("n'offre pas le type « à l'oreille » : aucune fiche ne porte encore d'audio", () => {
+  it("n'offre le type « à l'oreille » qu'avec la voix de l'appareil : aucune fiche ne porte d'audio", () => {
+    expect(corpus.voix).toBe(false);
     for (const f of corpus.fiches) {
       expect(typesPossibles(f, corpus)).not.toContain('oreille');
     }
+    const avecVoix = corpusRevision({ ...sources, voix: true });
+    expect(avecVoix.voix).toBe(true);
+    expect(typesPossibles(ficheDuCorpus('住', avecVoix)!, avecVoix)).toContain('oreille');
   });
 
   it('laisse le tracé se couper par le réglage', () => {
@@ -181,7 +185,7 @@ describe('la séance du pas Échauffer', () => {
   });
 });
 
-describe('le pas Fixer, sur les sept types', () => {
+describe('le pas Fixer, sur les huit types', () => {
   /* À la fin d'Apprendre, les cartes du jour sont neuves : la vérification tient quand même. */
   const neuves = ['主', '住'].map((c) => newCard(c, T0));
   const corpus = corpusFixer({ famille, voisins, cartes: neuves, paires });
@@ -192,7 +196,7 @@ describe('le pas Fixer, sur les sept types', () => {
     expect(qs.map((q) => q.c)).toEqual(['住', '主', '住']);
   });
 
-  it('prend ses questions dans le module des sept types', () => {
+  it('prend ses questions dans le module des huit types', () => {
     expect(qs[0].reponse).toEqual(['habiter']);
     expect(qs[0].choix).toContain('habiter');
     expect(qs[1].choix).toContain('主');

@@ -511,6 +511,11 @@ h1{font-family:var(--head);font-weight:700;font-size:30px;line-height:1.15;lette
 /* le trou dans un mot : le seul cinabre de l'écran, il marque la place à remplir */
 .q .stim .blank{display:inline-block;width:44px;border-bottom:3px solid var(--zhu);vertical-align:-4px}
 .q .stim .ecoute{width:auto;margin:0 auto}
+/* le ton : la syllabe sous le caractère, sans ton puis avec ; les choix en grand pinyin */
+.q .stim .syllabe{display:flex;align-items:center;justify-content:center;gap:12px;min-height:44px;margin-top:4px}
+.q .stim .syllabe .ecoute{margin:0}
+.choices.tons{grid-template-columns:repeat(var(--n,4),1fr);gap:8px}
+.choices.tons button{min-height:56px;padding:6px 2px;font-size:21px;color:var(--indigo)}
 /* une brique déjà posée dans l'assemblage */
 .choices button.pris{border-color:var(--indigo)}
 /* le résumé de fin : ce qui est sûr, ce qui revient, et quand */

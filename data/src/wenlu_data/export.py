@@ -74,6 +74,7 @@ from __future__ import annotations
 import hashlib
 import json
 import re
+import unicodedata
 from dataclasses import dataclass, field
 from datetime import datetime, timezone
 from pathlib import Path
@@ -93,6 +94,7 @@ from . import heros as heros_mod
 from . import lettres as lettres_mod
 from . import saisons as saisons_mod
 from . import surcharges as surcharges_mod
+from . import unihan as unihan_mod
 from . import wechat as wechat_mod
 from .gf0014 import Controle
 from .graphe import BRIQUE, DECOUPEE, MUETTE, PARCOURS
@@ -106,7 +108,7 @@ VERSION = "0.1.0"
 #: Version du format écrit par ce module. À incrémenter à chaque changement de
 #: ce que l'export produit à entrées égales (clé ajoutée, ordre, règle de
 #: sélection) : elle entre dans l'empreinte, et l'export versionné devient périmé.
-FORMAT_EXPORT = 6
+FORMAT_EXPORT = 7
 
 #: Le code de l'exporteur, lui aussi dans l'empreinte : un changement de ce
 #: fichier où l'on aurait oublié `FORMAT_EXPORT` rend quand même l'export périmé.
@@ -378,6 +380,44 @@ def charger_pinyin(
     return lus
 
 
+def charger_lectures(
+    ingest: Path,
+    caracteres: Iterable[str],
+    surcharges: Mapping[str, Sequence[str]] | None = None,
+) -> dict[str, list[str]] | None:
+    """Toutes les lectures valides des caractères demandés, par caractère.
+
+    Les lectures d'une surcharge d'abord, puis celles d'Unihan : `kMandarin`, puis
+    `kTGHZ2013` et `kXHC1983` (`lectures_dico`), qui disent toutes celles d'un
+    polyphone (好 hǎo hào). La fiche les exporte derrière sa lecture principale : une
+    question de ton ne propose jamais comme leurre une lecture valide du caractère.
+
+    `None` quand l'ingestion ne porte pas encore les dictionnaires (un `unihan.json`
+    d'avant `lectures_dico`) : on ne saurait pas dire toutes les lectures, les fiches
+    n'en exportent aucune et l'app ne pose pas la question de ton.
+    """
+    document = _lire(ingest / "unihan.json")
+    assert isinstance(document, dict)
+    if not set(unihan_mod.DICTIONNAIRES) <= set(document.get("champs") or ()):
+        return None
+    surcharges = surcharges_mod.charger_pinyin() if surcharges is None else surcharges
+    voulus = set(caracteres)
+    lues: dict[str, list[str]] = {}
+    for c, lectures in surcharges.items():
+        if c in voulus:
+            lues[c] = [str(x) for x in lectures]
+    for e in document["caracteres"]:
+        c = str(e["c"])
+        if c not in voulus:
+            continue
+        brutes = [*(e.get("lectures") or ()), *(e.get("lectures_dico") or ())]
+        for x in brutes:
+            lue = unicodedata.normalize("NFC", str(x))
+            if lue and lue not in lues.setdefault(c, []):
+                lues[c].append(lue)
+    return lues
+
+
 def charger_graphies(
     ingest: Path, caracteres: Iterable[str], decoupes: Mapping[str, Mapping[str, object]] | None = None
 ) -> dict[str, dict[str, object]]:
@@ -501,6 +541,7 @@ def fiche_exportee(
     listes: Mapping[str, Sequence[str]],
     poses: Mapping[str, tuple[str, int, str | None]],
     relues: Mapping[str, fiches_mod.Fiche],
+    lectures: Mapping[str, Sequence[str]] | None = None,
 ) -> Fiche:
     """Assemble la fiche d'un caractère. Sans fiche relue, les textes restent vides.
 
@@ -523,11 +564,19 @@ def fiche_exportee(
         if nom in NIVEAUX and c in set(listes.get(nom) or ())
     }
 
+    def toutes(principale: str) -> list[str]:
+        """La lecture principale en tête, puis les autres ; rien sans elle ni sans elles."""
+        if not principale or lectures is None:
+            return []
+        autres = [x for x in lectures.get(c, ()) if x != principale]
+        return [principale, *autres]
+
     relue = relues.get(c)
     if relue is None:
         return Fiche(
             c=c,
             pinyin=pinyin.get(c, ""),
+            lectures=toutes(pinyin.get(c, "")),
             fr="",
             en="",
             parts=parts,
@@ -543,9 +592,11 @@ def fiche_exportee(
         )
     roles = {k: v for k, v in sorted(relue.roles.items()) if v in ("son", "sens", "forme")}
     ajoute = parts[nouveau[0]] if nouveau else None
+    principale = pinyin.get(c, "") or (relue.pinyin[0] if relue.pinyin else "")
     return Fiche(
         c=c,
-        pinyin=pinyin.get(c, "") or (relue.pinyin[0] if relue.pinyin else ""),
+        pinyin=principale,
+        lectures=toutes(principale),
         fr="",
         en="",
         parts=parts,
@@ -1672,6 +1723,7 @@ def assembler(
     cibles += caracteres_heros()
     per = perimetre(noeuds, cibles)
     pinyin = charger_pinyin(ingest, per.caracteres)
+    lectures = charger_lectures(ingest, per.caracteres)
     dans_le_perimetre = set(per.caracteres)
     # Les composants découpés dans un hôte : leurs traits rejoignent ceux de la source.
     decoupes =[d for d in decoupes_mod.charger(build) if str(d["c"]) in dans_le_perimetre]
@@ -1702,6 +1754,7 @@ def assembler(
                 listes=listes,
                 poses=poses,
                 relues=relues,
+                lectures=lectures,
             )
             for c in membres
         ]
@@ -2033,6 +2086,7 @@ def controles(
     apercu_fiches = 0
     apercu_versions = 0
     sans_traits: list[str] = []
+    sans_lectures: list[str] = []
     total_familles = 0
     total_fichiers = 0
     statuts_fiches = {
@@ -2044,6 +2098,7 @@ def controles(
     }
     for dossier in dossiers:
         sans_traits += [f"{dossier.name}:{c}" for c in caracteres_sans_traits(dossier)]
+        sans_lectures += [f"{dossier.name}:{c}" for c in caracteres_sans_lectures(dossier)]
         absents += [
             f"{dossier.name}/{relatif}"
             for relatif in TEXTES_DE_LICENCE
@@ -2122,7 +2177,31 @@ def controles(
             if sans_traits
             else "tout caractère exporté a ses traits",
         ),
+        Controle(
+            "export : lectures",
+            not sans_lectures,
+            f"{len(sans_lectures)} caractères au pinyin exporté sans leurs lectures, pas de question"
+            f" de ton pour eux : relancer `wenlu ingest` (lectures des dictionnaires d'Unihan)"
+            f" puis `wenlu export` — {' '.join(sans_lectures[:8])}"
+            if sans_lectures
+            else "chaque caractère au pinyin exporté dit toutes ses lectures, la principale en tête",
+        ),
     ]
+
+
+def caracteres_sans_lectures(dossier: Path) -> list[str]:
+    """Les caractères d'une version exportée qui ont un pinyin mais pas leurs lectures.
+
+    Sans elles, l'app ne sait pas quelles syllabes sont d'autres lectures valides et ne
+    pose pas la question de ton : ce n'est pas une faute, c'est signalé.
+    """
+    manquent: set[str] = set()
+    for chemin in sorted((dossier / "familles").glob("*.json")):
+        document = json.loads(chemin.read_text(encoding="utf-8"))
+        for f in document.get("fiches") or ():
+            if f.get("pinyin") and not f.get("lectures"):
+                manquent.add(str(f["c"]))
+    return sorted(manquent)
 
 
 def caracteres_sans_traits(dossier: Path) -> list[str]:

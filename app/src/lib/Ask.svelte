@@ -4,10 +4,11 @@
    * correction. Les deux pas qui posent des questions s'en servent — Échauffer (pas 2) et
    * Fixer (pas 5) — pour que la réponse se donne et se corrige partout de la même façon.
    *
-   * Les sept types viennent de `questions.ts`, la note de `grade` (`srs.ts`) : jamais
+   * Les huit types viennent de `questions.ts`, la note de `grade` (`srs.ts`) : jamais
    * d'auto-évaluation. Deux erreurs et la réponse est montrée. L'échéance annoncée est
    * celle que FSRS a écrite sur la carte, jamais une constante.
    */
+  import { untrack } from 'svelte';
   import Glyph from './Glyph.svelte';
   import Trace from './Trace.svelte';
   import { corriger, type Corpus, type Question, type Reponse } from './questions';
@@ -16,6 +17,7 @@
   import type { Revision } from './session';
   import { grade } from './srs';
   import { artDe } from './heros';
+  import { aAudio, dire, manifesteOnce } from './audio';
   import type { Grade } from 'ts-fsrs';
 
   let {
@@ -48,8 +50,8 @@
   /** Deux erreurs : la réponse est montrée, et la carte revient dans dix minutes. */
   const ESSAIS_MAX = 2;
 
-  /** Les choix sont des caractères partout, sauf pour le sens. */
-  const caracteres = $derived(q.type !== 'sens');
+  /** Les choix sont des caractères partout, sauf pour le sens et le ton. */
+  const caracteres = $derived(q.type !== 'sens' && q.type !== 'ton');
   const bon = $derived(q.choix.indexOf(q.reponse[0]));
   /** Assemblage de plus de trois briques : des cases plus petites, la ligne tient à 393 px. */
   const serre = $derived(q.reponse.length > 3);
@@ -67,6 +69,15 @@
   let prochaine = $state('');
   /** Le tracé sans données embarquées : on passe, sans noter ce qu'on n'a pas vu. */
   let sautable = $state(false);
+  /** À l'oreille : le caractère a déjà été dit une fois, le bouton propose de le redire. */
+  let entendu = $state(false);
+  /** Le caractère peut être dit, par un fichier ou la voix de l'appareil. */
+  let ecoutable = $state(false);
+  /**
+   * À l'oreille, le pinyin sous les choix dirait la réponse : il n'apparaît qu'après la
+   * correction.
+   */
+  const pinyinCache = $derived(q.type === 'oreille' && note === null);
 
   /** Remise à zéro à chaque question : le chronomètre repart, les essais aussi. */
   $effect(() => {
@@ -79,7 +90,31 @@
     montree = false;
     prochaine = '';
     sautable = false;
+    entendu = false;
+    ecoutable = false;
     depart = Date.now();
+  });
+
+  /** Le bouton « Écouter » du ton n'existe que si le caractère peut être dit. */
+  $effect(() => {
+    const c = q.c;
+    let vivant = true;
+    void manifesteOnce().then((m) => {
+      if (vivant) ecoutable = aAudio(m, c);
+    });
+    return () => {
+      vivant = false;
+    };
+  });
+
+  /* À l'oreille, le caractère est dit dès que la question s'affiche, comme sur la maquette ;
+     le bouton le redit autant qu'on veut. Une fois par question : la série recalculée après
+     la note rend une question neuve, qui ne doit pas se redire. */
+  $effect(() => {
+    void cle;
+    if (untrack(() => q.type) !== 'oreille') return;
+    const t = setTimeout(() => ecouter(), 300);
+    return () => clearTimeout(t);
   });
 
   /** L'avance automatique après une bonne réponse (`delaiAvance`). Annulée si on tape avant. */
@@ -155,10 +190,18 @@
   }
 
   /**
-   * Audio au toucher : aucun fichier n'est encore embarqué. Le type « à l'oreille » est
-   * d'ailleurs écarté par `typesPossibles` tant qu'aucune fiche ne porte d'audio.
+   * Dit le caractère : son fichier pré-généré s'il en a un, sinon la voix mandarin de
+   * l'appareil (`audio.dire`), sans réseau. `typesPossibles` ne pose la question à
+   * l'oreille que si l'un ou l'autre existe. Après la correction, écouter retient l'écran :
+   * l'avance automatique s'arrête, on avance au bouton.
    */
-  function ecouter(_reference: string | undefined): void {}
+  function ecouter(): void {
+    if (note !== null) arreter();
+    const rang = cle;
+    void dire(q.c).then((dit) => {
+      if (dit && rang === cle) entendu = true;
+    });
+  }
 </script>
 
 <div class="q">
@@ -196,7 +239,18 @@
     </div>
   {:else if q.type === 'oreille'}
     <div class="stim">
-      <button class="btn ghost ecoute" onclick={() => ecouter(q.audio)}>♪ Réécouter</button>
+      <button class="btn ghost ecoute" onclick={ecouter}>{entendu ? '♪ Réécouter' : '♪ Écouter'}</button>
+    </div>
+  {:else if q.type === 'ton'}
+    <!-- Le caractère et sa syllabe sans ton ; la correction pose le ton, et on peut l'entendre. -->
+    <div class="stim">
+      <Glyph char={q.c} size={100} />
+      <div class="syllabe">
+        <span class="py">{note === null ? q.sansTon : q.reponse[0]}</span>
+        {#if note !== null && ecoutable}
+          <button class="btn ghost ecoute" onclick={ecouter}>♪ Écouter</button>
+        {/if}
+      </div>
     </div>
   {:else if q.type === 'trace'}
     <div class="stim">
@@ -211,7 +265,13 @@
 
   {#if q.type !== 'trace'}
     <!-- L'assemblage pose ses briques en vrac sur quatre colonnes : le bouton du bas reste visible. -->
-    <div class="choices" class:vrac={q.type === 'assemblage'}>
+    <!-- Les tons tiennent sur une ligne, dans leur ordre : la correction reste au-dessus du bouton. -->
+    <div
+      class="choices"
+      class:vrac={q.type === 'assemblage'}
+      class:tons={q.type === 'ton'}
+      style:--n={q.type === 'ton' ? q.choix.length : null}
+    >
       {#each q.choix as o, k (o + k)}
         <button
           class:txt={!caracteres}
@@ -223,7 +283,8 @@
         >
           {#if caracteres}
             <Glyph char={o} size={48} write={false} />
-            <small>{pinyinDe(o, corpus)}</small>
+            <!-- Une espace insécable garde la hauteur du bouton quand le pinyin est tu. -->
+            <small>{pinyinCache ? ' ' : pinyinDe(o, corpus)}</small>
           {:else}
             {o}
           {/if}

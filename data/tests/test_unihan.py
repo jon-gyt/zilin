@@ -102,6 +102,27 @@ def test_pinyin_multiple_prend_la_premiere_lecture(tmp_path: Path) -> None:
     assert par_caractere["中"].pinyin == "zhōng"
 
 
+def test_les_dictionnaires_gardent_toutes_les_lectures(tmp_path: Path) -> None:
+    """`kTGHZ2013` et `kXHC1983` disent toutes les lectures d'un polyphone, que
+    `kMandarin` tait : 好 hǎo et hào. L'ordre est gardé, sans doublon."""
+    lectures = LECTURES + (
+        "U+597D\tkMandarin\thǎo\n"
+        "U+597D\tkTGHZ2013\t132.140:hǎo 133.010:hào\n"
+        "U+597D\tkXHC1983\t0445.030:hǎo 0448.030:hào\n"
+        "U+5F97\tkMandarin\tdé\n"
+        "U+5F97\tkXHC1983\t0223.030:dé 0225.010,0225.020:de 0225.040:děi\n"
+    )
+    unihan = collecter(dossier(tmp_path / "unihan", Readings=lectures, IRGSources=IRG))
+    par_caractere = {c.c: c for c in unihan.caracteres}
+    assert par_caractere["好"].lectures == ("hǎo",)
+    assert par_caractere["好"].lectures_dico == ("hǎo", "hào")
+    assert par_caractere["得"].lectures_dico == ("dé", "de", "děi")
+    assert par_caractere["中"].lectures_dico == ()
+    principal = document(unihan, url="https://exemple.invalide/", licence="Unicode License")
+    lus = {e["c"]: e for e in principal["caracteres"]}  # type: ignore[union-attr]
+    assert lus["好"]["lectures_dico"] == ["hǎo", "hào"]
+
+
 def test_traits_et_point_de_code(tmp_path: Path) -> None:
     """`kTotalStrokes` donne le nombre de traits ; le point de code est conservé."""
     unihan = collecter(dossier(tmp_path / "unihan", Readings=LECTURES, IRGSources=IRG))

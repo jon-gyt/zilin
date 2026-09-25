@@ -13,7 +13,7 @@ Une PWA (TypeScript, Vite, Svelte) pour apprendre à lire le chinois par les fam
 - Révision par questions, notation automatique (voir `app/src/lib/srs.ts`). Pas d'auto-évaluation.
 - Une seule brique nouvelle par session de 10 minutes. Une session = six pas dans le même ordre.
 - Le rouge cinabre marque l'élément ajouté et la position sur le chemin, rien d'autre. Pas de doré, pas d'emoji, pas d'ombre, pas de dégradé.
-- Les fêtes ont leurs pigments, distincts du cinabre, pour le seul décor de fête (voir brief, section 5). Le dragon n'apparaît qu'au Nouvel An et à la fête des bateaux-dragons 端午, jamais ailleurs.
+- Les fêtes ont leurs pigments, distincts du cinabre, pour le seul décor de fête (voir brief, section 5). Le dragon n'apparaît qu'au Nouvel An et à la fête des bateaux-dragons 端午, jamais ailleurs, sauf dans le texte du conte 叶公好龙 dont il est le sujet (jamais dessiné).
 - Les grands caractères sont rendus depuis les données de traits (style 楷), jamais depuis une police.
 - Tao accompagne toutes les activités dans la posture correspondante (voir brief, section 9). Elle ne meurt jamais, ne tombe pas malade, ne culpabilise jamais. Son humeur vient de la variété des activités, jamais de l'horloge.
 - Un jeu n'existe que s'il fait lire quelque chose de plus. Pas de points au temps passé, pas de vies, pas de classements, pas de coffres.
