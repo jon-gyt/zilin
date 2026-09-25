@@ -23,6 +23,12 @@ génération relance avec les intrus signalés, au plus `ESSAIS_MAX` fois. Chaqu
 écrite porte sa traçabilité (conte, seuil, modèle, date, empreinte de l'invite, nombre
 d'essais) et le statut « à relire » : la relecture humaine est obligatoire avant export.
 
+Mots expliqués (décision du propriétaire) : une version peut nommer hors de son niveau un
+personnage ou un objet clé du récit (狼, 苗, 叶公), déclaré au catalogue dans `cles`, et
+l'explique dans `expliques` ; trois caractères hors du niveau au plus pour une fable, trois
+nouveaux au plus par chapitre pour un récit long. Tout autre caractère hors du niveau
+reste un rejet.
+
 Une version donne, phrase par phrase, le chinois, le pinyin (une syllabe par
 sinogramme), la traduction française et anglaise, et une glose par caractère ou par
 mot (pinyin, sens court en français et en anglais) que le lecteur de l'app affiche au

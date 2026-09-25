@@ -387,7 +387,24 @@ anglaise, glose par mot.
   dans aucune liste) ; 美猴王 HSK 5, HSK 6, HSK 7-9 (猴 石 变) ; 井底之蛙 HSK 7-9 seul
   (蛙 龟 井). Dans Lire, les sceaux disent « 255 » ou « HSK 3 » ; une progression qui
   notait les seuils en nombre se relit.
-- Reste : relire les trois contes, puis écrire les 27 versions HSK prévues et les deux
+- Mots expliqués (25 septembre), décision du propriétaire : « Quand c'est un personnage
+  clé comme loup, tu peux expliquer le mot aussi. » Une version peut nommer hors de son
+  niveau un personnage ou un objet clé du récit, déclaré au catalogue dans `cles`, après
+  une barre oblique (`羊圈补/狼`, `龙/叶`, `菜长/苗`, `虎/狐狸`, hors du critère des
+  niveaux), et l'explique dans `expliques` (hanzi, pinyin, sens fr et en, explication fr
+  et en) ; trois caractères hors du niveau au plus pour une fable, trois nouveaux au plus
+  par chapitre d'un récit long. Un caractère non déclaré ou de trop : rejet ; tout autre
+  caractère hors du niveau reste rejeté. Brouillons (champ facultatif), validation,
+  contexte, export (`expliques` avec `caracteres`, `racines` du conte, format 10 ; leurs
+  caractères entrent dans le périmètre, traits et police) et `wenlu check` (« contes :
+  mots expliqués ») suivent ; les versions sans `expliques` se relisent octet pour octet.
+  Dans l'app, le lecteur montre la carte « Mots du conte » en tête du chapitre où chaque
+  mot paraît (dessiné depuis ses traits, pinyin, sens, explication) ; dans le texte, un
+  trait discret, et la glose dit « mot du conte » ; un mot expliqué ne ferme pas un conte.
+  Premier lot repris, à relire : 亡羊补牢 HSK 4 et HSK 6 (狼 ; 洞 et 丢 restent contournés
+  à HSK 4), 拔苗助长 HSK 3 (苗 ; 拔, un geste, reste 往上拉), 叶公好龙 HSK 3 (叶公).
+- Reste : reprendre les récits longs (木兰, 美猴王) avec des mots expliqués, et
+  狐假虎威 s'il nomme le renard (狐狸 déclaré) ; relire les trois contes, puis écrire les 27 versions HSK prévues et les deux
   récits longs ; vérifier les listes HSK contre le PDF officiel (lecture OCR, ordre,
   caractères à écrire). À noter : sous le HSK, les fables animalières montent haut (兔,
   蛇, 虎, 猴 au niveau 5 ; 蛙 et 龟 à 7-9), au-delà de la cible « jusqu'au HSK 4 » du
