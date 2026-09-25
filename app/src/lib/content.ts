@@ -1458,6 +1458,26 @@ export type VersionConte = {
    * fable, qui se lit d'une traite (`lecture.chapitresDe` en fait un seul chapitre).
    */
   chapitres?: ChapitreConte[];
+  /**
+   * Les mots expliqués : hors du niveau, ils nomment un personnage ou un objet clé du récit
+   * (狼, 叶公). Le lecteur les montre avant le texte ; ils ne comptent pas dans l'acquis
+   * qui ouvre le conte. Absent pour la plupart des versions.
+   */
+  expliques?: MotConte[];
+};
+
+/** Un mot expliqué d'une version de conte, tel que l'export le donne. */
+export type MotConte = {
+  zh: string;
+  pinyin: string;
+  fr: string;
+  en: string;
+  explication_fr: string;
+  explication_en: string;
+  /** Ceux de ses caractères qui sont hors du niveau (叶 pour 叶公) : l'acquis ne les demande pas. */
+  caracteres: string;
+  /** Les familles où trouver les traits de ces caractères (`racines` du conte exporté). */
+  pistes: string[];
 };
 
 /** Un chapitre d'un récit long : son titre chinois, son pinyin, son titre français, ses phrases. */
@@ -1520,10 +1540,43 @@ function lireChapitres(v: unknown): ChapitreConte[] {
 }
 
 /**
+ * Les mots expliqués d'une version. Un mot sans chinois ou sans caractère hors du niveau
+ * est écarté ; `racines`, celles du conte, disent où trouver les traits de ses caractères.
+ */
+function lireExpliques(v: unknown, racines: Readonly<Record<string, string>>): MotConte[] {
+  if (!Array.isArray(v)) return [];
+  const out: MotConte[] = [];
+  for (const x of v) {
+    if (x === null || typeof x !== 'object') continue;
+    const m = x as Record<string, unknown>;
+    const zh = chaine(m.zh);
+    const caracteres = Array.from(chaine(m.caracteres))
+      .filter((c) => zh.includes(c))
+      .join('');
+    if (zh === '' || caracteres === '') continue;
+    out.push({
+      zh,
+      pinyin: chaine(m.pinyin),
+      fr: chaine(m.fr),
+      en: chaine(m.en),
+      explication_fr: chaine(m.explication_fr),
+      explication_en: chaine(m.explication_en),
+      caracteres,
+      pistes: [...new Set(Array.from(caracteres).flatMap((c) => (racines[c] ? [racines[c]] : [])))]
+    });
+  }
+  return out;
+}
+
+/**
  * Relit une version : une fable par ses `phrases`, un récit long par ses `chapitres`, dont
  * les phrases font alors `phrases`. Sans phrase lisible, elle est écartée (`null`).
  */
-function lireVersion(seuil: Niveau, v: unknown): VersionConte | null {
+function lireVersion(
+  seuil: Niveau,
+  v: unknown,
+  racines: Readonly<Record<string, string>> = {}
+): VersionConte | null {
   if (v === null || typeof v !== 'object') return null;
   const o = v as Record<string, unknown>;
   const chapitres = lireChapitres(o.chapitres);
@@ -1545,6 +1598,8 @@ function lireVersion(seuil: Niveau, v: unknown): VersionConte | null {
   const lue: VersionConte = { seuil, titre: chaine(o.titre), phrases, glose };
   if (chapitres.length > 0) lue.chapitres = chapitres;
   if (o.statut === STATUT_A_RELIRE) lue.statut = STATUT_A_RELIRE;
+  const expliques = lireExpliques(o.expliques, racines);
+  if (expliques.length > 0) lue.expliques = expliques;
   return lue;
 }
 
@@ -1560,10 +1615,17 @@ export function lireConte(brut: unknown, file = ''): Conte {
     throw new Error(`Conte illisible : ${file}`);
   }
   const versions: VersionConte[] = [];
+  /* La famille de chaque caractère des mots expliqués, pour trouver ses traits. */
+  const racines: Record<string, string> = {};
+  if (o.racines !== null && typeof o.racines === 'object') {
+    for (const [c, r] of Object.entries(o.racines as Record<string, unknown>)) {
+      if (typeof r === 'string' && r !== '') racines[c] = r;
+    }
+  }
   for (const [cle, v] of Object.entries(o.versions as Record<string, unknown>)) {
     const seuil = lireNiveau(cle);
     if (seuil === null) continue;
-    const lue = lireVersion(seuil, v);
+    const lue = lireVersion(seuil, v, racines);
     if (lue !== null) versions.push(lue);
   }
   versions.sort((a, b) => comparerNiveaux(a.seuil, b.seuil));

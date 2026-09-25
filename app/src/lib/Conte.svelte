@@ -23,19 +23,29 @@
    * chapitre lu (`onchapitre`) et ouvre le suivant ; au dernier, « J'ai lu » note le conte
    * lu (`onlu`) si tous les chapitres le sont, sinon ouvre le premier qui reste, et le dit :
    * un chapitre non lu ne compte pas.
+   *
+   * Les mots expliqués (狼 dans 亡羊补牢, 叶公 dans 叶公好龙) nomment hors du niveau un
+   * personnage ou un objet clé du récit. Une carte « Mots du conte » les montre avant le
+   * texte, en tête du chapitre où ils paraissent pour la première fois : chacun dessiné
+   * depuis ses traits (en police s'ils manquent), son pinyin, son sens et l'explication ;
+   * le toucher le dit. Dans le texte, un trait fin et discret les souligne, et leur glose
+   * au toucher dit « mot du conte ».
    */
   import { untrack, type Snippet } from 'svelte';
   import ARelire from './ARelire.svelte';
+  import Glyph from './Glyph.svelte';
   import Tao from './Tao.svelte';
   import { dire } from './audio';
   import { fiche } from './content';
   import {
     MENTION_HORS_ACQUIS,
+    caracteresExpliques,
     chapitreDeReprise,
     chapitresDe,
     estLongue,
     grouper,
     ligneGlose,
+    motsDuChapitre,
     tousLus,
     traductionDe,
     unites,
@@ -94,13 +104,17 @@
   const restants = $derived(Array.from({ length: n }, (_, j) => j + 1).filter((j) => !lus.includes(j)));
 
   const chapitre = $derived(chapitres[Math.min(Math.max(k, 1), n) - 1] ?? null);
+  /* Les caractères des mots expliqués, soulignés dans le texte ; et les mots du conte que
+     ce chapitre montre en tête, ceux qui y paraissent pour la première fois. */
+  const expliques = $derived(v ? caracteresExpliques(v) : new Set<string>());
+  const mots = $derived(v ? motsDuChapitre(v, Math.min(Math.max(k, 1), n)) : []);
   /* Le titre, puis le texte courant, groupés pour que la ponctuation ne passe pas seule à la ligne. */
   const titre = $derived(v ? grouper(unitesDuTitre(v)) : []);
   const titreChapitre = $derived(
-    v && chapitre && long ? grouper(unitesDuChapitre(chapitre, v.glose)) : []
+    v && chapitre && long ? grouper(unitesDuChapitre(chapitre, v.glose, expliques)) : []
   );
   const texte = $derived(
-    v && chapitre ? grouper(chapitre.phrases.flatMap((ph) => unites(ph, v.glose))) : []
+    v && chapitre ? grouper(chapitre.phrases.flatMap((ph) => unites(ph, v.glose, expliques))) : []
   );
   const trad = $derived(chapitre ? traductionDe(chapitre.phrases) : '');
   const ligneSeuil = $derived(
@@ -140,7 +154,9 @@
   }
 
   const glose = $derived(
-    touchee ? ligneGlose({ pinyin: touchee.pinyin ?? pinyinFiche, sens: touchee.sens }) : ''
+    touchee
+      ? ligneGlose({ pinyin: touchee.pinyin ?? pinyinFiche, sens: touchee.sens, explique: touchee.explique })
+      : ''
   );
 
   function haut(): void {
@@ -217,8 +233,11 @@
       <span class="groupe">
         {#each g as u, i (i)}
           {#if u.touchable}
-            <button class="s" class:touchee={touchee === u} onclick={() => toucher(u)}
-              >{u.texte}</button
+            <button
+              class="s"
+              class:touchee={touchee === u}
+              class:explique={u.explique}
+              onclick={() => toucher(u)}>{u.texte}</button
             >
           {:else}
             <span class="s muet">{u.texte}</span>
@@ -264,6 +283,33 @@
           ? `Il reste ${restants.length} chapitres à lire, à commencer par le ${reste}`
           : `Il reste le chapitre ${reste} à lire`} : le conte sera lu une fois tous ses chapitres lus.
       </p>
+    {/if}
+
+    {#if mots.length > 0}
+      <section class="card mots" aria-labelledby="mots-du-conte">
+        <div class="k" id="mots-du-conte">Mots du conte</div>
+        <p class="mots-guide">
+          {mots.length > 1 ? 'Ils nomment' : 'Il nomme'} un personnage ou un objet clé du récit, pas
+          encore de ce niveau : les voici avant de lire.
+        </p>
+        <ul>
+          {#each mots as m (m.zh)}
+            <li>
+              <button class="mot" onclick={() => void dire(m.zh)} aria-label={`${m.zh}, ${m.pinyin}, ${m.fr}`}>
+                <span class="dessin" aria-hidden="true">
+                  {#each Array.from(m.zh) as c, j (j)}
+                    <Glyph char={c} size={48} write={false} color="var(--ink)" pistes={m.pistes} />
+                  {/each}
+                </span>
+                <span class="grow">
+                  <span class="mot-t"><span class="py">{m.pinyin}</span> {m.fr}</span>
+                  <span class="mot-d">{m.explication_fr}</span>
+                </span>
+              </button>
+            </li>
+          {/each}
+        </ul>
+      </section>
     {/if}
 
     <div class="card">
@@ -341,6 +387,63 @@
   /* l'unité touchée reste soulignée, à l'indigo : on voit ce que dit la bande du bas */
   .read .s.touchee {
     border-color: var(--indigo);
+  }
+  /* un mot expliqué : un trait fin et discret sous le mot, à l'encre claire, jamais le
+     cinabre ; le filet indigo du toucher reste au-dessous */
+  .read .s.explique {
+    text-decoration: underline;
+    text-decoration-color: var(--mist);
+    text-decoration-thickness: 1px;
+    text-underline-offset: 0.22em;
+  }
+  /* les mots du conte, avant le texte : dessinés depuis leurs traits, pinyin, sens, explication */
+  .mots {
+    margin-bottom: 12px;
+  }
+  .mots-guide {
+    color: var(--ink2);
+    font-size: 15px;
+    margin: 4px 0 0;
+  }
+  .mots ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  .mot {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    width: 100%;
+    padding: 12px 0 0;
+    margin-top: 12px;
+    border-top: 1px solid var(--line);
+    text-align: left;
+  }
+  .mot .dessin {
+    display: flex;
+    flex-shrink: 0;
+    padding: 4px;
+    border: 1px solid var(--rule);
+    border-radius: 10px;
+  }
+  .mot-t {
+    display: block;
+    font-weight: 600;
+    line-height: 1.3;
+  }
+  .mot-t .py {
+    font-style: italic;
+    font-weight: 400;
+    color: var(--ink2);
+    margin-right: 4px;
+  }
+  .mot-d {
+    display: block;
+    font-size: 15px;
+    color: var(--ink2);
+    line-height: 1.4;
+    margin-top: 3px;
   }
   .conte h1 {
     font-size: 24px;
