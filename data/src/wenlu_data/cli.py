@@ -140,7 +140,7 @@ app.command(name="fonts")(_fonts)
 
 @app.command()
 def check() -> None:
-    """Contrôles : composants inconnus, cycles, graphe, listes, briques muettes, découpes, contes hors liste, fiches invalides, rôle son loin de la lecture moderne, textes sans audio, export à jour, aperçu des textes à relire, fêtes, termes solaires, devinettes, dictionnaire éclair, coquilles, cuisine, lettres de Que, message WeChat."""
+    """Contrôles : composants inconnus, cycles, graphe, listes, briques muettes, découpes, contes hors liste, fiches invalides, rôle son loin de la lecture moderne, textes sans audio, export à jour, aperçu des textes à relire, fêtes, termes solaires, devinettes, dictionnaire éclair, coquilles, cuisine, lettres de Que, message WeChat, personnage."""
     from .audio import controles as controles_audio
     from .contes import controles as controles_contes
     from .decoupes import controles as controles_decoupes
@@ -152,6 +152,7 @@ def check() -> None:
     from .fetes import controles as controles_fetes
     from .fiches import controles as controles_fiches
     from .gf0014 import controles
+    from .heros import controles as controles_heros
     from .graphe import controles as controles_graphe
     from .lettres import controles as controles_lettres
     from .phonetiques import controles as controles_phonetiques
@@ -176,6 +177,7 @@ def check() -> None:
         *controles_cuisine(),
         *controles_lettres(),
         *controles_wechat(),
+        *controles_heros(),
     ]:
         typer.echo(f"{'ok   ' if controle.ok else 'écart'} {controle.nom} : {controle.detail}")
         if not controle.ok and controle.bloquant:

@@ -16,9 +16,11 @@ Une famille n'est exportée qu'avec ses membres du périmètre ; la famille 口 
 17 ici, contre 525 dans le graphe complet. Les caractères que les fêtes
 dessinent depuis leurs traits (`data/sources/fetes/textes.tsv` : le caractère
 bonus de chaque anecdote et le 福 du vœu) y entrent aussi, avec leurs briques,
-comme le caractère à lire de chaque terme solaire (`data/sources/saisons/textes.tsv`).
-Version 0.1.0 : 244 familles, 513 caractères (230 briques, 13 feuilles découpées,
-aucune muette), 1,52 Mio. Tout caractère exporté a ses traits.
+comme le caractère à lire de chaque terme solaire (`data/sources/saisons/textes.tsv`)
+et les titres des douze rangs du personnage (`data/sources/heros/rangs.tsv`), dessinés
+sur son écran et au 放榜.
+Version 0.1.0 : 247 familles, 527 caractères (233 briques, 13 feuilles découpées,
+aucune muette), 2,5 Mio. Tout caractère exporté a ses traits.
 
 ## Arborescence
 
@@ -37,6 +39,7 @@ app/public/data/0.1.0/
   cuisine.json               la cuisine de Tao : dix recettes, l'étal, Tao qui goûte
   lettres.json               les lettres de Que relues (aucune aujourd'hui)
   wechat.json                le message WeChat : les dialogues avec l'ami
+  heros.json                 le personnage : douze rangs, trois bêtes, les phrases de Tao
   familles/<racine>.json     une famille : `Famille` de models.py
   traits/<racine>.json       les tracés de la famille, sous APL, et rien d'autre
   traits/ARPHICPL.TXT        la même licence, à côté des fichiers qu'elle couvre
@@ -70,7 +73,8 @@ Trois régimes de licence, trois familles de fichiers, jamais mêlés
                "traits": "traits/亻.json", "n": 14, "avancement_possible": 0.0}],
  "contes": [{"id": "…", "titre_fr": "…", "titre_en": "…", "seuils": [255],
              "fichier": "contes/….json"}],
- "paires": "paires.json"
+ "paires": "paires.json",
+ "heros": "heros.json"
 }
 ```
 
@@ -399,6 +403,34 @@ la bonne réplique parmi trois ou quatre, toutes écrites avec l'acquis.
   lorsque tous sont acquis. `jours` : par parcours, le jour où tous sont posés.
 - `racines` : la famille de chaque caractère écrit. Aucun n'est hors du périmètre.
 
+## `heros.json`
+
+Tiré de `data/sources/heros/` (story 4.5, brief §8 « Le personnage »), rédigé pour l'app
+d'après la maquette validée et à relire : `rangs.tsv`, `betes.tsv`, `tao.tsv`.
+
+```json
+{"version": "0.1.0", "license": "propriétaire", "source": "…", "source_url": "…", "modified": "…",
+ "rangs": [{"hz": "启蒙", "pinyin": "qǐméng", "fr": "lever le voile",
+            "role": "les tout premiers caractères", "age": "bébé", "seuil": 0},
+           {"hz": "蒙童", "…": "…", "seuil": 10}],
+ "betes": [{"id": "tu", "hz": "玉兔", "pinyin": "yùtù", "fr": "le lapin de jade",
+            "dit": "Oreilles dressées, rien ne lui échappe.", "noms": ["Yuè", "月月", "Pompon"]}],
+ "tao": {"accueil": "…", "choisi": "{bete}, {bete_fr} ! {dit}", "depart": "On y va ?",
+         "essayer": "Et si on essayait {art}, {art_fr} ? Je t'aide.",
+         "presque": "Plus que {reste} points pour {rang} !", "presque_un": "…",
+         "sommet": "{nom}, premier du concours. …", "fangbang": "Ton nom est sur la liste, {nom} : …"},
+ "racines": {"启": "口", "…": "…"}}
+```
+
+- `rangs` : douze, dans l'ordre, le premier à 0 point, des seuils strictement croissants
+  (0 à 1 000). `fr` est la traduction mot à mot, sans guillemets ; `age` l'étape de vie
+  (bébé, tout-petit, enfant, grand enfant, ado, jeune, adulte), dont l'app tire la
+  silhouette. Les titres se dessinent depuis leurs traits : leurs caractères sont dans le
+  périmètre, et `racines` dit leur famille.
+- `betes` : `tu`, `xiongmao`, `shi`, les trois que l'app dessine, avec trois idées de nom.
+- `tao` : huit phrases ; l'app remplit les jetons entre accolades. Les points ne sont pas
+  du contenu : l'app les compte dans la progression (`heros.ts`).
+
 ## `LICENCES.md`
 
 Écrit par l'export. Un tableau `source | usage | licence | attribution | texte de
@@ -468,6 +500,13 @@ ce que l'app embarque ; `docs/sources-licences.md` fait foi pour la décision.
   possible dans l'un d'eux, et chaque parcours en ouvre un avant le jour 30 ;
   `wechat.json` dit tous les dialogues, leurs caractères, des notes prises dans la bonne
   réplique, et une syllabe par caractère.
+- « héros : sources », « pinyin », « périmètre », « export » — bloquants : douze rangs,
+  le premier à 0 point, des seuils strictement croissants, des âges qui ne reviennent
+  jamais en arrière, du bébé à l'adulte ; trois bêtes (`tu`, `xiongmao`, `shi`) et trois
+  idées de nom distinctes chacune ; les huit phrases de Tao, sans jeton inconnu ; aucun
+  dragon ; chaque titre et chaque nom de bête se lit dans son pinyin ; chaque caractère
+  des titres a ses traits dans l'export ; `heros.json` dit les rangs, les bêtes et les
+  phrases des sources, et `index.json` le nomme.
 
 ## Format intermédiaire (story 1.1)
 
