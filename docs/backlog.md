@@ -42,6 +42,7 @@ Format BMAD : épics puis stories. Priorité dans l'ordre. Une story se termine 
 - 4.2 Arbre d'une famille, fiche courte, lancement de la prochaine leçon.
 - 4.3 Tao qui grandit (paliers 100, 300, 1 000), postures par activité, humeur par variété, journal du soir, collection visible.
 - 4.4 Chercher : la loupe du menu ouvre la recherche d'un caractère de l'export, par son dessin, son pinyin (avec ou sans accents ni tons) ou le sens d'une fiche relue ; au plus vingt résultats, dessinés depuis les traits, avec la famille et le statut (lu, en cours, pas encore) ; toucher un résultat le dit et ouvre sa famille dans l'arbre.
+- 4.5 Le personnage (mode héros, décision du propriétaire, maquette validée `wenlu-heros.html`) : trois bêtes non genrées (玉兔, 熊猫, 醒狮) et un nom, choisis à la fin de la première session, changés dans Réglages sans rien perdre ; douze rangs du bébé à l'adulte (启蒙 à 状元, paliers 0 à 1 000) ; quatre arts (读 写 听 说), un point par bonne réponse notée, dérivé des événements de révision, des tracés achevés et des jeux ; le personnage grandit à chaque point, change de silhouette et de tenue, gagne une aura ; écran « Mon personnage » ouvert par le portrait de l'en-tête du menu ; 放榜 au retour au menu quand un rang est franchi. Textes par le pipeline (`data/sources/heros/`, `heros.json`), dessins dans l'app.
 
 ## Épic 4b · Jeux
 - 4b.1 Moteur de mini-jeux : un contrat commun (entrée : caractères acquis ; sortie : événements de révision notés), écran hôte, retour vers la session.
