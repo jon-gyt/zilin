@@ -25,9 +25,8 @@
  * Les règles sont pures, comme `jeux.ts` : aucune horloge, aucun stockage, aucun
  * `Math.random`. Seul `wechatOnce` lit le réseau local, les assets de l'app.
  *
- * Reste à faire : le brancher au pas Utiliser (brief §9, « dès la 2e semaine »), ce qui
- * demanderait une vue de plus dans `Use.svelte` et la reprise au pas exact de `session.ts`.
- * Il s'ouvre pour l'instant depuis Jouer.
+ * Il s'ouvre depuis Jouer, et au pas Utiliser (brief §9, « dès la 2e semaine ») : un
+ * dialogue court certains jours, choisi par `utiliser.ts`, repris à l'échange exact.
  */
 import { contenu, dossierVersion, VERSION_DONNEES, type Index } from './content';
 import type { Manche, Tour } from './jeux';

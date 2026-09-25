@@ -222,27 +222,33 @@ export function motDe(t: Tour, corpus: CorpusJeux): MotEclair | null {
 export function toursEclair(corpus: CorpusJeux, graine: string): Tour[] {
   const d = corpus.eclair;
   if (!d) return [];
-  const sens = new Map(d.mots.map((m) => [m.id, m.fr]));
   return melange(motsPossibles(corpus), `${graine}/eclair`)
     .slice(0, TOURS_ECLAIR)
-    .map((m) => {
-      const [premier, second] = [...m.mot];
-      const leurres = m.leurres.map((x) => sens.get(x) ?? '').filter((x) => x !== '' && x !== m.fr);
-      return {
-        c: premier,
-        enonce: 'Que veut dire ce mot ?',
-        reponse: [m.fr],
-        choix: melange([m.fr, ...leurres.slice(0, SENS_ECLAIR - 1)], `${graine}/${m.id}/choix`),
-        ordre: false,
-        paire: false,
-        aussi: [second],
-        correction: [
-          { c: premier, briques: [premier] },
-          { c: second, briques: [second] }
-        ],
-        mot: m.id
-      };
-    });
+    .map((m) => tourDuMot(m, d.mots, graine));
+}
+
+/**
+ * Le tour d'un mot : quatre sens, le bon et trois leurres, mélangés d'après la graine.
+ * Même mot, même graine, même tour : le pas Utiliser le repose tel quel à la reprise.
+ */
+export function tourDuMot(m: MotEclair, mots: readonly MotEclair[], graine: string): Tour {
+  const sens = new Map(mots.map((x) => [x.id, x.fr]));
+  const [premier, second] = [...m.mot];
+  const leurres = m.leurres.map((x) => sens.get(x) ?? '').filter((x) => x !== '' && x !== m.fr);
+  return {
+    c: premier,
+    enonce: 'Que veut dire ce mot ?',
+    reponse: [m.fr],
+    choix: melange([m.fr, ...leurres.slice(0, SENS_ECLAIR - 1)], `${graine}/${m.id}/choix`),
+    ordre: false,
+    paire: false,
+    aussi: [second],
+    correction: [
+      { c: premier, briques: [premier] },
+      { c: second, briques: [second] }
+    ],
+    mot: m.id
+  };
 }
 
 /* ---------- le compteur « mots devinés » ---------- */
