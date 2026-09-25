@@ -403,11 +403,15 @@ anglaise, glose par mot.
   trait discret, et la glose dit « mot du conte » ; un mot expliqué ne ferme pas un conte.
   Premier lot repris, à relire : 亡羊补牢 HSK 4 et HSK 6 (狼 ; 洞 et 丢 restent contournés
   à HSK 4), 拔苗助长 HSK 3 (苗 ; 拔, un geste, reste 往上拉), 叶公好龙 HSK 3 (叶公).
-- Reste : reprendre les récits longs (木兰, 美猴王) avec des mots expliqués, et
-  狐假虎威 s'il nomme le renard (狐狸 déclaré) ; relire les trois contes, puis écrire les 27 versions HSK prévues et les deux
-  récits longs ; vérifier les listes HSK contre le PDF officiel (lecture OCR, ordre,
-  caractères à écrire). À noter : sous le HSK, les fables animalières montent haut (兔,
-  蛇, 虎, 猴 au niveau 5 ; 蛙 et 龟 à 7-9), au-delà de la cible « jusqu'au HSK 4 » du
+- Reprise faite (26 septembre) : les fables et les récits longs nomment leurs personnages et
+  objets clés en mots expliqués (狐狸, 塞翁, 盲人 et 鼻子, 树桩 ; 木兰 et 织布机 ; 孙悟空, 齐天大圣,
+  玉皇大帝, 蟠桃, 筋斗云, 须菩提, 神仙, 弼马温, 猢狲) ; convention du pinyin de 上 et des
+  compléments écrite dans la consigne et `data/schema.md`. Les 30 versions prévues sont
+  écrites : 3 relues (255), 27 à relire.
+- Reste : relire les 27 versions HSK ; vérifier les listes HSK contre le PDF officiel
+  (lecture OCR, ordre, caractères à écrire). À noter : sous le HSK, les fables animalières
+  montent haut (兔, 蛇, 虎, 猴 au niveau 5 ; 蛙 et 龟 à 7-9), au-delà de la cible « jusqu'au
+  HSK 4 » du
   brief : à trancher si l'on veut une version plus basse qui nomme l'animal autrement.
 
 ### En attente d'une décision
