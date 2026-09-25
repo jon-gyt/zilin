@@ -74,7 +74,7 @@ Trois régimes de licence, trois familles de fichiers, jamais mêlés
  "contes": [{"id": "…", "titre_fr": "…", "titre_en": "…", "seuils": [255],
              "fichier": "contes/….json"}],
  "catalogue": [{"id": "…", "titre_zh": "…", "titre_pinyin": "…", "titre_fr": "…",
-                "titre_en": "…", "niveaux": [255, 505], "chapitres": 1}],
+                "titre_en": "…", "niveaux": [255, "hsk3"], "chapitres": 1}],
  "paires": "paires.json",
  "heros": "heros.json"
 }
@@ -1059,23 +1059,29 @@ sans API, avec les mêmes contrôles, puis d'une relecture humaine.
 
 ### Catalogue, versionné
 
-`data/sources/contes/catalogue.tsv` : `#` en commentaire, neuf colonnes séparées par une
+`data/sources/contes/catalogue.tsv` : `#` en commentaire, dix colonnes séparées par une
 tabulation — `id`, `titre_zh`, `titre_pinyin`, `titre_fr`, `titre_en`, `ouvrage`,
-`niveaux`, `chapitres`, `resume_fr`. Treize récits tirés d'ouvrages classiques du domaine
+`niveaux`, `cles`, `chapitres`, `resume_fr`. Treize récits tirés d'ouvrages classiques du domaine
 public : onze fables et deux récits longs. `titre_zh` et `titre_pinyin` sont le vrai
 titre du récit (une syllabe par caractère), `titre_fr` et `titre_en` ses noms dans
 l'app, `ouvrage` trace l'origine du récit, `resume_fr` résume l'intrigue en une phrase.
 Aucun texte de ces ouvrages n'est recopié, et aucune version chinoise n'est écrite dans
 le catalogue.
 
-- `niveaux` : les seuils où le récit sera écrit, croissants, séparés par des virgules :
-  deux pour un récit simple (`255,505`), trois pour un récit riche (`405,805,1555`). Le
-  critère est écrit en tête du catalogue : le plus bas est le premier seuil où le récit
-  se dit sans perdre son sujet (255 sans animal ni objet hors liste, 405 pour une fable
-  animalière, la liste 255 n'ayant aucun nom d'animal, 505 pour une morale abstraite ou
-  le merveilleux) ; un récit simple prend ensuite le seuil situé deux crans plus haut, un
-  récit riche 805 et 1555. Un niveau prévu dont la liste n'est pas versionnée (405 à 1555
-  aujourd'hui) attend sa liste ; rien n'en est écrit, et rien ne la reconstitue.
+- `niveaux` : les niveaux où le récit sera écrit, croissants, séparés par des virgules :
+  deux pour un récit simple (`255,hsk3`, `hsk4,hsk6`), trois pour un récit riche
+  (`hsk4,hsk6,hsk7-9`). Les contes suivent le HSK ; les trois contes relus gardent 255
+  pour premier niveau. Le critère est écrit en tête du catalogue : sur l'échelle 255 (au
+  palier de HSK 1), `hsk1` … `hsk6`, `hsk7-9`, le plus bas est le premier niveau HSK dont
+  le cumul a tous les caractères clés du récit (255 pour les trois contes relus) ; les
+  suivants montent de deux paliers en deux, ramenés à `hsk7-9` au haut de l'échelle, où
+  les paliers restants comblent (`contes.niveaux_attendus` : `hsk5` riche donne `hsk5,
+  hsk6, hsk7-9`) ; un récit qui commence à `hsk7-9` n'a que ce niveau, le seul cas d'un
+  niveau unique. Un niveau prévu dont la liste n'est pas versionnée (405 à 1555) attend
+  sa liste ; rien n'en est écrit, et rien ne la reconstitue.
+- `cles` : les caractères clés du récit, accolés (`马腿断兵`) : ses animaux et les objets
+  de son intrigue, sans lesquels il perd son sujet ; le reste, noms propres compris, se
+  dit autrement. L'en-tête du catalogue les relève conte par conte, avec leur niveau HSK.
 - `chapitres` : 1 pour une fable, lue d'une traite ; plus pour un récit long, lu
   chapitre par chapitre. Les chapitres d'un récit long sont décrits dans
   `data/sources/contes/chapitres.tsv` (`conte`, `n`, `titre_fr`, `titre_en`,
@@ -1083,7 +1089,7 @@ le catalogue.
   le sommaire du lecteur montre, et le résumé qui cadre la réécriture. Une fable n'y a
   aucune ligne.
 
-Un catalogue illisible (en-tête, colonne vide, doublon, niveaux mal dits, chapitres qui
+Un catalogue illisible (en-tête, colonne vide, doublon, niveaux mal dits, `cles` qui ne sont pas des sinogrammes, chapitres qui
 ne correspondent pas) arrête le chargement ; `wenlu check` le dit par le contrôle
 bloquant « contes : catalogue ». `uv run wenlu contes plan` montre, conte par conte,
 l'état de chaque niveau prévu : écrit (et son statut), à écrire (liste présente), ou en
@@ -1192,7 +1198,11 @@ contrôle « contes : niveaux prévus » compte, pour chaque niveau prévu, s'il
 écrire (liste présente, aucune version) ou en attente de sa liste, et relève les
 versions qui s'écartent du catalogue (niveau non prévu, nombre de chapitres, conte hors
 catalogue). Il est en écart tant qu'un niveau reste à écrire, et **jamais bloquant** :
-un niveau prévu non écrit ne retient ni l'export ni l'app.
+un niveau prévu non écrit ne retient ni l'export ni l'app. Le contrôle « contes :
+critère des niveaux », jamais bloquant lui non plus, relit le critère sur les vraies
+listes : chaque caractère clé est dans chaque niveau prévu, le niveau HSK juste
+au-dessous du plus bas ne les a pas tous, et les niveaux montent de deux paliers en
+deux (`contes.ecarts_au_critere`).
 
 `uv run wenlu contes generer` ne soumet, à un niveau, que les fables qui le prévoient
 (`contes_du_seuil`) ; un récit long ne part pas à l'API : il se rédige par brouillon,

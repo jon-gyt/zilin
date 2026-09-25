@@ -143,8 +143,8 @@ def test_catalogue_refuse_un_doublon() -> None:
     """Deux fois le même identifiant, c'est deux fichiers de sortie pour un conte."""
     lignes = [
         "\t".join(contes.COLONNES),
-        "a\t山\tshān\tTitre\tTitle\t《测试》\t255,505\t1\tRésumé.",
-        "a\t水\tshuǐ\tAutre\tOther\t《测试》\t255,505\t1\tRésumé.",
+        "a\t山\tshān\tTitre\tTitle\t《测试》\t255,505\t山\t1\tRésumé.",
+        "a\t水\tshuǐ\tAutre\tOther\t《测试》\t255,505\t水\t1\tRésumé.",
     ]
     with pytest.raises(CatalogueInvalide, match="doublon"):
         parse_catalogue(lignes)
@@ -152,7 +152,7 @@ def test_catalogue_refuse_un_doublon() -> None:
 
 def test_catalogue_veut_une_syllabe_par_caractere_du_vrai_titre() -> None:
     """Le vrai titre (愚公移山) se montre avec son pinyin : une syllabe par caractère."""
-    lignes = ["\t".join(contes.COLONNES), "a\t山水\tshān\tTitre\tTitle\t《测试》\t255,505\t1\tRésumé."]
+    lignes = ["\t".join(contes.COLONNES), "a\t山水\tshān\tTitre\tTitle\t《测试》\t255,505\t山\t1\tRésumé."]
     with pytest.raises(CatalogueInvalide, match="syllabe"):
         parse_catalogue(lignes)
 
@@ -182,25 +182,89 @@ ANIMALIERS = {
 }
 
 
-def ligne_catalogue(identifiant: str = "a", niveaux: str = "255,505", chapitres: str = "1") -> str:
-    return f"{identifiant}\t山\tshān\tTitre\tTitle\t《测试》\t{niveaux}\t{chapitres}\tRésumé."
+def ligne_catalogue(identifiant: str = "a", niveaux: str = "255,505", chapitres: str = "1", cles: str = "山") -> str:
+    return f"{identifiant}\t山\tshān\tTitre\tTitle\t《测试》\t{niveaux}\t{cles}\t{chapitres}\tRésumé."
 
 
-def test_chaque_conte_prevoit_deux_ou_trois_niveaux_croissants() -> None:
-    """Un récit simple à deux niveaux, un récit riche à trois, pris parmi les seuils."""
+def test_chaque_conte_prevoit_ses_niveaux_de_deux_paliers_en_deux() -> None:
+    """Un récit simple à deux niveaux, un récit riche à trois, montant de deux paliers en
+    deux ; au haut de l'échelle (HSK 7-9), moins. Pris parmi 255 et les niveaux HSK."""
     for conte in charger_catalogue():
-        assert len(conte.niveaux) in (2, 3), conte.id
-        assert list(conte.niveaux) == sorted(set(conte.niveaux))
-        assert set(conte.niveaux) <= set(contes.SEUILS)
+        assert len(conte.niveaux) in (1, 2, 3), conte.id
+        assert set(conte.niveaux) <= {255, *contes.HSK}, conte.id
+        attendus = {contes.niveaux_attendus(conte.niveaux[0], n) for n in (2, 3)}
+        assert conte.niveaux in attendus, conte.id
 
 
-def test_les_fables_animalieres_ne_descendent_pas_a_255() -> None:
-    """Aucun nom d'animal dans la liste 255 : ces huit fables commencent plus haut."""
+def test_les_contes_suivent_le_hsk_sauf_les_trois_relus_a_255() -> None:
+    """Décision du propriétaire : les niveaux sont HSK ; les trois contes relus gardent 255
+    pour premier niveau, et leurs suivants sont HSK."""
+    a_255 = {c.id for c in charger_catalogue() if 255 in c.niveaux}
+    assert a_255 == {"yu-gong-yi-shan", "ba-miao-zhu-zhang", "nan-yuan-bei-zhe"}
+    for conte in charger_catalogue():
+        assert all(contes.est_hsk(n) for n in conte.niveaux if n != 255), conte.id
+        assert conte.niveaux.index(255) == 0 if 255 in conte.niveaux else True
+
+
+def test_le_plus_bas_niveau_est_le_premier_palier_qui_a_les_caracteres_cles() -> None:
+    """Relevé dans les vraies listes : chaque caractère clé est dans chaque niveau prévu, et
+    le niveau HSK juste au-dessous du plus bas ne les a pas tous."""
+    for conte in charger_catalogue():
+        assert conte.cles, conte.id
+        for n in conte.niveaux:
+            assert set(conte.cles) <= set(charger_seuil(n)), (conte.id, n)
+        bas = conte.niveaux[0]
+        if contes.est_hsk(bas) and bas != "hsk1":
+            dessous = contes.HSK[contes.HSK.index(bas) - 1]  # type: ignore[arg-type]
+            assert not set(conte.cles) <= set(charger_seuil(dessous)), conte.id
+    assert controles_du_depot()["contes : critère des niveaux"].ok
+
+
+def controles_du_depot() -> dict[str, contes.Controle]:
+    return {c.nom: c for c in controles()}
+
+
+def test_les_fables_animalieres_disent_leur_animal_et_ne_descendent_pas_a_255() -> None:
+    """Aucun nom d'animal dans la liste 255 : ces huit fables commencent plus haut, à un
+    niveau HSK qui a leur animal."""
     liste = set(charger_seuil(255))
     par_id = {c.id: c for c in charger_catalogue()}
     for identifiant, animal in ANIMALIERS.items():
         assert animal not in liste
         assert 255 not in par_id[identifiant].niveaux, identifiant
+        assert animal in par_id[identifiant].cles, identifiant
+
+
+def test_le_renard_n_est_dans_aucune_liste() -> None:
+    """狐假虎威 : 狐 manque jusqu'à HSK 7-9 ; seul le tigre décide du niveau, le renard se dit
+    autrement (noté en tête du catalogue)."""
+    assert "狐" not in set(charger_seuil("hsk7-9"))
+    assert contes.conte_par_id("hu-jia-hu-wei").cles == "虎"
+
+
+def test_les_caracteres_cles_sont_des_sinogrammes_sans_doublon() -> None:
+    with pytest.raises(CatalogueInvalide, match="cles"):
+        parse_catalogue(["\t".join(contes.COLONNES), ligne_catalogue(cles="山山")])
+    with pytest.raises(CatalogueInvalide, match="cles"):
+        parse_catalogue(["\t".join(contes.COLONNES), ligne_catalogue(cles="shan")])
+
+
+def test_le_critere_releve_un_niveau_mal_place(tmp_path: Path) -> None:
+    """Clé absente d'un niveau, plus bas niveau trop haut, paliers sautés : trois écarts,
+    jamais bloquants."""
+    ecrire_hsk(tmp_path, {"1": "人大", "2": "天", "3": "山", "4": "水", "5": "火", "6": "木", "7-9": "日"})
+    trop_haut = Conte(id="haut", titre_zh="山", titre_fr="T", ouvrage="《测试》", resume_fr="R.", niveaux=("hsk3", "hsk5"), cles="天")
+    absente = Conte(id="absente", titre_zh="山", titre_fr="T", ouvrage="《测试》", resume_fr="R.", niveaux=("hsk3", "hsk5"), cles="山鸟")
+    sautes = Conte(id="sautes", titre_zh="山", titre_fr="T", ouvrage="《测试》", resume_fr="R.", niveaux=("hsk3", "hsk4"), cles="山")
+    juste = Conte(id="juste", titre_zh="山", titre_fr="T", ouvrage="《测试》", resume_fr="R.", niveaux=("hsk3", "hsk5"), cles="山")
+    assert contes.ecarts_au_critere(trop_haut, tmp_path) == ["haut : caractères clés tous au niveau hsk2, plus bas que hsk3"]
+    assert contes.ecarts_au_critere(absente, tmp_path) == ["absente : 鸟 hors du niveau hsk3", "absente : 鸟 hors du niveau hsk5"]
+    assert contes.ecarts_au_critere(sautes, tmp_path) == [
+        "sautes : niveaux hsk3, hsk4, attendu hsk3, hsk5 ou hsk3, hsk5, hsk7-9"
+    ]
+    assert contes.ecarts_au_critere(juste, tmp_path) == []
+    controle = contes.controle_critere([juste, sautes], tmp_path)
+    assert not controle.ok and not controle.bloquant
 
 
 def test_les_contes_ecrits_a_255_le_prevoient() -> None:
@@ -265,12 +329,12 @@ def test_les_chapitres_se_suivent_sans_trou() -> None:
 
 
 def test_le_catalogue_prevoit_deux_recits_longs_sans_texte_chinois() -> None:
-    """Deux récits longs du domaine public, 405 et plus, un titre et un résumé par chapitre ;
-    aucune version n'est écrite : leurs listes ne sont pas versionnées."""
+    """Deux récits longs du domaine public, HSK 4 et plus, un titre et un résumé par
+    chapitre ; aucune version n'est encore écrite."""
     longs = [c for c in charger_catalogue() if c.long]
     assert [c.id for c in longs] == ["mu-lan-cong-jun", "mei-hou-wang"]
     for conte in longs:
-        assert min(conte.niveaux) >= 405
+        assert contes.rang(conte.niveaux[0]) >= contes.rang("hsk4")
         assert len(conte.plan) == conte.chapitres >= 2
         for chapitre in conte.plan:
             assert chapitre.titre_fr and chapitre.titre_en and chapitre.resume_fr.endswith(".")
@@ -282,7 +346,7 @@ def test_la_generation_par_l_api_ne_prend_que_les_fables_du_seuil() -> None:
     """Un récit long se rédige par brouillon ; un conte ne s'écrit qu'aux niveaux prévus."""
     retenus = {c.id for c in contes.contes_du_seuil(charger_catalogue(), 255)}
     assert retenus == {"yu-gong-yi-shan", "ba-miao-zhu-zhang", "nan-yuan-bei-zhe"}
-    assert "mu-lan-cong-jun" not in {c.id for c in contes.contes_du_seuil(charger_catalogue(), 405)}
+    assert "mu-lan-cong-jun" not in {c.id for c in contes.contes_du_seuil(charger_catalogue(), "hsk4")}
 
 
 # --------------------------------------------------------------------------- seuils
@@ -924,11 +988,12 @@ def test_un_niveau_prevu_non_ecrit_est_signale_jamais_bloquant(tmp_path: Path) -
 
 
 def test_le_check_ne_bloque_pas_sur_les_niveaux_du_depot() -> None:
-    """Les listes 405 et suivantes manquent : `wenlu check` le dit, et passe."""
+    """Toutes les listes HSK sont versionnées : ce qui reste est à écrire ; `wenlu check` le
+    dit, et passe."""
     resultats = {c.nom: c for c in controles()}
     niveaux = resultats["contes : niveaux prévus"]
     assert not niveaux.bloquant
-    assert "attendent leur liste" in niveaux.detail
+    assert "30 niveaux prévus pour 13 contes, dont 2 longs : 3 écrits, 27 à écrire, 0 attendent leur liste" in niveaux.detail
     assert resultats["contes : catalogue"].ok and resultats["contes : catalogue"].bloquant
 
 
@@ -953,8 +1018,9 @@ def test_une_version_hors_plan_est_signalee(tmp_path: Path) -> None:
 def test_le_plan_dit_l_etat_de_chaque_niveau() -> None:
     resultat = CliRunner().invoke(cli, ["contes", "plan"])
     assert resultat.exit_code == 0
-    assert "愚公移山 yu-gong-yi-shan : 255 écrit (relu) · 805 attend sa liste · 1555 attend sa liste" in resultat.output
-    assert "木兰从军 mu-lan-cong-jun, 4 chapitres : 405 attend sa liste" in resultat.output
+    assert "愚公移山 yu-gong-yi-shan : 255 écrit (relu) · hsk3 à écrire · hsk5 à écrire" in resultat.output
+    assert "木兰从军 mu-lan-cong-jun, 4 chapitres : hsk4 à écrire · hsk6 à écrire · hsk7-9 à écrire" in resultat.output
+    assert "井底之蛙 jing-di-zhi-wa : hsk7-9 à écrire" in resultat.output
 
 
 def test_un_recit_long_ne_part_pas_a_l_api(monkeypatch: pytest.MonkeyPatch, tmp_path: Path) -> None:

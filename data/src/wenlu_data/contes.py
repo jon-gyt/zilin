@@ -147,6 +147,7 @@ COLONNES = (
     "titre_en",
     "ouvrage",
     "niveaux",
+    "cles",
     "chapitres",
     "resume_fr",
 )
@@ -287,6 +288,9 @@ class Conte:
     chapitres: int = 1
     #: Les chapitres prévus d'un récit long, de 1 à `chapitres`. Vide pour une fable.
     plan: tuple[ChapitrePrevu, ...] = ()
+    #: Les caractères clés du récit (animaux, objets de l'intrigue) : ils décident de son
+    #: niveau le plus bas (critère en tête du catalogue). Vide : non dits (fixtures).
+    cles: str = ""
 
     @property
     def long(self) -> bool:
@@ -398,6 +402,8 @@ def parse_catalogue(
         conte = Conte(**valeurs, niveaux=niveaux, chapitres=int(nombre), plan=plan)
         if len(conte.titre_pinyin.split()) != len(conte.titre_zh):
             raise CatalogueInvalide(f"ligne {numero} : une syllabe de pinyin par caractère du titre")
+        if not all(est_sinogramme(c) for c in conte.cles) or len(set(conte.cles)) != len(conte.cles):
+            raise CatalogueInvalide(f"ligne {numero} : cles {conte.cles!r}, des sinogrammes accolés, sans doublon")
         contes.append(conte)
     orphelins = sorted(set(chapitres) - vus)
     if orphelins:
@@ -1695,6 +1701,13 @@ def decrire_contexte(
             if not conte.niveaux or seuil in conte.niveaux
             else f" ; le niveau {seuil} n'en est pas (écart signalé à l'import)"
         ),
+        "Caractères clés : "
+        + (" ".join(conte.cles) or "non dits")
+        + (
+            f" ; {' '.join(c for c in conte.cles if c not in autorises)} hors du niveau"
+            if any(c not in autorises for c in conte.cles)
+            else (", tous dans le niveau" if conte.cles else "")
+        ),
         f"Longueur visée : {minimum} à {maximum} sinogrammes"
         + (" par chapitre" if conte.long else "")
         + ", ponctuation non comprise.",
@@ -1898,6 +1911,66 @@ def controle_niveaux(
     )
 
 
+def ecarts_au_critere(conte: Conte, listes: Path | None = None, cache: dict[Niveau, set[str]] | None = None) -> list[str]:
+    """Ce qui s'écarte du critère des niveaux (en tête du catalogue) pour un conte :
+
+    - un caractère clé absent d'un niveau prévu dont la liste est versionnée ;
+    - un plus bas niveau HSK trop haut : le niveau juste au-dessous a déjà tous les
+      caractères clés ;
+    - des niveaux qui ne montent pas de deux paliers en deux (`niveaux_attendus`), pour
+      un conte dont les niveaux sont sur l'échelle (255 et HSK).
+    Un conte sans caractères clés ni niveaux n'a rien à vérifier.
+    """
+    cache = {} if cache is None else cache
+
+    def liste(n: Niveau) -> set[str] | None:
+        if n not in cache:
+            if not liste_presente(n, listes):
+                return None
+            cache[n] = set(charger_seuil(n, listes))
+        return cache[n]
+
+    ecarts: list[str] = []
+    if not conte.niveaux:
+        return ecarts
+    if conte.cles:
+        for n in conte.niveaux:
+            autorises = liste(n)
+            absents = "".join(c for c in conte.cles if autorises is not None and c not in autorises)
+            if absents:
+                ecarts.append(f"{conte.id} : {absents} hors du niveau {n}")
+        bas = conte.niveaux[0]
+        if est_hsk(bas) and palier(bas) > 1:
+            dessous = HSK[palier(bas) - 2]
+            autorises = liste(dessous)
+            if autorises is not None and set(conte.cles) <= autorises:
+                ecarts.append(f"{conte.id} : caractères clés tous au niveau {dessous}, plus bas que {bas}")
+    try:
+        attendus = {niveaux_attendus(conte.niveaux[0], nombre) for nombre in NIVEAUX_PAR_CONTE}
+    except SeuilInconnu:
+        return ecarts
+    if conte.niveaux not in attendus:
+        ecarts.append(
+            f"{conte.id} : niveaux {', '.join(str(n) for n in conte.niveaux)}, attendu "
+            + " ou ".join(", ".join(str(n) for n in a) for a in sorted(attendus, key=len))
+        )
+    return ecarts
+
+
+def controle_critere(catalogue: Sequence[Conte], listes: Path | None = None) -> Controle:
+    """« contes : critère des niveaux » : les caractères clés de chaque conte sont dans
+    chacun de ses niveaux, le plus bas est le premier palier qui les a, et les suivants
+    montent de deux paliers. Jamais bloquant : c'est un écart du catalogue à reprendre."""
+    cache: dict[Niveau, set[str]] = {}
+    ecarts = [e for conte in catalogue for e in ecarts_au_critere(conte, listes, cache)]
+    avec_cles = sum(1 for c in catalogue if c.cles)
+    detail = (
+        f"{avec_cles} contes sur {len(catalogue)} disent leurs caractères clés ; "
+        + ("chacun au premier palier qui les a, niveaux de deux paliers en deux" if not ecarts else " ; ".join(ecarts[:5]))
+    )
+    return Controle("contes : critère des niveaux", not ecarts, detail, bloquant=False)
+
+
 def controles(
     dossier: Path | None = None, listes: Path | None = None, catalogue: Path | None = None
 ) -> list[Controle]:
@@ -1906,7 +1979,8 @@ def controles(
     « caractères hors liste » est bloquant : un conte d'un seuil ne peut pas
     contenir un caractère que l'apprenant n'a pas encore vu. « catalogue » l'est
     aussi : un catalogue illisible ne dit plus ce qui est prévu. « niveaux prévus »
-    signale ce qui reste à écrire, sans jamais bloquer.
+    signale ce qui reste à écrire, « critère des niveaux » ce qui s'écarte du critère
+    du catalogue (caractères clés, paliers), sans jamais bloquer.
     """
     try:
         lu = charger_catalogue(catalogue)
@@ -1925,7 +1999,7 @@ def controles(
     versions = [lire_version(chemin) for chemin in fichiers]
     suite = [controle_catalogue]
     if lu is not None:
-        suite.append(controle_niveaux(lu, versions, listes))
+        suite += [controle_niveaux(lu, versions, listes), controle_critere(lu, listes)]
     if not fichiers:
         return [Controle("contes : caractères hors liste", True, "aucune version générée"), *suite]
 
