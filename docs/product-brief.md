@@ -57,7 +57,7 @@ Positionnement : l'arbre étymologique qui apprend à lire, conforme aux seuils 
 - Pigments de fête : le rouge de fête #9E1F2A, cramoisi, distinct du cinabre, ne sert qu'au décor du Nouvel An et de la fête des Lanternes (rosace, lanternes, cases, 福) ; les six autres fêtes s'en passent, et le cinabre garde son rôle. L'abricot #E3A33B est un aplat, jamais un doré. Décision du propriétaire, inscrite dans CLAUDE.md.
 - Typographie : Manrope (titres, voix du guide), Source Sans 3 (interface), Noto Serif SC (mots et phrases). Les grands caractères ne sont pas une police : ils sont dessinés trait par trait à partir des données de tracé, style 楷, et s'écrivent au pinceau à l'apparition.
 - Mascotte : Tao 桃, une graine de pêcher qui grandit (graine, pousse, jeune pêcher, pêcher en fleur à 300 caractères, pêches à 1 000). Compagne de toutes les activités, voir section 9. Ami : Que 雀, le moineau, qui remet les cadeaux de la série, et se pose sur le pont de pies à 七夕.
-- Principes : un écran, une action ; le rouge est un sceau, pas une alerte ; pas de doré, pas de dragon hors du Nouvel An et de 端午, pas d'emoji, pas d'illustration réaliste.
+- Principes : un écran, une action ; le rouge est un sceau, pas une alerte ; pas de doré, pas de dragon hors du Nouvel An et de 端午 (seule exception : le texte du conte 叶公好龙, sans dessin), pas d'emoji, pas d'illustration réaliste.
 
 ## 6. Structure de l'app
 
