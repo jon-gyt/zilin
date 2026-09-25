@@ -19,6 +19,9 @@
 # - `sommet` : au dernier rang ; {nom} le nom du personnage ;
 # - `fangbang` : l'écran 放榜, un rang franchi ; {nom}, {rang} le titre, {rang_fr} sa
 #   traduction mot à mot, {role} son rôle (`rangs.tsv`).
+#
+# Les guillemets français s'écrivent avec une espace insécable (U+00A0) à l'intérieur :
+# ils ne se séparent jamais de ce qu'ils citent en bout de ligne.
 cle	fr	source
 accueil	Je suis Tao. Je t'aiderai sur le chemin, à chaque pas.	rédigé pour l'app
 choisi	{bete}, {bete_fr} ! {dit}	rédigé pour l'app
@@ -27,4 +30,4 @@ essayer	Et si on essayait {art}, {art_fr} ? Je t'aide.	rédigé pour l'app
 presque	Plus que {reste} points pour {rang} !	rédigé pour l'app
 presque_un	Plus qu'un point pour {rang} !	rédigé pour l'app
 sommet	{nom}, premier du concours. On continue de lire ensemble ?	rédigé pour l'app
-fangbang	Ton nom est sur la liste, {nom} : {rang}, « {rang_fr} », {role}. Tu grandis d'un cran. Tao applaudit.	rédigé pour l'app
+fangbang	Ton nom est sur la liste, {nom} : {rang}, « {rang_fr} », {role}. Tu grandis d'un cran. Tao applaudit.	rédigé pour l'app
