@@ -337,6 +337,7 @@ def test_les_lectures_d_un_polyphone_suivent_la_principale(atelier: Path) -> Non
     """`lectures` : la lecture principale en tête, puis les autres lectures valides
     (`kMandarin`, `kTGHZ2013`, `kXHC1983`) : une question de ton n'en fait jamais un leurre."""
     unihan = lire(atelier / "ingest", "unihan.json")
+    unihan["champs"] = ["kMandarin", "kTGHZ2013", "kXHC1983", "kTotalStrokes", "kFrequency"]
     for e in unihan["caracteres"]:  # type: ignore[union-attr]
         if e["c"] == "明":
             e["lectures_dico"] = ["míng", "mìng"]
@@ -346,11 +347,26 @@ def test_les_lectures_d_un_polyphone_suivent_la_principale(atelier: Path) -> Non
     assert fiche_de(rapport.dossier, "十", "古")["lectures"] == ["gǔ"]
 
 
+def test_sans_les_dictionnaires_aucune_lecture_n_est_exportee(atelier: Path) -> None:
+    """Un `unihan.json` d'avant `lectures_dico` ne dit pas toutes les lectures : la fiche
+    n'en exporte aucune, plutôt qu'une liste incomplète où hào passerait pour un leurre."""
+    rapport = export("0.1.0")
+    assert fiche_de(rapport.dossier, "日", "明")["pinyin"] == "míng"
+    assert fiche_de(rapport.dossier, "日", "明")["lectures"] == []
+    resultats = {
+        c.nom: c for c in controles(export_mod.EXPORT, build=export_mod.BUILD, ingest=export_mod.INGEST)
+    }
+    controle = resultats["export : lectures"]
+    assert not controle.ok and not controle.bloquant, "signalé, jamais bloquant : l'app se passe du ton"
+    assert "wenlu ingest" in controle.detail and "明" in controle.detail
+
+
 def test_une_surcharge_passe_devant_les_lectures_d_unihan(tmp_path: Path) -> None:
     """地 : la surcharge met dì en tête, la particule de suit ; rien n'est perdu ni doublé."""
     _ecrire(
         tmp_path / "unihan.json",
         {
+            "champs": ["kMandarin", "kTGHZ2013", "kXHC1983"],
             "caracteres": [
                 {"c": "地", "pinyin": "de", "lectures": ["de", "dì"], "lectures_dico": ["de", "dì"]},
                 {"c": "好", "pinyin": "hǎo", "lectures": ["hǎo"], "lectures_dico": ["hǎo", "hào"]},

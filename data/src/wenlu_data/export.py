@@ -94,6 +94,7 @@ from . import heros as heros_mod
 from . import lettres as lettres_mod
 from . import saisons as saisons_mod
 from . import surcharges as surcharges_mod
+from . import unihan as unihan_mod
 from . import wechat as wechat_mod
 from .gf0014 import Controle
 from .graphe import BRIQUE, DECOUPEE, MUETTE, PARCOURS
@@ -383,16 +384,22 @@ def charger_lectures(
     ingest: Path,
     caracteres: Iterable[str],
     surcharges: Mapping[str, Sequence[str]] | None = None,
-) -> dict[str, list[str]]:
+) -> dict[str, list[str]] | None:
     """Toutes les lectures valides des caractères demandés, par caractère.
 
     Les lectures d'une surcharge d'abord, puis celles d'Unihan : `kMandarin`, puis
     `kTGHZ2013` et `kXHC1983` (`lectures_dico`), qui disent toutes celles d'un
     polyphone (好 hǎo hào). La fiche les exporte derrière sa lecture principale : une
     question de ton ne propose jamais comme leurre une lecture valide du caractère.
+
+    `None` quand l'ingestion ne porte pas encore les dictionnaires (un `unihan.json`
+    d'avant `lectures_dico`) : on ne saurait pas dire toutes les lectures, les fiches
+    n'en exportent aucune et l'app ne pose pas la question de ton.
     """
     document = _lire(ingest / "unihan.json")
     assert isinstance(document, dict)
+    if not set(unihan_mod.DICTIONNAIRES) <= set(document.get("champs") or ()):
+        return None
     surcharges = surcharges_mod.charger_pinyin() if surcharges is None else surcharges
     voulus = set(caracteres)
     lues: dict[str, list[str]] = {}
@@ -558,10 +565,10 @@ def fiche_exportee(
     }
 
     def toutes(principale: str) -> list[str]:
-        """La lecture principale en tête, puis les autres lectures valides ; rien sans elle."""
-        if not principale:
+        """La lecture principale en tête, puis les autres ; rien sans elle ni sans elles."""
+        if not principale or lectures is None:
             return []
-        autres = [x for x in (lectures or {}).get(c, ()) if x != principale]
+        autres = [x for x in lectures.get(c, ()) if x != principale]
         return [principale, *autres]
 
     relue = relues.get(c)
@@ -2079,6 +2086,7 @@ def controles(
     apercu_fiches = 0
     apercu_versions = 0
     sans_traits: list[str] = []
+    sans_lectures: list[str] = []
     total_familles = 0
     total_fichiers = 0
     statuts_fiches = {
@@ -2090,6 +2098,7 @@ def controles(
     }
     for dossier in dossiers:
         sans_traits += [f"{dossier.name}:{c}" for c in caracteres_sans_traits(dossier)]
+        sans_lectures += [f"{dossier.name}:{c}" for c in caracteres_sans_lectures(dossier)]
         absents += [
             f"{dossier.name}/{relatif}"
             for relatif in TEXTES_DE_LICENCE
@@ -2168,7 +2177,31 @@ def controles(
             if sans_traits
             else "tout caractère exporté a ses traits",
         ),
+        Controle(
+            "export : lectures",
+            not sans_lectures,
+            f"{len(sans_lectures)} caractères au pinyin exporté sans leurs lectures, pas de question"
+            f" de ton pour eux : relancer `wenlu ingest` (lectures des dictionnaires d'Unihan)"
+            f" puis `wenlu export` — {' '.join(sans_lectures[:8])}"
+            if sans_lectures
+            else "chaque caractère au pinyin exporté dit toutes ses lectures, la principale en tête",
+        ),
     ]
+
+
+def caracteres_sans_lectures(dossier: Path) -> list[str]:
+    """Les caractères d'une version exportée qui ont un pinyin mais pas leurs lectures.
+
+    Sans elles, l'app ne sait pas quelles syllabes sont d'autres lectures valides et ne
+    pose pas la question de ton : ce n'est pas une faute, c'est signalé.
+    """
+    manquent: set[str] = set()
+    for chemin in sorted((dossier / "familles").glob("*.json")):
+        document = json.loads(chemin.read_text(encoding="utf-8"))
+        for f in document.get("fiches") or ():
+            if f.get("pinyin") and not f.get("lectures"):
+                manquent.add(str(f["c"]))
+    return sorted(manquent)
 
 
 def caracteres_sans_traits(dossier: Path) -> list[str]:
