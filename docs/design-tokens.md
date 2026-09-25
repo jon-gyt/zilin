@@ -16,6 +16,8 @@ Logo : 文 tracé depuis les données de traits de l'export (jamais une police),
 
 Mascottes : Tao 桃 (graine de pêcher, grandit, adopte la posture de l'activité en cours, réagit aux réponses, s'ennuie de la répétition, ne culpabilise jamais), Que 雀 (moineau, remet les cadeaux de la série). Fleurs de Tao : rose #E7A2B4, seul rose autorisé.
 
+Personnage (brief §8, `app/src/lib/Heros.svelte`) : ses jetons à lui, `--h-*`, fixes, qui ne changent ni avec les fêtes ni avec les termes, comme un papier découpé posé sur la page. Encre `--h-encre` #1F1B18, carte `--h-carte` #FBF7EE, fourrure `--h-fourrure` #FFFFFF, argent du 长命锁 `--h-argent` #EDEBE6, brume `--h-brume` #8B857C ; robes indigo `--h-indigo` #2B4C7E (玉兔), jade `--h-jade` #5E8A6A (熊猫), rouge de pêcher `--h-rose` #A8506B (醒狮) ; ocre `--h-ocre` #8C5A2B, azurite `--h-azur` #1E5A8A ; abricot `--h-abricot` #E3A33B et `--h-abricot-pale` #F7E6C4, en aplat, jamais un doré ; pêche `--h-peche` #E7A2B4, le rose des fleurs de Tao. Pas de cinabre sur le personnage. Les quatre arts de son écran prennent les pigments du thème : 读 `--t1`, 写 `--ocre`, 听 `--jade`, 说 `--t3`.
+
 Principes : un écran une action ; coins 12 px ; aucune ombre, aucun dégradé, aucun emoji, aucune illustration réaliste ; pas de doré ; pas de dragon hors du décor du Nouvel An et de 端午.
 
 ## Thèmes de fête
