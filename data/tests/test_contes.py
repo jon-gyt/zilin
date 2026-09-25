@@ -8,6 +8,7 @@ from __future__ import annotations
 
 import ast
 import json
+import re
 from pathlib import Path
 
 import pytest
@@ -741,7 +742,8 @@ def test_une_version_courte_reste_une_suite_de_phrases() -> None:
 
 def test_les_trois_contes_relus_se_relisent_sans_etre_reecrits() -> None:
     """Rétrocompatibilité : chaque version écrite se relit et se réécrit octet pour octet,
-    sans chapitres, et son export ne change pas."""
+    sans chapitres, et son export ne change pas. Seules les versions relues s'exportent :
+    une version à relire n'a pas d'export à comparer."""
     from wenlu_data import export as export_mod
 
     for chemin in contes.versions_ecrites():
@@ -750,7 +752,7 @@ def test_les_trois_contes_relus_se_relisent_sans_etre_reecrits() -> None:
         texte = json.dumps(version.en_json(), ensure_ascii=False, indent=1)
         assert texte == chemin.read_text(encoding="utf-8"), version.cle
         publie = export_mod.EXPORT / export_mod.VERSION / "contes" / f"{version.conte}.json"
-        if publie.exists():
+        if publie.exists() and version.statut == contes.RELU:
             ecrit = json.loads(publie.read_text(encoding="utf-8"))["versions"][str(version.seuil)]
             assert export_mod.document_conte(version.conte, [version], "0.1.0")["versions"][str(version.seuil)] == ecrit
 
@@ -993,7 +995,11 @@ def test_le_check_ne_bloque_pas_sur_les_niveaux_du_depot() -> None:
     resultats = {c.nom: c for c in controles()}
     niveaux = resultats["contes : niveaux prévus"]
     assert not niveaux.bloquant
-    assert "30 niveaux prévus pour 13 contes, dont 2 longs : 3 écrits, 27 à écrire, 0 attendent leur liste" in niveaux.detail
+    ecrits = {(p.parent.name, p.stem) for p in contes.versions_ecrites()}
+    assert (
+        f"30 niveaux prévus pour 13 contes, dont 2 longs : {len(ecrits)} écrits, {30 - len(ecrits)} à écrire, "
+        "0 attendent leur liste"
+    ) in niveaux.detail
     assert resultats["contes : catalogue"].ok and resultats["contes : catalogue"].bloquant
 
 
@@ -1018,9 +1024,14 @@ def test_une_version_hors_plan_est_signalee(tmp_path: Path) -> None:
 def test_le_plan_dit_l_etat_de_chaque_niveau() -> None:
     resultat = CliRunner().invoke(cli, ["contes", "plan"])
     assert resultat.exit_code == 0
-    assert "愚公移山 yu-gong-yi-shan : 255 écrit (relu) · hsk3 à écrire · hsk5 à écrire" in resultat.output
-    assert "木兰从军 mu-lan-cong-jun, 4 chapitres : hsk4 à écrire · hsk6 à écrire · hsk7-9 à écrire" in resultat.output
-    assert "井底之蛙 jing-di-zhi-wa : hsk7-9 à écrire" in resultat.output
+    etat = r"(à écrire|écrit \((a_relire|relu|rejete)\))"
+    lignes = [
+        rf"愚公移山 yu-gong-yi-shan : 255 écrit \(relu\) · hsk3 {etat} · hsk5 {etat}",
+        rf"木兰从军 mu-lan-cong-jun, 4 chapitres : hsk4 {etat} · hsk6 {etat} · hsk7-9 {etat}",
+        rf"井底之蛙 jing-di-zhi-wa : hsk7-9 {etat}",
+    ]
+    for ligne in lignes:
+        assert re.search(rf"^{ligne}$", resultat.output, re.MULTILINE), ligne
 
 
 def test_un_recit_long_ne_part_pas_a_l_api(monkeypatch: pytest.MonkeyPatch, tmp_path: Path) -> None:

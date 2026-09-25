@@ -3,13 +3,13 @@
  "license": "propriétaire",
  "source": "fiches et contes à relire du pipeline wenlu",
  "source_url": "https://github.com/jon-gyt/zilin",
- "modified": "2026-09-24 : assemblé par `wenlu export`",
+ "modified": "2026-09-25 : assemblé par `wenlu export`",
  "statut": "a_relire",
  "avertissement": "Textes encore à relire : ni relus, ni validés. L'app ne les charge que si le mode relecture des Réglages est allumé, et chacun y porte la mention « à relire ».",
  "compte": {
   "fiches": 357,
-  "contes": 0,
-  "versions": 0,
+  "contes": 5,
+  "versions": 8,
   "lettres": 12
  },
  "familles": [
@@ -1505,6 +1505,60 @@
    ]
   }
  ],
- "contes": [],
+ "contes": [
+  {
+   "id": "ba-miao-zhu-zhang",
+   "titre_fr": "Tirer sur les pousses pour les faire grandir",
+   "titre_en": "Pulling Up the Shoots to Help Them Grow",
+   "seuils": [
+    "hsk3"
+   ],
+   "fichier": "apercu/contes/ba-miao-zhu-zhang.json",
+   "statut": "a_relire"
+  },
+  {
+   "id": "nan-yuan-bei-zhe",
+   "titre_fr": "Rouler vers le nord pour aller au sud",
+   "titre_en": "Heading North to Go South",
+   "seuils": [
+    "hsk3"
+   ],
+   "fichier": "apercu/contes/nan-yuan-bei-zhe.json",
+   "statut": "a_relire"
+  },
+  {
+   "id": "wang-yang-bu-lao",
+   "titre_fr": "Réparer l'enclos après la perte des moutons",
+   "titre_en": "Mending the Pen after Losing a Sheep",
+   "seuils": [
+    "hsk4",
+    "hsk6"
+   ],
+   "fichier": "apercu/contes/wang-yang-bu-lao.json",
+   "statut": "a_relire"
+  },
+  {
+   "id": "ye-gong-hao-long",
+   "titre_fr": "Monsieur Ye aime les dragons",
+   "titre_en": "Lord Ye Loves Dragons",
+   "seuils": [
+    "hsk3",
+    "hsk5"
+   ],
+   "fichier": "apercu/contes/ye-gong-hao-long.json",
+   "statut": "a_relire"
+  },
+  {
+   "id": "yu-gong-yi-shan",
+   "titre_fr": "Le vieux fou déplace les montagnes",
+   "titre_en": "The Foolish Old Man Moves the Mountains",
+   "seuils": [
+    "hsk3",
+    "hsk5"
+   ],
+   "fichier": "apercu/contes/yu-gong-yi-shan.json",
+   "statut": "a_relire"
+  }
+ ],
  "lettres": "apercu/lettres.json"
 }
