@@ -331,16 +331,18 @@ def test_les_chapitres_se_suivent_sans_trou() -> None:
 
 def test_le_catalogue_prevoit_deux_recits_longs_sans_texte_chinois() -> None:
     """Deux récits longs du domaine public, HSK 4 et plus, un titre et un résumé par
-    chapitre ; aucune version n'est encore écrite."""
+    chapitre ; chaque version écrite en a autant de chapitres."""
     longs = [c for c in charger_catalogue() if c.long]
     assert [c.id for c in longs] == ["mu-lan-cong-jun", "mei-hou-wang"]
+    ecrites = [contes.lire_version(chemin) for chemin in contes.versions_ecrites()]
     for conte in longs:
         assert contes.rang(conte.niveaux[0]) >= contes.rang("hsk4")
         assert len(conte.plan) == conte.chapitres >= 2
         for chapitre in conte.plan:
             assert chapitre.titre_fr and chapitre.titre_en and chapitre.resume_fr.endswith(".")
             assert not any(est_sinogramme(c) for c in chapitre.titre_fr + chapitre.resume_fr)
-        assert not (contes.BROUILLONS / conte.id).exists()
+        for version in (v for v in ecrites if v.conte == conte.id):
+            assert not version.courte and len(version.chapitres) == conte.chapitres, version.cle
 
 
 def test_la_generation_par_l_api_ne_prend_que_les_fables_du_seuil() -> None:
@@ -746,9 +748,10 @@ def test_les_trois_contes_relus_se_relisent_sans_etre_reecrits() -> None:
     une version à relire n'a pas d'export à comparer."""
     from wenlu_data import export as export_mod
 
+    longs = {c.id for c in charger_catalogue() if c.long}
     for chemin in contes.versions_ecrites():
         version = contes.lire_version(chemin)
-        assert version.courte, version.cle
+        assert version.courte == (version.conte not in longs), version.cle
         texte = json.dumps(version.en_json(), ensure_ascii=False, indent=1)
         assert texte == chemin.read_text(encoding="utf-8"), version.cle
         publie = export_mod.EXPORT / export_mod.VERSION / "contes" / f"{version.conte}.json"
