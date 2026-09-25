@@ -2293,7 +2293,7 @@ def controles(
             (
                 (
                     f"{len(expliquees)} versions nomment un personnage ou un objet clé hors de leur niveau, "
-                    f"déclaré au catalogue, {MAX_EXPLIQUES} caractères au plus : " + " ; ".join(expliquees)
+                    f"déclaré au catalogue, {MAX_EXPLIQUES} caractères au plus par fable ou par chapitre d'un récit long : " + " ; ".join(expliquees)
                 )
                 if expliquees
                 else "aucune version n'emploie de mot hors de son niveau"
