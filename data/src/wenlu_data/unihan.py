@@ -6,6 +6,11 @@ Unihan est la source permissive du projet, préférée à `dictionary.txt` (LGPL
 - `kMandarin` : le pinyin. Une entrée peut porter plusieurs lectures séparées
   par une espace ; UAX #38 donne la première comme la plus courante en zh-CN.
   On retient la première comme `pinyin` et on conserve les autres.
+- `kTGHZ2013` et `kXHC1983` : les lectures du 通用规范汉字字典 (2013) et du
+  现代汉语词典 (1983), toutes, `好 hǎo hào`, `得 dé de děi`. `kMandarin` n'en
+  donne qu'une ou deux ; ces deux champs disent les autres lectures valides d'un
+  polyphone, pour qu'une question de ton ne propose jamais l'une d'elles comme
+  leurre (`lectures_dico`).
 - `kTotalStrokes` : le nombre de traits.
 - `kFrequency` : palier de fréquence, **absent d'Unihan 17.0.0 et 18.0.0** ; il
   était encore publié en 12.0.0. Le parseur le lit quand la version servie le
@@ -43,7 +48,11 @@ PINYIN = "kMandarin"
 TRAITS = "kTotalStrokes"
 FREQUENCE = "kFrequency"
 DEFINITION = "kDefinition"
-CHAMPS = (PINYIN, TRAITS, FREQUENCE, DEFINITION)
+TGHZ = "kTGHZ2013"
+XHC = "kXHC1983"
+#: Les dictionnaires dont on garde toutes les lectures, dans cet ordre.
+DICTIONNAIRES = (TGHZ, XHC)
+CHAMPS = (PINYIN, TRAITS, FREQUENCE, DEFINITION, *DICTIONNAIRES)
 
 # Les trois fichiers d'Unihan qui portent ces champs. Les autres sont ignorés.
 FICHIERS = ("Unihan_Readings.txt", "Unihan_IRGSources.txt", "Unihan_DictionaryLikeData.txt")
@@ -84,6 +93,8 @@ class CaractereUnihan:
     code: str
     pinyin: str | None = None
     lectures: tuple[str, ...] = ()
+    #: Toutes les lectures de `kTGHZ2013` puis `kXHC1983`, sans doublon.
+    lectures_dico: tuple[str, ...] = ()
     traits: int | None = None
     frequence: int | None = None
 
@@ -177,6 +188,21 @@ def _entier(valeur: str) -> int | None:
     return None
 
 
+def lectures_dictionnaire(valeur: str) -> tuple[str, ...]:
+    """`0263.030:hǎo 0263.040,0264.010:hào` -> `("hǎo", "hào")`, dans l'ordre, sans doublon.
+
+    Chaque entrée d'un champ de dictionnaire (`kTGHZ2013`, `kXHC1983`, `kHanyuPinyin`)
+    est « emplacements:lectures », les lectures séparées par une virgule.
+    """
+    lues: list[str] = []
+    for entree in valeur.split():
+        _, _, lectures = entree.partition(":")
+        for lecture in lectures.split(","):
+            if lecture and lecture not in lues:
+                lues.append(lecture)
+    return tuple(lues)
+
+
 def collecter(source: Path) -> Unihan:
     """Lit `Unihan.zip` (ou un dossier extrait) et rend les champs retenus.
 
@@ -206,6 +232,11 @@ def collecter(source: Path) -> Unihan:
         if DEFINITION in champs:
             definitions.append((c, champs[DEFINITION]))
         lectures = tuple(champs.get(PINYIN, "").split())
+        lectures_dico = tuple(
+            dict.fromkeys(
+                lue for champ in DICTIONNAIRES for lue in lectures_dictionnaire(champs.get(champ, ""))
+            )
+        )
         traits = _entier(champs.get(TRAITS, ""))
         frequence = _entier(champs.get(FREQUENCE, ""))
         if not lectures and traits is None and frequence is None:
@@ -216,6 +247,7 @@ def collecter(source: Path) -> Unihan:
                 code=code,
                 pinyin=lectures[0] if lectures else None,
                 lectures=lectures,
+                lectures_dico=lectures_dico,
                 traits=traits,
                 frequence=frequence,
             )
@@ -253,7 +285,7 @@ def document(unihan: Unihan, *, url: str, licence: str) -> dict[str, object]:
         "fichiers": [
             {"fichier": e.fichier, "date": e.date, "version": e.version} for e in unihan.fichiers
         ],
-        "champs": [PINYIN, TRAITS, FREQUENCE],
+        "champs": [PINYIN, *DICTIONNAIRES, TRAITS, FREQUENCE],
         "frequence": FREQUENCE if unihan.avec_frequence else f"{FREQUENCE} absent de cette version",
         "caracteres": [
             {
@@ -261,6 +293,7 @@ def document(unihan: Unihan, *, url: str, licence: str) -> dict[str, object]:
                 "code": c.code,
                 "pinyin": c.pinyin,
                 "lectures": list(c.lectures),
+                "lectures_dico": list(c.lectures_dico),
                 "traits": c.traits,
                 "frequence": c.frequence,
             }

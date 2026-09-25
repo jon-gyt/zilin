@@ -33,6 +33,10 @@ class Mot(BaseModel):
 class Fiche(BaseModel):
     c: str
     pinyin: str
+    lectures: list[str] = Field(
+        default_factory=list,
+        description="toutes les lectures valides, la principale (`pinyin`) en tête ; vide sans pinyin",
+    )
     fr: str
     en: str
     parts: list[str] = Field(description="décomposition canonique, ordre d'écriture")

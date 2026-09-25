@@ -333,6 +333,35 @@ def test_le_pinyin_vient_d_unihan(atelier: Path) -> None:
     assert fiche_de(rapport.dossier, "日", "明")["pinyin"] == "míng"
 
 
+def test_les_lectures_d_un_polyphone_suivent_la_principale(atelier: Path) -> None:
+    """`lectures` : la lecture principale en tête, puis les autres lectures valides
+    (`kMandarin`, `kTGHZ2013`, `kXHC1983`) : une question de ton n'en fait jamais un leurre."""
+    unihan = lire(atelier / "ingest", "unihan.json")
+    for e in unihan["caracteres"]:  # type: ignore[union-attr]
+        if e["c"] == "明":
+            e["lectures_dico"] = ["míng", "mìng"]
+    _ecrire(atelier / "ingest" / "unihan.json", unihan)
+    rapport = export("0.1.0")
+    assert fiche_de(rapport.dossier, "日", "明")["lectures"] == ["míng", "mìng"]
+    assert fiche_de(rapport.dossier, "十", "古")["lectures"] == ["gǔ"]
+
+
+def test_une_surcharge_passe_devant_les_lectures_d_unihan(tmp_path: Path) -> None:
+    """地 : la surcharge met dì en tête, la particule de suit ; rien n'est perdu ni doublé."""
+    _ecrire(
+        tmp_path / "unihan.json",
+        {
+            "caracteres": [
+                {"c": "地", "pinyin": "de", "lectures": ["de", "dì"], "lectures_dico": ["de", "dì"]},
+                {"c": "好", "pinyin": "hǎo", "lectures": ["hǎo"], "lectures_dico": ["hǎo", "hào"]},
+                {"c": "林", "pinyin": "lín", "lectures": ["lín"]},
+            ]
+        },
+    )
+    lues = export_mod.charger_lectures(tmp_path, ["地", "好", "林"], surcharges={"地": ("dì", "de")})
+    assert lues == {"地": ["dì", "de"], "好": ["hǎo", "hào"], "林": ["lín"]}
+
+
 def test_les_niveaux_disent_de_quelle_liste_vient_le_caractere(atelier: Path) -> None:
     rapport = export("0.1.0")
     assert fiche_de(rapport.dossier, "亻", "休")["niveaux"] == {"seuil": 255}
