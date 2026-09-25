@@ -1,0 +1,23 @@
+# Chapitres des récits longs du catalogue (story 1.7, contes chapitre par chapitre).
+#
+# Un récit long (`chapitres` > 1 dans `catalogue.tsv`) se lit chapitre par chapitre :
+# chacun a ici son rang `n`, de 1 au nombre prévu, sans trou, son titre français et
+# anglais (`titre_fr`, `titre_en`, montrés dans le sommaire du lecteur) et son résumé
+# (`resume_fr`), qui cadre la réécriture comme celui du catalogue. Ce ne sont pas des
+# textes de l'app, et aucun texte des ouvrages n'est recopié ici.
+#
+# Le titre chinois de chaque chapitre s'écrit dans la version, avec les seuls
+# caractères du seuil, comme celui du récit. Aucun texte chinois n'est écrit ici : les
+# versions attendent les listes de leurs seuils (405 et suivants).
+#
+# TSV, `#` en commentaire, cinq colonnes séparées par une tabulation.
+#
+conte	n	titre_fr	titre_en	resume_fr
+mu-lan-cong-jun	1	Le métier se tait	The Loom Falls Silent	Mulan soupire devant son métier à tisser : l'armée appelle les hommes, le nom de son père est sur chaque rôle, il n'a pas de fils en âge de partir, et elle décide d'y aller à sa place.
+mu-lan-cong-jun	2	Les quatre marchés	The Four Markets	Elle achète un cheval, une selle, une bride et un fouet aux quatre marchés de la ville, quitte ses parents à l'aube et dort le soir au bord du fleuve Jaune, puis au pied des monts Noirs, sans plus entendre leur voix.
+mu-lan-cong-jun	3	Douze ans sous l'armure	Twelve Years in Armour	Elle passe monts et cols au galop et monte la garde dans le froid ; après bien des batailles, les soldats rentrent, et devant l'empereur qui lui offre une charge et des richesses, elle ne demande qu'une monture rapide pour rentrer chez elle.
+mu-lan-cong-jun	4	Le retour	The Homecoming	Ses parents, sa sœur et son petit frère l'accueillent ; elle reprend ses habits d'autrefois et se recoiffe, et ses compagnons d'armes découvrent, stupéfaits, qu'ils ont servi douze ans aux côtés d'une jeune fille.
+mei-hou-wang	1	Le singe de pierre	The Stone Monkey	Au sommet du mont des Fleurs et des Fruits, un singe naît d'une pierre ; il ose le premier sauter à travers la cascade, trouve derrière elle une grotte où tous peuvent vivre, et les singes en font leur roi.
+mei-hou-wang	2	Le maître au-delà des mers	The Master beyond the Seas	Inquiet de mourir un jour, le roi des singes passe les mers pour chercher un maître ; le patriarche Subhuti le nomme Sun Wukong, lui apprend les soixante-douze transformations et le saut de nuage, puis le renvoie pour s'en être vanté devant les autres disciples.
+mei-hou-wang	3	Le désordre au palais céleste	Havoc in the Heavenly Palace	Appelé au ciel, il n'y reçoit que la garde des chevaux, se proclame Grand Sage égal du Ciel, mange les pêches d'immortalité et les pilules de Laozi, et tient tête aux armées célestes.
+mei-hou-wang	4	La paume du Bouddha	The Buddha's Palm	Il parie avec le Bouddha qu'il sautera hors de sa paume, file au bout du monde marquer cinq piliers, découvre que ce sont les doigts du Bouddha et se retrouve enfermé sous la montagne des Cinq Éléments.

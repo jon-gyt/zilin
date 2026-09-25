@@ -7,6 +7,12 @@ et un résumé d'intrigue en une phrase. Aucun texte de conte n'entre dans le d�
 sans passer par le pipeline : il sort de la génération par l'API ou de l'import d'un
 brouillon rédigé sans API, avec les mêmes contrôles, puis d'une relecture humaine.
 
+Le catalogue dit aussi, pour chaque récit, ses niveaux prévus (deux pour un récit
+simple, trois pour un récit riche ; critère en tête du catalogue) et son nombre de
+chapitres : 1 pour une fable, plus pour un récit long, lu chapitre par chapitre, dont
+`chapitres.tsv` décrit chaque chapitre. Un niveau prévu non écrit, faute de liste ou de
+rédacteur, est un écart que `wenlu check` signale, jamais un blocage.
+
 Chaîne : `invite()` construit l'invite (système + utilisateur), Claude répond en JSON
 structuré, `valider()` refuse toute version qui sort de la liste du seuil, et la
 génération relance avec les intrus signalés, au plus `ESSAIS_MAX` fois. Chaque version
@@ -98,7 +104,23 @@ REJETE = "rejete"
 RELU = "relu"
 STATUTS = (A_RELIRE, REJETE, RELU)
 
-COLONNES = ("id", "titre_zh", "titre_pinyin", "titre_fr", "titre_en", "ouvrage", "resume_fr")
+COLONNES = (
+    "id",
+    "titre_zh",
+    "titre_pinyin",
+    "titre_fr",
+    "titre_en",
+    "ouvrage",
+    "niveaux",
+    "chapitres",
+    "resume_fr",
+)
+
+#: Les colonnes de `chapitres.tsv` : un chapitre prévu d'un récit long.
+COLONNES_CHAPITRES = ("conte", "n", "titre_fr", "titre_en", "resume_fr")
+
+#: Un récit simple s'écrit à deux niveaux, un récit riche à trois (critère dans le catalogue).
+NIVEAUX_PAR_CONTE = (2, 3)
 
 
 class CatalogueInvalide(ValueError):
@@ -117,8 +139,18 @@ class SeuilSansListe(FileNotFoundError):
 
 
 @dataclass(frozen=True)
+class ChapitrePrevu:
+    """Un chapitre prévu d'un récit long (`chapitres.tsv`) : son rang, ses titres, son résumé."""
+
+    n: int
+    titre_fr: str
+    titre_en: str
+    resume_fr: str
+
+
+@dataclass(frozen=True)
 class Conte:
-    """Une ligne du catalogue : un récit traditionnel et sa source."""
+    """Une ligne du catalogue : un récit traditionnel, sa source et ce qui en est prévu."""
 
     id: str
     titre_zh: str
@@ -128,43 +160,135 @@ class Conte:
     titre_en: str = ""
     #: Le pinyin du vrai titre, une syllabe par caractère, aux tons du dictionnaire.
     titre_pinyin: str = ""
+    #: Les seuils où le récit sera écrit, croissants. Vide : non dit (fixtures de test).
+    niveaux: tuple[int, ...] = ()
+    #: 1 pour une fable, lue d'une traite ; plus pour un récit long, lu chapitre par chapitre.
+    chapitres: int = 1
+    #: Les chapitres prévus d'un récit long, de 1 à `chapitres`. Vide pour une fable.
+    plan: tuple[ChapitrePrevu, ...] = ()
+
+    @property
+    def long(self) -> bool:
+        """Un récit long se lit chapitre par chapitre."""
+        return self.chapitres > 1
 
 
-def parse_catalogue(lignes: Iterable[str]) -> list[Conte]:
-    """Lit le catalogue TSV : `#` en commentaire, première ligne utile en en-tête."""
-    contes: list[Conte] = []
+def _lignes_tsv(lignes: Iterable[str], colonnes: tuple[str, ...], nom: str) -> list[tuple[int, tuple[str, ...]]]:
+    """Les lignes utiles d'un TSV (`#` en commentaire), en-tête vérifié, cellules non vides."""
     entete: tuple[str, ...] | None = None
-    vus: set[str] = set()
+    lues: list[tuple[int, tuple[str, ...]]] = []
     for numero, brute in enumerate(lignes, start=1):
         ligne = brute.rstrip("\n")
         if not ligne.strip() or ligne.lstrip().startswith("#"):
             continue
         cellules = tuple(cellule.strip() for cellule in ligne.split("\t"))
         if entete is None:
-            if cellules != COLONNES:
-                raise CatalogueInvalide(f"ligne {numero} : en-tête attendu {COLONNES}, lu {cellules}")
+            if cellules != colonnes:
+                raise CatalogueInvalide(f"{nom}, ligne {numero} : en-tête attendu {colonnes}, lu {cellules}")
             entete = cellules
             continue
-        if len(cellules) != len(COLONNES):
-            raise CatalogueInvalide(f"ligne {numero} : {len(cellules)} colonnes pour {len(COLONNES)}")
+        if len(cellules) != len(colonnes):
+            raise CatalogueInvalide(f"{nom}, ligne {numero} : {len(cellules)} colonnes pour {len(colonnes)}")
         if not all(cellules):
-            raise CatalogueInvalide(f"ligne {numero} : colonne vide")
-        if cellules[0] in vus:
-            raise CatalogueInvalide(f"ligne {numero} : doublon d'identifiant {cellules[0]!r}")
-        vus.add(cellules[0])
-        conte = Conte(**dict(zip(COLONNES, cellules)))
+            raise CatalogueInvalide(f"{nom}, ligne {numero} : colonne vide")
+        lues.append((numero, cellules))
+    if entete is None:
+        raise CatalogueInvalide(f"{nom} sans en-tête")
+    return lues
+
+
+def parse_niveaux(texte: str) -> tuple[int, ...]:
+    """`405,805,1555` → (405, 805, 1555) : des seuils connus, strictement croissants,
+    deux (récit simple) ou trois (récit riche)."""
+    morceaux = [m.strip() for m in texte.split(",")]
+    if not all(m.isdigit() for m in morceaux):
+        raise CatalogueInvalide(f"niveaux {texte!r} : des seuils séparés par des virgules, 255,505")
+    niveaux = tuple(int(m) for m in morceaux)
+    inconnus = [n for n in niveaux if n not in SEUILS]
+    if inconnus:
+        raise CatalogueInvalide(f"niveaux {texte!r} : {inconnus} hors des seuils {SEUILS}")
+    if list(niveaux) != sorted(set(niveaux)):
+        raise CatalogueInvalide(f"niveaux {texte!r} : strictement croissants, sans doublon")
+    if len(niveaux) not in NIVEAUX_PAR_CONTE:
+        raise CatalogueInvalide(
+            f"niveaux {texte!r} : deux niveaux pour un récit simple, trois pour un récit riche"
+        )
+    return niveaux
+
+
+def parse_chapitres(lignes: Iterable[str]) -> dict[str, tuple[ChapitrePrevu, ...]]:
+    """Lit `chapitres.tsv` : les chapitres prévus, par conte, dans l'ordre de leur rang."""
+    par_conte: dict[str, list[ChapitrePrevu]] = {}
+    for numero, cellules in _lignes_tsv(lignes, COLONNES_CHAPITRES, "chapitres"):
+        valeurs = dict(zip(COLONNES_CHAPITRES, cellules))
+        if not valeurs["n"].isdigit() or int(valeurs["n"]) < 1:
+            raise CatalogueInvalide(f"chapitres, ligne {numero} : rang {valeurs['n']!r}, attendu 1, 2…")
+        liste = par_conte.setdefault(valeurs["conte"], [])
+        n = int(valeurs["n"])
+        if n != len(liste) + 1:
+            raise CatalogueInvalide(
+                f"chapitres, ligne {numero} : {valeurs['conte']} chapitre {n}, attendu {len(liste) + 1}"
+            )
+        liste.append(ChapitrePrevu(n, valeurs["titre_fr"], valeurs["titre_en"], valeurs["resume_fr"]))
+    return {conte: tuple(liste) for conte, liste in par_conte.items()}
+
+
+def parse_catalogue(
+    lignes: Iterable[str], chapitres: Mapping[str, Sequence[ChapitrePrevu]] | None = None
+) -> list[Conte]:
+    """Lit le catalogue TSV : `#` en commentaire, première ligne utile en en-tête.
+
+    `chapitres` : les chapitres prévus des récits longs (`parse_chapitres`). Un récit long
+    en a autant que sa colonne `chapitres`, une fable aucun.
+    """
+    chapitres = chapitres or {}
+    contes: list[Conte] = []
+    vus: set[str] = set()
+    for numero, cellules in _lignes_tsv(lignes, COLONNES, "catalogue"):
+        valeurs = dict(zip(COLONNES, cellules))
+        if valeurs["id"] in vus:
+            raise CatalogueInvalide(f"ligne {numero} : doublon d'identifiant {valeurs['id']!r}")
+        vus.add(valeurs["id"])
+        try:
+            niveaux = parse_niveaux(valeurs.pop("niveaux"))
+        except CatalogueInvalide as erreur:
+            raise CatalogueInvalide(f"ligne {numero} : {erreur}") from erreur
+        nombre = valeurs.pop("chapitres")
+        if not nombre.isdigit() or int(nombre) < 1:
+            raise CatalogueInvalide(f"ligne {numero} : chapitres {nombre!r}, attendu 1 pour une fable, plus pour un récit long")
+        plan = tuple(chapitres.get(valeurs["id"], ()))
+        if int(nombre) > 1 and len(plan) != int(nombre):
+            raise CatalogueInvalide(
+                f"ligne {numero} : {valeurs['id']} prévoit {nombre} chapitres, chapitres.tsv en décrit {len(plan)}"
+            )
+        if int(nombre) == 1 and plan:
+            raise CatalogueInvalide(f"ligne {numero} : {valeurs['id']} est une fable, chapitres.tsv lui en donne")
+        conte = Conte(**valeurs, niveaux=niveaux, chapitres=int(nombre), plan=plan)
         if len(conte.titre_pinyin.split()) != len(conte.titre_zh):
             raise CatalogueInvalide(f"ligne {numero} : une syllabe de pinyin par caractère du titre")
         contes.append(conte)
-    if entete is None:
-        raise CatalogueInvalide("catalogue sans en-tête")
+    orphelins = sorted(set(chapitres) - vus)
+    if orphelins:
+        raise CatalogueInvalide(f"chapitres.tsv : conte hors catalogue {', '.join(orphelins)}")
     return contes
 
 
 def charger_catalogue(chemin: Path | None = None) -> list[Conte]:
-    """Charge `data/sources/contes/catalogue.tsv`."""
+    """Charge `data/sources/contes/catalogue.tsv`, et `chapitres.tsv` à côté s'il existe."""
     chemin = chemin or CONTES / "catalogue.tsv"
-    return parse_catalogue(chemin.read_text(encoding="utf-8").splitlines())
+    fichier_chapitres = chemin.parent / "chapitres.tsv"
+    chapitres = (
+        parse_chapitres(fichier_chapitres.read_text(encoding="utf-8").splitlines())
+        if fichier_chapitres.exists()
+        else {}
+    )
+    return parse_catalogue(chemin.read_text(encoding="utf-8").splitlines(), chapitres)
+
+
+def contes_du_seuil(catalogue: Iterable[Conte], seuil: int) -> list[Conte]:
+    """Les contes que la génération par l'API écrit à un seuil : ceux qui l'ont prévu, et
+    seulement les fables. Un récit long se rédige par brouillon, chapitre par chapitre."""
+    return [c for c in catalogue if not c.long and (not c.niveaux or seuil in c.niveaux)]
 
 
 def conte_par_id(identifiant: str, catalogue: Sequence[Conte] | None = None) -> Conte:
@@ -339,9 +463,61 @@ def _glose(valeur: object) -> Glose:
     return Glose(fr=str(valeur))
 
 
+def phrase_en_json(p: Phrase) -> dict[str, str]:
+    return {"zh": p.zh, "pinyin": p.pinyin, "fr": p.fr, "en": p.en}
+
+
+@dataclass(frozen=True)
+class Chapitre:
+    """Un chapitre d'une version : son titre chinois (vide pour une fable) et ses phrases.
+
+    Une fable est une version d'un seul chapitre sans titre ; un récit long en a plusieurs,
+    titrés, et se lit chapitre par chapitre. `titre_fr` et `titre_en` viennent du
+    catalogue (`chapitres.tsv`), comme ceux du récit.
+    """
+
+    phrases: list[Phrase]
+    titre: str = ""
+    titre_pinyin: str = ""
+    titre_fr: str = ""
+    titre_en: str = ""
+
+    def en_json(self) -> dict[str, object]:
+        return {
+            "titre": self.titre,
+            "titre_pinyin": self.titre_pinyin,
+            "titre_fr": self.titre_fr,
+            "titre_en": self.titre_en,
+            "phrases": [phrase_en_json(p) for p in self.phrases],
+        }
+
+
+def _phrase(p: Mapping[str, object]) -> Phrase:
+    return Phrase(zh=str(p["zh"]), pinyin=str(p["pinyin"]), fr=str(p["fr"]), en=str(p.get("en", "")))
+
+
+def chapitre_depuis_json(document: Mapping[str, object]) -> Chapitre:
+    """Relit un chapitre écrit par `Chapitre.en_json`."""
+    phrases = document.get("phrases")
+    if not isinstance(phrases, list):
+        raise ReponseInvalide("chapitre illisible : phrases hors format")
+    return Chapitre(
+        phrases=[_phrase(p) for p in phrases],
+        titre=str(document.get("titre", "")),
+        titre_pinyin=str(document.get("titre_pinyin", "")),
+        titre_fr=str(document.get("titre_fr", "")),
+        titre_en=str(document.get("titre_en", "")),
+    )
+
+
 @dataclass
 class Version:
-    """Une version d'un conte à un seuil."""
+    """Une version d'un conte à un seuil.
+
+    `chapitres` porte le texte ; `phrases` en est la suite, chapitre après chapitre. Une
+    fable se construit par ses seules `phrases` (un chapitre sans titre), un récit long par
+    ses `chapitres`.
+    """
 
     conte: str
     seuil: int
@@ -355,20 +531,37 @@ class Version:
     statut: str = A_RELIRE
     titre_pinyin: str = ""
     titre_en: str = ""
+    chapitres: list[Chapitre] = field(default_factory=list)
 
     def __post_init__(self) -> None:
         # Une glose écrite avant le pinyin et l'anglais ne portait que le français.
         self.glose = {str(zh): _glose(valeur) for zh, valeur in self.glose.items()}
+        if self.chapitres:
+            self.phrases = [p for c in self.chapitres for p in c.phrases]
+        else:
+            self.chapitres = [Chapitre(phrases=list(self.phrases))]
+
+    @property
+    def courte(self) -> bool:
+        """Une fable : un seul chapitre, sans titre. Elle s'écrit et s'exporte par `phrases`."""
+        return len(self.chapitres) == 1 and not self.chapitres[0].titre
 
     @property
     def texte(self) -> str:
-        """Le chinois soumis au contrôle : titre et phrases."""
-        return self.titre + "".join(p.zh for p in self.phrases)
+        """Le chinois soumis au contrôle : titre, titres des chapitres et phrases."""
+        return self.titre + "".join(c.titre + "".join(p.zh for p in c.phrases) for c in self.chapitres)
 
     @property
     def cle(self) -> str:
         """`<seuil>/<conte>` : le nom d'une version dans la relecture."""
         return f"{self.seuil}/{self.conte}"
+
+    def texte_en_json(self) -> dict[str, object]:
+        """Le texte, tel que l'écrivent la version et l'export : `phrases` pour une fable,
+        `chapitres` pour un récit long."""
+        if self.courte:
+            return {"phrases": [phrase_en_json(p) for p in self.phrases]}
+        return {"chapitres": [c.en_json() for c in self.chapitres]}
 
     def en_json(self) -> dict[str, object]:
         return {
@@ -379,9 +572,7 @@ class Version:
             "titre_fr": self.titre_fr,
             "titre_en": self.titre_en,
             "source": {"ouvrage": self.ouvrage, "resume_fr": self.resume_fr},
-            "phrases": [
-                {"zh": p.zh, "pinyin": p.pinyin, "fr": p.fr, "en": p.en} for p in self.phrases
-            ],
+            **self.texte_en_json(),
             "glose": {zh: g.en_json() for zh, g in self.glose.items()},
             "generation": {
                 "modele": self.generation.modele,
@@ -450,10 +641,13 @@ def version_depuis_json(document: dict[str, object]) -> Version:
     generation = document.get("generation") or {}
     if not isinstance(source, dict) or not isinstance(generation, dict):
         raise ReponseInvalide("version illisible : source ou generation hors format")
-    phrases = document.get("phrases")
+    chapitres = document.get("chapitres")
+    phrases = document.get("phrases", [] if isinstance(chapitres, list) else None)
     glose = document.get("glose")
     if not isinstance(phrases, list) or not isinstance(glose, dict):
         raise ReponseInvalide("version illisible : phrases ou glose hors format")
+    if chapitres is not None and not isinstance(chapitres, list):
+        raise ReponseInvalide("version illisible : chapitres hors format")
     return Version(
         conte=str(document.get("conte", "")),
         seuil=int(document.get("seuil", 0)),
@@ -463,9 +657,8 @@ def version_depuis_json(document: dict[str, object]) -> Version:
         titre_en=str(document.get("titre_en", "")),
         ouvrage=str(source.get("ouvrage", "")),
         resume_fr=str(source.get("resume_fr", "")),
-        phrases=[
-            Phrase(zh=p["zh"], pinyin=p["pinyin"], fr=p["fr"], en=str(p.get("en", ""))) for p in phrases
-        ],
+        phrases=[_phrase(p) for p in phrases],
+        chapitres=[chapitre_depuis_json(c) for c in chapitres or ()],
         glose={str(zh): _glose(valeur) for zh, valeur in glose.items()},
         generation=Generation(
             modele=str(generation.get("modele", "")),
@@ -556,21 +749,64 @@ class Rapport:
         return not self.intrus
 
 
-def valider(version: Version, autorises: Sequence[str]) -> Rapport:
+def longueur(phrases: Iterable[Phrase]) -> int:
+    """Le nombre de sinogrammes des phrases, ponctuation non comprise."""
+    return sum(1 for p in phrases for c in p.zh if est_sinogramme(c))
+
+
+def ecarts_au_catalogue(version: Version, conte: Conte) -> list[str]:
+    """Ce qu'une version dit autrement que le catalogue : un seuil que le récit n'a pas
+    prévu, un nombre de chapitres qui n'est pas celui prévu. Des écarts, jamais des rejets."""
+    ecarts: list[str] = []
+    if conte.niveaux and version.seuil not in conte.niveaux:
+        prevus = ", ".join(str(n) for n in conte.niveaux)
+        ecarts.append(f"seuil {version.seuil} non prévu au catalogue (niveaux prévus : {prevus})")
+    ecrits = 1 if version.courte else len(version.chapitres)
+    if ecrits != conte.chapitres:
+        ecarts.append(f"{ecrits} chapitre(s) pour {conte.chapitres} prévu(s) au catalogue")
+    return ecarts
+
+
+def valider(version: Version, autorises: Sequence[str], conte: Conte | None = None) -> Rapport:
     """Contrôle strict : tout caractère hors liste est un rejet.
 
     Les autres défauts (glose incomplète ou incohérente, pinyin qui ne s'aligne pas,
-    traduction absente, longueur hors cible) sont des écarts signalés à la relecture,
-    pas des rejets.
+    traduction absente, longueur hors cible, chapitre sans titre ou sans phrase, seuil ou
+    nombre de chapitres autres que ceux du catalogue quand `conte` est donné) sont des
+    écarts signalés à la relecture, pas des rejets. Un récit long vise la longueur du
+    seuil à chaque chapitre.
     """
     intrus = caracteres_hors_liste(version.texte, autorises)
     ecarts: list[str] = []
     if not version.phrases:
         ecarts.append("aucune phrase")
-    longueur = sum(1 for p in version.phrases for c in p.zh if est_sinogramme(c))
     minimum, maximum = LONGUEURS.get(version.seuil, (0, 10**6))
-    if not minimum <= longueur <= maximum:
-        ecarts.append(f"longueur {longueur} hors de la cible {minimum}–{maximum}")
+    if version.courte:
+        total = longueur(version.phrases)
+        if not minimum <= total <= maximum:
+            ecarts.append(f"longueur {total} hors de la cible {minimum}–{maximum}")
+    else:
+        for k, chapitre in enumerate(version.chapitres, start=1):
+            if not chapitre.phrases:
+                ecarts.append(f"chapitre {k} sans phrase")
+                continue
+            n = longueur(chapitre.phrases)
+            if not minimum <= n <= maximum:
+                ecarts.append(f"chapitre {k} : longueur {n} hors de la cible {minimum}–{maximum}")
+        sans_titre = [str(k) for k, c in enumerate(version.chapitres, start=1) if not c.titre.strip()]
+        if sans_titre:
+            ecarts.append(f"chapitres sans titre chinois : {', '.join(sans_titre)}")
+        sans_traduction = [
+            str(k)
+            for k, c in enumerate(version.chapitres, start=1)
+            if not c.titre_fr.strip() or not c.titre_en.strip()
+        ]
+        if sans_traduction:
+            ecarts.append(
+                f"chapitres sans titre français ou anglais (chapitres.tsv) : {', '.join(sans_traduction)}"
+            )
+    if conte is not None:
+        ecarts += ecarts_au_catalogue(version, conte)
     vides = [i for i, p in enumerate(version.phrases, start=1) if not p.zh.strip() or not p.fr.strip()]
     if vides:
         ecarts.append(f"phrases vides : {', '.join(str(i) for i in vides)}")
@@ -578,10 +814,16 @@ def valider(version: Version, autorises: Sequence[str]) -> Rapport:
     if sans_anglais:
         ecarts.append(f"traduction anglaise absente : phrases {', '.join(str(i) for i in sans_anglais)}")
 
-    # Pinyin : une syllabe par sinogramme, pour le titre et chaque phrase.
-    textes = [("du titre", version.titre, version.titre_pinyin)] + [
-        (f"de la phrase {i}", p.zh, p.pinyin) for i, p in enumerate(version.phrases, start=1)
-    ]
+    # Pinyin : une syllabe par sinogramme, pour le titre, chaque titre de chapitre et
+    # chaque phrase (numérotée d'un bout à l'autre de la version).
+    textes = [("du titre", version.titre, version.titre_pinyin)]
+    rang = 0
+    for k, chapitre in enumerate(version.chapitres, start=1):
+        if not version.courte:
+            textes.append((f"du titre du chapitre {k}", chapitre.titre, chapitre.titre_pinyin))
+        for p in chapitre.phrases:
+            rang += 1
+            textes.append((f"de la phrase {rang}", p.zh, p.pinyin))
     alignes = [(nom, texte, _syllabes(texte, pinyin, nom, ecarts)) for nom, texte, pinyin in textes]
 
     # Glose : chaque sinogramme couvert, telle que le lecteur la découpera.
@@ -708,7 +950,7 @@ def generer_version(
                 essais=essai,
             ),
         )
-        rapport = valider(version, autorises)
+        rapport = valider(version, autorises, conte)
         version.generation = replace(version.generation, intrus=rapport.intrus)
         version.statut = A_RELIRE if rapport.conforme else REJETE
         if rapport.conforme:
@@ -835,7 +1077,7 @@ def recuperer_lot(
                 essais=essai,
             ),
         )
-        rapport = valider(version, autorises)
+        rapport = valider(version, autorises, conte)
         version.generation = replace(version.generation, intrus=rapport.intrus)
         version.statut = A_RELIRE if rapport.conforme else REJETE
         ecrire_version(version, dossier)
@@ -885,6 +1127,9 @@ RELECTURE = WORK / "relecture-contes.json"
 
 CHAMPS_BROUILLON = ("conte", "seuil", "ouvrage", "titre", "phrases", "glose")
 
+#: Un récit long remplace `phrases` par `chapitres` : l'un ou l'autre, jamais les deux.
+CHAMPS_TEXTE = ("phrases", "chapitres")
+
 #: Les deux décisions de la relecture humaine.
 DECISIONS = (RELU, REJETE)
 
@@ -923,6 +1168,8 @@ class Brouillon:
     titre_pinyin: str
     phrases: list[Phrase]
     glose: dict[str, Glose]
+    #: Les chapitres d'un récit long, titres chinois compris ; vide pour une fable.
+    chapitres: list[Chapitre] = field(default_factory=list)
 
     @property
     def nom(self) -> str:
@@ -967,10 +1214,15 @@ def brouillon_depuis_json(
     if not isinstance(document, dict):
         raise BrouillonInvalide(nom, ["attendu un objet JSON"])
     problemes: list[str] = []
-    manquants = [k for k in CHAMPS_BROUILLON if k not in document]
+    texte = [k for k in CHAMPS_TEXTE if k in document]
+    manquants = [k for k in CHAMPS_BROUILLON if k not in document and k != "phrases"]
+    if not texte:
+        manquants.append("phrases (ou chapitres pour un récit long)")
     if manquants:
         problemes.append(f"champ manquant : {', '.join(manquants)}")
-    inconnus = [k for k in document if k not in CHAMPS_BROUILLON]
+    if len(texte) > 1:
+        problemes.append("phrases et chapitres : l'un ou l'autre, chapitres pour un récit long")
+    inconnus = [k for k in document if k not in CHAMPS_BROUILLON + CHAMPS_TEXTE]
     if inconnus:
         problemes.append(f"champ inconnu : {', '.join(inconnus)}")
     if "conte" in document and not isinstance(document["conte"], str):
@@ -988,14 +1240,28 @@ def brouillon_depuis_json(
 
     phrases: list[Phrase] = []
     if "phrases" in document:
-        brut = document["phrases"]
+        phrases = _phrases_brouillon(document["phrases"], "", problemes)
+
+    chapitres: list[Chapitre] = []
+    if "chapitres" in document:
+        brut = document["chapitres"]
         if not isinstance(brut, list) or not brut:
-            problemes.append("phrases : attendu une liste non vide d'objets {zh, pinyin, fr, en}")
+            problemes.append("chapitres : attendu une liste non vide d'objets {titre, phrases}")
         else:
-            for rang, element in enumerate(brut, start=1):
-                lu = _textes(element, ("zh", "pinyin", "fr", "en"), f"phrase {rang}", problemes)
-                if lu is not None:
-                    phrases.append(Phrase(**lu))
+            for k, element in enumerate(brut, start=1):
+                nom_chapitre = f"chapitre {k}"
+                if not isinstance(element, dict):
+                    problemes.append(f"{nom_chapitre} : attendu un objet {{titre, phrases}}")
+                    continue
+                inconnues = [c for c in element if c not in ("titre", "phrases")]
+                if inconnues:
+                    problemes.append(f"{nom_chapitre} : clé inconnue {', '.join(inconnues)}")
+                titre_chapitre = _textes(element.get("titre"), ("zh", "pinyin"), f"{nom_chapitre}, titre", problemes)
+                lues = _phrases_brouillon(element.get("phrases"), f"{nom_chapitre}, ", problemes)
+                if titre_chapitre is not None:
+                    chapitres.append(
+                        Chapitre(phrases=lues, titre=titre_chapitre["zh"], titre_pinyin=titre_chapitre["pinyin"])
+                    )
 
     glose: dict[str, Glose] = {}
     if "glose" in document:
@@ -1024,7 +1290,22 @@ def brouillon_depuis_json(
         titre_pinyin=titre["pinyin"],
         phrases=phrases,
         glose=glose,
+        chapitres=chapitres,
     )
+
+
+def _phrases_brouillon(brut: object, prefixe: str, problemes: list[str]) -> list[Phrase]:
+    """Les phrases d'un brouillon ou d'un de ses chapitres : une liste non vide de
+    `{zh, pinyin, fr, en}`. Chaque problème est noté, préfixé du chapitre s'il y en a un."""
+    if not isinstance(brut, list) or not brut:
+        problemes.append(f"{prefixe}phrases : attendu une liste non vide d'objets {{zh, pinyin, fr, en}}")
+        return []
+    phrases: list[Phrase] = []
+    for rang, element in enumerate(brut, start=1):
+        lu = _textes(element, ("zh", "pinyin", "fr", "en"), f"{prefixe}phrase {rang}", problemes)
+        if lu is not None:
+            phrases.append(Phrase(**lu))
+    return phrases
 
 
 def chemin_brouillon(conte_id: str, seuil: int, dossier: Path | None = None) -> Path:
@@ -1086,6 +1367,16 @@ def version_depuis_brouillon(
         ouvrage=brouillon.ouvrage or "",
         resume_fr=conte.resume_fr,
         phrases=list(brouillon.phrases),
+        # Les titres français et anglais des chapitres viennent du catalogue, comme
+        # ceux du récit : un chapitre que le catalogue ne prévoit pas n'en a pas.
+        chapitres=[
+            replace(
+                chapitre,
+                titre_fr=conte.plan[k].titre_fr if k < len(conte.plan) else "",
+                titre_en=conte.plan[k].titre_en if k < len(conte.plan) else "",
+            )
+            for k, chapitre in enumerate(brouillon.chapitres)
+        ],
         glose=dict(brouillon.glose),
         generation=Generation(
             modele=MODELE_MANUEL,
@@ -1133,7 +1424,7 @@ def importer_brouillon(
         essais=precedente.generation.essais + 1 if manuelle and precedente else 1,
         horloge=horloge,
     )
-    rapport = valider(version, autorises)
+    rapport = valider(version, autorises, conte)
     if (
         manuelle
         and precedente is not None
@@ -1157,13 +1448,15 @@ def contraintes(seuil: int) -> str:
     minimum, maximum = LONGUEURS.get(seuil, (0, 0))
     return f"""Contraintes, vérifiées par `wenlu contes importer` comme pour un conte généré.
 Rejet :
-- titre.zh et chaque phrases[].zh : les seuls caractères de la liste du seuil, et la \
-ponctuation {PONCTUATION_CHINOISE} (citations entre 「」) ; ni chiffre, ni lettre, \
+- titre.zh, chaque phrases[].zh et, pour un récit long, chaque titre de chapitre : les \
+seuls caractères de la liste du seuil, et la ponctuation {PONCTUATION_CHINOISE} (citations entre 「」) ; ni chiffre, ni lettre, \
 aucun autre caractère, même dans un nom propre.
 Écarts, signalés à la relecture :
 - longueur : {minimum} à {maximum} sinogrammes pour le seuil {seuil}, phrases seules, \
-ponctuation non comprise ;
-- pinyin du titre et de chaque phrase : {REGLE_PINYIN} ;
+ponctuation non comprise ; pour un récit long, à chaque chapitre ;
+- récit long : autant de chapitres que le catalogue en prévoit, chacun titré et non vide ;
+- seuil : l'un des niveaux que le catalogue prévoit pour le récit ;
+- pinyin du titre, de chaque titre de chapitre et de chaque phrase : {REGLE_PINYIN} ;
 - fr et en de chaque phrase non vides, rédigés pour un lecteur de chaque langue ;
 - glose : une liste d'entrées {{zh, pinyin, fr, en}}, par caractère ou par mot, qui couvre \
 chaque sinogramme du titre et du texte tel que le lecteur les découpe (à chaque \
@@ -1174,6 +1467,7 @@ dictionnaire.
 Format (sinon rien n'est écrit) :
 - conte et seuil : ceux du chemin <id>/<seuil>.json ; aucune autre clé que \
 {', '.join(CHAMPS_BROUILLON)} ;
+- récit long : chapitres [{{titre: {{zh, pinyin}}, phrases: [...]}}] à la place de phrases ;
 - ouvrage : l'ouvrage du catalogue, à l'identique, ou null pour ne pas le citer ; \
 jamais une source inexacte.
 Le récit suit l'intrigue du catalogue, sans en changer la morale, sans recopier \
@@ -1182,14 +1476,25 @@ ni emoji ni dragon, sauf dans 叶公好龙 dont le dragon est le sujet."""
 
 
 def squelette(conte: Conte, seuil: int) -> dict[str, object]:
-    """Un brouillon vide pour ce conte à ce seuil."""
+    """Un brouillon vide pour ce conte à ce seuil : des phrases pour une fable, un
+    chapitre par chapitre prévu pour un récit long."""
     vide = {"zh": "", "pinyin": "", "fr": "", "en": ""}
+    texte: dict[str, object] = (
+        {
+            "chapitres": [
+                {"titre": {"zh": "", "pinyin": ""}, "phrases": [dict(vide)]}
+                for _ in range(conte.chapitres)
+            ]
+        }
+        if conte.long
+        else {"phrases": [dict(vide)]}
+    )
     return {
         "conte": conte.id,
         "seuil": seuil,
         "ouvrage": conte.ouvrage,
         "titre": {"zh": "", "pinyin": ""},
-        "phrases": [dict(vide)],
+        **texte,
         "glose": [dict(vide)],
     }
 
@@ -1214,9 +1519,25 @@ def decrire_contexte(
         f"Titre : « {conte.titre_fr} » / “{conte.titre_en}”",
         f"Ouvrage d'origine : {conte.ouvrage} (à citer tel quel, ou null ; n'en rien recopier)",
         f"Intrigue : {conte.resume_fr}",
-        f"Longueur visée : {minimum} à {maximum} sinogrammes, ponctuation non comprise.",
+        "Niveaux prévus : "
+        + (", ".join(str(n) for n in conte.niveaux) or "non dits")
+        + (
+            ""
+            if not conte.niveaux or seuil in conte.niveaux
+            else f" ; le seuil {seuil} n'en est pas (écart signalé à l'import)"
+        ),
+        f"Longueur visée : {minimum} à {maximum} sinogrammes"
+        + (" par chapitre" if conte.long else "")
+        + ", ponctuation non comprise.",
         "Titre traditionnel : "
         + (f"{' '.join(hors)} hors du seuil, à dire autrement." if hors else "entièrement dans le seuil."),
+    ]
+    if conte.long:
+        lignes.append(
+            f"Récit long, {conte.chapitres} chapitres, chacun titré en chinois avec les caractères du seuil :"
+        )
+        lignes += [f"  {c.n}. « {c.titre_fr} » / “{c.titre_en}” : {c.resume_fr}" for c in conte.plan]
+    lignes += [
         "",
         f"Les {len(autorises)} seuls caractères autorisés au seuil {seuil} :",
         "".join(autorises),
@@ -1241,6 +1562,7 @@ def exporter_relecture(
     )
     listes_par_seuil: dict[int, list[str] | None] = {}
     entrees: list[dict[str, object]] = []
+    par_id = _catalogue_par_id()
     for version in a_relire:
         if version.seuil not in listes_par_seuil:
             try:
@@ -1250,7 +1572,7 @@ def exporter_relecture(
         entree: dict[str, object] = {"cle": version.cle, **version.en_json()}
         autorises = listes_par_seuil[version.seuil]
         if autorises is not None:
-            entree["ecarts"] = valider(version, autorises).ecarts
+            entree["ecarts"] = valider(version, autorises, par_id.get(version.conte)).ecarts
         entrees.append(entree)
     document = {
         "date": horloge(),
@@ -1313,6 +1635,11 @@ def appliquer_relecture(decisions: object, dossier: Path | None = None) -> list[
     return [relire(conte, seuil, statut, dossier) for conte, seuil, statut in retenues]
 
 
+def _catalogue_par_id() -> dict[str, Conte]:
+    """Le catalogue par identifiant, pour confronter une version à ce qu'il prévoit."""
+    return {c.id: c for c in charger_catalogue()}
+
+
 def _relatif(chemin: Path) -> str:
     try:
         return str(chemin.relative_to(RACINE))
@@ -1323,22 +1650,117 @@ def _relatif(chemin: Path) -> str:
 # --------------------------------------------------------------------------- check
 
 
-def controles(dossier: Path | None = None, listes: Path | None = None) -> list[Controle]:
+#: Ce que devient un niveau prévu au catalogue.
+ECRIT = "ecrit"
+#: Sa liste est versionnée, mais aucune version n'est encore écrite.
+A_ECRIRE = "a_ecrire"
+#: Sa liste n'est pas encore versionnée : il l'attend pour s'écrire.
+SANS_LISTE = "sans_liste"
+
+
+@dataclass(frozen=True)
+class Niveau:
+    """Un niveau prévu d'un conte, et où il en est. `statut` : celui de la version écrite."""
+
+    conte: str
+    seuil: int
+    etat: str
+    statut: str | None = None
+
+
+def etat_des_niveaux(
+    catalogue: Sequence[Conte], versions: Iterable[Version], listes: Path | None = None
+) -> list[Niveau]:
+    """Chaque niveau prévu de chaque conte, dans l'ordre du catalogue : écrit, à écrire
+    (liste présente) ou sans liste. Un niveau prévu non écrit est un écart, jamais un
+    blocage : on ne l'écrit pas sans sa liste, et on ne reconstitue pas une liste."""
+    ecrites = {(v.conte, v.seuil): v.statut for v in versions}
+    listes_presentes = {s: fichier_seuil(s, listes).exists() for s in SEUILS}
+    niveaux: list[Niveau] = []
+    for conte in catalogue:
+        for seuil in conte.niveaux:
+            if (conte.id, seuil) in ecrites:
+                niveaux.append(Niveau(conte.id, seuil, ECRIT, ecrites[(conte.id, seuil)]))
+            elif listes_presentes.get(seuil):
+                niveaux.append(Niveau(conte.id, seuil, A_ECRIRE))
+            else:
+                niveaux.append(Niveau(conte.id, seuil, SANS_LISTE))
+    return niveaux
+
+
+def controle_niveaux(
+    catalogue: Sequence[Conte], versions: Sequence[Version], listes: Path | None = None
+) -> Controle:
+    """« contes : niveaux prévus » : ce qui reste à écrire, et ce qui s'écarte du catalogue
+    (seuil non prévu, nombre de chapitres, conte hors catalogue). Jamais bloquant."""
+    niveaux = etat_des_niveaux(catalogue, versions, listes)
+    ecrits = [n for n in niveaux if n.etat == ECRIT]
+    a_ecrire = [n for n in niveaux if n.etat == A_ECRIRE]
+    sans_liste = [n for n in niveaux if n.etat == SANS_LISTE]
+    par_id = {c.id: c for c in catalogue}
+    hors_plan: list[str] = []
+    for version in versions:
+        conte = par_id.get(version.conte)
+        if conte is None:
+            hors_plan.append(f"{version.cle} : conte hors catalogue")
+            continue
+        hors_plan += [f"{version.cle} : {e}" for e in ecarts_au_catalogue(version, conte)]
+    longs = sum(1 for c in catalogue if c.long)
+    detail = (
+        f"{len(niveaux)} niveaux prévus pour {len(catalogue)} contes, dont {longs} longs : "
+        f"{len(ecrits)} écrits, {len(a_ecrire)} à écrire, {len(sans_liste)} attendent leur liste"
+    )
+    if sans_liste:
+        seuils = sorted({n.seuil for n in sans_liste})
+        detail += f" ({', '.join(str(s) for s in seuils)})"
+    if a_ecrire:
+        detail += " ; à écrire : " + ", ".join(f"{n.seuil}/{n.conte}" for n in a_ecrire[:5])
+    if hors_plan:
+        detail += " ; hors du catalogue : " + " ; ".join(hors_plan[:5])
+    return Controle(
+        "contes : niveaux prévus",
+        not a_ecrire and not sans_liste and not hors_plan,
+        detail,
+        bloquant=False,
+    )
+
+
+def controles(
+    dossier: Path | None = None, listes: Path | None = None, catalogue: Path | None = None
+) -> list[Controle]:
     """Contrôles des contes, appelés par `wenlu check`.
 
     « caractères hors liste » est bloquant : un conte d'un seuil ne peut pas
-    contenir un caractère que l'apprenant n'a pas encore vu.
+    contenir un caractère que l'apprenant n'a pas encore vu. « catalogue » l'est
+    aussi : un catalogue illisible ne dit plus ce qui est prévu. « niveaux prévus »
+    signale ce qui reste à écrire, sans jamais bloquer.
     """
+    try:
+        lu = charger_catalogue(catalogue)
+        controle_catalogue = Controle(
+            "contes : catalogue",
+            True,
+            f"{len(lu)} contes, dont {sum(1 for c in lu if c.long)} longs "
+            f"({sum(c.chapitres for c in lu if c.long)} chapitres prévus)",
+            bloquant=True,
+        )
+    except (CatalogueInvalide, OSError) as erreur:
+        lu = None
+        controle_catalogue = Controle("contes : catalogue", False, str(erreur), bloquant=True)
+
     fichiers = versions_ecrites(dossier)
+    versions = [lire_version(chemin) for chemin in fichiers]
+    suite = [controle_catalogue]
+    if lu is not None:
+        suite.append(controle_niveaux(lu, versions, listes))
     if not fichiers:
-        return [Controle("contes : caractères hors liste", True, "aucune version générée")]
+        return [Controle("contes : caractères hors liste", True, "aucune version générée"), *suite]
 
     fautifs: list[str] = []
     sans_liste: set[int] = set()
     a_relire = 0
     cache: dict[int, list[str] | None] = {}
-    for chemin in fichiers:
-        version = lire_version(chemin)
+    for version in versions:
         if version.statut != RELU:
             a_relire += 1
         if version.seuil not in cache:
@@ -1366,6 +1788,7 @@ def controles(dossier: Path | None = None, listes: Path | None = None) -> list[C
             a_relire == 0,
             f"{a_relire} versions sur {len(fichiers)} restent à relire avant export",
         ),
+        *suite,
     ]
 
 
@@ -1401,6 +1824,13 @@ def commande_generer(
 
     if conte is not None:
         choisi = conte_par_id(conte, catalogue)
+        if choisi.long:
+            typer.echo(
+                f"{choisi.id} est un récit long ({choisi.chapitres} chapitres) : il se rédige par "
+                f"brouillon, chapitre par chapitre (`wenlu contes contexte {choisi.id} --seuil {seuil}`).",
+                err=True,
+            )
+            raise typer.Exit(code=1)
         version, rapport = generer_version(choisi, seuil, autorises, client)
         chemin = ecrire_version(version)
         typer.echo(f"{choisi.id} ({seuil}) : {version.statut}, {version.generation.essais} essai(s) → {chemin}")
@@ -1411,8 +1841,12 @@ def commande_generer(
             raise typer.Exit(code=1)
         return
 
-    lot = soumettre_lot(catalogue, seuil, autorises, client)
-    typer.echo(f"Lot {lot['lot']} soumis : {len(catalogue)} contes au seuil {seuil}.")
+    a_generer = contes_du_seuil(catalogue, seuil)
+    if not a_generer:
+        typer.echo(f"Aucune fable ne prévoit le seuil {seuil} au catalogue.")
+        return
+    lot = soumettre_lot(a_generer, seuil, autorises, client)
+    typer.echo(f"Lot {lot['lot']} soumis : {len(a_generer)} contes au seuil {seuil}.")
     typer.echo("Récupération : `wenlu contes recuperer` (les lots aboutissent sous 24 h).")
 
 
@@ -1443,9 +1877,10 @@ def commande_valider(
         typer.echo("Aucune version à valider.")
         return
     hors_liste = 0
+    par_id = _catalogue_par_id()
     for chemin in fichiers:
         version = lire_version(chemin)
-        rapport = valider(version, _autorises(version.seuil))
+        rapport = valider(version, _autorises(version.seuil), par_id.get(version.conte))
         etat = "ok   " if rapport.conforme else "rejet"
         typer.echo(f"{etat} {version.conte} ({version.seuil}) [{version.statut}]")
         if not rapport.conforme:
@@ -1471,6 +1906,27 @@ def commande_relire(
         typer.echo(str(erreur), err=True)
         raise typer.Exit(code=1) from erreur
     typer.echo(f"{version.cle} : statut {version.statut}.")
+
+
+#: Comment `wenlu contes plan` dit l'état d'un niveau.
+ETATS_LISIBLES = {ECRIT: "écrit", A_ECRIRE: "à écrire", SANS_LISTE: "attend sa liste"}
+
+
+@app.command("plan")
+def commande_plan() -> None:
+    """Les niveaux prévus de chaque conte, et où ils en sont : écrit, à écrire, sans liste."""
+    catalogue = charger_catalogue()
+    versions = [lire_version(chemin) for chemin in versions_ecrites()]
+    par_conte: dict[str, list[Niveau]] = {}
+    for niveau in etat_des_niveaux(catalogue, versions):
+        par_conte.setdefault(niveau.conte, []).append(niveau)
+    for conte in catalogue:
+        etats = " · ".join(
+            f"{n.seuil} {ETATS_LISIBLES[n.etat]}" + (f" ({n.statut})" if n.statut else "")
+            for n in par_conte.get(conte.id, [])
+        )
+        long = f", {conte.chapitres} chapitres" if conte.long else ""
+        typer.echo(f"{conte.titre_zh} {conte.id}{long} : {etats}")
 
 
 # --------------------------------------------------------------------------- cli : rédaction sans API
