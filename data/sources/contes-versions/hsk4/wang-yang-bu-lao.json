@@ -35,10 +35,10 @@
    "en": "He looked closely, and saw that there was a big gap in the pen."
   },
   {
-   "zh": "夜里，有吃羊的动物从口子里进来，把一只羊拉走了。",
-   "pinyin": "yè lǐ yǒu chī yáng de dòng wù cóng kǒu zi lǐ jìn lái bǎ yī zhī yáng lā zǒu le",
-   "fr": "Pendant la nuit, une bête mangeuse de moutons était entrée par la brèche et en avait emporté un.",
-   "en": "In the night, an animal that eats sheep had come in through the gap and dragged one away."
+   "zh": "夜里，一只狼从口子里进来，把一只羊拉走了。",
+   "pinyin": "yè lǐ yī zhī láng cóng kǒu zi lǐ jìn lái bǎ yī zhī yáng lā zǒu le",
+   "fr": "Pendant la nuit, un loup était entré par la brèche et avait emporté un mouton.",
+   "en": "In the night, a wolf had come in through the gap and dragged a sheep away."
   },
   {
    "zh": "住在旁边的朋友知道了，对他说：「你快把羊圈补一补吧，不然羊还会少的。」",
@@ -65,10 +65,10 @@
    "en": "The next morning, he went to look again, and another sheep was missing."
   },
   {
-   "zh": "原来，那只动物晚上又从口子里进来了，又拉走了一只羊。",
-   "pinyin": "yuán lái nà zhī dòng wù wǎn shang yòu cóng kǒu zi lǐ jìn lái le yòu lā zǒu le yī zhī yáng",
-   "fr": "La même bête était revenue par la brèche pendant la nuit et avait encore emporté un mouton.",
-   "en": "The same animal had come back through the gap in the night and dragged away another sheep."
+   "zh": "原来，那只狼晚上又从口子里进来了，又拉走了一只羊。",
+   "pinyin": "yuán lái nà zhī láng wǎn shang yòu cóng kǒu zi lǐ jìn lái le yòu lā zǒu le yī zhī yáng",
+   "fr": "Le même loup était revenu par la brèche pendant la nuit et avait encore emporté un mouton.",
+   "en": "The same wolf had come back through the gap in the night and dragged away another sheep."
   },
   {
    "zh": "他站在羊圈前，心里很难过。",
@@ -265,20 +265,15 @@
    "fr": "la nuit",
    "en": "at night"
   },
-  "吃": {
-   "pinyin": "chī",
-   "fr": "manger",
-   "en": "eat"
-  },
   "的": {
    "pinyin": "de",
    "fr": "(particule de lien)",
    "en": "(linking particle)"
   },
-  "动物": {
-   "pinyin": "dòng wù",
-   "fr": "animal",
-   "en": "animal"
+  "狼": {
+   "pinyin": "láng",
+   "fr": "loup",
+   "en": "wolf"
   },
   "从": {
    "pinyin": "cóng",
@@ -636,12 +631,22 @@
    "en": "correct"
   }
  },
+ "expliques": [
+  {
+   "zh": "狼",
+   "pinyin": "láng",
+   "fr": "loup",
+   "en": "wolf",
+   "explication_fr": "Le loup vient la nuit et passe par la brèche de l'enclos pour emporter les moutons. Le récit tourne autour de lui : on le nomme, même si son caractère n'est pas encore de ce niveau.",
+   "explication_en": "The wolf comes at night and slips through the gap in the pen to carry off the sheep. The tale turns on him, so he is named, even though his character is beyond this level."
+  }
+ ],
  "generation": {
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-25",
-  "empreinte_invite": "sha256:3ed6a07958e28cb3dfe7a604d3426b28ba0b6e2768a6cf1e267f8f816abbbe5f",
-  "essais": 1,
+  "empreinte_invite": "sha256:9d3a91c3585771c6250648776873efdaf7e6ecf7c2be561aca6913a89aa518fc",
+  "essais": 2,
   "intrus": []
  },
  "statut": "a_relire"
