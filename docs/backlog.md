@@ -252,13 +252,29 @@ Relevé sur le dépôt après une revue du pipeline. Les numéros ci-dessus ne b
   surcharge, `kMandarin`, `kTGHZ2013`, `kXHC1983` d'Unihan, que `wenlu ingest` garde dans
   `lectures_dico`), et aucune lecture valide n'est un leurre (好 : hào jamais proposé) ;
   « Écouter » après la réponse. Notation par `grade`, points : ton en 说, oreille en 听,
-  « quel élément donne le son ? » en 读. Reste : l'oreille ne compte que le fichier de la
-  fiche (`audio`, vide dans l'export) ou la voix de l'appareil ; le manifeste audio du
-  parcours Lire (Kokoro) est déjà joué par « Écouter » quand il a le caractère, mais ne suffit
-  pas encore à poser la question sans voix de l'appareil, à brancher si le propriétaire le
-  veut. Un `data/work/` ingéré avant ce changement doit relancer `wenlu ingest` : sans les
+  « quel élément donne le son ? » en 读. Un `data/work/` ingéré avant ce changement doit relancer `wenlu ingest` : sans les
   lectures des dictionnaires, l'export n'écrit aucune `lectures`, l'app ne pose pas le ton,
   et `wenlu check` le signale (« export : lectures »).
+
+- 3.2, l'oreille par le manifeste audio (25 septembre) : un caractère qui a un fichier dans
+  `data/0.1.0/audio/manifeste.json` (Kokoro, 731 textes du parcours Lire, seuil 255) se pose
+  à l'oreille même sans voix mandarin sur l'appareil. Licence vérifiée avant de brancher :
+  en-tête du manifeste `verifie: true`, usage commercial autorisé, aucune redevance ; ligne
+  Kokoro tranchée dans `docs/sources-licences.md` (carte du modèle lue le 24 septembre) ;
+  les fichiers sont déjà servis avec l'app et joués par « Écouter ». Échauffer attend le
+  manifeste avant de tirer la série, comme la voix (`Corpus.manifeste`, `fichierAudio`).
+  Hors ligne : le service worker précache le manifeste et les 731 mp3 à l'installation
+  (`globPatterns` avec `mp3`, 7,2 Mio de précache au total), rien n'est mis en cache à la
+  demande ; une app installée les joue sans réseau. Si le fichier ne se charge pas (service
+  worker pas encore installé, cache purgé par le système, et pas de réseau), `play()` rejette
+  et la voix de l'appareil prend le relais ; sans elle, la question passe sans être notée, le
+  message le dit, et « Écouter » reste là pour réessayer (`audio.prononcer` : `fichier`,
+  `telephone`, `bloque`, `muet` ; un refus du navigateur faute de geste, `bloque`, ne passe
+  pas la question). Reste : vérifier sur iPhone que Safari lit un mp3 servi par le précache
+  (Safari demande les médias par plages, `Range`, et le précache répond en entier) ; à
+  défaut, la voix de l'appareil prend le relais, et `workbox-range-requests` serait la
+  suite. L'en-tête du manifeste exporté dit encore la carte du modèle « non lue » : le texte
+  de `data/src/zilin_data/audio.py` est à jour depuis, un réexport de l'audio le corrigera.
 
 ### Livrées à moitié : le code attend une clé d'API
 
@@ -272,8 +288,10 @@ Les trois chaînes sont écrites, testées sans réseau, et refusent de partir s
 - **1.7, contes** : catalogue versionné, génération par lots en place ; sans clé, la
   rédaction passe par des brouillons (ci-dessous). 3 versions écrites au seuil 255, 0
   relue : 2c.1 et 2c.2 attendent la relecture pour avoir un conte exporté.
-- **1.5, audio** : périmètre, manifeste et export en place ; 0 fichier sur les
-  731 textes du périmètre. Clé du fournisseur, **et** décision de licence ci-dessous.
+- **1.5, audio** : périmètre, manifeste et export en place. Plus de clé attendue pour
+  le fournisseur par défaut : Kokoro tourne dans le pipeline (workflow `donnees`), 731
+  fichiers sur les 731 textes du périmètre Lire (seuil 255), voix `zf_001`. Azure reste
+  en second, derrière sa clé et sa licence (ci-dessous).
 
 ### Rédiger des fiches sans API (1.4)
 
@@ -353,9 +371,11 @@ anglaise, glose par mot.
 ### En attente d'une décision
 
 - **Licence de l'audio** : le critère est le droit de redistribuer les fichiers
-  générés dans une app payante, sans redevance par écoute. Les conditions d'Azure
-  Speech n'ont pas pu être lues (proxy). Tant que la ligne n'est pas vérifiée sur une
-  source primaire, aucun fichier synthétisé n'entre dans un artefact distribué.
+  générés dans une app payante, sans redevance par écoute. Kokoro, fournisseur par
+  défaut, est tranché (`docs/sources-licences.md`, Apache 2.0 lue, carte du modèle lue le
+  24 septembre) : ses fichiers sont embarqués. Reste en attente Azure Speech, dont les
+  conditions n'ont pas pu être lues (proxy) : tant que sa ligne n'est pas vérifiée sur une
+  source primaire, aucun fichier synthétisé par lui n'entre dans un artefact distribué.
 - **Licence des décompositions** : la chaîne IDS descendue vient de `dictionary.txt`
   (Make Me a Hanzi, LGPL 3.0+), que §2.2 écarte de l'embarqué. Chaque fiche exportée
   nomme la source de sa décomposition (`sources`) pour que la décision se tranche
