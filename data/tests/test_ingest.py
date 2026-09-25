@@ -172,6 +172,57 @@ def test_liste_hsk_1_du_depot() -> None:
     assert len(charger_liste(LISTES / "hsk-1.txt")) == 300
 
 
+#: Les tableaux de caractères du HSK 3.0 (GF 0025-2021) : 300 caractères nouveaux par
+#: niveau de 1 à 6, 1 200 pour les niveaux 7 à 9, que la norme ne départage pas.
+EFFECTIFS_HSK = {
+    "hsk-1": 300,
+    "hsk-2": 300,
+    "hsk-3": 300,
+    "hsk-4": 300,
+    "hsk-5": 300,
+    "hsk-6": 300,
+    "hsk-7-9": 1200,
+}
+
+
+def test_listes_hsk_du_depot_aux_effectifs_de_la_norme() -> None:
+    """Chaque fichier porte les seuls caractères nouveaux de son niveau, sans doublon."""
+    from wenlu_data.paths import LISTES
+
+    for nom, effectif in EFFECTIFS_HSK.items():
+        liste = charger_liste(LISTES / f"{nom}.txt")
+        assert len(liste) == len(set(liste)) == effectif, nom
+
+
+def test_listes_hsk_sans_caractere_commun_et_cumul_croissant() -> None:
+    """Un caractère n'a qu'un niveau ; le niveau N se lit en cumul, des niveaux 1 à N."""
+    from wenlu_data.paths import LISTES
+
+    vus: set[str] = set()
+    cumul: list[int] = []
+    for nom in EFFECTIFS_HSK:
+        liste = set(charger_liste(LISTES / f"{nom}.txt"))
+        assert not liste & vus, nom
+        vus |= liste
+        cumul.append(len(vus))
+    assert cumul == [300, 600, 900, 1200, 1500, 1800, 3000]
+
+
+def test_listes_hsk_disent_leur_provenance() -> None:
+    """Référentiel, deux transcriptions et leurs empreintes, date, ce qui reste à vérifier."""
+    from wenlu_data.paths import LISTES
+
+    for nom in EFFECTIFS_HSK:
+        entete = "\n".join(
+            ligne for ligne in (LISTES / f"{nom}.txt").read_text(encoding="utf-8").splitlines() if ligne.startswith("#")
+        )
+        assert "GF 0025-2021" in entete, nom
+        assert "elkmovie/hsk30" in entete and "ivankra/hsk30" in entete, nom
+        assert entete.count("sha256 ") == 2, nom
+        assert "relevées le 2026-" in entete, nom
+        assert "Reste à vérifier contre le PDF officiel" in entete, nom
+
+
 def test_ingest_bout_en_bout(tmp_path: Path) -> None:
     """ingest() lit les trois sources et les listes, et écrit le JSON normalisé."""
     sources = tmp_path / "sources"

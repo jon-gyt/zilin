@@ -1,0 +1,338 @@
+# HSK 3.0 — 六级汉字表 (caractères du niveau 6)
+#
+# Référentiel : 《国际中文教育中文水平等级标准》 GF 0025-2021, ministère de
+#   l'Éducation de la RPC et Commission nationale de la langue, applicable au
+#   1er juillet 2026. Niveau 6 : 300 caractères.
+# Le fichier ne porte que les caractères nouveaux du niveau, comme le tableau de la
+#   norme et comme hsk-1.txt. Le niveau se lit en cumul : HSK 6 = hsk-1.txt à hsk-5.txt et
+#   ce fichier, 1800 caractères (`contes.charger_seuil` fait le cumul).
+# Source officielle : http://www.moe.gov.cn/jyb_sjzl/ziliao/A19/202111/W020211118507389477190.pdf
+#   (PDF scanné, sans couche texte ; domaine inaccessible depuis l'environnement
+#   de développement, voir ci-dessous)
+#
+# Transcriptions utilisées, relevées le 2026-09-25, concordantes caractère par
+# caractère et dans le même ordre (300 caractères, aucun doublon, aucun en
+# commun avec les niveaux précédents) :
+#   1. https://raw.githubusercontent.com/elkmovie/hsk30/master/charlist.txt
+#      (OCR Pleco du PDF officiel, section « 六级汉字表 » ; licence MIT,
+#      Copyright (c) 2021 Pleco Inc.)
+#      sha256 63dc1900d81ab76f358ca3ed169a7c4a2f8f2faaeeed6c394d13a5642ccfb7a4
+#   2. https://raw.githubusercontent.com/ivankra/hsk30/master/hsk30-chars.csv
+#      (colonne Level == 6 ; licence MIT, Copyright (c) 2023 Ivan Krasilnikov,
+#      2021 Shawky, 2021 Pleco Inc.)
+#      sha256 8c5957108e6dafd120be10518a827a4d834ea3ce29acbfedeff1022cd7d05280
+# Licences lues dans le LICENSE de chaque dépôt (MIT). Le README d'ivankra/hsk30 note
+# que ses données dérivent en grande partie d'elkmovie/hsk30 et que le référentiel,
+# œuvre du gouvernement de la RPC, relève peut-être du domaine public : la question
+# de réutilisation reste ouverte au backlog (« Listes Eduscol et référentiel HSK 3.0 »).
+# Les deux transcriptions ne sont pas indépendantes pour la lecture des caractères
+# (la seconde reprend l'OCR de la première) ; sa colonne Level est recalculée depuis
+# la liste de mots (niveau de première apparition), si bien que la concordance
+# confirme le découpage par niveau.
+#
+# Reste à vérifier contre le PDF officiel : la lecture OCR de chaque caractère
+# (« OCR'ed but not extensively proofread (yet) », dit l'en-tête de la source 1),
+# l'ordre du tableau, et le sous-ensemble des caractères à écrire (手写字表, que la
+# source 1 transcrit aussi, contre les caractères seulement à reconnaître).
+#
+# Ordre : celui du 六级汉字表 (ordre pinyin de la norme).
+挨
+傲
+罢
+榜
+傍
+胞
+暴
+爆
+奔
+逼
+扁
+拨
+波
+捕
+踩
+残
+惨
+仓
+藏
+厕
+侧
+策
+昌
+畅
+炒
+撤
+撑
+崇
+宠
+储
+串
+醋
+搭
+诞
+党
+档
+岛
+蹈
+盗
+滴
+抵
+帝
+吊
+跌
+督
+赌
+渡
+端
+蹲
+夺
+额
+恩
+番
+凡
+犯
+肺
+废
+氛
+粉
+愤
+峰
+锋
+奉
+佛
+浮
+副
+肝
+杆
+岗
+港
+稿
+攻
+宫
+巩
+贡
+孤
+谷
+股
+刮
+拐
+贯
+轨
+跪
+憾
+耗
+狠
+横
+衡
+宏
+洪
+壶
+幻
+患
+皇
+辉
+毁
+绘
+慧
+昏
+混
+吉
+疾
+佳
+嘉
+尖
+监
+捡
+剑
+舰
+践
+鉴
+箭
+酱
+骄
+焦
+揭
+杰
+洁
+截
+井
+径
+纠
+捐
+菌
+刊
+抗
+扣
+酷
+跨
+阔
+啦
+赖
+栏
+懒
+牢
+梁
+谅
+裂
+灵
+炉
+露
+略
+嘛
+埋
+麦
+馒
+盲
+梅
+蒙
+盟
+猛
+棉
+妙
+灭
+膜
+磨
+墨
+谋
+墓
+纳
+泥
+扭
+怒
+诺
+盼
+泡
+炮
+偏
+贫
+聘
+屏
+坡
+扑
+铺
+欺
+旗
+恰
+迁
+牵
+铅
+谦
+潜
+歉
+茄
+侵
+倾
+渠
+券
+融
+乳
+若
+塞
+丧
+勺
+舌
+涉
+审
+牲
+圣
+盛
+薯
+爽
+税
+寺
+苏
+素
+塔
+踏
+叹
+探
+趟
+掏
+踢
+添
+田
+铜
+徒
+吞
+拖
+挖
+娃
+哇
+湾
+顽
+亡
+旺
+威
+乌
+伍
+悟
+牺
+嫌
+陷
+祥
+晓
+胁
+谐
+械
+薪
+凶
+袖
+绪
+悬
+旋
+循
+讯
+炎
+沿
+宴
+洋
+仰
+氧
+耀
+野
+液
+仪
+异
+隐
+忧
+娱
+愉
+予
+宇
+欲
+誉
+援
+缘
+跃
+晕
+允
+遭
+扎
+炸
+宅
+债
+账
+障
+哲
+镇
+症
+枝
+殖
+忠
+肿
+粥
+诸
+煮
+驻
+柱
+赚
+庄
+壮
+捉
+咨
+宗
+纵
+奏
+祖
+钻
+罪
