@@ -278,6 +278,16 @@ def test_le_premier_lot_declare_ses_personnages_cles() -> None:
     assert par_id["ye-gong-hao-long"].expliquables == "叶"
 
 
+def test_les_fables_animalieres_declarent_leurs_personnages_et_objets_cles() -> None:
+    """Deuxième passe : le vieil homme de la frontière, les aveugles et la trompe, la souche.
+    Le geste 添 et la cruche 壶 de 画蛇添足 ne sont pas clés : rien après la barre."""
+    par_id = {c.id: c for c in charger_catalogue()}
+    assert par_id["sai-weng-shi-ma"].expliquables == "塞翁"
+    assert par_id["mang-ren-mo-xiang"].expliquables == "盲鼻"
+    assert par_id["shou-zhu-dai-tu"].expliquables == "桩"
+    assert par_id["hua-she-tian-zu"].expliquables == ""
+
+
 def test_le_critere_releve_un_niveau_mal_place(tmp_path: Path) -> None:
     """Clé absente d'un niveau, plus bas niveau trop haut, paliers sautés : trois écarts,
     jamais bloquants."""

@@ -1153,8 +1153,13 @@ texte d'un conte est un contenu, sa relecture se lit dans l'historique git.
 - `titre_pinyin` et `phrases[].pinyin` : **une syllabe par sinogramme**, dans l'ordre,
   séparées par une espace, en minuscules, tons marqués, sans ponctuation. Tons du
   dictionnaire, sans sandhi (一 reste `yī`, 不 reste `bù`) ; ton neutre sans marque,
-  comme CC-CEDICT le note (儿子 `ér zi`, 一个 `yī ge`). La k-ième syllabe est celle du
-  k-ième sinogramme : le lecteur les aligne sans autre calcul.
+  comme CC-CEDICT le note (儿子 `ér zi`, 一个 `yī ge`). 上 après un nom suit la même règle :
+  le ton de CC-CEDICT pour un mot du dictionnaire (地上 `dì shang`, 身上 `shēn shang`, 路上
+  `lù shang`, mais 马上 `mǎ shàng`, 天上 `tiān shàng`), le ton plein ailleurs
+  (山上 `shān shàng`, 树桩上 `shù zhuāng shàng`). Les compléments gardent le ton plein,
+  comme dans les contes relus au seuil 255 (回来 `huí lái`, 起来 `qǐ lái`, 说不出
+  `shuō bù chū`), et 过 après un verbe aussi (见过 `jiàn guò`). La k-ième syllabe est celle
+  du k-ième sinogramme : le lecteur les aligne sans autre calcul.
 - `phrases[].fr` et `phrases[].en` : traductions rédigées pour un lecteur de chaque
   langue.
 - `glose` : un objet `{entrée: {pinyin, fr, en}}` où l'entrée est un caractère ou un

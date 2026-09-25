@@ -535,7 +535,12 @@ SCHEMA: dict[str, object] = {
 REGLE_PINYIN = (
     "une syllabe par caractère chinois, dans l'ordre, séparées par une espace, en "
     "minuscules, tons marqués, sans ponctuation ; les tons du dictionnaire, sans sandhi "
-    "(一 yī, 不 bù), le ton neutre sans marque (儿子 ér zi)"
+    "(一 yī, 不 bù), le ton neutre sans marque (儿子 ér zi) ; 上 après un nom : le ton du "
+    "dictionnaire pour un mot qui y figure (地上 dì shang, 身上 shēn shang, 路上 lù shang, "
+    "mais 马上 mǎ shàng, 天上 tiān shàng), le ton plein ailleurs (山上 shān shàng, 树桩上 "
+    "shù zhuāng shàng) ; les compléments au ton plein, comme dans les contes relus au seuil "
+    "255 (回来 huí lái, 起来 qǐ lái, 说不出 shuō bù chū), et 过 après un verbe aussi (见过 "
+    "jiàn guò)"
 )
 
 SYSTEME = f"""Tu réécris des récits traditionnels chinois pour des francophones qui apprennent \
@@ -2293,7 +2298,7 @@ def controles(
             (
                 (
                     f"{len(expliquees)} versions nomment un personnage ou un objet clé hors de leur niveau, "
-                    f"déclaré au catalogue, {MAX_EXPLIQUES} caractères au plus : " + " ; ".join(expliquees)
+                    f"déclaré au catalogue, {MAX_EXPLIQUES} caractères au plus par fable ou par chapitre d'un récit long : " + " ; ".join(expliquees)
                 )
                 if expliquees
                 else "aucune version n'emploie de mot hors de son niveau"
