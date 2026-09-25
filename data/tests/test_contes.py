@@ -238,9 +238,10 @@ def test_les_fables_animalieres_disent_leur_animal_et_ne_descendent_pas_a_255() 
 
 def test_le_renard_n_est_dans_aucune_liste() -> None:
     """狐假虎威 : 狐 manque jusqu'à HSK 7-9 ; seul le tigre décide du niveau, le renard se dit
-    autrement (noté en tête du catalogue)."""
+    autrement ou se nomme en mot expliqué, 狐狸 (noté en tête du catalogue)."""
     assert "狐" not in set(charger_seuil("hsk7-9"))
-    assert contes.conte_par_id("hu-jia-hu-wei").cles == "虎"
+    renard = contes.conte_par_id("hu-jia-hu-wei")
+    assert renard.cles == "虎" and renard.expliquables == "狐狸"
 
 
 def test_les_caracteres_cles_sont_des_sinogrammes_sans_doublon() -> None:
@@ -248,6 +249,33 @@ def test_les_caracteres_cles_sont_des_sinogrammes_sans_doublon() -> None:
         parse_catalogue(["\t".join(contes.COLONNES), ligne_catalogue(cles="山山")])
     with pytest.raises(CatalogueInvalide, match="cles"):
         parse_catalogue(["\t".join(contes.COLONNES), ligne_catalogue(cles="shan")])
+
+
+def test_les_personnages_cles_se_declarent_apres_une_barre_oblique() -> None:
+    """`羊圈补/狼` : les caractères clés, puis ce que le récit peut nommer en mot expliqué."""
+    (conte,) = parse_catalogue(["\t".join(contes.COLONNES), ligne_catalogue(cles="山/鸟")])
+    assert conte.cles == "山" and conte.expliquables == "鸟" and conte.declares == "山鸟"
+    for fautive in ("山/", "山/山", "山/niao", "山/鸟/鸟"):
+        with pytest.raises(CatalogueInvalide, match="barre oblique"):
+            parse_catalogue(["\t".join(contes.COLONNES), ligne_catalogue(cles=fautive)])
+
+
+def test_un_personnage_cle_ne_compte_pas_dans_le_critere(tmp_path: Path) -> None:
+    """Le loup de 亡羊补牢 est à HSK 7-9 : déclaré après la barre, il ne remonte pas le récit."""
+    ecrire_hsk(tmp_path, {"1": "人大", "2": "天", "3": "山", "4": "水", "5": "火", "6": "木", "7-9": "狼"})
+    loup = Conte(
+        id="loup", titre_zh="山", titre_fr="T", ouvrage="《测试》", resume_fr="R.",
+        niveaux=("hsk3", "hsk5"), cles="山", expliquables="狼",
+    )
+    assert contes.ecarts_au_critere(loup, tmp_path) == []
+
+
+def test_le_premier_lot_declare_ses_personnages_cles() -> None:
+    """Décision du propriétaire : le loup, les pousses et Monsieur Ye se nomment."""
+    par_id = {c.id: c for c in charger_catalogue()}
+    assert par_id["wang-yang-bu-lao"].expliquables == "狼"
+    assert par_id["ba-miao-zhu-zhang"].expliquables == "苗"
+    assert par_id["ye-gong-hao-long"].expliquables == "叶"
 
 
 def test_le_critere_releve_un_niveau_mal_place(tmp_path: Path) -> None:

@@ -291,6 +291,16 @@ class Conte:
     #: Les caractères clés du récit (animaux, objets de l'intrigue) : ils décident de son
     #: niveau le plus bas (critère en tête du catalogue). Vide : non dits (fixtures).
     cles: str = ""
+    #: Les personnages et objets clés que le récit peut nommer hors de son niveau, en mots
+    #: expliqués (狼 dans 亡羊补牢) : écrits après une barre oblique dans la colonne `cles`
+    #: (`羊圈补/狼`). Ils ne comptent pas dans le critère des niveaux.
+    expliquables: str = ""
+
+    @property
+    def declares(self) -> str:
+        """Ce qu'une version peut expliquer hors de son niveau : ses caractères clés et ses
+        personnages ou objets clés déclarés."""
+        return self.cles + self.expliquables
 
     @property
     def long(self) -> bool:
@@ -399,11 +409,22 @@ def parse_catalogue(
             )
         if int(nombre) == 1 and plan:
             raise CatalogueInvalide(f"ligne {numero} : {valeurs['id']} est une fable, chapitres.tsv lui en donne")
-        conte = Conte(**valeurs, niveaux=niveaux, chapitres=int(nombre), plan=plan)
+        cles, barre, expliquables = valeurs.pop("cles").partition("/")
+        conte = Conte(
+            **valeurs, niveaux=niveaux, chapitres=int(nombre), plan=plan, cles=cles, expliquables=expliquables
+        )
         if len(conte.titre_pinyin.split()) != len(conte.titre_zh):
             raise CatalogueInvalide(f"ligne {numero} : une syllabe de pinyin par caractère du titre")
-        if not all(est_sinogramme(c) for c in conte.cles) or len(set(conte.cles)) != len(conte.cles):
-            raise CatalogueInvalide(f"ligne {numero} : cles {conte.cles!r}, des sinogrammes accolés, sans doublon")
+        tous = conte.cles + conte.expliquables
+        if (
+            not all(est_sinogramme(c) for c in tous)
+            or len(set(tous)) != len(tous)
+            or (barre and not conte.expliquables)
+        ):
+            raise CatalogueInvalide(
+                f"ligne {numero} : cles {cles + barre + expliquables!r}, des sinogrammes accolés, sans doublon, "
+                "et après une barre oblique les personnages ou objets clés à expliquer (羊圈补/狼)"
+            )
         contes.append(conte)
     orphelins = sorted(set(chapitres) - vus)
     if orphelins:
@@ -651,6 +672,36 @@ class Chapitre:
         }
 
 
+#: Les champs d'un mot expliqué, dans la version comme dans le brouillon.
+CHAMPS_EXPLIQUE = ("zh", "pinyin", "fr", "en", "explication_fr", "explication_en")
+
+#: Au plus trois caractères hors du niveau expliqués par version (décision du propriétaire).
+MAX_EXPLIQUES = 3
+
+
+@dataclass(frozen=True)
+class MotExplique:
+    """Un mot qu'une version emploie hors de son niveau parce qu'il nomme un personnage ou
+    un objet clé du récit (狼 dans 亡羊补牢, 叶公 dans 叶公好龙). Le lecteur le montre avant
+    le texte, dessiné, avec son pinyin, son sens et une courte explication ; il ne compte
+    pas dans l'acquis qu'il faut pour ouvrir le conte. Son caractère hors du niveau doit
+    être déclaré au catalogue (`cles`), et une version en explique trois au plus."""
+
+    zh: str
+    pinyin: str
+    fr: str
+    en: str
+    explication_fr: str
+    explication_en: str
+
+    def en_json(self) -> dict[str, str]:
+        return {k: getattr(self, k) for k in CHAMPS_EXPLIQUE}
+
+
+def _mot_explique(valeur: Mapping[str, object]) -> MotExplique:
+    return MotExplique(**{k: str(valeur.get(k, "")) for k in CHAMPS_EXPLIQUE})
+
+
 def _phrase(p: Mapping[str, object]) -> Phrase:
     return Phrase(zh=str(p["zh"]), pinyin=str(p["pinyin"]), fr=str(p["fr"]), en=str(p.get("en", "")))
 
@@ -692,6 +743,9 @@ class Version:
     titre_pinyin: str = ""
     titre_en: str = ""
     chapitres: list[Chapitre] = field(default_factory=list)
+    #: Les mots expliqués : hors du niveau, ils nomment un personnage ou un objet clé.
+    #: Vide pour la plupart des versions, qui s'écrivent alors sans la clé `expliques`.
+    expliques: list[MotExplique] = field(default_factory=list)
 
     def __post_init__(self) -> None:
         # Une glose écrite avant le pinyin et l'anglais ne portait que le français.
@@ -734,6 +788,7 @@ class Version:
             "source": {"ouvrage": self.ouvrage, "resume_fr": self.resume_fr},
             **self.texte_en_json(),
             "glose": {zh: g.en_json() for zh, g in self.glose.items()},
+            **({"expliques": [m.en_json() for m in self.expliques]} if self.expliques else {}),
             "generation": {
                 "modele": self.generation.modele,
                 "api": self.generation.api,
@@ -808,6 +863,9 @@ def version_depuis_json(document: dict[str, object]) -> Version:
         raise ReponseInvalide("version illisible : phrases ou glose hors format")
     if chapitres is not None and not isinstance(chapitres, list):
         raise ReponseInvalide("version illisible : chapitres hors format")
+    expliques = document.get("expliques") or []
+    if not isinstance(expliques, list) or not all(isinstance(m, dict) for m in expliques):
+        raise ReponseInvalide("version illisible : expliques hors format")
     return Version(
         conte=str(document.get("conte", "")),
         seuil=niveau_brut(document.get("seuil", 0)),
@@ -820,6 +878,7 @@ def version_depuis_json(document: dict[str, object]) -> Version:
         phrases=[_phrase(p) for p in phrases],
         chapitres=[chapitre_depuis_json(c) for c in chapitres or ()],
         glose={str(zh): _glose(valeur) for zh, valeur in glose.items()},
+        expliques=[_mot_explique(m) for m in expliques],
         generation=Generation(
             modele=str(generation.get("modele", "")),
             api=str(generation.get("api", "")),
@@ -899,14 +958,101 @@ def _syllabes(texte: str, pinyin: str, nom: str, ecarts: list[str]) -> list[str]
 
 @dataclass(frozen=True)
 class Rapport:
-    """Résultat d'une validation. `intrus` non vide vaut rejet."""
+    """Résultat d'une validation. `intrus` ou `refus` non vide vaut rejet.
+
+    `refus` dit pourquoi des mots expliqués ne sont pas admis (caractère non déclaré au
+    catalogue, plus de `MAX_EXPLIQUES`) ; `expliques`, les caractères hors du niveau
+    admis parce qu'ils nomment un personnage ou un objet clé déclaré."""
 
     intrus: list[str]
     ecarts: list[str] = field(default_factory=list)
+    refus: list[str] = field(default_factory=list)
+    expliques: list[str] = field(default_factory=list)
 
     @property
     def conforme(self) -> bool:
-        return not self.intrus
+        return not self.intrus and not self.refus
+
+
+def hors_niveau_expliques(version: Version, autorises: Iterable[str]) -> list[str]:
+    """Les caractères des mots expliqués d'une version qui sont hors de son niveau, sans
+    doublon, dans l'ordre : ce que ces mots font entrer dans le texte (狼, 叶 de 叶公)."""
+    permis = set(autorises)
+    hors: dict[str, None] = {}
+    for mot in version.expliques:
+        for c in mot.zh:
+            if est_sinogramme(c) and c not in permis:
+                hors[c] = None
+    return list(hors)
+
+
+def expliques_admis(
+    version: Version, autorises: Sequence[str], conte: Conte | None
+) -> tuple[list[str], list[str]]:
+    """Les caractères hors du niveau que les mots expliqués font admettre, et les refus.
+
+    Un caractère n'est admis que s'il est déclaré au catalogue du récit (`cles` : caractère
+    clé, ou personnage ou objet clé après la barre oblique) ; sans catalogue, aucun. Plus
+    de `MAX_EXPLIQUES` caractères hors du niveau, et aucun ne l'est : la version est
+    refusée. Un caractère non admis reste un intrus s'il est dans le texte."""
+    hors = hors_niveau_expliques(version, autorises)
+    if not hors:
+        return [], []
+    declares = set(conte.declares) if conte is not None else set()
+    refus: list[str] = []
+    non_declares = [c for c in hors if c not in declares]
+    if non_declares:
+        refus.append(
+            f"mot expliqué non déclaré : {' '.join(non_declares)} n'est ni un caractère clé ni un "
+            f"personnage ou objet clé du catalogue (colonne cles"
+            + (f" de {conte.id}" if conte is not None else "")
+            + ")"
+        )
+    if len(hors) > MAX_EXPLIQUES:
+        refus.append(
+            f"{len(hors)} caractères hors du niveau expliqués ({' '.join(hors)}), {MAX_EXPLIQUES} au plus"
+        )
+        return [], refus
+    return [c for c in hors if c in declares], refus
+
+
+def intrus_et_refus(
+    version: Version, autorises: Sequence[str], conte: Conte | None
+) -> tuple[list[str], list[str], list[str]]:
+    """Le contrôle dur d'une version : ses intrus (caractères hors du niveau que rien
+    n'admet), les refus de ses mots expliqués, et les caractères que ceux-ci admettent."""
+    admis, refus = expliques_admis(version, autorises, conte)
+    intrus = caracteres_hors_liste(version.texte, [*autorises, *admis])
+    return intrus, refus, admis
+
+
+def ecarts_des_expliques(version: Version, autorises: Sequence[str]) -> list[str]:
+    """Ce qui cloche dans des mots expliqués sans les refuser : un mot absent du texte, un
+    mot déjà dans le niveau, un pinyin sans une syllabe par caractère ou qui n'est pas celui
+    de la glose, un sens ou une explication vides."""
+    ecarts: list[str] = []
+    permis = set(autorises)
+    vus: set[str] = set()
+    for mot in version.expliques:
+        nom = mot.zh or "?"
+        if mot.zh in vus:
+            ecarts.append(f"mot expliqué {nom} en double")
+        vus.add(mot.zh)
+        if not mot.zh or not all(est_sinogramme(c) for c in mot.zh):
+            ecarts.append(f"mot expliqué {nom!r} : des sinogrammes seulement")
+            continue
+        if mot.zh not in version.texte:
+            ecarts.append(f"mot expliqué {nom} absent du texte")
+        if all(c in permis for c in mot.zh):
+            ecarts.append(f"mot expliqué {nom} déjà dans le niveau : inutile de l'expliquer")
+        if len(mot.pinyin.split()) != len(mot.zh):
+            ecarts.append(f"mot expliqué {nom} : pinyin sans une syllabe par caractère")
+        elif mot.zh in version.glose and version.glose[mot.zh].pinyin.split() not in ([], mot.pinyin.split()):
+            ecarts.append(f"mot expliqué {nom} : pinyin « {mot.pinyin} », « {version.glose[mot.zh].pinyin} » dans la glose")
+        vides = [k for k in ("fr", "en", "explication_fr", "explication_en") if not getattr(mot, k).strip()]
+        if vides:
+            ecarts.append(f"mot expliqué {nom} sans {', '.join(vides)}")
+    return ecarts
 
 
 def longueur(phrases: Iterable[Phrase]) -> int:
@@ -928,7 +1074,8 @@ def ecarts_au_catalogue(version: Version, conte: Conte) -> list[str]:
 
 
 def valider(version: Version, autorises: Sequence[str], conte: Conte | None = None) -> Rapport:
-    """Contrôle strict : tout caractère hors liste est un rejet.
+    """Contrôle strict : tout caractère hors liste est un rejet, sauf celui d'un mot
+    expliqué que le catalogue déclare (`expliques_admis`, trois au plus par version).
 
     Les autres défauts (glose incomplète ou incohérente, pinyin qui ne s'aligne pas,
     traduction absente, longueur hors cible, chapitre sans titre ou sans phrase, seuil ou
@@ -936,8 +1083,8 @@ def valider(version: Version, autorises: Sequence[str], conte: Conte | None = No
     écarts signalés à la relecture, pas des rejets. Un récit long vise la longueur du
     seuil à chaque chapitre.
     """
-    intrus = caracteres_hors_liste(version.texte, autorises)
-    ecarts: list[str] = []
+    intrus, refus, admis = intrus_et_refus(version, autorises, conte)
+    ecarts: list[str] = ecarts_des_expliques(version, autorises)
     if not version.phrases:
         ecarts.append("aucune phrase")
     minimum, maximum = LONGUEURS.get(version.seuil, (0, 10**6))
@@ -1020,7 +1167,7 @@ def valider(version: Version, autorises: Sequence[str], conte: Conte | None = No
     ]
     if mal_comptees:
         ecarts.append(f"glose : pinyin sans une syllabe par caractère pour {' '.join(mal_comptees)}")
-    return Rapport(intrus=intrus, ecarts=ecarts)
+    return Rapport(intrus=intrus, ecarts=ecarts, refus=refus, expliques=admis)
 
 
 # --------------------------------------------------------------------------- client
@@ -1295,6 +1442,9 @@ CHAMPS_BROUILLON = ("conte", "seuil", "ouvrage", "titre", "phrases", "glose")
 #: Un récit long remplace `phrases` par `chapitres` : l'un ou l'autre, jamais les deux.
 CHAMPS_TEXTE = ("phrases", "chapitres")
 
+#: Les champs facultatifs d'un brouillon : les mots expliqués, absents le plus souvent.
+CHAMPS_FACULTATIFS = ("expliques",)
+
 #: Les deux décisions de la relecture humaine.
 DECISIONS = (RELU, REJETE)
 
@@ -1335,6 +1485,8 @@ class Brouillon:
     glose: dict[str, Glose]
     #: Les chapitres d'un récit long, titres chinois compris ; vide pour une fable.
     chapitres: list[Chapitre] = field(default_factory=list)
+    #: Les mots expliqués, hors du niveau : personnages ou objets clés du récit.
+    expliques: list[MotExplique] = field(default_factory=list)
 
     @property
     def nom(self) -> str:
@@ -1387,7 +1539,7 @@ def brouillon_depuis_json(
         problemes.append(f"champ manquant : {', '.join(manquants)}")
     if len(texte) > 1:
         problemes.append("phrases et chapitres : l'un ou l'autre, chapitres pour un récit long")
-    inconnus = [k for k in document if k not in CHAMPS_BROUILLON + CHAMPS_TEXTE]
+    inconnus = [k for k in document if k not in CHAMPS_BROUILLON + CHAMPS_TEXTE + CHAMPS_FACULTATIFS]
     if inconnus:
         problemes.append(f"champ inconnu : {', '.join(inconnus)}")
     if "conte" in document and not isinstance(document["conte"], str):
@@ -1447,6 +1599,21 @@ def brouillon_depuis_json(
                     continue
                 glose[lu["zh"]] = Glose(fr=lu["fr"], pinyin=lu["pinyin"], en=lu["en"])
 
+    expliques: list[MotExplique] = []
+    if "expliques" in document:
+        brut = document["expliques"]
+        if not isinstance(brut, list):
+            problemes.append(f"expliques : attendu une liste d'objets {{{', '.join(CHAMPS_EXPLIQUE)}}}")
+        else:
+            for rang, element in enumerate(brut, start=1):
+                lu = _textes(element, CHAMPS_EXPLIQUE, f"mot expliqué {rang}", problemes)
+                if lu is None:
+                    continue
+                if any(m.zh == lu["zh"] for m in expliques):
+                    problemes.append(f"mot expliqué {rang} : {lu['zh']} déjà expliqué")
+                    continue
+                expliques.append(MotExplique(**lu))
+
     if problemes or titre is None:
         raise BrouillonInvalide(nom, problemes or ["titre illisible"])
     ouvrage = document["ouvrage"]
@@ -1460,6 +1627,7 @@ def brouillon_depuis_json(
         phrases=phrases,
         glose=glose,
         chapitres=chapitres,
+        expliques=expliques,
     )
 
 
@@ -1551,6 +1719,7 @@ def version_depuis_brouillon(
             for k, chapitre in enumerate(brouillon.chapitres)
         ],
         glose=dict(brouillon.glose),
+        expliques=list(brouillon.expliques),
         generation=Generation(
             modele=MODELE_MANUEL,
             api=API_SESSION,
@@ -1624,7 +1793,14 @@ Rejet :
 - titre.zh, chaque phrases[].zh et, pour un récit long, chaque titre de chapitre : les \
 seuls caractères de la liste du niveau (pour un niveau HSK, celles des niveaux 1 à lui), \
 et la ponctuation {PONCTUATION_CHINOISE} (citations entre 「」) ; ni chiffre, ni lettre, \
-aucun autre caractère, même dans un nom propre.
+aucun autre caractère, même dans un nom propre ;
+- seule exception, les mots expliqués (expliques) : un mot hors du niveau qui nomme un \
+personnage ou un objet clé du récit (狼 dans 亡羊补牢, 叶公 dans 叶公好龙), quand le dire \
+autrement trahirait le récit. Son caractère hors du niveau doit être déclaré au catalogue \
+(colonne cles, caractère clé ou, après la barre oblique, personnage ou objet clé) ; \
+{MAX_EXPLIQUES} caractères hors du niveau au plus par version ; tout autre caractère hors \
+du niveau reste rejeté. Le lecteur les montre avant le texte, dessinés, avec leur pinyin, \
+leur sens et l'explication, et ils ne comptent pas dans l'acquis qui ouvre le conte.
 Écarts, signalés à la relecture :
 - longueur : {minimum} à {maximum} sinogrammes pour le {libelle(seuil)}, phrases seules, \
 ponctuation non comprise ; pour un récit long, à chaque chapitre ;
@@ -1637,11 +1813,17 @@ chaque sinogramme du titre et du texte tel que le lecteur les découpe (à chaqu
 position, l'entrée la plus longue qui commence là) ; pas d'entrée absente du texte ; \
 le pinyin d'une entrée est celui des phrases, syllabe pour syllabe ; fr et en en un à \
 trois mots, dans le sens qu'a l'entrée ici, rédigés soi-même, jamais repris d'un \
-dictionnaire.
+dictionnaire ;
+- mots expliqués : chacun dans le texte, et glosé comme les autres ; pas un mot déjà dans \
+le niveau ; pinyin d'une syllabe par caractère, celui de la glose ; fr, en, explication_fr \
+et explication_en non vides (l'explication : une phrase ou deux, ce qu'est ce personnage \
+ou cet objet dans le récit, sans étymologie inventée).
 Format (sinon rien n'est écrit) :
 - conte et seuil (le niveau : 255, ou "hsk3") : ceux du chemin <id>/<niveau>.json \
 (255.json, hsk3.json) ; aucune autre clé que \
-{', '.join(CHAMPS_BROUILLON)} ;
+{', '.join(CHAMPS_BROUILLON)}, et expliques, facultatif ;
+- expliques : [{{{', '.join(CHAMPS_EXPLIQUE)}}}], un objet par mot, sans doublon ; \
+à omettre quand le récit n'en a pas besoin ;
 - récit long : chapitres [{{titre: {{zh, pinyin}}, phrases: [...]}}] à la place de phrases ;
 - ouvrage : l'ouvrage du catalogue, à l'identique, ou null pour ne pas le citer ; \
 jamais une source inexacte.
@@ -1664,6 +1846,10 @@ def squelette(conte: Conte, seuil: Niveau) -> dict[str, object]:
         if conte.long
         else {"phrases": [dict(vide)]}
     )
+    # Un récit qui déclare des personnages ou objets clés a la place d'en expliquer un.
+    expliques: dict[str, object] = (
+        {"expliques": [{k: "" for k in CHAMPS_EXPLIQUE}]} if conte.expliquables else {}
+    )
     return {
         "conte": conte.id,
         "seuil": seuil,
@@ -1671,6 +1857,7 @@ def squelette(conte: Conte, seuil: Niveau) -> dict[str, object]:
         "titre": {"zh": "", "pinyin": ""},
         **texte,
         "glose": [dict(vide)],
+        **expliques,
     }
 
 
@@ -1708,6 +1895,10 @@ def decrire_contexte(
             if any(c not in autorises for c in conte.cles)
             else (", tous dans le niveau" if conte.cles else "")
         ),
+        "Mots expliqués possibles (personnages ou objets clés hors du niveau, "
+        f"{MAX_EXPLIQUES} caractères au plus, champ expliques) : "
+        + (" ".join(c for c in conte.declares if c not in autorises) or "aucun, tout se dit dans le niveau")
+        + (f" ; déclarés au catalogue : {' '.join(conte.expliquables)}" if conte.expliquables else ""),
         f"Longueur visée : {minimum} à {maximum} sinogrammes"
         + (" par chapitre" if conte.long else "")
         + ", ponctuation non comprise.",
@@ -2007,6 +2198,8 @@ def controles(
     sans_liste: set[Niveau] = set()
     a_relire = 0
     cache: dict[Niveau, list[str] | None] = {}
+    par_id = {c.id: c for c in lu or ()}
+    expliquees: list[str] = []
     for version in versions:
         if version.statut != RELU:
             a_relire += 1
@@ -2019,15 +2212,19 @@ def controles(
         if autorises is None:
             sans_liste.add(version.seuil)
             continue
-        intrus = caracteres_hors_liste(version.texte, autorises)
-        if intrus:
-            fautifs.append(f"{version.conte} ({version.seuil}) : {' '.join(intrus)}")
+        intrus, refus, admis = intrus_et_refus(version, autorises, par_id.get(version.conte))
+        if intrus or refus:
+            fautifs.append(f"{version.conte} ({version.seuil}) : {' '.join(intrus)}" + "".join(f" ; {r}" for r in refus))
+        if admis:
+            expliquees.append(f"{version.cle} {''.join(admis)}")
 
     detail = f"{len(fichiers)} versions contrôlées"
     if fautifs:
         detail = f"{len(fautifs)} versions hors liste — " + " ; ".join(fautifs[:5])
     elif sans_liste:
         detail += f" ; niveaux sans liste, non contrôlés : {', '.join(str(s) for s in sorted(sans_liste, key=rang))}"
+    if expliquees:
+        detail += f", dont {len(expliquees)} avec des mots expliqués déclarés au catalogue"
     return [
         Controle("contes : caractères hors liste", not fautifs, detail, bloquant=True),
         Controle(
@@ -2036,6 +2233,18 @@ def controles(
             f"{a_relire} versions sur {len(fichiers)} restent à relire avant export",
         ),
         *suite,
+        # Ce que les mots expliqués font entrer hors du niveau : un relevé, jamais un
+        # blocage ; un mot non déclaré ou de trop, lui, tombe dans « caractères hors liste ».
+        Controle(
+            "contes : mots expliqués",
+            True,
+            (
+                f"{len(expliquees)} versions nomment un personnage ou un objet clé hors de leur niveau, "
+                f"déclaré au catalogue, {MAX_EXPLIQUES} caractères au plus : " + " ; ".join(expliquees)
+            )
+            if expliquees
+            else "aucune version n'emploie de mot hors de son niveau",
+        ),
     ]
 
 
@@ -2145,9 +2354,14 @@ def commande_valider(
         rapport = valider(version, _autorises(version.seuil), par_id.get(version.conte))
         etat = "ok   " if rapport.conforme else "rejet"
         typer.echo(f"{etat} {version.conte} ({version.seuil}) [{version.statut}]")
+        if rapport.expliques:
+            typer.echo(f"  mots expliqués, hors du niveau : {' '.join(rapport.expliques)}")
         if not rapport.conforme:
             hors_liste += 1
-            typer.echo(f"  hors liste : {' '.join(rapport.intrus)}")
+            if rapport.intrus:
+                typer.echo(f"  hors liste : {' '.join(rapport.intrus)}")
+            for refus in rapport.refus:
+                typer.echo(f"  refus : {refus}")
         for ecart in rapport.ecarts:
             typer.echo(f"  écart : {ecart}")
     if hors_liste:
@@ -2280,9 +2494,13 @@ def commande_importer(
             f"{'ok   ' if rapport.conforme else 'rejet'} {version.cle} : {etat}, "
             f"{longueur} sinogrammes → {_relatif(resultat.chemin)}{remplace}"
         )
+        if rapport.expliques:
+            typer.echo(f"  mots expliqués, hors du niveau : {' '.join(rapport.expliques)}")
         if rapport.intrus:
             typer.echo(f"  hors du niveau {version.seuil} : {' '.join(rapport.intrus)}")
             typer.echo(f"  (liste : `wenlu contes contexte {version.conte} --niveau {version.seuil}`)")
+        for refus in rapport.refus:
+            typer.echo(f"  refus : {refus}")
         for ecart in rapport.ecarts:
             typer.echo(f"  écart : {ecart}")
         if rapport.conforme:
