@@ -148,13 +148,14 @@ describe('la fête a priorité', () => {
 });
 
 describe("l'anecdote de la journée, la même partout où elle se lit", () => {
+  const aucunSuivi = { fetesVues: {} };
   const liste = [
     { c: '人', titre: 'Un', texte: 'Premier.' },
     { c: '大', titre: 'Deux', texte: 'Second.' }
   ];
 
   it('un jour de fête, celle de la fête, avec la famille de son caractère', () => {
-    const r = anecdoteDeLaJournee(liste, fetes, saisons, '2026-09-25');
+    const r = anecdoteDeLaJournee(liste, fetes, saisons, '2026-09-25', aucunSuivi);
     const f = feteDuJour(fetes, '2026-09-25');
     expect(r?.fete?.id).toBe('zhongqiu');
     expect(r?.terme).toBeNull();
@@ -162,21 +163,21 @@ describe("l'anecdote de la journée, la même partout où elle se lit", () => {
   });
 
   it('le jour où commence un terme, celle du terme ; le lendemain, celle du fichier', () => {
-    const hanlu = anecdoteDeLaJournee(liste, fetes, saisons, '2026-10-08');
+    const hanlu = anecdoteDeLaJournee(liste, fetes, saisons, '2026-10-08', aucunSuivi);
     const t = termeDuJour(saisons, '2026-10-08');
     expect(hanlu?.terme?.id).toBe('hanlu');
     expect(hanlu?.a.c).toBe(t?.caractere.c);
     expect(hanlu?.a.titre).toBe(`${t?.nomZh} · ${t?.fr}`);
     expect(hanlu?.pistes).toEqual(pistes(saisons, t?.caractere.c ?? ''));
-    const lendemain = anecdoteDeLaJournee(liste, fetes, saisons, '2026-10-09');
+    const lendemain = anecdoteDeLaJournee(liste, fetes, saisons, '2026-10-09', aucunSuivi);
     expect(lendemain?.fete).toBeNull();
     expect(lendemain?.terme).toBeNull();
     expect(liste).toContainEqual(lendemain?.a);
   });
 
   it("sans rien à lire, pas d'anecdote", () => {
-    expect(anecdoteDeLaJournee(null, null, null, '2026-10-09')).toBeNull();
-    expect(anecdoteDeLaJournee([], null, null, '2026-10-09')).toBeNull();
+    expect(anecdoteDeLaJournee(null, null, null, '2026-10-09', aucunSuivi)).toBeNull();
+    expect(anecdoteDeLaJournee([], null, null, '2026-10-09', aucunSuivi)).toBeNull();
   });
 });
 

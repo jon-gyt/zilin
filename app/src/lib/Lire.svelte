@@ -50,7 +50,7 @@
     type EntreeConte
   } from './lecture';
   import { auNiveau, libelleNiveau, nomNiveau, type Niveau } from './niveaux';
-  import { anecdoteDeLaJournee, type AnecdoteDeLaJournee } from './saisons';
+  import { anecdoteDeLaJournee, suiviDe, type AnecdoteDeLaJournee } from './saisons';
   import {
     LIGNE_AVANT_LETTRE,
     MENTION_PAS_ARRIVEE,
@@ -91,13 +91,15 @@
 
   $effect(() => {
     const j = p.day;
+    /* Les fêtes déjà vues : l'anecdote d'une fête ne revient pas le lendemain. */
+    const suivi = suiviDe(p);
     let vivant = true;
     void Promise.all([
       anecdotesOnce().catch(() => null),
       fetesOnce().catch(() => null),
       saisonsOnce().catch(() => null)
     ]).then(([liste, fetes, saisons]) => {
-      if (vivant) anecdote = anecdoteDeLaJournee(liste?.anecdotes ?? null, fetes, saisons, j);
+      if (vivant) anecdote = anecdoteDeLaJournee(liste?.anecdotes ?? null, fetes, saisons, j, suivi);
     });
     return () => {
       vivant = false;

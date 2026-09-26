@@ -6,9 +6,10 @@
    * Tao écoute l'anecdote assise (brief §9) : petite, dans le coin, sans un mot. Elle
    * est posée hors du flux, la mise en page de l'estampe ne bouge pas.
    *
-   * Un jour de fête (`fetes.json`), l'anecdote est celle de la fête : sa rubrique
-   * (« L'anecdote de la mi-automne »), et son caractère écrit au pinceau devant l'emblème
-   * de la fête — la pleine lune, la rosace de papier découpé, la lanterne… C'est le
+   * Le jour où se montre celle d'une fête (`fetes.json`) — une fois par occurrence, le
+   * premier jour de sa fenêtre où l'on ouvre l'app (`saisons.anecdoteDeFete`) —, l'anecdote
+   * est celle de la fête : sa rubrique (« L'anecdote de la mi-automne »), et son caractère
+   * écrit au pinceau devant l'emblème de la fête — la pleine lune, la rosace de papier découpé, la lanterne… C'est le
    * caractère bonus de la fête (灯, 雨, 粽, 桥, 菊, 冬…) : son pinyin et son sens suivent,
    * tels que `fetes.json` les donne, et l'anecdote dit ses briques.
    *
@@ -23,15 +24,26 @@
   import Tao from './Tao.svelte';
   import { anecdotesOnce, fetesOnce, saisonsOnce, type Anecdote } from './content';
   import type { FeteDuJour } from './fetes';
-  import { anecdoteDeLaJournee, type TermeDuJour } from './saisons';
+  import { untrack } from 'svelte';
+  import { anecdoteDeLaJournee, suiviDe, type AnecdoteDeLaJournee, type TermeDuJour } from './saisons';
   import type { Progress } from './session';
   import { humeur, stade } from './tao';
 
   let {
     p,
     oncontinuer,
-    onquitter
-  }: { p: Progress; oncontinuer: () => void; onquitter: () => void } = $props();
+    onquitter,
+    onmontree = () => undefined
+  }: {
+    p: Progress;
+    oncontinuer: () => void;
+    onquitter: () => void;
+    /**
+     * L'anecdote de la journée est à l'écran : l'app note celle d'une fête, qui ne se
+     * montre qu'une fois par occurrence (`saisons.noterAnecdoteMontree`).
+     */
+    onmontree?: (r: AnecdoteDeLaJournee) => void;
+  } = $props();
 
   /** L'anecdote est celle de la journée de la session, pas celle de l'horloge. */
   const jour = $derived(p.day);
@@ -61,6 +73,11 @@
    */
   $effect(() => {
     const j = jour;
+    /*
+     * Le suivi est lu une fois, à l'ouverture : noter l'anecdote montrée le change, et
+     * l'écran ne doit pas se recalculer pour autant (le calcul donnerait la même).
+     */
+    const suivi = untrack(() => suiviDe(p));
     let vivant = true;
     void Promise.all([
       anecdotesOnce().catch(() => null),
@@ -70,7 +87,7 @@
       ([liste, fetes, saisons]) => {
         if (!vivant) return;
         /* La même anecdote que Lire et l'en-tête du menu rouvrent (`anecdoteDeLaJournee`). */
-        const r = anecdoteDeLaJournee(liste?.anecdotes ?? null, fetes, saisons, j);
+        const r = anecdoteDeLaJournee(liste?.anecdotes ?? null, fetes, saisons, j, suivi);
         fete = r?.fete ?? null;
         pistesFete = fete ? (r?.pistes ?? []) : [];
         terme = r?.terme ?? null;
@@ -78,6 +95,7 @@
         explicationTerme = saisons?.explication ?? '';
         pistesTerme = terme ? (r?.pistes ?? []) : [];
         a = r?.a ?? null;
+        if (r) onmontree(r);
       }
     );
     return () => {

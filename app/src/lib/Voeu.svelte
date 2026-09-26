@@ -18,7 +18,8 @@
    * se balancent à droite : l'en-tête garde sa hauteur.
    *
    * Toucher le vœu le prononce (`audio.dire`, voix embarquée ou voix du téléphone), et
-   * rouvre l'anecdote du jour, celle de la fête (`onouvrir`).
+   * rouvre l'anecdote du jour (`onouvrir`) : celle de la fête le jour où elle se montre,
+   * l'anecdote ordinaire les autres jours de la fenêtre (`saisons.anecdoteDeFete`).
    *
    * Props :
    * - `fete` : la fête du jour, telle que `fetes.feteDuJour` la rend (jetons remplis).
@@ -42,7 +43,7 @@
     onouvrir = () => undefined
   }: { fete: FeteDuJour; pistes?: readonly string[]; onouvrir?: () => void } = $props();
 
-  /** Le vœu se dit, et l'anecdote de la fête se rouvre. */
+  /** Le vœu se dit, et l'anecdote du jour se rouvre. */
   function toucher(): void {
     void dire(fete.voeu.zh);
     onouvrir();

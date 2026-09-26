@@ -345,6 +345,16 @@ export type Progress = {
    */
   trouves: Trouve[];
   /**
+   * Les fêtes dont l'anecdote a été montrée : pour chaque fête (`zhongqiu`), la journée
+   * où l'écran Ouvrir l'a montrée (AAAA-MM-JJ). Cette journée dit aussi de quelle année
+   * il s'agit : elle tombe dans la fenêtre d'une seule occurrence de la fête. L'anecdote
+   * d'une fête se montre une fois par occurrence, le premier jour de la fenêtre où l'on
+   * ouvre l'app, et toute cette journée-là ; les autres jours de la fenêtre ont l'anecdote
+   * ordinaire (`saisons.anecdoteDeFete`). Retour du propriétaire du 26 septembre 2026.
+   * Absentes d'une progression plus ancienne : aucune fête vue.
+   */
+  fetesVues: Record<string, string>;
+  /**
    * Les plats de la cuisine de Tao réussis, par identifiant, chacun une fois, dans l'ordre :
    * chaque ingrédient trouvé, Tao contente. Le bol des trophées se gagne au premier. Le
    * jeu les note par `noterRecette`. Absente d'une progression plus ancienne : vide.
@@ -435,6 +445,7 @@ export function emptyProgress(aujourdhui: string): Progress {
     relecture: false,
     motsDevines: [],
     trouves: [],
+    fetesVues: {},
     recettes: [],
     lettres: [],
     heros: null,
@@ -1417,10 +1428,18 @@ function listeDeCaracteres(v: unknown): string[] {
 
 /** Relit les trophées obtenus : un identifiant, une journée. Une entrée aberrante est écartée. */
 function lireTropheesAcquis(v: unknown): Record<string, string> {
+  return lireJournees(v);
+}
+
+/**
+ * Relit un registre `{clé: journée}` (trophées, fêtes vues) : une clé non vide, une journée
+ * AAAA-MM-JJ. Une entrée aberrante est écartée ; absent ou illisible : vide.
+ */
+function lireJournees(v: unknown): Record<string, string> {
   if (typeof v !== 'object' || v === null || Array.isArray(v)) return {};
   const out: Record<string, string> = {};
-  for (const [id, jour] of Object.entries(v as Record<string, unknown>)) {
-    if (id !== '' && typeof jour === 'string' && FORMAT_JOUR.test(jour)) out[id] = jour;
+  for (const [cle, jour] of Object.entries(v as Record<string, unknown>)) {
+    if (cle !== '' && typeof jour === 'string' && FORMAT_JOUR.test(jour)) out[cle] = jour;
   }
   return out;
 }
@@ -1585,6 +1604,8 @@ export function fromJSON(texte: string, aujourdhui: string): Progress {
     motsDevines: listeDeCaracteres(o.motsDevines),
     /* Les caractères trouvés en chemin : absents d'un export plus ancien, aucun. */
     trouves: lireTrouves(o.trouves),
+    /* Les fêtes dont l'anecdote a été montrée : absentes d'un export plus ancien, aucune. */
+    fetesVues: lireJournees(o.fetesVues),
     /* Les plats cuisinés : absents d'un export plus ancien, aucun n'est fait. */
     recettes: listeDeCaracteres(o.recettes),
     /* Les lettres de Que : absentes d'un export plus ancien, aucune n'est arrivée. */

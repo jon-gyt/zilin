@@ -16,7 +16,14 @@ import type { FeteId, Fetes, Saisons } from './content';
 import { FETES } from './content';
 import { pistes as pistesFete } from './fetes';
 import type { Progress } from './session';
-import { annonceLeTerme, pistes as pistesTerme, type Journee, type Theme } from './saisons';
+import {
+  anecdoteDeFete,
+  annonceLeTerme,
+  pistes as pistesTerme,
+  type AnecdoteDeLaJournee,
+  type Journee,
+  type Theme
+} from './saisons';
 
 /* ---------- la rencontre du jour ---------- */
 
@@ -36,14 +43,30 @@ export type Trouve = {
 
 /**
  * Le caractère que l'anecdote du jour fait découvrir. Un jour de fête, celui de la fête,
- * chaque jour de sa fenêtre ; le jour où un terme commence, celui du terme, sauf un jour
- * de fête ; les autres jours, aucun.
+ * le jour où son anecdote se montre (`anecdoteDeFete` : une fois par occurrence, d'après
+ * `fetesVues`) ; le jour où un terme commence, celui du terme, sauf un jour de fête ; les
+ * autres jours, aucun.
  */
-export function rencontreDuJour(j: Journee): Rencontre | null {
-  if (j.fete) return j.fete.anecdote.c === '' ? null : { c: j.fete.anecdote.c, fete: j.fete.id };
+export function rencontreDuJour(
+  j: Journee,
+  fetesVues: Readonly<Record<string, string>>,
+  jour: string
+): Rencontre | null {
+  if (j.fete) {
+    if (!anecdoteDeFete(j.fete, fetesVues, jour) || j.fete.anecdote.c === '') return null;
+    return { c: j.fete.anecdote.c, fete: j.fete.id };
+  }
   if (j.terme && annonceLeTerme(j.fete, j.terme) && j.terme.caractere.c !== '') {
     return { c: j.terme.caractere.c, terme: j.terme.id };
   }
+  return null;
+}
+
+/** Le caractère qu'une anecdote montrée fait découvrir : celui de sa fête ou de son terme. */
+export function rencontreDe(r: AnecdoteDeLaJournee): Rencontre | null {
+  if (r.a.c === '') return null;
+  if (r.fete) return { c: r.a.c, fete: r.fete.id };
+  if (r.terme) return { c: r.a.c, terme: r.terme.id };
   return null;
 }
 
