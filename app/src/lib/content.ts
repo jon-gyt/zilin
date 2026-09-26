@@ -494,6 +494,11 @@ export type CatalogueConte = {
   titre_fr: string;
   niveaux: Niveau[];
   chapitres: number;
+  /**
+   * Le motif de sa couverture dans Lire (« montagne », « rouleau »), un nom du jeu que
+   * l'app dessine (`etageres.MOTIFS`). Absent d'un export plus ancien : couverture nue.
+   */
+  motif?: string;
 };
 
 /** Relit le catalogue de l'index. Absent (export plus ancien) : vide. */
@@ -511,7 +516,8 @@ export function lireCatalogueContes(v: unknown): CatalogueConte[] {
       titre_pinyin: typeof o.titre_pinyin === 'string' ? o.titre_pinyin : '',
       titre_fr: typeof o.titre_fr === 'string' ? o.titre_fr : '',
       niveaux,
-      chapitres: Number.isInteger(o.chapitres) && (o.chapitres as number) > 0 ? (o.chapitres as number) : 1
+      chapitres: Number.isInteger(o.chapitres) && (o.chapitres as number) > 0 ? (o.chapitres as number) : 1,
+      ...(typeof o.motif === 'string' && o.motif !== '' ? { motif: o.motif } : {})
     });
   }
   return out;

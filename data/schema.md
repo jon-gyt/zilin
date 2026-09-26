@@ -76,7 +76,8 @@ Trois régimes de licence, trois familles de fichiers, jamais mêlés
  "contes": [{"id": "…", "titre_fr": "…", "titre_en": "…", "seuils": [255],
              "fichier": "contes/….json"}],
  "catalogue": [{"id": "…", "titre_zh": "…", "titre_pinyin": "…", "titre_fr": "…",
-                "titre_en": "…", "niveaux": [255, "hsk3"], "chapitres": 1}],
+                "titre_en": "…", "niveaux": [255, "hsk3"], "chapitres": 1,
+                "motif": "montagne"}],
  "paires": "paires.json",
  "heros": "heros.json"
 }
@@ -1128,9 +1129,9 @@ sans API, avec les mêmes contrôles, puis d'une relecture humaine.
 
 ### Catalogue, versionné
 
-`data/sources/contes/catalogue.tsv` : `#` en commentaire, dix colonnes séparées par une
+`data/sources/contes/catalogue.tsv` : `#` en commentaire, onze colonnes séparées par une
 tabulation — `id`, `titre_zh`, `titre_pinyin`, `titre_fr`, `titre_en`, `ouvrage`,
-`niveaux`, `cles`, `chapitres`, `resume_fr`. Treize récits tirés d'ouvrages classiques du domaine
+`niveaux`, `cles`, `chapitres`, `motif`, `resume_fr`. Treize récits tirés d'ouvrages classiques du domaine
 public : onze fables et deux récits longs. `titre_zh` et `titre_pinyin` sont le vrai
 titre du récit (une syllabe par caractère), `titre_fr` et `titre_en` ses noms dans
 l'app, `ouvrage` trace l'origine du récit, `resume_fr` résume l'intrigue en une phrase.
@@ -1170,6 +1171,12 @@ le catalogue.
   `resume_fr`), de 1 au nombre prévu, sans trou : leurs titres français et anglais, que
   le sommaire du lecteur montre, et le résumé qui cadre la réécriture. Une fable n'y a
   aucune ligne.
+- `motif` : le petit dessin de la couverture du conte dans Lire, où chaque conte est un
+  livre cousu sur une étagère (décision du propriétaire du 26 septembre 2026). Un nom du
+  jeu fermé `contes.MOTIFS` (`montagne`, `pousse`, `roues`, `puits`, `souche`, `serpent`,
+  `tigre`, `cheval`, `elephant`, `rouleau`, `enclos`, `lance`, `singe`), que l'app sait
+  dessiner ; exporté dans `catalogue` depuis le format 12. Le contrôle bloquant
+  « contes : motifs » de `wenlu check` refuse tout autre nom.
 
 Un catalogue illisible (en-tête, colonne vide, doublon, niveaux mal dits, `cles` qui ne sont pas des sinogrammes, chapitres qui
 ne correspondent pas) arrête le chargement ; `wenlu check` le dit par le contrôle

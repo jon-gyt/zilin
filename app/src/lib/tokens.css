@@ -20,6 +20,9 @@
    l'écran qui les veut. Une fête repeint les cases et le bouton, rien d'autre. */
 :root{ --tile-bg:var(--card); --tile-fg:var(--indigo); --tile-ink:var(--ink); --tile-ink2:var(--ink2); --tile-bd:transparent;
   --t1:#1E5A8A; --t1-bg:#DCE7F1; --t2:#9A6300; --t2-bg:#F5E5BE; --t3:#A8506B; --t3-bg:#F6E0E6; --t4:#1F7A5A; --t4-bg:#D5EADF; }
+/* Les étagères de Lire : la planche de bois, en aplat, son chant à l'ocre. Une image,
+   comme les couvertures : les cases et les cartes restent au papier. */
+:root{ --bois:#B98A5A; --bois-chant:#8C5A2B; }
 /* Le personnage (Heros.svelte, brief §8) : ses couleurs à lui, fixes, les jours de fête
    comme les autres, un papier découpé posé sur la page. Les pigments de la charte, l'abricot
    en aplat (jamais un doré), la pêche des fleurs de Tao ; pas de cinabre, il reste au chemin. */

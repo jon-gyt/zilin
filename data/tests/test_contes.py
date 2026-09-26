@@ -140,12 +140,31 @@ def test_catalogue_treize_contes_avec_leur_source() -> None:
         assert conte.resume_fr.endswith(".")
 
 
+def test_chaque_conte_a_un_motif_de_couverture_connu() -> None:
+    """Dans Lire, chaque conte est un livre cousu dont la couverture porte un petit motif
+    (décision du propriétaire du 26 septembre 2026) : un nom du jeu fermé que l'app dessine,
+    un par conte, jamais un dragon."""
+    catalogue = charger_catalogue()
+    assert all(c.motif in contes.MOTIFS for c in catalogue)
+    assert len({c.motif for c in catalogue}) == len(catalogue)
+    assert "dragon" not in contes.MOTIFS and "long" not in contes.MOTIFS
+    assert contes.controle_motifs(catalogue).ok
+
+
+def test_wenlu_check_refuse_un_motif_inconnu() -> None:
+    """Un nom hors du jeu laisserait une couverture nue : le contrôle bloque."""
+    (conte,) = parse_catalogue(["\t".join(contes.COLONNES), ligne_catalogue(motif="dragon")])
+    controle = contes.controle_motifs([conte])
+    assert not controle.ok and controle.bloquant
+    assert "a (dragon)" in controle.detail
+
+
 def test_catalogue_refuse_un_doublon() -> None:
     """Deux fois le même identifiant, c'est deux fichiers de sortie pour un conte."""
     lignes = [
         "\t".join(contes.COLONNES),
-        "a\t山\tshān\tTitre\tTitle\t《测试》\t255,505\t山\t1\tRésumé.",
-        "a\t水\tshuǐ\tAutre\tOther\t《测试》\t255,505\t水\t1\tRésumé.",
+        "a\t山\tshān\tTitre\tTitle\t《测试》\t255,505\t山\t1\tmontagne\tRésumé.",
+        "a\t水\tshuǐ\tAutre\tOther\t《测试》\t255,505\t水\t1\tmontagne\tRésumé.",
     ]
     with pytest.raises(CatalogueInvalide, match="doublon"):
         parse_catalogue(lignes)
@@ -153,7 +172,7 @@ def test_catalogue_refuse_un_doublon() -> None:
 
 def test_catalogue_veut_une_syllabe_par_caractere_du_vrai_titre() -> None:
     """Le vrai titre (愚公移山) se montre avec son pinyin : une syllabe par caractère."""
-    lignes = ["\t".join(contes.COLONNES), "a\t山水\tshān\tTitre\tTitle\t《测试》\t255,505\t山\t1\tRésumé."]
+    lignes = ["\t".join(contes.COLONNES), "a\t山水\tshān\tTitre\tTitle\t《测试》\t255,505\t山\t1\tmontagne\tRésumé."]
     with pytest.raises(CatalogueInvalide, match="syllabe"):
         parse_catalogue(lignes)
 
@@ -183,8 +202,8 @@ ANIMALIERS = {
 }
 
 
-def ligne_catalogue(identifiant: str = "a", niveaux: str = "255,505", chapitres: str = "1", cles: str = "山") -> str:
-    return f"{identifiant}\t山\tshān\tTitre\tTitle\t《测试》\t{niveaux}\t{cles}\t{chapitres}\tRésumé."
+def ligne_catalogue(identifiant: str = "a", niveaux: str = "255,505", chapitres: str = "1", cles: str = "山", motif: str = "montagne") -> str:
+    return f"{identifiant}\t山\tshān\tTitre\tTitle\t《测试》\t{niveaux}\t{cles}\t{chapitres}\t{motif}\tRésumé."
 
 
 def test_chaque_conte_prevoit_ses_niveaux_de_deux_paliers_en_deux() -> None:

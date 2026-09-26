@@ -30,6 +30,7 @@ Format BMAD : épics puis stories. Priorité dans l'ordre. Une story se termine 
 ## Épic 2c · Contes
 - 2c.1 Mode Lire : bibliothèque de contes, version choisie d'après l'acquis (le niveau le plus haut dont tous les caractères sont acquis), lecture avec glose au toucher, audio.
 - 2c.2 Le même conte remonte d'un niveau quand l'acquis le permet ; l'app signale qu'une version plus riche est ouverte. Trois contes gratuits au seuil 255, bibliothèque complète en payant.
+- 2c.3 Lire en étagères : « Aujourd'hui » (l'anecdote en fiche, la lettre de Que en enveloppe), puis les contes en livres cousus sur trois étagères, « À lire maintenant », « Bientôt » (sur le chemin, « s'ouvre dans N j »), « Plus loin ». Motif de couverture au catalogue.
 
 ## Épic 3 · Révision
 - 3.1 FSRS (ts-fsrs), rétention cible, planification.
@@ -275,6 +276,19 @@ Relevé sur le dépôt après une revue du pipeline. Les numéros ci-dessus ne b
   défaut, la voix de l'appareil prend le relais, et `workbox-range-requests` serait la
   suite. L'en-tête du manifeste exporté dit encore la carte du modèle « non lue » : le texte
   de `data/src/zilin_data/audio.py` est à jour depuis, un réexport de l'audio le corrigera.
+
+- 2c.3, Lire en étagères (26 septembre) : décision du propriétaire sur la maquette « Lire 读
+  et Jouer 玩, autrement qu'en liste » (l'ancien écran, « menu en ligne, trop classique »).
+  Deux parties sous un filet d'encre, « Aujourd'hui 今天 » et « Les contes 故事 » ; toutes les
+  fiches au fond de la carte, filet fin ; la couleur dans les seules images (couvertures,
+  motifs, planche, timbre), l'indigo pour l'action. Les étagères se rangent dans
+  `etageres.ts` : « Bientôt » prend les contes écrits dont tous les caractères qui manquent
+  sont sur le chemin, et dit dans combien de jours du chemin entre le dernier ; sans jour
+  calculable, rien. Le motif est une colonne du catalogue (`motif`, treize noms,
+  `contes.MOTIFS`), exportée (format 12) et contrôlée par `wenlu check` (« contes :
+  motifs ») ; l'app dessine chaque nom (`Motif.svelte`) et ne connaît aucun conte. Reste :
+  les lettres précédentes, en petites enveloppes numérotées, n'ont pas encore été vues par
+  le propriétaire.
 
 ### Livrées à moitié : le code attend une clé d'API
 

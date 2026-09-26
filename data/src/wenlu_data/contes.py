@@ -156,7 +156,28 @@ COLONNES = (
     "niveaux",
     "cles",
     "chapitres",
+    "motif",
     "resume_fr",
+)
+
+#: Les motifs des couvertures : le petit dessin que l'app pose sur le livre cousu d'un
+#: conte, dans Lire (décision du propriétaire du 26 septembre 2026). Un nom par conte, pris
+#: dans ce jeu fermé ; l'app dessine chacun (`Motif.svelte`). Aucun dragon : 叶公好龙 a le
+#: rouleau peint, jamais la bête.
+MOTIFS = (
+    "montagne",
+    "pousse",
+    "roues",
+    "puits",
+    "souche",
+    "serpent",
+    "tigre",
+    "cheval",
+    "elephant",
+    "rouleau",
+    "enclos",
+    "lance",
+    "singe",
 )
 
 #: Les colonnes de `chapitres.tsv` : un chapitre prévu d'un récit long.
@@ -300,6 +321,8 @@ class Conte:
     chapitres: int = 1
     #: Les chapitres prévus d'un récit long, de 1 à `chapitres`. Vide pour une fable.
     plan: tuple[ChapitrePrevu, ...] = ()
+    #: Le motif de la couverture dans Lire, un nom de `MOTIFS`. Vide : non dit (fixtures).
+    motif: str = ""
     #: Les caractères clés du récit (animaux, objets de l'intrigue) : ils décident de son
     #: niveau le plus bas (critère en tête du catalogue). Vide : non dits (fixtures).
     cles: str = ""
@@ -2282,6 +2305,25 @@ def _niveau_ajoute(conte: Conte, liste: Callable[[Niveau], set[str] | None]) -> 
     return ecarts
 
 
+def controle_motifs(catalogue: Sequence[Conte]) -> Controle:
+    """Chaque conte du catalogue a un motif de couverture, pris dans `MOTIFS` : l'app ne
+    sait dessiner que ceux-là. Bloquant : un nom inconnu laisserait une couverture nue."""
+    fautifs = [f"{c.id} ({c.motif or 'aucun'})" for c in catalogue if c.motif not in MOTIFS]
+    if fautifs:
+        return Controle(
+            "contes : motifs",
+            False,
+            f"{len(fautifs)} contes sans motif connu — " + " ; ".join(fautifs) + f" ; attendus : {', '.join(MOTIFS)}",
+            bloquant=True,
+        )
+    return Controle(
+        "contes : motifs",
+        True,
+        f"{len(catalogue)} contes, {len({c.motif for c in catalogue})} motifs distincts sur {len(MOTIFS)}",
+        bloquant=True,
+    )
+
+
 def controle_critere(catalogue: Sequence[Conte], listes: Path | None = None) -> Controle:
     """« contes : critère des niveaux » : les caractères clés de chaque conte sont dans
     chacun de ses niveaux, le plus bas est le premier palier qui les a, et les suivants
@@ -2361,7 +2403,7 @@ def controles(
     versions = [lire_version(chemin) for chemin in fichiers]
     suite = [controle_catalogue]
     if lu is not None:
-        suite += [controle_niveaux(lu, versions, listes), controle_critere(lu, listes)]
+        suite += [controle_niveaux(lu, versions, listes), controle_critere(lu, listes), controle_motifs(lu)]
     if not fichiers:
         return [Controle("contes : caractères hors liste", True, "aucune version générée"), *suite]
 

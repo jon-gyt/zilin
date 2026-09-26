@@ -99,10 +99,12 @@ describe("l'anecdote du jour se relit depuis Lire", () => {
   const app = source('../App.svelte');
 
   it('Lire porte en tête « L’anecdote du jour », au-dessus des contes, son caractère dessiné', () => {
-    const entree = lire.indexOf('<button class="entry anecdote" onclick={onanecdote}>');
+    const entree = lire.indexOf('<button class="fiche anecdote" onclick={onanecdote}>');
     expect(entree).toBeGreaterThan(0);
     expect(lire.indexOf("L'anecdote du jour", entree)).toBeGreaterThan(entree);
-    expect(entree).toBeLessThan(lire.indexOf('>Contes</div>'));
+    /* Dans la partie « Aujourd'hui », au-dessus de celle des contes. */
+    expect(lire.indexOf('<h2 class="sec">Aujourd\'hui')).toBeLessThan(entree);
+    expect(entree).toBeLessThan(lire.lastIndexOf('Les contes <span class="zh"'));
     expect(lire.slice(entree)).toMatch(/^[^]*?<Glyph char=\{anecdote\.a\.c\}/);
     /* La même anecdote que l'écran Ouvrir, calculée au même endroit. */
     expect(lire).toContain('anecdoteDeLaJournee(');
@@ -118,5 +120,77 @@ describe("l'anecdote du jour se relit depuis Lire", () => {
     expect(corps).not.toContain('anecdoteFaite(');
     expect(corps).not.toContain('enchainer(');
     expect(corps).toContain("if (retour === 'lire') ecran = 'lire';");
+  });
+});
+
+describe('Lire, en étagères de livres cousus (décision du 26 septembre 2026)', () => {
+  const lire = source('Lire.svelte');
+  const motif = source('Motif.svelte');
+
+  it('deux parties sous un filet d’encre : « Aujourd’hui », puis « Les contes »', () => {
+    const aujourdhui = lire.indexOf('<h2 class="sec">Aujourd\'hui <span class="zh" lang="zh-Hans">今天</span>');
+    const contes = lire.lastIndexOf('Les contes <span class="zh" lang="zh-Hans">故事</span>');
+    expect(aujourdhui).toBeGreaterThan(0);
+    expect(contes).toBeGreaterThan(aujourdhui);
+    expect(lire).toMatch(/\.sec \{[^}]*border-top: 1\.5px solid var\(--ink\)/);
+    /* La lettre de Que suit l'anecdote, dans « Aujourd'hui ». */
+    const lettre = lire.indexOf('<button class="fiche lettre"');
+    expect(lettre).toBeGreaterThan(lire.indexOf('<button class="fiche anecdote"'));
+    expect(lettre).toBeLessThan(contes);
+  });
+
+  it('le 读 de l’en-tête est dessiné depuis ses traits, avec « Seulement ton acquis »', () => {
+    expect(lire).toContain('<Glyph char="读"');
+    expect(lire).toContain('Seulement ton acquis');
+    expect(lire).toContain('posture="lecture"');
+  });
+
+  it('les contes se rangent sur les étagères de `etageres.ts`, « Plus loin » défile de côté', () => {
+    expect(lire).toContain('etageres(entrees,');
+    expect(lire).toMatch(/\{:else if et\.id === 'loin'\}\s*<div class="rangee defile">/);
+    expect(lire).toMatch(/\.rangee\.defile \{[^}]*overflow-x: auto/);
+    expect(lire).toContain('<div class="planche"></div>');
+  });
+
+  it('un livre ouvert est un bouton ; un livre fermé, pâle et tireté, est désactivé', () => {
+    expect(lire).toMatch(/<button class="livre"[^>]*data-gratuit=\{e\.gratuit\} onclick=\{\(\) => ouvrir\(e\)\}>/);
+    expect(lire).toMatch(/<div class="livre ferme"[^>]*data-gratuit=\{e\.gratuit\} aria-disabled="true">/);
+    expect(lire).toMatch(/\.livre\.ferme \.couv \{[^}]*border-style: dashed/);
+    expect(lire).toContain('aria-label={niveauxLus(l)}');
+    expect(lire).toContain('{MENTION_HORS_ACQUIS}');
+    expect(lire).toContain('Une version plus riche de ce conte est ouverte.');
+  });
+
+  it('la lettre de la semaine porte « NOUVELLE » à l’indigo ; toutes les lettres restent', () => {
+    expect(lire).toMatch(/\{#if e\.nouvelle\}<span class="nouvelle">NOUVELLE<\/span>\{\/if\}/);
+    expect(lire).toMatch(/\.nouvelle \{[^}]*background: var\(--indigo\)/);
+    expect(lire).toContain('{LIGNE_AVANT_LETTRE}');
+    expect(lire).toContain('{MENTION_PAS_ARRIVEE}');
+    expect(lire).toContain('{#each autresLettres as x (x.lettre.n)}');
+    expect(lire).toContain('<Que size={34} pose="pose" />');
+  });
+
+  it('fonds neutres : ni cinabre, ni ombre, ni dégradé, ni doré ; la couleur est dans les images', () => {
+    for (const [nom, s] of [['Lire', lire], ['Motif', motif]] as const) {
+      expect(s, nom).not.toContain('--zhu');
+      expect(s, nom).not.toMatch(/box-shadow|text-shadow|drop-shadow|gradient|gold|#d4af37/i);
+    }
+    /* Les fiches ont toutes le fond de la carte et un filet fin. */
+    expect(lire).toMatch(/\.fiche \{[^}]*background: var\(--card\);\s*border: 1px solid var\(--line\)/);
+  });
+
+  it('aucun conte n’est connu de l’app : pas de table conte → dessin, pas de dragon', () => {
+    const catalogue = readFileSync(new URL('../../../data/sources/contes/catalogue.tsv', import.meta.url), 'utf8');
+    const ids = catalogue
+      .split('\n')
+      .filter((l) => l && !l.startsWith('#') && !l.startsWith('id\t'))
+      .map((l) => l.split('\t')[0]);
+    expect(ids.length).toBe(13);
+    for (const id of ids) {
+      expect(lire, id).not.toContain(id);
+      expect(motif, id).not.toContain(id);
+      expect(source('etageres.ts'), id).not.toContain(id);
+    }
+    expect(motif).not.toMatch(/'dragon'|龙/);
   });
 });
