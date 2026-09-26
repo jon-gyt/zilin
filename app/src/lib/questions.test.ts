@@ -302,6 +302,42 @@ describe('les types que la fiche permet', () => {
   it('un type impossible est refusé', () => {
     expect(() => question(fiche('好'), 'son', CORPUS, 'g')).toThrow();
   });
+
+  it('sens et caractère : posés quand la fiche porte un sens', () => {
+    expect(typesPossibles(fiche('好'), CORPUS)).toEqual(expect.arrayContaining(['sens', 'caractere']));
+    const sens = question(fiche('好'), 'sens', CORPUS, 'g');
+    expect(sens.reponse).toEqual(['bon']);
+    expect(sens.choix).toContain('bon');
+    const caractere = question(fiche('好'), 'caractere', CORPUS, 'g');
+    expect(caractere.enonce).toBe('Lequel se lit hǎo et veut dire « bon » ?');
+  });
+
+  it('sans sens, ni « sens » ni « caractère » : jamais une question sur un sens vide', () => {
+    const muet: Fiche = { ...fiche('好'), fr: '', en: '' };
+    const corpus: Corpus = { ...CORPUS, fiches: FICHES.map((x) => (x.c === '好' ? muet : x)) };
+    const types = typesPossibles(muet, corpus);
+    expect(types).not.toContain('sens');
+    expect(types).not.toContain('caractere');
+    expect(types).toContain('assemblage');
+    expect(() => question(muet, 'sens', corpus, 'g')).toThrow();
+    expect(() => question(muet, 'caractere', corpus, 'g')).toThrow();
+    for (const g of ['a', 'b', 'c', 'd', 'e', 'f']) {
+      for (const q of serie(['好', '好', '好'], corpus, g)) {
+        expect(['sens', 'caractere']).not.toContain(q.type);
+      }
+    }
+  });
+
+  it('un caractère sans sens ne prête jamais un leurre vide à la question de sens', () => {
+    const corpus: Corpus = {
+      ...CORPUS,
+      fiches: FICHES.map((x) => (x.c === '好' || x.c === '女' ? x : { ...x, fr: '' }))
+    };
+    const q = question(fiche('好'), 'sens', corpus, 'g');
+    expect(q.leurres).toEqual(['une femme']);
+    expect(q.choix).not.toContain('');
+    expect(q.manqueLeurres).toBe(NB_LEURRES - 1);
+  });
 });
 
 /* ---------- la série ---------- */
