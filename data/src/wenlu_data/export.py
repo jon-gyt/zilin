@@ -82,6 +82,7 @@ from typing import Iterable, Mapping, Sequence
 
 from pydantic import ValidationError
 
+from . import anecdotes as anecdotes_mod
 from . import contes as contes_mod
 from . import decoupes as decoupes_mod
 from . import coquilles as coquilles_mod
@@ -190,6 +191,7 @@ def fichiers_sources(
         ("exporteur-lettres", Path(lettres_mod.__file__).resolve()),
         ("exporteur-wechat", Path(wechat_mod.__file__).resolve()),
         ("exporteur-heros", Path(heros_mod.__file__).resolve()),
+        ("exporteur-anecdotes", Path(anecdotes_mod.__file__).resolve()),
         ("decompositions", build / "decompositions.json"),
         ("graphe", build / "graphe.json"),
         *[(f"parcours-{nom}", build / f"parcours-{nom}.json") for nom in sorted(PARCOURS)],
@@ -226,6 +228,7 @@ def fichiers_sources(
         ("heros-rangs", heros_mod.RANGS),
         ("heros-betes", heros_mod.BETES),
         ("heros-tao", heros_mod.TAO),
+        ("anecdotes", anecdotes_mod.ANECDOTES),
         ("interface", INTERFACE),
         ("arphicpl", LICENCES_SOURCE / ARPHIC),
         ("unicode", LICENCES_SOURCE / UNICODE_NOTICE),
@@ -1883,6 +1886,19 @@ def assembler(
     )
     textes["wechat.json"] = _json(document_wechat(version, per, noeuds, documents_parcours, ingest))
     textes["heros.json"] = _json(document_heros(version, per, noeuds))
+    # Les anecdotes du jour (`anecdotes.py`) : l'app lit ce fichier à chemin fixe.
+    textes[anecdotes_mod.FICHIER] = _json(
+        anecdotes_mod.document(
+            racines={c: noeuds[c].racine for c in per.caracteres},
+            en_tete={
+                "version": version,
+                "license": LICENCE_PROPRIETAIRE,
+                "source": anecdotes_mod.SOURCE_EXPORT,
+                "source_url": URL_PIPELINE,
+                "modified": f"{JETON_JOUR} : assemblé par `wenlu export`",
+            },
+        )
+    )
     textes["LICENCES.md"] = licences_md(version)
     textes["traits/MODIFICATIONS.md"] = modifications_md(version, len(graphies), decoupes)
     for nom in (ARPHIC, UNICODE_NOTICE):
