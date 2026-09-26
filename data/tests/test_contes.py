@@ -189,12 +189,15 @@ def ligne_catalogue(identifiant: str = "a", niveaux: str = "255,505", chapitres:
 
 def test_chaque_conte_prevoit_ses_niveaux_de_deux_paliers_en_deux() -> None:
     """Un récit simple à deux niveaux, un récit riche à trois, montant de deux paliers en
-    deux ; au haut de l'échelle (HSK 7-9), moins. Pris parmi 255 et les niveaux HSK."""
+    deux ; au haut de l'échelle (HSK 7-9), moins ; un de plus, en dessous, quand l'animal
+    est expliqué. Pris parmi 255 et les niveaux HSK."""
+    ajoutes = {"shou-zhu-dai-tu", "hu-jia-hu-wei", "jing-di-zhi-wa", "wang-yang-bu-lao"}
     for conte in charger_catalogue():
-        assert len(conte.niveaux) in (1, 2, 3), conte.id
+        assert len(conte.niveaux) in (1, 2, 3, 4), conte.id
         assert set(conte.niveaux) <= {255, *contes.HSK}, conte.id
-        attendus = {contes.niveaux_attendus(conte.niveaux[0], n) for n in (2, 3)}
-        assert conte.niveaux in attendus, conte.id
+        base = conte.niveaux[1:] if conte.id in ajoutes else conte.niveaux
+        attendus = {contes.niveaux_attendus(base[0], n) for n in (2, 3)}
+        assert base in attendus, conte.id
 
 
 def test_les_contes_suivent_le_hsk_sauf_les_trois_relus_a_255() -> None:
@@ -211,14 +214,36 @@ def test_le_plus_bas_niveau_est_le_premier_palier_qui_a_les_caracteres_cles() ->
     """Relevé dans les vraies listes : chaque caractère clé est dans chaque niveau prévu, et
     le niveau HSK juste au-dessous du plus bas ne les a pas tous."""
     for conte in charger_catalogue():
-        assert conte.cles, conte.id
+        assert conte.declares, conte.id
         for n in conte.niveaux:
             assert set(conte.cles) <= set(charger_seuil(n)), (conte.id, n)
+        if not conte.cles:
+            continue  # tout s'explique : le niveau ajouté (test suivant)
         bas = conte.niveaux[0]
         if contes.est_hsk(bas) and bas != "hsk1":
             dessous = contes.HSK[contes.HSK.index(bas) - 1]  # type: ignore[arg-type]
             assert not set(conte.cles) <= set(charger_seuil(dessous)), conte.id
     assert controles_du_depot()["contes : critère des niveaux"].ok
+
+
+def test_les_fables_animalieres_nomment_l_animal_des_les_petits_niveaux() -> None:
+    """Décision du propriétaire du 26 septembre 2026 : un niveau plus bas où l'animal est
+    expliqué, au plus trois caractères hors du niveau, et le plan de base au-dessus."""
+    par_id = {c.id: c for c in charger_catalogue()}
+    plans = {
+        "shou-zhu-dai-tu": (("hsk3", "hsk5", "hsk7-9"), "", "兔桩"),
+        "hua-she-tian-zu": (("hsk3", "hsk5", "hsk7-9"), "画足", "蛇"),
+        "hu-jia-hu-wei": (("hsk3", "hsk5", "hsk7-9"), "", "虎狐狸"),
+        "jing-di-zhi-wa": (("hsk4", "hsk7-9"), "", "蛙龟井"),
+        "wang-yang-bu-lao": (("hsk3", "hsk4", "hsk6"), "羊补", "圈狼"),
+    }
+    for identifiant, (niveaux, cles, expliquables) in plans.items():
+        conte = par_id[identifiant]
+        assert (conte.niveaux, conte.cles, conte.expliquables) == (niveaux, cles, expliquables)
+        bas = set(charger_seuil(niveaux[0]))
+        hors = [c for c in conte.expliquables if c not in bas]
+        assert 1 <= len(hors) <= contes.MAX_EXPLIQUES, identifiant
+        assert contes.ecarts_au_critere(conte) == [], identifiant
 
 
 def controles_du_depot() -> dict[str, contes.Controle]:
@@ -233,15 +258,15 @@ def test_les_fables_animalieres_disent_leur_animal_et_ne_descendent_pas_a_255() 
     for identifiant, animal in ANIMALIERS.items():
         assert animal not in liste
         assert 255 not in par_id[identifiant].niveaux, identifiant
-        assert animal in par_id[identifiant].cles, identifiant
+        assert animal in par_id[identifiant].declares, identifiant
 
 
 def test_le_renard_n_est_dans_aucune_liste() -> None:
-    """狐假虎威 : 狐 manque jusqu'à HSK 7-9 ; seul le tigre décide du niveau, le renard se dit
-    autrement ou se nomme en mot expliqué, 狐狸 (noté en tête du catalogue)."""
+    """狐假虎威 : 狐 manque jusqu'à HSK 7-9 ; le renard se nomme en mot expliqué, 狐狸, à tous
+    les niveaux, et le tigre aussi au niveau ajouté (noté en tête du catalogue)."""
     assert "狐" not in set(charger_seuil("hsk7-9"))
     renard = contes.conte_par_id("hu-jia-hu-wei")
-    assert renard.cles == "虎" and renard.expliquables == "狐狸"
+    assert renard.cles == "" and renard.expliquables == "虎狐狸"
 
 
 def test_les_caracteres_cles_sont_des_sinogrammes_sans_doublon() -> None:
@@ -270,22 +295,50 @@ def test_un_personnage_cle_ne_compte_pas_dans_le_critere(tmp_path: Path) -> None
     assert contes.ecarts_au_critere(loup, tmp_path) == []
 
 
+def test_un_niveau_de_plus_quand_l_animal_est_explique(tmp_path: Path) -> None:
+    """Décision du propriétaire du 26 septembre 2026 : l'animal par son vrai caractère dès les
+    petits niveaux. Après la barre, il est un mot expliqué, pas un caractère clé : le plan
+    prend un niveau plus bas où il est expliqué, puis son plan de base, qui commence au
+    premier palier qui a l'animal ; trois caractères expliqués au plus au niveau ajouté."""
+    ecrire_hsk(tmp_path, {"1": "人大", "2": "天", "3": "山", "4": "水", "5": "兔", "6": "木", "7-9": "桩狼"})
+
+    def lievre(niveaux: tuple[str, ...], expliquables: str = "兔桩") -> Conte:
+        return Conte(
+            id="lievre", titre_zh="山", titre_fr="T", ouvrage="《测试》", resume_fr="R.",
+            niveaux=niveaux, cles="", expliquables=expliquables,
+        )
+
+    assert contes.ecarts_au_critere(lievre(("hsk3", "hsk5", "hsk7-9")), tmp_path) == []
+    assert contes.ecarts_au_critere(lievre(("hsk3", "hsk6", "hsk7-9")), tmp_path) == [
+        "lievre : caractères clés tous au niveau hsk5, plus bas que hsk6 "
+        "(plan de base, sous le niveau ajouté hsk3 où 兔 est expliqué)"
+    ]
+    assert contes.ecarts_au_critere(lievre(("hsk2", "hsk5", "hsk7-9"), "兔山桩狼"), tmp_path) == [
+        "lievre : 4 caractères expliqués au niveau ajouté hsk2 (兔 山 桩 狼), 3 au plus"
+    ]
+    # Sans mot expliqué que le niveau suivant a déjà, pas de niveau ajouté : le critère de base.
+    assert contes.ecarts_au_critere(lievre(("hsk3", "hsk5", "hsk7-9"), "桩狼"), tmp_path) == [
+        "lievre : caractères clés tous au niveau hsk2, plus bas que hsk3"
+    ]
+
+
 def test_le_premier_lot_declare_ses_personnages_cles() -> None:
     """Décision du propriétaire : le loup, les pousses et Monsieur Ye se nomment."""
     par_id = {c.id: c for c in charger_catalogue()}
-    assert par_id["wang-yang-bu-lao"].expliquables == "狼"
+    assert par_id["wang-yang-bu-lao"].expliquables == "圈狼"
     assert par_id["ba-miao-zhu-zhang"].expliquables == "苗"
     assert par_id["ye-gong-hao-long"].expliquables == "叶"
 
 
 def test_les_fables_animalieres_declarent_leurs_personnages_et_objets_cles() -> None:
-    """Deuxième passe : le vieil homme de la frontière, les aveugles et la trompe, la souche.
-    Le geste 添 et la cruche 壶 de 画蛇添足 ne sont pas clés : rien après la barre."""
+    """Deuxième passe : le vieil homme de la frontière, les aveugles et la trompe, la souche
+    et le lièvre. Le geste 添 et la cruche 壶 de 画蛇添足 ne sont pas clés : le serpent
+    seul après la barre."""
     par_id = {c.id: c for c in charger_catalogue()}
     assert par_id["sai-weng-shi-ma"].expliquables == "塞翁"
     assert par_id["mang-ren-mo-xiang"].expliquables == "盲鼻"
-    assert par_id["shou-zhu-dai-tu"].expliquables == "桩"
-    assert par_id["hua-she-tian-zu"].expliquables == ""
+    assert par_id["shou-zhu-dai-tu"].expliquables == "兔桩"
+    assert par_id["hua-she-tian-zu"].expliquables == "蛇"
 
 
 def test_le_critere_releve_un_niveau_mal_place(tmp_path: Path) -> None:
@@ -318,7 +371,7 @@ def test_les_contes_ecrits_a_255_le_prevoient() -> None:
     ("niveaux", "motif"),
     [
         ("255", "deux niveaux"),
-        ("255,405,505,805", "deux niveaux"),
+        ("255,hsk1,hsk2,hsk3,hsk4", "deux niveaux"),
         ("505,255", "croissants"),
         ("255,255", "croissants"),
         ("255,300", "hors des seuils"),
@@ -1038,7 +1091,7 @@ def test_le_check_ne_bloque_pas_sur_les_niveaux_du_depot() -> None:
     assert not niveaux.bloquant
     ecrits = {(p.parent.name, p.stem) for p in contes.versions_ecrites()}
     assert (
-        f"30 niveaux prévus pour 13 contes, dont 2 longs : {len(ecrits)} écrits, {30 - len(ecrits)} à écrire, "
+        f"35 niveaux prévus pour 13 contes, dont 2 longs : {len(ecrits)} écrits, {35 - len(ecrits)} à écrire, "
         "0 attendent leur liste"
     ) in niveaux.detail
     assert resultats["contes : catalogue"].ok and resultats["contes : catalogue"].bloquant
@@ -1069,7 +1122,7 @@ def test_le_plan_dit_l_etat_de_chaque_niveau() -> None:
     lignes = [
         rf"愚公移山 yu-gong-yi-shan : 255 écrit \(relu\) · hsk3 {etat} · hsk5 {etat}",
         rf"木兰从军 mu-lan-cong-jun, 4 chapitres : hsk4 {etat} · hsk6 {etat} · hsk7-9 {etat}",
-        rf"井底之蛙 jing-di-zhi-wa : hsk7-9 {etat}",
+        rf"井底之蛙 jing-di-zhi-wa : hsk4 {etat} · hsk7-9 {etat}",
     ]
     for ligne in lignes:
         assert re.search(rf"^{ligne}$", resultat.output, re.MULTILINE), ligne

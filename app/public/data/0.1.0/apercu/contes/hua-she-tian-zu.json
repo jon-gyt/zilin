@@ -3,7 +3,7 @@
  "license": "propriétaire",
  "source": "récit traditionnel, 《战国策·齐策二》 (domaine public) ; texte réécrit pour l'app",
  "source_url": "https://github.com/jon-gyt/zilin",
- "modified": "2026-09-25 : assemblé par `wenlu export`",
+ "modified": "2026-09-26 : assemblé par `wenlu export`",
  "statut": "a_relire",
  "avertissement": "Textes encore à relire : ni relus, ni validés. L'app ne les charge que si le mode relecture des Réglages est allumé, et chacun y porte la mention « à relire ».",
  "conte": "hua-she-tian-zu",
@@ -12,6 +12,612 @@
  "titre_fr": "Ajouter des pattes au serpent",
  "titre_en": "Drawing Legs on a Snake",
  "versions": {
+  "hsk3": {
+   "titre": "给蛇画脚",
+   "titre_pinyin": "gěi shé huà jiǎo",
+   "phrases": [
+    {
+     "zh": "从前，有一个人请几个朋友来家里帮忙。",
+     "pinyin": "cóng qián yǒu yī ge rén qǐng jǐ ge péng you lái jiā lǐ bāng máng",
+     "fr": "Il était une fois un homme qui fit venir quelques amis chez lui pour l'aider.",
+     "en": "Long ago, a man asked a few friends to come and help at his house."
+    },
+    {
+     "zh": "事情做完了，他拿出一杯酒，送给大家。",
+     "pinyin": "shì qing zuò wán le tā ná chū yī bēi jiǔ sòng gěi dà jiā",
+     "fr": "Le travail fini, il sortit une coupe de vin et la leur offrit.",
+     "en": "When the work was done, he brought out a cup of wine and gave it to them."
+    },
+    {
+     "zh": "可是酒只有一杯，喝酒的人有好几个。",
+     "pinyin": "kě shì jiǔ zhǐ yǒu yī bēi hē jiǔ de rén yǒu hǎo jǐ ge",
+     "fr": "Mais il n'y avait qu'une coupe, et ils étaient plusieurs à vouloir boire.",
+     "en": "But there was only one cup, and several of them wanted to drink."
+    },
+    {
+     "zh": "有人说：「我们都在地上画一条蛇，谁先画好，酒就给谁喝。」",
+     "pinyin": "yǒu rén shuō wǒ men dōu zài dì shang huà yī tiáo shé shéi xiān huà hǎo jiǔ jiù gěi shéi hē",
+     "fr": "Quelqu'un dit : « Dessinons chacun un serpent par terre. Le premier qui a fini boira le vin. »",
+     "en": "Someone said, \"Let's each draw a snake on the ground. Whoever finishes first gets to drink the wine.\""
+    },
+    {
+     "zh": "大家都说好，马上在地上画了起来。",
+     "pinyin": "dà jiā dōu shuō hǎo mǎ shàng zài dì shang huà le qǐ lái",
+     "fr": "Tous furent d'accord et se mirent aussitôt à dessiner par terre.",
+     "en": "Everyone agreed and at once began drawing on the ground."
+    },
+    {
+     "zh": "有一个人画得很快，一下就画好了。",
+     "pinyin": "yǒu yī ge rén huà de hěn kuài yī xià jiù huà hǎo le",
+     "fr": "L'un d'eux dessinait très vite et eut fini en un instant.",
+     "en": "One of them drew very fast and was done in no time."
+    },
+    {
+     "zh": "他拿起酒杯，回头一看，别人都还没画完。",
+     "pinyin": "tā ná qǐ jiǔ bēi huí tóu yī kàn bié rén dōu hái méi huà wán",
+     "fr": "Il prit la coupe, se retourna : les autres n'avaient pas encore fini.",
+     "en": "He picked up the cup and looked round: the others had not finished yet."
+    },
+    {
+     "zh": "他很得意，想：「他们画得真慢，我还可以给蛇画上几只脚。」",
+     "pinyin": "tā hěn dé yì xiǎng tā men huà de zhēn màn wǒ hái kě yǐ gěi shé huà shàng jǐ zhī jiǎo",
+     "fr": "Très fier, il se dit : « Qu'ils sont lents ! J'ai encore le temps d'ajouter des pattes au serpent. »",
+     "en": "Very pleased with himself, he thought, \"How slow they are! I can even add a few legs to the snake.\""
+    },
+    {
+     "zh": "他左手拿着酒杯，右手给蛇画脚。",
+     "pinyin": "tā zuǒ shǒu ná zhe jiǔ bēi yòu shǒu gěi shé huà jiǎo",
+     "fr": "La coupe dans la main gauche, il dessinait de la droite des pattes au serpent.",
+     "en": "Holding the cup in his left hand, he drew legs on the snake with his right."
+    },
+    {
+     "zh": "脚还没画完，另一个人的蛇已经画好了。",
+     "pinyin": "jiǎo hái méi huà wán lìng yī ge rén de shé yǐ jīng huà hǎo le",
+     "fr": "Il n'avait pas fini les pattes qu'un autre avait déjà terminé son serpent.",
+     "en": "Before he had finished the legs, another man had already finished his snake."
+    },
+    {
+     "zh": "那个人拿过酒杯，说：「蛇本来就没有脚。」",
+     "pinyin": "nà ge rén ná guò jiǔ bēi shuō shé běn lái jiù méi yǒu jiǎo",
+     "fr": "Celui-ci lui prit la coupe et dit : « Un serpent n'a pas de pattes. »",
+     "en": "That man took the cup from him and said, \"A snake has no legs.\""
+    },
+    {
+     "zh": "「你给它画上脚，它就不是蛇了。这杯酒是我的！」",
+     "pinyin": "nǐ gěi tā huà shàng jiǎo tā jiù bù shì shé le zhè bēi jiǔ shì wǒ de",
+     "fr": "« Si tu lui dessines des pattes, ce n'est plus un serpent. Ce vin est à moi ! »",
+     "en": "\"If you draw legs on it, it's no longer a snake. This wine is mine!\""
+    },
+    {
+     "zh": "说完，他一口就把酒喝完了。",
+     "pinyin": "shuō wán tā yī kǒu jiù bǎ jiǔ hē wán le",
+     "fr": "Cela dit, il but le vin d'un trait.",
+     "en": "With that, he drank the wine in one gulp."
+    },
+    {
+     "zh": "画脚的人看着酒杯，一句话也说不出来。",
+     "pinyin": "huà jiǎo de rén kàn zhe jiǔ bēi yī jù huà yě shuō bù chū lái",
+     "fr": "Celui qui avait dessiné les pattes regardait la coupe, sans trouver un mot.",
+     "en": "The man who had drawn the legs stared at the cup, unable to say a word."
+    },
+    {
+     "zh": "酒本来是他的，可是他多画了几只脚，酒就没了。",
+     "pinyin": "jiǔ běn lái shì tā de kě shì tā duō huà le jǐ zhī jiǎo jiǔ jiù méi le",
+     "fr": "Le vin était à lui ; mais pour quelques pattes de trop, il l'avait perdu.",
+     "en": "The wine had been his; but for a few extra legs, he lost it."
+    },
+    {
+     "zh": "事情做好了就够了，多做没有用的事，好事也会变成坏事。",
+     "pinyin": "shì qing zuò hǎo le jiù gòu le duō zuò méi yǒu yòng de shì hǎo shì yě huì biàn chéng huài shì",
+     "fr": "Une chose bien faite suffit : en faire trop, pour rien, peut changer une bonne affaire en mauvaise.",
+     "en": "A job done well is enough; doing more than is needed can turn a good thing into a bad one."
+    }
+   ],
+   "glose": {
+    "一下": {
+     "pinyin": "yī xià",
+     "fr": "en un instant",
+     "en": "in no time"
+    },
+    "一个": {
+     "pinyin": "yī ge",
+     "fr": "un",
+     "en": "a, one"
+    },
+    "一口": {
+     "pinyin": "yī kǒu",
+     "fr": "d'un trait",
+     "en": "in one gulp"
+    },
+    "一句话": {
+     "pinyin": "yī jù huà",
+     "fr": "un mot",
+     "en": "a word"
+    },
+    "一条": {
+     "pinyin": "yī tiáo",
+     "fr": "un (long)",
+     "en": "a (long thing)"
+    },
+    "一杯": {
+     "pinyin": "yī bēi",
+     "fr": "une coupe",
+     "en": "one cup"
+    },
+    "一杯酒": {
+     "pinyin": "yī bēi jiǔ",
+     "fr": "une coupe de vin",
+     "en": "a cup of wine"
+    },
+    "一看": {
+     "pinyin": "yī kàn",
+     "fr": "regarder",
+     "en": "take a look"
+    },
+    "不是": {
+     "pinyin": "bù shì",
+     "fr": "ne pas être",
+     "en": "not be"
+    },
+    "也": {
+     "pinyin": "yě",
+     "fr": "même",
+     "en": "even"
+    },
+    "了": {
+     "pinyin": "le",
+     "fr": "(accompli, changement)",
+     "en": "(completion, change)"
+    },
+    "事": {
+     "pinyin": "shì",
+     "fr": "chose",
+     "en": "thing"
+    },
+    "事情": {
+     "pinyin": "shì qing",
+     "fr": "travail, chose",
+     "en": "job, matter"
+    },
+    "人": {
+     "pinyin": "rén",
+     "fr": "homme, personne",
+     "en": "person"
+    },
+    "从前": {
+     "pinyin": "cóng qián",
+     "fr": "autrefois",
+     "en": "long ago"
+    },
+    "他": {
+     "pinyin": "tā",
+     "fr": "il, lui",
+     "en": "he, him"
+    },
+    "他们": {
+     "pinyin": "tā men",
+     "fr": "ils",
+     "en": "they"
+    },
+    "会": {
+     "pinyin": "huì",
+     "fr": "pouvoir (arriver)",
+     "en": "can, may"
+    },
+    "你": {
+     "pinyin": "nǐ",
+     "fr": "tu, toi",
+     "en": "you"
+    },
+    "做": {
+     "pinyin": "zuò",
+     "fr": "faire",
+     "en": "do"
+    },
+    "做好": {
+     "pinyin": "zuò hǎo",
+     "fr": "bien faire",
+     "en": "do well"
+    },
+    "做完": {
+     "pinyin": "zuò wán",
+     "fr": "finir",
+     "en": "finish"
+    },
+    "先": {
+     "pinyin": "xiān",
+     "fr": "d'abord, en premier",
+     "en": "first"
+    },
+    "几个": {
+     "pinyin": "jǐ ge",
+     "fr": "quelques",
+     "en": "a few"
+    },
+    "几只": {
+     "pinyin": "jǐ zhī",
+     "fr": "quelques",
+     "en": "a few"
+    },
+    "别人": {
+     "pinyin": "bié rén",
+     "fr": "les autres",
+     "en": "the others"
+    },
+    "变成": {
+     "pinyin": "biàn chéng",
+     "fr": "devenir",
+     "en": "turn into"
+    },
+    "另一个": {
+     "pinyin": "lìng yī ge",
+     "fr": "un autre",
+     "en": "another"
+    },
+    "只有": {
+     "pinyin": "zhǐ yǒu",
+     "fr": "seulement",
+     "en": "only"
+    },
+    "可以": {
+     "pinyin": "kě yǐ",
+     "fr": "pouvoir",
+     "en": "can"
+    },
+    "可是": {
+     "pinyin": "kě shì",
+     "fr": "mais",
+     "en": "but"
+    },
+    "右手": {
+     "pinyin": "yòu shǒu",
+     "fr": "main droite",
+     "en": "right hand"
+    },
+    "喝": {
+     "pinyin": "hē",
+     "fr": "boire",
+     "en": "drink"
+    },
+    "喝完": {
+     "pinyin": "hē wán",
+     "fr": "finir de boire",
+     "en": "drink up"
+    },
+    "喝酒": {
+     "pinyin": "hē jiǔ",
+     "fr": "boire",
+     "en": "drink"
+    },
+    "回头": {
+     "pinyin": "huí tóu",
+     "fr": "se retourner",
+     "en": "turn around"
+    },
+    "在": {
+     "pinyin": "zài",
+     "fr": "à, sur",
+     "en": "at, on"
+    },
+    "地上": {
+     "pinyin": "dì shang",
+     "fr": "par terre",
+     "en": "on the ground"
+    },
+    "坏事": {
+     "pinyin": "huài shì",
+     "fr": "mauvaise chose",
+     "en": "bad thing"
+    },
+    "多": {
+     "pinyin": "duō",
+     "fr": "en trop",
+     "en": "extra"
+    },
+    "够": {
+     "pinyin": "gòu",
+     "fr": "suffire",
+     "en": "be enough"
+    },
+    "大家": {
+     "pinyin": "dà jiā",
+     "fr": "tout le monde",
+     "en": "everyone"
+    },
+    "好": {
+     "pinyin": "hǎo",
+     "fr": "d'accord",
+     "en": "all right"
+    },
+    "好事": {
+     "pinyin": "hǎo shì",
+     "fr": "bonne chose",
+     "en": "good thing"
+    },
+    "好几个": {
+     "pinyin": "hǎo jǐ ge",
+     "fr": "plusieurs",
+     "en": "several"
+    },
+    "它": {
+     "pinyin": "tā",
+     "fr": "il (animal)",
+     "en": "it"
+    },
+    "家里": {
+     "pinyin": "jiā lǐ",
+     "fr": "chez soi",
+     "en": "at home"
+    },
+    "就": {
+     "pinyin": "jiù",
+     "fr": "alors, aussitôt",
+     "en": "then, right away"
+    },
+    "左手": {
+     "pinyin": "zuǒ shǒu",
+     "fr": "main gauche",
+     "en": "left hand"
+    },
+    "已经": {
+     "pinyin": "yǐ jīng",
+     "fr": "déjà",
+     "en": "already"
+    },
+    "帮忙": {
+     "pinyin": "bāng máng",
+     "fr": "aider",
+     "en": "help"
+    },
+    "很": {
+     "pinyin": "hěn",
+     "fr": "très",
+     "en": "very"
+    },
+    "得": {
+     "pinyin": "de",
+     "fr": "(particule de degré)",
+     "en": "(degree particle)"
+    },
+    "得意": {
+     "pinyin": "dé yì",
+     "fr": "fier de soi",
+     "en": "pleased with oneself"
+    },
+    "快": {
+     "pinyin": "kuài",
+     "fr": "vite",
+     "en": "fast"
+    },
+    "想": {
+     "pinyin": "xiǎng",
+     "fr": "penser",
+     "en": "think"
+    },
+    "慢": {
+     "pinyin": "màn",
+     "fr": "lent",
+     "en": "slow"
+    },
+    "我": {
+     "pinyin": "wǒ",
+     "fr": "je, moi",
+     "en": "I, me"
+    },
+    "我们": {
+     "pinyin": "wǒ men",
+     "fr": "nous",
+     "en": "we"
+    },
+    "把": {
+     "pinyin": "bǎ",
+     "fr": "(marque l'objet)",
+     "en": "(object marker)"
+    },
+    "拿出": {
+     "pinyin": "ná chū",
+     "fr": "sortir",
+     "en": "take out"
+    },
+    "拿着": {
+     "pinyin": "ná zhe",
+     "fr": "tenir",
+     "en": "hold"
+    },
+    "拿起": {
+     "pinyin": "ná qǐ",
+     "fr": "prendre",
+     "en": "pick up"
+    },
+    "拿过": {
+     "pinyin": "ná guò",
+     "fr": "prendre",
+     "en": "take"
+    },
+    "是": {
+     "pinyin": "shì",
+     "fr": "être",
+     "en": "be"
+    },
+    "有": {
+     "pinyin": "yǒu",
+     "fr": "avoir, il y a",
+     "en": "have, there is"
+    },
+    "有人": {
+     "pinyin": "yǒu rén",
+     "fr": "quelqu'un",
+     "en": "someone"
+    },
+    "朋友": {
+     "pinyin": "péng you",
+     "fr": "ami",
+     "en": "friend"
+    },
+    "本来": {
+     "pinyin": "běn lái",
+     "fr": "par nature, d'abord",
+     "en": "by nature, originally"
+    },
+    "来": {
+     "pinyin": "lái",
+     "fr": "venir",
+     "en": "come"
+    },
+    "没": {
+     "pinyin": "méi",
+     "fr": "ne pas (encore)",
+     "en": "not (yet)"
+    },
+    "没了": {
+     "pinyin": "méi le",
+     "fr": "perdu",
+     "en": "gone"
+    },
+    "没有": {
+     "pinyin": "méi yǒu",
+     "fr": "ne pas avoir",
+     "en": "not have"
+    },
+    "没有用": {
+     "pinyin": "méi yǒu yòng",
+     "fr": "inutile",
+     "en": "useless"
+    },
+    "画": {
+     "pinyin": "huà",
+     "fr": "dessiner",
+     "en": "draw"
+    },
+    "画上": {
+     "pinyin": "huà shàng",
+     "fr": "ajouter en dessinant",
+     "en": "draw on"
+    },
+    "画好": {
+     "pinyin": "huà hǎo",
+     "fr": "finir de dessiner",
+     "en": "finish drawing"
+    },
+    "画完": {
+     "pinyin": "huà wán",
+     "fr": "finir de dessiner",
+     "en": "finish drawing"
+    },
+    "的": {
+     "pinyin": "de",
+     "fr": "(particule de lien)",
+     "en": "(linking particle)"
+    },
+    "看着": {
+     "pinyin": "kàn zhe",
+     "fr": "regarder",
+     "en": "look at"
+    },
+    "真": {
+     "pinyin": "zhēn",
+     "fr": "vraiment",
+     "en": "really"
+    },
+    "给": {
+     "pinyin": "gěi",
+     "fr": "à, pour",
+     "en": "to, for"
+    },
+    "脚": {
+     "pinyin": "jiǎo",
+     "fr": "pattes",
+     "en": "legs, feet"
+    },
+    "蛇": {
+     "pinyin": "shé",
+     "fr": "serpent",
+     "en": "snake"
+    },
+    "说": {
+     "pinyin": "shuō",
+     "fr": "dire",
+     "en": "say"
+    },
+    "说不出来": {
+     "pinyin": "shuō bù chū lái",
+     "fr": "ne pas pouvoir dire",
+     "en": "be unable to say"
+    },
+    "说完": {
+     "pinyin": "shuō wán",
+     "fr": "cela dit",
+     "en": "with that"
+    },
+    "请": {
+     "pinyin": "qǐng",
+     "fr": "faire venir",
+     "en": "invite"
+    },
+    "谁": {
+     "pinyin": "shéi",
+     "fr": "qui, celui qui",
+     "en": "who, whoever"
+    },
+    "起来": {
+     "pinyin": "qǐ lái",
+     "fr": "se mettre à",
+     "en": "start to"
+    },
+    "还": {
+     "pinyin": "hái",
+     "fr": "encore",
+     "en": "still, even"
+    },
+    "这杯酒": {
+     "pinyin": "zhè bēi jiǔ",
+     "fr": "ce vin",
+     "en": "this wine"
+    },
+    "送给": {
+     "pinyin": "sòng gěi",
+     "fr": "offrir à",
+     "en": "give to"
+    },
+    "那个": {
+     "pinyin": "nà ge",
+     "fr": "ce, celui-là",
+     "en": "that"
+    },
+    "都": {
+     "pinyin": "dōu",
+     "fr": "tous",
+     "en": "all"
+    },
+    "酒": {
+     "pinyin": "jiǔ",
+     "fr": "vin",
+     "en": "wine"
+    },
+    "酒杯": {
+     "pinyin": "jiǔ bēi",
+     "fr": "coupe à vin",
+     "en": "wine cup"
+    },
+    "马上": {
+     "pinyin": "mǎ shàng",
+     "fr": "aussitôt",
+     "en": "at once"
+    }
+   },
+   "expliques": [
+    {
+     "zh": "蛇",
+     "pinyin": "shé",
+     "fr": "serpent",
+     "en": "snake",
+     "explication_fr": "Le serpent : une bête longue, sans pattes. Ici, chacun en dessine un par terre.",
+     "explication_en": "A snake: a long animal with no legs. Here, each man draws one on the ground.",
+     "caracteres": "蛇"
+    }
+   ],
+   "statut": "a_relire"
+  },
   "hsk5": {
    "titre": "给蛇画脚",
    "titre_pinyin": "gěi shé huà jiǎo",
@@ -1703,5 +2309,8 @@
    },
    "statut": "a_relire"
   }
+ },
+ "racines": {
+  "蛇": "虫"
  }
 }

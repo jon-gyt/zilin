@@ -164,6 +164,11 @@ COLONNES_CHAPITRES = ("conte", "n", "titre_fr", "titre_en", "resume_fr")
 #: Un récit simple s'écrit à deux niveaux, un récit riche à trois (critère dans le catalogue).
 NIVEAUX_PAR_CONTE = (2, 3)
 
+#: Un niveau de plus quand l'animal est expliqué (décision du propriétaire du 26 septembre
+#: 2026) : sous son plan, une fable peut prendre un niveau plus bas où elle nomme l'animal
+#: en mot expliqué. Un récit riche en a alors quatre au plus.
+NIVEAUX_AU_PLUS = max(NIVEAUX_PAR_CONTE) + 1
+
 
 class CatalogueInvalide(ValueError):
     """Catalogue des contes illisible ou incohérent."""
@@ -341,7 +346,8 @@ def _lignes_tsv(lignes: Iterable[str], colonnes: tuple[str, ...], nom: str) -> l
 def parse_niveaux(texte: str) -> tuple[Niveau, ...]:
     """`255,hsk3,hsk5` → (255, "hsk3", "hsk5") : des niveaux connus (seuils ou niveaux
     HSK), strictement croissants par leur nombre de caractères, deux (récit simple) ou
-    trois (récit riche). Un seul, au dernier palier (`hsk7-9`) : l'échelle s'arrête là."""
+    trois (récit riche), un de plus quand l'animal est expliqué (`NIVEAUX_AU_PLUS`). Un
+    seul, au dernier palier (`hsk7-9`) : l'échelle s'arrête là."""
     morceaux = [m.strip() for m in texte.split(",")]
     if not all(re.fullmatch(r"[0-9]+|[a-zA-Z0-9-]+", m) for m in morceaux):
         raise CatalogueInvalide(f"niveaux {texte!r} : des niveaux séparés par des virgules, 255,hsk3")
@@ -360,10 +366,11 @@ def parse_niveaux(texte: str) -> tuple[Niveau, ...]:
         raise CatalogueInvalide(f"niveaux {texte!r} : strictement croissants, sans doublon")
     if niveaux == [HSK[-1]]:
         return tuple(niveaux)
-    if len(niveaux) not in NIVEAUX_PAR_CONTE:
+    if not min(NIVEAUX_PAR_CONTE) <= len(niveaux) <= NIVEAUX_AU_PLUS:
         raise CatalogueInvalide(
-            f"niveaux {texte!r} : deux niveaux pour un récit simple, trois pour un récit riche "
-            f"(un seul, {HSK[-1]}, quand le récit commence au dernier palier)"
+            f"niveaux {texte!r} : deux niveaux pour un récit simple, trois pour un récit riche, "
+            f"un de plus quand l'animal est expliqué (un seul, {HSK[-1]}, quand le récit commence "
+            "au dernier palier)"
         )
     return tuple(niveaux)
 
@@ -535,7 +542,9 @@ SCHEMA: dict[str, object] = {
 REGLE_PINYIN = (
     "une syllabe par caractère chinois, dans l'ordre, séparées par une espace, en "
     "minuscules, tons marqués, sans ponctuation ; les tons du dictionnaire, sans sandhi "
-    "(一 yī, 不 bù), le ton neutre sans marque (儿子 ér zi) ; 上 après un nom : le ton du "
+    "(一 yī, 不 bù), le ton neutre sans marque (儿子 ér zi) ; 一 entre un verbe et sa "
+    "répétition au ton neutre, comme le note le 现代汉语词典 (看一看 kàn yi kàn, 摸一摸 mō yi "
+    "mō, mais 一个一个 yī ge yī ge) ; 上 après un nom : le ton du "
     "dictionnaire pour un mot qui y figure (地上 dì shang, 身上 shēn shang, 路上 lù shang, "
     "mais 马上 mǎ shàng, 天上 tiān shàng), le ton plein ailleurs (山上 shān shàng, 树桩上 "
     "shù zhuāng shàng) ; les compléments au ton plein, comme dans les contes relus au seuil "
@@ -965,7 +974,33 @@ def _syllabes(texte: str, pinyin: str, nom: str, ecarts: list[str]) -> list[str]
     ]
     if sandhi:
         ecarts.append(f"pinyin {nom} : ton modifié (sandhi), le ton du dictionnaire est attendu : {', '.join(sandhi)}")
+    pleins = [
+        f"{sinogrammes[i - 1]}一{sinogrammes[i + 1]} {syllabes[i]}"
+        for i in redoublements_en_yi(texte)
+        if syllabes[i] != "yi"
+    ]
+    if pleins:
+        ecarts.append(
+            f"pinyin {nom} : 一 d'un verbe redoublé au ton neutre, yi (看一看 kàn yi kàn) : {', '.join(pleins)}"
+        )
     return syllabes
+
+
+def redoublements_en_yi(texte: str) -> list[int]:
+    """Les rangs, parmi les sinogrammes du texte, de chaque 一 pris entre un verbe et sa
+    répétition (看一看, 摸一摸), où il se lit au ton neutre. 一个一个, 一步一步 n'en sont pas :
+    le caractère répété y suit déjà un 一. Repéré sur le texte, sans ponctuation entre les
+    trois caractères."""
+    rangs: list[int] = []
+    rang_de = {i: n for n, i in enumerate(i for i, c in enumerate(texte) if est_sinogramme(c))}
+    for i in range(1, len(texte) - 1):
+        avant, apres = texte[i - 1], texte[i + 1]
+        if texte[i] != "一" or avant != apres or not est_sinogramme(avant) or avant == "一":
+            continue
+        if i >= 2 and texte[i - 2] == "一":
+            continue
+        rangs.append(rang_de[i])
+    return rangs
 
 
 @dataclass(frozen=True)
@@ -1042,7 +1077,7 @@ def expliques_admis(
 def nouveaux_par_chapitre(version: Version, caracteres: Iterable[str]) -> list[list[str]]:
     """Pour chaque chapitre, ceux des `caracteres` qui y paraissent pour la première fois,
     dans l'ordre du texte ; le titre de la version compte au premier chapitre. Une fable n'a
-    qu'un chapitre. C'est là que le lecteur montre la carte « Mots du conte »."""
+    qu'un chapitre. C'est là que le lecteur montre la carte « Vocabulaire du conte »."""
     cherches = set(caracteres)
     vus: set[str] = set()
     par_chapitre: list[list[str]] = []
@@ -2145,12 +2180,20 @@ def controle_niveaux(
 def ecarts_au_critere(conte: Conte, listes: Path | None = None, cache: dict[Niveau, set[str]] | None = None) -> list[str]:
     """Ce qui s'écarte du critère des niveaux (en tête du catalogue) pour un conte :
 
-    - un caractère clé absent d'un niveau prévu dont la liste est versionnée ;
+    - un caractère clé (avant la barre de `cles`) absent d'un niveau prévu dont la liste est
+      versionnée ;
     - un plus bas niveau HSK trop haut : le niveau juste au-dessous a déjà tous les
       caractères clés ;
     - des niveaux qui ne montent pas de deux paliers en deux (`niveaux_attendus`), pour
       un conte dont les niveaux sont sur l'échelle (255 et HSK).
-    Un conte sans caractères clés ni niveaux n'a rien à vérifier.
+
+    Un niveau de plus quand l'animal est expliqué : les mots d'après la barre sont des mots
+    expliqués, pas des caractères clés. Si le plus bas niveau en explique qui sont déjà dans
+    le niveau suivant (l'animal, 兔 de 守株待兔 à HSK 3, dans le cumul de HSK 5), le plan
+    peut être ce niveau ajouté puis un plan de base qui commence au suivant : les mêmes
+    règles s'y lisent, ces mots comptés parmi les caractères clés (`_niveau_ajoute`), et le
+    niveau ajouté d'une fable n'en explique pas plus de `MAX_EXPLIQUES`.
+    Un conte sans caractères clés ni mots expliqués, ou sans niveaux, n'a rien à vérifier.
     """
     cache = {} if cache is None else cache
 
@@ -2164,26 +2207,65 @@ def ecarts_au_critere(conte: Conte, listes: Path | None = None, cache: dict[Nive
     ecarts: list[str] = []
     if not conte.niveaux:
         return ecarts
-    if conte.cles:
-        for n in conte.niveaux:
-            autorises = liste(n)
-            absents = "".join(c for c in conte.cles if autorises is not None and c not in autorises)
-            if absents:
-                ecarts.append(f"{conte.id} : {absents} hors du niveau {n}")
-        bas = conte.niveaux[0]
-        if est_hsk(bas) and palier(bas) > 1:
-            dessous = HSK[palier(bas) - 2]
-            autorises = liste(dessous)
-            if autorises is not None and set(conte.cles) <= autorises:
-                ecarts.append(f"{conte.id} : caractères clés tous au niveau {dessous}, plus bas que {bas}")
+    for n in conte.niveaux:
+        autorises = liste(n)
+        absents = "".join(c for c in conte.cles if autorises is not None and c not in autorises)
+        if absents:
+            ecarts.append(f"{conte.id} : {absents} hors du niveau {n}")
+    plan = _ecarts_du_plan(conte.id, conte.niveaux, conte.cles if conte.declares else None, liste)
+    ajoute = _niveau_ajoute(conte, liste) if plan else None
+    return ecarts + (plan if ajoute is None else ajoute)
+
+
+def _ecarts_du_plan(
+    identifiant: str,
+    niveaux: tuple[Niveau, ...],
+    cles: str | None,
+    liste: Callable[[Niveau], set[str] | None],
+    contexte: str = "",
+) -> list[str]:
+    """Le plus bas de `niveaux` est le premier palier qui a les `cles` (sans objet si `cles`
+    vaut `None`), et les niveaux montent de deux paliers en deux."""
+    ecarts: list[str] = []
+    bas = niveaux[0]
+    if cles is not None and est_hsk(bas) and palier(bas) > 1:
+        dessous = HSK[palier(bas) - 2]
+        autorises = liste(dessous)
+        if autorises is not None and set(cles) <= autorises:
+            ecarts.append(f"{identifiant} : caractères clés tous au niveau {dessous}, plus bas que {bas}{contexte}")
     try:
-        attendus = {niveaux_attendus(conte.niveaux[0], nombre) for nombre in NIVEAUX_PAR_CONTE}
+        attendus = {niveaux_attendus(bas, nombre) for nombre in NIVEAUX_PAR_CONTE}
     except SeuilInconnu:
         return ecarts
-    if conte.niveaux not in attendus:
+    if niveaux not in attendus:
         ecarts.append(
-            f"{conte.id} : niveaux {', '.join(str(n) for n in conte.niveaux)}, attendu "
+            f"{identifiant} : niveaux {', '.join(str(n) for n in niveaux)}, attendu "
             + " ou ".join(", ".join(str(n) for n in a) for a in sorted(attendus, key=len))
+            + contexte
+        )
+    return ecarts
+
+
+def _niveau_ajoute(conte: Conte, liste: Callable[[Niveau], set[str] | None]) -> list[str] | None:
+    """Les écarts d'un plan lu comme un niveau ajouté, où l'animal est expliqué, sous un plan
+    de base ; `None` quand le plan ne s'y prête pas : le plus bas niveau n'explique aucun mot
+    d'après la barre que le niveau suivant a déjà."""
+    if len(conte.niveaux) < 2 or not conte.expliquables:
+        return None
+    bas, suivant = conte.niveaux[0], conte.niveaux[1]
+    liste_bas, liste_suivant = liste(bas), liste(suivant)
+    if liste_bas is None or liste_suivant is None:
+        return None
+    hors = [c for c in conte.expliquables if c not in liste_bas]
+    promus = "".join(c for c in hors if c in liste_suivant)
+    if not promus:
+        return None
+    contexte = f" (plan de base, sous le niveau ajouté {bas} où {' '.join(promus)} est expliqué)"
+    ecarts = _ecarts_du_plan(conte.id, conte.niveaux[1:], conte.cles + promus, liste, contexte)
+    if not conte.long and len(hors) > MAX_EXPLIQUES:
+        ecarts.append(
+            f"{conte.id} : {len(hors)} caractères expliqués au niveau ajouté {bas} ({' '.join(hors)}), "
+            f"{MAX_EXPLIQUES} au plus"
         )
     return ecarts
 
@@ -2191,13 +2273,19 @@ def ecarts_au_critere(conte: Conte, listes: Path | None = None, cache: dict[Nive
 def controle_critere(catalogue: Sequence[Conte], listes: Path | None = None) -> Controle:
     """« contes : critère des niveaux » : les caractères clés de chaque conte sont dans
     chacun de ses niveaux, le plus bas est le premier palier qui les a, et les suivants
-    montent de deux paliers. Jamais bloquant : c'est un écart du catalogue à reprendre."""
+    montent de deux paliers ; un niveau de plus, en dessous, quand l'animal y est expliqué.
+    Jamais bloquant : c'est un écart du catalogue à reprendre."""
     cache: dict[Niveau, set[str]] = {}
     ecarts = [e for conte in catalogue for e in ecarts_au_critere(conte, listes, cache)]
-    avec_cles = sum(1 for c in catalogue if c.cles)
+    avec_cles = sum(1 for c in catalogue if c.declares)
     detail = (
-        f"{avec_cles} contes sur {len(catalogue)} disent leurs caractères clés ; "
-        + ("chacun au premier palier qui les a, niveaux de deux paliers en deux" if not ecarts else " ; ".join(ecarts[:5]))
+        f"{avec_cles} contes sur {len(catalogue)} disent leurs caractères clés ou leurs mots expliqués ; "
+        + (
+            "chacun au premier palier qui les a, niveaux de deux paliers en deux, un de plus quand "
+            "l'animal est expliqué"
+            if not ecarts
+            else " ; ".join(ecarts[:5])
+        )
     )
     return Controle("contes : critère des niveaux", not ecarts, detail, bloquant=False)
 

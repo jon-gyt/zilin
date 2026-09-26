@@ -1071,22 +1071,31 @@ le catalogue.
 
 - `niveaux` : les niveaux où le récit sera écrit, croissants, séparés par des virgules :
   deux pour un récit simple (`255,hsk3`, `hsk4,hsk6`), trois pour un récit riche
-  (`hsk4,hsk6,hsk7-9`). Les contes suivent le HSK ; les trois contes relus gardent 255
-  pour premier niveau. Le critère est écrit en tête du catalogue : sur l'échelle 255 (au
-  palier de HSK 1), `hsk1` … `hsk6`, `hsk7-9`, le plus bas est le premier niveau HSK dont
-  le cumul a tous les caractères clés du récit (255 pour les trois contes relus) ; les
-  suivants montent de deux paliers en deux, ramenés à `hsk7-9` au haut de l'échelle, où
-  les paliers restants comblent (`contes.niveaux_attendus` : `hsk5` riche donne `hsk5,
-  hsk6, hsk7-9`) ; un récit qui commence à `hsk7-9` n'a que ce niveau, le seul cas d'un
-  niveau unique. Un niveau prévu dont la liste n'est pas versionnée (405 à 1555) attend
-  sa liste ; rien n'en est écrit, et rien ne la reconstitue.
+  (`hsk4,hsk6,hsk7-9`), un de plus quand l'animal est expliqué (`hsk3,hsk5,hsk7-9` pour
+  守株待兔, simple). Les contes suivent le HSK ; les trois contes relus gardent 255 pour
+  premier niveau. Le critère est écrit en tête du catalogue : sur l'échelle 255 (au
+  palier de HSK 1), `hsk1` … `hsk6`, `hsk7-9`, le plan de base commence au premier niveau
+  HSK dont le cumul a tous les caractères clés du récit (255 pour les trois contes
+  relus) ; les suivants montent de deux paliers en deux, ramenés à `hsk7-9` au haut de
+  l'échelle, où les paliers restants comblent (`contes.niveaux_attendus` : `hsk5` riche
+  donne `hsk5, hsk6, hsk7-9`) ; un récit qui commence à `hsk7-9` n'a que ce niveau.
+  Un niveau de plus quand l'animal est expliqué (décision du propriétaire du 26 septembre
+  2026 : l'animal par son vrai caractère dès les petits niveaux) : une fable dont l'animal
+  place haut le plan de base prend, en dessous, un niveau où elle nomme l'animal en mot
+  expliqué, trois caractères hors du niveau au plus en tout ; c'est le plus bas où le récit
+  reste naturel, un choix de rédaction, et le plan de base commence alors au premier
+  palier qui a les caractères clés et l'animal (井底之蛙 : `hsk4,hsk7-9`, 蛙 龟 井 expliqués
+  à `hsk4`). Un niveau prévu dont la liste n'est pas versionnée (405 à 1555) attend sa
+  liste ; rien n'en est écrit, et rien ne la reconstitue.
 - `cles` : les caractères clés du récit, accolés (`马腿断兵`) : ses animaux et les objets
   de son intrigue, sans lesquels il perd son sujet ; le reste, noms propres compris, se
   dit autrement. L'en-tête du catalogue les relève conte par conte, avec leur niveau HSK.
-  Après une barre oblique, les personnages et objets clés que le récit peut nommer hors
-  de son niveau en mots expliqués (`羊圈补/狼`, `龙/叶`, `菜长/苗`, `虎/狐狸`) : ils ne
-  comptent pas dans le critère des niveaux. Un mot expliqué ne passe que si ses
-  caractères hors du niveau sont déclarés ici, avant ou après la barre (`Conte.declares`).
+  Après une barre oblique, les mots que le récit peut nommer hors de son niveau et
+  explique, personnages, objets ou animal (`羊补/圈狼`, `龙/叶`, `菜长/苗`, `/虎狐狸`) : ce
+  sont des mots expliqués, pas des caractères clés du niveau ; l'animal qui y passe donne
+  au récit son niveau de plus (ci-dessus), et rien ne reste avant la barre quand tout
+  s'explique (`/兔桩`). Un mot expliqué ne passe que si ses caractères hors du niveau sont
+  déclarés ici, avant ou après la barre (`Conte.declares`).
 - `chapitres` : 1 pour une fable, lue d'une traite ; plus pour un récit long, lu
   chapitre par chapitre. Les chapitres d'un récit long sont décrits dans
   `data/sources/contes/chapitres.tsv` (`conte`, `n`, `titre_fr`, `titre_en`,
@@ -1153,7 +1162,11 @@ texte d'un conte est un contenu, sa relecture se lit dans l'historique git.
 - `titre_pinyin` et `phrases[].pinyin` : **une syllabe par sinogramme**, dans l'ordre,
   séparées par une espace, en minuscules, tons marqués, sans ponctuation. Tons du
   dictionnaire, sans sandhi (一 reste `yī`, 不 reste `bù`) ; ton neutre sans marque,
-  comme CC-CEDICT le note (儿子 `ér zi`, 一个 `yī ge`). 上 après un nom suit la même règle :
+  comme CC-CEDICT le note (儿子 `ér zi`, 一个 `yī ge`). 一 entre un verbe et sa répétition
+  (V一V) est au ton neutre, `yi`, comme le note le 现代汉语词典 (décision du propriétaire
+  du 26 septembre 2026, « la lecture correcte ou la plus utilisée ») : 看一看 `kàn yi kàn`,
+  摸一摸 `mō yi mō`, 补一补 `bǔ yi bǔ` ; ailleurs 一 garde `yī`, redoublé compris (一个一个
+  `yī ge yī ge`). 上 après un nom suit la même règle que le ton neutre :
   le ton de CC-CEDICT pour un mot du dictionnaire (地上 `dì shang`, 身上 `shēn shang`, 路上
   `lù shang`, mais 马上 `mǎ shàng`, 天上 `tiān shàng`), le ton plein ailleurs
   (山上 `shān shàng`, 树桩上 `shù zhuāng shàng`). Les compléments gardent le ton plein,
@@ -1209,6 +1222,8 @@ au catalogue, niveau que
 le catalogue ne prévoit pas pour le récit, nombre de chapitres autre que celui prévu,
 phrase vide, traduction anglaise absente, pinyin qui ne
 compte pas une syllabe par sinogramme ou hors forme, ton de 一 ou 不 modifié (sandhi),
+一 d'un verbe redoublé qui n'est pas au ton neutre (`contes.redoublements_en_yi` : 看一看,
+pas 一个一个),
 sinogramme qu'aucune entrée de glose ne couvre dans le découpage du lecteur, entrée de
 glose absente du texte, pinyin d'une entrée différent de celui de la phrase où on la
 touche, entrée sans pinyin, sans `fr` ou sans `en` ; mot expliqué absent du texte, déjà
@@ -1229,9 +1244,13 @@ versions qui s'écartent du catalogue (niveau non prévu, nombre de chapitres, c
 catalogue). Il est en écart tant qu'un niveau reste à écrire, et **jamais bloquant** :
 un niveau prévu non écrit ne retient ni l'export ni l'app. Le contrôle « contes :
 critère des niveaux », jamais bloquant lui non plus, relit le critère sur les vraies
-listes : chaque caractère clé est dans chaque niveau prévu, le niveau HSK juste
-au-dessous du plus bas ne les a pas tous, et les niveaux montent de deux paliers en
-deux (`contes.ecarts_au_critere`). Le contrôle « contes : mots expliqués », jamais
+listes : chaque caractère clé (avant la barre) est dans chaque niveau prévu, le niveau
+HSK juste au-dessous du plus bas ne les a pas tous, et les niveaux montent de deux paliers
+en deux (`contes.ecarts_au_critere`). Les mots d'après la barre y comptent comme mots
+expliqués : quand le plus bas niveau en explique que le niveau suivant a déjà (l'animal),
+le plan se lit comme ce niveau ajouté puis un plan de base qui commence au suivant, ces
+mots comptés alors parmi les caractères clés, et le niveau ajouté d'une fable en explique
+trois caractères au plus. Le contrôle « contes : mots expliqués », jamais
 bloquant, relève les versions qui nomment un personnage ou un objet clé hors de leur
 niveau, et signale un caractère de mot expliqué dont l'export n'a pas les traits (le
 lecteur l'écrit alors en police) ; un mot non déclaré ou de trop tombe, lui, dans
@@ -1370,8 +1389,9 @@ caractère de ses mots expliqués : tous entrent dans le périmètre avec leurs 
 (`export.caracteres_expliques_des_contes`, versions relues et à relire), comme ceux des
 fêtes, si bien que l'app les dessine depuis `traits/` et que la police les a. Une version
 sans mot expliqué n'a pas la clé, un conte sans mot expliqué pas `racines` (format 10).
-Le lecteur montre la carte « Mots du conte » en tête du chapitre où chaque mot paraît
-pour la première fois (en tête d'une fable), et sa glose au toucher dit « mot du conte ».
+Le lecteur montre la carte « Vocabulaire du conte », le complément de vocabulaire du
+niveau, en tête du chapitre où chaque mot paraît pour la première fois (en tête d'une
+fable), et sa glose au toucher dit « mot du conte ».
 
 `app/public/data/<version>/index.json` gagne `contes: [{id, titre_fr, titre_en,
 seuils: [255, "hsk3", …], fichier}]` (un seuil en nombre, un niveau HSK en chaîne), les contes relus, et `catalogue: [{id, titre_zh,

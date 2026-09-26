@@ -1,18 +1,18 @@
 {
  "version": "0.1.0",
- "date": "2026-09-25T22:45:13Z",
- "empreinte": "sha256:ebe7c10cfc181c8659914da48ee1a1dab70cebda6e8c1fc321ec306eda8e5ffa",
+ "date": "2026-09-26T07:21:47Z",
+ "empreinte": "sha256:4237c1cd49f7f10216fa9b314cb69d6da064e669f0e09e40671c384fb2f42c08",
  "license": "propriétaire",
  "source": "décomposition GF 0014-2009 réconciliée par le pipeline wenlu ; pinyin d'Unihan (kMandarin) ; textes rédigés pour l'app",
  "source_url": "https://github.com/jon-gyt/zilin",
- "modified": "2026-09-25 : assemblé par `wenlu export`",
+ "modified": "2026-09-26 : assemblé par `wenlu export`",
  "norme": "GF 0014-2009",
  "perimetre": "seuil 255 et HSK 1 : les caractères des deux listes et leurs briques ; les caractères dessinés des fêtes, des termes solaires, des rangs du personnage et des mots expliqués des contes, et leurs briques",
  "licences": "LICENCES.md",
  "compte": {
-  "familles": 254,
-  "caracteres": 566,
-  "briques": 240,
+  "familles": 258,
+  "caracteres": 576,
+  "briques": 244,
   "muettes": 0,
   "decoupees": 13,
   "fiches_relues": 0,
@@ -3751,6 +3751,13 @@
    "avancement_possible": 0.0
   },
   {
+   "racine": "㔾",
+   "fichier": "familles/㔾.json",
+   "traits": "traits/㔾.json",
+   "n": 1,
+   "avancement_possible": 0.0
+  },
+  {
    "racine": "㠯",
    "fichier": "familles/㠯.json",
    "traits": "traits/㠯.json",
@@ -4132,7 +4139,7 @@
    "racine": "免",
    "fichier": "familles/免.json",
    "traits": "traits/免.json",
-   "n": 1,
+   "n": 2,
    "avancement_possible": 0.0
   },
   {
@@ -4370,7 +4377,7 @@
    "racine": "囗",
    "fichier": "familles/囗.json",
    "traits": "traits/囗.json",
-   "n": 5,
+   "n": 6,
    "avancement_possible": 0.0
   },
   {
@@ -5165,10 +5172,17 @@
    "avancement_possible": 0.0
   },
   {
+   "racine": "虍",
+   "fichier": "familles/虍.json",
+   "traits": "traits/虍.json",
+   "n": 2,
+   "avancement_possible": 0.0
+  },
+  {
    "racine": "虫",
    "fichier": "familles/虫.json",
    "traits": "traits/虫.json",
-   "n": 2,
+   "n": 4,
    "avancement_possible": 0.0
   },
   {
@@ -5396,6 +5410,13 @@
    "avancement_possible": 0.0
   },
   {
+   "racine": "龟",
+   "fichier": "familles/龟.json",
+   "traits": "traits/龟.json",
+   "n": 1,
+   "avancement_possible": 0.0
+  },
+  {
    "racine": "龰",
    "fichier": "familles/龰.json",
    "traits": "traits/龰.json",
@@ -5413,7 +5434,14 @@
    "racine": "龶",
    "fichier": "familles/龶.json",
    "traits": "traits/龶.json",
-   "n": 2,
+   "n": 3,
+   "avancement_possible": 0.0
+  },
+  {
+   "racine": "龹",
+   "fichier": "familles/龹.json",
+   "traits": "traits/龹.json",
+   "n": 1,
    "avancement_possible": 0.0
   },
   {
@@ -5516,6 +5544,7 @@
    "titre_fr": "Guetter la souche en attendant le lièvre",
    "titre_en": "Waiting by the Stump for a Hare",
    "niveaux": [
+    "hsk3",
     "hsk5",
     "hsk7-9"
    ],
@@ -5554,6 +5583,7 @@
    "titre_fr": "Ajouter des pattes au serpent",
    "titre_en": "Drawing Legs on a Snake",
    "niveaux": [
+    "hsk3",
     "hsk5",
     "hsk7-9"
    ],
@@ -5566,6 +5596,7 @@
    "titre_fr": "La grenouille au fond du puits",
    "titre_en": "The Frog at the Bottom of the Well",
    "niveaux": [
+    "hsk4",
     "hsk7-9"
    ],
    "chapitres": 1
@@ -5577,6 +5608,7 @@
    "titre_fr": "Le renard emprunte la puissance du tigre",
    "titre_en": "The Fox Borrows the Tiger's Might",
    "niveaux": [
+    "hsk3",
     "hsk5",
     "hsk7-9"
    ],
@@ -5626,6 +5658,7 @@
    "titre_fr": "Réparer l'enclos après la perte des moutons",
    "titre_en": "Mending the Pen after Losing a Sheep",
    "niveaux": [
+    "hsk3",
     "hsk4",
     "hsk6"
    ],

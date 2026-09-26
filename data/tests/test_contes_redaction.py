@@ -310,6 +310,32 @@ def test_les_tons_de_yi_et_bu_sont_ceux_du_dictionnaire() -> None:
     assert any("sandhi" in e and "一 yì" in e and "不 bú" in e for e in ecarts)
 
 
+def test_yi_d_un_verbe_redouble_est_au_ton_neutre() -> None:
+    """Décision du propriétaire, le 现代汉语词典 : 看一看 kàn yi kàn. Un 一 plein entre un
+    verbe et sa répétition est un écart ; 一个一个 garde yī."""
+    assert contes.redoublements_en_yi("去看一看，一个一个，看。一看") == [2]
+    liste = LISTE + ["一", "看", "个"]
+    phrases = [dict(PHRASE) for _ in range(8)] + [
+        {"zh": "山上看一看。", "pinyin": "shān shàng kàn yī kàn", "fr": "Une phrase.", "en": "A sentence."},
+        {"zh": "一个一个看。", "pinyin": "yī gè yī gè kàn", "fr": "Une phrase.", "en": "A sentence."},
+    ]
+    document = brouillon(phrases=phrases)
+    document["glose"] = [  # type: ignore[index]
+        *document["glose"],  # type: ignore[misc]
+        {"zh": "看一看", "pinyin": "kàn yī kàn", "fr": "jeter un œil", "en": "take a look"},
+        {"zh": "一个一个", "pinyin": "yī gè yī gè", "fr": "un par un", "en": "one by one"},
+        {"zh": "看", "pinyin": "kàn", "fr": "regarder", "en": "look"},
+    ]
+    ecarts = valider(version_de(document), liste).ecarts
+    assert [e for e in ecarts if "redoublé" in e] == [
+        "pinyin de la phrase 9 : 一 d'un verbe redoublé au ton neutre, yi (看一看 kàn yi kàn) : 看一看 yī"
+    ]
+    phrases[8] = {**phrases[8], "pinyin": "shān shàng kàn yi kàn"}
+    document["phrases"] = phrases
+    document["glose"][-3]["pinyin"] = "kàn yi kàn"  # type: ignore[index]
+    assert not [e for e in valider(version_de(document), liste).ecarts if "redoublé" in e]
+
+
 def test_la_traduction_anglaise_manquante_est_un_ecart() -> None:
     phrases = [dict(PHRASE) for _ in range(10)]
     phrases[0] = {**PHRASE, "en": ""}
