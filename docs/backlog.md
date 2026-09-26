@@ -29,7 +29,7 @@ Format BMAD : épics puis stories. Priorité dans l'ordre. Une story se termine 
 
 ## Épic 2c · Contes
 - 2c.1 Mode Lire : bibliothèque de contes, version choisie d'après l'acquis (le niveau le plus haut dont tous les caractères sont acquis), lecture avec glose au toucher, audio.
-- 2c.2 Le même conte remonte d'un niveau quand l'acquis le permet ; l'app signale qu'une version plus riche est ouverte. Trois contes gratuits au seuil 255, bibliothèque complète en payant.
+- 2c.2 Le même conte remonte d'un niveau quand l'acquis le permet ; l'app signale qu'une version plus riche est ouverte. Gratuits : les fables courtes du début et les trois contes du seuil 255, à ce niveau ; bibliothèque complète en payant (brief §10, décision du 26 septembre 2026).
 - 2c.3 Lire en étagères : « Aujourd'hui » (l'anecdote en fiche, la lettre de Que en enveloppe), puis les contes en livres cousus sur trois étagères, « À lire maintenant », « Bientôt » (sur le chemin, « s'ouvre dans N j »), « Plus loin ». Motif de couverture au catalogue.
 
 ## Épic 3 · Révision
@@ -63,9 +63,26 @@ Format BMAD : épics puis stories. Priorité dans l'ordre. Une story se termine 
 
 ## Épic 6 · iOS
 - 6.1 Shell Capacitor, build CI sur runner macOS, TestFlight.
-- 6.2 Achats StoreKit 2 (à vie, mensuel), Small Business Program.
+- 6.2 Achats StoreKit 2 : Wenlu complet, achat à vie non consommable et abonnement mensuel, les mêmes droits par les deux voies. Aucun compte ni serveur : les droits se lisent sur l'appareil (`Transaction.currentEntitlements` au lancement et au retour au premier plan, `Transaction.updates` en continu), « Restaurer les achats » dans Réglages, et `droits.ts` (7.1) ne connaît que « Wenlu complet, par achat » ; rien sur le web. Le code de moins 30 % du palier (brief §8), vers le 37e jour, à usage unique, sur l'achat à vie seulement : un code d'offre App Store si Apple l'ouvre aux achats non consommables, sinon un second produit non consommable au prix réduit, que l'app ne montre qu'une fois ; à vérifier sur la documentation d'Apple avant d'écrire. Aucune date limite affichée. Le plugin natif (Swift, dans `app/ios-template/`) ou la dépendance Capacitor se justifie dans le message de commit. Small Business Program ; les produits se déclarent dans App Store Connect (`docs/ios-sans-mac.md`).
 - 6.3 iCloud (CloudKit), haptique, widget caractère du jour.
 - 6.4 Fiche App Store, captures, candidature au featuring.
+
+## Épic 7 · Gratuit et payant
+Décisions du propriétaire du 26 septembre 2026, brief §8 (paliers), §10 et §13. Rien de ce qui est acquis ne se perd ni ne se ferme ; la pédagogie ne s'achète pas.
+- 7.1 Les droits sans compte : `droits.ts`, pur, testé (un test par règle). Wenlu complet vient d'un achat (6.2), d'un jour ou d'une semaine offerts par un palier, ou du palier de 365 jours ; sur le web, jamais. Le rythme : complet pendant les trente premiers jours du chemin, sessions de plus comprises ; ensuite, au rythme gratuit, deux briques par semaine, du lundi au dimanche, trois jours au moins entre deux, rien ne s'accumule. La prochaine brique gratuite se calcule (« dans N j »), jamais s'estime. La révision de tout l'acquis reste toujours ouverte. La progression garde les cadeaux des paliers et leurs dates, et les jours des briques gratuites, export et import compris ; une progression modifiée à la main peut ouvrir un cadeau (risque accepté, brief §13).
+- 7.2 La journée sans brique nouvelle : six pas dans le même ordre, sur l'acquis ; Apprendre revient sur la brique acquise la plus fragile (fiche, un composé, tracé s'il est activé) ; la carte du jour sans cinabre ; Clore plante la graine. La session de plus, seulement avec Wenlu complet ou dans les trente premiers jours ; sinon « Réviser encore ». Sans achat, le jour du message WeChat prend l'éclair (`utiliser.ts`). Tests dans `session.ts`.
+- 7.3 Ce qui est de Wenlu complet, écran par écran : les contes au-delà des fables du début et des trois du seuil 255 ; les lettres de Que à partir de la cinquième ; le message WeChat ; les devinettes au-delà d'une par jour ; les sept plats de plus ; les formes anciennes ; le chemin au-delà du seuil 255 et du HSK 1 ; iCloud. Chaque écran le dit par une ligne et un lien vers Réglages, sans fenêtre modale ; les paires à ne pas confondre et les saisons restent gratuites.
+- 7.4 Les paliers remis par Que : à 7 jours, la journée suivante en Wenlu complet ; à 30 jours, une semaine, qui commence au premier jour du rythme gratuit s'il n'a pas commencé ; à la fin de cette semaine, le code de moins 30 % (6.2), montré une fois ; à 100 jours, une deuxième semaine ; à 365 jours, Wenlu complet. Qui a déjà Wenlu complet : le sceau et le cadeau, rien de plus ; sur le web, de même.
+- 7.5 La limite dite calmement : une ligne de Clore le jour où le rythme gratuit commence ; au menu, « Dans 3 j : 子 enfant » ; sur la route devant (`route.ts`), « prochaine brique dans N j » sur la pierre suivante, les bornes et l'étagère « Bientôt » de Lire en étapes, « fin du chemin gratuit » au bout ; Wenlu complet présenté dans Réglages. Ni compte à rebours, ni relance, ni pastille ; aucune phrase de Tao ne parle d'achat. Textes par le pipeline. Vérifié à 393 × 660.
+
+## Épic 8 · Examens 科举
+Décisions du propriétaire du 26 septembre 2026 : « aux paliers de caractères », « Pause jusqu'à réussite », « Points ET examen » (brief §8, « Les examens 科举 » et « Le personnage »). Six examens à 50, 100, 200, 255, 505 et 805 caractères lus (县试, 府试, 院试, 乡试, 会试, 殿试), puis quatre nominations à 1 000, 1 200, 1 555 et 1 800 (翰林, 探花, 榜眼, 状元). Pas de maquette encore : à faire valider par le propriétaire avant l'écran (8.3).
+- 8.1 Le contenu, par le pipeline : `data/sources/examens/`, rédigé sans API et relu, dans le circuit des lettres et de WeChat (brouillons, `wenlu examens contexte | importer | apercu`, statut `a_relire`, traçabilité). Pour chaque examen : nom, pinyin, ce qu'il était, palier, titre ; deux séries pour chacun des deux chemins (Lire, HSK), d'une quinzaine de questions : quatre ou cinq de revue de l'acquis, les autres en mises en situation (pancarte, menu, billet de train, court message, lettre), chacune avec son type (sens, repérage, vrai ou faux, réplique), ses choix, sa réponse et les caractères qui la portent. Seuls les caractères que le chemin a posés au jour du palier (rejet sinon). Phrases de Tao (« pas encore », reçu). `examens.json`, nommé par l'index et dans l'empreinte ; les noms des examens et des rangs dans le périmètre des traits ; contrôles bloquants dans `wenlu check` (sources, pinyin, périmètre, types, export). Le premier lot : le 县试, qui tombe avant la fin des trente jours gratuits.
+- 8.2 La logique : `examens.ts`, pur, testé (un test par règle). Le palier atteint ouvre l'examen, dans l'ordre ; aucune brique nouvelle tant qu'il n'est pas réussi ; jamais en rattrapage ; reçu à quatre réponses sur cinq justes du premier essai ; une bonne réponse note ses caractères par `grade` et donne un point 读, une erreur les note faux ; la reprise est permise quand chaque caractère manqué a été revu juste à son échéance, et prend l'autre série ; aucune règle ne lit une durée. La progression garde `examens` (ouvert, série, question en cours, réponses, manqués, date de réussite), export et import compris ; une progression d'avant les examens garde ses rangs annoncés, les examens en dessous notés reçus.
+- 8.3 L'écran de l'examen : le nom dessiné depuis ses traits, la mise en situation dessinée à plat (enseigne, carte de menu, billet, bulle, feuille), la question, sans chronomètre ; « Quitter » reprend à la même question ; le résultat en constat, les caractères manqués dessinés depuis leurs traits. Tao dans sa posture d'examen, le panier 考篮 à la porte, puis la liste. Charte : indigo pour l'action, jade pour le reçu, ni cinabre, ni ombre, ni doré, ni emoji. Vérifié à 393 × 660.
+- 8.4 Les briques en pause : pendant un examen à passer, la journée sans brique nouvelle (7.2), Échauffer et Apprendre prennent d'abord les caractères manqués ; pas de session de plus ; au menu, la journée faite, « Passer l'examen 县试 », puis, tant que la reprise attend, « Réviser encore » et une ligne sans compte à rebours ; Clore dit le palier atteint. Au rythme gratuit, les briques de la semaine attendent aussi, sans s'accumuler. Tests dans `session.ts`.
+- 8.5 Les rangs, « Points ET examen » : dans `heros.ts`, un titre s'accorde quand l'examen est réussi et les points atteints, dans l'ordre des rangs ; les quatre nominations à leur palier de caractères lus. La taille et la silhouette suivent les points, la tenue le titre accordé. L'en-tête montre le rang tenu, sans pastille ; « Mon personnage » : barre pleine et « Reste le 院试 », ou « Reçu au 院试 · encore 12 points », et les examens réussis avec leur date ; le 放榜 au titre accordé, une fois. `rangs.tsv` prend l'examen ou le palier de chaque rang ; `heros.json` suit, contrôle des sources mis à jour.
+- 8.6 La borne de la route : l'examen dans `route.bornesDevant`, au jour du chemin où entre le Ne caractère, son nom sur la stèle ; une seule stèle quand il tombe sur un seuil du trophée Lire ; l'examen à passer se dresse devant la pierre du jour, « examen ouvert », les pierres suivantes sans compte ; au rythme gratuit, en étapes. Tests dans `route.test.ts`. Pas de sceau aux trophées.
 
 ## État au 21 septembre 2026
 
@@ -495,6 +512,11 @@ anglaise, glose par mot.
   elkmovie/hsk30 et d'ivankra/hsk30, lus le 25 septembre) ; le référentiel lui-même,
   œuvre du ministère chinois de l'Éducation, reste à trancher (le README d'ivankra/hsk30
   le dit peut-être du domaine public, selon le droit chinois).
+- **Adresse de support** : une adresse dédiée, à créer quand le propriétaire aura un nom
+  de domaine (brief §18, question 1). Elle ira sur la page de confidentialité
+  (`/zilin/confidentialite/`, `/zilin/en/privacy/`, engendrée par `app/scripts/site/`) et
+  dans App Store Connect (URL et contact de support, adresse de contact de la revue bêta,
+  `docs/ios-sans-mac.md`). D'ici là, aucune adresse personnelle.
 
 ### Épic 6, en partie : prêt pour un premier TestFlight gratuit (26 septembre)
 
@@ -516,4 +538,4 @@ anglaise, glose par mot.
 
 ### Non commencées
 
-2c.1, 2c.2, 6.2, 6.4, et dans 6.3 iCloud et le widget.
+2c.1, 2c.2, 6.2, 6.4, et dans 6.3 iCloud et le widget ; les épics 7 (gratuit et payant) et 8 (examens).

@@ -72,13 +72,13 @@ Il tient sur un écran de téléphone, sans défiler.
 - En-tête : la marque, puis le portrait du personnage, Chercher (une loupe) et Réglages, par trois icônes. Le portrait est la tête du personnage à son rang, dans la case d'une icône ; il ouvre « Mon personnage ». Pendant une fête, le vœu prend la place de la marque ; les icônes restent.
 - La carte du jour : le caractère dans son 米字格, dessiné depuis les traits, la brique nouvelle en cinabre ; son pinyin, qui se fait entendre ; son sens et sa décomposition (亻 + 主). Toucher le caractère le réécrit au pinceau et le prononce.
 - Le chemin : six coups de pinceau, un par pas (faits en jade, en cours à l'encre, à venir en filet). Tao marche sur le pas en cours et dit une phrase qui dépend de l'état de la journée ; la toucher la fait sauter et changer de phrase. Dessous, « Pas 2 sur 6 · Échauffer » et la durée.
-- La journée faite, une ligne discrète sous le chemin : « Demain : 子 enfant », la brique de la prochaine session dessinée depuis ses traits et son premier sens, et à droite « Ma route › », qui ouvre la route devant 前路 (§8) et y ramène. Ni avant la session, ni pendant, ni en session de plus, ni en rattrapage ; rien au bout du parcours. Retour du propriétaire du 26 septembre 2026 : « il manque une visibilité sur ce qui va être appris au fur et à mesure ». La ligne ne prend que la hauteur de son texte : le menu tient toujours à 393 × 660, fêtes comprises.
-- Un seul bouton plein : « Commencer la session », « Reprendre au pas 3 ». La journée faite, il devient « Une session de plus · une brique », en contour.
+- La journée faite, une ligne discrète sous le chemin : « Demain : 子 enfant », la brique de la prochaine session dessinée depuis ses traits et son premier sens, et à droite « Ma route › », qui ouvre la route devant 前路 (§8) et y ramène. Au rythme gratuit (§10), quand la brique suivante n'est pas pour le lendemain : « Dans 3 j : 子 enfant », en jours du calendrier, ceux que fixe la règle, jamais estimés. Ni avant la session, ni pendant, ni en session de plus, ni en rattrapage ; rien au bout du parcours. Retour du propriétaire du 26 septembre 2026 : « il manque une visibilité sur ce qui va être appris au fur et à mesure ». La ligne ne prend que la hauteur de son texte : le menu tient toujours à 393 × 660, fêtes comprises.
+- Un seul bouton plein : « Commencer la session », « Reprendre au pas 3 ». La journée faite, il devient « Une session de plus · une brique », en contour, avec Wenlu complet et pendant les trente premiers jours du chemin ; au rythme gratuit, « Réviser encore », en contour : une révision de plus, sans brique. Un examen à passer (§8, « Les examens 科举 »), la journée faite, il devient « Passer l'examen 县试 », plein.
 - Quatre cases identiques : Réviser 温, Jouer 玩, Lire 读, Ma forêt 林. Avant la session, Réviser dit « Dans la session » et ouvre le pas Échauffer, pour que la pile ne se vide jamais en douce ; après, elle ouvre une révision en plus. Jouer est la seule porte des jeux (§9, « L'écran Jouer »). Lire ouvre les contes, et en tête l'anecdote du jour, à relire. Ma forêt garde les familles, la série, les récompenses et la route devant (§8), deux niveaux au plus.
 - Chaque écran ouvert depuis le menu a un seul retour, qui y ramène.
-- Quand un rang du personnage est franchi, l'écran 放榜 passe au retour au menu, avant lui, jamais au milieu d'un pas.
+- Quand un titre du personnage est accordé (§8), l'écran 放榜 passe au retour au menu, avant lui, jamais au milieu d'un pas.
 
-États du menu : nouvelle journée ; session entamée (reprise au pas exact, sauvegarde à chaque tap) ; journée faite (« Graine plantée, une seule par jour ») ; session de plus en cours ; retour après absence (mode rattrapage : révisions seules par blocs de cinq minutes, annoncés un à la fois, « Bloc 1 · 14 cartes », Tao en pot, aucun nouveau caractère tant que la pile n'est pas redescendue, message neutre, jamais de compteur de jours perdus).
+États du menu : nouvelle journée ; session entamée (reprise au pas exact, sauvegarde à chaque tap) ; journée faite (« Graine plantée, une seule par jour ») ; session de plus en cours ; journée sans brique nouvelle au rythme gratuit (la carte du jour montre la brique revue, sans cinabre : rien n'est ajouté) ; examen à passer, puis, s'il n'est pas réussi, pause jusqu'à réussite (§8, « Les examens 科举 ») ; retour après absence (mode rattrapage : révisions seules par blocs de cinq minutes, annoncés un à la fois, « Bloc 1 · 14 cartes », Tao en pot, aucun nouveau caractère tant que la pile n'est pas redescendue, message neutre, jamais de compteur de jours perdus).
 
 ### La session, six pas dans le même ordre
 
@@ -93,9 +93,11 @@ Les pas s'enchaînent sans repasser par le menu. Chaque pas porte en tête la m�
 
 Budget choisi par l'utilisateur : 5, 10 ou 20 minutes.
 
+Journée sans brique nouvelle : au rythme gratuit, entre deux briques (§10), et tant qu'un examen attend d'être réussi (§8), la session garde ses six pas, dans le même ordre, sur l'acquis. Apprendre revient sur une brique déjà acquise, la plus fragile, ou, après un examen manqué, sur un caractère manqué : sa fiche, un composé qu'elle a ouvert, le tracé s'il est activé. Utiliser lit un texte de l'acquis, Fixer vérifie, Clore plante la graine comme un autre jour. Aucun caractère n'entre en révision qui n'y était déjà, et la carte du jour n'a pas de cinabre, puisque rien n'est ajouté.
+
 ### Travailler plus : la session de plus
 
-La journée faite, « Une session de plus » ajoute une brique : quatre pas, Apprendre (la brique suivante du parcours), Utiliser, Fixer, Clore. Pas d'anecdote ; Échauffer passe devant seulement s'il reste des cartes dues. Jamais une seconde graine : la série compte les jours, pas les sessions, et le menu garde le compte (« Graine plantée · 2 sessions de plus »). Pas de limite par jour. Jamais en rattrapage : aucune brique nouvelle n'entre tant que la pile n'est pas redescendue. Rien ne remet la journée à zéro avant le lendemain.
+La journée faite, « Une session de plus » ajoute une brique : quatre pas, Apprendre (la brique suivante du parcours), Utiliser, Fixer, Clore. Pas d'anecdote ; Échauffer passe devant seulement s'il reste des cartes dues. Jamais une seconde graine : la série compte les jours, pas les sessions, et le menu garde le compte (« Graine plantée · 2 sessions de plus »). Avec Wenlu complet, pas de limite par jour ; sans achat, seulement pendant les trente premiers jours du chemin (§10), qu'une session de plus consomme comme une autre : chaque leçon est un jour du chemin. Jamais en rattrapage : aucune brique nouvelle n'entre tant que la pile n'est pas redescendue. Jamais non plus quand un examen attend d'être réussi (§8). Rien ne remet la journée à zéro avant le lendemain.
 
 Fluidité : un tap par écran, bouton principal unique en bas, avance automatique après une bonne réponse (1,3 s, tap pour aller plus vite), audio au toucher du caractère, pas de menu ni de fenêtre modale en session, « Quitter » sauvegarde sans question. Explications en trois phrases ; la suite dans la fiche, d'un tap.
 
@@ -120,20 +122,29 @@ Fluidité : un tap par écran, bouton principal unique en bas, avance automatiqu
 
 - Une graine par jour travaillé, sept graines font un arbre. Écran de série animé après chaque révision. Un jour de rattrapage est un jour travaillé : le premier bloc fait plante la graine, une seule par jour.
 - Jour de repos : un par semaine complète, deux en réserve au plus, protège la série.
-- Paliers : 7 jours, un jour de Wenlu complet ; 30 jours, une semaine ; 100 jours, moins 30 % sur l'achat à vie (code à usage unique) ; 365 jours, Wenlu complet offert. Pas de remise sur l'abonnement mensuel.
+- Paliers de la série, remis par Que 雀 (décisions du propriétaire du 26 septembre 2026, « Ok pour les 30 pourcents ») :
+  - 7 jours : un jour de Wenlu complet, la journée suivante, celle du premier message WeChat (§9). Le rythme est encore complet : ce jour ouvre ce que le rythme ne donne pas (§10, « Payant »).
+  - 30 jours : une semaine de Wenlu complet, sept jours du calendrier, pour essayer le rythme payant : une brique chaque jour et les sessions de plus. Elle commence le lendemain du palier ; si l'on est encore dans les trente premiers jours du chemin (une journée de rattrapage n'y avance pas), elle commence au premier jour du rythme gratuit, pour faire essayer ce qu'on n'a pas déjà.
+  - À la fin de cette semaine, vers le 37e jour : un code à usage unique, moins 30 % sur l'achat à vie, montré une fois, sans compte à rebours. Il remplace la remise que portait le palier de 100 jours.
+  - 100 jours : une deuxième semaine de Wenlu complet, comme à 30 jours ; pas de nouvelle remise.
+  - 365 jours : Wenlu complet offert.
+
+  Pas de remise sur l'abonnement mensuel. Qui a déjà Wenlu complet reçoit le sceau et le cadeau de Que, rien de plus. Sur le web, ni achat ni code : les paliers y donnent le sceau et le cadeau de Que.
 - Ma forêt : une colline, un arbre par famille dont la taille suit la progression, un brin d'herbe par caractère, Miao dessus. Le dimanche, récapitulatif de la semaine partageable en image.
 - La route devant 前路 : ce qui va être appris, au fur et à mesure. Retour du propriétaire du 26 septembre 2026 : « il manque une visibilité sur ce qui va être appris au fur et à mesure » ; la carte entière du parcours est écartée (« pas besoin de tout voir, juste le détail de l'étape et une vue partielle proche des prochaines étapes »), et l'écran doit être « plus joli ». On y entre depuis Ma forêt (« La route devant », avec la brique de demain), ou depuis la ligne « Demain » du menu, la journée faite ; un seul retour ramène là d'où l'on vient.
   - En tête : « ‹ Retour », « La route devant 前路 », puis « 25 caractères lus · 20 / 300 du HSK 1 » (les lus de Ma forêt).
   - La scène, en papier découpé : trois collines en aplats, quelques pins de jade, un soleil pâle, et la route qui monte en lacets vers la montagne. Sur la route, chaque pierre porte sa brique, dessinée depuis ses traits : deux derrière, lues, au jade ; celle du jour, cerclée de cinabre, la position, où se tient Tao, dans sa posture du chemin, avec un sceau « jour 12 » ; six devant, au trait. Au premier jour, rien derrière ; près du bout, moins de pierres devant, et la route s'arrête à la dernière (« fin du parcours »). Toucher une pierre la choisit.
-  - Au bout, dans la brume (des bandes de papier), les deux prochaines bornes, et rien au-delà, chacune sur une stèle au pointillé d'indigo avec « dans 13 j » : un seuil du trophée Lire (10, 50, 100, 255…), au jour du chemin où entre le Ne caractère, ou un conte qui s'ouvre, au jour où entre le dernier caractère qui lui manque (le calcul de l'étagère « Bientôt » de Lire), son motif sur la stèle. Un trophée obtenu, un seuil dont les caractères sont déjà rencontrés sans être lus, un conte dont le jour ne se calcule pas ne s'annoncent pas. Une pierre qui porte l'une des deux bornes a son petit repère d'indigo.
+  - Au bout, dans la brume (des bandes de papier), les deux prochaines bornes, et rien au-delà, chacune sur une stèle au pointillé d'indigo avec « dans 13 j » : un seuil du trophée Lire (10, 50, 100, 255…), au jour du chemin où entre le Ne caractère, un examen (« Les examens 科举 » ci-dessous), à son palier compté de la même façon, son nom dessiné depuis ses traits, ou un conte qui s'ouvre, au jour où entre le dernier caractère qui lui manque (le calcul de l'étagère « Bientôt » de Lire), son motif sur la stèle. Un trophée obtenu, un seuil dont les caractères sont déjà rencontrés sans être lus, un conte dont le jour ne se calcule pas ne s'annoncent pas. Une pierre qui porte l'une des deux bornes a son petit repère d'indigo.
   - La carte de l'étape choisie, demain par défaut : la brique dans son 米字格, dessinée depuis ses traits, son pinyin et son sens (la fiche), les caractères qu'elle ouvre avec leur pinyin et leur sens, la borne de ce jour-là s'il y en a une ; demain, « Prochaine borne : 50 caractères, dans 13 jours ».
   - Les jours sont ceux du chemin : les leçons du parcours que la session pose une à une, celles de la carte du jour, jamais des dates. Une journée sautée ne compte pas, un jour que la session saute (non réconcilié) non plus, et rien ne s'estime. Avant la session, la pierre du jour est la leçon à poser ; la journée faite, celle apprise. En rattrapage, où aucune brique n'entre, la suite se dit en étapes (« l'étape suivante »), jamais « demain ».
+  - Un seuil du trophée Lire et un examen au même palier (50, 100, 255, 505) partagent une stèle, « 县试 · 50 caractères ». Un examen à passer ne se compte plus : sa stèle se dresse sur la route, juste devant la pierre du jour, « examen ouvert » ; les pierres suivantes restent au trait, sans compte, jusqu'à ce qu'il soit réussi.
+  - Au rythme gratuit (§10), un jour du chemin n'est plus un jour : les bornes disent « dans N étapes », comme en rattrapage, et l'étagère « Bientôt » de Lire aussi. Seule la pierre suivante porte un compte en jours du calendrier, « prochaine brique dans N j », celui que la règle fixe, jamais estimé ; la carte de l'étape dit « Prochaine brique dans 3 jours ». Au bout du chemin gratuit, la dernière pierre dit « fin du chemin gratuit », et la suite en une ligne (le HSK 2, le seuil 405), sans insistance.
   - Charte : des aplats, ni ombre, ni dégradé, ni doré, ni emoji, ni dragon ; le cinabre ne marque que la position (la pierre du jour, son sceau, son « aujourd'hui »), le jade l'acquis, l'indigo les bornes et le choix. Les couleurs suivent le thème du jour, fêtes et nuits comprises. Rien ne bouge si l'on réduit les animations. Tout se décide dans `app/src/lib/route.ts`.
 - Notification : une par jour, à l'heure choisie, avec le début de l'anecdote.
 
 ### Le tableau des trophées
 
-On y entre depuis Ma forêt (« Tes trophées », N sur M et le prochain). Règle : chaque trophée se gagne en lisant, jamais au temps passé. Aucune règle ne lit une durée, un budget ou un temps de réponse. Pas de points, pas de classement, pas de doré. Tout se calcule depuis la progression et le contenu exporté (`app/src/lib/trophees.ts`).
+On y entre depuis Ma forêt (« Tes trophées », N sur M et le prochain). Règle : chaque trophée se gagne en lisant, jamais au temps passé. Aucune règle ne lit une durée, un budget ou un temps de réponse. Pas de points, pas de classement, pas de doré. Tout se calcule depuis la progression et le contenu exporté (`app/src/lib/trophees.ts`). Les examens n'y ont pas de sceau (« Les examens 科举 » ci-dessous).
 
 | Famille | Ce qui le donne | Sceau |
 |---|---|---|
@@ -153,38 +164,66 @@ Ce qu'aucun écran n'alimente encore reste verrouillé, jamais estimé. La progr
 
 Au premier lancement, après l'objectif et le rythme, on choisit son personnage parmi trois bêtes, non genrées, pour que chacun s'y reconnaisse : 玉兔 le lapin de jade (la légende de la lune), 熊猫 le panda, 醒狮 le lion dansé (la danse du Nouvel An). On lui donne un nom : trois idées par bête, ou un nom libre, en lettres ou en caractères. Tao ne se choisit pas : elle reste celle qui aide, à côté du personnage, avec sa bulle. Une progression commencée avant le personnage le choisit la première fois qu'elle ouvre son écran. Réglages change la bête ou le nom sans rien perdre : les points et le rang restent (choix par défaut du lead).
 
-Douze rangs, du bébé à l'adulte : l'éveil, l'enfance, puis les grades des examens impériaux jusqu'au trio du palais. Chaque titre est traduit mot à mot.
+Douze rangs, du bébé à l'adulte : l'éveil, l'enfance, puis les grades des examens impériaux jusqu'au trio du palais. Chaque titre est traduit mot à mot. Décision du propriétaire du 26 septembre 2026, « Points ET examen » : les points font toujours grandir le personnage, mais un titre d'examen ne s'accorde qu'une fois l'examen réussi et les points atteints ; les quatre derniers rangs, sans examen, demandent un palier de caractères lus (« Les examens 科举 » ci-dessous).
 
-| Rang | Pinyin | Mot à mot | Rôle | Âge | Points |
-|---|---|---|---|---|---|
-| 启蒙 | qǐméng | lever le voile | les tout premiers caractères | bébé | 0 |
-| 蒙童 | méngtóng | l'enfant qu'on éveille | les premières leçons | tout-petit | 10 |
-| 学童 | xuétóng | l'enfant qui étudie | l'école du village, 私塾 | enfant | 25 |
-| 童生 | tóngshēng | l'enfant lettré | en route pour le premier examen | grand enfant | 50 |
-| 秀才 | xiùcai | talent éclos | reçu à l'examen du district | ado | 80 |
-| 举人 | jǔrén | la personne recommandée | reçu à l'examen de la province | ado | 120 |
-| 贡士 | gòngshì | le lettré offert au trône | reçu au concours de la capitale | jeune | 180 |
-| 进士 | jìnshì | le lettré qui s'avance | reçu à l'examen du palais | jeune | 260 |
-| 翰林 | hànlín | la forêt des pinceaux | membre de l'Académie impériale | adulte | 360 |
-| 探花 | tànhuā | cueillir les fleurs | troisième à l'examen du palais | adulte | 500 |
-| 榜眼 | bǎngyǎn | l'œil du tableau | deuxième à l'examen du palais | adulte | 700 |
-| 状元 | zhuàngyuan | tête de liste | en tête de l'examen du palais | adulte | 1 000 |
+| Rang | Pinyin | Mot à mot | Rôle | Âge | Points | Et aussi |
+|---|---|---|---|---|---|---|
+| 启蒙 | qǐméng | lever le voile | les tout premiers caractères | bébé | 0 | — |
+| 蒙童 | méngtóng | l'enfant qu'on éveille | les premières leçons | tout-petit | 10 | — |
+| 学童 | xuétóng | l'enfant qui étudie | l'école du village, 私塾 | enfant | 25 | — |
+| 童生 | tóngshēng | l'enfant lettré | reçu au district et à la préfecture, candidat au 院试 | grand enfant | 50 | 县试 et 府试 |
+| 秀才 | xiùcai | talent éclos | reçu à l'examen du commissaire aux études | ado | 80 | 院试 |
+| 举人 | jǔrén | la personne recommandée | reçu à l'examen de la province | ado | 120 | 乡试 |
+| 贡士 | gòngshì | le lettré offert au trône | reçu au concours de la capitale | jeune | 180 | 会试 |
+| 进士 | jìnshì | le lettré qui s'avance | reçu à l'examen du palais | jeune | 260 | 殿试 |
+| 翰林 | hànlín | la forêt des pinceaux | membre de l'Académie impériale | adulte | 360 | nommé à 1 000 caractères lus |
+| 探花 | tànhuā | cueillir les fleurs | troisième à l'examen du palais | adulte | 500 | 1 200 caractères lus |
+| 榜眼 | bǎngyǎn | l'œil du tableau | deuxième à l'examen du palais | adulte | 700 | 1 555 caractères lus |
+| 状元 | zhuàngyuan | tête de liste | en tête de l'examen du palais | adulte | 1 000 | 1 800 caractères lus |
 
-Les paliers sont rapprochés au début, pour que le bébé grandisse vite, puis espacés ; 1 000 est aussi le palier des pêches de Tao.
+Les paliers de points sont rapprochés au début, pour que le bébé grandisse vite, puis espacés ; 1 000 est aussi le palier des pêches de Tao. Les rangs s'accordent dans l'ordre, sans en sauter un : un titre attend le précédent.
 
-- Les points : quatre arts, 读 la lecture, 写 l'écriture, 听 l'écoute, 说 les tons. Un point par bonne réponse notée automatiquement par l'app (`srs.ts`), juste du premier coup ou rattrapée, quelle que soit sa vitesse. Lecture : reconnaître ou lire un caractère ou un mot (sens, caractère, assemblage, trou dans un mot, « quel élément donne le son ? », qui se lit sur la forme, et tous les jeux) ; écriture : un tracé achevé, au pas Apprendre ou en question ; écoute : la question à l'oreille, le caractère reconnu au son ; les tons : la question de ton, trouver le ton de sa lecture. Jamais de point pour le temps passé ; une erreur ne coûte rien ; pas de vies, pas de classement, pas de coffre. Le compte ne décroît jamais, et une progression importée d'avant le personnage recalcule le sien depuis ce qu'elle garde (les réponses justes de l'historique des cartes, les tracés achevés).
-- La croissance : le personnage grandit à chaque point, sa taille glisse d'un rang au suivant ; il change de silhouette à chaque étape de vie et de tenue à chaque rang : 肚兜 et 长命锁 du bébé, 虎头鞋 du tout-petit, deux chignons 总角 et le sac à livres de l'écolier, la bande 襕 et le bonnet du 秀才, l'éventail du 贡士, la ceinture de jade et le bonnet à ailes du 进士, les nuages du 翰林, le 补子 du 探花, les vagues du 榜眼, le grand nœud de soie du 状元. Une aura l'entoure : des anneaux au pinceau, à plat, un tous les deux rangs, et les caractères déjà lus qui tournent autour.
+- Les points : quatre arts, 读 la lecture, 写 l'écriture, 听 l'écoute, 说 les tons. Un point par bonne réponse notée automatiquement par l'app (`srs.ts`), juste du premier coup ou rattrapée, quelle que soit sa vitesse. Lecture : reconnaître ou lire un caractère ou un mot (sens, caractère, assemblage, trou dans un mot, « quel élément donne le son ? », qui se lit sur la forme, tous les jeux et les mises en situation des examens) ; écriture : un tracé achevé, au pas Apprendre ou en question ; écoute : la question à l'oreille, le caractère reconnu au son ; les tons : la question de ton, trouver le ton de sa lecture. Jamais de point pour le temps passé ; une erreur ne coûte rien ; pas de vies, pas de classement, pas de coffre. Le compte ne décroît jamais, et une progression importée d'avant le personnage recalcule le sien depuis ce qu'elle garde (les réponses justes de l'historique des cartes, les tracés achevés).
+- La croissance : le personnage grandit à chaque point, sa taille glisse d'un palier de points au suivant ; il change de silhouette à chaque étape de vie, qui suit les seuls points (la colonne Âge), et de tenue à chaque rang, qui suit le titre accordé. Un 学童 qui a les points du 秀才 sans avoir passé le 府试 a la taille et la silhouette d'un ado, et garde la tenue de l'écolier : bien des 童生 avaient des cheveux blancs. Les tenues : 肚兜 et 长命锁 du bébé, 虎头鞋 du tout-petit, deux chignons 总角 et le sac à livres de l'écolier, la bande 襕 et le bonnet du 秀才, l'éventail du 贡士, la ceinture de jade et le bonnet à ailes du 进士, les nuages du 翰林, le 补子 du 探花, les vagues du 榜眼, le grand nœud de soie du 状元. Une aura l'entoure : des anneaux au pinceau, à plat, un tous les deux rangs, et les caractères déjà lus qui tournent autour.
 - La charte : ni ombre, ni dégradé, ni doré, pas de cinabre sur le personnage (il reste au chemin), pas de dragon. L'abricot est un aplat. Le personnage garde ses couleurs les jours de fête. Les animations (l'aura qui tourne, Tao qui flotte) s'arrêtent si l'on réduit les animations.
-- « Mon personnage » : le rang en haut à droite, dessiné depuis ses traits avec son pinyin ; la scène ; Tao et sa bulle ; le nom et trois lignes (le mot à mot et le rôle, la bête, l'âge et le rang) ; la barre vers le rang suivant ; les quatre arts. La bulle de Tao dépend des seuls points : l'art le moins fourni, les derniers points avant un rang, le sommet. Jamais l'horloge, jamais un reproche.
-- 放榜, « on affiche la liste » : quand un rang est franchi, le rang dessiné depuis ses traits, son pinyin, une ligne (« Ton nom est sur la liste… »), un bouton. Au retour au menu, jamais au milieu d'un pas ; une fois par rang.
-- Le personnage s'ajoute aux trophées, il ne les remplace pas : les trophées disent ce qui a été lu, le personnage combien de réponses justes.
+- « Mon personnage » : le rang en haut à droite, dessiné depuis ses traits avec son pinyin ; la scène ; Tao et sa bulle ; le nom et trois lignes (le mot à mot et le rôle, la bête, l'âge et le rang) ; la barre vers le rang suivant ; les quatre arts ; les examens réussis, chacun avec sa date, le 榜 du personnage. La bulle de Tao dépend des seuls points et des examens : l'art le moins fourni, les derniers points avant un rang, l'examen qui reste, le sommet. Jamais l'horloge, jamais un reproche.
+- Points atteints, examen pas encore réussi : l'en-tête du menu montre toujours le rang tenu, le dernier titre accordé, à la taille de ses points ; ni pastille, ni compteur, rien qui presse. « Mon personnage » montre la barre pleine et, dessous, « Reste le 院试 », avec sa stèle et « dans N j », ou « examen ouvert ». L'examen réussi avant les points, il dit « Reçu au 院试 · encore 12 points ».
+- 放榜, « on affiche la liste » : quand un titre est accordé, l'examen réussi quand les points y sont, ou les points atteints quand l'examen l'est déjà (ou le palier de caractères, pour les quatre derniers) : le rang dessiné depuis ses traits, son pinyin, une ligne (« Ton nom est sur la liste… »), un bouton. Au retour au menu, jamais au milieu d'un pas ; une fois par rang.
+- Le personnage s'ajoute aux trophées, il ne les remplace pas : les trophées disent ce qui a été lu, le personnage combien de réponses justes et quels examens réussis.
+- Une progression d'avant les examens garde les rangs déjà annoncés : les examens en dessous sont notés reçus, à la date de la mise à jour, et le suivant s'ouvre si son palier est déjà atteint.
 - Les textes (rangs, bêtes, phrases de Tao) viennent du pipeline, `data/sources/heros/` et `heros.json` ; les dessins sont du code de l'app, comme Tao.
+
+### Les examens 科举
+
+Décisions du propriétaire du 26 septembre 2026 : un examen « aux paliers de caractères », plutôt qu'à un nombre de jours ; en cas d'échec, « Pause jusqu'à réussite » ; pour les titres, « Points ET examen ».
+
+- La suite : les six examens des Qing, dans leur ordre, chacun à un palier de caractères lus (au seuil de stabilité de Ma forêt, le compte du trophée Lire). Quatre paliers sont ceux du trophée Lire (50, 100, 255, 505) ; 200 partage l'écart entre 100 et le premier seuil ; 805 est un seuil de l'Éducation nationale (§2).
+
+| Examen | Pinyin | Ce qu'il était | Caractères lus | Titre |
+|---|---|---|---|---|
+| 县试 | xiànshì | l'examen du district, devant le magistrat | 50 | — |
+| 府试 | fǔshì | l'examen de la préfecture | 100 | 童生, avec le 县试 |
+| 院试 | yuànshì | l'examen du commissaire aux études de la province | 200 | 秀才 |
+| 乡试 | xiāngshì | l'examen de la province, tous les trois ans | 255 | 举人 |
+| 会试 | huìshì | le concours de la capitale | 505 | 贡士 |
+| 殿试 | diànshì | l'examen du palais, devant l'empereur | 805 | 进士 |
+
+- Les jours : dans l'export 0.1.0, le 50e caractère entre au jour 25 du chemin Lire et au jour 28 du chemin HSK, avant la fin des trente jours gratuits ; le 100e aux jours 75 et 78, le 200e aux jours 117 et 118, le 255e au jour 137 des deux. Le compte des lus suit de quelques jours, le temps que les cartes se stabilisent. Le chemin gratuit (seuil 255, HSK 1 : 356 et 430 caractères, briques comprises) mène jusqu'au 乡试 ; le 会试 et le 殿试 demandent la suite du parcours, avec Wenlu complet. Les examens sont les mêmes pour tous : au rythme gratuit, ils viennent plus tard.
+- Après le 殿试, plus d'examen. Historiquement, le 殿试 ne recalait personne : il classait les 进士, et ses trois premiers, 状元, 榜眼 et 探花, entraient d'emblée à l'Académie, le 翰林院. Wenlu ne classe personne : un premier n'y a pas de sens, et le trio ne peut pas être un résultat du 殿试. Il ne peut pas non plus rester aux seuls points : les points dépassent d'ordinaire 1 000 bien avant 805 caractères lus, et 翰林, 探花, 榜眼, 状元 tomberaient le jour même du 进士. Les quatre derniers rangs sont donc des nominations, sans examen, chacune à un palier de caractères lus, après la précédente : 翰林 à 1 000 (les pêches de Tao), 探花 à 1 200 (le HSK 4, où s'arrête la cible, §3), 榜眼 à 1 555 (le dernier seuil), 状元 à 1 800 (le HSK 6, le bout du programme de la version 1). Le 翰林 est bien une nomination après le 进士, comme le voulait le propriétaire.
+- Ce qu'on y lit : un peu de tout l'acquis, et surtout des mises en situation jamais vues : une pancarte, un menu, un billet de train, un court message, une lettre. Chacune est écrite avec les seuls caractères que le chemin a posés au jour du palier, dans le pipeline (`data/sources/examens/`), tracée comme les contes, les lettres et WeChat, et relue ; l'app n'en garde qu'une dont tous les caractères ont une carte, comme un dialogue WeChat. Chaque examen a deux séries pour chacun des deux chemins, Lire et HSK : la reprise prend l'autre. Le support se dessine à plat, aux pigments de la peinture : ni photo, ni ombre ; un grand caractère se dessine depuis ses traits.
+- Les questions : une quinzaine, une dizaine de minutes, notées automatiquement, sans auto-évaluation. Plusieurs types : le sens d'une mise en situation (« Où va ce train ? », quatre choix), repérer (toucher sur le billet le mot qui dit l'heure), vrai ou faux sur une phrase du message, la bonne réplique à un message ; pour la revue de l'acquis, quatre ou cinq questions des types du §7, sauf le tracé : on y lit. Chaque question déclare dans le pipeline les caractères qui portent sa réponse.
+- Reçu : quatre réponses sur cinq justes du premier essai. Ni chronomètre, ni vies, ni points au temps ; « Quitter » sauvegarde et reprend à la même question. Chaque bonne réponse donne son point (读), comme un jeu ; une erreur note ses caractères comme faux, et ils reviennent en révision, que l'examen soit réussi ou non. L'examen fait lire quelque chose de plus, des textes jamais vus : il répond à la règle des jeux (CLAUDE.md).
+- Quand : le palier atteint, Clore le dit en une ligne, et l'examen s'ouvre ; aucune brique nouvelle n'entre plus avant qu'il soit réussi (§6, « Journée sans brique nouvelle »). Il se passe hors session, la journée faite, depuis le bouton du menu (« Passer l'examen 县试 ») ou depuis sa stèle sur la route devant. Jamais en rattrapage : la pile redescend d'abord. Les examens se passent dans l'ordre ; si le palier du suivant est déjà atteint, il s'ouvre à son tour. Au rythme gratuit, les deux briques de la semaine attendent aussi, et ne s'accumulent pas.
+- Pas encore, « Pause jusqu'à réussite » : les caractères manqués reviennent en révision, et les sessions les ciblent (Échauffer les prend d'abord, Apprendre revient sur eux). L'examen se repasse quand chacun a été revu juste à son échéance, d'ordinaire un à trois jours ; d'ici là, le menu dit « L'examen se repasse quand les caractères manqués sont revus », sans compte à rebours, et le bouton de la journée faite reste « Réviser encore ». Tao dit « pas encore », jamais un reproche. Rien n'est perdu : ni points, ni acquis, ni série.
+- Le résultat : un constat, pas des félicitations (« 13 sur 15 du premier coup. Reçu au 县试. »), les caractères manqués dessinés depuis leurs traits. Si un titre est accordé, le 放榜 passe au retour au menu.
+- Trophées : pas de sceau pour les examens. Le sceau Lire du même palier dit déjà le compte, le titre dit l'examen ; un troisième signe compterait deux fois la même chose. « Mon personnage » garde les examens réussis avec leur date.
+- Charte : l'indigo pour la stèle et l'action, le jade pour le reçu, ni cinabre, ni doré, ni ombre, ni emoji, ni dragon. Les noms des examens se dessinent depuis leurs traits ; leurs textes, les mises en situation et les phrases de Tao viennent du pipeline. Tout se décide dans `app/src/lib/examens.ts`.
 
 ## 9. Tao et les jeux
 
 ### Tao, la compagne
 
-Tao suit toutes les activités et adopte la posture de l'utilisateur : bulle avec le caractère en leçon, mange pendant la révision (une carte, une bouchée ; erreur, grimace ; série juste, bond), lit par-dessus l'épaule en lecture, tient un pinceau au tracé, porte la lanterne aux devinettes, goûte en cuisine, marche sur le chemin de la série, écoute l'anecdote assise.
+Tao suit toutes les activités et adopte la posture de l'utilisateur : bulle avec le caractère en leçon, mange pendant la révision (une carte, une bouchée ; erreur, grimace ; série juste, bond), lit par-dessus l'épaule en lecture, tient un pinceau au tracé, porte la lanterne aux devinettes, goûte en cuisine, marche sur le chemin de la série, écoute l'anecdote assise, porte le panier d'examen 考篮 et attend à la porte pendant l'examen, puis lit la liste 榜 à côté du personnage.
 
 - Le personnage : Tao ne se choisit pas, elle aide celui qu'on a choisi (§8). Sur son écran, elle se tient à côté de lui avec sa bulle.
 - Croissance : additionne toutes les activités. Paliers 100, 300 (fleurs), 1 000 (pêches).
@@ -224,7 +263,7 @@ Décision du propriétaire du 26 septembre 2026 : l'ancien menu en ligne était 
 Le pas Utiliser garde ses vues (les mots et la phrase, puis les trois lignes). Certains jours, un jeu s'y ajoute après le texte. La règle est déterministe : elle ne lit que le rang de la journée (celui que le menu annonce, « 8e jour »), le budget et l'acquis réel, jamais l'horloge.
 
 - Au plus un jeu par journée. Il est choisi à l'entrée du pas et gardé : la session de plus n'en pose pas un second.
-- Le message WeChat à partir du 8e jour, un jour sur trois (8e, 11e, 14e…) : un dialogue court dont tous les caractères sont acquis, pas encore lu au pas Utiliser, le plus récent du parcours d'abord.
+- Le message WeChat à partir du 8e jour, un jour sur trois (8e, 11e, 14e…) : un dialogue court dont tous les caractères sont acquis, pas encore lu au pas Utiliser, le plus récent du parcours d'abord. Il est de Wenlu complet (§10) : sans achat, ce jour-là prend l'éclair s'il y a un mot à deviner, sinon rien.
 - Sinon le dictionnaire éclair, un jour sur deux (les jours pairs) : un mot jamais appris dont les deux caractères sont acquis, un seul tour ; le compteur « mots devinés » se lit sous la correction.
 - Jamais plus long que le budget : le pas dure ce que le chemin annonce (1, 2 ou 4 minutes) ; les mots et la phrase comptent 30 s, le texte 50 s, un mot de l'éclair 20 s, un échange du message 20 s. À 5 minutes, aucun jeu ; à 10, l'éclair ou un dialogue de deux échanges ; à 20, tous les dialogues.
 - Sans acquis suffisant (aucun mot, aucun dialogue ouvert), le pas reste tel quel.
@@ -234,23 +273,32 @@ Le pas Utiliser garde ses vues (les mots et la phrase, puis les trois lignes). C
 
 ## 10. Périmètre de la version 1
 
+Décisions du propriétaire du 26 septembre 2026. Le gratuit et le payant se distinguent par le rythme et par la suite du parcours, jamais par l'acquis : rien de ce qui est appris ne se perd ni ne se ferme. Le propriétaire demandait « en payant on peut avancer autant qu'on veut ? » : oui, dans les règles de la pédagogie, qui ne s'achètent pas. Une seule brique nouvelle par session, et un caractère n'entre en révision que si ses briques sont stables.
+
 ### Gratuit
 
-- Seuil 255 et HSK 1 (2026) complets : décomposition, origines, révision en questions, audio, tracé, anecdotes, série, forêt.
-- Consultation en lecture seule de l'arbre complet.
-- Trois contes au seuil 255.
-- Tao complète, le personnage et ses douze rangs ; jeux gratuits : assembler, la chaîne, les jumeaux, la coquille, le dictionnaire éclair, une devinette par jour, la cuisine (trois plats).
+- Les trente premiers jours du chemin au rythme complet, comme aujourd'hui : une brique nouvelle par session, sessions de plus comprises.
+- Ensuite, le rythme gratuit : deux briques nouvelles par semaine, du lundi au dimanche (la semaine des lettres de Que), trois jours au moins entre deux. Une brique qu'on n'a pas prise ne s'accumule pas. Les autres jours, la session reste complète, six pas sur l'acquis (§6, « Journée sans brique nouvelle ») : révision en questions, tracé, jeux gratuits.
+- Le chemin gratuit : le seuil 255 et le HSK 1 (2026), à ce rythme, avec leur décomposition, leurs origines, l'audio et le tracé. Ils ne sont plus gratuits « complets », comme le disait ce brief jusqu'ici : on les parcourt au rythme gratuit.
+- Pour toujours : la révision de tout l'acquis, paires à ne pas confondre comprises (§7) ; la consultation en lecture seule de l'arbre complet ; les anecdotes, celles des fêtes et des termes solaires avec leur caractère ; une devinette par jour ; les jeux gratuits sur l'acquis : assembler, la chaîne, les jumeaux, la coquille, le dictionnaire éclair, la cuisine et ses trois plats ; la série, la forêt, la route devant, les trophées ; Tao complète, le personnage et ses douze rangs ; les examens (§8), jusqu'au bout du chemin gratuit.
+- Contes : les fables courtes du début, en cours d'écriture, dont la première s'ouvre avant le trentième jour ; les trois contes du seuil 255, à ce niveau.
+- Les lettres de Que des quatre premières semaines : la lettre n se lit au jour 7n du chemin, et les lettres 1 à 4 (jours 7 à 28) tombent dans les trente jours gratuits.
+- Le web (PWA) : le seul périmètre gratuit, sans achat, sans compte, sans serveur.
 
-### Payant (achat à vie ou abonnement mensuel)
+La limite se dit calmement : ni compte à rebours, ni relance, ni fenêtre modale. Tao ne parle jamais d'achat et ne culpabilise jamais. Le jour où le rythme gratuit commence, Clore le dit en une ligne, et que tout l'acquis reste ouvert ; ensuite, la route devant montre « prochaine brique dans N j ». Wenlu complet se présente dans Réglages, et sur ce qui en dépend (un conte, un plat, une lettre) par une ligne et un lien.
 
+### Payant (achat à vie ou abonnement mensuel) : Wenlu complet
+
+- Le rythme complet : une brique chaque jour, et autant de sessions de plus qu'on veut, une brique chacune, dans les règles de la pédagogie.
 - Seuils 405 à 1555 et HSK 2 à 6.
 - Dictionnaire complet : 9 000 caractères décomposés et expliqués.
 - Formes anciennes à côté de chaque brique.
-- Textes de lecture générés avec les seuls caractères acquis.
+- Textes de lecture générés avec les seuls caractères acquis, en dehors de la session (ceux du pas Utiliser restent dans la session gratuite).
 - Bibliothèque complète de contes, à tous les niveaux.
-- Exercices « paires à ne pas confondre ».
 - Synchronisation iCloud.
-- Jeux complets : les lettres de Que, le message WeChat, toutes les devinettes, dix plats, les saisons avec caractères bonus.
+- Jeux complets : les lettres de Que à partir de la cinquième, le message WeChat, toutes les devinettes, dix plats. Dans la session gratuite, le jour du message (§9) prend le dictionnaire éclair s'il y a un mot à deviner, sinon rien.
+
+Deux lignes de l'ancienne liste payante passent au gratuit, parce qu'elles contredisaient ce qui reste gratuit pour toujours : les exercices « paires à ne pas confondre », qui sont de la révision (§7), et les saisons avec leurs caractères bonus, qui viennent des anecdotes.
 
 ### Hors périmètre V1
 
@@ -281,8 +329,10 @@ Pipeline (Python, dépôt séparé) : ingestion, réconciliation des décomposit
 
 ## 13. Monétisation
 
-- Web : gratuit, périmètre gratuit et pages publiques. Rôle : acquisition et référencement.
-- iOS : achats intégrés. Achat à vie non consommable autour de 29,99 €. Abonnement mensuel autour de 3,99 €. Grilles Apple par pays.
+- Web : gratuit, le seul périmètre gratuit et les pages publiques ; ni achat, ni compte, ni serveur. Rôle : acquisition et référencement.
+- iOS : achats intégrés, Wenlu complet (§10), les mêmes droits par les deux voies. Achat à vie non consommable autour de 29,99 €. Abonnement mensuel autour de 3,99 €. Grilles Apple par pays.
+- Ce qu'on achète : le rythme et la suite du parcours, jamais l'acquis. Les moments : la fin des trente jours gratuits du chemin, la semaine offerte du palier de 30 jours, puis, vers le 37e jour, le code à usage unique de moins 30 % sur l'achat à vie (§8). Pas de remise sur l'abonnement.
+- Sans compte ni serveur : les achats viennent de StoreKit 2, liés à l'identifiant Apple et restaurables ; les cadeaux des paliers viennent de la progression locale. Une progression modifiée à la main peut ouvrir un cadeau de palier : risque accepté, faute de serveur.
 - Small Business Program (15 %). Entité porteuse du compte développeur à trancher.
 
 ## 14. Lancement sans budget publicitaire
@@ -298,7 +348,7 @@ Pipeline (Python, dépôt séparé) : ingestion, réconciliation des décomposit
 
 - Sessions terminées : plus de 80 %. Une session plus longue que le budget annoncé est un défaut.
 - Retour à J7 : plus de 30 %.
-- Note App Store 4,7 avec 100 avis à trois mois ; 5 000 téléchargements ; conversion payante 3 à 5 % des actifs à 30 jours.
+- Note App Store 4,7 avec 100 avis à trois mois ; 5 000 téléchargements ; conversion payante 3 à 5 % des actifs à 30 jours. Le chiffre tombe désormais au bon moment : le rythme gratuit ralentit au trentième jour du chemin, la semaine offerte suit, puis le code du palier vers le 37e jour ; on le relit à 40 jours. Chiffres d'App Store Connect, jamais de l'app, qui ne collecte rien.
 - Rétention réelle par caractère, taux d'erreur par type de question, temps par pas.
 
 ## 16. Feuille de route
@@ -323,7 +373,7 @@ Pipeline (Python, dépôt séparé) : ingestion, réconciliation des décomposit
 
 ## 18. Questions ouvertes
 
-1. Nom de domaine.
+1. Nom de domaine, et l'adresse de support dédiée qui en dépend (page de confidentialité, App Store Connect).
 2. Entité porteuse du compte Apple et de l'encaissement.
 3. Source des formes anciennes compatible avec un usage commercial.
 4. Niveau à partir duquel le HSK 2026 exige l'écriture manuscrite.
