@@ -1,0 +1,20 @@
+# Ce que Tao dit sur l'écran Jouer, en tendant son jeu (brief §9 « L'écran Jouer »).
+#
+# Source : rédigé pour l'app, sans API, dans une session Claude Code ; repris tel quel de
+# `app/src/lib/jeux.ts` (`bulleDeTao`), où les phrases étaient écrites en dur ; à relire.
+# Tao invite, elle ne culpabilise jamais (brief §9) : ni reproche, ni « tu n'as pas… »,
+# ni compte de jours, ni emoji. Son humeur vient de la variété des activités, jamais de
+# l'horloge : aucune phrase ne parle du temps passé. `wenlu check` le vérifie.
+#
+# Format : TSV, `#` en commentaire, trois colonnes séparées par une tabulation : `cle`,
+# `fr`, `source`. Quatre clés, toutes exigées, sans jeton :
+#
+# - `invite` : Tao tend un jeu ;
+# - `changer` : Tao tend un jeu quand elle s'ennuie (trois fois la même activité) ;
+# - `devinette` : aucun jeu à tendre, la devinette du jour attend ;
+# - `attendre` : aucun jeu à tendre, ni devinette ; ce qui manque, sans reproche.
+cle	fr	source
+invite	On joue à celui-ci ?	rédigé pour l'app
+changer	Et si on changeait un peu ? Celui-ci.	rédigé pour l'app
+devinette	On commence par la devinette ?	rédigé pour l'app
+attendre	Il n'y a pas encore assez de caractères acquis pour jouer. Reviens après quelques révisions.	rédigé pour l'app
