@@ -17,6 +17,17 @@ jobs:
           rm -rf ios
           npx cap add ios
           npx cap sync ios
+      # Ce que l'app iOS a de propre, reposé à chaque build sur le projet engendré :
+      # manifeste de confidentialité, icône 1024, écran de lancement papier, Info.plist
+      # (ITSAppUsesNonExemptEncryption, thème clair), version tirée du tag et numéro de
+      # build tiré du run (TestFlight refuse deux fois le même). Voir docs/ios-sans-mac.md.
+      - name: Retoucher le projet iOS
+        env:
+          WENLU_VERSION: ${{ github.ref_name }}
+          WENLU_BUILD: ${{ github.run_number }}
+        run: |
+          ruby -e "require 'xcodeproj'" 2>/dev/null || gem install --user-install --no-document xcodeproj
+          ruby ios-template/patch.rb
       - name: Scheme partagé
         run: |
           mkdir -p ios/App/App.xcodeproj/xcshareddata/xcschemes
