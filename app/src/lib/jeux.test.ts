@@ -32,6 +32,8 @@ import {
   proches,
   prolongements,
   propose,
+  bulleDeTao,
+  jeuPropose,
   repondre,
   ESSAIS_DEVINETTE,
   devinetteAAnnoncer,
@@ -515,6 +517,65 @@ describe('ce qu’un jeu rend à la progression', () => {
     /* Le jeu joué change l’activité : elle ne réclame plus. */
     p = noterActivite(p, jour, 'jeu');
     expect(propose(p, jour)).toBe(false);
+  });
+
+  it('Tao tend un jeu disponible, jamais la devinette, le même toute la journée', () => {
+    const jour = '2026-09-26';
+    const p = emptyProgress(jour);
+    const dispo = [...IDS];
+    const tendu = jeuPropose(dispo, p, jour);
+    expect(tendu).not.toBeNull();
+    expect(tendu).not.toBe('devinette');
+    expect(jeuPropose(dispo, p, jour)).toBe(tendu);
+    /* Seulement parmi les jeux jouables. */
+    expect(jeuPropose(['devinette', 'jumeaux'], p, jour)).toBe('jumeaux');
+    expect(jeuPropose(['devinette'], p, jour)).toBeNull();
+    expect(jeuPropose([], p, jour)).toBeNull();
+  });
+
+  it('après trois plats d’affilée, Tao propose autre chose que la cuisine', () => {
+    const jour = '2026-09-26';
+    let p = emptyProgress(jour);
+    for (let i = 0; i < 3; i++) p = noterActivite(p, jour, 'cuisine');
+    expect(propose(p, jour)).toBe(true);
+    expect(jeuPropose(['cuisine', 'wechat'], p, jour)).toBe('wechat');
+    /* Seul jeu jouable : elle le tend quand même, sans reproche. */
+    expect(jeuPropose(['cuisine'], p, jour)).toBe('cuisine');
+  });
+
+  it('la bulle de Tao invite, et ne reproche jamais rien', () => {
+    const jour = '2026-09-26';
+    let p = emptyProgress(jour);
+    const calme = bulleDeTao(p, jour, 'jumeaux', true);
+    for (let i = 0; i < 3; i++) p = noterActivite(p, jour, 'revision');
+    const ennui = bulleDeTao(p, jour, 'jumeaux', true);
+    expect(ennui).not.toBe(calme);
+    const sans = [bulleDeTao(p, jour, null, true), bulleDeTao(p, jour, null, false)];
+    for (const l of [calme, ennui, ...sans]) {
+      expect(l).not.toMatch(/encore rien|toujours|pas assez joué|dommage|tu n'as|manqu/i);
+    }
+  });
+
+  it('chaque jeu a son caractère d’écran, un seul, distinct des autres', () => {
+    const zh = IDS.map((id) => JEUX[id].zh);
+    for (const c of zh) expect([...c]).toHaveLength(1);
+    expect(new Set(zh).size).toBe(IDS.length);
+  });
+
+  it('l’écran Jouer : fonds neutres, couleur dans les images, ni cinabre ni ombre (décision du 26 septembre 2026)', () => {
+    const lire = (f: string): string => readFileSync(new URL(f, import.meta.url), 'utf8');
+    const game = lire('Game.svelte');
+    const dessins = lire('DessinJeu.svelte');
+    for (const s of [game, dessins]) {
+      expect(s).not.toMatch(/--zhu|gradient|shadow|gold/i);
+    }
+    /* Aucun caractère en police dans les dessins : les jumeaux sont tracés. */
+    expect(dessins).not.toContain('<text');
+    /* Les pigments de peinture, un par jeu, jamais le cinabre. */
+    for (const id of IDS) expect(dessins).toMatch(new RegExp(`${id}: 'var\\(--t[1-4]\\)'`));
+    /* Les caractères de l'écran se dessinent depuis les traits, jamais en police. */
+    expect(game).toContain('function dessine(');
+    expect(game).not.toContain('<Glyph char={JEUX');
   });
 });
 

@@ -449,6 +449,12 @@ export type Resultat = {
 export type Jeu = {
   id: JeuId;
   titre: string;
+  /**
+   * Le caractère du jeu sur l'écran Jouer, un choix d'interface comme les cases du menu
+   * (菜 la cuisine, 信 le message…). Il se dessine depuis ses traits, dans le pigment du
+   * dessin de sa carte ; sans traits dans l'export, la carte garde son seul dessin.
+   */
+  zh: string;
   /** Ce qu'il fait lire de plus, en une phrase. */
   lit: string;
   /** La durée d'une manche, en minutes : entre `MINUTES_MIN` et `MINUTES_MAX`. */
@@ -1261,6 +1267,7 @@ export function longueurs(m: Manche): number[] {
 export const JEUX: Record<JeuId, Jeu> = {
   devinette: {
     id: 'devinette',
+    zh: '谜',
     titre: 'La devinette du jour',
     lit: 'Retrouver un caractère dans une décomposition déguisée.',
     minutes: 1,
@@ -1275,6 +1282,7 @@ export const JEUX: Record<JeuId, Jeu> = {
   },
   assembler: {
     id: 'assembler',
+    zh: '拼',
     titre: 'Assembler contre la montre',
     lit: 'Produire un caractère à partir de ses briques, dans l’ordre d’écriture.',
     minutes: 2,
@@ -1288,6 +1296,7 @@ export const JEUX: Record<JeuId, Jeu> = {
   },
   jumeaux: {
     id: 'jumeaux',
+    zh: '双',
     titre: 'Les jumeaux',
     lit: 'Distinguer deux caractères proches, vus en un éclair.',
     minutes: 1,
@@ -1302,6 +1311,7 @@ export const JEUX: Record<JeuId, Jeu> = {
   },
   chaine: {
     id: 'chaine',
+    zh: '链',
     titre: 'La chaîne',
     lit: 'Voir un caractère à l’intérieur d’un autre, maillon après maillon.',
     minutes: MINUTES_MAX,
@@ -1315,6 +1325,7 @@ export const JEUX: Record<JeuId, Jeu> = {
   },
   coquille: {
     id: 'coquille',
+    zh: '错',
     titre: 'La coquille',
     lit: 'Trouver le caractère faux dans un message écrit avec l’acquis.',
     minutes: 2,
@@ -1329,6 +1340,7 @@ export const JEUX: Record<JeuId, Jeu> = {
   },
   eclair: {
     id: 'eclair',
+    zh: '典',
     titre: 'Le dictionnaire éclair',
     lit: 'Deviner le sens d’un mot jamais appris, depuis ses deux caractères.',
     minutes: 2,
@@ -1342,6 +1354,7 @@ export const JEUX: Record<JeuId, Jeu> = {
   },
   cuisine: {
     id: 'cuisine',
+    zh: '菜',
     titre: 'La cuisine de Tao',
     lit: 'Lire une recette en chinois, puis prendre les bons ingrédients sur l’étal.',
     minutes: 2,
@@ -1356,6 +1369,7 @@ export const JEUX: Record<JeuId, Jeu> = {
   },
   wechat: {
     id: 'wechat',
+    zh: '信',
     titre: 'Le message WeChat',
     lit: 'Répondre à un ami qui t’écrit en chinois, avec ce que tu sais lire.',
     minutes: 2,
@@ -1388,6 +1402,40 @@ export function disponibles(corpus: CorpusJeux, graine: string): JeuId[] {
  */
 export function propose(p: Progress, jour: string): boolean {
   return proposeUnJeu(humeur(p.tao.activites, jour));
+}
+
+/**
+ * Le jeu que Tao tend sur l'écran Jouer, en tête d'« Aujourd'hui ». Un jeu disponible,
+ * jamais la devinette du jour, qui a sa propre lanterne. Après trois plats d'affilée, ce
+ * n'est pas encore la cuisine : quand elle s'ennuie, elle propose autre chose (brief §9).
+ * Le choix part du jour, pas de l'horloge : le même toute la journée, un autre demain.
+ * `null` : aucun jeu à tendre.
+ */
+export function jeuPropose(dispo: readonly JeuId[], p: Progress, jour: string): JeuId | null {
+  const jeux = IDS.filter((id) => id !== 'devinette' && dispo.includes(id));
+  const derniere = p.tao.activites[p.tao.activites.length - 1]?.type;
+  const autres = derniere === 'cuisine' ? jeux.filter((id) => id !== 'cuisine') : jeux;
+  const parmi = autres.length > 0 ? autres : jeux;
+  return parmi.length === 0 ? null : parmi[hachage(`${jour}/propose`) % parmi.length];
+}
+
+/**
+ * Ce que dit Tao en tendant son jeu, une invitation, jamais un reproche. Quand elle
+ * s'ennuie (`propose`), elle propose de changer ; sinon, elle invite. Sans jeu à tendre,
+ * elle montre la devinette si elle attend, ou dit ce qui manque, sans rien reprocher.
+ */
+export function bulleDeTao(
+  p: Progress,
+  jour: string,
+  tendu: JeuId | null,
+  devinette: boolean
+): string {
+  if (tendu === null) {
+    return devinette
+      ? 'On commence par la devinette ?'
+      : "Il n'y a pas encore assez de caractères acquis pour jouer. Reviens après quelques révisions.";
+  }
+  return propose(p, jour) ? 'Et si on changeait un peu ? Celui-ci.' : 'On joue à celui-ci ?';
 }
 
 /**
