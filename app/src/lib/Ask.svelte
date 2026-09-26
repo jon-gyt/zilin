@@ -79,9 +79,10 @@
   let ecoutable = $state(false);
   /**
    * À l'oreille, le pinyin sous les choix dirait la réponse : il n'apparaît qu'après la
-   * correction.
+   * correction. Au caractère aussi : l'énoncé donne le pinyin, le choix se ferait sur lui
+   * sans lire la forme.
    */
-  const pinyinCache = $derived(q.type === 'oreille' && note === null);
+  const pinyinCache = $derived((q.type === 'oreille' || q.type === 'caractere') && note === null);
 
   /** Remise à zéro à chaque question : le chronomètre repart, les essais aussi. */
   $effect(() => {
