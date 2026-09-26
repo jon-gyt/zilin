@@ -3,15 +3,15 @@
  "license": "propriétaire",
  "source": "décomposition GF 0014-2009 réconciliée par le pipeline wenlu ; pinyin d'Unihan (kMandarin) ; textes rédigés pour l'app",
  "source_url": "https://github.com/jon-gyt/zilin",
- "modified": "2026-09-25 : assemblé par `wenlu export`",
+ "modified": "2026-09-26 : assemblé par `wenlu export`",
  "norme": "GF 0014-2009",
  "racine": {
   "c": "两",
   "pinyin": "liǎng",
   "fr": "",
   "en": "",
-  "origine": "",
-  "etiquette": null
+  "origine": "两 compte ce qui va par deux : deux personnes, deux jours, les deux côtés. Pour s'en souvenir : sous un trait horizontal, un cadre abrite deux petits 人 côte à côte. Deux personnes sous le même toit font une paire.",
+  "etiquette": "mnemotechnique"
  },
  "fiches": [
   {
@@ -26,14 +26,37 @@
    "nouveau": [],
    "sources": [],
    "role": null,
-   "roles": {},
-   "origine_fr": "",
-   "origine_en": "",
-   "etiquette": null,
+   "roles": {
+    "两": "forme"
+   },
+   "origine_fr": "两 compte ce qui va par deux : deux personnes, deux jours, les deux côtés. Pour s'en souvenir : sous un trait horizontal, un cadre abrite deux petits 人 côte à côte. Deux personnes sous le même toit font une paire.",
+   "origine_en": "两 counts things that come in twos: two people, two days, both sides. As a memory aid: under a horizontal stroke, a frame holds two small 人 side by side. Two people under one roof make a pair.",
+   "etiquette": "mnemotechnique",
    "memo_fr": null,
    "memo_en": null,
-   "mots": [],
-   "phrase": null,
+   "mots": [
+    {
+     "hanzi": "两方",
+     "pinyin": "liǎngfāng",
+     "fr": "les deux parties, les deux côtés",
+     "en": "both sides, both parties",
+     "audio": null
+    },
+    {
+     "hanzi": "两用",
+     "pinyin": "liǎngyòng",
+     "fr": "à double usage",
+     "en": "dual-use",
+     "audio": null
+    }
+   ],
+   "phrase": {
+    "hanzi": "她去了两天。",
+    "pinyin": "Tā qùle liǎng tiān.",
+    "fr": "Elle est partie deux jours.",
+    "en": "She was away for two days.",
+    "audio": null
+   },
    "niveaux": {
     "seuil": 255,
     "hsk": 1
@@ -41,7 +64,7 @@
    "traits": [],
    "medianes": [],
    "audio": null,
-   "statut": "sans_fiche"
+   "statut": "relu"
   }
  ]
 }

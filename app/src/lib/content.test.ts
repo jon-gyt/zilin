@@ -530,16 +530,54 @@ const familleDemoPeuple = JSON.parse(
   readFileSync(new URL('../../public/data/demo/familles/人.json', import.meta.url), 'utf8')
 ) as Famille;
 
+/**
+ * Une fiche de l'export telle que le pipeline l'écrit sans fiche relue : même décomposition,
+ * même pinyin, mêmes niveaux, aucun texte (`data/schema.md`). Fabriquée en mémoire, pour que
+ * la règle se teste quel que soit l'état de relecture du dépôt.
+ */
+function sansTexte(f: Fiche): Fiche {
+  return {
+    ...f,
+    fr: '',
+    en: '',
+    role: null,
+    roles: {},
+    origine_fr: '',
+    origine_en: '',
+    etiquette: null,
+    memo_fr: null,
+    memo_en: null,
+    mots: [],
+    phrase: null,
+    statut: 'sans_fiche'
+  };
+}
+
 describe('la surcouche de démonstration', () => {
-  const exportee = ficheDeFamille(familleExport, '住') as Fiche;
+  const servie = ficheDeFamille(familleExport, '住') as Fiche;
+  const exportee = sansTexte(servie);
   const demo = ficheDeFamille(famille, '住') as Fiche;
 
-  it("part d'une fiche exportée sans texte : le pipeline n'a encore rien relu", () => {
-    expect(exportee.statut).toBe('sans_fiche');
-    expect(exportee.origine_fr).toBe('');
-    expect(exportee.fr).toBe('');
-    expect(exportee.etiquette).toBeNull();
+  it("l'export ne donne des textes qu'à une fiche relue, jamais d'étiquette sans origine", () => {
+    for (const f of familleExport.fiches) {
+      expect(['relu', 'sans_fiche']).toContain(f.statut);
+      expect(aDesTextes(f)).toBe(f.statut === 'relu');
+      if (f.origine_fr === '') expect(f.etiquette).toBeNull();
+    }
     expect(aDesTextes(exportee)).toBe(false);
+  });
+
+  it("sur l'export servi, la fiche relue passe devant la démonstration, l'autre non", () => {
+    const lue = surcoucher(servie, demo);
+    if (servie.statut === 'relu') {
+      expect(lue.source).toBe('export');
+      expect(lue.origine_fr).toBe(servie.origine_fr);
+      expect(lue.origine_fr).not.toBe(demo.origine_fr);
+      expect(lue.etiquette).toBe(servie.etiquette);
+      expect(lue.mots).toEqual(servie.mots);
+    } else {
+      expect(lue.source).toBe('demonstration');
+    }
   });
 
   it('prend les textes de la démonstration tant que la fiche exportée est vide', () => {
@@ -562,15 +600,17 @@ describe('la surcouche de démonstration', () => {
 
   it("ne reprend pas le rôle quand la démonstration ne découpe pas comme la norme", () => {
     /* 主 est une brique de GF 0014-2009 : l'export ne la décompose pas, la maquette si. */
-    const brique = ficheDeFamille(
-      JSON.parse(
-        readFileSync(
-          new URL(`../../public/data/${VERSION_DONNEES}/familles/主.json`, import.meta.url),
-          'utf8'
-        )
-      ) as Famille,
-      '主'
-    ) as Fiche;
+    const brique = sansTexte(
+      ficheDeFamille(
+        JSON.parse(
+          readFileSync(
+            new URL(`../../public/data/${VERSION_DONNEES}/familles/主.json`, import.meta.url),
+            'utf8'
+          )
+        ) as Famille,
+        '主'
+      ) as Fiche
+    );
     const demoBrique = ficheDeFamille(famille, '主') as Fiche;
     expect(demoBrique.parts).not.toEqual(brique.parts);
     const lue = surcoucher(brique, demoBrique);

@@ -3,15 +3,15 @@
  "license": "propriétaire",
  "source": "décomposition GF 0014-2009 réconciliée par le pipeline wenlu ; pinyin d'Unihan (kMandarin) ; textes rédigés pour l'app",
  "source_url": "https://github.com/jon-gyt/zilin",
- "modified": "2026-09-25 : assemblé par `wenlu export`",
+ "modified": "2026-09-26 : assemblé par `wenlu export`",
  "norme": "GF 0014-2009",
  "racine": {
   "c": "丨",
   "pinyin": "gǔn",
   "fr": "",
   "en": "",
-  "origine": "",
-  "etiquette": null
+  "origine": "丨 est un trait, le trait vertical, qu'on appelle 竖, et c'est aussi son nom dans la norme. Le Shuowen jiezi en fait pourtant une entrée à part, et le définit comme ce qui relie le haut et le bas. Il traverse ou soutient bien des caractères, de 中 à 在, où il n'est qu'une pièce du dessin.",
+  "etiquette": "atteste"
  },
  "fiches": [
   {
@@ -26,19 +26,27 @@
    "nouveau": [],
    "sources": [],
    "role": null,
-   "roles": {},
-   "origine_fr": "",
-   "origine_en": "",
-   "etiquette": null,
+   "roles": {
+    "丨": "forme"
+   },
+   "origine_fr": "丨 est un trait, le trait vertical, qu'on appelle 竖, et c'est aussi son nom dans la norme. Le Shuowen jiezi en fait pourtant une entrée à part, et le définit comme ce qui relie le haut et le bas. Il traverse ou soutient bien des caractères, de 中 à 在, où il n'est qu'une pièce du dessin.",
+   "origine_en": "丨 is a stroke, the vertical stroke, called 竖, which is also its name in the standard. The Shuowen jiezi nonetheless gives it an entry of its own and defines it as what links top and bottom. It runs through or props up many characters, from 中 to 在, where it is just one piece of the drawing.",
+   "etiquette": "atteste",
    "memo_fr": null,
    "memo_en": null,
    "mots": [],
-   "phrase": null,
+   "phrase": {
+    "hanzi": "新年好！",
+    "pinyin": "Xīnnián hǎo!",
+    "fr": "Bonne année !",
+    "en": "Happy New Year!",
+    "audio": null
+   },
    "niveaux": {},
    "traits": [],
    "medianes": [],
    "audio": null,
-   "statut": "sans_fiche"
+   "statut": "relu"
   },
   {
    "c": "在",
@@ -58,14 +66,39 @@
     "surcharge"
    ],
    "role": null,
-   "roles": {},
-   "origine_fr": "",
-   "origine_en": "",
-   "etiquette": null,
+   "roles": {
+    "丨": "forme",
+    "土": "sens",
+    "𠂇": "forme"
+   },
+   "origine_fr": "Sur les os oraculaires, le mot s'écrit le plus souvent avec 才 seul, que le Shuowen jiezi décrit comme une jeune pousse. Le Shuowen analyse 在 en idéo-phonétique : 土, la terre, donne le sens, « exister, se trouver », et 才 le son. Dans la forme actuelle, 才 ne se voit plus : il s'est réduit au cadre 𠂇 et à un trait vertical, 丨, au-dessus de 土 ; seul, 才 se lit aujourd'hui cái, qui ne sonne plus comme zài.",
+   "origine_en": "On oracle bones the word is usually written with 才 alone, which the Shuowen jiezi describes as a young shoot. The Shuowen analyses 在 as a phonetic compound: 土, earth, gives the meaning, “to exist, to be somewhere”, and 才 the sound. In the modern form 才 can no longer be seen: it has shrunk to the frame 𠂇 and a vertical stroke, 丨, above 土; on its own, 才 now reads cái, which no longer sounds like zài.",
+   "etiquette": "atteste",
    "memo_fr": null,
    "memo_en": null,
-   "mots": [],
-   "phrase": null,
+   "mots": [
+    {
+     "hanzi": "现在",
+     "pinyin": "xiànzài",
+     "fr": "maintenant",
+     "en": "now",
+     "audio": null
+    },
+    {
+     "hanzi": "不在",
+     "pinyin": "bùzài",
+     "fr": "être absent, ne pas être là",
+     "en": "to be out, not to be in",
+     "audio": null
+    }
+   ],
+   "phrase": {
+    "hanzi": "我妈妈现在不在。",
+    "pinyin": "Wǒ māma xiànzài bù zài.",
+    "fr": "Ma mère n'est pas là en ce moment.",
+    "en": "My mother isn't in at the moment.",
+    "audio": null
+   },
    "niveaux": {
     "seuil": 255,
     "hsk": 1
@@ -73,7 +106,7 @@
    "traits": [],
    "medianes": [],
    "audio": null,
-   "statut": "sans_fiche"
+   "statut": "relu"
   }
  ]
 }

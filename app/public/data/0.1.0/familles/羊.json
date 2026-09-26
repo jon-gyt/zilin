@@ -3,15 +3,15 @@
  "license": "propriétaire",
  "source": "décomposition GF 0014-2009 réconciliée par le pipeline wenlu ; pinyin d'Unihan (kMandarin) ; textes rédigés pour l'app",
  "source_url": "https://github.com/jon-gyt/zilin",
- "modified": "2026-09-25 : assemblé par `wenlu export`",
+ "modified": "2026-09-26 : assemblé par `wenlu export`",
  "norme": "GF 0014-2009",
  "racine": {
   "c": "羊",
   "pinyin": "yáng",
   "fr": "",
   "en": "",
-  "origine": "",
-  "etiquette": null
+  "origine": "Sur les os oraculaires, 羊 dessine une tête de mouton vue de face, avec deux cornes recourbées vers le bas. Le Shuowen jiezi le glose par 祥, « de bon augure », et y lit la tête, les cornes, les pattes et la queue. On le retrouve en haut de 美, que le Shuowen jiezi explique par la saveur du mouton, et à droite de 样, dont il donne le son.",
+  "etiquette": "atteste"
  },
  "fiches": [
   {
@@ -101,19 +101,42 @@
    "nouveau": [],
    "sources": [],
    "role": null,
-   "roles": {},
-   "origine_fr": "",
-   "origine_en": "",
-   "etiquette": null,
+   "roles": {
+    "羊": "sens"
+   },
+   "origine_fr": "Sur les os oraculaires, 羊 dessine une tête de mouton vue de face, avec deux cornes recourbées vers le bas. Le Shuowen jiezi le glose par 祥, « de bon augure », et y lit la tête, les cornes, les pattes et la queue. On le retrouve en haut de 美, que le Shuowen jiezi explique par la saveur du mouton, et à droite de 样, dont il donne le son.",
+   "origine_en": "On oracle bones, 羊 draws a sheep's head seen from the front, with two horns curling down. The Shuowen jiezi glosses it as 祥, “auspicious”, and reads in it the head, horns, legs and tail. It turns up at the top of 美, which the Shuowen jiezi explains by the good taste of mutton, and on the right of 样, which takes its sound from it.",
+   "etiquette": "atteste",
    "memo_fr": null,
    "memo_en": null,
-   "mots": [],
-   "phrase": null,
+   "mots": [
+    {
+     "hanzi": "山羊",
+     "pinyin": "shānyáng",
+     "fr": "chèvre",
+     "en": "goat",
+     "audio": null
+    },
+    {
+     "hanzi": "羊肉",
+     "pinyin": "yángròu",
+     "fr": "viande de mouton",
+     "en": "mutton, lamb",
+     "audio": null
+    }
+   ],
+   "phrase": {
+    "hanzi": "山上有一些羊。",
+    "pinyin": "Shān shang yǒu yīxiē yáng.",
+    "fr": "Il y a quelques moutons sur la montagne.",
+    "en": "There are a few sheep on the mountain.",
+    "audio": null
+   },
    "niveaux": {},
    "traits": [],
    "medianes": [],
    "audio": null,
-   "statut": "sans_fiche"
+   "statut": "relu"
   },
   {
    "c": "美",
@@ -133,22 +156,46 @@
    "sources": [
     "makemeahanzi"
    ],
-   "role": null,
-   "roles": {},
-   "origine_fr": "",
-   "origine_en": "",
-   "etiquette": null,
+   "role": "sens",
+   "roles": {
+    "大": "sens",
+    "羊": "sens"
+   },
+   "origine_fr": "Sur les os oraculaires, 美 montre un homme de face, 大, coiffé d'une parure de cornes ou de plumes. Le Shuowen jiezi y lit 羊, le mouton, au-dessus de 大, et le glose par « savoureux ». Les deux lectures s'accordent sur 大, et le sens courant est aujourd'hui « beau ».",
+   "origine_en": "On oracle bones, 美 shows a man seen from the front, 大, wearing a headdress of horns or feathers. The Shuowen jiezi reads it as 羊, sheep, above 大, and glosses it as “tasty”. Both readings agree on 大, and the everyday meaning today is “beautiful”.",
+   "etiquette": "atteste",
    "memo_fr": null,
    "memo_en": null,
-   "mots": [],
-   "phrase": null,
+   "mots": [
+    {
+     "hanzi": "美好",
+     "pinyin": "měihǎo",
+     "fr": "beau, heureux",
+     "en": "fine, happy",
+     "audio": null
+    },
+    {
+     "hanzi": "完美",
+     "pinyin": "wánměi",
+     "fr": "parfait",
+     "en": "perfect",
+     "audio": null
+    }
+   ],
+   "phrase": {
+    "hanzi": "花美，人也美。",
+    "pinyin": "Huā měi, rén yě měi.",
+    "fr": "Les fleurs sont belles, les gens aussi.",
+    "en": "The flowers are beautiful, and so are the people.",
+    "audio": null
+   },
    "niveaux": {
     "seuil": 255
    },
    "traits": [],
    "medianes": [],
    "audio": null,
-   "statut": "sans_fiche"
+   "statut": "relu"
   }
  ]
 }

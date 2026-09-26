@@ -3,15 +3,15 @@
  "license": "propriétaire",
  "source": "décomposition GF 0014-2009 réconciliée par le pipeline wenlu ; pinyin d'Unihan (kMandarin) ; textes rédigés pour l'app",
  "source_url": "https://github.com/jon-gyt/zilin",
- "modified": "2026-09-25 : assemblé par `wenlu export`",
+ "modified": "2026-09-26 : assemblé par `wenlu export`",
  "norme": "GF 0014-2009",
  "racine": {
   "c": "尤",
   "pinyin": "yóu",
   "fr": "",
   "en": "",
-  "origine": "",
-  "etiquette": null
+  "origine": "Le Shuowen jiezi définit 尤 comme « différent, hors du commun ». Certains paléographes y voient une main dont un doigt porte une marque, mais la forme ancienne reste discutée. De « hors du commun » vient 尤其, « surtout », et 尤 se retrouve à droite de 就.",
+  "etiquette": "atteste"
  },
  "fiches": [
   {
@@ -26,19 +26,35 @@
    "nouveau": [],
    "sources": [],
    "role": null,
-   "roles": {},
-   "origine_fr": "",
-   "origine_en": "",
-   "etiquette": null,
+   "roles": {
+    "尤": "forme"
+   },
+   "origine_fr": "Le Shuowen jiezi définit 尤 comme « différent, hors du commun ». Certains paléographes y voient une main dont un doigt porte une marque, mais la forme ancienne reste discutée. De « hors du commun » vient 尤其, « surtout », et 尤 se retrouve à droite de 就.",
+   "origine_en": "The Shuowen jiezi defines 尤 as “different, out of the ordinary”. Some palaeographers see in it a hand with a mark on one finger, but the early form is still debated. From “out of the ordinary” comes 尤其, “especially”, and 尤 turns up on the right of 就.",
+   "etiquette": "atteste",
    "memo_fr": null,
    "memo_en": null,
-   "mots": [],
-   "phrase": null,
+   "mots": [
+    {
+     "hanzi": "尤其",
+     "pinyin": "yóuqí",
+     "fr": "surtout, en particulier",
+     "en": "especially, particularly",
+     "audio": null
+    }
+   ],
+   "phrase": {
+    "hanzi": "她就是我妈妈。",
+    "pinyin": "Tā jiù shì wǒ māma.",
+    "fr": "C'est elle, ma mère.",
+    "en": "She's my mother.",
+    "audio": null
+   },
    "niveaux": {},
    "traits": [],
    "medianes": [],
    "audio": null,
-   "statut": "sans_fiche"
+   "statut": "relu"
   }
  ]
 }

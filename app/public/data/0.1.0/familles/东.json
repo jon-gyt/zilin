@@ -3,15 +3,15 @@
  "license": "propriétaire",
  "source": "décomposition GF 0014-2009 réconciliée par le pipeline wenlu ; pinyin d'Unihan (kMandarin) ; textes rédigés pour l'app",
  "source_url": "https://github.com/jon-gyt/zilin",
- "modified": "2026-09-25 : assemblé par `wenlu export`",
+ "modified": "2026-09-26 : assemblé par `wenlu export`",
  "norme": "GF 0014-2009",
  "racine": {
   "c": "东",
   "pinyin": "dōng",
   "fr": "",
   "en": "",
-  "origine": "",
-  "etiquette": null
+  "origine": "Sur les os oraculaires, 東 dessine un sac fermé par un lien à chaque bout. Le dessin a été emprunté pour écrire le mot qui désigne l'est, de son proche. On a longtemps cru y voir un soleil levé derrière un arbre, et la forme simplifiée 东 vient de l'écriture cursive de 東.",
+  "etiquette": "atteste"
  },
  "fiches": [
   {
@@ -26,14 +26,37 @@
    "nouveau": [],
    "sources": [],
    "role": null,
-   "roles": {},
-   "origine_fr": "",
-   "origine_en": "",
-   "etiquette": null,
+   "roles": {
+    "东": "forme"
+   },
+   "origine_fr": "Sur les os oraculaires, 東 dessine un sac fermé par un lien à chaque bout. Le dessin a été emprunté pour écrire le mot qui désigne l'est, de son proche. On a longtemps cru y voir un soleil levé derrière un arbre, et la forme simplifiée 东 vient de l'écriture cursive de 東.",
+   "origine_en": "On oracle bones, 東 depicts a sack tied shut at both ends. The drawing was borrowed to write the word for “east”, which sounded alike. It was long read as a sun rising behind a tree, and the simplified form 东 comes from the cursive writing of 東.",
+   "etiquette": "atteste",
    "memo_fr": null,
    "memo_en": null,
-   "mots": [],
-   "phrase": null,
+   "mots": [
+    {
+     "hanzi": "东西",
+     "pinyin": "dōngxi",
+     "fr": "chose, objet",
+     "en": "thing, stuff",
+     "audio": null
+    },
+    {
+     "hanzi": "东方",
+     "pinyin": "dōngfāng",
+     "fr": "l'est, l'Orient",
+     "en": "the east",
+     "audio": null
+    }
+   ],
+   "phrase": {
+    "hanzi": "日出东方。",
+    "pinyin": "Rì chū dōngfāng.",
+    "fr": "Le soleil se lève à l'est.",
+    "en": "The sun rises in the east.",
+    "audio": null
+   },
    "niveaux": {
     "seuil": 255,
     "hsk": 1
@@ -41,7 +64,7 @@
    "traits": [],
    "medianes": [],
    "audio": null,
-   "statut": "sans_fiche"
+   "statut": "relu"
   }
  ]
 }

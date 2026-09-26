@@ -10,8 +10,8 @@
   "pinyin": "wéi",
   "fr": "",
   "en": "",
-  "origine": "",
-  "etiquette": null
+  "origine": "囗 dessine une enceinte fermée, et le Shuowen jiezi le définit comme « faire le tour, entourer ». Il se lit wéi, comme 围, « entourer », dont il est la forme ancienne. La norme l'appelle 围字框, l'usage 国字框 ou 方框, et il enclôt 回, 因 ou 国.",
+  "etiquette": "atteste"
  },
  "fiches": [
   {
@@ -26,19 +26,27 @@
    "nouveau": [],
    "sources": [],
    "role": null,
-   "roles": {},
-   "origine_fr": "",
-   "origine_en": "",
-   "etiquette": null,
-   "memo_fr": null,
-   "memo_en": null,
+   "roles": {
+    "囗": "sens"
+   },
+   "origine_fr": "囗 dessine une enceinte fermée, et le Shuowen jiezi le définit comme « faire le tour, entourer ». Il se lit wéi, comme 围, « entourer », dont il est la forme ancienne. La norme l'appelle 围字框, l'usage 国字框 ou 方框, et il enclôt 回, 因 ou 国.",
+   "origine_en": "囗 draws a closed enclosure, and the Shuowen jiezi defines it as “to go round, to surround”. It is read wéi, like 围, “to surround”, of which it is the ancient form. The standard calls it 围字框, common usage 国字框 or 方框, and it encloses 回, 因 or 国.",
+   "etiquette": "atteste",
+   "memo_fr": "Plus grand que 口, il enferme ce qu'il entoure.",
+   "memo_en": "Larger than 口, it closes around what it holds.",
    "mots": [],
-   "phrase": null,
+   "phrase": {
+    "hanzi": "她回北京了。",
+    "pinyin": "Tā huí Běijīng le.",
+    "fr": "Elle est rentrée à Pékin.",
+    "en": "She has gone back to Beijing.",
+    "audio": null
+   },
    "niveaux": {},
    "traits": [],
    "medianes": [],
    "audio": null,
-   "statut": "sans_fiche"
+   "statut": "relu"
   },
   {
    "c": "回",
@@ -58,15 +66,39 @@
    "sources": [
     "makemeahanzi"
    ],
-   "role": null,
-   "roles": {},
-   "origine_fr": "",
-   "origine_en": "",
-   "etiquette": null,
+   "role": "forme",
+   "roles": {
+    "口": "forme",
+    "囗": "forme"
+   },
+   "origine_fr": "Sur les os oraculaires, 回 dessine une spirale, comme l'eau qui tourne sur elle-même. Le Shuowen jiezi le glose par « tourner » et voit dans le tracé intérieur la forme de ce qui tourne. La spirale s'est refermée en deux carrés emboîtés, 囗 et 口, et le sens a glissé de « tourner » à « revenir ».",
+   "origine_en": "On oracle bones, 回 draws a spiral, like water turning on itself. The Shuowen jiezi glosses it as “to turn” and reads the inner part as the shape of something revolving. The spiral closed up into two nested squares, 囗 and 口, and the meaning shifted from turning to coming back.",
+   "etiquette": "atteste",
    "memo_fr": null,
    "memo_en": null,
-   "mots": [],
-   "phrase": null,
+   "mots": [
+    {
+     "hanzi": "回来",
+     "pinyin": "huílai",
+     "fr": "revenir (ici)",
+     "en": "to come back",
+     "audio": null
+    },
+    {
+     "hanzi": "回去",
+     "pinyin": "huíqu",
+     "fr": "retourner (là-bas)",
+     "en": "to go back",
+     "audio": null
+    }
+   ],
+   "phrase": {
+    "hanzi": "他明天回来。",
+    "pinyin": "Tā míngtiān huílai.",
+    "fr": "Il revient demain.",
+    "en": "He is coming back tomorrow.",
+    "audio": null
+   },
    "niveaux": {
     "seuil": 255,
     "hsk": 1
@@ -74,7 +106,7 @@
    "traits": [],
    "medianes": [],
    "audio": null,
-   "statut": "sans_fiche"
+   "statut": "relu"
   },
   {
    "c": "因",
@@ -93,21 +125,45 @@
     "makemeahanzi"
    ],
    "role": null,
-   "roles": {},
-   "origine_fr": "",
-   "origine_en": "",
-   "etiquette": null,
+   "roles": {
+    "囗": "sens",
+    "大": "sens"
+   },
+   "origine_fr": "Sur les os oraculaires, 因 montre un homme, 大, étendu sur une natte, le cadre 囗. Le Shuowen jiezi le glose par « s'appuyer sur » : de la natte sur laquelle on repose, on est passé à ce sur quoi une chose repose, sa cause. La natte s'écrit aujourd'hui 茵, avec 艹, et 因 garde le sens de « cause » et de « parce que ».",
+   "origine_en": "On oracle bones, 因 shows a man, 大, lying on a mat, the frame 囗. The Shuowen jiezi glosses it as “to rely on”: from the mat one rests on, the meaning moved to what a thing rests on, its cause. The mat is now written 茵, with 艹, and 因 keeps the meanings “cause” and “because”.",
+   "etiquette": "atteste",
    "memo_fr": null,
    "memo_en": null,
-   "mots": [],
-   "phrase": null,
+   "mots": [
+    {
+     "hanzi": "因为",
+     "pinyin": "yīnwèi",
+     "fr": "parce que",
+     "en": "because",
+     "audio": null
+    },
+    {
+     "hanzi": "因果",
+     "pinyin": "yīnguǒ",
+     "fr": "la cause et l'effet",
+     "en": "cause and effect",
+     "audio": null
+    }
+   ],
+   "phrase": {
+    "hanzi": "因为下雨，我们不出门了。",
+    "pinyin": "Yīnwèi xià yǔ, wǒmen bù chūmén le.",
+    "fr": "Comme il pleut, nous ne sortons pas.",
+    "en": "Since it's raining, we're staying in.",
+    "audio": null
+   },
    "niveaux": {
     "seuil": 255
    },
    "traits": [],
    "medianes": [],
    "audio": null,
-   "statut": "sans_fiche"
+   "statut": "relu"
   },
   {
    "c": "国",
@@ -127,15 +183,39 @@
    "sources": [
     "makemeahanzi"
    ],
-   "role": null,
-   "roles": {},
-   "origine_fr": "",
-   "origine_en": "",
-   "etiquette": null,
+   "role": "forme",
+   "roles": {
+    "囗": "sens",
+    "玉": "forme"
+   },
+   "origine_fr": "国 simplifie l'ancien 國, que le Shuowen jiezi définit par pays, État. Dans 國, le cadre 囗 entoure 或, où l'on voit une arme, 戈, qui garde un territoire. La forme simplifiée garde le cadre et remplace 或 par 玉, le jade, reprise d'une forme populaire.",
+   "origine_en": "国 simplifies the older 國, which the Shuowen jiezi defines as a country, a state. In 國, the frame 囗 encloses 或, where a weapon, 戈, guards a territory. The simplified form keeps the frame and swaps 或 for 玉, jade, taken from a popular variant.",
+   "etiquette": "atteste",
    "memo_fr": null,
    "memo_en": null,
-   "mots": [],
-   "phrase": null,
+   "mots": [
+    {
+     "hanzi": "国家",
+     "pinyin": "guójiā",
+     "fr": "pays, État",
+     "en": "country, state",
+     "audio": null
+    },
+    {
+     "hanzi": "外国",
+     "pinyin": "wàiguó",
+     "fr": "pays étranger ; étranger",
+     "en": "foreign country; foreign",
+     "audio": null
+    }
+   ],
+   "phrase": {
+    "hanzi": "他明年回国。",
+    "pinyin": "Tā míngnián huíguó.",
+    "fr": "Il rentre dans son pays l'année prochaine.",
+    "en": "He is going back to his country next year.",
+    "audio": null
+   },
    "niveaux": {
     "seuil": 255,
     "hsk": 1
@@ -143,7 +223,7 @@
    "traits": [],
    "medianes": [],
    "audio": null,
-   "statut": "sans_fiche"
+   "statut": "relu"
   },
   {
    "c": "图",
@@ -164,15 +244,40 @@
    "sources": [
     "makemeahanzi"
    ],
-   "role": null,
-   "roles": {},
-   "origine_fr": "",
-   "origine_en": "",
-   "etiquette": null,
+   "role": "forme",
+   "roles": {
+    "⺀": "forme",
+    "囗": "sens",
+    "夂": "forme"
+   },
+   "origine_fr": "La forme traditionnelle 圖 réunit un cadre, 囗, et 啚, qui désigne dans les textes anciens les bourgs aux marges d'un territoire. Le Shuowen jiezi l'analyse par ces deux éléments ; on y lit le plan d'un territoire enclos dans ses limites, d'où les sens de carte, de dessin et de projet. La simplification a remplacé 啚 par 冬, qui n'y apporte ni sens ni son : 夂 et ⺀ ne sont là que pour la forme.",
+   "origine_en": "The traditional form 圖 combines a frame, 囗, with 啚, which in early texts refers to the outlying settlements of a territory. The Shuowen jiezi analyses it through these two parts, read as the plan of a territory enclosed within its borders, hence the senses of map, drawing and scheme. Simplification replaced 啚 with 冬, which brings neither meaning nor sound: 夂 and ⺀ are there for their shape only.",
+   "etiquette": "atteste",
    "memo_fr": null,
    "memo_en": null,
-   "mots": [],
-   "phrase": null,
+   "mots": [
+    {
+     "hanzi": "地图",
+     "pinyin": "dìtú",
+     "fr": "carte (géographique)",
+     "en": "map",
+     "audio": null
+    },
+    {
+     "hanzi": "图书",
+     "pinyin": "túshū",
+     "fr": "livres, ouvrages",
+     "en": "books",
+     "audio": null
+    }
+   ],
+   "phrase": {
+    "hanzi": "我有一张中国地图。",
+    "pinyin": "Wǒ yǒu yī zhāng Zhōngguó dìtú.",
+    "fr": "J'ai une carte de la Chine.",
+    "en": "I have a map of China.",
+    "audio": null
+   },
    "niveaux": {
     "seuil": 255,
     "hsk": 1
@@ -180,7 +285,7 @@
    "traits": [],
    "medianes": [],
    "audio": null,
-   "statut": "sans_fiche"
+   "statut": "relu"
   },
   {
    "c": "圈",

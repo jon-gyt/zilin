@@ -3,15 +3,15 @@
  "license": "propriétaire",
  "source": "décomposition GF 0014-2009 réconciliée par le pipeline wenlu ; pinyin d'Unihan (kMandarin) ; textes rédigés pour l'app",
  "source_url": "https://github.com/jon-gyt/zilin",
- "modified": "2026-09-25 : assemblé par `wenlu export`",
+ "modified": "2026-09-26 : assemblé par `wenlu export`",
  "norme": "GF 0014-2009",
  "racine": {
   "c": "头",
   "pinyin": "tóu",
   "fr": "",
   "en": "",
-  "origine": "",
-  "etiquette": null
+  "origine": "头 est la forme simplifiée de 頭, tirée de l'écriture cursive. Le Shuowen jiezi définit 頭 comme la tête, avec 頁, la tête, pour le sens et 豆 pour le son. Dans 买 et 卖, la même forme 头 vient d'une autre simplification, celle du bas de 買 et de 賣, sans rapport avec la tête.",
+  "etiquette": "atteste"
  },
  "fiches": [
   {
@@ -27,19 +27,42 @@
    "nouveau": [],
    "sources": [],
    "role": null,
-   "roles": {},
-   "origine_fr": "",
-   "origine_en": "",
-   "etiquette": null,
+   "roles": {
+    "头": "sens"
+   },
+   "origine_fr": "头 est la forme simplifiée de 頭, tirée de l'écriture cursive. Le Shuowen jiezi définit 頭 comme la tête, avec 頁, la tête, pour le sens et 豆 pour le son. Dans 买 et 卖, la même forme 头 vient d'une autre simplification, celle du bas de 買 et de 賣, sans rapport avec la tête.",
+   "origine_en": "头 is the simplified form of 頭, taken from cursive script. The Shuowen jiezi defines 頭 as the head, with 頁, head, for the meaning and 豆 for the sound. In 买 and 卖 the same shape 头 comes from a different simplification, of the lower part of 買 and 賣, and has nothing to do with the head.",
+   "etiquette": "atteste",
    "memo_fr": null,
    "memo_en": null,
-   "mots": [],
-   "phrase": null,
+   "mots": [
+    {
+     "hanzi": "木头",
+     "pinyin": "mùtou",
+     "fr": "bois (matière)",
+     "en": "wood (material)",
+     "audio": null
+    },
+    {
+     "hanzi": "回头",
+     "pinyin": "huítóu",
+     "fr": "se retourner ; plus tard",
+     "en": "to turn one's head; later",
+     "audio": null
+    }
+   ],
+   "phrase": {
+    "hanzi": "外头下雨了。",
+    "pinyin": "Wàitou xià yǔ le.",
+    "fr": "Il pleut dehors.",
+    "en": "It's raining outside.",
+    "audio": null
+   },
    "niveaux": {},
    "traits": [],
    "medianes": [],
    "audio": null,
-   "statut": "sans_fiche"
+   "statut": "relu"
   }
  ]
 }

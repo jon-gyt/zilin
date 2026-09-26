@@ -3,15 +3,15 @@
  "license": "propriétaire",
  "source": "décomposition GF 0014-2009 réconciliée par le pipeline wenlu ; pinyin d'Unihan (kMandarin) ; textes rédigés pour l'app",
  "source_url": "https://github.com/jon-gyt/zilin",
- "modified": "2026-09-25 : assemblé par `wenlu export`",
+ "modified": "2026-09-26 : assemblé par `wenlu export`",
  "norme": "GF 0014-2009",
  "racine": {
   "c": "文",
   "pinyin": "wén",
   "fr": "",
   "en": "",
-  "origine": "",
-  "etiquette": null
+  "origine": "Sur les os oraculaires et les bronzes, 文 montre un homme vu de face, la poitrine souvent marquée d'un motif, que l'on lit comme un tatouage. Le Shuowen jiezi le définit par des traits qui se croisent. Du motif tracé sur le corps, le sens est passé aux signes écrits, puis à la langue et à la culture.",
+  "etiquette": "atteste"
  },
  "fiches": [
   {
@@ -26,14 +26,37 @@
    "nouveau": [],
    "sources": [],
    "role": null,
-   "roles": {},
-   "origine_fr": "",
-   "origine_en": "",
-   "etiquette": null,
+   "roles": {
+    "文": "sens"
+   },
+   "origine_fr": "Sur les os oraculaires et les bronzes, 文 montre un homme vu de face, la poitrine souvent marquée d'un motif, que l'on lit comme un tatouage. Le Shuowen jiezi le définit par des traits qui se croisent. Du motif tracé sur le corps, le sens est passé aux signes écrits, puis à la langue et à la culture.",
+   "origine_en": "On oracle bones and bronzes, 文 shows a man seen from the front, his chest often marked with a pattern, read as a tattoo. The Shuowen jiezi defines it as crossing lines. From a pattern drawn on the body, the meaning moved to written signs, then to language and culture.",
+   "etiquette": "atteste",
    "memo_fr": null,
    "memo_en": null,
-   "mots": [],
-   "phrase": null,
+   "mots": [
+    {
+     "hanzi": "文明",
+     "pinyin": "wénmíng",
+     "fr": "civilisation",
+     "en": "civilization",
+     "audio": null
+    },
+    {
+     "hanzi": "古文",
+     "pinyin": "gǔwén",
+     "fr": "textes anciens, chinois classique",
+     "en": "ancient texts, classical Chinese",
+     "audio": null
+    }
+   ],
+   "phrase": {
+    "hanzi": "她念古文。",
+    "pinyin": "Tā niàn gǔwén.",
+    "fr": "Elle étudie les textes anciens.",
+    "en": "She studies classical texts.",
+    "audio": null
+   },
    "niveaux": {
     "seuil": 255,
     "hsk": 1
@@ -41,7 +64,7 @@
    "traits": [],
    "medianes": [],
    "audio": null,
-   "statut": "sans_fiche"
+   "statut": "relu"
   },
   {
    "c": "齐",

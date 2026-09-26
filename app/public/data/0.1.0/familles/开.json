@@ -3,15 +3,15 @@
  "license": "propriétaire",
  "source": "décomposition GF 0014-2009 réconciliée par le pipeline wenlu ; pinyin d'Unihan (kMandarin) ; textes rédigés pour l'app",
  "source_url": "https://github.com/jon-gyt/zilin",
- "modified": "2026-09-25 : assemblé par `wenlu export`",
+ "modified": "2026-09-26 : assemblé par `wenlu export`",
  "norme": "GF 0014-2009",
  "racine": {
   "c": "开",
   "pinyin": "kāi",
   "fr": "",
   "en": "",
-  "origine": "",
-  "etiquette": null
+  "origine": "开 est la forme simplifiée de 開, dont on a retiré la porte 門 pour ne garder que ce qu'elle encadrait. Dans 開, la porte donne le sens, et une forme ancienne de l'élément intérieur montre deux mains qui soulèvent la barre fermant les battants. Ouvrir une porte a donné « ouvrir » en général, puis « mettre en marche » et « conduire », comme dans 开车.",
+  "etiquette": "atteste"
  },
  "fiches": [
   {
@@ -26,14 +26,37 @@
    "nouveau": [],
    "sources": [],
    "role": null,
-   "roles": {},
-   "origine_fr": "",
-   "origine_en": "",
-   "etiquette": null,
+   "roles": {
+    "开": "sens"
+   },
+   "origine_fr": "开 est la forme simplifiée de 開, dont on a retiré la porte 門 pour ne garder que ce qu'elle encadrait. Dans 開, la porte donne le sens, et une forme ancienne de l'élément intérieur montre deux mains qui soulèvent la barre fermant les battants. Ouvrir une porte a donné « ouvrir » en général, puis « mettre en marche » et « conduire », comme dans 开车.",
+   "origine_en": "开 is the simplified form of 開, with the door 門 removed and only its inner part kept. In 開 the door gives the meaning, and an early form of the inner part shows two hands lifting the bar that locks the door. Opening a door led to “open” in general, then to “switch on” and “drive”, as in 开车.",
+   "etiquette": "atteste",
    "memo_fr": null,
    "memo_en": null,
-   "mots": [],
-   "phrase": null,
+   "mots": [
+    {
+     "hanzi": "开门",
+     "pinyin": "kāimén",
+     "fr": "ouvrir la porte",
+     "en": "to open the door",
+     "audio": null
+    },
+    {
+     "hanzi": "开心",
+     "pinyin": "kāixīn",
+     "fr": "content, joyeux",
+     "en": "happy, cheerful",
+     "audio": null
+    }
+   ],
+   "phrase": {
+    "hanzi": "她开门，门口有人。",
+    "pinyin": "Tā kāi mén, ménkǒu yǒu rén.",
+    "fr": "Elle ouvre la porte : il y a quelqu'un devant.",
+    "en": "She opens the door and someone is standing there.",
+    "audio": null
+   },
    "niveaux": {
     "seuil": 255,
     "hsk": 1
@@ -41,7 +64,7 @@
    "traits": [],
    "medianes": [],
    "audio": null,
-   "statut": "sans_fiche"
+   "statut": "relu"
   }
  ]
 }

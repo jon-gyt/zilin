@@ -3,15 +3,15 @@
  "license": "propriétaire",
  "source": "décomposition GF 0014-2009 réconciliée par le pipeline wenlu ; pinyin d'Unihan (kMandarin) ; textes rédigés pour l'app",
  "source_url": "https://github.com/jon-gyt/zilin",
- "modified": "2026-09-25 : assemblé par `wenlu export`",
+ "modified": "2026-09-26 : assemblé par `wenlu export`",
  "norme": "GF 0014-2009",
  "racine": {
   "c": "干",
   "pinyin": "gàn",
   "fr": "",
   "en": "",
-  "origine": "",
-  "etiquette": null
+  "origine": "Sur les bronzes, 干 dessine un objet de combat, une perche fourchue en haut, que l'on lit comme une arme à fourche ou comme un bouclier. Le sens ancien survit dans 干戈, le bouclier et la hache-poignard, c'est-à-dire la guerre. La simplification a aussi confié à 干 les caractères 乾, « sec », et 幹, « tronc, faire », d'où ses lectures gān et gàn.",
+  "etiquette": "atteste"
  },
  "fiches": [
   {
@@ -27,14 +27,30 @@
    "nouveau": [],
    "sources": [],
    "role": null,
-   "roles": {},
-   "origine_fr": "",
-   "origine_en": "",
-   "etiquette": null,
+   "roles": {
+    "干": "sens"
+   },
+   "origine_fr": "Sur les bronzes, 干 dessine un objet de combat, une perche fourchue en haut, que l'on lit comme une arme à fourche ou comme un bouclier. Le sens ancien survit dans 干戈, le bouclier et la hache-poignard, c'est-à-dire la guerre. La simplification a aussi confié à 干 les caractères 乾, « sec », et 幹, « tronc, faire », d'où ses lectures gān et gàn.",
+   "origine_en": "On bronzes, 干 draws a fighting implement, a pole forked at the top, read either as a forked weapon or as a shield. The old meaning survives in 干戈, shield and dagger-axe, that is, war. Simplification also gave 干 the work of 乾, “dry”, and 幹, “trunk, to do”, hence its readings gān and gàn.",
+   "etiquette": "atteste",
    "memo_fr": null,
    "memo_en": null,
-   "mots": [],
-   "phrase": null,
+   "mots": [
+    {
+     "hanzi": "大干",
+     "pinyin": "dàgàn",
+     "fr": "se donner à fond, travailler dur",
+     "en": "to go all out, to work hard",
+     "audio": null
+    }
+   ],
+   "phrase": {
+    "hanzi": "她口好干。",
+    "pinyin": "Tā kǒu hǎo gān.",
+    "fr": "Elle a la bouche très sèche.",
+    "en": "Her mouth is very dry.",
+    "audio": null
+   },
    "niveaux": {
     "seuil": 255,
     "hsk": 1
@@ -42,7 +58,7 @@
    "traits": [],
    "medianes": [],
    "audio": null,
-   "statut": "sans_fiche"
+   "statut": "relu"
   }
  ]
 }

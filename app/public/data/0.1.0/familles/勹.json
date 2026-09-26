@@ -3,15 +3,15 @@
  "license": "propriétaire",
  "source": "décomposition GF 0014-2009 réconciliée par le pipeline wenlu ; pinyin d'Unihan (kMandarin) ; textes rédigés pour l'app",
  "source_url": "https://github.com/jon-gyt/zilin",
- "modified": "2026-09-25 : assemblé par `wenlu export`",
+ "modified": "2026-09-26 : assemblé par `wenlu export`",
  "norme": "GF 0014-2009",
  "racine": {
   "c": "勹",
   "pinyin": "bāo",
   "fr": "",
   "en": "",
-  "origine": "",
-  "etiquette": null
+  "origine": "Le Shuowen jiezi définit 勹 comme « envelopper » et y voit un homme courbé qui entoure ce qu'il tient. Il se lit bāo, comme 包, dont il est la forme ancienne. La norme l'appelle 句字框, l'usage 包字头, et il enveloppe 句, 包 ou le bas de 喝.",
+  "etiquette": "atteste"
  },
  "fiches": [
   {
@@ -26,19 +26,27 @@
    "nouveau": [],
    "sources": [],
    "role": null,
-   "roles": {},
-   "origine_fr": "",
-   "origine_en": "",
-   "etiquette": null,
+   "roles": {
+    "勹": "sens"
+   },
+   "origine_fr": "Le Shuowen jiezi définit 勹 comme « envelopper » et y voit un homme courbé qui entoure ce qu'il tient. Il se lit bāo, comme 包, dont il est la forme ancienne. La norme l'appelle 句字框, l'usage 包字头, et il enveloppe 句, 包 ou le bas de 喝.",
+   "origine_en": "The Shuowen jiezi defines 勹 as “to wrap” and sees in it a man bending over to enclose what he holds. It is read bāo, like 包, of which it is the ancient form. The standard calls it 句字框, common usage 包字头, and it wraps 句, 包 or the bottom of 喝.",
+   "etiquette": "atteste",
    "memo_fr": null,
    "memo_en": null,
    "mots": [],
-   "phrase": null,
+   "phrase": {
+    "hanzi": "你喝什么？",
+    "pinyin": "Nǐ hē shénme?",
+    "fr": "Qu'est-ce que tu bois ?",
+    "en": "What are you drinking?",
+    "audio": null
+   },
    "niveaux": {},
    "traits": [],
    "medianes": [],
    "audio": null,
-   "statut": "sans_fiche"
+   "statut": "relu"
   },
   {
    "c": "包",

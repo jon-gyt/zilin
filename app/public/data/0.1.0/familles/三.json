@@ -3,15 +3,15 @@
  "license": "propriétaire",
  "source": "décomposition GF 0014-2009 réconciliée par le pipeline wenlu ; pinyin d'Unihan (kMandarin) ; textes rédigés pour l'app",
  "source_url": "https://github.com/jon-gyt/zilin",
- "modified": "2026-09-25 : assemblé par `wenlu export`",
+ "modified": "2026-09-26 : assemblé par `wenlu export`",
  "norme": "GF 0014-2009",
  "racine": {
   "c": "三",
   "pinyin": "sān",
   "fr": "",
   "en": "",
-  "origine": "",
-  "etiquette": null
+  "origine": "Sur les os oraculaires, 三 s'écrit déjà avec trois traits horizontaux superposés, un trait par unité. Il suit 一 et 二, qui comptent de la même façon. La forme n'a presque pas changé depuis.",
+  "etiquette": "atteste"
  },
  "fiches": [
   {
@@ -26,14 +26,37 @@
    "nouveau": [],
    "sources": [],
    "role": null,
-   "roles": {},
-   "origine_fr": "",
-   "origine_en": "",
-   "etiquette": null,
+   "roles": {
+    "三": "sens"
+   },
+   "origine_fr": "Sur les os oraculaires, 三 s'écrit déjà avec trois traits horizontaux superposés, un trait par unité. Il suit 一 et 二, qui comptent de la même façon. La forme n'a presque pas changé depuis.",
+   "origine_en": "On oracle bones, 三 is already written as three stacked horizontal strokes, one stroke per unit. It follows 一 and 二, which count in the same way. The form has barely changed since.",
+   "etiquette": "atteste",
    "memo_fr": null,
    "memo_en": null,
-   "mots": [],
-   "phrase": null,
+   "mots": [
+    {
+     "hanzi": "三十",
+     "pinyin": "sānshí",
+     "fr": "trente",
+     "en": "thirty",
+     "audio": null
+    },
+    {
+     "hanzi": "再三",
+     "pinyin": "zàisān",
+     "fr": "à plusieurs reprises",
+     "en": "over and over, repeatedly",
+     "audio": null
+    }
+   ],
+   "phrase": {
+    "hanzi": "一月有三十一天。",
+    "pinyin": "Yīyuè yǒu sānshíyī tiān.",
+    "fr": "Janvier compte trente et un jours.",
+    "en": "January has thirty-one days.",
+    "audio": null
+   },
    "niveaux": {
     "seuil": 255,
     "hsk": 1
@@ -41,7 +64,7 @@
    "traits": [],
    "medianes": [],
    "audio": null,
-   "statut": "sans_fiche"
+   "statut": "relu"
   }
  ]
 }

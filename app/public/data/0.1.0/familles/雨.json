@@ -3,15 +3,15 @@
  "license": "propriétaire",
  "source": "décomposition GF 0014-2009 réconciliée par le pipeline wenlu ; pinyin d'Unihan (kMandarin) ; textes rédigés pour l'app",
  "source_url": "https://github.com/jon-gyt/zilin",
- "modified": "2026-09-25 : assemblé par `wenlu export`",
+ "modified": "2026-09-26 : assemblé par `wenlu export`",
  "norme": "GF 0014-2009",
  "racine": {
   "c": "雨",
   "pinyin": "yǔ",
   "fr": "",
   "en": "",
-  "origine": "",
-  "etiquette": null
+  "origine": "Sur les os oraculaires, 雨 montre des gouttes qui tombent sous un trait horizontal. Le Shuowen jiezi le définit comme l'eau qui descend des nuages : le trait du haut figure le ciel, le cadre les nuages, et les points l'eau qui tombe entre eux. La forme actuelle garde ce cadre et ses quatre gouttes.",
+  "etiquette": "atteste"
  },
  "fiches": [
   {
@@ -27,14 +27,37 @@
    "nouveau": [],
    "sources": [],
    "role": null,
-   "roles": {},
-   "origine_fr": "",
-   "origine_en": "",
-   "etiquette": null,
+   "roles": {
+    "雨": "sens"
+   },
+   "origine_fr": "Sur les os oraculaires, 雨 montre des gouttes qui tombent sous un trait horizontal. Le Shuowen jiezi le définit comme l'eau qui descend des nuages : le trait du haut figure le ciel, le cadre les nuages, et les points l'eau qui tombe entre eux. La forme actuelle garde ce cadre et ses quatre gouttes.",
+   "origine_en": "On oracle bones, 雨 shows drops falling beneath a horizontal stroke. The Shuowen jiezi defines it as water coming down from the clouds: the top stroke stands for the sky, the frame for the clouds, and the dots for the water falling between them. Today's form keeps the frame and its four drops.",
+   "etiquette": "atteste",
    "memo_fr": null,
    "memo_en": null,
-   "mots": [],
-   "phrase": null,
+   "mots": [
+    {
+     "hanzi": "大雨",
+     "pinyin": "dàyǔ",
+     "fr": "forte pluie",
+     "en": "heavy rain",
+     "audio": null
+    },
+    {
+     "hanzi": "小雨",
+     "pinyin": "xiǎoyǔ",
+     "fr": "pluie fine",
+     "en": "light rain",
+     "audio": null
+    }
+   ],
+   "phrase": {
+    "hanzi": "明日有大雨。",
+    "pinyin": "Míngrì yǒu dàyǔ.",
+    "fr": "Il y aura de fortes pluies demain.",
+    "en": "Heavy rain is expected tomorrow.",
+    "audio": null
+   },
    "niveaux": {
     "seuil": 255,
     "hsk": 1
@@ -42,7 +65,7 @@
    "traits": [],
    "medianes": [],
    "audio": null,
-   "statut": "sans_fiche"
+   "statut": "relu"
   },
   {
    "c": "雪",

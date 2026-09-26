@@ -3,15 +3,15 @@
  "license": "propriétaire",
  "source": "décomposition GF 0014-2009 réconciliée par le pipeline wenlu ; pinyin d'Unihan (kMandarin) ; textes rédigés pour l'app",
  "source_url": "https://github.com/jon-gyt/zilin",
- "modified": "2026-09-25 : assemblé par `wenlu export`",
+ "modified": "2026-09-26 : assemblé par `wenlu export`",
  "norme": "GF 0014-2009",
  "racine": {
   "c": "里",
   "pinyin": "lǐ",
   "fr": "",
   "en": "",
-  "origine": "",
-  "etiquette": null
+  "origine": "Sur les bronzes, 里 réunit 田, le champ, au-dessus de 土, la terre, un ensemble que la norme GF 0014-2009 compte comme une seule brique. Le Shuowen jiezi le définit comme le lieu où l'on habite, d'où les sens de « village » et d'unité de distance. La simplification lui a aussi confié le sens « dedans », celui de 裏, qu'il porte dans 心里.",
+  "etiquette": "atteste"
  },
  "fiches": [
   {
@@ -27,14 +27,37 @@
    "nouveau": [],
    "sources": [],
    "role": null,
-   "roles": {},
-   "origine_fr": "",
-   "origine_en": "",
-   "etiquette": null,
+   "roles": {
+    "里": "sens"
+   },
+   "origine_fr": "Sur les bronzes, 里 réunit 田, le champ, au-dessus de 土, la terre, un ensemble que la norme GF 0014-2009 compte comme une seule brique. Le Shuowen jiezi le définit comme le lieu où l'on habite, d'où les sens de « village » et d'unité de distance. La simplification lui a aussi confié le sens « dedans », celui de 裏, qu'il porte dans 心里.",
+   "origine_en": "On bronzes, 里 joins 田, the field, above 土, the earth, a whole that the GF 0014-2009 standard counts as a single building block. The Shuowen jiezi defines it as the place where people live, hence the meanings “village” and a unit of distance. Simplification also gave it the sense “inside”, from 裏, which it carries in 心里.",
+   "etiquette": "atteste",
    "memo_fr": null,
    "memo_en": null,
-   "mots": [],
-   "phrase": null,
+   "mots": [
+    {
+     "hanzi": "心里",
+     "pinyin": "xīnli",
+     "fr": "dans le cœur, au fond de soi",
+     "en": "in one's heart, deep down",
+     "audio": null
+    },
+    {
+     "hanzi": "里子",
+     "pinyin": "lǐzi",
+     "fr": "doublure",
+     "en": "lining",
+     "audio": null
+    }
+   ],
+   "phrase": {
+    "hanzi": "她心里明白。",
+    "pinyin": "Tā xīnli míngbai.",
+    "fr": "Au fond d'elle, elle comprend.",
+    "en": "Deep down, she understands.",
+    "audio": null
+   },
    "niveaux": {
     "seuil": 255,
     "hsk": 1
@@ -42,7 +65,7 @@
    "traits": [],
    "medianes": [],
    "audio": null,
-   "statut": "sans_fiche"
+   "statut": "relu"
   }
  ]
 }

@@ -3,15 +3,15 @@
  "license": "propriétaire",
  "source": "décomposition GF 0014-2009 réconciliée par le pipeline wenlu ; pinyin d'Unihan (kMandarin) ; textes rédigés pour l'app",
  "source_url": "https://github.com/jon-gyt/zilin",
- "modified": "2026-09-25 : assemblé par `wenlu export`",
+ "modified": "2026-09-26 : assemblé par `wenlu export`",
  "norme": "GF 0014-2009",
  "racine": {
   "c": "厂",
   "pinyin": "chǎng",
   "fr": "",
   "en": "",
-  "origine": "",
-  "etiquette": null
+  "origine": "Le Shuowen jiezi définit 厂 comme un abri sous une falaise, un surplomb de roche où l'on peut loger, et le lit hǎn. La simplification l'a repris pour écrire 廠, l'atelier, d'où sa lecture actuelle chǎng et le sens d'« usine ». Il abrite aussi, comme simple forme, une partie de 候 ou le haut de 历.",
+  "etiquette": "atteste"
  },
  "fiches": [
   {
@@ -27,19 +27,42 @@
    "nouveau": [],
    "sources": [],
    "role": null,
-   "roles": {},
-   "origine_fr": "",
-   "origine_en": "",
-   "etiquette": null,
+   "roles": {
+    "厂": "sens"
+   },
+   "origine_fr": "Le Shuowen jiezi définit 厂 comme un abri sous une falaise, un surplomb de roche où l'on peut loger, et le lit hǎn. La simplification l'a repris pour écrire 廠, l'atelier, d'où sa lecture actuelle chǎng et le sens d'« usine ». Il abrite aussi, comme simple forme, une partie de 候 ou le haut de 历.",
+   "origine_en": "The Shuowen jiezi defines 厂 as a shelter under a cliff, an overhanging rock where one can live, and reads it hǎn. Simplification took it over to write 廠, a workshop, hence its current reading chǎng and the meaning “factory”. It also shelters, as a mere shape, part of 候 or the top of 历.",
+   "etiquette": "atteste",
    "memo_fr": null,
    "memo_en": null,
-   "mots": [],
-   "phrase": null,
+   "mots": [
+    {
+     "hanzi": "工厂",
+     "pinyin": "gōngchǎng",
+     "fr": "usine",
+     "en": "factory",
+     "audio": null
+    },
+    {
+     "hanzi": "厂长",
+     "pinyin": "chǎngzhǎng",
+     "fr": "directeur d'usine",
+     "en": "factory director",
+     "audio": null
+    }
+   ],
+   "phrase": {
+    "hanzi": "她在工厂工作。",
+    "pinyin": "Tā zài gōngchǎng gōngzuò.",
+    "fr": "Elle travaille à l'usine.",
+    "en": "She works in a factory.",
+    "audio": null
+   },
    "niveaux": {},
    "traits": [],
    "medianes": [],
    "audio": null,
-   "statut": "sans_fiche"
+   "statut": "relu"
   }
  ]
 }

@@ -3,15 +3,15 @@
  "license": "propriétaire",
  "source": "décomposition GF 0014-2009 réconciliée par le pipeline wenlu ; pinyin d'Unihan (kMandarin) ; textes rédigés pour l'app",
  "source_url": "https://github.com/jon-gyt/zilin",
- "modified": "2026-09-25 : assemblé par `wenlu export`",
+ "modified": "2026-09-26 : assemblé par `wenlu export`",
  "norme": "GF 0014-2009",
  "racine": {
   "c": "亠",
   "pinyin": "tóu",
   "fr": "",
   "en": "",
-  "origine": "",
-  "etiquette": null
+  "origine": "亠 ressemble à un couvercle : un point posé sur un trait horizontal. La norme l'appelle 玄字头, la tête de 玄, et l'usage dit aussi 点横头 ou 文字头. Il coiffe 六, 京, 高 ou 商, sans y apporter de sens propre.",
+  "etiquette": "mnemotechnique"
  },
  "fiches": [
   {
@@ -26,19 +26,27 @@
    "nouveau": [],
    "sources": [],
    "role": null,
-   "roles": {},
-   "origine_fr": "",
-   "origine_en": "",
-   "etiquette": null,
-   "memo_fr": null,
-   "memo_en": null,
+   "roles": {
+    "亠": "forme"
+   },
+   "origine_fr": "亠 ressemble à un couvercle : un point posé sur un trait horizontal. La norme l'appelle 玄字头, la tête de 玄, et l'usage dit aussi 点横头 ou 文字头. Il coiffe 六, 京, 高 ou 商, sans y apporter de sens propre.",
+   "origine_en": "亠 looks like a lid: a dot sitting on a horizontal stroke. The standard calls it 玄字头, the head of 玄, and common usage also says 点横头 or 文字头. It caps 六, 京, 高 or 商 without adding a meaning of its own.",
+   "etiquette": "mnemotechnique",
+   "memo_fr": "Un point sur un toit plat.",
+   "memo_en": "A dot on a flat roof.",
    "mots": [],
-   "phrase": null,
+   "phrase": {
+    "hanzi": "她六点回家。",
+    "pinyin": "Tā liù diǎn huí jiā.",
+    "fr": "Elle rentre à six heures.",
+    "en": "She gets home at six.",
+    "audio": null
+   },
    "niveaux": {},
    "traits": [],
    "medianes": [],
    "audio": null,
-   "statut": "sans_fiche"
+   "statut": "relu"
   },
   {
    "c": "商",
@@ -61,15 +69,42 @@
    "sources": [
     "makemeahanzi"
    ],
-   "role": null,
-   "roles": {},
-   "origine_fr": "",
-   "origine_en": "",
-   "etiquette": null,
+   "role": "forme",
+   "roles": {
+    "丷": "forme",
+    "亠": "forme",
+    "八": "forme",
+    "冂": "forme",
+    "口": "forme"
+   },
+   "origine_fr": "商 nomme déjà la dynastie Shang sur les os oraculaires, mais ce que dessinait la forme reste discuté. Pour s'en souvenir : sous un toit, 亠 et 丷, un étal fermé, 冂, où 八 et 口 figurent une bouche qui marchande. Le sens le plus courant aujourd'hui est « commerce, marchand », et 商 veut aussi dire « se concerter ».",
+   "origine_en": "商 already names the Shang dynasty on oracle bones, but what the form once depicted is still debated. To remember it: under a roof, 亠 and 丷, a closed stall, 冂, where 八 and 口 make a mouth haggling over prices. Today its commonest meaning is “trade, merchant”, and 商 also means “to consult”.",
+   "etiquette": "mnemotechnique",
    "memo_fr": null,
    "memo_en": null,
-   "mots": [],
-   "phrase": null,
+   "mots": [
+    {
+     "hanzi": "商人",
+     "pinyin": "shāngrén",
+     "fr": "commerçant, marchand",
+     "en": "merchant, trader",
+     "audio": null
+    },
+    {
+     "hanzi": "电商",
+     "pinyin": "diànshāng",
+     "fr": "commerce en ligne",
+     "en": "e-commerce",
+     "audio": null
+    }
+   ],
+   "phrase": {
+    "hanzi": "北京有很多商人。",
+    "pinyin": "Běijīng yǒu hěn duō shāngrén.",
+    "fr": "Il y a beaucoup de commerçants à Pékin.",
+    "en": "There are many merchants in Beijing.",
+    "audio": null
+   },
    "niveaux": {
     "seuil": 255,
     "hsk": 1
@@ -77,7 +112,7 @@
    "traits": [],
    "medianes": [],
    "audio": null,
-   "statut": "sans_fiche"
+   "statut": "relu"
   },
   {
    "c": "夜",

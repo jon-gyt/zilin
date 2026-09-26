@@ -3,15 +3,15 @@
  "license": "propriétaire",
  "source": "décomposition GF 0014-2009 réconciliée par le pipeline wenlu ; pinyin d'Unihan (kMandarin) ; textes rédigés pour l'app",
  "source_url": "https://github.com/jon-gyt/zilin",
- "modified": "2026-09-25 : assemblé par `wenlu export`",
+ "modified": "2026-09-26 : assemblé par `wenlu export`",
  "norme": "GF 0014-2009",
  "racine": {
   "c": "彡",
   "pinyin": "shān",
   "fr": "",
   "en": "",
-  "origine": "",
-  "etiquette": null
+  "origine": "Le Shuowen jiezi définit 彡 comme des poils, des ornements et des motifs peints, et le dessine en trois traits obliques. Il se lit shān et marque ce qui orne, brille ou ondule, les mèches comme les rayons. Dans 影, l'ombre, il ajoute ces traits à 景, la lumière du soleil, dont le son reste proche.",
+  "etiquette": "atteste"
  },
  "fiches": [
   {
@@ -26,19 +26,27 @@
    "nouveau": [],
    "sources": [],
    "role": null,
-   "roles": {},
-   "origine_fr": "",
-   "origine_en": "",
-   "etiquette": null,
+   "roles": {
+    "彡": "sens"
+   },
+   "origine_fr": "Le Shuowen jiezi définit 彡 comme des poils, des ornements et des motifs peints, et le dessine en trois traits obliques. Il se lit shān et marque ce qui orne, brille ou ondule, les mèches comme les rayons. Dans 影, l'ombre, il ajoute ces traits à 景, la lumière du soleil, dont le son reste proche.",
+   "origine_en": "The Shuowen jiezi defines 彡 as hair, adornment and painted patterns, and draws it as three slanting strokes. It is read shān and marks what adorns, shines or ripples, locks of hair as well as rays. In 影, shadow, it adds these strokes to 景, sunlight, whose sound stays close.",
+   "etiquette": "atteste",
    "memo_fr": null,
    "memo_en": null,
    "mots": [],
-   "phrase": null,
+   "phrase": {
+    "hanzi": "这是一个老电影。",
+    "pinyin": "Zhè shì yī ge lǎo diànyǐng.",
+    "fr": "C'est un vieux film.",
+    "en": "It's an old film.",
+    "audio": null
+   },
    "niveaux": {},
    "traits": [],
    "medianes": [],
    "audio": null,
-   "statut": "sans_fiche"
+   "statut": "relu"
   },
   {
    "c": "须",

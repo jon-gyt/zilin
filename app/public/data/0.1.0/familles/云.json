@@ -3,15 +3,15 @@
  "license": "propriétaire",
  "source": "décomposition GF 0014-2009 réconciliée par le pipeline wenlu ; pinyin d'Unihan (kMandarin) ; textes rédigés pour l'app",
  "source_url": "https://github.com/jon-gyt/zilin",
- "modified": "2026-09-25 : assemblé par `wenlu export`",
+ "modified": "2026-09-26 : assemblé par `wenlu export`",
  "norme": "GF 0014-2009",
  "racine": {
   "c": "云",
   "pinyin": "yún",
   "fr": "",
   "en": "",
-  "origine": "",
-  "etiquette": null
+  "origine": "Sur les os oraculaires, 云 dessine un nuage, une volute qui s'enroule sous deux traits. Le Shuowen jiezi en fait la forme ancienne de 雲, qui lui a ajouté la pluie 雨, et la simplification est revenue à 云. Emprunté très tôt pour dire « dire », il introduit aussi les citations dans les textes classiques.",
+  "etiquette": "atteste"
  },
  "fiches": [
   {
@@ -26,19 +26,42 @@
    "nouveau": [],
    "sources": [],
    "role": null,
-   "roles": {},
-   "origine_fr": "",
-   "origine_en": "",
-   "etiquette": null,
+   "roles": {
+    "云": "sens"
+   },
+   "origine_fr": "Sur les os oraculaires, 云 dessine un nuage, une volute qui s'enroule sous deux traits. Le Shuowen jiezi en fait la forme ancienne de 雲, qui lui a ajouté la pluie 雨, et la simplification est revenue à 云. Emprunté très tôt pour dire « dire », il introduit aussi les citations dans les textes classiques.",
+   "origine_en": "On oracle bones, 云 draws a cloud, a curl winding under two strokes. The Shuowen jiezi makes it the ancient form of 雲, which added rain, 雨, and simplification went back to 云. Borrowed early on to mean “to say”, it also introduces quotations in classical texts.",
+   "etiquette": "atteste",
    "memo_fr": null,
    "memo_en": null,
-   "mots": [],
-   "phrase": null,
+   "mots": [
+    {
+     "hanzi": "白云",
+     "pinyin": "báiyún",
+     "fr": "nuage blanc",
+     "en": "white cloud",
+     "audio": null
+    },
+    {
+     "hanzi": "多云",
+     "pinyin": "duōyún",
+     "fr": "nuageux",
+     "en": "cloudy",
+     "audio": null
+    }
+   ],
+   "phrase": {
+    "hanzi": "今天多云。",
+    "pinyin": "Jīntiān duōyún.",
+    "fr": "Aujourd'hui, le temps est nuageux.",
+    "en": "It's cloudy today.",
+    "audio": null
+   },
    "niveaux": {},
    "traits": [],
    "medianes": [],
    "audio": null,
-   "statut": "sans_fiche"
+   "statut": "relu"
   },
   {
    "c": "动",

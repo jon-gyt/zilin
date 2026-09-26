@@ -234,7 +234,7 @@ def test_les_fables_animalieres_nomment_l_animal_des_les_petits_niveaux() -> Non
         "shou-zhu-dai-tu": (("hsk3", "hsk5", "hsk7-9"), "", "兔桩"),
         "hua-she-tian-zu": (("hsk3", "hsk5", "hsk7-9"), "画足", "蛇"),
         "hu-jia-hu-wei": (("hsk3", "hsk5", "hsk7-9"), "", "虎狐狸"),
-        "jing-di-zhi-wa": (("hsk4", "hsk7-9"), "", "蛙龟井"),
+        "jing-di-zhi-wa": (("hsk3", "hsk7-9"), "", "蛙龟井"),
         "wang-yang-bu-lao": (("hsk3", "hsk4", "hsk6"), "羊补", "圈狼"),
     }
     for identifiant, (niveaux, cles, expliquables) in plans.items():
@@ -1122,7 +1122,7 @@ def test_le_plan_dit_l_etat_de_chaque_niveau() -> None:
     lignes = [
         rf"愚公移山 yu-gong-yi-shan : 255 écrit \(relu\) · hsk3 {etat} · hsk5 {etat}",
         rf"木兰从军 mu-lan-cong-jun, 4 chapitres : hsk4 {etat} · hsk6 {etat} · hsk7-9 {etat}",
-        rf"井底之蛙 jing-di-zhi-wa : hsk4 {etat} · hsk7-9 {etat}",
+        rf"井底之蛙 jing-di-zhi-wa : hsk3 {etat} · hsk7-9 {etat}",
     ]
     for ligne in lignes:
         assert re.search(rf"^{ligne}$", resultat.output, re.MULTILINE), ligne

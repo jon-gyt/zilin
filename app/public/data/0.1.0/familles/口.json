@@ -3,15 +3,15 @@
  "license": "propriétaire",
  "source": "décomposition GF 0014-2009 réconciliée par le pipeline wenlu ; pinyin d'Unihan (kMandarin) ; textes rédigés pour l'app",
  "source_url": "https://github.com/jon-gyt/zilin",
- "modified": "2026-09-25 : assemblé par `wenlu export`",
+ "modified": "2026-09-26 : assemblé par `wenlu export`",
  "norme": "GF 0014-2009",
  "racine": {
   "c": "口",
   "pinyin": "kǒu",
   "fr": "",
   "en": "",
-  "origine": "",
-  "etiquette": null
+  "origine": "Sur les os oraculaires, 口 dessine une bouche ouverte, les coins relevés. Le Shuowen jiezi y voit l'organe par lequel on parle et on mange. Comme composant, il signale souvent la parole, le cri ou le souffle, parfois une simple ouverture.",
+  "etiquette": "atteste"
  },
  "fiches": [
   {
@@ -34,15 +34,40 @@
    "sources": [
     "makemeahanzi"
    ],
-   "role": null,
-   "roles": {},
-   "origine_fr": "",
-   "origine_en": "",
-   "etiquette": null,
-   "memo_fr": null,
-   "memo_en": null,
-   "mots": [],
-   "phrase": null,
+   "role": "sens",
+   "roles": {
+    "刂": "sens",
+    "力": "forme",
+    "口": "forme"
+   },
+   "origine_fr": "Au petit sceau, 别 associe 冎, des os, et 刀, un couteau : on sépare la chair des os. Le Shuowen jiezi le glose par « découper, séparer », d'où les sens de « quitter » et de « distinguer ». Dans la forme actuelle, les os sont devenus 口 sur 力, et le couteau s'écrit 刂 sur le côté.",
+   "origine_en": "In small seal script, 别 pairs 冎, bones, with 刀, a knife: flesh is being cut away from the bone. The Shuowen jiezi glosses it as cutting apart, hence “to leave” and “to tell apart”. In today's form the bones have become 口 over 力, and the knife is written 刂 at the side.",
+   "etiquette": "atteste",
+   "memo_fr": "Devant un verbe, 别 sert aussi à défendre : ne pas faire.",
+   "memo_en": "Before a verb, 别 also means “don't”.",
+   "mots": [
+    {
+     "hanzi": "别人",
+     "pinyin": "biéren",
+     "fr": "les autres, autrui",
+     "en": "other people",
+     "audio": null
+    },
+    {
+     "hanzi": "识别",
+     "pinyin": "shíbié",
+     "fr": "reconnaître, distinguer",
+     "en": "to identify, to tell apart",
+     "audio": null
+    }
+   ],
+   "phrase": {
+    "hanzi": "别问我，问别人吧。",
+    "pinyin": "Bié wèn wǒ, wèn biéren ba.",
+    "fr": "Ne me demande pas, demande à quelqu'un d'autre.",
+    "en": "Don't ask me, ask someone else.",
+    "audio": null
+   },
    "niveaux": {
     "seuil": 255,
     "hsk": 1
@@ -50,7 +75,7 @@
    "traits": [],
    "medianes": [],
    "audio": null,
-   "statut": "sans_fiche"
+   "statut": "relu"
   },
   {
    "c": "口",
@@ -64,14 +89,37 @@
    "nouveau": [],
    "sources": [],
    "role": null,
-   "roles": {},
-   "origine_fr": "",
-   "origine_en": "",
-   "etiquette": null,
+   "roles": {
+    "口": "sens"
+   },
+   "origine_fr": "Sur les os oraculaires, 口 dessine une bouche ouverte, les coins relevés. Le Shuowen jiezi y voit l'organe par lequel on parle et on mange. Comme composant, il signale souvent la parole, le cri ou le souffle, parfois une simple ouverture.",
+   "origine_en": "On oracle bones, 口 draws an open mouth with raised corners. The Shuowen jiezi describes it as the organ people speak and eat with. As a component, it often points to speech, a cry or breath, and sometimes simply to an opening.",
+   "etiquette": "atteste",
    "memo_fr": null,
    "memo_en": null,
-   "mots": [],
-   "phrase": null,
+   "mots": [
+    {
+     "hanzi": "人口",
+     "pinyin": "rénkǒu",
+     "fr": "population ; membres d'un foyer",
+     "en": "population; members of a household",
+     "audio": null
+    },
+    {
+     "hanzi": "一口",
+     "pinyin": "yīkǒu",
+     "fr": "une bouchée ; d'une seule voix",
+     "en": "a mouthful; with one voice",
+     "audio": null
+    }
+   ],
+   "phrase": {
+    "hanzi": "有十口人。",
+    "pinyin": "Yǒu shí kǒu rén.",
+    "fr": "Le foyer compte dix personnes.",
+    "en": "The household has ten people.",
+    "audio": null
+   },
    "niveaux": {
     "seuil": 255,
     "hsk": 1
@@ -79,7 +127,7 @@
    "traits": [],
    "medianes": [],
    "audio": null,
-   "statut": "sans_fiche"
+   "statut": "relu"
   },
   {
    "c": "只",
@@ -100,22 +148,46 @@
    "sources": [
     "makemeahanzi"
    ],
-   "role": null,
-   "roles": {},
-   "origine_fr": "",
-   "origine_en": "",
-   "etiquette": null,
+   "role": "forme",
+   "roles": {
+    "八": "forme",
+    "口": "sens"
+   },
+   "origine_fr": "En chinois simplifié, 只 réunit deux caractères : 只, une particule de fin de phrase employée ensuite pour « seulement », et 隻, un oiseau tenu dans la main, devenu classificateur. Pour s'en souvenir : sous la bouche 口, les deux traits de 八 évoquent le souffle qui s'en échappe. Lu zhī, c'est le classificateur des animaux et des objets qui vont par paire ; lu zhǐ, il signifie « seulement », comme dans 只有.",
+   "origine_en": "In simplified Chinese, 只 merges two characters: 只, a sentence-final particle later used for “only”, and 隻, a bird held in the hand, which became a measure word. To remember it: under the mouth 口, the two strokes of 八 suggest breath escaping from it. Read zhī, it is the measure word for animals and for one of a pair; read zhǐ, it means “only”, as in 只有.",
+   "etiquette": "mnemotechnique",
    "memo_fr": null,
    "memo_en": null,
-   "mots": [],
-   "phrase": null,
+   "mots": [
+    {
+     "hanzi": "只有",
+     "pinyin": "zhǐyǒu",
+     "fr": "seulement, il n'y a que",
+     "en": "only, there is only",
+     "audio": null
+    },
+    {
+     "hanzi": "只是",
+     "pinyin": "zhǐshì",
+     "fr": "seulement ; mais",
+     "en": "only, merely; but",
+     "audio": null
+    }
+   ],
+   "phrase": {
+    "hanzi": "只有八人。",
+    "pinyin": "Zhǐ yǒu bā rén.",
+    "fr": "Il n'y a que huit personnes.",
+    "en": "There are only eight people.",
+    "audio": null
+   },
    "niveaux": {
     "seuil": 255
    },
    "traits": [],
    "medianes": [],
    "audio": null,
-   "statut": "sans_fiche"
+   "statut": "relu"
   },
   {
    "c": "叫",
@@ -135,15 +207,39 @@
    "sources": [
     "makemeahanzi"
    ],
-   "role": null,
-   "roles": {},
-   "origine_fr": "",
-   "origine_en": "",
-   "etiquette": null,
+   "role": "forme",
+   "roles": {
+    "丩": "forme",
+    "口": "sens"
+   },
+   "origine_fr": "Le Shuowen jiezi range 叫 parmi les idéo-phonétiques et le glose par « crier ». 口, la bouche, en donne le sens, et 丩 en donnait le son ; il se lit aujourd'hui jiū, qui ne sonne plus comme jiào. Du cri, on est passé à l'appel : on appelle quelqu'un, et l'on s'appelle d'un nom.",
+   "origine_en": "The Shuowen jiezi classes 叫 as a phonetic compound and glosses it as “to shout”. 口, the mouth, gives the meaning, and 丩 once gave the sound; it now reads jiū, which no longer sounds like jiào. From shouting came calling: you call someone, and you are called by a name.",
+   "etiquette": "atteste",
    "memo_fr": null,
    "memo_en": null,
-   "mots": [],
-   "phrase": null,
+   "mots": [
+    {
+     "hanzi": "名叫",
+     "pinyin": "míngjiào",
+     "fr": "s'appeler, avoir pour nom",
+     "en": "to be named, to be called",
+     "audio": null
+    },
+    {
+     "hanzi": "叫好",
+     "pinyin": "jiàohǎo",
+     "fr": "applaudir, crier bravo",
+     "en": "to cheer, to applaud",
+     "audio": null
+    }
+   ],
+   "phrase": {
+    "hanzi": "你叫什么名字？",
+    "pinyin": "Nǐ jiào shénme míngzi?",
+    "fr": "Comment t'appelles-tu ?",
+    "en": "What's your name?",
+    "audio": null
+   },
    "niveaux": {
     "seuil": 255,
     "hsk": 1
@@ -151,7 +247,7 @@
    "traits": [],
    "medianes": [],
    "audio": null,
-   "statut": "sans_fiche"
+   "statut": "relu"
   },
   {
    "c": "右",
@@ -274,15 +370,40 @@
     "makemeahanzi",
     "surcharge"
    ],
-   "role": null,
-   "roles": {},
-   "origine_fr": "",
-   "origine_en": "",
-   "etiquette": null,
+   "role": "forme",
+   "roles": {
+    "乙": "forme",
+    "口": "sens",
+    "𠂉": "forme"
+   },
+   "origine_fr": "Le Shuowen jiezi analyse 吃 par 口, la bouche, pour le sens, et l'élément qui s'écrit aujourd'hui 乞 pour le son, et lui donne le sens de bégayer, qu'il garde dans 口吃. Le sens de manger appartenait à un autre caractère, 喫, que 吃 a remplacé dans l'usage. À droite, 𠂉 et le trait 乙 forment 乞 qǐ, dont le son s'est éloigné de chī.",
+   "origine_en": "The Shuowen jiezi analyses 吃 as 口, the mouth, for the meaning, plus the element now written 乞 for the sound, and gives it the sense of stammering, which survives in 口吃. The sense of eating belonged to another character, 喫, which 吃 replaced in use. On the right, 𠂉 and the stroke 乙 make up 乞 qǐ, whose sound has drifted away from chī.",
+   "etiquette": "atteste",
    "memo_fr": null,
    "memo_en": null,
-   "mots": [],
-   "phrase": null,
+   "mots": [
+    {
+     "hanzi": "吃饭",
+     "pinyin": "chīfàn",
+     "fr": "manger, prendre un repas",
+     "en": "to eat, to have a meal",
+     "audio": null
+    },
+    {
+     "hanzi": "好吃",
+     "pinyin": "hǎochī",
+     "fr": "bon (à manger)",
+     "en": "tasty, good to eat",
+     "audio": null
+    }
+   ],
+   "phrase": {
+    "hanzi": "你吃饭了吗？",
+    "pinyin": "Nǐ chīfàn le ma?",
+    "fr": "Tu as mangé ?",
+    "en": "Have you eaten?",
+    "audio": null
+   },
    "niveaux": {
     "seuil": 255,
     "hsk": 1
@@ -290,7 +411,7 @@
    "traits": [],
    "medianes": [],
    "audio": null,
-   "statut": "sans_fiche"
+   "statut": "relu"
   },
   {
    "c": "吗",
@@ -312,15 +433,32 @@
    "sources": [
     "makemeahanzi"
    ],
-   "role": null,
-   "roles": {},
-   "origine_fr": "",
-   "origine_en": "",
-   "etiquette": null,
+   "role": "son",
+   "roles": {
+    "口": "sens",
+    "马": "son"
+   },
+   "origine_fr": "吗 est un caractère tardif, absent du Shuowen jiezi, qui note une particule de la langue parlée. On y voit 口, la bouche, et 马 (mǎ), qui donne un son proche. Pour s'en souvenir : la bouche ajoute ma à la fin d'une phrase, et la phrase devient une question.",
+   "origine_en": "吗 is a late character, not found in the Shuowen jiezi, used for a particle of the spoken language. It shows 口, the mouth, and 马 (mǎ), which gives a similar sound. To remember it: the mouth adds ma at the end of a sentence, and the sentence becomes a question.",
+   "etiquette": "mnemotechnique",
    "memo_fr": null,
    "memo_en": null,
-   "mots": [],
-   "phrase": null,
+   "mots": [
+    {
+     "hanzi": "干吗",
+     "pinyin": "gànmá",
+     "fr": "pourquoi ; qu'est-ce que tu fais",
+     "en": "why; what are you doing",
+     "audio": null
+    }
+   ],
+   "phrase": {
+    "hanzi": "你好吗？",
+    "pinyin": "Nǐ hǎo ma?",
+    "fr": "Tu vas bien ?",
+    "en": "How are you?",
+    "audio": null
+   },
    "niveaux": {
     "seuil": 255,
     "hsk": 1
@@ -328,7 +466,7 @@
    "traits": [],
    "medianes": [],
    "audio": null,
-   "statut": "sans_fiche"
+   "statut": "relu"
   },
   {
    "c": "吧",
@@ -349,15 +487,24 @@
    "sources": [
     "makemeahanzi"
    ],
-   "role": null,
-   "roles": {},
-   "origine_fr": "",
-   "origine_en": "",
-   "etiquette": null,
+   "role": "son",
+   "roles": {
+    "口": "sens",
+    "巴": "son"
+   },
+   "origine_fr": "吧 est un caractère tardif, absent du Shuowen jiezi, qui note surtout une particule de la langue parlée, lue ba sans ton. On y voit 口, la bouche, et 巴 (bā), qui donne le son. Pour s'en souvenir : la bouche ajoute ba en fin de phrase pour proposer ou adoucir, comme « allez » ou « d'accord ».",
+   "origine_en": "吧 is a late character, not found in the Shuowen jiezi, used mostly for a particle of the spoken language, read ba with no tone. It shows 口, the mouth, and 巴 (bā), which gives the sound. To remember it: the mouth adds ba at the end of a sentence to suggest or soften, like “let's” or “all right”.",
+   "etiquette": "mnemotechnique",
    "memo_fr": null,
    "memo_en": null,
    "mots": [],
-   "phrase": null,
+   "phrase": {
+    "hanzi": "我们回去吧。",
+    "pinyin": "Wǒmen huíqu ba.",
+    "fr": "Rentrons.",
+    "en": "Let's go back.",
+    "audio": null
+   },
    "niveaux": {
     "seuil": 255,
     "hsk": 1
@@ -365,7 +512,7 @@
    "traits": [],
    "medianes": [],
    "audio": null,
-   "statut": "sans_fiche"
+   "statut": "relu"
   },
   {
    "c": "听",
@@ -384,14 +531,38 @@
     "makemeahanzi"
    ],
    "role": null,
-   "roles": {},
-   "origine_fr": "",
-   "origine_en": "",
-   "etiquette": null,
+   "roles": {
+    "口": "forme",
+    "斤": "forme"
+   },
+   "origine_fr": "Le Shuowen jiezi connaît déjà 听, au sens de « rire », avec 口, la bouche, pour le sens et 斤 pour le son d'alors. L'écriture courante l'a repris pour noter 聽, « écouter », un caractère bien plus chargé en traits. La simplification a consacré cet emprunt, si bien que ni 口 ni 斤 ne disent plus rien du sens d'écouter.",
+   "origine_en": "The Shuowen jiezi already lists 听, meaning “to laugh”, with 口, the mouth, for meaning and 斤 for its sound at the time. Everyday handwriting took it over to stand for 聽, “to listen”, a character with many more strokes. The simplified script made this borrowing official, so neither 口 nor 斤 says anything about listening.",
+   "etiquette": "atteste",
    "memo_fr": null,
    "memo_en": null,
-   "mots": [],
-   "phrase": null,
+   "mots": [
+    {
+     "hanzi": "好听",
+     "pinyin": "hǎotīng",
+     "fr": "agréable à entendre",
+     "en": "pleasant to hear",
+     "audio": null
+    },
+    {
+     "hanzi": "听说",
+     "pinyin": "tīngshuō",
+     "fr": "entendre dire",
+     "en": "to hear it said",
+     "audio": null
+    }
+   ],
+   "phrase": {
+    "hanzi": "你听，天下雨了。",
+    "pinyin": "Nǐ tīng, tiān xià yǔ le.",
+    "fr": "Écoute, il pleut.",
+    "en": "Listen, it's raining.",
+    "audio": null
+   },
    "niveaux": {
     "seuil": 255,
     "hsk": 1
@@ -399,7 +570,7 @@
    "traits": [],
    "medianes": [],
    "audio": null,
-   "statut": "sans_fiche"
+   "statut": "relu"
   },
   {
    "c": "呢",
@@ -421,15 +592,25 @@
    "sources": [
     "makemeahanzi"
    ],
-   "role": null,
-   "roles": {},
-   "origine_fr": "",
-   "origine_en": "",
-   "etiquette": null,
+   "role": "forme",
+   "roles": {
+    "匕": "forme",
+    "口": "sens",
+    "尸": "forme"
+   },
+   "origine_fr": "Pour s'en souvenir : 口, la bouche, signale un mot de la langue parlée, et 尸 qui abrite 匕 forme 尼 ní, dont la particule, lue ne, garde seulement l'initiale n. 呢 se lit ní dans quelques mots, comme 呢子, le drap de laine, mais ne, sans ton, comme particule. C'est la petite syllabe qu'on ajoute en fin de phrase pour renvoyer une question, comme « et toi ».",
+   "origine_en": "To remember it: 口, the mouth, marks a word of the spoken language, and 尸 sheltering 匕 makes 尼 ní, of which the particle keeps only the initial n. 呢 is read ní in a few words such as 呢子, woollen cloth, but ne, toneless, as a particle. It is the little syllable added at the end of a sentence to hand a question back, as in “and you”.",
+   "etiquette": "mnemotechnique",
    "memo_fr": null,
    "memo_en": null,
    "mots": [],
-   "phrase": null,
+   "phrase": {
+    "hanzi": "我明天去北京，你呢？",
+    "pinyin": "Wǒ míngtiān qù Běijīng, nǐ ne?",
+    "fr": "Je vais à Pékin demain, et toi ?",
+    "en": "I'm going to Beijing tomorrow, and you?",
+    "audio": null
+   },
    "niveaux": {
     "seuil": 255,
     "hsk": 1
@@ -437,7 +618,7 @@
    "traits": [],
    "medianes": [],
    "audio": null,
-   "statut": "sans_fiche"
+   "statut": "relu"
   },
   {
    "c": "哪",
@@ -463,15 +644,40 @@
     "makemeahanzi",
     "surcharge"
    ],
-   "role": null,
-   "roles": {},
-   "origine_fr": "",
-   "origine_en": "",
-   "etiquette": null,
+   "role": "son",
+   "roles": {
+    "口": "sens",
+    "阝": "son",
+    "𭃂": "son"
+   },
+   "origine_fr": "Pour s'en souvenir : 哪 nǎ, lequel, où, c'est 那 nà, celui-là, avec la bouche 口 qui pose la question. Le caractère est tardif et absent du Shuowen jiezi ; 口 y marque un mot de la langue parlée, comme dans 吗 et 呢. Les deux ne diffèrent que par le ton, troisième pour la question, quatrième pour la réponse.",
+   "origine_en": "To remember it: 哪 nǎ, which or where, is 那 nà, that, with the mouth 口 asking the question. The character is late and absent from the Shuowen jiezi; 口 marks a word of the spoken language, as in 吗 and 呢. The two differ only in tone, third for the question, fourth for the answer.",
+   "etiquette": "mnemotechnique",
    "memo_fr": null,
    "memo_en": null,
-   "mots": [],
-   "phrase": null,
+   "mots": [
+    {
+     "hanzi": "哪儿",
+     "pinyin": "nǎr",
+     "fr": "où",
+     "en": "where",
+     "audio": null
+    },
+    {
+     "hanzi": "哪个",
+     "pinyin": "nǎge",
+     "fr": "lequel, laquelle",
+     "en": "which one",
+     "audio": null
+    }
+   ],
+   "phrase": {
+    "hanzi": "她们去哪儿了？",
+    "pinyin": "Tāmen qù nǎr le?",
+    "fr": "Où sont-elles allées ?",
+    "en": "Where did they go?",
+    "audio": null
+   },
    "niveaux": {
     "seuil": 255,
     "hsk": 1
@@ -479,7 +685,7 @@
    "traits": [],
    "medianes": [],
    "audio": null,
-   "statut": "sans_fiche"
+   "statut": "relu"
   },
   {
    "c": "唱",
@@ -541,15 +747,42 @@
     "cjk-decomp",
     "surcharge"
    ],
-   "role": null,
-   "roles": {},
-   "origine_fr": "",
-   "origine_en": "",
-   "etiquette": null,
+   "role": "son",
+   "roles": {
+    "人": "son",
+    "勹": "son",
+    "口": "sens",
+    "日": "son",
+    "𠃊": "son"
+   },
+   "origine_fr": "Le Shuowen jiezi analyse 喝 par 口, la bouche, pour le sens, et 曷 pour le son ; le sens premier touche à la voix. Le sens de boire est venu plus tard, et la lecture hè, crier, garde le lien avec la voix. À droite, 日, 勹, 人 et le trait 𠃊 forment ensemble 曷 hé, un son proche de hē, qui ne diffère que par le ton.",
+   "origine_en": "The Shuowen jiezi analyses 喝 as 口, the mouth, for the meaning, and 曷 for the sound; its first sense has to do with the voice. The sense of drinking came later, and the reading hè, to shout, keeps the link with the voice. On the right, 日, 勹, 人 and the stroke 𠃊 together make up 曷 hé, close to hē, differing only in tone.",
+   "etiquette": "atteste",
    "memo_fr": null,
    "memo_en": null,
-   "mots": [],
-   "phrase": null,
+   "mots": [
+    {
+     "hanzi": "喝茶",
+     "pinyin": "hēchá",
+     "fr": "boire du thé",
+     "en": "to drink tea",
+     "audio": null
+    },
+    {
+     "hanzi": "好喝",
+     "pinyin": "hǎohē",
+     "fr": "bon (à boire)",
+     "en": "tasty (to drink)",
+     "audio": null
+    }
+   ],
+   "phrase": {
+    "hanzi": "我爸爸只喝茶。",
+    "pinyin": "Wǒ bàba zhǐ hē chá.",
+    "fr": "Mon père ne boit que du thé.",
+    "en": "My father only drinks tea.",
+    "audio": null
+   },
    "niveaux": {
     "seuil": 255,
     "hsk": 1
@@ -557,7 +790,7 @@
    "traits": [],
    "medianes": [],
    "audio": null,
-   "statut": "sans_fiche"
+   "statut": "relu"
   },
   {
    "c": "跑",
@@ -618,15 +851,40 @@
     "makemeahanzi",
     "cjk-decomp"
    ],
-   "role": null,
-   "roles": {},
-   "origine_fr": "",
-   "origine_en": "",
-   "etiquette": null,
+   "role": "son",
+   "roles": {
+    "口": "sens",
+    "艮": "son",
+    "龰": "sens"
+   },
+   "origine_fr": "Le Shuowen jiezi définit 跟 comme le talon, avec 足, le pied, pour le sens, et 艮 gèn pour le son, proche de gēn. À gauche, 足 se décompose en 口 posé sur 龰. Du talon, le sens est passé à « suivre sur les talons », puis à « avec ».",
+   "origine_en": "The Shuowen jiezi defines 跟 as the heel, with 足, foot, for the meaning, and 艮 gèn for the sound, close to gēn. On the left, 足 breaks down into 口 over 龰. From the heel the meaning moved to following at someone's heels, then to “with”.",
+   "etiquette": "atteste",
    "memo_fr": null,
    "memo_en": null,
-   "mots": [],
-   "phrase": null,
+   "mots": [
+    {
+     "hanzi": "后跟",
+     "pinyin": "hòugēn",
+     "fr": "talon (du pied, d'une chaussure)",
+     "en": "heel (of the foot or a shoe)",
+     "audio": null
+    },
+    {
+     "hanzi": "跟前",
+     "pinyin": "gēnqián",
+     "fr": "devant, tout près",
+     "en": "in front of, close by",
+     "audio": null
+    }
+   ],
+   "phrase": {
+    "hanzi": "你跟我来。",
+    "pinyin": "Nǐ gēn wǒ lái.",
+    "fr": "Viens avec moi.",
+    "en": "Come with me.",
+    "audio": null
+   },
    "niveaux": {
     "seuil": 255,
     "hsk": 1
@@ -634,7 +892,7 @@
    "traits": [],
    "medianes": [],
    "audio": null,
-   "statut": "sans_fiche"
+   "statut": "relu"
   },
   {
    "c": "路",

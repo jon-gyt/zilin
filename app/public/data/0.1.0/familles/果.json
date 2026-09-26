@@ -3,15 +3,15 @@
  "license": "propriétaire",
  "source": "décomposition GF 0014-2009 réconciliée par le pipeline wenlu ; pinyin d'Unihan (kMandarin) ; textes rédigés pour l'app",
  "source_url": "https://github.com/jon-gyt/zilin",
- "modified": "2026-09-25 : assemblé par `wenlu export`",
+ "modified": "2026-09-26 : assemblé par `wenlu export`",
  "norme": "GF 0014-2009",
  "racine": {
   "c": "果",
   "pinyin": "guǒ",
   "fr": "",
   "en": "",
-  "origine": "",
-  "etiquette": null
+  "origine": "Sur les os oraculaires, 果 dessine un arbre dont les branches portent des fruits ronds. Le Shuowen jiezi le définit comme le fruit d'un arbre, dessiné au-dessus de 木. Dans la forme actuelle, le haut ressemble à 田, mais il ne s'agit pas d'un champ : c'est le fruit, posé sur l'arbre.",
+  "etiquette": "atteste"
  },
  "fiches": [
   {
@@ -26,14 +26,37 @@
    "nouveau": [],
    "sources": [],
    "role": null,
-   "roles": {},
-   "origine_fr": "",
-   "origine_en": "",
-   "etiquette": null,
+   "roles": {
+    "果": "sens"
+   },
+   "origine_fr": "Sur les os oraculaires, 果 dessine un arbre dont les branches portent des fruits ronds. Le Shuowen jiezi le définit comme le fruit d'un arbre, dessiné au-dessus de 木. Dans la forme actuelle, le haut ressemble à 田, mais il ne s'agit pas d'un champ : c'est le fruit, posé sur l'arbre.",
+   "origine_en": "On oracle bones, 果 draws a tree whose branches bear round fruit. The Shuowen jiezi defines it as the fruit of a tree, drawn above 木. In the current form the top looks like 田, but it is not a field: it is the fruit, sitting on the tree.",
+   "etiquette": "atteste",
    "memo_fr": null,
    "memo_en": null,
-   "mots": [],
-   "phrase": null,
+   "mots": [
+    {
+     "hanzi": "水果",
+     "pinyin": "shuǐguǒ",
+     "fr": "fruit",
+     "en": "fruit",
+     "audio": null
+    },
+    {
+     "hanzi": "如果",
+     "pinyin": "rúguǒ",
+     "fr": "si (condition)",
+     "en": "if",
+     "audio": null
+    }
+   ],
+   "phrase": {
+    "hanzi": "她有米，也有水果。",
+    "pinyin": "Tā yǒu mǐ, yě yǒu shuǐguǒ.",
+    "fr": "Elle a du riz, et aussi des fruits.",
+    "en": "She has rice, and fruit too.",
+    "audio": null
+   },
    "niveaux": {
     "seuil": 255,
     "hsk": 1
@@ -41,7 +64,7 @@
    "traits": [],
    "medianes": [],
    "audio": null,
-   "statut": "sans_fiche"
+   "statut": "relu"
   }
  ]
 }

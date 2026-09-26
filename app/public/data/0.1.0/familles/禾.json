@@ -3,15 +3,15 @@
  "license": "propriétaire",
  "source": "décomposition GF 0014-2009 réconciliée par le pipeline wenlu ; pinyin d'Unihan (kMandarin) ; textes rédigés pour l'app",
  "source_url": "https://github.com/jon-gyt/zilin",
- "modified": "2026-09-25 : assemblé par `wenlu export`",
+ "modified": "2026-09-26 : assemblé par `wenlu export`",
  "norme": "GF 0014-2009",
  "racine": {
   "c": "禾",
   "pinyin": "hé",
   "fr": "",
   "en": "",
-  "origine": "",
-  "etiquette": null
+  "origine": "Sur les os oraculaires, 禾 dessine une plante de céréale, la tige droite et l'épi lourd qui ploie d'un côté. Le Shuowen jiezi le définit comme la belle céréale, le millet. Il marque les grains et les récoltes, et donne le son à 和, hé comme lui.",
+  "etiquette": "atteste"
  },
  "fiches": [
   {
@@ -37,15 +37,39 @@
    "sources": [
     "makemeahanzi"
    ],
-   "role": null,
-   "roles": {},
-   "origine_fr": "",
-   "origine_en": "",
-   "etiquette": null,
+   "role": "son",
+   "roles": {
+    "口": "sens",
+    "禾": "son"
+   },
+   "origine_fr": "Le Shuowen jiezi écrit ce caractère 咊, avec 口 et 禾, et le glose par « se répondre », des voix qui s'accordent. 禾, l'épi de céréale, s'y lit hé et donne le son exact, tandis que 口 porte le sens. De l'accord des voix viennent « harmonie » et « paix », puis le sens de « et » entre deux noms.",
+   "origine_en": "The Shuowen jiezi writes this character 咊, with 口 and 禾, and glosses it as answering one another, voices in agreement. 禾, the ear of grain, is read hé and gives the exact sound, while 口 carries the meaning. From voices in agreement come “harmony” and “peace”, and then the sense of “and” between two nouns.",
+   "etiquette": "atteste",
    "memo_fr": null,
    "memo_en": null,
-   "mots": [],
-   "phrase": null,
+   "mots": [
+    {
+     "hanzi": "和好",
+     "pinyin": "héhǎo",
+     "fr": "se réconcilier",
+     "en": "to make up, to be reconciled",
+     "audio": null
+    },
+    {
+     "hanzi": "和气",
+     "pinyin": "héqi",
+     "fr": "aimable, affable",
+     "en": "friendly, polite",
+     "audio": null
+    }
+   ],
+   "phrase": {
+    "hanzi": "他们两个又和好了。",
+    "pinyin": "Tāmen liǎng gè yòu héhǎo le.",
+    "fr": "Ces deux-là se sont encore réconciliés.",
+    "en": "Those two have made up again.",
+    "audio": null
+   },
    "niveaux": {
     "seuil": 255,
     "hsk": 1
@@ -53,7 +77,7 @@
    "traits": [],
    "medianes": [],
    "audio": null,
-   "statut": "sans_fiche"
+   "statut": "relu"
   },
   {
    "c": "禾",
@@ -67,19 +91,27 @@
    "nouveau": [],
    "sources": [],
    "role": null,
-   "roles": {},
-   "origine_fr": "",
-   "origine_en": "",
-   "etiquette": null,
+   "roles": {
+    "禾": "sens"
+   },
+   "origine_fr": "Sur les os oraculaires, 禾 dessine une plante de céréale, la tige droite et l'épi lourd qui ploie d'un côté. Le Shuowen jiezi le définit comme la belle céréale, le millet. Il marque les grains et les récoltes, et donne le son à 和, hé comme lui.",
+   "origine_en": "On oracle bones, 禾 draws a cereal plant, its stalk upright and its heavy ear bending to one side. The Shuowen jiezi defines it as the fine grain, millet. It marks grain and harvests, and gives its sound to 和, hé like itself.",
+   "etiquette": "atteste",
    "memo_fr": null,
    "memo_en": null,
    "mots": [],
-   "phrase": null,
+   "phrase": {
+    "hanzi": "我和她是朋友。",
+    "pinyin": "Wǒ hé tā shì péngyou.",
+    "fr": "Elle et moi, nous sommes amis.",
+    "en": "She and I are friends.",
+    "audio": null
+   },
    "niveaux": {},
    "traits": [],
    "medianes": [],
    "audio": null,
-   "statut": "sans_fiche"
+   "statut": "relu"
   },
   {
    "c": "秀",

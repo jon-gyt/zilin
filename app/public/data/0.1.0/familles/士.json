@@ -3,15 +3,15 @@
  "license": "propriétaire",
  "source": "décomposition GF 0014-2009 réconciliée par le pipeline wenlu ; pinyin d'Unihan (kMandarin) ; textes rédigés pour l'app",
  "source_url": "https://github.com/jon-gyt/zilin",
- "modified": "2026-09-25 : assemblé par `wenlu export`",
+ "modified": "2026-09-26 : assemblé par `wenlu export`",
  "norme": "GF 0014-2009",
  "racine": {
   "c": "士",
   "pinyin": "shì",
   "fr": "",
   "en": "",
-  "origine": "",
-  "etiquette": null
+  "origine": "Le Shuowen jiezi définit 士 par 事, « s'occuper d'une affaire », et cite Confucius : qui part de dix pour arriver à un, 十 et 一, est un 士. Les paléographes discutent de la forme ancienne, où certains voient la lame d'une hache. Le mot a désigné le lettré, puis, aujourd'hui, les personnes qu'on salue avec égard, comme dans 女士, madame.",
+  "etiquette": "atteste"
  },
  "fiches": [
   {
@@ -35,15 +35,40 @@
     "makemeahanzi",
     "surcharge"
    ],
-   "role": null,
-   "roles": {},
-   "origine_fr": "",
-   "origine_en": "",
-   "etiquette": null,
+   "role": "forme",
+   "roles": {
+    "䒑": "forme",
+    "口": "sens",
+    "士": "forme"
+   },
+   "origine_fr": "Sur les os oraculaires, 喜 place un tambour sur son support au-dessus d'une bouche, 口. Le Shuowen jiezi le glose par « joie », avec le tambour et la bouche pour éléments de sens. Dans la forme actuelle, le tambour occupe tout le haut du caractère et 口 reste en bas.",
+   "origine_en": "On oracle bones, 喜 sets a drum on its stand above a mouth, 口. The Shuowen jiezi glosses it as “joy”, with the drum and the mouth both carrying meaning. In today's form, the drum fills the whole upper part of the character and 口 stays at the bottom.",
+   "etiquette": "atteste",
    "memo_fr": null,
    "memo_en": null,
-   "mots": [],
-   "phrase": null,
+   "mots": [
+    {
+     "hanzi": "喜气",
+     "pinyin": "xǐqì",
+     "fr": "air de fête, joie",
+     "en": "festive air, joy",
+     "audio": null
+    },
+    {
+     "hanzi": "大喜",
+     "pinyin": "dàxǐ",
+     "fr": "grande joie ; heureux événement",
+     "en": "great joy; happy occasion",
+     "audio": null
+    }
+   ],
+   "phrase": {
+    "hanzi": "她有喜了。",
+    "pinyin": "Tā yǒu xǐ le.",
+    "fr": "Elle attend un enfant.",
+    "en": "She is expecting a baby.",
+    "audio": null
+   },
    "niveaux": {
     "seuil": 255,
     "hsk": 1
@@ -51,7 +76,7 @@
    "traits": [],
    "medianes": [],
    "audio": null,
-   "statut": "sans_fiche"
+   "statut": "relu"
   },
   {
    "c": "士",
@@ -65,19 +90,42 @@
    "nouveau": [],
    "sources": [],
    "role": null,
-   "roles": {},
-   "origine_fr": "",
-   "origine_en": "",
-   "etiquette": null,
+   "roles": {
+    "士": "sens"
+   },
+   "origine_fr": "Le Shuowen jiezi définit 士 par 事, « s'occuper d'une affaire », et cite Confucius : qui part de dix pour arriver à un, 十 et 一, est un 士. Les paléographes discutent de la forme ancienne, où certains voient la lame d'une hache. Le mot a désigné le lettré, puis, aujourd'hui, les personnes qu'on salue avec égard, comme dans 女士, madame.",
+   "origine_en": "The Shuowen jiezi defines 士 by 事, “to attend to a matter”, and quotes Confucius: whoever goes from ten to one, 十 and 一, is a 士. Palaeographers debate the early form, in which some see the blade of an axe. The word once meant a scholar-official, and today it names people addressed with respect, as in 女士, madam.",
+   "etiquette": "atteste",
    "memo_fr": null,
    "memo_en": null,
-   "mots": [],
-   "phrase": null,
+   "mots": [
+    {
+     "hanzi": "女士",
+     "pinyin": "nǚshì",
+     "fr": "madame",
+     "en": "madam, Ms",
+     "audio": null
+    },
+    {
+     "hanzi": "男士",
+     "pinyin": "nánshì",
+     "fr": "monsieur, homme",
+     "en": "gentleman, man",
+     "audio": null
+    }
+   ],
+   "phrase": {
+    "hanzi": "女士们，先生们，你们好！",
+    "pinyin": "Nǚshìmen, xiānshengmen, nǐmen hǎo!",
+    "fr": "Mesdames et messieurs, bonjour !",
+    "en": "Ladies and gentlemen, good day!",
+    "audio": null
+   },
    "niveaux": {},
    "traits": [],
    "medianes": [],
    "audio": null,
-   "statut": "sans_fiche"
+   "statut": "relu"
   }
  ]
 }

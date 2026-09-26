@@ -3,15 +3,15 @@
  "license": "propriétaire",
  "source": "décomposition GF 0014-2009 réconciliée par le pipeline wenlu ; pinyin d'Unihan (kMandarin) ; textes rédigés pour l'app",
  "source_url": "https://github.com/jon-gyt/zilin",
- "modified": "2026-09-25 : assemblé par `wenlu export`",
+ "modified": "2026-09-26 : assemblé par `wenlu export`",
  "norme": "GF 0014-2009",
  "racine": {
   "c": "今",
   "pinyin": "jīn",
   "fr": "",
   "en": "",
-  "origine": "",
-  "etiquette": null
+  "origine": "今 figure déjà sur les os oraculaires, mais ce que dessinait sa forme reste discuté. Pour s'en souvenir : un toit en pointe au-dessus d'un point et d'un trait coudé, ce qui se trouve là, sous le toit, maintenant. Il veut dire « maintenant, à présent », et le Shuowen jiezi en fait le composant phonétique de 念.",
+  "etiquette": "mnemotechnique"
  },
  "fiches": [
   {
@@ -26,14 +26,37 @@
    "nouveau": [],
    "sources": [],
    "role": null,
-   "roles": {},
-   "origine_fr": "",
-   "origine_en": "",
-   "etiquette": null,
+   "roles": {
+    "今": "forme"
+   },
+   "origine_fr": "今 figure déjà sur les os oraculaires, mais ce que dessinait sa forme reste discuté. Pour s'en souvenir : un toit en pointe au-dessus d'un point et d'un trait coudé, ce qui se trouve là, sous le toit, maintenant. Il veut dire « maintenant, à présent », et le Shuowen jiezi en fait le composant phonétique de 念.",
+   "origine_en": "今 already appears on oracle bones, but what its shape depicted is still debated. To remember it: a pointed roof over a dot and a bent stroke, whatever is right here under the roof, now. It means “now, the present”, and the Shuowen jiezi makes it the phonetic part of 念.",
+   "etiquette": "mnemotechnique",
    "memo_fr": null,
    "memo_en": null,
-   "mots": [],
-   "phrase": null,
+   "mots": [
+    {
+     "hanzi": "今日",
+     "pinyin": "jīnrì",
+     "fr": "aujourd'hui",
+     "en": "today",
+     "audio": null
+    },
+    {
+     "hanzi": "如今",
+     "pinyin": "rújīn",
+     "fr": "de nos jours, à présent",
+     "en": "nowadays",
+     "audio": null
+    }
+   ],
+   "phrase": {
+    "hanzi": "今日她生日。",
+    "pinyin": "Jīnrì tā shēngrì.",
+    "fr": "Aujourd'hui, c'est son anniversaire.",
+    "en": "Today is her birthday.",
+    "audio": null
+   },
    "niveaux": {
     "seuil": 255,
     "hsk": 1
@@ -41,7 +64,7 @@
    "traits": [],
    "medianes": [],
    "audio": null,
-   "statut": "sans_fiche"
+   "statut": "relu"
   },
   {
    "c": "念",
@@ -61,22 +84,31 @@
    "sources": [
     "makemeahanzi"
    ],
-   "role": null,
-   "roles": {},
-   "origine_fr": "",
-   "origine_en": "",
-   "etiquette": null,
+   "role": "forme",
+   "roles": {
+    "今": "forme",
+    "心": "sens"
+   },
+   "origine_fr": "Le Shuowen jiezi définit 念 par « penser sans cesse » et l'analyse comme 心, le cœur, pour le sens, avec 今 pour le son. Le lien de son entre jīn et niàn ne s'entend plus en mandarin. Du sens « penser à » viennent « se souvenir de » et, plus tard, « lire à voix haute » et « étudier ».",
+   "origine_en": "The Shuowen jiezi defines 念 as “to think of constantly” and analyzes it as 心, heart, for the meaning, with 今 for the sound. The sound link between jīn and niàn can no longer be heard in Mandarin. From “to think of” came “to remember” and, later, “to read aloud” and “to study”.",
+   "etiquette": "atteste",
    "memo_fr": null,
    "memo_en": null,
    "mots": [],
-   "phrase": null,
+   "phrase": {
+    "hanzi": "她每日念子女。",
+    "pinyin": "Tā měi rì niàn zǐnǚ.",
+    "fr": "Elle pense chaque jour à ses enfants.",
+    "en": "She thinks of her children every day.",
+    "audio": null
+   },
    "niveaux": {
     "seuil": 255
    },
    "traits": [],
    "medianes": [],
    "audio": null,
-   "statut": "sans_fiche"
+   "statut": "relu"
   }
  ]
 }

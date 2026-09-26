@@ -3,15 +3,15 @@
  "license": "propriétaire",
  "source": "décomposition GF 0014-2009 réconciliée par le pipeline wenlu ; pinyin d'Unihan (kMandarin) ; textes rédigés pour l'app",
  "source_url": "https://github.com/jon-gyt/zilin",
- "modified": "2026-09-25 : assemblé par `wenlu export`",
+ "modified": "2026-09-26 : assemblé par `wenlu export`",
  "norme": "GF 0014-2009",
  "racine": {
   "c": "六",
   "pinyin": "liù",
   "fr": "",
   "en": "",
-  "origine": "",
-  "etiquette": null
+  "origine": "L'origine de 六 est discutée : sa forme ancienne a été rapprochée d'un abri au toit pointu, et le nombre six l'aurait empruntée pour le son. Pour s'en souvenir : un point et un trait forment un petit toit, sous lequel deux traits s'écartent vers le bas. Dans l'usage, 六 sert au nombre six, seul ou dans les dates et les nombres composés.",
+  "etiquette": "mnemotechnique"
  },
  "fiches": [
   {
@@ -27,14 +27,37 @@
    "nouveau": [],
    "sources": [],
    "role": null,
-   "roles": {},
-   "origine_fr": "",
-   "origine_en": "",
-   "etiquette": null,
+   "roles": {
+    "六": "sens"
+   },
+   "origine_fr": "L'origine de 六 est discutée : sa forme ancienne a été rapprochée d'un abri au toit pointu, et le nombre six l'aurait empruntée pour le son. Pour s'en souvenir : un point et un trait forment un petit toit, sous lequel deux traits s'écartent vers le bas. Dans l'usage, 六 sert au nombre six, seul ou dans les dates et les nombres composés.",
+   "origine_en": "The origin of 六 is debated: its early form has been compared to a shelter with a pointed roof, which the number six may have borrowed for its sound. To remember it: a dot and a stroke make a small roof, with two strokes spreading apart beneath it. In use, 六 writes the number six, on its own or in dates and larger numbers.",
+   "etiquette": "mnemotechnique",
    "memo_fr": null,
    "memo_en": null,
-   "mots": [],
-   "phrase": null,
+   "mots": [
+    {
+     "hanzi": "六十",
+     "pinyin": "liùshí",
+     "fr": "soixante",
+     "en": "sixty",
+     "audio": null
+    },
+    {
+     "hanzi": "十六",
+     "pinyin": "shíliù",
+     "fr": "seize",
+     "en": "sixteen",
+     "audio": null
+    }
+   ],
+   "phrase": {
+    "hanzi": "六月雨水大。",
+    "pinyin": "Liùyuè yǔshuǐ dà.",
+    "fr": "En juin, les pluies sont abondantes.",
+    "en": "In June, the rains are heavy.",
+    "audio": null
+   },
    "niveaux": {
     "seuil": 255,
     "hsk": 1
@@ -42,7 +65,7 @@
    "traits": [],
    "medianes": [],
    "audio": null,
-   "statut": "sans_fiche"
+   "statut": "relu"
   }
  ]
 }

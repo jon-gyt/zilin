@@ -3,15 +3,15 @@
  "license": "propriétaire",
  "source": "décomposition GF 0014-2009 réconciliée par le pipeline wenlu ; pinyin d'Unihan (kMandarin) ; textes rédigés pour l'app",
  "source_url": "https://github.com/jon-gyt/zilin",
- "modified": "2026-09-25 : assemblé par `wenlu export`",
+ "modified": "2026-09-26 : assemblé par `wenlu export`",
  "norme": "GF 0014-2009",
  "racine": {
   "c": "七",
   "pinyin": "qī",
   "fr": "",
   "en": "",
-  "origine": "",
-  "etiquette": null
+  "origine": "Sur les os oraculaires, 七 s'écrit comme une croix, un trait horizontal coupé par un trait vertical. Ce dessin notait d'abord l'idée de couper, et il a servi à écrire le nombre sept, dont le mot sonnait de façon proche. Pour ne plus le confondre avec 十, on a ensuite recourbé le bas du trait vertical.",
+  "etiquette": "atteste"
  },
  "fiches": [
   {
@@ -27,14 +27,37 @@
    "nouveau": [],
    "sources": [],
    "role": null,
-   "roles": {},
-   "origine_fr": "",
-   "origine_en": "",
-   "etiquette": null,
+   "roles": {
+    "七": "forme"
+   },
+   "origine_fr": "Sur les os oraculaires, 七 s'écrit comme une croix, un trait horizontal coupé par un trait vertical. Ce dessin notait d'abord l'idée de couper, et il a servi à écrire le nombre sept, dont le mot sonnait de façon proche. Pour ne plus le confondre avec 十, on a ensuite recourbé le bas du trait vertical.",
+   "origine_en": "On oracle bones, 七 is written as a cross, a horizontal stroke cut by a vertical one. The drawing first stood for cutting, and it was used to write the number seven, a word that sounded alike. To keep it apart from 十, the foot of the vertical stroke was later bent.",
+   "etiquette": "atteste",
    "memo_fr": null,
    "memo_en": null,
-   "mots": [],
-   "phrase": null,
+   "mots": [
+    {
+     "hanzi": "七十",
+     "pinyin": "qīshí",
+     "fr": "soixante-dix",
+     "en": "seventy",
+     "audio": null
+    },
+    {
+     "hanzi": "十七",
+     "pinyin": "shíqī",
+     "fr": "dix-sept",
+     "en": "seventeen",
+     "audio": null
+    }
+   ],
+   "phrase": {
+    "hanzi": "她七月出生。",
+    "pinyin": "Tā qīyuè chūshēng.",
+    "fr": "Elle est née en juillet.",
+    "en": "She was born in July.",
+    "audio": null
+   },
    "niveaux": {
     "seuil": 255,
     "hsk": 1
@@ -42,7 +65,7 @@
    "traits": [],
    "medianes": [],
    "audio": null,
-   "statut": "sans_fiche"
+   "statut": "relu"
   }
  ]
 }

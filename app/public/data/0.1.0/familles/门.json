@@ -3,15 +3,15 @@
  "license": "propriétaire",
  "source": "décomposition GF 0014-2009 réconciliée par le pipeline wenlu ; pinyin d'Unihan (kMandarin) ; textes rédigés pour l'app",
  "source_url": "https://github.com/jon-gyt/zilin",
- "modified": "2026-09-25 : assemblé par `wenlu export`",
+ "modified": "2026-09-26 : assemblé par `wenlu export`",
  "norme": "GF 0014-2009",
  "racine": {
   "c": "门",
   "pinyin": "mén",
   "fr": "",
   "en": "",
-  "origine": "",
-  "etiquette": null
+  "origine": "Sur les os oraculaires, la porte 門 est dessinée à deux battants, parfois sous un linteau. Le Shuowen jiezi y lit aussi deux battants qui se font face. La forme simplifiée 门, tirée de l'écriture cursive, réduit ces battants à un point et à un cadre ouvert.",
+  "etiquette": "atteste"
  },
  "fiches": [
   {
@@ -26,14 +26,37 @@
    "nouveau": [],
    "sources": [],
    "role": null,
-   "roles": {},
-   "origine_fr": "",
-   "origine_en": "",
-   "etiquette": null,
+   "roles": {
+    "门": "sens"
+   },
+   "origine_fr": "Sur les os oraculaires, la porte 門 est dessinée à deux battants, parfois sous un linteau. Le Shuowen jiezi y lit aussi deux battants qui se font face. La forme simplifiée 门, tirée de l'écriture cursive, réduit ces battants à un point et à un cadre ouvert.",
+   "origine_en": "On oracle bones, the gate 門 is drawn with two leaves, sometimes under a lintel. The Shuowen jiezi also reads it as two leaves facing each other. The simplified form 门, taken from cursive script, reduces the leaves to a dot and an open frame.",
+   "etiquette": "atteste",
    "memo_fr": null,
    "memo_en": null,
-   "mots": [],
-   "phrase": null,
+   "mots": [
+    {
+     "hanzi": "门口",
+     "pinyin": "ménkǒu",
+     "fr": "l'entrée, le pas de la porte",
+     "en": "doorway, entrance",
+     "audio": null
+    },
+    {
+     "hanzi": "门人",
+     "pinyin": "ménrén",
+     "fr": "disciple",
+     "en": "disciple",
+     "audio": null
+    }
+   ],
+   "phrase": {
+    "hanzi": "门口有人。",
+    "pinyin": "Ménkǒu yǒu rén.",
+    "fr": "Il y a quelqu'un à la porte.",
+    "en": "There is someone at the door.",
+    "audio": null
+   },
    "niveaux": {
     "seuil": 255,
     "hsk": 1
@@ -41,7 +64,7 @@
    "traits": [],
    "medianes": [],
    "audio": null,
-   "statut": "sans_fiche"
+   "statut": "relu"
   },
   {
    "c": "问",
@@ -61,15 +84,24 @@
    "sources": [
     "makemeahanzi"
    ],
-   "role": null,
-   "roles": {},
-   "origine_fr": "",
-   "origine_en": "",
-   "etiquette": null,
+   "role": "forme",
+   "roles": {
+    "口": "sens",
+    "门": "forme"
+   },
+   "origine_fr": "问 est un composé idéo-phonétique : 口, la bouche, donne le sens, et 门 donnait le son. C'est l'analyse du Shuowen jiezi, et la bouche y dit la parole qui interroge. Aujourd'hui, mén et wèn ont la même finale, et leur initiale, désormais différente, était autrefois la même.",
+   "origine_en": "问 is a phono-semantic compound: 口, the mouth, gives the meaning, and 门 gave the sound. This is how the Shuowen jiezi analyses it, the mouth standing for speech that asks. Today mén and wèn share the same final, and their initials, now different, were once the same.",
+   "etiquette": "atteste",
    "memo_fr": null,
    "memo_en": null,
    "mots": [],
-   "phrase": null,
+   "phrase": {
+    "hanzi": "有人问。",
+    "pinyin": "Yǒu rén wèn.",
+    "fr": "Quelqu'un pose la question.",
+    "en": "Someone is asking.",
+    "audio": null
+   },
    "niveaux": {
     "seuil": 255,
     "hsk": 1
@@ -77,7 +109,7 @@
    "traits": [],
    "medianes": [],
    "audio": null,
-   "statut": "sans_fiche"
+   "statut": "relu"
   },
   {
    "c": "间",
@@ -98,15 +130,39 @@
    "sources": [
     "makemeahanzi"
    ],
-   "role": null,
-   "roles": {},
-   "origine_fr": "",
-   "origine_en": "",
-   "etiquette": null,
+   "role": "sens",
+   "roles": {
+    "日": "sens",
+    "门": "sens"
+   },
+   "origine_fr": "Le caractère s'écrivait d'abord 閒, la lune 月 aperçue par la fente d'une porte 門. Le Shuowen jiezi l'explique par cette fente, l'intervalle qui laisse passer la lumière. Plus tard, 日 a remplacé 月 dans la forme 間, simplifiée en 间, pour le sens « entre, intervalle ».",
+   "origine_en": "The character was first written 閒, the moon 月 glimpsed through the gap in a gate 門. The Shuowen jiezi explains it as that gap, the opening that lets light through. Later, 日 replaced 月 in the form 間, simplified to 间, for the meaning “between, interval”.",
+   "etiquette": "atteste",
    "memo_fr": null,
    "memo_en": null,
-   "mots": [],
-   "phrase": null,
+   "mots": [
+    {
+     "hanzi": "人间",
+     "pinyin": "rénjiān",
+     "fr": "le monde des hommes, ici-bas",
+     "en": "the human world",
+     "audio": null
+    },
+    {
+     "hanzi": "日间",
+     "pinyin": "rìjiān",
+     "fr": "dans la journée, de jour",
+     "en": "during the day, by day",
+     "audio": null
+    }
+   ],
+   "phrase": {
+    "hanzi": "日间门口有人。",
+    "pinyin": "Rìjiān ménkǒu yǒu rén.",
+    "fr": "Dans la journée, il y a quelqu'un à la porte.",
+    "en": "During the day, there is someone at the door.",
+    "audio": null
+   },
    "niveaux": {
     "seuil": 255,
     "hsk": 1
@@ -114,7 +170,7 @@
    "traits": [],
    "medianes": [],
    "audio": null,
-   "statut": "sans_fiche"
+   "statut": "relu"
   }
  ]
 }

@@ -3,15 +3,15 @@
  "license": "propriétaire",
  "source": "décomposition GF 0014-2009 réconciliée par le pipeline wenlu ; pinyin d'Unihan (kMandarin) ; textes rédigés pour l'app",
  "source_url": "https://github.com/jon-gyt/zilin",
- "modified": "2026-09-25 : assemblé par `wenlu export`",
+ "modified": "2026-09-26 : assemblé par `wenlu export`",
  "norme": "GF 0014-2009",
  "racine": {
   "c": "首",
   "pinyin": "shǒu",
   "fr": "",
   "en": "",
-  "origine": "",
-  "etiquette": null
+  "origine": "Sur les os oraculaires, 首 dessine une tête de profil, souvent avec sa chevelure, et le Shuowen jiezi le définit comme la tête. Du sens de « tête » vient celui de « premier », comme dans 首先, d'abord. Dans 道, la tête s'ajoute à 辶, la marche, et le Shuowen jiezi définit 道 comme la route que l'on suit.",
+  "etiquette": "atteste"
  },
  "fiches": [
   {
@@ -26,19 +26,42 @@
    "nouveau": [],
    "sources": [],
    "role": null,
-   "roles": {},
-   "origine_fr": "",
-   "origine_en": "",
-   "etiquette": null,
+   "roles": {
+    "首": "sens"
+   },
+   "origine_fr": "Sur les os oraculaires, 首 dessine une tête de profil, souvent avec sa chevelure, et le Shuowen jiezi le définit comme la tête. Du sens de « tête » vient celui de « premier », comme dans 首先, d'abord. Dans 道, la tête s'ajoute à 辶, la marche, et le Shuowen jiezi définit 道 comme la route que l'on suit.",
+   "origine_en": "On oracle bones, 首 draws a head in profile, often with its hair, and the Shuowen jiezi defines it as the head. From “head” comes “first”, as in 首先, first of all. In 道 the head joins 辶, walking, and the Shuowen jiezi defines 道 as the road one follows.",
+   "etiquette": "atteste",
    "memo_fr": null,
    "memo_en": null,
-   "mots": [],
-   "phrase": null,
+   "mots": [
+    {
+     "hanzi": "首都",
+     "pinyin": "shǒudū",
+     "fr": "capitale",
+     "en": "capital city",
+     "audio": null
+    },
+    {
+     "hanzi": "首先",
+     "pinyin": "shǒuxiān",
+     "fr": "d'abord, en premier",
+     "en": "first, first of all",
+     "audio": null
+    }
+   ],
+   "phrase": {
+    "hanzi": "北京是中国的首都。",
+    "pinyin": "Běijīng shì Zhōngguó de shǒudū.",
+    "fr": "Pékin est la capitale de la Chine.",
+    "en": "Beijing is the capital of China.",
+    "audio": null
+   },
    "niveaux": {},
    "traits": [],
    "medianes": [],
    "audio": null,
-   "statut": "sans_fiche"
+   "statut": "relu"
   }
  ]
 }

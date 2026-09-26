@@ -3,15 +3,15 @@
  "license": "propriétaire",
  "source": "décomposition GF 0014-2009 réconciliée par le pipeline wenlu ; pinyin d'Unihan (kMandarin) ; textes rédigés pour l'app",
  "source_url": "https://github.com/jon-gyt/zilin",
- "modified": "2026-09-25 : assemblé par `wenlu export`",
+ "modified": "2026-09-26 : assemblé par `wenlu export`",
  "norme": "GF 0014-2009",
  "racine": {
   "c": "用",
   "pinyin": "yòng",
   "fr": "",
   "en": "",
-  "origine": "",
-  "etiquette": null
+  "origine": "L'origine de 用 est discutée, et cette fiche n'en retient aucune. Pour s'en souvenir : un cadre ouvert vers le bas, divisé par deux traits horizontaux et un trait vertical, ressemble à un casier ou à une grille. On y range ses outils pour s'en servir, et 用 veut dire « utiliser ».",
+  "etiquette": "mnemotechnique"
  },
  "fiches": [
   {
@@ -26,14 +26,37 @@
    "nouveau": [],
    "sources": [],
    "role": null,
-   "roles": {},
-   "origine_fr": "",
-   "origine_en": "",
-   "etiquette": null,
+   "roles": {
+    "用": "sens"
+   },
+   "origine_fr": "L'origine de 用 est discutée, et cette fiche n'en retient aucune. Pour s'en souvenir : un cadre ouvert vers le bas, divisé par deux traits horizontaux et un trait vertical, ressemble à un casier ou à une grille. On y range ses outils pour s'en servir, et 用 veut dire « utiliser ».",
+   "origine_en": "The origin of 用 is disputed, and this card does not pick one. As a memory aid: a frame open at the bottom, split by two horizontal strokes and one vertical, looks like a rack or a grid. Tools are kept there to be used, and 用 means “to use”.",
+   "etiquette": "mnemotechnique",
    "memo_fr": null,
    "memo_en": null,
-   "mots": [],
-   "phrase": null,
+   "mots": [
+    {
+     "hanzi": "有用",
+     "pinyin": "yǒuyòng",
+     "fr": "utile",
+     "en": "useful",
+     "audio": null
+    },
+    {
+     "hanzi": "用心",
+     "pinyin": "yòngxīn",
+     "fr": "avec application, de tout son cœur",
+     "en": "diligently, with care",
+     "audio": null
+    }
+   ],
+   "phrase": {
+    "hanzi": "她用中文问朋友。",
+    "pinyin": "Tā yòng Zhōngwén wèn péngyou.",
+    "fr": "Elle interroge son amie en chinois.",
+    "en": "She asks her friend in Chinese.",
+    "audio": null
+   },
    "niveaux": {
     "seuil": 255,
     "hsk": 1
@@ -41,7 +64,7 @@
    "traits": [],
    "medianes": [],
    "audio": null,
-   "statut": "sans_fiche"
+   "statut": "relu"
   }
  ]
 }

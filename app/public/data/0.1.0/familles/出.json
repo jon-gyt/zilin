@@ -3,15 +3,15 @@
  "license": "propriétaire",
  "source": "décomposition GF 0014-2009 réconciliée par le pipeline wenlu ; pinyin d'Unihan (kMandarin) ; textes rédigés pour l'app",
  "source_url": "https://github.com/jon-gyt/zilin",
- "modified": "2026-09-25 : assemblé par `wenlu export`",
+ "modified": "2026-09-26 : assemblé par `wenlu export`",
  "norme": "GF 0014-2009",
  "racine": {
   "c": "出",
   "pinyin": "chū",
   "fr": "",
   "en": "",
-  "origine": "",
-  "etiquette": null
+  "origine": "Sur les os oraculaires, 出 montre un pied, 止, qui sort d'une fosse ou d'une demeure creusée, figurée par un creux ouvert vers le haut. Le pied tourné vers la sortie dit le mouvement : « sortir ». Dans la forme actuelle, ce dessin est devenu deux 山 superposés, qui ne sont plus des montagnes.",
+  "etiquette": "atteste"
  },
  "fiches": [
   {
@@ -26,14 +26,37 @@
    "nouveau": [],
    "sources": [],
    "role": null,
-   "roles": {},
-   "origine_fr": "",
-   "origine_en": "",
-   "etiquette": null,
+   "roles": {
+    "出": "sens"
+   },
+   "origine_fr": "Sur les os oraculaires, 出 montre un pied, 止, qui sort d'une fosse ou d'une demeure creusée, figurée par un creux ouvert vers le haut. Le pied tourné vers la sortie dit le mouvement : « sortir ». Dans la forme actuelle, ce dessin est devenu deux 山 superposés, qui ne sont plus des montagnes.",
+   "origine_en": "On oracle bones, 出 shows a foot, 止, stepping out of a pit or a dug-out dwelling, drawn as a hollow open at the top. The foot pointing toward the way out conveys the movement: “to go out”. In the current form the drawing has turned into two stacked 山, which are no longer mountains.",
+   "etiquette": "atteste",
    "memo_fr": null,
    "memo_en": null,
-   "mots": [],
-   "phrase": null,
+   "mots": [
+    {
+     "hanzi": "出门",
+     "pinyin": "chūmén",
+     "fr": "sortir de chez soi",
+     "en": "to go out",
+     "audio": null
+    },
+    {
+     "hanzi": "出生",
+     "pinyin": "chūshēng",
+     "fr": "naître",
+     "en": "to be born",
+     "audio": null
+    }
+   ],
+   "phrase": {
+    "hanzi": "她出门见朋友。",
+    "pinyin": "Tā chūmén jiàn péngyou.",
+    "fr": "Elle sort voir ses amis.",
+    "en": "She goes out to see her friends.",
+    "audio": null
+   },
    "niveaux": {
     "seuil": 255,
     "hsk": 1
@@ -41,7 +64,7 @@
    "traits": [],
    "medianes": [],
    "audio": null,
-   "statut": "sans_fiche"
+   "statut": "relu"
   }
  ]
 }

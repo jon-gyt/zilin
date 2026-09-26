@@ -3,15 +3,15 @@
  "license": "propriétaire",
  "source": "décomposition GF 0014-2009 réconciliée par le pipeline wenlu ; pinyin d'Unihan (kMandarin) ; textes rédigés pour l'app",
  "source_url": "https://github.com/jon-gyt/zilin",
- "modified": "2026-09-25 : assemblé par `wenlu export`",
+ "modified": "2026-09-26 : assemblé par `wenlu export`",
  "norme": "GF 0014-2009",
  "racine": {
   "c": "米",
   "pinyin": "mǐ",
   "fr": "",
   "en": "",
-  "origine": "",
-  "etiquette": null
+  "origine": "Sur les os oraculaires, 米 montre de petits grains répartis au-dessus et au-dessous d'un trait horizontal. Le Shuowen jiezi le définit comme le grain décortiqué des céréales et y voit la forme des grains. Dans l'écriture actuelle, un trait vertical traverse l'ensemble, et le sens courant s'est fixé sur le riz.",
+  "etiquette": "atteste"
  },
  "fiches": [
   {
@@ -26,14 +26,37 @@
    "nouveau": [],
    "sources": [],
    "role": null,
-   "roles": {},
-   "origine_fr": "",
-   "origine_en": "",
-   "etiquette": null,
+   "roles": {
+    "米": "sens"
+   },
+   "origine_fr": "Sur les os oraculaires, 米 montre de petits grains répartis au-dessus et au-dessous d'un trait horizontal. Le Shuowen jiezi le définit comme le grain décortiqué des céréales et y voit la forme des grains. Dans l'écriture actuelle, un trait vertical traverse l'ensemble, et le sens courant s'est fixé sur le riz.",
+   "origine_en": "On oracle bones, 米 shows small grains scattered above and below a horizontal stroke. The Shuowen jiezi defines it as husked grain and reads the shape as grains of cereal. In today's script a vertical stroke runs through the whole, and the everyday meaning has settled on rice.",
+   "etiquette": "atteste",
    "memo_fr": null,
    "memo_en": null,
-   "mots": [],
-   "phrase": null,
+   "mots": [
+    {
+     "hanzi": "大米",
+     "pinyin": "dàmǐ",
+     "fr": "riz",
+     "en": "rice",
+     "audio": null
+    },
+    {
+     "hanzi": "生米",
+     "pinyin": "shēngmǐ",
+     "fr": "riz cru",
+     "en": "uncooked rice",
+     "audio": null
+    }
+   ],
+   "phrase": {
+    "hanzi": "她只有生米。",
+    "pinyin": "Tā zhǐ yǒu shēngmǐ.",
+    "fr": "Elle n'a que du riz cru.",
+    "en": "She only has uncooked rice.",
+    "audio": null
+   },
    "niveaux": {
     "seuil": 255,
     "hsk": 1
@@ -41,7 +64,7 @@
    "traits": [],
    "medianes": [],
    "audio": null,
-   "statut": "sans_fiche"
+   "statut": "relu"
   },
   {
    "c": "粽",

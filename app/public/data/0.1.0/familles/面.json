@@ -3,15 +3,15 @@
  "license": "propriétaire",
  "source": "décomposition GF 0014-2009 réconciliée par le pipeline wenlu ; pinyin d'Unihan (kMandarin) ; textes rédigés pour l'app",
  "source_url": "https://github.com/jon-gyt/zilin",
- "modified": "2026-09-25 : assemblé par `wenlu export`",
+ "modified": "2026-09-26 : assemblé par `wenlu export`",
  "norme": "GF 0014-2009",
  "racine": {
   "c": "面",
   "pinyin": "miàn",
   "fr": "",
   "en": "",
-  "origine": "",
-  "etiquette": null
+  "origine": "Sur les os oraculaires, 面 est le contour d'un visage au centre duquel se tient un œil. L'œil suffit à dire qu'il s'agit d'une face, et le contour en marque les limites. La forme actuelle garde ce cadre, et l'œil s'y est réduit à des traits droits en son centre.",
+  "etiquette": "atteste"
  },
  "fiches": [
   {
@@ -26,14 +26,37 @@
    "nouveau": [],
    "sources": [],
    "role": null,
-   "roles": {},
-   "origine_fr": "",
-   "origine_en": "",
-   "etiquette": null,
+   "roles": {
+    "面": "sens"
+   },
+   "origine_fr": "Sur les os oraculaires, 面 est le contour d'un visage au centre duquel se tient un œil. L'œil suffit à dire qu'il s'agit d'une face, et le contour en marque les limites. La forme actuelle garde ce cadre, et l'œil s'y est réduit à des traits droits en son centre.",
+   "origine_en": "On oracle bones, 面 is the outline of a face with an eye at its centre. The eye is enough to show that this is a face, and the outline marks its edges. The modern form keeps the frame, with the eye reduced to straight strokes in the middle.",
+   "etiquette": "atteste",
    "memo_fr": null,
    "memo_en": null,
-   "mots": [],
-   "phrase": null,
+   "mots": [
+    {
+     "hanzi": "见面",
+     "pinyin": "jiànmiàn",
+     "fr": "se voir, se rencontrer",
+     "en": "to meet, to see each other",
+     "audio": null
+    },
+    {
+     "hanzi": "里面",
+     "pinyin": "lǐmiàn",
+     "fr": "l'intérieur, dedans",
+     "en": "inside",
+     "audio": null
+    }
+   ],
+   "phrase": {
+    "hanzi": "明天中午见面。",
+    "pinyin": "Míngtiān zhōngwǔ jiànmiàn.",
+    "fr": "On se voit demain à midi.",
+    "en": "Let's meet tomorrow at noon.",
+    "audio": null
+   },
    "niveaux": {
     "seuil": 255,
     "hsk": 1
@@ -41,7 +64,7 @@
    "traits": [],
    "medianes": [],
    "audio": null,
-   "statut": "sans_fiche"
+   "statut": "relu"
   }
  ]
 }

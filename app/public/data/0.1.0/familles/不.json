@@ -3,15 +3,15 @@
  "license": "propriétaire",
  "source": "décomposition GF 0014-2009 réconciliée par le pipeline wenlu ; pinyin d'Unihan (kMandarin) ; textes rédigés pour l'app",
  "source_url": "https://github.com/jon-gyt/zilin",
- "modified": "2026-09-25 : assemblé par `wenlu export`",
+ "modified": "2026-09-26 : assemblé par `wenlu export`",
  "norme": "GF 0014-2009",
  "racine": {
   "c": "不",
   "pinyin": "bù",
   "fr": "",
   "en": "",
-  "origine": "",
-  "etiquette": null
+  "origine": "L'origine de 不 est discutée, et cette fiche n'en retient aucune. Pour s'en souvenir : un trait horizontal barre le haut, et trois traits partent en dessous sans pouvoir le franchir. Ce qui bute contre la barre ne passe pas : 不 est la négation, « ne pas ».",
+  "etiquette": "mnemotechnique"
  },
  "fiches": [
   {
@@ -27,14 +27,37 @@
    "nouveau": [],
    "sources": [],
    "role": null,
-   "roles": {},
-   "origine_fr": "",
-   "origine_en": "",
-   "etiquette": null,
+   "roles": {
+    "不": "sens"
+   },
+   "origine_fr": "L'origine de 不 est discutée, et cette fiche n'en retient aucune. Pour s'en souvenir : un trait horizontal barre le haut, et trois traits partent en dessous sans pouvoir le franchir. Ce qui bute contre la barre ne passe pas : 不 est la négation, « ne pas ».",
+   "origine_en": "The origin of 不 is disputed, and this card does not pick one. As a memory aid: a horizontal stroke bars the top, and three strokes spread out beneath it without getting through. Whatever hits the bar does not pass: 不 is the negation, “not”.",
+   "etiquette": "mnemotechnique",
    "memo_fr": null,
    "memo_en": null,
-   "mots": [],
-   "phrase": null,
+   "mots": [
+    {
+     "hanzi": "不好",
+     "pinyin": "bùhǎo",
+     "fr": "pas bien, mauvais",
+     "en": "not good, bad",
+     "audio": null
+    },
+    {
+     "hanzi": "不用",
+     "pinyin": "bùyòng",
+     "fr": "pas besoin de, inutile de",
+     "en": "no need to",
+     "audio": null
+    }
+   ],
+   "phrase": {
+    "hanzi": "今天天气不好，她不去。",
+    "pinyin": "Jīntiān tiānqì bù hǎo, tā bù qù.",
+    "fr": "Il fait mauvais aujourd'hui, elle n'y va pas.",
+    "en": "The weather is bad today, so she is not going.",
+    "audio": null
+   },
    "niveaux": {
     "seuil": 255,
     "hsk": 1
@@ -42,7 +65,7 @@
    "traits": [],
    "medianes": [],
    "audio": null,
-   "statut": "sans_fiche"
+   "statut": "relu"
   }
  ]
 }

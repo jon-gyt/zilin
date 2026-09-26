@@ -3,15 +3,15 @@
  "license": "propriétaire",
  "source": "décomposition GF 0014-2009 réconciliée par le pipeline wenlu ; pinyin d'Unihan (kMandarin) ; textes rédigés pour l'app",
  "source_url": "https://github.com/jon-gyt/zilin",
- "modified": "2026-09-25 : assemblé par `wenlu export`",
+ "modified": "2026-09-26 : assemblé par `wenlu export`",
  "norme": "GF 0014-2009",
  "racine": {
   "c": "上",
   "pinyin": "shàng",
   "fr": "",
   "en": "",
-  "origine": "",
-  "etiquette": null
+  "origine": "Sur les os oraculaires, 上 s'écrit d'un court trait placé au-dessus d'un trait plus long, qui sert de repère. Le Shuowen jiezi le range parmi les caractères qui désignent une idée par un signe plutôt que par le dessin d'un objet. Son contraire 下 suit la même logique, avec le petit trait sous le repère.",
+  "etiquette": "atteste"
  },
  "fiches": [
   {
@@ -27,14 +27,37 @@
    "nouveau": [],
    "sources": [],
    "role": null,
-   "roles": {},
-   "origine_fr": "",
-   "origine_en": "",
-   "etiquette": null,
+   "roles": {
+    "上": "sens"
+   },
+   "origine_fr": "Sur les os oraculaires, 上 s'écrit d'un court trait placé au-dessus d'un trait plus long, qui sert de repère. Le Shuowen jiezi le range parmi les caractères qui désignent une idée par un signe plutôt que par le dessin d'un objet. Son contraire 下 suit la même logique, avec le petit trait sous le repère.",
+   "origine_en": "On oracle bones, 上 is written as a short stroke above a longer one that serves as a reference line. The Shuowen jiezi classes it among characters that point to an idea with a sign rather than draw an object. Its opposite, 下, works the same way, with the short stroke below the line.",
+   "etiquette": "atteste",
    "memo_fr": null,
    "memo_en": null,
-   "mots": [],
-   "phrase": null,
+   "mots": [
+    {
+     "hanzi": "早上",
+     "pinyin": "zǎoshang",
+     "fr": "le matin",
+     "en": "morning",
+     "audio": null
+    },
+    {
+     "hanzi": "上车",
+     "pinyin": "shàngchē",
+     "fr": "monter dans un véhicule",
+     "en": "to get on or into a vehicle",
+     "audio": null
+    }
+   ],
+   "phrase": {
+    "hanzi": "明天早上我去山上。",
+    "pinyin": "Míngtiān zǎoshang wǒ qù shān shang.",
+    "fr": "Demain matin, je vais à la montagne.",
+    "en": "Tomorrow morning I am going up the mountain.",
+    "audio": null
+   },
    "niveaux": {
     "seuil": 255,
     "hsk": 1
@@ -42,7 +65,7 @@
    "traits": [],
    "medianes": [],
    "audio": null,
-   "statut": "sans_fiche"
+   "statut": "relu"
   }
  ]
 }

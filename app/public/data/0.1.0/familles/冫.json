@@ -3,15 +3,15 @@
  "license": "propriétaire",
  "source": "décomposition GF 0014-2009 réconciliée par le pipeline wenlu ; pinyin d'Unihan (kMandarin) ; textes rédigés pour l'app",
  "source_url": "https://github.com/jon-gyt/zilin",
- "modified": "2026-09-25 : assemblé par `wenlu export`",
+ "modified": "2026-09-26 : assemblé par `wenlu export`",
  "norme": "GF 0014-2009",
  "racine": {
   "c": "冫",
   "pinyin": "bīng",
   "fr": "",
   "en": "",
-  "origine": "",
-  "etiquette": null
+  "origine": "冫 est la forme réduite de 仌, la glace, que le Shuowen jiezi définit comme l'eau qui gèle et dessine en deux cristaux. Il se lit bīng, comme 冰, qui lui a ajouté l'eau 水. La norme l'appelle 两点水 ou 冰字旁, et il marque le froid, comme dans 冷.",
+  "etiquette": "atteste"
  },
  "fiches": [
   {
@@ -26,19 +26,27 @@
    "nouveau": [],
    "sources": [],
    "role": null,
-   "roles": {},
-   "origine_fr": "",
-   "origine_en": "",
-   "etiquette": null,
-   "memo_fr": null,
-   "memo_en": null,
+   "roles": {
+    "冫": "sens"
+   },
+   "origine_fr": "冫 est la forme réduite de 仌, la glace, que le Shuowen jiezi définit comme l'eau qui gèle et dessine en deux cristaux. Il se lit bīng, comme 冰, qui lui a ajouté l'eau 水. La norme l'appelle 两点水 ou 冰字旁, et il marque le froid, comme dans 冷.",
+   "origine_en": "冫 is the reduced form of 仌, ice, which the Shuowen jiezi defines as water freezing and draws as two crystals. It is read bīng, like 冰, which added water, 水. The standard calls it 两点水 or 冰字旁, and it marks cold, as in 冷.",
+   "etiquette": "atteste",
+   "memo_fr": "Trois points pour l'eau qui coule, 氵 ; deux pour l'eau gelée, 冫.",
+   "memo_en": "Three dots for flowing water, 氵; two for frozen water, 冫.",
    "mots": [],
-   "phrase": null,
+   "phrase": {
+    "hanzi": "你冷吗？",
+    "pinyin": "Nǐ lěng ma?",
+    "fr": "Tu as froid ?",
+    "en": "Are you cold?",
+    "audio": null
+   },
    "niveaux": {},
    "traits": [],
    "medianes": [],
    "audio": null,
-   "statut": "sans_fiche"
+   "statut": "relu"
   },
   {
    "c": "冰",
@@ -93,15 +101,41 @@
     "cjk-decomp",
     "surcharge"
    ],
-   "role": null,
-   "roles": {},
-   "origine_fr": "",
-   "origine_en": "",
-   "etiquette": null,
+   "role": "sens",
+   "roles": {
+    "丶": "forme",
+    "人": "forme",
+    "冫": "sens",
+    "龴": "forme"
+   },
+   "origine_fr": "Le Shuowen jiezi analyse 冷 comme un composé idéo-phonétique, 冫 pour le sens et 令 pour le son, et le définit par le froid. 冫 est la forme réduite de 仌, la glace, qui marque le froid aussi dans 冰. À droite, 人, le point 丶 et 龴 composent 令, qui donnait autrefois le son : il se lit aujourd'hui lìng, qui ne sonne plus comme lěng.",
+   "origine_en": "The Shuowen jiezi analyses 冷 as a meaning-sound compound, with 冫 for the meaning and 令 for the sound, and defines it as cold. 冫 is the reduced form of 仌, ice, which also marks cold in 冰. On the right, 人, the dot 丶 and 龴 make up 令, which once gave the sound: it now reads lìng, which no longer sounds like lěng.",
+   "etiquette": "atteste",
    "memo_fr": null,
    "memo_en": null,
-   "mots": [],
-   "phrase": null,
+   "mots": [
+    {
+     "hanzi": "冷水",
+     "pinyin": "lěngshuǐ",
+     "fr": "eau froide",
+     "en": "cold water",
+     "audio": null
+    },
+    {
+     "hanzi": "冷天",
+     "pinyin": "lěngtiān",
+     "fr": "temps froid, jour de froid",
+     "en": "cold weather, cold day",
+     "audio": null
+    }
+   ],
+   "phrase": {
+    "hanzi": "今天北京很冷。",
+    "pinyin": "Jīntiān Běijīng hěn lěng.",
+    "fr": "Il fait très froid à Pékin aujourd'hui.",
+    "en": "It is very cold in Beijing today.",
+    "audio": null
+   },
    "niveaux": {
     "seuil": 255,
     "hsk": 1
@@ -109,7 +143,7 @@
    "traits": [],
    "medianes": [],
    "audio": null,
-   "statut": "sans_fiche"
+   "statut": "relu"
   },
   {
    "c": "净",

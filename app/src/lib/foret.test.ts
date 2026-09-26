@@ -399,8 +399,17 @@ describe("l'avancement d'une famille, lu sur les cartes", () => {
 
   it("ne lit l'avancement nulle part ailleurs que dans les cartes", () => {
     const f = familleExport('月');
-    /* L'index annonce ce que le pipeline permet d'enseigner, pas ce qui est acquis. */
-    expect(indexExport.familles.find((x) => x.racine === '月')?.avancement_possible).toBe(0);
+    /*
+     * L'index annonce ce que le pipeline permet d'enseigner (la part des fiches relues),
+     * pas ce qui est acquis : quel que soit ce plafond, sans carte rien n'avance.
+     */
+    const possible = indexExport.familles.find((x) => x.racine === '月')?.avancement_possible;
+    expect(possible).toBeGreaterThanOrEqual(0);
+    expect(possible).toBeLessThanOrEqual(1);
+    const vide = noeudDeFamille(f, []);
+    expect(vide.avancement).toBe(0);
+    expect(vide.membres.every((m) => m.avancement === 0)).toBe(true);
+    expect(acquis(vide)).toBe(0);
     const n = noeudDeFamille(f, [sue('月'), neuve('朋')]);
     expect(n.c).toBe('月');
     expect(n.avancement).toBe(1);

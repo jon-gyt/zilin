@@ -3,15 +3,15 @@
  "license": "propriétaire",
  "source": "décomposition GF 0014-2009 réconciliée par le pipeline wenlu ; pinyin d'Unihan (kMandarin) ; textes rédigés pour l'app",
  "source_url": "https://github.com/jon-gyt/zilin",
- "modified": "2026-09-25 : assemblé par `wenlu export`",
+ "modified": "2026-09-26 : assemblé par `wenlu export`",
  "norme": "GF 0014-2009",
  "racine": {
   "c": "水",
   "pinyin": "shuǐ",
   "fr": "",
   "en": "",
-  "origine": "",
-  "etiquette": null
+  "origine": "Sur les os oraculaires, 水 trace un cours d'eau sinueux, bordé de gouttes ou de remous de part et d'autre. Le Shuowen jiezi y voit plusieurs courants qui coulent ensemble. Dans la forme actuelle, le courant central est devenu un trait vertical à crochet, avec deux traits de chaque côté.",
+  "etiquette": "atteste"
  },
  "fiches": [
   {
@@ -26,14 +26,37 @@
    "nouveau": [],
    "sources": [],
    "role": null,
-   "roles": {},
-   "origine_fr": "",
-   "origine_en": "",
-   "etiquette": null,
+   "roles": {
+    "水": "sens"
+   },
+   "origine_fr": "Sur les os oraculaires, 水 trace un cours d'eau sinueux, bordé de gouttes ou de remous de part et d'autre. Le Shuowen jiezi y voit plusieurs courants qui coulent ensemble. Dans la forme actuelle, le courant central est devenu un trait vertical à crochet, avec deux traits de chaque côté.",
+   "origine_en": "On oracle bones, 水 traces a winding stream, with drops or eddies on either side. The Shuowen jiezi sees in it several currents flowing together. In today's form the central current has become a hooked vertical stroke, with two strokes on each side.",
+   "etiquette": "atteste",
    "memo_fr": null,
    "memo_en": null,
-   "mots": [],
-   "phrase": null,
+   "mots": [
+    {
+     "hanzi": "山水",
+     "pinyin": "shānshuǐ",
+     "fr": "paysage, montagnes et eaux",
+     "en": "landscape, mountains and waters",
+     "audio": null
+    },
+    {
+     "hanzi": "口水",
+     "pinyin": "kǒushuǐ",
+     "fr": "salive",
+     "en": "saliva",
+     "audio": null
+    }
+   ],
+   "phrase": {
+    "hanzi": "她有水，也有米。",
+    "pinyin": "Tā yǒu shuǐ, yě yǒu mǐ.",
+    "fr": "Elle a de l'eau, et du riz aussi.",
+    "en": "She has water, and rice too.",
+    "audio": null
+   },
    "niveaux": {
     "seuil": 255,
     "hsk": 1
@@ -41,7 +64,7 @@
    "traits": [],
    "medianes": [],
    "audio": null,
-   "statut": "sans_fiche"
+   "statut": "relu"
   }
  ]
 }

@@ -3,15 +3,15 @@
  "license": "propriétaire",
  "source": "décomposition GF 0014-2009 réconciliée par le pipeline wenlu ; pinyin d'Unihan (kMandarin) ; textes rédigés pour l'app",
  "source_url": "https://github.com/jon-gyt/zilin",
- "modified": "2026-09-25 : assemblé par `wenlu export`",
+ "modified": "2026-09-26 : assemblé par `wenlu export`",
  "norme": "GF 0014-2009",
  "racine": {
   "c": "日",
   "pinyin": "rì",
   "fr": "",
   "en": "",
-  "origine": "",
-  "etiquette": null
+  "origine": "Sur les os oraculaires, 日 est un cercle, souvent anguleux parce que gravé au couteau, avec un point ou un trait en son centre. Le Shuowen jiezi en fait l'astre plein, qui ne décroît jamais, à l'inverse de la lune. Au pinceau, le cercle est devenu un rectangle et le point un trait horizontal.",
+  "etiquette": "atteste"
  },
  "fiches": [
   {
@@ -33,15 +33,40 @@
    "sources": [
     "makemeahanzi"
    ],
-   "role": null,
-   "roles": {},
-   "origine_fr": "",
-   "origine_en": "",
-   "etiquette": null,
+   "role": "sens",
+   "roles": {
+    "京": "forme",
+    "彡": "sens",
+    "日": "forme"
+   },
+   "origine_fr": "Pour s'en souvenir : à gauche, 日 posé sur 京 forme 景 jǐng, la vue éclairée par le soleil, qui rime avec yǐng sans en avoir l'initiale. À droite, les trois traits de 彡 figurent les rayons ou les contours qu'une chose projette. Là où la lumière frappe une chose, elle dessine sa forme, et 影 désigne l'ombre, le reflet ou l'image.",
+   "origine_en": "To remember it: on the left, 日 over 京 makes 景 jǐng, a sunlit view, which rhymes with yǐng but has a different initial. On the right, the three strokes of 彡 stand for the rays or outlines that a thing casts. Where light strikes an object it traces its shape, and 影 means a shadow, a reflection or an image.",
+   "etiquette": "mnemotechnique",
    "memo_fr": null,
    "memo_en": null,
-   "mots": [],
-   "phrase": null,
+   "mots": [
+    {
+     "hanzi": "电影",
+     "pinyin": "diànyǐng",
+     "fr": "film, cinéma",
+     "en": "film, movie",
+     "audio": null
+    },
+    {
+     "hanzi": "影子",
+     "pinyin": "yǐngzi",
+     "fr": "ombre",
+     "en": "shadow",
+     "audio": null
+    }
+   ],
+   "phrase": {
+    "hanzi": "这个电影怎么样？",
+    "pinyin": "Zhège diànyǐng zěnmeyàng?",
+    "fr": "Comment est ce film ?",
+    "en": "What's this film like?",
+    "audio": null
+   },
    "niveaux": {
     "seuil": 255,
     "hsk": 1
@@ -49,7 +74,7 @@
    "traits": [],
    "medianes": [],
    "audio": null,
-   "statut": "sans_fiche"
+   "statut": "relu"
   },
   {
    "c": "日",
@@ -63,14 +88,37 @@
    "nouveau": [],
    "sources": [],
    "role": null,
-   "roles": {},
-   "origine_fr": "",
-   "origine_en": "",
-   "etiquette": null,
+   "roles": {
+    "日": "sens"
+   },
+   "origine_fr": "Sur les os oraculaires, 日 est un cercle, souvent anguleux parce que gravé au couteau, avec un point ou un trait en son centre. Le Shuowen jiezi en fait l'astre plein, qui ne décroît jamais, à l'inverse de la lune. Au pinceau, le cercle est devenu un rectangle et le point un trait horizontal.",
+   "origine_en": "On oracle bones, 日 is a circle, often angular because it was cut with a knife, with a dot or a stroke at its centre. The Shuowen jiezi describes it as the full orb that never wanes, unlike the moon. With the brush, the circle became a rectangle and the dot a horizontal stroke.",
+   "etiquette": "atteste",
    "memo_fr": null,
    "memo_en": null,
-   "mots": [],
-   "phrase": null,
+   "mots": [
+    {
+     "hanzi": "日月",
+     "pinyin": "rìyuè",
+     "fr": "le soleil et la lune",
+     "en": "the sun and the moon",
+     "audio": null
+    },
+    {
+     "hanzi": "明日",
+     "pinyin": "míngrì",
+     "fr": "demain (registre soutenu)",
+     "en": "tomorrow (formal)",
+     "audio": null
+    }
+   ],
+   "phrase": {
+    "hanzi": "日明，月明。",
+    "pinyin": "Rì míng, yuè míng.",
+    "fr": "Le soleil brille, la lune brille.",
+    "en": "The sun shines, the moon shines.",
+    "audio": null
+   },
    "niveaux": {
     "seuil": 255,
     "hsk": 1
@@ -78,7 +126,7 @@
    "traits": [],
    "medianes": [],
    "audio": null,
-   "statut": "sans_fiche"
+   "statut": "relu"
   },
   {
    "c": "早",
@@ -98,15 +146,39 @@
    "sources": [
     "makemeahanzi"
    ],
-   "role": null,
-   "roles": {},
-   "origine_fr": "",
-   "origine_en": "",
-   "etiquette": null,
+   "role": "forme",
+   "roles": {
+    "十": "forme",
+    "日": "sens"
+   },
+   "origine_fr": "L'origine de 早 reste incertaine, et ses formes anciennes ne permettent pas de trancher. Pour s'en souvenir : le soleil 日 se lève au-dessus de 十, comme au-dessus d'un poteau planté dans le sol. Quand le soleil n'est encore qu'à cette hauteur, il est tôt.",
+   "origine_en": "The origin of 早 is uncertain, and its early forms do not settle the question. To remember it: the sun 日 rises above 十, like above a post driven into the ground. When the sun is still that low, it is early.",
+   "etiquette": "mnemotechnique",
    "memo_fr": null,
    "memo_en": null,
-   "mots": [],
-   "phrase": null,
+   "mots": [
+    {
+     "hanzi": "早日",
+     "pinyin": "zǎorì",
+     "fr": "au plus tôt, bientôt",
+     "en": "at an early date, soon",
+     "audio": null
+    },
+    {
+     "hanzi": "明早",
+     "pinyin": "míngzǎo",
+     "fr": "demain matin",
+     "en": "tomorrow morning",
+     "audio": null
+    }
+   ],
+   "phrase": {
+    "hanzi": "明早有人。",
+    "pinyin": "Míngzǎo yǒu rén.",
+    "fr": "Il y aura quelqu'un demain matin.",
+    "en": "Someone will be there tomorrow morning.",
+    "audio": null
+   },
    "niveaux": {
     "seuil": 255,
     "hsk": 1
@@ -114,7 +186,7 @@
    "traits": [],
    "medianes": [],
    "audio": null,
-   "statut": "sans_fiche"
+   "statut": "relu"
   },
   {
    "c": "时",
@@ -133,14 +205,38 @@
     "makemeahanzi"
    ],
    "role": null,
-   "roles": {},
-   "origine_fr": "",
-   "origine_en": "",
-   "etiquette": null,
+   "roles": {
+    "寸": "forme",
+    "日": "sens"
+   },
+   "origine_fr": "Le Shuowen jiezi décrit 時, forme traditionnelle, comme un composé idéo-phonétique : 日, le soleil, pour le sens, et 寺 pour le son. Il le glose par « les quatre saisons », sens qui s'est étendu au temps et à l'heure. La forme simplifiée garde 日 et ne retient de 寺 que sa partie basse, 寸, qui ne donne plus le son.",
+   "origine_en": "The Shuowen jiezi describes 時, the traditional form, as a sound-meaning compound: 日, the sun, gives the meaning and 寺 gives the sound. Its gloss is “the four seasons”, a sense that widened to time and the hour. The simplified form keeps 日 and only the lower part of 寺, 寸, which no longer gives the sound.",
+   "etiquette": "atteste",
    "memo_fr": null,
    "memo_en": null,
-   "mots": [],
-   "phrase": null,
+   "mots": [
+    {
+     "hanzi": "时间",
+     "pinyin": "shíjiān",
+     "fr": "temps ; moment",
+     "en": "time",
+     "audio": null
+    },
+    {
+     "hanzi": "小时",
+     "pinyin": "xiǎoshí",
+     "fr": "heure (durée)",
+     "en": "hour",
+     "audio": null
+    }
+   ],
+   "phrase": {
+    "hanzi": "我今天有时间。",
+    "pinyin": "Wǒ jīntiān yǒu shíjiān.",
+    "fr": "J'ai du temps aujourd'hui.",
+    "en": "I have time today.",
+    "audio": null
+   },
    "niveaux": {
     "seuil": 255,
     "hsk": 1
@@ -148,7 +244,7 @@
    "traits": [],
    "medianes": [],
    "audio": null,
-   "statut": "sans_fiche"
+   "statut": "relu"
   },
   {
    "c": "明",
@@ -168,15 +264,39 @@
    "sources": [
     "makemeahanzi"
    ],
-   "role": null,
-   "roles": {},
-   "origine_fr": "",
-   "origine_en": "",
-   "etiquette": null,
+   "role": "sens",
+   "roles": {
+    "日": "sens",
+    "月": "sens"
+   },
+   "origine_fr": "Sur les os oraculaires, 明 associe la lune 月 à un second élément, tantôt le soleil 日, tantôt une fenêtre ronde. Le Shuowen jiezi retient la forme à la fenêtre, la lune qui éclaire à travers elle. L'écriture courante a gardé 日 et 月 côte à côte, deux sources de lumière pour dire « clair ».",
+   "origine_en": "On oracle bones, 明 pairs the moon 月 with a second element, sometimes the sun 日, sometimes a round window. The Shuowen jiezi keeps the window form, moonlight shining through it. Today's script keeps 日 and 月 side by side, two sources of light that together mean “bright”.",
+   "etiquette": "atteste",
    "memo_fr": null,
    "memo_en": null,
-   "mots": [],
-   "phrase": null,
+   "mots": [
+    {
+     "hanzi": "明天",
+     "pinyin": "míngtiān",
+     "fr": "demain",
+     "en": "tomorrow",
+     "audio": null
+    },
+    {
+     "hanzi": "明月",
+     "pinyin": "míngyuè",
+     "fr": "lune claire, lune brillante",
+     "en": "bright moon",
+     "audio": null
+    }
+   ],
+   "phrase": {
+    "hanzi": "日月明。",
+    "pinyin": "Rì yuè míng.",
+    "fr": "Le soleil et la lune font la clarté.",
+    "en": "Sun and moon make brightness.",
+    "audio": null
+   },
    "niveaux": {
     "seuil": 255,
     "hsk": 1
@@ -184,7 +304,7 @@
    "traits": [],
    "medianes": [],
    "audio": null,
-   "statut": "sans_fiche"
+   "statut": "relu"
   },
   {
    "c": "星",
@@ -204,15 +324,39 @@
    "sources": [
     "makemeahanzi"
    ],
-   "role": null,
-   "roles": {},
-   "origine_fr": "",
-   "origine_en": "",
-   "etiquette": null,
+   "role": "forme",
+   "roles": {
+    "日": "sens",
+    "生": "forme"
+   },
+   "origine_fr": "Sur les os oraculaires, les étoiles sont figurées par de petits cercles ou carrés, parfois accompagnés de 生 qui note le son. Le Shuowen jiezi donne une forme à trois 日 au-dessus de 生, où ces cercles sont des étoiles et non le soleil, et fait de 生 le composant phonétique. L'écriture a réduit les trois cercles à un seul 日, et 生, qui donnait le son, se lit aujourd'hui shēng, qui ne sonne plus comme xīng.",
+   "origine_en": "On oracle bones, stars are drawn as small circles or squares, sometimes joined by 生 to note the sound. The Shuowen jiezi gives a form with three 日 above 生, where the circles are stars rather than the sun, and treats 生 as the phonetic part. Writing has reduced the three circles to a single 日, while 生, which gave the sound, now reads shēng, which no longer sounds like xīng.",
+   "etiquette": "atteste",
    "memo_fr": null,
    "memo_en": null,
-   "mots": [],
-   "phrase": null,
+   "mots": [
+    {
+     "hanzi": "星星",
+     "pinyin": "xīngxing",
+     "fr": "étoile",
+     "en": "star",
+     "audio": null
+    },
+    {
+     "hanzi": "明星",
+     "pinyin": "míngxīng",
+     "fr": "vedette, célébrité",
+     "en": "star, celebrity",
+     "audio": null
+    }
+   ],
+   "phrase": {
+    "hanzi": "女明星问朋友。",
+    "pinyin": "Nǚ míngxīng wèn péngyou.",
+    "fr": "L'actrice pose la question à un ami.",
+    "en": "The actress asks a friend.",
+    "audio": null
+   },
    "niveaux": {
     "seuil": 255,
     "hsk": 1
@@ -220,7 +364,7 @@
    "traits": [],
    "medianes": [],
    "audio": null,
-   "statut": "sans_fiche"
+   "statut": "relu"
   },
   {
    "c": "春",
@@ -270,14 +414,38 @@
     "makemeahanzi"
    ],
    "role": null,
-   "roles": {},
-   "origine_fr": "",
-   "origine_en": "",
-   "etiquette": null,
+   "roles": {
+    "乍": "forme",
+    "日": "sens"
+   },
+   "origine_fr": "Le Shuowen jiezi range 昨 parmi les caractères idéo-phonétiques : 日, le jour, pour le sens, et 乍 pour le son. 乍 se lit aujourd'hui zhà, loin de zuó, mais on le retrouve dans 作 zuò et 怎 zěn. 昨 désigne la veille, et plus largement le passé.",
+   "origine_en": "The Shuowen jiezi classes 昨 as a sound-meaning compound: 日, the day, for the meaning, and 乍 for the sound. 乍 is read zhà today, far from zuó, but it reappears in 作 zuò and 怎 zěn. 昨 names the day before, and more broadly the past.",
+   "etiquette": "atteste",
    "memo_fr": null,
    "memo_en": null,
-   "mots": [],
-   "phrase": null,
+   "mots": [
+    {
+     "hanzi": "昨天",
+     "pinyin": "zuótiān",
+     "fr": "hier",
+     "en": "yesterday",
+     "audio": null
+    },
+    {
+     "hanzi": "昨日",
+     "pinyin": "zuórì",
+     "fr": "hier (écrit)",
+     "en": "yesterday (written)",
+     "audio": null
+    }
+   ],
+   "phrase": {
+    "hanzi": "昨天下雨了。",
+    "pinyin": "Zuótiān xià yǔ le.",
+    "fr": "Il a plu hier.",
+    "en": "It rained yesterday.",
+    "audio": null
+   },
    "niveaux": {
     "seuil": 255,
     "hsk": 1
@@ -285,7 +453,7 @@
    "traits": [],
    "medianes": [],
    "audio": null,
-   "statut": "sans_fiche"
+   "statut": "relu"
   },
   {
    "c": "是",
@@ -306,15 +474,25 @@
    "sources": [
     "surcharge"
    ],
-   "role": null,
-   "roles": {},
-   "origine_fr": "",
-   "origine_en": "",
-   "etiquette": null,
+   "role": "forme",
+   "roles": {
+    "一": "forme",
+    "日": "forme",
+    "龰": "forme"
+   },
+   "origine_fr": "Pour s'en souvenir : en haut le soleil 日, en dessous un trait 一 et 龰, le pied qu'on retrouve au bas de 走. Sous le soleil, chaque chose se montre telle qu'elle est. L'origine du caractère est discutée, et cette lecture n'est qu'une aide à la mémoire.",
+   "origine_en": "To remember it: the sun 日 on top, and below it a stroke 一 and 龰, the foot also found at the bottom of 走. Under the sun, each thing shows itself as it is. The origin of the character is debated, and this reading is only a memory aid.",
+   "etiquette": "mnemotechnique",
    "memo_fr": null,
    "memo_en": null,
    "mots": [],
-   "phrase": null,
+   "phrase": {
+    "hanzi": "一月是大月。",
+    "pinyin": "Yīyuè shì dàyuè.",
+    "fr": "Janvier compte trente et un jours.",
+    "en": "January has thirty-one days.",
+    "audio": null
+   },
    "niveaux": {
     "seuil": 255,
     "hsk": 1
@@ -322,7 +500,7 @@
    "traits": [],
    "medianes": [],
    "audio": null,
-   "statut": "sans_fiche"
+   "statut": "relu"
   },
   {
    "c": "晚",
@@ -342,15 +520,39 @@
    "sources": [
     "makemeahanzi"
    ],
-   "role": null,
-   "roles": {},
-   "origine_fr": "",
-   "origine_en": "",
-   "etiquette": null,
+   "role": "forme",
+   "roles": {
+    "免": "forme",
+    "日": "sens"
+   },
+   "origine_fr": "Le Shuowen jiezi range 晚 parmi les idéo-phonétiques et le glose par « crépuscule ». 日, le soleil, en donne le sens : le moment où il décline. 免 en donnait le son ; il se lit aujourd'hui miǎn, qui ne sonne plus comme wǎn.",
+   "origine_en": "The Shuowen jiezi classes 晚 as a phonetic compound and glosses it as “dusk”. 日, the sun, gives the meaning: the hour when it sinks. 免 gave the sound; it now reads miǎn, which no longer sounds like wǎn.",
+   "etiquette": "atteste",
    "memo_fr": null,
    "memo_en": null,
-   "mots": [],
-   "phrase": null,
+   "mots": [
+    {
+     "hanzi": "晚上",
+     "pinyin": "wǎnshang",
+     "fr": "soir ; le soir",
+     "en": "evening; in the evening",
+     "audio": null
+    },
+    {
+     "hanzi": "晚饭",
+     "pinyin": "wǎnfàn",
+     "fr": "dîner, repas du soir",
+     "en": "dinner, evening meal",
+     "audio": null
+    }
+   ],
+   "phrase": {
+    "hanzi": "今天晚上我去她家。",
+    "pinyin": "Jīntiān wǎnshang wǒ qù tā jiā.",
+    "fr": "Ce soir, je vais chez elle.",
+    "en": "Tonight I'm going to her place.",
+    "audio": null
+   },
    "niveaux": {
     "seuil": 255,
     "hsk": 1
@@ -358,7 +560,7 @@
    "traits": [],
    "medianes": [],
    "audio": null,
-   "statut": "sans_fiche"
+   "statut": "relu"
   },
   {
    "c": "暑",
@@ -449,22 +651,48 @@
     "makemeahanzi",
     "surcharge"
    ],
-   "role": null,
-   "roles": {},
-   "origine_fr": "",
-   "origine_en": "",
-   "etiquette": null,
+   "role": "sens",
+   "roles": {
+    "一": "forme",
+    "日": "forme",
+    "页": "sens",
+    "龰": "forme"
+   },
+   "origine_fr": "Le Shuowen jiezi analyse 題, forme traditionnelle de 题, par 頁, la tête, pour le sens, et 是 pour le son, et le définit comme le front. Du front, partie la plus en vue du visage, le sens est passé au titre écrit en tête d'un texte, puis au sujet et à la question posée. 是 se lit aujourd'hui shì, loin de tí : son rôle de son s'est perdu en mandarin.",
+   "origine_en": "The Shuowen jiezi analyses 題, the traditional form of 题, as 頁, the head, for the meaning, and 是 for the sound, and defines it as the forehead. From the forehead, the most visible part of the face, the sense moved to the title written at the head of a text, then to a topic and to a question set. 是 is now read shì, far from tí: its role as a sound element has been lost in Mandarin.",
+   "etiquette": "atteste",
    "memo_fr": null,
    "memo_en": null,
-   "mots": [],
-   "phrase": null,
+   "mots": [
+    {
+     "hanzi": "问题",
+     "pinyin": "wèntí",
+     "fr": "question, problème",
+     "en": "question, problem",
+     "audio": null
+    },
+    {
+     "hanzi": "题目",
+     "pinyin": "tímù",
+     "fr": "sujet, énoncé (d'un exercice)",
+     "en": "topic, title; exam question",
+     "audio": null
+    }
+   ],
+   "phrase": {
+    "hanzi": "这个问题很难。",
+    "pinyin": "Zhège wèntí hěn nán.",
+    "fr": "Cette question est difficile.",
+    "en": "This question is difficult.",
+    "audio": null
+   },
    "niveaux": {
     "seuil": 255
    },
    "traits": [],
    "medianes": [],
    "audio": null,
-   "statut": "sans_fiche"
+   "statut": "relu"
   }
  ]
 }

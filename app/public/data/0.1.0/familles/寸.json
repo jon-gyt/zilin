@@ -3,15 +3,15 @@
  "license": "propriétaire",
  "source": "décomposition GF 0014-2009 réconciliée par le pipeline wenlu ; pinyin d'Unihan (kMandarin) ; textes rédigés pour l'app",
  "source_url": "https://github.com/jon-gyt/zilin",
- "modified": "2026-09-25 : assemblé par `wenlu export`",
+ "modified": "2026-09-26 : assemblé par `wenlu export`",
  "norme": "GF 0014-2009",
  "racine": {
   "c": "寸",
   "pinyin": "cùn",
   "fr": "",
   "en": "",
-  "origine": "",
-  "etiquette": null
+  "origine": "Le Shuowen jiezi compose 寸 de la main 又 et d'un trait qui marque, à un pouce du poignet, l'endroit où l'on prend le pouls. De là vient sa valeur de mesure, le pouce chinois, dixième partie du pied 尺. Dans 对, il tient la place d'une main qui agit ; dans 过, il remplace simplement une partie plus complexe de l'ancien 過.",
+  "etiquette": "atteste"
  },
  "fiches": [
   {
@@ -26,19 +26,27 @@
    "nouveau": [],
    "sources": [],
    "role": null,
-   "roles": {},
-   "origine_fr": "",
-   "origine_en": "",
-   "etiquette": null,
+   "roles": {
+    "寸": "sens"
+   },
+   "origine_fr": "Le Shuowen jiezi compose 寸 de la main 又 et d'un trait qui marque, à un pouce du poignet, l'endroit où l'on prend le pouls. De là vient sa valeur de mesure, le pouce chinois, dixième partie du pied 尺. Dans 对, il tient la place d'une main qui agit ; dans 过, il remplace simplement une partie plus complexe de l'ancien 過.",
+   "origine_en": "The Shuowen jiezi builds 寸 from a hand, 又, and a stroke marking the spot an inch up the wrist where the pulse is taken. Hence its use as a measure, the Chinese inch, a tenth of the foot 尺. In 对 it stands for a hand at work; in 过 it simply replaces a more complex part of the old 過.",
+   "etiquette": "atteste",
    "memo_fr": null,
    "memo_en": null,
    "mots": [],
-   "phrase": null,
+   "phrase": {
+    "hanzi": "对，我明天去。",
+    "pinyin": "Duì, wǒ míngtiān qù.",
+    "fr": "Oui, j'y vais demain.",
+    "en": "Yes, I'm going tomorrow.",
+    "audio": null
+   },
    "niveaux": {},
    "traits": [],
    "medianes": [],
    "audio": null,
-   "statut": "sans_fiche"
+   "statut": "relu"
   }
  ]
 }

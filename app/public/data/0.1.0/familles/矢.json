@@ -3,15 +3,15 @@
  "license": "propriétaire",
  "source": "décomposition GF 0014-2009 réconciliée par le pipeline wenlu ; pinyin d'Unihan (kMandarin) ; textes rédigés pour l'app",
  "source_url": "https://github.com/jon-gyt/zilin",
- "modified": "2026-09-25 : assemblé par `wenlu export`",
+ "modified": "2026-09-26 : assemblé par `wenlu export`",
  "norme": "GF 0014-2009",
  "racine": {
   "c": "矢",
   "pinyin": "shǐ",
   "fr": "",
   "en": "",
-  "origine": "",
-  "etiquette": null
+  "origine": "Sur les os oraculaires, 矢 dessine une flèche, la pointe en haut, l'empennage en bas. Le Shuowen jiezi la définit comme la flèche de l'arc et de l'arbalète. Avec 口, il forme 知, savoir, que des commentateurs du Shuowen jiezi expliquent par la parole juste et rapide comme une flèche.",
+  "etiquette": "atteste"
  },
  "fiches": [
   {
@@ -26,19 +26,27 @@
    "nouveau": [],
    "sources": [],
    "role": null,
-   "roles": {},
-   "origine_fr": "",
-   "origine_en": "",
-   "etiquette": null,
+   "roles": {
+    "矢": "sens"
+   },
+   "origine_fr": "Sur les os oraculaires, 矢 dessine une flèche, la pointe en haut, l'empennage en bas. Le Shuowen jiezi la définit comme la flèche de l'arc et de l'arbalète. Avec 口, il forme 知, savoir, que des commentateurs du Shuowen jiezi expliquent par la parole juste et rapide comme une flèche.",
+   "origine_en": "On oracle bones, 矢 draws an arrow, point up and fletching down. The Shuowen jiezi defines it as the arrow of bow and crossbow. With 口 it forms 知, to know, which some commentators on the Shuowen jiezi explain as speech as swift and true as an arrow.",
+   "etiquette": "atteste",
    "memo_fr": null,
    "memo_en": null,
    "mots": [],
-   "phrase": null,
+   "phrase": {
+    "hanzi": "谁知她不来了。",
+    "pinyin": "Shéi zhī tā bù lái le.",
+    "fr": "Qui aurait cru qu'elle ne viendrait pas.",
+    "en": "Who knew she wouldn't come.",
+    "audio": null
+   },
    "niveaux": {},
    "traits": [],
    "medianes": [],
    "audio": null,
-   "statut": "sans_fiche"
+   "statut": "relu"
   },
   {
    "c": "知",
@@ -58,15 +66,39 @@
    "sources": [
     "makemeahanzi"
    ],
-   "role": null,
-   "roles": {},
-   "origine_fr": "",
-   "origine_en": "",
-   "etiquette": null,
+   "role": "sens",
+   "roles": {
+    "口": "sens",
+    "矢": "sens"
+   },
+   "origine_fr": "知 réunit 矢, la flèche, et 口, la bouche, que le Shuowen jiezi analyse tous deux comme éléments de sens. Les commentateurs expliquent que celui qui sait parle vite et juste, comme une flèche va droit au but. Le caractère signifie savoir, connaître.",
+   "origine_en": "知 brings together 矢, arrow, and 口, mouth, both read by the Shuowen jiezi as carrying meaning. Commentators explain that someone who knows speaks quickly and to the point, as an arrow flies straight to its mark. The character means to know, to be aware of.",
+   "etiquette": "atteste",
    "memo_fr": null,
    "memo_en": null,
-   "mots": [],
-   "phrase": null,
+   "mots": [
+    {
+     "hanzi": "知识",
+     "pinyin": "zhīshi",
+     "fr": "connaissances, savoir",
+     "en": "knowledge",
+     "audio": null
+    },
+    {
+     "hanzi": "知名",
+     "pinyin": "zhīmíng",
+     "fr": "connu, renommé",
+     "en": "well-known, famous",
+     "audio": null
+    }
+   ],
+   "phrase": {
+    "hanzi": "他很有知识。",
+    "pinyin": "Tā hěn yǒu zhīshi.",
+    "fr": "Il a beaucoup de connaissances.",
+    "en": "He is very knowledgeable.",
+    "audio": null
+   },
    "niveaux": {
     "seuil": 255,
     "hsk": 1
@@ -74,7 +106,7 @@
    "traits": [],
    "medianes": [],
    "audio": null,
-   "statut": "sans_fiche"
+   "statut": "relu"
   }
  ]
 }

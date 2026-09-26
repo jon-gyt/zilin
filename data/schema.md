@@ -1084,8 +1084,8 @@ le catalogue.
   place haut le plan de base prend, en dessous, un niveau où elle nomme l'animal en mot
   expliqué, trois caractères hors du niveau au plus en tout ; c'est le plus bas où le récit
   reste naturel, un choix de rédaction, et le plan de base commence alors au premier
-  palier qui a les caractères clés et l'animal (井底之蛙 : `hsk4,hsk7-9`, 蛙 龟 井 expliqués
-  à `hsk4`). Un niveau prévu dont la liste n'est pas versionnée (405 à 1555) attend sa
+  palier qui a les caractères clés et l'animal (井底之蛙 : `hsk3,hsk7-9`, 蛙 龟 井 expliqués
+  à `hsk3`). Un niveau prévu dont la liste n'est pas versionnée (405 à 1555) attend sa
   liste ; rien n'en est écrit, et rien ne la reconstitue.
 - `cles` : les caractères clés du récit, accolés (`马腿断兵`) : ses animaux et les objets
   de son intrigue, sans lesquels il perd son sujet ; le reste, noms propres compris, se
