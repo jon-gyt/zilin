@@ -27,10 +27,21 @@ import { newCard } from './srs';
 /* Les fichiers servis avec l'app, tels que `wenlu export` les écrit. */
 const lire = (f: string): unknown =>
   JSON.parse(readFileSync(new URL(`../../public/data/0.1.0/${f}`, import.meta.url), 'utf8'));
+/** Un fichier de l'export qui peut manquer : l'aperçu se vide quand tout est relu. */
+const lireSiPresent = (f: string): unknown => {
+  try {
+    return lire(f);
+  } catch {
+    return null;
+  }
+};
 
-const APERCU = lireLettres(lire('apercu/lettres.json'));
-/* Les mêmes lettres, comme si elles étaient relues : c'est la règle d'arrivée qu'on teste. */
-const RELUES: Lettre[] = APERCU.map(({ statut: _statut, ...l }) => l);
+/* Les lettres servies, relues (`lettres.json`) ou encore à relire (`apercu/lettres.json`). */
+const SERVIES = lireLettres(lire('lettres.json'));
+const TOUTES = fusionnerLettres(SERVIES, lireLettres(lireSiPresent('apercu/lettres.json')));
+/* Les mêmes lettres, fabriquées en mémoire dans les deux états, quel que soit celui du dépôt. */
+const RELUES: Lettre[] = TOUTES.map(({ statut: _statut, ...l }) => l);
+const APERCU: Lettre[] = RELUES.map((l) => ({ ...l, statut: 'a_relire' }));
 
 /** Tous les caractères des lettres 1 à n : ce qu'un parcours aurait posé. */
 function posesJusqua(n: number): Set<string> {
@@ -49,20 +60,25 @@ function avecCartes(p: Progress, caracteres: Iterable<string>): Progress {
 }
 
 describe("l'export des lettres", () => {
-  it('les douze lettres à relire sont dans l\'aperçu, marquées, dans l\'ordre du feuilleton', () => {
-    expect(APERCU.map((l) => l.n)).toEqual([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]);
-    expect(APERCU.every((l) => l.statut === 'a_relire')).toBe(true);
-    expect(APERCU.map((l) => l.jour)).toEqual(APERCU.map((l) => 7 * l.n));
+  it('les douze lettres sont servies, relues ou à relire, dans l\'ordre du feuilleton', () => {
+    expect(TOUTES.map((l) => l.n)).toEqual([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]);
+    expect(TOUTES.map((l) => l.jour)).toEqual(TOUTES.map((l) => 7 * l.n));
+    /* Une lettre à relire ne vient que de l'aperçu, et y porte sa marque. */
+    for (const l of TOUTES) {
+      expect(l.statut === 'a_relire').toBe(!SERVIES.some((x) => x.n === l.n));
+    }
   });
 
-  it("l'export principal ne porte que les lettres relues, aucune aujourd'hui", () => {
+  it("l'export principal ne porte que des lettres relues, sans marque « à relire »", () => {
     const index = lire('index.json') as { lettres: string };
     expect(index.lettres).toBe('lettres.json');
-    expect(lireLettres(lire('lettres.json'))).toEqual([]);
+    const brut = lire('lettres.json') as { lettres: { statut?: string }[] };
+    expect(brut.lettres.every((l) => l.statut !== 'a_relire')).toBe(true);
+    expect(SERVIES.every((l) => l.statut === undefined)).toBe(true);
   });
 
   it('chaque lettre compte 40 à 120 caractères et finit par une question', () => {
-    for (const l of APERCU) {
+    for (const l of TOUTES) {
       const n = l.phrases.flatMap((p) => Array.from(p.zh)).filter((c) => /\p{Script=Han}/u.test(c)).length;
       expect(n).toBeGreaterThanOrEqual(40);
       expect(n).toBeLessThanOrEqual(120);
@@ -71,7 +87,7 @@ describe("l'export des lettres", () => {
   });
 
   it('le lecteur touche chaque caractère avec son pinyin et son sens', () => {
-    for (const l of APERCU) {
+    for (const l of TOUTES) {
       for (const ph of l.phrases) {
         for (const u of unites(ph, l.glose).filter((x) => x.touchable)) {
           expect(u.pinyin, `${l.n} ${u.texte}`).not.toBeNull();
