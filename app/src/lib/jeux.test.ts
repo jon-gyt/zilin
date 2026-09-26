@@ -967,7 +967,7 @@ describe('la chaîne et la coquille sur le contenu servi (export 0.1.0)', () => 
     expect(JEUX.chaine.constat(finie)).toMatch(/^\d+ chaînes, la plus longue de 4, \d+ maillons trouvés\.$/);
   });
 
-  it('pose une coquille avec les mots surcouchés : 夫 pour 天', () => {
+  it('pose une coquille avec les mots des fiches servies : 夫 pour 天, ou 天 pour 夫', () => {
     const corpus = corpusDeJeu({
       fiches,
       voisins,
@@ -976,19 +976,27 @@ describe('la chaîne et la coquille sur le contenu servi (export 0.1.0)', () => 
       traits,
       cartes: stables('我住在北京天夫人女好妈口日明')
     });
-    expect(corpus.textes).toEqual(expect.arrayContaining(['我住在北京。', '天天', '住在']));
+    /* Les mots et la phrase de la fiche telle qu'elle s'affiche, relue ou surcouchée. */
+    const servis = fiches
+      .filter((f) => f.c === '天' || f.c === '住')
+      .flatMap((f) => [f.phrase?.hanzi ?? '', ...f.mots.map((m) => m.hanzi)])
+      .filter((t) => t !== '');
+    expect(servis).toContain('天天');
+    expect(corpus.textes).toEqual(expect.arrayContaining(servis));
     const m = JEUX.coquille.preparer(corpus, '2026-09-23');
     if (!m) throw new Error('manche attendue');
+    /* Seule la paire 天 / 夫 a ses deux caractères acquis : chaque tour piège l'un par l'autre. */
+    const autre: Record<string, string> = { 天: '夫', 夫: '天' };
     for (const t of m.tours) {
-      expect(t.c).toBe('天');
-      expect(t.reponse).toEqual(['夫']);
+      expect(Object.keys(autre)).toContain(t.c);
+      expect(t.reponse).toEqual([autre[t.c]]);
       expect(t.choix.length).toBeGreaterThanOrEqual(MESSAGE_MIN);
       expect(t.choix.length).toBeLessThanOrEqual(MESSAGE_MAX);
       for (const x of t.choix) expect(traits).toContain(x);
       /* 天 et 夫 sont des composants de la norme : la correction les montre entiers. */
       expect(t.correction).toEqual([
-        { c: '夫', briques: ['夫'] },
-        { c: '天', briques: ['天'] }
+        { c: autre[t.c], briques: [autre[t.c]] },
+        { c: t.c, briques: [t.c] }
       ]);
     }
     const finie = jouer(m, (t) => t.reponse);
