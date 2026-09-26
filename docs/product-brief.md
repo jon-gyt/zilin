@@ -72,13 +72,13 @@ Il tient sur un écran de téléphone, sans défiler.
 - En-tête : la marque, puis le portrait du personnage, Chercher (une loupe) et Réglages, par trois icônes. Le portrait est la tête du personnage à son rang, dans la case d'une icône ; il ouvre « Mon personnage ». Pendant une fête, le vœu prend la place de la marque ; les icônes restent.
 - La carte du jour : le caractère dans son 米字格, dessiné depuis les traits, la brique nouvelle en cinabre ; son pinyin, qui se fait entendre ; son sens et sa décomposition (亻 + 主). Toucher le caractère le réécrit au pinceau et le prononce.
 - Le chemin : six coups de pinceau, un par pas (faits en jade, en cours à l'encre, à venir en filet). Tao marche sur le pas en cours et dit une phrase qui dépend de l'état de la journée ; la toucher la fait sauter et changer de phrase. Dessous, « Pas 2 sur 6 · Échauffer » et la durée.
-- La journée faite, une ligne discrète sous le chemin : « Demain : 子 enfant », la brique de la prochaine session dessinée depuis ses traits et son premier sens, et à droite « Ma route › », qui ouvre la route devant 前路 (§8) et y ramène. Ni avant la session, ni pendant, ni en session de plus, ni en rattrapage ; rien au bout du parcours. Retour du propriétaire du 26 septembre 2026 : « il manque une visibilité sur ce qui va être appris au fur et à mesure ». La ligne ne prend que la hauteur de son texte : le menu tient toujours à 393 × 660, fêtes comprises.
-- Un seul bouton plein : « Commencer la session », « Reprendre au pas 3 ». La journée faite, il devient « Une session de plus · une brique », en contour.
+- La journée faite, une ligne discrète sous le chemin : « Demain : 子 enfant », la brique de la prochaine session dessinée depuis ses traits et son premier sens, et à droite « Ma route › », qui ouvre la route devant 前路 (§8) et y ramène. Au rythme gratuit (§10), quand la brique suivante n'est pas pour le lendemain : « Dans 3 j : 子 enfant », en jours du calendrier, ceux que fixe la règle, jamais estimés. Ni avant la session, ni pendant, ni en session de plus, ni en rattrapage ; rien au bout du parcours. Retour du propriétaire du 26 septembre 2026 : « il manque une visibilité sur ce qui va être appris au fur et à mesure ». La ligne ne prend que la hauteur de son texte : le menu tient toujours à 393 × 660, fêtes comprises.
+- Un seul bouton plein : « Commencer la session », « Reprendre au pas 3 ». La journée faite, il devient « Une session de plus · une brique », en contour, avec Wenlu complet et pendant les trente premiers jours du chemin ; au rythme gratuit, « Réviser encore », en contour : une révision de plus, sans brique.
 - Quatre cases identiques : Réviser 温, Jouer 玩, Lire 读, Ma forêt 林. Avant la session, Réviser dit « Dans la session » et ouvre le pas Échauffer, pour que la pile ne se vide jamais en douce ; après, elle ouvre une révision en plus. Jouer est la seule porte des jeux (§9, « L'écran Jouer »). Lire ouvre les contes, et en tête l'anecdote du jour, à relire. Ma forêt garde les familles, la série, les récompenses et la route devant (§8), deux niveaux au plus.
 - Chaque écran ouvert depuis le menu a un seul retour, qui y ramène.
 - Quand un rang du personnage est franchi, l'écran 放榜 passe au retour au menu, avant lui, jamais au milieu d'un pas.
 
-États du menu : nouvelle journée ; session entamée (reprise au pas exact, sauvegarde à chaque tap) ; journée faite (« Graine plantée, une seule par jour ») ; session de plus en cours ; retour après absence (mode rattrapage : révisions seules par blocs de cinq minutes, annoncés un à la fois, « Bloc 1 · 14 cartes », Tao en pot, aucun nouveau caractère tant que la pile n'est pas redescendue, message neutre, jamais de compteur de jours perdus).
+États du menu : nouvelle journée ; session entamée (reprise au pas exact, sauvegarde à chaque tap) ; journée faite (« Graine plantée, une seule par jour ») ; session de plus en cours ; journée sans brique nouvelle au rythme gratuit (la carte du jour montre la brique revue, sans cinabre : rien n'est ajouté) ; retour après absence (mode rattrapage : révisions seules par blocs de cinq minutes, annoncés un à la fois, « Bloc 1 · 14 cartes », Tao en pot, aucun nouveau caractère tant que la pile n'est pas redescendue, message neutre, jamais de compteur de jours perdus).
 
 ### La session, six pas dans le même ordre
 
@@ -93,9 +93,11 @@ Les pas s'enchaînent sans repasser par le menu. Chaque pas porte en tête la m�
 
 Budget choisi par l'utilisateur : 5, 10 ou 20 minutes.
 
+Journée sans brique nouvelle : au rythme gratuit, entre deux briques (§10), la session garde ses six pas, dans le même ordre, sur l'acquis. Apprendre revient sur une brique déjà acquise, la plus fragile : sa fiche, un composé qu'elle a ouvert, le tracé s'il est activé. Utiliser lit un texte de l'acquis, Fixer vérifie, Clore plante la graine comme un autre jour. Aucun caractère n'entre en révision qui n'y était déjà, et la carte du jour n'a pas de cinabre, puisque rien n'est ajouté.
+
 ### Travailler plus : la session de plus
 
-La journée faite, « Une session de plus » ajoute une brique : quatre pas, Apprendre (la brique suivante du parcours), Utiliser, Fixer, Clore. Pas d'anecdote ; Échauffer passe devant seulement s'il reste des cartes dues. Jamais une seconde graine : la série compte les jours, pas les sessions, et le menu garde le compte (« Graine plantée · 2 sessions de plus »). Pas de limite par jour. Jamais en rattrapage : aucune brique nouvelle n'entre tant que la pile n'est pas redescendue. Rien ne remet la journée à zéro avant le lendemain.
+La journée faite, « Une session de plus » ajoute une brique : quatre pas, Apprendre (la brique suivante du parcours), Utiliser, Fixer, Clore. Pas d'anecdote ; Échauffer passe devant seulement s'il reste des cartes dues. Jamais une seconde graine : la série compte les jours, pas les sessions, et le menu garde le compte (« Graine plantée · 2 sessions de plus »). Avec Wenlu complet, pas de limite par jour ; sans achat, seulement pendant les trente premiers jours du chemin (§10), qu'une session de plus consomme comme une autre : chaque leçon est un jour du chemin. Jamais en rattrapage : aucune brique nouvelle n'entre tant que la pile n'est pas redescendue. Rien ne remet la journée à zéro avant le lendemain.
 
 Fluidité : un tap par écran, bouton principal unique en bas, avance automatique après une bonne réponse (1,3 s, tap pour aller plus vite), audio au toucher du caractère, pas de menu ni de fenêtre modale en session, « Quitter » sauvegarde sans question. Explications en trois phrases ; la suite dans la fiche, d'un tap.
 
@@ -120,7 +122,14 @@ Fluidité : un tap par écran, bouton principal unique en bas, avance automatiqu
 
 - Une graine par jour travaillé, sept graines font un arbre. Écran de série animé après chaque révision. Un jour de rattrapage est un jour travaillé : le premier bloc fait plante la graine, une seule par jour.
 - Jour de repos : un par semaine complète, deux en réserve au plus, protège la série.
-- Paliers : 7 jours, un jour de Wenlu complet ; 30 jours, une semaine ; 100 jours, moins 30 % sur l'achat à vie (code à usage unique) ; 365 jours, Wenlu complet offert. Pas de remise sur l'abonnement mensuel.
+- Paliers de la série, remis par Que 雀 (décisions du propriétaire du 26 septembre 2026, « Ok pour les 30 pourcents ») :
+  - 7 jours : un jour de Wenlu complet, la journée suivante, celle du premier message WeChat (§9). Le rythme est encore complet : ce jour ouvre ce que le rythme ne donne pas (§10, « Payant »).
+  - 30 jours : une semaine de Wenlu complet, sept jours du calendrier, pour essayer le rythme payant : une brique chaque jour et les sessions de plus. Elle commence le lendemain du palier ; si l'on est encore dans les trente premiers jours du chemin (une journée de rattrapage n'y avance pas), elle commence au premier jour du rythme gratuit, pour faire essayer ce qu'on n'a pas déjà.
+  - À la fin de cette semaine, vers le 37e jour : un code à usage unique, moins 30 % sur l'achat à vie, montré une fois, sans compte à rebours. Il remplace la remise que portait le palier de 100 jours.
+  - 100 jours : une deuxième semaine de Wenlu complet, comme à 30 jours ; pas de nouvelle remise.
+  - 365 jours : Wenlu complet offert.
+
+  Pas de remise sur l'abonnement mensuel. Qui a déjà Wenlu complet reçoit le sceau et le cadeau de Que, rien de plus. Sur le web, ni achat ni code : les paliers y donnent le sceau et le cadeau de Que.
 - Ma forêt : une colline, un arbre par famille dont la taille suit la progression, un brin d'herbe par caractère, Miao dessus. Le dimanche, récapitulatif de la semaine partageable en image.
 - La route devant 前路 : ce qui va être appris, au fur et à mesure. Retour du propriétaire du 26 septembre 2026 : « il manque une visibilité sur ce qui va être appris au fur et à mesure » ; la carte entière du parcours est écartée (« pas besoin de tout voir, juste le détail de l'étape et une vue partielle proche des prochaines étapes »), et l'écran doit être « plus joli ». On y entre depuis Ma forêt (« La route devant », avec la brique de demain), ou depuis la ligne « Demain » du menu, la journée faite ; un seul retour ramène là d'où l'on vient.
   - En tête : « ‹ Retour », « La route devant 前路 », puis « 25 caractères lus · 20 / 300 du HSK 1 » (les lus de Ma forêt).
@@ -128,6 +137,7 @@ Fluidité : un tap par écran, bouton principal unique en bas, avance automatiqu
   - Au bout, dans la brume (des bandes de papier), les deux prochaines bornes, et rien au-delà, chacune sur une stèle au pointillé d'indigo avec « dans 13 j » : un seuil du trophée Lire (10, 50, 100, 255…), au jour du chemin où entre le Ne caractère, ou un conte qui s'ouvre, au jour où entre le dernier caractère qui lui manque (le calcul de l'étagère « Bientôt » de Lire), son motif sur la stèle. Un trophée obtenu, un seuil dont les caractères sont déjà rencontrés sans être lus, un conte dont le jour ne se calcule pas ne s'annoncent pas. Une pierre qui porte l'une des deux bornes a son petit repère d'indigo.
   - La carte de l'étape choisie, demain par défaut : la brique dans son 米字格, dessinée depuis ses traits, son pinyin et son sens (la fiche), les caractères qu'elle ouvre avec leur pinyin et leur sens, la borne de ce jour-là s'il y en a une ; demain, « Prochaine borne : 50 caractères, dans 13 jours ».
   - Les jours sont ceux du chemin : les leçons du parcours que la session pose une à une, celles de la carte du jour, jamais des dates. Une journée sautée ne compte pas, un jour que la session saute (non réconcilié) non plus, et rien ne s'estime. Avant la session, la pierre du jour est la leçon à poser ; la journée faite, celle apprise. En rattrapage, où aucune brique n'entre, la suite se dit en étapes (« l'étape suivante »), jamais « demain ».
+  - Au rythme gratuit (§10), un jour du chemin n'est plus un jour : les bornes disent « dans N étapes », comme en rattrapage, et l'étagère « Bientôt » de Lire aussi. Seule la pierre suivante porte un compte en jours du calendrier, « prochaine brique dans N j », celui que la règle fixe, jamais estimé ; la carte de l'étape dit « Prochaine brique dans 3 jours ». Au bout du chemin gratuit, la dernière pierre dit « fin du chemin gratuit », et la suite en une ligne (le HSK 2, le seuil 405), sans insistance.
   - Charte : des aplats, ni ombre, ni dégradé, ni doré, ni emoji, ni dragon ; le cinabre ne marque que la position (la pierre du jour, son sceau, son « aujourd'hui »), le jade l'acquis, l'indigo les bornes et le choix. Les couleurs suivent le thème du jour, fêtes et nuits comprises. Rien ne bouge si l'on réduit les animations. Tout se décide dans `app/src/lib/route.ts`.
 - Notification : une par jour, à l'heure choisie, avec le début de l'anecdote.
 
@@ -224,7 +234,7 @@ Décision du propriétaire du 26 septembre 2026 : l'ancien menu en ligne était 
 Le pas Utiliser garde ses vues (les mots et la phrase, puis les trois lignes). Certains jours, un jeu s'y ajoute après le texte. La règle est déterministe : elle ne lit que le rang de la journée (celui que le menu annonce, « 8e jour »), le budget et l'acquis réel, jamais l'horloge.
 
 - Au plus un jeu par journée. Il est choisi à l'entrée du pas et gardé : la session de plus n'en pose pas un second.
-- Le message WeChat à partir du 8e jour, un jour sur trois (8e, 11e, 14e…) : un dialogue court dont tous les caractères sont acquis, pas encore lu au pas Utiliser, le plus récent du parcours d'abord.
+- Le message WeChat à partir du 8e jour, un jour sur trois (8e, 11e, 14e…) : un dialogue court dont tous les caractères sont acquis, pas encore lu au pas Utiliser, le plus récent du parcours d'abord. Il est de Wenlu complet (§10) : sans achat, ce jour-là prend l'éclair s'il y a un mot à deviner, sinon rien.
 - Sinon le dictionnaire éclair, un jour sur deux (les jours pairs) : un mot jamais appris dont les deux caractères sont acquis, un seul tour ; le compteur « mots devinés » se lit sous la correction.
 - Jamais plus long que le budget : le pas dure ce que le chemin annonce (1, 2 ou 4 minutes) ; les mots et la phrase comptent 30 s, le texte 50 s, un mot de l'éclair 20 s, un échange du message 20 s. À 5 minutes, aucun jeu ; à 10, l'éclair ou un dialogue de deux échanges ; à 20, tous les dialogues.
 - Sans acquis suffisant (aucun mot, aucun dialogue ouvert), le pas reste tel quel.
@@ -234,23 +244,32 @@ Le pas Utiliser garde ses vues (les mots et la phrase, puis les trois lignes). C
 
 ## 10. Périmètre de la version 1
 
+Décisions du propriétaire du 26 septembre 2026. Le gratuit et le payant se distinguent par le rythme et par la suite du parcours, jamais par l'acquis : rien de ce qui est appris ne se perd ni ne se ferme. Le propriétaire demandait « en payant on peut avancer autant qu'on veut ? » : oui, dans les règles de la pédagogie, qui ne s'achètent pas. Une seule brique nouvelle par session, et un caractère n'entre en révision que si ses briques sont stables.
+
 ### Gratuit
 
-- Seuil 255 et HSK 1 (2026) complets : décomposition, origines, révision en questions, audio, tracé, anecdotes, série, forêt.
-- Consultation en lecture seule de l'arbre complet.
-- Trois contes au seuil 255.
-- Tao complète, le personnage et ses douze rangs ; jeux gratuits : assembler, la chaîne, les jumeaux, la coquille, le dictionnaire éclair, une devinette par jour, la cuisine (trois plats).
+- Les trente premiers jours du chemin au rythme complet, comme aujourd'hui : une brique nouvelle par session, sessions de plus comprises.
+- Ensuite, le rythme gratuit : deux briques nouvelles par semaine, du lundi au dimanche (la semaine des lettres de Que), trois jours au moins entre deux. Une brique qu'on n'a pas prise ne s'accumule pas. Les autres jours, la session reste complète, six pas sur l'acquis (§6, « Journée sans brique nouvelle ») : révision en questions, tracé, jeux gratuits.
+- Le chemin gratuit : le seuil 255 et le HSK 1 (2026), à ce rythme, avec leur décomposition, leurs origines, l'audio et le tracé. Ils ne sont plus gratuits « complets », comme le disait ce brief jusqu'ici : on les parcourt au rythme gratuit.
+- Pour toujours : la révision de tout l'acquis, paires à ne pas confondre comprises (§7) ; la consultation en lecture seule de l'arbre complet ; les anecdotes, celles des fêtes et des termes solaires avec leur caractère ; une devinette par jour ; les jeux gratuits sur l'acquis : assembler, la chaîne, les jumeaux, la coquille, le dictionnaire éclair, la cuisine et ses trois plats ; la série, la forêt, la route devant, les trophées ; Tao complète, le personnage et ses douze rangs.
+- Contes : les fables courtes du début, en cours d'écriture, dont la première s'ouvre avant le trentième jour ; les trois contes du seuil 255, à ce niveau.
+- Les lettres de Que des quatre premières semaines : la lettre n se lit au jour 7n du chemin, et les lettres 1 à 4 (jours 7 à 28) tombent dans les trente jours gratuits.
+- Le web (PWA) : le seul périmètre gratuit, sans achat, sans compte, sans serveur.
 
-### Payant (achat à vie ou abonnement mensuel)
+La limite se dit calmement : ni compte à rebours, ni relance, ni fenêtre modale. Tao ne parle jamais d'achat et ne culpabilise jamais. Le jour où le rythme gratuit commence, Clore le dit en une ligne, et que tout l'acquis reste ouvert ; ensuite, la route devant montre « prochaine brique dans N j ». Wenlu complet se présente dans Réglages, et sur ce qui en dépend (un conte, un plat, une lettre) par une ligne et un lien.
 
+### Payant (achat à vie ou abonnement mensuel) : Wenlu complet
+
+- Le rythme complet : une brique chaque jour, et autant de sessions de plus qu'on veut, une brique chacune, dans les règles de la pédagogie.
 - Seuils 405 à 1555 et HSK 2 à 6.
 - Dictionnaire complet : 9 000 caractères décomposés et expliqués.
 - Formes anciennes à côté de chaque brique.
-- Textes de lecture générés avec les seuls caractères acquis.
+- Textes de lecture générés avec les seuls caractères acquis, en dehors de la session (ceux du pas Utiliser restent dans la session gratuite).
 - Bibliothèque complète de contes, à tous les niveaux.
-- Exercices « paires à ne pas confondre ».
 - Synchronisation iCloud.
-- Jeux complets : les lettres de Que, le message WeChat, toutes les devinettes, dix plats, les saisons avec caractères bonus.
+- Jeux complets : les lettres de Que à partir de la cinquième, le message WeChat, toutes les devinettes, dix plats. Dans la session gratuite, le jour du message (§9) prend le dictionnaire éclair s'il y a un mot à deviner, sinon rien.
+
+Deux lignes de l'ancienne liste payante passent au gratuit, parce qu'elles contredisaient ce qui reste gratuit pour toujours : les exercices « paires à ne pas confondre », qui sont de la révision (§7), et les saisons avec leurs caractères bonus, qui viennent des anecdotes.
 
 ### Hors périmètre V1
 
@@ -281,8 +300,10 @@ Pipeline (Python, dépôt séparé) : ingestion, réconciliation des décomposit
 
 ## 13. Monétisation
 
-- Web : gratuit, périmètre gratuit et pages publiques. Rôle : acquisition et référencement.
-- iOS : achats intégrés. Achat à vie non consommable autour de 29,99 €. Abonnement mensuel autour de 3,99 €. Grilles Apple par pays.
+- Web : gratuit, le seul périmètre gratuit et les pages publiques ; ni achat, ni compte, ni serveur. Rôle : acquisition et référencement.
+- iOS : achats intégrés, Wenlu complet (§10), les mêmes droits par les deux voies. Achat à vie non consommable autour de 29,99 €. Abonnement mensuel autour de 3,99 €. Grilles Apple par pays.
+- Ce qu'on achète : le rythme et la suite du parcours, jamais l'acquis. Les moments : la fin des trente jours gratuits du chemin, la semaine offerte du palier de 30 jours, puis, vers le 37e jour, le code à usage unique de moins 30 % sur l'achat à vie (§8). Pas de remise sur l'abonnement.
+- Sans compte ni serveur : les achats viennent de StoreKit 2, liés à l'identifiant Apple et restaurables ; les cadeaux des paliers viennent de la progression locale. Une progression modifiée à la main peut ouvrir un cadeau de palier : risque accepté, faute de serveur.
 - Small Business Program (15 %). Entité porteuse du compte développeur à trancher.
 
 ## 14. Lancement sans budget publicitaire
@@ -298,7 +319,7 @@ Pipeline (Python, dépôt séparé) : ingestion, réconciliation des décomposit
 
 - Sessions terminées : plus de 80 %. Une session plus longue que le budget annoncé est un défaut.
 - Retour à J7 : plus de 30 %.
-- Note App Store 4,7 avec 100 avis à trois mois ; 5 000 téléchargements ; conversion payante 3 à 5 % des actifs à 30 jours.
+- Note App Store 4,7 avec 100 avis à trois mois ; 5 000 téléchargements ; conversion payante 3 à 5 % des actifs à 30 jours. Le chiffre tombe désormais au bon moment : le rythme gratuit ralentit au trentième jour du chemin, la semaine offerte suit, puis le code du palier vers le 37e jour ; on le relit à 40 jours. Chiffres d'App Store Connect, jamais de l'app, qui ne collecte rien.
 - Rétention réelle par caractère, taux d'erreur par type de question, temps par pas.
 
 ## 16. Feuille de route
