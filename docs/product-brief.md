@@ -373,7 +373,7 @@ Pipeline (Python, dépôt séparé) : ingestion, réconciliation des décomposit
 
 ## 18. Questions ouvertes
 
-1. Nom de domaine.
+1. Nom de domaine, et l'adresse de support dédiée qui en dépend (page de confidentialité, App Store Connect).
 2. Entité porteuse du compte Apple et de l'encaissement.
 3. Source des formes anciennes compatible avec un usage commercial.
 4. Niveau à partir duquel le HSK 2026 exige l'écriture manuscrite.

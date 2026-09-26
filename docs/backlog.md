@@ -512,6 +512,11 @@ anglaise, glose par mot.
   elkmovie/hsk30 et d'ivankra/hsk30, lus le 25 septembre) ; le référentiel lui-même,
   œuvre du ministère chinois de l'Éducation, reste à trancher (le README d'ivankra/hsk30
   le dit peut-être du domaine public, selon le droit chinois).
+- **Adresse de support** : une adresse dédiée, à créer quand le propriétaire aura un nom
+  de domaine (brief §18, question 1). Elle ira sur la page de confidentialité
+  (`/zilin/confidentialite/`, `/zilin/en/privacy/`, engendrée par `app/scripts/site/`) et
+  dans App Store Connect (URL et contact de support, adresse de contact de la revue bêta,
+  `docs/ios-sans-mac.md`). D'ici là, aucune adresse personnelle.
 
 ### Épic 6, en partie : prêt pour un premier TestFlight gratuit (26 septembre)
 
