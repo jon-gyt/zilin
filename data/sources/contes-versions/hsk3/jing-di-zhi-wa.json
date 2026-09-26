@@ -1,6 +1,6 @@
 {
  "conte": "jing-di-zhi-wa",
- "seuil": "hsk4",
+ "seuil": "hsk3",
  "titre": "井里的青蛙",
  "titre_pinyin": "jǐng lǐ de qīng wā",
  "titre_fr": "La grenouille au fond du puits",
@@ -47,10 +47,10 @@
    "en": "\"When I'm happy, I hop about on the rim; when I'm tired, I sleep down in the well.\""
   },
   {
-   "zh": "「这一井的水都是我的，小鱼小虫都比不上我。你也下来玩玩吧！」",
-   "pinyin": "zhè yī jǐng de shuǐ dōu shì wǒ de xiǎo yú xiǎo chóng dōu bǐ bù shàng wǒ nǐ yě xià lái wán wan ba",
-   "fr": "« Toute l'eau de ce puits est à moi, et ni les petits poissons ni les petites bêtes ne me valent. Descends donc t'amuser ! »",
-   "en": "\"All the water in this well is mine, and no little fish or bug can match me. Come on down and play!\""
+   "zh": "「这一井的水都是我的，那些小鱼都比不上我。你也下来玩玩吧！」",
+   "pinyin": "zhè yī jǐng de shuǐ dōu shì wǒ de nà xiē xiǎo yú dōu bǐ bù shàng wǒ nǐ yě xià lái wán wan ba",
+   "fr": "« Toute l'eau de ce puits est à moi, et ces petits poissons ne me valent pas. Descends donc t'amuser ! »",
+   "en": "\"All the water in this well is mine, and those little fish can't match me. Come on down and play!\""
   },
   {
    "zh": "海龟想下去看看，可是它的脚还没进去，就被井口卡住了。",
@@ -71,10 +71,10 @@
    "en": "The frog said, \"What is the sea? Is it even bigger than my well?\""
   },
   {
-   "zh": "海龟说：「大海宽得看不到边，走一千里也走不到头。」",
-   "pinyin": "hǎi guī shuō dà hǎi kuān de kàn bù dào biān zǒu yī qiān lǐ yě zǒu bù dào tóu",
-   "fr": "La tortue dit : « La mer est si large qu'on n'en voit pas le bord ; on ferait mille lieues sans en trouver le bout. »",
-   "en": "The turtle said, \"The sea is so wide you can't see its edge; you could travel a thousand miles and never reach the end.\""
+   "zh": "海龟说：「大海大得看不到边，走一千里也走不到头。」",
+   "pinyin": "hǎi guī shuō dà hǎi dà de kàn bù dào biān zǒu yī qiān lǐ yě zǒu bù dào tóu",
+   "fr": "La tortue dit : « La mer est si grande qu'on n'en voit pas le bord ; on ferait mille lieues sans en trouver le bout. »",
+   "en": "The turtle said, \"The sea is so big you can't see its edge; you could travel a thousand miles and never reach the end.\""
   },
   {
    "zh": "「大海深得看不到底。下再多的雨，海水也不会多一点。」",
@@ -101,8 +101,8 @@
    "en": "For the first time, she learned that outside the well there was such a big world."
   },
   {
-   "zh": "有的人见得很少，却以为自己什么都知道，就像这只井底的青蛙。",
-   "pinyin": "yǒu de rén jiàn de hěn shǎo què yǐ wéi zì jǐ shén me dōu zhī dào jiù xiàng zhè zhī jǐng dǐ de qīng wā",
+   "zh": "有的人见得很少，还以为自己什么都知道，就像这只井底的青蛙。",
+   "pinyin": "yǒu de rén jiàn de hěn shǎo hái yǐ wéi zì jǐ shén me dōu zhī dào jiù xiàng zhè zhī jǐng dǐ de qīng wā",
    "fr": "Certains, qui ont vu bien peu de choses, croient tout savoir : ils sont comme cette grenouille au fond de son puits.",
    "en": "Some people who have seen very little think they know everything, just like this frog at the bottom of the well."
   }
@@ -433,6 +433,11 @@
    "fr": "toute l'eau de ce puits",
    "en": "all the water in this well"
   },
+  "那些": {
+   "pinyin": "nà xiē",
+   "fr": "ces",
+   "en": "those"
+  },
   "都": {
    "pinyin": "dōu",
    "fr": "tout, tous",
@@ -442,11 +447,6 @@
    "pinyin": "xiǎo yú",
    "fr": "petit poisson",
    "en": "little fish"
-  },
-  "小虫": {
-   "pinyin": "xiǎo chóng",
-   "fr": "petite bête",
-   "en": "little bug"
   },
   "比不上": {
    "pinyin": "bǐ bù shàng",
@@ -573,11 +573,6 @@
    "fr": "quoi",
    "en": "what"
   },
-  "宽": {
-   "pinyin": "kuān",
-   "fr": "large",
-   "en": "wide"
-  },
   "看不到": {
    "pinyin": "kàn bù dào",
    "fr": "ne pas voir",
@@ -698,11 +693,6 @@
    "fr": "certains",
    "en": "some people"
   },
-  "却": {
-   "pinyin": "què",
-   "fr": "pourtant",
-   "en": "yet"
-  },
   "以为": {
    "pinyin": "yǐ wéi",
    "fr": "croire (à tort)",
@@ -749,7 +739,7 @@
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-26",
-  "empreinte_invite": "sha256:479ca30586f3de36c4ec9afb27a88f0db11175e4b61d6602fe543c8a8e39c470",
+  "empreinte_invite": "sha256:e5e9cbd9704b71d280c6a81c7e8c464363e77f99dbcf5dd9e670593ff7983397",
   "essais": 1,
   "intrus": []
  },
