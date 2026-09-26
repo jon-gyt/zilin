@@ -408,11 +408,21 @@ anglaise, glose par mot.
   玉皇大帝, 蟠桃, 筋斗云, 须菩提, 神仙, 弼马温, 猢狲) ; convention du pinyin de 上 et des
   compléments écrite dans la consigne et `data/schema.md`. Les 30 versions prévues sont
   écrites : 3 relues (255), 27 à relire.
-- Reste : relire les 27 versions HSK ; vérifier les listes HSK contre le PDF officiel
-  (lecture OCR, ordre, caractères à écrire). À noter : sous le HSK, les fables animalières
-  montent haut (兔, 蛇, 虎, 猴 au niveau 5 ; 蛙 et 龟 à 7-9), au-delà de la cible « jusqu'au
-  HSK 4 » du
-  brief : à trancher si l'on veut une version plus basse qui nomme l'animal autrement.
+- Fables plus bas (26 septembre), décisions du propriétaire : l'animal par son vrai
+  caractère dès les petits niveaux, défini dans le vocabulaire du conte. Un niveau de plus,
+  sous le plan de base, quand l'animal est expliqué (au plus trois caractères hors du
+  niveau) ; l'animal passe après la barre de `cles`, et « contes : critère des niveaux » y
+  lit des mots expliqués, pas des caractères clés. Écrits, à relire : 守株待兔 HSK 3 (兔,
+  树桩), 画蛇添足 HSK 3 (蛇), 狐假虎威 HSK 3 (虎, 狐狸), 亡羊补牢 HSK 3 (羊圈, 狼), 井底之蛙
+  HSK 4 (井, 青蛙, 海龟). Plan : 守株待兔, 画蛇添足, 狐假虎威 HSK 3, 5, 7-9 ; 亡羊补牢 HSK 3,
+  4, 6 ; 井底之蛙 HSK 4, 7-9. La carte des mots expliqués s'appelle « Vocabulaire du
+  conte ». 一 entre un verbe et sa répétition se lit au ton neutre, comme le note le
+  现代汉语词典 (看一看 kàn yi kàn) : consigne, schéma, écart signalé, et quatre versions
+  reprises (美猴王 HSK 5, 木兰从军 HSK 4, 亡羊补牢 HSK 4 et HSK 6) ; les trois versions
+  relues n'en ont pas.
+- Reste : relire les 32 versions HSK ; vérifier les listes HSK contre le PDF officiel
+  (lecture OCR, ordre, caractères à écrire). 美猴王 garde 猴 au niveau 5 : c'est un récit
+  long, hors de cette décision.
 
 ### En attente d'une décision
 
