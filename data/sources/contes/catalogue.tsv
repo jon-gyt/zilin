@@ -18,7 +18,7 @@
 # `wenlu contes importer` depuis un brouillon de `data/sources/contes-brouillons/`)
 # avec les seuls caractères du niveau visé, puis relues. Elles ne sont jamais écrites ici.
 #
-# TSV, `#` en commentaire, dix colonnes séparées par une tabulation.
+# TSV, `#` en commentaire, onze colonnes séparées par une tabulation.
 #
 # `niveaux` : les niveaux où le récit sera écrit, dans l'ordre (`255,hsk3`,
 # `hsk4,hsk6,hsk7-9`). Les contes suivent le HSK 3.0 (GF 0025-2021, décision du
@@ -124,6 +124,13 @@
 # `chapitres.tsv`, et chacune de ses versions en a autant (écart signalé sinon). La
 # longueur visée d'un niveau vaut alors pour chaque chapitre.
 #
+# `motif` : le petit dessin de la couverture du conte, dans Lire, où chaque conte est un
+# livre cousu 线装书 sur une étagère (décision du propriétaire du 26 septembre 2026). Un nom
+# par conte, pris dans un jeu fermé que l'app sait dessiner (`contes.MOTIFS`) : montagne,
+# pousse, roues, puits, souche, serpent, tigre, cheval, elephant, rouleau, enclos, lance,
+# singe. `wenlu check` refuse un autre nom (« contes : motifs »). 叶公好龙 a le rouleau
+# peint de M. Ye : le dragon ne se dessine pas.
+#
 # Note : 拔苗助长 est la forme moderne du récit ; 《孟子》 écrit 揠苗助长.
 # Note : 南辕北辙 vient du discours de Ji Liang au roi de Wei, 《战国策·魏策四》.
 # Note : 木兰从军 suit la ballade 《木兰诗》 (dite aussi 《木兰辞》), recueillie au XIIe siècle
@@ -131,17 +138,17 @@
 # de Wu Cheng'en (XVIe siècle), sans l'épisode du roi-dragon de la mer de l'Est : pas de
 # dragon hors du Nouvel An et de 端午, et 叶公好龙 reste la seule exception, dans son texte.
 #
-id	titre_zh	titre_pinyin	titre_fr	titre_en	ouvrage	niveaux	cles	chapitres	resume_fr
-shou-zhu-dai-tu	守株待兔	shǒu zhū dài tù	Guetter la souche en attendant le lièvre	Waiting by the Stump for a Hare	《韩非子·五蠹》	hsk3,hsk5,hsk7-9	/兔桩	1	Un paysan voit un lièvre se rompre le cou contre une souche, abandonne ses champs pour guetter la souche et finit par ne plus rien récolter.
-sai-weng-shi-ma	塞翁失马	sài wēng shī mǎ	Le vieillard à la frontière qui avait perdu son cheval	The Old Man Who Lost His Horse	《淮南子·人间训》	hsk4,hsk6,hsk7-9	马腿断兵/塞翁	1	Le cheval perdu d'un vieillard revient accompagné d'un autre, son fils tombe de ce cheval et se casse la jambe, et cette blessure lui évite d'être envoyé à la guerre.
-yu-gong-yi-shan	愚公移山	yú gōng yí shān	Yugong déplace les montagnes	The Foolish Old Man Who Removed the Mountains	《列子·汤问》	255,hsk3,hsk5	山老	1	Un vieillard entreprend d'ôter deux montagnes panier par panier et répond à celui qui le raille que ses fils et ses petits-fils continueront après lui.
-hua-she-tian-zu	画蛇添足	huà shé tiān zú	Ajouter des pattes au serpent	Drawing Legs on a Snake	《战国策·齐策二》	hsk3,hsk5,hsk7-9	画足/蛇	1	Le premier à finir son dessin de serpent y ajoute des pattes pour montrer son avance, et perd le pari qu'il avait déjà gagné.
-jing-di-zhi-wa	井底之蛙	jǐng dǐ zhī wā	La grenouille au fond du puits	The Frog in the Well	《庄子·秋水》	hsk3,hsk7-9	/蛙龟井	1	Une grenouille vante son puits à une tortue venue de la mer de l'Est et découvre en l'écoutant la petitesse de son monde.
-hu-jia-hu-wei	狐假虎威	hú jiǎ hǔ wēi	Le Renard et le Tigre	The Fox and the Tiger	《战国策·楚策一》	hsk3,hsk5,hsk7-9	/虎狐狸	1	Un renard pris par un tigre le persuade de marcher devant lui, et le tigre croit que les bêtes s'enfuient devant le renard.
-ba-miao-zhu-zhang	拔苗助长	bá miáo zhù zhǎng	Tirer sur les pousses pour les faire grandir	Pulling Up the Shoots to Help Them Grow	《孟子·公孙丑上》	255,hsk3	菜长/苗	1	Un homme trop pressé tire sur ses jeunes pousses pour les allonger d'un jour et les fait toutes mourir.
-mang-ren-mo-xiang	盲人摸象	máng rén mō xiàng	Les Aveugles et l'Éléphant	The Blind Men and the Elephant	《大般涅槃经》	hsk4,hsk6,hsk7-9	象摸/盲鼻	1	Des aveugles touchent chacun une partie d'un éléphant et décrivent chacun une bête différente, sûrs d'avoir raison.
-ye-gong-hao-long	叶公好龙	yè gōng hào lóng	Monsieur Ye aime les dragons	Lord Ye Loves Dragons	刘向《新序·杂事五》	hsk3,hsk5	龙/叶	1	Monsieur Ye couvre sa maison d'images de dragons, puis s'enfuit épouvanté le jour où un vrai dragon vient le voir.
-wang-yang-bu-lao	亡羊补牢	wáng yáng bǔ láo	Réparer l'enclos après la perte des moutons	Mending the Pen after Losing a Sheep	《战国策·楚策四》	hsk3,hsk4,hsk6	羊补/圈狼	1	Un berger néglige le trou de son enclos, perd un second mouton, puis répare le trou : il n'est jamais trop tard pour réparer.
-nan-yuan-bei-zhe	南辕北辙	nán yuán běi zhé	Rouler vers le nord pour aller au sud	Heading North to Go South	《战国策·魏策四》	255,hsk3	南北车	1	Un voyageur qui veut aller au royaume de Chu, au sud, roule vers le nord et répond à qui l'avertit que son cheval est bon, sa bourse pleine et son cocher habile : plus il avance, plus il s'éloigne.
-mu-lan-cong-jun	木兰从军	mù lán cóng jūn	La Ballade de Mulan	The Ballad of Mulan	《乐府诗集·木兰诗》	hsk4,hsk6,hsk7-9	马女兵/兰织	4	Une jeune fille prend la place de son vieux père appelé à l'armée, combat douze ans sous l'habit d'un homme, refuse les honneurs de l'empereur et rentre chez elle, où ses compagnons d'armes découvrent qui elle est.
-mei-hou-wang	美猴王	měi hóu wáng	Le Roi des singes	The Monkey King	吴承恩《西游记》第一回至第七回	hsk5,hsk6,hsk7-9	猴石变/悟皇帝圣筋蟠菩仙弼猢狲	4	Un singe né d'une pierre devient roi des singes, apprend d'un maître les transformations et le saut de nuage, sème le désordre au palais céleste et finit enfermé sous une montagne pour avoir parié qu'il sortirait de la paume du Bouddha.
+id	titre_zh	titre_pinyin	titre_fr	titre_en	ouvrage	niveaux	cles	chapitres	motif	resume_fr
+shou-zhu-dai-tu	守株待兔	shǒu zhū dài tù	Guetter la souche en attendant le lièvre	Waiting by the Stump for a Hare	《韩非子·五蠹》	hsk3,hsk5,hsk7-9	/兔桩	1	souche	Un paysan voit un lièvre se rompre le cou contre une souche, abandonne ses champs pour guetter la souche et finit par ne plus rien récolter.
+sai-weng-shi-ma	塞翁失马	sài wēng shī mǎ	Le vieillard à la frontière qui avait perdu son cheval	The Old Man Who Lost His Horse	《淮南子·人间训》	hsk4,hsk6,hsk7-9	马腿断兵/塞翁	1	cheval	Le cheval perdu d'un vieillard revient accompagné d'un autre, son fils tombe de ce cheval et se casse la jambe, et cette blessure lui évite d'être envoyé à la guerre.
+yu-gong-yi-shan	愚公移山	yú gōng yí shān	Yugong déplace les montagnes	The Foolish Old Man Who Removed the Mountains	《列子·汤问》	255,hsk3,hsk5	山老	1	montagne	Un vieillard entreprend d'ôter deux montagnes panier par panier et répond à celui qui le raille que ses fils et ses petits-fils continueront après lui.
+hua-she-tian-zu	画蛇添足	huà shé tiān zú	Ajouter des pattes au serpent	Drawing Legs on a Snake	《战国策·齐策二》	hsk3,hsk5,hsk7-9	画足/蛇	1	serpent	Le premier à finir son dessin de serpent y ajoute des pattes pour montrer son avance, et perd le pari qu'il avait déjà gagné.
+jing-di-zhi-wa	井底之蛙	jǐng dǐ zhī wā	La grenouille au fond du puits	The Frog in the Well	《庄子·秋水》	hsk3,hsk7-9	/蛙龟井	1	puits	Une grenouille vante son puits à une tortue venue de la mer de l'Est et découvre en l'écoutant la petitesse de son monde.
+hu-jia-hu-wei	狐假虎威	hú jiǎ hǔ wēi	Le Renard et le Tigre	The Fox and the Tiger	《战国策·楚策一》	hsk3,hsk5,hsk7-9	/虎狐狸	1	tigre	Un renard pris par un tigre le persuade de marcher devant lui, et le tigre croit que les bêtes s'enfuient devant le renard.
+ba-miao-zhu-zhang	拔苗助长	bá miáo zhù zhǎng	Tirer sur les pousses pour les faire grandir	Pulling Up the Shoots to Help Them Grow	《孟子·公孙丑上》	255,hsk3	菜长/苗	1	pousse	Un homme trop pressé tire sur ses jeunes pousses pour les allonger d'un jour et les fait toutes mourir.
+mang-ren-mo-xiang	盲人摸象	máng rén mō xiàng	Les Aveugles et l'Éléphant	The Blind Men and the Elephant	《大般涅槃经》	hsk4,hsk6,hsk7-9	象摸/盲鼻	1	elephant	Des aveugles touchent chacun une partie d'un éléphant et décrivent chacun une bête différente, sûrs d'avoir raison.
+ye-gong-hao-long	叶公好龙	yè gōng hào lóng	Monsieur Ye aime les dragons	Lord Ye Loves Dragons	刘向《新序·杂事五》	hsk3,hsk5	龙/叶	1	rouleau	Monsieur Ye couvre sa maison d'images de dragons, puis s'enfuit épouvanté le jour où un vrai dragon vient le voir.
+wang-yang-bu-lao	亡羊补牢	wáng yáng bǔ láo	Réparer l'enclos après la perte des moutons	Mending the Pen after Losing a Sheep	《战国策·楚策四》	hsk3,hsk4,hsk6	羊补/圈狼	1	enclos	Un berger néglige le trou de son enclos, perd un second mouton, puis répare le trou : il n'est jamais trop tard pour réparer.
+nan-yuan-bei-zhe	南辕北辙	nán yuán běi zhé	Rouler vers le nord pour aller au sud	Heading North to Go South	《战国策·魏策四》	255,hsk3	南北车	1	roues	Un voyageur qui veut aller au royaume de Chu, au sud, roule vers le nord et répond à qui l'avertit que son cheval est bon, sa bourse pleine et son cocher habile : plus il avance, plus il s'éloigne.
+mu-lan-cong-jun	木兰从军	mù lán cóng jūn	La Ballade de Mulan	The Ballad of Mulan	《乐府诗集·木兰诗》	hsk4,hsk6,hsk7-9	马女兵/兰织	4	lance	Une jeune fille prend la place de son vieux père appelé à l'armée, combat douze ans sous l'habit d'un homme, refuse les honneurs de l'empereur et rentre chez elle, où ses compagnons d'armes découvrent qui elle est.
+mei-hou-wang	美猴王	měi hóu wáng	Le Roi des singes	The Monkey King	吴承恩《西游记》第一回至第七回	hsk5,hsk6,hsk7-9	猴石变/悟皇帝圣筋蟠菩仙弼猢狲	4	singe	Un singe né d'une pierre devient roi des singes, apprend d'un maître les transformations et le saut de nuage, sème le désordre au palais céleste et finit enfermé sous une montagne pour avoir parié qu'il sortirait de la paume du Bouddha.

@@ -110,7 +110,7 @@ VERSION = "0.1.0"
 #: Version du format écrit par ce module. À incrémenter à chaque changement de
 #: ce que l'export produit à entrées égales (clé ajoutée, ordre, règle de
 #: sélection) : elle entre dans l'empreinte, et l'export versionné devient périmé.
-FORMAT_EXPORT = 11
+FORMAT_EXPORT = 12
 
 #: Le code de l'exporteur, lui aussi dans l'empreinte : un changement de ce
 #: fichier où l'on aurait oublié `FORMAT_EXPORT` rend quand même l'export périmé.
@@ -879,7 +879,8 @@ def document_devinettes(
 
 def catalogue_des_contes() -> list[dict[str, object]]:
     """Ce que le catalogue prévoit, pour la bibliothèque de l'app : chaque récit, ses vrais
-    titres, ses niveaux prévus et son nombre de chapitres. Aucun texte : ni résumé, ni
+    titres, ses niveaux prévus, son nombre de chapitres et le motif de sa couverture dans
+    Lire (un nom de `contes.MOTIFS`, que l'app dessine). Aucun texte : ni résumé, ni
     version ; une version n'entre dans l'export (`contes/<id>.json`) qu'une fois relue.
     """
     if not (CONTES / "catalogue.tsv").exists():
@@ -893,6 +894,7 @@ def catalogue_des_contes() -> list[dict[str, object]]:
             "titre_en": c.titre_en,
             "niveaux": list(c.niveaux),
             "chapitres": c.chapitres,
+            "motif": c.motif,
         }
         for c in contes_mod.charger_catalogue(CONTES / "catalogue.tsv")
     ]
