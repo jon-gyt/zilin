@@ -285,9 +285,28 @@ describe('les contes', () => {
     expect(t[1].suivi).toBe(false);
   });
 
-  it("comptent un trophée par conte de l'export", () => {
+  it('comptent un trophée par conte et par niveau, pas un par conte', () => {
+    const index: Index = {
+      ...indexExport,
+      contes: [
+        { id: 'lievre', titre_fr: 'Le lièvre et la souche', seuils: ['255', 'hsk3', 'hsk5'], fichier: 'x' },
+        { id: 'serpent', titre_fr: 'Les pattes du serpent', seuils: ['hsk3'], fichier: 'y' }
+      ]
+    };
+    const s = tableau(progression(), { ...contenuExport, index }).sections.find(
+      (x) => x.famille === 'contes'
+    )!;
+    expect(s.total).toBe(4);
+  });
+
+  it("comptent sur l'export chaque version publiée, une fois", () => {
     const s = tableau(progression(), contenuExport).sections.find((x) => x.famille === 'contes')!;
-    expect(s.total).toBe(indexExport.contes.length);
+    const versions = indexExport.contes.flatMap((c) => [...new Set(c.seuils)].map((n) => `${c.id}-${n}`));
+    expect(versions.length).toBeGreaterThanOrEqual(indexExport.contes.length);
+    expect(new Set(versions).size).toBe(versions.length);
+    expect(s.total).toBe(versions.length);
+    const ids = tropheesContes(indexExport, 0).map((t) => t.id);
+    expect([...ids].sort()).toEqual(versions.map((v) => `conte-${v}`).sort());
   });
 });
 
