@@ -23,6 +23,7 @@
   import Splash from './lib/Splash.svelte';
   import Settings from './lib/Settings.svelte';
   import Rewards from './lib/Rewards.svelte';
+  import Route from './lib/Route.svelte';
   import Tree from './lib/Tree.svelte';
   import Use from './lib/Use.svelte';
   import Warm from './lib/Warm.svelte';
@@ -127,6 +128,7 @@
     | 'lire'
     | 'foret'
     | 'rewards'
+    | 'route'
     | 'reglages'
     | 'chercher'
     | 'personnage'
@@ -164,6 +166,22 @@
    * comme « Quitter » ramènent là d'où l'on vient. `null` : l'ouverture ou la session.
    */
   let anecRetour: RetourAnecdote | null = $state(null);
+
+  /**
+   * 前路, la route devant : ouverte depuis Ma forêt, ou depuis la carte du jour du menu une
+   * fois la journée faite. Son seul retour ramène là d'où l'on vient.
+   */
+  let routeRetour: 'menu' | 'foret' = $state('menu');
+
+  function ouvrirRoute(depuis: 'menu' | 'foret'): void {
+    routeRetour = depuis;
+    ecran = 'route';
+  }
+
+  function fermerRoute(): void {
+    if (routeRetour === 'foret') ecran = 'foret';
+    else allerAuMenu();
+  }
 
   /** La famille ouverte dans Ma forêt, `null` quand on est sur le cercle. */
   let famille: Noeud | null = $state(null);
@@ -916,9 +934,12 @@
       jour={p.day}
       onfamille={(f) => (famille = f)}
       onrecompenses={() => (ecran = 'rewards')}
+      onroute={() => ouvrirRoute('foret')}
       onretour={allerAuMenu}
     />
   {/if}
+{:else if ecran === 'route'}
+  <Route {p} onretour={fermerRoute} />
 {:else if ecran === 'rewards'}
   <Rewards {p} onretour={() => (ecran = 'foret')} onacquis={tropheesObtenus} />
 {:else if ecran === 'chercher'}
@@ -935,5 +956,5 @@
 {:else if ecran === 'reglages'}
   <Settings {p} onprogression={remplacer} onretour={allerAuMenu} />
 {:else}
-  <Menu {p} fete={feteJour} {fetes} terme={laJournee.terme} {saisons} ondemarrer={boutonMenu} oncase={caseMenu} onanecdote={() => relireAnecdote('menu')} onchercher={ouvrirChercher} onreglages={() => (ecran = 'reglages')} onpersonnage={() => (ecran = 'personnage')} />
+  <Menu {p} fete={feteJour} {fetes} terme={laJournee.terme} {saisons} ondemarrer={boutonMenu} oncase={caseMenu} onanecdote={() => relireAnecdote('menu')} onchercher={ouvrirChercher} onreglages={() => (ecran = 'reglages')} onpersonnage={() => (ecran = 'personnage')} onroute={() => ouvrirRoute('menu')} />
 {/if}

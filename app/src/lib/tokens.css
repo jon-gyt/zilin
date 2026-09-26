@@ -23,6 +23,10 @@
 /* Les étagères de Lire : la planche de bois, en aplat, son chant à l'ocre. Une image,
    comme les couvertures : les cases et les cartes restent au papier. */
 :root{ --bois:#B98A5A; --bois-chant:#8C5A2B; }
+/* 前路, la route devant : trois collines en aplats, de l'ocre fondu dans la carte, du plus
+   loin au plus proche. Mêlées aux variables du thème, elles suivent les fêtes et les nuits. */
+:root{ --route-mont1:color-mix(in srgb, var(--ocre) 16%, var(--card)); --route-mont2:color-mix(in srgb, var(--ocre) 9%, var(--card));
+  --route-mont3:color-mix(in srgb, var(--ocre) 4%, var(--card)); }
 /* Le personnage (Heros.svelte, brief §8) : ses couleurs à lui, fixes, les jours de fête
    comme les autres, un papier découpé posé sur la page. Les pigments de la charte, l'abricot
    en aplat (jamais un doré), la pêche des fleurs de Tao ; pas de cinabre, il reste au chemin. */
