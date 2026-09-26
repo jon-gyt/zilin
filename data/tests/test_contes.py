@@ -270,6 +270,33 @@ def test_un_personnage_cle_ne_compte_pas_dans_le_critere(tmp_path: Path) -> None
     assert contes.ecarts_au_critere(loup, tmp_path) == []
 
 
+def test_un_niveau_de_plus_quand_l_animal_est_explique(tmp_path: Path) -> None:
+    """Décision du propriétaire du 26 septembre 2026 : l'animal par son vrai caractère dès les
+    petits niveaux. Après la barre, il est un mot expliqué, pas un caractère clé : le plan
+    prend un niveau plus bas où il est expliqué, puis son plan de base, qui commence au
+    premier palier qui a l'animal ; trois caractères expliqués au plus au niveau ajouté."""
+    ecrire_hsk(tmp_path, {"1": "人大", "2": "天", "3": "山", "4": "水", "5": "兔", "6": "木", "7-9": "桩狼"})
+
+    def lievre(niveaux: tuple[str, ...], expliquables: str = "兔桩") -> Conte:
+        return Conte(
+            id="lievre", titre_zh="山", titre_fr="T", ouvrage="《测试》", resume_fr="R.",
+            niveaux=niveaux, cles="", expliquables=expliquables,
+        )
+
+    assert contes.ecarts_au_critere(lievre(("hsk3", "hsk5", "hsk7-9")), tmp_path) == []
+    assert contes.ecarts_au_critere(lievre(("hsk3", "hsk6", "hsk7-9")), tmp_path) == [
+        "lievre : caractères clés tous au niveau hsk5, plus bas que hsk6 "
+        "(plan de base, sous le niveau ajouté hsk3 où 兔 est expliqué)"
+    ]
+    assert contes.ecarts_au_critere(lievre(("hsk2", "hsk5", "hsk7-9"), "兔山桩狼"), tmp_path) == [
+        "lievre : 4 caractères expliqués au niveau ajouté hsk2 (兔 山 桩 狼), 3 au plus"
+    ]
+    # Sans mot expliqué que le niveau suivant a déjà, pas de niveau ajouté : le critère de base.
+    assert contes.ecarts_au_critere(lievre(("hsk3", "hsk5", "hsk7-9"), "桩狼"), tmp_path) == [
+        "lievre : caractères clés tous au niveau hsk2, plus bas que hsk3"
+    ]
+
+
 def test_le_premier_lot_declare_ses_personnages_cles() -> None:
     """Décision du propriétaire : le loup, les pousses et Monsieur Ye se nomment."""
     par_id = {c.id: c for c in charger_catalogue()}
@@ -318,7 +345,7 @@ def test_les_contes_ecrits_a_255_le_prevoient() -> None:
     ("niveaux", "motif"),
     [
         ("255", "deux niveaux"),
-        ("255,405,505,805", "deux niveaux"),
+        ("255,hsk1,hsk2,hsk3,hsk4", "deux niveaux"),
         ("505,255", "croissants"),
         ("255,255", "croissants"),
         ("255,300", "hors des seuils"),
