@@ -95,9 +95,9 @@ def _corps(module, invites: list) -> tuple[list[dict], list[dict]]:
 #: pinyin a dit 上 après un nom et les compléments, puis 一 des verbes redoublés ; celle
 #: des fiches, quand la consigne des mots est passée à « au plus deux », sans mot rare
 #: imposé, puis quand le rôle `son` est devenu « aide à prononcer aujourd'hui » (même
-#: syllabe, ton libre).
+#: syllabe, ton libre), puis quand la fiche a demandé son sens (`sens_fr`, `sens_en`).
 EMPREINTES = {
-    "fiches": "13e72079d8e9713f8c43979b6e74996f5591de14d0f0a88e62ca90268e19036f",
+    "fiches": "1c380bb8b67ddeeb68e256eba1a8f1c4e747eed0c2a195e2abf155580aff94d6",
     "contes": "3dc39fc2af47859916156427c91626db438366506da812a3d14f50cc68fc309b",
 }
 

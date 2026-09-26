@@ -109,7 +109,7 @@ VERSION = "0.1.0"
 #: Version du format écrit par ce module. À incrémenter à chaque changement de
 #: ce que l'export produit à entrées égales (clé ajoutée, ordre, règle de
 #: sélection) : elle entre dans l'empreinte, et l'export versionné devient périmé.
-FORMAT_EXPORT = 10
+FORMAT_EXPORT = 11
 
 #: Le code de l'exporteur, lui aussi dans l'empreinte : un changement de ce
 #: fichier où l'on aurait oublié `FORMAT_EXPORT` rend quand même l'export périmé.
@@ -600,8 +600,8 @@ def fiche_exportee(
         c=c,
         pinyin=principale,
         lectures=toutes(principale),
-        fr="",
-        en="",
+        fr=relue.sens_fr,
+        en=relue.sens_en,
         parts=parts,
         nouveau=nouveau,
         sources=sources,
@@ -630,8 +630,8 @@ def famille_exportee(racine: str, fiches: Sequence[Fiche], version: str) -> Fami
     brique = Brique(
         c=racine,
         pinyin=tete.pinyin if tete else "",
-        fr="",
-        en="",
+        fr=tete.fr if tete else "",
+        en=tete.en if tete else "",
         origine=tete.origine_fr if tete else "",
         etiquette=tete.etiquette if tete else None,
     )
@@ -1141,6 +1141,8 @@ AVERTISSEMENT_APERCU = (
 
 #: Les champs de texte d'une fiche que l'aperçu porte : ceux d'une fiche relue.
 CHAMPS_FICHE_APERCU: tuple[str, ...] = (
+    "fr",
+    "en",
     "role",
     "roles",
     "origine_fr",

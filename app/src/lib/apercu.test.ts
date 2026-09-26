@@ -138,6 +138,8 @@ function exportSimule(V: string, { relu = false, apercu = true } = {}): Record<s
         {
           c: '朋',
           statut: 'a_relire',
+          fr: 'ami, compagnon',
+          en: 'friend',
           role: null,
           roles: { 月: 'forme' },
           origine_fr: 'Deux lunes côte à côte (à relire).',
@@ -230,6 +232,7 @@ describe('interrupteur allumé : les textes à relire, avec la mention « à rel
     expect(f?.source).toBe('apercu');
     expect(f?.statut).toBe('a_relire');
     expect(f?.origine_fr).toBe('Deux lunes côte à côte (à relire).');
+    expect([f?.fr, f?.en]).toEqual(['ami, compagnon', 'friend']);
     expect(f?.etiquette).toBe('mnemotechnique');
     expect(f?.mots.map((m) => m.hanzi)).toEqual(['朋友']);
     expect(f?.phrase?.hanzi).toBe('我的朋友。');
@@ -279,6 +282,7 @@ describe('interrupteur allumé : les textes à relire, avec la mention « à rel
       ]
     });
     expect([...lues.keys()]).toEqual(['朋', '林']);
+    expect(lues.get('林')?.fr).toBe('');
     expect(lues.get('林')?.etiquette).toBeNull();
     expect(lues.get('林')?.mots).toEqual([]);
     expect(lireIndexApercu({ familles: [{ racine: '月' }], contes: [] }).familles).toEqual([]);
@@ -306,6 +310,10 @@ describe("un texte relu prime sur l'aperçu", () => {
     const demo = { c: '朋', origine_fr: 'Démo.', statut: 'sans_fiche', source: 'demonstration' } as FicheLue;
     expect(appliquerApercu(demo, a).source).toBe('apercu');
     expect(appliquerApercu(demo, null)).toBe(demo);
+    /* Le sens de la démonstration ne passe jamais pour celui de la fiche à relire. */
+    const demoSens = { ...demo, fr: 'démo' } as FicheLue;
+    expect(appliquerApercu(demoSens, a).fr).toBe('');
+    expect(appliquerApercu(demoSens, { ...a, fr: 'ami' }).fr).toBe('ami');
   });
 
   it('une version relue passe devant la version à relire du même seuil', async () => {

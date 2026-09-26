@@ -1837,6 +1837,9 @@ export type IndexApercu = { familles: FamilleApercu[]; contes: IndexConte[] };
 export type FicheApercu = {
   c: string;
   statut: typeof STATUT_A_RELIRE;
+  /** Le sens à relire, glose courte ; vide si la fiche ne l'a pas encore. */
+  fr: string;
+  en: string;
   role: Role | null;
   roles: Record<string, Role>;
   origine_fr: string;
@@ -1904,6 +1907,8 @@ export function lireFamilleApercu(v: unknown): Map<string, FicheApercu> {
     out.set(f.c, {
       c: f.c,
       statut: STATUT_A_RELIRE,
+      fr: chaine(f.fr),
+      en: chaine(f.en),
       role: estRole(f.role) ? f.role : null,
       roles,
       origine_fr,
@@ -1983,15 +1988,15 @@ export async function ficheApercu(
  * une fiche de l'export qui porte ses textes reste telle quelle. Sinon les textes de la
  * fiche à relire remplacent ceux de la démonstration, tous ensemble, comme une fiche relue
  * les remplacerait ; la décomposition, le pinyin et les niveaux restent ceux de l'export.
- * Le sens (`fr`) aussi : le pipeline n'en écrit pas, relu ou non, et l'aperçu montre ce
- * que l'app montrera une fois la fiche relue.
+ * Le sens (`fr`, `en`) est celui de la fiche à relire : vide si elle ne l'a pas encore,
+ * jamais celui de la démonstration, pour montrer ce que l'app montrera une fois relue.
  */
 export function appliquerApercu(lue: FicheLue, a: FicheApercu | null): FicheLue {
   if (a === null || lue.source === 'export' || lue.statut === 'relu') return lue;
   return {
     ...lue,
-    fr: '',
-    en: '',
+    fr: a.fr ?? '',
+    en: a.en ?? '',
     role: a.role,
     roles: a.roles,
     origine_fr: a.origine_fr,
