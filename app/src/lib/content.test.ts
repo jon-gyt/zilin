@@ -975,9 +975,9 @@ describe('le chargeur des contes', () => {
         '255': {
           titre: '要去南方的人',
           titre_pinyin: 'yào qù nán fāng de rén',
-          phrases: [{ zh: '有人问他：「你去哪里？」', pinyin: 'yǒu rén wèn tā nǐ qù nǎ lǐ', fr: 'Quelqu’un lui demanda : « Où vas-tu ? »', en: 'Someone asked him.' }],
+          phrases: [{ zh: '有人问他：「你去哪里？」', pinyin: 'yǒu rén wèn tā nǐ qù nǎ li', fr: 'Quelqu’un lui demanda : « Où vas-tu ? »', en: 'Someone asked him.' }],
           glose: {
-            哪里: { pinyin: 'nǎ lǐ', fr: 'où', en: 'where' },
+            哪里: { pinyin: 'nǎ li', fr: 'où', en: 'where' },
             有人: { pinyin: 'yǒu rén', fr: 'quelqu’un', en: 'someone' },
             空: { pinyin: 'kōng', en: 'empty' }
           }

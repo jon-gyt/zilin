@@ -133,6 +133,17 @@ def test_le_pinyin_se_lit_dans_les_lectures_d_unihan() -> None:
     assert fautes_pinyin([mot("火车", "train", pinyin="huǒchá")], lectures)
 
 
+def test_un_mot_de_position_a_le_ton_de_la_decision() -> None:
+    """Décision du propriétaire du 26 septembre 2026 : 上面 shàng mian, 旁边 páng biān."""
+    lectures = {"上": ["shàng"], "面": ["miàn"], "旁": ["páng"], "边": ["biān"]}
+    assert fautes_pinyin([mot("上面", "dessus", pinyin="shàngmian")], lectures) == []
+    assert fautes_pinyin([mot("上面", "dessus", pinyin="shàngmiàn")], lectures) == [
+        "上面 : « shàngmiàn », 上面 shàng miàn, attendu shàng mian"
+    ]
+    assert fautes_pinyin([mot("旁边", "à côté", pinyin="pángbiān")], lectures) == []
+    assert fautes_pinyin([mot("旁边", "à côté", pinyin="pángbian")], lectures)
+
+
 def test_la_source_versionnee_est_propre_et_dans_l_objectif() -> None:
     lus = charger()
     bas, haut = OBJECTIF

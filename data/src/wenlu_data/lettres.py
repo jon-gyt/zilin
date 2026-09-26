@@ -589,7 +589,8 @@ aucun autre caractère, même dans un nom propre.
 la traduisent en question ;
 - pinyin de chaque phrase : une syllabe par sinogramme, séparées par une espace, en \
 minuscules, tons du dictionnaire sans sandhi (一 yī, 不 bù), le ton neutre sans marque \
-(朋友 péng you) ; chaque syllabe est une lecture du caractère ;
+(朋友 péng you), les mots de position au ton neutre (后面 hòu mian, 这里 zhè li) sauf \
+旁边 páng biān, 那边 nà biān, 这边 zhè biān ; chaque syllabe est une lecture du caractère ;
 - fr et en de chaque phrase, rédigés pour un lecteur de chaque langue ;
 - glose : une liste d'entrées {{zh, pinyin, fr, en}}, par caractère ou par mot, qui couvre \
 chaque sinogramme tel que le lecteur découpe (à chaque position, l'entrée la plus longue \

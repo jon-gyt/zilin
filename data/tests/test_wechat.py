@@ -185,6 +185,20 @@ def test_chaque_texte_se_lit_dans_son_pinyin(dossier: Path) -> None:
     assert len(fautes) == 1 and "喝茶？" in fautes[0]
 
 
+def test_un_mot_de_position_a_le_ton_de_la_decision(dossier: Path) -> None:
+    """Décision du propriétaire du 26 septembre 2026 : 哪里 nǎ li, jamais nǎ lǐ."""
+    w = petit(dossier)
+    lectures = {**LECTURES, "哪": ["nǎ"], "里": ["lǐ"]}
+
+    def avec(pinyin: str) -> Wechat:
+        texte = wechat_mod.Texte(zh="我哪里？", pinyin=pinyin, fr="", en="")
+        return replace(w, lignes=(replace(w.lignes[0], texte=texte), *w.lignes[1:]))
+
+    fautes = fautes_pinyin(avec("Wǒ nǎlǐ?"), lectures)
+    assert len(fautes) == 1 and fautes[0].endswith("« Wǒ nǎlǐ? », 哪里 nǎ lǐ, attendu nǎ li")
+    assert fautes_pinyin(avec("Wǒ nǎli?"), lectures) == []
+
+
 def test_l_export_donne_une_syllabe_par_caractere() -> None:
     t = wechat_mod.Texte(zh="好，明天见！", pinyin="Hǎo, míngtiān jiàn!", fr="", en="")
     assert syllabes(t, LECTURES) == ["hǎo", "míng", "tiān", "jiàn"]

@@ -886,9 +886,11 @@ versionné, un fichier par caractère, nommé d'après lui.
   reprises d'un dictionnaire.
 - Pinyin des mots et de la phrase : les tons du dictionnaire, sans sandhi (`yī`,
   `bù`, même devant un quatrième ton) ; un mot d'un seul tenant (`bùhǎo`, `nǚ'ér`) ; le
-  ton neutre d'un mot comme CC-CEDICT (`dōngxi`, `péngyou`, `duōshao`, `rènshi`).
-  `tests/test_pinyin.py` relit chaque brouillon contre les lectures du caractère
-  (`pinyin.py`) et le pinyin CC-CEDICT du mot.
+  ton neutre d'un mot comme CC-CEDICT (`dōngxi`, `péngyou`, `duōshao`, `rènshi`), sauf
+  les mots de position, qui suivent la règle des contes ci-dessous (`hòumian`, `zhèli`,
+  `pángbiān`, `nàbiān`, `pinyin.MOTS_DE_POSITION`). `tests/test_pinyin.py` relit
+  chaque brouillon contre les lectures du caractère (`pinyin.py`) et le pinyin CC-CEDICT
+  du mot.
 - Le reste de la fiche (`parcours`, `jour`, `pinyin`, `composants`, `structure`) ne
   s'écrit pas : l'import le prend dans le contexte du caractère.
 
@@ -1205,7 +1207,19 @@ texte d'un conte est un contenu, sa relecture se lit dans l'historique git.
   `lù shang`, mais 马上 `mǎ shàng`, 天上 `tiān shàng`), le ton plein ailleurs
   (山上 `shān shàng`, 树桩上 `shù zhuāng shàng`). Les compléments gardent le ton plein,
   comme dans les contes relus au seuil 255 (回来 `huí lái`, 起来 `qǐ lái`, 说不出
-  `shuō bù chū`), et 过 après un verbe aussi (见过 `jiàn guò`). La k-ième syllabe est celle
+  `shuō bù chū`), et 过 après un verbe aussi (见过 `jiàn guò`). Les mots de position
+  prennent le ton neutre sur leur seconde syllabe, comme le note le 现代汉语词典 (décision
+  du propriétaire du 26 septembre 2026, « Je te laisse décider » ; retenue : la lecture de
+  l'oral courant) : 后面 `hòu mian`, 前面 `qián mian`, 里面 `lǐ mian`, 外面 `wài mian`,
+  上面 `shàng mian`, 下面 `xià mian`, 后边 `hòu bian`, 前边 `qián bian`, 里边 `lǐ bian`,
+  外边 `wài bian`, 上边 `shàng bian`, 下边 `xià bian`, 这里 `zhè li`, 那里 `nà li`,
+  哪里 `nǎ li`, et de même les mots d'orientation (décision du même jour) : 东边
+  `dōng bian`, 南边 `nán bian`, 西边 `xī bian`, 北边 `běi bian`, 左边 `zuǒ bian`, 右边
+  `yòu bian` ; dans 这里面, 那里面, le mot est 里面 (`nà lǐ mian`). 旁边 `páng biān`,
+  那边 `nà biān`, 这边 `zhè biān` gardent le ton plein ; la décision ne touche aucun
+  autre mot (外头 `wài tou`, 下面条 « mettre les nouilles » `xià miàn tiáo`). La liste
+  est `pinyin.MOTS_DE_POSITION` ; elle vaut aussi pour les lettres, les fiches, WeChat et
+  l'éclair (d'un seul tenant : `hòumian`, `nǎli`). La k-ième syllabe est celle
   du k-ième sinogramme : le lecteur les aligne sans autre calcul.
 - `phrases[].fr` et `phrases[].en` : traductions rédigées pour un lecteur de chaque
   langue.
@@ -1257,7 +1271,8 @@ le catalogue ne prévoit pas pour le récit, nombre de chapitres autre que celui
 phrase vide, traduction anglaise absente, pinyin qui ne
 compte pas une syllabe par sinogramme ou hors forme, ton de 一 ou 不 modifié (sandhi),
 一 d'un verbe redoublé qui n'est pas au ton neutre (`contes.redoublements_en_yi` : 看一看,
-pas 一个一个),
+pas 一个一个), mot de position à un autre ton que celui de `pinyin.MOTS_DE_POSITION`
+(aussi contrôlé, bloquant, par « contes : mots de position » de `wenlu check`),
 sinogramme qu'aucune entrée de glose ne couvre dans le découpage du lecteur, entrée de
 glose absente du texte, pinyin d'une entrée différent de celui de la phrase où on la
 touche, entrée sans pinyin, sans `fr` ou sans `en` ; mot expliqué absent du texte, déjà

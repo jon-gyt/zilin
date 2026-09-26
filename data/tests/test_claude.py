@@ -92,13 +92,14 @@ def _corps(module, invites: list) -> tuple[list[dict], list[dict]]:
 #: Relevées avant l'extraction de `claude.py` (commit parent). Celle des contes a été
 #: relevée de nouveau quand l'invite a demandé le pinyin du titre, la traduction
 #: anglaise et la glose par mot (rédaction des contes sans API), puis quand la règle du
-#: pinyin a dit 上 après un nom et les compléments, puis 一 des verbes redoublés ; celle
+#: pinyin a dit 上 après un nom et les compléments, puis 一 des verbes redoublés, puis
+#: les mots de position (后面 hòu mian, 那边 nà biān), puis ceux d'orientation ; celle
 #: des fiches, quand la consigne des mots est passée à « au plus deux », sans mot rare
 #: imposé, puis quand le rôle `son` est devenu « aide à prononcer aujourd'hui » (même
 #: syllabe, ton libre), puis quand la fiche a demandé son sens (`sens_fr`, `sens_en`).
 EMPREINTES = {
     "fiches": "1c380bb8b67ddeeb68e256eba1a8f1c4e747eed0c2a195e2abf155580aff94d6",
-    "contes": "3dc39fc2af47859916156427c91626db438366506da812a3d14f50cc68fc309b",
+    "contes": "64ed6f1fb0bd63a707b5dbc2d5b147127ee702f8a050d4ca88b936a60921bb63",
 }
 
 

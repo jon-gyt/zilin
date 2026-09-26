@@ -1478,7 +1478,8 @@ et dans le doute. Sous « mnémotechnique », décrire ce que l'on voit dans la 
 jamais prétendre dire ce que le caractère a voulu dire autrefois.
 - mots : au plus {MOTS_PAR_FICHE}, pris dans les mots candidats, écrits à l'identique, \
 sans doublon ; pinyin avec les tons du dictionnaire (sans sandhi : yī, bù), d'un seul \
-tenant, ton neutre comme CC-CEDICT ; traductions fr et en rédigées soi-même, jamais \
+tenant, ton neutre comme CC-CEDICT, sauf les mots de position (后面 hòumian, 这里 zhèli, \
+旁边 pángbiān, 那边 nàbiān) ; traductions fr et en rédigées soi-même, jamais \
 reprises d'un dictionnaire.
 - phrase.zh : les seuls caractères acquis ce jour-là, et la ponctuation \
 {PONCTUATION_CHINOISE} ; ni chiffre ni lettre.

@@ -336,6 +336,35 @@ def test_yi_d_un_verbe_redouble_est_au_ton_neutre() -> None:
     assert not [e for e in valider(version_de(document), liste).ecarts if "redoublé" in e]
 
 
+def test_mot_de_position_au_ton_neutre_ecart_et_controle_bloquant() -> None:
+    """Décision du propriétaire du 26 septembre 2026, le 现代汉语词典 : 下面 xià mian, dans
+    la phrase comme dans la glose. Un ton plein est un écart à la validation, et fait
+    échouer « contes : mots de position » dans `wenlu check`."""
+    liste = LISTE + ["面"]
+    phrases = [dict(PHRASE) for _ in range(9)] + [
+        {"zh": "山下面，山水火。", "pinyin": "shān xià miàn shān shuǐ huǒ", "fr": "Une phrase.", "en": "A sentence."}
+    ]
+    document = brouillon(phrases=phrases)
+    document["glose"] = [  # type: ignore[index]
+        *document["glose"],  # type: ignore[misc]
+        {"zh": "下面", "pinyin": "xià miàn", "fr": "sous", "en": "below"},
+    ]
+    version = version_de(document)
+    assert [e for e in valider(version, liste).ecarts if "position" in e] == [
+        f"pinyin de la phrase 10 : {contes.MESSAGE_POSITION} : 下面 xià miàn, attendu xià mian"
+    ]
+    controle = contes.controle_position([version])
+    assert not controle.ok and controle.bloquant
+    assert "255/conte-de-test : 下面 xià miàn, attendu xià mian" in controle.detail
+
+    phrases[9] = {**phrases[9], "pinyin": "shān xià mian shān shuǐ huǒ"}
+    document["phrases"] = phrases
+    document["glose"][-1]["pinyin"] = "xià mian"  # type: ignore[index]
+    version = version_de(document)
+    assert valider(version, liste).ecarts == []
+    assert contes.controle_position([version]).ok
+
+
 def test_la_traduction_anglaise_manquante_est_un_ecart() -> None:
     phrases = [dict(PHRASE) for _ in range(10)]
     phrases[0] = {**PHRASE, "en": ""}

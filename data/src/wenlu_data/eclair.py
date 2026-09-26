@@ -211,14 +211,21 @@ def fautes_sources(mots: Sequence[MotEclair], exclus: Iterable[str] = ()) -> lis
 
 
 def fautes_pinyin(mots: Sequence[MotEclair], lectures: Mapping[str, Sequence[str]]) -> list[str]:
-    """Le pinyin de chaque mot se lit dans les lectures des deux caractères, au ton plein ou neutre."""
-    from .pinyin import aligner
+    """Le pinyin de chaque mot se lit dans les lectures des deux caractères, au ton plein ou
+    neutre ; un mot de position a le ton de la décision du 26 septembre 2026
+    (`pinyin.MOTS_DE_POSITION`)."""
+    from .pinyin import aligner, ecarts_de_position
 
-    return [
-        f"{m.mot} : « {m.pinyin} » ne se lit pas dans {' / '.join(lectures.get(c) and ' '.join(lectures[c]) or '—' for c in m.mot)}"
-        for m in mots
-        if aligner(m.mot, m.pinyin, lectures) is None
-    ]
+    fautes: list[str] = []
+    for m in mots:
+        syllabes = aligner(m.mot, m.pinyin, lectures)
+        if syllabes is None:
+            fautes.append(
+                f"{m.mot} : « {m.pinyin} » ne se lit pas dans "
+                f"{' / '.join(lectures.get(c) and ' '.join(lectures[c]) or '—' for c in m.mot)}"
+            )
+        fautes += [f"{m.mot} : « {m.pinyin} », {e}" for e in ecarts_de_position(m.mot, syllabes or [])]
+    return fautes
 
 
 def fautes_leurres(sorties: Sequence[Mapping[str, object]], mots: Sequence[MotEclair]) -> list[str]:
