@@ -13,10 +13,12 @@
   import Heros from './Heros.svelte';
   import { beteDe, herosOnce, rangDe, sansArticle, total, type BeteId, type HerosDonnees } from './heros';
   import { stade } from './tao';
+  import { haptiqueDisponible } from './haptique';
   import {
     choisirHeros,
     REGLAGES_RETENTION,
     effetRetention,
+    setHaptique,
     setRelecture,
     setBudget,
     setRetention,
@@ -85,6 +87,16 @@
    */
   function choisirRelecture(): void {
     onprogression(setRelecture(p, !p.relecture));
+  }
+
+  /**
+   * Le retour haptique : dans l'app iOS seulement, où il existe. Apple demande qu'on puisse
+   * l'éteindre ; allumé par défaut.
+   */
+  const haptique = haptiqueDisponible();
+
+  function choisirHaptique(): void {
+    onprogression(setHaptique(p, !p.haptique));
   }
 
   /** Export : un fichier JSON, téléchargé depuis le navigateur. */
@@ -197,6 +209,22 @@
         onclick={choisirRelecture}
       ></button>
     </div>
+    {#if haptique}
+      <div class="tog">
+        <div>
+          <div>Retour haptique</div>
+          <div class="k">Un léger tap sur une bonne réponse, jamais sur une erreur</div>
+        </div>
+        <button
+          class="sw"
+          class:on={p.haptique}
+          role="switch"
+          aria-checked={p.haptique}
+          aria-label="Retour haptique"
+          onclick={choisirHaptique}
+        ></button>
+      </div>
+    {/if}
   </div>
 
   <div class="card">

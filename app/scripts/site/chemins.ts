@@ -15,8 +15,8 @@ export const LANGUES: readonly Langue[] = ['fr', 'en'];
 
 /** Les sections du site, par langue. L'anglais vit sous `en/`. */
 export const SECTIONS = {
-  fr: { caractere: 'c', familles: 'familles', licences: 'licences' },
-  en: { caractere: 'c', familles: 'families', licences: 'licenses' }
+  fr: { caractere: 'c', familles: 'familles', licences: 'licences', confidentialite: 'confidentialite' },
+  en: { caractere: 'c', familles: 'families', licences: 'licenses', confidentialite: 'privacy' }
 } as const satisfies Record<Langue, Record<string, string>>;
 
 /** Le dossier des fichiers communs du site (la feuille de styles). */
@@ -27,6 +27,7 @@ export const DOSSIERS_DU_SITE: readonly string[] = [
   SECTIONS.fr.caractere,
   SECTIONS.fr.familles,
   SECTIONS.fr.licences,
+  SECTIONS.fr.confidentialite,
   'en',
   DOSSIER_COMMUN
 ];

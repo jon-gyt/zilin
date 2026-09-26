@@ -472,7 +472,24 @@ anglaise, glose par mot.
   œuvre du ministère chinois de l'Éducation, reste à trancher (le README d'ivankra/hsk30
   le dit peut-être du domaine public, selon le droit chinois).
 
+### Épic 6, en partie : prêt pour un premier TestFlight gratuit (26 septembre)
+
+- **6.1** : côté code, tout est prêt ; il manque le compte développeur et les secrets
+  (`docs/ios-sans-mac.md`). La CI retouche le projet engendré (`app/ios-template/patch.rb`) :
+  manifeste de confidentialité (ni pistage, ni donnée collectée, ni API à raison
+  déclarée), icône 1024 depuis les traits de 文 (`npm run icons`), écran de lancement
+  papier, `ITSAppUsesNonExemptEncryption` à faux, thème clair, version du tag et build du
+  run. Politique de confidentialité publiée avec le site (`/zilin/confidentialite/`,
+  `/zilin/en/privacy/`). Les champs d'App Store Connect sont listés dans
+  `docs/ios-sans-mac.md`. Jamais lancé : le runner macOS, l'archive, la signature et
+  l'envoi ne se vérifient qu'au premier tag `ios-*`.
+- **6.3, haptique** : `@capacitor/haptics`, `app/src/lib/haptique.ts`. Un tap léger sur une
+  bonne réponse (questions d'Échauffer, de Fixer et des révisions), un signal doux à
+  l'arrivée au pas Clore, rien sur une erreur ; rien sur le web. Interrupteur « Retour
+  haptique » dans Réglages, dans l'app seulement, allumé par défaut, gardé dans la
+  progression (export et import compris). Non ressenti sur un iPhone. iCloud et le widget
+  restent à faire.
+
 ### Non commencées
 
-2c.1, 2c.2, et toute la phase 6 — hors le workflow CI macOS et la
-configuration Capacitor, déjà versionnés.
+2c.1, 2c.2, 6.2, 6.4, et dans 6.3 iCloud et le widget.

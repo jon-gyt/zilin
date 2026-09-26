@@ -38,8 +38,8 @@ describe('site public', () => {
     expect(dessinables.size).toBeGreaterThan(400);
     const caracteres = pages.filter((f) => /^(en\/)?c\//.test(f.chemin));
     expect(caracteres).toHaveLength(2 * dessinables.size);
-    // deux index des familles, deux pages de licences
-    expect(pages).toHaveLength(2 * dessinables.size + 4);
+    // deux index des familles, deux pages de licences, deux de confidentialité
+    expect(pages).toHaveLength(2 * dessinables.size + 6);
     for (const c of dessinables) {
       expect(parChemin.has(`c/${c}/index.html`)).toBe(true);
       expect(parChemin.has(`en/c/${c}/index.html`)).toBe(true);
@@ -96,6 +96,27 @@ describe('site public', () => {
     }
     // les fichiers de tracés dérivés sont publiés depuis la page des licences (APL §2 b)
     for (const t of ex.fichiersTraits) expect(page('licences/')).toContain(`traits/${encodeURIComponent(t)}"`);
+  });
+
+  it('publie la politique de confidentialité à une adresse stable, liée depuis chaque page', () => {
+    // L'adresse que l'on déclare dans App Store Connect : elle ne doit pas bouger.
+    expect(cheminPage('fr', 'confidentialite')).toBe('confidentialite/');
+    expect(cheminPage('en', 'confidentialite')).toBe('en/privacy/');
+    const fr = page('confidentialite/');
+    const en = page('en/privacy/');
+    expect(fr).toContain('<h1>Confidentialité</h1>');
+    expect(fr).toContain('Wenlu ne collecte rien');
+    expect(en).toContain('<h1>Privacy</h1>');
+    expect(en).toContain('Wenlu collects nothing');
+    expect(fr).toContain(`<link rel="canonical" href="${ORIGINE}${BASE}confidentialite/">`);
+    expect(en).toContain(`hreflang="fr" href="${ORIGINE}${BASE}confidentialite/"`);
+    for (const f of pages) {
+      const cible = f.chemin.startsWith('en/') ? 'en/privacy/' : 'confidentialite/';
+      expect(f.contenu, f.chemin).toContain(`href="${BASE}${cible}"`);
+    }
+    expect(parChemin.get('sitemap.xml')).toContain(`<loc>${ORIGINE}${BASE}en/privacy/</loc>`);
+    expect(motifPagesDuSite(BASE).test('/zilin/confidentialite/')).toBe(true);
+    expect(motifPagesDuSite(BASE).test('/zilin/en/privacy/')).toBe(true);
   });
 
   it('dessine les grands caractères depuis leurs traits, jamais depuis une police', () => {
@@ -158,7 +179,7 @@ describe('site public', () => {
     expect(ld['@type']).toBe('DefinedTerm');
     expect(ld.name).toBe('休');
     const plan = parChemin.get('sitemap.xml')!;
-    expect(plan.match(/<loc>/g)).toHaveLength(2 * dessinables.size + 4 + 1);
+    expect(plan.match(/<loc>/g)).toHaveLength(2 * dessinables.size + 6 + 1);
     expect(plan).toContain(`<loc>${abs('en')}</loc>`);
     expect(parChemin.get('robots.txt')).toContain(`Sitemap: ${ORIGINE}${BASE}sitemap.xml`);
     // aucune page ne demande de JavaScript

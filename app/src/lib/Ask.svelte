@@ -18,6 +18,7 @@
   import { grade } from './srs';
   import { artDe } from './heros';
   import { aAudio, manifesteOnce, prononcer } from './audio';
+  import { bonneReponse } from './haptique';
   import type { Grade } from 'ts-fsrs';
 
   let {
@@ -143,6 +144,8 @@
     const seconds = (Date.now() - depart) / 1000;
     const c = corriger(q, reponse, { correct: false, tries: essais, seconds }, ratees);
     note = grade(c.outcome);
+    /* Un tap léger dans l'app iOS sur une bonne réponse ; rien sur une erreur. */
+    if (c.correct) bonneReponse();
     /* L'art du personnage que la question exerce : un point s'il est juste (`noterRevision`). */
     onnote({ c: q.c, ...c.outcome, art: artDe(q.type) });
     const due = echeanceDe(q.c);

@@ -106,6 +106,7 @@
     type Revision
   } from './lib/session';
   import { loadProgress, saveProgress, today } from './lib/db';
+  import { reglerHaptique } from './lib/haptique';
 
   /**
    * Un écran à la fois, pas de routeur. `menu` est la maison ; `rev` est le pas
@@ -227,6 +228,7 @@
   function remplacer(nouvelle: Progress): void {
     /* Le mode relecture règle l'aperçu avant que le menu ne relise le contenu. */
     reglerApercu(nouvelle.relecture);
+    reglerHaptique(nouvelle.haptique);
     p = nouvelle;
     majDue();
     enregistrer();
@@ -246,6 +248,7 @@
     /* La pile due est recomptée sur les cartes : c'est elle qui ouvre et ferme le rattrapage. */
     const ouvert = setDue(openDay(stored, jour), nombreDues(stored, new Date()), jour);
     reglerApercu(ouvert.relecture);
+    reglerHaptique(ouvert.haptique);
     p = ouvert;
     if (ouvert !== stored) void saveProgress(ouvert);
     chargee = true;

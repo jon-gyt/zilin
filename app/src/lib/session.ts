@@ -332,6 +332,13 @@ export type Progress = {
    */
   relecture: boolean;
   /**
+   * Réglage : le retour haptique de l'app iOS (`haptique.ts`), un léger tap sur une bonne
+   * réponse et un signal doux à la fin de la session, jamais rien sur une erreur. Allumé par
+   * défaut, comme le veut Apple (on doit pouvoir l'éteindre) ; sans effet sur le web.
+   * Absent d'une progression plus ancienne : allumé.
+   */
+  haptique: boolean;
+  /**
    * Les mots devinés au dictionnaire éclair, par identifiant, chacun une fois, dans
    * l'ordre : le compteur « mots devinés » (`eclair.ts`, `noterMotDevine`). Absent d'une
    * progression plus ancienne : aucun mot deviné.
@@ -462,6 +469,7 @@ export function emptyProgress(aujourdhui: string): Progress {
     contesLus: {},
     chapitres: {},
     relecture: false,
+    haptique: true,
     motsDevines: [],
     trouves: [],
     fetesVues: {},
@@ -850,6 +858,11 @@ export function setTrace(p: Progress, actif: boolean): Progress {
 /** Allume ou éteint le mode relecture (Réglages). */
 export function setRelecture(p: Progress, allume: boolean): Progress {
   return { ...p, relecture: allume };
+}
+
+/** Allume ou éteint le retour haptique de l'app iOS (Réglages). */
+export function setHaptique(p: Progress, allume: boolean): Progress {
+  return { ...p, haptique: allume };
 }
 
 /** Note que le tracé de cette brique a été proposé : on ne le proposera plus. */
@@ -1621,6 +1634,8 @@ export function fromJSON(texte: string, aujourdhui: string): Progress {
     chapitres: lireLecturesChapitres(o.chapitres),
     /* Le mode relecture : absent d'un export plus ancien, éteint. */
     relecture: o.relecture === true,
+    /* Le retour haptique : absent d'un export plus ancien, allumé. */
+    haptique: o.haptique !== false,
     /* Les mots devinés : absents d'un export plus ancien, aucun n'est deviné. */
     motsDevines: listeDeCaracteres(o.motsDevines),
     /* Les caractères trouvés en chemin : absents d'un export plus ancien, aucun. */

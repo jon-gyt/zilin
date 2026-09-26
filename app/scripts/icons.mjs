@@ -19,7 +19,12 @@
  *   apple-touch-icon.png 180, sans transparence, coins carrés (iOS arrondit lui-même)
  *   favicon.svg          la même marque en vectoriel, encre sur papier, mode sombre géré
  *
- * Rejouable : `npm run icons` réécrit les cinq fichiers à l'identique, tant que les
+ * Et dans `ios-template/`, hors du site et du précache :
+ *   AppIcon-1024.png     1024, l'icône de l'app iOS et de l'App Store, sans transparence,
+ *                        coins carrés ; `ios-template/patch.rb` la pose dans le projet
+ *                        Xcode que la CI engendre (docs/ios-sans-mac.md)
+ *
+ * Rejouable : `npm run icons` réécrit les six fichiers à l'identique, tant que les
  * traits de 文 ne changent pas dans l'export.
  *
  * Les PNG sont des captures d'un Chromium sans tête : la seule façon de rastériser
@@ -42,6 +47,7 @@ const require = createRequire(import.meta.url);
 const ICI = dirname(fileURLToPath(import.meta.url));
 const APP = resolve(ICI, '..');
 const SORTIE = resolve(APP, 'public', 'icons');
+const SORTIE_IOS = resolve(APP, 'ios-template');
 
 /** Les couleurs de la charte (`docs/design-tokens.md`, `src/lib/tokens.css`). */
 const PAPIER = '#F4EEE2';
@@ -150,7 +156,9 @@ const FICHIERS = [
   { nom: 'icon-192.png', taille: 192, part: 0.62 },
   { nom: 'icon-512.png', taille: 512, part: 0.62 },
   { nom: 'maskable-512.png', taille: 512, part: 0.45 },
-  { nom: 'apple-touch-icon.png', taille: 180, part: 0.56 }
+  { nom: 'apple-touch-icon.png', taille: 180, part: 0.56 },
+  /* iOS arrondit l'icône lui-même : même respiration que `apple-touch-icon`. */
+  { nom: 'AppIcon-1024.png', taille: 1024, part: 0.56, dossier: SORTIE_IOS }
 ];
 
 /** Playwright n'est pas une dépendance de l'app : on le cherche là où il se trouve. */
@@ -212,7 +220,7 @@ async function main() {
   const boite = await mesurer(navigateur, s);
   const faits = [`${MARQUE} (export ${version}) : ${boite.w} × ${boite.h} en ${boite.x},${boite.y}`];
 
-  for (const { nom, taille, part } of FICHIERS) {
+  for (const { nom, taille, part, dossier = SORTIE } of FICHIERS) {
     const page = await navigateur.newPage({
       viewport: { width: taille, height: taille },
       deviceScaleFactor: 1
@@ -224,7 +232,7 @@ async function main() {
       { waitUntil: 'load' }
     );
     const png = await page.screenshot({ type: 'png', omitBackground: false });
-    await writeFile(join(SORTIE, nom), png);
+    await writeFile(join(dossier, nom), png);
     await page.close();
     faits.push(`${nom} ${taille}×${taille} ${png.length} o`);
   }
