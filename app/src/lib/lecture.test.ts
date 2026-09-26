@@ -403,12 +403,12 @@ describe('les niveaux d’un conte', () => {
   it('le catalogue de l’index se relit ; une entrée sans identifiant est écartée', () => {
     expect(
       lireCatalogueContes([
-        { id: 'a', titre_zh: '山', titre_pinyin: 'shān', titre_fr: 'A', niveaux: ['hsk3', 805, 255, 255, 'HSK5', 'hsk10', 0], chapitres: 4 },
+        { id: 'a', titre_zh: '山', titre_pinyin: 'shān', titre_fr: 'A', niveaux: ['hsk3', 805, 255, 255, 'HSK5', 'hsk10', 0], chapitres: 4, motif: 'lance' },
         { titre_fr: 'sans id' },
-        { id: 'b', niveaux: 'x', chapitres: 0 }
+        { id: 'b', niveaux: 'x', chapitres: 0, motif: '' }
       ])
     ).toEqual([
-      { id: 'a', titre_zh: '山', titre_pinyin: 'shān', titre_fr: 'A', niveaux: ['255', '805', 'hsk3', 'hsk5'], chapitres: 4 },
+      { id: 'a', titre_zh: '山', titre_pinyin: 'shān', titre_fr: 'A', niveaux: ['255', '805', 'hsk3', 'hsk5'], chapitres: 4, motif: 'lance' },
       { id: 'b', titre_zh: '', titre_pinyin: '', titre_fr: '', niveaux: [], chapitres: 1 }
     ]);
     expect(lireCatalogueContes(undefined)).toEqual([]);
