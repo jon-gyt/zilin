@@ -10,8 +10,8 @@ Conventions (harmonisation des fiches du seuil 255) :
   mis en diacritiques ;
 - sauf les mots de position, qui suivent le 现代汉语词典 (décision du propriétaire du
   26 septembre 2026) : ton neutre sur la seconde syllabe pour 后面, 前面, 里面, 外面,
-  上面, 下面, 后边, 前边, 里边, 外边, 上边, 下边, 这里, 那里, 哪里 (`hòumian`,
-  `zhèli`), ton plein pour 旁边, 那边, 这边 (`pángbiān`, `nàbiān`), quoi que dise
+  上面, 下面, 后边, 前边, 里边, 外边, 上边, 下边, 这里, 那里, 哪里, 东边, 南边, 西边,
+  北边, 左边, 右边 (`hòumian`, `zhèli`, `dōngbian`), ton plein pour 旁边, 那边, 这边 (`pángbiān`, `nàbiān`), quoi que dise
   CC-CEDICT (`MOTS_DE_POSITION`, contrôlé par `ecarts_de_position` dans les contes, les
   lettres, WeChat et l'éclair).
 
@@ -44,8 +44,9 @@ _SEPARATEURS = re.compile(r"[^a-zü" + "".join(_SANS_TON) + r"]")
 
 #: Les mots de position et leur pinyin, décision du propriétaire du 26 septembre 2026
 #: (« Je te laisse décider » ; retenue : la lecture du 现代汉语词典, celle de l'oral
-#: courant). Ton neutre sur la seconde syllabe pour les quinze premiers ; 旁边, 那边 et
-#: 这边 gardent le ton plein. La décision ne touche aucun autre mot.
+#: courant). Ton neutre sur la seconde syllabe pour les vingt et un premiers (les six
+#: mots d'orientation, 东边 à 右边, par une décision du même jour) ; 旁边, 那边 et 这边
+#: gardent le ton plein. La décision ne touche aucun autre mot (外头 wàitou reste tel).
 MOTS_DE_POSITION: dict[str, tuple[str, str]] = {
     "后面": ("hòu", "mian"),
     "前面": ("qián", "mian"),
@@ -62,6 +63,12 @@ MOTS_DE_POSITION: dict[str, tuple[str, str]] = {
     "这里": ("zhè", "li"),
     "那里": ("nà", "li"),
     "哪里": ("nǎ", "li"),
+    "东边": ("dōng", "bian"),
+    "南边": ("nán", "bian"),
+    "西边": ("xī", "bian"),
+    "北边": ("běi", "bian"),
+    "左边": ("zuǒ", "bian"),
+    "右边": ("yòu", "bian"),
     "旁边": ("páng", "biān"),
     "那边": ("nà", "biān"),
     "这边": ("zhè", "biān"),

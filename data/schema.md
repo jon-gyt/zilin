@@ -1213,9 +1213,11 @@ texte d'un conte est un contenu, sa relecture se lit dans l'historique git.
   l'oral courant) : 后面 `hòu mian`, 前面 `qián mian`, 里面 `lǐ mian`, 外面 `wài mian`,
   上面 `shàng mian`, 下面 `xià mian`, 后边 `hòu bian`, 前边 `qián bian`, 里边 `lǐ bian`,
   外边 `wài bian`, 上边 `shàng bian`, 下边 `xià bian`, 这里 `zhè li`, 那里 `nà li`,
-  哪里 `nǎ li` ; dans 这里面, 那里面, le mot est 里面 (`nà lǐ mian`). 旁边 `páng biān`,
+  哪里 `nǎ li`, et de même les mots d'orientation (décision du même jour) : 东边
+  `dōng bian`, 南边 `nán bian`, 西边 `xī bian`, 北边 `běi bian`, 左边 `zuǒ bian`, 右边
+  `yòu bian` ; dans 这里面, 那里面, le mot est 里面 (`nà lǐ mian`). 旁边 `páng biān`,
   那边 `nà biān`, 这边 `zhè biān` gardent le ton plein ; la décision ne touche aucun
-  autre mot (东边, 左边 restent comme écrits). La liste
+  autre mot (外头 `wài tou`, 下面条 « mettre les nouilles » `xià miàn tiáo`). La liste
   est `pinyin.MOTS_DE_POSITION` ; elle vaut aussi pour les lettres, les fiches, WeChat et
   l'éclair (d'un seul tenant : `hòumian`, `nǎli`). La k-ième syllabe est celle
   du k-ième sinogramme : le lecteur les aligne sans autre calcul.

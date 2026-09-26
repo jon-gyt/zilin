@@ -553,7 +553,8 @@ REGLE_PINYIN = (
     "jiàn guò) ; les mots de position au ton neutre sur leur seconde syllabe, comme le note "
     "le 现代汉语词典 : 后面 hòu mian, 前面 qián mian, 里面 lǐ mian, 外面 wài mian, 上面 "
     "shàng mian, 下面 xià mian, 后边 hòu bian, 前边 qián bian, 里边 lǐ bian, 外边 wài bian, "
-    "上边 shàng bian, 下边 xià bian, 这里 zhè li, 那里 nà li, 哪里 nǎ li (那里面 nà lǐ mian : "
+    "上边 shàng bian, 下边 xià bian, 这里 zhè li, 那里 nà li, 哪里 nǎ li, 东边 dōng bian, 南边 "
+    "nán bian, 西边 xī bian, 北边 běi bian, 左边 zuǒ bian, 右边 yòu bian (那里面 nà lǐ mian : "
     "那 puis 里面), mais 旁边 páng biān, 那边 nà biān, 这边 zhè biān au ton plein"
 )
 

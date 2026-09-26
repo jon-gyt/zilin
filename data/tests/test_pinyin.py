@@ -68,6 +68,9 @@ def test_mots_de_position_au_ton_neutre_sauf_trois() -> None:
     assert pinyin.mots_de_position("那里面有水") == [(1, "里面")]
     assert pinyin.ecarts_de_position("那里面", "nà lǐ mian".split()) == []
     assert pinyin.ecarts_de_position("那里面", "nà lǐ miàn".split()) == ["里面 lǐ miàn, attendu lǐ mian"]
+    # Les mots d'orientation aussi, décision du même jour : 东边 dōng bian ; 东北边 aussi.
+    assert pinyin.ecarts_de_position("在东边", "zài dōng biān".split()) == ["东边 dōng biān, attendu dōng bian"]
+    assert pinyin.ecarts_de_position("东北边，左边", "dōng běi bian zuǒ bian".split()) == []
     # 下面条 : mettre les nouilles, pas un mot de position.
     assert pinyin.mots_de_position("下面条") == []
     # Ce que rend `aligner`, en minuscules, se contrôle de même.
