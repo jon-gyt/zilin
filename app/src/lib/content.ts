@@ -575,6 +575,8 @@ export type Index = {
   wechat?: string;
   /** Le fichier du personnage, `heros.json` (`heros.ts`) ; vide pour un export qui n'en porte pas. */
   heros?: string;
+  /** Les phrases de Tao sur l'écran Jouer, `jouer.json` (`jouer.ts`) ; vide pour un export qui n'en porte pas. */
+  jouer?: string;
 };
 
 /** La version de données que l'app lit : le dossier exporté par `wenlu export`. */
@@ -618,7 +620,8 @@ export async function loadIndex(
     cuisine: typeof brut.cuisine === 'string' ? brut.cuisine : '',
     lettres: typeof brut.lettres === 'string' ? brut.lettres : '',
     wechat: typeof brut.wechat === 'string' ? brut.wechat : '',
-    heros: typeof brut.heros === 'string' ? brut.heros : ''
+    heros: typeof brut.heros === 'string' ? brut.heros : '',
+    jouer: typeof brut.jouer === 'string' ? brut.jouer : ''
   };
 }
 

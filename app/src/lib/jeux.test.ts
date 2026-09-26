@@ -49,6 +49,7 @@ import {
   type Lanternes,
   type Manche
 } from './jeux';
+import { lireJouerDonnees, SANS_JOUER } from './jouer';
 import { lirePaires } from './questions';
 import { emptyProgress, noterActivite, noterRevision, type Progress } from './session';
 import { grade, newCard, RETOUR_MINUTES, SEUIL_DEBLOCAGE, type Outcome } from './srs';
@@ -543,17 +544,42 @@ describe('ce qu’un jeu rend à la progression', () => {
     expect(jeuPropose(['cuisine'], p, jour)).toBe('cuisine');
   });
 
+  /** Les phrases de la bulle, telles que l'export versionné les porte (`jouer.json`). */
+  const PHRASES = lireJouerDonnees(
+    JSON.parse(readFileSync(new URL('../../public/data/0.1.0/jouer.json', import.meta.url), 'utf8')) as unknown
+  ).tao;
+
   it('la bulle de Tao invite, et ne reproche jamais rien', () => {
     const jour = '2026-09-26';
     let p = emptyProgress(jour);
-    const calme = bulleDeTao(p, jour, 'jumeaux', true);
+    const calme = bulleDeTao(p, jour, 'jumeaux', true, PHRASES);
     for (let i = 0; i < 3; i++) p = noterActivite(p, jour, 'revision');
-    const ennui = bulleDeTao(p, jour, 'jumeaux', true);
+    const ennui = bulleDeTao(p, jour, 'jumeaux', true, PHRASES);
     expect(ennui).not.toBe(calme);
-    const sans = [bulleDeTao(p, jour, null, true), bulleDeTao(p, jour, null, false)];
+    const sans = [bulleDeTao(p, jour, null, true, PHRASES), bulleDeTao(p, jour, null, false, PHRASES)];
     for (const l of [calme, ennui, ...sans]) {
+      expect(l).not.toBe('');
       expect(l).not.toMatch(/encore rien|toujours|pas assez joué|dommage|tu n'as|manqu/i);
     }
+  });
+
+  it('la bulle choisit la phrase de l’export, et n’en écrit aucune', () => {
+    const jour = '2026-09-26';
+    let p = emptyProgress(jour);
+    expect(bulleDeTao(p, jour, 'jumeaux', true, PHRASES)).toBe(PHRASES.invite);
+    expect(bulleDeTao(p, jour, null, true, PHRASES)).toBe(PHRASES.devinette);
+    expect(bulleDeTao(p, jour, null, false, PHRASES)).toBe(PHRASES.attendre);
+    for (let i = 0; i < 3; i++) p = noterActivite(p, jour, 'revision');
+    expect(bulleDeTao(p, jour, 'jumeaux', false, PHRASES)).toBe(PHRASES.changer);
+    /* Sans `jouer.json`, Tao se tait : aucune phrase de repli écrite dans le code. */
+    for (const tendu of ['jumeaux', null] as const) {
+      for (const devinette of [true, false]) {
+        expect(bulleDeTao(p, jour, tendu, devinette, SANS_JOUER.tao)).toBe('');
+      }
+    }
+    expect(readFileSync(new URL('./jeux.ts', import.meta.url), 'utf8')).not.toMatch(
+      /On joue à celui-ci|changeait un peu|par la devinette \?|assez de caractères acquis/
+    );
   });
 
   it('chaque jeu a son caractère d’écran, un seul, distinct des autres', () => {
