@@ -29,7 +29,7 @@ Format BMAD : épics puis stories. Priorité dans l'ordre. Une story se termine 
 
 ## Épic 2c · Contes
 - 2c.1 Mode Lire : bibliothèque de contes, version choisie d'après l'acquis (le niveau le plus haut dont tous les caractères sont acquis), lecture avec glose au toucher, audio.
-- 2c.2 Le même conte remonte d'un niveau quand l'acquis le permet ; l'app signale qu'une version plus riche est ouverte. Trois contes gratuits au seuil 255, bibliothèque complète en payant.
+- 2c.2 Le même conte remonte d'un niveau quand l'acquis le permet ; l'app signale qu'une version plus riche est ouverte. Gratuits : les fables courtes du début et les trois contes du seuil 255, à ce niveau ; bibliothèque complète en payant (brief §10, décision du 26 septembre 2026).
 - 2c.3 Lire en étagères : « Aujourd'hui » (l'anecdote en fiche, la lettre de Que en enveloppe), puis les contes en livres cousus sur trois étagères, « À lire maintenant », « Bientôt » (sur le chemin, « s'ouvre dans N j »), « Plus loin ». Motif de couverture au catalogue.
 
 ## Épic 3 · Révision
@@ -63,9 +63,17 @@ Format BMAD : épics puis stories. Priorité dans l'ordre. Une story se termine 
 
 ## Épic 6 · iOS
 - 6.1 Shell Capacitor, build CI sur runner macOS, TestFlight.
-- 6.2 Achats StoreKit 2 (à vie, mensuel), Small Business Program.
+- 6.2 Achats StoreKit 2 : Wenlu complet, achat à vie non consommable et abonnement mensuel, les mêmes droits par les deux voies. Aucun compte ni serveur : les droits se lisent sur l'appareil (`Transaction.currentEntitlements` au lancement et au retour au premier plan, `Transaction.updates` en continu), « Restaurer les achats » dans Réglages, et `droits.ts` (7.1) ne connaît que « Wenlu complet, par achat » ; rien sur le web. Le code de moins 30 % du palier (brief §8), vers le 37e jour, à usage unique, sur l'achat à vie seulement : un code d'offre App Store si Apple l'ouvre aux achats non consommables, sinon un second produit non consommable au prix réduit, que l'app ne montre qu'une fois ; à vérifier sur la documentation d'Apple avant d'écrire. Aucune date limite affichée. Le plugin natif (Swift, dans `app/ios-template/`) ou la dépendance Capacitor se justifie dans le message de commit. Small Business Program ; les produits se déclarent dans App Store Connect (`docs/ios-sans-mac.md`).
 - 6.3 iCloud (CloudKit), haptique, widget caractère du jour.
 - 6.4 Fiche App Store, captures, candidature au featuring.
+
+## Épic 7 · Gratuit et payant
+Décisions du propriétaire du 26 septembre 2026, brief §8 (paliers), §10 et §13. Rien de ce qui est acquis ne se perd ni ne se ferme ; la pédagogie ne s'achète pas.
+- 7.1 Les droits sans compte : `droits.ts`, pur, testé (un test par règle). Wenlu complet vient d'un achat (6.2), d'un jour ou d'une semaine offerts par un palier, ou du palier de 365 jours ; sur le web, jamais. Le rythme : complet pendant les trente premiers jours du chemin, sessions de plus comprises ; ensuite, au rythme gratuit, deux briques par semaine, du lundi au dimanche, trois jours au moins entre deux, rien ne s'accumule. La prochaine brique gratuite se calcule (« dans N j »), jamais s'estime. La révision de tout l'acquis reste toujours ouverte. La progression garde les cadeaux des paliers et leurs dates, et les jours des briques gratuites, export et import compris ; une progression modifiée à la main peut ouvrir un cadeau (risque accepté, brief §13).
+- 7.2 La journée sans brique nouvelle : six pas dans le même ordre, sur l'acquis ; Apprendre revient sur la brique acquise la plus fragile (fiche, un composé, tracé s'il est activé) ; la carte du jour sans cinabre ; Clore plante la graine. La session de plus, seulement avec Wenlu complet ou dans les trente premiers jours ; sinon « Réviser encore ». Sans achat, le jour du message WeChat prend l'éclair (`utiliser.ts`). Tests dans `session.ts`.
+- 7.3 Ce qui est de Wenlu complet, écran par écran : les contes au-delà des fables du début et des trois du seuil 255 ; les lettres de Que à partir de la cinquième ; le message WeChat ; les devinettes au-delà d'une par jour ; les sept plats de plus ; les formes anciennes ; le chemin au-delà du seuil 255 et du HSK 1 ; iCloud. Chaque écran le dit par une ligne et un lien vers Réglages, sans fenêtre modale ; les paires à ne pas confondre et les saisons restent gratuites.
+- 7.4 Les paliers remis par Que : à 7 jours, la journée suivante en Wenlu complet ; à 30 jours, une semaine, qui commence au premier jour du rythme gratuit s'il n'a pas commencé ; à la fin de cette semaine, le code de moins 30 % (6.2), montré une fois ; à 100 jours, une deuxième semaine ; à 365 jours, Wenlu complet. Qui a déjà Wenlu complet : le sceau et le cadeau, rien de plus ; sur le web, de même.
+- 7.5 La limite dite calmement : une ligne de Clore le jour où le rythme gratuit commence ; au menu, « Dans 3 j : 子 enfant » ; sur la route devant (`route.ts`), « prochaine brique dans N j » sur la pierre suivante, les bornes et l'étagère « Bientôt » de Lire en étapes, « fin du chemin gratuit » au bout ; Wenlu complet présenté dans Réglages. Ni compte à rebours, ni relance, ni pastille ; aucune phrase de Tao ne parle d'achat. Textes par le pipeline. Vérifié à 393 × 660.
 
 ## État au 21 septembre 2026
 
@@ -516,4 +524,4 @@ anglaise, glose par mot.
 
 ### Non commencées
 
-2c.1, 2c.2, 6.2, 6.4, et dans 6.3 iCloud et le widget.
+2c.1, 2c.2, 6.2, 6.4, et dans 6.3 iCloud et le widget ; l'épic 7 (gratuit et payant).
