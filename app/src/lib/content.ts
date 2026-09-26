@@ -21,13 +21,18 @@ import type { StrokeData } from './glyph';
 import { comparerNiveaux, lireNiveau, lireNiveaux, trierNiveaux, type Niveau } from './niveaux';
 import { strokesOnce, type StrokeSet } from './strokes';
 
-/** Une anecdote du jour : un caractère, un titre, quelques phrases. */
-export type Anecdote = { c: string; titre: string; texte: string };
+/**
+ * Une anecdote du jour : un caractère, un titre, quelques phrases. `etiquette` dit, quand
+ * le texte parle de l'origine d'un caractère ou d'un mot, si elle est attestée ou
+ * mnémotechnique ; `racine`, la famille où lire les traits du caractère.
+ */
+export type Anecdote = { c: string; titre: string; texte: string; etiquette?: Etiquette; racine?: string };
 
 /** Un fichier d'anecdotes, versionné, avec la source du texte (traçabilité). */
 export type Anecdotes = { version: string; source: string; anecdotes: Anecdote[] };
 
-export const FICHIER_ANECDOTES = 'data/demo/anecdotes.json';
+/** Les anecdotes ordinaires, écrites par le pipeline (`data/sources/anecdotes/`). */
+export const FICHIER_ANECDOTES = 'data/0.1.0/anecdotes.json';
 
 /** Lit un fichier d'anecdotes servi avec l'app. `fetchFn` est injecté dans les tests. */
 export async function loadAnecdotes(
@@ -63,17 +68,6 @@ export function anecdotesOnce(file = FICHIER_ANECDOTES): Promise<Anecdotes> {
 /** Journées civiles écoulées depuis le 1er janvier 1970, d'après une date AAAA-MM-JJ. */
 export function jourDepuisEpoque(dateISO: string): number {
   return Math.floor(Date.parse(`${dateISO}T00:00:00Z`) / 86400000);
-}
-
-/**
- * L'anecdote du jour : une seule par journée, la même toute la journée,
- * et la liste est parcourue en entier avant de se répéter.
- */
-export function anecdoteDuJour(liste: Anecdote[], dateISO: string): Anecdote | null {
-  if (liste.length === 0) return null;
-  const j = jourDepuisEpoque(dateISO);
-  if (!Number.isFinite(j)) return null;
-  return liste[((j % liste.length) + liste.length) % liste.length];
 }
 
 /* ---------- les familles de caractères ---------- */

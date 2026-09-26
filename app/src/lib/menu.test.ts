@@ -111,7 +111,7 @@ describe("l'anecdote du jour se relit depuis Lire", () => {
 
   it("rouverte, elle ramène là d'où l'on vient, sans refaire le pas Ouvrir", () => {
     expect(app).toContain("onanecdote={() => relireAnecdote('lire')}");
-    expect(app).toContain('<Open {p} oncontinuer={anecdoteRefermee} onquitter={anecdoteRefermee} />');
+    expect(app).toContain('<Open {p} oncontinuer={anecdoteRefermee} onquitter={anecdoteRefermee} onmontree={anecdoteMontree} />');
     const f = app.slice(app.indexOf('function anecdoteRefermee('));
     const corps = f.slice(0, f.indexOf('\n  }\n'));
     expect(corps).toContain('anecdoteRelue(p, p.day)');

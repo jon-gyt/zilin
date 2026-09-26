@@ -31,7 +31,7 @@ const saisons: Saisons = await loadSaisons('data/0.1.0/saisons.json', repondre(l
 
 const JOUR = '2026-09-25';
 const vide = (): Progress => emptyProgress(JOUR);
-const rencontre = (jour: string) => rencontreDuJour(journee(fetes, saisons, jour));
+const rencontre = (jour: string) => rencontreDuJour(journee(fetes, saisons, jour), {}, jour);
 
 describe("la rencontre du jour : le caractère que l'anecdote fait découvrir", () => {
   it('un jour de fête, le caractère bonus de la fête (月 à la mi-automne, 25 septembre 2026)', () => {
@@ -46,7 +46,7 @@ describe("la rencontre du jour : le caractère que l'anecdote fait découvrir", 
 
   it("les autres jours d'un terme, et un jour ordinaire, rien", () => {
     expect(rencontre('2026-10-10')).toBeNull();
-    expect(rencontreDuJour({ fete: null, terme: null, theme: { fete: null, saison: null } })).toBeNull();
+    expect(rencontreDuJour({ fete: null, terme: null, theme: { fete: null, saison: null } }, {}, JOUR)).toBeNull();
   });
 
   it('la fête garde la priorité sur le terme qui commence le même jour (清明 2027 : 雨, pas 明)', () => {
@@ -91,7 +91,7 @@ describe('noter un caractère trouvé', () => {
 
   it('App note la rencontre du jour quand l’anecdote est lue ou passée', () => {
     const app = source('../App.svelte');
-    expect(app).toContain('p = noterTrouve(anecdoteFaite(p, p.day), rencontreDuJour(laJournee), p.day);');
+    expect(app).toContain('p = noterTrouve(anecdoteFaite(p, p.day), rencontreDuJour(laJournee, p.fetesVues, p.day), p.day);');
   });
 });
 

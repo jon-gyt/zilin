@@ -7,22 +7,25 @@
  * terme et n'écrit aucun texte. Elle choisit le terme dont l'intervalle couvre la journée
  * (du jour de son début inclus au début du suivant exclu).
  *
- * Les fêtes gardent la priorité : un jour de fête, le thème est celui de la fête, l'en-tête
- * montre le vœu et l'anecdote est celle de la fête. Le terme court toujours derrière — 中秋
+ * Les fêtes gardent la priorité : un jour de fête, le thème est celui de la fête et l'en-tête
+ * montre le vœu, toute la fenêtre durant. L'anecdote de la fête, elle, se montre une fois
+ * par occurrence, le premier jour de la fenêtre où l'on ouvre l'app (`anecdoteDeFete`) ;
+ * les autres jours ont l'anecdote ordinaire. Le terme court toujours derrière — 中秋
  * recouvre 秋分, 清明 est lui-même un terme mais garde son thème de fête — et revient le
  * lendemain de la fête.
  *
  * La journée est celle de la session (`p.day`), comme pour les fêtes et l'anecdote.
  */
+import { choisirAnecdote } from './anecdotes';
 import {
-  anecdoteDuJour,
   jourDepuisEpoque,
   type Anecdote,
   type FeteId,
   type Fetes,
   type Saisons
 } from './content';
-import { feteDuJour, pistes as pistesFete, type FeteDuJour } from './fetes';
+import { dansLaFenetre, feteDuJour, pistes as pistesFete, type FeteDuJour } from './fetes';
+import type { Progress } from './session';
 
 /** Ce que l'app montre d'un terme, pour une journée. */
 export type TermeDuJour = {
@@ -126,11 +129,55 @@ export function pistes(s: Saisons, c: string): string[] {
 }
 
 /**
- * L'anecdote d'une journée, telle que l'écran Ouvrir la montre : celle de la fête un jour
- * de fête, celle du terme le jour où il commence, sinon celle du fichier d'anecdotes.
- * `fete` et `terme` disent laquelle ; `pistes`, la famille où lire les traits de son
- * caractère. `null` quand rien ne se lit. Lire et l'en-tête du menu la rouvrent : c'est
- * la même, calculée au même endroit.
+ * L'anecdote de la fête est-elle celle de la journée `jour` ? Une fois par occurrence de
+ * la fête : le premier jour de sa fenêtre où l'écran Ouvrir la montre, et toute cette
+ * journée-là, pour que Lire et l'en-tête du menu rouvrent la même. Ce jour peut tomber
+ * avant, pendant ou après le jour de la fête : qui manque le jour même trouve quand même
+ * le caractère bonus (« Trouvés en chemin »). `vues` est le registre de la progression
+ * (`Progress.fetesVues`) : la journée où l'anecdote de chaque fête a été montrée. Une
+ * journée hors de la fenêtre en cours est celle d'une autre année : la fête est neuve.
+ * Retour du propriétaire du 26 septembre 2026 : la même anecdote cinq jours de suite.
+ */
+export function anecdoteDeFete(
+  fete: FeteDuJour | null,
+  vues: Readonly<Record<string, string>>,
+  jour: string
+): boolean {
+  if (fete === null) return false;
+  const vue = vues[fete.id];
+  return vue === undefined || vue === jour || !dansLaFenetre(fete, vue);
+}
+
+/** Ce que l'app sait de la progression pour choisir l'anecdote d'une journée. */
+export type SuiviAnecdote = {
+  /** La journée où l'anecdote de chaque fête a été montrée (`Progress.fetesVues`). */
+  fetesVues: Readonly<Record<string, string>>;
+  /** La dernière journée où chaque anecdote ordinaire a été montrée (`Progress.anecdotesVues`). */
+  anecdotesVues?: Readonly<Record<string, string>>;
+  /** Les caractères rencontrés ces derniers jours, le plus récent d'abord (`anecdotes.recents`). */
+  recents?: readonly string[];
+  /** Les caractères que le parcours pose dans le mois qui vient (`anecdotes.prochains`). */
+  prochains?: readonly string[];
+};
+
+/**
+ * Le suivi que la progression porte : l'écran Ouvrir et Lire le lisent pareil. `parcours`
+ * dit, d'après l'index que l'appelant a chargé, les caractères récents et à venir
+ * (`anecdotes.recents`, `anecdotes.prochains`).
+ */
+export function suiviDe(
+  p: Pick<Progress, 'fetesVues' | 'anecdotesVues'>,
+  parcours: { recents: readonly string[]; prochains: readonly string[] } = { recents: [], prochains: [] }
+): SuiviAnecdote {
+  return { fetesVues: p.fetesVues, anecdotesVues: p.anecdotesVues, ...parcours };
+}
+
+/**
+ * L'anecdote d'une journée, telle que l'écran Ouvrir la montre : celle de la fête le jour
+ * où elle se montre (`anecdoteDeFete`), celle du terme le jour où il commence, sinon celle
+ * du fichier d'anecdotes, choisie par `anecdotes.choisirAnecdote`. `fete` et `terme` disent laquelle ; `pistes`, la famille où lire
+ * les traits de son caractère. `null` quand rien ne se lit. Lire et l'en-tête du menu la
+ * rouvrent : c'est la même, calculée au même endroit, sur la même progression.
  */
 export type AnecdoteDeLaJournee = {
   a: Anecdote;
@@ -143,10 +190,11 @@ export function anecdoteDeLaJournee(
   anecdotes: Anecdote[] | null,
   fetes: Fetes | null,
   saisons: Saisons | null,
-  jour: string
+  jour: string,
+  suivi: SuiviAnecdote
 ): AnecdoteDeLaJournee | null {
   const fete = fetes ? feteDuJour(fetes, jour) : null;
-  if (fete && fetes) {
+  if (fete && fetes && anecdoteDeFete(fete, suivi.fetesVues, jour)) {
     const { c, titre, texte } = fete.anecdote;
     return { a: { c, titre, texte }, fete, terme: null, pistes: pistesFete(fetes, c) };
   }
@@ -155,6 +203,25 @@ export function anecdoteDeLaJournee(
     const a = { c: t.caractere.c, titre: `${t.nomZh} · ${t.fr}`, texte: t.ligne };
     return { a, fete: null, terme: t, pistes: pistes(saisons, t.caractere.c) };
   }
-  const a = anecdotes ? anecdoteDuJour(anecdotes, jour) : null;
-  return a ? { a, fete: null, terme: null, pistes: [] } : null;
+  const a = anecdotes
+    ? choisirAnecdote(anecdotes, jour, suivi.recents ?? [], suivi.anecdotesVues ?? {}, suivi.prochains ?? [])
+    : null;
+  return a ? { a, fete: null, terme: null, pistes: a.racine ? [a.racine] : [] } : null;
+}
+
+/**
+ * L'anecdote de la journée vient d'être montrée par l'écran Ouvrir : la progression garde
+ * la journée où celle d'une fête l'a été, ou celle d'une anecdote ordinaire (pour la
+ * relire la même toute la journée, et ne pas la redire avant trente jours). Celle d'un
+ * terme ne se note pas : elle ne revient qu'au jour où il commence. Rien de neuf : l'état
+ * est rendu tel quel.
+ */
+export function noterAnecdoteMontree(p: Progress, r: AnecdoteDeLaJournee | null, jour: string): Progress {
+  if (r === null || r.terme !== null) return p;
+  if (r.fete !== null) {
+    if (p.fetesVues[r.fete.id] === jour) return p;
+    return { ...p, fetesVues: { ...p.fetesVues, [r.fete.id]: jour } };
+  }
+  if (p.anecdotesVues[r.a.c] === jour) return p;
+  return { ...p, anecdotesVues: { ...p.anecdotesVues, [r.a.c]: jour } };
 }

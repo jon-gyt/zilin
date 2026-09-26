@@ -32,8 +32,10 @@
   import Glyph from './Glyph.svelte';
   import Que from './Que.svelte';
   import Tao from './Tao.svelte';
+  import { autourDuJour } from './anecdotes';
   import {
     anecdotesOnce,
+    contenu,
     contesExport,
     fetesOnce,
     saisonsOnce,
@@ -50,7 +52,7 @@
     type EntreeConte
   } from './lecture';
   import { auNiveau, libelleNiveau, nomNiveau, type Niveau } from './niveaux';
-  import { anecdoteDeLaJournee, type AnecdoteDeLaJournee } from './saisons';
+  import { anecdoteDeLaJournee, suiviDe, type AnecdoteDeLaJournee } from './saisons';
   import {
     LIGNE_AVANT_LETTRE,
     MENTION_PAS_ARRIVEE,
@@ -60,7 +62,7 @@
     type EntreeLettre,
     type Lettre
   } from './lettres';
-  import type { Progress } from './session';
+  import { jourRencontre, type Progress } from './session';
   import { humeur, stade } from './tao';
 
   let {
@@ -95,9 +97,13 @@
     void Promise.all([
       anecdotesOnce().catch(() => null),
       fetesOnce().catch(() => null),
-      saisonsOnce().catch(() => null)
-    ]).then(([liste, fetes, saisons]) => {
-      if (vivant) anecdote = anecdoteDeLaJournee(liste?.anecdotes ?? null, fetes, saisons, j);
+      saisonsOnce().catch(() => null),
+      contenu().catch(() => null)
+    ]).then(([liste, fetes, saisons, index]) => {
+      if (!vivant) return;
+      /* Le même suivi que l'écran Ouvrir : fêtes et anecdotes vues, caractères récents. */
+      const suivi = suiviDe(p, index ? autourDuJour(index, p.parcours, jourRencontre(p)) : undefined);
+      anecdote = anecdoteDeLaJournee(liste?.anecdotes ?? null, fetes, saisons, j, suivi);
     });
     return () => {
       vivant = false;

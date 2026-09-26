@@ -21,6 +21,9 @@ export type FeteDuJour = {
   date: string;
   /** Jours de la journée à la fête : 1 la veille, 0 le jour même, −1 le lendemain. */
   ecart: number;
+  /** La fenêtre de cette occurrence : `avant` jours avant la date, `apres` jours après. */
+  avant: number;
+  apres: number;
   /** Le délai, en toutes lettres : « Demain soir », « Ce soir »… */
   quand: string;
   nom: string;
@@ -71,6 +74,8 @@ export function feteDuJour(f: Fetes, jour: string): FeteDuJour | null {
       id: e.fete,
       date: e.date,
       ecart,
+      avant: e.avant,
+      apres: e.apres,
       quand: jetons.quand,
       nom: t.nom,
       nomZh: t.nom_zh,
@@ -82,6 +87,12 @@ export function feteDuJour(f: Fetes, jour: string): FeteDuJour | null {
     };
   }
   return null;
+}
+
+/** La journée `jour` tombe-t-elle dans la fenêtre de cette occurrence de la fête ? */
+export function dansLaFenetre(f: Pick<FeteDuJour, 'date' | 'avant' | 'apres'>, jour: string): boolean {
+  const ecart = ecartJours(jour, f.date);
+  return Number.isFinite(ecart) && ecart <= f.avant && -ecart <= f.apres;
 }
 
 /**

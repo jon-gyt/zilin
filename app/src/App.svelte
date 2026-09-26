@@ -45,9 +45,9 @@
   import FeteDecor from './lib/FeteDecor.svelte';
   import { fetesOnce, saisonsOnce, type Fetes, type Saisons } from './lib/content';
   import { poserFete } from './lib/fetes';
-  import { journee } from './lib/saisons';
+  import { journee, noterAnecdoteMontree, type AnecdoteDeLaJournee } from './lib/saisons';
   import type { Niveau } from './lib/niveaux';
-  import { noterTrouve, rencontreDuJour } from './lib/trouves';
+  import { noterTrouve, rencontreDe, rencontreDuJour } from './lib/trouves';
   import { lettresRelues, noterLettreLue, ouvrirLettreDuJour, type Lettre } from './lib/lettres';
   import {
     CARTES_PAR_SEANCE,
@@ -484,10 +484,22 @@
    */
   function ouvrirFait(): void {
     /* L'anecdote d'une fête ou d'un terme fait trouver un caractère : Ma forêt le garde. */
-    p = noterTrouve(anecdoteFaite(p, p.day), rencontreDuJour(laJournee), p.day);
+    p = noterTrouve(anecdoteFaite(p, p.day), rencontreDuJour(laJournee, p.fetesVues, p.day), p.day);
     enregistrer();
     if (anecOuverture) allerAuMenu();
     else enchainer();
+  }
+
+  /**
+   * L'anecdote de la journée est à l'écran. Celle d'une fête ne se montre qu'une fois par
+   * occurrence : la progression garde la journée où elle l'a été, et son caractère bonus
+   * est trouvé dès qu'il se montre, même si l'on quitte l'écran sans continuer.
+   */
+  function anecdoteMontree(r: AnecdoteDeLaJournee): void {
+    const n = noterTrouve(noterAnecdoteMontree(p, r, p.day), rencontreDe(r), p.day);
+    if (n === p) return;
+    p = n;
+    enregistrer();
   }
 
   /** Rouvre l'anecdote du jour, depuis Lire ou l'en-tête du menu, pour la relire. */
@@ -503,7 +515,7 @@
   function anecdoteRefermee(): void {
     const n = anecdoteRelue(p, p.day);
     if (n !== p) {
-      p = noterTrouve(n, rencontreDuJour(laJournee), p.day);
+      p = noterTrouve(n, rencontreDuJour(laJournee, n.fetesVues, p.day), p.day);
       enregistrer();
     }
     const retour = anecRetour;
@@ -817,9 +829,9 @@
     onquitter={quitter}
   />
 {:else if ecran === 'anec' && anecRetour !== null}
-  <Open {p} oncontinuer={anecdoteRefermee} onquitter={anecdoteRefermee} />
+  <Open {p} oncontinuer={anecdoteRefermee} onquitter={anecdoteRefermee} onmontree={anecdoteMontree} />
 {:else if ecran === 'anec'}
-  <Open {p} oncontinuer={ouvrirFait} onquitter={anecOuverture ? ouvrirFait : quitter} />
+  <Open {p} oncontinuer={ouvrirFait} onquitter={anecOuverture ? ouvrirFait : quitter} onmontree={anecdoteMontree} />
 {:else if ecran === 'rev'}
   <Warm
     {p}

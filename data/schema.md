@@ -41,6 +41,7 @@ app/public/data/0.1.0/
   lettres.json               les lettres de Que relues (aucune aujourd'hui)
   wechat.json                le message WeChat : les dialogues avec l'ami
   heros.json                 le personnage : douze rangs, trois bêtes, les phrases de Tao
+  anecdotes.json             les anecdotes du jour, une par caractère
   familles/<racine>.json     une famille : `Famille` de models.py
   traits/<racine>.json       les tracés de la famille, sous APL, et rien d'autre
   traits/ARPHICPL.TXT        la même licence, à côté des fichiers qu'elle couvre
@@ -440,6 +441,28 @@ d'après la maquette validée et à relire : `rangs.tsv`, `betes.tsv`, `tao.tsv`
 - `tao` : huit phrases ; l'app remplit les jetons entre accolades. Les points ne sont pas
   du contenu : l'app les compte dans la progression (`heros.ts`).
 
+## `anecdotes.json`
+
+Tiré de `data/sources/anecdotes/anecdotes.tsv` : les anecdotes ordinaires du pas Ouvrir,
+rédigées pour l'app (les douze de la maquette validée, sauf celle du dragon, puis les
+autres, à relire). Celles des fêtes et des termes solaires sont dans `fetes.json` et
+`saisons.json`. L'index ne le nomme pas : l'app le lit à chemin fixe.
+
+```json
+{"version": "0.1.0", "license": "propriétaire", "source": "…", "source_url": "…", "modified": "…",
+ "anecdotes": [{"c": "只", "titre": "Un oiseau dans la main.", "texte": "…",
+                "appui": "ecriture", "etiquette": "atteste", "statut": "a_relire", "racine": "口"}]}
+```
+
+- `c` : un caractère par anecdote, jamais deux fois le même, dans le périmètre exporté
+  (sinon l'anecdote ne s'écrit pas) ; `racine` dit sa famille, où lire ses traits.
+- `appui` : ce qui fonde le texte (`langue`, `coutume`, `histoire`, `litterature`,
+  `legende`, `ecriture`) ; `etiquette` (`atteste`, `mnemotechnique`), présente quand le
+  texte parle de l'origine d'un caractère ou d'un mot, que l'écran Ouvrir affiche.
+- L'ordre est celui de la source. L'app choisit celle du jour (`app/src/lib/anecdotes.ts`) :
+  d'abord un caractère rencontré ces derniers jours sur le parcours, sans redite en
+  trente jours, et la même toute la journée.
+
 ## `LICENCES.md`
 
 Écrit par l'export. Un tableau `source | usage | licence | attribution | texte de
@@ -518,6 +541,15 @@ ce que l'app embarque ; `docs/sources-licences.md` fait foi pour la décision.
   dragon ; chaque titre et chaque nom de bête se lit dans son pinyin ; chaque caractère
   des titres a ses traits dans l'export ; `heros.json` dit les rangs, les bêtes et les
   phrases des sources, et `index.json` le nomme.
+- « anecdotes : sources », « forme », « charte », « étymologie », « export » —
+  bloquants : un seul caractère par anecdote, jamais deux fois, titre, texte et source
+  présents (« rédigé pour l'app »), appui, étiquette et statut connus ; un titre de 8 à
+  80 signes, un texte de 150 à 480 signes et de trois à cinq phrases, le caractère cité ;
+  ni emoji ni dragon ; un texte qui parle de l'origine d'un caractère ou d'un mot porte
+  l'étiquette attesté ou mnémotechnique, une légende se dit comme telle ;
+  `anecdotes.json` dit la source, chaque caractère avec ses traits. « anecdotes :
+  parcours » — signalé : combien parlent d'un caractère du parcours Lire, et de ses
+  90 premiers jours ; au moins 60 anecdotes.
 
 ## Format intermédiaire (story 1.1)
 
