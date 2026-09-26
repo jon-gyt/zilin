@@ -420,6 +420,16 @@ anglaise, glose par mot.
   现代汉语词典 (看一看 kàn yi kàn) : consigne, schéma, écart signalé, et quatre versions
   reprises (美猴王 HSK 5, 木兰从军 HSK 4, 亡羊补牢 HSK 4 et HSK 6) ; les trois versions
   relues n'en ont pas.
+- Mots de position (26 septembre), décision du propriétaire (« Je te laisse décider » ;
+  retenue : la lecture du 现代汉语词典, celle de l'oral courant) : ton neutre sur la
+  seconde syllabe pour 后面 hòu mian, 前面, 里面, 外面, 上面, 下面, 后边, 前边, 里边,
+  外边, 上边, 下边, 这里 zhè li, 那里, 哪里 ; ton plein pour 旁边 páng biān, 那边 nà biān,
+  这边 zhè biān. Liste `pinyin.MOTS_DE_POSITION` : consigne des contes et des lettres,
+  schéma, écart à la validation, contrôle bloquant « contes : mots de position », et les
+  contrôles de pinyin de WeChat et de l'éclair ; les mots de fiche la suivent plutôt que
+  CC-CEDICT. Sources harmonisées (contes, fiches, WeChat, éclair) ; 下面 de la cuisine
+  (« mettre les nouilles ») n'est pas un mot de position. L'export 0.1.0 est à refaire
+  (南辕北辙 relu au seuil 255 : 哪里 nǎ li). 东边, 南边, 左边… ne sont pas tranchés.
 - Reste : relire les 32 versions HSK ; vérifier les listes HSK contre le PDF officiel
   (lecture OCR, ordre, caractères à écrire). 美猴王 garde 猴 au niveau 5 : c'est un récit
   long, hors de cette décision.

@@ -56,6 +56,35 @@ def test_erhua_et_ponctuation() -> None:
     assert pinyin.aligner("女儿", "nǚ'ér", lectures) == ["nǚ", "ér"]
 
 
+def test_mots_de_position_au_ton_neutre_sauf_trois() -> None:
+    """Décision du propriétaire du 26 septembre 2026, le 现代汉语词典 : 后面 hòu mian, 这里
+    zhè li, mais 旁边 páng biān, 那边 nà biān. Dans 那里面, le mot est 里面."""
+    assert pinyin.ecarts_de_position("走在后面。", "zǒu zài hòu mian".split()) == []
+    assert pinyin.ecarts_de_position("走在后面。", "zǒu zài hòu miàn".split()) == [
+        "后面 hòu miàn, attendu hòu mian"
+    ]
+    assert pinyin.ecarts_de_position("桥那边", "qiáo nà bian".split()) == ["那边 nà bian, attendu nà biān"]
+    assert pinyin.ecarts_de_position("旁边，这里", "páng biān zhè li".split()) == []
+    assert pinyin.mots_de_position("那里面有水") == [(1, "里面")]
+    assert pinyin.ecarts_de_position("那里面", "nà lǐ mian".split()) == []
+    assert pinyin.ecarts_de_position("那里面", "nà lǐ miàn".split()) == ["里面 lǐ miàn, attendu lǐ mian"]
+    # 下面条 : mettre les nouilles, pas un mot de position.
+    assert pinyin.mots_de_position("下面条") == []
+    # Ce que rend `aligner`, en minuscules, se contrôle de même.
+    lectures = {"你": ["nǐ"], "在": ["zài"], "哪": ["nǎ"], "里": ["lǐ"]}
+    assert pinyin.ecarts_de_position("你在哪里？", pinyin.aligner("你在哪里？", "Nǐ zài nǎlǐ?", lectures) or []) == [
+        "哪里 nǎ lǐ, attendu nǎ li"
+    ]
+    assert pinyin.ecarts_de_position("你在哪里？", pinyin.aligner("你在哪里？", "Nǐ zài nǎli?", lectures) or []) == []
+
+
+def test_mot_de_position_de_fiche_suit_la_decision_pas_cc_cedict() -> None:
+    assert pinyin.ecarts_mot("这里", "zhèli", ["zhe4 li3"]) == []
+    assert pinyin.ecarts_mot("这里", "zhèlǐ", ["zhe4 li3"]) == ["这里 : « zhèlǐ », attendu zhèli (mot de position)"]
+    assert pinyin.ecarts_mot("那边", "nàbiān", ["na4 bian5"]) == []
+    assert pinyin.ecarts_mot("后面", "hòumian", ["hou4 mian4"]) == []
+
+
 def test_caractere_sans_lecture_connue_ne_s_aligne_pas() -> None:
     assert pinyin.aligner("龍", "lóng", {}) is None
 

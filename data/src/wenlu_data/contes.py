@@ -89,6 +89,7 @@ from .fonts import PONCTUATION_CHINOISE
 from .gf0014 import Controle
 from .ingest import charger_liste, est_sinogramme
 from .paths import CONTES, CONTES_WORK, DATA, LISTES, RACINE, WORK
+from .pinyin import ecarts_de_position
 
 
 #: Seuils sinographiques de l'Éducation nationale.
@@ -556,6 +557,9 @@ REGLE_PINYIN = (
     "那 puis 里面), mais 旁边 páng biān, 那边 nà biān, 这边 zhè biān au ton plein"
 )
 
+#: L'écart d'un mot de position (`pinyin.MOTS_DE_POSITION`), décision du 26 septembre 2026.
+MESSAGE_POSITION = "mot de position au ton du 现代汉语词典 (后面 hòu mian, 这里 zhè li ; 那边 nà biān)"
+
 SYSTEME = f"""Tu réécris des récits traditionnels chinois pour des francophones qui apprennent \
 à lire le chinois. Tu écris en chinois simplifié moderne, simple et clair.
 
@@ -987,6 +991,9 @@ def _syllabes(texte: str, pinyin: str, nom: str, ecarts: list[str]) -> list[str]
         ecarts.append(
             f"pinyin {nom} : 一 d'un verbe redoublé au ton neutre, yi (看一看 kàn yi kàn) : {', '.join(pleins)}"
         )
+    position = ecarts_de_position(texte, syllabes)
+    if position:
+        ecarts.append(f"pinyin {nom} : {MESSAGE_POSITION} : {', '.join(position)}")
     return syllabes
 
 
@@ -2294,6 +2301,34 @@ def controle_critere(catalogue: Sequence[Conte], listes: Path | None = None) -> 
     return Controle("contes : critère des niveaux", not ecarts, detail, bloquant=False)
 
 
+def ecarts_de_position_version(version: Version) -> list[str]:
+    """Les mots de position d'une version dont le pinyin n'a pas le ton de la décision du
+    26 septembre 2026 : titre, titres de chapitre, phrases, glose et mots expliqués. Un
+    pinyin qui ne compte pas une syllabe par sinogramme est laissé à la validation."""
+    textes = [(version.titre, version.titre_pinyin)]
+    textes += [(c.titre, c.titre_pinyin) for c in version.chapitres if c.titre]
+    textes += [(p.zh, p.pinyin) for p in version.phrases]
+    textes += [(zh, g.pinyin) for zh, g in version.glose.items()]
+    textes += [(m.zh, m.pinyin) for m in version.expliques]
+    ecarts: list[str] = []
+    for zh, pinyin in textes:
+        syllabes = pinyin.split()
+        if len(syllabes) == sum(1 for c in zh if est_sinogramme(c)):
+            ecarts += ecarts_de_position(zh, syllabes)
+    return list(dict.fromkeys(ecarts))
+
+
+def controle_position(versions: Sequence[Version]) -> Controle:
+    """« contes : mots de position » : bloquant, le pinyin exporté suit la décision."""
+    fautes = [f"{v.cle} : {', '.join(e)}" for v in versions if (e := ecarts_de_position_version(v))]
+    detail = (
+        f"{len(fautes)} versions hors règle — " + " ; ".join(fautes[:5])
+        if fautes
+        else f"{len(versions)} versions : {MESSAGE_POSITION}"
+    )
+    return Controle("contes : mots de position", not fautes, detail, bloquant=True)
+
+
 def controles(
     dossier: Path | None = None,
     listes: Path | None = None,
@@ -2380,6 +2415,7 @@ def controles(
             a_relire == 0,
             f"{a_relire} versions sur {len(fichiers)} restent à relire avant export",
         ),
+        controle_position(versions),
         *suite,
         # Ce que les mots expliqués font entrer hors du niveau : un relevé, et leurs traits
         # dans l'export ; jamais un blocage. Un mot non déclaré ou de trop, lui, tombe dans

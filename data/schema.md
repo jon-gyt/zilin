@@ -1269,7 +1269,8 @@ le catalogue ne prévoit pas pour le récit, nombre de chapitres autre que celui
 phrase vide, traduction anglaise absente, pinyin qui ne
 compte pas une syllabe par sinogramme ou hors forme, ton de 一 ou 不 modifié (sandhi),
 一 d'un verbe redoublé qui n'est pas au ton neutre (`contes.redoublements_en_yi` : 看一看,
-pas 一个一个),
+pas 一个一个), mot de position à un autre ton que celui de `pinyin.MOTS_DE_POSITION`
+(aussi contrôlé, bloquant, par « contes : mots de position » de `wenlu check`),
 sinogramme qu'aucune entrée de glose ne couvre dans le découpage du lecteur, entrée de
 glose absente du texte, pinyin d'une entrée différent de celui de la phrase où on la
 touche, entrée sans pinyin, sans `fr` ou sans `en` ; mot expliqué absent du texte, déjà

@@ -413,14 +413,19 @@ def fautes_sources(wechat: Wechat) -> list[str]:
 
 
 def fautes_pinyin(wechat: Wechat, lues: Mapping[str, Sequence[str]]) -> list[str]:
-    """Chaque texte chinois se lit, caractère par caractère, dans son pinyin."""
-    from .pinyin import aligner
+    """Chaque texte chinois se lit, caractère par caractère, dans son pinyin ; un mot de
+    position a le ton de la décision du 26 septembre 2026 (`pinyin.MOTS_DE_POSITION`)."""
+    from .pinyin import aligner, ecarts_de_position
 
-    return [
-        f"{ou} : « {t.zh} » ne se lit pas « {t.pinyin} »"
-        for ou, t in textes_chinois(wechat)
-        if t.zh and aligner(t.zh, t.pinyin, lues) is None
-    ]
+    fautes: list[str] = []
+    for ou, t in textes_chinois(wechat):
+        if not t.zh:
+            continue
+        syllabes = aligner(t.zh, t.pinyin, lues)
+        if syllabes is None:
+            fautes.append(f"{ou} : « {t.zh} » ne se lit pas « {t.pinyin} »")
+        fautes += [f"{ou} : « {t.pinyin} », {e}" for e in ecarts_de_position(t.zh, syllabes or [])]
+    return fautes
 
 
 def _parcours(build: Path) -> dict[str, dict[str, object]]:
