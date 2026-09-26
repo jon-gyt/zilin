@@ -9,7 +9,9 @@
 #
 # `titre_zh` est le vrai titre du récit, le chengyu, montré tel quel dans l'app avec son
 # pinyin `titre_pinyin` (tons du dictionnaire : 长 zhǎng, 塞 sài), même quand ses
-# caractères dépassent le niveau. `titre_fr` et `titre_en` en sont la traduction. La colonne `resume_fr` résume l'intrigue du récit traditionnel en une
+# caractères dépassent le niveau. `titre_fr` et `titre_en` reprennent le titre publié du
+# récit quand il en existe un, sinon notre traduction ; chaque choix et sa source sont
+# consignés dans `titres.md`. La colonne `resume_fr` résume l'intrigue du récit traditionnel en une
 # phrase. Elle sert à cadrer la réécriture ; ce n'est pas un texte de l'app.
 #
 # Les versions chinoises sont produites par le pipeline (`wenlu contes generer`, ou
@@ -132,7 +134,7 @@
 id	titre_zh	titre_pinyin	titre_fr	titre_en	ouvrage	niveaux	cles	chapitres	resume_fr
 shou-zhu-dai-tu	守株待兔	shǒu zhū dài tù	Guetter la souche en attendant le lièvre	Waiting by the Stump for a Hare	《韩非子·五蠹》	hsk3,hsk5,hsk7-9	/兔桩	1	Un paysan voit un lièvre se rompre le cou contre une souche, abandonne ses champs pour guetter la souche et finit par ne plus rien récolter.
 sai-weng-shi-ma	塞翁失马	sài wēng shī mǎ	Le vieillard à la frontière qui avait perdu son cheval	The Old Man Who Lost His Horse	《淮南子·人间训》	hsk4,hsk6,hsk7-9	马腿断兵/塞翁	1	Le cheval perdu d'un vieillard revient accompagné d'un autre, son fils tombe de ce cheval et se casse la jambe, et cette blessure lui évite d'être envoyé à la guerre.
-yu-gong-yi-shan	愚公移山	yú gōng yí shān	Comment Yukong déplaça les montagnes	The Foolish Old Man Who Removed the Mountains	《列子·汤问》	255,hsk3,hsk5	山老	1	Un vieillard entreprend d'ôter deux montagnes panier par panier et répond à celui qui le raille que ses fils et ses petits-fils continueront après lui.
+yu-gong-yi-shan	愚公移山	yú gōng yí shān	Yugong déplace les montagnes	The Foolish Old Man Who Removed the Mountains	《列子·汤问》	255,hsk3,hsk5	山老	1	Un vieillard entreprend d'ôter deux montagnes panier par panier et répond à celui qui le raille que ses fils et ses petits-fils continueront après lui.
 hua-she-tian-zu	画蛇添足	huà shé tiān zú	Ajouter des pattes au serpent	Drawing Legs on a Snake	《战国策·齐策二》	hsk3,hsk5,hsk7-9	画足/蛇	1	Le premier à finir son dessin de serpent y ajoute des pattes pour montrer son avance, et perd le pari qu'il avait déjà gagné.
 jing-di-zhi-wa	井底之蛙	jǐng dǐ zhī wā	La grenouille au fond du puits	The Frog in the Well	《庄子·秋水》	hsk3,hsk7-9	/蛙龟井	1	Une grenouille vante son puits à une tortue venue de la mer de l'Est et découvre en l'écoutant la petitesse de son monde.
 hu-jia-hu-wei	狐假虎威	hú jiǎ hǔ wēi	Le Renard et le Tigre	The Fox and the Tiger	《战国策·楚策一》	hsk3,hsk5,hsk7-9	/虎狐狸	1	Un renard pris par un tigre le persuade de marcher devant lui, et le tigre croit que les bêtes s'enfuient devant le renard.

@@ -20,7 +20,7 @@ graphie (majuscules comprises) est celle de la source.
 |---|---|---|
 | 守株待兔 | Guetter la souche en attendant le lièvre (maison) | Waiting by the Stump for a Hare (maison) |
 | 塞翁失马 | Le vieillard à la frontière qui avait perdu son cheval (établi) | The Old Man Who Lost His Horse (établi) |
-| 愚公移山 | Comment Yukong déplaça les montagnes (établi) | The Foolish Old Man Who Removed the Mountains (établi) |
+| 愚公移山 | Yugong déplace les montagnes (établi) | The Foolish Old Man Who Removed the Mountains (établi) |
 | 画蛇添足 | Ajouter des pattes au serpent (établi) | Drawing Legs on a Snake (maison) |
 | 井底之蛙 | La grenouille au fond du puits (établi) | The Frog in the Well (établi) |
 | 狐假虎威 | Le Renard et le Tigre (établi) | The Fox and the Tiger (établi) |
@@ -65,16 +65,21 @@ graphie (majuscules comprises) est celle de la source.
 
 ## 愚公移山 (yu-gong-yi-shan)
 
-- Français : « Comment Yukong déplaça les montagnes », **titre établi**. Titre de la
-  traduction officielle du discours de Mao Zedong du 11 juin 1945, qui raconte la fable
-  (*Œuvres choisies de Mao Tsé-toung*, tome III, Éditions en langues étrangères,
-  Pékin), repris par le film de Joris Ivens et Marceline Loridan (1976)
-  (https://fr.wikipedia.org/wiki/Comment_Yukong_d%C3%A9pla%C3%A7a_les_montagnes).
-  C'est de loin le titre le plus connu en français. Variantes pour la fable seule :
-  « Yugong déplace les montagnes » (Wikipédia, article « Lie Zi »), « Le vieux fou qui
-  déplaça des montagnes » (titre d'article, *Perspectives chinoises*,
-  https://journals.openedition.org/perspectiveschinoises/12045). La graphie Yukong est
-  celle du titre établi ; le pinyin du titre chinois, montré au-dessus, dit yú gōng.
+- Français : « Yugong déplace les montagnes », **titre établi**. Titre de la fable
+  (Goûts de Chine, rubrique « Mythologie », http://www.goutsdechine.com/mythologie/212.html) ;
+  même titre en deux mots dans « Yu Gong déplace les montagnes… » (Dialogues du 21,
+  https://21dialogues21.org/yu-gong-deplace-les-montagnes/) et, à l'article près,
+  « Yu Gong déplace des montagnes » (*La Chine au présent*, février 2018,
+  http://www.chinatoday.com.cn/ctfrench/2018/dzg/201802/t20180201_800115929.html).
+  Choisi pour s'accorder avec le pinyin du titre chinois montré au-dessus, yú gōng
+  (décision du coordinateur, 26 septembre 2026). Le titre le plus connu en français
+  reste « Comment Yukong déplaça les montagnes », dans l'ancienne graphie Yukong de
+  l'époque de Mao : titre de la traduction officielle de son discours du 11 juin 1945,
+  qui raconte la fable (*Œuvres choisies de Mao Tsé-toung*, tome III, Éditions en
+  langues étrangères, Pékin), repris par le film de Joris Ivens et Marceline Loridan
+  (1976) (https://fr.wikipedia.org/wiki/Comment_Yukong_d%C3%A9pla%C3%A7a_les_montagnes).
+  Autre variante : « Le vieux fou qui déplaça des montagnes » (titre d'article,
+  *Perspectives chinoises*, https://journals.openedition.org/perspectiveschinoises/12045).
 - Anglais : « The Foolish Old Man Who Removed the Mountains », **titre établi**. Même
   discours, *Selected Works of Mao Tse-tung*, vol. III, Foreign Languages Press, Pékin
   (https://www.marxists.org/reference/archive/mao/selected-works/volume-3/mswv3_26.htm).

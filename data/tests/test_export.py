@@ -513,7 +513,7 @@ def test_l_index_porte_le_catalogue_sans_texte(atelier: Path) -> None:
         "id": "yu-gong-yi-shan",
         "titre_zh": "愚公移山",
         "titre_pinyin": "yú gōng yí shān",
-        "titre_fr": "Comment Yukong déplaça les montagnes",
+        "titre_fr": "Yugong déplace les montagnes",
         "titre_en": "The Foolish Old Man Who Removed the Mountains",
         "niveaux": [255, "hsk3", "hsk5"],
         "chapitres": 1,
