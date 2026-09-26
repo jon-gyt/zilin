@@ -535,7 +535,9 @@ SCHEMA: dict[str, object] = {
 REGLE_PINYIN = (
     "une syllabe par caractère chinois, dans l'ordre, séparées par une espace, en "
     "minuscules, tons marqués, sans ponctuation ; les tons du dictionnaire, sans sandhi "
-    "(一 yī, 不 bù), le ton neutre sans marque (儿子 ér zi) ; 上 après un nom : le ton du "
+    "(一 yī, 不 bù), le ton neutre sans marque (儿子 ér zi) ; 一 entre un verbe et sa "
+    "répétition au ton neutre, comme le note le 现代汉语词典 (看一看 kàn yi kàn, 摸一摸 mō yi "
+    "mō, mais 一个一个 yī ge yī ge) ; 上 après un nom : le ton du "
     "dictionnaire pour un mot qui y figure (地上 dì shang, 身上 shēn shang, 路上 lù shang, "
     "mais 马上 mǎ shàng, 天上 tiān shàng), le ton plein ailleurs (山上 shān shàng, 树桩上 "
     "shù zhuāng shàng) ; les compléments au ton plein, comme dans les contes relus au seuil "

@@ -1153,7 +1153,11 @@ texte d'un conte est un contenu, sa relecture se lit dans l'historique git.
 - `titre_pinyin` et `phrases[].pinyin` : **une syllabe par sinogramme**, dans l'ordre,
   séparées par une espace, en minuscules, tons marqués, sans ponctuation. Tons du
   dictionnaire, sans sandhi (一 reste `yī`, 不 reste `bù`) ; ton neutre sans marque,
-  comme CC-CEDICT le note (儿子 `ér zi`, 一个 `yī ge`). 上 après un nom suit la même règle :
+  comme CC-CEDICT le note (儿子 `ér zi`, 一个 `yī ge`). 一 entre un verbe et sa répétition
+  (V一V) est au ton neutre, `yi`, comme le note le 现代汉语词典 (décision du propriétaire
+  du 26 septembre 2026, « la lecture correcte ou la plus utilisée ») : 看一看 `kàn yi kàn`,
+  摸一摸 `mō yi mō`, 补一补 `bǔ yi bǔ` ; ailleurs 一 garde `yī`, redoublé compris (一个一个
+  `yī ge yī ge`). 上 après un nom suit la même règle que le ton neutre :
   le ton de CC-CEDICT pour un mot du dictionnaire (地上 `dì shang`, 身上 `shēn shang`, 路上
   `lù shang`, mais 马上 `mǎ shàng`, 天上 `tiān shàng`), le ton plein ailleurs
   (山上 `shān shàng`, 树桩上 `shù zhuāng shàng`). Les compléments gardent le ton plein,
