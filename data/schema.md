@@ -504,6 +504,9 @@ ce que l'app embarque ; `docs/sources-licences.md` fait foi pour la décision.
   que l'app puisse enseigner ces familles.
 - « export : caractères sans traits » — signalé : ce que l'app ne saurait dessiner
   (et à quoi le site ne fait pas de page).
+- « licences : décompositions » — signalé : combien de décompositions de la dernière
+  version exportée descendent encore un IDS de `dictionary.txt` (LGPL), en attendant la
+  décision de `docs/sources-licences.md` §10. Relit l'export versionné seulement.
 - « découpes : table » — bloquant : chaque ligne de `decoupes.tsv` nomme un composant
   de la norme sans tracé propre, un hôte présent dans `graphics.txt` dont la
   décomposition canonique le contient, et des indices de traits valides.
@@ -573,6 +576,33 @@ ce que l'app embarque ; `docs/sources-licences.md` fait foi pour la décision.
   `anecdotes.json` dit la source, chaque caractère avec ses traits. « anecdotes :
   parcours » — signalé : combien parlent d'un caractère du parcours Lire, et de ses
   90 premiers jours ; au moins 60 anecdotes.
+
+## Licence des décompositions (`wenlu licences`)
+
+Après `export`, hors de `tout`. `--telecharger` range d'abord les sources d'IDS
+candidates dans `data/work/sources/candidats/` (BabelStone `IDS.TXT` par son URL puis
+deux miroirs, en-tête `Maintained by: Andrew West` exigé ; cjkvi-ids ; CHISE), avec
+`SHA256SUMS` et `PROVENANCE.md` comme `wenlu fetch`. La commande ne change rien à
+l'export ; elle écrit :
+
+- `data/work/build/licences.json` : `{sources: {clé: {fichiers, ids, note}},
+  caracteres: [{c, genre, motifs[], parts[], sources[], structure, regime, decision,
+  candidats: {clé: {verdict, composants[], structure, meme_tete}}}]}`. `verdict` parmi
+  `identique`, `equivalent` (même composant de la norme, autre point de code),
+  `variante` (même groupe de la norme), `ordre`, `different`, `non_reconcilie`,
+  `absent`. Clés : `cjk-decomp`, `babelstone`, `cjkvi-ids`, `chise-ids` (sources seules),
+  `propres` (la norme et `ids.tsv` seuls), `proposee` (surcharges > cjk-decomp >
+  BabelStone), `alternative` (surcharges > BabelStone > cjk-decomp), `proposee-brute`
+  (la proposée sans table de notation) ; `unihan-kids` quand Unihan porte `kIDS`.
+- `data/work/build/licences-simulation/<n>/` : réconciliation, graphe et parcours rejoués
+  pour chaque scénario (le témoin `0` doit redonner le build).
+- `docs/licences-decompositions.md`, versionné : le fichier de décision, caractère par
+  caractère. Deux passages écrivent les mêmes octets.
+
+Les surcharges d'`ids.tsv` passent devant chaque candidat. `data/sources/surcharges/
+notation-candidats.tsv` (`forme`, `composant`, `raison`) ramène une forme de notation
+des candidats, absente de la table, au composant de la norme (⺹ → 耂) ; une forme de la
+table ne s'y renomme jamais. `wenlu build` ne le lit pas.
 
 ## Format intermédiaire (story 1.1)
 
