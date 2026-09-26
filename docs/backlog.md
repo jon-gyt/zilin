@@ -475,9 +475,16 @@ anglaise, glose par mot.
   conditions n'ont pas pu être lues (proxy) : tant que sa ligne n'est pas vérifiée sur une
   source primaire, aucun fichier synthétisé par lui n'entre dans un artefact distribué.
 - **Licence des décompositions** : la chaîne IDS descendue vient de `dictionary.txt`
-  (Make Me a Hanzi, LGPL 3.0+), que §2.2 écarte de l'embarqué. Chaque fiche exportée
-  nomme la source de sa décomposition (`sources`) pour que la décision se tranche
-  caractère par caractère ; `LICENCES.md` la pose noir sur blanc. Non tranchée.
+  (Make Me a Hanzi, LGPL 3.0+), que §2.2 écarte de l'embarqué. Instruite le 26 septembre
+  (`docs/sources-licences.md` §10, pièce par caractère `docs/licences-decompositions.md`,
+  écrite par `uv run wenlu licences`) : 304 décompositions exportées sur 323 en dépendent,
+  259 composants de la norme n'en ont pas besoin. Unihan n'a pas de `kIDS` (17.0.0,
+  18.0.0) ; cjkvi-ids et CHISE sont sous GPL. Proposé : surcharges > cjk-decomp (MIT) >
+  BabelStone (aucun droit revendiqué), qui conserve 273 décompositions sur 323 ; relire
+  les 50 écarts contre la norme et figer l'ordre de fréquence, et les deux parcours
+  rejoués restent identiques jour pour jour. Environ deux jours. Non tranchée : décision
+  du propriétaire, avec l'avis d'un conseil (§10.5). `wenlu check` signale le décompte.
+  Relevé en passant : `app/public/strokes-demo.json` embarque 89 tracés APL sans en-tête.
 - **Images des anecdotes (2.3)** : l'écran Ouvrir affiche une estampe. Aucune source
   d'images sous licence compatible avec un usage commercial n'est retenue ; les images
   de sites tiers sont exclues (brief §11).

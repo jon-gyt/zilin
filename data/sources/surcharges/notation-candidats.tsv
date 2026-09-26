@@ -1,0 +1,20 @@
+# Notation des sources d'IDS candidates (`wenlu licences`), ramenée à la table GF 0014-2009.
+#
+# BabelStone, cjk-decomp, cjkvi-ids et CHISE écrivent quelques composants avec un
+# point de code qui n'est pas dans la table de la norme : un radical du bloc des
+# radicaux, ou un idéogramme rare de même dessin. Ces formes-là ne sont qu'une
+# notation ; la descente les ramène au composant de la norme avant de s'y arrêter.
+# Ne vaut que pour une forme absente de la table : une forme de la table est un
+# composant de la norme, jamais renommé (卄 贲字腰 n'est pas 艹 草字头).
+#
+# Lu par `data/src/wenlu_data/licences.py` seulement : `wenlu build` n'en dépend pas
+# tant que la chaîne IDS n'a pas changé (`docs/sources-licences.md` §10).
+#
+# Format : `#` en commentaire ; trois colonnes séparées par une tabulation :
+# forme de la source, composant de la norme, raison.
+⺹	耂	CJK RADICAL OLD : la norme écrit 耂 (203, 老省) ; 考, 教, 都, 暑
+㐅	乂	U+3405, même dessin que 乂 (446, 乂/艾字底) ; 刚, 网, 脑
+龵	手	U+9FB5, forme de 手 en tête (看) ; la norme n'a que 手 (333)
+夊	夂	U+590A, même dessin que 夂 (82, 冬字头) en simplifié ; 夏, 麦
+𠆢	人	U+201A2, 人 en tête (茶, 翰) ; la norme n'a que 人 (292)
+⺶	𦍌	CJK RADICAL SHEEP : 羊 sans sa queue, 𦍌 (431, 美字头) dans la norme ; 差, 着

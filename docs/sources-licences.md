@@ -1,6 +1,6 @@
 # Sources et licences
 
-Décision de la story 0.4. Vérification faite le 21 septembre 2026 sur les sources primaires.
+Décision de la story 0.4. Vérification faite le 21 septembre 2026 sur les sources primaires ; licence des décompositions instruite le 26 septembre 2026 (§10).
 Ce document fait foi pour le pipeline `data/` et pour l'écran « Licences » de l'app.
 
 Hypothèse de distribution : PWA gratuite sur le web, app iOS payante (achat à vie et abonnement), donc usage commercial et distribution par l'App Store.
@@ -10,12 +10,14 @@ Hypothèse de distribution : PWA gratuite sur le web, app iOS payante (achat à 
 | Source | Usage | Licence vérifiée | Décision |
 |---|---|---|---|
 | Make Me a Hanzi — `graphics.txt` | traits, médianes | Arphic Public License | utilisable avec obligations |
-| Make Me a Hanzi — `dictionary.txt` | décompositions, pinyin, définitions EN, étymologie EN | LGPL 3.0 ou ultérieure (+ notice Unicode) | utilisable avec obligations ; à écarter de l'embarqué, remplacé par Unihan |
+| Make Me a Hanzi — `dictionary.txt` | décompositions, pinyin, définitions EN, étymologie EN | LGPL 3.0 ou ultérieure (+ notice Unicode) | utilisable avec obligations ; à écarter de l'embarqué, remplacé par Unihan ; sa chaîne IDS porte encore 304 décompositions exportées, remplacement proposé au §10 |
 | `hanzi-writer-data` | traits et médianes (JSON) | Arphic Public License | utilisable avec obligations ; redondant avec `graphics.txt` |
 | Hanzi Writer (bibliothèque) | animation et quiz de tracé | MIT | utilisable avec obligations |
 | CC-CEDICT | mots, pinyin | CC BY-SA 4.0 | utilisable avec obligations |
-| Unihan / UCD | pinyin, traits (pas de décomposition : `kIDS` n'existe pas) | Unicode License | utilisable avec obligations ; source à privilégier |
-| cjk-decomp | décompositions converties en IDS, source de repli | MIT (au choix parmi six licences) | utilisable avec obligations |
+| Unihan / UCD | pinyin, traits (pas de décomposition : `kIDS` n'existe ni en 17.0.0 ni en 18.0.0, revérifié le 26 septembre 2026) | Unicode License v3 | utilisable avec obligations ; source à privilégier |
+| cjk-decomp | décompositions converties en IDS, source de repli ; source principale proposée au §10 | MIT (au choix parmi six licences) | utilisable avec obligations |
+| BabelStone IDS (`IDS.TXT`, Andrew West) | décompositions IDS, repli proposé au §10 | aucun droit revendiqué, usage commercial sans attribution (en-tête du fichier, lu sur deux miroirs le 26 septembre 2026) | utilisable ; pas encore dans le pipeline |
+| `cjkvi/cjkvi-ids`, CHISE IDS | décompositions IDS | GPL v2 ; GPL v2 ou ultérieure (README lus le 26 septembre 2026) | à écarter ; mesurés pour information seulement |
 | Norme GF 0014-2009 | 514 composants | texte normatif, non vérifié en ligne | utilisable pour la logique ; ne pas reproduire le document |
 | Listes Eduscol | parcours Lire | publication officielle, page non consultable | utilisable comme liste de caractères ; pas de reprise de texte |
 | Référentiel HSK 3.0 | parcours HSK | publication officielle, page non consultable | idem ; ne pas rediffuser le PDF |
@@ -77,7 +79,9 @@ Décision opérationnelle : ne pas embarquer `dictionary.txt` ni un export qui e
 
 Alternative retenue : Unihan et l'UCD, sous Unicode License, qui est permissive et sans partage à l'identique. Elle fournit le pinyin (`kMandarin`, `kHanyuPinyin`) et le nombre de traits, mais aucune décomposition : `kIDS` n'existe pas (vérifié sur Unihan 17.0.0, voir §5). Les décompositions de repli viennent de cjk-decomp (§5.1). Les définitions anglaises et l'étymologie anglaise de `dictionary.txt` ne nous servent pas : le brief impose des textes rédigés pour l'app.
 
-À écarter : `cjkvi/cjkvi-ids` (consulté le 21 septembre 2026), distribué sous GPL v2, donc incompatible avec un export propriétaire.
+À écarter : `cjkvi/cjkvi-ids` (consulté le 21 septembre 2026, relu le 26), distribué sous GPL v2, donc incompatible avec un export propriétaire.
+
+La décomposition exportée, elle, descend encore la chaîne IDS de `dictionary.txt` pour 304 caractères : inventaire, candidats de remplacement et plan au §10.
 
 ## 3. Hanzi Writer et hanzi-writer-data
 
@@ -220,7 +224,7 @@ Pipeline `data/` :
 - Séparation physique : traits sous APL, mots sous CC BY-SA 4.0, fiches FR et EN propriétaires, dans des fichiers distincts. Ne jamais fusionner ces trois familles dans un même fichier.
 - `uv run wenlu check` échoue si un export n'a pas d'en-tête de licence, ou si un fichier mélange deux régimes.
 - `uv run wenlu build` n'expose jamais la colonne de définition anglaise de CC-CEDICT aux invites de génération FR. Contrôle à ajouter et à tester.
-- `dictionary.txt` reste hors des artefacts distribués.
+- `dictionary.txt` reste hors des artefacts distribués. Sa chaîne IDS, elle, décide encore de 304 décompositions exportées : `uv run wenlu licences` en fait l'inventaire et mesure les remplacements (§10).
 
 Marque :
 
@@ -242,10 +246,104 @@ App Store :
 
 - L'atténuation retenue pour l'App Store — publier hors de l'app les données APL et CC BY-SA — n'a pas été validée par un conseil. Le texte des conditions d'usage d'Apple n'a pas pu être lu : `www.apple.com` est bloqué par le proxy de sortie. À faire relire avant la phase 4.
 - La clause APL §5 « no further restrictions » et la clause CC BY-SA 3 b) 3) sur les mesures techniques n'ont pas de jurisprudence connue appliquée à l'App Store pour des données. Risque résiduel assumé, à réévaluer.
-- `kIDS` : tranché le 21 septembre 2026 — la propriété n'existe ni dans Unihan 17.0.0 ni dans 18.0.0 ; les décompositions de repli viennent de cjk-decomp (§5.1). `kSEAL_MCJK` reste à confirmer, `unicode.org` étant toujours bloqué depuis cet environnement.
+- `kIDS` : tranché le 21 septembre 2026 et revérifié le 26 — la propriété n'existe ni dans Unihan 17.0.0 ni dans 18.0.0 (archives lues en entier) ; les décompositions de repli viennent de cjk-decomp (§5.1). `kSEAL_MCJK` reste à confirmer, `unicode.org` étant toujours bloqué depuis cet environnement.
 - Conditions de réutilisation exactes des listes Eduscol et du référentiel HSK 3.0 : pages non consultées. À vérifier avant la story 1.1.
 - Statut juridique du texte de GF 0014-2009 pour un éditeur non chinois : non vérifié.
 - Aucune police oraculaire sous licence ouverte vérifiée. Décision reportée.
 - Couverture sigillaire insuffisante aujourd'hui. Choix à refaire quand Kaiyuan sera publiée.
 - Audio : tranché le 21 septembre 2026 en changeant de terrain. Plutôt que de faire vérifier les conditions d'un service, le pipeline exécute un modèle ouvert en local — **Kokoro** (`hexgrad/kokoro`), dont l'Apache 2.0 a été lue en entier sur `raw.githubusercontent.com/hexgrad/kokoro/main/LICENSE` et dont le `README.md` du même dépôt annonce des poids sous la même licence ; nous ne redistribuons ni le code ni les poids, seulement des fichiers audio produits chez nous, sur lesquels l'Apache 2.0 ne dit rien, sans service appelé donc sans redevance par écoute. Retenu contre MeloTTS (MIT, mais aucune version publiée sur PyPI dans le dépôt officiel, `transformers==4.27.4` épinglé, `mecab-python3` à compiler et un `unidic download`) et CosyVoice 2 (Apache 2.0, mais conda, sous-modules git, `sox` système et 0,5 milliard de paramètres) : Kokoro seul s'installe par `uv` sans compilation, tient sur un CPU avec ses 82 millions de paramètres, et rend déjà du 24 kHz, la fréquence visée. La carte du modèle `hexgrad/Kokoro-82M-v1.1-zh` sur Hugging Face, illisible depuis l'environnement de développement, a été lue par le workflow `donnees` le 24 septembre 2026 : elle déclare `license: apache-2.0` (run 36026523964, fichier `carte-modele.md` de l'artefact). La réserve est levée ; les 731 premiers fichiers du seuil 255 ont été produits avec la voix `zf_001`. Azure AI Speech reste disponible en second (`--fournisseur azure`), avec sa ligne « à vérifier » inchangée et l'avertissement à chaque passage.
 - Entité juridique porteuse du compte développeur, qui sera le titulaire des obligations d'attribution.
+- Licence des décompositions : instruite le 26 septembre 2026, **non tranchée** — dossier, candidats mesurés, recommandation et tableau de décision au §10.
+- `app/public/strokes-demo.json` : tracés APL embarqués sans en-tête de licence (§10.1). À corriger avant la soumission.
+
+## 10. Licence des décompositions — dossier de décision (26 septembre 2026)
+
+Question : la décomposition exportée (`parts` de chaque fiche) descend la chaîne IDS de `dictionary.txt` (Make Me a Hanzi, LGPL 3.0+), que le §2.2 écarte de l'embarqué. L'app sera vendue sur l'App Store. Ce qui suit est un dossier, pas une décision : **la décision revient au propriétaire**. Rien n'a été migré.
+
+Pièce justificative, caractère par caractère : `docs/licences-decompositions.md`, écrit par `uv run wenlu licences` (`data/src/wenlu_data/licences.py`, testé par `data/tests/test_licences.py`). Reproductible : `uv run wenlu fetch && uv run wenlu ingest && uv run wenlu build && uv run wenlu licences --telecharger` ; deux passages écrivent les mêmes octets. `uv run wenlu check` signale, sans bloquer, le nombre de décompositions exportées qui descendent encore un IDS de Make Me a Hanzi (« licences : décompositions »).
+
+### 10.1 Inventaire de la version 0.1.0
+
+582 caractères exportés (listes seuil 255 et HSK 1, fêtes, termes solaires, rangs du personnage, interface, mots expliqués des contes, et toutes leurs briques) :
+
+| Groupe | Caractères | `parts` vient de |
+|---|---|---|
+| composants de la norme (briques, feuilles découpées) | 259 | GF 0014-2009 seule : `parts` vide, rien n'est descendu |
+| décomposés à travers au moins un IDS de `dictionary.txt` | 304 | LGPL : feuilles de GF 0014-2009, découpage et ordre de Make Me a Hanzi (`sources` contient `makemeahanzi`) |
+| décomposés sans Make Me a Hanzi | 19 | cjk-decomp (MIT) et nos surcharges (`ids.tsv`) seulement |
+
+Champ par champ : chaque feuille de `parts` est un composant de la table GF 0014-2009, où la descente s'arrête ; le découpage jusqu'à ces feuilles et leur ordre viennent de la source d'IDS nommée par `sources`. En héritent `nouveau` et `role` (des index dans `parts`), la famille (`racine`, la première brique), les jours des parcours d'`index.json` (les prérequis) et `devinettes.json` (les briques citées ; l'opérateur de tête de `structure`, non exporté, choisit les leurres et contrôle la disposition). Le pinyin et les lectures n'en dépendent pas (Unihan et `pinyin.tsv`). L'ordre des parcours dépend en plus du nombre de dépendants de chaque brique, compté sur les 9 574 décompositions du build.
+
+Autres emprunts à Make Me a Hanzi relevés par l'inventaire :
+
+- Tracés (`graphics.txt`, Arphic Public License), embarqués : les 582 caractères de `traits/`, dont 13 composants découpés dans un hôte ; la marque et les icônes (文). L'usage commercial est couvert par le §2.1 : l'APL définit « Freely Available » comme une liberté « not price. If you wish, you can charge for this service », et n'interdit pas de vendre l'œuvre qui agrège la police ; restent les obligations du §2.1 (texte inaltéré, mention de modification, publication des tracés dérivés) et la question App Store du §9.
+- **Écart relevé** : `app/public/strokes-demo.json`, 89 caractères tirés de `graphics.txt`, est embarqué en table nue, sans en-tête de licence ni mention de modification (APL §2 a)), et n'était nommé nulle part ici. À corriger : lui donner l'en-tête des fichiers de `traits/` (`lireTraits` lit déjà la clé `traits`) ou le retirer au profit de l'export ; le publier avec les autres tracés (§2 b)).
+- `dictionary.txt` hors de `parts`, non embarqué : le contexte des fiches (rôle probable, type et indice d'étymologie, 472 caractères exportés en ont un), donné au rédacteur comme indice à vérifier, jamais recopié ; le contrôle du pinyin de la cuisine ; la liste des 9 574 caractères (qui est aussi celle de `graphics.txt`). Un seul fait en sort dans l'export : le pinyin de repli de la fiche relue de ⺮ (zhú), qu'Unihan ne donne pas.
+
+### 10.2 Candidats, licence lue sur la source primaire
+
+| Candidat | Licence, telle que lue | Où, quand | Embarquable | `parts` conservés (sur 323 décomposés) |
+|---|---|---|---|---|
+| Unihan `kIDS` | Unicode License v3 (texte lu dans `LICENSE` de `unicode-org/unihan-database`) | archive Unihan 17.0.0 entière (miroir, 24 juillet 2025) et les huit fichiers d'Unihan 18.0.0 (miroir `elixir-unicode`, 31 juillet 2026), 26 septembre 2026 | oui | **0** : aucune valeur `kIDS` |
+| GF 0014-2009 et nos surcharges seules | données factuelles de la norme (§6) ; `ids.tsv` rédigé pour le projet | — | oui | 7 (les 259 composants n'en demandent pas) |
+| cjk-decomp | au choix entre six licences dont la MIT (README), texte Apache 2.0 dans `LICENSE` | `amake/cjk-decomp`, 26 septembre 2026 | oui (déjà embarqué comme repli) | 272 (84,2 %) |
+| BabelStone IDS | « anyone is free to make use of the IDS data provided in this file for personal or commercial purposes without asking permission or providing attribution. I furthermore waive any copyright claims to the presentation format » (en-tête de `IDS.TXT`, § 2) | `babelstone.co.uk` bloqué par le proxy ; lu sur deux miroirs GitHub indépendants (`mandel59/babelstone-ids`, `qundao/backup-babelstone-ids`), identiques octet pour octet (SHA-256 `cc2a0a97…`), version Unicode 16.0 du 27 juin 2025, 26 septembre 2026 | oui, sous réserve ci-dessous | 249 (77,1 %) |
+| cjkvi-ids | « 'ids.txt' is derived from CHISE project. License follows their terms […] All other data are distributed under GPLv2 » (README) | `cjkvi/cjkvi-ids`, 26 septembre 2026 | **non** | 266 (82,4 %), pour information |
+| CHISE IDS | « GNU General Public License […] either version 2, or (at your option) any later version » (README.md, section License) | `chise/ids`, 26 septembre 2026 | **non** | 228 (70,6 %), pour information |
+
+« Conservés » : les composants obtenus sont ceux de l'export, au point de code près ou à la notation près (⺮ et 𥫗 sont le même composant 502) — `parts` ne bouge pas. Les surcharges passent devant chaque candidat, comme dans `wenlu build` ; six formes de notation hors de la table (⺹, 㐅, 龵, 夊, 𠆢, ⺶) sont ramenées au composant de la norme par `data/sources/surcharges/notation-candidats.tsv`.
+
+Sur `kIDS` : l'hypothèse d'un champ ajouté en Unicode 15.1 ne se vérifie pas. UAX #38 n'a pas pu être lu (`unicode.org` et `unicode-org.github.io` bloqués) ; le README de `unicode-org/unihan-database`, qui liste les propriétés provisoires en chantier, ne le nomme pas ; une recherche ne trouve qu'une annonce de 2023 (Ken Lunde, `medium.com`, bloqué) visant une propriété provisoire pour la 17.0, qui n'y est pas. `wenlu licences` le cherche dans toute l'archive à chaque passage : si une version l'ajoute, la mesure se fera seule.
+
+Réserve sur BabelStone : l'en-tête dit le fichier « based on IDS data provided by Kawabata Taichi », dont la lignée est celle de cjkvi-ids et de CHISE (GPL), puis corrigé en très grand nombre par Andrew West. Son argument — des IDS sont des faits, non protégeables — est posé en droit américain. Le même argument vaudrait pour `dictionary.txt` : c'est une question de conseil, à joindre à celle du §9, pas une raison de préférer la LGPL. Andrew West est mort en juillet 2025 ; le fichier n'évoluera plus que par ses miroirs.
+
+### 10.3 Recommandation
+
+Source par champ :
+
+| Champ | Aujourd'hui | Proposé | Licence |
+|---|---|---|---|
+| `parts` d'un composant de la norme | GF 0014-2009 | inchangé | faits de la norme |
+| `parts` et `structure` d'un caractère décomposé | surcharges > Make Me a Hanzi > cjk-decomp | surcharges > **cjk-decomp** > **BabelStone**, formes de notation ramenées à la norme | nôtre ; MIT ; aucun droit revendiqué |
+| univers des caractères du graphe (9 574) | `dictionary.txt` | `graphics.txt` : les mêmes, dans le même ordre | APL, déjà respectée ; une liste de caractères est un fait |
+| ordre de fréquence des parcours | nombre de dépendants, recompté | **figé** : le nombre de dépendants du build d'aujourd'hui, versionné | nôtre (des décomptes) |
+| `sources` | `makemeahanzi`, `cjk-decomp`, `surcharge` | `cjk-decomp`, `babelstone`, `surcharge` | — |
+| pinyin, lectures | Unihan, `pinyin.tsv` | inchangé ; le repli de ⺮ passe dans `pinyin.tsv` | Unicode ; nôtre |
+| contexte des fiches (rôle probable, étymologie) | `dictionary.txt`, hors distribution | inchangé, hors distribution (§2.2), ou abandonné | LGPL, sans obligation tant que rien n'est distribué |
+
+cjk-decomp passe devant BabelStone parce que la mesure le dit : 273 décompositions conservées sur 323 et 269 opérateurs de tête inchangés, contre 267 et 260 dans l'autre ordre ; il est déjà dans la chaîne, sous une licence déjà affichée. BabelStone comble ce qu'il ne décrit pas (plus aucun caractère absent).
+
+Ce que la chaîne proposée change, sur les 304 caractères LGPL : 254 conservés ; 50 à relire contre la norme — 33 aux composants différents (亲 做 刚 前 同 商 场 城 夜 师 帝 常 懂 放 教 新 旁 条 桌 榜 满 爷 班 真 网 花 苗 茶 菊 菜 菩 蒙 错), 9 qui nomment une autre variante du même groupe (告 唱 第 走 起 跑 跟 路 露), 4 dans un autre ordre (坐 弼 狼 画), 4 non réconciliés (举 候 兴 行) ; et 4 conservés dont l'opérateur de tête change (包 可 夏 着), à revoir pour les devinettes. Les écarts vont dans les deux sens — la chaîne pose 走 et 起 sur 龰 (足字底), comme l'export le fait déjà pour 跑, mais 跑, 跟 et 路 sur 止 — : la relecture tranche au cas par cas, une ligne d'`ids.tsv` et sa raison par caractère. Pour 20 des 50 (做 刚 商 坐 弼 懂 放 教 条 满 爷 狼 画 网 苗 菊 菜 菩 蒙 行), BabelStone rend déjà la décomposition exportée — cjk-decomp y écrit souvent 卄 (贲字腰) pour 艹 (草字头) ou ⺆ (周字框) pour 冂 (同字框) — : la surcharge n'a qu'à retenir le repli.
+
+Rejoués de bout en bout (`wenlu licences`, section « Parcours rejoués ») :
+
+- le témoin — la chaîne d'aujourd'hui rejouée — redonne le build à l'identique (0 décomposition changée, parcours identiques) : la simulation ne mesure que la source ;
+- la chaîne proposée seule change 2 130 décompositions sur 9 574 et déplace les parcours dès le jour 7 (lire) et 4 (HSK) ;
+- avec les 50 relectures confirmées mais les rangs recomptés, les parcours bougent encore dès le jour 16 et 26 : les décomptes de dépendants changent sur le reste du dictionnaire ;
+- avec les 50 relectures confirmées **et** les rangs figés, les deux parcours sont identiques jour pour jour, et toutes les `parts` exportées aussi.
+
+Figer les rangs est donc la condition pour que rien ne bouge côté app : les phrases des fiches, les lettres de Que et les dialogues WeChat sont écrits avec l'acquis du jour.
+
+### 10.4 Plan de migration, s'il est retenu
+
+1. Relire les 50 caractères et les 4 opérateurs de tête contre la table de la norme ; écrire pour chacun une ligne d'`ids.tsv` avec sa raison, ou accepter la nouvelle décomposition (alors relire la fiche, la devinette et les jours qui en dépendent). Relancer `wenlu licences` jusqu'à « remplacer, identique » partout.
+2. Figer les rangs : un fichier versionné (`data/sources/parcours/rangs.tsv`, caractère et nombre de dépendants), écrit une fois depuis le build d'aujourd'hui et lu par le crochet `rangs_frequence` de `graphe.py`, qui existe déjà.
+3. Pipeline : `fetch` ajoute BabelStone (URL officielle, puis les deux miroirs, en-tête exigé) ; `ingest` en écrit un IDS par caractère ; `gf0014.combiner_ids` prend cjk-decomp en principal et BabelStone en repli, après la table de notation ; l'univers vient de `graphies.json` ; `SourceIds` (`models.py`) remplace `makemeahanzi` par `babelstone` ; `FORMAT_EXPORT` augmente ; `LICENCES.md` de l'export perd la ligne `dictionary.txt` et sa « question ouverte », gagne la ligne BabelStone ; même chose sur l'écran Licences et le site. `dictionary.txt` reste téléchargé comme source de contrôle (§2.2), ou sort de `fetch` si le contexte des fiches s'en passe.
+4. Tests : le contrôle « licences : décompositions » devient bloquant ; `wenlu licences` sert de recette (tout conservé, parcours identiques au témoin) ; un test d'export vérifie que la réexportation ne change dans `familles/*.json` que la valeur de `sources` ; les tests de `gf0014`, `graphe` et `export` s'adaptent au nouveau nom de source.
+5. Effort estimé : une journée de relecture (50 + 4 caractères, contre la norme), une journée de pipeline et de tests, un réexport. Aucune fiche à réécrire si la relecture confirme les décompositions actuelles.
+
+Autres voies, écartées ici mais ouvertes au propriétaire : garder `dictionary.txt` et remplir la LGPL (fichier d'actif séparé et remplaçable, textes LGPL et GPL joints, publication) — démonstration fragile sur iOS (§2.2) ; ou faire trancher par un conseil que la liste des composants, normalisée par GF 0014-2009, n'est pas protégeable — la même question que pour BabelStone.
+
+### 10.5 Tableau de décision
+
+| # | Décision à prendre | Proposition | Mesure qui l'appuie | Décision du propriétaire |
+|---|---|---|---|---|
+| 1 | Sortir la chaîne IDS de `dictionary.txt` de l'export | oui | 304 décompositions sur 323 en dépendent | à trancher |
+| 2 | Source principale des décompositions | cjk-decomp (MIT) | 272 conservées seul, 273 en chaîne | à trancher |
+| 3 | Source de repli | BabelStone (aucun droit revendiqué), sous la réserve du §10.2 | comble les 2 absents de cjk-decomp | à trancher |
+| 4 | Unihan `kIDS` | sans objet | champ absent de 17.0.0 et 18.0.0 | — |
+| 5 | cjkvi-ids, CHISE | écartés | GPL v2, GPL v2+ | — |
+| 6 | Relire les écarts | 50 caractères et 4 opérateurs de tête, une surcharge et sa raison chacun | `docs/licences-decompositions.md` | à trancher |
+| 7 | Figer l'ordre de fréquence des parcours | oui | seule condition de parcours identiques | à trancher |
+| 8 | `strokes-demo.json` sans en-tête APL | lui donner l'en-tête et le publier, ou le retirer | 89 caractères | à trancher |
+| 9 | Faire relire par un conseil | oui, avec le §9 : APL et App Store, faits non protégeables (BabelStone, et `dictionary.txt` s'il reste) | — | à trancher |

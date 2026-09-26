@@ -17,6 +17,9 @@ Ordre et dépendances — chaque étape lit ce que la précédente a écrit :
   seul dit quels caractères l'app écrit ; il lit aussi les listes versionnées et
   `app/public/strokes-demo.json`.
 - `check` : contrôles qualité sur tout ce qui précède. Ne réécrit rien.
+- `licences` : inventaire des licences des décompositions exportées et couverture des
+  sources d'IDS de remplacement (`docs/licences-decompositions.md`). Après `export` ;
+  `--telecharger` va chercher les candidats. Hors de `tout`, comme `fonts`.
 - `tout` : enchaîne fetch, ingest, build, export, check et s'arrête à la première erreur.
 
 `audio`, `contes` et `fiches` sont des familles de commandes à part : elles demandent
@@ -139,8 +142,30 @@ app.command(name="fonts")(_fonts)
 
 
 @app.command()
+def licences(
+    telecharger: bool = typer.Option(
+        False, help="Télécharger d'abord les sources d'IDS candidates dans data/work/sources/candidats/."
+    ),
+    force: bool = typer.Option(False, help="Retélécharger les candidats déjà présents."),
+) -> None:
+    """Inventaire des licences des décompositions exportées et couverture des sources de remplacement. Exige `export`."""
+    from .licences import InventaireImpossible, licences as _licences, telecharger_candidats
+
+    if telecharger:
+        for fichier, action in telecharger_candidats(force=force).items():
+            typer.echo(f"{action} : {fichier}")
+    try:
+        rapport = _licences()
+    except InventaireImpossible as erreur:
+        typer.echo(str(erreur), err=True)
+        raise typer.Exit(code=1) from erreur
+    for cle, valeur in rapport.items():
+        typer.echo(f"{cle} : {valeur}")
+
+
+@app.command()
 def check() -> None:
-    """Contrôles : composants inconnus, cycles, graphe, listes, briques muettes, découpes, contes hors liste, fiches invalides, rôle son loin de la lecture moderne, textes sans audio, export à jour, aperçu des textes à relire, fêtes, termes solaires, devinettes, dictionnaire éclair, coquilles, cuisine, lettres de Que, message WeChat, personnage, phrases de Tao à Jouer, anecdotes du jour."""
+    """Contrôles : composants inconnus, cycles, graphe, listes, briques muettes, découpes, contes hors liste, fiches invalides, rôle son loin de la lecture moderne, textes sans audio, export à jour, aperçu des textes à relire, fêtes, termes solaires, devinettes, dictionnaire éclair, coquilles, cuisine, lettres de Que, message WeChat, personnage, phrases de Tao à Jouer, anecdotes du jour, licence des décompositions."""
     from .anecdotes import controles as controles_anecdotes
     from .audio import controles as controles_audio
     from .contes import controles as controles_contes
@@ -157,6 +182,7 @@ def check() -> None:
     from .jouer import controles as controles_jouer
     from .graphe import controles as controles_graphe
     from .lettres import controles as controles_lettres
+    from .licences import controles as controles_licences
     from .phonetiques import controles as controles_phonetiques
     from .saisons import controles as controles_saisons
     from .wechat import controles as controles_wechat
@@ -171,6 +197,7 @@ def check() -> None:
         *controles_phonetiques(),
         *controles_audio(),
         *controles_export(),
+        *controles_licences(),
         *controles_fetes(),
         *controles_saisons(),
         *controles_devinettes(),
