@@ -956,5 +956,5 @@
 {:else if ecran === 'reglages'}
   <Settings {p} onprogression={remplacer} onretour={allerAuMenu} />
 {:else}
-  <Menu {p} fete={feteJour} {fetes} terme={laJournee.terme} {saisons} ondemarrer={boutonMenu} oncase={caseMenu} onanecdote={() => relireAnecdote('menu')} onchercher={ouvrirChercher} onreglages={() => (ecran = 'reglages')} onpersonnage={() => (ecran = 'personnage')} />
+  <Menu {p} fete={feteJour} {fetes} terme={laJournee.terme} {saisons} ondemarrer={boutonMenu} oncase={caseMenu} onanecdote={() => relireAnecdote('menu')} onchercher={ouvrirChercher} onreglages={() => (ecran = 'reglages')} onpersonnage={() => (ecran = 'personnage')} onroute={() => ouvrirRoute('menu')} />
 {/if}

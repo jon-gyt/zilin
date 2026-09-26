@@ -62,6 +62,7 @@
   import { ANNONCE_LETTRE, lettreAnnoncee } from './lettres';
   import { caseReviser, carteDuMenu, menu, traitsDeLAjout } from './parcours';
   import { familleDepart, fichesDepart } from './premiere';
+  import { jourDeDemain, premierSens } from './route';
   import { cartesDues, type Progress } from './session';
   import { stade } from './tao';
 
@@ -76,7 +77,8 @@
     onchercher,
     onreglages,
     onpersonnage = () => undefined,
-    onanecdote = () => undefined
+    onanecdote = () => undefined,
+    onroute = () => undefined
   }: {
     p: Progress;
     /** La fête du jour : le vœu prend la place de la marque, l'emblème porte le caractère. */
@@ -95,6 +97,8 @@
     onpersonnage?: () => void;
     /** La ligne de fête ou de terme de l'en-tête : rouvre l'anecdote du jour. */
     onanecdote?: () => void;
+    /** « Ma route › » sous le chemin, la journée faite : 前路, la route devant. */
+    onroute?: () => void;
   } = $props();
 
   /* ---------- la carte du jour ---------- */
@@ -196,6 +200,37 @@
   /* Toutes les parties sont neuves : il n'y a pas d'élément ajouté à distinguer, tout reste à l'encre. */
   const toutNeuf = $derived(carte !== null && carte.parts.length > 0 && carte.parts.every((_, i) => carte?.nouveau.includes(i)));
   const enCinabre = (i: number): boolean => !toutNeuf && (carte?.nouveau.includes(i) ?? false);
+
+  /* ---------- demain, la journée faite ---------- */
+
+  /**
+   * « Demain : 子 enfant » : la brique de la prochaine session, la journée faite seulement
+   * (`route.jourDeDemain`), en jour du chemin. Une ligne discrète, pour que le menu tienne
+   * toujours sur un écran.
+   */
+  let demain = $state.raw<{ c: string; sens: string; pistes: string[] } | null>(null);
+  const jourDemain = $derived(jourDeDemain(p));
+
+  $effect(() => {
+    const jour = jourDemain;
+    const choisi = p.parcours;
+    if (jour === null) {
+      demain = null;
+      return;
+    }
+    let vivant = true;
+    void lecon(choisi, jour)
+      .then((l) => {
+        const f = l.brique ?? l.composes[0] ?? null;
+        if (vivant) demain = f === null ? null : { c: f.c, sens: premierSens(f.fr), pistes: l.pistes };
+      })
+      .catch(() => {
+        if (vivant) demain = null;
+      });
+    return () => {
+      vivant = false;
+    };
+  });
 
   /* ---------- Tao sur le chemin ---------- */
 
@@ -444,6 +479,16 @@
         <span>{m.ligne}</span>
         {#if m.duree !== ''}<span class="duree">{m.duree}</span>{/if}
       </div>
+      {#if demain && jourDemain !== null}
+        <div class="demain">
+          <span class="dm"
+            >Demain : <span class="dgl"
+              ><Glyph char={demain.c} size={16} write={false} color="var(--ink)" pistes={demain.pistes} /></span
+            >{#if demain.sens !== ''}<span class="dsens">{demain.sens}</span>{/if}</span
+          >
+          <button class="vers-route" aria-label="Ma route : la route devant" onclick={onroute}>Ma route ›</button>
+        </div>
+      {/if}
     </div>
 
     <button class="btn pilule" class:ghost={!m.plein} onclick={ondemarrer}>
@@ -759,6 +804,47 @@
   .duree {
     color: var(--mist);
     white-space: nowrap;
+  }
+  /* « Demain : 子 enfant », la journée faite : une ligne discrète, sans hauteur de plus que
+     son texte ; le lien garde une cible de 44 px en débordant sur les marges. */
+  .demain {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    margin-top: 3px;
+    font-size: 14px;
+    line-height: 20px;
+    color: var(--ink2);
+  }
+  .dm {
+    display: flex;
+    align-items: center;
+    min-width: 0;
+    white-space: nowrap;
+    overflow: hidden;
+  }
+  .dgl {
+    display: inline-flex;
+    line-height: 0;
+    margin: 0 5px 0 5px;
+  }
+  .dsens {
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .vers-route {
+    position: relative;
+    flex-shrink: 0;
+    color: var(--indigo);
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 20px;
+  }
+  .vers-route::before {
+    content: '';
+    position: absolute;
+    inset: -12px -10px;
   }
 
   /* ---- le bouton unique, en pilule ; sans animation, l'appui ne change que le fond ---- */

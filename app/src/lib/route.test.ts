@@ -293,4 +293,9 @@ describe('la charte de la route, dans les écrans', () => {
     expect(ecran).toMatch(/<Tao [^>]*posture="chemin"/);
   });
 
+  it('au menu, « Ma route » ne paraît que la journée faite', () => {
+    const menu = source('Menu.svelte');
+    expect(menu).toContain('jourDeDemain(p)');
+    expect(menu).toMatch(/\{#if demain && jourDemain !== null\}/);
+  });
 });
