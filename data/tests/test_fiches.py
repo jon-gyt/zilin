@@ -808,6 +808,17 @@ def test_une_fiche_sans_sens_se_relit_avec_un_sens_vide(corpus, tmp_path: Path) 
     assert (fiche.sens_fr, fiche.sens_en) == ("", "")
 
 
+def test_l_invite_demande_le_sens(corpus) -> None:
+    """La génération et la rédaction sans API demandent le sens : schéma, consigne, squelette."""
+    assert {"sens_fr", "sens_en"} <= set(fiches.SCHEMA["required"])  # type: ignore[arg-type]
+    for consigne in (fiches.SYSTEME, fiches.CONTRAINTES):
+        assert "sens_fr et sens_en" in consigne
+        assert f"{fiches.SENS_MAX} caractères au plus" in consigne
+        assert "sans point final" in consigne
+    squelette = fiches.squelette(corpus.contexte("住"))
+    assert list(squelette)[:3] == ["c", "sens_fr", "sens_en"]
+
+
 def test_controle_check_sans_fiche_ne_bloque_pas(tmp_path: Path) -> None:
     """Le contrôle lit les fichiers s'ils existent, et se tait sinon."""
     assert controles(tmp_path, None, tmp_path)[0].ok

@@ -386,6 +386,8 @@ def charger_corpus(
 SCHEMA: dict[str, object] = {
     "type": "object",
     "properties": {
+        "sens_fr": {"type": "string"},
+        "sens_en": {"type": "string"},
         "origine_fr": {"type": "string"},
         "origine_en": {"type": "string"},
         "etiquette": {"type": "string", "enum": list(ETIQUETTES)},
@@ -429,7 +431,18 @@ SCHEMA: dict[str, object] = {
             "additionalProperties": False,
         },
     },
-    "required": ["origine_fr", "origine_en", "etiquette", "memo_fr", "memo_en", "roles", "mots", "phrase"],
+    "required": [
+        "sens_fr",
+        "sens_en",
+        "origine_fr",
+        "origine_en",
+        "etiquette",
+        "memo_fr",
+        "memo_en",
+        "roles",
+        "mots",
+        "phrase",
+    ],
     "additionalProperties": False,
 }
 
@@ -458,23 +471,29 @@ caractère a voulu dire autrefois : elle décrit ce que l'on voit dans le caract
 qu'il s'écrit aujourd'hui.
 4. memo_fr et memo_en sont facultatifs : une phrase courte pour retenir, quand elle \
 ajoute quelque chose à l'origine. Sinon, laisse-les vides.
-5. Le rôle de chaque composant fourni, et de lui seul : `son` s'il aide à prononcer \
+5. sens_fr et sens_en donnent le sens du caractère en une glose courte, lue sous le \
+pinyin : le ou les sens principaux, séparés par « , », en minuscules sauf nom propre, \
+sans point final, {SENS_MAX} caractères au plus (« habiter, vivre », « to live, to \
+stay »). Un composant qui n'est pas un caractère autonome (亻, 氵, 扌, 讠…) se glose \
+par son nom de composant : « homme (clé) », « person (radical) ». La glose est \
+rédigée, jamais reprise d'un dictionnaire.
+6. Le rôle de chaque composant fourni, et de lui seul : `son` s'il aide à prononcer \
 le caractère aujourd'hui, c'est-à-dire si la phonétique qu'il écrit se lit en mandarin \
 moderne sur la même syllabe, ton mis à part (妈 mā ← 马 mǎ) ; `sens` s'il donne le \
 sens ; `forme` s'il ne fait ni l'un ni l'autre — il n'est là que pour le trait, ou \
 son rôle est perdu. Une phonétique seulement historique, qui ne sonne plus pareil \
 (说 shuō ← 兑 duì), est `forme` : l'origine peut dire qu'elle donnait autrefois le son.
-6. Les deux mots sont pris dans la liste des mots candidats, écrits exactement comme \
+7. Les deux mots sont pris dans la liste des mots candidats, écrits exactement comme \
 elle les donne. Un candidat rare, d'argot ou douteux ne se prend pas : mieux vaut un \
 mot de moins, ou aucun. Tu en donnes le pinyin avec les tons, puis une traduction que tu \
 rédiges toi-même, en français et en anglais. Aucune définition d'une autre source \
 n'est recopiée ni traduite.
-7. La phrase n'emploie QUE les caractères acquis fournis. Aucun autre, même courant, \
+8. La phrase n'emploie QUE les caractères acquis fournis. Aucun autre, même courant, \
 même évident. Seule ponctuation autorisée : {PONCTUATION_CHINOISE}. Pinyin avec les \
 tons, traduction en français et en anglais.
-8. Les indices d'étymologie en anglais qui te sont donnés sont des pistes à vérifier, \
+9. Les indices d'étymologie en anglais qui te sont donnés sont des pistes à vérifier, \
 pas des textes à reprendre : tu ne les traduis pas et tu ne les recopies pas.
-9. Des constats, pas des félicitations. Pas d'emoji, pas de dragon, pas de formule \
+10. Des constats, pas des félicitations. Pas d'emoji, pas de dragon, pas de formule \
 d'encouragement.
 
 Tu réponds par le seul objet JSON demandé, sans commentaire."""
@@ -1444,6 +1463,12 @@ def importer_brouillon(
 
 CONTRAINTES = f"""Contraintes, vérifiées par `wenlu fiches importer` comme pour une fiche générée.
 Rejet :
+- sens_fr et sens_en : le sens du caractère en une glose courte, lue sous le pinyin ; \
+le ou les sens principaux séparés par « , », en minuscules sauf nom propre, sans point \
+final, {SENS_MAX} caractères au plus (« habiter, vivre », « to live, to stay »). Un \
+composant qui n'est pas un caractère autonome (亻, 氵, 扌, 讠…) se glose par son nom : \
+« homme (clé) », « person (radical) ». Vides, ils sont un écart ; une fiche ne se \
+marque pas relue sans eux.
 - origine_fr et origine_en : exactement {PHRASES_ORIGINE} phrases chacune (fins de phrase \
 comptées : {' '.join(FINS_DE_PHRASE)}) ; l'anglaise est rédigée pour un anglophone, pas \
 traduite mot à mot.
@@ -1472,6 +1497,8 @@ def squelette(contexte: Contexte) -> dict[str, object]:
     vide_mot = {"hanzi": "", "pinyin": "", "fr": "", "en": ""}
     return {
         "c": contexte.c,
+        "sens_fr": "",
+        "sens_en": "",
         "origine_fr": "",
         "origine_en": "",
         "etiquette": "",
