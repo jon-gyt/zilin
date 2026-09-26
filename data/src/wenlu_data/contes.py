@@ -967,7 +967,33 @@ def _syllabes(texte: str, pinyin: str, nom: str, ecarts: list[str]) -> list[str]
     ]
     if sandhi:
         ecarts.append(f"pinyin {nom} : ton modifié (sandhi), le ton du dictionnaire est attendu : {', '.join(sandhi)}")
+    pleins = [
+        f"{sinogrammes[i - 1]}一{sinogrammes[i + 1]} {syllabes[i]}"
+        for i in redoublements_en_yi(texte)
+        if syllabes[i] != "yi"
+    ]
+    if pleins:
+        ecarts.append(
+            f"pinyin {nom} : 一 d'un verbe redoublé au ton neutre, yi (看一看 kàn yi kàn) : {', '.join(pleins)}"
+        )
     return syllabes
+
+
+def redoublements_en_yi(texte: str) -> list[int]:
+    """Les rangs, parmi les sinogrammes du texte, de chaque 一 pris entre un verbe et sa
+    répétition (看一看, 摸一摸), où il se lit au ton neutre. 一个一个, 一步一步 n'en sont pas :
+    le caractère répété y suit déjà un 一. Repéré sur le texte, sans ponctuation entre les
+    trois caractères."""
+    rangs: list[int] = []
+    rang_de = {i: n for n, i in enumerate(i for i, c in enumerate(texte) if est_sinogramme(c))}
+    for i in range(1, len(texte) - 1):
+        avant, apres = texte[i - 1], texte[i + 1]
+        if texte[i] != "一" or avant != apres or not est_sinogramme(avant) or avant == "一":
+            continue
+        if i >= 2 and texte[i - 2] == "一":
+            continue
+        rangs.append(rang_de[i])
+    return rangs
 
 
 @dataclass(frozen=True)

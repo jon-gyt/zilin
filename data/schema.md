@@ -1213,6 +1213,8 @@ au catalogue, niveau que
 le catalogue ne prévoit pas pour le récit, nombre de chapitres autre que celui prévu,
 phrase vide, traduction anglaise absente, pinyin qui ne
 compte pas une syllabe par sinogramme ou hors forme, ton de 一 ou 不 modifié (sandhi),
+一 d'un verbe redoublé qui n'est pas au ton neutre (`contes.redoublements_en_yi` : 看一看,
+pas 一个一个),
 sinogramme qu'aucune entrée de glose ne couvre dans le découpage du lecteur, entrée de
 glose absente du texte, pinyin d'une entrée différent de celui de la phrase où on la
 touche, entrée sans pinyin, sans `fr` ou sans `en` ; mot expliqué absent du texte, déjà
