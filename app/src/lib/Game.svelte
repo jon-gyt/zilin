@@ -31,6 +31,7 @@
    */
   import WeChat from './WeChat.svelte';
   import { wechatOnce } from './wechat';
+  import { jouerOnce, SANS_JOUER, type PhrasesJouer } from './jouer';
   import Glyph from './Glyph.svelte';
   import Tao from './Tao.svelte';
   import DessinJeu, { PIGMENTS } from './DessinJeu.svelte';
@@ -121,6 +122,8 @@
 
   let corpus = $state<CorpusJeux>(corpusVide());
   let chargee = $state(false);
+  /** Les phrases de la bulle de Tao (`jouer.json`) ; vides sans le fichier : elle se tait. */
+  let phrases = $state<PhrasesJouer>(SANS_JOUER.tao);
 
   /**
    * Le corpus des jeux vient de l'export versionné : les fiches de `data/0.1.0/` (sens,
@@ -132,7 +135,7 @@
    * assez pour jouer.
    */
   void (async () => {
-    const [fiches, familles, voisins, foret, paires, demo, devinettes, eclair, cuisine, wechat] = await Promise.all([
+    const [fiches, familles, voisins, foret, paires, demo, devinettes, eclair, cuisine, wechat, jouer] = await Promise.all([
       toutesLesFiches().catch(() => []),
       toutesLesFamilles().catch(() => []),
       voisinsOnce().catch(() => null),
@@ -142,8 +145,10 @@
       devinettesOnce().catch(() => null),
       eclairOnce().catch(() => null),
       cuisineOnce().catch(() => null),
-      wechatOnce().catch(() => null)
+      wechatOnce().catch(() => null),
+      jouerOnce().catch(() => SANS_JOUER)
     ]);
+    phrases = jouer.tao;
     /* Les messages rédigés de la coquille (`coquilles.json`) : l'écran n'en écrit aucun. */
     const coquilles = await coquillesOnce();
     const groupes = lirePaires(paires);
@@ -457,7 +462,7 @@
   const devinetteOuverte = $derived(!faite && (annoncee !== null || dispo.includes('devinette')));
   /** La lanterne de l'écran : allumée à ouvrir, et toute la journée si elle a été trouvée. */
   const allumee = $derived(faite ? p.devinetteDuJour?.issue === 'resolue' : devinetteOuverte);
-  const bulle = $derived(bulleDeTao(p, p.day, tendu, devinetteOuverte));
+  const bulle = $derived(bulleDeTao(p, p.day, tendu, devinetteOuverte, phrases));
   /** Les autres jeux : les jouables d'abord, dans l'ordre de `IDS`, puis ceux qui attendent. */
   const autres = $derived.by(() => {
     const reste = IDS.filter((id) => id !== 'devinette' && id !== tendu);
@@ -540,7 +545,7 @@
     <h2 class="sec">Aujourd'hui <span class="hz" lang="zh">今天</span></h2>
     <div class="tao-dit">
       <Tao stade={taoStade} posture="jeu" humeur={taoHumeur} size={64} />
-      {#if chargee}<p class="bulle-jeu">{bulle}</p>{/if}
+      {#if chargee && bulle !== ''}<p class="bulle-jeu">{bulle}</p>{/if}
     </div>
     {#if chargee}
       {#if tendu !== null}{@render carte(tendu, true)}{/if}

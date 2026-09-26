@@ -31,6 +31,7 @@ import {
 import { TOURS_ECLAIR, dictionnaire, toursEclair, type Dictionnaire, type Eclair } from './eclair';
 import { devinetteFaite, type Progress, type Revision } from './session';
 import { grade, newCard, schedule, type Outcome, type ReviewCard, type SrsParams } from './srs';
+import type { PhrasesJouer } from './jouer';
 import { humeur, proposeUnJeu, type Posture } from './tao';
 import { preparerWechat, type Wechat, type WechatDonnees } from './wechat';
 import type { Grade } from 'ts-fsrs';
@@ -1423,19 +1424,18 @@ export function jeuPropose(dispo: readonly JeuId[], p: Progress, jour: string): 
  * Ce que dit Tao en tendant son jeu, une invitation, jamais un reproche. Quand elle
  * s'ennuie (`propose`), elle propose de changer ; sinon, elle invite. Sans jeu à tendre,
  * elle montre la devinette si elle attend, ou dit ce qui manque, sans rien reprocher.
+ * Les phrases viennent de `jouer.json` (`jouer.ts`) ; ici, seul le choix. Une phrase
+ * vide (un export sans `jouer.json`) rend une bulle vide : Tao se tait.
  */
 export function bulleDeTao(
   p: Progress,
   jour: string,
   tendu: JeuId | null,
-  devinette: boolean
+  devinette: boolean,
+  phrases: PhrasesJouer
 ): string {
-  if (tendu === null) {
-    return devinette
-      ? 'On commence par la devinette ?'
-      : "Il n'y a pas encore assez de caractères acquis pour jouer. Reviens après quelques révisions.";
-  }
-  return propose(p, jour) ? 'Et si on changeait un peu ? Celui-ci.' : 'On joue à celui-ci ?';
+  if (tendu === null) return devinette ? phrases.devinette : phrases.attendre;
+  return propose(p, jour) ? phrases.changer : phrases.invite;
 }
 
 /**
