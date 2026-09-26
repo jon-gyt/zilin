@@ -449,6 +449,8 @@ ce que l'app embarque ; `docs/sources-licences.md` fait foi pour la décision.
 
 ## Contrôles (`uv run wenlu check`)
 
+- « fiches : sens » — bloquant : chaque fiche relue porte `sens_fr` et `sens_en`, et
+  tout sens écrit tient en 40 caractères au plus, sans point final (voir « Le sens »).
 - « fiches : rôle son » — signalé : un rôle `son` dont la phonétique ne se lit pas
   sur la syllabe du caractère, au ton près (voir « Le rôle son »).
 - « export : à jour » — bloquant : l'empreinte de `index.json` doit valoir celle
@@ -715,11 +717,12 @@ Assemblé par `fiches.Corpus` depuis `decompositions.json`, `graphe.json`,
 
 La réponse est contrainte par `output_config.format` (JSON structuré). La validation
 refuse une fiche dont l'origine FR ou EN ne fait pas exactement trois phrases (points
-finaux comptés), dont l'étiquette sort des deux valeurs, dont un mot n'est pas dans les
+finaux comptés), dont l'étiquette sort des deux valeurs, dont le sens (`sens_fr` ou
+`sens_en`) passe 40 caractères ou finit par un point, dont un mot n'est pas dans les
 candidats, qui porte plus de deux mots, ou dont la phrase emploie un caractère hors de
 l'acquis — les intrus sont listés exactement. La relance signale les motifs de refus,
-au plus trois essais. Rôle manquant, traduction vide, phrase sans le caractère du jour
-et moins de deux mots sont des écarts signalés à la relecture, pas des rejets : une
+au plus trois essais. Sens absent, rôle manquant, traduction vide, phrase sans le
+caractère du jour et moins de deux mots sont des écarts signalés à la relecture, pas des rejets : une
 fiche peut prendre moins de mots qu'il n'y a de candidats, pour qu'un mot rare,
 d'argot ou douteux ne s'impose jamais faute de mieux.
 
@@ -737,6 +740,8 @@ le texte d'une fiche est un contenu, sa relecture se lit dans l'historique git.
  "parcours": "lire",
  "jour": 160,
  "pinyin": ["zhù"],
+ "sens_fr": "habiter, vivre",
+ "sens_en": "to live, to stay",
  "composants": ["亻", "主"],
  "structure": "⿰亻主",
  "origine_fr": "…",
@@ -759,6 +764,7 @@ le texte d'une fiche est un contenu, sa relecture se lit dans l'historique git.
 }
 ```
 
+`sens_fr` et `sens_en` suivent `pinyin` : voir « Le sens » ci-dessous.
 `roles` donne, par composant de la décomposition canonique, `son`, `sens` ou `forme`
 (voir « Le rôle son » ci-dessous : `son` veut dire « aide à prononcer aujourd'hui »).
 `etiquette` vaut `atteste` seulement si l'origine est établie par le Shuowen ou la
@@ -777,9 +783,30 @@ caractère, numéro d'essai, empreinte de l'invite).
 `uv run wenlu check` relit ces fichiers s'ils existent : le contrôle
 « fiches : validation » est bloquant, le contrôle « fiches : relecture du seuil 255 »
 compte ce qui reste à relire et les caractères du seuil sans fiche — il signale, il ne
-bloque pas. `uv run wenlu fiches valider` refait le même contrôle à la demande. Le
+bloque pas. Le contrôle « fiches : sens » est bloquant : une fiche relue sans sens, ou
+un sens hors format, où qu'il soit. `uv run wenlu fiches valider` refait le même contrôle à la demande. Le
 contrôle « fiches : rôle son » signale, sans bloquer, un rôle `son` loin de la lecture
 moderne (ci-dessous).
+
+### Le sens
+
+`sens_fr` et `sens_en` disent ce que veut dire le caractère, en une glose courte que
+l'app lit sous le pinyin (carte du jour, Apprendre, fiches, Chercher) et pose en
+question (« sens d'un caractère », « caractère à partir du sens »).
+
+- Le ou les sens principaux, séparés par « , » : `habiter, vivre`, `to live, to stay`.
+- En minuscules, sauf nom propre ; sans point final ; 40 caractères au plus
+  (`fiches.SENS_MAX`).
+- Un composant qui n'est pas un caractère autonome (⺀, 亻, 氵, 扌, 讠…) se glose par
+  son nom de composant : `homme (clé)`, `person (radical)`.
+- Rédigés, jamais repris d'un dictionnaire (ni `kDefinition` d'Unihan ni CC-CEDICT).
+
+Le chargeur est tolérant : une fiche sans ces clés se lit avec un sens vide, et un
+brouillon peut ne pas les avoir encore (écart « sens absent », pas un rejet). Une
+fiche **relue**, elle, les porte : `relire` et `appliquer-relecture` refusent de
+marquer relue une fiche sans sens, et « fiches : sens » bloque `wenlu check` sur une
+fiche relue sans sens. Un sens trop long ou fini par un point est refusé par
+`valider()` (donc à la génération et à l'import) et par « fiches : sens ».
 
 ### Le rôle son
 
@@ -825,6 +852,8 @@ versionné, un fichier par caractère, nommé d'après lui.
 ```json
 {
  "c": "天",
+ "sens_fr": "ciel, jour",
+ "sens_en": "sky, day",
  "origine_fr": "Trois phrases. Pas une de plus. Pas une de moins.",
  "origine_en": "Three sentences. No more. No fewer.",
  "etiquette": "attesté",
@@ -841,8 +870,10 @@ versionné, un fichier par caractère, nommé d'après lui.
 ```
 
 - Obligatoires : `c`, `origine_fr`, `origine_en`, `etiquette`, `roles`, `mots`,
-  `phrase`. Facultatifs : `memo_fr`, `memo_en` (texte ou `null`). Toute autre clé est
-  refusée : une faute de frappe ne passe pas en silence.
+  `phrase`. Facultatifs : `memo_fr`, `memo_en` (texte ou `null`), `sens_fr`,
+  `sens_en` (texte ; vides s'ils manquent, mais exigés avant la relecture, voir
+  « Le sens »). Toute autre clé est refusée : une faute de frappe ne passe pas en
+  silence.
 - `etiquette` s'écrit `attesté` ou `mnémotechnique` (avec ou sans accents) ; la fiche
   garde le code `atteste` ou `mnemotechnique`.
 - `roles` est un objet `{composant: "son" | "sens" | "forme"}`, un rôle par composant
@@ -904,7 +935,8 @@ marque une fiche ; pour une page de relecture :
 - `uv run wenlu fiches appliquer-relecture <fichier>` lit
   `{"人": "relu", "大": "rejete", "天": null}` et applique `relire` à chaque fiche.
   `null` laisse une fiche en attente. Tout ou rien : une décision inconnue, une fiche
-  absente ou une fiche rejetée aux contrôles marquée `relu`, et rien n'est appliqué.
+  absente, une fiche rejetée aux contrôles ou une fiche sans sens marquée `relu`, et
+  rien n'est appliqué.
 
 ### Ce que l'app lira (export, story 1.6)
 

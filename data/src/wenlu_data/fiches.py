@@ -87,6 +87,13 @@ MOTS_PAR_FICHE = 2
 #: Au-delà, l'invite devient un annuaire : on garde les premiers mots candidats.
 MAX_CANDIDATS = 40
 
+#: Le sens d'un caractère, `sens_fr` et `sens_en` : une glose courte, lue sous le pinyin
+#: (carte du jour, fiches, menus) et posée en question (« sens d'un caractère »).
+SENS_MAX = 40
+
+#: Ce qui ne termine jamais une glose : c'est une étiquette, pas une phrase.
+POINTS_FINAUX_SENS = ".。"
+
 #: Journal des lots soumis à l'API : état de travail, hors dépôt, à côté des autres.
 LOTS_WORK = WORK / "fiches" / "lots"
 
@@ -573,6 +580,10 @@ class Fiche:
     generation: Generation
     memo_fr: str | None = None
     memo_en: str | None = None
+    #: Le sens, glose courte (`SENS_MAX`). Vide tant qu'il n'est pas écrit : une fiche
+    #: relue sans sens est une faute de `wenlu check`, pas une fiche illisible.
+    sens_fr: str = ""
+    sens_en: str = ""
     statut: str = A_RELIRE
 
     def en_json(self) -> dict[str, object]:
@@ -581,6 +592,8 @@ class Fiche:
             "parcours": self.parcours,
             "jour": self.jour,
             "pinyin": list(self.pinyin),
+            "sens_fr": self.sens_fr,
+            "sens_en": self.sens_en,
             "composants": list(self.composants),
             "structure": self.structure,
             "origine_fr": self.origine_fr,
@@ -614,6 +627,15 @@ def _texte_ou_none(valeur: object) -> str | None:
     if not isinstance(valeur, str):
         raise ReponseInvalide("champ facultatif hors schéma")
     return valeur.strip() or None
+
+
+def _sens(valeur: object) -> str:
+    """Un sens lu d'un JSON : absent ou nul, il est vide. Un non-texte est hors schéma."""
+    if valeur is None:
+        return ""
+    if not isinstance(valeur, str):
+        raise ReponseInvalide("sens hors schéma : attendu un texte")
+    return valeur.strip()
 
 
 def lire_reponse(
@@ -666,6 +688,8 @@ def lire_reponse(
         etiquette=brut["etiquette"],
         memo_fr=_texte_ou_none(brut.get("memo_fr")),
         memo_en=_texte_ou_none(brut.get("memo_en")),
+        sens_fr=_sens(brut.get("sens_fr")),
+        sens_en=_sens(brut.get("sens_en")),
         roles=roles,
         mots=mots,
         phrase=Phrase(
@@ -701,6 +725,8 @@ def fiche_depuis_json(document: Mapping[str, object]) -> Fiche:
         etiquette=str(document.get("etiquette", "")),
         memo_fr=_texte_ou_none(document.get("memo_fr")),
         memo_en=_texte_ou_none(document.get("memo_en")),
+        sens_fr=_sens(document.get("sens_fr")),
+        sens_en=_sens(document.get("sens_en")),
         roles={str(c): str(r) for c, r in roles.items()},
         mots=[Mot(hanzi=m["hanzi"], pinyin=m["pinyin"], fr=m["fr"], en=m["en"]) for m in mots],
         phrase=Phrase(
@@ -759,6 +785,28 @@ def caracteres_hors_acquis(texte: str, acquis: Iterable[str]) -> list[str]:
     return intrus
 
 
+def fautes_de_sens(fiche: Fiche) -> list[str]:
+    """Ce qui ne va pas dans un sens écrit : trop long, ou fini par un point.
+
+    Un sens vide n'est pas une faute ici (voir `sens_absents`) : un brouillon peut ne
+    pas l'avoir encore ; une fiche relue, non (`controles`).
+    """
+    fautes: list[str] = []
+    for nom, texte in (("sens_fr", fiche.sens_fr), ("sens_en", fiche.sens_en)):
+        if not texte:
+            continue
+        if len(texte) > SENS_MAX:
+            fautes.append(f"{nom} fait {len(texte)} caractères, {SENS_MAX} au plus")
+        if texte[-1] in POINTS_FINAUX_SENS:
+            fautes.append(f"{nom} finit par un point")
+    return fautes
+
+
+def sens_absents(fiche: Fiche) -> list[str]:
+    """Les champs de sens encore vides, nommés : `["sens_fr", "sens_en"]` au pire."""
+    return [nom for nom, texte in (("sens_fr", fiche.sens_fr), ("sens_en", fiche.sens_en)) if not texte]
+
+
 @dataclass(frozen=True)
 class Rapport:
     """Résultat d'une validation. `refus` non vide vaut rejet."""
@@ -774,9 +822,9 @@ class Rapport:
 
 
 def valider(fiche: Fiche, contexte: Contexte) -> Rapport:
-    """Contrôle strict : trois phrases, étiquette, mots candidats, phrase sans intrus.
+    """Contrôle strict : trois phrases, étiquette, sens court, mots candidats, phrase sans intrus.
 
-    Les autres défauts (rôle manquant, traduction vide, moins de deux mots) sont
+    Les autres défauts (sens absent, rôle manquant, traduction vide, moins de deux mots) sont
     des écarts signalés à la relecture, pas des rejets. Une fiche peut prendre
     moins de mots qu'il n'y a de candidats : un mot rare ou douteux ne s'impose
     jamais faute de mieux ; le manque se voit à la relecture.
@@ -791,6 +839,11 @@ def valider(fiche: Fiche, contexte: Contexte) -> Rapport:
 
     if fiche.etiquette not in ETIQUETTES:
         refus.append(f"étiquette {fiche.etiquette!r} : attendu {' ou '.join(ETIQUETTES)}")
+
+    refus.extend(fautes_de_sens(fiche))
+    absents = sens_absents(fiche)
+    if absents:
+        ecarts.append(f"sens absent : {', '.join(absents)}")
 
     candidats = {m.hanzi for m in contexte.candidats}
     hors = [m.hanzi for m in fiche.mots if m.hanzi not in candidats]
@@ -891,6 +944,9 @@ def relire(c: str, statut: str, dossier: Path | None = None) -> Fiche:
     if not chemin.exists():
         raise FileNotFoundError(f"aucune fiche pour {c} ({chemin})")
     fiche = lire_fiche(chemin)
+    absents = sens_absents(fiche)
+    if statut == RELU and absents:
+        raise ValueError(f"{c} : {', '.join(absents)} vide, à écrire avant de marquer la fiche relue")
     fiche.statut = statut
     ecrire_fiche(fiche, dossier)
     return fiche
@@ -1093,6 +1149,9 @@ RELECTURE = WORK / "relecture.json"
 
 CHAMPS_OBLIGATOIRES = ("c", "origine_fr", "origine_en", "etiquette", "roles", "mots", "phrase")
 CHAMPS_FACULTATIFS = ("memo_fr", "memo_en")
+#: Le sens : un texte, facultatif dans un brouillon (vide s'il manque), exigé d'une
+#: fiche relue (`relire`, `controles`).
+CHAMPS_SENS = ("sens_fr", "sens_en")
 
 #: Ce que le rédacteur écrit, accentué ou non, et le code que la fiche garde.
 ETIQUETTES_REDIGEES = {
@@ -1141,6 +1200,8 @@ class Brouillon:
     phrase: Phrase
     memo_fr: str | None = None
     memo_en: str | None = None
+    sens_fr: str = ""
+    sens_en: str = ""
 
 
 def empreinte_brouillon(octets: bytes) -> str:
@@ -1178,7 +1239,7 @@ def brouillon_depuis_json(document: object, *, empreinte: str, nom: str | None =
     manquants = [k for k in CHAMPS_OBLIGATOIRES if k not in document]
     if manquants:
         problemes.append(f"champ manquant : {', '.join(manquants)}")
-    inconnus = [k for k in document if k not in CHAMPS_OBLIGATOIRES + CHAMPS_FACULTATIFS]
+    inconnus = [k for k in document if k not in CHAMPS_OBLIGATOIRES + CHAMPS_FACULTATIFS + CHAMPS_SENS]
     if inconnus:
         problemes.append(f"champ inconnu : {', '.join(inconnus)}")
     if nom is not None and "c" in document and document["c"] != nom:
@@ -1189,6 +1250,9 @@ def brouillon_depuis_json(document: object, *, empreinte: str, nom: str | None =
     for cle in CHAMPS_FACULTATIFS:
         if document.get(cle) is not None and not isinstance(document[cle], str):
             problemes.append(f"{cle} : attendu un texte ou null")
+    for cle in CHAMPS_SENS:
+        if cle in document and not isinstance(document[cle], str):
+            problemes.append(f"{cle} : attendu un texte")
 
     roles: dict[str, str] = {}
     if "roles" in document:
@@ -1230,6 +1294,8 @@ def brouillon_depuis_json(document: object, *, empreinte: str, nom: str | None =
         phrase=phrase,
         memo_fr=_texte_ou_none(document.get("memo_fr")),
         memo_en=_texte_ou_none(document.get("memo_en")),
+        sens_fr=str(document.get("sens_fr") or "").strip(),
+        sens_en=str(document.get("sens_en") or "").strip(),
     )
 
 
@@ -1271,6 +1337,8 @@ def fiche_depuis_brouillon(
         etiquette=brouillon.etiquette,
         memo_fr=brouillon.memo_fr,
         memo_en=brouillon.memo_en,
+        sens_fr=brouillon.sens_fr,
+        sens_en=brouillon.sens_en,
         roles=dict(brouillon.roles),
         mots=list(brouillon.mots),
         phrase=brouillon.phrase,
@@ -1556,6 +1624,10 @@ def appliquer_relecture(decisions: object, dossier: Path | None = None) -> list[
                 "à corriger avant relecture"
             )
             continue
+        absents = sens_absents(fiche)
+        if statut == RELU and absents:
+            problemes.append(f"{c} : {', '.join(absents)} vide, à écrire avant relecture")
+            continue
         retenues.append((str(c), str(statut)))
     if problemes:
         raise RelectureInvalide(problemes)
@@ -1581,6 +1653,8 @@ def controles(
 
     « fiches invalides » est bloquant : une fiche hors cadre ne s'exporte pas.
     « relecture du seuil 255 » est signalé : la relecture est humaine (brief §17).
+    « sens » est bloquant : une fiche relue porte son sens, en français et en anglais,
+    et un sens écrit tient en `SENS_MAX` caractères, sans point final.
     """
     fichiers = fiches_ecrites(dossier)
     if not fichiers:
@@ -1605,6 +1679,8 @@ def controles(
         if not rapport.conforme:
             fautifs.append(f"{fiche.c} : {' ; '.join(rapport.refus)}")
 
+    sens = controle_sens(fiches)
+
     detail = f"{len(fichiers)} fiches contrôlées"
     if fautifs:
         detail = f"{len(fautifs)} fiches invalides — " + " ; ".join(fautifs[:5])
@@ -1624,6 +1700,7 @@ def controles(
                 False,
                 f"liste du seuil illisible ({chemin_seuil}) : relecture non contrôlée — {erreur}",
             ),
+            sens,
         ]
     du_seuil = [f for f in fiches if f.c in seuil]
     a_relire = [f.c for f in du_seuil if f.statut != RELU]
@@ -1640,7 +1717,25 @@ def controles(
             not a_relire and not sans_fiche,
             detail_relecture,
         ),
+        sens,
     ]
+
+
+def controle_sens(fiches: Sequence[Fiche]) -> Controle:
+    """« fiches : sens », bloquant : une fiche relue a son sens, et un sens écrit est court.
+
+    Relu sans les fiches du corpus : le sens ne dépend pas du contexte d'un caractère.
+    """
+    sans_sens = [f"{f.c} ({', '.join(sens_absents(f))})" for f in fiches if f.statut == RELU and sens_absents(f)]
+    fautes = [f"{f.c} : {' ; '.join(fautes_de_sens(f))}" for f in fiches if fautes_de_sens(f)]
+    if not sans_sens and not fautes:
+        return Controle("fiches : sens", True, f"{len(fiches)} fiches, chaque fiche relue a son sens", bloquant=True)
+    parties: list[str] = []
+    if sans_sens:
+        parties.append(f"{len(sans_sens)} fiches relues sans sens — " + " ; ".join(sans_sens[:5]))
+    if fautes:
+        parties.append(f"{len(fautes)} sens hors format — " + " ; ".join(fautes[:5]))
+    return Controle("fiches : sens", False, " ; ".join(parties), bloquant=True)
 
 
 # --------------------------------------------------------------------------- cli

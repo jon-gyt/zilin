@@ -45,6 +45,8 @@ def brouillon(c: str = "住", **champs: object) -> dict[str, object]:
     """Un brouillon conforme pour 住 (jour 5 du corpus de test), modifiable champ à champ."""
     document: dict[str, object] = {
         "c": c,
+        "sens_fr": "habiter, vivre",
+        "sens_en": "to live, to stay",
         "origine_fr": "Une première. Une deuxième. Une troisième.",
         "origine_en": "One first. One second. One third.",
         "etiquette": "mnémotechnique",
@@ -106,6 +108,29 @@ def test_brouillon_conforme_importe_a_relire(corpus: Corpus, tmp_path: Path) -> 
     assert (fiche.parcours, fiche.jour) == ("lire", 5)
     assert fiche.composants == ("亻", "主") and fiche.structure == "⿰亻主"
     assert fiche.etiquette == "mnemotechnique"  # écrit accentué, gardé en code
+
+
+def test_brouillon_porte_le_sens_jusqua_la_fiche(corpus: Corpus, tmp_path: Path) -> None:
+    chemin = ecrire_brouillon(tmp_path / "brouillons", brouillon())
+    importer_brouillon(lire_brouillon(chemin), corpus, dossier=tmp_path, horloge=aujourdhui)
+    fiche = lire_fiche(tmp_path / "住.json")
+    assert (fiche.sens_fr, fiche.sens_en) == ("habiter, vivre", "to live, to stay")
+
+
+def test_brouillon_sans_sens_s_importe_a_relire_avec_un_ecart(corpus: Corpus, tmp_path: Path) -> None:
+    """Le sens est facultatif dans un brouillon : son absence est signalée, pas rejetée."""
+    document = brouillon()
+    del document["sens_fr"], document["sens_en"]
+    chemin = ecrire_brouillon(tmp_path / "brouillons", document)
+    resultat = importer_brouillon(lire_brouillon(chemin), corpus, dossier=tmp_path, horloge=aujourdhui)
+    assert resultat.rapport.conforme
+    assert "sens absent : sens_fr, sens_en" in resultat.rapport.ecarts
+    assert lire_fiche(tmp_path / "住.json").statut == A_RELIRE
+
+
+def test_brouillon_au_sens_non_textuel_refuse() -> None:
+    with pytest.raises(BrouillonInvalide, match="sens_fr : attendu un texte"):
+        brouillon_depuis_json(brouillon(sens_fr=None), empreinte="sha256:0", nom="住")
 
 
 def test_import_trace_une_redaction_manuelle(corpus: Corpus, tmp_path: Path) -> None:
@@ -378,6 +403,16 @@ def test_appliquer_relecture(corpus: Corpus, depot: Path) -> None:
     assert lire_fiche(depot / "fiches" / "住.json").statut == RELU
     assert lire_fiche(depot / "fiches" / "问.json").statut == REJETE
     assert "2 décisions appliquées" in resultat.output
+
+
+def test_appliquer_relecture_refuse_une_fiche_sans_sens(corpus: Corpus, depot: Path) -> None:
+    document = brouillon()
+    del document["sens_fr"], document["sens_en"]
+    _importer(corpus, depot, document)
+    with pytest.raises(RelectureInvalide) as erreur:
+        appliquer_relecture({"住": "relu"}, depot / "fiches")
+    assert erreur.value.problemes == ["住 : sens_fr, sens_en vide, à écrire avant relecture"]
+    assert lire_fiche(depot / "fiches" / "住.json").statut == A_RELIRE
 
 
 def test_appliquer_relecture_tout_ou_rien(corpus: Corpus, depot: Path) -> None:

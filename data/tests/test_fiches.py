@@ -138,10 +138,14 @@ def reponse(
     roles: dict[str, str] | None = None,
     mots: list[str] | None = None,
     phrase: str = "主人住口。",
+    sens_fr: str = "habiter, vivre",
+    sens_en: str = "to live, to stay",
 ) -> str:
     """Une réponse du modèle, telle que `output_config.format` la contraint."""
     return json.dumps(
         {
+            "sens_fr": sens_fr,
+            "sens_en": sens_en,
             "origine_fr": origine_fr,
             "origine_en": origine_en,
             "etiquette": etiquette,
@@ -370,6 +374,37 @@ def test_validation_refuse_une_origine_qui_na_pas_trois_phrases(corpus) -> None:
     assert "origine_en fait 4 phrase(s) au lieu de 3" in rapport.refus
 
 
+def test_validation_refuse_un_sens_trop_long_ou_fini_par_un_point(corpus) -> None:
+    """Le sens est une glose lue sous le pinyin : 40 caractères au plus, sans point final."""
+    contexte = corpus.contexte("住")
+    fiche = lire_reponse(
+        reponse(sens_fr="a" * (fiches.SENS_MAX + 1), sens_en="to live."),
+        contexte=contexte,
+        generation=generation_de_test(),
+    )
+    rapport = valider(fiche, contexte)
+    assert not rapport.conforme
+    assert f"sens_fr fait {fiches.SENS_MAX + 1} caractères, {fiches.SENS_MAX} au plus" in rapport.refus
+    assert "sens_en finit par un point" in rapport.refus
+
+
+def test_validation_accepte_un_sens_de_quarante_caracteres(corpus) -> None:
+    contexte = corpus.contexte("住")
+    fiche = lire_reponse(
+        reponse(sens_fr="a" * fiches.SENS_MAX), contexte=contexte, generation=generation_de_test()
+    )
+    assert valider(fiche, contexte).conforme
+
+
+def test_validation_signale_un_sens_absent_sans_rejeter(corpus) -> None:
+    """Une fiche à relire peut attendre son sens : c'est un écart, pas un rejet."""
+    contexte = corpus.contexte("住")
+    fiche = lire_reponse(reponse(sens_fr="", sens_en=""), contexte=contexte, generation=generation_de_test())
+    rapport = valider(fiche, contexte)
+    assert rapport.conforme
+    assert "sens absent : sens_fr, sens_en" in rapport.ecarts
+
+
 def test_validation_refuse_une_etiquette_hors_des_deux(corpus) -> None:
     """`atteste` ou `mnemotechnique`, jamais l'un pour l'autre, jamais un troisième mot."""
     contexte = corpus.contexte("住")
@@ -591,6 +626,16 @@ def test_relecture_marque_la_fiche_et_rien_dautre(corpus, tmp_path: Path) -> Non
     assert lire_fiche(tmp_path / "住.json").statut == RELU
 
 
+def test_relecture_refuse_une_fiche_sans_sens(corpus, tmp_path: Path) -> None:
+    """Une fiche relue porte son sens : on ne la marque pas relue sans lui."""
+    client = ClientSimule([reponse(sens_en="")])
+    ecrire_fiche(generer_fiche(corpus.contexte("住"), client, horloge=horloge)[0], tmp_path)
+    with pytest.raises(ValueError, match="sens_en vide"):
+        relire("住", RELU, tmp_path)
+    assert lire_fiche(tmp_path / "住.json").statut == A_RELIRE
+    assert relire("住", REJETE, tmp_path).statut == REJETE, "rejeter reste possible"
+
+
 def test_relecture_refuse_un_statut_inconnu(corpus, tmp_path: Path) -> None:
     client = ClientSimule([CONFORME])
     ecrire_fiche(generer_fiche(corpus.contexte("住"), client, horloge=horloge)[0], tmp_path)
@@ -680,8 +725,8 @@ def test_controle_check_detecte_une_fiche_invalide(corpus, tmp_path: Path) -> No
 def test_controle_check_accepte_une_fiche_conforme(corpus, tmp_path: Path) -> None:
     fiche = lire_reponse(CONFORME, contexte=corpus.contexte("住"), generation=generation_de_test())
     ecrire_fiche(fiche, tmp_path)
-    validation, _ = controles(tmp_path, corpus, tmp_path)
-    assert validation.ok
+    validation, _, sens = controles(tmp_path, corpus, tmp_path)
+    assert validation.ok and sens.ok
 
 
 def test_controle_check_signale_le_seuil_255_non_relu(corpus, tmp_path: Path) -> None:
@@ -689,7 +734,7 @@ def test_controle_check_signale_le_seuil_255_non_relu(corpus, tmp_path: Path) ->
     fiche = lire_reponse(CONFORME, contexte=corpus.contexte("住"), generation=generation_de_test())
     ecrire_fiche(fiche, tmp_path)
 
-    _, relecture = controles(tmp_path, corpus)  # listes réelles : 住 est au seuil 255
+    _, relecture, _ = controles(tmp_path, corpus)  # listes réelles : 住 est au seuil 255
     assert not relecture.ok and not relecture.bloquant
     assert "1 fiches sur 1 du seuil 255 restent à relire" in relecture.detail
     assert "254 caractères du seuil sans fiche" in relecture.detail
@@ -703,9 +748,64 @@ def test_controle_check_avoue_ne_pas_avoir_lu_la_liste_du_seuil(corpus, tmp_path
     fiche = lire_reponse(CONFORME, contexte=corpus.contexte("住"), generation=generation_de_test())
     ecrire_fiche(fiche, tmp_path)
 
-    _, relecture = controles(tmp_path, corpus, tmp_path / "sans-listes")
+    _, relecture, _ = controles(tmp_path, corpus, tmp_path / "sans-listes")
     assert not relecture.ok and not relecture.bloquant
     assert "relecture non contrôlée" in relecture.detail
+
+
+def _fiche_ecrite(corpus, dossier: Path, *, statut: str, **champs: str) -> None:
+    fiche = lire_reponse(reponse(**champs), contexte=corpus.contexte("住"), generation=generation_de_test())
+    fiche.statut = statut
+    ecrire_fiche(fiche, dossier)
+
+
+def test_controle_check_bloque_une_fiche_relue_sans_sens(corpus, tmp_path: Path) -> None:
+    """Relue sans sens : « fiches : sens » est en échec, et bloquant."""
+    _fiche_ecrite(corpus, tmp_path, statut=RELU, sens_fr="", sens_en="")
+    validation, _, sens = controles(tmp_path, corpus, tmp_path)
+    assert validation.ok, "le sens absent n'est pas une faute de validation"
+    assert sens.nom == "fiches : sens"
+    assert not sens.ok and sens.bloquant
+    assert "1 fiches relues sans sens — 住 (sens_fr, sens_en)" in sens.detail
+
+
+def test_controle_check_tolere_une_fiche_a_relire_sans_sens(corpus, tmp_path: Path) -> None:
+    _fiche_ecrite(corpus, tmp_path, statut=A_RELIRE, sens_fr="", sens_en="")
+    assert controles(tmp_path, corpus, tmp_path)[2].ok
+
+
+def test_controle_check_bloque_un_sens_trop_long(corpus, tmp_path: Path) -> None:
+    """Le format du sens est vérifié sans corpus : il ne dépend pas du contexte."""
+    _fiche_ecrite(corpus, tmp_path, statut=A_RELIRE, sens_fr="habiter, vivre, demeurer, séjourner, rester là")
+    _, _, sens = controles(tmp_path, None, tmp_path)
+    assert not sens.ok and sens.bloquant
+    assert "sens_fr fait 46 caractères, 40 au plus" in sens.detail
+
+
+def test_controle_check_bloque_un_sens_fini_par_un_point(corpus, tmp_path: Path) -> None:
+    _fiche_ecrite(corpus, tmp_path, statut=RELU, sens_fr="habiter.")
+    sens = controles(tmp_path, corpus, tmp_path)[2]
+    assert not sens.ok and "sens_fr finit par un point" in sens.detail
+    assert not controles(tmp_path, corpus, tmp_path)[0].ok, "une fiche générée ainsi est refusée"
+
+
+def test_le_sens_suit_le_pinyin_dans_le_fichier_ecrit(corpus, tmp_path: Path) -> None:
+    _fiche_ecrite(corpus, tmp_path, statut=A_RELIRE)
+    document = json.loads((tmp_path / "住.json").read_text(encoding="utf-8"))
+    cles = list(document)
+    assert cles[cles.index("pinyin") + 1 : cles.index("pinyin") + 3] == ["sens_fr", "sens_en"]
+    assert (document["sens_fr"], document["sens_en"]) == ("habiter, vivre", "to live, to stay")
+
+
+def test_une_fiche_sans_sens_se_relit_avec_un_sens_vide(corpus, tmp_path: Path) -> None:
+    """Le chargeur tolère une fiche d'avant le sens : `wenlu check` dit ce qui manque."""
+    _fiche_ecrite(corpus, tmp_path, statut=RELU)
+    chemin = tmp_path / "住.json"
+    document = json.loads(chemin.read_text(encoding="utf-8"))
+    del document["sens_fr"], document["sens_en"]
+    chemin.write_text(json.dumps(document, ensure_ascii=False), encoding="utf-8")
+    fiche = lire_fiche(chemin)
+    assert (fiche.sens_fr, fiche.sens_en) == ("", "")
 
 
 def test_controle_check_sans_fiche_ne_bloque_pas(tmp_path: Path) -> None:
