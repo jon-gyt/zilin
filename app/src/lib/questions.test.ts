@@ -168,6 +168,24 @@ describe('les huit types de questions', () => {
     expect(composantSon(fiche('住'), CORPUS)).toBe('主');
   });
 
+  it('son : les rôles de la fiche du caractère font foi, pas ceux de la brique ailleurs', () => {
+    /* 亻 donne le son de 花 (par 化) : ce rôle ne passe pas à 住, où 亻 donne le sens. */
+    const ailleurs: Corpus = {
+      ...CORPUS,
+      fiches: CORPUS.fiches.map((x) => (x.c === '主' ? { ...x, role: 'sens' as const } : x))
+        .concat([f('亻', 'rén', 'la personne', [], 'son', '')])
+    };
+    const zhu = { ...fiche('住'), roles: { 亻: 'sens' as const, 主: 'son' as const } };
+    expect(composantSon(zhu, ailleurs)).toBe('主');
+    /* Deux briques de son (想 : 木 et 目, la moitié de 相 chacune) : pas de question. */
+    const xiang = f('想', 'xiǎng', 'penser', ['木', '目', '心'], null, '', {
+      roles: { 木: 'son', 目: 'son', 心: 'sens' }
+    });
+    expect(composantSon(xiang, CORPUS)).toBeNull();
+    /* Des rôles sans brique de son : pas de question, même si une brique en donne ailleurs. */
+    expect(composantSon({ ...zhu, roles: {} }, ailleurs)).toBeNull();
+  });
+
   it('trace : pas de QCM, le caractère et ses traits', () => {
     const q = poser('trace');
     expect(q.choix).toEqual([]);

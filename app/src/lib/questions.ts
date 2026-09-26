@@ -476,9 +476,19 @@ export function estBrique(f: Fiche): boolean {
   return f.parts.length === 0 || (f.parts.length === 1 && f.parts[0] === f.c);
 }
 
-/** L'élément qui donne le son, d'après le rôle de la fiche du composant. */
+/**
+ * L'élément qui donne le son. La fiche du caractère dit le rôle de chacune de ses briques
+ * (`roles`, 住 : 主 son, 亻 sens) : c'est lui qui fait foi, car une même brique donne le
+ * son ici et le sens ailleurs (亻 donne le son de 花 par 化, jamais celui de 住). Une
+ * seule brique de son, sinon la question ne se pose pas : deux bonnes réponses (想, 木 et
+ * 目 pour 相) n'en font pas une. Sans `roles`, le rôle de la fiche du composant.
+ */
 export function composantSon(f: Fiche, corpus: Corpus): string | null {
   if (f.parts.length < 2) return null;
+  if (f.roles !== undefined) {
+    const sons = [...new Set(f.parts.filter((p) => f.roles?.[p] === 'son'))];
+    return sons.length === 1 ? sons[0] : null;
+  }
   return f.parts.find((p) => fiche(p, corpus)?.role === 'son') ?? null;
 }
 
