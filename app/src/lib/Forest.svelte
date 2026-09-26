@@ -20,6 +20,7 @@
   import CercleDecor from './CercleDecor.svelte';
   import Glyph from './Glyph.svelte';
   import Tao from './Tao.svelte';
+  import RouteEntree from './RouteEntree.svelte';
   import TropheesEntree from './TropheesEntree.svelte';
   import { dire } from './audio';
   import {
@@ -63,6 +64,7 @@
     jour,
     onfamille,
     onrecompenses,
+    onroute = () => undefined,
     onretour
   }: {
     p: Progress;
@@ -70,6 +72,8 @@
     onfamille: (fam: Noeud) => void;
     /** Les récompenses vivent dans Ma forêt : c'est d'ici qu'on y entre. */
     onrecompenses: () => void;
+    /** 前路, la route devant : les prochaines étapes du chemin, et leurs bornes. */
+    onroute?: () => void;
     /** Ma forêt s'ouvre par sa case du menu ; un seul retour, vers le menu. */
     onretour: () => void;
   } = $props();
@@ -428,6 +432,9 @@
     <span><i class="d3"></i>à venir</span>
     <span><i class="d2"></i>la famille du moment</span>
   </div>
+
+  <!-- 前路 : la suite du chemin, d'un tap, avant la liste des familles -->
+  <RouteEntree {p} onouvrir={onroute} />
 
   <div class="card famlist">
     <div class="row">
