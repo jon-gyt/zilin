@@ -10,7 +10,7 @@
    */
   import HanziWriter from 'hanzi-writer';
   import Glyph from './Glyph.svelte';
-  import { strokesOnce } from './strokes';
+  import { traitsDe } from './content';
 
   let {
     char,
@@ -61,9 +61,10 @@
     fautes = 0;
     entier = false;
     if (!cible) return;
-    void strokesOnce()
-      .then((s) => {
-        const d = s[c];
+    /* Les traits de l'export (le fichier de la famille), la maquette en repli : les mêmes
+       que ceux du grand caractère (`Glyph`). */
+    void traitsDe(c)
+      .then((d) => {
         if (!vivant) return;
         if (!d) {
           sansDonnees = true;
