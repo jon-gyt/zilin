@@ -429,8 +429,8 @@ anglaise, glose par mot.
   schéma, écart à la validation, contrôle bloquant « contes : mots de position », et les
   contrôles de pinyin de WeChat et de l'éclair ; les mots de fiche la suivent plutôt que
   CC-CEDICT. Sources harmonisées (contes, fiches, WeChat, éclair) ; 下面 de la cuisine
-  (« mettre les nouilles ») n'est pas un mot de position. L'export 0.1.0 est à refaire
-  (南辕北辙 relu au seuil 255 : 哪里 nǎ li). 外头 wàitou reste tel.
+  (« mettre les nouilles ») n'est pas un mot de position. Export 0.1.0 refait (南辕北辙
+  relu au seuil 255 : 哪里 nǎ li, 北边 běi bian). 外头 wàitou reste tel.
 - Reste : relire les 32 versions HSK ; vérifier les listes HSK contre le PDF officiel
   (lecture OCR, ordre, caractères à écrire). 美猴王 garde 猴 au niveau 5 : c'est un récit
   long, hors de cette décision.
