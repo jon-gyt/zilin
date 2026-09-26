@@ -184,6 +184,8 @@ def fiche_generee(c: str, *, statut: str) -> fiches_mod.Fiche:
         origine_fr="Une personne contre un arbre. Elle s'arrête. Elle se repose.",
         origine_en="A person against a tree. They stop. They rest.",
         etiquette="atteste",
+        sens_fr="se reposer",
+        sens_en="to rest",
         roles={"亻": "sens", "木": "sens"},
         mots=[fiches_mod.Mot(hanzi="休息", pinyin="xiū xi", fr="se reposer", en="to rest")],
         phrase=fiches_mod.Phrase(zh="人休。", pinyin="rén xiū.", fr="La personne se repose.", en="The person rests."),
@@ -409,6 +411,7 @@ def test_une_fiche_relue_porte_ses_textes_et_ses_mots(atelier: Path) -> None:
     assert 休["roles"] == {"亻": "sens", "木": "sens"}
     assert 休["role"] == "sens", "le rôle exporté est celui de l'élément ajouté"
     assert 休["mots"][0]["hanzi"] == "休息"  # type: ignore[index]
+    assert (休["fr"], 休["en"]) == ("se reposer", "to rest"), "le sens relu, sous le pinyin"
     assert rapport.fiches_relues == 1
     index = lire(rapport.dossier, "index.json")
     famille = next(f for f in index["familles"] if f["racine"] == "亻")  # type: ignore[union-attr]
@@ -574,6 +577,7 @@ def test_une_fiche_a_relire_entre_dans_l_apercu_et_pas_dans_l_export(atelier: Pa
     assert 休["role"] == "sens", "le rôle de l'élément ajouté, lu sur la décomposition exportée"
     assert 休["mots"][0]["hanzi"] == "休息"
     assert 休["phrase"]["hanzi"] == "人休。"
+    assert (休["fr"], 休["en"]) == ("se reposer", "to rest"), "l'aperçu montre le sens à relire"
     assert "parts" not in 休 and "pinyin" not in 休, "la décomposition reste celle de familles/"
     assert rapport.apercu_fiches == 1 and rapport.octets_apercu > 0
     assert _controle_apercu().ok  # type: ignore[attr-defined]

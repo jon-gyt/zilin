@@ -113,8 +113,9 @@ Trois régimes de licence, trois familles de fichiers, jamais mêlés
 l'en-tête de licence : `{version, license, source, source_url, modified, norme,
 racine, fiches}`.
 
-`racine` est une `Brique` : `{c, pinyin, fr, en, origine, etiquette}`. `fiches`
-porte une `Fiche` par caractère de la famille, triée par caractère :
+`racine` est une `Brique` : `{c, pinyin, fr, en, origine, etiquette}`, repris de la
+fiche de la racine (`fr`, `en` : son sens). `fiches` porte une `Fiche` par caractère
+de la famille, triée par caractère :
 
 - `c`, `pinyin` — le pinyin vient d'Unihan (`kMandarin`), jamais de
   `dictionary.txt` ni de CC-CEDICT (`docs/sources-licences.md` §2.2 et §4.2), sauf
@@ -142,9 +143,9 @@ porte une `Fiche` par caractère de la famille, triée par caractère :
   sans origine — et `statut` vaut `sans_fiche` au lieu de `relu`.
 - `niveaux` : `{"seuil": 255}` ou `{"hsk": 1}`, selon les listes qui portent le
   caractère.
-- `fr`, `en` : vides tant qu'ils ne viennent pas d'une fiche relue. Aucune
-  définition anglaise n'entre dans l'export, ni `kDefinition` d'Unihan, ni
-  CC-CEDICT.
+- `fr`, `en` : le sens, `sens_fr` et `sens_en` d'une fiche relue (voir « Le sens ») ;
+  vides sans elle. Aucune définition anglaise n'entre dans l'export, ni
+  `kDefinition` d'Unihan, ni CC-CEDICT. Depuis le format 11 (`FORMAT_EXPORT`).
 - `traits`, `medianes` : **toujours vides ici**. Les tracés sont sous Arphic
   Public License et vivent dans `traits/`, jamais dans un fichier propriétaire.
 - `audio` : `null` en attendant la story 1.5.
@@ -940,8 +941,9 @@ marque une fiche ; pour une page de relecture :
 
 ### Ce que l'app lira (export, story 1.6)
 
-L'export d'une famille reprend d'une fiche **relue** `origine_fr`, `origine_en`,
-`etiquette`, `memo_fr`, `memo_en`, `mots`, `phrase` et `roles`, et remplit le reste de
+L'export d'une famille reprend d'une fiche **relue** `sens_fr` et `sens_en` (écrits
+`fr` et `en`), `origine_fr`, `origine_en`, `etiquette`, `memo_fr`, `memo_en`, `mots`,
+`phrase` et `roles`, et remplit le reste de
 `Fiche` (`models.py`) depuis le build : `parts` et `sources` de
 `decompositions.json`, `nouveau` du parcours, `pinyin` d'Unihan, `niveaux` des listes,
 `audio` de la story 1.5. `generation` n'est pas exporté : il reste côté pipeline. Le

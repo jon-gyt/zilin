@@ -37,8 +37,8 @@ class Fiche(BaseModel):
         default_factory=list,
         description="toutes les lectures valides, la principale (`pinyin`) en tête ; vide sans pinyin",
     )
-    fr: str
-    en: str
+    fr: str = Field(description="le sens, glose courte : `sens_fr` d'une fiche relue ; vide sans elle")
+    en: str = Field(description="le sens en anglais : `sens_en` d'une fiche relue ; vide sans elle")
     parts: list[str] = Field(description="décomposition canonique, ordre d'écriture")
     nouveau: list[int] = Field(default_factory=list, description="index des éléments ajoutés par rapport à la brique parente")
     sources: list[SourceIds] = Field(default_factory=list, description="sources d'IDS descendues pour la décomposition")
