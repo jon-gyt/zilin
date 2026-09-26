@@ -9,6 +9,7 @@ Référence jouable : `maquettes/zilin-jeu.html` (démos des mécaniques) et `ma
 - Exception, décision du propriétaire : au dictionnaire éclair et à la cuisine de Tao, une mauvaise réponse ne note rien. La réponse est montrée, mais aucun événement n'entre dans la progression et la carte ne revient pas dans 10 minutes : rater 大水 ne veut pas dire qu'on a oublié 大 ou 水, prendre 牛奶 pour 牛肉 ne dit pas qu'on a oublié 肉. Une bonne réponse reste notée comme une question. Le constat de la manche, le compteur « mots devinés » et le bol des trophées ne changent pas (`jeux.ERREUR_SANS_NOTE`, `evenementsANoter`).
 - Durée : 1 à 3 minutes. Un jeu se termine par un constat (« 5 caractères revus, 1 mot deviné »), pas par un score.
 - Hôte : un écran unique `game/<id>` avec Tao dans la posture « joue », retour vers la session ou Ma forêt.
+- Entrée : l'écran Jouer (brief §9, « L'écran Jouer »). Décision du propriétaire du 26 septembre 2026 : plus de menu en ligne, « trop classique ». « Aujourd'hui 今天 » : Tao tend un jeu (`jeuPropose`, `bulleDeTao`), sa carte cerclée d'indigo, puis la devinette du jour en lanterne 灯谜. « Les autres jeux 游戏 » : des cartes sur deux colonnes, un petit dessin et le caractère du jeu (`JEUX[id].zh`) au pigment, la durée dans un cartouche indigo ; un jeu pas encore jouable en pointillés. Fonds neutres, la couleur dans les images seulement (`DessinJeu.svelte`).
 
 ## Les dix jeux
 

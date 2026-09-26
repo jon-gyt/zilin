@@ -73,7 +73,7 @@ Il tient sur un écran de téléphone, sans défiler.
 - La carte du jour : le caractère dans son 米字格, dessiné depuis les traits, la brique nouvelle en cinabre ; son pinyin, qui se fait entendre ; son sens et sa décomposition (亻 + 主). Toucher le caractère le réécrit au pinceau et le prononce.
 - Le chemin : six coups de pinceau, un par pas (faits en jade, en cours à l'encre, à venir en filet). Tao marche sur le pas en cours et dit une phrase qui dépend de l'état de la journée ; la toucher la fait sauter et changer de phrase. Dessous, « Pas 2 sur 6 · Échauffer » et la durée.
 - Un seul bouton plein : « Commencer la session », « Reprendre au pas 3 ». La journée faite, il devient « Une session de plus · une brique », en contour.
-- Quatre cases identiques : Réviser 温, Jouer 玩, Lire 读, Ma forêt 林. Avant la session, Réviser dit « Dans la session » et ouvre le pas Échauffer, pour que la pile ne se vide jamais en douce ; après, elle ouvre une révision en plus. Jouer est la seule porte des jeux. Lire ouvre les contes, et en tête l'anecdote du jour, à relire. Ma forêt garde les familles, la série et les récompenses, deux niveaux au plus.
+- Quatre cases identiques : Réviser 温, Jouer 玩, Lire 读, Ma forêt 林. Avant la session, Réviser dit « Dans la session » et ouvre le pas Échauffer, pour que la pile ne se vide jamais en douce ; après, elle ouvre une révision en plus. Jouer est la seule porte des jeux (§9, « L'écran Jouer »). Lire ouvre les contes, et en tête l'anecdote du jour, à relire. Ma forêt garde les familles, la série et les récompenses, deux niveaux au plus.
 - Chaque écran ouvert depuis le menu a un seul retour, qui y ramène.
 - Quand un rang du personnage est franchi, l'écran 放榜 passe au retour au menu, avant lui, jamais au milieu d'un pas.
 
@@ -201,6 +201,15 @@ Règle : chaque jeu doit répondre à « qu'est-ce que l'utilisateur sait lire d
 | Les saisons | le cercle change avec le calendrier chinois, un caractère bonus par fête | Ma forêt |
 | Les devinettes de lanternes | 灯谜 : la décomposition déguisée (« une bouche mord la queue du bœuf » : 告) | chaque matin avec Tao, fête des Lanternes |
 | La cuisine de Tao | recette en chinois, ingrédients sur l'étal, dix plats de cantine | nourrir Tao |
+
+### L'écran Jouer
+
+Décision du propriétaire du 26 septembre 2026 : l'ancien menu en ligne était « trop classique ». L'écran Jouer devient un jeu de cartes illustrées, en deux parties séparées d'un filet d'encre.
+
+- En tête : 玩 dessiné depuis ses traits, « Jouer », « Une à trois minutes », et le retour vers le menu (ou Ma forêt).
+- « Aujourd'hui 今天 » : Tao, dans sa posture de jeu, tend un jeu dans une bulle. Ce jeu est un jeu jouable, jamais la devinette ; il part du jour, pas de l'horloge (le même toute la journée), et après trois plats d'affilée ce n'est pas la cuisine. Quand elle s'ennuie, sa bulle propose de changer ; sinon, elle invite. Sa carte prend toute la largeur, cerclée d'indigo, sous « Tao propose ». Dessous, la devinette du jour devient une lanterne 灯谜 : l'énoncé et « 1 min » ; une par jour, et une fois résolue ou montrée la carte le dit (« Résolue aujourd'hui. La suivante demain. »), la lanterne restant allumée si elle a été trouvée.
+- « Les autres jeux 游戏 », avec leur nombre : une grille de cartes sur deux colonnes, les jouables d'abord. Chaque carte porte un petit dessin plat et le caractère du jeu (菜 la cuisine, 信 le message, 典 le dictionnaire éclair, 拼 assembler, 双 les jumeaux, 链 la chaîne, 错 la coquille), le titre, ce qu'il fait lire, et la durée dans un cartouche indigo, dans le flux du texte. Un jeu pas encore jouable reste en pointillés, en retrait, avec ce qui lui manque ; son bouton est désactivé.
+- Fonds neutres : toutes les cartes ont le fond papier de la carte et un filet fin. La couleur n'est que dans les images (dessins, caractères, lanterne), aux pigments de peinture (`--t1` à `--t4`). L'indigo marque l'action (la carte que tend Tao, les durées). Ni cinabre, ni ombre, ni dégradé, ni doré, ni emoji. Les caractères des cartes se dessinent depuis leurs traits ; sans traits dans l'export, la carte garde son seul dessin.
 
 ### Les jeux du pas Utiliser
 
