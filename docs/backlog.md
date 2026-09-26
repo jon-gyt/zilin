@@ -44,6 +44,7 @@ Format BMAD : épics puis stories. Priorité dans l'ordre. Une story se termine 
 - 4.3 Tao qui grandit (paliers 100, 300, 1 000), postures par activité, humeur par variété, journal du soir, collection visible.
 - 4.4 Chercher : la loupe du menu ouvre la recherche d'un caractère de l'export, par son dessin, son pinyin (avec ou sans accents ni tons) ou le sens d'une fiche relue ; au plus vingt résultats, dessinés depuis les traits, avec la famille et le statut (lu, en cours, pas encore) ; toucher un résultat le dit et ouvre sa famille dans l'arbre.
 - 4.5 Le personnage (mode héros, décision du propriétaire, maquette validée `wenlu-heros.html`) : trois bêtes non genrées (玉兔, 熊猫, 醒狮) et un nom, choisis à la fin de la première session, changés dans Réglages sans rien perdre ; douze rangs du bébé à l'adulte (启蒙 à 状元, paliers 0 à 1 000) ; quatre arts (读 写 听 说), un point par bonne réponse notée, dérivé des événements de révision, des tracés achevés et des jeux ; le personnage grandit à chaque point, change de silhouette et de tenue, gagne une aura ; écran « Mon personnage » ouvert par le portrait de l'en-tête du menu ; 放榜 au retour au menu quand un rang est franchi. Textes par le pipeline (`data/sources/heros/`, `heros.json`), dessins dans l'app.
+- 4.6 La route devant 前路 (retour du propriétaire du 26 septembre 2026, maquette validée `wenlu-a-venir.html`) : le bout de chemin proche en papier découpé, deux pierres lues, celle du jour (cinabre, Tao), six à venir, chacune avec sa brique dessinée depuis ses traits ; les deux prochaines bornes dans la brume (seuils du trophée Lire, contes qui s'ouvrent), rien au-delà ; la carte de l'étape choisie, demain par défaut. Entrées : Ma forêt, et la ligne « Demain : 子 enfant · Ma route › » du menu, la journée faite. Jours du chemin, jamais de dates, rien d'estimé (`route.ts`).
 
 ## Épic 4b · Jeux
 - 4b.1 Moteur de mini-jeux : un contrat commun (entrée : caractères acquis ; sortie : événements de révision notés), écran hôte, retour vers la session.
@@ -289,6 +290,22 @@ Relevé sur le dépôt après une revue du pipeline. Les numéros ci-dessus ne b
   motifs ») ; l'app dessine chaque nom (`Motif.svelte`) et ne connaît aucun conte. Reste :
   les lettres précédentes, en petites enveloppes numérotées, n'ont pas encore été vues par
   le propriétaire.
+
+- 4.6, la route devant 前路 (26 septembre) : retour du propriétaire, « il manque une
+  visibilité sur ce qui va être appris au fur et à mesure » ; la carte entière du parcours
+  écartée (« pas besoin de tout voir, juste le détail de l'étape et une vue partielle proche
+  des prochaines étapes »), et « plus joli ». Écran `Route.svelte`, logique pure dans
+  `route.ts` (les étapes du chemin, la position du jour, la fenêtre de pierres, les bornes,
+  la sélection par défaut, la ligne « Demain » du menu), testée dans `route.test.ts` : la
+  fenêtre au début, au milieu et à la fin, les deux bornes seulement et seulement les vraies,
+  demain par défaut, « Demain » au menu la journée faite seulement, aucune dépendance au
+  calendrier, la charte (le cinabre à la seule position). Les bornes reprennent les seuils
+  du trophée Lire (`trophees.tropheesLire`) et l'ouverture des contes de l'étagère
+  « Bientôt » (`etageres.ouvertures`). Entrées : Ma forêt (`RouteEntree.svelte`) et la ligne
+  « Demain » du menu, vérifiée à 393 × 660, fêtes comprises. Collines en jetons
+  (`--route-mont1` à `3`, l'ocre fondu dans la carte, qui suivent les thèmes de fête). Reste :
+  l'avis du propriétaire sur l'écran réel ; « s'ouvre dans N j » de Lire compte, avant la
+  session du jour, une étape de plus que la route, qui part de la pierre du jour.
 
 ### Livrées à moitié : le code attend une clé d'API
 
