@@ -3,15 +3,15 @@
  "license": "propriétaire",
  "source": "décomposition GF 0014-2009 réconciliée par le pipeline wenlu ; pinyin d'Unihan (kMandarin) ; textes rédigés pour l'app",
  "source_url": "https://github.com/jon-gyt/zilin",
- "modified": "2026-09-25 : assemblé par `wenlu export`",
+ "modified": "2026-09-26 : assemblé par `wenlu export`",
  "norme": "GF 0014-2009",
  "racine": {
   "c": "爫",
   "pinyin": "zhǎo",
   "fr": "",
   "en": "",
-  "origine": "",
-  "etiquette": null
+  "origine": "爫 est la forme de 爪, la griffe, en haut d'un caractère ; on l'appelle 爪字头, et la norme le nomme 爪头. Sur les os oraculaires, 爪 dessine une main vue d'en haut, les doigts crochus tournés vers le bas, et le Shuowen jiezi le définit comme la main qui saisit par-dessus. Dans 菜, elle vient de 采, une main qui cueille sur un arbre.",
+  "etiquette": "atteste"
  },
  "fiches": [
   {
@@ -26,19 +26,27 @@
    "nouveau": [],
    "sources": [],
    "role": null,
-   "roles": {},
-   "origine_fr": "",
-   "origine_en": "",
-   "etiquette": null,
+   "roles": {
+    "爫": "sens"
+   },
+   "origine_fr": "爫 est la forme de 爪, la griffe, en haut d'un caractère ; on l'appelle 爪字头, et la norme le nomme 爪头. Sur les os oraculaires, 爪 dessine une main vue d'en haut, les doigts crochus tournés vers le bas, et le Shuowen jiezi le définit comme la main qui saisit par-dessus. Dans 菜, elle vient de 采, une main qui cueille sur un arbre.",
+   "origine_en": "爫 is the form 爪, claw, takes at the top of a character; it is called 爪字头, and the standard names it 爪头. On oracle bones, 爪 draws a hand seen from above, fingers hooked downwards, and the Shuowen jiezi defines it as a hand grasping from above. In 菜 it comes from 采, a hand picking from a tree.",
+   "etiquette": "atteste",
    "memo_fr": null,
    "memo_en": null,
    "mots": [],
-   "phrase": null,
+   "phrase": {
+    "hanzi": "这些菜太多了。",
+    "pinyin": "Zhèxiē cài tài duō le.",
+    "fr": "Ça fait beaucoup trop de plats.",
+    "en": "That's far too many dishes.",
+    "audio": null
+   },
    "niveaux": {},
    "traits": [],
    "medianes": [],
    "audio": null,
-   "statut": "sans_fiche"
+   "statut": "relu"
   },
   {
    "c": "爱",
@@ -61,15 +69,41 @@
     "makemeahanzi",
     "cjk-decomp"
    ],
-   "role": null,
-   "roles": {},
-   "origine_fr": "",
-   "origine_en": "",
-   "etiquette": null,
+   "role": "forme",
+   "roles": {
+    "冖": "forme",
+    "又": "forme",
+    "爫": "forme",
+    "𠂇": "forme"
+   },
+   "origine_fr": "Dans la forme traditionnelle 愛, le cœur 心 est au centre, sous un élément qui donnait autrefois le son et qui s'écrit aujourd'hui 爫 sur 冖. La simplification a retiré ce cœur et a remplacé le bas par 友, l'ami, fait de 𠂇 et 又. 爱 garde ainsi un ami là où l'ancien caractère avait un cœur.",
+   "origine_en": "In the traditional form 愛, the heart 心 sits in the middle, under an element that once gave the sound and is now written 爫 over 冖. Simplification took out the heart and replaced the lower part with 友, friend, made of 𠂇 and 又. So 爱 holds a friend where the older character had a heart.",
+   "etiquette": "atteste",
    "memo_fr": null,
    "memo_en": null,
-   "mots": [],
-   "phrase": null,
+   "mots": [
+    {
+     "hanzi": "可爱",
+     "pinyin": "kě'ài",
+     "fr": "mignon, adorable",
+     "en": "cute, lovable",
+     "audio": null
+    },
+    {
+     "hanzi": "爱好",
+     "pinyin": "àihào",
+     "fr": "loisir, passe-temps ; aimer faire",
+     "en": "hobby; to be fond of",
+     "audio": null
+    }
+   ],
+   "phrase": {
+    "hanzi": "她爱花，也爱山水。",
+    "pinyin": "Tā ài huā, yě ài shānshuǐ.",
+    "fr": "Elle aime les fleurs, et aussi les paysages.",
+    "en": "She loves flowers, and landscapes too.",
+    "audio": null
+   },
    "niveaux": {
     "seuil": 255,
     "hsk": 1
@@ -77,7 +111,7 @@
    "traits": [],
    "medianes": [],
    "audio": null,
-   "statut": "sans_fiche"
+   "statut": "relu"
   }
  ]
 }

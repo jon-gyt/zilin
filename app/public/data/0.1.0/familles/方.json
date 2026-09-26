@@ -3,15 +3,15 @@
  "license": "propriétaire",
  "source": "décomposition GF 0014-2009 réconciliée par le pipeline wenlu ; pinyin d'Unihan (kMandarin) ; textes rédigés pour l'app",
  "source_url": "https://github.com/jon-gyt/zilin",
- "modified": "2026-09-25 : assemblé par `wenlu export`",
+ "modified": "2026-09-26 : assemblé par `wenlu export`",
  "norme": "GF 0014-2009",
  "racine": {
   "c": "方",
   "pinyin": "fāng",
   "fr": "",
   "en": "",
-  "origine": "",
-  "etiquette": null
+  "origine": "L'origine de 方 est discutée : le Shuowen jiezi y voit deux barques liées côte à côte, mais les formes anciennes ont reçu d'autres lectures. Pour s'en souvenir : sous un point et un trait, un trait descend vers la gauche tandis qu'un autre part à droite et se replie en crochet, comme deux chemins qui partent chacun de leur côté. Le caractère dit le carré, le côté et la direction, comme dans 八方, les huit directions.",
+  "etiquette": "mnemotechnique"
  },
  "fiches": [
   {
@@ -61,14 +61,37 @@
    "nouveau": [],
    "sources": [],
    "role": null,
-   "roles": {},
-   "origine_fr": "",
-   "origine_en": "",
-   "etiquette": null,
+   "roles": {
+    "方": "sens"
+   },
+   "origine_fr": "L'origine de 方 est discutée : le Shuowen jiezi y voit deux barques liées côte à côte, mais les formes anciennes ont reçu d'autres lectures. Pour s'en souvenir : sous un point et un trait, un trait descend vers la gauche tandis qu'un autre part à droite et se replie en crochet, comme deux chemins qui partent chacun de leur côté. Le caractère dit le carré, le côté et la direction, comme dans 八方, les huit directions.",
+   "origine_en": "The origin of 方 is debated: the Shuowen jiezi sees two boats lashed side by side, but the early forms have been read in other ways. To remember it: under a dot and a stroke, one stroke sweeps down to the left while another sets off to the right and bends back in a hook, like two paths heading their own way. The character means square, side and direction, as in 八方, the eight directions.",
+   "etiquette": "mnemotechnique",
    "memo_fr": null,
    "memo_en": null,
-   "mots": [],
-   "phrase": null,
+   "mots": [
+    {
+     "hanzi": "大方",
+     "pinyin": "dàfang",
+     "fr": "généreux ; à l'aise, naturel",
+     "en": "generous; natural, at ease",
+     "audio": null
+    },
+    {
+     "hanzi": "八方",
+     "pinyin": "bāfāng",
+     "fr": "les huit directions, de toutes parts",
+     "en": "the eight directions, all around",
+     "audio": null
+    }
+   ],
+   "phrase": {
+    "hanzi": "她好大方。",
+    "pinyin": "Tā hǎo dàfang.",
+    "fr": "Elle est très généreuse.",
+    "en": "She is very generous.",
+    "audio": null
+   },
    "niveaux": {
     "seuil": 255,
     "hsk": 1
@@ -76,7 +99,7 @@
    "traits": [],
    "medianes": [],
    "audio": null,
-   "statut": "sans_fiche"
+   "statut": "relu"
   }
  ]
 }

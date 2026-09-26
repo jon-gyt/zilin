@@ -3,15 +3,15 @@
  "license": "propriétaire",
  "source": "décomposition GF 0014-2009 réconciliée par le pipeline wenlu ; pinyin d'Unihan (kMandarin) ; textes rédigés pour l'app",
  "source_url": "https://github.com/jon-gyt/zilin",
- "modified": "2026-09-25 : assemblé par `wenlu export`",
+ "modified": "2026-09-26 : assemblé par `wenlu export`",
  "norme": "GF 0014-2009",
  "racine": {
   "c": "气",
   "pinyin": "qì",
   "fr": "",
   "en": "",
-  "origine": "",
-  "etiquette": null
+  "origine": "Sur les os oraculaires, 气 s'écrit de trois traits horizontaux, celui du milieu plus court, ce qui le distingue de 三. Le Shuowen jiezi y voit le dessin des vapeurs qui montent des nuages, d'où « souffle, air ». La forme traditionnelle 氣 a ajouté plus tard 米, le riz, et la forme simplifiée revient à 气 seul.",
+  "etiquette": "atteste"
  },
  "fiches": [
   {
@@ -26,14 +26,37 @@
    "nouveau": [],
    "sources": [],
    "role": null,
-   "roles": {},
-   "origine_fr": "",
-   "origine_en": "",
-   "etiquette": null,
+   "roles": {
+    "气": "sens"
+   },
+   "origine_fr": "Sur les os oraculaires, 气 s'écrit de trois traits horizontaux, celui du milieu plus court, ce qui le distingue de 三. Le Shuowen jiezi y voit le dessin des vapeurs qui montent des nuages, d'où « souffle, air ». La forme traditionnelle 氣 a ajouté plus tard 米, le riz, et la forme simplifiée revient à 气 seul.",
+   "origine_en": "On oracle bones, 气 is written with three horizontal strokes, the middle one shorter, which sets it apart from 三. The Shuowen jiezi sees in it a drawing of vapour rising from clouds, hence “breath, air”. The traditional form 氣 later added 米, rice, and the simplified form goes back to 气 alone.",
+   "etiquette": "atteste",
    "memo_fr": null,
    "memo_en": null,
-   "mots": [],
-   "phrase": null,
+   "mots": [
+    {
+     "hanzi": "天气",
+     "pinyin": "tiānqì",
+     "fr": "le temps qu'il fait, la météo",
+     "en": "weather",
+     "audio": null
+    },
+    {
+     "hanzi": "生气",
+     "pinyin": "shēngqì",
+     "fr": "se fâcher, être en colère",
+     "en": "to get angry",
+     "audio": null
+    }
+   ],
+   "phrase": {
+    "hanzi": "今天天气好。",
+    "pinyin": "Jīntiān tiānqì hǎo.",
+    "fr": "Il fait beau aujourd'hui.",
+    "en": "The weather is nice today.",
+    "audio": null
+   },
    "niveaux": {
     "seuil": 255,
     "hsk": 1
@@ -41,7 +64,7 @@
    "traits": [],
    "medianes": [],
    "audio": null,
-   "statut": "sans_fiche"
+   "statut": "relu"
   }
  ]
 }

@@ -3,15 +3,15 @@
  "license": "propriétaire",
  "source": "décomposition GF 0014-2009 réconciliée par le pipeline wenlu ; pinyin d'Unihan (kMandarin) ; textes rédigés pour l'app",
  "source_url": "https://github.com/jon-gyt/zilin",
- "modified": "2026-09-25 : assemblé par `wenlu export`",
+ "modified": "2026-09-26 : assemblé par `wenlu export`",
  "norme": "GF 0014-2009",
  "racine": {
   "c": "主",
   "pinyin": "zhǔ",
   "fr": "",
   "en": "",
-  "origine": "",
-  "etiquette": null
+  "origine": "Le Shuowen jiezi définit 主 comme la flamme qui se dresse dans une lampe : le point du haut est la flamme, le reste la lampe et son pied. Le sens de « maître, principal » est venu ensuite, et la flamme a été reprise par 炷, la mèche. À droite de 住, il donne le son, zhù pour zhǔ.",
+  "etiquette": "atteste"
  },
  "fiches": [
   {
@@ -26,19 +26,42 @@
    "nouveau": [],
    "sources": [],
    "role": null,
-   "roles": {},
-   "origine_fr": "",
-   "origine_en": "",
-   "etiquette": null,
+   "roles": {
+    "主": "sens"
+   },
+   "origine_fr": "Le Shuowen jiezi définit 主 comme la flamme qui se dresse dans une lampe : le point du haut est la flamme, le reste la lampe et son pied. Le sens de « maître, principal » est venu ensuite, et la flamme a été reprise par 炷, la mèche. À droite de 住, il donne le son, zhù pour zhǔ.",
+   "origine_en": "The Shuowen jiezi defines 主 as the flame standing in a lamp: the top dot is the flame, the rest the lamp and its stand. The meaning “master, main” came later, and the flame passed to 炷, the wick. On the right of 住 it gives the sound, zhù for zhǔ.",
+   "etiquette": "atteste",
    "memo_fr": null,
    "memo_en": null,
-   "mots": [],
-   "phrase": null,
+   "mots": [
+    {
+     "hanzi": "主人",
+     "pinyin": "zhǔrén",
+     "fr": "maître de maison, hôte",
+     "en": "host, owner",
+     "audio": null
+    },
+    {
+     "hanzi": "主要",
+     "pinyin": "zhǔyào",
+     "fr": "principal",
+     "en": "main, principal",
+     "audio": null
+    }
+   ],
+   "phrase": {
+    "hanzi": "你住在哪儿？",
+    "pinyin": "Nǐ zhù zài nǎr?",
+    "fr": "Où est-ce que tu habites ?",
+    "en": "Where do you live?",
+    "audio": null
+   },
    "niveaux": {},
    "traits": [],
    "medianes": [],
    "audio": null,
-   "statut": "sans_fiche"
+   "statut": "relu"
   }
  ]
 }

@@ -3,15 +3,15 @@
  "license": "propriétaire",
  "source": "décomposition GF 0014-2009 réconciliée par le pipeline wenlu ; pinyin d'Unihan (kMandarin) ; textes rédigés pour l'app",
  "source_url": "https://github.com/jon-gyt/zilin",
- "modified": "2026-09-25 : assemblé par `wenlu export`",
+ "modified": "2026-09-26 : assemblé par `wenlu export`",
  "norme": "GF 0014-2009",
  "racine": {
   "c": "二",
   "pinyin": "èr",
   "fr": "",
   "en": "",
-  "origine": "",
-  "etiquette": null
+  "origine": "Sur les os oraculaires, 二 est fait de deux traits horizontaux de même longueur, comme 一 en a un et 三 trois. Dans l'écriture actuelle, le trait du haut est devenu plus court que celui du bas. 二 sert pour compter et dans les nombres ; devant un classificateur, on emploie en général 两.",
+  "etiquette": "atteste"
  },
  "fiches": [
   {
@@ -26,14 +26,37 @@
    "nouveau": [],
    "sources": [],
    "role": null,
-   "roles": {},
-   "origine_fr": "",
-   "origine_en": "",
-   "etiquette": null,
+   "roles": {
+    "二": "sens"
+   },
+   "origine_fr": "Sur les os oraculaires, 二 est fait de deux traits horizontaux de même longueur, comme 一 en a un et 三 trois. Dans l'écriture actuelle, le trait du haut est devenu plus court que celui du bas. 二 sert pour compter et dans les nombres ; devant un classificateur, on emploie en général 两.",
+   "origine_en": "On oracle bones, 二 is made of two horizontal strokes of equal length, as 一 has one and 三 three. In today's script the upper stroke has become shorter than the lower one. 二 is used for counting and in numbers; before a measure word, 两 is generally used instead.",
+   "etiquette": "atteste",
    "memo_fr": null,
    "memo_en": null,
-   "mots": [],
-   "phrase": null,
+   "mots": [
+    {
+     "hanzi": "二十",
+     "pinyin": "èrshí",
+     "fr": "vingt",
+     "en": "twenty",
+     "audio": null
+    },
+    {
+     "hanzi": "十二",
+     "pinyin": "shí'èr",
+     "fr": "douze",
+     "en": "twelve",
+     "audio": null
+    }
+   ],
+   "phrase": {
+    "hanzi": "二月有二十八天。",
+    "pinyin": "Èryuè yǒu èrshíbā tiān.",
+    "fr": "Février compte vingt-huit jours.",
+    "en": "February has twenty-eight days.",
+    "audio": null
+   },
    "niveaux": {
     "seuil": 255,
     "hsk": 1
@@ -41,7 +64,7 @@
    "traits": [],
    "medianes": [],
    "audio": null,
-   "statut": "sans_fiche"
+   "statut": "relu"
   },
   {
    "c": "元",

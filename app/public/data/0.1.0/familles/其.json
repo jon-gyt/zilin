@@ -3,15 +3,15 @@
  "license": "propriétaire",
  "source": "décomposition GF 0014-2009 réconciliée par le pipeline wenlu ; pinyin d'Unihan (kMandarin) ; textes rédigés pour l'app",
  "source_url": "https://github.com/jon-gyt/zilin",
- "modified": "2026-09-25 : assemblé par `wenlu export`",
+ "modified": "2026-09-26 : assemblé par `wenlu export`",
  "norme": "GF 0014-2009",
  "racine": {
   "c": "其",
   "pinyin": "qí",
   "fr": "",
   "en": "",
-  "origine": "",
-  "etiquette": null
+  "origine": "Sur les os oraculaires, 其 dessine un van, le panier tressé qui sert à vanner le grain. Les bronzes lui ajoutent en bas un support, qui forme le bas du caractère actuel. Emprunté pour son son comme pronom, « son, sa, ce », il a laissé le sens de van à 箕, écrit avec la clé du bambou.",
+  "etiquette": "atteste"
  },
  "fiches": [
   {
@@ -27,21 +27,37 @@
    "nouveau": [],
    "sources": [],
    "role": null,
-   "roles": {},
-   "origine_fr": "",
-   "origine_en": "",
-   "etiquette": null,
+   "roles": {
+    "其": "sens"
+   },
+   "origine_fr": "Sur les os oraculaires, 其 dessine un van, le panier tressé qui sert à vanner le grain. Les bronzes lui ajoutent en bas un support, qui forme le bas du caractère actuel. Emprunté pour son son comme pronom, « son, sa, ce », il a laissé le sens de van à 箕, écrit avec la clé du bambou.",
+   "origine_en": "On oracle bones, 其 draws a winnowing basket, the woven tray used to toss grain. Bronzes add a stand underneath, which became the lower part of today's character. Borrowed for its sound as a pronoun, “his, her, its, that”, it left the basket meaning to 箕, written with the bamboo radical.",
+   "etiquette": "atteste",
    "memo_fr": null,
    "memo_en": null,
-   "mots": [],
-   "phrase": null,
+   "mots": [
+    {
+     "hanzi": "其间",
+     "pinyin": "qíjiān",
+     "fr": "pendant ce temps, dans l'intervalle",
+     "en": "meanwhile, in the meantime",
+     "audio": null
+    }
+   ],
+   "phrase": {
+    "hanzi": "朋友有子女，其女十八。",
+    "pinyin": "Péngyou yǒu zǐnǚ, qí nǚ shíbā.",
+    "fr": "Mon ami a des enfants ; la fille a dix-huit ans.",
+    "en": "My friend has children; the daughter is eighteen.",
+    "audio": null
+   },
    "niveaux": {
     "seuil": 255
    },
    "traits": [],
    "medianes": [],
    "audio": null,
-   "statut": "sans_fiche"
+   "statut": "relu"
   },
   {
    "c": "期",
@@ -62,15 +78,39 @@
    "sources": [
     "makemeahanzi"
    ],
-   "role": null,
-   "roles": {},
-   "origine_fr": "",
-   "origine_en": "",
-   "etiquette": null,
+   "role": "son",
+   "roles": {
+    "其": "son",
+    "月": "sens"
+   },
+   "origine_fr": "Le Shuowen jiezi définit 期 par « rencontre » et l'analyse comme 月, la lune, pour le sens, avec 其 pour le son, qí proche de qī. Le sens s'est étendu du rendez-vous fixé à la date, au délai et à la période. Dans 星期, la semaine, 期 garde ce sens de période.",
+   "origine_en": "The Shuowen jiezi defines 期 as “meeting” and analyzes it as 月, the moon, for the meaning, with 其 for the sound, qí being close to qī. The meaning widened from an agreed meeting to a date, a deadline and a period. In 星期, week, 期 keeps this sense of a period of time.",
+   "etiquette": "atteste",
    "memo_fr": null,
    "memo_en": null,
-   "mots": [],
-   "phrase": null,
+   "mots": [
+    {
+     "hanzi": "星期",
+     "pinyin": "xīngqī",
+     "fr": "semaine",
+     "en": "week",
+     "audio": null
+    },
+    {
+     "hanzi": "日期",
+     "pinyin": "rìqī",
+     "fr": "date",
+     "en": "date",
+     "audio": null
+    }
+   ],
+   "phrase": {
+    "hanzi": "朋友星期日生日。",
+    "pinyin": "Péngyou xīngqīrì shēngrì.",
+    "fr": "L'anniversaire de mon ami tombe dimanche.",
+    "en": "My friend's birthday is on Sunday.",
+    "audio": null
+   },
    "niveaux": {
     "seuil": 255,
     "hsk": 1
@@ -78,7 +118,7 @@
    "traits": [],
    "medianes": [],
    "audio": null,
-   "statut": "sans_fiche"
+   "statut": "relu"
   }
  ]
 }

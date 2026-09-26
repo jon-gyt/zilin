@@ -3,15 +3,15 @@
  "license": "propriétaire",
  "source": "décomposition GF 0014-2009 réconciliée par le pipeline wenlu ; pinyin d'Unihan (kMandarin) ; textes rédigés pour l'app",
  "source_url": "https://github.com/jon-gyt/zilin",
- "modified": "2026-09-25 : assemblé par `wenlu export`",
+ "modified": "2026-09-26 : assemblé par `wenlu export`",
  "norme": "GF 0014-2009",
  "racine": {
   "c": "纟",
   "pinyin": "sī",
   "fr": "",
   "en": "",
-  "origine": "",
-  "etiquette": null
+  "origine": "纟 est la forme simplifiée de 糸, le fil de soie, quand il se place à gauche ; on l'appelle 绞丝旁, « fil tordu », et c'est aussi son nom dans la norme. Sur les os oraculaires, 糸 dessine un écheveau de soie torsadé, et le Shuowen jiezi le définit comme un fil fin. Il marque les fils, les tissus et leurs couleurs, comme dans 红, d'abord une soie rouge pâle, et se retrouve dans 给.",
+  "etiquette": "atteste"
  },
  "fiches": [
   {
@@ -26,19 +26,27 @@
    "nouveau": [],
    "sources": [],
    "role": null,
-   "roles": {},
-   "origine_fr": "",
-   "origine_en": "",
-   "etiquette": null,
+   "roles": {
+    "纟": "sens"
+   },
+   "origine_fr": "纟 est la forme simplifiée de 糸, le fil de soie, quand il se place à gauche ; on l'appelle 绞丝旁, « fil tordu », et c'est aussi son nom dans la norme. Sur les os oraculaires, 糸 dessine un écheveau de soie torsadé, et le Shuowen jiezi le définit comme un fil fin. Il marque les fils, les tissus et leurs couleurs, comme dans 红, d'abord une soie rouge pâle, et se retrouve dans 给.",
+   "origine_en": "纟 is the simplified form of 糸, silk thread, when it stands on the left; it is called 绞丝旁, “twisted silk”, which is also its name in the standard. On oracle bones, 糸 draws a twisted skein of silk, and the Shuowen jiezi defines it as fine thread. It marks threads, fabrics and their colours, as in 红, first a pale red silk, and it also appears in 给.",
+   "etiquette": "atteste",
    "memo_fr": null,
    "memo_en": null,
    "mots": [],
-   "phrase": null,
+   "phrase": {
+    "hanzi": "给我一杯茶。",
+    "pinyin": "Gěi wǒ yī bēi chá.",
+    "fr": "Donne-moi une tasse de thé.",
+    "en": "Give me a cup of tea.",
+    "audio": null
+   },
    "niveaux": {},
    "traits": [],
    "medianes": [],
    "audio": null,
-   "statut": "sans_fiche"
+   "statut": "relu"
   },
   {
    "c": "红",
@@ -59,22 +67,46 @@
    "sources": [
     "makemeahanzi"
    ],
-   "role": null,
-   "roles": {},
-   "origine_fr": "",
-   "origine_en": "",
-   "etiquette": null,
+   "role": "sens",
+   "roles": {
+    "工": "forme",
+    "纟": "sens"
+   },
+   "origine_fr": "红 associe 纟, le fil de soie, à 工, qui donnait le son. Le Shuowen jiezi en fait le nom d'une soie d'un rouge pâle, entre le rouge et le blanc. Le mot a ensuite désigné le rouge en général, et gōng et hóng riment encore aujourd'hui.",
+   "origine_en": "红 combines 纟, silk thread, with 工, which supplied the sound. The Shuowen jiezi defines it as silk of a pale red, between red and white. The word later came to mean red in general, and gōng and hóng still rhyme today.",
+   "etiquette": "atteste",
    "memo_fr": null,
    "memo_en": null,
-   "mots": [],
-   "phrase": null,
+   "mots": [
+    {
+     "hanzi": "红茶",
+     "pinyin": "hóngchá",
+     "fr": "thé noir",
+     "en": "black tea",
+     "audio": null
+    },
+    {
+     "hanzi": "口红",
+     "pinyin": "kǒuhóng",
+     "fr": "rouge à lèvres",
+     "en": "lipstick",
+     "audio": null
+    }
+   ],
+   "phrase": {
+    "hanzi": "我有一个红杯子。",
+    "pinyin": "Wǒ yǒu yī gè hóng bēizi.",
+    "fr": "J'ai une tasse rouge.",
+    "en": "I have a red cup.",
+    "audio": null
+   },
    "niveaux": {
     "seuil": 255
    },
    "traits": [],
    "medianes": [],
    "audio": null,
-   "statut": "sans_fiche"
+   "statut": "relu"
   },
   {
    "c": "织",
@@ -165,15 +197,34 @@
    "sources": [
     "makemeahanzi"
    ],
-   "role": null,
-   "roles": {},
-   "origine_fr": "",
-   "origine_en": "",
-   "etiquette": null,
+   "role": "sens",
+   "roles": {
+    "一": "forme",
+    "人": "forme",
+    "口": "forme",
+    "纟": "sens"
+   },
+   "origine_fr": "Le Shuowen jiezi décrit 給 comme un composé idéo-phonétique : 糸, le fil, pour le sens, et 合 pour le son. Il le glose par « fournir ce qui manque », d'où le sens de « donner ». 合 se lit aujourd'hui hé, ou gě comme unité de mesure, et ne donne plus le son de gěi ; dans la forme simplifiée, 糸 est réduit à 纟.",
+   "origine_en": "The Shuowen jiezi describes 給 as a sound-meaning compound: 糸, thread, gives the meaning and 合 gives the sound. Its gloss is “to supply what is lacking”, hence “to give”. 合 now reads hé, or gě as a unit of measure, and no longer gives the sound of gěi; in the simplified form, 糸 is reduced to 纟.",
+   "etiquette": "atteste",
    "memo_fr": null,
    "memo_en": null,
-   "mots": [],
-   "phrase": null,
+   "mots": [
+    {
+     "hanzi": "还给",
+     "pinyin": "huángěi",
+     "fr": "rendre (qqch. à qqn)",
+     "en": "to give back, to return",
+     "audio": null
+    }
+   ],
+   "phrase": {
+    "hanzi": "他给我一本书。",
+    "pinyin": "Tā gěi wǒ yī běn shū.",
+    "fr": "Il me donne un livre.",
+    "en": "He gives me a book.",
+    "audio": null
+   },
    "niveaux": {
     "seuil": 255,
     "hsk": 1
@@ -181,7 +232,7 @@
    "traits": [],
    "medianes": [],
    "audio": null,
-   "statut": "sans_fiche"
+   "statut": "relu"
   }
  ]
 }

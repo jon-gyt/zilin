@@ -3,15 +3,15 @@
  "license": "propriétaire",
  "source": "décomposition GF 0014-2009 réconciliée par le pipeline wenlu ; pinyin d'Unihan (kMandarin) ; textes rédigés pour l'app",
  "source_url": "https://github.com/jon-gyt/zilin",
- "modified": "2026-09-25 : assemblé par `wenlu export`",
+ "modified": "2026-09-26 : assemblé par `wenlu export`",
  "norme": "GF 0014-2009",
  "racine": {
   "c": "手",
   "pinyin": "shǒu",
   "fr": "",
   "en": "",
-  "origine": "",
-  "etiquette": null
+  "origine": "Sur les bronzes, 手 dessine une main aux cinq doigts écartés, et le Shuowen jiezi le définit comme le poing. En haut de 看, la main se pose au-dessus de l'œil 目, et le Shuowen jiezi explique ainsi le regard qui porte au loin. À gauche d'un caractère, il se réduit à 扌.",
+  "etiquette": "atteste"
  },
  "fiches": [
   {
@@ -26,21 +26,44 @@
    "nouveau": [],
    "sources": [],
    "role": null,
-   "roles": {},
-   "origine_fr": "",
-   "origine_en": "",
-   "etiquette": null,
+   "roles": {
+    "手": "sens"
+   },
+   "origine_fr": "Sur les bronzes, 手 dessine une main aux cinq doigts écartés, et le Shuowen jiezi le définit comme le poing. En haut de 看, la main se pose au-dessus de l'œil 目, et le Shuowen jiezi explique ainsi le regard qui porte au loin. À gauche d'un caractère, il se réduit à 扌.",
+   "origine_en": "On bronzes, 手 draws a hand with five spread fingers, and the Shuowen jiezi defines it as the fist. At the top of 看 the hand rests above the eye, 目, which is how the Shuowen jiezi explains looking into the distance. On the left of a character it shrinks to 扌.",
+   "etiquette": "atteste",
    "memo_fr": null,
    "memo_en": null,
-   "mots": [],
-   "phrase": null,
+   "mots": [
+    {
+     "hanzi": "手机",
+     "pinyin": "shǒujī",
+     "fr": "téléphone portable",
+     "en": "mobile phone",
+     "audio": null
+    },
+    {
+     "hanzi": "二手",
+     "pinyin": "èrshǒu",
+     "fr": "d'occasion",
+     "en": "second-hand",
+     "audio": null
+    }
+   ],
+   "phrase": {
+    "hanzi": "你有手机吗？",
+    "pinyin": "Nǐ yǒu shǒujī ma?",
+    "fr": "Tu as un portable ?",
+    "en": "Do you have a mobile phone?",
+    "audio": null
+   },
    "niveaux": {
     "hsk": 1
    },
    "traits": [],
    "medianes": [],
    "audio": null,
-   "statut": "sans_fiche"
+   "statut": "relu"
   },
   {
    "c": "看",
@@ -61,15 +84,39 @@
    "sources": [
     "makemeahanzi"
    ],
-   "role": null,
-   "roles": {},
-   "origine_fr": "",
-   "origine_en": "",
-   "etiquette": null,
+   "role": "sens",
+   "roles": {
+    "手": "sens",
+    "目": "sens"
+   },
+   "origine_fr": "Le Shuowen jiezi analyse 看 comme une main posée au-dessus de l'œil, 手 sur 目. C'est le geste de qui s'abrite du soleil pour regarder au loin. Dans la forme actuelle, 手 s'est aplati en haut du caractère, ses traits penchés vers la gauche.",
+   "origine_en": "The Shuowen jiezi reads 看 as a hand held above the eye, 手 over 目. It is the gesture of someone shading their eyes to look into the distance. In the modern form, 手 has been flattened across the top, its strokes slanting to the left.",
+   "etiquette": "atteste",
    "memo_fr": null,
    "memo_en": null,
-   "mots": [],
-   "phrase": null,
+   "mots": [
+    {
+     "hanzi": "好看",
+     "pinyin": "hǎokàn",
+     "fr": "beau, agréable à regarder",
+     "en": "good-looking, nice to look at",
+     "audio": null
+    },
+    {
+     "hanzi": "看见",
+     "pinyin": "kànjiàn",
+     "fr": "voir, apercevoir",
+     "en": "to see, to catch sight of",
+     "audio": null
+    }
+   ],
+   "phrase": {
+    "hanzi": "她每天看书。",
+    "pinyin": "Tā měitiān kàn shū.",
+    "fr": "Elle lit tous les jours.",
+    "en": "She reads every day.",
+    "audio": null
+   },
    "niveaux": {
     "seuil": 255,
     "hsk": 1
@@ -77,7 +124,7 @@
    "traits": [],
    "medianes": [],
    "audio": null,
-   "statut": "sans_fiche"
+   "statut": "relu"
   }
  ]
 }

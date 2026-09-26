@@ -3,15 +3,15 @@
  "license": "propriétaire",
  "source": "décomposition GF 0014-2009 réconciliée par le pipeline wenlu ; pinyin d'Unihan (kMandarin) ; textes rédigés pour l'app",
  "source_url": "https://github.com/jon-gyt/zilin",
- "modified": "2026-09-25 : assemblé par `wenlu export`",
+ "modified": "2026-09-26 : assemblé par `wenlu export`",
  "norme": "GF 0014-2009",
  "racine": {
   "c": "再",
   "pinyin": "zài",
   "fr": "",
   "en": "",
-  "origine": "",
-  "etiquette": null
+  "origine": "再 veut dire « de nouveau », « une seconde fois », et ce que dessinaient ses formes anciennes reste discuté. Pour s'en souvenir : dans 再, les traits horizontaux se répètent de haut en bas, tenus par un même trait vertical. On y voit un même geste, refait plusieurs fois.",
+  "etiquette": "mnemotechnique"
  },
  "fiches": [
   {
@@ -26,14 +26,37 @@
    "nouveau": [],
    "sources": [],
    "role": null,
-   "roles": {},
-   "origine_fr": "",
-   "origine_en": "",
-   "etiquette": null,
+   "roles": {
+    "再": "forme"
+   },
+   "origine_fr": "再 veut dire « de nouveau », « une seconde fois », et ce que dessinaient ses formes anciennes reste discuté. Pour s'en souvenir : dans 再, les traits horizontaux se répètent de haut en bas, tenus par un même trait vertical. On y voit un même geste, refait plusieurs fois.",
+   "origine_en": "再 means “again” or “a second time”, and what its ancient forms depicted is still debated. As a memory aid: in 再, horizontal strokes repeat from top to bottom, held together by a single vertical stroke. Think of the same gesture being made again and again.",
+   "etiquette": "mnemotechnique",
    "memo_fr": null,
    "memo_en": null,
-   "mots": [],
-   "phrase": null,
+   "mots": [
+    {
+     "hanzi": "再见",
+     "pinyin": "zàijiàn",
+     "fr": "au revoir",
+     "en": "goodbye",
+     "audio": null
+    },
+    {
+     "hanzi": "不再",
+     "pinyin": "bùzài",
+     "fr": "ne plus",
+     "en": "no longer",
+     "audio": null
+    }
+   ],
+   "phrase": {
+    "hanzi": "她不再去了。",
+    "pinyin": "Tā bù zài qù le.",
+    "fr": "Elle n'y va plus.",
+    "en": "She doesn't go there anymore.",
+    "audio": null
+   },
    "niveaux": {
     "seuil": 255,
     "hsk": 1
@@ -41,7 +64,7 @@
    "traits": [],
    "medianes": [],
    "audio": null,
-   "statut": "sans_fiche"
+   "statut": "relu"
   }
  ]
 }

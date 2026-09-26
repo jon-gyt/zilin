@@ -3,15 +3,15 @@
  "license": "propriétaire",
  "source": "décomposition GF 0014-2009 réconciliée par le pipeline wenlu ; pinyin d'Unihan (kMandarin) ; textes rédigés pour l'app",
  "source_url": "https://github.com/jon-gyt/zilin",
- "modified": "2026-09-25 : assemblé par `wenlu export`",
+ "modified": "2026-09-26 : assemblé par `wenlu export`",
  "norme": "GF 0014-2009",
  "racine": {
   "c": "豕",
   "pinyin": "shǐ",
   "fr": "",
   "en": "",
-  "origine": "",
-  "etiquette": null
+  "origine": "Sur les os oraculaires, 豕 dessine un porc dressé à la verticale, le ventre rond, les pattes courtes et la queue pendante. Le Shuowen jiezi le définit comme le cochon. Sous le toit 宀, il forme 家, la maison, dont l'explication divise encore les commentateurs.",
+  "etiquette": "atteste"
  },
  "fiches": [
   {
@@ -26,19 +26,27 @@
    "nouveau": [],
    "sources": [],
    "role": null,
-   "roles": {},
-   "origine_fr": "",
-   "origine_en": "",
-   "etiquette": null,
+   "roles": {
+    "豕": "sens"
+   },
+   "origine_fr": "Sur les os oraculaires, 豕 dessine un porc dressé à la verticale, le ventre rond, les pattes courtes et la queue pendante. Le Shuowen jiezi le définit comme le cochon. Sous le toit 宀, il forme 家, la maison, dont l'explication divise encore les commentateurs.",
+   "origine_en": "On oracle bones, 豕 draws a pig standing on end, round belly, short legs and a hanging tail. The Shuowen jiezi defines it as the pig. Under the roof 宀 it forms 家, home, a pairing whose explanation still divides commentators.",
+   "etiquette": "atteste",
    "memo_fr": null,
    "memo_en": null,
    "mots": [],
-   "phrase": null,
+   "phrase": {
+    "hanzi": "我们回家吧。",
+    "pinyin": "Wǒmen huí jiā ba.",
+    "fr": "Rentrons à la maison.",
+    "en": "Let's go home.",
+    "audio": null
+   },
    "niveaux": {},
    "traits": [],
    "medianes": [],
    "audio": null,
-   "statut": "sans_fiche"
+   "statut": "relu"
   }
  ]
 }

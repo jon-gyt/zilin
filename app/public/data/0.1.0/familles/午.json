@@ -3,15 +3,15 @@
  "license": "propriétaire",
  "source": "décomposition GF 0014-2009 réconciliée par le pipeline wenlu ; pinyin d'Unihan (kMandarin) ; textes rédigés pour l'app",
  "source_url": "https://github.com/jon-gyt/zilin",
- "modified": "2026-09-25 : assemblé par `wenlu export`",
+ "modified": "2026-09-26 : assemblé par `wenlu export`",
  "norme": "GF 0014-2009",
  "racine": {
   "c": "午",
   "pinyin": "wǔ",
   "fr": "",
   "en": "",
-  "origine": "",
-  "etiquette": null
+  "origine": "Sur les os oraculaires, 午 est une forme dressée et allongée, qu'on lit le plus souvent comme un pilon à grain. Ce dessin a été emprunté pour noter la septième des douze branches terrestres, qui désigne aussi les heures autour de midi. De là vient son sens courant, « midi », que l'on retrouve dans 中午 et 上午.",
+  "etiquette": "atteste"
  },
  "fiches": [
   {
@@ -26,14 +26,37 @@
    "nouveau": [],
    "sources": [],
    "role": null,
-   "roles": {},
-   "origine_fr": "",
-   "origine_en": "",
-   "etiquette": null,
+   "roles": {
+    "午": "forme"
+   },
+   "origine_fr": "Sur les os oraculaires, 午 est une forme dressée et allongée, qu'on lit le plus souvent comme un pilon à grain. Ce dessin a été emprunté pour noter la septième des douze branches terrestres, qui désigne aussi les heures autour de midi. De là vient son sens courant, « midi », que l'on retrouve dans 中午 et 上午.",
+   "origine_en": "On oracle bones, 午 is a tall, narrow shape usually read as a pestle for pounding grain. The sign was borrowed to write the seventh of the twelve Earthly Branches, which also names the hours around noon. That is where its everyday meaning, “noon”, comes from, as in 中午 and 上午.",
+   "etiquette": "atteste",
    "memo_fr": null,
    "memo_en": null,
-   "mots": [],
-   "phrase": null,
+   "mots": [
+    {
+     "hanzi": "中午",
+     "pinyin": "zhōngwǔ",
+     "fr": "midi",
+     "en": "noon, midday",
+     "audio": null
+    },
+    {
+     "hanzi": "上午",
+     "pinyin": "shàngwǔ",
+     "fr": "le matin, la matinée",
+     "en": "morning",
+     "audio": null
+    }
+   ],
+   "phrase": {
+    "hanzi": "她中午去见朋友。",
+    "pinyin": "Tā zhōngwǔ qù jiàn péngyou.",
+    "fr": "Elle va voir des amis à midi.",
+    "en": "She goes to see friends at noon.",
+    "audio": null
+   },
    "niveaux": {
     "seuil": 255,
     "hsk": 1
@@ -41,7 +64,7 @@
    "traits": [],
    "medianes": [],
    "audio": null,
-   "statut": "sans_fiche"
+   "statut": "relu"
   }
  ]
 }

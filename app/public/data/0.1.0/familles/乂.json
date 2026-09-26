@@ -3,15 +3,15 @@
  "license": "propriétaire",
  "source": "décomposition GF 0014-2009 réconciliée par le pipeline wenlu ; pinyin d'Unihan (kMandarin) ; textes rédigés pour l'app",
  "source_url": "https://github.com/jon-gyt/zilin",
- "modified": "2026-09-25 : assemblé par `wenlu export`",
+ "modified": "2026-09-26 : assemblé par `wenlu export`",
  "norme": "GF 0014-2009",
  "racine": {
   "c": "乂",
   "pinyin": "yì",
   "fr": "",
   "en": "",
-  "origine": "",
-  "etiquette": null
+  "origine": "Le Shuowen jiezi définit 乂 comme « couper l'herbe », et le compose de deux traits qui se croisent, comme les lames d'une cisaille. Il se lit yì, et la norme l'appelle 艾字底, d'après 艾, l'armoise. Dans 刚, il fait partie de 冈, forme simplifiée de 岡, qui donne le son, gāng.",
+  "etiquette": "atteste"
  },
  "fiches": [
   {
@@ -26,19 +26,27 @@
    "nouveau": [],
    "sources": [],
    "role": null,
-   "roles": {},
-   "origine_fr": "",
-   "origine_en": "",
-   "etiquette": null,
+   "roles": {
+    "乂": "forme"
+   },
+   "origine_fr": "Le Shuowen jiezi définit 乂 comme « couper l'herbe », et le compose de deux traits qui se croisent, comme les lames d'une cisaille. Il se lit yì, et la norme l'appelle 艾字底, d'après 艾, l'armoise. Dans 刚, il fait partie de 冈, forme simplifiée de 岡, qui donne le son, gāng.",
+   "origine_en": "The Shuowen jiezi defines 乂 as “to cut grass”, and builds it from two crossing strokes, like the blades of shears. It is read yì, and the standard calls it 艾字底, after 艾, mugwort. In 刚 it is part of 冈, the simplified form of 岡, which gives the sound, gāng.",
+   "etiquette": "atteste",
    "memo_fr": null,
    "memo_en": null,
    "mots": [],
-   "phrase": null,
+   "phrase": {
+    "hanzi": "他刚走。",
+    "pinyin": "Tā gāng zǒu.",
+    "fr": "Il vient de partir.",
+    "en": "He's just left.",
+    "audio": null
+   },
    "niveaux": {},
    "traits": [],
    "medianes": [],
    "audio": null,
-   "statut": "sans_fiche"
+   "statut": "relu"
   }
  ]
 }

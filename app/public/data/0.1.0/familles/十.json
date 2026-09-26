@@ -3,15 +3,15 @@
  "license": "propriétaire",
  "source": "décomposition GF 0014-2009 réconciliée par le pipeline wenlu ; pinyin d'Unihan (kMandarin) ; textes rédigés pour l'app",
  "source_url": "https://github.com/jon-gyt/zilin",
- "modified": "2026-09-25 : assemblé par `wenlu export`",
+ "modified": "2026-09-26 : assemblé par `wenlu export`",
  "norme": "GF 0014-2009",
  "racine": {
   "c": "十",
   "pinyin": "shí",
   "fr": "",
   "en": "",
-  "origine": "",
-  "etiquette": null
+  "origine": "Sur les os oraculaires, 十 n'est qu'un trait vertical. Sur les bronzes, ce trait porte un renflement ou un point en son milieu. Ce point s'est étiré en trait horizontal, d'où la croix d'aujourd'hui.",
+  "etiquette": "atteste"
  },
  "fiches": [
   {
@@ -26,14 +26,30 @@
    "nouveau": [],
    "sources": [],
    "role": null,
-   "roles": {},
-   "origine_fr": "",
-   "origine_en": "",
-   "etiquette": null,
+   "roles": {
+    "十": "sens"
+   },
+   "origine_fr": "Sur les os oraculaires, 十 n'est qu'un trait vertical. Sur les bronzes, ce trait porte un renflement ou un point en son milieu. Ce point s'est étiré en trait horizontal, d'où la croix d'aujourd'hui.",
+   "origine_en": "On oracle bones, 十 is a single vertical stroke. On bronzes, that stroke has a swelling or a dot halfway down. The dot later stretched into a horizontal stroke, which gives today's cross.",
+   "etiquette": "atteste",
    "memo_fr": null,
    "memo_en": null,
-   "mots": [],
-   "phrase": null,
+   "mots": [
+    {
+     "hanzi": "十一",
+     "pinyin": "shíyī",
+     "fr": "onze",
+     "en": "eleven",
+     "audio": null
+    }
+   ],
+   "phrase": {
+    "hanzi": "有十人。",
+    "pinyin": "Yǒu shí rén.",
+    "fr": "Il y a dix personnes.",
+    "en": "There are ten people.",
+    "audio": null
+   },
    "niveaux": {
     "seuil": 255,
     "hsk": 1
@@ -41,7 +57,7 @@
    "traits": [],
    "medianes": [],
    "audio": null,
-   "statut": "sans_fiche"
+   "statut": "relu"
   },
   {
    "c": "卖",
@@ -62,22 +78,47 @@
    "sources": [
     "makemeahanzi"
    ],
-   "role": null,
-   "roles": {},
-   "origine_fr": "",
-   "origine_en": "",
-   "etiquette": null,
-   "memo_fr": null,
-   "memo_en": null,
-   "mots": [],
-   "phrase": null,
+   "role": "forme",
+   "roles": {
+    "乛": "forme",
+    "十": "forme",
+    "头": "forme"
+   },
+   "origine_fr": "Dans le petit sceau, 賣, forme traditionnelle de 卖, pose 出, sortir, au-dessus de 買, acheter. Le Shuowen jiezi l'explique comme le fait de faire sortir des marchandises, c'est-à-dire vendre. La forme simplifiée reprend 买 et réduit 出 à 十, un reste de forme sans rôle propre.",
+   "origine_en": "In small seal script, 賣, the traditional form of 卖, places 出, to go out, above 買, to buy. The Shuowen jiezi explains it as sending goods out, that is, selling. The simplified form reuses 买 and reduces 出 to 十, a leftover shape with no role of its own.",
+   "etiquette": "atteste",
+   "memo_fr": "Avec 十 en plus, 买 mǎi, acheter, devient 卖 mài, vendre.",
+   "memo_en": "Add 十 on top and 买 mǎi, to buy, becomes 卖 mài, to sell.",
+   "mots": [
+    {
+     "hanzi": "买卖",
+     "pinyin": "mǎimài",
+     "fr": "acheter et vendre ; le commerce",
+     "en": "buying and selling; trade",
+     "audio": null
+    },
+    {
+     "hanzi": "外卖",
+     "pinyin": "wàimài",
+     "fr": "plat à emporter ou livré",
+     "en": "takeaway, food delivery",
+     "audio": null
+    }
+   ],
+   "phrase": {
+    "hanzi": "这家店卖书。",
+    "pinyin": "Zhè jiā diàn mài shū.",
+    "fr": "Cette boutique vend des livres.",
+    "en": "This shop sells books.",
+    "audio": null
+   },
    "niveaux": {
     "seuil": 255
    },
    "traits": [],
    "medianes": [],
    "audio": null,
-   "statut": "sans_fiche"
+   "statut": "relu"
   },
   {
    "c": "古",
@@ -97,22 +138,39 @@
    "sources": [
     "makemeahanzi"
    ],
-   "role": null,
-   "roles": {},
-   "origine_fr": "",
-   "origine_en": "",
-   "etiquette": null,
+   "role": "forme",
+   "roles": {
+    "十": "forme",
+    "口": "forme"
+   },
+   "origine_fr": "Les formes anciennes de 古 posent au-dessus de 口 un élément dont le sens reste discuté. Pour s'en souvenir : dix bouches, 十 sur 口, se sont répété la même histoire, et ce qui a passé par tant de bouches est ancien. 古 donne aussi le son de plusieurs caractères, comme 故 ou 姑.",
+   "origine_en": "Early forms of 古 place above 口 an element whose meaning is still debated. To remember it: ten mouths, 十 over 口, have passed the same story along, and whatever has gone through so many mouths is old. 古 also gives the sound to several characters, such as 故 and 姑.",
+   "etiquette": "mnemotechnique",
    "memo_fr": null,
    "memo_en": null,
-   "mots": [],
-   "phrase": null,
+   "mots": [
+    {
+     "hanzi": "古人",
+     "pinyin": "gǔrén",
+     "fr": "les Anciens, les gens d'autrefois",
+     "en": "the ancients, people of old",
+     "audio": null
+    }
+   ],
+   "phrase": {
+    "hanzi": "古人有朋。",
+    "pinyin": "Gǔrén yǒu péng.",
+    "fr": "Les Anciens avaient des amis.",
+    "en": "The ancients had friends.",
+    "audio": null
+   },
    "niveaux": {
     "seuil": 255
    },
    "traits": [],
    "medianes": [],
    "audio": null,
-   "statut": "sans_fiche"
+   "statut": "relu"
   },
   {
    "c": "翰",

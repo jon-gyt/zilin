@@ -3,15 +3,15 @@
  "license": "propriétaire",
  "source": "décomposition GF 0014-2009 réconciliée par le pipeline wenlu ; pinyin d'Unihan (kMandarin) ; textes rédigés pour l'app",
  "source_url": "https://github.com/jon-gyt/zilin",
- "modified": "2026-09-25 : assemblé par `wenlu export`",
+ "modified": "2026-09-26 : assemblé par `wenlu export`",
  "norme": "GF 0014-2009",
  "racine": {
   "c": "酉",
   "pinyin": "yǒu",
   "fr": "",
   "en": "",
-  "origine": "",
-  "etiquette": null
+  "origine": "Sur les os oraculaires, 酉 dessine une jarre au col étroit et au fond pointu, celle où l'on garde l'alcool. Le Shuowen jiezi le rattache au huitième mois, quand le millet mûr permet de faire l'alcool. C'est aussi le dixième des douze rameaux terrestres, et, avec l'eau 氵, il forme 酒, l'alcool.",
+  "etiquette": "atteste"
  },
  "fiches": [
   {
@@ -26,19 +26,27 @@
    "nouveau": [],
    "sources": [],
    "role": null,
-   "roles": {},
-   "origine_fr": "",
-   "origine_en": "",
-   "etiquette": null,
+   "roles": {
+    "酉": "sens"
+   },
+   "origine_fr": "Sur les os oraculaires, 酉 dessine une jarre au col étroit et au fond pointu, celle où l'on garde l'alcool. Le Shuowen jiezi le rattache au huitième mois, quand le millet mûr permet de faire l'alcool. C'est aussi le dixième des douze rameaux terrestres, et, avec l'eau 氵, il forme 酒, l'alcool.",
+   "origine_en": "On oracle bones, 酉 draws a jar with a narrow neck and a pointed base, the kind used to keep wine. The Shuowen jiezi links it to the eighth month, when ripe millet can be made into wine. It is also the tenth of the twelve earthly branches, and with water, 氵, it forms 酒, alcohol.",
+   "etiquette": "atteste",
    "memo_fr": null,
    "memo_en": null,
    "mots": [],
-   "phrase": null,
+   "phrase": {
+    "hanzi": "我不喝酒。",
+    "pinyin": "Wǒ bù hē jiǔ.",
+    "fr": "Je ne bois pas d'alcool.",
+    "en": "I don't drink alcohol.",
+    "audio": null
+   },
    "niveaux": {},
    "traits": [],
    "medianes": [],
    "audio": null,
-   "statut": "sans_fiche"
+   "statut": "relu"
   }
  ]
 }

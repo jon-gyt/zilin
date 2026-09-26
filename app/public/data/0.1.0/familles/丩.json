@@ -3,15 +3,15 @@
  "license": "propriétaire",
  "source": "décomposition GF 0014-2009 réconciliée par le pipeline wenlu ; pinyin d'Unihan (kMandarin) ; textes rédigés pour l'app",
  "source_url": "https://github.com/jon-gyt/zilin",
- "modified": "2026-09-25 : assemblé par `wenlu export`",
+ "modified": "2026-09-26 : assemblé par `wenlu export`",
  "norme": "GF 0014-2009",
  "racine": {
   "c": "丩",
   "pinyin": "jiū",
   "fr": "",
   "en": "",
-  "origine": "",
-  "etiquette": null
+  "origine": "Le Shuowen jiezi définit 丩 comme deux brins qui s'entrelacent, et le lit jiū. C'est la forme ancienne de 纠, « entremêler », qui lui a ajouté le fil 纟, et la norme l'appelle 纠字边. À droite de 叫, il donne un son proche, jiào pour jiū.",
+  "etiquette": "atteste"
  },
  "fiches": [
   {
@@ -26,19 +26,27 @@
    "nouveau": [],
    "sources": [],
    "role": null,
-   "roles": {},
-   "origine_fr": "",
-   "origine_en": "",
-   "etiquette": null,
+   "roles": {
+    "丩": "forme"
+   },
+   "origine_fr": "Le Shuowen jiezi définit 丩 comme deux brins qui s'entrelacent, et le lit jiū. C'est la forme ancienne de 纠, « entremêler », qui lui a ajouté le fil 纟, et la norme l'appelle 纠字边. À droite de 叫, il donne un son proche, jiào pour jiū.",
+   "origine_en": "The Shuowen jiezi defines 丩 as two strands twining together, and reads it jiū. It is the ancient form of 纠, “to tangle”, which added the thread 纟, and the standard calls it 纠字边. On the right of 叫 it gives a similar sound, jiào for jiū.",
+   "etiquette": "atteste",
    "memo_fr": null,
    "memo_en": null,
    "mots": [],
-   "phrase": null,
+   "phrase": {
+    "hanzi": "我叫王小月。",
+    "pinyin": "Wǒ jiào Wáng Xiǎoyuè.",
+    "fr": "Je m'appelle Wang Xiaoyue.",
+    "en": "My name is Wang Xiaoyue.",
+    "audio": null
+   },
    "niveaux": {},
    "traits": [],
    "medianes": [],
    "audio": null,
-   "statut": "sans_fiche"
+   "statut": "relu"
   }
  ]
 }

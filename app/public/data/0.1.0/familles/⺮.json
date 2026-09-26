@@ -3,40 +3,50 @@
  "license": "propriétaire",
  "source": "décomposition GF 0014-2009 réconciliée par le pipeline wenlu ; pinyin d'Unihan (kMandarin) ; textes rédigés pour l'app",
  "source_url": "https://github.com/jon-gyt/zilin",
- "modified": "2026-09-25 : assemblé par `wenlu export`",
+ "modified": "2026-09-26 : assemblé par `wenlu export`",
  "norme": "GF 0014-2009",
  "racine": {
   "c": "⺮",
-  "pinyin": "",
+  "pinyin": "zhú",
   "fr": "",
   "en": "",
-  "origine": "",
-  "etiquette": null
+  "origine": "⺮ est la forme de 竹, le bambou, en haut d'un caractère ; on l'appelle 竹字头, et la norme le nomme 竹头. Sur les os oraculaires, 竹 dessine deux tiges de bambou aux feuilles pendantes, et le Shuowen jiezi le définit comme une plante qui pousse en hiver. Il coiffe les objets de bambou, comme 笔, le pinceau, et 筷, les baguettes.",
+  "etiquette": "atteste"
  },
  "fiches": [
   {
    "c": "⺮",
-   "pinyin": "",
-   "lectures": [],
+   "pinyin": "zhú",
+   "lectures": [
+    "zhú"
+   ],
    "fr": "",
    "en": "",
    "parts": [],
    "nouveau": [],
    "sources": [],
    "role": null,
-   "roles": {},
-   "origine_fr": "",
-   "origine_en": "",
-   "etiquette": null,
+   "roles": {
+    "⺮": "sens"
+   },
+   "origine_fr": "⺮ est la forme de 竹, le bambou, en haut d'un caractère ; on l'appelle 竹字头, et la norme le nomme 竹头. Sur les os oraculaires, 竹 dessine deux tiges de bambou aux feuilles pendantes, et le Shuowen jiezi le définit comme une plante qui pousse en hiver. Il coiffe les objets de bambou, comme 笔, le pinceau, et 筷, les baguettes.",
+   "origine_en": "⺮ is the form 竹, bamboo, takes at the top of a character; it is called 竹字头, and the standard names it 竹头. On oracle bones, 竹 draws two bamboo stems with drooping leaves, and the Shuowen jiezi defines it as a plant that grows in winter. It caps things made of bamboo, like 笔, the brush, and 筷, chopsticks.",
+   "etiquette": "atteste",
    "memo_fr": null,
    "memo_en": null,
    "mots": [],
-   "phrase": null,
+   "phrase": {
+    "hanzi": "我不用筷子。",
+    "pinyin": "Wǒ bù yòng kuàizi.",
+    "fr": "Je n'utilise pas de baguettes.",
+    "en": "I don't use chopsticks.",
+    "audio": null
+   },
    "niveaux": {},
    "traits": [],
    "medianes": [],
    "audio": null,
-   "statut": "sans_fiche"
+   "statut": "relu"
   },
   {
    "c": "笑",
@@ -91,22 +101,46 @@
    "sources": [
     "makemeahanzi"
    ],
-   "role": null,
-   "roles": {},
-   "origine_fr": "",
-   "origine_en": "",
-   "etiquette": null,
+   "role": "sens",
+   "roles": {
+    "⺮": "sens",
+    "毛": "sens"
+   },
+   "origine_fr": "Sur les os oraculaires, 聿 montre une main qui tient un pinceau. Le Shuowen jiezi enregistre 筆, qui ajoute le bambou ⺮ à 聿, le manche du pinceau étant en bambou. La forme 笔, forme populaire retenue par la simplification, remplace 聿 par 毛, les poils : un manche de bambou et une pointe de poils.",
+   "origine_en": "On oracle bones, 聿 shows a hand holding a brush. The Shuowen jiezi records 筆, which adds bamboo ⺮ to 聿, since the handle of the brush was made of bamboo. The form 笔, a popular variant adopted by simplification, replaces 聿 with 毛, hair: a bamboo handle and a tip of hair.",
+   "etiquette": "atteste",
    "memo_fr": null,
    "memo_en": null,
-   "mots": [],
-   "phrase": null,
+   "mots": [
+    {
+     "hanzi": "毛笔",
+     "pinyin": "máobǐ",
+     "fr": "pinceau (d'écriture)",
+     "en": "writing brush",
+     "audio": null
+    },
+    {
+     "hanzi": "笔友",
+     "pinyin": "bǐyǒu",
+     "fr": "correspondant, ami de plume",
+     "en": "pen pal",
+     "audio": null
+    }
+   ],
+   "phrase": {
+    "hanzi": "你有毛笔吗？",
+    "pinyin": "Nǐ yǒu máobǐ ma?",
+    "fr": "Tu as un pinceau ?",
+    "en": "Do you have a writing brush?",
+    "audio": null
+   },
    "niveaux": {
     "seuil": 255
    },
    "traits": [],
    "medianes": [],
    "audio": null,
-   "statut": "sans_fiche"
+   "statut": "relu"
   },
   {
    "c": "第",
@@ -267,22 +301,40 @@
    "sources": [
     "makemeahanzi"
    ],
-   "role": null,
-   "roles": {},
-   "origine_fr": "",
-   "origine_en": "",
-   "etiquette": null,
+   "role": "sens",
+   "roles": {
+    "⺮": "sens",
+    "夬": "son",
+    "忄": "son"
+   },
+   "origine_fr": "Pour s'en souvenir : 筷 réunit le bambou ⺮, la matière des baguettes, et 快 kuài, qui en donne le son exact. Le caractère est tardif et absent du Shuowen jiezi, qui ne connaît pour les baguettes que 箸. Sous le bambou, on peut lire 快, rapide : deux baguettes qui portent vite la nourriture à la bouche.",
+   "origine_en": "To remember it: 筷 combines bamboo ⺮, what chopsticks are made of, with 快 kuài, which gives its exact sound. The character is late and absent from the Shuowen jiezi, which only knows 箸 for chopsticks. Under the bamboo you can read 快, quick: two sticks that bring food swiftly to the mouth.",
+   "etiquette": "mnemotechnique",
    "memo_fr": null,
    "memo_en": null,
-   "mots": [],
-   "phrase": null,
+   "mots": [
+    {
+     "hanzi": "筷子",
+     "pinyin": "kuàizi",
+     "fr": "baguettes (pour manger)",
+     "en": "chopsticks",
+     "audio": null
+    }
+   ],
+   "phrase": {
+    "hanzi": "她用筷子，我也用筷子。",
+    "pinyin": "Tā yòng kuàizi, wǒ yě yòng kuàizi.",
+    "fr": "Elle mange avec des baguettes, et moi aussi.",
+    "en": "She uses chopsticks, and so do I.",
+    "audio": null
+   },
    "niveaux": {
     "seuil": 255
    },
    "traits": [],
    "medianes": [],
    "audio": null,
-   "statut": "sans_fiche"
+   "statut": "relu"
   }
  ]
 }

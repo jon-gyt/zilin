@@ -3,15 +3,15 @@
  "license": "propriétaire",
  "source": "décomposition GF 0014-2009 réconciliée par le pipeline wenlu ; pinyin d'Unihan (kMandarin) ; textes rédigés pour l'app",
  "source_url": "https://github.com/jon-gyt/zilin",
- "modified": "2026-09-25 : assemblé par `wenlu export`",
+ "modified": "2026-09-26 : assemblé par `wenlu export`",
  "norme": "GF 0014-2009",
  "racine": {
   "c": "弓",
   "pinyin": "gōng",
   "fr": "",
   "en": "",
-  "origine": "",
-  "etiquette": null
+  "origine": "Sur les os oraculaires, 弓 dessine un arc, parfois avec sa corde. Le Shuowen jiezi le définit comme l'arme qui atteint au loin. Dans 张, « tendre », il donne l'image de l'arc qu'on bande, et 长 le son.",
+  "etiquette": "atteste"
  },
  "fiches": [
   {
@@ -26,19 +26,35 @@
    "nouveau": [],
    "sources": [],
    "role": null,
-   "roles": {},
-   "origine_fr": "",
-   "origine_en": "",
-   "etiquette": null,
+   "roles": {
+    "弓": "sens"
+   },
+   "origine_fr": "Sur les os oraculaires, 弓 dessine un arc, parfois avec sa corde. Le Shuowen jiezi le définit comme l'arme qui atteint au loin. Dans 张, « tendre », il donne l'image de l'arc qu'on bande, et 长 le son.",
+   "origine_en": "On oracle bones, 弓 draws a bow, sometimes with its string. The Shuowen jiezi defines it as the weapon that reaches far. In 张, “to stretch”, it gives the picture of a bow being drawn, and 长 gives the sound.",
+   "etiquette": "atteste",
    "memo_fr": null,
    "memo_en": null,
-   "mots": [],
-   "phrase": null,
+   "mots": [
+    {
+     "hanzi": "开弓",
+     "pinyin": "kāigōng",
+     "fr": "bander l'arc",
+     "en": "to draw a bow",
+     "audio": null
+    }
+   ],
+   "phrase": {
+    "hanzi": "我姓张。",
+    "pinyin": "Wǒ xìng Zhāng.",
+    "fr": "Je m'appelle Zhang.",
+    "en": "My surname is Zhang.",
+    "audio": null
+   },
    "niveaux": {},
    "traits": [],
    "medianes": [],
    "audio": null,
-   "statut": "sans_fiche"
+   "statut": "relu"
   },
   {
    "c": "张",
@@ -58,22 +74,46 @@
    "sources": [
     "makemeahanzi"
    ],
-   "role": null,
-   "roles": {},
-   "origine_fr": "",
-   "origine_en": "",
-   "etiquette": null,
+   "role": "sens",
+   "roles": {
+    "弓": "sens",
+    "长": "son"
+   },
+   "origine_fr": "张 associe 弓, l'arc, qui porte le sens, et 长, qui donne le son : zhǎng, proche de zhāng. Le Shuowen jiezi le définit comme le fait de tendre la corde d'un arc. De là viennent les sens d'ouvrir et d'étendre, et l'emploi pour compter les choses plates qu'on déploie, comme une feuille ou une table.",
+   "origine_en": "张 pairs 弓, bow, which carries the meaning, with 长, which gives the sound: zhǎng, close to zhāng. The Shuowen jiezi defines it as stringing a bow, pulling the string taut. From there come the senses to open and to spread, and its use as a counter for flat things laid out, such as a sheet of paper or a table.",
+   "etiquette": "atteste",
    "memo_fr": null,
    "memo_en": null,
-   "mots": [],
-   "phrase": null,
+   "mots": [
+    {
+     "hanzi": "张开",
+     "pinyin": "zhāngkāi",
+     "fr": "ouvrir, déployer",
+     "en": "to open, to spread",
+     "audio": null
+    },
+    {
+     "hanzi": "开张",
+     "pinyin": "kāizhāng",
+     "fr": "ouvrir (un commerce)",
+     "en": "to open for business",
+     "audio": null
+    }
+   ],
+   "phrase": {
+    "hanzi": "请张开口。",
+    "pinyin": "Qǐng zhāngkāi kǒu.",
+    "fr": "Ouvrez la bouche, s'il vous plaît.",
+    "en": "Please open your mouth.",
+    "audio": null
+   },
    "niveaux": {
     "seuil": 255
    },
    "traits": [],
    "medianes": [],
    "audio": null,
-   "statut": "sans_fiche"
+   "statut": "relu"
   },
   {
    "c": "弼",

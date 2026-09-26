@@ -3,15 +3,15 @@
  "license": "propriétaire",
  "source": "décomposition GF 0014-2009 réconciliée par le pipeline wenlu ; pinyin d'Unihan (kMandarin) ; textes rédigés pour l'app",
  "source_url": "https://github.com/jon-gyt/zilin",
- "modified": "2026-09-25 : assemblé par `wenlu export`",
+ "modified": "2026-09-26 : assemblé par `wenlu export`",
  "norme": "GF 0014-2009",
  "racine": {
   "c": "井",
   "pinyin": "jǐng",
   "fr": "",
   "en": "",
-  "origine": "",
-  "etiquette": null
+  "origine": "Sur les os oraculaires, 井 dessine le cadre de poutres posé autour d'un puits, deux traits croisés sur deux autres. Le Shuowen jiezi y voit la margelle et rappelle qu'un puits servait huit familles. Dans la forme simplifiée 进, il remplace 隹 de l'ancien 進 et en donne le son, jìn pour jǐng.",
+  "etiquette": "atteste"
  },
  "fiches": [
   {
@@ -26,19 +26,42 @@
    "nouveau": [],
    "sources": [],
    "role": null,
-   "roles": {},
-   "origine_fr": "",
-   "origine_en": "",
-   "etiquette": null,
+   "roles": {
+    "井": "sens"
+   },
+   "origine_fr": "Sur les os oraculaires, 井 dessine le cadre de poutres posé autour d'un puits, deux traits croisés sur deux autres. Le Shuowen jiezi y voit la margelle et rappelle qu'un puits servait huit familles. Dans la forme simplifiée 进, il remplace 隹 de l'ancien 進 et en donne le son, jìn pour jǐng.",
+   "origine_en": "On oracle bones, 井 draws the frame of beams laid round a well, two strokes crossing two others. The Shuowen jiezi sees the well's rim in it and notes that one well served eight families. In the simplified form 进 it replaces the 隹 of the old 進 and supplies the sound, jìn for jǐng.",
+   "etiquette": "atteste",
    "memo_fr": null,
    "memo_en": null,
-   "mots": [],
-   "phrase": null,
+   "mots": [
+    {
+     "hanzi": "水井",
+     "pinyin": "shuǐjǐng",
+     "fr": "puits",
+     "en": "well",
+     "audio": null
+    },
+    {
+     "hanzi": "井水",
+     "pinyin": "jǐngshuǐ",
+     "fr": "eau de puits",
+     "en": "well water",
+     "audio": null
+    }
+   ],
+   "phrase": {
+    "hanzi": "山下有一口井。",
+    "pinyin": "Shān xià yǒu yī kǒu jǐng.",
+    "fr": "Au pied de la montagne, il y a un puits.",
+    "en": "There's a well at the foot of the mountain.",
+    "audio": null
+   },
    "niveaux": {},
    "traits": [],
    "medianes": [],
    "audio": null,
-   "statut": "sans_fiche"
+   "statut": "relu"
   }
  ]
 }

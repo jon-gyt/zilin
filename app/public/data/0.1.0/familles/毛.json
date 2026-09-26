@@ -3,15 +3,15 @@
  "license": "propriétaire",
  "source": "décomposition GF 0014-2009 réconciliée par le pipeline wenlu ; pinyin d'Unihan (kMandarin) ; textes rédigés pour l'app",
  "source_url": "https://github.com/jon-gyt/zilin",
- "modified": "2026-09-25 : assemblé par `wenlu export`",
+ "modified": "2026-09-26 : assemblé par `wenlu export`",
  "norme": "GF 0014-2009",
  "racine": {
   "c": "毛",
   "pinyin": "máo",
   "fr": "",
   "en": "",
-  "origine": "",
-  "etiquette": null
+  "origine": "Sur les bronzes, 毛 dessine une touffe de poils ou une plume, une tige d'où partent des brins de part et d'autre. Le Shuowen jiezi le définit comme les sourcils, les cheveux et le poil des bêtes, et le classe parmi les pictogrammes. La forme actuelle garde la tige, recourbée en bas, que croisent deux traits horizontaux sous un trait oblique.",
+  "etiquette": "atteste"
  },
  "fiches": [
   {
@@ -26,14 +26,30 @@
    "nouveau": [],
    "sources": [],
    "role": null,
-   "roles": {},
-   "origine_fr": "",
-   "origine_en": "",
-   "etiquette": null,
-   "memo_fr": null,
-   "memo_en": null,
-   "mots": [],
-   "phrase": null,
+   "roles": {
+    "毛": "sens"
+   },
+   "origine_fr": "Sur les bronzes, 毛 dessine une touffe de poils ou une plume, une tige d'où partent des brins de part et d'autre. Le Shuowen jiezi le définit comme les sourcils, les cheveux et le poil des bêtes, et le classe parmi les pictogrammes. La forme actuelle garde la tige, recourbée en bas, que croisent deux traits horizontaux sous un trait oblique.",
+   "origine_en": "On bronzes, 毛 draws a tuft of hair or a feather, a stem with strands branching off on both sides. The Shuowen jiezi defines it as eyebrows, hair and animal fur, and classes it among the pictograms. Today's form keeps the stem, curving at the bottom, crossed by two horizontal strokes under a slanting one.",
+   "etiquette": "atteste",
+   "memo_fr": "Dans la langue parlée, 毛 compte aussi les dixièmes de yuan.",
+   "memo_en": "In everyday speech, 毛 also counts tenths of a yuan.",
+   "mots": [
+    {
+     "hanzi": "白毛",
+     "pinyin": "báimáo",
+     "fr": "poils blancs, cheveux blancs",
+     "en": "white hair",
+     "audio": null
+    }
+   ],
+   "phrase": {
+    "hanzi": "她只有一毛。",
+    "pinyin": "Tā zhǐ yǒu yī máo.",
+    "fr": "Elle n'a que dix centimes.",
+    "en": "She only has ten cents.",
+    "audio": null
+   },
    "niveaux": {
     "seuil": 255,
     "hsk": 1
@@ -41,7 +57,7 @@
    "traits": [],
    "medianes": [],
    "audio": null,
-   "statut": "sans_fiche"
+   "statut": "relu"
   }
  ]
 }

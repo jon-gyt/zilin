@@ -3,15 +3,15 @@
  "license": "propriétaire",
  "source": "décomposition GF 0014-2009 réconciliée par le pipeline wenlu ; pinyin d'Unihan (kMandarin) ; textes rédigés pour l'app",
  "source_url": "https://github.com/jon-gyt/zilin",
- "modified": "2026-09-25 : assemblé par `wenlu export`",
+ "modified": "2026-09-26 : assemblé par `wenlu export`",
  "norme": "GF 0014-2009",
  "racine": {
   "c": "与",
   "pinyin": "yǔ",
   "fr": "",
   "en": "",
-  "origine": "",
-  "etiquette": null
+  "origine": "与 sert de forme simplifiée à 與, « donner, avec », mais c'était déjà un caractère à part, que le Shuowen jiezi définit comme « donner ». Il veut dire aujourd'hui « et, avec », ou « prendre part ». Dans 写, il remplace la partie basse de l'ancien 寫, sans rapport de sens.",
+  "etiquette": "atteste"
  },
  "fiches": [
   {
@@ -28,19 +28,35 @@
    "nouveau": [],
    "sources": [],
    "role": null,
-   "roles": {},
-   "origine_fr": "",
-   "origine_en": "",
-   "etiquette": null,
+   "roles": {
+    "与": "forme"
+   },
+   "origine_fr": "与 sert de forme simplifiée à 與, « donner, avec », mais c'était déjà un caractère à part, que le Shuowen jiezi définit comme « donner ». Il veut dire aujourd'hui « et, avec », ou « prendre part ». Dans 写, il remplace la partie basse de l'ancien 寫, sans rapport de sens.",
+   "origine_en": "与 serves as the simplified form of 與, “to give, with”, but it was already a character in its own right, which the Shuowen jiezi defines as “to give”. Today it means “and, with”, or “to take part”. In 写 it replaces the lower part of the old 寫, with no link in meaning.",
+   "etiquette": "atteste",
    "memo_fr": null,
    "memo_en": null,
-   "mots": [],
-   "phrase": null,
+   "mots": [
+    {
+     "hanzi": "与其",
+     "pinyin": "yǔqí",
+     "fr": "plutôt que",
+     "en": "rather than",
+     "audio": null
+    }
+   ],
+   "phrase": {
+    "hanzi": "你写什么？",
+    "pinyin": "Nǐ xiě shénme?",
+    "fr": "Qu'est-ce que tu écris ?",
+    "en": "What are you writing?",
+    "audio": null
+   },
    "niveaux": {},
    "traits": [],
    "medianes": [],
    "audio": null,
-   "statut": "sans_fiche"
+   "statut": "relu"
   }
  ]
 }

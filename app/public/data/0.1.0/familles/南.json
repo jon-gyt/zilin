@@ -3,15 +3,15 @@
  "license": "propriétaire",
  "source": "décomposition GF 0014-2009 réconciliée par le pipeline wenlu ; pinyin d'Unihan (kMandarin) ; textes rédigés pour l'app",
  "source_url": "https://github.com/jon-gyt/zilin",
- "modified": "2026-09-25 : assemblé par `wenlu export`",
+ "modified": "2026-09-26 : assemblé par `wenlu export`",
  "norme": "GF 0014-2009",
  "racine": {
   "c": "南",
   "pinyin": "nán",
   "fr": "",
   "en": "",
-  "origine": "",
-  "etiquette": null
+  "origine": "Sur les os oraculaires, 南 représente un objet suspendu, que l'on identifie le plus souvent à un instrument de musique, une sorte de cloche. Le caractère a été emprunté pour écrire le mot qui désigne le sud, de son proche. L'instrument ne se reconnaît plus dans la forme actuelle, où 十 coiffe un cadre ouvert vers le bas.",
+  "etiquette": "atteste"
  },
  "fiches": [
   {
@@ -27,14 +27,37 @@
    "nouveau": [],
    "sources": [],
    "role": null,
-   "roles": {},
-   "origine_fr": "",
-   "origine_en": "",
-   "etiquette": null,
+   "roles": {
+    "南": "forme"
+   },
+   "origine_fr": "Sur les os oraculaires, 南 représente un objet suspendu, que l'on identifie le plus souvent à un instrument de musique, une sorte de cloche. Le caractère a été emprunté pour écrire le mot qui désigne le sud, de son proche. L'instrument ne se reconnaît plus dans la forme actuelle, où 十 coiffe un cadre ouvert vers le bas.",
+   "origine_en": "On oracle bones, 南 depicts a hanging object, most often identified as a musical instrument, a kind of bell. The character was borrowed to write the word for “south”, which sounded alike. The instrument is no longer recognizable in the modern form, where 十 sits on top of a frame open at the bottom.",
+   "etiquette": "atteste",
    "memo_fr": null,
    "memo_en": null,
-   "mots": [],
-   "phrase": null,
+   "mots": [
+    {
+     "hanzi": "南方",
+     "pinyin": "nánfāng",
+     "fr": "le sud",
+     "en": "the south",
+     "audio": null
+    },
+    {
+     "hanzi": "西南",
+     "pinyin": "xīnán",
+     "fr": "le sud-ouest",
+     "en": "southwest",
+     "audio": null
+    }
+   ],
+   "phrase": {
+    "hanzi": "她从南方来。",
+    "pinyin": "Tā cóng nánfāng lái.",
+    "fr": "Elle vient du sud.",
+    "en": "She comes from the south.",
+    "audio": null
+   },
    "niveaux": {
     "seuil": 255,
     "hsk": 1
@@ -42,7 +65,7 @@
    "traits": [],
    "medianes": [],
    "audio": null,
-   "statut": "sans_fiche"
+   "statut": "relu"
   }
  ]
 }

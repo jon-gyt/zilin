@@ -3,15 +3,15 @@
  "license": "propriétaire",
  "source": "décomposition GF 0014-2009 réconciliée par le pipeline wenlu ; pinyin d'Unihan (kMandarin) ; textes rédigés pour l'app",
  "source_url": "https://github.com/jon-gyt/zilin",
- "modified": "2026-09-25 : assemblé par `wenlu export`",
+ "modified": "2026-09-26 : assemblé par `wenlu export`",
  "norme": "GF 0014-2009",
  "racine": {
   "c": "广",
   "pinyin": "guǎng",
   "fr": "",
   "en": "",
-  "origine": "",
-  "etiquette": null
+  "origine": "Le Shuowen jiezi définit 广 comme un abri adossé à une falaise, une maison ouverte d'un côté, et le lit yǎn. La simplification l'a repris pour écrire 廣, « vaste », d'où sa lecture actuelle guǎng. Il couvre les bâtiments, comme dans 店, la boutique, ou 库, l'entrepôt.",
+  "etiquette": "atteste"
  },
  "fiches": [
   {
@@ -27,19 +27,35 @@
    "nouveau": [],
    "sources": [],
    "role": null,
-   "roles": {},
-   "origine_fr": "",
-   "origine_en": "",
-   "etiquette": null,
+   "roles": {
+    "广": "sens"
+   },
+   "origine_fr": "Le Shuowen jiezi définit 广 comme un abri adossé à une falaise, une maison ouverte d'un côté, et le lit yǎn. La simplification l'a repris pour écrire 廣, « vaste », d'où sa lecture actuelle guǎng. Il couvre les bâtiments, comme dans 店, la boutique, ou 库, l'entrepôt.",
+   "origine_en": "The Shuowen jiezi defines 广 as a shelter built against a cliff, a house open on one side, and reads it yǎn. Simplification took it over to write 廣, “wide”, hence its current reading guǎng. It covers buildings, as in 店, a shop, or 库, a storehouse.",
+   "etiquette": "atteste",
    "memo_fr": null,
    "memo_en": null,
-   "mots": [],
-   "phrase": null,
+   "mots": [
+    {
+     "hanzi": "广大",
+     "pinyin": "guǎngdà",
+     "fr": "vaste, étendu",
+     "en": "vast, broad",
+     "audio": null
+    }
+   ],
+   "phrase": {
+    "hanzi": "这里有一个书店。",
+    "pinyin": "Zhèlǐ yǒu yī ge shūdiàn.",
+    "fr": "Il y a une librairie ici.",
+    "en": "There's a bookshop here.",
+    "audio": null
+   },
    "niveaux": {},
    "traits": [],
    "medianes": [],
    "audio": null,
-   "statut": "sans_fiche"
+   "statut": "relu"
   },
   {
    "c": "床",
@@ -95,15 +111,40 @@
    "sources": [
     "makemeahanzi"
    ],
-   "role": null,
-   "roles": {},
-   "origine_fr": "",
-   "origine_en": "",
-   "etiquette": null,
+   "role": "sens",
+   "roles": {
+    "⺊": "forme",
+    "口": "forme",
+    "广": "sens"
+   },
+   "origine_fr": "店 est un caractère tardif, absent du Shuowen jiezi. Pour s'en souvenir : sous 广, un toit ouvert d'un côté comme un auvent, se tient une échoppe. En bas, 占, fait de ⺊ et de 口, se lit zhàn ; on le retrouve dans 点, diǎn, qui sonne presque comme diàn.",
+   "origine_en": "店 is a late character, not found in the Shuowen jiezi. To remember it: under 广, a roof open on one side like an awning, stands a stall. Below, 占, made of ⺊ and 口, reads zhàn; it also appears in 点, diǎn, which sounds almost like diàn.",
+   "etiquette": "mnemotechnique",
    "memo_fr": null,
    "memo_en": null,
-   "mots": [],
-   "phrase": null,
+   "mots": [
+    {
+     "hanzi": "书店",
+     "pinyin": "shūdiàn",
+     "fr": "librairie",
+     "en": "bookshop",
+     "audio": null
+    },
+    {
+     "hanzi": "饭店",
+     "pinyin": "fàndiàn",
+     "fr": "restaurant ; hôtel",
+     "en": "restaurant; hotel",
+     "audio": null
+    }
+   ],
+   "phrase": {
+    "hanzi": "这家店几点开门？",
+    "pinyin": "Zhè jiā diàn jǐ diǎn kāimén?",
+    "fr": "À quelle heure ouvre ce magasin ?",
+    "en": "What time does this shop open?",
+    "audio": null
+   },
    "niveaux": {
     "seuil": 255,
     "hsk": 1
@@ -111,7 +152,7 @@
    "traits": [],
    "medianes": [],
    "audio": null,
-   "statut": "sans_fiche"
+   "statut": "relu"
   }
  ]
 }

@@ -3,15 +3,15 @@
  "license": "propriétaire",
  "source": "décomposition GF 0014-2009 réconciliée par le pipeline wenlu ; pinyin d'Unihan (kMandarin) ; textes rédigés pour l'app",
  "source_url": "https://github.com/jon-gyt/zilin",
- "modified": "2026-09-25 : assemblé par `wenlu export`",
+ "modified": "2026-09-26 : assemblé par `wenlu export`",
  "norme": "GF 0014-2009",
  "racine": {
   "c": "个",
   "pinyin": "gè",
   "fr": "",
   "en": "",
-  "origine": "",
-  "etiquette": null
+  "origine": "Pour s'en souvenir : en haut, deux traits en toit, comme 人, et dessous un seul trait vertical, une unité. On compte ainsi les choses et les personnes une à une, et 个 est le mot de compte le plus courant. Dans l'écriture simplifiée, 个 remplace aussi les anciens 個 et 箇.",
+  "etiquette": "mnemotechnique"
  },
  "fiches": [
   {
@@ -27,14 +27,37 @@
    "nouveau": [],
    "sources": [],
    "role": null,
-   "roles": {},
-   "origine_fr": "",
-   "origine_en": "",
-   "etiquette": null,
+   "roles": {
+    "个": "sens"
+   },
+   "origine_fr": "Pour s'en souvenir : en haut, deux traits en toit, comme 人, et dessous un seul trait vertical, une unité. On compte ainsi les choses et les personnes une à une, et 个 est le mot de compte le plus courant. Dans l'écriture simplifiée, 个 remplace aussi les anciens 個 et 箇.",
+   "origine_en": "A way to remember it: two strokes forming a roof on top, like 人, and a single vertical stroke below, one unit. That is how people and things are counted, one by one, and 个 is the most common measure word. In simplified script, 个 also stands in for the older 個 and 箇.",
+   "etiquette": "mnemotechnique",
    "memo_fr": null,
    "memo_en": null,
-   "mots": [],
-   "phrase": null,
+   "mots": [
+    {
+     "hanzi": "一个",
+     "pinyin": "yīge",
+     "fr": "un, une",
+     "en": "one, a",
+     "audio": null
+    },
+    {
+     "hanzi": "个子",
+     "pinyin": "gèzi",
+     "fr": "taille, stature",
+     "en": "height, build",
+     "audio": null
+    }
+   ],
+   "phrase": {
+    "hanzi": "她有两个女儿。",
+    "pinyin": "Tā yǒu liǎng ge nǚ'ér.",
+    "fr": "Elle a deux filles.",
+    "en": "She has two daughters.",
+    "audio": null
+   },
    "niveaux": {
     "seuil": 255,
     "hsk": 1
@@ -42,7 +65,7 @@
    "traits": [],
    "medianes": [],
    "audio": null,
-   "statut": "sans_fiche"
+   "statut": "relu"
   }
  ]
 }

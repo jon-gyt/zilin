@@ -3,15 +3,15 @@
  "license": "propriétaire",
  "source": "décomposition GF 0014-2009 réconciliée par le pipeline wenlu ; pinyin d'Unihan (kMandarin) ; textes rédigés pour l'app",
  "source_url": "https://github.com/jon-gyt/zilin",
- "modified": "2026-09-25 : assemblé par `wenlu export`",
+ "modified": "2026-09-26 : assemblé par `wenlu export`",
  "norme": "GF 0014-2009",
  "racine": {
   "c": "凵",
   "pinyin": "qiǎn",
   "fr": "",
   "en": "",
-  "origine": "",
-  "etiquette": null
+  "origine": "Le Shuowen jiezi définit 凵 comme une bouche ouverte, un creux tourné vers le haut ; il se lit qiǎn. Il explique 畫 par le tracé des limites d'un champ 田, fait au pinceau. Dans la forme simplifiée 画, le pinceau a disparu, 凵 encadre le champ par le bas, et la norme l'appelle pour cela 画字框.",
+  "etiquette": "atteste"
  },
  "fiches": [
   {
@@ -26,19 +26,27 @@
    "nouveau": [],
    "sources": [],
    "role": null,
-   "roles": {},
-   "origine_fr": "",
-   "origine_en": "",
-   "etiquette": null,
+   "roles": {
+    "凵": "forme"
+   },
+   "origine_fr": "Le Shuowen jiezi définit 凵 comme une bouche ouverte, un creux tourné vers le haut ; il se lit qiǎn. Il explique 畫 par le tracé des limites d'un champ 田, fait au pinceau. Dans la forme simplifiée 画, le pinceau a disparu, 凵 encadre le champ par le bas, et la norme l'appelle pour cela 画字框.",
+   "origine_en": "The Shuowen jiezi defines 凵 as an open mouth, a hollow facing up; it is read qiǎn. It explains 畫 as marking out the borders of a field 田 with a brush. In the simplified form 画 the brush has gone, 凵 frames the field from below, and the standard therefore calls it 画字框.",
+   "etiquette": "atteste",
    "memo_fr": null,
    "memo_en": null,
    "mots": [],
-   "phrase": null,
+   "phrase": {
+    "hanzi": "我喜欢画山水。",
+    "pinyin": "Wǒ xǐhuan huà shānshuǐ.",
+    "fr": "J'aime peindre des paysages.",
+    "en": "I like painting landscapes.",
+    "audio": null
+   },
    "niveaux": {},
    "traits": [],
    "medianes": [],
    "audio": null,
-   "statut": "sans_fiche"
+   "statut": "relu"
   }
  ]
 }

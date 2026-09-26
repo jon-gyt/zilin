@@ -3,15 +3,15 @@
  "license": "propriétaire",
  "source": "décomposition GF 0014-2009 réconciliée par le pipeline wenlu ; pinyin d'Unihan (kMandarin) ; textes rédigés pour l'app",
  "source_url": "https://github.com/jon-gyt/zilin",
- "modified": "2026-09-25 : assemblé par `wenlu export`",
+ "modified": "2026-09-26 : assemblé par `wenlu export`",
  "norme": "GF 0014-2009",
  "racine": {
   "c": "⺀",
   "pinyin": "",
   "fr": "",
   "en": "",
-  "origine": "",
-  "etiquette": null
+  "origine": "⺀ est le bas de 冬, deux petits points que la norme appelle 冬字底. Le Shuowen jiezi compose 冬 de 夂 et de 仌, la glace, et c'est cette glace, réduite à deux points, qu'on voit en bas. Dans 图, forme simplifiée de 圖, 冬 remplace l'ancien contenu du cadre 囗, sans rapport de sens.",
+  "etiquette": "atteste"
  },
  "fiches": [
   {
@@ -24,19 +24,27 @@
    "nouveau": [],
    "sources": [],
    "role": null,
-   "roles": {},
-   "origine_fr": "",
-   "origine_en": "",
-   "etiquette": null,
+   "roles": {
+    "⺀": "sens"
+   },
+   "origine_fr": "⺀ est le bas de 冬, deux petits points que la norme appelle 冬字底. Le Shuowen jiezi compose 冬 de 夂 et de 仌, la glace, et c'est cette glace, réduite à deux points, qu'on voit en bas. Dans 图, forme simplifiée de 圖, 冬 remplace l'ancien contenu du cadre 囗, sans rapport de sens.",
+   "origine_en": "⺀ is the bottom of 冬, two small dots the standard calls 冬字底. The Shuowen jiezi builds 冬 from 夂 and 仌, ice, and it is that ice, reduced to two dots, that shows at the bottom. In 图, the simplified form of 圖, 冬 replaces what used to fill the frame 囗, with no link in meaning.",
+   "etiquette": "atteste",
    "memo_fr": null,
    "memo_en": null,
    "mots": [],
-   "phrase": null,
+   "phrase": {
+    "hanzi": "冬天到了。",
+    "pinyin": "Dōngtiān dào le.",
+    "fr": "L'hiver est là.",
+    "en": "Winter is here.",
+    "audio": null
+   },
    "niveaux": {},
    "traits": [],
    "medianes": [],
    "audio": null,
-   "statut": "sans_fiche"
+   "statut": "relu"
   }
  ]
 }

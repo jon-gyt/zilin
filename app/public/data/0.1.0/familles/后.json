@@ -3,15 +3,15 @@
  "license": "propriétaire",
  "source": "décomposition GF 0014-2009 réconciliée par le pipeline wenlu ; pinyin d'Unihan (kMandarin) ; textes rédigés pour l'app",
  "source_url": "https://github.com/jon-gyt/zilin",
- "modified": "2026-09-25 : assemblé par `wenlu export`",
+ "modified": "2026-09-26 : assemblé par `wenlu export`",
  "norme": "GF 0014-2009",
  "racine": {
   "c": "后",
   "pinyin": "hòu",
   "fr": "",
   "en": "",
-  "origine": "",
-  "etiquette": null
+  "origine": "后 réunit aujourd'hui deux mots : 后, « souverain, reine », et 後, « derrière, après », dont il est devenu la forme simplifiée. Pour s'en souvenir : une bouche, 口, se tient en bas, à l'arrière, sous un abri penché. Le sens courant est « après, derrière », comme dans 后天, après-demain.",
+  "etiquette": "mnemotechnique"
  },
  "fiches": [
   {
@@ -26,14 +26,37 @@
    "nouveau": [],
    "sources": [],
    "role": null,
-   "roles": {},
-   "origine_fr": "",
-   "origine_en": "",
-   "etiquette": null,
+   "roles": {
+    "后": "forme"
+   },
+   "origine_fr": "后 réunit aujourd'hui deux mots : 后, « souverain, reine », et 後, « derrière, après », dont il est devenu la forme simplifiée. Pour s'en souvenir : une bouche, 口, se tient en bas, à l'arrière, sous un abri penché. Le sens courant est « après, derrière », comme dans 后天, après-demain.",
+   "origine_en": "后 now covers two words: 后, “ruler, queen”, and 後, “behind, after”, of which it has become the simplified form. As a memory aid: a mouth, 口, sits at the back, low under a slanting shelter. Its everyday meaning is “after, behind”, as in 后天, the day after tomorrow.",
+   "etiquette": "mnemotechnique",
    "memo_fr": null,
    "memo_en": null,
-   "mots": [],
-   "phrase": null,
+   "mots": [
+    {
+     "hanzi": "后来",
+     "pinyin": "hòulái",
+     "fr": "ensuite, par la suite",
+     "en": "later, afterwards",
+     "audio": null
+    },
+    {
+     "hanzi": "后天",
+     "pinyin": "hòutiān",
+     "fr": "après-demain",
+     "en": "the day after tomorrow",
+     "audio": null
+    }
+   ],
+   "phrase": {
+    "hanzi": "后来她也来了。",
+    "pinyin": "Hòulái tā yě lái le.",
+    "fr": "Ensuite, elle est venue aussi.",
+    "en": "Later, she came too.",
+    "audio": null
+   },
    "niveaux": {
     "seuil": 255,
     "hsk": 1
@@ -41,7 +64,7 @@
    "traits": [],
    "medianes": [],
    "audio": null,
-   "statut": "sans_fiche"
+   "statut": "relu"
   }
  ]
 }

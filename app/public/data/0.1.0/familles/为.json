@@ -3,15 +3,15 @@
  "license": "propriétaire",
  "source": "décomposition GF 0014-2009 réconciliée par le pipeline wenlu ; pinyin d'Unihan (kMandarin) ; textes rédigés pour l'app",
  "source_url": "https://github.com/jon-gyt/zilin",
- "modified": "2026-09-25 : assemblé par `wenlu export`",
+ "modified": "2026-09-26 : assemblé par `wenlu export`",
  "norme": "GF 0014-2009",
  "racine": {
   "c": "为",
   "pinyin": "wèi",
   "fr": "",
   "en": "",
-  "origine": "",
-  "etiquette": null
+  "origine": "Sur les os oraculaires, 为 montre une main qui conduit un éléphant, pour le faire travailler. De là vient le sens de « faire, agir », puis ceux de « être, devenir » et, lu wèi, « pour ». La forme simplifiée 为 abrège en quatre traits la cursive de l'ancien 爲.",
+  "etiquette": "atteste"
  },
  "fiches": [
   {
@@ -27,21 +27,44 @@
    "nouveau": [],
    "sources": [],
    "role": null,
-   "roles": {},
-   "origine_fr": "",
-   "origine_en": "",
-   "etiquette": null,
+   "roles": {
+    "为": "sens"
+   },
+   "origine_fr": "Sur les os oraculaires, 为 montre une main qui conduit un éléphant, pour le faire travailler. De là vient le sens de « faire, agir », puis ceux de « être, devenir » et, lu wèi, « pour ». La forme simplifiée 为 abrège en quatre traits la cursive de l'ancien 爲.",
+   "origine_en": "On oracle bones, 为 shows a hand leading an elephant, putting it to work. From there came the sense of doing and acting, then of being or becoming, and, read wèi, of “for”. The simplified 为 condenses the cursive form of the old 爲 into four strokes.",
+   "etiquette": "atteste",
    "memo_fr": null,
    "memo_en": null,
-   "mots": [],
-   "phrase": null,
+   "mots": [
+    {
+     "hanzi": "为了",
+     "pinyin": "wèile",
+     "fr": "pour, afin de",
+     "en": "for, in order to",
+     "audio": null
+    },
+    {
+     "hanzi": "为人",
+     "pinyin": "wéirén",
+     "fr": "manière d'être avec les autres, caractère",
+     "en": "the way one treats others, character",
+     "audio": null
+    }
+   ],
+   "phrase": {
+    "hanzi": "我为她开门。",
+    "pinyin": "Wǒ wèi tā kāi mén.",
+    "fr": "Je lui ouvre la porte.",
+    "en": "I open the door for her.",
+    "audio": null
+   },
    "niveaux": {
     "seuil": 255
    },
    "traits": [],
    "medianes": [],
    "audio": null,
-   "statut": "sans_fiche"
+   "statut": "relu"
   }
  ]
 }

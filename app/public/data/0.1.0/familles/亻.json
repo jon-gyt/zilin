@@ -3,15 +3,15 @@
  "license": "propriétaire",
  "source": "décomposition GF 0014-2009 réconciliée par le pipeline wenlu ; pinyin d'Unihan (kMandarin) ; textes rédigés pour l'app",
  "source_url": "https://github.com/jon-gyt/zilin",
- "modified": "2026-09-25 : assemblé par `wenlu export`",
+ "modified": "2026-09-26 : assemblé par `wenlu export`",
  "norme": "GF 0014-2009",
  "racine": {
   "c": "亻",
   "pinyin": "rén",
   "fr": "",
   "en": "",
-  "origine": "",
-  "etiquette": null
+  "origine": "亻 est la forme de 人, l'homme, quand il se place à gauche d'un caractère ; on l'appelle 单人旁, et la norme le nomme 单立人. Sur les os oraculaires, 人 dessine un homme debout vu de profil, et 亻 n'est que cette silhouette redressée pour tenir dans une moitié de case. Il marque les personnes et ce qu'elles font, comme dans 他, 你 ou 住.",
+  "etiquette": "atteste"
  },
  "fiches": [
   {
@@ -26,19 +26,27 @@
    "nouveau": [],
    "sources": [],
    "role": null,
-   "roles": {},
-   "origine_fr": "",
-   "origine_en": "",
-   "etiquette": null,
+   "roles": {
+    "亻": "sens"
+   },
+   "origine_fr": "亻 est la forme de 人, l'homme, quand il se place à gauche d'un caractère ; on l'appelle 单人旁, et la norme le nomme 单立人. Sur les os oraculaires, 人 dessine un homme debout vu de profil, et 亻 n'est que cette silhouette redressée pour tenir dans une moitié de case. Il marque les personnes et ce qu'elles font, comme dans 他, 你 ou 住.",
+   "origine_en": "亻 is the form 人, person, takes on the left of a character; it is commonly called 单人旁, and the standard names it 单立人. On oracle bones, 人 draws a man standing in profile, and 亻 is simply that figure straightened up to fit half a square. It marks people and what they do, as in 他, 你 or 住.",
+   "etiquette": "atteste",
    "memo_fr": null,
    "memo_en": null,
    "mots": [],
-   "phrase": null,
+   "phrase": {
+    "hanzi": "车上有十个人。",
+    "pinyin": "Chē shang yǒu shí ge rén.",
+    "fr": "Il y a dix personnes dans la voiture.",
+    "en": "There are ten people in the car.",
+    "audio": null
+   },
    "niveaux": {},
    "traits": [],
    "medianes": [],
    "audio": null,
-   "statut": "sans_fiche"
+   "statut": "relu"
   },
   {
    "c": "什",
@@ -58,14 +66,31 @@
     "makemeahanzi"
    ],
    "role": null,
-   "roles": {},
-   "origine_fr": "",
-   "origine_en": "",
-   "etiquette": null,
+   "roles": {
+    "亻": "sens",
+    "十": "sens"
+   },
+   "origine_fr": "Le Shuowen jiezi rattache 什 à l'homme, 亻, et au nombre dix, 十. Il désignait un groupe de dix hommes, et se lisait alors shí, comme 十. Aujourd'hui il sert surtout dans 什么, « quoi », où il se lit shén.",
+   "origine_en": "The Shuowen jiezi links 什 to a person, 亻, and to the number ten, 十. It named a group of ten men and was then read shí, like 十. Today it is mostly used in 什么, “what”, where it is read shén.",
+   "etiquette": "atteste",
    "memo_fr": null,
    "memo_en": null,
-   "mots": [],
-   "phrase": null,
+   "mots": [
+    {
+     "hanzi": "什么",
+     "pinyin": "shénme",
+     "fr": "quoi, quel",
+     "en": "what",
+     "audio": null
+    }
+   ],
+   "phrase": {
+    "hanzi": "她问什么？",
+    "pinyin": "Tā wèn shénme?",
+    "fr": "Que demande-t-elle ?",
+    "en": "What is she asking?",
+    "audio": null
+   },
    "niveaux": {
     "seuil": 255,
     "hsk": 1
@@ -73,7 +98,7 @@
    "traits": [],
    "medianes": [],
    "audio": null,
-   "statut": "sans_fiche"
+   "statut": "relu"
   },
   {
    "c": "他",
@@ -92,14 +117,38 @@
     "makemeahanzi"
    ],
    "role": null,
-   "roles": {},
-   "origine_fr": "",
-   "origine_en": "",
-   "etiquette": null,
+   "roles": {
+    "也": "forme",
+    "亻": "sens"
+   },
+   "origine_fr": "他 est une forme plus récente de 佗, que le Shuowen jiezi décrit comme un composé : 人, l'homme, pour le sens, et 它 pour le son. Dans l'écriture, 也 a pris la place de 它, et il ne donne pas le son. Le mot a d'abord signifié « autre », puis « il », la personne dont on parle.",
+   "origine_en": "他 is a later form of 佗, which the Shuowen jiezi describes as a compound: 人, a person, gives the meaning and 它 gives the sound. In writing, 也 took the place of 它, and it does not give the sound. The word first meant “other”, then “he”, the person being talked about.",
+   "etiquette": "atteste",
    "memo_fr": null,
    "memo_en": null,
-   "mots": [],
-   "phrase": null,
+   "mots": [
+    {
+     "hanzi": "他们",
+     "pinyin": "tāmen",
+     "fr": "ils, eux",
+     "en": "they, them",
+     "audio": null
+    },
+    {
+     "hanzi": "其他",
+     "pinyin": "qítā",
+     "fr": "autre, les autres",
+     "en": "other, the rest",
+     "audio": null
+    }
+   ],
+   "phrase": {
+    "hanzi": "他认识我父亲。",
+    "pinyin": "Tā rènshi wǒ fùqīn.",
+    "fr": "Il connaît mon père.",
+    "en": "He knows my father.",
+    "audio": null
+   },
    "niveaux": {
     "seuil": 255,
     "hsk": 1
@@ -107,7 +156,7 @@
    "traits": [],
    "medianes": [],
    "audio": null,
-   "statut": "sans_fiche"
+   "statut": "relu"
   },
   {
    "c": "仙",
@@ -158,14 +207,38 @@
     "makemeahanzi"
    ],
    "role": null,
-   "roles": {},
-   "origine_fr": "",
-   "origine_en": "",
-   "etiquette": null,
+   "roles": {
+    "亻": "sens",
+    "门": "son"
+   },
+   "origine_fr": "们 est un composé idéo-phonétique : 亻, la personne, donne le sens, et 门 (mén) donne le son. C'est un caractère tardif, absent du Shuowen jiezi, qui se répand dans les textes en langue parlée à partir des Song. Placé après un pronom ou un nom de personne, il marque le pluriel.",
+   "origine_en": "们 is a phono-semantic compound: 亻, person, gives the meaning, and 门 (mén) gives the sound. It is a late character, absent from the Shuowen jiezi, which spread through texts written in the spoken language from the Song dynasty on. Placed after a pronoun or a noun for people, it marks the plural.",
+   "etiquette": "atteste",
    "memo_fr": null,
    "memo_en": null,
-   "mots": [],
-   "phrase": null,
+   "mots": [
+    {
+     "hanzi": "我们",
+     "pinyin": "wǒmen",
+     "fr": "nous",
+     "en": "we, us",
+     "audio": null
+    },
+    {
+     "hanzi": "人们",
+     "pinyin": "rénmen",
+     "fr": "les gens",
+     "en": "people",
+     "audio": null
+    }
+   ],
+   "phrase": {
+    "hanzi": "我们下午见。",
+    "pinyin": "Wǒmen xiàwǔ jiàn.",
+    "fr": "On se voit cet après-midi.",
+    "en": "See you this afternoon.",
+    "audio": null
+   },
    "niveaux": {
     "seuil": 255,
     "hsk": 1
@@ -173,7 +246,7 @@
    "traits": [],
    "medianes": [],
    "audio": null,
-   "statut": "sans_fiche"
+   "statut": "relu"
   },
   {
    "c": "休",
@@ -226,15 +299,39 @@
    "sources": [
     "makemeahanzi"
    ],
-   "role": null,
-   "roles": {},
-   "origine_fr": "",
-   "origine_en": "",
-   "etiquette": null,
+   "role": "son",
+   "roles": {
+    "主": "son",
+    "亻": "sens"
+   },
+   "origine_fr": "住 est un caractère tardif, absent du Shuowen jiezi. Pour s'en souvenir : une personne, 亻, à côté de 主, le maître de maison, car on habite là où l'on est maître chez soi. 主 se lit zhǔ et donne à 住 un son proche, zhù.",
+   "origine_en": "住 is a late character, not found in the Shuowen jiezi. To remember it: a person, 亻, beside 主, the master of the house, since you live where you are master of your own home. 主 reads zhǔ and lends 住 a close sound, zhù.",
+   "etiquette": "mnemotechnique",
    "memo_fr": null,
    "memo_en": null,
-   "mots": [],
-   "phrase": null,
+   "mots": [
+    {
+     "hanzi": "住房",
+     "pinyin": "zhùfáng",
+     "fr": "logement",
+     "en": "housing",
+     "audio": null
+    },
+    {
+     "hanzi": "住手",
+     "pinyin": "zhùshǒu",
+     "fr": "arrêter, retenir son geste",
+     "en": "to stop, to hold one's hand",
+     "audio": null
+    }
+   ],
+   "phrase": {
+    "hanzi": "她一个人住。",
+    "pinyin": "Tā yī gè rén zhù.",
+    "fr": "Elle vit seule.",
+    "en": "She lives alone.",
+    "audio": null
+   },
    "niveaux": {
     "seuil": 255,
     "hsk": 1
@@ -242,7 +339,7 @@
    "traits": [],
    "medianes": [],
    "audio": null,
-   "statut": "sans_fiche"
+   "statut": "relu"
   },
   {
    "c": "体",
@@ -297,14 +394,38 @@
     "makemeahanzi"
    ],
    "role": null,
-   "roles": {},
-   "origine_fr": "",
-   "origine_en": "",
-   "etiquette": null,
+   "roles": {
+    "乍": "forme",
+    "亻": "sens"
+   },
+   "origine_fr": "Sur les os oraculaires, 乍 à lui seul s'employait déjà pour « faire », « construire ». La clé de l'homme 亻 a été ajoutée ensuite pour marquer l'action humaine, et 乍 est resté pour le son. Il se lit aujourd'hui zhà, loin de zuò, mais on le retrouve dans 昨 zuó et 怎 zěn.",
+   "origine_en": "On oracle bones, 乍 on its own was already used for “to make” or “to build”. The person component 亻 was added later to mark human action, and 乍 stayed on for the sound. It is read zhà today, far from zuò, but it reappears in 昨 zuó and 怎 zěn.",
+   "etiquette": "atteste",
    "memo_fr": null,
    "memo_en": null,
-   "mots": [],
-   "phrase": null,
+   "mots": [
+    {
+     "hanzi": "工作",
+     "pinyin": "gōngzuò",
+     "fr": "travail ; travailler",
+     "en": "work; to work",
+     "audio": null
+    },
+    {
+     "hanzi": "作文",
+     "pinyin": "zuòwén",
+     "fr": "rédaction (exercice scolaire)",
+     "en": "essay, composition",
+     "audio": null
+    }
+   ],
+   "phrase": {
+    "hanzi": "她每天工作八个小时。",
+    "pinyin": "Tā měitiān gōngzuò bā gè xiǎoshí.",
+    "fr": "Elle travaille huit heures par jour.",
+    "en": "She works eight hours a day.",
+    "audio": null
+   },
    "niveaux": {
     "seuil": 255,
     "hsk": 1
@@ -312,7 +433,7 @@
    "traits": [],
    "medianes": [],
    "audio": null,
-   "statut": "sans_fiche"
+   "statut": "relu"
   },
   {
    "c": "你",
@@ -333,15 +454,40 @@
    "sources": [
     "makemeahanzi"
    ],
-   "role": null,
-   "roles": {},
-   "origine_fr": "",
-   "origine_en": "",
-   "etiquette": null,
+   "role": "sens",
+   "roles": {
+    "⺈": "sens",
+    "亻": "sens",
+    "小": "sens"
+   },
+   "origine_fr": "你 est un caractère tardif, absent du Shuowen jiezi. On y voit 亻, la personne, à côté de 尔, formé de ⺈ et de 小. Pour s'en souvenir : 亻 désigne une personne, et 尔 veut dire « tu » en chinois classique.",
+   "origine_en": "你 is a late character, not found in the Shuowen jiezi. It shows 亻, a person, beside 尔, made of ⺈ and 小. To remember it: 亻 marks a person, and 尔 means “you” in classical Chinese.",
+   "etiquette": "mnemotechnique",
    "memo_fr": null,
    "memo_en": null,
-   "mots": [],
-   "phrase": null,
+   "mots": [
+    {
+     "hanzi": "你们",
+     "pinyin": "nǐmen",
+     "fr": "vous (pluriel)",
+     "en": "you (plural)",
+     "audio": null
+    },
+    {
+     "hanzi": "你好",
+     "pinyin": "nǐhǎo",
+     "fr": "bonjour",
+     "en": "hello",
+     "audio": null
+    }
+   ],
+   "phrase": {
+    "hanzi": "你来了！",
+    "pinyin": "Nǐ lái le!",
+    "fr": "Te voilà !",
+    "en": "You're here!",
+    "audio": null
+   },
    "niveaux": {
     "seuil": 255,
     "hsk": 1
@@ -349,7 +495,7 @@
    "traits": [],
    "medianes": [],
    "audio": null,
-   "statut": "sans_fiche"
+   "statut": "relu"
   },
   {
    "c": "信",
@@ -369,22 +515,46 @@
    "sources": [
     "makemeahanzi"
    ],
-   "role": null,
-   "roles": {},
-   "origine_fr": "",
-   "origine_en": "",
-   "etiquette": null,
+   "role": "sens",
+   "roles": {
+    "亻": "sens",
+    "言": "sens"
+   },
+   "origine_fr": "Le Shuowen jiezi analyse 信 comme l'union de 人, l'homme, et de 言, la parole, et le glose par « sincère ». Un homme et sa parole : ce que l'on dit doit être tenu, d'où « croire » et « avoir confiance ». Le sens de « lettre » vient plus tard, du messager qui porte une parole digne de foi.",
+   "origine_en": "The Shuowen jiezi analyses 信 as 人, a person, joined to 言, speech, and glosses it as “sincere”. A person and their word: what is said must be kept, hence “to believe” and “to trust”. The meaning “letter” came later, from the messenger carrying a trustworthy word.",
+   "etiquette": "atteste",
    "memo_fr": null,
    "memo_en": null,
-   "mots": [],
-   "phrase": null,
+   "mots": [
+    {
+     "hanzi": "信心",
+     "pinyin": "xìnxīn",
+     "fr": "confiance en soi",
+     "en": "confidence",
+     "audio": null
+    },
+    {
+     "hanzi": "回信",
+     "pinyin": "huíxìn",
+     "fr": "répondre à une lettre ; réponse",
+     "en": "to write back; a reply",
+     "audio": null
+    }
+   ],
+   "phrase": {
+    "hanzi": "妈妈来信了，我明天回信。",
+    "pinyin": "Māma lái xìn le, wǒ míngtiān huí xìn.",
+    "fr": "Maman a écrit ; je lui réponds demain.",
+    "en": "Mum has written; I'll write back tomorrow.",
+    "audio": null
+   },
    "niveaux": {
     "seuil": 255
    },
    "traits": [],
    "medianes": [],
    "audio": null,
-   "statut": "sans_fiche"
+   "statut": "relu"
   },
   {
    "c": "候",
@@ -406,15 +576,41 @@
    "sources": [
     "makemeahanzi"
    ],
-   "role": null,
-   "roles": {},
-   "origine_fr": "",
-   "origine_en": "",
-   "etiquette": null,
+   "role": "son",
+   "roles": {
+    "⺈": "son",
+    "亻": "sens",
+    "厂": "son",
+    "矢": "son"
+   },
+   "origine_fr": "候 associe 亻, l'homme, qui porte le sens, et 侯, dont on reconnaît ⺈, 厂 et 矢, qui donne le son : hóu, proche de hòu. Le Shuowen jiezi le définit comme le fait de guetter, d'attendre en observant. De l'attente, le sens est passé au moment attendu, à la saison, et au mot 时候, le moment.",
+   "origine_en": "候 pairs 亻, person, which carries the meaning, with 侯, recognisable in ⺈, 厂 and 矢, which gives the sound: hóu, close to hòu. The Shuowen jiezi defines it as keeping watch, waiting and observing. From waiting, the meaning moved to the awaited moment, to the season, and to the word 时候, time.",
+   "etiquette": "atteste",
    "memo_fr": null,
    "memo_en": null,
-   "mots": [],
-   "phrase": null,
+   "mots": [
+    {
+     "hanzi": "时候",
+     "pinyin": "shíhou",
+     "fr": "moment, quand",
+     "en": "time, moment",
+     "audio": null
+    },
+    {
+     "hanzi": "问候",
+     "pinyin": "wènhòu",
+     "fr": "saluer, prendre des nouvelles",
+     "en": "to greet, to send regards",
+     "audio": null
+    }
+   ],
+   "phrase": {
+    "hanzi": "你什么时候来？",
+    "pinyin": "Nǐ shénme shíhou lái?",
+    "fr": "Quand est-ce que tu viens ?",
+    "en": "When are you coming?",
+    "audio": null
+   },
    "niveaux": {
     "seuil": 255,
     "hsk": 1
@@ -422,7 +618,7 @@
    "traits": [],
    "medianes": [],
    "audio": null,
-   "statut": "sans_fiche"
+   "statut": "relu"
   },
   {
    "c": "假",
@@ -515,15 +711,34 @@
    "sources": [
     "makemeahanzi"
    ],
-   "role": null,
-   "roles": {},
-   "origine_fr": "",
-   "origine_en": "",
-   "etiquette": null,
+   "role": "sens",
+   "roles": {
+    "⺈": "sens",
+    "亻": "sens",
+    "小": "sens",
+    "心": "sens"
+   },
+   "origine_fr": "您 est un caractère tardif, absent du Shuowen jiezi. Il pose 你, « tu », sur 心, le cœur. Pour s'en souvenir : c'est le « tu » dit avec égard, la forme polie qu'on emploie pour un aîné ou un inconnu.",
+   "origine_en": "您 is a late character, not found in the Shuowen jiezi. It sets 你, “you”, on top of 心, the heart. To remember it: this is “you” said with respect, the polite form used for an elder or a stranger.",
+   "etiquette": "mnemotechnique",
    "memo_fr": null,
    "memo_en": null,
-   "mots": [],
-   "phrase": null,
+   "mots": [
+    {
+     "hanzi": "您好",
+     "pinyin": "nínhǎo",
+     "fr": "bonjour (poli)",
+     "en": "hello (polite)",
+     "audio": null
+    }
+   ],
+   "phrase": {
+    "hanzi": "您早！",
+    "pinyin": "Nín zǎo!",
+    "fr": "Bonjour à vous !",
+    "en": "Good morning to you!",
+    "audio": null
+   },
    "niveaux": {
     "seuil": 255,
     "hsk": 1
@@ -531,7 +746,7 @@
    "traits": [],
    "medianes": [],
    "audio": null,
-   "statut": "sans_fiche"
+   "statut": "relu"
   }
  ]
 }

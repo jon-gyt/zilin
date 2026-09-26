@@ -3,15 +3,15 @@
  "license": "propriétaire",
  "source": "décomposition GF 0014-2009 réconciliée par le pipeline wenlu ; pinyin d'Unihan (kMandarin) ; textes rédigés pour l'app",
  "source_url": "https://github.com/jon-gyt/zilin",
- "modified": "2026-09-25 : assemblé par `wenlu export`",
+ "modified": "2026-09-26 : assemblé par `wenlu export`",
  "norme": "GF 0014-2009",
  "racine": {
   "c": "灬",
   "pinyin": "biāo",
   "fr": "",
   "en": "",
-  "origine": "",
-  "etiquette": null
+  "origine": "灬 est la forme de 火, le feu, quand il se couche en bas d'un caractère ; on l'appelle 四点底, et la norme 横四点. Sur les os oraculaires, 火 dessine des flammes qui montent, et le Shuowen jiezi le définit comme ce qui brûle. Il chauffe le bas de 热 ou de 照, et les quatre points de 点 viennent de 黑, que le Shuowen jiezi définit comme la couleur que laisse la fumée du feu.",
+  "etiquette": "atteste"
  },
  "fiches": [
   {
@@ -26,19 +26,27 @@
    "nouveau": [],
    "sources": [],
    "role": null,
-   "roles": {},
-   "origine_fr": "",
-   "origine_en": "",
-   "etiquette": null,
+   "roles": {
+    "灬": "sens"
+   },
+   "origine_fr": "灬 est la forme de 火, le feu, quand il se couche en bas d'un caractère ; on l'appelle 四点底, et la norme 横四点. Sur les os oraculaires, 火 dessine des flammes qui montent, et le Shuowen jiezi le définit comme ce qui brûle. Il chauffe le bas de 热 ou de 照, et les quatre points de 点 viennent de 黑, que le Shuowen jiezi définit comme la couleur que laisse la fumée du feu.",
+   "origine_en": "灬 is the form 火, fire, takes when it lies at the bottom of a character; it is called 四点底, and 横四点 in the standard. On oracle bones, 火 draws rising flames, and the Shuowen jiezi defines it as what burns. It heats the bottom of 热 or 照, and the four dots of 点 come from 黑, which the Shuowen jiezi defines as the colour left by the fire's smoke.",
+   "etiquette": "atteste",
    "memo_fr": null,
    "memo_en": null,
    "mots": [],
-   "phrase": null,
+   "phrase": {
+    "hanzi": "火车来了。",
+    "pinyin": "Huǒchē lái le.",
+    "fr": "Le train arrive.",
+    "en": "The train is coming.",
+    "audio": null
+   },
    "niveaux": {},
    "traits": [],
    "medianes": [],
    "audio": null,
-   "statut": "sans_fiche"
+   "statut": "relu"
   }
  ]
 }

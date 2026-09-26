@@ -3,15 +3,15 @@
  "license": "propriétaire",
  "source": "décomposition GF 0014-2009 réconciliée par le pipeline wenlu ; pinyin d'Unihan (kMandarin) ; textes rédigés pour l'app",
  "source_url": "https://github.com/jon-gyt/zilin",
- "modified": "2026-09-25 : assemblé par `wenlu export`",
+ "modified": "2026-09-26 : assemblé par `wenlu export`",
  "norme": "GF 0014-2009",
  "racine": {
   "c": "饣",
   "pinyin": "shí",
   "fr": "",
   "en": "",
-  "origine": "",
-  "etiquette": null
+  "origine": "饣 est la forme simplifiée de 食, la nourriture, quand il se place à gauche ; on l'appelle 食字旁, et la norme le nomme 食旁. Sur les os oraculaires, 食 dessine un récipient rempli de nourriture, avec son couvercle au-dessus. Il marque ce qui se mange, comme dans 饭, le riz cuit et le repas, ou 馆, d'abord l'auberge des hôtes.",
+  "etiquette": "atteste"
  },
  "fiches": [
   {
@@ -26,19 +26,27 @@
    "nouveau": [],
    "sources": [],
    "role": null,
-   "roles": {},
-   "origine_fr": "",
-   "origine_en": "",
-   "etiquette": null,
+   "roles": {
+    "饣": "sens"
+   },
+   "origine_fr": "饣 est la forme simplifiée de 食, la nourriture, quand il se place à gauche ; on l'appelle 食字旁, et la norme le nomme 食旁. Sur les os oraculaires, 食 dessine un récipient rempli de nourriture, avec son couvercle au-dessus. Il marque ce qui se mange, comme dans 饭, le riz cuit et le repas, ou 馆, d'abord l'auberge des hôtes.",
+   "origine_en": "饣 is the simplified form of 食, food, when it stands on the left; it is called 食字旁, and the standard names it 食旁. On oracle bones, 食 draws a vessel full of food with its lid above. It marks things to eat, as in 饭, cooked rice and meals, or 馆, first a lodging for guests.",
+   "etiquette": "atteste",
    "memo_fr": null,
    "memo_en": null,
    "mots": [],
-   "phrase": null,
+   "phrase": {
+    "hanzi": "米饭好了吗？",
+    "pinyin": "Mǐfàn hǎo le ma?",
+    "fr": "Le riz est prêt ?",
+    "en": "Is the rice ready?",
+    "audio": null
+   },
    "niveaux": {},
    "traits": [],
    "medianes": [],
    "audio": null,
-   "statut": "sans_fiche"
+   "statut": "relu"
   },
   {
    "c": "饭",
@@ -59,15 +67,40 @@
    "sources": [
     "makemeahanzi"
    ],
-   "role": null,
-   "roles": {},
-   "origine_fr": "",
-   "origine_en": "",
-   "etiquette": null,
+   "role": "sens",
+   "roles": {
+    "厂": "son",
+    "又": "son",
+    "饣": "sens"
+   },
+   "origine_fr": "饭 associe 饣, la nourriture, qui porte le sens, et 反, écrit ici 厂 et 又, qui donne le son : fǎn, proche de fàn. Le Shuowen jiezi le définit par manger, prendre son repas. Le sens s'est déplacé vers ce que l'on mange, le riz cuit, puis le repas lui-même.",
+   "origine_en": "饭 pairs 饣, food, which carries the meaning, with 反, written here as 厂 and 又, which gives the sound: fǎn, close to fàn. The Shuowen jiezi defines it as to eat, to take a meal. The meaning shifted to what is eaten, cooked rice, and then to the meal itself.",
+   "etiquette": "atteste",
    "memo_fr": null,
    "memo_en": null,
-   "mots": [],
-   "phrase": null,
+   "mots": [
+    {
+     "hanzi": "米饭",
+     "pinyin": "mǐfàn",
+     "fr": "riz cuit",
+     "en": "cooked rice",
+     "audio": null
+    },
+    {
+     "hanzi": "午饭",
+     "pinyin": "wǔfàn",
+     "fr": "déjeuner, repas de midi",
+     "en": "lunch",
+     "audio": null
+    }
+   ],
+   "phrase": {
+    "hanzi": "饭好了，快来！",
+    "pinyin": "Fàn hǎo le, kuài lái!",
+    "fr": "Le repas est prêt, viens vite !",
+    "en": "Food's ready, come quick!",
+    "audio": null
+   },
    "niveaux": {
     "seuil": 255,
     "hsk": 1
@@ -75,7 +108,7 @@
    "traits": [],
    "medianes": [],
    "audio": null,
-   "statut": "sans_fiche"
+   "statut": "relu"
   },
   {
    "c": "饿",
@@ -131,15 +164,40 @@
    "sources": [
     "makemeahanzi"
    ],
-   "role": null,
-   "roles": {},
-   "origine_fr": "",
-   "origine_en": "",
-   "etiquette": null,
+   "role": "son",
+   "roles": {
+    "㠯": "son",
+    "宀": "son",
+    "饣": "sens"
+   },
+   "origine_fr": "馆 associe 饣, la nourriture, qui porte le sens, et 官, écrit ici 宀 sur 㠯, qui donne le son : guān, proche de guǎn. Le Shuowen jiezi le définit comme une maison qui loge les hôtes. Le mot désigne aujourd'hui des lieux qui reçoivent du public : restaurant, maison de thé, musée, bibliothèque.",
+   "origine_en": "馆 pairs 饣, food, which carries the meaning, with 官, written here as 宀 over 㠯, which gives the sound: guān, close to guǎn. The Shuowen jiezi defines it as a house that lodges guests. Today the word names places that receive the public: restaurants, teahouses, museums, libraries.",
+   "etiquette": "atteste",
    "memo_fr": null,
    "memo_en": null,
-   "mots": [],
-   "phrase": null,
+   "mots": [
+    {
+     "hanzi": "饭馆",
+     "pinyin": "fànguǎn",
+     "fr": "restaurant",
+     "en": "restaurant",
+     "audio": null
+    },
+    {
+     "hanzi": "茶馆",
+     "pinyin": "cháguǎn",
+     "fr": "maison de thé",
+     "en": "teahouse",
+     "audio": null
+    }
+   ],
+   "phrase": {
+    "hanzi": "我们去饭馆吧。",
+    "pinyin": "Wǒmen qù fànguǎn ba.",
+    "fr": "Allons au restaurant.",
+    "en": "Let's go to a restaurant.",
+    "audio": null
+   },
    "niveaux": {
     "seuil": 255,
     "hsk": 1
@@ -147,7 +205,7 @@
    "traits": [],
    "medianes": [],
    "audio": null,
-   "statut": "sans_fiche"
+   "statut": "relu"
   }
  ]
 }

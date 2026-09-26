@@ -3,15 +3,15 @@
  "license": "propriétaire",
  "source": "décomposition GF 0014-2009 réconciliée par le pipeline wenlu ; pinyin d'Unihan (kMandarin) ; textes rédigés pour l'app",
  "source_url": "https://github.com/jon-gyt/zilin",
- "modified": "2026-09-25 : assemblé par `wenlu export`",
+ "modified": "2026-09-26 : assemblé par `wenlu export`",
  "norme": "GF 0014-2009",
  "racine": {
   "c": "页",
   "pinyin": "yè",
   "fr": "",
   "en": "",
-  "origine": "",
-  "etiquette": null
+  "origine": "页 est la forme simplifiée de 頁. Sur les os oraculaires, 頁 dessine un homme à genoux surmonté d'une tête énorme, et le Shuowen jiezi le définit comme la tête. Le sens de « page » est venu plus tard, par emprunt, mais la tête reste à droite de 题, que le Shuowen jiezi définit comme le front.",
+  "etiquette": "atteste"
  },
  "fiches": [
   {
@@ -26,21 +26,44 @@
    "nouveau": [],
    "sources": [],
    "role": null,
-   "roles": {},
-   "origine_fr": "",
-   "origine_en": "",
-   "etiquette": null,
+   "roles": {
+    "页": "sens"
+   },
+   "origine_fr": "页 est la forme simplifiée de 頁. Sur les os oraculaires, 頁 dessine un homme à genoux surmonté d'une tête énorme, et le Shuowen jiezi le définit comme la tête. Le sens de « page » est venu plus tard, par emprunt, mais la tête reste à droite de 题, que le Shuowen jiezi définit comme le front.",
+   "origine_en": "页 is the simplified form of 頁. On oracle bones, 頁 draws a kneeling man topped by a huge head, and the Shuowen jiezi defines it as the head. The meaning “page” came later, by borrowing, but the head is still there on the right of 题, which the Shuowen jiezi defines as the forehead.",
+   "etiquette": "atteste",
    "memo_fr": null,
    "memo_en": null,
-   "mots": [],
-   "phrase": null,
+   "mots": [
+    {
+     "hanzi": "书页",
+     "pinyin": "shūyè",
+     "fr": "page d'un livre",
+     "en": "page of a book",
+     "audio": null
+    },
+    {
+     "hanzi": "页面",
+     "pinyin": "yèmiàn",
+     "fr": "page (d'un document, d'un site)",
+     "en": "page (of a document or website)",
+     "audio": null
+    }
+   ],
+   "phrase": {
+    "hanzi": "我有一个问题。",
+    "pinyin": "Wǒ yǒu yī ge wèntí.",
+    "fr": "J'ai une question.",
+    "en": "I have a question.",
+    "audio": null
+   },
    "niveaux": {
     "hsk": 1
    },
    "traits": [],
    "medianes": [],
    "audio": null,
-   "statut": "sans_fiche"
+   "statut": "relu"
   }
  ]
 }

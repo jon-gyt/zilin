@@ -3,15 +3,15 @@
  "license": "propriétaire",
  "source": "décomposition GF 0014-2009 réconciliée par le pipeline wenlu ; pinyin d'Unihan (kMandarin) ; textes rédigés pour l'app",
  "source_url": "https://github.com/jon-gyt/zilin",
- "modified": "2026-09-25 : assemblé par `wenlu export`",
+ "modified": "2026-09-26 : assemblé par `wenlu export`",
  "norme": "GF 0014-2009",
  "racine": {
   "c": "子",
   "pinyin": "zǐ",
   "fr": "",
   "en": "",
-  "origine": "",
-  "etiquette": null
+  "origine": "Sur les os oraculaires et les bronzes, 子 dessine un nourrisson : une grosse tête, deux bras ouverts, le bas du corps réduit à un seul trait, comme pris dans un lange. Le sens premier, « enfant », a donné « fils », puis un titre de respect pour les maîtres, comme dans Kongzi, Confucius. Prononcé zi, sans ton, il sert aussi de suffixe à de nombreux noms, comme 日子, les jours.",
+  "etiquette": "atteste"
  },
  "fiches": [
   {
@@ -26,14 +26,37 @@
    "nouveau": [],
    "sources": [],
    "role": null,
-   "roles": {},
-   "origine_fr": "",
-   "origine_en": "",
-   "etiquette": null,
+   "roles": {
+    "子": "sens"
+   },
+   "origine_fr": "Sur les os oraculaires et les bronzes, 子 dessine un nourrisson : une grosse tête, deux bras ouverts, le bas du corps réduit à un seul trait, comme pris dans un lange. Le sens premier, « enfant », a donné « fils », puis un titre de respect pour les maîtres, comme dans Kongzi, Confucius. Prononcé zi, sans ton, il sert aussi de suffixe à de nombreux noms, comme 日子, les jours.",
+   "origine_en": "On oracle bones and bronzes, 子 draws an infant: a large head, two open arms, and the lower body reduced to a single stroke, as if wrapped in swaddling. Its first meaning, “child”, gave “son”, then a title of respect for masters, as in Kongzi, Confucius. Pronounced zi with no tone, it is also a suffix found in many nouns, such as 日子, days.",
+   "etiquette": "atteste",
    "memo_fr": null,
    "memo_en": null,
-   "mots": [],
-   "phrase": null,
+   "mots": [
+    {
+     "hanzi": "子女",
+     "pinyin": "zǐnǚ",
+     "fr": "les enfants, fils et filles",
+     "en": "sons and daughters, children",
+     "audio": null
+    },
+    {
+     "hanzi": "日子",
+     "pinyin": "rìzi",
+     "fr": "jour ; la vie de tous les jours",
+     "en": "day; everyday life",
+     "audio": null
+    }
+   ],
+   "phrase": {
+    "hanzi": "朋友有子女。",
+    "pinyin": "Péngyou yǒu zǐnǚ.",
+    "fr": "Mon ami a des enfants.",
+    "en": "My friend has children.",
+    "audio": null
+   },
    "niveaux": {
     "seuil": 255,
     "hsk": 1
@@ -41,7 +64,7 @@
    "traits": [],
    "medianes": [],
    "audio": null,
-   "statut": "sans_fiche"
+   "statut": "relu"
   },
   {
    "c": "孙",
@@ -92,15 +115,39 @@
    "sources": [
     "surcharge"
    ],
-   "role": null,
-   "roles": {},
-   "origine_fr": "",
-   "origine_en": "",
-   "etiquette": null,
+   "role": "sens",
+   "roles": {
+    "子": "sens",
+    "𭕄": "sens"
+   },
+   "origine_fr": "Sur les os oraculaires, 學, forme traditionnelle de 学, montre deux mains autour de 爻, des traits croisés, au-dessus d'un toit ; les bronzes ajoutent l'enfant 子 dessous. Le Shuowen jiezi le rattache à l'enseignement et à l'éveil de l'esprit. La forme simplifiée réduit les mains, 爻 et le toit à trois traits sur un couvercle, et garde l'enfant 子 dessous.",
+   "origine_en": "On oracle bones, 學, the traditional form of 学, shows two hands around 爻, crossed lines, above a roof; bronzes add a child, 子, underneath. The Shuowen jiezi links it to teaching and to the awakening of the mind. The simplified form reduces the hands, 爻 and the roof to three strokes over a cover, and keeps the child 子 underneath.",
+   "etiquette": "atteste",
    "memo_fr": null,
    "memo_en": null,
-   "mots": [],
-   "phrase": null,
+   "mots": [
+    {
+     "hanzi": "大学",
+     "pinyin": "dàxué",
+     "fr": "université",
+     "en": "university",
+     "audio": null
+    },
+    {
+     "hanzi": "学好",
+     "pinyin": "xuéhǎo",
+     "fr": "bien apprendre, maîtriser",
+     "en": "to learn well, to master",
+     "audio": null
+    }
+   ],
+   "phrase": {
+    "hanzi": "好好学！",
+    "pinyin": "Hǎohǎo xué!",
+    "fr": "Étudie bien !",
+    "en": "Study hard!",
+    "audio": null
+   },
    "niveaux": {
     "seuil": 255,
     "hsk": 1
@@ -108,7 +155,7 @@
    "traits": [],
    "medianes": [],
    "audio": null,
-   "statut": "sans_fiche"
+   "statut": "relu"
   },
   {
    "c": "孩",
@@ -128,15 +175,39 @@
    "sources": [
     "makemeahanzi"
    ],
-   "role": null,
-   "roles": {},
-   "origine_fr": "",
-   "origine_en": "",
-   "etiquette": null,
+   "role": "son",
+   "roles": {
+    "亥": "son",
+    "子": "sens"
+   },
+   "origine_fr": "Le Shuowen jiezi donne 孩 comme forme ancienne de 咳, « le rire du petit enfant », avec 子, l'enfant, à la place de 口. C'est un idéo-phonétique : 子 porte le sens, 亥 le son. Le sens a glissé du rire du nourrisson à l'enfant lui-même, et 亥, lu hài, donne un son proche de hái.",
+   "origine_en": "The Shuowen jiezi gives 孩 as an old form of 咳, “a baby's laugh”, with 子, child, in place of 口. It is a phonetic compound: 子 carries the meaning, 亥 the sound. The meaning shifted from the infant's laugh to the child itself, and 亥, read hài, sounds close to hái.",
+   "etiquette": "atteste",
    "memo_fr": null,
    "memo_en": null,
-   "mots": [],
-   "phrase": null,
+   "mots": [
+    {
+     "hanzi": "孩子",
+     "pinyin": "háizi",
+     "fr": "enfant",
+     "en": "child",
+     "audio": null
+    },
+    {
+     "hanzi": "男孩",
+     "pinyin": "nánhái",
+     "fr": "garçon",
+     "en": "boy",
+     "audio": null
+    }
+   ],
+   "phrase": {
+    "hanzi": "她有两个孩子。",
+    "pinyin": "Tā yǒu liǎng gè háizi.",
+    "fr": "Elle a deux enfants.",
+    "en": "She has two children.",
+    "audio": null
+   },
    "niveaux": {
     "seuil": 255,
     "hsk": 1
@@ -144,7 +215,7 @@
    "traits": [],
    "medianes": [],
    "audio": null,
-   "statut": "sans_fiche"
+   "statut": "relu"
   }
  ]
 }

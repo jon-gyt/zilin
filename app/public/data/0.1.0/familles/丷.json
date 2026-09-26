@@ -3,15 +3,15 @@
  "license": "propriétaire",
  "source": "décomposition GF 0014-2009 réconciliée par le pipeline wenlu ; pinyin d'Unihan (kMandarin) ; textes rédigés pour l'app",
  "source_url": "https://github.com/jon-gyt/zilin",
- "modified": "2026-09-25 : assemblé par `wenlu export`",
+ "modified": "2026-09-26 : assemblé par `wenlu export`",
  "norme": "GF 0014-2009",
  "racine": {
   "c": "丷",
   "pinyin": "bā",
   "fr": "",
   "en": "",
-  "origine": "",
-  "etiquette": null
+  "origine": "丷 ressemble à 八 retourné : deux petits traits qui se rapprochent vers le bas, quand ceux de 八 s'écartent. La norme l'appelle 倒八, « huit renversé ». Il coiffe 关, 说 ou 前, sans y apporter de sens propre : c'est une forme à reconnaître.",
+  "etiquette": "mnemotechnique"
  },
  "fiches": [
   {
@@ -26,19 +26,27 @@
    "nouveau": [],
    "sources": [],
    "role": null,
-   "roles": {},
-   "origine_fr": "",
-   "origine_en": "",
-   "etiquette": null,
-   "memo_fr": null,
-   "memo_en": null,
+   "roles": {
+    "丷": "forme"
+   },
+   "origine_fr": "丷 ressemble à 八 retourné : deux petits traits qui se rapprochent vers le bas, quand ceux de 八 s'écartent. La norme l'appelle 倒八, « huit renversé ». Il coiffe 关, 说 ou 前, sans y apporter de sens propre : c'est une forme à reconnaître.",
+   "origine_en": "丷 looks like 八 turned upside down: two short strokes that close in towards the bottom, where those of 八 spread apart. The standard calls it 倒八, “upturned eight”. It caps 关, 说 or 前 without adding a meaning of its own: it is a shape to recognise.",
+   "etiquette": "mnemotechnique",
+   "memo_fr": "Un 八 la tête en bas.",
+   "memo_en": "An 八 standing on its head.",
    "mots": [],
-   "phrase": null,
+   "phrase": {
+    "hanzi": "她说她明天不来。",
+    "pinyin": "Tā shuō tā míngtiān bù lái.",
+    "fr": "Elle dit qu'elle ne viendra pas demain.",
+    "en": "She says she isn't coming tomorrow.",
+    "audio": null
+   },
    "niveaux": {},
    "traits": [],
    "medianes": [],
    "audio": null,
-   "statut": "sans_fiche"
+   "statut": "relu"
   },
   {
    "c": "兰",
@@ -89,15 +97,39 @@
    "sources": [
     "makemeahanzi"
    ],
-   "role": null,
-   "roles": {},
-   "origine_fr": "",
-   "origine_en": "",
-   "etiquette": null,
+   "role": "forme",
+   "roles": {
+    "丷": "forme",
+    "天": "forme"
+   },
+   "origine_fr": "Le Shuowen jiezi décrit 關, forme traditionnelle, comme la barre de bois posée en travers pour fermer une porte, avec 門 pour le sens et l'élément intérieur pour le son. La simplification a retiré 門 et n'a gardé qu'une forme réduite de l'intérieur, qui se lit aujourd'hui 丷 posé sur 天, sans rôle de sens ni de son. De la barre qui ferme la porte viennent « fermer », puis « passage gardé » et « lien entre deux choses ».",
+   "origine_en": "The Shuowen jiezi describes 關, the traditional form, as the wooden bar laid across a door to close it, with 門 for meaning and the inner element for sound. Simplification removed 門 and kept a reduced form of the inside, which now reads as 丷 set on 天, with no role in meaning or sound. From the bar that shuts the door came “to close”, then “checkpoint” and “connection”.",
+   "etiquette": "atteste",
    "memo_fr": null,
    "memo_en": null,
-   "mots": [],
-   "phrase": null,
+   "mots": [
+    {
+     "hanzi": "关门",
+     "pinyin": "guānmén",
+     "fr": "fermer la porte ; fermer (un magasin)",
+     "en": "to close the door; to close (a shop)",
+     "audio": null
+    },
+    {
+     "hanzi": "关心",
+     "pinyin": "guānxīn",
+     "fr": "se soucier de, s'intéresser à",
+     "en": "to care about, to be concerned about",
+     "audio": null
+    }
+   ],
+   "phrase": {
+    "hanzi": "他关上了门。",
+    "pinyin": "Tā guānshang le mén.",
+    "fr": "Il a fermé la porte.",
+    "en": "He closed the door.",
+    "audio": null
+   },
    "niveaux": {
     "seuil": 255,
     "hsk": 1
@@ -105,7 +137,7 @@
    "traits": [],
    "medianes": [],
    "audio": null,
-   "statut": "sans_fiche"
+   "statut": "relu"
   },
   {
    "c": "前",
@@ -127,15 +159,41 @@
    "sources": [
     "makemeahanzi"
    ],
-   "role": null,
-   "roles": {},
-   "origine_fr": "",
-   "origine_en": "",
-   "etiquette": null,
+   "role": "forme",
+   "roles": {
+    "一": "forme",
+    "丷": "forme",
+    "刂": "forme",
+    "月": "forme"
+   },
+   "origine_fr": "Le Shuowen jiezi explique 歬, un pied 止 posé sur une barque 舟, par l'idée d'avancer sans marcher. On y a ajouté un couteau pour écrire « couper », mais cette forme a été prise pour « avant », et « couper » s'est alors écrit 剪, avec un second couteau 刀 dessous. Dans la forme actuelle, le pied est devenu 丷 et 一, la barque 月, et le couteau 刂.",
+   "origine_en": "The Shuowen jiezi explains 歬, a foot 止 set on a boat 舟, as moving forward without walking. A knife was added to write “to cut”, but that form was taken for “forward”, and “to cut” was then written 剪, with a second knife 刀 underneath. In today's form the foot has become 丷 and 一, the boat 月, and the knife 刂.",
+   "etiquette": "atteste",
    "memo_fr": null,
    "memo_en": null,
-   "mots": [],
-   "phrase": null,
+   "mots": [
+    {
+     "hanzi": "前面",
+     "pinyin": "qiánmiàn",
+     "fr": "devant, à l'avant",
+     "en": "in front, ahead",
+     "audio": null
+    },
+    {
+     "hanzi": "前天",
+     "pinyin": "qiántiān",
+     "fr": "avant-hier",
+     "en": "the day before yesterday",
+     "audio": null
+    }
+   ],
+   "phrase": {
+    "hanzi": "大门前面有两个人。",
+    "pinyin": "Dàmén qiánmiàn yǒu liǎng gè rén.",
+    "fr": "Il y a deux personnes devant la grande porte.",
+    "en": "There are two people in front of the main gate.",
+    "audio": null
+   },
    "niveaux": {
     "seuil": 255,
     "hsk": 1
@@ -143,7 +201,7 @@
    "traits": [],
    "medianes": [],
    "audio": null,
-   "statut": "sans_fiche"
+   "statut": "relu"
   }
  ]
 }

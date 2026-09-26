@@ -3,15 +3,15 @@
  "license": "propriétaire",
  "source": "décomposition GF 0014-2009 réconciliée par le pipeline wenlu ; pinyin d'Unihan (kMandarin) ; textes rédigés pour l'app",
  "source_url": "https://github.com/jon-gyt/zilin",
- "modified": "2026-09-25 : assemblé par `wenlu export`",
+ "modified": "2026-09-26 : assemblé par `wenlu export`",
  "norme": "GF 0014-2009",
  "racine": {
   "c": "亥",
   "pinyin": "hài",
   "fr": "",
   "en": "",
-  "origine": "",
-  "etiquette": null
+  "origine": "Sur les os oraculaires, 亥 sert déjà de douzième et dernier des rameaux terrestres ; ce que la forme dessinait reste discuté. Dans le cycle des animaux, il correspond au cochon. Il donne le son à 孩, hái pour hài.",
+  "etiquette": "atteste"
  },
  "fiches": [
   {
@@ -26,19 +26,27 @@
    "nouveau": [],
    "sources": [],
    "role": null,
-   "roles": {},
-   "origine_fr": "",
-   "origine_en": "",
-   "etiquette": null,
+   "roles": {
+    "亥": "forme"
+   },
+   "origine_fr": "Sur les os oraculaires, 亥 sert déjà de douzième et dernier des rameaux terrestres ; ce que la forme dessinait reste discuté. Dans le cycle des animaux, il correspond au cochon. Il donne le son à 孩, hái pour hài.",
+   "origine_en": "On oracle bones, 亥 already serves as the twelfth and last of the earthly branches; what the shape once drew is still debated. In the animal cycle it goes with the pig. It gives the sound to 孩, hái for hài.",
+   "etiquette": "atteste",
    "memo_fr": null,
    "memo_en": null,
    "mots": [],
-   "phrase": null,
+   "phrase": {
+    "hanzi": "我们家有三个孩子。",
+    "pinyin": "Wǒmen jiā yǒu sān ge háizi.",
+    "fr": "Chez nous, il y a trois enfants.",
+    "en": "There are three children in our family.",
+    "audio": null
+   },
    "niveaux": {},
    "traits": [],
    "medianes": [],
    "audio": null,
-   "statut": "sans_fiche"
+   "statut": "relu"
   }
  ]
 }

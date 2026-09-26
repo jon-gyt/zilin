@@ -3,15 +3,15 @@
  "license": "propriétaire",
  "source": "décomposition GF 0014-2009 réconciliée par le pipeline wenlu ; pinyin d'Unihan (kMandarin) ; textes rédigés pour l'app",
  "source_url": "https://github.com/jon-gyt/zilin",
- "modified": "2026-09-25 : assemblé par `wenlu export`",
+ "modified": "2026-09-26 : assemblé par `wenlu export`",
  "norme": "GF 0014-2009",
  "racine": {
   "c": "止",
   "pinyin": "zhǐ",
   "fr": "",
   "en": "",
-  "origine": "",
-  "etiquette": null
+  "origine": "Sur les os oraculaires, 止 dessine un pied, ou plutôt son empreinte, la plante et quelques orteils. Le Shuowen jiezi y voit d'abord la base d'une plante qui sort de terre, et ajoute qu'il sert à écrire le pied. Du pied qui se pose vient le sens d'« arrêter », et le pied se retrouve dans 走 ou 些.",
+  "etiquette": "atteste"
  },
  "fiches": [
   {
@@ -32,14 +32,39 @@
     "makemeahanzi"
    ],
    "role": null,
-   "roles": {},
-   "origine_fr": "",
-   "origine_en": "",
-   "etiquette": null,
+   "roles": {
+    "二": "sens",
+    "匕": "sens",
+    "止": "sens"
+   },
+   "origine_fr": "些 est absent du Shuowen jiezi original, et son origine reste discutée. On y voit 此, formé de 止 et de 匕, au-dessus de 二. Pour s'en souvenir : 此 veut dire « ceci » en chinois classique, et 二 ajoute qu'il y en a plus d'un, « quelques-uns ».",
+   "origine_en": "些 is not in the original Shuowen jiezi, and its origin is still debated. It shows 此, made of 止 and 匕, above 二. To remember it: 此 means “this” in classical Chinese, and 二 adds that there is more than one, “some”.",
+   "etiquette": "mnemotechnique",
    "memo_fr": null,
    "memo_en": null,
-   "mots": [],
-   "phrase": null,
+   "mots": [
+    {
+     "hanzi": "一些",
+     "pinyin": "yīxiē",
+     "fr": "quelques, un peu",
+     "en": "some, a few",
+     "audio": null
+    },
+    {
+     "hanzi": "有些",
+     "pinyin": "yǒuxiē",
+     "fr": "certains ; un peu",
+     "en": "some; somewhat",
+     "audio": null
+    }
+   ],
+   "phrase": {
+    "hanzi": "有些人不来。",
+    "pinyin": "Yǒuxiē rén bù lái.",
+    "fr": "Certains ne viennent pas.",
+    "en": "Some people aren't coming.",
+    "audio": null
+   },
    "niveaux": {
     "seuil": 255,
     "hsk": 1
@@ -47,7 +72,7 @@
    "traits": [],
    "medianes": [],
    "audio": null,
-   "statut": "sans_fiche"
+   "statut": "relu"
   },
   {
    "c": "止",
@@ -61,19 +86,42 @@
    "nouveau": [],
    "sources": [],
    "role": null,
-   "roles": {},
-   "origine_fr": "",
-   "origine_en": "",
-   "etiquette": null,
+   "roles": {
+    "止": "sens"
+   },
+   "origine_fr": "Sur les os oraculaires, 止 dessine un pied, ou plutôt son empreinte, la plante et quelques orteils. Le Shuowen jiezi y voit d'abord la base d'une plante qui sort de terre, et ajoute qu'il sert à écrire le pied. Du pied qui se pose vient le sens d'« arrêter », et le pied se retrouve dans 走 ou 些.",
+   "origine_en": "On oracle bones, 止 draws a foot, or rather its print, the sole and a few toes. The Shuowen jiezi first sees in it the base of a plant coming out of the ground, and adds that it is used to write “foot”. From the foot set down comes the meaning “to stop”, and the foot turns up again in 走 or 些.",
+   "etiquette": "atteste",
    "memo_fr": null,
    "memo_en": null,
-   "mots": [],
-   "phrase": null,
+   "mots": [
+    {
+     "hanzi": "为止",
+     "pinyin": "wéizhǐ",
+     "fr": "jusqu'à",
+     "en": "until, up to",
+     "audio": null
+    },
+    {
+     "hanzi": "不止",
+     "pinyin": "bùzhǐ",
+     "fr": "plus que, pas seulement",
+     "en": "more than, not only",
+     "audio": null
+    }
+   ],
+   "phrase": {
+    "hanzi": "她不止有一个女儿。",
+    "pinyin": "Tā bùzhǐ yǒu yī ge nǚ'ér.",
+    "fr": "Elle n'a pas qu'une fille.",
+    "en": "She has more than one daughter.",
+    "audio": null
+   },
    "niveaux": {},
    "traits": [],
    "medianes": [],
    "audio": null,
-   "statut": "sans_fiche"
+   "statut": "relu"
   }
  ]
 }

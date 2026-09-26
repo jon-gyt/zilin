@@ -3,15 +3,15 @@
  "license": "propriétaire",
  "source": "décomposition GF 0014-2009 réconciliée par le pipeline wenlu ; pinyin d'Unihan (kMandarin) ; textes rédigés pour l'app",
  "source_url": "https://github.com/jon-gyt/zilin",
- "modified": "2026-09-25 : assemblé par `wenlu export`",
+ "modified": "2026-09-26 : assemblé par `wenlu export`",
  "norme": "GF 0014-2009",
  "racine": {
   "c": "凡",
   "pinyin": "fán",
   "fr": "",
   "en": "",
-  "origine": "",
-  "etiquette": null
+  "origine": "Sur les os oraculaires, la forme de 凡 se lit comme un plateau ou un bassin, et certains y voient une voile. Le Shuowen jiezi le définit comme « le tout, l'ensemble », sens resté dans 凡是, « tout ce qui ». Il veut dire aussi « ordinaire », et on le retrouve dans 同, qui s'écrivait déjà 凡 au-dessus de 口 sur les os oraculaires.",
+  "etiquette": "atteste"
  },
  "fiches": [
   {
@@ -26,19 +26,42 @@
    "nouveau": [],
    "sources": [],
    "role": null,
-   "roles": {},
-   "origine_fr": "",
-   "origine_en": "",
-   "etiquette": null,
+   "roles": {
+    "凡": "forme"
+   },
+   "origine_fr": "Sur les os oraculaires, la forme de 凡 se lit comme un plateau ou un bassin, et certains y voient une voile. Le Shuowen jiezi le définit comme « le tout, l'ensemble », sens resté dans 凡是, « tout ce qui ». Il veut dire aussi « ordinaire », et on le retrouve dans 同, qui s'écrivait déjà 凡 au-dessus de 口 sur les os oraculaires.",
+   "origine_en": "On oracle bones, the shape of 凡 is read as a tray or a basin, and some see a sail in it. The Shuowen jiezi defines it as “all, the whole”, a sense kept in 凡是, “whatever, all that”. It also means “ordinary”, and it turns up in 同, already written as 凡 over 口 on oracle bones.",
+   "etiquette": "atteste",
    "memo_fr": null,
    "memo_en": null,
-   "mots": [],
-   "phrase": null,
+   "mots": [
+    {
+     "hanzi": "凡是",
+     "pinyin": "fánshì",
+     "fr": "tout ce qui, tous ceux qui",
+     "en": "all, whatever, every",
+     "audio": null
+    },
+    {
+     "hanzi": "非凡",
+     "pinyin": "fēifán",
+     "fr": "extraordinaire",
+     "en": "extraordinary",
+     "audio": null
+    }
+   ],
+   "phrase": {
+    "hanzi": "我们是同学。",
+    "pinyin": "Wǒmen shì tóngxué.",
+    "fr": "Nous sommes camarades de classe.",
+    "en": "We're classmates.",
+    "audio": null
+   },
    "niveaux": {},
    "traits": [],
    "medianes": [],
    "audio": null,
-   "statut": "sans_fiche"
+   "statut": "relu"
   },
   {
    "c": "同",
@@ -59,15 +82,39 @@
    "sources": [
     "makemeahanzi"
    ],
-   "role": null,
-   "roles": {},
-   "origine_fr": "",
-   "origine_en": "",
-   "etiquette": null,
+   "role": "sens",
+   "roles": {
+    "凡": "sens",
+    "口": "sens"
+   },
+   "origine_fr": "Sur les os oraculaires, 同 réunit déjà les deux éléments qu'on voit aujourd'hui, 凡 au-dessus de 口. Le Shuowen jiezi le définit par réunir, rassembler, et l'analyse comme une association d'idées, sans élément de son. Ce qui est réuni devient semblable : 同 signifie même, ensemble.",
+   "origine_en": "On oracle bones, 同 already joins the two parts seen today, 凡 above 口. The Shuowen jiezi defines it as to gather, to bring together, and reads it as a compound of meanings with no sound element. What is brought together becomes alike, and 同 means same, together.",
+   "etiquette": "atteste",
    "memo_fr": null,
    "memo_en": null,
-   "mots": [],
-   "phrase": null,
+   "mots": [
+    {
+     "hanzi": "不同",
+     "pinyin": "bùtóng",
+     "fr": "différent",
+     "en": "different",
+     "audio": null
+    },
+    {
+     "hanzi": "同意",
+     "pinyin": "tóngyì",
+     "fr": "être d'accord",
+     "en": "to agree",
+     "audio": null
+    }
+   ],
+   "phrase": {
+    "hanzi": "我和他同岁。",
+    "pinyin": "Wǒ hé tā tóngsuì.",
+    "fr": "Lui et moi avons le même âge.",
+    "en": "He and I are the same age.",
+    "audio": null
+   },
    "niveaux": {
     "seuil": 255,
     "hsk": 1
@@ -75,7 +122,7 @@
    "traits": [],
    "medianes": [],
    "audio": null,
-   "statut": "sans_fiche"
+   "statut": "relu"
   }
  ]
 }

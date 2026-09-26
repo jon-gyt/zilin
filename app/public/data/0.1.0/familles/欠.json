@@ -3,15 +3,15 @@
  "license": "propriétaire",
  "source": "décomposition GF 0014-2009 réconciliée par le pipeline wenlu ; pinyin d'Unihan (kMandarin) ; textes rédigés pour l'app",
  "source_url": "https://github.com/jon-gyt/zilin",
- "modified": "2026-09-25 : assemblé par `wenlu export`",
+ "modified": "2026-09-26 : assemblé par `wenlu export`",
  "norme": "GF 0014-2009",
  "racine": {
   "c": "欠",
   "pinyin": "qiàn",
   "fr": "",
   "en": "",
-  "origine": "",
-  "etiquette": null
+  "origine": "Sur les os oraculaires, 欠 dessine un homme agenouillé, la bouche grande ouverte. Le Shuowen jiezi le définit comme bâiller, le souffle qui sort au-dessus de l'homme. Il marque ce qui passe par la bouche ouverte, souffler, chanter ou boire, et on le retrouve à droite de 欢, dont la forme ancienne 歡 le portait déjà.",
+  "etiquette": "atteste"
  },
  "fiches": [
   {
@@ -26,19 +26,27 @@
    "nouveau": [],
    "sources": [],
    "role": null,
-   "roles": {},
-   "origine_fr": "",
-   "origine_en": "",
-   "etiquette": null,
+   "roles": {
+    "欠": "sens"
+   },
+   "origine_fr": "Sur les os oraculaires, 欠 dessine un homme agenouillé, la bouche grande ouverte. Le Shuowen jiezi le définit comme bâiller, le souffle qui sort au-dessus de l'homme. Il marque ce qui passe par la bouche ouverte, souffler, chanter ou boire, et on le retrouve à droite de 欢, dont la forme ancienne 歡 le portait déjà.",
+   "origine_en": "On oracle bones, 欠 draws a kneeling man with his mouth wide open. The Shuowen jiezi defines it as yawning, breath rising above the man. It marks what passes through an open mouth, blowing, singing or drinking, and it sits on the right of 欢, whose old form 歡 already had it.",
+   "etiquette": "atteste",
    "memo_fr": null,
    "memo_en": null,
    "mots": [],
-   "phrase": null,
+   "phrase": {
+    "hanzi": "我喜欢红茶。",
+    "pinyin": "Wǒ xǐhuan hóngchá.",
+    "fr": "J'aime le thé noir.",
+    "en": "I like black tea.",
+    "audio": null
+   },
    "niveaux": {},
    "traits": [],
    "medianes": [],
    "audio": null,
-   "statut": "sans_fiche"
+   "statut": "relu"
   }
  ]
 }

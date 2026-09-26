@@ -3,15 +3,15 @@
  "license": "propriétaire",
  "source": "décomposition GF 0014-2009 réconciliée par le pipeline wenlu ; pinyin d'Unihan (kMandarin) ; textes rédigés pour l'app",
  "source_url": "https://github.com/jon-gyt/zilin",
- "modified": "2026-09-25 : assemblé par `wenlu export`",
+ "modified": "2026-09-26 : assemblé par `wenlu export`",
  "norme": "GF 0014-2009",
  "racine": {
   "c": "王",
   "pinyin": "wáng",
   "fr": "",
   "en": "",
-  "origine": "",
-  "etiquette": null
+  "origine": "Sur les os oraculaires et les bronzes, les paléographes reconnaissent le plus souvent dans 王 une hache à large lame, tranchant en bas, insigne du pouvoir royal. Le Shuowen jiezi, citant Dong Zhongshu, y lit trois traits, le ciel, la terre et l'homme, reliés par un trait vertical, une lecture que les formes anciennes ne confirment pas. 王 veut dire « roi », et c'est aussi l'un des noms de famille les plus répandus.",
+  "etiquette": "atteste"
  },
  "fiches": [
   {
@@ -27,21 +27,44 @@
    "nouveau": [],
    "sources": [],
    "role": null,
-   "roles": {},
-   "origine_fr": "",
-   "origine_en": "",
-   "etiquette": null,
+   "roles": {
+    "王": "sens"
+   },
+   "origine_fr": "Sur les os oraculaires et les bronzes, les paléographes reconnaissent le plus souvent dans 王 une hache à large lame, tranchant en bas, insigne du pouvoir royal. Le Shuowen jiezi, citant Dong Zhongshu, y lit trois traits, le ciel, la terre et l'homme, reliés par un trait vertical, une lecture que les formes anciennes ne confirment pas. 王 veut dire « roi », et c'est aussi l'un des noms de famille les plus répandus.",
+   "origine_en": "On oracle bones and bronzes, paleographers most often recognize in 王 a broad-bladed axe, edge down, the emblem of royal power. The Shuowen jiezi, quoting Dong Zhongshu, reads it as three strokes, heaven, earth and man, joined by one vertical stroke, a reading the early forms do not support. 王 means “king”, and it is also one of the most common surnames.",
+   "etiquette": "atteste",
    "memo_fr": null,
    "memo_en": null,
-   "mots": [],
-   "phrase": null,
+   "mots": [
+    {
+     "hanzi": "王子",
+     "pinyin": "wángzǐ",
+     "fr": "prince",
+     "en": "prince",
+     "audio": null
+    },
+    {
+     "hanzi": "女王",
+     "pinyin": "nǚwáng",
+     "fr": "reine",
+     "en": "queen",
+     "audio": null
+    }
+   ],
+   "phrase": {
+    "hanzi": "王先生好！",
+    "pinyin": "Wáng xiānsheng hǎo!",
+    "fr": "Bonjour, monsieur Wang !",
+    "en": "Hello, Mr Wang!",
+    "audio": null
+   },
    "niveaux": {
     "seuil": 255
    },
    "traits": [],
    "medianes": [],
    "audio": null,
-   "statut": "sans_fiche"
+   "statut": "relu"
   },
   {
    "c": "玩",
@@ -62,15 +85,40 @@
    "sources": [
     "makemeahanzi"
    ],
-   "role": null,
-   "roles": {},
-   "origine_fr": "",
-   "origine_en": "",
-   "etiquette": null,
+   "role": "forme",
+   "roles": {
+    "二": "forme",
+    "儿": "forme",
+    "王": "sens"
+   },
+   "origine_fr": "Le Shuowen jiezi glose 玩 par « manier, jouer avec » et en fait un composé idéo-phonétique : le jade 玉 pour le sens, 元 pour le son. À gauche, 王 est la forme que prend 玉 en position de clé : il s'agit d'abord de tourner entre ses doigts un objet de jade. À droite, 元, que la norme décompose en 二 et 儿, donnait le son, mais se lit aujourd'hui yuán, plus loin de wán.",
+   "origine_en": "The Shuowen jiezi glosses 玩 as “to handle, to play with” and makes it a phono-semantic compound: jade 玉 for the meaning, 元 for the sound. On the left, 王 is the shape jade takes as a radical: the first idea is turning a piece of jade over in one's fingers. On the right, 元, which the standard splits into 二 and 儿, gave the sound but now reads yuán, no longer close to wán.",
+   "etiquette": "atteste",
    "memo_fr": null,
    "memo_en": null,
-   "mots": [],
-   "phrase": null,
+   "mots": [
+    {
+     "hanzi": "好玩",
+     "pinyin": "hǎowán",
+     "fr": "amusant",
+     "en": "fun",
+     "audio": null
+    },
+    {
+     "hanzi": "玩儿",
+     "pinyin": "wánr",
+     "fr": "s'amuser, jouer",
+     "en": "to play, to have fun",
+     "audio": null
+    }
+   ],
+   "phrase": {
+    "hanzi": "好好玩儿！",
+    "pinyin": "Hǎohǎo wánr!",
+    "fr": "Amuse-toi bien !",
+    "en": "Have fun!",
+    "audio": null
+   },
    "niveaux": {
     "seuil": 255,
     "hsk": 1
@@ -78,7 +126,7 @@
    "traits": [],
    "medianes": [],
    "audio": null,
-   "statut": "sans_fiche"
+   "statut": "relu"
   },
   {
    "c": "现",
@@ -98,15 +146,32 @@
    "sources": [
     "makemeahanzi"
    ],
-   "role": null,
-   "roles": {},
-   "origine_fr": "",
-   "origine_en": "",
-   "etiquette": null,
+   "role": "sens",
+   "roles": {
+    "王": "sens",
+    "见": "forme"
+   },
+   "origine_fr": "现 est un composé idéo-phonétique : 王, la forme du jade 玉 en position de clé, donne le sens, et 见 donnait le son. Anciennement, 见 se lisait aussi xiàn au sens de « se montrer, apparaître », et 现 a été formé plus tard pour écrire ce sens à part. D'« apparaître » vient « présent, actuel », le sens de 现今 et de 现有.",
+   "origine_en": "现 is a phono-semantic compound: 王, the form jade 玉 takes as a radical, carries the meaning, and 见 once carried the sound. In older texts, 见 could also be read xiàn, meaning “to show, to appear”, and 现 was created later to write that sense on its own. From “to appear” came “present, current”, the meaning found in 现今 and 现有.",
+   "etiquette": "atteste",
    "memo_fr": null,
    "memo_en": null,
-   "mots": [],
-   "phrase": null,
+   "mots": [
+    {
+     "hanzi": "现有",
+     "pinyin": "xiànyǒu",
+     "fr": "existant, dont on dispose",
+     "en": "existing, currently available",
+     "audio": null
+    }
+   ],
+   "phrase": {
+    "hanzi": "门口现有十人。",
+    "pinyin": "Ménkǒu xiàn yǒu shí rén.",
+    "fr": "Il y a en ce moment dix personnes devant la porte.",
+    "en": "There are ten people at the door right now.",
+    "audio": null
+   },
    "niveaux": {
     "seuil": 255,
     "hsk": 1
@@ -114,7 +179,7 @@
    "traits": [],
    "medianes": [],
    "audio": null,
-   "statut": "sans_fiche"
+   "statut": "relu"
   },
   {
    "c": "班",

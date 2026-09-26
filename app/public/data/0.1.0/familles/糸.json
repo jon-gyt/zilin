@@ -3,15 +3,15 @@
  "license": "propriétaire",
  "source": "décomposition GF 0014-2009 réconciliée par le pipeline wenlu ; pinyin d'Unihan (kMandarin) ; textes rédigés pour l'app",
  "source_url": "https://github.com/jon-gyt/zilin",
- "modified": "2026-09-25 : assemblé par `wenlu export`",
+ "modified": "2026-09-26 : assemblé par `wenlu export`",
  "norme": "GF 0014-2009",
  "racine": {
   "c": "糸",
   "pinyin": "mì",
   "fr": "",
   "en": "",
-  "origine": "",
-  "etiquette": null
+  "origine": "Sur les os oraculaires, 糸 dessine un écheveau de soie torsadé, avec les brins qui dépassent. Le Shuowen jiezi le définit comme un fil fin. En bas d'un caractère, il garde sa forme pleine, que la norme appelle 绞丝底, comme dans 累 ; à gauche, il se simplifie en 纟.",
+  "etiquette": "atteste"
  },
  "fiches": [
   {
@@ -26,19 +26,27 @@
    "nouveau": [],
    "sources": [],
    "role": null,
-   "roles": {},
-   "origine_fr": "",
-   "origine_en": "",
-   "etiquette": null,
+   "roles": {
+    "糸": "sens"
+   },
+   "origine_fr": "Sur les os oraculaires, 糸 dessine un écheveau de soie torsadé, avec les brins qui dépassent. Le Shuowen jiezi le définit comme un fil fin. En bas d'un caractère, il garde sa forme pleine, que la norme appelle 绞丝底, comme dans 累 ; à gauche, il se simplifie en 纟.",
+   "origine_en": "On oracle bones, 糸 draws a twisted skein of silk, with loose threads sticking out. The Shuowen jiezi defines it as fine thread. At the bottom of a character it keeps its full form, which the standard calls 绞丝底, as in 累; on the left it is simplified to 纟.",
+   "etiquette": "atteste",
    "memo_fr": null,
    "memo_en": null,
    "mots": [],
-   "phrase": null,
+   "phrase": {
+    "hanzi": "你累了吗？",
+    "pinyin": "Nǐ lèi le ma?",
+    "fr": "Tu es fatigué ?",
+    "en": "Are you tired?",
+    "audio": null
+   },
    "niveaux": {},
    "traits": [],
    "medianes": [],
    "audio": null,
-   "statut": "sans_fiche"
+   "statut": "relu"
   }
  ]
 }

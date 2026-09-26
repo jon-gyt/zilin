@@ -3,15 +3,15 @@
  "license": "propriétaire",
  "source": "décomposition GF 0014-2009 réconciliée par le pipeline wenlu ; pinyin d'Unihan (kMandarin) ; textes rédigés pour l'app",
  "source_url": "https://github.com/jon-gyt/zilin",
- "modified": "2026-09-25 : assemblé par `wenlu export`",
+ "modified": "2026-09-26 : assemblé par `wenlu export`",
  "norme": "GF 0014-2009",
  "racine": {
   "c": "宀",
   "pinyin": "mián",
   "fr": "",
   "en": "",
-  "origine": "",
-  "etiquette": null
+  "origine": "宀 dessine un toit : sur les os oraculaires, c'est une maison vue de côté, le faîte en pointe et deux murs qui descendent. Le Shuowen jiezi le définit comme une demeure profonde, couverte de toutes parts. On l'appelle 宝盖头, « couvercle précieux », ou 宝盖 dans la norme, et il coiffe les caractères de la maison, comme 家 ou 字.",
+  "etiquette": "atteste"
  },
  "fiches": [
   {
@@ -66,14 +66,38 @@
     "makemeahanzi"
    ],
    "role": null,
-   "roles": {},
-   "origine_fr": "",
-   "origine_en": "",
-   "etiquette": null,
+   "roles": {
+    "子": "son",
+    "宀": "sens"
+   },
+   "origine_fr": "Sur les bronzes, 字 montre un enfant 子 sous le toit d'une maison 宀. Le Shuowen jiezi y lit le sens de mettre au monde et d'élever, et donne aussi 子 zǐ pour le son, proche de zì. De la famille qui s'agrandit, le sens a glissé vers les caractères écrits, qui en engendrent d'autres à leur tour.",
+   "origine_en": "On bronzes, 字 shows a child 子 under the roof of a house 宀. The Shuowen jiezi reads it as giving birth and raising, and also takes 子 zǐ for the sound, close to zì. From a growing family, the meaning moved to written characters, which breed new ones in turn.",
+   "etiquette": "atteste",
    "memo_fr": null,
    "memo_en": null,
-   "mots": [],
-   "phrase": null,
+   "mots": [
+    {
+     "hanzi": "汉字",
+     "pinyin": "hànzì",
+     "fr": "caractère chinois",
+     "en": "Chinese character",
+     "audio": null
+    },
+    {
+     "hanzi": "名字",
+     "pinyin": "míngzi",
+     "fr": "nom, prénom",
+     "en": "name",
+     "audio": null
+    }
+   ],
+   "phrase": {
+    "hanzi": "这个字怎么念？",
+    "pinyin": "Zhège zì zěnme niàn?",
+    "fr": "Comment se lit ce caractère ?",
+    "en": "How do you read this character?",
+    "audio": null
+   },
    "niveaux": {
     "seuil": 255,
     "hsk": 1
@@ -81,7 +105,7 @@
    "traits": [],
    "medianes": [],
    "audio": null,
-   "statut": "sans_fiche"
+   "statut": "relu"
   },
   {
    "c": "宀",
@@ -95,19 +119,27 @@
    "nouveau": [],
    "sources": [],
    "role": null,
-   "roles": {},
-   "origine_fr": "",
-   "origine_en": "",
-   "etiquette": null,
+   "roles": {
+    "宀": "sens"
+   },
+   "origine_fr": "宀 dessine un toit : sur les os oraculaires, c'est une maison vue de côté, le faîte en pointe et deux murs qui descendent. Le Shuowen jiezi le définit comme une demeure profonde, couverte de toutes parts. On l'appelle 宝盖头, « couvercle précieux », ou 宝盖 dans la norme, et il coiffe les caractères de la maison, comme 家 ou 字.",
+   "origine_en": "宀 draws a roof: on oracle bones it is a house seen from the side, a pointed ridge and two walls coming down. The Shuowen jiezi defines it as a deep dwelling, covered on all sides. It is called 宝盖头, “precious lid”, or 宝盖 in the standard, and it caps characters to do with the home, such as 家 or 字.",
+   "etiquette": "atteste",
    "memo_fr": null,
    "memo_en": null,
    "mots": [],
-   "phrase": null,
+   "phrase": {
+    "hanzi": "她有时不来。",
+    "pinyin": "Tā yǒushí bù lái.",
+    "fr": "Parfois, elle ne vient pas.",
+    "en": "Sometimes she doesn't come.",
+    "audio": null
+   },
    "niveaux": {},
    "traits": [],
    "medianes": [],
    "audio": null,
-   "statut": "sans_fiche"
+   "statut": "relu"
   },
   {
    "c": "它",
@@ -126,21 +158,45 @@
     "makemeahanzi"
    ],
    "role": null,
-   "roles": {},
-   "origine_fr": "",
-   "origine_en": "",
-   "etiquette": null,
+   "roles": {
+    "匕": "forme",
+    "宀": "forme"
+   },
+   "origine_fr": "Sur les os oraculaires, 它 dessine un serpent, la tête en haut et le corps recourbé. Le Shuowen jiezi y voit le serpent que redoutaient les anciens qui vivaient dans les herbes. Le caractère a été emprunté pour le pronom des choses et des animaux, et 宀 et 匕 ne sont plus que les restes du dessin.",
+   "origine_en": "On oracle bones, 它 draws a snake, head at the top and body curled. The Shuowen jiezi sees in it the snake feared by early people who lived among the grasses. The character was borrowed for the pronoun used for things and animals, and 宀 and 匕 are only what remains of the drawing.",
+   "etiquette": "atteste",
    "memo_fr": null,
    "memo_en": null,
-   "mots": [],
-   "phrase": null,
+   "mots": [
+    {
+     "hanzi": "它们",
+     "pinyin": "tāmen",
+     "fr": "ils, elles (choses, animaux)",
+     "en": "they (things, animals)",
+     "audio": null
+    },
+    {
+     "hanzi": "其它",
+     "pinyin": "qítā",
+     "fr": "les autres, le reste",
+     "en": "the others, the rest",
+     "audio": null
+    }
+   ],
+   "phrase": {
+    "hanzi": "它们不见了。",
+    "pinyin": "Tāmen bù jiàn le.",
+    "fr": "Ils ont disparu.",
+    "en": "They have disappeared.",
+    "audio": null
+   },
    "niveaux": {
     "seuil": 255
    },
    "traits": [],
    "medianes": [],
    "audio": null,
-   "statut": "sans_fiche"
+   "statut": "relu"
   },
   {
    "c": "完",
@@ -160,21 +216,46 @@
     "makemeahanzi"
    ],
    "role": null,
-   "roles": {},
-   "origine_fr": "",
-   "origine_en": "",
-   "etiquette": null,
+   "roles": {
+    "二": "forme",
+    "儿": "forme",
+    "宀": "sens"
+   },
+   "origine_fr": "完 associe 宀, le toit, à 元, qui en donnait le son et se lit aujourd'hui yuán, plus loin de wán ; la norme découpe 元 en 二 et 儿. Le Shuowen jiezi le glose par « entier, intact ». De ce qui est entier, le sens est passé à ce qui est achevé, puis à « finir ».",
+   "origine_en": "完 combines 宀, the roof, with 元, which once gave the sound and now reads yuán, no longer close to wán; the standard splits 元 into 二 and 儿. The Shuowen jiezi glosses it as “whole, intact”. From what is whole, the meaning moved to what is complete, and then to “to finish”.",
+   "etiquette": "atteste",
    "memo_fr": null,
    "memo_en": null,
-   "mots": [],
-   "phrase": null,
+   "mots": [
+    {
+     "hanzi": "完好",
+     "pinyin": "wánhǎo",
+     "fr": "intact, en bon état",
+     "en": "intact, in good condition",
+     "audio": null
+    },
+    {
+     "hanzi": "用完",
+     "pinyin": "yòngwán",
+     "fr": "épuiser, finir (une réserve)",
+     "en": "to use up",
+     "audio": null
+    }
+   ],
+   "phrase": {
+    "hanzi": "米用完了。",
+    "pinyin": "Mǐ yòngwán le.",
+    "fr": "Il n'y a plus de riz.",
+    "en": "The rice has run out.",
+    "audio": null
+   },
    "niveaux": {
     "seuil": 255
    },
    "traits": [],
    "medianes": [],
    "audio": null,
-   "statut": "sans_fiche"
+   "statut": "relu"
   },
   {
    "c": "客",
@@ -232,15 +313,39 @@
    "sources": [
     "makemeahanzi"
    ],
-   "role": null,
-   "roles": {},
-   "origine_fr": "",
-   "origine_en": "",
-   "etiquette": null,
+   "role": "sens",
+   "roles": {
+    "宀": "sens",
+    "豕": "sens"
+   },
+   "origine_fr": "Sur les os oraculaires, 家 montre un porc, 豕, sous un toit, 宀. Le Shuowen jiezi le définit comme le lieu où l'on demeure et voit dans 豕 l'abrégé de 豭 jiā, le verrat, qui en donnerait le son. Le toit et l'animal domestique réunis disent le foyer, la maison, puis la famille.",
+   "origine_en": "On oracle bones, 家 shows a pig, 豕, under a roof, 宀. The Shuowen jiezi defines it as a dwelling and treats 豕 as a shortened form of 豭 jiā, boar, which would supply the sound. Roof and household animal together came to mean home, then family.",
+   "etiquette": "atteste",
    "memo_fr": null,
    "memo_en": null,
-   "mots": [],
-   "phrase": null,
+   "mots": [
+    {
+     "hanzi": "回家",
+     "pinyin": "huíjiā",
+     "fr": "rentrer à la maison",
+     "en": "to go home",
+     "audio": null
+    },
+    {
+     "hanzi": "大家",
+     "pinyin": "dàjiā",
+     "fr": "tout le monde",
+     "en": "everyone",
+     "audio": null
+    }
+   ],
+   "phrase": {
+    "hanzi": "你家有几口人？",
+    "pinyin": "Nǐ jiā yǒu jǐ kǒu rén?",
+    "fr": "Combien êtes-vous dans ta famille ?",
+    "en": "How many people are there in your family?",
+    "audio": null
+   },
    "niveaux": {
     "seuil": 255,
     "hsk": 1
@@ -248,7 +353,7 @@
    "traits": [],
    "medianes": [],
    "audio": null,
-   "statut": "sans_fiche"
+   "statut": "relu"
   },
   {
    "c": "寒",

@@ -3,15 +3,15 @@
  "license": "propriétaire",
  "source": "décomposition GF 0014-2009 réconciliée par le pipeline wenlu ; pinyin d'Unihan (kMandarin) ; textes rédigés pour l'app",
  "source_url": "https://github.com/jon-gyt/zilin",
- "modified": "2026-09-25 : assemblé par `wenlu export`",
+ "modified": "2026-09-26 : assemblé par `wenlu export`",
  "norme": "GF 0014-2009",
  "racine": {
   "c": "戋",
   "pinyin": "jiān",
   "fr": "",
   "en": "",
-  "origine": "",
-  "etiquette": null
+  "origine": "Le Shuowen jiezi compose 戋 de deux hallebardes 戈 superposées et le définit comme « blesser, abîmer ». Il se lit jiān, et la norme l'appelle 钱字边, d'après 钱. On le retrouve dans 钱, 浅 et 线, où il donnait autrefois le son.",
+  "etiquette": "atteste"
  },
  "fiches": [
   {
@@ -26,19 +26,27 @@
    "nouveau": [],
    "sources": [],
    "role": null,
-   "roles": {},
-   "origine_fr": "",
-   "origine_en": "",
-   "etiquette": null,
+   "roles": {
+    "戋": "forme"
+   },
+   "origine_fr": "Le Shuowen jiezi compose 戋 de deux hallebardes 戈 superposées et le définit comme « blesser, abîmer ». Il se lit jiān, et la norme l'appelle 钱字边, d'après 钱. On le retrouve dans 钱, 浅 et 线, où il donnait autrefois le son.",
+   "origine_en": "The Shuowen jiezi builds 戋 from two dagger-axes, 戈, one above the other, and defines it as “to harm, to damage”. It is read jiān, and the standard calls it 钱字边, after 钱. It turns up in 钱, 浅 and 线, where it once gave the sound.",
+   "etiquette": "atteste",
    "memo_fr": null,
    "memo_en": null,
    "mots": [],
-   "phrase": null,
+   "phrase": {
+    "hanzi": "我没有钱。",
+    "pinyin": "Wǒ méiyǒu qián.",
+    "fr": "Je n'ai pas d'argent.",
+    "en": "I have no money.",
+    "audio": null
+   },
    "niveaux": {},
    "traits": [],
    "medianes": [],
    "audio": null,
-   "statut": "sans_fiche"
+   "statut": "relu"
   }
  ]
 }

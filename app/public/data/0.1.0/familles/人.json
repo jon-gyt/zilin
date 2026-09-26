@@ -3,15 +3,15 @@
  "license": "propriétaire",
  "source": "décomposition GF 0014-2009 réconciliée par le pipeline wenlu ; pinyin d'Unihan (kMandarin) ; textes rédigés pour l'app",
  "source_url": "https://github.com/jon-gyt/zilin",
- "modified": "2026-09-25 : assemblé par `wenlu export`",
+ "modified": "2026-09-26 : assemblé par `wenlu export`",
  "norme": "GF 0014-2009",
  "racine": {
   "c": "人",
   "pinyin": "rén",
   "fr": "",
   "en": "",
-  "origine": "",
-  "etiquette": null
+  "origine": "Sur les os oraculaires, 人 dessine un homme debout vu de profil, le buste un peu penché, les bras tombant vers l'avant. Le Shuowen jiezi y lit la forme des bras et des jambes. Au fil des écritures, la silhouette s'est réduite à deux traits obliques qui s'appuient l'un sur l'autre.",
+  "etiquette": "atteste"
  },
  "fiches": [
   {
@@ -26,14 +26,37 @@
    "nouveau": [],
    "sources": [],
    "role": null,
-   "roles": {},
-   "origine_fr": "",
-   "origine_en": "",
-   "etiquette": null,
+   "roles": {
+    "人": "sens"
+   },
+   "origine_fr": "Sur les os oraculaires, 人 dessine un homme debout vu de profil, le buste un peu penché, les bras tombant vers l'avant. Le Shuowen jiezi y lit la forme des bras et des jambes. Au fil des écritures, la silhouette s'est réduite à deux traits obliques qui s'appuient l'un sur l'autre.",
+   "origine_en": "On oracle bones, 人 draws a standing man seen in profile, body slightly bent, arms hanging forward. The Shuowen jiezi reads it as the shape of arms and legs. Over the centuries the figure was pared down to two slanting strokes leaning on each other.",
+   "etiquette": "atteste",
    "memo_fr": null,
    "memo_en": null,
-   "mots": [],
-   "phrase": null,
+   "mots": [
+    {
+     "hanzi": "人人",
+     "pinyin": "rénrén",
+     "fr": "tout le monde, chacun",
+     "en": "everyone",
+     "audio": null
+    },
+    {
+     "hanzi": "大人",
+     "pinyin": "dàren",
+     "fr": "adulte, grande personne",
+     "en": "adult, grown-up",
+     "audio": null
+    }
+   ],
+   "phrase": {
+    "hanzi": "天大，人大。",
+    "pinyin": "Tiān dà, rén dà.",
+    "fr": "Le ciel est grand, l'homme aussi.",
+    "en": "Heaven is great, and so is man.",
+    "audio": null
+   },
    "niveaux": {
     "seuil": 255,
     "hsk": 1
@@ -41,7 +64,7 @@
    "traits": [],
    "medianes": [],
    "audio": null,
-   "statut": "sans_fiche"
+   "statut": "relu"
   },
   {
    "c": "介",
@@ -94,14 +117,22 @@
     "makemeahanzi"
    ],
    "role": null,
-   "roles": {},
-   "origine_fr": "",
-   "origine_en": "",
-   "etiquette": null,
+   "roles": {
+    "人": "sens"
+   },
+   "origine_fr": "Sur les os oraculaires, 从 montre deux hommes 人 de profil, l'un derrière l'autre. Le Shuowen jiezi y lit l'idée de suivre. La forme traditionnelle 從 y a ajouté un chemin et un pied, et la forme simplifiée revient à la plus ancienne.",
+   "origine_en": "On oracle bones, 从 shows two people 人 in profile, one walking behind the other. The Shuowen jiezi reads it as “to follow”. The traditional form 從 added a road and a foot, and the simplified form goes back to the oldest one.",
+   "etiquette": "atteste",
    "memo_fr": null,
    "memo_en": null,
    "mots": [],
-   "phrase": null,
+   "phrase": {
+    "hanzi": "人从天。",
+    "pinyin": "Rén cóng tiān.",
+    "fr": "L'homme suit le ciel.",
+    "en": "Man follows heaven.",
+    "audio": null
+   },
    "niveaux": {
     "seuil": 255,
     "hsk": 1
@@ -109,7 +140,7 @@
    "traits": [],
    "medianes": [],
    "audio": null,
-   "statut": "sans_fiche"
+   "statut": "relu"
   },
   {
    "c": "以",
@@ -128,21 +159,30 @@
     "surcharge"
    ],
    "role": null,
-   "roles": {},
-   "origine_fr": "",
-   "origine_en": "",
-   "etiquette": null,
+   "roles": {
+    "⿰𠄌丶": "forme",
+    "人": "forme"
+   },
+   "origine_fr": "Pour s'en souvenir : à droite un homme, 人, à gauche l'objet qu'il tient et dont il se sert. 以 dit « au moyen de, avec », et sert à former des mots comme 以前, 以后 et 可以. L'origine de la forme ancienne est discutée, et cette lecture n'est qu'une aide à la mémoire.",
+   "origine_en": "To remember it: on the right a man, 人, on the left the object he holds and makes use of. 以 means “by means of” or “with”, and helps build words such as 以前, 以后 and 可以. The origin of the ancient form is debated, and this reading is only a memory aid.",
+   "etiquette": "mnemotechnique",
    "memo_fr": null,
    "memo_en": null,
    "mots": [],
-   "phrase": null,
+   "phrase": {
+    "hanzi": "日月以明。",
+    "pinyin": "Rì yuè yǐ míng.",
+    "fr": "C'est par le soleil et la lune que vient la clarté.",
+    "en": "It is through the sun and the moon that light comes.",
+    "audio": null
+   },
    "niveaux": {
     "seuil": 255
    },
    "traits": [],
    "medianes": [],
    "audio": null,
-   "statut": "sans_fiche"
+   "statut": "relu"
   },
   {
    "c": "会",
@@ -163,15 +203,39 @@
    "sources": [
     "makemeahanzi"
    ],
-   "role": null,
-   "roles": {},
-   "origine_fr": "",
-   "origine_en": "",
-   "etiquette": null,
+   "role": "forme",
+   "roles": {
+    "云": "forme",
+    "人": "forme"
+   },
+   "origine_fr": "会 simplifie l'ancien 會, que le Shuowen jiezi définit par réunir. On lit couramment dans 會 un couvercle ajusté sur un récipient, deux pièces qui se rejoignent. La forme simplifiée, 人 sur 云, vient de l'écriture cursive et ses éléments n'y portent ni sens ni son.",
+   "origine_en": "会 simplifies the older 會, which the Shuowen jiezi defines as to bring together. 會 is commonly read as a lid fitted onto a vessel, two pieces that meet. The simplified form, 人 over 云, comes from cursive script, and its parts carry neither meaning nor sound.",
+   "etiquette": "atteste",
    "memo_fr": null,
    "memo_en": null,
-   "mots": [],
-   "phrase": null,
+   "mots": [
+    {
+     "hanzi": "开会",
+     "pinyin": "kāihuì",
+     "fr": "tenir une réunion, être en réunion",
+     "en": "to hold a meeting, to be in a meeting",
+     "audio": null
+    },
+    {
+     "hanzi": "机会",
+     "pinyin": "jīhuì",
+     "fr": "occasion, chance",
+     "en": "opportunity, chance",
+     "audio": null
+    }
+   ],
+   "phrase": {
+    "hanzi": "你会说汉语吗？",
+    "pinyin": "Nǐ huì shuō Hànyǔ ma?",
+    "fr": "Tu sais parler chinois ?",
+    "en": "Can you speak Chinese?",
+    "audio": null
+   },
    "niveaux": {
     "seuil": 255,
     "hsk": 1
@@ -179,7 +243,7 @@
    "traits": [],
    "medianes": [],
    "audio": null,
-   "statut": "sans_fiche"
+   "statut": "relu"
   },
   {
    "c": "坐",
@@ -199,14 +263,38 @@
     "makemeahanzi"
    ],
    "role": null,
-   "roles": {},
-   "origine_fr": "",
-   "origine_en": "",
-   "etiquette": null,
+   "roles": {
+    "人": "sens",
+    "土": "sens"
+   },
+   "origine_fr": "Le Shuowen jiezi donne pour 坐 une forme ancienne faite de deux personnes 人 sur la terre 土. On s'asseyait alors sur des nattes posées au sol, face à face. Dans la forme actuelle, les deux 人 se tiennent de part et d'autre du trait vertical de 土.",
+   "origine_en": "The Shuowen jiezi gives an ancient form of 坐 made of two people 人 on the ground 土. In those days people sat on mats laid on the floor, facing each other. In today's form, the two 人 sit on either side of the vertical stroke of 土.",
+   "etiquette": "atteste",
    "memo_fr": null,
    "memo_en": null,
-   "mots": [],
-   "phrase": null,
+   "mots": [
+    {
+     "hanzi": "坐下",
+     "pinyin": "zuòxia",
+     "fr": "s'asseoir",
+     "en": "to sit down",
+     "audio": null
+    },
+    {
+     "hanzi": "坐车",
+     "pinyin": "zuòchē",
+     "fr": "prendre le bus, la voiture",
+     "en": "to take the bus, to ride in a car",
+     "audio": null
+    }
+   ],
+   "phrase": {
+    "hanzi": "你坐这里吧。",
+    "pinyin": "Nǐ zuò zhèlǐ ba.",
+    "fr": "Assieds-toi ici.",
+    "en": "Sit here.",
+    "audio": null
+   },
    "niveaux": {
     "seuil": 255,
     "hsk": 1
@@ -214,7 +302,7 @@
    "traits": [],
    "medianes": [],
    "audio": null,
-   "statut": "sans_fiche"
+   "statut": "relu"
   },
   {
    "c": "拿",

@@ -3,15 +3,15 @@
  "license": "propriétaire",
  "source": "décomposition GF 0014-2009 réconciliée par le pipeline wenlu ; pinyin d'Unihan (kMandarin) ; textes rédigés pour l'app",
  "source_url": "https://github.com/jon-gyt/zilin",
- "modified": "2026-09-25 : assemblé par `wenlu export`",
+ "modified": "2026-09-26 : assemblé par `wenlu export`",
  "norme": "GF 0014-2009",
  "racine": {
   "c": "小",
   "pinyin": "xiǎo",
   "fr": "",
   "en": "",
-  "origine": "",
-  "etiquette": null
+  "origine": "Sur les os oraculaires, 小 s'écrit de trois petits points, comme des grains minuscules. Le Shuowen jiezi le définit par la petitesse des choses et y lit un trait que 八 vient partager. Dans l'écriture actuelle, le point du milieu s'est allongé en un trait vertical à crochet, entre deux points qui s'écartent.",
+  "etiquette": "atteste"
  },
  "fiches": [
   {
@@ -26,14 +26,37 @@
    "nouveau": [],
    "sources": [],
    "role": null,
-   "roles": {},
-   "origine_fr": "",
-   "origine_en": "",
-   "etiquette": null,
+   "roles": {
+    "小": "sens"
+   },
+   "origine_fr": "Sur les os oraculaires, 小 s'écrit de trois petits points, comme des grains minuscules. Le Shuowen jiezi le définit par la petitesse des choses et y lit un trait que 八 vient partager. Dans l'écriture actuelle, le point du milieu s'est allongé en un trait vertical à crochet, entre deux points qui s'écartent.",
+   "origine_en": "On oracle bones, 小 is written as three small dots, like tiny grains. The Shuowen jiezi defines it as the smallness of things and reads it as a stroke split apart by 八. In today's script the middle dot has grown into a hooked vertical stroke, between two dots that spread outward.",
+   "etiquette": "atteste",
    "memo_fr": null,
    "memo_en": null,
-   "mots": [],
-   "phrase": null,
+   "mots": [
+    {
+     "hanzi": "小心",
+     "pinyin": "xiǎoxīn",
+     "fr": "faire attention",
+     "en": "to be careful",
+     "audio": null
+    },
+    {
+     "hanzi": "大小",
+     "pinyin": "dàxiǎo",
+     "fr": "taille, dimensions",
+     "en": "size",
+     "audio": null
+    }
+   ],
+   "phrase": {
+    "hanzi": "小心，有火！",
+    "pinyin": "Xiǎoxīn, yǒu huǒ!",
+    "fr": "Attention, il y a du feu !",
+    "en": "Careful, there's a fire!",
+    "audio": null
+   },
    "niveaux": {
     "seuil": 255,
     "hsk": 1
@@ -41,7 +64,7 @@
    "traits": [],
    "medianes": [],
    "audio": null,
-   "statut": "sans_fiche"
+   "statut": "relu"
   }
  ]
 }

@@ -3,15 +3,15 @@
  "license": "propriétaire",
  "source": "décomposition GF 0014-2009 réconciliée par le pipeline wenlu ; pinyin d'Unihan (kMandarin) ; textes rédigés pour l'app",
  "source_url": "https://github.com/jon-gyt/zilin",
- "modified": "2026-09-25 : assemblé par `wenlu export`",
+ "modified": "2026-09-26 : assemblé par `wenlu export`",
  "norme": "GF 0014-2009",
  "racine": {
   "c": "目",
   "pinyin": "mù",
   "fr": "",
   "en": "",
-  "origine": "",
-  "etiquette": null
+  "origine": "Sur les os oraculaires, 目 dessine un œil couché, la pupille au milieu. Le Shuowen jiezi le définit simplement comme l'œil de l'homme. L'écriture l'a ensuite dressé à la verticale pour qu'il tienne dans les caractères, comme dans 看 ou 想.",
+  "etiquette": "atteste"
  },
  "fiches": [
   {
@@ -26,19 +26,42 @@
    "nouveau": [],
    "sources": [],
    "role": null,
-   "roles": {},
-   "origine_fr": "",
-   "origine_en": "",
-   "etiquette": null,
+   "roles": {
+    "目": "sens"
+   },
+   "origine_fr": "Sur les os oraculaires, 目 dessine un œil couché, la pupille au milieu. Le Shuowen jiezi le définit simplement comme l'œil de l'homme. L'écriture l'a ensuite dressé à la verticale pour qu'il tienne dans les caractères, comme dans 看 ou 想.",
+   "origine_en": "On oracle bones, 目 draws an eye lying on its side, the pupil in the middle. The Shuowen jiezi defines it simply as the human eye. Writing later stood it upright so that it would fit inside characters, as in 看 or 想.",
+   "etiquette": "atteste",
    "memo_fr": null,
    "memo_en": null,
-   "mots": [],
-   "phrase": null,
+   "mots": [
+    {
+     "hanzi": "面目",
+     "pinyin": "miànmù",
+     "fr": "visage, aspect ; vrai visage",
+     "en": "face, appearance; true colours",
+     "audio": null
+    },
+    {
+     "hanzi": "书目",
+     "pinyin": "shūmù",
+     "fr": "liste de livres, catalogue",
+     "en": "book list, catalogue",
+     "audio": null
+    }
+   ],
+   "phrase": {
+    "hanzi": "我想去北京。",
+    "pinyin": "Wǒ xiǎng qù Běijīng.",
+    "fr": "Je voudrais aller à Pékin.",
+    "en": "I'd like to go to Beijing.",
+    "audio": null
+   },
    "niveaux": {},
    "traits": [],
    "medianes": [],
    "audio": null,
-   "statut": "sans_fiche"
+   "statut": "relu"
   },
   {
    "c": "眼",
