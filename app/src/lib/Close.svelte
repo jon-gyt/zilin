@@ -26,6 +26,8 @@
   } from './serie';
   import { cloreSession, constat, jourLecon, rendezVous, type Progress } from './session';
   import { stade } from './tao';
+  import { sessionClose } from './haptique';
+  import { onMount } from 'svelte';
   import { nouveauxAcquis, tableau } from './trophees';
 
   let {
@@ -56,6 +58,9 @@
       vivant = false;
     };
   });
+
+  /** L'arrivée au pas Clore : dans l'app iOS, un signal doux, une fois. */
+  onMount(sessionClose);
 
   /** Les trophées obtenus une fois la session close, graine du jour comprise. */
   function terminer(): void {
