@@ -99,7 +99,16 @@ type Textes = {
   description: (f: Fiche, n: number, contenants: string[], sens: string) => string;
   familles: { titre: string; h1: string; intro: (c: number, f: number) => string; description: string; n: (n: number) => string };
   licences: { titre: string; h1: string; intro: string; traces: string; tracesNote: string; textes: string; description: string };
-  pied: { traces: string; separateur: string; derives: string; pinyin: string; licenceUnicode: string; decomposition: string; mots: string; licences: string; version: (v: string) => string };
+  confidentialite: {
+    titre: string;
+    h1: string;
+    intro: string;
+    description: string;
+    /** Les sections de la politique : un intertitre, des paragraphes. */
+    sections: { h2: string; p: string[] }[];
+    maj: string;
+  };
+  pied: { traces: string; separateur: string; derives: string; pinyin: string; licenceUnicode: string; decomposition: string; mots: string; licences: string; confidentialite: string; version: (v: string) => string };
   nav: string;
 };
 
@@ -162,6 +171,42 @@ const FR: Textes = {
     textes: 'Textes des licences',
     description: 'Les sources et licences des données de Wenlu : tracés sous Arphic Public License, pinyin Unihan, norme GF 0014-2009.'
   },
+  confidentialite: {
+    titre: 'Confidentialité · Wenlu',
+    h1: 'Confidentialité',
+    intro: "Wenlu ne collecte rien. Pas de compte, pas de serveur, pas de publicité, pas de mesure d'audience.",
+    description: "La politique de confidentialité de Wenlu : aucune donnée collectée, aucun compte, aucune requête réseau pendant l'usage.",
+    sections: [
+      {
+        h2: 'Ce que Wenlu garde',
+        p: [
+          "Ta progression (les caractères appris, les révisions, tes réglages, le nom de ton personnage) reste sur ton appareil, dans le stockage de l'app. Elle n'est envoyée nulle part, ni à nous, ni à personne.",
+          "Tu peux l'exporter en fichier JSON depuis les Réglages. Ce fichier est à toi : Wenlu ne le lit que si tu le réimportes."
+        ]
+      },
+      {
+        h2: 'Ce que Wenlu ne fait pas',
+        p: [
+          "L'app iOS ne fait aucune requête réseau : les caractères, les textes et les voix sont embarqués. Il n'y a ni compte, ni identifiant, ni pistage, ni publicité, ni outil d'analyse, ni partage avec des tiers.",
+          "Quand un enregistrement manque, c'est la voix du téléphone qui lit, sur l'appareil."
+        ]
+      },
+      {
+        h2: 'GitHub et Apple',
+        p: [
+          "La version web et ce site sont servis par GitHub Pages. Comme tout hébergeur, GitHub peut consigner des données techniques de connexion, dont l'adresse IP, selon sa propre déclaration de confidentialité ; Wenlu n'y a pas accès. Une fois l'app web chargée, elle fonctionne hors ligne et n'envoie rien.",
+          "Apple peut, si tu l'as accepté dans les réglages de l'iPhone, partager avec les développeurs des rapports de plantage anonymes. Ils relèvent de la politique de confidentialité d'Apple."
+        ]
+      },
+      {
+        h2: 'Effacer tes données',
+        p: [
+          "Supprimer l'app efface ta progression. Sur le web, effacer les données du site dans le navigateur fait de même. Il n'y a rien à nous demander : nous n'avons rien."
+        ]
+      }
+    ],
+    maj: 'Mise à jour le 26 septembre 2026.'
+  },
   pied: {
     traces: "Tracés des caractères : Make Me a Hanzi (graphics.txt), d'après les polices d'Arphic Technology, © 1999 Arphic Technology Co., Ltd., sous",
     separateur: ' ; ',
@@ -171,6 +216,7 @@ const FR: Textes = {
     decomposition: 'Décomposition selon la norme GF 0014-2009, réconciliée par le pipeline Wenlu.',
     mots: 'Mots : CC-CEDICT, publié par MDBG, fichier modifié, sous',
     licences: 'Licences et sources',
+    confidentialite: 'Confidentialité',
     version: (v) => `données version ${v}`
   },
   nav: 'Navigation'
@@ -234,6 +280,42 @@ const EN: Textes = {
     textes: 'License texts',
     description: 'Sources and licenses of Wenlu’s data: strokes under the Arphic Public License, Unihan pinyin, GF 0014-2009 standard.'
   },
+  confidentialite: {
+    titre: 'Privacy · Wenlu',
+    h1: 'Privacy',
+    intro: 'Wenlu collects nothing. No account, no server, no ads, no analytics.',
+    description: 'Wenlu’s privacy policy: no data collected, no account, no network requests while you use it.',
+    sections: [
+      {
+        h2: 'What Wenlu keeps',
+        p: [
+          'Your progress (the characters you have learned, your reviews, your settings, your character’s name) stays on your device, in the app’s storage. It is sent nowhere: not to us, not to anyone.',
+          'You can export it as a JSON file from Settings. That file is yours: Wenlu only reads it if you import it back.'
+        ]
+      },
+      {
+        h2: 'What Wenlu does not do',
+        p: [
+          'The iOS app makes no network requests: characters, texts and voices are built in. There is no account, no identifier, no tracking, no advertising, no analytics and no sharing with third parties.',
+          'When a recording is missing, the phone’s own voice reads it, on the device.'
+        ]
+      },
+      {
+        h2: 'GitHub and Apple',
+        p: [
+          'The web version and this site are served by GitHub Pages. Like any host, GitHub may log technical connection data, including IP addresses, under its own privacy statement; Wenlu has no access to it. Once loaded, the web app works offline and sends nothing.',
+          'If you agreed to it in your iPhone’s settings, Apple may share anonymous crash reports with developers. Those fall under Apple’s privacy policy.'
+        ]
+      },
+      {
+        h2: 'Deleting your data',
+        p: [
+          'Deleting the app erases your progress. On the web, clearing the site’s data in your browser does the same. There is nothing to ask us for: we hold nothing.'
+        ]
+      }
+    ],
+    maj: 'Last updated 26 September 2026.'
+  },
   pied: {
     traces: 'Character strokes: Make Me a Hanzi (graphics.txt), after the Arphic Technology fonts, © 1999 Arphic Technology Co., Ltd., under the',
     separateur: '; ',
@@ -243,6 +325,7 @@ const EN: Textes = {
     decomposition: 'Components follow the GF 0014-2009 standard, reconciled by the Wenlu pipeline.',
     mots: 'Words: CC-CEDICT, published by MDBG, modified, under',
     licences: 'Licenses and sources',
+    confidentialite: 'Privacy',
     version: (v) => `data version ${v}`
   },
   nav: 'Navigation'
@@ -415,7 +498,9 @@ function document(ctx: Contexte, tete: Tete, corps: string, options: { mots?: bo
 ${options.mots ? `<p>${t.pied.mots} <a href="https://creativecommons.org/licenses/by-sa/4.0/" rel="license noopener">CC BY-SA 4.0</a>.</p>\n` : ''}<p><a href="${lien(
     ctx,
     cheminPage(langue, 'licences')
-  )}">${t.pied.licences}</a> · ${t.pied.version(ctx.m.version)}</p>
+  )}">${t.pied.licences}</a> · <a href="${lien(ctx, cheminPage(langue, 'confidentialite'))}">${
+    t.pied.confidentialite
+  }</a> · ${t.pied.version(ctx.m.version)}</p>
 </footer>`;
   return `<!DOCTYPE html>
 <html lang="${langue}">
@@ -633,12 +718,36 @@ function pageLicences(ctx: Contexte, ex: Export, langue: Langue): string {
   }, corps);
 }
 
+/**
+ * La politique de confidentialité : l'adresse stable que demande App Store Connect
+ * (`confidentialite/`, `en/privacy/`, docs/ios-sans-mac.md). Wenlu ne collecte rien.
+ */
+function pageConfidentialite(ctx: Contexte, langue: Langue): string {
+  const t = TEXTES[langue].confidentialite;
+  const sections = t.sections
+    .map((s) => `<section class="carte"><h2>${echapper(s.h2)}</h2>${s.p.map((p) => `<p>${echapper(p)}</p>`).join('')}</section>`)
+    .join('\n');
+  const corps = `<div class="licences">
+<h1>${t.h1}</h1>
+<p class="intro">${echapper(t.intro)}</p>
+${sections}
+<p class="intro">${echapper(t.maj)}</p>
+</div>`;
+  return document(ctx, {
+    langue,
+    titre: t.titre,
+    description: t.description,
+    chemins: { fr: cheminPage('fr', 'confidentialite'), en: cheminPage('en', 'confidentialite') }
+  }, corps);
+}
+
 function planDuSite(ctx: Contexte): string {
   const lastmod = ctx.m.date.slice(0, 10);
   const groupes: Record<Langue, string>[] = [
     { fr: cheminPage('fr', 'familles'), en: cheminPage('en', 'familles') },
     ...[...ctx.m.pages].sort().map((c) => ({ fr: cheminPage('fr', 'caractere', c), en: cheminPage('en', 'caractere', c) })),
-    { fr: cheminPage('fr', 'licences'), en: cheminPage('en', 'licences') }
+    { fr: cheminPage('fr', 'licences'), en: cheminPage('en', 'licences') },
+    { fr: cheminPage('fr', 'confidentialite'), en: cheminPage('en', 'confidentialite') }
   ];
   const urls = groupes.flatMap((g) =>
     LANGUES.map(
@@ -668,6 +777,7 @@ export function genererSite(ex: Export, o: Options): Fichier[] {
     }
     fichiers.push({ chemin: fichierPage(cheminPage(langue, 'familles')), contenu: pageFamilles(ctx, langue) });
     fichiers.push({ chemin: fichierPage(cheminPage(langue, 'licences')), contenu: pageLicences(ctx, ex, langue) });
+    fichiers.push({ chemin: fichierPage(cheminPage(langue, 'confidentialite')), contenu: pageConfidentialite(ctx, langue) });
   }
   fichiers.push({ chemin: `${DOSSIER_COMMUN}/site.css`, contenu: `${tokensDuSite(o.tokensCss, '../fonts/')}\n${MISE_EN_PAGE}` });
   fichiers.push({ chemin: 'sitemap.xml', contenu: planDuSite(ctx) });
