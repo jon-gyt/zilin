@@ -355,6 +355,13 @@ export type Progress = {
    */
   fetesVues: Record<string, string>;
   /**
+   * Les anecdotes ordinaires montrées : pour chaque caractère d'anecdote, la dernière
+   * journée où l'écran Ouvrir l'a montrée. Elle fixe l'anecdote de la journée (la même
+   * toute la journée, où qu'on la relise) et écarte toute redite en trente jours
+   * (`anecdotes.choisirAnecdote`). Absentes d'une progression plus ancienne : aucune.
+   */
+  anecdotesVues: Record<string, string>;
+  /**
    * Les plats de la cuisine de Tao réussis, par identifiant, chacun une fois, dans l'ordre :
    * chaque ingrédient trouvé, Tao contente. Le bol des trophées se gagne au premier. Le
    * jeu les note par `noterRecette`. Absente d'une progression plus ancienne : vide.
@@ -397,6 +404,18 @@ export function jourParcours(p: Progress): number {
  */
 export function jourLecon(p: Progress): number {
   return p.jourAppris ?? jourParcours(p);
+}
+
+/**
+ * Le dernier jour du parcours que l'apprenant a rencontré : la leçon apprise aujourd'hui,
+ * sinon celle qu'il va apprendre ; en rattrapage, où rien de neuf n'entre, la veille de
+ * celle-ci. `0` tant que la première session n'est pas faite. L'anecdote du jour préfère
+ * un caractère de ce jour-là ou des précédents (`anecdotes.recents`).
+ */
+export function jourRencontre(p: Progress): number {
+  if (p.premiere) return 0;
+  if (p.jourAppris !== undefined) return p.jourAppris;
+  return p.catchup ? jourParcours(p) - 1 : jourParcours(p);
 }
 
 /** Range le jour du parcours atteint. Le parcours n'avance jamais tout seul. */
@@ -446,6 +465,7 @@ export function emptyProgress(aujourdhui: string): Progress {
     motsDevines: [],
     trouves: [],
     fetesVues: {},
+    anecdotesVues: {},
     recettes: [],
     lettres: [],
     heros: null,
@@ -1432,8 +1452,9 @@ function lireTropheesAcquis(v: unknown): Record<string, string> {
 }
 
 /**
- * Relit un registre `{clé: journée}` (trophées, fêtes vues) : une clé non vide, une journée
- * AAAA-MM-JJ. Une entrée aberrante est écartée ; absent ou illisible : vide.
+ * Relit un registre `{clé: journée}` (trophées, fêtes et anecdotes vues) : une clé non
+ * vide, une journée AAAA-MM-JJ. Une entrée aberrante est écartée ; absent ou illisible :
+ * vide.
  */
 function lireJournees(v: unknown): Record<string, string> {
   if (typeof v !== 'object' || v === null || Array.isArray(v)) return {};
@@ -1606,6 +1627,8 @@ export function fromJSON(texte: string, aujourdhui: string): Progress {
     trouves: lireTrouves(o.trouves),
     /* Les fêtes dont l'anecdote a été montrée : absentes d'un export plus ancien, aucune. */
     fetesVues: lireJournees(o.fetesVues),
+    /* Les anecdotes montrées : absentes d'un export plus ancien, aucune. */
+    anecdotesVues: lireJournees(o.anecdotesVues),
     /* Les plats cuisinés : absents d'un export plus ancien, aucun n'est fait. */
     recettes: listeDeCaracteres(o.recettes),
     /* Les lettres de Que : absentes d'un export plus ancien, aucune n'est arrivée. */

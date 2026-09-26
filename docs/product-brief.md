@@ -81,7 +81,7 @@ Il tient sur un écran de téléphone, sans défiler.
 
 ### La session, six pas dans le même ordre
 
-1. Ouvrir : l'anecdote du jour, culturelle, accrochée à un caractère (20 s, sautable). Elle se lit à l'ouverture. Elle se relit ensuite autant qu'on veut, depuis Lire ou en touchant la ligne de fête ou de terme de l'en-tête du menu, et ramène là d'où l'on vient ; la relire ne compte rien de plus.
+1. Ouvrir : l'anecdote du jour, culturelle, accrochée à un caractère (20 s, sautable). Elle se lit à l'ouverture. Elle se relit ensuite autant qu'on veut, depuis Lire ou en touchant la ligne de fête ou de terme de l'en-tête du menu, et ramène là d'où l'on vient ; la relire ne compte rien de plus. Une anecdote est un fait court, culturel ou historique, accroché à un seul caractère, de trois à cinq phrases, sans emoji ni dragon, rédigée dans le pipeline (`data/sources/anecdotes/`) ; si elle parle de l'origine d'un caractère ou d'un mot, elle porte l'étiquette attesté ou mnémotechnique. Celle du jour parle de préférence d'un caractère rencontré ces derniers jours (la brique du jour d'abord), sinon la liste tourne ; aucune ne revient avant trente jours, et c'est la même toute la journée (retour du propriétaire du 26 septembre 2026 : douze anecdotes en boucle).
 2. Échauffer : les révisions dues, en questions (2 à 4 min).
 3. Apprendre : une brique, puis un ou deux composés. Une seule brique nouvelle par session de 10 minutes.
 4. Utiliser : deux mots, une phrase, trois lignes à lire avec uniquement l'acquis. Le caractère du jour en rouge. Certains jours, un jeu suit le texte : le dictionnaire éclair ou le message WeChat, jamais les deux (§9, « Les jeux du pas Utiliser »).

@@ -10,7 +10,6 @@ import {
   PARCOURS_DEFAUT,
   VERSION_DONNEES,
   aDesTextes,
-  anecdoteDuJour,
   briquesPosees,
   caractereDuJour,
   contenu,
@@ -34,7 +33,6 @@ import {
   fichierTraits,
   glosable,
   glose,
-  jourDepuisEpoque,
   lignesNues,
   loadAnecdotes,
   loadFamille,
@@ -57,9 +55,10 @@ import {
   type Voisins
 } from './content';
 
+/* Les anecdotes du pipeline, telles que `wenlu export` les écrit. */
 const fichier = JSON.parse(
-  readFileSync(new URL('../../public/data/demo/anecdotes.json', import.meta.url), 'utf8')
-) as Anecdotes;
+  readFileSync(new URL(`../../public/${FICHIER_ANECDOTES}`, import.meta.url), 'utf8')
+) as Omit<Anecdotes, 'anecdotes'> & { license: string; anecdotes: (Anecdote & { statut: string; appui: string })[] };
 const maquette = readFileSync(
   new URL('../../../maquettes/zilin-maquette.html', import.meta.url),
   'utf8'
@@ -72,64 +71,31 @@ const index = JSON.parse(
   )
 ) as Index;
 
-const faux = (liste: Anecdote[]): Anecdote[] => liste;
-const troisJours = ['2026-03-01', '2026-03-02', '2026-03-03'];
-
 describe("le fichier d'anecdotes", () => {
-  it('est versionné et cite sa source', () => {
-    expect(fichier.version).not.toBe('');
-    expect(fichier.source).toBe('maquettes/zilin-maquette.html');
+  it('vient du pipeline, versionné, et cite sa source', () => {
+    expect(FICHIER_ANECDOTES).toBe(`data/${VERSION_DONNEES}/anecdotes.json`);
+    expect(fichier.version).toBe(VERSION_DONNEES);
+    expect(fichier.source).toContain('data/sources/anecdotes/');
+    expect(fichier.source).toContain("rédigées pour l'app");
+    expect(fichier.license).not.toBe('');
   });
-  it('porte un caractère, un titre et un texte par anecdote', () => {
-    expect(fichier.anecdotes.length).toBeGreaterThan(0);
+  it('porte un caractère, un titre, un texte et la famille du caractère par anecdote', () => {
+    expect(fichier.anecdotes.length).toBeGreaterThanOrEqual(60);
     for (const a of fichier.anecdotes) {
       expect([...a.c]).toHaveLength(1);
       expect(a.titre.length).toBeGreaterThan(0);
       expect(a.texte.length).toBeGreaterThan(0);
+      expect(a.racine, a.c).toBeTruthy();
+      if (a.etiquette) expect(Object.keys(ETIQUETTES)).toContain(a.etiquette);
     }
   });
-  it('ne contient aucun texte écrit hors de sa source', () => {
-    for (const a of fichier.anecdotes) {
+  it('les anecdotes relues de la maquette y sont mot pour mot', () => {
+    const relues = fichier.anecdotes.filter((a) => a.statut === 'relu');
+    expect(relues.length).toBeGreaterThan(0);
+    for (const a of relues) {
       expect(maquette).toContain(a.titre);
       expect(maquette).toContain(a.texte);
     }
-  });
-});
-
-describe("l'anecdote du jour", () => {
-  const liste = faux(fichier.anecdotes);
-
-  it('est la même toute la journée', () => {
-    for (const j of troisJours) expect(anecdoteDuJour(liste, j)).toBe(anecdoteDuJour(liste, j));
-  });
-
-  it('change chaque jour et parcourt toute la liste avant de se répéter', () => {
-    const depart = jourDepuisEpoque('2026-03-01');
-    const vus = liste.map((_, i) =>
-      anecdoteDuJour(liste, new Date((depart + i) * 86400000).toISOString().slice(0, 10))
-    );
-    expect(new Set(vus).size).toBe(liste.length);
-    expect(vus).toEqual(expect.arrayContaining(liste));
-  });
-
-  it('reprend la liste dans le même ordre au tour suivant', () => {
-    const depart = jourDepuisEpoque('2026-03-01');
-    const jour = (i: number) => new Date((depart + i) * 86400000).toISOString().slice(0, 10);
-    for (let i = 0; i < liste.length; i++) {
-      expect(anecdoteDuJour(liste, jour(i + liste.length))).toBe(anecdoteDuJour(liste, jour(i)));
-    }
-  });
-
-  it('suit le rang de la journée civile, comme la maquette', () => {
-    const j = '2026-03-02';
-    const rang = Math.floor(Date.parse(`${j}T00:00:00Z`) / 86400000) % liste.length;
-    expect(anecdoteDuJour(liste, j)).toBe(liste[rang]);
-  });
-
-  it('tient avant 1970 et sur une liste vide ou une date illisible', () => {
-    expect(anecdoteDuJour(liste, '1969-12-30')).toBe(liste[((-2 % liste.length) + liste.length) % liste.length]);
-    expect(anecdoteDuJour([], '2026-03-02')).toBeNull();
-    expect(anecdoteDuJour(liste, 'pas une date')).toBeNull();
   });
 });
 

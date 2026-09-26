@@ -22,11 +22,12 @@
   import Glyph from './Glyph.svelte';
   import Marque from './Marque.svelte';
   import Tao from './Tao.svelte';
-  import { anecdotesOnce, fetesOnce, saisonsOnce, type Anecdote } from './content';
+  import { autourDuJour } from './anecdotes';
+  import { ETIQUETTES, anecdotesOnce, contenu, fetesOnce, saisonsOnce, type Anecdote } from './content';
   import type { FeteDuJour } from './fetes';
   import { untrack } from 'svelte';
   import { anecdoteDeLaJournee, suiviDe, type AnecdoteDeLaJournee, type TermeDuJour } from './saisons';
-  import type { Progress } from './session';
+  import { jourRencontre, type Progress } from './session';
   import { humeur, stade } from './tao';
 
   let {
@@ -66,6 +67,8 @@
   let rubriqueTerme = $state('');
   let explicationTerme = $state('');
   let pistesTerme: string[] = $state([]);
+  /** La famille du caractère d'une anecdote ordinaire, que `anecdotes.json` nomme. */
+  let pistesOrdinaire: string[] = $state([]);
 
   /*
    * L'anecdote du jour et les fêtes sont lues ensemble : un jour de fête, on ne montre
@@ -73,19 +76,23 @@
    */
   $effect(() => {
     const j = jour;
-    /*
-     * Le suivi est lu une fois, à l'ouverture : noter l'anecdote montrée le change, et
-     * l'écran ne doit pas se recalculer pour autant (le calcul donnerait la même).
-     */
-    const suivi = untrack(() => suiviDe(p));
     let vivant = true;
     void Promise.all([
       anecdotesOnce().catch(() => null),
       fetesOnce().catch(() => null),
-      saisonsOnce().catch(() => null)
+      saisonsOnce().catch(() => null),
+      contenu().catch(() => null)
     ]).then(
-      ([liste, fetes, saisons]) => {
+      ([liste, fetes, saisons, index]) => {
         if (!vivant) return;
+        /*
+         * Le suivi est lu une fois, hors de l'effet : noter l'anecdote montrée le change,
+         * et l'écran ne doit pas se recalculer pour autant (le calcul donnerait la même).
+         * Les caractères récents viennent du parcours : la brique du jour d'abord.
+         */
+        const suivi = untrack(() =>
+          suiviDe(p, index ? autourDuJour(index, p.parcours, jourRencontre(p)) : undefined)
+        );
         /* La même anecdote que Lire et l'en-tête du menu rouvrent (`anecdoteDeLaJournee`). */
         const r = anecdoteDeLaJournee(liste?.anecdotes ?? null, fetes, saisons, j, suivi);
         fete = r?.fete ?? null;
@@ -94,6 +101,7 @@
         rubriqueTerme = saisons?.rubrique ?? '';
         explicationTerme = saisons?.explication ?? '';
         pistesTerme = terme ? (r?.pistes ?? []) : [];
+        pistesOrdinaire = !fete && !terme ? (r?.pistes ?? []) : [];
         a = r?.a ?? null;
         if (r) onmontree(r);
       }
@@ -111,7 +119,7 @@
 
   <div class="anec">
     {#if a}
-      <div class="water" aria-hidden="true"><Glyph char={a.c} size={420} pistes={fete ? pistesFete : pistesTerme} /></div>
+      <div class="water" aria-hidden="true"><Glyph char={a.c} size={420} pistes={fete ? pistesFete : terme ? pistesTerme : pistesOrdinaire} /></div>
     {/if}
 
     <div class="sceau">
@@ -149,9 +157,11 @@
       <p>{a.texte}</p>
       {#if explicationTerme}<p class="explication">{explicationTerme}</p>{/if}
     {:else if a}
-      <div class="grand"><Glyph char={a.c} size={120} /></div>
+      <div class="grand"><Glyph char={a.c} size={120} pistes={pistesOrdinaire} /></div>
       <h1>{a.titre}</h1>
       <p>{a.texte}</p>
+      <!-- une origine de caractère ou de mot dit si elle est attestée ou mnémotechnique -->
+      {#if a.etiquette}<div class="tag">{ETIQUETTES[a.etiquette]}</div>{/if}
     {/if}
   </div>
 

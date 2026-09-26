@@ -104,7 +104,8 @@ describe("l'anecdote d'une fête, une fois par occurrence", () => {
     const relueDemain = anecdoteDeLaJournee(liste, fetes, saisons, '2026-09-25', suiviDe(demain.p));
     expect(demain.r?.fete).toBeNull();
     expect(relueDemain?.a).toEqual(demain.r?.a);
-    expect(demain.p).toBe(matin.p);
+    /* la fête reste notée à sa journée ; seule l'anecdote ordinaire du lendemain s'ajoute */
+    expect(demain.p.fetesVues).toEqual(matin.p.fetesVues);
   });
 
   it("une occurrence d'une autre année ne compte pas : la mi-automne 2027 se montre de nouveau", () => {
