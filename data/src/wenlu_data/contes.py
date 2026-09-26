@@ -549,7 +549,11 @@ REGLE_PINYIN = (
     "mais 马上 mǎ shàng, 天上 tiān shàng), le ton plein ailleurs (山上 shān shàng, 树桩上 "
     "shù zhuāng shàng) ; les compléments au ton plein, comme dans les contes relus au seuil "
     "255 (回来 huí lái, 起来 qǐ lái, 说不出 shuō bù chū), et 过 après un verbe aussi (见过 "
-    "jiàn guò)"
+    "jiàn guò) ; les mots de position au ton neutre sur leur seconde syllabe, comme le note "
+    "le 现代汉语词典 : 后面 hòu mian, 前面 qián mian, 里面 lǐ mian, 外面 wài mian, 上面 "
+    "shàng mian, 下面 xià mian, 后边 hòu bian, 前边 qián bian, 里边 lǐ bian, 外边 wài bian, "
+    "上边 shàng bian, 下边 xià bian, 这里 zhè li, 那里 nà li, 哪里 nǎ li (那里面 nà lǐ mian : "
+    "那 puis 里面), mais 旁边 páng biān, 那边 nà biān, 这边 zhè biān au ton plein"
 )
 
 SYSTEME = f"""Tu réécris des récits traditionnels chinois pour des francophones qui apprennent \
