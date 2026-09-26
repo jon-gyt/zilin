@@ -87,6 +87,12 @@ export function manquants(v: VersionConte, acquis: ReadonlySet<string>): string[
 export const MENTION_MOT_DU_CONTE = 'mot du conte';
 
 /**
+ * Le titre de la carte des mots expliqués, en tête du conte : le complément de vocabulaire
+ * du niveau (personnage, animal ou objet clé nommé par son vrai caractère).
+ */
+export const TITRE_VOCABULAIRE_DU_CONTE = 'Vocabulaire du conte';
+
+/**
  * Les mots expliqués à montrer en tête du chapitre `k` (de 1 à n) : ceux qui y paraissent
  * pour la première fois, le titre de la version comptant au premier. Une fable les montre
  * tous en tête ; un mot que le texte ne porte pas se montre au premier chapitre.

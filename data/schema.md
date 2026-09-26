@@ -1389,8 +1389,9 @@ caractère de ses mots expliqués : tous entrent dans le périmètre avec leurs 
 (`export.caracteres_expliques_des_contes`, versions relues et à relire), comme ceux des
 fêtes, si bien que l'app les dessine depuis `traits/` et que la police les a. Une version
 sans mot expliqué n'a pas la clé, un conte sans mot expliqué pas `racines` (format 10).
-Le lecteur montre la carte « Mots du conte » en tête du chapitre où chaque mot paraît
-pour la première fois (en tête d'une fable), et sa glose au toucher dit « mot du conte ».
+Le lecteur montre la carte « Vocabulaire du conte », le complément de vocabulaire du
+niveau, en tête du chapitre où chaque mot paraît pour la première fois (en tête d'une
+fable), et sa glose au toucher dit « mot du conte ».
 
 `app/public/data/<version>/index.json` gagne `contes: [{id, titre_fr, titre_en,
 seuils: [255, "hsk3", …], fichier}]` (un seuil en nombre, un niveau HSK en chaîne), les contes relus, et `catalogue: [{id, titre_zh,

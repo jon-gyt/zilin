@@ -1077,7 +1077,7 @@ def expliques_admis(
 def nouveaux_par_chapitre(version: Version, caracteres: Iterable[str]) -> list[list[str]]:
     """Pour chaque chapitre, ceux des `caracteres` qui y paraissent pour la première fois,
     dans l'ordre du texte ; le titre de la version compte au premier chapitre. Une fable n'a
-    qu'un chapitre. C'est là que le lecteur montre la carte « Mots du conte »."""
+    qu'un chapitre. C'est là que le lecteur montre la carte « Vocabulaire du conte »."""
     cherches = set(caracteres)
     vus: set[str] = set()
     par_chapitre: list[list[str]] = []

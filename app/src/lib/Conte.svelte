@@ -25,7 +25,8 @@
    * un chapitre non lu ne compte pas.
    *
    * Les mots expliqués (狼 dans 亡羊补牢, 叶公 dans 叶公好龙) nomment hors du niveau un
-   * personnage ou un objet clé du récit. Une carte « Mots du conte » les montre avant le
+   * personnage, un animal ou un objet clé du récit. Une carte « Vocabulaire du conte »
+   * (`TITRE_VOCABULAIRE_DU_CONTE`), le complément de vocabulaire du niveau, les montre avant le
    * texte, en tête du chapitre où ils paraissent pour la première fois : chacun dessiné
    * depuis ses traits (en police s'ils manquent), son pinyin, son sens et l'explication ;
    * le toucher le dit. Dans le texte, un trait fin et discret les souligne, et leur glose
@@ -39,6 +40,7 @@
   import { fiche } from './content';
   import {
     MENTION_HORS_ACQUIS,
+    TITRE_VOCABULAIRE_DU_CONTE,
     caracteresExpliques,
     chapitreDeReprise,
     chapitresDe,
@@ -286,11 +288,11 @@
     {/if}
 
     {#if mots.length > 0}
-      <section class="card mots" aria-labelledby="mots-du-conte">
-        <div class="k" id="mots-du-conte">Mots du conte</div>
+      <section class="card mots" aria-labelledby="vocabulaire-du-conte">
+        <div class="k" id="vocabulaire-du-conte">{TITRE_VOCABULAIRE_DU_CONTE}</div>
         <p class="mots-guide">
-          {mots.length > 1 ? 'Ils nomment' : 'Il nomme'} un personnage ou un objet clé du récit, pas
-          encore de ce niveau : les voici avant de lire.
+          {mots.length > 1 ? 'Ils nomment' : 'Il nomme'} un personnage, un animal ou un objet clé du
+          récit, pas encore de ce niveau : les voici avant de lire.
         </p>
         <ul>
           {#each mots as m (m.zh)}

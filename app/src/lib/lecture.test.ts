@@ -30,6 +30,7 @@ import { POIDS, posture } from './tao';
 import { tropheesContes } from './trophees';
 import {
   MENTION_MOT_DU_CONTE,
+  TITRE_VOCABULAIRE_DU_CONTE,
   bibliotheque,
   caracteresAcquis,
   caracteresDeVersion,
@@ -294,7 +295,7 @@ describe('le lecteur', () => {
     expect(src).toContain('class:explique={u.explique}');
     expect(src).toMatch(/\.read \.s\.explique \{[^}]*text-decoration-color: var\(--mist\)/);
     expect(src).toContain('explique: touchee.explique');
-    expect(src).toContain('Mots du conte');
+    expect(src).toContain('{TITRE_VOCABULAIRE_DU_CONTE}');
   });
 
   it("n'a pas de cinabre : un conte n'a pas d'élément ajouté", () => {
@@ -633,7 +634,8 @@ describe('les mots expliqués', () => {
     expect(unitesDuTitre(VLOUP).find((u) => u.texte === '狼')?.explique).toBe(true);
   });
 
-  it('la carte « Mots du conte » : tout en tête d’une fable, au premier chapitre qui le nomme d’un récit long', () => {
+  it('la carte « Vocabulaire du conte » : tout en tête d’une fable, au premier chapitre qui le nomme d’un récit long', () => {
+    expect(TITRE_VOCABULAIRE_DU_CONTE).toBe('Vocabulaire du conte');
     expect(motsDuChapitre(VLOUP, 1)).toEqual([LOUP]);
     const singe: MotConte = { ...LOUP, zh: '猴', caracteres: '猴' };
     const long: VersionConte = {
