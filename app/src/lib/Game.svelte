@@ -33,15 +33,18 @@
   import { wechatOnce } from './wechat';
   import Glyph from './Glyph.svelte';
   import Tao from './Tao.svelte';
+  import DessinJeu, { PIGMENTS } from './DessinJeu.svelte';
   import {
     devinettesOnce,
     foretOnce,
     pairesExport,
     toutesLesFamilles,
     toutesLesFiches,
+    traitsDe,
     traitsDeFamilles,
     voisinsOnce
   } from './content';
+  import { glyph, type StrokeData } from './glyph';
   import { eclairOnce, ligneMotsDevines, TAO_ECLAIR } from './eclair';
   import { racinesDesCaracteres } from './foret';
   import { coquillesOnce } from './coquilles';
@@ -51,6 +54,7 @@
     FLASH_MS,
     IDS,
     JEUX,
+    bulleDeTao,
     clore,
     corpusDeJeu,
     corpusVide,
@@ -61,6 +65,7 @@
     evenementsANoter,
     fini,
     glose,
+    jeuPropose,
     nomDeBrique,
     postureDuJeu,
     signes,
@@ -443,73 +448,147 @@
   const lanterneAllumee = $derived(
     jeu === 'devinette' && m !== null && fini(m) && m.trouves > 0
   );
+
+  /* ---------- l'écran de choix : Aujourd'hui, puis les autres jeux ---------- */
+
+  /** Le jeu que Tao tend, en tête : un jeu disponible, jamais la devinette. */
+  const tendu = $derived(chargee ? jeuPropose(dispo, p, p.day) : null);
+  /** La devinette peut s'ouvrir : annoncée, ou jouable sans énoncé à annoncer. */
+  const devinetteOuverte = $derived(!faite && (annoncee !== null || dispo.includes('devinette')));
+  /** La lanterne de l'écran : allumée à ouvrir, et toute la journée si elle a été trouvée. */
+  const allumee = $derived(faite ? p.devinetteDuJour?.issue === 'resolue' : devinetteOuverte);
+  const bulle = $derived(bulleDeTao(p, p.day, tendu, devinetteOuverte));
+  /** Les autres jeux : les jouables d'abord, dans l'ordre de `IDS`, puis ceux qui attendent. */
+  const autres = $derived.by(() => {
+    const reste = IDS.filter((id) => id !== 'devinette' && id !== tendu);
+    return [...reste.filter((id) => dispo.includes(id)), ...reste.filter((id) => !dispo.includes(id))];
+  });
+
+  /**
+   * Les traits de 玩 et des caractères des jeux (`JEUX[id].zh`) : ils se dessinent depuis
+   * l'export, jamais en police. Sans traits, la carte garde son seul dessin, comme les
+   * cases du menu gardent leur picto.
+   */
+  let traitsChoix = $state<Record<string, StrokeData>>({});
+  $effect(() => {
+    let vivant = true;
+    for (const c of ['玩', ...IDS.map((id) => JEUX[id].zh)]) {
+      void traitsDe(c)
+        .then((d) => {
+          if (vivant && d) traitsChoix = { ...traitsChoix, [c]: d };
+        })
+        .catch(() => undefined);
+    }
+    return () => {
+      vivant = false;
+    };
+  });
+
+  /** Un caractère d'interface, depuis ses traits seulement. Vide sans traits. */
+  function dessine(c: string, size: number, color: string): string {
+    const d = traitsChoix[c];
+    return d ? glyph(c, d, size, { write: false, color }) : '';
+  }
 </script>
 
+<!--
+  Une carte de jeu : son dessin et son caractère au pigment, sur le fond de la carte comme
+  toutes les autres ; son titre, ce qu'il fait lire, sa durée dans un cartouche indigo.
+  Un jeu qui ne peut pas encore se jouer garde sa place en pointillés, le dit d'une ligne
+  neutre, et son bouton est désactivé.
+-->
+{#snippet carte(id: JeuId, tenue: boolean)}
+  {@const ouvert = dispo.includes(id)}
+  <button
+    class="jc"
+    class:tenue
+    class:indispo={!ouvert}
+    style="--fg: {PIGMENTS[id]}"
+    disabled={!ouvert}
+    onclick={() => onchoisir(id)}
+  >
+    <span class="jc-dessin"><DessinJeu {id} size={tenue ? 62 : 54} /></span>
+    <span class="jc-zh" aria-hidden="true">{@html dessine(JEUX[id].zh, 30, ouvert ? 'var(--fg)' : 'var(--mist)')}</span>
+    <span class="jc-texte">
+      {#if tenue}<span class="kick">Tao propose</span>{/if}
+      <span class="t">{JEUX[id].titre}</span>
+      <span class="d">{ouvert ? JEUX[id].lit : JEUX[id].indisponible}</span>
+      {#if id === 'eclair' && (ouvert || p.motsDevines.length > 0)}
+        <span class="d compte">{ligneMotsDevines(p.motsDevines.length)}</span>
+      {/if}
+      {#if ouvert}<span class="min">{JEUX[id].minutes} min</span>{/if}
+    </span>
+  </button>
+{/snippet}
+
 <main class="screen jeu">
-  <button class="k quit" onclick={onretour}>✕ Quitter</button>
+  {#if jeu !== null}<button class="k quit" onclick={onretour}>✕ Quitter</button>{/if}
 
   {#if jeu === null}
-    <h1>Jouer</h1>
-    <p class="guide">
+    <!-- L'écran Jouer, d'après la maquette approuvée le 26 septembre 2026 : plus de menu en
+         ligne. « Aujourd'hui » (Tao et le jeu qu'elle tend, la lanterne de la devinette),
+         puis « Les autres jeux », en cartes. Fonds neutres, la couleur dans les images. -->
+    <div class="choix-haut">
+      <button class="k quit" onclick={onretour}>‹ {retour === 'home' ? 'Menu' : 'Ma forêt'}</button>
+      <span class="k">Une à trois minutes</span>
+    </div>
+    <div class="choix-titre">
+      {#if traitsChoix['玩']}<span class="zh-titre" aria-hidden="true">{@html dessine('玩', 44, 'var(--ink)')}</span>{/if}
+      <h1>Jouer</h1>
+    </div>
+
+    <h2 class="sec">Aujourd'hui <span class="hz" lang="zh">今天</span></h2>
+    <div class="tao-dit">
+      <Tao stade={taoStade} posture="jeu" humeur={taoHumeur} size={64} />
+      {#if chargee}<p class="bulle-jeu">{bulle}</p>{/if}
+    </div>
+    {#if chargee}
+      {#if tendu !== null}{@render carte(tendu, true)}{/if}
+
+      <!-- La devinette du jour, en lanterne 灯谜 : une par jour ; résolue ou montrée, la
+           suivante attend demain, et la lanterne reste allumée si elle a été trouvée. -->
+      <button
+        class="lampion"
+        class:indispo={!faite && !devinetteOuverte}
+        class:faite
+        style="--fg: {PIGMENTS.devinette}"
+        disabled={!devinetteOuverte}
+        onclick={() => onchoisir('devinette')}
+      >
+        <span class="lampion-dessin" class:eteinte={!allumee}>
+          <DessinJeu id="devinette" size={72} />
+          <span class="lampion-zh" aria-hidden="true">{@html dessine(JEUX.devinette.zh, 26, 'var(--card)')}</span>
+        </span>
+        <span class="jc-texte">
+          <span class="kick">{JEUX.devinette.titre} · <span lang="zh">灯谜</span></span>
+          <span class="t">Devine le caractère</span>
+          {#if faite}
+            <span class="d">
+              {p.devinetteDuJour?.issue === 'resolue' ? 'Résolue aujourd’hui' : 'Lue aujourd’hui'}.
+              La suivante demain.
+            </span>
+          {:else if annoncee !== null}
+            <span class="d">« {annoncee.enonce} » : quel caractère ?</span>
+          {:else}
+            <span class="d">{devinetteOuverte ? JEUX.devinette.lit : JEUX.devinette.indisponible}</span>
+          {/if}
+          {#if devinetteOuverte}<span class="min">{JEUX.devinette.minutes} min</span>{/if}
+        </span>
+      </button>
+
+      <h2 class="sec">
+        Les autres jeux <span class="hz" lang="zh">游戏</span>
+        <small>{autres.length} jeux</small>
+      </h2>
+      <div class="jeux-grille">
+        {#each autres as id (id)}{@render carte(id, false)}{/each}
+      </div>
+    {/if}
+    <p class="k principe">
       Un jeu ne compte pas les points : il fait lire quelque chose de plus. Une à trois minutes,
       puis un constat.
     </p>
-    <div class="mood">
-      <Tao stade={taoStade} posture="jeu" humeur={taoHumeur} size={120} />
-    </div>
-    {#if chargee}
-      {#if dispo.length === 0}
-        <p class="guide">
-          Il n'y a pas encore assez de caractères acquis pour jouer. Reviens après quelques
-          révisions.
-        </p>
-      {/if}
-      <div class="opt">
-        {#each IDS as id (id)}
-          {#if id === 'devinette' && faite}
-            <!-- Une par jour : résolue ou montrée, la suivante attend demain. -->
-            <button class="indispo" disabled>
-              <span class="grow">
-                <span class="t">{JEUX[id].titre}</span>
-                <span class="d">
-                  {p.devinetteDuJour?.issue === 'resolue' ? 'Résolue aujourd’hui' : 'Lue aujourd’hui'}.
-                  La suivante demain.
-                </span>
-              </span>
-            </button>
-          {:else if id === 'devinette' && annoncee !== null}
-            <button onclick={() => onchoisir(id)}>
-              <span class="grow">
-                <span class="t">{JEUX[id].titre}</span>
-                <span class="d">« {annoncee.enonce} » : quel caractère ?</span>
-              </span>
-              <span class="k">{JEUX[id].minutes} min</span>
-            </button>
-          {:else if dispo.includes(id)}
-            <button onclick={() => onchoisir(id)}>
-              <span class="grow">
-                <span class="t">{JEUX[id].titre}</span>
-                <span class="d">{JEUX[id].lit}</span>
-                {#if id === 'eclair'}<span class="d compte">{ligneMotsDevines(p.motsDevines.length)}</span>{/if}
-              </span>
-              <span class="k">{JEUX[id].minutes} min</span>
-            </button>
-          {:else}
-            <!-- Un jeu qui ne peut pas encore se jouer le dit d'une ligne neutre. -->
-            <button class="indispo" disabled>
-              <span class="grow">
-                <span class="t">{JEUX[id].titre}</span>
-                <span class="d">{JEUX[id].indisponible}</span>
-                {#if id === 'eclair' && p.motsDevines.length > 0}
-                  <span class="d compte">{ligneMotsDevines(p.motsDevines.length)}</span>
-                {/if}
-              </span>
-            </button>
-          {/if}
-        {/each}
-      </div>
-    {/if}
-    <div class="foot"><button class="btn ghost" onclick={onretour}>{OU[retour]}</button></div>
+    <button class="btn ghost retour-bas" onclick={onretour}>{OU[retour]}</button>
   {:else if jeu === 'cuisine'}
     <Cuisine
       {p}
@@ -829,6 +908,224 @@
 </main>
 
 <style>
+  /* ---- L'écran Jouer (maquette approuvée le 26 septembre 2026) ----
+     Décision du propriétaire : le menu en ligne était « trop classique ». Deux parties
+     séparées d'un filet d'encre ; toutes les cases ont le fond de la carte et un filet
+     fin, la couleur n'est que dans les images (dessins, caractères, lanterne) aux
+     pigments de peinture ; l'indigo marque l'action. Ni cinabre, ni ombre, ni dégradé. */
+  .choix-haut {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .choix-haut .quit {
+    color: var(--indigo);
+    font-weight: 600;
+    font-size: 15px;
+  }
+  .choix-titre {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: 2px 0 4px;
+  }
+  .choix-titre h1 {
+    margin: 0;
+    font-size: 26px;
+  }
+  .zh-titre {
+    display: inline-flex;
+  }
+  .sec {
+    display: flex;
+    align-items: baseline;
+    gap: 8px;
+    margin: 18px 0 12px;
+    padding-top: 14px;
+    border-top: 1.5px solid var(--ink);
+    font-family: var(--head);
+    font-weight: 700;
+    font-size: 18px;
+    line-height: 1.2;
+  }
+  .sec .hz {
+    font-size: 16px;
+    color: var(--ink2);
+  }
+  .sec small {
+    margin-left: auto;
+    font-family: var(--sans);
+    font-weight: 400;
+    font-size: 13px;
+    color: var(--mist);
+  }
+  /* Tao tend un jeu : sa bulle, sur le fond de la carte, la pointe vers elle. */
+  .tao-dit {
+    display: grid;
+    grid-template-columns: 64px 1fr;
+    gap: 10px;
+    align-items: end;
+    margin-bottom: 12px;
+  }
+  .bulle-jeu {
+    margin: 0;
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 14px 14px 14px 4px;
+    padding: 10px 12px;
+    font-size: 15px;
+    line-height: 1.35;
+    color: var(--ink);
+  }
+  /* Les cartes des jeux : le même fond, le même filet. */
+  .jeux-grille {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+  .jc,
+  .lampion {
+    width: 100%;
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 16px;
+    text-align: left;
+    color: var(--ink);
+  }
+  .jc {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    grid-template-areas: 'dessin zh' 'texte texte';
+    align-content: start;
+    row-gap: 6px;
+    padding: 12px;
+    min-height: 150px;
+  }
+  .jc-dessin {
+    grid-area: dessin;
+  }
+  .jc-zh {
+    grid-area: zh;
+    display: inline-flex;
+    align-self: start;
+  }
+  .jc-texte {
+    grid-area: texte;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 3px;
+    min-width: 0;
+  }
+  .jc .t,
+  .lampion .t {
+    font-family: var(--head);
+    font-weight: 700;
+    font-size: 15px;
+    line-height: 1.2;
+    color: var(--ink);
+  }
+  .jc .d,
+  .lampion .d {
+    font-size: 13.5px;
+    line-height: 1.3;
+    color: var(--ink2);
+  }
+  .jc .compte {
+    color: var(--mist);
+  }
+  .kick {
+    font-family: var(--head);
+    font-weight: 700;
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--mist);
+  }
+  /* La durée : un cartouche indigo dans le flux, sous le texte, jamais par-dessus. */
+  .min {
+    display: inline-grid;
+    place-items: center;
+    min-width: 38px;
+    height: 22px;
+    margin-top: 5px;
+    padding: 0 6px;
+    border: 1.3px solid var(--indigo);
+    border-radius: 5px;
+    font-family: var(--head);
+    font-weight: 700;
+    font-size: 11.5px;
+    color: var(--indigo);
+  }
+  /* Le jeu que Tao tend : toute la largeur, cerclé d'indigo, l'action du jour. */
+  .jc.tenue {
+    grid-template-columns: 62px 1fr auto;
+    grid-template-areas: 'dessin texte zh';
+    column-gap: 12px;
+    align-items: center;
+    min-height: 0;
+    margin-bottom: 10px;
+    border: 2px solid var(--indigo);
+  }
+  .jc.tenue .kick {
+    color: var(--indigo);
+  }
+  /* Pas encore jouable : en pointillés, en retrait, sans couleur d'alerte. */
+  .jc.indispo,
+  .lampion.indispo {
+    border: 1.5px dashed var(--grille);
+  }
+  .jc.indispo .t,
+  .lampion.indispo .t {
+    color: var(--mist);
+  }
+  .jc.indispo .jc-dessin,
+  .lampion.indispo .lampion-dessin {
+    opacity: 0.45;
+  }
+  .jc:disabled,
+  .lampion:disabled {
+    cursor: default;
+  }
+  /* L'appui ne change que le fond, comme aux cases du menu : aucune animation. */
+  .jc:active:not(:disabled),
+  .lampion:active:not(:disabled) {
+    background: var(--paper);
+  }
+  /* La devinette du jour : une lanterne 灯谜. */
+  .lampion {
+    display: grid;
+    grid-template-columns: 76px 1fr;
+    gap: 14px;
+    align-items: center;
+    padding: 14px 14px 14px 10px;
+    border-radius: 18px;
+  }
+  .lampion .jc-texte {
+    grid-area: auto;
+  }
+  .lampion-dessin {
+    position: relative;
+    display: flex;
+    justify-content: center;
+  }
+  .lampion-dessin.eteinte {
+    opacity: 0.45;
+  }
+  .lampion-zh {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    display: inline-flex;
+  }
+  .principe {
+    margin: 22px 0 12px;
+  }
+  .retour-bas {
+    margin-top: auto;
+  }
+
   /* La devinette du jour, d'après l'écran `s-riddle` du prototype validé. Aucune
      animation sur les boutons ; le cinabre n'y marque rien. */
   .devinette-tete {
