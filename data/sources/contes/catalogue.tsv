@@ -26,12 +26,10 @@
 # gardent cette version, et 255 pour premier niveau ; sur l'échelle, le seuil 255 se
 # place au palier de HSK 1 (255 caractères contre 300, tous dans HSK 1 à 3). Critère,
 # d'après le récit d'origine :
-# - le niveau le plus bas est le premier niveau HSK dont le cumul a tous les caractères
-#   clés du récit (`cles` : les animaux et les objets de l'intrigue, sans lesquels il
-#   perd son sujet ; le reste, noms propres compris, se dit autrement) ; pour les trois
-#   contes relus, 255, dont la liste a les leurs. `wenlu check` le vérifie (« contes :
-#   critère des niveaux ») : chaque caractère clé est dans chaque niveau prévu, et le
-#   niveau HSK juste au-dessous du plus bas ne les a pas tous ;
+# - le plan de base commence au premier niveau HSK dont le cumul a tous les caractères
+#   clés du récit (`cles`, avant la barre : les animaux et les objets de l'intrigue, sans
+#   lesquels il perd son sujet ; le reste, noms propres compris, se dit autrement) ; pour
+#   les trois contes relus, 255, dont la liste a les leurs ;
 # - récit simple (un épisode, un ou deux personnages, une chute) : deux niveaux, le plus
 #   bas et deux paliers plus haut (255 et hsk3, hsk3 et hsk5, hsk4 et hsk6), où il gagne
 #   les dialogues et les détails que la première version a dû couper ;
@@ -41,34 +39,57 @@
 # - l'échelle s'arrête à hsk7-9 : un niveau qui la dépasserait y est ramené (hsk4, hsk6,
 #   hsk7-9 ; hsk5 et hsk7-9), un récit riche qui commence à hsk5 prend les trois derniers
 #   paliers (hsk5, hsk6, hsk7-9), et un récit qui commence à hsk7-9 n'en a qu'un
-#   (`contes.niveaux_attendus`).
+#   (`contes.niveaux_attendus`) ;
+# - un niveau de plus quand l'animal est expliqué (décision du propriétaire du 26 septembre
+#   2026 : l'animal par son vrai caractère dès les petits niveaux, défini dans le
+#   vocabulaire du conte) : une fable dont l'animal place haut le plan de base prend, en
+#   dessous, un niveau où elle le nomme en mot expliqué (ci-dessous), avec au plus trois
+#   caractères hors du niveau en tout ; c'est le plus bas niveau où le récit reste naturel,
+#   un choix de rédaction. L'animal passe alors après la barre : il n'est plus un caractère
+#   clé du niveau, mais un mot expliqué, et le plan de base commence au premier palier qui
+#   a les caractères clés et l'animal (守株待兔 : hsk3, où 兔 et 树桩 sont expliqués, puis
+#   hsk5 et hsk7-9).
+# `wenlu check` le vérifie (« contes : critère des niveaux ») : chaque caractère clé est dans
+# chaque niveau prévu ; le niveau HSK juste au-dessous du plus bas du plan de base ne les a
+# pas tous ; les niveaux montent de deux paliers en deux ; et un niveau ajouté, sous le plan
+# de base, explique au plus trois caractères, dont l'animal, que le niveau suivant a.
 #
 # Mots expliqués (décision du propriétaire du 25 septembre 2026 : « Quand c'est un
 # personnage clé comme loup, tu peux expliquer le mot aussi. ») : une version peut nommer
-# hors de son niveau un personnage ou un objet clé du récit, plutôt que de le dire par un
-# détour qui le trahit (« la bête qui mange les moutons » pour 狼). Elle le déclare dans ses
-# `expliques`, avec pinyin, sens et une courte explication, que le lecteur montre avant le
-# texte ; au plus trois caractères hors du niveau par version. Chacun doit être déclaré ici,
-# dans `cles` : un caractère clé, ou, après une barre oblique, un personnage ou un objet
-# clé que le récit peut expliquer (`羊圈补/狼`). Ceux d'après la barre ne comptent pas dans
-# le critère des niveaux. Tout autre caractère hors du niveau reste refusé.
+# hors de son niveau un personnage, un animal ou un objet clé du récit, plutôt que de le
+# dire par un détour qui le trahit (« la bête qui mange les moutons » pour 狼). Elle le
+# déclare dans ses `expliques`, avec pinyin, sens et une courte explication, que le lecteur
+# montre avant le texte, sur la carte « Vocabulaire du conte », le complément de vocabulaire
+# du niveau ; au plus trois caractères hors du niveau par version. Chacun doit être déclaré
+# ici, dans `cles` : un caractère clé, ou, après une barre oblique, un mot nommable hors du
+# niveau et expliqué (`羊补/圈狼`). Ceux d'après la barre comptent comme mots expliqués et
+# non comme caractères clés dans le critère des niveaux ; la barre peut ouvrir la cellule
+# quand tout ce qui est clé s'explique (`/兔桩`). Tout autre caractère hors du niveau reste
+# refusé.
 #
 # `cles` : les caractères clés, relevés un à un dans les listes le 2026-09-25 (entre
 # parenthèses, le niveau HSK du caractère ; « 255 » : dans la liste du seuil) :
-# - 守株待兔 : 兔 (5). La souche, l'objet clé, se nomme 树桩 (桩 7-9) en mot expliqué à
-#   hsk5 (`兔/桩`), comme à hsk7-9 : c'est le mot d'aujourd'hui ; 株 (7-9), le mot ancien
-#   du chengyu, ne se dirait pas dans le récit et reste au titre de hsk7-9.
+# - 守株待兔 : 兔 (5), l'animal, et la souche, l'objet clé, 树桩 (桩 7-9), tous deux après
+#   la barre (`/兔桩`) : à hsk3, niveau ajouté, 兔 et 树桩 en mots expliqués ; à hsk5, 树桩
+#   seul, comme à hsk7-9 : c'est le mot d'aujourd'hui ; 株 (7-9), le mot ancien du
+#   chengyu, ne se dirait pas dans le récit et reste au titre de hsk7-9. 撞 (5) se dit 碰
+#   (2) à hsk3.
 # - 塞翁失马 : 马 (1), 腿 (2), 断 (3), 兵 (4), la guerre à laquelle le fils échappe (战 4
 #   aussi) ; 摔 (5) se dit 掉 (2), 仗 (7-9) ne sert pas. Le vieil homme, 塞翁 (塞 6, 翁
 #   7-9), se nomme en mot expliqué à hsk4 et hsk6 (`马腿断兵/塞翁`) ; 胡 (5), les nomades
 #   du Nord, n'est pas clé : « 北边国家的人 » à hsk4.
 # - 愚公移山 : 山, 老 (255). 移 (4), 搬 (3) : la version 255 dit « 让门前没有山 ».
-# - 画蛇添足 : 蛇 (5), 画 (2), 足 (3). 添 (6), un geste et non un personnage ni un objet,
-#   se dit 画上 ; 壶 (6) non plus n'est pas clé : l'enjeu est le vin, 一杯酒 à hsk5.
-# - 井底之蛙 : 蛙 (7-9), 龟 (7-9), 井 (6) : hsk7-9 seul.
-# - 狐假虎威 : 虎 (5). 狐 et 狸 ne sont dans aucune liste, 7-9 comprise : le renard, le
-#   personnage principal, se nomme 狐狸 en mot expliqué aux deux niveaux (`虎/狐狸`) ;
-#   兽 (7-9) se dit 动物 (1, 2).
+# - 画蛇添足 : 画 (2), 足 (3) ; 蛇 (5), l'animal, après la barre (`画足/蛇`) : en mot
+#   expliqué à hsk3, niveau ajouté. 添 (6), un geste et non un personnage ni un objet,
+#   se dit 画上 ; 壶 (6) non plus n'est pas clé : l'enjeu est le vin, 一杯酒 à hsk3 et hsk5.
+# - 井底之蛙 : 蛙 (7-9), 龟 (7-9), 井 (6), tous après la barre (`/蛙龟井`) : à hsk4, niveau
+#   ajouté, 青蛙, 海龟 et 井 en mots expliqués, trois caractères ; le récit y reste naturel
+#   (宽 4, 浅 4, 圆 4 pour le ciel vu du fond), plus bas il perdrait ce que la tortue dit de
+#   la mer. Puis hsk7-9, où les trois sont dans la liste.
+# - 狐假虎威 : 虎 (5), l'animal, après la barre avec 狐狸 (`/虎狐狸`). 狐 et 狸 ne sont dans
+#   aucune liste, 7-9 comprise : le renard, le personnage principal, se nomme 狐狸 en mot
+#   expliqué à tous les niveaux ; à hsk3, niveau ajouté, 老虎 aussi, trois caractères.
+#   兽 (7-9) se dit 动物 (1, 2) ; 森林 (4) se dit 山里 à hsk3.
 # - 拔苗助长 : 菜, 长 (255). 苗 et 禾 (7-9), 拔 (5) : la version 255 dit 菜 ; à hsk3, 苗,
 #   les pousses du récit, en mot expliqué (`菜长/苗`). 拔 se dit 往上拉 : un geste, pas
 #   un personnage ni un objet.
@@ -77,9 +98,10 @@
 #   se nomment en mots expliqués (`象摸/盲鼻`).
 # - 叶公好龙 : 龙 (3). Le nom 叶 (4), celui du personnage principal, entre à hsk3 en mot
 #   expliqué, 叶公 (`龙/叶`).
-# - 亡羊补牢 : 羊 (3), 圈 (4), 补 (3). Le trou se dit 破 (3), 口子 à hsk4 (洞 5, 丢 5
-#   entrent à hsk6) ; 牢 (6) autrement ; 狼 (7-9), la bête qui prend les moutons, en mot
-#   expliqué (`羊圈补/狼`).
+# - 亡羊补牢 : 羊 (3), 补 (3) ; 圈 (4), l'enclos, et 狼 (7-9), la bête qui prend les
+#   moutons, après la barre (`羊补/圈狼`) : à hsk3, niveau ajouté, 羊圈 et 狼 en mots
+#   expliqués ; à hsk4 et hsk6, 狼 seul. Le trou se dit 破 (3), 口子 à hsk3 et hsk4 (洞 5,
+#   丢 5 entrent à hsk6) ; 牢 (6) autrement.
 # - 南辕北辙 : 南, 北, 车 (255). 马 (1) rejoint le récit à hsk3.
 # - 木兰从军 : 马 (1), 女 (1), 兵 (4). L'héroïne, 木兰 (兰 7-9), en mot expliqué à hsk4 et
 #   hsk6, et à hsk4 le métier à tisser qui ouvre la ballade, 织布机 (织 5) (`马女兵/兰织`) ;
@@ -107,16 +129,16 @@
 # dragon hors du Nouvel An et de 端午, et 叶公好龙 reste la seule exception, dans son texte.
 #
 id	titre_zh	titre_pinyin	titre_fr	titre_en	ouvrage	niveaux	cles	chapitres	resume_fr
-shou-zhu-dai-tu	守株待兔	shǒu zhū dài tù	Guetter la souche en attendant le lièvre	Waiting by the Stump for a Hare	《韩非子·五蠹》	hsk5,hsk7-9	兔/桩	1	Un paysan voit un lièvre se rompre le cou contre une souche, abandonne ses champs pour guetter la souche et finit par ne plus rien récolter.
+shou-zhu-dai-tu	守株待兔	shǒu zhū dài tù	Guetter la souche en attendant le lièvre	Waiting by the Stump for a Hare	《韩非子·五蠹》	hsk3,hsk5,hsk7-9	/兔桩	1	Un paysan voit un lièvre se rompre le cou contre une souche, abandonne ses champs pour guetter la souche et finit par ne plus rien récolter.
 sai-weng-shi-ma	塞翁失马	sài wēng shī mǎ	Le vieillard de la frontière perd son cheval	The Old Man at the Frontier Loses His Horse	《淮南子·人间训》	hsk4,hsk6,hsk7-9	马腿断兵/塞翁	1	Le cheval perdu d'un vieillard revient accompagné d'un autre, son fils tombe de ce cheval et se casse la jambe, et cette blessure lui évite d'être envoyé à la guerre.
 yu-gong-yi-shan	愚公移山	yú gōng yí shān	Le vieux fou déplace les montagnes	The Foolish Old Man Moves the Mountains	《列子·汤问》	255,hsk3,hsk5	山老	1	Un vieillard entreprend d'ôter deux montagnes panier par panier et répond à celui qui le raille que ses fils et ses petits-fils continueront après lui.
-hua-she-tian-zu	画蛇添足	huà shé tiān zú	Ajouter des pattes au serpent	Drawing Legs on a Snake	《战国策·齐策二》	hsk5,hsk7-9	蛇画足	1	Le premier à finir son dessin de serpent y ajoute des pattes pour montrer son avance, et perd le pari qu'il avait déjà gagné.
-jing-di-zhi-wa	井底之蛙	jǐng dǐ zhī wā	La grenouille au fond du puits	The Frog at the Bottom of the Well	《庄子·秋水》	hsk7-9	蛙龟井	1	Une grenouille vante son puits à une tortue venue de la mer de l'Est et découvre en l'écoutant la petitesse de son monde.
-hu-jia-hu-wei	狐假虎威	hú jiǎ hǔ wēi	Le renard emprunte la puissance du tigre	The Fox Borrows the Tiger's Might	《战国策·楚策一》	hsk5,hsk7-9	虎/狐狸	1	Un renard pris par un tigre le persuade de marcher devant lui, et le tigre croit que les bêtes s'enfuient devant le renard.
+hua-she-tian-zu	画蛇添足	huà shé tiān zú	Ajouter des pattes au serpent	Drawing Legs on a Snake	《战国策·齐策二》	hsk3,hsk5,hsk7-9	画足/蛇	1	Le premier à finir son dessin de serpent y ajoute des pattes pour montrer son avance, et perd le pari qu'il avait déjà gagné.
+jing-di-zhi-wa	井底之蛙	jǐng dǐ zhī wā	La grenouille au fond du puits	The Frog at the Bottom of the Well	《庄子·秋水》	hsk4,hsk7-9	/蛙龟井	1	Une grenouille vante son puits à une tortue venue de la mer de l'Est et découvre en l'écoutant la petitesse de son monde.
+hu-jia-hu-wei	狐假虎威	hú jiǎ hǔ wēi	Le renard emprunte la puissance du tigre	The Fox Borrows the Tiger's Might	《战国策·楚策一》	hsk3,hsk5,hsk7-9	/虎狐狸	1	Un renard pris par un tigre le persuade de marcher devant lui, et le tigre croit que les bêtes s'enfuient devant le renard.
 ba-miao-zhu-zhang	拔苗助长	bá miáo zhù zhǎng	Tirer sur les pousses pour les faire grandir	Pulling Up the Shoots to Help Them Grow	《孟子·公孙丑上》	255,hsk3	菜长/苗	1	Un homme trop pressé tire sur ses jeunes pousses pour les allonger d'un jour et les fait toutes mourir.
 mang-ren-mo-xiang	盲人摸象	máng rén mō xiàng	Les aveugles tâtent l'éléphant	The Blind Men and the Elephant	《大般涅槃经》	hsk4,hsk6,hsk7-9	象摸/盲鼻	1	Des aveugles touchent chacun une partie d'un éléphant et décrivent chacun une bête différente, sûrs d'avoir raison.
 ye-gong-hao-long	叶公好龙	yè gōng hào lóng	Monsieur Ye aime les dragons	Lord Ye Loves Dragons	刘向《新序·杂事五》	hsk3,hsk5	龙/叶	1	Monsieur Ye couvre sa maison d'images de dragons, puis s'enfuit épouvanté le jour où un vrai dragon vient le voir.
-wang-yang-bu-lao	亡羊补牢	wáng yáng bǔ láo	Réparer l'enclos après la perte des moutons	Mending the Pen after Losing a Sheep	《战国策·楚策四》	hsk4,hsk6	羊圈补/狼	1	Un berger néglige le trou de son enclos, perd un second mouton, puis répare le trou : il n'est jamais trop tard pour réparer.
+wang-yang-bu-lao	亡羊补牢	wáng yáng bǔ láo	Réparer l'enclos après la perte des moutons	Mending the Pen after Losing a Sheep	《战国策·楚策四》	hsk3,hsk4,hsk6	羊补/圈狼	1	Un berger néglige le trou de son enclos, perd un second mouton, puis répare le trou : il n'est jamais trop tard pour réparer.
 nan-yuan-bei-zhe	南辕北辙	nán yuán běi zhé	Rouler vers le nord pour aller au sud	Heading North to Go South	《战国策·魏策四》	255,hsk3	南北车	1	Un voyageur qui veut aller au royaume de Chu, au sud, roule vers le nord et répond à qui l'avertit que son cheval est bon, sa bourse pleine et son cocher habile : plus il avance, plus il s'éloigne.
 mu-lan-cong-jun	木兰从军	mù lán cóng jūn	Mulan part à la guerre	Mulan Goes to War	《乐府诗集·木兰诗》	hsk4,hsk6,hsk7-9	马女兵/兰织	4	Une jeune fille prend la place de son vieux père appelé à l'armée, combat douze ans sous l'habit d'un homme, refuse les honneurs de l'empereur et rentre chez elle, où ses compagnons d'armes découvrent qui elle est.
 mei-hou-wang	美猴王	měi hóu wáng	Le beau Roi des singes	The Handsome Monkey King	吴承恩《西游记》第一回至第七回	hsk5,hsk6,hsk7-9	猴石变/悟皇帝圣筋蟠菩仙弼猢狲	4	Un singe né d'une pierre devient roi des singes, apprend d'un maître les transformations et le saut de nuage, sème le désordre au palais céleste et finit enfermé sous une montagne pour avoir parié qu'il sortirait de la paume du Bouddha.
