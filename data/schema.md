@@ -44,6 +44,7 @@ app/public/data/0.1.0/
   heros.json                 le personnage : douze rangs, trois bêtes, les phrases de Tao
   jouer.json                 l'écran Jouer : les phrases de la bulle de Tao
   anecdotes.json             les anecdotes du jour, une par caractère
+  trois-lignes.json          les trois lignes du pas Utiliser, un texte par jour du chemin
   familles/<racine>.json     une famille : `Famille` de models.py
   traits/<racine>.json       les tracés de la famille, sous APL, et rien d'autre
   traits/ARPHICPL.TXT        la même licence, à côté des fichiers qu'elle couvre
@@ -484,6 +485,49 @@ autres, à relire). Celles des fêtes et des termes solaires sont dans `fetes.js
 - L'ordre est celui de la source. L'app choisit celle du jour (`app/src/lib/anecdotes.ts`) :
   d'abord un caractère rencontré ces derniers jours sur le parcours, sans redite en
   trente jours, et la même toute la journée.
+
+## `trois-lignes.json`
+
+Les trois lignes du pas Utiliser (brief §6, pas 4), tirées de `data/sources/trois-lignes/`
+par `trois_lignes.py`. L'app lit ce fichier à chemin fixe. Un texte par jour du chemin et
+par parcours, à partir du jour 4 (les jours 1 à 3 sont la première session, qui lit 天天).
+
+```json
+{"version": "0.1.0", "license": "propriétaire", "source": "…", "source_url": "…", "modified": "…",
+ "premier_jour": 4,
+ "parcours": {"lire": [{"jour": 40, "nouveaux": ["六"],
+                        "lignes": [{"zh": "今天是六月六日。", "pinyin": "jīn tiān shì liù yuè liù rì",
+                                    "fr": "Aujourd'hui, c'est le 6 juin.", "en": "Today is June 6th."}],
+                        "glose": {"今天": {"pinyin": "jīn tiān", "fr": "aujourd'hui", "en": "today"}}}],
+              "hsk": ["…"]}}
+```
+
+- `lignes` : trois, chacune avec son pinyin (une syllabe par sinogramme, tons du
+  dictionnaire sans sandhi, ton neutre sans marque) et ses traductions ; l'app cache la
+  traduction jusqu'au toucher.
+- `nouveaux` : les caractères que le parcours pose ce jour-là (brique, puis composés) et
+  que le texte emploie : ce sont eux, et eux seuls, que l'app met en cinabre. Jamais vide.
+- `glose` : les seules entrées que le lecteur touchera, par caractère ou par mot ; il
+  découpe chaque ligne par l'entrée la plus longue, comme les contes.
+- Seuls les textes relus y entrent.
+
+Sources, versionnées : `glossaire.tsv` (`zh`, `pinyin`, `fr`, `en`), la glose partagée ;
+`lire.json` et `hsk.json`, un fichier par parcours : `generation` (`modele` « rédaction
+manuelle », `api` « session Claude Code (sans API) », `date`), `relecture` (la décision du
+propriétaire qui les relit : « Considère que les relectures c'est bon », approbation
+permanente), puis `textes`, `{jour, statut, lignes, glose?}` ; `glose`, facultative,
+précise une entrée pour ce texte seul (好学 hǎo xué, « facile à apprendre ») et passe
+devant le glossaire. `uv run wenlu trois-lignes contexte <parcours> <jour>…` donne l'acquis
+et les caractères nouveaux d'un jour ; `uv run wenlu trois-lignes apercu <parcours>` relit.
+
+Contrôles (`wenlu check`), bloquants : « sources » (lisibles, traçables, la décision de
+relecture citée), « périmètre » (les seuls caractères posés par le parcours du jour 1 au
+jour du texte, et au moins un caractère nouveau du jour), « pinyin » (chaque syllabe une
+lecture du caractère selon Unihan, Make Me a Hanzi et les surcharges), « glose » (chaque
+sinogramme couvert, au pinyin des lignes ; le glossaire lui-même), « forme » (trois lignes,
+6 à 48 sinogrammes), « couverture » (chaque jour de 4 à 60, sur les deux parcours),
+« export » (`trois-lignes.json` porte exactement les textes relus). Signalés : la
+relecture, et les jours du chemin au-delà du 60e qui n'ont pas encore de texte.
 
 ## `LICENCES.md`
 
