@@ -47,6 +47,9 @@ from wenlu_data.contes import (
 
 LISTE = list("人大天口日月山水火木")
 
+#: Les jours du chemin des fables de première lecture (décision du 26 septembre 2026).
+CHEMIN = {"jour25", "jour44", "jour60"}
+
 CONTE = Conte(
     id="conte-de-test",
     titre_zh="山水",
@@ -126,13 +129,13 @@ def ecrire_liste(dossier: Path, seuil: int, caracteres: list[str]) -> Path:
 # --------------------------------------------------------------------------- catalogue
 
 
-def test_catalogue_treize_contes_avec_leur_source() -> None:
-    """Onze fables et deux récits longs, identifiants uniques, titres FR et EN, ouvrage
-    d'origine et résumé."""
+def test_catalogue_seize_contes_avec_leur_source() -> None:
+    """Quatorze fables, dont trois du chemin, et deux récits longs, identifiants uniques,
+    titres FR et EN, ouvrage d'origine et résumé."""
     catalogue = charger_catalogue()
-    assert len(catalogue) == 13
-    assert len({c.id for c in catalogue}) == 13
-    assert sum(1 for c in catalogue if not c.long) == 11
+    assert len(catalogue) == 16
+    assert len({c.id for c in catalogue}) == 16
+    assert sum(1 for c in catalogue if not c.long) == 14
     for conte in catalogue:
         assert conte.id == conte.id.lower() and " " not in conte.id
         assert conte.titre_zh and conte.titre_fr and conte.titre_en
@@ -212,6 +215,8 @@ def test_chaque_conte_prevoit_ses_niveaux_de_deux_paliers_en_deux() -> None:
     est expliqué. Pris parmi 255 et les niveaux HSK."""
     ajoutes = {"shou-zhu-dai-tu", "hu-jia-hu-wei", "jing-di-zhi-wa", "wang-yang-bu-lao"}
     for conte in charger_catalogue():
+        if CHEMIN & set(conte.niveaux):
+            continue  # une fable du chemin : son seul jour (tests plus bas)
         assert len(conte.niveaux) in (1, 2, 3, 4), conte.id
         assert set(conte.niveaux) <= {255, *contes.HSK}, conte.id
         base = conte.niveaux[1:] if conte.id in ajoutes else conte.niveaux
@@ -225,7 +230,7 @@ def test_les_contes_suivent_le_hsk_sauf_les_trois_relus_a_255() -> None:
     a_255 = {c.id for c in charger_catalogue() if 255 in c.niveaux}
     assert a_255 == {"yu-gong-yi-shan", "ba-miao-zhu-zhang", "nan-yuan-bei-zhe"}
     for conte in charger_catalogue():
-        assert all(contes.est_hsk(n) for n in conte.niveaux if n != 255), conte.id
+        assert all(contes.est_hsk(n) or contes.est_chemin(n) for n in conte.niveaux if n != 255), conte.id
         assert conte.niveaux.index(255) == 0 if 255 in conte.niveaux else True
 
 
@@ -236,8 +241,8 @@ def test_le_plus_bas_niveau_est_le_premier_palier_qui_a_les_caracteres_cles() ->
         assert conte.declares, conte.id
         for n in conte.niveaux:
             assert set(conte.cles) <= set(charger_seuil(n)), (conte.id, n)
-        if not conte.cles:
-            continue  # tout s'explique : le niveau ajouté (test suivant)
+        if not conte.cles or contes.est_chemin(conte.niveaux[0]):
+            continue  # tout s'explique : le niveau ajouté (test suivant), ou le chemin
         bas = conte.niveaux[0]
         if contes.est_hsk(bas) and bas != "hsk1":
             dessous = contes.HSK[contes.HSK.index(bas) - 1]  # type: ignore[arg-type]
@@ -1110,7 +1115,7 @@ def test_le_check_ne_bloque_pas_sur_les_niveaux_du_depot() -> None:
     assert not niveaux.bloquant
     ecrits = {(p.parent.name, p.stem) for p in contes.versions_ecrites()}
     assert (
-        f"35 niveaux prévus pour 13 contes, dont 2 longs : {len(ecrits)} écrits, {35 - len(ecrits)} à écrire, "
+        f"38 niveaux prévus pour 16 contes, dont 2 longs : {len(ecrits)} écrits, {38 - len(ecrits)} à écrire, "
         "0 attendent leur liste"
     ) in niveaux.detail
     assert resultats["contes : catalogue"].ok and resultats["contes : catalogue"].bloquant
