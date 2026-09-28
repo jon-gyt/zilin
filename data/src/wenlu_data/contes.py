@@ -99,9 +99,18 @@ SEUILS: tuple[int, ...] = (255, 405, 505, 805, 1555)
 #: Chacun se lit en cumul : `hsk3` autorise les caractères des niveaux 1, 2 et 3.
 HSK: tuple[str, ...] = ("hsk1", "hsk2", "hsk3", "hsk4", "hsk5", "hsk6", "hsk7-9")
 
-#: Un niveau de conte : un seuil, nombre (255), ou un niveau HSK, chaîne ("hsk3"). C'est
-#: aussi sa forme dans les JSON (`"seuil": 255`, `"seuil": "hsk3"`) et son nom dans les
-#: chemins (`255/`, `hsk3.json`).
+#: Les niveaux du chemin (décision du propriétaire du 26 septembre 2026 : le premier conte
+#: s'ouvrait au jour 166, trop tard) : `jour25` autorise l'acquis des jours 1 à 25 du
+#: parcours Lire, les caractères dont la fiche (`data/sources/fiches/*.json`) porte un
+#: `jour` de 1 à 25. Cumulatif comme un niveau HSK, et sous le seuil 255, que le parcours
+#: Lire mène à son terme : de quoi écrire de courtes fables de première lecture, qui
+#: s'ouvrent le jour même où entre leur dernier caractère. Un jour du chemin reste sous 255.
+CHEMIN = re.compile(r"jour([1-9][0-9]{0,2})")
+JOUR_MAX = 254
+
+#: Un niveau de conte : un seuil, nombre (255), un niveau HSK, chaîne ("hsk3"), ou un jour
+#: du chemin, chaîne ("jour25"). C'est aussi sa forme dans les JSON (`"seuil": 255`,
+#: `"seuil": "hsk3"`) et son nom dans les chemins (`255/`, `hsk3.json`, `jour25.json`).
 Niveau = int | str
 
 #: Les caractères de chaque niveau HSK, cumul compris : 300 nouveaux par niveau de 1 à 6,
@@ -134,6 +143,10 @@ LONGUEURS: dict[Niveau, tuple[int, int]] = {
     "hsk6": (320, 560),
     "hsk7-9": (320, 560),
 }
+
+#: Une fable du chemin est très courte (décision du propriétaire du 26 septembre 2026 : de
+#: 40 à 60 caractères, 30 à 50 pour la plus précoce).
+LONGUEUR_CHEMIN = (30, 60)
 
 #: Au plus trois appels pour un même conte à un même seuil.
 ESSAIS_MAX = 3
@@ -217,11 +230,11 @@ def lire_niveau(valeur: object) -> Niveau:
     if isinstance(valeur, str):
         texte = valeur.strip().lower()
         valeur = int(texte) if texte.isdigit() else texte
-    if valeur in SEUILS or valeur in HSK:
+    if valeur in SEUILS or valeur in HSK or est_chemin(valeur):
         return valeur  # type: ignore[return-value]
     raise SeuilInconnu(
         f"niveau {valeur!r} inconnu : les seuils {', '.join(str(s) for s in SEUILS)}, "
-        f"ou les niveaux HSK {', '.join(HSK)}"
+        f"les niveaux HSK {', '.join(HSK)}, ou un jour du chemin Lire, jour1 à jour{JOUR_MAX}"
     )
 
 
@@ -240,19 +253,48 @@ def est_hsk(niveau: Niveau) -> bool:
     return niveau in HSK
 
 
+def est_chemin(niveau: object) -> bool:
+    """Un jour du chemin Lire, `jour1` à `jour254` : l'acquis des jours 1 à N."""
+    if not isinstance(niveau, str):
+        return False
+    lu = CHEMIN.fullmatch(niveau)
+    return lu is not None and int(lu.group(1)) <= JOUR_MAX
+
+
+def jour_du_niveau(niveau: Niveau) -> int:
+    """`jour25` → 25. Refuse tout autre niveau."""
+    if not est_chemin(niveau):
+        raise SeuilInconnu(f"niveau {niveau!r} : pas un jour du chemin")
+    return int(str(niveau)[4:])
+
+
 def rang(niveau: Niveau) -> int:
     """Le nombre de caractères du niveau, cumul compris : 255 pour le seuil 255, 900 pour
-    `hsk3`. Il range les niveaux d'un cadre à l'autre. Un niveau inconnu passe en dernier."""
+    `hsk3`. Il range les niveaux d'un cadre à l'autre. Un jour du chemin se range sous le
+    seuil 255, que le parcours Lire mène à son terme, et par son jour (`jour25` : 25) : son
+    rang n'est pas un nombre de caractères. Un niveau inconnu passe en dernier."""
     if isinstance(niveau, int):
         return niveau
+    if est_chemin(niveau):
+        return jour_du_niveau(niveau)
     return CUMULS_HSK.get(niveau, 10**6)
 
 
 def libelle(niveau: Niveau) -> str:
-    """« seuil 255 », « HSK 3 », « HSK 7-9 » : un niveau dans une phrase."""
+    """« seuil 255 », « HSK 3 », « HSK 7-9 », « jour 25 du chemin Lire » : un niveau dans
+    une phrase."""
     if isinstance(niveau, str) and niveau.startswith("hsk"):
         return f"HSK {niveau[3:]}"
+    if est_chemin(niveau):
+        return f"jour {jour_du_niveau(niveau)} du chemin Lire"
     return f"seuil {niveau}"
+
+
+def longueur_visee(niveau: Niveau) -> tuple[int, int]:
+    """La longueur visée d'une version, en sinogrammes (`LONGUEURS`, `LONGUEUR_CHEMIN`)."""
+    if est_chemin(niveau):
+        return LONGUEUR_CHEMIN
+    return LONGUEURS.get(niveau, (0, 10**6))
 
 
 def au_niveau(niveau: Niveau) -> str:
@@ -374,7 +416,7 @@ def parse_niveaux(texte: str) -> tuple[Niveau, ...]:
     """`255,hsk3,hsk5` → (255, "hsk3", "hsk5") : des niveaux connus (seuils ou niveaux
     HSK), strictement croissants par leur nombre de caractères, deux (récit simple) ou
     trois (récit riche), un de plus quand l'animal est expliqué (`NIVEAUX_AU_PLUS`). Un
-    seul, au dernier palier (`hsk7-9`) : l'échelle s'arrête là."""
+    seul, au dernier palier (`hsk7-9`) : l'échelle s'arrête là. Un jour du chemin (`jour25`) se prévoit seul : une fable de première lecture."""
     morceaux = [m.strip() for m in texte.split(",")]
     if not all(re.fullmatch(r"[0-9]+|[a-zA-Z0-9-]+", m) for m in morceaux):
         raise CatalogueInvalide(f"niveaux {texte!r} : des niveaux séparés par des virgules, 255,hsk3")
@@ -391,6 +433,11 @@ def parse_niveaux(texte: str) -> tuple[Niveau, ...]:
         )
     if [rang(n) for n in niveaux] != sorted({rang(n) for n in niveaux}):
         raise CatalogueInvalide(f"niveaux {texte!r} : strictement croissants, sans doublon")
+    if any(est_chemin(n) for n in niveaux):
+        # Une fable du chemin : une première lecture, très courte, à son seul jour.
+        if len(niveaux) != 1:
+            raise CatalogueInvalide(f"niveaux {texte!r} : un jour du chemin se prévoit seul (jour25)")
+        return tuple(niveaux)
     if niveaux == [HSK[-1]]:
         return tuple(niveaux)
     if not min(NIVEAUX_PAR_CONTE) <= len(niveaux) <= NIVEAUX_AU_PLUS:
@@ -501,9 +548,17 @@ def conte_par_id(identifiant: str, catalogue: Sequence[Conte] | None = None) -> 
 # --------------------------------------------------------------------------- listes
 
 
+def dossier_des_fiches(dossier: Path | None = None) -> Path:
+    """Les fiches du parcours, voisines des listes (`data/sources/fiches/`, à côté de
+    `data/sources/listes/`) : leur `jour` fait les niveaux du chemin."""
+    return (dossier or LISTES).parent / "fiches"
+
+
 def fichier_seuil(seuil: Niveau, dossier: Path | None = None) -> Path:
     """Le fichier propre à un niveau : `seuil-255.txt`, `hsk-3.txt` (les seuls caractères
-    nouveaux du niveau 3), `hsk-7-9.txt`."""
+    nouveaux du niveau 3), `hsk-7-9.txt` ; pour un jour du chemin, le dossier des fiches."""
+    if est_chemin(seuil):
+        return dossier_des_fiches(dossier)
     if isinstance(seuil, str) and seuil.startswith("hsk"):
         return (dossier or LISTES) / f"hsk-{seuil[3:]}.txt"
     return (dossier or LISTES) / f"seuil-{seuil}.txt"
@@ -511,10 +566,40 @@ def fichier_seuil(seuil: Niveau, dossier: Path | None = None) -> Path:
 
 def fichiers_du_niveau(seuil: Niveau, dossier: Path | None = None) -> list[Path]:
     """Les fichiers qu'un niveau lit : le sien pour un seuil ; pour un niveau HSK, ceux des
-    niveaux 1 à lui, dans l'ordre (le cumul : `hsk3` lit hsk-1, hsk-2 et hsk-3)."""
+    niveaux 1 à lui, dans l'ordre (le cumul : `hsk3` lit hsk-1, hsk-2 et hsk-3) ; pour un
+    jour du chemin, le dossier des fiches."""
     if isinstance(seuil, str) and seuil in HSK:
         return [fichier_seuil(n, dossier) for n in HSK[: HSK.index(seuil) + 1]]
     return [fichier_seuil(seuil, dossier)]
+
+
+def jours_du_chemin(dossier: Path | None = None) -> dict[str, int]:
+    """Le jour du parcours Lire où entre chaque caractère, lu dans les fiches (`jour`).
+    Une fiche sans jour, ou d'un autre parcours, n'en donne pas. `dossier` : celui des
+    listes, dont les fiches sont voisines."""
+    jours: dict[str, int] = {}
+    fiches = dossier_des_fiches(dossier)
+    for chemin in sorted(fiches.glob("*.json")) if fiches.is_dir() else []:
+        fiche = json.loads(chemin.read_text(encoding="utf-8"))
+        jour = fiche.get("jour")
+        if fiche.get("parcours", "lire") == "lire" and isinstance(jour, int) and isinstance(fiche.get("c"), str):
+            jours[fiche["c"]] = jour
+    return jours
+
+
+def jour_d_ouverture(texte: str, jours: Mapping[str, int], expliques: Iterable[str] = ()) -> int | None:
+    """Le jour du chemin Lire où un texte devient lisible : celui où entre son dernier
+    caractère, ceux des mots expliqués mis à part. `None` si un caractère n'est pas sur le
+    chemin."""
+    exclus = set(expliques)
+    dernier = 0
+    for c in texte:
+        if not est_sinogramme(c) or c in exclus:
+            continue
+        if c not in jours:
+            return None
+        dernier = max(dernier, jours[c])
+    return dernier
 
 
 def liste_presente(seuil: Niveau, dossier: Path | None = None) -> bool:
@@ -536,6 +621,11 @@ def charger_seuil(seuil: Niveau, dossier: Path | None = None) -> list[str]:
             f"{libelle(seuil)} : liste absente ({', '.join(str(f) for f in absents)}). "
             "Versionner la liste avant d'écrire les contes de ce niveau."
         )
+    if est_chemin(seuil):
+        # L'acquis des jours 1 à N du parcours Lire, dans l'ordre du chemin.
+        n = jour_du_niveau(seuil)
+        jours = jours_du_chemin(dossier)
+        return sorted((c for c, j in jours.items() if j <= n), key=lambda c: (jours[c], c))
     return [c for f in fichiers_du_niveau(seuil, dossier) for c in charger_liste(f)]
 
 
@@ -624,7 +714,7 @@ def invite(
     `intrus` porte les caractères hors liste de l'essai précédent : ils sont
     signalés nommément pour la relance.
     """
-    minimum, maximum = LONGUEURS.get(seuil, (60, 120))
+    minimum, maximum = longueur_visee(seuil) if seuil in LONGUEURS or est_chemin(seuil) else (60, 120)
     lignes = [
         f"Récit : {conte.titre_zh} — « {conte.titre_fr} ».",
         f"Ouvrage d'origine : {conte.ouvrage} (cité pour la traçabilité ; n'en recopie rien).",
@@ -1198,7 +1288,7 @@ def valider(version: Version, autorises: Sequence[str], conte: Conte | None = No
     ecarts: list[str] = ecarts_des_expliques(version, autorises)
     if not version.phrases:
         ecarts.append("aucune phrase")
-    minimum, maximum = LONGUEURS.get(version.seuil, (0, 10**6))
+    minimum, maximum = longueur_visee(version.seuil)
     if version.courte:
         total = longueur(version.phrases)
         if not minimum <= total <= maximum:
@@ -1324,7 +1414,7 @@ def versions_ecrites(dossier: Path | None = None) -> list[Path]:
     if not dossier.exists():
         return []
     seuils = sorted(
-        (d for d in dossier.iterdir() if d.is_dir() and (d.name.isdigit() or d.name in HSK)),
+        (d for d in dossier.iterdir() if d.is_dir() and (d.name.isdigit() or d.name in HSK or est_chemin(d.name))),
         key=lambda d: (rang(niveau_brut(d.name)), d.name),
     )
     return [f for d in seuils for f in sorted(d.glob("*.json"))]
@@ -1898,11 +1988,12 @@ def importer_brouillon(
 
 def contraintes(seuil: Niveau) -> str:
     """Ce que `wenlu contes importer` vérifie, comme pour une version générée."""
-    minimum, maximum = LONGUEURS.get(seuil, (0, 0))
+    minimum, maximum = longueur_visee(seuil)
     return f"""Contraintes, vérifiées par `wenlu contes importer` comme pour un conte généré.
 Rejet :
 - titre.zh, chaque phrases[].zh et, pour un récit long, chaque titre de chapitre : les \
-seuls caractères de la liste du niveau (pour un niveau HSK, celles des niveaux 1 à lui), \
+seuls caractères de la liste du niveau (pour un niveau HSK, celles des niveaux 1 à lui ; pour un jour du chemin, jour25, \
+l'acquis des jours 1 à 25 du parcours Lire, le dernier caractère entrant ce jour-là), \
 et la ponctuation {PONCTUATION_CHINOISE} (citations entre 「」) ; ni chiffre, ni lettre, \
 aucun autre caractère, même dans un nom propre ;
 - seule exception, les mots expliqués (expliques) : un mot hors du niveau qui nomme un \
@@ -1986,7 +2077,7 @@ def decrire_contexte(
     Les mêmes faits que l'invite des versions générées : le récit, sa source, la
     longueur visée et la liste exacte des caractères du niveau (en cumul pour le HSK).
     """
-    minimum, maximum = LONGUEURS.get(seuil, (0, 0))
+    minimum, maximum = longueur_visee(seuil)
     hors = caracteres_hors_liste(conte.titre_zh, autorises)
     chemin = chemin_brouillon(conte.id, seuil, brouillons)
     lignes = [
@@ -2166,6 +2257,9 @@ def etat_des_niveaux(
     niveau HSK n'est à écrire que si les listes de tous les niveaux qu'il cumule sont là."""
     ecrites = {(v.conte, v.seuil): v.statut for v in versions}
     listes_presentes = {s: liste_presente(s, listes) for s in (*SEUILS, *HSK)}
+    listes_presentes.update(
+        {s: liste_presente(s, listes) for c in catalogue for s in c.niveaux if est_chemin(s)}
+    )
     niveaux: list[NiveauPrevu] = []
     for conte in catalogue:
         for seuil in conte.niveaux:
@@ -2245,6 +2339,8 @@ def ecarts_au_critere(conte: Conte, listes: Path | None = None, cache: dict[Nive
     ecarts: list[str] = []
     if not conte.niveaux:
         return ecarts
+    if any(est_chemin(n) for n in conte.niveaux):
+        return ecarts_du_chemin(conte, liste)
     for n in conte.niveaux:
         autorises = liste(n)
         absents = "".join(c for c in conte.cles if autorises is not None and c not in autorises)
@@ -2253,6 +2349,44 @@ def ecarts_au_critere(conte: Conte, listes: Path | None = None, cache: dict[Nive
     plan = _ecarts_du_plan(conte.id, conte.niveaux, conte.cles if conte.declares else None, liste)
     ajoute = _niveau_ajoute(conte, liste) if plan else None
     return ecarts + (plan if ajoute is None else ajoute)
+
+
+def ecarts_du_chemin(conte: Conte, liste: Callable[[Niveau], set[str] | None]) -> list[str]:
+    """Le critère d'une fable du chemin (décision du propriétaire du 26 septembre 2026) : un
+    seul niveau, un jour du chemin Lire ; ses caractères clés (avant la barre) sont dans
+    l'acquis de ce jour ; ce qu'elle nomme hors de l'acquis, après la barre, tient en
+    `MAX_EXPLIQUES` caractères. Que le jour soit bien celui où la version devient lisible,
+    `ecarts_de_jour` le relit sur le texte."""
+    ecarts: list[str] = []
+    if len(conte.niveaux) != 1:
+        ecarts.append(f"{conte.id} : un jour du chemin se prévoit seul")
+    n = conte.niveaux[0]
+    autorises = liste(n)
+    if autorises is None:
+        return ecarts
+    absents = "".join(c for c in conte.cles if c not in autorises)
+    if absents:
+        ecarts.append(f"{conte.id} : {absents} hors du {libelle(n)}")
+    hors = [c for c in conte.expliquables if c not in autorises]
+    if len(hors) > MAX_EXPLIQUES:
+        ecarts.append(
+            f"{conte.id} : {len(hors)} caractères à expliquer au {libelle(n)} ({' '.join(hors)}), "
+            f"{MAX_EXPLIQUES} au plus"
+        )
+    return ecarts
+
+
+def ecarts_de_jour(version: Version, jours: Mapping[str, int]) -> list[str]:
+    """Une version d'un jour du chemin s'ouvre ce jour-là : le jour où entre son dernier
+    caractère (titre compris, mots expliqués mis à part) est celui de son niveau. Plus tôt,
+    le niveau la ferait attendre pour rien ; plus tard, elle sort du niveau (rejet)."""
+    if not est_chemin(version.seuil):
+        return []
+    expliques = [c for m in version.expliques for c in m.zh if c not in jours or jours[c] > jour_du_niveau(version.seuil)]
+    jour = jour_d_ouverture(version.texte, jours, expliques)
+    if jour is None or jour == jour_du_niveau(version.seuil):
+        return []
+    return [f"{version.cle} : lisible dès le jour {jour} du chemin Lire, niveau {version.seuil}"]
 
 
 def _ecarts_du_plan(
@@ -2327,19 +2461,28 @@ def controle_motifs(catalogue: Sequence[Conte]) -> Controle:
     )
 
 
-def controle_critere(catalogue: Sequence[Conte], listes: Path | None = None) -> Controle:
+def controle_critere(
+    catalogue: Sequence[Conte], listes: Path | None = None, versions: Sequence[Version] = ()
+) -> Controle:
     """« contes : critère des niveaux » : les caractères clés de chaque conte sont dans
     chacun de ses niveaux, le plus bas est le premier palier qui les a, et les suivants
     montent de deux paliers ; un niveau de plus, en dessous, quand l'animal y est expliqué.
+    Une fable du chemin a son critère (`ecarts_du_chemin`), et chacune de ses versions
+    s'ouvre au jour de son niveau (`ecarts_de_jour`).
     Jamais bloquant : c'est un écart du catalogue à reprendre."""
     cache: dict[Niveau, set[str]] = {}
     ecarts = [e for conte in catalogue for e in ecarts_au_critere(conte, listes, cache)]
+    if any(est_chemin(v.seuil) for v in versions):
+        jours = jours_du_chemin(listes)
+        ecarts += [e for v in versions for e in ecarts_de_jour(v, jours)]
     avec_cles = sum(1 for c in catalogue if c.declares)
+    chemin = sum(1 for c in catalogue if any(est_chemin(n) for n in c.niveaux))
     detail = (
         f"{avec_cles} contes sur {len(catalogue)} disent leurs caractères clés ou leurs mots expliqués ; "
         + (
             "chacun au premier palier qui les a, niveaux de deux paliers en deux, un de plus quand "
             "l'animal est expliqué"
+            + (f" ; {chemin} fables du chemin, chacune à son jour" if chemin else "")
             if not ecarts
             else " ; ".join(ecarts[:5])
         )
@@ -2406,7 +2549,7 @@ def controles(
     versions = [lire_version(chemin) for chemin in fichiers]
     suite = [controle_catalogue]
     if lu is not None:
-        suite += [controle_niveaux(lu, versions, listes), controle_critere(lu, listes), controle_motifs(lu)]
+        suite += [controle_niveaux(lu, versions, listes), controle_critere(lu, listes, versions), controle_motifs(lu)]
     if not fichiers:
         return [Controle("contes : caractères hors liste", True, "aucune version générée"), *suite]
 
@@ -2498,7 +2641,10 @@ def _client(modele: str) -> ClientClaude:
 
 
 #: L'aide des options `--niveau` (alias `--seuil`).
-AIDE_NIVEAU = "Le niveau : 255, ou un niveau HSK, hsk1 à hsk6 et hsk7-9 (405 à 1555 sans liste)."
+AIDE_NIVEAU = (
+    "Le niveau : 255, un niveau HSK, hsk1 à hsk6 et hsk7-9 (405 à 1555 sans liste), "
+    "ou un jour du chemin Lire, jour25."
+)
 
 
 def _niveau(texte: str) -> Niveau:
