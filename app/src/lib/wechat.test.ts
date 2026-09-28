@@ -180,6 +180,19 @@ describe('les dialogues ouverts', () => {
 
 /* ---------- la conversation ---------- */
 
+describe('le message de l’ami se fait entendre', () => {
+  it('chaque bulle de l’ami a « Écouter » : son fichier, sinon la voix du téléphone', () => {
+    const fil = readFileSync(new URL('FilWechat.svelte', import.meta.url), 'utf8');
+    expect(fil).toContain("{#if ecouter && b.de === 'ami'}");
+    expect(fil).toContain('onclick={() => ecouter?.(b.t.zh)}');
+    const ecran = readFileSync(new URL('WeChat.svelte', import.meta.url), 'utf8');
+    expect(ecran).toContain('ecouter={(texte) => void dire(texte)}');
+    expect(ecran).toContain('parle={(texte) => aAudio(son, texte)}');
+    /* Aucune requête à un service : le manifeste servi avec l'app, puis la voix du téléphone. */
+    expect(ecran).not.toMatch(/fetch\(|https?:/);
+  });
+});
+
 describe('la conversation', () => {
   it('pose un tour par échange, répliques mélangées d’après la graine', () => {
     const tours = toursWechat(ZAO, 'g');

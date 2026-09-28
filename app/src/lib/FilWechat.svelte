@@ -7,6 +7,9 @@
    * Les bulles sont des phrases, en Noto Serif SC ; toucher un caractère montre son pinyin
    * (celui de l'export, `syllabes`). La traduction paraît une fois l'échange répondu : on
    * lit d'abord, le sens vient après. Ni photo, ni emoji, ni ombre, ni dégradé, ni cinabre.
+   *
+   * Quand l'écran le demande (`ecouter`), chaque message de l'ami se fait entendre : son
+   * fichier pré-généré s'il en a un, sinon la voix mandarin du téléphone (`audio.dire`).
    */
   import { grappes, type Ami, type Bulle } from './wechat';
 
@@ -14,7 +17,9 @@
     fil,
     ami,
     attente = false,
-    traduite
+    traduite,
+    ecouter,
+    parle = () => true
   }: {
     fil: readonly Bulle[];
     ami: Ami;
@@ -22,6 +27,10 @@
     attente?: boolean;
     /** La bulle montre-t-elle sa traduction ? */
     traduite: (b: Bulle) => boolean;
+    /** Dire un message de l'ami. Absent : ses bulles restent muettes. */
+    ecouter?: (texte: string) => void;
+    /** Ce texte a-t-il une voix ? Sinon le bouton reste visible et inactif. */
+    parle?: (texte: string) => boolean;
   } = $props();
 
   /** Les caractères dont on a demandé le pinyin, par bulle et par place. */
@@ -64,6 +73,14 @@
       </p>
       {#if ligneEntiere(b)}<p class="py-ligne">{b.t.pinyin}</p>{/if}
       {#if traduite(b)}<p class="tr">{b.t.fr}</p>{/if}
+      {#if ecouter && b.de === 'ami'}
+        <button
+          class="ecouter"
+          disabled={!parle(b.t.zh)}
+          aria-label="Écouter le message de {ami.zh}"
+          onclick={() => ecouter?.(b.t.zh)}>♪ Écouter</button
+        >
+      {/if}
     </div>
   {/each}
   {#if attente}
@@ -137,6 +154,16 @@
     font-family: var(--head);
     font-size: 13px;
     color: var(--indigo);
+  }
+  .ecouter {
+    margin-top: 2px;
+    padding: 2px 0;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--indigo);
+  }
+  .ecouter:disabled {
+    color: var(--mist);
   }
   .tr {
     margin: 3px 0 0;

@@ -18,6 +18,7 @@
    * `grade`. Pas de chronomètre, pas de vie, pas de point.
    */
   import { tick } from 'svelte';
+  import { aAudio, dire, manifesteOnce, type Manifeste } from './audio';
   import FilWechat from './FilWechat.svelte';
   import Glyph from './Glyph.svelte';
   import RepliquesWechat from './RepliquesWechat.svelte';
@@ -112,6 +113,23 @@
     minuteur = null;
   }
   $effect(() => arreter);
+
+  /**
+   * Le message de l'ami se fait entendre au toucher : son fichier pré-généré s'il en a
+   * un, sinon la voix mandarin du téléphone. Aucune requête à un service.
+   */
+  let son = $state<Manifeste | null>(null);
+  $effect(() => {
+    let vivant = true;
+    void manifesteOnce()
+      .then((m) => {
+        if (vivant) son = m;
+      })
+      .catch(() => undefined);
+    return () => {
+      vivant = false;
+    };
+  });
 
   const echange = $derived(dialogue && m && !fini(m) ? dialogue.echanges[m.i] : null);
   const choix = $derived(m && !fini(m) ? m.tours[m.i].choix : []);
@@ -264,6 +282,8 @@
       {ami}
       attente={attente && m !== null && !(fini(m) && !dialogue.fin)}
       {traduite}
+      ecouter={(texte) => void dire(texte)}
+      parle={(texte) => aAudio(son, texte)}
     />
   {/key}
 
