@@ -263,7 +263,7 @@
   {:else if liste.length > 0}
     <div class="q">
       <h1 class="bilan">{sures(lignes)} sur {liste.length} du premier coup.</h1>
-      <p class="guide">Ce qui a hésité revient plus tôt. On se revoit demain matin.</p>
+      <p class="guide">Ce qui a hésité revient plus tôt.</p>
       <div class="res">
         {#each lignes as l, k (l.c + k)}
           <div>

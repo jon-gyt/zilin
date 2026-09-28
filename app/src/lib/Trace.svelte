@@ -10,7 +10,7 @@
    */
   import HanziWriter from 'hanzi-writer';
   import Glyph from './Glyph.svelte';
-  import { strokesOnce } from './strokes';
+  import { traitsDe } from './content';
 
   let {
     char,
@@ -48,8 +48,15 @@
     return getComputedStyle(document.documentElement).getPropertyValue(nom).trim();
   }
 
+  /**
+   * Le caractère, comparé par sa valeur : noter la réponse recalcule la série, et la
+   * question revient en objet neuf avec le même caractère. Lu tel quel, `char` relancerait
+   * le tracé et effacerait celui qu'on vient de finir.
+   */
+  const lettre = $derived(char);
+
   $effect(() => {
-    const c = char;
+    const c = lettre;
     const cible = boite;
     let vivant = true;
     /* Le dessin du caractère précédent s'en va : deux questions de tracé d'affilée
@@ -61,9 +68,10 @@
     fautes = 0;
     entier = false;
     if (!cible) return;
-    void strokesOnce()
-      .then((s) => {
-        const d = s[c];
+    /* Les traits de l'export (le fichier de la famille), la maquette en repli : les mêmes
+       que ceux du grand caractère (`Glyph`). */
+    void traitsDe(c)
+      .then((d) => {
         if (!vivant) return;
         if (!d) {
           sansDonnees = true;
