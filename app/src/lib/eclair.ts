@@ -218,13 +218,33 @@ export function motDe(t: Tour, corpus: CorpusJeux): MotEclair | null {
  * Les tours d'une manche : des mots possibles tirés d'après la graine, quatre sens
  * chacun, mélangés. La note porte sur les deux caractères du mot : `c` est le premier,
  * `aussi` le second, comme la coquille le fait pour l'intrus.
+ *
+ * Les leurres sont uniques dans la manche : un sens déjà montré, en réponse ou en leurre,
+ * ne revient pas à un autre tour. Sinon, 去年 puis 半年 poseraient deux fois « l'an
+ * dernier | six mois | vieillesse | un siècle », et le second se trouverait par
+ * élimination. Quand l'acquis ne laisse pas assez de mots ainsi, la manche prend ceux
+ * qui ne partagent qu'un sens avec les tours déjà posés, jamais deux, puis s'arrête.
  */
 export function toursEclair(corpus: CorpusJeux, graine: string): Tour[] {
   const d = corpus.eclair;
   if (!d) return [];
-  return melange(motsPossibles(corpus), `${graine}/eclair`)
-    .slice(0, TOURS_ECLAIR)
-    .map((m) => tourDuMot(m, d.mots, graine));
+  const tours: Tour[] = [];
+  const montres = new Set<string>();
+  const pris = new Set<string>();
+  const communs = (t: Tour): number => t.choix.filter((x) => montres.has(x)).length;
+  const melanges = melange(motsPossibles(corpus), `${graine}/eclair`);
+  for (const tolere of [0, 1]) {
+    for (const m of melanges) {
+      if (tours.length >= TOURS_ECLAIR) break;
+      if (pris.has(m.id)) continue;
+      const t = tourDuMot(m, d.mots, graine);
+      if (communs(t) > tolere) continue;
+      pris.add(m.id);
+      tours.push(t);
+      for (const x of t.choix) montres.add(x);
+    }
+  }
+  return tours;
 }
 
 /**
