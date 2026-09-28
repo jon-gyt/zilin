@@ -15,12 +15,19 @@ import {
   MINUTES_MAX,
   MINUTES_MIN,
   PAIRES_PAR_MINUTE,
+  TOURS_JUMEAUX,
+  NOTER_TEMPS_ECOULE,
+  decomposerLeurre,
+  evenementsANoter,
+  confondusAvec,
   PROPOSITIONS_CHAINE,
   TOURS_ASSEMBLAGE,
   TOURS_COQUILLE,
   acquisDeDemo,
   chaine,
   chaines,
+  ENONCES_CHAINE,
+  lien,
   ciblesAssemblage,
   clore,
   constat,
@@ -220,7 +227,9 @@ describe('le contrat commun d’un jeu', () => {
     expect(jumeaux.constat(finie)).toBe(
       `${finie.tours.length} caractères revus, aucune paire distinguée.`
     );
-    expect(constat({ ...m, tours: [], evenements: [] })).toBe('Rien de revu cette fois.');
+    /* Rien de noté : la phrase `lu` du pipeline, jamais un texte écrit dans le code. */
+    expect(constat({ ...m, tours: [], evenements: [] })).toBe('');
+    expect(constat({ ...m, tours: [], evenements: [] }, 'Tout est lu.')).toBe('Tout est lu.');
   });
 });
 
@@ -386,6 +395,30 @@ describe('Assembler contre la montre', () => {
     expect(r.note).toBe(Rating.Again);
   });
 
+  it('temps écoulé : la réponse est montrée et rien n’est noté (décision du 26 septembre 2026)', () => {
+    expect(NOTER_TEMPS_ECOULE).toBe(false);
+    const r = { ...repondre(m, [], outcome({ correct: false, seconds: 8 })), ecoule: true };
+    expect(r.montre).toBe(true);
+    /* Rien pour la progression : la carte ne revient pas dans dix minutes. */
+    expect(evenementsANoter('assembler', r)).toEqual([]);
+    /* L'interrupteur tient en une ligne : à vrai, le temps écoulé serait noté comme une erreur. */
+    expect(evenementsANoter('assembler', r, true)).toEqual(r.evenements);
+    /* Une suite de briques fausse, donnée à temps, reste notée comme une question. */
+    const t = tour(m);
+    if (!t) throw new Error('tour attendu');
+    const faux = repondre(m, [...t.reponse].reverse(), outcome({ seconds: 5 }));
+    expect(faux.correct).toBe(false);
+    expect(evenementsANoter('assembler', faux)).toEqual(faux.evenements);
+    /* Une bonne réponse reste toujours notée. */
+    const juste = { ...repondre(m, t.reponse, outcome({ seconds: 5 })), ecoule: true };
+    expect(evenementsANoter('assembler', juste)).toEqual(juste.evenements);
+    /* L'écran passe le temps écoulé à `evenementsANoter`, et Tao ne grimace pas. */
+    const game = readFileSync(new URL('Game.svelte', import.meta.url), 'utf8');
+    expect(game).toContain('if (reste === 0) valider([], true);');
+    expect(game).toContain('const r = ecoule ? { ...repondu, ecoule } : repondu;');
+    expect(game).toContain('if (ecoule) serie = 0;');
+  });
+
   it('le chronomètre borne le tour, il ne note pas : la note ne vient que de grade', () => {
     const t = tour(m);
     if (!t) throw new Error('tour attendu');
@@ -455,7 +488,7 @@ describe('Les jumeaux', () => {
     expect(new Set(vues).size).toBe(vues.length);
   });
 
-  it('pose quinze paires par minute au plus', () => {
+  it('pose huit paires par manche, au rythme de quinze par minute au plus', () => {
     const gros: CorpusJeux = {
       ...CORPUS,
       acquis: Array.from({ length: 40 }, (_, i) => `x${i}`),
@@ -467,8 +500,35 @@ describe('Les jumeaux', () => {
       traits: Array.from({ length: 40 }, (_, i) => `x${i}`)
     };
     const grosse = jumeaux.preparer(gros, 'g');
-    expect(grosse?.tours.length).toBe(PAIRES_PAR_MINUTE);
+    /* Quinze paires faisaient 45 taps ; huit en font seize quand tout est juste. */
+    expect(TOURS_JUMEAUX).toBe(8);
+    expect(grosse?.tours.length).toBe(TOURS_JUMEAUX);
     expect(grosse?.tours.length).toBeLessThanOrEqual(jumeaux.minutes * PAIRES_PAR_MINUTE);
+  });
+
+  it('tire aussi les paires des vraies confusions de l’apprenant', () => {
+    /* 住 n'a pas de groupe dans paires.json ; l'apprenant a pris 往 pour lui. */
+    const avec: CorpusJeux = { ...CORPUS, traits: [...CORPUS.traits, '往'], confusions: [['住', '往']] };
+    expect(confondusAvec('住', avec)).toEqual(['往']);
+    expect(jumeau('住', avec, 'g')).toBe('往');
+    /* Un groupe de paires.json passe encore devant. */
+    expect(jumeau('天', { ...avec, confusions: [['天', '大']] }, 'g')).toBe('夫');
+    const manche = jumeaux.preparer(avec, 'g');
+    if (!manche) throw new Error('manche attendue');
+    /* Une vraie confusion passe devant la simple ressemblance. */
+    const t = manche.tours.find((x) => x.c === '住');
+    expect(t?.choix).toContain('往');
+    expect(t?.paire).toBe(true);
+    /* Sans traits, une confusion ne se montre pas. */
+    expect(jumeau('住', { ...CORPUS, confusions: [['住', '往']] }, 'g')).toBe('休');
+  });
+
+  it('peint en indigo, à la correction, le trait qui distingue les jumeaux', () => {
+    const game = readFileSync(new URL('Game.svelte', import.meta.url), 'utf8');
+    expect(game).toContain('traitsQuiDistinguent(da, db)');
+    expect(game).toContain("indigo={resultat !== null ? (distinguent[c] ?? []) : []}");
+    /* Sans animation demandée, pas de flash : la paire est montrée d'emblée, sans « Montrer ». */
+    expect(game).toContain("montre = id !== 'jumeaux' || reduit;");
   });
 });
 
@@ -752,29 +812,45 @@ describe('La chaîne', () => {
     return suite[suite.length - 1];
   };
 
-  it('part d’une brique acquise et suit l’exemple de la spécification', () => {
-    expect(chaine(CHAINE, 'g')).toEqual(['人', '大', '天', '吞']);
-    expect(chaines(CHAINE, 'g')[0]).toEqual(['人', '大', '天', '吞']);
-    expect(m.tours.slice(0, 3).map((t) => t.c)).toEqual(['大', '天', '吞']);
-    expect(m.tours[0].suite).toEqual(['人']);
-    expect(m.tours[2].suite).toEqual(['人', '大', '天']);
+  it('passe par l’exemple de la spécification, et le prolonge dans les deux sens', () => {
+    /* 夫 cache 人, puis 人 → 大 → 天 → 吞 monte, et 吞 cache 口. */
+    const suite = chaine(CHAINE, 'g');
+    expect(suite).toEqual(['夫', '人', '大', '天', '吞', '口']);
+    expect(chaines(CHAINE, 'g')[0]).toEqual(suite);
+    expect(suite.slice(1).map((x, k) => lien(suite[k], x, CHAINE))).toEqual([
+      'descend',
+      'monte',
+      'monte',
+      'monte',
+      'descend'
+    ]);
+    expect(m.tours.slice(0, 5).map((t) => t.c)).toEqual(['人', '大', '天', '吞', '口']);
+    expect(m.tours[1].suite).toEqual(['夫', '人']);
+    expect(m.tours[0].enonce).toBe(ENONCES_CHAINE.descend);
+    expect(m.tours[1].enonce).toBe(ENONCES_CHAINE.monte);
   });
 
-  it('chaque maillon contient le précédent comme composant', () => {
-    for (const t of m.tours) expect(contient(t.c, dernier(t), CHAINE)).toBe(true);
+  it('chaque maillon contient le précédent, ou se cache dedans', () => {
+    for (const t of m.tours) {
+      const l = lien(dernier(t), t.c, CHAINE);
+      expect(l).not.toBeNull();
+      expect(t.lien).toBe(l);
+      expect(l === 'monte' ? contient(t.c, dernier(t), CHAINE) : contient(dernier(t), t.c, CHAINE)).toBe(true);
+    }
   });
 
   it('lit les parts descendues de l’export : 可 d’un seul tenant dans 哥', () => {
     const plat: CorpusJeux = {
       ...CHAINE,
-      acquis: ['口', '可', '哥', '歌'],
+      /* 木 女 日 王 ne contiennent rien : ce sont les leurres. */
+      acquis: ['口', '可', '哥', '歌', '木', '女', '日', '王'],
       decompositions: {
         可: ['丁', '口'],
         哥: ['丁', '口', '丁', '口'],
         歌: ['丁', '口', '丁', '口', '欠'],
         叮: ['口', '丁']
       },
-      traits: ['口', '可', '哥', '歌', '叮']
+      traits: ['口', '可', '哥', '歌', '叮', '木', '女', '日', '王']
     };
     expect(contient('哥', '可', plat)).toBe(true);
     expect(contient('歌', '哥', plat)).toBe(true);
@@ -782,18 +858,26 @@ describe('La chaîne', () => {
     /* 叮 porte 口 et 丁, mais pas 可 : l'ordre d'écriture compte. */
     expect(contient('叮', '可', plat)).toBe(false);
     expect(contient('可', '哥', plat)).toBe(false);
-    expect(chaine(plat, 'g')).toEqual(['口', '可', '哥', '歌']);
+    /* Les quatre, reliés dans un sens ou dans l'autre : 歌 cache 可, qui cache 口, etc. */
+    const suite = chaine(plat, 'g');
+    expect([...suite].sort()).toEqual(['口', '可', '哥', '歌'].sort());
+    for (let k = 1; k < suite.length; k++) expect(lien(suite[k - 1], suite[k], plat)).not.toBeNull();
+    /* Sans leurres sûrs, pas de maillon : les quatre caractères seuls ne font pas de chaîne. */
+    expect(chaine({ ...plat, acquis: ['口', '可', '哥', '歌'] }, 'g')).toEqual([]);
   });
 
-  it('pose quatre propositions, dont une seule contient le dernier caractère', () => {
+  it('pose quatre propositions, dont une seule est liée au dernier caractère', () => {
     for (const t of m.tours) {
       expect(t.choix).toHaveLength(PROPOSITIONS_CHAINE);
       expect(new Set(t.choix).size).toBe(PROPOSITIONS_CHAINE);
       expect(t.reponse).toEqual([t.c]);
-      expect(t.choix.filter((x) => contient(x, dernier(t), CHAINE))).toEqual([t.c]);
+      const liees = t.choix.filter((x) =>
+        t.lien === 'descend' ? contient(dernier(t), x, CHAINE) : contient(x, dernier(t), CHAINE)
+      );
+      expect(liees).toEqual([t.c]);
     }
-    /* 夫 contient 人 : il ne peut pas servir de leurre après 人. */
-    expect(m.tours[0].choix).not.toContain('夫');
+    /* Après 人, 天 porte 人 dans 大 : il ne peut pas servir de leurre à « lequel contient 人 ». */
+    expect(m.tours[1].choix.filter((x) => x !== '大')).not.toContain('夫');
   });
 
   it('prend ses leurres dans l’acquis, par ressemblance, jamais sans traits', () => {
@@ -804,24 +888,26 @@ describe('La chaîne', () => {
       }
     }
     const sansTraits = { ...CHAINE, traits: CHAINE.traits.filter((c) => c !== '吞') };
-    expect(chaine(sansTraits, 'g')).toEqual(['人', '大', '天']);
+    expect(chaine(sansTraits, 'g')).not.toContain('吞');
+    /* Les leurres du premier maillon (夫 cache 人) : les plus proches de 人 parmi ceux que
+       夫 ne contient pas, ni en entier ni par ses pièces. */
     const t = m.tours[0];
     const leurres = t.choix.filter((x) => x !== t.c);
     const candidats = CHAINE.acquis.filter(
-      (x) => !['人', '大', '天', '吞', '夫'].includes(x)
+      (x) => !chaine(CHAINE, 'g').includes(x) && !contient('夫', x, CHAINE)
     );
     expect(leurres.sort()).toEqual(
       proches([t.c], candidats, CHAINE, `g/${t.c}`, PROPOSITIONS_CHAINE - 1).sort()
     );
   });
 
-  it('finit sur une impasse : aucun caractère acquis ne prolonge le dernier maillon', () => {
+  it('finit quand l’acquis ne la prolonge plus', () => {
     const suite = chaine(CHAINE, 'g');
     const fin = suite[suite.length - 1];
     expect(prolongements(fin, CHAINE).filter((x) => !suite.includes(x))).toEqual([]);
-    /* L'acquis borne la chaîne : sans 吞, elle s'arrête à 天. */
+    /* L'acquis borne la chaîne : sans 吞, elle ne passe plus par 吞. */
     const moins = { ...CHAINE, acquis: CHAINE.acquis.filter((c) => c !== '吞') };
-    expect(chaine(moins, 'g')).toEqual(['人', '大', '天']);
+    expect(chaine(moins, 'g')).not.toContain('吞');
     /* Rien ne contient rien : pas de chaîne, pas de manche. */
     const plat = { ...CHAINE, decompositions: {}, formes: {} };
     expect(chaine(plat, 'g')).toEqual([]);
@@ -838,7 +924,7 @@ describe('La chaîne', () => {
     expect(fini(close)).toBe(true);
     expect(close.evenements).toHaveLength(1);
     expect(lachaine.constat(close)).toBe('Chaîne de 2, 1 maillon trouvé.');
-    expect(lachaine.constat(clore(m))).toBe('Rien de revu cette fois.');
+    expect(lachaine.constat(clore(m), 'Tout est lu.')).toBe('Tout est lu.');
   });
 
   it('note chaque maillon par grade, sur le caractère du maillon', () => {
@@ -856,15 +942,15 @@ describe('La chaîne', () => {
   });
 
   it('a pour constat sa longueur, sans score ni vie : un maillon manqué ne la coupe pas', () => {
-    /* Après 人 → 大 → 天 → 吞, l'impasse : deux autres chaînes, 日 → 明 et 女 → 好. */
-    expect(chaines(CHAINE, 'g').map((x) => x.length)).toEqual([4, 2, 2]);
+    /* 夫 → 人 → 大 → 天 → 吞 → 口, puis une autre chaîne de deux. */
+    expect(chaines(CHAINE, 'g').map((x) => x.length)).toEqual([6, 2]);
     const juste = jouer(m, (t) => t.reponse);
-    expect(lachaine.constat(juste)).toBe('3 chaînes, la plus longue de 4, 5 maillons trouvés.');
+    expect(lachaine.constat(juste)).toBe('2 chaînes, la plus longue de 6, 6 maillons trouvés.');
     let rate = m;
     rate = repondre(rate, '?', outcome()).manche;
     rate = jouer(rate, (t) => t.reponse);
     expect(fini(rate)).toBe(true);
-    expect(lachaine.constat(rate)).toBe('3 chaînes, la plus longue de 4, 4 maillons trouvés.');
+    expect(lachaine.constat(rate)).toBe('2 chaînes, la plus longue de 6, 5 maillons trouvés.');
     expect(lachaine.constat(rate)).not.toMatch(/point|score|vie|record|classement|coffre|bravo/i);
   });
 });
@@ -1039,20 +1125,27 @@ describe('la chaîne et la coquille sur le contenu servi (export 0.1.0)', () => 
       traits,
       cartes: stables('口可哥歌人女好妈日明时是吗叫吃名中')
     });
-    expect(chaine(corpus, '2026-09-23')).toEqual(['口', '可', '哥', '歌']);
+    /* 口 可 哥 歌 s'enchaînent, dans un sens ou dans l'autre, et la chaîne repart de 口. */
+    const suite = chaine(corpus, '2026-09-23');
+    for (const c of ['口', '可', '哥', '歌']) expect(suite).toContain(c);
+    for (let k = 1; k < suite.length; k++) expect(lien(suite[k - 1], suite[k], corpus)).not.toBeNull();
     const m = JEUX.chaine.preparer(corpus, '2026-09-23');
     if (!m) throw new Error('manche attendue');
     for (const t of m.tours) {
-      const suite = t.suite ?? [];
-      expect(t.choix.filter((x) => contient(x, suite[suite.length - 1], corpus))).toEqual([t.c]);
+      const s = t.suite ?? [];
+      const dernier = s[s.length - 1];
+      const liees = t.choix.filter((x) =>
+        t.lien === 'descend' ? contient(dernier, x, corpus) : contient(x, dernier, corpus)
+      );
+      expect(liees).toEqual([t.c]);
       for (const x of t.choix) {
         expect(corpus.acquis).toContain(x);
         expect(traits).toContain(x);
       }
     }
     const finie = jouer(m, (t) => t.reponse);
-    expect(finie.evenements.slice(0, 3).map((e) => e.c)).toEqual(['可', '哥', '歌']);
-    expect(JEUX.chaine.constat(finie)).toMatch(/^\d+ chaînes, la plus longue de 4, \d+ maillons trouvés\.$/);
+    expect(finie.evenements.slice(0, suite.length - 1).map((e) => e.c)).toEqual(suite.slice(1));
+    expect(JEUX.chaine.constat(finie)).toMatch(/la plus longue de \d+, \d+ maillons trouvés\.$|^Chaîne de \d+/);
   });
 
   it('pose une coquille avec les mots des fiches servies : 夫 pour 天, ou 天 pour 夫', () => {
@@ -1289,6 +1382,36 @@ describe('les devinettes servies avec l’app (export 0.1.0)', () => {
     expect(t.c).toBe('休');
     expect(t.choix).toHaveLength(4);
     for (const x of [...t.choix, '亻', '木']) expect(traits).toContain(x);
+  });
+
+  it('décompose le leurre pris : on voit pourquoi ce n’est pas la réponse', () => {
+    const familles = indexExport.familles.map((f) => lire(`${dossier}/${f.fichier}`) as Famille);
+    const corpus = corpusDeJeu({ familles, devinettes, traits, cartes: [] });
+    /* « L'eau à côté d'une main » : 汉. Le leurre 没, c'est l'eau et une lance. */
+    const l = decomposerLeurre('没', corpus);
+    expect(l?.briques.map((x) => x.b)).toEqual(['氵', '殳']);
+    expect(l?.briques[0].nom).toBe(devinettes.noms['氵']);
+    expect(l?.briques.every((x) => x.nom !== '')).toBe(true);
+    expect(l?.glose.fr).not.toBe('');
+    /* Chaque leurre de devinettes.json se décompose dans l'export. */
+    for (const d of devinettes.devinettes) {
+      for (const x of d.leurres) expect(decomposerLeurre(x, corpus), `${d.id} ${x}`).not.toBeNull();
+    }
+    /* Une brique sans décomposition ne se décompose pas : rien n'est deviné. */
+    expect(decomposerLeurre('口', corpus)).toBeNull();
+    /* L'écran montre chaque leurre pris, décomposé, et allume la lanterne sur une réussite. */
+    const game = readFileSync(new URL('Game.svelte', import.meta.url), 'utf8');
+    expect(game).toContain('{@const l = decomposerLeurre(f, corpus)}');
+    expect(game).toContain('allumee={resultat?.correct === true}');
+    expect(game).toContain('allumee={lanterneAllumee}');
+  });
+
+  it('allume la lanterne de Tao en aplat de pigment, sans halo ni dégradé', () => {
+    const tao = readFileSync(new URL('Tao.svelte', import.meta.url), 'utf8');
+    const debut = tao.indexOf('<g class="lanterne"');
+    const lanterne = tao.slice(debut, tao.indexOf('</g>', debut));
+    expect(lanterne).toContain("fill={allumee ? 'var(--t2)' : 'var(--card)'}");
+    expect(tao).not.toMatch(/Gradient|filter=|blur|drop-shadow/);
   });
 
   it('dessine chaque devinette depuis les traits des racines que le fichier nomme', () => {

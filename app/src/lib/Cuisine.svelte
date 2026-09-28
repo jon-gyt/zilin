@@ -47,10 +47,13 @@
     onrepondu,
     oncuisine,
     onautre,
-    onretour
+    onretour,
+    lu = ''
   }: {
     p: Progress;
     corpus: CorpusJeux;
+    /** Le constat d'un plat où rien n'a été noté (`jouer.json`, clé `lu`). */
+    lu?: string;
     /** Le libellé du bouton qui ramène d'où l'on vient. */
     retour: string;
     onrepondu: (r: Revision) => void;
@@ -120,7 +123,8 @@
   function allerALEtal(): void {
     if (recette === null) return;
     n += 1;
-    m = mancheCuisine(recette, `${p.day}/cuisine/${recette.id}/${n}`);
+    /* Les leurres de l'étal sont d'abord des mots de la recette : il faut lire le sens. */
+    m = mancheCuisine(recette, `${p.day}/cuisine/${recette.id}/${n}`, donnees?.etal ?? {});
     panier = [];
     etape = m === null ? 'choix' : 'etal';
     ouvrirTour();
@@ -293,8 +297,10 @@
     {#if resultat !== null}
       <b>{resultat.montre ? 'On te montre.' : VERDICTS[resultat.note]}</b>
       <span class="hz" lang="zh-Hans">{t.reponse[0]}</span>, {sens(t.reponse[0])}.
-      {@const quand = echeance(p, resultat.evenement.c)}
-      {#if quand}<span class="next">Prochaine fois : dans {delai(new Date(), quand)}.</span>{/if}
+      <!-- Un ingrédient manqué ne note rien : l'échéance d'avant ne se redit pas. -->
+      {@const quand = evenementsANoter('cuisine', resultat).length > 0 ? echeance(p, resultat.evenement.c) : null}
+      {#if quand}<span class="next">Prochaine fois : dans {delai(new Date(), quand)}.</span>
+      {:else if resultat.montre}<span class="next">Rien n’est noté.</span>{/if}
     {:else if pris.length > 0}
       Pas celui-là : <span class="hz" lang="zh-Hans">{pris[pris.length - 1]}</span>, c'est
       {sens(pris[pris.length - 1])}. Relis la recette.
@@ -334,8 +340,10 @@
         {/each}
       </ul>
     {/if}
-    <p class="constat">{JEUX.cuisine.constat(m)}</p>
-    <div class="k">Ce qui vient d'être revu repasse dans tes révisions, aux échéances dites.</div>
+    <p class="constat">{JEUX.cuisine.constat(m, lu)}</p>
+    {#if m.evenements.length > 0}
+      <div class="k">Ce qui vient d'être revu repasse dans tes révisions, aux échéances dites.</div>
+    {/if}
   </div>
   <div class="foot fond">
     {#if goute === 'grimace'}

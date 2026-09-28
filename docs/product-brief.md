@@ -276,8 +276,8 @@ Règle : chaque jeu doit répondre à « qu'est-ce que l'utilisateur sait lire d
 
 | Jeu | Ce qu'il fait lire | Où |
 |---|---|---|
-| Assembler contre la montre | produire le caractère à partir des briques, 8 s | pas Fixer, révision (1 sur 5) |
-| La chaîne | chaque caractère contient le précédent (人 → 大 → 天) | révision, week-end |
+| Assembler contre la montre | produire le caractère à partir des briques, 8 s ; temps écoulé : la réponse est montrée, rien n'est noté (décision du 26 septembre 2026, « Ne rien noter ») | pas Fixer, révision (1 sur 5) |
+| La chaîne | chaque caractère contient le précédent (人 → 大 → 天) ou s'y cache (吞 → 口), en suivant l'arbre de décomposition | révision, week-end |
 | Le dictionnaire éclair | deviner un mot jamais appris (火车, 电脑) | pas Utiliser, compteur « mots devinés » |
 | La coquille | trouver le caractère faux dans un message (夫 pour 天) | paires à ne pas confondre |
 | Le message WeChat | répondre à un message avec l'acquis | pas Utiliser, dès la 2e semaine |

@@ -159,6 +159,8 @@ h1{font-family:var(--head);font-weight:700;font-size:30px;line-height:1.15;lette
 .g path{fill:currentColor}
 /* La marque : le point 丶 de 文 en cinabre, trait et pinceau (glyph, option `cinabre`). */
 .g .zhu{color:var(--zhu)}
+/* À la correction d'un jeu : le trait qui distingue deux jumeaux, le caractère contenu dans un maillon (glyph, option `indigo`). */
+.g .lan{color:var(--indigo)}
 .g.write .br{fill:none;stroke:currentColor;stroke-width:230;stroke-linecap:round;stroke-linejoin:round;animation:brush linear forwards}
 .g.write .fill{opacity:0;animation:hold 0s linear forwards}
 @keyframes brush{to{stroke-dashoffset:0}}

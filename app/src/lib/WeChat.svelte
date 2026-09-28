@@ -18,10 +18,13 @@
    * `grade`. Pas de chronomètre, pas de vie, pas de point.
    */
   import { tick } from 'svelte';
+  import { aAudio, dire, manifesteOnce, type Manifeste } from './audio';
   import FilWechat from './FilWechat.svelte';
   import Glyph from './Glyph.svelte';
   import RepliquesWechat from './RepliquesWechat.svelte';
   import Tao from './Tao.svelte';
+  import TaoReagit from './TaoReagit.svelte';
+  import { reagir, type Reaction } from './reaction';
   import { JEUX, fini, type CorpusJeux, type Manche } from './jeux';
   import { delai } from './revision';
   import { echeance, type Progress, type Revision } from './session';
@@ -45,10 +48,16 @@
     onrepondu,
     onfini,
     onautre,
-    onretour
+    onretour,
+    lu = ''
   }: {
     p: Progress;
     corpus: CorpusJeux;
+    /**
+     * Le constat d'un dialogue où rien n'a été noté (`jouer.json`, clé `lu`) : ce qui a
+     * été lu, jamais « rien de revu ».
+     */
+    lu?: string;
     /** Le libellé du bouton qui ramène d'où l'on vient. */
     retour: string;
     onrepondu: (r: Revision) => void;
@@ -88,11 +97,39 @@
   let n = $state(0);
   let minuteur: ReturnType<typeof setTimeout> | null = null;
 
+  /** Tao réagit à chaque réplique : une bouchée, une grimace brève, un bond après trois justes. */
+  let serie = 0;
+  let reaction = $state<Reaction | null>(null);
+  let cleReaction = $state(0);
+  function reagirA(juste: boolean): void {
+    const r = reagir(serie, juste);
+    serie = r.serie;
+    reaction = r.reaction;
+    cleReaction += 1;
+  }
+
   function arreter(): void {
     if (minuteur !== null) clearTimeout(minuteur);
     minuteur = null;
   }
   $effect(() => arreter);
+
+  /**
+   * Le message de l'ami se fait entendre au toucher : son fichier pré-généré s'il en a
+   * un, sinon la voix mandarin du téléphone. Aucune requête à un service.
+   */
+  let son = $state<Manifeste | null>(null);
+  $effect(() => {
+    let vivant = true;
+    void manifesteOnce()
+      .then((m) => {
+        if (vivant) son = m;
+      })
+      .catch(() => undefined);
+    return () => {
+      vivant = false;
+    };
+  });
 
   const echange = $derived(dialogue && m && !fini(m) ? dialogue.echanges[m.i] : null);
   const choix = $derived(m && !fini(m) ? m.tours[m.i].choix : []);
@@ -114,6 +151,8 @@
     fausse = null;
     notee = null;
     attente = false;
+    serie = 0;
+    reaction = null;
     depart = Date.now();
     void defiler();
   }
@@ -139,8 +178,10 @@
     if (!r.juste) {
       ecartees = r.ecartees;
       fausse = zh;
+      reagirA(false);
       return;
     }
+    reagirA(true);
     for (const ev of r.evenements) onrepondu(ev);
     notee = { premier: ecartees.length === 0, notes: r.evenements.map((ev) => ev.c) };
     const t = replique(e, zh);
@@ -230,7 +271,7 @@
         <span class="qui">{ami.fr}</span>
       </p>
     </div>
-    <Tao stade={taoStade} posture="lecture" humeur={taoHumeur} size={56} />
+    <TaoReagit {reaction} cle={cleReaction} stade={taoStade} posture="lecture" humeur={taoHumeur} size={56} />
   </div>
 
   <!-- La conversation : l'ami à gauche, la réplique choisie à droite. Une conversation
@@ -241,6 +282,8 @@
       {ami}
       attente={attente && m !== null && !(fini(m) && !dialogue.fin)}
       {traduite}
+      ecouter={(texte) => void dire(texte)}
+      parle={(texte) => aAudio(son, texte)}
     />
   {/key}
 
@@ -269,8 +312,10 @@
 
   {#if termine && m !== null}
     <div class="card center bilan">
-      <p class="constat">{JEUX.wechat.constat(m)}</p>
-      <div class="k">Ce qui vient d’être revu repasse dans tes révisions, aux échéances dites.</div>
+      <p class="constat">{JEUX.wechat.constat(m, lu)}</p>
+      {#if m.evenements.length > 0}
+        <div class="k">Ce qui vient d’être revu repasse dans tes révisions, aux échéances dites.</div>
+      {/if}
     </div>
     <div class="foot fond">
       <button class="btn" onclick={liste}>Un autre message</button>

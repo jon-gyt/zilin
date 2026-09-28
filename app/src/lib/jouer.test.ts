@@ -29,7 +29,7 @@ afterEach(() => {
 });
 
 describe('les phrases de Tao à Jouer (`jouer.json`)', () => {
-  it('l’export versionné porte les quatre phrases, sans jeton ni emoji', () => {
+  it('l’export versionné porte les cinq phrases, sans jeton ni emoji', () => {
     const d = lireJouerDonnees(JSON.parse(source('../../public/data/0.1.0/jouer.json')) as unknown);
     expect(d.version).toBe('0.1.0');
     expect(d.source).toMatch(/data\/sources\/jouer\/tao\.tsv/);
@@ -39,9 +39,22 @@ describe('les phrases de Tao à Jouer (`jouer.json`)', () => {
     }
   });
 
+  it('le constat d’une manche sans note vient du pipeline : ce qui a été lu, jamais « rien »', () => {
+    const d = lireJouerDonnees(JSON.parse(source('../../public/data/0.1.0/jouer.json')) as unknown);
+    expect(d.tao.lu).not.toBe('');
+    expect(d.tao.lu).not.toMatch(/rien/i);
+    /* Le code n'écrit plus « Rien de revu cette fois. » : les écrans passent la phrase `lu`. */
+    for (const f of ['jeux.ts', 'Game.svelte', 'WeChat.svelte', 'Cuisine.svelte']) {
+      expect(source(f), f).not.toContain('Rien de revu');
+    }
+    expect(source('Game.svelte')).toContain('constat(m, phrases.lu)');
+    expect(source('WeChat.svelte')).toContain('JEUX.wechat.constat(m, lu)');
+    expect(source('Cuisine.svelte')).toContain('JEUX.cuisine.constat(m, lu)');
+  });
+
   it('une phrase absente ou mal formée reste vide, une clé inconnue ne passe pas', () => {
     const d = lireJouerDonnees({ tao: { invite: 'A', changer: 3, bouder: 'B' } });
-    expect(d.tao).toEqual({ invite: 'A', changer: '', devinette: '', attendre: '' });
+    expect(d.tao).toEqual({ invite: 'A', changer: '', devinette: '', attendre: '', lu: '' });
     expect(lireJouerDonnees(null)).toEqual(SANS_JOUER);
     expect(lireJouerDonnees({ tao: 'rien' })).toEqual(SANS_JOUER);
   });

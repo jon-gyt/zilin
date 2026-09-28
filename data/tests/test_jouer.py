@@ -1,6 +1,6 @@
 """L'écran Jouer : les phrases de Tao, sources, contrôles, export.
 
-Un test par règle. Aucun réseau. Les règles : les quatre phrases de la bulle, une fois
+Un test par règle. Aucun réseau. Les règles : les cinq phrases de Tao, une fois
 chacune, sourcées, sans jeton ; ni emoji, ni dragon ; Tao ne culpabilise jamais (brief
 §9) ; `jouer.json` dit ce que dit la source, et l'index le nomme.
 """
@@ -39,7 +39,16 @@ def test_les_phrases_sont_celles_que_l_app_disait() -> None:
         "devinette": "On commence par la devinette ?",
         "attendre": "Il n'y a pas encore assez de caractères acquis pour jouer."
         " Reviens après quelques révisions.",
+        "lu": "Tout est lu. Chercher le sens, c'est déjà lire.",
     }
+
+
+def test_le_constat_sans_note_dit_ce_qui_a_ete_lu() -> None:
+    """« Rien de revu cette fois. » dégonflait la fin d'une manche : Tao dit ce qui a été lu."""
+    lu = {t.cle: t.fr for t in charger().tao}["lu"]
+    assert "rien" not in lu.lower()
+    assert reproches(lu) == []
+    assert any("0 lignes pour lu" in f for f in fautes_sources(replace(charger(), tao=charger().tao[:4])))
 
 
 def test_la_source_est_tracee_redigee_pour_l_app() -> None:

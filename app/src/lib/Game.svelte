@@ -34,6 +34,8 @@
   import { jouerOnce, SANS_JOUER, type PhrasesJouer } from './jouer';
   import Glyph from './Glyph.svelte';
   import Tao from './Tao.svelte';
+  import TaoReagit from './TaoReagit.svelte';
+  import { reagir, type Reaction } from './reaction';
   import DessinJeu, { PIGMENTS } from './DessinJeu.svelte';
   import {
     devinettesOnce,
@@ -46,6 +48,7 @@
     voisinsOnce
   } from './content';
   import { glyph, type StrokeData } from './glyph';
+  import { traitsContenus, traitsQuiDistinguent } from './ecarts';
   import { eclairOnce, ligneMotsDevines, TAO_ECLAIR } from './eclair';
   import { racinesDesCaracteres } from './foret';
   import { coquillesOnce } from './coquilles';
@@ -59,6 +62,7 @@
     clore,
     corpusDeJeu,
     corpusVide,
+    decomposerLeurre,
     devinetteDe,
     devinetteDuJour,
     disponibles,
@@ -250,6 +254,22 @@
   let faux = $state<string[]>([]);
   let resultat = $state<Resultat | null>(null);
 
+  /**
+   * Tao réagit à chaque verdict (`reaction.ts`) : une bouchée, une grimace brève, un bond
+   * après trois justes d'affilée. La série ne s'affiche jamais : elle vit ici, remise à
+   * zéro à chaque manche, et ne se lit qu'à sa posture.
+   */
+  let serie = 0;
+  let reaction = $state<Reaction | null>(null);
+  let cleReaction = $state(0);
+
+  function reagirA(correct: boolean): void {
+    const r = reagir(serie, correct);
+    serie = r.serie;
+    reaction = r.reaction;
+    cleReaction += 1;
+  }
+
   let horloge: ReturnType<typeof setInterval> | null = null;
   let flash: ReturnType<typeof setTimeout> | null = null;
   let minuteur: ReturnType<typeof setTimeout> | null = null;
@@ -307,13 +327,14 @@
     if (id === null || courante === null || fini(courante)) return;
     const chrono = JEUX[id].chrono;
     /* Les jumeaux : la paire reste couverte tant qu'on n'a pas lu la question. Le flash
-       ne part qu'au tap sur « Montrer » (`montrer`), jamais tout seul. */
-    montre = id !== 'jumeaux';
-    cache = id === 'jumeaux';
+       ne part qu'au tap sur « Montrer » (`montrer`), jamais tout seul. Sans animation
+       demandée, il n'y a pas de flash : la paire est montrée d'emblée, un tap de moins. */
+    montre = id !== 'jumeaux' || reduit;
+    cache = id === 'jumeaux' && !reduit;
     if (chrono > 0) {
       horloge = setInterval(() => {
         reste = Math.max(0, 1 - (Date.now() - depart) / chrono);
-        if (reste === 0) valider([]);
+        if (reste === 0) valider([], true);
       }, 100);
     }
   }
@@ -348,6 +369,8 @@
     preparee = cle;
     const manche = JEUX[id].preparer(corpus, cle);
     m = manche;
+    serie = 0;
+    reaction = null;
     const posee = manche?.tours[0]?.devinette;
     if (posee) ondevinette(posee, 'posee');
     arreterLimite();
@@ -358,19 +381,27 @@
 
   /**
    * Note la réponse. Le temps passé et les essais forment l'`Outcome` ; c'est `grade`
-   * qui note. Une réponse vide, c'est le chronomètre écoulé : elle est fausse.
+   * qui note. Une réponse vide, c'est le chronomètre écoulé (`ecoule`) : elle est fausse,
+   * la réponse est montrée, et rien n'est noté tant que `NOTER_TEMPS_ECOULE` est faux
+   * (décision du propriétaire du 26 septembre 2026, « Ne rien noter »).
    */
-  function valider(rep: string[]): void {
+  function valider(rep: string[], ecoule = false): void {
     const courante = m;
     if (courante === null || resultat !== null || fini(courante)) return;
     arreterChrono();
     const seconds = Math.max(0, (Date.now() - depart) / 1000);
     const mot = tour(courante)?.mot ?? '';
-    const r = JEUX[courante.jeu].repondre(courante, rep, { correct: true, tries: 0, seconds });
+    const repondu = JEUX[courante.jeu].repondre(courante, rep, { correct: true, tries: 0, seconds });
+    const r = ecoule ? { ...repondu, ecoule } : repondu;
     donnee = rep;
     resultat = r;
     cache = false;
-    /* L'éclair et la cuisine ne notent pas une mauvaise réponse (`evenementsANoter`). */
+    /* Le temps écoulé n'est pas une erreur de lecture : Tao ne grimace pas, la série
+       repart simplement de zéro. */
+    if (ecoule) serie = 0;
+    else reagirA(r.correct);
+    /* L'éclair et la cuisine ne notent pas une mauvaise réponse, ni l'assemblage un temps
+       écoulé (`evenementsANoter`). */
     for (const e of evenementsANoter(courante.jeu, r)) onrepondu(e);
     /* Le dictionnaire éclair : un mot deviné compte une fois, dans la progression. */
     if (r.correct && mot !== '') onmotdevine(mot);
@@ -392,6 +423,64 @@
       arreterLimite();
       onfini();
     } else ouvrirTour(apres);
+  }
+
+  /**
+   * Les jumeaux, à la correction : le ou les traits qui distinguent chaque caractère de
+   * l'autre, lus dans leurs traits (`ecarts.ts`), peints en indigo. Ce n'est ni l'élément
+   * ajouté ni la position sur le chemin : pas de cinabre. Sans traits, rien ne se peint.
+   */
+  let distinguent = $state<Record<string, number[]>>({});
+  $effect(() => {
+    const tr = t;
+    if (jeu !== 'jumeaux' || tr === null || resultat === null || tr.choix.length !== 2) {
+      distinguent = {};
+      return;
+    }
+    let vivant = true;
+    const [a, b] = tr.choix;
+    void Promise.all([traitsDe(a), traitsDe(b)])
+      .then(([da, db]) => {
+        if (!vivant || !da || !db) return;
+        distinguent = { [a]: traitsQuiDistinguent(da, db), [b]: traitsQuiDistinguent(db, da) };
+      })
+      .catch(() => undefined);
+    return () => {
+      vivant = false;
+    };
+  });
+
+  /**
+   * La chaîne, à la correction : dans le plus grand des deux maillons, les traits du plus
+   * petit, peints en indigo (`ecarts.traitsContenus`) : on voit où 见 se cache dans 觉.
+   * En montant, le grand est le nouveau maillon ; en descendant, c'est le précédent.
+   */
+  let contenu = $state<{ grand: string; petit: string; traits: number[] } | null>(null);
+  $effect(() => {
+    const tr = t;
+    const suite = tr?.suite ?? [];
+    const dernier = suite[suite.length - 1];
+    if (jeu !== 'chaine' || tr === null || resultat === null || dernier === undefined) {
+      contenu = null;
+      return;
+    }
+    const [grand, petit] = tr.lien === 'descend' ? [dernier, tr.c] : [tr.c, dernier];
+    let vivant = true;
+    void Promise.all([traitsDe(grand), traitsDe(petit)])
+      .then(([dg, dp]) => {
+        if (!vivant || !dg || !dp) return;
+        const traits = traitsContenus(dg, dp);
+        contenu = traits.length > 0 ? { grand, petit, traits } : null;
+      })
+      .catch(() => undefined);
+    return () => {
+      vivant = false;
+    };
+  });
+
+  /** Les traits à peindre en indigo dans un maillon de la chaîne, à la correction. */
+  function dansLeMaillon(c: string): number[] {
+    return contenu !== null && contenu.grand === c ? contenu.traits : [];
   }
 
   /** Une brique prise : quand le compte y est, la réponse part telle quelle. */
@@ -424,9 +513,14 @@
     const seconds = Math.max(0, (Date.now() - depart) / 1000);
     const e = essayer(courante, c, faux, seconds);
     faux = e.pris;
-    if (e.resultat === null) return;
+    if (e.resultat === null) {
+      /* Faux au premier essai : rien n'est noté, mais Tao grimace un instant. */
+      reagirA(false);
+      return;
+    }
     donnee = [c];
     resultat = e.resultat;
+    reagirA(e.resultat.correct);
     for (const ev of e.resultat.evenements) onrepondu(ev);
     ondevinette(id, e.resultat.correct ? 'resolue' : 'montree');
   }
@@ -544,7 +638,13 @@
 
     <h2 class="sec">Aujourd'hui <span class="hz" lang="zh">今天</span></h2>
     <div class="tao-dit">
-      <Tao stade={taoStade} posture="jeu" humeur={taoHumeur} size={64} />
+      <Tao
+        stade={taoStade}
+        posture="jeu"
+        humeur={taoHumeur}
+        size={64}
+        allumee={faite && p.devinetteDuJour?.issue === 'resolue'}
+      />
       {#if chargee && bulle !== ''}<p class="bulle-jeu">{bulle}</p>{/if}
     </div>
     {#if chargee}
@@ -601,6 +701,7 @@
       retour={OU[retour]}
       {onrepondu}
       {oncuisine}
+      lu={phrases.lu}
       onautre={() => onchoisir(null)}
       {onretour}
     />
@@ -611,6 +712,7 @@
       retour={OU[retour]}
       {onrepondu}
       {onfini}
+      lu={phrases.lu}
       onautre={() => onchoisir(null)}
       {onretour}
     />
@@ -629,12 +731,24 @@
           <div class="eyebrow">{jeuCourant?.titre}</div>
           <h1>Devine le caractère</h1>
         </div>
-        <Tao stade={taoStade} posture="jeu" humeur={taoHumeur} size={72} />
+        <!-- La devinette trouvée, sa lanterne s'allume : un aplat de pigment. -->
+        <TaoReagit
+          {reaction}
+          cle={cleReaction}
+          stade={taoStade}
+          posture="jeu"
+          humeur={taoHumeur}
+          size={72}
+          allumee={resultat?.correct === true}
+        />
       </div>
     {:else}
       <div class="verif-tete">
-        <!-- La coquille se lit comme un texte : Tao lit par-dessus l'épaule. -->
-        <Tao
+        <!-- La coquille se lit comme un texte : Tao lit par-dessus l'épaule. Elle réagit à
+             chaque verdict : une bouchée, une grimace, un bond après trois justes. -->
+        <TaoReagit
+          {reaction}
+          cle={cleReaction}
           stade={taoStade}
           posture={postureDuJeu(jeu)}
           humeur={taoHumeur}
@@ -694,6 +808,31 @@
             </p>
           </div>
         {/if}
+        <!-- Chaque leurre pris se décompose aussi : on voit pourquoi ce n'est pas lui. -->
+        {#each faux as f (f)}
+          {@const l = decomposerLeurre(f, corpus)}
+          {#if l !== null}
+            <div class="correction leurre-pris">
+              <div class="ligne decompose">
+                <span class="tuile"><Glyph char={l.c} size={40} write={false} /></span>
+                <span class="op">=</span>
+                {#each l.briques as x, rang (x.b + rang)}
+                  {#if rang > 0}<span class="op">+</span>{/if}
+                  <span class="brique">
+                    <Glyph char={x.b} size={28} write={false} color="var(--ocre)" />
+                    {#if x.nom !== ''}<small>{x.nom}</small>{/if}
+                  </span>
+                {/each}
+              </div>
+              {#if l.glose.pinyin !== '' || l.glose.fr !== ''}
+                <p class="sens">
+                  {#if l.glose.pinyin !== ''}<span class="py">{l.glose.pinyin}</span>{/if}
+                  {l.glose.fr}
+                </p>
+              {/if}
+            </div>
+          {/if}
+        {/each}
       {:else if jeu === 'assembler'}
         {#if jeuCourant && jeuCourant.chrono > 0}
           <div class="chrono" aria-label="Le temps du tour">
@@ -753,15 +892,25 @@
           {#each suite as c, k (c + k)}
             {#if k > 0}<span class="op" aria-hidden="true">→</span>{/if}
             <span class="maillon" class:dernier={k === suite.length - 1}>
-              <Glyph char={c} size={k === suite.length - 1 ? 72 : 40} write={false} />
+              <Glyph
+                char={c}
+                size={k === suite.length - 1 ? 72 : 40}
+                write={false}
+                indigo={k === suite.length - 1 ? dansLeMaillon(c) : []}
+              />
             </span>
           {/each}
           {#if resultat !== null}
             <span class="op" aria-hidden="true">→</span>
-            <span class="maillon faite"><Glyph char={t.c} size={56} write={false} /></span>
+            <span class="maillon faite"><Glyph char={t.c} size={56} write={false} indigo={dansLeMaillon(t.c)} /></span>
           {/if}
         </div>
-        <p class="consigne">{t.enonce}</p>
+        {#if resultat !== null && contenu !== null}
+          <!-- Où l'un se cache dans l'autre : ses traits, en indigo. -->
+          <p class="k distingue">En indigo, {contenu.petit} dans {contenu.grand}.</p>
+        {:else}
+          <p class="consigne">{t.enonce}</p>
+        {/if}
         <div class="choices quatre maillons">
           {#each t.choix as c, k (c + k)}
             <button
@@ -829,6 +978,7 @@
         <p class="consigne">{t.enonce}</p>
         <div class="choices deux">
           {#each t.choix as c, k (c + k)}
+            {@const gc = glose(c, corpus)}
             <button
               class:ok={resultat !== null && c === t.reponse[0]}
               class:ko={resultat !== null && !resultat.correct && donnee[0] === c}
@@ -837,11 +987,17 @@
               onclick={() => valider([c])}
             >
               <span class="flash" class:cache>
-                <Glyph char={c} size={72} write={false} />
+                <Glyph char={c} size={72} write={false} indigo={resultat !== null ? (distinguent[c] ?? []) : []} />
               </span>
+              {#if resultat !== null && (gc.pinyin !== '' || gc.fr !== '')}
+                <small class="jumeau-gl"><span class="py">{gc.pinyin}</span> {gc.fr}</small>
+              {/if}
             </button>
           {/each}
         </div>
+        {#if resultat !== null && Object.values(distinguent).some((x) => x.length > 0)}
+          <p class="k distingue">En indigo, le trait qui les distingue.</p>
+        {/if}
         {#if !montre}
           <p class="k">Lis la question, puis touche « Montrer » : les deux caractères paraissent un instant.</p>
         {:else if cache && resultat === null}
@@ -851,12 +1007,15 @@
 
       <div class="fb" class:vide={resultat === null && jeu !== 'devinette'}>
         {#if resultat !== null}
-          <b>{resultat.montre ? 'On te montre.' : VERDICTS[resultat.note]}</b>
-          {@const quand = echeance(p, resultat.evenement.c)}
-          {#if quand}<span class="next">Prochaine fois : dans {delai(new Date(), quand)}.</span>{/if}
+          <b>{resultat.ecoule ? 'Le temps est passé : on te montre.' : resultat.montre ? 'On te montre.' : VERDICTS[resultat.note]}</b>
+          <!-- L'échéance ne se dit que si le tour a noté quelque chose : une erreur à
+               l'éclair ne note rien, la carte garde l'échéance d'avant. -->
+          {@const quand = evenementsANoter(m.jeu, resultat).length > 0 ? echeance(p, resultat.evenement.c) : null}
+          {#if quand}<span class="next">Prochaine fois : dans {delai(new Date(), quand)}.</span>
+          {:else if evenementsANoter(m.jeu, resultat).length === 0}<span class="next">Rien n’est noté.</span>{/if}
         {:else if jeu === 'devinette'}
           {faux.length > 0
-            ? 'Pas celui-là. Relis l’énoncé, une brique après l’autre.'
+            ? 'Pas celui-là : vois ses briques, puis relis l’énoncé.'
             : 'Chaque devinette cache une décomposition.'}
         {/if}
       </div>
@@ -882,11 +1041,12 @@
         humeur={taoHumeur}
         size={96}
         penchee={jeu === 'eclair' && TAO_ECLAIR.penchee}
+        allumee={lanterneAllumee}
       />
     </div>
     <div class="card center bilan">
       <h1>{jeuCourant?.titre}</h1>
-      <p class="constat">{jeuCourant?.constat(m)}</p>
+      <p class="constat">{jeuCourant?.constat(m, phrases.lu)}</p>
       {#if jeu === 'devinette'}
         <!-- Un constat, pas un score : la lanterne s'allume pour la journée. -->
         <p class="guide">
@@ -898,7 +1058,9 @@
         <!-- Le compteur, sobre : un nombre réel, pas un score. -->
         <p class="guide">En tout : {ligneMotsDevines(p.motsDevines.length).toLowerCase()}</p>
       {/if}
-      <div class="k">Ce qui vient d'être revu repasse dans tes révisions, aux échéances dites.</div>
+      {#if m.evenements.length > 0}
+        <div class="k">Ce qui vient d'être revu repasse dans tes révisions, aux échéances dites.</div>
+      {/if}
     </div>
     <div class="foot">
       <button class="btn" onclick={onretour}>{OU[retour]}</button>
@@ -1199,6 +1361,15 @@
     font-size: 15px;
     color: var(--ink2);
   }
+  /* Le leurre pris, décomposé : plus petit que la réponse, sur un filet pointillé. */
+  .leurre-pris {
+    margin-top: 10px;
+    padding-top: 8px;
+    border-top: 1px dashed var(--line);
+  }
+  .leurre-pris .sens {
+    font-size: 14px;
+  }
   .sens .py {
     font-family: var(--head);
     font-weight: 500;
@@ -1244,6 +1415,21 @@
     justify-content: center;
     column-gap: 6px;
     margin-left: 0;
+    text-align: center;
+  }
+  /* Les jumeaux, à la correction : la lecture et le sens sous chaque caractère. */
+  .jumeau-gl {
+    font-size: 13px;
+    line-height: 1.25;
+    color: var(--ink2);
+    text-align: center;
+  }
+  .jumeau-gl .py {
+    font-size: 13px;
+    color: var(--indigo);
+  }
+  .distingue {
+    margin: 6px 0 0;
     text-align: center;
   }
   /* La chaîne tient dans l'écran d'un téléphone : le dernier maillon et les quatre cases. */

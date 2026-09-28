@@ -456,13 +456,16 @@ relire : ce que Tao dit en tendant son jeu. L'app choisit la phrase (`jeux.bulle
 ```json
 {"version": "0.1.0", "license": "propriétaire", "source": "…", "source_url": "…", "modified": "…",
  "tao": {"invite": "On joue à celui-ci ?", "changer": "Et si on changeait un peu ? Celui-ci.",
-         "devinette": "On commence par la devinette ?", "attendre": "Il n'y a pas encore assez…"}}
+         "devinette": "On commence par la devinette ?", "attendre": "Il n'y a pas encore assez…",
+         "lu": "Tout est lu. Chercher le sens, c'est déjà lire."}}
 ```
 
-- `tao` : quatre phrases, sans jeton. `invite` : Tao tend un jeu ; `changer` : elle le tend
+- `tao` : cinq phrases, sans jeton. `invite` : Tao tend un jeu ; `changer` : elle le tend
   en s'ennuyant (trois fois la même activité) ; `devinette` : aucun jeu à tendre, la
-  devinette du jour attend ; `attendre` : ni jeu ni devinette, ce qui manque. Sans
-  `jouer.json` (un export plus ancien), la bulle se tait.
+  devinette du jour attend ; `attendre` : ni jeu ni devinette, ce qui manque ; `lu` : le
+  constat d'une manche où rien n'a été noté (le message WeChat mené après des erreurs,
+  l'éclair manqué), ce qui a été lu plutôt que « rien de revu ». Sans `jouer.json` (un
+  export plus ancien), la bulle se tait.
 
 ## `anecdotes.json`
 

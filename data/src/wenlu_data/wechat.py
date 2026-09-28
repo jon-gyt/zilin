@@ -395,6 +395,9 @@ def fautes_sources(wechat: Wechat) -> list[str]:
             sens = [r.texte.fr for r in repliques]
             if len(set(sens)) != len(sens):
                 fautes.append(f"{ici} : deux répliques de même sens")
+            # Un hors-sujet s'écarte sans lire ; un contresens oblige à lire le message.
+            if e.faux and not any(r.erreur == "contresens" for r in e.faux):
+                fautes.append(f"{ici} : aucune réplique contresens, rien que du hors-sujet")
     for l in wechat.lignes:
         ici = f"echanges.tsv:{l.numero}"
         if l.dialogue not in vus:

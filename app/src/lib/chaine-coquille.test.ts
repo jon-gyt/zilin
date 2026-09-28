@@ -9,18 +9,20 @@
  */
 import { describe, it, expect } from 'vitest';
 import { readFileSync } from 'node:fs';
-import { Rating } from 'ts-fsrs';
+import { Rating, type Grade } from 'ts-fsrs';
 import {
   JEUX,
   MESSAGE_MAX,
   MESSAGE_MIN,
   TOURS_COQUILLE,
-  chaine,
   chaines,
+  clePaire,
+  confusionsDesCartes,
   contient,
   corpusDeJeu,
   decouper,
   disponibles,
+  lien,
   fini,
   maillonsPossibles,
   postureDuJeu,
@@ -34,7 +36,7 @@ import {
 } from './jeux';
 import { lireMessage, loadCoquilles, type MessageCoquille } from './coquilles';
 import { lirePaires, memePaire } from './questions';
-import { grade, SEUIL_DEBLOCAGE, type Outcome } from './srs';
+import { grade, newCard, SEUIL_DEBLOCAGE, type Outcome } from './srs';
 import { VERSION_DONNEES, type Famille, type Index } from './content';
 
 const lire = (f: string): unknown => JSON.parse(readFileSync(new URL(f, import.meta.url), 'utf8'));
@@ -141,7 +143,10 @@ describe('la coquille, sur le parcours Lire', () => {
   if (!m) throw new Error('manche attendue');
 
   it('s’ouvre avec 夫 et pose des messages rédigés, entiers, avec leur traduction', () => {
-    expect(m.tours).toHaveLength(TOURS_COQUILLE);
+    /* Au jour 60, une seule paire est ouverte (天 夫) : un seul message, jamais la même
+       paire deux fois dans la manche. */
+    expect(m.tours).toHaveLength(1);
+    expect(TOURS_COQUILLE).toBe(4);
     const ids = new Set(coquilles.map((q) => q.id));
     for (const t of m.tours) {
       const original = t.choix.map((x, i) => (x === t.reponse[0] ? t.c : x)).join('');
@@ -180,7 +185,7 @@ describe('la coquille, sur le parcours Lire', () => {
     /* Au jour 60, 很 (jour 138) n'est pas acquis : aucun message qui le porte. */
     for (const t of m.tours) expect(t.choix).not.toContain('很');
     const plus = corpusAuJour(60, '很');
-    const toutes = [0, 1, 2, 3, 4, 5, 6, 7].flatMap(
+    const toutes = Array.from({ length: 40 }, (_, k) => k).flatMap(
       (k) => JEUX.coquille.preparer(plus, `g/${k}`)?.tours ?? []
     );
     expect(toutes.some((t) => t.choix.includes('很'))).toBe(true);
@@ -202,6 +207,59 @@ describe('la coquille, sur le parcours Lire', () => {
     expect(JEUX.coquille.constat(finie)).not.toMatch(/point|score|vie|record|classement|coffre/i);
   });
 
+  it('ne pose jamais deux fois la même paire dans une manche, dans un sens ou dans l’autre', () => {
+    /* En fin de parcours, plusieurs paires sont ouvertes : 天 夫, 土 士, 王 玉, 王 主. */
+    const tard = corpusAuJour(190);
+    for (let k = 0; k < 12; k++) {
+      const manche = JEUX.coquille.preparer(tard, `2026-09-28/coquille/${k}`);
+      if (!manche) throw new Error('manche attendue');
+      const cles = manche.tours.map((t) => clePaire(t.c, t.reponse[0]));
+      expect(new Set(cles).size, cles.join(' ')).toBe(cles.length);
+    }
+  });
+
+  it('piège aussi avec les vraies confusions de l’apprenant, gardées dans ses cartes', () => {
+    /* Au jour 60, 天 夫 seule est ouverte ; l'apprenant a pris 人 pour 大, deux fois, et 日
+       pour 白 une fois : la manche peut poser ces paires-là, jamais deux fois la même. */
+    const cartes = [...new Set(acquisAuJour(60))].map((c) => ({
+      id: c,
+      card: newCard(c, new Date('2026-09-01')).card,
+      history:
+        c === '大'
+          ? [
+              { at: new Date('2026-09-02'), rating: Rating.Again as Grade, due: new Date(), leurres: ['人'] },
+              { at: new Date('2026-09-03'), rating: Rating.Again as Grade, due: new Date(), leurres: ['人'] }
+            ]
+          : c === '白'
+            ? [{ at: new Date('2026-09-02'), rating: Rating.Again as Grade, due: new Date(), leurres: ['日', 'bâiller'] }]
+            : []
+    }));
+    const avec = corpusDeJeu({
+      fiches: familles.flatMap((f) => f.fiches),
+      familles,
+      paires,
+      traits,
+      coquilles,
+      cartes: cartes.map((x) => ({ ...x, card: { ...x.card, stability: SEUIL_DEBLOCAGE + 1 } }))
+    });
+    expect(avec.confusions).toEqual([
+      ['大', '人'],
+      ['白', '日']
+    ]);
+    const cles = new Set<string>();
+    for (let k = 0; k < 20; k++) {
+      const manche = JEUX.coquille.preparer(avec, `g/${k}`);
+      if (!manche) throw new Error('manche attendue');
+      const ici = manche.tours.map((t) => clePaire(t.c, t.reponse[0]));
+      expect(new Set(ici).size).toBe(ici.length);
+      for (const c of ici) cles.add(c);
+    }
+    expect(cles).toContain(clePaire('天', '夫'));
+    expect(cles).toContain(clePaire('大', '人'));
+    /* Sans historique, aucune confusion n'est devinée. */
+    expect(confusionsDesCartes([{ c: '大', stabilite: 50 }])).toEqual([]);
+  });
+
   it('met Tao en posture de lecture : elle lit le message par-dessus l’épaule', () => {
     expect(postureDuJeu('coquille')).toBe('lecture');
     expect(postureDuJeu('chaine')).toBe('jeu');
@@ -216,36 +274,45 @@ describe('la chaîne, sur le parcours Lire', () => {
   const m = JEUX.chaine.preparer(corpus, '2026-09-24/chaine/0');
   if (!m) throw new Error('manche attendue');
 
-  it('est valide : chaque maillon contient le précédent', () => {
+  it('est valide : chaque maillon contient le précédent, ou se cache dedans', () => {
     const toutes = chaines(corpus, '2026-09-24/chaine/0');
     for (const suite of toutes) {
       expect(suite.length).toBeGreaterThanOrEqual(2);
-      for (let k = 1; k < suite.length; k++) expect(contient(suite[k], suite[k - 1], corpus)).toBe(true);
+      for (let k = 1; k < suite.length; k++) expect(lien(suite[k - 1], suite[k], corpus)).not.toBeNull();
     }
     for (const t of m.tours) {
       const s = t.suite ?? [];
-      expect(contient(t.c, s[s.length - 1], corpus)).toBe(true);
+      expect(t.lien).toBe(lien(s[s.length - 1], t.c, corpus));
     }
-    /* Au jour 90, 母 → 每 → 海 : trois maillons, la plus longue d'abord. */
-    const plus = corpusAuJour(90);
-    expect(chaine(plus, 'g')).toEqual(['母', '每', '海']);
   });
 
-  it('enchaîne plusieurs chaînes sans caractère commun quand la première bute', () => {
+  it('suit l’arbre de décomposition dans les deux sens : des chaînes longues, pas de deux maillons', () => {
+    /* Avant, « 11 chaînes, la plus longue de 3 » : les parts plates n'offraient que des
+       chaînes de deux. En montant et en descendant, une chaîne tient la manche. */
+    for (const jour of [11, 40, 95, 189]) {
+      const c = corpusAuJour(jour);
+      const [premiere] = chaines(c, `2026-09-24/chaine/${jour}`);
+      expect(premiere.length, `jour ${jour}`).toBeGreaterThanOrEqual(10);
+      const sens = premiere.slice(1).map((x, k) => lien(premiere[k], x, c));
+      expect(sens).toContain('monte');
+      expect(sens).toContain('descend');
+    }
     const toutes = chaines(corpus, '2026-09-24/chaine/0');
-    expect(toutes.length).toBeGreaterThan(1);
     const vus = toutes.flat();
     expect(new Set(vus).size).toBe(vus.length);
-    /* Au jour 40, les décompositions plates ne donnent que des chaînes de deux : la
-       manche en pose plusieurs, pas une seule question. */
-    expect(m.tours.length).toBeGreaterThan(1);
-    expect(m.tours.length).toBeLessThanOrEqual(JEUX.chaine.tours);
+    expect(m.tours.length).toBe(JEUX.chaine.tours);
   });
 
   it('ne propose que de l’acquis, et une seule proposition prolonge la chaîne', () => {
     for (const t of m.tours) {
       const s = t.suite ?? [];
-      expect(t.choix.filter((x) => contient(x, s[s.length - 1], corpus))).toEqual([t.c]);
+      const dernier = s[s.length - 1];
+      /* En montant, un seul choix contient le dernier maillon ; en descendant, un seul s'y cache. */
+      const liees = t.choix.filter((x) =>
+        t.lien === 'descend' ? contient(dernier, x, corpus) : contient(x, dernier, corpus)
+      );
+      expect(liees).toEqual([t.c]);
+      expect(t.enonce).toMatch(t.lien === 'descend' ? /se cache dans ce caractère/ : /contient ce caractère/);
       for (const x of [...t.choix, ...s]) expect(corpus.acquis).toContain(x);
     }
   });

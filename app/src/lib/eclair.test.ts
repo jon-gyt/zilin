@@ -63,6 +63,28 @@ function corpus(o: { cartes?: { c: string; stabilite: number }[]; devines?: stri
   });
 }
 
+/**
+ * Un dictionnaire en deux groupes : dans chacun, les mots se servent de leurres entre eux,
+ * si bien que deux mots d'un même groupe montreraient les mêmes quatre sens.
+ */
+const LARGE: Eclair = lireEclair({
+  version: '0.9.0',
+  source: 'test',
+  mots: [
+    ...ECLAIR.mots.filter((m) => m.id !== '大人'),
+    { id: '人口', mot: '人口', pinyin: 'rénkǒu', fr: 'population', en: 'population', leurres: ['大人', '山水', '天上'] },
+    { id: '山水', mot: '山水', pinyin: 'shānshuǐ', fr: 'paysage', en: 'landscape', leurres: ['大人', '人口', '天上'] },
+    { id: '天上', mot: '天上', pinyin: 'tiānshàng', fr: 'dans le ciel', en: 'in the sky', leurres: ['大人', '人口', '山水'] },
+    { id: '大人', mot: '大人', pinyin: 'dàren', fr: 'adulte', en: 'adult', leurres: ['人口', '山水', '天上'] }
+  ],
+  racines: {}
+});
+
+function large(): CorpusJeux {
+  const cs = ['火', '车', '山', '大', '人', '口', '水', '天', '上'];
+  return corpusDeJeu({ eclair: LARGE, cartes: cs.map(stable), traits: cs });
+}
+
 function fiche(c: string, mots: string[]): Fiche {
   return {
     c,
@@ -173,8 +195,10 @@ describe('les mots proposés', () => {
 
 describe('une manche du dictionnaire éclair', () => {
   it('pose quatre sens, dont le bon, tirés du contenu, et la même manche à graine égale', () => {
+    /* 火车, 火山 et 大人 sont possibles, mais leurs sens se recoupent : 火车 et 火山 montrent
+       les mêmes quatre sens. La manche n'en pose qu'un, jamais deux fois les mêmes leurres. */
     const tours = toursEclair(corpus(), JOUR);
-    expect(tours.length).toBe(3);
+    expect(tours.length).toBe(1);
     expect(tours.length).toBeLessThanOrEqual(TOURS_ECLAIR);
     for (const t of tours) {
       const m = motDe(t, corpus());
@@ -196,8 +220,34 @@ describe('une manche du dictionnaire éclair', () => {
     expect(JEUX.eclair.minutes).toBeLessThanOrEqual(3);
   });
 
+  it('ne montre jamais deux fois un même sens dans la manche quand l’acquis permet de l’éviter', () => {
+    const tours = toursEclair(large(), JOUR);
+    /* Deux groupes de mots dont les sens se recoupent tout entiers : un mot de chaque. */
+    expect(tours).toHaveLength(2);
+    const [a, b] = tours;
+    expect(a.choix.filter((x) => b.choix.includes(x))).toEqual([]);
+  });
+
+  it('sur l’export, jamais deux tours aux mêmes leurres, au plus un sens en commun', () => {
+    const dossier = `../../public/data/${VERSION_DONNEES}`;
+    const index = JSON.parse(readFileSync(new URL(`${dossier}/index.json`, import.meta.url), 'utf8')) as Index;
+    const lu = lireEclair(JSON.parse(readFileSync(new URL(`${dossier}/eclair.json`, import.meta.url), 'utf8')));
+    const tous = [...new Set(lu.mots.flatMap((m) => [...m.mot]))];
+    const c = corpusDeJeu({ eclair: lu, cartes: tous.map(stable), traits: tous });
+    expect(index.eclair).toBe('eclair.json');
+    for (let k = 0; k < 30; k++) {
+      const tours = toursEclair(c, `2026-09-28/eclair/${k}`);
+      expect(tours).toHaveLength(TOURS_ECLAIR);
+      const vus = new Set<string>();
+      for (const t of tours) {
+        expect(t.choix.filter((x) => vus.has(x)).length).toBe(0);
+        for (const x of t.choix) vus.add(x);
+      }
+    }
+  });
+
   it('note les deux caractères par `grade`, juste ou montré, et le constat compte les mots', () => {
-    const m = JEUX.eclair.preparer(corpus(), JOUR)!;
+    const m = JEUX.eclair.preparer(large(), JOUR)!;
     const t = tour(m)!;
     const juste = JEUX.eclair.repondre(m, t.reponse[0], { correct: true, tries: 0, seconds: 3 });
     expect(juste.correct).toBe(true);
@@ -228,6 +278,14 @@ describe('une manche du dictionnaire éclair', () => {
     expect(evenementsANoter('eclair', juste).map((e) => e.c)).toEqual([t.c, ...(t.aussi ?? [])]);
     /* Le constat de la manche ne change pas. */
     expect(constat(faux.manche)).toBe('2 caractères revus, aucun mot deviné.');
+  });
+
+  it('l’écran ne dit « Prochaine fois » que si le tour a noté quelque chose', () => {
+    const game = readFileSync(new URL('Game.svelte', import.meta.url), 'utf8');
+    const fb = game.slice(game.indexOf('<div class="fb"'));
+    expect(fb.slice(0, fb.indexOf('</div>'))).toContain(
+      'evenementsANoter(m.jeu, resultat).length > 0 ? echeance(p, resultat.evenement.c) : null'
+    );
   });
 
   it('l’écran ne range dans la progression que ce que `evenementsANoter` garde', () => {

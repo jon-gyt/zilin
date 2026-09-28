@@ -57,6 +57,12 @@ export const FLASH_MS = 700;
 /** Les jumeaux : quinze paires par minute au plus. */
 export const PAIRES_PAR_MINUTE = 15;
 
+/**
+ * Les jumeaux : huit paires par manche. Quinze faisaient 45 taps pour une minute
+ * (« Montrer », le choix, « Suivant ») : on garde le rythme, pas la corvée.
+ */
+export const TOURS_JUMEAUX = 8;
+
 /** La chaîne : quatre propositions, dont une seule contient le dernier caractère. */
 export const PROPOSITIONS_CHAINE = 4;
 
@@ -108,6 +114,12 @@ export type CorpusJeux = {
   gloses: Readonly<Record<string, Glose>>;
   /** Les paires à ne pas confondre (`data/<version>/paires.json`). */
   paires: Paires;
+  /**
+   * Les vraies confusions de l'apprenant : un caractère, et un leurre qu'il a pris pour
+   * lui (les `leurres` que l'historique des cartes garde, `srs.Outcome`). Les plus
+   * fréquentes d'abord. Absentes : aucune (données de test, progression neuve).
+   */
+  confusions?: readonly (readonly [string, string])[];
   /** Les caractères dont on a les traits : les seuls qu'un jeu peut montrer. */
   traits: readonly string[];
   /**
@@ -186,6 +198,39 @@ export function briques(c: string, corpus: CorpusJeux): string[] {
 /** La glose d'un caractère, vide quand le contenu ne la donne pas. */
 export function glose(c: string, corpus: CorpusJeux): Glose {
   return corpus.gloses[c] ?? { pinyin: '', fr: '' };
+}
+
+/* ---------- les vraies confusions ---------- */
+
+const UN_HAN = /^\p{Script=Han}$/u;
+
+/**
+ * Les confusions que la progression a gardées : pour chaque carte, les leurres pris à sa
+ * place (`history[].leurres`), quand ce sont des caractères. Une paire est rangée une
+ * fois, dans l'ordre de la carte (le caractère, puis le leurre), et les plus fréquentes
+ * passent devant ; à égalité, l'ordre où elles paraissent. Rien n'est deviné : une
+ * carte sans historique n'en rend aucune.
+ */
+export function confusionsDesCartes(cartes: readonly Acquis[]): [string, string][] {
+  const comptes = new Map<string, { paire: [string, string]; n: number; rang: number }>();
+  for (const a of cartes) {
+    if (!('history' in a)) continue;
+    for (const h of a.history) {
+      for (const l of h.leurres ?? []) {
+        if (l === a.id || !UN_HAN.test(l) || !UN_HAN.test(a.id)) continue;
+        const cle = [a.id, l].sort().join('');
+        const deja = comptes.get(cle);
+        if (deja) deja.n += 1;
+        else comptes.set(cle, { paire: [a.id, l], n: 1, rang: comptes.size });
+      }
+    }
+  }
+  return [...comptes.values()].sort((x, y) => y.n - x.n || x.rang - y.rang).map((x) => x.paire);
+}
+
+/** La clé d'une paire, dans un sens ou dans l'autre : 天夫 et 夫天 sont la même. */
+export function clePaire(a: string, b: string): string {
+  return [a, b].sort().join('');
 }
 
 /* ---------- l'acquis, et son repli de démonstration ---------- */
@@ -322,6 +367,8 @@ export function corpusDeJeu(s: Sources): CorpusJeux {
     traits: s.traits ?? [],
     textes
   };
+  const confusions = confusionsDesCartes(s.cartes ?? []);
+  if (confusions.length > 0) corpus.confusions = confusions;
   const exportes = new Set<string>();
   for (const x of s.fiches ?? []) exportes.add(x.c);
   for (const f of s.familles ?? []) {
@@ -398,6 +445,8 @@ export type Tour = {
   paire: boolean;
   /** La chaîne : les caractères déjà enchaînés, du départ au dernier. */
   suite?: string[];
+  /** La chaîne : le sens du maillon, qui contient le dernier ou se cache dedans. */
+  lien?: Lien;
   /** D'autres caractères notés par la même réponse (la coquille : l'intrus). */
   aussi?: string[];
   /** La coquille : l'indice, dans `choix`, où commence chaque mot ou phrase du message. */
@@ -442,9 +491,12 @@ export type Resultat = {
   note: Grade;
   /**
    * Faux : la réponse est montrée, et la carte revient dans dix minutes, sauf aux jeux
-   * où une erreur ne note rien (`ERREUR_SANS_NOTE`).
+   * où une erreur ne note rien (`ERREUR_SANS_NOTE`) et quand le temps est écoulé
+   * (`NOTER_TEMPS_ECOULE`).
    */
   montre: boolean;
+  /** Le chronomètre du tour s'est vidé avant la réponse : l'écran a répondu à vide. */
+  ecoule?: boolean;
 };
 
 export type Jeu = {
@@ -472,8 +524,11 @@ export type Jeu = {
   preparer: (corpus: CorpusJeux, graine: string) => Manche | null;
   /** Note une réponse : un événement de révision, prêt pour `grade`. */
   repondre: (manche: Manche, reponse: Reponse, outcome: Outcome) => Resultat;
-  /** Une ligne de constat, des nombres réels, jamais un score. */
-  constat: (manche: Manche) => string;
+  /**
+   * Une ligne de constat, des nombres réels, jamais un score. `lu` : ce que Tao dit d'une
+   * manche où rien n'a été noté (`jouer.json`, clé `lu`), vide sans l'export.
+   */
+  constat: (manche: Manche, lu?: string) => string;
 };
 
 /* ---------- les leurres, par ressemblance de composants ---------- */
@@ -561,8 +616,14 @@ export function ciblesJumeaux(corpus: CorpusJeux): string[] {
   });
 }
 
+/** Les caractères que l'apprenant a vraiment confondus avec `c`, les plus fréquents d'abord. */
+export function confondusAvec(c: string, corpus: CorpusJeux): string[] {
+  return (corpus.confusions ?? []).flatMap(([a, b]) => (a === c ? [b] : b === c ? [a] : []));
+}
+
 /**
- * Le jumeau d'un caractère : d'abord son groupe à ne pas confondre, ensuite le plus
+ * Le jumeau d'un caractère : d'abord son groupe à ne pas confondre (`paires.json`), puis
+ * un caractère que l'apprenant a vraiment pris pour lui (`confusions`), ensuite le plus
  * proche par ressemblance de composants. `null` quand rien n'est assez proche : mieux
  * vaut sauter un tour qu'opposer deux caractères qui n'ont rien à voir.
  */
@@ -571,8 +632,10 @@ export function jumeau(c: string, corpus: CorpusJeux, graine: string): string | 
   /* Un jumeau n'a pas à être acquis : c'est une forme à écarter, pas une leçon.
      Tout ce dont on a les traits peut donc servir, et rien d'autre. */
   const [proche] = proches([c], corpus.traits, corpus, graine, 1, [c]);
+  if (proche && memePaire(proche, c, q)) return proche;
+  const confondu = confondusAvec(c, corpus).find((x) => montrable(x, corpus));
+  if (confondu !== undefined) return confondu;
   if (!proche) return null;
-  if (memePaire(proche, c, q)) return proche;
   return ressemblance(proche, c, q) > BONUS_MEME_NOMBRE ? proche : null;
 }
 
@@ -595,11 +658,12 @@ function toursJumeaux(corpus: CorpusJeux, graine: string, max: number): Tour[] {
         reponse: [c],
         choix: melange([c, autre], `${graine}/${c}/choix`),
         ordre: false,
-        paire: memePaire(c, autre, q)
+        /* Une paire de `paires.json`, ou une vraie confusion : à ne pas confondre. */
+        paire: memePaire(c, autre, q) || confondusAvec(c, corpus).includes(autre)
       }
     ];
   });
-  /* Les paires à ne pas confondre d'abord, la ressemblance ensuite. */
+  /* Les paires à ne pas confondre et les vraies confusions d'abord, la ressemblance ensuite. */
   return [...tours.filter((t) => t.paire), ...tours.filter((t) => !t.paire)].slice(0, max);
 }
 
@@ -663,75 +727,122 @@ export function maillonsPossibles(corpus: CorpusJeux): string[] {
   return corpus.acquis.filter((c) => montrable(c, corpus) && (exportes === null || exportes.has(c)));
 }
 
-/** Les caractères acquis qui prolongent la chaîne après `c`. */
+/** Les caractères acquis qui prolongent la chaîne après `c` en le contenant. */
 export function prolongements(c: string, corpus: CorpusJeux): string[] {
   return maillonsPossibles(corpus).filter((s) => contient(s, c, corpus));
 }
 
 /**
+ * Le sens d'un maillon : le suivant contient le précédent (`monte` : 大 → 天), ou il se
+ * cache dedans (`descend` : 吞 → 口). La chaîne suit l'arbre de décomposition dans les
+ * deux sens : elle monte vers un caractère qui contient le dernier, ou descend vers une
+ * brique qu'il contient, et repart de là (人 → 大 → 天 → 吞 → 口 → 可 → 哥).
+ */
+export type Lien = 'monte' | 'descend';
+
+/** Le lien de `a` à `b` dans l'arbre de décomposition, `null` s'ils ne se contiennent pas. */
+export function lien(a: string, b: string, corpus: CorpusJeux): Lien | null {
+  if (contient(b, a, corpus)) return 'monte';
+  if (contient(a, b, corpus)) return 'descend';
+  return null;
+}
+
+/** Ce qu'on demande à chaque sens du lien. */
+export const ENONCES_CHAINE: Record<Lien, string> = {
+  monte: 'Lequel contient ce caractère ?',
+  descend: 'Lequel se cache dans ce caractère ?'
+};
+
+/**
+ * Un leurre sûr pour un maillon qui part de `precedent` : un caractère qui ne peut pas
+ * passer pour la réponse. En montant, il ne porte pas `precedent`, même en pièces éparses ;
+ * en descendant, `precedent` ne le contient pas, ni en entier ni par ses pièces.
+ */
+function leurreSur(x: string, precedent: string, sens: Lien, corpus: CorpusJeux): boolean {
+  if (x === precedent) return false;
+  return sens === 'monte' ? !porte(x, precedent, corpus) : !porte(precedent, x, corpus);
+}
+
+/** Le budget de la recherche : de quoi explorer l'acquis d'un parcours entier, sans attendre. */
+const BUDGET_CHAINE = 4_000;
+
+/**
  * La chaîne la plus longue que l'acquis permet, à graine égale toujours la même.
  *
- * Le départ est une brique acquise qui ouvre la plus longue chaîne ; à chaque pas, on
- * prend le caractère acquis qui la mène le plus loin ; la graine ne départage que les
- * ex aequo. La chaîne s'arrête quand aucun caractère acquis ne la prolonge : c'est
- * l'acquis qui la borne, jamais le jeu.
+ * Chaque maillon contient le précédent, ou se cache dedans : la chaîne suit l'arbre de
+ * décomposition dans les deux sens. Un maillon ne se pose que s'il reste trois leurres
+ * sûrs pour lui (`leurreSur`) : une brique que tout contient (一) ne relie rien. La
+ * recherche essaie les départs et les suites dans un ordre fixé par la graine, garde la
+ * plus longue, et s'arrête à `MAILLONS_MAX` maillons ou au bout de son budget. C'est
+ * l'acquis qui borne la chaîne, jamais le jeu.
  */
 export function chaine(corpus: CorpusJeux, graine: string): string[] {
   const possibles = maillonsPossibles(corpus);
-  const suites = new Map<string, string[]>(
-    possibles.map((c) => [c, possibles.filter((s) => contient(s, c, corpus))])
-  );
-  const loin = new Map<string, number>();
-  const enCours = new Set<string>();
-  /* La longueur de la plus longue chaîne qui part de `c`. Un cycle (donnée fautive) est coupé. */
-  const portee = (c: string): number => {
-    const connue = loin.get(c);
-    if (connue !== undefined) return connue;
-    if (enCours.has(c)) return 0;
-    enCours.add(c);
-    let n = 1;
-    for (const s of suites.get(c) ?? []) n = Math.max(n, 1 + portee(s));
-    enCours.delete(c);
-    loin.set(c, n);
-    return n;
-  };
-  const meilleur = (cs: readonly string[], sel: string): string | null => {
-    let choix: string | null = null;
-    let best = -1;
-    let h = 0;
-    for (const c of cs) {
-      const n = portee(c);
-      const hc = hachage(`${graine}/${sel}/${c}`);
-      if (n > best || (n === best && hc < h)) {
-        choix = c;
-        best = n;
-        h = hc;
-      }
-    }
-    return choix;
-  };
-
-  const departs = possibles.filter((c) => (suites.get(c) ?? []).length > 0);
-  const depart = meilleur(departs, 'depart');
-  if (depart === null) return [];
-  const out = [depart];
-  while (out.length <= MAILLONS_MAX) {
-    const dernier = out[out.length - 1];
-    const libres = (suites.get(dernier) ?? []).filter((s) => !out.includes(s));
-    const suivant = meilleur(libres, dernier);
-    if (suivant === null) break;
-    out.push(suivant);
+  /* Les liens, par les parts : `b` ne contient `a` que s'il porte `a` lui-même, ou la
+     première pièce de son motif. Un lien qui monte de `a` à `b` descend de `b` à `a`. */
+  const parPiece = new Map<string, string[]>();
+  for (const b of possibles) {
+    for (const x of new Set(briques(b, corpus))) parPiece.set(x, [...(parPiece.get(x) ?? []), b]);
   }
-  return out;
+  const voisins = new Map<string, { c: string; sens: Lien }[]>(possibles.map((c) => [c, []]));
+  for (const a of possibles) {
+    const porteurs = new Set([...(parPiece.get(a) ?? []), ...(parPiece.get(motif(a, corpus)[0]) ?? [])]);
+    for (const b of porteurs) {
+      if (b === a || !contient(b, a, corpus)) continue;
+      voisins.get(a)?.push({ c: b, sens: 'monte' });
+      voisins.get(b)?.push({ c: a, sens: 'descend' });
+    }
+  }
+  /* Les leurres sûrs de chaque départ de maillon, dans chaque sens : comptés une fois. */
+  const surs = new Map<string, string[]>();
+  const leurres = (a: string, sens: Lien): string[] => {
+    const cle = `${sens}/${a}`;
+    let l = surs.get(cle);
+    if (!l) {
+      l = possibles.filter((x) => leurreSur(x, a, sens, corpus));
+      surs.set(cle, l);
+    }
+    return l;
+  };
+  const posable = (a: string, b: string, sens: Lien, chemin: readonly string[]): boolean =>
+    leurres(a, sens).filter((x) => x !== b && !chemin.includes(x)).length >= PROPOSITIONS_CHAINE - 1;
+  const rang = (sel: string, c: string): number => hachage(`${graine}/${sel}/${c}`);
+  /* Les plus reliés d'abord : ce sont eux qui mènent loin ; la graine départage. */
+  const ordre = (sel: string, cs: readonly string[]): string[] =>
+    [...cs].sort(
+      (x, y) => (voisins.get(y)?.length ?? 0) - (voisins.get(x)?.length ?? 0) || rang(sel, x) - rang(sel, y)
+    );
+
+  let meilleur: string[] = [];
+  let budget = BUDGET_CHAINE;
+  const explorer = (chemin: string[]): void => {
+    if (chemin.length > meilleur.length) meilleur = [...chemin];
+    if (chemin.length > MAILLONS_MAX || budget <= 0) return;
+    const dernier = chemin[chemin.length - 1];
+    const suites = (voisins.get(dernier) ?? []).filter(
+      (v) => !chemin.includes(v.c) && posable(dernier, v.c, v.sens, chemin)
+    );
+    for (const c of ordre(dernier, suites.map((v) => v.c))) {
+      if (budget <= 0 || meilleur.length > MAILLONS_MAX) return;
+      budget -= 1;
+      chemin.push(c);
+      explorer(chemin);
+      chemin.pop();
+    }
+  };
+  const departs = possibles.filter((c) => (voisins.get(c) ?? []).length > 0);
+  for (const d of ordre('depart', departs)) {
+    if (budget <= 0 || meilleur.length > MAILLONS_MAX) break;
+    explorer([d]);
+  }
+  return meilleur.length >= 2 ? meilleur : [];
 }
 
 /**
  * Les chaînes d'une manche, deux à deux sans caractère commun. La première est la plus
- * longue que l'acquis permet (`chaine`) ; quand elle bute sur une impasse avant que la
- * manche soit pleine, une autre part d'un caractère acquis qui n'a pas encore servi. Les
- * décompositions canoniques sont plates (大, 天, 人 sont des composants de la norme) :
- * au début du parcours, une chaîne a souvent deux maillons, et la manche en enchaîne
- * plusieurs plutôt que de s'arrêter après une question.
+ * longue que l'acquis permet (`chaine`) ; quand elle s'arrête avant que la manche soit
+ * pleine, une autre part d'un caractère acquis qui n'a pas encore servi. En suivant
+ * l'arbre de décomposition dans les deux sens, une chaîne tient souvent la manche entière.
  */
 export function chaines(corpus: CorpusJeux, graine: string): string[][] {
   const out: string[][] = [];
@@ -754,10 +865,11 @@ function toursChaine(corpus: CorpusJeux, graine: string): Tour[] {
     for (let k = 1; k < suite.length && tours.length < MAILLONS_MAX; k++) {
       const precedent = suite[k - 1];
       const c = suite[k];
+      const sens = lien(precedent, c, corpus) ?? 'monte';
       /* Les leurres : des caractères acquis, pris par ressemblance avec la bonne réponse,
-         qui ne portent pas le dernier caractère, même en pièces éparses. */
+         qui ne peuvent pas passer pour elle (`leurreSur`). */
       const candidats = maillonsPossibles(corpus).filter(
-        (x) => !suite.includes(x) && !porte(x, precedent, corpus)
+        (x) => !suite.includes(x) && leurreSur(x, precedent, sens, corpus)
       );
       /* Pas les quatre mêmes cases d'un tour à l'autre, quand l'acquis permet d'en changer. */
       const avant = new Set(tours.length > 0 ? tours[tours.length - 1].choix : []);
@@ -769,15 +881,13 @@ function toursChaine(corpus: CorpusJeux, graine: string): Tour[] {
       if (leurres.length < PROPOSITIONS_CHAINE - 1) break;
       tours.push({
         c,
-        enonce:
-          k === 1 && tours.length > 0
-            ? 'Une autre chaîne : lequel contient ce caractère ?'
-            : 'Lequel contient ce caractère ?',
+        enonce: k === 1 && tours.length > 0 ? `Une autre chaîne : ${ENONCES_CHAINE[sens].toLowerCase()}` : ENONCES_CHAINE[sens],
         reponse: [c],
         choix: melange([c, ...leurres], `${graine}/${c}/choix`),
         ordre: false,
         paire: false,
-        suite: suite.slice(0, k)
+        suite: suite.slice(0, k),
+        lien: sens
       });
     }
   }
@@ -837,16 +947,47 @@ function morceaux(corpus: CorpusJeux): string[][] {
 
 /**
  * Les intrus possibles à la place d'un caractère : les autres membres de ses groupes de
- * `paires.json`, et rien d'autre. Un intrus est acquis (on ne piège qu'avec deux
- * caractères qu'on sait lire, brief §7) et absent du message : il ne doit y avoir qu'un
- * seul caractère faux.
+ * `paires.json`, puis les leurres que l'apprenant a vraiment pris pour lui ou pour qui il
+ * a été pris (`confusions`), et rien d'autre. Un intrus est acquis (on ne piège qu'avec
+ * deux caractères qu'on sait lire, brief §7) et absent du message : il ne doit y avoir
+ * qu'un seul caractère faux. `avecPaires` à faux : les seules confusions (un caractère
+ * que le message rédigé ne donne pas comme piège).
  */
-export function remplacants(c: string, message: readonly string[], corpus: CorpusJeux): string[] {
-  const autres = corpus.paires
+export function remplacants(
+  c: string,
+  message: readonly string[],
+  corpus: CorpusJeux,
+  avecPaires = true
+): string[] {
+  const groupes = [...(avecPaires ? corpus.paires : []), ...(corpus.confusions ?? [])];
+  const autres = groupes
     .filter((g) => g.includes(c))
     .flat()
     .filter((x) => x !== c && lisible(x, corpus) && !message.includes(x));
   return [...new Set(autres)];
+}
+
+/** Une place piégeable d'un message : le rang du caractère, et ses intrus possibles. */
+type Place = { i: number; r: string[] };
+
+/**
+ * Les places d'un message qu'on peut piéger sans reposer une paire déjà posée dans la
+ * manche. `pieges` : les caractères que le message rédigé donne comme pièges (ils se
+ * piègent par les paires et par les confusions) ; les autres ne se piègent que par une
+ * vraie confusion. `null` : tout caractère se piège (les messages des fiches).
+ */
+function placesLibres(
+  s: readonly string[],
+  pieges: readonly string[] | null,
+  corpus: CorpusJeux,
+  posees: ReadonlySet<string>
+): Place[] {
+  return s.flatMap((c, i) => {
+    const r = remplacants(c, s, corpus, pieges === null || pieges.includes(c)).filter(
+      (x) => !posees.has(clePaire(c, x))
+    );
+    return r.length === 0 ? [] : [{ i, r }];
+  });
 }
 
 /** La correction par les briques : la décomposition quand on sait la dessiner, sinon le caractère seul. */
@@ -898,22 +1039,19 @@ function tourCoquille(
  * caractères acquis, et au moins un de leurs pièges avec un intrus possible. Le piège et
  * l'intrus sont tirés d'après la graine.
  */
-function toursRediges(corpus: CorpusJeux, graine: string): Tour[] {
+function toursRediges(corpus: CorpusJeux, graine: string, posees: Set<string>): Tour[] {
   const tours: Tour[] = [];
   for (const q of melange(corpus.coquilles ?? [], `${graine}/rediges`)) {
     if (tours.length >= TOURS_COQUILLE) break;
     const { signes: s, ponctuation } = decouper(q.message);
     if (s.length < MESSAGE_MIN || s.length > MESSAGE_MAX) continue;
     if (!s.every((c) => lisible(c, corpus))) continue;
-    const places = s.flatMap((c, i) => {
-      if (!q.pieges.includes(c)) return [];
-      const r = remplacants(c, s, corpus);
-      return r.length === 0 ? [] : [{ i, r }];
-    });
+    const places = placesLibres(s, q.pieges, corpus, posees);
     if (places.length === 0) continue;
     const g = `${graine}/${q.id}`;
     const { i, r } = places[hachage(`${g}/place`) % places.length];
     const intrus = r[hachage(`${g}/intrus`) % r.length];
+    posees.add(clePaire(s[i], intrus));
     tours.push(tourCoquille(corpus, s, i, intrus, { ponctuation, traduction: q.fr }));
   }
   return tours;
@@ -928,7 +1066,8 @@ function toursDesFiches(
   corpus: CorpusJeux,
   graine: string,
   deja: ReadonlySet<string>,
-  n: number
+  n: number,
+  posees: Set<string>
 ): Tour[] {
   const textes = morceaux(corpus);
   const tours: Tour[] = [];
@@ -938,16 +1077,14 @@ function toursDesFiches(
     const g = `${graine}/coquille/${essai}`;
     const message = composer(textes, g);
     if (message === null) break;
-    const places = message.signes.flatMap((c, i) => {
-      const r = remplacants(c, message.signes, corpus);
-      return r.length === 0 ? [] : [{ i, r }];
-    });
+    const places = placesLibres(message.signes, null, corpus, posees);
     if (places.length === 0) continue;
     const { i, r } = places[hachage(`${g}/place`) % places.length];
     const t = tourCoquille(corpus, message.signes, i, r[0], { coupes: message.coupes });
     const cle = t.choix.join('');
     if (vus.has(cle)) continue;
     vus.add(cle);
+    posees.add(clePaire(message.signes[i], r[0]));
     tours.push(t);
   }
   return tours;
@@ -955,13 +1092,20 @@ function toursDesFiches(
 
 /**
  * La manche de la coquille : les messages rédigés d'abord, ceux des fiches ensuite.
- * Chaque tour ne piège qu'avec un groupe de `paires.json`, et ne montre que de l'acquis.
+ * Chaque tour piège avec un groupe de `paires.json` ou une vraie confusion de
+ * l'apprenant, et ne montre que de l'acquis. Une même paire ne se pose qu'une fois par
+ * manche, dans un sens ou dans l'autre : au deuxième message, on chercherait 夫 sans
+ * lire. Quand l'acquis n'ouvre qu'une paire, la manche est donc plus courte.
  */
 function toursCoquille(corpus: CorpusJeux, graine: string): Tour[] {
-  const rediges = toursRediges(corpus, graine);
+  const posees = new Set<string>();
+  const rediges = toursRediges(corpus, graine, posees);
   if (rediges.length >= TOURS_COQUILLE) return rediges;
   const vus = new Set(rediges.map((t) => t.choix.join('')));
-  return [...rediges, ...toursDesFiches(corpus, graine, vus, TOURS_COQUILLE - rediges.length)];
+  return [
+    ...rediges,
+    ...toursDesFiches(corpus, graine, vus, TOURS_COQUILLE - rediges.length, posees)
+  ];
 }
 
 /* ---------- jeu 5 : les devinettes de lanternes ---------- */
@@ -1039,6 +1183,29 @@ export function devinetteDe(t: Tour, corpus: CorpusJeux): Devinette | null {
 /** Le nom d'une brique citée, vide quand le contenu ne le donne pas. */
 export function nomDeBrique(b: string, corpus: CorpusJeux): string {
   return corpus.lanternes?.noms[b] ?? '';
+}
+
+/** Une brique et ce qu'elle dit : son nom de devinette, à défaut son sens. */
+export type BriqueNommee = { b: string; nom: string };
+
+/** Un leurre de devinette décomposé : ses briques nommées, sa lecture et son sens. */
+export type LeurreDecompose = { c: string; briques: BriqueNommee[]; glose: Glose };
+
+/**
+ * La décomposition d'un leurre pris à la devinette, pour montrer pourquoi il n'est pas
+ * la réponse : 没 = 氵 l'eau + 殳 une lance, quand l'énoncé disait « une main ». Les
+ * briques viennent de la décomposition canonique (`parts` de l'export), leurs noms de
+ * `devinettes.json`, à défaut du sens de la brique. `null` quand le contenu ne décompose
+ * pas le leurre : on ne devine rien.
+ */
+export function decomposerLeurre(c: string, corpus: CorpusJeux): LeurreDecompose | null {
+  const parts = briques(c, corpus);
+  if (parts.length < 2) return null;
+  return {
+    c,
+    glose: glose(c, corpus),
+    briques: parts.map((b) => ({ b, nom: nomDeBrique(b, corpus) || glose(b, corpus).fr }))
+  };
 }
 
 /** Ce qu'un essai rend : les choix faux déjà pris, et le résultat quand le tour est noté. */
@@ -1176,11 +1343,29 @@ export function repondre(m: Manche, reponse: Reponse, outcome: Outcome): Resulta
 export const ERREUR_SANS_NOTE: readonly JeuId[] = ['eclair', 'cuisine'];
 
 /**
- * Les événements d'un tour à ranger dans la progression et à passer à `schedule`. La
- * manche, elle, les garde tous : son constat ne change pas.
+ * Assembler contre la montre : faut-il noter un temps écoulé comme une erreur ?
+ * Décision du propriétaire du 26 septembre 2026, « Ne rien noter » : quand le temps est
+ * écoulé, la réponse est montrée et rien n'est noté, comme à l'éclair et à la cuisine.
+ * Lire lentement n'est pas avoir oublié : le chrono reste un défi, jamais une sanction.
+ * Une suite de briques fausse, donnée à temps, reste notée comme une question.
+ * C'est le seul interrupteur : `true` noterait de nouveau le temps écoulé comme une erreur.
  */
-export function evenementsANoter(jeu: JeuId, r: Pick<Resultat, 'correct' | 'evenements'>): Revision[] {
-  return r.correct || !ERREUR_SANS_NOTE.includes(jeu) ? r.evenements : [];
+export const NOTER_TEMPS_ECOULE = false;
+
+/**
+ * Les événements d'un tour à ranger dans la progression et à passer à `schedule`. La
+ * manche, elle, les garde tous : son constat ne change pas. Une bonne réponse est
+ * toujours notée ; une erreur ne l'est pas aux jeux de `ERREUR_SANS_NOTE`, ni quand le
+ * temps s'est écoulé (`ecoule`) tant que `noterEcoule` (`NOTER_TEMPS_ECOULE`) est faux.
+ */
+export function evenementsANoter(
+  jeu: JeuId,
+  r: Pick<Resultat, 'correct' | 'evenements' | 'ecoule'>,
+  noterEcoule: boolean = NOTER_TEMPS_ECOULE
+): Revision[] {
+  if (r.correct) return r.evenements;
+  if (r.ecoule === true && !noterEcoule) return [];
+  return ERREUR_SANS_NOTE.includes(jeu) ? [] : r.evenements;
 }
 
 /* ---------- le constat ---------- */
@@ -1230,9 +1415,13 @@ const COMPTES: Record<JeuId, { un: string; plusieurs: string; aucun: string }> =
  * « Chaîne de 4, 3 maillons trouvés. » Plusieurs chaînes disent leur nombre et la plus
  * longue : « 3 chaînes, la plus longue de 4, 5 maillons trouvés. » Un maillon manqué
  * est montré, la chaîne continue : il n'y a pas de vie à perdre.
+ *
+ * Une manche où rien n'a été noté (des répliques trouvées après une erreur, des mots
+ * manqués) ne dit pas « rien » : elle dit ce qui a été lu, par la phrase `lu` du pipeline
+ * (`jouer.json`), neutre et chaleureuse. Le code n'en écrit aucune : sans l'export, vide.
  */
-export function constat(m: Manche): string {
-  if (m.evenements.length === 0) return 'Rien de revu cette fois.';
+export function constat(m: Manche, lu = ''): string {
+  if (m.evenements.length === 0) return lu;
   const { un, plusieurs, aucun } = COMPTES[m.jeu];
   const second = m.trouves === 0 ? aucun : pluriel(m.trouves, un, plusieurs);
   if (m.jeu === 'chaine') {
@@ -1301,12 +1490,12 @@ export const JEUX: Record<JeuId, Jeu> = {
     titre: 'Les jumeaux',
     lit: 'Distinguer deux caractères proches, vus en un éclair.',
     minutes: 1,
-    tours: PAIRES_PAR_MINUTE,
+    tours: TOURS_JUMEAUX,
     chrono: 0,
     limite: 0,
     indisponible: 'Pas encore de caractères acquis assez proches pour les opposer.',
     preparer: (corpus, graine) =>
-      manche('jumeaux', graine, toursJumeaux(corpus, graine, PAIRES_PAR_MINUTE)),
+      manche('jumeaux', graine, toursJumeaux(corpus, graine, TOURS_JUMEAUX)),
     repondre,
     constat
   },
