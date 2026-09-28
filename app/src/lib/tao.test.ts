@@ -324,7 +324,9 @@ describe('en révision, elle mange (brief §9) : bouchée, grimace, bond', () =>
     expect(reduit).toMatch(/\.bouchee \{\s*display: none;/);
     /* La grimace de la révision est celle de la cuisine ; le bond montre la joie. */
     expect(tao).toContain("const grimace_ = $derived(grimace || reaction === 'grimace');");
-    expect(tao).toContain("reaction === 'bond' ? 'joie'");
+    expect(tao).toMatch(/reaction === 'bond'\s*\? 'joie'/);
+    /* Une bouchée la tire de l'ennui le temps de manger, jamais l'inverse. */
+    expect(tao).toMatch(/reaction === 'bouchee' && humeur === 'ennui'\s*\? 'calme'/);
     /* Une bouchée à l'encre et au papier : ni cinabre ni dégradé. */
     const bouchee = tao.slice(tao.indexOf('<ellipse class="bouchee"'));
     expect(bouchee.slice(0, bouchee.indexOf('/>'))).not.toMatch(/--zhu|gradient/);

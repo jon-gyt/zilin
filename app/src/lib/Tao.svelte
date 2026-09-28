@@ -56,8 +56,17 @@
   const grand = $derived(stade === 'fleur' || stade === 'peches');
   /** Les yeux se ferment en pot : elle attend, elle ne dort pas de tristesse. */
   const grimace_ = $derived(grimace || reaction === 'grimace');
+  /* Une bouchée la réveille : l'ennui cède au calme le temps de manger. */
   const regard = $derived(
-    posture === 'pot' ? 'pot' : grimace_ ? 'grimace' : reaction === 'bond' ? 'joie' : humeur
+    posture === 'pot'
+      ? 'pot'
+      : grimace_
+        ? 'grimace'
+        : reaction === 'bond'
+          ? 'joie'
+          : reaction === 'bouchee' && humeur === 'ennui'
+            ? 'calme'
+            : humeur
   );
   /** La bouchée monte du bol à la bouche : une carte juste, et le bond aussi. */
   const mange = $derived(posture === 'revision' && (reaction === 'bouchee' || reaction === 'bond'));
@@ -245,7 +254,7 @@
     </g>
     {#if mange}
       <!-- la bouchée : un grain de riz, du bol à la bouche -->
-      <ellipse class="bouchee" cx="48" cy="142" rx="6" ry="4.5" fill="var(--card)" stroke="var(--ink)" stroke-width="3" />
+      <ellipse class="bouchee" cx="48" cy="140" rx="10" ry="8" fill="var(--card)" stroke="var(--ink)" stroke-width="4" />
     {/if}
   {:else if posture === 'lecture'}
     <g class="feuille">
@@ -367,7 +376,7 @@
   }
   .tao.bondit .vivant {
     transform-origin: 100px 168px;
-    animation: saut 0.32s cubic-bezier(0.3, 0, 0.3, 1) 0.8s 4 alternate;
+    animation: saut 0.28s cubic-bezier(0.3, 0, 0.3, 1) 0.1s 4 alternate;
   }
   @keyframes bouchee {
     0% {
@@ -382,11 +391,11 @@
     }
     85% {
       opacity: 1;
-      transform: translate(50px, -6px) scale(0.8);
+      transform: translate(52px, -2px) scale(0.8);
     }
     100% {
       opacity: 0;
-      transform: translate(50px, -4px) scale(0.4);
+      transform: translate(52px, 0) scale(0.4);
     }
   }
   @keyframes croque {

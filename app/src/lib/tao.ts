@@ -187,7 +187,7 @@ export type Reaction = 'bouchee' | 'grimace' | 'bond';
 export const SERIE_BOND = 3;
 
 /** Le temps de voir le geste, puis elle revient à sa posture. */
-export const DUREE_REACTION_MS = 1200;
+export const DUREE_REACTION_MS = 1400;
 
 /**
  * Le geste de Tao pour un verdict, et la série qui suit. `juste` : la carte est notée juste
