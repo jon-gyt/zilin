@@ -174,6 +174,33 @@ export function proposeUnJeu(h: Humeur): boolean {
   return h === 'ennui';
 }
 
+/* ---------- ce qu'elle fait d'une réponse, en révision ---------- */
+
+/**
+ * En révision, Tao mange (brief §9) : une carte juste, une bouchée ; une erreur, une
+ * grimace ; une série juste, un bond. C'est un geste, pas une humeur : il ne dure que le
+ * temps de le voir, et la série ne s'affiche nulle part, elle se voit à son bond.
+ */
+export type Reaction = 'bouchee' | 'grimace' | 'bond';
+
+/** Trois cartes justes d'affilée : elle bondit, puis encore toutes les trois. */
+export const SERIE_BOND = 3;
+
+/** Le temps de voir le geste, puis elle revient à sa posture. */
+export const DUREE_REACTION_MS = 1200;
+
+/**
+ * Le geste de Tao pour un verdict, et la série qui suit. `juste` : la carte est notée juste
+ * (même après une hésitation) ; faux : un choix pris pour un autre, ou la réponse montrée.
+ * Une erreur remet la série à zéro, sans rien retirer d'autre : la grimace est un frisson,
+ * jamais un reproche.
+ */
+export function reagir(serie: number, juste: boolean): { serie: number; reaction: Reaction } {
+  if (!juste) return { serie: 0, reaction: 'grimace' };
+  const suite = serie + 1;
+  return { serie: suite, reaction: suite % SERIE_BOND === 0 ? 'bond' : 'bouchee' };
+}
+
 /* ---------- l'absence ---------- */
 
 /**

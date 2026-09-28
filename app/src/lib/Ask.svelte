@@ -28,6 +28,7 @@
     echeanceDe,
     onnote,
     onsuivant,
+    onverdict = () => undefined,
     dernier = false
   }: {
     q: Question;
@@ -44,6 +45,12 @@
     onnote: (r: Revision) => void;
     /** Question suivante : au tap, ou tout seul après une bonne réponse, le temps de lire la correction. */
     onsuivant: () => void;
+    /**
+     * Chaque verdict, dès qu'il tombe : juste quand la carte est notée juste, faux à chaque
+     * choix pris pour un autre. C'est ce qui fait manger Tao (`tao.reagir`) : une bouchée,
+     * une grimace, un bond. Rien n'est compté à l'écran.
+     */
+    onverdict?: (juste: boolean) => void;
     /** Dernière question de la série : le bouton le dit. */
     dernier?: boolean;
   } = $props();
@@ -147,6 +154,7 @@
     note = grade(c.outcome);
     /* Un tap léger dans l'app iOS sur une bonne réponse ; rien sur une erreur. */
     if (c.correct) bonneReponse();
+    onverdict(c.correct);
     /* L'art du personnage que la question exerce : un point s'il est juste (`noterRevision`). */
     onnote({ c: q.c, ...c.outcome, art: artDe(q.type) });
     const due = echeanceDe(q.c);
@@ -170,6 +178,7 @@
       noter(q.choix[k]);
     } else {
       ratees = [...ratees, q.choix[k]];
+      onverdict(false);
     }
   }
 
@@ -193,6 +202,7 @@
     } else {
       ratees = [...ratees, donnee];
       construit = [];
+      onverdict(false);
     }
   }
 

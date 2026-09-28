@@ -2,9 +2,11 @@ import { readFileSync } from 'node:fs';
 import { describe, it, expect } from 'vitest';
 import { SEUIL_ABSENCE } from './session';
 import {
+  DUREE_REACTION_MS,
   JOURNAL_MAX,
   PALIERS,
   POIDS,
+  SERIE_BOND,
   absente,
   ajouter,
   dernierJour,
@@ -14,6 +16,7 @@ import {
   poseDuJour,
   posture,
   proposeUnJeu,
+  reagir,
   stade,
   taoVide,
   type Activite,
@@ -252,5 +255,78 @@ describe('Tao accompagne les activités dans leur posture (brief §9)', () => {
     /* La seule bulle est celle de la leçon, et elle ne porte qu'un caractère. */
     expect(source).toContain('{caractere}');
     expect(source).not.toMatch(/VERDICTS|correct|bravo/i);
+  });
+});
+
+describe('en révision, elle mange (brief §9) : bouchée, grimace, bond', () => {
+  /** Rejoue une suite de verdicts depuis une série vide : les gestes, dans l'ordre. */
+  const gestes = (verdicts: boolean[]) => {
+    let serie = 0;
+    return verdicts.map((juste) => {
+      const r = reagir(serie, juste);
+      serie = r.serie;
+      return r.reaction;
+    });
+  };
+
+  it('une carte juste, une bouchée ; une erreur, une grimace', () => {
+    expect(reagir(0, true)).toEqual({ serie: 1, reaction: 'bouchee' });
+    expect(reagir(1, false)).toEqual({ serie: 0, reaction: 'grimace' });
+  });
+
+  it('trois justes d’affilée, un bond, puis encore toutes les trois', () => {
+    expect(SERIE_BOND).toBe(3);
+    expect(gestes([true, true, true, true, true, true])).toEqual([
+      'bouchee',
+      'bouchee',
+      'bond',
+      'bouchee',
+      'bouchee',
+      'bond'
+    ]);
+  });
+
+  it('une erreur remet la série à zéro, sans rien retirer d’autre', () => {
+    expect(gestes([true, true, false, true, true, true])).toEqual([
+      'bouchee',
+      'bouchee',
+      'grimace',
+      'bouchee',
+      'bouchee',
+      'bond'
+    ]);
+  });
+
+  it('le geste est bref : le temps de le voir, jamais une humeur', () => {
+    expect(DUREE_REACTION_MS).toBeGreaterThan(0);
+    expect(DUREE_REACTION_MS).toBeLessThanOrEqual(2000);
+  });
+
+  it('Échauffer et Fixer passent chaque verdict à Tao, sans compteur à l’écran', () => {
+    const ask = readFileSync(new URL('Ask.svelte', import.meta.url), 'utf8');
+    expect(ask).toContain('onverdict(c.correct);');
+    expect(ask.match(/onverdict\(false\);/g)?.length).toBe(2);
+    for (const fichier of ['Warm.svelte', 'Fix.svelte']) {
+      const source = readFileSync(new URL(fichier, import.meta.url), 'utf8');
+      expect(source, fichier).toContain('onverdict={(juste) => tao.verdict(juste)}');
+      expect(source, fichier).toContain('reaction={tao.reaction}');
+      expect(source, fichier).toContain('{#key tao.coup}');
+      /* La série ne s'affiche jamais : aucun nombre n'est tiré du geste. */
+      expect(source, fichier).not.toMatch(/tao\.serie|serie\}/);
+    }
+  });
+
+  it('la bouchée et le bond se taisent quand on réduit les animations ; le visage reste', () => {
+    const tao = readFileSync(new URL('Tao.svelte', import.meta.url), 'utf8');
+    const reduit = tao.slice(tao.indexOf('@media (prefers-reduced-motion: reduce)'));
+    expect(reduit).toContain('.tao.croque .plante');
+    expect(reduit).toContain('.tao.bondit .vivant');
+    expect(reduit).toMatch(/\.bouchee \{\s*display: none;/);
+    /* La grimace de la révision est celle de la cuisine ; le bond montre la joie. */
+    expect(tao).toContain("const grimace_ = $derived(grimace || reaction === 'grimace');");
+    expect(tao).toContain("reaction === 'bond' ? 'joie'");
+    /* Une bouchée à l'encre et au papier : ni cinabre ni dégradé. */
+    const bouchee = tao.slice(tao.indexOf('<ellipse class="bouchee"'));
+    expect(bouchee.slice(0, bouchee.indexOf('/>'))).not.toMatch(/--zhu|gradient/);
   });
 });

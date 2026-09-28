@@ -20,8 +20,13 @@
    * bouche. Contente, elle saute (l'humeur `joie`) ; quand un ingrédient a été pris pour
    * un autre, elle grimace (`grimace`) : les yeux plissés, la bouche en vague, un frisson,
    * et rien de plus. Ni teint malade, ni larme.
+   *
+   * En révision, elle mange (`reaction`, `tao.reagir`) : une carte juste, une bouchée prise
+   * au bol ; une erreur, la même grimace brève ; trois justes d'affilée, un bond. Le geste
+   * ne dure que le temps de le voir, et aucun chiffre ne dit la série. Sans animation (le
+   * réglage « réduire les animations »), seul le visage change : la grimace ou la joie.
    */
-  import type { Humeur, PostureVue, Stade } from './tao';
+  import type { Humeur, PostureVue, Reaction, Stade } from './tao';
 
   let {
     stade = 'graine',
@@ -30,7 +35,8 @@
     size = 110,
     caractere = '住',
     penchee = false,
-    grimace = false
+    grimace = false,
+    reaction = null
   }: {
     stade?: Stade;
     posture?: PostureVue;
@@ -42,12 +48,19 @@
     penchee?: boolean;
     /** Elle vient de goûter un plat où un ingrédient a été pris pour un autre. */
     grimace?: boolean;
+    /** En révision, son geste pour la dernière réponse : bouchée, grimace ou bond. */
+    reaction?: Reaction | null;
   } = $props();
 
   const arbre = $derived(stade === 'jeune' || stade === 'fleur' || stade === 'peches');
   const grand = $derived(stade === 'fleur' || stade === 'peches');
   /** Les yeux se ferment en pot : elle attend, elle ne dort pas de tristesse. */
-  const regard = $derived(posture === 'pot' ? 'pot' : grimace ? 'grimace' : humeur);
+  const grimace_ = $derived(grimace || reaction === 'grimace');
+  const regard = $derived(
+    posture === 'pot' ? 'pot' : grimace_ ? 'grimace' : reaction === 'bond' ? 'joie' : humeur
+  );
+  /** La bouchée monte du bol à la bouche : une carte juste, et le bond aussi. */
+  const mange = $derived(posture === 'revision' && (reaction === 'bouchee' || reaction === 'bond'));
 
   /** Fleurs sur le houppier, au stade en fleur seulement. */
   const FLEURS = [
@@ -68,7 +81,9 @@
 <svg
   class="tao {stade} {posture} {humeur}"
   class:penchee
-  class:grimace={grimace && posture !== 'pot'}
+  class:grimace={grimace_ && posture !== 'pot'}
+  class:croque={mange}
+  class:bondit={reaction === 'bond' && posture !== 'pot'}
   width={size}
   height={size}
   viewBox="0 0 200 200"
@@ -228,6 +243,10 @@
       <path d="M26 146h44q-2 22-22 22t-22-22z" fill="var(--card)" stroke="var(--ink)" stroke-width="4" stroke-linejoin="round" />
       <path d="M22 146h52" stroke="var(--ink)" stroke-width="4" stroke-linecap="round" />
     </g>
+    {#if mange}
+      <!-- la bouchée : un grain de riz, du bol à la bouche -->
+      <ellipse class="bouchee" cx="48" cy="142" rx="6" ry="4.5" fill="var(--card)" stroke="var(--ink)" stroke-width="3" />
+    {/if}
   {:else if posture === 'lecture'}
     <g class="feuille">
       <path d="M22 122h50v42H22z" fill="var(--card)" stroke="var(--ink)" stroke-width="4" stroke-linejoin="round" />
@@ -335,6 +354,51 @@
     transform-origin: 100px 160px;
     animation: frisson 0.45s ease-in-out 3;
   }
+  /* En révision : la bouchée monte du bol à la bouche, puis elle croque ; au bond, elle
+     saute deux fois sur place, le bol reste posé. Une fois, jamais en boucle. */
+  .bouchee {
+    opacity: 0;
+    transform-box: fill-box;
+    transform-origin: center;
+    animation: bouchee 0.8s ease-in-out forwards;
+  }
+  .tao.croque .plante {
+    animation: croque 0.18s ease-in-out 0.72s 2 alternate;
+  }
+  .tao.bondit .vivant {
+    transform-origin: 100px 168px;
+    animation: saut 0.32s cubic-bezier(0.3, 0, 0.3, 1) 0.8s 4 alternate;
+  }
+  @keyframes bouchee {
+    0% {
+      opacity: 0;
+      transform: none;
+    }
+    15% {
+      opacity: 1;
+    }
+    55% {
+      transform: translate(26px, -30px);
+    }
+    85% {
+      opacity: 1;
+      transform: translate(50px, -6px) scale(0.8);
+    }
+    100% {
+      opacity: 0;
+      transform: translate(50px, -4px) scale(0.4);
+    }
+  }
+  @keyframes croque {
+    to {
+      transform: scale(1.04, 0.95);
+    }
+  }
+  @keyframes saut {
+    to {
+      transform: translateY(-16px);
+    }
+  }
   @keyframes gouter {
     from {
       transform: rotate(6deg) translateY(4px);
@@ -368,8 +432,13 @@
   @media (prefers-reduced-motion: reduce) {
     .cuillere,
     .vapeur,
-    .tao.grimace .plante {
+    .tao.grimace .plante,
+    .tao.croque .plante,
+    .tao.bondit .vivant {
       animation: none;
+    }
+    .bouchee {
+      display: none;
     }
   }
 </style>

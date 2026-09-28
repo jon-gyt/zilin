@@ -5,7 +5,8 @@
    * La pile est figée à l'ouverture du pas et rangée dans la progression : la reprise
    * tombe sur la question exacte. Les huit types viennent de `questions.ts`, le corpus de
    * `revision.ts`, la planification de `srs.ts`. Tao est là en posture révision, sans
-   * commentaire : on apprend, elle ne parle pas.
+   * commentaire : on apprend, elle ne parle pas. Elle mange (`TaoMange`) : une bouchée par
+   * carte juste, une grimace sur une erreur, un bond après trois justes d'affilée.
    */
   import { untrack } from 'svelte';
   import Ask from './Ask.svelte';
@@ -31,6 +32,7 @@
   import { echeance, repriseRev, type Progress, type Revision } from './session';
   import { manifesteOnce, voixPretes } from './audio';
   import { humeur, stade } from './tao';
+  import { TaoMange } from './reactions.svelte';
 
   let {
     p,
@@ -217,6 +219,10 @@
   const taoStade = $derived(stade(p.tao.croissance));
   const avance = $derived(liste.length === 0 ? 100 : Math.round((i / liste.length) * 100));
 
+  /** Ce que Tao fait de chaque réponse : le geste, le temps de le voir. */
+  const tao = new TaoMange();
+  $effect(() => () => tao.arreter());
+
   /**
    * Le bouton de fin : le pas suivant s'enchaîne, sans repasser par le menu. Une révision
    * en plus et un bloc de rattrapage, eux, ramènent au menu, qui annonce la suite.
@@ -238,7 +244,10 @@
         {#if q}{i + 1} / {liste.length} · {q.label}{:else if p.revue.length > 0}terminé{/if}
       </div>
     </div>
-    <Tao stade={taoStade} posture="revision" humeur={taoHumeur} size={64} />
+    <!-- Chaque verdict rejoue le geste : la clé change, le dessin repart. -->
+    {#key tao.coup}
+      <Tao stade={taoStade} posture="revision" humeur={taoHumeur} size={64} reaction={tao.reaction} />
+    {/key}
   </div>
 
   {#if p.revue.length > 0}
@@ -258,6 +267,7 @@
       echeanceDe={(c) => echeance(p, c)}
       onnote={(r) => onrepondu(r, i)}
       onsuivant={() => onavancer(i + 1)}
+      onverdict={(juste) => tao.verdict(juste)}
       dernier={i + 1 >= liste.length}
     />
   {:else if liste.length > 0}
