@@ -133,6 +133,24 @@ def test_une_mauvaise_replique_dit_ce_qui_cloche(dossier: Path) -> None:
     assert any("ne dit pas d'erreur" in f for f in fautes_sources(replace(w, lignes=bavard)))
 
 
+def test_un_echange_porte_au_moins_un_contresens(dossier: Path) -> None:
+    """Un hors-sujet s'écarte sans lire (« 我有一个女儿。 » à « 明天去山上？ ») : chaque
+    échange garde au moins une réplique qui lit mal le message."""
+    w = petit(dossier)
+    hors = tuple(replace(l, erreur="hors-sujet") if l.texte.zh == "好，吃菜！" else l for l in w.lignes)
+    assert any("aucune réplique contresens" in f for f in fautes_sources(replace(w, lignes=hors)))
+
+
+def test_les_sources_versionnees_font_la_part_belle_aux_contresens() -> None:
+    """Presque tous les échanges ont deux contresens pour un hors-sujet : il faut lire."""
+    w = charger()
+    compte = {"contresens": 0, "hors-sujet": 0}
+    for l in w.lignes:
+        if l.role == "faux":
+            compte[l.erreur] += 1
+    assert compte["contresens"] >= 2 * compte["hors-sujet"] - 10
+
+
 def test_deux_repliques_pareilles_sont_une_faute(dossier: Path) -> None:
     w = petit(dossier)
     double = tuple(replace(l, texte=replace(l.texte, zh="好，喝茶！")) if l.texte.zh == "好，吃菜！" else l for l in w.lignes)
