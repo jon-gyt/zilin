@@ -277,12 +277,12 @@ def test_l_export_versionne_nomme_chaque_brique_et_trouve_chaque_racine() -> Non
 
 @versionne
 def test_l_exemple_du_prototype_est_dans_la_base() -> None:
-    """休 = 亻 + 木, l'écran validé ; 明 et 告 portent leur 字谜 traditionnel."""
+    """休 = 亻 + 木, l'écran validé ; 明 et 拿 portent leur 字谜 traditionnel."""
     doc = json.loads((VERSIONNE / "devinettes.json").read_text(encoding="utf-8"))
     par_c = {d["c"]: d for d in doc["devinettes"]}
     assert par_c["休"]["briques"] == ["亻", "木"]
     assert par_c["明"]["zh"] == "一月一日非今天"
-    assert par_c["告"]["zh"] == "一口咬掉牛尾巴"
+    assert par_c["拿"]["zh"] == "一人一张口，口下长只手"
 
 
 # ------------------------------------------------------------------------ commande

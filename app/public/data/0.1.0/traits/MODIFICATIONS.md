@@ -8,12 +8,12 @@ Licence : Arphic Public License, texte intégral et inaltéré dans `ARPHICPL.TX
 ## Modifications apportées
 
 - Conversion de format : les lignes JSON de `graphics.txt` deviennent un fichier par famille, `{"<caractère>": {"s": [tracés], "m": [médianes]}}`.
-- Sous-ensemble : 591 caractères seulement — le seuil 255, le HSK 1, les caractères dessinés des fêtes, des termes solaires et des mots expliqués des contes, et leurs briques.
+- Sous-ensemble : 597 caractères seulement — le seuil 255, le HSK 1, les caractères dessinés des fêtes, des termes solaires et des mots expliqués des contes, et leurs briques.
 - Les tracés et les médianes ne sont pas retouchés — ni arrondi, ni simplification, ni renommage —, hors les composants découpés décrits ci-dessous.
 
 ## Composants découpés dans un caractère hôte
 
-13 composants de la norme GF 0014-2009 n'ont pas de tracé propre dans `graphics.txt`. Leurs tracés et leurs médianes sont ceux d'un caractère hôte qui les contient, réduits aux seuls traits désignés, dans l'ordre d'écriture de l'hôte ; aucun trait n'est dessiné ni retouché. Seule transformation : un recadrage dans la boîte de 1024, l'homothétie x' = e·x + dx, y' = e·y + dy appliquée à chaque coordonnée des tracés et des médianes, puis arrondie à l'entier. Elle porte la boîte englobante des traits retenus au centre (512 ; 388), son plus grand côté à 760 unités, sans agrandir plus de 2 fois. Table versionnée : `data/sources/surcharges/decoupes.tsv` du dépôt.
+22 composants de la norme GF 0014-2009 n'ont pas de tracé propre dans `graphics.txt`. Leurs tracés et leurs médianes sont ceux d'un caractère hôte qui les contient, réduits aux seuls traits désignés, dans l'ordre d'écriture de l'hôte ; aucun trait n'est dessiné ni retouché. Seule transformation : un recadrage dans la boîte de 1024, l'homothétie x' = e·x + dx, y' = e·y + dy appliquée à chaque coordonnée des tracés et des médianes, puis arrondie à l'entier. Elle porte la boîte englobante des traits retenus au centre (512 ; 388), son plus grand côté à 760 unités, sans agrandir plus de 2 fois. Table versionnée : `data/sources/surcharges/decoupes.tsv` du dépôt.
 
 | Composant | Hôte | Traits de l'hôte retenus (à partir de 0) | e | dx | dy |
 |---|---|---|---|---|---|
@@ -30,5 +30,14 @@ Licence : Arphic Public License, texte intégral et inaltéré dans `ARPHICPL.TX
 | 𡗗 | 春 | 0, 1, 2, 3, 4 (sur 9) | 0,8444 | 53,5 | −40,5 |
 | 𭃂 | 那 | 0, 1, 2, 3 (sur 6) | 1,1603 | 163,9 | −139,4 |
 | 𭕄 | 学 | 0, 1, 2, 3, 4 (sur 8) | 0,9806 | 5,5 | −193 |
+| ⿳亠丷冖 | 帝 | 0, 1, 2, 3, 4, 5 (sur 9) | 0,908 | 29,4 | −135,9 |
+| 𢎨 | 第 | 6, 7, 8, 9, 10 (sur 11) | 1,0585 | −26,8 | 106,4 |
+| 𠃍 | 候 | 3 (sur 10) | 2 | −767 | −1017 |
+| 龷 | 错 | 5, 6, 7, 8 (sur 13) | 1,4504 | −483 | −461,2 |
+| ⿴夂丶 | 夜 | 4, 5, 6, 7 (sur 8) | 1,2709 | −349,7 | −27,6 |
+| 丆 | 夏 | 0, 1 (sur 10) | 1,1931 | −115 | −494,3 |
+| 𠃓 | 场 | 3, 4, 5 (sur 6) | 0,9706 | −108,7 | 18,7 |
+| 𰀁 | 举 | 6, 7, 8 (sur 9) | 1,3333 | −157,3 | 121,3 |
+| リ | 师 | 0, 1 (sur 6) | 1,0368 | 220,7 | −10,6 |
 
 Chaque fichier de ce dossier porte la même mention dans son en-tête (`license`, `source`, `source_url`, `modified`), comme l'exige l'APL §2 a).

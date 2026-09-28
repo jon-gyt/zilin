@@ -198,7 +198,7 @@ def test_les_surcharges_du_depot_se_lisent() -> None:
     ids = surcharges.charger_ids(reelles("IDS"))
     table = charger_table(equivalences=surcharges.charger_equivalences(reelles("EQUIVALENCES")))
     # Chaque cible nommée par une surcharge est un composant de la norme, hormis ⺍ que
-    # 兴 et 举 gardent, non réconciliés (decompositions-non-corrigees.md).
+    # 兴 et 举 gardent, non réconciliés (decompositions-corrigees.md).
     for c, texte in ids.items():
         feuilles = [f for f in _feuilles(analyser_ids(texte))]
         assert all(f in table or f in ids or (f == "⺍" and c in "兴举") for f in feuilles), (c, texte)

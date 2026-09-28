@@ -332,9 +332,11 @@ Relevé sur le dépôt après une revue du pipeline. Les numéros ci-dessus ne b
   (`data/sources/parcours/`, `wenlu parcours figer`). Export 0.1.0 identique hormis
   `sources` et `LICENCES.md` ; « licences : décompositions » bloquant (0 de
   `dictionary.txt`). `strokes-demo.json` porte l'en-tête APL. `docs/sources-licences.md`
-  §10.6. Reste : 18 écarts à la norme repris (20 caractères) tels quels pour ne rien changer à l'app
-  (`decompositions-non-corrigees.md`), à corriger avec leurs fiches ; l'avis d'un conseil
-  (§9).
+  §10.6. Les 18 écarts à la norme repris (20 caractères) sont corrigés le 28 septembre, avec
+  leurs fiches, six jours de brique refigés et trois devinettes retirées
+  (`decompositions-corrigees.md`). Reste : l'avis d'un conseil (§9) ; 学字头 (𭕄) à
+  reprendre en trois traits dans 学 et 觉, ce qui réconcilierait 兴 et 举 mais poserait 冖
+  avant le jour 13 (décision du propriétaire).
 
 ### Livrées à moitié : le code attend une clé d'API
 
