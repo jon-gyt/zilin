@@ -235,3 +235,80 @@ describe('les rangées et la planche', () => {
     expect(etendue([])).toBe('');
   });
 });
+
+describe('les fables du chemin (décision du propriétaire du 26 septembre 2026)', () => {
+  /* Un chemin : 人 au jour 1, 学 au 13, 念 au 25, 开 au 44, 了 au 60, 的 au 166. */
+  const jours = (n: Record<string, number>): IndexJour[] =>
+    Object.entries(n).map(([c, jour]) => ({ jour, brique: c, composes: [], non_reconcilie: false }));
+  const LIRE = jours({ 人: 1, 学: 13, 念: 25, 开: 44, 了: 60, 的: 166 });
+  /* Le parcours HSK range autrement : 念 n'y est pas. */
+  const HSK = jours({ 人: 1, 的: 2, 学: 9, 开: 30, 了: 31 });
+  const mot = (zh: string): NonNullable<VersionConte['expliques']>[number] => ({
+    zh,
+    pinyin: '',
+    fr: '',
+    en: '',
+    explication_fr: '',
+    explication_en: '',
+    caracteres: zh,
+    pistes: []
+  });
+  const expliquee = (seuil: string, zh: string, ...mots: string[]): VersionConte => ({
+    ...version(seuil, zh),
+    expliques: mots.map(mot)
+  });
+  const catalogue = [
+    prevu('yu', ['255', 'hsk3'], 'montagne'),
+    prevu('xue', ['jour25'], 'goban'),
+    prevu('ji', ['jour44'], 'arc'),
+    prevu('yi', ['jour60'], 'hache')
+  ];
+  const idx = [index('yu', ['255']), index('xue', ['jour25']), index('ji', ['jour44']), index('yi', ['jour60'])];
+  const contes = new Map([
+    ['yu', conte('yu', version('255', '人的。'))],
+    /* 弈 et 鹅 : des mots expliqués, que l'acquis ne demande pas */
+    ['xue', conte('xue', expliquee('jour25', '学弈，人念鹅。', '弈', '鹅'))],
+    ['ji', conte('ji', expliquee('jour44', '人学开弓。', '弓'))],
+    ['yi', conte('yi', expliquee('jour60', '人学了斧。', '斧'))]
+  ]);
+  const surLeChemin = (chemin: IndexJour[], acquis: Set<string>, fait: number) => {
+    const b = bibliotheque(idx, contes, acquis, {}, false, catalogue);
+    return etageres(b, catalogue, {}, { ouvertures: ouvertures(b, contes, acquis, joursDuChemin(chemin)), fait });
+  };
+
+  it('sur « Bientôt », la plus proche d’abord, avec « s’ouvre dans N j », avant le conte du seuil 255', () => {
+    const [maintenant, bientot, loin] = surLeChemin(LIRE, new Set(['人', '学']), 20);
+    expect(maintenant.livres).toEqual([]);
+    expect(loin.livres).toEqual([]);
+    expect(bientot.livres.map((l) => [l.entree.id, l.dans, ligneOuverture(l.dans)])).toEqual([
+      ['xue', 5, "s'ouvre dans 5 j"],
+      ['ji', 24, "s'ouvre dans 24 j"],
+      ['yi', 40, "s'ouvre dans 40 j"],
+      ['yu', 146, "s'ouvre dans 146 j"]
+    ]);
+    expect(bientot.livres[0].sceaux).toEqual([{ seuil: 'jour25', etat: 'ferme', lu: false }]);
+    expect(bientot.livres.map((l) => l.motif)).toEqual(['goban', 'arc', 'hache', 'montagne']);
+    expect(etendue(bientot.livres)).toBe('Jour 25 à HSK 3');
+    expect(etendue(bientot.livres.slice(0, 3))).toBe('Jour 25 à 60');
+  });
+
+  it('s’ouvre le jour où entre son dernier caractère, les mots expliqués mis à part', () => {
+    const acquis = new Set(['人', '学', '念']);
+    const [maintenant, bientot] = surLeChemin(LIRE, acquis, 25);
+    expect(maintenant.livres.map((l) => [l.entree.id, l.entree.version?.seuil])).toEqual([['xue', 'jour25']]);
+    expect(bientot.livres.map((l) => l.entree.id)).toEqual(['ji', 'yi', 'yu']);
+    expect(maintenant.livres[0].sceaux).toEqual([{ seuil: 'jour25', etat: 'ouvert', lu: false }]);
+  });
+
+  it('sur le parcours HSK, elle s’ouvre quand ses caractères sont acquis ; hors du chemin, pas de jour', () => {
+    const [, bientot, loin] = surLeChemin(HSK, new Set(['人']), 5);
+    /* 的 est déjà passé sans être acquis : le livre est sur le chemin, sans jour annoncé */
+    expect(bientot.livres.map((l) => [l.entree.id, l.dans])).toEqual([
+      ['yu', null],
+      ['ji', 25],
+      ['yi', 26]
+    ]);
+    /* 念 n'est pas sur ce chemin : plus loin, sans jour */
+    expect(loin.livres.map((l) => [l.entree.id, l.dans])).toEqual([['xue', null]]);
+  });
+});

@@ -4,7 +4,9 @@
  */
 import { readFileSync } from 'node:fs';
 import { describe, it, expect } from 'vitest';
-import type { IndexJour } from './content';
+import type { Conte, IndexJour } from './content';
+import { joursDuChemin, ouvertures } from './etageres';
+import { bibliotheque } from './lecture';
 import {
   BORNES_MAX,
   DERRIERE,
@@ -218,6 +220,61 @@ describe('les bornes : les deux prochaines, seulement les vraies', () => {
     expect(ligneBorne(1, b)).toEqual({ tete: 'Prochaine borne :', titre: '愚公移山', suite: 'dans 2 jours.' });
     expect(ligneBorne(2, b)).toEqual({ tete: 'Borne ce jour-là :', titre: '愚公移山', suite: "un conte s'ouvre." });
     expect(ligneBorne(3, b)).toBeNull();
+  });
+
+  it('une fable du chemin est une borne au jour où entre son dernier caractère, avant les contes du seuil 255', () => {
+    /* Décision du propriétaire du 26 septembre 2026 : des fables de première lecture, dès le
+       jour 25. Leur jour vient du calcul de l'étagère « Bientôt » ; un mot expliqué n'y
+       compte pas. */
+    const fable = (id: string, seuil: string, zh: string, explique = ''): Conte => ({
+      version: '0.1.0',
+      source: 'test',
+      id,
+      titre_fr: id,
+      versions: [
+        {
+          seuil,
+          titre: '',
+          phrases: [{ zh, pinyin: '', fr: '' }],
+          glose: {},
+          ...(explique
+            ? { expliques: [{ zh: explique, pinyin: '', fr: '', en: '', explication_fr: '', explication_en: '', caracteres: explique, pistes: [] }] }
+            : {})
+        }
+      ]
+    });
+    const lesContes = new Map([
+      ['xue-yi', fable('xue-yi', 'jour25', '人学弈。', '弈')],
+      ['yu-gong', fable('yu-gong', '255', '人的。')]
+    ]);
+    const entrees = bibliotheque(
+      [
+        { id: 'yu-gong', titre_fr: 'yu-gong', seuils: ['255'], fichier: '' },
+        { id: 'xue-yi', titre_fr: 'xue-yi', seuils: ['jour25'], fichier: '' }
+      ],
+      lesContes,
+      new Set(['人']),
+      {},
+      false,
+      []
+    );
+    /* sur le chemin : 人 au jour 1, 学 au 25, 的 au 29 */
+    const chemin = joursDuChemin(
+      Object.entries({ 人: 1, 学: 25, 的: 29 }).map(([c, jour]) => ({ jour, brique: c, composes: [], non_reconcilie: false }))
+    );
+    const jours = ouvertures(entrees, lesContes, new Set(['人']), chemin);
+    expect(jours).toEqual({ 'yu-gong': 29, 'xue-yi': 25 });
+    const aVenir: ConteAVenir[] = [
+      { id: 'yu-gong', titre: '愚公移山', jour: jours['yu-gong'] },
+      { id: 'xue-yi', titre: '学弈', jour: jours['xue-yi'], motif: 'goban' }
+    ];
+    const r = route(ETAPES, positionDuJour(au(22, true)));
+    const b = prochainesBornes(bornesDevant(ETAPES, r, [], aVenir));
+    /* le jour 20 n'est pas réconcilié : du 22 au 25, trois étapes */
+    expect(b.map((x) => [x.titre, x.ecart, dansCourt(x.ecart), x.genre === 'conte' ? x.motif : null])).toEqual([
+      ['学弈', 3, 'dans 3 j', 'goban'],
+      ['愚公移山', 7, 'dans 7 j', null]
+    ]);
   });
 });
 

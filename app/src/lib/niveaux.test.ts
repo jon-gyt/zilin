@@ -7,7 +7,9 @@ import {
   auNiveau,
   comparerNiveaux,
   duNiveau,
+  estChemin,
   estHsk,
+  jourDuNiveau,
   libelleNiveau,
   lireNiveau,
   lireNiveaux,
@@ -51,5 +53,22 @@ describe('les niveaux des contes', () => {
     expect(auNiveau('hsk5')).toBe('au niveau HSK 5');
     expect(auNiveau('255')).toBe('au seuil 255');
     expect(duNiveau('hsk5')).toBe('du niveau HSK 5');
+  });
+
+  it('un jour du chemin Lire est un niveau, rangé sous le seuil 255, par son jour', () => {
+    expect(lireNiveau(' JOUR25 ')).toBe('jour25');
+    for (const faux of ['jour0', 'jour', 'jour2x', 'j25']) expect(lireNiveau(faux), faux).toBeNull();
+    expect(lireNiveaux(['hsk3', '255', 'jour60', 'jour25'])).toEqual(['jour25', 'jour60', '255', 'hsk3']);
+    expect(estChemin('jour44') && !estChemin('255') && !estChemin('hsk3')).toBe(true);
+    expect(jourDuNiveau('jour44')).toBe(44);
+    expect(jourDuNiveau('hsk3')).toBeNull();
+    expect(plusHaut('jour60', '255')).toBe('255');
+  });
+
+  it('disent « Jour 25 » sur leur sceau, « au jour 25 du chemin » dans une phrase', () => {
+    expect(libelleNiveau('jour25')).toBe('Jour 25');
+    expect(nomNiveau('jour25')).toBe('jour 25 du chemin');
+    expect(auNiveau('jour25')).toBe('au jour 25 du chemin');
+    expect(duNiveau('jour25')).toBe('du jour 25 du chemin');
   });
 });
