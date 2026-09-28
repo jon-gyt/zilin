@@ -9,8 +9,12 @@
  */
 import { contenu, dossierVersion, VERSION_DONNEES, type Index } from './content';
 
-/** Les phrases de la bulle : Tao tend un jeu, le tend en s'ennuyant, montre la devinette, attend l'acquis. */
-export const CLES_TAO_JOUER = ['invite', 'changer', 'devinette', 'attendre'] as const;
+/**
+ * Les phrases de Tao : elle tend un jeu, le tend en s'ennuyant, montre la devinette,
+ * attend l'acquis, ou clôt une manche où rien n'a été noté (`lu`, le constat : ce qui a
+ * été lu, jamais « rien de revu »).
+ */
+export const CLES_TAO_JOUER = ['invite', 'changer', 'devinette', 'attendre', 'lu'] as const;
 
 export type CleTaoJouer = (typeof CLES_TAO_JOUER)[number];
 
@@ -23,7 +27,7 @@ export type JouerDonnees = { version: string; source: string; tao: PhrasesJouer 
 export const SANS_JOUER: JouerDonnees = {
   version: '',
   source: '',
-  tao: { invite: '', changer: '', devinette: '', attendre: '' }
+  tao: { invite: '', changer: '', devinette: '', attendre: '', lu: '' }
 };
 
 function texte(v: unknown): string {

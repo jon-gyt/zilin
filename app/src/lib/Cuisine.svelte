@@ -47,10 +47,13 @@
     onrepondu,
     oncuisine,
     onautre,
-    onretour
+    onretour,
+    lu = ''
   }: {
     p: Progress;
     corpus: CorpusJeux;
+    /** Le constat d'un plat où rien n'a été noté (`jouer.json`, clé `lu`). */
+    lu?: string;
     /** Le libellé du bouton qui ramène d'où l'on vient. */
     retour: string;
     onrepondu: (r: Revision) => void;
@@ -337,8 +340,10 @@
         {/each}
       </ul>
     {/if}
-    <p class="constat">{JEUX.cuisine.constat(m)}</p>
-    <div class="k">Ce qui vient d'être revu repasse dans tes révisions, aux échéances dites.</div>
+    <p class="constat">{JEUX.cuisine.constat(m, lu)}</p>
+    {#if m.evenements.length > 0}
+      <div class="k">Ce qui vient d'être revu repasse dans tes révisions, aux échéances dites.</div>
+    {/if}
   </div>
   <div class="foot fond">
     {#if goute === 'grimace'}

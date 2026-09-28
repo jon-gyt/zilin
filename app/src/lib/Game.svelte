@@ -668,6 +668,7 @@
       retour={OU[retour]}
       {onrepondu}
       {oncuisine}
+      lu={phrases.lu}
       onautre={() => onchoisir(null)}
       {onretour}
     />
@@ -678,6 +679,7 @@
       retour={OU[retour]}
       {onrepondu}
       {onfini}
+      lu={phrases.lu}
       onautre={() => onchoisir(null)}
       {onretour}
     />
@@ -1001,7 +1003,7 @@
     </div>
     <div class="card center bilan">
       <h1>{jeuCourant?.titre}</h1>
-      <p class="constat">{jeuCourant?.constat(m)}</p>
+      <p class="constat">{jeuCourant?.constat(m, phrases.lu)}</p>
       {#if jeu === 'devinette'}
         <!-- Un constat, pas un score : la lanterne s'allume pour la journée. -->
         <p class="guide">
@@ -1013,7 +1015,9 @@
         <!-- Le compteur, sobre : un nombre réel, pas un score. -->
         <p class="guide">En tout : {ligneMotsDevines(p.motsDevines.length).toLowerCase()}</p>
       {/if}
-      <div class="k">Ce qui vient d'être revu repasse dans tes révisions, aux échéances dites.</div>
+      {#if m.evenements.length > 0}
+        <div class="k">Ce qui vient d'être revu repasse dans tes révisions, aux échéances dites.</div>
+      {/if}
     </div>
     <div class="foot">
       <button class="btn" onclick={onretour}>{OU[retour]}</button>

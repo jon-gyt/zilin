@@ -228,7 +228,7 @@ describe('la conversation', () => {
     expect(r.evenements).toEqual([]);
     expect(fini(r.manche)).toBe(true);
     expect(r.manche.trouves).toBe(0);
-    expect(JEUX.wechat.constat(r.manche)).toBe('Rien de revu cette fois.');
+    expect(JEUX.wechat.constat(r.manche, 'Tout est lu.')).toBe('Tout est lu.');
   });
 
   it('montre le pinyin de chaque caractère, la ponctuation n’en a pas', () => {

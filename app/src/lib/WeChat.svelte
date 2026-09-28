@@ -47,10 +47,16 @@
     onrepondu,
     onfini,
     onautre,
-    onretour
+    onretour,
+    lu = ''
   }: {
     p: Progress;
     corpus: CorpusJeux;
+    /**
+     * Le constat d'un dialogue où rien n'a été noté (`jouer.json`, clé `lu`) : ce qui a
+     * été lu, jamais « rien de revu ».
+     */
+    lu?: string;
     /** Le libellé du bouton qui ramène d'où l'on vient. */
     retour: string;
     onrepondu: (r: Revision) => void;
@@ -286,8 +292,10 @@
 
   {#if termine && m !== null}
     <div class="card center bilan">
-      <p class="constat">{JEUX.wechat.constat(m)}</p>
-      <div class="k">Ce qui vient d’être revu repasse dans tes révisions, aux échéances dites.</div>
+      <p class="constat">{JEUX.wechat.constat(m, lu)}</p>
+      {#if m.evenements.length > 0}
+        <div class="k">Ce qui vient d’être revu repasse dans tes révisions, aux échéances dites.</div>
+      {/if}
     </div>
     <div class="foot fond">
       <button class="btn" onclick={liste}>Un autre message</button>

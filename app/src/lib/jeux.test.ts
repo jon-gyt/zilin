@@ -225,7 +225,9 @@ describe('le contrat commun d’un jeu', () => {
     expect(jumeaux.constat(finie)).toBe(
       `${finie.tours.length} caractères revus, aucune paire distinguée.`
     );
-    expect(constat({ ...m, tours: [], evenements: [] })).toBe('Rien de revu cette fois.');
+    /* Rien de noté : la phrase `lu` du pipeline, jamais un texte écrit dans le code. */
+    expect(constat({ ...m, tours: [], evenements: [] })).toBe('');
+    expect(constat({ ...m, tours: [], evenements: [] }, 'Tout est lu.')).toBe('Tout est lu.');
   });
 });
 
@@ -894,7 +896,7 @@ describe('La chaîne', () => {
     expect(fini(close)).toBe(true);
     expect(close.evenements).toHaveLength(1);
     expect(lachaine.constat(close)).toBe('Chaîne de 2, 1 maillon trouvé.');
-    expect(lachaine.constat(clore(m))).toBe('Rien de revu cette fois.');
+    expect(lachaine.constat(clore(m), 'Tout est lu.')).toBe('Tout est lu.');
   });
 
   it('note chaque maillon par grade, sur le caractère du maillon', () => {

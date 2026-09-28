@@ -522,8 +522,11 @@ export type Jeu = {
   preparer: (corpus: CorpusJeux, graine: string) => Manche | null;
   /** Note une réponse : un événement de révision, prêt pour `grade`. */
   repondre: (manche: Manche, reponse: Reponse, outcome: Outcome) => Resultat;
-  /** Une ligne de constat, des nombres réels, jamais un score. */
-  constat: (manche: Manche) => string;
+  /**
+   * Une ligne de constat, des nombres réels, jamais un score. `lu` : ce que Tao dit d'une
+   * manche où rien n'a été noté (`jouer.json`, clé `lu`), vide sans l'export.
+   */
+  constat: (manche: Manche, lu?: string) => string;
 };
 
 /* ---------- les leurres, par ressemblance de composants ---------- */
@@ -1364,9 +1367,13 @@ const COMPTES: Record<JeuId, { un: string; plusieurs: string; aucun: string }> =
  * « Chaîne de 4, 3 maillons trouvés. » Plusieurs chaînes disent leur nombre et la plus
  * longue : « 3 chaînes, la plus longue de 4, 5 maillons trouvés. » Un maillon manqué
  * est montré, la chaîne continue : il n'y a pas de vie à perdre.
+ *
+ * Une manche où rien n'a été noté (des répliques trouvées après une erreur, des mots
+ * manqués) ne dit pas « rien » : elle dit ce qui a été lu, par la phrase `lu` du pipeline
+ * (`jouer.json`), neutre et chaleureuse. Le code n'en écrit aucune : sans l'export, vide.
  */
-export function constat(m: Manche): string {
-  if (m.evenements.length === 0) return 'Rien de revu cette fois.';
+export function constat(m: Manche, lu = ''): string {
+  if (m.evenements.length === 0) return lu;
   const { un, plusieurs, aucun } = COMPTES[m.jeu];
   const second = m.trouves === 0 ? aucun : pluriel(m.trouves, un, plusieurs);
   if (m.jeu === 'chaine') {
