@@ -52,6 +52,7 @@ import {
   type BeteId,
   type Heros
 } from './heros';
+import { SANS_RAPPEL, lireRappel, type Rappel } from './rappels';
 
 
 /** Budget choisi par l'utilisateur, en minutes. */
@@ -67,12 +68,16 @@ export type Parcours = 'lire' | 'hsk' | 'voyage';
 /**
  * Les écrans de la première session, dans l'ordre de la maquette : les trois briques
  * (f1 人, f2 大, f3 天), le mot lu (f4 天天), le bilan (f5), les deux questions
- * (objectif, rythme), puis le choix du personnage (brief §8). La reprise se fait à
+ * (objectif, rythme), l'heure du rappel, puis le choix du personnage (brief §8). La reprise se fait à
  * l'écran exact.
  */
-export type EtapeDepart = 'f1' | 'f2' | 'f3' | 'f4' | 'f5' | 'objectif' | 'rythme' | 'personnage';
+export type EtapeDepart = 'f1' | 'f2' | 'f3' | 'f4' | 'f5' | 'objectif' | 'rythme' | 'heure' | 'personnage';
 
-export const ETAPES_DEPART = ['f1', 'f2', 'f3', 'f4', 'f5', 'objectif', 'rythme', 'personnage'] as const;
+/**
+ * `heure` : l'heure du rappel quotidien, dans l'app iOS seulement ; sur le web,
+ * `premiere.departApres` la saute.
+ */
+export const ETAPES_DEPART = ['f1', 'f2', 'f3', 'f4', 'f5', 'objectif', 'rythme', 'heure', 'personnage'] as const;
 
 export type StepId =
   | 'ouvrir'
@@ -379,6 +384,13 @@ export type Progress = {
    */
   haptique: boolean;
   /**
+   * Réglage : le rappel quotidien de l'app iOS (`rappels.ts`), une notification par jour à
+   * l'heure choisie, avec le début de l'anecdote. L'heure se choisit à la première session,
+   * après l'objectif et le rythme, ou dans Réglages ; sans effet sur le web. Absent d'une
+   * progression plus ancienne : éteint, sans heure.
+   */
+  rappel: Rappel;
+  /**
    * Les mots devinés au dictionnaire éclair, par identifiant, chacun une fois, dans
    * l'ordre : le compteur « mots devinés » (`eclair.ts`, `noterMotDevine`). Absent d'une
    * progression plus ancienne : aucun mot deviné.
@@ -532,6 +544,7 @@ export function emptyProgress(aujourdhui: string): Progress {
     chapitres: {},
     relecture: false,
     haptique: true,
+    rappel: SANS_RAPPEL,
     motsDevines: [],
     trouves: [],
     fetesVues: {},
@@ -1848,6 +1861,8 @@ export function fromJSON(texte: string, aujourdhui: string): Progress {
     relecture: o.relecture === true,
     /* Le retour haptique : absent d'un export plus ancien, allumé. */
     haptique: o.haptique !== false,
+    /* Le rappel quotidien : absent d'un export plus ancien, éteint. */
+    rappel: lireRappel(o.rappel),
     /* Les mots devinés : absents d'un export plus ancien, aucun n'est deviné. */
     motsDevines: listeDeCaracteres(o.motsDevines),
     /* Les caractères trouvés en chemin : absents d'un export plus ancien, aucun. */

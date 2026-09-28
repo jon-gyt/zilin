@@ -272,7 +272,8 @@ describe('le 放榜', () => {
 describe('le choix du personnage', () => {
   it('se fait au premier lancement, après le rythme, dernier écran de la première session', () => {
     expect(ETAPES_DEPART[ETAPES_DEPART.length - 1]).toBe('personnage');
-    expect(departNext('rythme')).toBe('personnage');
+    /* Après le rythme, ou après l'heure du rappel dans l'app iOS (`rappels.test.ts`). */
+    expect(departNext('heure')).toBe('personnage');
     expect(departNext('personnage')).toBeNull();
     const p = emptyProgress(JOUR);
     expect(p.premiere).toBe(true);

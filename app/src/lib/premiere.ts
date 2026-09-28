@@ -15,7 +15,7 @@ import {
   type Index,
   type Signe
 } from './content';
-import { budgetNewBricks, type Budget, type EtapeDepart, type Parcours } from './session';
+import { budgetNewBricks, departNext, type Budget, type EtapeDepart, type Parcours } from './session';
 
 export const FICHIER_FAMILLE_DEPART = 'data/demo/familles/人.json';
 export const FICHIER_MOT_DEPART = 'data/demo/textes/天天.json';
@@ -192,15 +192,35 @@ export async function suiteDepart(
 /** Les écrans de la leçon, avant les deux questions. */
 export const LECON = ['f1', 'f2', 'f3', 'f4', 'f5'] as const;
 
-/** Les deux questions, après la leçon, puis le choix du personnage. */
-export const QUESTIONS = ['objectif', 'rythme', 'personnage'] as const;
+/**
+ * Les questions, après la leçon, puis le choix du personnage. L'heure du rappel n'est posée
+ * que dans l'app iOS, où la notification existe (`avecHeure`).
+ */
+export const QUESTIONS = ['objectif', 'rythme', 'heure', 'personnage'] as const;
 
-/** La barre de progression : cinq points pendant la leçon, quatre pour les questions et le personnage. */
-export function points(vue: EtapeDepart): { total: number; index: number } {
+function questions(avecHeure: boolean): readonly string[] {
+  return avecHeure ? QUESTIONS : QUESTIONS.filter((q) => q !== 'heure');
+}
+
+/**
+ * La barre de progression : cinq points pendant la leçon, puis un pour la leçon et un par
+ * question et pour le personnage (quatre sur le web, cinq dans l'app iOS).
+ */
+export function points(vue: EtapeDepart, avecHeure = false): { total: number; index: number } {
   const i = (LECON as readonly string[]).indexOf(vue);
   if (i >= 0) return { total: LECON.length, index: i };
   /* Les questions reprennent les points de la maquette : la leçon compte pour le premier. */
-  return { total: QUESTIONS.length + 1, index: (QUESTIONS as readonly string[]).indexOf(vue) + 1 };
+  const q = questions(avecHeure);
+  return { total: q.length + 1, index: q.indexOf(vue) + 1 };
+}
+
+/**
+ * L'écran qui suit dans la première session. Sans rappel possible (le web), l'heure est
+ * sautée : on ne pose pas une question dont la réponse ne servirait à rien.
+ */
+export function departApres(vue: EtapeDepart, avecHeure: boolean): EtapeDepart | null {
+  const n = departNext(vue);
+  return n === 'heure' && !avecHeure ? departNext(n) : n;
 }
 
 /* ---------- les deux questions ---------- */

@@ -529,6 +529,8 @@ export type Index = {
   examens?: string;
   /** Les lignes du rythme gratuit, `rythme.json` (`rythme.ts`) ; vide pour un export qui n'en porte pas. */
   rythme?: string;
+  /** Les textes du rappel quotidien et de la garde de la progression, `rappels.json` (`rappels.ts`) ; vide pour un export qui n'en porte pas. */
+  rappels?: string;
 };
 
 /** La version de données que l'app lit : le dossier exporté par `wenlu export`. */
@@ -575,7 +577,8 @@ export async function loadIndex(
     heros: typeof brut.heros === 'string' ? brut.heros : '',
     jouer: typeof brut.jouer === 'string' ? brut.jouer : '',
     examens: typeof brut.examens === 'string' ? brut.examens : '',
-    rythme: typeof brut.rythme === 'string' ? brut.rythme : ''
+    rythme: typeof brut.rythme === 'string' ? brut.rythme : '',
+    rappels: typeof brut.rappels === 'string' ? brut.rappels : ''
   };
 }
 
