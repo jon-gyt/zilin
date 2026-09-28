@@ -729,8 +729,11 @@ est bloquant.
 
 ### `parcours-lire.json`, `parcours-hsk.json`
 
-`{parcours, liste, regle, critere_frequence, depart[], cible[], compte, jours[], briques[],
+`{parcours, liste, regle, ordre, critere_frequence, depart[], cible[], compte, jours[], briques[],
 briques_muettes[], briques_decoupees[], non_reconcilies[], absents[]}`.
+
+- `ordre` : d'où viennent les jours — `figé : data/sources/parcours/ordre-<nom>.tsv`
+  (le cas du dépôt depuis le 28 septembre 2026) ou `calculé (aucun ordre figé)`.
 
 - `parcours` vaut `lire` (liste cible `seuil-255`, puis les seuils suivants) ou `hsk`
   (liste cible `hsk-1`). Même graphe, seule la liste change.
@@ -748,7 +751,19 @@ briques_muettes[], briques_decoupees[], non_reconcilies[], absents[]}`.
   pose d'un coup, et la session complète reprend au jour qui suit (`jourApresDepart`
   de `app/src/lib/premiere.ts`). La règle d'une brique nouvelle par jour tient ; seul
   l'ordre de priorité cède.
-- Ordre : tri topologique — une brique avant tout ce qui la contient. Parmi les
+- Ordre figé : les jours se lisent dans `data/sources/parcours/ordre-<nom>.tsv`,
+  versionné, et ne se recalculent plus. `wenlu build` valide le fichier contre le graphe
+  — départ imposé, une brique nouvelle au plus par jour, chaque composé après toutes ses
+  briques, toute la liste couverte, rien qui ne soit plus à apprendre, les non
+  réconciliés à la fin — et s'arrête sur `OrdreInvalide` s'il ne tient plus : un
+  changement de source ou de décomposition ne déplace jamais un jour en silence. Le
+  fichier : un en-tête `jour brique composes statut`, puis une ligne par jour, séparée
+  par des tabulations ; `-` pour une case vide, `ferme` pour les jours de fermeture.
+  `uv run wenlu parcours figer` le réécrit depuis le build (`--recalculer` : depuis le
+  calcul ci-dessous) ; son diff se relit avant d'être versionné. Premier gel : l'ordre
+  de la version 0.1.0, jour pour jour, au moment où la décomposition a quitté
+  `dictionary.txt` (`docs/sources-licences.md` §10).
+- Calcul, qui ne sert plus qu'à proposer un ordre : tri topologique — une brique avant tout ce qui la contient. Parmi les
   candidats prêts, priorité aux caractères de la liste cible, puis à ce qui devient
   lisible le jour même, puis à la fréquence, puis à l'ordre de la liste. Make Me a Hanzi
   ne fournit aucun rang de fréquence : le repli documenté (`critere_frequence`) est le
@@ -766,7 +781,8 @@ briques_muettes[], briques_decoupees[], non_reconcilies[], absents[]}`.
   dictionnaire.
   Ils ferment le parcours, marqués `non_reconcilie` : jamais oubliés.
 
-`uv run wenlu check` ajoute trois contrôles : « cycles du graphe » (bloquant),
+`uv run wenlu check` ajoute quatre contrôles : « cycles du graphe » (bloquant),
+« parcours figés » (bloquant : chaque parcours a son ordre versionné et le build le suit),
 « caractères de liste absents du parcours » (bloquant) et « briques muettes » (signalé).
 
 ## Fiches FR et EN (story 1.4)

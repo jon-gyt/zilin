@@ -10,7 +10,8 @@ Ordre et dépendances — chaque étape lit ce que la précédente a écrit :
   Exige `fetch`.
 - `build` : découpe dans un hôte les composants que `graphics.txt` ne dessine pas,
   réconcilie les décompositions avec GF 0014-2009, construit le graphe et les
-  parcours dans `data/work/build/`. Exige `ingest`.
+  parcours dans `data/work/build/`, dans l'ordre figé de `data/sources/parcours/`.
+  Exige `ingest`.
 - `export` : assemble `app/public/data/<version>/`, les seuls fichiers que l'app lira.
   Exige `build`.
 - `fonts` : produit les woff2 de `app/public/fonts/`. À lancer après `export`, qui
@@ -21,6 +22,10 @@ Ordre et dépendances — chaque étape lit ce que la précédente a écrit :
   sources d'IDS de remplacement (`docs/licences-decompositions.md`). Après `export` ;
   `--telecharger` va chercher les candidats. Hors de `tout`, comme `fonts`.
 - `tout` : enchaîne fetch, ingest, build, export, check et s'arrête à la première erreur.
+
+`parcours figer` écrit l'ordre figé de chaque parcours (`data/sources/parcours/`), que
+`build` lit et valide au lieu de le recalculer : il se lance à la main, et son diff se
+relit avant d'être versionné.
 
 `audio`, `contes` et `fiches` sont des familles de commandes à part : elles demandent
 une clé d'API et se lancent à la main, jamais dans `tout`. `fetes calendrier` et
@@ -100,6 +105,8 @@ def build() -> None:
     from .gf0014 import build as _build
     from .graphe import build as _graphe
 
+    from .graphe import OrdreInvalide
+
     try:
         # Les découpes d'abord : la réconciliation fait une brique de chaque composant découpé.
         rapport = {**_decoupes(), **_build()}
@@ -107,7 +114,7 @@ def build() -> None:
     except OSError as erreur:
         typer.echo(f"{erreur} — lancer `wenlu ingest` d'abord.", err=True)
         raise typer.Exit(code=1) from erreur
-    except DecoupeInvalide as erreur:
+    except (DecoupeInvalide, OrdreInvalide) as erreur:
         typer.echo(str(erreur), err=True)
         raise typer.Exit(code=1) from erreur
     # Deux rapports, deux boucles : `cycles` figure dans les deux et une fusion
@@ -135,6 +142,32 @@ def export(version: str = typer.Option(VERSION, help="Version exportée, en doss
     if rapport.fiches_relues == 0:
         typer.echo("Aucune fiche relue : les fiches exportées sont vides (statut sans_fiche).")
     typer.echo(f"Export écrit dans {rapport.dossier}.")
+
+
+_parcours = typer.Typer(help="Ordre figé des parcours (data/sources/parcours/).")
+
+
+@_parcours.command("figer")
+def parcours_figer(
+    recalculer: bool = typer.Option(
+        False, help="Écrire l'ordre que le calcul propose aujourd'hui au lieu de celui du build."
+    ),
+    nom: list[str] = typer.Option([], help="Parcours à figer (lire, hsk) ; tous par défaut."),
+) -> None:
+    """Écrit data/sources/parcours/ordre-<nom>.tsv. Exige `build`. Relire le diff avant de versionner."""
+    from .graphe import figer
+
+    try:
+        ecrits = figer(recalculer=recalculer, noms=nom or None)
+    except OSError as erreur:
+        typer.echo(f"{erreur} — lancer `wenlu build` d'abord.", err=True)
+        raise typer.Exit(code=1) from erreur
+    for cle, chemin in ecrits.items():
+        typer.echo(f"{cle} : {chemin}")
+    typer.echo("Relire le diff, puis relancer `wenlu build` : il lira ces ordres.")
+
+
+app.add_typer(_parcours, name="parcours")
 
 
 # Après `export` : c'est lui qui dit quels caractères l'app écrit.

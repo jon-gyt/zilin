@@ -53,6 +53,16 @@ disponible est un jour de consolidation (`brique` nul). Les caractères de la
 liste dont la décomposition n'est pas réconciliée ferment le parcours, marqués
 `non_reconcilie` : ils ne sont jamais oubliés.
 
+Ordre figé : depuis le 28 septembre 2026, l'ordre de chaque parcours n'est plus
+recalculé à chaque build. Il est lu, jour par jour, dans un fichier versionné
+(`data/sources/parcours/ordre-<nom>.tsv`), que `wenlu build` valide contre le graphe
+— chaque brique posée une fois, chaque composé posé après toutes ses briques, toute la
+liste cible couverte — et refuse s'il ne tient plus. Le calcul ci-dessous ne sert plus
+qu'à proposer un ordre (`wenlu parcours figer`), que l'on relit puis versionne : un
+changement de source ou de décomposition ne déplace plus aucun jour en silence, et les
+textes écrits avec l'acquis du jour (phrases des fiches, lettres, WeChat, contes)
+restent justes. Voir `docs/sources-licences.md` §10.
+
 Départ : chaque parcours, « lire » comme « hsk », commence par ce que la première
 session enseigne (brief §6, story 2.7) — 人, 大, 天, un jour chacun, sans composé. La première
 session couvre ces trois jours d'un coup, et la session complète du lendemain
@@ -72,7 +82,7 @@ from typing import Callable, Iterable, Mapping, Sequence
 
 from .gf0014 import Controle
 from .outils import ecrire_json
-from .paths import BUILD, INGEST
+from .paths import BUILD, DATA, INGEST
 
 BRIQUE = "brique"
 CARACTERE = "caractere"
@@ -104,6 +114,20 @@ CRITERE_FREQUENCE = (
 
 _LOIN = 10**9
 
+#: Les ordres figés des parcours, versionnés : `ordre-<nom>.tsv`, un jour par ligne.
+ORDRES = DATA / "sources" / "parcours"
+#: Le même dossier, que les tests retrouvent quand `ORDRES` est détourné.
+ORDRES_REELS = ORDRES
+
+#: Ce que dit `parcours-<nom>.json` de l'origine de son ordre.
+ORDRE_FIGE = "figé : data/sources/parcours/ordre-{nom}.tsv"
+ORDRE_CALCULE = "calculé (aucun ordre figé)"
+
+#: Une case vide d'un fichier d'ordre : pas de brique ce jour-là, ou pas de composé.
+VIDE = "-"
+#: La marque des jours qui ferment le parcours (caractères non réconciliés ou absents).
+FERME = "ferme"
+
 
 class CycleDetecte(ValueError):
     """Le graphe de dépendances boucle : aucun ordre d'apprentissage n'existe."""
@@ -115,6 +139,10 @@ class ParcoursBloque(ValueError):
 
 class DepartImpossible(ValueError):
     """Un caractère du départ imposé n'est pas à apprendre, ou pas encore lisible."""
+
+
+class OrdreInvalide(ValueError):
+    """Un ordre figé ne tient plus contre le graphe : à relire, puis à refiger."""
 
 
 # ---------------------------------------------------------------------------- graphe
@@ -574,6 +602,186 @@ def parcours(
     )
 
 
+# ----------------------------------------------------------------------- ordre figé
+
+
+def chemin_ordre(nom: str, dossier: Path | None = None) -> Path:
+    """Le fichier d'ordre figé d'un parcours."""
+    return (dossier or ORDRES) / f"ordre-{nom}.tsv"
+
+
+def ecrire_ordre(p: Parcours) -> str:
+    """Le fichier d'ordre figé d'un parcours : un jour par ligne, en TSV."""
+    lignes = [
+        f"# Ordre figé du parcours « {p.nom} » (liste {p.liste}), un jour par ligne.",
+        "#",
+        "# Écrit par `uv run wenlu parcours figer`, relu, puis versionné : `wenlu build` le lit",
+        "# au lieu de recalculer l'ordre, et le refuse s'il ne tient plus contre le graphe",
+        "# (brique posée deux fois, composé posé avant ses briques, caractère de la liste",
+        "# oublié, caractère qui n'est plus à apprendre). Un jour qui bouge est donc toujours",
+        "# une décision explicite, visible dans l'historique de ce fichier.",
+        "# Voir `data/src/wenlu_data/graphe.py` et `docs/sources-licences.md` §10.",
+        "#",
+        "# Colonnes, séparées par une tabulation : jour ; brique nouvelle (`-` : aucune) ;",
+        f"# composés, séparés par une espace (`-` : aucun) ; `{FERME}` pour les jours qui",
+        "# ferment le parcours (caractères non réconciliés ou absents), `-` sinon.",
+        "jour\tbrique\tcomposes\tstatut",
+    ]
+    for j in p.jours:
+        lignes.append(
+            "\t".join(
+                (
+                    str(j.jour),
+                    j.brique or VIDE,
+                    " ".join(j.composes) or VIDE,
+                    FERME if j.non_reconcilie else VIDE,
+                )
+            )
+        )
+    return "\n".join(lignes) + "\n"
+
+
+def lire_ordre(lignes: Iterable[str], nom: str = "ordre.tsv") -> list[Jour]:
+    """Les jours d'un fichier d'ordre figé. Une ligne mal formée lève `OrdreInvalide`."""
+    jours: list[Jour] = []
+    entete = False
+    for numero, brute in enumerate(lignes, start=1):
+        ligne = brute.rstrip("\n")
+        if not ligne.strip() or ligne.startswith("#"):
+            continue
+        champs = ligne.split("\t")
+        if not entete:
+            if champs != ["jour", "brique", "composes", "statut"]:
+                raise OrdreInvalide(f"{nom}, ligne {numero} : en-tête inattendu ({ligne!r})")
+            entete = True
+            continue
+        if len(champs) != 4 or not champs[0].isdigit() or champs[3] not in (VIDE, FERME):
+            raise OrdreInvalide(f"{nom}, ligne {numero} : quatre colonnes attendues ({ligne!r})")
+        brique = None if champs[1] == VIDE else champs[1]
+        composes = () if champs[2] == VIDE else tuple(champs[2].split(" "))
+        jours.append(
+            Jour(jour=int(champs[0]), brique=brique, composes=composes, non_reconcilie=champs[3] == FERME)
+        )
+    return jours
+
+
+def charger_ordre(nom: str, dossier: Path | None = None) -> list[Jour] | None:
+    """L'ordre figé d'un parcours, ou None s'il n'y en a pas."""
+    chemin = chemin_ordre(nom, dossier)
+    if not chemin.exists():
+        return None
+    return lire_ordre(chemin.read_text(encoding="utf-8").splitlines(), chemin.name)
+
+
+def parcours_fige(
+    graphe: Graphe,
+    cible: Sequence[str],
+    jours: Sequence[Jour],
+    *,
+    nom: str = "lire",
+    liste: str = "seuil-255",
+    depart: Sequence[str] = (),
+) -> Parcours:
+    """Le parcours d'un ordre figé, validé contre le graphe.
+
+    Mêmes règles que le calcul (`parcours`) : le départ imposé d'abord, une brique
+    nouvelle au plus par jour, un composé seulement quand toutes ses briques sont
+    posées (les feuilles muettes et découpées sont acquises d'entrée), toute la liste
+    cible couverte, et les caractères non réconciliés ou absents en fin de parcours.
+    En plus : rien n'y est posé qui ne soit à apprendre pour la liste, pour qu'une
+    décomposition changée se voie. Au moindre écart, `OrdreInvalide` les nomme tous.
+    """
+    fautes: list[str] = []
+    absents = tuple(c for c in cible if c not in graphe)
+    non_reconcilies = tuple(c for c in cible if c in graphe and not graphe[c].reconcilie)
+    cibles_ok = [c for c in cible if c in graphe and graphe[c].reconcilie]
+
+    a_apprendre: set[str] = set(cibles_ok)
+    muettes: set[str] = set()
+    decoupees: set[str] = set()
+    for c in cibles_ok:
+        for p in graphe.prerequis_transitifs(c):
+            genre = graphe[p].genre if p in graphe else MUETTE
+            if genre == MUETTE:
+                muettes.add(p)
+            elif genre == DECOUPEE:
+                decoupees.add(p)
+            else:
+                a_apprendre.add(p)
+
+    attendus = list(range(1, len(jours) + 1))
+    if [j.jour for j in jours] != attendus:
+        fautes.append("les jours ne se suivent pas à partir de 1")
+    acquis: set[str] = set(muettes | decoupees)
+    poses: set[str] = set()
+    briques: list[str] = []
+    fermeture: list[str] = []
+    for i, j in enumerate(jours):
+        if j.non_reconcilie:
+            if j.brique:
+                fautes.append(f"jour {j.jour} : un jour de fermeture ne pose pas de brique")
+            fermeture.extend(j.composes)
+            continue
+        if fermeture:
+            fautes.append(f"jour {j.jour} : un jour ordinaire après les jours de fermeture")
+        if not j.brique and not j.composes:
+            fautes.append(f"jour {j.jour} : ni brique ni composé")
+        if i < len(depart):
+            if j.caracteres != (depart[i],):
+                fautes.append(f"jour {j.jour} : le départ impose {depart[i]} seul")
+        for c in j.caracteres:
+            if c in poses:
+                fautes.append(f"jour {j.jour} : {c} déjà posé")
+                continue
+            poses.add(c)
+            if c not in graphe:
+                fautes.append(f"jour {j.jour} : {c} absent du graphe")
+                continue
+            if c not in a_apprendre:
+                fautes.append(f"jour {j.jour} : {c} n'est plus à apprendre pour {liste}")
+            if c == j.brique:
+                if graphe[c].genre != BRIQUE:
+                    fautes.append(f"jour {j.jour} : {c} n'est pas une brique ({graphe[c].genre})")
+                briques.append(c)
+            else:
+                if graphe[c].genre == BRIQUE:
+                    fautes.append(f"jour {j.jour} : {c} est une brique, posée comme composé")
+                manque = [p for p in graphe[c].prerequis if p not in acquis]
+                if manque:
+                    fautes.append(f"jour {j.jour} : {c} posé avant {' '.join(manque)}")
+            acquis.add(c)
+    oublies = [c for c in cibles_ok if c not in poses]
+    if oublies:
+        fautes.append(f"caractères de la liste jamais posés : {' '.join(oublies)}")
+    manquants = sorted(a_apprendre - poses)
+    if manquants and not oublies:
+        fautes.append(f"à apprendre mais jamais posés : {' '.join(manquants)}")
+    if fermeture != list(absents + non_reconcilies):
+        fautes.append(
+            "les jours de fermeture doivent porter, dans l'ordre de la liste, les absents puis"
+            f" les non réconciliés : {' '.join(absents + non_reconcilies) or 'aucun'}"
+            f" (lu : {' '.join(fermeture) or 'aucun'})"
+        )
+    if fautes:
+        raise OrdreInvalide(
+            f"{nom} : l'ordre figé ({chemin_ordre(nom).name}) ne tient plus contre le graphe —"
+            f" {' ; '.join(fautes[:12])}{' …' if len(fautes) > 12 else ''}."
+            " Relire, puis `uv run wenlu parcours figer` si le changement est voulu."
+        )
+    return Parcours(
+        nom=nom,
+        liste=liste,
+        jours=tuple(jours),
+        briques=tuple(briques),
+        muettes=tuple(sorted(muettes)),
+        decoupees=tuple(sorted(decoupees)),
+        non_reconcilies=non_reconcilies,
+        absents=absents,
+        cible=tuple(cible),
+        depart=tuple(depart),
+    )
+
+
 # --------------------------------------------------------------------------- écriture
 
 
@@ -615,12 +823,13 @@ def document_graphe(graphe: Graphe, boucles: Sequence[tuple[str, ...]]) -> dict[
     }
 
 
-def document_parcours(p: Parcours) -> dict[str, object]:
+def document_parcours(p: Parcours, ordre: str = ORDRE_CALCULE) -> dict[str, object]:
     """Contenu de `parcours-<nom>.json` (voir data/schema.md)."""
     return {
         "parcours": p.nom,
         "liste": p.liste,
         "regle": "une seule brique nouvelle par session de 10 minutes",
+        "ordre": ordre,
         "critere_frequence": CRITERE_FREQUENCE,
         "depart": list(p.depart),
         "cible": list(p.cible),
@@ -712,6 +921,88 @@ def ajouter_muettes_aux_ecarts(chemin: Path, section: str) -> Path:
     return chemin
 
 
+def calculer(
+    sortie: Path | None = None,
+    ingest: Path | None = None,
+    depart: Mapping[str, Sequence[str]] | None = None,
+) -> dict[str, Parcours]:
+    """L'ordre que le calcul proposerait aujourd'hui, pour chaque parcours, sans rien écrire.
+
+    Lit `decompositions.json` et `decoupes.json` de `sortie`, comme `build`.
+    """
+    from .decoupes import composants_decoupes
+
+    sortie = sortie or BUILD
+    ingest = ingest or INGEST
+    depart = DEPART if depart is None else depart
+    document = json.loads((sortie / "decompositions.json").read_text(encoding="utf-8"))
+    graphe = construire(document["caracteres"], composants_decoupes(sortie))
+    listes = json.loads((ingest / "listes.json").read_text(encoding="utf-8"))
+    fichier_caracteres = ingest / "caracteres.json"
+    rangs = (
+        rangs_frequence(json.loads(fichier_caracteres.read_text(encoding="utf-8")))
+        if fichier_caracteres.exists()
+        else {}
+    )
+    return {
+        nom: parcours(graphe, listes[liste], nom=nom, liste=liste, rangs=rangs, depart=depart.get(nom, ()))
+        for nom, liste in PARCOURS.items()
+        if listes.get(liste)
+    }
+
+
+def figer(
+    sortie: Path | None = None,
+    ingest: Path | None = None,
+    dossier: Path | None = None,
+    *,
+    recalculer: bool = False,
+    noms: Sequence[str] | None = None,
+) -> dict[str, str]:
+    """Écrit `ordre-<nom>.tsv` pour chaque parcours ; rend {nom: chemin écrit}.
+
+    Par défaut, fige l'ordre que porte déjà `parcours-<nom>.json` du build : c'est ainsi
+    que le premier gel a repris, jour pour jour, l'ordre que l'apprenant voyait.
+    `recalculer` écrit à la place l'ordre que le calcul propose aujourd'hui (`calculer`) :
+    un changement voulu, à relire dans le diff du fichier avant de le versionner.
+    """
+    sortie = sortie or BUILD
+    dossier = dossier or ORDRES
+    dossier.mkdir(parents=True, exist_ok=True)
+    calcules = calculer(sortie, ingest) if recalculer else {}
+    ecrits: dict[str, str] = {}
+    for nom, liste in PARCOURS.items():
+        if noms and nom not in noms:
+            continue
+        if recalculer:
+            if nom not in calcules:
+                continue
+            p = calcules[nom]
+        else:
+            chemin = sortie / f"parcours-{nom}.json"
+            if not chemin.exists():
+                continue
+            document = json.loads(chemin.read_text(encoding="utf-8"))
+            p = Parcours(nom=nom, liste=liste, jours=jours_du_document(document))
+        cible = chemin_ordre(nom, dossier)
+        cible.write_text(ecrire_ordre(p), encoding="utf-8")
+        ecrits[nom] = str(cible)
+    return ecrits
+
+
+def jours_du_document(document: Mapping[str, object]) -> tuple[Jour, ...]:
+    """Les jours de `parcours-<nom>.json`."""
+    return tuple(
+        Jour(
+            jour=int(j["jour"]),
+            brique=j["brique"],
+            composes=tuple(j["composes"]),
+            non_reconcilie=bool(j["non_reconcilie"]),
+        )
+        for j in document["jours"]  # type: ignore[union-attr]
+    )
+
+
 def build(
     sortie: Path | None = None,
     ingest: Path | None = None,
@@ -722,6 +1013,9 @@ def build(
     `depart` vaut par défaut `DEPART` : chaque parcours commence par la
     première session. Les composants découpés sont ceux de `decoupes.json`, que
     `decoupes.build` a écrit dans `sortie`.
+
+    L'ordre d'un parcours est lu dans son fichier figé (`ORDRES`) s'il existe, et
+    validé contre le graphe (`OrdreInvalide` sinon) ; il n'est calculé qu'à défaut.
     """
     from .decoupes import composants_decoupes
 
@@ -761,11 +1055,17 @@ def build(
         if not cible:
             rapport[f"parcours_{nom}"] = f"liste {liste} absente : parcours non écrit"
             continue
-        p = parcours(graphe, cible, nom=nom, liste=liste, rangs=rangs, depart=depart.get(nom, ()))
+        fige = charger_ordre(nom)
+        if fige is None:
+            p = parcours(graphe, cible, nom=nom, liste=liste, rangs=rangs, depart=depart.get(nom, ()))
+            ordre = ORDRE_CALCULE
+        else:
+            p = parcours_fige(graphe, cible, fige, nom=nom, liste=liste, depart=depart.get(nom, ()))
+            ordre = ORDRE_FIGE.format(nom=nom)
         ecrits.append(p)
-        ecrire_json(sortie / f"parcours-{nom}.json", document_parcours(p))
+        ecrire_json(sortie / f"parcours-{nom}.json", document_parcours(p, ordre))
         rapport[f"parcours_{nom}"] = (
-            f"{len(p.jours)} jours pour {p.cibles} caractères"
+            f"{len(p.jours)} jours pour {p.cibles} caractères, ordre {ordre}"
             f" ({len(p.briques)} briques, {len(p.non_reconcilies)} non réconciliés,"
             f" {len(p.muettes)} briques muettes, {len(p.decoupees)} découpées)"
         )
@@ -802,6 +1102,7 @@ def controles(sortie: Path | None = None) -> list[Controle]:
     ]
 
     manquants: list[str] = []
+    non_figes: list[str] = []
     muettes: list[str] = []
     decoupees: set[str] = set()
     for nom in PARCOURS:
@@ -812,12 +1113,27 @@ def controles(sortie: Path | None = None) -> list[Controle]:
             )
             continue
         p = json.loads(chemin.read_text(encoding="utf-8"))
+        fige = charger_ordre(nom)
+        if fige is None:
+            non_figes.append(f"{nom} : aucun ordre figé ({chemin_ordre(nom).name})")
+        elif list(jours_du_document(p)) != fige:
+            non_figes.append(f"{nom} : le build ne suit pas l'ordre figé, relancer `wenlu build`")
         vus = {c for j in p["jours"] for c in ([j["brique"]] if j["brique"] else []) + j["composes"]}
         absents = [c for c in p["cible"] if c not in vus]
         manquants += [f"{nom} : {' '.join(absents)}"] if absents else []
         muettes += [f"{nom} : {' '.join(p['briques_muettes'])}"] if p["briques_muettes"] else []
         decoupees.update(p.get("briques_decoupees") or ())
 
+    resultats.append(
+        Controle(
+            "parcours figés",
+            not non_figes,
+            "; ".join(non_figes)
+            if non_figes
+            else "chaque parcours suit son ordre versionné (data/sources/parcours/)",
+            bloquant=True,
+        )
+    )
     resultats.append(
         Controle(
             "caractères de liste absents du parcours",

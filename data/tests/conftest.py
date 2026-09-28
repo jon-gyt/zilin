@@ -63,3 +63,15 @@ def _sans_rangs_du_personnage(monkeypatch: pytest.MonkeyPatch) -> None:
     `heros.caracteres_dessines(heros.charger())`.
     """
     monkeypatch.setattr("wenlu_data.export.caracteres_heros", lambda: [])
+
+
+@pytest.fixture(autouse=True)
+def _sans_ordres_figes(monkeypatch: pytest.MonkeyPatch, tmp_path: Path) -> None:
+    """Les builds de test calculent leurs parcours : ils ne lisent pas les ordres figés.
+
+    `data/sources/parcours/ordre-<nom>.tsv` fige les parcours du vrai dépôt ; un graphe
+    factice ne les tiendrait pas. Un test qui veut les vrais passe `graphe.ORDRES_REELS`.
+    """
+    from wenlu_data import graphe
+
+    monkeypatch.setattr(graphe, "ORDRES", tmp_path / "sans-ordres")
