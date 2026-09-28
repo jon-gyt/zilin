@@ -608,8 +608,14 @@ export function ciblesJumeaux(corpus: CorpusJeux): string[] {
   });
 }
 
+/** Les caractères que l'apprenant a vraiment confondus avec `c`, les plus fréquents d'abord. */
+export function confondusAvec(c: string, corpus: CorpusJeux): string[] {
+  return (corpus.confusions ?? []).flatMap(([a, b]) => (a === c ? [b] : b === c ? [a] : []));
+}
+
 /**
- * Le jumeau d'un caractère : d'abord son groupe à ne pas confondre, ensuite le plus
+ * Le jumeau d'un caractère : d'abord son groupe à ne pas confondre (`paires.json`), puis
+ * un caractère que l'apprenant a vraiment pris pour lui (`confusions`), ensuite le plus
  * proche par ressemblance de composants. `null` quand rien n'est assez proche : mieux
  * vaut sauter un tour qu'opposer deux caractères qui n'ont rien à voir.
  */
@@ -618,8 +624,10 @@ export function jumeau(c: string, corpus: CorpusJeux, graine: string): string | 
   /* Un jumeau n'a pas à être acquis : c'est une forme à écarter, pas une leçon.
      Tout ce dont on a les traits peut donc servir, et rien d'autre. */
   const [proche] = proches([c], corpus.traits, corpus, graine, 1, [c]);
+  if (proche && memePaire(proche, c, q)) return proche;
+  const confondu = confondusAvec(c, corpus).find((x) => montrable(x, corpus));
+  if (confondu !== undefined) return confondu;
   if (!proche) return null;
-  if (memePaire(proche, c, q)) return proche;
   return ressemblance(proche, c, q) > BONUS_MEME_NOMBRE ? proche : null;
 }
 
@@ -642,11 +650,12 @@ function toursJumeaux(corpus: CorpusJeux, graine: string, max: number): Tour[] {
         reponse: [c],
         choix: melange([c, autre], `${graine}/${c}/choix`),
         ordre: false,
-        paire: memePaire(c, autre, q)
+        /* Une paire de `paires.json`, ou une vraie confusion : à ne pas confondre. */
+        paire: memePaire(c, autre, q) || confondusAvec(c, corpus).includes(autre)
       }
     ];
   });
-  /* Les paires à ne pas confondre d'abord, la ressemblance ensuite. */
+  /* Les paires à ne pas confondre et les vraies confusions d'abord, la ressemblance ensuite. */
   return [...tours.filter((t) => t.paire), ...tours.filter((t) => !t.paire)].slice(0, max);
 }
 

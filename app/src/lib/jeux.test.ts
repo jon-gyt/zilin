@@ -16,6 +16,7 @@ import {
   MINUTES_MIN,
   PAIRES_PAR_MINUTE,
   TOURS_JUMEAUX,
+  confondusAvec,
   PROPOSITIONS_CHAINE,
   TOURS_ASSEMBLAGE,
   TOURS_COQUILLE,
@@ -472,6 +473,23 @@ describe('Les jumeaux', () => {
     expect(TOURS_JUMEAUX).toBe(8);
     expect(grosse?.tours.length).toBe(TOURS_JUMEAUX);
     expect(grosse?.tours.length).toBeLessThanOrEqual(jumeaux.minutes * PAIRES_PAR_MINUTE);
+  });
+
+  it('tire aussi les paires des vraies confusions de l’apprenant', () => {
+    /* 住 n'a pas de groupe dans paires.json ; l'apprenant a pris 往 pour lui. */
+    const avec: CorpusJeux = { ...CORPUS, traits: [...CORPUS.traits, '往'], confusions: [['住', '往']] };
+    expect(confondusAvec('住', avec)).toEqual(['往']);
+    expect(jumeau('住', avec, 'g')).toBe('往');
+    /* Un groupe de paires.json passe encore devant. */
+    expect(jumeau('天', { ...avec, confusions: [['天', '大']] }, 'g')).toBe('夫');
+    const manche = jumeaux.preparer(avec, 'g');
+    if (!manche) throw new Error('manche attendue');
+    /* Une vraie confusion passe devant la simple ressemblance. */
+    const t = manche.tours.find((x) => x.c === '住');
+    expect(t?.choix).toContain('往');
+    expect(t?.paire).toBe(true);
+    /* Sans traits, une confusion ne se montre pas. */
+    expect(jumeau('住', { ...CORPUS, confusions: [['住', '往']] }, 'g')).toBe('休');
   });
 });
 
