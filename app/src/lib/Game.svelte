@@ -325,9 +325,10 @@
     if (id === null || courante === null || fini(courante)) return;
     const chrono = JEUX[id].chrono;
     /* Les jumeaux : la paire reste couverte tant qu'on n'a pas lu la question. Le flash
-       ne part qu'au tap sur « Montrer » (`montrer`), jamais tout seul. */
-    montre = id !== 'jumeaux';
-    cache = id === 'jumeaux';
+       ne part qu'au tap sur « Montrer » (`montrer`), jamais tout seul. Sans animation
+       demandée, il n'y a pas de flash : la paire est montrée d'emblée, un tap de moins. */
+    montre = id !== 'jumeaux' || reduit;
+    cache = id === 'jumeaux' && !reduit;
     if (chrono > 0) {
       horloge = setInterval(() => {
         reste = Math.max(0, 1 - (Date.now() - depart) / chrono);

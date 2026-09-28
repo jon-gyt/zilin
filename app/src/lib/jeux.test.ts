@@ -15,6 +15,7 @@ import {
   MINUTES_MAX,
   MINUTES_MIN,
   PAIRES_PAR_MINUTE,
+  TOURS_JUMEAUX,
   PROPOSITIONS_CHAINE,
   TOURS_ASSEMBLAGE,
   TOURS_COQUILLE,
@@ -455,7 +456,7 @@ describe('Les jumeaux', () => {
     expect(new Set(vues).size).toBe(vues.length);
   });
 
-  it('pose quinze paires par minute au plus', () => {
+  it('pose huit paires par manche, au rythme de quinze par minute au plus', () => {
     const gros: CorpusJeux = {
       ...CORPUS,
       acquis: Array.from({ length: 40 }, (_, i) => `x${i}`),
@@ -467,7 +468,9 @@ describe('Les jumeaux', () => {
       traits: Array.from({ length: 40 }, (_, i) => `x${i}`)
     };
     const grosse = jumeaux.preparer(gros, 'g');
-    expect(grosse?.tours.length).toBe(PAIRES_PAR_MINUTE);
+    /* Quinze paires faisaient 45 taps ; huit en font seize quand tout est juste. */
+    expect(TOURS_JUMEAUX).toBe(8);
+    expect(grosse?.tours.length).toBe(TOURS_JUMEAUX);
     expect(grosse?.tours.length).toBeLessThanOrEqual(jumeaux.minutes * PAIRES_PAR_MINUTE);
   });
 });

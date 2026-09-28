@@ -57,6 +57,12 @@ export const FLASH_MS = 700;
 /** Les jumeaux : quinze paires par minute au plus. */
 export const PAIRES_PAR_MINUTE = 15;
 
+/**
+ * Les jumeaux : huit paires par manche. Quinze faisaient 45 taps pour une minute
+ * (« Montrer », le choix, « Suivant ») : on garde le rythme, pas la corvée.
+ */
+export const TOURS_JUMEAUX = 8;
+
 /** La chaîne : quatre propositions, dont une seule contient le dernier caractère. */
 export const PROPOSITIONS_CHAINE = 4;
 
@@ -1376,12 +1382,12 @@ export const JEUX: Record<JeuId, Jeu> = {
     titre: 'Les jumeaux',
     lit: 'Distinguer deux caractères proches, vus en un éclair.',
     minutes: 1,
-    tours: PAIRES_PAR_MINUTE,
+    tours: TOURS_JUMEAUX,
     chrono: 0,
     limite: 0,
     indisponible: 'Pas encore de caractères acquis assez proches pour les opposer.',
     preparer: (corpus, graine) =>
-      manche('jumeaux', graine, toursJumeaux(corpus, graine, PAIRES_PAR_MINUTE)),
+      manche('jumeaux', graine, toursJumeaux(corpus, graine, TOURS_JUMEAUX)),
     repondre,
     constat
   },
