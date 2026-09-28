@@ -24,7 +24,15 @@
     messageProchain,
     messageSemaine
   } from './serie';
-  import { cloreSession, constat, jourLecon, rendezVous, type Progress } from './session';
+  import {
+    cloreSession,
+    constat,
+    jourLecon,
+    rendezVous,
+    sansBrique,
+    type Progress
+  } from './session';
+  import { ligne, SANS_RYTHME, type TextesRythme } from './rythme';
   import { stade } from './tao';
   import { sessionClose } from './haptique';
   import { onMount } from 'svelte';
@@ -32,10 +40,13 @@
 
   let {
     p,
+    textes = SANS_RYTHME,
     onterminer,
     onquitter
   }: {
     p: Progress;
+    /** Les lignes du rythme gratuit : le titre d'un jour sans brique nouvelle. */
+    textes?: TextesRythme;
     /**
      * Terminer : la session se clôt. Les trophées que la journée a fait obtenir remontent,
      * pour être notés avec leur date : un trophée obtenu le reste.
@@ -77,7 +88,7 @@
     let vivant = true;
     void lecon(choisi, n)
       .then((l) => {
-        if (vivant) caractere = caractereDuJour(l);
+        if (vivant) caractere = sansBrique(p)?.c || caractereDuJour(l);
       })
       .catch(() => {
         if (vivant) caractere = '';
@@ -92,6 +103,8 @@
   /** La série telle qu'elle sera une fois la graine du jour plantée. */
   const s = $derived(etatSerie([...p.joursTravailles, p.day], p.day));
   const taoStade = $derived(stade(p.tao.croissance));
+  /** Un jour sans brique nouvelle, rien n'entre dans la forêt : la brique a été revue. */
+  const revue = $derived(sansBrique(p) !== null);
 </script>
 
 <main class="screen">
@@ -114,7 +127,11 @@
         />
       </svg>
     </div>
-    {#if caractere}<h1>{caractere} entre dans ta forêt.</h1>{/if}
+    {#if caractere && revue}
+      <h1>{ligne(textes, 'clore_revue', { c: caractere })}</h1>
+    {:else if caractere}
+      <h1>{caractere} entre dans ta forêt.</h1>
+    {/if}
     <p class="guide">
       {dejaPlantee ? 'La graine du jour est déjà plantée : une par jour, jamais deux.' : rendezVous()}
     </p>

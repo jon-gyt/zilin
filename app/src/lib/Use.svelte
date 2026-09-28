@@ -67,7 +67,9 @@
     jeuDuJour,
     journeeDuJour,
     jourLecon,
+    jourParcours,
     rangDuJour,
+    sansBrique,
     type Progress,
     type Revision,
     type UseView
@@ -252,13 +254,15 @@
   });
 
   $effect(() => {
-    const n = jourLecon(p);
+    /* Un jour sans brique nouvelle, un texte d'un jour passé, tout à l'encre (brief §6). */
+    const relire = sansBrique(p) !== null;
+    const n = relire ? jourParcours(p) : jourLecon(p);
     const choisi = p.parcours;
     const rang = rangDuJour(p);
     let vivant = true;
     void troisLignesOnce()
       .then((doc) => {
-        if (vivant) lu = lectureDuJour(doc, choisi, n, rang);
+        if (vivant) lu = lectureDuJour(doc, choisi, n, rang, relire);
       })
       .catch(() => {
         if (vivant) lu = null;

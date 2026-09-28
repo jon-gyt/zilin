@@ -19,12 +19,15 @@ import {
   nextIndex,
   noterActivite,
   peutPlus,
+  plusPermise,
+  sansBrique,
   steps,
   type Progress,
   type Step,
   type StepId
 } from './session';
 import { humeur, type Humeur } from './tao';
+import { ligne, SANS_RYTHME, type TextesRythme } from './rythme';
 
 /* ---------- les écrans ---------- */
 
@@ -184,6 +187,7 @@ export function coups(p: Progress): Coup[] {
 export type CarteMenu =
   | { source: 'premiere' }
   | { source: 'lecon'; jour: number }
+  | { source: 'revue'; jour: number }
   | { source: 'revision' };
 
 /**
@@ -194,6 +198,9 @@ export type CarteMenu =
 export function carteDuMenu(p: Progress): CarteMenu {
   if (p.premiere) return { source: 'premiere' };
   if (p.catchup) return { source: 'revision' };
+  /* Un jour sans brique nouvelle : la brique revue, sans cinabre, puisque rien n'est ajouté. */
+  const revue = sansBrique(p);
+  if (revue !== null) return { source: 'revue', jour: revue.lecon };
   return { source: 'lecon', jour: jourLecon(p) };
 }
 
@@ -210,10 +217,16 @@ const VERBES: Partial<Record<StepId, string>> = {
  * Ce que dit Tao sur le chemin : jamais un reproche, toujours une invitation. Un tap
  * sur elle, la phrase suivante. Son humeur vient des activités, jamais de l'horloge.
  */
-export function phrasesDeTao(p: Progress, caractere = ''): string[] {
+export function phrasesDeTao(p: Progress, caractere = '', t: TextesRythme = SANS_RYTHME): string[] {
   const n = nextIndex(p);
   const s = n < 0 ? null : steps(p)[n];
-  const apprendre = caractere === '' ? '' : `${caractere}, on l'apprend ?`;
+  /* Un jour sans brique nouvelle, rien ne s'apprend : on revoit (la ligne vient de `rythme.json`). */
+  const apprendre =
+    caractere === ''
+      ? ''
+      : sansBrique(p) !== null
+        ? ligne(t, 'tao_revoir', { c: caractere })
+        : `${caractere}, on l'apprend ?`;
   let l: string[];
   switch (etatMenu(p)) {
     case 'premiere':
@@ -271,7 +284,12 @@ function sessionsDePlus(n: number): string {
   return `${n} session${n > 1 ? 's' : ''} de plus`;
 }
 
-export function menu(p: Progress, caractere = ''): ModeleMenu {
+/**
+ * `t` : les lignes du rythme gratuit (`rythme.json`) ; un jour sans brique nouvelle, la
+ * carte dit la brique revue, et, quand la session de plus n'est pas du rythme de la
+ * journée, le bouton de la journée faite devient « Réviser encore ».
+ */
+export function menu(p: Progress, caractere = '', t: TextesRythme = SANS_RYTHME): ModeleMenu {
   const etat = etatMenu(p);
   const l = steps(p).filter((s) => s.go !== null);
   const n = nextIndex(p);
@@ -286,9 +304,11 @@ export function menu(p: Progress, caractere = ''): ModeleMenu {
       posture: (etat === 'rattrapage' && !entamee(p) ? 'pot' : 'chemin') as 'chemin' | 'pot',
       humeur: (etat === 'faite' ? 'joie' : humeur(p.tao.activites, p.day)) as Humeur
     },
-    phrases: phrasesDeTao(p, caractere)
+    phrases: phrasesDeTao(p, caractere, t)
   };
   const pas = s ? `Pas ${n + 1} sur ${l.length} · ${s.t}` : '';
+  /* Un jour sans brique nouvelle : la carte montre la brique revue. */
+  const revue = sansBrique(p) !== null;
   switch (etat) {
     case 'premiere':
       return {
@@ -338,19 +358,20 @@ export function menu(p: Progress, caractere = ''): ModeleMenu {
       const appris = p.jourAppris !== undefined;
       return {
         ...base,
-        surtitre: appris ? 'Appris aujourd’hui' : 'La prochaine brique',
-        brique: appris ? 'la brique du jour' : 'la brique suivante',
+        surtitre: revue ? t.menu_revue_faite : appris ? 'Appris aujourd’hui' : 'La prochaine brique',
+        brique: revue ? t.menu_brique_revue : appris ? 'la brique du jour' : 'la brique suivante',
         ligne: p.plus > 0 ? `Graine plantée · ${sessionsDePlus(p.plus)}` : 'Graine plantée, une seule par jour',
         duree: '',
-        bouton: 'Une session de plus · une brique',
+        /* Au rythme gratuit, ou un jour sans brique : une révision de plus, jamais une brique. */
+        bouton: plusPermise(p) ? 'Une session de plus · une brique' : t.menu_reviser,
         plein: false
       };
     }
     case 'entamee':
       return {
         ...base,
-        surtitre: 'Aujourd’hui',
-        brique: 'la brique nouvelle',
+        surtitre: revue ? t.menu_revue : 'Aujourd’hui',
+        brique: revue ? t.menu_brique_revue : 'la brique nouvelle',
         ligne: pas,
         bouton: `Reprendre au pas ${n + 1}`,
         plein: true
@@ -358,8 +379,8 @@ export function menu(p: Progress, caractere = ''): ModeleMenu {
     default:
       return {
         ...base,
-        surtitre: 'Aujourd’hui',
-        brique: 'la brique nouvelle',
+        surtitre: revue ? t.menu_revue : 'Aujourd’hui',
+        brique: revue ? t.menu_brique_revue : 'la brique nouvelle',
         ligne: pas,
         bouton: 'Commencer la session',
         plein: true

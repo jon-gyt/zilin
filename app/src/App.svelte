@@ -42,7 +42,16 @@
   import { planifier, type JeuId } from './lib/jeux';
   import { noterMotDevine } from './lib/eclair';
   import type { Choix } from './lib/utiliser';
-  import { reglerApercu, toutesLesFamilles, type Noeud } from './lib/content';
+  import {
+    briquesAcquises,
+    contenu,
+    nomParcours,
+    reglerApercu,
+    toutesLesFamilles,
+    type Index,
+    type Noeud
+  } from './lib/content';
+  import { rythmeOnce, SANS_RYTHME, type TextesRythme } from './lib/rythme';
   import FeteDecor from './lib/FeteDecor.svelte';
   import { fetesOnce, saisonsOnce, type Fetes, type Saisons } from './lib/content';
   import { poserFete } from './lib/fetes';
@@ -99,6 +108,8 @@
     conclureDevinette,
     poserDevinette,
     noterRecette,
+    jourParcours,
+    preparerJournee,
     type Budget,
     type IssueDevinette,
     type LearnView,
@@ -106,7 +117,7 @@
     type Progress,
     type Revision
   } from './lib/session';
-  import { loadProgress, saveProgress, today } from './lib/db';
+  import { accesAppareil, loadProgress, saveProgress, today } from './lib/db';
   import { reglerHaptique } from './lib/haptique';
 
   /**
@@ -135,6 +146,26 @@
     | 'fangbang';
 
   let p: Progress = $state(emptyProgress(today()));
+
+  /*
+   * Les droits (`droits.ts`) : le web ou l'app iOS, et l'achat (StoreKit, story 6.2). La
+   * journée se prépare à son ouverture (`preparerJournee`) : son rythme et, sans brique
+   * nouvelle, la brique acquise la plus fragile, qu'Apprendre revoit. Les briques acquises
+   * se lisent dans l'index de l'export ; les lignes du rythme dans `rythme.json`.
+   */
+  const acces = accesAppareil();
+  let indexDonnees: Index | null = null;
+  let textesRythme: TextesRythme = $state(SANS_RYTHME);
+
+  /** Prépare la journée de la session, une fois : sans l'index, elle attend. */
+  function preparer(): void {
+    const i = indexDonnees;
+    if (i === null) return;
+    const n = preparerJournee(p, acces, briquesAcquises(i, nomParcours(i, p.parcours), jourParcours(p)));
+    if (n === p) return;
+    p = n;
+    enregistrer();
+  }
 
   /*
    * Les fêtes (fetes.json) et les termes solaires (saisons.json) : la journée de la session
@@ -249,6 +280,7 @@
     reglerHaptique(nouvelle.haptique);
     p = nouvelle;
     majDue();
+    preparer();
     enregistrer();
   }
 
@@ -260,8 +292,17 @@
    */
   void toutesLesFamilles().catch(() => undefined);
 
-  /** Au démarrage : on relit la progression et on ouvre la journée. */
-  void loadProgress().then((stored) => {
+  /**
+   * Au démarrage : on relit la progression et on ouvre la journée. L'index et les lignes du
+   * rythme se lisent avant : la journée se prépare avant que le menu ne s'ouvre.
+   */
+  void Promise.all([
+    loadProgress(),
+    contenu().catch(() => null),
+    rythmeOnce().catch(() => SANS_RYTHME)
+  ]).then(([stored, i, t]) => {
+    indexDonnees = i;
+    textesRythme = t;
     const jour = today();
     /* La pile due est recomptée sur les cartes : c'est elle qui ouvre et ferme le rattrapage. */
     const ouvert = setDue(openDay(stored, jour), nombreDues(stored, new Date()), jour);
@@ -270,6 +311,7 @@
     p = ouvert;
     if (ouvert !== stored) void saveProgress(ouvert);
     chargee = true;
+    preparer();
     aiguiller();
     /* Les lettres de Que relues : celle de la semaine arrive dès qu'elles sont lues. */
     void lettresRelues()
@@ -338,6 +380,7 @@
     if (ouvert === p) return;
     p = setDue(ouvert, nombreDues(ouvert, new Date()), jour);
     enregistrer();
+    preparer();
     lettreDuJour();
   }
 
@@ -492,6 +535,7 @@
     void suiteDepart(p.parcours).then(({ appris, jour }) => {
       p = finDepart(p, p.day, new Date(), appris, jour);
       majDue();
+      preparer();
       enregistrer();
       allerAuMenu();
     });
@@ -877,6 +921,7 @@
 {:else if ecran === 'learn'}
   <Learn
     {p}
+    textes={textesRythme}
     onsuivant={apprendreSuivant}
     onvue={apprendreVue}
     ontrace={reglerTrace}
@@ -903,7 +948,7 @@
     onquitter={quitter}
   />
 {:else if ecran === 'close'}
-  <Close {p} onterminer={clore} onquitter={quitter} />
+  <Close {p} textes={textesRythme} onterminer={clore} onquitter={quitter} />
 {:else if ecran === 'game'}
   <Game
     {p}
@@ -958,5 +1003,5 @@
 {:else if ecran === 'reglages'}
   <Settings {p} onprogression={remplacer} onretour={allerAuMenu} />
 {:else}
-  <Menu {p} fete={feteJour} {fetes} terme={laJournee.terme} {saisons} ondemarrer={boutonMenu} oncase={caseMenu} onanecdote={() => relireAnecdote('menu')} onchercher={ouvrirChercher} onreglages={() => (ecran = 'reglages')} onpersonnage={() => (ecran = 'personnage')} onroute={() => ouvrirRoute('menu')} />
+  <Menu {p} textes={textesRythme} fete={feteJour} {fetes} terme={laJournee.terme} {saisons} ondemarrer={boutonMenu} oncase={caseMenu} onanecdote={() => relireAnecdote('menu')} onchercher={ouvrirChercher} onreglages={() => (ecran = 'reglages')} onpersonnage={() => (ecran = 'personnage')} onroute={() => ouvrirRoute('menu')} />
 {/if}

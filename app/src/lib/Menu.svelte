@@ -64,10 +64,12 @@
   import { familleDepart, fichesDepart } from './premiere';
   import { jourDeDemain, premierSens } from './route';
   import { cartesDues, type Progress } from './session';
+  import { SANS_RYTHME, type TextesRythme } from './rythme';
   import { stade } from './tao';
 
   let {
     p,
+    textes = SANS_RYTHME,
     fete = null,
     fetes = null,
     terme = null,
@@ -81,6 +83,8 @@
     onroute = () => undefined
   }: {
     p: Progress;
+    /** Les lignes du rythme gratuit (`rythme.json`) : la journée sans brique. */
+    textes?: TextesRythme;
     /** La fête du jour : le vœu prend la place de la marque, l'emblème porte le caractère. */
     fete?: FeteDuJour | null;
     fetes?: Fetes | null;
@@ -125,6 +129,7 @@
     if (s.source === 'revision') {
       return `r:${cartesDues(p, new Date(), 1)[0]?.id ?? ''}`;
     }
+    if (s.source === 'revue') return `v:${p.parcours ?? ''}:${s.jour}`;
     return s.source === 'lecon' ? `l:${p.parcours ?? ''}:${s.jour}` : 'p';
   });
 
@@ -138,8 +143,13 @@
       const f = c === '' ? null : await fiche(c);
       return f ? { c: f.c, pinyin: f.pinyin, fr: f.fr, parts: f.parts, nouveau: [], pistes: [] } : null;
     }
-    const [, choisi, jour] = cle.split(':');
+    const [genre, choisi, jour] = cle.split(':');
     const l = await lecon(choisi === '' ? null : choisi, Number(jour));
+    if (genre === 'v') {
+      /* Un jour sans brique nouvelle : la brique revue, sans cinabre, rien n'est ajouté. */
+      const b = l.brique ?? l.composes[0];
+      return b ? { c: b.c, pinyin: b.pinyin, fr: b.fr, parts: b.parts, nouveau: [], pistes: l.pistes } : null;
+    }
     const f = l.composes[0] ?? l.brique;
     if (!f) return null;
     /* Un jour sans composé : la brique elle-même est l'élément ajouté. */
@@ -194,7 +204,7 @@
     void dire(carte.c);
   }
 
-  const m = $derived(menu(p, carte?.c ?? ''));
+  const m = $derived(menu(p, carte?.c ?? '', textes));
   /** Un jour sans composé : la décomposition montre la brique seule, en cinabre. */
   const briqueSeule = $derived(carte !== null && carte.parts.length === 0 && m.etat !== 'rattrapage' && m.etat !== 'premiere');
   /* Toutes les parties sont neuves : il n'y a pas d'élément ajouté à distinguer, tout reste à l'encre. */
