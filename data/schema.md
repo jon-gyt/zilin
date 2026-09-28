@@ -45,6 +45,7 @@ app/public/data/0.1.0/
   jouer.json                 l'écran Jouer : les phrases de la bulle de Tao
   anecdotes.json             les anecdotes du jour, une par caractère
   trois-lignes.json          les trois lignes du pas Utiliser, un texte par jour du chemin
+  examens.json               les examens 科举 et les 月课 : la liste, les séries relues
   familles/<racine>.json     une famille : `Famille` de models.py
   traits/<racine>.json       les tracés de la famille, sous APL, et rien d'autre
   traits/ARPHICPL.TXT        la même licence, à côté des fichiers qu'elle couvre
@@ -531,6 +532,66 @@ sinogramme couvert, au pinyin des lignes ; le glossaire lui-même), « forme » 
 6 à 48 sinogrammes), « couverture » (chaque jour de 4 à 120, sur les deux parcours),
 « export » (`trois-lignes.json` porte exactement les textes relus). Signalés : la
 relecture, et les jours du chemin au-delà du 120e qui n'ont pas encore de texte.
+
+## `examens.json`
+
+Les examens 科举 et les 月课 (brief §8, épic 8), tirés de `data/sources/examens/` par
+`examens.py`. `index.json` le nomme (`"examens": "examens.json"`).
+
+```json
+{"version": "0.1.0", "license": "propriétaire", "source": "…", "source_url": "…", "modified": "…",
+ "reussite": {"justes": 4, "sur": 5},
+ "examens": [{"id": "xianshi", "sorte": "titre", "hz": "县试", "pinyin": "xiànshì",
+              "fr": "l'examen du district, devant le magistrat", "en": "…",
+              "palier": 50, "titre": null, "questions": 15, "reussite": 12}, "…"],
+ "nominations": [{"rang": "翰林", "palier": 1000}, "…"],
+ "textes": {"attente": "L'examen se repasse quand les caractères manqués sont revus.", "…": "…"},
+ "parcours": {"lire": [{"examen": "xianshi", "jour": 25, "troncon": ["人", "…"],
+                        "series": {"A": {"supports": ["…"], "questions": ["…"], "glose": {"…": "…"}},
+                                   "B": "…"}}],
+              "hsk": ["…"]},
+ "racines": {"县": "且", "…": "…"}}
+```
+
+- `examens` : les trente-sept, dans l'ordre des paliers de caractères lus (au seuil de
+  stabilité de Ma forêt, le compte du trophée Lire) ; `sorte` `titre` (les six du 科举) ou
+  `yueke` (月课, `titre` nul) ; `questions` 15 ou 10, `reussite` 12 ou 8 (quatre sur cinq).
+- `nominations` : les quatre rangs sans examen, au palier de caractères lus.
+- `textes` : les lignes de l'écran et les phrases de Tao, avec leurs jetons (`{examen}`,
+  `{lus}`, `{justes}`, `{questions}`, `{reussite}`).
+- `parcours` : pour chaque chemin, chaque examen dont le palier est sur le chemin, avec
+  le `jour` du chemin où entre le Ne caractère, le `troncon` (les caractères entrés depuis
+  l'examen précédent) et ses séries relues, A et B (la reprise prend l'autre). Une série :
+  `supports` (`id`, `genre` : enseigne, pancarte, menu, etal, billet, message, note,
+  lettre, calendrier, affiche ; `contexte` {fr, en} ; `lignes` [{zh, pinyin, fr, en}]),
+  `questions` et `glose` (tout ce que la série montre, découpé par l'entrée la plus
+  longue). Une question : `type`, `support` ou `objet`, `consigne` {fr, en}, `choix`,
+  `reponse` (le rang du bon choix ; vrai ou faux au `vrai_faux`, avec son `affirmation`),
+  `porte` (les caractères qui portent la réponse, notés en révision) et `caracteres` (tout
+  ce qu'elle montre : l'app ne garde qu'une question dont chacun a une carte). Types :
+  `comprendre`, `reperer`, `vrai_faux`, `replique` (mises en situation) ; `sens`,
+  `caractere`, `trou` (au rang `trou`), `ton` (revue de l'acquis).
+- `racines` : la famille de chaque caractère des noms, que l'app dessine depuis ses traits.
+
+Sources, versionnées : `examens.tsv` (la liste), `nominations.tsv`, `textes.tsv`,
+`glossaire.tsv` (`zh`, `pinyin`, `fr`, `en`), et `<parcours>/<examen>.json` :
+`generation` (`modele` « rédaction manuelle », `api` « session Claude Code (sans API) »),
+`relecture` (la décision du propriétaire), puis `series`, `{serie, statut, supports,
+questions}`. `uv run wenlu examens contexte <parcours> <examen>` donne le jour du palier,
+l'acquis et le tronçon ; `uv run wenlu examens apercu <parcours> [examen]` relit.
+
+Contrôles (`wenlu check`), bloquants : « liste » (trente-sept examens, les six à titre à
+50, 100, 200, 255, 505, 805, les 月课 sur leur grille, jamais plus de 55 caractères d'un
+examen au suivant, fin à 1 800 ; titres et nominations dans l'ordre des rangs ; 15 et 10
+questions, reçu à quatre sur cinq), « sources », « périmètre » (les seuls caractères posés
+au jour du palier sur ce chemin ; au 月课, chaque question porte un caractère du
+tronçon), « pinyin », « glose », « questions » (nombre, quatre ou cinq de revue à titre,
+trois au 月课, au moins trois types de mise en situation, quatre choix distincts, la
+réponse parmi eux et pas toujours à la même place, les mots à repérer pris sur le
+support, le ton sans autre lecture du caractère, les caractères portés montrés par la
+question), « séries » (A et B sans texte commun), « couverture » (chaque examen jusqu'à 75
+caractères lus, sur les deux chemins), « périmètre des traits », « export ». Signalés : la
+relecture, et les examens du chemin qui n'ont pas encore de séries.
 
 ## `LICENCES.md`
 
