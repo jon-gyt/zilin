@@ -15,7 +15,6 @@ import {
   MESSAGE_MAX,
   MESSAGE_MIN,
   TOURS_COQUILLE,
-  chaine,
   chaines,
   clePaire,
   confusionsDesCartes,
@@ -23,6 +22,7 @@ import {
   corpusDeJeu,
   decouper,
   disponibles,
+  lien,
   fini,
   maillonsPossibles,
   postureDuJeu,
@@ -274,36 +274,45 @@ describe('la chaîne, sur le parcours Lire', () => {
   const m = JEUX.chaine.preparer(corpus, '2026-09-24/chaine/0');
   if (!m) throw new Error('manche attendue');
 
-  it('est valide : chaque maillon contient le précédent', () => {
+  it('est valide : chaque maillon contient le précédent, ou se cache dedans', () => {
     const toutes = chaines(corpus, '2026-09-24/chaine/0');
     for (const suite of toutes) {
       expect(suite.length).toBeGreaterThanOrEqual(2);
-      for (let k = 1; k < suite.length; k++) expect(contient(suite[k], suite[k - 1], corpus)).toBe(true);
+      for (let k = 1; k < suite.length; k++) expect(lien(suite[k - 1], suite[k], corpus)).not.toBeNull();
     }
     for (const t of m.tours) {
       const s = t.suite ?? [];
-      expect(contient(t.c, s[s.length - 1], corpus)).toBe(true);
+      expect(t.lien).toBe(lien(s[s.length - 1], t.c, corpus));
     }
-    /* Au jour 90, 母 → 每 → 海 : trois maillons, la plus longue d'abord. */
-    const plus = corpusAuJour(90);
-    expect(chaine(plus, 'g')).toEqual(['母', '每', '海']);
   });
 
-  it('enchaîne plusieurs chaînes sans caractère commun quand la première bute', () => {
+  it('suit l’arbre de décomposition dans les deux sens : des chaînes longues, pas de deux maillons', () => {
+    /* Avant, « 11 chaînes, la plus longue de 3 » : les parts plates n'offraient que des
+       chaînes de deux. En montant et en descendant, une chaîne tient la manche. */
+    for (const jour of [11, 40, 95, 189]) {
+      const c = corpusAuJour(jour);
+      const [premiere] = chaines(c, `2026-09-24/chaine/${jour}`);
+      expect(premiere.length, `jour ${jour}`).toBeGreaterThanOrEqual(10);
+      const sens = premiere.slice(1).map((x, k) => lien(premiere[k], x, c));
+      expect(sens).toContain('monte');
+      expect(sens).toContain('descend');
+    }
     const toutes = chaines(corpus, '2026-09-24/chaine/0');
-    expect(toutes.length).toBeGreaterThan(1);
     const vus = toutes.flat();
     expect(new Set(vus).size).toBe(vus.length);
-    /* Au jour 40, les décompositions plates ne donnent que des chaînes de deux : la
-       manche en pose plusieurs, pas une seule question. */
-    expect(m.tours.length).toBeGreaterThan(1);
-    expect(m.tours.length).toBeLessThanOrEqual(JEUX.chaine.tours);
+    expect(m.tours.length).toBe(JEUX.chaine.tours);
   });
 
   it('ne propose que de l’acquis, et une seule proposition prolonge la chaîne', () => {
     for (const t of m.tours) {
       const s = t.suite ?? [];
-      expect(t.choix.filter((x) => contient(x, s[s.length - 1], corpus))).toEqual([t.c]);
+      const dernier = s[s.length - 1];
+      /* En montant, un seul choix contient le dernier maillon ; en descendant, un seul s'y cache. */
+      const liees = t.choix.filter((x) =>
+        t.lien === 'descend' ? contient(dernier, x, corpus) : contient(x, dernier, corpus)
+      );
+      expect(liees).toEqual([t.c]);
+      expect(t.enonce).toMatch(t.lien === 'descend' ? /se cache dans ce caractère/ : /contient ce caractère/);
       for (const x of [...t.choix, ...s]) expect(corpus.acquis).toContain(x);
     }
   });

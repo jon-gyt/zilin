@@ -89,6 +89,10 @@ describe('le rendu', () => {
     const w = glyph('主', tr('主'), 72, { write: true, indigo: [0] });
     expect(w).toContain('class="br lan"');
     expect(w).toContain('class="fill lan"');
+    /* À la correction de la chaîne, le petit se peint dans le grand ; des jumeaux, le trait qui les distingue. */
+    const game = readFileSync(new URL('Game.svelte', import.meta.url), 'utf8');
+    expect(game).toContain('traitsContenus(dg, dp)');
+    expect(game).toContain('indigo={dansLeMaillon(t.c)}');
     const css = readFileSync(new URL('tokens.css', import.meta.url), 'utf8');
     expect(css).toContain('.g .lan{color:var(--indigo)}');
   });

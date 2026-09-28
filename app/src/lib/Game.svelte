@@ -48,7 +48,7 @@
     voisinsOnce
   } from './content';
   import { glyph, type StrokeData } from './glyph';
-  import { traitsQuiDistinguent } from './ecarts';
+  import { traitsContenus, traitsQuiDistinguent } from './ecarts';
   import { eclairOnce, ligneMotsDevines, TAO_ECLAIR } from './eclair';
   import { racinesDesCaracteres } from './foret';
   import { coquillesOnce } from './coquilles';
@@ -449,6 +449,39 @@
       vivant = false;
     };
   });
+
+  /**
+   * La chaîne, à la correction : dans le plus grand des deux maillons, les traits du plus
+   * petit, peints en indigo (`ecarts.traitsContenus`) : on voit où 见 se cache dans 觉.
+   * En montant, le grand est le nouveau maillon ; en descendant, c'est le précédent.
+   */
+  let contenu = $state<{ grand: string; petit: string; traits: number[] } | null>(null);
+  $effect(() => {
+    const tr = t;
+    const suite = tr?.suite ?? [];
+    const dernier = suite[suite.length - 1];
+    if (jeu !== 'chaine' || tr === null || resultat === null || dernier === undefined) {
+      contenu = null;
+      return;
+    }
+    const [grand, petit] = tr.lien === 'descend' ? [dernier, tr.c] : [tr.c, dernier];
+    let vivant = true;
+    void Promise.all([traitsDe(grand), traitsDe(petit)])
+      .then(([dg, dp]) => {
+        if (!vivant || !dg || !dp) return;
+        const traits = traitsContenus(dg, dp);
+        contenu = traits.length > 0 ? { grand, petit, traits } : null;
+      })
+      .catch(() => undefined);
+    return () => {
+      vivant = false;
+    };
+  });
+
+  /** Les traits à peindre en indigo dans un maillon de la chaîne, à la correction. */
+  function dansLeMaillon(c: string): number[] {
+    return contenu !== null && contenu.grand === c ? contenu.traits : [];
+  }
 
   /** Une brique prise : quand le compte y est, la réponse part telle quelle. */
   function prendre(k: number): void {
@@ -859,15 +892,25 @@
           {#each suite as c, k (c + k)}
             {#if k > 0}<span class="op" aria-hidden="true">→</span>{/if}
             <span class="maillon" class:dernier={k === suite.length - 1}>
-              <Glyph char={c} size={k === suite.length - 1 ? 72 : 40} write={false} />
+              <Glyph
+                char={c}
+                size={k === suite.length - 1 ? 72 : 40}
+                write={false}
+                indigo={k === suite.length - 1 ? dansLeMaillon(c) : []}
+              />
             </span>
           {/each}
           {#if resultat !== null}
             <span class="op" aria-hidden="true">→</span>
-            <span class="maillon faite"><Glyph char={t.c} size={56} write={false} /></span>
+            <span class="maillon faite"><Glyph char={t.c} size={56} write={false} indigo={dansLeMaillon(t.c)} /></span>
           {/if}
         </div>
-        <p class="consigne">{t.enonce}</p>
+        {#if resultat !== null && contenu !== null}
+          <!-- Où l'un se cache dans l'autre : ses traits, en indigo. -->
+          <p class="k distingue">En indigo, {contenu.petit} dans {contenu.grand}.</p>
+        {:else}
+          <p class="consigne">{t.enonce}</p>
+        {/if}
         <div class="choices quatre maillons">
           {#each t.choix as c, k (c + k)}
             <button

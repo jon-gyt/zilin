@@ -26,6 +26,8 @@ import {
   acquisDeDemo,
   chaine,
   chaines,
+  ENONCES_CHAINE,
+  lien,
   ciblesAssemblage,
   clore,
   constat,
@@ -810,29 +812,45 @@ describe('La chaîne', () => {
     return suite[suite.length - 1];
   };
 
-  it('part d’une brique acquise et suit l’exemple de la spécification', () => {
-    expect(chaine(CHAINE, 'g')).toEqual(['人', '大', '天', '吞']);
-    expect(chaines(CHAINE, 'g')[0]).toEqual(['人', '大', '天', '吞']);
-    expect(m.tours.slice(0, 3).map((t) => t.c)).toEqual(['大', '天', '吞']);
-    expect(m.tours[0].suite).toEqual(['人']);
-    expect(m.tours[2].suite).toEqual(['人', '大', '天']);
+  it('passe par l’exemple de la spécification, et le prolonge dans les deux sens', () => {
+    /* 夫 cache 人, puis 人 → 大 → 天 → 吞 monte, et 吞 cache 口. */
+    const suite = chaine(CHAINE, 'g');
+    expect(suite).toEqual(['夫', '人', '大', '天', '吞', '口']);
+    expect(chaines(CHAINE, 'g')[0]).toEqual(suite);
+    expect(suite.slice(1).map((x, k) => lien(suite[k], x, CHAINE))).toEqual([
+      'descend',
+      'monte',
+      'monte',
+      'monte',
+      'descend'
+    ]);
+    expect(m.tours.slice(0, 5).map((t) => t.c)).toEqual(['人', '大', '天', '吞', '口']);
+    expect(m.tours[1].suite).toEqual(['夫', '人']);
+    expect(m.tours[0].enonce).toBe(ENONCES_CHAINE.descend);
+    expect(m.tours[1].enonce).toBe(ENONCES_CHAINE.monte);
   });
 
-  it('chaque maillon contient le précédent comme composant', () => {
-    for (const t of m.tours) expect(contient(t.c, dernier(t), CHAINE)).toBe(true);
+  it('chaque maillon contient le précédent, ou se cache dedans', () => {
+    for (const t of m.tours) {
+      const l = lien(dernier(t), t.c, CHAINE);
+      expect(l).not.toBeNull();
+      expect(t.lien).toBe(l);
+      expect(l === 'monte' ? contient(t.c, dernier(t), CHAINE) : contient(dernier(t), t.c, CHAINE)).toBe(true);
+    }
   });
 
   it('lit les parts descendues de l’export : 可 d’un seul tenant dans 哥', () => {
     const plat: CorpusJeux = {
       ...CHAINE,
-      acquis: ['口', '可', '哥', '歌'],
+      /* 木 女 日 王 ne contiennent rien : ce sont les leurres. */
+      acquis: ['口', '可', '哥', '歌', '木', '女', '日', '王'],
       decompositions: {
         可: ['丁', '口'],
         哥: ['丁', '口', '丁', '口'],
         歌: ['丁', '口', '丁', '口', '欠'],
         叮: ['口', '丁']
       },
-      traits: ['口', '可', '哥', '歌', '叮']
+      traits: ['口', '可', '哥', '歌', '叮', '木', '女', '日', '王']
     };
     expect(contient('哥', '可', plat)).toBe(true);
     expect(contient('歌', '哥', plat)).toBe(true);
@@ -840,18 +858,26 @@ describe('La chaîne', () => {
     /* 叮 porte 口 et 丁, mais pas 可 : l'ordre d'écriture compte. */
     expect(contient('叮', '可', plat)).toBe(false);
     expect(contient('可', '哥', plat)).toBe(false);
-    expect(chaine(plat, 'g')).toEqual(['口', '可', '哥', '歌']);
+    /* Les quatre, reliés dans un sens ou dans l'autre : 歌 cache 可, qui cache 口, etc. */
+    const suite = chaine(plat, 'g');
+    expect([...suite].sort()).toEqual(['口', '可', '哥', '歌'].sort());
+    for (let k = 1; k < suite.length; k++) expect(lien(suite[k - 1], suite[k], plat)).not.toBeNull();
+    /* Sans leurres sûrs, pas de maillon : les quatre caractères seuls ne font pas de chaîne. */
+    expect(chaine({ ...plat, acquis: ['口', '可', '哥', '歌'] }, 'g')).toEqual([]);
   });
 
-  it('pose quatre propositions, dont une seule contient le dernier caractère', () => {
+  it('pose quatre propositions, dont une seule est liée au dernier caractère', () => {
     for (const t of m.tours) {
       expect(t.choix).toHaveLength(PROPOSITIONS_CHAINE);
       expect(new Set(t.choix).size).toBe(PROPOSITIONS_CHAINE);
       expect(t.reponse).toEqual([t.c]);
-      expect(t.choix.filter((x) => contient(x, dernier(t), CHAINE))).toEqual([t.c]);
+      const liees = t.choix.filter((x) =>
+        t.lien === 'descend' ? contient(dernier(t), x, CHAINE) : contient(x, dernier(t), CHAINE)
+      );
+      expect(liees).toEqual([t.c]);
     }
-    /* 夫 contient 人 : il ne peut pas servir de leurre après 人. */
-    expect(m.tours[0].choix).not.toContain('夫');
+    /* Après 人, 天 porte 人 dans 大 : il ne peut pas servir de leurre à « lequel contient 人 ». */
+    expect(m.tours[1].choix.filter((x) => x !== '大')).not.toContain('夫');
   });
 
   it('prend ses leurres dans l’acquis, par ressemblance, jamais sans traits', () => {
@@ -862,24 +888,26 @@ describe('La chaîne', () => {
       }
     }
     const sansTraits = { ...CHAINE, traits: CHAINE.traits.filter((c) => c !== '吞') };
-    expect(chaine(sansTraits, 'g')).toEqual(['人', '大', '天']);
+    expect(chaine(sansTraits, 'g')).not.toContain('吞');
+    /* Les leurres du premier maillon (夫 cache 人) : les plus proches de 人 parmi ceux que
+       夫 ne contient pas, ni en entier ni par ses pièces. */
     const t = m.tours[0];
     const leurres = t.choix.filter((x) => x !== t.c);
     const candidats = CHAINE.acquis.filter(
-      (x) => !['人', '大', '天', '吞', '夫'].includes(x)
+      (x) => !chaine(CHAINE, 'g').includes(x) && !contient('夫', x, CHAINE)
     );
     expect(leurres.sort()).toEqual(
       proches([t.c], candidats, CHAINE, `g/${t.c}`, PROPOSITIONS_CHAINE - 1).sort()
     );
   });
 
-  it('finit sur une impasse : aucun caractère acquis ne prolonge le dernier maillon', () => {
+  it('finit quand l’acquis ne la prolonge plus', () => {
     const suite = chaine(CHAINE, 'g');
     const fin = suite[suite.length - 1];
     expect(prolongements(fin, CHAINE).filter((x) => !suite.includes(x))).toEqual([]);
-    /* L'acquis borne la chaîne : sans 吞, elle s'arrête à 天. */
+    /* L'acquis borne la chaîne : sans 吞, elle ne passe plus par 吞. */
     const moins = { ...CHAINE, acquis: CHAINE.acquis.filter((c) => c !== '吞') };
-    expect(chaine(moins, 'g')).toEqual(['人', '大', '天']);
+    expect(chaine(moins, 'g')).not.toContain('吞');
     /* Rien ne contient rien : pas de chaîne, pas de manche. */
     const plat = { ...CHAINE, decompositions: {}, formes: {} };
     expect(chaine(plat, 'g')).toEqual([]);
@@ -914,15 +942,15 @@ describe('La chaîne', () => {
   });
 
   it('a pour constat sa longueur, sans score ni vie : un maillon manqué ne la coupe pas', () => {
-    /* Après 人 → 大 → 天 → 吞, l'impasse : deux autres chaînes, 日 → 明 et 女 → 好. */
-    expect(chaines(CHAINE, 'g').map((x) => x.length)).toEqual([4, 2, 2]);
+    /* 夫 → 人 → 大 → 天 → 吞 → 口, puis une autre chaîne de deux. */
+    expect(chaines(CHAINE, 'g').map((x) => x.length)).toEqual([6, 2]);
     const juste = jouer(m, (t) => t.reponse);
-    expect(lachaine.constat(juste)).toBe('3 chaînes, la plus longue de 4, 5 maillons trouvés.');
+    expect(lachaine.constat(juste)).toBe('2 chaînes, la plus longue de 6, 6 maillons trouvés.');
     let rate = m;
     rate = repondre(rate, '?', outcome()).manche;
     rate = jouer(rate, (t) => t.reponse);
     expect(fini(rate)).toBe(true);
-    expect(lachaine.constat(rate)).toBe('3 chaînes, la plus longue de 4, 4 maillons trouvés.');
+    expect(lachaine.constat(rate)).toBe('2 chaînes, la plus longue de 6, 5 maillons trouvés.');
     expect(lachaine.constat(rate)).not.toMatch(/point|score|vie|record|classement|coffre|bravo/i);
   });
 });
@@ -1097,20 +1125,27 @@ describe('la chaîne et la coquille sur le contenu servi (export 0.1.0)', () => 
       traits,
       cartes: stables('口可哥歌人女好妈日明时是吗叫吃名中')
     });
-    expect(chaine(corpus, '2026-09-23')).toEqual(['口', '可', '哥', '歌']);
+    /* 口 可 哥 歌 s'enchaînent, dans un sens ou dans l'autre, et la chaîne repart de 口. */
+    const suite = chaine(corpus, '2026-09-23');
+    for (const c of ['口', '可', '哥', '歌']) expect(suite).toContain(c);
+    for (let k = 1; k < suite.length; k++) expect(lien(suite[k - 1], suite[k], corpus)).not.toBeNull();
     const m = JEUX.chaine.preparer(corpus, '2026-09-23');
     if (!m) throw new Error('manche attendue');
     for (const t of m.tours) {
-      const suite = t.suite ?? [];
-      expect(t.choix.filter((x) => contient(x, suite[suite.length - 1], corpus))).toEqual([t.c]);
+      const s = t.suite ?? [];
+      const dernier = s[s.length - 1];
+      const liees = t.choix.filter((x) =>
+        t.lien === 'descend' ? contient(dernier, x, corpus) : contient(x, dernier, corpus)
+      );
+      expect(liees).toEqual([t.c]);
       for (const x of t.choix) {
         expect(corpus.acquis).toContain(x);
         expect(traits).toContain(x);
       }
     }
     const finie = jouer(m, (t) => t.reponse);
-    expect(finie.evenements.slice(0, 3).map((e) => e.c)).toEqual(['可', '哥', '歌']);
-    expect(JEUX.chaine.constat(finie)).toMatch(/^\d+ chaînes, la plus longue de 4, \d+ maillons trouvés\.$/);
+    expect(finie.evenements.slice(0, suite.length - 1).map((e) => e.c)).toEqual(suite.slice(1));
+    expect(JEUX.chaine.constat(finie)).toMatch(/la plus longue de \d+, \d+ maillons trouvés\.$|^Chaîne de \d+/);
   });
 
   it('pose une coquille avec les mots des fiches servies : 夫 pour 天, ou 天 pour 夫', () => {
