@@ -9,7 +9,7 @@
  */
 import { describe, it, expect } from 'vitest';
 import { readFileSync } from 'node:fs';
-import { Rating } from 'ts-fsrs';
+import { Rating, type Grade } from 'ts-fsrs';
 import {
   JEUX,
   MESSAGE_MAX,
@@ -17,6 +17,8 @@ import {
   TOURS_COQUILLE,
   chaine,
   chaines,
+  clePaire,
+  confusionsDesCartes,
   contient,
   corpusDeJeu,
   decouper,
@@ -34,7 +36,7 @@ import {
 } from './jeux';
 import { lireMessage, loadCoquilles, type MessageCoquille } from './coquilles';
 import { lirePaires, memePaire } from './questions';
-import { grade, SEUIL_DEBLOCAGE, type Outcome } from './srs';
+import { grade, newCard, SEUIL_DEBLOCAGE, type Outcome } from './srs';
 import { VERSION_DONNEES, type Famille, type Index } from './content';
 
 const lire = (f: string): unknown => JSON.parse(readFileSync(new URL(f, import.meta.url), 'utf8'));
@@ -141,7 +143,10 @@ describe('la coquille, sur le parcours Lire', () => {
   if (!m) throw new Error('manche attendue');
 
   it('s’ouvre avec 夫 et pose des messages rédigés, entiers, avec leur traduction', () => {
-    expect(m.tours).toHaveLength(TOURS_COQUILLE);
+    /* Au jour 60, une seule paire est ouverte (天 夫) : un seul message, jamais la même
+       paire deux fois dans la manche. */
+    expect(m.tours).toHaveLength(1);
+    expect(TOURS_COQUILLE).toBe(4);
     const ids = new Set(coquilles.map((q) => q.id));
     for (const t of m.tours) {
       const original = t.choix.map((x, i) => (x === t.reponse[0] ? t.c : x)).join('');
@@ -180,7 +185,7 @@ describe('la coquille, sur le parcours Lire', () => {
     /* Au jour 60, 很 (jour 138) n'est pas acquis : aucun message qui le porte. */
     for (const t of m.tours) expect(t.choix).not.toContain('很');
     const plus = corpusAuJour(60, '很');
-    const toutes = [0, 1, 2, 3, 4, 5, 6, 7].flatMap(
+    const toutes = Array.from({ length: 40 }, (_, k) => k).flatMap(
       (k) => JEUX.coquille.preparer(plus, `g/${k}`)?.tours ?? []
     );
     expect(toutes.some((t) => t.choix.includes('很'))).toBe(true);
@@ -200,6 +205,59 @@ describe('la coquille, sur le parcours Lire', () => {
     /* Ni vie, ni point : la manche continue, le constat compte des faits. */
     const finie = jouer(faux.manche, (x) => x.reponse[0]);
     expect(JEUX.coquille.constat(finie)).not.toMatch(/point|score|vie|record|classement|coffre/i);
+  });
+
+  it('ne pose jamais deux fois la même paire dans une manche, dans un sens ou dans l’autre', () => {
+    /* En fin de parcours, plusieurs paires sont ouvertes : 天 夫, 土 士, 王 玉, 王 主. */
+    const tard = corpusAuJour(190);
+    for (let k = 0; k < 12; k++) {
+      const manche = JEUX.coquille.preparer(tard, `2026-09-28/coquille/${k}`);
+      if (!manche) throw new Error('manche attendue');
+      const cles = manche.tours.map((t) => clePaire(t.c, t.reponse[0]));
+      expect(new Set(cles).size, cles.join(' ')).toBe(cles.length);
+    }
+  });
+
+  it('piège aussi avec les vraies confusions de l’apprenant, gardées dans ses cartes', () => {
+    /* Au jour 60, 天 夫 seule est ouverte ; l'apprenant a pris 人 pour 大, deux fois, et 日
+       pour 白 une fois : la manche peut poser ces paires-là, jamais deux fois la même. */
+    const cartes = [...new Set(acquisAuJour(60))].map((c) => ({
+      id: c,
+      card: newCard(c, new Date('2026-09-01')).card,
+      history:
+        c === '大'
+          ? [
+              { at: new Date('2026-09-02'), rating: Rating.Again as Grade, due: new Date(), leurres: ['人'] },
+              { at: new Date('2026-09-03'), rating: Rating.Again as Grade, due: new Date(), leurres: ['人'] }
+            ]
+          : c === '白'
+            ? [{ at: new Date('2026-09-02'), rating: Rating.Again as Grade, due: new Date(), leurres: ['日', 'bâiller'] }]
+            : []
+    }));
+    const avec = corpusDeJeu({
+      fiches: familles.flatMap((f) => f.fiches),
+      familles,
+      paires,
+      traits,
+      coquilles,
+      cartes: cartes.map((x) => ({ ...x, card: { ...x.card, stability: SEUIL_DEBLOCAGE + 1 } }))
+    });
+    expect(avec.confusions).toEqual([
+      ['大', '人'],
+      ['白', '日']
+    ]);
+    const cles = new Set<string>();
+    for (let k = 0; k < 20; k++) {
+      const manche = JEUX.coquille.preparer(avec, `g/${k}`);
+      if (!manche) throw new Error('manche attendue');
+      const ici = manche.tours.map((t) => clePaire(t.c, t.reponse[0]));
+      expect(new Set(ici).size).toBe(ici.length);
+      for (const c of ici) cles.add(c);
+    }
+    expect(cles).toContain(clePaire('天', '夫'));
+    expect(cles).toContain(clePaire('大', '人'));
+    /* Sans historique, aucune confusion n'est devinée. */
+    expect(confusionsDesCartes([{ c: '大', stabilite: 50 }])).toEqual([]);
   });
 
   it('met Tao en posture de lecture : elle lit le message par-dessus l’épaule', () => {

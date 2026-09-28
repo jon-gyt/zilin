@@ -108,6 +108,12 @@ export type CorpusJeux = {
   gloses: Readonly<Record<string, Glose>>;
   /** Les paires à ne pas confondre (`data/<version>/paires.json`). */
   paires: Paires;
+  /**
+   * Les vraies confusions de l'apprenant : un caractère, et un leurre qu'il a pris pour
+   * lui (les `leurres` que l'historique des cartes garde, `srs.Outcome`). Les plus
+   * fréquentes d'abord. Absentes : aucune (données de test, progression neuve).
+   */
+  confusions?: readonly (readonly [string, string])[];
   /** Les caractères dont on a les traits : les seuls qu'un jeu peut montrer. */
   traits: readonly string[];
   /**
@@ -186,6 +192,39 @@ export function briques(c: string, corpus: CorpusJeux): string[] {
 /** La glose d'un caractère, vide quand le contenu ne la donne pas. */
 export function glose(c: string, corpus: CorpusJeux): Glose {
   return corpus.gloses[c] ?? { pinyin: '', fr: '' };
+}
+
+/* ---------- les vraies confusions ---------- */
+
+const UN_HAN = /^\p{Script=Han}$/u;
+
+/**
+ * Les confusions que la progression a gardées : pour chaque carte, les leurres pris à sa
+ * place (`history[].leurres`), quand ce sont des caractères. Une paire est rangée une
+ * fois, dans l'ordre de la carte (le caractère, puis le leurre), et les plus fréquentes
+ * passent devant ; à égalité, l'ordre où elles paraissent. Rien n'est deviné : une
+ * carte sans historique n'en rend aucune.
+ */
+export function confusionsDesCartes(cartes: readonly Acquis[]): [string, string][] {
+  const comptes = new Map<string, { paire: [string, string]; n: number; rang: number }>();
+  for (const a of cartes) {
+    if (!('history' in a)) continue;
+    for (const h of a.history) {
+      for (const l of h.leurres ?? []) {
+        if (l === a.id || !UN_HAN.test(l) || !UN_HAN.test(a.id)) continue;
+        const cle = [a.id, l].sort().join('');
+        const deja = comptes.get(cle);
+        if (deja) deja.n += 1;
+        else comptes.set(cle, { paire: [a.id, l], n: 1, rang: comptes.size });
+      }
+    }
+  }
+  return [...comptes.values()].sort((x, y) => y.n - x.n || x.rang - y.rang).map((x) => x.paire);
+}
+
+/** La clé d'une paire, dans un sens ou dans l'autre : 天夫 et 夫天 sont la même. */
+export function clePaire(a: string, b: string): string {
+  return [a, b].sort().join('');
 }
 
 /* ---------- l'acquis, et son repli de démonstration ---------- */
@@ -322,6 +361,8 @@ export function corpusDeJeu(s: Sources): CorpusJeux {
     traits: s.traits ?? [],
     textes
   };
+  const confusions = confusionsDesCartes(s.cartes ?? []);
+  if (confusions.length > 0) corpus.confusions = confusions;
   const exportes = new Set<string>();
   for (const x of s.fiches ?? []) exportes.add(x.c);
   for (const f of s.familles ?? []) {
@@ -837,16 +878,47 @@ function morceaux(corpus: CorpusJeux): string[][] {
 
 /**
  * Les intrus possibles à la place d'un caractère : les autres membres de ses groupes de
- * `paires.json`, et rien d'autre. Un intrus est acquis (on ne piège qu'avec deux
- * caractères qu'on sait lire, brief §7) et absent du message : il ne doit y avoir qu'un
- * seul caractère faux.
+ * `paires.json`, puis les leurres que l'apprenant a vraiment pris pour lui ou pour qui il
+ * a été pris (`confusions`), et rien d'autre. Un intrus est acquis (on ne piège qu'avec
+ * deux caractères qu'on sait lire, brief §7) et absent du message : il ne doit y avoir
+ * qu'un seul caractère faux. `avecPaires` à faux : les seules confusions (un caractère
+ * que le message rédigé ne donne pas comme piège).
  */
-export function remplacants(c: string, message: readonly string[], corpus: CorpusJeux): string[] {
-  const autres = corpus.paires
+export function remplacants(
+  c: string,
+  message: readonly string[],
+  corpus: CorpusJeux,
+  avecPaires = true
+): string[] {
+  const groupes = [...(avecPaires ? corpus.paires : []), ...(corpus.confusions ?? [])];
+  const autres = groupes
     .filter((g) => g.includes(c))
     .flat()
     .filter((x) => x !== c && lisible(x, corpus) && !message.includes(x));
   return [...new Set(autres)];
+}
+
+/** Une place piégeable d'un message : le rang du caractère, et ses intrus possibles. */
+type Place = { i: number; r: string[] };
+
+/**
+ * Les places d'un message qu'on peut piéger sans reposer une paire déjà posée dans la
+ * manche. `pieges` : les caractères que le message rédigé donne comme pièges (ils se
+ * piègent par les paires et par les confusions) ; les autres ne se piègent que par une
+ * vraie confusion. `null` : tout caractère se piège (les messages des fiches).
+ */
+function placesLibres(
+  s: readonly string[],
+  pieges: readonly string[] | null,
+  corpus: CorpusJeux,
+  posees: ReadonlySet<string>
+): Place[] {
+  return s.flatMap((c, i) => {
+    const r = remplacants(c, s, corpus, pieges === null || pieges.includes(c)).filter(
+      (x) => !posees.has(clePaire(c, x))
+    );
+    return r.length === 0 ? [] : [{ i, r }];
+  });
 }
 
 /** La correction par les briques : la décomposition quand on sait la dessiner, sinon le caractère seul. */
@@ -898,22 +970,19 @@ function tourCoquille(
  * caractères acquis, et au moins un de leurs pièges avec un intrus possible. Le piège et
  * l'intrus sont tirés d'après la graine.
  */
-function toursRediges(corpus: CorpusJeux, graine: string): Tour[] {
+function toursRediges(corpus: CorpusJeux, graine: string, posees: Set<string>): Tour[] {
   const tours: Tour[] = [];
   for (const q of melange(corpus.coquilles ?? [], `${graine}/rediges`)) {
     if (tours.length >= TOURS_COQUILLE) break;
     const { signes: s, ponctuation } = decouper(q.message);
     if (s.length < MESSAGE_MIN || s.length > MESSAGE_MAX) continue;
     if (!s.every((c) => lisible(c, corpus))) continue;
-    const places = s.flatMap((c, i) => {
-      if (!q.pieges.includes(c)) return [];
-      const r = remplacants(c, s, corpus);
-      return r.length === 0 ? [] : [{ i, r }];
-    });
+    const places = placesLibres(s, q.pieges, corpus, posees);
     if (places.length === 0) continue;
     const g = `${graine}/${q.id}`;
     const { i, r } = places[hachage(`${g}/place`) % places.length];
     const intrus = r[hachage(`${g}/intrus`) % r.length];
+    posees.add(clePaire(s[i], intrus));
     tours.push(tourCoquille(corpus, s, i, intrus, { ponctuation, traduction: q.fr }));
   }
   return tours;
@@ -928,7 +997,8 @@ function toursDesFiches(
   corpus: CorpusJeux,
   graine: string,
   deja: ReadonlySet<string>,
-  n: number
+  n: number,
+  posees: Set<string>
 ): Tour[] {
   const textes = morceaux(corpus);
   const tours: Tour[] = [];
@@ -938,16 +1008,14 @@ function toursDesFiches(
     const g = `${graine}/coquille/${essai}`;
     const message = composer(textes, g);
     if (message === null) break;
-    const places = message.signes.flatMap((c, i) => {
-      const r = remplacants(c, message.signes, corpus);
-      return r.length === 0 ? [] : [{ i, r }];
-    });
+    const places = placesLibres(message.signes, null, corpus, posees);
     if (places.length === 0) continue;
     const { i, r } = places[hachage(`${g}/place`) % places.length];
     const t = tourCoquille(corpus, message.signes, i, r[0], { coupes: message.coupes });
     const cle = t.choix.join('');
     if (vus.has(cle)) continue;
     vus.add(cle);
+    posees.add(clePaire(message.signes[i], r[0]));
     tours.push(t);
   }
   return tours;
@@ -955,13 +1023,20 @@ function toursDesFiches(
 
 /**
  * La manche de la coquille : les messages rédigés d'abord, ceux des fiches ensuite.
- * Chaque tour ne piège qu'avec un groupe de `paires.json`, et ne montre que de l'acquis.
+ * Chaque tour piège avec un groupe de `paires.json` ou une vraie confusion de
+ * l'apprenant, et ne montre que de l'acquis. Une même paire ne se pose qu'une fois par
+ * manche, dans un sens ou dans l'autre : au deuxième message, on chercherait 夫 sans
+ * lire. Quand l'acquis n'ouvre qu'une paire, la manche est donc plus courte.
  */
 function toursCoquille(corpus: CorpusJeux, graine: string): Tour[] {
-  const rediges = toursRediges(corpus, graine);
+  const posees = new Set<string>();
+  const rediges = toursRediges(corpus, graine, posees);
   if (rediges.length >= TOURS_COQUILLE) return rediges;
   const vus = new Set(rediges.map((t) => t.choix.join('')));
-  return [...rediges, ...toursDesFiches(corpus, graine, vus, TOURS_COQUILLE - rediges.length)];
+  return [
+    ...rediges,
+    ...toursDesFiches(corpus, graine, vus, TOURS_COQUILLE - rediges.length, posees)
+  ];
 }
 
 /* ---------- jeu 5 : les devinettes de lanternes ---------- */
