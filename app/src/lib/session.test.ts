@@ -71,11 +71,13 @@ import {
   constat,
   noterActivite,
   noterRevision,
+  repondreEchauffer,
+  repondreFixer,
   rendezVous,
   type Progress,
   type Revision
 } from './session';
-import { journal, taoVide } from './tao';
+import { journal, humeur, proposeUnJeu, taoVide } from './tao';
 import {
   RETENTION_DEFAUT,
   RETENTION_MAX,
@@ -546,17 +548,19 @@ describe('pas 5, Fixer', () => {
     expect(fromJSON(toJSON(p), JOUR).revisions).toEqual([juste, faux]);
   });
 
-  it('note une activité de révision pour Tao par événement', () => {
+  it('note une carte pour Tao par événement, et une seule révision par séance', () => {
     let p = neuf();
-    [juste, hesite, faux].forEach((r) => {
-      p = noterRevision(p, JOUR, r);
+    [juste, hesite, faux].forEach((r, i) => {
+      p = repondreFixer(p, JOUR, r, i);
     });
     expect(p.tao.activites).toEqual([
       { jour: JOUR, type: 'revision' },
-      { jour: JOUR, type: 'revision' },
-      { jour: JOUR, type: 'revision' }
+      { jour: JOUR, type: 'revision', suite: true },
+      { jour: JOUR, type: 'revision', suite: true }
     ]);
+    /* Chaque carte fait grandir Tao et se dit le soir. */
     expect(p.tao.croissance).toBe(3);
+    expect(journal(p.tao.activites, JOUR)).toBe("Aujourd'hui, 3 cartes révisées.");
   });
 
   it('compte les questions posées et celles sues du premier coup', () => {
@@ -585,6 +589,107 @@ describe('pas 5, Fixer', () => {
     expect(demain.revisions).toEqual([]);
     /* Tao, elle, garde le journal : la croissance ne redescend jamais. */
     expect(demain.tao.activites).toHaveLength(1);
+  });
+});
+
+/**
+ * Brief §9 : « Trois fois la même activité d'affilée, elle s'ennuie et propose un jeu. »
+ * Une activité est une occurrence (une séance, une manche, un texte), pas une carte.
+ */
+describe("l'humeur de Tao compte les activités, pas les cartes", () => {
+  const carteJuste: Revision = { c: '住', correct: true, tries: 0, seconds: 3 };
+
+  /** Une manche de jeu : ses cartes, puis la manche finie (`jeuFini` dans App.svelte). */
+  const manche = (p: Progress, cartes = 5): Progress => {
+    let n = p;
+    for (let k = 0; k < cartes; k++) n = noterRevision(n, JOUR, carteJuste);
+    return noterActivite(n, JOUR, 'jeu');
+  };
+
+  it("douze cartes d'un même Échauffer ne l'ennuient jamais", () => {
+    let p = neuf();
+    for (let i = 0; i < 12; i++) {
+      p = repondreEchauffer(p, JOUR, carteJuste, i);
+      expect(humeur(p.tao.activites, JOUR), `carte ${i + 1}`).not.toBe('ennui');
+    }
+    /* Douze bouchées : Tao grandit de chacune, et le soir les compte toutes. */
+    expect(p.tao.croissance).toBe(12);
+    expect(journal(p.tao.activites, JOUR)).toBe("Aujourd'hui, 12 cartes révisées.");
+  });
+
+  it('ni après une séance reprise : quitter et revenir continue la même séance', () => {
+    let p = neuf();
+    for (let i = 0; i < 4; i++) p = repondreEchauffer(p, JOUR, carteJuste, i);
+    p = fromJSON(toJSON(p), JOUR);
+    for (let i = 4; i < 12; i++) p = repondreEchauffer(p, JOUR, carteJuste, i);
+    expect(p.tao.activites.filter((a) => a.suite !== true)).toHaveLength(1);
+    expect(humeur(p.tao.activites, JOUR)).not.toBe('ennui');
+  });
+
+  it('ni au pas Fixer, quel que soit le nombre de questions', () => {
+    let p = neuf();
+    for (let i = 0; i < 12; i++) {
+      p = repondreFixer(p, JOUR, carteJuste, i);
+      expect(humeur(p.tao.activites, JOUR), `question ${i + 1}`).not.toBe('ennui');
+    }
+  });
+
+  it('une session variée la rend joyeuse, pas lasse', () => {
+    let p = neuf();
+    for (let i = 0; i < 12; i++) p = repondreEchauffer(p, JOUR, carteJuste, i);
+    p = finEchauffer(p, JOUR);
+    p = noterActivite(p, JOUR, 'lecon');
+    p = noterActivite(p, JOUR, 'lecture');
+    for (let i = 0; i < 6; i++) p = repondreFixer(p, JOUR, carteJuste, i);
+    expect(humeur(p.tao.activites, JOUR)).toBe('joie');
+  });
+
+  it("trois manches de jeu d'affilée l'ennuient, et elle propose un jeu", () => {
+    let p = manche(neuf());
+    p = manche(p);
+    expect(humeur(p.tao.activites, JOUR)).not.toBe('ennui');
+    p = manche(p);
+    expect(humeur(p.tao.activites, JOUR)).toBe('ennui');
+    expect(proposeUnJeu(humeur(p.tao.activites, JOUR))).toBe(true);
+    /* Une autre activité coupe la série. */
+    p = noterActivite(p, JOUR, 'lecture');
+    expect(humeur(p.tao.activites, JOUR)).not.toBe('ennui');
+  });
+
+  it("trois plats d'affilée l'ennuient aussi", () => {
+    let p = neuf();
+    for (let k = 0; k < 3; k++) p = noterActivite(p, JOUR, 'cuisine');
+    expect(humeur(p.tao.activites, JOUR)).toBe('ennui');
+  });
+
+  it("trois séances de révision d'affilée sont trois fois la même activité", () => {
+    let p = neuf();
+    for (let s = 0; s < 3; s++) {
+      expect(humeur(p.tao.activites, JOUR), `séance ${s + 1}`).not.toBe('ennui');
+      for (let i = 0; i < 10; i++) p = repondreEchauffer(p, JOUR, carteJuste, i);
+      p = finEchauffer(p, JOUR);
+    }
+    expect(humeur(p.tao.activites, JOUR)).toBe('ennui');
+  });
+
+  it("relit un export d'avant les occurrences : une carte par entrée devient une séance", () => {
+    const ancien = JSON.parse(toJSON(neuf())) as Record<string, unknown>;
+    ancien.tao = {
+      croissance: 17,
+      activites: [
+        { jour: '2026-03-01', type: 'lecon' },
+        ...Array.from({ length: 12 }, () => ({ jour: JOUR, type: 'revision' }))
+      ],
+      collection: []
+    };
+    const p = fromJSON(JSON.stringify(ancien), JOUR);
+    expect(humeur(p.tao.activites, JOUR)).not.toBe('ennui');
+    /* Rien ne se perd : la croissance et le journal du soir restent les mêmes. */
+    expect(p.tao.croissance).toBe(17);
+    expect(p.tao.activites).toHaveLength(13);
+    expect(journal(p.tao.activites, JOUR)).toBe("Aujourd'hui, 12 cartes révisées.");
+    /* Et l'aller-retour suivant ne regroupe plus rien. */
+    expect(fromJSON(toJSON(p), JOUR).tao).toEqual(p.tao);
   });
 });
 

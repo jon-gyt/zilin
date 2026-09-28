@@ -80,11 +80,9 @@
     setDue,
     setEnAttente,
     setFix,
-    setFixNotee,
     setLearnView,
     setParcours,
     setRev,
-    setRevNotee,
     setRevue,
     setTrace,
     setUseView,
@@ -94,6 +92,8 @@
     useNext,
     poserJeuUtiliser,
     repondreEclair,
+    repondreEchauffer,
+    repondreFixer,
     ecarterReplique,
     repliqueJuste,
     conclureDevinette,
@@ -549,13 +549,13 @@
 
   /**
    * Chaque réponse replanifie la carte avec FSRS et alimente Tao. La notation vient de
-   * l'écran, qui la tient de `questions.ts` et de `grade`.
+   * l'écran, qui la tient de `questions.ts` et de `grade`. La séance entière compte une
+   * révision pour l'humeur de Tao, pas une par carte (`repondreEchauffer`).
    */
   function echaufferRepondu(r: Revision, i: number): void {
     p = planifierCarte(p, r.c, r, new Date());
-    p = noterRevision(p, p.day, r);
     /* La question est notée : quitter avant l'avance automatique ne la reposera pas. */
-    p = setRevNotee(p, i);
+    p = repondreEchauffer(p, p.day, r, i);
     enregistrer();
   }
 
@@ -695,9 +695,8 @@
   /** Chaque réponse replanifie la carte, comme au pas Échauffer. */
   function fixerRepondu(r: Revision, i: number): void {
     p = planifierCarte(p, r.c, r, new Date());
-    p = noterRevision(p, p.day, r);
-    /* Comme au pas Échauffer : une question notée ne se repose pas. */
-    p = setFixNotee(p, i);
+    /* Comme au pas Échauffer : une question notée ne se repose pas, une séance compte une révision. */
+    p = repondreFixer(p, p.day, r, i);
     enregistrer();
   }
 
@@ -746,7 +745,10 @@
     enregistrer();
   }
 
-  /** Range un événement de jeu et replanifie sa carte, sans sauvegarder. */
+  /**
+   * Range un événement de jeu et replanifie sa carte, sans sauvegarder. La carte fait
+   * partie de la manche : pour l'humeur de Tao, c'est la manche qui compte (« jeu »).
+   */
   function noterJeu(r: Revision): void {
     p = noterRevision(p, p.day, r);
     /* La rétention cible réglée passe à `schedule`, comme au pas Échauffer. */

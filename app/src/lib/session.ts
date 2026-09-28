@@ -1179,13 +1179,31 @@ export function finFixer(p: Progress, aujourdhui: string): Progress {
 }
 
 /**
- * Note une réponse : l'événement de révision est rangé dans la journée, et une
- * activité « révision » est comptée pour Tao. Une réponse, une bouchée.
+ * Note une réponse : l'événement de révision est rangé dans la journée, et une carte
+ * « révision » est comptée pour Tao. Une réponse, une bouchée : elle fait grandir Tao et
+ * se dit le soir. Pour l'humeur, seule compte l'occurrence (`tao.occurrences`) : `ouvre`,
+ * la réponse ouvre une séance de révision ; sinon, elle fait partie d'une occurrence
+ * comptée ailleurs, la séance déjà ouverte ou la manche de jeu, qui compte par son
+ * entrée « jeu ».
  */
-export function noterRevision(p: Progress, jour: string, r: Revision): Progress {
+export function noterRevision(p: Progress, jour: string, r: Revision, ouvre = false): Progress {
   /* Une bonne réponse, un point dans son art ; une erreur ne coûte rien. La vitesse n'y est pour rien. */
   const arts = r.correct ? ajouterPoint(p.arts, r.art ?? 'du') : p.arts;
-  return { ...p, revisions: [...p.revisions, r], tao: ajouter(p.tao, jour, 'revision'), arts };
+  return { ...p, revisions: [...p.revisions, r], tao: ajouter(p.tao, jour, 'revision', !ouvre), arts };
+}
+
+/**
+ * Une réponse du pas Échauffer, ou de la révision en plus, à la question `i` : notée,
+ * et la question ne se repose plus. La première réponse notée de la séance l'ouvre :
+ * une séance, une révision pour l'humeur de Tao, quel que soit le nombre de cartes.
+ */
+export function repondreEchauffer(p: Progress, jour: string, r: Revision, i: number): Progress {
+  return setRevNotee(noterRevision(p, jour, r, p.revNotee < 0), i);
+}
+
+/** Une réponse du pas Fixer, à la question `i` : comme au pas Échauffer, une séance. */
+export function repondreFixer(p: Progress, jour: string, r: Revision, i: number): Progress {
+  return setFixNotee(noterRevision(p, jour, r, p.fixNotee < 0), i);
 }
 
 /** Le bilan de la vérification : les questions posées, et celles sues du premier coup. */

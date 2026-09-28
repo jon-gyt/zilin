@@ -3,6 +3,7 @@ import { describe, it, expect } from 'vitest';
 import { SEUIL_ABSENCE } from './session';
 import {
   DUREE_REACTION_MS,
+  FORMAT_JOURNAL,
   JOURNAL_MAX,
   PALIERS,
   POIDS,
@@ -13,6 +14,7 @@ import {
   humeur,
   journal,
   lireTao,
+  occurrences,
   poseDuJour,
   posture,
   proposeUnJeu,
@@ -133,6 +135,25 @@ describe("l'humeur", () => {
     expect(humeur(coupe, JOUR)).not.toBe('ennui');
   });
 
+  it("compte les occurrences, pas les gestes : les cartes d'une séance n'ennuient pas", () => {
+    let t = ajouter(taoVide(), JOUR, 'revision');
+    for (let i = 0; i < 11; i++) t = ajouter(t, JOUR, 'revision', true);
+    expect(occurrences(t.activites)).toEqual([{ jour: JOUR, type: 'revision' }]);
+    expect(humeur(t.activites, JOUR)).toBe('calme');
+    /* Chaque geste fait grandir Tao et se dit le soir. */
+    expect(t.croissance).toBe(12);
+    expect(journal(t.activites, JOUR)).toBe("Aujourd'hui, 12 cartes révisées.");
+  });
+
+  it("trois manches d'affilée l'ennuient, leurs cartes comprises", () => {
+    let t = taoVide();
+    for (let m = 0; m < 3; m++) {
+      for (let k = 0; k < 4; k++) t = ajouter(t, JOUR, 'revision', true);
+      t = ajouter(t, JOUR, 'jeu');
+    }
+    expect(humeur(t.activites, JOUR)).toBe('ennui');
+  });
+
   it('tient les jours de repos pour neutres, jamais négatifs', () => {
     const variee = faits(['2026-03-04', 'lecon'], ['2026-03-04', 'jeu'], ['2026-03-04', 'lecture']);
     expect(humeur(variee, '2026-03-04')).toBe('joie');
@@ -193,6 +214,33 @@ describe('sérialisation', () => {
     t = ajouter(t, JOUR, 'jeu');
     t = { ...t, collection: ['lanterne'] };
     expect(lireTao(JSON.parse(JSON.stringify(t)))).toEqual(t);
+  });
+
+  it('garde les gestes rangés dans une occurrence', () => {
+    let t = ajouter(taoVide(), JOUR, 'revision');
+    t = ajouter(t, JOUR, 'revision', true);
+    expect(lireTao(JSON.parse(JSON.stringify(t)))).toEqual(t);
+  });
+
+  it("relit un journal d'avant les occurrences en séances, sans rien perdre", () => {
+    const t = lireTao({
+      croissance: 9,
+      activites: [
+        { jour: '2026-03-08', type: 'revision' },
+        { jour: '2026-03-08', type: 'revision' },
+        { jour: JOUR, type: 'revision' },
+        { jour: JOUR, type: 'revision' },
+        { jour: JOUR, type: 'lecon' },
+        { jour: JOUR, type: 'revision' },
+        { jour: JOUR, type: 'revision' }
+      ],
+      collection: []
+    });
+    expect(t.format).toBe(FORMAT_JOURNAL);
+    expect(t.croissance).toBe(9);
+    expect(t.activites.map((a) => a.suite === true)).toEqual([false, true, false, true, false, false, true]);
+    expect(humeur(t.activites, JOUR)).not.toBe('ennui');
+    expect(journal(t.activites, JOUR)).toBe("Aujourd'hui, une brique apprise, 4 cartes révisées.");
   });
 
   it('relit une progression sans Tao', () => {
