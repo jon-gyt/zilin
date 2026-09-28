@@ -41,7 +41,10 @@ export const MOTIFS = [
   'rouleau',
   'enclos',
   'lance',
-  'singe'
+  'singe',
+  'goban',
+  'arc',
+  'hache'
 ] as const;
 
 export type Motif = (typeof MOTIFS)[number];

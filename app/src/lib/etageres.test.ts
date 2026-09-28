@@ -174,8 +174,8 @@ describe('les livres cousus', () => {
     expect(lireMotif(undefined)).toBeNull();
   });
 
-  it('treize motifs, jamais de dragon, les mêmes que le pipeline', () => {
-    expect(MOTIFS).toHaveLength(13);
+  it('seize motifs, jamais de dragon, les mêmes que le pipeline', () => {
+    expect(MOTIFS).toHaveLength(16);
     expect(MOTIFS).not.toContain('dragon' as never);
     const contes = readFileSync(new URL('../../../data/src/wenlu_data/contes.py', import.meta.url), 'utf8');
     const bloc = contes.slice(contes.indexOf('MOTIFS = ('), contes.indexOf(')', contes.indexOf('MOTIFS = (')));

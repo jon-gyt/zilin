@@ -178,6 +178,9 @@ MOTIFS = (
     "enclos",
     "lance",
     "singe",
+    "goban",
+    "arc",
+    "hache",
 )
 
 #: Les colonnes de `chapitres.tsv` : un chapitre prévu d'un récit long.
