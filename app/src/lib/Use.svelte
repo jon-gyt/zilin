@@ -8,9 +8,12 @@
    * du caractère que le parcours pose aujourd'hui (export versionné, surcouché par la
    * démonstration) ; sans fiche relue, l'écran le dit au lieu d'emprunter les mots d'un
    * autre caractère. L'aperçu allumé (Réglages), les mots et la phrase d'une fiche à
-   * relire portent la mention « à relire ». Les trois lignes à lire, elles, restent celles de la maquette
-   * (`data/demo/textes/住.json`) : l'export ne porte encore aucun texte ni conte.
-   * Le cinabre ne sert qu'à une chose sur cet écran : le caractère du jour dans le texte.
+   * relire portent la mention « à relire ». Les trois lignes à lire sont celles du jour de
+   * la leçon, sur le parcours choisi, écrites dans le pipeline avec l'acquis de ce jour-là
+   * (`trois-lignes.json`, règles dans `lignes.ts`). Le cinabre ne sert qu'à une chose sur
+   * cet écran : les caractères nouveaux du jour dans le texte ; un texte relu d'un jour
+   * passé reste tout à l'encre. La traduction se montre au toucher, ligne par ligne ou en
+   * entier ; toucher un caractère ou un mot donne sa glose et le dit.
    *
    * Certains jours, un jeu suit le texte (brief §9, règle dans `utiliser.ts`) : le
    * dictionnaire éclair, un mot jamais appris dont les deux caractères sont acquis, un
@@ -46,17 +49,18 @@
   import ARelire from './ARelire.svelte';
   import EnTetePas from './EnTetePas.svelte';
   import Glyph from './Glyph.svelte';
+  import { LIGNE_SANS_FICHE, lecon, type FicheLue } from './content';
+  import { grouper, ligneGlose, type Unite } from './lecture';
   import {
-    LIGNE_SANS_FICHE,
-    glosable,
-    glose,
-    lecon,
-    lignesNues,
-    texteOnce,
-    type FicheLue,
-    type Signe,
-    type Texte
-  } from './content';
+    LIBELLE_TOUT_TRADUIRE,
+    LIBELLE_TRADUIRE,
+    guideLecture,
+    lectureDuJour,
+    texteNu,
+    troisLignesOnce,
+    unitesDeLigne,
+    type Lecture
+  } from './lignes';
   import Tao from './Tao.svelte';
   import { aAudio, dire, manifesteOnce, type Manifeste } from './audio';
   import {
@@ -217,11 +221,16 @@
   }
 
   let ficheDuJour = $state(null as FicheLue | null);
-  let t = $state(null as Texte | null);
+  /** Les trois lignes du jour ; `null` tant qu'elles se lisent, ou s'il n'y en a aucune. */
+  let lu = $state(null as Lecture | null);
+  /** La lecture est-elle faite ? Sans elle, on ne dit pas encore qu'il n'y a pas de texte. */
+  let luFini = $state(false);
   /** Le manifeste audio : il dit quels textes ont une voix. Absent, l'écran se tait. */
   let son = $state(null as Manifeste | null);
-  /** La glose du caractère touché. Rien tant qu'on n'a touché personne. */
-  let touche: Signe | null = $state(null);
+  /** La glose de l'unité touchée. Rien tant qu'on n'a touché personne. */
+  let touche: Unite | null = $state(null);
+  /** Les lignes dont la traduction est montrée : aucune à l'arrivée. */
+  let traduites = $state<number[]>([]);
 
   $effect(() => {
     const n = jourLecon(p);
@@ -240,13 +249,19 @@
   });
 
   $effect(() => {
+    const n = jourLecon(p);
+    const choisi = p.parcours;
+    const rang = rangDuJour(p);
     let vivant = true;
-    void texteOnce()
-      .then((x) => {
-        if (vivant) t = x;
+    void troisLignesOnce()
+      .then((doc) => {
+        if (vivant) lu = lectureDuJour(doc, choisi, n, rang);
       })
       .catch(() => {
-        if (vivant) t = null;
+        if (vivant) lu = null;
+      })
+      .finally(() => {
+        if (vivant) luFini = true;
       });
     return () => {
       vivant = false;
@@ -267,8 +282,12 @@
   const compo: FicheLue | null = $derived(ficheDuJour);
   const mots = $derived(compo?.mots ?? []);
   const phrase = $derived(compo?.phrase ?? null);
-  /** Le texte nu : ce qui se dirait à voix haute, quand l'audio sera embarqué. */
-  const nu = $derived(t ? lignesNues(t).join('') : '');
+  /** Le texte nu : ce que « Écouter » dit. */
+  const nu = $derived(lu ? texteNu(lu.texte) : '');
+  /** Chaque ligne en unités qui se touchent, groupées pour le passage à la ligne. */
+  const lignes = $derived(lu ? lu.texte.lignes.map((l) => grouper(unitesDeLigne(l, lu!.texte.glose))) : []);
+  const cinabre = $derived(new Set(lu?.cinabre ?? []));
+  const toutTraduit = $derived(lu !== null && traduites.length >= lu.texte.lignes.length);
 
   /* Tao lit par-dessus l'épaule. Elle accompagne la lecture, elle ne la commente pas. */
   const taoHumeur = $derived(humeur(p.tao.activites, p.day));
@@ -287,10 +306,16 @@
     return aAudio(son, texte);
   }
 
-  /** Un caractère touché : sa glose s'affiche, et il se dit à voix haute s'il en a une. */
-  function toucher(s: Signe): void {
-    touche = s;
-    ecouter(s.c);
+  /** Un caractère ou un mot touché : sa glose s'affiche, et il se dit à voix haute. */
+  function toucher(u: Unite): void {
+    touche = u;
+    ecouter(u.texte);
+  }
+
+  /** Montre la traduction d'une ligne ; `null` : de toutes. */
+  function traduire(i: number | null): void {
+    if (!lu) return;
+    traduites = i === null ? lu.texte.lignes.map((_, k) => k) : [...new Set([...traduites, i])];
   }
 </script>
 
@@ -333,33 +358,43 @@
       {#if mots.length > 0 || phrase}<ARelire de={compo} bloc />{/if}
     </div>
     <div class="foot"><button class="btn" onclick={onsuivant}>Lire trois lignes</button></div>
-  {:else if vue === 'texte' && t}
+  {:else if vue === 'texte' && lu}
     <h1>Lire</h1>
     <div class="verif-tete">
       <Tao stade={taoStade} posture="lecture" humeur={taoHumeur} size={72} />
-      <p class="guide grow">
-        Trois lignes, uniquement avec tes caractères. Le cinabre est celui d'aujourd'hui.
-        Touche un caractère si tu hésites.
-      </p>
+      <p class="guide grow">{guideLecture(lu.cinabre)}</p>
     </div>
     <div class="card">
-      <div class="read">
-        {#each t.lignes as ligne, l (l)}
+      <div class="read" lang="zh-Hans">
+        {#each lignes as groupes, l (l)}
           <div class="ligne">
-            {#each ligne as s, i (s.c + i)}
-              {#if glosable(s)}
-                <button class="s" class:new={s.nouveau} onclick={() => toucher(s)}>{s.c}</button>
-              {:else}
-                <span class="s muet">{s.c}</span>
-              {/if}
+            {#each groupes as g, n (n)}
+              <span class="groupe">
+                {#each g as u, i (i)}
+                  {#if u.touchable}
+                    <button class="s" class:touchee={touche === u} onclick={() => toucher(u)}
+                      >{#each Array.from(u.texte) as c, k (k)}<span class:new={cinabre.has(c)}
+                          >{c}</span
+                        >{/each}</button
+                    >
+                  {:else}
+                    <span class="s muet">{u.texte}</span>
+                  {/if}
+                {/each}
+              </span>
             {/each}
           </div>
+          {#if traduites.includes(l)}
+            <p class="trad-ligne" lang="fr">{lu.texte.lignes[l].fr}</p>
+          {:else}
+            <button class="traduire k" onclick={() => traduire(l)}>{LIBELLE_TRADUIRE} ›</button>
+          {/if}
         {/each}
       </div>
       <div class="gloss">
         {#if touche}
-          <b class="hz">{touche.c}</b>
-          {glose(touche)}
+          <b class="hz">{touche.texte}</b>
+          {ligneGlose(touche)}
         {:else}
           Touche un caractère.
         {/if}
@@ -371,13 +406,14 @@
           aria-disabled={!parle(nu)}
           onclick={() => ecouter(nu)}>♪ Écouter</button
         >
+        <button class="btn ghost" disabled={toutTraduit} onclick={() => traduire(null)}
+          >{LIBELLE_TOUT_TRADUIRE}</button
+        >
       </div>
     </div>
-    <div class="card">
-      <div class="k">Traduction</div>
-      <div class="trad-pleine">{t.traduction}</div>
-    </div>
     <div class="foot"><button class="btn" onclick={onsuivant}>J'ai tout lu</button></div>
+  {:else if vue === 'texte' && !luFini}
+    <p class="guide">Un instant.</p>
   {:else if vue === 'eclair' && corpus !== null && mancheE !== null}
     <div class="verif-tete">
       <Tao
@@ -461,6 +497,10 @@
     <!-- Le mot ou le dialogue n'est plus dans l'export : le pas se termine sans lui. -->
     <p class="guide">Le jeu du jour n'a pas pu être lu.</p>
     <div class="foot"><button class="btn" onclick={onsuivant}>Continuer</button></div>
+  {:else if vue === 'texte'}
+    <!-- Aucun texte pour ce jour ni pour un jour passé : le pas continue sans lui. -->
+    <p class="guide">Le texte du jour n'a pas pu être lu.</p>
+    <div class="foot"><button class="btn" onclick={onsuivant}>Continuer</button></div>
   {:else}
     <p class="guide">Le texte du jour n'a pas pu être lu.</p>
     <div class="foot"><button class="btn" onclick={onquitter}>Revenir au menu</button></div>
@@ -468,6 +508,32 @@
 </main>
 
 <style>
+  /* La traduction d'une ligne, cachée jusqu'au toucher : à l'encre douce, sous sa ligne. */
+  .read .traduire {
+    display: block;
+    min-height: 44px;
+    margin: -12px 0 -4px;
+    font-family: var(--sans);
+    letter-spacing: 0;
+    line-height: 1.2;
+  }
+  .read .trad-ligne {
+    margin: -4px 0 8px;
+    font-family: var(--sans);
+    font-size: 15px;
+    line-height: 1.4;
+    letter-spacing: 0;
+    color: var(--ink2);
+  }
+  .read .groupe {
+    display: inline-flex;
+  }
+  .read .s .new {
+    color: var(--zhu);
+  }
+  .read .s.touchee {
+    border-color: var(--indigo);
+  }
   .eclair {
     padding-top: 14px;
   }

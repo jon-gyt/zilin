@@ -8,6 +8,9 @@
    * Les questions sont les mêmes que celles de la révision (`questions.ts`), assemblées
    * par `revision.ts` à partir du JSON versionné : sens, caractère, assemblage, sur la
    * brique et le composé du jour, avec la graine du jour.
+   *
+   * Tao mange comme à la révision (`TaoMange`) : une bouchée par carte juste, une grimace
+   * sur une erreur, un bond après trois justes d'affilée.
    */
   import { untrack } from 'svelte';
   import Ask from './Ask.svelte';
@@ -26,6 +29,7 @@
   import { corpusFixer, questionsFixerDuJour } from './revision';
   import { echeance, jourLecon, repriseFix, type Progress, type Revision } from './session';
   import { humeur, stade } from './tao';
+  import { TaoMange } from './reactions.svelte';
 
   let {
     p,
@@ -136,6 +140,10 @@
   const taoHumeur = $derived(humeur(p.tao.activites, p.day));
   const taoStade = $derived(stade(p.tao.croissance));
 
+  /** Ce que Tao fait de chaque réponse : le geste, le temps de le voir. */
+  const tao = new TaoMange();
+  $effect(() => () => tao.arreter());
+
   /** La question suivante, ou la fin de la vérification. */
   function suivant(): void {
     if (i + 1 >= liste.length) onfini();
@@ -148,7 +156,10 @@
 
   {#if q}
     <div class="verif-tete">
-      <Tao stade={taoStade} posture="revision" humeur={taoHumeur} size={72} caractere={q.c} />
+      <!-- Chaque verdict rejoue le geste : la clé change, le dessin repart. -->
+      {#key tao.coup}
+        <Tao stade={taoStade} posture="revision" humeur={taoHumeur} size={72} caractere={q.c} reaction={tao.reaction} />
+      {/key}
       <p class="guide grow">Vérifions.</p>
     </div>
 
@@ -159,6 +170,7 @@
       echeanceDe={(c) => echeance(p, c)}
       onnote={(r) => onrepondu(r, i)}
       onsuivant={suivant}
+      onverdict={(juste) => tao.verdict(juste)}
       dernier={i + 1 >= liste.length}
     />
   {:else if !pret}

@@ -28,6 +28,8 @@ familles de fichiers, jamais mêlés :
 - `paires.json`, `contes/<id>.json`, `fetes.json`, `saisons.json`, `devinettes.json`,
   `eclair.json`, `coquilles.json`, `cuisine.json`, `lettres.json`, `wechat.json`, `heros.json`,
   `jouer.json` : propriétaires, source citée. `lettres.json` ne porte que les lettres de Que relues (`lettres.py`).
+- `trois-lignes.json` : les trois lignes du pas Utiliser, un texte relu par jour du chemin et
+  par parcours (`trois_lignes.py`), propriétaire, source citée ; l'app le lit à chemin fixe.
 - `apercu/` : les textes encore à relire (voir plus bas), propriétaires eux aussi.
 
 Ce qui n'entre jamais dans l'export :
@@ -95,6 +97,7 @@ from . import jouer as jouer_mod
 from . import lettres as lettres_mod
 from . import saisons as saisons_mod
 from . import surcharges as surcharges_mod
+from . import trois_lignes as trois_lignes_mod
 from . import unihan as unihan_mod
 from . import cjkdecomp
 from . import wechat as wechat_mod
@@ -111,7 +114,7 @@ VERSION = "0.1.0"
 #: Version du format écrit par ce module. À incrémenter à chaque changement de
 #: ce que l'export produit à entrées égales (clé ajoutée, ordre, règle de
 #: sélection) : elle entre dans l'empreinte, et l'export versionné devient périmé.
-FORMAT_EXPORT = 14
+FORMAT_EXPORT = 15
 
 #: Le code de l'exporteur, lui aussi dans l'empreinte : un changement de ce
 #: fichier où l'on aurait oublié `FORMAT_EXPORT` rend quand même l'export périmé.
@@ -196,6 +199,7 @@ def fichiers_sources(
         ("exporteur-heros", Path(heros_mod.__file__).resolve()),
         ("exporteur-jouer", Path(jouer_mod.__file__).resolve()),
         ("exporteur-anecdotes", Path(anecdotes_mod.__file__).resolve()),
+        ("exporteur-trois-lignes", Path(trois_lignes_mod.__file__).resolve()),
         ("decompositions", build / "decompositions.json"),
         ("graphe", build / "graphe.json"),
         *[(f"parcours-{nom}", build / f"parcours-{nom}.json") for nom in sorted(PARCOURS)],
@@ -234,6 +238,7 @@ def fichiers_sources(
         ("heros-tao", heros_mod.TAO),
         ("jouer-tao", jouer_mod.TAO),
         ("anecdotes", anecdotes_mod.ANECDOTES),
+        *trois_lignes_mod.sources(),
         ("interface", INTERFACE),
         ("arphicpl", LICENCES_SOURCE / ARPHIC),
         ("unicode", LICENCES_SOURCE / UNICODE_NOTICE),
@@ -1915,6 +1920,19 @@ def assembler(
                 "source_url": URL_PIPELINE,
                 "modified": f"{JETON_JOUR} : assemblé par `wenlu export`",
             },
+        )
+    )
+    # Les trois lignes du pas Utiliser (`trois_lignes.py`) : l'app lit ce fichier à chemin fixe.
+    textes[trois_lignes_mod.FICHIER] = _json(
+        trois_lignes_mod.document(
+            en_tete={
+                "version": version,
+                "license": LICENCE_PROPRIETAIRE,
+                "source": trois_lignes_mod.SOURCE_EXPORT,
+                "source_url": URL_PIPELINE,
+                "modified": f"{JETON_JOUR} : assemblé par `wenlu export`",
+            },
+            parcours=documents_parcours,
         )
     )
     textes["LICENCES.md"] = licences_md(version)

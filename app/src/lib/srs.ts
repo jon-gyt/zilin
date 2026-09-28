@@ -25,6 +25,12 @@ export type Outcome = {
    * événement d'avant ce champ. N'entre pas dans la note : `grade` ne le lit pas.
    */
   leurres?: string[];
+  /**
+   * `false` : la réponse ne se juge pas au temps. Le tracé (brief §7 : « Tracé ») s'écrit
+   * trait par trait, avec soin ; le lent n'y est pas un oubli. Juste du premier coup, il vaut
+   * « Facile » quel que soit le temps. Absent : la règle des six secondes s'applique.
+   */
+  chrono?: false;
 };
 
 /**
@@ -68,11 +74,19 @@ export const HISTORIQUE_MAX = 20;
 
 const MINUTE = 60_000;
 
-/** juste du premier coup en < 6 s : Facile ; juste : Bien ; juste après erreur : Dur ; faux : Oublié. */
+/** Au-delà, une réponse juste du premier coup est « lente » : Bien plutôt que Facile. */
+export const SECONDES_RAPIDE = 6;
+
+/**
+ * juste du premier coup en < 6 s : Facile ; juste : Bien ; juste après erreur : Dur ; faux :
+ * Oublié. Une réponse sans chronomètre (`chrono: false`, le tracé) juste du premier coup
+ * vaut Facile, quel que soit le temps.
+ */
 export function grade(o: Outcome): Grade {
   if (!o.correct) return Rating.Again;
   if (o.tries > 0) return Rating.Hard;
-  return o.seconds < 6 ? Rating.Easy : Rating.Good;
+  if (o.chrono === false) return Rating.Easy;
+  return o.seconds < SECONDES_RAPIDE ? Rating.Easy : Rating.Good;
 }
 
 /**

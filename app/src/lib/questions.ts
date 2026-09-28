@@ -72,6 +72,13 @@ export const BONUS_MEME_NOMBRE = 0.25;
 export const BONUS_PAIRE = 2;
 
 /**
+ * Au caractère, un leurre de la même famille (une brique en commun, ou l'un brique de
+ * l'autre) passe devant la seule ressemblance : on départage 方 de 放, pas de 子. Il reste
+ * derrière une paire à ne pas confondre.
+ */
+export const BONUS_FAMILLE = 1;
+
+/**
  * À l'oreille, un caractère de même syllabe à un autre ton (妈 mā pour 马 mǎ) est le
  * leurre le plus proche : il passe devant la seule ressemblance de forme.
  */
@@ -144,7 +151,17 @@ export type Explication = {
   etiquette: Etiquette | null;
   /** Une ligne par brique, dans l'ordre d'écriture. */
   briques: { c: string; fr: string; role: Role | null }[];
-  /** Le texte de correction, assemblé à partir des fiches. Rien n'est rédigé ici. */
+  /**
+   * La correction courte, lue d'un coup d'œil : le caractère, son pinyin, son sens, et ses
+   * briques s'il en a, chacune avec son premier sens (« 住 zhù, habiter. 亻 personne + 主
+   * maître. »). C'est elle
+   * que l'écran montre, et sur elle que l'avance automatique se cale (brief §6 :
+   * « Explications en trois phrases ; la suite dans la fiche, d'un tap »).
+   */
+  court: string;
+  /** L'origine de la fiche, derrière « Pourquoi ? ». Vide quand la fiche n'en a pas. */
+  origine: string;
+  /** Le texte de correction entier : la correction courte, puis l'origine. Rien n'est rédigé ici. */
   texte: string;
 };
 
@@ -181,13 +198,20 @@ export type Question = {
   /**
    * `oreille` : référence du fichier audio, celui de la fiche ou à défaut celui du
    * manifeste, quand il y en a un. Sans elle, le caractère est dit par la voix de
-   * l'appareil (`audio.dire`).
+   * l'appareil (`audio.dire`). `trou` : celle du mot, de la même façon.
    */
   audio?: string;
   /** `ton` : le pinyin de la lecture principale, sans son ton (`ma`). */
   sansTon?: string;
   /** `trace` : nombre de traits, quand les données de tracé sont là. */
   traits?: number;
+  /**
+   * `trace` : le caractère n'est pas montré. On le trace de mémoire, d'après son sens et son
+   * son (« Trace « voiture », chē. ») ; un indice le montre, et la note en tient compte.
+   * Absent quand la fiche n'a pas de sens : on ne demanderait qu'un son, et plusieurs
+   * caractères se lisent pareil. On le montre alors, comme avant.
+   */
+  cache?: boolean;
 };
 
 /* ---------- tirage déterministe ---------- */
@@ -257,6 +281,17 @@ export function composants(c: string, corpus: Corpus): string[] {
   const f = fiche(c, corpus);
   if (f && f.parts.length > 0) return [...f.parts];
   return [c];
+}
+
+/**
+ * Deux caractères de la même famille : une brique canonique en commun (住 et 往 par 主), ou
+ * l'un est une brique de l'autre (方 dans 放). Deux briques de base différentes n'en sont pas.
+ */
+export function memeFamille(a: string, b: string, corpus: Corpus): boolean {
+  if (a === b) return false;
+  const A = composants(a, corpus);
+  const B = composants(b, corpus);
+  return A.includes(b) || B.includes(a) || A.some((x) => B.includes(x));
 }
 
 /** Deux caractères du même groupe à ne pas confondre. */
@@ -389,6 +424,37 @@ export function tonDe(syllabe: string): number {
   return ton;
 }
 
+/**
+ * Les tons en valeurs de Chao, de 1 (grave) à 5 (aigu) : le premier plat et haut (55), le
+ * deuxième monte (35), le troisième creuse puis remonte (214), le quatrième tombe (51). Le
+ * ton neutre (0) est bref, mi-bas : un point plus qu'un trait.
+ */
+export const CHAO: Readonly<Record<number, readonly number[]>> = {
+  0: [2, 2],
+  1: [5, 5],
+  2: [3, 5],
+  3: [2, 1, 4],
+  4: [5, 1]
+};
+
+/**
+ * Le contour d'un ton, en tracé SVG dans une case de 40 × 40 : le niveau 5 en haut (y 4),
+ * le niveau 1 en bas (y 36), la syllabe de gauche à droite. Le ton neutre n'occupe que le
+ * milieu : il est bref. Un ton inconnu se dessine comme le neutre.
+ */
+export function contourDuTon(ton: number): string {
+  const niveaux = CHAO[ton] ?? CHAO[0];
+  const [debut, fin] = ton in CHAO && ton !== 0 ? [4, 36] : [16, 24];
+  const pas = (fin - debut) / (niveaux.length - 1);
+  const pts = niveaux.map((n, i) => [debut + i * pas, 36 - (n - 1) * 8]);
+  if (pts.length === 3) {
+    /* Le creux du troisième ton s'arrondit : une courbe qui descend puis remonte, pas une coche. */
+    const [[x0, y0], [x1, y1], [x2, y2]] = pts;
+    return `M${x0} ${y0} C${x1 - 8} ${y1 + 4} ${x1} ${y1 + 4} ${x2} ${y2}`;
+  }
+  return pts.map(([x, y], i) => `${i === 0 ? 'M' : 'L'}${x} ${y}`).join(' ');
+}
+
 /** La syllabe sans son ton, le ü gardé : `lǜ` donne `lü`. */
 export function sansTon(syllabe: string): string {
   let d = syllabe.normalize('NFD');
@@ -492,9 +558,47 @@ export function composantSon(f: Fiche, corpus: Corpus): string | null {
   return f.parts.find((p) => fiche(p, corpus)?.role === 'son') ?? null;
 }
 
-/** Le mot qui porte le caractère, pour le trou. */
-export function motDuTrou(f: Fiche): Mot | null {
-  return f.mots.find((m) => m.hanzi.includes(f.c)) ?? null;
+/**
+ * Le mot qui porte le caractère, pour le trou : un mot de plusieurs caractères, qu'on fera
+ * entendre. Avec le corpus, un mot qui peut être dit passe devant (`motDitable`).
+ */
+export function motDuTrou(f: Fiche, corpus?: Corpus): Mot | null {
+  const mots = f.mots.filter((m) => m.hanzi.includes(f.c) && m.hanzi.length > f.c.length);
+  if (corpus !== undefined) {
+    const dit = mots.find((m) => motDitable(m, corpus));
+    if (dit !== undefined) return dit;
+  }
+  return mots[0] ?? null;
+}
+
+/** Le fichier du mot : celui de la fiche, sinon celui du manifeste audio. */
+export function fichierDuMot(m: Mot, corpus: Corpus): string | null {
+  return m.audio ?? corpus.manifeste?.[m.hanzi] ?? null;
+}
+
+/**
+ * Le mot peut-il être dit : son fichier (fiche ou manifeste), ou la voix mandarin de
+ * l'appareil. Sans l'un ni l'autre, le trou ne se pose pas : jamais d'écran muet.
+ */
+export function motDitable(m: Mot, corpus: Corpus): boolean {
+  return m.pinyin !== '' && (fichierDuMot(m, corpus) !== null || corpus.voix === true);
+}
+
+/**
+ * Ce que l'écran fait entendre : le mot du trou, sinon le caractère (l'oreille, le ton après
+ * la correction).
+ */
+export function texteADire(q: Question): string {
+  return q.type === 'trou' && q.mot ? q.mot.hanzi : q.c;
+}
+
+/**
+ * Au trou, la correction dit enfin le mot : « 山水 shānshuǐ, paysage, montagnes et eaux. »
+ * Vide pour les autres types.
+ */
+export function ligneDuMot(q: Question): string {
+  if (q.type !== 'trou' || !q.mot) return '';
+  return q.mot.fr === '' ? `${q.mot.hanzi} ${q.mot.pinyin}.` : `${q.mot.hanzi} ${q.mot.pinyin}, ${q.mot.fr}.`;
 }
 
 /** La référence audio : celle de la fiche, sinon celle d'un de ses mots. */
@@ -543,7 +647,10 @@ export function typesPossibles(f: Fiche, corpus: Corpus): TypeQuestion[] {
   if (f.fr !== '') out.push('sens');
   if (f.fr !== '' && connus > 0) out.push('caractere');
   if (f.parts.length >= 2) out.push('assemblage');
-  if (motDuTrou(f) !== null && connus > 0) out.push('trou');
+  const mot = motDuTrou(f, corpus);
+  if (mot !== null && motDitable(mot, corpus) && candidatsOreille(f, corpus).length > 0) {
+    out.push('trou');
+  }
   if (peutEtreDit(f, corpus) && candidatsOreille(f, corpus).length > 0) out.push('oreille');
   if (syllabesDuTon(f) !== null) out.push('ton');
   if (composantSon(f, corpus) !== null) out.push('son');
@@ -552,6 +659,30 @@ export function typesPossibles(f: Fiche, corpus: Corpus): TypeQuestion[] {
 }
 
 /* ---------- l'explication par les briques ---------- */
+
+/**
+ * Le premier sens d'une glose du pipeline (« petits pas, marche (clé) » donne « petits
+ * pas »), sans la note d'atelier « (clé) » ou « (composant) ». Une virgule entre
+ * parenthèses ne coupe pas (« devoir (de l'argent), bâiller » donne « devoir (de l'argent) »).
+ * Rien n'est rédigé : on garde le début du texte relu.
+ */
+export function premierSens(fr: string): string {
+  let prof = 0;
+  let fin = fr.length;
+  for (let i = 0; i < fr.length; i++) {
+    const x = fr[i];
+    if (x === '(') prof += 1;
+    else if (x === ')') prof = Math.max(0, prof - 1);
+    else if ((x === ',' || x === ';') && prof === 0) {
+      fin = i;
+      break;
+    }
+  }
+  return fr
+    .slice(0, fin)
+    .trim()
+    .replace(/\s*\((clé|composant)\)$/u, '');
+}
 
 /**
  * La fiche de correction. Le texte n'est pas rédigé ici : il assemble ce que le pipeline
@@ -565,16 +696,26 @@ export function expliquer(f: Fiche, corpus: Corpus): Explication {
   /* Sans fiche relue, il n'y a ni sens ni origine : l'explication se tait plutôt que
      d'afficher une virgule vide. Elle garde la décomposition, qui, elle, est établie. */
   const tete = f.fr === '' ? `${f.c} ${f.pinyin}.` : `${f.c} ${f.pinyin}, ${f.fr}.`;
-  const lignes = briques.map((b) => (b.fr === '' ? b.c : `${b.c} ${b.fr}`));
-  const corps = briques.length > 0 ? ` ${f.parts.join(' + ')} : ${lignes.join(', ')}.` : '';
-  const origine = f.origine_fr === '' ? '' : ` ${f.origine_fr}`;
+  /* Chaque brique avec son premier sens, une fois : 网 = 冂 cadre + 乂 couper l'herbe + 乂. */
+  const glosees = new Set<string>();
+  const lignes = briques.map((b) => {
+    const sens = premierSens(b.fr);
+    if (sens === '' || glosees.has(b.c)) return b.c;
+    glosees.add(b.c);
+    return `${b.c} ${sens}`;
+  });
+  const corps = briques.length > 0 ? ` ${lignes.join(' + ')}.` : '';
+  const court = `${tete}${corps}`;
+  const origine = f.origine_fr.trim();
   return {
     c: f.c,
     pinyin: f.pinyin,
     fr: f.fr,
     etiquette: f.etiquette,
     briques,
-    texte: `${tete}${corps}${origine}`
+    court,
+    origine,
+    texte: origine === '' ? court : `${court} ${origine}`
   };
 }
 
@@ -630,7 +771,18 @@ export function question(
   }
 
   if (type === 'caractere') {
-    const tirage = leurres(f.c, candidatsCaracteres(f.c, corpus, true), corpus, g);
+    /* La même famille d'abord : il faut lire la brique qui change, pas la silhouette. */
+    const tirage = choisirLeurres(
+      [f.c],
+      candidatsCaracteres(f.c, corpus, true),
+      corpus,
+      g,
+      NB_LEURRES,
+      [f.c],
+      (c) => c,
+      [f.c],
+      (c) => (memeFamille(c, f.c, corpus) ? BONUS_FAMILLE : 0)
+    );
     q.enonce = `Lequel se lit ${f.pinyin} et veut dire « ${f.fr} » ?`;
     q.leurres = tirage.leurres;
     q.manqueLeurres = tirage.manque;
@@ -659,11 +811,19 @@ export function question(
   }
 
   if (type === 'trou') {
-    const mot = motDuTrou(f);
+    /*
+     * Le mot s'entend, il ne se traduit pas : « paysage, montagnes et eaux » donnait 水. Le
+     * son dit la syllabe du trou, pas sa forme : il faut lire lequel des quatre se dit ainsi,
+     * le pinyin des choix restant tu jusqu'à la correction. Jamais un homophone en leurre,
+     * que l'oreille ne départagerait pas. Le sens du mot vient à la correction.
+     */
+    const mot = motDuTrou(f, corpus);
     if (mot === null) throw new Error(`Aucun mot pour le trou : ${f.c}`);
     const i = mot.hanzi.indexOf(f.c);
-    const tirage = leurres(f.c, candidatsCaracteres(f.c, corpus, true), corpus, g);
-    q.enonce = `Complète : « ${mot.fr} ».`;
+    const tirage = leurres(f.c, candidatsOreille(f, corpus), corpus, g);
+    const audio = fichierDuMot(mot, corpus);
+    q.enonce = 'Écoute le mot, puis complète-le.';
+    if (audio !== null) q.audio = audio;
     q.mot = mot;
     q.avant = mot.hanzi.slice(0, i);
     q.apres = mot.hanzi.slice(i + f.c.length);
@@ -724,8 +884,15 @@ export function question(
     return q;
   }
 
+  /* Le rappel plutôt que la copie : le sens et le son, le caractère caché. */
   const traits = f.traits?.length ?? 0;
-  q.enonce = traits > 0 ? `Trace ${f.c} au doigt. ${traits} traits.` : `Trace ${f.c} au doigt.`;
+  const combien = traits > 0 ? ` ${traits} traits.` : '';
+  if (f.fr !== '') {
+    q.enonce = `Trace « ${f.fr} », ${f.pinyin}.${combien}`;
+    q.cache = true;
+  } else {
+    q.enonce = `Trace ${f.c} au doigt.${combien}`;
+  }
   if (traits > 0) q.traits = traits;
   return q;
 }
@@ -788,8 +955,11 @@ export function serie(dues: readonly Due[], corpus: Corpus, graine: string): Que
 
 /* ---------- correction ---------- */
 
-/** La réponse de l'utilisateur : une option, une suite de briques, ou le bilan du tracé. */
-export type Reponse = string | readonly string[] | { erreurs: number };
+/**
+ * La réponse de l'utilisateur : une option, une suite de briques, ou le bilan du tracé (ses
+ * erreurs, et l'indice s'il a fallu montrer le caractère).
+ */
+export type Reponse = string | readonly string[] | { erreurs: number; indice?: boolean };
 
 /**
  * La ligne affichée après une première erreur : un constat et ce qu'il reste à faire.
@@ -800,8 +970,48 @@ export function indiceErreur(q: Question): string {
   if (q.type === 'assemblage') return "Pas cette suite. Recommence, dans l'ordre d'écriture.";
   if (q.type === 'ton') return 'Pas ce ton. Encore un essai.';
   if (q.type === 'oreille') return 'Pas celui-là. Réécoute.';
+  if (q.type === 'trou') return 'Pas celui-là. Réécoute le mot.';
+  /* Au sens et au caractère, l'écran montre le leurre pris et ses briques (`leurreExplique`). */
+  if (q.type === 'sens' || q.type === 'caractere') return 'Pas celui-là. Encore un essai.';
   if (q.briques.length > 1) return 'Pas celui-là. Regarde les briques.';
   return 'Pas celui-là. Encore un essai.';
+}
+
+/**
+ * À l'oreille, le caractère pris pour un autre se fait entendre à son tour : on entend la
+ * différence (wǔ et yě), et « Réécoute » prend son sens. `null` pour un autre type, ou
+ * pour la bonne réponse.
+ */
+export function leurreADire(q: Question, pris: string): string | null {
+  if (q.type !== 'oreille' || !q.leurres.includes(pris)) return null;
+  return pris;
+}
+
+/** Le caractère pris pour un autre, expliqué : ce qu'il est, ce qu'il veut dire, ses briques. */
+export type LeurreExplique = {
+  c: string;
+  pinyin: string;
+  fr: string;
+  /** Ses briques, chacune avec son premier sens. Vide pour une brique de base. */
+  briques: { c: string; fr: string }[];
+};
+
+/**
+ * Une erreur qui enseigne (sens, caractère) : le caractère derrière le choix pris, son
+ * pinyin, son sens et ses briques. On voit contre quoi on s'est trompé : « Tu as pris 欠
+ * qiàn, devoir. » `null` pour les autres types, ou quand le choix n'est pas un leurre dont
+ * le corpus a la fiche. Tout vient des fiches : rien n'est rédigé ici.
+ */
+export function leurreExplique(q: Question, pris: string, corpus: Corpus): LeurreExplique | null {
+  if (q.type !== 'sens' && q.type !== 'caractere') return null;
+  const [c] = leurresDe(q, pris);
+  if (c === undefined) return null;
+  const g = fiche(c, corpus);
+  if (g === null) return null;
+  const briques = estBrique(g)
+    ? []
+    : g.parts.map((p) => ({ c: p, fr: premierSens(fiche(p, corpus)?.fr ?? '') }));
+  return { c, pinyin: g.pinyin, fr: g.fr, briques };
 }
 
 export type Correction = { correct: boolean; explication: Explication; outcome: Outcome };
@@ -829,10 +1039,14 @@ export function leurresDe(q: Question, reponse: Reponse): string[] {
 /**
  * Le tracé est noté par Hanzi Writer, qui rend le nombre d'erreurs :
  * 0 erreur = juste, 1 ou 2 = juste après erreur, 3 et plus = faux.
+ * Jamais au temps (`chrono: false`) : on trace avec soin, trait après trait, et un tracé
+ * lent n'est pas un oubli. Le temps est gardé dans l'événement, il n'entre pas dans la note.
  */
-export function outcomeDuTrace(erreurs: number, seconds: number): Outcome {
+export function outcomeDuTrace(erreurs: number, seconds: number, indice = false): Outcome {
   const correct = erreurs <= ERREURS_TRACE_MAX;
-  return { correct, tries: correct && erreurs > 0 ? 1 : erreurs, seconds };
+  /* Montrer le caractère fait d'un rappel une copie : juste, au mieux après une aide. */
+  const aide = erreurs > 0 || indice;
+  return { correct, tries: correct ? (aide ? 1 : 0) : erreurs, seconds, chrono: false };
 }
 
 function memeSuite(a: readonly string[], b: readonly string[]): boolean {
@@ -854,8 +1068,8 @@ export function corriger(
   ratees: readonly Reponse[] = []
 ): Correction {
   if (typeof reponse === 'object' && !Array.isArray(reponse)) {
-    const { erreurs } = reponse as { erreurs: number };
-    const o = outcomeDuTrace(erreurs, outcome.seconds);
+    const { erreurs, indice } = reponse as { erreurs: number; indice?: boolean };
+    const o = outcomeDuTrace(erreurs, outcome.seconds, indice === true);
     return { correct: o.correct, explication: q.explication, outcome: o };
   }
   const donnee = typeof reponse === 'string' ? [reponse] : [...(reponse as readonly string[])];

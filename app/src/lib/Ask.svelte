@@ -13,12 +13,13 @@
   import Trace from './Trace.svelte';
   import { corriger, type Corpus, type Question, type Reponse } from './questions';
   import { VERDICTS, delai, delaiAvance, pinyinDe } from './revision';
-  import { fiche, indiceErreur } from './questions';
+  import { contourDuTon, fiche, indiceErreur, leurreADire, ligneDuMot, texteADire, tonDe, leurreExplique, type LeurreExplique } from './questions';
   import type { Revision } from './session';
   import { grade } from './srs';
   import { artDe } from './heros';
   import { aAudio, manifesteOnce, prononcer } from './audio';
   import { bonneReponse } from './haptique';
+  import { ETIQUETTES } from './content';
   import type { Grade } from 'ts-fsrs';
 
   let {
@@ -28,6 +29,7 @@
     echeanceDe,
     onnote,
     onsuivant,
+    onverdict = () => undefined,
     dernier = false
   }: {
     q: Question;
@@ -44,6 +46,12 @@
     onnote: (r: Revision) => void;
     /** Question suivante : au tap, ou tout seul après une bonne réponse, le temps de lire la correction. */
     onsuivant: () => void;
+    /**
+     * Chaque verdict, dès qu'il tombe : juste quand la carte est notée juste, faux à chaque
+     * choix pris pour un autre. C'est ce qui fait manger Tao (`tao.reagir`) : une bouchée,
+     * une grimace, un bond. Rien n'est compté à l'écran.
+     */
+    onverdict?: (juste: boolean) => void;
     /** Dernière question de la série : le bouton le dit. */
     dernier?: boolean;
   } = $props();
@@ -77,12 +85,24 @@
   let entendu = $state(false);
   /** Le caractère peut être dit, par un fichier ou la voix de l'appareil. */
   let ecoutable = $state(false);
+  /** L'origine de la fiche est ouverte, sous la correction courte. */
+  let pourquoi = $state(false);
+  /** Au sens et au caractère : le dernier leurre pris, son sens et ses briques. */
+  let leurre: LeurreExplique | null = $state(null);
+  /** Tracé de mémoire : l'indice a montré le caractère. */
+  let indice = $state(false);
+  /** À l'oreille : le dernier caractère pris pour un autre, qu'on fait entendre. */
+  let entenduAuLieu: string | null = $state(null);
   /**
-   * À l'oreille, le pinyin sous les choix dirait la réponse : il n'apparaît qu'après la
-   * correction. Au caractère aussi : l'énoncé donne le pinyin, le choix se ferait sur lui
+   * À l'oreille et au trou, le pinyin sous les choix dirait la réponse : il n'apparaît qu'après
+   * la correction. Au caractère aussi : l'énoncé donne le pinyin, le choix se ferait sur lui
    * sans lire la forme.
    */
-  const pinyinCache = $derived((q.type === 'oreille' || q.type === 'caractere') && note === null);
+  const pinyinCache = $derived(
+    (q.type === 'oreille' || q.type === 'caractere' || q.type === 'trou') && note === null
+  );
+  /** La question se pose à l'oreille : le caractère (oreille) ou le mot (trou) s'entend d'abord. */
+  const aEcouter = $derived(q.type === 'oreille' || q.type === 'trou');
 
   /** Remise à zéro à chaque question : le chronomètre repart, les essais aussi. */
   $effect(() => {
@@ -97,6 +117,10 @@
     sautable = false;
     entendu = false;
     ecoutable = false;
+    pourquoi = false;
+    indice = false;
+    leurre = null;
+    entenduAuLieu = null;
     depart = Date.now();
   });
 
@@ -117,7 +141,7 @@
      la note rend une question neuve, qui ne doit pas se redire. */
   $effect(() => {
     void cle;
-    if (untrack(() => q.type) !== 'oreille') return;
+    if (!untrack(() => aEcouter)) return;
     const t = setTimeout(() => ecouter(), 300);
     return () => clearTimeout(t);
   });
@@ -141,18 +165,21 @@
    * Note la réponse : `corriger` rend l'`Outcome`, `grade` la note, l'appelant replanifie
    * la carte. Le délai affiché est relu sur la carte, après coup.
    */
-  function noter(reponse: string | string[] | { erreurs: number }): void {
+  function noter(reponse: string | string[] | { erreurs: number; indice?: boolean }): void {
     const seconds = (Date.now() - depart) / 1000;
     const c = corriger(q, reponse, { correct: false, tries: essais, seconds }, ratees);
     note = grade(c.outcome);
     /* Un tap léger dans l'app iOS sur une bonne réponse ; rien sur une erreur. */
     if (c.correct) bonneReponse();
+    onverdict(c.correct);
     /* L'art du personnage que la question exerce : un point s'il est juste (`noterRevision`). */
     onnote({ c: q.c, ...c.outcome, art: artDe(q.type) });
     const due = echeanceDe(q.c);
     prochaine = due === null ? '' : delai(new Date(), due);
-    /* L'avance automatique laisse lire la correction ; trop longue, on avance au tap. */
-    const attente = c.correct ? delaiAvance(`${VERDICTS[note]} ${q.explication.texte}`) : null;
+    /* L'avance automatique laisse lire la correction courte ; l'origine attend « Pourquoi ? ». */
+    const attente = c.correct
+      ? delaiAvance(`${VERDICTS[note]} ${ligneDuMot(q)} ${q.explication.court}`)
+      : null;
     if (attente !== null) minuteur = setTimeout(avancer, attente);
   }
 
@@ -165,11 +192,16 @@
     }
     rates = [...rates, k];
     essais += 1;
+    leurre = leurreExplique(q, q.choix[k], corpus);
+    /* À l'oreille, le leurre pris se fait entendre : on entend la différence. */
+    entenduAuLieu = leurreADire(q, q.choix[k]);
+    if (entenduAuLieu !== null) direLeurre(entenduAuLieu);
     if (essais >= ESSAIS_MAX) {
       montree = true;
       noter(q.choix[k]);
     } else {
       ratees = [...ratees, q.choix[k]];
+      onverdict(false);
     }
   }
 
@@ -193,7 +225,20 @@
     } else {
       ratees = [...ratees, donnee];
       construit = [];
+      onverdict(false);
     }
+  }
+
+  /** Dit le caractère pris pour un autre : son fichier, ou la voix de l'appareil, ou rien. */
+  function direLeurre(c: string): void {
+    if (note !== null) arreter();
+    void prononcer(c);
+  }
+
+  /** « Pourquoi ? » ouvre l'origine : on lit, l'avance automatique s'arrête, on avance au bouton. */
+  function ouvrirPourquoi(): void {
+    arreter();
+    pourquoi = true;
   }
 
   /**
@@ -207,13 +252,13 @@
   function ecouter(): void {
     if (note !== null) arreter();
     const rang = cle;
-    void prononcer(q.c).then((dit) => {
+    void prononcer(texteADire(q)).then((dit) => {
       if (rang !== cle) return;
       if (dit === 'fichier' || dit === 'telephone') {
         entendu = true;
         /* Réécouter a fini par charger le fichier : la question se pose de nouveau. */
-        if (q.type === 'oreille' && note === null) sautable = false;
-      } else if (dit === 'muet' && q.type === 'oreille' && note === null && !entendu) sautable = true;
+        if (aEcouter && note === null) sautable = false;
+      } else if (dit === 'muet' && aEcouter && note === null && !entendu) sautable = true;
     });
   }
 </script>
@@ -248,8 +293,10 @@
       {/if}
     </div>
   {:else if q.type === 'trou'}
+    <!-- Le mot s'entend, il ne se traduit pas : le sens vient à la correction. -->
     <div class="stim">
       <span class="hz">{q.avant}<span class="blank"></span>{q.apres}</span>
+      <button class="btn ghost ecoute" onclick={ecouter}>{entendu ? '♪ Réécouter le mot' : '♪ Écouter le mot'}</button>
     </div>
   {:else if q.type === 'oreille'}
     <div class="stim">
@@ -261,6 +308,13 @@
       <Glyph char={q.c} size={100} />
       <div class="syllabe">
         <span class="py">{note === null ? q.sansTon : q.reponse[0]}</span>
+        {#if note !== null}
+          <!-- Le contour du ton se dessine sur sa portée à cinq niveaux, à l'indigo du son. -->
+          <svg class="contour" width="44" height="44" viewBox="0 0 40 40" role="img" aria-label="contour du ton">
+            <path class="portee" d="M2 4H38M2 12H38M2 20H38M2 28H38M2 36H38" />
+            <path class="trait" d={contourDuTon(tonDe(q.reponse[0]))} pathLength="1" />
+          </svg>
+        {/if}
         {#if note !== null && ecoutable}
           <button class="btn ghost ecoute" onclick={ecouter}>♪ Écouter</button>
         {/if}
@@ -271,9 +325,15 @@
       <Trace
         char={q.c}
         quiz
-        onresultat={(erreurs) => noter({ erreurs })}
+        cache={q.cache === true}
+        {indice}
+        onresultat={(erreurs) => noter({ erreurs, indice })}
         onindisponible={() => (sautable = true)}
       />
+      <!-- De mémoire, d'après le sens et le son ; l'indice montre le caractère, s'il le faut. -->
+      {#if q.cache && !indice && note === null && !sautable}
+        <button class="btn ghost indice" onclick={() => (indice = true)}>Indice : voir le caractère</button>
+      {/if}
     </div>
   {/if}
 
@@ -311,16 +371,53 @@
   <div class="fb" class:vide={note === null && !sautable && essais === 0}>
     {#if note !== null}
       <b>{montree ? 'On te montre.' : VERDICTS[note]}</b>
-      {q.explication.texte}
+      {ligneDuMot(q)}
+      {q.explication.court}
+      <!-- L'origine se lit d'un tap : la correction reste courte, l'avance automatique aussi. -->
+      {#if q.explication.origine !== ''}
+        {#if pourquoi}
+          <span class="origine">
+            {#if q.explication.etiquette}<span class="tag">{ETIQUETTES[q.explication.etiquette]}</span>{/if}
+            {q.explication.origine}
+          </span>
+        {:else}
+          <button class="pourquoi" onclick={ouvrirPourquoi}>Pourquoi ?</button>
+        {/if}
+      {/if}
       {#if prochaine !== ''}
         <span class="next">Prochaine fois : dans {prochaine}.</span>
       {/if}
     {:else if sautable && q.type === 'oreille'}
       Le son de ce caractère ne se charge pas ici. Continue avec le bouton du bas.
+    {:else if sautable && q.type === 'trou'}
+      Le son de ce mot ne se charge pas ici. Continue avec le bouton du bas.
     {:else if sautable}
       Ce caractère ne se trace pas encore ici. Continue avec le bouton du bas.
     {:else if essais > 0}
       {indiceErreur(q)}
+    {/if}
+    <!-- À l'oreille : ce qu'on a pris se fait entendre, et se réentend d'un tap. -->
+    {#if entenduAuLieu}
+      <span class="leurre">
+        <button class="btn ghost ecoute-leurre" onclick={() => entenduAuLieu && direLeurre(entenduAuLieu)}>
+          ♪ <Glyph char={entenduAuLieu} size={28} write={false} />
+        </button>
+        <span>Tu as pris <b class="hz">{entenduAuLieu}</b> {pinyinDe(entenduAuLieu, corpus)}. Écoute-le, puis réécoute l'autre.</span>
+      </span>
+    {/if}
+    <!-- Une erreur qui enseigne : ce qu'on a pris, ce qu'il veut dire, de quoi il est fait. -->
+    {#if leurre}
+      <span class="leurre">
+        <Glyph char={leurre.c} size={36} write={false} />
+        <span>
+          Tu as pris <b class="hz">{leurre.c}</b>
+          {leurre.pinyin}{leurre.fr === '' ? '.' : `, ${leurre.fr}.`}
+          {#if leurre.briques.length > 0}
+            <span class="hz">{leurre.c}</span> =
+            {leurre.briques.map((b) => (b.fr === '' ? b.c : `${b.c} ${b.fr}`)).join(' + ')}.
+          {/if}
+        </span>
+      </span>
     {/if}
   </div>
 </div>

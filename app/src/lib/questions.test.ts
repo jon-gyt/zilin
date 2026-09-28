@@ -5,14 +5,22 @@ import {
   NB_LEURRES,
   acquis,
   composantSon,
+  contourDuTon,
   corriger,
   estBrique,
   expliquer,
   indiceErreur,
+  leurreADire,
+  leurreExplique,
   leurres,
+  ligneDuMot,
   lirePaires,
+  memeFamille,
+  motDitable,
+  texteADire,
   marquerTon,
   outcomeDuTrace,
+  premierSens,
   syllabesDuTon,
   question,
   ressemblance,
@@ -71,7 +79,7 @@ const FICHES: Fiche[] = [
   f('好', 'hǎo', 'bon', ['女', '子'], 'sens', "Une femme et un enfant : ce qui est bien.", {
     audio: 'audio/hao.mp3',
     lectures: ['hǎo', 'hào'],
-    mots: [{ hanzi: '好人', pinyin: 'hǎorén', fr: 'quelqu’un de bien', en: '' }]
+    mots: [{ hanzi: '好人', pinyin: 'hǎorén', fr: 'quelqu’un de bien', en: '', audio: 'audio/haoren.mp3' }]
   })
 ];
 
@@ -191,6 +199,36 @@ describe('les huit types de questions', () => {
     expect(q.choix).toEqual([]);
     expect(q.reponse).toEqual(['人']);
     expect(q.traits).toBe(2);
+  });
+
+  it('trace : de mémoire, par le sens et le son ; le caractère reste caché', () => {
+    const q = poser('trace');
+    expect(q.enonce).toBe('Trace « une personne », rén. 2 traits.');
+    expect(q.enonce).not.toContain('人');
+    expect(q.cache).toBe(true);
+    /* Sans sens, on ne demanderait qu'un son, que plusieurs caractères partagent : on montre. */
+    const nu = question({ ...fiche('人'), fr: '' }, 'trace', CORPUS, 'g');
+    expect(nu.enonce).toBe('Trace 人 au doigt. 2 traits.');
+    expect(nu.cache).toBeUndefined();
+  });
+
+  it('trace : l’indice montre le caractère, et la note le sait', () => {
+    const q = poser('trace');
+    const brut = { correct: false, tries: 0, seconds: 30 };
+    expect(grade(corriger(q, { erreurs: 0 }, brut).outcome)).toBe(Rating.Easy);
+    /* Montré, le rappel devient une copie : juste après une aide, au mieux. */
+    expect(grade(corriger(q, { erreurs: 0, indice: true }, brut).outcome)).toBe(Rating.Hard);
+    expect(grade(corriger(q, { erreurs: 4, indice: true }, brut).outcome)).toBe(Rating.Again);
+  });
+
+  it('trace : l’écran cache le contour et garde un bouton d’indice', () => {
+    const ask = readFileSync(new URL('Ask.svelte', import.meta.url), 'utf8');
+    expect(ask).toContain('cache={q.cache === true}');
+    expect(ask).toContain('onresultat={(erreurs) => noter({ erreurs, indice })}');
+    expect(ask).toContain('Indice : voir le caractère');
+    const trace = readFileSync(new URL('Trace.svelte', import.meta.url), 'utf8');
+    expect(trace).toContain('showOutline: !cache || untrack(() => indice),');
+    expect(trace).toContain('if (indice) void writer?.showOutline();');
   });
 });
 
@@ -406,6 +444,38 @@ describe('correction explicative par les briques', () => {
     expect(e.etiquette).toBe('atteste');
   });
 
+  it('la correction courte tient en une ligne ; l’origine attend « Pourquoi ? »', () => {
+    const e = expliquer(fiche('住'), CORPUS);
+    /* Chaque brique avec son premier sens ; 亻 n'a pas de fiche, il reste nu. */
+    expect(e.court).toBe('住 zhù, habiter. 亻 + 主 le maître.');
+    expect(e.court).not.toContain('flamme');
+    expect(e.origine).toBe('La personne et sa flamme.');
+    expect(e.texte).toBe(`${e.court} ${e.origine}`);
+    /* Une brique de base : ni briques, ni rien d'autre que son sens. */
+    expect(expliquer(fiche('王'), CORPUS).court).toBe('王 wáng, le roi.');
+    /* Sans origine, rien derrière « Pourquoi ? » : le texte est la correction courte. */
+    const nu = expliquer({ ...fiche('王'), origine_fr: '' }, CORPUS);
+    expect(nu.origine).toBe('');
+    expect(nu.texte).toBe(nu.court);
+  });
+
+  it('une brique répétée n’est glosée qu’une fois, et au premier sens', () => {
+    const corpus: Corpus = {
+      ...CORPUS,
+      fiches: [...FICHES, f('乂', 'yì', "couper l'herbe, régler (composant)", [], null, '')]
+    };
+    const wang = f('网', 'wǎng', 'filet', ['冂', '乂', '乂'], null, '');
+    expect(expliquer(wang, corpus).court).toBe("网 wǎng, filet. 冂 + 乂 couper l'herbe + 乂.");
+  });
+
+  it('le premier sens garde le texte relu, sans la note d’atelier', () => {
+    expect(premierSens('petits pas, marche (clé)')).toBe('petits pas');
+    expect(premierSens('soleil (clé)')).toBe('soleil');
+    expect(premierSens("devoir (de l'argent), bâiller")).toBe("devoir (de l'argent)");
+    expect(premierSens('pouce (mesure, 3 cm); dix')).toBe('pouce (mesure, 3 cm)');
+    expect(premierSens('')).toBe('');
+  });
+
   it('la correction rend toujours la fiche d’explication', () => {
     const q = poser('caractere');
     expect(corriger(q, q.leurres[0], brut).explication).toEqual(q.explication);
@@ -446,17 +516,27 @@ describe('correction explicative par les briques', () => {
 
 describe('le tracé, noté par Hanzi Writer', () => {
   it('0 erreur : juste ; 1 ou 2 : juste après erreur ; 3 et plus : faux', () => {
-    expect(outcomeDuTrace(0, 5)).toEqual({ correct: true, tries: 0, seconds: 5 });
-    expect(outcomeDuTrace(1, 5)).toEqual({ correct: true, tries: 1, seconds: 5 });
-    expect(outcomeDuTrace(2, 5)).toEqual({ correct: true, tries: 1, seconds: 5 });
+    expect(outcomeDuTrace(0, 5)).toEqual({ correct: true, tries: 0, seconds: 5, chrono: false });
+    expect(outcomeDuTrace(1, 5)).toEqual({ correct: true, tries: 1, seconds: 5, chrono: false });
+    expect(outcomeDuTrace(2, 5)).toEqual({ correct: true, tries: 1, seconds: 5, chrono: false });
     expect(outcomeDuTrace(3, 5).correct).toBe(false);
+  });
+
+  it('jamais au temps : un tracé juste, même lent, vaut « Facile » (白 : 4 jours, avant)', () => {
+    expect(grade(outcomeDuTrace(0, 25))).toBe(Rating.Easy);
+    expect(grade(outcomeDuTrace(0, 2))).toBe(Rating.Easy);
+    expect(grade(outcomeDuTrace(1, 25))).toBe(Rating.Hard);
+    expect(grade(outcomeDuTrace(3, 25))).toBe(Rating.Again);
+    /* Les questions à choix gardent la règle des six secondes. */
+    const q = poser('sens');
+    expect(grade(corriger(q, q.reponse[0], { correct: false, tries: 0, seconds: 9 }).outcome)).toBe(Rating.Good);
   });
 
   it('la correction d’une question de tracé passe par cette règle', () => {
     const q = poser('trace');
     const r = corriger(q, { erreurs: 2 }, { correct: false, tries: 0, seconds: 8 });
     expect(r.correct).toBe(true);
-    expect(r.outcome).toEqual({ correct: true, tries: 1, seconds: 8 });
+    expect(r.outcome).toEqual({ correct: true, tries: 1, seconds: 8, chrono: false });
     expect(corriger(q, { erreurs: 4 }, { correct: false, tries: 0, seconds: 8 }).correct).toBe(false);
   });
 });
@@ -494,7 +574,12 @@ describe('les paires à ne pas confondre', () => {
 
 describe("après une erreur : l'indice dit quoi faire, et seulement ce qui a du sens", () => {
   it('un caractère de plusieurs briques renvoie aux briques', () => {
-    expect(indiceErreur(poser('sens'))).toBe('Pas celui-là. Regarde les briques.');
+    expect(indiceErreur(poser('son'))).toBe('Pas celui-là. Regarde les briques.');
+  });
+
+  it('au sens et au caractère, les briques montrées sont celles du leurre pris', () => {
+    expect(indiceErreur(poser('sens'))).toBe('Pas celui-là. Encore un essai.');
+    expect(indiceErreur(poser('caractere'))).toBe('Pas celui-là. Encore un essai.');
   });
 
   it("une brique seule ne renvoie pas à des briques qu'elle n'a pas", () => {
@@ -511,6 +596,89 @@ describe("après une erreur : l'indice dit quoi faire, et seulement ce qui a du 
     const src = readFileSync(new URL('Ask.svelte', import.meta.url), 'utf8');
     expect(src).toContain('{indiceErreur(q)}');
     expect(src).not.toContain('Pas celui-là. Regarde les briques.');
+  });
+});
+
+describe('une erreur qui enseigne : le leurre pris, son sens et ses briques', () => {
+  it('au sens, le sens pris désigne son caractère, avec ses briques', () => {
+    const q = question(fiche('住'), 'sens', CORPUS, 'g');
+    const i = q.leurres.findIndex((_, k) => q.sourcesLeurres?.[k] === '天');
+    expect(i).toBeGreaterThanOrEqual(0);
+    expect(leurreExplique(q, q.leurres[i], CORPUS)).toEqual({
+      c: '天',
+      pinyin: 'tiān',
+      fr: 'le ciel',
+      briques: [
+        { c: '一', fr: '' },
+        { c: '大', fr: 'grand' }
+      ]
+    });
+  });
+
+  it('au caractère, le caractère pris ; une brique de base n’a pas de briques', () => {
+    const q = question(fiche('好'), 'caractere', CORPUS, 'g');
+    for (const l of q.leurres) {
+      const e = leurreExplique(q, l, CORPUS);
+      expect(e?.c).toBe(l);
+      expect(e?.fr).toBe(fiche(l).fr);
+      expect(e?.briques.map((b) => b.c)).toEqual(fiche(l).parts);
+    }
+    const wang = question(fiche('王'), 'caractere', CORPUS, 'g');
+    expect(wang.leurres.map((l) => leurreExplique(wang, l, CORPUS)?.briques)).toContainEqual([]);
+  });
+
+  it('rien pour la bonne réponse, ni pour les autres types', () => {
+    const q = poser('caractere');
+    expect(leurreExplique(q, q.reponse[0], CORPUS)).toBeNull();
+    const ton = poser('ton');
+    expect(leurreExplique(ton, ton.leurres[0], CORPUS)).toBeNull();
+  });
+
+  it('l’écran montre le leurre pris, dessiné depuis ses traits, sous la correction', () => {
+    const src = readFileSync(new URL('Ask.svelte', import.meta.url), 'utf8');
+    expect(src).toContain('leurre = leurreExplique(q, q.choix[k], corpus);');
+    expect(src).toContain('<Glyph char={leurre.c} size={36} write={false} />');
+    expect(src).toContain('Tu as pris <b class="hz">{leurre.c}</b>');
+  });
+});
+
+describe('au caractère, les leurres de la même famille d’abord', () => {
+  /* 方 et deux caractères qui le portent : 放 (deux briques), 旁 (quatre, peu « ressemblant »). */
+  const FAMILLE: Fiche[] = [
+    f('方', 'fāng', 'carré', [], 'sens', ''),
+    f('放', 'fàng', 'poser', ['方', '攵'], 'son', ''),
+    f('旁', 'páng', 'côté', ['亠', '丷', '冖', '方'], 'son', ''),
+    f('十', 'shí', 'dix', [], 'sens', ''),
+    f('也', 'yě', 'aussi', [], 'sens', ''),
+    f('女', 'nǚ', 'une femme', [], 'sens', ''),
+    f('子', 'zǐ', 'un enfant', [], 'sens', ''),
+    f('王', 'wáng', 'le roi', [], 'sens', '')
+  ];
+  const corpus: Corpus = {
+    fiches: FAMILLE,
+    decompositions: { 放: ['方', '攵'], 旁: ['亠', '丷', '冖', '方'] },
+    acquis: FAMILLE.map((x) => ({ c: x.c, stabilite: 10 })),
+    paires: PAIRES
+  };
+
+  it('une brique en commun, ou l’un brique de l’autre ; deux briques de base, non', () => {
+    expect(memeFamille('方', '放', corpus)).toBe(true);
+    expect(memeFamille('旁', '方', corpus)).toBe(true);
+    expect(memeFamille('放', '旁', corpus)).toBe(true);
+    expect(memeFamille('方', '子', corpus)).toBe(false);
+    expect(memeFamille('方', '方', corpus)).toBe(false);
+  });
+
+  it('放 et 旁 passent devant les briques qui ne ressemblent qu’au compte', () => {
+    for (const g of ['a', 'b', 'c', 'd', 'e', 'f', 'g']) {
+      const q = question(FAMILLE[0], 'caractere', corpus, g);
+      expect(q.leurres.slice(0, 2).sort(), g).toEqual(['放', '旁']);
+    }
+  });
+
+  it('une paire à ne pas confondre reste devant la famille', () => {
+    const q = question(fiche('王'), 'caractere', { ...CORPUS, acquis: FICHES.map((x) => ({ c: x.c, stabilite: 10 })) }, 'g');
+    expect(q.leurres[0]).toMatch(/[玉主]/);
   });
 });
 
@@ -575,6 +743,78 @@ describe('à l’oreille, par la voix de l’appareil', () => {
     const faux = corriger(q, q.leurres[0], { correct: false, tries: 0, seconds: 3 });
     expect(faux.correct).toBe(false);
     expect(faux.outcome.leurres).toEqual([q.leurres[0]]);
+  });
+});
+
+describe('le trou : le mot s’entend, il ne se traduit plus', () => {
+  it('l’énoncé ne dit ni le sens du mot, ni le caractère : « paysage, montagnes et eaux » donnait 水', () => {
+    const q = poser('trou');
+    expect(q.enonce).toBe('Écoute le mot, puis complète-le.');
+    expect(q.enonce).not.toContain('bien');
+    expect(q.enonce).not.toContain('好');
+    expect(q.audio).toBe('audio/haoren.mp3');
+    expect(texteADire(q)).toBe('好人');
+    /* Le sens du mot vient à la correction. */
+    expect(ligneDuMot(q)).toBe('好人 hǎorén, quelqu’un de bien.');
+    expect(ligneDuMot(poser('sens'))).toBe('');
+    expect(texteADire(poser('oreille'))).toBe('好');
+  });
+
+  it('jamais d’écran muet : sans fichier ni voix, pas de trou', () => {
+    const muet = (x: Fiche): Fiche => ({ ...x, mots: x.mots.map((m) => ({ ...m, audio: null })) });
+    const fiches = FICHES.map((x) => (x.c === '好' ? muet(x) : x));
+    const corpus: Corpus = { ...CORPUS, fiches };
+    const hao = fiches.find((x) => x.c === '好') as Fiche;
+    expect(motDitable(hao.mots[0], corpus)).toBe(false);
+    expect(typesPossibles(hao, corpus)).not.toContain('trou');
+    /* La voix de l'appareil, ou un fichier du manifeste, suffit. */
+    expect(typesPossibles(hao, { ...corpus, voix: true })).toContain('trou');
+    expect(typesPossibles(hao, { ...corpus, manifeste: { 好人: 'data/x.mp3' } })).toContain('trou');
+    expect(question(hao, 'trou', { ...corpus, manifeste: { 好人: 'data/x.mp3' } }, 'g').audio).toBe('data/x.mp3');
+  });
+
+  it('un mot qui peut être dit passe devant ; jamais un homophone en leurre', () => {
+    const mots = [
+      { hanzi: '马上', pinyin: 'mǎshàng', fr: 'tout de suite', en: '' },
+      { hanzi: '马车', pinyin: 'mǎchē', fr: 'charrette', en: '', audio: 'audio/mache.mp3' }
+    ];
+    const ma = { ...ficheSon('马'), mots };
+    const corpus = { ...CORPUS_SON, fiches: CORPUS_SON.fiches.map((x) => (x.c === '马' ? ma : x)) };
+    const q = question(ma, 'trou', corpus, 'g');
+    expect(q.mot?.hanzi).toBe('马车');
+    for (const g of ['a', 'b', 'c', 'd']) {
+      /* 吗 se lit aussi mǎ : entendu, il ne se départage pas de 马. */
+      expect(question(ma, 'trou', corpus, g).leurres).not.toContain('吗');
+    }
+  });
+
+  it('l’écran fait entendre le mot et tait le pinyin des choix jusqu’à la correction', () => {
+    const src = readFileSync(new URL('Ask.svelte', import.meta.url), 'utf8');
+    expect(src).toContain("(q.type === 'oreille' || q.type === 'caractere' || q.type === 'trou') && note === null");
+    expect(src).toContain('void prononcer(texteADire(q))');
+    expect(src).toContain('{ligneDuMot(q)}');
+  });
+});
+
+describe('à l’oreille, une erreur fait entendre le leurre pris', () => {
+  const corpus = { ...CORPUS_SON, voix: true };
+
+  it('le leurre pris se dit à son tour ; la bonne réponse, non', () => {
+    const q = question(ficheSon('马'), 'oreille', corpus, 'g');
+    expect(leurreADire(q, q.leurres[0])).toBe(q.leurres[0]);
+    expect(leurreADire(q, '马')).toBeNull();
+    /* Hors de l'oreille, on ne dit rien de plus. */
+    const s = question(ficheSon('马'), 'caractere', corpus, 'g');
+    expect(leurreADire(s, s.leurres[0])).toBeNull();
+  });
+
+  it('l’écran le dit dès l’erreur, et le redit au toucher', () => {
+    const src = readFileSync(new URL('Ask.svelte', import.meta.url), 'utf8');
+    expect(src).toContain('entenduAuLieu = leurreADire(q, q.choix[k]);');
+    expect(src).toContain('if (entenduAuLieu !== null) direLeurre(entenduAuLieu);');
+    const dire = src.slice(src.indexOf('function direLeurre'));
+    expect(dire.slice(0, dire.indexOf('}\n'))).toContain('void prononcer(c);');
+    expect(src).toContain('onclick={() => entenduAuLieu && direLeurre(entenduAuLieu)}');
   });
 });
 
@@ -666,5 +906,60 @@ describe('trouver le ton', () => {
     expect(faux.correct).toBe(false);
     expect(grade(faux.outcome)).toBe(Rating.Again);
     expect(faux.outcome.leurres).toEqual([]);
+  });
+});
+
+describe('le contour du ton, dessiné à la correction', () => {
+  /** Les points du tracé : [x, y], y petit en haut (aigu). */
+  const points = (d: string) =>
+    [...d.matchAll(/[ML](-?[\d.]+) (-?[\d.]+)/g)].map((m) => [Number(m[1]), Number(m[2])]);
+
+  it('premier ton : plat et haut (55)', () => {
+    const p = points(contourDuTon(1));
+    expect(p).toEqual([
+      [4, 4],
+      [36, 4]
+    ]);
+  });
+
+  it('deuxième ton : il monte (35)', () => {
+    const [a, b] = points(contourDuTon(2));
+    expect(b[1]).toBeLessThan(a[1]);
+    expect(b[1]).toBe(4);
+  });
+
+  it('troisième ton : il creuse, puis remonte (214), en courbe', () => {
+    const d = contourDuTon(3);
+    expect(d).toMatch(/^M4 28 C/);
+    const nombres = [...d.matchAll(/-?[\d.]+/g)].map((m) => Number(m[0]));
+    const ys = nombres.filter((_, i) => i % 2 === 1);
+    /* Le creux passe sous le départ, l'arrivée au-dessus du départ. */
+    expect(Math.max(...ys)).toBeGreaterThan(ys[0]);
+    expect(ys[ys.length - 1]).toBeLessThan(ys[0]);
+    expect(ys[ys.length - 1]).toBe(12);
+  });
+
+  it('quatrième ton : il tombe du haut en bas (51)', () => {
+    expect(points(contourDuTon(4))).toEqual([
+      [4, 4],
+      [36, 36]
+    ]);
+  });
+
+  it('ton neutre : bref et mi-bas', () => {
+    const [a, b] = points(contourDuTon(0));
+    expect(b[0] - a[0]).toBeLessThan(16);
+    expect(a[1]).toBe(b[1]);
+    expect(a[1]).toBeGreaterThan(20);
+  });
+
+  it('l’écran le dessine à côté du pinyin, à l’indigo, jamais au cinabre, et sans bouger si l’on réduit les animations', () => {
+    const src = readFileSync(new URL('Ask.svelte', import.meta.url), 'utf8');
+    expect(src).toContain('d={contourDuTon(tonDe(q.reponse[0]))}');
+    const css = readFileSync(new URL('tokens.css', import.meta.url), 'utf8');
+    const regle = css.match(/\.contour \.trait\{[^}]*\}/)?.[0] ?? '';
+    expect(regle).toContain('stroke:var(--indigo)');
+    expect(regle).not.toContain('--zhu');
+    expect(css).toContain('@media (prefers-reduced-motion:reduce){.contour .trait{animation:none;stroke-dashoffset:0}}');
   });
 });
