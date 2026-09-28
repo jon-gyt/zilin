@@ -605,7 +605,13 @@
 
     <h2 class="sec">Aujourd'hui <span class="hz" lang="zh">今天</span></h2>
     <div class="tao-dit">
-      <Tao stade={taoStade} posture="jeu" humeur={taoHumeur} size={64} />
+      <Tao
+        stade={taoStade}
+        posture="jeu"
+        humeur={taoHumeur}
+        size={64}
+        allumee={faite && p.devinetteDuJour?.issue === 'resolue'}
+      />
       {#if chargee && bulle !== ''}<p class="bulle-jeu">{bulle}</p>{/if}
     </div>
     {#if chargee}
@@ -690,7 +696,16 @@
           <div class="eyebrow">{jeuCourant?.titre}</div>
           <h1>Devine le caractère</h1>
         </div>
-        <TaoReagit {reaction} cle={cleReaction} stade={taoStade} posture="jeu" humeur={taoHumeur} size={72} />
+        <!-- La devinette trouvée, sa lanterne s'allume : un aplat de pigment. -->
+        <TaoReagit
+          {reaction}
+          cle={cleReaction}
+          stade={taoStade}
+          posture="jeu"
+          humeur={taoHumeur}
+          size={72}
+          allumee={resultat?.correct === true}
+        />
       </div>
     {:else}
       <div class="verif-tete">
@@ -981,6 +996,7 @@
         humeur={taoHumeur}
         size={96}
         penchee={jeu === 'eclair' && TAO_ECLAIR.penchee}
+        allumee={lanterneAllumee}
       />
     </div>
     <div class="card center bilan">

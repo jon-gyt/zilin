@@ -1362,9 +1362,19 @@ describe('les devinettes servies avec l’app (export 0.1.0)', () => {
     }
     /* Une brique sans décomposition ne se décompose pas : rien n'est deviné. */
     expect(decomposerLeurre('口', corpus)).toBeNull();
-    /* L'écran montre chaque leurre pris, décomposé. */
+    /* L'écran montre chaque leurre pris, décomposé, et allume la lanterne sur une réussite. */
     const game = readFileSync(new URL('Game.svelte', import.meta.url), 'utf8');
     expect(game).toContain('{@const l = decomposerLeurre(f, corpus)}');
+    expect(game).toContain('allumee={resultat?.correct === true}');
+    expect(game).toContain('allumee={lanterneAllumee}');
+  });
+
+  it('allume la lanterne de Tao en aplat de pigment, sans halo ni dégradé', () => {
+    const tao = readFileSync(new URL('Tao.svelte', import.meta.url), 'utf8');
+    const debut = tao.indexOf('<g class="lanterne"');
+    const lanterne = tao.slice(debut, tao.indexOf('</g>', debut));
+    expect(lanterne).toContain("fill={allumee ? 'var(--t2)' : 'var(--card)'}");
+    expect(tao).not.toMatch(/Gradient|filter=|blur|drop-shadow/);
   });
 
   it('dessine chaque devinette depuis les traits des racines que le fichier nomme', () => {

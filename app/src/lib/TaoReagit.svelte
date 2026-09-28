@@ -20,7 +20,8 @@
     posture,
     humeur,
     size,
-    penchee = false
+    penchee = false,
+    allumee = false
   }: {
     /** La dernière réaction, `null` avant tout verdict. */
     reaction?: Reaction | null;
@@ -31,6 +32,8 @@
     humeur?: Humeur;
     size?: number;
     penchee?: boolean;
+    /** La lanterne des devinettes, allumée (`Tao.svelte`). */
+    allumee?: boolean;
   } = $props();
 
   /** Ce qui se voit encore : la grimace et le bond passent, la bouchée n'a pas de visage. */
@@ -55,6 +58,7 @@
         humeur={visible === 'bond' ? 'joie' : humeur}
         {size}
         {penchee}
+        {allumee}
         grimace={visible === 'grimace'}
       />
     </span>

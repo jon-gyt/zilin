@@ -36,7 +36,8 @@
     caractere = '住',
     penchee = false,
     grimace = false,
-    reaction = null
+    reaction = null,
+    allumee = false
   }: {
     stade?: Stade;
     posture?: PostureVue;
@@ -50,6 +51,12 @@
     grimace?: boolean;
     /** En révision, son geste pour la dernière réponse : bouchée, grimace ou bond. */
     reaction?: Reaction | null;
+    /**
+     * En posture « jeu », sa lanterne est allumée : la devinette du jour a été trouvée.
+     * Un aplat de pigment (`--t2`, celui de la lanterne de l'écran Jouer), sans halo ni
+     * dégradé ; éteinte, la lanterne n'a que son contour.
+     */
+    allumee?: boolean;
   } = $props();
 
   const arbre = $derived(stade === 'jeune' || stade === 'fleur' || stade === 'peches');
@@ -279,11 +286,11 @@
       <ellipse cx="113" cy="146" rx="9" ry="5" fill="var(--card)" stroke="var(--ink)" stroke-width="3.5" />
     </g>
   {:else if posture === 'jeu' && !penchee}
-    <g class="lanterne">
+    <g class="lanterne" class:allumee>
       <path d="M164 26v12" stroke="var(--ink)" stroke-width="3" stroke-linecap="round" />
-      <ellipse cx="164" cy="56" rx="17" ry="18" fill="var(--card)" stroke="var(--ocre)" stroke-width="4" />
+      <ellipse cx="164" cy="56" rx="17" ry="18" fill={allumee ? 'var(--t2)' : 'var(--card)'} stroke="var(--ocre)" stroke-width="4" />
       <path d="M152 40h24M152 72h24" stroke="var(--ocre)" stroke-width="4" stroke-linecap="round" />
-      <path d="M164 38v36" stroke="var(--ocre)" stroke-width="2" opacity=".5" />
+      <path d="M164 38v36" stroke={allumee ? 'var(--card)' : 'var(--ocre)'} stroke-width="2" opacity=".5" />
       <path d="M164 74v10" stroke="var(--ocre)" stroke-width="3" stroke-linecap="round" />
     </g>
   {/if}
