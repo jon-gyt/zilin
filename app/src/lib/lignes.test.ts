@@ -114,17 +114,19 @@ describe('les trois lignes du jour', () => {
 });
 
 describe('les trois lignes exportées', () => {
-  it('couvrent chaque jour de 4 à 60, sur les deux parcours', () => {
+  it('couvrent chaque jour de 4 à 120, sur les deux parcours', () => {
     expect(exporte.premierJour).toBe(4);
     for (const nom of ['lire', 'hsk']) {
       const jours = exporte.parcours[nom].map((t) => t.jour);
-      for (let j = 4; j <= 60; j++) expect(jours).toContain(j);
+      for (let j = 4; j <= 120; j++) expect(jours).toContain(j);
     }
   });
 
   it("ne changent pas d'un jour à l'autre : chaque jour a son texte (retour de l'audit)", () => {
-    const textes = exporte.parcours.lire.filter((t) => t.jour <= 60).map((t) => texteNu(t));
-    expect(new Set(textes).size).toBe(textes.length);
+    for (const nom of ['lire', 'hsk']) {
+      const textes = exporte.parcours[nom].filter((t) => t.jour <= 120).map((t) => texteNu(t));
+      expect(new Set(textes).size).toBe(textes.length);
+    }
   });
 
   it("n'emploient que l'acquis du jour, et un caractère nouveau du jour en cinabre", () => {
