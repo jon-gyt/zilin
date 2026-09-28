@@ -25,8 +25,23 @@ export type TypeActivite =
   | 'chemin'
   | 'anecdote';
 
-/** Une activité faite, datée à la journée civile. C'est la seule mémoire de Tao. */
-export type Activite = { jour: string; type: TypeActivite };
+/**
+ * Une activité faite, datée à la journée civile. C'est la seule mémoire de Tao.
+ *
+ * Une entrée par geste compté (une carte répondue, un plat goûté, une manche finie) :
+ * la croissance et le journal du soir les additionnent tous. Mais une activité, pour
+ * l'humeur, c'est une occurrence : une séance de révision, une manche de jeu, un texte
+ * lu. `suite` marque le geste qui fait partie d'une occurrence comptée par une autre
+ * entrée : la deuxième carte d'une séance et les suivantes, les cartes d'une manche de
+ * jeu (la manche compte par son entrée « jeu »). L'humeur ne lit pas ces gestes.
+ */
+export type Activite = { jour: string; type: TypeActivite; suite?: true };
+
+/**
+ * Le format du journal. Avant `suite` (format absent), chaque carte était une entrée
+ * comme une autre ; `lireTao` regroupe ces cartes-là en séances.
+ */
+export const FORMAT_JOURNAL = 2;
 
 /** L'état de Tao. Sérialisable tel quel, rangé avec la progression. */
 export type Tao = {
@@ -36,10 +51,12 @@ export type Tao = {
   activites: Activite[];
   /** Ce que les jeux rapportent et qui se voit sur elle. Rien ne s'achète. */
   collection: string[];
+  /** `FORMAT_JOURNAL` : le journal distingue les occurrences (`suite`). Absent : un export d'avant. */
+  format?: typeof FORMAT_JOURNAL;
 };
 
 export function taoVide(): Tao {
-  return { croissance: 0, activites: [], collection: [] };
+  return { croissance: 0, activites: [], collection: [], format: FORMAT_JOURNAL };
 }
 
 /**
@@ -69,9 +86,14 @@ export const POIDS: Record<TypeActivite, number> = {
  */
 export const JOURNAL_MAX = 500;
 
-/** Ajoute une activité : la croissance monte, le journal s'allonge. */
-export function ajouter(t: Tao, jour: string, type: TypeActivite): Tao {
-  const activites = [...t.activites, { jour, type }];
+/**
+ * Ajoute une activité : la croissance monte, le journal s'allonge. `suite` : le geste
+ * fait partie d'une occurrence comptée par ailleurs (voir `Activite`) ; il fait grandir
+ * Tao et se dit le soir, mais ne pèse pas sur son humeur.
+ */
+export function ajouter(t: Tao, jour: string, type: TypeActivite, suite = false): Tao {
+  const a: Activite = suite ? { jour, type, suite: true } : { jour, type };
+  const activites = [...t.activites, a];
   return {
     ...t,
     croissance: t.croissance + POIDS[type],
@@ -136,7 +158,10 @@ export type Humeur = 'joie' | 'calme' | 'ennui';
 /** L'humeur se lit sur la semaine glissante, jamais sur l'horloge. */
 export const FENETRE_HUMEUR = 7;
 
-/** Trois fois la même activité d'affilée : elle s'ennuie et propose un jeu. */
+/**
+ * Trois fois la même activité d'affilée : elle s'ennuie et propose un jeu. Trois
+ * occurrences, pas trois gestes : douze cartes d'une même séance font une révision.
+ */
 export const REPETITIONS_ENNUI = 3;
 
 /** Trois types différents dans la semaine : la variété fait la joie. */
@@ -150,6 +175,14 @@ export function fenetre(activites: readonly Activite[], aujourdhui: string): Act
   });
 }
 
+/**
+ * Les occurrences du journal : une entrée par séance, manche, texte, plat. Les gestes
+ * qui en font partie (`suite`) sont laissés de côté. C'est ce que lit l'humeur.
+ */
+export function occurrences(activites: readonly Activite[]): Activite[] {
+  return activites.filter((a) => a.suite !== true);
+}
+
 function repetee(recentes: readonly Activite[]): boolean {
   if (recentes.length < REPETITIONS_ENNUI) return false;
   const trois = recentes.slice(recentes.length - REPETITIONS_ENNUI);
@@ -160,10 +193,12 @@ function repetee(recentes: readonly Activite[]): boolean {
  * L'humeur vient de la variété des activités, jamais de l'horloge : une journée sans
  * rien ne compte pas, elle n'enlève rien. Une semaine vide laisse Tao calme, jamais
  * triste. Trois fois la même activité d'affilée passe avant tout : c'est le seul cas
- * où elle demande quelque chose, un jeu.
+ * où elle demande quelque chose, un jeu. Une activité est une occurrence
+ * (`occurrences`) : une séance de révision reste une révision, quel que soit le nombre
+ * de cartes répondues. Le menu, la session et les jeux lisent tous cette humeur-là.
  */
 export function humeur(activites: readonly Activite[], aujourdhui: string): Humeur {
-  const recentes = fenetre(activites, aujourdhui);
+  const recentes = fenetre(occurrences(activites), aujourdhui);
   if (repetee(recentes)) return 'ennui';
   const types = new Set(recentes.map((a) => a.type));
   return types.size >= VARIETE_JOIE ? 'joie' : 'calme';
@@ -282,22 +317,38 @@ function estType(v: unknown): v is TypeActivite {
 }
 
 /**
+ * Un journal d'avant `suite` notait chaque carte comme une activité entière. On le relit
+ * en séances : une carte qui suit une carte, la même journée, continue la même séance.
+ * Rien n'est retiré : la croissance et le journal du soir restent ce qu'ils étaient.
+ */
+function enSeances(activites: readonly Activite[]): Activite[] {
+  return activites.map((a, i) => {
+    const avant = i > 0 ? activites[i - 1] : undefined;
+    const suite = a.type === 'revision' && avant?.type === 'revision' && avant.jour === a.jour;
+    return suite ? { ...a, suite: true } : a;
+  });
+}
+
+/**
  * Relit l'état de Tao rangé avec la progression. Une progression sans Tao, exportée
- * avant elle, rend une Tao vide : le champ est rétrocompatible.
+ * avant elle, rend une Tao vide : le champ est rétrocompatible. Un journal d'avant les
+ * occurrences (sans `format`) est relu en séances (`enSeances`).
  */
 export function lireTao(brut: unknown): Tao {
   if (typeof brut !== 'object' || brut === null) return taoVide();
   const o = brut as Record<string, unknown>;
-  const activites = Array.isArray(o.activites)
-    ? o.activites.flatMap((x) => {
+  const lues: Activite[] = Array.isArray(o.activites)
+    ? o.activites.flatMap((x): Activite[] => {
         if (typeof x !== 'object' || x === null) return [];
         const a = x as Record<string, unknown>;
-        return typeof a.jour === 'string' && estType(a.type) ? [{ jour: a.jour, type: a.type }] : [];
+        if (typeof a.jour !== 'string' || !estType(a.type)) return [];
+        return [a.suite === true ? { jour: a.jour, type: a.type, suite: true } : { jour: a.jour, type: a.type }];
       })
     : [];
   return {
     croissance: typeof o.croissance === 'number' && o.croissance > 0 ? Math.floor(o.croissance) : 0,
-    activites,
-    collection: Array.isArray(o.collection) ? o.collection.filter((x): x is string => typeof x === 'string') : []
+    activites: o.format === FORMAT_JOURNAL ? lues : enSeances(lues),
+    collection: Array.isArray(o.collection) ? o.collection.filter((x): x is string => typeof x === 'string') : [],
+    format: FORMAT_JOURNAL
   };
 }
