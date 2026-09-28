@@ -310,6 +310,9 @@ h1{font-family:var(--head);font-weight:700;font-size:30px;line-height:1.15;lette
 .fb .pourquoi{display:block;min-height:44px;padding:0;margin:2px 0 -8px;background:none;border:0;color:var(--indigo);font:inherit;font-weight:600;font-size:14px;text-align:left}
 .fb .origine{display:block;margin-top:8px;font-size:14px;line-height:1.5}
 .fb .origine .tag{margin:0 6px 0 0;padding:0 8px;font-size:12px}
+/* le leurre pris, sous la correction : son caractère au pinceau, son sens, ses briques */
+.fb .leurre{display:flex;align-items:center;gap:10px;margin-top:8px;padding-top:8px;border-top:1px solid var(--line);font-size:14px;line-height:1.45}
+.fb .leurre .hz{font-weight:400}
 
 /* ---- pas 6, Clore : la graine plantée (maquette s-l5) ---- */
 /* encre et jade, un trait par élément : ni dégradé, ni ombre */

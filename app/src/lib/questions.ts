@@ -844,8 +844,37 @@ export function indiceErreur(q: Question): string {
   if (q.type === 'assemblage') return "Pas cette suite. Recommence, dans l'ordre d'écriture.";
   if (q.type === 'ton') return 'Pas ce ton. Encore un essai.';
   if (q.type === 'oreille') return 'Pas celui-là. Réécoute.';
+  /* Au sens et au caractère, l'écran montre le leurre pris et ses briques (`leurreExplique`). */
+  if (q.type === 'sens' || q.type === 'caractere') return 'Pas celui-là. Encore un essai.';
   if (q.briques.length > 1) return 'Pas celui-là. Regarde les briques.';
   return 'Pas celui-là. Encore un essai.';
+}
+
+/** Le caractère pris pour un autre, expliqué : ce qu'il est, ce qu'il veut dire, ses briques. */
+export type LeurreExplique = {
+  c: string;
+  pinyin: string;
+  fr: string;
+  /** Ses briques, chacune avec son premier sens. Vide pour une brique de base. */
+  briques: { c: string; fr: string }[];
+};
+
+/**
+ * Une erreur qui enseigne (sens, caractère) : le caractère derrière le choix pris, son
+ * pinyin, son sens et ses briques. On voit contre quoi on s'est trompé : « Tu as pris 欠
+ * qiàn, devoir. » `null` pour les autres types, ou quand le choix n'est pas un leurre dont
+ * le corpus a la fiche. Tout vient des fiches : rien n'est rédigé ici.
+ */
+export function leurreExplique(q: Question, pris: string, corpus: Corpus): LeurreExplique | null {
+  if (q.type !== 'sens' && q.type !== 'caractere') return null;
+  const [c] = leurresDe(q, pris);
+  if (c === undefined) return null;
+  const g = fiche(c, corpus);
+  if (g === null) return null;
+  const briques = estBrique(g)
+    ? []
+    : g.parts.map((p) => ({ c: p, fr: premierSens(fiche(p, corpus)?.fr ?? '') }));
+  return { c, pinyin: g.pinyin, fr: g.fr, briques };
 }
 
 export type Correction = { correct: boolean; explication: Explication; outcome: Outcome };

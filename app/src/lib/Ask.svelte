@@ -13,7 +13,7 @@
   import Trace from './Trace.svelte';
   import { corriger, type Corpus, type Question, type Reponse } from './questions';
   import { VERDICTS, delai, delaiAvance, pinyinDe } from './revision';
-  import { fiche, indiceErreur } from './questions';
+  import { fiche, indiceErreur, leurreExplique, type LeurreExplique } from './questions';
   import type { Revision } from './session';
   import { grade } from './srs';
   import { artDe } from './heros';
@@ -87,6 +87,8 @@
   let ecoutable = $state(false);
   /** L'origine de la fiche est ouverte, sous la correction courte. */
   let pourquoi = $state(false);
+  /** Au sens et au caractère : le dernier leurre pris, son sens et ses briques. */
+  let leurre: LeurreExplique | null = $state(null);
   /**
    * À l'oreille, le pinyin sous les choix dirait la réponse : il n'apparaît qu'après la
    * correction. Au caractère aussi : l'énoncé donne le pinyin, le choix se ferait sur lui
@@ -108,6 +110,7 @@
     entendu = false;
     ecoutable = false;
     pourquoi = false;
+    leurre = null;
     depart = Date.now();
   });
 
@@ -177,6 +180,7 @@
     }
     rates = [...rates, k];
     essais += 1;
+    leurre = leurreExplique(q, q.choix[k], corpus);
     if (essais >= ESSAIS_MAX) {
       montree = true;
       noter(q.choix[k]);
@@ -352,6 +356,20 @@
       Ce caractère ne se trace pas encore ici. Continue avec le bouton du bas.
     {:else if essais > 0}
       {indiceErreur(q)}
+    {/if}
+    <!-- Une erreur qui enseigne : ce qu'on a pris, ce qu'il veut dire, de quoi il est fait. -->
+    {#if leurre}
+      <span class="leurre">
+        <Glyph char={leurre.c} size={36} write={false} />
+        <span>
+          Tu as pris <b class="hz">{leurre.c}</b>
+          {leurre.pinyin}{leurre.fr === '' ? '.' : `, ${leurre.fr}.`}
+          {#if leurre.briques.length > 0}
+            <span class="hz">{leurre.c}</span> =
+            {leurre.briques.map((b) => (b.fr === '' ? b.c : `${b.c} ${b.fr}`)).join(' + ')}.
+          {/if}
+        </span>
+      </span>
     {/if}
   </div>
 </div>

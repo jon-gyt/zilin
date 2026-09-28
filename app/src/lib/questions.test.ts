@@ -9,6 +9,7 @@ import {
   estBrique,
   expliquer,
   indiceErreur,
+  leurreExplique,
   leurres,
   lirePaires,
   marquerTon,
@@ -527,7 +528,12 @@ describe('les paires à ne pas confondre', () => {
 
 describe("après une erreur : l'indice dit quoi faire, et seulement ce qui a du sens", () => {
   it('un caractère de plusieurs briques renvoie aux briques', () => {
-    expect(indiceErreur(poser('sens'))).toBe('Pas celui-là. Regarde les briques.');
+    expect(indiceErreur(poser('son'))).toBe('Pas celui-là. Regarde les briques.');
+  });
+
+  it('au sens et au caractère, les briques montrées sont celles du leurre pris', () => {
+    expect(indiceErreur(poser('sens'))).toBe('Pas celui-là. Encore un essai.');
+    expect(indiceErreur(poser('caractere'))).toBe('Pas celui-là. Encore un essai.');
   });
 
   it("une brique seule ne renvoie pas à des briques qu'elle n'a pas", () => {
@@ -544,6 +550,49 @@ describe("après une erreur : l'indice dit quoi faire, et seulement ce qui a du 
     const src = readFileSync(new URL('Ask.svelte', import.meta.url), 'utf8');
     expect(src).toContain('{indiceErreur(q)}');
     expect(src).not.toContain('Pas celui-là. Regarde les briques.');
+  });
+});
+
+describe('une erreur qui enseigne : le leurre pris, son sens et ses briques', () => {
+  it('au sens, le sens pris désigne son caractère, avec ses briques', () => {
+    const q = question(fiche('住'), 'sens', CORPUS, 'g');
+    const i = q.leurres.findIndex((_, k) => q.sourcesLeurres?.[k] === '天');
+    expect(i).toBeGreaterThanOrEqual(0);
+    expect(leurreExplique(q, q.leurres[i], CORPUS)).toEqual({
+      c: '天',
+      pinyin: 'tiān',
+      fr: 'le ciel',
+      briques: [
+        { c: '一', fr: '' },
+        { c: '大', fr: 'grand' }
+      ]
+    });
+  });
+
+  it('au caractère, le caractère pris ; une brique de base n’a pas de briques', () => {
+    const q = question(fiche('好'), 'caractere', CORPUS, 'g');
+    for (const l of q.leurres) {
+      const e = leurreExplique(q, l, CORPUS);
+      expect(e?.c).toBe(l);
+      expect(e?.fr).toBe(fiche(l).fr);
+      expect(e?.briques.map((b) => b.c)).toEqual(fiche(l).parts);
+    }
+    const wang = question(fiche('王'), 'caractere', CORPUS, 'g');
+    expect(wang.leurres.map((l) => leurreExplique(wang, l, CORPUS)?.briques)).toContainEqual([]);
+  });
+
+  it('rien pour la bonne réponse, ni pour les autres types', () => {
+    const q = poser('caractere');
+    expect(leurreExplique(q, q.reponse[0], CORPUS)).toBeNull();
+    const ton = poser('ton');
+    expect(leurreExplique(ton, ton.leurres[0], CORPUS)).toBeNull();
+  });
+
+  it('l’écran montre le leurre pris, dessiné depuis ses traits, sous la correction', () => {
+    const src = readFileSync(new URL('Ask.svelte', import.meta.url), 'utf8');
+    expect(src).toContain('leurre = leurreExplique(q, q.choix[k], corpus);');
+    expect(src).toContain('<Glyph char={leurre.c} size={36} write={false} />');
+    expect(src).toContain('Tu as pris <b class="hz">{leurre.c}</b>');
   });
 });
 
