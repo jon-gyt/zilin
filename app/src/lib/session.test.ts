@@ -90,6 +90,7 @@ import {
   stability
 } from './srs';
 import { planifier } from './jeux';
+import { commencer as commencerExamen, repondre as repondreExamen } from './examens';
 
 const JOUR = '2026-03-02';
 const neuf = (): Progress => emptyProgress(JOUR);
@@ -1233,5 +1234,44 @@ describe('le suivi des trophées dans la progression', () => {
     expect(relu.devinettes).toEqual(['gao']);
     /* Une progression d'avant les niveaux HSK notait des nombres : ils se relisent en chaîne. */
     expect(relu.contesLus).toEqual({ lievre: ['255', '405', 'hsk3'] });
+  });
+});
+
+describe('les examens dans la progression (story 8.2)', () => {
+  const JOUR_EX = '2026-09-28';
+  const XIANSHI = {
+    id: 'xianshi',
+    sorte: 'titre' as const,
+    hz: '县试',
+    pinyin: 'xiànshì',
+    fr: '',
+    en: '',
+    palier: 50,
+    titre: null,
+    questions: 15
+  };
+
+  it('une progression neuve n’a aucun examen réussi et rien à reporter', () => {
+    expect(emptyProgress(JOUR_EX).examens).toEqual({ reussis: {}, ouvert: null, tentative: null, migre: true });
+  });
+
+  it('garde les examens à l’export et à l’import, tentative comprise', () => {
+    const p = emptyProgress(JOUR_EX);
+    let e = commencerExamen({ ...p.examens, reussis: { 'yueke-0': JOUR_EX }, ouvert: 'xianshi' }, XIANSHI, 'hsk');
+    e = repondreExamen(e, 0, false, ['雨']);
+    const relue = fromJSON(toJSON({ ...p, examens: e }), JOUR_EX);
+    expect(relue.examens).toEqual(e);
+    expect(relue.examens.tentative).toMatchObject({ examen: 'xianshi', chemin: 'hsk', serie: 'A', i: 1, manques: ['雨'] });
+  });
+
+  it('une progression d’avant les examens se relit sans rien de réussi, ses rangs à reporter', () => {
+    const brut = JSON.parse(toJSON(emptyProgress(JOUR_EX))) as Record<string, unknown>;
+    delete brut.examens;
+    expect(fromJSON(JSON.stringify(brut), JOUR_EX).examens).toEqual({
+      reussis: {},
+      ouvert: null,
+      tentative: null,
+      migre: false
+    });
   });
 });
