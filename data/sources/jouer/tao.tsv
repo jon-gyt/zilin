@@ -7,14 +7,17 @@
 # l'horloge : aucune phrase ne parle du temps passé. `wenlu check` le vérifie.
 #
 # Format : TSV, `#` en commentaire, trois colonnes séparées par une tabulation : `cle`,
-# `fr`, `source`. Quatre clés, toutes exigées, sans jeton :
+# `fr`, `source`. Cinq clés, toutes exigées, sans jeton :
 #
 # - `invite` : Tao tend un jeu ;
 # - `changer` : Tao tend un jeu quand elle s'ennuie (trois fois la même activité) ;
 # - `devinette` : aucun jeu à tendre, la devinette du jour attend ;
-# - `attendre` : aucun jeu à tendre, ni devinette ; ce qui manque, sans reproche.
+# - `attendre` : aucun jeu à tendre, ni devinette ; ce qui manque, sans reproche ;
+# - `lu` : le constat d'une manche où rien n'a été noté (des réponses trouvées après
+#   une erreur, des mots manqués) : ce qui a été lu, jamais ce qui ne l'a pas été.
 cle	fr	source
 invite	On joue à celui-ci ?	rédigé pour l'app
 changer	Et si on changeait un peu ? Celui-ci.	rédigé pour l'app
 devinette	On commence par la devinette ?	rédigé pour l'app
 attendre	Il n'y a pas encore assez de caractères acquis pour jouer. Reviens après quelques révisions.	rédigé pour l'app
+lu	Tout est lu. Chercher le sens, c'est déjà lire.	rédigé pour l'app

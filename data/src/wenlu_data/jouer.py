@@ -27,10 +27,11 @@ TAO = DOSSIER / "tao.tsv"
 #: Le fichier exporté, que l'index nomme par sa clé `jouer`.
 FICHIER = "jouer.json"
 
-#: Les phrases de la bulle, dans l'ordre de la source : Tao tend un jeu (`invite`), le
-#: tend en s'ennuyant (`changer`), montre la devinette (`devinette`), ou attend l'acquis
-#: (`attendre`). Aucune ne porte de jeton.
-CLES_TAO = ("invite", "changer", "devinette", "attendre")
+#: Les phrases de Tao, dans l'ordre de la source : elle tend un jeu (`invite`), le tend
+#: en s'ennuyant (`changer`), montre la devinette (`devinette`), attend l'acquis
+#: (`attendre`), ou clôt une manche où rien n'a été noté (`lu`), sans le dire comme un
+#: manque. Aucune ne porte de jeton.
+CLES_TAO = ("invite", "changer", "devinette", "attendre", "lu")
 
 #: Ce qu'une phrase de Tao ne dit jamais (brief §9) : un reproche, un regret, un compte de
 #: jours ou d'absence. Chaque motif a sa raison, que `wenlu check` affiche.
@@ -109,7 +110,7 @@ def reproches(texte: str) -> list[str]:
 
 
 def fautes_sources(jouer: Jouer) -> list[str]:
-    """Les quatre phrases, une fois chacune, sans jeton ; ni reproche, ni emoji, ni dragon."""
+    """Les cinq phrases, une fois chacune, sans jeton ; ni reproche, ni emoji, ni dragon."""
     fautes = list(jouer.forme)
     cles = [t.cle for t in jouer.tao]
     for cle in CLES_TAO:
@@ -148,7 +149,7 @@ def fautes_export(sortie: dict[str, object], jouer: Jouer) -> list[str]:
 def controles(destination: Path | None = None, *, chemin: Path | None = None) -> list[Controle]:
     """Contrôles de l'écran Jouer, pour `wenlu check`. Tous bloquants.
 
-    « sources » : les quatre phrases de Tao, une fois chacune, sourcées, sans jeton, sans
+    « sources » : les cinq phrases de Tao, une fois chacune, sourcées, sans jeton, sans
     emoji, sans dragon, et jamais un reproche (brief §9). « export » : `jouer.json` dit les
     phrases des sources, et `index.json` le nomme.
     """
