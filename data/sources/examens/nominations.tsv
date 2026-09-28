@@ -1,0 +1,18 @@
+# Les quatre rangs sans examen du personnage (brief §8, « Les examens 科举 »).
+#
+# Source : rédigé pour l'app, sans API, dans une session Claude Code, d'après le brief.
+# Après le 殿试, plus d'examen à titre : 翰林, 探花, 榜眼 et 状元 sont des nominations, chacune
+# à un palier de caractères lus (au seuil de stabilité de Ma forêt), après la précédente,
+# et avec les points du rang (`data/sources/heros/rangs.tsv`). Un 月课 ne donne ni ne
+# retient une nomination, même à son palier (1 555, 1 800).
+#
+# Règles (`wenlu check`, « examens : liste ») : les rangs dans l'ordre de `rangs.tsv`,
+# juste après le dernier titre d'examen ; des paliers strictement croissants, au-delà du
+# dernier examen à titre.
+#
+# Format : TSV, `#` en commentaire, trois colonnes : `rang`, `palier`, `source`.
+rang	palier	source
+翰林	1000	rédigé pour l'app, d'après le brief §8 (les pêches de Tao)
+探花	1200	rédigé pour l'app, d'après le brief §8 (le HSK 4, où s'arrête la cible)
+榜眼	1555	rédigé pour l'app, d'après le brief §8 (le dernier seuil de l'Éducation nationale)
+状元	1800	rédigé pour l'app, d'après le brief §8 (le HSK 6, le bout du programme de la version 1)
