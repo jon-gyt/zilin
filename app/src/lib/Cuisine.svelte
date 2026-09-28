@@ -294,8 +294,10 @@
     {#if resultat !== null}
       <b>{resultat.montre ? 'On te montre.' : VERDICTS[resultat.note]}</b>
       <span class="hz" lang="zh-Hans">{t.reponse[0]}</span>, {sens(t.reponse[0])}.
-      {@const quand = echeance(p, resultat.evenement.c)}
-      {#if quand}<span class="next">Prochaine fois : dans {delai(new Date(), quand)}.</span>{/if}
+      <!-- Un ingrédient manqué ne note rien : l'échéance d'avant ne se redit pas. -->
+      {@const quand = evenementsANoter('cuisine', resultat).length > 0 ? echeance(p, resultat.evenement.c) : null}
+      {#if quand}<span class="next">Prochaine fois : dans {delai(new Date(), quand)}.</span>
+      {:else if resultat.montre}<span class="next">Rien n’est noté.</span>{/if}
     {:else if pris.length > 0}
       Pas celui-là : <span class="hz" lang="zh-Hans">{pris[pris.length - 1]}</span>, c'est
       {sens(pris[pris.length - 1])}. Relis la recette.
