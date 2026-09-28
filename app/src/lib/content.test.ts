@@ -5,7 +5,6 @@ import {
   ETIQUETTES,
   FICHIER_ANECDOTES,
   FICHIER_FAMILLE_DEMO,
-  FICHIER_TEXTE_DEMO,
   FICHIER_VOISINS_DEMO,
   LIGNE_SANS_FICHE,
   PARCOURS_DEFAUT,
@@ -32,14 +31,10 @@ import {
   ficheDeFamille,
   fichierFamille,
   fichierTraits,
-  glosable,
-  glose,
-  lignesNues,
   loadAnecdotes,
   loadFamille,
   loadPaires,
   loadIndex,
-  loadTexte,
   loadVoisins,
   contesExport,
   fichierConte,
@@ -52,7 +47,6 @@ import {
   type Famille,
   type Fiche,
   type Index,
-  type Texte,
   type Voisins
 } from './content';
 
@@ -227,88 +221,9 @@ describe('le chargeur de famille', () => {
   });
 });
 
-/* ---------- le texte de lecture ---------- */
-
-const texte = JSON.parse(
-  readFileSync(new URL('../../public/data/demo/textes/住.json', import.meta.url), 'utf8')
-) as Texte;
-
 const traits = lireTraits(
   JSON.parse(readFileSync(new URL('../../public/strokes-demo.json', import.meta.url), 'utf8'))
 );
-
-describe('le texte de trois lignes', () => {
-  it('est versionné et cite sa source', () => {
-    expect(texte.version).not.toBe('');
-    expect(texte.source).toBe('maquettes/zilin-maquette.html');
-  });
-
-  it('fait trois lignes, autour du caractère du jour', () => {
-    expect(texte.lignes).toHaveLength(3);
-    expect(texte.c).toBe('住');
-  });
-
-  it('est recopié mot pour mot de sa source, traduction comprise', () => {
-    expect(maquette).toContain(lignesNues(texte).join(''));
-    for (const l of lignesNues(texte)) expect(maquette).toContain(l);
-    expect(maquette).toContain(texte.traduction);
-  });
-
-  it("ne glose aucun caractère autrement que la source, et n'en invente aucune", () => {
-    for (const s of texte.lignes.flat()) {
-      if (!glosable(s)) continue;
-      expect(maquette).toContain(`"${s.c}","${s.pinyin}","${s.fr}"`);
-      expect(glose(s)).toBe(`${s.pinyin}, ${s.fr}`);
-    }
-  });
-
-  it('laisse sans glose ce que la source ne glose pas : la ponctuation ne se touche pas', () => {
-    const muets = texte.lignes.flat().filter((s) => !glosable(s));
-    expect(muets.length).toBeGreaterThan(0);
-    for (const s of muets) {
-      expect(s.c).toBe('。');
-      expect(glose(s)).toBeNull();
-    }
-  });
-
-  it("marque le caractère du jour, et lui seul : c'est le seul cinabre du texte", () => {
-    const marques = texte.lignes.flat().filter((s) => s.nouveau);
-    expect(marques).toHaveLength(1);
-    expect(marques[0].c).toBe(texte.c);
-    expect(maquette).toContain(`["${marques[0].c}","${marques[0].pinyin}","${marques[0].fr}",1]`);
-  });
-
-  it("n'embarque aucun audio : il n'y en a pas encore", () => {
-    expect(texte.audio).toBeNull();
-  });
-});
-
-describe('le chargeur de texte', () => {
-  const reponse = (ok: boolean, corps: unknown): Response =>
-    ({ ok, status: ok ? 200 : 404, json: async () => corps }) as Response;
-
-  it("lit le fichier servi avec l'app, et lui seul", async () => {
-    const appels: string[] = [];
-    const faux: typeof fetch = async (u) => {
-      appels.push(String(u));
-      return reponse(true, texte);
-    };
-    const lu = await loadTexte(FICHIER_TEXTE_DEMO, faux);
-    expect(appels).toEqual([`${import.meta.env.BASE_URL}${FICHIER_TEXTE_DEMO}`]);
-    expect(lignesNues(lu)).toEqual(lignesNues(texte));
-    expect(lu.traduction).toBe(texte.traduction);
-  });
-
-  it('refuse un fichier absent', async () => {
-    const faux: typeof fetch = async () => reponse(false, null);
-    await expect(loadTexte(FICHIER_TEXTE_DEMO, faux)).rejects.toThrow('introuvable');
-  });
-
-  it('refuse un fichier sans lignes', async () => {
-    const faux: typeof fetch = async () => reponse(true, { version: '1', lignes: [] });
-    await expect(loadTexte(FICHIER_TEXTE_DEMO, faux)).rejects.toThrow('illisible');
-  });
-});
 
 /* ---------- les voisins de forme ---------- */
 
