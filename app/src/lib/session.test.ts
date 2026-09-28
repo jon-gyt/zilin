@@ -1275,3 +1275,36 @@ describe('les examens dans la progression (story 8.2)', () => {
     });
   });
 });
+
+describe('les droits dans la progression (story 7.1)', () => {
+  const LUNDI = '2026-10-05';
+
+  it('une progression neuve n’a ni cadeau, ni brique gratuite', () => {
+    const p = emptyProgress(LUNDI);
+    expect(p.droits).toEqual({ cadeaux: [], gratuitDepuis: null, briques: [], annonce: null });
+  });
+
+  it('garde les cadeaux et leurs dates, et les jours des briques gratuites, à l’export et à l’import', () => {
+    const p: Progress = {
+      ...emptyProgress(LUNDI),
+      droits: {
+        cadeaux: [
+          { palier: 7, duree: 'jour', recu: '2026-09-01', debut: '2026-09-02' },
+          { palier: 30, duree: 'semaine', recu: '2026-09-24', debut: null }
+        ],
+        gratuitDepuis: '2026-09-28',
+        briques: ['2026-09-28', '2026-10-01'],
+        annonce: '2026-09-28'
+      }
+    };
+    const relue = fromJSON(toJSON(p), LUNDI);
+    expect(relue.droits).toEqual(p.droits);
+  });
+
+  it('une progression d’avant les droits se relit sans rien de reçu', () => {
+    const brut = JSON.parse(toJSON(emptyProgress(LUNDI))) as Record<string, unknown>;
+    delete brut.droits;
+    const relue = fromJSON(JSON.stringify(brut), LUNDI);
+    expect(relue.droits).toEqual(emptyProgress(LUNDI).droits);
+  });
+});

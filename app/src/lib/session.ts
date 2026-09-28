@@ -22,6 +22,7 @@ import {
 import { ajouter, journal, lireTao, taoVide, type Tao, type TypeActivite } from './tao';
 import { lireTrouves, type Trouve } from './trouves';
 import { etatExamensVide, lireEtatExamens, type EtatExamens } from './examens';
+import { droitsVides, lireDroits, type EtatDroits } from './droits';
 import { lireLettresNotees, type LettreNotee } from './lettres';
 import { cleLecture, lireChapitre, type LectureChapitres } from './lecture';
 import { lireNiveau, lireNiveaux, trierNiveaux, type Niveau } from './niveaux';
@@ -404,6 +405,13 @@ export type Progress = {
    * et `migre` faux, pour que ses rangs déjà annoncés deviennent des examens reçus.
    */
   examens: EtatExamens;
+  /**
+   * Les droits (`droits.ts`, story 7.1) : les cadeaux des paliers et leurs dates, le premier
+   * jour du rythme gratuit, les jours des briques gratuites, le jour où Clore l'a dit.
+   * L'achat, lui, n'est pas gardé : l'appareil le dit (`Acces`). Absents d'une progression
+   * d'avant eux : rien de reçu, rien de noté.
+   */
+  droits: EtatDroits;
 };
 
 /**
@@ -488,7 +496,8 @@ export function emptyProgress(aujourdhui: string): Progress {
     lettres: [],
     heros: null,
     arts: artsVides(),
-    examens: etatExamensVide()
+    examens: etatExamensVide(),
+    droits: droitsVides()
   };
 }
 
@@ -1682,6 +1691,8 @@ export function fromJSON(texte: string, aujourdhui: string): Progress {
     /* Les points : absents d'un export plus ancien, ils se recalculent de ce qu'il garde. */
     arts: lireArts(o.arts) ?? pointsDerives(cartes, tracesAchevees),
     /* Les examens : absents d'un export plus ancien, rien de réussi, rangs à reporter. */
-    examens: lireEtatExamens(o.examens)
+    examens: lireEtatExamens(o.examens),
+    /* Les droits : absents d'un export plus ancien, rien de reçu, rien de noté. */
+    droits: lireDroits(o.droits)
   };
 }
