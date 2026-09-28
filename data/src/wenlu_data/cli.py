@@ -217,6 +217,7 @@ def check() -> None:
     from .licences import controles as controles_licences
     from .phonetiques import controles as controles_phonetiques
     from .rythme import controles as controles_rythme
+    from .rappels import controles as controles_rappels
     from .saisons import controles as controles_saisons
     from .trois_lignes import controles as controles_trois_lignes
     from .wechat import controles as controles_wechat
@@ -243,6 +244,7 @@ def check() -> None:
         *controles_heros(),
         *controles_jouer(),
         *controles_rythme(),
+        *controles_rappels(),
         *controles_anecdotes(),
         *controles_trois_lignes(),
         *controles_examens(),

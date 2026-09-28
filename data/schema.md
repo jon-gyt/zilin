@@ -44,6 +44,7 @@ app/public/data/0.1.0/
   heros.json                 le personnage : douze rangs, trois bêtes, les phrases de Tao
   jouer.json                 l'écran Jouer : les phrases de la bulle de Tao
   rythme.json                le rythme gratuit : les lignes du menu, de la route et de Clore
+  rappels.json               le rappel quotidien (iOS) et la garde de la progression
   anecdotes.json             les anecdotes du jour, une par caractère
   trois-lignes.json          les trois lignes du pas Utiliser, un texte par jour du chemin
   examens.json               les examens 科举 et les 月课 : la liste, les séries relues
@@ -86,7 +87,8 @@ Trois régimes de licence, trois familles de fichiers, jamais mêlés
  "paires": "paires.json",
  "heros": "heros.json",
  "jouer": "jouer.json",
- "rythme": "rythme.json"
+ "rythme": "rythme.json",
+ "rappels": "rappels.json"
 }
 ```
 
@@ -492,6 +494,29 @@ viennent de `droits.ts`, calculés, jamais estimés.
   (`route_pierre_demain`, `route_pierre`, `route_carte_demain`, `route_carte`, `route_fin`,
   `route_suite_lire`, `route_suite_hsk`). Sans `rythme.json` (un export plus ancien), ces
   lignes se taisent.
+## `rappels.json`
+
+Tiré de `data/sources/rappels/textes.tsv` (brief §8, « Notification »), rédigé pour l'app et
+à relire : les textes du rappel quotidien de l'app iOS et de la garde de la progression.
+L'app les lit (`app/src/lib/rappels.ts`) ; le corps d'une notification est d'ordinaire le
+début de l'anecdote du jour, tiré de `anecdotes.json`, et n'est pas ici.
+
+```json
+{"version": "0.1.0", "license": "propriétaire", "source": "…", "source_url": "…", "modified": "…",
+ "textes": {"notif_brique_titre": "La prochaine brique",
+            "notif_brique": "{c} · {sens}, la brique de ta prochaine session.",
+            "question": "À quelle heure veux-tu lire ?", "…": "…",
+            "export_date": "Dernier export : {date}", "export_jamais": "Dernier export : jamais"}}
+```
+
+- `textes` : dix-huit textes, chacun une fois. `notif_brique_titre`, `notif_brique` : la
+  notification d'un jour dont l'anecdote est déjà lue ou annoncée, la brique de la
+  prochaine session (`{c}`, `{sens}`) ; `question`, `question_guide`, `question_accord`,
+  `matin`, `midi`, `soir`, `accepter`, `refuser` : la question de l'heure à la première
+  session ; `reglage`, `reglage_detail`, `reglage_heure`, `reglage_refuse` : Réglages ;
+  `accueil`, `accueil_comment` : sur le web iOS hors écran d'accueil ; `export_date`
+  (`{date}`), `export_jamais` : la date du dernier export. Sans `rappels.json` (un export
+  plus ancien), l'app ne programme aucun rappel et tait ces lignes.
 
 ## `anecdotes.json`
 
@@ -709,6 +734,10 @@ ce que l'app embarque ; `docs/sources-licences.md` fait foi pour la décision.
   une fois chacune, sourcées, avec leurs seuls jetons ; ni achat ni Wenlu complet, ni
   urgence ni compte à rebours, ni estimation, ni emoji ni dragon ; Tao ne culpabilise
   jamais (brief §10) ; `rythme.json` dit les lignes de la source, et `index.json` le nomme.
+- « rappels : sources », « export » — bloquants : les dix-huit textes, une fois chacun,
+  sourcés, avec leurs seuls jetons, ni emoji ni dragon, et jamais un reproche, une série
+  menacée, un manque (« tu nous manques »), une perte, un achat, une urgence ou une
+  exclamation ; `rappels.json` dit les textes de la source, et `index.json` le nomme.
 - « anecdotes : sources », « forme », « charte », « étymologie », « export » —
   bloquants : un seul caractère par anecdote, jamais deux fois, titre, texte et source
   présents (« rédigé pour l'app »), appui, étiquette et statut connus ; un titre de 8 à
