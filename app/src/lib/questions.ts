@@ -72,6 +72,13 @@ export const BONUS_MEME_NOMBRE = 0.25;
 export const BONUS_PAIRE = 2;
 
 /**
+ * Au caractère, un leurre de la même famille (une brique en commun, ou l'un brique de
+ * l'autre) passe devant la seule ressemblance : on départage 方 de 放, pas de 子. Il reste
+ * derrière une paire à ne pas confondre.
+ */
+export const BONUS_FAMILLE = 1;
+
+/**
  * À l'oreille, un caractère de même syllabe à un autre ton (妈 mā pour 马 mǎ) est le
  * leurre le plus proche : il passe devant la seule ressemblance de forme.
  */
@@ -267,6 +274,17 @@ export function composants(c: string, corpus: Corpus): string[] {
   const f = fiche(c, corpus);
   if (f && f.parts.length > 0) return [...f.parts];
   return [c];
+}
+
+/**
+ * Deux caractères de la même famille : une brique canonique en commun (住 et 往 par 主), ou
+ * l'un est une brique de l'autre (方 dans 放). Deux briques de base différentes n'en sont pas.
+ */
+export function memeFamille(a: string, b: string, corpus: Corpus): boolean {
+  if (a === b) return false;
+  const A = composants(a, corpus);
+  const B = composants(b, corpus);
+  return A.includes(b) || B.includes(a) || A.some((x) => B.includes(x));
 }
 
 /** Deux caractères du même groupe à ne pas confondre. */
@@ -674,7 +692,18 @@ export function question(
   }
 
   if (type === 'caractere') {
-    const tirage = leurres(f.c, candidatsCaracteres(f.c, corpus, true), corpus, g);
+    /* La même famille d'abord : il faut lire la brique qui change, pas la silhouette. */
+    const tirage = choisirLeurres(
+      [f.c],
+      candidatsCaracteres(f.c, corpus, true),
+      corpus,
+      g,
+      NB_LEURRES,
+      [f.c],
+      (c) => c,
+      [f.c],
+      (c) => (memeFamille(c, f.c, corpus) ? BONUS_FAMILLE : 0)
+    );
     q.enonce = `Lequel se lit ${f.pinyin} et veut dire « ${f.fr} » ?`;
     q.leurres = tirage.leurres;
     q.manqueLeurres = tirage.manque;

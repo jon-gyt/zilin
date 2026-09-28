@@ -12,6 +12,7 @@ import {
   leurreExplique,
   leurres,
   lirePaires,
+  memeFamille,
   marquerTon,
   outcomeDuTrace,
   premierSens,
@@ -593,6 +594,46 @@ describe('une erreur qui enseigne : le leurre pris, son sens et ses briques', ()
     expect(src).toContain('leurre = leurreExplique(q, q.choix[k], corpus);');
     expect(src).toContain('<Glyph char={leurre.c} size={36} write={false} />');
     expect(src).toContain('Tu as pris <b class="hz">{leurre.c}</b>');
+  });
+});
+
+describe('au caractère, les leurres de la même famille d’abord', () => {
+  /* 方 et deux caractères qui le portent : 放 (deux briques), 旁 (quatre, peu « ressemblant »). */
+  const FAMILLE: Fiche[] = [
+    f('方', 'fāng', 'carré', [], 'sens', ''),
+    f('放', 'fàng', 'poser', ['方', '攵'], 'son', ''),
+    f('旁', 'páng', 'côté', ['亠', '丷', '冖', '方'], 'son', ''),
+    f('十', 'shí', 'dix', [], 'sens', ''),
+    f('也', 'yě', 'aussi', [], 'sens', ''),
+    f('女', 'nǚ', 'une femme', [], 'sens', ''),
+    f('子', 'zǐ', 'un enfant', [], 'sens', ''),
+    f('王', 'wáng', 'le roi', [], 'sens', '')
+  ];
+  const corpus: Corpus = {
+    fiches: FAMILLE,
+    decompositions: { 放: ['方', '攵'], 旁: ['亠', '丷', '冖', '方'] },
+    acquis: FAMILLE.map((x) => ({ c: x.c, stabilite: 10 })),
+    paires: PAIRES
+  };
+
+  it('une brique en commun, ou l’un brique de l’autre ; deux briques de base, non', () => {
+    expect(memeFamille('方', '放', corpus)).toBe(true);
+    expect(memeFamille('旁', '方', corpus)).toBe(true);
+    expect(memeFamille('放', '旁', corpus)).toBe(true);
+    expect(memeFamille('方', '子', corpus)).toBe(false);
+    expect(memeFamille('方', '方', corpus)).toBe(false);
+  });
+
+  it('放 et 旁 passent devant les briques qui ne ressemblent qu’au compte', () => {
+    for (const g of ['a', 'b', 'c', 'd', 'e', 'f', 'g']) {
+      const q = question(FAMILLE[0], 'caractere', corpus, g);
+      expect(q.leurres.slice(0, 2).sort(), g).toEqual(['放', '旁']);
+    }
+  });
+
+  it('une paire à ne pas confondre reste devant la famille', () => {
+    const q = question(fiche('王'), 'caractere', { ...CORPUS, acquis: FICHES.map((x) => ({ c: x.c, stabilite: 10 })) }, 'g');
+    expect(q.leurres[0]).toMatch(/[玉主]/);
   });
 });
 
