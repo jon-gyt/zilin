@@ -45,6 +45,8 @@ Format BMAD : épics puis stories. Priorité dans l'ordre. Une story se termine 
 - 4.4 Chercher : la loupe du menu ouvre la recherche d'un caractère de l'export, par son dessin, son pinyin (avec ou sans accents ni tons) ou le sens d'une fiche relue ; au plus vingt résultats, dessinés depuis les traits, avec la famille et le statut (lu, en cours, pas encore) ; toucher un résultat le dit et ouvre sa famille dans l'arbre.
 - 4.5 Le personnage (mode héros, décision du propriétaire, maquette validée `wenlu-heros.html`) : trois bêtes non genrées (玉兔, 熊猫, 醒狮) et un nom, choisis à la fin de la première session, changés dans Réglages sans rien perdre ; douze rangs du bébé à l'adulte (启蒙 à 状元, paliers 0 à 1 000) ; quatre arts (读 写 听 说), un point par bonne réponse notée, dérivé des événements de révision, des tracés achevés et des jeux ; le personnage grandit à chaque point, change de silhouette et de tenue, gagne une aura ; écran « Mon personnage » ouvert par le portrait de l'en-tête du menu ; 放榜 au retour au menu quand un rang est franchi. Textes par le pipeline (`data/sources/heros/`, `heros.json`), dessins dans l'app.
 - 4.6 La route devant 前路 (retour du propriétaire du 26 septembre 2026, maquette validée `wenlu-a-venir.html`) : le bout de chemin proche en papier découpé, deux pierres lues, celle du jour (cinabre, Tao), six à venir, chacune avec sa brique dessinée depuis ses traits ; les deux prochaines bornes dans la brume (seuils du trophée Lire, contes qui s'ouvrent), rien au-delà ; la carte de l'étape choisie, demain par défaut. Entrées : Ma forêt, et la ligne « Demain : 子 enfant · Ma route › » du menu, la journée faite. Jours du chemin, jamais de dates, rien d'estimé (`route.ts`).
+- 4.7 Lire le monde (rapport comparatif du 28 septembre 2026, §2.5) : dans Chercher, un second onglet où l'on colle ou tape un texte chinois ; « Tu lis 9 caractères sur 14 », les lus au jade qui ouvrent leur fiche, les autres à l'encre avec « dans N j » s'ils sont sur le chemin, les mots de deux caractères lus reconnus. Sans réseau ; la photo passe par le Texte en direct d'iOS (`lecteur-libre.ts`).
+- 4.8 Le tableau des révisions (rapport comparatif, §2.6) : dans Ma forêt, les révisions des sept prochains jours, la rétention mesurée sur trente jours face à la cible FSRS, les caractères qui résistent ; rien au temps passé, ni classement (`stats.ts`).
 
 ## Épic 4b · Jeux
 - 4b.1 Moteur de mini-jeux : un contrat commun (entrée : caractères acquis ; sortie : événements de révision notés), écran hôte, retour vers la session.
@@ -60,6 +62,7 @@ Format BMAD : épics puis stories. Priorité dans l'ordre. Une story se termine 
 ## Épic 5 · PWA et site
 - 5.1 Manifest, service worker, hors ligne, écran d'accueil iOS.
 - 5.2 Site public : une page par caractère, FR et EN, indexable.
+- 5.3 VoiceOver (rapport comparatif, §2.12, sans Dynamic Type) : chaque caractère dessiné porte un nom (le caractère, son pinyin, son sens), chaque bouton-icône un label, chaque décor `aria-hidden`.
 
 ## Épic 6 · iOS
 - 6.1 Shell Capacitor, build CI sur runner macOS, TestFlight.
@@ -87,9 +90,27 @@ Décisions du propriétaire du 26 septembre 2026 : « aux paliers de caractères
 - 8.5 Les rangs, « Points ET examen » : dans `heros.ts`, un titre s'accorde quand l'examen est réussi et les points atteints, dans l'ordre des rangs ; les quatre nominations à leur palier de caractères lus. Un 月课 ne donne ni ne retient un rang, même au palier d'une nomination (1 555, 1 800). La taille et la silhouette suivent les points, la tenue le titre accordé. L'en-tête montre le rang tenu, sans pastille ; « Mon personnage » : barre pleine et « Reste le 院试 », ou « Reçu au 院试 · encore 12 points », et les examens à titre réussis avec leur date, sans les 月课 ; le 放榜 au titre accordé, une fois. `rangs.tsv` prend l'examen ou le palier de chaque rang ; `heros.json` suit, contrôle des sources mis à jour.
 - 8.6 La borne de la route : l'examen dans `route.bornesDevant`, au jour du chemin où entre le Ne caractère, son nom sur la stèle ; l'examen suivant, à titre ou 月课, toujours l'une des deux bornes, à la place de la seconde si deux autres tombent avant lui ; une seule stèle quand il tombe sur un seuil du trophée Lire (50, 100, 255, 505, 1 555) ; l'examen à passer se dresse devant la pierre du jour, « examen ouvert », les pierres suivantes sans compte ; au rythme gratuit, en étapes. Tests dans `route.test.ts`. Pas de sceau aux trophées.
 
-## État au 21 septembre 2026
+## État au 28 septembre 2026
 
-Relevé sur le dépôt après une revue du pipeline. Les numéros ci-dessus ne bougent pas.
+Relevé sur le dépôt le 21 septembre après une revue du pipeline, mis à jour le 28 septembre
+après vérification dans `data/sources/` : le relevé disait encore 0 fiche et 0 conte relus.
+Les numéros ci-dessus ne bougent pas.
+
+### Relectures, au 28 septembre
+
+Compté dans `data/sources/` et dans l'export 0.1.0 :
+
+- Fiches (1.4) : les 357 fiches de `data/sources/fiches/` sont au statut `relu` ; l'export
+  en porte 356 (`compte.fiches_relues` de `index.json`). Chercher trouve désormais le sens
+  français, et le site public écrit le sens, l'origine, les mots et la phrase.
+- Contes (1.7) : 38 versions relues, toutes celles de `data/sources/contes-versions/` : 3 au
+  seuil 255, les trois fables du chemin (jours 25, 44 et 60), 9 à HSK 3, 4 à HSK 4, 6 à
+  HSK 5, 5 à HSK 6, 8 à HSK 7-9. 16 contes exportés.
+- Lettres de Que (4b.8) : les 12 lettres relues, toutes dans `lettres.json`.
+- Anecdotes du jour : les 90 relues. Trois lignes du pas Utiliser : 236 textes relus (117
+  jours écrits sur 187 du chemin Lire, 117 sur 217 du chemin HSK). Examens (8.1) : les 8
+  séries du 县试 et du 月课 de 75, sur les deux chemins, relues. Message WeChat (4b.7) : relu
+  le 28 septembre.
 
 ### Livrées
 
@@ -98,7 +119,7 @@ Relevé sur le dépôt après une revue du pipeline. Les numéros ci-dessus ne b
   fetch, ingest, build, export et check, et deux passages écrivent les mêmes octets.
   8 148 caractères sur 9 574 réconciliés ; 241 du seuil 255 sur 255, 280 du HSK 1 sur 300 ;
   238 familles exportées en 1,33 Mio.
-- Épic 2 : 2.1 à 2.8 (2.2 et 2.8 revues le 24 septembre : le menu et le parcours du prototype validé). Épic 3 : 3.1 à 3.4. Épic 4 : 4.1 à 4.5 (4.4, Chercher, le 24 septembre : la recherche en français ne trouvera rien tant qu'aucune fiche n'est relue ; 4.5, le personnage, le 25 septembre).
+- Épic 2 : 2.1 à 2.8 (2.2 et 2.8 revues le 24 septembre : le menu et le parcours du prototype validé). Épic 3 : 3.1 à 3.4. Épic 4 : 4.1 à 4.5 (4.4, Chercher, le 24 septembre : la recherche en français lit le sens des fiches relues, 356 dans l'export au 28 septembre ; 4.5, le personnage, le 25 septembre).
 - Épic 4b : 4b.1 à 4b.9 (textes des jeux à relire). Épic 5 : 5.1, et 5.2 (24 septembre).
 - 5.2, le site public : `app/scripts/site/` génère du HTML statique depuis l'export
   versionné, dans l'artefact Pages de l'app, après `vite build`. 480 caractères dessinables
@@ -107,7 +128,7 @@ Relevé sur le dépôt après une revue du pipeline. Les numéros ci-dessus ne b
   15 Mio bruts, 2 Mio compressés. Le caractère au pinceau et l'ordre des traits depuis les
   traits, le pinyin, la décomposition GF 0014-2009 liée page à page, la famille, les
   caractères qui le contiennent ; sens, origine, mots et phrase seulement d'une fiche
-  relue (aucune aujourd'hui). Titre, description, canonique, `hreflang`, `DefinedTerm`,
+  relue (356 au 28 septembre). Titre, description, canonique, `hreflang`, `DefinedTerm`,
   `sitemap.xml`. Attribution APL sur chaque page ; les fichiers de `traits/` publiés depuis
   la page des licences (APL §2 b). Le service worker ne précache pas le site et ne sert
   plus `index.html` de l'app à ses adresses. Reste : un lien profond de l'app vers un
@@ -220,7 +241,7 @@ Relevé sur le dépôt après une revue du pipeline. Les numéros ci-dessus ne b
   compte huit (sceau 节), une case que le tableau du brief (§8) ne liste pas encore. Reste
   une relecture des textes des termes par le propriétaire.
 
-- 4b.8, les lettres de Que (24 septembre), **à relire par le propriétaire** : douze lettres
+- 4b.8, les lettres de Que (24 septembre), **relues par le propriétaire** : douze lettres
   rédigées sans API par une session Claude Code, dans le circuit des contes — fil
   `data/sources/lettres/feuilleton.tsv`, brouillons `lettres-brouillons/`, `wenlu lettres
   contexte | importer | exporter-relecture | appliquer-relecture | apercu`, versions
@@ -228,7 +249,7 @@ Relevé sur le dépôt après une revue du pipeline. Les numéros ci-dessus ne b
   La lettre n n'emploie que les caractères posés par le parcours Lire au jour 7n (rejet
   sinon), 42 à 62 sinogrammes, glose par mot (pinyin, fr, en), traduction par phrase,
   question finale à un mot ; huit contrôles dans `wenlu check`. `lettres.json` ne porte que
-  les relues (aucune aujourd'hui), `apercu/lettres.json` les autres, visibles en mode
+  les relues (les douze au 28 septembre), `apercu/lettres.json` les autres, visibles en mode
   relecture. Dans l'app : une lettre par semaine, le dimanche ou à la première session de la
   semaine, quand tous ses caractères ont une carte (`lettres.ts`) ; section « Lettres de
   Que » de Lire, lecteur des contes signé de Que (posture avec sa lettre), case Lire du menu
@@ -341,13 +362,56 @@ Relevé sur le dépôt après une revue du pipeline. Les numéros ci-dessus ne b
   reprendre en trois traits dans 学 et 觉, ce qui réconcilierait 兴 et 举 mais poserait 冖
   avant le jour 13 (décision du propriétaire).
 
+- 4.7, Lire le monde (28 septembre), rapport comparatif §2.5, **textes à relire** : un second
+  onglet de Chercher, « Un texte », où l'on colle ou tape un texte chinois. « Tu lis 9
+  caractères sur 14 » : seuls les sinogrammes comptent, chaque occurrence une fois ; la
+  ponctuation, les chiffres et les lettres restent dans le texte montré, hors du compte.
+  Un caractère lu (la règle de Ma forêt : une carte au seuil de déblocage) passe au jade et
+  ouvre sa fiche dans l'arbre de sa famille ; un autre reste à l'encre, avec « dans N j » (ou
+  « demain ») s'il est sur le chemin, par le calcul de l'étagère « Bientôt » de Lire
+  (`etageres.dansCombien`, en jours du chemin, rien d'estimé). Les mots de deux caractères
+  lus que portent les fiches relues et le dictionnaire éclair sont reconnus, soulignés d'un
+  seul trait de jade, jamais coupés en fin de ligne, et listés avec leur pinyin et leur sens.
+  Aucune requête réseau ; une phrase d'aide renvoie au Texte en direct d'iOS pour copier le
+  texte d'une photo. Logique pure dans `lecteur-libre.ts`, un test par règle ; textes dans
+  `data/sources/ecrans/lire-le-monde.tsv`, exportés dans `ecrans.json` avec ceux du tableau
+  des révisions (« écrans : sources », « écrans : export », bloquants : clés, jetons, ni
+  emoji, ni dragon, ni temps passé, ni classement). Vérifié à 393 × 660 sur une enseigne et
+  une phrase de 学弈. Reste : que le propriétaire dise si c'est gratuit (ce lecteur ne lit
+  que l'export) et si la lecture compte comme une activité pour Tao (non, aujourd'hui).
+- 4.8, le tableau des révisions (28 septembre), rapport comparatif §2.6, **textes à relire** :
+  dans Ma forêt, « Tes révisions », sous « Tes trophées » (« Demain 1 · cette semaine 9 »),
+  plutôt que derrière Réviser, qui reste une action d'un tap (brief §6). Trois parties sous
+  un filet d'encre : les sept prochains jours en barres à plat, l'indigo de ce qui revient,
+  aujourd'hui comptant les cartes déjà dues et jamais les cartes mises de côté ; la
+  rétention mesurée sur trente jours face à la cible réglée (les cartes revenues à une
+  échéance d'un jour ou plus ; la première rencontre et le retour à dix minutes n'en sont
+  pas ; « Oublié » seul compte faux ; sous dix cartes, pas de nombre), en jauge de jade ;
+  « Ceux qui te résistent », les cinq caractères les plus souvent manqués sur trente jours,
+  dessinés depuis leurs traits, avec leur pinyin et leur sens, qui se disent au toucher.
+  Tout se calcule dans `stats.ts` sur les cartes et leur historique borné : rien de nouveau
+  n'est noté, le format de la progression ne bouge pas. Rien au temps passé, ni classement,
+  ni percentile ; Tao dans sa posture de révision. Vérifié à 393 × 660 sur une progression
+  simulée de quarante jours.
+- 5.3, VoiceOver (28 septembre), rapport comparatif §2.12, sans Dynamic Type : un caractère
+  dessiné depuis ses traits est une image nommée (`role="img"`), « 住, zhù, habiter »,
+  pinyin et premier sens lus dans la fiche de l'export avec les tracés (`Glyph.svelte`,
+  `glyph.nomAccessible`) ; dans les questions et les jeux (`Ask`, `Game`, `EclairTour`), le
+  caractère seul, pour ne pas souffler la réponse. Un caractère en police se dit en mandarin
+  (`lang="zh-Hans"`, `Hz.svelte`). Les nœuds de l'arbre et du cercle se nomment de même, et
+  leurs SVG ne sont plus des images (`role="group"`), qui rendaient leurs boutons muets. Le
+  leurre à réentendre a son label ; tout bouton a un texte ou un `aria-label` ; un dessin
+  sans nom est un décor caché (`aria-hidden`). Test dans `accessible.test.ts`. Reste : un
+  passage à VoiceOver sur un iPhone, puis les labels d'accessibilité d'App Store Connect.
+
 ### Livrées à moitié : le code attend une clé d'API
 
 Les trois chaînes sont écrites, testées sans réseau, et refusent de partir sans clé
 (code de sortie 2). Aucun contenu n'a donc été produit par l'API.
 
 - **1.4, fiches** : génération, validation et relecture en place ; sans clé, la
-  rédaction passe par des brouillons (ci-dessous). 3 fiches écrites, 0 relue. Les
+  rédaction passe par des brouillons (ci-dessous). 357 fiches écrites et relues au 28
+  septembre, toutes par brouillon, aucune par l'API. Les
   caractères sans fiche relue s'exportent au statut `sans_fiche`, avec leur
   décomposition et leurs tracés, sans texte.
 - **1.7, contes** : catalogue versionné, génération par lots en place ; sans clé, la
@@ -375,7 +439,8 @@ les fiches générées. La chaîne API reste en place et utilisable.
 - Relecture humaine inchangée : `wenlu fiches exporter-relecture` rassemble les fiches à
   relire dans `data/work/relecture.json`, `wenlu fiches appliquer-relecture` applique
   `{c: "relu" | "rejete"}`.
-- Fait : 人, 大 et 天, à relire. Reste : 252 caractères du seuil, puis les 95 briques du
+- Fait : 357 fiches rédigées et relues (28 septembre). Au 21 septembre : 人, 大 et 天 ; il
+  restait 252 caractères du seuil, puis les 95 briques du
   parcours Lire hors liste (亻, 氵, 木…), que l'export embarque aussi. 24 caractères du
   seuil n'ont pas deux mots candidats lisibles à leur jour : leur fiche en portera moins,
   écart signalé à la relecture.
@@ -472,7 +537,8 @@ anglaise, glose par mot.
   objets clés en mots expliqués (狐狸, 塞翁, 盲人 et 鼻子, 树桩 ; 木兰 et 织布机 ; 孙悟空, 齐天大圣,
   玉皇大帝, 蟠桃, 筋斗云, 须菩提, 神仙, 弼马温, 猢狲) ; convention du pinyin de 上 et des
   compléments écrite dans la consigne et `data/schema.md`. Les 30 versions prévues sont
-  écrites : 3 relues (255), 27 à relire.
+  écrites : 3 relues (255), 27 à relire. Au 28 septembre, toutes les versions écrites sont
+  relues : 38.
 - Fables plus bas (26 septembre), décisions du propriétaire : l'animal par son vrai
   caractère dès les petits niveaux, défini dans le vocabulaire du conte. Un niveau de plus,
   sous le plan de base, quand l'animal est expliqué (au plus trois caractères hors du
@@ -496,7 +562,7 @@ anglaise, glose par mot.
   CC-CEDICT. Sources harmonisées (contes, fiches, WeChat, éclair) ; 下面 de la cuisine
   (« mettre les nouilles ») n'est pas un mot de position. Export 0.1.0 refait (南辕北辙
   relu au seuil 255 : 哪里 nǎ li, 北边 běi bian). 外头 wàitou reste tel.
-- Reste : relire les 32 versions HSK ; vérifier les listes HSK contre le PDF officiel
+- Reste : vérifier les listes HSK contre le PDF officiel
   (lecture OCR, ordre, caractères à écrire). 美猴王 garde 猴 au niveau 5 : c'est un récit
   long, hors de cette décision.
 
@@ -624,5 +690,6 @@ révision de tout l'acquis reste toujours ouverte ; rien d'acquis ne se perd.
 
 ### Non commencées
 
-2c.1, 2c.2, 6.2, 6.4, et dans 6.3 iCloud et le widget ; dans l'épic 7, 7.3 et 7.4 ; l'épic 8
-(examens).
+2c.1, 2c.2, 6.2, 6.4, et dans 6.3 iCloud et le widget ; dans l'épic 7, 7.3 et 7.4. L'épic 8
+(examens) est entamé : 8.1 pour le 县试 et le 月课 de 75, relus, et la logique de 8.2
+(`examens.ts`) ; l'écran (8.3) et la suite restent.
