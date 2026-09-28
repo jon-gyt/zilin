@@ -13,15 +13,20 @@ import pytest
 
 from wenlu_data import contes
 from wenlu_data.contes import (
+    RELU,
     CatalogueInvalide,
     SeuilInconnu,
     SeuilSansListe,
+    charger_catalogue,
     charger_seuil,
     parse_catalogue,
     valider,
 )
 
 from test_contes import CONTE, generation_de_test, ligne_catalogue, reponse
+
+#: Les jours du chemin des fables de première lecture du dépôt.
+CHEMIN = {"jour25", "jour44", "jour60"}
 
 JOURS = {"人": 1, "大": 2, "天": 3, "山": 3, "水": 4, "日": 5, "月": 5}
 
@@ -119,3 +124,26 @@ def test_le_critere_d_une_fable_du_chemin() -> None:
     assert any("水 hors du jour 3" in e for e in ecarts)
     assert any("4 caractères à expliquer" in e for e in ecarts)
 
+
+def test_les_fables_du_chemin_du_depot_s_ouvrent_tot() -> None:
+    """L'une s'ouvre avant le jour 28 (de 30 à 50 caractères), les autres entre les jours 30
+    et 60 (de 40 à 60) ; trois caractères expliqués au plus, relues, sans écart ; chacune
+    s'ouvre au jour de son niveau."""
+    jours = contes.jours_du_chemin()
+    par_id = {c.id: c for c in charger_catalogue()}
+    versions = {
+        v.conte: v for v in map(contes.lire_version, contes.versions_ecrites()) if contes.est_chemin(v.seuil)
+    }
+    prevues = {c.id for c in par_id.values() if CHEMIN & set(c.niveaux)}
+    assert prevues == set(versions) == {"xue-yi", "ji-chang-xue-she", "yi-lin-dao-fu"}
+    ouvertures = {}
+    for identifiant, version in versions.items():
+        conte = par_id[identifiant]
+        assert conte.niveaux == (version.seuil,) and version.statut == RELU
+        rapport = valider(version, charger_seuil(version.seuil), conte)
+        assert rapport.conforme and rapport.ecarts == [], (identifiant, rapport.ecarts)
+        assert 1 <= len(rapport.expliques) <= contes.MAX_EXPLIQUES
+        assert contes.ecarts_de_jour(version, jours) == []
+        ouvertures[identifiant] = (contes.jour_du_niveau(version.seuil), contes.longueur(version.phrases))
+    assert ouvertures == {"xue-yi": (25, 46), "ji-chang-xue-she": (44, 56), "yi-lin-dao-fu": (60, 58)}
+    assert contes.controle_critere(list(par_id.values()), versions=list(versions.values())).ok
