@@ -446,9 +446,13 @@ export function contourDuTon(ton: number): string {
   const niveaux = CHAO[ton] ?? CHAO[0];
   const [debut, fin] = ton in CHAO && ton !== 0 ? [4, 36] : [16, 24];
   const pas = (fin - debut) / (niveaux.length - 1);
-  return niveaux
-    .map((n, i) => `${i === 0 ? 'M' : 'L'}${debut + i * pas} ${36 - (n - 1) * 8}`)
-    .join(' ');
+  const pts = niveaux.map((n, i) => [debut + i * pas, 36 - (n - 1) * 8]);
+  if (pts.length === 3) {
+    /* Le creux du troisième ton s'arrondit : une courbe qui descend puis remonte, pas une coche. */
+    const [[x0, y0], [x1, y1], [x2, y2]] = pts;
+    return `M${x0} ${y0} C${x1 - 8} ${y1 + 4} ${x1} ${y1 + 4} ${x2} ${y2}`;
+  }
+  return pts.map(([x, y], i) => `${i === 0 ? 'M' : 'L'}${x} ${y}`).join(' ');
 }
 
 /** La syllabe sans son ton, le ü gardé : `lǜ` donne `lü`. */

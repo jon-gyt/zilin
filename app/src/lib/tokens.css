@@ -533,7 +533,7 @@ h1{font-family:var(--head);font-weight:700;font-size:30px;line-height:1.15;lette
 .q .stim .indice{width:auto;margin:6px auto 0;min-height:44px;font-size:15px}
 /* le contour du ton, à la correction : il se dessine d'un trait, à l'indigo du son */
 .contour .portee{stroke:var(--line);stroke-width:1;fill:none}
-.contour .trait{fill:none;stroke:var(--indigo);stroke-width:3.5;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:1;stroke-dashoffset:1;animation:contour .9s ease-out .15s forwards}
+.contour .trait{fill:none;stroke:var(--indigo);stroke-width:3.5;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:1;stroke-dashoffset:1;animation:contour .6s ease-out .1s forwards}
 @keyframes contour{to{stroke-dashoffset:0}}
 @media (prefers-reduced-motion:reduce){.contour .trait{animation:none;stroke-dashoffset:0}}
 .choices.tons{grid-template-columns:repeat(var(--n,4),1fr);gap:8px}

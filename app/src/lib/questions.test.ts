@@ -928,11 +928,15 @@ describe('le contour du ton, dessiné à la correction', () => {
     expect(b[1]).toBe(4);
   });
 
-  it('troisième ton : il creuse, puis remonte (214)', () => {
-    const [a, b, c] = points(contourDuTon(3));
-    expect(b[1]).toBeGreaterThan(a[1]);
-    expect(c[1]).toBeLessThan(a[1]);
-    expect(b[1]).toBe(36);
+  it('troisième ton : il creuse, puis remonte (214), en courbe', () => {
+    const d = contourDuTon(3);
+    expect(d).toMatch(/^M4 28 C/);
+    const nombres = [...d.matchAll(/-?[\d.]+/g)].map((m) => Number(m[0]));
+    const ys = nombres.filter((_, i) => i % 2 === 1);
+    /* Le creux passe sous le départ, l'arrivée au-dessus du départ. */
+    expect(Math.max(...ys)).toBeGreaterThan(ys[0]);
+    expect(ys[ys.length - 1]).toBeLessThan(ys[0]);
+    expect(ys[ys.length - 1]).toBe(12);
   });
 
   it('quatrième ton : il tombe du haut en bas (51)', () => {
