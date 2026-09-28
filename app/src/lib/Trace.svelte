@@ -9,6 +9,7 @@
    * l'appelant, qui le convertit en note (`outcomeDuTrace` de `questions.ts`).
    */
   import HanziWriter from 'hanzi-writer';
+  import { untrack } from 'svelte';
   import Glyph from './Glyph.svelte';
   import { traitsDe } from './content';
 
@@ -16,7 +17,9 @@
     char,
     quiz = false,
     onresultat,
-    onindisponible
+    onindisponible,
+    cache = false,
+    indice = false
   }: {
     char: string;
     /** Question de tracé : ni titre, ni boutons, le tracé démarre tout seul. */
@@ -25,6 +28,10 @@
     onresultat?: (erreurs: number) => void;
     /** Les traits de ce caractère ne sont pas embarqués : rien à noter. */
     onindisponible?: () => void;
+    /** En question, le caractère est caché : on le trace de mémoire, sans son contour. */
+    cache?: boolean;
+    /** L'indice est demandé : le contour du caractère paraît, le tracé continue. */
+    indice?: boolean;
   } = $props();
 
   /** Côté de la zone de tracé, comme la maquette. */
@@ -83,7 +90,7 @@
           width: COTE,
           height: COTE,
           padding: 24,
-          showOutline: true,
+          showOutline: !cache || untrack(() => indice),
           strokeColor: couleur('--ink'),
           outlineColor: couleur('--guide') || couleur('--line'),
           radicalColor: null,
@@ -109,6 +116,11 @@
       ajoute?.remove();
       ajoute = null;
     };
+  });
+
+  /* L'indice montre le contour sous le tracé en cours, sans le recommencer. */
+  $effect(() => {
+    if (indice) void writer?.showOutline();
   });
 
   function montrer(): void {

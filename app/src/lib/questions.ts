@@ -205,6 +205,13 @@ export type Question = {
   sansTon?: string;
   /** `trace` : nombre de traits, quand les données de tracé sont là. */
   traits?: number;
+  /**
+   * `trace` : le caractère n'est pas montré. On le trace de mémoire, d'après son sens et son
+   * son (« Trace « voiture », chē. ») ; un indice le montre, et la note en tient compte.
+   * Absent quand la fiche n'a pas de sens : on ne demanderait qu'un son, et plusieurs
+   * caractères se lisent pareil. On le montre alors, comme avant.
+   */
+  cache?: boolean;
 };
 
 /* ---------- tirage déterministe ---------- */
@@ -824,8 +831,15 @@ export function question(
     return q;
   }
 
+  /* Le rappel plutôt que la copie : le sens et le son, le caractère caché. */
   const traits = f.traits?.length ?? 0;
-  q.enonce = traits > 0 ? `Trace ${f.c} au doigt. ${traits} traits.` : `Trace ${f.c} au doigt.`;
+  const combien = traits > 0 ? ` ${traits} traits.` : '';
+  if (f.fr !== '') {
+    q.enonce = `Trace « ${f.fr} », ${f.pinyin}.${combien}`;
+    q.cache = true;
+  } else {
+    q.enonce = `Trace ${f.c} au doigt.${combien}`;
+  }
   if (traits > 0) q.traits = traits;
   return q;
 }
@@ -888,8 +902,11 @@ export function serie(dues: readonly Due[], corpus: Corpus, graine: string): Que
 
 /* ---------- correction ---------- */
 
-/** La réponse de l'utilisateur : une option, une suite de briques, ou le bilan du tracé. */
-export type Reponse = string | readonly string[] | { erreurs: number };
+/**
+ * La réponse de l'utilisateur : une option, une suite de briques, ou le bilan du tracé (ses
+ * erreurs, et l'indice s'il a fallu montrer le caractère).
+ */
+export type Reponse = string | readonly string[] | { erreurs: number; indice?: boolean };
 
 /**
  * La ligne affichée après une première erreur : un constat et ce qu'il reste à faire.
@@ -971,9 +988,11 @@ export function leurresDe(q: Question, reponse: Reponse): string[] {
  * Jamais au temps (`chrono: false`) : on trace avec soin, trait après trait, et un tracé
  * lent n'est pas un oubli. Le temps est gardé dans l'événement, il n'entre pas dans la note.
  */
-export function outcomeDuTrace(erreurs: number, seconds: number): Outcome {
+export function outcomeDuTrace(erreurs: number, seconds: number, indice = false): Outcome {
   const correct = erreurs <= ERREURS_TRACE_MAX;
-  return { correct, tries: correct && erreurs > 0 ? 1 : erreurs, seconds, chrono: false };
+  /* Montrer le caractère fait d'un rappel une copie : juste, au mieux après une aide. */
+  const aide = erreurs > 0 || indice;
+  return { correct, tries: correct ? (aide ? 1 : 0) : erreurs, seconds, chrono: false };
 }
 
 function memeSuite(a: readonly string[], b: readonly string[]): boolean {
@@ -995,8 +1014,8 @@ export function corriger(
   ratees: readonly Reponse[] = []
 ): Correction {
   if (typeof reponse === 'object' && !Array.isArray(reponse)) {
-    const { erreurs } = reponse as { erreurs: number };
-    const o = outcomeDuTrace(erreurs, outcome.seconds);
+    const { erreurs, indice } = reponse as { erreurs: number; indice?: boolean };
+    const o = outcomeDuTrace(erreurs, outcome.seconds, indice === true);
     return { correct: o.correct, explication: q.explication, outcome: o };
   }
   const donnee = typeof reponse === 'string' ? [reponse] : [...(reponse as readonly string[])];

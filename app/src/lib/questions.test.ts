@@ -197,6 +197,36 @@ describe('les huit types de questions', () => {
     expect(q.reponse).toEqual(['人']);
     expect(q.traits).toBe(2);
   });
+
+  it('trace : de mémoire, par le sens et le son ; le caractère reste caché', () => {
+    const q = poser('trace');
+    expect(q.enonce).toBe('Trace « une personne », rén. 2 traits.');
+    expect(q.enonce).not.toContain('人');
+    expect(q.cache).toBe(true);
+    /* Sans sens, on ne demanderait qu'un son, que plusieurs caractères partagent : on montre. */
+    const nu = question({ ...fiche('人'), fr: '' }, 'trace', CORPUS, 'g');
+    expect(nu.enonce).toBe('Trace 人 au doigt. 2 traits.');
+    expect(nu.cache).toBeUndefined();
+  });
+
+  it('trace : l’indice montre le caractère, et la note le sait', () => {
+    const q = poser('trace');
+    const brut = { correct: false, tries: 0, seconds: 30 };
+    expect(grade(corriger(q, { erreurs: 0 }, brut).outcome)).toBe(Rating.Easy);
+    /* Montré, le rappel devient une copie : juste après une aide, au mieux. */
+    expect(grade(corriger(q, { erreurs: 0, indice: true }, brut).outcome)).toBe(Rating.Hard);
+    expect(grade(corriger(q, { erreurs: 4, indice: true }, brut).outcome)).toBe(Rating.Again);
+  });
+
+  it('trace : l’écran cache le contour et garde un bouton d’indice', () => {
+    const ask = readFileSync(new URL('Ask.svelte', import.meta.url), 'utf8');
+    expect(ask).toContain('cache={q.cache === true}');
+    expect(ask).toContain('onresultat={(erreurs) => noter({ erreurs, indice })}');
+    expect(ask).toContain('Indice : voir le caractère');
+    const trace = readFileSync(new URL('Trace.svelte', import.meta.url), 'utf8');
+    expect(trace).toContain('showOutline: !cache || untrack(() => indice),');
+    expect(trace).toContain('if (indice) void writer?.showOutline();');
+  });
 });
 
 /* ---------- les leurres ---------- */

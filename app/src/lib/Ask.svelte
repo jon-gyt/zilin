@@ -89,6 +89,8 @@
   let pourquoi = $state(false);
   /** Au sens et au caractère : le dernier leurre pris, son sens et ses briques. */
   let leurre: LeurreExplique | null = $state(null);
+  /** Tracé de mémoire : l'indice a montré le caractère. */
+  let indice = $state(false);
   /** À l'oreille : le dernier caractère pris pour un autre, qu'on fait entendre. */
   let entenduAuLieu: string | null = $state(null);
   /**
@@ -112,6 +114,7 @@
     entendu = false;
     ecoutable = false;
     pourquoi = false;
+    indice = false;
     leurre = null;
     entenduAuLieu = null;
     depart = Date.now();
@@ -158,7 +161,7 @@
    * Note la réponse : `corriger` rend l'`Outcome`, `grade` la note, l'appelant replanifie
    * la carte. Le délai affiché est relu sur la carte, après coup.
    */
-  function noter(reponse: string | string[] | { erreurs: number }): void {
+  function noter(reponse: string | string[] | { erreurs: number; indice?: boolean }): void {
     const seconds = (Date.now() - depart) / 1000;
     const c = corriger(q, reponse, { correct: false, tries: essais, seconds }, ratees);
     note = grade(c.outcome);
@@ -314,9 +317,15 @@
       <Trace
         char={q.c}
         quiz
-        onresultat={(erreurs) => noter({ erreurs })}
+        cache={q.cache === true}
+        {indice}
+        onresultat={(erreurs) => noter({ erreurs, indice })}
         onindisponible={() => (sautable = true)}
       />
+      <!-- De mémoire, d'après le sens et le son ; l'indice montre le caractère, s'il le faut. -->
+      {#if q.cache && !indice && note === null && !sautable}
+        <button class="btn ghost indice" onclick={() => (indice = true)}>Indice : voir le caractère</button>
+      {/if}
     </div>
   {/if}
 
