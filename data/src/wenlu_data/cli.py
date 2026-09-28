@@ -18,9 +18,9 @@ Ordre et dépendances — chaque étape lit ce que la précédente a écrit :
   seul dit quels caractères l'app écrit ; il lit aussi les listes versionnées et
   `app/public/strokes-demo.json`.
 - `check` : contrôles qualité sur tout ce qui précède. Ne réécrit rien.
-- `licences` : inventaire des licences des décompositions exportées et couverture des
-  sources d'IDS de remplacement (`docs/licences-decompositions.md`). Après `export` ;
-  `--telecharger` va chercher les candidats. Hors de `tout`, comme `fonts`.
+- `licences` : recette de la licence des décompositions exportées, caractère par
+  caractère (`docs/licences-decompositions.md`) : aucune ne descend `dictionary.txt`.
+  Après `export`. Hors de `tout`, comme `fonts` ; `check` en refait le contrôle bloquant.
 - `tout` : enchaîne fetch, ingest, build, export, check et s'arrête à la première erreur.
 
 `parcours figer` écrit l'ordre figé de chaque parcours (`data/sources/parcours/`), que
@@ -175,18 +175,10 @@ app.command(name="fonts")(_fonts)
 
 
 @app.command()
-def licences(
-    telecharger: bool = typer.Option(
-        False, help="Télécharger d'abord les sources d'IDS candidates dans data/work/sources/candidats/."
-    ),
-    force: bool = typer.Option(False, help="Retélécharger les candidats déjà présents."),
-) -> None:
-    """Inventaire des licences des décompositions exportées et couverture des sources de remplacement. Exige `export`."""
-    from .licences import InventaireImpossible, licences as _licences, telecharger_candidats
+def licences() -> None:
+    """Recette de la licence des décompositions exportées (docs/licences-decompositions.md). Exige `export`."""
+    from .licences import InventaireImpossible, licences as _licences
 
-    if telecharger:
-        for fichier, action in telecharger_candidats(force=force).items():
-            typer.echo(f"{action} : {fichier}")
     try:
         rapport = _licences()
     except InventaireImpossible as erreur:
