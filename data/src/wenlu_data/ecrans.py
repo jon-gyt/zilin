@@ -1,0 +1,267 @@
+"""Les textes d'interface de deux écrans : « Lire le monde » (Chercher) et le tableau des révisions.
+
+Rapport comparatif du 28 septembre 2026, §2.5 et §2.6. Chaque écran a sa source
+versionnée, rédigée pour l'app et à relire, dans `data/sources/ecrans/<écran>.tsv` ;
+`wenlu export` en tire `ecrans.json`, que l'index nomme par sa clé `ecrans`.
+
+L'app ne rédige rien : elle lit `ecrans.json` (`app/src/lib/ecrans.ts`) et remplit les
+jetons entre accolades. Chaque clé est déclarée ici avec ses jetons, et `wenlu check`
+refuse une clé absente, doublée ou inconnue, un jeton de trop ou de moins, un emoji, un
+dragon, et ce que la charte écarte de ces écrans : le temps passé, le classement, le
+percentile (CLAUDE.md : « pas de points au temps passé, pas de classements »).
+"""
+from __future__ import annotations
+
+import json
+import re
+from dataclasses import dataclass, field
+from pathlib import Path
+
+from .anecdotes import _EMOJI
+from .fetes import lire_tsv
+from .gf0014 import Controle
+from .paths import DATA, EXPORT
+
+DOSSIER = DATA / "sources" / "ecrans"
+
+#: Le fichier exporté, que l'index nomme par sa clé `ecrans`.
+FICHIER = "ecrans.json"
+
+#: Les écrans, leurs clés dans l'ordre de la source, et les jetons de chacune.
+ECRANS: dict[str, dict[str, tuple[str, ...]]] = {
+    "lire-le-monde": {
+        "onglets": (),
+        "onglet-caractere": (),
+        "onglet-texte": (),
+        "champ": (),
+        "invite": (),
+        "aide-iphone": (),
+        "chargement": (),
+        "compte": ("lus", "total"),
+        "compte-un": ("lus", "total"),
+        "sans-chinois": (),
+        "legende": (),
+        "dans": ("n",),
+        "demain": (),
+        "mots": (),
+        "ouvrir": ("nom",),
+        "effacer": (),
+    },
+    "revisions": {
+        "entree": (),
+        "entree-ligne": ("demain", "semaine"),
+        "entree-vide": (),
+        "retour": (),
+        "titre": (),
+        "venir-titre": (),
+        "venir-ligne": ("n",),
+        "venir-une": (),
+        "venir-rien": (),
+        "aujourdhui": (),
+        "jours": (),
+        "barre": ("jour", "n"),
+        "barre-une": ("jour",),
+        "retention-titre": (),
+        "retention": ("jours", "mesure", "n", "cible"),
+        "retention-peu": ("jours", "min"),
+        "retention-mesure": ("mesure",),
+        "retention-cible": ("cible",),
+        "retention-reglage": (),
+        "resistent-titre": (),
+        "resistent-aide": ("jours",),
+        "resistent-ligne": ("n",),
+        "resistent-une": (),
+        "resistent-rien": ("jours",),
+    },
+}
+
+#: Les sept jours de la semaine, du dimanche au samedi (`Date.getDay`), dans `revisions/jours`.
+JOURS_SEMAINE = 7
+
+#: Ce que ces écrans ne disent jamais : le temps passé, le classement, le percentile.
+INTERDITS: tuple[tuple[re.Pattern[str], str], ...] = tuple(
+    (re.compile(motif, re.IGNORECASE), raison)
+    for motif, raison in (
+        (r"dragon|龙|龍", "un dragon, hors du décor des fêtes"),
+        (r"\bminutes?\b|\bheures?\b|\bsecondes?\b|temps pass[ée]|chrono", "le temps passé"),
+        (r"classement|class[ée]e?s?\b|percentile|\bmieux que\b|\bles autres\b|meilleur", "un classement"),
+    )
+)
+
+JETON = re.compile(r"\{([^{}]*)\}")
+
+SOURCE_EXPORT = (
+    "data/sources/ecrans/ : textes d'interface de « Lire le monde » et du tableau des"
+    " révisions, rédigés pour l'app (à relire)"
+)
+
+
+def chemin(ecran: str) -> Path:
+    """La source d'un écran."""
+    return DOSSIER / f"{ecran}.tsv"
+
+
+# ---------------------------------------------------------------------------- lecture
+
+
+@dataclass(frozen=True)
+class Texte:
+    cle: str
+    fr: str
+    source: str
+    numero: int = 0
+
+
+@dataclass(frozen=True)
+class Ecrans:
+    """Les textes de chaque écran, et les fautes de forme des fichiers."""
+
+    textes: dict[str, tuple[Texte, ...]]
+    forme: tuple[str, ...] = field(default=())
+
+
+def charger(dossier: Path | None = None) -> Ecrans:
+    """Les textes de `data/sources/ecrans/`, écran par écran, dans l'ordre des fichiers."""
+    textes: dict[str, tuple[Texte, ...]] = {}
+    forme: list[str] = []
+    for ecran in ECRANS:
+        fichier = (dossier or DOSSIER) / f"{ecran}.tsv"
+        if not fichier.exists():
+            forme.append(f"{fichier.name} absent")
+            textes[ecran] = ()
+            continue
+        lignes, fautes = lire_tsv(fichier)
+        forme += fautes
+        textes[ecran] = tuple(
+            Texte(
+                cle=l.cellules.get("cle", ""),
+                fr=l.cellules.get("fr", ""),
+                source=l.cellules.get("source", ""),
+                numero=l.numero,
+            )
+            for l in lignes
+        )
+    return Ecrans(textes=textes, forme=tuple(forme))
+
+
+def sources() -> list[tuple[str, Path]]:
+    """Les fichiers dont `ecrans.json` est tiré, pour l'empreinte de l'export."""
+    return [(f"ecrans-{ecran}", chemin(ecran)) for ecran in ECRANS]
+
+
+# ---------------------------------------------------------------------------- export
+
+
+def document(en_tete: dict[str, object] | None = None, dossier: Path | None = None) -> dict[str, object]:
+    """Le JSON écrit dans `ecrans.json` : l'en-tête, puis un objet par écran, les textes par clé."""
+    e = charger(dossier)
+    return {**(en_tete or {}), **{ecran: {t.cle: t.fr for t in e.textes[ecran]} for ecran in ECRANS}}
+
+
+# ------------------------------------------------------------------------- contrôles
+
+
+def jetons(texte: str) -> list[str]:
+    """Les jetons d'un texte, dans l'ordre, sans doublon."""
+    return list(dict.fromkeys(JETON.findall(texte)))
+
+
+def interdits(texte: str) -> list[str]:
+    """Ce que le texte dit de ce que ces écrans écartent : les raisons, sans doublon."""
+    return [raison for motif, raison in INTERDITS if motif.search(texte)]
+
+
+def fautes_sources(e: Ecrans) -> list[str]:
+    """Chaque clé une fois, sourcée, avec ses jetons ; ni emoji, ni dragon, ni temps, ni classement."""
+    fautes = list(e.forme)
+    for ecran, attendues in ECRANS.items():
+        textes = e.textes.get(ecran, ())
+        cles = [t.cle for t in textes]
+        for cle in attendues:
+            if cles.count(cle) != 1:
+                fautes.append(f"{ecran}.tsv : {cles.count(cle)} lignes pour {cle}, attendu une")
+        for t in textes:
+            ou = f"{ecran}.tsv:{t.numero}"
+            if t.cle not in attendues:
+                fautes.append(f"{ou} : clé inconnue {t.cle!r}")
+                continue
+            if not t.fr or not t.source:
+                fautes.append(f"{ou} : texte incomplet ({t.cle})")
+            if sorted(jetons(t.fr)) != sorted(attendues[t.cle]) or len(JETON.findall(t.fr)) != len(
+                attendues[t.cle]
+            ):
+                voulus = ", ".join(attendues[t.cle]) or "aucun"
+                fautes.append(f"{ou} : {t.cle} porte {jetons(t.fr) or 'aucun jeton'}, attendu {voulus}")
+            if _EMOJI.search(t.fr):
+                fautes.append(f"{ou} : {t.cle} porte un emoji")
+            for raison in interdits(t.fr):
+                fautes.append(f"{ou} : {t.cle} porte {raison}")
+        jours = next((t.fr for t in textes if t.cle == "jours"), None)
+        if jours is not None and len(jours.split()) != JOURS_SEMAINE:
+            fautes.append(f"{ecran}.tsv : jours porte {len(jours.split())} noms, attendu {JOURS_SEMAINE}")
+    return fautes
+
+
+def fautes_export(sortie: dict[str, object], e: Ecrans) -> list[str]:
+    """L'export dit les textes des sources, ni plus ni moins."""
+    fautes: list[str] = []
+    for ecran, attendues in ECRANS.items():
+        bloc = sortie.get(ecran)
+        if not isinstance(bloc, dict):
+            fautes.append(f"{ecran} absent")
+            continue
+        voulu = {t.cle: t.fr for t in e.textes.get(ecran, ())}
+        fautes += [f"{ecran}/{cle} absent" for cle in attendues if cle not in bloc]
+        fautes += [
+            f"{ecran}/{cle} n'est pas le texte des sources"
+            for cle in attendues
+            if cle in bloc and bloc[cle] != voulu.get(cle)
+        ]
+        fautes += [f"{ecran} : clé inconnue {cle!r}" for cle in sorted(set(bloc) - set(attendues))]
+    return fautes
+
+
+def controles(destination: Path | None = None, *, dossier: Path | None = None) -> list[Controle]:
+    """Contrôles des textes d'écran, pour `wenlu check`. Tous bloquants.
+
+    « sources » : chaque clé une fois, sourcée, avec exactement ses jetons, sans emoji, ni
+    dragon, ni temps passé, ni classement. « export » : `ecrans.json` dit les textes des
+    sources, et `index.json` le nomme.
+    """
+    from .export import versions_exportees
+
+    e = charger(dossier)
+    f_src = fautes_sources(e)
+    dossiers = versions_exportees(destination or EXPORT)
+    f_exp: list[str] = []
+    for d in dossiers:
+        fichier = d / FICHIER
+        if not fichier.exists():
+            f_exp.append(f"{d.name} : {FICHIER} absent, lancer `wenlu export`")
+            continue
+        sortie = json.loads(fichier.read_text(encoding="utf-8"))
+        f_exp += [f"{d.name}:{f}" for f in fautes_export(sortie, e)]
+        index = json.loads((d / "index.json").read_text(encoding="utf-8"))
+        if index.get("ecrans") != FICHIER:
+            f_exp.append(f"{d.name} : index.json ne nomme pas {FICHIER}")
+
+    def detail(fautes: list[str], ok: str) -> str:
+        return ok if not fautes else f"{len(fautes)} écarts — " + " ; ".join(fautes[:5])
+
+    n = sum(len(t) for t in e.textes.values())
+    return [
+        Controle(
+            "écrans : sources",
+            not f_src,
+            detail(f_src, f"{n} textes pour {len(ECRANS)} écrans, jetons attendus, ni temps passé ni classement"),
+            bloquant=True,
+        ),
+        Controle(
+            "écrans : export",
+            not f_exp,
+            detail(f_exp, f"{FICHIER} dit les textes des sources")
+            if dossiers
+            else "aucun export écrit : lancer `wenlu export`",
+            bloquant=True,
+        ),
+    ]

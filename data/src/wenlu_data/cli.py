@@ -212,6 +212,7 @@ def check() -> None:
     from .gf0014 import controles
     from .heros import controles as controles_heros
     from .jouer import controles as controles_jouer
+    from .ecrans import controles as controles_ecrans
     from .graphe import controles as controles_graphe
     from .lettres import controles as controles_lettres
     from .licences import controles as controles_licences
@@ -245,6 +246,7 @@ def check() -> None:
         *controles_jouer(),
         *controles_rythme(),
         *controles_rappels(),
+        *controles_ecrans(),
         *controles_anecdotes(),
         *controles_trois_lignes(),
         *controles_examens(),

@@ -45,6 +45,7 @@ app/public/data/0.1.0/
   jouer.json                 l'écran Jouer : les phrases de la bulle de Tao
   rythme.json                le rythme gratuit : les lignes du menu, de la route et de Clore
   rappels.json               le rappel quotidien (iOS) et la garde de la progression
+  ecrans.json                les textes de « Lire le monde » et du tableau des révisions
   anecdotes.json             les anecdotes du jour, une par caractère
   trois-lignes.json          les trois lignes du pas Utiliser, un texte par jour du chemin
   examens.json               les examens 科举 et les 月课 : la liste, les séries relues
@@ -88,7 +89,8 @@ Trois régimes de licence, trois familles de fichiers, jamais mêlés
  "heros": "heros.json",
  "jouer": "jouer.json",
  "rythme": "rythme.json",
- "rappels": "rappels.json"
+ "rappels": "rappels.json",
+ "ecrans": "ecrans.json"
 }
 ```
 
@@ -517,6 +519,22 @@ début de l'anecdote du jour, tiré de `anecdotes.json`, et n'est pas ici.
   `accueil`, `accueil_comment` : sur le web iOS hors écran d'accueil ; `export_date`
   (`{date}`), `export_jamais` : la date du dernier export. Sans `rappels.json` (un export
   plus ancien), l'app ne programme aucun rappel et tait ces lignes.
+## `ecrans.json`
+
+Tiré de `data/sources/ecrans/lire-le-monde.tsv` et `revisions.tsv` (rapport comparatif du
+28 septembre 2026, §2.5 et §2.6), rédigé pour l'app et à relire : les textes d'interface de
+« Lire le monde », le second onglet de Chercher, et du tableau des révisions de Ma forêt.
+L'app remplit les jetons entre accolades (`app/src/lib/ecrans.ts`).
+
+```json
+{"version": "0.1.0", "license": "propriétaire", "source": "…", "source_url": "…", "modified": "…",
+ "lire-le-monde": {"compte": "Tu lis {lus} caractères sur {total}.", "dans": "dans {n} j", "…": "…"},
+ "revisions": {"titre": "Tes révisions", "jours": "dim. lun. mar. mer. jeu. ven. sam.", "…": "…"}}
+```
+
+- Un objet par écran, les textes par clé, dans l'ordre de `ecrans.ECRANS`, qui déclare
+  chaque clé et ses jetons. `revisions/jours` nomme les sept jours, du dimanche au samedi,
+  séparés d'une espace. Sans `ecrans.json` (un export plus ancien), les textes sont vides.
 
 ## `anecdotes.json`
 
@@ -738,6 +756,10 @@ ce que l'app embarque ; `docs/sources-licences.md` fait foi pour la décision.
   sourcés, avec leurs seuls jetons, ni emoji ni dragon, et jamais un reproche, une série
   menacée, un manque (« tu nous manques »), une perte, un achat, une urgence ou une
   exclamation ; `rappels.json` dit les textes de la source, et `index.json` le nomme.
+- « écrans : sources », « export » — bloquants : chaque texte de « Lire le monde » et du
+  tableau des révisions, une fois, sourcé, avec exactement les jetons que l'app remplit ;
+  ni emoji, ni dragon, ni temps passé, ni classement, ni percentile ; sept jours de la
+  semaine ; `ecrans.json` dit les textes des sources, et `index.json` le nomme.
 - « anecdotes : sources », « forme », « charte », « étymologie », « export » —
   bloquants : un seul caractère par anecdote, jamais deux fois, titre, texte et source
   présents (« rédigé pour l'app »), appui, étiquette et statut connus ; un titre de 8 à

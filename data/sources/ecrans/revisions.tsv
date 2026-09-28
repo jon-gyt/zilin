@@ -1,0 +1,49 @@
+# Les textes du tableau des révisions, dans Ma forêt : ce qui revient, ce qu'on retient,
+# ce qui résiste (rapport comparatif du 28 septembre 2026, §2.6, la transparence du SRS).
+#
+# Source : rédigé pour l'app, sans API, dans une session Claude Code ; à relire. Des
+# constats : rien au temps passé, ni classement, ni percentile, ni comparaison ; ni emoji,
+# ni dragon. `wenlu check` le vérifie.
+#
+# Format : TSV, `#` en commentaire, trois colonnes séparées par une tabulation : `cle`,
+# `fr`, `source`. Chaque clé est exigée une fois, avec exactement ses jetons entre
+# accolades, que l'app remplit (`ecrans.py`, `ECRANS`) :
+#
+# - `entree`, `entree-ligne`, `entree-vide` : l'entrée de Ma forêt, avec les cartes qui
+#   reviennent demain et sur les sept jours, ou sa ligne quand il n'y en a aucune ;
+# - `retour` : le retour vers Ma forêt ;
+# - `titre` : le titre de l'écran ;
+# - `venir-titre`, `venir-ligne`, `venir-une`, `venir-rien` : les sept prochains jours ;
+# - `aujourdhui`, `jours` : sous les barres, « auj. » puis les jours de la semaine, du
+#   dimanche au samedi, séparés d'une espace ;
+# - `barre`, `barre-une` : une barre, pour un lecteur d'écran ;
+# - `retention-titre`, `retention`, `retention-peu`, `retention-mesure`,
+#   `retention-cible`, `retention-reglage` : la rétention mesurée face à la cible FSRS,
+#   sur `{jours}` jours, en cartes revenues à leur échéance ;
+# - `resistent-titre`, `resistent-aide`, `resistent-ligne`, `resistent-une`,
+#   `resistent-rien` : les caractères les plus souvent manqués.
+cle	fr	source
+entree	Tes révisions	rédigé pour l'app
+entree-ligne	Demain {demain} · cette semaine {semaine}	rédigé pour l'app
+entree-vide	Ce qui revient, et ce que tu retiens	rédigé pour l'app
+retour	Ma forêt	rédigé pour l'app
+titre	Tes révisions	rédigé pour l'app
+venir-titre	Les sept prochains jours	rédigé pour l'app
+venir-ligne	{n} cartes reviennent cette semaine.	rédigé pour l'app
+venir-une	Une carte revient cette semaine.	rédigé pour l'app
+venir-rien	Aucune carte ne revient cette semaine.	rédigé pour l'app
+aujourdhui	auj.	rédigé pour l'app
+jours	dim. lun. mar. mer. jeu. ven. sam.	rédigé pour l'app
+barre	{jour} : {n} cartes	rédigé pour l'app
+barre-une	{jour} : une carte	rédigé pour l'app
+retention-titre	Ce que tu retiens	rédigé pour l'app
+retention	Sur {jours} jours, tu as su {mesure} % des {n} cartes revenues à leur échéance. La cible est de {cible} %.	rédigé pour l'app
+retention-peu	Sur {jours} jours, pas encore assez de cartes revenues à leur échéance pour mesurer : il en faut {min}.	rédigé pour l'app
+retention-mesure	mesurée {mesure} %	rédigé pour l'app
+retention-cible	cible {cible} %	rédigé pour l'app
+retention-reglage	La cible se règle dans Réglages.	rédigé pour l'app
+resistent-titre	Ceux qui te résistent	rédigé pour l'app
+resistent-aide	Les caractères manqués le plus souvent ces {jours} jours. Touche pour écouter.	rédigé pour l'app
+resistent-ligne	manqué {n} fois	rédigé pour l'app
+resistent-une	manqué une fois	rédigé pour l'app
+resistent-rien	Aucun caractère manqué ces {jours} jours.	rédigé pour l'app
