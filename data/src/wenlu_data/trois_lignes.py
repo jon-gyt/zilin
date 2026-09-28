@@ -73,7 +73,7 @@ PARCOURS: tuple[str, ...] = ("lire", "hsk")
 #: Le premier jour qui a un pas Utiliser : les jours 1 à 3 sont la première session.
 PREMIER_JOUR = 4
 #: Jusqu'où chaque parcours doit être couvert, jour par jour (bloquant).
-COUVERTURE = 60
+COUVERTURE = 120
 #: Trois lignes, ni plus ni moins (brief §6).
 LIGNES = 3
 #: Longueur du texte, en sinogrammes, ponctuation non comprise : au moins une par ligne,

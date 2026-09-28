@@ -3,7 +3,7 @@
 Un test par règle. Aucun réseau. Les règles : trois lignes par jour du chemin, écrites avec
 les seuls caractères que le parcours a posés ce jour-là, dont au moins un caractère
 nouveau du jour (le cinabre de l'app) ; pinyin aux tons du dictionnaire, une syllabe par
-sinogramme ; chaque sinogramme glosé tel que le lecteur découpe ; chaque jour de 4 à 60
+sinogramme ; chaque sinogramme glosé tel que le lecteur découpe ; chaque jour de 4 à 120
 écrit sur les deux parcours ; seuls les textes relus s'exportent ; la rédaction est
 traçable (« session Claude Code (sans API) ») et la relecture cite sa décision.
 """

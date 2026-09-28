@@ -528,9 +528,9 @@ relecture citée), « périmètre » (les seuls caractères posés par le parcou
 jour du texte, et au moins un caractère nouveau du jour), « pinyin » (chaque syllabe une
 lecture du caractère selon Unihan, Make Me a Hanzi et les surcharges), « glose » (chaque
 sinogramme couvert, au pinyin des lignes ; le glossaire lui-même), « forme » (trois lignes,
-6 à 48 sinogrammes), « couverture » (chaque jour de 4 à 60, sur les deux parcours),
+6 à 48 sinogrammes), « couverture » (chaque jour de 4 à 120, sur les deux parcours),
 « export » (`trois-lignes.json` porte exactement les textes relus). Signalés : la
-relecture, et les jours du chemin au-delà du 60e qui n'ont pas encore de texte.
+relecture, et les jours du chemin au-delà du 120e qui n'ont pas encore de texte.
 
 ## `LICENCES.md`
 
