@@ -39,6 +39,9 @@ def _sans_surcharges(monkeypatch: pytest.MonkeyPatch, tmp_path: Path) -> None:
     """
     for nom in SURCHARGES_REELLES:
         monkeypatch.setattr(surcharges, nom, tmp_path / f"sans-surcharge-{nom.lower()}.tsv")
+    from wenlu_data import gf0014
+
+    monkeypatch.setattr(gf0014, "NOTATION", tmp_path / "sans-surcharge-notation.tsv")
 
 
 @pytest.fixture(autouse=True)

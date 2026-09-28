@@ -1,9 +1,14 @@
-"""Source d'IDS de repli : cjk-decomp, converti en séquences IDS.
+"""Source d'IDS de la décomposition : cjk-decomp, converti en séquences IDS.
 
-Unihan ne porte aucun champ `kIDS` (vérifié sur Unicode 17.0.0). Les tables IDS
-les plus complètes — CHISE et `cjkvi-ids` — sont sous GPL, donc écartées. Reste
-`cjk-decomp` (Gavin Grover, fork `amake/cjk-decomp`), distribué au choix sous
-six licences dont la MIT : c'est celle que le projet retient.
+Unihan ne porte aucun champ `kIDS` (vérifié sur Unicode 17.0.0 et 18.0.0). Les tables
+IDS les plus complètes — CHISE et `cjkvi-ids` — sont sous GPL, donc écartées ;
+BabelStone aussi, dont les données descendent en partie de celles de Kawabata Taichi
+(lignée CHISE, GPL). Make Me a Hanzi (`dictionary.txt`) est sous LGPL : il a cessé
+d'être la source principale le 28 septembre 2026 (`docs/sources-licences.md` §10).
+Reste `cjk-decomp` (Gavin Grover, fork `amake/cjk-decomp`), distribué au choix sous
+six licences dont la MIT : c'est celle que le projet retient, avec son obligation
+(notice de copyright et texte de la licence joints à l'export, `MIT-cjk-decomp.txt`).
+Nos surcharges (`data/sources/surcharges/ids.tsv`) passent devant.
 
 Format : une ligne `clé:type(constituants)`, la clé étant un caractère ou un
 nombre à cinq chiffres désignant une décomposition intermédiaire non codée dans
@@ -31,6 +36,10 @@ from typing import Iterable, Mapping
 SOURCE = "cjk-decomp"
 URL = "https://raw.githubusercontent.com/amake/cjk-decomp/master/cjk-decomp.txt"
 LICENCE = "MIT (au choix parmi six licences)"
+#: La notice de copyright que la MIT demande de reproduire (README du dépôt : « originally
+#: compiled by Gavin Grover », aucune année donnée).
+COPYRIGHT = "Copyright (c) Gavin Grover (CJK Decomposition Data)"
+DEPOT = "https://github.com/amake/cjk-decomp"
 
 # `的:a(白,勺)`, `10001:ra(㇑)`, `我:a/m(手,戈)` : le suffixe `/t`, `/m`, `/s` ou
 # `/o` ne dit que la façon dont les traits se touchent, il n'entre pas dans l'IDS.
@@ -157,6 +166,6 @@ def document(ids: Mapping[str, str]) -> dict[str, object]:
         "source": SOURCE,
         "licence": LICENCE,
         "url": URL,
-        "usage": "IDS de repli quand Make Me a Hanzi donne ？ ou rien",
+        "usage": "IDS de la décomposition canonique, surcharges versionnées devant",
         "ids": dict(sorted(ids.items())),
     }

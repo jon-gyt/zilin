@@ -74,7 +74,7 @@ def atelier(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> Path:
             "reconcilie": True,
             "inconnus": [],
             "cycle": [],
-            "sources": ["makemeahanzi"],
+            "sources": ["cjk-decomp"],
         }
         for c, parts in COMPOSES.items()
     ]
@@ -305,8 +305,19 @@ def test_chaque_famille_exportee_est_une_famille_valide(atelier: Path) -> None:
 
 def test_la_decomposition_nomme_sa_source(atelier: Path) -> None:
     rapport = export("0.1.0")
-    assert fiche_de(rapport.dossier, "亻", "休")["sources"] == ["makemeahanzi"]
+    assert fiche_de(rapport.dossier, "亻", "休")["sources"] == ["cjk-decomp"]
     assert fiche_de(rapport.dossier, "亻", "亻")["sources"] == [], "une brique ne se décompose pas"
+
+
+def test_une_decomposition_de_make_me_a_hanzi_ne_s_exporte_pas() -> None:
+    """Règle de licence (§10) : `makemeahanzi` (LGPL) n'est plus une source permise."""
+    from pydantic import ValidationError
+
+    from wenlu_data.models import Fiche
+
+    with pytest.raises(ValidationError):
+        Fiche(c="休", pinyin="xiū", fr="", en="", parts=["亻", "木"], sources=["makemeahanzi"],
+              origine_fr="", origine_en="")
 
 
 def test_l_element_ajoute_est_celui_du_jour(atelier: Path) -> None:

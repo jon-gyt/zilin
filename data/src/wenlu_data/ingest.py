@@ -2,8 +2,10 @@
 
 Trois entrées :
 
-- `dictionary.txt` (Make Me a Hanzi) : une ligne JSON par caractère, décomposition IDS,
-  radical, pinyin, définition EN et, quand elle existe, une étymologie EN.
+- `dictionary.txt` (Make Me a Hanzi, LGPL) : une ligne JSON par caractère ; on en garde
+  le radical, le pinyin, la définition EN et, quand elle existe, l'étymologie EN, qui ne
+  servent qu'au contexte des fiches et aux contrôles, jamais à l'export (§2.2). Sa
+  décomposition IDS n'est plus lue depuis le 28 septembre 2026 (§10).
 - `graphics.txt` (Make Me a Hanzi) : une ligne JSON par caractère, traits SVG et médianes.
 - `cedict_1_0_ts_utf-8_mdbg.txt.gz` (CC-CEDICT) : une ligne par mot. Le fichier est
   lu compressé ou non : le miroir de repli sert le fichier officiel non compressé
@@ -11,12 +13,13 @@ Trois entrées :
 - `Unihan.zip` (UCD, Unicode License) : pinyin, traits et, si la version le porte
   encore, fréquence. Voir `unihan.py` ; les définitions anglaises partent dans un
   fichier séparé, comme les gloses de CC-CEDICT.
-- `cjk-decomp.txt` (MIT) : décompositions converties en IDS, source de repli
-  quand Make Me a Hanzi note `？`. Voir `cjkdecomp.py`.
+- `cjk-decomp.txt` (MIT) : décompositions converties en IDS, la source de la
+  décomposition canonique (surcharges devant). Voir `cjkdecomp.py`.
 
-L'étymologie de Make Me a Hanzi alimente la couche étymologique. Elle ne fait pas
-autorité sur la décomposition canonique GF 0014-2009, réconciliée en story 1.2 :
-`decomposition` est donc conservée telle quelle, à part, sous son nom de source.
+L'étymologie de Make Me a Hanzi alimente le contexte des fiches, comme un indice à
+vérifier. Elle ne fait pas autorité sur la décomposition canonique GF 0014-2009, qui
+ne descend que cjk-decomp et nos surcharges : le champ `decomposition` de
+`dictionary.txt` n'entre pas dans `caracteres.json`, pour que rien ne puisse en dériver.
 
 Sortie : data/work/ingest/*.json (voir data/schema.md).
 """
@@ -81,7 +84,6 @@ class CaractereSource:
     """Un caractère tel que fourni par `dictionary.txt`."""
 
     c: str
-    decomposition: str
     radical: str
     pinyin: list[str] = field(default_factory=list)
     definition_en: str | None = None
@@ -129,7 +131,6 @@ def parse_ligne_dictionnaire(ligne: str) -> CaractereSource:
         )
     return CaractereSource(
         c=brut["character"],
-        decomposition=brut.get("decomposition", ""),
         radical=brut.get("radical", ""),
         pinyin=list(brut.get("pinyin") or []),
         definition_en=brut.get("definition"),

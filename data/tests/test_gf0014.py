@@ -12,8 +12,8 @@ import pytest
 
 from wenlu_data.gf0014 import (
     COLONNES,
+    SOURCE_CJK_DECOMP,
     SOURCE_MMAH,
-    SOURCE_SECONDAIRE,
     Composant,
     IdsInvalide,
     TableGF0014,
@@ -24,12 +24,14 @@ from wenlu_data.gf0014 import (
     combiner_ids,
     controles,
     decomposer,
+    noter,
     parse_table,
     rapport_ecarts,
     reconcilier,
 )
 
-# Décompositions de Make Me a Hanzi, telles qu'elles sortent de l'ingestion.
+# Décompositions de cjk-decomp, telles qu'elles sortent de l'ingestion : un caractère
+# qui est un composant de la table n'en a pas besoin.
 IDS = {
     "好": "⿰女子",
     "女": "？",
@@ -191,14 +193,24 @@ def test_parse_table_refuse_des_colonnes_inattendues() -> None:
 # ------------------------------------------------------------------- build, check
 
 
-def _ingest(dossier: Path) -> Path:
+def _ingest(dossier: Path, ids: dict[str, str] | None = None, listes: dict[str, list[str]] | None = None) -> Path:
+    """Un `wenlu ingest` factice : l'univers (`graphies.json`) et les IDS de cjk-decomp."""
+    ids = IDS if ids is None else ids
     dossier.mkdir(parents=True, exist_ok=True)
-    (dossier / "caracteres.json").write_text(
-        json.dumps([{"c": c, "decomposition": d} for c, d in IDS.items()], ensure_ascii=False),
+    (dossier / "graphies.json").write_text(
+        json.dumps([{"c": c, "strokes": [], "medians": []} for c in ids], ensure_ascii=False),
+        encoding="utf-8",
+    )
+    (dossier / "ids-secondaires.json").write_text(
+        json.dumps(
+            {"source": SOURCE_CJK_DECOMP, "ids": {c: d for c, d in ids.items() if d != "？"}},
+            ensure_ascii=False,
+        ),
         encoding="utf-8",
     )
     (dossier / "listes.json").write_text(
-        json.dumps({"hsk-1": ["好", "照"]}, ensure_ascii=False), encoding="utf-8"
+        json.dumps(listes if listes is not None else {"hsk-1": ["好", "照"]}, ensure_ascii=False),
+        encoding="utf-8",
     )
     return dossier
 
@@ -222,13 +234,7 @@ def test_build_ecrit_les_deux_fichiers(tmp_path: Path) -> None:
 def test_check_signale_les_cycles(tmp_path: Path) -> None:
     """Le contrôle « cycles » est bloquant, celui des composants inconnus ne l'est pas."""
     ids = {"甲": "⿰乙丙", "乙": "⿱甲丁", "丙": "？", "丁": "？"}
-    ingest = tmp_path / "ingest"
-    ingest.mkdir(parents=True)
-    (ingest / "caracteres.json").write_text(
-        json.dumps([{"c": c, "decomposition": d} for c, d in ids.items()], ensure_ascii=False),
-        encoding="utf-8",
-    )
-    build(ingest=ingest, sortie=tmp_path / "build", table=table("丙"))
+    build(ingest=_ingest(tmp_path / "ingest", ids, {}), sortie=tmp_path / "build", table=table("丙"))
 
     resultats = {c.nom: c for c in controles(sortie=tmp_path / "build")}
     assert not resultats["cycles"].ok
@@ -245,13 +251,7 @@ def test_check_exige_un_build(tmp_path: Path) -> None:
 def test_check_classe_les_inconnus_ex_aequo_par_forme(tmp_path: Path) -> None:
     """À nombre de caractères égal, la forme départage : le détail est reproductible."""
     ids = {"甲": "⿰丁乙", "丙": "⿰乙丁"}
-    ingest = tmp_path / "ingest"
-    ingest.mkdir(parents=True)
-    (ingest / "caracteres.json").write_text(
-        json.dumps([{"c": c, "decomposition": d} for c, d in ids.items()], ensure_ascii=False),
-        encoding="utf-8",
-    )
-    build(ingest=ingest, sortie=tmp_path / "build", table=table("女"))
+    build(ingest=_ingest(tmp_path / "ingest", ids, {}), sortie=tmp_path / "build", table=table("女"))
     resultats = {c.nom: c for c in controles(sortie=tmp_path / "build")}
     assert "丁 (2), 乙 (2)" in resultats["composants inconnus"].detail
 
@@ -259,9 +259,7 @@ def test_check_classe_les_inconnus_ex_aequo_par_forme(tmp_path: Path) -> None:
 def test_rapport_classe_les_inconnus_par_frequence() -> None:
     """Le rapport liste les composants inconnus du plus fréquent au moins fréquent."""
     gf = table("女", "日", "刀", "口")
-    decompositions = reconcilier(
-        [{"c": c, "decomposition": d} for c, d in IDS.items()], gf
-    )
+    decompositions = reconcilier(list(IDS), gf, {c: d for c, d in IDS.items() if d != "？"})
     texte = rapport_ecarts(decompositions, gf, {"hsk-1": ["好"]})
     frequences = [
         ligne for ligne in texte.splitlines() if ligne.startswith("| `") and "U+" in ligne
@@ -271,93 +269,69 @@ def test_rapport_classe_les_inconnus_par_frequence() -> None:
     assert "### hsk-1" in texte
 
 
-# ------------------------------------------------------------------ IDS secondaire
+# ------------------------------------------------------ chaîne : surcharges, cjk-decomp
 
-# Make Me a Hanzi ne décompose pas 甲 : son IDS porte le `？`. La source
-# secondaire (cjk-decomp converti en IDS) prend le relais, et seulement là.
-IDS_MMAH = {"甲": "⿰乙？", "乙": "？", "丁": "？", "戊": "？", "好": "⿰女子", "女": "？", "子": "？"}
-IDS_SECONDAIRE = {"甲": "⿰乙丙", "丙": "⿱丁戊", "好": "⿱子女"}
+# cjk-decomp décrit 甲 et 丙 ; une surcharge versionnée corrige 好.
+IDS_CJK = {"甲": "⿰乙丙", "丙": "⿱丁戊", "好": "⿱子女"}
 
 
-def _decomposition(c: str, gf: TableGF0014, secondaires: dict[str, str]):
-    (d,) = [
-        d
-        for d in reconcilier([{"c": c, "decomposition": IDS_MMAH[c]}], gf, secondaires)
-        if d.c == c
-    ]
-    return d
-
-
-def test_ids_secondaire_quand_make_me_a_hanzi_donne_un_point_d_interrogation() -> None:
-    """Un IDS qui porte `？` est remplacé par celui de la source secondaire."""
-    d = _decomposition("甲", table("乙", "丙"), IDS_SECONDAIRE)
-    assert d.composants == ("乙", "丙")
-    assert d.reconcilie
-    assert d.sources == (SOURCE_SECONDAIRE,)
-
-
-def test_ids_secondaire_ignore_quand_make_me_a_hanzi_decompose() -> None:
-    """Tant que Make Me a Hanzi décompose, sa décomposition prime."""
-    d = _decomposition("好", table("女", "子"), IDS_SECONDAIRE)
-    assert d.structure == "⿰女子"
-    assert d.sources == (SOURCE_MMAH,)
-
-
-def test_ids_secondaire_pour_un_caractere_ignore_de_make_me_a_hanzi() -> None:
-    """La descente ouvre aussi les composants que Make Me a Hanzi ne connaît pas."""
-    d = _decomposition("甲", table("乙", "丁", "戊"), IDS_SECONDAIRE)
+def test_la_source_des_decompositions_est_cjk_decomp() -> None:
+    """Règle de licence (§10) : la décomposition descend cjk-decomp, jamais Make Me a Hanzi."""
+    (d,) = reconcilier(["甲"], table("乙", "丁", "戊"), IDS_CJK)
     assert d.composants == ("乙", "丁", "戊")
-    assert d.sources == (SOURCE_SECONDAIRE,)
+    assert d.reconcilie
+    assert d.sources == (SOURCE_CJK_DECOMP,)
+
+
+def test_la_surcharge_passe_devant_cjk_decomp() -> None:
+    """Une décomposition rédigée pour Wenlu l'emporte, et se nomme."""
+    (d,) = reconcilier(["好"], table("女", "子"), IDS_CJK, {"好": "⿰女子"})
+    assert d.structure == "⿰女子"
+    assert d.sources == ("surcharge",)
 
 
 def test_combiner_ids_dit_la_source_de_chaque_ids() -> None:
     """La fusion garde trace de la source retenue pour chaque caractère."""
-    ids, sources = combiner_ids(IDS_MMAH, IDS_SECONDAIRE)
-    assert ids["甲"] == "⿰乙丙"
-    assert sources["甲"] == SOURCE_SECONDAIRE
-    assert ids["好"] == "⿰女子"
-    assert sources["好"] == SOURCE_MMAH
-    assert sources["丙"] == SOURCE_SECONDAIRE
+    ids, sources = combiner_ids(IDS_CJK, {"好": "⿰女子"})
+    assert ids["好"] == "⿰女子" and sources["好"] == "surcharge"
+    assert sources["甲"] == SOURCE_CJK_DECOMP
+    assert SOURCE_MMAH not in sources.values()
 
 
-def test_build_lit_les_ids_secondaires(tmp_path: Path) -> None:
-    """build charge `ids-secondaires.json` et compte ce qu'il réconcilie en plus."""
-    ingest = tmp_path / "ingest"
-    ingest.mkdir(parents=True)
+def test_notation_de_cjk_decomp_ramenee_a_la_norme() -> None:
+    """⺹ n'est qu'une notation de 耂 : la descente s'arrête sur le composant de la norme."""
+    ids = noter({"考": "⿱⺹丂"}, {"⺹": "耂"})
+    (d,) = reconcilier(["考"], table("耂", "丂"), ids)
+    assert d.composants == ("耂", "丂") and d.reconcilie
+    assert d.sources == (SOURCE_CJK_DECOMP,)
+
+
+def test_build_ne_lit_pas_dictionary_txt(tmp_path: Path) -> None:
+    """build tire l'univers de `graphies.json` et les IDS de cjk-decomp ; `caracteres.json`
+    (Make Me a Hanzi) peut porter n'importe quoi, rien n'en sort."""
+    ingest = _ingest(tmp_path / "ingest", {"甲": "⿰乙丙", "乙": "？", "丙": "？"}, {"hsk-1": ["甲"]})
     (ingest / "caracteres.json").write_text(
-        json.dumps(
-            [{"c": c, "decomposition": d} for c, d in IDS_MMAH.items()], ensure_ascii=False
-        ),
-        encoding="utf-8",
+        json.dumps([{"c": "甲", "decomposition": "⿱丙乙"}], ensure_ascii=False), encoding="utf-8"
     )
-    (ingest / "listes.json").write_text(
-        json.dumps({"hsk-1": ["甲"]}, ensure_ascii=False), encoding="utf-8"
-    )
-    (ingest / "ids-secondaires.json").write_text(
-        json.dumps({"source": SOURCE_SECONDAIRE, "ids": IDS_SECONDAIRE}, ensure_ascii=False),
-        encoding="utf-8",
-    )
-    rapport = build(
-        ingest=ingest, sortie=tmp_path / "build", table=table("乙", "丙", "女", "子")
-    )
-    assert rapport["ids_secondaires"] == len(IDS_SECONDAIRE)
-    assert rapport["reconcilies_via_secondaire"] == 1
+    rapport = build(ingest=ingest, sortie=tmp_path / "build", table=table("乙", "丙"))
+    assert rapport["ids_cjk_decomp"] == 1
+    assert rapport["reconcilies_via_cjk_decomp"] == 1
+    assert rapport["decompositions_makemeahanzi"] == 0
     assert rapport["hsk-1_non_reconcilies"] == 0
 
     document = json.loads((tmp_path / "build" / "decompositions.json").read_text(encoding="utf-8"))
     par_caractere = {c["c"]: c for c in document["caracteres"]}
-    assert par_caractere["甲"]["sources"] == [SOURCE_SECONDAIRE]
-    assert SOURCE_SECONDAIRE in document["source_ids_secondaire"]
-
+    assert par_caractere["甲"]["structure"] == "⿰乙丙"
+    assert par_caractere["甲"]["sources"] == [SOURCE_CJK_DECOMP]
+    assert SOURCE_CJK_DECOMP in document["source_ids"]
     ecarts = (tmp_path / "build" / "ecarts.md").read_text(encoding="utf-8")
-    assert SOURCE_SECONDAIRE in ecarts
-    assert "Réconciliés grâce à l'IDS secondaire, à relire : 甲" in ecarts
+    assert "Réconciliés par cjk-decomp seul : 甲" in ecarts
 
 
-def test_build_sans_ids_secondaires(tmp_path: Path) -> None:
-    """Sans `ids-secondaires.json`, la réconciliation reste celle de Make Me a Hanzi."""
-    rapport = build(
-        ingest=_ingest(tmp_path / "ingest"), sortie=tmp_path / "build", table=table("女", "子")
-    )
-    assert rapport["ids_secondaires"] == "source absente (ids-secondaires.json)"
-    assert rapport["reconcilies_via_secondaire"] == 0
+def test_build_sans_cjk_decomp(tmp_path: Path) -> None:
+    """Sans `ids-secondaires.json`, rien ne se décompose que par les surcharges."""
+    ingest = _ingest(tmp_path / "ingest")
+    (ingest / "ids-secondaires.json").unlink()
+    rapport = build(ingest=ingest, sortie=tmp_path / "build", table=table("女", "子"))
+    assert rapport["ids_cjk_decomp"] == "source absente (ids-secondaires.json)"
+    assert rapport["reconcilies_via_cjk_decomp"] == 0
