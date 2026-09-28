@@ -1,6 +1,7 @@
 """Licence des décompositions : ce que l'export embarque, caractère par caractère.
 
-Décision du 28 septembre 2026 (`docs/sources-licences.md` §10) : la décomposition
+Décision du propriétaire du 26 septembre 2026, appliquée le 28 (`docs/sources-licences.md`
+§10) : la décomposition
 exportée (`parts` de chaque fiche) ne descend plus Make Me a Hanzi (`dictionary.txt`,
 LGPL 3.0+). Elle descend nos surcharges (`data/sources/surcharges/ids.tsv`, rédigées
 pour Wenlu d'après la table de GF 0014-2009), puis cjk-decomp (MIT). BabelStone,

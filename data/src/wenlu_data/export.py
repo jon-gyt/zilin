@@ -1571,7 +1571,7 @@ def licences_md(version: str) -> str:
         "Chaque décomposition (`parts`) descend nos surcharges, rédigées pour Wenlu"
         " d'après la table de GF 0014-2009, puis cjk-decomp (MIT), jusqu'aux composants"
         " de la norme ; chaque fiche nomme la source de la sienne (`sources`). Aucune ne"
-        " descend plus `dictionary.txt` (décision du 28 septembre 2026,"
+        " descend plus `dictionary.txt` (décision du 26 septembre 2026, appliquée le 28,"
         " `docs/sources-licences.md` §10).",
         "",
         "## Obligations hors app",
