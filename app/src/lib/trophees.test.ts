@@ -33,6 +33,7 @@ import {
   suiteEnCours,
   tableau,
   tropheesChemin,
+  caracteresDuNiveau,
   tropheesContes,
   tropheesLire,
   tropheesObjets,
@@ -271,6 +272,27 @@ describe('les contes', () => {
     expect(t[2].detail).toBe('La version du niveau HSK 3, quand tu liras 900 caractères.');
     expect(t[2].id).toBe('conte-lievre-hsk3');
     expect(t[0].progres).toBe('à lire');
+  });
+
+  it('une fable du chemin : « Jour 25 », ouverte quand on lit ce que le parcours Lire fait entrer aux jours 1 à 25', () => {
+    const lire = indexExport.parcours.lire;
+    const index: Index = {
+      ...indexExport,
+      contes: [{ id: 'xue-yi', titre_fr: 'Deux élèves', seuils: ['jour25'], fichier: 'x' }]
+    };
+    const n = caracteresDuNiveau('jour25', lire.jours);
+    expect(n).toBe(new Set(lire.jours.filter((j) => j.jour <= 25 && !j.non_reconcilie).flatMap((j) => [j.brique, ...j.composes])).size);
+    expect(caracteresDuNiveau('hsk3', [])).toBe(900);
+    expect(caracteresDuNiveau('jour25', [])).toBeNull();
+    const [ferme] = tropheesContes(index, (n ?? 0) - 1);
+    expect(ferme.sceau).toBe('Jour 25');
+    expect(ferme.progres).toBe('au jour 25 du chemin');
+    expect(ferme.detail).toBe(`La version du jour 25 du chemin, quand tu liras ${n} caractères.`);
+    expect(tropheesContes(index, n ?? 0)[0].progres).toBe('à lire');
+    /* sans parcours Lire dans l'export, rien ne s'estime */
+    const [seul] = tropheesContes({ ...index, parcours: {} }, 999);
+    expect(seul.progres).toBe('au jour 25 du chemin');
+    expect(seul.detail).toBe('La version du jour 25 du chemin.');
   });
 
   it('se gagnent version par version quand la progression compte un conte lu', () => {

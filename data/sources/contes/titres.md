@@ -31,6 +31,9 @@ graphie (majuscules comprises) est celle de la source.
 | 南辕北辙 | Rouler vers le nord pour aller au sud (maison) | Heading North to Go South (maison) |
 | 木兰从军 | La Ballade de Mulan (établi) | The Ballad of Mulan (établi) |
 | 美猴王 | Le Roi des singes (établi) | The Monkey King (établi) |
+| 学弈 | Deux élèves apprennent le go (maison) | Two Students Learn Weiqi (établi) |
+| 纪昌学射 | Ji Chang apprend le tir à l'arc (maison) | Ji Chang Learns Archery (établi) |
+| 疑邻盗斧 | Le voleur de hache (établi) | The Lost Axe (maison) |
 
 ## 守株待兔 (shou-zhu-dai-tu)
 
@@ -197,3 +200,40 @@ graphie (majuscules comprises) est celle de la source.
   articles de Wikipédia en anglais) ; Ed Young, *Monkey King*, HarperCollins, 2001, album qui raconte le début de
   l'épopée. Remplace « The Handsome Monkey King », qui reste dans le texte comme le
   surnom que les singes lui donnent.
+
+## 学弈 (xue-yi)
+
+Relevé du 2026-09-28, pour les fables du chemin (décision du propriétaire du 26 septembre
+2026).
+
+- Français : « Deux élèves apprennent le go », **titre maison**, calqué sur le titre
+  anglais établi. Aucun titre publié trouvé en français ; le passage du *Mencius*
+  (VI A 9) n'a pas de titre dans les traductions.
+- Anglais : « Two Students Learn Weiqi », **titre établi**. Titre de l'anecdote 二子學弈
+  dans l'article de Wikipédia en anglais « Yi Qiu » (https://en.wikipedia.org/wiki/Yi_Qiu).
+  Le titre chinois retenu, 学弈, est celui du passage dans les manuels chinois.
+
+## 纪昌学射 (ji-chang-xue-she)
+
+- Français : « Ji Chang apprend le tir à l'arc », **titre maison**. Aucun titre publié
+  trouvé en français.
+- Anglais : « Ji Chang Learns Archery », **titre établi**. Yi Ruo, *Chinese Fables: Ji
+  Chang Learns Archery*, album bilingue, 2015
+  (https://www.purpleculture.net/chinese-fables-ji-chang-learns-archery-p-22086/) ; même
+  titre dans Baidu Baike, version anglaise
+  (https://baike.baidu.com/en/item/Ji%20Chang%20Learns%20Archery/1503791). Variante : « Ji
+  Chang Learns to Shoot ».
+
+## 疑邻盗斧 (yi-lin-dao-fu)
+
+- Français : « Le voleur de hache », **titre établi**. Titre constant du texte de
+  Lie-Tseu dans les ressources pédagogiques en français : FichesPédagogiques.com
+  (https://www.fichespedagogiques.com/fiche/le-voleur-de-hache), document d'école
+  (http://ecole.donazaharre.free.fr/Document/Pedagogie/EducationCivique/Voleur_hache.pdf),
+  et les recueils de contes taoïstes (https://www.qigong-bruxelles.be/ressource_lie_zi_histoire/).
+  Aucune variante relevée.
+- Anglais : « The Lost Axe », **titre maison**. Aucun livre trouvé ; relevés : « The Lost
+  Axe » (vidéo « 列子寓言 疑人偷斧 The Lost Axe »), « Lose the Axe, Suspect the Neighbor »
+  (Chinese Reading Practice, sous le chengyu voisin 失斧疑邻,
+  https://chinesereadingpractice.com/2013/03/03/story-behind-the-idiom-lose-the-axe-suspect-the-neighbor/).
+  Le plus court est retenu.

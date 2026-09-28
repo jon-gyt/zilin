@@ -185,7 +185,7 @@ describe('Lire, en étagères de livres cousus (décision du 26 septembre 2026)'
       .split('\n')
       .filter((l) => l && !l.startsWith('#') && !l.startsWith('id\t'))
       .map((l) => l.split('\t')[0]);
-    expect(ids.length).toBe(13);
+    expect(ids.length).toBe(16);
     for (const id of ids) {
       expect(lire, id).not.toContain(id);
       expect(motif, id).not.toContain(id);

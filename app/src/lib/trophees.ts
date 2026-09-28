@@ -19,7 +19,7 @@
  * les lit ; la devinette du jour alimente la lanterne, la cuisine de Tao le bol.
  */
 import { Rating } from 'ts-fsrs';
-import { nomParcours, type Famille, type Index } from './content';
+import { nomParcours, type Famille, type Index, type IndexJour } from './content';
 import {
   avancement,
   caracteresDe,
@@ -27,7 +27,7 @@ import {
   joursDesFamilles,
   racinesDesCaracteres
 } from './foret';
-import { auNiveau, duNiveau, libelleNiveau, rangNiveau, trierNiveaux, type Niveau } from './niveaux';
+import { auNiveau, duNiveau, jourDuNiveau, libelleNiveau, rangNiveau, trierNiveaux, type Niveau } from './niveaux';
 import { lirePaires, type Paires } from './questions';
 import { CADEAUX, NOTE_REMISE, PALIERS, etatSerie } from './serie';
 import type { Progress } from './session';
@@ -423,8 +423,24 @@ export function tropheesPieges(
 /* ---------- 4. contes ---------- */
 
 /**
- * Un trophée par conte et par niveau (seuil 255, niveaux HSK) : le même conte, relu plus
- * riche. La progression compte les versions lues (`contesLus`), et le trophée reste
+ * Combien de caractères ouvrent un niveau : son rang pour un seuil ou un niveau HSK ; pour
+ * un jour du chemin (« jour25 »), les caractères que le parcours Lire de l'export fait
+ * entrer aux jours 1 à 25, chacun une fois. `null` sans ce parcours : rien ne s'estime.
+ */
+export function caracteresDuNiveau(n: Niveau, jours: readonly IndexJour[]): number | null {
+  const jour = jourDuNiveau(n);
+  if (jour === null) return rangNiveau(n);
+  const vus = new Set<string>();
+  for (const j of jours) {
+    if (j.non_reconcilie || j.jour > jour) continue;
+    for (const c of [j.brique, ...j.composes]) if (c !== null) vus.add(c);
+  }
+  return vus.size > 0 ? vus.size : null;
+}
+
+/**
+ * Un trophée par conte et par niveau (jour du chemin, seuil 255, niveaux HSK) : le même
+ * conte, relu plus riche. La progression compte les versions lues (`contesLus`), et le trophée reste
  * verrouillé, avec son niveau, jusqu'à ce que la version soit lue. Son sceau dit le
  * niveau : « 255 », « HSK 3 ».
  */
@@ -434,10 +450,12 @@ export function tropheesContes(
   acquis: Acquis = {},
   contesLus: Readonly<Record<string, readonly Niveau[]>> = {}
 ): Trophee[] {
+  const jours = index.parcours?.lire?.jours ?? [];
   return index.contes.flatMap((conte) =>
     trierNiveaux(conte.seuils)
       .map((s): Trophee => {
-        const ouvert = lus >= rangNiveau(s);
+        const cible = caracteresDuNiveau(s, jours);
+        const ouvert = cible !== null && lus >= cible;
         const id = `conte-${conte.id}-${s}`;
         const obtenu = (contesLus[conte.id] ?? []).includes(s) || dejaAcquis(acquis, id);
         return {
@@ -450,7 +468,9 @@ export function tropheesContes(
             ? `La version ${duNiveau(s)} est lue.`
             : ouvert
               ? `La version ${duNiveau(s)} t'est ouverte.`
-              : `La version ${duNiveau(s)}, quand tu liras ${rangNiveau(s)} caractères.`,
+              : cible === null
+                ? `La version ${duNiveau(s)}.`
+                : `La version ${duNiveau(s)}, quand tu liras ${cible} caractères.`,
           unite: 'conte lu',
           actuel: obtenu ? 1 : 0,
           cible: 1,

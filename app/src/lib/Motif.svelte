@@ -3,7 +3,7 @@
    * Le petit motif d'une couverture de conte, dans Lire : un aplat au pigment de la
    * couverture (`currentColor`), le creux au pâle du même pigment (`--c-bg`). Le nom vient
    * du catalogue (`motif`, un nom de `etageres.MOTIFS`) ; l'app ne connaît aucun conte, elle
-   * ne sait que dessiner ces treize motifs. Un nom inconnu ne dessine rien.
+   * ne sait que dessiner ces seize motifs. Un nom inconnu ne dessine rien.
    *
    * Charte : ni ombre, ni dégradé, ni doré, ni cinabre. Pas de dragon : le conte de M. Ye a
    * le rouleau peint (`rouleau`), jamais la bête.
@@ -89,6 +89,22 @@
       <path d="M17 13 q-3 -4 -6 -1 q-3 4 0 9 q3 5 6 5 q3 0 6 -5 q3 -5 0 -9 q-3 -3 -6 1Z" fill="var(--c-bg, var(--card))" />
       <circle cx="13.5" cy="17" r="1.6" />
       <circle cx="20.5" cy="17" r="1.6" />
+    {:else if nom === 'goban'}
+      <!-- le plateau de go, une pierre noire et une blanche -->
+      <rect x="3" y="3" width="28" height="28" rx="2" fill="none" stroke="currentColor" stroke-width="2.4" />
+      <path d="M3 12.3 H31 M3 21.7 H31 M12.3 3 V31 M21.7 3 V31" fill="none" stroke="currentColor" stroke-width="1.4" />
+      <circle cx="12.3" cy="12.3" r="4" />
+      <circle cx="21.7" cy="21.7" r="4" fill="var(--c-bg, var(--card))" stroke="currentColor" stroke-width="2" />
+    {:else if nom === 'arc'}
+      <!-- l'arc bandé et sa flèche -->
+      <path d="M10 3 Q32 17 10 31" fill="none" stroke="currentColor" stroke-width="2.6" />
+      <path d="M10 3 V31" fill="none" stroke="currentColor" stroke-width="1.2" />
+      <path d="M3 17 H27" fill="none" stroke="currentColor" stroke-width="2.2" />
+      <path d="M33 17 l-7 -4 v8z" />
+    {:else if nom === 'hache'}
+      <!-- la hache : le manche et le fer -->
+      <path d="M7 32 L21 7" fill="none" stroke="currentColor" stroke-width="3" />
+      <path d="M16 4 L28 6 Q33 13 28 21 L19 14 Z" />
     {/if}
   </svg>
 {/if}

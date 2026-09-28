@@ -319,18 +319,30 @@ export function placerCercle(f: ForetDuCercle): Cercle {
     debut += part;
   }
 
-  /* Les briques d'abord : chacune sur le premier anneau, ou sur le deuxième si besoin. */
+  /*
+   * Les briques d'abord : chacune sur le premier anneau, ou sur le deuxième si besoin, au
+   * milieu de son secteur ; quand ni l'un ni l'autre n'y est libre (deux secteurs étroits
+   * côte à côte), un peu de côté dans le secteur, puis, à défaut, au milieu du deuxième.
+   */
   const racines = familles.map((fam, i) => {
     const [a0, a1] = bornes[i];
     const a = (a0 + a1) / 2;
     const r = rayonRacine(fam.membres.length, max, min);
-    let p = { ...pt(R_BRIQUES[0], a), r };
-    for (const R of R_BRIQUES) {
-      p = { ...pt(R, a), r };
-      if (libre(p, poses)) break;
+    const decales = [1, -1, 2, -2, 3, -3].map((k) => a + (k * (a1 - a0)) / 8);
+    let p: Disque | null = null;
+    for (const angle of [a, ...decales]) {
+      for (const R of R_BRIQUES) {
+        const q = { ...pt(R, angle), r };
+        if (libre(q, poses)) {
+          p = q;
+          break;
+        }
+      }
+      if (p !== null) break;
     }
-    poses.push(p);
-    return p;
+    const pose = p ?? { ...pt(R_BRIQUES[R_BRIQUES.length - 1], a), r };
+    poses.push(pose);
+    return pose;
   });
 
   familles.forEach((fam, i) => {

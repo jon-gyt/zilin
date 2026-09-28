@@ -10,6 +10,12 @@
  * lit en cumul (HSK 3, les 900 caractères des niveaux 1 à 3), si bien que 255 < HSK 1
  * (300) < HSK 2 (600) … < HSK 7-9 (3 000). Ce rang ne sert qu'à ordonner : rien n'est
  * estimé, une version s'ouvre par ses caractères, pas par son niveau.
+ *
+ * Un jour du chemin (« jour25 », décision du propriétaire du 26 septembre 2026) est le
+ * niveau d'une fable de première lecture : l'acquis des jours 1 à 25 du parcours Lire. Il
+ * se range sous le seuil 255, que ce parcours mène à son terme, et entre eux par leur
+ * jour ; son rang n'est pas un nombre de caractères. Sur un autre parcours, la fable
+ * s'ouvre comme toute version, quand ses caractères sont acquis.
  */
 
 /** Un niveau de conte : « 255 », « hsk3 », « hsk7-9 ». */
@@ -17,6 +23,7 @@ export type Niveau = string;
 
 const HSK = /^hsk([1-6]|7-9)$/;
 const SEUIL = /^[1-9][0-9]*$/;
+const CHEMIN = /^jour([1-9][0-9]{0,2})$/;
 
 /** Les caractères de chaque niveau HSK, cumul compris. */
 const CUMULS_HSK: Readonly<Record<string, number>> = {
@@ -34,7 +41,7 @@ export function lireNiveau(v: unknown): Niveau | null {
   if (typeof v === 'number') return Number.isInteger(v) && v > 0 ? String(v) : null;
   if (typeof v !== 'string') return null;
   const s = v.trim().toLowerCase();
-  return SEUIL.test(s) || HSK.test(s) ? s : null;
+  return SEUIL.test(s) || HSK.test(s) || CHEMIN.test(s) ? s : null;
 }
 
 /** Relit une liste de niveaux : les valides, sans doublon, du plus petit au plus grand. */
@@ -48,9 +55,25 @@ export function estHsk(n: Niveau): boolean {
   return HSK.test(n);
 }
 
-/** Le nombre de caractères du niveau, cumul compris : 255 pour le seuil 255, 900 pour HSK 3. */
+/** Un jour du chemin Lire : « jour25 ». */
+export function estChemin(n: Niveau): boolean {
+  return CHEMIN.test(n);
+}
+
+/** Le jour d'un niveau du chemin (« jour25 » → 25), `null` pour un autre niveau. */
+export function jourDuNiveau(n: Niveau): number | null {
+  const m = CHEMIN.exec(n);
+  return m ? Number(m[1]) : null;
+}
+
+/**
+ * Le nombre de caractères du niveau, cumul compris : 255 pour le seuil 255, 900 pour HSK 3.
+ * Un jour du chemin se range par son jour, sous le seuil 255.
+ */
 export function rangNiveau(n: Niveau): number {
   if (SEUIL.test(n)) return Number(n);
+  const jour = jourDuNiveau(n);
+  if (jour !== null) return jour;
   return CUMULS_HSK[n] ?? Number.MAX_SAFE_INTEGER;
 }
 
@@ -69,22 +92,28 @@ export function plusHaut(a: Niveau, b: Niveau): Niveau {
   return comparerNiveaux(a, b) >= 0 ? a : b;
 }
 
-/** Ce que porte le sceau d'un niveau : « 255 », « HSK 3 », « HSK 7-9 ». */
+/** Ce que porte le sceau d'un niveau : « 255 », « HSK 3 », « HSK 7-9 », « Jour 25 ». */
 export function libelleNiveau(n: Niveau): string {
+  const jour = jourDuNiveau(n);
+  if (jour !== null) return `Jour ${jour}`;
   return estHsk(n) ? `HSK ${n.slice(3)}` : n;
 }
 
-/** Le niveau dans une phrase : « seuil 255 », « HSK 3 ». */
+/** Le niveau dans une phrase : « seuil 255 », « HSK 3 », « jour 25 du chemin ». */
 export function nomNiveau(n: Niveau): string {
+  const jour = jourDuNiveau(n);
+  if (jour !== null) return `jour ${jour} du chemin`;
   return estHsk(n) ? libelleNiveau(n) : `seuil ${n}`;
 }
 
-/** « au seuil 255 », « au niveau HSK 3 ». */
+/** « au seuil 255 », « au niveau HSK 3 », « au jour 25 du chemin ». */
 export function auNiveau(n: Niveau): string {
+  if (estChemin(n)) return `au ${nomNiveau(n)}`;
   return estHsk(n) ? `au niveau ${libelleNiveau(n)}` : `au seuil ${n}`;
 }
 
-/** « du seuil 255 », « du niveau HSK 3 ». */
+/** « du seuil 255 », « du niveau HSK 3 », « du jour 25 du chemin ». */
 export function duNiveau(n: Niveau): string {
+  if (estChemin(n)) return `du ${nomNiveau(n)}`;
   return estHsk(n) ? `du niveau ${libelleNiveau(n)}` : `du seuil ${n}`;
 }

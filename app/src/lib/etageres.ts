@@ -14,7 +14,8 @@
  * - « Plus loin » : les autres, écrits hors du chemin ou pas encore écrits.
  *
  * C'est l'ordre du brief (§7) : les ouverts d'abord, puis les écrits fermés, puis ceux à
- * venir, chaque étagère dans l'ordre de la bibliothèque. Rien n'est estimé : sans jour
+ * venir, chaque étagère dans l'ordre de la bibliothèque, « Bientôt » le plus proche d'abord
+ * (une fable du chemin avant un conte du seuil 255). Rien n'est estimé : sans jour
  * calculable, rien ne s'annonce ; sous un livre fermé, on compte ce qu'il reste à lire.
  *
  * La couverture : un pigment de la peinture (`--t1` à `--t4`), fixé par le rang du conte
@@ -23,7 +24,15 @@
  */
 import type { CatalogueConte, Conte, IndexJour } from './content';
 import { ETATS_NIVEAU, manquants, type EntreeConte, type EtatNiveau } from './lecture';
-import { comparerNiveaux, estHsk, libelleNiveau, nomNiveau, type Niveau } from './niveaux';
+import {
+  comparerNiveaux,
+  estChemin,
+  estHsk,
+  jourDuNiveau,
+  libelleNiveau,
+  nomNiveau,
+  type Niveau
+} from './niveaux';
 
 /* ---------- les motifs ---------- */
 
@@ -41,7 +50,10 @@ export const MOTIFS = [
   'rouleau',
   'enclos',
   'lance',
-  'singe'
+  'singe',
+  'goban',
+  'arc',
+  'hache'
 ] as const;
 
 export type Motif = (typeof MOTIFS)[number];
@@ -151,7 +163,8 @@ export type Route = { ouvertures: Readonly<Record<string, number | null>>; fait:
 
 /**
  * Les trois étagères, toujours dans le même ordre, chacune dans l'ordre de la
- * bibliothèque. `contesLus` dit, conte par conte, les niveaux déjà lus : leur sceau passe
+ * bibliothèque, sauf « Bientôt », où le livre qui s'ouvre le plus tôt vient d'abord (à
+ * égalité, l'ordre de la bibliothèque). `contesLus` dit, conte par conte, les niveaux déjà lus : leur sceau passe
  * au jade. `route` range sur « Bientôt » les contes que le chemin ouvre, et dit dans
  * combien de jours ; sans elle, rien n'y va. Une étagère peut être vide ; l'écran décide de
  * la montrer ou non.
@@ -178,11 +191,12 @@ export function etageres(
     };
   };
   const ids: EtagereId[] = ['maintenant', 'bientot', 'loin'];
-  return ids.map((id) => ({
-    id,
-    nom: NOMS_ETAGERES[id],
-    livres: entrees.filter((e) => etagereDe(e, ouverture(e)) === id).map(livre)
-  }));
+  return ids.map((id) => {
+    const ici = entrees.filter((e) => etagereDe(e, ouverture(e)) === id);
+    /* « Bientôt » : le plus proche d'abord, en jours du chemin ; à égalité, la bibliothèque. */
+    if (id === 'bientot') ici.sort((a, b) => (ouverture(a) ?? 0) - (ouverture(b) ?? 0));
+    return { id, nom: NOMS_ETAGERES[id], livres: ici.map(livre) };
+  });
 }
 
 /**
@@ -214,7 +228,8 @@ export function livresParRangee(largeur: number, livre = 100, ecart = 12): numbe
 
 /**
  * L'étendue des niveaux d'une étagère, du plus bas niveau prévu au plus haut : « HSK 3 à
- * 7-9 », « 255 à HSK 5 », « HSK 4 ». Vide sans niveau.
+ * 7-9 », « 255 à HSK 5 », « Jour 25 à 60 », « Jour 44 à HSK 7-9 », « HSK 4 ». Vide sans
+ * niveau.
  */
 export function etendue(livres: readonly Livre[]): string {
   const ns = livres.flatMap((l) => l.sceaux.map((s) => s.seuil));
@@ -223,7 +238,12 @@ export function etendue(livres: readonly Livre[]): string {
   const bas = tries[0];
   const haut = tries[tries.length - 1];
   if (bas === haut) return libelleNiveau(bas);
-  const fin = estHsk(bas) && estHsk(haut) ? haut.slice(3) : libelleNiveau(haut);
+  const fin =
+    estHsk(bas) && estHsk(haut)
+      ? haut.slice(3)
+      : estChemin(bas) && estChemin(haut)
+        ? String(jourDuNiveau(haut))
+        : libelleNiveau(haut);
   return `${libelleNiveau(bas)} à ${fin}`;
 }
 
