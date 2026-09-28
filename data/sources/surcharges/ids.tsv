@@ -53,10 +53,8 @@
 #    pas la décomposition que l'apprenant voit depuis la version 0.1.0 (composants,
 #    ordre ou disposition, que lisent les devinettes et les fiches), ou ne décrit pas
 #    le caractère. Relues une à une contre la table de la norme : chaque feuille est un
-#    composant de GF 0014-2009, cité avec son numéro d'ordre. Là où la décomposition
-#    affichée s'écarte de la norme, la ligne la reprend quand même, pour que rien ne
-#    bouge côté app, et dit l'écart : « écart relevé », à trancher avec la fiche du
-#    caractère (voir `decompositions-non-corrigees.md`).
+#    composant de GF 0014-2009, cité avec son numéro d'ordre. Celles qui reprenaient
+#    une décomposition en écart avec la norme ont été corrigées : section 3b.
 亲	⿱立⿻一小	rédigé pour Wenlu d'après GF 0014-2009 : 立 (209) sur 朩, écrit 一 (138) croisé de 小 (403), 9 traits ; cjk-decomp met 十 + 小, un trait de trop
 做	⿰亻⿰⿱十口攵	rédigé pour Wenlu d'après GF 0014-2009 : 亻 (293), 古 écrit 十 (319) sur 口 (200), puis 攵 (95, 反文) ; cjk-decomp éclate 攵 en 𠂉 + 乂, que la norme réunit
 包	⿹勹巳	rédigé pour Wenlu d'après GF 0014-2009 : 勹 (192, 句字框) entoure 巳 (161) par le haut et la droite, disposition que lisent les devinettes ; cjk-decomp dit ⿻
@@ -90,25 +88,33 @@
 跑	⿰⿱口龰⿹勹巳	rédigé pour Wenlu d'après GF 0014-2009 : ⻊, soit 口 (200) sur 龰 (490, 足字底), puis 包 : 勹 (192) autour de 巳 (161) ; cjk-decomp met 止 (488) sous 口
 跟	⿰⿱口龰艮	rédigé pour Wenlu d'après GF 0014-2009 : ⻊, soit 口 (200) sur 龰 (490, 足字底), puis 艮 (118) ; cjk-decomp met 止 (488) sous 口
 路	⿰⿱口龰⿱夂口	rédigé pour Wenlu d'après GF 0014-2009 : ⻊, soit 口 (200) sur 龰 (490, 足字底), puis 各 : 夂 (82) sur 口 (200) ; cjk-decomp met 止 (488) sous 口 (vaut aussi pour 露)
-兴	⿳⺍一八	rédigé pour Wenlu d'après GF 0014-2009 : ⺍, 一 (138), 八 (5) en trois étages, comme en 0.1.0 ; non réconcilié, ⺍ n'est pas dans la table (decompositions-non-corrigees.md) ; cjk-decomp donne les mêmes composants, groupés ⿱⿱
-举	⿱⿳⺍一八扌	rédigé pour Wenlu d'après GF 0014-2009 : ⺍, 一 (138), 八 (5) sur 扌 (334), comme en 0.1.0 ; non réconcilié, ⺍ hors de la table ; écart relevé : la norme nomme 𰀁 (191, 举字底) le bas de 举 ; cjk-decomp l'éclate en 二 + 丨
-候	⿰亻⿸⿱⺈厂矢	rédigé pour Wenlu d'après GF 0014-2009 : 亻 (293), ⺈ (295), 厂 (40), 矢 (324), comme en 0.1.0 ; cjk-decomp ne décrit pas 候 ; écart relevé : 候 a 10 traits, ces composants en font 11, et le 丨 qui suit 亻 n'y est pas (亻 丨 𠃍 一 矢 ?)
-前	⿱⿱丷一⿰月刂	rédigé pour Wenlu d'après GF 0014-2009 : 丷 (6) et 一 (138) sur 月 (471) et 刂 (72), comme en 0.1.0 ; écart relevé : la norme réunit 丷 + 一 en 䒑 (277, 前字头), sans tracé, comme cjk-decomp
-同	⿵凡口	rédigé pour Wenlu d'après GF 0014-2009 : 凡 (93) sur 口 (200), comme en 0.1.0 ; écart relevé : 同 s'écrit 冂 (364, 同字框) + 一 + 口, 凡 porte un 丶 que 同 n'a pas ; cjk-decomp : ⺆ + 一 + 口
-告	⿱牛口	rédigé pour Wenlu d'après GF 0014-2009 : 牛 (258) sur 口 (200), comme en 0.1.0 ; écart relevé : la norme nomme 𠂒 (259, 告字头) cette variante de 牛, sans tracé, comme cjk-decomp
-场	⿰土勿	rédigé pour Wenlu d'après GF 0014-2009 : 土 (368), 勿 (390), comme en 0.1.0 ; écart relevé : la norme nomme 𠃓 (429, 杨字边) la droite de 场, 3 traits, comme cjk-decomp ; 勿 en a 4
-夏	⿳一自夂	rédigé pour Wenlu d'après GF 0014-2009 : 一 (138), 自 (512), 夂 (82) en trois étages, disposition que lisent les devinettes ; écart relevé : la norme nomme 丆 (398, 夏字头) le haut de 夏 ; cjk-decomp groupe ⿱⿱
-夜	⿱亠⿰亻夕	rédigé pour Wenlu d'après GF 0014-2009 : 亠 (412), 亻 (293), 夕 (392), comme en 0.1.0 ; écart relevé : la norme nomme ⿴夂丶 (393, 夜下角), sans point de code ; 夕 compte un trait de moins (夜 : 8) ; cjk-decomp : 夂 + 丶
-师	⿰刂⿱一巾	rédigé pour Wenlu d'après GF 0014-2009 : 刂 (72), 一 (138), 巾 (178), comme en 0.1.0 ; écart relevé : la norme nomme リ (507, 师字旁) la gauche de 师 ; cjk-decomp : deux 丨
-帝	⿱立巾	rédigé pour Wenlu d'après GF 0014-2009 : 立 (209) sur 巾 (178), comme en 0.1.0 ; écart relevé : la norme nomme ⿳亠丷冖 (74, 帝字头), sans point de code ; 立 + 巾 font 8 traits pour 9 ; cjk-decomp : 亠 丷 冖 巾
-常	⿱⿵⿱⺌冂口巾	rédigé pour Wenlu d'après GF 0014-2009 : ⺌ (404), 冂 (364), 口 (200), 巾 (178), comme en 0.1.0 ; écart relevé : sous ⺌, 常 écrit 冖 (366 : 丶 puis 横钩), non 冂, comme cjk-decomp
-旁	⿱立方	rédigé pour Wenlu d'après GF 0014-2009 : 立 (209) sur 方 (97), comme en 0.1.0 (vaut aussi pour 榜) ; écart relevé : le haut de 旁 est 帝字头 (74, ⿳亠丷冖) ; 立 + 方 font 9 traits pour 10 ; cjk-decomp : 亠 丷 冖 方
-桌	⿱⿱⺊⿱日十木	rédigé pour Wenlu d'après GF 0014-2009 : ⺊ (28), 日 (299), 十 (319), 木 (246), comme en 0.1.0 ; écart relevé : 桌 a 10 traits, le 十 de 卓 se fond dans 木 ; ces composants en font 12 ; cjk-decomp : ⺊ 日 木
-画	⿱一⿶凵田	rédigé pour Wenlu d'après GF 0014-2009 : 一 (138), 凵 (148, 画字框), 田 (363), comme en 0.1.0 ; écart relevé : l'ordre des traits trace 田 avant de fermer 凵, comme l'écrit cjk-decomp ; à vérifier
-真	⿱直几	rédigé pour Wenlu d'après GF 0014-2009 : 直 (487) sur 几 (157), comme en 0.1.0 ; écart relevé : le bas de 真 est 一 + 八 (具, 195), non le 乚 final de 直 ; cjk-decomp : 十 + 具
-第	⿱⺮弟	rédigé pour Wenlu d'après GF 0014-2009 : ⺮ (502, 竹头) sur 弟 (75), comme en 0.1.0 ; écart relevé : la norme nomme 𢎨 (76, 弟省) le bas de 第, deux traits de moins que 弟, comme cjk-decomp
-走	⿱土止	rédigé pour Wenlu d'après GF 0014-2009 : 土 (368) sur 止 (488), comme en 0.1.0 (vaut aussi pour 起) ; écart relevé : le bas de 走 s'écrit 丨一丿㇏, 龰 (490, 足字底), comme cjk-decomp et comme ⻊ dans 跑
-错	⿰钅⿱廿日	rédigé pour Wenlu d'après GF 0014-2009 : 钅 (182), 廿 (255), 日 (299), comme en 0.1.0 ; écart relevé : la norme nomme 龷 (394, 昔字头) le haut de 昔, comme cjk-decomp
+兴	⿳⺍一八	rédigé pour Wenlu d'après GF 0014-2009 : ⺍, 一 (138), 八 (5) en trois étages, comme en 0.1.0 ; non réconcilié : ce haut a la forme du 学字头 de la norme (413, 𭕄, trois traits, comme dans 应, qu'elle cite en exemple), mais la découpe de 𭕄 prend aujourd'hui cinq traits de 学, 冖 compris ; ⺍ reste, en attendant que 学 et 觉 soient repris (`decompositions-corrigees.md`) ; cjk-decomp donne les mêmes composants, groupés ⿱⿱
+#
+# 3b. Décompositions corrigées d'après la norme (28 septembre 2026), sur décision du
+#    propriétaire (« Corrige, oui »). Ces dix-huit lignes reprenaient d'abord la
+#    décomposition affichée depuis la 0.1.0, héritée de Make Me a Hanzi, en disant son
+#    écart à la norme ; elles donnent désormais la lecture de la table, vérifiée sur le
+#    fac-similé (colonne des exemples, 例字) et comptée trait par trait contre
+#    `graphics.txt`. Le relevé : `decompositions-corrigees.md`. Les composants sans
+#    tracé (𠃍 𠃓 𢎨 丆 リ 龷 𰀁 帝字头 夜下角) se découpent dans leur hôte (`decoupes.tsv`).
+举	⿱⿳⺍一八𰀁	rédigé pour Wenlu d'après GF 0014-2009 : ⺍, 一 (138), 八 (5), puis 𰀁 (191, 举字底, dont 举 est le premier exemple), 3 + 1 + 2 + 3 = 9 traits ; non réconcilié, ⺍ gardé comme pour 兴 : le 学字头 de la norme (413, 𭕄) est à reprendre dans 学 et 觉 d'abord (`decompositions-corrigees.md`) ; corrigé le 28 septembre 2026 : 扌 (0.1.0) n'est pas le bas de 举, qui ne porte pas de crochet ; cjk-decomp éclate 𰀁 en 二 + 丨
+候	⿲亻丨⿳𠃍一矢	rédigé pour Wenlu d'après GF 0014-2009 : 亻 (293), 丨 (339), 𠃍 (141, 横折, dont 侯 est un exemple), 一 (138), 矢 (324), 2 + 1 + 1 + 1 + 5 = 10 traits ; corrigé le 28 septembre 2026 : ⺈ + 厂 (0.1.0) comptaient 11 traits et oubliaient le 丨 qui suit 亻 ; cjk-decomp ne décrit pas 候
+前	⿱䒑⿰月刂	rédigé pour Wenlu d'après GF 0014-2009 : 䒑 (277, 前字头, dont 前 est le premier exemple) sur 月 (471) et 刂 (72), 3 + 4 + 2 = 9 traits ; corrigé le 28 septembre 2026 : la norme réunit 丷 + 一 (0.1.0) en 䒑 ; cjk-decomp dit de même
+同	⿵冂⿱一口	rédigé pour Wenlu d'après GF 0014-2009 : 冂 (364, 同字框, dont 同 est le premier exemple) autour de 一 (138) sur 口 (200), 2 + 1 + 3 = 6 traits ; corrigé le 28 septembre 2026 : 凡 (0.1.0) porte un 丶 que 同 n'a pas ; cjk-decomp écrit ⺆ (497, 周字框)
+告	⿱𠂒口	rédigé pour Wenlu d'après GF 0014-2009 : 𠂒 (259, 告字头, dont 告 est le premier exemple) sur 口 (200), 4 + 3 = 7 traits ; corrigé le 28 septembre 2026 : la norme distingue 𠂒 de 牛 (0.1.0), dont le trait vertical ne traverse pas ; cjk-decomp dit de même
+场	⿰土𠃓	rédigé pour Wenlu d'après GF 0014-2009 : 土 (368), 𠃓 (429, 杨字边, dont 场 est le premier exemple), 3 + 3 = 6 traits ; corrigé le 28 septembre 2026 : 勿 (0.1.0) a un trait de trop ; cjk-decomp dit de même
+夏	⿳丆目夂	rédigé pour Wenlu d'après GF 0014-2009 : 丆 (398, 夏字头, dont 夏 est le premier exemple), 目 (247), 夂 (82) en trois étages, 2 + 5 + 3 = 10 traits ; corrigé le 28 septembre 2026 : 一 + 自 (0.1.0) comptent les mêmes traits, mais la norme coupe après le 撇 ; cjk-decomp : 一 + 自, groupés ⿱⿱
+夜	⿱亠⿰亻{⿴夂丶}	rédigé pour Wenlu d'après GF 0014-2009 : 亠 (412), 亻 (293, dont 夜 est un exemple), 夜下角 ⿴夂丶 (393, sans point de code, dont 夜 est le premier exemple), 2 + 2 + 4 = 8 traits ; corrigé le 28 septembre 2026 : 夕 (0.1.0) compte un trait de moins ; cjk-decomp écrit 夂 et 丶 à part
+师	⿰リ⿱一巾	rédigé pour Wenlu d'après GF 0014-2009 : リ (507, 师字旁, dont 帅 et 狮 sont des exemples), 一 (138), 巾 (178), 2 + 1 + 3 = 6 traits ; corrigé le 28 septembre 2026 : la gauche de 师 est un 竖 et un 撇, non 刂 (0.1.0) ; cjk-decomp : deux 丨
+帝	⿱{⿳亠丷冖}巾	rédigé pour Wenlu d'après GF 0014-2009 : 帝字头 ⿳亠丷冖 (74, sans point de code, dont 帝 est le premier exemple) sur 巾 (178), 6 + 3 = 9 traits ; corrigé le 28 septembre 2026 : 立 + 巾 (0.1.0) comptaient 8 traits ; cjk-decomp écrit 亠 丷 冖 à part
+常	⿱⿱⺌冖⿱口巾	rédigé pour Wenlu d'après GF 0014-2009 : ⺌ (404, 尚字头), 冖 (366), 口 (200), 巾 (178), 3 + 2 + 3 + 3 = 11 traits ; corrigé le 28 septembre 2026 : sous ⺌, 常 écrit 冖 (丶 puis 横钩), non le 冂 (0.1.0) qui enferme 口 dans 尚 ; cjk-decomp dit de même
+旁	⿱{⿳亠丷冖}方	rédigé pour Wenlu d'après GF 0014-2009 : 帝字头 ⿳亠丷冖 (74, dont 旁 est un exemple) sur 方 (97), 6 + 4 = 10 traits (vaut aussi pour 榜) ; corrigé le 28 septembre 2026 : 立 + 方 (0.1.0) comptaient 9 traits ; cjk-decomp écrit 亠 丷 冖 à part
+桌	⿳⺊日木	rédigé pour Wenlu d'après GF 0014-2009 : ⺊ (28), 日 (299), 木 (246) en trois étages, 2 + 4 + 4 = 10 traits ; corrigé le 28 septembre 2026 : le 十 de 卓 (0.1.0) se fond dans 木, qui en fait 12 ; cjk-decomp dit de même, groupé ⿱⿱
+画	⿱一⿻田凵	rédigé pour Wenlu d'après GF 0014-2009 : 一 (138), 田 (363) et 凵 (148, 画字框), qui ont tous deux 画 pour exemple, 1 + 5 + 2 = 8 traits, dans l'ordre d'écriture : 凵 enveloppe 田 par le bas mais ne se trace qu'après lui (竖折, 竖) ; ⿻ garde cet ordre sans dire que 田 enveloppe 凵 ; corrigé le 28 septembre 2026 : 0.1.0 posait 凵 avant 田 ; cjk-decomp écrit ⿶田凵
+真	⿱十具	rédigé pour Wenlu d'après GF 0014-2009 : 十 (319) sur 具 (195, dont 真 est un exemple), 2 + 8 = 10 traits ; corrigé le 28 septembre 2026 : le bas de 真 est 一 + 八, non le 乚 final de 直 (0.1.0 : 直 + 几) ; cjk-decomp dit de même
+第	⿱⺮𢎨	rédigé pour Wenlu d'après GF 0014-2009 : ⺮ (502, 竹头) sur 𢎨 (76, 弟省, dont 第 est le seul exemple), 6 + 5 = 11 traits ; corrigé le 28 septembre 2026 : 弟 (0.1.0) a deux traits de plus, le 丷 de tête ; cjk-decomp dit de même
+走	⿱土龰	rédigé pour Wenlu d'après GF 0014-2009 : 土 (368) sur 龰 (490, 足字底, dont 走 est le premier exemple), 3 + 4 = 7 traits (vaut aussi pour 起) ; corrigé le 28 septembre 2026 : le bas de 走 s'écrit 丨一丿㇏, non 止 (0.1.0), comme ⻊ dans 跑 ; cjk-decomp dit de même
+错	⿰钅⿱龷日	rédigé pour Wenlu d'après GF 0014-2009 : 钅 (182), 龷 (394, 昔字头, dont 昔 est le premier exemple), 日 (299), 5 + 4 + 4 = 13 traits ; corrigé le 28 septembre 2026 : la norme nomme 龷, non 廿 (0.1.0), le haut de 昔 ; cjk-decomp dit de même
 #
 # 4. Phonétiques : la décomposition du caractère qui donne le son se lit dans celle du
 #    caractère exporté, que cjk-decomp écrit à travers elle, et le contrôle du rôle son
