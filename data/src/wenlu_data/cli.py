@@ -10,17 +10,22 @@ Ordre et dépendances — chaque étape lit ce que la précédente a écrit :
   Exige `fetch`.
 - `build` : découpe dans un hôte les composants que `graphics.txt` ne dessine pas,
   réconcilie les décompositions avec GF 0014-2009, construit le graphe et les
-  parcours dans `data/work/build/`. Exige `ingest`.
+  parcours dans `data/work/build/`, dans l'ordre figé de `data/sources/parcours/`.
+  Exige `ingest`.
 - `export` : assemble `app/public/data/<version>/`, les seuls fichiers que l'app lira.
   Exige `build`.
 - `fonts` : produit les woff2 de `app/public/fonts/`. À lancer après `export`, qui
   seul dit quels caractères l'app écrit ; il lit aussi les listes versionnées et
   `app/public/strokes-demo.json`.
 - `check` : contrôles qualité sur tout ce qui précède. Ne réécrit rien.
-- `licences` : inventaire des licences des décompositions exportées et couverture des
-  sources d'IDS de remplacement (`docs/licences-decompositions.md`). Après `export` ;
-  `--telecharger` va chercher les candidats. Hors de `tout`, comme `fonts`.
+- `licences` : recette de la licence des décompositions exportées, caractère par
+  caractère (`docs/licences-decompositions.md`) : aucune ne descend `dictionary.txt`.
+  Après `export`. Hors de `tout`, comme `fonts` ; `check` en refait le contrôle bloquant.
 - `tout` : enchaîne fetch, ingest, build, export, check et s'arrête à la première erreur.
+
+`parcours figer` écrit l'ordre figé de chaque parcours (`data/sources/parcours/`), que
+`build` lit et valide au lieu de le recalculer : il se lance à la main, et son diff se
+relit avant d'être versionné.
 
 `audio`, `contes` et `fiches` sont des familles de commandes à part : elles demandent
 une clé d'API et se lancent à la main, jamais dans `tout`. `fetes calendrier` et
@@ -100,6 +105,8 @@ def build() -> None:
     from .gf0014 import build as _build
     from .graphe import build as _graphe
 
+    from .graphe import OrdreInvalide
+
     try:
         # Les découpes d'abord : la réconciliation fait une brique de chaque composant découpé.
         rapport = {**_decoupes(), **_build()}
@@ -107,7 +114,7 @@ def build() -> None:
     except OSError as erreur:
         typer.echo(f"{erreur} — lancer `wenlu ingest` d'abord.", err=True)
         raise typer.Exit(code=1) from erreur
-    except DecoupeInvalide as erreur:
+    except (DecoupeInvalide, OrdreInvalide) as erreur:
         typer.echo(str(erreur), err=True)
         raise typer.Exit(code=1) from erreur
     # Deux rapports, deux boucles : `cycles` figure dans les deux et une fusion
@@ -137,23 +144,41 @@ def export(version: str = typer.Option(VERSION, help="Version exportée, en doss
     typer.echo(f"Export écrit dans {rapport.dossier}.")
 
 
+_parcours = typer.Typer(help="Ordre figé des parcours (data/sources/parcours/).")
+
+
+@_parcours.command("figer")
+def parcours_figer(
+    recalculer: bool = typer.Option(
+        False, help="Écrire l'ordre que le calcul propose aujourd'hui au lieu de celui du build."
+    ),
+    nom: list[str] = typer.Option([], help="Parcours à figer (lire, hsk) ; tous par défaut."),
+) -> None:
+    """Écrit data/sources/parcours/ordre-<nom>.tsv. Exige `build`. Relire le diff avant de versionner."""
+    from .graphe import figer
+
+    try:
+        ecrits = figer(recalculer=recalculer, noms=nom or None)
+    except OSError as erreur:
+        typer.echo(f"{erreur} — lancer `wenlu build` d'abord.", err=True)
+        raise typer.Exit(code=1) from erreur
+    for cle, chemin in ecrits.items():
+        typer.echo(f"{cle} : {chemin}")
+    typer.echo("Relire le diff, puis relancer `wenlu build` : il lira ces ordres.")
+
+
+app.add_typer(_parcours, name="parcours")
+
+
 # Après `export` : c'est lui qui dit quels caractères l'app écrit.
 app.command(name="fonts")(_fonts)
 
 
 @app.command()
-def licences(
-    telecharger: bool = typer.Option(
-        False, help="Télécharger d'abord les sources d'IDS candidates dans data/work/sources/candidats/."
-    ),
-    force: bool = typer.Option(False, help="Retélécharger les candidats déjà présents."),
-) -> None:
-    """Inventaire des licences des décompositions exportées et couverture des sources de remplacement. Exige `export`."""
-    from .licences import InventaireImpossible, licences as _licences, telecharger_candidats
+def licences() -> None:
+    """Recette de la licence des décompositions exportées (docs/licences-decompositions.md). Exige `export`."""
+    from .licences import InventaireImpossible, licences as _licences
 
-    if telecharger:
-        for fichier, action in telecharger_candidats(force=force).items():
-            typer.echo(f"{action} : {fichier}")
     try:
         rapport = _licences()
     except InventaireImpossible as erreur:

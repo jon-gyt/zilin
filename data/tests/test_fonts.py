@@ -101,6 +101,15 @@ def test_le_sous_ensemble_couvre_les_caracteres_de_l_export(tmp_path: Path) -> N
     retenus = set(caracteres_de_lapp(traits, listes, export))
     assert {"木", "⺊", "字", "人", "大", "天"} <= retenus
 
+    # Sous en-tête de licence (APL), les tracés sont sous la clé `traits` : l'en-tête ne
+    # donne pas de caractère.
+    traits.write_text(
+        json.dumps({"license": "Arphic Public License", "traits": {"安": {}}}, ensure_ascii=False),
+        encoding="utf-8",
+    )
+    retenus = set(caracteres_de_lapp(traits, listes, export))
+    assert "安" in retenus and "l" not in retenus
+
 
 def test_seules_les_listes_servies_entrent_dans_la_police(tmp_path: Path) -> None:
     """Une liste qui borne seulement les contes (HSK 2 et plus) n'alourdit pas la police."""

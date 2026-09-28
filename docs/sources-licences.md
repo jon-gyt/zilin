@@ -1,6 +1,6 @@
 # Sources et licences
 
-Décision de la story 0.4. Vérification faite le 21 septembre 2026 sur les sources primaires ; licence des décompositions instruite le 26 septembre 2026 (§10).
+Décision de la story 0.4. Vérification faite le 21 septembre 2026 sur les sources primaires ; licence des décompositions instruite et tranchée le 26 septembre 2026, migration faite le 28 (§10).
 Ce document fait foi pour le pipeline `data/` et pour l'écran « Licences » de l'app.
 
 Hypothèse de distribution : PWA gratuite sur le web, app iOS payante (achat à vie et abonnement), donc usage commercial et distribution par l'App Store.
@@ -10,13 +10,13 @@ Hypothèse de distribution : PWA gratuite sur le web, app iOS payante (achat à 
 | Source | Usage | Licence vérifiée | Décision |
 |---|---|---|---|
 | Make Me a Hanzi — `graphics.txt` | traits, médianes | Arphic Public License | utilisable avec obligations |
-| Make Me a Hanzi — `dictionary.txt` | décompositions, pinyin, définitions EN, étymologie EN | LGPL 3.0 ou ultérieure (+ notice Unicode) | utilisable avec obligations ; à écarter de l'embarqué, remplacé par Unihan ; sa chaîne IDS porte encore 304 décompositions exportées, remplacement proposé au §10 |
+| Make Me a Hanzi — `dictionary.txt` | contexte des fiches (étymologie EN, indice à vérifier), contrôles de pinyin ; plus aucune décomposition | LGPL 3.0 ou ultérieure (+ notice Unicode) | hors de l'embarqué : rien de l'export n'en dérive depuis le 28 septembre 2026 (§10), contrôle bloquant |
 | `hanzi-writer-data` | traits et médianes (JSON) | Arphic Public License | utilisable avec obligations ; redondant avec `graphics.txt` |
 | Hanzi Writer (bibliothèque) | animation et quiz de tracé | MIT | utilisable avec obligations |
 | CC-CEDICT | mots, pinyin | CC BY-SA 4.0 | utilisable avec obligations |
 | Unihan / UCD | pinyin, traits (pas de décomposition : `kIDS` n'existe ni en 17.0.0 ni en 18.0.0, revérifié le 26 septembre 2026) | Unicode License v3 | utilisable avec obligations ; source à privilégier |
-| cjk-decomp | décompositions converties en IDS, source de repli ; source principale proposée au §10 | MIT (au choix parmi six licences) | utilisable avec obligations |
-| BabelStone IDS (`IDS.TXT`, Andrew West) | décompositions IDS, repli proposé au §10 | aucun droit revendiqué, usage commercial sans attribution (en-tête du fichier, lu sur deux miroirs le 26 septembre 2026) | utilisable ; pas encore dans le pipeline |
+| cjk-decomp | décompositions converties en IDS, source de la décomposition exportée derrière nos surcharges (§10) | MIT (retenue parmi six licences) | utilisable avec obligations : notice et texte MIT dans l'export (`MIT-cjk-decomp.txt`) |
+| BabelStone IDS (`IDS.TXT`, Andrew West) | décompositions IDS, mesuré au §10 | aucun droit revendiqué, usage commercial sans attribution (en-tête du fichier, lu sur deux miroirs le 26 septembre 2026) | **écarté** (décision du 26 septembre 2026) : données en partie dérivées de Kawabata Taichi (lignée CHISE, GPL), pour un seul caractère de plus que cjk-decomp |
 | `cjkvi/cjkvi-ids`, CHISE IDS | décompositions IDS | GPL v2 ; GPL v2 ou ultérieure (README lus le 26 septembre 2026) | à écarter ; mesurés pour information seulement |
 | Norme GF 0014-2009 | 514 composants | texte normatif, non vérifié en ligne | utilisable pour la logique ; ne pas reproduire le document |
 | Listes Eduscol | parcours Lire | publication officielle, page non consultable | utilisable comme liste de caractères ; pas de reprise de texte |
@@ -81,7 +81,7 @@ Alternative retenue : Unihan et l'UCD, sous Unicode License, qui est permissive 
 
 À écarter : `cjkvi/cjkvi-ids` (consulté le 21 septembre 2026, relu le 26), distribué sous GPL v2, donc incompatible avec un export propriétaire.
 
-La décomposition exportée, elle, descend encore la chaîne IDS de `dictionary.txt` pour 304 caractères : inventaire, candidats de remplacement et plan au §10.
+La décomposition exportée, elle, a descendu la chaîne IDS de `dictionary.txt` jusqu'au 28 septembre 2026 (304 caractères de la version 0.1.0). Elle descend depuis nos surcharges et cjk-decomp : décision et migration au §10. `dictionary.txt` reste téléchargé pour le seul usage que ce paragraphe permet, hors distribution : le contexte des fiches (étymologie donnée au rédacteur comme indice) et des contrôles de pinyin ; son IDS n'est plus même ingéré.
 
 ## 3. Hanzi Writer et hanzi-writer-data
 
@@ -159,7 +159,7 @@ Vérification faite le 21 septembre 2026 sur Unihan 17.0.0 (archive `Unihan.zip`
 
 `https://github.com/amake/cjk-decomp`, consulté le 21 septembre 2026 (fork du projet de Gavin Grover, l'original CodePlex ayant fermé). Le README annonce une distribution **au choix sous six licences** — Apache 2.0, LGPL 3.0, CC BY-SA 3.0, MIT, ODC-By 1.0, EPL — et le dépôt porte le texte de l'Apache 2.0. Le projet retient la **MIT** : permissive, sans partage à l'identique, compatible avec un export propriétaire.
 
-Décision : **utilisable avec obligations** (reproduire la notice de copyright et le texte MIT sur l'écran « Licences »). Usage limité : le pipeline convertit ces décompositions en IDS et ne s'en sert que là où Make Me a Hanzi note `？` ou ne dit rien. Les codes de disposition de cette source étant plus fins que les douze opérateurs IDS, les composants obtenus sont fiables mais la structure est approchée : les caractères concernés sont marqués dans `decompositions.json` et listés dans `ecarts.md` pour relecture.
+Décision : **utilisable avec obligations** (reproduire la notice de copyright et le texte MIT : `data/sources/licences/MIT-cjk-decomp.txt`, copié dans chaque export, et la ligne de `LICENCES.md`, que l'écran « Licences » et le site reprennent). Le README ne donne ni année ni autre titulaire que « originally compiled by Gavin Grover » : c'est la notice reproduite. Usage, depuis le 28 septembre 2026 : la source de la décomposition canonique, derrière nos surcharges (§10). Le pipeline convertit ces décompositions en IDS ; les codes de disposition de cette source étant plus fins que les douze opérateurs IDS, les composants obtenus sont fiables mais la structure est approchée : chaque caractère exporté a été relu contre la norme, et ce que cjk-decomp ne rendait pas s'est écrit dans `data/sources/surcharges/ids.tsv`.
 
 À écarter, confirmé : les tables IDS de CHISE et de `cjkvi/cjkvi-ids`, sous GPL.
 
@@ -215,7 +215,8 @@ Fichiers de licence à embarquer, tels quels :
 - Texte de CC BY-SA 4.0, ou son URI si le texte complet est jugé trop lourd ; la section 3 a) 2) l'autorise.
 - Notice de permission Unicode.
 - `OFL.txt` de chaque police ancienne retenue, avec ses notices de copyright.
-- Textes LGPL 3.0 et GPL 3.0 seulement si `dictionary.txt` finit malgré tout par être embarqué ; la décision actuelle est de ne pas l'embarquer.
+- Notice de copyright et texte de la MIT de cjk-decomp (`MIT-cjk-decomp.txt`).
+- Aucun texte LGPL ni GPL : ni `dictionary.txt` ni rien qui en dérive n'est embarqué (§10).
 
 Pipeline `data/` :
 
@@ -224,7 +225,8 @@ Pipeline `data/` :
 - Séparation physique : traits sous APL, mots sous CC BY-SA 4.0, fiches FR et EN propriétaires, dans des fichiers distincts. Ne jamais fusionner ces trois familles dans un même fichier.
 - `uv run wenlu check` échoue si un export n'a pas d'en-tête de licence, ou si un fichier mélange deux régimes.
 - `uv run wenlu build` n'expose jamais la colonne de définition anglaise de CC-CEDICT aux invites de génération FR. Contrôle à ajouter et à tester.
-- `dictionary.txt` reste hors des artefacts distribués. Sa chaîne IDS, elle, décide encore de 304 décompositions exportées : `uv run wenlu licences` en fait l'inventaire et mesure les remplacements (§10).
+- `dictionary.txt` reste hors des artefacts distribués, et rien de ce qu'ils portent n'en dérive : la décomposition descend nos surcharges et cjk-decomp (§10). « licences : décompositions » de `uv run wenlu check` bloque dès qu'une décomposition exportée nomme `makemeahanzi` ; `uv run wenlu licences` en écrit la recette (`docs/licences-decompositions.md`).
+- Les tracés de repli de l'app (`app/public/strokes-demo.json`, 89 caractères de `graphics.txt`) portent le même en-tête APL que `traits/` ; `wenlu check` le vérifie.
 
 Marque :
 
@@ -253,14 +255,14 @@ App Store :
 - Couverture sigillaire insuffisante aujourd'hui. Choix à refaire quand Kaiyuan sera publiée.
 - Audio : tranché le 21 septembre 2026 en changeant de terrain. Plutôt que de faire vérifier les conditions d'un service, le pipeline exécute un modèle ouvert en local — **Kokoro** (`hexgrad/kokoro`), dont l'Apache 2.0 a été lue en entier sur `raw.githubusercontent.com/hexgrad/kokoro/main/LICENSE` et dont le `README.md` du même dépôt annonce des poids sous la même licence ; nous ne redistribuons ni le code ni les poids, seulement des fichiers audio produits chez nous, sur lesquels l'Apache 2.0 ne dit rien, sans service appelé donc sans redevance par écoute. Retenu contre MeloTTS (MIT, mais aucune version publiée sur PyPI dans le dépôt officiel, `transformers==4.27.4` épinglé, `mecab-python3` à compiler et un `unidic download`) et CosyVoice 2 (Apache 2.0, mais conda, sous-modules git, `sox` système et 0,5 milliard de paramètres) : Kokoro seul s'installe par `uv` sans compilation, tient sur un CPU avec ses 82 millions de paramètres, et rend déjà du 24 kHz, la fréquence visée. La carte du modèle `hexgrad/Kokoro-82M-v1.1-zh` sur Hugging Face, illisible depuis l'environnement de développement, a été lue par le workflow `donnees` le 24 septembre 2026 : elle déclare `license: apache-2.0` (run 36026523964, fichier `carte-modele.md` de l'artefact). La réserve est levée ; les 731 premiers fichiers du seuil 255 ont été produits avec la voix `zf_001`. Azure AI Speech reste disponible en second (`--fournisseur azure`), avec sa ligne « à vérifier » inchangée et l'avertissement à chaque passage.
 - Entité juridique porteuse du compte développeur, qui sera le titulaire des obligations d'attribution.
-- Licence des décompositions : instruite le 26 septembre 2026, **non tranchée** — dossier, candidats mesurés, recommandation et tableau de décision au §10.
-- `app/public/strokes-demo.json` : tracés APL embarqués sans en-tête de licence (§10.1). À corriger avant la soumission.
+- Licence des décompositions : **tranchée** le 26 septembre 2026, migrée le 28 (§10.6). Reste, avec le conseil du §9 : l'argument « des décompositions sont des faits » n'est plus nécessaire à notre position, mais les écarts à la norme repris de la 0.1.0 (§10.6) sont à corriger avec les fiches.
+- `app/public/strokes-demo.json` : corrigé le 28 septembre 2026, il porte l'en-tête APL (§10.6).
 
 ## 10. Licence des décompositions — dossier de décision (26 septembre 2026)
 
-Question : la décomposition exportée (`parts` de chaque fiche) descend la chaîne IDS de `dictionary.txt` (Make Me a Hanzi, LGPL 3.0+), que le §2.2 écarte de l'embarqué. L'app sera vendue sur l'App Store. Ce qui suit est un dossier, pas une décision : **la décision revient au propriétaire**. Rien n'a été migré.
+Question : la décomposition exportée (`parts` de chaque fiche) descendait la chaîne IDS de `dictionary.txt` (Make Me a Hanzi, LGPL 3.0+), que le §2.2 écarte de l'embarqué. L'app sera vendue sur l'App Store. **Tranchée le 26 septembre 2026, migrée le 28 : voir §10.6.** Les §10.1 à §10.5 sont le dossier de décision tel qu'il a été présenté, gardé pour l'historique ; leurs chiffres sont ceux de la version 0.1.0 avant la migration, et l'outil de mesure qu'ils citent (candidats, `--telecharger`, simulations) a été retiré de `wenlu licences` une fois la décision appliquée.
 
-Pièce justificative, caractère par caractère : `docs/licences-decompositions.md`, écrit par `uv run wenlu licences` (`data/src/wenlu_data/licences.py`, testé par `data/tests/test_licences.py`). Reproductible : `uv run wenlu fetch && uv run wenlu ingest && uv run wenlu build && uv run wenlu licences --telecharger` ; deux passages écrivent les mêmes octets. `uv run wenlu check` signale, sans bloquer, le nombre de décompositions exportées qui descendent encore un IDS de Make Me a Hanzi (« licences : décompositions »).
+Recette, caractère par caractère : `docs/licences-decompositions.md`, écrit par `uv run wenlu licences` (`data/src/wenlu_data/licences.py`, testé par `data/tests/test_licences.py`) ; deux passages écrivent les mêmes octets. `uv run wenlu check` bloque dès qu'une décomposition exportée nomme `makemeahanzi` ou une source hors de nos surcharges et de cjk-decomp (« licences : décompositions »).
 
 ### 10.1 Inventaire de la version 0.1.0
 
@@ -338,12 +340,32 @@ Autres voies, écartées ici mais ouvertes au propriétaire : garder `dictionary
 
 | # | Décision à prendre | Proposition | Mesure qui l'appuie | Décision du propriétaire |
 |---|---|---|---|---|
-| 1 | Sortir la chaîne IDS de `dictionary.txt` de l'export | oui | 304 décompositions sur 323 en dépendent | à trancher |
-| 2 | Source principale des décompositions | cjk-decomp (MIT) | 272 conservées seul, 273 en chaîne | à trancher |
-| 3 | Source de repli | BabelStone (aucun droit revendiqué), sous la réserve du §10.2 | comble les 2 absents de cjk-decomp | à trancher |
+| 1 | Sortir la chaîne IDS de `dictionary.txt` de l'export | oui | 304 décompositions sur 323 en dépendent | oui (26 septembre) |
+| 2 | Source principale des décompositions | cjk-decomp (MIT) | 272 conservées seul, 273 en chaîne | oui : cjk-decomp, MIT |
+| 3 | Source de repli | BabelStone (aucun droit revendiqué), sous la réserve du §10.2 | comble les 2 absents de cjk-decomp | **aucune** : BabelStone écarté, un seul caractère de plus (回) et une lignée CHISE (GPL) ; nos surcharges à la place |
 | 4 | Unihan `kIDS` | sans objet | champ absent de 17.0.0 et 18.0.0 | — |
 | 5 | cjkvi-ids, CHISE | écartés | GPL v2, GPL v2+ | — |
-| 6 | Relire les écarts | 50 caractères et 4 opérateurs de tête, une surcharge et sa raison chacun | `docs/licences-decompositions.md` | à trancher |
-| 7 | Figer l'ordre de fréquence des parcours | oui | seule condition de parcours identiques | à trancher |
-| 8 | `strokes-demo.json` sans en-tête APL | lui donner l'en-tête et le publier, ou le retirer | 89 caractères | à trancher |
-| 9 | Faire relire par un conseil | oui, avec le §9 : APL et App Store, faits non protégeables (BabelStone, et `dictionary.txt` s'il reste) | — | à trancher |
+| 6 | Relire les écarts | 50 caractères et 4 opérateurs de tête, une surcharge et sa raison chacun | `docs/licences-decompositions.md` | oui : 52 lignes rédigées pour Wenlu, plus 2 phonétiques (冈, 董) |
+| 7 | Figer l'ordre de fréquence des parcours | oui | seule condition de parcours identiques | oui : l'ordre des jours lui-même, figé (§10.6) |
+| 8 | `strokes-demo.json` sans en-tête APL | lui donner l'en-tête et le publier, ou le retirer | 89 caractères | en-tête APL ajouté ; fichier gardé, l'app le lit en repli |
+| 9 | Faire relire par un conseil | oui, avec le §9 : APL et App Store, faits non protégeables (BabelStone, et `dictionary.txt` s'il reste) | — | reste à faire, avec le §9 |
+
+### 10.6 Décision et migration (26 et 28 septembre 2026)
+
+Décision du propriétaire, le 26 septembre 2026 : « Pour les licences, fais au mieux en trouvant une solution. » L'app sera vendue : aucune donnée de décomposition dérivée d'une source LGPL ou GPL n'est embarquée. Migration faite le 28 septembre 2026.
+
+Ce qui a été retenu :
+
+- **Chaîne de la décomposition** : nos surcharges (`data/sources/surcharges/ids.tsv`), puis cjk-decomp sous la **MIT**, choisie parmi ses six licences ; ses formes de notation hors de la table sont ramenées à la norme (`notation-candidats.tsv`, lu désormais par `wenlu build`). Obligation de la MIT : la notice de copyright (« Gavin Grover », seul titulaire que nomme le README, sans année) et le texte de la licence, dans `MIT-cjk-decomp.txt`, copié dans chaque export et nommé par `LICENCES.md`.
+- **BabelStone écarté** : il n'ajoutait qu'un caractère à cjk-decomp (回), et ses données descendent en partie de celles de Kawabata Taichi, lignée de CHISE et de cjkvi-ids (GPL). cjkvi-ids et CHISE restent écartés. Le code de mesure des candidats a été retiré.
+- **Nos surcharges pour le reste** : 52 lignes nouvelles (section 3 d'`ids.tsv`), une par caractère exporté que cjk-decomp ne rendait pas à l'identique — composants, ordre ou disposition, que lisent les devinettes (包 可 夏 着) et les fiches — ou ne décrivait pas (回, 候). Chaque ligne est rédigée pour Wenlu, cite les composants de la norme par leur numéro d'ordre, dit ce que cjk-decomp écrivait, et porte la mention « rédigé pour Wenlu d'après GF 0014-2009 ». Une décomposition comme fait — quels composants de la norme, dans quelle disposition — n'est pas protégeable ; le fichier, lui, est notre travail et non une copie de lignes de `dictionary.txt`. Deux lignes de plus (section 4) donnent leur décomposition aux phonétiques 冈 et 董, par lesquelles cjk-decomp écrit 刚 et 懂, et `phonetiques.tsv` nomme 成 pour 城 : le contrôle du rôle son les retrouve.
+- **Écarts à la norme repris** : où la décomposition affichée depuis la 0.1.0 s'écarte de la norme, la ligne la reprend quand même, pour que rien ne bouge côté app, et nomme l'écart. Dix-huit lignes, vingt caractères : 候 场 夜 帝 旁 (et 榜) 桌 第 真 同 常 走 (et 起) 错 告 前 师 夏 举 画, listés avec la lecture de la norme dans `data/sources/surcharges/decompositions-non-corrigees.md`. Les neuf premiers sont des erreurs de fait (compte de traits, forme), héritées de Make Me a Hanzi : mieux vaut ne pas les garder à terme dans une décomposition qui se veut la nôtre. Les corriger demande de reprendre la fiche de chacun (rôles, origine, mémo) et, si une brique entre ou sort, de refiger les parcours : c'est une décision de contenu, à prendre caractère par caractère.
+- **Ordre des parcours figé** : plutôt que les rangs de fréquence (§10.4), l'ordre des jours lui-même est versionné (`data/sources/parcours/ordre-lire.tsv`, `ordre-hsk.tsv`), écrit depuis la 0.1.0 avant la migration. `wenlu build` le lit, le valide contre le graphe (départ imposé, une brique par jour, chaque composé après ses briques, liste couverte, rien qui ne soit plus à apprendre) et s'arrête s'il ne tient plus ; `wenlu parcours figer` le réécrit, et son diff se relit. Tout changement de jour devient explicite.
+- **Plus rien de `dictionary.txt` dans l'export** : `wenlu build` tire l'univers des caractères de `graphics.txt` (les mêmes 9 574, dans le même ordre) et ne lit plus `dictionary.txt` ; `wenlu ingest` n'en garde plus la décomposition ; le modèle `Fiche` refuse la source `makemeahanzi` ; le contrôle « licences : décompositions » devient bloquant. Le pinyin de ⺮, seul fait qui venait encore du contexte des fiches, vient de `pinyin.tsv` (zhú, comme 竹 dans Unihan). `dictionary.txt` reste téléchargé pour ce que le §2.2 permet hors distribution : l'étymologie donnée au rédacteur comme indice, et des contrôles de pinyin.
+- **Tracés de repli** : `app/public/strokes-demo.json` garde ses 89 caractères (l'app en lit quatre hors export : 安 尔 故 森) et prend l'en-tête APL de `traits/`, tracés sous la clé `traits` ; `wenlu check` le vérifie.
+
+Vérification, sur la version 0.1.0 réexportée :
+
+- Décompositions exportées : 323 (plus 259 composants de la norme, sans décomposition). Sources : cjk-decomp seul 231, nos surcharges seules 59, les deux 33 ; `dictionary.txt` **0**. La recette (`docs/licences-decompositions.md`) redescend chacune avec la chaîne et retrouve les `parts` exportés et la structure du build pour les 323.
+- Export comparé fichier par fichier, JSON par JSON, à celui d'avant : seules changent la valeur de `sources` (304 fiches), `LICENCES.md`, et l'arrivée de `MIT-cjk-decomp.txt` (en plus de la date et de l'empreinte d'`index.json`). `parts`, `nouveau`, `role`, `roles`, les familles, le pinyin, les deux parcours jour pour jour, `devinettes.json` (dispositions et leurres), les lettres, WeChat, l'éclair, la cuisine, les coquilles, les contes et leurs périmètres sont identiques.
+- Hors de l'export, 2 030 décompositions sur les 9 574 du graphe changent (caractères rares que cjk-decomp découpe autrement) : sans effet sur l'app, puisque l'ordre des jours est figé et que chaque caractère exporté est porté par cjk-decomp ou par une surcharge relue.

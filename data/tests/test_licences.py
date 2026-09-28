@@ -1,25 +1,14 @@
-"""Licence des décompositions (`wenlu licences`) : un test par règle. Aucun accès réseau.
+"""Licence des décompositions (`wenlu licences`, contrôle de `wenlu check`) : un test par règle.
 
-Les extraits de BabelStone, cjkvi-ids et CHISE sont des lignes réelles de leurs fichiers ;
-chaque test donne sa petite table de la norme en dur.
+Aucun accès réseau ; chaque test donne sa petite table de la norme en dur.
 """
 from __future__ import annotations
 
 import json
-import zipfile
 from pathlib import Path
 
-import pytest
-
 from wenlu_data import licences as L
-from wenlu_data.gf0014 import (
-    INCONNU,
-    Composant,
-    TableGF0014,
-    document_decompositions,
-    reconcilier,
-)
-from wenlu_data.surcharges import SurchargeInvalide
+from wenlu_data.gf0014 import Composant, TableGF0014
 
 
 def composant(sequence: int, forme: str, groupe: int | None = None, principal: str | None = None) -> Composant:
@@ -40,114 +29,6 @@ def table(*formes: str, equivalences: dict[str, str] | None = None) -> TableGF00
     return TableGF0014([composant(i, f) for i, f in enumerate(formes, 1)], equivalences)
 
 
-# ----------------------------------------------------------------------- lecture
-
-
-BABELSTONE = """﻿# Ideographic Description Sequences (IDS) for CJK Unified Ideographs
-# Maintained by: Andrew West (魏安) <babelstone@gmail.com>
-U+4E01\t丁\t^⿱一亅$(GHTJKPV)
-U+4E03\t七\t^〾⿻一乚$(GHJKPV)\t^〾⿻一㇄$(T)
-U+5C1A\t尚\t^⿱⺌冋$(GJKV)\t^⿱⺌⿵冂口$(T)
-U+8FB9\t边\t^⿺辶力$(GHKV)
-U+5341\t卍\t^⿻㇯十一$(G)
-U+865F\t號\t^⿰号{13}$(G)
-"""
-
-
-def test_babelstone_lu_variante_continentale() -> None:
-    """La variante marquée G est retenue, sans ^ ni $, et la ligne de commentaire saute."""
-    ids = L.lire_babelstone(BABELSTONE.splitlines())
-    assert ids["丁"] == "⿱一亅"
-    assert ids["尚"] == "⿱⺌冋"
-    assert ids["边"] == "⿺辶力"
-    assert "#" not in "".join(ids)
-
-
-def test_babelstone_marque_de_variante_ignoree() -> None:
-    """〾 ne dit qu'une différence mineure de dessin : il tombe."""
-    assert L.lire_babelstone(BABELSTONE.splitlines())["七"] == "⿻一乚"
-
-
-def test_composant_non_code_devient_inconnu() -> None:
-    """`{13}` (BabelStone), `&CDP-…;` et ① (cjkvi) ne sont pas des caractères : ？."""
-    assert L.lire_babelstone(BABELSTONE.splitlines())["號"] == "⿰号" + INCONNU
-    assert L.normaliser("⿹&CDP-8BBF;一") == "⿹" + INCONNU + "一"
-    assert L.normaliser("⿱①口") == "⿱" + INCONNU + "口"
-
-
-def test_operateur_unicode_15_1_rend_l_ids_illisible() -> None:
-    """㇯ et ⿾ ne sont pas lus par la descente : tout l'IDS vaut ？ plutôt qu'une fausse feuille."""
-    assert L.lire_babelstone(BABELSTONE.splitlines())["卍"] == INCONNU
-    assert L.normaliser("⿰⿾臣臣") == INCONNU
-
-
-CJKVI = """# Copyright (c) 2014-2017 CJKVI Database
-;; -*- coding: utf-8-mcs-er -*-
-U+4E0E\t与\t⿹&CDP-8BBF;一
-U+4E1E\t丞\t⿱⿵了？一[GTV]\t⿱⿵了？一[J]
-U+4E28\t丨\t丨
-U+5DF1\t己\t己
-U+8303\t范\t⿱艹氾[GJK]\t⿱艹⿰氵㔾[T]
-"""
-
-
-def test_ids_tabule_lu_variante_continentale() -> None:
-    """cjkvi-ids et CHISE : colonnes tabulées, sources entre crochets, `#` et `;` commentent."""
-    ids = L.lire_ids_tabule(CJKVI.splitlines())
-    assert ids["范"] == "⿱艹氾"
-    assert ids["与"] == "⿹" + INCONNU + "一"
-    assert ids["己"] == "己"
-    assert len(ids) == 5
-
-
-def _archive(chemin: Path, lignes: list[str]) -> Path:
-    with zipfile.ZipFile(chemin, "w") as z:
-        z.writestr("Unihan_IRGSources.txt", "\n".join(lignes) + "\n")
-    return chemin
-
-
-def test_unihan_sans_kids_ne_decrit_rien(tmp_path: Path) -> None:
-    """Unihan 17.0.0 et 18.0.0 n'ont pas de `kIDS` : rien n'est lu, la version l'est."""
-    archive = _archive(
-        tmp_path / "Unihan.zip",
-        ["# Unihan_IRGSources.txt", "# Unicode Version 18.0.0", "U+4E01\tkTotalStrokes\t2"],
-    )
-    assert L.lire_kids(archive) == ({}, "18.0.0")
-
-
-def test_unihan_kids_lu_s_il_existe(tmp_path: Path) -> None:
-    """Si une version ajoute `kIDS`, la mesure le lit sans autre changement."""
-    archive = _archive(tmp_path / "Unihan.zip", ["U+597D\tkIDS\t⿰女子"])
-    assert L.lire_kids(archive)[0] == {"好": "⿰女子"}
-
-
-def test_notation_ramene_une_forme_hors_table(tmp_path: Path) -> None:
-    """⺹ n'est pas dans la norme : il devient 耂 avant la descente."""
-    t = table("耂", "子")
-    fichier = tmp_path / "notation.tsv"
-    fichier.write_text("# commentaire\n⺹\t耂\tradical OLD\n", encoding="utf-8")
-    notation = L.charger_notation(t, fichier)
-    assert L.noter({"孝": "⿸⺹子"}, notation) == {"孝": "⿸耂子"}
-
-
-@pytest.mark.parametrize("ligne", ["艹\t耂\tforme de la table", "⺹\t老\tcible hors table"])
-def test_notation_ne_renomme_jamais_un_composant(tmp_path: Path, ligne: str) -> None:
-    """Une forme de la table est un composant (卄 n'est pas 艹) ; une cible hors table ne mène à rien."""
-    fichier = tmp_path / "notation.tsv"
-    fichier.write_text(ligne + "\n", encoding="utf-8")
-    with pytest.raises(SurchargeInvalide):
-        L.charger_notation(table("耂", "艹"), fichier)
-
-
-def test_notation_versionnee_valide() -> None:
-    """Le fichier du dépôt se lit contre la vraie table."""
-    from wenlu_data.gf0014 import charger_table
-
-    t = charger_table()
-    notation = L.charger_notation(t)
-    assert notation and all(f not in t and c in t for f, c in notation.items())
-
-
 # ------------------------------------------------------------------------ mesure
 
 
@@ -156,7 +37,7 @@ def test_identique() -> None:
 
 
 def test_equivalent_a_la_notation_pres() -> None:
-    """⺮ (Make Me a Hanzi) et 𥫗 (candidat) sont le même composant 502 de la norme."""
+    """⺮ et 𥫗 sont le même composant 502 de la norme."""
     t = table("𥫗", "毛", equivalences={"⺮": "𥫗"})
     m = L.mesurer("笔", ("⺮", "毛"), t, {"笔": "⿱𥫗毛"}, {})
     assert m.verdict == L.EQUIVALENT
@@ -164,7 +45,7 @@ def test_equivalent_a_la_notation_pres() -> None:
 
 
 def test_variante_du_meme_groupe() -> None:
-    """王 et 𤣩 du même groupe : la place est la même, la variante non — à relire."""
+    """王 et 𤣩 du même groupe : la place est la même, la variante non."""
     t = TableGF0014([composant(1, "王", 1), composant(2, "𤣩", 1, "王"), composant(3, "见")])
     m = L.mesurer("现", ("王", "见"), t, {"现": "⿰𤣩见"}, {})
     assert m.verdict == L.VARIANTE
@@ -187,71 +68,62 @@ def test_non_reconcilie() -> None:
     assert m.verdict == L.NON_RECONCILIE
 
 
+def test_non_reconcilie_mais_identique_a_l_export() -> None:
+    """兴 reste non réconcilié (⺍ hors norme) : la chaîne le rend tel que l'export le montre."""
+    m = L.mesurer("兴", ("⺍", "一", "八"), table("一", "八"), {}, {"兴": "⿳⺍一八"})
+    assert m.verdict == L.IDENTIQUE
+
+
 def test_absent() -> None:
     assert L.mesurer("好", ("女", "子"), table("女", "子"), {}, {}).verdict == L.ABSENT
 
 
-def test_surcharge_passe_devant_le_candidat() -> None:
+def test_surcharge_passe_devant_cjk_decomp() -> None:
     """Une surcharge versionnée est notre donnée : elle l'emporte, comme dans `wenlu build`."""
     m = L.mesurer("好", ("女", "子"), table("女", "子"), {"好": "⿰子女"}, {"好": "⿰女子"})
     assert m.verdict == L.IDENTIQUE
 
 
 def test_meme_tete_compare_l_operateur_de_tete() -> None:
-    """Les devinettes lisent l'opérateur de tête : il est comparé à la structure exportée."""
+    """Les devinettes lisent l'opérateur de tête : il est comparé à la structure du build."""
     t = table("女", "子")
     assert L.mesurer("好", ("女", "子"), t, {"好": "⿰女子"}, {}, "⿰女子").meme_tete
     assert not L.mesurer("好", ("女", "子"), t, {"好": "⿻女子"}, {}, "⿰女子").meme_tete
 
 
-def test_enchainer_premier_d_abord_second_en_repli() -> None:
-    """Le second ne sert que là où le premier ne dit rien d'exploitable."""
-    ids = L.enchainer({"好": "⿰女子", "会": "⿱？云", "明": "明"}, {"会": "⿱人云", "明": "⿰日月", "林": "⿰木木"})
-    assert ids == {"好": "⿰女子", "会": "⿱人云", "明": "⿰日月", "林": "⿰木木"}
-
-
-def test_source_vide_n_est_pas_mesuree() -> None:
-    """Unihan sans `kIDS` ne compte pas les seules surcharges : `propres` le fait."""
-    candidats = {
-        L.UNIHAN_KIDS: L.SourceLue({}, (("Unihan.zip", "x"),)),
-        L.CJK_DECOMP: L.SourceLue({"好": "⿰女子"}, (("ids-secondaires.json", "y"),)),
-    }
-    jeux = L.jeux_mesures(candidats, {})
-    assert L.UNIHAN_KIDS not in jeux
-    assert jeux[L.PROPRES] == {}
-    assert L.PROPOSEE not in jeux  # BabelStone absent : pas de chaîne
-
-
-def test_chaine_proposee_cjk_decomp_devant_babelstone() -> None:
-    candidats = {
-        L.CJK_DECOMP: L.SourceLue({"好": "⿰女子", "会": "？"}, (("a", "1"),)),
-        L.BABELSTONE: L.SourceLue({"好": "⿰子女", "会": "⿱人云"}, (("b", "2"),)),
-    }
-    jeux = L.jeux_mesures(candidats, {})
-    assert jeux[L.PROPOSEE] == {"好": "⿰女子", "会": "⿱人云"}
-    assert jeux[L.ALTERNATIVE] == {"好": "⿰子女", "会": "⿱人云"}
-
-
 # ------------------------------------------------------------------- inventaire
 
 
-def _ligne(c: str, parts: tuple[str, ...], sources: tuple[str, ...], verdict: str | None = None) -> L.Ligne:
-    mesures = {L.PROPOSEE: L.Mesure(verdict)} if verdict else {}
-    return L.Ligne(c, "caractere", parts, sources, c, (), mesures)
+def _exporte(c: str, parts: tuple[str, ...], sources: tuple[str, ...]) -> L.Exporte:
+    return L.Exporte(c, parts[0] if parts else c, parts, sources)
 
 
-def test_decision_par_caractere() -> None:
-    """Rien pour une brique ; rien pour une décomposition déjà hors LGPL ; sinon le verdict."""
-    assert L.decision(_ligne("口", (), ())) == "rien à remplacer"
-    assert L.decision(_ligne("介", ("人", "八"), ("surcharge",))) == "inchangée (hors LGPL)"
-    assert L.decision(_ligne("好", ("女", "子"), ("makemeahanzi",), L.IDENTIQUE)) == "remplacer, identique"
-    assert L.decision(_ligne("会", ("人", "云"), ("makemeahanzi",), L.ABSENT)) == "surcharge à écrire"
+def test_inventaire_recette_et_ligne_superflue() -> None:
+    """La chaîne redonne l'export ; sans sa ligne, on voit ce que la surcharge corrige."""
+    t = table("女", "子", "立", "一", "小", "十")
+    exportes = {
+        "好": _exporte("好", ("女", "子"), ("cjk-decomp",)),
+        "亲": _exporte("亲", ("立", "一", "小"), ("surcharge",)),
+        "妇": _exporte("妇", ("女", "子"), ("surcharge",)),
+        "女": _exporte("女", (), ()),
+    }
+    decompositions = {"好": {"structure": "⿰女子"}, "亲": {"structure": "⿱立⿻一小"}, "妇": {"structure": "⿰女子"}}
+    cjk = {"好": "⿰女子", "亲": "⿱立⿱十小", "妇": "⿰女子"}
+    surcharges = {"亲": "⿱立⿻一小", "妇": "⿰女子"}
+    lignes = {l.c: l for l in L.inventorier(exportes, decompositions, {}, {}, t, cjk, surcharges)}
+    assert all(l.conforme for l in lignes.values())
+    assert lignes["好"].sans_ligne is None
+    assert lignes["亲"].sans_ligne is not None and lignes["亲"].sans_ligne.verdict == L.DIFFERENT
+    assert not L.superflue(lignes["亲"])
+    assert L.superflue(lignes["妇"]), "cjk-decomp rend déjà la même chose : ligne superflue"
+    assert lignes["女"].brique and lignes["女"].chaine is None
 
 
 def test_regime_de_licence() -> None:
-    assert _ligne("口", (), ()).regime == "GF 0014-2009 seule"
-    assert _ligne("好", ("女", "子"), ("makemeahanzi", "surcharge")).regime == "LGPL (Make Me a Hanzi)"
-    assert _ligne("北", ("匕", "匕"), ("cjk-decomp",)).regime.startswith("permissive")
+    assert L.Ligne("口", "brique", (), (), "口", ()).regime == "GF 0014-2009 seule"
+    assert L.Ligne("好", "caractere", ("女", "子"), ("makemeahanzi",), "", ()).regime == "LGPL (Make Me a Hanzi)"
+    assert L.Ligne("北", "caractere", ("匕", "匕"), ("cjk-decomp",), "", ()).regime == "cjk-decomp (MIT)"
+    assert L.Ligne("介", "caractere", ("人",), ("surcharge",), "", ()).regime == "nos surcharges"
 
 
 def _export(dossier: Path, fiches: list[dict[str, object]]) -> Path:
@@ -266,7 +138,7 @@ def _export(dossier: Path, fiches: list[dict[str, object]]) -> Path:
 def test_export_lu_fiche_par_fiche(tmp_path: Path) -> None:
     version = _export(
         tmp_path,
-        [{"c": "女", "parts": [], "sources": []}, {"c": "好", "parts": ["女", "子"], "sources": ["makemeahanzi"]}],
+        [{"c": "女", "parts": [], "sources": []}, {"c": "好", "parts": ["女", "子"], "sources": ["cjk-decomp"]}],
     )
     exportes = L.lire_export(version)
     assert exportes["好"].parts == ("女", "子") and exportes["好"].racine == "女"
@@ -274,104 +146,63 @@ def test_export_lu_fiche_par_fiche(tmp_path: Path) -> None:
     assert L.derniere_version(tmp_path) == version
 
 
-def test_controle_signale_les_decompositions_lgpl(tmp_path: Path) -> None:
-    """Signalé, jamais bloquant : la décision revient au propriétaire."""
-    _export(tmp_path, [{"c": "好", "parts": ["女", "子"], "sources": ["makemeahanzi"]}])
+# ------------------------------------------------------------------------ contrôle
+
+
+def test_controle_bloque_une_decomposition_de_make_me_a_hanzi(tmp_path: Path) -> None:
+    """Règle de licence (§10) : aucune décomposition exportée ne descend `dictionary.txt`."""
+    _export(tmp_path, [{"c": "好", "parts": ["女", "子"], "sources": ["makemeahanzi", "cjk-decomp"]}])
     (controle,) = L.controles(tmp_path)
-    assert not controle.ok and not controle.bloquant
-    assert "1 décompositions sur 1" in controle.detail
+    assert not controle.ok and controle.bloquant
+    assert "1 de dictionary.txt" in controle.detail
+
+
+def test_controle_bloque_une_source_absente_ou_inconnue(tmp_path: Path) -> None:
+    """Une décomposition sans source, ou d'une source non permise, ne passe pas non plus."""
+    _export(
+        tmp_path,
+        [
+            {"c": "好", "parts": ["女", "子"], "sources": []},
+            {"c": "妈", "parts": ["女", "马"], "sources": ["babelstone"]},
+        ],
+    )
+    (controle,) = L.controles(tmp_path)
+    assert not controle.ok and controle.bloquant
+    assert "source absente ou inconnue : 好妈" in controle.detail
 
 
 def test_controle_passe_sans_make_me_a_hanzi(tmp_path: Path) -> None:
-    _export(tmp_path, [{"c": "好", "parts": ["女", "子"], "sources": ["cjk-decomp"]}])
-    assert L.controles(tmp_path)[0].ok
+    _export(
+        tmp_path,
+        [
+            {"c": "好", "parts": ["女", "子"], "sources": ["cjk-decomp"]},
+            {"c": "介", "parts": ["人", "⿰丿丨"], "sources": ["surcharge"]},
+            {"c": "女", "parts": [], "sources": []},
+        ],
+    )
+    (controle,) = L.controles(tmp_path)
+    assert controle.ok and controle.bloquant
+    assert "2 décompositions, 0 de dictionary.txt" in controle.detail
     assert L.controles(tmp_path / "rien")[0].ok
+
+
+def test_l_export_du_depot_ne_doit_rien_a_dictionary_txt() -> None:
+    """L'export versionné passe le contrôle : 0 décomposition de Make Me a Hanzi."""
+    if L.derniere_version() is None:
+        return
+    (controle,) = L.controles()
+    assert controle.ok, controle.detail
 
 
 def test_rendu_deterministe() -> None:
     """Deux rendus des mêmes entrées écrivent les mêmes octets, sans date d'horloge."""
+    identique = L.Mesure(L.IDENTIQUE, ("女", "子"), "⿰女子", True)
     lignes = [
-        _ligne("口", (), ()),
-        L.Ligne("好", "caractere", ("女", "子"), ("makemeahanzi",), "⿰女子", ("seuil-255",),
-                {L.PROPOSEE: L.Mesure(L.IDENTIQUE, ("女", "子"), "⿰女子", True)}),
+        L.Ligne("口", "brique", (), (), "口", ()),
+        L.Ligne("好", "caractere", ("女", "子"), ("cjk-decomp",), "⿰女子", ("seuil-255",), identique),
     ]
-    candidats = {L.CJK_DECOMP: L.SourceLue({"好": "⿰女子"}, (("ids-secondaires.json", "0" * 64),))}
-    un = L.rendre(lignes, candidats, [], "0.1.0")
-    assert un == L.rendre(lignes, candidats, [], "0.1.0")
-    assert "| 好 | seuil-255 | 女 子 | makemeahanzi |" in un
-    assert "remplacer, identique : 1" in un
-
-
-# -------------------------------------------------------------------- simulation
-
-
-def test_comparer_parcours() -> None:
-    a = {"jours": [{"jour": 1, "brique": "女", "composes": []}, {"jour": 2, "brique": "子", "composes": ["好"]}]}
-    b = {"jours": [{"jour": 1, "brique": "女", "composes": []}, {"jour": 2, "brique": "子", "composes": []},
-                   {"jour": 3, "brique": None, "composes": ["好"]}]}
-    assert L.comparer_parcours("lire", a, a).identique
-    impact = L.comparer_parcours("lire", a, b)
-    assert impact.premier_ecart == 2
-    assert impact.deplaces == ("好",)
-
-
-def _build(tmp_path: Path, t: TableGF0014, ids: dict[str, str], monkeypatch: pytest.MonkeyPatch) -> tuple[Path, Path]:
-    from wenlu_data import graphe
-
-    monkeypatch.setattr(graphe, "DEPART", {nom: () for nom in graphe.PARCOURS})
-    build, ingest = tmp_path / "build", tmp_path / "ingest"
-    build.mkdir()
-    ingest.mkdir()
-    univers = ["女", "子", "日", "月", "好", "明"]
-    (ingest / "graphies.json").write_text(
-        json.dumps([{"c": c, "strokes": [], "medians": []} for c in univers], ensure_ascii=False),
-        encoding="utf-8",
-    )
-    (ingest / "listes.json").write_text(
-        json.dumps({"seuil-255": ["好", "明"], "hsk-1": ["明"]}, ensure_ascii=False), encoding="utf-8"
-    )
-    caracteres = [{"c": c, "decomposition": ids.get(c, "")} for c in univers]
-    decompositions = reconcilier(caracteres, t)
-    (build / "decompositions.json").write_text(
-        json.dumps(document_decompositions(decompositions, t), ensure_ascii=False), encoding="utf-8"
-    )
-    graphe.build(sortie=build, ingest=ingest, depart={nom: () for nom in graphe.PARCOURS})
-    return build, ingest
-
-
-def test_simulation_temoin_redonne_le_build(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
-    """Rejouée avec la chaîne du build, la simulation ne change rien : elle ne mesure que la source."""
-    t = table("女", "子", "日", "月")
-    ids = {"好": "⿰女子", "明": "⿰日月"}
-    build, ingest = _build(tmp_path, t, ids, monkeypatch)
-    changees, impacts = L.simuler(ids, t, {}, build=build, ingest=ingest, sortie=tmp_path / "sim")
-    assert changees == 0
-    assert impacts and all(i.identique for i in impacts)
-
-
-def test_simulation_compte_les_decompositions_changees(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
-    t = table("女", "子", "日", "月")
-    build, ingest = _build(tmp_path, t, {"好": "⿰女子", "明": "⿰日月"}, monkeypatch)
-    changees, _ = L.simuler(
-        {"好": "⿰女子", "明": "⿰月日"}, t, {}, build=build, ingest=ingest, sortie=tmp_path / "sim"
-    )
-    assert changees == 1
-
-
-def test_simulation_rangs_figes(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
-    """À rangs figés, l'ordre de fréquence du build d'aujourd'hui est repris tel quel."""
-    t = table("女", "子", "日", "月")
-    ids = {"好": "⿰女子", "明": "⿰日月"}
-    build, ingest = _build(tmp_path, t, ids, monkeypatch)
-    _, impacts = L.simuler(ids, t, {}, build=build, ingest=ingest, sortie=tmp_path / "sim", figer_rangs=True)
-    assert all(i.identique for i in impacts)
-
-
-def test_surcharges_de_relecture_pour_la_mesure_seulement() -> None:
-    """Seuls les caractères que la chaîne ne conserve pas reçoivent leur structure exportée."""
-    lignes = [
-        L.Ligne("好", "caractere", ("女", "子"), ("makemeahanzi",), "⿰女子", (), {L.PROPOSEE: L.Mesure(L.IDENTIQUE)}),
-        L.Ligne("亲", "caractere", ("立", "一", "小"), ("makemeahanzi",), "⿱立⿻一小", (),
-                {L.PROPOSEE: L.Mesure(L.DIFFERENT)}),
-    ]
-    assert L.surcharges_de_relecture(lignes) == {"亲": "⿱立⿻一小"}
+    fichiers = [("ids-secondaires.json (cjk-decomp)", "0" * 64)]
+    un = L.rendre(lignes, fichiers, [], "0.1.0")
+    assert un == L.rendre(lignes, fichiers, [], "0.1.0")
+    assert "Décompositions qui nomment encore `dictionary.txt` (LGPL) : 0." in un
+    assert "cjk-decomp (MIT) : 1" in un

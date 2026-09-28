@@ -35,12 +35,11 @@ Ce qui n'entre jamais dans l'export :
 - les définitions anglaises, d'où qu'elles viennent — `kDefinition` d'Unihan ou
   CC-CEDICT (§4.2) : rien ne les lit ici, et un test relit l'export pour s'en
   assurer ;
-- `dictionary.txt` et ce qui en dérive comme texte (§2.2). Sa chaîne IDS sert à
-  la réconciliation et la décomposition exportée nomme sa source
-  (`sources: ["makemeahanzi"]`, `["cjk-decomp"]`, ou `["surcharge"]` pour une
-  correction versionnée de `data/sources/surcharges/ids.tsv`) : la question de licence
-  reste ouverte et l'export la pose noir sur blanc dans `LICENCES.md`, pour
-  qu'elle se tranche caractère par caractère ;
+- `dictionary.txt` et tout ce qui en dérive (§2.2, §10). Depuis le 28 septembre 2026,
+  la décomposition exportée ne descend plus sa chaîne IDS : elle nomme sa source,
+  `sources: ["cjk-decomp"]` (MIT, texte dans `MIT-cjk-decomp.txt`) ou `["surcharge"]`
+  (une décomposition rédigée pour Wenlu dans `data/sources/surcharges/ids.tsv`), et
+  `wenlu check` refuse `makemeahanzi`, que le modèle `Fiche` n'accepte plus ;
 - une fiche, un conte ou une lettre de Que qui n'est pas au statut `relu` (brief §17),
   hors de `apercu/`. Un caractère sans fiche relue s'exporte quand même — l'app a besoin de
   sa décomposition et de ses traits — avec les champs de texte vides et
@@ -97,6 +96,7 @@ from . import lettres as lettres_mod
 from . import saisons as saisons_mod
 from . import surcharges as surcharges_mod
 from . import unihan as unihan_mod
+from . import cjkdecomp
 from . import wechat as wechat_mod
 from .gf0014 import Controle
 from .graphe import BRIQUE, DECOUPEE, MUETTE, PARCOURS
@@ -111,7 +111,7 @@ VERSION = "0.1.0"
 #: Version du format écrit par ce module. À incrémenter à chaque changement de
 #: ce que l'export produit à entrées égales (clé ajoutée, ordre, règle de
 #: sélection) : elle entre dans l'empreinte, et l'export versionné devient périmé.
-FORMAT_EXPORT = 13
+FORMAT_EXPORT = 14
 
 #: Le code de l'exporteur, lui aussi dans l'empreinte : un changement de ce
 #: fichier où l'on aurait oublié `FORMAT_EXPORT` rend quand même l'export périmé.
@@ -135,6 +135,8 @@ PAIRES = DATA / "sources" / "paires" / "paires.tsv"
 LICENCES_SOURCE = DATA / "sources" / "licences"
 ARPHIC = "ARPHICPL.TXT"
 UNICODE_NOTICE = "UNICODE-LICENSE.txt"
+#: Texte de la MIT, que cjk-decomp propose parmi six licences et que le projet retient.
+MIT_CJK_DECOMP = "MIT-cjk-decomp.txt"
 
 #: Substitués à l'écriture : la date ne fait pas varier le contenu comparé.
 JETON_DATE = "@date@"
@@ -235,6 +237,7 @@ def fichiers_sources(
         ("interface", INTERFACE),
         ("arphicpl", LICENCES_SOURCE / ARPHIC),
         ("unicode", LICENCES_SOURCE / UNICODE_NOTICE),
+        ("mit-cjk-decomp", LICENCES_SOURCE / MIT_CJK_DECOMP),
     ]
     for chemin in fiches_mod.fiches_ecrites(fiches):
         lus.append((f"fiche:{chemin.stem}", chemin))
@@ -1462,18 +1465,11 @@ TABLEAU_LICENCES: tuple[tuple[str, str, str, str, str], ...] = (
         f"`{UNICODE_NOTICE}`",
     ),
     (
-        "Make Me a Hanzi — dictionary.txt",
-        "chaîne IDS réconciliée avec GF 0014-2009 (`parts`, `sources: [\"makemeahanzi\"]`)",
-        "LGPL 3.0 ou ultérieure",
-        "Copyright (C) 2016 Shaunak Kishore",
-        "https://www.gnu.org/licenses/lgpl-3.0.html — question ouverte, voir ci-dessous",
-    ),
-    (
-        "cjk-decomp",
-        "chaîne IDS de repli (`sources: [\"cjk-decomp\"]`)",
-        "MIT (au choix parmi six licences)",
-        "Copyright (c) Gavin Grover",
-        "https://github.com/amake/cjk-decomp",
+        "cjk-decomp (CJK Decomposition Data)",
+        "chaîne IDS réconciliée avec GF 0014-2009 (`parts`, `sources: [\"cjk-decomp\"]`)",
+        "MIT (retenue parmi les six licences proposées)",
+        f"{cjkdecomp.COPYRIGHT} — {cjkdecomp.DEPOT}",
+        f"`{MIT_CJK_DECOMP}`",
     ),
     (
         "CC-CEDICT (MDBG)",
@@ -1507,9 +1503,10 @@ TABLEAU_LICENCES: tuple[tuple[str, str, str, str, str], ...] = (
     ),
     (
         "Surcharges du pipeline wenlu (`data/sources/surcharges/`)",
-        "pinyin et IDS corrigés, chacun avec sa raison (`sources: [\"surcharge\"]`)",
+        "pinyin corrigés et décompositions rédigées pour Wenlu d'après GF 0014-2009,"
+        " chacune avec sa raison (`sources: [\"surcharge\"]`)",
         LICENCE_PROPRIETAIRE,
-        "corrections relues des sources ci-dessus",
+        "travail propre du projet, relu",
         "—",
     ),
     (
@@ -1553,28 +1550,29 @@ def licences_md(version: str) -> str:
         " décomposition canonique et"
         " textes rédigés pour l'app, propriétaires.",
         f"- `{UNICODE_NOTICE}` : notice de permission Unicode, qui couvre le pinyin.",
+        f"- `{MIT_CJK_DECOMP}` : notice de copyright et texte de la MIT, qui couvrent les"
+        " décompositions descendues de cjk-decomp.",
         "",
         "## Ce que l'export ne contient pas",
         "",
         "- Aucune définition anglaise : ni `kDefinition` d'Unihan, ni CC-CEDICT"
         " (`docs/sources-licences.md` §4.2). Les mots exportés ne portent que le"
         " hanzi, le pinyin et les traductions rédigées pour l'app.",
-        "- Aucun texte de `dictionary.txt` : ni définition, ni étymologie anglaise"
-        " (§2.2).",
+        "- Rien de `dictionary.txt` (Make Me a Hanzi, LGPL 3.0+) : ni définition, ni"
+        " étymologie anglaise, ni décomposition (§2.2, §10). Seuls les tracés de Make Me"
+        " a Hanzi (`graphics.txt`) sont embarqués, sous l'Arphic Public License.",
         "- Aucune fiche, aucun conte ni aucune lettre non relus hors de `apercu/` (brief §17). Ce dossier"
         " porte les textes encore à relire, chacun marqué `statut: \"a_relire\"`, que"
         " l'app ne charge que sur demande (Réglages, mode relecture)."
         " Un texte rejeté n'est nulle part.",
         "",
-        "## Question ouverte",
+        "## Décompositions",
         "",
-        "La décomposition exportée descend la chaîne IDS de Make Me a Hanzi"
-        " (`dictionary.txt`, LGPL 3.0+) jusqu'aux composants de GF 0014-2009."
-        " `docs/sources-licences.md` §2.2 écarte `dictionary.txt` de l'embarqué."
-        " La liste de composants qui en résulte est une donnée factuelle normalisée"
-        " par une autre source, mais le point n'est pas tranché : chaque fiche nomme"
-        " la source de sa décomposition (`sources`) pour que la décision reste"
-        " possible fichier par fichier.",
+        "Chaque décomposition (`parts`) descend nos surcharges, rédigées pour Wenlu"
+        " d'après la table de GF 0014-2009, puis cjk-decomp (MIT), jusqu'aux composants"
+        " de la norme ; chaque fiche nomme la source de la sienne (`sources`). Aucune ne"
+        " descend plus `dictionary.txt` (décision du 26 septembre 2026, appliquée le 28,"
+        " `docs/sources-licences.md` §10).",
         "",
         "## Obligations hors app",
         "",
@@ -1921,7 +1919,7 @@ def assembler(
     )
     textes["LICENCES.md"] = licences_md(version)
     textes["traits/MODIFICATIONS.md"] = modifications_md(version, len(graphies), decoupes)
-    for nom in (ARPHIC, UNICODE_NOTICE):
+    for nom in (ARPHIC, UNICODE_NOTICE, MIT_CJK_DECOMP):
         texte = (licences / nom).read_text(encoding="utf-8")
         textes[nom] = texte
         if nom == ARPHIC:
@@ -2028,10 +2026,12 @@ ENTETE_LICENCE: tuple[str, ...] = ("license", "source", "source_url", "modified"
 
 #: Textes que chaque version exportée doit porter, en plus des JSON : l'APL §1
 #: veut sa licence inaltérée à côté des tracés, l'APL §2 a) la note de
-#: modification, et le pinyin d'Unihan sa notice de permission.
+#: modification, le pinyin d'Unihan sa notice de permission, et les décompositions
+#: de cjk-decomp la notice de la MIT.
 TEXTES_DE_LICENCE: tuple[str, ...] = (
     ARPHIC,
     UNICODE_NOTICE,
+    MIT_CJK_DECOMP,
     "LICENCES.md",
     f"traits/{ARPHIC}",
     "traits/MODIFICATIONS.md",
@@ -2253,6 +2253,18 @@ def controles(
                     json.loads(chemin.read_text(encoding="utf-8")),
                 )
             ]
+
+    # Les tracés de repli de la maquette, servis hors de l'export mais sous la même APL :
+    # même en-tête que `traits/` (APL §2 a), clé `traits`.
+    demo = (destination or EXPORT).parent / "strokes-demo.json"
+    if demo.exists():
+        document = json.loads(demo.read_text(encoding="utf-8"))
+        entete = document if isinstance(document, dict) else {}
+        melanges += [f"{demo.name} : en-tête sans {cle}" for cle in ENTETE_LICENCE if not entete.get(cle)]
+        if entete.get("license") and entete.get("license") != LICENCE_TRAITS:
+            melanges.append(f"{demo.name} : licence {entete.get('license')}, {LICENCE_TRAITS} attendue")
+        if "traits" not in entete:
+            melanges.append(f"{demo.name} : tracés hors de la clé `traits`")
 
     return [
         Controle(

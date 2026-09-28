@@ -3,6 +3,7 @@ from __future__ import annotations
 
 import gzip
 import json
+from dataclasses import asdict
 from pathlib import Path
 
 import pytest
@@ -47,10 +48,14 @@ LIGNE_CEDICT = "好 好 [hao3] /good/well/proper/good to/easy to/very/so/"
 
 
 def test_parse_ligne_dictionnaire() -> None:
-    """Une ligne de dictionary.txt donne décomposition, radical, pinyin et définition."""
+    """Une ligne de dictionary.txt donne radical, pinyin et définition, jamais sa décomposition.
+
+    Règle de licence (docs/sources-licences.md §10) : la décomposition canonique ne descend
+    plus `dictionary.txt` (LGPL) ; son IDS n'est donc pas même ingéré.
+    """
     c = parse_ligne_dictionnaire(LIGNE_DICTIONNAIRE)
     assert c.c == "好"
-    assert c.decomposition == "⿰女子"
+    assert "decomposition" not in asdict(c)
     assert c.radical == "女"
     assert c.pinyin == ["hǎo", "hào"]
     assert c.definition_en == "good, excellent, fine; well"

@@ -31,6 +31,7 @@ app/public/data/0.1.0/
   LICENCES.md                chaque source, sa licence, son attribution
   ARPHICPL.TXT               texte de l'Arphic Public License, inaltéré
   UNICODE-LICENSE.txt        notice de permission Unicode (pinyin)
+  MIT-cjk-decomp.txt         notice et texte de la MIT de cjk-decomp (décompositions)
   paires.json                les caractères à ne pas confondre
   fetes.json                 le calendrier des fêtes et leurs textes
   saisons.json               les vingt-quatre termes solaires et leurs textes
@@ -133,9 +134,11 @@ de la famille, triée par caractère :
 - `parts` : la décomposition canonique GF 0014-2009, dans l'ordre d'écriture ;
   vide pour une brique, qui est une feuille de la norme.
 - `sources` : d'où vient la chaîne IDS descendue pour cette décomposition,
-  `makemeahanzi`, `cjk-decomp` ou `surcharge` (une correction versionnée de
-  `data/sources/surcharges/ids.tsv`, rédigée pour le projet). Nommée par caractère pour que la question de
-  licence de `dictionary.txt` (LGPL, §2.2) reste tranchable fichier par fichier.
+  `cjk-decomp` (MIT) ou `surcharge` (une décomposition versionnée de
+  `data/sources/surcharges/ids.tsv`, rédigée pour Wenlu d'après GF 0014-2009), ou les
+  deux. Vide pour une brique. `makemeahanzi` n'est plus une valeur permise depuis le
+  28 septembre 2026 (`docs/sources-licences.md` §10) : le modèle `Fiche` la refuse et
+  « licences : décompositions » bloque `wenlu check`.
 - `nouveau` : les index, dans `parts`, de l'élément ajouté — le composant posé le
   même jour que le caractère dans son parcours de référence (`lire`, sinon
   `hsk`). C'est le seul élément que l'app met en cinabre.
@@ -485,9 +488,10 @@ autres, à relire). Celles des fêtes et des termes solaires sont dans `fetes.js
 ## `LICENCES.md`
 
 Écrit par l'export. Un tableau `source | usage | licence | attribution | texte de
-la licence` pour chaque source embarquée, la séparation des fichiers, ce que
-l'export ne contient pas, la question de licence ouverte sur `dictionary.txt`, et
-les obligations hors app (publier les tracés dérivés sous APL). Il fait foi pour
+la licence` pour chaque source embarquée (dont cjk-decomp, sous la MIT retenue, avec
+sa notice dans `MIT-cjk-decomp.txt`), la séparation des fichiers, ce que l'export ne
+contient pas (rien de `dictionary.txt`), l'origine des décompositions, et les
+obligations hors app (publier les tracés dérivés sous APL). Il fait foi pour
 ce que l'app embarque ; `docs/sources-licences.md` fait foi pour la décision.
 
 ## Contrôles (`uv run wenlu check`)
@@ -504,9 +508,10 @@ ce que l'app embarque ; `docs/sources-licences.md` fait foi pour la décision.
   que l'app puisse enseigner ces familles.
 - « export : caractères sans traits » — signalé : ce que l'app ne saurait dessiner
   (et à quoi le site ne fait pas de page).
-- « licences : décompositions » — signalé : combien de décompositions de la dernière
-  version exportée descendent encore un IDS de `dictionary.txt` (LGPL), en attendant la
-  décision de `docs/sources-licences.md` §10. Relit l'export versionné seulement.
+- « licences : décompositions » — bloquant : aucune décomposition de la dernière
+  version exportée ne nomme `makemeahanzi` (`dictionary.txt`, LGPL), et chacune nomme
+  ses sources, `cjk-decomp` ou `surcharge` seulement (`docs/sources-licences.md` §10).
+  Relit l'export versionné seulement.
 - « découpes : table » — bloquant : chaque ligne de `decoupes.tsv` nomme un composant
   de la norme sans tracé propre, un hôte présent dans `graphics.txt` dont la
   décomposition canonique le contient, et des indices de traits valides.
@@ -579,36 +584,26 @@ ce que l'app embarque ; `docs/sources-licences.md` fait foi pour la décision.
 
 ## Licence des décompositions (`wenlu licences`)
 
-Après `export`, hors de `tout`. `--telecharger` range d'abord les sources d'IDS
-candidates dans `data/work/sources/candidats/` (BabelStone `IDS.TXT` par son URL puis
-deux miroirs, en-tête `Maintained by: Andrew West` exigé ; cjkvi-ids ; CHISE), avec
-`SHA256SUMS` et `PROVENANCE.md` comme `wenlu fetch`. La commande ne change rien à
-l'export ; elle écrit :
+Après `export`, hors de `tout`. La recette de la décision du 28 septembre 2026
+(`docs/sources-licences.md` §10) : elle ne change rien à l'export, et écrit :
 
-- `data/work/build/licences.json` : `{sources: {clé: {fichiers, ids, note}},
-  caracteres: [{c, genre, motifs[], parts[], sources[], structure, regime, decision,
-  candidats: {clé: {verdict, composants[], structure, meme_tete}}}]}`. `verdict` parmi
+- `data/work/build/licences.json` : `{fichiers: [[nom, sha256]], caracteres: [{c, genre,
+  motifs[], parts[], sources[], structure, regime, conforme, surcharge, chaine,
+  sans_ligne}]}`. `chaine` est la décomposition redescendue avec la chaîne du build
+  (surcharges > cjk-decomp), `sans_ligne` la même sans la ligne d'`ids.tsv` du caractère
+  (nulle sans ligne) : `{verdict, composants[], structure, meme_tete}`, `verdict` parmi
   `identique`, `equivalent` (même composant de la norme, autre point de code),
   `variante` (même groupe de la norme), `ordre`, `different`, `non_reconcilie`,
-  `absent`. Clés : `cjk-decomp`, `babelstone`, `cjkvi-ids`, `chise-ids` (sources seules),
-  `propres` (la norme et `ids.tsv` seuls), `proposee` (surcharges > cjk-decomp >
-  BabelStone), `alternative` (surcharges > BabelStone > cjk-decomp), `proposee-brute`
-  (la proposée sans table de notation) ; `unihan-kids` quand Unihan porte `kIDS`.
-- `data/work/build/licences-simulation/<n>/` : réconciliation, graphe et parcours rejoués
-  pour chaque scénario (le témoin `0` doit redonner le build).
-- `docs/licences-decompositions.md`, versionné : le fichier de décision, caractère par
-  caractère. Deux passages écrivent les mêmes octets.
-
-Les surcharges d'`ids.tsv` passent devant chaque candidat. `data/sources/surcharges/
-notation-candidats.tsv` (`forme`, `composant`, `raison`) ramène une forme de notation
-des candidats, absente de la table, au composant de la norme (⺹ → 耂) ; une forme de la
-table ne s'y renomme jamais. `wenlu build` ne le lit pas.
+  `absent`. `conforme` : la chaîne redonne les `parts` exportés et la structure du build.
+- `docs/licences-decompositions.md`, versionné : décompte par source, recette, lignes de
+  surcharge superflues, ce que le projet doit encore à Make Me a Hanzi (embarqué ou non),
+  puis caractère par caractère. Deux passages écrivent les mêmes octets.
 
 ## Format intermédiaire (story 1.1)
 
 `uv run wenlu fetch` écrit les sources brutes dans `data/work/sources/`, avec `SHA256SUMS` et `PROVENANCE.md` (URL, date, taille, empreinte, licence). `uv run wenlu ingest` les normalise dans `data/work/ingest/`, hors dépôt :
 
-- `caracteres.json` : `[{c, decomposition, radical, pinyin[], definition_en, etymologie}]` depuis `dictionary.txt`. `decomposition` est la chaîne IDS de Make Me a Hanzi, telle quelle : elle n'est pas canonique tant que la story 1.2 ne l'a pas réconciliée avec GF 0014-2009. `etymologie` est la couche étymologique EN, `{type, hint, phonetic, semantic}`, `type` parmi `pictographic`, `ideographic`, `pictophonetic` ; elle reste distincte de la décomposition.
+- `caracteres.json` : `[{c, radical, pinyin[], definition_en, etymologie}]` depuis `dictionary.txt` (LGPL), pour le contexte des fiches et les contrôles, jamais pour l'export. Sa chaîne IDS n'est plus ingérée depuis le 28 septembre 2026 : la décomposition ne peut plus en dériver (`docs/sources-licences.md` §10). `etymologie` est la couche étymologique EN, `{type, hint, phonetic, semantic}`, `type` parmi `pictographic`, `ideographic`, `pictophonetic` ; elle reste distincte de la décomposition.
 - `graphies.json` : `[{c, strokes[], medians[]}]` depuis `graphics.txt`, autant de médianes que de traits.
 - `mots.json` : `[{traditionnel, simplifie, pinyin, definitions_en[]}]` depuis CC-CEDICT.
 - `listes.json` : `{ "<nom de liste>": [caractères] }`, chargé depuis `data/sources/listes/*.txt` (un sinogramme par ligne, `#` en commentaire, ni doublon ni non-sinogramme).
@@ -625,8 +620,9 @@ table ne s'y renomme jamais. `wenlu build` ne le lit pas.
   `kDefinition`. Fichier séparé parce que ces gloses sont anglaises : comme celles de
   CC-CEDICT, elles ne doivent jamais alimenter la génération des fiches FR.
 - `ids-secondaires.json` : `{source, licence, url, usage, ids: {caractère: IDS}}` depuis
-  `cjk-decomp.txt` (MIT), converti en IDS par `cjkdecomp.py`. Source de repli, utilisée
-  seulement là où Make Me a Hanzi donne `？` ou rien.
+  `cjk-decomp.txt` (MIT), converti en IDS par `cjkdecomp.py`. La source de la
+  décomposition, surcharges devant ; le nom du fichier date du temps où elle n'était que
+  le repli de Make Me a Hanzi.
 - `rapport.json` : décomptes du passage et caractères des listes absents du dictionnaire.
 
 ## Table GF 0014-2009 (story 1.2)
@@ -645,22 +641,23 @@ Quatre points de code portent deux composants distincts de la norme : ⺈, 丁, 
 
 `uv run wenlu build` écrit dans `data/work/build/`, hors dépôt :
 
-- `decompositions.json` : `{norme, table: {fichier, composants, groupes}, source_ids,
-  source_ids_secondaire, source_ids_surcharge,
+- `decompositions.json` : `{norme, table: {fichier, composants, groupes}, univers,
+  source_ids, source_ids_surcharge,
   caracteres: [{c, composants[], structure, reconcilie, inconnus[], cycle[], sources[]}]}`.
-  `composants` est la liste ordonnée des feuilles atteintes en descendant l'IDS de Make
-  Me a Hanzi jusqu'aux composants de la norme, dans l'ordre des opérandes IDS, qui est
-  l'ordre d'écriture. Un composant de la norme est une feuille : on n'y descend plus.
+  L'univers est celui de `graphies.json` (les 9 574 caractères de `graphics.txt`).
+  `composants` est la liste ordonnée des feuilles atteintes en descendant l'IDS —
+  celui d'`ids.tsv` s'il existe, sinon celui de cjk-decomp, formes de notation ramenées
+  à la norme par `notation-candidats.tsv` (⺹ → 耂) — jusqu'aux composants de la norme,
+  dans l'ordre des opérandes IDS, qui est l'ordre d'écriture. Un composant de la norme est une feuille : on n'y descend plus.
   `structure` est l'IDS réduit à ces feuilles. `inconnus` liste les feuilles absentes de
   la norme — elles figurent quand même dans `composants` — et `cycle` le chemin de
   descente qui boucle. `reconcilie` vaut vrai quand les deux sont vides. `sources` nomme
-  les sources d'IDS descendues (`makemeahanzi`, `cjk-decomp`, `surcharge`) : un
-  caractère marqué `cjk-decomp` est à relire, ses feuilles étant plus sûres que sa
-  structure.
+  les sources d'IDS descendues (`cjk-decomp`, `surcharge`) ; `dictionary.txt` n'est pas
+  lu. Chaque caractère exporté a été relu contre la norme à la migration : ce que
+  cjk-decomp ne rendait pas s'est écrit dans `ids.tsv`.
 - `ecarts.md` : décompte des caractères réconciliés, composants inconnus classés par
-  fréquence avec leur point de code, cycles, apport de l'IDS secondaire, et état des
-  listes prioritaires (seuil 255, HSK 1) avec les caractères que l'IDS secondaire a
-  réconciliés, à relire.
+  fréquence avec leur point de code, cycles, apport de cjk-decomp, et état des
+  listes prioritaires (seuil 255, HSK 1).
 
 ### Surcharges des sources, versionnées
 
@@ -668,8 +665,11 @@ Les fichiers téléchargés ne se corrigent jamais sur place. Une erreur relevé
 corrige dans `data/sources/surcharges/`, une ligne et une raison par correction
 (`surcharges.py`) :
 
-- `ids.tsv` (`c`, `ids`, `raison`) : l'IDS passe devant Make Me a Hanzi et cjk-decomp,
-  et la décomposition qui le descend porte la source `surcharge`. Une surcharge n'entre
+- `ids.tsv` (`c`, `ids`, `raison`) : l'IDS passe devant cjk-decomp, et la décomposition
+  qui le descend porte la source `surcharge`. Chaque ligne est rédigée pour Wenlu, jamais
+  recopiée d'une source ; celles de la migration du 28 septembre 2026 le disent
+  (« rédigé pour Wenlu d'après GF 0014-2009 ») et nomment tout écart à la norme repris
+  pour ne rien changer à l'app (`decompositions-non-corrigees.md`). Une surcharge n'entre
   que si la table de la norme la justifie : un composant propre (那字旁 pour 那,
   学字头 pour 学), un point de code de notation ramené à celui de la norme (㇔ → 丶,
   ⺼ → 月), ou une source qui se trompe de composant (壴, 在). Les 30 composants sans
@@ -677,8 +677,14 @@ corrige dans `data/sources/surcharges/`, une ligne et une raison par correction
 - `equivalences.tsv` (`forme`, `composant`, `raison`) : un point de code de la source
   qui porte des tracés est apparié au composant que la norme écrit autrement, sans
   être renommé (⺮ pour 𥫗, 竹头) : la feuille reste dessinable.
+- `notation-candidats.tsv` (`forme`, `composant`, `raison`) : une forme de notation de
+  cjk-decomp, absente de la table, ramenée au composant de la norme avant la descente
+  (⺹ → 耂, 㐅 → 乂) ; la décomposition garde la source `cjk-decomp`. Une forme de la
+  table ne s'y renomme jamais (卄 n'est pas 艹 : cela se corrige dans `ids.tsv`).
 - `pinyin.tsv` (`c`, `lectures`, `raison`) : les lectures remplacent celles de Make Me
   a Hanzi (contexte des fiches) et d'Unihan (export). La première est la principale.
+  Une forme de composant sans lecture dans Unihan y prend celle du caractère plein
+  (⺮ zhú, comme 竹) : l'export n'a plus de pinyin de repli tiré de `dictionary.txt`.
 - `decoupes.tsv` (`composant`, `hôte`, `indices`, `recadrage`, `raison`) : un composant
   de la norme que `graphics.txt` ne dessine pas prend les traits désignés d'un caractère
   hôte qui le contient (以 pour 以字旁, 左 pour 𠂇, 学 pour 𭕄…), comptés à partir de 0
@@ -729,8 +735,11 @@ est bloquant.
 
 ### `parcours-lire.json`, `parcours-hsk.json`
 
-`{parcours, liste, regle, critere_frequence, depart[], cible[], compte, jours[], briques[],
+`{parcours, liste, regle, ordre, critere_frequence, depart[], cible[], compte, jours[], briques[],
 briques_muettes[], briques_decoupees[], non_reconcilies[], absents[]}`.
+
+- `ordre` : d'où viennent les jours — `figé : data/sources/parcours/ordre-<nom>.tsv`
+  (le cas du dépôt depuis le 28 septembre 2026) ou `calculé (aucun ordre figé)`.
 
 - `parcours` vaut `lire` (liste cible `seuil-255`, puis les seuils suivants) ou `hsk`
   (liste cible `hsk-1`). Même graphe, seule la liste change.
@@ -748,7 +757,19 @@ briques_muettes[], briques_decoupees[], non_reconcilies[], absents[]}`.
   pose d'un coup, et la session complète reprend au jour qui suit (`jourApresDepart`
   de `app/src/lib/premiere.ts`). La règle d'une brique nouvelle par jour tient ; seul
   l'ordre de priorité cède.
-- Ordre : tri topologique — une brique avant tout ce qui la contient. Parmi les
+- Ordre figé : les jours se lisent dans `data/sources/parcours/ordre-<nom>.tsv`,
+  versionné, et ne se recalculent plus. `wenlu build` valide le fichier contre le graphe
+  — départ imposé, une brique nouvelle au plus par jour, chaque composé après toutes ses
+  briques, toute la liste couverte, rien qui ne soit plus à apprendre, les non
+  réconciliés à la fin — et s'arrête sur `OrdreInvalide` s'il ne tient plus : un
+  changement de source ou de décomposition ne déplace jamais un jour en silence. Le
+  fichier : un en-tête `jour brique composes statut`, puis une ligne par jour, séparée
+  par des tabulations ; `-` pour une case vide, `ferme` pour les jours de fermeture.
+  `uv run wenlu parcours figer` le réécrit depuis le build (`--recalculer` : depuis le
+  calcul ci-dessous) ; son diff se relit avant d'être versionné. Premier gel : l'ordre
+  de la version 0.1.0, jour pour jour, au moment où la décomposition a quitté
+  `dictionary.txt` (`docs/sources-licences.md` §10).
+- Calcul, qui ne sert plus qu'à proposer un ordre : tri topologique — une brique avant tout ce qui la contient. Parmi les
   candidats prêts, priorité aux caractères de la liste cible, puis à ce qui devient
   lisible le jour même, puis à la fréquence, puis à l'ordre de la liste. Make Me a Hanzi
   ne fournit aucun rang de fréquence : le repli documenté (`critere_frequence`) est le
@@ -766,7 +787,8 @@ briques_muettes[], briques_decoupees[], non_reconcilies[], absents[]}`.
   dictionnaire.
   Ils ferment le parcours, marqués `non_reconcilie` : jamais oubliés.
 
-`uv run wenlu check` ajoute trois contrôles : « cycles du graphe » (bloquant),
+`uv run wenlu check` ajoute quatre contrôles : « cycles du graphe » (bloquant),
+« parcours figés » (bloquant : chaque parcours a son ordre versionné et le build le suit),
 « caractères de liste absents du parcours » (bloquant) et « briques muettes » (signalé).
 
 ## Fiches FR et EN (story 1.4)

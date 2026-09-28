@@ -1,4 +1,5 @@
 import { afterEach, describe, it, expect, vi } from 'vitest';
+import { lireTraits } from './strokes';
 import { readFileSync } from 'node:fs';
 import {
   FICHIER_FAMILLE_DEPART,
@@ -62,9 +63,9 @@ const mot = JSON.parse(
   readFileSync(new URL('../../public/data/demo/textes/天天.json', import.meta.url), 'utf8')
 ) as MotDepart;
 
-const traits = JSON.parse(
-  readFileSync(new URL('../../public/strokes-demo.json', import.meta.url), 'utf8')
-) as Record<string, unknown>;
+const traits = lireTraits(
+  JSON.parse(readFileSync(new URL('../../public/strokes-demo.json', import.meta.url), 'utf8'))
+);
 
 /** La maquette fait foi. Les balises de mise en gras ne comptent pas dans le texte. */
 const maquette = readFileSync(

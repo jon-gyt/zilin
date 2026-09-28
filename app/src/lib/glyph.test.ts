@@ -3,7 +3,9 @@ import { readFileSync } from 'node:fs';
 import { glyph, horsPolice, type StrokeData } from './glyph';
 import { lireTraits, loadStrokes } from './strokes';
 
-const demo = JSON.parse(readFileSync(new URL('../../public/strokes-demo.json', import.meta.url), 'utf8')) as Record<string, StrokeData>;
+const demo: Record<string, StrokeData> = lireTraits(
+  JSON.parse(readFileSync(new URL('../../public/strokes-demo.json', import.meta.url), 'utf8'))
+);
 const zhu = demo['住'];
 const all = (re: RegExp, s: string) => [...s.matchAll(re)];
 
@@ -11,6 +13,14 @@ describe('rendu depuis les traits', () => {
   it('住 existe dans strokes-demo.json avec une médiane par trait', () => {
     expect(zhu.s).toHaveLength(7);
     expect(zhu.m).toHaveLength(7);
+  });
+  it("strokes-demo.json porte l'en-tête de l'Arphic Public License, comme traits/ (APL §2 a)", () => {
+    const brut = JSON.parse(
+      readFileSync(new URL('../../public/strokes-demo.json', import.meta.url), 'utf8')
+    ) as Record<string, unknown>;
+    expect(brut.license).toBe('Arphic Public License');
+    for (const cle of ['license_file', 'source', 'source_url', 'modified']) expect(brut[cle]).toBeTruthy();
+    expect(Object.keys(demo)).toHaveLength(89);
   });
   it('un grand caractère est un SVG, un chemin par trait, jamais une police', () => {
     const h = glyph('住', zhu, 120);

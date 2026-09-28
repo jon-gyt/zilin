@@ -8,8 +8,10 @@ Etiquette = Literal["atteste", "mnemotechnique"]
 #: `sans_fiche` : le caractère s'exporte pour sa décomposition et ses traits,
 #: sans aucun texte — il n'y a pas encore de fiche relue pour lui (brief §17).
 Statut = Literal["relu", "sans_fiche"]
-#: D'où vient la chaîne IDS descendue pour la décomposition (traçabilité de licence).
-SourceIds = Literal["makemeahanzi", "cjk-decomp", "surcharge"]
+#: D'où vient la chaîne IDS descendue pour la décomposition (traçabilité de licence) :
+#: cjk-decomp (MIT) ou nos surcharges. `makemeahanzi` (LGPL) n'est plus une valeur
+#: permise depuis le 28 septembre 2026 : une fiche qui la porterait ne s'exporte pas.
+SourceIds = Literal["cjk-decomp", "surcharge"]
 
 
 class Brique(BaseModel):

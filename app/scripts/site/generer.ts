@@ -213,7 +213,8 @@ const FR: Textes = {
     derives: 'fichiers de tracés dérivés',
     pinyin: 'Pinyin : Unihan, © Unicode, Inc.,',
     licenceUnicode: 'licence Unicode',
-    decomposition: 'Décomposition selon la norme GF 0014-2009, réconciliée par le pipeline Wenlu.',
+    decomposition:
+      'Décomposition selon la norme GF 0014-2009, réconciliée par le pipeline Wenlu depuis ses propres surcharges et cjk-decomp (licence MIT).',
     mots: 'Mots : CC-CEDICT, publié par MDBG, fichier modifié, sous',
     licences: 'Licences et sources',
     confidentialite: 'Confidentialité',
@@ -322,7 +323,8 @@ const EN: Textes = {
     derives: 'derived stroke files',
     pinyin: 'Pinyin: Unihan, © Unicode, Inc.,',
     licenceUnicode: 'Unicode license',
-    decomposition: 'Components follow the GF 0014-2009 standard, reconciled by the Wenlu pipeline.',
+    decomposition:
+      'Components follow the GF 0014-2009 standard, reconciled by the Wenlu pipeline from its own overrides and cjk-decomp (MIT License).',
     mots: 'Words: CC-CEDICT, published by MDBG, modified, under',
     licences: 'Licenses and sources',
     confidentialite: 'Privacy',
@@ -698,6 +700,7 @@ function pageLicences(ctx: Contexte, ex: Export, langue: Langue): string {
     ['traits/ARPHICPL.TXT', 'Arphic Public License'],
     ['traits/MODIFICATIONS.md', 'MODIFICATIONS.md'],
     ['UNICODE-LICENSE.txt', 'Unicode License'],
+    ['MIT-cjk-decomp.txt', 'MIT License (cjk-decomp)'],
     ['LICENCES.md', 'LICENCES.md']
   ];
   const corps = `<div class="licences">

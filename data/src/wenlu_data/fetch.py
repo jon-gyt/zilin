@@ -45,7 +45,8 @@ UNIHAN_UNICODE = unihan.URL_OFFICIELLE
 UNIHAN_MIROIR = unihan.URL_MIROIR
 ENTETE_UNIHAN = unihan.ENTETE
 
-# cjk-decomp : décompositions sous licence permissive, source d'IDS de repli.
+# cjk-decomp : décompositions sous MIT (au choix parmi six), source de la décomposition
+# exportée derrière nos surcharges (docs/sources-licences.md §10).
 # Le projet d'origine (codeplex) a fermé ; le fork `amake` fait référence.
 CJKDECOMP = cjkdecomp.URL
 

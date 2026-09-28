@@ -15,8 +15,7 @@ import pytest
 from conftest import SURCHARGES_REELLES
 from wenlu_data import export, surcharges
 from wenlu_data.gf0014 import (
-    SOURCE_MMAH,
-    SOURCE_SECONDAIRE,
+    SOURCE_CJK_DECOMP,
     TableInvalide,
     analyser_ids,
     charger_table,
@@ -91,20 +90,20 @@ def test_fichier_absent_vaut_table_vide(tmp_path: Path) -> None:
 # --------------------------------------------------------------------------- réconciliation
 
 
-def test_surcharge_passe_devant_les_deux_sources() -> None:
-    ids, sources = combiner_ids({"在": "⿸才土", "乞": "⿱？乙"}, {"乞": "⿱𠂉㇠"}, {"在": "⿸𠂇⿰丨土"})
+def test_surcharge_passe_devant_cjk_decomp() -> None:
+    ids, sources = combiner_ids({"在": "⿸才土", "乞": "⿱𠂉㇠"}, {"在": "⿸𠂇⿰丨土"})
     assert ids["在"] == "⿸𠂇⿰丨土" and sources["在"] == SOURCE_SURCHARGE
-    assert sources["乞"] == SOURCE_SECONDAIRE
-    ids, sources = combiner_ids({"在": "⿸才土"}, {}, {})
-    assert sources["在"] == SOURCE_MMAH
+    assert sources["乞"] == SOURCE_CJK_DECOMP
+    ids, sources = combiner_ids({"在": "⿸才土"}, {})
+    assert sources["在"] == SOURCE_CJK_DECOMP
 
 
-def _decomposer(caracteres: dict[str, str], secondaires: dict[str, str] | None = None) -> dict[str, object]:
-    """Réconcilie avec la vraie table, les vraies surcharges et les IDS donnés."""
+def _decomposer(caracteres: dict[str, str], autres: dict[str, str] | None = None) -> dict[str, object]:
+    """Réconcilie avec la vraie table, les vraies surcharges et les IDS donnés (cjk-decomp)."""
     table = charger_table(equivalences=surcharges.charger_equivalences(reelles("EQUIVALENCES")))
     ids = surcharges.charger_ids(reelles("IDS"))
-    entrees = [{"c": c, "decomposition": d} for c, d in caracteres.items()]
-    return {d.c: d for d in reconcilier(entrees, table, secondaires, ids)}
+    principaux = {c: d for c, d in {**caracteres, **(autres or {})}.items() if d != "？"}
+    return {d.c: d for d in reconcilier(list(caracteres), table, principaux, ids)}
 
 
 def test_xi_retrouve_shi_sous_le_tambour() -> None:
@@ -198,10 +197,11 @@ def test_les_surcharges_du_depot_se_lisent() -> None:
         assert pinyin[c] == lectures
     ids = surcharges.charger_ids(reelles("IDS"))
     table = charger_table(equivalences=surcharges.charger_equivalences(reelles("EQUIVALENCES")))
-    # Chaque cible nommée par une surcharge est un composant de la norme.
+    # Chaque cible nommée par une surcharge est un composant de la norme, hormis ⺍ que
+    # 兴 et 举 gardent, non réconciliés (decompositions-non-corrigees.md).
     for c, texte in ids.items():
         feuilles = [f for f in _feuilles(analyser_ids(texte))]
-        assert all(f in table or f in ids for f in feuilles), (c, texte)
+        assert all(f in table or f in ids or (f == "⺍" and c in "兴举") for f in feuilles), (c, texte)
 
 
 def _feuilles(noeud: object) -> list[str]:
@@ -219,3 +219,14 @@ def test_les_mots_exclus_du_depot() -> None:
     ).split():
         assert mot in exclus, mot
     assert all(raison for raison in exclus.values())
+
+
+def test_les_surcharges_rédigées_pour_wenlu_le_disent() -> None:
+    """Règle de licence (§10) : chaque décomposition écrite à la migration dit sa provenance."""
+    texte = reelles("IDS").read_text(encoding="utf-8")
+    section = texte[texte.index("# 3. Décompositions rédigées pour Wenlu"):]
+    lignes = [l for l in section.splitlines() if l and not l.startswith("#")]
+    assert len(lignes) >= 50
+    for ligne in lignes:
+        assert "rédigé pour Wenlu d'après GF 0014-2009" in ligne.split("\t")[2], ligne
+

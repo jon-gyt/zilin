@@ -21,7 +21,7 @@ alimenter la génération des fiches FR : elle est écrite dans un fichier sépa
 (voir `data/schema.md` et `docs/sources-licences.md` §4.2).
 
 Unihan ne décompose pas les caractères : aucun champ `kIDS` n'existe en
-Unicode 17.0.0. La source d'IDS de repli est `cjkdecomp.py`.
+Unicode 17.0.0 ni 18.0.0. La source d'IDS est `cjkdecomp.py`, derrière nos surcharges.
 
 Entrée : `Unihan.zip` tel que publié par Unicode, ou un dossier contenant les
 fichiers `Unihan_*.txt` extraits. Chaque fichier lu doit porter son en-tête

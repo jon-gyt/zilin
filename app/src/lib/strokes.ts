@@ -5,8 +5,9 @@
  * Deux fichiers, une seule forme lue : `traits/<racine>.json` de l'export versionné,
  * qui porte son en-tête de licence (Arphic Public License) et range les tracés sous la
  * clé `traits` — c'est la source des 472 caractères de l'export ; et
- * `strokes-demo.json`, la table nue de la maquette, qui reste le repli pour les 89
- * caractères servis hors export (anecdotes, textes de démonstration).
+ * `strokes-demo.json`, les tracés de la maquette, qui restent le repli pour les 89
+ * caractères servis hors export (anecdotes, textes de démonstration) ; eux aussi sous
+ * l'Arphic Public License, avec le même en-tête et la même clé `traits`.
  */
 import type { StrokeData } from './glyph';
 
@@ -22,9 +23,9 @@ function estTrace(v: unknown): v is StrokeData {
 }
 
 /**
- * Les tracés d'un fichier, quelle que soit sa forme : la clé `traits` de l'export, ou
- * la table nue de `strokes-demo.json`. Rien d'autre n'est lu — l'en-tête de licence
- * reste dans le fichier, il ne se recopie pas dans l'app.
+ * Les tracés d'un fichier, quelle que soit sa forme : la clé `traits` d'un fichier sous
+ * en-tête de licence (l'export, `strokes-demo.json`), ou une table nue. Rien d'autre
+ * n'est lu — l'en-tête de licence reste dans le fichier, il ne se recopie pas dans l'app.
  */
 export function lireTraits(brut: unknown): StrokeSet {
   const o = brut as { traits?: unknown } | null;

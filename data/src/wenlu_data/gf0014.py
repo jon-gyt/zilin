@@ -5,26 +5,29 @@ un groupe réunissant un composant principal et ses variantes de forme (部件�
 La table est versionnée dans `data/sources/gf0014-2009/composants.tsv`, dont
 l'en-tête documente les sources, leurs empreintes et les écarts relevés.
 
-Réconciliation : Make Me a Hanzi fournit une chaîne IDS par caractère, qui n'est
-pas canonique. On la descend récursivement ; dès qu'une feuille appartient à la
-table, on s'y arrête — un composant de la norme est une feuille. L'ordre des
-opérandes IDS, qui est l'ordre d'écriture, est conservé.
+Réconciliation : cjk-decomp (MIT, voir `cjkdecomp.py`) fournit une chaîne IDS par
+caractère, qui n'est pas canonique. On la descend récursivement ; dès qu'une feuille
+appartient à la table, on s'y arrête — un composant de la norme est une feuille.
+L'ordre des opérandes IDS, qui est l'ordre d'écriture, est conservé. Quelques formes
+de notation de cjk-decomp hors de la table (⺹ pour 耂, 㐅 pour 乂…) sont d'abord
+ramenées au composant de la norme (`data/sources/surcharges/notation-candidats.tsv`).
 
 Un caractère est en écart quand sa décomposition atteint une feuille absente de
 la table (composant inconnu), quand son IDS est vide ou illisible, ou quand la
 descente boucle (cycle).
 
-Make Me a Hanzi note `？` l'élément qu'il ne décompose pas : ces caractères ne
-peuvent pas être réconciliés. Une source d'IDS secondaire sous licence permissive
-(cjk-decomp, voir `cjkdecomp.py`) prend alors le relais, et seulement alors. Le
-caractère garde la trace des sources d'IDS consultées (`sources`).
+Surcharges : une décomposition que cjk-decomp ne rend pas, ou rend mal, s'écrit
+dans `data/sources/surcharges/ids.tsv` (voir `surcharges.py`), rédigé pour le
+projet d'après la table de la norme, jamais dans le fichier téléchargé. Un IDS de
+surcharge passe devant cjk-decomp, et la décomposition qui le descend porte la
+source `surcharge`. Il peut nommer entre accolades un composant de la norme écrit
+en IDS, faute de point de code : `⿰{⿰𠄌丶}人`. Chaque décomposition garde la trace
+des sources d'IDS descendues (`sources`).
 
-Surcharges : une erreur de source relevée à la relecture se corrige dans
-`data/sources/surcharges/ids.tsv` (voir `surcharges.py`), jamais dans le fichier
-téléchargé. Un IDS de surcharge passe devant les deux sources, et la
-décomposition qui le descend porte la source `surcharge`. Il peut nommer entre
-accolades un composant de la norme écrit en IDS, faute de point de code :
-`⿰{⿰𠄌丶}人`.
+Make Me a Hanzi (`dictionary.txt`, LGPL 3.0+) ne fait plus partie de la chaîne
+depuis le 28 septembre 2026 (`docs/sources-licences.md` §10) : l'univers des
+caractères est celui de `graphics.txt` (`graphies.json`), et aucune décomposition
+ne peut plus porter la source `makemeahanzi`, que `wenlu check` refuse.
 """
 from __future__ import annotations
 
@@ -34,10 +37,17 @@ from dataclasses import dataclass
 from pathlib import Path
 from typing import Iterable, Iterator, Mapping, Sequence
 
-from .cjkdecomp import SOURCE as SOURCE_SECONDAIRE
+from .cjkdecomp import SOURCE as SOURCE_CJK_DECOMP
 from .outils import ecrire_json
 from .paths import BUILD, GF0014, INGEST
-from .surcharges import SOURCE_SURCHARGE, charger_equivalences, charger_ids
+from .surcharges import (
+    SOURCE_SURCHARGE,
+    SURCHARGES,
+    SurchargeInvalide,
+    charger_equivalences,
+    charger_ids,
+    parse_equivalences,
+)
 
 # Opérateurs de description idéographique (Unicode 2FF0..2FFB) et leur arité.
 OPERATEURS_IDS: dict[str, int] = {
@@ -45,11 +55,16 @@ OPERATEURS_IDS: dict[str, int] = {
     "⿶": 2, "⿷": 2, "⿸": 2, "⿹": 2, "⿺": 2, "⿻": 2,
 }
 
-# Make Me a Hanzi note d'un point d'interrogation pleine chasse un caractère
-# qu'il ne décompose pas.
+# Un élément non décomposé, noté d'un point d'interrogation pleine chasse (la marque
+# de Make Me a Hanzi, reprise pour les sources candidates que mesure `licences.py`).
 INCONNU = "？"
 
+#: L'ancienne source des décompositions, Make Me a Hanzi (`dictionary.txt`, LGPL 3.0+).
+#: Plus aucune décomposition ne la descend ; le nom reste pour que `wenlu check` la refuse.
 SOURCE_MMAH = "makemeahanzi"
+
+#: Les formes de notation de cjk-decomp ramenées à la norme, versionnées.
+NOTATION = SURCHARGES / "notation-candidats.tsv"
 
 COLONNES = (
     "sequence", "groupe", "forme", "type_forme", "nom",
@@ -305,7 +320,7 @@ def decomposer(
             composants.append(x)
             return x
         if sources_ids is not None:
-            sources[sources_ids.get(x, SOURCE_MMAH)] = None
+            sources[sources_ids[x]] = None
         return descendre(noeud, chemin + (x,))
 
     def descendre(noeud: Noeud, chemin: tuple[str, ...]) -> str:
@@ -327,55 +342,66 @@ def decomposer(
     )
 
 
-def index_ids(caracteres: Iterable[Mapping[str, object]]) -> dict[str, str]:
-    """Indexe `caracteres.json` : caractère -> chaîne IDS de Make Me a Hanzi."""
-    return {str(c["c"]): str(c.get("decomposition") or "") for c in caracteres}
+def charger_notation(table: TableGF0014, chemin: Path | None = None) -> dict[str, str]:
+    """`notation-candidats.tsv` : forme de notation hors table → composant de la norme.
 
-
-def a_remplacer(ids: str, c: str) -> bool:
-    """Vrai si l'IDS de Make Me a Hanzi ne dit rien d'exploitable sur `c`.
-
-    Trois cas : IDS vide, IDS qui se réduit au caractère lui-même, et IDS qui
-    porte le `？` de Make Me a Hanzi — fût-ce sur un seul opérande, car la
-    descente s'y arrête et le caractère reste en écart.
+    Une forme de la table est un composant de la norme et ne se renomme jamais ; une
+    cible hors table ne mènerait nulle part. Les deux refusent le fichier.
     """
-    return not ids or ids == c or INCONNU in ids
+    chemin = chemin or NOTATION
+    lignes = chemin.read_text(encoding="utf-8").splitlines() if chemin.exists() else []
+    notation = parse_equivalences(lignes, chemin.name)
+    for forme, composant in notation.items():
+        if forme in table or composant not in table:
+            raise SurchargeInvalide(
+                f"{chemin.name} : {forme} → {composant} : {forme} doit être hors table, {composant} dedans"
+            )
+    return notation
+
+
+def noter(ids: Mapping[str, str], notation: Mapping[str, str]) -> dict[str, str]:
+    """Remplace dans chaque IDS les formes de notation par le composant de la norme."""
+    if not notation:
+        return dict(ids)
+    return {c: "".join(notation.get(x, x) for x in v) for c, v in ids.items()}
 
 
 def combiner_ids(
     principaux: Mapping[str, str],
-    secondaires: Mapping[str, str] | None = None,
     surcharges: Mapping[str, str] | None = None,
 ) -> tuple[dict[str, str], dict[str, str]]:
     """Fusionne les sources d'IDS. Rend (IDS retenus, source de chaque IDS).
 
-    La source secondaire ne sert que là où Make Me a Hanzi ne donne rien
-    d'exploitable, et pour les caractères qu'il ignore — ceux que la descente
-    rencontre sans pouvoir les ouvrir. Une surcharge versionnée passe devant les
-    deux : c'est une correction relue, avec sa raison.
+    cjk-decomp partout où il décrit un caractère ; une surcharge versionnée, rédigée
+    pour le projet, passe devant : c'est une décomposition relue, avec sa raison.
     """
     ids = dict(principaux)
-    sources = {c: SOURCE_MMAH for c in principaux}
-    for c, secondaire in (secondaires or {}).items():
-        if c not in ids or a_remplacer(ids[c], c):
-            ids[c] = secondaire
-            sources[c] = SOURCE_SECONDAIRE
+    sources = {c: SOURCE_CJK_DECOMP for c in principaux}
     for c, surcharge in (surcharges or {}).items():
         ids[c] = surcharge
         sources[c] = SOURCE_SURCHARGE
     return ids, sources
 
 
+def univers(elements: Iterable[str | Mapping[str, object]]) -> list[str]:
+    """Les caractères à décomposer, dans l'ordre : chaînes, ou entrées `{c: …}`."""
+    return [e if isinstance(e, str) else str(e["c"]) for e in elements]
+
+
 def reconcilier(
-    caracteres: Iterable[Mapping[str, object]],
+    caracteres: Iterable[str | Mapping[str, object]],
     table: TableGF0014,
-    ids_secondaires: Mapping[str, str] | None = None,
+    ids_principaux: Mapping[str, str] | None = None,
     surcharges: Mapping[str, str] | None = None,
 ) -> list[Decomposition]:
-    """Décompose tous les caractères ingérés, dans l'ordre de la source."""
-    principaux = index_ids(caracteres)
-    ids, sources = combiner_ids(principaux, ids_secondaires, surcharges)
-    return [decomposer(c, table, ids, sources) for c in principaux]
+    """Décompose tous les caractères de l'univers, dans l'ordre donné.
+
+    `ids_principaux` : les IDS de cjk-decomp, formes de notation déjà ramenées à la
+    norme (`noter`). La descente lit aussi les IDS des caractères hors de l'univers
+    (un composant intermédiaire rare).
+    """
+    ids, sources = combiner_ids(ids_principaux or {}, surcharges)
+    return [decomposer(c, table, ids, sources) for c in univers(caracteres)]
 
 
 # ------------------------------------------------------------------------- rapport
@@ -395,7 +421,7 @@ def nom_unicode(forme: str) -> str:
 def forme_de_radical(forme: str) -> bool:
     """Vrai si `forme` est un point de code des blocs de radicaux, non un idéogramme.
 
-    Make Me a Hanzi écrit parfois un radical (⺼, ⺮) là où la norme donne
+    Une source d'IDS écrit parfois un radical (⺼, ⺮) là où la norme donne
     l'idéogramme correspondant ou l'une de ses variantes de forme. Ces feuilles
     sont des écarts de notation, pas des composants absents de la norme.
     """
@@ -405,7 +431,7 @@ def forme_de_radical(forme: str) -> bool:
 def forme_de_trait(forme: str) -> bool:
     """Vrai si `forme` est un point de code du bloc des traits (㇐, ㇑), non un idéogramme.
 
-    L'IDS secondaire descend parfois jusqu'au trait isolé là où la norme donne
+    cjk-decomp descend parfois jusqu'au trait isolé là où la norme donne
     l'idéogramme correspondant (一, 丨, 丶) : écart de notation, pas de contenu.
     """
     return nom_unicode(forme).startswith("CJK STROKE")
@@ -432,29 +458,30 @@ def rapport_ecarts(
     ok = [d for d in decompositions if d.reconcilie]
     cycles = [d for d in decompositions if d.cycle]
     inconnus = _frequence_inconnus(decompositions)
-    secondaire = [d for d in decompositions if SOURCE_SECONDAIRE in d.sources]
+    cjk = [d for d in decompositions if SOURCE_CJK_DECOMP in d.sources]
     surcharges_descendues = [d for d in decompositions if SOURCE_SURCHARGE in d.sources]
 
     part = f"{100 * len(ok) / total:.1f} %" if total else "—"
     lignes = [
         "# Écarts de réconciliation avec GF 0014-2009",
         "",
-        "Produit par `uv run wenlu build`. Source des IDS : `dictionary.txt`",
-        f"(Make Me a Hanzi), non canonique, avec `{SOURCE_SECONDAIRE}` en repli là où elle",
-        f"donne `{INCONNU}` ou rien. Table : `data/sources/gf0014-2009/composants.tsv`.",
+        f"Produit par `uv run wenlu build`. Source des IDS : `{SOURCE_CJK_DECOMP}` (MIT), non",
+        "canonique, formes de notation ramenées à la norme ; les surcharges versionnées",
+        "(`data/sources/surcharges/ids.tsv`, rédigées pour Wenlu) passent devant.",
+        "Table : `data/sources/gf0014-2009/composants.tsv`.",
         "",
         "## Décompte",
         "",
         "| Mesure | Valeur |",
         "|---|---|",
         f"| Composants de la norme chargés | {len(table)} sur 514, {table.groupes} groupes |",
-        f"| Caractères ingérés | {total} |",
+        f"| Caractères de l'univers (`graphics.txt`) | {total} |",
         f"| Caractères réconciliés | {len(ok)} ({part}) |",
         f"| Caractères en écart | {total - len(ok)} |",
         f"| Composants inconnus distincts | {len(inconnus)} |",
         f"| Caractères avec cycle | {len(cycles)} |",
-        f"| Caractères descendus avec l'IDS secondaire | {len(secondaire)}"
-        f" ({sum(1 for d in secondaire if d.reconcilie)} réconciliés) |",
+        f"| Caractères descendus avec un IDS de {SOURCE_CJK_DECOMP} | {len(cjk)}"
+        f" ({sum(1 for d in cjk if d.reconcilie)} réconciliés) |",
         f"| Surcharges d'IDS (`data/sources/surcharges/ids.tsv`) | {len(surcharges)} lignes,"
         f" {len(surcharges_descendues)} caractères descendus avec |",
         "",
@@ -480,24 +507,25 @@ def rapport_ecarts(
         d for d in decompositions
         if d.inconnus and not d.cycle and all(forme_de_trait(x) for x in d.inconnus)
     ]
-    inconnu_mmah = sum(1 for d in decompositions if INCONNU in d.inconnus)
+    sans_ids = sum(1 for d in decompositions if d.composants == (d.c,) and not d.reconcilie)
     lignes += [
         "## Lecture",
         "",
-        f"- `{INCONNU}` est la marque de Make Me a Hanzi pour un élément qu'il ne décompose"
-        f" pas : {inconnu_mmah} caractères restent dessus. Aucune table ne peut les"
-        " réconcilier : c'est le rôle de la source d'IDS secondaire, qui ne sert que là.",
-        f"- {len(secondaire)} caractères ont été descendus avec un IDS de"
-        f" `{SOURCE_SECONDAIRE}` (licence permissive), dont"
-        f" {sum(1 for d in secondaire if d.reconcilie)} réconciliés. Les feuilles en"
+        f"- {sans_ids} caractères n'ont aucun IDS utilisable (ni cjk-decomp ni surcharge) :"
+        " ils restent des feuilles en écart. Une surcharge rédigée d'après la norme les"
+        " décompose, au besoin.",
+        f"- {len(cjk)} caractères ont été descendus avec un IDS de"
+        f" `{SOURCE_CJK_DECOMP}` (MIT), dont"
+        f" {sum(1 for d in cjk if d.reconcilie)} réconciliés. Les feuilles en"
         " sortent fiables, la structure moins : les codes de disposition de cette source"
-        " sont plus fins que les douze opérateurs IDS. À relire avant publication.",
+        " sont plus fins que les douze opérateurs IDS. Tout caractère exporté a été relu"
+        " contre la norme (`docs/sources-licences.md` §10).",
         f"- {len(radicaux)} composants inconnus sont des points de code des blocs de"
         f" radicaux ({' '.join(radicaux)}) là où la norme donne l'idéogramme ou l'une de"
         f" ses variantes : écart de notation, pas de contenu. Les normaliser réconcilierait"
         f" {len(seuls_radicaux)} caractères de plus.",
         f"- {len(traits)} composants inconnus sont des points de code de traits"
-        f" ({' '.join(traits)}), apportés par l'IDS secondaire là où la norme donne"
+        f" ({' '.join(traits)}), apportés par cjk-decomp là où la norme donne"
         f" l'idéogramme (一, 丨, 丶) : même écart de notation. Les normaliser réconcilierait"
         f" {len(seuls_traits)} caractères de plus.",
         "- Les autres composants inconnus sont des idéogrammes absents de la norme, qui ne"
@@ -539,11 +567,11 @@ def rapport_ecarts(
             for c in caracteres
             if c in par_caractere
             and par_caractere[c].reconcilie
-            and SOURCE_SECONDAIRE in par_caractere[c].sources
+            and par_caractere[c].sources == (SOURCE_CJK_DECOMP,)
         ]
         if repris:
             lignes += [
-                f"Réconciliés grâce à l'IDS secondaire, à relire : {' '.join(repris)}",
+                f"Réconciliés par {SOURCE_CJK_DECOMP} seul : {' '.join(repris)}",
                 "",
             ]
         corriges = [
@@ -564,18 +592,20 @@ def rapport_ecarts(
                 )
             lignes.append("")
         if absents:
-            lignes += [f"Absents de `caracteres.json` : {' '.join(absents)}", ""]
+            lignes += [f"Absents de `graphies.json` : {' '.join(absents)}", ""]
     return "\n".join(lignes).rstrip() + "\n"
 
 
 # --------------------------------------------------------------------------- build
 
 
+#: Les IDS de cjk-decomp, écrits par `wenlu ingest`. Le nom date du temps où cjk-decomp
+#: n'était que le repli de Make Me a Hanzi ; il est gardé pour ne pas casser `work/`.
 IDS_SECONDAIRES = "ids-secondaires.json"
 
 
 def charger_ids_secondaires(ingest: Path) -> dict[str, str]:
-    """Charge `ids-secondaires.json` s'il existe, sinon rend un dictionnaire vide."""
+    """Charge `ids-secondaires.json` (cjk-decomp) s'il existe, sinon rend un dictionnaire vide."""
     fichier = ingest / IDS_SECONDAIRES
     if not fichier.exists():
         return {}
@@ -595,12 +625,14 @@ def document_decompositions(
             "composants": len(table),
             "groupes": table.groupes,
         },
-        "source_ids": "Make Me a Hanzi, dictionary.txt (non canonique)",
-        "source_ids_secondaire": (
-            f"{SOURCE_SECONDAIRE} (IDS de repli quand Make Me a Hanzi donne ？ ou rien)"
+        "univers": "graphics.txt (Make Me a Hanzi, liste des caractères dessinés)",
+        "source_ids": (
+            f"{SOURCE_CJK_DECOMP} (MIT, non canonique ; formes de notation ramenées à la norme"
+            " par data/sources/surcharges/notation-candidats.tsv)"
         ),
         "source_ids_surcharge": (
-            f"{SOURCE_SURCHARGE} (data/sources/surcharges/ids.tsv, devant les deux sources)"
+            f"{SOURCE_SURCHARGE} (data/sources/surcharges/ids.tsv, rédigé pour Wenlu, devant"
+            f" {SOURCE_CJK_DECOMP})"
         ),
         "caracteres": [
             {
@@ -622,22 +654,29 @@ def build(
     sortie: Path | None = None,
     table: TableGF0014 | None = None,
     surcharges: Mapping[str, str] | None = None,
+    notation: Mapping[str, str] | None = None,
 ) -> dict[str, object]:
     """Réconcilie toutes les décompositions et écrit decompositions.json et ecarts.md.
 
-    `surcharges` vaut par défaut `data/sources/surcharges/ids.tsv`.
+    L'univers est celui de `graphies.json` (`graphics.txt`) ; les IDS, ceux de
+    cjk-decomp (`ids-secondaires.json`), formes de notation ramenées à la norme, les
+    surcharges devant. `dictionary.txt` n'est pas lu.
+
+    `surcharges` vaut par défaut `data/sources/surcharges/ids.tsv`, `notation`
+    `data/sources/surcharges/notation-candidats.tsv`.
     """
     ingest = ingest or INGEST
     sortie = sortie or BUILD
     table = table or charger_table()
     surcharges = charger_ids() if surcharges is None else surcharges
+    notation = charger_notation(table) if notation is None else notation
 
-    caracteres = json.loads((ingest / "caracteres.json").read_text(encoding="utf-8"))
+    graphies = json.loads((ingest / "graphies.json").read_text(encoding="utf-8"))
     fichier_listes = ingest / "listes.json"
     listes = json.loads(fichier_listes.read_text(encoding="utf-8")) if fichier_listes.exists() else {}
-    secondaires = charger_ids_secondaires(ingest)
+    cjk = noter(charger_ids_secondaires(ingest), notation)
 
-    decompositions = reconcilier(caracteres, table, secondaires, surcharges)
+    decompositions = reconcilier(graphies, table, cjk, surcharges)
     sortie.mkdir(parents=True, exist_ok=True)
     ecrire_json(sortie / "decompositions.json", document_decompositions(decompositions, table))
     (sortie / "ecarts.md").write_text(
@@ -653,11 +692,12 @@ def build(
         "en_ecart": len(decompositions) - ok,
         "composants_inconnus": len(_frequence_inconnus(decompositions)),
         "cycles": sum(1 for d in decompositions if d.cycle),
-        "ids_secondaires": len(secondaires) or f"source absente ({IDS_SECONDAIRES})",
-        "reconcilies_via_secondaire": sum(
-            1 for d in decompositions if d.reconcilie and SOURCE_SECONDAIRE in d.sources
+        "ids_cjk_decomp": len(cjk) or f"source absente ({IDS_SECONDAIRES})",
+        "reconcilies_via_cjk_decomp": sum(
+            1 for d in decompositions if d.reconcilie and SOURCE_CJK_DECOMP in d.sources
         ),
         "surcharges_ids": len(surcharges),
+        "decompositions_makemeahanzi": sum(1 for d in decompositions if SOURCE_MMAH in d.sources),
     }
     for nom in PRIORITAIRES:
         attendus = listes.get(nom, [])

@@ -23,13 +23,21 @@ from wenlu_data.graphe import (
     CycleDetecte,
     DepartImpossible,
     Graphe,
+    Jour,
+    OrdreInvalide,
+    Parcours,
     construire,
     controles,
     build,
     cycles,
+    charger_ordre,
     document_graphe,
+    ecrire_ordre,
+    figer,
+    lire_ordre,
     ordre_topologique,
     parcours,
+    parcours_fige,
     rangs_frequence,
 )
 
@@ -356,7 +364,85 @@ def test_controle_briques_muettes_signale_sans_bloquer(tmp_path: Path) -> None:
 def test_controles_passent_sur_un_graphe_sain(tmp_path: Path) -> None:
     build_dir, ingest_dir = _preparer(tmp_path, CARACTERES, ["林", "古"])
     build(sortie=build_dir, ingest=ingest_dir, depart={})
+    figer(sortie=build_dir)
+    build(sortie=build_dir, ingest=ingest_dir, depart={})
     assert all(c.ok for c in controles(sortie=build_dir))
+
+
+# ----------------------------------------------------------------------- ordre figé
+
+
+def test_ordre_fige_s_ecrit_et_se_relit_a_l_identique() -> None:
+    """Le fichier d'ordre rend les mêmes jours que ceux qu'on y a écrits."""
+    p = parcours(graphe(), ["林", "古", "看"], depart=())
+    assert tuple(lire_ordre(ecrire_ordre(p).splitlines())) == p.jours
+
+
+def test_build_suit_l_ordre_fige_et_non_le_calcul(tmp_path: Path) -> None:
+    """Règle : une fois figé, l'ordre ne se recalcule plus ; le build le lit tel quel."""
+    build_dir, ingest_dir = _preparer(tmp_path, CARACTERES, ["林", "古"])
+    build(sortie=build_dir, ingest=ingest_dir, depart={})
+    figer(sortie=build_dir)
+    # Un ordre valide, mais pas celui que le calcul choisirait : 十 et 古 d'abord.
+    jours = [Jour(1, "十"), Jour(2, "口", ("古",)), Jour(3, "木", ("林",))]
+    (tmp_path / "sans-ordres" / "ordre-lire.tsv").write_text(
+        ecrire_ordre(Parcours(nom="lire", liste="seuil-255", jours=tuple(jours))),
+        encoding="utf-8",
+    )
+    build(sortie=build_dir, ingest=ingest_dir, depart={})
+    lu = json.loads((build_dir / "parcours-lire.json").read_text(encoding="utf-8"))
+    assert [j["brique"] for j in lu["jours"]] == ["十", "口", "木"]
+    assert lu["ordre"].startswith("figé")
+    assert charger_ordre("lire") == jours
+
+
+def test_ordre_fige_refuse_un_compose_avant_ses_briques() -> None:
+    """Règle : un caractère n'entre que si toutes ses briques sont posées."""
+    jours = [Jour(1, "十", ("古",)), Jour(2, "口"), Jour(3, "木", ("林",))]
+    with pytest.raises(OrdreInvalide, match="古 posé avant 口"):
+        parcours_fige(graphe(), ["林", "古"], jours)
+
+
+def test_ordre_fige_refuse_un_caractere_oublie_ou_qui_n_est_plus_a_apprendre() -> None:
+    """Une décomposition changée se voit : le build refuse au lieu de déplacer un jour."""
+    oublie = [Jour(1, "木", ("林",))]
+    with pytest.raises(OrdreInvalide, match="jamais posés : 古"):
+        parcours_fige(graphe(), ["林", "古"], oublie)
+    en_trop = [Jour(1, "木", ("林",)), Jour(2, "月")]
+    with pytest.raises(OrdreInvalide, match="月 n'est plus à apprendre"):
+        parcours_fige(graphe(), ["林"], en_trop)
+
+
+def test_ordre_fige_refuse_deux_briques_le_meme_jour_ou_une_brique_en_compose() -> None:
+    """Règle produit : une seule brique nouvelle par session."""
+    jours = [Jour(1, "木", ("十",)), Jour(2, "口", ("古", "林"))]
+    with pytest.raises(OrdreInvalide, match="十 est une brique"):
+        parcours_fige(graphe(), ["林", "古"], jours)
+
+
+def test_controle_signale_un_parcours_non_fige(tmp_path: Path) -> None:
+    build_dir, ingest_dir = _preparer(tmp_path, CARACTERES, ["林", "古"])
+    build(sortie=build_dir, ingest=ingest_dir, depart={})
+    fige = next(c for c in controles(sortie=build_dir) if c.nom == "parcours figés")
+    assert not fige.ok and fige.bloquant
+
+
+def test_les_ordres_figes_du_depot_tiennent_contre_l_export() -> None:
+    """Les parcours d'`index.json` sont ceux des fichiers figés, jour pour jour."""
+    index = EXPORT / VERSION / "index.json"
+    if not index.exists():
+        pytest.skip("export absent")
+    from wenlu_data.graphe import ORDRES_REELS
+
+    document = json.loads(index.read_text(encoding="utf-8"))
+    for nom in PARCOURS:
+        fige = charger_ordre(nom, ORDRES_REELS)
+        assert fige is not None, nom
+        exporte = [
+            Jour(j["jour"], j["brique"], tuple(j["composes"]), j["non_reconcilie"])
+            for j in document["parcours"][nom]["jours"]
+        ]
+        assert exporte == fige, nom
 
 
 def test_build_ecrit_les_briques_muettes_dans_ecarts(tmp_path: Path) -> None:

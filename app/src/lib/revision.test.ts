@@ -1,4 +1,5 @@
 import { describe, it, expect } from 'vitest';
+import { lireTraits } from './strokes';
 import { readFileSync } from 'node:fs';
 import {
   A_REVOIR,
@@ -397,7 +398,7 @@ describe("les cartes de la première session et des jeux, dans le corpus d'Écha
     const traitsExport = index.familles.flatMap((f) =>
       Object.keys((lire(`${dossier}/${f.traits}`) as { traits: Record<string, unknown> }).traits)
     );
-    const traitsDemo = Object.keys(lire('../../public/strokes-demo.json') as Record<string, unknown>);
+    const traitsDemo = Object.keys(lireTraits(lire('../../public/strokes-demo.json')));
     const jeux = corpusDeJeu({
       fiches,
       voisins,

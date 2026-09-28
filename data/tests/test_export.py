@@ -74,7 +74,7 @@ def atelier(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> Path:
             "reconcilie": True,
             "inconnus": [],
             "cycle": [],
-            "sources": ["makemeahanzi"],
+            "sources": ["cjk-decomp"],
         }
         for c, parts in COMPOSES.items()
     ]
@@ -305,8 +305,19 @@ def test_chaque_famille_exportee_est_une_famille_valide(atelier: Path) -> None:
 
 def test_la_decomposition_nomme_sa_source(atelier: Path) -> None:
     rapport = export("0.1.0")
-    assert fiche_de(rapport.dossier, "亻", "休")["sources"] == ["makemeahanzi"]
+    assert fiche_de(rapport.dossier, "亻", "休")["sources"] == ["cjk-decomp"]
     assert fiche_de(rapport.dossier, "亻", "亻")["sources"] == [], "une brique ne se décompose pas"
+
+
+def test_une_decomposition_de_make_me_a_hanzi_ne_s_exporte_pas() -> None:
+    """Règle de licence (§10) : `makemeahanzi` (LGPL) n'est plus une source permise."""
+    from pydantic import ValidationError
+
+    from wenlu_data.models import Fiche
+
+    with pytest.raises(ValidationError):
+        Fiche(c="休", pinyin="xiū", fr="", en="", parts=["亻", "木"], sources=["makemeahanzi"],
+              origine_fr="", origine_en="")
 
 
 def test_l_element_ajoute_est_celui_du_jour(atelier: Path) -> None:
@@ -820,6 +831,44 @@ def test_le_controle_dit_si_l_export_est_a_jour(atelier: Path) -> None:
     }
     assert not perime["export : à jour"].ok and perime["export : à jour"].bloquant
     assert "0.1.0" in perime["export : à jour"].detail
+
+
+def test_les_traces_de_repli_portent_l_en_tete_apl(atelier: Path) -> None:
+    """`strokes-demo.json`, à côté de l'export, est sous l'APL : il porte son en-tête (§2 a)."""
+    export("0.1.0")
+    demo = export_mod.EXPORT.parent / "strokes-demo.json"
+    demo.write_text(json.dumps({"人": {"s": [], "m": []}}, ensure_ascii=False), encoding="utf-8")
+    resultats = {c.nom: c for c in controles(export_mod.EXPORT, build=export_mod.BUILD, ingest=export_mod.INGEST)}
+    controle = resultats["export : séparation des licences"]
+    assert not controle.ok and controle.bloquant
+    assert "strokes-demo.json : en-tête sans license" in controle.detail
+
+    demo.write_text(
+        json.dumps(
+            {
+                "license": "Arphic Public License",
+                "license_file": "data/0.1.0/ARPHICPL.TXT",
+                "source": "Make Me a Hanzi — graphics.txt",
+                "source_url": "https://github.com/skishore/makemeahanzi",
+                "modified": "2026-09-28 : en-tête",
+                "traits": {"人": {"s": [], "m": []}},
+            },
+            ensure_ascii=False,
+        ),
+        encoding="utf-8",
+    )
+    resultats = {c.nom: c for c in controles(export_mod.EXPORT, build=export_mod.BUILD, ingest=export_mod.INGEST)}
+    assert resultats["export : séparation des licences"].ok
+
+
+def test_le_fichier_de_traits_de_l_app_porte_son_en_tete() -> None:
+    """Le vrai `app/public/strokes-demo.json` du dépôt : 89 caractères sous l'en-tête APL."""
+    from wenlu_data.paths import TRAITS_APP
+
+    document = json.loads(TRAITS_APP.read_text(encoding="utf-8"))
+    assert document["license"] == "Arphic Public License"
+    assert all(document.get(cle) for cle in ("source", "source_url", "modified", "license_file"))
+    assert len(document["traits"]) == 89
 
 
 def _a_jour() -> bool:

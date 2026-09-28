@@ -1,14 +1,15 @@
-# Notation des sources d'IDS candidates (`wenlu licences`), ramenée à la table GF 0014-2009.
+# Notation de cjk-decomp ramenée à la table GF 0014-2009.
 #
-# BabelStone, cjk-decomp, cjkvi-ids et CHISE écrivent quelques composants avec un
-# point de code qui n'est pas dans la table de la norme : un radical du bloc des
-# radicaux, ou un idéogramme rare de même dessin. Ces formes-là ne sont qu'une
-# notation ; la descente les ramène au composant de la norme avant de s'y arrêter.
-# Ne vaut que pour une forme absente de la table : une forme de la table est un
-# composant de la norme, jamais renommé (卄 贲字腰 n'est pas 艹 草字头).
+# cjk-decomp, la source des décompositions, écrit quelques composants avec un point de
+# code qui n'est pas dans la table de la norme : un radical du bloc des radicaux, ou un
+# idéogramme rare de même dessin. Ces formes-là ne sont qu'une notation ; `wenlu build`
+# les ramène au composant de la norme avant de descendre (`gf0014.noter`), et la
+# décomposition garde la source `cjk-decomp`. Ne vaut que pour une forme absente de la
+# table : une forme de la table est un composant de la norme, jamais renommé (卄 贲字腰
+# n'est pas 艹 草字头 : ces cas-là se corrigent par une ligne d'`ids.tsv`).
 #
-# Lu par `data/src/wenlu_data/licences.py` seulement : `wenlu build` n'en dépend pas
-# tant que la chaîne IDS n'a pas changé (`docs/sources-licences.md` §10).
+# Le nom du fichier date de la mesure des sources candidates (`docs/sources-licences.md`
+# §10), quand il ne servait qu'à `wenlu licences`.
 #
 # Format : `#` en commentaire ; trois colonnes séparées par une tabulation :
 # forme de la source, composant de la norme, raison.
