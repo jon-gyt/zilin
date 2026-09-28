@@ -1134,6 +1134,29 @@ export function nomDeBrique(b: string, corpus: CorpusJeux): string {
   return corpus.lanternes?.noms[b] ?? '';
 }
 
+/** Une brique et ce qu'elle dit : son nom de devinette, à défaut son sens. */
+export type BriqueNommee = { b: string; nom: string };
+
+/** Un leurre de devinette décomposé : ses briques nommées, sa lecture et son sens. */
+export type LeurreDecompose = { c: string; briques: BriqueNommee[]; glose: Glose };
+
+/**
+ * La décomposition d'un leurre pris à la devinette, pour montrer pourquoi il n'est pas
+ * la réponse : 没 = 氵 l'eau + 殳 une lance, quand l'énoncé disait « une main ». Les
+ * briques viennent de la décomposition canonique (`parts` de l'export), leurs noms de
+ * `devinettes.json`, à défaut du sens de la brique. `null` quand le contenu ne décompose
+ * pas le leurre : on ne devine rien.
+ */
+export function decomposerLeurre(c: string, corpus: CorpusJeux): LeurreDecompose | null {
+  const parts = briques(c, corpus);
+  if (parts.length < 2) return null;
+  return {
+    c,
+    glose: glose(c, corpus),
+    briques: parts.map((b) => ({ b, nom: nomDeBrique(b, corpus) || glose(b, corpus).fr }))
+  };
+}
+
 /** Ce qu'un essai rend : les choix faux déjà pris, et le résultat quand le tour est noté. */
 export type Essai = { pris: string[]; resultat: Resultat | null };
 

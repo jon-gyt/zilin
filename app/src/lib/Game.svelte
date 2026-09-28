@@ -62,6 +62,7 @@
     clore,
     corpusDeJeu,
     corpusVide,
+    decomposerLeurre,
     devinetteDe,
     devinetteDuJour,
     disponibles,
@@ -757,6 +758,31 @@
             </p>
           </div>
         {/if}
+        <!-- Chaque leurre pris se décompose aussi : on voit pourquoi ce n'est pas lui. -->
+        {#each faux as f (f)}
+          {@const l = decomposerLeurre(f, corpus)}
+          {#if l !== null}
+            <div class="correction leurre-pris">
+              <div class="ligne decompose">
+                <span class="tuile"><Glyph char={l.c} size={40} write={false} /></span>
+                <span class="op">=</span>
+                {#each l.briques as x, rang (x.b + rang)}
+                  {#if rang > 0}<span class="op">+</span>{/if}
+                  <span class="brique">
+                    <Glyph char={x.b} size={28} write={false} color="var(--ocre)" />
+                    {#if x.nom !== ''}<small>{x.nom}</small>{/if}
+                  </span>
+                {/each}
+              </div>
+              {#if l.glose.pinyin !== '' || l.glose.fr !== ''}
+                <p class="sens">
+                  {#if l.glose.pinyin !== ''}<span class="py">{l.glose.pinyin}</span>{/if}
+                  {l.glose.fr}
+                </p>
+              {/if}
+            </div>
+          {/if}
+        {/each}
       {:else if jeu === 'assembler'}
         {#if jeuCourant && jeuCourant.chrono > 0}
           <div class="chrono" aria-label="Le temps du tour">
@@ -929,7 +955,7 @@
           {:else if evenementsANoter(m.jeu, resultat).length === 0}<span class="next">Rien n’est noté.</span>{/if}
         {:else if jeu === 'devinette'}
           {faux.length > 0
-            ? 'Pas celui-là. Relis l’énoncé, une brique après l’autre.'
+            ? 'Pas celui-là : vois ses briques, puis relis l’énoncé.'
             : 'Chaque devinette cache une décomposition.'}
         {/if}
       </div>
@@ -1271,6 +1297,15 @@
     margin: 0;
     font-size: 15px;
     color: var(--ink2);
+  }
+  /* Le leurre pris, décomposé : plus petit que la réponse, sur un filet pointillé. */
+  .leurre-pris {
+    margin-top: 10px;
+    padding-top: 8px;
+    border-top: 1px dashed var(--line);
+  }
+  .leurre-pris .sens {
+    font-size: 14px;
   }
   .sens .py {
     font-family: var(--head);

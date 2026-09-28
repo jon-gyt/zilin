@@ -17,6 +17,7 @@ import {
   PAIRES_PAR_MINUTE,
   TOURS_JUMEAUX,
   NOTER_TEMPS_ECOULE,
+  decomposerLeurre,
   evenementsANoter,
   confondusAvec,
   PROPOSITIONS_CHAINE,
@@ -1344,6 +1345,26 @@ describe('les devinettes servies avec l’app (export 0.1.0)', () => {
     expect(t.c).toBe('休');
     expect(t.choix).toHaveLength(4);
     for (const x of [...t.choix, '亻', '木']) expect(traits).toContain(x);
+  });
+
+  it('décompose le leurre pris : on voit pourquoi ce n’est pas la réponse', () => {
+    const familles = indexExport.familles.map((f) => lire(`${dossier}/${f.fichier}`) as Famille);
+    const corpus = corpusDeJeu({ familles, devinettes, traits, cartes: [] });
+    /* « L'eau à côté d'une main » : 汉. Le leurre 没, c'est l'eau et une lance. */
+    const l = decomposerLeurre('没', corpus);
+    expect(l?.briques.map((x) => x.b)).toEqual(['氵', '殳']);
+    expect(l?.briques[0].nom).toBe(devinettes.noms['氵']);
+    expect(l?.briques.every((x) => x.nom !== '')).toBe(true);
+    expect(l?.glose.fr).not.toBe('');
+    /* Chaque leurre de devinettes.json se décompose dans l'export. */
+    for (const d of devinettes.devinettes) {
+      for (const x of d.leurres) expect(decomposerLeurre(x, corpus), `${d.id} ${x}`).not.toBeNull();
+    }
+    /* Une brique sans décomposition ne se décompose pas : rien n'est deviné. */
+    expect(decomposerLeurre('口', corpus)).toBeNull();
+    /* L'écran montre chaque leurre pris, décomposé. */
+    const game = readFileSync(new URL('Game.svelte', import.meta.url), 'utf8');
+    expect(game).toContain('{@const l = decomposerLeurre(f, corpus)}');
   });
 
   it('dessine chaque devinette depuis les traits des racines que le fichier nomme', () => {
