@@ -7,13 +7,12 @@
 |---|---|---|---|---|
 | Make Me a Hanzi — graphics.txt | tracés et médianes (`traits/`) | Arphic Public License | Copyright (C) 1999 Arphic Technology Co., Ltd. | `ARPHICPL.TXT` (racine de l'export et `traits/`) |
 | Unihan (Unicode Character Database) | pinyin (`kMandarin`) des fiches | Unicode License | Copyright © 1991-2009 Unicode, Inc. | `UNICODE-LICENSE.txt` |
-| Make Me a Hanzi — dictionary.txt | chaîne IDS réconciliée avec GF 0014-2009 (`parts`, `sources: ["makemeahanzi"]`) | LGPL 3.0 ou ultérieure | Copyright (C) 2016 Shaunak Kishore | https://www.gnu.org/licenses/lgpl-3.0.html — question ouverte, voir ci-dessous |
-| cjk-decomp | chaîne IDS de repli (`sources: ["cjk-decomp"]`) | MIT (au choix parmi six licences) | Copyright (c) Gavin Grover | https://github.com/amake/cjk-decomp |
+| cjk-decomp (CJK Decomposition Data) | chaîne IDS réconciliée avec GF 0014-2009 (`parts`, `sources: ["cjk-decomp"]`) | MIT (retenue parmi les six licences proposées) | Copyright (c) Gavin Grover (CJK Decomposition Data) — https://github.com/amake/cjk-decomp | `MIT-cjk-decomp.txt` |
 | CC-CEDICT (MDBG) | mots candidats (hanzi et pinyin) des fiches relues ; mots du dictionnaire éclair (le mot seul, `eclair.json`) | CC BY-SA 4.0 | CC-CEDICT, publié par MDBG, CC BY-SA 4.0 — fichier modifié | https://creativecommons.org/licenses/by-sa/4.0/ |
 | Norme GF 0014-2009 | les 514 composants : règle de décomposition | texte normatif, non reproduit | 《现代常用字部件及部件名称规范》 | — |
 | Seuils sinographiques (Éducation nationale) et référentiel HSK 3.0 | listes cibles (`listes`, `parcours`) | publications officielles, listes de faits | Eduscol ; Chinese Testing International | — |
 | Calendrier luni-solaire chinois | dates des fêtes (`fetes.json`) et des termes solaires (`saisons.json`), calculées par lunar_python | faits de calendrier ; bibliothèque MIT, non embarquée | lunar_python, Copyright (c) 6tail | https://github.com/6tail/lunar-python |
-| Surcharges du pipeline wenlu (`data/sources/surcharges/`) | pinyin et IDS corrigés, chacun avec sa raison (`sources: ["surcharge"]`) | propriétaire | corrections relues des sources ci-dessus | — |
+| Surcharges du pipeline wenlu (`data/sources/surcharges/`) | pinyin corrigés et décompositions rédigées pour Wenlu d'après GF 0014-2009, chacune avec sa raison (`sources: ["surcharge"]`) | propriétaire | travail propre du projet, relu | — |
 | Fiches, contes, paires, fêtes, saisons, devinettes, dictionnaire éclair, coquilles, cuisine, lettres de Que, message WeChat, personnage, phrases de Tao à Jouer (pipeline wenlu) | `familles/`, `contes/`, `paires.json`, `fetes.json`, `saisons.json`, `devinettes.json`, `eclair.json`, `coquilles.json`, `cuisine.json`, `lettres.json`, `wechat.json`, `heros.json`, `jouer.json`, et `apercu/` pour les textes encore à relire | propriétaire | textes rédigés pour l'app, relus | — |
 
 ## Séparation des fichiers
@@ -23,16 +22,17 @@ Les trois régimes ne se mélangent jamais dans un même fichier (`docs/sources-
 - `traits/` : tracés sous Arphic Public License, avec `ARPHICPL.TXT` inaltéré à côté et `traits/MODIFICATIONS.md` qui dit comment et quand ils ont été dérivés.
 - `familles/`, `contes/`, `paires.json`, `fetes.json`, `saisons.json`, `devinettes.json`, `eclair.json`, `coquilles.json`, `cuisine.json`, `lettres.json`, `wechat.json`, `heros.json`, `jouer.json`, `apercu/` : décomposition canonique et textes rédigés pour l'app, propriétaires.
 - `UNICODE-LICENSE.txt` : notice de permission Unicode, qui couvre le pinyin.
+- `MIT-cjk-decomp.txt` : notice de copyright et texte de la MIT, qui couvrent les décompositions descendues de cjk-decomp.
 
 ## Ce que l'export ne contient pas
 
 - Aucune définition anglaise : ni `kDefinition` d'Unihan, ni CC-CEDICT (`docs/sources-licences.md` §4.2). Les mots exportés ne portent que le hanzi, le pinyin et les traductions rédigées pour l'app.
-- Aucun texte de `dictionary.txt` : ni définition, ni étymologie anglaise (§2.2).
+- Rien de `dictionary.txt` (Make Me a Hanzi, LGPL 3.0+) : ni définition, ni étymologie anglaise, ni décomposition (§2.2, §10). Seuls les tracés de Make Me a Hanzi (`graphics.txt`) sont embarqués, sous l'Arphic Public License.
 - Aucune fiche, aucun conte ni aucune lettre non relus hors de `apercu/` (brief §17). Ce dossier porte les textes encore à relire, chacun marqué `statut: "a_relire"`, que l'app ne charge que sur demande (Réglages, mode relecture). Un texte rejeté n'est nulle part.
 
-## Question ouverte
+## Décompositions
 
-La décomposition exportée descend la chaîne IDS de Make Me a Hanzi (`dictionary.txt`, LGPL 3.0+) jusqu'aux composants de GF 0014-2009. `docs/sources-licences.md` §2.2 écarte `dictionary.txt` de l'embarqué. La liste de composants qui en résulte est une donnée factuelle normalisée par une autre source, mais le point n'est pas tranché : chaque fiche nomme la source de sa décomposition (`sources`) pour que la décision reste possible fichier par fichier.
+Chaque décomposition (`parts`) descend nos surcharges, rédigées pour Wenlu d'après la table de GF 0014-2009, puis cjk-decomp (MIT), jusqu'aux composants de la norme ; chaque fiche nomme la source de la sienne (`sources`). Aucune ne descend plus `dictionary.txt` (décision du 26 septembre 2026, appliquée le 28, `docs/sources-licences.md` §10).
 
 ## Obligations hors app
 
