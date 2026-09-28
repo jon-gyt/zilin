@@ -1,0 +1,1096 @@
+{
+ "examen": "xianshi",
+ "parcours": "lire",
+ "generation": {
+  "modele": "rédaction manuelle",
+  "api": "session Claude Code (sans API)",
+  "date": "2026-09-28"
+ },
+ "relecture": {
+  "statut": "relu",
+  "par": "le propriétaire",
+  "decision": "« Considère que les relectures c'est bon » : approbation permanente des relectures",
+  "date": "2026-09-28"
+ },
+ "series": [
+  {
+   "serie": "A",
+   "statut": "relu",
+   "supports": [
+    {
+     "id": "s1",
+     "genre": "message",
+     "contexte": {
+      "fr": "Un message de Mingming à Daming",
+      "en": "A message from Mingming to Daming"
+     },
+     "lignes": [
+      {
+       "zh": "大明，明天是王先生生日。",
+       "pinyin": "dà míng míng tiān shì wáng xiān sheng shēng rì",
+       "fr": "Daming, demain, c'est l'anniversaire de M. Wang.",
+       "en": "Daming, tomorrow is Mr Wang's birthday."
+      },
+      {
+       "zh": "明天一早，门口见！",
+       "pinyin": "míng tiān yī zǎo mén kǒu jiàn",
+       "fr": "Demain à la première heure, rendez-vous devant la porte !",
+       "en": "Tomorrow, first thing, see you at the door!"
+      }
+     ]
+    },
+    {
+     "id": "s2",
+     "genre": "note",
+     "contexte": {
+      "fr": "Une page d'agenda",
+      "en": "A diary page"
+     },
+     "lignes": [
+      {
+       "zh": "十月一日，星期一：见王先生。",
+       "pinyin": "shí yuè yī rì xīng qī yī jiàn wáng xiān sheng",
+       "fr": "Lundi 1er octobre : voir M. Wang.",
+       "en": "Monday 1 October: see Mr Wang."
+      },
+      {
+       "zh": "十月二日，星期二：见朋友大明。",
+       "pinyin": "shí yuè èr rì xīng qī èr jiàn péng you dà míng",
+       "fr": "Mardi 2 octobre : voir mon ami Daming.",
+       "en": "Tuesday 2 October: see my friend Daming."
+      },
+      {
+       "zh": "十月八日，星期一：女儿生日！",
+       "pinyin": "shí yuè bā rì xīng qī yī nǚ ér shēng rì",
+       "fr": "Lundi 8 octobre : l'anniversaire de ma fille !",
+       "en": "Monday 8 October: my daughter's birthday!"
+      }
+     ]
+    },
+    {
+     "id": "s3",
+     "genre": "enseigne",
+     "contexte": {
+      "fr": "Une enseigne dans une vieille rue",
+      "en": "A shop sign in an old street"
+     },
+     "lignes": [
+      {
+       "zh": "明月古玩",
+       "pinyin": "míng yuè gǔ wán",
+       "fr": "Antiquités de la Lune claire",
+       "en": "Bright Moon Antiques"
+      }
+     ]
+    },
+    {
+     "id": "s4",
+     "genre": "message",
+     "contexte": {
+      "fr": "Mingming écrit à Daming",
+      "en": "Mingming writes to Daming"
+     },
+     "lignes": [
+      {
+       "zh": "大明，王先生问好！",
+       "pinyin": "dà míng wáng xiān sheng wèn hǎo",
+       "fr": "Daming, M. Wang te passe le bonjour !",
+       "en": "Daming, Mr Wang says hello!"
+      }
+     ]
+    },
+    {
+     "id": "s5",
+     "genre": "note",
+     "contexte": {
+      "fr": "Une note sur la famille Wang",
+      "en": "A note about the Wang family"
+     },
+     "lignes": [
+      {
+       "zh": "王先生有一儿一女。",
+       "pinyin": "wáng xiān sheng yǒu yī ér yī nǚ",
+       "fr": "M. Wang a un fils et une fille.",
+       "en": "Mr Wang has a son and a daughter."
+      },
+      {
+       "zh": "儿子是大学生，女儿也是学生。",
+       "pinyin": "ér zi shì dà xué sheng nǚ ér yě shì xué sheng",
+       "fr": "Le fils est étudiant, la fille est élève elle aussi.",
+       "en": "The son is at university; the daughter is a pupil too."
+      }
+     ]
+    }
+   ],
+   "questions": [
+    {
+     "type": "sens",
+     "consigne": {
+      "fr": "Que veut dire ce mot ?",
+      "en": "What does this word mean?"
+     },
+     "objet": {
+      "zh": "朋友",
+      "pinyin": "péng you",
+      "fr": "ami",
+      "en": "friend"
+     },
+     "choix": [
+      {
+       "fr": "fille",
+       "en": "daughter"
+      },
+      {
+       "fr": "ami",
+       "en": "friend"
+      },
+      {
+       "fr": "monsieur",
+       "en": "Mr, sir"
+      },
+      {
+       "fr": "élève",
+       "en": "pupil"
+      }
+     ],
+     "reponse": 1,
+     "porte": [
+      "朋",
+      "友"
+     ]
+    },
+    {
+     "type": "comprendre",
+     "support": "s1",
+     "consigne": {
+      "fr": "Qu'est-ce qui a lieu demain ?",
+      "en": "What is happening tomorrow?"
+     },
+     "choix": [
+      {
+       "fr": "Le mariage de M. Wang",
+       "en": "Mr Wang's wedding"
+      },
+      {
+       "fr": "L'examen de Daming",
+       "en": "Daming's exam"
+      },
+      {
+       "fr": "Le départ de Mingming",
+       "en": "Mingming's departure"
+      },
+      {
+       "fr": "L'anniversaire de M. Wang",
+       "en": "Mr Wang's birthday"
+      }
+     ],
+     "reponse": 3,
+     "porte": [
+      "生",
+      "日"
+     ]
+    },
+    {
+     "type": "reperer",
+     "support": "s1",
+     "consigne": {
+      "fr": "Touche le mot qui dit où ils se retrouvent.",
+      "en": "Tap the word that says where they meet."
+     },
+     "choix": [
+      "门口",
+      "明天",
+      "一早",
+      "生日"
+     ],
+     "reponse": 0,
+     "porte": [
+      "门",
+      "口"
+     ]
+    },
+    {
+     "type": "vrai_faux",
+     "support": "s1",
+     "consigne": {
+      "fr": "Vrai ou faux ?",
+      "en": "True or false?"
+     },
+     "affirmation": {
+      "zh": "今天是王先生生日。",
+      "pinyin": "jīn tiān shì wáng xiān sheng shēng rì",
+      "fr": "C'est aujourd'hui l'anniversaire de M. Wang.",
+      "en": "Today is Mr Wang's birthday."
+     },
+     "reponse": false,
+     "porte": [
+      "今",
+      "明"
+     ]
+    },
+    {
+     "type": "comprendre",
+     "support": "s2",
+     "consigne": {
+      "fr": "Quel jour est l'anniversaire de sa fille ?",
+      "en": "When is the daughter's birthday?"
+     },
+     "choix": [
+      {
+       "fr": "Le 1er octobre",
+       "en": "1 October"
+      },
+      {
+       "fr": "Le 2 octobre",
+       "en": "2 October"
+      },
+      {
+       "fr": "Le 8 octobre",
+       "en": "8 October"
+      },
+      {
+       "fr": "Le 10 août",
+       "en": "10 August"
+      }
+     ],
+     "reponse": 2,
+     "porte": [
+      "八",
+      "女",
+      "儿"
+     ]
+    },
+    {
+     "type": "reperer",
+     "support": "s2",
+     "consigne": {
+      "fr": "Touche le mot qui dit « mardi ».",
+      "en": "Tap the word that means “Tuesday”."
+     },
+     "choix": [
+      "星期一",
+      "十月",
+      "星期二",
+      "朋友"
+     ],
+     "reponse": 2,
+     "porte": [
+      "星",
+      "期",
+      "二"
+     ]
+    },
+    {
+     "type": "vrai_faux",
+     "support": "s2",
+     "consigne": {
+      "fr": "Vrai ou faux ?",
+      "en": "True or false?"
+     },
+     "affirmation": {
+      "zh": "十月二日见大明。",
+      "pinyin": "shí yuè èr rì jiàn dà míng",
+      "fr": "Le 2 octobre : voir Daming.",
+      "en": "2 October: see Daming."
+     },
+     "reponse": true,
+     "porte": [
+      "二",
+      "大",
+      "明"
+     ]
+    },
+    {
+     "type": "caractere",
+     "consigne": {
+      "fr": "Quel caractère a ce sens ?",
+      "en": "Which character has this meaning?"
+     },
+     "objet": {
+      "zh": "山",
+      "pinyin": "shān",
+      "fr": "montagne",
+      "en": "mountain"
+     },
+     "choix": [
+      "山",
+      "火",
+      "心",
+      "王"
+     ],
+     "reponse": 0,
+     "porte": [
+      "山"
+     ]
+    },
+    {
+     "type": "comprendre",
+     "support": "s3",
+     "consigne": {
+      "fr": "Que vend cette boutique ?",
+      "en": "What does this shop sell?"
+     },
+     "choix": [
+      {
+       "fr": "Des jouets",
+       "en": "Toys"
+      },
+      {
+       "fr": "Des gâteaux de lune",
+       "en": "Mooncakes"
+      },
+      {
+       "fr": "Des lampes",
+       "en": "Lamps"
+      },
+      {
+       "fr": "Des antiquités",
+       "en": "Antiques"
+      }
+     ],
+     "reponse": 3,
+     "porte": [
+      "古",
+      "玩"
+     ]
+    },
+    {
+     "type": "replique",
+     "support": "s4",
+     "consigne": {
+      "fr": "Que réponds-tu ?",
+      "en": "What do you reply?"
+     },
+     "choix": [
+      {
+       "zh": "王先生是学生。",
+       "pinyin": "wáng xiān sheng shì xué sheng",
+       "fr": "M. Wang est élève.",
+       "en": "Mr Wang is a pupil."
+      },
+      {
+       "zh": "也问王先生好！",
+       "pinyin": "yě wèn wáng xiān sheng hǎo",
+       "fr": "Salue-le aussi de ma part !",
+       "en": "Say hello to him from me too!"
+      },
+      {
+       "zh": "今天是星期二。",
+       "pinyin": "jīn tiān shì xīng qī èr",
+       "fr": "Aujourd'hui, c'est mardi.",
+       "en": "Today is Tuesday."
+      },
+      {
+       "zh": "明天是女儿生日。",
+       "pinyin": "míng tiān shì nǚ ér shēng rì",
+       "fr": "Demain, c'est l'anniversaire de ma fille.",
+       "en": "Tomorrow is my daughter's birthday."
+      }
+     ],
+     "reponse": 1,
+     "porte": [
+      "问",
+      "好"
+     ]
+    },
+    {
+     "type": "trou",
+     "consigne": {
+      "fr": "Quel caractère manque dans ce mot ?",
+      "en": "Which character is missing from this word?"
+     },
+     "objet": {
+      "zh": "星期",
+      "pinyin": "xīng qī",
+      "fr": "semaine",
+      "en": "week"
+     },
+     "trou": 1,
+     "choix": [
+      "期",
+      "其",
+      "明",
+      "朋"
+     ],
+     "reponse": 0,
+     "porte": [
+      "期"
+     ]
+    },
+    {
+     "type": "comprendre",
+     "support": "s5",
+     "consigne": {
+      "fr": "Combien d'enfants M. Wang a-t-il ?",
+      "en": "How many children does Mr Wang have?"
+     },
+     "choix": [
+      {
+       "fr": "Un seul fils",
+       "en": "Only a son"
+      },
+      {
+       "fr": "Deux filles",
+       "en": "Two daughters"
+      },
+      {
+       "fr": "Deux : un fils et une fille",
+       "en": "Two: a son and a daughter"
+      },
+      {
+       "fr": "Deux fils",
+       "en": "Two sons"
+      }
+     ],
+     "reponse": 2,
+     "porte": [
+      "一",
+      "儿",
+      "女"
+     ]
+    },
+    {
+     "type": "vrai_faux",
+     "support": "s5",
+     "consigne": {
+      "fr": "Vrai ou faux ?",
+      "en": "True or false?"
+     },
+     "affirmation": {
+      "zh": "王先生有二女。",
+      "pinyin": "wáng xiān sheng yǒu èr nǚ",
+      "fr": "M. Wang a deux filles.",
+      "en": "Mr Wang has two daughters."
+     },
+     "reponse": false,
+     "porte": [
+      "儿",
+      "女"
+     ]
+    },
+    {
+     "type": "ton",
+     "consigne": {
+      "fr": "Quel est son ton ?",
+      "en": "Which tone does it have?"
+     },
+     "objet": {
+      "zh": "天",
+      "pinyin": "tiān",
+      "fr": "ciel ; jour",
+      "en": "sky; day"
+     },
+     "choix": [
+      "tiān",
+      "tián",
+      "tiǎn",
+      "tiàn"
+     ],
+     "reponse": 0,
+     "porte": [
+      "天"
+     ]
+    },
+    {
+     "type": "sens",
+     "consigne": {
+      "fr": "Que veut dire ce caractère ?",
+      "en": "What does this character mean?"
+     },
+     "objet": {
+      "zh": "古",
+      "pinyin": "gǔ",
+      "fr": "ancien",
+      "en": "ancient"
+     },
+     "choix": [
+      {
+       "fr": "bouche",
+       "en": "mouth"
+      },
+      {
+       "fr": "ancien",
+       "en": "ancient"
+      },
+      {
+       "fr": "dix",
+       "en": "ten"
+      },
+      {
+       "fr": "tôt",
+       "en": "early"
+      }
+     ],
+     "reponse": 1,
+     "porte": [
+      "古"
+     ]
+    }
+   ]
+  },
+  {
+   "serie": "B",
+   "statut": "relu",
+   "supports": [
+    {
+     "id": "s1",
+     "genre": "pancarte",
+     "contexte": {
+      "fr": "Un panneau au bord d'un sentier",
+      "en": "A sign by a trail"
+     },
+     "lignes": [
+      {
+       "zh": "日月山",
+       "pinyin": "rì yuè shān",
+       "fr": "Mont Riyue",
+       "en": "Riyue Mountain"
+      },
+      {
+       "zh": "古火山口",
+       "pinyin": "gǔ huǒ shān kǒu",
+       "fr": "Cratère d'un ancien volcan",
+       "en": "Crater of an ancient volcano"
+      }
+     ],
+     "glose": [
+      {
+       "zh": "日月山",
+       "pinyin": "rì yuè shān",
+       "fr": "Riyue (nom d'une montagne)",
+       "en": "Riyue (a mountain's name)"
+      }
+     ]
+    },
+    {
+     "id": "s2",
+     "genre": "note",
+     "contexte": {
+      "fr": "Une note sur une étudiante",
+      "en": "A note about a student"
+     },
+     "lignes": [
+      {
+       "zh": "她姓王，是大学生。",
+       "pinyin": "tā xìng wáng shì dà xué sheng",
+       "fr": "Son nom de famille est Wang, elle est étudiante.",
+       "en": "Her surname is Wang; she's a university student."
+      },
+      {
+       "zh": "每星期一，她见大学朋友。",
+       "pinyin": "měi xīng qī yī tā jiàn dà xué péng you",
+       "fr": "Chaque lundi, elle voit ses amis de l'université.",
+       "en": "Every Monday she sees her university friends."
+      },
+      {
+       "zh": "星期天，她只玩。",
+       "pinyin": "xīng qī tiān tā zhǐ wán",
+       "fr": "Le dimanche, elle ne fait que s'amuser.",
+       "en": "On Sundays she just has fun."
+      }
+     ]
+    },
+    {
+     "id": "s3",
+     "genre": "message",
+     "contexte": {
+      "fr": "Daming écrit à Mingming",
+      "en": "Daming writes to Mingming"
+     },
+     "lignes": [
+      {
+       "zh": "明明：明天一早，大学门口见。",
+       "pinyin": "míng míng míng tiān yī zǎo dà xué mén kǒu jiàn",
+       "fr": "Mingming : demain à la première heure, rendez-vous devant l'université.",
+       "en": "Mingming: tomorrow, first thing, see you in front of the university."
+      }
+     ]
+    },
+    {
+     "id": "s4",
+     "genre": "enseigne",
+     "contexte": {
+      "fr": "De grands caractères au-dessus d'un portail",
+      "en": "Large characters above a gateway"
+     },
+     "lignes": [
+      {
+       "zh": "明星大学",
+       "pinyin": "míng xīng dà xué",
+       "fr": "Université de l'Étoile brillante",
+       "en": "Bright Star University"
+      }
+     ],
+     "glose": [
+      {
+       "zh": "明星",
+       "pinyin": "míng xīng",
+       "fr": "étoile brillante ; Mingxing (nom)",
+       "en": "bright star; Mingxing (a name)"
+      }
+     ]
+    },
+    {
+     "id": "s5",
+     "genre": "calendrier",
+     "contexte": {
+      "fr": "Une page de calendrier",
+      "en": "A calendar page"
+     },
+     "lignes": [
+      {
+       "zh": "一月一日",
+       "pinyin": "yī yuè yī rì",
+       "fr": "1er janvier",
+       "en": "1 January"
+      },
+      {
+       "zh": "星期天",
+       "pinyin": "xīng qī tiān",
+       "fr": "dimanche",
+       "en": "Sunday"
+      }
+     ]
+    },
+    {
+     "id": "s6",
+     "genre": "pancarte",
+     "contexte": {
+      "fr": "Un mot sur la porte d'un bureau",
+      "en": "A note on an office door"
+     },
+     "lignes": [
+      {
+       "zh": "今天，王先生见学生。",
+       "pinyin": "jīn tiān wáng xiān sheng jiàn xué sheng",
+       "fr": "Aujourd'hui, M. Wang reçoit les élèves.",
+       "en": "Today Mr Wang sees pupils."
+      },
+      {
+       "zh": "明天只见大学生。",
+       "pinyin": "míng tiān zhǐ jiàn dà xué sheng",
+       "fr": "Demain, il ne reçoit que les étudiants.",
+       "en": "Tomorrow he only sees university students."
+      }
+     ]
+    }
+   ],
+   "questions": [
+    {
+     "type": "sens",
+     "consigne": {
+      "fr": "Que veut dire ce caractère ?",
+      "en": "What does this character mean?"
+     },
+     "objet": {
+      "zh": "学",
+      "pinyin": "xué",
+      "fr": "étudier",
+      "en": "to study"
+     },
+     "choix": [
+      {
+       "fr": "enfant",
+       "en": "child"
+      },
+      {
+       "fr": "mère",
+       "en": "mother"
+      },
+      {
+       "fr": "bien",
+       "en": "good"
+      },
+      {
+       "fr": "étudier",
+       "en": "to study"
+      }
+     ],
+     "reponse": 3,
+     "porte": [
+      "学"
+     ]
+    },
+    {
+     "type": "comprendre",
+     "support": "s1",
+     "consigne": {
+      "fr": "Qu'indique ce panneau ?",
+      "en": "What does this sign point to?"
+     },
+     "choix": [
+      {
+       "fr": "L'entrée d'une vieille école",
+       "en": "The entrance of an old school"
+      },
+      {
+       "fr": "Le cratère d'un ancien volcan",
+       "en": "The crater of an ancient volcano"
+      },
+      {
+       "fr": "Une boutique d'antiquités",
+       "en": "An antiques shop"
+      },
+      {
+       "fr": "Un temple de la lune",
+       "en": "A moon temple"
+      }
+     ],
+     "reponse": 1,
+     "porte": [
+      "火",
+      "山",
+      "口"
+     ]
+    },
+    {
+     "type": "comprendre",
+     "support": "s2",
+     "consigne": {
+      "fr": "Quel est son nom de famille ?",
+      "en": "What is her surname?"
+     },
+     "choix": [
+      {
+       "fr": "Ming",
+       "en": "Ming"
+      },
+      {
+       "fr": "Da",
+       "en": "Da"
+      },
+      {
+       "fr": "Xue",
+       "en": "Xue"
+      },
+      {
+       "fr": "Wang",
+       "en": "Wang"
+      }
+     ],
+     "reponse": 3,
+     "porte": [
+      "姓",
+      "王"
+     ]
+    },
+    {
+     "type": "reperer",
+     "support": "s2",
+     "consigne": {
+      "fr": "Touche le mot qui dit quand elle voit ses amis.",
+      "en": "Tap the word that says when she sees her friends."
+     },
+     "choix": [
+      "星期一",
+      "星期天",
+      "大学生",
+      "朋友"
+     ],
+     "reponse": 0,
+     "porte": [
+      "星",
+      "期",
+      "一"
+     ]
+    },
+    {
+     "type": "vrai_faux",
+     "support": "s2",
+     "consigne": {
+      "fr": "Vrai ou faux ?",
+      "en": "True or false?"
+     },
+     "affirmation": {
+      "zh": "星期天，她见大学朋友。",
+      "pinyin": "xīng qī tiān tā jiàn dà xué péng you",
+      "fr": "Le dimanche, elle voit ses amis de l'université.",
+      "en": "On Sundays she sees her university friends."
+     },
+     "reponse": false,
+     "porte": [
+      "天",
+      "只",
+      "玩"
+     ]
+    },
+    {
+     "type": "caractere",
+     "consigne": {
+      "fr": "Quel caractère a ce sens ?",
+      "en": "Which character has this meaning?"
+     },
+     "objet": {
+      "zh": "门",
+      "pinyin": "mén",
+      "fr": "porte",
+      "en": "door"
+     },
+     "choix": [
+      "问",
+      "间",
+      "门",
+      "口"
+     ],
+     "reponse": 2,
+     "porte": [
+      "门"
+     ]
+    },
+    {
+     "type": "replique",
+     "support": "s3",
+     "consigne": {
+      "fr": "Que réponds-tu ?",
+      "en": "What do you reply?"
+     },
+     "choix": [
+      {
+       "zh": "她是大学生。",
+       "pinyin": "tā shì dà xué sheng",
+       "fr": "Elle est étudiante.",
+       "en": "She's a university student."
+      },
+      {
+       "zh": "今天是十月八日。",
+       "pinyin": "jīn tiān shì shí yuè bā rì",
+       "fr": "Aujourd'hui, c'est le 8 octobre.",
+       "en": "Today is 8 October."
+      },
+      {
+       "zh": "好，明天见！",
+       "pinyin": "hǎo míng tiān jiàn",
+       "fr": "D'accord, à demain !",
+       "en": "OK, see you tomorrow!"
+      },
+      {
+       "zh": "她有一儿一女。",
+       "pinyin": "tā yǒu yī ér yī nǚ",
+       "fr": "Elle a un fils et une fille.",
+       "en": "She has a son and a daughter."
+      }
+     ],
+     "reponse": 2,
+     "porte": [
+      "明",
+      "天",
+      "见"
+     ]
+    },
+    {
+     "type": "comprendre",
+     "support": "s3",
+     "consigne": {
+      "fr": "Où se retrouvent-ils ?",
+      "en": "Where are they meeting?"
+     },
+     "choix": [
+      {
+       "fr": "Devant l'université",
+       "en": "In front of the university"
+      },
+      {
+       "fr": "Au pied du volcan",
+       "en": "At the foot of the volcano"
+      },
+      {
+       "fr": "Chez M. Wang",
+       "en": "At Mr Wang's"
+      },
+      {
+       "fr": "Dans une boutique",
+       "en": "In a shop"
+      }
+     ],
+     "reponse": 0,
+     "porte": [
+      "大",
+      "学",
+      "门",
+      "口"
+     ]
+    },
+    {
+     "type": "trou",
+     "consigne": {
+      "fr": "Quel caractère manque dans ce mot ?",
+      "en": "Which character is missing from this word?"
+     },
+     "objet": {
+      "zh": "女儿",
+      "pinyin": "nǚ ér",
+      "fr": "fille",
+      "en": "daughter"
+     },
+     "trou": 0,
+     "choix": [
+      "好",
+      "她",
+      "如",
+      "女"
+     ],
+     "reponse": 3,
+     "porte": [
+      "女"
+     ]
+    },
+    {
+     "type": "comprendre",
+     "support": "s4",
+     "consigne": {
+      "fr": "Qu'y a-t-il derrière ce portail ?",
+      "en": "What is behind this gateway?"
+     },
+     "choix": [
+      {
+       "fr": "Un collège",
+       "en": "A secondary school"
+      },
+      {
+       "fr": "Une université",
+       "en": "A university"
+      },
+      {
+       "fr": "Un cinéma",
+       "en": "A cinema"
+      },
+      {
+       "fr": "Un observatoire",
+       "en": "An observatory"
+      }
+     ],
+     "reponse": 1,
+     "porte": [
+      "大",
+      "学"
+     ]
+    },
+    {
+     "type": "comprendre",
+     "support": "s5",
+     "consigne": {
+      "fr": "Quel jour de la semaine tombe ce 1er janvier ?",
+      "en": "What day of the week is this 1 January?"
+     },
+     "choix": [
+      {
+       "fr": "Dimanche",
+       "en": "Sunday"
+      },
+      {
+       "fr": "Lundi",
+       "en": "Monday"
+      },
+      {
+       "fr": "Mardi",
+       "en": "Tuesday"
+      },
+      {
+       "fr": "Samedi",
+       "en": "Saturday"
+      }
+     ],
+     "reponse": 0,
+     "porte": [
+      "星",
+      "期",
+      "天"
+     ]
+    },
+    {
+     "type": "comprendre",
+     "support": "s6",
+     "consigne": {
+      "fr": "Qui M. Wang reçoit-il demain ?",
+      "en": "Whom does Mr Wang see tomorrow?"
+     },
+     "choix": [
+      {
+       "fr": "Tous les élèves",
+       "en": "All the pupils"
+      },
+      {
+       "fr": "Ses amis",
+       "en": "His friends"
+      },
+      {
+       "fr": "Seulement les étudiants",
+       "en": "Only university students"
+      },
+      {
+       "fr": "Personne",
+       "en": "Nobody"
+      }
+     ],
+     "reponse": 2,
+     "porte": [
+      "只",
+      "大",
+      "学"
+     ]
+    },
+    {
+     "type": "reperer",
+     "support": "s6",
+     "consigne": {
+      "fr": "Touche le mot qui dit « seulement ».",
+      "en": "Tap the word that means “only”."
+     },
+     "choix": [
+      "今天",
+      "只",
+      "见",
+      "明天"
+     ],
+     "reponse": 1,
+     "porte": [
+      "只"
+     ]
+    },
+    {
+     "type": "vrai_faux",
+     "support": "s6",
+     "consigne": {
+      "fr": "Vrai ou faux ?",
+      "en": "True or false?"
+     },
+     "affirmation": {
+      "zh": "明天，王先生见大学生。",
+      "pinyin": "míng tiān wáng xiān sheng jiàn dà xué sheng",
+      "fr": "Demain, M. Wang reçoit des étudiants.",
+      "en": "Tomorrow Mr Wang sees university students."
+     },
+     "reponse": true,
+     "porte": [
+      "明",
+      "大",
+      "学"
+     ]
+    },
+    {
+     "type": "ton",
+     "consigne": {
+      "fr": "Quel est son ton ?",
+      "en": "Which tone does it have?"
+     },
+     "objet": {
+      "zh": "心",
+      "pinyin": "xīn",
+      "fr": "cœur",
+      "en": "heart"
+     },
+     "choix": [
+      "xīn",
+      "xín",
+      "xǐn",
+      "xìn"
+     ],
+     "reponse": 0,
+     "porte": [
+      "心"
+     ]
+    }
+   ]
+  }
+ ]
+}

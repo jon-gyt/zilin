@@ -1,0 +1,813 @@
+{
+ "examen": "yueke-75",
+ "parcours": "hsk",
+ "generation": {
+  "modele": "rédaction manuelle",
+  "api": "session Claude Code (sans API)",
+  "date": "2026-09-28"
+ },
+ "relecture": {
+  "statut": "relu",
+  "par": "le propriétaire",
+  "decision": "« Considère que les relectures c'est bon » : approbation permanente des relectures",
+  "date": "2026-09-28"
+ },
+ "series": [
+  {
+   "serie": "A",
+   "statut": "relu",
+   "supports": [
+    {
+     "id": "s1",
+     "genre": "message",
+     "contexte": {
+      "fr": "M. Ma écrit à Xiaobai",
+      "en": "Mr Ma writes to Xiaobai"
+     },
+     "lignes": [
+      {
+       "zh": "小白：今天大雨，不去山里。",
+       "pinyin": "xiǎo bái jīn tiān dà yǔ bù qù shān lǐ",
+       "fr": "Xiaobai : il pleut fort aujourd'hui, on ne va pas à la montagne.",
+       "en": "Xiaobai: heavy rain today, we're not going to the mountains."
+      },
+      {
+       "zh": "明天去，好吗？",
+       "pinyin": "míng tiān qù hǎo ma",
+       "fr": "On y va demain, d'accord ?",
+       "en": "Shall we go tomorrow?"
+      }
+     ]
+    },
+    {
+     "id": "s2",
+     "genre": "menu",
+     "contexte": {
+      "fr": "Le menu d'une petite cantine",
+      "en": "A small canteen's menu"
+     },
+     "lignes": [
+      {
+       "zh": "水果：十元",
+       "pinyin": "shuǐ guǒ shí yuán",
+       "fr": "Fruits : 10 yuans",
+       "en": "Fruit: 10 yuan"
+      },
+      {
+       "zh": "开水：一元",
+       "pinyin": "kāi shuǐ yī yuán",
+       "fr": "Eau bouillie : 1 yuan",
+       "en": "Boiled water: 1 yuan"
+      },
+      {
+       "zh": "白米：二元",
+       "pinyin": "bái mǐ èr yuán",
+       "fr": "Riz blanc : 2 yuans",
+       "en": "White rice: 2 yuan"
+      }
+     ],
+     "glose": [
+      {
+       "zh": "十元",
+       "pinyin": "shí yuán",
+       "fr": "10 yuans",
+       "en": "10 yuan"
+      },
+      {
+       "zh": "一元",
+       "pinyin": "yī yuán",
+       "fr": "1 yuan",
+       "en": "1 yuan"
+      },
+      {
+       "zh": "二元",
+       "pinyin": "èr yuán",
+       "fr": "2 yuans",
+       "en": "2 yuan"
+      }
+     ]
+    },
+    {
+     "id": "s3",
+     "genre": "enseigne",
+     "contexte": {
+      "fr": "Au-dessus d'un portail",
+      "en": "Above a gateway"
+     },
+     "lignes": [
+      {
+       "zh": "马山中学",
+       "pinyin": "mǎ shān zhōng xué",
+       "fr": "Collège-lycée de Mashan",
+       "en": "Mashan Secondary School"
+      }
+     ],
+     "glose": [
+      {
+       "zh": "马山",
+       "pinyin": "mǎ shān",
+       "fr": "Mashan (nom de lieu)",
+       "en": "Mashan (a place name)"
+      }
+     ]
+    },
+    {
+     "id": "s4",
+     "genre": "note",
+     "contexte": {
+      "fr": "Une note dans un cahier",
+      "en": "A note in an exercise book"
+     },
+     "lignes": [
+      {
+       "zh": "马先生天天学中文，一天学十页。",
+       "pinyin": "mǎ xiān sheng tiān tiān xué zhōng wén yī tiān xué shí yè",
+       "fr": "M. Ma étudie le chinois tous les jours, dix pages par jour.",
+       "en": "Mr Ma studies Chinese every day, ten pages a day."
+      }
+     ],
+     "glose": [
+      {
+       "zh": "一天",
+       "pinyin": "yī tiān",
+       "fr": "un jour ; par jour",
+       "en": "one day; a day"
+      }
+     ]
+    }
+   ],
+   "questions": [
+    {
+     "type": "sens",
+     "consigne": {
+      "fr": "Que veut dire ce caractère ?",
+      "en": "What does this character mean?"
+     },
+     "objet": {
+      "zh": "衣",
+      "pinyin": "yī",
+      "fr": "vêtement",
+      "en": "clothes"
+     },
+     "choix": [
+      {
+       "fr": "six",
+       "en": "six"
+      },
+      {
+       "fr": "haut",
+       "en": "tall, high"
+      },
+      {
+       "fr": "vêtement",
+       "en": "clothes"
+      },
+      {
+       "fr": "eau",
+       "en": "water"
+      }
+     ],
+     "reponse": 2,
+     "porte": [
+      "衣"
+     ]
+    },
+    {
+     "type": "comprendre",
+     "support": "s1",
+     "consigne": {
+      "fr": "Pourquoi ne vont-ils pas à la montagne aujourd'hui ?",
+      "en": "Why aren't they going to the mountains today?"
+     },
+     "choix": [
+      {
+       "fr": "Il neige",
+       "en": "It's snowing"
+      },
+      {
+       "fr": "Il fait trop chaud",
+       "en": "It's too hot"
+      },
+      {
+       "fr": "Il pleut fort",
+       "en": "It's raining hard"
+      },
+      {
+       "fr": "Il n'y a pas de train",
+       "en": "There's no train"
+      }
+     ],
+     "reponse": 2,
+     "porte": [
+      "大",
+      "雨"
+     ]
+    },
+    {
+     "type": "replique",
+     "support": "s1",
+     "consigne": {
+      "fr": "Que réponds-tu ?",
+      "en": "What do you reply?"
+     },
+     "choix": [
+      {
+       "zh": "好，明天去。",
+       "pinyin": "hǎo míng tiān qù",
+       "fr": "D'accord, demain.",
+       "en": "OK, tomorrow."
+      },
+      {
+       "zh": "十二元。",
+       "pinyin": "shí èr yuán",
+       "fr": "12 yuans.",
+       "en": "12 yuan."
+      },
+      {
+       "zh": "今天不是大雨。",
+       "pinyin": "jīn tiān bù shì dà yǔ",
+       "fr": "Il ne pleut pas fort aujourd'hui.",
+       "en": "It isn't raining hard today."
+      },
+      {
+       "zh": "小马不去。",
+       "pinyin": "xiǎo mǎ bù qù",
+       "fr": "Le poney n'y va pas.",
+       "en": "The pony isn't going."
+      }
+     ],
+     "reponse": 0,
+     "porte": [
+      "去",
+      "好",
+      "吗"
+     ]
+    },
+    {
+     "type": "vrai_faux",
+     "support": "s1",
+     "consigne": {
+      "fr": "Vrai ou faux ?",
+      "en": "True or false?"
+     },
+     "affirmation": {
+      "zh": "明天不去山里。",
+      "pinyin": "míng tiān bù qù shān lǐ",
+      "fr": "Demain, ils ne vont pas à la montagne.",
+      "en": "Tomorrow they aren't going to the mountains."
+     },
+     "reponse": false,
+     "porte": [
+      "明",
+      "不",
+      "去"
+     ]
+    },
+    {
+     "type": "comprendre",
+     "support": "s2",
+     "consigne": {
+      "fr": "Combien coûtent les fruits ?",
+      "en": "How much is the fruit?"
+     },
+     "choix": [
+      {
+       "fr": "1 yuan",
+       "en": "1 yuan"
+      },
+      {
+       "fr": "2 yuans",
+       "en": "2 yuan"
+      },
+      {
+       "fr": "12 yuans",
+       "en": "12 yuan"
+      },
+      {
+       "fr": "10 yuans",
+       "en": "10 yuan"
+      }
+     ],
+     "reponse": 3,
+     "porte": [
+      "水",
+      "果",
+      "十"
+     ]
+    },
+    {
+     "type": "reperer",
+     "support": "s2",
+     "consigne": {
+      "fr": "Touche ce qui coûte un yuan.",
+      "en": "Tap what costs one yuan."
+     },
+     "choix": [
+      "水果",
+      "开水",
+      "白米",
+      "十元"
+     ],
+     "reponse": 1,
+     "porte": [
+      "开",
+      "水"
+     ]
+    },
+    {
+     "type": "caractere",
+     "consigne": {
+      "fr": "Quel caractère a ce sens ?",
+      "en": "Which character has this meaning?"
+     },
+     "objet": {
+      "zh": "去",
+      "pinyin": "qù",
+      "fr": "aller",
+      "en": "to go"
+     },
+     "choix": [
+      "去",
+      "左",
+      "开",
+      "元"
+     ],
+     "reponse": 0,
+     "porte": [
+      "去"
+     ]
+    },
+    {
+     "type": "comprendre",
+     "support": "s3",
+     "consigne": {
+      "fr": "Qu'est-ce que ce bâtiment ?",
+      "en": "What is this building?"
+     },
+     "choix": [
+      {
+       "fr": "Une école primaire",
+       "en": "A primary school"
+      },
+      {
+       "fr": "Une université",
+       "en": "A university"
+      },
+      {
+       "fr": "Un collège-lycée",
+       "en": "A secondary school"
+      },
+      {
+       "fr": "Un marché",
+       "en": "A market"
+      }
+     ],
+     "reponse": 2,
+     "porte": [
+      "中",
+      "学"
+     ]
+    },
+    {
+     "type": "comprendre",
+     "support": "s4",
+     "consigne": {
+      "fr": "Combien de pages M. Ma étudie-t-il par jour ?",
+      "en": "How many pages does Mr Ma study a day?"
+     },
+     "choix": [
+      {
+       "fr": "Six",
+       "en": "Six"
+      },
+      {
+       "fr": "Dix",
+       "en": "Ten"
+      },
+      {
+       "fr": "Neuf",
+       "en": "Nine"
+      },
+      {
+       "fr": "Huit",
+       "en": "Eight"
+      }
+     ],
+     "reponse": 1,
+     "porte": [
+      "十",
+      "页"
+     ]
+    },
+    {
+     "type": "trou",
+     "consigne": {
+      "fr": "Quel caractère manque dans ce mot ?",
+      "en": "Which character is missing from this word?"
+     },
+     "objet": {
+      "zh": "天气",
+      "pinyin": "tiān qì",
+      "fr": "temps (météo)",
+      "en": "weather"
+     },
+     "trou": 1,
+     "choix": [
+      "毛",
+      "电",
+      "六",
+      "气"
+     ],
+     "reponse": 3,
+     "porte": [
+      "气"
+     ]
+    }
+   ]
+  },
+  {
+   "serie": "B",
+   "statut": "relu",
+   "supports": [
+    {
+     "id": "s1",
+     "genre": "billet",
+     "contexte": {
+      "fr": "Un billet de train",
+      "en": "A train ticket"
+     },
+     "lignes": [
+      {
+       "zh": "京山 — 马山",
+       "pinyin": "jīng shān mǎ shān",
+       "fr": "Jingshan → Mashan",
+       "en": "Jingshan → Mashan"
+      },
+      {
+       "zh": "六月九日",
+       "pinyin": "liù yuè jiǔ rì",
+       "fr": "9 juin",
+       "en": "9 June"
+      },
+      {
+       "zh": "六十元",
+       "pinyin": "liù shí yuán",
+       "fr": "60 yuans",
+       "en": "60 yuan"
+      }
+     ],
+     "glose": [
+      {
+       "zh": "京山",
+       "pinyin": "jīng shān",
+       "fr": "Jingshan (nom de lieu)",
+       "en": "Jingshan (a place name)"
+      },
+      {
+       "zh": "马山",
+       "pinyin": "mǎ shān",
+       "fr": "Mashan (nom de lieu)",
+       "en": "Mashan (a place name)"
+      },
+      {
+       "zh": "六十元",
+       "pinyin": "liù shí yuán",
+       "fr": "60 yuans",
+       "en": "60 yuan"
+      }
+     ]
+    },
+    {
+     "id": "s2",
+     "genre": "message",
+     "contexte": {
+      "fr": "Maman écrit à son fils",
+      "en": "Mum writes to her son"
+     },
+     "lignes": [
+      {
+       "zh": "儿子，今天有雨，拿大衣！",
+       "pinyin": "ér zi jīn tiān yǒu yǔ ná dà yī",
+       "fr": "Mon fils, il pleut aujourd'hui, prends ton manteau !",
+       "en": "Son, it's raining today, take your coat!"
+      }
+     ]
+    },
+    {
+     "id": "s3",
+     "genre": "pancarte",
+     "contexte": {
+      "fr": "Un écriteau sur une porte",
+      "en": "A notice on a door"
+     },
+     "lignes": [
+      {
+       "zh": "今天不开门。",
+       "pinyin": "jīn tiān bù kāi mén",
+       "fr": "Fermé aujourd'hui.",
+       "en": "Closed today."
+      }
+     ]
+    },
+    {
+     "id": "s4",
+     "genre": "note",
+     "contexte": {
+      "fr": "Une note sur la famille Ma",
+      "en": "A note about the Ma family"
+     },
+     "lignes": [
+      {
+       "zh": "马先生有二子一女。",
+       "pinyin": "mǎ xiān sheng yǒu èr zǐ yī nǚ",
+       "fr": "M. Ma a deux fils et une fille.",
+       "en": "Mr Ma has two sons and a daughter."
+      },
+      {
+       "zh": "女儿是中学生。",
+       "pinyin": "nǚ ér shì zhōng xué sheng",
+       "fr": "Sa fille est au collège.",
+       "en": "His daughter is at secondary school."
+      }
+     ]
+    }
+   ],
+   "questions": [
+    {
+     "type": "sens",
+     "consigne": {
+      "fr": "Que veut dire ce caractère ?",
+      "en": "What does this character mean?"
+     },
+     "objet": {
+      "zh": "京",
+      "pinyin": "jīng",
+      "fr": "capitale",
+      "en": "capital"
+     },
+     "choix": [
+      {
+       "fr": "haut",
+       "en": "tall, high"
+      },
+      {
+       "fr": "capitale",
+       "en": "capital"
+      },
+      {
+       "fr": "six",
+       "en": "six"
+      },
+      {
+       "fr": "fruit",
+       "en": "fruit"
+      }
+     ],
+     "reponse": 1,
+     "porte": [
+      "京"
+     ]
+    },
+    {
+     "type": "comprendre",
+     "support": "s1",
+     "consigne": {
+      "fr": "Quel jour part ce train ?",
+      "en": "What day does this train leave?"
+     },
+     "choix": [
+      {
+       "fr": "Le 6 septembre",
+       "en": "6 September"
+      },
+      {
+       "fr": "Le 9 juillet",
+       "en": "9 July"
+      },
+      {
+       "fr": "Le 6 juin",
+       "en": "6 June"
+      },
+      {
+       "fr": "Le 9 juin",
+       "en": "9 June"
+      }
+     ],
+     "reponse": 3,
+     "porte": [
+      "六",
+      "月",
+      "九"
+     ]
+    },
+    {
+     "type": "reperer",
+     "support": "s1",
+     "consigne": {
+      "fr": "Touche le prix du billet.",
+      "en": "Tap the ticket price."
+     },
+     "choix": [
+      "六十元",
+      "六月",
+      "京山",
+      "马山"
+     ],
+     "reponse": 0,
+     "porte": [
+      "六",
+      "十",
+      "元"
+     ]
+    },
+    {
+     "type": "vrai_faux",
+     "support": "s1",
+     "consigne": {
+      "fr": "Vrai ou faux ?",
+      "en": "True or false?"
+     },
+     "affirmation": {
+      "zh": "六月九日有火车。",
+      "pinyin": "liù yuè jiǔ rì yǒu huǒ chē",
+      "fr": "Il y a un train le 9 juin.",
+      "en": "There is a train on 9 June."
+     },
+     "reponse": true,
+     "porte": [
+      "六",
+      "九"
+     ]
+    },
+    {
+     "type": "comprendre",
+     "support": "s2",
+     "consigne": {
+      "fr": "Que demande maman ?",
+      "en": "What is Mum asking?"
+     },
+     "choix": [
+      {
+       "fr": "D'acheter des fruits",
+       "en": "To buy some fruit"
+      },
+      {
+       "fr": "De rentrer tôt",
+       "en": "To come home early"
+      },
+      {
+       "fr": "De prendre son manteau",
+       "en": "To take his coat"
+      },
+      {
+       "fr": "De fermer la porte",
+       "en": "To close the door"
+      }
+     ],
+     "reponse": 2,
+     "porte": [
+      "拿",
+      "衣"
+     ]
+    },
+    {
+     "type": "replique",
+     "support": "s2",
+     "consigne": {
+      "fr": "Que répond le fils ?",
+      "en": "What does the son reply?"
+     },
+     "choix": [
+      {
+       "zh": "十元一页。",
+       "pinyin": "shí yuán yī yè",
+       "fr": "Dix yuans la page.",
+       "en": "Ten yuan a page."
+      },
+      {
+       "zh": "今天是六月九日。",
+       "pinyin": "jīn tiān shì liù yuè jiǔ rì",
+       "fr": "Aujourd'hui, c'est le 9 juin.",
+       "en": "Today is 9 June."
+      },
+      {
+       "zh": "好，妈妈！",
+       "pinyin": "hǎo mā ma",
+       "fr": "D'accord, maman !",
+       "en": "OK, Mum!"
+      },
+      {
+       "zh": "妈妈不去。",
+       "pinyin": "mā ma bù qù",
+       "fr": "Maman n'y va pas.",
+       "en": "Mum isn't going."
+      }
+     ],
+     "reponse": 2,
+     "porte": [
+      "拿",
+      "衣"
+     ]
+    },
+    {
+     "type": "caractere",
+     "consigne": {
+      "fr": "Quel caractère a ce sens ?",
+      "en": "Which character has this meaning?"
+     },
+     "objet": {
+      "zh": "雨",
+      "pinyin": "yǔ",
+      "fr": "pluie",
+      "en": "rain"
+     },
+     "choix": [
+      "雨",
+      "电",
+      "米",
+      "水"
+     ],
+     "reponse": 0,
+     "porte": [
+      "雨"
+     ]
+    },
+    {
+     "type": "comprendre",
+     "support": "s3",
+     "consigne": {
+      "fr": "Que dit l'écriteau ?",
+      "en": "What does the notice say?"
+     },
+     "choix": [
+      {
+       "fr": "Ouvert tous les jours",
+       "en": "Open every day"
+      },
+      {
+       "fr": "Ouvert demain matin",
+       "en": "Open tomorrow morning"
+      },
+      {
+       "fr": "Entrée à gauche",
+       "en": "Entrance on the left"
+      },
+      {
+       "fr": "Fermé aujourd'hui",
+       "en": "Closed today"
+      }
+     ],
+     "reponse": 3,
+     "porte": [
+      "不",
+      "开",
+      "门"
+     ]
+    },
+    {
+     "type": "vrai_faux",
+     "support": "s4",
+     "consigne": {
+      "fr": "Vrai ou faux ?",
+      "en": "True or false?"
+     },
+     "affirmation": {
+      "zh": "女儿是大学生。",
+      "pinyin": "nǚ ér shì dà xué sheng",
+      "fr": "Sa fille est étudiante à l'université.",
+      "en": "His daughter is a university student."
+     },
+     "reponse": false,
+     "porte": [
+      "中",
+      "学"
+     ]
+    },
+    {
+     "type": "trou",
+     "consigne": {
+      "fr": "Quel caractère manque dans ce mot ?",
+      "en": "Which character is missing from this word?"
+     },
+     "objet": {
+      "zh": "中文",
+      "pinyin": "zhōng wén",
+      "fr": "chinois",
+      "en": "Chinese (language)"
+     },
+     "trou": 1,
+     "choix": [
+      "六",
+      "文",
+      "衣",
+      "页"
+     ],
+     "reponse": 1,
+     "porte": [
+      "文"
+     ]
+    }
+   ]
+  }
+ ]
+}

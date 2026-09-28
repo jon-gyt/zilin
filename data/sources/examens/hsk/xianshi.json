@@ -1,0 +1,1185 @@
+{
+ "examen": "xianshi",
+ "parcours": "hsk",
+ "generation": {
+  "modele": "rédaction manuelle",
+  "api": "session Claude Code (sans API)",
+  "date": "2026-09-28"
+ },
+ "relecture": {
+  "statut": "relu",
+  "par": "le propriétaire",
+  "decision": "« Considère que les relectures c'est bon » : approbation permanente des relectures",
+  "date": "2026-09-28"
+ },
+ "series": [
+  {
+   "serie": "A",
+   "statut": "relu",
+   "supports": [
+    {
+     "id": "s1",
+     "genre": "etal",
+     "contexte": {
+      "fr": "L'étal d'un marchand de riz",
+      "en": "A rice seller's stall"
+     },
+     "lignes": [
+      {
+       "zh": "大米：十二元",
+       "pinyin": "dà mǐ shí èr yuán",
+       "fr": "Riz : 12 yuans",
+       "en": "Rice: 12 yuan"
+      },
+      {
+       "zh": "小米：八元",
+       "pinyin": "xiǎo mǐ bā yuán",
+       "fr": "Millet : 8 yuans",
+       "en": "Millet: 8 yuan"
+      },
+      {
+       "zh": "白米：十元",
+       "pinyin": "bái mǐ shí yuán",
+       "fr": "Riz blanc : 10 yuans",
+       "en": "White rice: 10 yuan"
+      }
+     ],
+     "glose": [
+      {
+       "zh": "十二元",
+       "pinyin": "shí èr yuán",
+       "fr": "12 yuans",
+       "en": "12 yuan"
+      },
+      {
+       "zh": "八元",
+       "pinyin": "bā yuán",
+       "fr": "8 yuans",
+       "en": "8 yuan"
+      },
+      {
+       "zh": "十元",
+       "pinyin": "shí yuán",
+       "fr": "10 yuans",
+       "en": "10 yuan"
+      }
+     ]
+    },
+    {
+     "id": "s2",
+     "genre": "message",
+     "contexte": {
+      "fr": "Maman écrit à son fils",
+      "en": "Mum writes to her son"
+     },
+     "lignes": [
+      {
+       "zh": "儿子，明天是妈妈生日。",
+       "pinyin": "ér zi míng tiān shì mā ma shēng rì",
+       "fr": "Mon fils, demain, c'est l'anniversaire de maman.",
+       "en": "Son, tomorrow is Mum's birthday."
+      },
+      {
+       "zh": "明天白天有火车吗？",
+       "pinyin": "míng tiān bái tiān yǒu huǒ chē ma",
+       "fr": "Demain, dans la journée, il y a un train ?",
+       "en": "Is there a train tomorrow during the day?"
+      }
+     ]
+    },
+    {
+     "id": "s3",
+     "genre": "billet",
+     "contexte": {
+      "fr": "Un billet de train",
+      "en": "A train ticket"
+     },
+     "lignes": [
+      {
+       "zh": "火车",
+       "pinyin": "huǒ chē",
+       "fr": "Train",
+       "en": "Train"
+      },
+      {
+       "zh": "天山 — 马山",
+       "pinyin": "tiān shān mǎ shān",
+       "fr": "Tianshan → Mashan",
+       "en": "Tianshan → Mashan"
+      },
+      {
+       "zh": "八月十二日",
+       "pinyin": "bā yuè shí èr rì",
+       "fr": "12 août",
+       "en": "12 August"
+      },
+      {
+       "zh": "二十八元",
+       "pinyin": "èr shí bā yuán",
+       "fr": "28 yuans",
+       "en": "28 yuan"
+      }
+     ],
+     "glose": [
+      {
+       "zh": "天山",
+       "pinyin": "tiān shān",
+       "fr": "Tianshan (nom de lieu)",
+       "en": "Tianshan (a place name)"
+      },
+      {
+       "zh": "马山",
+       "pinyin": "mǎ shān",
+       "fr": "Mashan (nom de lieu)",
+       "en": "Mashan (a place name)"
+      },
+      {
+       "zh": "二十八元",
+       "pinyin": "èr shí bā yuán",
+       "fr": "28 yuans",
+       "en": "28 yuan"
+      }
+     ]
+    },
+    {
+     "id": "s4",
+     "genre": "enseigne",
+     "contexte": {
+      "fr": "Au-dessus d'un portail",
+      "en": "Above a gateway"
+     },
+     "lignes": [
+      {
+       "zh": "天明小学",
+       "pinyin": "tiān míng xiǎo xué",
+       "fr": "École primaire Tianming",
+       "en": "Tianming Primary School"
+      }
+     ],
+     "glose": [
+      {
+       "zh": "天明",
+       "pinyin": "tiān míng",
+       "fr": "Tianming (nom) ; l'aube",
+       "en": "Tianming (a name); dawn"
+      }
+     ]
+    },
+    {
+     "id": "s5",
+     "genre": "note",
+     "contexte": {
+      "fr": "Une phrase d'un livre d'images",
+      "en": "A line from a picture book"
+     },
+     "lignes": [
+      {
+       "zh": "小明左手拿大米，右手拿小米。",
+       "pinyin": "xiǎo míng zuǒ shǒu ná dà mǐ yòu shǒu ná xiǎo mǐ",
+       "fr": "Xiaoming tient du riz dans la main gauche et du millet dans la main droite.",
+       "en": "Xiaoming holds rice in his left hand and millet in his right."
+      }
+     ]
+    }
+   ],
+   "questions": [
+    {
+     "type": "sens",
+     "consigne": {
+      "fr": "Que veut dire ce caractère ?",
+      "en": "What does this character mean?"
+     },
+     "objet": {
+      "zh": "马",
+      "pinyin": "mǎ",
+      "fr": "cheval",
+      "en": "horse"
+     },
+     "choix": [
+      {
+       "fr": "maman",
+       "en": "mum"
+      },
+      {
+       "fr": "vache",
+       "en": "cow"
+      },
+      {
+       "fr": "main",
+       "en": "hand"
+      },
+      {
+       "fr": "cheval",
+       "en": "horse"
+      }
+     ],
+     "reponse": 3,
+     "porte": [
+      "马"
+     ]
+    },
+    {
+     "type": "comprendre",
+     "support": "s1",
+     "consigne": {
+      "fr": "Combien coûte le millet ?",
+      "en": "How much is the millet?"
+     },
+     "choix": [
+      {
+       "fr": "12 yuans",
+       "en": "12 yuan"
+      },
+      {
+       "fr": "8 yuans",
+       "en": "8 yuan"
+      },
+      {
+       "fr": "10 yuans",
+       "en": "10 yuan"
+      },
+      {
+       "fr": "18 yuans",
+       "en": "18 yuan"
+      }
+     ],
+     "reponse": 1,
+     "porte": [
+      "小",
+      "米",
+      "八"
+     ]
+    },
+    {
+     "type": "reperer",
+     "support": "s1",
+     "consigne": {
+      "fr": "Touche le prix du riz blanc.",
+      "en": "Tap the price of the white rice."
+     },
+     "choix": [
+      "十二元",
+      "八元",
+      "白米",
+      "十元"
+     ],
+     "reponse": 3,
+     "porte": [
+      "十",
+      "元"
+     ]
+    },
+    {
+     "type": "vrai_faux",
+     "support": "s1",
+     "consigne": {
+      "fr": "Vrai ou faux ?",
+      "en": "True or false?"
+     },
+     "affirmation": {
+      "zh": "大米十元。",
+      "pinyin": "dà mǐ shí yuán",
+      "fr": "Le riz coûte 10 yuans.",
+      "en": "The rice costs 10 yuan."
+     },
+     "reponse": false,
+     "porte": [
+      "十",
+      "二"
+     ]
+    },
+    {
+     "type": "comprendre",
+     "support": "s2",
+     "consigne": {
+      "fr": "Qu'y a-t-il demain ?",
+      "en": "What's happening tomorrow?"
+     },
+     "choix": [
+      {
+       "fr": "L'anniversaire de maman",
+       "en": "Mum's birthday"
+      },
+      {
+       "fr": "L'anniversaire du fils",
+       "en": "The son's birthday"
+      },
+      {
+       "fr": "Un examen",
+       "en": "An exam"
+      },
+      {
+       "fr": "Le Nouvel An",
+       "en": "New Year"
+      }
+     ],
+     "reponse": 0,
+     "porte": [
+      "妈",
+      "生",
+      "日"
+     ]
+    },
+    {
+     "type": "replique",
+     "support": "s2",
+     "consigne": {
+      "fr": "Que répond le fils ?",
+      "en": "What does the son reply?"
+     },
+     "choix": [
+      {
+       "zh": "小米八元。",
+       "pinyin": "xiǎo mǐ bā yuán",
+       "fr": "Le millet, c'est 8 yuans.",
+       "en": "Millet is 8 yuan."
+      },
+      {
+       "zh": "她是小学生。",
+       "pinyin": "tā shì xiǎo xué sheng",
+       "fr": "C'est une écolière.",
+       "en": "She's a primary-school pupil."
+      },
+      {
+       "zh": "有，明天一早有火车。",
+       "pinyin": "yǒu míng tiān yī zǎo yǒu huǒ chē",
+       "fr": "Oui, il y a un train demain à la première heure.",
+       "en": "Yes, there's a train first thing tomorrow."
+      },
+      {
+       "zh": "明天是八月十日。",
+       "pinyin": "míng tiān shì bā yuè shí rì",
+       "fr": "Demain, c'est le 10 août.",
+       "en": "Tomorrow is 10 August."
+      }
+     ],
+     "reponse": 2,
+     "porte": [
+      "火",
+      "车",
+      "吗"
+     ]
+    },
+    {
+     "type": "caractere",
+     "consigne": {
+      "fr": "Quel caractère a ce sens ?",
+      "en": "Which character has this meaning?"
+     },
+     "objet": {
+      "zh": "手",
+      "pinyin": "shǒu",
+      "fr": "main",
+      "en": "hand"
+     },
+     "choix": [
+      "牛",
+      "生",
+      "手",
+      "左"
+     ],
+     "reponse": 2,
+     "porte": [
+      "手"
+     ]
+    },
+    {
+     "type": "comprendre",
+     "support": "s3",
+     "consigne": {
+      "fr": "Quel jour part ce train ?",
+      "en": "What day does this train leave?"
+     },
+     "choix": [
+      {
+       "fr": "Le 12 août",
+       "en": "12 August"
+      },
+      {
+       "fr": "Le 8 décembre",
+       "en": "8 December"
+      },
+      {
+       "fr": "Le 2 août",
+       "en": "2 August"
+      },
+      {
+       "fr": "Le 28 août",
+       "en": "28 August"
+      }
+     ],
+     "reponse": 0,
+     "porte": [
+      "八",
+      "月",
+      "十",
+      "二"
+     ]
+    },
+    {
+     "type": "reperer",
+     "support": "s3",
+     "consigne": {
+      "fr": "Touche le prix du billet.",
+      "en": "Tap the ticket price."
+     },
+     "choix": [
+      "八月",
+      "天山",
+      "火车",
+      "二十八元"
+     ],
+     "reponse": 3,
+     "porte": [
+      "二",
+      "十",
+      "八",
+      "元"
+     ]
+    },
+    {
+     "type": "vrai_faux",
+     "support": "s3",
+     "consigne": {
+      "fr": "Vrai ou faux ?",
+      "en": "True or false?"
+     },
+     "affirmation": {
+      "zh": "八月十二日有火车。",
+      "pinyin": "bā yuè shí èr rì yǒu huǒ chē",
+      "fr": "Il y a un train le 12 août.",
+      "en": "There is a train on 12 August."
+     },
+     "reponse": true,
+     "porte": [
+      "八",
+      "月",
+      "十",
+      "二"
+     ]
+    },
+    {
+     "type": "trou",
+     "consigne": {
+      "fr": "Quel caractère manque dans ce mot ?",
+      "en": "Which character is missing from this word?"
+     },
+     "objet": {
+      "zh": "白天",
+      "pinyin": "bái tiān",
+      "fr": "la journée",
+      "en": "daytime"
+     },
+     "trou": 0,
+     "choix": [
+      "日",
+      "白",
+      "早",
+      "间"
+     ],
+     "reponse": 1,
+     "porte": [
+      "白"
+     ]
+    },
+    {
+     "type": "comprendre",
+     "support": "s4",
+     "consigne": {
+      "fr": "Qu'est-ce que ce bâtiment ?",
+      "en": "What is this building?"
+     },
+     "choix": [
+      {
+       "fr": "Une école primaire",
+       "en": "A primary school"
+      },
+      {
+       "fr": "Une université",
+       "en": "A university"
+      },
+      {
+       "fr": "Une gare",
+       "en": "A railway station"
+      },
+      {
+       "fr": "Un marché",
+       "en": "A market"
+      }
+     ],
+     "reponse": 0,
+     "porte": [
+      "小",
+      "学"
+     ]
+    },
+    {
+     "type": "vrai_faux",
+     "support": "s5",
+     "consigne": {
+      "fr": "Vrai ou faux ?",
+      "en": "True or false?"
+     },
+     "affirmation": {
+      "zh": "小明右手拿大米。",
+      "pinyin": "xiǎo míng yòu shǒu ná dà mǐ",
+      "fr": "Xiaoming tient le riz dans la main droite.",
+      "en": "Xiaoming holds the rice in his right hand."
+     },
+     "reponse": false,
+     "porte": [
+      "左",
+      "右"
+     ]
+    },
+    {
+     "type": "ton",
+     "consigne": {
+      "fr": "Quel est son ton ?",
+      "en": "Which tone does it have?"
+     },
+     "objet": {
+      "zh": "米",
+      "pinyin": "mǐ",
+      "fr": "riz ; mètre",
+      "en": "rice; metre"
+     },
+     "choix": [
+      "mī",
+      "mí",
+      "mǐ",
+      "mì"
+     ],
+     "reponse": 2,
+     "porte": [
+      "米"
+     ]
+    },
+    {
+     "type": "sens",
+     "consigne": {
+      "fr": "Que veut dire ce caractère ?",
+      "en": "What does this character mean?"
+     },
+     "objet": {
+      "zh": "左",
+      "pinyin": "zuǒ",
+      "fr": "gauche",
+      "en": "left"
+     },
+     "choix": [
+      {
+       "fr": "droite",
+       "en": "right"
+      },
+      {
+       "fr": "avoir",
+       "en": "to have"
+      },
+      {
+       "fr": "gauche",
+       "en": "left"
+      },
+      {
+       "fr": "grand",
+       "en": "big"
+      }
+     ],
+     "reponse": 2,
+     "porte": [
+      "左"
+     ]
+    }
+   ]
+  },
+  {
+   "serie": "B",
+   "statut": "relu",
+   "supports": [
+    {
+     "id": "s1",
+     "genre": "message",
+     "contexte": {
+      "fr": "M. Ma écrit à Xiaobai",
+      "en": "Mr Ma writes to Xiaobai"
+     },
+     "lignes": [
+      {
+       "zh": "小白，明天是几月几日？",
+       "pinyin": "xiǎo bái míng tiān shì jǐ yuè jǐ rì",
+       "fr": "Xiaobai, demain, on est le combien ?",
+       "en": "Xiaobai, what's the date tomorrow?"
+      }
+     ]
+    },
+    {
+     "id": "s2",
+     "genre": "affiche",
+     "contexte": {
+      "fr": "Les tarifs d'un parc",
+      "en": "Prices at a park"
+     },
+     "lignes": [
+      {
+       "zh": "马车：一人二十元",
+       "pinyin": "mǎ chē yī rén èr shí yuán",
+       "fr": "Calèche : 20 yuans par personne",
+       "en": "Horse carriage: 20 yuan per person"
+      },
+      {
+       "zh": "小马：一人十元",
+       "pinyin": "xiǎo mǎ yī rén shí yuán",
+       "fr": "Poney : 10 yuans par personne",
+       "en": "Pony: 10 yuan per person"
+      },
+      {
+       "zh": "小学生：八元",
+       "pinyin": "xiǎo xué sheng bā yuán",
+       "fr": "Écoliers : 8 yuans",
+       "en": "Primary-school pupils: 8 yuan"
+      }
+     ],
+     "glose": [
+      {
+       "zh": "一人",
+       "pinyin": "yī rén",
+       "fr": "une personne ; par personne",
+       "en": "one person; per person"
+      },
+      {
+       "zh": "二十元",
+       "pinyin": "èr shí yuán",
+       "fr": "20 yuans",
+       "en": "20 yuan"
+      },
+      {
+       "zh": "十元",
+       "pinyin": "shí yuán",
+       "fr": "10 yuans",
+       "en": "10 yuan"
+      },
+      {
+       "zh": "八元",
+       "pinyin": "bā yuán",
+       "fr": "8 yuans",
+       "en": "8 yuan"
+      }
+     ]
+    },
+    {
+     "id": "s3",
+     "genre": "note",
+     "contexte": {
+      "fr": "Une note sur Xiaobai",
+      "en": "A note about Xiaobai"
+     },
+     "lignes": [
+      {
+       "zh": "小白是小学生。",
+       "pinyin": "xiǎo bái shì xiǎo xué sheng",
+       "fr": "Xiaobai est écolière.",
+       "en": "Xiaobai is a primary-school pupil."
+      },
+      {
+       "zh": "她天天见小马。",
+       "pinyin": "tā tiān tiān jiàn xiǎo mǎ",
+       "fr": "Elle voit le poney tous les jours.",
+       "en": "She sees the pony every day."
+      }
+     ]
+    },
+    {
+     "id": "s4",
+     "genre": "enseigne",
+     "contexte": {
+      "fr": "Une enseigne de boutique",
+      "en": "A shop sign"
+     },
+     "lignes": [
+      {
+       "zh": "白马大米",
+       "pinyin": "bái mǎ dà mǐ",
+       "fr": "Riz du Cheval blanc",
+       "en": "White Horse Rice"
+      }
+     ],
+     "glose": [
+      {
+       "zh": "白马",
+       "pinyin": "bái mǎ",
+       "fr": "cheval blanc ; Baima (nom)",
+       "en": "white horse; Baima (a name)"
+      }
+     ]
+    },
+    {
+     "id": "s5",
+     "genre": "billet",
+     "contexte": {
+      "fr": "Un billet de train",
+      "en": "A train ticket"
+     },
+     "lignes": [
+      {
+       "zh": "大山 — 白山",
+       "pinyin": "dà shān bái shān",
+       "fr": "Dashan → Baishan",
+       "en": "Dashan → Baishan"
+      },
+      {
+       "zh": "十二月八日",
+       "pinyin": "shí èr yuè bā rì",
+       "fr": "8 décembre",
+       "en": "8 December"
+      },
+      {
+       "zh": "十八元",
+       "pinyin": "shí bā yuán",
+       "fr": "18 yuans",
+       "en": "18 yuan"
+      }
+     ],
+     "glose": [
+      {
+       "zh": "大山",
+       "pinyin": "dà shān",
+       "fr": "Dashan (nom de lieu)",
+       "en": "Dashan (a place name)"
+      },
+      {
+       "zh": "白山",
+       "pinyin": "bái shān",
+       "fr": "Baishan (nom de lieu)",
+       "en": "Baishan (a place name)"
+      },
+      {
+       "zh": "十八元",
+       "pinyin": "shí bā yuán",
+       "fr": "18 yuans",
+       "en": "18 yuan"
+      }
+     ]
+    }
+   ],
+   "questions": [
+    {
+     "type": "sens",
+     "consigne": {
+      "fr": "Que veut dire ce caractère ?",
+      "en": "What does this character mean?"
+     },
+     "objet": {
+      "zh": "牛",
+      "pinyin": "niú",
+      "fr": "vache, bœuf",
+      "en": "cow, ox"
+     },
+     "choix": [
+      {
+       "fr": "cheval",
+       "en": "horse"
+      },
+      {
+       "fr": "vache, bœuf",
+       "en": "cow, ox"
+      },
+      {
+       "fr": "main",
+       "en": "hand"
+      },
+      {
+       "fr": "naître",
+       "en": "to be born"
+      }
+     ],
+     "reponse": 1,
+     "porte": [
+      "牛"
+     ]
+    },
+    {
+     "type": "comprendre",
+     "support": "s1",
+     "consigne": {
+      "fr": "Que demande M. Ma ?",
+      "en": "What is Mr Ma asking?"
+     },
+     "choix": [
+      {
+       "fr": "Le prix du billet",
+       "en": "The ticket price"
+      },
+      {
+       "fr": "L'heure du train",
+       "en": "The train time"
+      },
+      {
+       "fr": "Le nom de Xiaobai",
+       "en": "Xiaobai's name"
+      },
+      {
+       "fr": "La date de demain",
+       "en": "Tomorrow's date"
+      }
+     ],
+     "reponse": 3,
+     "porte": [
+      "几",
+      "月",
+      "日"
+     ]
+    },
+    {
+     "type": "replique",
+     "support": "s1",
+     "consigne": {
+      "fr": "Que répond Xiaobai ?",
+      "en": "What does Xiaobai reply?"
+     },
+     "choix": [
+      {
+       "zh": "二十元。",
+       "pinyin": "èr shí yuán",
+       "fr": "20 yuans.",
+       "en": "20 yuan."
+      },
+      {
+       "zh": "八月二日。",
+       "pinyin": "bā yuè èr rì",
+       "fr": "Le 2 août.",
+       "en": "2 August."
+      },
+      {
+       "zh": "是马先生。",
+       "pinyin": "shì mǎ xiān sheng",
+       "fr": "C'est M. Ma.",
+       "en": "It's Mr Ma."
+      },
+      {
+       "zh": "左手。",
+       "pinyin": "zuǒ shǒu",
+       "fr": "La main gauche.",
+       "en": "The left hand."
+      }
+     ],
+     "reponse": 1,
+     "porte": [
+      "几",
+      "月",
+      "日"
+     ]
+    },
+    {
+     "type": "comprendre",
+     "support": "s2",
+     "consigne": {
+      "fr": "Combien coûte la calèche pour une personne ?",
+      "en": "How much is the horse carriage per person?"
+     },
+     "choix": [
+      {
+       "fr": "10 yuans",
+       "en": "10 yuan"
+      },
+      {
+       "fr": "8 yuans",
+       "en": "8 yuan"
+      },
+      {
+       "fr": "12 yuans",
+       "en": "12 yuan"
+      },
+      {
+       "fr": "20 yuans",
+       "en": "20 yuan"
+      }
+     ],
+     "reponse": 3,
+     "porte": [
+      "马",
+      "车",
+      "二",
+      "十"
+     ]
+    },
+    {
+     "type": "reperer",
+     "support": "s2",
+     "consigne": {
+      "fr": "Touche le tarif des écoliers.",
+      "en": "Tap the pupils' price."
+     },
+     "choix": [
+      "八元",
+      "十元",
+      "二十元",
+      "小马"
+     ],
+     "reponse": 0,
+     "porte": [
+      "八",
+      "元"
+     ]
+    },
+    {
+     "type": "vrai_faux",
+     "support": "s2",
+     "consigne": {
+      "fr": "Vrai ou faux ?",
+      "en": "True or false?"
+     },
+     "affirmation": {
+      "zh": "小马一人十元。",
+      "pinyin": "xiǎo mǎ yī rén shí yuán",
+      "fr": "Le poney, c'est 10 yuans par personne.",
+      "en": "The pony is 10 yuan per person."
+     },
+     "reponse": true,
+     "porte": [
+      "小",
+      "马",
+      "十"
+     ]
+    },
+    {
+     "type": "caractere",
+     "consigne": {
+      "fr": "Quel caractère a ce sens ?",
+      "en": "Which character has this meaning?"
+     },
+     "objet": {
+      "zh": "妈",
+      "pinyin": "mā",
+      "fr": "maman",
+      "en": "mum"
+     },
+     "choix": [
+      "马",
+      "吗",
+      "妈",
+      "她"
+     ],
+     "reponse": 2,
+     "porte": [
+      "妈"
+     ]
+    },
+    {
+     "type": "comprendre",
+     "support": "s3",
+     "consigne": {
+      "fr": "Qui est Xiaobai ?",
+      "en": "Who is Xiaobai?"
+     },
+     "choix": [
+      {
+       "fr": "Une étudiante",
+       "en": "A university student"
+      },
+      {
+       "fr": "Une ouvrière",
+       "en": "A worker"
+      },
+      {
+       "fr": "Une écolière",
+       "en": "A primary-school pupil"
+      },
+      {
+       "fr": "Une maman",
+       "en": "A mum"
+      }
+     ],
+     "reponse": 2,
+     "porte": [
+      "小",
+      "学"
+     ]
+    },
+    {
+     "type": "vrai_faux",
+     "support": "s3",
+     "consigne": {
+      "fr": "Vrai ou faux ?",
+      "en": "True or false?"
+     },
+     "affirmation": {
+      "zh": "小白是大学生。",
+      "pinyin": "xiǎo bái shì dà xué sheng",
+      "fr": "Xiaobai est étudiante à l'université.",
+      "en": "Xiaobai is a university student."
+     },
+     "reponse": false,
+     "porte": [
+      "小",
+      "大"
+     ]
+    },
+    {
+     "type": "trou",
+     "consigne": {
+      "fr": "Quel caractère manque dans ce mot ?",
+      "en": "Which character is missing from this word?"
+     },
+     "objet": {
+      "zh": "学生",
+      "pinyin": "xué sheng",
+      "fr": "élève, étudiant",
+      "en": "student"
+     },
+     "trou": 1,
+     "choix": [
+      "生",
+      "牛",
+      "先",
+      "手"
+     ],
+     "reponse": 0,
+     "porte": [
+      "生"
+     ]
+    },
+    {
+     "type": "comprendre",
+     "support": "s4",
+     "consigne": {
+      "fr": "Que vend-on ici ?",
+      "en": "What is sold here?"
+     },
+     "choix": [
+      {
+       "fr": "Des chevaux",
+       "en": "Horses"
+      },
+      {
+       "fr": "Des vêtements",
+       "en": "Clothes"
+      },
+      {
+       "fr": "Du lait",
+       "en": "Milk"
+      },
+      {
+       "fr": "Du riz",
+       "en": "Rice"
+      }
+     ],
+     "reponse": 3,
+     "porte": [
+      "大",
+      "米"
+     ]
+    },
+    {
+     "type": "comprendre",
+     "support": "s5",
+     "consigne": {
+      "fr": "Combien coûte ce billet ?",
+      "en": "How much is this ticket?"
+     },
+     "choix": [
+      {
+       "fr": "8 yuans",
+       "en": "8 yuan"
+      },
+      {
+       "fr": "18 yuans",
+       "en": "18 yuan"
+      },
+      {
+       "fr": "12 yuans",
+       "en": "12 yuan"
+      },
+      {
+       "fr": "80 yuans",
+       "en": "80 yuan"
+      }
+     ],
+     "reponse": 1,
+     "porte": [
+      "十",
+      "八",
+      "元"
+     ]
+    },
+    {
+     "type": "reperer",
+     "support": "s5",
+     "consigne": {
+      "fr": "Touche le mois du voyage.",
+      "en": "Tap the month of the trip."
+     },
+     "choix": [
+      "十二月",
+      "十八元",
+      "大山",
+      "白山"
+     ],
+     "reponse": 0,
+     "porte": [
+      "十",
+      "二",
+      "月"
+     ]
+    },
+    {
+     "type": "ton",
+     "consigne": {
+      "fr": "Quel est son ton ?",
+      "en": "Which tone does it have?"
+     },
+     "objet": {
+      "zh": "白",
+      "pinyin": "bái",
+      "fr": "blanc",
+      "en": "white"
+     },
+     "choix": [
+      "bāi",
+      "bái",
+      "bǎi",
+      "bài"
+     ],
+     "reponse": 1,
+     "porte": [
+      "白"
+     ]
+    },
+    {
+     "type": "sens",
+     "consigne": {
+      "fr": "Que veut dire ce caractère ?",
+      "en": "What does this character mean?"
+     },
+     "objet": {
+      "zh": "右",
+      "pinyin": "yòu",
+      "fr": "droite",
+      "en": "right"
+     },
+     "choix": [
+      {
+       "fr": "gauche",
+       "en": "left"
+      },
+      {
+       "fr": "avoir",
+       "en": "to have"
+      },
+      {
+       "fr": "droite",
+       "en": "right"
+      },
+      {
+       "fr": "main",
+       "en": "hand"
+      }
+     ],
+     "reponse": 2,
+     "porte": [
+      "右"
+     ]
+    }
+   ]
+  }
+ ]
+}
