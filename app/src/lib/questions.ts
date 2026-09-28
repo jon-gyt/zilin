@@ -968,10 +968,12 @@ export function leurresDe(q: Question, reponse: Reponse): string[] {
 /**
  * Le tracé est noté par Hanzi Writer, qui rend le nombre d'erreurs :
  * 0 erreur = juste, 1 ou 2 = juste après erreur, 3 et plus = faux.
+ * Jamais au temps (`chrono: false`) : on trace avec soin, trait après trait, et un tracé
+ * lent n'est pas un oubli. Le temps est gardé dans l'événement, il n'entre pas dans la note.
  */
 export function outcomeDuTrace(erreurs: number, seconds: number): Outcome {
   const correct = erreurs <= ERREURS_TRACE_MAX;
-  return { correct, tries: correct && erreurs > 0 ? 1 : erreurs, seconds };
+  return { correct, tries: correct && erreurs > 0 ? 1 : erreurs, seconds, chrono: false };
 }
 
 function memeSuite(a: readonly string[], b: readonly string[]): boolean {

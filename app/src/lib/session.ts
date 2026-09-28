@@ -156,6 +156,8 @@ export type Revision = {
   tries: number;
   seconds: number;
   leurres?: string[];
+  /** `false` : la réponse ne se juge pas au temps, comme le tracé (`Outcome.chrono`). */
+  chrono?: false;
   /**
    * L'art du personnage que la réponse exerce (`heros.ts`) : la question le dit d'après
    * son type. Absent (un jeu, un événement d'avant ce champ) : la lecture.

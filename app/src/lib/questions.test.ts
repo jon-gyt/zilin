@@ -483,17 +483,27 @@ describe('correction explicative par les briques', () => {
 
 describe('le tracé, noté par Hanzi Writer', () => {
   it('0 erreur : juste ; 1 ou 2 : juste après erreur ; 3 et plus : faux', () => {
-    expect(outcomeDuTrace(0, 5)).toEqual({ correct: true, tries: 0, seconds: 5 });
-    expect(outcomeDuTrace(1, 5)).toEqual({ correct: true, tries: 1, seconds: 5 });
-    expect(outcomeDuTrace(2, 5)).toEqual({ correct: true, tries: 1, seconds: 5 });
+    expect(outcomeDuTrace(0, 5)).toEqual({ correct: true, tries: 0, seconds: 5, chrono: false });
+    expect(outcomeDuTrace(1, 5)).toEqual({ correct: true, tries: 1, seconds: 5, chrono: false });
+    expect(outcomeDuTrace(2, 5)).toEqual({ correct: true, tries: 1, seconds: 5, chrono: false });
     expect(outcomeDuTrace(3, 5).correct).toBe(false);
+  });
+
+  it('jamais au temps : un tracé juste, même lent, vaut « Facile » (白 : 4 jours, avant)', () => {
+    expect(grade(outcomeDuTrace(0, 25))).toBe(Rating.Easy);
+    expect(grade(outcomeDuTrace(0, 2))).toBe(Rating.Easy);
+    expect(grade(outcomeDuTrace(1, 25))).toBe(Rating.Hard);
+    expect(grade(outcomeDuTrace(3, 25))).toBe(Rating.Again);
+    /* Les questions à choix gardent la règle des six secondes. */
+    const q = poser('sens');
+    expect(grade(corriger(q, q.reponse[0], { correct: false, tries: 0, seconds: 9 }).outcome)).toBe(Rating.Good);
   });
 
   it('la correction d’une question de tracé passe par cette règle', () => {
     const q = poser('trace');
     const r = corriger(q, { erreurs: 2 }, { correct: false, tries: 0, seconds: 8 });
     expect(r.correct).toBe(true);
-    expect(r.outcome).toEqual({ correct: true, tries: 1, seconds: 8 });
+    expect(r.outcome).toEqual({ correct: true, tries: 1, seconds: 8, chrono: false });
     expect(corriger(q, { erreurs: 4 }, { correct: false, tries: 0, seconds: 8 }).correct).toBe(false);
   });
 });

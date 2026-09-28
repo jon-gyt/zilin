@@ -29,6 +29,16 @@ describe('notation automatique', () => {
   it('juste et lent : Bien', () => expect(grade(LENT)).toBe(Rating.Good));
   it('juste après erreur : Dur', () => expect(grade(APRES_ERREUR)).toBe(Rating.Hard));
   it('faux : Oublié', () => expect(grade(FAUX)).toBe(Rating.Again));
+
+  it('sans chronomètre (le tracé) : juste du premier coup vaut Facile, quel que soit le temps', () => {
+    expect(grade({ ...LENT, chrono: false })).toBe(Rating.Easy);
+    expect(grade({ ...LENT, seconds: 90, chrono: false })).toBe(Rating.Easy);
+    /* Le reste de la règle ne change pas : une erreur reste une erreur. */
+    expect(grade({ ...APRES_ERREUR, seconds: 90, chrono: false })).toBe(Rating.Hard);
+    expect(grade({ ...FAUX, chrono: false })).toBe(Rating.Again);
+    /* Et la planification suit la note : un tracé lent revient aussi loin qu'un rapide. */
+    expect(apres({ ...LENT, chrono: false }).due).toEqual(apres(RAPIDE).due);
+  });
 });
 
 describe("planification d'une carte neuve", () => {
