@@ -63,12 +63,14 @@
   import { caseReviser, carteDuMenu, menu, traitsDeLAjout } from './parcours';
   import { familleDepart, fichesDepart } from './premiere';
   import { jourDeDemain, premierSens } from './route';
-  import { cartesDues, type Progress } from './session';
-  import { SANS_RYTHME, type TextesRythme } from './rythme';
+  import { cartesDues, jourParcours, type Progress } from './session';
+  import { ACCES_WEB, prochaineBrique, type Acces } from './droits';
+  import { quandMenu, SANS_RYTHME, type TextesRythme } from './rythme';
   import { stade } from './tao';
 
   let {
     p,
+    acces = ACCES_WEB,
     textes = SANS_RYTHME,
     fete = null,
     fetes = null,
@@ -83,7 +85,9 @@
     onroute = () => undefined
   }: {
     p: Progress;
-    /** Les lignes du rythme gratuit (`rythme.json`) : la journée sans brique. */
+    /** Le web ou l'app, et l'achat : ce qui fixe le jour de la prochaine brique (`droits.ts`). */
+    acces?: Acces;
+    /** Les lignes du rythme gratuit (`rythme.json`) : la journée sans brique, « Dans 3 j ». */
     textes?: TextesRythme;
     /** La fête du jour : le vœu prend la place de la marque, l'emblème porte le caractère. */
     fete?: FeteDuJour | null;
@@ -215,11 +219,17 @@
 
   /**
    * « Demain : 子 enfant » : la brique de la prochaine session, la journée faite seulement
-   * (`route.jourDeDemain`), en jour du chemin. Une ligne discrète, pour que le menu tienne
-   * toujours sur un écran.
+   * (`route.jourDeDemain`), en jour du chemin. Au rythme gratuit, quand elle n'est pas pour
+   * le lendemain, « Dans 3 j : 子 enfant », en jours du calendrier, ceux que fixe la règle
+   * (`droits.prochaineBrique`). Une ligne discrète, pour que le menu tienne toujours sur un
+   * écran.
    */
   let demain = $state.raw<{ c: string; sens: string; pistes: string[] } | null>(null);
   const jourDemain = $derived(jourDeDemain(p));
+  const quandDemain = $derived.by(() => {
+    const k = prochaineBrique(p.droits, acces, p.day, jourParcours(p));
+    return k === null ? '' : quandMenu(textes, k.dans);
+  });
 
   $effect(() => {
     const jour = jourDemain;
@@ -489,10 +499,10 @@
         <span>{m.ligne}</span>
         {#if m.duree !== ''}<span class="duree">{m.duree}</span>{/if}
       </div>
-      {#if demain && jourDemain !== null}
+      {#if demain && jourDemain !== null && quandDemain !== ''}
         <div class="demain">
           <span class="dm"
-            >Demain : <span class="dgl"
+            >{quandDemain} : <span class="dgl"
               ><Glyph char={demain.c} size={16} write={false} color="var(--ink)" pistes={demain.pistes} /></span
             >{#if demain.sens !== ''}<span class="dsens">{demain.sens}</span>{/if}</span
           >
