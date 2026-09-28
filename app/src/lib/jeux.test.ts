@@ -16,6 +16,8 @@ import {
   MINUTES_MIN,
   PAIRES_PAR_MINUTE,
   TOURS_JUMEAUX,
+  NOTER_TEMPS_ECOULE,
+  evenementsANoter,
   confondusAvec,
   PROPOSITIONS_CHAINE,
   TOURS_ASSEMBLAGE,
@@ -386,6 +388,30 @@ describe('Assembler contre la montre', () => {
     const r = repondre(m, [], outcome({ correct: false, seconds: 8 }));
     expect(r.correct).toBe(false);
     expect(r.note).toBe(Rating.Again);
+  });
+
+  it('temps écoulé : la réponse est montrée et rien n’est noté (décision du 26 septembre 2026)', () => {
+    expect(NOTER_TEMPS_ECOULE).toBe(false);
+    const r = { ...repondre(m, [], outcome({ correct: false, seconds: 8 })), ecoule: true };
+    expect(r.montre).toBe(true);
+    /* Rien pour la progression : la carte ne revient pas dans dix minutes. */
+    expect(evenementsANoter('assembler', r)).toEqual([]);
+    /* L'interrupteur tient en une ligne : à vrai, le temps écoulé serait noté comme une erreur. */
+    expect(evenementsANoter('assembler', r, true)).toEqual(r.evenements);
+    /* Une suite de briques fausse, donnée à temps, reste notée comme une question. */
+    const t = tour(m);
+    if (!t) throw new Error('tour attendu');
+    const faux = repondre(m, [...t.reponse].reverse(), outcome({ seconds: 5 }));
+    expect(faux.correct).toBe(false);
+    expect(evenementsANoter('assembler', faux)).toEqual(faux.evenements);
+    /* Une bonne réponse reste toujours notée. */
+    const juste = { ...repondre(m, t.reponse, outcome({ seconds: 5 })), ecoule: true };
+    expect(evenementsANoter('assembler', juste)).toEqual(juste.evenements);
+    /* L'écran passe le temps écoulé à `evenementsANoter`, et Tao ne grimace pas. */
+    const game = readFileSync(new URL('Game.svelte', import.meta.url), 'utf8');
+    expect(game).toContain('if (reste === 0) valider([], true);');
+    expect(game).toContain('const r = ecoule ? { ...repondu, ecoule } : repondu;');
+    expect(game).toContain('if (ecoule) serie = 0;');
   });
 
   it('le chronomètre borne le tour, il ne note pas : la note ne vient que de grade', () => {

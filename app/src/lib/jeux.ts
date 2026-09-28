@@ -489,9 +489,12 @@ export type Resultat = {
   note: Grade;
   /**
    * Faux : la réponse est montrée, et la carte revient dans dix minutes, sauf aux jeux
-   * où une erreur ne note rien (`ERREUR_SANS_NOTE`).
+   * où une erreur ne note rien (`ERREUR_SANS_NOTE`) et quand le temps est écoulé
+   * (`NOTER_TEMPS_ECOULE`).
    */
   montre: boolean;
+  /** Le chronomètre du tour s'est vidé avant la réponse : l'écran a répondu à vide. */
+  ecoule?: boolean;
 };
 
 export type Jeu = {
@@ -1266,11 +1269,29 @@ export function repondre(m: Manche, reponse: Reponse, outcome: Outcome): Resulta
 export const ERREUR_SANS_NOTE: readonly JeuId[] = ['eclair', 'cuisine'];
 
 /**
- * Les événements d'un tour à ranger dans la progression et à passer à `schedule`. La
- * manche, elle, les garde tous : son constat ne change pas.
+ * Assembler contre la montre : faut-il noter un temps écoulé comme une erreur ?
+ * Décision du propriétaire du 26 septembre 2026, « Ne rien noter » : quand le temps est
+ * écoulé, la réponse est montrée et rien n'est noté, comme à l'éclair et à la cuisine.
+ * Lire lentement n'est pas avoir oublié : le chrono reste un défi, jamais une sanction.
+ * Une suite de briques fausse, donnée à temps, reste notée comme une question.
+ * C'est le seul interrupteur : `true` noterait de nouveau le temps écoulé comme une erreur.
  */
-export function evenementsANoter(jeu: JeuId, r: Pick<Resultat, 'correct' | 'evenements'>): Revision[] {
-  return r.correct || !ERREUR_SANS_NOTE.includes(jeu) ? r.evenements : [];
+export const NOTER_TEMPS_ECOULE = false;
+
+/**
+ * Les événements d'un tour à ranger dans la progression et à passer à `schedule`. La
+ * manche, elle, les garde tous : son constat ne change pas. Une bonne réponse est
+ * toujours notée ; une erreur ne l'est pas aux jeux de `ERREUR_SANS_NOTE`, ni quand le
+ * temps s'est écoulé (`ecoule`) tant que `noterEcoule` (`NOTER_TEMPS_ECOULE`) est faux.
+ */
+export function evenementsANoter(
+  jeu: JeuId,
+  r: Pick<Resultat, 'correct' | 'evenements' | 'ecoule'>,
+  noterEcoule: boolean = NOTER_TEMPS_ECOULE
+): Revision[] {
+  if (r.correct) return r.evenements;
+  if (r.ecoule === true && !noterEcoule) return [];
+  return ERREUR_SANS_NOTE.includes(jeu) ? [] : r.evenements;
 }
 
 /* ---------- le constat ---------- */

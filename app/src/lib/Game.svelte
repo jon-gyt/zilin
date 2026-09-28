@@ -333,7 +333,7 @@
     if (chrono > 0) {
       horloge = setInterval(() => {
         reste = Math.max(0, 1 - (Date.now() - depart) / chrono);
-        if (reste === 0) valider([]);
+        if (reste === 0) valider([], true);
       }, 100);
     }
   }
@@ -380,20 +380,27 @@
 
   /**
    * Note la réponse. Le temps passé et les essais forment l'`Outcome` ; c'est `grade`
-   * qui note. Une réponse vide, c'est le chronomètre écoulé : elle est fausse.
+   * qui note. Une réponse vide, c'est le chronomètre écoulé (`ecoule`) : elle est fausse,
+   * la réponse est montrée, et rien n'est noté tant que `NOTER_TEMPS_ECOULE` est faux
+   * (décision du propriétaire du 26 septembre 2026, « Ne rien noter »).
    */
-  function valider(rep: string[]): void {
+  function valider(rep: string[], ecoule = false): void {
     const courante = m;
     if (courante === null || resultat !== null || fini(courante)) return;
     arreterChrono();
     const seconds = Math.max(0, (Date.now() - depart) / 1000);
     const mot = tour(courante)?.mot ?? '';
-    const r = JEUX[courante.jeu].repondre(courante, rep, { correct: true, tries: 0, seconds });
+    const repondu = JEUX[courante.jeu].repondre(courante, rep, { correct: true, tries: 0, seconds });
+    const r = ecoule ? { ...repondu, ecoule } : repondu;
     donnee = rep;
     resultat = r;
     cache = false;
-    reagirA(r.correct);
-    /* L'éclair et la cuisine ne notent pas une mauvaise réponse (`evenementsANoter`). */
+    /* Le temps écoulé n'est pas une erreur de lecture : Tao ne grimace pas, la série
+       repart simplement de zéro. */
+    if (ecoule) serie = 0;
+    else reagirA(r.correct);
+    /* L'éclair et la cuisine ne notent pas une mauvaise réponse, ni l'assemblage un temps
+       écoulé (`evenementsANoter`). */
     for (const e of evenementsANoter(courante.jeu, r)) onrepondu(e);
     /* Le dictionnaire éclair : un mot deviné compte une fois, dans la progression. */
     if (r.correct && mot !== '') onmotdevine(mot);
@@ -914,7 +921,7 @@
 
       <div class="fb" class:vide={resultat === null && jeu !== 'devinette'}>
         {#if resultat !== null}
-          <b>{resultat.montre ? 'On te montre.' : VERDICTS[resultat.note]}</b>
+          <b>{resultat.ecoule ? 'Le temps est passé : on te montre.' : resultat.montre ? 'On te montre.' : VERDICTS[resultat.note]}</b>
           <!-- L'échéance ne se dit que si le tour a noté quelque chose : une erreur à
                l'éclair ne note rien, la carte garde l'échéance d'avant. -->
           {@const quand = evenementsANoter(m.jeu, resultat).length > 0 ? echeance(p, resultat.evenement.c) : null}
