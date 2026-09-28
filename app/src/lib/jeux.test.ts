@@ -1,4 +1,5 @@
 import { describe, it, expect } from 'vitest';
+import { lireTraits } from './strokes';
 import { readFileSync } from 'node:fs';
 import { Rating } from 'ts-fsrs';
 import {
@@ -612,7 +613,7 @@ describe('le corpus des données de démonstration', () => {
   const voisins = lire('../../public/data/demo/voisins.json') as Voisins;
   const foret = lire('../../public/data/demo/foret.json') as Foret;
   const paires = lirePaires(lire('../../public/data/demo/paires.json'));
-  const traits = Object.keys(lire('../../public/strokes-demo.json') as Record<string, unknown>);
+  const traits = Object.keys(lireTraits(lire('../../public/strokes-demo.json')));
   const familles = [
     lire('../../public/data/demo/familles/人.json') as Famille,
     lire('../../public/data/demo/familles/主.json') as Famille
@@ -1012,7 +1013,7 @@ describe('la chaîne et la coquille sur le contenu servi (export 0.1.0)', () => 
   const traitsExport = indexExport.familles.flatMap((f) =>
     Object.keys((lire(`${dossier}/${f.traits}`) as { traits: Record<string, unknown> }).traits)
   );
-  const traitsDemo = Object.keys(lire('../../public/strokes-demo.json') as Record<string, unknown>);
+  const traitsDemo = Object.keys(lireTraits(lire('../../public/strokes-demo.json')));
   const traits = [...new Set([...traitsExport, ...traitsDemo])];
   const paires = lirePaires(lire(`${dossier}/paires.json`));
   const foret = lire('../../public/data/demo/foret.json') as Foret;

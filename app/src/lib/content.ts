@@ -127,7 +127,7 @@ export type Fiche = {
   role: Role | null;
   /** Le rôle de chaque brique de la décomposition. Vide sans fiche relue. */
   roles?: Record<string, Role>;
-  /** D'où vient la chaîne IDS descendue : `makemeahanzi` ou `cjk-decomp`. */
+  /** D'où vient la chaîne IDS descendue : `cjk-decomp` (MIT) ou `surcharge` (rédigée pour Wenlu). */
   sources?: string[];
   /** `relu` quand une fiche relue porte les textes, `sans_fiche` sinon. */
   statut?: Statut;

@@ -233,6 +233,15 @@ def caracteres_des_textes(export: Path | None = None) -> set[str]:
     return trouves
 
 
+def tables_de_traits(document: object) -> dict[str, object]:
+    """Les tracés d'un fichier de traits : sa clé `traits` s'il porte un en-tête de licence
+    (`strokes-demo.json` depuis le 28 septembre 2026), sinon la table nue."""
+    if not isinstance(document, dict):
+        return {}
+    table = document.get("traits", document)
+    return table if isinstance(table, dict) else {}
+
+
 def caracteres_de_lapp(
     traits: Path | None = None, listes: Path | None = None, export: Path | None = None
 ) -> str:
@@ -245,7 +254,7 @@ def caracteres_de_lapp(
     """
     traits = traits or TRAITS_APP
     listes = listes or LISTES
-    cles = list(json.loads(traits.read_text(encoding="utf-8")).keys()) if traits.exists() else []
+    cles = list(tables_de_traits(json.loads(traits.read_text(encoding="utf-8")))) if traits.exists() else []
     cles += sorted(caracteres_exportes(export))
     cles += sorted(caracteres_des_textes(export))
     textes = [

@@ -2254,6 +2254,18 @@ def controles(
                 )
             ]
 
+    # Les tracés de repli de la maquette, servis hors de l'export mais sous la même APL :
+    # même en-tête que `traits/` (APL §2 a), clé `traits`.
+    demo = (destination or EXPORT).parent / "strokes-demo.json"
+    if demo.exists():
+        document = json.loads(demo.read_text(encoding="utf-8"))
+        entete = document if isinstance(document, dict) else {}
+        melanges += [f"{demo.name} : en-tête sans {cle}" for cle in ENTETE_LICENCE if not entete.get(cle)]
+        if entete.get("license") and entete.get("license") != LICENCE_TRAITS:
+            melanges.append(f"{demo.name} : licence {entete.get('license')}, {LICENCE_TRAITS} attendue")
+        if "traits" not in entete:
+            melanges.append(f"{demo.name} : tracés hors de la clé `traits`")
+
     return [
         Controle(
             "export : à jour",

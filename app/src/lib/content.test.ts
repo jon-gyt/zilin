@@ -1,4 +1,5 @@
 import { afterEach, describe, it, expect, vi } from 'vitest';
+import { lireTraits } from './strokes';
 import { readFileSync } from 'node:fs';
 import {
   ETIQUETTES,
@@ -232,9 +233,9 @@ const texte = JSON.parse(
   readFileSync(new URL('../../public/data/demo/textes/住.json', import.meta.url), 'utf8')
 ) as Texte;
 
-const traits = JSON.parse(
-  readFileSync(new URL('../../public/strokes-demo.json', import.meta.url), 'utf8')
-) as Record<string, unknown>;
+const traits = lireTraits(
+  JSON.parse(readFileSync(new URL('../../public/strokes-demo.json', import.meta.url), 'utf8'))
+);
 
 describe('le texte de trois lignes', () => {
   it('est versionné et cite sa source', () => {
