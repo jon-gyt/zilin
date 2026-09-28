@@ -144,7 +144,17 @@ export type Explication = {
   etiquette: Etiquette | null;
   /** Une ligne par brique, dans l'ordre d'écriture. */
   briques: { c: string; fr: string; role: Role | null }[];
-  /** Le texte de correction, assemblé à partir des fiches. Rien n'est rédigé ici. */
+  /**
+   * La correction courte, lue d'un coup d'œil : le caractère, son pinyin, son sens, et ses
+   * briques s'il en a, chacune avec son premier sens (« 住 zhù, habiter. 亻 personne + 主
+   * maître. »). C'est elle
+   * que l'écran montre, et sur elle que l'avance automatique se cale (brief §6 :
+   * « Explications en trois phrases ; la suite dans la fiche, d'un tap »).
+   */
+  court: string;
+  /** L'origine de la fiche, derrière « Pourquoi ? ». Vide quand la fiche n'en a pas. */
+  origine: string;
+  /** Le texte de correction entier : la correction courte, puis l'origine. Rien n'est rédigé ici. */
   texte: string;
 };
 
@@ -554,6 +564,30 @@ export function typesPossibles(f: Fiche, corpus: Corpus): TypeQuestion[] {
 /* ---------- l'explication par les briques ---------- */
 
 /**
+ * Le premier sens d'une glose du pipeline (« petits pas, marche (clé) » donne « petits
+ * pas »), sans la note d'atelier « (clé) » ou « (composant) ». Une virgule entre
+ * parenthèses ne coupe pas (« devoir (de l'argent), bâiller » donne « devoir (de l'argent) »).
+ * Rien n'est rédigé : on garde le début du texte relu.
+ */
+export function premierSens(fr: string): string {
+  let prof = 0;
+  let fin = fr.length;
+  for (let i = 0; i < fr.length; i++) {
+    const x = fr[i];
+    if (x === '(') prof += 1;
+    else if (x === ')') prof = Math.max(0, prof - 1);
+    else if ((x === ',' || x === ';') && prof === 0) {
+      fin = i;
+      break;
+    }
+  }
+  return fr
+    .slice(0, fin)
+    .trim()
+    .replace(/\s*\((clé|composant)\)$/u, '');
+}
+
+/**
  * La fiche de correction. Le texte n'est pas rédigé ici : il assemble ce que le pipeline
  * `data/` a produit (pinyin, sens, origine) autour de la décomposition canonique.
  */
@@ -565,16 +599,26 @@ export function expliquer(f: Fiche, corpus: Corpus): Explication {
   /* Sans fiche relue, il n'y a ni sens ni origine : l'explication se tait plutôt que
      d'afficher une virgule vide. Elle garde la décomposition, qui, elle, est établie. */
   const tete = f.fr === '' ? `${f.c} ${f.pinyin}.` : `${f.c} ${f.pinyin}, ${f.fr}.`;
-  const lignes = briques.map((b) => (b.fr === '' ? b.c : `${b.c} ${b.fr}`));
-  const corps = briques.length > 0 ? ` ${f.parts.join(' + ')} : ${lignes.join(', ')}.` : '';
-  const origine = f.origine_fr === '' ? '' : ` ${f.origine_fr}`;
+  /* Chaque brique avec son premier sens, une fois : 网 = 冂 cadre + 乂 couper l'herbe + 乂. */
+  const glosees = new Set<string>();
+  const lignes = briques.map((b) => {
+    const sens = premierSens(b.fr);
+    if (sens === '' || glosees.has(b.c)) return b.c;
+    glosees.add(b.c);
+    return `${b.c} ${sens}`;
+  });
+  const corps = briques.length > 0 ? ` ${lignes.join(' + ')}.` : '';
+  const court = `${tete}${corps}`;
+  const origine = f.origine_fr.trim();
   return {
     c: f.c,
     pinyin: f.pinyin,
     fr: f.fr,
     etiquette: f.etiquette,
     briques,
-    texte: `${tete}${corps}${origine}`
+    court,
+    origine,
+    texte: origine === '' ? court : `${court} ${origine}`
   };
 }
 

@@ -306,6 +306,10 @@ h1{font-family:var(--head);font-weight:700;font-size:30px;line-height:1.15;lette
 .fb{margin-top:12px;min-height:44px;font-size:15px;color:var(--ink2);text-align:left;padding:10px 12px;border-radius:10px;background:var(--paper)}
 .fb b{color:var(--ink)}
 .fb .next{display:block;margin-top:4px;font-size:13px;color:var(--mist)}
+/* « Pourquoi ? » : l'origine de la fiche, d'un tap, sous la correction courte */
+.fb .pourquoi{display:block;min-height:44px;padding:0;margin:2px 0 -8px;background:none;border:0;color:var(--indigo);font:inherit;font-weight:600;font-size:14px;text-align:left}
+.fb .origine{display:block;margin-top:8px;font-size:14px;line-height:1.5}
+.fb .origine .tag{margin:0 6px 0 0;padding:0 8px;font-size:12px}
 
 /* ---- pas 6, Clore : la graine plantée (maquette s-l5) ---- */
 /* encre et jade, un trait par élément : ni dégradé, ni ombre */

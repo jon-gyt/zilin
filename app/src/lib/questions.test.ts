@@ -13,6 +13,7 @@ import {
   lirePaires,
   marquerTon,
   outcomeDuTrace,
+  premierSens,
   syllabesDuTon,
   question,
   ressemblance,
@@ -404,6 +405,38 @@ describe('correction explicative par les briques', () => {
     expect(e.texte).toContain('le maître');
     expect(e.texte).toContain('La personne et sa flamme.');
     expect(e.etiquette).toBe('atteste');
+  });
+
+  it('la correction courte tient en une ligne ; l’origine attend « Pourquoi ? »', () => {
+    const e = expliquer(fiche('住'), CORPUS);
+    /* Chaque brique avec son premier sens ; 亻 n'a pas de fiche, il reste nu. */
+    expect(e.court).toBe('住 zhù, habiter. 亻 + 主 le maître.');
+    expect(e.court).not.toContain('flamme');
+    expect(e.origine).toBe('La personne et sa flamme.');
+    expect(e.texte).toBe(`${e.court} ${e.origine}`);
+    /* Une brique de base : ni briques, ni rien d'autre que son sens. */
+    expect(expliquer(fiche('王'), CORPUS).court).toBe('王 wáng, le roi.');
+    /* Sans origine, rien derrière « Pourquoi ? » : le texte est la correction courte. */
+    const nu = expliquer({ ...fiche('王'), origine_fr: '' }, CORPUS);
+    expect(nu.origine).toBe('');
+    expect(nu.texte).toBe(nu.court);
+  });
+
+  it('une brique répétée n’est glosée qu’une fois, et au premier sens', () => {
+    const corpus: Corpus = {
+      ...CORPUS,
+      fiches: [...FICHES, f('乂', 'yì', "couper l'herbe, régler (composant)", [], null, '')]
+    };
+    const wang = f('网', 'wǎng', 'filet', ['冂', '乂', '乂'], null, '');
+    expect(expliquer(wang, corpus).court).toBe("网 wǎng, filet. 冂 + 乂 couper l'herbe + 乂.");
+  });
+
+  it('le premier sens garde le texte relu, sans la note d’atelier', () => {
+    expect(premierSens('petits pas, marche (clé)')).toBe('petits pas');
+    expect(premierSens('soleil (clé)')).toBe('soleil');
+    expect(premierSens("devoir (de l'argent), bâiller")).toBe("devoir (de l'argent)");
+    expect(premierSens('pouce (mesure, 3 cm); dix')).toBe('pouce (mesure, 3 cm)');
+    expect(premierSens('')).toBe('');
   });
 
   it('la correction rend toujours la fiche d’explication', () => {

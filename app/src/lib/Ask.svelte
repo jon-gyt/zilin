@@ -19,6 +19,7 @@
   import { artDe } from './heros';
   import { aAudio, manifesteOnce, prononcer } from './audio';
   import { bonneReponse } from './haptique';
+  import { ETIQUETTES } from './content';
   import type { Grade } from 'ts-fsrs';
 
   let {
@@ -84,6 +85,8 @@
   let entendu = $state(false);
   /** Le caractère peut être dit, par un fichier ou la voix de l'appareil. */
   let ecoutable = $state(false);
+  /** L'origine de la fiche est ouverte, sous la correction courte. */
+  let pourquoi = $state(false);
   /**
    * À l'oreille, le pinyin sous les choix dirait la réponse : il n'apparaît qu'après la
    * correction. Au caractère aussi : l'énoncé donne le pinyin, le choix se ferait sur lui
@@ -104,6 +107,7 @@
     sautable = false;
     entendu = false;
     ecoutable = false;
+    pourquoi = false;
     depart = Date.now();
   });
 
@@ -159,8 +163,8 @@
     onnote({ c: q.c, ...c.outcome, art: artDe(q.type) });
     const due = echeanceDe(q.c);
     prochaine = due === null ? '' : delai(new Date(), due);
-    /* L'avance automatique laisse lire la correction ; trop longue, on avance au tap. */
-    const attente = c.correct ? delaiAvance(`${VERDICTS[note]} ${q.explication.texte}`) : null;
+    /* L'avance automatique laisse lire la correction courte ; l'origine attend « Pourquoi ? ». */
+    const attente = c.correct ? delaiAvance(`${VERDICTS[note]} ${q.explication.court}`) : null;
     if (attente !== null) minuteur = setTimeout(avancer, attente);
   }
 
@@ -204,6 +208,12 @@
       construit = [];
       onverdict(false);
     }
+  }
+
+  /** « Pourquoi ? » ouvre l'origine : on lit, l'avance automatique s'arrête, on avance au bouton. */
+  function ouvrirPourquoi(): void {
+    arreter();
+    pourquoi = true;
   }
 
   /**
@@ -321,7 +331,18 @@
   <div class="fb" class:vide={note === null && !sautable && essais === 0}>
     {#if note !== null}
       <b>{montree ? 'On te montre.' : VERDICTS[note]}</b>
-      {q.explication.texte}
+      {q.explication.court}
+      <!-- L'origine se lit d'un tap : la correction reste courte, l'avance automatique aussi. -->
+      {#if q.explication.origine !== ''}
+        {#if pourquoi}
+          <span class="origine">
+            {#if q.explication.etiquette}<span class="tag">{ETIQUETTES[q.explication.etiquette]}</span>{/if}
+            {q.explication.origine}
+          </span>
+        {:else}
+          <button class="pourquoi" onclick={ouvrirPourquoi}>Pourquoi ?</button>
+        {/if}
+      {/if}
       {#if prochaine !== ''}
         <span class="next">Prochaine fois : dans {prochaine}.</span>
       {/if}

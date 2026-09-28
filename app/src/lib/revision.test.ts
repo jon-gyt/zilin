@@ -27,6 +27,7 @@ import {
 import {
   acquis,
   composantSon,
+  expliquer,
   fiche as ficheDuCorpus,
   horsSerie,
   lirePaires,
@@ -211,7 +212,7 @@ describe('le pas Fixer, sur les huit types', () => {
   });
 
   it('explique par les briques, avec le texte de la fiche', () => {
-    expect(qs[0].explication.texte).toContain('亻 + 主');
+    expect(qs[0].explication.court).toMatch(/亻.* \+ 主/);
     expect(qs[0].explication.texte).toContain(famille.fiches[1].origine_fr);
     expect(qs[0].explication.etiquette).toBe('atteste');
   });
@@ -443,5 +444,34 @@ describe("avance automatique : la correction se lit avant de partir", () => {
     const src = readFileSync(new URL('Ask.svelte', import.meta.url), 'utf8');
     expect(src).toContain('delaiAvance(');
     expect(src).not.toMatch(/setTimeout\(avancer, AVANCE_MS\)/);
+  });
+
+  it("la correction courte part d'elle-même ; l'origine est derrière « Pourquoi ? » (brief §6)", () => {
+    const src = readFileSync(new URL('Ask.svelte', import.meta.url), 'utf8');
+    /* L'avance se cale sur la correction courte, pas sur l'origine. */
+    expect(src).toContain('delaiAvance(`${VERDICTS[note]} ${q.explication.court}`)');
+    expect(src).not.toContain('{q.explication.texte}');
+    /* « Pourquoi ? » ouvre l'origine et arrête l'avance : on lit, on avance au bouton. */
+    expect(src).toContain('<button class="pourquoi" onclick={ouvrirPourquoi}>Pourquoi ?</button>');
+    const ouvrir = src.slice(src.indexOf('function ouvrirPourquoi'));
+    expect(ouvrir.slice(0, ouvrir.indexOf('}'))).toContain('arreter();');
+    /* L'origine garde son étiquette : attesté ou mnémotechnique, jamais l'un pour l'autre. */
+    expect(src).toContain('ETIQUETTES[q.explication.etiquette]');
+  });
+
+  it("sur l'export, une bonne réponse repart seule presque toujours : un tap par carte, c'était trop", () => {
+    const lire = (f: string): unknown =>
+      JSON.parse(readFileSync(new URL(f, import.meta.url), 'utf8'));
+    const dossier = `../../public/data/${VERSION_DONNEES}`;
+    const index = lire(`${dossier}/index.json`) as Index;
+    const toutes = index.familles.flatMap((f) => (lire(`${dossier}/${f.fichier}`) as Famille).fiches);
+    const corpus = corpusRevision({ fiches: toutes, voisins: null, cartes: [] });
+    const avec = toutes.filter((f) => f.fr !== '' && f.origine_fr !== '');
+    expect(avec.length).toBeGreaterThan(100);
+    const partent = (texte: (e: ReturnType<typeof expliquer>) => string) =>
+      avec.filter((f) => delaiAvance(`Oui. ${texte(expliquer(f, corpus))}`) !== null).length / avec.length;
+    /* Avant : l'origine entière, et presque aucune ne partait seule. */
+    expect(partent((e) => e.texte)).toBeLessThan(0.05);
+    expect(partent((e) => e.court)).toBeGreaterThan(0.9);
   });
 });
