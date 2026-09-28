@@ -18,7 +18,7 @@ dessinent depuis leurs traits (`data/sources/fetes/textes.tsv` : le caractère
 bonus de chaque anecdote et le 福 du vœu) y entrent aussi, avec leurs briques,
 comme le caractère à lire de chaque terme solaire (`data/sources/saisons/textes.tsv`)
 et les titres des douze rangs du personnage (`data/sources/heros/rangs.tsv`), dessinés
-sur son écran et au 放榜, et les caractères des mots expliqués des contes (狼, 苗, 叶公),
+sur son écran et au 放榜, et les caractères des mots expliqués des contes (狼, 苗, 叶公, 弈秋, 虱子…),
 que le lecteur dessine avant le texte.
 Version 0.1.0 : 248 familles, 532 caractères (234 briques, 13 feuilles découpées,
 aucune muette), 2,5 Mio. Tout caractère exporté a ses traits.
@@ -1175,7 +1175,23 @@ des trois contes gratuits), ou un niveau du HSK 3.0 (GF 0025-2021), chaîne : `h
 Les niveaux se rangent par leur nombre de caractères, cumul compris (`contes.rang`) :
 255 < `hsk1` (300) < `hsk2` (600) < … < `hsk6` (1 800) < `hsk7-9` (3 000). Les seuils 405
 à 1555 restent connus du code, sans liste versionnée : les contes suivent le HSK
-(décision du propriétaire). Aucun texte de conte n'entre dans le dépôt sans passer par
+(décision du propriétaire).
+
+Un niveau peut aussi être un **jour du chemin**, chaîne : `jour25` (de `jour1` à
+`jour254`), l'acquis des jours 1 à 25 du parcours Lire, soit les caractères dont la fiche
+(`data/sources/fiches/*.json`, voisines des listes) porte un `jour` de 1 à 25
+(`contes.jours_du_chemin`). Décision du propriétaire du 26 septembre 2026 : le premier
+conte ne s'ouvrait qu'au jour 166 du chemin ; deux ou trois fables très courtes s'ouvrent
+entre les jours 30 et 60, et l'une avant le jour 28 (l'offre gratuite peut s'arrêter au
+jour 30). Cumulatif comme un niveau HSK, un jour du chemin se range sous le seuil 255,
+que le parcours Lire mène à son terme, et entre eux par leur jour (`contes.rang` :
+`jour25` vaut 25, ce n'est pas un nombre de caractères). Son `N` est le jour où entre le
+dernier caractère du texte, titre compris, mots expliqués mis à part (`jour_d_ouverture`) :
+la fable s'ouvre ce jour-là sur le parcours Lire. Sur le parcours HSK, qui range les
+caractères autrement, elle s'ouvre comme toute version, quand ses caractères sont acquis ;
+son jour s'y calcule sur ce chemin-là, ou pas du tout quand l'un de ses caractères n'y est
+pas (古, 念, 只, 每 et 如 ne sont pas sur le parcours HSK : ses trois fables y restent
+« Plus loin »). Aucun texte de conte n'entre dans le dépôt sans passer par
 le pipeline : il sort de la génération par l'API ou de l'import d'un brouillon rédigé
 sans API, avec les mêmes contrôles, puis d'une relecture humaine.
 
@@ -1194,7 +1210,8 @@ le catalogue.
   deux pour un récit simple (`255,hsk3`, `hsk4,hsk6`), trois pour un récit riche
   (`hsk4,hsk6,hsk7-9`), un de plus quand l'animal est expliqué (`hsk3,hsk5,hsk7-9` pour
   守株待兔, simple). Les contes suivent le HSK ; les trois contes relus gardent 255 pour
-  premier niveau. Le critère est écrit en tête du catalogue : sur l'échelle 255 (au
+  premier niveau. Une fable du chemin n'a qu'un niveau, son jour (`jour25`), jamais mêlé
+  au plan HSK : une première lecture, de 30 à 60 sinogrammes (`LONGUEUR_CHEMIN`). Le critère est écrit en tête du catalogue : sur l'échelle 255 (au
   palier de HSK 1), `hsk1` … `hsk6`, `hsk7-9`, le plan de base commence au premier niveau
   HSK dont le cumul a tous les caractères clés du récit (255 pour les trois contes
   relus) ; les suivants montent de deux paliers en deux, ramenés à `hsk7-9` au haut de
@@ -1226,7 +1243,8 @@ le catalogue.
 - `motif` : le petit dessin de la couverture du conte dans Lire, où chaque conte est un
   livre cousu sur une étagère (décision du propriétaire du 26 septembre 2026). Un nom du
   jeu fermé `contes.MOTIFS` (`montagne`, `pousse`, `roues`, `puits`, `souche`, `serpent`,
-  `tigre`, `cheval`, `elephant`, `rouleau`, `enclos`, `lance`, `singe`), que l'app sait
+  `tigre`, `cheval`, `elephant`, `rouleau`, `enclos`, `lance`, `singe`, `goban`, `arc`,
+  `hache`), que l'app sait
   dessiner ; exporté dans `catalogue` depuis le format 12. Le contrôle bloquant
   « contes : motifs » de `wenlu check` refuse tout autre nom.
 
@@ -1343,7 +1361,8 @@ texte d'un conte est un contenu, sa relecture se lit dans l'historique git.
 
 Validation (`contes.valider()`, la même pour les deux chemins). **Rejet** : un caractère
 du titre ou du texte hors de la liste du niveau (`data/sources/listes/seuil-<n>.txt` pour
-un seuil ; pour un niveau HSK, le cumul de `hsk-1.txt` à `hsk-<n>.txt`), ponctuation
+un seuil ; pour un niveau HSK, le cumul de `hsk-1.txt` à `hsk-<n>.txt` ; pour un jour du
+chemin, l'acquis des jours 1 à N lu dans les fiches), ponctuation
 `。，、；：？！「」『』（）《》—…·` exceptée ; les intrus sont listés exactement.
 Un titre de chapitre est contrôlé comme le titre. Seule exception, les caractères hors du
 niveau des mots expliqués (`contes.expliques_admis`), s'ils sont déclarés au catalogue
@@ -1355,7 +1374,8 @@ version est **rejetée** (refus nommé, et le caractère reste un intrus) ; un c
 catalogue que la version n'explique pas reste un intrus.
 **Écarts**, signalés à la relecture sans rejeter : longueur hors cible (`LONGUEURS` :
 255 et `hsk1` 60 à 120 sinogrammes, `hsk2` 150 à 260, `hsk3` 220 à 380, `hsk4` 270 à
-470, `hsk5` à `hsk7-9` 320 à 560, phrases seules ; pour un récit long, à chaque
+470, `hsk5` à `hsk7-9` 320 à 560, un jour du chemin 30 à 60, phrases seules ; pour un
+récit long, à chaque
 chapitre), chapitre sans phrase, sans titre chinois, ou sans titre français ou anglais
 au catalogue, niveau que
 le catalogue ne prévoit pas pour le récit, nombre de chapitres autre que celui prévu,
@@ -1396,6 +1416,11 @@ niveau, et signale un caractère de mot expliqué dont l'export n'a pas les trai
 lecteur l'écrit alors en police) ; un mot non déclaré ou de trop tombe, lui, dans
 « caractères hors liste ».
 
+Pour une fable du chemin, « contes : critère des niveaux » lit un autre critère
+(`contes.ecarts_du_chemin`, `ecarts_de_jour`) : un seul niveau, un jour du chemin ; ses
+caractères clés (avant la barre) dans l'acquis de ce jour ; trois caractères au plus à
+expliquer ; et chaque version s'ouvre au jour de son niveau, ni plus tôt ni plus tard.
+
 `uv run wenlu contes generer` ne soumet, à un niveau, que les fables qui le prévoient
 (`contes_du_seuil`) ; un récit long ne part pas à l'API : il se rédige par brouillon,
 chapitre par chapitre.
@@ -1405,7 +1430,8 @@ chapitre par chapitre.
 
 Une version peut être rédigée sans clé d'API, par un agent Claude Code dans sa session
 ou par une personne, dans un brouillon : `data/sources/contes-brouillons/<id>/<niveau>.json`,
-versionné, un dossier par conte, un fichier par niveau (`255.json`, `hsk3.json`) ; `seuil` y vaut `255` ou `"hsk3"`.
+versionné, un dossier par conte, un fichier par niveau (`255.json`, `hsk3.json`,
+`jour25.json`) ; `seuil` y vaut `255`, `"hsk3"` ou `"jour25"`.
 
 ```json
 {
@@ -1534,7 +1560,7 @@ niveau, en tête du chapitre où chaque mot paraît pour la première fois (en t
 fable), et sa glose au toucher dit « mot du conte ».
 
 `app/public/data/<version>/index.json` gagne `contes: [{id, titre_fr, titre_en,
-seuils: [255, "hsk3", …], fichier}]` (un seuil en nombre, un niveau HSK en chaîne), les contes relus, et `catalogue: [{id, titre_zh,
+seuils: [255, "hsk3", …], fichier}]` (un seuil en nombre, un niveau HSK ou un jour du chemin en chaîne), les contes relus, et `catalogue: [{id, titre_zh,
 titre_pinyin, titre_fr, titre_en, niveaux, chapitres}]`, tout ce que le catalogue
 prévoit, écrit ou pas : la bibliothèque montre chaque récit avec ses niveaux (écrit et
 ouvert, écrit mais fermé, pas encore écrit) sans rien inventer. Ni résumé ni texte n'y
