@@ -491,6 +491,14 @@ describe('Les jumeaux', () => {
     /* Sans traits, une confusion ne se montre pas. */
     expect(jumeau('住', { ...CORPUS, confusions: [['住', '往']] }, 'g')).toBe('休');
   });
+
+  it('peint en indigo, à la correction, le trait qui distingue les jumeaux', () => {
+    const game = readFileSync(new URL('Game.svelte', import.meta.url), 'utf8');
+    expect(game).toContain('traitsQuiDistinguent(da, db)');
+    expect(game).toContain("indigo={resultat !== null ? (distinguent[c] ?? []) : []}");
+    /* Sans animation demandée, pas de flash : la paire est montrée d'emblée, sans « Montrer ». */
+    expect(game).toContain("montre = id !== 'jumeaux' || reduit;");
+  });
 });
 
 /* ---------- ce que la manche rend à la progression ---------- */

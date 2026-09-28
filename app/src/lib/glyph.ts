@@ -4,10 +4,18 @@ let GID = 0;
 
 /**
  * Options du rendu. `cinabre` : les indices des traits peints en cinabre (classe `zhu`),
- * pour la marque seulement — son premier trait, le point 丶 de 文. `label` remplace le
- * caractère comme nom accessible.
+ * pour la marque seulement — son premier trait, le point 丶 de 文. `indigo` : les indices
+ * des traits peints en indigo (classe `lan`), à la correction d'un jeu : le trait qui
+ * distingue deux jumeaux, le caractère contenu dans un maillon (`ecarts.ts`). `label`
+ * remplace le caractère comme nom accessible.
  */
-export type GlyphOptions = { write?: boolean; color?: string; cinabre?: readonly number[]; label?: string };
+export type GlyphOptions = {
+  write?: boolean;
+  color?: string;
+  cinabre?: readonly number[];
+  indigo?: readonly number[];
+  label?: string;
+};
 
 /**
  * Vrai si `c` ne s'écrit pas en police, même en petit : plusieurs points de code (un
@@ -27,8 +35,8 @@ export function glyph(c: string, d: StrokeData | undefined, size: number, opts: 
   const write = opts.write ?? size >= 84;
   const style = opts.color ? ` style="color:${opts.color}"` : '';
   const label = opts.label ?? c;
-  const zhu = (i: number) => (opts.cinabre?.includes(i) ? ' zhu' : '');
-  if (!write) return `<svg class="g" width="${size}" height="${size}" viewBox="0 0 1024 1024" aria-label="${label}"${style}><g transform="scale(1,-1) translate(0,-900)">${d.s.map((p, i) => `<path d="${p}"${zhu(i) ? ' class="zhu"' : ''}/>`).join('')}</g></svg>`;
+  const zhu = (i: number) => (opts.cinabre?.includes(i) ? ' zhu' : opts.indigo?.includes(i) ? ' lan' : '');
+  if (!write) return `<svg class="g" width="${size}" height="${size}" viewBox="0 0 1024 1024" aria-label="${label}"${style}><g transform="scale(1,-1) translate(0,-900)">${d.s.map((p, i) => `<path d="${p}"${zhu(i) ? ` class="${zhu(i).trim()}"` : ''}/>`).join('')}</g></svg>`;
   const id = ++GID; let delay = 0.05, defs = '', body = '';
   d.s.forEach((p, i) => {
     const m = d.m[i]; let L = 0; for (let k = 1; k < m.length; k++) L += Math.hypot(m[k][0] - m[k - 1][0], m[k][1] - m[k - 1][1]);

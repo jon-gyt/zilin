@@ -16,13 +16,16 @@
     size = 120,
     write = true,
     color,
-    pistes = []
+    pistes = [],
+    indigo = []
   }: {
     char: string;
     size?: number;
     write?: boolean;
     color?: string;
     pistes?: readonly string[];
+    /** Les traits peints en indigo, à la correction d'un jeu (`ecarts.ts`). */
+    indigo?: readonly number[];
   } = $props();
 
   /* undefined : pas encore chargé ; null : pas de données, repli sur la police. */
@@ -43,5 +46,5 @@
   <span class="g" style="width:{size}px;height:{size}px" aria-label={char}></span>
 {:else}
   <!-- eslint-disable-next-line svelte/no-at-html-tags -->
-  {@html glyph(char, data ?? undefined, size, { write, color })}
+  {@html glyph(char, data ?? undefined, size, { write, color, indigo })}
 {/if}

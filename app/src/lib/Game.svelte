@@ -48,6 +48,7 @@
     voisinsOnce
   } from './content';
   import { glyph, type StrokeData } from './glyph';
+  import { traitsQuiDistinguent } from './ecarts';
   import { eclairOnce, ligneMotsDevines, TAO_ECLAIR } from './eclair';
   import { racinesDesCaracteres } from './foret';
   import { coquillesOnce } from './coquilles';
@@ -415,6 +416,31 @@
       onfini();
     } else ouvrirTour(apres);
   }
+
+  /**
+   * Les jumeaux, à la correction : le ou les traits qui distinguent chaque caractère de
+   * l'autre, lus dans leurs traits (`ecarts.ts`), peints en indigo. Ce n'est ni l'élément
+   * ajouté ni la position sur le chemin : pas de cinabre. Sans traits, rien ne se peint.
+   */
+  let distinguent = $state<Record<string, number[]>>({});
+  $effect(() => {
+    const tr = t;
+    if (jeu !== 'jumeaux' || tr === null || resultat === null || tr.choix.length !== 2) {
+      distinguent = {};
+      return;
+    }
+    let vivant = true;
+    const [a, b] = tr.choix;
+    void Promise.all([traitsDe(a), traitsDe(b)])
+      .then(([da, db]) => {
+        if (!vivant || !da || !db) return;
+        distinguent = { [a]: traitsQuiDistinguent(da, db), [b]: traitsQuiDistinguent(db, da) };
+      })
+      .catch(() => undefined);
+    return () => {
+      vivant = false;
+    };
+  });
 
   /** Une brique prise : quand le compte y est, la réponse part telle quelle. */
   function prendre(k: number): void {
@@ -859,6 +885,7 @@
         <p class="consigne">{t.enonce}</p>
         <div class="choices deux">
           {#each t.choix as c, k (c + k)}
+            {@const gc = glose(c, corpus)}
             <button
               class:ok={resultat !== null && c === t.reponse[0]}
               class:ko={resultat !== null && !resultat.correct && donnee[0] === c}
@@ -867,11 +894,17 @@
               onclick={() => valider([c])}
             >
               <span class="flash" class:cache>
-                <Glyph char={c} size={72} write={false} />
+                <Glyph char={c} size={72} write={false} indigo={resultat !== null ? (distinguent[c] ?? []) : []} />
               </span>
+              {#if resultat !== null && (gc.pinyin !== '' || gc.fr !== '')}
+                <small class="jumeau-gl"><span class="py">{gc.pinyin}</span> {gc.fr}</small>
+              {/if}
             </button>
           {/each}
         </div>
+        {#if resultat !== null && Object.values(distinguent).some((x) => x.length > 0)}
+          <p class="k distingue">En indigo, le trait qui les distingue.</p>
+        {/if}
         {#if !montre}
           <p class="k">Lis la question, puis touche « Montrer » : les deux caractères paraissent un instant.</p>
         {:else if cache && resultat === null}
@@ -1277,6 +1310,21 @@
     justify-content: center;
     column-gap: 6px;
     margin-left: 0;
+    text-align: center;
+  }
+  /* Les jumeaux, à la correction : la lecture et le sens sous chaque caractère. */
+  .jumeau-gl {
+    font-size: 13px;
+    line-height: 1.25;
+    color: var(--ink2);
+    text-align: center;
+  }
+  .jumeau-gl .py {
+    font-size: 13px;
+    color: var(--indigo);
+  }
+  .distingue {
+    margin: 6px 0 0;
     text-align: center;
   }
   /* La chaîne tient dans l'écran d'un téléphone : le dernier maillon et les quatre cases. */
