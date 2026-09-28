@@ -300,7 +300,7 @@ h1{font-family:var(--head);font-weight:700;font-size:30px;line-height:1.15;lette
 .choices button small{font-weight:400;font-size:13px;color:var(--mist)}
 .choices button.txt{font-size:16px;padding:8px 10px;min-height:60px}
 .choices button.ok{border-color:var(--jade);background:var(--jade-soft)}
-.choices button.ko{border-color:var(--zhu);background:var(--zhu-soft)}
+.choices button.ko{border-color:var(--ocre);background:var(--ocre-soft)}
 .choices button:disabled{cursor:default}
 /* la correction : un constat, l'explication par les briques, l'échéance */
 .fb{margin-top:12px;min-height:44px;font-size:15px;color:var(--ink2);text-align:left;padding:10px 12px;border-radius:10px;background:var(--paper)}
@@ -545,7 +545,7 @@ h1{font-family:var(--head);font-weight:700;font-size:30px;line-height:1.15;lette
 .res{display:flex;flex-direction:column;gap:8px;margin-top:14px;text-align:left}
 .res div{display:flex;align-items:center;gap:10px;padding:8px 0;border-top:1px solid var(--line);font-size:14.5px}
 .res .ok{color:var(--jade);font-weight:600}
-.res .ko{color:var(--zhu);font-weight:600}
+.res .ko{color:var(--ocre);font-weight:600}
 /* une carte passée faute de fiche : une ligne neutre, sans couleur */
 .q .attente{margin-top:12px;text-align:left}
 
@@ -617,7 +617,7 @@ h1{font-family:var(--head);font-weight:700;font-size:30px;line-height:1.15;lette
 .message .coupe{width:10px}
 .message .signe{display:inline-flex;align-items:center;justify-content:center;width:48px;height:52px;border:1.5px solid var(--line);border-radius:10px;background:var(--card)}
 .message .signe.ok{border-color:var(--jade);background:var(--jade-soft)}
-.message .signe.ko{border-color:var(--zhu);background:var(--zhu-soft)}
+.message .signe.ko{border-color:var(--ocre);background:var(--ocre-soft)}
 .message .signe:disabled{cursor:default}
 /* la correction par les briques : l'intrus, puis le caractère qu'il remplaçait */
 .correction{display:flex;flex-direction:column;gap:8px;margin-top:12px}
