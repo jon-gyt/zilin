@@ -863,6 +863,19 @@ describe("l'écran Ouvrir", () => {
     expect(src).not.toMatch(/setTimeout|setInterval/);
     expect(src).toContain('onclick={oncontinuer}');
   });
+
+  it('toucher le caractère le réécrit au pinceau et le dit, comme la carte du jour', () => {
+    const src = readFileSync(new URL('Open.svelte', import.meta.url), 'utf8');
+    const toucher = src.slice(src.indexOf('function toucher'));
+    expect(toucher.slice(0, toucher.indexOf('}\n'))).toMatch(/ecriture \+= 1;\s*void dire\(a\.c\);/);
+    /* Les trois estampes : un jour de fête, un terme solaire, un jour ordinaire. */
+    expect(src.match(/aria-label=\{`Réécrire et écouter \$\{a\.c\}`\} onclick=\{toucher\}/g)?.length).toBe(3);
+    expect(src.match(/\{#key ecriture\}/g)?.length).toBe(3);
+    /* Le même geste que le menu : la même étiquette, la même fonction de voix. */
+    const menu = readFileSync(new URL('Menu.svelte', import.meta.url), 'utf8');
+    expect(menu).toContain('Réécrire et écouter ${carte.c}');
+    expect(menu).toContain('void dire(carte.c);');
+  });
 });
 
 /* Les contes : fixtures de test, écrites pour exercer le chargeur. L'app n'en contient aucun. */

@@ -17,6 +17,9 @@
    * est celle du terme : sa rubrique, son caractère à lire écrit au pinceau (露, 霜, 雪…) avec
    * son pinyin et son sens, le nom du terme et sa traduction, ce qui se passe dans la nature,
    * et en une phrase ce qu'est un terme solaire. Tout vient de `saisons.json`.
+   *
+   * Toucher le caractère le réécrit au pinceau et le dit, comme la carte du jour du menu :
+   * l'estampe se lit, elle se touche aussi.
    */
   import Embleme from './Embleme.svelte';
   import Glyph from './Glyph.svelte';
@@ -29,6 +32,7 @@
   import { anecdoteDeLaJournee, suiviDe, type AnecdoteDeLaJournee, type TermeDuJour } from './saisons';
   import { jourRencontre, type Progress } from './session';
   import { humeur, stade } from './tao';
+  import { dire } from './audio';
 
   let {
     p,
@@ -69,6 +73,15 @@
   let pistesTerme: string[] = $state([]);
   /** La famille du caractère d'une anecdote ordinaire, que `anecdotes.json` nomme. */
   let pistesOrdinaire: string[] = $state([]);
+  /** Chaque toucher réécrit le caractère : la clé change, le dessin repart. */
+  let ecriture = $state(0);
+
+  /** Toucher le caractère : il se réécrit au pinceau, et se dit (fichier ou voix de l'appareil). */
+  function toucher(): void {
+    if (!a) return;
+    ecriture += 1;
+    void dire(a.c);
+  }
 
   /*
    * L'anecdote du jour et les fêtes sont lues ensemble : un jour de fête, on ne montre
@@ -129,7 +142,9 @@
 
     {#if a && fete}
       <div class="k rubrique">{fete.anecdote.rubrique}</div>
-      <div class="grand fete"><Embleme fete={fete.id} c={a.c} size={160} pistes={pistesFete} /></div>
+      <button class="grand fete" aria-label={`Réécrire et écouter ${a.c}`} onclick={toucher}>
+        {#key ecriture}<Embleme fete={fete.id} c={a.c} size={160} pistes={pistesFete} />{/key}
+      </button>
       {#if fete.anecdote.pinyin || fete.anecdote.sens}
         <!-- le caractère bonus de la fête : son pinyin et son sens, sous l'emblème -->
         <p class="bonus">
@@ -144,7 +159,9 @@
     {:else if a && terme}
       <!-- le jour où commence un terme solaire : son caractère à lire, puis son nom -->
       {#if rubriqueTerme}<div class="k rubrique">{rubriqueTerme}</div>{/if}
-      <div class="grand terme"><Glyph char={a.c} size={120} pistes={pistesTerme} /></div>
+      <button class="grand terme" aria-label={`Réécrire et écouter ${a.c}`} onclick={toucher}>
+        {#key ecriture}<Glyph char={a.c} size={120} pistes={pistesTerme} />{/key}
+      </button>
       {#if terme.caractere.pinyin || terme.caractere.sens}
         <p class="bonus">
           {#if terme.caractere.pinyin}<span class="py">{terme.caractere.pinyin}</span>{/if}{terme.caractere.pinyin &&
@@ -157,7 +174,9 @@
       <p>{a.texte}</p>
       {#if explicationTerme}<p class="explication">{explicationTerme}</p>{/if}
     {:else if a}
-      <div class="grand"><Glyph char={a.c} size={120} pistes={pistesOrdinaire} /></div>
+      <button class="grand" aria-label={`Réécrire et écouter ${a.c}`} onclick={toucher}>
+        {#key ecriture}<Glyph char={a.c} size={120} pistes={pistesOrdinaire} />{/key}
+      </button>
       <h1>{a.titre}</h1>
       <p>{a.texte}</p>
       <!-- une origine de caractère ou de mot dit si elle est attestée ou mnémotechnique -->
@@ -171,6 +190,17 @@
 </main>
 
 <style>
+  /* le caractère se touche : il se réécrit et se dit ; le bouton ne se voit pas */
+  button.grand {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    padding: 0;
+    border: 0;
+    background: none;
+    color: inherit;
+    cursor: pointer;
+  }
   /* un jour de fête : la rubrique, puis l'emblème centré, le caractère écrit devant */
   .rubrique {
     font-size: 11.5px;
