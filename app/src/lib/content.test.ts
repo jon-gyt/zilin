@@ -84,13 +84,12 @@ describe("le fichier d'anecdotes", () => {
       if (a.etiquette) expect(Object.keys(ETIQUETTES)).toContain(a.etiquette);
     }
   });
-  it('les anecdotes relues de la maquette y sont mot pour mot', () => {
-    const relues = fichier.anecdotes.filter((a) => a.statut === 'relu');
-    expect(relues.length).toBeGreaterThan(0);
-    for (const a of relues) {
-      expect(maquette).toContain(a.titre);
-      expect(maquette).toContain(a.texte);
-    }
+  it('les anecdotes reprises telles quelles de la maquette y sont mot pour mot', () => {
+    /* Toutes sont relues depuis le 28 septembre 2026 ; cinq viennent inchangées de la
+       maquette (les six autres qu'elle donnait ont été corrigées, 龙 écartée). */
+    const reprises = fichier.anecdotes.filter((a) => a.statut === 'relu' && maquette.includes(a.texte));
+    expect(reprises.length).toBeGreaterThanOrEqual(5);
+    for (const a of reprises) expect(maquette).toContain(a.titre);
   });
 });
 
