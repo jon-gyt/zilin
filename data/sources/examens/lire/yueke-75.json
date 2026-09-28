@@ -1,0 +1,776 @@
+{
+ "examen": "yueke-75",
+ "parcours": "lire",
+ "generation": {
+  "modele": "rédaction manuelle",
+  "api": "session Claude Code (sans API)",
+  "date": "2026-09-28"
+ },
+ "relecture": {
+  "statut": "relu",
+  "par": "le propriétaire",
+  "decision": "« Considère que les relectures c'est bon » : approbation permanente des relectures",
+  "date": "2026-09-28"
+ },
+ "series": [
+  {
+   "serie": "A",
+   "statut": "relu",
+   "supports": [
+    {
+     "id": "s1",
+     "genre": "affiche",
+     "contexte": {
+      "fr": "La météo affichée à l'école",
+      "en": "The weather forecast posted at school"
+     },
+     "lignes": [
+      {
+       "zh": "明天：小雨",
+       "pinyin": "míng tiān xiǎo yǔ",
+       "fr": "Demain : petite pluie",
+       "en": "Tomorrow: light rain"
+      },
+      {
+       "zh": "星期六：大雨",
+       "pinyin": "xīng qī liù dà yǔ",
+       "fr": "Samedi : forte pluie",
+       "en": "Saturday: heavy rain"
+      },
+      {
+       "zh": "星期天：天气好",
+       "pinyin": "xīng qī tiān tiān qì hǎo",
+       "fr": "Dimanche : beau temps",
+       "en": "Sunday: fine weather"
+      }
+     ]
+    },
+    {
+     "id": "s2",
+     "genre": "message",
+     "contexte": {
+      "fr": "Mingming écrit à Daming",
+      "en": "Mingming writes to Daming"
+     },
+     "lignes": [
+      {
+       "zh": "大明：明天星期六，王先生开车。",
+       "pinyin": "dà míng míng tiān xīng qī liù wáng xiān sheng kāi chē",
+       "fr": "Daming : demain, c'est samedi, M. Wang conduit.",
+       "en": "Daming: tomorrow is Saturday, Mr Wang is driving."
+      },
+      {
+       "zh": "一早，门口见！",
+       "pinyin": "yī zǎo mén kǒu jiàn",
+       "fr": "À la première heure, rendez-vous devant la porte !",
+       "en": "First thing, see you at the door!"
+      }
+     ]
+    },
+    {
+     "id": "s3",
+     "genre": "enseigne",
+     "contexte": {
+      "fr": "L'enseigne d'une petite boutique",
+      "en": "A small shop's sign"
+     },
+     "lignes": [
+      {
+       "zh": "小王水果",
+       "pinyin": "xiǎo wáng shuǐ guǒ",
+       "fr": "Fruits Xiao Wang",
+       "en": "Xiao Wang Fruit"
+      }
+     ]
+    },
+    {
+     "id": "s4",
+     "genre": "pancarte",
+     "contexte": {
+      "fr": "Un panneau au bord d'une voie ferrée",
+      "en": "A sign by a railway line"
+     },
+     "lignes": [
+      {
+       "zh": "小心火车！",
+       "pinyin": "xiǎo xīn huǒ chē",
+       "fr": "Attention au train !",
+       "en": "Beware of trains!"
+      }
+     ]
+    }
+   ],
+   "questions": [
+    {
+     "type": "sens",
+     "consigne": {
+      "fr": "Que veut dire ce caractère ?",
+      "en": "What does this character mean?"
+     },
+     "objet": {
+      "zh": "高",
+      "pinyin": "gāo",
+      "fr": "haut",
+      "en": "tall, high"
+     },
+     "choix": [
+      {
+       "fr": "capitale",
+       "en": "capital"
+      },
+      {
+       "fr": "haut",
+       "en": "tall, high"
+      },
+      {
+       "fr": "peu",
+       "en": "few, little"
+      },
+      {
+       "fr": "électricité",
+       "en": "electricity"
+      }
+     ],
+     "reponse": 1,
+     "porte": [
+      "高"
+     ]
+    },
+    {
+     "type": "comprendre",
+     "support": "s1",
+     "consigne": {
+      "fr": "Quel temps fera-t-il samedi ?",
+      "en": "What will the weather be on Saturday?"
+     },
+     "choix": [
+      {
+       "fr": "Petite pluie",
+       "en": "Light rain"
+      },
+      {
+       "fr": "Beau temps",
+       "en": "Fine weather"
+      },
+      {
+       "fr": "Bruine",
+       "en": "Drizzle"
+      },
+      {
+       "fr": "Forte pluie",
+       "en": "Heavy rain"
+      }
+     ],
+     "reponse": 3,
+     "porte": [
+      "六",
+      "大",
+      "雨"
+     ]
+    },
+    {
+     "type": "reperer",
+     "support": "s1",
+     "consigne": {
+      "fr": "Touche le mot qui dit le temps de demain.",
+      "en": "Tap the word that gives tomorrow's weather."
+     },
+     "choix": [
+      "大雨",
+      "小雨",
+      "天气",
+      "星期六"
+     ],
+     "reponse": 1,
+     "porte": [
+      "小",
+      "雨"
+     ]
+    },
+    {
+     "type": "vrai_faux",
+     "support": "s1",
+     "consigne": {
+      "fr": "Vrai ou faux ?",
+      "en": "True or false?"
+     },
+     "affirmation": {
+      "zh": "星期天有雨。",
+      "pinyin": "xīng qī tiān yǒu yǔ",
+      "fr": "Il pleuvra dimanche.",
+      "en": "It will rain on Sunday."
+     },
+     "reponse": false,
+     "porte": [
+      "雨",
+      "气"
+     ]
+    },
+    {
+     "type": "comprendre",
+     "support": "s2",
+     "consigne": {
+      "fr": "Comment iront-ils samedi ?",
+      "en": "How will they travel on Saturday?"
+     },
+     "choix": [
+      {
+       "fr": "En train",
+       "en": "By train"
+      },
+      {
+       "fr": "En tram",
+       "en": "By tram"
+      },
+      {
+       "fr": "À pied",
+       "en": "On foot"
+      },
+      {
+       "fr": "En voiture, M. Wang conduit",
+       "en": "By car, Mr Wang driving"
+      }
+     ],
+     "reponse": 3,
+     "porte": [
+      "开",
+      "车"
+     ]
+    },
+    {
+     "type": "replique",
+     "support": "s2",
+     "consigne": {
+      "fr": "Que réponds-tu ?",
+      "en": "What do you reply?"
+     },
+     "choix": [
+      {
+       "zh": "好，星期六见！",
+       "pinyin": "hǎo xīng qī liù jiàn",
+       "fr": "D'accord, à samedi !",
+       "en": "OK, see you Saturday!"
+      },
+      {
+       "zh": "王先生是工人。",
+       "pinyin": "wáng xiān sheng shì gōng rén",
+       "fr": "M. Wang est ouvrier.",
+       "en": "Mr Wang is a worker."
+      },
+      {
+       "zh": "九月六日。",
+       "pinyin": "jiǔ yuè liù rì",
+       "fr": "Le 6 septembre.",
+       "en": "6 September."
+      },
+      {
+       "zh": "大明有水果。",
+       "pinyin": "dà míng yǒu shuǐ guǒ",
+       "fr": "Daming a des fruits.",
+       "en": "Daming has some fruit."
+      }
+     ],
+     "reponse": 0,
+     "porte": [
+      "六",
+      "见"
+     ]
+    },
+    {
+     "type": "caractere",
+     "consigne": {
+      "fr": "Quel caractère a ce sens ?",
+      "en": "Which character has this meaning?"
+     },
+     "objet": {
+      "zh": "水",
+      "pinyin": "shuǐ",
+      "fr": "eau",
+      "en": "water"
+     },
+     "choix": [
+      "小",
+      "火",
+      "水",
+      "米"
+     ],
+     "reponse": 2,
+     "porte": [
+      "水"
+     ]
+    },
+    {
+     "type": "comprendre",
+     "support": "s3",
+     "consigne": {
+      "fr": "Que vend cette boutique ?",
+      "en": "What does this shop sell?"
+     },
+     "choix": [
+      {
+       "fr": "De l'eau",
+       "en": "Water"
+      },
+      {
+       "fr": "Du riz",
+       "en": "Rice"
+      },
+      {
+       "fr": "Des fruits",
+       "en": "Fruit"
+      },
+      {
+       "fr": "Des voitures",
+       "en": "Cars"
+      }
+     ],
+     "reponse": 2,
+     "porte": [
+      "水",
+      "果"
+     ]
+    },
+    {
+     "type": "comprendre",
+     "support": "s4",
+     "consigne": {
+      "fr": "Que dit ce panneau ?",
+      "en": "What does this sign say?"
+     },
+     "choix": [
+      {
+       "fr": "Attention au train !",
+       "en": "Beware of trains!"
+      },
+      {
+       "fr": "Train pour la capitale",
+       "en": "Train to the capital"
+      },
+      {
+       "fr": "Gare fermée",
+       "en": "Station closed"
+      },
+      {
+       "fr": "Petits trains à louer",
+       "en": "Small trains for hire"
+      }
+     ],
+     "reponse": 0,
+     "porte": [
+      "小",
+      "心",
+      "车"
+     ]
+    },
+    {
+     "type": "trou",
+     "consigne": {
+      "fr": "Quel caractère manque dans ce mot ?",
+      "en": "Which character is missing from this word?"
+     },
+     "objet": {
+      "zh": "电车",
+      "pinyin": "diàn chē",
+      "fr": "tram",
+      "en": "tram"
+     },
+     "trou": 1,
+     "choix": [
+      "用",
+      "里",
+      "果",
+      "车"
+     ],
+     "reponse": 3,
+     "porte": [
+      "车"
+     ]
+    }
+   ]
+  },
+  {
+   "serie": "B",
+   "statut": "relu",
+   "supports": [
+    {
+     "id": "s1",
+     "genre": "message",
+     "contexte": {
+      "fr": "Daming écrit à Mingming",
+      "en": "Daming writes to Mingming"
+     },
+     "lignes": [
+      {
+       "zh": "明明：今天有毛毛雨，小心开车！",
+       "pinyin": "míng míng jīn tiān yǒu máo mao yǔ xiǎo xīn kāi chē",
+       "fr": "Mingming : il bruine aujourd'hui, conduis prudemment !",
+       "en": "Mingming: it's drizzling today, drive carefully!"
+      }
+     ]
+    },
+    {
+     "id": "s2",
+     "genre": "pancarte",
+     "contexte": {
+      "fr": "Un panneau au pied d'une colline",
+      "en": "A sign at the foot of a hill"
+     },
+     "lignes": [
+      {
+       "zh": "九里山",
+       "pinyin": "jiǔ lǐ shān",
+       "fr": "Colline de Jiuli",
+       "en": "Jiuli Hill"
+      },
+      {
+       "zh": "高：九十八米",
+       "pinyin": "gāo jiǔ shí bā mǐ",
+       "fr": "Hauteur : 98 mètres",
+       "en": "Height: 98 metres"
+      }
+     ],
+     "glose": [
+      {
+       "zh": "九里山",
+       "pinyin": "jiǔ lǐ shān",
+       "fr": "Jiuli (nom d'une colline)",
+       "en": "Jiuli (a hill's name)"
+      },
+      {
+       "zh": "九十八",
+       "pinyin": "jiǔ shí bā",
+       "fr": "quatre-vingt-dix-huit",
+       "en": "ninety-eight"
+      }
+     ]
+    },
+    {
+     "id": "s3",
+     "genre": "note",
+     "contexte": {
+      "fr": "Une page d'agenda",
+      "en": "A diary page"
+     },
+     "lignes": [
+      {
+       "zh": "九月一日，星期一：开学。",
+       "pinyin": "jiǔ yuè yī rì xīng qī yī kāi xué",
+       "fr": "Lundi 1er septembre : la rentrée.",
+       "en": "Monday 1 September: first day of school."
+      },
+      {
+       "zh": "九月六日，星期六：见朋友。",
+       "pinyin": "jiǔ yuè liù rì xīng qī liù jiàn péng you",
+       "fr": "Samedi 6 septembre : voir des amis.",
+       "en": "Saturday 6 September: see friends."
+      }
+     ]
+    },
+    {
+     "id": "s4",
+     "genre": "pancarte",
+     "contexte": {
+      "fr": "Un écriteau dans une gare",
+      "en": "A notice in a station"
+     },
+     "lignes": [
+      {
+       "zh": "开水",
+       "pinyin": "kāi shuǐ",
+       "fr": "Eau bouillie",
+       "en": "Boiled water"
+      }
+     ]
+    }
+   ],
+   "questions": [
+    {
+     "type": "sens",
+     "consigne": {
+      "fr": "Que veut dire ce caractère ?",
+      "en": "What does this character mean?"
+     },
+     "objet": {
+      "zh": "少",
+      "pinyin": "shǎo",
+      "fr": "peu",
+      "en": "few, little"
+     },
+     "choix": [
+      {
+       "fr": "petit",
+       "en": "small"
+      },
+      {
+       "fr": "peu",
+       "en": "few, little"
+      },
+      {
+       "fr": "eau",
+       "en": "water"
+      },
+      {
+       "fr": "milieu",
+       "en": "middle"
+      }
+     ],
+     "reponse": 1,
+     "porte": [
+      "少"
+     ]
+    },
+    {
+     "type": "comprendre",
+     "support": "s1",
+     "consigne": {
+      "fr": "Quel temps fait-il aujourd'hui ?",
+      "en": "What's the weather like today?"
+     },
+     "choix": [
+      {
+       "fr": "Il bruine",
+       "en": "It's drizzling"
+      },
+      {
+       "fr": "Grand soleil",
+       "en": "Bright sunshine"
+      },
+      {
+       "fr": "Forte pluie",
+       "en": "Heavy rain"
+      },
+      {
+       "fr": "Il fait froid",
+       "en": "It's cold"
+      }
+     ],
+     "reponse": 0,
+     "porte": [
+      "毛",
+      "雨"
+     ]
+    },
+    {
+     "type": "replique",
+     "support": "s1",
+     "consigne": {
+      "fr": "Que réponds-tu ?",
+      "en": "What do you reply?"
+     },
+     "choix": [
+      {
+       "zh": "六月九日。",
+       "pinyin": "liù yuè jiǔ rì",
+       "fr": "Le 9 juin.",
+       "en": "9 June."
+      },
+      {
+       "zh": "水果好。",
+       "pinyin": "shuǐ guǒ hǎo",
+       "fr": "Les fruits sont bons.",
+       "en": "The fruit is good."
+      },
+      {
+       "zh": "明白！",
+       "pinyin": "míng bai",
+       "fr": "Compris !",
+       "en": "Got it!"
+      },
+      {
+       "zh": "星期几？",
+       "pinyin": "xīng qī jǐ",
+       "fr": "Quel jour ?",
+       "en": "Which day?"
+      }
+     ],
+     "reponse": 2,
+     "porte": [
+      "小",
+      "开",
+      "车"
+     ]
+    },
+    {
+     "type": "comprendre",
+     "support": "s2",
+     "consigne": {
+      "fr": "Quelle hauteur fait cette colline ?",
+      "en": "How high is this hill?"
+     },
+     "choix": [
+      {
+       "fr": "89 mètres",
+       "en": "89 metres"
+      },
+      {
+       "fr": "98 mètres",
+       "en": "98 metres"
+      },
+      {
+       "fr": "9 kilomètres",
+       "en": "9 kilometres"
+      },
+      {
+       "fr": "68 mètres",
+       "en": "68 metres"
+      }
+     ],
+     "reponse": 1,
+     "porte": [
+      "九",
+      "八",
+      "米"
+     ]
+    },
+    {
+     "type": "reperer",
+     "support": "s2",
+     "consigne": {
+      "fr": "Touche le nom de la colline.",
+      "en": "Tap the hill's name."
+     },
+     "choix": [
+      "高",
+      "九十八",
+      "米",
+      "九里山"
+     ],
+     "reponse": 3,
+     "porte": [
+      "九",
+      "里",
+      "山"
+     ]
+    },
+    {
+     "type": "caractere",
+     "consigne": {
+      "fr": "Quel caractère a ce sens ?",
+      "en": "Which character has this meaning?"
+     },
+     "objet": {
+      "zh": "中",
+      "pinyin": "zhōng",
+      "fr": "milieu",
+      "en": "middle"
+     },
+     "choix": [
+      "口",
+      "中",
+      "电",
+      "里"
+     ],
+     "reponse": 1,
+     "porte": [
+      "中"
+     ]
+    },
+    {
+     "type": "comprendre",
+     "support": "s3",
+     "consigne": {
+      "fr": "Que se passe-t-il le 1er septembre ?",
+      "en": "What happens on 1 September?"
+     },
+     "choix": [
+      {
+       "fr": "Un anniversaire",
+       "en": "A birthday"
+      },
+      {
+       "fr": "Un voyage en train",
+       "en": "A train trip"
+      },
+      {
+       "fr": "Un examen",
+       "en": "An exam"
+      },
+      {
+       "fr": "La rentrée des classes",
+       "en": "The first day of school"
+      }
+     ],
+     "reponse": 3,
+     "porte": [
+      "开",
+      "学"
+     ]
+    },
+    {
+     "type": "vrai_faux",
+     "support": "s3",
+     "consigne": {
+      "fr": "Vrai ou faux ?",
+      "en": "True or false?"
+     },
+     "affirmation": {
+      "zh": "九月六日开学。",
+      "pinyin": "jiǔ yuè liù rì kāi xué",
+      "fr": "La rentrée est le 6 septembre.",
+      "en": "School starts on 6 September."
+     },
+     "reponse": false,
+     "porte": [
+      "一",
+      "六",
+      "开"
+     ]
+    },
+    {
+     "type": "comprendre",
+     "support": "s4",
+     "consigne": {
+      "fr": "Que trouve-t-on ici ?",
+      "en": "What can you get here?"
+     },
+     "choix": [
+      {
+       "fr": "De l'eau bouillie, pour le thé",
+       "en": "Boiled water, for tea"
+      },
+      {
+       "fr": "Une porte ouverte",
+       "en": "An open door"
+      },
+      {
+       "fr": "Des fruits",
+       "en": "Fruit"
+      },
+      {
+       "fr": "La sortie",
+       "en": "The exit"
+      }
+     ],
+     "reponse": 0,
+     "porte": [
+      "开",
+      "水"
+     ]
+    },
+    {
+     "type": "ton",
+     "consigne": {
+      "fr": "Quel est son ton ?",
+      "en": "Which tone does it have?"
+     },
+     "objet": {
+      "zh": "九",
+      "pinyin": "jiǔ",
+      "fr": "neuf",
+      "en": "nine"
+     },
+     "choix": [
+      "jiū",
+      "jiú",
+      "jiǔ",
+      "jiù"
+     ],
+     "reponse": 2,
+     "porte": [
+      "九"
+     ]
+    }
+   ]
+  }
+ ]
+}

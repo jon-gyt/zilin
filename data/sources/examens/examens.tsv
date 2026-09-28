@@ -1,0 +1,65 @@
+# Les trente-sept examens 科举 et 月课 (épic 8, brief §8 « Les examens 科举 »).
+#
+# Source : rédigé pour l'app, sans API, dans une session Claude Code, d'après le brief
+# (décisions du propriétaire du 26 septembre 2026, « aux paliers de caractères », « Pause
+# jusqu'à réussite », « Points ET examen », « Il faut plus d'examens » ; nom 月课 et fin à
+# 1 800 approuvés le 28 septembre). Des institutions historiques, décrites pour l'app,
+# aucun texte tiers recopié.
+#
+# Règles (`wenlu check`, « examens : liste ») : trente-sept examens dans l'ordre des
+# paliers, strictement croissants ; les six examens à titre à 50, 100, 200, 255, 505 et
+# 805 caractères lus ; trente et un 月课 à 75, 150, puis 255 + 50 n jusqu'à 1 755, et
+# 1 800 ; jamais plus de 55 caractères d'un examen au suivant ; les titres dans l'ordre
+# des rangs du personnage (`data/sources/heros/rangs.tsv`), puis les nominations
+# (`nominations.tsv`) ; quinze questions à un examen à titre, dix à un 月课, reçu à quatre
+# sur cinq (douze sur quinze, huit sur dix).
+#
+# Format : TSV, `#` en commentaire, dix colonnes séparées par une tabulation :
+#
+# - `id` : l'identifiant, celui du fichier des séries (`<parcours>/<id>.json`) ;
+# - `sorte` : `titre` (les six du 科举) ou `yueke` (月课, sans titre) ;
+# - `hz`, `pinyin` : le nom, dessiné depuis ses traits ; pinyin d'un seul tenant ;
+# - `fr`, `en` : ce qu'il était, en une ligne ;
+# - `palier` : les caractères lus qui l'ouvrent (au seuil de stabilité de Ma forêt) ;
+# - `titre` : le rang du personnage qu'il accorde, avec les points, ou `—` ; le 童生 du
+#   府试 suppose le 县试, passé avant lui ;
+# - `questions` : 15 à titre, 10 au 月课 ;
+# - `source`.
+id	sorte	hz	pinyin	fr	en	palier	titre	questions	source
+xianshi	titre	县试	xiànshì	l'examen du district, devant le magistrat	the district exam, before the magistrate	50	—	15	rédigé pour l'app, d'après le brief §8
+yueke-75	yueke	月课	yuèkè	la leçon du mois, composée à l'académie, sans grade	the monthly lesson, written at the academy, for no degree	75	—	10	rédigé pour l'app, d'après le brief §8
+fushi	titre	府试	fǔshì	l'examen de la préfecture	the prefecture exam	100	童生	15	rédigé pour l'app, d'après le brief §8
+yueke-150	yueke	月课	yuèkè	la leçon du mois, composée à l'académie, sans grade	the monthly lesson, written at the academy, for no degree	150	—	10	rédigé pour l'app, d'après le brief §8
+yuanshi	titre	院试	yuànshì	l'examen du commissaire aux études de la province	the exam of the provincial director of studies	200	秀才	15	rédigé pour l'app, d'après le brief §8
+xiangshi	titre	乡试	xiāngshì	l'examen de la province, tous les trois ans	the provincial exam, held every three years	255	举人	15	rédigé pour l'app, d'après le brief §8
+yueke-305	yueke	月课	yuèkè	la leçon du mois, composée à l'académie, sans grade	the monthly lesson, written at the academy, for no degree	305	—	10	rédigé pour l'app, d'après le brief §8
+yueke-355	yueke	月课	yuèkè	la leçon du mois, composée à l'académie, sans grade	the monthly lesson, written at the academy, for no degree	355	—	10	rédigé pour l'app, d'après le brief §8
+yueke-405	yueke	月课	yuèkè	la leçon du mois, composée à l'académie, sans grade	the monthly lesson, written at the academy, for no degree	405	—	10	rédigé pour l'app, d'après le brief §8
+yueke-455	yueke	月课	yuèkè	la leçon du mois, composée à l'académie, sans grade	the monthly lesson, written at the academy, for no degree	455	—	10	rédigé pour l'app, d'après le brief §8
+huishi	titre	会试	huìshì	le concours de la capitale	the metropolitan exam in the capital	505	贡士	15	rédigé pour l'app, d'après le brief §8
+yueke-555	yueke	月课	yuèkè	la leçon du mois, composée à l'académie, sans grade	the monthly lesson, written at the academy, for no degree	555	—	10	rédigé pour l'app, d'après le brief §8
+yueke-605	yueke	月课	yuèkè	la leçon du mois, composée à l'académie, sans grade	the monthly lesson, written at the academy, for no degree	605	—	10	rédigé pour l'app, d'après le brief §8
+yueke-655	yueke	月课	yuèkè	la leçon du mois, composée à l'académie, sans grade	the monthly lesson, written at the academy, for no degree	655	—	10	rédigé pour l'app, d'après le brief §8
+yueke-705	yueke	月课	yuèkè	la leçon du mois, composée à l'académie, sans grade	the monthly lesson, written at the academy, for no degree	705	—	10	rédigé pour l'app, d'après le brief §8
+yueke-755	yueke	月课	yuèkè	la leçon du mois, composée à l'académie, sans grade	the monthly lesson, written at the academy, for no degree	755	—	10	rédigé pour l'app, d'après le brief §8
+dianshi	titre	殿试	diànshì	l'examen du palais, devant l'empereur	the palace exam, before the emperor	805	进士	15	rédigé pour l'app, d'après le brief §8
+yueke-855	yueke	月课	yuèkè	la leçon du mois, composée à l'académie, sans grade	the monthly lesson, written at the academy, for no degree	855	—	10	rédigé pour l'app, d'après le brief §8
+yueke-905	yueke	月课	yuèkè	la leçon du mois, composée à l'académie, sans grade	the monthly lesson, written at the academy, for no degree	905	—	10	rédigé pour l'app, d'après le brief §8
+yueke-955	yueke	月课	yuèkè	la leçon du mois, composée à l'académie, sans grade	the monthly lesson, written at the academy, for no degree	955	—	10	rédigé pour l'app, d'après le brief §8
+yueke-1005	yueke	月课	yuèkè	la leçon du mois, composée à l'académie, sans grade	the monthly lesson, written at the academy, for no degree	1005	—	10	rédigé pour l'app, d'après le brief §8
+yueke-1055	yueke	月课	yuèkè	la leçon du mois, composée à l'académie, sans grade	the monthly lesson, written at the academy, for no degree	1055	—	10	rédigé pour l'app, d'après le brief §8
+yueke-1105	yueke	月课	yuèkè	la leçon du mois, composée à l'académie, sans grade	the monthly lesson, written at the academy, for no degree	1105	—	10	rédigé pour l'app, d'après le brief §8
+yueke-1155	yueke	月课	yuèkè	la leçon du mois, composée à l'académie, sans grade	the monthly lesson, written at the academy, for no degree	1155	—	10	rédigé pour l'app, d'après le brief §8
+yueke-1205	yueke	月课	yuèkè	la leçon du mois, composée à l'académie, sans grade	the monthly lesson, written at the academy, for no degree	1205	—	10	rédigé pour l'app, d'après le brief §8
+yueke-1255	yueke	月课	yuèkè	la leçon du mois, composée à l'académie, sans grade	the monthly lesson, written at the academy, for no degree	1255	—	10	rédigé pour l'app, d'après le brief §8
+yueke-1305	yueke	月课	yuèkè	la leçon du mois, composée à l'académie, sans grade	the monthly lesson, written at the academy, for no degree	1305	—	10	rédigé pour l'app, d'après le brief §8
+yueke-1355	yueke	月课	yuèkè	la leçon du mois, composée à l'académie, sans grade	the monthly lesson, written at the academy, for no degree	1355	—	10	rédigé pour l'app, d'après le brief §8
+yueke-1405	yueke	月课	yuèkè	la leçon du mois, composée à l'académie, sans grade	the monthly lesson, written at the academy, for no degree	1405	—	10	rédigé pour l'app, d'après le brief §8
+yueke-1455	yueke	月课	yuèkè	la leçon du mois, composée à l'académie, sans grade	the monthly lesson, written at the academy, for no degree	1455	—	10	rédigé pour l'app, d'après le brief §8
+yueke-1505	yueke	月课	yuèkè	la leçon du mois, composée à l'académie, sans grade	the monthly lesson, written at the academy, for no degree	1505	—	10	rédigé pour l'app, d'après le brief §8
+yueke-1555	yueke	月课	yuèkè	la leçon du mois, composée à l'académie, sans grade	the monthly lesson, written at the academy, for no degree	1555	—	10	rédigé pour l'app, d'après le brief §8
+yueke-1605	yueke	月课	yuèkè	la leçon du mois, composée à l'académie, sans grade	the monthly lesson, written at the academy, for no degree	1605	—	10	rédigé pour l'app, d'après le brief §8
+yueke-1655	yueke	月课	yuèkè	la leçon du mois, composée à l'académie, sans grade	the monthly lesson, written at the academy, for no degree	1655	—	10	rédigé pour l'app, d'après le brief §8
+yueke-1705	yueke	月课	yuèkè	la leçon du mois, composée à l'académie, sans grade	the monthly lesson, written at the academy, for no degree	1705	—	10	rédigé pour l'app, d'après le brief §8
+yueke-1755	yueke	月课	yuèkè	la leçon du mois, composée à l'académie, sans grade	the monthly lesson, written at the academy, for no degree	1755	—	10	rédigé pour l'app, d'après le brief §8
+yueke-1800	yueke	月课	yuèkè	la leçon du mois, composée à l'académie, sans grade	the monthly lesson, written at the academy, for no degree	1800	—	10	rédigé pour l'app, d'après le brief §8

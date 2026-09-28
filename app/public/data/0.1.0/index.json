@@ -1,7 +1,7 @@
 {
  "version": "0.1.0",
- "date": "2026-09-28T19:46:59Z",
- "empreinte": "sha256:938be2e10584b64c8d361ad5352a713f8b9421965eb19a560716ed9d48724a1b",
+ "date": "2026-09-28T20:03:48Z",
+ "empreinte": "sha256:bc73f59725ed6648b7d8cefa6f682780df44ba211afaae6e8c3ef639297373a7",
  "license": "propriétaire",
  "source": "décomposition GF 0014-2009 réconciliée par le pipeline wenlu ; pinyin d'Unihan (kMandarin) ; textes rédigés pour l'app",
  "source_url": "https://github.com/jon-gyt/zilin",
@@ -10,9 +10,9 @@
  "perimetre": "seuil 255 et HSK 1 : les caractères des deux listes et leurs briques ; les caractères dessinés des fêtes, des termes solaires, des rangs du personnage et des mots expliqués des contes, et leurs briques",
  "licences": "LICENCES.md",
  "compte": {
-  "familles": 268,
-  "caracteres": 598,
-  "briques": 244,
+  "familles": 269,
+  "caracteres": 602,
+  "briques": 245,
   "muettes": 1,
   "decoupees": 22,
   "fiches_relues": 356,
@@ -3880,7 +3880,7 @@
    "racine": "且",
    "fichier": "familles/且.json",
    "traits": "traits/且.json",
-   "n": 1,
+   "n": 2,
    "avancement_possible": 0.0
   },
   {
@@ -4048,6 +4048,13 @@
    "racine": "习",
    "fichier": "familles/习.json",
    "traits": "traits/习.json",
+   "n": 1,
+   "avancement_possible": 0.0
+  },
+  {
+   "racine": "乡",
+   "fichier": "familles/乡.json",
+   "traits": "traits/乡.json",
    "n": 1,
    "avancement_possible": 0.0
   },
@@ -4559,8 +4566,8 @@
    "racine": "尸",
    "fichier": "familles/尸.json",
    "traits": "traits/尸.json",
-   "n": 1,
-   "avancement_possible": 1.0
+   "n": 2,
+   "avancement_possible": 0.5
   },
   {
    "racine": "山",
@@ -4622,8 +4629,8 @@
    "racine": "广",
    "fichier": "familles/广.json",
    "traits": "traits/广.json",
-   "n": 3,
-   "avancement_possible": 0.667
+   "n": 4,
+   "avancement_possible": 0.5
   },
   {
    "racine": "廾",
@@ -5997,5 +6004,6 @@
  "lettres": "lettres.json",
  "wechat": "wechat.json",
  "heros": "heros.json",
- "jouer": "jouer.json"
+ "jouer": "jouer.json",
+ "examens": "examens.json"
 }

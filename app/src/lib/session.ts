@@ -21,6 +21,7 @@ import {
 } from './srs';
 import { ajouter, journal, lireTao, taoVide, type Tao, type TypeActivite } from './tao';
 import { lireTrouves, type Trouve } from './trouves';
+import { etatExamensVide, lireEtatExamens, type EtatExamens } from './examens';
 import { lireLettresNotees, type LettreNotee } from './lettres';
 import { cleLecture, lireChapitre, type LectureChapitres } from './lecture';
 import { lireNiveau, lireNiveaux, trierNiveaux, type Niveau } from './niveaux';
@@ -396,6 +397,13 @@ export type Progress = {
    * (`pointsDerives`).
    */
   arts: Arts;
+  /**
+   * Les examens 科举 et les 月课 (`examens.ts`) : les réussis avec leur journée, l'examen
+   * ouvert, la tentative en cours ou manquée (série, question en cours, réponses, manqués,
+   * instant de l'échec). Absents d'une progression d'avant les examens : rien de réussi,
+   * et `migre` faux, pour que ses rangs déjà annoncés deviennent des examens reçus.
+   */
+  examens: EtatExamens;
 };
 
 /**
@@ -479,7 +487,8 @@ export function emptyProgress(aujourdhui: string): Progress {
     recettes: [],
     lettres: [],
     heros: null,
-    arts: artsVides()
+    arts: artsVides(),
+    examens: etatExamensVide()
   };
 }
 
@@ -1671,6 +1680,8 @@ export function fromJSON(texte: string, aujourdhui: string): Progress {
     /* Le personnage : absent d'un export plus ancien, il se choisira. */
     heros: lireHeros(o.heros),
     /* Les points : absents d'un export plus ancien, ils se recalculent de ce qu'il garde. */
-    arts: lireArts(o.arts) ?? pointsDerives(cartes, tracesAchevees)
+    arts: lireArts(o.arts) ?? pointsDerives(cartes, tracesAchevees),
+    /* Les examens : absents d'un export plus ancien, rien de réussi, rangs à reporter. */
+    examens: lireEtatExamens(o.examens)
   };
 }

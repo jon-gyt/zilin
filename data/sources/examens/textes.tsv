@@ -1,0 +1,32 @@
+# Les lignes des examens et les phrases de Tao (brief §8, « Les examens 科举 », §9).
+#
+# Source : rédigé pour l'app, sans API, dans une session Claude Code, d'après le brief ;
+# relu sous l'approbation permanente du propriétaire (« Considère que les relectures c'est
+# bon »). Des constats, pas des félicitations ; Tao dit « pas encore », jamais un reproche ;
+# ni compte à rebours, ni horloge (brief §8 et §9).
+#
+# Format : TSV, `#` en commentaire, trois colonnes : `cle`, `fr`, `source`. Dix clés,
+# toutes exigées, chacune avec ses seuls jetons, que l'app remplit (`wenlu check` refuse un
+# jeton inconnu) :
+#
+# - `ouvert`, `ouvert_yueke` : la ligne de Clore, le palier atteint, à un examen à titre
+#   puis à un 月课 ; {lus} les caractères lus, {examen} le nom de l'examen à titre ;
+# - `bouton`, `bouton_yueke` : le bouton du menu, la journée faite ; {examen} ;
+# - `attente` : la ligne du menu tant que la reprise attend ;
+# - `tao_avant` : Tao, à l'entrée de l'examen ;
+# - `recu`, `pas_encore` : le constat du résultat ; {justes} les réponses justes du
+#   premier essai, {questions} les questions posées, {examen}, {reussite} ce qu'il fallait ;
+# - `tao_recu`, `tao_pas_encore` : Tao, au résultat.
+#
+# Les guillemets français s'écrivent avec une espace insécable (U+00A0) à l'intérieur.
+cle	fr	source
+ouvert	{lus} caractères lus : l'examen {examen} s'ouvre.	rédigé pour l'app, d'après le brief §8
+ouvert_yueke	{lus} caractères lus : le 月课 s'ouvre.	rédigé pour l'app, d'après le brief §8
+bouton	Passer l'examen {examen}	brief §6, mot pour mot
+bouton_yueke	Passer le 月课	brief §6, mot pour mot
+attente	L'examen se repasse quand les caractères manqués sont revus.	brief §8, mot pour mot
+tao_avant	Des textes que tu n'as jamais vus. Lis-les comme ils viennent, je suis là.	rédigé pour l'app
+recu	{justes} sur {questions} du premier coup. Reçu au {examen}.	brief §8, mot pour mot
+pas_encore	{justes} sur {questions} du premier coup. Pas encore : il en fallait {reussite}.	rédigé pour l'app, d'après le brief §8
+tao_recu	Reçu. On reprend le chemin, une brique à la fois.	rédigé pour l'app
+tao_pas_encore	Pas encore. On revoit ces caractères, et on le repasse.	rédigé pour l'app, d'après le brief §8

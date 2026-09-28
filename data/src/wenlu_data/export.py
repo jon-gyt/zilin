@@ -30,6 +30,9 @@ familles de fichiers, jamais mêlés :
   `jouer.json` : propriétaires, source citée. `lettres.json` ne porte que les lettres de Que relues (`lettres.py`).
 - `trois-lignes.json` : les trois lignes du pas Utiliser, un texte relu par jour du chemin et
   par parcours (`trois_lignes.py`), propriétaire, source citée ; l'app le lit à chemin fixe.
+- `examens.json` : les trente-sept examens 科举 et 月课, les nominations, et les séries relues
+  de chaque examen sur chaque chemin (`examens.py`), propriétaire, source citée ; nommé par
+  l'index. Les noms des examens entrent dans le périmètre des traits : l'app les dessine.
 - `apercu/` : les textes encore à relire (voir plus bas), propriétaires eux aussi.
 
 Ce qui n'entre jamais dans l'export :
@@ -90,6 +93,7 @@ from . import coquilles as coquilles_mod
 from . import cuisine as cuisine_mod
 from . import devinettes as devinettes_mod
 from . import eclair as eclair_mod
+from . import examens as examens_mod
 from . import fetes as fetes_mod
 from . import fiches as fiches_mod
 from . import heros as heros_mod
@@ -114,7 +118,7 @@ VERSION = "0.1.0"
 #: Version du format écrit par ce module. À incrémenter à chaque changement de
 #: ce que l'export produit à entrées égales (clé ajoutée, ordre, règle de
 #: sélection) : elle entre dans l'empreinte, et l'export versionné devient périmé.
-FORMAT_EXPORT = 15
+FORMAT_EXPORT = 16
 
 #: Le code de l'exporteur, lui aussi dans l'empreinte : un changement de ce
 #: fichier où l'on aurait oublié `FORMAT_EXPORT` rend quand même l'export périmé.
@@ -200,6 +204,7 @@ def fichiers_sources(
         ("exporteur-jouer", Path(jouer_mod.__file__).resolve()),
         ("exporteur-anecdotes", Path(anecdotes_mod.__file__).resolve()),
         ("exporteur-trois-lignes", Path(trois_lignes_mod.__file__).resolve()),
+        ("exporteur-examens", Path(examens_mod.__file__).resolve()),
         ("decompositions", build / "decompositions.json"),
         ("graphe", build / "graphe.json"),
         *[(f"parcours-{nom}", build / f"parcours-{nom}.json") for nom in sorted(PARCOURS)],
@@ -239,6 +244,7 @@ def fichiers_sources(
         ("jouer-tao", jouer_mod.TAO),
         ("anecdotes", anecdotes_mod.ANECDOTES),
         *trois_lignes_mod.sources(),
+        *examens_mod.sources(),
         ("interface", INTERFACE),
         ("arphicpl", LICENCES_SOURCE / ARPHIC),
         ("unicode", LICENCES_SOURCE / UNICODE_NOTICE),
@@ -766,6 +772,15 @@ def caracteres_interface(chemin: Path | None = None) -> list[str]:
         if ligne and not ligne.startswith("#"):
             vus += [c for c in ligne if not c.isspace() and c not in vus]
     return vus
+
+
+def caracteres_examens() -> list[str]:
+    """Les caractères des noms d'examen (`data/sources/examens/examens.tsv`).
+
+    L'app les dessine depuis leurs traits, sur la stèle de la route et à l'examen : ils
+    entrent dans le périmètre avec leurs briques, comme les titres des rangs.
+    """
+    return examens_mod.caracteres_dessines(examens_mod.charger_liste()[0])
 
 
 def caracteres_heros() -> list[str]:
@@ -1444,6 +1459,7 @@ def document_index(
         "wechat": "wechat.json",
         "heros": "heros.json",
         "jouer": jouer_mod.FICHIER,
+        "examens": examens_mod.FICHIER,
     }
     if apercu:
         document["apercu"] = f"{APERCU}/index.json"
@@ -1835,6 +1851,8 @@ def assembler(
     # Les caractères hors du niveau des mots expliqués des contes (狼, 苗), que le lecteur
     # dessine avant le texte : même règle.
     cibles += caracteres_expliques_des_contes(contes)
+    # Les noms des examens 科举 et du 月课, dessinés sur la route et à l'examen : même règle.
+    cibles += caracteres_examens()
     per = perimetre(noeuds, cibles)
     pinyin = charger_pinyin(ingest, per.caracteres)
     lectures = charger_lectures(ingest, per.caracteres)
@@ -1933,6 +1951,20 @@ def assembler(
                 "modified": f"{JETON_JOUR} : assemblé par `wenlu export`",
             },
             parcours=documents_parcours,
+        )
+    )
+    # Les examens 科举 et les 月课 (`examens.py`) : nommés par l'index.
+    textes[examens_mod.FICHIER] = _json(
+        examens_mod.document(
+            en_tete={
+                "version": version,
+                "license": LICENCE_PROPRIETAIRE,
+                "source": examens_mod.SOURCE_EXPORT,
+                "source_url": URL_PIPELINE,
+                "modified": f"{JETON_JOUR} : assemblé par `wenlu export`",
+            },
+            parcours=documents_parcours,
+            racines={c: noeuds[c].racine for c in per.caracteres},
         )
     )
     textes["LICENCES.md"] = licences_md(version)

@@ -525,6 +525,8 @@ export type Index = {
   heros?: string;
   /** Les phrases de Tao sur l'écran Jouer, `jouer.json` (`jouer.ts`) ; vide pour un export qui n'en porte pas. */
   jouer?: string;
+  /** Les examens 科举 et les 月课, `examens.json` (`examens.ts`) ; vide pour un export qui n'en porte pas. */
+  examens?: string;
 };
 
 /** La version de données que l'app lit : le dossier exporté par `wenlu export`. */
@@ -569,7 +571,8 @@ export async function loadIndex(
     lettres: typeof brut.lettres === 'string' ? brut.lettres : '',
     wechat: typeof brut.wechat === 'string' ? brut.wechat : '',
     heros: typeof brut.heros === 'string' ? brut.heros : '',
-    jouer: typeof brut.jouer === 'string' ? brut.jouer : ''
+    jouer: typeof brut.jouer === 'string' ? brut.jouer : '',
+    examens: typeof brut.examens === 'string' ? brut.examens : ''
   };
 }
 

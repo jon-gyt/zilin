@@ -41,6 +41,8 @@ exporter-relecture, appliquer-relecture, apercu), qu'`export` lit une fois relue
 `wechat apercu` relit les dialogues du message WeChat.
 `trois-lignes` donne le contexte de rédaction des trois lignes du pas Utiliser (l'acquis
 et les caractères nouveaux d'un jour du chemin) et les relit (apercu).
+`examens` donne le contexte de rédaction des séries d'un examen 科举 ou d'un 月课 (le jour
+du palier, l'acquis, le tronçon) et les relit (apercu).
 
 Toutes les commandes sont idempotentes : deux passages écrivent les mêmes octets.
 Seul `data/work/sources/PROVENANCE.md` s'allonge, d'un bloc daté par passage.
@@ -58,6 +60,7 @@ from .coquilles import app as _coquilles
 from .cuisine import app as _cuisine
 from .devinettes import app as _devinettes
 from .eclair import app as _eclair
+from .examens import app as _examens
 from .export import VERSION
 from .fetes import app as _fetes
 from .fiches import app as _fiches
@@ -193,7 +196,7 @@ def licences() -> None:
 
 @app.command()
 def check() -> None:
-    """Contrôles : composants inconnus, cycles, graphe, listes, briques muettes, découpes, contes hors liste, fiches invalides, rôle son loin de la lecture moderne, textes sans audio, export à jour, aperçu des textes à relire, fêtes, termes solaires, devinettes, dictionnaire éclair, coquilles, cuisine, lettres de Que, message WeChat, personnage, phrases de Tao à Jouer, anecdotes du jour, trois lignes du pas Utiliser, licence des décompositions."""
+    """Contrôles : composants inconnus, cycles, graphe, listes, briques muettes, découpes, contes hors liste, fiches invalides, rôle son loin de la lecture moderne, textes sans audio, export à jour, aperçu des textes à relire, fêtes, termes solaires, devinettes, dictionnaire éclair, coquilles, cuisine, lettres de Que, message WeChat, personnage, phrases de Tao à Jouer, anecdotes du jour, trois lignes du pas Utiliser, examens 科举, licence des décompositions."""
     from .anecdotes import controles as controles_anecdotes
     from .audio import controles as controles_audio
     from .contes import controles as controles_contes
@@ -202,6 +205,7 @@ def check() -> None:
     from .cuisine import controles as controles_cuisine
     from .devinettes import controles as controles_devinettes
     from .eclair import controles as controles_eclair
+    from .examens import controles as controles_examens
     from .export import controles as controles_export
     from .fetes import controles as controles_fetes
     from .fiches import controles as controles_fiches
@@ -239,6 +243,7 @@ def check() -> None:
         *controles_jouer(),
         *controles_anecdotes(),
         *controles_trois_lignes(),
+        *controles_examens(),
     ]:
         typer.echo(f"{'ok   ' if controle.ok else 'écart'} {controle.nom} : {controle.detail}")
         if not controle.ok and controle.bloquant:
@@ -284,6 +289,7 @@ app.add_typer(_coquilles, name="coquilles")
 app.add_typer(_cuisine, name="cuisine")
 app.add_typer(_devinettes, name="devinettes")
 app.add_typer(_eclair, name="eclair")
+app.add_typer(_examens, name="examens")
 app.add_typer(_fetes, name="fetes")
 app.add_typer(_fiches, name="fiches")
 app.add_typer(_lettres, name="lettres")

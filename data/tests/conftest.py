@@ -69,6 +69,17 @@ def _sans_rangs_du_personnage(monkeypatch: pytest.MonkeyPatch) -> None:
 
 
 @pytest.fixture(autouse=True)
+def _sans_noms_d_examen(monkeypatch: pytest.MonkeyPatch) -> None:
+    """Les exports de test ne tirent pas les noms des examens 科举.
+
+    `data/sources/examens/examens.tsv` ajoute ses caractères au périmètre (县试 y met 县) ;
+    un build factice n'a pas à les recevoir. Un test qui les veut appelle
+    `examens.caracteres_dessines(examens.charger_liste()[0])`.
+    """
+    monkeypatch.setattr("wenlu_data.export.caracteres_examens", lambda: [])
+
+
+@pytest.fixture(autouse=True)
 def _sans_ordres_figes(monkeypatch: pytest.MonkeyPatch, tmp_path: Path) -> None:
     """Les builds de test calculent leurs parcours : ils ne lisent pas les ordres figés.
 
