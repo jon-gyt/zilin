@@ -59,6 +59,12 @@ describe('les traits du caractère contenu, pour la chaîne', () => {
     expect(traitsContenus(tr('大'), tr('人'))).toEqual([1, 2]);
   });
 
+  it('trouve une brique en clé de gauche, même resserrée : 女 dans 姓, 又 dans 对, 木 dans 杯', () => {
+    expect(traitsContenus(tr('姓'), tr('女'))).toEqual([0, 1, 2]);
+    expect(traitsContenus(tr('对'), tr('又'))).toEqual([0, 1]);
+    expect(traitsContenus(tr('杯'), tr('木'))).toEqual([0, 1, 2, 3]);
+  });
+
   it('trouve la bonne moitié : 女 à gauche de 好, 子 à droite ; 门 autour de 问', () => {
     expect(traitsContenus(tr('好'), tr('女'))).toEqual([0, 1, 2]);
     expect(traitsContenus(tr('好'), tr('子'))).toEqual([3, 4, 5]);

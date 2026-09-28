@@ -28,8 +28,12 @@ const POINTS = 8;
 /** Sous cet écart moyen (unités de la boîte 1024), deux traits sont le même trait. */
 export const SEUIL_MEME_TRAIT = 55;
 
-/** Au-delà de cet écart moyen, une fois les formes ramenées à leur boîte, ce n'est pas le même dessin. */
-export const SEUIL_MEME_FORME = 0.16;
+/**
+ * Au-delà de cet écart moyen, une fois les formes ramenées à leur boîte, ce n'est pas le
+ * même dessin. Une brique en clé de gauche change un peu de forme (le dernier trait de 女
+ * remonte dans 姓, 又 se resserre dans 对) : l'écart y monte jusqu'à 0,2.
+ */
+export const SEUIL_MEME_FORME = 0.25;
 
 function longueur(m: readonly Point[]): number {
   let l = 0;
