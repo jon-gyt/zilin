@@ -198,7 +198,7 @@ export type Question = {
   /**
    * `oreille` : référence du fichier audio, celui de la fiche ou à défaut celui du
    * manifeste, quand il y en a un. Sans elle, le caractère est dit par la voix de
-   * l'appareil (`audio.dire`).
+   * l'appareil (`audio.dire`). `trou` : celle du mot, de la même façon.
    */
   audio?: string;
   /** `ton` : le pinyin de la lecture principale, sans son ton (`ma`). */
@@ -554,9 +554,47 @@ export function composantSon(f: Fiche, corpus: Corpus): string | null {
   return f.parts.find((p) => fiche(p, corpus)?.role === 'son') ?? null;
 }
 
-/** Le mot qui porte le caractère, pour le trou. */
-export function motDuTrou(f: Fiche): Mot | null {
-  return f.mots.find((m) => m.hanzi.includes(f.c)) ?? null;
+/**
+ * Le mot qui porte le caractère, pour le trou : un mot de plusieurs caractères, qu'on fera
+ * entendre. Avec le corpus, un mot qui peut être dit passe devant (`motDitable`).
+ */
+export function motDuTrou(f: Fiche, corpus?: Corpus): Mot | null {
+  const mots = f.mots.filter((m) => m.hanzi.includes(f.c) && m.hanzi.length > f.c.length);
+  if (corpus !== undefined) {
+    const dit = mots.find((m) => motDitable(m, corpus));
+    if (dit !== undefined) return dit;
+  }
+  return mots[0] ?? null;
+}
+
+/** Le fichier du mot : celui de la fiche, sinon celui du manifeste audio. */
+export function fichierDuMot(m: Mot, corpus: Corpus): string | null {
+  return m.audio ?? corpus.manifeste?.[m.hanzi] ?? null;
+}
+
+/**
+ * Le mot peut-il être dit : son fichier (fiche ou manifeste), ou la voix mandarin de
+ * l'appareil. Sans l'un ni l'autre, le trou ne se pose pas : jamais d'écran muet.
+ */
+export function motDitable(m: Mot, corpus: Corpus): boolean {
+  return m.pinyin !== '' && (fichierDuMot(m, corpus) !== null || corpus.voix === true);
+}
+
+/**
+ * Ce que l'écran fait entendre : le mot du trou, sinon le caractère (l'oreille, le ton après
+ * la correction).
+ */
+export function texteADire(q: Question): string {
+  return q.type === 'trou' && q.mot ? q.mot.hanzi : q.c;
+}
+
+/**
+ * Au trou, la correction dit enfin le mot : « 山水 shānshuǐ, paysage, montagnes et eaux. »
+ * Vide pour les autres types.
+ */
+export function ligneDuMot(q: Question): string {
+  if (q.type !== 'trou' || !q.mot) return '';
+  return q.mot.fr === '' ? `${q.mot.hanzi} ${q.mot.pinyin}.` : `${q.mot.hanzi} ${q.mot.pinyin}, ${q.mot.fr}.`;
 }
 
 /** La référence audio : celle de la fiche, sinon celle d'un de ses mots. */
@@ -605,7 +643,10 @@ export function typesPossibles(f: Fiche, corpus: Corpus): TypeQuestion[] {
   if (f.fr !== '') out.push('sens');
   if (f.fr !== '' && connus > 0) out.push('caractere');
   if (f.parts.length >= 2) out.push('assemblage');
-  if (motDuTrou(f) !== null && connus > 0) out.push('trou');
+  const mot = motDuTrou(f, corpus);
+  if (mot !== null && motDitable(mot, corpus) && candidatsOreille(f, corpus).length > 0) {
+    out.push('trou');
+  }
   if (peutEtreDit(f, corpus) && candidatsOreille(f, corpus).length > 0) out.push('oreille');
   if (syllabesDuTon(f) !== null) out.push('ton');
   if (composantSon(f, corpus) !== null) out.push('son');
@@ -766,11 +807,19 @@ export function question(
   }
 
   if (type === 'trou') {
-    const mot = motDuTrou(f);
+    /*
+     * Le mot s'entend, il ne se traduit pas : « paysage, montagnes et eaux » donnait 水. Le
+     * son dit la syllabe du trou, pas sa forme : il faut lire lequel des quatre se dit ainsi,
+     * le pinyin des choix restant tu jusqu'à la correction. Jamais un homophone en leurre,
+     * que l'oreille ne départagerait pas. Le sens du mot vient à la correction.
+     */
+    const mot = motDuTrou(f, corpus);
     if (mot === null) throw new Error(`Aucun mot pour le trou : ${f.c}`);
     const i = mot.hanzi.indexOf(f.c);
-    const tirage = leurres(f.c, candidatsCaracteres(f.c, corpus, true), corpus, g);
-    q.enonce = `Complète : « ${mot.fr} ».`;
+    const tirage = leurres(f.c, candidatsOreille(f, corpus), corpus, g);
+    const audio = fichierDuMot(mot, corpus);
+    q.enonce = 'Écoute le mot, puis complète-le.';
+    if (audio !== null) q.audio = audio;
     q.mot = mot;
     q.avant = mot.hanzi.slice(0, i);
     q.apres = mot.hanzi.slice(i + f.c.length);
@@ -917,6 +966,7 @@ export function indiceErreur(q: Question): string {
   if (q.type === 'assemblage') return "Pas cette suite. Recommence, dans l'ordre d'écriture.";
   if (q.type === 'ton') return 'Pas ce ton. Encore un essai.';
   if (q.type === 'oreille') return 'Pas celui-là. Réécoute.';
+  if (q.type === 'trou') return 'Pas celui-là. Réécoute le mot.';
   /* Au sens et au caractère, l'écran montre le leurre pris et ses briques (`leurreExplique`). */
   if (q.type === 'sens' || q.type === 'caractere') return 'Pas celui-là. Encore un essai.';
   if (q.briques.length > 1) return 'Pas celui-là. Regarde les briques.';

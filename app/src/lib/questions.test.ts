@@ -13,8 +13,11 @@ import {
   leurreADire,
   leurreExplique,
   leurres,
+  ligneDuMot,
   lirePaires,
   memeFamille,
+  motDitable,
+  texteADire,
   marquerTon,
   outcomeDuTrace,
   premierSens,
@@ -76,7 +79,7 @@ const FICHES: Fiche[] = [
   f('好', 'hǎo', 'bon', ['女', '子'], 'sens', "Une femme et un enfant : ce qui est bien.", {
     audio: 'audio/hao.mp3',
     lectures: ['hǎo', 'hào'],
-    mots: [{ hanzi: '好人', pinyin: 'hǎorén', fr: 'quelqu’un de bien', en: '' }]
+    mots: [{ hanzi: '好人', pinyin: 'hǎorén', fr: 'quelqu’un de bien', en: '', audio: 'audio/haoren.mp3' }]
   })
 ];
 
@@ -740,6 +743,56 @@ describe('à l’oreille, par la voix de l’appareil', () => {
     const faux = corriger(q, q.leurres[0], { correct: false, tries: 0, seconds: 3 });
     expect(faux.correct).toBe(false);
     expect(faux.outcome.leurres).toEqual([q.leurres[0]]);
+  });
+});
+
+describe('le trou : le mot s’entend, il ne se traduit plus', () => {
+  it('l’énoncé ne dit ni le sens du mot, ni le caractère : « paysage, montagnes et eaux » donnait 水', () => {
+    const q = poser('trou');
+    expect(q.enonce).toBe('Écoute le mot, puis complète-le.');
+    expect(q.enonce).not.toContain('bien');
+    expect(q.enonce).not.toContain('好');
+    expect(q.audio).toBe('audio/haoren.mp3');
+    expect(texteADire(q)).toBe('好人');
+    /* Le sens du mot vient à la correction. */
+    expect(ligneDuMot(q)).toBe('好人 hǎorén, quelqu’un de bien.');
+    expect(ligneDuMot(poser('sens'))).toBe('');
+    expect(texteADire(poser('oreille'))).toBe('好');
+  });
+
+  it('jamais d’écran muet : sans fichier ni voix, pas de trou', () => {
+    const muet = (x: Fiche): Fiche => ({ ...x, mots: x.mots.map((m) => ({ ...m, audio: null })) });
+    const fiches = FICHES.map((x) => (x.c === '好' ? muet(x) : x));
+    const corpus: Corpus = { ...CORPUS, fiches };
+    const hao = fiches.find((x) => x.c === '好') as Fiche;
+    expect(motDitable(hao.mots[0], corpus)).toBe(false);
+    expect(typesPossibles(hao, corpus)).not.toContain('trou');
+    /* La voix de l'appareil, ou un fichier du manifeste, suffit. */
+    expect(typesPossibles(hao, { ...corpus, voix: true })).toContain('trou');
+    expect(typesPossibles(hao, { ...corpus, manifeste: { 好人: 'data/x.mp3' } })).toContain('trou');
+    expect(question(hao, 'trou', { ...corpus, manifeste: { 好人: 'data/x.mp3' } }, 'g').audio).toBe('data/x.mp3');
+  });
+
+  it('un mot qui peut être dit passe devant ; jamais un homophone en leurre', () => {
+    const mots = [
+      { hanzi: '马上', pinyin: 'mǎshàng', fr: 'tout de suite', en: '' },
+      { hanzi: '马车', pinyin: 'mǎchē', fr: 'charrette', en: '', audio: 'audio/mache.mp3' }
+    ];
+    const ma = { ...ficheSon('马'), mots };
+    const corpus = { ...CORPUS_SON, fiches: CORPUS_SON.fiches.map((x) => (x.c === '马' ? ma : x)) };
+    const q = question(ma, 'trou', corpus, 'g');
+    expect(q.mot?.hanzi).toBe('马车');
+    for (const g of ['a', 'b', 'c', 'd']) {
+      /* 吗 se lit aussi mǎ : entendu, il ne se départage pas de 马. */
+      expect(question(ma, 'trou', corpus, g).leurres).not.toContain('吗');
+    }
+  });
+
+  it('l’écran fait entendre le mot et tait le pinyin des choix jusqu’à la correction', () => {
+    const src = readFileSync(new URL('Ask.svelte', import.meta.url), 'utf8');
+    expect(src).toContain("(q.type === 'oreille' || q.type === 'caractere' || q.type === 'trou') && note === null");
+    expect(src).toContain('void prononcer(texteADire(q))');
+    expect(src).toContain('{ligneDuMot(q)}');
   });
 });
 

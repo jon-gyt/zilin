@@ -13,7 +13,7 @@
   import Trace from './Trace.svelte';
   import { corriger, type Corpus, type Question, type Reponse } from './questions';
   import { VERDICTS, delai, delaiAvance, pinyinDe } from './revision';
-  import { contourDuTon, fiche, indiceErreur, leurreADire, tonDe, leurreExplique, type LeurreExplique } from './questions';
+  import { contourDuTon, fiche, indiceErreur, leurreADire, ligneDuMot, texteADire, tonDe, leurreExplique, type LeurreExplique } from './questions';
   import type { Revision } from './session';
   import { grade } from './srs';
   import { artDe } from './heros';
@@ -94,11 +94,15 @@
   /** À l'oreille : le dernier caractère pris pour un autre, qu'on fait entendre. */
   let entenduAuLieu: string | null = $state(null);
   /**
-   * À l'oreille, le pinyin sous les choix dirait la réponse : il n'apparaît qu'après la
-   * correction. Au caractère aussi : l'énoncé donne le pinyin, le choix se ferait sur lui
+   * À l'oreille et au trou, le pinyin sous les choix dirait la réponse : il n'apparaît qu'après
+   * la correction. Au caractère aussi : l'énoncé donne le pinyin, le choix se ferait sur lui
    * sans lire la forme.
    */
-  const pinyinCache = $derived((q.type === 'oreille' || q.type === 'caractere') && note === null);
+  const pinyinCache = $derived(
+    (q.type === 'oreille' || q.type === 'caractere' || q.type === 'trou') && note === null
+  );
+  /** La question se pose à l'oreille : le caractère (oreille) ou le mot (trou) s'entend d'abord. */
+  const aEcouter = $derived(q.type === 'oreille' || q.type === 'trou');
 
   /** Remise à zéro à chaque question : le chronomètre repart, les essais aussi. */
   $effect(() => {
@@ -137,7 +141,7 @@
      la note rend une question neuve, qui ne doit pas se redire. */
   $effect(() => {
     void cle;
-    if (untrack(() => q.type) !== 'oreille') return;
+    if (!untrack(() => aEcouter)) return;
     const t = setTimeout(() => ecouter(), 300);
     return () => clearTimeout(t);
   });
@@ -173,7 +177,9 @@
     const due = echeanceDe(q.c);
     prochaine = due === null ? '' : delai(new Date(), due);
     /* L'avance automatique laisse lire la correction courte ; l'origine attend « Pourquoi ? ». */
-    const attente = c.correct ? delaiAvance(`${VERDICTS[note]} ${q.explication.court}`) : null;
+    const attente = c.correct
+      ? delaiAvance(`${VERDICTS[note]} ${ligneDuMot(q)} ${q.explication.court}`)
+      : null;
     if (attente !== null) minuteur = setTimeout(avancer, attente);
   }
 
@@ -246,13 +252,13 @@
   function ecouter(): void {
     if (note !== null) arreter();
     const rang = cle;
-    void prononcer(q.c).then((dit) => {
+    void prononcer(texteADire(q)).then((dit) => {
       if (rang !== cle) return;
       if (dit === 'fichier' || dit === 'telephone') {
         entendu = true;
         /* Réécouter a fini par charger le fichier : la question se pose de nouveau. */
-        if (q.type === 'oreille' && note === null) sautable = false;
-      } else if (dit === 'muet' && q.type === 'oreille' && note === null && !entendu) sautable = true;
+        if (aEcouter && note === null) sautable = false;
+      } else if (dit === 'muet' && aEcouter && note === null && !entendu) sautable = true;
     });
   }
 </script>
@@ -287,8 +293,10 @@
       {/if}
     </div>
   {:else if q.type === 'trou'}
+    <!-- Le mot s'entend, il ne se traduit pas : le sens vient à la correction. -->
     <div class="stim">
       <span class="hz">{q.avant}<span class="blank"></span>{q.apres}</span>
+      <button class="btn ghost ecoute" onclick={ecouter}>{entendu ? '♪ Réécouter le mot' : '♪ Écouter le mot'}</button>
     </div>
   {:else if q.type === 'oreille'}
     <div class="stim">
@@ -363,6 +371,7 @@
   <div class="fb" class:vide={note === null && !sautable && essais === 0}>
     {#if note !== null}
       <b>{montree ? 'On te montre.' : VERDICTS[note]}</b>
+      {ligneDuMot(q)}
       {q.explication.court}
       <!-- L'origine se lit d'un tap : la correction reste courte, l'avance automatique aussi. -->
       {#if q.explication.origine !== ''}
@@ -380,6 +389,8 @@
       {/if}
     {:else if sautable && q.type === 'oreille'}
       Le son de ce caractère ne se charge pas ici. Continue avec le bouton du bas.
+    {:else if sautable && q.type === 'trou'}
+      Le son de ce mot ne se charge pas ici. Continue avec le bouton du bas.
     {:else if sautable}
       Ce caractère ne se trace pas encore ici. Continue avec le bouton du bas.
     {:else if essais > 0}

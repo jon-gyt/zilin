@@ -449,7 +449,7 @@ describe("avance automatique : la correction se lit avant de partir", () => {
   it("la correction courte part d'elle-même ; l'origine est derrière « Pourquoi ? » (brief §6)", () => {
     const src = readFileSync(new URL('Ask.svelte', import.meta.url), 'utf8');
     /* L'avance se cale sur la correction courte, pas sur l'origine. */
-    expect(src).toContain('delaiAvance(`${VERDICTS[note]} ${q.explication.court}`)');
+    expect(src).toContain('delaiAvance(`${VERDICTS[note]} ${ligneDuMot(q)} ${q.explication.court}`)');
     expect(src).not.toContain('{q.explication.texte}');
     /* « Pourquoi ? » ouvre l'origine et arrête l'avance : on lit, on avance au bouton. */
     expect(src).toContain('<button class="pourquoi" onclick={ouvrirPourquoi}>Pourquoi ?</button>');
