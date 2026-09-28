@@ -7,6 +7,7 @@
 import Dexie, { type Table } from 'dexie';
 import { Capacitor } from '@capacitor/core';
 import type { Acces } from './droits';
+import { demanderPersistance } from './garde';
 import { emptyProgress, fromJSON, toJSON, type Progress } from './session';
 
 type Ligne = { id: string; value: Progress };
@@ -49,8 +50,22 @@ export async function loadProgress(aujourdhui: string = today()): Promise<Progre
   }
 }
 
-/** Sauvegarde à chaque tap. Une écriture qui échoue ne doit pas casser la session. */
+/** Le stockage persistant n'est demandé qu'une fois par lancement, au premier enregistrement. */
+let persistanceDemandee = false;
+
+/**
+ * Sauvegarde à chaque tap. Une écriture qui échoue ne doit pas casser la session. Au
+ * premier enregistrement d'une progression (un écran de la première session passé, ou
+ * plus), sur le web, le navigateur est prié de ne pas effacer la base
+ * (`garde.demanderPersistance`) ; dans l'app iOS, le stockage est celui de l'app. L'état
+ * neuf du tout premier lancement n'est pas encore une progression : rien n'est demandé.
+ */
 export async function saveProgress(p: Progress): Promise<void> {
+  if (!persistanceDemandee && !(p.premiere && p.premiereVue === 'f1')) {
+    persistanceDemandee = true;
+    const stockage = typeof navigator === 'undefined' ? undefined : navigator.storage;
+    void demanderPersistance(stockage, Capacitor.isNativePlatform());
+  }
   try {
     await db.progress.put({ id: CLE, value: p });
   } catch {

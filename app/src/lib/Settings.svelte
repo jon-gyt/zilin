@@ -8,7 +8,9 @@
    * Ni compte, ni réseau : le fichier est écrit et relu par le navigateur, la
    * progression reste dans IndexedDB.
    */
-  import { exportProgress, importProgress } from './db';
+  import { importProgress, today } from './db';
+  import { Capacitor } from '@capacitor/core';
+  import { inviterEcranAccueil, ligneDernierExport, noterExport } from './garde';
   import ChoixHeros from './ChoixHeros.svelte';
   import Heros from './Heros.svelte';
   import { beteDe, herosOnce, rangDe, sansArticle, total, type BeteId, type HerosDonnees } from './heros';
@@ -25,6 +27,7 @@
     setBudget,
     setRetention,
     setTrace,
+    toJSON,
     type Budget,
     type Progress
   } from './session';
@@ -143,9 +146,24 @@
     onprogression(setRappel(p, reglerRappel(p.rappel, { actif: p.rappel.actif, heure }, jour, minute)));
   }
 
-  /** Export : un fichier JSON, téléchargé depuis le navigateur. */
+  /*
+   * Garder sa progression (`garde.ts`) : sur le web iOS, hors écran d'accueil, une ligne
+   * discrète dit comment l'y ajouter, sans fenêtre ni relance ; partout, la date du
+   * dernier export.
+   */
+  const nav = navigator as Navigator & { standalone?: boolean };
+  const inviter = inviterEcranAccueil(
+    { userAgent: nav.userAgent, maxTouchPoints: nav.maxTouchPoints, standalone: nav.standalone },
+    typeof matchMedia === 'function' && matchMedia('(display-mode: standalone)').matches,
+    Capacitor.isNativePlatform()
+  );
+  const dernierExport = $derived(ligneDernierExport(p.dernierExport, today(), textesRappels));
+
+  /** Export : un fichier JSON, téléchargé depuis le navigateur. Le jour de l'export est noté. */
   async function exporter(): Promise<void> {
-    const texte = await exportProgress(p.day);
+    const n = noterExport(p, today());
+    onprogression(n);
+    const texte = toJSON(n);
     const url = URL.createObjectURL(new Blob([texte], { type: 'application/json' }));
     const a = document.createElement('a');
     a.href = url;
@@ -298,7 +316,14 @@
   <div class="card">
     <div class="k" style="margin-bottom:10px">
       Ta progression reste sur cet appareil. Pas de compte, aucune requête réseau.
+      {#if dernierExport !== ''}<span class="date">{dernierExport}.</span>{/if}
     </div>
+    {#if inviter && textesRappels.accueil !== ''}
+      <div class="accueil">
+        <div>{textesRappels.accueil}</div>
+        <div class="k">{textesRappels.accueil_comment}</div>
+      </div>
+    {/if}
     <div class="acts">
       <button class="btn ghost" onclick={exporter}>Exporter en JSON</button>
       <button class="btn ghost" onclick={() => fichier?.click()}>Importer un fichier</button>
@@ -328,6 +353,18 @@
   }
   .refus {
     margin-top: 6px;
+  }
+  .date {
+    display: block;
+    margin-top: 4px;
+  }
+  /* Une ligne discrète, pas une alerte : ni fenêtre, ni couleur, ni relance. */
+  .accueil {
+    margin: 0 0 12px;
+    padding-top: 10px;
+    border-top: 1px solid var(--line);
+    font-size: 15px;
+    color: var(--ink2);
   }
   .perso {
     display: flex;
