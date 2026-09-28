@@ -225,26 +225,69 @@ export function recetteAProposer(c: Cuisine): Recette | null {
 }
 
 /**
- * Les tours d'une recette : un par ingrédient, dans l'ordre de la recette. Tao demande
- * l'ingrédient (`enonce`, son `fr`) ; l'étal montre la réponse et ses leurres, mélangés
- * d'après la graine. Le tour note le premier caractère noté (`c`), et les autres avec lui
- * (`aussi`) : c'est là que l'erreur type se lit.
+ * Les mots de la recette qu'on peut trouver sur l'étal : les autres ingrédients, puis les
+ * mots de l'étal que le nom du plat ou ses étapes écrivent, dans l'ordre de la recette.
  */
-export function toursCuisine(r: Recette, graine: string): Tour[] {
+export function motsDeLaRecette(r: Recette, etal: Readonly<Record<string, MotEtal>> = {}): string[] {
+  const texte = [r.zh, ...r.etapes.map((e) => e.zh)].join('');
+  const ecrits = Object.keys(etal)
+    .filter((mot) => texte.includes(mot))
+    .sort((a, b) => texte.indexOf(a) - texte.indexOf(b) || b.length - a.length);
+  return [...new Set([...r.ingredients.map((i) => i.zh), ...ecrits])];
+}
+
+/**
+ * Les leurres d'un ingrédient sur l'étal. D'abord des mots de la recette elle-même (les
+ * autres ingrédients, les mots de l'étal qu'écrivent ses étapes) : ils sont tous dans le
+ * texte qu'on vient de lire, et l'on ne peut plus répondre en repérant la seule forme qui
+ * y figure ; il faut lire « viande » pour prendre 肉 plutôt que 面 ou 水. Jamais un mot qui
+ * contient la réponse ou qu'elle contient (米 et 米饭, 水 et 冷水) : il serait presque juste.
+ * Puis le premier leurre du pipeline, l'erreur type (牛奶 pour 牛肉), et les suivants pour
+ * compléter. Autant de leurres qu'en donne le pipeline.
+ */
+export function leurresDeLEtal(
+  r: Recette,
+  i: IngredientCuisine,
+  etal: Readonly<Record<string, MotEtal>> = {}
+): string[] {
+  const n = i.leurres.length;
+  const proche = (mot: string): boolean => mot === i.zh || mot.includes(i.zh) || i.zh.includes(mot);
+  const recette = motsDeLaRecette(r, etal).filter((mot) => !proche(mot));
+  const [type, ...autres] = i.leurres;
+  const out = recette.slice(0, Math.max(0, n - 1));
+  for (const mot of [type, ...recette.slice(n - 1), ...autres]) {
+    if (out.length >= n) break;
+    if (mot !== undefined && !out.includes(mot) && mot !== i.zh) out.push(mot);
+  }
+  return out;
+}
+
+/**
+ * Les tours d'une recette : un par ingrédient, dans l'ordre de la recette. Tao demande
+ * l'ingrédient (`enonce`, son `fr`) ; l'étal montre la réponse et ses leurres
+ * (`leurresDeLEtal` : des mots de la recette d'abord), mélangés d'après la graine. Le
+ * tour note le premier caractère noté (`c`), et les autres avec lui (`aussi`) : c'est là
+ * que l'erreur type se lit.
+ */
+export function toursCuisine(r: Recette, graine: string, etal: Readonly<Record<string, MotEtal>> = {}): Tour[] {
   return r.ingredients.map((i, k) => ({
     c: i.notes[0],
     aussi: i.notes.slice(1),
     enonce: i.fr,
     reponse: [i.zh],
-    choix: melange([i.zh, ...i.leurres], `${graine}/${r.id}/${k}`),
+    choix: melange([i.zh, ...leurresDeLEtal(r, i, etal)], `${graine}/${r.id}/${k}`),
     ordre: false,
     paire: false
   }));
 }
 
 /** Une manche de cuisine : une recette, ses ingrédients. `null` si elle n'en a aucun. */
-export function mancheCuisine(r: Recette, graine: string): Manche | null {
-  const tours = toursCuisine(r, graine);
+export function mancheCuisine(
+  r: Recette,
+  graine: string,
+  etal: Readonly<Record<string, MotEtal>> = {}
+): Manche | null {
+  const tours = toursCuisine(r, graine, etal);
   return tours.length === 0 ? null : { jeu: 'cuisine', graine, tours, i: 0, evenements: [], trouves: 0 };
 }
 
@@ -252,7 +295,7 @@ export function mancheCuisine(r: Recette, graine: string): Manche | null {
 export function preparerCuisine(c: Cuisine | undefined, graine: string): Manche | null {
   if (!c) return null;
   const r = recetteAProposer(c);
-  return r === null ? null : mancheCuisine(r, graine);
+  return r === null ? null : mancheCuisine(r, graine, c.donnees.etal);
 }
 
 /* ---------- l'étal ---------- */

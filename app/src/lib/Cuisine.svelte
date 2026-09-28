@@ -120,7 +120,8 @@
   function allerALEtal(): void {
     if (recette === null) return;
     n += 1;
-    m = mancheCuisine(recette, `${p.day}/cuisine/${recette.id}/${n}`);
+    /* Les leurres de l'étal sont d'abord des mots de la recette : il faut lire le sens. */
+    m = mancheCuisine(recette, `${p.day}/cuisine/${recette.id}/${n}`, donnees?.etal ?? {});
     panier = [];
     etape = m === null ? 'choix' : 'etal';
     ouvrirTour();

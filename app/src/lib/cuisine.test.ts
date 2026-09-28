@@ -6,9 +6,11 @@ import {
   choisir,
   gout,
   jouable,
+  leurresDeLEtal,
   lireCuisine,
   mancheCuisine,
   manquants,
+  motsDeLaRecette,
   recetteAProposer,
   recettesJouables,
   signesPris,
@@ -203,9 +205,44 @@ describe('l’étal', () => {
     expect(tours[0].aussi).toEqual([]);
     expect(tours[0].enonce).toBe('du bœuf');
     expect(tours[0].reponse).toEqual(['牛肉']);
-    expect([...tours[0].choix].sort()).toEqual(['牛奶', '牛肉', '鸡肉'].sort());
+    /* Un leurre de la recette (面, l'autre ingrédient), puis l'erreur type du pipeline (牛奶). */
+    expect([...tours[0].choix].sort()).toEqual(['牛奶', '牛肉', '面'].sort());
     /* Même graine, même étal. */
     expect(toursCuisine(BOEUF, 'g')).toEqual(tours);
+  });
+
+  it('prend les leurres dans la recette : on ne répond plus en repérant la seule forme lue', () => {
+    const brut = JSON.parse(
+      readFileSync(new URL(`../../public/data/${VERSION_DONNEES}/cuisine.json`, import.meta.url), 'utf8')
+    );
+    const d = lireCuisine(brut);
+    const daroumian = d.recettes.find((r) => r.id === 'daroumian') as Recette;
+    const viande = daroumian.ingredients.find((i) => i.zh === '肉')!;
+    /* « Il me faut de la viande » : 面 et 水 sont dans la recette, 牛奶 est l'erreur type. */
+    expect(leurresDeLEtal(daroumian, viande, d.etal)).toEqual(['面', '水', '牛奶']);
+    for (const r of d.recettes) {
+      const texte = [r.zh, ...r.etapes.map((e) => e.zh)].join('');
+      for (const t of toursCuisine(r, 'g', d.etal)) {
+        const leurres = t.choix.filter((x) => x !== t.reponse[0]);
+        const i = r.ingredients.find((x) => x.zh === t.reponse[0])!;
+        expect(leurres).toHaveLength(i.leurres.length);
+        expect(new Set(t.choix).size).toBe(t.choix.length);
+        /* Chaque mot de l'étal a un sens à montrer ; un leurre pris dans la recette ne
+           contient jamais la réponse (ceux du pipeline, comme 米酒 pour 米, sont voulus). */
+        for (const x of leurres) {
+          expect(d.etal[x]?.fr, `${r.id} ${x}`).toBeTruthy();
+          if (i.leurres.includes(x)) continue;
+          expect(x.includes(i.zh) || i.zh.includes(x), `${r.id} ${x}`).toBe(false);
+        }
+        /* Au moins un leurre écrit dans la recette ; deux quand la recette en a assez. */
+        const dansLaRecette = leurres.filter((x) => texte.includes(x) || r.ingredients.some((y) => y.zh === x));
+        const possibles = motsDeLaRecette(r, d.etal).filter((x) => !x.includes(i.zh) && !i.zh.includes(x));
+        expect(dansLaRecette.length, `${r.id} ${i.zh}`).toBe(Math.min(possibles.length, i.leurres.length - 1));
+        expect(dansLaRecette.length, `${r.id} ${i.zh}`).toBeGreaterThanOrEqual(1);
+        /* L'erreur type du pipeline reste sur l'étal. */
+        expect(t.choix).toContain(i.leurres[0]);
+      }
+    }
   });
 
   it('laisse deux essais, comme toute question, et note par grade', () => {
