@@ -34,6 +34,8 @@
   import { jouerOnce, SANS_JOUER, type PhrasesJouer } from './jouer';
   import Glyph from './Glyph.svelte';
   import Tao from './Tao.svelte';
+  import TaoReagit from './TaoReagit.svelte';
+  import { reagir, type Reaction } from './reaction';
   import DessinJeu, { PIGMENTS } from './DessinJeu.svelte';
   import {
     devinettesOnce,
@@ -250,6 +252,22 @@
   let faux = $state<string[]>([]);
   let resultat = $state<Resultat | null>(null);
 
+  /**
+   * Tao réagit à chaque verdict (`reaction.ts`) : une bouchée, une grimace brève, un bond
+   * après trois justes d'affilée. La série ne s'affiche jamais : elle vit ici, remise à
+   * zéro à chaque manche, et ne se lit qu'à sa posture.
+   */
+  let serie = 0;
+  let reaction = $state<Reaction | null>(null);
+  let cleReaction = $state(0);
+
+  function reagirA(correct: boolean): void {
+    const r = reagir(serie, correct);
+    serie = r.serie;
+    reaction = r.reaction;
+    cleReaction += 1;
+  }
+
   let horloge: ReturnType<typeof setInterval> | null = null;
   let flash: ReturnType<typeof setTimeout> | null = null;
   let minuteur: ReturnType<typeof setTimeout> | null = null;
@@ -348,6 +366,8 @@
     preparee = cle;
     const manche = JEUX[id].preparer(corpus, cle);
     m = manche;
+    serie = 0;
+    reaction = null;
     const posee = manche?.tours[0]?.devinette;
     if (posee) ondevinette(posee, 'posee');
     arreterLimite();
@@ -370,6 +390,7 @@
     donnee = rep;
     resultat = r;
     cache = false;
+    reagirA(r.correct);
     /* L'éclair et la cuisine ne notent pas une mauvaise réponse (`evenementsANoter`). */
     for (const e of evenementsANoter(courante.jeu, r)) onrepondu(e);
     /* Le dictionnaire éclair : un mot deviné compte une fois, dans la progression. */
@@ -424,9 +445,14 @@
     const seconds = Math.max(0, (Date.now() - depart) / 1000);
     const e = essayer(courante, c, faux, seconds);
     faux = e.pris;
-    if (e.resultat === null) return;
+    if (e.resultat === null) {
+      /* Faux au premier essai : rien n'est noté, mais Tao grimace un instant. */
+      reagirA(false);
+      return;
+    }
     donnee = [c];
     resultat = e.resultat;
+    reagirA(e.resultat.correct);
     for (const ev of e.resultat.evenements) onrepondu(ev);
     ondevinette(id, e.resultat.correct ? 'resolue' : 'montree');
   }
@@ -629,12 +655,15 @@
           <div class="eyebrow">{jeuCourant?.titre}</div>
           <h1>Devine le caractère</h1>
         </div>
-        <Tao stade={taoStade} posture="jeu" humeur={taoHumeur} size={72} />
+        <TaoReagit {reaction} cle={cleReaction} stade={taoStade} posture="jeu" humeur={taoHumeur} size={72} />
       </div>
     {:else}
       <div class="verif-tete">
-        <!-- La coquille se lit comme un texte : Tao lit par-dessus l'épaule. -->
-        <Tao
+        <!-- La coquille se lit comme un texte : Tao lit par-dessus l'épaule. Elle réagit à
+             chaque verdict : une bouchée, une grimace, un bond après trois justes. -->
+        <TaoReagit
+          {reaction}
+          cle={cleReaction}
           stade={taoStade}
           posture={postureDuJeu(jeu)}
           humeur={taoHumeur}

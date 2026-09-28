@@ -22,6 +22,8 @@
   import Glyph from './Glyph.svelte';
   import RepliquesWechat from './RepliquesWechat.svelte';
   import Tao from './Tao.svelte';
+  import TaoReagit from './TaoReagit.svelte';
+  import { reagir, type Reaction } from './reaction';
   import { JEUX, fini, type CorpusJeux, type Manche } from './jeux';
   import { delai } from './revision';
   import { echeance, type Progress, type Revision } from './session';
@@ -88,6 +90,17 @@
   let n = $state(0);
   let minuteur: ReturnType<typeof setTimeout> | null = null;
 
+  /** Tao réagit à chaque réplique : une bouchée, une grimace brève, un bond après trois justes. */
+  let serie = 0;
+  let reaction = $state<Reaction | null>(null);
+  let cleReaction = $state(0);
+  function reagirA(juste: boolean): void {
+    const r = reagir(serie, juste);
+    serie = r.serie;
+    reaction = r.reaction;
+    cleReaction += 1;
+  }
+
   function arreter(): void {
     if (minuteur !== null) clearTimeout(minuteur);
     minuteur = null;
@@ -114,6 +127,8 @@
     fausse = null;
     notee = null;
     attente = false;
+    serie = 0;
+    reaction = null;
     depart = Date.now();
     void defiler();
   }
@@ -139,8 +154,10 @@
     if (!r.juste) {
       ecartees = r.ecartees;
       fausse = zh;
+      reagirA(false);
       return;
     }
+    reagirA(true);
     for (const ev of r.evenements) onrepondu(ev);
     notee = { premier: ecartees.length === 0, notes: r.evenements.map((ev) => ev.c) };
     const t = replique(e, zh);
@@ -230,7 +247,7 @@
         <span class="qui">{ami.fr}</span>
       </p>
     </div>
-    <Tao stade={taoStade} posture="lecture" humeur={taoHumeur} size={56} />
+    <TaoReagit {reaction} cle={cleReaction} stade={taoStade} posture="lecture" humeur={taoHumeur} size={56} />
   </div>
 
   <!-- La conversation : l'ami à gauche, la réplique choisie à droite. Une conversation
