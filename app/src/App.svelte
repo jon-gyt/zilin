@@ -24,6 +24,7 @@
   import Settings from './lib/Settings.svelte';
   import Rewards from './lib/Rewards.svelte';
   import Route from './lib/Route.svelte';
+  import Revisions from './lib/Revisions.svelte';
   import Tree from './lib/Tree.svelte';
   import Use from './lib/Use.svelte';
   import Warm from './lib/Warm.svelte';
@@ -150,6 +151,7 @@
     | 'foret'
     | 'rewards'
     | 'route'
+    | 'revisions'
     | 'reglages'
     | 'chercher'
     | 'personnage'
@@ -1046,11 +1048,14 @@
       onfamille={(f) => (famille = f)}
       onrecompenses={() => (ecran = 'rewards')}
       onroute={() => ouvrirRoute('foret')}
+      onrevisions={() => (ecran = 'revisions')}
       onretour={allerAuMenu}
     />
   {/if}
 {:else if ecran === 'route'}
   <Route {p} {acces} textes={textesRythme} onretour={fermerRoute} />
+{:else if ecran === 'revisions'}
+  <Revisions {p} onretour={() => (ecran = 'foret')} />
 {:else if ecran === 'rewards'}
   <Rewards {p} onretour={() => (ecran = 'foret')} onacquis={tropheesObtenus} />
 {:else if ecran === 'chercher'}

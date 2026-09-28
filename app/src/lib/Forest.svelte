@@ -21,6 +21,7 @@
   import Glyph from './Glyph.svelte';
   import Tao from './Tao.svelte';
   import RouteEntree from './RouteEntree.svelte';
+  import RevisionsEntree from './RevisionsEntree.svelte';
   import TropheesEntree from './TropheesEntree.svelte';
   import { dire } from './audio';
   import {
@@ -65,6 +66,7 @@
     onfamille,
     onrecompenses,
     onroute = () => undefined,
+    onrevisions = () => undefined,
     onretour
   }: {
     p: Progress;
@@ -74,6 +76,8 @@
     onrecompenses: () => void;
     /** 前路, la route devant : les prochaines étapes du chemin, et leurs bornes. */
     onroute?: () => void;
+    /** Le tableau des révisions : ce qui revient, ce qu'on retient, ce qui résiste. */
+    onrevisions?: () => void;
     /** Ma forêt s'ouvre par sa case du menu ; un seul retour, vers le menu. */
     onretour: () => void;
   } = $props();
@@ -516,6 +520,7 @@
   {/if}
 
   <TropheesEntree {p} onouvrir={onrecompenses} />
+  <RevisionsEntree {p} onouvrir={onrevisions} />
 
   <div class="card semaine">
     <div class="row">

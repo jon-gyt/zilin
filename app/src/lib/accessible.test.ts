@@ -158,7 +158,7 @@ describe('un décor est caché aux lecteurs d’écran', () => {
   });
 
   it('Tao, le personnage, la colline de Ma forêt, les icônes des entrées', () => {
-    for (const f of ['Tao.svelte', 'Heros.svelte', 'RouteEntree.svelte', 'TropheesEntree.svelte']) {
+    for (const f of ['Tao.svelte', 'Heros.svelte', 'RouteEntree.svelte', 'TropheesEntree.svelte', 'RevisionsEntree.svelte']) {
       const svgs = COMPOSANTS[f].match(/<svg\b[^>]*>/g) ?? [];
       const caches = svgs.filter((x) => x.includes('aria-hidden="true"')).length;
       const dansUnCache = (COMPOSANTS[f].match(/aria-hidden="true">\s*<svg/g) ?? []).length;
