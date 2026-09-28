@@ -25,6 +25,7 @@
     messageSemaine
   } from './serie';
   import {
+    annonceRythmeGratuit,
     cloreSession,
     constat,
     jourLecon,
@@ -45,7 +46,10 @@
     onquitter
   }: {
     p: Progress;
-    /** Les lignes du rythme gratuit : le titre d'un jour sans brique nouvelle. */
+    /**
+     * Les lignes du rythme gratuit : le titre d'un jour sans brique nouvelle, et la ligne du
+     * jour où le rythme gratuit commence.
+     */
     textes?: TextesRythme;
     /**
      * Terminer : la session se clôt. Les trophées que la journée a fait obtenir remontent,
@@ -105,6 +109,8 @@
   const taoStade = $derived(stade(p.tao.croissance));
   /** Un jour sans brique nouvelle, rien n'entre dans la forêt : la brique a été revue. */
   const revue = $derived(sansBrique(p) !== null);
+  /** Le jour où le rythme gratuit commence, Clore le dit, en une ligne, ce jour-là seulement. */
+  const rythmeGratuit = $derived(annonceRythmeGratuit(p) ? textes.clore_rythme : '');
 </script>
 
 <main class="screen">
@@ -136,6 +142,7 @@
       {dejaPlantee ? 'La graine du jour est déjà plantée : une par jour, jamais deux.' : rendezVous()}
     </p>
     <div class="k">{constat(p, p.day)}</div>
+    {#if rythmeGratuit !== ''}<p class="rythme">{rythmeGratuit}</p>{/if}
   </div>
 
   <div class="card semaine-serie">
@@ -181,6 +188,15 @@
 <style>
   .clore {
     padding: 14px 16px 18px;
+  }
+  /* La ligne du rythme gratuit : un constat, à l'encre, sous le journal du jour. */
+  .rythme {
+    margin: 10px 0 0;
+    padding-top: 10px;
+    border-top: 1px solid var(--line);
+    font-size: 14px;
+    line-height: 1.45;
+    color: var(--ink);
   }
   .tao-joie {
     display: flex;
