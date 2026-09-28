@@ -196,7 +196,7 @@ Les paliers de points sont rapprochés au début, pour que le bébé grandisse v
 
 ### Les examens 科举
 
-Décisions du propriétaire du 26 septembre 2026 : un examen « aux paliers de caractères », plutôt qu'à un nombre de jours ; en cas d'échec, « Pause jusqu'à réussite » ; pour les titres, « Points ET examen ». Puis, le même jour : « Il faut plus d'examens, sinon ça fait des gaps trop longs après. » Entre les six examens à titre, il y avait 50, 100, 55, 250 et 300 caractères, des mois au rythme complet. Des 月课 comblent ces écarts.
+Décisions du propriétaire du 26 septembre 2026 : un examen « aux paliers de caractères », plutôt qu'à un nombre de jours ; en cas d'échec, « Pause jusqu'à réussite » ; pour les titres, « Points ET examen ». Puis, le même jour : « Il faut plus d'examens, sinon ça fait des gaps trop longs après. » Entre les six examens à titre, il y avait 50, 100, 55, 250 et 300 caractères, des mois au rythme complet. Des 月课 comblent ces écarts. Le 28 septembre, le propriétaire approuve le nom (« Oui, 月课 ») et la fin de la série à 1 800 caractères, le HSK 6 (« Oui, 1 800 »).
 
 - La suite : deux sortes d'examens, chacun à un palier de caractères lus (au seuil de stabilité de Ma forêt, le compte du trophée Lire), passés dans un seul ordre. Les six examens des Qing donnent les titres ; entre eux, les 月课 n'en donnent aucun. D'un examen au suivant, jamais plus d'une cinquantaine de caractères.
 - Les examens à titre gardent leurs paliers. Quatre sont ceux du trophée Lire (50, 100, 255, 505) ; 200 partage l'écart entre 100 et le premier seuil ; 805 est un seuil de l'Éducation nationale (§2). Les noms du 科举 ne servent qu'à eux.
