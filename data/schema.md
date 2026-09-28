@@ -712,8 +712,9 @@ corrige dans `data/sources/surcharges/`, une ligne et une raison par correction
 - `ids.tsv` (`c`, `ids`, `raison`) : l'IDS passe devant cjk-decomp, et la décomposition
   qui le descend porte la source `surcharge`. Chaque ligne est rédigée pour Wenlu, jamais
   recopiée d'une source ; celles de la migration du 28 septembre 2026 le disent
-  (« rédigé pour Wenlu d'après GF 0014-2009 ») et nomment tout écart à la norme repris
-  pour ne rien changer à l'app (`decompositions-non-corrigees.md`). Une surcharge n'entre
+  (« rédigé pour Wenlu d'après GF 0014-2009 »). Les dix-huit qui reprenaient d'abord un
+  écart à la norme pour ne rien changer à l'app ont été corrigées le 28 septembre 2026
+  (`decompositions-corrigees.md`). Une surcharge n'entre
   que si la table de la norme la justifie : un composant propre (那字旁 pour 那,
   学字头 pour 学), un point de code de notation ramené à celui de la norme (㇔ → 丶,
   ⺼ → 月), ou une source qui se trompe de composant (壴, 在). Les 30 composants sans
@@ -738,8 +739,9 @@ corrige dans `data/sources/surcharges/`, une ligne et une raison par correction
   `decoupes.json` : `{source, source_traits, licence_traits, recadrage, decoupes[]}`,
   chaque découpe `{c, hote, indices[], traits_hote, recadrage, echelle, dx, dy,
   raison, strokes[], medians[]}` ; `wenlu export` en tire les traits (`decoupes.py`).
-- `decompositions-non-corrigees.md` : ce qui a été vérifié contre la table et laissé
-  tel quel, avec la raison.
+- `decompositions-corrigees.md` : ce qui a été vérifié contre la table, corrigé le
+  28 septembre 2026 (ancienne et nouvelle décomposition, jours changés) ou laissé tel
+  quel, avec la raison.
 
 `uv run wenlu check` relit `decompositions.json` : le contrôle « composants inconnus »
 signale sans bloquer (la norme ne couvre que 3 500 caractères), le contrôle « cycles »
@@ -827,7 +829,7 @@ briques_muettes[], briques_decoupees[], non_reconcilies[], absents[]}`.
   bouge pas.
 - `non_reconcilies` et `absents` : caractères de la liste dont la décomposition n'est pas
   réconciliée (1 pour le seuil 255 et 1 pour le HSK 1, 兴 ; voir
-  `data/sources/surcharges/decompositions-non-corrigees.md`) ou qui manquent au
+  `data/sources/surcharges/decompositions-corrigees.md`) ou qui manquent au
   dictionnaire.
   Ils ferment le parcours, marqués `non_reconcilie` : jamais oubliés.
 
