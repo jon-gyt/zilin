@@ -7,6 +7,7 @@ const appels = vi.hoisted(() => ({ schedule: 0, cancel: 0, permissions: 0 }));
 vi.mock('@capacitor/core', () => ({
   Capacitor: {
     isNativePlatform: () => natif.plateforme,
+    getPlatform: () => (natif.plateforme ? 'ios' : 'web'),
     isPluginAvailable: (nom: string) => nom === 'LocalNotifications' && natif.greffon
   }
 }));
@@ -31,6 +32,8 @@ vi.mock('@capacitor/local-notifications', () => ({
     }
   }
 }));
+
+vi.mock('@capawesome/capacitor-app-review', () => ({ AppReview: {} }));
 
 import { dateDe, demanderAutorisation, notificationsDisponibles, remplacer, reprogrammerRappels, type Programmeur } from './natif';
 import type { Notification } from './rappels';

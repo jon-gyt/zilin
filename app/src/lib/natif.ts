@@ -1,6 +1,7 @@
 /**
  * Les greffons natifs de l'app iOS que le web n'a pas : les notifications locales du
- * rappel quotidien (`@capacitor/local-notifications`).
+ * rappel quotidien (`@capacitor/local-notifications`) et la demande de note du système
+ * (`@capawesome/capacitor-app-review`, SKStoreReviewController).
  *
  * La couche impure, comme `db.ts` : l'horloge, le contenu chargé et le greffon. Les règles
  * sont dans `rappels.ts`, pur et testé ; ici, on réunit ce qu'il lit et on remplace les
@@ -11,6 +12,7 @@
  */
 import { Capacitor } from '@capacitor/core';
 import { LocalNotifications } from '@capacitor/local-notifications';
+import { AppReview } from '@capawesome/capacitor-app-review';
 import { autourDuJour } from './anecdotes';
 import { anecdotesOnce, contenu, fetesOnce, lecon, saisonsOnce } from './content';
 import { today } from './db';
@@ -173,4 +175,26 @@ export function reprogrammerRappels(p: Progress): void {
       }
     })();
   }, 1000);
+}
+
+/* ---------- la demande de note ---------- */
+
+/** Vrai dans l'app iOS, où le greffon est installé. Ni sur le web, ni ailleurs. */
+export function avisDisponible(): boolean {
+  return (
+    Capacitor.isNativePlatform() && Capacitor.getPlatform() === 'ios' && Capacitor.isPluginAvailable('AppReview')
+  );
+}
+
+/**
+ * La fenêtre de note du système. iOS décide seul de la montrer (trois fois par an au
+ * plus) ; les règles de l'app sont dans `avis.ts`. Une demande qui échoue ne dit rien.
+ */
+export function demanderAvisNatif(): void {
+  if (!avisDisponible()) return;
+  try {
+    void AppReview.requestReview().catch(() => undefined);
+  } catch {
+    /* le greffon muet : rien */
+  }
 }

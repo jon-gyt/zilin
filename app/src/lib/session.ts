@@ -54,6 +54,7 @@ import {
 } from './heros';
 import { SANS_RAPPEL, lireRappel, type Rappel } from './rappels';
 import { lireDernierExport } from './garde';
+import { lireAvisDemande } from './avis';
 
 
 /** Budget choisi par l'utilisateur, en minutes. */
@@ -398,6 +399,11 @@ export type Progress = {
    */
   dernierExport: string | null;
   /**
+   * La journée de la dernière demande de note de l'app iOS (`avis.ts`) ; `null` : aucune.
+   * La suivante attend cent vingt jours. Absente d'une progression plus ancienne : aucune.
+   */
+  avisDemande: string | null;
+  /**
    * Les mots devinés au dictionnaire éclair, par identifiant, chacun une fois, dans
    * l'ordre : le compteur « mots devinés » (`eclair.ts`, `noterMotDevine`). Absent d'une
    * progression plus ancienne : aucun mot deviné.
@@ -553,6 +559,7 @@ export function emptyProgress(aujourdhui: string): Progress {
     haptique: true,
     rappel: SANS_RAPPEL,
     dernierExport: null,
+    avisDemande: null,
     motsDevines: [],
     trouves: [],
     fetesVues: {},
@@ -1873,6 +1880,8 @@ export function fromJSON(texte: string, aujourdhui: string): Progress {
     rappel: lireRappel(o.rappel),
     /* Le dernier export : absent d'un export plus ancien, jamais. */
     dernierExport: lireDernierExport(o.dernierExport),
+    /* La dernière demande de note : absente d'un export plus ancien, aucune. */
+    avisDemande: lireAvisDemande(o.avisDemande),
     /* Les mots devinés : absents d'un export plus ancien, aucun n'est deviné. */
     motsDevines: listeDeCaracteres(o.motsDevines),
     /* Les caractères trouvés en chemin : absents d'un export plus ancien, aucun. */

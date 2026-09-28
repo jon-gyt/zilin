@@ -118,7 +118,16 @@
   } from './lib/session';
   import { accesAppareil, loadProgress, saveProgress, today } from './lib/db';
   import { reglerHaptique } from './lib/haptique';
-  import { demanderAutorisation, instant, notificationsDisponibles, reprogrammerRappels } from './lib/natif';
+  import {
+    avisDisponible,
+    demanderAutorisation,
+    demanderAvisNatif,
+    instant,
+    notificationsDisponibles,
+    reprogrammerRappels
+  } from './lib/natif';
+  import { momentDeClore, momentDeConte, noterAvisDemande, peutDemanderAvis, type Moment } from './lib/avis';
+  import { etatMenu } from './lib/parcours';
   import { reglerRappel, setRappel } from './lib/rappels';
 
   /**
@@ -253,11 +262,34 @@
     ecran = 'fangbang';
   }
 
-  /** Le 放榜 vu : le rang est noté, on arrive au menu. */
+  /** Le 放榜 vu : le rang est noté, on arrive au menu, où la demande de note peut venir. */
   function fangbangVu(): void {
     p = annoncerRang(p, rangPromu);
+    moment = 'fangbang';
     enregistrer();
     allerAuMenu();
+  }
+
+  /*
+   * La demande de note (`avis.ts`), dans l'app iOS seulement : un moment de fierté (un
+   * 放榜, un premier conte lu, un palier de la série) attend le retour au menu. Jamais en
+   * session, jamais dans les sept premiers jours, au plus une fois tous les cent vingt
+   * jours ; la fenêtre est celle du système.
+   */
+  let moment: Moment | null = null;
+
+  function demanderAvisAuMenu(): void {
+    /* Un 放榜 à l'écran : le moment attend son retour au menu. */
+    if (ecran !== 'menu') return;
+    const m = moment;
+    moment = null;
+    if (m === null || !avisDisponible()) return;
+    const enSession = etatMenu(p) === 'entamee' || etatMenu(p) === 'plus';
+    const jour = today();
+    if (!peutDemanderAvis(p, jour, enSession ? 'session' : 'menu', m)) return;
+    p = noterAvisDemande(p, jour);
+    enregistrer();
+    demanderAvisNatif();
   }
 
   /** Le rang que les points donnent, celui où un personnage choisi commence. */
@@ -398,6 +430,8 @@
     basculer();
     lettreDuJour();
     annoncerUnRang();
+    /* Un 放榜 passe d'abord : la demande attend qu'on soit vraiment au menu. */
+    demanderAvisAuMenu();
   }
 
   /* Au retour au premier plan, sur le menu seulement : un pas ouvert ne bouge pas. */
@@ -785,7 +819,9 @@
    * plantée une fois par journée ; une session de plus n'en plante pas de seconde.
    */
   function clore(obtenus: string[] = []): void {
+    const avant = p;
     p = noterTrophees(cloreSession(p, p.day), obtenus, p.day);
+    moment = momentDeClore(avant, p, p.day) ?? moment;
     enregistrer();
     allerAuMenu();
   }
@@ -864,7 +900,9 @@
    * et Tao note un conte lu, qu'elle lit par-dessus l'épaule.
    */
   function conteLu(conte: string, seuil: Niveau): void {
+    const avant = p;
     p = noterActivite(noterConteLu(p, conte, seuil), p.day, 'conte');
+    moment = momentDeConte(avant, p) ?? moment;
     enregistrer();
   }
 
