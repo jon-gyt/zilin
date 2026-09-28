@@ -165,6 +165,15 @@ describe("la règle d'insertion des jeux au pas Utiliser", () => {
     expect(choisirJeu(11, 20, sans, JOUR)).toBeNull();
   });
 
+  it("sans Wenlu complet, le jour du message prend l'éclair s'il y a un mot à deviner, sinon rien", () => {
+    expect(choisirJeu(8, 20, PLEINE, JOUR, false)?.jeu).toBe('eclair');
+    expect(choisirJeu(11, 20, PLEINE, JOUR, false)?.jeu).toBe('eclair');
+    expect(choisirJeu(11, 20, { ...PLEINE, mots: [] }, JOUR, false)).toBeNull();
+    for (let rang = 1; rang <= 30; rang++) expect(choisirJeu(rang, 20, PLEINE, JOUR, false)?.jeu).not.toBe('message');
+    /* Avec Wenlu complet, le message reste. */
+    expect(choisirJeu(11, 20, PLEINE, JOUR, true)?.jeu).toBe('message');
+  });
+
   it('ne repose pas un dialogue déjà lu au pas Utiliser', () => {
     expect(choisirJeu(8, 20, PLEINE, JOUR)).toEqual({ jeu: 'message', id: 'long' });
     expect(choisirJeu(8, 20, { ...PLEINE, lus: ['long'] }, JOUR)).toEqual({ jeu: 'message', id: 'court' });

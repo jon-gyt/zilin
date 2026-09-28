@@ -65,6 +65,7 @@
   import { aAudio, dire, manifesteOnce, type Manifeste } from './audio';
   import {
     jeuDuJour,
+    journeeDuJour,
     jourLecon,
     rangDuJour,
     type Progress,
@@ -122,7 +123,9 @@
   /* Le choix se fait une fois par journée, dès que le contenu est lu (`utiliser.ts`). */
   $effect(() => {
     if (corpus === null || jeuDuJour(p) !== null) return;
-    onposer(choisirJeu(rangDuJour(p), p.budget, offreDuCorpus(corpus, p.messagesLus), p.day));
+    /* Le message WeChat est de Wenlu complet : sans lui, son jour prend l'éclair (story 7.2). */
+    const complet = journeeDuJour(p)?.rythme === 'complet';
+    onposer(choisirJeu(rangDuJour(p), p.budget, offreDuCorpus(corpus, p.messagesLus), p.day, complet));
   });
 
   const jeuJ = $derived(jeuDuJour(p));
