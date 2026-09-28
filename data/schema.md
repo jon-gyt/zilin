@@ -43,6 +43,7 @@ app/public/data/0.1.0/
   wechat.json                le message WeChat : les dialogues avec l'ami
   heros.json                 le personnage : douze rangs, trois bêtes, les phrases de Tao
   jouer.json                 l'écran Jouer : les phrases de la bulle de Tao
+  rythme.json                le rythme gratuit : les lignes du menu, de la route et de Clore
   anecdotes.json             les anecdotes du jour, une par caractère
   trois-lignes.json          les trois lignes du pas Utiliser, un texte par jour du chemin
   examens.json               les examens 科举 et les 月课 : la liste, les séries relues
@@ -84,7 +85,8 @@ Trois régimes de licence, trois familles de fichiers, jamais mêlés
                 "motif": "montagne"}],
  "paires": "paires.json",
  "heros": "heros.json",
- "jouer": "jouer.json"
+ "jouer": "jouer.json",
+ "rythme": "rythme.json"
 }
 ```
 
@@ -468,6 +470,29 @@ relire : ce que Tao dit en tendant son jeu. L'app choisit la phrase (`jeux.bulle
   l'éclair manqué), ce qui a été lu plutôt que « rien de revu ». Sans `jouer.json` (un
   export plus ancien), la bulle se tait.
 
+## `rythme.json`
+
+Tiré de `data/sources/interface/rythme.tsv` (épic 7, stories 7.2 et 7.5 ; brief §6, §8, §10),
+rédigé pour l'app et à relire : les lignes du rythme gratuit. Après les trente premiers
+jours du chemin, sans Wenlu complet, deux briques nouvelles par semaine ; les autres jours,
+la session revoit une brique acquise. L'app (`rythme.ts`) remplit les jetons ; les jours
+viennent de `droits.ts`, calculés, jamais estimés.
+
+```json
+{"version": "0.1.0", "license": "propriétaire", "source": "…", "source_url": "…", "modified": "…",
+ "textes": {"menu_demain": "Demain", "menu_dans": "Dans {n} j",
+            "route_pierre": "prochaine brique dans {n} j", "route_fin": "fin du chemin gratuit",
+            "clore_rythme": "Dès aujourd'hui, deux briques nouvelles par semaine ; …", "…": "…"}}
+```
+
+- `textes` : dix-sept lignes, chacune avec ses seuls jetons, {n} des jours du calendrier,
+  {c} un caractère. Le menu (`menu_demain`, `menu_dans`, `menu_revue`, `menu_revue_faite`,
+  `menu_brique_revue`, `menu_reviser`), Tao sur le chemin (`tao_revoir`), le pas Apprendre
+  (`apprendre_revue`), Clore (`clore_revue`, `clore_rythme`), la route devant
+  (`route_pierre_demain`, `route_pierre`, `route_carte_demain`, `route_carte`, `route_fin`,
+  `route_suite_lire`, `route_suite_hsk`). Sans `rythme.json` (un export plus ancien), ces
+  lignes se taisent.
+
 ## `anecdotes.json`
 
 Tiré de `data/sources/anecdotes/anecdotes.tsv` : les anecdotes ordinaires du pas Ouvrir,
@@ -680,6 +705,10 @@ ce que l'app embarque ; `docs/sources-licences.md` fait foi pour la décision.
   chacune, sourcées, sans jeton, ni emoji ni dragon, et jamais un reproche (ni « tu n'as
   pas… », ni regret, ni impatience, ni compte de jours ou d'absence : brief §9) ;
   `jouer.json` dit les phrases de la source, et `index.json` le nomme.
+- « rythme : sources », « export » — bloquants : les dix-sept lignes du rythme gratuit,
+  une fois chacune, sourcées, avec leurs seuls jetons ; ni achat ni Wenlu complet, ni
+  urgence ni compte à rebours, ni estimation, ni emoji ni dragon ; Tao ne culpabilise
+  jamais (brief §10) ; `rythme.json` dit les lignes de la source, et `index.json` le nomme.
 - « anecdotes : sources », « forme », « charte », « étymologie », « export » —
   bloquants : un seul caractère par anecdote, jamais deux fois, titre, texte et source
   présents (« rédigé pour l'app »), appui, étiquette et statut connus ; un titre de 8 à
