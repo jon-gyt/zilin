@@ -13,7 +13,7 @@
   import Trace from './Trace.svelte';
   import { corriger, type Corpus, type Question, type Reponse } from './questions';
   import { VERDICTS, delai, delaiAvance, pinyinDe } from './revision';
-  import { fiche, indiceErreur, leurreExplique, type LeurreExplique } from './questions';
+  import { fiche, indiceErreur, leurreADire, leurreExplique, type LeurreExplique } from './questions';
   import type { Revision } from './session';
   import { grade } from './srs';
   import { artDe } from './heros';
@@ -89,6 +89,8 @@
   let pourquoi = $state(false);
   /** Au sens et au caractère : le dernier leurre pris, son sens et ses briques. */
   let leurre: LeurreExplique | null = $state(null);
+  /** À l'oreille : le dernier caractère pris pour un autre, qu'on fait entendre. */
+  let entenduAuLieu: string | null = $state(null);
   /**
    * À l'oreille, le pinyin sous les choix dirait la réponse : il n'apparaît qu'après la
    * correction. Au caractère aussi : l'énoncé donne le pinyin, le choix se ferait sur lui
@@ -111,6 +113,7 @@
     ecoutable = false;
     pourquoi = false;
     leurre = null;
+    entenduAuLieu = null;
     depart = Date.now();
   });
 
@@ -181,6 +184,9 @@
     rates = [...rates, k];
     essais += 1;
     leurre = leurreExplique(q, q.choix[k], corpus);
+    /* À l'oreille, le leurre pris se fait entendre : on entend la différence. */
+    entenduAuLieu = leurreADire(q, q.choix[k]);
+    if (entenduAuLieu !== null) direLeurre(entenduAuLieu);
     if (essais >= ESSAIS_MAX) {
       montree = true;
       noter(q.choix[k]);
@@ -212,6 +218,12 @@
       construit = [];
       onverdict(false);
     }
+  }
+
+  /** Dit le caractère pris pour un autre : son fichier, ou la voix de l'appareil, ou rien. */
+  function direLeurre(c: string): void {
+    if (note !== null) arreter();
+    void prononcer(c);
   }
 
   /** « Pourquoi ? » ouvre l'origine : on lit, l'avance automatique s'arrête, on avance au bouton. */
@@ -356,6 +368,15 @@
       Ce caractère ne se trace pas encore ici. Continue avec le bouton du bas.
     {:else if essais > 0}
       {indiceErreur(q)}
+    {/if}
+    <!-- À l'oreille : ce qu'on a pris se fait entendre, et se réentend d'un tap. -->
+    {#if entenduAuLieu}
+      <span class="leurre">
+        <button class="btn ghost ecoute-leurre" onclick={() => entenduAuLieu && direLeurre(entenduAuLieu)}>
+          ♪ <Glyph char={entenduAuLieu} size={28} write={false} />
+        </button>
+        <span>Tu as pris <b class="hz">{entenduAuLieu}</b> {pinyinDe(entenduAuLieu, corpus)}. Écoute-le, puis réécoute l'autre.</span>
+      </span>
     {/if}
     <!-- Une erreur qui enseigne : ce qu'on a pris, ce qu'il veut dire, de quoi il est fait. -->
     {#if leurre}

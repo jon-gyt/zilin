@@ -9,6 +9,7 @@ import {
   estBrique,
   expliquer,
   indiceErreur,
+  leurreADire,
   leurreExplique,
   leurres,
   lirePaires,
@@ -698,6 +699,28 @@ describe('à l’oreille, par la voix de l’appareil', () => {
     const faux = corriger(q, q.leurres[0], { correct: false, tries: 0, seconds: 3 });
     expect(faux.correct).toBe(false);
     expect(faux.outcome.leurres).toEqual([q.leurres[0]]);
+  });
+});
+
+describe('à l’oreille, une erreur fait entendre le leurre pris', () => {
+  const corpus = { ...CORPUS_SON, voix: true };
+
+  it('le leurre pris se dit à son tour ; la bonne réponse, non', () => {
+    const q = question(ficheSon('马'), 'oreille', corpus, 'g');
+    expect(leurreADire(q, q.leurres[0])).toBe(q.leurres[0]);
+    expect(leurreADire(q, '马')).toBeNull();
+    /* Hors de l'oreille, on ne dit rien de plus. */
+    const s = question(ficheSon('马'), 'caractere', corpus, 'g');
+    expect(leurreADire(s, s.leurres[0])).toBeNull();
+  });
+
+  it('l’écran le dit dès l’erreur, et le redit au toucher', () => {
+    const src = readFileSync(new URL('Ask.svelte', import.meta.url), 'utf8');
+    expect(src).toContain('entenduAuLieu = leurreADire(q, q.choix[k]);');
+    expect(src).toContain('if (entenduAuLieu !== null) direLeurre(entenduAuLieu);');
+    const dire = src.slice(src.indexOf('function direLeurre'));
+    expect(dire.slice(0, dire.indexOf('}\n'))).toContain('void prononcer(c);');
+    expect(src).toContain('onclick={() => entenduAuLieu && direLeurre(entenduAuLieu)}');
   });
 });
 

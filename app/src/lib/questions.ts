@@ -879,6 +879,16 @@ export function indiceErreur(q: Question): string {
   return 'Pas celui-là. Encore un essai.';
 }
 
+/**
+ * À l'oreille, le caractère pris pour un autre se fait entendre à son tour : on entend la
+ * différence (wǔ et yě), et « Réécoute » prend son sens. `null` pour un autre type, ou
+ * pour la bonne réponse.
+ */
+export function leurreADire(q: Question, pris: string): string | null {
+  if (q.type !== 'oreille' || !q.leurres.includes(pris)) return null;
+  return pris;
+}
+
 /** Le caractère pris pour un autre, expliqué : ce qu'il est, ce qu'il veut dire, ses briques. */
 export type LeurreExplique = {
   c: string;
