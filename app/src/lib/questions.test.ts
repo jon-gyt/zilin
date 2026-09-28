@@ -5,6 +5,7 @@ import {
   NB_LEURRES,
   acquis,
   composantSon,
+  contourDuTon,
   corriger,
   estBrique,
   expliquer,
@@ -812,5 +813,56 @@ describe('trouver le ton', () => {
     expect(faux.correct).toBe(false);
     expect(grade(faux.outcome)).toBe(Rating.Again);
     expect(faux.outcome.leurres).toEqual([]);
+  });
+});
+
+describe('le contour du ton, dessiné à la correction', () => {
+  /** Les points du tracé : [x, y], y petit en haut (aigu). */
+  const points = (d: string) =>
+    [...d.matchAll(/[ML](-?[\d.]+) (-?[\d.]+)/g)].map((m) => [Number(m[1]), Number(m[2])]);
+
+  it('premier ton : plat et haut (55)', () => {
+    const p = points(contourDuTon(1));
+    expect(p).toEqual([
+      [4, 4],
+      [36, 4]
+    ]);
+  });
+
+  it('deuxième ton : il monte (35)', () => {
+    const [a, b] = points(contourDuTon(2));
+    expect(b[1]).toBeLessThan(a[1]);
+    expect(b[1]).toBe(4);
+  });
+
+  it('troisième ton : il creuse, puis remonte (214)', () => {
+    const [a, b, c] = points(contourDuTon(3));
+    expect(b[1]).toBeGreaterThan(a[1]);
+    expect(c[1]).toBeLessThan(a[1]);
+    expect(b[1]).toBe(36);
+  });
+
+  it('quatrième ton : il tombe du haut en bas (51)', () => {
+    expect(points(contourDuTon(4))).toEqual([
+      [4, 4],
+      [36, 36]
+    ]);
+  });
+
+  it('ton neutre : bref et mi-bas', () => {
+    const [a, b] = points(contourDuTon(0));
+    expect(b[0] - a[0]).toBeLessThan(16);
+    expect(a[1]).toBe(b[1]);
+    expect(a[1]).toBeGreaterThan(20);
+  });
+
+  it('l’écran le dessine à côté du pinyin, à l’indigo, jamais au cinabre, et sans bouger si l’on réduit les animations', () => {
+    const src = readFileSync(new URL('Ask.svelte', import.meta.url), 'utf8');
+    expect(src).toContain('d={contourDuTon(tonDe(q.reponse[0]))}');
+    const css = readFileSync(new URL('tokens.css', import.meta.url), 'utf8');
+    const regle = css.match(/\.contour \.trait\{[^}]*\}/)?.[0] ?? '';
+    expect(regle).toContain('stroke:var(--indigo)');
+    expect(regle).not.toContain('--zhu');
+    expect(css).toContain('@media (prefers-reduced-motion:reduce){.contour .trait{animation:none;stroke-dashoffset:0}}');
   });
 });

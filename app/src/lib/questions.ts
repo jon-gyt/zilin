@@ -417,6 +417,33 @@ export function tonDe(syllabe: string): number {
   return ton;
 }
 
+/**
+ * Les tons en valeurs de Chao, de 1 (grave) à 5 (aigu) : le premier plat et haut (55), le
+ * deuxième monte (35), le troisième creuse puis remonte (214), le quatrième tombe (51). Le
+ * ton neutre (0) est bref, mi-bas : un point plus qu'un trait.
+ */
+export const CHAO: Readonly<Record<number, readonly number[]>> = {
+  0: [2, 2],
+  1: [5, 5],
+  2: [3, 5],
+  3: [2, 1, 4],
+  4: [5, 1]
+};
+
+/**
+ * Le contour d'un ton, en tracé SVG dans une case de 40 × 40 : le niveau 5 en haut (y 4),
+ * le niveau 1 en bas (y 36), la syllabe de gauche à droite. Le ton neutre n'occupe que le
+ * milieu : il est bref. Un ton inconnu se dessine comme le neutre.
+ */
+export function contourDuTon(ton: number): string {
+  const niveaux = CHAO[ton] ?? CHAO[0];
+  const [debut, fin] = ton in CHAO && ton !== 0 ? [4, 36] : [16, 24];
+  const pas = (fin - debut) / (niveaux.length - 1);
+  return niveaux
+    .map((n, i) => `${i === 0 ? 'M' : 'L'}${debut + i * pas} ${36 - (n - 1) * 8}`)
+    .join(' ');
+}
+
 /** La syllabe sans son ton, le ü gardé : `lǜ` donne `lü`. */
 export function sansTon(syllabe: string): string {
   let d = syllabe.normalize('NFD');

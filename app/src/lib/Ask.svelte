@@ -13,7 +13,7 @@
   import Trace from './Trace.svelte';
   import { corriger, type Corpus, type Question, type Reponse } from './questions';
   import { VERDICTS, delai, delaiAvance, pinyinDe } from './revision';
-  import { fiche, indiceErreur, leurreADire, leurreExplique, type LeurreExplique } from './questions';
+  import { contourDuTon, fiche, indiceErreur, leurreADire, tonDe, leurreExplique, type LeurreExplique } from './questions';
   import type { Revision } from './session';
   import { grade } from './srs';
   import { artDe } from './heros';
@@ -297,6 +297,13 @@
       <Glyph char={q.c} size={100} />
       <div class="syllabe">
         <span class="py">{note === null ? q.sansTon : q.reponse[0]}</span>
+        {#if note !== null}
+          <!-- Le contour du ton se dessine sur sa portée à cinq niveaux, à l'indigo du son. -->
+          <svg class="contour" width="44" height="44" viewBox="0 0 40 40" role="img" aria-label="contour du ton">
+            <path class="portee" d="M2 4H38M2 12H38M2 20H38M2 28H38M2 36H38" />
+            <path class="trait" d={contourDuTon(tonDe(q.reponse[0]))} pathLength="1" />
+          </svg>
+        {/if}
         {#if note !== null && ecoutable}
           <button class="btn ghost ecoute" onclick={ecouter}>♪ Écouter</button>
         {/if}
