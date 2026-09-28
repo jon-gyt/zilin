@@ -69,7 +69,7 @@ PREMIER_JOUR_MAX = 30
 
 SOURCE_EXPORT = (
     "data/sources/wechat/ : l'ami, les dialogues et les répliques rédigés pour l'app"
-    " (à relire) ; mauvaises répliques écrites à la main"
+    " (relus par le propriétaire) ; mauvaises répliques écrites à la main"
 )
 
 
@@ -554,7 +554,7 @@ def controles(
             not f_src,
             detail(
                 f_src,
-                f"{len(wechat.dialogues)} dialogues rédigés pour l'app (à relire, objectif {OBJECTIF_MIN} à"
+                f"{len(wechat.dialogues)} dialogues rédigés pour l'app (relus, objectif {OBJECTIF_MIN} à"
                 f" {OBJECTIF_MAX}), {repliques} répliques, chaque mauvaise avec son erreur",
             ),
             bloquant=True,

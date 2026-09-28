@@ -160,7 +160,7 @@ Relevé sur le dépôt après une revue du pipeline. Les numéros ci-dessus ne b
   (deux essais, notés par `grade`), Tao goûte (posture `goute`) : contente, ou une grimace
   qui propose d'en refaire un. Le premier plat réussi donne le bol des trophées. Pas encore
   d'achat : les dix plats sont ouverts. Reste : relire les textes.
-- 4b.7, le message WeChat (24 septembre), **textes à relire** : 53 dialogues rédigés pour
+- 4b.7, le message WeChat (24 septembre), **textes relus par le propriétaire le 28 septembre 2026** : 53 dialogues rédigés pour
   l'app, sans API, dans `data/sources/wechat/` (`ami.tsv`, `dialogues.tsv`, `echanges.tsv`),
   traçabilité « rédigé pour l'app ». Un ami toujours le même, 大明, sans photo ni emoji ;
   chaque dialogue a de deux à quatre échanges, rattaché à une famille par son caractère
