@@ -27,7 +27,7 @@
   import Tree from './lib/Tree.svelte';
   import Use from './lib/Use.svelte';
   import Warm from './lib/Warm.svelte';
-  import { apresSplash, suiteDepart } from './lib/premiere';
+  import { apresSplash, departApres, suiteDepart } from './lib/premiere';
   import {
     anecdoteFaite,
     anecdoteRelue,
@@ -81,7 +81,6 @@
     openDay,
     planifierCarte,
     setDepart,
-    departNext,
     finDepart,
     choisirHeros,
     annoncerRang,
@@ -119,6 +118,8 @@
   } from './lib/session';
   import { accesAppareil, loadProgress, saveProgress, today } from './lib/db';
   import { reglerHaptique } from './lib/haptique';
+  import { demanderAutorisation, instant, notificationsDisponibles, reprogrammerRappels } from './lib/natif';
+  import { reglerRappel, setRappel } from './lib/rappels';
 
   /**
    * Un écran à la fois, pas de routeur. `menu` est la maison ; `rev` est le pas
@@ -310,6 +311,8 @@
     reglerHaptique(ouvert.haptique);
     p = ouvert;
     if (ouvert !== stored) void saveProgress(ouvert);
+    /* L'ouverture reprogramme les rappels des sept jours qui viennent (app iOS). */
+    reprogrammerRappels(ouvert);
     chargee = true;
     preparer();
     aiguiller();
@@ -355,9 +358,11 @@
     aiguiller();
   }
 
-  /** Sauvegarde à chaque tap. */
+  /** Sauvegarde à chaque tap ; dans l'app iOS, les rappels des sept jours suivent. */
   function enregistrer(): void {
-    void saveProgress($state.snapshot(p));
+    const s = $state.snapshot(p);
+    void saveProgress(s);
+    reprogrammerRappels(s);
   }
 
   /*
@@ -399,6 +404,8 @@
   $effect(() => {
     const auPremierPlan = (): void => {
       if (document.visibilityState === 'visible' && ecran === 'menu') basculer();
+      /* Revenir au premier plan, c'est ouvrir l'app : les rappels repartent pour sept jours. */
+      if (document.visibilityState === 'visible' && chargee) reprogrammerRappels($state.snapshot(p));
     };
     document.addEventListener('visibilitychange', auPremierPlan);
     return () => document.removeEventListener('visibilitychange', auPremierPlan);
@@ -502,7 +509,8 @@
 
   /** Un écran de plus dans la première session. La reprise se fera à celui-ci. */
   function departSuivant(): void {
-    const vue = departNext(p.premiereVue);
+    /* L'heure du rappel ne se pose que dans l'app iOS : sur le web, elle est sautée. */
+    const vue = departApres(p.premiereVue, notificationsDisponibles());
     if (vue) p = setDepart(p, vue);
     enregistrer();
   }
@@ -517,6 +525,18 @@
   function departRythme(budget: Budget): void {
     p = setBudget(p, budget);
     enregistrer();
+  }
+
+  /**
+   * Troisième question, dans l'app iOS : l'heure du rappel. L'accord de l'iPhone se
+   * demande ici, une fois l'heure choisie, jamais au lancement ; refusé, le rappel reste
+   * éteint et l'heure gardée, pour Réglages.
+   */
+  async function departHeure(heure: string, rappeler: boolean): Promise<void> {
+    const accord = rappeler ? await demanderAutorisation() : false;
+    const { jour, minute } = instant();
+    p = setRappel(p, reglerRappel(p.rappel, { actif: accord, heure }, jour, minute));
+    departSuivant();
   }
 
   /** Le dernier écran : le personnage, sa bête et son nom. La première session se clôt ensuite. */
@@ -891,6 +911,7 @@
     onsuivant={departSuivant}
     onobjectif={departObjectif}
     onrythme={departRythme}
+    onheure={departHeure}
     onheros={departHeros}
     onfini={departFini}
     onquitter={quitter}

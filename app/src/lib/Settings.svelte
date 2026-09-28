@@ -14,6 +14,8 @@
   import { beteDe, herosOnce, rangDe, sansArticle, total, type BeteId, type HerosDonnees } from './heros';
   import { stade } from './tao';
   import { haptiqueDisponible } from './haptique';
+  import { autorisationRefusee, demanderAutorisation, instant, notificationsDisponibles } from './natif';
+  import { HEURE_DEFAUT, SANS_TEXTES, heureValide, rappelsOnce, reglerRappel, setRappel, type TextesRappels } from './rappels';
   import {
     choisirHeros,
     REGLAGES_RETENTION,
@@ -97,6 +99,48 @@
 
   function choisirHaptique(): void {
     onprogression(setHaptique(p, !p.haptique));
+  }
+
+  /*
+   * Le rappel quotidien : dans l'app iOS seulement, où la notification existe. Ses textes
+   * viennent de `rappels.json` ; sans eux, la ligne ne s'affiche pas.
+   */
+  const rappelPossible = notificationsDisponibles();
+  let textesRappels: TextesRappels = $state(SANS_TEXTES);
+  /** L'iPhone a coupé les notifications de Wenlu : on dit où les rendre, sans insister. */
+  let refusee = $state(false);
+
+  $effect(() => {
+    let vivant = true;
+    void rappelsOnce()
+      .then((t) => {
+        if (vivant) textesRappels = t;
+      })
+      .catch(() => undefined);
+    if (rappelPossible) {
+      void autorisationRefusee().then((r) => {
+        if (vivant) refusee = r;
+      });
+    }
+    return () => {
+      vivant = false;
+    };
+  });
+
+  /** Allumer demande l'accord de l'iPhone ; refusé, l'interrupteur reste éteint. */
+  async function basculerRappel(): Promise<void> {
+    const heure = p.rappel.heure ?? HEURE_DEFAUT;
+    const actif = !p.rappel.actif && (await demanderAutorisation());
+    refusee = !p.rappel.actif && !actif;
+    const { jour, minute } = instant();
+    onprogression(setRappel(p, reglerRappel(p.rappel, { actif, heure }, jour, minute)));
+  }
+
+  function changerHeure(e: Event): void {
+    const heure = (e.target as HTMLInputElement).value;
+    if (!heureValide(heure)) return;
+    const { jour, minute } = instant();
+    onprogression(setRappel(p, reglerRappel(p.rappel, { actif: p.rappel.actif, heure }, jour, minute)));
   }
 
   /** Export : un fichier JSON, téléchargé depuis le navigateur. */
@@ -225,6 +269,30 @@
         ></button>
       </div>
     {/if}
+    {#if rappelPossible && textesRappels.reglage !== ''}
+      <div class="tog">
+        <div>
+          <div>{textesRappels.reglage}</div>
+          <div class="k">{textesRappels.reglage_detail}</div>
+        </div>
+        <button
+          class="sw"
+          class:on={p.rappel.actif}
+          role="switch"
+          aria-checked={p.rappel.actif}
+          aria-label={textesRappels.reglage}
+          onclick={basculerRappel}
+        ></button>
+      </div>
+      {#if p.rappel.actif}
+        <div class="tog">
+          <label for="heure-rappel">{textesRappels.reglage_heure}</label>
+          <input id="heure-rappel" class="heure" type="time" value={p.rappel.heure ?? HEURE_DEFAUT} onchange={changerHeure} />
+        </div>
+      {:else if refusee}
+        <div class="k refus">{textesRappels.reglage_refuse}</div>
+      {/if}
+    {/if}
   </div>
 
   <div class="card">
@@ -249,6 +317,18 @@
 </main>
 
 <style>
+  .heure {
+    font: inherit;
+    color: var(--ink);
+    background: var(--paper);
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    padding: 6px 10px;
+    min-height: 40px;
+  }
+  .refus {
+    margin-top: 6px;
+  }
   .perso {
     display: flex;
     align-items: center;

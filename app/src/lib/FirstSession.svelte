@@ -2,7 +2,8 @@
   /**
    * La première session : 人, 大, 天, lire 天天, puis les deux questions et le choix du
    * personnage (brief §8). Quatre minutes, un mot lu, un seul bouton par écran.
-   * « Quitter » sauvegarde.
+   * « Quitter » sauvegarde. Dans l'app iOS, une troisième question, l'heure du rappel
+   * quotidien (`rappels.ts`), avant le personnage ; ses textes viennent de `rappels.json`.
    *
    * Tous les textes de contenu viennent des fichiers servis avec l'app
    * (`familles/人.json`, `textes/天天.json`) : rien n'est écrit ici.
@@ -28,12 +29,23 @@
   import { dire } from './audio';
   import type { Budget, EtapeDepart, Parcours, Progress } from './session';
   import { stade } from './tao';
+  import { notificationsDisponibles } from './natif';
+  import {
+    HEURE_DEFAUT,
+    HEURES_PROPOSEES,
+    SANS_TEXTES,
+    libelleHeure,
+    minutesDe,
+    rappelsOnce,
+    type TextesRappels
+  } from './rappels';
 
   let {
     p,
     onsuivant,
     onobjectif,
     onrythme,
+    onheure,
     onheros,
     onfini,
     onquitter
@@ -42,6 +54,8 @@
     onsuivant: () => void;
     onobjectif: (parcours: Parcours) => void;
     onrythme: (budget: Budget) => void;
+    /** L'heure du rappel choisie, et si l'on veut être rappelé : l'app demande alors l'accord de l'iPhone. */
+    onheure: (heure: string, rappeler: boolean) => Promise<void>;
     /** Le personnage choisi, au dernier écran : la première session se termine ensuite. */
     onheros: (bete: BeteId, nom: string) => void;
     onfini: () => void;
@@ -64,7 +78,52 @@
 
   const vue = $derived(p.premiereVue);
   const fiche = $derived(ficheDe(famille, vue));
-  const pas = $derived(points(vue));
+  /* L'heure du rappel : une question de l'app iOS seulement, où la notification existe. */
+  const avecHeure = notificationsDisponibles();
+  const pas = $derived(points(vue, avecHeure));
+
+  /* La question de l'heure : ses textes, l'heure choisie, l'accord en cours de demande. */
+  let textesRappels: TextesRappels = $state(SANS_TEXTES);
+  let heureChoisie = $state(HEURE_DEFAUT);
+  let enAttente = $state(false);
+  const ETIQUETTES_HEURES = ['matin', 'midi', 'soir'] as const;
+
+  $effect(() => {
+    if (vue !== 'heure') return;
+    /* Arrivé ici sans rappel possible (une progression venue de l'app) : on passe. */
+    if (!avecHeure) {
+      onsuivant();
+      return;
+    }
+    if (p.rappel.heure !== null) heureChoisie = p.rappel.heure;
+    let vivant = true;
+    void rappelsOnce()
+      .then((t) => {
+        if (vivant) textesRappels = t;
+      })
+      .catch(() => undefined);
+    return () => {
+      vivant = false;
+    };
+  });
+
+  async function choisirHeure(rappeler: boolean): Promise<void> {
+    if (enAttente) return;
+    enAttente = true;
+    try {
+      await onheure(heureChoisie, rappeler);
+    } finally {
+      enAttente = false;
+    }
+  }
+
+  /** Les aiguilles d'une petite horloge, dessinée à plat : l'heure, puis les minutes. */
+  function aiguilles(h: string): { hx: number; hy: number; mx: number; my: number } {
+    const m = minutesDe(h);
+    const ah = (((m / 60) % 12) / 12) * 2 * Math.PI;
+    const am = ((m % 60) / 60) * 2 * Math.PI;
+    return { hx: 18 + 7 * Math.sin(ah), hy: 18 - 7 * Math.cos(ah), mx: 18 + 11 * Math.sin(am), my: 18 - 11 * Math.cos(am) };
+  }
   const parcoursChoisi = $derived<Parcours>(p.parcours ?? PARCOURS[0].id);
 
   $effect(() => {
@@ -220,7 +279,7 @@
       </div>
       <h1>Trois caractères lus, un mot.</h1>
       <p class="guide">
-        Quatre minutes. C'est exactement la taille d'une session. On règle deux détails et on te
+        Quatre minutes. C'est exactement la taille d'une session. On règle {avecHeure ? 'trois' : 'deux'} détails et on te
         laisse tranquille.
       </p>
       {#if mot}
@@ -228,7 +287,7 @@
       {/if}
     </div>
     <div class="foot">
-      <button class="btn" onclick={onsuivant}>Deux questions, puis c'est parti</button>
+      <button class="btn" onclick={onsuivant}>{avecHeure ? 'Trois' : 'Deux'} questions, puis c'est parti</button>
     </div>
   {:else if vue === 'objectif'}
     <!-- Première question : le parcours. Même arbre, ordre différent. -->
@@ -274,6 +333,36 @@
     <div class="foot">
       <button class="btn" onclick={onsuivant}>Suivant</button>
     </div>
+  {:else if vue === 'heure' && avecHeure}
+    <!-- Troisième question, dans l'app iOS : l'heure du rappel. L'accord se demande au bouton. -->
+    <h1>{textesRappels.question}</h1>
+    <p class="guide">{textesRappels.question_guide}</p>
+    <div class="opt heures">
+      {#each HEURES_PROPOSEES as h, i (h)}
+        {@const a = aiguilles(h)}
+        <button class:on={heureChoisie === h} aria-pressed={heureChoisie === h} onclick={() => (heureChoisie = h)}>
+          <span class="vignette">
+            <svg viewBox="0 0 36 36" width="36" height="36" aria-hidden="true">
+              <circle cx="18" cy="18" r="15" fill="none" stroke="currentColor" stroke-width="2" />
+              <line x1="18" y1="18" x2={a.hx} y2={a.hy} stroke="currentColor" stroke-width="2.4" stroke-linecap="round" />
+              <line x1="18" y1="18" x2={a.mx} y2={a.my} stroke="currentColor" stroke-width="1.6" stroke-linecap="round" />
+            </svg>
+          </span>
+          <div>
+            <div class="t">{textesRappels[ETIQUETTES_HEURES[i]]}</div>
+            <div class="d">{libelleHeure(h)}</div>
+          </div>
+        </button>
+      {/each}
+    </div>
+    <div class="foot">
+      <p class="k accord">{textesRappels.question_accord}</p>
+      <button class="btn" disabled={enAttente || textesRappels.accepter === ''} onclick={() => choisirHeure(true)}
+        >{textesRappels.accepter}</button
+      >
+      <!-- Un seul bouton plein : s'en passer est un lien discret, sans insister. -->
+      <button class="sans" disabled={enAttente} onclick={() => choisirHeure(false)}>{textesRappels.refuser}</button>
+    </div>
   {:else if heros}
     <!-- Le personnage : trois bêtes, un nom ; Tao reste celle qui aide. -->
     <ChoixHeros
@@ -293,3 +382,25 @@
     </div>
   {/if}
 </main>
+
+<style>
+  /* La question de l'heure : l'accord de l'iPhone en une ligne, le second bouton sous le premier. */
+  .heures :global(button) {
+    min-height: 56px;
+    padding: 9px 16px;
+  }
+  .accord {
+    margin: 0 2px 10px;
+  }
+  .sans {
+    display: block;
+    width: 100%;
+    min-height: 40px;
+    margin-top: 4px;
+    font-size: 15px;
+    text-align: center;
+    color: var(--ink2);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+</style>
