@@ -539,6 +539,61 @@ anglaise, glose par mot.
   progression (export et import compris). Non ressenti sur un iPhone. iCloud et le widget
   restent à faire.
 
+### Épic 7, en partie : le rythme gratuit, sans StoreKit (28 septembre)
+
+Décisions du propriétaire rappelées : trente jours au rythme complet ; ensuite deux briques
+par semaine, du lundi au dimanche, trois jours au moins entre deux, rien ne s'accumule ; la
+révision de tout l'acquis reste toujours ouverte ; rien d'acquis ne se perd.
+
+- **7.1, livrée** : `app/src/lib/droits.ts`, pur, sans horloge (la journée et le jour du
+  chemin en paramètres), un test par règle (`droits.test.ts`). Wenlu complet par achat (un
+  drapeau d'`Acces`, que StoreKit remplira en 6.2 ; `db.accesAppareil` le met à faux), ou
+  par un cadeau de palier (`jour`, `semaine`, `toujours`) ; sur le web, jamais, ni par
+  achat ni par cadeau. Le rythme de la journée : `complet`, `trente` (la leçon à poser est
+  dans les trente premiers jours du chemin, sessions de plus comprises), `gratuit`. La
+  prochaine brique (`prochaineBrique`) se calcule en jours du calendrier. La progression
+  garde `droits` (cadeaux et leurs dates, premier jour du rythme gratuit, jours des
+  briques gratuites, jour où Clore l'a dit) et la journée préparée (`journee`), export et
+  import compris ; le format de la progression ne change pas (champs ajoutés, relus à
+  leur défaut). L'achat n'est pas gardé : l'appareil le dit.
+- **7.2, livrée** : `session.preparerJournee`, à l'ouverture de la journée : son rythme et,
+  sans brique nouvelle, la brique acquise la plus fragile (la plus basse stabilité FSRS
+  parmi les briques des leçons posées, `content.briquesAcquises`). Six pas dans le même
+  ordre ; Apprendre revient sur elle (fiche, un composé qu'elle a ouvert, tracé si le
+  réglage est allumé), sans cinabre, sans carte neuve, sans avancer le chemin, sans
+  « brique apprise » au journal de Tao ; Utiliser relit un texte d'un jour passé, tout à
+  l'encre (`lignes.lectureDuJour`, `relire`) ; Fixer ne vérifie que ce qui a déjà sa carte ;
+  Clore plante la graine (« 女, revu aujourd'hui. »). La carte du jour montre la brique
+  revue, sans cinabre. La session de plus : avec Wenlu complet ou dans les trente premiers
+  jours (`session.plusPermise`) ; sinon « Réviser encore ». Sans Wenlu complet, le jour du
+  message WeChat prend l'éclair (`utiliser.choisirJeu`). Pour 8.4 : `preparerJournee(p,
+  acces, candidates, { raison: 'examen', prioritaires })`, les manqués en prioritaires ;
+  un jour d'examen n'a pas de session de plus ; les briques gratuites ne se notent pas.
+- **7.5, la partie sans achat, livrée** : les lignes dans `data/sources/interface/rythme.tsv`
+  (`rythme.json`, `rythme.py`, contrôles « rythme : sources » et « export » : ni achat, ni
+  urgence, ni estimation, ni reproche de Tao ; format d'export 17). Clore le dit le premier
+  jour du rythme gratuit (une ligne, ce jour-là seulement) ; au menu, « Dans 3 j : 子
+  enfant » ; sur la route, « prochaine brique dans N j » sur la pierre suivante, les bornes
+  en étapes, « Prochaine brique dans 3 jours » dans la carte, « fin du chemin gratuit » et
+  la suite en une ligne au bout. Vérifié à 393 × 660.
+- **Reste de 7.5** : Wenlu complet présenté dans Réglages (dépend de 6.2) ; l'étagère
+  « Bientôt » de Lire en étapes au rythme gratuit (`etageres.ts` dit encore « s'ouvre dans
+  N j », en jours du chemin).
+- **Reste de 7.3** : tout, écran par écran, avec `droits.wenluComplet` : les contes au-delà
+  des fables du chemin et des trois du seuil 255 ; les lettres de Que à partir de la
+  cinquième ; le message WeChat dans Jouer (le pas Utiliser est fait) ; les devinettes
+  au-delà d'une par jour ; les sept plats de plus ; les formes anciennes ; le chemin
+  au-delà du seuil 255 et du HSK 1 (pas encore exporté) ; iCloud. Une ligne et un lien vers
+  Réglages, sans fenêtre modale.
+- **Reste de 7.4** : Que remet les cadeaux (`droits.recevoirCadeau` les range : un jour à
+  7 jours, la journée suivante ; une semaine à 30 jours, `debut` nul quand elle attend le
+  premier jour du rythme gratuit, que `gratuitDepuis` fixe ; une deuxième à 100 jours ;
+  `toujours` à 365). `serie.ts` (`CADEAUX`) suit encore l'ancienne règle : à 100 jours,
+  « moins 30 % sur l'achat à vie », que Clore annonce (« Que t'attend au 100e jour avec
+  moins 30 % sur l'achat à vie ») ; à reprendre avec le brief (la remise vers le 37e jour,
+  6.2). Qui a Wenlu complet, et le web : le sceau et le cadeau, rien de plus.
+
 ### Non commencées
 
-2c.1, 2c.2, 6.2, 6.4, et dans 6.3 iCloud et le widget ; les épics 7 (gratuit et payant) et 8 (examens).
+2c.1, 2c.2, 6.2, 6.4, et dans 6.3 iCloud et le widget ; dans l'épic 7, 7.3 et 7.4 ; l'épic 8
+(examens).
