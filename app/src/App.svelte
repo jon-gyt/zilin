@@ -230,11 +230,16 @@
   /** Chercher : la saisie, gardée pour le retour depuis l'arbre, et la famille ouverte. */
   let requete = $state('');
   let trouvee: { fam: Noeud; c: string } | null = $state(null);
+  /** « Lire le monde », dans Chercher : le mode choisi et le texte collé, gardés au retour de l’arbre. */
+  let modeChercher: 'caractere' | 'texte' = $state('caractere');
+  let texteLibre = $state('');
 
   /** La loupe du menu : une recherche neuve. */
   function ouvrirChercher(): void {
     requete = '';
     trouvee = null;
+    modeChercher = 'caractere';
+    texteLibre = '';
     ecran = 'chercher';
   }
 
@@ -1053,7 +1058,7 @@
   {#if trouvee}
     <Tree fam={trouvee.fam} choix={trouvee.c} retour="Chercher" onretour={() => (trouvee = null)} onlecon={quitter} />
   {:else}
-    <Chercher {p} bind:q={requete} onfamille={(fam, c) => (trouvee = { fam, c })} onretour={allerAuMenu} />
+    <Chercher {p} bind:q={requete} bind:mode={modeChercher} bind:texte={texteLibre} onfamille={(fam, c) => (trouvee = { fam, c })} onretour={allerAuMenu} />
   {/if}
 {:else if ecran === 'personnage'}
   <Personnage {p} donnees={herosDonnees} onretour={allerAuMenu} onchoisi={personnageChoisi} />

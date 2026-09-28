@@ -525,6 +525,8 @@ export type Index = {
   heros?: string;
   /** Les phrases de Tao sur l'écran Jouer, `jouer.json` (`jouer.ts`) ; vide pour un export qui n'en porte pas. */
   jouer?: string;
+  /** Les textes de « Lire le monde » et du tableau des révisions, `ecrans.json` (`ecrans.ts`) ; vide sans. */
+  ecrans?: string;
   /** Les examens 科举 et les 月课, `examens.json` (`examens.ts`) ; vide pour un export qui n'en porte pas. */
   examens?: string;
   /** Les lignes du rythme gratuit, `rythme.json` (`rythme.ts`) ; vide pour un export qui n'en porte pas. */
@@ -576,6 +578,7 @@ export async function loadIndex(
     wechat: typeof brut.wechat === 'string' ? brut.wechat : '',
     heros: typeof brut.heros === 'string' ? brut.heros : '',
     jouer: typeof brut.jouer === 'string' ? brut.jouer : '',
+    ecrans: typeof brut.ecrans === 'string' ? brut.ecrans : '',
     examens: typeof brut.examens === 'string' ? brut.examens : '',
     rythme: typeof brut.rythme === 'string' ? brut.rythme : '',
     rappels: typeof brut.rappels === 'string' ? brut.rappels : ''
