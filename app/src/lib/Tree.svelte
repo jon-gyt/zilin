@@ -21,7 +21,7 @@
   import ARelire from './ARelire.svelte';
   import { acquis, etat, noeud, placerArbre } from './foret';
   import Hz from './Hz.svelte';
-  import { glyph } from './glyph';
+  import { glyph, nomAccessible } from './glyph';
   import { type StrokeSet } from './strokes';
 
   let {
@@ -89,6 +89,12 @@
   /** La fiche du caractère choisi, telle que `content` la sert. */
   const pleine: FicheLue | null = $derived(lue !== null && lue.c === choisi ? lue : null);
 
+  /** Le nom d'un caractère de l'arbre pour VoiceOver : « 住, zhù, habiter ». */
+  function nomDuNoeud(c: string): string {
+    const n = noeud(fam, c);
+    return n ? nomAccessible(c, n.pinyin, n.fr) : c;
+  }
+
   function dessin(c: string, r: number): string {
     const d = traits[c];
     if (!d) {
@@ -116,7 +122,7 @@
   <div class="forest">
     <svg
       viewBox="0 0 {arbre.largeur} {arbre.hauteur}"
-      role="img"
+      role="group"
       aria-label="L'arbre de la famille {fam.c}"
     >
       {#each arbre.liens as l, i (i)}
@@ -128,7 +134,7 @@
           class:sel={nd.c === choisi}
           role="button"
           tabindex="0"
-          aria-label="Fiche de {nd.c}"
+          aria-label="Fiche de {nomDuNoeud(nd.c)}"
           transform="translate({nd.x} {nd.y})"
           onclick={() => (selection = nd.c)}
           onkeydown={(e) => {

@@ -21,7 +21,7 @@
 </script>
 
 {#if horsPolice(c)}<span class="hz-trace"><Glyph char={c} {size} write={false} color="currentColor" {pistes} /></span
-  >{:else}<span class="hz">{c}</span>{/if}
+  >{:else}<span class="hz" lang="zh-Hans">{c}</span>{/if}
 
 <style>
   .hz-trace {

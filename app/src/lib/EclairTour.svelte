@@ -35,7 +35,7 @@
 <div class="mot" aria-label={mot?.mot ?? ''}>
   {#each signes as c, k (c + k + (resultat === null ? '' : '/ecrit'))}
     <span class="signe">
-      <Glyph char={c} size={84} write={resultat !== null} />
+      <Glyph seul char={c} size={84} write={resultat !== null} />
       {#if resultat !== null}
         {@const g = glose(c, corpus)}
         <small>

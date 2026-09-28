@@ -267,7 +267,7 @@
   <p class="ask">{q.enonce}</p>
 
   {#if q.type === 'sens' || q.type === 'son'}
-    <div class="stim"><Glyph char={q.c} size={120} /></div>
+    <div class="stim"><Glyph seul char={q.c} size={120} /></div>
   {:else if q.type === 'assemblage'}
     {@const f = fiche(q.c, corpus)}
     <!-- La cible en grand : ce qu'on cherche, avant les briques. Le sens s'il existe, le pinyin toujours. -->
@@ -280,14 +280,14 @@
       {#each q.reponse as _, n (n)}
         {#if n > 0}<span class="op">+</span>{/if}
         {#if construit[n] !== undefined}
-          <Glyph char={q.choix[construit[n]]} size={tailleCase} write={false} color="var(--ocre)" />
+          <Glyph seul char={q.choix[construit[n]]} size={tailleCase} write={false} color="var(--ocre)" />
         {:else}
           <span class="case-vide" aria-label="brique à poser"></span>
         {/if}
       {/each}
       <span class="op">=</span>
       {#if note !== null}
-        <Glyph char={q.c} size={tailleCase} write={false} />
+        <Glyph seul char={q.c} size={tailleCase} write={false} />
       {:else}
         <span class="hz vide">?</span>
       {/if}
@@ -305,7 +305,7 @@
   {:else if q.type === 'ton'}
     <!-- Le caractère et sa syllabe sans ton ; la correction pose le ton, et on peut l'entendre. -->
     <div class="stim">
-      <Glyph char={q.c} size={100} />
+      <Glyph seul char={q.c} size={100} />
       <div class="syllabe">
         <span class="py">{note === null ? q.sansTon : q.reponse[0]}</span>
         {#if note !== null}
@@ -356,7 +356,7 @@
           onclick={() => (q.type === 'assemblage' ? assembler(k) : repondre(k))}
         >
           {#if caracteres}
-            <Glyph char={o} size={48} write={false} />
+            <Glyph seul char={o} size={48} write={false} />
             <!-- Une espace insécable garde la hauteur du bouton quand le pinyin est tu. -->
             <small>{pinyinCache ? ' ' : pinyinDe(o, corpus)}</small>
           {:else}
@@ -399,8 +399,12 @@
     <!-- À l'oreille : ce qu'on a pris se fait entendre, et se réentend d'un tap. -->
     {#if entenduAuLieu}
       <span class="leurre">
-        <button class="btn ghost ecoute-leurre" onclick={() => entenduAuLieu && direLeurre(entenduAuLieu)}>
-          ♪ <Glyph char={entenduAuLieu} size={28} write={false} />
+        <button
+          class="btn ghost ecoute-leurre"
+          aria-label="Écouter {entenduAuLieu}"
+          onclick={() => entenduAuLieu && direLeurre(entenduAuLieu)}
+        >
+          <span aria-hidden="true">♪</span> <Glyph seul char={entenduAuLieu} size={28} write={false} />
         </button>
         <span>Tu as pris <b class="hz">{entenduAuLieu}</b> {pinyinDe(entenduAuLieu, corpus)}. Écoute-le, puis réécoute l'autre.</span>
       </span>
@@ -408,7 +412,7 @@
     <!-- Une erreur qui enseigne : ce qu'on a pris, ce qu'il veut dire, de quoi il est fait. -->
     {#if leurre}
       <span class="leurre">
-        <Glyph char={leurre.c} size={36} write={false} />
+        <Glyph seul char={leurre.c} size={36} write={false} />
         <span>
           Tu as pris <b class="hz">{leurre.c}</b>
           {leurre.pinyin}{leurre.fr === '' ? '.' : `, ${leurre.fr}.`}

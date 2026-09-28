@@ -7,7 +7,8 @@ let GID = 0;
  * pour la marque seulement — son premier trait, le point 丶 de 文. `indigo` : les indices
  * des traits peints en indigo (classe `lan`), à la correction d'un jeu : le trait qui
  * distingue deux jumeaux, le caractère contenu dans un maillon (`ecarts.ts`). `label`
- * remplace le caractère comme nom accessible.
+ * remplace le caractère comme nom accessible ; vide, le dessin est un décor, caché aux
+ * lecteurs d'écran (`aria-hidden`).
  */
 export type GlyphOptions = {
   write?: boolean;
@@ -30,13 +31,43 @@ export function horsPolice(c: string): boolean {
   return points.length !== 1 || (c.codePointAt(0) ?? 0) > 0xffff;
 }
 
+/** Le premier sens d'une fiche : « enfant » pour « enfant, fils, suffixe de nom ». */
+export function premierSens(fr: string): string {
+  return (fr.split(/[,;，；]/)[0] ?? '').trim();
+}
+
+/**
+ * Le nom accessible d'un caractère dessiné, ce que VoiceOver dit : le caractère, son pinyin
+ * et son premier sens, « 住, zhù, habiter ». Ce qu'on ne sait pas est omis, jamais inventé.
+ */
+export function nomAccessible(c: string, pinyin = '', sens = ''): string {
+  return [c, pinyin.trim(), premierSens(sens)].filter((x) => x !== '').join(', ');
+}
+
+/** Un texte sûr dans un attribut HTML entre guillemets doubles. */
+function attribut(s: string): string {
+  return s.replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+}
+
+/**
+ * Ce que le SVG dit aux lecteurs d'écran : une image nommée (`role="img"`, que VoiceOver
+ * annonce, là où un SVG nu peut être lu comme un groupe de chemins), ou, sans nom, un décor
+ * caché.
+ */
+export function aria(label: string): string {
+  return label === '' ? 'aria-hidden="true"' : `role="img" aria-label="${attribut(label)}"`;
+}
+
 export function glyph(c: string, d: StrokeData | undefined, size: number, opts: GlyphOptions = {}): string {
-  if (!d) return `<span class="hz" style="font-size:${Math.round(size * 0.88)}px">${c}</span>`;
+  if (!d) {
+    const dit = opts.label === undefined ? '' : ` ${aria(opts.label)}`;
+    return `<span class="hz" lang="zh-Hans"${dit} style="font-size:${Math.round(size * 0.88)}px">${c}</span>`;
+  }
   const write = opts.write ?? size >= 84;
   const style = opts.color ? ` style="color:${opts.color}"` : '';
-  const label = opts.label ?? c;
+  const nom = aria(opts.label ?? c);
   const zhu = (i: number) => (opts.cinabre?.includes(i) ? ' zhu' : opts.indigo?.includes(i) ? ' lan' : '');
-  if (!write) return `<svg class="g" width="${size}" height="${size}" viewBox="0 0 1024 1024" aria-label="${label}"${style}><g transform="scale(1,-1) translate(0,-900)">${d.s.map((p, i) => `<path d="${p}"${zhu(i) ? ` class="${zhu(i).trim()}"` : ''}/>`).join('')}</g></svg>`;
+  if (!write) return `<svg class="g" width="${size}" height="${size}" viewBox="0 0 1024 1024" ${nom}${style}><g transform="scale(1,-1) translate(0,-900)">${d.s.map((p, i) => `<path d="${p}"${zhu(i) ? ` class="${zhu(i).trim()}"` : ''}/>`).join('')}</g></svg>`;
   const id = ++GID; let delay = 0.05, defs = '', body = '';
   d.s.forEach((p, i) => {
     const m = d.m[i]; let L = 0; for (let k = 1; k < m.length; k++) L += Math.hypot(m[k][0] - m[k - 1][0], m[k][1] - m[k - 1][1]);
@@ -45,6 +76,6 @@ export function glyph(c: string, d: StrokeData | undefined, size: number, opts: 
     body += `<polyline points="${m.map((q) => q.join(',')).join(' ')}" clip-path="url(#k${id}_${i})" class="br${zhu(i)}" style="stroke-dasharray:${L.toFixed(0)};stroke-dashoffset:${L.toFixed(0)};animation-duration:${dur.toFixed(2)}s;animation-delay:${delay.toFixed(2)}s"/><path d="${p}" class="fill${zhu(i)}" style="animation-delay:${(delay + dur).toFixed(2)}s"/>`;
     delay += dur + 0.025;
   });
-  return `<svg class="g write" width="${size}" height="${size}" viewBox="0 0 1024 1024" aria-label="${label}"${style}><defs>${defs}</defs><g transform="scale(1,-1) translate(0,-900)">${body}</g></svg>`;
+  return `<svg class="g write" width="${size}" height="${size}" viewBox="0 0 1024 1024" ${nom}${style}><defs>${defs}</defs><g transform="scale(1,-1) translate(0,-900)">${body}</g></svg>`;
 }
 /* Le CSS de .g, .g.write, .br, .fill et les @keyframes brush / hold vivent dans tokens.css. */

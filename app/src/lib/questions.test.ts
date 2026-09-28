@@ -637,7 +637,7 @@ describe('une erreur qui enseigne : le leurre pris, son sens et ses briques', ()
   it('l’écran montre le leurre pris, dessiné depuis ses traits, sous la correction', () => {
     const src = readFileSync(new URL('Ask.svelte', import.meta.url), 'utf8');
     expect(src).toContain('leurre = leurreExplique(q, q.choix[k], corpus);');
-    expect(src).toContain('<Glyph char={leurre.c} size={36} write={false} />');
+    expect(src).toContain('<Glyph seul char={leurre.c} size={36} write={false} />');
     expect(src).toContain('Tu as pris <b class="hz">{leurre.c}</b>');
   });
 });
