@@ -881,8 +881,11 @@
       <div class="fb" class:vide={resultat === null && jeu !== 'devinette'}>
         {#if resultat !== null}
           <b>{resultat.montre ? 'On te montre.' : VERDICTS[resultat.note]}</b>
-          {@const quand = echeance(p, resultat.evenement.c)}
-          {#if quand}<span class="next">Prochaine fois : dans {delai(new Date(), quand)}.</span>{/if}
+          <!-- L'échéance ne se dit que si le tour a noté quelque chose : une erreur à
+               l'éclair ne note rien, la carte garde l'échéance d'avant. -->
+          {@const quand = evenementsANoter(m.jeu, resultat).length > 0 ? echeance(p, resultat.evenement.c) : null}
+          {#if quand}<span class="next">Prochaine fois : dans {delai(new Date(), quand)}.</span>
+          {:else if evenementsANoter(m.jeu, resultat).length === 0}<span class="next">Rien n’est noté.</span>{/if}
         {:else if jeu === 'devinette'}
           {faux.length > 0
             ? 'Pas celui-là. Relis l’énoncé, une brique après l’autre.'

@@ -280,6 +280,14 @@ describe('une manche du dictionnaire éclair', () => {
     expect(constat(faux.manche)).toBe('2 caractères revus, aucun mot deviné.');
   });
 
+  it('l’écran ne dit « Prochaine fois » que si le tour a noté quelque chose', () => {
+    const game = readFileSync(new URL('Game.svelte', import.meta.url), 'utf8');
+    const fb = game.slice(game.indexOf('<div class="fb"'));
+    expect(fb.slice(0, fb.indexOf('</div>'))).toContain(
+      'evenementsANoter(m.jeu, resultat).length > 0 ? echeance(p, resultat.evenement.c) : null'
+    );
+  });
+
   it('l’écran ne range dans la progression que ce que `evenementsANoter` garde', () => {
     const game = readFileSync(new URL('Game.svelte', import.meta.url), 'utf8');
     const valider = game.slice(game.indexOf('function valider('));
