@@ -17,6 +17,26 @@ jobs:
           rm -rf ios
           npx cap add ios
           npx cap sync ios
+      # Chaque greffon natif de package.json (haptique, notifications locales, demande de
+      # note) doit être dans le Podfile engendré : sinon l'app s'archive sans lui, et
+      # l'appel échoue en silence sur l'iPhone.
+      - name: Vérifier les greffons natifs
+        run: |
+          node -e '
+            const fs = require("fs");
+            const deps = Object.keys(require("./package.json").dependencies);
+            const podfile = fs.readFileSync("ios/App/Podfile", "utf8");
+            const manquants = [];
+            for (const d of deps) {
+              const p = require(`${d}/package.json`);
+              if (!p.capacitor || !p.capacitor.ios) continue;
+              const spec = fs.readdirSync(`node_modules/${d}`).find((f) => f.endsWith(".podspec"));
+              const pod = spec && spec.replace(/\.podspec$/, "");
+              console.log(`${d} -> ${pod}`);
+              if (!pod || !podfile.includes(`pod '"'"'${pod}'"'"'`)) manquants.push(d);
+            }
+            if (manquants.length) { console.error(`Absents du Podfile : ${manquants.join(", ")}`); process.exit(1); }
+          '
       # Ce que l'app iOS a de propre, reposé à chaque build sur le projet engendré :
       # manifeste de confidentialité, icône 1024, écran de lancement papier, Info.plist
       # (ITSAppUsesNonExemptEncryption, thème clair), version tirée du tag et numéro de
