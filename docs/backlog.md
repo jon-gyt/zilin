@@ -66,6 +66,9 @@ Format BMAD : épics puis stories. Priorité dans l'ordre. Une story se termine 
 - 6.2 Achats StoreKit 2 : Wenlu complet, achat à vie non consommable et abonnement mensuel, les mêmes droits par les deux voies. Aucun compte ni serveur : les droits se lisent sur l'appareil (`Transaction.currentEntitlements` au lancement et au retour au premier plan, `Transaction.updates` en continu), « Restaurer les achats » dans Réglages, et `droits.ts` (7.1) ne connaît que « Wenlu complet, par achat » ; rien sur le web. Le code de moins 30 % du palier (brief §8), vers le 37e jour, à usage unique, sur l'achat à vie seulement : un code d'offre App Store si Apple l'ouvre aux achats non consommables, sinon un second produit non consommable au prix réduit, que l'app ne montre qu'une fois ; à vérifier sur la documentation d'Apple avant d'écrire. Aucune date limite affichée. Le plugin natif (Swift, dans `app/ios-template/`) ou la dépendance Capacitor se justifie dans le message de commit. Small Business Program ; les produits se déclarent dans App Store Connect (`docs/ios-sans-mac.md`).
 - 6.3 iCloud (CloudKit), haptique, widget caractère du jour.
 - 6.4 Fiche App Store, captures, candidature au featuring.
+- 6.5 Le rappel quotidien (brief §8, « Notification » ; rapport comparatif du 28 septembre 2026, §2.1) : une notification locale par jour au plus, à l'heure choisie, avec le début de l'anecdote du jour, ou la brique de la prochaine session quand l'anecdote est déjà lue ou annoncée. L'heure se choisit à la première session, après l'objectif et le rythme, et l'accord de l'iPhone se demande alors, jamais au lancement ; ensuite, l'interrupteur et l'heure dans Réglages. Rien le jour où la journée est faite ; les sept jours suivants reprogrammés à chaque sauvegarde et à chaque ouverture ; silence au-delà, jusqu'au retour. `rappels.ts`, pur, testé (un test par règle). Textes par le pipeline (`data/sources/rappels/`), jamais un reproche, une série menacée, un « tu nous manques », un emoji ni un achat. Le réglage dans la progression, export et import compris. Sur le web, rien.
+- 6.6 Ne jamais perdre sa progression (rapport, §2.3) : `navigator.storage.persist()` au premier enregistrement, sur le web ; sur le web iOS hors écran d'accueil, une ligne discrète dans Réglages et comment faire, sans fenêtre modale ; la date du dernier export dans Réglages. `garde.ts`, testé. Textes par le pipeline.
+- 6.7 La demande de note (rapport, §2.4) : au retour au menu après un 放榜, un premier conte lu ou un palier de la série ; jamais en session, jamais dans les sept premiers jours, au plus une fois tous les cent vingt jours. La fenêtre du système (SKStoreReviewController), dans l'app iOS seulement. `avis.ts`, pur, testé.
 
 ## Épic 7 · Gratuit et payant
 Décisions du propriétaire du 26 septembre 2026, brief §8 (paliers), §10 et §13. Rien de ce qui est acquis ne se perd ni ne se ferme ; la pédagogie ne s'achète pas.
@@ -538,6 +541,32 @@ anglaise, glose par mot.
   haptique » dans Réglages, dans l'app seulement, allumé par défaut, gardé dans la
   progression (export et import compris). Non ressenti sur un iPhone. iCloud et le widget
   restent à faire.
+- **6.5, le rappel quotidien (28 septembre)** : `@capacitor/local-notifications` 6.1,
+  `app/src/lib/rappels.ts` (les règles, pures), `app/src/lib/natif.ts` (le greffon et le
+  contenu à lire). Textes dans `data/sources/rappels/textes.tsv`, exportés dans
+  `rappels.json` (format 17), contrôlés par `wenlu check` (ni reproche, ni série, ni manque,
+  ni achat, ni exclamation, ni emoji, ni dragon ; à relire). La première session gagne
+  l'écran de l'heure (8 h, 12 h 30, 19 h ; 19 h par défaut), dans l'app seulement ; le web
+  garde ses deux questions. Réglages : « Rappel du jour », l'heure, et, si l'iPhone a coupé
+  les notifications, où les rendre. Le réglage (`Progress.rappel`) entre dans l'export
+  sans changer la version du format. Changer l'heure après le rappel du jour repousse le
+  suivant au lendemain : jamais deux le même jour. Vérifié sur l'app simulée dans Chromium
+  (greffon factice) à 393 × 660 ; jamais reçu sur un iPhone.
+- **6.6, garder sa progression (28 septembre)** : `app/src/lib/garde.ts`, `db.ts`
+  (`persist()` au premier enregistrement d'une progression, sur le web seulement), Réglages
+  (« Ajoute Wenlu à l'écran d'accueil pour garder ta progression » et comment faire, sur le
+  web iOS hors écran d'accueil ; « Dernier export : 12 septembre », ou « jamais »,
+  `Progress.dernierExport`). Reste : sur iOS, vérifier que la sauvegarde de l'appareil
+  couvre le stockage du WKWebView, et que l'export JSON s'écrit bien depuis l'app (le
+  téléchargement d'un blob dans la WebView n'est pas assuré) : à voir sur un iPhone.
+- **6.7, la demande de note (28 septembre)** : `@capawesome/capacitor-app-review` 6.0,
+  `app/src/lib/avis.ts` ; la dernière demande dans la progression (`Progress.avisDemande`).
+  Non vue sur un iPhone : iOS décide seul d'afficher la fenêtre (jamais en TestFlight, qui
+  ne la montre pas).
+- **CI iOS** : l'étape « Vérifier les greffons natifs » de `ios-testflight.yml` échoue si
+  un greffon de `package.json` manque au Podfile engendré par `cap sync`. Sous Linux, `cap
+  add ios` écrit bien les trois pods, et `patch.rb` s'y rejoue sans avertissement ; `pod
+  install`, la compilation et l'archive ne se vérifient qu'au premier tag `ios-*`.
 
 ### Épic 7, en partie : le rythme gratuit, sans StoreKit (28 septembre)
 
