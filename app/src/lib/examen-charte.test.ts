@@ -1,8 +1,8 @@
 /**
  * L'écran de l'examen (story 8.3, maquette validée le 29 septembre 2026) : la charte, une
  * règle par test. Ni cinabre, ni ombre, ni dégradé, ni doré, ni dragon ; aucune couleur hors
- * des jetons ; pas de chronomètre ; les grands caractères depuis leurs traits ; Tao en robe
- * d'écolier avec le panier ; les textes de l'écran viennent de `examens.json`.
+ * des jetons ; pas de chronomètre ; les grands caractères depuis leurs traits ; Tao en
+ * écolière, pinceau à la main, sans robe ni col, avec le panier ; les textes de l'écran viennent de `examens.json`.
  */
 import { readFileSync } from 'node:fs';
 import { describe, expect, it } from 'vitest';
@@ -39,10 +39,15 @@ describe("l'écran de l'examen", () => {
     expect(ecran).toMatch(/\{@render mizi\(m\.c/);
   });
 
-  it('Tao porte la robe d’écolier et le panier 考篮 à l’examen, un livre au 月课', () => {
-    expect(ecran).toMatch(/<Tao [^>]*robe panier/);
+  it('Tao tient le pinceau d’écolière et le panier 考篮 à l’examen, un livre au 月课', () => {
+    expect(ecran).toMatch(/<Tao [^>]*ecolier panier/);
     expect(ecran).toMatch(/<Tao [^>]*livre/);
     expect(source('Tao.svelte')).toContain('class="panier"');
+  });
+
+  it('Tao ne porte ni robe ni col qui l’élargissent (décision du 29 septembre)', () => {
+    expect(source('Tao.svelte')).not.toContain('class="col"');
+    expect(source('Tao.svelte')).not.toContain('class="robe"');
   });
 
   it('les textes de l’écran viennent de examens.json', () => {

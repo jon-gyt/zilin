@@ -5,7 +5,7 @@
    * `xing`), que Tao annonce au retour au menu ; sa bulle mène ici.
    *
    * La scène : la porte de ville 城门 du 县试, ouverte ; Xing salue les mains jointes 作揖,
-   * content ; Tao, en robe d'écolier avec son panier 考篮, à côté de lui, à la même taille.
+   * content ; Tao, en écolière avec son pinceau et son panier 考篮, à côté de lui, à la même taille.
    * Sa bulle dit l'accueil. Dessous, son nom dessiné depuis ses traits (杏, l'abricotier), d'où
    * il vient (l'autel des abricotiers 杏坛, où Confucius enseignait) et ce qu'il fait
    * désormais. Un seul bouton, qui ramène au menu.
@@ -47,7 +47,7 @@
     <div class="porte"><PorteVille hz={examen} largeur={236} ouverte /></div>
     <div class="duo">
       <span class="xing-pose"><Xing posture={POSTURE_RENCONTRE} humeur={humeurXing('rencontre')} size={TAILLE} /></span>
-      <span class="tao-pose"><Tao stade={taoStade} posture="chemin" humeur="joie" robe panier size={TAILLE} /></span>
+      <span class="tao-pose"><Tao stade={taoStade} posture="chemin" humeur="joie" ecolier panier size={TAILLE} /></span>
     </div>
   </div>
 

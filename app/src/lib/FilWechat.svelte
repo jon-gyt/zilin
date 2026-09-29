@@ -84,7 +84,8 @@
     </div>
   {/each}
   {#if attente}
-    <div class="bulle ami ecrit" aria-label="{ami.zh} écrit">…</div>
+    <!-- l'ami écrit : trois points qui s'allument l'un après l'autre -->
+    <div class="bulle ami ecrit" role="status" aria-label="{ami.zh} écrit"><i></i><i></i><i></i></div>
   {/if}
 </div>
 
@@ -113,9 +114,37 @@
     border-bottom-right-radius: 4px;
   }
   .bulle.ecrit {
-    color: var(--mist);
-    letter-spacing: 0.2em;
-    font-weight: 600;
+    display: flex;
+    gap: 5px;
+    align-items: center;
+    min-height: 40px;
+    padding: 0 14px;
+  }
+  /* les trois points : chacun s'élève et fonce un peu, l'un après l'autre, comme on tape */
+  .bulle.ecrit i {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--mist);
+    animation: tape 1.1s ease-in-out infinite;
+  }
+  .bulle.ecrit i:nth-child(2) {
+    animation-delay: 0.15s;
+  }
+  .bulle.ecrit i:nth-child(3) {
+    animation-delay: 0.3s;
+  }
+  @keyframes tape {
+    0%,
+    60%,
+    100% {
+      transform: none;
+      opacity: 0.45;
+    }
+    30% {
+      transform: translateY(-4px);
+      opacity: 1;
+    }
   }
   .bulle .zh {
     margin: 0;
@@ -172,7 +201,8 @@
     color: var(--ink2);
   }
   @media (prefers-reduced-motion: reduce) {
-    .bulle {
+    .bulle,
+    .bulle.ecrit i {
       animation: none;
     }
   }
