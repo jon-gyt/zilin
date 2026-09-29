@@ -49,11 +49,21 @@ export type Lecteur = Pick<HTMLAudioElement, 'src' | 'currentTime' | 'preload' |
 /** Ce que ce module demande à la synthèse du téléphone : ses voix, parler, se taire. */
 export type Synthese = Pick<SpeechSynthesis, 'getVoices' | 'speak' | 'cancel'>;
 
+/** La session audio de Safari 17 et plus (`navigator.audioSession`), `null` ailleurs. */
+export type SessionAudio = { type: string };
+
 function syntheseParDefaut(): Synthese | null {
   return typeof window === 'undefined' || !('speechSynthesis' in window) ? null : window.speechSynthesis;
 }
 
+function sessionParDefaut(): SessionAudio | null {
+  if (typeof navigator === 'undefined') return null;
+  const s = (navigator as Navigator & { audioSession?: SessionAudio }).audioSession;
+  return s && typeof s === 'object' && 'type' in s ? s : null;
+}
+
 let synthese: () => Synthese | null = syntheseParDefaut;
+let session: () => SessionAudio | null = sessionParDefaut;
 
 /** Un manifeste vide : ce que rend un fichier absent. L'app se tait, sans erreur. */
 const VIDE: Manifeste = { version: '', fournisseur: '', format: '', chemins: {} };
@@ -75,16 +85,40 @@ let charge: Manifeste | null = null;
  * pourra y poser son propre lecteur sans toucher au reste.
  */
 export function configurerAudio(
-  options: { lecteur?: () => Lecteur | null; fetchFn?: typeof fetch; synthese?: () => Synthese | null } = {}
+  options: {
+    lecteur?: () => Lecteur | null;
+    fetchFn?: typeof fetch;
+    synthese?: () => Synthese | null;
+    session?: () => SessionAudio | null;
+  } = {}
 ): void {
   fabrique = options.lecteur ?? lecteurParDefaut;
   synthese = options.synthese ?? syntheseParDefaut;
+  session = options.session ?? sessionParDefaut;
   requete = options.fetchFn ?? ((...args) => fetch(...args));
   unique = null;
   cree = false;
   charge = null;
   voixAttendues = null;
   manifestes.clear();
+}
+
+/**
+ * La session audio de la page, quand le navigateur la laisse régler (Safari 17 et plus) :
+ * `play-and-record` le temps d'une prise au micro, `playback` ensuite. Sur iOS, ouvrir le
+ * micro fait passer la session en lecture et enregistrement, avec le traitement de la voix
+ * des appels ; laissée ainsi, la lecture qui suit sort étouffée, hachée ou par l'écouteur.
+ * Rend `true` si la session a été réglée.
+ */
+export function reglerSession(type: 'play-and-record' | 'playback'): boolean {
+  const s = session();
+  if (s === null) return false;
+  try {
+    s.type = type;
+    return true;
+  } catch {
+    return false;
+  }
 }
 
 /** Le lecteur de l'app : le même à chaque appel, créé à la première lecture. */

@@ -10,6 +10,7 @@ import {
   direParLeTelephone,
   voixMandarin,
   voixPretes,
+  reglerSession,
   type Synthese,
   chemin,
   configurerAudio,
@@ -352,3 +353,17 @@ describe('les voix du téléphone, une fois annoncées', () => {
     expect(await voixPretes(5)).toBe(false);
   });
 });
+
+describe('la session audio', () => {
+  it('se règle quand le navigateur la laisse régler (Safari 17 et plus), sinon rien', () => {
+    const session = { type: 'auto' };
+    configurerAudio({ session: () => session });
+    expect(reglerSession('play-and-record')).toBe(true);
+    expect(session.type).toBe('play-and-record');
+    expect(reglerSession('playback')).toBe(true);
+    expect(session.type).toBe('playback');
+    configurerAudio({ session: () => null });
+    expect(reglerSession('playback')).toBe(false);
+  });
+});
+

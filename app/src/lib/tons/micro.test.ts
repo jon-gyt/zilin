@@ -2,8 +2,9 @@
  * Le micro de « Dis-le » (story 9.1) : le droit décidé depuis ce que dit le navigateur, et
  * l'arrêt de la prise sur le silence qui suit la voix. La voix de l'apprenant (`voix.ts`).
  */
-import { describe, expect, it } from 'vitest';
-import { Detecteur, PRISE, decider, microPossible, type Constat } from './micro';
+import { afterEach, describe, expect, it } from 'vitest';
+import { configurerAudio } from '../audio';
+import { CONTRAINTES, Detecteur, PRISE, decider, fermer, microPossible, type Constat } from './micro';
 import { syllabe } from './synthese';
 import { FENETRE_VOIX, ajouterMoyenne, lireVoix, refLocuteur } from './voix';
 
@@ -95,3 +96,44 @@ describe('la voix de l’apprenant', () => {
     expect(lireVoix(undefined)).toEqual([]);
   });
 });
+
+describe('la fin de la prise rend le son à la lecture', () => {
+  afterEach(() => configurerAudio());
+
+  it('le micro est demandé sans annulation d’écho, sans débruitage, sans gain automatique', () => {
+    expect(CONTRAINTES).toMatchObject({ echoCancellation: false, noiseSuppression: false, autoGainControl: false, channelCount: 1 });
+  });
+
+  it('toutes les pistes s’arrêtent, les nœuds se détachent, le contexte se ferme, la session repasse en lecture', async () => {
+    const session = { type: 'play-and-record' };
+    configurerAudio({ session: () => session });
+    const arretees: string[] = [];
+    const detaches: string[] = [];
+    let ferme = 0;
+    const piste = (id: string) => ({ stop: () => arretees.push(id) }) as unknown as MediaStreamTrack;
+    const noeud = (id: string) => ({ disconnect: () => detaches.push(id) }) as unknown as AudioNode;
+    fermer(
+      { getTracks: () => [piste('micro'), piste('autre')] },
+      { close: async () => void (ferme += 1) },
+      [noeud('source'), null, noeud('processeur'), noeud('gain')]
+    );
+    await Promise.resolve();
+    await Promise.resolve();
+    expect(arretees).toEqual(['micro', 'autre']);
+    expect(detaches).toEqual(['source', 'processeur', 'gain']);
+    expect(ferme).toBe(1);
+    expect(session.type).toBe('playback');
+  });
+
+  it('un contexte déjà fermé ou une piste déjà arrêtée ne cassent rien', () => {
+    const casse = () => {
+      throw new Error('déjà');
+    };
+    expect(() =>
+      fermer({ getTracks: () => [{ stop: casse } as unknown as MediaStreamTrack] }, { close: () => Promise.reject(new Error('fermé')) }, [
+        { disconnect: casse } as unknown as AudioNode
+      ])
+    ).not.toThrow();
+  });
+});
+
