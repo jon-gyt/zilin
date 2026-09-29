@@ -1,0 +1,422 @@
+{
+ "examen": "yueke-150",
+ "parcours": "hsk",
+ "generation": {
+  "modele": "rédaction manuelle",
+  "api": "session Claude Code (sans API)",
+  "date": "2026-09-29"
+ },
+ "relecture": {
+  "statut": "a_relire",
+  "note": "rédigé le 29 septembre 2026, à relire par le propriétaire (`wenlu examens apercu`) ; une série passe à `relu` sur sa décision, citée ici"
+ },
+ "series": [
+  {
+   "serie": "A",
+   "statut": "a_relire",
+   "supports": [
+    {
+     "id": "s1",
+     "genre": "menu",
+     "contexte": {
+      "fr": "Le menu d'un petit restaurant",
+      "en": "The menu of a small restaurant"
+     },
+     "lignes": [
+      {
+       "zh": "牛肉面：十二元",
+       "pinyin": "niú ròu miàn shí èr yuán",
+       "fr": "Nouilles au bœuf : 12 yuans",
+       "en": "Beef noodles: 12 yuan"
+      },
+      {
+       "zh": "汽水：三元",
+       "pinyin": "qì shuǐ sān yuán",
+       "fr": "Soda : 3 yuans",
+       "en": "Soda: 3 yuan"
+      },
+      {
+       "zh": "水果：八元",
+       "pinyin": "shuǐ guǒ bā yuán",
+       "fr": "Fruits : 8 yuans",
+       "en": "Fruit: 8 yuan"
+      }
+     ],
+     "glose": [
+      {
+       "zh": "十二元",
+       "pinyin": "shí èr yuán",
+       "fr": "12 yuans",
+       "en": "12 yuan"
+      },
+      {
+       "zh": "三元",
+       "pinyin": "sān yuán",
+       "fr": "3 yuans",
+       "en": "3 yuan"
+      },
+      {
+       "zh": "八元",
+       "pinyin": "bā yuán",
+       "fr": "8 yuans",
+       "en": "8 yuan"
+      }
+     ]
+    },
+    {
+     "id": "s2",
+     "genre": "message",
+     "contexte": {
+      "fr": "Xiaoming écrit à sa maman",
+      "en": "Xiaoming writes to his mum"
+     },
+     "lignes": [
+      {
+       "zh": "妈妈，我手机坏了。",
+       "pinyin": "mā ma wǒ shǒu jī huài le",
+       "fr": "Maman, mon téléphone est cassé.",
+       "en": "Mum, my phone is broken."
+      },
+      {
+       "zh": "下午四时，大学门口等我！",
+       "pinyin": "xià wǔ sì shí dà xué mén kǒu děng wǒ",
+       "fr": "À 16 heures, attends-moi devant l'université !",
+       "en": "Wait for me at the university gate at 4 pm!"
+      }
+     ]
+    }
+   ],
+   "questions": [
+    {
+     "type": "comprendre",
+     "support": "s1",
+     "consigne": {
+      "fr": "Combien coûtent les nouilles au bœuf ?",
+      "en": "How much are the beef noodles?"
+     },
+     "choix": [
+      {
+       "fr": "3 yuans",
+       "en": "3 yuan"
+      },
+      {
+       "fr": "8 yuans",
+       "en": "8 yuan"
+      },
+      {
+       "fr": "12 yuans",
+       "en": "12 yuan"
+      },
+      {
+       "fr": "20 yuans",
+       "en": "20 yuan"
+      }
+     ],
+     "reponse": 2,
+     "porte": [
+      "牛",
+      "肉",
+      "面"
+     ]
+    },
+    {
+     "type": "reperer",
+     "support": "s1",
+     "consigne": {
+      "fr": "Touche la boisson.",
+      "en": "Tap the drink."
+     },
+     "choix": [
+      "牛肉面",
+      "汽水",
+      "水果",
+      "十二元"
+     ],
+     "reponse": 1,
+     "porte": [
+      "汽"
+     ]
+    },
+    {
+     "type": "comprendre",
+     "support": "s2",
+     "consigne": {
+      "fr": "Qu'est-ce qui ne marche plus ?",
+      "en": "What has stopped working?"
+     },
+     "choix": [
+      {
+       "fr": "Son téléphone",
+       "en": "His phone"
+      },
+      {
+       "fr": "Sa voiture",
+       "en": "His car"
+      },
+      {
+       "fr": "La porte",
+       "en": "The door"
+      },
+      {
+       "fr": "Le tramway",
+       "en": "The tram"
+      }
+     ],
+     "reponse": 0,
+     "porte": [
+      "机",
+      "坏"
+     ]
+    },
+    {
+     "type": "vrai_faux",
+     "support": "s2",
+     "consigne": {
+      "fr": "Vrai ou faux ?",
+      "en": "True or false?"
+     },
+     "affirmation": {
+      "zh": "小明下午四时见妈妈。",
+      "pinyin": "xiǎo míng xià wǔ sì shí jiàn mā ma",
+      "fr": "Xiaoming retrouve sa maman à 16 heures.",
+      "en": "Xiaoming meets his mum at 4 pm."
+     },
+     "reponse": true,
+     "porte": [
+      "四",
+      "时",
+      "等"
+     ]
+    },
+    {
+     "type": "caractere",
+     "consigne": {
+      "fr": "Quel caractère a ce sens ?",
+      "en": "Which character has this meaning?"
+     },
+     "objet": {
+      "zh": "说",
+      "pinyin": "shuō",
+      "fr": "dire, parler",
+      "en": "to say, to speak"
+     },
+     "choix": [
+      "课",
+      "说",
+      "认",
+      "识"
+     ],
+     "reponse": 1,
+     "porte": [
+      "说"
+     ]
+    }
+   ]
+  },
+  {
+   "serie": "B",
+   "statut": "a_relire",
+   "supports": [
+    {
+     "id": "s1",
+     "genre": "note",
+     "contexte": {
+      "fr": "Un mot sur la porte d'un magasin",
+      "en": "A note on a shop door"
+     },
+     "lignes": [
+      {
+       "zh": "今天下午关门。",
+       "pinyin": "jīn tiān xià wǔ guān mén",
+       "fr": "Fermé cet après-midi.",
+       "en": "Closed this afternoon."
+      },
+      {
+       "zh": "明天上午九时开门。",
+       "pinyin": "míng tiān shàng wǔ jiǔ shí kāi mén",
+       "fr": "Réouverture demain à 9 heures.",
+       "en": "Open again tomorrow at 9 am."
+      }
+     ]
+    },
+    {
+     "id": "s2",
+     "genre": "enseigne",
+     "contexte": {
+      "fr": "L'enseigne d'un restaurant",
+      "en": "A restaurant sign"
+     },
+     "lignes": [
+      {
+       "zh": "老地方",
+       "pinyin": "lǎo dì fang",
+       "fr": "Le Vieil Endroit",
+       "en": "The Old Place"
+      }
+     ]
+    },
+    {
+     "id": "s3",
+     "genre": "message",
+     "contexte": {
+      "fr": "M. Ma écrit à Xiaobai",
+      "en": "Mr Ma writes to Xiaobai"
+     },
+     "lignes": [
+      {
+       "zh": "小白，明天下午有课吗？",
+       "pinyin": "xiǎo bái míng tiān xià wǔ yǒu kè ma",
+       "fr": "Xiaobai, as-tu cours demain après-midi ?",
+       "en": "Xiaobai, do you have class tomorrow afternoon?"
+      }
+     ]
+    }
+   ],
+   "questions": [
+    {
+     "type": "comprendre",
+     "support": "s1",
+     "consigne": {
+      "fr": "Quand le magasin rouvre-t-il ?",
+      "en": "When does the shop open again?"
+     },
+     "choix": [
+      {
+       "fr": "Cet après-midi",
+       "en": "This afternoon"
+      },
+      {
+       "fr": "Demain à 16 heures",
+       "en": "Tomorrow at 4 pm"
+      },
+      {
+       "fr": "Lundi à 9 heures",
+       "en": "Monday at 9 am"
+      },
+      {
+       "fr": "Demain à 9 heures",
+       "en": "Tomorrow at 9 am"
+      }
+     ],
+     "reponse": 3,
+     "porte": [
+      "九",
+      "时"
+     ]
+    },
+    {
+     "type": "vrai_faux",
+     "support": "s1",
+     "consigne": {
+      "fr": "Vrai ou faux ?",
+      "en": "True or false?"
+     },
+     "affirmation": {
+      "zh": "今天下午开门。",
+      "pinyin": "jīn tiān xià wǔ kāi mén",
+      "fr": "Le magasin ouvre cet après-midi.",
+      "en": "The shop is open this afternoon."
+     },
+     "reponse": false,
+     "porte": [
+      "下",
+      "关"
+     ]
+    },
+    {
+     "type": "comprendre",
+     "support": "s2",
+     "consigne": {
+      "fr": "Que veut dire le nom de ce restaurant ?",
+      "en": "What does this restaurant's name mean?"
+     },
+     "choix": [
+      {
+       "fr": "Le Vieux Monsieur",
+       "en": "The Old Gentleman"
+      },
+      {
+       "fr": "Le Vieil Endroit",
+       "en": "The Old Place"
+      },
+      {
+       "fr": "La Vieille Maison",
+       "en": "The Old House"
+      },
+      {
+       "fr": "Le Vieux Marché",
+       "en": "The Old Market"
+      }
+     ],
+     "reponse": 1,
+     "porte": [
+      "地",
+      "方"
+     ]
+    },
+    {
+     "type": "replique",
+     "support": "s3",
+     "consigne": {
+      "fr": "Que répond Xiaobai ?",
+      "en": "What does Xiaobai reply?"
+     },
+     "choix": [
+      {
+       "zh": "牛肉面十二元。",
+       "pinyin": "niú ròu miàn shí èr yuán",
+       "fr": "Les nouilles au bœuf font 12 yuans.",
+       "en": "Beef noodles are 12 yuan."
+      },
+      {
+       "zh": "飞机坏了。",
+       "pinyin": "fēi jī huài le",
+       "fr": "L'avion est en panne.",
+       "en": "The plane has broken down."
+      },
+      {
+       "zh": "有，下午四时有中文课。",
+       "pinyin": "yǒu xià wǔ sì shí yǒu zhōng wén kè",
+       "fr": "Oui, j'ai cours de chinois à 16 heures.",
+       "en": "Yes, I have Chinese class at 4 pm."
+      },
+      {
+       "zh": "我是马先生。",
+       "pinyin": "wǒ shì mǎ xiān sheng",
+       "fr": "Je suis M. Ma.",
+       "en": "I'm Mr Ma."
+      }
+     ],
+     "reponse": 2,
+     "porte": [
+      "课"
+     ]
+    },
+    {
+     "type": "trou",
+     "consigne": {
+      "fr": "Quel caractère manque dans ce mot ?",
+      "en": "Which character is missing from this word?"
+     },
+     "objet": {
+      "zh": "飞机",
+      "pinyin": "fēi jī",
+      "fr": "avion",
+      "en": "plane"
+     },
+     "trou": 1,
+     "choix": [
+      "杯",
+      "楼",
+      "机",
+      "树"
+     ],
+     "reponse": 2,
+     "porte": [
+      "机"
+     ]
+    }
+   ]
+  }
+ ]
+}

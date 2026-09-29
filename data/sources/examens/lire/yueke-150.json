@@ -1,0 +1,392 @@
+{
+ "examen": "yueke-150",
+ "parcours": "lire",
+ "generation": {
+  "modele": "rédaction manuelle",
+  "api": "session Claude Code (sans API)",
+  "date": "2026-09-29"
+ },
+ "relecture": {
+  "statut": "a_relire",
+  "note": "rédigé le 29 septembre 2026, à relire par le propriétaire (`wenlu examens apercu`) ; une série passe à `relu` sur sa décision, citée ici"
+ },
+ "series": [
+  {
+   "serie": "A",
+   "statut": "a_relire",
+   "supports": [
+    {
+     "id": "s1",
+     "genre": "menu",
+     "contexte": {
+      "fr": "Le menu d'un petit restaurant",
+      "en": "The menu of a small restaurant"
+     },
+     "lignes": [
+      {
+       "zh": "大肉面",
+       "pinyin": "dà ròu miàn",
+       "fr": "Nouilles au porc",
+       "en": "Pork noodles"
+      },
+      {
+       "zh": "花生米",
+       "pinyin": "huā shēng mǐ",
+       "fr": "Cacahuètes",
+       "en": "Peanuts"
+      },
+      {
+       "zh": "花茶",
+       "pinyin": "huā chá",
+       "fr": "Thé au jasmin",
+       "en": "Jasmine tea"
+      },
+      {
+       "zh": "汽水",
+       "pinyin": "qì shuǐ",
+       "fr": "Soda",
+       "en": "Soda"
+      }
+     ]
+    },
+    {
+     "id": "s2",
+     "genre": "message",
+     "contexte": {
+      "fr": "Xiao Li écrit à Mingming",
+      "en": "Xiao Li writes to Mingming"
+     },
+     "lignes": [
+      {
+       "zh": "明明，我下午四时飞北京。",
+       "pinyin": "míng míng wǒ xià wǔ sì shí fēi běi jīng",
+       "fr": "Mingming, je prends l'avion pour Pékin à 16 heures.",
+       "en": "Mingming, I'm flying to Beijing at 4 pm."
+      },
+      {
+       "zh": "后天见！",
+       "pinyin": "hòu tiān jiàn",
+       "fr": "À après-demain !",
+       "en": "See you the day after tomorrow!"
+      }
+     ]
+    }
+   ],
+   "questions": [
+    {
+     "type": "comprendre",
+     "support": "s1",
+     "consigne": {
+      "fr": "Lequel de ces plats est au menu ?",
+      "en": "Which of these dishes is on the menu?"
+     },
+     "choix": [
+      {
+       "fr": "Du riz sauté",
+       "en": "Fried rice"
+      },
+      {
+       "fr": "Des nouilles au porc",
+       "en": "Pork noodles"
+      },
+      {
+       "fr": "Des raviolis",
+       "en": "Dumplings"
+      },
+      {
+       "fr": "Du poisson",
+       "en": "Fish"
+      }
+     ],
+     "reponse": 1,
+     "porte": [
+      "肉",
+      "面"
+     ]
+    },
+    {
+     "type": "reperer",
+     "support": "s1",
+     "consigne": {
+      "fr": "Touche la boisson gazeuse.",
+      "en": "Tap the fizzy drink."
+     },
+     "choix": [
+      "大肉面",
+      "花生米",
+      "花茶",
+      "汽水"
+     ],
+     "reponse": 3,
+     "porte": [
+      "汽"
+     ]
+    },
+    {
+     "type": "caractere",
+     "consigne": {
+      "fr": "Quel caractère a ce sens ?",
+      "en": "Which character has this meaning?"
+     },
+     "objet": {
+      "zh": "海",
+      "pinyin": "hǎi",
+      "fr": "mer",
+      "en": "sea"
+     },
+     "choix": [
+      "汉",
+      "法",
+      "海",
+      "汽"
+     ],
+     "reponse": 2,
+     "porte": [
+      "海"
+     ]
+    },
+    {
+     "type": "vrai_faux",
+     "support": "s2",
+     "consigne": {
+      "fr": "Vrai ou faux ?",
+      "en": "True or false?"
+     },
+     "affirmation": {
+      "zh": "小李上午飞北京。",
+      "pinyin": "xiǎo lǐ shàng wǔ fēi běi jīng",
+      "fr": "Xiao Li prend l'avion pour Pékin le matin.",
+      "en": "Xiao Li flies to Beijing in the morning."
+     },
+     "reponse": false,
+     "porte": [
+      "下",
+      "飞"
+     ]
+    },
+    {
+     "type": "sens",
+     "consigne": {
+      "fr": "Que veut dire ce caractère ?",
+      "en": "What does this character mean?"
+     },
+     "objet": {
+      "zh": "书",
+      "pinyin": "shū",
+      "fr": "livre",
+      "en": "book"
+     },
+     "choix": [
+      {
+       "fr": "livre",
+       "en": "book"
+      },
+      {
+       "fr": "cours, leçon",
+       "en": "class, lesson"
+      },
+      {
+       "fr": "année",
+       "en": "year"
+      },
+      {
+       "fr": "mer",
+       "en": "sea"
+      }
+     ],
+     "reponse": 0,
+     "porte": [
+      "书"
+     ]
+    }
+   ]
+  },
+  {
+   "serie": "B",
+   "statut": "a_relire",
+   "supports": [
+    {
+     "id": "s1",
+     "genre": "billet",
+     "contexte": {
+      "fr": "Une carte d'embarquement",
+      "en": "A boarding pass"
+     },
+     "lignes": [
+      {
+       "zh": "飞机",
+       "pinyin": "fēi jī",
+       "fr": "Avion",
+       "en": "Plane"
+      },
+      {
+       "zh": "北京 — 上海",
+       "pinyin": "běi jīng shàng hǎi",
+       "fr": "Pékin — Shanghai",
+       "en": "Beijing — Shanghai"
+      },
+      {
+       "zh": "十月四日下午",
+       "pinyin": "shí yuè sì rì xià wǔ",
+       "fr": "4 octobre, l'après-midi",
+       "en": "4 October, afternoon"
+      }
+     ]
+    },
+    {
+     "id": "s2",
+     "genre": "affiche",
+     "contexte": {
+      "fr": "Une affiche dans une école",
+      "en": "A poster in a school"
+     },
+     "lignes": [
+      {
+       "zh": "书法课：星期四下午",
+       "pinyin": "shū fǎ kè xīng qī sì xià wǔ",
+       "fr": "Cours de calligraphie : jeudi après-midi",
+       "en": "Calligraphy class: Thursday afternoon"
+      },
+      {
+       "zh": "古文课：星期二上午",
+       "pinyin": "gǔ wén kè xīng qī èr shàng wǔ",
+       "fr": "Cours de chinois classique : mardi matin",
+       "en": "Classical Chinese class: Tuesday morning"
+      }
+     ]
+    }
+   ],
+   "questions": [
+    {
+     "type": "comprendre",
+     "support": "s1",
+     "consigne": {
+      "fr": "Où va cet avion ?",
+      "en": "Where is this plane going?"
+     },
+     "choix": [
+      {
+       "fr": "À Pékin",
+       "en": "To Beijing"
+      },
+      {
+       "fr": "À Nankin",
+       "en": "To Nanjing"
+      },
+      {
+       "fr": "À Shanghai",
+       "en": "To Shanghai"
+      },
+      {
+       "fr": "À Tokyo",
+       "en": "To Tokyo"
+      }
+     ],
+     "reponse": 2,
+     "porte": [
+      "上",
+      "海"
+     ]
+    },
+    {
+     "type": "reperer",
+     "support": "s1",
+     "consigne": {
+      "fr": "Touche le mot qui dit à quel moment de la journée part l'avion.",
+      "en": "Tap the word that says what time of day the plane leaves."
+     },
+     "choix": [
+      "飞机",
+      "北京",
+      "上海",
+      "下午"
+     ],
+     "reponse": 3,
+     "porte": [
+      "下",
+      "午"
+     ]
+    },
+    {
+     "type": "sens",
+     "consigne": {
+      "fr": "Que veut dire ce caractère ?",
+      "en": "What does this character mean?"
+     },
+     "objet": {
+      "zh": "年",
+      "pinyin": "nián",
+      "fr": "année, âge",
+      "en": "year, age"
+     },
+     "choix": [
+      {
+       "fr": "jour",
+       "en": "day"
+      },
+      {
+       "fr": "année",
+       "en": "year"
+      },
+      {
+       "fr": "mois",
+       "en": "month"
+      },
+      {
+       "fr": "semaine",
+       "en": "week"
+      }
+     ],
+     "reponse": 1,
+     "porte": [
+      "年"
+     ]
+    },
+    {
+     "type": "vrai_faux",
+     "support": "s2",
+     "consigne": {
+      "fr": "Vrai ou faux ?",
+      "en": "True or false?"
+     },
+     "affirmation": {
+      "zh": "星期四下午有书法课。",
+      "pinyin": "xīng qī sì xià wǔ yǒu shū fǎ kè",
+      "fr": "Il y a cours de calligraphie le jeudi après-midi.",
+      "en": "There's a calligraphy class on Thursday afternoon."
+     },
+     "reponse": true,
+     "porte": [
+      "四",
+      "书",
+      "法"
+     ]
+    },
+    {
+     "type": "trou",
+     "consigne": {
+      "fr": "Quel caractère manque dans ce mot ?",
+      "en": "Which character is missing from this word?"
+     },
+     "objet": {
+      "zh": "茶杯",
+      "pinyin": "chá bēi",
+      "fr": "tasse à thé",
+      "en": "teacup"
+     },
+     "trou": 1,
+     "choix": [
+      "机",
+      "李",
+      "杯",
+      "本"
+     ],
+     "reponse": 2,
+     "porte": [
+      "杯"
+     ]
+    }
+   ]
+  }
+ ]
+}
