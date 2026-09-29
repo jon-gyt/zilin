@@ -356,14 +356,20 @@
   </svg>
 {/snippet}
 
-{#snippet stele()}
-  <svg width="30" height="38" viewBox="0 0 30 38" aria-hidden="true"
-    ><path d="M5 34V8q10-7 20 0v26z" fill="var(--card)" stroke="var(--indigo)" stroke-width="1.8" stroke-dasharray="3 2.5" /><path d="M2 35h26" stroke="var(--indigo)" stroke-width="1.8" stroke-linecap="round" /><path
-      d="M10 15h10M10 20h10M10 25h6"
+<!-- L'examen suivant : sa porte de ville 城门, au pointillé d'indigo (plus de stèle depuis la
+     décision du propriétaire du 29 septembre 2026, maquettes/chemin.html). -->
+{#snippet porte()}
+  <svg width="34" height="24" viewBox="-40 0 80 52" aria-hidden="true"
+    ><path d="M-38 16q13-2 19-14h38q6 12 19 14z" fill="var(--card)" stroke="var(--indigo)" stroke-width="3" stroke-dasharray="5 4" /><rect
+      x="-31"
+      y="16"
+      width="62"
+      height="34"
+      fill="var(--card)"
       stroke="var(--indigo)"
-      stroke-width="1.6"
-      stroke-linecap="round"
-    /></svg
+      stroke-width="3"
+      stroke-dasharray="5 4"
+    /><path d="M-10 50v-11a10 10 0 0 1 20 0v11" fill="var(--card)" stroke="var(--indigo)" stroke-width="3" stroke-dasharray="5 4" /></svg
   >
 {/snippet}
 
@@ -576,7 +582,7 @@
       {/if}
       <p class="info">{@render hanzi(ligneDesPoints)}{#if yueke}&nbsp;{@render hanzi(t('info_yueke'))}{/if}</p>
       {#if yueke && suite !== ''}
-        <div class="suite">{@render stele()}<div class="t">{@render riche(suite)}</div></div>
+        <div class="suite">{@render porte()}<div class="t">{@render riche(suite)}</div></div>
       {/if}
       <div class="bas">
         {#if yueke}
@@ -629,7 +635,7 @@
     <div class="apparait apres" style="--dl:{BANG_FIN}s">
       {#if nomHeros !== ''}<p class="constat gauche">{@render hanzi(t('sur_la_liste', { nom: nomHeros }))}</p>{/if}
       <p class="constat gauche jade">{@render hanzi(t('recu', { examen: examen.hz }))}</p>
-      {#if suite !== ''}<div class="suite">{@render stele()}<div class="t">{@render riche(suite)}</div></div>{/if}
+      {#if suite !== ''}<div class="suite">{@render porte()}<div class="t">{@render riche(suite)}</div></div>{/if}
     </div>
     <div class="bas"><button class="btn-ex" onclick={onretour}>{t('retour_menu')}</button></div>
   {/if}
