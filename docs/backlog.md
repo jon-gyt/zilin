@@ -88,8 +88,8 @@ Décisions du propriétaire du 26 septembre 2026 : « aux paliers de caractères
 - 8.2 La logique : `examens.ts`, pur, testé (un test par règle). La liste des examens, leurs paliers et leur sorte viennent de `examens.json`, jamais du code. Le palier atteint ouvre l'examen, à titre ou 月课, dans l'ordre ; aucune brique nouvelle tant qu'il n'est pas réussi ; jamais en rattrapage ; reçu à quatre réponses sur cinq justes du premier essai (huit sur dix, quatre sur cinq) ; une seconde chance par question, rattrapée : son point 读, pas le premier coup ; un 月课 ne donne ni titre, ni sceau, ni rien d'autre que ses points 读 ; une bonne réponse note ses caractères par `grade` et donne un point 读, une erreur les note faux ; la reprise est permise quand chaque caractère manqué a été revu juste à son échéance, et prend l'autre série ; aucune règle ne lit une durée. La progression garde `examens` (ouvert, série, question en cours, réponses, manqués, date de réussite), export et import compris ; une progression d'avant les examens garde ses rangs annoncés, les examens en dessous notés reçus.
 - 8.3 L'écran de l'examen : le nom dessiné depuis ses traits, la mise en situation dessinée à plat (enseigne, carte de menu, billet, bulle, feuille), la question, sans chronomètre ; « Quitter » reprend à la même question ; le résultat en constat, les caractères manqués dessinés depuis leurs traits. Tao dans sa posture d'examen, le panier 考篮 à la porte, puis la liste. Charte : indigo pour l'action, jade pour le reçu, ni cinabre, ni ombre, ni doré, ni emoji. Vérifié à 393 × 660.
 - 8.4 Les briques en pause : pendant un examen à passer, la journée sans brique nouvelle (7.2), Échauffer et Apprendre prennent d'abord les caractères manqués ; pas de session de plus ; au menu, la journée faite, « Passer l'examen 县试 » ou « Passer le 月课 », puis, tant que la reprise attend, « Réviser encore » et une ligne sans compte à rebours ; Clore dit le palier atteint. Au rythme gratuit, les briques de la semaine attendent aussi, sans s'accumuler. Tests dans `session.ts`.
-- 8.5 Les rangs, « Points ET examen » : dans `heros.ts`, un titre s'accorde quand l'examen est réussi et les points atteints, dans l'ordre des rangs ; les quatre nominations à leur palier de caractères lus. Un 月课 ne donne ni ne retient un rang, même au palier d'une nomination (1 555, 1 800). La taille et la silhouette suivent les points, la tenue le titre accordé. L'en-tête montre le rang tenu, sans pastille ; « Mon personnage » : barre pleine et « Reste le 院试 », ou « Reçu au 院试 · encore 12 points », et les examens à titre réussis avec leur date, sans les 月课 ; le 放榜 au titre accordé, une fois. `rangs.tsv` prend l'examen ou le palier de chaque rang ; `heros.json` suit, contrôle des sources mis à jour.
-- 8.6 La borne de la route : l'examen dans `route.bornesDevant`, au jour du chemin où entre le Ne caractère, son nom sur la stèle ; l'examen suivant, à titre ou 月课, toujours l'une des deux bornes, à la place de la seconde si deux autres tombent avant lui ; une seule stèle quand il tombe sur un seuil du trophée Lire (50, 100, 255, 505, 1 555) ; l'examen à passer se dresse devant la pierre du jour, « examen ouvert », les pierres suivantes sans compte ; au rythme gratuit, en étapes. Tests dans `route.test.ts`. Pas de sceau aux trophées.
+- 8.5 Les rangs, « Points ET examen » : dans `heros.ts`, un titre s'accorde quand l'examen est réussi et les points atteints, dans l'ordre des rangs ; les quatre nominations à leur palier de caractères lus. Un 月课 ne donne ni ne retient un rang, même au palier d'une nomination (1 555, 1 800). La taille et la silhouette suivent les points, la tenue le titre accordé. L'en-tête montre le rang tenu, sans pastille ; « Mon personnage » : barre pleine et « Reste le 院试 », ou « Reçu au 院试 · encore 12 points », et les examens à titre réussis avec leur date, sans les 月课 ; le 放榜 au titre accordé, une fois. `rangs.tsv` prend l'examen ou le palier de chaque rang ; `heros.json` suit, contrôle des sources mis à jour. **Livrée le 29 septembre** (voir « Livrées »), sauf l'en-tête du menu, qui attend une ligne dans `Menu.svelte`.
+- 8.6 La borne de la route : l'examen dans `route.bornesDevant`, au jour du chemin où entre le Ne caractère, son nom sur la stèle ; l'examen suivant, à titre ou 月课, toujours l'une des deux bornes, à la place de la seconde si deux autres tombent avant lui ; une seule stèle quand il tombe sur un seuil du trophée Lire (50, 100, 255, 505, 1 555) ; l'examen à passer se dresse devant la pierre du jour, « examen ouvert », les pierres suivantes sans compte ; au rythme gratuit, en étapes. Tests dans `route.test.ts`. Pas de sceau aux trophées. **Livrée le 29 septembre** (voir « Livrées »).
 
 ## Épic 9 · Oral par IA
 Décisions du propriétaire du 29 septembre 2026 (brief §10, « L'oral par IA ») : sur le téléphone en gratuit, dans le nuage avec l'abonnement, « 5 € c'est une conversation par jour ». Analyse : `Wenlu face au marché` (29 septembre).
@@ -443,6 +443,38 @@ Compté dans `data/sources/` et dans l'export 0.1.0 :
   sans nom est un décor caché (`aria-hidden`). Test dans `accessible.test.ts`. Reste : un
   passage à VoiceOver sur un iPhone, puis les labels d'accessibilité d'App Store Connect.
 
+- 8.5 et 8.6, les rangs « Points ET examen » et la borne de la route (29 septembre).
+  Pipeline : `rangs.tsv` prend deux colonnes, `examens` (les examens à titre qu'un rang
+  demande réussis, le 童生 le 县试 et le 府试, puis 院试 à 殿试) et `palier` (翰林 1 000,
+  探花 1 200, 榜眼 1 555, 状元 1 800) ; « héros : sources » les contrôle contre
+  `examens.tsv` et `nominations.tsv` (chaque examen à titre une fois, dans l'ordre, sous
+  le rang qu'il accorde ; chaque nomination à son palier ; un examen ou un palier, jamais
+  les deux) ; `heros.json` porte `examens` et `palier`. Deux phrases de Tao de plus
+  (`examen`, `palier`) ; au 放榜, « Tu en prends la tenue » remplace « Tu grandis d'un
+  cran » : la taille suit les points. Les rôles du 童生 et du 秀才 suivent le brief. Les
+  lignes des examens de « Mon personnage » et de la route dans `ecrans.json`
+  (`data/sources/ecrans/personnage.tsv`, `route.tsv`). App : `heros.ts` accorde le titre
+  (`rangAccorde`, dans l'ordre, les points et ce que demande le rang ; un 月课 n'y entre
+  pas), tient le rang (`rangTenu` : le plus haut du titre accordé et du dernier annoncé,
+  jamais repris), dit ce qui reste (`avance(...).reste` : « Reste le 院试 », « Reçu au 院试
+  · encore 12 points », le palier d'une nomination), le 榜 (`examensRecus`, sans les 月课)
+  et le titre à fêter (`titreAccorde`, pour le 放榜, une fois). La silhouette et l'âge
+  suivent les points (`rangDe`), la tenue le titre (`Heros.svelte`, `silhouette`). « Mon
+  personnage » : le rang tenu, la barre pleine et la stèle de l'examen qui reste avec
+  « dans N j », « dans N étapes » ou « examen ouvert », puis le 榜 daté ; la bulle de Tao dit
+  l'examen qui reste. Une progression d'avant les examens garde ses rangs annoncés
+  (`examens.migrerRangsAnnonces`, à l'ouverture, à l'import). Route : l'examen dans
+  `bornesDevant`, au jour où entre son Ne caractère, son nom gravé depuis ses traits sur la
+  stèle ; l'examen suivant toujours l'une des deux bornes (`prochainesBornes`), une seule
+  stèle avec un seuil du trophée Lire ; le prochain examen, son jour fait sans ses
+  caractères lus, dit « 48 lus sur 50 » ; l'examen à passer se dresse devant la pierre du
+  jour, « examen ouvert », et les pierres et les bornes suivantes disent « après l'examen » ;
+  en étapes au rythme gratuit. La stèle peut ouvrir l'examen (`onexamen`, à brancher avec
+  8.3). Tests dans `heros.test.ts` et `route.test.ts`. Vérifié à 393 × 660. Reste :
+  l'en-tête du menu montre encore la coiffe des seuls points (`Menu.svelte` :
+  `rangTenu(rangsHeros, meriteDe(p, lus))` à la place de `rangDe(total(p.arts), …)`),
+  relire les nouveaux textes.
+
 ### Livrées à moitié : le code attend une clé d'API
 
 Les trois chaînes sont écrites, testées sans réseau, et refusent de partir sans clé
@@ -753,10 +785,9 @@ Décisions du propriétaire du 29 septembre 2026 : « Ok maquette d'examen »
   un test par règle dans `session.test.ts` ; Clore dit le palier et ouvre l'examen ; au
   menu, la journée faite, « Passer l'examen 县试 » ou « Passer le 月课 », puis « Réviser
   encore » et la ligne d'attente ; Échauffer et Apprendre prennent d'abord les manqués.
-- **Reste** : 8.5 et 8.6 (en cours ailleurs) ; la stèle de la route ne mène pas encore à
-  l'examen ; les séries des examens suivants (府试 à 100…), et leurs noms du 放榜.
+- **Reste** : les séries des examens suivants (府试 à 100…), et leurs noms du 放榜.
 
 ### Non commencées
 
 2c.1, 2c.2, 6.2, 6.4, et dans 6.3 iCloud et le widget ; dans l'épic 7, 7.3 et 7.4. Dans
-l'épic 8, 8.5 et 8.6, et les séries au-delà du 月课 de 75.
+l'épic 8, les séries au-delà du 月课 de 75.
