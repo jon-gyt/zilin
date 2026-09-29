@@ -45,6 +45,7 @@ app/public/data/0.1.0/
   jouer.json                 l'écran Jouer : les phrases de la bulle de Tao
   rythme.json                le rythme gratuit : les lignes du menu, de la route et de Clore
   rappels.json               le rappel quotidien (iOS) et la garde de la progression
+  ouvertures.json            l'aventure : le calendrier d'ouverture des portes, les annonces de Tao
   ecrans.json                les textes de « Lire le monde » et du tableau des révisions
   anecdotes.json             les anecdotes du jour, une par caractère
   trois-lignes.json          les trois lignes du pas Utiliser, un texte par jour du chemin
@@ -90,7 +91,8 @@ Trois régimes de licence, trois familles de fichiers, jamais mêlés
  "jouer": "jouer.json",
  "rythme": "rythme.json",
  "rappels": "rappels.json",
- "ecrans": "ecrans.json"
+ "ecrans": "ecrans.json",
+ "ouvertures": "ouvertures.json"
 }
 ```
 
@@ -536,6 +538,33 @@ L'app remplit les jetons entre accolades (`app/src/lib/ecrans.ts`).
   chaque clé et ses jetons. `revisions/jours` nomme les sept jours, du dimanche au samedi,
   séparés d'une espace. Sans `ecrans.json` (un export plus ancien), les textes sont vides.
 
+## `ouvertures.json`
+
+Tiré de `data/sources/ouvertures/portes.tsv` (brief §6, « Les portes qui s'ouvrent » ; demande
+du propriétaire du 29 septembre 2026), rédigé pour l'app et à relire : le calendrier
+d'ouverture des portes, « l'aventure ». L'app le lit (`app/src/lib/ouvertures.ts`) et ne
+décide que du moment de montrer.
+
+```json
+{"version": "0.1.0", "license": "propriétaire", "source": "…", "source_url": "…", "modified": "…",
+ "portes": [{"id": "reviser", "unite": "jour", "seuil": 4, "parent": null,
+             "annonce": "Une nouvelle porte : Réviser 温."},
+            {"id": "jeu-chaine", "unite": "lus", "seuil": 6, "parent": "jouer", "annonce": ""}]}
+```
+
+- `portes` : dix-neuf portes, dans l'ordre où elles s'annoncent quand plusieurs tombent le
+  même jour. `id` : `reviser`, `jouer`, `lire`, `foret` (les cases du menu), `personnage`
+  (le portrait de l'en-tête), `route` (« Ma route › » et l'entrée de Ma forêt), `trophees`,
+  `revisions` (les entrées de Ma forêt), `retention` (le réglage des révisions), `contes`
+  (les étagères de Lire), `monde` (l'onglet « Un texte » de Chercher), et un `jeu-<id>` par
+  jeu de l'écran Jouer. `unite` : `jour`, la dernière leçon du parcours apprise (la première
+  session pose les jours 1 à 3), ou `lus`, les caractères lus de Ma forêt ; jamais une date
+  ni un achat. `seuil` : un entier. `parent` : la porte qui la contient, montrée avant
+  elle, ou `null`. `annonce` : la phrase de Tao au retour au menu ; vide, la porte vient en
+  silence avec son parent, au même seuil. Réglages, Chercher un caractère et la session ne
+  sont pas des portes. Sans `ouvertures.json` (un export plus ancien), l'app n'a pas de
+  calendrier et montre tout.
+
 ## `anecdotes.json`
 
 Tiré de `data/sources/anecdotes/anecdotes.tsv` : les anecdotes ordinaires du pas Ouvrir,
@@ -760,6 +789,13 @@ ce que l'app embarque ; `docs/sources-licences.md` fait foi pour la décision.
   tableau des révisions, une fois, sourcé, avec exactement les jetons que l'app remplit ;
   ni emoji, ni dragon, ni temps passé, ni classement, ni percentile ; sept jours de la
   semaine ; `ecrans.json` dit les textes des sources, et `index.json` le nomme.
+- « ouvertures : sources », « contenu », « export » — bloquants : chaque porte une fois,
+  comptée en `jour` ou en `lus`, jamais pendant la première session (jour 3 au plus) ; un
+  parent connu, placé avant, et qui ne s'ouvre pas après elle ; une porte silencieuse au
+  même seuil que son parent ; une annonce qui nomme sa porte, sans achat ni déblocage,
+  urgence, estimation, reproche, emoji ni dragon ; Lire ouvert au jour de la première lettre
+  de Que, les contes au jour de la première fable du chemin ; `ouvertures.json` dit les
+  portes de la source, et `index.json` le nomme.
 - « anecdotes : sources », « forme », « charte », « étymologie », « export » —
   bloquants : un seul caractère par anecdote, jamais deux fois, titre, texte et source
   présents (« rédigé pour l'app »), appui, étiquette et statut connus ; un titre de 8 à
