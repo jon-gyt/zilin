@@ -17,7 +17,7 @@ from pathlib import Path
 import pytest
 
 from wenlu_data import examens as ex
-from wenlu_data.contes import API_SESSION, MODELE_MANUEL, Glose, Phrase
+from wenlu_data.contes import API_SESSION, MODELE_MANUEL, RELU, STATUTS, Glose, Phrase
 from wenlu_data.heros import charger as charger_heros
 
 #: Un chemin miniature : chaque jour pose une brique, parfois un composé.
@@ -348,7 +348,10 @@ def test_les_series_versionnees_se_lisent_et_tiennent_leurs_regles() -> None:
         f = ex.charger_series(chemin.parent.name, chemin.stem)
         assert f is not None and [s.serie for s in f.series] == ["A", "B"]
         assert f.generation["modele"] == MODELE_MANUEL and f.generation["api"] == API_SESSION
-        assert f.relecture.get("decision")
+        # Une série relue cite la décision qui la relit ; une série à relire n'en a pas encore.
+        assert all(s.statut in STATUTS for s in f.series)
+        if any(s.statut == RELU for s in f.series):
+            assert f.relecture.get("decision")
         for s in f.series:
             assert ex.ecarts_questions(s, par_id[f.examen], glossaire=lexique) == [], (chemin, s.serie)
             assert ex.ecarts_glose(s, lexique) == [], (chemin, s.serie)
