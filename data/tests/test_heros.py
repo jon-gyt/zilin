@@ -82,6 +82,68 @@ def test_l_age_ne_revient_jamais_en_arriere() -> None:
     assert any("âge 'vieillard'" in f for f in fautes_sources(replace(h, rangs=(*h.rangs[:6], inconnu, *h.rangs[7:]))))
 
 
+# ----------------------------------------------- « Points ET examen » : les exigences
+
+
+def _rang(h: object, hz: str) -> int:
+    return next(i for i, r in enumerate(h.rangs) if r.hz == hz)  # type: ignore[attr-defined]
+
+
+def _avec(h: object, hz: str, **champs: str) -> object:
+    rangs = list(h.rangs)  # type: ignore[attr-defined]
+    i = _rang(h, hz)
+    rangs[i] = replace(rangs[i], **champs)
+    return replace(h, rangs=tuple(rangs))  # type: ignore[type-var]
+
+
+def test_chaque_titre_d_examen_demande_son_examen_et_ceux_d_avant() -> None:
+    """Le 童生 demande le 县试 et le 府试 ; du 秀才 au 进士, l'examen qui accorde le titre."""
+    h = charger()
+    assert [(r.hz, r.ids()) for r in h.rangs[3:8]] == [
+        ("童生", ("xianshi", "fushi")),
+        ("秀才", ("yuanshi",)),
+        ("举人", ("xiangshi",)),
+        ("贡士", ("huishi",)),
+        ("进士", ("dianshi",)),
+    ]
+    assert all(r.ids() == () and r.lus() is None for r in h.rangs[:3])
+    ailleurs = _avec(h, "秀才", examens="xiangshi")
+    assert any("xiangshi accorde 举人, pas 秀才" in f for f in fautes_sources(ailleurs))  # type: ignore[arg-type]
+    inconnu = _avec(h, "秀才", examens="yueke-150")
+    assert any("yueke-150 n'est pas un examen à titre" in f for f in fautes_sources(inconnu))  # type: ignore[arg-type]
+    oublie = _avec(h, "童生", examens="fushi")
+    assert any("dans l'ordre" in f for f in fautes_sources(oublie))  # type: ignore[arg-type]
+
+
+def test_les_quatre_derniers_sont_des_nominations_a_leur_palier() -> None:
+    h = charger()
+    assert [(r.hz, r.lus()) for r in h.rangs[8:]] == [("翰林", 1000), ("探花", 1200), ("榜眼", 1555), ("状元", 1800)]
+    faux = _avec(h, "榜眼", palier="1500")
+    assert any("nominations.tsv dit 1555" in f for f in fautes_sources(faux))  # type: ignore[arg-type]
+    decroit = _avec(h, "状元", palier="1100")
+    assert any("les paliers croissent" in f for f in fautes_sources(decroit))  # type: ignore[arg-type]
+    lettre = _avec(h, "翰林", palier="mille")
+    assert any("attendu un entier ou —" in f for f in fautes_sources(lettre))  # type: ignore[arg-type]
+
+
+def test_un_examen_ou_un_palier_jamais_les_deux_ni_rien_apres() -> None:
+    h = charger()
+    deux = _avec(h, "进士", palier="900")
+    assert any("un examen et un palier" in f for f in fautes_sources(deux))  # type: ignore[arg-type]
+    libre = _avec(h, "探花", palier="—")
+    assert any("ni examen ni palier" in f for f in fautes_sources(libre))  # type: ignore[arg-type]
+
+
+def test_les_exigences_se_lisent_contre_les_sources_des_examens() -> None:
+    """Un 月课 n'entre dans aucun rang : seuls les examens à titre sont attendus."""
+    h = charger()
+    titres, noms = heros_mod.exigences_des_sources()
+    assert [i for i, _ in titres] == ["xianshi", "fushi", "yuanshi", "xiangshi", "huishi", "dianshi"]
+    assert noms == [("翰林", 1000), ("探花", 1200), ("榜眼", 1555), ("状元", 1800)]
+    sans_dianshi = (titres[:-1], noms)
+    assert any("attendu xianshi fushi yuanshi xiangshi huishi" in f for f in fautes_sources(h, sans_dianshi))
+
+
 # -------------------------------------------------------------------------- les bêtes
 
 
@@ -156,10 +218,15 @@ def test_le_document_dit_les_rangs_les_betes_et_tao() -> None:
         "hz": "秀才",
         "pinyin": "xiùcai",
         "fr": "talent éclos",
-        "role": "reçu à l'examen du district",
+        "role": "reçu à l'examen du commissaire aux études",
         "age": "ado",
         "seuil": 80,
+        "examens": ["yuanshi"],
+        "palier": None,
     }
+    assert rangs[3]["examens"] == ["xianshi", "fushi"]  # type: ignore[index]
+    assert [r["palier"] for r in rangs[8:]] == [1000, 1200, 1555, 1800]  # type: ignore[index]
+    assert all(r["examens"] == [] and r["palier"] is None for r in rangs[:3])  # type: ignore[index]
     assert [b["id"] for b in doc["betes"]] == list(BETES_ATTENDUES)  # type: ignore[union-attr, index]
     assert doc["betes"][1]["noms"] == ["Bao", "宝宝", "Bambou"]  # type: ignore[index]
     assert set(doc["tao"]) == set(JETONS_TAO)  # type: ignore[arg-type]

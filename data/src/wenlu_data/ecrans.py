@@ -1,6 +1,9 @@
-"""Les textes d'interface de deux écrans : « Lire le monde » (Chercher) et le tableau des révisions.
+"""Les textes d'interface de quatre écrans : « Lire le monde », les révisions, le personnage, la route.
 
-Rapport comparatif du 28 septembre 2026, §2.5 et §2.6. Chaque écran a sa source
+« Lire le monde » (Chercher) et le tableau des révisions : rapport comparatif du 28
+septembre 2026, §2.5 et §2.6. « Mon personnage » et « La route devant » : les lignes des
+examens 科举 (stories 8.5 et 8.6, brief §8, « Le personnage » et « La route devant »),
+« Reste le 院试 », « Reçu au 院试 · encore 12 points », « examen ouvert ». Chaque écran a sa source
 versionnée, rédigée pour l'app et à relire, dans `data/sources/ecrans/<écran>.tsv` ;
 `wenlu export` en tire `ecrans.json`, que l'index nomme par sa clé `ecrans`.
 
@@ -73,6 +76,21 @@ ECRANS: dict[str, dict[str, tuple[str, ...]]] = {
         "resistent-une": (),
         "resistent-rien": ("jours",),
     },
+    "personnage": {
+        "reste": ("examen",),
+        "recu": ("examen", "n"),
+        "recu-un": ("examen",),
+        "palier": ("rang", "palier", "lus"),
+        "ouvert": (),
+        "bang": (),
+        "bang-date": ("date",),
+    },
+    "route": {
+        "examen": ("examen", "n"),
+        "ouvert": (),
+        "apres": (),
+        "lus": ("lus", "n"),
+    },
 }
 
 #: Les sept jours de la semaine, du dimanche au samedi (`Date.getDay`), dans `revisions/jours`.
@@ -91,8 +109,8 @@ INTERDITS: tuple[tuple[re.Pattern[str], str], ...] = tuple(
 JETON = re.compile(r"\{([^{}]*)\}")
 
 SOURCE_EXPORT = (
-    "data/sources/ecrans/ : textes d'interface de « Lire le monde » et du tableau des"
-    " révisions, rédigés pour l'app (à relire)"
+    "data/sources/ecrans/ : textes d'interface de « Lire le monde », du tableau des"
+    " révisions, de « Mon personnage » et de « La route devant », rédigés pour l'app (à relire)"
 )
 
 

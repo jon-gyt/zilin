@@ -15,9 +15,14 @@
  *   se passent dans l'ordre, et un examen ouvert le reste jusqu'à sa réussite ;
  * - tant qu'un examen est ouvert, à passer ou manqué, aucune brique nouvelle n'entre
  *   (`briquesEnPause`) ; il se passe hors session, la journée faite, jamais en rattrapage ;
- * - reçu à quatre réponses sur cinq justes du premier essai (douze sur quinze, huit sur
- *   dix) ; une bonne réponse note ses caractères par `grade` (Bien : l'examen ne chronomètre
- *   pas) et donne un point 读, une erreur les note faux ;
+ * - reçu à quatre réponses sur cinq justes du premier essai (huit sur dix à un examen à
+ *   titre, quatre sur cinq à un 月课 : « 10 et 5 », 29 septembre 2026) ; une bonne réponse
+ *   note ses caractères par `grade` (Bien : l'examen ne chronomètre pas) et donne un point
+ *   读, une erreur les note faux ;
+ * - une seconde chance par question (maquette validée le 29 septembre 2026) : rattrapée,
+ *   la réponse donne son point 读 mais ne compte pas pour le premier coup, et ne note rien
+ *   de plus ; au vrai ou faux, la réponse se montre, sans second essai ;
+ * - « Quitter » reprend à la même question, ses essais compris ;
  * - la reprise est permise quand chaque caractère manqué a été revu juste à son échéance,
  *   et prend l'autre série ;
  * - un titre d'examen ne s'accorde qu'examen réussi et points atteints ; les quatre derniers
@@ -109,12 +114,16 @@ export type SerieExamen = { supports: Support[]; questions: QuestionExamen[]; gl
 export type LettreSerie = 'A' | 'B';
 export const SERIES: readonly LettreSerie[] = ['A', 'B'];
 
-/** Un examen sur un chemin : le jour du palier, le tronçon, les séries relues. */
+/**
+ * Un examen sur un chemin : le jour du palier, le tronçon, les séries relues, et les noms
+ * inventés du 放榜 (examen à titre seulement), écrits avec l'acquis du palier.
+ */
 export type ExamenDuChemin = {
   examen: string;
   jour: number;
   troncon: string[];
   series: Partial<Record<LettreSerie, SerieExamen>>;
+  noms: string[];
 };
 
 /** Les deux chemins qui ont leurs séries. « Voyager » suit « Lire », comme partout. */
@@ -133,7 +142,10 @@ export type ExamensDonnees = {
 };
 
 /** La règle du brief, quand l'export ne la dit pas : quatre sur cinq. */
-export const REGLE_DEFAUT = { justes: 4, sur: 5 } as const;
+/** La règle de réussite : `justes` sur `sur` du premier essai. */
+export type Regle = { readonly justes: number; readonly sur: number };
+
+export const REGLE_DEFAUT: Regle = { justes: 4, sur: 5 };
 
 function texte(v: unknown): string {
   return typeof v === 'string' ? v : '';
@@ -312,7 +324,7 @@ export function lireExamensDonnees(brut: unknown): ExamensDonnees {
         const lue = lireSerie(s[lettre]);
         if (lue !== null) series[lettre] = lue;
       }
-      parcours[chemin].push({ examen: texte(x.examen), jour, troncon: chaines(x.troncon), series });
+      parcours[chemin].push({ examen: texte(x.examen), jour, troncon: chaines(x.troncon), series, noms: chaines(x.noms) });
     }
   }
   const racines: Record<string, string> = {};
@@ -379,10 +391,19 @@ export type Tentative = {
   serie: LettreSerie;
   /** Les tentatives déjà manquées de cet examen avant celle-ci : la série en découle. */
   numero: number;
-  /** La question en cours : « Quitter » reprend à celle-ci. */
+  /**
+   * Les questions posées, par leur rang dans la série, figées au départ : celles dont chaque
+   * caractère a une carte (`questionsPosables`). Vide : toute la série.
+   */
+  poses: number[];
+  /** La question en cours, rang dans `poses` : « Quitter » reprend à celle-ci. */
   i: number;
+  /** Les réponses déjà touchées à la question en cours : la reprise les remontre. */
+  essais: (number | boolean)[];
   /** Juste du premier essai, question par question, dans l'ordre posé. */
   reponses: boolean[];
+  /** Les questions rattrapées au second essai : chacune a donné son point 读. */
+  rattrapees: number;
   /** Les caractères manqués, sans doublon, dans l'ordre. */
   manques: string[];
   /** L'instant de l'échec, en ISO ; `null` tant que la tentative est en cours. */
@@ -417,15 +438,25 @@ function lireTentative(v: unknown): Tentative | null {
   if (o.chemin !== 'lire' && o.chemin !== 'hsk') return null;
   if (o.serie !== 'A' && o.serie !== 'B') return null;
   const reponses = Array.isArray(o.reponses) ? o.reponses.map((x) => x === true) : [];
-  const i = entier(o.i) ?? reponses.length;
+  /* La question en cours : répondue et pas encore quittée (la dernière notée), ou la suivante. */
+  const lu = entier(o.i);
+  const i = lu === reponses.length - 1 || lu === reponses.length ? lu : reponses.length;
+  const essais =
+    i < reponses.length && Array.isArray(o.essais)
+      ? o.essais.filter((x): x is number | boolean => typeof x === 'boolean' || entier(x) !== null)
+      : [];
+  const poses = Array.isArray(o.poses) ? o.poses.map(entier).filter((x): x is number => x !== null) : [];
   const echec = typeof o.echec === 'string' && !Number.isNaN(Date.parse(o.echec)) ? o.echec : null;
   return {
     examen: texte(o.examen),
     chemin: o.chemin,
     serie: o.serie,
     numero: entier(o.numero) ?? 0,
-    i: Math.max(i, reponses.length),
+    poses: [...new Set(poses)],
+    i,
+    essais,
     reponses,
+    rattrapees: Math.min(entier(o.rattrapees) ?? 0, reponses.filter((x) => !x).length),
     manques: [...new Set(chaines(o.manques))],
     echec
   };
@@ -468,6 +499,28 @@ export function lusPourExamens(
   return caracteresLus(familles, cartes, seuil);
 }
 
+/** Un examen sur un chemin : son jour, son tronçon, ses séries, ses noms. `null` au-delà. */
+export function examenDuChemin(d: ExamensDonnees, chemin: CheminExamen, id: string): ExamenDuChemin | null {
+  return d.parcours[chemin].find((x) => x.examen === id) ?? null;
+}
+
+/**
+ * Les examens qu'on peut passer sur ce chemin, dans l'ordre : ceux dont les deux séries sont
+ * écrites et relues, jusqu'au premier qui ne l'est pas encore (exclu). Un examen sans ses
+ * séries ne s'ouvre pas : il ne mettrait pas les briques en pause sans rien à lire. Il
+ * s'ouvrira avec l'export qui les porte, avant ceux qui le suivent, puisqu'ils se passent
+ * dans l'ordre.
+ */
+export function examensPassables(d: ExamensDonnees, chemin: CheminExamen): Examen[] {
+  const out: Examen[] = [];
+  for (const e of d.examens) {
+    const x = examenDuChemin(d, chemin, e.id);
+    if (x === null || SERIES.some((s) => x.series[s] === undefined)) break;
+    out.push(e);
+  }
+  return out;
+}
+
 /** Le premier examen de la liste pas encore réussi : ils se passent dans l'ordre. */
 export function examenSuivant(liste: readonly Examen[], etat: EtatExamens): Examen | null {
   return liste.find((e) => etat.reussis[e.id] === undefined) ?? null;
@@ -492,7 +545,7 @@ export function ouvrirExamen(liste: readonly Examen[], etat: EtatExamens, lus: n
 
 /**
  * Aucune brique nouvelle tant qu'un examen attend d'être réussi, à passer ou manqué (brief
- * §6, « Journée sans brique nouvelle »). La session l'appellera ; rien ne l'y branche encore.
+ * §6, « Journée sans brique nouvelle »). La session s'y branche par `session.pauseDesBriques`.
  */
 export function briquesEnPause(liste: readonly Examen[], etat: EtatExamens, lus: number): boolean {
   return examenOuvert(liste, etat, lus) !== null;
@@ -570,9 +623,15 @@ export function serieDeTentative(numero: number): LettreSerie {
 
 /**
  * Commence l'examen ouvert, ou reprend la tentative en cours à la même question. Après un
- * échec, la nouvelle tentative prend l'autre série.
+ * échec, la nouvelle tentative prend l'autre série. `poses` : les rangs des questions qu'on
+ * posera (`questionsPosables`), figés pour toute la tentative ; vide, toute la série.
  */
-export function commencer(etat: EtatExamens, examen: Examen, chemin: CheminExamen): EtatExamens {
+export function commencer(
+  etat: EtatExamens,
+  examen: Examen,
+  chemin: CheminExamen,
+  poses: readonly number[] = []
+): EtatExamens {
   const t = etat.tentative;
   if (t !== null && t.examen === examen.id && t.echec === null) return etat;
   const numero = t !== null && t.examen === examen.id ? t.numero + 1 : 0;
@@ -584,12 +643,34 @@ export function commencer(etat: EtatExamens, examen: Examen, chemin: CheminExame
       chemin,
       serie: serieDeTentative(numero),
       numero,
+      poses: [...poses],
       i: 0,
+      essais: [],
       reponses: [],
+      rattrapees: 0,
       manques: [],
       echec: null
     }
   };
+}
+
+/** La série de la tentative, telle que l'export la porte ; `null` si elle manque. */
+export function serieDe(d: ExamensDonnees, t: Tentative): SerieExamen | null {
+  return examenDuChemin(d, t.chemin, t.examen)?.series[t.serie] ?? null;
+}
+
+/** Les questions de la tentative, dans l'ordre où on les pose. */
+export function questionsDe(serie: SerieExamen, t: Tentative): QuestionExamen[] {
+  if (t.poses.length === 0) return serie.questions;
+  return t.poses.map((k) => serie.questions[k]).filter((q): q is QuestionExamen => q !== undefined);
+}
+
+/**
+ * Les rangs des questions posables d'une série, pour `commencer` : celles dont chaque
+ * caractère a une carte, comme un dialogue WeChat.
+ */
+export function rangsPosables(serie: SerieExamen, avecCarte: ReadonlySet<string>): number[] {
+  return serie.questions.flatMap((q, k) => (q.caracteres.every((c) => avecCarte.has(c)) ? [k] : []));
 }
 
 /** La réponse est-elle juste ? Le rang du choix, ou vrai ou faux. */
@@ -598,16 +679,66 @@ export function corriger(q: QuestionExamen, donnee: number | boolean): boolean {
 }
 
 /**
- * Note la réponse à la question `i`, juste ou non du premier essai. Une question déjà
- * notée ne se note pas deux fois (quitter entre la réponse et la suivante), et rien ne se
- * note hors d'une tentative en cours. Une erreur ajoute les caractères qui portent la
- * réponse aux manqués.
+ * La question en cours est-elle close ? La bonne réponse touchée, au premier essai ou au
+ * second ; au vrai ou faux, dès la première réponse : il n'y a que deux choix, et le second
+ * ne ferait rien lire de plus.
  */
-export function repondre(etat: EtatExamens, i: number, juste: boolean, porte: readonly string[]): EtatExamens {
+export function questionFinie(q: QuestionExamen, essais: readonly (number | boolean)[]): boolean {
+  if (essais.length === 0) return false;
+  return q.type === 'vrai_faux' || essais.some((x) => corriger(q, x));
+}
+
+/** Ce qu'une réponse touchée a fait : rien (déjà touchée, question close), ou un essai. */
+export type Essai = {
+  etat: EtatExamens;
+  /** L'essai compte : la réponse n'avait pas été touchée, la question n'était pas close. */
+  nouveau: boolean;
+  juste: boolean;
+  /** Le premier essai de la question : c'est lui qui compte, et qui note en révision. */
+  premier: boolean;
+  /** Juste au second essai (ou plus) : le point 读, sans le premier coup. */
+  rattrapee: boolean;
+};
+
+/**
+ * Touche une réponse à la question `i` (`q`), une seconde chance comprise. Le premier essai
+ * est noté, juste ou non ; une erreur ajoute les caractères qui portent la réponse aux
+ * manqués. Après une erreur, une autre réponse peut encore être touchée : juste, elle est
+ * rattrapée. Rien ne se note deux fois (la même réponse, une question close, quitter et
+ * revenir), ni hors de la tentative en cours.
+ */
+export function essayer(etat: EtatExamens, i: number, q: QuestionExamen, donnee: number | boolean): Essai {
+  const rien: Essai = { etat, nouveau: false, juste: false, premier: false, rattrapee: false };
   const t = etat.tentative;
-  if (t === null || t.echec !== null || i !== t.reponses.length) return etat;
-  const manques = juste ? t.manques : [...new Set([...t.manques, ...porte])];
-  return { ...etat, tentative: { ...t, i: i + 1, reponses: [...t.reponses, juste], manques } };
+  if (t === null || t.echec !== null || i !== t.i) return rien;
+  if (questionFinie(q, t.essais) || t.essais.includes(donnee)) return rien;
+  const juste = corriger(q, donnee);
+  const premier = t.reponses.length === i;
+  const rattrapee = !premier && juste;
+  const manques = premier && !juste ? [...new Set([...t.manques, ...q.porte])] : t.manques;
+  return {
+    etat: {
+      ...etat,
+      tentative: {
+        ...t,
+        essais: [...t.essais, donnee],
+        reponses: premier ? [...t.reponses, juste] : t.reponses,
+        rattrapees: t.rattrapees + (rattrapee ? 1 : 0),
+        manques
+      }
+    },
+    nouveau: true,
+    juste,
+    premier,
+    rattrapee
+  };
+}
+
+/** Passe à la question suivante, une fois la question `i` répondue au moins une fois. */
+export function avancer(etat: EtatExamens, i: number): EtatExamens {
+  const t = etat.tentative;
+  if (t === null || t.echec !== null || i !== t.i || t.reponses.length <= i) return etat;
+  return { ...etat, tentative: { ...t, i: i + 1, essais: [] } };
 }
 
 /** Ce que la révision reçoit d'une réponse d'examen : juste, Bien (sans chronomètre) ; faux, Oublié. */
@@ -616,17 +747,20 @@ export function issue(juste: boolean): Outcome {
 }
 
 /** Les réponses justes qu'il faut : quatre sur cinq, arrondi au-dessus. */
-export function reussite(questions: number, regle: { justes: number; sur: number } = REGLE_DEFAUT): number {
+export function reussite(questions: number, regle: Regle = REGLE_DEFAUT): number {
   return Math.ceil((questions * regle.justes) / regle.sur);
 }
 
-export type Bilan = { justes: number; questions: number; reussite: number; recu: boolean };
+/**
+ * Le constat : les justes du premier essai sur les questions posées, et les rattrapées, qui
+ * donnent leur point 读 sans compter pour la réussite.
+ */
+export type Bilan = { justes: number; questions: number; reussite: number; recu: boolean; rattrapees: number };
 
-/** Le constat : les justes du premier essai sur les questions posées. */
-export function bilan(reponses: readonly boolean[], questions: number, regle = REGLE_DEFAUT): Bilan {
+export function bilan(reponses: readonly boolean[], questions: number, regle: Regle = REGLE_DEFAUT, rattrapees = 0): Bilan {
   const justes = reponses.filter(Boolean).length;
   const seuil = reussite(questions, regle);
-  return { justes, questions, reussite: seuil, recu: questions > 0 && justes >= seuil };
+  return { justes, questions, reussite: seuil, recu: questions > 0 && justes >= seuil, rattrapees };
 }
 
 /**
@@ -639,11 +773,11 @@ export function terminer(
   questions: number,
   maintenant: Date,
   jour: string,
-  regle = REGLE_DEFAUT
+  regle: Regle = REGLE_DEFAUT
 ): { etat: EtatExamens; bilan: Bilan } {
   const t = etat.tentative;
   if (t === null || t.echec !== null) return { etat, bilan: bilan([], 0, regle) };
-  const b = bilan(t.reponses, questions, regle);
+  const b = bilan(t.reponses, questions, regle, t.rattrapees);
   if (b.recu) {
     return {
       etat: { ...etat, reussis: { ...etat.reussis, [t.examen]: jour }, ouvert: null, tentative: null },
@@ -659,6 +793,97 @@ export function terminer(
  */
 export function questionsPosables(serie: SerieExamen, avecCarte: ReadonlySet<string>): QuestionExamen[] {
   return serie.questions.filter((q) => q.caracteres.every((c) => avecCarte.has(c)));
+}
+
+/* ---------- ce que l'écran montre (8.3) ---------- */
+
+/**
+ * Un caractère manqué, et où on l'a croisé : le support de la première question manquée qui
+ * le porte (son contexte, « Une enseigne dans une vieille rue »), ou `null` pour la revue de
+ * l'acquis.
+ */
+export type Manque = { c: string; support: Support | null };
+
+export function manquesDetailles(serie: SerieExamen, t: Tentative): Manque[] {
+  const qs = questionsDe(serie, t);
+  const out: Manque[] = [];
+  t.reponses.forEach((juste, k) => {
+    const q = qs[k];
+    if (juste || q === undefined) return;
+    const support = q.support === undefined ? null : (serie.supports.find((s) => s.id === q.support) ?? null);
+    for (const c of q.porte) if (!out.some((m) => m.c === c)) out.push({ c, support });
+  });
+  return out;
+}
+
+/** Le prochain examen à titre après `id` : la borne que le résultat et le 放榜 annoncent. */
+export function prochainATitre(liste: readonly Examen[], id: string): Examen | null {
+  const i = liste.findIndex((e) => e.id === id);
+  return i < 0 ? null : (liste.slice(i + 1).find((e) => e.sorte === 'titre') ?? null);
+}
+
+/**
+ * L'examen à titre qui donne le titre avec celui-ci : le 县试 n'en donne pas, le 府试 qui le
+ * suit donne 童生 « avec le 县试 ». `null` si l'examen donne lui-même son titre, ou un 月课.
+ */
+export function titreAvec(liste: readonly Examen[], e: Examen): Examen | null {
+  if (e.sorte !== 'titre' || e.titre !== null) return null;
+  const suivant = prochainATitre(liste, e.id);
+  return suivant !== null && suivant.titre !== null ? suivant : null;
+}
+
+/** Les genres des supports d'une série, dans l'ordre, sans doublon : « une enseigne, un billet ». */
+export function genresDe(serie: SerieExamen): GenreSupport[] {
+  return [...new Set(serie.supports.map((s) => s.genre))];
+}
+
+/**
+ * Découpe une ligne de l'écran en morceaux : `**…**` en gras, par paires, comme le pipeline
+ * le contrôle. Le reste tel quel.
+ */
+export function morceaux(texte: string): { t: string; gras: boolean }[] {
+  return texte
+    .split('**')
+    .map((t, k) => ({ t, gras: k % 2 === 1 }))
+    .filter((m) => m.t !== '');
+}
+
+/**
+ * Une ligne d'un support découpée pour le repérage : les mots proposés (`mots`, le plus long
+ * d'abord là où deux commencent au même endroit) deviennent des morceaux à toucher, avec
+ * leur rang ; le reste, caractère par caractère, `mot` à -1.
+ */
+export function decouperLigne(zh: string, mots: readonly string[]): { t: string; mot: number }[] {
+  const out: { t: string; mot: number }[] = [];
+  const ordre = mots.map((m, k) => ({ m, k })).sort((a, b) => b.m.length - a.m.length);
+  let i = 0;
+  while (i < zh.length) {
+    const trouve = ordre.find(({ m }) => m !== '' && zh.startsWith(m, i));
+    if (trouve) {
+      out.push({ t: trouve.m, mot: trouve.k });
+      i += trouve.m.length;
+    } else {
+      out.push({ t: zh[i], mot: -1 });
+      i += 1;
+    }
+  }
+  return out;
+}
+
+/** Les chiffres chinois d'un nombre de 1 à 99 : 十二, 二十九. */
+function chiffres(n: number): string {
+  const C = '〇一二三四五六七八九';
+  if (n < 10) return C[n];
+  const d = Math.floor(n / 10);
+  const u = n % 10;
+  return `${d === 1 ? '' : C[d]}十${u === 0 ? '' : C[u]}`;
+}
+
+/** La date du 放榜, en chiffres chinois, depuis la journée (AAAA-MM-JJ) : 九月二十九日. */
+export function dateDuBang(jour: string): string {
+  const [, m, j] = jour.split('-').map(Number);
+  if (!m || !j) return '';
+  return `${chiffres(m)}月${chiffres(j)}日`;
 }
 
 /* ---------- les rangs : points ET examen ---------- */

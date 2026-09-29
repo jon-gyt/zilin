@@ -22,6 +22,12 @@
    * porte « prochaine brique dans N j », en jours du calendrier (`droits.prochaineBrique`),
    * et la carte de l'étape suivante « Prochaine brique dans 3 jours ». Au bout, « fin du
    * chemin gratuit » et la suite en une ligne. Les lignes viennent de `rythme.json`.
+   *
+   * Les examens (story 8.6) : l'examen suivant, à titre ou 月课, est toujours l'une des deux
+   * bornes, son nom dessiné depuis ses traits sur la stèle ; une seule stèle quand il tombe
+   * sur un seuil du trophée Lire. L'examen à passer se dresse sur la route, devant la pierre
+   * du jour, « examen ouvert », à l'indigo de l'action ; les pierres et les bornes suivantes
+   * n'ont plus de compte. Les lignes viennent de `ecrans.json` (`route`).
    */
   import Glyph from './Glyph.svelte';
   import Motif from './Motif.svelte';
@@ -38,6 +44,8 @@
     type FicheLue
   } from './content';
   import { joursDuChemin, lireMotif, ouvertures } from './etageres';
+  import { ecransOnce, remplir, SANS_ECRANS, type TextesRoute } from './ecrans';
+  import { examenOuvert, examensOnce, SANS_EXAMENS, type ExamensDonnees } from './examens';
   import { caracteresLus } from './foret';
   import { glyph, type StrokeData } from './glyph';
   import { bibliotheque, caracteresAcquis } from './lecture';
@@ -58,6 +66,7 @@
     type Borne,
     type ConteAVenir,
     type Etape,
+    type ExamenAVenir,
     type Pierre
   } from './route';
   import { journeeDuJour, jourParcours, type Progress } from './session';
@@ -70,7 +79,8 @@
     p,
     acces = ACCES_WEB,
     textes = SANS_RYTHME,
-    onretour
+    onretour,
+    onexamen
   }: {
     p: Progress;
     /** Le web ou l'app, et l'achat : ce qui fixe le jour de la prochaine brique. */
@@ -78,6 +88,8 @@
     /** Les lignes du rythme gratuit (`rythme.json`). */
     textes?: TextesRythme;
     onretour: () => void;
+    /** Passer l'examen ouvert depuis sa stèle ; absent, la stèle ne fait que se montrer. */
+    onexamen?: () => void;
   } = $props();
 
   /* ---------- le contenu ---------- */
@@ -88,6 +100,9 @@
   let hsk1 = $state.raw<string[]>([]);
   let familles = $state.raw<Famille[]>([]);
   let contes = $state.raw<ConteAVenir[]>([]);
+  /** Les examens de l'export (`examens.json`) et les lignes de la route (`ecrans.json`). */
+  let examens = $state.raw<ExamensDonnees>(SANS_EXAMENS);
+  let tr = $state.raw<TextesRoute>(SANS_ECRANS.route);
   let charge = $state(false);
 
   const acquis = $derived(caracteresAcquis(p.cartes));
@@ -99,12 +114,16 @@
     const relecture = p.relecture;
     let vivant = true;
     void (async () => {
-      const [i, fams, cx] = await Promise.all([
+      const [i, fams, cx, ex, ec] = await Promise.all([
         contenu(),
         toutesLesFamilles().catch(() => [] as Famille[]),
-        contesExport().catch(() => null)
+        contesExport().catch(() => null),
+        examensOnce().catch(() => SANS_EXAMENS),
+        ecransOnce().catch(() => SANS_ECRANS)
       ]);
       if (!vivant) return;
+      examens = ex;
+      tr = ec.route;
       const nom = nomParcours(i, choisi);
       const jours = i.parcours[nom]?.jours ?? [];
       const es = etapesDuChemin(jours);
@@ -145,14 +164,41 @@
     ligneLus(lus, hsk1.length === 0 ? null : { lus: hsk1.filter((c) => acquis.has(c)).length, total: hsk1.length })
   );
   const seuils = $derived(tropheesLire(lus, p.tropheesAcquis).map((t) => ({ n: t.cible, obtenu: t.obtenu })));
-  const bornes = $derived(bornesDevant(etapes, r, seuils, contes));
+
+  /* ---------- les examens ---------- */
+
+  const nombre = (n: number): string => n.toLocaleString('fr-FR');
+  /** Les examens pas encore réussis, dans l'ordre : le premier est le prochain à passer. */
+  const aVenir = $derived<ExamenAVenir[]>(
+    examens.examens
+      .filter((e) => p.examens.reussis[e.id] === undefined)
+      .map((e) => ({
+        id: e.id,
+        hz: e.hz,
+        palier: e.palier,
+        titre: remplir(tr.examen, { examen: e.hz, n: nombre(e.palier) }),
+        ligne: e.fr
+      }))
+  );
+  /** L'examen à passer, dressé sur la route : il ne se compte plus. */
+  const ouvert = $derived.by(() => {
+    const e = examenOuvert(examens.examens, p.examens, lus);
+    return e === null ? null : (aVenir.find((x) => x.id === e.id) ?? null);
+  });
+  /** Tant qu'il n'est pas réussi, ce qui vient après la pierre du jour n'a pas de compte. */
+  const apres = $derived(ouvert === null ? null : tr.apres);
+  const bornes = $derived(
+    bornesDevant(etapes, r, seuils, contes, ouvert === null ? aVenir : aVenir.filter((e) => e.id !== ouvert.id))
+  );
   const loin = $derived(prochainesBornes(bornes));
 
   /* ---------- le rythme gratuit ---------- */
 
   const gratuit = $derived(journeeDuJour(p)?.rythme === 'gratuit');
   /** La pierre suivante et son compte en jours du calendrier, au rythme gratuit seulement. */
-  const suivante = $derived(pierreSuivante(r, prochaineBrique(p.droits, acces, p.day, jourParcours(p)), gratuit));
+  const suivante = $derived(
+    pierreSuivante(r, prochaineBrique(p.droits, acces, p.day, jourParcours(p)), gratuit && ouvert === null)
+  );
   /** Au bout : « fin du chemin gratuit » sans Wenlu complet, « fin du parcours » avec. */
   const finDuChemin = $derived(boutDuChemin(r, wenluComplet(p.droits, acces, p.day)));
 
@@ -166,12 +212,17 @@
   let traits = $state.raw<Record<string, StrokeData | null>>({});
 
   $effect(() => {
-    const voulus = [...r.pierres.map((x) => ({ c: x.brique, jour: x.jour })), { c: '读', jour: 0 }];
     const pistes = pistesDe;
+    const racines = examens.racines;
+    /* les noms des examens des stèles, avec la famille de chacun de leurs caractères */
+    const noms = [...(ouvert ? [ouvert.hz] : []), ...loin.map((b) => (b.genre === 'examen' ? b.hz : ''))].join('');
+    const voulus = [
+      ...r.pierres.map((x) => ({ c: x.brique, pistes: pistes.get(x.jour) ?? [] })),
+      { c: '读', pistes: [] as string[] },
+      ...[...new Set(noms)].map((c) => ({ c, pistes: racines[c] ? [racines[c]] : [] }))
+    ];
     let vivant = true;
-    void Promise.all(
-      voulus.map((v) => traitsDe(v.c, pistes.get(v.jour) ?? []).catch(() => null))
-    ).then((ds) => {
+    void Promise.all(voulus.map((v) => traitsDe(v.c, v.pistes).catch(() => null))).then((ds) => {
       if (!vivant) return;
       const n: Record<string, StrokeData | null> = {};
       voulus.forEach((v, k) => (n[v.c] = ds[k]));
@@ -208,7 +259,9 @@
   const carte = $derived(detail !== null && detail.jour === sel ? detail : null);
   const brique = $derived(carte?.fiches[0] ?? null);
   const ouvre = $derived(carte?.fiches.slice(1) ?? []);
-  const laBorne = $derived(pierre ? ligneBorne(pierre.ecart, bornes, sur) : null);
+  const laBorne = $derived(
+    pierre ? ligneBorne(pierre.ecart, bornes, sur, ouvert ? { titre: ouvert.titre, ligne: tr.ouvert } : null) : null
+  );
 
   /* ---------- la scène ---------- */
 
@@ -267,6 +320,15 @@
     [262, 218, 0.5]
   ];
 
+  /**
+   * Une ligne sous une stèle reste dans la scène : « 月课 · 1 555 caractères » est plus
+   * large que la place de la stèle de droite. Une largeur estimée, à 6,4 unités le signe.
+   */
+  function dansLaScene(x: number, t: string): number {
+    const demi = ([...t].length * 6.4) / 2 + 4;
+    return Math.max(demi, Math.min(W - demi, x));
+  }
+
   /** Les stèles des bornes, à gauche puis à droite de la route, dans la brume. */
   const STELES = [
     { x: 62, y: 70 },
@@ -292,10 +354,29 @@
     choisir(x);
   }
 
-  /** Quand, pour une pierre : la pierre suivante au rythme gratuit dit sa brique en jours du calendrier. */
+  /**
+   * Quand, pour une pierre : la pierre suivante au rythme gratuit dit sa brique en jours du
+   * calendrier ; un examen à passer arrête le compte.
+   */
   function quandDe(x: Pierre): string {
-    return suivante !== null && x.jour === suivante.jour ? quandCarte(textes, suivante.dans) : quand(x.ecart, sur);
+    return suivante !== null && x.jour === suivante.jour ? quandCarte(textes, suivante.dans) : quand(x.ecart, sur, apres);
   }
+
+  /** Sous une stèle : le compte en jours du chemin, sinon les caractères lus du prochain examen. */
+  function sousStele(b: Borne): string {
+    if (b.genre === 'examen' && b.passe) return remplir(tr.lus, { lus: nombre(lus), n: nombre(b.palier) });
+    return dansCourt(b.ecart, sur, apres);
+  }
+
+  /**
+   * La stèle de l'examen à passer : sur la route, juste devant la pierre du jour, vers la
+   * suivante ; Tao se tient de l'autre côté de sa pierre.
+   */
+  const devant = $derived.by(() => {
+    const a = PLACES_XY[ICI];
+    const b = PLACES_XY[ICI + 1];
+    return { x: a.x + (b.x - a.x) * 0.45, y: a.y + (b.y - a.y) * 0.45 };
+  });
 
   function nomPierre(x: Pierre): string {
     return `Jour ${x.jour}, ${x.brique}, ${quandDe(x)}`;
@@ -344,9 +425,17 @@
       <!-- au loin, les deux prochaines bornes sur leurs stèles, rien au-delà -->
       {#each loin as b, k (`${b.genre}-${b.jour}-${b.titre}`)}
         {@const s = STELES[k]}
-        <g class="stele" class:seconde={k === 1}>
+        <g class="stele" class:seconde={k === 1} role="img" aria-label="{b.titre}, {sousStele(b)}">
           <rect class="pierre-stele" x={s.x - 18} y={s.y - 2} width="36" height="46" rx="4" />
-          {#if b.genre === 'lire'}
+          {#if b.genre === 'examen'}
+            <!-- le nom de l'examen, gravé de haut en bas, depuis ses traits -->
+            {#each [...b.hz] as c, j (c + j)}
+              <g transform="translate({s.x - 9} {s.y + 1 + j * 18})">
+                <!-- eslint-disable-next-line svelte/no-at-html-tags -->
+                {@html dessin(c, 18, 'var(--indigo)')}
+              </g>
+            {/each}
+          {:else if b.genre === 'lire'}
             <g transform="translate({s.x - 13} {s.y + 7})">
               <!-- eslint-disable-next-line svelte/no-at-html-tags -->
               {@html dessin('读', 26, 'var(--indigo)')}
@@ -356,8 +445,8 @@
           {/if}
           <!-- la stèle posée dans la brume : une bande de papier couvre son pied -->
           <rect class="brume" x={s.x - 38} y={s.y + 38} width="76" height="11" rx="5.5" />
-          <text class="titre-stele" x={s.x} y={s.y + 60} text-anchor="middle">{b.titre}</text>
-          <text class="dans" x={s.x} y={s.y + 74} text-anchor="middle">{dansCourt(b.ecart, sur)}</text>
+          <text class="titre-stele" x={dansLaScene(s.x, b.titre)} y={s.y + 60} text-anchor="middle">{b.titre}</text>
+          <text class="dans" x={dansLaScene(s.x, sousStele(b))} y={s.y + 74} text-anchor="middle">{sousStele(b)}</text>
         </g>
       {/each}
       {#if auBout}
@@ -406,10 +495,46 @@
         {/if}
       {/if}
 
+      <!-- l'examen à passer : sa stèle se dresse sur la route, devant la pierre du jour -->
+      {#if ouvert && ici}
+        {#snippet steleOuverte(hz: string)}
+          <rect class="pierre-stele" x={devant.x - 15} y={devant.y - 30} width="30" height="40" rx="4" />
+          {#each [...hz] as c, j (c + j)}
+            <g transform="translate({devant.x - 8} {devant.y - 27 + j * 17})">
+              <!-- eslint-disable-next-line svelte/no-at-html-tags -->
+              {@html dessin(c, 16, 'var(--indigo)')}
+            </g>
+          {/each}
+          <!-- au-dessus, vers la pierre du jour : ni la pierre suivante ni son anneau ne sont là -->
+          <text class="dans ouvert" x={devant.x - 6} y={devant.y - 36} text-anchor="start">{tr.ouvert}</text>
+        {/snippet}
+        {#if onexamen}
+          <g
+            class="stele ouverte action"
+            role="button"
+            tabindex="0"
+            aria-label="{ouvert.titre}, {tr.ouvert}"
+            onclick={() => onexamen()}
+            onkeydown={(e) => {
+              if (e.key !== 'Enter' && e.key !== ' ') return;
+              e.preventDefault();
+              onexamen();
+            }}
+          >
+            {@render steleOuverte(ouvert.hz)}
+          </g>
+        {:else}
+          <g class="stele ouverte" role="img" aria-label="{ouvert.titre}, {tr.ouvert}">
+            {@render steleOuverte(ouvert.hz)}
+          </g>
+        {/if}
+      {/if}
+
       <!-- Tao, sur la pierre du jour, et le sceau de la position -->
       {#if ici}
         {@const q = placeDe(ici)}
-        {@const gauche = q.x > W / 2}
+        <!-- vers la pierre suivante ; de l'autre côté quand la stèle de l'examen s'y dresse -->
+        {@const gauche = ouvert ? q.x <= W / 2 : q.x > W / 2}
         <g class="tao" transform="translate({gauche ? q.x - q.r - 50 : q.x + q.r - 4} {q.y - 44})">
           <Tao stade={taoStade} posture="chemin" humeur="calme" size={56} />
         </g>
@@ -570,6 +695,25 @@
   }
   .stele .motif {
     color: var(--indigo);
+  }
+  /* l'examen à passer : la stèle dressée sur la route, au trait plein d'indigo, l'action */
+  .stele.ouverte .pierre-stele {
+    stroke-dasharray: none;
+    stroke-width: 1.8;
+  }
+  .stele.action {
+    cursor: pointer;
+    outline: none;
+  }
+  .stele.action:focus-visible .pierre-stele {
+    stroke-width: 2.6;
+  }
+  .dans.ouvert {
+    font-weight: 600;
+    fill: var(--indigo);
+    stroke: var(--card);
+    stroke-width: 3px;
+    paint-order: stroke;
   }
   .titre-stele {
     font: 600 11.5px var(--sans);

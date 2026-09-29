@@ -790,9 +790,11 @@ def caracteres_examens() -> list[str]:
     """Les caractères des noms d'examen (`data/sources/examens/examens.tsv`).
 
     L'app les dessine depuis leurs traits, sur la stèle de la route et à l'examen : ils
-    entrent dans le périmètre avec leurs briques, comme les titres des rangs.
+    entrent dans le périmètre avec leurs briques, comme les titres des rangs. Les écritures
+    des scènes de l'examen (les plaques, l'en-tête du 放榜) aussi.
     """
-    return examens_mod.caracteres_dessines(examens_mod.charger_liste()[0])
+    noms = examens_mod.caracteres_dessines(examens_mod.charger_liste()[0])
+    return sorted({*noms, *examens_mod.caracteres_des_scenes(examens_mod.charger_textes()[0])})
 
 
 def caracteres_heros() -> list[str]:
@@ -1099,7 +1101,7 @@ def document_rappels(version: str) -> dict[str, object]:
 
 
 def document_ecrans(version: str) -> dict[str, object]:
-    """Le JSON écrit dans `ecrans.json`, voir `ecrans.py` : les textes de « Lire le monde » et des révisions."""
+    """Le JSON écrit dans `ecrans.json`, voir `ecrans.py` : les textes de quatre écrans de l'app."""
     return ecrans_mod.document(
         en_tete={
             "version": version,

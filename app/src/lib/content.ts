@@ -969,6 +969,18 @@ export function briquesAcquises(i: Index, nom: string, avant: number): { c: stri
     .map((j) => ({ c: j.brique as string, jour: j.jour }));
 }
 
+/**
+ * Le jour du chemin qui pose chaque caractère, brique ou composé, avant le jour `avant` :
+ * pour qu'Apprendre revienne sur la leçon d'un caractère manqué à l'examen (story 8.4).
+ */
+export function leconsPosees(i: Index, nom: string, avant: number): { c: string; jour: number }[] {
+  const p = i.parcours[nom];
+  if (!p) return [];
+  return p.jours
+    .filter((j) => j.jour < avant && !j.non_reconcilie)
+    .flatMap((j) => [...(j.brique === null ? [] : [j.brique]), ...j.composes].map((c) => ({ c, jour: j.jour })));
+}
+
 /* ---------- les paires à ne pas confondre de l'export ---------- */
 
 /** Le fichier des paires de la version courante, tel que l'index le nomme. */

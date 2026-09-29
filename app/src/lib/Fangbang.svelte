@@ -1,9 +1,9 @@
 <script lang="ts">
   /**
-   * 放榜, « on affiche la liste » (brief §8) : un rang du personnage vient d'être franchi.
+   * 放榜, « on affiche la liste » (brief §8) : un titre du personnage vient d’être accordé.
    * Comme la maquette : le tableau des résultats, le titre dessiné depuis ses traits, son
    * pinyin, la ligne de Tao, un bouton. Il passe au retour au menu, avant lui, jamais au
-   * milieu d'un pas, une fois par rang (`rangAAnnoncer`).
+   * milieu d’un pas, une fois par rang (`heros.titreAccorde`).
    *
    * Le tableau est un aplat abricot pâle cerné d'encre : ni doré, ni ombre, ni cinabre.
    */

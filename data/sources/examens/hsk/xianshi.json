@@ -10,7 +10,8 @@
   "statut": "relu",
   "par": "le propriétaire",
   "decision": "« Considère que les relectures c'est bon » : approbation permanente des relectures",
-  "date": "2026-09-28"
+  "date": "2026-09-28",
+  "reduction": "le 29 septembre 2026, décision du propriétaire « 10 et 5 » : chaque série ramenée à 10 questions (examen à titre) ou 5 (月课), prises parmi les questions relues, sans texte nouveau"
  },
  "series": [
   {
@@ -270,57 +271,6 @@
      ]
     },
     {
-     "type": "vrai_faux",
-     "support": "s1",
-     "consigne": {
-      "fr": "Vrai ou faux ?",
-      "en": "True or false?"
-     },
-     "affirmation": {
-      "zh": "大米十元。",
-      "pinyin": "dà mǐ shí yuán",
-      "fr": "Le riz coûte 10 yuans.",
-      "en": "The rice costs 10 yuan."
-     },
-     "reponse": false,
-     "porte": [
-      "十",
-      "二"
-     ]
-    },
-    {
-     "type": "comprendre",
-     "support": "s2",
-     "consigne": {
-      "fr": "Qu'y a-t-il demain ?",
-      "en": "What's happening tomorrow?"
-     },
-     "choix": [
-      {
-       "fr": "L'anniversaire de maman",
-       "en": "Mum's birthday"
-      },
-      {
-       "fr": "L'anniversaire du fils",
-       "en": "The son's birthday"
-      },
-      {
-       "fr": "Un examen",
-       "en": "An exam"
-      },
-      {
-       "fr": "Le Nouvel An",
-       "en": "New Year"
-      }
-     ],
-     "reponse": 0,
-     "porte": [
-      "妈",
-      "生",
-      "日"
-     ]
-    },
-    {
      "type": "replique",
      "support": "s2",
      "consigne": {
@@ -417,27 +367,6 @@
      ]
     },
     {
-     "type": "reperer",
-     "support": "s3",
-     "consigne": {
-      "fr": "Touche le prix du billet.",
-      "en": "Tap the ticket price."
-     },
-     "choix": [
-      "八月",
-      "天山",
-      "火车",
-      "二十八元"
-     ],
-     "reponse": 3,
-     "porte": [
-      "二",
-      "十",
-      "八",
-      "元"
-     ]
-    },
-    {
      "type": "vrai_faux",
      "support": "s3",
      "consigne": {
@@ -530,64 +459,6 @@
      "porte": [
       "左",
       "右"
-     ]
-    },
-    {
-     "type": "ton",
-     "consigne": {
-      "fr": "Quel est son ton ?",
-      "en": "Which tone does it have?"
-     },
-     "objet": {
-      "zh": "米",
-      "pinyin": "mǐ",
-      "fr": "riz ; mètre",
-      "en": "rice; metre"
-     },
-     "choix": [
-      "mī",
-      "mí",
-      "mǐ",
-      "mì"
-     ],
-     "reponse": 2,
-     "porte": [
-      "米"
-     ]
-    },
-    {
-     "type": "sens",
-     "consigne": {
-      "fr": "Que veut dire ce caractère ?",
-      "en": "What does this character mean?"
-     },
-     "objet": {
-      "zh": "左",
-      "pinyin": "zuǒ",
-      "fr": "gauche",
-      "en": "left"
-     },
-     "choix": [
-      {
-       "fr": "droite",
-       "en": "right"
-      },
-      {
-       "fr": "avoir",
-       "en": "to have"
-      },
-      {
-       "fr": "gauche",
-       "en": "left"
-      },
-      {
-       "fr": "grand",
-       "en": "big"
-      }
-     ],
-     "reponse": 2,
-     "porte": [
-      "左"
      ]
     }
    ]
@@ -798,38 +669,6 @@
      ]
     },
     {
-     "type": "comprendre",
-     "support": "s1",
-     "consigne": {
-      "fr": "Que demande M. Ma ?",
-      "en": "What is Mr Ma asking?"
-     },
-     "choix": [
-      {
-       "fr": "Le prix du billet",
-       "en": "The ticket price"
-      },
-      {
-       "fr": "L'heure du train",
-       "en": "The train time"
-      },
-      {
-       "fr": "Le nom de Xiaobai",
-       "en": "Xiaobai's name"
-      },
-      {
-       "fr": "La date de demain",
-       "en": "Tomorrow's date"
-      }
-     ],
-     "reponse": 3,
-     "porte": [
-      "几",
-      "月",
-      "日"
-     ]
-    },
-    {
      "type": "replique",
      "support": "s1",
      "consigne": {
@@ -903,25 +742,6 @@
      ]
     },
     {
-     "type": "reperer",
-     "support": "s2",
-     "consigne": {
-      "fr": "Touche le tarif des écoliers.",
-      "en": "Tap the pupils' price."
-     },
-     "choix": [
-      "八元",
-      "十元",
-      "二十元",
-      "小马"
-     ],
-     "reponse": 0,
-     "porte": [
-      "八",
-      "元"
-     ]
-    },
-    {
      "type": "vrai_faux",
      "support": "s2",
      "consigne": {
@@ -962,37 +782,6 @@
      "reponse": 2,
      "porte": [
       "妈"
-     ]
-    },
-    {
-     "type": "comprendre",
-     "support": "s3",
-     "consigne": {
-      "fr": "Qui est Xiaobai ?",
-      "en": "Who is Xiaobai?"
-     },
-     "choix": [
-      {
-       "fr": "Une étudiante",
-       "en": "A university student"
-      },
-      {
-       "fr": "Une ouvrière",
-       "en": "A worker"
-      },
-      {
-       "fr": "Une écolière",
-       "en": "A primary-school pupil"
-      },
-      {
-       "fr": "Une maman",
-       "en": "A mum"
-      }
-     ],
-     "reponse": 2,
-     "porte": [
-      "小",
-      "学"
      ]
     },
     {
@@ -1119,64 +908,6 @@
       "十",
       "二",
       "月"
-     ]
-    },
-    {
-     "type": "ton",
-     "consigne": {
-      "fr": "Quel est son ton ?",
-      "en": "Which tone does it have?"
-     },
-     "objet": {
-      "zh": "白",
-      "pinyin": "bái",
-      "fr": "blanc",
-      "en": "white"
-     },
-     "choix": [
-      "bāi",
-      "bái",
-      "bǎi",
-      "bài"
-     ],
-     "reponse": 1,
-     "porte": [
-      "白"
-     ]
-    },
-    {
-     "type": "sens",
-     "consigne": {
-      "fr": "Que veut dire ce caractère ?",
-      "en": "What does this character mean?"
-     },
-     "objet": {
-      "zh": "右",
-      "pinyin": "yòu",
-      "fr": "droite",
-      "en": "right"
-     },
-     "choix": [
-      {
-       "fr": "gauche",
-       "en": "left"
-      },
-      {
-       "fr": "avoir",
-       "en": "to have"
-      },
-      {
-       "fr": "droite",
-       "en": "right"
-      },
-      {
-       "fr": "main",
-       "en": "hand"
-      }
-     ],
-     "reponse": 2,
-     "porte": [
-      "右"
      ]
     }
    ]

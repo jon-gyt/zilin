@@ -1,6 +1,7 @@
 /**
  * Les examens 科举 et les 月课 (story 8.2, brief §8) : une règle par test. Quel examen est à
- * passer, dans quel ordre, la pause des briques, la notation à quatre sur cinq, la reprise
+ * passer, dans quel ordre, la pause des briques, la notation à quatre sur cinq (huit sur dix,
+ * quatre sur cinq : « 10 et 5 »), la seconde chance, la reprise
  * sur l'autre série une fois les manqués revus à leur échéance, le titre « points ET
  * examen », les nominations, la progression et son export, et rien qui lise une durée.
  */
@@ -24,7 +25,19 @@ import {
   peutPasser,
   questionsPosables,
   rangAccorde,
-  repondre,
+  avancer,
+  dateDuBang,
+  decouperLigne,
+  essayer,
+  examensPassables,
+  genresDe,
+  manquesDetailles,
+  morceaux,
+  prochainATitre,
+  questionFinie,
+  questionsDe,
+  rangsPosables,
+  titreAvec,
   reprisePermise,
   resteAuRangSuivant,
   reussite,
@@ -33,6 +46,7 @@ import {
   terminer,
   texteExamen,
   type EtatExamens,
+  type QuestionExamen,
   type ExamensDonnees
 } from './examens';
 import { lireHerosDonnees } from './heros';
@@ -64,11 +78,22 @@ function etat(e: Partial<EtatExamens> = {}): EtatExamens {
   return { ...etatExamensVide(), ...e };
 }
 
+/** Une question à quatre choix, la bonne au rang 0, portée par `porte`. */
+function question(porte: readonly string[], type: QuestionExamen['type'] = 'comprendre'): QuestionExamen {
+  const choix = type === 'vrai_faux' ? [] : [{ fr: 'a', en: 'a' }, { fr: 'b', en: 'b' }, { fr: 'c', en: 'c' }, { fr: 'd', en: 'd' }];
+  return { type, support: 's1', consigne: { fr: '?', en: '?' }, choix, reponse: type === 'vrai_faux' ? true : 0, porte: [...porte], caracteres: [...porte] };
+}
+
+/** Répond à la question `i` du premier coup, juste ou faux, puis passe à la suivante. */
+function repondre(s: EtatExamens, i: number, juste: boolean, porte: readonly string[]): EtatExamens {
+  return avancer(essayer(s, i, question(porte), juste ? 0 : 1).etat, i);
+}
+
 /** Une tentative manquée du 县试, les caractères 门 et 口 manqués, échouée à `echec`. */
 function manquee(echec: Date): EtatExamens {
   let s = commencer(etat({ ouvert: 'xianshi' }), LISTE[0], 'lire');
-  for (let i = 0; i < 15; i++) s = repondre(s, i, i >= 4, i < 4 ? ['门', '口'] : []);
-  return terminer(s, 15, echec, JOUR).etat;
+  for (let i = 0; i < 10; i++) s = repondre(s, i, i >= 3, i < 3 ? ['门', '口'] : []);
+  return terminer(s, 10, echec, JOUR).etat;
 }
 
 /** Une carte révisée : une erreur à l'examen, puis les réponses données. */
@@ -100,16 +125,30 @@ describe('le contenu', () => {
     expect(DONNEES.regle).toEqual({ justes: 4, sur: 5 });
   });
 
-  it('porte deux séries du 县试 et du 月课 de 75 sur chaque chemin, quinze et dix questions', () => {
+  it('porte deux séries du 县试 et du 月课 de 75 sur chaque chemin, dix et cinq questions (« 10 et 5 »)', () => {
     for (const chemin of ['lire', 'hsk'] as const) {
       const [xianshi, yueke] = DONNEES.parcours[chemin];
       expect([xianshi.examen, yueke.examen]).toEqual(['xianshi', 'yueke-75']);
-      expect(xianshi.series.A?.questions).toHaveLength(15);
-      expect(xianshi.series.B?.questions).toHaveLength(15);
-      expect(yueke.series.A?.questions).toHaveLength(10);
-      expect(yueke.series.B?.questions).toHaveLength(10);
+      expect(xianshi.series.A?.questions).toHaveLength(10);
+      expect(xianshi.series.B?.questions).toHaveLength(10);
+      expect(yueke.series.A?.questions).toHaveLength(5);
+      expect(yueke.series.B?.questions).toHaveLength(5);
     }
     expect(DONNEES.parcours.lire[0].jour).toBe(25);
+    expect(LISTE.map((e) => e.questions).slice(0, 2)).toEqual([10, 5]);
+  });
+
+  it('porte les noms inventés du 放榜 des seuls examens à titre, écrits avec l’acquis', () => {
+    expect(DONNEES.parcours.lire[0].noms).toEqual(['王大明', '古天生', '王子如', '明心', '山今', '王友生']);
+    expect(DONNEES.parcours.hsk[0].noms.length).toBeGreaterThanOrEqual(4);
+    expect(DONNEES.parcours.lire[1].noms).toEqual([]);
+  });
+
+  it('ne passe que les examens dont les deux séries sont écrites, dans l’ordre', () => {
+    expect(examensPassables(DONNEES, 'lire').map((e) => e.id)).toEqual(['xianshi', 'yueke-75']);
+    expect(examensPassables(DONNEES, 'hsk').map((e) => e.id)).toEqual(['xianshi', 'yueke-75']);
+    const sansB = { ...DONNEES, parcours: { ...DONNEES.parcours, lire: DONNEES.parcours.lire.map((x) => (x.examen === 'xianshi' ? { ...x, series: { A: x.series.A } } : x)) } };
+    expect(examensPassables(sansB, 'lire')).toEqual([]);
   });
 
   it('ne dessine aucun nom sans ses traits : chaque caractère des noms a sa famille', () => {
@@ -119,7 +158,7 @@ describe('le contenu', () => {
   it('écarte un examen mal formé et arrête la liste à un palier qui ne croît pas', () => {
     const d = lireExamensDonnees({
       examens: [
-        { id: 'a', sorte: 'titre', hz: '县试', palier: 50, questions: 15 },
+        { id: 'a', sorte: 'titre', hz: '县试', palier: 50, questions: 10 },
         { id: 'b', sorte: 'autre', hz: '?', palier: 60, questions: 10 },
         { id: 'c', sorte: 'yueke', hz: '月课', palier: 40, questions: 10 },
         { id: 'd', sorte: 'yueke', hz: '月课', palier: 90, questions: 10 }
@@ -130,9 +169,9 @@ describe('le contenu', () => {
   });
 
   it('remplit les lignes de l’écran depuis l’export', () => {
-    expect(texteExamen(DONNEES, 'recu', { justes: 13, questions: 15, examen: '县试' })).toBe(
-      '13 sur 15 du premier coup. Reçu au 县试.'
-    );
+    expect(texteExamen(DONNEES, 'constat', { justes: 9, questions: 10 })).toBe('9 sur 10 du premier coup.');
+    expect(texteExamen(DONNEES, 'recu', { examen: '县试' })).toBe('Reçu au 县试.');
+    expect(texteExamen(DONNEES, 'pas_encore')).toBe('Pas encore.');
     expect(texteExamen(DONNEES, 'attente')).toBe("L'examen se repasse quand les caractères manqués sont revus.");
   });
 });
@@ -214,9 +253,42 @@ describe('quand on le passe', () => {
   it('ne note pas deux fois la même question, ni hors d’une tentative', () => {
     let s = commencer(etat(), LISTE[0], 'lire');
     s = repondre(s, 0, false, ['门']);
-    expect(repondre(s, 0, true, ['门'])).toBe(s);
-    expect(repondre(etat(), 0, true, ['门'])).toEqual(etat());
+    expect(essayer(s, 0, question(['门']), 0).nouveau).toBe(false);
+    expect(essayer(etat(), 0, question(['门']), 0).etat).toEqual(etat());
     expect(s.tentative?.manques).toEqual(['门']);
+  });
+
+  it('une seconde chance : rattrapée, la question donne son point, pas le premier coup', () => {
+    const q = question(['门', '口']);
+    let s = commencer(etat(), LISTE[0], 'lire');
+    const faux = essayer(s, 0, q, 2);
+    expect(faux).toMatchObject({ nouveau: true, juste: false, premier: true, rattrapee: false });
+    s = faux.etat;
+    expect(questionFinie(q, s.tentative!.essais)).toBe(false);
+    expect(essayer(s, 0, q, 2).nouveau).toBe(false);
+    const juste = essayer(s, 0, q, 0);
+    expect(juste).toMatchObject({ nouveau: true, juste: true, premier: false, rattrapee: true });
+    s = juste.etat;
+    expect(s.tentative).toMatchObject({ reponses: [false], rattrapees: 1, manques: ['门', '口'], essais: [2, 0] });
+    expect(questionFinie(q, s.tentative!.essais)).toBe(true);
+    expect(essayer(s, 0, q, 1).nouveau).toBe(false);
+  });
+
+  it('au vrai ou faux, la réponse se montre sans second essai', () => {
+    const q = question(['门'], 'vrai_faux');
+    const s = essayer(commencer(etat(), LISTE[0], 'lire'), 0, q, false).etat;
+    expect(questionFinie(q, s.tentative!.essais)).toBe(true);
+    expect(essayer(s, 0, q, true).nouveau).toBe(false);
+  });
+
+  it('« Quitter » entre deux essais reprend à la même question, ses essais compris', () => {
+    const q = question(['门']);
+    let s = commencer(etat(), LISTE[0], 'lire', [0, 2, 4]);
+    s = essayer(s, 0, q, 3).etat;
+    const relue = lireEtatExamens(JSON.parse(JSON.stringify(s)));
+    expect(relue.tentative).toMatchObject({ i: 0, essais: [3], reponses: [false], poses: [0, 2, 4] });
+    expect(avancer(relue, 0).tentative).toMatchObject({ i: 1, essais: [] });
+    expect(avancer(commencer(etat(), LISTE[0], 'lire'), 0)).toEqual(commencer(etat(), LISTE[0], 'lire'));
   });
 
   it('corrige sans auto-évaluation : le rang du choix, ou vrai ou faux', () => {
@@ -236,26 +308,29 @@ describe('quand on le passe', () => {
   it('ne garde que les questions dont chaque caractère a une carte', () => {
     const serie = DONNEES.parcours.lire[0].series.A!;
     const tous = new Set(serie.questions.flatMap((q) => q.caracteres));
-    expect(questionsPosables(serie, tous)).toHaveLength(15);
+    expect(questionsPosables(serie, tous)).toHaveLength(10);
     tous.delete('古');
-    expect(questionsPosables(serie, tous).length).toBeLessThan(15);
+    expect(questionsPosables(serie, tous).length).toBeLessThan(10);
+    const rangs = rangsPosables(serie, tous);
+    const t = commencer(etat(), LISTE[0], 'lire', rangs).tentative!;
+    expect(questionsDe(serie, t)).toEqual(questionsPosables(serie, tous));
   });
 });
 
 describe('le résultat', () => {
-  it('reçoit à quatre réponses sur cinq justes du premier essai : 12 sur 15, 8 sur 10', () => {
-    expect([reussite(5), reussite(10), reussite(15)]).toEqual([4, 8, 12]);
-    expect(bilan(Array(15).fill(true).fill(false, 0, 3), 15).recu).toBe(true);
-    expect(bilan(Array(15).fill(true).fill(false, 0, 4), 15).recu).toBe(false);
+  it('reçoit à quatre réponses sur cinq justes du premier essai : 8 sur 10, 4 sur 5', () => {
+    expect([reussite(5), reussite(10)]).toEqual([4, 8]);
+    expect(bilan(Array(5).fill(true).fill(false, 0, 1), 5).recu).toBe(true);
+    expect(bilan(Array(5).fill(true).fill(false, 0, 2), 5).recu).toBe(false);
     expect(bilan(Array(10).fill(true).fill(false, 0, 2), 10).recu).toBe(true);
     expect(bilan(Array(10).fill(true).fill(false, 0, 3), 10).recu).toBe(false);
   });
 
   it('reçu : l’examen est noté réussi à sa journée, et la pause se lève', () => {
     let s = commencer(etat({ ouvert: 'xianshi' }), LISTE[0], 'lire');
-    for (let i = 0; i < 15; i++) s = repondre(s, i, i !== 0, ['门']);
-    const { etat: fin, bilan: b } = terminer(s, 15, new Date('2026-09-28T18:00:00Z'), JOUR);
-    expect(b).toEqual({ justes: 14, questions: 15, reussite: 12, recu: true });
+    for (let i = 0; i < 10; i++) s = repondre(s, i, i !== 0, ['门']);
+    const { etat: fin, bilan: b } = terminer(s, 10, new Date('2026-09-28T18:00:00Z'), JOUR);
+    expect(b).toEqual({ justes: 9, questions: 10, reussite: 8, recu: true, rattrapees: 0 });
     expect(fin.reussis).toEqual({ xianshi: JOUR });
     expect(fin.ouvert).toBeNull();
     expect(fin.tentative).toBeNull();
@@ -267,6 +342,48 @@ describe('le résultat', () => {
     expect(s.tentative?.echec).toBe('2026-09-28T18:00:00.000Z');
     expect(s.tentative?.manques).toEqual(['门', '口']);
     expect(s.reussis).toEqual({});
+  });
+});
+
+describe('ce que l’écran montre', () => {
+  it('nomme chaque caractère manqué avec le support où on l’a croisé', () => {
+    const serie = DONNEES.parcours.lire[0].series.A!;
+    let s = commencer(etat(), LISTE[0], 'lire');
+    s = avancer(essayer(s, 0, serie.questions[0], 3).etat, 0);
+    s = avancer(essayer(s, 1, serie.questions[1], ((serie.questions[1].reponse as number) + 1) % 4).etat, 1);
+    const m = manquesDetailles(serie, s.tentative!);
+    expect(m.map((x) => x.c)).toEqual([...serie.questions[0].porte, ...serie.questions[1].porte]);
+    expect(m[0].support).toBeNull();
+    expect(m[m.length - 1].support?.id).toBe(serie.questions[1].support);
+  });
+
+  it('annonce l’examen à titre suivant, et le titre que le 县试 donne avec le 府试', () => {
+    expect(prochainATitre(LISTE, 'xianshi')?.hz).toBe('府试');
+    expect(prochainATitre(LISTE, 'yueke-75')?.hz).toBe('府试');
+    expect(titreAvec(LISTE, LISTE[0])?.titre).toBe('童生');
+    expect(titreAvec(LISTE, LISTE[2])).toBeNull();
+  });
+
+  it('découpe une ligne du support pour le repérage : les mots proposés se touchent', () => {
+    expect(decouperLigne('明天一早，门口见！', ['门口', '明天', '一早', '生日'])).toEqual([
+      { t: '明天', mot: 1 },
+      { t: '一早', mot: 2 },
+      { t: '，', mot: -1 },
+      { t: '门口', mot: 0 },
+      { t: '见', mot: -1 },
+      { t: '！', mot: -1 }
+    ]);
+    expect(decouperLigne('星期二', ['星期', '星期二'])).toEqual([{ t: '星期二', mot: 1 }]);
+  });
+
+  it('dit les genres des supports, le gras par paires, et la date du 放榜 en chiffres chinois', () => {
+    expect(genresDe(DONNEES.parcours.lire[0].series.A!).length).toBeGreaterThanOrEqual(3);
+    expect(morceaux('Reçu à **8 justes sur 10** du premier coup.')).toEqual([
+      { t: 'Reçu à ', gras: false },
+      { t: '8 justes sur 10', gras: true },
+      { t: ' du premier coup.', gras: false }
+    ]);
+    expect([dateDuBang('2026-09-29'), dateDuBang('2026-10-08'), dateDuBang('2026-12-20')]).toEqual(['九月二十九日', '十月八日', '十二月二十日']);
   });
 });
 

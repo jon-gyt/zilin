@@ -2,6 +2,14 @@
  * Le personnage (story 4.5, brief §8 « Le personnage ») : les quatre arts et leurs points,
  * les douze rangs, la taille, la phrase de Tao, le rang à annoncer au 放榜.
  *
+ * « Points ET examen » (décision du propriétaire du 26 septembre 2026, story 8.5) : les
+ * points font toujours grandir le personnage (sa taille, sa silhouette, son âge), mais un
+ * titre ne s'accorde qu'avec ce qu'il demande en plus, dans l'ordre des rangs, sans en
+ * sauter un : du 童生 au 进士, ses examens à titre réussis ; de 翰林 à 状元, son palier de
+ * caractères lus. Un 月课 n'entre dans aucun rang : il ne donne ni ne retient un titre,
+ * même au palier d'une nomination. La tenue suit le titre accordé. Ce que chaque rang
+ * demande vient de `heros.json` (`examens`, `palier`), jamais du code.
+ *
  * Les textes (rangs, bêtes, phrases de Tao) viennent de `heros.json`, que le pipeline tire
  * de `data/sources/heros/` ; rien n'est rédigé ici. Les dessins sont dans `Heros.svelte`.
  *
@@ -12,7 +20,9 @@
  */
 import { Rating } from 'ts-fsrs';
 import { contenu, dossierVersion, VERSION_DONNEES, type Index } from './content';
+import type { Examen } from './examens';
 import type { TypeQuestion } from './questions';
+import type { Progress } from './session';
 import type { ReviewCard } from './srs';
 
 /* ---------- les quatre arts ---------- */
@@ -144,8 +154,21 @@ export function lireHeros(brut: unknown): Heros | null {
 
 /* ---------- le contenu : heros.json ---------- */
 
-/** Un rang : son titre, sa traduction mot à mot, son rôle, l'âge du personnage, son seuil. */
-export type Rang = { hz: string; pinyin: string; fr: string; role: string; age: string; seuil: number };
+/**
+ * Un rang : son titre, sa traduction mot à mot, son rôle, l'âge du personnage, son seuil de
+ * points, et ce qu'il demande en plus : `examens`, les examens à titre réussis (par leur
+ * identifiant dans `examens.json`) ; `palier`, pour une nomination, les caractères lus.
+ */
+export type Rang = {
+  hz: string;
+  pinyin: string;
+  fr: string;
+  role: string;
+  age: string;
+  seuil: number;
+  examens: string[];
+  palier: number | null;
+};
 
 /** Une bête : son nom, ce que Tao en dit, trois idées de nom. */
 export type Bete = { id: BeteId; hz: string; pinyin: string; fr: string; dit: string; noms: string[] };
@@ -179,7 +202,18 @@ export function lireHerosDonnees(brut: unknown): HerosDonnees {
     if (texte(r.hz) === '' || typeof seuil !== 'number' || !Number.isFinite(seuil)) continue;
     const avant = rangs[rangs.length - 1];
     if ((avant === undefined && seuil !== 0) || (avant !== undefined && seuil <= avant.seuil)) break;
-    rangs.push({ hz: texte(r.hz), pinyin: texte(r.pinyin), fr: texte(r.fr), role: texte(r.role), age: texte(r.age), seuil });
+    const examens = Array.isArray(r.examens) ? r.examens.filter((x): x is string => typeof x === 'string' && x !== '') : [];
+    const palier = typeof r.palier === 'number' && Number.isInteger(r.palier) && r.palier >= 0 ? r.palier : null;
+    rangs.push({
+      hz: texte(r.hz),
+      pinyin: texte(r.pinyin),
+      fr: texte(r.fr),
+      role: texte(r.role),
+      age: texte(r.age),
+      seuil,
+      examens,
+      palier
+    });
   }
   const betes: Bete[] = [];
   for (const v of Array.isArray(o.betes) ? o.betes : []) {
@@ -253,7 +287,11 @@ export function sansArticle(fr: string): string {
 
 /* ---------- le rang et la taille ---------- */
 
-/** Le rang atteint : le dernier dont le seuil est atteint. Zéro, le bébé, sans rangs. */
+/**
+ * Le rang des seuls points : le dernier dont le seuil est atteint. Zéro, le bébé, sans
+ * rangs. Il fait l'étape de vie (la silhouette, l'âge) et la taille, jamais le titre :
+ * celui-ci est `rangAccorde`.
+ */
 export function rangDe(points: number, rangs: readonly Rang[]): number {
   let n = 0;
   rangs.forEach((r, i) => {
@@ -290,20 +328,103 @@ export function taille(points: number, rangs: readonly Rang[]): number {
   return echelleDuRang(n) + (haut - echelleDuRang(n)) * part * 0.92;
 }
 
-/** Où l'on en est vers le rang suivant : ce qui manque, et la part de la barre. */
-export type Avance = { rang: number; suivant: Rang | null; manque: number; part: number };
+/* ---------- le titre : points ET examen ---------- */
 
-export function avance(points: number, rangs: readonly Rang[]): Avance {
-  const n = rangDe(points, rangs);
+/**
+ * Ce qui accorde un titre : les points, les examens réussis (chacun avec sa journée, 月课
+ * compris, que les rangs ne lisent pas), les caractères lus (au seuil de stabilité de Ma
+ * forêt, le compte du trophée Lire), et le dernier rang annoncé au 放榜.
+ */
+export type Merite = {
+  points: number;
+  reussis: Readonly<Record<string, string>>;
+  lus: number;
+  annonce: number;
+};
+
+/** Le mérite d'une progression, les caractères lus étant comptés par l'appelant (`foret.caracteresLus`). */
+export function meriteDe(p: Pick<Progress, 'arts' | 'examens' | 'heros'>, lus: number): Merite {
+  return { points: total(p.arts), reussis: p.examens.reussis, lus, annonce: p.heros?.rang ?? 0 };
+}
+
+/** Ce qu'un rang demande en plus des points est-il là : ses examens réussis, son palier lu ? */
+export function exigenceRemplie(r: Rang, m: Pick<Merite, 'reussis' | 'lus'>): boolean {
+  return r.examens.every((id) => m.reussis[id] !== undefined) && (r.palier === null || m.lus >= r.palier);
+}
+
+/**
+ * Le rang accordé : dans l'ordre, sans en sauter un, chaque rang demande ses points et ce
+ * qu'il demande en plus ; le premier qui manque arrête tout, même si les suivants sont là.
+ */
+export function rangAccorde(rangs: readonly Rang[], m: Pick<Merite, 'points' | 'reussis' | 'lus'>): number {
+  let n = 0;
+  for (let k = 1; k < rangs.length; k++) {
+    const r = rangs[k];
+    if (m.points < r.seuil || !exigenceRemplie(r, m)) break;
+    n = k;
+  }
+  return n;
+}
+
+/**
+ * Le rang tenu, celui que montrent l'en-tête, « Mon personnage » et la tenue : le rang
+ * accordé, ou le dernier annoncé s'il est plus haut. Un titre ne se reprend jamais : une
+ * nomination reste quand le compte des lus redescend, et une progression d'avant les
+ * examens garde les rangs qu'on lui a annoncés.
+ */
+export function rangTenu(rangs: readonly Rang[], m: Merite): number {
+  if (rangs.length === 0) return 0;
+  return Math.max(rangAccorde(rangs, m), Math.min(Math.max(0, m.annonce), rangs.length - 1));
+}
+
+/**
+ * Ce qui retient le titre suivant, pour « Mon personnage » :
+ * - `points` : les points manquent (ou tout manque : la barre dit les points) ;
+ * - `examen` : les points y sont, il reste un examen à titre, le premier pas encore réussi
+ *   (« Reste le 院试 ») ;
+ * - `recu` : les examens du rang sont réussis, les points pas encore (« Reçu au 院试 ·
+ *   encore 12 points ») ; `examen` est le dernier, celui qui accorde le titre ;
+ * - `palier` : les points d'une nomination y sont, pas ses caractères lus ;
+ * - `rien` : au sommet.
+ */
+export type Reste =
+  | { attend: 'rien' }
+  | { attend: 'points'; manque: number }
+  | { attend: 'examen'; examen: string }
+  | { attend: 'recu'; examen: string; manque: number }
+  | { attend: 'palier'; palier: number };
+
+/** Où l'on en est vers le titre suivant : le rang tenu, ce qui manque, la part de la barre. */
+export type Avance = { rang: number; suivant: Rang | null; manque: number; part: number; reste: Reste };
+
+export function avance(rangs: readonly Rang[], m: Merite): Avance {
+  const n = rangTenu(rangs, m);
   const suivant = rangs[n + 1] ?? null;
-  if (suivant === null) return { rang: n, suivant, manque: 0, part: 1 };
+  if (suivant === null) return { rang: n, suivant, manque: 0, part: 1, reste: { attend: 'rien' } };
   const bas = rangs[n]?.seuil ?? 0;
-  return {
-    rang: n,
-    suivant,
-    manque: suivant.seuil - points,
-    part: Math.max(0, Math.min(1, (points - bas) / (suivant.seuil - bas)))
-  };
+  const manque = Math.max(0, suivant.seuil - m.points);
+  const part = Math.max(0, Math.min(1, (m.points - bas) / (suivant.seuil - bas)));
+  const manquant = suivant.examens.find((id) => m.reussis[id] === undefined);
+  let reste: Reste = { attend: 'points', manque };
+  if (manque === 0 && manquant !== undefined) reste = { attend: 'examen', examen: manquant };
+  else if (manque === 0 && suivant.palier !== null && m.lus < suivant.palier) reste = { attend: 'palier', palier: suivant.palier };
+  else if (manque > 0 && suivant.examens.length > 0 && manquant === undefined) {
+    reste = { attend: 'recu', examen: suivant.examens[suivant.examens.length - 1], manque };
+  }
+  return { rang: n, suivant, manque, part, reste };
+}
+
+/** Un examen à titre réussi, pour le 榜 de « Mon personnage » : l'examen et sa journée. */
+export type Recu = { examen: Examen; jour: string };
+
+/**
+ * Le 榜 du personnage : les examens à titre réussis, dans l'ordre de la liste, chacun avec
+ * sa journée. Les 月课 n'y sont pas : ils ne donnent aucun titre.
+ */
+export function examensRecus(liste: readonly Examen[], reussis: Readonly<Record<string, string>>): Recu[] {
+  return liste
+    .filter((e) => e.sorte === 'titre' && reussis[e.id] !== undefined)
+    .map((e) => ({ examen: e, jour: reussis[e.id] }));
 }
 
 /* ---------- Tao ---------- */
@@ -324,16 +445,29 @@ export function artLeMoinsFourni(a: Arts): (typeof ARTS)[number] {
 export const PRESQUE = 5;
 
 /**
- * La bulle de Tao sur l'écran du personnage. Elle ne lit que les points : au sommet, elle
- * propose de continuer ; à cinq points ou moins d'un rang, elle les compte ; sans point,
- * elle propose d'y aller ; sinon, elle propose l'art le moins fourni. Jamais l'horloge,
- * jamais un reproche.
+ * La bulle de Tao sur l'écran du personnage. Elle ne lit que les points et les examens : au
+ * sommet, elle propose de continuer ; les points d'un titre atteints, elle dit l'examen qui
+ * reste, ou le palier de la nomination ; à cinq points ou moins d'un rang, elle les compte ;
+ * sans point, elle propose d'y aller ; sinon, elle propose l'art le moins fourni. Jamais
+ * l'horloge, jamais un reproche. `nomExamen` donne le nom d'un examen par son identifiant.
  */
-export function phraseDeTao(d: HerosDonnees, a: Arts, nom: string): string {
+export function phraseDeTao(
+  d: HerosDonnees,
+  a: Arts,
+  nom: string,
+  m: Omit<Merite, 'points'>,
+  nomExamen: (id: string) => string
+): string {
   const t = total(a);
-  const av = avance(t, d.rangs);
+  const av = avance(d.rangs, { ...m, points: t });
   if (d.rangs.length > 0 && av.suivant === null) return remplir(d.tao.sommet ?? '', { nom });
   if (t === 0) return d.tao.depart ?? '';
+  if (av.suivant !== null && av.reste.attend === 'examen') {
+    return remplir(d.tao.examen ?? '', { rang: av.suivant.hz, examen: nomExamen(av.reste.examen) });
+  }
+  if (av.suivant !== null && av.reste.attend === 'palier') {
+    return remplir(d.tao.palier ?? '', { rang: av.suivant.hz, palier: av.reste.palier.toLocaleString('fr-FR') });
+  }
   if (av.suivant !== null && av.manque <= PRESQUE) {
     return av.manque === 1
       ? remplir(d.tao.presque_un ?? '', { rang: av.suivant.hz })
@@ -359,14 +493,21 @@ export function texteFangbang(d: HerosDonnees, rang: number, nom: string): strin
 /* ---------- le 放榜 ---------- */
 
 /**
- * Le rang à annoncer au retour au menu : celui atteint, s'il dépasse le dernier annoncé.
- * `null` sans personnage, ou quand il n'y a rien de neuf. Plusieurs rangs franchis d'un
- * coup (un import) ne font qu'un 放榜, celui du plus haut.
+ * Le titre à annoncer au 放榜 : le rang accordé, s'il dépasse le dernier annoncé. Il vient
+ * l'examen réussi quand les points y sont, les points atteints quand l'examen l'est déjà, ou
+ * le palier de caractères lus d'une nomination. `null` sans personnage, ou quand il n'y a
+ * rien de neuf : un 放榜 par rang, une fois. Plusieurs rangs franchis d'un coup (un import)
+ * ne font qu'un 放榜, celui du plus haut. L'appelant le montre au retour au menu, jamais au
+ * milieu d'un pas, puis le note (`session.annoncerRang`).
  */
-export function rangAAnnoncer(h: Heros | null, a: Arts, rangs: readonly Rang[]): number | null {
-  if (h === null || rangs.length === 0) return null;
-  const n = rangDe(total(a), rangs);
-  return n > h.rang ? n : null;
+export function titreAccorde(
+  p: Pick<Progress, 'arts' | 'examens' | 'heros'>,
+  rangs: readonly Rang[],
+  lus: number
+): number | null {
+  if (p.heros === null || rangs.length === 0) return null;
+  const n = rangAccorde(rangs, meriteDe(p, lus));
+  return n > p.heros.rang ? n : null;
 }
 
 /* ---------- l'aura ---------- */

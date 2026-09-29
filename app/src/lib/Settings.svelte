@@ -13,7 +13,9 @@
   import { inviterEcranAccueil, ligneDernierExport, noterExport } from './garde';
   import ChoixHeros from './ChoixHeros.svelte';
   import Heros from './Heros.svelte';
-  import { beteDe, herosOnce, rangDe, sansArticle, total, type BeteId, type HerosDonnees } from './heros';
+  import { beteDe, herosOnce, meriteDe, rangTenu, sansArticle, type BeteId, type HerosDonnees } from './heros';
+  import { toutesLesFamilles, type Famille } from './content';
+  import { caracteresLus } from './foret';
   import { stade } from './tao';
   import { haptiqueDisponible } from './haptique';
   import { autorisationRefusee, demanderAutorisation, instant, notificationsDisponibles } from './natif';
@@ -58,11 +60,18 @@
   /* ---------- le personnage ---------- */
 
   let donnees = $state<HerosDonnees | null>(null);
+  /** Les familles, pour les caractères lus : le palier des nominations. */
+  let familles = $state.raw<Famille[]>([]);
   $effect(() => {
     let vivant = true;
     void herosOnce()
       .then((d) => {
         if (vivant) donnees = d;
+      })
+      .catch(() => undefined);
+    void toutesLesFamilles()
+      .then((f) => {
+        if (vivant) familles = f;
       })
       .catch(() => undefined);
     return () => {
@@ -71,7 +80,8 @@
   });
   /** Le choix rouvert : la bête et le nom se changent, les points et le rang restent. */
   let changer = $state(false);
-  const rang = $derived(donnees ? rangDe(total(p.arts), donnees.rangs) : 0);
+  /** Le rang tenu, le titre accordé (« Points ET examen ») : celui de l'en-tête et du personnage. */
+  const rang = $derived(donnees ? rangTenu(donnees.rangs, meriteDe(p, caracteresLus(familles, p.cartes))) : 0);
   const bete = $derived(donnees && p.heros ? beteDe(donnees, p.heros.bete) : null);
 
   function choisir(b: BeteId, nom: string): void {

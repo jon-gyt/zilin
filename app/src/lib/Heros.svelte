@@ -82,9 +82,11 @@
   };
 
   /**
-   * La silhouette change d'étape en étape, un réglage par rang : la tête (dessinée une
-   * fois pour toutes, centrée en 200, 132) rapetisse par rapport au corps, le cou monte, la
-   * robe s'allonge, les épaules (`ht`) et le bas de la robe (`hb`) s'élargissent.
+   * La silhouette change d'étape en étape, un réglage par rang des seuls points (l'étape de
+   * vie, brief §8 : « Points ET examen ») : la tête (dessinée une fois pour toutes, centrée
+   * en 200, 132) rapetisse par rapport au corps, le cou monte, la robe s'allonge, les
+   * épaules (`ht`) et le bas de la robe (`hb`) s'élargissent. La tenue, elle, suit le titre
+   * accordé : un 学童 qui a les points du 秀才 a la silhouette d'un ado et l'habit de l'écolier.
    */
   const ETAPES = [
     { hs: 1.0, hcy: 182, cou: 214, ourlet: 258, ht: 24, hb: 34 }, // bébé
@@ -161,17 +163,20 @@
   }
 
   /**
-   * Le personnage entier, les pieds en (200, 266), à l'échelle `echelle`. Rang par rang :
+   * Le personnage entier, les pieds en (200, 266), à l'échelle `echelle`, à la silhouette de
+   * l'étape `silhouette` (le rang des points) et dans la tenue du rang `rang` (le titre
+   * accordé), qui ne la dépasse jamais. Rang par rang :
    * 肚兜 et 长命锁 du bébé ; veste à boutons 盘扣, 虎头鞋 et tambourin 拨浪鼓 du tout-petit ;
    * sac à livres 书袋 de l'écolier ; ceinture et pinceau du 童生 ; bande 襕 et revers du
    * 秀才 ; col bordé et rouleau du 举人 ; gilet 半臂 et éventail du 贡士 ; ceinture de jade du
    * 进士 ; nuages brodés et livre du 翰林 ; 补子 du 探花 ; vagues du 榜眼 ; grand nœud de soie
    * 大红花 du 状元, de pêche et de rose, jamais de cinabre.
    */
-  export function personnage(id: BeteId, rang: number, echelle: number): string {
+  export function personnage(id: BeteId, rang: number, echelle: number, silhouette = rang): string {
     const b = BETES[id];
+    const v = Math.max(etape(silhouette), etape(rang));
     const n = etape(rang);
-    const E = ETAPES[n];
+    const E = ETAPES[v];
     const tete = (x: string): string =>
       `<g transform="translate(200 ${E.hcy}) scale(${E.hs}) translate(-200 -132)">${x}</g>`;
     const T = TRAIT;
@@ -185,9 +190,9 @@
     const f: string[] = [];
 
     /* le sol */
-    s.push(`<ellipse cx="200" cy="270" rx="${40 + n * 3}" ry="7" fill="var(--line)"/>`);
+    s.push(`<ellipse cx="200" cy="270" rx="${40 + v * 3}" ry="7" fill="var(--line)"/>`);
 
-    if (n === 0) {
+    if (v === 0) {
       /* 启蒙 : tout bébé, le 肚兜 noué au cou et le 长命锁. */
       s.push(`<ellipse cx="184" cy="262" rx="12" ry="8" fill="${b.patte}" ${T}/><ellipse cx="216" cy="262" rx="12" ry="8" fill="${b.patte}" ${T}/>`);
       s.push(`<ellipse cx="200" cy="236" rx="34" ry="30" fill="${b.poil}" ${T}/>`);
@@ -323,6 +328,7 @@
   let {
     bete,
     rang = 0,
+    silhouette,
     echelle = 1,
     points = 0,
     lus = [],
@@ -330,8 +336,10 @@
     largeur = 92
   }: {
     bete: BeteId;
-    /** Le rang atteint, de 0 (启蒙) à 11 (状元) : la silhouette et la tenue. */
+    /** Le rang tenu, le titre accordé, de 0 (启蒙) à 11 (状元) : la tenue et la coiffe. */
     rang?: number;
+    /** Le rang des seuls points (`heros.rangDe`) : la silhouette, l'étape de vie. Par défaut, `rang`. */
+    silhouette?: number;
     /** La taille continue (`heros.taille`), sur la scène. */
     echelle?: number;
     points?: number;
@@ -349,7 +357,7 @@
     if (cadre === 'vignette') {
       return `<svg width="${largeur}" height="${Math.round((largeur * 252) / 180)}" viewBox="110 28 180 252" aria-hidden="true">${personnage(bete, rang, 1)}</svg>`;
     }
-    return `<svg viewBox="0 10 400 290" aria-hidden="true"><g class="aura-echelle" style="transform:scale(${echelle})">${aura(rang, points, lus, echelle)}</g>${personnage(bete, rang, echelle)}</svg>`;
+    return `<svg viewBox="0 10 400 290" aria-hidden="true"><g class="aura-echelle" style="transform:scale(${echelle})">${aura(rang, points, lus, echelle)}</g>${personnage(bete, rang, echelle, silhouette ?? rang)}</svg>`;
   });
 </script>
 

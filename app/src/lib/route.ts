@@ -12,8 +12,15 @@
  * - les pierres : deux derrière (lues), celle du jour (la position, seul cinabre de
  *   l'écran), six devant ; moins au début et à la fin du parcours ;
  * - les bornes : les deux prochaines, et jamais plus. Un seuil du trophée Lire (le jour du
- *   chemin où entre le Ne caractère) ou l'ouverture d'un conte (`etageres.ouvertures`, le
- *   jour où entre le dernier caractère qui lui manque) ;
+ *   chemin où entre le Ne caractère), un examen, à titre ou 月课, à son palier compté de la
+ *   même façon (story 8.6), ou l'ouverture d'un conte (`etageres.ouvertures`, le jour où
+ *   entre le dernier caractère qui lui manque). L'examen suivant est toujours l'une des
+ *   deux : il met les briques en pause, on le voit venir ; si deux autres tombent avant
+ *   lui, il prend la place de la seconde. Un examen et un seuil au même palier (50, 100,
+ *   255, 505, 1 555) partagent une stèle. Pas de sceau aux trophées pour un examen ;
+ * - l'examen à passer (`examens.examenOuvert`) ne se compte plus : sa stèle se dresse sur
+ *   la route, devant la pierre du jour, « examen ouvert », et les pierres et les bornes
+ *   suivantes n'ont plus de compte jusqu'à ce qu'il soit réussi ;
  * - la carte de détail : l'étape choisie, demain par défaut.
  *
  * Au rythme gratuit (brief §8 et §10, story 7.5), un jour du chemin n'est plus un jour : les
@@ -181,9 +188,28 @@ export function choixParDefaut(r: Route): number | null {
 /** Au loin, dans la brume : les deux prochaines bornes, jamais plus. */
 export const BORNES_MAX = 2;
 
-/** Une borne : un seuil du trophée Lire, ou un conte qui s'ouvre. */
+/**
+ * Une borne : un seuil du trophée Lire, un examen, ou un conte qui s'ouvre. Un examen porte
+ * son nom (`hz`, dessiné depuis ses traits sur la stèle), son palier, `trophee` quand il
+ * partage sa stèle avec un seuil du trophée Lire, `suivant` quand c'est le prochain examen
+ * à passer, et `passe` quand, prochain examen, son jour du chemin est déjà fait sans que ses
+ * caractères soient encore lus : la stèle dit alors le compte des lus, rien d'estimé.
+ */
 export type Borne =
   | { genre: 'lire'; jour: number; ecart: number; seuil: number; titre: string; ligne: string }
+  | {
+      genre: 'examen';
+      jour: number;
+      ecart: number;
+      id: string;
+      hz: string;
+      palier: number;
+      titre: string;
+      ligne: string;
+      trophee: boolean;
+      suivant: boolean;
+      passe: boolean;
+    }
   | {
       genre: 'conte';
       jour: number;
@@ -201,6 +227,13 @@ export type SeuilLire = { n: number; obtenu: boolean };
 export type ConteAVenir = { id: string; titre: string; jour: number | null; motif?: string | null };
 
 /**
+ * Un examen pas encore réussi, à titre ou 月课, dans l'ordre de la liste (`examens.json`) :
+ * le premier est le prochain à passer. `titre` et `ligne` viennent du pipeline (« 县试 · 50
+ * caractères », ce qu'il était).
+ */
+export type ExamenAVenir = { id: string; hz: string; palier: number; titre: string; ligne: string };
+
+/**
  * Le jour du chemin où le Ne caractère entre : l'étape où le compte des caractères
  * rencontrés, briques et composés, chacun une fois, atteint `n`. `null` si le chemin n'en
  * porte pas autant.
@@ -216,16 +249,20 @@ export function jourDuSeuil(etapes: readonly Etape[], n: number): number | null 
 
 /**
  * Toutes les bornes encore devant, dans l'ordre du chemin : un seuil Lire pas encore
- * obtenu dont le caractère entre après la dernière étape faite ; un conte fermé qui
- * s'ouvre après elle. Un seuil dont les caractères sont déjà rencontrés mais pas encore
- * lus, ou un conte dont le jour ne se calcule pas, ne s'annonce pas : on ne l'estime pas.
- * `ecart` compte les étapes depuis celle du jour.
+ * obtenu dont le caractère entre après la dernière étape faite ; un examen pas encore
+ * réussi, au jour où entre son Ne caractère ; un conte fermé qui s'ouvre après elle. Un
+ * seuil dont les caractères sont déjà rencontrés mais pas encore lus, ou un conte dont le
+ * jour ne se calcule pas, ne s'annonce pas : on ne l'estime pas. Seul le prochain examen,
+ * qui met les briques en pause, s'annonce encore quand son jour est fait et ses caractères
+ * pas encore lus (`passe`). Un examen et un seuil Lire au même palier font une seule
+ * borne, celle de l'examen. `ecart` compte les étapes depuis celle du jour.
  */
 export function bornesDevant(
   etapes: readonly Etape[],
   r: Route,
   seuils: readonly SeuilLire[],
-  contes: readonly ConteAVenir[]
+  contes: readonly ConteAVenir[],
+  examens: readonly ExamenAVenir[] = []
 ): Borne[] {
   if (r.rang < 0) return [];
   const rangDe = new Map(etapes.map((e, k) => [e.jour, k]));
@@ -237,8 +274,30 @@ export function bornesDevant(
     return k === undefined || k <= fait ? null : k - r.rang;
   };
   const out: Borne[] = [];
+  const paliers = new Set(examens.map((e) => e.palier));
+  examens.forEach((e, k) => {
+    const jour = jourDuSeuil(etapes, e.palier);
+    if (jour === null) return;
+    const i = rangDe.get(jour);
+    if (i === undefined) return;
+    const passe = i <= fait;
+    if (passe && k > 0) return;
+    out.push({
+      genre: 'examen',
+      jour,
+      ecart: i - r.rang,
+      id: e.id,
+      hz: e.hz,
+      palier: e.palier,
+      titre: e.titre,
+      ligne: e.ligne,
+      trophee: seuils.some((s) => !s.obtenu && s.n === e.palier),
+      suivant: k === 0,
+      passe
+    });
+  });
   for (const s of seuils) {
-    if (s.obtenu) continue;
+    if (s.obtenu || paliers.has(s.n)) continue;
     const jour = jourDuSeuil(etapes, s.n);
     const ecart = devant(jour);
     if (jour === null || ecart === null) continue;
@@ -264,13 +323,40 @@ export function bornesDevant(
       motif: c.motif ?? null
     });
   }
-  /* L'ordre du chemin ; le même jour, le trophée avant le conte. */
-  return out.sort((a, b) => a.ecart - b.ecart || (a.genre === b.genre ? 0 : a.genre === 'lire' ? -1 : 1));
+  /* L'ordre du chemin ; le même jour, l'examen, puis le trophée, puis le conte. */
+  const ordre = { examen: 0, lire: 1, conte: 2 } as const;
+  return out.sort((a, b) => a.ecart - b.ecart || ordre[a.genre] - ordre[b.genre]);
 }
 
-/** Les deux prochaines bornes, rien au-delà. */
+/**
+ * Les deux prochaines bornes, rien au-delà. L'examen suivant en est toujours une : si deux
+ * autres tombent avant lui, il prend la place de la seconde.
+ */
 export function prochainesBornes(bornes: readonly Borne[], max = BORNES_MAX): Borne[] {
-  return bornes.slice(0, Math.max(0, max));
+  const n = Math.max(0, max);
+  const premieres = bornes.slice(0, n);
+  const suivant = bornes.find((b) => b.genre === 'examen' && b.suivant);
+  if (n === 0 || suivant === undefined || premieres.includes(suivant)) return premieres;
+  return [...premieres.slice(0, n - 1), suivant];
+}
+
+/**
+ * Où en est un examen vu de la route, pour « Mon personnage » (« Reste le 院试 ») : ouvert,
+ * à tant d'étapes du chemin, déjà à son jour sans que ses caractères soient lus, ou rien
+ * quand son jour ne se calcule pas (au-delà du parcours).
+ */
+export type QuandExamen = { etat: 'ouvert' } | { etat: 'dans'; ecart: number } | { etat: 'lus' } | null;
+
+export function quandExamen(
+  etapes: readonly Etape[],
+  r: Route,
+  e: ExamenAVenir,
+  ouvert: boolean
+): QuandExamen {
+  if (ouvert) return { etat: 'ouvert' };
+  const b = bornesDevant(etapes, r, [], [], [e])[0];
+  if (b === undefined || b.genre !== 'examen') return null;
+  return b.passe ? { etat: 'lus' } : { etat: 'dans', ecart: b.ecart };
 }
 
 /* ---------- les mots ---------- */
@@ -278,18 +364,24 @@ export function prochainesBornes(bornes: readonly Borne[], max = BORNES_MAX): Bo
 /**
  * Quand, vu de l'étape du jour : « aujourd'hui », « demain », « dans 3 jours » (jours du
  * chemin), « déjà lu » derrière. En rattrapage, la suite n'est pas sûre : « l'étape
- * suivante », « dans 3 étapes ».
+ * suivante », « dans 3 étapes ». Un examen à passer arrête le compte : ce qui vient après
+ * la pierre du jour dit `apres` (« après l'examen »), sans nombre.
  */
-export function quand(ecart: number, sur = true): string {
+export function quand(ecart: number, sur = true, apres: string | null = null): string {
   if (ecart < 0) return 'déjà lu';
   if (ecart === 0) return "aujourd'hui";
+  if (apres !== null) return apres;
   if (!sur) return ecart === 1 ? "l'étape suivante" : `dans ${ecart} étapes`;
   return ecart === 1 ? 'demain' : `dans ${ecart} jours`;
 }
 
-/** « dans 13 j » sous une stèle, en jours du chemin (en étapes en rattrapage). */
-export function dansCourt(ecart: number, sur = true): string {
+/**
+ * « dans 13 j » sous une stèle, en jours du chemin (en étapes en rattrapage et au rythme
+ * gratuit) ; `apres` quand un examen à passer arrête le compte.
+ */
+export function dansCourt(ecart: number, sur = true, apres: string | null = null): string {
   if (ecart === 0) return "aujourd'hui";
+  if (apres !== null && ecart > 0) return apres;
   if (!sur) return ecart === 1 ? "l'étape suivante" : `dans ${ecart} étapes`;
   return ecart === 1 ? 'demain' : `dans ${ecart} j`;
 }
@@ -307,13 +399,17 @@ export function ligneLus(lus: number, hsk1: { lus: number; total: number } | nul
 
 /**
  * La borne dans la carte de détail : celle de l'étape choisie (« Borne ce jour-là »), et,
- * quand l'étape est demain, la prochaine (« Prochaine borne : …, dans 13 jours »).
+ * quand l'étape est demain, la prochaine (« Prochaine borne : …, dans 13 jours »). Un
+ * examen à passer (`ouvert`, son titre et « examen ouvert ») est la prochaine borne de
+ * toute pierre à venir.
  */
 export function ligneBorne(
   ecart: number,
   bornes: readonly Borne[],
-  sur = true
+  sur = true,
+  ouvert: { titre: string; ligne: string } | null = null
 ): { tete: string; titre: string; suite: string } | null {
+  if (ouvert !== null && ecart > 0) return { tete: 'Prochaine borne :', titre: ouvert.titre, suite: `${ouvert.ligne}.` };
   const ce = bornes.find((b) => b.ecart === ecart);
   if (ce) return { tete: 'Borne ce jour-là :', titre: ce.titre, suite: `${ce.ligne}.` };
   if (ecart !== 1) return null;

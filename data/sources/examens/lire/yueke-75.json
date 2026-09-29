@@ -10,7 +10,8 @@
   "statut": "relu",
   "par": "le propriétaire",
   "decision": "« Considère que les relectures c'est bon » : approbation permanente des relectures",
-  "date": "2026-09-28"
+  "date": "2026-09-28",
+  "reduction": "le 29 septembre 2026, décision du propriétaire « 10 et 5 » : chaque série ramenée à 10 questions (examen à titre) ou 5 (月课), prises parmi les questions relues, sans texte nouveau"
  },
  "series": [
   {
@@ -82,92 +83,9 @@
        "en": "Xiao Wang Fruit"
       }
      ]
-    },
-    {
-     "id": "s4",
-     "genre": "pancarte",
-     "contexte": {
-      "fr": "Un panneau au bord d'une voie ferrée",
-      "en": "A sign by a railway line"
-     },
-     "lignes": [
-      {
-       "zh": "小心火车！",
-       "pinyin": "xiǎo xīn huǒ chē",
-       "fr": "Attention au train !",
-       "en": "Beware of trains!"
-      }
-     ]
     }
    ],
    "questions": [
-    {
-     "type": "sens",
-     "consigne": {
-      "fr": "Que veut dire ce caractère ?",
-      "en": "What does this character mean?"
-     },
-     "objet": {
-      "zh": "高",
-      "pinyin": "gāo",
-      "fr": "haut",
-      "en": "tall, high"
-     },
-     "choix": [
-      {
-       "fr": "capitale",
-       "en": "capital"
-      },
-      {
-       "fr": "haut",
-       "en": "tall, high"
-      },
-      {
-       "fr": "peu",
-       "en": "few, little"
-      },
-      {
-       "fr": "électricité",
-       "en": "electricity"
-      }
-     ],
-     "reponse": 1,
-     "porte": [
-      "高"
-     ]
-    },
-    {
-     "type": "comprendre",
-     "support": "s1",
-     "consigne": {
-      "fr": "Quel temps fera-t-il samedi ?",
-      "en": "What will the weather be on Saturday?"
-     },
-     "choix": [
-      {
-       "fr": "Petite pluie",
-       "en": "Light rain"
-      },
-      {
-       "fr": "Beau temps",
-       "en": "Fine weather"
-      },
-      {
-       "fr": "Bruine",
-       "en": "Drizzle"
-      },
-      {
-       "fr": "Forte pluie",
-       "en": "Heavy rain"
-      }
-     ],
-     "reponse": 3,
-     "porte": [
-      "六",
-      "大",
-      "雨"
-     ]
-    },
     {
      "type": "reperer",
      "support": "s1",
@@ -204,37 +122,6 @@
      "porte": [
       "雨",
       "气"
-     ]
-    },
-    {
-     "type": "comprendre",
-     "support": "s2",
-     "consigne": {
-      "fr": "Comment iront-ils samedi ?",
-      "en": "How will they travel on Saturday?"
-     },
-     "choix": [
-      {
-       "fr": "En train",
-       "en": "By train"
-      },
-      {
-       "fr": "En tram",
-       "en": "By tram"
-      },
-      {
-       "fr": "À pied",
-       "en": "On foot"
-      },
-      {
-       "fr": "En voiture, M. Wang conduit",
-       "en": "By car, Mr Wang driving"
-      }
-     ],
-     "reponse": 3,
-     "porte": [
-      "开",
-      "车"
      ]
     },
     {
@@ -277,29 +164,6 @@
      ]
     },
     {
-     "type": "caractere",
-     "consigne": {
-      "fr": "Quel caractère a ce sens ?",
-      "en": "Which character has this meaning?"
-     },
-     "objet": {
-      "zh": "水",
-      "pinyin": "shuǐ",
-      "fr": "eau",
-      "en": "water"
-     },
-     "choix": [
-      "小",
-      "火",
-      "水",
-      "米"
-     ],
-     "reponse": 2,
-     "porte": [
-      "水"
-     ]
-    },
-    {
      "type": "comprendre",
      "support": "s3",
      "consigne": {
@@ -328,38 +192,6 @@
      "porte": [
       "水",
       "果"
-     ]
-    },
-    {
-     "type": "comprendre",
-     "support": "s4",
-     "consigne": {
-      "fr": "Que dit ce panneau ?",
-      "en": "What does this sign say?"
-     },
-     "choix": [
-      {
-       "fr": "Attention au train !",
-       "en": "Beware of trains!"
-      },
-      {
-       "fr": "Train pour la capitale",
-       "en": "Train to the capital"
-      },
-      {
-       "fr": "Gare fermée",
-       "en": "Station closed"
-      },
-      {
-       "fr": "Petits trains à louer",
-       "en": "Small trains for hire"
-      }
-     ],
-     "reponse": 0,
-     "porte": [
-      "小",
-      "心",
-      "车"
      ]
     },
     {
@@ -485,72 +317,6 @@
    ],
    "questions": [
     {
-     "type": "sens",
-     "consigne": {
-      "fr": "Que veut dire ce caractère ?",
-      "en": "What does this character mean?"
-     },
-     "objet": {
-      "zh": "少",
-      "pinyin": "shǎo",
-      "fr": "peu",
-      "en": "few, little"
-     },
-     "choix": [
-      {
-       "fr": "petit",
-       "en": "small"
-      },
-      {
-       "fr": "peu",
-       "en": "few, little"
-      },
-      {
-       "fr": "eau",
-       "en": "water"
-      },
-      {
-       "fr": "milieu",
-       "en": "middle"
-      }
-     ],
-     "reponse": 1,
-     "porte": [
-      "少"
-     ]
-    },
-    {
-     "type": "comprendre",
-     "support": "s1",
-     "consigne": {
-      "fr": "Quel temps fait-il aujourd'hui ?",
-      "en": "What's the weather like today?"
-     },
-     "choix": [
-      {
-       "fr": "Il bruine",
-       "en": "It's drizzling"
-      },
-      {
-       "fr": "Grand soleil",
-       "en": "Bright sunshine"
-      },
-      {
-       "fr": "Forte pluie",
-       "en": "Heavy rain"
-      },
-      {
-       "fr": "Il fait froid",
-       "en": "It's cold"
-      }
-     ],
-     "reponse": 0,
-     "porte": [
-      "毛",
-      "雨"
-     ]
-    },
-    {
      "type": "replique",
      "support": "s1",
      "consigne": {
@@ -588,38 +354,6 @@
       "小",
       "开",
       "车"
-     ]
-    },
-    {
-     "type": "comprendre",
-     "support": "s2",
-     "consigne": {
-      "fr": "Quelle hauteur fait cette colline ?",
-      "en": "How high is this hill?"
-     },
-     "choix": [
-      {
-       "fr": "89 mètres",
-       "en": "89 metres"
-      },
-      {
-       "fr": "98 mètres",
-       "en": "98 metres"
-      },
-      {
-       "fr": "9 kilomètres",
-       "en": "9 kilometres"
-      },
-      {
-       "fr": "68 mètres",
-       "en": "68 metres"
-      }
-     ],
-     "reponse": 1,
-     "porte": [
-      "九",
-      "八",
-      "米"
      ]
     },
     {
@@ -663,37 +397,6 @@
      "reponse": 1,
      "porte": [
       "中"
-     ]
-    },
-    {
-     "type": "comprendre",
-     "support": "s3",
-     "consigne": {
-      "fr": "Que se passe-t-il le 1er septembre ?",
-      "en": "What happens on 1 September?"
-     },
-     "choix": [
-      {
-       "fr": "Un anniversaire",
-       "en": "A birthday"
-      },
-      {
-       "fr": "Un voyage en train",
-       "en": "A train trip"
-      },
-      {
-       "fr": "Un examen",
-       "en": "An exam"
-      },
-      {
-       "fr": "La rentrée des classes",
-       "en": "The first day of school"
-      }
-     ],
-     "reponse": 3,
-     "porte": [
-      "开",
-      "学"
      ]
     },
     {
@@ -745,29 +448,6 @@
      "porte": [
       "开",
       "水"
-     ]
-    },
-    {
-     "type": "ton",
-     "consigne": {
-      "fr": "Quel est son ton ?",
-      "en": "Which tone does it have?"
-     },
-     "objet": {
-      "zh": "九",
-      "pinyin": "jiǔ",
-      "fr": "neuf",
-      "en": "nine"
-     },
-     "choix": [
-      "jiū",
-      "jiú",
-      "jiǔ",
-      "jiù"
-     ],
-     "reponse": 2,
-     "porte": [
-      "九"
      ]
     }
    ]

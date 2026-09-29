@@ -25,6 +25,11 @@
    * au bol ; une erreur, la même grimace brève ; trois justes d'affilée, un bond. Le geste
    * ne dure que le temps de le voir, et aucun chiffre ne dit la série. Sans animation (le
    * réglage « réduire les animations »), seul le visage change : la grimace ou la joie.
+   *
+   * À l'examen (brief §9, maquette validée le 29 septembre 2026), elle porte la robe bleue
+   * de l'écolier 青衿, le pinceau et le sac (`robe`), et le panier 考篮 à côté d'elle
+   * (`panier`), avec lequel elle attend à la porte, puis lit la liste 榜 ; au 月课, un livre
+   * sous le bras (`livre`). Ces couleurs sont fixes, comme celles du personnage.
    */
   import type { Humeur, PostureVue, Reaction, Stade } from './tao';
 
@@ -37,7 +42,10 @@
     penchee = false,
     grimace = false,
     reaction = null,
-    allumee = false
+    allumee = false,
+    robe = false,
+    panier = false,
+    livre = false
   }: {
     stade?: Stade;
     posture?: PostureVue;
@@ -57,7 +65,19 @@
      * dégradé ; éteinte, la lanterne n'a que son contour.
      */
     allumee?: boolean;
+    /**
+     * À l'examen (maquette validée le 29 septembre 2026) : la robe bleue de l'écolier 青衿,
+     * le col clair croisé, le sac à livres et le pinceau à la main.
+     */
+    robe?: boolean;
+    /** Le panier d'examen 考篮, deux étages, un couvercle, une anse, posé à côté d'elle. */
+    panier?: boolean;
+    /** Au 月课, un livre sous le bras, sans robe : il ne donne pas de titre. */
+    livre?: boolean;
   } = $props();
+
+  /** Ce qu'elle porte à côté d'elle : les accessoires de fête de ce côté-là lui cèdent la place. */
+  const porte = $derived(robe || panier || livre);
 
   const arbre = $derived(stade === 'jeune' || stade === 'fleur' || stade === 'peches');
   const grand = $derived(stade === 'fleur' || stade === 'peches');
@@ -105,12 +125,32 @@
   viewBox="0 0 200 200"
   aria-hidden="true"
 >
-  {#if posture !== 'pot'}
+  {#if posture !== 'pot' && !robe}
     <path class="sol" d="M60 168q40 12 80 0" stroke="var(--line)" stroke-width="4" fill="none" stroke-linecap="round" />
   {/if}
 
   <g class="vivant">
-    {#if posture === 'chemin'}
+    {#if robe}
+      <!-- la robe bleue de l'écolier 青衿, le col clair croisé, le sac à livres 书袋 -->
+      <path class="pieds" d="M91 176v10M109 176v10" stroke="var(--jade)" stroke-width="7" stroke-linecap="round" />
+      <g class="robe">
+        <path d="M70 146Q60 168 66 180H134Q140 168 130 146Z" fill="var(--h-azur)" stroke="var(--h-encre)" stroke-width="4" stroke-linejoin="round" />
+        <path d="M86 156L100 176L114 156" fill="none" stroke="var(--h-carte)" stroke-width="5" stroke-linejoin="round" />
+        <path d="M100 176V180" stroke="var(--h-encre)" stroke-width="2.5" opacity=".4" />
+        <path d="M122 150L84 178" stroke="var(--h-ocre)" stroke-width="4" stroke-linecap="round" />
+        <rect x="122" y="160" width="18" height="16" rx="3" fill="var(--h-abricot-pale)" stroke="var(--h-encre)" stroke-width="3" />
+        <path d="M72 152Q58 158 54 172L64 176Q68 166 76 162Z" fill="var(--h-azur)" stroke="var(--h-encre)" stroke-width="3.5" stroke-linejoin="round" />
+      </g>
+      <!-- le pinceau, tenu à la main -->
+      <g class="pinceau-ecolier">
+        <g transform="rotate(-22 60 172)">
+          <rect x="56.5" y="122" width="7" height="48" rx="3" fill="var(--h-ocre)" stroke="var(--h-encre)" stroke-width="2.5" />
+          <rect x="55" y="166" width="10" height="6" rx="1.5" fill="var(--h-carte)" stroke="var(--h-encre)" stroke-width="2" />
+          <path d="M54.5 172q1 12 5.5 22q4.5-10 5.5-22z" fill="var(--h-encre)" />
+        </g>
+        <circle cx="60" cy="173" r="6.5" fill="var(--h-carte)" stroke="var(--h-encre)" stroke-width="3" />
+      </g>
+    {:else if posture === 'chemin'}
       <path class="pieds" d="M88 156v14M112 156v14" stroke="var(--jade)" stroke-width="7" stroke-linecap="round" />
     {:else if posture === 'anecdote'}
       <path
@@ -295,6 +335,27 @@
     </g>
   {/if}
 
+  {#if panier}
+    <!-- 考篮 : le panier d'examen, deux étages, un couvercle, une anse -->
+    <g class="panier" transform="translate(152 150)">
+      <path d="M4 2Q20 -26 36 2" fill="none" stroke="var(--h-encre)" stroke-width="3.5" stroke-linecap="round" />
+      <rect x="0" y="2" width="40" height="8" rx="2" fill="var(--h-ocre)" stroke="var(--h-encre)" stroke-width="3" />
+      <rect x="2" y="10" width="36" height="12" fill="var(--h-gutte)" stroke="var(--h-encre)" stroke-width="3" />
+      <rect x="2" y="22" width="36" height="12" fill="var(--h-gutte)" stroke="var(--h-encre)" stroke-width="3" />
+      <path d="M8 16h24M8 28h24" stroke="var(--h-abricot-pale)" stroke-width="2" stroke-dasharray="3 3" />
+    </g>
+  {/if}
+  {#if livre}
+    <!-- au 月课 : un livre sous le bras -->
+    <g class="livre">
+      <g transform="translate(122 146) rotate(8)">
+        <rect width="26" height="32" rx="2" fill="var(--h-azur)" stroke="var(--h-encre)" stroke-width="3" />
+        <rect x="5" y="5" width="8" height="18" fill="var(--h-carte)" />
+      </g>
+      <circle cx="126" cy="164" r="6" fill="var(--h-carte)" stroke="var(--h-encre)" stroke-width="3" />
+    </g>
+  {/if}
+
   <!-- au-dessus de la tête, là où la bulle et la lanterne ne sont pas -->
   {#if posture !== 'lecon' && posture !== 'jeu'}
     <g class="fete-acc flocon" transform="translate(140 62)" stroke="var(--t1)" stroke-width="4" stroke-linecap="round">
@@ -324,7 +385,7 @@
     </g>
   {/if}
   <!-- à côté d'elle, là où le bol, la feuille et le pot ne sont pas -->
-  {#if posture !== 'pot' && posture !== 'revision' && posture !== 'lecture' && posture !== 'goute'}
+  {#if posture !== 'pot' && posture !== 'revision' && posture !== 'lecture' && posture !== 'goute' && !porte}
     <g class="fete-acc yuebing">
       <circle cx="46" cy="148" r="19" fill="var(--t2)" stroke="var(--ink)" stroke-width="4" />
       <circle cx="46" cy="148" r="10" fill="none" stroke="var(--ink)" stroke-width="3" opacity=".55" />
