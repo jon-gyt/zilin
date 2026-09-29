@@ -6,7 +6,9 @@ l'adulte 状元, au fil des bonnes réponses. Trois sources versionnées dans
 tire `heros.json` :
 
 - `rangs.tsv` : les douze rangs, leur titre (hanzi, pinyin), leur traduction mot à mot,
-  leur rôle historique, l'âge du personnage et le seuil de points ;
+  leur rôle historique, l'âge du personnage, le seuil de points, et ce que le titre
+  demande en plus (« Points ET examen », décision du propriétaire du 26 septembre 2026) :
+  les examens à titre réussis, ou pour une nomination un palier de caractères lus ;
 - `betes.tsv` : les trois bêtes, ce que Tao en dit, trois idées de nom ;
 - `tao.tsv` : les phrases de la bulle de Tao et de l'écran 放榜, avec leurs jetons.
 
@@ -54,9 +56,14 @@ JETONS_TAO: dict[str, frozenset[str]] = {
     "essayer": frozenset({"art", "art_fr"}),
     "presque": frozenset({"reste", "rang"}),
     "presque_un": frozenset({"rang"}),
+    "examen": frozenset({"rang", "examen"}),
+    "palier": frozenset({"rang", "palier"}),
     "sommet": frozenset({"nom"}),
     "fangbang": frozenset({"nom", "rang", "rang_fr", "role"}),
 }
+
+#: Une cellule vide des colonnes `examens` et `palier` de `rangs.tsv`.
+VIDE = ("", "—", "-")
 
 #: Ce qu'aucun texte du personnage ne nomme : le dragon reste au décor de deux fêtes.
 INTERDITS = re.compile(r"dragon|龙|龍", re.IGNORECASE)
@@ -85,10 +92,23 @@ class Rang:
     seuil: str
     source: str
     numero: int = 0
+    examens: str = "—"
+    palier: str = "—"
 
     def points(self) -> int | None:
         """Le seuil, en points ; `None` s'il n'est pas un entier positif ou nul."""
         return int(self.seuil) if self.seuil.isdigit() else None
+
+    def ids(self) -> tuple[str, ...]:
+        """Les examens à titre que le rang demande réussis, par identifiant ; aucun : `()`."""
+        return () if self.examens in VIDE else tuple(self.examens.split())
+
+    def lus(self) -> int | None:
+        """Le palier de caractères lus d'une nomination ; `None` sans palier ou illisible."""
+        return int(self.palier) if self.palier.isdigit() else None
+
+    def sans_palier(self) -> bool:
+        return self.palier in VIDE
 
 
 @dataclass(frozen=True)
@@ -141,6 +161,8 @@ def charger(dossier: Path | None = None) -> Heros:
                 seuil=l.cellules.get("seuil", ""),
                 source=l.cellules.get("source", ""),
                 numero=l.numero,
+                examens=l.cellules.get("examens", ""),
+                palier=l.cellules.get("palier", ""),
             )
             for l in l_ran
         ),
@@ -194,7 +216,9 @@ def document(
 ) -> dict[str, object]:
     """Le JSON écrit dans `heros.json`.
 
-    `rangs` dans l'ordre, chacun avec son seuil en points ; `betes` dans l'ordre du choix,
+    `rangs` dans l'ordre, chacun avec son seuil en points, les examens à titre qu'il
+    demande réussis (`examens`, par identifiant) et le palier de caractères lus d'une
+    nomination (`palier`, `null` sinon) ; `betes` dans l'ordre du choix,
     avec leurs trois idées de nom ; `tao` les phrases par clé, jetons compris ;
     `racines` la famille de chaque caractère des titres, pour que l'app trouve ses traits.
     """
@@ -209,6 +233,8 @@ def document(
                 "role": r.role,
                 "age": r.age,
                 "seuil": r.points() if r.points() is not None else 0,
+                "examens": list(r.ids()),
+                "palier": r.lus(),
             }
             for r in heros.rangs
         ],
@@ -224,9 +250,90 @@ def document(
 # ------------------------------------------------------------------------- contrôles
 
 
-def fautes_sources(heros: Heros) -> list[str]:
-    """Ce qui cloche dans les sources : douze rangs, seuils, âges, trois bêtes, phrases."""
+def fautes_exigences(
+    heros: Heros,
+    examens: Sequence[tuple[str, str]],
+    nominations: Sequence[tuple[str, int]],
+) -> list[str]:
+    """Ce que chaque titre demande en plus des points (« Points ET examen »).
+
+    `examens` : les examens à titre de `data/sources/examens/examens.tsv`, dans l'ordre,
+    chacun `(id, titre)` (`titre` vide au 县试) ; `nominations` : `(rang, palier)`, de
+    `nominations.tsv`. Chaque examen à titre une fois, dans l'ordre, sous le rang que nomme
+    le titre du dernier de ses examens ; chaque nomination à son palier, les paliers
+    croissants, après les examens ; un examen ou un palier, jamais les deux ; dès qu'un rang
+    demande l'un, tous les suivants aussi.
+    """
+    fautes: list[str] = []
+    titres = dict(examens)
+    paliers = dict(nominations)
+    vus: list[str] = []
+    exige = False
+    dernier_palier: int | None = None
+    for r in heros.rangs:
+        ou = f"rangs.tsv:{r.numero}"
+        ids, palier = r.ids(), r.lus()
+        if not r.sans_palier() and palier is None:
+            fautes.append(f"{ou} : palier {r.palier!r}, attendu un entier ou —")
+        if ids and not r.sans_palier():
+            fautes.append(f"{ou} : {r.hz} demande un examen et un palier, un seul")
+        demande = bool(ids) or not r.sans_palier()
+        if exige and not demande:
+            fautes.append(f"{ou} : {r.hz} ne demande ni examen ni palier, après un rang qui en demande")
+        exige = exige or demande
+        for k, i in enumerate(ids):
+            if i not in titres:
+                fautes.append(f"{ou} : {i} n'est pas un examen à titre de examens.tsv")
+                continue
+            dernier = k == len(ids) - 1
+            if dernier and titres[i] != r.hz:
+                fautes.append(f"{ou} : {i} accorde {titres[i] or 'aucun titre'}, pas {r.hz}")
+            if not dernier and titres[i]:
+                fautes.append(f"{ou} : {i} accorde déjà {titres[i]}, il vient en dernier")
+        vus += ids
+        if r.hz in paliers and palier != paliers[r.hz]:
+            fautes.append(f"{ou} : {r.hz} au palier {r.palier}, nominations.tsv dit {paliers[r.hz]}")
+        if palier is not None:
+            if r.hz not in paliers:
+                fautes.append(f"{ou} : {r.hz} a un palier sans être une nomination de nominations.tsv")
+            if dernier_palier is not None and palier <= dernier_palier:
+                fautes.append(f"{ou} : palier {palier} après {dernier_palier}, les paliers croissent")
+            dernier_palier = palier
+        elif dernier_palier is not None and ids:
+            fautes.append(f"{ou} : {r.hz} demande un examen après une nomination")
+    ordre = [i for i, _ in examens]
+    if vus != ordre:
+        fautes.append(f"rangs.tsv : examens {' '.join(vus) or 'aucun'}, attendu {' '.join(ordre)}, dans l'ordre")
+    rangs = {r.hz for r in heros.rangs}
+    manquants = [rang for rang in paliers if rang not in rangs]
+    if manquants:
+        fautes.append(f"rangs.tsv : nominations sans rang : {' '.join(manquants)}")
+    return fautes
+
+
+def exigences_des_sources() -> tuple[list[tuple[str, str]], list[tuple[str, int]]]:
+    """Les examens à titre `(id, titre)` et les nominations `(rang, palier)` de `data/sources/examens/`."""
+    from . import examens as examens_mod
+
+    liste, _ = examens_mod.charger_liste()
+    noms, _ = examens_mod.charger_nominations()
+    return (
+        [(e.id, e.titre) for e in liste if e.sorte == examens_mod.TITRE],
+        [(n.rang, n.palier) for n in noms],
+    )
+
+
+def fautes_sources(
+    heros: Heros,
+    exigences: tuple[Sequence[tuple[str, str]], Sequence[tuple[str, int]]] | None = None,
+) -> list[str]:
+    """Ce qui cloche dans les sources : douze rangs, seuils, âges, exigences, trois bêtes, phrases.
+
+    `exigences` : les examens à titre et les nominations ; par défaut, ceux de
+    `data/sources/examens/` (`exigences_des_sources`).
+    """
     fautes = list(heros.forme)
+    fautes += fautes_exigences(heros, *(exigences or exigences_des_sources()))
 
     if len(heros.rangs) != NOMBRE_RANGS:
         fautes.append(f"rangs.tsv : {len(heros.rangs)} rangs, il en faut {NOMBRE_RANGS}")
@@ -335,6 +442,9 @@ def fautes_export(sortie: Mapping[str, object], heros: Heros) -> list[str]:
     attendus = [(r.hz, r.points()) for r in heros.rangs]
     if [(r.get("hz"), r.get("seuil")) for r in rangs] != attendus:
         fautes.append("les rangs exportés ne sont pas ceux des sources")
+    exigences = [(list(r.ids()), r.lus()) for r in heros.rangs]
+    if [(r.get("examens"), r.get("palier")) for r in rangs] != exigences:
+        fautes.append("les examens et les paliers exportés ne sont pas ceux des sources")
     seuils = [r.get("seuil") for r in rangs]
     if any(not isinstance(s, int) for s in seuils) or seuils != sorted(set(seuils)):  # type: ignore[type-var]
         fautes.append("seuils exportés non croissants")
@@ -364,8 +474,9 @@ def controles(
     """Contrôles du personnage, pour `wenlu check`. Tous bloquants.
 
     « sources » : douze rangs, le premier à 0 point, des seuils strictement croissants,
-    des âges dans l'ordre des étapes de vie ; trois bêtes (`tu`, `xiongmao`, `shi`) et
-    trois idées de nom chacune ; les huit phrases de Tao, sans jeton inconnu ; aucun
+    des âges dans l'ordre des étapes de vie ; chaque examen à titre et chaque nomination de
+    `data/sources/examens/` sous son rang, dans l'ordre (`fautes_exigences`) ; trois bêtes (`tu`, `xiongmao`, `shi`) et
+    trois idées de nom chacune ; les dix phrases de Tao, sans jeton inconnu ; aucun
     dragon. « pinyin » : chaque titre et chaque nom de bête se lit dans son pinyin.
     « périmètre » : chaque caractère des titres a ses traits dans l'export (l'app les
     dessine). « export » : `heros.json` dit les rangs, les bêtes et les phrases des sources.
@@ -401,13 +512,16 @@ def controles(
 
     sans_export = "aucun export écrit : lancer `wenlu export`"
     seuils = " ".join(r.seuil for r in heros.rangs)
+    examens = sum(len(r.ids()) for r in heros.rangs)
+    nominations = sum(1 for r in heros.rangs if r.lus() is not None)
     return [
         Controle(
             "héros : sources",
             not f_src,
             detail(
                 f_src,
-                f"{len(heros.rangs)} rangs (seuils {seuils}), {len(heros.betes)} bêtes,"
+                f"{len(heros.rangs)} rangs (seuils {seuils}), {examens} examens à titre et"
+                f" {nominations} nominations sous leur rang, {len(heros.betes)} bêtes,"
                 f" {len(heros.tao)} phrases de Tao",
             ),
             bloquant=True,
@@ -431,7 +545,7 @@ def controles(
         Controle(
             "héros : export",
             not f_exp,
-            detail(f_exp, "heros.json dit les rangs, les bêtes et les phrases des sources")
+            detail(f_exp, "heros.json dit les rangs, leurs examens et paliers, les bêtes et Tao")
             if dossiers
             else sans_export,
             bloquant=True,

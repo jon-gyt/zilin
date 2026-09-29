@@ -437,13 +437,16 @@ d'après la maquette validée et à relire : `rangs.tsv`, `betes.tsv`, `tao.tsv`
 ```json
 {"version": "0.1.0", "license": "propriétaire", "source": "…", "source_url": "…", "modified": "…",
  "rangs": [{"hz": "启蒙", "pinyin": "qǐméng", "fr": "lever le voile",
-            "role": "les tout premiers caractères", "age": "bébé", "seuil": 0},
-           {"hz": "蒙童", "…": "…", "seuil": 10}],
+            "role": "les tout premiers caractères", "age": "bébé", "seuil": 0,
+            "examens": [], "palier": null},
+           {"hz": "童生", "…": "…", "seuil": 50, "examens": ["xianshi", "fushi"], "palier": null},
+           {"hz": "翰林", "…": "…", "seuil": 360, "examens": [], "palier": 1000}],
  "betes": [{"id": "tu", "hz": "玉兔", "pinyin": "yùtù", "fr": "le lapin de jade",
             "dit": "Oreilles dressées, rien ne lui échappe.", "noms": ["Yuè", "月月", "Pompon"]}],
  "tao": {"accueil": "…", "choisi": "{bete}, {bete_fr} ! {dit}", "depart": "On y va ?",
          "essayer": "Et si on essayait {art}, {art_fr} ? Je t'aide.",
          "presque": "Plus que {reste} points pour {rang} !", "presque_un": "…",
+         "examen": "Les points de {rang} y sont. Reste le {examen} : …", "palier": "…",
          "sommet": "{nom}, premier du concours. …", "fangbang": "Ton nom est sur la liste, {nom} : …"},
  "racines": {"启": "口", "…": "…"}}
 ```
@@ -451,10 +454,15 @@ d'après la maquette validée et à relire : `rangs.tsv`, `betes.tsv`, `tao.tsv`
 - `rangs` : douze, dans l'ordre, le premier à 0 point, des seuils strictement croissants
   (0 à 1 000). `fr` est la traduction mot à mot, sans guillemets ; `age` l'étape de vie
   (bébé, tout-petit, enfant, grand enfant, ado, jeune, adulte), dont l'app tire la
-  silhouette. Les titres se dessinent depuis leurs traits : leurs caractères sont dans le
-  périmètre, et `racines` dit leur famille.
+  silhouette, qui suit les seuls points. « Points ET examen » (décision du propriétaire du
+  26 septembre 2026) : `examens` nomme les examens à titre qu'un rang demande réussis, par
+  leur identifiant dans `examens.json` (le 童生 : le 县试 et le 府试), et `palier` les
+  caractères lus d'une nomination (翰林 1 000, 探花 1 200, 榜眼 1 555, 状元 1 800), `null`
+  sinon ; un rang ne s'accorde qu'avec ses points et ce qu'il demande, dans l'ordre, et la
+  tenue suit le rang accordé. Un 月课 n'est dans aucun rang. Les titres se dessinent depuis
+  leurs traits : leurs caractères sont dans le périmètre, et `racines` dit leur famille.
 - `betes` : `tu`, `xiongmao`, `shi`, les trois que l'app dessine, avec trois idées de nom.
-- `tao` : huit phrases ; l'app remplit les jetons entre accolades. Les points ne sont pas
+- `tao` : dix phrases ; l'app remplit les jetons entre accolades. Les points ne sont pas
   du contenu : l'app les compte dans la progression (`heros.ts`).
 
 ## `jouer.json`
@@ -769,10 +777,13 @@ ce que l'app embarque ; `docs/sources-licences.md` fait foi pour la décision.
 - « héros : sources », « pinyin », « périmètre », « export » — bloquants : douze rangs,
   le premier à 0 point, des seuils strictement croissants, des âges qui ne reviennent
   jamais en arrière, du bébé à l'adulte ; trois bêtes (`tu`, `xiongmao`, `shi`) et trois
-  idées de nom distinctes chacune ; les huit phrases de Tao, sans jeton inconnu ; aucun
+  idées de nom distinctes chacune ; chaque examen à titre de `examens.tsv` une fois, dans
+  l'ordre, sous le rang qu'il accorde, et chaque nomination de `nominations.tsv` à son
+  palier ; un examen ou un palier par rang, jamais les deux, et tous les rangs après le
+  premier qui en demande un ; les dix phrases de Tao, sans jeton inconnu ; aucun
   dragon ; chaque titre et chaque nom de bête se lit dans son pinyin ; chaque caractère
-  des titres a ses traits dans l'export ; `heros.json` dit les rangs, les bêtes et les
-  phrases des sources, et `index.json` le nomme.
+  des titres a ses traits dans l'export ; `heros.json` dit les rangs, leurs examens et
+  leurs paliers, les bêtes et les phrases des sources, et `index.json` le nomme.
 - « jouer : sources », « export » — bloquants : les quatre phrases de Tao, une fois
   chacune, sourcées, sans jeton, ni emoji ni dragon, et jamais un reproche (ni « tu n'as
   pas… », ni regret, ni impatience, ni compte de jours ou d'absence : brief §9) ;
