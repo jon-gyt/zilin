@@ -217,7 +217,7 @@ const VERBES: Partial<Record<StepId, string>> = {
  * Ce que dit Tao sur le chemin : jamais un reproche, toujours une invitation. Un tap
  * sur elle, la phrase suivante. Son humeur vient des activités, jamais de l'horloge.
  */
-export function phrasesDeTao(p: Progress, caractere = '', t: TextesRythme = SANS_RYTHME): string[] {
+export function phrasesDeTao(p: Progress, caractere = '', t: TextesRythme = SANS_RYTHME, jouer = true): string[] {
   const n = nextIndex(p);
   const s = n < 0 ? null : steps(p)[n];
   /* Un jour sans brique nouvelle, rien ne s'apprend : on revoit (la ligne vient de `rythme.json`). */
@@ -244,7 +244,7 @@ export function phrasesDeTao(p: Progress, caractere = '', t: TextesRythme = SANS
       l =
         p.plus > 0
           ? ['Quelle journée !', 'Encore une brique ?', 'À demain, sur le chemin.']
-          : ['Graine plantée !', 'On joue un peu ?', 'À demain, sur le chemin.'];
+          : ['Graine plantée !', jouer ? 'On joue un peu ?' : '', 'À demain, sur le chemin.'];
       break;
     case 'entamee':
       l = ['On reprend ici !', s ? `Pas ${n + 1}, ${VERBES[s.id] ?? 'on continue'} !` : ''];
@@ -287,9 +287,10 @@ function sessionsDePlus(n: number): string {
 /**
  * `t` : les lignes du rythme gratuit (`rythme.json`) ; un jour sans brique nouvelle, la
  * carte dit la brique revue, et, quand la session de plus n'est pas du rythme de la
- * journée, le bouton de la journée faite devient « Réviser encore ».
+ * journée, le bouton de la journée faite devient « Réviser encore ». `jouer` : la porte de
+ * Jouer est-elle montrée (`ouvertures.ts`) ? Tao ne propose pas un jeu qu'on ne voit pas.
  */
-export function menu(p: Progress, caractere = '', t: TextesRythme = SANS_RYTHME): ModeleMenu {
+export function menu(p: Progress, caractere = '', t: TextesRythme = SANS_RYTHME, jouer = true): ModeleMenu {
   const etat = etatMenu(p);
   const l = steps(p).filter((s) => s.go !== null);
   const n = nextIndex(p);
@@ -304,7 +305,7 @@ export function menu(p: Progress, caractere = '', t: TextesRythme = SANS_RYTHME)
       posture: (etat === 'rattrapage' && !entamee(p) ? 'pot' : 'chemin') as 'chemin' | 'pot',
       humeur: (etat === 'faite' ? 'joie' : humeur(p.tao.activites, p.day)) as Humeur
     },
-    phrases: phrasesDeTao(p, caractere, t)
+    phrases: phrasesDeTao(p, caractere, t, jouer)
   };
   const pas = s ? `Pas ${n + 1} sur ${l.length} · ${s.t}` : '';
   /* Un jour sans brique nouvelle : la carte montre la brique revue. */

@@ -578,7 +578,7 @@ describe('les écrans de Ma forêt', () => {
     const foret = readFileSync(new URL('Forest.svelte', import.meta.url), 'utf8');
     const app = readFileSync(new URL('../App.svelte', import.meta.url), 'utf8');
     expect(foret).toContain('onrecompenses');
-    expect(app).toContain("onrecompenses={() => (ecran = 'rewards')}");
+    expect(app).toContain("onrecompenses={() => ouvrirDetour('rewards', 'foret')}");
   });
 });
 

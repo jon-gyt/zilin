@@ -56,6 +56,7 @@
     q = $bindable(''),
     mode = $bindable('caractere'),
     texte = $bindable(''),
+    monde = true,
     onfamille,
     onretour
   }: {
@@ -66,6 +67,11 @@
     mode?: 'caractere' | 'texte';
     /** Le texte à lire, gardé pour le retour depuis l'arbre. */
     texte?: string;
+    /**
+     * L'aventure (`ouvertures.ts`) : l'onglet « Un texte », Lire le monde, s'ouvre avec sa
+     * porte ; avant, Chercher n'a que la recherche d'un caractère, toujours là.
+     */
+    monde?: boolean;
     /** Ouvre l'arbre d'une famille, le caractère touché choisi. */
     onfamille: (fam: Noeud, c: string) => void;
     onretour: () => void;
@@ -195,6 +201,7 @@
     <Tao stade={taoStade} posture="lecture" humeur={taoHumeur} size={72} />
   </header>
 
+  {#if monde}
   <div class="onglets" role="tablist" aria-label={tl.onglets}>
     <button
       role="tab"
@@ -206,6 +213,7 @@
       >{tl['onglet-texte']}</button
     >
   </div>
+  {/if}
 
   <!-- Un signe du texte lu : un caractère lu (jade, il ouvre sa fiche), un autre (à l'encre, et
        « dans N j » s'il est sur le chemin), ou ce qui n'est pas un sinogramme. -->
@@ -220,7 +228,7 @@
       >{/if}
   {/snippet}
 
-  {#if mode === 'texte'}
+  {#if monde && mode === 'texte'}
     <div class="champ texte">
       <textarea
         rows="3"

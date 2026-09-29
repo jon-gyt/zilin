@@ -77,6 +77,16 @@ describe('le menu et le parcours, dans les écrans', () => {
     expect(css).not.toMatch(/box-shadow|gradient/);
   });
 
+  it("seule la porte qui s'ouvre se pose d'une animation, coupée si l'on réduit les animations", () => {
+    const css = source('Menu.svelte').slice(source('Menu.svelte').indexOf('<style>'));
+    const pose = css.slice(css.indexOf(".case.neuve {"));
+    expect(pose).toMatch(/\.case\.neuve \{[^}]*animation: pose/);
+    expect(pose).toMatch(/outline: 1\.5px solid var\(--indigo\)/);
+    const reduit = pose.slice(pose.indexOf('@media (prefers-reduced-motion: reduce)'));
+    expect(reduit).toMatch(/\.case\.neuve,[\s\S]*animation: none/);
+    expect(css).not.toMatch(/--zhu|box-shadow|gradient/);
+  });
+
   it('dessine le caractère du jour depuis ses traits, jamais depuis une police', () => {
     const m = source('Menu.svelte');
     expect(m).toContain('glyph(carte.c, traits, 108, { write: true, cinabre })');

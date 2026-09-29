@@ -92,7 +92,8 @@
     onanecdote,
     onlettre = () => undefined,
     onchapitre = () => undefined,
-    onreprise = () => undefined
+    onreprise = () => undefined,
+    contes = true
   }: {
     p: Progress;
     onretour: () => void;
@@ -106,6 +107,11 @@
     onchapitre?: (conte: string, seuil: Niveau, k: number, n: number) => void;
     /** Un chapitre d'un récit long ouvert depuis le sommaire : on y reprendra. */
     onreprise?: (conte: string, seuil: Niveau, k: number) => void;
+    /**
+     * L'aventure (`ouvertures.ts`) : les étagères des contes s'ouvrent avec la première fable
+     * du chemin ; avant, Lire garde « Aujourd'hui », l'anecdote et les lettres de Que.
+     */
+    contes?: boolean;
   } = $props();
 
   /** L'anecdote de la journée de la session, la même que l'écran Ouvrir. */
@@ -488,7 +494,8 @@
       {/if}
     {/if}
 
-    <!-- Les contes : trois étagères de livres cousus -->
+    <!-- Les contes : trois étagères de livres cousus, quand leur porte s'ouvre (`ouvertures.ts`) -->
+    {#if contes}
     {#if entrees === null}
       <p class="guide">Un instant.</p>
     {:else if entrees.length === 0}
@@ -540,6 +547,7 @@
           {/if}
         {/each}
       </div>
+    {/if}
     {/if}
   </main>
 {/if}

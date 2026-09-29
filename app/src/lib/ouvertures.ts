@@ -23,6 +23,7 @@
  *   révision de l'acquis passe par la session dès le premier jour.
  */
 import { contenu, dossierVersion, VERSION_DONNEES, type Index } from './content';
+import type { JeuId } from './jeux';
 
 /** Les portes que l'app sait montrer ou cacher. Le pipeline tient la même liste (`ouvertures.PORTES`). */
 export const PORTES = [
@@ -48,6 +49,18 @@ export const PORTES = [
 ] as const;
 
 export type PorteId = (typeof PORTES)[number];
+
+/** Les jeux de l'écran Jouer, chacun derrière sa porte. */
+export const JEUX_DES_PORTES: readonly { porte: PorteId; jeu: JeuId }[] = [
+  { porte: 'jeu-devinette', jeu: 'devinette' },
+  { porte: 'jeu-assembler', jeu: 'assembler' },
+  { porte: 'jeu-jumeaux', jeu: 'jumeaux' },
+  { porte: 'jeu-chaine', jeu: 'chaine' },
+  { porte: 'jeu-coquille', jeu: 'coquille' },
+  { porte: 'jeu-eclair', jeu: 'eclair' },
+  { porte: 'jeu-cuisine', jeu: 'cuisine' },
+  { porte: 'jeu-wechat', jeu: 'wechat' }
+];
 
 /** Ce qui n'est jamais une porte : toujours visible, dès le premier jour. */
 export const TOUJOURS = ['reglages', 'chercher', 'session'] as const;

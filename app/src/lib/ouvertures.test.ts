@@ -1,6 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import { readFileSync } from 'node:fs';
 import {
+  JEUX_DES_PORTES,
   PORTES,
   TOUJOURS,
   aAnnoncer,
@@ -16,9 +17,10 @@ import {
   type EtatOuvertures,
   type PorteId
 } from './ouvertures';
-import { emptyProgress, fromJSON, jourDuChemin, toJSON, type Progress } from './session';
+import { emptyProgress, fromJSON, jourDuChemin, steps, toJSON, type Progress } from './session';
 import { menu } from './parcours';
 import { recevoirCadeau } from './droits';
+import { IDS } from './jeux';
 
 /**
  * L'aventure (brief §6, « Les portes qui s'ouvrent ») : un test par règle. Le calendrier
@@ -49,6 +51,12 @@ function auJour(jour: number): Progress {
 describe("le calendrier vient du pipeline", () => {
   it("l'export porte chaque porte que l'app connaît, une fois, et rien d'autre", () => {
     expect(CAL.map((p) => p.id).sort()).toEqual([...PORTES].sort());
+  });
+
+  it('chaque jeu de Jouer a sa porte, et chaque porte de jeu son jeu', () => {
+    expect(JEUX_DES_PORTES.map((x) => x.jeu).sort()).toEqual([...IDS].sort());
+    expect(JEUX_DES_PORTES.map((x) => x.porte).sort()).toEqual(PORTES.filter((p) => p.startsWith('jeu-')).sort());
+    for (const x of JEUX_DES_PORTES) expect(CAL.find((p) => p.id === x.porte)?.parent).toBe('jouer');
   });
 
   it('une porte inconnue ou mal formée est écartée, rien ne s’invente', () => {
@@ -91,6 +99,13 @@ describe('quelles portes sont ouvertes selon la progression', () => {
     /* Rien ne bloque la pédagogie : le bouton de session est toujours là. */
     const m = menu({ ...auJour(3), ouvertures: etat });
     expect(m.bouton).not.toBe('');
+  });
+
+  it("Tao ne propose pas de jouer tant que Jouer n'est pas montré", () => {
+    const faite = { ...auJour(3), jourAppris: 3 };
+    const p = { ...faite, done: steps(faite).map(() => true) };
+    expect(menu(p, '', undefined, false).phrases).not.toContain('On joue un peu ?');
+    expect(menu(p, '', undefined, true).phrases).toContain('On joue un peu ?');
   });
 
   it('Réglages, Chercher un caractère et la session ne sont jamais des portes', () => {

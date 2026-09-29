@@ -88,6 +88,7 @@
   let {
     p,
     jeu = null,
+    montres = null,
     retour = 'home',
     onchoisir,
     onrepondu,
@@ -100,6 +101,11 @@
     p: Progress;
     /** Le jeu ouvert. `null` : l'écran montre le choix des jeux disponibles. */
     jeu?: JeuId | null;
+    /**
+     * L'aventure (`ouvertures.ts`) : les jeux dont la porte est ouverte. Les autres ne se
+     * montrent pas encore, ni dans la grille, ni dans la main de Tao. `null` : tous.
+     */
+    montres?: readonly JeuId[] | null;
     /** D'où l'on vient : le bouton de sortie y ramène. */
     retour?: 'home' | 'foret';
     onchoisir: (id: JeuId | null) => void;
@@ -229,7 +235,9 @@
     chargee = true;
   });
 
-  const dispo = $derived(chargee ? disponibles(corpus, p.day) : []);
+  /** Les jeux que l'aventure a déjà ouverts. */
+  const porteOuverte = (id: JeuId): boolean => montres === null || montres.includes(id);
+  const dispo = $derived(chargee ? disponibles(corpus, p.day).filter(porteOuverte) : []);
 
   /* ---------- la manche ---------- */
 
@@ -553,13 +561,13 @@
   /** Le jeu que Tao tend, en tête : un jeu disponible, jamais la devinette. */
   const tendu = $derived(chargee ? jeuPropose(dispo, p, p.day) : null);
   /** La devinette peut s'ouvrir : annoncée, ou jouable sans énoncé à annoncer. */
-  const devinetteOuverte = $derived(!faite && (annoncee !== null || dispo.includes('devinette')));
+  const devinetteOuverte = $derived(porteOuverte('devinette') && !faite && (annoncee !== null || dispo.includes('devinette')));
   /** La lanterne de l'écran : allumée à ouvrir, et toute la journée si elle a été trouvée. */
   const allumee = $derived(faite ? p.devinetteDuJour?.issue === 'resolue' : devinetteOuverte);
   const bulle = $derived(bulleDeTao(p, p.day, tendu, devinetteOuverte, phrases));
   /** Les autres jeux : les jouables d'abord, dans l'ordre de `IDS`, puis ceux qui attendent. */
   const autres = $derived.by(() => {
-    const reste = IDS.filter((id) => id !== 'devinette' && id !== tendu);
+    const reste = IDS.filter((id) => id !== 'devinette' && id !== tendu && porteOuverte(id));
     return [...reste.filter((id) => dispo.includes(id)), ...reste.filter((id) => !dispo.includes(id))];
   });
 
@@ -652,6 +660,7 @@
 
       <!-- La devinette du jour, en lanterne 灯谜 : une par jour ; résolue ou montrée, la
            suivante attend demain, et la lanterne reste allumée si elle a été trouvée. -->
+      {#if porteOuverte('devinette')}
       <button
         class="lampion"
         class:indispo={!faite && !devinetteOuverte}
@@ -680,14 +689,17 @@
           {#if devinetteOuverte}<span class="min">{JEUX.devinette.minutes} min</span>{/if}
         </span>
       </button>
+      {/if}
 
-      <h2 class="sec">
-        Les autres jeux <span class="hz" lang="zh">游戏</span>
-        <small>{autres.length} jeux</small>
-      </h2>
-      <div class="jeux-grille">
-        {#each autres as id (id)}{@render carte(id, false)}{/each}
-      </div>
+      {#if autres.length > 0}
+        <h2 class="sec">
+          Les autres jeux <span class="hz" lang="zh">游戏</span>
+          <small>{autres.length} jeu{autres.length > 1 ? 'x' : ''}</small>
+        </h2>
+        <div class="jeux-grille">
+          {#each autres as id (id)}{@render carte(id, false)}{/each}
+        </div>
+      {/if}
     {/if}
     <p class="k principe">
       Un jeu ne compte pas les points : il fait lire quelque chose de plus. Une à trois minutes,
