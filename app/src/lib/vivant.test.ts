@@ -326,3 +326,17 @@ describe("la devinette trouvée, la lanterne s'allume d'un scintillement bref", 
     expect(reduits(tokens)).toMatch(/\.tao \*\{animation:none!important\}/);
   });
 });
+
+describe("le message WeChat : les trois points de l'ami qui écrit", () => {
+  const x = source('FilWechat.svelte');
+  const css = x.slice(x.indexOf('<style>'));
+  it("s'allument l'un après l'autre, sans rien faire attendre de plus", () => {
+    expect(x).toContain('<div class="bulle ami ecrit" role="status" aria-label="{ami.zh} écrit"><i></i><i></i><i></i></div>');
+    expect(css).toMatch(/\.bulle\.ecrit i \{[^}]*animation: tape 1\.1s ease-in-out infinite;/);
+    expect(css).toMatch(/\.bulle\.ecrit i:nth-child\(3\) \{\s*animation-delay: 0\.3s;/);
+    expect(css).not.toContain('--zhu');
+  });
+  it("s'arrêtent si l'on réduit les animations", () => {
+    expect(reduits(css)).toMatch(/\.bulle,\s*\.bulle\.ecrit i \{\s*animation: none;/);
+  });
+});
