@@ -7,6 +7,7 @@
 import { readFileSync } from 'node:fs';
 import { describe, expect, it } from 'vitest';
 import { glyph, type StrokeData } from './glyph';
+import { decompte } from './parcours';
 
 const source = (f: string): string => readFileSync(new URL(`./${f}`, import.meta.url), 'utf8');
 
@@ -230,7 +231,7 @@ describe('Jouer : la lanterne de la devinette se balance', () => {
     expect(css).toMatch(/\.lampion:not\(\.indispo\) \.lampion-dessin \{\s*transform-origin: 50% 0;\s*animation: lampion 3\.6s/);
   });
   it("s'arrête si l'on réduit les animations", () => {
-    expect(reduits(css)).toMatch(/\.lampion:not\(\.indispo\) \.lampion-dessin \{\s*animation: none;/);
+    expect(reduits(css)).toMatch(/\.lampion:not\(\.indispo\) \.lampion-dessin[,\s\w.:()-]*\{\s*animation: none;/);
   });
 });
 
@@ -240,5 +241,183 @@ describe('le retour haptique, accordé aux petits moments', () => {
     expect(source('WeChat.svelte')).toMatch(/function reagirA\(juste: boolean\): void \{\s*if \(juste\) bonneReponse\(\);/);
     expect(source('Use.svelte')).toContain('if (r.correct) bonneReponse();');
     expect(source('Cuisine.svelte')).toMatch(/if \(r\.correct\) \{\s*bonneReponse\(\);/);
+  });
+});
+
+/* ---------- deuxième passe (« Rajoute encore des petits détails ») ---------- */
+
+describe("la bulle de Tao s'écrit au lieu d'apparaître d'un bloc", () => {
+  const x = source('Bulle.svelte');
+  const css = x.slice(x.indexOf('<style>'));
+  it("de gauche à droite, une fois ouverte, jamais plus de 0,8 s ; l'annonce se lit d'un bloc", () => {
+    expect(x).toContain('Math.min(0.8, Math.max(0.25, [...texte].length * 0.025))');
+    expect(x).toMatch(/role="status" aria-live="polite"><span class="ecrit" style="--duree:\{duree\}s">\{texte\}<\/span>/);
+    expect(x).not.toMatch(/<button class="bulle action[^>]*>\s*<span class="ecrit"/);
+    expect(css).toMatch(/\.ecrit \{[^}]*clip-path: inset\(0 100% 0 0\);[^}]*animation: ecrire var\(--duree\) linear 0\.6s forwards;/);
+  });
+  it("la phrase est là d'un coup si l'on réduit les animations", () => {
+    expect(reduits(css)).toMatch(/\.ecrit \{\s*clip-path: none;\s*animation: none;/);
+  });
+});
+
+describe('au menu, le compte de la case Réviser se décompte quand la pile baisse', () => {
+  it("de l'ancien compte au nouveau, huit pas au plus, jamais en montant", () => {
+    expect(decompte(5, 2)).toEqual([5, 4, 3, 2]);
+    expect(decompte(33, 5)).toHaveLength(9);
+    expect(decompte(33, 5)[0]).toBe(33);
+    expect(decompte(33, 5)[8]).toBe(5);
+    expect(decompte(3, 0)).toEqual([3, 2, 1, 0]);
+    expect(decompte(2, 7)).toEqual([]);
+    expect(decompte(4, 4)).toEqual([]);
+  });
+  it('part du dernier passage au menu, sans rien faire attendre, et pas pendant la session', () => {
+    const menu = source('Menu.svelte');
+    expect(menu).toContain('let dusAuMenu: number | null = null;');
+    expect(menu).toContain("decompteDu !== null && reviser.action !== 'echauffer' ? caseReviser({ ...p, due: decompteDu }).info : reviser.info");
+    expect(menu).toContain("if (id === 'reviser') return infoReviser;");
+  });
+  it("rien ne bouge si l'on réduit les animations", () => {
+    expect(source('Menu.svelte')).toMatch(/const pas = avant === null \|\| immobile \? \[\] : decompte\(avant, n\);/);
+    expect(source('Menu.svelte')).toContain("matchMedia('(prefers-reduced-motion: reduce)').matches");
+  });
+});
+
+describe("le jour où un terme commence, une feuille traverse l'en-tête", () => {
+  const menu = source('Menu.svelte');
+  const css = menu.slice(menu.indexOf('<style>'));
+  it("une fois, le premier jour du terme, jamais un jour de fête, à la couleur du décor de l'ambiance", () => {
+    expect(menu).toContain("const feuilleDuTerme = $derived(terme !== null && terme.commence && fete === null && termePasse !== terme.id);");
+    expect(menu).toMatch(/\{#if feuilleDuTerme\}\s*<!--[^>]*-->\s*<span class="passe-terme" aria-hidden="true">/);
+    expect(css).toMatch(/\.passe-terme \{[^}]*pointer-events: none;/);
+    expect(css).toMatch(/\.passe-terme svg \{[^}]*animation: passe-terme 3\.4s ease-in-out 0\.9s forwards;/);
+    expect(css).toContain('fill: var(--s-feuille, var(--s-fleur,');
+    expect(css.slice(css.indexOf('.passe-terme {'))).not.toContain('--zhu');
+  });
+  it("disparaît si l'on réduit les animations", () => {
+    expect(reduits(css)).toMatch(/\.passe-terme \{\s*display: none;/);
+  });
+});
+
+describe("en révision, chaque question arrive comme une carte qu'on retourne", () => {
+  it('un quart de tour à chaque question, jamais de tranche : lisible dès la première image', () => {
+    const ask = source('Ask.svelte');
+    expect(ask).toMatch(/\{#key cle\}\s*<div class="q carte">/);
+    expect(tokens).toContain('.q.carte{animation:carte .32s cubic-bezier(.2,.8,.3,1)}');
+    /* partie à 35 degrés et à moitié visible, jamais à 90 : la question se lit tout de suite */
+    expect(tokens).toMatch(/@keyframes carte\{from\{opacity:\.45;transform:perspective\(900px\) rotateY\(-35deg\)/);
+  });
+  it("s'arrête si l'on réduit les animations", () => {
+    expect(reduits(tokens)).toContain('.q.carte{animation:none}');
+  });
+});
+
+describe("la devinette trouvée, la lanterne s'allume d'un scintillement bref", () => {
+  const game = source('Game.svelte');
+  const css = game.slice(game.indexOf('<style>'));
+  it('une fois, pâle, sans halo : dans Jouer et dans la main de Tao', () => {
+    expect(css).toMatch(/\.lampion\.faite \.lampion-dessin:not\(\.eteinte\) \{\s*animation:\s*lampion 3\.6s ease-in-out infinite alternate,\s*scintille 0\.9s ease-out 0\.3s 1;/);
+    expect(tokens).toContain('.tao .lanterne.allumee{animation:balance 3s ease-in-out infinite alternate,scintille .9s ease-out .15s 1}');
+    const k = tokens.match(/@keyframes scintille\{[^@]*?\}\}/)?.[0] ?? '';
+    expect(k).toContain('opacity');
+    expect(k).not.toMatch(/shadow|filter|gradient|blur/);
+  });
+  it("s'arrête si l'on réduit les animations", () => {
+    expect(reduits(css)).toMatch(/\.lampion:not\(\.indispo\) \.lampion-dessin,\s*\.lampion\.faite \.lampion-dessin:not\(\.eteinte\) \{\s*animation: none;/);
+    expect(reduits(tokens)).toMatch(/\.tao \*\{animation:none!important\}/);
+  });
+});
+
+describe("le message WeChat : les trois points de l'ami qui écrit", () => {
+  const x = source('FilWechat.svelte');
+  const css = x.slice(x.indexOf('<style>'));
+  it("s'allument l'un après l'autre, sans rien faire attendre de plus", () => {
+    expect(x).toContain('<div class="bulle ami ecrit" role="status" aria-label="{ami.zh} écrit"><i></i><i></i><i></i></div>');
+    expect(css).toMatch(/\.bulle\.ecrit i \{[^}]*animation: tape 1\.1s ease-in-out infinite;/);
+    expect(css).toMatch(/\.bulle\.ecrit i:nth-child\(3\) \{\s*animation-delay: 0\.3s;/);
+    expect(css).not.toContain('--zhu');
+  });
+  it("s'arrêtent si l'on réduit les animations", () => {
+    expect(reduits(css)).toMatch(/\.bulle,\s*\.bulle\.ecrit i \{\s*animation: none;/);
+  });
+});
+
+describe('Mon chemin : de loin en loin, un vol d’oiseaux passe dans le ciel', () => {
+  const x = source('Chemin.svelte');
+  const css = x.slice(x.indexOf('<style>'));
+  it('trois oiseaux au trait pâle, dix secondes de passage toutes les quarante, jamais un jour de fête', () => {
+    expect(x.match(/<g class="oiseaux">([\s\S]*?)<\/g>/)?.[1].match(/<path /g)?.length).toBe(3);
+    expect(css).toMatch(/\.oiseaux \{[^}]*stroke: var\(--ink2\);[^}]*animation: vol 40s linear 3s infinite;/);
+    expect(css).toMatch(/@keyframes vol \{[\s\S]*?25% \{[\s\S]*?100% \{/);
+    expect(css).toMatch(/:global\(html\[data-fete\]\) \.oiseaux \{\s*display: none;/);
+    /* ni dragon, ni cinabre */
+    expect(css.slice(css.indexOf('.oiseaux {'), css.indexOf('@keyframes vol'))).not.toMatch(/--zhu|dragon/);
+  });
+  it("disparaît si l'on réduit les animations", () => {
+    expect(reduits(css)).toMatch(/\.oiseaux \{\s*display: none;/);
+  });
+});
+
+describe("un filet de fumée monte du toit de l'auberge", () => {
+  const chemin = source('Chemin.svelte');
+  const tree = source('Tree.svelte');
+  it("à l'auberge de la pierre du jour dans Mon chemin, et à celle de la famille ouverte", () => {
+    expect(chemin).toContain('{@render auberge(a, scene.jour, k * 64, true)}');
+    expect(chemin).toMatch(/\{#if fume\}\s*<!--[^>]*-->\s*<path class="fumee"/);
+    expect(tree).toContain('<path class="fumee deux"');
+  });
+  for (const [f, x] of [
+    ['Chemin.svelte', chemin],
+    ['Tree.svelte', tree]
+  ] as const) {
+    const css = x.slice(x.indexOf('<style>'));
+    it(`${f} : à la brume, en boucle lente ; rien si l'on réduit les animations`, () => {
+      expect(css).toMatch(/\.fumee \{[^}]*stroke: var\(--mist\);[^}]*animation: fumer 3\.6s ease-out infinite;/);
+      expect(reduits(css)).toMatch(/\.fumee \{\s*display: none;/);
+    });
+  }
+});
+
+describe('le personnage cligne, et le lapin et le panda bougent les oreilles', () => {
+  const x = source('Heros.svelte');
+  const css = x.slice(x.indexOf('<style>'));
+  it('les yeux des trois bêtes clignent, les oreilles du lapin et du panda frémissent', () => {
+    expect(x).toContain('return `<g class="paupieres">${[x1, x2]');
+    expect(x).toContain('<g class="paupieres"><circle cx="182" cy="133"');
+    expect(x.match(/<g class="oreilles">/g)?.length).toBe(2);
+    expect(css).toMatch(/\.heros-svg :global\(\.paupieres\) \{[^}]*animation: paupieres 6\.3s infinite;/);
+    expect(css).toMatch(/\.heros-svg :global\(\.oreilles\) \{[^}]*animation: oreilles 8\.9s ease-in-out 2s infinite;/);
+  });
+  it("s'arrêtent si l'on réduit les animations", () => {
+    expect(reduits(css)).toMatch(/\.heros-svg :global\(\.tourne\),\s*\.heros-svg :global\(\.paupieres\),\s*\.heros-svg :global\(\.oreilles\) \{\s*animation: none;/);
+  });
+});
+
+describe("Clore : les pas des jours d'avant s'impriment sur le chemin", () => {
+  const x = source('Close.svelte');
+  const css = x.slice(x.indexOf('<style>'));
+  it('du plus loin au plus près, avant que la pierre du jour ne tombe ; pas pour une pierre déjà posée', () => {
+    expect(x).toContain('<g class="pas-passe" class:deja={dejaPlantee} style="animation-delay:{((bout.avant.length - 1 - k) * 0.1).toFixed(1)}s">');
+    expect(css).toMatch(/\.pas-passe \{[^}]*animation: imprimer-pas 0\.3s/);
+    expect(css).toMatch(/\.pas-passe\.deja \{\s*animation: none;/);
+    /* la dernière s'imprime avant la chute de la pierre du jour */
+    expect(css).toMatch(/\.pose \{\s*animation: poser 0\.8s cubic-bezier\(0\.3, 0\.7, 0\.3, 1\) 0\.35s both;/);
+  });
+  it("s'arrête si l'on réduit les animations", () => {
+    expect(reduits(css)).toMatch(/\.pas-passe \{\s*animation: none;/);
+  });
+});
+
+describe('Xing, le maître, hausse ses sourcils blancs de loin en loin', () => {
+  it('par du CSS d’ici, sans toucher à son dessin : les deuxième et troisième traits de son visage', () => {
+    const xing = source('Xing.svelte');
+    /* les sourcils sont bien les deuxième et troisième traits du visage */
+    const visage = xing.slice(xing.indexOf('<g class="visage">'), xing.indexOf('</g>', xing.indexOf('<g class="visage">')));
+    const traits = [...visage.matchAll(/<path\s+d="([^"]+)"/g)].map((x) => x[1]);
+    expect(traits[1]).toBe('M78 115q9-7 17-1M105 114q8-6 17 1');
+    expect(traits[2]).toBe('M78 115q9-7 17-1M105 114q8-6 17 1');
+    expect(tokens).toContain('.xing .visage > path:nth-child(2),.xing .visage > path:nth-child(3){animation:sourcils 7.4s ease-in-out 1.5s infinite}');
+  });
+  it("s'arrête si l'on réduit les animations", () => {
+    expect(reduits(tokens)).toContain('.xing .visage > path:nth-child(2),.xing .visage > path:nth-child(3){animation:none}');
   });
 });

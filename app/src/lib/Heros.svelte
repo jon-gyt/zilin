@@ -16,13 +16,14 @@
   const ENCRE = 'var(--h-encre)';
   const TRAIT = `stroke="${ENCRE}" stroke-width="3" stroke-linejoin="round"`;
 
+  /** Les yeux, groupés (`paupieres`) : le personnage cligne de temps en temps. */
   function yeux(x1: number, x2: number, y: number): string {
-    return [x1, x2]
+    return `<g class="paupieres">${[x1, x2]
       .map(
         (x) =>
           `<ellipse cx="${x}" cy="${y}" rx="6" ry="7.5" fill="${ENCRE}"/><circle cx="${x + 2}" cy="${y - 3}" r="2.4" fill="var(--h-fourrure)"/><circle cx="${x - 2}" cy="${y + 3}" r="1" fill="var(--h-fourrure)"/>`
       )
-      .join('');
+      .join('')}</g>`;
   }
   const JOUES = `<ellipse cx="170" cy="150" rx="8" ry="5" fill="var(--h-peche)" opacity=".8"/><ellipse cx="230" cy="150" rx="8" ry="5" fill="var(--h-peche)" opacity=".8"/>`;
   const BOUCHE = `<path d="M193 150q3.5 4 7 0q3.5 4 7 0" stroke="${ENCRE}" stroke-width="2.6" fill="none" stroke-linecap="round"/>`;
@@ -43,7 +44,7 @@
       patte: 'var(--h-fourrure)',
       robe: 'var(--h-indigo)',
       derriere: () =>
-        `<path d="M178 98q-16-58 2-70q14 12 10 68z" fill="var(--h-fourrure)" ${TRAIT}/><path d="M222 98q16-58-2-70q-14 12-10 68z" fill="var(--h-fourrure)" ${TRAIT}/><path d="M182 88q-7-34 0-48M218 88q7-34 0-48" stroke="var(--h-peche)" stroke-width="6" stroke-linecap="round"/>`,
+        `<g class="oreilles"><path d="M178 98q-16-58 2-70q14 12 10 68z" fill="var(--h-fourrure)" ${TRAIT}/><path d="M222 98q16-58-2-70q-14 12-10 68z" fill="var(--h-fourrure)" ${TRAIT}/><path d="M182 88q-7-34 0-48M218 88q7-34 0-48" stroke="var(--h-peche)" stroke-width="6" stroke-linecap="round"/></g>`,
       tete: `<ellipse cx="200" cy="132" rx="50" ry="44" fill="var(--h-fourrure)" ${TRAIT}/>`,
       visage: () =>
         yeux(182, 218, 134) +
@@ -55,10 +56,10 @@
       poil: 'var(--h-fourrure)',
       patte: ENCRE,
       robe: 'var(--h-jade)',
-      derriere: () => `<circle cx="160" cy="98" r="17" fill="${ENCRE}"/><circle cx="240" cy="98" r="17" fill="${ENCRE}"/>`,
+      derriere: () => `<g class="oreilles"><circle cx="160" cy="98" r="17" fill="${ENCRE}"/><circle cx="240" cy="98" r="17" fill="${ENCRE}"/></g>`,
       tete: `<ellipse cx="200" cy="132" rx="52" ry="45" fill="var(--h-fourrure)" ${TRAIT}/>`,
       visage: () =>
-        `<ellipse cx="180" cy="136" rx="13" ry="16" transform="rotate(24 180 136)" fill="${ENCRE}"/><ellipse cx="220" cy="136" rx="13" ry="16" transform="rotate(-24 220 136)" fill="${ENCRE}"/><circle cx="182" cy="133" r="4.4" fill="var(--h-fourrure)"/><circle cx="218" cy="133" r="4.4" fill="var(--h-fourrure)"/><ellipse cx="200" cy="148" rx="6" ry="4" fill="${ENCRE}"/>` +
+        `<ellipse cx="180" cy="136" rx="13" ry="16" transform="rotate(24 180 136)" fill="${ENCRE}"/><ellipse cx="220" cy="136" rx="13" ry="16" transform="rotate(-24 220 136)" fill="${ENCRE}"/><g class="paupieres"><circle cx="182" cy="133" r="4.4" fill="var(--h-fourrure)"/><circle cx="218" cy="133" r="4.4" fill="var(--h-fourrure)"/></g><ellipse cx="200" cy="148" rx="6" ry="4" fill="${ENCRE}"/>` +
         BOUCHE.replace(/150/g, '155') +
         JOUES.replace(/150/g, '156')
     },
@@ -402,8 +403,49 @@
       transform: rotate(360deg);
     }
   }
+  /* Le personnage cligne de temps en temps, à son rythme, et le lapin et le panda bougent
+     les oreilles, un petit frémissement de loin en loin. Jamais selon l'heure. */
+  .heros-svg :global(.paupieres) {
+    transform-box: fill-box;
+    transform-origin: center;
+    animation: paupieres 6.3s infinite;
+  }
+  .heros-svg :global(.oreilles) {
+    transform-box: fill-box;
+    transform-origin: 50% 100%;
+    animation: oreilles 8.9s ease-in-out 2s infinite;
+  }
+  @keyframes paupieres {
+    0%,
+    44%,
+    48%,
+    100% {
+      transform: none;
+    }
+    46% {
+      transform: scaleY(0.12);
+    }
+  }
+  @keyframes oreilles {
+    0%,
+    86%,
+    100% {
+      transform: none;
+    }
+    89% {
+      transform: translateY(-3px) rotate(-3deg);
+    }
+    92% {
+      transform: none;
+    }
+    95% {
+      transform: translateY(-2px) rotate(2deg);
+    }
+  }
   @media (prefers-reduced-motion: reduce) {
-    .heros-svg :global(.tourne) {
+    .heros-svg :global(.tourne),
+    .heros-svg :global(.paupieres),
+    .heros-svg :global(.oreilles) {
       animation: none;
     }
   }
