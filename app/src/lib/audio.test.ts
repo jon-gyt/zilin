@@ -17,6 +17,7 @@ import {
   reglerVoix,
   relireVoix,
   vitesse,
+  taire,
   voixChoisie,
   voixParDefaut,
   type SyntheseNative,
@@ -495,6 +496,91 @@ describe('la voix de l’appareil, classée', () => {
     await relireVoix();
     expect(qualiteVoix(voixMandarin() as VoixAppareil)).toBe(3);
   });
+});
+
+/**
+ * Un lecteur comme celui d'un navigateur : `play()` attend le chargement, et changer `src`
+ * pendant ce temps fait rejeter la lecture en cours (`AbortError`).
+ */
+function lecteurLent(): Lecteur & { joues: string[]; pauses: number; charger: () => void } {
+  let enCours: { resoudre: () => void; rejeter: (e: unknown) => void } | null = null;
+  let src = '';
+  const l = {
+    joues: [] as string[],
+    pauses: 0,
+    currentTime: 0,
+    preload: '',
+    get src() {
+      return src;
+    },
+    set src(v: string) {
+      src = v;
+      enCours?.rejeter(Object.assign(new Error('interrompue'), { name: 'AbortError' }));
+      enCours = null;
+    },
+    play() {
+      return new Promise<void>((resoudre, rejeter) => {
+        enCours = {
+          resoudre: () => {
+            l.joues.push(src);
+            resoudre();
+          },
+          rejeter
+        };
+      });
+    },
+    pause() {
+      l.pauses += 1;
+    },
+    charger() {
+      enCours?.resoudre();
+      enCours = null;
+    }
+  };
+  return l as unknown as Lecteur & { joues: string[]; pauses: number; charger: () => void };
+}
+
+describe('un seul son à la fois', () => {
+  beforeEach(() => {
+    (globalThis as { SpeechSynthesisUtterance?: unknown }).SpeechSynthesisUtterance = UtteranceDEssai;
+  });
+
+  it('deux « Écouter » rapprochés : la voix de l’appareil ne parle pas par-dessus le fichier', async () => {
+    const s = syntheseDeVoix(APPLE);
+    const l = lecteurLent();
+    configurerAudio({ synthese: () => s, lecteur: () => l, fetchFn: fetchDEssai([]) });
+    reglerVoix('enregistree');
+    const premier = prononcer('人');
+    await manifesteOnce();
+    await Promise.resolve();
+    const second = prononcer('人');
+    await manifesteOnce();
+    await Promise.resolve();
+    l.charger();
+    expect(await premier).toBe('bloque');
+    expect(await second).toBe('fichier');
+    expect(s.dits).toEqual([]);
+    expect(l.joues).toHaveLength(1);
+  });
+
+  it('chaque demande fait taire ce qui jouait : le fichier et la voix de l’appareil', async () => {
+    const s = syntheseDeVoix(APPLE);
+    const l = lecteurDEssai() as Lecteur & { joues: string[] } & { pauses?: number };
+    let pauses = 0;
+    l.pause = () => {
+      pauses += 1;
+    };
+    configurerAudio({ synthese: () => s, lecteur: () => l, fetchFn: fetchDEssai([]) });
+    reglerVoix('enregistree');
+    await prononcer('人');
+    const avant = s.annulations;
+    await prononcer('住');
+    expect(pauses).toBeGreaterThanOrEqual(1);
+    expect(s.annulations).toBeGreaterThan(avant);
+    taire();
+    expect(pauses).toBeGreaterThanOrEqual(2);
+  });
+
 });
 
 describe('la session audio', () => {

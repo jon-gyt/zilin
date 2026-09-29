@@ -14,6 +14,10 @@
  * qui passe par un service (`localService` faux, les voix « en ligne » de Chrome ou d'Edge)
  * n'est jamais prise : aucune requête à un service.
  *
+ * Un seul son à la fois : chaque demande fait taire la précédente, fichier comme voix de
+ * l'appareil, et une demande dépassée par une plus récente ne joue plus rien (`tour`). Deux
+ * « Écouter » rapprochés faisaient parler l'appareil par-dessus le fichier.
+ *
  * Un seul `HTMLAudioElement` pour toute l'app, réutilisé d'un texte à l'autre : sur
  * iOS, un élément déjà débloqué par un geste continue de jouer, et n'en créer qu'un
  * évite d'empiler des lecteurs à chaque toucher.
@@ -90,6 +94,8 @@ let session: () => SessionAudio | null = sessionParDefaut;
 let voixNatives: VoixAppareil[] = [];
 /** Le réglage « Voix » : `null`, la voix par défaut (`voixParDefaut`). */
 let preference: ChoixVoix | null = null;
+/** Le rang de la dernière demande de son : une demande dépassée ne joue plus rien. */
+let tour = 0;
 
 /** Un manifeste vide : ce que rend un fichier absent. L'app se tait, sans erreur. */
 const VIDE: Manifeste = { version: '', fournisseur: '', format: '', chemins: {} };
@@ -130,6 +136,7 @@ export function configurerAudio(
   voixAttendues = null;
   voixNatives = [];
   preference = null;
+  tour = 0;
   manifestes.clear();
 }
 
@@ -408,7 +415,8 @@ export function aAudio(m: Manifeste | null, texte: string): boolean {
  *   chargé, ou lecture refusée) ;
  * - `bloque` : le fichier est là mais le navigateur a refusé de le jouer (`NotAllowedError`,
  *   geste requis, ou `AbortError`, lecture interrompue par une autre), et le téléphone n'a
- *   pas de voix : un toucher sur « Écouter » le jouera ;
+ *   pas de voix : un toucher sur « Écouter » le jouera ; ou une demande plus récente a pris
+ *   la place de celle-ci ;
  * - `muet` : rien à dire, ni fichier lisible ni voix du téléphone.
  */
 export type Dit = 'fichier' | 'telephone' | 'bloque' | 'muet';
@@ -423,15 +431,35 @@ function refusSansEchec(e: unknown): boolean {
   return nom === 'NotAllowedError' || nom === 'AbortError';
 }
 
+/** Fait taire tout ce qui joue : le fichier, la voix du web, la voix native. */
+function taireTout(): void {
+  try {
+    if (cree) unique?.pause();
+  } catch {
+    /* un lecteur déjà arrêté */
+  }
+  try {
+    synthese()?.cancel();
+  } catch {
+    /* rien à faire taire */
+  }
+  void natif()?.taire().catch(() => undefined);
+}
+
 /**
  * Dit un texte, par la voix que règle « Voix » (`voixChoisie`) : la voix de l'appareil, ou le
- * fichier pré-généré ; chacune est le repli de l'autre ; sans aucune, rien, en silence. Rend
- * ce qui s'est passé (`Dit`).
+ * fichier pré-généré ; chacune est le repli de l'autre ; sans aucune, rien, en silence. Ce
+ * qui jouait se tait d'abord. Rend ce qui s'est passé (`Dit`). Une demande dépassée par une
+ * plus récente, le temps de lire le manifeste ou de charger le fichier, ne joue plus rien et
+ * rend `bloque` : rien ne s'est dit pour elle, et rien ne parle par-dessus la suivante.
  */
 export async function prononcer(texte: string, file?: string): Promise<Dit> {
+  const moi = ++tour;
+  taireTout();
   const m = await manifesteOnce(file);
+  if (moi !== tour) return 'bloque';
   const appareilDabord = voixChoisie() === 'appareil';
-  if (appareilDabord && direParLeTelephone(texte)) return 'telephone';
+  if (appareilDabord && direParLeTelephone(texte, moi)) return 'telephone';
   const c = chemin(m, texte);
   let refuse = false;
   if (c !== null) {
@@ -441,15 +469,23 @@ export async function prononcer(texte: string, file?: string): Promise<Dit> {
       l.currentTime = 0;
       try {
         await l.play();
-        return 'fichier';
+        return moi === tour ? 'fichier' : 'bloque';
       } catch (e) {
+        /* dépassée : une autre demande a pris le lecteur ; ne rien dire par-dessus */
+        if (moi !== tour) return 'bloque';
         /* lecture refusée ou fichier introuvable : on tente la voix du téléphone */
         refuse = refusSansEchec(e);
       }
     }
   }
-  if (!appareilDabord && direParLeTelephone(texte)) return 'telephone';
+  if (!appareilDabord && direParLeTelephone(texte, moi)) return 'telephone';
   return refuse ? 'bloque' : 'muet';
+}
+
+/** Fait taire l'app : l'écran qui disait quelque chose s'en va. */
+export function taire(): void {
+  tour += 1;
+  taireTout();
 }
 
 /** Dit un texte, comme `prononcer`. Rend `true` si quelque chose a été dit. */
@@ -461,14 +497,16 @@ export async function dire(texte: string, file?: string): Promise<boolean> {
 /**
  * La voix du téléphone : une seule phrase à la fois, en mandarin, par la voix classée en
  * tête (`classerVoix`). Dans l'app iOS, par la synthèse native ; ailleurs, `speechSynthesis`,
- * un peu ralentie (`vitesse`).
+ * un peu ralentie (`vitesse`). Ce qui jouait se tait. `moi` : le rang de la demande
+ * (`prononcer`) ; un appel direct en prend un nouveau.
  */
-export function direParLeTelephone(texte: string): boolean {
+export function direParLeTelephone(texte: string, moi = ++tour): boolean {
   const voix = voixMandarin();
-  if (voix === null) return false;
+  if (voix === null || moi !== tour) return false;
   const n = natif();
   const rang = n === null ? -1 : voixNatives.indexOf(voix);
   if (n !== null && rang >= 0) {
+    taireTout();
     reglerSession('playback');
     void n.dire(texte, voix.lang, rang).catch(() => undefined);
     return true;
@@ -477,7 +515,7 @@ export function direParLeTelephone(texte: string): boolean {
   if (s === null) return false;
   const web = s.getVoices().find((v) => v.voiceURI === voix.voiceURI && v.lang === voix.lang);
   if (!web) return false;
-  s.cancel();
+  taireTout();
   try {
     const u = new SpeechSynthesisUtterance(texte);
     u.voice = web;
