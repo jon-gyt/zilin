@@ -23,6 +23,7 @@
   import Open from './lib/Open.svelte';
   import Splash from './lib/Splash.svelte';
   import Settings from './lib/Settings.svelte';
+  import DireEssai from './lib/DireEssai.svelte';
   import Rewards from './lib/Rewards.svelte';
   import Route from './lib/Route.svelte';
   import Revisions from './lib/Revisions.svelte';
@@ -192,6 +193,7 @@
     | 'route'
     | 'revisions'
     | 'reglages'
+    | 'dire'
     | 'chercher'
     | 'personnage'
     | 'fangbang'
@@ -1305,7 +1307,9 @@
 {:else if ecran === 'fangbang' && herosDonnees && p.heros}
   <Fangbang donnees={herosDonnees} heros={p.heros} rang={rangPromu} oncontinuer={fangbangVu} />
 {:else if ecran === 'reglages'}
-  <Settings {p} {vois} onprogression={remplacer} onretour={allerAuMenu} />
+  <Settings {p} {vois} onprogression={remplacer} onretour={allerAuMenu} onessayer={() => (ecran = 'dire')} />
+{:else if ecran === 'dire'}
+  <DireEssai {p} onvoix={voixEntendue} onmicrorefuse={microRefuse} onretour={() => (ecran = 'reglages')} />
 {:else}
   <Menu {p} {acces} {vois} {annonce} examen={examenMenu} ondecouvrir={decouvrir} textes={textesRythme} fete={feteJour} {fetes} terme={laJournee.terme} {saisons} ondemarrer={boutonMenu} oncase={caseMenu} onanecdote={() => relireAnecdote('menu')} onchercher={ouvrirChercher} onreglages={() => (ecran = 'reglages')} onpersonnage={() => (ecran = 'personnage')} onroute={() => ouvrirRoute('menu')} />
 {/if}
