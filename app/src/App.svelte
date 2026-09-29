@@ -10,7 +10,8 @@
   import Chercher from './lib/Chercher.svelte';
   import Fangbang from './lib/Fangbang.svelte';
   import Personnage from './lib/Personnage.svelte';
-  import { herosOnce, rangAAnnoncer, rangDe, total, type BeteId, type HerosDonnees } from './lib/heros';
+  import { herosOnce, meriteDe, rangTenu, titreAccorde, type BeteId, type HerosDonnees } from './lib/heros';
+  import { examensOnce, migrerRangsAnnonces, type ExamensDonnees } from './lib/examens';
   import Close from './lib/Close.svelte';
   import Examen from './lib/Examen.svelte';
   import FirstSession from './lib/FirstSession.svelte';
@@ -307,23 +308,51 @@
 
   /*
    * Le personnage (brief §8) : ses rangs, ses bêtes, les phrases de Tao (`heros.json`).
-   * Le 放榜 passe au retour au menu quand un rang est franchi, jamais au milieu d'un pas.
+   * Le 放榜 passe au retour au menu quand un titre est accordé (« Points ET examen »,
+   * story 8.5), jamais au milieu d'un pas.
    */
   let herosDonnees: HerosDonnees | null = $state(null);
   void herosOnce()
     .then((d) => {
       herosDonnees = d;
+      reporterLesRangs();
       if (ecran === 'menu') annoncerUnRang();
     })
     .catch(() => undefined);
 
+  /** Les examens (`examens.json`) : ici, pour reporter les rangs d'une progression d'avant eux. */
+  let examensDonnees: ExamensDonnees | null = null;
+  void examensOnce()
+    .then((d) => {
+      examensDonnees = d;
+      reporterLesRangs();
+    })
+    .catch(() => undefined);
+
+  /**
+   * Une progression d'avant les examens garde ses rangs annoncés : les examens en dessous,
+   * 月课 compris, sont notés reçus à la journée de la mise à jour, une seule fois
+   * (`examens.migrerRangsAnnonces`). Le suivant s'ouvre de lui-même si son palier est atteint.
+   */
+  function reporterLesRangs(): void {
+    if (!chargee || herosDonnees === null || examensDonnees === null || p.examens.migre) return;
+    const examens = migrerRangsAnnonces(p.examens, p.heros?.rang ?? 0, herosDonnees.rangs, examensDonnees.examens, p.day);
+    p = { ...p, examens };
+    enregistrer();
+  }
+
+  /** Les caractères lus, au seuil de stabilité de Ma forêt : le palier des nominations. */
+  function lusDuPersonnage(): number {
+    return famillesLues === null ? 0 : caracteresLus(famillesLues, p.cartes);
+  }
+
   /** Le rang à fêter, celui que montre l'écran 放榜. */
   let rangPromu = $state(0);
 
-  /** Un rang franchi depuis le dernier 放榜 : l'écran passe avant le menu. */
+  /** Un titre accordé depuis le dernier 放榜 : l'écran passe avant le menu. */
   function annoncerUnRang(): void {
     if (herosDonnees === null) return;
-    const r = rangAAnnoncer(p.heros, p.arts, herosDonnees.rangs);
+    const r = titreAccorde(p, herosDonnees.rangs, lusDuPersonnage());
     if (r === null) return;
     rangPromu = r;
     ecran = 'fangbang';
@@ -359,9 +388,9 @@
     demanderAvisNatif();
   }
 
-  /** Le rang que les points donnent, celui où un personnage choisi commence. */
+  /** Le rang tenu, celui où un personnage choisi commence : rien ne se fête après coup. */
   function rangActuel(): number {
-    return rangDe(total(p.arts), herosDonnees?.rangs ?? []);
+    return rangTenu(herosDonnees?.rangs ?? [], meriteDe(p, lusDuPersonnage()));
   }
 
   /** Le personnage choisi, sur son écran, pour une progression qui n'en avait pas. */
@@ -447,6 +476,7 @@
     majDue();
     preparer();
     enregistrer();
+    reporterLesRangs();
   }
 
   /*
@@ -484,6 +514,7 @@
     /* L'ouverture reprogramme les rappels des sept jours qui viennent (app iOS). */
     reprogrammerRappels(ouvert);
     chargee = true;
+    reporterLesRangs();
     preparer();
     aiguiller();
     /* Les lettres de Que relues : celle de la semaine arrive dès qu'elles sont lues. */
