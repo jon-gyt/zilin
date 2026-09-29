@@ -36,6 +36,7 @@
   import Tao from './Tao.svelte';
   import TaoReagit from './TaoReagit.svelte';
   import { reagir, type Reaction } from './reaction';
+  import { bonneReponse } from './haptique';
   import DessinJeu, { PIGMENTS } from './DessinJeu.svelte';
   import {
     devinettesOnce,
@@ -276,6 +277,8 @@
   let cleReaction = $state(0);
 
   function reagirA(correct: boolean): void {
+    /* une bonne réponse, dans l'app iOS : le même tap léger qu'en révision */
+    if (correct) bonneReponse();
     const r = reagir(serie, correct);
     serie = r.serie;
     reaction = r.reaction;
@@ -1295,6 +1298,25 @@
   }
   .lampion-dessin.eteinte {
     opacity: 0.45;
+  }
+  /* La lanterne de la devinette se balance doucement, pendue par le haut ; pas celle qui
+     attend son jour. Coupé si l'on réduit les animations. */
+  .lampion:not(.indispo) .lampion-dessin {
+    transform-origin: 50% 0;
+    animation: lampion 3.6s ease-in-out infinite alternate;
+  }
+  @keyframes lampion {
+    from {
+      transform: rotate(-3deg);
+    }
+    to {
+      transform: rotate(3deg);
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .lampion:not(.indispo) .lampion-dessin {
+      animation: none;
+    }
   }
   .lampion-zh {
     position: absolute;

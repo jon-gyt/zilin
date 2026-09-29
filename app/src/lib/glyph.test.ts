@@ -73,6 +73,14 @@ describe('animation pinceau', () => {
   it('le tiret couvre toute la longueur de la médiane, décalé au départ', () => {
     brushes.forEach((b) => expect(b[2]).toBe(b[3]));
   });
+  it('le tiret dépasse la médiane : rien du trait ne se montre avant que le pinceau y arrive', () => {
+    brushes.forEach((b, i) => {
+      const m = zhu.m[i];
+      let L = 0;
+      for (let k = 1; k < m.length; k++) L += Math.hypot(m[k][0] - m[k - 1][0], m[k][1] - m[k - 1][1]);
+      expect(+b[2]).toBeGreaterThan(L);
+    });
+  });
   it('la durée suit la longueur (L / 3600 s), avec un plancher de 0,08 s', () => {
     brushes.forEach((b) => expect(+b[4]).toBeCloseTo(Math.max(0.08, +b[2] / 3600), 2));
     const court: StrokeData = { s: ['M 0 0 L 10 0 L 10 10 Z'], m: [[[0, 0], [10, 0]]] };

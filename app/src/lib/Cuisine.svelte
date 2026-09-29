@@ -17,6 +17,7 @@
    * grimace sinon, qui propose d'en refaire un. Jamais de reproche.
    */
   import Glyph from './Glyph.svelte';
+  import { bonneReponse } from './haptique';
   import Tao from './Tao.svelte';
   import {
     choisir,
@@ -145,7 +146,10 @@
     resultat = r;
     panier = [...panier, { zh: t.reponse[0], mis: mot }];
     for (const ev of evenementsANoter('cuisine', r)) onrepondu(ev);
-    if (r.correct) minuteur = setTimeout(suivant, AVANCE_MS);
+    if (r.correct) {
+      bonneReponse();
+      minuteur = setTimeout(suivant, AVANCE_MS);
+    }
   }
 
   /** L'ingrédient suivant, ou Tao qui goûte quand le panier est plein. */

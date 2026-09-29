@@ -24,6 +24,7 @@
    * l'éclair, lit par-dessus l'épaule au message.
    */
   import { tick, untrack } from 'svelte';
+  import { bonneReponse } from './haptique';
   import EclairTour from './EclairTour.svelte';
   import FilWechat from './FilWechat.svelte';
   import RepliquesWechat from './RepliquesWechat.svelte';
@@ -155,6 +156,7 @@
     const seconds = Math.max(0, (Date.now() - depart) / 1000);
     const r = repondre(mancheE, [sens], { correct: true, tries: 0, seconds });
     /* Une erreur de sens ne note rien (`ERREUR_SANS_NOTE`) ; la bonne réponse, par `grade`. */
+    if (r.correct) bonneReponse();
     oneclair(sens, evenementsANoter('eclair', r), r.correct ? (mancheE.tours[0].mot ?? '') : '');
   }
 

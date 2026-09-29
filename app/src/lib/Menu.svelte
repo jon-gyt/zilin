@@ -23,10 +23,12 @@
    * quatre cases identiques. Tout ce qui se décide (état, libellés, phrases de Tao) vient
    * de `parcours.ts` ; ce composant ne fait qu'afficher et charger le contenu.
    *
-   * Le cinabre ne marque que la brique nouvelle. Aucune animation à l'appui des cases ni des
-   * boutons : l'appui ne change que le fond ; seule la porte qui s'ouvre se pose d'un geste. Le caractère s'écrit au pinceau à l'arrivée
-   * et au toucher, Tao saute quand on la touche ; rien ne bouge si l'on réduit les
-   * animations.
+   * Le cinabre ne marque que la brique nouvelle. Aucune animation à l'appui des cases : l'appui
+   * ne change que leur fond ; seule la porte qui s'ouvre se pose d'un geste. Le bouton plein
+   * s'enfonce à peine, comme tous les boutons (`tokens.css`). Le caractère s'écrit au pinceau à
+   * l'arrivée et au toucher, une goutte d'encre se pose au bout ; les pas faits s'encrent un à
+   * un ; Tao cligne, lève les yeux vers le caractère, saute quand on la touche ; rien ne bouge
+   * si l'on réduit les animations.
    *
    * La ligne de fête (le vœu) ou de terme sous la marque se touche : elle rouvre
    * l'anecdote du jour, qui ramène au menu.
@@ -476,7 +478,7 @@
           {#key ecriture}
             <span class="trace">
               <!-- eslint-disable-next-line svelte/no-at-html-tags -->
-              {@html glyph(carte.c, traits, 108, { write: true, cinabre })}
+              {@html glyph(carte.c, traits, 108, { write: true, cinabre, goutte: true })}
             </span>
           {/key}
         {/if}
@@ -546,7 +548,7 @@
           />
         {/key}
       {/if}
-      <Pinceaux coups={m.coups} label={m.ligne} />
+      <Pinceaux coups={m.coups} label={m.ligne} encrer />
       <div class="pas">
         <span>{m.ligne}</span>
         {#if m.duree !== ''}<span class="duree">{m.duree}</span>{/if}
@@ -975,7 +977,7 @@
     inset: -12px -10px;
   }
 
-  /* ---- le bouton unique, en pilule ; sans animation, l'appui ne change que le fond ---- */
+  /* ---- le bouton unique, en pilule ; l'appui change le fond, et s'enfonce à peine (`.btn`) ---- */
   .pilule {
     border-radius: 999px;
     min-height: 54px;
@@ -1132,6 +1134,31 @@
     .case.neuve,
     .perso.neuve,
     .vers-route.neuve {
+      animation: none;
+    }
+  }
+
+  /* Tao lève les yeux vers le caractère du jour, en haut à gauche, de temps en temps, puis
+     revient au chemin. Par la propriété `translate`, qui s'ajoute au clignement sans le
+     remplacer ; son dessin ne change pas. */
+  .marcheur :global(.tao .yeux) {
+    animation:
+      cligne 7.7s infinite,
+      regarde 9.4s ease-in-out 1.2s infinite;
+  }
+  @keyframes regarde {
+    0%,
+    56%,
+    100% {
+      translate: 0 0;
+    }
+    62%,
+    84% {
+      translate: -7px -5px;
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .marcheur :global(.tao .yeux) {
       animation: none;
     }
   }

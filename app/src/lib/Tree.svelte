@@ -201,6 +201,8 @@
           <rect class="porte-auberge" x="-5" y="-16" width="10" height="14" rx="1" />
           <path class="toit" d="M-23 -23q7-2 11-10h24q4 8 11 10z" />
           <path class="mat" d="M21 -1V-54" />
+          <!-- le fanion flotte au vent : sa brique et son sceau avec lui -->
+          <g class="flotte">
           <path class="fanion" class:sel={choisi === fam.c} d="M21 -52h21v27l-5.25 4-5.25-4-5.25 4-5.25-4z" />
           <g transform="translate(24.5 -45)">
             <!-- eslint-disable-next-line svelte/no-at-html-tags -->
@@ -216,10 +218,11 @@
               </g>
             </g>
           {/if}
+          </g>
         </g>
       </g>
 
-      {#each sentier.paves as q (q.generation + '-' + q.c)}
+      {#each sentier.paves as q, i (q.generation + '-' + q.c)}
         <g
           class="pierre"
           class:sel={q.c === choisi}
@@ -234,8 +237,11 @@
           {#if q.c === choisi}<ellipse class="anneau" cx={q.x} cy={q.y} rx={q.r * 1.3 + 5} ry={q.r * 0.8 + 4.5} />{/if}
           <ellipse class="pave {q.etat}" cx={q.x} cy={q.y} rx={q.r * 1.3} ry={q.r * 0.8} />
           <g transform="translate({q.x - q.r * 0.62} {q.y - q.r * 0.66})">
-            <!-- eslint-disable-next-line svelte/no-at-html-tags -->
-            {@html dessin(q.c, q.r * 1.24, q.etat === 'lu' ? 'var(--jade)' : q.etat === 'avenir' ? 'var(--mist)' : 'var(--ink)')}
+            <!-- un caractère lu s'imprime en jade sur son pavé, l'un après l'autre en montant le sentier -->
+            <g class:imprime={q.etat === 'lu'} style={q.etat === 'lu' ? `animation-delay:${(0.15 + i * 0.06).toFixed(2)}s` : undefined}>
+              <!-- eslint-disable-next-line svelte/no-at-html-tags -->
+              {@html dessin(q.c, q.r * 1.24, q.etat === 'lu' ? 'var(--jade)' : q.etat === 'avenir' ? 'var(--mist)' : 'var(--ink)')}
+            </g>
           </g>
           {#if q.par}<text class="par" x={q.x} y={q.y + 28} text-anchor="middle">{remplir(tc['famille-par'], { c: q.par })}</text>{/if}
         </g>
@@ -437,5 +443,55 @@
   }
   .tao {
     pointer-events: none;
+  }
+  /* Les caractères lus s'impriment en jade sur leur pavé, comme un sceau qu'on presse : un peu
+     plus grands, puis posés. L'un après l'autre, en montant ; rien n'attend la fin pour toucher. */
+  .imprime {
+    transform-box: fill-box;
+    transform-origin: center;
+    animation: imprimer 0.42s cubic-bezier(0.2, 0.8, 0.3, 1) both;
+  }
+  @keyframes imprimer {
+    0% {
+      opacity: 0;
+      transform: scale(1.4);
+    }
+    60% {
+      opacity: 1;
+      transform: scale(0.94);
+    }
+    100% {
+      opacity: 1;
+      transform: none;
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .imprime {
+      animation: none;
+    }
+  }
+
+  /* Le fanion 幌子 flotte au vent, tenu au mât : sa brique et son sceau suivent le tissu.
+     Un léger cisaillement, jamais plus de quelques degrés. */
+  .flotte {
+    transform-box: fill-box;
+    transform-origin: 0 0;
+    animation: flotter 2.8s ease-in-out infinite alternate;
+  }
+  @keyframes flotter {
+    0% {
+      transform: skewY(0deg) scaleX(1);
+    }
+    50% {
+      transform: skewY(-5deg) scaleX(0.95);
+    }
+    100% {
+      transform: skewY(3deg) scaleX(0.98);
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .flotte {
+      animation: none;
+    }
   }
 </style>

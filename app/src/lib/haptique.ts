@@ -2,8 +2,10 @@
  * Le retour haptique, dans l'app iOS seulement (brief §12, phase 4).
  *
  * Deux gestes, pas un de plus, dans le ton de l'app :
- * - un léger tap sur une bonne réponse (`bonneReponse`) ;
- * - un signal doux quand la session se clôt (`sessionClose`).
+ * - un léger tap sur une bonne réponse (`bonneReponse`), en révision comme dans les jeux
+ *   (Jouer, l'éclair du pas Utiliser, le message, la cuisine) ;
+ * - un signal doux quand la session se clôt (`sessionClose`), au moment où la pierre du jour
+ *   touche le chemin, à Clore.
  * Rien sur une erreur : « une erreur ne coûte rien », pas de vibration qui punit.
  *
  * Sur le web, et partout hors de Capacitor, les deux fonctions ne font rien : pas de

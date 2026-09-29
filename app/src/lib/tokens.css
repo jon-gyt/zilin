@@ -164,6 +164,12 @@ button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:poin
 #app{position:relative;z-index:1;display:flex;flex-direction:column;min-height:100%;max-width:520px;margin:0 auto}
 .screen{flex:1;display:flex;flex-direction:column;padding:calc(env(safe-area-inset-top) + 20px) 22px 28px}
 .screen > *{flex-shrink:0}
+/* D'un écran à l'autre, la nouvelle feuille glisse en place, comme un papier qu'on pose
+   (maquette validée `examen.html`, `.view`). Courte, et rien n'attend : on peut toucher dès
+   la première image. Chaque écran a pour racine un <main>. */
+#app > main{animation:feuille .24s ease-out}
+@keyframes feuille{from{opacity:.2;transform:translateY(10px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){#app > main{animation:none}}
 h1{font-family:var(--head);font-weight:700;font-size:30px;line-height:1.15;letter-spacing:-.02em;margin:0 0 8px}
 .guide{font-weight:400;color:var(--ink2);margin:0 0 24px}
 .k{font-size:13px;color:var(--mist)}
@@ -182,7 +188,13 @@ h1{font-family:var(--head);font-weight:700;font-size:30px;line-height:1.15;lette
 .g.write .fill{opacity:0;animation:hold 0s linear forwards}
 @keyframes brush{to{stroke-dashoffset:0}}
 @keyframes hold{to{opacity:1}}
-@media (prefers-reduced-motion:reduce){.g.write .br{display:none}.g.write .fill{opacity:1;animation:none}}
+/* la goutte d'encre au bout du dernier trait (glyph, option `goutte`) : elle se pose, s'étale
+   en une onde et s'efface ; rien ne reste sur le caractère */
+.g.write .goutte{fill:currentColor;opacity:0;transform-box:fill-box;transform-origin:center;animation:goutte .6s ease-out forwards}
+.g.write .onde-encre{fill:none;stroke:currentColor;stroke-width:9;opacity:0;transform-box:fill-box;transform-origin:center;animation:onde-encre .75s ease-out forwards}
+@keyframes goutte{0%{opacity:0;transform:scale(.3)}22%{opacity:1;transform:scale(1.15)}40%{opacity:1;transform:scale(1)}100%{opacity:0;transform:scale(.9)}}
+@keyframes onde-encre{0%{opacity:.35;transform:scale(.5)}100%{opacity:0;transform:scale(3)}}
+@media (prefers-reduced-motion:reduce){.g.write .br{display:none}.g.write .fill{opacity:1;animation:none}.g.write .goutte,.g.write .onde-encre{display:none}}
 
 /* ligne de marque */
 .brand{display:flex;align-items:center;gap:10px;margin-bottom:14px}
@@ -203,6 +215,14 @@ h1{font-family:var(--head);font-weight:700;font-size:30px;line-height:1.15;lette
 .btn{display:flex;align-items:center;justify-content:center;gap:8px;min-height:50px;padding:0 18px;border-radius:12px;background:var(--act);color:var(--act-ink);font-weight:600;font-size:17px;width:100%}
 .btn.ghost{background:transparent;border:1px solid var(--line);color:var(--ink)}
 .btn:disabled{opacity:.4}
+/* L'appui s'enfonce à peine et la relâche revient, comme à l'examen (maquette validée
+   `examen.html`) : le bouton, les choix d'une question, les options. Les cases du menu gardent
+   leur seul changement de fond. Rien ne bouge si l'on réduit les animations. */
+.btn,.choices button,.opt button{transition:transform .12s ease-out}
+.btn:active:not(:disabled){transform:scale(.98)}
+.choices button:active:not(:disabled){transform:scale(.97)}
+.opt button:active:not(:disabled){transform:scale(.985)}
+@media (prefers-reduced-motion:reduce){.btn,.choices button,.opt button{transition:none}.btn:active:not(:disabled),.choices button:active:not(:disabled),.opt button:active:not(:disabled){transform:none}}
 
 /* quitter : discret en haut d'écran, sauvegarde sans question */
 .quit{min-height:44px;align-self:flex-start}
@@ -270,7 +290,7 @@ h1{font-family:var(--head);font-weight:700;font-size:30px;line-height:1.15;lette
 .tao .feuilles{transform-origin:100px 98px;animation:balance 2.8s ease-in-out infinite alternate}
 .tao .baluchon{transform-origin:78px 152px;animation:balance 1.8s ease-in-out infinite alternate}
 .tao .gourde{transform-origin:130px 132px;animation:balance 1.4s ease-in-out infinite alternate}
-.tao .yeux{transform-origin:100px 126px;animation:cligne 4.8s infinite}
+.tao .yeux{transform-origin:100px 126px;animation:cligne 7.7s infinite}
 /* humeurs : la joie saute sur place, l'ennui balance la tête, le calme respire */
 .tao.joie .plante{animation:bond 1s cubic-bezier(.3,0,.2,1) infinite alternate}
 .tao.ennui .plante{transform-origin:100px 160px;animation:soupire 2.6s ease-in-out infinite alternate}
@@ -282,7 +302,9 @@ h1{font-family:var(--head);font-weight:700;font-size:30px;line-height:1.15;lette
 .tao .lanterne{transform-origin:164px 26px;animation:balance 3s ease-in-out infinite alternate}
 @keyframes respire{0%,100%{transform:scale(1,1)}50%{transform:scale(1.02,.98)}}
 @keyframes balance{from{transform:rotate(-4deg)}to{transform:rotate(4deg)}}
-@keyframes cligne{0%,93%,100%{transform:scaleY(1)}96%{transform:scaleY(.1)}}
+/* Elle cligne à intervalles irréguliers, comme on cligne : un battement, puis deux de suite,
+   puis un long moment les yeux ouverts (2,4 s, 0,35 s, 4,9 s). Jamais selon l'heure. */
+@keyframes cligne{0%,28%,31.5%,60%,63%,64.5%,67.5%,100%{transform:scaleY(1)}29.7%,61.5%,66%{transform:scaleY(.1)}}
 @keyframes bond{from{transform:translateY(0) scale(1.02,.98)}to{transform:translateY(-12px) scale(.98,1.02)}}
 @keyframes soupire{from{transform:rotate(-3deg)}to{transform:rotate(3deg)}}
 @keyframes marche{from{transform:translateY(0) rotate(-3deg)}to{transform:translateY(-6px) rotate(3deg)}}

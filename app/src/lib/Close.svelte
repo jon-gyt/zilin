@@ -92,8 +92,30 @@
     };
   });
 
-  /** L'arrivée au pas Clore : dans l'app iOS, un signal doux, une fois. */
-  onMount(sessionClose);
+  /**
+   * L'arrivée au pas Clore : dans l'app iOS, un signal doux, une fois, au moment où la pierre
+   * du jour touche le chemin (`POSE_MS`, la fin de sa chute). Déjà posée, ou sans animation,
+   * il vient tout de suite. Rien n'attend ce signal : quitter l'écran avant le donne aussitôt.
+   */
+  const POSE_MS = 790;
+  onMount(() => {
+    const immobile = dejaPlantee || matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (immobile) {
+      sessionClose();
+      return;
+    }
+    let fait = false;
+    const signal = (): void => {
+      if (fait) return;
+      fait = true;
+      sessionClose();
+    };
+    const t = setTimeout(signal, POSE_MS);
+    return () => {
+      clearTimeout(t);
+      signal();
+    };
+  });
 
   /** Les trophées obtenus une fois la session close, pierre du jour comprise. */
   function terminer(): void {
@@ -205,6 +227,11 @@
         </g>
       {/if}
       {#if bout.jour !== ''}
+        {#if !dejaPlantee}
+          <!-- la pierre touche le chemin : deux ondes, comme un pavé posé dans l'eau -->
+          <ellipse class="onde" cx="196" cy="112" rx="24" ry="15" />
+          <ellipse class="onde deux" cx="196" cy="112" rx="24" ry="15" />
+        {/if}
         <g class="pose" class:deja={dejaPlantee}>
           <ellipse class="pave jour" cx="196" cy="112" rx="24" ry="15" />
           <ellipse class="cercle-jour" cx="196" cy="112" rx="24" ry="15" />
@@ -323,20 +350,52 @@
     animation: cercler 0.6s ease-out 1s both;
   }
   .pose {
-    animation: poser 0.7s cubic-bezier(0.3, 0.7, 0.3, 1) 0.35s both;
+    animation: poser 0.8s cubic-bezier(0.3, 0.7, 0.3, 1) 0.35s both;
+  }
+  /* L'onde part quand la pierre touche le chemin (0,35 s + 55 % de 0,8 s), s'élargit et
+     s'efface ; à l'encre pâle, jamais au cinabre. */
+  .onde {
+    fill: none;
+    stroke: var(--mist);
+    stroke-width: 1.5;
+    vector-effect: non-scaling-stroke;
+    opacity: 0;
+    transform-box: fill-box;
+    transform-origin: center;
+    animation: onde 0.9s ease-out 0.79s forwards;
+  }
+  .onde.deux {
+    animation-delay: 0.97s;
+  }
+  @keyframes onde {
+    from {
+      opacity: 0.7;
+      transform: scale(1);
+    }
+    to {
+      opacity: 0;
+      transform: scale(2);
+    }
   }
   .pose.deja,
   .pose.deja .cercle-jour {
     animation: none;
   }
+  /* elle tombe, touche le chemin, rebondit un peu et se pose */
   @keyframes poser {
     0% {
       transform: translateY(-46px);
       opacity: 0;
     }
-    60% {
-      transform: translateY(3px);
+    55% {
+      transform: translateY(2px);
       opacity: 1;
+    }
+    72% {
+      transform: translateY(-6px);
+    }
+    88% {
+      transform: translateY(1px);
     }
     100% {
       transform: none;
@@ -355,6 +414,9 @@
     .pose,
     .cercle-jour {
       animation: none;
+    }
+    .onde {
+      display: none;
     }
   }
 </style>

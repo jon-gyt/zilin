@@ -94,7 +94,7 @@ describe('le menu et le parcours, dans les écrans', () => {
 
   it('dessine le caractère du jour depuis ses traits, jamais depuis une police', () => {
     const m = source('Menu.svelte');
-    expect(m).toContain('glyph(carte.c, traits, 108, { write: true, cinabre })');
+    expect(m).toContain('glyph(carte.c, traits, 108, { write: true, cinabre, goutte: true })');
     expect(m).not.toMatch(/class="hz"[^>]*>\{carte\.c\}/);
   });
 });
