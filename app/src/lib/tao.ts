@@ -1,10 +1,11 @@
 /**
- * Tao 桃, la graine de pêcher. Elle accompagne toutes les activités dans la posture
+ * Tao 桃, le noyau de pêche qui grandit. Elle accompagne toutes les activités dans la posture
  * correspondante, grandit de ce qui est fait, et n'a qu'une humeur, faite de variété.
  *
  * Interdits, tenus par ce module : elle ne meurt jamais, ne tombe jamais malade,
  * ne culpabilise jamais. Rien ici ne décroît, aucune humeur n'est négative, aucun
- * compteur de jours perdus n'existe. Une absence la met en pot ; elle attend.
+ * compteur de jours perdus n'existe. Après une absence, elle t'attend au pavillon 亭, un bol
+ * de thé à côté.
  *
  * Module pur, comme `session.ts` : aucune fonction ne lit l'horloge ni n'écrit dans
  * un stockage. La journée courante est toujours passée en argument (AAAA-MM-JJ).
@@ -108,7 +109,7 @@ export function dernierJour(t: Tao): string | null {
 
 /* ---------- les stades ---------- */
 
-export type Stade = 'graine' | 'pousse' | 'jeune' | 'fleur' | 'peches';
+export type Stade = 'noyau' | 'pousse' | 'jeune' | 'fleur' | 'peches';
 
 /** Les paliers du brief : 100, 300 (fleurs), 1 000 (pêches). */
 export const PALIERS = { jeune: 100, fleur: 300, peches: 1000 } as const;
@@ -118,13 +119,13 @@ export function stade(croissance: number): Stade {
   if (croissance >= PALIERS.peches) return 'peches';
   if (croissance >= PALIERS.fleur) return 'fleur';
   if (croissance >= PALIERS.jeune) return 'jeune';
-  return croissance > 0 ? 'pousse' : 'graine';
+  return croissance > 0 ? 'pousse' : 'noyau';
 }
 
 /* ---------- les postures ---------- */
 
 /**
- * Une posture par activité. Le pot n'en est pas une : c'est l'absence. En cuisine, Tao
+ * Une posture par activité. La halte n'en est pas une : c'est le retour après l'absence. En cuisine, Tao
  * goûte (`goute`) : le bol et la cuillère.
  */
 export type Posture =
@@ -137,8 +138,12 @@ export type Posture =
   | 'chemin'
   | 'anecdote';
 
-/** Ce que Tao montre à l'écran : sa posture, ou le pot quand personne n'est là. */
-export type PostureVue = Posture | 'pot';
+/**
+ * Ce que Tao montre à l'écran : sa posture, ou la halte au retour d'une absence, assise au
+ * pavillon 亭 avec un bol de thé (maquette validée `maquettes/chemin.html`, décision du
+ * propriétaire du 29 septembre 2026). Sans reproche.
+ */
+export type PostureVue = Posture | 'halte';
 
 /**
  * Le conte se lit comme un texte : même posture, elle lit par-dessus l'épaule. En
@@ -239,7 +244,7 @@ export function reagir(serie: number, juste: boolean): { serie: number; reaction
 /* ---------- l'absence ---------- */
 
 /**
- * En pot après une absence, au même seuil que le rattrapage de la session
+ * À la halte après une absence, au même seuil que le rattrapage de la session
  * (`SEUIL_ABSENCE`). Une seule réponse, oui ou non : jamais un nombre de jours
  * manqués. Au retour, elle se redresse, sans reproche (deux secondes, côté dessin).
  */
@@ -249,13 +254,13 @@ export function absente(dernierJour: string | null, aujourdhui: string): boolean
 
 /**
  * Ce que Tao montre sur le chemin du jour. `null` : elle n'est pas à l'écran.
- * Au retour d'absence elle sort du pot ; la journée finie elle marche sur le chemin.
+ * Au retour d'absence elle attend au pavillon ; la journée finie elle marche sur le chemin.
  */
 export function poseDuJour(
   etat: { rattrapage: boolean; fini: boolean },
   humeurDuJour: Humeur = 'calme'
 ): { posture: PostureVue; humeur: Humeur } | null {
-  if (etat.rattrapage) return { posture: 'pot', humeur: humeurDuJour };
+  if (etat.rattrapage) return { posture: 'halte', humeur: humeurDuJour };
   return etat.fini ? { posture: 'chemin', humeur: 'joie' } : null;
 }
 
