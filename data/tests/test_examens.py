@@ -330,6 +330,132 @@ def test_les_series_a_et_b_n_ont_aucun_texte_commun() -> None:
     assert ex.ecarts_deux_series(a, b) == ["textes communs aux séries A et B : 明天，门口见！"]
 
 
+# --------------------------------------------------------------------------- les fuites
+# Signalement du propriétaire, 29 septembre 2026 : « tu donnes les réponses dans les
+# intitulés ». Rien de ce qui se lit avant de répondre ne donne la réponse.
+
+
+def _avec_support(s: ex.Serie, contexte: str, fr: str = "fr") -> ex.Serie:
+    sup = s.supports[0]
+    lignes = tuple(dataclasses.replace(l, fr=fr) for l in sup.lignes)
+    return dataclasses.replace(s, supports=(dataclasses.replace(sup, contexte=(contexte, "en"), lignes=lignes),))
+
+
+def _qui_ecrit(consigne: str = "Qui écrit ce message ?") -> ex.Question:
+    choix = (("M. Ma", "Mr Ma"), ("Xiaobai", "Xiaobai"), ("La maman de Xiaobai", "Xiaobai's mum"), ("Le frère de Xiaobai", "Xiaobai's brother"))
+    return ex.Question(1, "comprendre", (consigne, "?"), choix, 2, ("见",), "s1")
+
+
+def test_les_mots_significatifs_ignorent_casse_accents_pluriel_et_mots_vides() -> None:
+    assert ex.mots_significatifs("Les yuans de l'Étal, dans 12 bœufs") == {"yuan", "etal", "12", "boeuf"}
+    assert ex.mots_significatifs("Qui écrit ce message ?") == {"ecrit", "message"}
+
+
+def test_le_surtitre_dit_le_genre_pas_le_contenu() -> None:
+    fr = "Monsieur Ma, je suis la maman de Xiaobai."
+    fuit = _avec_support(serie(), "La maman de Xiaobai écrit à M. Ma", fr)
+    assert any("le surtitre « La maman de Xiaobai écrit à M. Ma » dit le contenu (maman, xiaobai)" in e for e in ex.ecarts_fuites(fuit))
+    assert ex.ecarts_fuites(_avec_support(serie(), "Un message", fr)) == []
+
+
+def test_le_surtitre_ne_donne_pas_la_reponse() -> None:
+    fuit = _avec_support(serie((_qui_ecrit(),)), "La maman écrit")
+    assert ex.ecarts_fuites(fuit) == ["question 1 (comprendre) : le surtitre donne la réponse « La maman de Xiaobai » (maman)"]
+    assert ex.ecarts_fuites(_avec_support(serie((_qui_ecrit(),)), "Un message")) == []
+
+
+def test_la_consigne_ne_donne_pas_la_reponse() -> None:
+    fuit = _avec_support(serie((_qui_ecrit("La maman écrit-elle ce message ?"),)), "Un message")
+    assert ex.ecarts_fuites(fuit) == ["question 1 (comprendre) : la consigne donne la réponse « La maman de Xiaobai » (maman)"]
+
+
+def test_un_mot_que_tous_les_leurres_portent_ne_donne_rien() -> None:
+    choix = (("8 yuans", "8 yuan"), ("12 yuans", "12 yuan"), ("10 yuans", "10 yuan"), ("18 yuans", "18 yuan"))
+    q = ex.Question(1, "comprendre", ("Combien de yuans coûte le millet ?", "?"), choix, 0, ("见",), "s1")
+    assert ex.ecarts_fuites(_avec_support(serie((q,)), "Un étal")) == []
+    q = dataclasses.replace(q, consigne=("Le millet à 8 yuans coûte combien ?", "?"))
+    assert ex.ecarts_fuites(_avec_support(serie((q,)), "Un étal")) == [
+        "question 1 (comprendre) : la consigne donne la réponse « 8 yuans » (8)"
+    ]
+
+
+def test_la_reponse_d_une_replique_ne_se_lit_ni_au_surtitre_ni_a_la_consigne() -> None:
+    choix = tuple(Phrase(z, "x", fr, "en") for z, fr in (("好", "D'accord, maman !"), ("大", "Le 2 août."), ("人", "Vingt."), ("天", "Non.")))
+    q = ex.Question(1, "replique", ("Que réponds-tu ?", "?"), choix, 0, ("见",), "s1")
+    assert ex.ecarts_fuites(_avec_support(serie((q,)), "Maman écrit")) == [
+        "question 1 (replique) : le surtitre donne la réponse « D'accord, maman ! » (maman)"
+    ]
+
+
+def test_la_consigne_ne_contient_pas_ce_qu_on_cherche() -> None:
+    caractere = ex.Question(1, "caractere", ("Lequel est 门, porte ?", "?"), ("门", "口", "日", "月"), 0, ("门",), objet=Phrase("门", "mén", "porte", "door"))
+    trou = ex.Question(2, "trou", ("Il manque 口 ?", "?"), ("口", "日", "月", "人"), 0, ("口",), objet=Phrase("门口", "mén kǒu", "fr", "en"), trou=1)
+    reperer = ex.Question(3, "reperer", ("Touche 门口.", "Tap 门口."), ("门口", "明天", "见", "人"), 0, ("门", "口"), "s1")
+    ton = ex.Question(4, "ton", ("Le ton de mén ?", "?"), ("mēn", "mén", "měn", "mèn"), 1, ("门",), objet=Phrase("门", "mén", "porte", "door"))
+    s = _avec_support(serie((caractere, trou, reperer, ton)), "Un message")
+    assert ex.ecarts_fuites(s) == [
+        "question 1 (caractere) : la consigne contient la réponse 门",
+        "question 2 (trou) : la consigne contient la réponse 口",
+        "question 3 (reperer) : la consigne contient la réponse 门口",
+        "question 4 (ton) : la consigne contient la réponse mén",
+    ]
+
+
+def test_au_reperage_le_surtitre_ne_donne_pas_le_sens_du_mot_cherche() -> None:
+    q = ex.Question(1, "reperer", ("Touche le mot qui dit où.", "?"), ("门口", "明天", "见", "人"), 0, ("门", "口"), "s1")
+    assert ex.ecarts_fuites(_avec_support(serie((q,)), "Un mot devant la porte"), GLOSSAIRE) == [
+        "question 1 (reperer) : le surtitre donne le mot cherché 门口 « devant la porte » (devant, porte)"
+    ]
+    assert ex.ecarts_fuites(_avec_support(serie((q,)), "Un message"), GLOSSAIRE) == []
+
+
+def test_la_consigne_d_un_vrai_ou_faux_ne_traduit_pas_l_affirmation() -> None:
+    q = ex.Question(1, "vrai_faux", ("Vrai ou faux : on se voit demain ?", "?"), (), True, ("明",), "s1", affirmation=Phrase("明天见。", "míng tiān jiàn", "On se voit demain.", "en"))
+    assert ex.ecarts_fuites(_avec_support(serie((q,)), "Un message")) == [
+        "question 1 (vrai_faux) : la consigne traduit l'affirmation (demain, voit)"
+    ]
+
+
+def test_une_bonne_reponse_reconnaissable_a_sa_forme_est_signalee() -> None:
+    longue = dataclasses.replace(comprendre(), choix=(("De l'eau bouillie, pour le thé", "en"), ("Des fruits", "en"), ("La sortie", "en"), ("Une porte", "en")))
+    assert ex.signaux_forme(serie((longue,))) == [
+        "question 1 (comprendre) : la bonne réponse, « De l'eau bouillie, pour le thé », est bien plus longue que ses leurres (30 signes pour 10 au plus)"
+    ]
+    deux_sens = dataclasses.replace(comprendre(), type="sens", choix=(("vache, bœuf", "en"), ("cheval", "en"), ("main", "en"), ("naître", "en")))
+    assert ex.signaux_forme(serie((deux_sens,))) == ["question 1 (sens) : la bonne réponse, « vache, bœuf », est seule à aligner plusieurs sens"]
+    egale = dataclasses.replace(comprendre(), choix=(("De l'eau bouillie", "en"), ("Des fruits secs", "en"), ("La sortie est", "en"), ("Une porte ouverte", "en")))
+    assert ex.signaux_forme(serie((egale,))) == []
+
+
+def test_aucune_serie_versionnee_ne_donne_ses_reponses() -> None:
+    lexique = ex.charger_glossaire()
+    for chemin in ex.fichiers_ecrits():
+        f = ex.charger_series(chemin.parent.name, chemin.stem)
+        assert f is not None
+        for s in f.series:
+            assert ex.ecarts_fuites(s, lexique) == [], (chemin, s.serie)
+    # L'exemple du signalement : le 府试 du chemin HSK, série A, question 4.
+    fushi = ex.charger_series("hsk", "fushi")
+    assert fushi is not None
+    a = fushi.series[0]
+    q4 = a.questions[3]
+    assert q4.consigne[0] == "Qui écrit ce message ?" and a.support(q4.support).contexte[0] == "Un message"  # type: ignore[union-attr]
+
+
+def test_une_fuite_bloque_wenlu_check(tmp_path: Path) -> None:
+    from wenlu_data.paths import BUILD
+
+    if not (BUILD / "parcours-lire.json").exists():
+        pytest.skip("parcours non construit : `wenlu build`")
+    d = _dossier(tmp_path)
+    source = json.loads((d / "lire" / "xianshi.json").read_text(encoding="utf-8"))
+    # La série A, question 7 : « Que vend cette boutique ? », « Des antiquités ».
+    source["series"][0]["supports"][2]["contexte"]["fr"] = "Une boutique d'antiquités"
+    (d / "lire" / "xianshi.json").write_text(json.dumps(source, ensure_ascii=False), encoding="utf-8")
+    fuites = next(c for c in ex.controles(dossier=d, destination=tmp_path / "vide") if c.nom == "examens : fuites")
+    assert fuites.bloquant and not fuites.ok and "le surtitre donne la réponse « Des antiquités »" in fuites.detail
+
+
 # --------------------------------------------------------------------------- les sources
 
 

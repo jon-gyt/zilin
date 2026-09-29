@@ -8,7 +8,11 @@
  },
  "relecture": {
   "statut": "a_relire",
-  "note": "rédigé le 29 septembre 2026, à relire par le propriétaire (`wenlu examens apercu`) ; une série passe à `relu` sur sa décision, citée ici"
+  "note": "rédigé le 29 septembre 2026, à relire par le propriétaire (`wenlu examens apercu`) ; une série passe à `relu` sur sa décision, citée ici",
+  "corrections": [
+   "le 29 septembre 2026, surtitres ramenés au genre du support, sur le signalement du propriétaire (« tu donnes les réponses dans les intitulés ») : le surtitre se lit avant la question et ne dit plus son contenu : A s1 « Le menu d'un petit restaurant » → « Un menu » ; A s2 « Xiaoming écrit à sa maman » → « Un message » ; B s1 « Un mot sur la porte d'un magasin » → « Un mot sur une porte » ; B s2 « L'enseigne d'un restaurant » → « Une enseigne » ; B s3 « M. Ma écrit à Xiaobai » → « Un message »",
+   "le 29 septembre 2026, questions qui se donnaient l'une l'autre (audit des fuites) : série A, le repérage de la boisson passe avant le prix des nouilles au bœuf (question 2, puis 1), dont la consigne et la réponse (« 12 yuans ») écartaient deux des quatre mots à toucher ; série B, le vrai ou faux « 今天下午开门 » passe avant « Quand le magasin rouvre-t-il ? » (question 2, puis 1), dont la consigne et la réponse (« Demain à 9 heures ») le tranchaient. Série à relire."
+  ]
  },
  "series": [
   {
@@ -19,8 +23,8 @@
      "id": "s1",
      "genre": "menu",
      "contexte": {
-      "fr": "Le menu d'un petit restaurant",
-      "en": "The menu of a small restaurant"
+      "fr": "Un menu",
+      "en": "A menu"
      },
      "lignes": [
       {
@@ -67,8 +71,8 @@
      "id": "s2",
      "genre": "message",
      "contexte": {
-      "fr": "Xiaoming écrit à sa maman",
-      "en": "Xiaoming writes to his mum"
+      "fr": "Un message",
+      "en": "A message"
      },
      "lignes": [
       {
@@ -87,6 +91,24 @@
     }
    ],
    "questions": [
+    {
+     "type": "reperer",
+     "support": "s1",
+     "consigne": {
+      "fr": "Touche la boisson.",
+      "en": "Tap the drink."
+     },
+     "choix": [
+      "牛肉面",
+      "汽水",
+      "水果",
+      "十二元"
+     ],
+     "reponse": 1,
+     "porte": [
+      "汽"
+     ]
+    },
     {
      "type": "comprendre",
      "support": "s1",
@@ -117,24 +139,6 @@
       "牛",
       "肉",
       "面"
-     ]
-    },
-    {
-     "type": "reperer",
-     "support": "s1",
-     "consigne": {
-      "fr": "Touche la boisson.",
-      "en": "Tap the drink."
-     },
-     "choix": [
-      "牛肉面",
-      "汽水",
-      "水果",
-      "十二元"
-     ],
-     "reponse": 1,
-     "porte": [
-      "汽"
      ]
     },
     {
@@ -221,8 +225,8 @@
      "id": "s1",
      "genre": "note",
      "contexte": {
-      "fr": "Un mot sur la porte d'un magasin",
-      "en": "A note on a shop door"
+      "fr": "Un mot sur une porte",
+      "en": "A note on a door"
      },
      "lignes": [
       {
@@ -243,8 +247,8 @@
      "id": "s2",
      "genre": "enseigne",
      "contexte": {
-      "fr": "L'enseigne d'un restaurant",
-      "en": "A restaurant sign"
+      "fr": "Une enseigne",
+      "en": "A sign"
      },
      "lignes": [
       {
@@ -259,8 +263,8 @@
      "id": "s3",
      "genre": "message",
      "contexte": {
-      "fr": "M. Ma écrit à Xiaobai",
-      "en": "Mr Ma writes to Xiaobai"
+      "fr": "Un message",
+      "en": "A message"
      },
      "lignes": [
       {
@@ -273,6 +277,25 @@
     }
    ],
    "questions": [
+    {
+     "type": "vrai_faux",
+     "support": "s1",
+     "consigne": {
+      "fr": "Vrai ou faux ?",
+      "en": "True or false?"
+     },
+     "affirmation": {
+      "zh": "今天下午开门。",
+      "pinyin": "jīn tiān xià wǔ kāi mén",
+      "fr": "Le magasin ouvre cet après-midi.",
+      "en": "The shop is open this afternoon."
+     },
+     "reponse": false,
+     "porte": [
+      "下",
+      "关"
+     ]
+    },
     {
      "type": "comprendre",
      "support": "s1",
@@ -302,25 +325,6 @@
      "porte": [
       "九",
       "时"
-     ]
-    },
-    {
-     "type": "vrai_faux",
-     "support": "s1",
-     "consigne": {
-      "fr": "Vrai ou faux ?",
-      "en": "True or false?"
-     },
-     "affirmation": {
-      "zh": "今天下午开门。",
-      "pinyin": "jīn tiān xià wǔ kāi mén",
-      "fr": "Le magasin ouvre cet après-midi.",
-      "en": "The shop is open this afternoon."
-     },
-     "reponse": false,
-     "porte": [
-      "下",
-      "关"
      ]
     },
     {

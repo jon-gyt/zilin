@@ -8,7 +8,12 @@
  },
  "relecture": {
   "statut": "a_relire",
-  "note": "rédigé le 29 septembre 2026, à relire par le propriétaire (`wenlu examens apercu`) ; une série passe à `relu` sur sa décision, citée ici"
+  "note": "rédigé le 29 septembre 2026, à relire par le propriétaire (`wenlu examens apercu`) ; une série passe à `relu` sur sa décision, citée ici",
+  "corrections": [
+   "le 29 septembre 2026, surtitres ramenés au genre du support, sur le signalement du propriétaire (« tu donnes les réponses dans les intitulés ») : le surtitre se lit avant la question et ne dit plus son contenu : A s1 « L'étal d'un marchand de vêtements » → « Un étal » ; A s2 « La maman de Xiaobai écrit à M. Ma » → « Un message » ; A s4 « La météo affichée à l'entrée d'un bureau » → « Une affiche » ; B s1 « Xiaoming écrit à sa maman » → « Un message » ; B s3 « Un panneau dans une gare » → « Un panneau »",
+   "le 29 septembre 2026, questions qui se donnaient l'une l'autre (audit des fuites) : série A, question 10, le vrai ou faux « 上午有大风 » venait juste après le repérage du vent de midi (大风) : il porte maintenant sur demain, « 明天有小雨 », faux ; série B, question 1, « Pourquoi Xiaoming ne sort-il pas ? » donnait par sa bonne réponse (« Il y a trop de vent. ») le vrai ou faux suivant, « 今天风不大 » : elle demande maintenant à quel moment il renonce à sortir (中午). Série à relire.",
+   "le 29 septembre 2026, bonnes réponses reconnaissables à leur forme (audit des fuites) : série A, question 3, « lourd, important », et série B, question 3, « moitié, demi », étaient les seuls choix à aligner deux sens ; ils disent « lourd » et « moitié », comme leurs leurres un seul sens. Séries à relire."
+  ]
  },
  "series": [
   {
@@ -19,8 +24,8 @@
      "id": "s1",
      "genre": "etal",
      "contexte": {
-      "fr": "L'étal d'un marchand de vêtements",
-      "en": "A clothes stall"
+      "fr": "Un étal",
+      "en": "A stall"
      },
      "lignes": [
       {
@@ -67,8 +72,8 @@
      "id": "s2",
      "genre": "message",
      "contexte": {
-      "fr": "La maman de Xiaobai écrit à M. Ma",
-      "en": "Xiaobai's mum writes to Mr Ma"
+      "fr": "Un message",
+      "en": "A message"
      },
      "lignes": [
       {
@@ -111,8 +116,8 @@
      "id": "s4",
      "genre": "affiche",
      "contexte": {
-      "fr": "La météo affichée à l'entrée d'un bureau",
-      "en": "The weather posted at an office entrance"
+      "fr": "Une affiche",
+      "en": "A poster"
      },
      "lignes": [
       {
@@ -203,8 +208,8 @@
      },
      "choix": [
       {
-       "fr": "lourd, important",
-       "en": "heavy, important"
+       "fr": "lourd",
+       "en": "heavy"
       },
       {
        "fr": "haut",
@@ -389,16 +394,16 @@
       "en": "True or false?"
      },
      "affirmation": {
-      "zh": "上午有大风。",
-      "pinyin": "shàng wǔ yǒu dà fēng",
-      "fr": "Le matin, il y a un vent fort.",
-      "en": "There's a strong wind in the morning."
+      "zh": "明天有小雨。",
+      "pinyin": "míng tiān yǒu xiǎo yǔ",
+      "fr": "Demain, il y aura une petite pluie.",
+      "en": "Tomorrow there will be light rain."
      },
      "reponse": false,
      "porte": [
-      "上",
-      "午",
-      "风"
+      "明",
+      "天",
+      "雨"
      ]
     }
    ]
@@ -411,8 +416,8 @@
      "id": "s1",
      "genre": "message",
      "contexte": {
-      "fr": "Xiaoming écrit à sa maman",
-      "en": "Xiaoming writes to his mum"
+      "fr": "Un message",
+      "en": "A message"
      },
      "lignes": [
       {
@@ -461,8 +466,8 @@
      "id": "s3",
      "genre": "pancarte",
      "contexte": {
-      "fr": "Un panneau dans une gare",
-      "en": "A sign in a station"
+      "fr": "Un panneau",
+      "en": "A sign"
      },
      "lignes": [
       {
@@ -491,31 +496,31 @@
      "type": "comprendre",
      "support": "s1",
      "consigne": {
-      "fr": "Pourquoi Xiaoming ne sort-il pas ?",
-      "en": "Why isn't Xiaoming going out?"
+      "fr": "À quel moment Xiaoming renonce-t-il à sortir ?",
+      "en": "When does Xiaoming decide not to go out?"
      },
      "choix": [
       {
-       "fr": "Il pleut fort.",
-       "en": "It's raining hard."
+       "fr": "Le matin",
+       "en": "In the morning"
       },
       {
-       "fr": "Il a cours.",
-       "en": "He has class."
+       "fr": "À midi",
+       "en": "At noon"
       },
       {
-       "fr": "Il fait trop froid.",
-       "en": "It's too cold."
+       "fr": "Le soir",
+       "en": "In the evening"
       },
       {
-       "fr": "Il y a trop de vent.",
-       "en": "It's too windy."
+       "fr": "Demain",
+       "en": "Tomorrow"
       }
      ],
-     "reponse": 3,
+     "reponse": 1,
      "porte": [
-      "风",
-      "太"
+      "中",
+      "午"
      ]
     },
     {
@@ -556,7 +561,7 @@
        "en": "hundred"
       },
       {
-       "fr": "moitié, demi",
+       "fr": "moitié",
        "en": "half"
       },
       {

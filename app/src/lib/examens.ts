@@ -688,6 +688,122 @@ export function questionFinie(q: QuestionExamen, essais: readonly (number | bool
   return q.type === 'vrai_faux' || essais.some((x) => corriger(q, x));
 }
 
+/* ---------- ce que Tao dit après une réponse ---------- */
+
+/** Une ligne de l'écran, jetons remplis (`texteExamen` sur les données de l'examen). */
+export type Dire = (cle: string, valeurs?: Readonly<Record<string, string | number>>) => string;
+
+/** Le retour d'une réponse : juste, rattrapée ou pas celle-là, ce qu'on lit, et la suite. */
+export type Retour = { ok: boolean; titre: string; texte: string; suite: string };
+
+/** La glose de la série : ce que Tao dit d'un mot, « 古玩 gǔ wán : antiquités ». */
+export function gloseDe(serie: SerieExamen, zh: string): string {
+  const g = serie.glose[zh];
+  return g ? `${zh} ${g.pinyin} : ${g.fr}` : '';
+}
+
+/**
+ * Les mots du support qui portent la réponse, glosés (au plus trois, dans l'ordre du
+ * texte) : l'explication d'une mise en situation, une fois la question close.
+ */
+export function gloseDesPortes(serie: SerieExamen, support: Support | null, q: QuestionExamen): string {
+  const porte = new Set(q.porte);
+  const texte = support?.lignes.map((l) => l.zh).join('') ?? '';
+  return Object.keys(serie.glose)
+    .filter((zh) => [...zh].some((c) => porte.has(c)) && [...zh].every((c) => porte.has(c)) && texte.includes(zh))
+    .sort((a, b) => b.length - a.length)
+    .filter((zh, k, l) => !l.slice(0, k).some((plus) => plus.includes(zh)))
+    .sort((a, b) => texte.indexOf(a) - texte.indexOf(b))
+    .slice(0, 3)
+    .map((zh) => gloseDe(serie, zh))
+    .filter((g) => g !== '')
+    .join(' · ');
+}
+
+/** L'explication complète, ce que la bonne réponse fait lire : seulement la question close. */
+export function explication(q: QuestionExamen, serie: SerieExamen, support: Support | null, dire: Dire): string {
+  if (q.objet !== undefined && (q.type === 'sens' || q.type === 'caractere' || q.type === 'trou' || q.type === 'ton')) {
+    return `${q.objet.zh} ${q.objet.pinyin} : ${q.objet.fr}`;
+  }
+  if (q.type === 'vrai_faux' && q.affirmation !== undefined) {
+    return dire(q.reponse === true ? 'vf_vrai' : 'vf_faux', { fr: q.affirmation.fr });
+  }
+  const bonne = q.choix[q.reponse as number];
+  if (q.type === 'replique' && bonne !== undefined && typeof bonne === 'object' && 'zh' in bonne) return `« ${bonne.fr} »`;
+  return gloseDesPortes(serie, support, q);
+}
+
+/**
+ * Ce qui, lu dans un retour, donnerait la bonne réponse : son texte chinois (le caractère, le
+ * mot, la réplique, le mot entier du trou), son français, sa syllabe.
+ */
+function indicesDeLaReponse(q: QuestionExamen): string[] {
+  const bonne = typeof q.reponse === 'number' ? q.choix[q.reponse] : undefined;
+  const out: string[] = [];
+  if (typeof bonne === 'string') out.push(bonne);
+  else if (bonne !== undefined) {
+    out.push(bonne.fr);
+    const zh = (bonne as Partial<Phrase>).zh;
+    if (typeof zh === 'string') out.push(zh);
+  }
+  if (q.objet !== undefined && q.type !== 'sens') out.push(q.objet.zh);
+  if (q.objet !== undefined && q.type === 'sens') out.push(q.objet.fr);
+  return out.filter((x) => x.trim() !== '');
+}
+
+/**
+ * Ce que dit une réponse fausse quand un autre essai reste permis (signalement du
+ * propriétaire du 29 septembre 2026) : jamais la bonne réponse, ni directement ni par une
+ * glose. Au plus ce que veut dire le choix touché, pour relire avant le second essai :
+ *
+ * - `comprendre` : une invitation à relire le support (`ko_comprendre`), jamais la glose des
+ *   caractères qui portent la réponse ; ses choix sont en français, ils n'ont pas de glose ;
+ * - `reperer`, `caractere`, `trou` : la glose du mot ou du caractère touché ;
+ * - `replique` : ce que dit la réplique touchée (`ko_replique`) ;
+ * - `ton` : la syllabe touchée n'est pas la bonne (`ko_ton`) ;
+ * - `sens` : rien, le choix touché se lit déjà en français ;
+ * - `vrai_faux` n'a pas de second essai : la réponse se montre (`explication`).
+ *
+ * Un texte qui contiendrait quand même la bonne réponse (la glose d'un leurre qui la
+ * porte) se tait.
+ */
+export function retourSecondEssai(q: QuestionExamen, donnee: number | boolean, serie: SerieExamen, dire: Dire): string {
+  const touche = typeof donnee === 'number' ? q.choix[donnee] : undefined;
+  let texte = '';
+  if (q.type === 'comprendre') texte = dire('ko_comprendre');
+  else if (q.type === 'reperer' || q.type === 'caractere' || q.type === 'trou') texte = gloseDe(serie, String(touche ?? ''));
+  else if (q.type === 'replique' && touche !== undefined && typeof touche === 'object') texte = dire('ko_replique', { fr: touche.fr });
+  else if (q.type === 'ton') texte = dire('ko_ton', { syllabe: String(touche ?? '') });
+  return indicesDeLaReponse(q).some((x) => texte.includes(x)) ? '' : texte;
+}
+
+/**
+ * Le retour après le dernier essai d'une question : `null` avant toute réponse. Juste ou
+ * rattrapée, l'explication complète ; au vrai ou faux, la réponse se montre, sans second
+ * essai ; faux avec un essai qui reste, `retourSecondEssai` et « Encore un essai ? ».
+ */
+export function retourQuestion(
+  q: QuestionExamen,
+  essais: readonly (number | boolean)[],
+  serie: SerieExamen,
+  support: Support | null,
+  dire: Dire
+): Retour | null {
+  const dernier = essais[essais.length - 1];
+  if (dernier === undefined) return null;
+  if (corriger(q, dernier)) {
+    const premier = essais.length === 1;
+    return {
+      ok: true,
+      titre: dire(premier ? 'juste' : 'rattrapee'),
+      texte: explication(q, serie, support, dire),
+      suite: premier ? '' : dire('rattrapee_suite')
+    };
+  }
+  if (questionFinie(q, essais)) return { ok: false, titre: dire('pas_celle'), texte: explication(q, serie, support, dire), suite: '' };
+  return { ok: false, titre: dire('pas_celle'), texte: retourSecondEssai(q, dernier, serie, dire), suite: dire('encore') };
+}
+
 /** Ce qu'une réponse touchée a fait : rien (déjà touchée, question close), ou un essai. */
 export type Essai = {
   etat: EtatExamens;

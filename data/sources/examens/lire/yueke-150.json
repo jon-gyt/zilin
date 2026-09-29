@@ -8,7 +8,12 @@
  },
  "relecture": {
   "statut": "a_relire",
-  "note": "rédigé le 29 septembre 2026, à relire par le propriétaire (`wenlu examens apercu`) ; une série passe à `relu` sur sa décision, citée ici"
+  "note": "rédigé le 29 septembre 2026, à relire par le propriétaire (`wenlu examens apercu`) ; une série passe à `relu` sur sa décision, citée ici",
+  "corrections": [
+   "le 29 septembre 2026, surtitres ramenés au genre du support, sur le signalement du propriétaire (« tu donnes les réponses dans les intitulés ») : le surtitre se lit avant la question et ne dit plus son contenu : A s1 « Le menu d'un petit restaurant » → « Un menu » ; A s2 « Xiao Li écrit à Mingming » → « Un message » ; B s2 « Une affiche dans une école » → « Une affiche »",
+   "le 29 septembre 2026, questions qui se donnaient l'une l'autre (audit des fuites) : série A, le repérage de la boisson gazeuse passe avant la question du plat (question 2, puis 1), dont l'explication glosait 大肉面, l'un des quatre mots à toucher. Série à relire.",
+   "le 29 septembre 2026, bonne réponse reconnaissable à sa forme (audit des fuites) : série A, question 2, « Des nouilles au porc » était le seul plat détaillé ; les leurres le sont aussi (« Du riz sauté aux œufs », « Des raviolis au chou », « Du poisson à la vapeur »). Série à relire."
+  ]
  },
  "series": [
   {
@@ -19,8 +24,8 @@
      "id": "s1",
      "genre": "menu",
      "contexte": {
-      "fr": "Le menu d'un petit restaurant",
-      "en": "The menu of a small restaurant"
+      "fr": "Un menu",
+      "en": "A menu"
      },
      "lignes": [
       {
@@ -53,8 +58,8 @@
      "id": "s2",
      "genre": "message",
      "contexte": {
-      "fr": "Xiao Li écrit à Mingming",
-      "en": "Xiao Li writes to Mingming"
+      "fr": "Un message",
+      "en": "A message"
      },
      "lignes": [
       {
@@ -74,37 +79,6 @@
    ],
    "questions": [
     {
-     "type": "comprendre",
-     "support": "s1",
-     "consigne": {
-      "fr": "Lequel de ces plats est au menu ?",
-      "en": "Which of these dishes is on the menu?"
-     },
-     "choix": [
-      {
-       "fr": "Du riz sauté",
-       "en": "Fried rice"
-      },
-      {
-       "fr": "Des nouilles au porc",
-       "en": "Pork noodles"
-      },
-      {
-       "fr": "Des raviolis",
-       "en": "Dumplings"
-      },
-      {
-       "fr": "Du poisson",
-       "en": "Fish"
-      }
-     ],
-     "reponse": 1,
-     "porte": [
-      "肉",
-      "面"
-     ]
-    },
-    {
      "type": "reperer",
      "support": "s1",
      "consigne": {
@@ -120,6 +94,37 @@
      "reponse": 3,
      "porte": [
       "汽"
+     ]
+    },
+    {
+     "type": "comprendre",
+     "support": "s1",
+     "consigne": {
+      "fr": "Lequel de ces plats est au menu ?",
+      "en": "Which of these dishes is on the menu?"
+     },
+     "choix": [
+      {
+       "fr": "Du riz sauté aux œufs",
+       "en": "Egg fried rice"
+      },
+      {
+       "fr": "Des nouilles au porc",
+       "en": "Pork noodles"
+      },
+      {
+       "fr": "Des raviolis au chou",
+       "en": "Cabbage dumplings"
+      },
+      {
+       "fr": "Du poisson à la vapeur",
+       "en": "Steamed fish"
+      }
+     ],
+     "reponse": 1,
+     "porte": [
+      "肉",
+      "面"
      ]
     },
     {
@@ -237,8 +242,8 @@
      "id": "s2",
      "genre": "affiche",
      "contexte": {
-      "fr": "Une affiche dans une école",
-      "en": "A poster in a school"
+      "fr": "Une affiche",
+      "en": "A poster"
      },
      "lignes": [
       {
