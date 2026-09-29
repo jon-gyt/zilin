@@ -113,6 +113,8 @@ def test_sources_declarees() -> None:
         "cedict_1_0_ts_utf-8_mdbg.txt.gz",
         "Unihan.zip",
         "cjk-decomp.txt",
+        "hsk30.csv",
+        "hsk30-wordlist.txt",
     }
     assert all(s.url.startswith("https://") and s.licence for s in SOURCES_DISTANTES)
 

@@ -23,6 +23,10 @@ Ordre et dépendances — chaque étape lit ce que la précédente a écrit :
   Après `export`. Hors de `tout`, comme `fonts` ; `check` en refait le contrôle bloquant.
 - `tout` : enchaîne fetch, ingest, build, export, check et s'arrête à la première erreur.
 
+`listes mots` écrit la liste des mots du HSK 3.0 (`data/sources/listes/hsk-mots.tsv`)
+depuis les sources que `fetch` télécharge ; comme `parcours figer`, il se lance à la main
+et son diff se relit.
+
 `parcours figer` écrit l'ordre figé de chaque parcours (`data/sources/parcours/`), que
 `build` lit et valide au lieu de le recalculer : il se lance à la main, et son diff se
 relit avant d'être versionné.
@@ -76,7 +80,7 @@ app = typer.Typer(help="Pipeline de contenu Wenlu")
 
 @app.command()
 def fetch(force: bool = typer.Option(False, help="Retélécharger même si le fichier est présent.")) -> None:
-    """Télécharge les sources (Make Me a Hanzi, CC-CEDICT, Unihan, cjk-decomp) dans data/work/sources/."""
+    """Télécharge les sources (Make Me a Hanzi, CC-CEDICT, Unihan, cjk-decomp, listes HSK 3.0 des mots) dans data/work/sources/."""
     from .fetch import fetch as _fetch
 
     etat = _fetch(force=force)
@@ -176,6 +180,26 @@ def parcours_figer(
 app.add_typer(_parcours, name="parcours")
 
 
+_listes = typer.Typer(help="Listes de référence versionnées (data/sources/listes/).")
+
+
+@_listes.command("mots")
+def listes_mots() -> None:
+    """Écrit data/sources/listes/hsk-mots.tsv depuis ivankra/hsk30 (MIT), contrôlée contre elkmovie/hsk30. Exige `fetch` et `ingest`. Relire le diff avant de versionner."""
+    from .mots_hsk import ListeInvalide, generer
+
+    try:
+        rapport = generer()
+    except (OSError, ListeInvalide) as erreur:
+        typer.echo(f"{erreur} — lancer `wenlu fetch` puis `wenlu ingest` d'abord.", err=True)
+        raise typer.Exit(code=1) from erreur
+    for cle, valeur in rapport.items():
+        typer.echo(f"{cle} : {valeur}")
+
+
+app.add_typer(_listes, name="listes")
+
+
 # Après `export` : c'est lui qui dit quels caractères l'app écrit.
 app.command(name="fonts")(_fonts)
 
@@ -196,7 +220,7 @@ def licences() -> None:
 
 @app.command()
 def check() -> None:
-    """Contrôles : composants inconnus, cycles, graphe, listes, briques muettes, découpes, contes hors liste, fiches invalides, rôle son loin de la lecture moderne, textes sans audio, export à jour, aperçu des textes à relire, fêtes, termes solaires, devinettes, dictionnaire éclair, coquilles, cuisine, lettres de Que, message WeChat, personnage, phrases de Tao à Jouer, lignes du rythme gratuit, calendrier d'ouverture, anecdotes du jour, trois lignes du pas Utiliser, examens 科举, fuites de réponse, image du chemin (ni graine, ni forêt, ni borne, ni stèle), licence des décompositions."""
+    """Contrôles : composants inconnus, cycles, graphe, listes, liste des mots HSK 3.0, briques muettes, découpes, contes hors liste, fiches invalides, rôle son loin de la lecture moderne, textes sans audio, export à jour, aperçu des textes à relire, fêtes, termes solaires, devinettes, dictionnaire éclair, coquilles, cuisine, lettres de Que, message WeChat, personnage, phrases de Tao à Jouer, lignes du rythme gratuit, calendrier d'ouverture, anecdotes du jour, trois lignes du pas Utiliser, examens 科举, fuites de réponse, image du chemin (ni graine, ni forêt, ni borne, ni stèle), licence des décompositions."""
     from .anecdotes import controles as controles_anecdotes
     from .audio import controles as controles_audio
     from .contes import controles as controles_contes
@@ -217,6 +241,7 @@ def check() -> None:
     from .graphe import controles as controles_graphe
     from .lettres import controles as controles_lettres
     from .licences import controles as controles_licences
+    from .mots_hsk import controles as controles_mots_hsk
     from .phonetiques import controles as controles_phonetiques
     from .rythme import controles as controles_rythme
     from .rappels import controles as controles_rappels
@@ -231,6 +256,7 @@ def check() -> None:
     for controle in [
         *controles(),
         *controles_graphe(),
+        *controles_mots_hsk(),
         *controles_decoupes(),
         *controles_contes(),
         *controles_fiches(),

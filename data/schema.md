@@ -761,6 +761,22 @@ ce que l'app embarque ; `docs/sources-licences.md` fait foi pour la décision.
 
 ## Contrôles (`uv run wenlu check`)
 
+- « mots HSK : comptes » — bloquant : 11 092 entrées, et le compte de chaque niveau
+  (500, 772, 973, 1 000, 1 071, 1 140, 5 636), identifiants uniques.
+- « mots HSK : sans CC-CEDICT » — bloquant : ni la colonne `CEDICT` ni `Variants` ne sont
+  lues ni écrites, et aucune clé d'entrée CC-CEDICT (`[ai4 hao4]`) n'est dans la liste.
+- « mots HSK : caractères » — bloquant : chaque sinogramme d'une graphie ou d'un exemple
+  est dans la liste des 3 000 caractères (`hsk-*.txt`) ; 2 971 le sont, 29 caractères de la
+  liste ne figurent dans aucun mot.
+- « mots HSK : concordance avec l'OCR » — bloquant quand `hsk30-wordlist.txt` est
+  téléchargé : la colonne `officiel`, niveau par niveau et dans l'ordre, est l'OCR
+  d'elkmovie. Signalé sans la source.
+- « mots HSK : source » — signalé : l'empreinte de `hsk30.csv` téléchargé est celle que
+  cite l'en-tête ; sinon relancer `wenlu listes mots` et relire le diff.
+- « mots HSK : pinyin » — bloquant : une syllabe numérotée par sinogramme, égale au pinyin
+  retenu ; les mots de position suivent `MOTS_DE_POSITION` ; une entrée à `·` a une
+  syllabe au ton neutre.
+- « mots HSK : lectures » — signalé : chaque syllabe est une lecture connue du caractère.
 - « fiches : sens » — bloquant : chaque fiche relue porte `sens_fr` et `sens_en`, et
   tout sens écrit tient en 40 caractères au plus, sans point final (voir « Le sens »).
 - « fiches : rôle son » — signalé : un rôle `son` dont la phonétique ne se lit pas
@@ -899,6 +915,95 @@ Après `export`, hors de `tout`. La recette de la décision du 28 septembre 2026
 - `docs/licences-decompositions.md`, versionné : décompte par source, recette, lignes de
   surcharge superflues, ce que le projet doit encore à Make Me a Hanzi (embarqué ou non),
   puis caractère par caractère. Deux passages écrivent les mêmes octets.
+
+## Liste des mots HSK 3.0 (story D.1)
+
+`data/sources/listes/hsk-mots.tsv`, versionné, écrit par `uv run wenlu listes mots`
+(`mots_hsk.py`) depuis deux fichiers que `wenlu fetch` télécharge dans `data/work/sources/` :
+`hsk30.csv` d'`ivankra/hsk30` (MIT, la source) et `hsk30-wordlist.txt`, le `wordlist.txt`
+d'`elkmovie/hsk30` (MIT, l'OCR de Pleco du PDF officiel, le contrôle). Le PDF de
+GF 0025-2021 reste illisible d'ici (`moe.gov.cn` bloqué) : même montage que les listes de
+caractères `hsk-*.txt`. L'en-tête du fichier dit les sources, leurs SHA-256, leurs licences
+(texte dans `data/sources/licences/MIT-hsk30.txt`, exporté) et la date du relevé ; la
+commande garde cette date tant que l'empreinte de `hsk30.csv` ne change pas, et deux
+passages écrivent les mêmes octets.
+
+11 092 entrées, les seuls mots nouveaux de chaque niveau, lus en cumul comme les
+caractères : HSK 1 500, HSK 2 772, HSK 3 973, HSK 4 1 000, HSK 5 1 071, HSK 6 1 140,
+HSK 7-9 5 636. Une ligne par entrée, dans l'ordre de la norme :
+
+| Colonne | Contenu |
+|---|---|
+| `id` | l'identifiant d'ivankra, `L<niveau>-<rang>` (`L1-0002`) : le niveau et le rang dans la table du niveau |
+| `forme` | la graphie principale, en sinogrammes seuls |
+| `pinyin` | le pinyin retenu, sans sandhi, en diacritiques (`àihào`, `bù kèqì`, `Běijīng`) |
+| `syllabes` | une syllabe numérotée par sinogramme (`ai4 hao4`) ; `v` pour ü, `5` pour le ton neutre, `r5` pour le 儿 de l'érhua |
+| `syllabes_pleines` | la lecture au ton plein quand `pinyin` neutralise une syllabe (règles ci-dessous) ; vide sinon |
+| `niveau` | `1` à `6`, ou `7-9` |
+| `categorie` | la ou les catégories du site officiel, séparées par `/` : `N` nom, `V` verbe, `Adj` adjectif, `Adv` adverbe, `M` classificateur, `Num` numéral, `Pron` pronom, `Prep` préposition, `Conj` conjonction, `Aux` particule, `Intj` interjection, `Prefix`, `Suffix`, `Phonetic` onomatopée ; vide pour 1 359 entrées que le site ne classe pas |
+| `variantes` | les autres graphies, `forme:pinyin:syllabes`, séparées par `;` (`爸:bà:ba4`, `有一些:yǒuyīxiē:you3 yi1 xie1`, `谁:shuí:shui2`) |
+| `exemple` | l'emploi que la norme cite pour un affixe ou un mot-outil, même format (`第` → `第二:dì-èr:di4 er4`) |
+| `officiel` | l'entrée telle que la norme l'imprime (`白（形）`, `称¹（动）`, `…极了`, `爸爸｜爸`) |
+| `pinyin_officiel` | le pinyin du site officiel tel quel, avec `∥`, `·` et le sandhi |
+
+Lecture des graphies (`mots_hsk.deplier`) : `爸爸|爸` fait deux graphies ; `第（第二）`, dont
+la parenthèse contient le mot, est le mot 第 cité dans l'emploi 第二 (22 entrées) ; `有（一）些`,
+`好（不）容易`, `茅台（酒）` ont un élément facultatif, la forme courte d'abord ; `…极了`,
+`…分之…` perdent leurs points de suspension (le mot est 极了, `officiel` les garde) ; `称¹`,
+`面²` leur numéro d'homographe ; `谁 shéi/shuí` et `熟 shú/shóu` font deux graphies de mêmes
+sinogrammes. `〇`, hors des blocs de sinogrammes unifiés, se lit `líng`.
+
+Ce qui n'est jamais lu : la colonne `CEDICT` d'ivankra (la clé d'une entrée CC-CEDICT)
+et la colonne `Variants`, dont le JSON la recopie. Le lecteur (`lire_ivankra`) ne garde
+que `ID`, `Simplified`, `Pinyin`, `POS`, `Level`, `WebPinyin` et `OCR`. Aucun sens :
+la liste dit la forme, le pinyin, le niveau et la catégorie.
+
+### Le pinyin des mots, tranché
+
+Base : la colonne `Pinyin` d'ivankra, le pinyin du site officiel nettoyé **sans sandhi**
+(一 yī, 不 bù), la convention du dépôt (`pinyin.py`). Le pinyin du site (`WebPinyin`)
+écrit le sandhi (`yíxià`, `bú kèqì`) et deux notations que la base perd :
+
+- `∥` sépare un verbe séparable (`bāng∥máng`) : sans effet sur la lecture, ignoré.
+- `·` précède une syllabe au **ton neutre facultatif**, la notation du 现代汉语词典 : le
+  ton est neutre d'ordinaire et peut se dire plein (知道 zhī·dào, 学生 xué·shēng,
+  出来 chū∥·lái). **Règle retenue : la syllabe pointée s'écrit au ton neutre** (zhīdao,
+  xuésheng, chūlai), la lecture de l'oral courant, comme le dépôt le faisait déjà pour les
+  mots de fiche d'après CC-CEDICT et comme le propriétaire l'a décidé pour les mots de
+  position le 26 septembre 2026. La lecture au ton plein n'est pas fausse : elle reste
+  dans `syllabes_pleines` et la recherche l'accepte (`zhi1dao4` trouve 知道). 138 entrées
+  portent `·` ; pour 可不是 (kěbú·shi), la syllabe est déjà neutre dans la base.
+
+**Les neuf conflits avec les mots de position.** `pinyin.MOTS_DE_POSITION` (décision du
+propriétaire du 26 septembre 2026, « Je te laisse décider » : la lecture du 现代汉语词典)
+écrit au ton neutre la seconde syllabe de 21 mots de position (后面 hòumian, 这里 zhèli…) et
+garde le ton plein de 旁边, 那边, 这边. Neuf entrées de la liste disent autrement dans la
+colonne `Pinyin` :
+
+| Mot | `Pinyin` | `WebPinyin` | Retenu | Par |
+|---|---|---|---|---|
+| 哪里 | nǎlǐ | nǎ·lǐ | nǎli | la règle `·` (et la décision) |
+| 那里 | nàlǐ | nà·lǐ | nàli | la règle `·` (et la décision) |
+| 这里 | zhèlǐ | zhè·lǐ | zhèli | la règle `·` (et la décision) |
+| 外面 | wàimiàn | wài·miàn | wàimian | la règle `·` (et la décision) |
+| 后面 | hòumiàn | hòumiàn | hòumian | la décision du 26 septembre |
+| 里面 | lǐmiàn | lǐmiàn | lǐmian | la décision du 26 septembre |
+| 前面 | qiánmiàn | qiánmiàn | qiánmian | la décision du 26 septembre |
+| 上面 | shàngmiàn | shàngmiàn | shàngmian | la décision du 26 septembre |
+| 下面 | xiàmiàn | xiàmiàn | xiàmian | la décision du 26 septembre |
+
+**La décision du 26 septembre l'emporte**, pour trois raisons : c'est une décision écrite du
+propriétaire, que les contes, les lettres, WeChat et l'éclair suivent déjà
+(`ecarts_de_position`) ; le dictionnaire ne doit pas dire un autre pinyin que le reste de
+l'app pour le même mot ; et le 现代汉语词典, la référence que la norme suit elle-même pour
+`·`, écrit 后面 hòu·mian. Les douze autres mots de position de la liste (北边 běibian…,
+旁边 pángbiān) concordent déjà. La lecture pleine de la liste reste dans `syllabes_pleines` :
+`hou4 mian4` trouve 后面.
+
+Chaque syllabe se lit dans les lectures de son caractère (surcharges, puis `kMandarin`,
+`kTGHZ2013` et `kXHC1983` d'Unihan), au ton plein ou neutre : c'est ce qui découpe le pinyin
+en syllabes (`mots_hsk.decouper`), sans deviner. Les 11 092 entrées se lisent toutes ainsi, y
+compris 闺女 guīnü (女 au ton neutre).
 
 ## Format intermédiaire (story 1.1)
 
