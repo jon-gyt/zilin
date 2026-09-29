@@ -1,7 +1,7 @@
 """Les examens 科举 (épic 8, stories 8.1 et 8.2) : sources, contrôles, export.
 
 Brief §8, « Les examens 科举 » : trente-sept examens, chacun à un palier de caractères
-lus (au seuil de stabilité de Ma forêt, le compte du trophée Lire), passés dans un seul
+lus (au seuil de stabilité de Mon chemin, le compte du trophée Lire), passés dans un seul
 ordre. Six examens à titre, ceux des Qing (县试 à 殿试), et trente et un 月课, « la leçon du
 mois », qui n'en donnent aucun. Puis quatre nominations, sans examen, à un palier de
 caractères lus (翰林, 探花, 榜眼, 状元).

@@ -60,6 +60,20 @@ def test_le_personnage_et_la_route_disent_les_examens_comme_le_brief() -> None:
     assert route["ouvert"] == "examen ouvert"
 
 
+def test_mon_chemin_dit_les_textes_de_la_maquette_validee() -> None:
+    """Maquette validée le 29 septembre 2026, `maquettes/chemin.html`, mot pour mot."""
+    ch = {t.cle: t.fr for t in charger().textes["chemin"]}
+    assert ch["case"] == "Mon chemin"
+    assert ch["menu-faite"] == "Pierre posée, une seule par jour"
+    assert ch["menu-faite-plus"].format(n=2) == "Pierre posée · 2 sessions de plus"
+    assert ch["devant"] == "Devant ›"
+    assert ch["tao-faite"] == "Pierre posée !"
+    assert ch["clore-titre"].format(c="儿") == "儿 rejoint ton chemin."
+    assert ch["serie-semaine"].format(n=2) == "2 pierres posées cette semaine. Sept pierres font un pavillon."
+    assert ch["rdv-prochain"] == "Prochain rendez-vous :"
+    assert ch["semaine-note"] == "Chaque jour travaillé pose une pierre. Sept pierres, un pavillon : un jour de repos en réserve."
+
+
 def test_la_photo_passe_par_le_texte_en_direct_sans_reseau() -> None:
     aide = {t.cle: t.fr for t in charger().textes["lire-le-monde"]}["aide-iphone"]
     assert "Texte en direct" in aide

@@ -1,11 +1,13 @@
-"""Les textes d'interface de cinq écrans : « Lire le monde », les révisions, le personnage, la route, « Dis-le ».
+"""Les textes d'interface de six écrans : « Lire le monde », les révisions, le personnage, la route, « Dis-le », Mon chemin.
 
 « Lire le monde » (Chercher) et le tableau des révisions : rapport comparatif du 28
 septembre 2026, §2.5 et §2.6. « Mon personnage » et « La route devant » : les lignes des
 examens 科举 (stories 8.5 et 8.6, brief §8, « Le personnage » et « La route devant »),
 « Reste le 院试 », « Reçu au 院试 · encore 12 points », « examen ouvert ». « Dis-le » : la question
 où l'on prononce un caractère acquis et son réglage « Dire les tons » (story 9.1, brief §10,
-« L'oral par IA »), dont les phrases ne font jamais de reproche. Chaque écran a sa source
+« L'oral par IA »), dont les phrases ne font jamais de reproche. « Mon chemin 路 » : l'image
+du chemin, la pierre posée, les pavillons, les auberges et les rendez-vous (décisions du
+propriétaire du 29 septembre 2026, maquette validée `maquettes/chemin.html`). Chaque écran a sa source
 versionnée, rédigée pour l'app et à relire, dans `data/sources/ecrans/<écran>.tsv` ;
 `wenlu export` en tire `ecrans.json`, que l'index nomme par sa clé `ecrans`.
 
@@ -153,6 +155,68 @@ ECRANS: dict[str, dict[str, tuple[str, ...]]] = {
         "absent": (),
         "indisponible": (),
     },
+    "chemin": {
+        "case": (),
+        "menu-faite": (),
+        "menu-faite-plus": ("n",),
+        "menu-faite-plus-une": (),
+        "devant": (),
+        "devant-voix": (),
+        "tao-faite": (),
+        "tao-clore": ("n",),
+        "clore-titre": ("c",),
+        "clore-deja": (),
+        "clore-dessin": (),
+        "semaine-voix": (),
+        "serie-semaine": ("n",),
+        "serie-semaine-une": (),
+        "serie-semaine-pleine": ("n",),
+        "cadeau-an": (),
+        "titre": (),
+        "aide": (),
+        "lus": ("n",),
+        "lus-un": (),
+        "familles": ("n",),
+        "familles-une": (),
+        "jour": ("n",),
+        "scene-voix": (),
+        "devant-titre": (),
+        "derriere-titre": (),
+        "premier-jour": (),
+        "sceau-jour": ("n",),
+        "auberge-voix": ("nom",),
+        "plus-voix": ("c", "n"),
+        "plus-voix-un": ("c",),
+        "repli": ("de", "a"),
+        "repli-voix": ("de", "a"),
+        "legende-lu": (),
+        "legende-encours": (),
+        "legende-avenir": (),
+        "legende-jour": (),
+        "rdv-prochain": (),
+        "rdv-ce-jour": (),
+        "semaine-titre": (),
+        "semaine-aucune": (),
+        "semaine-une": (),
+        "semaine-n": ("n",),
+        "semaine-pleine": (),
+        "semaine-note": (),
+        "liste": (),
+        "retour": (),
+        "retour-jeu": (),
+        "famille-auberge": ("n",),
+        "famille-voix": ("c",),
+        "famille-sceau": ("lus", "n"),
+        "famille-sceau-pose": (),
+        "famille-par": ("c",),
+        "famille-plus-voix": ("n",),
+        "fiche-lu": (),
+        "fiche-encours": (),
+        "fiche-avenir": (),
+        "fiche-pose": ("n",),
+        "trophee-famille": (),
+        "trophee-serie": (),
+    },
 }
 
 #: Les sept jours de la semaine, du dimanche au samedi (`Date.getDay`), dans `revisions/jours`.
@@ -181,8 +245,8 @@ JETON = re.compile(r"\{([^{}]*)\}")
 
 SOURCE_EXPORT = (
     "data/sources/ecrans/ : textes d'interface de « Lire le monde », du tableau des"
-    " révisions, de « Mon personnage », de « La route devant » et de « Dis-le », rédigés pour"
-    " l'app (à relire)"
+    " révisions, de « Mon personnage », de la route devant, de « Dis-le » et de « Mon chemin »,"
+    " rédigés pour l'app (à relire)"
 )
 
 

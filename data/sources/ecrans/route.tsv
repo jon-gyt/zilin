@@ -10,12 +10,12 @@
 # `fr`, `source`. Chaque clé est exigée une fois, avec exactement ses jetons entre
 # accolades, que l'app remplit (`ecrans.py`, `ECRANS`) :
 #
-# - `examen` : sous la stèle d'un examen, à titre ou 月课, et dans la carte de l'étape ;
+# - `examen` : sous la porte de ville 城门 d'un examen, à titre ou 月课, et dans la carte de l'étape ;
 #   `{examen}` son nom, `{n}` son palier de caractères lus (« 县试 · 50 caractères »,
-#   « 月课 · 1 555 caractères », mot pour mot du brief) ; une seule stèle quand il tombe
+#   « 月课 · 1 555 caractères », mot pour mot du brief) ; une seule porte quand il tombe
 #   sur un seuil du trophée Lire ;
-# - `ouvert` : l'examen à passer, sa stèle dressée devant la pierre du jour ;
-# - `apres` : tant qu'il n'est pas réussi, ce que disent les pierres et les bornes
+# - `ouvert` : l'examen à passer, sa porte ouverte devant la pierre du jour ;
+# - `apres` : tant qu'il n'est pas réussi, ce que disent les pierres et les rendez-vous
 #   suivantes, sans compte ;
 # - `lus` : l'examen suivant dont le jour du chemin est passé sans que ses caractères
 #   soient encore lus (le compte des lus suit de quelques jours) ; `{lus}` les caractères

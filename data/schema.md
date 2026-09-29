@@ -46,7 +46,7 @@ app/public/data/0.1.0/
   rythme.json                le rythme gratuit : les lignes du menu, de la route et de Clore
   rappels.json               le rappel quotidien (iOS) et la garde de la progression
   ouvertures.json            l'aventure : le calendrier d'ouverture des portes, les annonces de Tao
-  ecrans.json                les textes de « Lire le monde », des révisions, du personnage, de la route et de « Dis-le »
+  ecrans.json                les textes de « Lire le monde », des révisions, du personnage, de la route, de « Dis-le » et de Mon chemin
   anecdotes.json             les anecdotes du jour, une par caractère
   trois-lignes.json          les trois lignes du pas Utiliser, un texte par jour du chemin
   examens.json               les examens 科举 et les 月课 : la liste, les séries relues
@@ -536,13 +536,17 @@ début de l'anecdote du jour, tiré de `anecdotes.json`, et n'est pas ici.
 
 Tiré de `data/sources/ecrans/lire-le-monde.tsv` et `revisions.tsv` (rapport comparatif du
 28 septembre 2026, §2.5 et §2.6), `personnage.tsv` et `route.tsv` (stories 8.5 et 8.6),
-`dire.tsv` (story 9.1), rédigé pour l'app et à relire : les textes d'interface de « Lire le
-monde », le second onglet de Chercher, du tableau des révisions de Ma forêt, les lignes des
+`dire.tsv` (story 9.1) et `chemin.tsv` (décisions du propriétaire du 29 septembre 2026,
+maquette validée `maquettes/chemin.html`), rédigé pour l'app et à relire : les textes
+d'interface de « Lire le monde », le second onglet de Chercher, du tableau des révisions de
+Mon chemin, les lignes des
 examens sur « Mon personnage » (« Reste le 院试 », « Reçu au 院试 · encore 12 points ») et
 sur « La route devant » (« 县试 · 50 caractères », « examen ouvert »), et la question
 « Dis-le » avec son réglage « Dire les tons » : la consigne, le bouton du micro, le nom et
 l'allure de chaque ton, le ton reconnu, un autre ton et le conseil de chaque couple
-(`conseil-<attendu>-<entendu>`), les redemandes, l'essai des Réglages.
+(`conseil-<attendu>-<entendu>`), les redemandes, l'essai des Réglages ; et l'image du chemin :
+Mon chemin 路, la pierre posée (« Pierre posée, une seule par jour », « 儿 rejoint ton
+chemin. »), les pavillons de la semaine, les auberges des familles, les rendez-vous.
 L'app remplit les jetons entre accolades (`app/src/lib/ecrans.ts`).
 
 ```json
@@ -551,7 +555,8 @@ L'app remplit les jetons entre accolades (`app/src/lib/ecrans.ts`).
  "revisions": {"titre": "Tes révisions", "jours": "dim. lun. mar. mer. jeu. ven. sam.", "…": "…"},
  "personnage": {"reste": "Reste le {examen}", "recu": "Reçu au {examen} · encore {n} points", "…": "…"},
  "route": {"examen": "{examen} · {n} caractères", "ouvert": "examen ouvert", "…": "…"},
- "dire": {"juste": "{nom} : ta voix {allure}. C'est bien lui.", "conseil-2-3": "Monte tout de suite, sans descendre d'abord.", "…": "…"}}
+ "dire": {"juste": "{nom} : ta voix {allure}. C'est bien lui.", "conseil-2-3": "Monte tout de suite, sans descendre d'abord.", "…": "…"},
+ "chemin": {"menu-faite": "Pierre posée, une seule par jour", "clore-titre": "{c} rejoint ton chemin.", "…": "…"}}
 ```
 
 - Un objet par écran, les textes par clé, dans l'ordre de `ecrans.ECRANS`, qui déclare
@@ -598,11 +603,11 @@ décide que du moment de montrer.
 
 - `portes` : dix-neuf portes, dans l'ordre où elles s'annoncent quand plusieurs tombent le
   même jour. `id` : `reviser`, `jouer`, `lire`, `foret` (les cases du menu), `personnage`
-  (le portrait de l'en-tête), `route` (« Ma route › » et l'entrée de Ma forêt), `trophees`,
-  `revisions` (les entrées de Ma forêt), `retention` (le réglage des révisions), `contes`
+  (le portrait de l'en-tête), `route` (« Devant › » et la route devant, le haut de Mon
+  chemin), `trophees`, `revisions` (les entrées de Mon chemin), `retention` (le réglage des révisions), `contes`
   (les étagères de Lire), `monde` (l'onglet « Un texte » de Chercher), et un `jeu-<id>` par
   jeu de l'écran Jouer. `unite` : `jour`, la dernière leçon du parcours apprise (la première
-  session pose les jours 1 à 3), ou `lus`, les caractères lus de Ma forêt ; jamais une date
+  session pose les jours 1 à 3), ou `lus`, les caractères lus de Mon chemin ; jamais une date
   ni un achat. `seuil` : un entier. `parent` : la porte qui la contient, montrée avant
   elle, ou `null`. `annonce` : la phrase de Tao au retour au menu ; vide, la porte vient en
   silence avec son parent, au même seuil. Réglages, Chercher un caractère et la session ne
@@ -696,7 +701,7 @@ Les examens 科举 et les 月课 (brief §8, épic 8), tirés de `data/sources/e
 ```
 
 - `examens` : les trente-sept, dans l'ordre des paliers de caractères lus (au seuil de
-  stabilité de Ma forêt, le compte du trophée Lire) ; `sorte` `titre` (les six du 科举) ou
+  stabilité de Mon chemin, le compte du trophée Lire) ; `sorte` `titre` (les six du 科举) ou
   `yueke` (月课, `titre` nul) ; `questions` 15 ou 10, `reussite` 12 ou 8 (quatre sur cinq).
 - `nominations` : les quatre rangs sans examen, au palier de caractères lus.
 - `textes` : les lignes de l'écran et les phrases de Tao, avec leurs jetons (`{examen}`,
@@ -856,6 +861,11 @@ ce que l'app embarque ; `docs/sources-licences.md` fait foi pour la décision.
   recette ; `docs/sources-licences.md` nomme la source ; `tons.json` porte les mêmes poids et
   l'attribution, reste sous 1 Mo, `index.json` le nomme, `LICENCES.md` dit la licence et
   `OGDL-Taiwan-1.0.txt` est à côté.
+- « image du chemin » — bloquant : aucun texte affiché que le pipeline écrit (textes
+  d'écran, rythme, annonces des portes, examens, phrases de Tao, bêtes, rappels) ne dit
+  graine, forêt, arbre, borne ni stèle (décisions du propriétaire du 29 septembre 2026) ;
+  « l'arbre des caractères », la décomposition, passe ; le contenu et le rang 翰林 ne sont
+  pas relus (`vocabulaire.py`).
 - « ouvertures : sources », « contenu », « export » — bloquants : chaque porte une fois,
   comptée en `jour` ou en `lus`, jamais pendant la première session (jour 3 au plus) ; un
   parent connu, placé avant, et qui ne s'ouvre pas après elle ; une porte silencieuse au
