@@ -560,10 +560,14 @@ export function composantSon(f: Fiche, corpus: Corpus): string | null {
 
 /**
  * Le mot qui porte le caractère, pour le trou : un mot de plusieurs caractères, qu'on fera
- * entendre. Avec le corpus, un mot qui peut être dit passe devant (`motDitable`).
+ * entendre, et qui ne le porte qu'une fois. Avec le corpus, un mot qui peut être dit passe
+ * devant (`motDitable`).
  */
 export function motDuTrou(f: Fiche, corpus?: Corpus): Mot | null {
-  const mots = f.mots.filter((m) => m.hanzi.includes(f.c) && m.hanzi.length > f.c.length);
+  /* Un mot qui redouble le caractère (妈妈, 谢谢) le montre à côté du trou : jamais celui-là. */
+  const mots = f.mots.filter(
+    (m) => m.hanzi.split(f.c).length === 2 && m.hanzi.length > f.c.length
+  );
   if (corpus !== undefined) {
     const dit = mots.find((m) => motDitable(m, corpus));
     if (dit !== undefined) return dit;

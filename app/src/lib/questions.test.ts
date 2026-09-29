@@ -19,6 +19,7 @@ import {
   motDitable,
   texteADire,
   marquerTon,
+  motDuTrou,
   outcomeDuTrace,
   tonDe,
   premierSens,
@@ -985,6 +986,15 @@ describe('rien ne souffle la réponse avant qu’on réponde', () => {
     expect(ask).toContain('{#if note !== null && ecoutable}');
     /* Seules l’oreille et le trou font entendre avant la réponse : c’est leur question. */
     expect(ask).toContain("const aEcouter = $derived(q.type === 'oreille' || q.type === 'trou');");
+  });
+
+  it('le trou ne prend jamais un mot qui redouble le caractère (妈妈 montrait 妈 à côté du trou)', () => {
+    const redouble = { hanzi: '好好', pinyin: 'hǎohǎo', fr: 'bien', en: '', audio: 'a.mp3' };
+    const hao = fiche('好');
+    expect(motDuTrou({ ...hao, mots: [redouble, ...hao.mots] }, CORPUS)?.hanzi).toBe('好人');
+    const seul = { ...hao, mots: [redouble] };
+    expect(motDuTrou(seul, CORPUS)).toBeNull();
+    expect(typesPossibles(seul, { ...CORPUS, voix: true })).not.toContain('trou');
   });
 
 });
