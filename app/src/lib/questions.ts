@@ -226,11 +226,30 @@ export function hachage(texte: string): number {
   return h >>> 0;
 }
 
-/** Mélange déterministe : même liste et même graine, même ordre. */
+/**
+ * Brasse les bits d'un hachage (le finaliseur de MurmurHash3) : deux textes qui ne
+ * diffèrent que d'un caractère final donnent des bits bas sans lien entre eux.
+ */
+export function brasser(h: number): number {
+  let x = h >>> 0;
+  x ^= x >>> 16;
+  x = Math.imul(x, 0x85ebca6b);
+  x ^= x >>> 13;
+  x = Math.imul(x, 0xc2b2ae35);
+  x ^= x >>> 16;
+  return x >>> 0;
+}
+
+/**
+ * Mélange déterministe : même liste et même graine, même ordre. Chaque tirage est brassé
+ * (`brasser`) : les hachages de `graine/1`, `graine/2`, `graine/3` ne diffèrent que par
+ * leur dernier caractère, et leurs bits bas, liés, rangeaient la bonne réponse en tête
+ * une fois sur trois et en deuxième place une fois sur six.
+ */
 export function melange<T>(xs: readonly T[], graine: string): T[] {
   const out = [...xs];
   for (let i = out.length - 1; i > 0; i--) {
-    const j = hachage(`${graine}/${i}`) % (i + 1);
+    const j = brasser(hachage(`${graine}/${i}`)) % (i + 1);
     const t = out[i];
     out[i] = out[j];
     out[j] = t;
@@ -560,10 +579,14 @@ export function composantSon(f: Fiche, corpus: Corpus): string | null {
 
 /**
  * Le mot qui porte le caractère, pour le trou : un mot de plusieurs caractères, qu'on fera
- * entendre. Avec le corpus, un mot qui peut être dit passe devant (`motDitable`).
+ * entendre, et qui ne le porte qu'une fois. Avec le corpus, un mot qui peut être dit passe
+ * devant (`motDitable`).
  */
 export function motDuTrou(f: Fiche, corpus?: Corpus): Mot | null {
-  const mots = f.mots.filter((m) => m.hanzi.includes(f.c) && m.hanzi.length > f.c.length);
+  /* Un mot qui redouble le caractère (妈妈, 谢谢) le montre à côté du trou : jamais celui-là. */
+  const mots = f.mots.filter(
+    (m) => m.hanzi.split(f.c).length === 2 && m.hanzi.length > f.c.length
+  );
   if (corpus !== undefined) {
     const dit = mots.find((m) => motDitable(m, corpus));
     if (dit !== undefined) return dit;
@@ -684,6 +707,42 @@ export function premierSens(fr: string): string {
     .replace(/\s*\((clé|composant)\)$/u, '');
 }
 
+/** Un sinogramme, de n'importe quel bloc. */
+const HAN = /\p{Script=Han}/u;
+
+/**
+ * Le sens tel qu'un choix de la question `sens` le montre : sans ce qui est entre
+ * parenthèses. La note d'atelier (« parole (clé) », « haut de 要 (composant) ») désignait
+ * la clé parmi quatre caractères qui n'en portent pas, et une seule précision entre
+ * parenthèses désignait la réponse par sa forme (« tôt, matin, bonjour (le matin) »). La
+ * correction redonne le sens entier. Rien n'est rédigé : on retire, on ne réécrit pas. Un
+ * sens tout entier entre parenthèses reste tel quel.
+ */
+export function sensDuChoix(fr: string): string {
+  let prof = 0;
+  let out = '';
+  for (const x of fr) {
+    if (x === '(') prof += 1;
+    else if (x === ')') prof = Math.max(0, prof - 1);
+    else if (prof === 0) out += x;
+  }
+  const net = out
+    .replace(/\s+([,;])/g, '$1')
+    .replace(/\s{2,}/g, ' ')
+    .replace(/[,;]\s*$/u, '')
+    .trim();
+  return net === '' ? fr.trim() : net;
+}
+
+/**
+ * Un sens qui cite un caractère (« haut de 青 », « vieillesse, haut de 老 ») décrit un
+ * composant : parmi des sens de mots, il se repère à sa seule forme. Les leurres d'une
+ * question `sens` sont de la même nature que la réponse.
+ */
+export function citeUnCaractere(sens: string): boolean {
+  return HAN.test(sens);
+}
+
 /**
  * La fiche de correction. Le texte n'est pas rédigé ici : il assemble ce que le pipeline
  * `data/` a produit (pinyin, sens, origine) autour de la décomposition canonique.
@@ -750,7 +809,9 @@ export function question(
   const q = base(f, type, corpus);
 
   if (type === 'sens') {
-    const bonne = f.fr;
+    /* Les choix se ressemblent par la forme : sans parenthèses, et de la même nature. */
+    const bonne = sensDuChoix(f.fr);
+    const nature = citeUnCaractere(bonne);
     const sens = choisirLeurres(
       [f.c],
       candidatsCaracteres(f.c, corpus, false),
@@ -758,7 +819,10 @@ export function question(
       g,
       NB_LEURRES,
       [f.c],
-      (c) => fiche(c, corpus)?.fr ?? '',
+      (c) => {
+        const x = sensDuChoix(fiche(c, corpus)?.fr ?? '');
+        return citeUnCaractere(x) === nature ? x : '';
+      },
       [bonne]
     );
     q.enonce = 'Que veut dire ce caractère ?';

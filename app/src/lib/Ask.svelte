@@ -94,13 +94,12 @@
   /** À l'oreille : le dernier caractère pris pour un autre, qu'on fait entendre. */
   let entenduAuLieu: string | null = $state(null);
   /**
-   * À l'oreille et au trou, le pinyin sous les choix dirait la réponse : il n'apparaît qu'après
-   * la correction. Au caractère aussi : l'énoncé donne le pinyin, le choix se ferait sur lui
-   * sans lire la forme.
+   * Le pinyin sous les choix n'apparaît qu'à la correction, quel que soit le type : à
+   * l'oreille, au trou et au caractère il dirait la réponse ; à « quel élément donne le
+   * son ? », mǎ sous 马 donnait celle de 妈 sans rien lire ; à l'assemblage, la syllabe de la
+   * cible désignait sa brique de son.
    */
-  const pinyinCache = $derived(
-    (q.type === 'oreille' || q.type === 'caractere' || q.type === 'trou') && note === null
-  );
+  const pinyinCache = $derived(note === null);
   /** La question se pose à l'oreille : le caractère (oreille) ou le mot (trou) s'entend d'abord. */
   const aEcouter = $derived(q.type === 'oreille' || q.type === 'trou');
 

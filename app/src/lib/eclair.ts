@@ -19,7 +19,7 @@
  */
 import { contenu, dossierVersion, VERSION_DONNEES, type Famille, type Fiche } from './content';
 import type { CorpusJeux, Tour } from './jeux';
-import { acquis as acquisDesCartes, caractereAcquis, melange, type Acquis } from './questions';
+import { acquis as acquisDesCartes, caractereAcquis, melange, sensDuChoix, type Acquis } from './questions';
 import type { Progress } from './session';
 
 /* ---------- le contenu ---------- */
@@ -252,14 +252,19 @@ export function toursEclair(corpus: CorpusJeux, graine: string): Tour[] {
  * Même mot, même graine, même tour : le pas Utiliser le repose tel quel à la reprise.
  */
 export function tourDuMot(m: MotEclair, mots: readonly MotEclair[], graine: string): Tour {
-  const sens = new Map(mots.map((x) => [x.id, x.fr]));
+  /* Les choix sans parenthèses (`sensDuChoix`) : « but (au football) », seul à préciser
+     entre parenthèses parmi quatre, se désignait par sa forme. La correction dit le sens entier. */
+  const sens = new Map(mots.map((x) => [x.id, sensDuChoix(x.fr)]));
   const [premier, second] = [...m.mot];
-  const leurres = m.leurres.map((x) => sens.get(x) ?? '').filter((x) => x !== '' && x !== m.fr);
+  const bon = sensDuChoix(m.fr);
+  const leurres = [
+    ...new Set(m.leurres.map((x) => sens.get(x) ?? '').filter((x) => x !== '' && x !== bon))
+  ];
   return {
     c: premier,
     enonce: 'Que veut dire ce mot ?',
-    reponse: [m.fr],
-    choix: melange([m.fr, ...leurres.slice(0, SENS_ECLAIR - 1)], `${graine}/${m.id}/choix`),
+    reponse: [bon],
+    choix: melange([bon, ...leurres.slice(0, SENS_ECLAIR - 1)], `${graine}/${m.id}/choix`),
     ordre: false,
     paire: false,
     aussi: [second],

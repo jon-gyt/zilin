@@ -19,7 +19,12 @@ import {
   motDitable,
   texteADire,
   marquerTon,
+  melange,
+  motDuTrou,
   outcomeDuTrace,
+  sensDuChoix,
+  citeUnCaractere,
+  tonDe,
   premierSens,
   syllabesDuTon,
   question,
@@ -790,7 +795,7 @@ describe('le trou : le mot s’entend, il ne se traduit plus', () => {
 
   it('l’écran fait entendre le mot et tait le pinyin des choix jusqu’à la correction', () => {
     const src = readFileSync(new URL('Ask.svelte', import.meta.url), 'utf8');
-    expect(src).toContain("(q.type === 'oreille' || q.type === 'caractere' || q.type === 'trou') && note === null");
+    expect(src).toContain('const pinyinCache = $derived(note === null);');
     expect(src).toContain('void prononcer(texteADire(q))');
     expect(src).toContain('{ligneDuMot(q)}');
   });
@@ -961,5 +966,111 @@ describe('le contour du ton, dessiné à la correction', () => {
     expect(regle).toContain('stroke:var(--indigo)');
     expect(regle).not.toContain('--zhu');
     expect(css).toContain('@media (prefers-reduced-motion:reduce){.contour .trait{animation:none;stroke-dashoffset:0}}');
+  });
+});
+
+/* ---------- les fuites de réponse (retour du propriétaire du 29 septembre 2026) ---------- */
+
+describe('rien ne souffle la réponse avant qu’on réponde', () => {
+  const ask = readFileSync(new URL('Ask.svelte', import.meta.url), 'utf8');
+
+  it('« quel élément donne le son ? » : le pinyin des choix ne paraît qu’à la correction', () => {
+    /* mǎ sous 马 donnait le son de 妈 (mā) sans rien lire ; à l’assemblage, la syllabe de la
+       cible désignait sa brique de son. Le pinyin sous un choix attend la correction, partout. */
+    expect(ask).toContain('const pinyinCache = $derived(note === null);');
+    expect(ask).toMatch(/<small>\{pinyinCache \? '.' : pinyinDe\(o, corpus\)\}<\/small>/u);
+  });
+
+  it('la question de ton n’affiche pas le pinyin accentué, et ne fait rien entendre avant', () => {
+    const q = poser('ton');
+    expect(q.sansTon).toBe('hao');
+    expect(tonDe(q.sansTon ?? '')).toBe(0);
+    expect(ask).toContain('{note === null ? q.sansTon : q.reponse[0]}');
+    expect(ask).toContain('{#if note !== null && ecoutable}');
+    /* Seules l’oreille et le trou font entendre avant la réponse : c’est leur question. */
+    expect(ask).toContain("const aEcouter = $derived(q.type === 'oreille' || q.type === 'trou');");
+  });
+
+  it('le trou ne prend jamais un mot qui redouble le caractère (妈妈 montrait 妈 à côté du trou)', () => {
+    const redouble = { hanzi: '好好', pinyin: 'hǎohǎo', fr: 'bien', en: '', audio: 'a.mp3' };
+    const hao = fiche('好');
+    expect(motDuTrou({ ...hao, mots: [redouble, ...hao.mots] }, CORPUS)?.hanzi).toBe('好人');
+    const seul = { ...hao, mots: [redouble] };
+    expect(motDuTrou(seul, CORPUS)).toBeNull();
+    expect(typesPossibles(seul, { ...CORPUS, voix: true })).not.toContain('trou');
+  });
+
+  it('au sens, aucun choix ne se désigne par ses parenthèses ou sa note d’atelier', () => {
+    expect(sensDuChoix('eau (clé)')).toBe('eau');
+    expect(sensDuChoix('tôt, matin, bonjour (le matin)')).toBe('tôt, matin, bonjour');
+    expect(sensDuChoix('ans (âge), année')).toBe('ans, année');
+    const cle = f('氵', 'shuǐ', 'eau (clé)', [], 'sens', '');
+    const fiches = [
+      ...FICHES,
+      cle,
+      f('水', 'shuǐ', 'eau', [], 'sens', ''),
+      f('汉', 'hàn', 'Han, chinois (peuple)', ['氵', '又'], 'sens', ''),
+      f('没', 'méi', 'ne pas avoir', ['氵', '殳'], 'sens', ''),
+      f('酒', 'jiǔ', 'alcool, vin', ['氵', '酉'], 'sens', '')
+    ];
+    const corpus: Corpus = { ...CORPUS, fiches, acquis: fiches.map((x) => ({ c: x.c, stabilite: 10 })) };
+    for (const g of ['a', 'b', 'c', 'd', 'e']) {
+      const q = question(cle, 'sens', corpus, g);
+      expect(q.reponse).toEqual(['eau']);
+      for (const x of q.choix) expect(x, g).not.toMatch(/[()]/);
+      /* 水 dit aussi « eau » : deux bonnes réponses n’en font pas une, il n’est pas proposé. */
+      expect(q.choix.filter((x) => x === 'eau')).toHaveLength(1);
+    }
+  });
+
+  it('au sens, les leurres sont de la même nature que la réponse : un composant contre des composants', () => {
+    const fiches = [
+      ...FICHES,
+      f('龶', '', 'haut de 青 (composant)', [], 'forme', ''),
+      f('覀', '', 'haut de 要 (composant)', [], 'forme', ''),
+      f('⺌', '', 'haut de 尚 (composant)', [], 'forme', ''),
+      f('㠯', '', 'bas de 官 (composant)', [], 'forme', '')
+    ];
+    const corpus: Corpus = { ...CORPUS, fiches, acquis: fiches.map((x) => ({ c: x.c, stabilite: 10 })) };
+    const composant = question(fiches.find((x) => x.c === '龶') as Fiche, 'sens', corpus, 'g');
+    expect(composant.leurres.length).toBe(3);
+    for (const x of composant.choix) expect(citeUnCaractere(x), x).toBe(true);
+    /* « haut de 要 » parmi des sens de mots se repère à sa forme : jamais un leurre pour 好. */
+    for (const g of ['a', 'b', 'c', 'd', 'e']) {
+      for (const x of question(fiche('好'), 'sens', corpus, g).choix) expect(citeUnCaractere(x), x).toBe(false);
+    }
+  });
+
+  it('la bonne réponse n’est pas toujours à la même place', () => {
+    /* Les hachages de `graine/1`, `graine/2`, `graine/3` ne différaient que d’un caractère :
+       la bonne réponse tombait en tête une fois sur trois, en deuxième une fois sur six. */
+    const places = [0, 0, 0, 0];
+    for (let i = 0; i < 4000; i++) places[melange([0, 1, 2, 3], `r${i}`).indexOf(0)] += 1;
+    for (const n of places) expect(n / 4000).toBeGreaterThan(0.21), expect(n / 4000).toBeLessThan(0.29);
+    for (const t of ['sens', 'caractere', 'oreille', 'trou'] as const) {
+      const vues = [0, 0, 0, 0];
+      const avecVoix: Corpus = { ...CORPUS, voix: true };
+      for (let i = 0; i < 400; i++) {
+        const q = question(fiche(PORTEUR[t]), t, avecVoix, `s${i}`);
+        vues[q.choix.indexOf(q.reponse[0])] += 1;
+      }
+      for (const n of vues.slice(0, 4)) expect(n / 400, `${t} ${vues.join(' ')}`).toBeGreaterThan(0.15);
+    }
+  });
+
+  it('Tao ne tient pas le caractère de la question dans sa bulle', () => {
+    for (const f of ['Warm.svelte', 'Fix.svelte']) {
+      const src = readFileSync(new URL(f, import.meta.url), 'utf8');
+      expect(src, f).not.toMatch(/<Tao\b[^>]*caractere=/);
+    }
+  });
+
+  it('le tracé de mémoire ne montre pas le caractère, même un instant', () => {
+    const trace = readFileSync(new URL('Trace.svelte', import.meta.url), 'utf8');
+    /* Hanzi Writer dessinait le caractère entier, puis l’effaçait en 400 ms au départ du quiz. */
+    expect(trace).toContain('showCharacter: !cache,');
+    /* Sans traits, le repli ne le dessine pas non plus : la question passe sans être notée. */
+    expect(trace).toContain('{#if sansDonnees && !(quiz && cache)}');
+    expect(trace).toContain('seul={quiz}');
   });
 });
