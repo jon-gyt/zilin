@@ -265,7 +265,7 @@ describe('au menu, le compte de la case Réviser se décompte quand la pile bais
     expect(decompte(5, 2)).toEqual([5, 4, 3, 2]);
     expect(decompte(33, 5)).toHaveLength(9);
     expect(decompte(33, 5)[0]).toBe(33);
-    expect(decompte(33, 5).at(-1)).toBe(5);
+    expect(decompte(33, 5)[8]).toBe(5);
     expect(decompte(3, 0)).toEqual([3, 2, 1, 0]);
     expect(decompte(2, 7)).toEqual([]);
     expect(decompte(4, 4)).toEqual([]);
@@ -279,5 +279,21 @@ describe('au menu, le compte de la case Réviser se décompte quand la pile bais
   it("rien ne bouge si l'on réduit les animations", () => {
     expect(source('Menu.svelte')).toMatch(/const pas = avant === null \|\| immobile \? \[\] : decompte\(avant, n\);/);
     expect(source('Menu.svelte')).toContain("matchMedia('(prefers-reduced-motion: reduce)').matches");
+  });
+});
+
+describe("le jour où un terme commence, une feuille traverse l'en-tête", () => {
+  const menu = source('Menu.svelte');
+  const css = menu.slice(menu.indexOf('<style>'));
+  it("une fois, le premier jour du terme, jamais un jour de fête, à la couleur du décor de l'ambiance", () => {
+    expect(menu).toContain("const feuilleDuTerme = $derived(terme !== null && terme.commence && fete === null && termePasse !== terme.id);");
+    expect(menu).toMatch(/\{#if feuilleDuTerme\}\s*<!--[^>]*-->\s*<span class="passe-terme" aria-hidden="true">/);
+    expect(css).toMatch(/\.passe-terme \{[^}]*pointer-events: none;/);
+    expect(css).toMatch(/\.passe-terme svg \{[^}]*animation: passe-terme 3\.4s ease-in-out 0\.9s forwards;/);
+    expect(css).toContain('fill: var(--s-feuille, var(--s-fleur,');
+    expect(css.slice(css.indexOf('.passe-terme {'))).not.toContain('--zhu');
+  });
+  it("disparaît si l'on réduit les animations", () => {
+    expect(reduits(css)).toMatch(/\.passe-terme \{\s*display: none;/);
   });
 });
