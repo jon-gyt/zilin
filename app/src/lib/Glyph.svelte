@@ -14,6 +14,9 @@
    * pas sa réponse : `seul` ne donne que le caractère (le sens d'un caractère, le ton, les
    * choix d'une question, un jeu). `label` impose un nom ; vide, le dessin est un décor,
    * caché aux lecteurs d'écran.
+   *
+   * `donnees` : les tracés déjà en main (le pavé d'écriture les lit dans les lots du
+   * dictionnaire) ; rien ne se charge alors, et le dessin ne retombe jamais sur la police.
    */
   import { fiche, traitsDe, type FicheLue } from './content';
   import { glyph, nomAccessible, type StrokeData } from './glyph';
@@ -26,7 +29,8 @@
     pistes = [],
     indigo = [],
     seul = false,
-    label
+    label,
+    donnees
   }: {
     char: string;
     size?: number;
@@ -39,6 +43,8 @@
     seul?: boolean;
     /** Un nom imposé ; vide, un décor caché aux lecteurs d'écran. */
     label?: string;
+    /** Les tracés déjà en main : ni chargement, ni repli sur la police. */
+    donnees?: StrokeData;
   } = $props();
 
   /* undefined : pas encore chargé ; null : pas de données, repli sur la police. */
@@ -54,10 +60,11 @@
   $effect(() => {
     const c = char;
     const p = pistes;
+    const d0 = donnees;
     const complet = !seul && label === undefined;
     let vivant = true;
     void Promise.all([
-      traitsDe(c, p).catch(() => null),
+      d0 ? Promise.resolve(d0) : traitsDe(c, p).catch(() => null),
       complet ? fiche(c, p).catch(() => null) : Promise.resolve(null)
     ]).then(([d, f]) => {
       if (!vivant) return;
