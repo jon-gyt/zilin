@@ -16,6 +16,13 @@ export type GlyphOptions = {
   cinabre?: readonly number[];
   indigo?: readonly number[];
   label?: string;
+  /**
+   * Le caractère écrit, une goutte d'encre se pose au bout du dernier trait et s'étale en
+   * une onde qui s'efface : rien ne reste, le caractère garde ses seuls traits. La goutte a
+   * l'encre de son trait, l'onde celle du caractère ; sans animation, ni l'une ni l'autre
+   * (`tokens.css`).
+   */
+  goutte?: boolean;
 };
 
 /**
@@ -76,6 +83,13 @@ export function glyph(c: string, d: StrokeData | undefined, size: number, opts: 
     body += `<polyline points="${m.map((q) => q.join(',')).join(' ')}" clip-path="url(#k${id}_${i})" class="br${zhu(i)}" style="stroke-dasharray:${L.toFixed(0)};stroke-dashoffset:${L.toFixed(0)};animation-duration:${dur.toFixed(2)}s;animation-delay:${delay.toFixed(2)}s"/><path d="${p}" class="fill${zhu(i)}" style="animation-delay:${(delay + dur).toFixed(2)}s"/>`;
     delay += dur + 0.025;
   });
+  const dernier = d.m[d.m.length - 1] ?? [];
+  const fin = dernier[dernier.length - 1];
+  if (opts.goutte && fin) {
+    const [x, y] = fin;
+    /* la goutte prend l'encre de son trait ; l'onde reste à l'encre */
+    body += `<circle class="goutte${zhu(d.m.length - 1)}" cx="${x}" cy="${y}" r="24" style="animation-delay:${delay.toFixed(2)}s"/><circle class="onde-encre" cx="${x}" cy="${y}" r="30" style="animation-delay:${(delay + 0.12).toFixed(2)}s"/>`;
+  }
   return `<svg class="g write" width="${size}" height="${size}" viewBox="0 0 1024 1024" ${nom}${style}><defs>${defs}</defs><g transform="scale(1,-1) translate(0,-900)">${body}</g></svg>`;
 }
 /* Le CSS de .g, .g.write, .br, .fill et les @keyframes brush / hold vivent dans tokens.css. */

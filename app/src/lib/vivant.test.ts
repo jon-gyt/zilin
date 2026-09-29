@@ -6,6 +6,7 @@
  */
 import { readFileSync } from 'node:fs';
 import { describe, expect, it } from 'vitest';
+import { glyph, type StrokeData } from './glyph';
 
 const source = (f: string): string => readFileSync(new URL(`./${f}`, import.meta.url), 'utf8');
 
@@ -48,6 +49,42 @@ describe('Tao, vivante au repos', () => {
 
   it("s'arrête si l'on réduit les animations", () => {
     expect(reduits(tokens)).toMatch(/\.tao \*\{animation:none!important\}/);
+  });
+});
+
+describe("le caractère du jour écrit, une goutte d'encre se pose", () => {
+  const d: StrokeData = {
+    s: ['M 0 0 L 100 0 L 100 10 Z', 'M 0 0 L 10 0 L 10 100 Z'],
+    m: [
+      [
+        [0, 5],
+        [100, 5]
+      ],
+      [
+        [5, 0],
+        [5, 100]
+      ]
+    ]
+  };
+  it('au bout du dernier trait, quand le pinceau a fini, puis une onde', () => {
+    const h = glyph('二', d, 120, { write: true, goutte: true });
+    const fin = [...h.matchAll(/class="fill" style="animation-delay:([\d.]+)s"/g)].map((x) => +x[1]);
+    const g = h.match(/<circle class="goutte" cx="5" cy="100" r="24" style="animation-delay:([\d.]+)s"\/>/);
+    expect(g).not.toBeNull();
+    expect(+(g?.[1] ?? 0)).toBeGreaterThanOrEqual(Math.max(...fin));
+    expect(h).toMatch(/<circle class="onde-encre" cx="5" cy="100"/);
+  });
+  it("prend l'encre de son trait, et seulement si on la demande", () => {
+    expect(glyph('二', d, 120, { write: true, goutte: true, cinabre: [1] })).toContain('class="goutte zhu"');
+    expect(glyph('二', d, 120, { write: true })).not.toContain('goutte');
+    expect(glyph('二', d, 48, { goutte: true })).not.toContain('goutte');
+    expect(source('Menu.svelte')).toContain('{ write: true, cinabre, goutte: true }');
+  });
+  it("s'efface sans rien laisser, et disparaît si l'on réduit les animations", () => {
+    expect(regle(tokens, '.g.write .goutte')).toMatch(/opacity:0;.*animation:goutte [.\d]+s ease-out forwards/);
+    expect(tokens).toMatch(/@keyframes goutte\{.*100%\{opacity:0;/);
+    expect(tokens).toMatch(/@keyframes onde-encre\{.*100%\{opacity:0;/);
+    expect(reduits(tokens)).toContain('.g.write .goutte,.g.write .onde-encre{display:none}');
   });
 });
 

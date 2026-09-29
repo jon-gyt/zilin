@@ -476,7 +476,7 @@
           {#key ecriture}
             <span class="trace">
               <!-- eslint-disable-next-line svelte/no-at-html-tags -->
-              {@html glyph(carte.c, traits, 108, { write: true, cinabre })}
+              {@html glyph(carte.c, traits, 108, { write: true, cinabre, goutte: true })}
             </span>
           {/key}
         {/if}

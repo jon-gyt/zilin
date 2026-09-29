@@ -182,7 +182,13 @@ h1{font-family:var(--head);font-weight:700;font-size:30px;line-height:1.15;lette
 .g.write .fill{opacity:0;animation:hold 0s linear forwards}
 @keyframes brush{to{stroke-dashoffset:0}}
 @keyframes hold{to{opacity:1}}
-@media (prefers-reduced-motion:reduce){.g.write .br{display:none}.g.write .fill{opacity:1;animation:none}}
+/* la goutte d'encre au bout du dernier trait (glyph, option `goutte`) : elle se pose, s'étale
+   en une onde et s'efface ; rien ne reste sur le caractère */
+.g.write .goutte{fill:currentColor;opacity:0;transform-box:fill-box;transform-origin:center;animation:goutte .6s ease-out forwards}
+.g.write .onde-encre{fill:none;stroke:currentColor;stroke-width:9;opacity:0;transform-box:fill-box;transform-origin:center;animation:onde-encre .75s ease-out forwards}
+@keyframes goutte{0%{opacity:0;transform:scale(.3)}22%{opacity:1;transform:scale(1.15)}40%{opacity:1;transform:scale(1)}100%{opacity:0;transform:scale(.9)}}
+@keyframes onde-encre{0%{opacity:.35;transform:scale(.5)}100%{opacity:0;transform:scale(3)}}
+@media (prefers-reduced-motion:reduce){.g.write .br{display:none}.g.write .fill{opacity:1;animation:none}.g.write .goutte,.g.write .onde-encre{display:none}}
 
 /* ligne de marque */
 .brand{display:flex;align-items:center;gap:10px;margin-bottom:14px}
