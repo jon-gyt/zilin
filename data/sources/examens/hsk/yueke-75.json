@@ -10,7 +10,8 @@
   "statut": "relu",
   "par": "le propriétaire",
   "decision": "« Considère que les relectures c'est bon » : approbation permanente des relectures",
-  "date": "2026-09-28"
+  "date": "2026-09-28",
+  "reduction": "le 29 septembre 2026, décision du propriétaire « 10 et 5 » : chaque série ramenée à 10 questions (examen à titre) ou 5 (月课), prises parmi les questions relues, sans texte nouveau"
  },
  "series": [
   {
@@ -110,99 +111,9 @@
        "en": "Mashan (a place name)"
       }
      ]
-    },
-    {
-     "id": "s4",
-     "genre": "note",
-     "contexte": {
-      "fr": "Une note dans un cahier",
-      "en": "A note in an exercise book"
-     },
-     "lignes": [
-      {
-       "zh": "马先生天天学中文，一天学十页。",
-       "pinyin": "mǎ xiān sheng tiān tiān xué zhōng wén yī tiān xué shí yè",
-       "fr": "M. Ma étudie le chinois tous les jours, dix pages par jour.",
-       "en": "Mr Ma studies Chinese every day, ten pages a day."
-      }
-     ],
-     "glose": [
-      {
-       "zh": "一天",
-       "pinyin": "yī tiān",
-       "fr": "un jour ; par jour",
-       "en": "one day; a day"
-      }
-     ]
     }
    ],
    "questions": [
-    {
-     "type": "sens",
-     "consigne": {
-      "fr": "Que veut dire ce caractère ?",
-      "en": "What does this character mean?"
-     },
-     "objet": {
-      "zh": "衣",
-      "pinyin": "yī",
-      "fr": "vêtement",
-      "en": "clothes"
-     },
-     "choix": [
-      {
-       "fr": "six",
-       "en": "six"
-      },
-      {
-       "fr": "haut",
-       "en": "tall, high"
-      },
-      {
-       "fr": "vêtement",
-       "en": "clothes"
-      },
-      {
-       "fr": "eau",
-       "en": "water"
-      }
-     ],
-     "reponse": 2,
-     "porte": [
-      "衣"
-     ]
-    },
-    {
-     "type": "comprendre",
-     "support": "s1",
-     "consigne": {
-      "fr": "Pourquoi ne vont-ils pas à la montagne aujourd'hui ?",
-      "en": "Why aren't they going to the mountains today?"
-     },
-     "choix": [
-      {
-       "fr": "Il neige",
-       "en": "It's snowing"
-      },
-      {
-       "fr": "Il fait trop chaud",
-       "en": "It's too hot"
-      },
-      {
-       "fr": "Il pleut fort",
-       "en": "It's raining hard"
-      },
-      {
-       "fr": "Il n'y a pas de train",
-       "en": "There's no train"
-      }
-     ],
-     "reponse": 2,
-     "porte": [
-      "大",
-      "雨"
-     ]
-    },
     {
      "type": "replique",
      "support": "s1",
@@ -261,38 +172,6 @@
       "明",
       "不",
       "去"
-     ]
-    },
-    {
-     "type": "comprendre",
-     "support": "s2",
-     "consigne": {
-      "fr": "Combien coûtent les fruits ?",
-      "en": "How much is the fruit?"
-     },
-     "choix": [
-      {
-       "fr": "1 yuan",
-       "en": "1 yuan"
-      },
-      {
-       "fr": "2 yuans",
-       "en": "2 yuan"
-      },
-      {
-       "fr": "12 yuans",
-       "en": "12 yuan"
-      },
-      {
-       "fr": "10 yuans",
-       "en": "10 yuan"
-      }
-     ],
-     "reponse": 3,
-     "porte": [
-      "水",
-      "果",
-      "十"
      ]
     },
     {
@@ -366,61 +245,6 @@
      "porte": [
       "中",
       "学"
-     ]
-    },
-    {
-     "type": "comprendre",
-     "support": "s4",
-     "consigne": {
-      "fr": "Combien de pages M. Ma étudie-t-il par jour ?",
-      "en": "How many pages does Mr Ma study a day?"
-     },
-     "choix": [
-      {
-       "fr": "Six",
-       "en": "Six"
-      },
-      {
-       "fr": "Dix",
-       "en": "Ten"
-      },
-      {
-       "fr": "Neuf",
-       "en": "Nine"
-      },
-      {
-       "fr": "Huit",
-       "en": "Eight"
-      }
-     ],
-     "reponse": 1,
-     "porte": [
-      "十",
-      "页"
-     ]
-    },
-    {
-     "type": "trou",
-     "consigne": {
-      "fr": "Quel caractère manque dans ce mot ?",
-      "en": "Which character is missing from this word?"
-     },
-     "objet": {
-      "zh": "天气",
-      "pinyin": "tiān qì",
-      "fr": "temps (météo)",
-      "en": "weather"
-     },
-     "trou": 1,
-     "choix": [
-      "毛",
-      "电",
-      "六",
-      "气"
-     ],
-     "reponse": 3,
-     "porte": [
-      "气"
      ]
     }
    ]
@@ -534,73 +358,6 @@
    ],
    "questions": [
     {
-     "type": "sens",
-     "consigne": {
-      "fr": "Que veut dire ce caractère ?",
-      "en": "What does this character mean?"
-     },
-     "objet": {
-      "zh": "京",
-      "pinyin": "jīng",
-      "fr": "capitale",
-      "en": "capital"
-     },
-     "choix": [
-      {
-       "fr": "haut",
-       "en": "tall, high"
-      },
-      {
-       "fr": "capitale",
-       "en": "capital"
-      },
-      {
-       "fr": "six",
-       "en": "six"
-      },
-      {
-       "fr": "fruit",
-       "en": "fruit"
-      }
-     ],
-     "reponse": 1,
-     "porte": [
-      "京"
-     ]
-    },
-    {
-     "type": "comprendre",
-     "support": "s1",
-     "consigne": {
-      "fr": "Quel jour part ce train ?",
-      "en": "What day does this train leave?"
-     },
-     "choix": [
-      {
-       "fr": "Le 6 septembre",
-       "en": "6 September"
-      },
-      {
-       "fr": "Le 9 juillet",
-       "en": "9 July"
-      },
-      {
-       "fr": "Le 6 juin",
-       "en": "6 June"
-      },
-      {
-       "fr": "Le 9 juin",
-       "en": "9 June"
-      }
-     ],
-     "reponse": 3,
-     "porte": [
-      "六",
-      "月",
-      "九"
-     ]
-    },
-    {
      "type": "reperer",
      "support": "s1",
      "consigne": {
@@ -618,56 +375,6 @@
       "六",
       "十",
       "元"
-     ]
-    },
-    {
-     "type": "vrai_faux",
-     "support": "s1",
-     "consigne": {
-      "fr": "Vrai ou faux ?",
-      "en": "True or false?"
-     },
-     "affirmation": {
-      "zh": "六月九日有火车。",
-      "pinyin": "liù yuè jiǔ rì yǒu huǒ chē",
-      "fr": "Il y a un train le 9 juin.",
-      "en": "There is a train on 9 June."
-     },
-     "reponse": true,
-     "porte": [
-      "六",
-      "九"
-     ]
-    },
-    {
-     "type": "comprendre",
-     "support": "s2",
-     "consigne": {
-      "fr": "Que demande maman ?",
-      "en": "What is Mum asking?"
-     },
-     "choix": [
-      {
-       "fr": "D'acheter des fruits",
-       "en": "To buy some fruit"
-      },
-      {
-       "fr": "De rentrer tôt",
-       "en": "To come home early"
-      },
-      {
-       "fr": "De prendre son manteau",
-       "en": "To take his coat"
-      },
-      {
-       "fr": "De fermer la porte",
-       "en": "To close the door"
-      }
-     ],
-     "reponse": 2,
-     "porte": [
-      "拿",
-      "衣"
      ]
     },
     {
@@ -707,29 +414,6 @@
      "porte": [
       "拿",
       "衣"
-     ]
-    },
-    {
-     "type": "caractere",
-     "consigne": {
-      "fr": "Quel caractère a ce sens ?",
-      "en": "Which character has this meaning?"
-     },
-     "objet": {
-      "zh": "雨",
-      "pinyin": "yǔ",
-      "fr": "pluie",
-      "en": "rain"
-     },
-     "choix": [
-      "雨",
-      "电",
-      "米",
-      "水"
-     ],
-     "reponse": 0,
-     "porte": [
-      "雨"
      ]
     },
     {

@@ -2,8 +2,8 @@
 
 Un test par règle. Aucun réseau. Les règles (brief §8, « Les examens 科举 ») : trente-sept
 examens aux paliers de caractères lus, six à titre et trente et un 月课, jamais plus de 55
-caractères de l'un au suivant ; quinze questions à titre, dix au 月课, reçu à quatre sur
-cinq ; deux séries par examen et par chemin, sans texte commun ; chaque série écrite avec
+caractères de l'un au suivant ; dix questions à titre, cinq au 月课 (« 10 et 5 », 29
+septembre 2026), reçu à quatre sur cinq ; deux séries par examen et par chemin, sans texte commun ; chaque série écrite avec
 les seuls caractères posés au jour du palier, et, au 月课, chaque question porte un
 caractère du tronçon ; pinyin aux tons du dictionnaire ; chaque sinogramme glosé ; seules
 les séries relues s'exportent ; la rédaction est traçable.
@@ -45,8 +45,8 @@ GLOSSAIRE = {
     "门口": Glose("devant la porte", "mén kǒu", "doorway"),
 }
 
-TITRE = ex.Examen("xianshi", "titre", "县试", "xiànshì", "fr", "en", 4, "", 15)
-YUEKE = ex.Examen("yueke-8", "yueke", "月课", "yuèkè", "fr", "en", 8, "", 10)
+TITRE = ex.Examen("xianshi", "titre", "县试", "xiànshì", "fr", "en", 4, "", 10)
+YUEKE = ex.Examen("yueke-8", "yueke", "月课", "yuèkè", "fr", "en", 8, "", 5)
 
 
 def comprendre(rang: int = 1, porte: tuple[str, ...] = ("门", "口"), support: str = "s1") -> ex.Question:
@@ -130,10 +130,13 @@ def test_un_yueke_ne_donne_aucun_titre() -> None:
     assert any("aucun titre" in f for f in ex.fautes_liste(faux, []))
 
 
-def test_quinze_questions_a_titre_et_dix_au_yueke() -> None:
+def test_dix_questions_a_titre_et_cinq_au_yueke() -> None:
     examens, _ = ex.charger_liste()
-    faux = [dataclasses.replace(e, questions=5) if e.id == "xianshi" else e for e in examens]
-    assert any("5 questions, attendu 15" in f for f in ex.fautes_liste(faux, []))
+    assert {e.sorte: e.questions for e in examens} == {"titre": 10, "yueke": 5}
+    faux = [dataclasses.replace(e, questions=15) if e.id == "xianshi" else e for e in examens]
+    assert any("15 questions, attendu 10" in f for f in ex.fautes_liste(faux, []))
+    faux = [dataclasses.replace(e, questions=10) if e.id == "yueke-75" else e for e in examens]
+    assert any("10 questions, attendu 5" in f for f in ex.fautes_liste(faux, []))
 
 
 def test_titres_et_nominations_dans_l_ordre_des_rangs() -> None:
@@ -216,12 +219,12 @@ def test_une_serie_juste_n_a_aucun_ecart_de_question() -> None:
 
 
 def test_le_nombre_de_questions_est_celui_de_l_examen() -> None:
-    assert any("1 questions pour 15" in e for e in ex.ecarts_questions(serie(), TITRE))
+    assert any("1 questions pour 10" in e for e in ex.ecarts_questions(serie(), TITRE))
 
 
-def test_quatre_ou_cinq_questions_de_revue_a_titre_trois_au_yueke() -> None:
-    assert any("questions de revue, attendu 4 à 5" in e for e in ex.ecarts_questions(serie(), TITRE))
-    assert any("questions de revue, attendu 3" in e for e in ex.ecarts_questions(serie(), YUEKE))
+def test_trois_questions_de_revue_a_titre_une_ou_deux_au_yueke() -> None:
+    assert any("questions de revue, attendu 3" in e for e in ex.ecarts_questions(serie(), TITRE))
+    assert any("questions de revue, attendu 1 à 2" in e for e in ex.ecarts_questions(serie(), YUEKE))
 
 
 def test_au_moins_trois_types_de_mise_en_situation() -> None:
@@ -333,7 +336,7 @@ def test_seules_les_series_relues_s_exportent(tmp_path: Path) -> None:
     doc = ex.document(en_tete={}, parcours={"lire": charger_parcours("lire")}, racines={}, dossier=d)
     ligne = next(x for x in doc["parcours"]["lire"] if x["examen"] == "xianshi")  # type: ignore[index]
     assert list(ligne["series"]) == ["A"] and ligne["jour"] == 25
-    assert [e["reussite"] for e in doc["examens"][:2]] == [12, 8]  # type: ignore[index]
+    assert [e["reussite"] for e in doc["examens"][:2]] == [8, 4]  # type: ignore[index]
 
 
 def test_la_redaction_est_tracable(tmp_path: Path) -> None:

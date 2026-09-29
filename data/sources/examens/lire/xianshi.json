@@ -10,7 +10,8 @@
   "statut": "relu",
   "par": "le propriétaire",
   "decision": "« Considère que les relectures c'est bon » : approbation permanente des relectures",
-  "date": "2026-09-28"
+  "date": "2026-09-28",
+  "reduction": "le 29 septembre 2026, décision du propriétaire « 10 et 5 » : chaque série ramenée à 10 questions (examen à titre) ou 5 (月课), prises parmi les questions relues, sans texte nouveau"
  },
  "series": [
   {
@@ -210,25 +211,6 @@
      ]
     },
     {
-     "type": "vrai_faux",
-     "support": "s1",
-     "consigne": {
-      "fr": "Vrai ou faux ?",
-      "en": "True or false?"
-     },
-     "affirmation": {
-      "zh": "今天是王先生生日。",
-      "pinyin": "jīn tiān shì wáng xiān sheng shēng rì",
-      "fr": "C'est aujourd'hui l'anniversaire de M. Wang.",
-      "en": "Today is Mr Wang's birthday."
-     },
-     "reponse": false,
-     "porte": [
-      "今",
-      "明"
-     ]
-    },
-    {
      "type": "comprendre",
      "support": "s2",
      "consigne": {
@@ -258,26 +240,6 @@
       "八",
       "女",
       "儿"
-     ]
-    },
-    {
-     "type": "reperer",
-     "support": "s2",
-     "consigne": {
-      "fr": "Touche le mot qui dit « mardi ».",
-      "en": "Tap the word that means “Tuesday”."
-     },
-     "choix": [
-      "星期一",
-      "十月",
-      "星期二",
-      "朋友"
-     ],
-     "reponse": 2,
-     "porte": [
-      "星",
-      "期",
-      "二"
      ]
     },
     {
@@ -418,38 +380,6 @@
      ]
     },
     {
-     "type": "comprendre",
-     "support": "s5",
-     "consigne": {
-      "fr": "Combien d'enfants M. Wang a-t-il ?",
-      "en": "How many children does Mr Wang have?"
-     },
-     "choix": [
-      {
-       "fr": "Un seul fils",
-       "en": "Only a son"
-      },
-      {
-       "fr": "Deux filles",
-       "en": "Two daughters"
-      },
-      {
-       "fr": "Deux : un fils et une fille",
-       "en": "Two: a son and a daughter"
-      },
-      {
-       "fr": "Deux fils",
-       "en": "Two sons"
-      }
-     ],
-     "reponse": 2,
-     "porte": [
-      "一",
-      "儿",
-      "女"
-     ]
-    },
-    {
      "type": "vrai_faux",
      "support": "s5",
      "consigne": {
@@ -466,64 +396,6 @@
      "porte": [
       "儿",
       "女"
-     ]
-    },
-    {
-     "type": "ton",
-     "consigne": {
-      "fr": "Quel est son ton ?",
-      "en": "Which tone does it have?"
-     },
-     "objet": {
-      "zh": "天",
-      "pinyin": "tiān",
-      "fr": "ciel ; jour",
-      "en": "sky; day"
-     },
-     "choix": [
-      "tiān",
-      "tián",
-      "tiǎn",
-      "tiàn"
-     ],
-     "reponse": 0,
-     "porte": [
-      "天"
-     ]
-    },
-    {
-     "type": "sens",
-     "consigne": {
-      "fr": "Que veut dire ce caractère ?",
-      "en": "What does this character mean?"
-     },
-     "objet": {
-      "zh": "古",
-      "pinyin": "gǔ",
-      "fr": "ancien",
-      "en": "ancient"
-     },
-     "choix": [
-      {
-       "fr": "bouche",
-       "en": "mouth"
-      },
-      {
-       "fr": "ancien",
-       "en": "ancient"
-      },
-      {
-       "fr": "dix",
-       "en": "ten"
-      },
-      {
-       "fr": "tôt",
-       "en": "early"
-      }
-     ],
-     "reponse": 1,
-     "porte": [
-      "古"
      ]
     }
    ]
@@ -744,37 +616,6 @@
      ]
     },
     {
-     "type": "comprendre",
-     "support": "s2",
-     "consigne": {
-      "fr": "Quel est son nom de famille ?",
-      "en": "What is her surname?"
-     },
-     "choix": [
-      {
-       "fr": "Ming",
-       "en": "Ming"
-      },
-      {
-       "fr": "Da",
-       "en": "Da"
-      },
-      {
-       "fr": "Xue",
-       "en": "Xue"
-      },
-      {
-       "fr": "Wang",
-       "en": "Wang"
-      }
-     ],
-     "reponse": 3,
-     "porte": [
-      "姓",
-      "王"
-     ]
-    },
-    {
      "type": "reperer",
      "support": "s2",
      "consigne": {
@@ -878,39 +719,6 @@
      ]
     },
     {
-     "type": "comprendre",
-     "support": "s3",
-     "consigne": {
-      "fr": "Où se retrouvent-ils ?",
-      "en": "Where are they meeting?"
-     },
-     "choix": [
-      {
-       "fr": "Devant l'université",
-       "en": "In front of the university"
-      },
-      {
-       "fr": "Au pied du volcan",
-       "en": "At the foot of the volcano"
-      },
-      {
-       "fr": "Chez M. Wang",
-       "en": "At Mr Wang's"
-      },
-      {
-       "fr": "Dans une boutique",
-       "en": "In a shop"
-      }
-     ],
-     "reponse": 0,
-     "porte": [
-      "大",
-      "学",
-      "门",
-      "口"
-     ]
-    },
-    {
      "type": "trou",
      "consigne": {
       "fr": "Quel caractère manque dans ce mot ?",
@@ -998,56 +806,6 @@
      ]
     },
     {
-     "type": "comprendre",
-     "support": "s6",
-     "consigne": {
-      "fr": "Qui M. Wang reçoit-il demain ?",
-      "en": "Whom does Mr Wang see tomorrow?"
-     },
-     "choix": [
-      {
-       "fr": "Tous les élèves",
-       "en": "All the pupils"
-      },
-      {
-       "fr": "Ses amis",
-       "en": "His friends"
-      },
-      {
-       "fr": "Seulement les étudiants",
-       "en": "Only university students"
-      },
-      {
-       "fr": "Personne",
-       "en": "Nobody"
-      }
-     ],
-     "reponse": 2,
-     "porte": [
-      "只",
-      "大",
-      "学"
-     ]
-    },
-    {
-     "type": "reperer",
-     "support": "s6",
-     "consigne": {
-      "fr": "Touche le mot qui dit « seulement ».",
-      "en": "Tap the word that means “only”."
-     },
-     "choix": [
-      "今天",
-      "只",
-      "见",
-      "明天"
-     ],
-     "reponse": 1,
-     "porte": [
-      "只"
-     ]
-    },
-    {
      "type": "vrai_faux",
      "support": "s6",
      "consigne": {
@@ -1065,29 +823,6 @@
       "明",
       "大",
       "学"
-     ]
-    },
-    {
-     "type": "ton",
-     "consigne": {
-      "fr": "Quel est son ton ?",
-      "en": "Which tone does it have?"
-     },
-     "objet": {
-      "zh": "心",
-      "pinyin": "xīn",
-      "fr": "cœur",
-      "en": "heart"
-     },
-     "choix": [
-      "xīn",
-      "xín",
-      "xǐn",
-      "xìn"
-     ],
-     "reponse": 0,
-     "porte": [
-      "心"
      ]
     }
    ]

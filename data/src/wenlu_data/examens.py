@@ -48,7 +48,8 @@ une série `a_relire` n'est pas exportée.
 Contrôles (`wenlu check`), bloquants : « liste » (trente-sept examens dans l'ordre des
 paliers, les six à titre à leurs paliers, les 月课 sur leur grille, jamais plus de 55
 caractères d'un examen au suivant, les titres et les nominations dans l'ordre des rangs
-du personnage, quinze questions à titre et dix au 月课, reçu à quatre sur cinq), « sources »
+du personnage, dix questions à titre et cinq au 月课, décision du propriétaire du 29
+septembre 2026, « 10 et 5 », reçu à quatre sur cinq), « sources »
 (traçabilité, relecture, format), « périmètre » (aucun caractère hors de l'acquis du jour
 du palier sur ce chemin ; au 月课, chaque question porte un caractère du tronçon),
 « pinyin », « glose », « questions » (nombre, revue, types, choix, réponses, caractères
@@ -133,11 +134,12 @@ ECART_MAX = 55
 #: Le bout de la série, le HSK 6 (« Oui, 1 800 », 28 septembre 2026).
 FIN = 1800
 
-#: Les questions d'un examen : une quinzaine à titre, dix au 月课 (brief §8).
-QUESTIONS: dict[str, int] = {TITRE: 15, YUEKE: 10}
-#: Dont les questions de revue de l'acquis : quatre ou cinq à titre, trois au 月课.
-REVUE: dict[str, tuple[int, int]] = {TITRE: (4, 5), YUEKE: (3, 3)}
-#: Reçu : quatre réponses sur cinq justes du premier essai (douze sur quinze, huit sur dix).
+#: Les questions d'un examen : dix à titre, cinq au 月课 (décision du propriétaire du 29
+#: septembre 2026, « 10 et 5 » ; le brief disait quinze et dix).
+QUESTIONS: dict[str, int] = {TITRE: 10, YUEKE: 5}
+#: Dont les questions de revue de l'acquis : trois à titre, une ou deux au 月课.
+REVUE: dict[str, tuple[int, int]] = {TITRE: (3, 3), YUEKE: (1, 2)}
+#: Reçu : quatre réponses sur cinq justes du premier essai (huit sur dix, quatre sur cinq).
 REUSSITE: tuple[int, int] = (4, 5)
 
 #: Les types de question : mises en situation, puis revue de l'acquis (§7, sans le tracé).
