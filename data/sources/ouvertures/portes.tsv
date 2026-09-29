@@ -27,7 +27,15 @@
 # dragon : la fermeture est celle de l'aventure, jamais de l'argent. Il vérifie aussi que
 # Lire est ouvert à la première lettre de Que (jour 7) et que les contes s'ouvrent avec la
 # première fable du chemin (jour 25).
+#
+# La rencontre du maître Xing 杏 (décision du propriétaire du 29 septembre 2026) : Tao le
+# rencontre à la porte du premier examen, le 县试, au palier de caractères lus qui l'ouvre.
+# Dès lors, Xing fait passer les examens, explique d'où viennent les caractères, raconte
+# l'anecdote et les contes, et tient Chercher ; avant, Tao garde tous ces rôles. Sa ligne
+# vient en tête : le jour où l'examen s'ouvre, la rencontre s'annonce avant toute autre
+# porte, pour que l'examinateur soit là. `wenlu check` vérifie son palier et sa place.
 porte	unite	seuil	parent	annonce	source
+xing	lus	50	-	À la porte du 县试, un maître t'attend : Xing 杏.	rédigé pour l'app : Tao rencontre le maître Xing à la porte du premier examen, le 县试, à 50 caractères lus (décision du propriétaire du 29 septembre 2026)
 reviser	jour	4	-	Une nouvelle porte : Réviser 温.	rédigé pour l'app : la première révision passée, une révision de plus a un sens
 personnage	jour	5	-	Une nouvelle porte, en haut : ton personnage.	rédigé pour l'app : ses premiers points, il a de quoi grandir
 foret	jour	6	-	Une nouvelle porte : Mon chemin 路.	rédigé pour l'app : les premières pierres posées, les premiers caractères lus
