@@ -356,3 +356,23 @@ describe('Mon chemin : de loin en loin, un vol d’oiseaux passe dans le ciel', 
     expect(reduits(css)).toMatch(/\.oiseaux \{\s*display: none;/);
   });
 });
+
+describe("un filet de fumée monte du toit de l'auberge", () => {
+  const chemin = source('Chemin.svelte');
+  const tree = source('Tree.svelte');
+  it("à l'auberge de la pierre du jour dans Mon chemin, et à celle de la famille ouverte", () => {
+    expect(chemin).toContain('{@render auberge(a, scene.jour, k * 64, true)}');
+    expect(chemin).toMatch(/\{#if fume\}\s*<!--[^>]*-->\s*<path class="fumee"/);
+    expect(tree).toContain('<path class="fumee deux"');
+  });
+  for (const [f, x] of [
+    ['Chemin.svelte', chemin],
+    ['Tree.svelte', tree]
+  ] as const) {
+    const css = x.slice(x.indexOf('<style>'));
+    it(`${f} : à la brume, en boucle lente ; rien si l'on réduit les animations`, () => {
+      expect(css).toMatch(/\.fumee \{[^}]*stroke: var\(--mist\);[^}]*animation: fumer 3\.6s ease-out infinite;/);
+      expect(reduits(css)).toMatch(/\.fumee \{\s*display: none;/);
+    });
+  }
+});
