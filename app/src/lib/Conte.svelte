@@ -7,7 +7,9 @@
    * Toucher un caractère, ou un mot que la glose de la version connaît, montre son pinyin
    * et son sens dans la bande du bas, et le dit (`audio.dire`, silencieux sans voix). La
    * traduction se replie. « J'ai lu » en fin de conte note la version lue. Tao lit
-   * par-dessus l'épaule. Aucun cinabre ici : le conte n'a pas d'élément ajouté.
+   * par-dessus l'épaule ; une fois le maître Xing 杏 rencontré (`xing.ts`), c'est lui qui
+   * raconte le conte, assis, le rouleau ouvert. Une lettre de Que reste avec Tao. Aucun
+   * cinabre ici : le conte n'a pas d'élément ajouté.
    *
    * En mode relecture (Réglages), une version de l'aperçu porte la mention « à relire » en
    * tête, une version que l'acquis n'ouvre pas encore « pas encore dans ton acquis » ; leur
@@ -36,6 +38,8 @@
   import ARelire from './ARelire.svelte';
   import Glyph from './Glyph.svelte';
   import Tao from './Tao.svelte';
+  import Xing from './Xing.svelte';
+  import { POSTURES } from './xing';
   import { dire } from './audio';
   import { fiche } from './content';
   import {
@@ -63,6 +67,7 @@
 
   let {
     p,
+    xing = false,
     entree,
     onlu,
     onretour,
@@ -74,6 +79,8 @@
   }: {
     /** La progression : Tao y lit son stade et son humeur. */
     p: Progress;
+    /** Le maître Xing est rencontré : il raconte le conte. Jamais pour une lettre de Que. */
+    xing?: boolean;
     /** Le conte, avec la version ouverte (jamais nulle ici). */
     entree: EntreeConte;
     /** « J'ai lu » : la version est notée lue, puis retour à la bibliothèque. */
@@ -227,7 +234,11 @@
         <h1>{entree.titre_fr}</h1>
       {/if}
     </div>
-    <Tao stade={taoStade} posture="lecture" humeur={taoHumeur} size={72} />
+    {#if xing}
+      <Xing posture={POSTURES.conte} size={72} />
+    {:else}
+      <Tao stade={taoStade} posture="lecture" humeur={taoHumeur} size={72} />
+    {/if}
   </div>
 
   {#snippet ligne(groupes: Unite[][])}
