@@ -226,11 +226,30 @@ export function hachage(texte: string): number {
   return h >>> 0;
 }
 
-/** Mélange déterministe : même liste et même graine, même ordre. */
+/**
+ * Brasse les bits d'un hachage (le finaliseur de MurmurHash3) : deux textes qui ne
+ * diffèrent que d'un caractère final donnent des bits bas sans lien entre eux.
+ */
+export function brasser(h: number): number {
+  let x = h >>> 0;
+  x ^= x >>> 16;
+  x = Math.imul(x, 0x85ebca6b);
+  x ^= x >>> 13;
+  x = Math.imul(x, 0xc2b2ae35);
+  x ^= x >>> 16;
+  return x >>> 0;
+}
+
+/**
+ * Mélange déterministe : même liste et même graine, même ordre. Chaque tirage est brassé
+ * (`brasser`) : les hachages de `graine/1`, `graine/2`, `graine/3` ne diffèrent que par
+ * leur dernier caractère, et leurs bits bas, liés, rangeaient la bonne réponse en tête
+ * une fois sur trois et en deuxième place une fois sur six.
+ */
 export function melange<T>(xs: readonly T[], graine: string): T[] {
   const out = [...xs];
   for (let i = out.length - 1; i > 0; i--) {
-    const j = hachage(`${graine}/${i}`) % (i + 1);
+    const j = brasser(hachage(`${graine}/${i}`)) % (i + 1);
     const t = out[i];
     out[i] = out[j];
     out[j] = t;

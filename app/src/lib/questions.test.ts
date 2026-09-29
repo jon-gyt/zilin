@@ -19,6 +19,7 @@ import {
   motDitable,
   texteADire,
   marquerTon,
+  melange,
   motDuTrou,
   outcomeDuTrace,
   sensDuChoix,
@@ -1037,6 +1038,23 @@ describe('rien ne souffle la réponse avant qu’on réponde', () => {
     /* « haut de 要 » parmi des sens de mots se repère à sa forme : jamais un leurre pour 好. */
     for (const g of ['a', 'b', 'c', 'd', 'e']) {
       for (const x of question(fiche('好'), 'sens', corpus, g).choix) expect(citeUnCaractere(x), x).toBe(false);
+    }
+  });
+
+  it('la bonne réponse n’est pas toujours à la même place', () => {
+    /* Les hachages de `graine/1`, `graine/2`, `graine/3` ne différaient que d’un caractère :
+       la bonne réponse tombait en tête une fois sur trois, en deuxième une fois sur six. */
+    const places = [0, 0, 0, 0];
+    for (let i = 0; i < 4000; i++) places[melange([0, 1, 2, 3], `r${i}`).indexOf(0)] += 1;
+    for (const n of places) expect(n / 4000).toBeGreaterThan(0.21), expect(n / 4000).toBeLessThan(0.29);
+    for (const t of ['sens', 'caractere', 'oreille', 'trou'] as const) {
+      const vues = [0, 0, 0, 0];
+      const avecVoix: Corpus = { ...CORPUS, voix: true };
+      for (let i = 0; i < 400; i++) {
+        const q = question(fiche(PORTEUR[t]), t, avecVoix, `s${i}`);
+        vues[q.choix.indexOf(q.reponse[0])] += 1;
+      }
+      for (const n of vues.slice(0, 4)) expect(n / 400, `${t} ${vues.join(' ')}`).toBeGreaterThan(0.15);
     }
   });
 
