@@ -7,6 +7,7 @@
 import { readFileSync } from 'node:fs';
 import { describe, expect, it } from 'vitest';
 import { glyph, type StrokeData } from './glyph';
+import { decompte } from './parcours';
 
 const source = (f: string): string => readFileSync(new URL(`./${f}`, import.meta.url), 'utf8');
 
@@ -256,5 +257,27 @@ describe("la bulle de Tao s'écrit au lieu d'apparaître d'un bloc", () => {
   });
   it("la phrase est là d'un coup si l'on réduit les animations", () => {
     expect(reduits(css)).toMatch(/\.ecrit \{\s*clip-path: none;\s*animation: none;/);
+  });
+});
+
+describe('au menu, le compte de la case Réviser se décompte quand la pile baisse', () => {
+  it("de l'ancien compte au nouveau, huit pas au plus, jamais en montant", () => {
+    expect(decompte(5, 2)).toEqual([5, 4, 3, 2]);
+    expect(decompte(33, 5)).toHaveLength(9);
+    expect(decompte(33, 5)[0]).toBe(33);
+    expect(decompte(33, 5).at(-1)).toBe(5);
+    expect(decompte(3, 0)).toEqual([3, 2, 1, 0]);
+    expect(decompte(2, 7)).toEqual([]);
+    expect(decompte(4, 4)).toEqual([]);
+  });
+  it('part du dernier passage au menu, sans rien faire attendre, et pas pendant la session', () => {
+    const menu = source('Menu.svelte');
+    expect(menu).toContain('let dusAuMenu: number | null = null;');
+    expect(menu).toContain("decompteDu !== null && reviser.action !== 'echauffer' ? caseReviser({ ...p, due: decompteDu }).info : reviser.info");
+    expect(menu).toContain("if (id === 'reviser') return infoReviser;");
+  });
+  it("rien ne bouge si l'on réduit les animations", () => {
+    expect(source('Menu.svelte')).toMatch(/const pas = avant === null \|\| immobile \? \[\] : decompte\(avant, n\);/);
+    expect(source('Menu.svelte')).toContain("matchMedia('(prefers-reduced-motion: reduce)').matches");
   });
 });

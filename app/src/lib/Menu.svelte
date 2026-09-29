@@ -7,6 +7,8 @@
    * son identifiant d'origine, `foret` : aucune migration. Son titre vient de `ecrans.json`.
    */
   export type CaseId = 'reviser' | 'jouer' | 'lire' | 'foret';
+  /** La pile due au dernier passage au menu, le temps que l'app est ouverte : le décompte part de là. */
+  let dusAuMenu: number | null = null;
   export const CASES: readonly { id: CaseId; c: string; t: string }[] = [
     { id: 'reviser', c: '温', t: 'Réviser' },
     { id: 'jouer', c: '玩', t: 'Jouer' },
@@ -71,7 +73,7 @@
   import { glyph, type StrokeData } from './glyph';
   import { MINUTES_MAX, MINUTES_MIN, devinetteAAnnoncer, propose } from './jeux';
   import { ANNONCE_LETTRE, lettreAnnoncee } from './lettres';
-  import { caseReviser, carteDuMenu, menu, traitsDeLAjout } from './parcours';
+  import { caseReviser, carteDuMenu, decompte, menu, traitsDeLAjout } from './parcours';
   import { familleDepart, fichesDepart } from './premiere';
   import { jourDeDemain, premierSens } from './route';
   import { cartesDues, jourParcours, type ExamenDuMenu, type Progress } from './session';
@@ -376,12 +378,51 @@
   });
 
   const reviser = $derived(caseReviser(p));
+
+  /**
+   * La pile a baissé depuis le dernier passage au menu (une révision de plus, un bloc de
+   * rattrapage) : le compte de la case Réviser se décompte doucement jusqu'au nouveau, un
+   * pas tous les 90 ms, après un court temps pour qu'on le voie. Rien ne s'attend : la case
+   * se touche tout du long. Sans animation, le nouveau compte d'emblée.
+   */
+  let decompteDu = $state<number | null>(null);
+  $effect(() => {
+    const n = p.due;
+    const avant = dusAuMenu;
+    dusAuMenu = n;
+    const immobile = typeof matchMedia === 'function' && matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const pas = avant === null || immobile ? [] : decompte(avant, n);
+    if (pas.length === 0) {
+      decompteDu = null;
+      return;
+    }
+    decompteDu = pas[0];
+    let k = 0;
+    let t: ReturnType<typeof setInterval> | undefined;
+    const depart = setTimeout(() => {
+      t = setInterval(() => {
+        k += 1;
+        if (k >= pas.length) {
+          clearInterval(t);
+          decompteDu = null;
+        } else decompteDu = pas[k];
+      }, 90);
+    }, 450);
+    return () => {
+      clearTimeout(depart);
+      clearInterval(t);
+    };
+  });
+  /** Ce que dit la case Réviser, le compte en cours de décompte compris. */
+  const infoReviser = $derived(
+    decompteDu !== null && reviser.action !== 'echauffer' ? caseReviser({ ...p, due: decompteDu }).info : reviser.info
+  );
   const lus = $derived(caracteresLus(familles, p.cartes));
   /** Le rang tenu : les points et les examens (« Points ET examen », story 8.5). */
   const rangHeros = $derived(rangTenu(rangsHeros, meriteDe(p, lus)));
 
   function info(id: CaseId): string {
-    if (id === 'reviser') return reviser.info;
+    if (id === 'reviser') return infoReviser;
     if (id === 'jouer') {
       if (propose(p, p.day)) return 'Tao propose un jeu';
       return vois('jeu-devinette') && devinetteAAnnoncer(p, devinettes)
