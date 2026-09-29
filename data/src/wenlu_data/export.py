@@ -23,6 +23,10 @@ familles de fichiers, jamais mêlés :
   composants que `graphics.txt` ne dessine pas y entrent découpés dans un hôte
   (`decoupes.py`) : `MODIFICATIONS.md` décrit chaque découpe, et l'en-tête des
   fichiers qui en portent la nomme.
+- `ecriture/gabarits.json` : les gabarits de l'écriture au doigt, les médianes des 3 000
+  caractères du HSK 3.0 rééchantillonnées et arrondies (`ecriture.py`), sous Arphic Public
+  License elles aussi, avec `ARPHICPL.TXT` et `MODIFICATIONS.md` à côté. Rien d'autre dans
+  ce dossier.
 - `familles/<racine>.json` : décomposition canonique GF 0014-2009 et textes des
   fiches relues, propriétaires. Aucun tracé n'y entre.
 - `paires.json`, `contes/<id>.json`, `fetes.json`, `saisons.json`, `devinettes.json`,
@@ -97,6 +101,7 @@ from . import cuisine as cuisine_mod
 from . import devinettes as devinettes_mod
 from . import eclair as eclair_mod
 from . import ecrans as ecrans_mod
+from . import ecriture as ecriture_mod
 from . import examens as examens_mod
 from . import fetes as fetes_mod
 from . import fiches as fiches_mod
@@ -126,7 +131,7 @@ VERSION = "0.1.0"
 #: Version du format écrit par ce module. À incrémenter à chaque changement de
 #: ce que l'export produit à entrées égales (clé ajoutée, ordre, règle de
 #: sélection) : elle entre dans l'empreinte, et l'export versionné devient périmé.
-FORMAT_EXPORT = 20
+FORMAT_EXPORT = 21
 
 #: Le code de l'exporteur, lui aussi dans l'empreinte : un changement de ce
 #: fichier où l'on aurait oublié `FORMAT_EXPORT` rend quand même l'export périmé.
@@ -265,6 +270,7 @@ def fichiers_sources(
         *trois_lignes_mod.sources(),
         *examens_mod.sources(),
         *tons_mod.sources(),
+        *ecriture_mod.sources(),
         ("interface", INTERFACE),
         ("arphicpl", LICENCES_SOURCE / ARPHIC),
         ("unicode", LICENCES_SOURCE / UNICODE_NOTICE),
@@ -1539,6 +1545,7 @@ def document_index(
         "rappels": rappels_mod.FICHIER,
         "ouvertures": ouvertures_mod.FICHIER,
         "tons": tons_mod.FICHIER,
+        "ecriture": ecriture_mod.FICHIER,
     }
     if apercu:
         document["apercu"] = f"{APERCU}/index.json"
@@ -1552,10 +1559,11 @@ def document_index(
 TABLEAU_LICENCES: tuple[tuple[str, str, str, str, str], ...] = (
     (
         SOURCE_TRAITS,
-        "tracés et médianes (`traits/`)",
+        "tracés et médianes (`traits/`) ; gabarits de l'écriture au doigt, dérivés des médianes"
+        " (`ecriture/`)",
         LICENCE_TRAITS,
         "Copyright (C) 1999 Arphic Technology Co., Ltd.",
-        f"`{ARPHIC}` (racine de l'export et `traits/`)",
+        f"`{ARPHIC}` (racine de l'export, `traits/` et `ecriture/`)",
     ),
     (
         "Unihan (Unicode Character Database)",
@@ -1655,6 +1663,8 @@ def licences_md(version: str) -> str:
         "",
         f"- `traits/` : tracés sous {LICENCE_TRAITS}, avec `{ARPHIC}` inaltéré à côté"
         " et `traits/MODIFICATIONS.md` qui dit comment et quand ils ont été dérivés.",
+        f"- `ecriture/` : gabarits de l'écriture au doigt, dérivés des médianes, sous {LICENCE_TRAITS},"
+        f" avec `{ARPHIC}` inaltéré à côté et `ecriture/MODIFICATIONS.md`.",
         "- `familles/`, `contes/`, `paires.json`, `fetes.json`, `saisons.json`, `devinettes.json`,"
         " `eclair.json`, `coquilles.json`, `cuisine.json`, `lettres.json`, `wechat.json`, `heros.json`,"
         " `jouer.json`, `rythme.json`, `rappels.json`, `ecrans.json`, `ouvertures.json`, `apercu/` :"
@@ -1690,7 +1700,7 @@ def licences_md(version: str) -> str:
         "",
         "## Obligations hors app",
         "",
-        "- Publier les fichiers de `traits/` sur le site public, avec"
+        "- Publier les fichiers de `traits/` et de `ecriture/` sur le site public, avec"
         f" `{ARPHIC}` et la note de modification (APL §2 b).",
         "- Reprendre ce tableau sur l'écran « Licences » des Réglages et sur le site.",
         "",
@@ -2078,6 +2088,8 @@ def assembler(
             }
         )
     )
+    # Les gabarits de l'écriture au doigt (`ecriture.py`) : sous APL, dans leur dossier, nommés par l'index.
+    textes.update(ecriture_mod.fichiers(version, ingest=ingest, licences=licences, jour=JETON_JOUR))
     textes["LICENCES.md"] = licences_md(version)
     textes["traits/MODIFICATIONS.md"] = modifications_md(version, len(graphies), decoupes)
     for nom in (ARPHIC, UNICODE_NOTICE, MIT_CJK_DECOMP, OGDL):
@@ -2210,6 +2222,8 @@ def fautes_de_licence(relatif: str, document: object) -> list[str]:
     if not isinstance(document, dict):
         return ["document hors format"]
     fautes = [f"en-tête sans {cle}" for cle in ENTETE_LICENCE if not document.get(cle)]
+    if relatif.startswith(ecriture_mod.DOSSIER):
+        return ecriture_mod.fautes(document, ENTETE_LICENCE)
     if relatif.startswith("traits/"):
         if document.get("license") != LICENCE_TRAITS:
             fautes.append(f"tracés hors {LICENCE_TRAITS}")
