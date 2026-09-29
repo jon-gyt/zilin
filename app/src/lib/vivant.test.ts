@@ -50,3 +50,15 @@ describe('Tao, vivante au repos', () => {
     expect(reduits(tokens)).toMatch(/\.tao \*\{animation:none!important\}/);
   });
 });
+
+describe('au menu, Tao lève les yeux vers le caractère du jour', () => {
+  const menu = source('Menu.svelte');
+  const css = menu.slice(menu.indexOf('<style>'));
+  it('de temps en temps, par `translate`, sans toucher au clignement ni au dessin', () => {
+    expect(css).toMatch(/\.marcheur :global\(\.tao \.yeux\) \{\s*animation:\s*cligne 7\.7s infinite,\s*regarde 9\.4s/);
+    expect(css).toMatch(/@keyframes regarde \{[\s\S]*translate: -7px -5px;/);
+  });
+  it("s'arrête si l'on réduit les animations", () => {
+    expect(reduits(css)).toMatch(/\.marcheur :global\(\.tao \.yeux\) \{\s*animation: none;/);
+  });
+});

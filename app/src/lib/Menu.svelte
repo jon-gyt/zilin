@@ -1135,4 +1135,29 @@
       animation: none;
     }
   }
+
+  /* Tao lève les yeux vers le caractère du jour, en haut à gauche, de temps en temps, puis
+     revient au chemin. Par la propriété `translate`, qui s'ajoute au clignement sans le
+     remplacer ; son dessin ne change pas. */
+  .marcheur :global(.tao .yeux) {
+    animation:
+      cligne 7.7s infinite,
+      regarde 9.4s ease-in-out 1.2s infinite;
+  }
+  @keyframes regarde {
+    0%,
+    56%,
+    100% {
+      translate: 0 0;
+    }
+    62%,
+    84% {
+      translate: -7px -5px;
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .marcheur :global(.tao .yeux) {
+      animation: none;
+    }
+  }
 </style>
