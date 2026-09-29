@@ -17,7 +17,7 @@
   import type { Revision } from './session';
   import { grade } from './srs';
   import { artDe } from './heros';
-  import { aAudio, manifesteOnce, prononcer } from './audio';
+  import { aAudio, finDuSon, manifesteOnce, prononcer } from './audio';
   import { bonneReponse } from './haptique';
   import { ETIQUETTES } from './content';
   import type { Grade } from 'ts-fsrs';
@@ -147,10 +147,13 @@
 
   /** L'avance automatique après une bonne réponse (`delaiAvance`). Annulée si on tape avant. */
   let minuteur: ReturnType<typeof setTimeout> | null = null;
+  /** Le rang de l'avance automatique en attente : `arreter` l'annule, même pendant `finDuSon`. */
+  let avances = 0;
 
   function arreter(): void {
     if (minuteur !== null) clearTimeout(minuteur);
     minuteur = null;
+    avances += 1;
   }
 
   $effect(() => arreter);
@@ -158,6 +161,19 @@
   function avancer(): void {
     arreter();
     onsuivant();
+  }
+
+  /**
+   * L'avance automatique, le temps de lecture passé : si une voix parle encore (un mot long,
+   * le caractère dit juste avant de répondre), elle attend sa fin (`finDuSon`, avec son
+   * plafond). La question suivante, qui peut parler à son tour, ne la coupe jamais.
+   */
+  function avancerSeul(): void {
+    minuteur = null;
+    const moi = avances;
+    void finDuSon().then(() => {
+      if (moi === avances) avancer();
+    });
   }
 
   /**
@@ -179,7 +195,7 @@
     const attente = c.correct
       ? delaiAvance(`${VERDICTS[note]} ${ligneDuMot(q)} ${q.explication.court}`)
       : null;
-    if (attente !== null) minuteur = setTimeout(avancer, attente);
+    if (attente !== null) minuteur = setTimeout(avancerSeul, attente);
   }
 
   /** Un choix. Juste : la question est notée. Faux : un essai de plus, et on explique. */
