@@ -70,7 +70,7 @@
   import { caseReviser, carteDuMenu, menu, traitsDeLAjout } from './parcours';
   import { familleDepart, fichesDepart } from './premiere';
   import { jourDeDemain, premierSens } from './route';
-  import { cartesDues, jourParcours, type Progress } from './session';
+  import { cartesDues, jourParcours, type ExamenDuMenu, type Progress } from './session';
   import { ACCES_WEB, prochaineBrique, type Acces } from './droits';
   import { quandMenu, SANS_RYTHME, type TextesRythme } from './rythme';
   import { stade } from './tao';
@@ -93,6 +93,7 @@
     onroute = () => undefined,
     vois = () => true,
     annonce = null,
+    examen = null,
     ondecouvrir = () => undefined
   }: {
     p: Progress;
@@ -124,6 +125,12 @@
     annonce?: Porte | null;
     /** Toucher l'annonce, ou la case qui vient d'apparaître. */
     ondecouvrir?: (id: PorteId) => void;
+    /**
+     * L'examen 科举 ou le 月课 (story 8.4, `session.examenDuMenu`) : la journée faite, le bouton
+     * plein le passe ; sous le chemin, une ligne dit qu'il est ouvert et que les briques
+     * attendent, ou qu'il se repasse quand les manqués sont revus, sans compte à rebours.
+     */
+    examen?: ExamenDuMenu | null;
   } = $props();
 
   /** Les cases montrées, dans leur ordre ; la porte annoncée se pose en dernier venu. */
@@ -229,7 +236,12 @@
     void dire(carte.c);
   }
 
-  const m = $derived(menu(p, carte?.c ?? '', textes, vois('jouer')));
+  const m = $derived(menu(p, carte?.c ?? '', textes, vois('jouer'), examen));
+  /**
+   * La ligne de l'examen sous le chemin, la journée faite, comme « Demain : 子 », dont elle
+   * prend la place : les briques attendent, il n'y a pas de demain à annoncer.
+   */
+  const ligneExamen = $derived(examen !== null && examen.ligne !== '' && m.etat === 'faite' ? examen : null);
   /** Un jour sans composé : la décomposition montre la brique seule, en cinabre. */
   const briqueSeule = $derived(carte !== null && carte.parts.length === 0 && m.etat !== 'rattrapage' && m.etat !== 'premiere');
   /* Toutes les parties sont neuves : il n'y a pas d'élément ajouté à distinguer, tout reste à l'encre. */
@@ -246,7 +258,7 @@
    * écran.
    */
   let demain = $state.raw<{ c: string; sens: string; pistes: string[] } | null>(null);
-  const jourDemain = $derived(jourDeDemain(p));
+  const jourDemain = $derived(ligneExamen !== null ? null : jourDeDemain(p));
   const quandDemain = $derived.by(() => {
     const k = prochaineBrique(p.droits, acces, p.day, jourParcours(p));
     return k === null ? '' : quandMenu(textes, k.dans);
@@ -528,6 +540,25 @@
         <span>{m.ligne}</span>
         {#if m.duree !== ''}<span class="duree">{m.duree}</span>{/if}
       </div>
+      {#if ligneExamen}
+        <!-- l'examen ouvert : la stèle, une ligne, sans compte à rebours ; la route à droite -->
+        <div class="examen-ligne">
+          <svg class="stele" class:attente={ligneExamen.etat === 'attente'} width="18" height="23" viewBox="0 0 30 38" aria-hidden="true"
+            ><path d="M5 34V8q10-7 20 0v26z" fill="var(--card)" stroke="currentColor" stroke-width="2.4" stroke-dasharray="3 2.5" /><path
+              d="M2 35h26M10 15h10M10 20h10M10 25h6"
+              stroke="currentColor"
+              stroke-width="2.2"
+              stroke-linecap="round"
+            /></svg
+          >
+          <span class="el"
+            ><b>{ligneExamen.ligne}</b>{#if ligneExamen.suite !== ''}{' '}{ligneExamen.suite}{/if}</span
+          >
+          {#if vois('route')}
+            <button class="vers-route" class:neuve={neuve('route')} aria-label="Ma route : la route devant" onclick={onroute}>Ma route ›</button>
+          {/if}
+        </div>
+      {/if}
       {#if demain && jourDemain !== null && quandDemain !== ''}
         <div class="demain">
           <span class="dm"
@@ -896,6 +927,30 @@
   .dsens {
     overflow: hidden;
     text-overflow: ellipsis;
+  }
+  .examen-ligne {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 5px;
+    font-size: 13px;
+    line-height: 17px;
+    color: var(--ink2);
+  }
+  .examen-ligne .el {
+    flex: 1;
+    min-width: 0;
+  }
+  .examen-ligne b {
+    font-weight: 600;
+    color: var(--ink);
+  }
+  .stele {
+    flex: none;
+    color: var(--indigo);
+  }
+  .stele.attente {
+    color: var(--mist);
   }
   .vers-route {
     position: relative;

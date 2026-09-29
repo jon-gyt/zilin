@@ -42,10 +42,16 @@
   let {
     p,
     textes = SANS_RYTHME,
+    examen = '',
     onterminer,
     onquitter
   }: {
     p: Progress;
+    /**
+     * Le palier atteint, l'examen s'ouvre : Clore le dit en une ligne, ce jour-là (story
+     * 8.4, « 50 caractères lus : l'examen 县试 s'ouvre. »). Vide, rien à dire.
+     */
+    examen?: string;
     /**
      * Les lignes du rythme gratuit : le titre d'un jour sans brique nouvelle, et la ligne du
      * jour où le rythme gratuit commence.
@@ -143,6 +149,7 @@
     </p>
     <div class="k">{constat(p, p.day)}</div>
     {#if rythmeGratuit !== ''}<p class="rythme">{rythmeGratuit}</p>{/if}
+    {#if examen !== ''}<p class="rythme examen">{examen}</p>{/if}
   </div>
 
   <div class="card semaine-serie">

@@ -12,6 +12,7 @@
   import Personnage from './lib/Personnage.svelte';
   import { herosOnce, rangAAnnoncer, rangDe, total, type BeteId, type HerosDonnees } from './lib/heros';
   import Close from './lib/Close.svelte';
+  import Examen from './lib/Examen.svelte';
   import FirstSession from './lib/FirstSession.svelte';
   import Fix from './lib/Fix.svelte';
   import Forest from './lib/Forest.svelte';
@@ -46,6 +47,7 @@
   import {
     briquesAcquises,
     contenu,
+    leconsPosees,
     nomParcours,
     reglerApercu,
     toutesLesFamilles,
@@ -110,6 +112,18 @@
     noterRecette,
     jourParcours,
     preparerJournee,
+    avancerExamen,
+    commencerExamen,
+    examenAAnnoncer,
+    examenDuMenu,
+    ligneDeClore,
+    manquesARevoir,
+    ouvrirExamenAuPalier,
+    pauseDesBriques,
+    repondreExamen,
+    situationExamen,
+    terminerExamen,
+    type ContexteExamens,
     type Budget,
     type IssueDevinette,
     type LearnView,
@@ -118,6 +132,15 @@
     type Revision
   } from './lib/session';
   import { accesAppareil, loadProgress, saveProgress, today } from './lib/db';
+  import {
+    SANS_EXAMENS,
+    cheminDesExamens,
+    examensOnce,
+    examensPassables,
+    type Bilan,
+    type ExamensDonnees,
+    type QuestionExamen
+  } from './lib/examens';
   import { reglerHaptique } from './lib/haptique';
   import {
     avisDisponible,
@@ -168,7 +191,8 @@
     | 'reglages'
     | 'chercher'
     | 'personnage'
-    | 'fangbang';
+    | 'fangbang'
+    | 'examen';
 
   let p: Progress = $state(emptyProgress(today()));
 
@@ -182,11 +206,34 @@
   let indexDonnees: Index | null = null;
   let textesRythme: TextesRythme = $state(SANS_RYTHME);
 
+  /*
+   * Les examens 科举 et les 月课 (`examens.json`, stories 8.3 et 8.4) : ceux qu'on peut passer
+   * sur le chemin, et les caractères lus, au seuil de Ma forêt, qui les ouvrent. Tant qu'un
+   * examen attend d'être réussi, la journée se prépare sans brique nouvelle, les caractères
+   * manqués d'abord (`session.pauseDesBriques`).
+   */
+  let examensDonnees: ExamensDonnees = $state.raw(SANS_EXAMENS);
+  /** Les familles de l'export, comme Ma forêt les compte : les portes et les examens s'y lisent. */
+  let famillesLues: Famille[] | null = $state.raw(null);
+  const ctxExamens: ContexteExamens = $derived({
+    liste: examensPassables(examensDonnees, cheminDesExamens(p.parcours)),
+    lus: famillesLues === null ? 0 : caracteresLus(famillesLues, p.cartes)
+  });
+  /** L'examen vu du menu : le bouton de la journée faite, la ligne sous le chemin, Tao. */
+  const examenMenu = $derived(examenDuMenu(p, examensDonnees, ctxExamens));
+  /** La ligne de Clore, le jour où le palier est atteint. */
+  const ligneExamenClore = $derived.by(() => {
+    const e = examenAAnnoncer(p, ctxExamens);
+    return e === null ? '' : ligneDeClore(examensDonnees, e);
+  });
+
   /** Prépare la journée de la session, une fois : sans l'index, elle attend. */
   function preparer(): void {
     const i = indexDonnees;
     if (i === null) return;
-    const n = preparerJournee(p, acces, briquesAcquises(i, nomParcours(i, p.parcours), jourParcours(p)));
+    const nom = nomParcours(i, p.parcours);
+    const pause = pauseDesBriques(p, ctxExamens, leconsPosees(i, nom, jourParcours(p)));
+    const n = preparerJournee(p, acces, briquesAcquises(i, nom, jourParcours(p)), pause);
     if (n === p) return;
     p = n;
     enregistrer();
@@ -333,7 +380,6 @@
    * l'export, comme Ma forêt les compte.
    */
   let calendrier: Calendrier | null = $state(null);
-  let famillesLues: Famille[] | null = null;
   void ouverturesOnce()
     .then((c) => (calendrier = c))
     .catch(() => (calendrier = []));
@@ -420,10 +466,14 @@
   void Promise.all([
     loadProgress(),
     contenu().catch(() => null),
-    rythmeOnce().catch(() => SANS_RYTHME)
-  ]).then(([stored, i, t]) => {
+    rythmeOnce().catch(() => SANS_RYTHME),
+    examensOnce().catch(() => SANS_EXAMENS),
+    toutesLesFamilles().catch(() => null)
+  ]).then(([stored, i, t, ex, familles]) => {
     indexDonnees = i;
     textesRythme = t;
+    examensDonnees = ex;
+    if (familles !== null) famillesLues = familles;
     const jour = today();
     /* La pile due est recomptée sur les cartes : c'est elle qui ouvre et ferme le rattrapage. */
     const ouvert = setDue(openDay(stored, jour), nombreDues(stored, new Date()), jour);
@@ -575,9 +625,10 @@
    */
   function ouvrirRevision(): void {
     if (p.revue.length === 0) {
+      /* Les caractères manqués à l'examen passent d'abord, s'ils sont dus (story 8.4). */
       p = setRevue(
         p,
-        cartesDues(p, new Date(), cartesAOuvrir(p)).map((c) => c.id)
+        cartesDues(p, new Date(), cartesAOuvrir(p), manquesARevoir(p, ctxExamens)).map((c) => c.id)
       );
     }
     ecran = 'rev';
@@ -589,7 +640,7 @@
     majDue();
     p = setRevue(
       finRevisionLibre(p),
-      cartesDues(p, new Date(), CARTES_PAR_SEANCE).map((c) => c.id)
+      cartesDues(p, new Date(), CARTES_PAR_SEANCE, manquesARevoir(p, ctxExamens)).map((c) => c.id)
     );
     ecran = 'reviser';
     enregistrer();
@@ -603,7 +654,7 @@
     /* Le menu resté ouvert passé minuit : la nouvelle journée s'ouvre avant le pas. */
     basculer();
     majDue();
-    const r = demarrer(p, p.day);
+    const r = demarrer(p, p.day, examenMenu?.passer ?? false);
     p = r.p;
     enregistrer();
     ouvrir(r.ecran);
@@ -912,6 +963,8 @@
   function clore(obtenus: string[] = []): void {
     const avant = p;
     p = noterTrophees(cloreSession(p, p.day), obtenus, p.day);
+    /* Le palier atteint, l'examen s'ouvre : Clore vient de le dire (story 8.4). */
+    p = ouvrirExamenAuPalier(p, ctxExamens);
     moment = momentDeClore(avant, p, p.day) ?? moment;
     enregistrer();
     allerAuMenu();
@@ -1023,6 +1076,39 @@
     enregistrer();
   }
 
+  /* ---------- l'examen 科举 et le 月课 (stories 8.3 et 8.4) ---------- */
+
+  /** Commence l'examen ouvert, ou le reprend à la même question. */
+  function examenCommencer(poses: number[]): void {
+    const s = situationExamen(p, ctxExamens);
+    if (s.etat === 'aucun') return;
+    p = commencerExamen(p, s.examen, cheminDesExamens(p.parcours), poses);
+    enregistrer();
+  }
+
+  /** Une réponse touchée : notée au premier essai, un point 读 si elle est juste. */
+  function examenRepondre(i: number, q: QuestionExamen, donnee: number | boolean): void {
+    const n = repondreExamen(p, i, q, donnee, new Date());
+    if (n === p) return;
+    p = n;
+    enregistrer();
+  }
+
+  /** La question suivante : « Quitter » reprendra à celle-ci. */
+  function examenAvancer(i: number): void {
+    p = avancerExamen(p, i);
+    enregistrer();
+  }
+
+  /** Le constat : reçu, les briques reprennent ; pas encore, les manqués attendent. */
+  function examenTerminer(questions: number): Bilan {
+    const r = terminerExamen(p, p.day, new Date(), questions, examensDonnees.regle);
+    p = r.p;
+    majDue();
+    enregistrer();
+    return r.bilan;
+  }
+
   /** Quitter : retour au menu sans question, la progression est sauvegardée. */
   function quitter(): void {
     enregistrer();
@@ -1098,7 +1184,20 @@
     onquitter={quitter}
   />
 {:else if ecran === 'close'}
-  <Close {p} textes={textesRythme} onterminer={clore} onquitter={quitter} />
+  <Close {p} textes={textesRythme} examen={ligneExamenClore} onterminer={clore} onquitter={quitter} />
+{:else if ecran === 'examen'}
+  <Examen
+    {p}
+    donnees={examensDonnees}
+    heros={herosDonnees}
+    lus={ctxExamens.lus}
+    oncommencer={examenCommencer}
+    onrepondre={examenRepondre}
+    onavancer={examenAvancer}
+    onterminer={examenTerminer}
+    onquitter={quitter}
+    onretour={allerAuMenu}
+  />
 {:else if ecran === 'game'}
   <Game
     {p}
@@ -1159,5 +1258,5 @@
 {:else if ecran === 'reglages'}
   <Settings {p} {vois} onprogression={remplacer} onretour={allerAuMenu} />
 {:else}
-  <Menu {p} {acces} {vois} {annonce} ondecouvrir={decouvrir} textes={textesRythme} fete={feteJour} {fetes} terme={laJournee.terme} {saisons} ondemarrer={boutonMenu} oncase={caseMenu} onanecdote={() => relireAnecdote('menu')} onchercher={ouvrirChercher} onreglages={() => (ecran = 'reglages')} onpersonnage={() => (ecran = 'personnage')} onroute={() => ouvrirRoute('menu')} />
+  <Menu {p} {acces} {vois} {annonce} examen={examenMenu} ondecouvrir={decouvrir} textes={textesRythme} fete={feteJour} {fetes} terme={laJournee.terme} {saisons} ondemarrer={boutonMenu} oncase={caseMenu} onanecdote={() => relireAnecdote('menu')} onchercher={ouvrirChercher} onreglages={() => (ecran = 'reglages')} onpersonnage={() => (ecran = 'personnage')} onroute={() => ouvrirRoute('menu')} />
 {/if}
