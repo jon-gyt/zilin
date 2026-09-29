@@ -28,7 +28,9 @@ Sources, versionnées (`data/sources/examens/`) :
   (la traçabilité), `relecture` (la décision qui fait foi), puis `series`.
 
 Une série : `serie` (A ou B), `statut`, `supports` (les mises en situation : `id`,
-`genre`, `contexte` {fr, en}, `lignes` [{zh, pinyin, fr, en}], `glose` facultative) et
+`genre`, `contexte` {fr, en}, le surtitre qui se lit au-dessus de la question, avant la
+réponse : il dit le genre du support, « Un message », « Un billet », jamais son contenu,
+`lignes` [{zh, pinyin, fr, en}], `glose` facultative) et
 `questions`. Une question a son `type`, sa `consigne` {fr, en}, ses `choix`, sa `reponse`
 et `porte`, les caractères qui portent sa réponse (ils sont notés en révision). Les types :
 
@@ -56,11 +58,16 @@ septembre 2026, « 10 et 5 », reçu à quatre sur cinq), « sources » (traçab
 format, textes de l'écran), « périmètre » (aucun caractère hors de l'acquis du jour du
 palier sur ce chemin ; au 月课, chaque question porte un caractère du tronçon), « pinyin »,
 « glose », « questions » (nombre, revue, types, choix, réponses, caractères portés),
-« séries » (A et B, sans texte commun), « couverture » (chaque examen jusqu'au palier
+« séries » (A et B, sans texte commun), « fuites » (rien de ce qui se lit avant de
+répondre ne donne la réponse : le surtitre ne dit que le genre, ni lui ni la consigne ne
+portent les mots de la bonne réponse, la consigne ne contient pas le caractère, le mot ou
+la syllabe cherchés, ni la traduction d'une affirmation ; signalement du propriétaire du 29
+septembre 2026), « couverture » (chaque examen jusqu'au palier
 `COUVERTURE`, sur les deux chemins), « 放榜 » (les noms de la liste, dans l'acquis du
 palier), « périmètre des traits » (le nom de chaque
-examen se dessine depuis ses traits) et « export ». Signalés : la relecture, et les
-examens au-delà qui n'ont pas encore de séries.
+examen se dessine depuis ses traits) et « export ». Signalés : la relecture, la forme des
+choix (une bonne réponse bien plus longue que ses leurres, ou seule à aligner plusieurs
+sens), et les examens au-delà qui n'ont pas encore de séries.
 
 Licences : rien n'est tiré de CC-CEDICT ni de Make Me a Hanzi comme texte ; mises en
 situation, traductions et glose sont rédigées pour l'app. Les lectures (Unihan, Make Me a
@@ -1159,6 +1166,141 @@ def ecarts_deux_series(a: Serie, b: Serie) -> list[str]:
     return ecarts
 
 
+# --------------------------------------------------------------------------- fuites
+
+
+#: Les mots qui ne disent rien de la réponse : articles, pronoms, mots de question.
+#: Seuls comptent ceux de plus de trois lettres, sans accents ni casse (`mots_significatifs`).
+MOTS_VIDES: frozenset[str] = frozenset(
+    """
+    dans pour avec sans sous chez vers entre depuis pendant avant apres cette celui celle ceux
+    celles leur leurs elle elles nous vous votre notre quel quelle quels quelles quoi quand
+    comment pourquoi combien sont etre avoir fait font tout tous toute toutes tres plus moins
+    aussi mais donc comme meme autre autres encore rien ceci cela dont etait sera peut veut dire
+    touche the this that with from what when where which your
+    """.split()
+)
+#: Au-delà de tant de fois la longueur du plus long leurre, et de tant de lettres de plus, la
+#: bonne réponse se reconnaît à sa forme (signalé, pas bloquant : c'est un indice, pas une preuve).
+FORME_RAPPORT = 1.5
+FORME_ECART = 8
+
+
+def mots_significatifs(texte: str) -> set[str]:
+    """Les mots de plus de trois lettres et les nombres d'un texte français, hors mots vides.
+
+    Sans accents ni casse, au singulier (un « s » ou un « x » final ôté au-delà de quatre
+    lettres) : « Les yuans » et « 20 yuan » partagent « yuan ».
+    """
+    import unicodedata
+
+    plat = unicodedata.normalize("NFD", texte.lower().replace("œ", "oe").replace("æ", "ae"))
+    plat = "".join(c for c in plat if not unicodedata.combining(c))
+    out: set[str] = set()
+    for m in re.findall(r"[a-z]+|\d+", plat):
+        if m.isdigit():
+            out.add(m)
+            continue
+        if len(m) <= 3 or m in MOTS_VIDES:
+            continue
+        out.add(m[:-1] if len(m) > 4 and m[-1] in "sx" else m)
+    return out
+
+
+def _sens_du_choix(c: object) -> str:
+    """Le français d'un choix : un sens, une réplique ; rien pour un caractère ou un mot."""
+    if isinstance(c, Phrase):
+        return c.fr
+    if isinstance(c, tuple):
+        return str(c[0])
+    return ""
+
+
+def _discriminants(bonne: str, autres: Sequence[str]) -> set[str]:
+    """Les mots de la bonne réponse, sauf ceux que tous les leurres portent aussi."""
+    mots = mots_significatifs(bonne)
+    if autres:
+        mots -= set.intersection(*(mots_significatifs(a) for a in autres))
+    return mots
+
+
+def ecarts_fuites(serie: Serie, glossaire: Mapping[str, Glose] | None = None) -> list[str]:
+    """Rien de ce qui se lit avant de répondre ne donne la réponse (signalement du propriétaire,
+    29 septembre 2026, « tu donnes les réponses dans les intitulés »).
+
+    - Le surtitre (`contexte`) dit le genre du support, pas son contenu : aucun mot
+      significatif de la traduction de ses lignes.
+    - La réponse d'une question à choix en français (`comprendre`, `sens`, `replique`) ne se
+      lit ni dans le surtitre ni dans la consigne : aucun de ses mots significatifs que les
+      leurres n'ont pas aussi.
+    - Au repérage, le sens du mot cherché (sa glose) ne se lit pas dans le surtitre.
+    - Le caractère ou le mot cherché (`caractere`, `trou`, `reperer`), la syllabe cherchée
+      (`ton`), n'est pas dans la consigne.
+    - La consigne d'un vrai ou faux ne traduit pas l'affirmation.
+    """
+    ecarts: list[str] = []
+    for s in serie.supports:
+        communs = mots_significatifs(s.contexte[0]) & mots_significatifs(" ".join(l.fr for l in s.lignes))
+        if communs:
+            ecarts.append(
+                f"support {s.id} : le surtitre « {s.contexte[0]} » dit le contenu ({', '.join(sorted(communs))}),"
+                " il ne doit dire que le genre"
+            )
+    for q in serie.questions:
+        ou = f"question {q.rang} ({q.type})"
+        s = serie.support(q.support) if q.support else None
+        surtitre = s.contexte[0] if s is not None else ""
+        consigne = " ".join(q.consigne)
+        choix_valide = q.type != "vrai_faux" and isinstance(q.reponse, int) and 0 <= q.reponse < len(q.choix)
+        bonne = q.choix[q.reponse] if choix_valide else None  # type: ignore[index]
+        autres = [c for k, c in enumerate(q.choix) if k != q.reponse]
+        if bonne is not None and q.type in ("comprendre", "sens", "replique"):
+            mots = _discriminants(_sens_du_choix(bonne), [_sens_du_choix(c) for c in autres])
+            for nom, texte in (("le surtitre", surtitre), ("la consigne", q.consigne[0])):
+                vus = sorted(mots & mots_significatifs(texte))
+                if vus:
+                    ecarts.append(f"{ou} : {nom} donne la réponse « {_sens_du_choix(bonne)} » ({', '.join(vus)})")
+        if bonne is not None and q.type == "reperer" and s is not None and glossaire is not None:
+            toutes = entrees(glossaire, s.glose)
+            g = toutes.get(str(bonne))
+            if g is not None:
+                mots = _discriminants(g.fr, [toutes[str(c)].fr for c in autres if str(c) in toutes])
+                vus = sorted(mots & mots_significatifs(surtitre))
+                if vus:
+                    ecarts.append(f"{ou} : le surtitre donne le mot cherché {bonne} « {g.fr} » ({', '.join(vus)})")
+        if bonne is not None and q.type in ("caractere", "trou", "reperer", "ton") and str(bonne) in consigne:
+            ecarts.append(f"{ou} : la consigne contient la réponse {bonne}")
+        if q.type == "vrai_faux" and q.affirmation is not None:
+            vus = sorted(mots_significatifs(q.affirmation.fr) & mots_significatifs(q.consigne[0]))
+            if vus:
+                ecarts.append(f"{ou} : la consigne traduit l'affirmation ({', '.join(vus)})")
+    return ecarts
+
+
+def signaux_forme(serie: Serie) -> list[str]:
+    """La bonne réponse ne se reconnaît pas à sa forme : bien plus longue que tous ses leurres,
+    ou seule à aligner plusieurs sens (« vache, bœuf » parmi « cheval », « main »).
+
+    Signalé, pas bloquant : c'est un indice qu'un relecteur tranche.
+    """
+    out: list[str] = []
+    for q in serie.questions:
+        if q.type not in ("comprendre", "sens", "replique") or not isinstance(q.reponse, int):
+            continue
+        if not 0 <= q.reponse < len(q.choix):
+            continue
+        cle = (lambda c: c.zh) if q.type == "replique" else _sens_du_choix
+        texte = cle(q.choix[q.reponse])
+        autres = [cle(c) for k, c in enumerate(q.choix) if k != q.reponse]
+        ou = f"question {q.rang} ({q.type}) : la bonne réponse, « {texte} »,"
+        longueur = max((len(a) for a in autres), default=0)
+        if autres and len(texte) > FORME_RAPPORT * longueur and len(texte) - longueur >= FORME_ECART:
+            out.append(f"{ou} est bien plus longue que ses leurres ({len(texte)} signes pour {longueur} au plus)")
+        elif q.type != "replique" and re.search(r"[,;]", texte) and not any(re.search(r"[,;]", a) for a in autres):
+            out.append(f"{ou} est seule à aligner plusieurs sens")
+    return out
+
+
 def ecarts_glossaire(glossaire: Mapping[str, Glose], lectures: Mapping[str, Sequence[str]] | None) -> list[str]:
     """Chaque entrée du glossaire : une syllabe par caractère, chacune une lecture."""
     from .pinyin import aligner
@@ -1368,6 +1510,8 @@ def controles(
     f_glo: list[str] = []
     f_que: list[str] = []
     f_ser: list[str] = []
+    f_fui: list[str] = []
+    forme: list[str] = []
     f_cou: list[str] = []
     suite: list[str] = []
     construits = True
@@ -1400,6 +1544,8 @@ def controles(
                 f_pin += [f"{ou} : {x}" for x in ecarts_pinyin(s, lectures)]
                 f_glo += [f"{ou} : {x}" for x in ecarts_glose(s, lexique)]
                 f_que += [f"{ou} : {x}" for x in ecarts_questions(s, e, lectures, lexique)]
+                f_fui += [f"{ou} : {x}" for x in ecarts_fuites(s, lexique)]
+                forme += [f"{ou} : {x}" for x in signaux_forme(s)]
             par_lettre = {s.serie: s for s in f.series}
             if set(par_lettre) == set(SERIES):
                 f_ser += [f"{nom}/{ex} : {x}" for x in ecarts_deux_series(par_lettre["A"], par_lettre["B"])]
@@ -1490,6 +1636,20 @@ def controles(
             bloquant=True,
         ),
         Controle("examens : séries", not f_ser, detail(f_ser, "séries A et B sans texte commun"), bloquant=True),
+        Controle(
+            "examens : fuites",
+            not f_fui,
+            detail(
+                f_fui,
+                "le surtitre dit le genre, jamais le contenu ; ni le surtitre ni la consigne ne donnent la réponse",
+            ),
+            bloquant=True,
+        ),
+        Controle(
+            "examens : forme des choix",
+            not forme,
+            detail(forme, "aucune bonne réponse ne se reconnaît à sa forme parmi ses leurres"),
+        ),
         Controle(
             "examens : 放榜",
             not f_bang,
