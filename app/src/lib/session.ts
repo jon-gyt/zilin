@@ -1,7 +1,7 @@
 /**
  * L'état d'une session : six pas, toujours dans le même ordre, reprise au pas exact,
  * remise à zéro à chaque nouvelle journée, rattrapage après une absence, et la session
- * de plus (quatre pas, une brique, jamais une seconde graine) une fois la journée faite.
+ * de plus (quatre pas, une brique, jamais une seconde pierre) une fois la journée faite.
  *
  * Tout ce module est pur : aucune fonction ne lit l'horloge ni n'écrit dans un stockage.
  * La journée courante est toujours passée en argument (`aujourdhui`, au format AAAA-MM-JJ)
@@ -264,7 +264,7 @@ export type Progress = {
   /** Dernière journée où au moins un pas a été fait. */
   lastWorked: string | null;
   /**
-   * Les journées travaillées, une par graine plantée, dans l'ordre. C'est la seule
+   * Les journées travaillées, une par pierre posée, dans l'ordre. C'est la seule
    * mémoire de la série (`serie.ts`). Ajouté après coup : une progression sans ce champ
    * se relit depuis ce qu'on sait déjà d'elle.
    */
@@ -701,9 +701,9 @@ export function faitPasCourant(p: Progress, aujourdhui: string): Progress {
 }
 
 /**
- * Plante la graine du jour : la journée entre dans les journées travaillées. Appelé à la
- * clôture, ou à la fin d'un bloc de rattrapage, une seule fois par journée. Une graine
- * plantée ne se retire jamais.
+ * Pose la pierre du jour : la journée entre dans les journées travaillées. Appelé à la
+ * clôture, ou à la fin d'un bloc de rattrapage, une seule fois par journée. Une pierre
+ * posée ne se retire jamais.
  */
 export function noterJourTravaille(p: Progress, jour: string): Progress {
   if (p.joursTravailles.includes(jour)) return p;
@@ -868,9 +868,9 @@ export function commencerPlus(p: Progress): Progress {
 }
 
 /**
- * Clore, la seule fin d'une session : le pas est fait et la graine du jour plantée, une
+ * Clore, la seule fin d'une session : le pas est fait et la pierre du jour posée, une
  * fois par journée (`noterJourTravaille`). Une session de plus close rend la journée
- * faite et compte une session de plus ; elle ne plante jamais une seconde graine.
+ * faite et compte une session de plus ; elle ne pose jamais une seconde pierre.
  */
 export function cloreSession(p: Progress, jour: string): Progress {
   const f = faitPasCourant(p, jour);
@@ -886,7 +886,7 @@ export function cloreSession(p: Progress, jour: string): Progress {
 
 /**
  * Ce que la session sait des examens pour décider : la liste qu'on peut passer sur le chemin
- * (`examens.examensPassables`), et les caractères lus, au seuil de Ma forêt
+ * (`examens.examensPassables`), et les caractères lus, au seuil de Mon chemin
  * (`examens.lusPourExamens`). Rien d'autre : ni l'horloge, ni une durée.
  */
 export type ContexteExamens = { liste: readonly Examen[]; lus: number };
@@ -1192,9 +1192,9 @@ export function repriseRev(p: Progress): number {
  * Fin de la séance d'Échauffer : le pas est fait, et la pile se vide pour le bloc suivant.
  *
  * En rattrapage, il n'y a pas de Clore : le bloc fait est la fin de la journée travaillée,
- * et il plante la graine du jour. Une seule par jour, comme partout (`noterJourTravaille`) :
+ * et il pose la pierre du jour. Une seule par jour, comme partout (`noterJourTravaille`) :
  * les blocs suivants, ou la session normale rouverte quand la pile est redescendue, n'en
- * plantent pas de seconde.
+ * posent pas de seconde.
  */
 export function finEchauffer(p: Progress, aujourdhui: string): Progress {
   const bloc = p.catchup && currentStep(p)?.id === 'reviser';
@@ -1230,7 +1230,7 @@ export const ajouterCartes = assurerCartes;
  * La première session est finie : une carte par brique vue, les activités notées pour
  * Tao (trois leçons, une lecture), et le drapeau tombe. On n'y revient plus.
  *
- * La journée est faite : la première graine est plantée, les six pas sont marqués, et
+ * La journée est faite : la première pierre est posée, les six pas sont marqués, et
  * la session complète commence le lendemain, au jour `jourSuivant` du parcours. La
  * première session enseigne d'un coup les premiers jours du parcours choisi, « Lire »
  * comme « Passer le HSK » (人, 大, 天) : l'appelant donne le jour qui les suit (`jourApresDepart` de `premiere.ts`), pour
@@ -1698,7 +1698,7 @@ export function sessionSteps(p: Progress): Step[] {
     { id: 'apprendre', t: 'Apprendre', d: 'Une brique, puis ses composés', m: m[2], go: 'learn' },
     { id: 'utiliser', t: 'Utiliser', d: 'Deux mots, une phrase, trois lignes', m: m[3], go: 'use' },
     { id: 'fixer', t: 'Fixer', d: 'Une vérification', m: m[4], go: 'check' },
-    { id: 'clore', t: 'Clore', d: 'Le constat et la graine', m: m[5], go: 'close' }
+    { id: 'clore', t: 'Clore', d: 'Le constat et la pierre du jour', m: m[5], go: 'close' }
   ];
 }
 
@@ -1755,7 +1755,7 @@ export function plusSteps(p: Progress): Step[] {
     .filter((s) => s.id !== 'ouvrir' && (s.id !== 'echauffer' || echauffer))
     .map((s) => {
       if (s.id === 'apprendre') return { ...s, d: 'Une brique nouvelle, la suivante du parcours' };
-      if (s.id === 'clore') return { ...s, d: 'Le constat, sans seconde graine' };
+      if (s.id === 'clore') return { ...s, d: 'Le constat, sans seconde pierre' };
       return s;
     });
 }
@@ -1816,7 +1816,7 @@ export function guide(p: Progress): string {
     return `${p.due} cartes attendent. ${BLOCS_EN_TOUTES_LETTRES[blocs]} de cinq minutes, pas de nouveau caractère tant que la pile n'est pas redescendue.`;
   }
   const budget = `Six pas, ${EN_TOUTES_LETTRES[p.budget]} minutes.`;
-  if (allDone(p)) return `${budget} La graine du jour est plantée. Rendez-vous demain.`;
+  if (allDone(p)) return `${budget} La pierre du jour est posée. Rendez-vous demain.`;
   if (started(p)) return "On reprend là où on s'est arrêté.";
   return `${budget} Un seul bouton.`;
 }

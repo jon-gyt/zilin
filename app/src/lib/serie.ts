@@ -1,5 +1,5 @@
 /**
- * La série : une graine par jour travaillé, sept graines font un arbre.
+ * La série : une pierre posée par jour travaillé, sept pierres font un pavillon 亭.
  *
  * Le jour de repos protège la série. Il se gagne (une semaine complète de sept jours
  * travaillés en donne un, deux en réserve au plus) et se consomme tout seul pour couvrir
@@ -12,10 +12,14 @@
  * (`aujourdhui`, au format AAAA-MM-JJ).
  */
 import { joursEntre } from './session';
+import { remplir, type TextesChemin } from './ecrans';
 
 /* ---------- les constantes du brief ---------- */
 
-/** Sept graines font un arbre. C'est aussi la semaine complète qui donne un jour de repos. */
+/**
+ * Sept pierres font un pavillon. C'est aussi la semaine complète qui donne un jour de repos.
+ * L'identifiant garde son nom d'origine : aucune migration.
+ */
 export const GRAINES_PAR_ARBRE = 7;
 
 /** Deux jours de repos en réserve au plus. Ce qui est gagné au-delà ne s'accumule pas. */
@@ -60,7 +64,8 @@ export const CADEAUX: Record<Palier, Cadeau> = {
   365: {
     court: 'Wenlu complet offert',
     titre: 'Wenlu complet à vie, offert',
-    detail: 'Un an sans manquer. La forêt est à toi.',
+    /* Le texte vient du pipeline (`ecrans.json`, `chemin/cadeau-an`) : `detailCadeau`. */
+    detail: '',
     remise: false
   }
 };
@@ -70,6 +75,11 @@ export const NOTE_REMISE = 'La remise ne vaut pas pour l’abonnement mensuel.';
 
 /** Les deux façons d'acheter Wenlu. La remise du 100e jour ne vaut que pour l'achat à vie. */
 export type Achat = 'vie' | 'mensuel';
+
+/** Ce que le cadeau ouvre, en une phrase ; celui des 365 jours vient de `ecrans.json`. */
+export function detailCadeau(palier: Palier, t: TextesChemin): string {
+  return palier === 365 ? t['cadeau-an'] : CADEAUX[palier].detail;
+}
 
 /** Pas de remise sur l'abonnement mensuel : la règle est ici, pas dans un écran. */
 export function remiseApplicable(palier: Palier, achat: Achat): boolean {
@@ -120,12 +130,12 @@ export function normaliser(jours: readonly string[]): string[] {
 
 /* ---------- l'état de la série ---------- */
 
-/** Une case de la semaine : une graine plantée, ou la place qu'elle aura. */
+/** Une case de la semaine : une pierre posée, ou la place qu'elle aura. */
 export type Graine = {
   jour: string;
   /** L'initiale du jour : L M M J V S D. */
   lettre: string;
-  /** La journée a été travaillée : la graine est plantée. */
+  /** La journée a été travaillée : la pierre est posée. */
   travaille: boolean;
   /** C'est aujourd'hui : la seule case que le cinabre marque. */
   aujourdhui: boolean;
@@ -144,13 +154,13 @@ export type Serie = {
   record: number;
   /** Jours de repos en réserve, deux au plus. */
   reserve: number;
-  /** Total des journées travaillées : une graine par journée. */
+  /** Total des journées travaillées : une pierre par journée (`graines`, le nom d'origine). */
   graines: number;
-  /** Sept graines font un arbre. */
+  /** Sept pierres font un pavillon (`arbres`, le nom d'origine). */
   arbres: number;
   /** Les sept cases de la semaine en cours, du lundi au dimanche. */
   semaine: Graine[];
-  /** Les graines plantées cette semaine. */
+  /** Les pierres posées cette semaine. */
   grainesSemaine: number;
   /** Les paliers déjà atteints, du plus petit au plus grand. */
   atteints: Palier[];
@@ -262,9 +272,9 @@ export function messageCadeau(palier: Palier): string {
   return `Que t'offre ${CADEAUX[palier].court}.`;
 }
 
-/** Les graines de la semaine, et l'arbre qu'elles font une fois les sept plantées. */
-export function messageSemaine(s: Serie): string {
-  const graines = pluriel(s.grainesSemaine, 'graine plantée', 'graines plantées');
-  if (s.grainesSemaine >= GRAINES_PAR_ARBRE) return `${graines} cette semaine : un arbre de plus.`;
-  return `${graines} cette semaine. Sept graines font un arbre.`;
+/** Les pierres de la semaine, et le pavillon qu'elles font une fois les sept posées. */
+export function messageSemaine(s: Serie, t: TextesChemin): string {
+  const n = s.grainesSemaine;
+  if (n >= GRAINES_PAR_ARBRE) return remplir(t['serie-semaine-pleine'], { n });
+  return n === 1 ? t['serie-semaine-une'] : remplir(t['serie-semaine'], { n });
 }

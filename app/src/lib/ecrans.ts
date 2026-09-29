@@ -1,8 +1,9 @@
 /**
- * Les textes d'interface de « Lire le monde » (Chercher), du tableau des révisions (Ma
- * forêt), les lignes des examens sur « Mon personnage » et « La route devant » (stories
- * 8.5 et 8.6), et ceux de la question « Dis-le » et de son réglage (story 9.1), tels que le
- * pipeline les exporte dans `ecrans.json` (`data/sources/ecrans/`, `data/schema.md`).
+ * Les textes d'interface de « Lire le monde » (Chercher), du tableau des révisions (Mon
+ * chemin), les lignes des examens sur « Mon personnage » et la route devant (stories 8.5 et
+ * 8.6), ceux de la question « Dis-le » et de son réglage (story 9.1), et l'image du chemin
+ * (Mon chemin 路, la pierre posée, les auberges, les rendez-vous), tels que le pipeline les
+ * exporte dans `ecrans.json` (`data/sources/ecrans/`, `data/schema.md`).
  *
  * L'app ne rédige aucun de ces textes : elle les lit ici et remplit leurs jetons entre
  * accolades (`remplir`). Un export sans `ecrans.json` rend des textes vides : l'écran se
@@ -125,6 +126,72 @@ export const CLES_DIRE = [
   'refuse',
   'absent',
   'indisponible'
+/**
+ * L'image du chemin (décisions du propriétaire du 29 septembre 2026, maquette validée
+ * `maquettes/chemin.html`) : Mon chemin 路, la pierre posée, les pavillons de la semaine, les
+ * auberges des familles, les rendez-vous de la route devant. Dans l'ordre de la source.
+ */
+export const CLES_CHEMIN = [
+  'case',
+  'menu-faite',
+  'menu-faite-plus',
+  'menu-faite-plus-une',
+  'devant',
+  'devant-voix',
+  'tao-faite',
+  'tao-clore',
+  'clore-titre',
+  'clore-deja',
+  'clore-dessin',
+  'semaine-voix',
+  'serie-semaine',
+  'serie-semaine-une',
+  'serie-semaine-pleine',
+  'cadeau-an',
+  'titre',
+  'aide',
+  'lus',
+  'lus-un',
+  'familles',
+  'familles-une',
+  'jour',
+  'scene-voix',
+  'devant-titre',
+  'derriere-titre',
+  'premier-jour',
+  'sceau-jour',
+  'auberge-voix',
+  'plus-voix',
+  'plus-voix-un',
+  'repli',
+  'repli-voix',
+  'legende-lu',
+  'legende-encours',
+  'legende-avenir',
+  'legende-jour',
+  'rdv-prochain',
+  'rdv-ce-jour',
+  'semaine-titre',
+  'semaine-aucune',
+  'semaine-une',
+  'semaine-n',
+  'semaine-pleine',
+  'semaine-note',
+  'liste',
+  'retour',
+  'retour-jeu',
+  'famille-auberge',
+  'famille-voix',
+  'famille-sceau',
+  'famille-sceau-pose',
+  'famille-par',
+  'famille-plus-voix',
+  'fiche-lu',
+  'fiche-encours',
+  'fiche-avenir',
+  'fiche-pose',
+  'trophee-famille',
+  'trophee-serie'
 ] as const;
 
 export type CleLireLeMonde = (typeof CLES_LIRE_LE_MONDE)[number];
@@ -132,12 +199,14 @@ export type CleRevisions = (typeof CLES_REVISIONS)[number];
 export type ClePersonnage = (typeof CLES_PERSONNAGE)[number];
 export type CleRoute = (typeof CLES_ROUTE)[number];
 export type CleDire = (typeof CLES_DIRE)[number];
+export type CleChemin = (typeof CLES_CHEMIN)[number];
 
 export type TextesLireLeMonde = Record<CleLireLeMonde, string>;
 export type TextesRevisions = Record<CleRevisions, string>;
 export type TextesPersonnage = Record<ClePersonnage, string>;
 export type TextesRoute = Record<CleRoute, string>;
 export type TextesDire = Record<CleDire, string>;
+export type TextesChemin = Record<CleChemin, string>;
 
 export type Ecrans = {
   version: string;
@@ -147,6 +216,7 @@ export type Ecrans = {
   personnage: TextesPersonnage;
   route: TextesRoute;
   dire: TextesDire;
+  chemin: TextesChemin;
 };
 
 function vides<K extends string>(cles: readonly K[]): Record<K, string> {
@@ -161,7 +231,8 @@ export const SANS_ECRANS: Ecrans = {
   revisions: vides(CLES_REVISIONS),
   personnage: vides(CLES_PERSONNAGE),
   route: vides(CLES_ROUTE),
-  dire: vides(CLES_DIRE)
+  dire: vides(CLES_DIRE),
+  chemin: vides(CLES_CHEMIN)
 };
 
 function objet(v: unknown): Record<string, unknown> {
@@ -189,7 +260,8 @@ export function lireEcrans(brut: unknown): Ecrans {
     revisions: bloc(o.revisions, CLES_REVISIONS),
     personnage: bloc(o.personnage, CLES_PERSONNAGE),
     route: bloc(o.route, CLES_ROUTE),
-    dire: bloc(o.dire, CLES_DIRE)
+    dire: bloc(o.dire, CLES_DIRE),
+    chemin: bloc(o.chemin, CLES_CHEMIN)
   };
 }
 

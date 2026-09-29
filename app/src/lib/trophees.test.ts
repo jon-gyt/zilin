@@ -4,6 +4,7 @@ import { Rating } from 'ts-fsrs';
 import { VERSION_DONNEES, type Famille, type Index } from './content';
 import { caracteresLus } from './foret';
 import { CADEAUX, PALIERS } from './serie';
+import { lireEcrans } from './ecrans';
 import {
   emptyProgress,
   noterConteLu,
@@ -114,7 +115,7 @@ describe('les trophées de lecture', () => {
     expect(t[3].detail).toMatch(/premier seuil du français/);
   });
 
-  it('comptent les caractères lus comme Ma forêt, avec le même seuil de stabilité', () => {
+  it('comptent les caractères lus comme Mon chemin, avec le même seuil de stabilité', () => {
     const cs = famillesExport.flatMap((f) => [f.racine.c, ...f.fiches.map((x) => x.c)]);
     const lus = [...new Set(cs)].slice(0, 12).map(sue);
     const p = progression({ cartes: [...lus, neuve('朋')] });
@@ -431,7 +432,7 @@ describe('chaque trophée se gagne en lisant, jamais au temps passé', () => {
       ),
       budget: 20,
       tracees: ['人'],
-      /* Trois sessions le même jour : une graine, jamais plus. */
+      /* Trois sessions le même jour : une pierre, jamais plus. */
       joursTravailles: ['2026-02-28', '2026-03-01', '2026-03-01', '2026-03-01'],
       revisions: Array.from({ length: 40 }, () => ({ c: '月', correct: true, tries: 0, seconds: 90 }))
     });
@@ -553,16 +554,30 @@ describe('le tableau', () => {
     expect(prochain([])).toBeNull();
   });
 
-  it("se dit en une ligne dans Ma forêt : « N sur M · le prochain … »", () => {
+  it("se dit en une ligne dans Mon chemin : « N sur M · le prochain … »", () => {
     const t = tableau(progression(), contenuExport);
     expect(ligneEntree(t)).toMatch(/^0 sur \d+ · le prochain/);
     expect(ligneEntree(t)).toBe(`0 sur ${t.total} · le prochain à 10 caractères lus`);
   });
 
-  it('est la porte de Ma forêt, à la place des récompenses', () => {
-    const foret = readFileSync(new URL('Forest.svelte', import.meta.url), 'utf8');
-    expect(foret).toContain('<TropheesEntree');
-    expect(foret).not.toContain('>Récompenses</button>');
+  it('est la porte de Mon chemin, à la place des récompenses', () => {
+    const chemin = readFileSync(new URL('Chemin.svelte', import.meta.url), 'utf8');
+    expect(chemin).toContain('<TropheesEntree');
+    expect(chemin).not.toContain('>Récompenses</button>');
+  });
+
+  it('dit le sceau sur le fanion de son auberge, et une pierre par jour : les textes du pipeline', () => {
+    const textes = lireEcrans(
+      JSON.parse(readFileSync(new URL('../../public/data/0.1.0/ecrans.json', import.meta.url), 'utf8')) as unknown
+    ).chemin;
+    const t = tableau(progression(), { ...contenuExport, textes });
+    const section = (f: string) => t.sections.find((x) => x.famille === f)!;
+    expect(section('sceaux').explication).toBe('Une famille entière lue. Son sceau se pose sur le fanion de son auberge.');
+    expect(section('serie').explication).toContain('Un jour travaillé, une pierre, jamais plus');
+    expect(section('serie').trophees.find((x) => x.cible === 365)!.detail).toContain('Le chemin est à toi.');
+    for (const s of t.sections) expect(s.explication).not.toMatch(/graine|forêt|arbre|\bpot\b/i);
+    /* Sans les textes, ces lignes se taisent plutôt que d'être écrites dans le code. */
+    expect(tableau(progression(), contenuExport).sections.find((x) => x.famille === 'sceaux')!.explication).toBe('');
   });
 });
 

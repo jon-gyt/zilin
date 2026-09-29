@@ -2,7 +2,7 @@
   /**
    * L'écran hôte des jeux (stories 4b.1 à 4b.3, et 4b.5 pour la devinette du jour) : le
    * choix, une manche, le constat. Tao y est dans la posture « joue », la lanterne à la
-   * main, et le retour se fait vers Ma forêt ou le chemin.
+   * main, et le retour se fait vers le menu, ou vers Mon chemin.
    *
    * La devinette du jour passe en tête : une par jour, posée à l'ouverture, deux essais,
    * puis la correction par les briques. Son énoncé, ses leurres et le nom des briques
@@ -84,12 +84,14 @@
   import { humeur, stade } from './tao';
   import { AVANCE_MS, VERDICTS, delai } from './revision';
   import { echeance } from './session';
+  import { SANS_ECRANS, type TextesChemin } from './ecrans';
 
   let {
     p,
     jeu = null,
     montres = null,
     retour = 'home',
+    tc = SANS_ECRANS.chemin,
     onchoisir,
     onrepondu,
     ondevinette = () => undefined,
@@ -108,6 +110,8 @@
     montres?: readonly JeuId[] | null;
     /** D'où l'on vient : le bouton de sortie y ramène. */
     retour?: 'home' | 'foret';
+    /** L'image du chemin (`ecrans.json`) : le retour vers Mon chemin. */
+    tc?: TextesChemin;
     onchoisir: (id: JeuId | null) => void;
     /** Un événement de révision noté, rangé dans la progression. Un tour peut en rendre plusieurs. */
     onrepondu: (r: Revision) => void;
@@ -122,7 +126,7 @@
     onretour: () => void;
   } = $props();
 
-  const OU = { home: 'Revenir au menu', foret: 'Revenir à ma forêt' };
+  const OU = $derived({ home: 'Revenir au menu', foret: tc['retour-jeu'] });
 
   /** Pas de flash pour qui ne veut pas d'animation : les caractères restent affichés. */
   const reduit =
@@ -636,7 +640,7 @@
          ligne. « Aujourd'hui » (Tao et le jeu qu'elle tend, la lanterne de la devinette),
          puis « Les autres jeux », en cartes. Fonds neutres, la couleur dans les images. -->
     <div class="choix-haut">
-      <button class="k quit" onclick={onretour}>‹ {retour === 'home' ? 'Menu' : 'Ma forêt'}</button>
+      <button class="k quit" onclick={onretour}>‹ {retour === 'home' ? 'Menu' : tc.retour}</button>
       <span class="k">Une à trois minutes</span>
     </div>
     <div class="choix-titre">

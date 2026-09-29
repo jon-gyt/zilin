@@ -1,7 +1,7 @@
 <script lang="ts">
   /**
-   * Le tableau des trophées : ce que tu as su lire. On y entre depuis Ma forêt, par
-   * « Tes trophées », et le retour y ramène.
+   * Le tableau des trophées : ce que tu as su lire. On y entre depuis Mon chemin, par
+   * « Tes trophées », ou depuis l'annonce de sa porte, et le retour y ramène.
    *
    * Tout se calcule dans `trophees.ts`, depuis la progression et le contenu exporté.
    * Chaque trophée se gagne en lisant, jamais au temps passé : pas de points, pas de
@@ -17,6 +17,7 @@
   import Que from './Que.svelte';
   import Tao from './Tao.svelte';
   import { contenuTrophees, type ContenuTropheesLu } from './content';
+  import { SANS_ECRANS, type TextesChemin } from './ecrans';
   import type { Progress } from './session';
   import { humeur, stade } from './tao';
   import {
@@ -30,10 +31,16 @@
 
   let {
     p,
+    retour = '',
+    tc = SANS_ECRANS.chemin,
     onretour,
     onacquis
   }: {
     p: Progress;
+    /** Où ramène le retour ; vide, Mon chemin. */
+    retour?: string;
+    /** L'image du chemin (`ecrans.json`) : le retour, l'explication des sceaux et de la série. */
+    tc?: TextesChemin;
     onretour: () => void;
     /** Les trophées obtenus que la progression n'a pas encore notés : à ranger, datés du jour. */
     onacquis?: (ids: string[]) => void;
@@ -55,7 +62,7 @@
     };
   });
 
-  const t = $derived(lu ? tableau(p, lu) : null);
+  const t = $derived(lu ? tableau(p, { ...lu, textes: tc }) : null);
   const tous = $derived(t ? t.sections.flatMap((s) => s.trophees) : []);
 
   /* Ce qui est obtenu se note une fois ; la progression rangée, il n'y a plus rien à noter. */
@@ -87,7 +94,7 @@
 </script>
 
 <main class="screen troph">
-  <button class="k quit" onclick={onretour}>‹ Ma forêt</button>
+  <button class="k quit" onclick={onretour}>‹ {retour || tc.retour}</button>
   <header class="tete">
     <div class="grow">
       <div class="k surtitre">Ce que tu as su lire</div>

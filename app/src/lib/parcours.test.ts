@@ -4,7 +4,8 @@
  */
 import { describe, it, expect } from 'vitest';
 import { readFileSync } from 'node:fs';
-import { lireRythme } from './rythme';
+import { lireRythme, SANS_RYTHME } from './rythme';
+import { lireEcrans } from './ecrans';
 import { newCard } from './srs';
 import {
   anecdoteFaite,
@@ -38,6 +39,7 @@ import {
   fromJSON,
   jourLecon,
   jourParcours,
+  markDone,
   nextIndex,
   openDay,
   peutPlus,
@@ -53,6 +55,13 @@ import {
 } from './session';
 
 const JOUR = '2026-03-02';
+
+/** L'image du chemin, telle que le pipeline l'exporte (`ecrans.json`) : « Pierre posée ». */
+const CHEMIN = lireEcrans(
+  JSON.parse(readFileSync(new URL('../../public/data/0.1.0/ecrans.json', import.meta.url), 'utf8')) as unknown
+).chemin;
+/** Le menu avec les textes du chemin. */
+const menuC = (p: Progress) => menu(p, '', SANS_RYTHME, true, null, CHEMIN);
 const MAINTENANT = new Date('2026-03-02T08:30:00Z');
 
 /** Une journée ordinaire : la première session est derrière, rien n'est fait aujourd'hui. */
@@ -185,10 +194,10 @@ describe('travailler plus : une session de plus', () => {
   it('se propose une fois la journée faite, en contour, avec une brique', () => {
     const p = sessionFaite(ouverte());
     expect(peutPlus(p)).toBe(true);
-    const m = menu(p);
+    const m = menuC(p);
     expect(m.bouton).toBe('Une session de plus · une brique');
     expect(m.plein).toBe(false);
-    expect(m.ligne).toBe('Graine plantée, une seule par jour');
+    expect(m.ligne).toBe('Pierre posée, une seule par jour');
     expect(peutPlus(ouverte())).toBe(false);
   });
 
@@ -211,7 +220,7 @@ describe('travailler plus : une session de plus', () => {
     expect(r.ecran).toBe('rev');
   });
 
-  it('ne plante jamais une seconde graine, et le menu garde le compte', () => {
+  it('ne pose jamais une seconde pierre, et le menu garde le compte', () => {
     let p = sessionFaite(ouverte({ due: 0 }));
     expect(p.joursTravailles).toEqual([JOUR]);
     const jours = p.days;
@@ -226,7 +235,7 @@ describe('travailler plus : une session de plus', () => {
       expect(p.days).toBe(jours);
       expect(etatMenu(p)).toBe('faite');
     }
-    expect(menu(p).ligne).toBe('Graine plantée · 2 sessions de plus');
+    expect(menuC(p).ligne).toBe('Pierre posée · 2 sessions de plus');
     expect(menu(p).bouton).toBe('Une session de plus · une brique');
   });
 
@@ -284,7 +293,7 @@ describe('réviser avant la session', () => {
 });
 
 describe('le premier jour', () => {
-  it('arrive au menu en état « fait », la graine du jour plantée', () => {
+  it('arrive au menu en état « fait », la pierre du jour posée', () => {
     let p = emptyProgress(JOUR);
     expect(apresSplash(p)).toBe('premiere');
     expect(etatMenu(p)).toBe('premiere');
@@ -293,7 +302,7 @@ describe('le premier jour', () => {
     expect(apresSplash(p)).toBe('menu');
     expect(etatMenu(p)).toBe('faite');
     expect(p.joursTravailles).toEqual([JOUR]);
-    expect(menu(p).ligne).toBe('Graine plantée, une seule par jour');
+    expect(menuC(p).ligne).toBe('Pierre posée, une seule par jour');
     /* La session complète commence le lendemain, au premier jour du parcours. */
     const demain = openDay(p, '2026-03-03');
     expect(apresSplash(demain)).toBe('anec');
@@ -327,25 +336,25 @@ describe('le rattrapage : un bloc à la fois', () => {
     expect(ecranSuivant(setDue(p, 10, JOUR), true)).toBe('menu');
   });
 
-  it('Tao attend en pot, et le message reste neutre, sans compter les jours manqués', () => {
+  it('Tao attend au pavillon, et le message reste neutre, sans compter les jours manqués', () => {
     const p = rattrapage();
     const m = menu(p);
-    expect(m.tao.posture).toBe('pot');
+    expect(m.tao.posture).toBe('halte');
     expect(m.surtitre).toBe('Le retour');
     for (const t of [...phrasesDeTao(p), m.ligne, m.bouton]) expect(t).not.toMatch(/jour|manqu|absen/i);
-    /* Le bloc commencé, elle sort du pot. */
+    /* Le bloc commencé, elle quitte le pavillon et reprend le chemin. */
     expect(menu(finEchauffer(p, JOUR)).tao.posture).toBe('chemin');
   });
 
-  it('un bloc fait plante la graine du jour, une seule, comme un jour ordinaire', () => {
+  it('un bloc fait pose la pierre du jour, une seule, comme un jour ordinaire', () => {
     let p = rattrapage();
     expect(p.joursTravailles).toEqual([]);
-    /* L'anecdote ne fait pas un bloc : pas de graine pour elle seule. */
+    /* L'anecdote ne fait pas un bloc : pas de pierre pour elle seule. */
     p = anecdoteFaite(p, JOUR);
     expect(p.joursTravailles).toEqual([]);
     p = setDue(finEchauffer(p, JOUR), 27, JOUR);
     expect(p.joursTravailles).toEqual([JOUR]);
-    /* Le deuxième bloc, puis la pile redescendue et la session normale : jamais deux graines. */
+    /* Le deuxième bloc, puis la pile redescendue et la session normale : jamais deux pierres. */
     p = setDue(finEchauffer(p, JOUR), 10, JOUR);
     expect(p.catchup).toBe(false);
     expect(p.joursTravailles).toEqual([JOUR]);
@@ -383,6 +392,16 @@ describe('le menu', () => {
       const l = phrasesDeTao(q, '住');
       expect(l.length).toBeGreaterThan(0);
       for (const t of l) expect(t).not.toMatch(/dommage|oubli|retard|manqu/i);
+    }
+  });
+
+  it('la journée faite, Tao dit la pierre posée ; au pas 6, on pose la pierre', () => {
+    expect(phrasesDeTao(sessionFaite(ouverte()), '', SANS_RYTHME, true, CHEMIN)[0]).toBe('Pierre posée !');
+    let p = ouverte({ due: 0 });
+    for (const i of [0, 1, 2, 3, 4]) p = markDone(p, i, JOUR);
+    expect(phrasesDeTao(p, '', SANS_RYTHME, true, CHEMIN)).toContain('Pas 6, on pose la pierre !');
+    for (const q of [p, sessionFaite(ouverte())]) {
+      for (const t of phrasesDeTao(q, '', SANS_RYTHME, true, CHEMIN)) expect(t).not.toMatch(/graine|forêt|arbre/i);
     }
   });
 });

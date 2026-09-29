@@ -28,6 +28,7 @@ import {
 } from './session';
 import { humeur, type Humeur } from './tao';
 import { ligne, SANS_RYTHME, type TextesRythme } from './rythme';
+import { remplir, SANS_ECRANS, type TextesChemin } from './ecrans';
 import type { ExamenDuMenu } from './session';
 
 /* ---------- les écrans ---------- */
@@ -216,15 +217,21 @@ const VERBES: Partial<Record<StepId, string>> = {
   echauffer: "on s'échauffe",
   apprendre: 'on apprend',
   utiliser: 'on lit',
-  fixer: 'on vérifie',
-  clore: 'on plante la graine'
+  fixer: 'on vérifie'
 };
 
 /**
  * Ce que dit Tao sur le chemin : jamais un reproche, toujours une invitation. Un tap
  * sur elle, la phrase suivante. Son humeur vient des activités, jamais de l'horloge.
+ * `tc` : l'image du chemin (`ecrans.json`), « Pierre posée ! », « Pas 6, on pose la pierre ! ».
  */
-export function phrasesDeTao(p: Progress, caractere = '', t: TextesRythme = SANS_RYTHME, jouer = true): string[] {
+export function phrasesDeTao(
+  p: Progress,
+  caractere = '',
+  t: TextesRythme = SANS_RYTHME,
+  jouer = true,
+  tc: TextesChemin = SANS_ECRANS.chemin
+): string[] {
   const n = nextIndex(p);
   const s = n < 0 ? null : steps(p)[n];
   /* Un jour sans brique nouvelle, rien ne s'apprend : on revoit (la ligne vient de `rythme.json`). */
@@ -251,10 +258,10 @@ export function phrasesDeTao(p: Progress, caractere = '', t: TextesRythme = SANS
       l =
         p.plus > 0
           ? ['Quelle journée !', 'Encore une brique ?', 'À demain, sur le chemin.']
-          : ['Graine plantée !', jouer ? 'On joue un peu ?' : '', 'À demain, sur le chemin.'];
+          : [tc['tao-faite'], jouer ? 'On joue un peu ?' : '', 'À demain, sur le chemin.'];
       break;
     case 'entamee':
-      l = ['On reprend ici !', s ? `Pas ${n + 1}, ${VERBES[s.id] ?? 'on continue'} !` : ''];
+      l = ['On reprend ici !', s === null ? '' : s.id === 'clore' ? remplir(tc['tao-clore'], { n: n + 1 }) : `Pas ${n + 1}, ${VERBES[s.id] ?? 'on continue'} !`];
       break;
     default:
       l = [
@@ -283,26 +290,25 @@ export type ModeleMenu = {
   bouton: string;
   /** Le bouton plein, ou en contour pour la session de plus et ce qui vient après. */
   plein: boolean;
-  tao: { posture: 'chemin' | 'pot'; humeur: Humeur };
+  /** Sur le chemin, ou à la halte : assise au pavillon, un bol de thé à côté, au retour. */
+  tao: { posture: 'chemin' | 'halte'; humeur: Humeur };
   phrases: string[];
 };
-
-function sessionsDePlus(n: number): string {
-  return `${n} session${n > 1 ? 's' : ''} de plus`;
-}
 
 /**
  * `t` : les lignes du rythme gratuit (`rythme.json`) ; un jour sans brique nouvelle, la
  * carte dit la brique revue, et, quand la session de plus n'est pas du rythme de la
  * journée, le bouton de la journée faite devient « Réviser encore ». `jouer` : la porte de
  * Jouer est-elle montrée (`ouvertures.ts`) ? Tao ne propose pas un jeu qu'on ne voit pas.
+ * `tc` : l'image du chemin (`ecrans.json`), « Pierre posée, une seule par jour ».
  */
 export function menu(
   p: Progress,
   caractere = '',
   t: TextesRythme = SANS_RYTHME,
   jouer = true,
-  examen: ExamenDuMenu | null = null
+  examen: ExamenDuMenu | null = null,
+  tc: TextesChemin = SANS_ECRANS.chemin
 ): ModeleMenu {
   const etat = etatMenu(p);
   const l = steps(p).filter((s) => s.go !== null);
@@ -315,13 +321,13 @@ export function menu(
     position: n < 0 ? Math.max(0, c.length - 1) : n,
     duree: s?.m ?? '',
     tao: {
-      posture: (etat === 'rattrapage' && !entamee(p) ? 'pot' : 'chemin') as 'chemin' | 'pot',
+      posture: (etat === 'rattrapage' && !entamee(p) ? 'halte' : 'chemin') as 'chemin' | 'halte',
       humeur: (etat === 'faite' ? 'joie' : humeur(p.tao.activites, p.day)) as Humeur
     },
     /* Un examen ouvert, ou reçu aujourd'hui : Tao le dit d'abord, jamais au milieu d'un bloc. */
     phrases: [
       ...(examen !== null && examen.tao !== '' && etat !== 'rattrapage' && etat !== 'premiere' ? [examen.tao] : []),
-      ...phrasesDeTao(p, caractere, t, jouer)
+      ...phrasesDeTao(p, caractere, t, jouer, tc)
     ]
   };
   const pas = s ? `Pas ${n + 1} sur ${l.length} · ${s.t}` : '';
@@ -378,7 +384,13 @@ export function menu(
         ...base,
         surtitre: revue ? t.menu_revue_faite : appris ? 'Appris aujourd’hui' : 'La prochaine brique',
         brique: revue ? t.menu_brique_revue : appris ? 'la brique du jour' : 'la brique suivante',
-        ligne: p.plus > 0 ? `Graine plantée · ${sessionsDePlus(p.plus)}` : 'Graine plantée, une seule par jour',
+        /* Une pierre par jour, jamais deux : la session de plus se compte à part. */
+        ligne:
+          p.plus === 0
+            ? tc['menu-faite']
+            : p.plus === 1
+              ? tc['menu-faite-plus-une']
+              : remplir(tc['menu-faite-plus'], { n: p.plus }),
         duree: '',
         /* Au rythme gratuit, ou un jour sans brique : une révision de plus, jamais une brique. */
         /* Un examen à passer : « Passer l'examen 县试 », plein ; en attente, « Réviser encore ». */
