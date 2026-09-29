@@ -2843,7 +2843,1344 @@
      "太",
      "东"
     ],
-    "series": {},
+    "series": {
+     "A": {
+      "supports": [
+       {
+        "id": "s1",
+        "genre": "message",
+        "contexte": {
+         "fr": "Un message",
+         "en": "A message"
+        },
+        "lignes": [
+         {
+          "zh": "大明，今天中午我不去了。",
+          "pinyin": "dà míng jīn tiān zhōng wǔ wǒ bù qù le",
+          "fr": "Daming, finalement, ce midi, je n'y vais pas.",
+          "en": "Daming, I'm not going at noon today after all."
+         },
+         {
+          "zh": "明天中午再见面，好不好？",
+          "pinyin": "míng tiān zhōng wǔ zài jiàn miàn hǎo bu hǎo",
+          "fr": "On se voit plutôt demain midi, d'accord ?",
+          "en": "Shall we meet tomorrow at noon instead?"
+         }
+        ]
+       },
+       {
+        "id": "s2",
+        "genre": "billet",
+        "contexte": {
+         "fr": "Un billet",
+         "en": "A ticket"
+        },
+        "lignes": [
+         {
+          "zh": "火车",
+          "pinyin": "huǒ chē",
+          "fr": "Train",
+          "en": "Train"
+         },
+         {
+          "zh": "南京 — 中山",
+          "pinyin": "nán jīng zhōng shān",
+          "fr": "Nankin — Zhongshan",
+          "en": "Nanjing — Zhongshan"
+         },
+         {
+          "zh": "七月十五日上午",
+          "pinyin": "qī yuè shí wǔ rì shàng wǔ",
+          "fr": "15 juillet, le matin",
+          "en": "15 July, morning"
+         }
+        ]
+       },
+       {
+        "id": "s3",
+        "genre": "note",
+        "contexte": {
+         "fr": "Un mot sur une porte",
+         "en": "A note on a door"
+        },
+        "lignes": [
+         {
+          "zh": "王先生上午出门了。",
+          "pinyin": "wáng xiān sheng shàng wǔ chū mén le",
+          "fr": "M. Wang est sorti ce matin.",
+          "en": "Mr Wang went out this morning."
+         },
+         {
+          "zh": "中午再来！",
+          "pinyin": "zhōng wǔ zài lái",
+          "fr": "Repassez à midi !",
+          "en": "Come back at noon!"
+         }
+        ]
+       },
+       {
+        "id": "s4",
+        "genre": "calendrier",
+        "contexte": {
+         "fr": "Une page de calendrier",
+         "en": "A calendar page"
+        },
+        "lignes": [
+         {
+          "zh": "五月一日",
+          "pinyin": "wǔ yuè yī rì",
+          "fr": "1er mai",
+          "en": "1 May"
+         },
+         {
+          "zh": "星期五",
+          "pinyin": "xīng qī wǔ",
+          "fr": "vendredi",
+          "en": "Friday"
+         },
+         {
+          "zh": "上午：见王太太",
+          "pinyin": "shàng wǔ jiàn wáng tài tai",
+          "fr": "Matin : voir Mme Wang",
+          "en": "Morning: see Mrs Wang"
+         }
+        ]
+       }
+      ],
+      "questions": [
+       {
+        "type": "sens",
+        "consigne": {
+         "fr": "Que veut dire ce caractère ?",
+         "en": "What does this character mean?"
+        },
+        "objet": {
+         "zh": "老",
+         "pinyin": "lǎo",
+         "fr": "vieux, âgé",
+         "en": "old"
+        },
+        "choix": [
+         {
+          "fr": "haut",
+          "en": "tall"
+         },
+         {
+          "fr": "long",
+          "en": "long"
+         },
+         {
+          "fr": "vieux",
+          "en": "old"
+         },
+         {
+          "fr": "lourd",
+          "en": "heavy"
+         }
+        ],
+        "reponse": 2,
+        "porte": [
+         "老"
+        ],
+        "caracteres": [
+         "老"
+        ]
+       },
+       {
+        "type": "vrai_faux",
+        "support": "s1",
+        "consigne": {
+         "fr": "Vrai ou faux ?",
+         "en": "True or false?"
+        },
+        "affirmation": {
+         "zh": "明明今天中午去见大明。",
+         "pinyin": "míng míng jīn tiān zhōng wǔ qù jiàn dà míng",
+         "fr": "Mingming va voir Daming ce midi.",
+         "en": "Mingming is going to see Daming at noon today."
+        },
+        "reponse": false,
+        "porte": [
+         "不",
+         "去",
+         "了"
+        ],
+        "caracteres": [
+         "大",
+         "明",
+         "今",
+         "天",
+         "中",
+         "午",
+         "我",
+         "不",
+         "去",
+         "了",
+         "再",
+         "见",
+         "面",
+         "好"
+        ]
+       },
+       {
+        "type": "replique",
+        "support": "s1",
+        "consigne": {
+         "fr": "Que réponds-tu ?",
+         "en": "What do you reply?"
+        },
+        "choix": [
+         {
+          "zh": "我是大学生。",
+          "pinyin": "wǒ shì dà xué sheng",
+          "fr": "Je suis étudiant.",
+          "en": "I'm a university student."
+         },
+         {
+          "zh": "好，明天中午见！",
+          "pinyin": "hǎo míng tiān zhōng wǔ jiàn",
+          "fr": "D'accord, à demain midi !",
+          "en": "OK, see you tomorrow at noon!"
+         },
+         {
+          "zh": "今天是星期三。",
+          "pinyin": "jīn tiān shì xīng qī sān",
+          "fr": "Aujourd'hui, c'est mercredi.",
+          "en": "Today is Wednesday."
+         },
+         {
+          "zh": "明天是七月一日。",
+          "pinyin": "míng tiān shì qī yuè yī rì",
+          "fr": "Demain, c'est le 1er juillet.",
+          "en": "Tomorrow is 1 July."
+         }
+        ],
+        "reponse": 1,
+        "porte": [
+         "中",
+         "午",
+         "见"
+        ],
+        "caracteres": [
+         "大",
+         "明",
+         "今",
+         "天",
+         "中",
+         "午",
+         "我",
+         "不",
+         "去",
+         "了",
+         "再",
+         "见",
+         "面",
+         "好",
+         "是",
+         "学",
+         "生",
+         "星",
+         "期",
+         "三",
+         "七",
+         "月",
+         "一",
+         "日"
+        ]
+       },
+       {
+        "type": "comprendre",
+        "support": "s2",
+        "consigne": {
+         "fr": "Où va ce train ?",
+         "en": "Where is this train going?"
+        },
+        "choix": [
+         {
+          "fr": "À Nanjing",
+          "en": "To Nanjing"
+         },
+         {
+          "fr": "À Pékin",
+          "en": "To Beijing"
+         },
+         {
+          "fr": "À Shanghai",
+          "en": "To Shanghai"
+         },
+         {
+          "fr": "À Zhongshan",
+          "en": "To Zhongshan"
+         }
+        ],
+        "reponse": 3,
+        "porte": [
+         "中",
+         "山"
+        ],
+        "caracteres": [
+         "火",
+         "车",
+         "南",
+         "京",
+         "中",
+         "山",
+         "七",
+         "月",
+         "十",
+         "五",
+         "日",
+         "上",
+         "午"
+        ]
+       },
+       {
+        "type": "reperer",
+        "support": "s2",
+        "consigne": {
+         "fr": "Touche la ville de départ.",
+         "en": "Tap the city the train leaves from."
+        },
+        "choix": [
+         "火车",
+         "南京",
+         "中山",
+         "上午"
+        ],
+        "reponse": 1,
+        "porte": [
+         "南",
+         "京"
+        ],
+        "caracteres": [
+         "火",
+         "车",
+         "南",
+         "京",
+         "中",
+         "山",
+         "七",
+         "月",
+         "十",
+         "五",
+         "日",
+         "上",
+         "午"
+        ]
+       },
+       {
+        "type": "caractere",
+        "consigne": {
+         "fr": "Quel caractère a ce sens ?",
+         "en": "Which character has this meaning?"
+        },
+        "objet": {
+         "zh": "南",
+         "pinyin": "nán",
+         "fr": "sud",
+         "en": "south"
+        },
+        "choix": [
+         "东",
+         "西",
+         "南",
+         "两"
+        ],
+        "reponse": 2,
+        "porte": [
+         "南"
+        ],
+        "caracteres": [
+         "南",
+         "东",
+         "西",
+         "两"
+        ]
+       },
+       {
+        "type": "comprendre",
+        "support": "s3",
+        "consigne": {
+         "fr": "Que dit ce mot ?",
+         "en": "What does this note say?"
+        },
+        "choix": [
+         {
+          "fr": "M. Wang est sorti : repassez à midi.",
+          "en": "Mr Wang is out: come back at noon."
+         },
+         {
+          "fr": "M. Wang arrive ce matin : attendez-le.",
+          "en": "Mr Wang arrives this morning: wait for him."
+         },
+         {
+          "fr": "M. Wang ne reçoit pas à midi.",
+          "en": "Mr Wang sees nobody at noon."
+         },
+         {
+          "fr": "La porte n'ouvre qu'à midi.",
+          "en": "The door only opens at noon."
+         }
+        ],
+        "reponse": 0,
+        "porte": [
+         "出",
+         "门",
+         "再",
+         "来"
+        ],
+        "caracteres": [
+         "王",
+         "先",
+         "生",
+         "上",
+         "午",
+         "出",
+         "门",
+         "了",
+         "中",
+         "再",
+         "来"
+        ]
+       },
+       {
+        "type": "reperer",
+        "support": "s3",
+        "consigne": {
+         "fr": "Touche le mot qui dit quand M. Wang est sorti.",
+         "en": "Tap the word that says when Mr Wang went out."
+        },
+        "choix": [
+         "王先生",
+         "上午",
+         "出门",
+         "中午"
+        ],
+        "reponse": 1,
+        "porte": [
+         "上",
+         "午"
+        ],
+        "caracteres": [
+         "王",
+         "先",
+         "生",
+         "上",
+         "午",
+         "出",
+         "门",
+         "了",
+         "中",
+         "再",
+         "来"
+        ]
+       },
+       {
+        "type": "trou",
+        "consigne": {
+         "fr": "Quel caractère manque dans ce mot ?",
+         "en": "Which character is missing from this word?"
+        },
+        "objet": {
+         "zh": "再见",
+         "pinyin": "zài jiàn",
+         "fr": "au revoir",
+         "en": "goodbye"
+        },
+        "trou": 0,
+        "choix": [
+         "两",
+         "再",
+         "面",
+         "百"
+        ],
+        "reponse": 1,
+        "porte": [
+         "再"
+        ],
+        "caracteres": [
+         "再",
+         "见",
+         "两",
+         "面",
+         "百"
+        ]
+       },
+       {
+        "type": "vrai_faux",
+        "support": "s4",
+        "consigne": {
+         "fr": "Vrai ou faux ?",
+         "en": "True or false?"
+        },
+        "affirmation": {
+         "zh": "五月一日上午见王太太。",
+         "pinyin": "wǔ yuè yī rì shàng wǔ jiàn wáng tài tai",
+         "fr": "Le 1er mai au matin : voir Mme Wang.",
+         "en": "1 May, morning: see Mrs Wang."
+        },
+        "reponse": true,
+        "porte": [
+         "上",
+         "午",
+         "太"
+        ],
+        "caracteres": [
+         "五",
+         "月",
+         "一",
+         "日",
+         "星",
+         "期",
+         "上",
+         "午",
+         "见",
+         "王",
+         "太"
+        ]
+       }
+      ],
+      "glose": {
+       "一": {
+        "pinyin": "yī",
+        "fr": "un",
+        "en": "one"
+       },
+       "七月": {
+        "pinyin": "qī yuè",
+        "fr": "juillet",
+        "en": "July"
+       },
+       "上午": {
+        "pinyin": "shàng wǔ",
+        "fr": "matin, matinée",
+        "en": "morning"
+       },
+       "不": {
+        "pinyin": "bù",
+        "fr": "ne… pas",
+        "en": "not"
+       },
+       "中午": {
+        "pinyin": "zhōng wǔ",
+        "fr": "midi",
+        "en": "noon"
+       },
+       "中山": {
+        "pinyin": "zhōng shān",
+        "fr": "Zhongshan (nom de lieu)",
+        "en": "Zhongshan (a place name)"
+       },
+       "了": {
+        "pinyin": "le",
+        "fr": "(action accomplie, changement)",
+        "en": "(completed action, change)"
+       },
+       "五月": {
+        "pinyin": "wǔ yuè",
+        "fr": "mai",
+        "en": "May"
+       },
+       "今天": {
+        "pinyin": "jīn tiān",
+        "fr": "aujourd'hui",
+        "en": "today"
+       },
+       "再": {
+        "pinyin": "zài",
+        "fr": "de nouveau ; plutôt, alors",
+        "en": "again; then, instead"
+       },
+       "出门": {
+        "pinyin": "chū mén",
+        "fr": "sortir",
+        "en": "to go out"
+       },
+       "十五日": {
+        "pinyin": "shí wǔ rì",
+        "fr": "le 15 (du mois)",
+        "en": "the 15th (of the month)"
+       },
+       "南京": {
+        "pinyin": "nán jīng",
+        "fr": "Nankin",
+        "en": "Nanjing"
+       },
+       "去": {
+        "pinyin": "qù",
+        "fr": "aller",
+        "en": "to go"
+       },
+       "大学生": {
+        "pinyin": "dà xué sheng",
+        "fr": "étudiant",
+        "en": "university student"
+       },
+       "大明": {
+        "pinyin": "dà míng",
+        "fr": "Daming (prénom)",
+        "en": "Daming (first name)"
+       },
+       "好": {
+        "pinyin": "hǎo",
+        "fr": "bien, bon ; d'accord",
+        "en": "good; OK"
+       },
+       "好不好": {
+        "pinyin": "hǎo bu hǎo",
+        "fr": "d'accord ?",
+        "en": "OK?"
+       },
+       "我": {
+        "pinyin": "wǒ",
+        "fr": "je, moi",
+        "en": "I, me"
+       },
+       "日": {
+        "pinyin": "rì",
+        "fr": "soleil ; jour (du mois)",
+        "en": "sun; day (of the month)"
+       },
+       "明天": {
+        "pinyin": "míng tiān",
+        "fr": "demain",
+        "en": "tomorrow"
+       },
+       "明明": {
+        "pinyin": "míng míng",
+        "fr": "Mingming (prénom)",
+        "en": "Mingming (first name)"
+       },
+       "星期三": {
+        "pinyin": "xīng qī sān",
+        "fr": "mercredi",
+        "en": "Wednesday"
+       },
+       "星期五": {
+        "pinyin": "xīng qī wǔ",
+        "fr": "vendredi",
+        "en": "Friday"
+       },
+       "是": {
+        "pinyin": "shì",
+        "fr": "être",
+        "en": "to be"
+       },
+       "来": {
+        "pinyin": "lái",
+        "fr": "venir",
+        "en": "to come"
+       },
+       "火车": {
+        "pinyin": "huǒ chē",
+        "fr": "train",
+        "en": "train"
+       },
+       "王先生": {
+        "pinyin": "wáng xiān sheng",
+        "fr": "M. Wang",
+        "en": "Mr Wang"
+       },
+       "王太太": {
+        "pinyin": "wáng tài tai",
+        "fr": "Mme Wang",
+        "en": "Mrs Wang"
+       },
+       "见": {
+        "pinyin": "jiàn",
+        "fr": "voir ; rendez-vous",
+        "en": "to see; see you"
+       },
+       "见面": {
+        "pinyin": "jiàn miàn",
+        "fr": "se voir, se retrouver",
+        "en": "to meet"
+       }
+      }
+     },
+     "B": {
+      "supports": [
+       {
+        "id": "s1",
+        "genre": "pancarte",
+        "contexte": {
+         "fr": "Un panneau",
+         "en": "A sign"
+        },
+        "lignes": [
+         {
+          "zh": "出口",
+          "pinyin": "chū kǒu",
+          "fr": "Sortie",
+          "en": "Exit"
+         },
+         {
+          "zh": "东口：中山门",
+          "pinyin": "dōng kǒu zhōng shān mén",
+          "fr": "Sortie est : Zhongshanmen",
+          "en": "East exit: Zhongshanmen"
+         },
+         {
+          "zh": "西口：南京大学",
+          "pinyin": "xī kǒu nán jīng dà xué",
+          "fr": "Sortie ouest : université de Nankin",
+          "en": "West exit: Nanjing University"
+         }
+        ]
+       },
+       {
+        "id": "s2",
+        "genre": "message",
+        "contexte": {
+         "fr": "Un message",
+         "en": "A message"
+        },
+        "lignes": [
+         {
+          "zh": "明明，我父母今天从南京来了！",
+          "pinyin": "míng míng wǒ fù mǔ jīn tiān cóng nán jīng lái le",
+          "fr": "Mingming, mes parents sont arrivés de Nankin aujourd'hui !",
+          "en": "Mingming, my parents arrived from Nanjing today!"
+         },
+         {
+          "zh": "明天上午，我不去学中文了。",
+          "pinyin": "míng tiān shàng wǔ wǒ bù qù xué zhōng wén le",
+          "fr": "Demain matin, je ne vais pas au cours de chinois.",
+          "en": "Tomorrow morning I'm not going to Chinese class."
+         }
+        ]
+       },
+       {
+        "id": "s3",
+        "genre": "note",
+        "contexte": {
+         "fr": "Un mot sur une porte",
+         "en": "A note on a door"
+        },
+        "lignes": [
+         {
+          "zh": "星期天不开门。",
+          "pinyin": "xīng qī tiān bù kāi mén",
+          "fr": "Fermé le dimanche.",
+          "en": "Closed on Sundays."
+         },
+         {
+          "zh": "星期六只开上午。",
+          "pinyin": "xīng qī liù zhǐ kāi shàng wǔ",
+          "fr": "Le samedi, ouvert le matin seulement.",
+          "en": "On Saturdays, open in the morning only."
+         }
+        ]
+       },
+       {
+        "id": "s4",
+        "genre": "enseigne",
+        "contexte": {
+         "fr": "Une enseigne",
+         "en": "A sign"
+        },
+        "lignes": [
+         {
+          "zh": "南方水果",
+          "pinyin": "nán fāng shuǐ guǒ",
+          "fr": "Fruits du Sud",
+          "en": "Southern Fruit"
+         }
+        ]
+       }
+      ],
+      "questions": [
+       {
+        "type": "reperer",
+        "support": "s1",
+        "consigne": {
+         "fr": "Touche le mot qui veut dire « sortie ».",
+         "en": "Tap the word that means “exit”."
+        },
+        "choix": [
+         "东口",
+         "西口",
+         "中山门",
+         "出口"
+        ],
+        "reponse": 3,
+        "porte": [
+         "出",
+         "口"
+        ],
+        "caracteres": [
+         "出",
+         "口",
+         "东",
+         "中",
+         "山",
+         "门",
+         "西",
+         "南",
+         "京",
+         "大",
+         "学"
+        ]
+       },
+       {
+        "type": "comprendre",
+        "support": "s1",
+        "consigne": {
+         "fr": "Par quelle sortie va-t-on à l'université ?",
+         "en": "Which exit leads to the university?"
+        },
+        "choix": [
+         {
+          "fr": "Par la sortie est",
+          "en": "The east exit"
+         },
+         {
+          "fr": "Par la sortie ouest",
+          "en": "The west exit"
+         },
+         {
+          "fr": "Par la sortie sud",
+          "en": "The south exit"
+         },
+         {
+          "fr": "Par la sortie nord",
+          "en": "The north exit"
+         }
+        ],
+        "reponse": 1,
+        "porte": [
+         "西",
+         "口"
+        ],
+        "caracteres": [
+         "出",
+         "口",
+         "东",
+         "中",
+         "山",
+         "门",
+         "西",
+         "南",
+         "京",
+         "大",
+         "学"
+        ]
+       },
+       {
+        "type": "sens",
+        "consigne": {
+         "fr": "Que veut dire ce caractère ?",
+         "en": "What does this character mean?"
+        },
+        "objet": {
+         "zh": "两",
+         "pinyin": "liǎng",
+         "fr": "deux, les deux",
+         "en": "two, both"
+        },
+        "choix": [
+         {
+          "fr": "deux",
+          "en": "two"
+         },
+         {
+          "fr": "cent",
+          "en": "hundred"
+         },
+         {
+          "fr": "moitié",
+          "en": "half"
+         },
+         {
+          "fr": "sept",
+          "en": "seven"
+         }
+        ],
+        "reponse": 0,
+        "porte": [
+         "两"
+        ],
+        "caracteres": [
+         "两"
+        ]
+       },
+       {
+        "type": "comprendre",
+        "support": "s2",
+        "consigne": {
+         "fr": "Qui est arrivé aujourd'hui ?",
+         "en": "Who arrived today?"
+        },
+        "choix": [
+         {
+          "fr": "M. Wang",
+          "en": "Mr Wang"
+         },
+         {
+          "fr": "Sa professeure de chinois",
+          "en": "His Chinese teacher"
+         },
+         {
+          "fr": "Ses parents",
+          "en": "His parents"
+         },
+         {
+          "fr": "Mingming",
+          "en": "Mingming"
+         }
+        ],
+        "reponse": 2,
+        "porte": [
+         "父",
+         "母",
+         "来"
+        ],
+        "caracteres": [
+         "明",
+         "我",
+         "父",
+         "母",
+         "今",
+         "天",
+         "从",
+         "南",
+         "京",
+         "来",
+         "了",
+         "上",
+         "午",
+         "不",
+         "去",
+         "学",
+         "中",
+         "文"
+        ]
+       },
+       {
+        "type": "replique",
+        "support": "s2",
+        "consigne": {
+         "fr": "Que réponds-tu ?",
+         "en": "What do you reply?"
+        },
+        "choix": [
+         {
+          "zh": "明天是星期一。",
+          "pinyin": "míng tiān shì xīng qī yī",
+          "fr": "Demain, c'est lundi.",
+          "en": "Tomorrow is Monday."
+         },
+         {
+          "zh": "七月十五日。",
+          "pinyin": "qī yuè shí wǔ rì",
+          "fr": "Le 15 juillet.",
+          "en": "15 July."
+         },
+         {
+          "zh": "王先生是老人。",
+          "pinyin": "wáng xiān sheng shì lǎo rén",
+          "fr": "M. Wang est une personne âgée.",
+          "en": "Mr Wang is an old man."
+         },
+         {
+          "zh": "太好了！问父母好！",
+          "pinyin": "tài hǎo le wèn fù mǔ hǎo",
+          "fr": "Super ! Salue tes parents de ma part !",
+          "en": "Great! Say hello to your parents for me!"
+         }
+        ],
+        "reponse": 3,
+        "porte": [
+         "问",
+         "父",
+         "母"
+        ],
+        "caracteres": [
+         "明",
+         "我",
+         "父",
+         "母",
+         "今",
+         "天",
+         "从",
+         "南",
+         "京",
+         "来",
+         "了",
+         "上",
+         "午",
+         "不",
+         "去",
+         "学",
+         "中",
+         "文",
+         "是",
+         "星",
+         "期",
+         "一",
+         "七",
+         "月",
+         "十",
+         "五",
+         "日",
+         "王",
+         "先",
+         "生",
+         "老",
+         "人",
+         "太",
+         "好",
+         "问"
+        ]
+       },
+       {
+        "type": "caractere",
+        "consigne": {
+         "fr": "Quel caractère a ce sens ?",
+         "en": "Which character has this meaning?"
+        },
+        "objet": {
+         "zh": "父",
+         "pinyin": "fù",
+         "fr": "père",
+         "en": "father"
+        },
+        "choix": [
+         "夫",
+         "父",
+         "太",
+         "大"
+        ],
+        "reponse": 1,
+        "porte": [
+         "父"
+        ],
+        "caracteres": [
+         "父",
+         "夫",
+         "太",
+         "大"
+        ]
+       },
+       {
+        "type": "vrai_faux",
+        "support": "s3",
+        "consigne": {
+         "fr": "Vrai ou faux ?",
+         "en": "True or false?"
+        },
+        "affirmation": {
+         "zh": "星期天开门。",
+         "pinyin": "xīng qī tiān kāi mén",
+         "fr": "La boutique ouvre le dimanche.",
+         "en": "The shop is open on Sundays."
+        },
+        "reponse": false,
+        "porte": [
+         "不",
+         "开",
+         "门"
+        ],
+        "caracteres": [
+         "星",
+         "期",
+         "天",
+         "不",
+         "开",
+         "门",
+         "六",
+         "只",
+         "上",
+         "午"
+        ]
+       },
+       {
+        "type": "comprendre",
+        "support": "s3",
+        "consigne": {
+         "fr": "Quand peut-on venir le samedi ?",
+         "en": "When can you come on Saturday?"
+        },
+        "choix": [
+         {
+          "fr": "L'après-midi seulement",
+          "en": "Only in the afternoon"
+         },
+         {
+          "fr": "Toute la journée",
+          "en": "All day"
+         },
+         {
+          "fr": "Jamais",
+          "en": "Never"
+         },
+         {
+          "fr": "Le matin seulement",
+          "en": "Only in the morning"
+         }
+        ],
+        "reponse": 3,
+        "porte": [
+         "只",
+         "上",
+         "午"
+        ],
+        "caracteres": [
+         "星",
+         "期",
+         "天",
+         "不",
+         "开",
+         "门",
+         "六",
+         "只",
+         "上",
+         "午"
+        ]
+       },
+       {
+        "type": "ton",
+        "consigne": {
+         "fr": "Quel est le ton de ce caractère ?",
+         "en": "Which tone does this character have?"
+        },
+        "objet": {
+         "zh": "面",
+         "pinyin": "miàn",
+         "fr": "visage, côté",
+         "en": "face, side"
+        },
+        "choix": [
+         "miān",
+         "mián",
+         "miǎn",
+         "miàn"
+        ],
+        "reponse": 3,
+        "porte": [
+         "面"
+        ],
+        "caracteres": [
+         "面"
+        ]
+       },
+       {
+        "type": "comprendre",
+        "support": "s4",
+        "consigne": {
+         "fr": "D'où viennent les fruits de cette boutique ?",
+         "en": "Where does this shop's fruit come from?"
+        },
+        "choix": [
+         {
+          "fr": "De l'est",
+          "en": "From the east"
+         },
+         {
+          "fr": "Du sud",
+          "en": "From the south"
+         },
+         {
+          "fr": "De l'ouest",
+          "en": "From the west"
+         },
+         {
+          "fr": "Des montagnes",
+          "en": "From the mountains"
+         }
+        ],
+        "reponse": 1,
+        "porte": [
+         "南",
+         "方"
+        ],
+        "caracteres": [
+         "南",
+         "方",
+         "水",
+         "果"
+        ]
+       }
+      ],
+      "glose": {
+       "七月": {
+        "pinyin": "qī yuè",
+        "fr": "juillet",
+        "en": "July"
+       },
+       "上午": {
+        "pinyin": "shàng wǔ",
+        "fr": "matin, matinée",
+        "en": "morning"
+       },
+       "不": {
+        "pinyin": "bù",
+        "fr": "ne… pas",
+        "en": "not"
+       },
+       "东口": {
+        "pinyin": "dōng kǒu",
+        "fr": "sortie est",
+        "en": "east exit"
+       },
+       "中山门": {
+        "pinyin": "zhōng shān mén",
+        "fr": "Zhongshanmen (nom de lieu)",
+        "en": "Zhongshanmen (a place name)"
+       },
+       "中文": {
+        "pinyin": "zhōng wén",
+        "fr": "chinois (la langue)",
+        "en": "Chinese (language)"
+       },
+       "了": {
+        "pinyin": "le",
+        "fr": "(action accomplie, changement)",
+        "en": "(completed action, change)"
+       },
+       "今天": {
+        "pinyin": "jīn tiān",
+        "fr": "aujourd'hui",
+        "en": "today"
+       },
+       "从": {
+        "pinyin": "cóng",
+        "fr": "depuis, de",
+        "en": "from"
+       },
+       "出口": {
+        "pinyin": "chū kǒu",
+        "fr": "sortie",
+        "en": "exit"
+       },
+       "十五日": {
+        "pinyin": "shí wǔ rì",
+        "fr": "le 15 (du mois)",
+        "en": "the 15th (of the month)"
+       },
+       "南京": {
+        "pinyin": "nán jīng",
+        "fr": "Nankin",
+        "en": "Nanjing"
+       },
+       "南方": {
+        "pinyin": "nán fāng",
+        "fr": "le sud",
+        "en": "the south"
+       },
+       "去": {
+        "pinyin": "qù",
+        "fr": "aller",
+        "en": "to go"
+       },
+       "只": {
+        "pinyin": "zhǐ",
+        "fr": "seulement",
+        "en": "only"
+       },
+       "大学": {
+        "pinyin": "dà xué",
+        "fr": "université",
+        "en": "university"
+       },
+       "太": {
+        "pinyin": "tài",
+        "fr": "trop ; très",
+        "en": "too; very"
+       },
+       "好": {
+        "pinyin": "hǎo",
+        "fr": "bien, bon ; d'accord",
+        "en": "good; OK"
+       },
+       "学": {
+        "pinyin": "xué",
+        "fr": "étudier",
+        "en": "to study"
+       },
+       "开": {
+        "pinyin": "kāi",
+        "fr": "ouvrir",
+        "en": "to open"
+       },
+       "开门": {
+        "pinyin": "kāi mén",
+        "fr": "ouvrir (la porte)",
+        "en": "to open (the door)"
+       },
+       "我": {
+        "pinyin": "wǒ",
+        "fr": "je, moi",
+        "en": "I, me"
+       },
+       "明天": {
+        "pinyin": "míng tiān",
+        "fr": "demain",
+        "en": "tomorrow"
+       },
+       "明明": {
+        "pinyin": "míng míng",
+        "fr": "Mingming (prénom)",
+        "en": "Mingming (first name)"
+       },
+       "星期一": {
+        "pinyin": "xīng qī yī",
+        "fr": "lundi",
+        "en": "Monday"
+       },
+       "星期六": {
+        "pinyin": "xīng qī liù",
+        "fr": "samedi",
+        "en": "Saturday"
+       },
+       "星期天": {
+        "pinyin": "xīng qī tiān",
+        "fr": "dimanche",
+        "en": "Sunday"
+       },
+       "是": {
+        "pinyin": "shì",
+        "fr": "être",
+        "en": "to be"
+       },
+       "来": {
+        "pinyin": "lái",
+        "fr": "venir",
+        "en": "to come"
+       },
+       "水果": {
+        "pinyin": "shuǐ guǒ",
+        "fr": "fruits",
+        "en": "fruit"
+       },
+       "父母": {
+        "pinyin": "fù mǔ",
+        "fr": "les parents",
+        "en": "parents"
+       },
+       "王先生": {
+        "pinyin": "wáng xiān sheng",
+        "fr": "M. Wang",
+        "en": "Mr Wang"
+       },
+       "老人": {
+        "pinyin": "lǎo rén",
+        "fr": "personne âgée",
+        "en": "old person"
+       },
+       "西口": {
+        "pinyin": "xī kǒu",
+        "fr": "sortie ouest",
+        "en": "west exit"
+       },
+       "问": {
+        "pinyin": "wèn",
+        "fr": "demander",
+        "en": "to ask"
+       }
+      }
+     }
+    },
     "noms": [
      "高文明",
      "方东来",
@@ -2910,7 +4247,631 @@
      "哪",
      "那"
     ],
-    "series": {},
+    "series": {
+     "A": {
+      "supports": [
+       {
+        "id": "s1",
+        "genre": "menu",
+        "contexte": {
+         "fr": "Un menu",
+         "en": "A menu"
+        },
+        "lignes": [
+         {
+          "zh": "大肉面",
+          "pinyin": "dà ròu miàn",
+          "fr": "Nouilles au porc",
+          "en": "Pork noodles"
+         },
+         {
+          "zh": "花生米",
+          "pinyin": "huā shēng mǐ",
+          "fr": "Cacahuètes",
+          "en": "Peanuts"
+         },
+         {
+          "zh": "花茶",
+          "pinyin": "huā chá",
+          "fr": "Thé au jasmin",
+          "en": "Jasmine tea"
+         },
+         {
+          "zh": "汽水",
+          "pinyin": "qì shuǐ",
+          "fr": "Soda",
+          "en": "Soda"
+         }
+        ]
+       },
+       {
+        "id": "s2",
+        "genre": "message",
+        "contexte": {
+         "fr": "Un message",
+         "en": "A message"
+        },
+        "lignes": [
+         {
+          "zh": "明明，我下午四时飞北京。",
+          "pinyin": "míng míng wǒ xià wǔ sì shí fēi běi jīng",
+          "fr": "Mingming, je prends l'avion pour Pékin à 16 heures.",
+          "en": "Mingming, I'm flying to Beijing at 4 pm."
+         },
+         {
+          "zh": "后天见！",
+          "pinyin": "hòu tiān jiàn",
+          "fr": "À après-demain !",
+          "en": "See you the day after tomorrow!"
+         }
+        ]
+       }
+      ],
+      "questions": [
+       {
+        "type": "reperer",
+        "support": "s1",
+        "consigne": {
+         "fr": "Touche la boisson gazeuse.",
+         "en": "Tap the fizzy drink."
+        },
+        "choix": [
+         "大肉面",
+         "花生米",
+         "花茶",
+         "汽水"
+        ],
+        "reponse": 3,
+        "porte": [
+         "汽"
+        ],
+        "caracteres": [
+         "大",
+         "肉",
+         "面",
+         "花",
+         "生",
+         "米",
+         "茶",
+         "汽",
+         "水"
+        ]
+       },
+       {
+        "type": "comprendre",
+        "support": "s1",
+        "consigne": {
+         "fr": "Lequel de ces plats est au menu ?",
+         "en": "Which of these dishes is on the menu?"
+        },
+        "choix": [
+         {
+          "fr": "Du riz sauté aux œufs",
+          "en": "Egg fried rice"
+         },
+         {
+          "fr": "Des nouilles au porc",
+          "en": "Pork noodles"
+         },
+         {
+          "fr": "Des raviolis au chou",
+          "en": "Cabbage dumplings"
+         },
+         {
+          "fr": "Du poisson à la vapeur",
+          "en": "Steamed fish"
+         }
+        ],
+        "reponse": 1,
+        "porte": [
+         "肉",
+         "面"
+        ],
+        "caracteres": [
+         "大",
+         "肉",
+         "面",
+         "花",
+         "生",
+         "米",
+         "茶",
+         "汽",
+         "水"
+        ]
+       },
+       {
+        "type": "caractere",
+        "consigne": {
+         "fr": "Quel caractère a ce sens ?",
+         "en": "Which character has this meaning?"
+        },
+        "objet": {
+         "zh": "海",
+         "pinyin": "hǎi",
+         "fr": "mer",
+         "en": "sea"
+        },
+        "choix": [
+         "汉",
+         "法",
+         "海",
+         "汽"
+        ],
+        "reponse": 2,
+        "porte": [
+         "海"
+        ],
+        "caracteres": [
+         "海",
+         "汉",
+         "法",
+         "汽"
+        ]
+       },
+       {
+        "type": "vrai_faux",
+        "support": "s2",
+        "consigne": {
+         "fr": "Vrai ou faux ?",
+         "en": "True or false?"
+        },
+        "affirmation": {
+         "zh": "小李上午飞北京。",
+         "pinyin": "xiǎo lǐ shàng wǔ fēi běi jīng",
+         "fr": "Xiao Li prend l'avion pour Pékin le matin.",
+         "en": "Xiao Li flies to Beijing in the morning."
+        },
+        "reponse": false,
+        "porte": [
+         "下",
+         "飞"
+        ],
+        "caracteres": [
+         "明",
+         "我",
+         "下",
+         "午",
+         "四",
+         "时",
+         "飞",
+         "北",
+         "京",
+         "后",
+         "天",
+         "见",
+         "小",
+         "李",
+         "上"
+        ]
+       },
+       {
+        "type": "sens",
+        "consigne": {
+         "fr": "Que veut dire ce caractère ?",
+         "en": "What does this character mean?"
+        },
+        "objet": {
+         "zh": "书",
+         "pinyin": "shū",
+         "fr": "livre",
+         "en": "book"
+        },
+        "choix": [
+         {
+          "fr": "livre",
+          "en": "book"
+         },
+         {
+          "fr": "cours, leçon",
+          "en": "class, lesson"
+         },
+         {
+          "fr": "année",
+          "en": "year"
+         },
+         {
+          "fr": "mer",
+          "en": "sea"
+         }
+        ],
+        "reponse": 0,
+        "porte": [
+         "书"
+        ],
+        "caracteres": [
+         "书"
+        ]
+       }
+      ],
+      "glose": {
+       "上午": {
+        "pinyin": "shàng wǔ",
+        "fr": "matin, matinée",
+        "en": "morning"
+       },
+       "下午": {
+        "pinyin": "xià wǔ",
+        "fr": "après-midi",
+        "en": "afternoon"
+       },
+       "北京": {
+        "pinyin": "běi jīng",
+        "fr": "Pékin",
+        "en": "Beijing"
+       },
+       "后天": {
+        "pinyin": "hòu tiān",
+        "fr": "après-demain",
+        "en": "the day after tomorrow"
+       },
+       "四": {
+        "pinyin": "sì",
+        "fr": "quatre",
+        "en": "four"
+       },
+       "大肉面": {
+        "pinyin": "dà ròu miàn",
+        "fr": "nouilles au porc",
+        "en": "pork noodles"
+       },
+       "小李": {
+        "pinyin": "xiǎo lǐ",
+        "fr": "Xiao Li, le jeune Li",
+        "en": "Xiao Li, young Li"
+       },
+       "我": {
+        "pinyin": "wǒ",
+        "fr": "je, moi",
+        "en": "I, me"
+       },
+       "时": {
+        "pinyin": "shí",
+        "fr": "heure",
+        "en": "o'clock"
+       },
+       "明明": {
+        "pinyin": "míng míng",
+        "fr": "Mingming (prénom)",
+        "en": "Mingming (first name)"
+       },
+       "汽水": {
+        "pinyin": "qì shuǐ",
+        "fr": "soda",
+        "en": "soda"
+       },
+       "花生米": {
+        "pinyin": "huā shēng mǐ",
+        "fr": "cacahuètes",
+        "en": "peanuts"
+       },
+       "花茶": {
+        "pinyin": "huā chá",
+        "fr": "thé au jasmin",
+        "en": "jasmine tea"
+       },
+       "见": {
+        "pinyin": "jiàn",
+        "fr": "voir ; rendez-vous",
+        "en": "to see; see you"
+       },
+       "飞": {
+        "pinyin": "fēi",
+        "fr": "voler ; prendre l'avion",
+        "en": "to fly"
+       }
+      }
+     },
+     "B": {
+      "supports": [
+       {
+        "id": "s1",
+        "genre": "billet",
+        "contexte": {
+         "fr": "Une carte d'embarquement",
+         "en": "A boarding pass"
+        },
+        "lignes": [
+         {
+          "zh": "飞机",
+          "pinyin": "fēi jī",
+          "fr": "Avion",
+          "en": "Plane"
+         },
+         {
+          "zh": "北京 — 上海",
+          "pinyin": "běi jīng shàng hǎi",
+          "fr": "Pékin — Shanghai",
+          "en": "Beijing — Shanghai"
+         },
+         {
+          "zh": "十月四日下午",
+          "pinyin": "shí yuè sì rì xià wǔ",
+          "fr": "4 octobre, l'après-midi",
+          "en": "4 October, afternoon"
+         }
+        ]
+       },
+       {
+        "id": "s2",
+        "genre": "affiche",
+        "contexte": {
+         "fr": "Une affiche",
+         "en": "A poster"
+        },
+        "lignes": [
+         {
+          "zh": "书法课：星期四下午",
+          "pinyin": "shū fǎ kè xīng qī sì xià wǔ",
+          "fr": "Cours de calligraphie : jeudi après-midi",
+          "en": "Calligraphy class: Thursday afternoon"
+         },
+         {
+          "zh": "古文课：星期二上午",
+          "pinyin": "gǔ wén kè xīng qī èr shàng wǔ",
+          "fr": "Cours de chinois classique : mardi matin",
+          "en": "Classical Chinese class: Tuesday morning"
+         }
+        ]
+       }
+      ],
+      "questions": [
+       {
+        "type": "comprendre",
+        "support": "s1",
+        "consigne": {
+         "fr": "Où va cet avion ?",
+         "en": "Where is this plane going?"
+        },
+        "choix": [
+         {
+          "fr": "À Beijing",
+          "en": "To Beijing"
+         },
+         {
+          "fr": "À Nankin",
+          "en": "To Nanjing"
+         },
+         {
+          "fr": "À Shanghai",
+          "en": "To Shanghai"
+         },
+         {
+          "fr": "À Tokyo",
+          "en": "To Tokyo"
+         }
+        ],
+        "reponse": 2,
+        "porte": [
+         "上",
+         "海"
+        ],
+        "caracteres": [
+         "飞",
+         "机",
+         "北",
+         "京",
+         "上",
+         "海",
+         "十",
+         "月",
+         "四",
+         "日",
+         "下",
+         "午"
+        ]
+       },
+       {
+        "type": "reperer",
+        "support": "s1",
+        "consigne": {
+         "fr": "Touche le mot qui dit à quel moment de la journée part l'avion.",
+         "en": "Tap the word that says what time of day the plane leaves."
+        },
+        "choix": [
+         "飞机",
+         "北京",
+         "上海",
+         "下午"
+        ],
+        "reponse": 3,
+        "porte": [
+         "下",
+         "午"
+        ],
+        "caracteres": [
+         "飞",
+         "机",
+         "北",
+         "京",
+         "上",
+         "海",
+         "十",
+         "月",
+         "四",
+         "日",
+         "下",
+         "午"
+        ]
+       },
+       {
+        "type": "sens",
+        "consigne": {
+         "fr": "Que veut dire ce caractère ?",
+         "en": "What does this character mean?"
+        },
+        "objet": {
+         "zh": "年",
+         "pinyin": "nián",
+         "fr": "année, âge",
+         "en": "year, age"
+        },
+        "choix": [
+         {
+          "fr": "jour",
+          "en": "day"
+         },
+         {
+          "fr": "année",
+          "en": "year"
+         },
+         {
+          "fr": "mois",
+          "en": "month"
+         },
+         {
+          "fr": "semaine",
+          "en": "week"
+         }
+        ],
+        "reponse": 1,
+        "porte": [
+         "年"
+        ],
+        "caracteres": [
+         "年"
+        ]
+       },
+       {
+        "type": "vrai_faux",
+        "support": "s2",
+        "consigne": {
+         "fr": "Vrai ou faux ?",
+         "en": "True or false?"
+        },
+        "affirmation": {
+         "zh": "星期四下午有书法课。",
+         "pinyin": "xīng qī sì xià wǔ yǒu shū fǎ kè",
+         "fr": "Il y a cours de calligraphie le jeudi après-midi.",
+         "en": "There's a calligraphy class on Thursday afternoon."
+        },
+        "reponse": true,
+        "porte": [
+         "四",
+         "书",
+         "法"
+        ],
+        "caracteres": [
+         "书",
+         "法",
+         "课",
+         "星",
+         "期",
+         "四",
+         "下",
+         "午",
+         "古",
+         "文",
+         "二",
+         "上",
+         "有"
+        ]
+       },
+       {
+        "type": "trou",
+        "consigne": {
+         "fr": "Quel caractère manque dans ce mot ?",
+         "en": "Which character is missing from this word?"
+        },
+        "objet": {
+         "zh": "茶杯",
+         "pinyin": "chá bēi",
+         "fr": "tasse à thé",
+         "en": "teacup"
+        },
+        "trou": 1,
+        "choix": [
+         "机",
+         "李",
+         "杯",
+         "本"
+        ],
+        "reponse": 2,
+        "porte": [
+         "杯"
+        ],
+        "caracteres": [
+         "茶",
+         "杯",
+         "机",
+         "李",
+         "本"
+        ]
+       }
+      ],
+      "glose": {
+       "上午": {
+        "pinyin": "shàng wǔ",
+        "fr": "matin, matinée",
+        "en": "morning"
+       },
+       "上海": {
+        "pinyin": "shàng hǎi",
+        "fr": "Shanghai",
+        "en": "Shanghai"
+       },
+       "下午": {
+        "pinyin": "xià wǔ",
+        "fr": "après-midi",
+        "en": "afternoon"
+       },
+       "书法": {
+        "pinyin": "shū fǎ",
+        "fr": "calligraphie",
+        "en": "calligraphy"
+       },
+       "北京": {
+        "pinyin": "běi jīng",
+        "fr": "Pékin",
+        "en": "Beijing"
+       },
+       "十月": {
+        "pinyin": "shí yuè",
+        "fr": "octobre",
+        "en": "October"
+       },
+       "古文": {
+        "pinyin": "gǔ wén",
+        "fr": "chinois classique",
+        "en": "classical Chinese"
+       },
+       "四": {
+        "pinyin": "sì",
+        "fr": "quatre",
+        "en": "four"
+       },
+       "日": {
+        "pinyin": "rì",
+        "fr": "soleil ; jour (du mois)",
+        "en": "sun; day (of the month)"
+       },
+       "星期二": {
+        "pinyin": "xīng qī èr",
+        "fr": "mardi",
+        "en": "Tuesday"
+       },
+       "星期四": {
+        "pinyin": "xīng qī sì",
+        "fr": "jeudi",
+        "en": "Thursday"
+       },
+       "有": {
+        "pinyin": "yǒu",
+        "fr": "avoir, il y a",
+        "en": "to have, there is"
+       },
+       "课": {
+        "pinyin": "kè",
+        "fr": "cours, leçon",
+        "en": "class, lesson"
+       },
+       "飞机": {
+        "pinyin": "fēi jī",
+        "fr": "avion",
+        "en": "plane"
+       }
+      }
+     }
+    },
     "noms": [],
     "pinyin": true
    },
@@ -5406,7 +7367,1347 @@
      "东",
      "本"
     ],
-    "series": {},
+    "series": {
+     "A": {
+      "supports": [
+       {
+        "id": "s1",
+        "genre": "etal",
+        "contexte": {
+         "fr": "Un étal",
+         "en": "A stall"
+        },
+        "lignes": [
+         {
+          "zh": "毛衣：六十元",
+          "pinyin": "máo yī liù shí yuán",
+          "fr": "Pull : 60 yuans",
+          "en": "Sweater: 60 yuan"
+         },
+         {
+          "zh": "大衣：一百五十元",
+          "pinyin": "dà yī yī bǎi wǔ shí yuán",
+          "fr": "Manteau : 150 yuans",
+          "en": "Coat: 150 yuan"
+         },
+         {
+          "zh": "上衣：三十元",
+          "pinyin": "shàng yī sān shí yuán",
+          "fr": "Veste : 30 yuans",
+          "en": "Jacket: 30 yuan"
+         }
+        ]
+       },
+       {
+        "id": "s2",
+        "genre": "message",
+        "contexte": {
+         "fr": "Un message",
+         "en": "A message"
+        },
+        "lignes": [
+         {
+          "zh": "马先生，我是小白妈妈。",
+          "pinyin": "mǎ xiān sheng wǒ shì xiǎo bái mā ma",
+          "fr": "Monsieur Ma, je suis la maman de Xiaobai.",
+          "en": "Mr Ma, I'm Xiaobai's mum."
+         },
+         {
+          "zh": "小白今天不来上学了。",
+          "pinyin": "xiǎo bái jīn tiān bù lái shàng xué le",
+          "fr": "Xiaobai ne vient pas à l'école aujourd'hui.",
+          "en": "Xiaobai won't come to school today."
+         }
+        ]
+       },
+       {
+        "id": "s3",
+        "genre": "calendrier",
+        "contexte": {
+         "fr": "Une page de calendrier",
+         "en": "A calendar page"
+        },
+        "lignes": [
+         {
+          "zh": "三月八日",
+          "pinyin": "sān yuè bā rì",
+          "fr": "8 mars",
+          "en": "8 March"
+         },
+         {
+          "zh": "妈妈生日",
+          "pinyin": "mā ma shēng rì",
+          "fr": "anniversaire de maman",
+          "en": "Mum's birthday"
+         }
+        ]
+       },
+       {
+        "id": "s4",
+        "genre": "affiche",
+        "contexte": {
+         "fr": "Une affiche",
+         "en": "A poster"
+        },
+        "lignes": [
+         {
+          "zh": "上午：小雨",
+          "pinyin": "shàng wǔ xiǎo yǔ",
+          "fr": "Matin : petite pluie",
+          "en": "Morning: light rain"
+         },
+         {
+          "zh": "中午：大风",
+          "pinyin": "zhōng wǔ dà fēng",
+          "fr": "Midi : vent fort",
+          "en": "Noon: strong wind"
+         },
+         {
+          "zh": "明天：天气好",
+          "pinyin": "míng tiān tiān qì hǎo",
+          "fr": "Demain : beau temps",
+          "en": "Tomorrow: fine weather"
+         }
+        ]
+       }
+      ],
+      "questions": [
+       {
+        "type": "comprendre",
+        "support": "s1",
+        "consigne": {
+         "fr": "Combien coûte le pull ?",
+         "en": "How much is the sweater?"
+        },
+        "choix": [
+         {
+          "fr": "30 yuans",
+          "en": "30 yuan"
+         },
+         {
+          "fr": "60 yuans",
+          "en": "60 yuan"
+         },
+         {
+          "fr": "150 yuans",
+          "en": "150 yuan"
+         },
+         {
+          "fr": "16 yuans",
+          "en": "16 yuan"
+         }
+        ],
+        "reponse": 1,
+        "porte": [
+         "毛",
+         "衣",
+         "六"
+        ],
+        "caracteres": [
+         "毛",
+         "衣",
+         "六",
+         "十",
+         "元",
+         "大",
+         "一",
+         "百",
+         "五",
+         "上",
+         "三"
+        ]
+       },
+       {
+        "type": "reperer",
+        "support": "s1",
+        "consigne": {
+         "fr": "Touche le vêtement le plus cher.",
+         "en": "Tap the most expensive item."
+        },
+        "choix": [
+         "毛衣",
+         "上衣",
+         "一百五十元",
+         "大衣"
+        ],
+        "reponse": 3,
+        "porte": [
+         "大",
+         "衣",
+         "百"
+        ],
+        "caracteres": [
+         "毛",
+         "衣",
+         "六",
+         "十",
+         "元",
+         "大",
+         "一",
+         "百",
+         "五",
+         "上",
+         "三"
+        ]
+       },
+       {
+        "type": "sens",
+        "consigne": {
+         "fr": "Que veut dire ce caractère ?",
+         "en": "What does this character mean?"
+        },
+        "objet": {
+         "zh": "重",
+         "pinyin": "zhòng",
+         "fr": "lourd, important",
+         "en": "heavy, important"
+        },
+        "choix": [
+         {
+          "fr": "lourd",
+          "en": "heavy"
+         },
+         {
+          "fr": "haut",
+          "en": "tall"
+         },
+         {
+          "fr": "vieux",
+          "en": "old"
+         },
+         {
+          "fr": "blanc",
+          "en": "white"
+         }
+        ],
+        "reponse": 0,
+        "porte": [
+         "重"
+        ],
+        "caracteres": [
+         "重"
+        ]
+       },
+       {
+        "type": "comprendre",
+        "support": "s2",
+        "consigne": {
+         "fr": "Qui écrit ce message ?",
+         "en": "Who wrote this message?"
+        },
+        "choix": [
+         {
+          "fr": "M. Ma",
+          "en": "Mr Ma"
+         },
+         {
+          "fr": "Xiaobai",
+          "en": "Xiaobai"
+         },
+         {
+          "fr": "La maman de Xiaobai",
+          "en": "Xiaobai's mum"
+         },
+         {
+          "fr": "Le frère de Xiaobai",
+          "en": "Xiaobai's brother"
+         }
+        ],
+        "reponse": 2,
+        "porte": [
+         "妈"
+        ],
+        "caracteres": [
+         "马",
+         "先",
+         "生",
+         "我",
+         "是",
+         "小",
+         "白",
+         "妈",
+         "今",
+         "天",
+         "不",
+         "来",
+         "上",
+         "学",
+         "了"
+        ]
+       },
+       {
+        "type": "replique",
+        "support": "s2",
+        "consigne": {
+         "fr": "Que répond M. Ma ?",
+         "en": "What does Mr Ma reply?"
+        },
+        "choix": [
+         {
+          "zh": "上衣三十元。",
+          "pinyin": "shàng yī sān shí yuán",
+          "fr": "La veste fait 30 yuans.",
+          "en": "The jacket is 30 yuan."
+         },
+         {
+          "zh": "好，明白了。",
+          "pinyin": "hǎo míng bai le",
+          "fr": "D'accord, c'est noté.",
+          "en": "OK, understood."
+         },
+         {
+          "zh": "明天是六月九日。",
+          "pinyin": "míng tiān shì liù yuè jiǔ rì",
+          "fr": "Demain, c'est le 9 juin.",
+          "en": "Tomorrow is 9 June."
+         },
+         {
+          "zh": "小白不是学生。",
+          "pinyin": "xiǎo bái bù shì xué sheng",
+          "fr": "Xiaobai n'est pas élève.",
+          "en": "Xiaobai isn't a pupil."
+         }
+        ],
+        "reponse": 1,
+        "porte": [
+         "明",
+         "白",
+         "了"
+        ],
+        "caracteres": [
+         "马",
+         "先",
+         "生",
+         "我",
+         "是",
+         "小",
+         "白",
+         "妈",
+         "今",
+         "天",
+         "不",
+         "来",
+         "上",
+         "学",
+         "了",
+         "衣",
+         "三",
+         "十",
+         "元",
+         "好",
+         "明",
+         "六",
+         "月",
+         "九",
+         "日"
+        ]
+       },
+       {
+        "type": "caractere",
+        "consigne": {
+         "fr": "Quel caractère a ce sens ?",
+         "en": "Which character has this meaning?"
+        },
+        "objet": {
+         "zh": "身",
+         "pinyin": "shēn",
+         "fr": "corps",
+         "en": "body"
+        },
+        "choix": [
+         "手",
+         "牛",
+         "马",
+         "身"
+        ],
+        "reponse": 3,
+        "porte": [
+         "身"
+        ],
+        "caracteres": [
+         "身",
+         "手",
+         "牛",
+         "马"
+        ]
+       },
+       {
+        "type": "vrai_faux",
+        "support": "s3",
+        "consigne": {
+         "fr": "Vrai ou faux ?",
+         "en": "True or false?"
+        },
+        "affirmation": {
+         "zh": "三月八日是妈妈生日。",
+         "pinyin": "sān yuè bā rì shì mā ma shēng rì",
+         "fr": "Le 8 mars, c'est l'anniversaire de maman.",
+         "en": "8 March is Mum's birthday."
+        },
+        "reponse": true,
+        "porte": [
+         "三",
+         "八",
+         "妈"
+        ],
+        "caracteres": [
+         "三",
+         "月",
+         "八",
+         "日",
+         "妈",
+         "生",
+         "是"
+        ]
+       },
+       {
+        "type": "trou",
+        "consigne": {
+         "fr": "Quel caractère manque dans ce mot ?",
+         "en": "Which character is missing from this word?"
+        },
+        "objet": {
+         "zh": "上午",
+         "pinyin": "shàng wǔ",
+         "fr": "matin, matinée",
+         "en": "morning"
+        },
+        "trou": 1,
+        "choix": [
+         "牛",
+         "午",
+         "干",
+         "半"
+        ],
+        "reponse": 1,
+        "porte": [
+         "午"
+        ],
+        "caracteres": [
+         "上",
+         "午",
+         "牛",
+         "干",
+         "半"
+        ]
+       },
+       {
+        "type": "reperer",
+        "support": "s4",
+        "consigne": {
+         "fr": "Touche le temps qu'il fera à midi.",
+         "en": "Tap the weather for noon."
+        },
+        "choix": [
+         "小雨",
+         "大风",
+         "天气",
+         "明天"
+        ],
+        "reponse": 1,
+        "porte": [
+         "中",
+         "午",
+         "风"
+        ],
+        "caracteres": [
+         "上",
+         "午",
+         "小",
+         "雨",
+         "中",
+         "大",
+         "风",
+         "明",
+         "天",
+         "气",
+         "好"
+        ]
+       },
+       {
+        "type": "vrai_faux",
+        "support": "s4",
+        "consigne": {
+         "fr": "Vrai ou faux ?",
+         "en": "True or false?"
+        },
+        "affirmation": {
+         "zh": "明天有小雨。",
+         "pinyin": "míng tiān yǒu xiǎo yǔ",
+         "fr": "Demain, il y aura une petite pluie.",
+         "en": "Tomorrow there will be light rain."
+        },
+        "reponse": false,
+        "porte": [
+         "明",
+         "天",
+         "雨"
+        ],
+        "caracteres": [
+         "上",
+         "午",
+         "小",
+         "雨",
+         "中",
+         "大",
+         "风",
+         "明",
+         "天",
+         "气",
+         "好",
+         "有"
+        ]
+       }
+      ],
+      "glose": {
+       "一百五十元": {
+        "pinyin": "yī bǎi wǔ shí yuán",
+        "fr": "150 yuans",
+        "en": "150 yuan"
+       },
+       "三": {
+        "pinyin": "sān",
+        "fr": "trois",
+        "en": "three"
+       },
+       "三十元": {
+        "pinyin": "sān shí yuán",
+        "fr": "30 yuans",
+        "en": "30 yuan"
+       },
+       "三月": {
+        "pinyin": "sān yuè",
+        "fr": "mars",
+        "en": "March"
+       },
+       "上午": {
+        "pinyin": "shàng wǔ",
+        "fr": "matin, matinée",
+        "en": "morning"
+       },
+       "上学": {
+        "pinyin": "shàng xué",
+        "fr": "aller à l'école",
+        "en": "to go to school"
+       },
+       "上衣": {
+        "pinyin": "shàng yī",
+        "fr": "veste, haut",
+        "en": "jacket, top"
+       },
+       "不": {
+        "pinyin": "bù",
+        "fr": "ne… pas",
+        "en": "not"
+       },
+       "中午": {
+        "pinyin": "zhōng wǔ",
+        "fr": "midi",
+        "en": "noon"
+       },
+       "九": {
+        "pinyin": "jiǔ",
+        "fr": "neuf",
+        "en": "nine"
+       },
+       "了": {
+        "pinyin": "le",
+        "fr": "(action accomplie, changement)",
+        "en": "(completed action, change)"
+       },
+       "今天": {
+        "pinyin": "jīn tiān",
+        "fr": "aujourd'hui",
+        "en": "today"
+       },
+       "元": {
+        "pinyin": "yuán",
+        "fr": "yuan (monnaie)",
+        "en": "yuan (currency)"
+       },
+       "八": {
+        "pinyin": "bā",
+        "fr": "huit",
+        "en": "eight"
+       },
+       "六十元": {
+        "pinyin": "liù shí yuán",
+        "fr": "60 yuans",
+        "en": "60 yuan"
+       },
+       "六月": {
+        "pinyin": "liù yuè",
+        "fr": "juin",
+        "en": "June"
+       },
+       "十": {
+        "pinyin": "shí",
+        "fr": "dix",
+        "en": "ten"
+       },
+       "大衣": {
+        "pinyin": "dà yī",
+        "fr": "manteau",
+        "en": "coat"
+       },
+       "大风": {
+        "pinyin": "dà fēng",
+        "fr": "vent fort",
+        "en": "strong wind"
+       },
+       "天气": {
+        "pinyin": "tiān qì",
+        "fr": "temps (météo)",
+        "en": "weather"
+       },
+       "好": {
+        "pinyin": "hǎo",
+        "fr": "bien, bon ; d'accord",
+        "en": "good; OK"
+       },
+       "妈妈": {
+        "pinyin": "mā ma",
+        "fr": "maman",
+        "en": "mum"
+       },
+       "学生": {
+        "pinyin": "xué sheng",
+        "fr": "élève, étudiant",
+        "en": "pupil, student"
+       },
+       "小白": {
+        "pinyin": "xiǎo bái",
+        "fr": "Xiaobai (prénom)",
+        "en": "Xiaobai (first name)"
+       },
+       "小雨": {
+        "pinyin": "xiǎo yǔ",
+        "fr": "petite pluie",
+        "en": "light rain"
+       },
+       "我": {
+        "pinyin": "wǒ",
+        "fr": "je, moi",
+        "en": "I, me"
+       },
+       "日": {
+        "pinyin": "rì",
+        "fr": "soleil ; jour (du mois)",
+        "en": "sun; day (of the month)"
+       },
+       "明天": {
+        "pinyin": "míng tiān",
+        "fr": "demain",
+        "en": "tomorrow"
+       },
+       "明白": {
+        "pinyin": "míng bai",
+        "fr": "compris ; comprendre",
+        "en": "got it; to understand"
+       },
+       "是": {
+        "pinyin": "shì",
+        "fr": "être",
+        "en": "to be"
+       },
+       "有": {
+        "pinyin": "yǒu",
+        "fr": "avoir, il y a",
+        "en": "to have, there is"
+       },
+       "来": {
+        "pinyin": "lái",
+        "fr": "venir",
+        "en": "to come"
+       },
+       "毛衣": {
+        "pinyin": "máo yī",
+        "fr": "pull",
+        "en": "sweater"
+       },
+       "生日": {
+        "pinyin": "shēng rì",
+        "fr": "anniversaire",
+        "en": "birthday"
+       },
+       "马先生": {
+        "pinyin": "mǎ xiān sheng",
+        "fr": "M. Ma",
+        "en": "Mr Ma"
+       }
+      }
+     },
+     "B": {
+      "supports": [
+       {
+        "id": "s1",
+        "genre": "message",
+        "contexte": {
+         "fr": "Un message",
+         "en": "A message"
+        },
+        "lignes": [
+         {
+          "zh": "妈妈，今天风太大了！",
+          "pinyin": "mā ma jīn tiān fēng tài dà le",
+          "fr": "Maman, il y a trop de vent aujourd'hui !",
+          "en": "Mum, it's far too windy today!"
+         },
+         {
+          "zh": "我中午不出门了。",
+          "pinyin": "wǒ zhōng wǔ bù chū mén le",
+          "fr": "Finalement, je ne sors pas à midi.",
+          "en": "I won't go out at noon after all."
+         }
+        ]
+       },
+       {
+        "id": "s2",
+        "genre": "note",
+        "contexte": {
+         "fr": "Une page d'agenda",
+         "en": "A diary page"
+        },
+        "lignes": [
+         {
+          "zh": "五月三日：学开车。",
+          "pinyin": "wǔ yuè sān rì xué kāi chē",
+          "fr": "3 mai : leçon de conduite.",
+          "en": "3 May: driving lesson."
+         },
+         {
+          "zh": "五月六日：见马先生。",
+          "pinyin": "wǔ yuè liù rì jiàn mǎ xiān sheng",
+          "fr": "6 mai : voir M. Ma.",
+          "en": "6 May: see Mr Ma."
+         },
+         {
+          "zh": "五月九日：去南京。",
+          "pinyin": "wǔ yuè jiǔ rì qù nán jīng",
+          "fr": "9 mai : aller à Nankin.",
+          "en": "9 May: go to Nanjing."
+         }
+        ]
+       },
+       {
+        "id": "s3",
+        "genre": "pancarte",
+        "contexte": {
+         "fr": "Un panneau",
+         "en": "A sign"
+        },
+        "lignes": [
+         {
+          "zh": "出口",
+          "pinyin": "chū kǒu",
+          "fr": "Sortie",
+          "en": "Exit"
+         },
+         {
+          "zh": "火车：左",
+          "pinyin": "huǒ chē zuǒ",
+          "fr": "Trains : à gauche",
+          "en": "Trains: left"
+         },
+         {
+          "zh": "电车：右",
+          "pinyin": "diàn chē yòu",
+          "fr": "Tramways : à droite",
+          "en": "Trams: right"
+         }
+        ]
+       }
+      ],
+      "questions": [
+       {
+        "type": "comprendre",
+        "support": "s1",
+        "consigne": {
+         "fr": "À quel moment Xiaoming renonce-t-il à sortir ?",
+         "en": "When does Xiaoming decide not to go out?"
+        },
+        "choix": [
+         {
+          "fr": "Le matin",
+          "en": "In the morning"
+         },
+         {
+          "fr": "À midi",
+          "en": "At noon"
+         },
+         {
+          "fr": "Le soir",
+          "en": "In the evening"
+         },
+         {
+          "fr": "Demain",
+          "en": "Tomorrow"
+         }
+        ],
+        "reponse": 1,
+        "porte": [
+         "中",
+         "午"
+        ],
+        "caracteres": [
+         "妈",
+         "今",
+         "天",
+         "风",
+         "太",
+         "大",
+         "了",
+         "我",
+         "中",
+         "午",
+         "不",
+         "出",
+         "门"
+        ]
+       },
+       {
+        "type": "vrai_faux",
+        "support": "s1",
+        "consigne": {
+         "fr": "Vrai ou faux ?",
+         "en": "True or false?"
+        },
+        "affirmation": {
+         "zh": "今天风不大。",
+         "pinyin": "jīn tiān fēng bù dà",
+         "fr": "Aujourd'hui, il n'y a pas beaucoup de vent.",
+         "en": "It isn't very windy today."
+        },
+        "reponse": false,
+        "porte": [
+         "风",
+         "太",
+         "大"
+        ],
+        "caracteres": [
+         "妈",
+         "今",
+         "天",
+         "风",
+         "太",
+         "大",
+         "了",
+         "我",
+         "中",
+         "午",
+         "不",
+         "出",
+         "门"
+        ]
+       },
+       {
+        "type": "sens",
+        "consigne": {
+         "fr": "Que veut dire ce caractère ?",
+         "en": "What does this character mean?"
+        },
+        "objet": {
+         "zh": "半",
+         "pinyin": "bàn",
+         "fr": "moitié, demi",
+         "en": "half"
+        },
+        "choix": [
+         {
+          "fr": "cent",
+          "en": "hundred"
+         },
+         {
+          "fr": "moitié",
+          "en": "half"
+         },
+         {
+          "fr": "deux",
+          "en": "two"
+         },
+         {
+          "fr": "huit",
+          "en": "eight"
+         }
+        ],
+        "reponse": 1,
+        "porte": [
+         "半"
+        ],
+        "caracteres": [
+         "半"
+        ]
+       },
+       {
+        "type": "replique",
+        "support": "s1",
+        "consigne": {
+         "fr": "Que répond sa maman ?",
+         "en": "What does his mum reply?"
+        },
+        "choix": [
+         {
+          "zh": "好，明天再去。",
+          "pinyin": "hǎo míng tiān zài qù",
+          "fr": "D'accord, tu iras demain.",
+          "en": "OK, you can go tomorrow."
+         },
+         {
+          "zh": "毛衣六十元。",
+          "pinyin": "máo yī liù shí yuán",
+          "fr": "Le pull fait 60 yuans.",
+          "en": "The sweater is 60 yuan."
+         },
+         {
+          "zh": "今天是三月八日。",
+          "pinyin": "jīn tiān shì sān yuè bā rì",
+          "fr": "Aujourd'hui, c'est le 8 mars.",
+          "en": "Today is 8 March."
+         },
+         {
+          "zh": "马先生是老人。",
+          "pinyin": "mǎ xiān sheng shì lǎo rén",
+          "fr": "M. Ma est une personne âgée.",
+          "en": "Mr Ma is an old man."
+         }
+        ],
+        "reponse": 0,
+        "porte": [
+         "不",
+         "出",
+         "门"
+        ],
+        "caracteres": [
+         "妈",
+         "今",
+         "天",
+         "风",
+         "太",
+         "大",
+         "了",
+         "我",
+         "中",
+         "午",
+         "不",
+         "出",
+         "门",
+         "好",
+         "明",
+         "再",
+         "去",
+         "毛",
+         "衣",
+         "六",
+         "十",
+         "元",
+         "是",
+         "三",
+         "月",
+         "八",
+         "日",
+         "马",
+         "先",
+         "生",
+         "老",
+         "人"
+        ]
+       },
+       {
+        "type": "comprendre",
+        "support": "s2",
+        "consigne": {
+         "fr": "Quel jour va-t-il à Nankin ?",
+         "en": "Which day is he going to Nanjing?"
+        },
+        "choix": [
+         {
+          "fr": "Le 3 mai",
+          "en": "3 May"
+         },
+         {
+          "fr": "Le 6 mai",
+          "en": "6 May"
+         },
+         {
+          "fr": "Le 9 mai",
+          "en": "9 May"
+         },
+         {
+          "fr": "Le 9 juin",
+          "en": "9 June"
+         }
+        ],
+        "reponse": 2,
+        "porte": [
+         "九",
+         "南",
+         "京"
+        ],
+        "caracteres": [
+         "五",
+         "月",
+         "三",
+         "日",
+         "学",
+         "开",
+         "车",
+         "六",
+         "见",
+         "马",
+         "先",
+         "生",
+         "九",
+         "去",
+         "南",
+         "京"
+        ]
+       },
+       {
+        "type": "vrai_faux",
+        "support": "s2",
+        "consigne": {
+         "fr": "Vrai ou faux ?",
+         "en": "True or false?"
+        },
+        "affirmation": {
+         "zh": "五月三日学开车。",
+         "pinyin": "wǔ yuè sān rì xué kāi chē",
+         "fr": "Le 3 mai, leçon de conduite.",
+         "en": "3 May: driving lesson."
+        },
+        "reponse": true,
+        "porte": [
+         "三",
+         "开",
+         "车"
+        ],
+        "caracteres": [
+         "五",
+         "月",
+         "三",
+         "日",
+         "学",
+         "开",
+         "车",
+         "六",
+         "见",
+         "马",
+         "先",
+         "生",
+         "九",
+         "去",
+         "南",
+         "京"
+        ]
+       },
+       {
+        "type": "caractere",
+        "consigne": {
+         "fr": "Quel caractère a ce sens ?",
+         "en": "Which character has this meaning?"
+        },
+        "objet": {
+         "zh": "来",
+         "pinyin": "lái",
+         "fr": "venir",
+         "en": "to come"
+        },
+        "choix": [
+         "来",
+         "米",
+         "半",
+         "本"
+        ],
+        "reponse": 0,
+        "porte": [
+         "来"
+        ],
+        "caracteres": [
+         "来",
+         "米",
+         "半",
+         "本"
+        ]
+       },
+       {
+        "type": "comprendre",
+        "support": "s3",
+        "consigne": {
+         "fr": "Où va-t-on pour prendre le tramway ?",
+         "en": "Which way for the tram?"
+        },
+        "choix": [
+         {
+          "fr": "À gauche",
+          "en": "Left"
+         },
+         {
+          "fr": "À droite",
+          "en": "Right"
+         },
+         {
+          "fr": "Tout droit",
+          "en": "Straight on"
+         },
+         {
+          "fr": "À l'étage",
+          "en": "Upstairs"
+         }
+        ],
+        "reponse": 1,
+        "porte": [
+         "电",
+         "右"
+        ],
+        "caracteres": [
+         "出",
+         "口",
+         "火",
+         "车",
+         "左",
+         "电",
+         "右"
+        ]
+       },
+       {
+        "type": "reperer",
+        "support": "s3",
+        "consigne": {
+         "fr": "Touche le mot qui veut dire « sortie ».",
+         "en": "Tap the word that means “exit”."
+        },
+        "choix": [
+         "火车",
+         "出口",
+         "电车",
+         "左"
+        ],
+        "reponse": 1,
+        "porte": [
+         "出",
+         "口"
+        ],
+        "caracteres": [
+         "出",
+         "口",
+         "火",
+         "车",
+         "左",
+         "电",
+         "右"
+        ]
+       },
+       {
+        "type": "ton",
+        "consigne": {
+         "fr": "Quel est le ton de ce caractère ?",
+         "en": "Which tone does this character have?"
+        },
+        "objet": {
+         "zh": "老",
+         "pinyin": "lǎo",
+         "fr": "vieux, âgé",
+         "en": "old"
+        },
+        "choix": [
+         "lāo",
+         "láo",
+         "lǎo",
+         "lào"
+        ],
+        "reponse": 2,
+        "porte": [
+         "老"
+        ],
+        "caracteres": [
+         "老"
+        ]
+       }
+      ],
+      "glose": {
+       "三": {
+        "pinyin": "sān",
+        "fr": "trois",
+        "en": "three"
+       },
+       "三月": {
+        "pinyin": "sān yuè",
+        "fr": "mars",
+        "en": "March"
+       },
+       "不": {
+        "pinyin": "bù",
+        "fr": "ne… pas",
+        "en": "not"
+       },
+       "中午": {
+        "pinyin": "zhōng wǔ",
+        "fr": "midi",
+        "en": "noon"
+       },
+       "九": {
+        "pinyin": "jiǔ",
+        "fr": "neuf",
+        "en": "nine"
+       },
+       "了": {
+        "pinyin": "le",
+        "fr": "(action accomplie, changement)",
+        "en": "(completed action, change)"
+       },
+       "五月": {
+        "pinyin": "wǔ yuè",
+        "fr": "mai",
+        "en": "May"
+       },
+       "今天": {
+        "pinyin": "jīn tiān",
+        "fr": "aujourd'hui",
+        "en": "today"
+       },
+       "元": {
+        "pinyin": "yuán",
+        "fr": "yuan (monnaie)",
+        "en": "yuan (currency)"
+       },
+       "八": {
+        "pinyin": "bā",
+        "fr": "huit",
+        "en": "eight"
+       },
+       "六": {
+        "pinyin": "liù",
+        "fr": "six",
+        "en": "six"
+       },
+       "再": {
+        "pinyin": "zài",
+        "fr": "de nouveau ; plutôt, alors",
+        "en": "again; then, instead"
+       },
+       "出口": {
+        "pinyin": "chū kǒu",
+        "fr": "sortie",
+        "en": "exit"
+       },
+       "出门": {
+        "pinyin": "chū mén",
+        "fr": "sortir",
+        "en": "to go out"
+       },
+       "十": {
+        "pinyin": "shí",
+        "fr": "dix",
+        "en": "ten"
+       },
+       "南京": {
+        "pinyin": "nán jīng",
+        "fr": "Nankin",
+        "en": "Nanjing"
+       },
+       "去": {
+        "pinyin": "qù",
+        "fr": "aller",
+        "en": "to go"
+       },
+       "右": {
+        "pinyin": "yòu",
+        "fr": "à droite",
+        "en": "right"
+       },
+       "大": {
+        "pinyin": "dà",
+        "fr": "grand",
+        "en": "big"
+       },
+       "太": {
+        "pinyin": "tài",
+        "fr": "trop ; très",
+        "en": "too; very"
+       },
+       "好": {
+        "pinyin": "hǎo",
+        "fr": "bien, bon ; d'accord",
+        "en": "good; OK"
+       },
+       "妈妈": {
+        "pinyin": "mā ma",
+        "fr": "maman",
+        "en": "mum"
+       },
+       "学": {
+        "pinyin": "xué",
+        "fr": "étudier",
+        "en": "to study"
+       },
+       "左": {
+        "pinyin": "zuǒ",
+        "fr": "à gauche",
+        "en": "left"
+       },
+       "开车": {
+        "pinyin": "kāi chē",
+        "fr": "conduire",
+        "en": "to drive"
+       },
+       "我": {
+        "pinyin": "wǒ",
+        "fr": "je, moi",
+        "en": "I, me"
+       },
+       "日": {
+        "pinyin": "rì",
+        "fr": "soleil ; jour (du mois)",
+        "en": "sun; day (of the month)"
+       },
+       "明天": {
+        "pinyin": "míng tiān",
+        "fr": "demain",
+        "en": "tomorrow"
+       },
+       "是": {
+        "pinyin": "shì",
+        "fr": "être",
+        "en": "to be"
+       },
+       "毛衣": {
+        "pinyin": "máo yī",
+        "fr": "pull",
+        "en": "sweater"
+       },
+       "火车": {
+        "pinyin": "huǒ chē",
+        "fr": "train",
+        "en": "train"
+       },
+       "电车": {
+        "pinyin": "diàn chē",
+        "fr": "tramway",
+        "en": "tram"
+       },
+       "老人": {
+        "pinyin": "lǎo rén",
+        "fr": "personne âgée",
+        "en": "old person"
+       },
+       "见": {
+        "pinyin": "jiàn",
+        "fr": "voir ; rendez-vous",
+        "en": "to see; see you"
+       },
+       "风": {
+        "pinyin": "fēng",
+        "fr": "vent",
+        "en": "wind"
+       },
+       "马先生": {
+        "pinyin": "mǎ xiān sheng",
+        "fr": "M. Ma",
+        "en": "Mr Ma"
+       }
+      }
+     }
+    },
     "noms": [
      "高正明",
      "方文",
@@ -5474,7 +8775,747 @@
      "客",
      "路"
     ],
-    "series": {},
+    "series": {
+     "A": {
+      "supports": [
+       {
+        "id": "s1",
+        "genre": "menu",
+        "contexte": {
+         "fr": "Un menu",
+         "en": "A menu"
+        },
+        "lignes": [
+         {
+          "zh": "牛肉面：十二元",
+          "pinyin": "niú ròu miàn shí èr yuán",
+          "fr": "Nouilles au bœuf : 12 yuans",
+          "en": "Beef noodles: 12 yuan"
+         },
+         {
+          "zh": "汽水：三元",
+          "pinyin": "qì shuǐ sān yuán",
+          "fr": "Soda : 3 yuans",
+          "en": "Soda: 3 yuan"
+         },
+         {
+          "zh": "水果：八元",
+          "pinyin": "shuǐ guǒ bā yuán",
+          "fr": "Fruits : 8 yuans",
+          "en": "Fruit: 8 yuan"
+         }
+        ]
+       },
+       {
+        "id": "s2",
+        "genre": "message",
+        "contexte": {
+         "fr": "Un message",
+         "en": "A message"
+        },
+        "lignes": [
+         {
+          "zh": "妈妈，我手机坏了。",
+          "pinyin": "mā ma wǒ shǒu jī huài le",
+          "fr": "Maman, mon téléphone est cassé.",
+          "en": "Mum, my phone is broken."
+         },
+         {
+          "zh": "下午四时，大学门口等我！",
+          "pinyin": "xià wǔ sì shí dà xué mén kǒu děng wǒ",
+          "fr": "À 16 heures, attends-moi devant l'université !",
+          "en": "Wait for me at the university gate at 4 pm!"
+         }
+        ]
+       }
+      ],
+      "questions": [
+       {
+        "type": "reperer",
+        "support": "s1",
+        "consigne": {
+         "fr": "Touche la boisson.",
+         "en": "Tap the drink."
+        },
+        "choix": [
+         "牛肉面",
+         "汽水",
+         "水果",
+         "十二元"
+        ],
+        "reponse": 1,
+        "porte": [
+         "汽"
+        ],
+        "caracteres": [
+         "牛",
+         "肉",
+         "面",
+         "十",
+         "二",
+         "元",
+         "汽",
+         "水",
+         "三",
+         "果",
+         "八"
+        ]
+       },
+       {
+        "type": "comprendre",
+        "support": "s1",
+        "consigne": {
+         "fr": "Combien coûtent les nouilles au bœuf ?",
+         "en": "How much are the beef noodles?"
+        },
+        "choix": [
+         {
+          "fr": "3 yuans",
+          "en": "3 yuan"
+         },
+         {
+          "fr": "8 yuans",
+          "en": "8 yuan"
+         },
+         {
+          "fr": "12 yuans",
+          "en": "12 yuan"
+         },
+         {
+          "fr": "20 yuans",
+          "en": "20 yuan"
+         }
+        ],
+        "reponse": 2,
+        "porte": [
+         "牛",
+         "肉",
+         "面"
+        ],
+        "caracteres": [
+         "牛",
+         "肉",
+         "面",
+         "十",
+         "二",
+         "元",
+         "汽",
+         "水",
+         "三",
+         "果",
+         "八"
+        ]
+       },
+       {
+        "type": "comprendre",
+        "support": "s2",
+        "consigne": {
+         "fr": "Qu'est-ce qui ne marche plus ?",
+         "en": "What has stopped working?"
+        },
+        "choix": [
+         {
+          "fr": "Son téléphone",
+          "en": "His phone"
+         },
+         {
+          "fr": "Sa voiture",
+          "en": "His car"
+         },
+         {
+          "fr": "La porte",
+          "en": "The door"
+         },
+         {
+          "fr": "Le tramway",
+          "en": "The tram"
+         }
+        ],
+        "reponse": 0,
+        "porte": [
+         "机",
+         "坏"
+        ],
+        "caracteres": [
+         "妈",
+         "我",
+         "手",
+         "机",
+         "坏",
+         "了",
+         "下",
+         "午",
+         "四",
+         "时",
+         "大",
+         "学",
+         "门",
+         "口",
+         "等"
+        ]
+       },
+       {
+        "type": "vrai_faux",
+        "support": "s2",
+        "consigne": {
+         "fr": "Vrai ou faux ?",
+         "en": "True or false?"
+        },
+        "affirmation": {
+         "zh": "小明下午四时见妈妈。",
+         "pinyin": "xiǎo míng xià wǔ sì shí jiàn mā ma",
+         "fr": "Xiaoming retrouve sa maman à 16 heures.",
+         "en": "Xiaoming meets his mum at 4 pm."
+        },
+        "reponse": true,
+        "porte": [
+         "四",
+         "时",
+         "等"
+        ],
+        "caracteres": [
+         "妈",
+         "我",
+         "手",
+         "机",
+         "坏",
+         "了",
+         "下",
+         "午",
+         "四",
+         "时",
+         "大",
+         "学",
+         "门",
+         "口",
+         "等",
+         "小",
+         "明",
+         "见"
+        ]
+       },
+       {
+        "type": "caractere",
+        "consigne": {
+         "fr": "Quel caractère a ce sens ?",
+         "en": "Which character has this meaning?"
+        },
+        "objet": {
+         "zh": "说",
+         "pinyin": "shuō",
+         "fr": "dire, parler",
+         "en": "to say, to speak"
+        },
+        "choix": [
+         "课",
+         "说",
+         "认",
+         "识"
+        ],
+        "reponse": 1,
+        "porte": [
+         "说"
+        ],
+        "caracteres": [
+         "说",
+         "课",
+         "认",
+         "识"
+        ]
+       }
+      ],
+      "glose": {
+       "三元": {
+        "pinyin": "sān yuán",
+        "fr": "3 yuans",
+        "en": "3 yuan"
+       },
+       "下午": {
+        "pinyin": "xià wǔ",
+        "fr": "après-midi",
+        "en": "afternoon"
+       },
+       "了": {
+        "pinyin": "le",
+        "fr": "(action accomplie, changement)",
+        "en": "(completed action, change)"
+       },
+       "八元": {
+        "pinyin": "bā yuán",
+        "fr": "8 yuans",
+        "en": "8 yuan"
+       },
+       "十二元": {
+        "pinyin": "shí èr yuán",
+        "fr": "12 yuans",
+        "en": "12 yuan"
+       },
+       "四": {
+        "pinyin": "sì",
+        "fr": "quatre",
+        "en": "four"
+       },
+       "坏": {
+        "pinyin": "huài",
+        "fr": "abîmé, en panne",
+        "en": "broken"
+       },
+       "大学": {
+        "pinyin": "dà xué",
+        "fr": "université",
+        "en": "university"
+       },
+       "妈妈": {
+        "pinyin": "mā ma",
+        "fr": "maman",
+        "en": "mum"
+       },
+       "小明": {
+        "pinyin": "xiǎo míng",
+        "fr": "Xiaoming (prénom)",
+        "en": "Xiaoming (first name)"
+       },
+       "我": {
+        "pinyin": "wǒ",
+        "fr": "je, moi",
+        "en": "I, me"
+       },
+       "手机": {
+        "pinyin": "shǒu jī",
+        "fr": "téléphone portable",
+        "en": "mobile phone"
+       },
+       "时": {
+        "pinyin": "shí",
+        "fr": "heure",
+        "en": "o'clock"
+       },
+       "水果": {
+        "pinyin": "shuǐ guǒ",
+        "fr": "fruits",
+        "en": "fruit"
+       },
+       "汽水": {
+        "pinyin": "qì shuǐ",
+        "fr": "soda",
+        "en": "soda"
+       },
+       "牛肉面": {
+        "pinyin": "niú ròu miàn",
+        "fr": "nouilles au bœuf",
+        "en": "beef noodles"
+       },
+       "等": {
+        "pinyin": "děng",
+        "fr": "attendre",
+        "en": "to wait"
+       },
+       "见": {
+        "pinyin": "jiàn",
+        "fr": "voir ; rendez-vous",
+        "en": "to see; see you"
+       },
+       "门口": {
+        "pinyin": "mén kǒu",
+        "fr": "devant la porte",
+        "en": "doorway"
+       }
+      }
+     },
+     "B": {
+      "supports": [
+       {
+        "id": "s1",
+        "genre": "note",
+        "contexte": {
+         "fr": "Un mot sur une porte",
+         "en": "A note on a door"
+        },
+        "lignes": [
+         {
+          "zh": "今天下午关门。",
+          "pinyin": "jīn tiān xià wǔ guān mén",
+          "fr": "Fermé cet après-midi.",
+          "en": "Closed this afternoon."
+         },
+         {
+          "zh": "明天上午九时开门。",
+          "pinyin": "míng tiān shàng wǔ jiǔ shí kāi mén",
+          "fr": "Réouverture demain à 9 heures.",
+          "en": "Open again tomorrow at 9 am."
+         }
+        ]
+       },
+       {
+        "id": "s2",
+        "genre": "enseigne",
+        "contexte": {
+         "fr": "Une enseigne",
+         "en": "A sign"
+        },
+        "lignes": [
+         {
+          "zh": "老地方",
+          "pinyin": "lǎo dì fang",
+          "fr": "Le Vieil Endroit",
+          "en": "The Old Place"
+         }
+        ]
+       },
+       {
+        "id": "s3",
+        "genre": "message",
+        "contexte": {
+         "fr": "Un message",
+         "en": "A message"
+        },
+        "lignes": [
+         {
+          "zh": "小白，明天下午有课吗？",
+          "pinyin": "xiǎo bái míng tiān xià wǔ yǒu kè ma",
+          "fr": "Xiaobai, as-tu cours demain après-midi ?",
+          "en": "Xiaobai, do you have class tomorrow afternoon?"
+         }
+        ]
+       }
+      ],
+      "questions": [
+       {
+        "type": "vrai_faux",
+        "support": "s1",
+        "consigne": {
+         "fr": "Vrai ou faux ?",
+         "en": "True or false?"
+        },
+        "affirmation": {
+         "zh": "今天下午开门。",
+         "pinyin": "jīn tiān xià wǔ kāi mén",
+         "fr": "Le magasin ouvre cet après-midi.",
+         "en": "The shop is open this afternoon."
+        },
+        "reponse": false,
+        "porte": [
+         "下",
+         "关"
+        ],
+        "caracteres": [
+         "今",
+         "天",
+         "下",
+         "午",
+         "关",
+         "门",
+         "明",
+         "上",
+         "九",
+         "时",
+         "开"
+        ]
+       },
+       {
+        "type": "comprendre",
+        "support": "s1",
+        "consigne": {
+         "fr": "Quand le magasin rouvre-t-il ?",
+         "en": "When does the shop open again?"
+        },
+        "choix": [
+         {
+          "fr": "Cet après-midi",
+          "en": "This afternoon"
+         },
+         {
+          "fr": "Demain à 16 heures",
+          "en": "Tomorrow at 4 pm"
+         },
+         {
+          "fr": "Lundi à 9 heures",
+          "en": "Monday at 9 am"
+         },
+         {
+          "fr": "Demain à 9 heures",
+          "en": "Tomorrow at 9 am"
+         }
+        ],
+        "reponse": 3,
+        "porte": [
+         "九",
+         "时"
+        ],
+        "caracteres": [
+         "今",
+         "天",
+         "下",
+         "午",
+         "关",
+         "门",
+         "明",
+         "上",
+         "九",
+         "时",
+         "开"
+        ]
+       },
+       {
+        "type": "comprendre",
+        "support": "s2",
+        "consigne": {
+         "fr": "Que veut dire le nom de ce restaurant ?",
+         "en": "What does this restaurant's name mean?"
+        },
+        "choix": [
+         {
+          "fr": "Le Vieux Monsieur",
+          "en": "The Old Gentleman"
+         },
+         {
+          "fr": "Le Vieil Endroit",
+          "en": "The Old Place"
+         },
+         {
+          "fr": "La Vieille Maison",
+          "en": "The Old House"
+         },
+         {
+          "fr": "Le Vieux Marché",
+          "en": "The Old Market"
+         }
+        ],
+        "reponse": 1,
+        "porte": [
+         "地",
+         "方"
+        ],
+        "caracteres": [
+         "老",
+         "地",
+         "方"
+        ]
+       },
+       {
+        "type": "replique",
+        "support": "s3",
+        "consigne": {
+         "fr": "Que répond Xiaobai ?",
+         "en": "What does Xiaobai reply?"
+        },
+        "choix": [
+         {
+          "zh": "牛肉面十二元。",
+          "pinyin": "niú ròu miàn shí èr yuán",
+          "fr": "Les nouilles au bœuf font 12 yuans.",
+          "en": "Beef noodles are 12 yuan."
+         },
+         {
+          "zh": "飞机坏了。",
+          "pinyin": "fēi jī huài le",
+          "fr": "L'avion est en panne.",
+          "en": "The plane has broken down."
+         },
+         {
+          "zh": "有，下午四时有中文课。",
+          "pinyin": "yǒu xià wǔ sì shí yǒu zhōng wén kè",
+          "fr": "Oui, j'ai cours de chinois à 16 heures.",
+          "en": "Yes, I have Chinese class at 4 pm."
+         },
+         {
+          "zh": "我是马先生。",
+          "pinyin": "wǒ shì mǎ xiān sheng",
+          "fr": "Je suis M. Ma.",
+          "en": "I'm Mr Ma."
+         }
+        ],
+        "reponse": 2,
+        "porte": [
+         "课"
+        ],
+        "caracteres": [
+         "小",
+         "白",
+         "明",
+         "天",
+         "下",
+         "午",
+         "有",
+         "课",
+         "吗",
+         "牛",
+         "肉",
+         "面",
+         "十",
+         "二",
+         "元",
+         "飞",
+         "机",
+         "坏",
+         "了",
+         "四",
+         "时",
+         "中",
+         "文",
+         "我",
+         "是",
+         "马",
+         "先",
+         "生"
+        ]
+       },
+       {
+        "type": "trou",
+        "consigne": {
+         "fr": "Quel caractère manque dans ce mot ?",
+         "en": "Which character is missing from this word?"
+        },
+        "objet": {
+         "zh": "飞机",
+         "pinyin": "fēi jī",
+         "fr": "avion",
+         "en": "plane"
+        },
+        "trou": 1,
+        "choix": [
+         "杯",
+         "楼",
+         "机",
+         "树"
+        ],
+        "reponse": 2,
+        "porte": [
+         "机"
+        ],
+        "caracteres": [
+         "飞",
+         "机",
+         "杯",
+         "楼",
+         "树"
+        ]
+       }
+      ],
+      "glose": {
+       "上午": {
+        "pinyin": "shàng wǔ",
+        "fr": "matin, matinée",
+        "en": "morning"
+       },
+       "下午": {
+        "pinyin": "xià wǔ",
+        "fr": "après-midi",
+        "en": "afternoon"
+       },
+       "中文": {
+        "pinyin": "zhōng wén",
+        "fr": "chinois (la langue)",
+        "en": "Chinese (language)"
+       },
+       "九": {
+        "pinyin": "jiǔ",
+        "fr": "neuf",
+        "en": "nine"
+       },
+       "了": {
+        "pinyin": "le",
+        "fr": "(action accomplie, changement)",
+        "en": "(completed action, change)"
+       },
+       "今天": {
+        "pinyin": "jīn tiān",
+        "fr": "aujourd'hui",
+        "en": "today"
+       },
+       "元": {
+        "pinyin": "yuán",
+        "fr": "yuan (monnaie)",
+        "en": "yuan (currency)"
+       },
+       "关门": {
+        "pinyin": "guān mén",
+        "fr": "fermer",
+        "en": "to close"
+       },
+       "十二": {
+        "pinyin": "shí èr",
+        "fr": "douze",
+        "en": "twelve"
+       },
+       "吗": {
+        "pinyin": "ma",
+        "fr": "(question)",
+        "en": "(question particle)"
+       },
+       "四": {
+        "pinyin": "sì",
+        "fr": "quatre",
+        "en": "four"
+       },
+       "坏": {
+        "pinyin": "huài",
+        "fr": "abîmé, en panne",
+        "en": "broken"
+       },
+       "小白": {
+        "pinyin": "xiǎo bái",
+        "fr": "Xiaobai (prénom)",
+        "en": "Xiaobai (first name)"
+       },
+       "开门": {
+        "pinyin": "kāi mén",
+        "fr": "ouvrir (la porte)",
+        "en": "to open (the door)"
+       },
+       "我": {
+        "pinyin": "wǒ",
+        "fr": "je, moi",
+        "en": "I, me"
+       },
+       "时": {
+        "pinyin": "shí",
+        "fr": "heure",
+        "en": "o'clock"
+       },
+       "明天": {
+        "pinyin": "míng tiān",
+        "fr": "demain",
+        "en": "tomorrow"
+       },
+       "是": {
+        "pinyin": "shì",
+        "fr": "être",
+        "en": "to be"
+       },
+       "有": {
+        "pinyin": "yǒu",
+        "fr": "avoir, il y a",
+        "en": "to have, there is"
+       },
+       "牛肉面": {
+        "pinyin": "niú ròu miàn",
+        "fr": "nouilles au bœuf",
+        "en": "beef noodles"
+       },
+       "老地方": {
+        "pinyin": "lǎo dì fang",
+        "fr": "le vieil endroit, le lieu habituel",
+        "en": "the old place, the usual place"
+       },
+       "课": {
+        "pinyin": "kè",
+        "fr": "cours, leçon",
+        "en": "class, lesson"
+       },
+       "飞机": {
+        "pinyin": "fēi jī",
+        "fr": "avion",
+        "en": "plane"
+       },
+       "马先生": {
+        "pinyin": "mǎ xiān sheng",
+        "fr": "M. Ma",
+        "en": "Mr Ma"
+       }
+      }
+     }
+    },
     "noms": [],
     "pinyin": true
    },
