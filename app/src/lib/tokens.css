@@ -270,7 +270,7 @@ h1{font-family:var(--head);font-weight:700;font-size:30px;line-height:1.15;lette
 .tao .feuilles{transform-origin:100px 98px;animation:balance 2.8s ease-in-out infinite alternate}
 .tao .baluchon{transform-origin:78px 152px;animation:balance 1.8s ease-in-out infinite alternate}
 .tao .gourde{transform-origin:130px 132px;animation:balance 1.4s ease-in-out infinite alternate}
-.tao .yeux{transform-origin:100px 126px;animation:cligne 4.8s infinite}
+.tao .yeux{transform-origin:100px 126px;animation:cligne 7.7s infinite}
 /* humeurs : la joie saute sur place, l'ennui balance la tête, le calme respire */
 .tao.joie .plante{animation:bond 1s cubic-bezier(.3,0,.2,1) infinite alternate}
 .tao.ennui .plante{transform-origin:100px 160px;animation:soupire 2.6s ease-in-out infinite alternate}
@@ -282,7 +282,9 @@ h1{font-family:var(--head);font-weight:700;font-size:30px;line-height:1.15;lette
 .tao .lanterne{transform-origin:164px 26px;animation:balance 3s ease-in-out infinite alternate}
 @keyframes respire{0%,100%{transform:scale(1,1)}50%{transform:scale(1.02,.98)}}
 @keyframes balance{from{transform:rotate(-4deg)}to{transform:rotate(4deg)}}
-@keyframes cligne{0%,93%,100%{transform:scaleY(1)}96%{transform:scaleY(.1)}}
+/* Elle cligne à intervalles irréguliers, comme on cligne : un battement, puis deux de suite,
+   puis un long moment les yeux ouverts (2,4 s, 0,35 s, 4,9 s). Jamais selon l'heure. */
+@keyframes cligne{0%,28%,31.5%,60%,63%,64.5%,67.5%,100%{transform:scaleY(1)}29.7%,61.5%,66%{transform:scaleY(.1)}}
 @keyframes bond{from{transform:translateY(0) scale(1.02,.98)}to{transform:translateY(-12px) scale(.98,1.02)}}
 @keyframes soupire{from{transform:rotate(-3deg)}to{transform:rotate(3deg)}}
 @keyframes marche{from{transform:translateY(0) rotate(-3deg)}to{transform:translateY(-6px) rotate(3deg)}}
