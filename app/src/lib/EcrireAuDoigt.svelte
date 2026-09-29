@@ -5,8 +5,8 @@
    *
    * Le pavé et sa reconnaissance sur l'appareil (story 10.10) se construisent à part, dans
    * `PaveEcriture.svelte` : ce panneau le reçoit par `Pave` et lui passe `onchoisir`, qui écrit
-   * le caractère choisi dans le champ et ouvre sa fiche. Tant que le pavé n'est pas livré,
-   * `Pave` est nul et Chercher ne montre pas le pinceau.
+   * le caractère choisi dans le champ et ouvre sa fiche. `App.svelte` le passe ; nul (un test,
+   * une autre porte), Chercher ne montre pas le pinceau.
    *
    * L'écriture au doigt est dans Wenlu complet, l'abonnement comme l'achat à vie (brief §10).
    * Sans lui, la même place le dit en une ligne, sans cadenas, sans fenêtre, rien de grisé

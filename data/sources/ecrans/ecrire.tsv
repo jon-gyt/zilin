@@ -1,8 +1,8 @@
 # Les textes du pavé « Écrire au doigt » du dictionnaire (maquette `maquettes/dictionnaire.html`,
 # écran 5, publiée le 29 septembre 2026) : on trace un caractère, les candidats s'affinent à
 # chaque trait, on touche le bon. La reconnaissance tourne sur l'appareil, sans réseau
-# (`app/src/lib/ecriture/`). L'écriture au doigt vient avec Wenlu complet ; sans lui, la même
-# place le dit en une ligne, avec un lien : pas de cadenas, rien de grisé ailleurs.
+# (`app/src/lib/ecriture/`). Le titre de l'écran, le champ et, sans Wenlu complet, la ligne qui
+# prend la place du pavé sont ceux du dictionnaire (`dictionnaire.tsv`, `ecrire-*`, `complet-*`).
 #
 # Source : rédigé pour l'app, sans API, dans une session Claude Code, d'après la maquette,
 # mot pour mot là où elle écrit le texte ; à relire. Ni emoji, ni dragon, ni temps passé, ni
@@ -12,17 +12,13 @@
 # `fr`, `source`. Chaque clé est exigée une fois, avec exactement ses jetons (`ecrans.py`,
 # `ECRANS`) :
 #
-# - `titre` : le titre de l'écran ; `champ` : le champ où s'écrit le caractère choisi, vide ;
 # - `pave` : le nom du pavé pour un lecteur d'écran ; `candidats` : celui de la rangée des
 #   candidats ; `vide` : la rangée avant le premier trait ;
 # - `compte` : sous le pavé, `{n}` traits (deux ou plus) et `{c}` candidats ; `compte-un` pour
 #   un seul trait ;
 # - `annuler`, `effacer` : les deux boutons ; `aide` : la ligne sous les boutons ;
-# - `chargement` : le temps de lire les gabarits ; `indisponible` : s'ils ne se lisent pas ;
-# - `complet`, `complet-texte`, `complet-lien` : sans Wenlu complet, à la place du pavé.
+# - `chargement` : le temps de lire les gabarits ; `indisponible` : s'ils ne se lisent pas.
 cle	fr	source
-titre	Écrire au doigt	rédigé pour l'app
-champ	Le caractère choisi s'écrit ici	rédigé pour l'app
 pave	Pavé d'écriture : trace un caractère	rédigé pour l'app
 candidats	Les caractères proches du tracé	rédigé pour l'app
 vide	Trace un caractère : les candidats viennent dès le premier trait.	rédigé pour l'app
@@ -33,6 +29,3 @@ effacer	Effacer	rédigé pour l'app
 aide	Trace dans l'ordre des traits si tu le connais : les candidats s'affinent à chaque trait. Rien ne quitte l'appareil.	rédigé pour l'app
 chargement	Un instant.	rédigé pour l'app
 indisponible	Le pavé ne s'ouvre pas pour l'instant. Cherche par caractère, par pinyin ou en français : tout y est.	rédigé pour l'app
-complet	L'écriture au doigt vient avec Wenlu complet.	rédigé pour l'app
-complet-texte	Cherche par caractère, par pinyin ou en français : c'est libre, sans limite, et chaque fiche est entière.	rédigé pour l'app
-complet-lien	Découvrir Wenlu complet ›	rédigé pour l'app

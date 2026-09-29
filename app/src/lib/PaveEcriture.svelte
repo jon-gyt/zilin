@@ -1,49 +1,73 @@
+<script module lang="ts">
+  import { dictionnaire } from './content';
+  import { pinyinDe as pinyinDeLecture } from './dico-ecran';
+
+  /** Le pinyin principal de chaque caractère du dictionnaire, lu une fois dans son index. */
+  let lectures: Promise<Map<string, string>> | null = null;
+
+  /** Le pinyin écrit sous un candidat : celui de l'index du dictionnaire ; vide sinon. */
+  export function pinyinDuDico(c: string): Promise<string> {
+    lectures ??= dictionnaire()
+      .then((d) => (d ? d.chargerIndex() : null))
+      .then(
+        (i) =>
+          new Map(
+            (i?.entrees ?? [])
+              .filter((e) => e.genre === 'caractere')
+              .map((e) => [e.id, pinyinDeLecture(e.lectures[0] ?? [])] as const)
+          )
+      )
+      .catch(() => {
+        lectures = null;
+        return new Map<string, string>();
+      });
+    return lectures.then((m) => m.get(c) ?? '');
+  }
+</script>
+
 <script lang="ts">
   /**
    * Le pavé « Écrire au doigt » du dictionnaire (maquette `maquettes/dictionnaire.html`,
    * écran 5) : on trace un caractère à l'encre, au doigt ou à la souris ; après chaque trait,
    * les candidats s'affinent (le moteur tourne sur l'appareil, dans un Web Worker :
    * `ecriture/`). « Annuler le trait » retire le dernier, « Effacer » vide le pavé. Toucher un
-   * candidat l'émet (`onchoisir`) : l'écran qui accueille le pavé l'écrit dans son champ et
-   * ouvre sa fiche.
+   * candidat l'émet (`onchoisir`) : `EcrireAuDoigt`, dans Chercher, l'écrit dans son champ et
+   * ouvre sa fiche. `App.svelte` le passe à Chercher en `Pave`.
    *
    * Les candidats sont dessinés depuis leurs traits (style 楷), par le composant de glyphe de
    * l'app, jamais depuis une police : un candidat dont on n'a pas les traits n'est pas montré.
-   * `traitsDe` dit où les lire (par défaut l'export, `content.traitsDe` ; le dictionnaire y
-   * passera ses lots) et `pinyinDe`, s'il est donné, le pinyin écrit dessous.
+   * `traitsDe` dit où les lire (par défaut les lots du dictionnaire, `traitsDuDico`) et
+   * `pinyinDe` le pinyin écrit dessous (par défaut l'index du dictionnaire).
    *
-   * L'écriture au doigt vient avec Wenlu complet : `ouvert` le dit, calculé par l'écran hôte
-   * (`droits.wenluComplet`, jamais vrai sur le web). Fermé, la même place le dit en une ligne,
-   * avec un lien (`ondecouvrir`) : pas de cadenas, rien de grisé ailleurs, et aucun gabarit
-   * n'est lu.
+   * L'écriture au doigt vient avec Wenlu complet : `EcrireAuDoigt` ne monte le pavé qu'avec
+   * lui (`droits.wenluComplet`, jamais vrai sur le web), et dit sinon en une ligne ce qui
+   * manque. `ouvert` (vrai par défaut) garde la même porte ici : fermé, le pavé ne montre
+   * rien et ne lit aucun gabarit.
    *
    * Charte : l'encre pour le tracé, l'indigo pour l'action et le premier candidat ; pas de
    * cinabre (rien n'est ajouté ici), ni ombre, ni dégradé, ni doré. Rien ne s'anime : le
    * tracé suit le doigt, c'est tout. Des cibles de 44 px au moins. Les textes viennent du
    * pipeline (`ecrans.json`, écran `ecrire`).
    */
+  import { traitsDuDico } from './DicoGlyph.svelte';
   import Glyph from './Glyph.svelte';
-  import { traitsDe as traitsDeLExport } from './content';
   import { ecransOnce, remplir, SANS_ECRANS, type TextesEcrire } from './ecrans';
   import { adresseGabarits, creerReconnaisseur, type Reconnaisseur } from './ecriture/reconnaisseur';
   import { CANDIDATS, type Point } from './ecriture/reconnaissance';
   import { nomAccessible, type StrokeData } from './glyph';
 
   let {
-    ouvert,
+    ouvert = true,
     onchoisir,
-    ondecouvrir,
-    traitsDe = (c: string) => traitsDeLExport(c),
-    pinyinDe,
+    traitsDe = traitsDuDico,
+    pinyinDe = pinyinDuDico,
     reconnaisseur,
     textes
   }: {
-    /** Wenlu complet : le pavé s'ouvre. Sinon, une ligne et un lien à sa place. */
-    ouvert: boolean;
+    /** Wenlu complet : le pavé s'ouvre. Fermé, rien ne s'affiche ni ne se lit. */
+    ouvert?: boolean;
     /** Le caractère touché parmi les candidats. */
     onchoisir: (c: string) => void;
-    /** « Découvrir Wenlu complet », quand le pavé est fermé. */
-    ondecouvrir?: () => void;
     /** Les traits d'un candidat, pour le dessiner ; `null` : il n'est pas montré. */
     traitsDe?: (c: string) => Promise<StrokeData | null>;
     /** Le pinyin écrit sous un candidat ; vide ou absent, rien dessous. */
@@ -180,7 +204,7 @@
       trouves.map(async ({ c }) => {
         const [donnees, pinyin] = await Promise.all([
           traitsDe(c).catch(() => null),
-          Promise.resolve(pinyinDe?.(c) ?? '').catch(() => '')
+          Promise.resolve(pinyinDe(c)).catch(() => '')
         ]);
         return donnees ? { c, donnees, pinyin } : null;
       })
@@ -216,19 +240,7 @@
   );
 </script>
 
-{#if !ouvert}
-  <div class="complet">
-    <svg viewBox="0 0 24 24" width="36" height="36" aria-hidden="true">
-      <path d="M14.5 4.5l5 5L10 19l-5.5.5L5 14z" />
-      <path d="M12.5 6.5l5 5" />
-    </svg>
-    <b>{t.complet}</b>
-    <p>{t['complet-texte']}</p>
-    {#if ondecouvrir}
-      <button type="button" class="lien" onclick={ondecouvrir}>{t['complet-lien']}</button>
-    {/if}
-  </div>
-{:else}
+{#if ouvert}
   <div class="cands" role="group" aria-label={t.candidats} aria-live="polite">
     {#if etat === 'indisponible'}
       <span class="vide-c">{t.indisponible}</span>
@@ -408,42 +420,5 @@
     font-size: 14px;
     line-height: 1.4;
     color: var(--mist);
-  }
-  .complet {
-    margin-top: 12px;
-    background: var(--card);
-    border-radius: 16px;
-    padding: 16px;
-    display: grid;
-    gap: 8px;
-  }
-  .complet svg {
-    width: 36px;
-    height: 36px;
-    stroke: var(--ink2);
-    fill: none;
-    stroke-width: 1.6;
-    stroke-linecap: round;
-    stroke-linejoin: round;
-  }
-  .complet b {
-    font: 700 17px/1.3 var(--head);
-    color: var(--ink);
-  }
-  .complet p {
-    margin: 0;
-    color: var(--ink2);
-    font-size: 14.5px;
-  }
-  .lien {
-    justify-self: start;
-    color: var(--indigo);
-    font: 600 16px/1.2 var(--sans);
-    min-height: 44px;
-    display: inline-flex;
-    align-items: center;
-    background: none;
-    border: 0;
-    padding: 0;
   }
 </style>

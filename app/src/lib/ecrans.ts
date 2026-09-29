@@ -344,8 +344,6 @@ export const CLES_XING = [
  * `PaveEcriture.svelte`. Dans l'ordre de la source.
  */
 export const CLES_ECRIRE = [
-  'titre',
-  'champ',
   'pave',
   'candidats',
   'vide',
@@ -355,10 +353,7 @@ export const CLES_ECRIRE = [
   'effacer',
   'aide',
   'chargement',
-  'indisponible',
-  'complet',
-  'complet-texte',
-  'complet-lien'
+  'indisponible'
 ] as const;
 
 export type CleLireLeMonde = (typeof CLES_LIRE_LE_MONDE)[number];

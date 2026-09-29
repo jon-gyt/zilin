@@ -356,8 +356,6 @@ ECRANS: dict[str, dict[str, tuple[str, ...]]] = {
         "compose-sans": (),
     },
     "ecrire": {
-        "titre": (),
-        "champ": (),
         "pave": (),
         "candidats": (),
         "vide": (),
@@ -368,9 +366,6 @@ ECRANS: dict[str, dict[str, tuple[str, ...]]] = {
         "aide": (),
         "chargement": (),
         "indisponible": (),
-        "complet": (),
-        "complet-texte": (),
-        "complet-lien": (),
     },
 }
 

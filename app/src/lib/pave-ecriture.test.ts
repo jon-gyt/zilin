@@ -15,7 +15,7 @@ const ECRANS = lireEcrans(
 const t = ECRANS.ecrire;
 const SOURCE = readFileSync(new URL('./PaveEcriture.svelte', import.meta.url), 'utf8');
 const STYLE = SOURCE.slice(SOURCE.indexOf('<style>'));
-const GABARIT = SOURCE.slice(SOURCE.indexOf('</script>'), SOURCE.indexOf('<style>'));
+const GABARIT = SOURCE.slice(SOURCE.lastIndexOf('</script>'), SOURCE.indexOf('<style>'));
 
 const rendre = (props: Record<string, unknown>) =>
   render(PaveEcriture, { props: { onchoisir: () => undefined, textes: t, ...props } as never }).body;
@@ -32,8 +32,8 @@ describe('pavé « Écrire au doigt »', () => {
     expect(texte.replace(/\s+/g, '')).toBe('');
   });
 
-  it('ouvert : le pavé, son 米字格, « Annuler le trait » et « Effacer », et la ligne d’aide', () => {
-    const html = rendre({ ouvert: true });
+  it('le pavé, son 米字格, « Annuler le trait » et « Effacer », et la ligne d’aide', () => {
+    const html = rendre({});
     expect(html).toContain('class="pave');
     expect(html).toContain(`aria-label="${t.pave}"`);
     expect(html).toContain('class="grille');
@@ -44,13 +44,22 @@ describe('pavé « Écrire au doigt »', () => {
     expect(html.match(/<button[^>]*class="ctl[^"]*"[^>]*disabled/g)).toHaveLength(2);
   });
 
-  it('fermé (sans Wenlu complet) : une ligne et un lien à la même place, sans pavé ni cadenas', () => {
-    const html = rendre({ ouvert: false, ondecouvrir: () => undefined });
-    expect(html).toContain(t.complet);
-    expect(html).toContain(t['complet-texte']);
-    expect(html).toContain(t['complet-lien'].replace('›', '›'));
-    expect(html).not.toContain('class="pave');
-    expect(html).not.toMatch(/cadenas|🔒|lock/i);
+  it("fermé (sans Wenlu complet) : rien ne s'affiche ; la ligne de Chercher prend la place", () => {
+    expect(rendre({ ouvert: false }).replace(/<!--[^>]*-->/g, '').trim()).toBe('');
+    const hote = readFileSync(new URL('./EcrireAuDoigt.svelte', import.meta.url), 'utf8');
+    expect(hote).toMatch(/\{#if complet\}\s*<Pave \{onchoisir\} \/>/);
+  });
+
+  it('Chercher le reçoit de App.svelte, avec onchoisir pour seule prop exigée', () => {
+    const app = readFileSync(new URL('../App.svelte', import.meta.url), 'utf8');
+    expect(app).toContain("import PaveEcriture from './lib/PaveEcriture.svelte'");
+    expect(app).toMatch(/<Chercher [^>]*Pave=\{PaveEcriture\}/);
+    expect(SOURCE).toMatch(/ouvert = true,/);
+  });
+
+  it('les candidats et leur pinyin viennent du dictionnaire : ses lots de traits, son index', () => {
+    expect(SOURCE).toContain('traitsDe = traitsDuDico');
+    expect(SOURCE).toContain('pinyinDe = pinyinDuDico');
   });
 
   it('les candidats se dessinent depuis leurs traits, par le composant de glyphe, jamais en police', () => {
@@ -70,7 +79,6 @@ describe('pavé « Écrire au doigt »', () => {
       return STYLE.slice(i, STYLE.indexOf('}', i));
     };
     expect(regle('.ctl')).toMatch(/min-height: 44px/);
-    expect(regle('.lien')).toMatch(/min-height: 44px/);
     expect(regle('.cand')).toMatch(/width: 58px/);
     expect(regle('.cand')).toMatch(/min-height: 68px/);
   });

@@ -740,8 +740,9 @@ statut de Mon chemin, la fiche d'un caractère (l'ordre des traits, les briques,
 venir »), celle d'un mot, la place de l'écriture au doigt et les catégories de la liste
 HSK 3.0 ; il ne rédige jamais d'origine, qui vient de la fiche relue avec son étiquette ; et
 `ecrire.tsv` (maquette `maquettes/dictionnaire.html`, écran 5) : le pavé « Écrire au doigt »,
-ses boutons « Annuler le trait » et « Effacer », le compte des traits et des candidats, et, sans
-Wenlu complet, la ligne et le lien qui prennent sa place (`app/src/lib/PaveEcriture.svelte`).
+ses boutons « Annuler le trait » et « Effacer », le compte des traits et des candidats
+(`app/src/lib/PaveEcriture.svelte`) ; le titre, le champ et la ligne « Wenlu complet » sont
+ceux du dictionnaire.
 L'app remplit les jetons entre accolades (`app/src/lib/ecrans.ts`).
 
 ```json
