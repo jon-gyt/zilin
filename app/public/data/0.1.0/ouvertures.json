@@ -1,0 +1,142 @@
+{
+ "version": "0.1.0",
+ "license": "propriétaire",
+ "source": "data/sources/ouvertures/portes.tsv : le calendrier d'ouverture des portes et les annonces de Tao, rédigés pour l'app (à relire)",
+ "source_url": "https://github.com/jon-gyt/zilin",
+ "modified": "2026-09-29 : assemblé par `wenlu export`",
+ "portes": [
+  {
+   "id": "reviser",
+   "unite": "jour",
+   "seuil": 4,
+   "parent": null,
+   "annonce": "Une nouvelle porte : Réviser 温."
+  },
+  {
+   "id": "personnage",
+   "unite": "jour",
+   "seuil": 5,
+   "parent": null,
+   "annonce": "Une nouvelle porte, en haut : ton personnage."
+  },
+  {
+   "id": "foret",
+   "unite": "jour",
+   "seuil": 6,
+   "parent": null,
+   "annonce": "Une nouvelle porte : Ma forêt 林."
+  },
+  {
+   "id": "lire",
+   "unite": "jour",
+   "seuil": 7,
+   "parent": null,
+   "annonce": "Une nouvelle porte : Lire 读."
+  },
+  {
+   "id": "jouer",
+   "unite": "lus",
+   "seuil": 6,
+   "parent": null,
+   "annonce": "Une nouvelle porte : Jouer 玩."
+  },
+  {
+   "id": "jeu-assembler",
+   "unite": "lus",
+   "seuil": 6,
+   "parent": "jouer",
+   "annonce": ""
+  },
+  {
+   "id": "jeu-chaine",
+   "unite": "lus",
+   "seuil": 6,
+   "parent": "jouer",
+   "annonce": ""
+  },
+  {
+   "id": "route",
+   "unite": "jour",
+   "seuil": 9,
+   "parent": null,
+   "annonce": "Une nouvelle porte : la route devant 前路."
+  },
+  {
+   "id": "jeu-devinette",
+   "unite": "lus",
+   "seuil": 10,
+   "parent": "jouer",
+   "annonce": "Un nouveau jeu : la devinette du jour 谜."
+  },
+  {
+   "id": "trophees",
+   "unite": "lus",
+   "seuil": 10,
+   "parent": "foret",
+   "annonce": "Une nouvelle porte, dans Ma forêt : tes trophées."
+  },
+  {
+   "id": "jeu-jumeaux",
+   "unite": "lus",
+   "seuil": 15,
+   "parent": "jouer",
+   "annonce": "Un nouveau jeu : les jumeaux 双."
+  },
+  {
+   "id": "jeu-eclair",
+   "unite": "lus",
+   "seuil": 20,
+   "parent": "jouer",
+   "annonce": "Un nouveau jeu : le dictionnaire éclair 典."
+  },
+  {
+   "id": "contes",
+   "unite": "jour",
+   "seuil": 25,
+   "parent": "lire",
+   "annonce": "Une nouvelle porte, dans Lire : les contes 故事."
+  },
+  {
+   "id": "jeu-wechat",
+   "unite": "lus",
+   "seuil": 40,
+   "parent": "jouer",
+   "annonce": "Un nouveau jeu : le message WeChat 信."
+  },
+  {
+   "id": "revisions",
+   "unite": "jour",
+   "seuil": 40,
+   "parent": "foret",
+   "annonce": "Une nouvelle porte, dans Ma forêt : tes révisions."
+  },
+  {
+   "id": "retention",
+   "unite": "jour",
+   "seuil": 40,
+   "parent": "revisions",
+   "annonce": ""
+  },
+  {
+   "id": "jeu-coquille",
+   "unite": "lus",
+   "seuil": 90,
+   "parent": "jouer",
+   "annonce": "Un nouveau jeu : la coquille 错."
+  },
+  {
+   "id": "monde",
+   "unite": "lus",
+   "seuil": 100,
+   "parent": null,
+   "annonce": "Une nouvelle porte, dans Chercher : lire le monde."
+  },
+  {
+   "id": "jeu-cuisine",
+   "unite": "lus",
+   "seuil": 150,
+   "parent": "jouer",
+   "annonce": "Un nouveau jeu : la cuisine de Tao 菜."
+  }
+ ]
+}
