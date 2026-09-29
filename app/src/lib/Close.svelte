@@ -213,10 +213,14 @@
       <path class="bande" d="M-10 118q80-20 160-6t170-8" />
       {#each [...bout.avant].reverse() as c, k (c + k)}
         {@const q = AVANT[k]}
-        <ellipse class="pave lu" cx={q.x} cy={q.y} rx="18.2" ry="11.2" />
-        <g transform="translate({q.x - 9} {q.y - 9})">
-          <!-- eslint-disable-next-line svelte/no-at-html-tags -->
-          {@html dessin(c, 18, 'var(--jade)')}
+        <!-- les pas des jours d'avant s'impriment l'un après l'autre, du plus loin au plus près,
+             avant que la pierre du jour ne tombe -->
+        <g class="pas-passe" class:deja={dejaPlantee} style="animation-delay:{((bout.avant.length - 1 - k) * 0.1).toFixed(1)}s">
+          <ellipse class="pave lu" cx={q.x} cy={q.y} rx="18.2" ry="11.2" />
+          <g transform="translate({q.x - 9} {q.y - 9})">
+            <!-- eslint-disable-next-line svelte/no-at-html-tags -->
+            {@html dessin(c, 18, 'var(--jade)')}
+          </g>
         </g>
       {/each}
       {#if bout.apres}
@@ -349,6 +353,25 @@
     stroke-dasharray: 132;
     animation: cercler 0.6s ease-out 1s both;
   }
+  /* les pierres d'avant s'impriment sur le chemin, comme un sceau qu'on presse */
+  .pas-passe {
+    transform-box: fill-box;
+    transform-origin: center;
+    animation: imprimer-pas 0.3s cubic-bezier(0.2, 0.8, 0.3, 1) both;
+  }
+  .pas-passe.deja {
+    animation: none;
+  }
+  @keyframes imprimer-pas {
+    from {
+      opacity: 0;
+      transform: scale(1.3);
+    }
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
   .pose {
     animation: poser 0.8s cubic-bezier(0.3, 0.7, 0.3, 1) 0.35s both;
   }
@@ -417,6 +440,9 @@
     }
     .onde {
       display: none;
+    }
+    .pas-passe {
+      animation: none;
     }
   }
 </style>

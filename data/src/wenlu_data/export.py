@@ -96,6 +96,7 @@ from pydantic import ValidationError
 from . import anecdotes as anecdotes_mod
 from . import contes as contes_mod
 from . import decoupes as decoupes_mod
+from . import dictionnaire as dictionnaire_mod
 from . import coquilles as coquilles_mod
 from . import cuisine as cuisine_mod
 from . import devinettes as devinettes_mod
@@ -109,6 +110,7 @@ from . import heros as heros_mod
 from . import jouer as jouer_mod
 from . import rappels as rappels_mod
 from . import lettres as lettres_mod
+from . import mots_hsk as mots_hsk_mod
 from . import ouvertures as ouvertures_mod
 from . import rythme as rythme_mod
 from . import saisons as saisons_mod
@@ -131,7 +133,7 @@ VERSION = "0.1.0"
 #: Version du format écrit par ce module. À incrémenter à chaque changement de
 #: ce que l'export produit à entrées égales (clé ajoutée, ordre, règle de
 #: sélection) : elle entre dans l'empreinte, et l'export versionné devient périmé.
-FORMAT_EXPORT = 21
+FORMAT_EXPORT = 22
 
 #: Le code de l'exporteur, lui aussi dans l'empreinte : un changement de ce
 #: fichier où l'on aurait oublié `FORMAT_EXPORT` rend quand même l'export périmé.
@@ -159,6 +161,8 @@ UNICODE_NOTICE = "UNICODE-LICENSE.txt"
 MIT_CJK_DECOMP = "MIT-cjk-decomp.txt"
 #: Texte de l'Open Government Data License 1.0 (Taïwan), dont dérivent les poids des tons.
 OGDL = tons_mod.OGDL
+#: Texte de la MIT d'ivankra/hsk30, dont vient la liste des mots du dictionnaire.
+MIT_HSK30 = mots_hsk_mod.TEXTE_LICENCE
 
 #: Substitués à l'écriture : la date ne fait pas varier le contenu comparé.
 JETON_DATE = "@date@"
@@ -225,6 +229,9 @@ def fichiers_sources(
         ("exporteur-trois-lignes", Path(trois_lignes_mod.__file__).resolve()),
         ("exporteur-examens", Path(examens_mod.__file__).resolve()),
         ("exporteur-tons", Path(tons_mod.__file__).resolve()),
+        ("exporteur-dictionnaire", Path(dictionnaire_mod.__file__).resolve()),
+        ("exporteur-mots-hsk", Path(mots_hsk_mod.__file__).resolve()),
+        ("mots-hsk", mots_hsk_mod.LISTE),
         ("decompositions", build / "decompositions.json"),
         ("graphe", build / "graphe.json"),
         *[(f"parcours-{nom}", build / f"parcours-{nom}.json") for nom in sorted(PARCOURS)],
@@ -275,6 +282,7 @@ def fichiers_sources(
         ("arphicpl", LICENCES_SOURCE / ARPHIC),
         ("unicode", LICENCES_SOURCE / UNICODE_NOTICE),
         ("mit-cjk-decomp", LICENCES_SOURCE / MIT_CJK_DECOMP),
+        ("mit-hsk30", LICENCES_SOURCE / MIT_HSK30),
     ]
     for chemin in fiches_mod.fiches_ecrites(fiches):
         lus.append((f"fiche:{chemin.stem}", chemin))
@@ -1457,6 +1465,7 @@ def document_index(
     contes: Mapping[str, Sequence[contes_mod.Version]],
     fichiers: Mapping[str, str],
     apercu: bool = False,
+    dictionnaire: bool = False,
 ) -> dict[str, object]:
     """Le JSON écrit dans `index.json` : la porte d'entrée de l'app.
 
@@ -1547,6 +1556,8 @@ def document_index(
         "tons": tons_mod.FICHIER,
         "ecriture": ecriture_mod.FICHIER,
     }
+    if dictionnaire:
+        document["dictionnaire"] = dictionnaire_mod.INDEX
     if apercu:
         document["apercu"] = f"{APERCU}/index.json"
     return document
@@ -1588,6 +1599,14 @@ TABLEAU_LICENCES: tuple[tuple[str, str, str, str, str], ...] = (
         "https://creativecommons.org/licenses/by-sa/4.0/",
     ),
     (
+        "Liste des mots du HSK 3.0 (ivankra/hsk30, contrôlée contre elkmovie/hsk30)",
+        "mots du dictionnaire : graphie, pinyin, niveau, catégorie grammaticale (`dico/`) ;"
+        " aucun sens",
+        "MIT",
+        "Copyright (c) 2023 Ivan Krasilnikov, (c) 2021 Shawky, (c) 2021 Pleco Inc.",
+        f"`{MIT_HSK30}`",
+    ),
+    (
         "Norme GF 0014-2009",
         "les 514 composants : règle de décomposition",
         "texte normatif, non reproduit",
@@ -1596,7 +1615,7 @@ TABLEAU_LICENCES: tuple[tuple[str, str, str, str, str], ...] = (
     ),
     (
         "Seuils sinographiques (Éducation nationale) et référentiel HSK 3.0",
-        "listes cibles (`listes`, `parcours`)",
+        "listes cibles (`listes`, `parcours`) ; niveaux du dictionnaire (`dico/`)",
         "publications officielles, listes de faits",
         "Eduscol ; Chinese Testing International",
         "—",
@@ -1632,7 +1651,7 @@ TABLEAU_LICENCES: tuple[tuple[str, str, str, str, str], ...] = (
         "`familles/`, `contes/`, `paires.json`, `fetes.json`, `saisons.json`, `devinettes.json`,"
         " `eclair.json`, `coquilles.json`, `cuisine.json`, `lettres.json`, `wechat.json`,"
         " `heros.json`, `jouer.json`, `rythme.json`, `rappels.json`, `ecrans.json`, `ouvertures.json`,"
-        " et `apercu/`"
+        " `dico/` (assemblage, sens et exemples relus), et `apercu/`"
         " pour les textes encore à relire",
         LICENCE_PROPRIETAIRE,
         "textes rédigés pour l'app, relus",
@@ -1662,17 +1681,21 @@ def licences_md(version: str) -> str:
         " (`docs/sources-licences.md` §2.1 et §8) :",
         "",
         f"- `traits/` : tracés sous {LICENCE_TRAITS}, avec `{ARPHIC}` inaltéré à côté"
-        " et `traits/MODIFICATIONS.md` qui dit comment et quand ils ont été dérivés.",
+        " et `traits/MODIFICATIONS.md` qui dit comment et quand ils ont été dérivés ;"
+        " `traits/dico-<n>.json` : ceux du dictionnaire, par lots.",
         f"- `ecriture/` : gabarits de l'écriture au doigt, dérivés des médianes, sous {LICENCE_TRAITS},"
         f" avec `{ARPHIC}` inaltéré à côté et `ecriture/MODIFICATIONS.md`.",
         "- `familles/`, `contes/`, `paires.json`, `fetes.json`, `saisons.json`, `devinettes.json`,"
         " `eclair.json`, `coquilles.json`, `cuisine.json`, `lettres.json`, `wechat.json`, `heros.json`,"
-        " `jouer.json`, `rythme.json`, `rappels.json`, `ecrans.json`, `ouvertures.json`, `apercu/` :"
+        " `jouer.json`, `rythme.json`, `rappels.json`, `ecrans.json`, `ouvertures.json`, `apercu/`,"
+        " `dico/` :"
         " décomposition canonique et"
         " textes rédigés pour l'app, propriétaires.",
         f"- `{UNICODE_NOTICE}` : notice de permission Unicode, qui couvre le pinyin.",
         f"- `{MIT_CJK_DECOMP}` : notice de copyright et texte de la MIT, qui couvrent les"
         " décompositions descendues de cjk-decomp.",
+        f"- `{MIT_HSK30}` : notice de copyright et texte de la MIT d'ivankra/hsk30, qui couvrent"
+        " la liste des mots du dictionnaire (`dico/`).",
         f"- `{tons_mod.FICHIER}` : les poids du classifieur des tons, propriétaires, dérivés de"
         f" données sous {tons_mod.LICENCE_DONNEES} ; ils portent l'attribution exigée, et"
         f" `{tons_mod.OGDL}` le texte de la licence.",
@@ -1748,7 +1771,7 @@ def section_decoupes(decoupes: Sequence[Mapping[str, object]]) -> list[str]:
 
 
 def modifications_md(
-    version: str, caracteres: int, decoupes: Sequence[Mapping[str, object]] = ()
+    version: str, caracteres: int, decoupes: Sequence[Mapping[str, object]] = (), dico: int = 0
 ) -> str:
     """`traits/MODIFICATIONS.md` : la mention exigée par l'APL §2 a), en tête du dossier.
 
@@ -1779,6 +1802,15 @@ def modifications_md(
             " HSK 1, les caractères dessinés des fêtes, des termes solaires et des mots"
             " expliqués des contes, et leurs"
             " briques.",
+            *(
+                [
+                    f"- Dictionnaire : {dico} caractères — les 3 000 du HSK 3.0 et les composants"
+                    " de leurs décompositions — copiés à part, par lots de `dico-<n>.json`"
+                    " rangés dans l'ordre du pinyin, pour la loupe Chercher."
+                ]
+                if dico
+                else []
+            ),
             retouche,
             "",
             *section_decoupes(decoupes),
@@ -2088,11 +2120,26 @@ def assembler(
             }
         )
     )
+    # Le dictionnaire de la loupe Chercher (`dictionnaire.py`) : les 3 000 caractères et les
+    # 11 092 mots du HSK 3.0, par lots, et leurs traits à part.
+    dico_textes, dico_traits, dico_decoupes = assembler_dictionnaire(
+        version,
+        build=build,
+        ingest=ingest,
+        listes=listes,
+        noeuds=noeuds,
+        decompositions=decompositions,
+        parcours=documents_parcours,
+    )
+    textes.update(dico_textes)
+    # Les découpes des familles et du dictionnaire, dans l'ordre de la table des découpes.
+    decrites = {str(d["c"]) for d in (*decoupes, *dico_decoupes)}
+    decoupes_decrites = [d for d in decoupes_mod.charger(build) if str(d["c"]) in decrites]
     # Les gabarits de l'écriture au doigt (`ecriture.py`) : sous APL, dans leur dossier, nommés par l'index.
     textes.update(ecriture_mod.fichiers(version, ingest=ingest, licences=licences, jour=JETON_JOUR))
     textes["LICENCES.md"] = licences_md(version)
-    textes["traits/MODIFICATIONS.md"] = modifications_md(version, len(graphies), decoupes)
-    for nom in (ARPHIC, UNICODE_NOTICE, MIT_CJK_DECOMP, OGDL):
+    textes["traits/MODIFICATIONS.md"] = modifications_md(version, len(graphies), decoupes_decrites, dico_traits)
+    for nom in (ARPHIC, UNICODE_NOTICE, MIT_CJK_DECOMP, OGDL, MIT_HSK30):
         texte = (licences / nom).read_text(encoding="utf-8")
         textes[nom] = texte
         if nom == ARPHIC:
@@ -2113,9 +2160,71 @@ def assembler(
             contes=versions_contes,
             fichiers=fichiers_familles,
             apercu=bool(apercu),
+            dictionnaire=bool(dico_textes),
         )
     )
     return textes, per, relues
+
+
+MODIF_TRAITS_DICO = (
+    f"{JETON_JOUR} : conversion de format (lots du dictionnaire rangés dans l'ordre du pinyin, un"
+    " objet {s: tracés, m: médianes} par caractère) et sous-ensemble de caractères (les 3 000"
+    " caractères du HSK 3.0 et les composants de leurs décompositions). Les tracés et les"
+    " médianes eux-mêmes ne sont pas modifiés."
+)
+
+
+def assembler_dictionnaire(
+    version: str,
+    *,
+    build: Path,
+    ingest: Path,
+    listes: Mapping[str, Sequence[str]],
+    noeuds: Mapping[str, Noeud],
+    decompositions: Mapping[str, Mapping[str, object]],
+    parcours: Mapping[str, Mapping[str, object]],
+) -> tuple[dict[str, str], int, list[Mapping[str, object]]]:
+    """Les fichiers du dictionnaire, le nombre de caractères de ses traits et ses découpes.
+
+    Rien quand les listes ne portent aucun niveau HSK et qu'aucun mot n'est versionné.
+    """
+    mots = mots_hsk_mod.charger()
+    caracteres = [c for nom in dictionnaire_mod.LISTES_HSK for c in listes.get(nom, ())]
+    if not caracteres and not mots:
+        return {}, 0, []
+    parts = {
+        str(p) for c in caracteres for p in (decompositions.get(c, {}).get("composants") or [])
+    }
+    traits_decoupes = decoupes_mod.traits(build)
+    graphies = charger_graphies(ingest, [*caracteres, *parts], traits_decoupes)
+    textes = dictionnaire_mod.documents(
+        version,
+        listes=listes,
+        mots=mots,
+        pinyin=charger_pinyin(ingest, caracteres),
+        lectures=charger_lectures(ingest, caracteres),
+        decompositions=decompositions,
+        reconcilies={c for c, n in noeuds.items() if n.reconcilie},
+        parcours=parcours,
+        graphies=graphies,
+        traits_en_tete={
+            "version": version,
+            "license": LICENCE_TRAITS,
+            "license_file": ARPHIC,
+            "source": SOURCE_TRAITS,
+            "source_url": URL_TRAITS,
+            "modified": MODIF_TRAITS_DICO,
+        },
+        decoupes=set(traits_decoupes),
+        modified=f"{JETON_JOUR} : assemblé par `wenlu export`",
+        source_url=URL_PIPELINE,
+    )
+    dessines: set[str] = set()
+    for relatif, texte in textes.items():
+        if relatif.startswith("traits/"):
+            dessines |= set(json.loads(texte)["traits"])
+    decoupes = [d for d in decoupes_mod.charger(build) if str(d["c"]) in dessines]
+    return textes, len(dessines), decoupes
 
 
 def export(
@@ -2206,6 +2315,7 @@ TEXTES_DE_LICENCE: tuple[str, ...] = (
     UNICODE_NOTICE,
     MIT_CJK_DECOMP,
     OGDL,
+    MIT_HSK30,
     "LICENCES.md",
     f"traits/{ARPHIC}",
     "traits/MODIFICATIONS.md",

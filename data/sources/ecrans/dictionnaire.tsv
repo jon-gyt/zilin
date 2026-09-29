@@ -1,0 +1,152 @@
+# Les textes du dictionnaire 字典, le premier onglet de Chercher (story 10.8) : la loupe, les
+# recherches récentes, le caractère du jour, les résultats, la fiche d'un caractère, la fiche
+# d'un mot, et la place de l'écriture au doigt.
+#
+# Décisions du propriétaire du 29 septembre 2026, maquette `maquettes/dictionnaire.html` :
+# consultation libre du HSK 1 à 9 ; sens et exemples affichés seulement relus ; son par la
+# voix de l'appareil ; écriture au doigt dans Wenlu complet (abonnement et achat à vie) ;
+# « origine à venir » là où l'origine n'est pas relue ; Tao avant la rencontre de Xing au
+# 县试, Xing après. Rien ne s'ajoute aux révisions depuis le dictionnaire.
+#
+# Source : rédigé pour l'app, sans API, dans une session Claude Code, d'après la maquette ;
+# à relire. Des constats, jamais un reproche ; ni emoji, ni dragon, ni temps passé, ni
+# classement : `wenlu check` le vérifie. L'origine d'un caractère n'est jamais écrite ici :
+# elle vient de sa fiche relue, avec son étiquette ; `origine-a-venir` ne dit ni attesté ni
+# mnémotechnique.
+#
+# Format : TSV, `#` en commentaire, trois colonnes séparées par une tabulation : `cle`,
+# `fr`, `source`. Chaque clé est exigée une fois, avec exactement ses jetons entre
+# accolades, que l'app remplit (`ecrans.py`, `ECRANS`) :
+#
+# - la loupe : `surtitre` (`{caracteres}` et `{mots}`, les comptes de l'index), `menu` (le
+#   retour), `champ` (le nom du champ, pour un lecteur d'écran), `invite` (le champ vide),
+#   `effacer-saisie`, `ecrire` (le pinceau), `aide`, `chargement`, `indisponible` (un export
+#   sans dictionnaire) ;
+# - les récentes : `recentes`, `recentes-effacer`, `recentes-effacer-voix`, `recentes-vide` ;
+# - le caractère du jour, celui du terme solaire qui court : `jour-titre`, `jour-terme`
+#   (`{nom}` 秋分, `{fr}` l'équinoxe d'automne) ;
+# - les résultats : `resultats` (`{caracteres}` et `{mots}`, les deux lignes suivantes),
+#   `caracteres`, `caracteres-un`, `mots`, `mots-un` (`{n}`), `premiers` (au-delà de la
+#   liste montrée), `rien` (`{q}`, la saisie), `titre-caracteres`, `titre-mots`, `tons`,
+#   `tous`, `ton` (les pastilles de ton, `{n}` 1 à 5), `hsk` (`{n}` 1 à 6 ou 7-9),
+#   `hors-hsk` ;
+# - le statut de Mon chemin : `lu`, `lue` (une brique), `encours`, `dans` (`{n}` jours du
+#   chemin), `hors` ; en toutes lettres dans la fiche : `statut-lu`, `statut-encours`,
+#   `statut-chemin`, `statut-chemin-un`, `statut-jour`, `statut-hors` ;
+# - la fiche d'un caractère : `retour` (le nom de la loupe dans « ‹ Chercher »), l'ordre des
+#   traits (`lecture`, `pause`, `suivant`, `revoir`, `lire-voix`, `pause-voix`, `traits`,
+#   `trait`), `ecouter` (`{t}`, le caractère ou le mot), `aussi` (une autre lecture),
+#   `sens-relecture`, `pas-appris`, `pas-appris-hsk`, `pas-appris-hors-hsk`,
+#   `pas-appris-briques`, les briques (`briques`, `norme`, `role-sens`, `role-son`,
+#   `role-forme`, `roles-a-venir`, `decomposition-relecture`, `brique-norme`, `famille`),
+#   l'origine (`origine`, `origine-a-venir`, `origine-source`, `maitre`), `comme-mot` (les
+#   mots d'un seul caractère, rangés sous lui), `mots-titre`, `mots-tous`, `exemples`,
+#   `fin-lu`, `fin` ;
+# - la fiche d'un mot : `mot-caracteres`, `mot-toucher`, `mot-ouvrir`, `mot-long`,
+#   `mot-lu`, `proches`, `fin-mot` ;
+# - l'écriture au doigt : `ecrire-titre`, `ecrire-kicker`, `ecrire-saisie`,
+#   `complet-titre`, `complet-texte` (sans achat : une ligne, sans cadenas ni fenêtre) ;
+# - les catégories de la liste HSK 3.0 (`data/schema.md`, `categorie`) : `cat-N` à
+#   `cat-Phonetic`.
+cle	fr	source
+surtitre	HSK 1 à 9 · {caracteres} caractères · {mots} mots	rédigé pour l'app
+menu	Menu	rédigé pour l'app
+champ	Chercher un caractère ou un mot	rédigé pour l'app
+invite	好, hǎo, hao3, haokan ou un mot français	rédigé pour l'app
+effacer-saisie	Effacer la saisie	rédigé pour l'app
+ecrire	Écrire au doigt	rédigé pour l'app
+aide	Un caractère, un mot en pinyin, avec ou sans tons, ou un mot français.	rédigé pour l'app
+chargement	Un instant.	rédigé pour l'app
+indisponible	Le dictionnaire n'est pas dans cette version des données.	rédigé pour l'app
+recentes	Récentes	rédigé pour l'app
+recentes-effacer	Effacer	rédigé pour l'app
+recentes-effacer-voix	Effacer les recherches récentes	rédigé pour l'app
+recentes-vide	Rien pour l'instant. Tes recherches restent sur cet appareil.	rédigé pour l'app
+jour-titre	Le caractère du jour	rédigé pour l'app
+jour-terme	{nom} · {fr}	rédigé pour l'app
+resultats	{caracteres}, {mots}. Touche une ligne pour ouvrir sa fiche.	rédigé pour l'app
+caracteres	{n} caractères	rédigé pour l'app
+caracteres-un	{n} caractère	rédigé pour l'app
+mots	{n} mots	rédigé pour l'app
+mots-un	{n} mot	rédigé pour l'app
+premiers	Voici les {n} premiers sur {total} : précise la saisie pour voir la suite.	rédigé pour l'app
+rien	Rien pour « {q} » dans le HSK 1 à 9.	rédigé pour l'app
+titre-caracteres	Caractères	rédigé pour l'app
+titre-mots	Mots	rédigé pour l'app
+tons	Filtrer par ton	rédigé pour l'app
+tous	Tous	rédigé pour l'app
+ton	ton {n}	rédigé pour l'app
+hsk	HSK {n}	rédigé pour l'app
+hors-hsk	hors HSK	rédigé pour l'app
+lu	lu	rédigé pour l'app
+lue	lue	rédigé pour l'app
+encours	en cours	rédigé pour l'app
+dans	dans {n} j	rédigé pour l'app
+hors	hors du chemin	rédigé pour l'app
+statut-lu	Lu	rédigé pour l'app
+statut-encours	En cours sur ton chemin	rédigé pour l'app
+statut-chemin	Sur ton chemin, dans {n} jours	rédigé pour l'app
+statut-chemin-un	Sur ton chemin, demain	rédigé pour l'app
+statut-jour	jour {n} de ton chemin	rédigé pour l'app
+statut-hors	Hors de ton chemin	rédigé pour l'app
+retour	Chercher	rédigé pour l'app
+lecture	Lecture	rédigé pour l'app
+pause	Pause	rédigé pour l'app
+suivant	Trait suivant	rédigé pour l'app
+revoir	Revoir depuis le début	rédigé pour l'app
+lire-voix	Lire l'ordre des traits	rédigé pour l'app
+pause-voix	Mettre en pause l'ordre des traits	rédigé pour l'app
+traits	{n} traits	rédigé pour l'app
+trait	Trait {k} sur {n}	rédigé pour l'app
+ecouter	Écouter {t}	rédigé pour l'app
+aussi	aussi {pinyin}	rédigé pour l'app
+sens-relecture	Le sens est en relecture.	rédigé pour l'app
+pas-appris	Pas encore appris	rédigé pour l'app
+pas-appris-hsk	{c} est du HSK {n}. Ton chemin ne le pose pas encore.	rédigé pour l'app
+pas-appris-hors-hsk	{c} n'est pas dans le HSK 1 à 9.	rédigé pour l'app
+pas-appris-briques	Tu lis {lus} de ses {n} briques.	rédigé pour l'app
+briques	Ses briques	rédigé pour l'app
+norme	GF 0014-2009	rédigé pour l'app
+role-sens	sens	rédigé pour l'app
+role-son	son	rédigé pour l'app
+role-forme	forme	rédigé pour l'app
+roles-a-venir	Les rôles des briques viendront avec la fiche relue.	rédigé pour l'app
+decomposition-relecture	Sa décomposition selon la norme est en relecture.	rédigé pour l'app
+brique-norme	C'est une brique de la norme : elle ne se décompose pas.	rédigé pour l'app
+famille	Sa famille sur Mon chemin	rédigé pour l'app
+origine	L'origine	rédigé pour l'app
+origine-a-venir	Origine à venir : celle de {c} n'est pas encore écrite.	rédigé pour l'app
+origine-source	Fiche relue	rédigé pour l'app
+maitre	Xing	rédigé pour l'app
+comme-mot	Comme mot	rédigé pour l'app
+mots-titre	Les mots	rédigé pour l'app
+mots-tous	Voir les {n} mots	rédigé pour l'app
+exemples	Exemples	rédigé pour l'app
+fin-lu	{c} revient dans tes révisions par le chemin. Rien à ajouter d'ici.	rédigé pour l'app
+fin	Rien à ajouter aux révisions d'ici : {c} entrera quand ton chemin le rencontrera et que ses briques seront stables.	rédigé pour l'app
+mot-caracteres	Ses caractères	rédigé pour l'app
+mot-toucher	touche pour ouvrir la fiche	rédigé pour l'app
+mot-ouvrir	{c}, {pinyin} : ouvrir sa fiche	rédigé pour l'app
+mot-long	mot de {n} caractères	rédigé pour l'app
+mot-lu	Tu lis {w}.	rédigé pour l'app
+proches	Mots proches	rédigé pour l'app
+fin-mot	Pas d'ajout aux révisions depuis le dictionnaire.	rédigé pour l'app
+ecrire-titre	Écrire au doigt	rédigé pour l'app
+ecrire-kicker	Dictionnaire	rédigé pour l'app
+ecrire-saisie	Le caractère choisi s'écrit ici	rédigé pour l'app
+complet-titre	L'écriture au doigt vient avec Wenlu complet.	rédigé pour l'app
+complet-texte	Cherche par caractère, par pinyin ou en français : c'est libre, sans limite, et chaque fiche est entière.	rédigé pour l'app
+cat-N	nom	rédigé pour l'app
+cat-V	verbe	rédigé pour l'app
+cat-Adj	adjectif	rédigé pour l'app
+cat-Adv	adverbe	rédigé pour l'app
+cat-M	classificateur	rédigé pour l'app
+cat-Num	numéral	rédigé pour l'app
+cat-Pron	pronom	rédigé pour l'app
+cat-Prep	préposition	rédigé pour l'app
+cat-Conj	conjonction	rédigé pour l'app
+cat-Aux	particule	rédigé pour l'app
+cat-Intj	interjection	rédigé pour l'app
+cat-Prefix	préfixe	rédigé pour l'app
+cat-Suffix	suffixe	rédigé pour l'app
+cat-Phonetic	onomatopée	rédigé pour l'app

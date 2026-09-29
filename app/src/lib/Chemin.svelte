@@ -422,7 +422,7 @@
   </g>
 {/snippet}
 
-{#snippet auberge(a: Auberge, place: Place, decalage: number)}
+{#snippet auberge(a: Auberge, place: Place, decalage: number, fume = false)}
   {@const s = placerSentier(place, a, decalage)}
   <path class="sentier" d={s.d} />
   <g
@@ -437,6 +437,11 @@
       <rect class="mur" x="-16" y="-24" width="32" height="22" />
       <rect class="porte-auberge" x="-5" y="-16" width="10" height="14" rx="1" />
       <path class="toit" d="M-23 -23q7-2 11-10h24q4 8 11 10z" />
+      {#if fume}
+      <!-- l'auberge est ouverte : un filet de fumée monte du toit et s'efface -->
+      <path class="fumee" d="M6 -34q-3-4 0-8t0-8" />
+      <path class="fumee deux" d="M6 -34q-3-4 0-8t0-8" />
+      {/if}
       <path class="mat" d="M21 -1V-54" />
       <!-- le fanion flotte au vent, chacun à son temps : sa brique et son sceau avec lui -->
       <g class="flotte" style="animation-delay:{-((Math.abs(s.x * 7 + s.y * 3) % 13) * 0.21).toFixed(2)}s">
@@ -541,6 +546,12 @@
     <svg viewBox="0 0 {scene.largeur} {scene.hauteur}" role="group" aria-label={tc['scene-voix']}>
       <!-- le haut : le soleil pâle, trois collines en aplats, quelques pins de jade -->
       <circle class="soleil" cx="268" cy="40" r="17" />
+      <!-- de loin en loin, un vol de trois oiseaux passe au-dessus des collines, puis plus rien -->
+      <g class="oiseaux">
+        <path d="M0 0q4-4 8 0q4-4 8 0" />
+        <path d="M14 -9q3-3 6 0q3-3 6 0" />
+        <path d="M-12 -5q3-3 6 0q3-3 6 0" />
+      </g>
       <path class="mont1" d="M0 160 L38 118 L70 136 L116 66 L150 104 L178 86 L214 128 L252 96 L290 132 L322 104 L361 128 V380 H0Z" />
       <path class="mont2" d="M0 238 Q50 206 104 222 T214 212 T361 206 V380 H0Z" />
       <path class="mont3" d="M0 382 Q90 352 180 366 T361 358 V386 H0Z" />
@@ -608,7 +619,7 @@
 
       <!-- les auberges et leurs sentiers, avant les pavés du chemin -->
       {#each aubergesDuJour as a, k (a.racine)}
-        {@render auberge(a, scene.jour, k * 64)}
+        {@render auberge(a, scene.jour, k * 64, true)}
       {/each}
       {#each scene.derriere as x (x.genre === 'pave' ? `p${x.etape.jour}` : `r${x.rang}`)}
         {#if x.genre === 'pave'}
@@ -1259,6 +1270,38 @@
     margin-right: 6px;
   }
 
+  /* De loin en loin, un vol d'oiseaux traverse le ciel de la route devant : dix secondes de
+     passage toutes les quarante, au trait d'encre pâle, loin derrière tout. Pas de nuit :
+     un jour de fête, le ciel est au décor de la fête. */
+  .oiseaux {
+    fill: none;
+    stroke: var(--ink2);
+    stroke-width: 1.5;
+    stroke-linecap: round;
+    opacity: 0.55;
+    transform: translate(400px, 24px);
+    animation: vol 40s linear 3s infinite;
+  }
+  @keyframes vol {
+    0% {
+      transform: translate(400px, 24px);
+    }
+    25% {
+      transform: translate(-40px, 36px);
+    }
+    100% {
+      transform: translate(-40px, 36px);
+    }
+  }
+  :global(html[data-fete]) .oiseaux {
+    display: none;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .oiseaux {
+      display: none;
+    }
+  }
+
   /* Les lanternes de la route devant se balancent doucement, pendues à leur fil : le haut
      du groupe, le crochet, ne bouge pas. Une rotation de trois degrés, rien de plus. */
   .balance {
@@ -1279,6 +1322,40 @@
       animation: none;
     }
   }
+  /* La fumée de l'auberge : deux filets qui montent du toit, s'élargissent un peu et
+     s'effacent, l'un après l'autre. À la brume, jamais un aplat. */
+  .fumee {
+    fill: none;
+    stroke: var(--mist);
+    stroke-width: 2;
+    stroke-linecap: round;
+    opacity: 0;
+    transform-box: fill-box;
+    transform-origin: 50% 100%;
+    animation: fumer 3.6s ease-out infinite;
+  }
+  .fumee.deux {
+    animation-delay: 1.8s;
+  }
+  @keyframes fumer {
+    0% {
+      opacity: 0;
+      transform: none;
+    }
+    25% {
+      opacity: 0.7;
+    }
+    100% {
+      opacity: 0;
+      transform: translateY(-10px) scale(1.3);
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .fumee {
+      display: none;
+    }
+  }
+
   /* Le fanion 幌子 flotte au vent, tenu au mât : sa brique et son sceau suivent le tissu.
      Un léger cisaillement, jamais plus de quelques degrés. */
   .flotte {

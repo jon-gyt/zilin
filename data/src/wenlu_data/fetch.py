@@ -24,7 +24,7 @@ from .ingest import ouvrir_texte
 # `empreinte` : le SHA-256 d'un fichier, le même que celui d'`export` (`outils.py`).
 from .outils import empreinte_fichier as empreinte
 from .paths import SOURCES
-from . import cjkdecomp, unihan
+from . import cjkdecomp, mots_hsk, unihan
 
 MMAH = "https://raw.githubusercontent.com/skishore/makemeahanzi/master/"
 
@@ -49,6 +49,12 @@ ENTETE_UNIHAN = unihan.ENTETE
 # exportée derrière nos surcharges (docs/sources-licences.md §10).
 # Le projet d'origine (codeplex) a fermé ; le fork `amake` fait référence.
 CJKDECOMP = cjkdecomp.URL
+
+# Liste des mots du HSK 3.0 (GF 0025-2021) : la table d'ivankra/hsk30 (MIT), contrôlée
+# contre l'OCR d'elkmovie/hsk30 (MIT, Pleco). `mots_hsk.py` en tire la liste versionnée
+# `data/sources/listes/hsk-mots.tsv` ; la colonne `CEDICT` d'ivankra n'est jamais lue.
+HSK30_MOTS = mots_hsk.URL_IVANKRA
+HSK30_OCR = mots_hsk.URL_ELKMOVIE
 
 
 @dataclass(frozen=True)
@@ -102,6 +108,20 @@ SOURCES_DISTANTES: tuple[Source, ...] = (
         fichier="cjk-decomp.txt",
         url=CJKDECOMP,
         licence=cjkdecomp.LICENCE,
+    ),
+    Source(
+        nom="HSK 3.0 — mots (ivankra/hsk30)",
+        fichier=mots_hsk.FICHIER_IVANKRA,
+        url=HSK30_MOTS,
+        licence=mots_hsk.LICENCE_IVANKRA,
+        entete_attendue=mots_hsk.ENTETE_IVANKRA,
+    ),
+    Source(
+        nom="HSK 3.0 — OCR des mots (elkmovie/hsk30)",
+        fichier=mots_hsk.FICHIER_ELKMOVIE,
+        url=HSK30_OCR,
+        licence=mots_hsk.LICENCE_ELKMOVIE,
+        entete_attendue=mots_hsk.ENTETE_ELKMOVIE,
     ),
 )
 

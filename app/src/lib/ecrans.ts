@@ -2,9 +2,9 @@
  * Les textes d'interface de « Lire le monde » (Chercher), du tableau des révisions (Mon
  * chemin), les lignes des examens sur « Mon personnage » et la route devant (stories 8.5 et
  * 8.6), ceux de la question « Dis-le » et de son réglage (story 9.1), et l'image du chemin
- * (Mon chemin 路, la pierre posée, les auberges, les rendez-vous) et du maître Xing 杏 (sa
- * rencontre, sa ligne du pas Apprendre), tels que le pipeline les
- * exporte dans `ecrans.json` (`data/sources/ecrans/`, `data/schema.md`).
+ * (Mon chemin 路, la pierre posée, les auberges, les rendez-vous), du dictionnaire 字典 de
+ * Chercher (story 10.8) et du maître Xing 杏 (sa rencontre, sa ligne du pas Apprendre), tels
+ * que le pipeline les exporte dans `ecrans.json` (`data/sources/ecrans/`, `data/schema.md`).
  *
  * L'app ne rédige aucun de ces textes : elle les lit ici et remplit leurs jetons entre
  * accolades (`remplir`). Un export sans `ecrans.json` rend des textes vides : l'écran se
@@ -208,6 +208,115 @@ export const CLES_CHEMIN = [
 ] as const;
 
 /**
+ * Le dictionnaire 字典, premier onglet de Chercher (story 10.8, maquette
+ * `maquettes/dictionnaire.html`) : la loupe, les résultats, la fiche d'un caractère et celle
+ * d'un mot, la place de l'écriture au doigt. Dans l'ordre de la source.
+ */
+export const CLES_DICTIONNAIRE = [
+  'surtitre',
+  'menu',
+  'champ',
+  'invite',
+  'effacer-saisie',
+  'ecrire',
+  'aide',
+  'chargement',
+  'indisponible',
+  'recentes',
+  'recentes-effacer',
+  'recentes-effacer-voix',
+  'recentes-vide',
+  'jour-titre',
+  'jour-terme',
+  'resultats',
+  'caracteres',
+  'caracteres-un',
+  'mots',
+  'mots-un',
+  'premiers',
+  'rien',
+  'titre-caracteres',
+  'titre-mots',
+  'tons',
+  'tous',
+  'ton',
+  'hsk',
+  'hors-hsk',
+  'lu',
+  'lue',
+  'encours',
+  'dans',
+  'hors',
+  'statut-lu',
+  'statut-encours',
+  'statut-chemin',
+  'statut-chemin-un',
+  'statut-jour',
+  'statut-hors',
+  'retour',
+  'lecture',
+  'pause',
+  'suivant',
+  'revoir',
+  'lire-voix',
+  'pause-voix',
+  'traits',
+  'trait',
+  'ecouter',
+  'aussi',
+  'sens-relecture',
+  'pas-appris',
+  'pas-appris-hsk',
+  'pas-appris-hors-hsk',
+  'pas-appris-briques',
+  'briques',
+  'norme',
+  'role-sens',
+  'role-son',
+  'role-forme',
+  'roles-a-venir',
+  'decomposition-relecture',
+  'brique-norme',
+  'famille',
+  'origine',
+  'origine-a-venir',
+  'origine-source',
+  'maitre',
+  'comme-mot',
+  'mots-titre',
+  'mots-tous',
+  'exemples',
+  'fin-lu',
+  'fin',
+  'mot-caracteres',
+  'mot-toucher',
+  'mot-ouvrir',
+  'mot-long',
+  'mot-lu',
+  'proches',
+  'fin-mot',
+  'ecrire-titre',
+  'ecrire-kicker',
+  'ecrire-saisie',
+  'complet-titre',
+  'complet-texte',
+  'cat-N',
+  'cat-V',
+  'cat-Adj',
+  'cat-Adv',
+  'cat-M',
+  'cat-Num',
+  'cat-Pron',
+  'cat-Prep',
+  'cat-Conj',
+  'cat-Aux',
+  'cat-Intj',
+  'cat-Prefix',
+  'cat-Suffix',
+  'cat-Phonetic'
+] as const;
+
+/**
  * Le maître Xing 杏 (décision du propriétaire du 29 septembre 2026) : sa rencontre à la porte du
  * 县试, et sa ligne de tête au pas Apprendre selon l'étiquette de la fiche. Dans l'ordre de la source.
  */
@@ -259,6 +368,7 @@ export type CleRoute = (typeof CLES_ROUTE)[number];
 export type CleDire = (typeof CLES_DIRE)[number];
 export type CleChemin = (typeof CLES_CHEMIN)[number];
 export type CleXing = (typeof CLES_XING)[number];
+export type CleDictionnaire = (typeof CLES_DICTIONNAIRE)[number];
 export type CleEcrire = (typeof CLES_ECRIRE)[number];
 
 export type TextesLireLeMonde = Record<CleLireLeMonde, string>;
@@ -268,6 +378,7 @@ export type TextesRoute = Record<CleRoute, string>;
 export type TextesDire = Record<CleDire, string>;
 export type TextesChemin = Record<CleChemin, string>;
 export type TextesXing = Record<CleXing, string>;
+export type TextesDictionnaire = Record<CleDictionnaire, string>;
 export type TextesEcrire = Record<CleEcrire, string>;
 
 export type Ecrans = {
@@ -280,6 +391,7 @@ export type Ecrans = {
   dire: TextesDire;
   chemin: TextesChemin;
   xing: TextesXing;
+  dico: TextesDictionnaire;
   ecrire: TextesEcrire;
 };
 
@@ -298,6 +410,7 @@ export const SANS_ECRANS: Ecrans = {
   dire: vides(CLES_DIRE),
   chemin: vides(CLES_CHEMIN),
   xing: vides(CLES_XING),
+  dico: vides(CLES_DICTIONNAIRE),
   ecrire: vides(CLES_ECRIRE)
 };
 
@@ -329,6 +442,7 @@ export function lireEcrans(brut: unknown): Ecrans {
     dire: bloc(o.dire, CLES_DIRE),
     chemin: bloc(o.chemin, CLES_CHEMIN),
     xing: bloc(o.xing, CLES_XING),
+    dico: bloc(o.dictionnaire, CLES_DICTIONNAIRE),
     ecrire: bloc(o.ecrire, CLES_ECRIRE)
   };
 }

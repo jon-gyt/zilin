@@ -80,6 +80,27 @@ def test_la_photo_passe_par_le_texte_en_direct_sans_reseau() -> None:
     assert "Texte en direct" in aide
 
 
+def test_le_dictionnaire_dit_les_textes_de_la_maquette() -> None:
+    """Maquette du dictionnaire du 29 septembre 2026 (`maquettes/dictionnaire.html`), story 10.8."""
+    d = {t.cle: t.fr for t in charger().textes["dictionnaire"]}
+    lm = {t.cle: t.fr for t in charger().textes["lire-le-monde"]}
+    assert (lm["onglet-caractere"], lm["onglet-texte"]) == ("Dictionnaire", "Lire le monde")
+    assert d["pas-appris"] == "Pas encore appris"
+    assert d["dans"].format(n=122) == "dans 122 j"
+    assert d["hsk"].format(n="7-9") == "HSK 7-9"
+    assert d["norme"] == "GF 0014-2009"
+    assert d["fin-mot"] == "Pas d'ajout aux révisions depuis le dictionnaire."
+    assert d["complet-titre"] == "L'écriture au doigt vient avec Wenlu complet."
+
+
+def test_le_dictionnaire_ne_redige_jamais_d_origine() -> None:
+    """L'origine vient de la fiche relue, étiquetée ; « origine à venir » ne dit ni l'un ni l'autre."""
+    d = {t.cle: t.fr for t in charger().textes["dictionnaire"]}
+    assert not ecrans_mod.ATTESTE.search(d["origine-a-venir"])
+    assert not ecrans_mod.MNEMO.search(d["origine-a-venir"])
+    assert any("reproche" in f for f in fautes_sources(avec("dictionnaire", "rien", "Faux : rien pour « {q} ».")))
+
+
 def test_chaque_cle_est_exigee_une_fois() -> None:
     e = charger()
     sans = replace(e, textes={**e.textes, "revisions": e.textes["revisions"][1:]})

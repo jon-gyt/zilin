@@ -1,4 +1,4 @@
-"""Les textes d'interface de huit écrans : « Lire le monde », les révisions, le personnage, la route, « Dis-le », Mon chemin, le maître Xing, « Écrire au doigt ».
+"""Les textes d'interface de neuf écrans : « Lire le monde », les révisions, le personnage, la route, « Dis-le », Mon chemin, le dictionnaire, le maître Xing, « Écrire au doigt ».
 
 « Lire le monde » (Chercher) et le tableau des révisions : rapport comparatif du 28
 septembre 2026, §2.5 et §2.6. « Mon personnage » et « La route devant » : les lignes des
@@ -10,6 +10,9 @@ du chemin, la pierre posée, les pavillons, les auberges et les rendez-vous (dé
 propriétaire du 29 septembre 2026, maquette validée `maquettes/chemin.html`). Le maître Xing 杏 :
 sa rencontre à la porte du 县试 et ses lignes du pas Apprendre, qui distinguent toujours
 l'origine attestée du moyen mnémotechnique (décision du propriétaire du 29 septembre 2026).
+Le dictionnaire 字典, premier onglet de Chercher (story 10.8, maquette
+`maquettes/dictionnaire.html`) : la loupe, les résultats, les fiches ; il ne rédige jamais
+d'origine, qui vient de la fiche relue avec son étiquette.
 « Écrire au doigt » : le pavé du dictionnaire (maquette `maquettes/dictionnaire.html`, écran 5).
 Chaque écran a sa source
 versionnée, rédigée pour l'app et à relire, dans `data/sources/ecrans/<écran>.tsv` ;
@@ -231,6 +234,109 @@ ECRANS: dict[str, dict[str, tuple[str, ...]]] = {
         "trophee-famille": (),
         "trophee-serie": (),
     },
+    "dictionnaire": {
+        "surtitre": ("caracteres", "mots"),
+        "menu": (),
+        "champ": (),
+        "invite": (),
+        "effacer-saisie": (),
+        "ecrire": (),
+        "aide": (),
+        "chargement": (),
+        "indisponible": (),
+        "recentes": (),
+        "recentes-effacer": (),
+        "recentes-effacer-voix": (),
+        "recentes-vide": (),
+        "jour-titre": (),
+        "jour-terme": ("nom", "fr"),
+        "resultats": ("caracteres", "mots"),
+        "caracteres": ("n",),
+        "caracteres-un": ("n",),
+        "mots": ("n",),
+        "mots-un": ("n",),
+        "premiers": ("n", "total"),
+        "rien": ("q",),
+        "titre-caracteres": (),
+        "titre-mots": (),
+        "tons": (),
+        "tous": (),
+        "ton": ("n",),
+        "hsk": ("n",),
+        "hors-hsk": (),
+        "lu": (),
+        "lue": (),
+        "encours": (),
+        "dans": ("n",),
+        "hors": (),
+        "statut-lu": (),
+        "statut-encours": (),
+        "statut-chemin": ("n",),
+        "statut-chemin-un": (),
+        "statut-jour": ("n",),
+        "statut-hors": (),
+        "retour": (),
+        "lecture": (),
+        "pause": (),
+        "suivant": (),
+        "revoir": (),
+        "lire-voix": (),
+        "pause-voix": (),
+        "traits": ("n",),
+        "trait": ("k", "n"),
+        "ecouter": ("t",),
+        "aussi": ("pinyin",),
+        "sens-relecture": (),
+        "pas-appris": (),
+        "pas-appris-hsk": ("c", "n"),
+        "pas-appris-hors-hsk": ("c",),
+        "pas-appris-briques": ("lus", "n"),
+        "briques": (),
+        "norme": (),
+        "role-sens": (),
+        "role-son": (),
+        "role-forme": (),
+        "roles-a-venir": (),
+        "decomposition-relecture": (),
+        "brique-norme": (),
+        "famille": (),
+        "origine": (),
+        "origine-a-venir": ("c",),
+        "origine-source": (),
+        "maitre": (),
+        "comme-mot": (),
+        "mots-titre": (),
+        "mots-tous": ("n",),
+        "exemples": (),
+        "fin-lu": ("c",),
+        "fin": ("c",),
+        "mot-caracteres": (),
+        "mot-toucher": (),
+        "mot-ouvrir": ("c", "pinyin"),
+        "mot-long": ("n",),
+        "mot-lu": ("w",),
+        "proches": (),
+        "fin-mot": (),
+        "ecrire-titre": (),
+        "ecrire-kicker": (),
+        "ecrire-saisie": (),
+        "complet-titre": (),
+        "complet-texte": (),
+        "cat-N": (),
+        "cat-V": (),
+        "cat-Adj": (),
+        "cat-Adv": (),
+        "cat-M": (),
+        "cat-Num": (),
+        "cat-Pron": (),
+        "cat-Prep": (),
+        "cat-Conj": (),
+        "cat-Aux": (),
+        "cat-Intj": (),
+        "cat-Prefix": (),
+        "cat-Suffix": (),
+        "cat-Phonetic": (),
+    },
     "xing": {
         "kicker": (),
         "caractere": (),
@@ -288,8 +394,9 @@ REPROCHES = re.compile(
 )
 
 #: Les écrans dont les textes passent aussi le contrôle des reproches : « Dis-le », le
-#: maître Xing, qui ne gronde jamais, et le pavé d'écriture.
-SANS_REPROCHE = ("dire", "xing", "ecrire")
+#: dictionnaire, que Xing tient après la rencontre, le maître Xing, qui ne gronde jamais, et le
+#: pavé d'écriture.
+SANS_REPROCHE = ("dire", "dictionnaire", "xing", "ecrire")
 
 #: Xing distingue toujours l'origine attestée du moyen mnémotechnique, sans jamais présenter
 #: l'un pour l'autre (CLAUDE.md) : chaque ligne dit l'étiquette de sa fiche, et elle seule.
@@ -314,8 +421,8 @@ JETON = re.compile(r"\{([^{}]*)\}")
 
 SOURCE_EXPORT = (
     "data/sources/ecrans/ : textes d'interface de « Lire le monde », du tableau des"
-    " révisions, de « Mon personnage », de la route devant, de « Dis-le », de « Mon chemin »"
-    ", du maître Xing et du pavé « Écrire au doigt »,"
+    " révisions, de « Mon personnage », de la route devant, de « Dis-le », de « Mon chemin »,"
+    " du dictionnaire, du maître Xing et du pavé « Écrire au doigt »,"
     " rédigés pour l'app (à relire)"
 )
 
@@ -423,7 +530,7 @@ def fautes_sources(e: Ecrans) -> list[str]:
             reproche = REPROCHES.search(t.fr) if ecran in SANS_REPROCHE else None
             if reproche:
                 fautes.append(f"{ou} : {t.cle} fait un reproche ({reproche.group(0)})")
-            if ecran == "xing":
+            if ecran in ("xing", "dictionnaire"):
                 fautes += [f"{ou} : {f}" for f in fautes_etiquettes(t.cle, t.fr)]
         jours = next((t.fr for t in textes if t.cle == "jours"), None)
         if jours is not None and len(jours.split()) != JOURS_SEMAINE:

@@ -20,6 +20,7 @@
 import type { StrokeData } from './glyph';
 import { comparerNiveaux, lireNiveau, lireNiveaux, trierNiveaux, type Niveau } from './niveaux';
 import { strokesOnce, type StrokeSet } from './strokes';
+import { ChargeurDico } from './dictionnaire';
 
 /**
  * Une anecdote du jour : un caractère, un titre, quelques phrases. `etiquette` dit, quand
@@ -537,6 +538,8 @@ export type Index = {
   ouvertures?: string;
   /** Les poids du classifieur des tons, `tons.json` (`tons/modele.ts`) ; vide pour un export qui n'en porte pas. */
   tons?: string;
+  /** L'index du dictionnaire de Chercher, `dico/index.json` (`dictionnaire.ts`) ; vide pour un export qui n'en porte pas. */
+  dictionnaire?: string;
   /** Les gabarits de l'écriture au doigt, `ecriture/gabarits.json` (`ecriture/`) ; vide pour un export qui n'en porte pas. */
   ecriture?: string;
 };
@@ -590,6 +593,7 @@ export async function loadIndex(
     rappels: typeof brut.rappels === 'string' ? brut.rappels : '',
     ouvertures: typeof brut.ouvertures === 'string' ? brut.ouvertures : '',
     tons: typeof brut.tons === 'string' ? brut.tons : '',
+    dictionnaire: typeof brut.dictionnaire === 'string' ? brut.dictionnaire : '',
     ecriture: typeof brut.ecriture === 'string' ? brut.ecriture : ''
   };
 }
@@ -874,12 +878,39 @@ export async function toutesLesFiches(version = VERSION_DONNEES): Promise<FicheL
   return lues.flatMap((f) => f.fiches.map((x) => surcoucher(x, demo.get(x.c) ?? null)));
 }
 
+/* ---------- le dictionnaire ---------- */
+
+const dictionnaires = new Map<string, ChargeurDico>();
+
+/**
+ * Le dictionnaire de Chercher d'une version exportée (`dictionnaire.ts`), un seul chargeur
+ * pour toute la durée de vie de l'app : l'index une fois, chaque lot une fois. `null` pour
+ * un export qui n'en porte pas.
+ */
+export async function dictionnaire(version = VERSION_DONNEES): Promise<ChargeurDico | null> {
+  const i = await contenu(version);
+  if (!i.dictionnaire) return null;
+  let d = dictionnaires.get(version);
+  if (!d) {
+    d = new ChargeurDico(
+      `${import.meta.env.BASE_URL}${dossierVersion(i.version)}/`,
+      i.dictionnaire,
+      (...a) => fetch(...a),
+      i.empreinte
+    );
+    dictionnaires.set(version, d);
+  }
+  return d;
+}
+
 /* ---------- les tracés d'un caractère ---------- */
 
 /**
- * Les tracés d'un caractère (style 楷), pris dans le fichier de sa famille — 472
- * caractères dans l'export. Repli sur `strokes-demo.json` pour ce que l'export ne porte
- * pas encore : les caractères des anecdotes et de la maquette.
+ * Les tracés d'un caractère (style 楷), pris dans le fichier de sa famille — quelque 600
+ * caractères dans l'export ; puis dans le lot du dictionnaire, qui porte les 3 000
+ * caractères du HSK 3.0 et les composants de leurs décompositions (`traits/dico-<n>.json`,
+ * chargé à la demande) ; repli sur `strokes-demo.json` pour ce que l'export ne porte pas :
+ * les caractères des anecdotes et de la maquette.
  */
 export async function traitsDe(
   c: string,
@@ -892,6 +923,9 @@ export async function traitsDe(
     const d = set[c];
     if (d) return d;
   }
+  const dico = await dictionnaire(version).catch(() => null);
+  const duDico = dico === null ? null : await dico.traits(c).catch(() => null);
+  if (duDico) return duDico;
   const demo = await strokesOnce().catch(() => ({}) as StrokeSet);
   return demo[c] ?? null;
 }
