@@ -137,6 +137,9 @@
     type Revision
   } from './lib/session';
   import { accesAppareil, loadProgress, saveProgress, today } from './lib/db';
+  import { wenluComplet } from './lib/droits';
+  import type { VueDico } from './lib/dico-ecran';
+  import type { Recente } from './lib/recentes';
   import {
     SANS_EXAMENS,
     cheminDesExamens,
@@ -304,11 +307,20 @@
   /** « Lire le monde », dans Chercher : le mode choisi et le texte collé, gardés au retour de l’arbre. */
   let modeChercher: 'caractere' | 'texte' = $state('caractere');
   let texteLibre = $state('');
+  /** Le dictionnaire, dans Chercher : les fiches ouvertes, gardées au retour de l'arbre. */
+  let pileChercher: VueDico[] = $state([]);
+
+  /** Les recherches récentes du dictionnaire : la progression les garde, l'export les emporte. */
+  function noterRecentes(l: Recente[]): void {
+    p = { ...p, recentes: l };
+    enregistrer();
+  }
 
   /** La loupe du menu : une recherche neuve. */
   function ouvrirChercher(): void {
     requete = '';
     trouvee = null;
+    pileChercher = [];
     modeChercher = 'caractere';
     texteLibre = '';
     ecran = 'chercher';
@@ -1324,7 +1336,7 @@
   {#if trouvee}
     <Tree fam={trouvee.fam} choix={trouvee.c} retour="Chercher" parcours={p.parcours} croissance={p.tao.croissance} tc={textesChemin} xing={maitre} onretour={() => (trouvee = null)} onlecon={quitter} />
   {:else}
-    <Chercher {p} xing={maitre} monde={vois('monde')} bind:q={requete} bind:mode={modeChercher} bind:texte={texteLibre} onfamille={(fam, c) => (trouvee = { fam, c })} onretour={allerAuMenu} />
+    <Chercher {p} xing={maitre} monde={vois('monde')} complet={wenluComplet(p.droits, acces, p.day)} terme={laJournee.terme} bind:q={requete} bind:mode={modeChercher} bind:texte={texteLibre} bind:pile={pileChercher} onfamille={(fam, c) => (trouvee = { fam, c })} onrecentes={noterRecentes} onretour={allerAuMenu} />
   {/if}
 {:else if ecran === 'rencontre'}
   <Rencontre {p} textes={textesXing} examen={examensDonnees.examens[0]?.hz ?? ''} oncontinuer={allerAuMenu} />

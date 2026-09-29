@@ -1,16 +1,24 @@
 <script lang="ts">
   /**
-   * Chercher, depuis la loupe du menu : un caractère, son pinyin (avec ou sans accents ni
-   * tons) ou un mot français. Le périmètre est l'export et lui seul — les caractères des
-   * familles exportées, lus par `content` — sans requête réseau ni dictionnaire embarqué.
-   * La logique vit dans `recherche.ts` ; ce composant affiche et charge.
+   * Chercher, depuis la loupe du menu. Deux onglets (maquette `maquettes/dictionnaire.html`,
+   * story 10.8) : le dictionnaire 字典, et « Lire le monde », à sa porte.
    *
-   * Chaque résultat : le caractère dessiné depuis ses traits (style 楷), son pinyin, son
-   * sens quand la fiche relue en a un, sa famille et son statut lu sur les cartes. Le
-   * toucher le prononce et ouvre sa famille dans l'arbre ; le retour de l'arbre ramène
-   * ici, la saisie gardée. Un seul retour, vers le menu. Tao lit par-dessus l'épaule ; une fois
-   * le maître Xing 杏 rencontré (`xing.ts`), c'est lui qui tient Chercher, le livre ouvert.
-   * Pas de cinabre ici : rien n'y est ajouté.
+   * Le dictionnaire : le HSK 3.0 de 2021, 3 000 caractères et 11 092 mots, en consultation
+   * libre, cherchés par caractère, par pinyin avec ou sans tons, ou en français sur les seules
+   * gloses relues (`dictionnaire.ts`, qui classe). L'index vient de l'export, gardé hors ligne ;
+   * les lots d'entrées et de traits se chargent par `ChargeurDico`, rien d'autre ne sort. La
+   * loupe vide montre les recherches récentes, gardées dans la progression et effaçables, et
+   * le caractère du terme solaire qui court. Les résultats : les caractères, puis les mots,
+   * chacun dessiné depuis ses traits, avec son pinyin, sa glose relue, son niveau HSK et son
+   * statut de Mon chemin ; un mot d'un seul caractère se range sous la fiche du caractère.
+   * Une ligne touchée ouvre sa fiche (`FicheCaractere`, `FicheMot`) ; la pile des fiches est
+   * gardée par l'aiguillage (`pile`), pour revenir de l'arbre d'une famille. Rien ne s'ajoute
+   * aux révisions d'ici. Le pinceau du champ ouvre l'écriture au doigt (`EcrireAuDoigt`) quand
+   * le pavé est livré (`Pave`).
+   *
+   * Tao lit par-dessus l'épaule ; une fois le maître Xing 杏 rencontré (`xing.ts`), c'est lui
+   * qui tient Chercher, le livre ouvert, et explique l'origine dans les fiches. Pas de cinabre
+   * ici : rien n'y est ajouté. Le jade pour l'acquis, l'indigo pour l'action et le chemin.
    *
    * Le second onglet, « Lire le monde » (rapport comparatif du 28 septembre 2026, §2.5) : on
    * colle ou tape un texte chinois, et l'écran dit combien de ses sinogrammes on lit. Chaque
@@ -18,27 +26,43 @@
    * l'encre, avec, s'ils sont sur le chemin, dans combien de jours du chemin ils viennent.
    * Les mots de deux caractères lus que l'export connaît sont soulignés et listés. La photo
    * passe par le Texte en direct d'iOS, sans code ni réseau. La logique vit dans
-   * `lecteur-libre.ts`, les textes dans `ecrans.json` ; le jade pour l'acquis, l'indigo pour
-   * l'action et le chemin.
+   * `lecteur-libre.ts`, les textes dans `ecrans.json`.
    */
-  import Hz from './Hz.svelte';
+  import type { Component } from 'svelte';
+  import DicoGlyph from './DicoGlyph.svelte';
+  import EcrireAuDoigt from './EcrireAuDoigt.svelte';
+  import FicheCaractere from './FicheCaractere.svelte';
+  import FicheMot from './FicheMot.svelte';
+  import LigneDico from './LigneDico.svelte';
   import Tao from './Tao.svelte';
   import Xing from './Xing.svelte';
-  import { POSTURES } from './xing';
+  import { POSTURES, POSTURES_TAO } from './xing';
   import { dire } from './audio';
+  import { contenu, dictionnaire, nomParcours, toutesLesFamilles, type Famille, type Noeud } from './content';
   import {
-    contenu,
-    nomParcours,
-    toutesLesFamilles,
-    traits as traitsDeFamille,
-    type Famille,
-    type Noeud
-  } from './content';
+    compagnonDuDico,
+    filtrerParTon,
+    glosesRelues,
+    lectureDeLigne,
+    libelleStatut,
+    ligneDe,
+    ligneResultats,
+    nombre,
+    pastillesDeTon,
+    pinyinDe,
+    ranger,
+    statutCaractere,
+    type ContexteStatut,
+    type EnvDico,
+    type VueDico
+  } from './dico-ecran';
+  import type { ChargeurDico, IndexDico } from './dictionnaire';
+  import { chercherDico } from './dictionnaire';
   import { eclairOnce } from './eclair';
-  import { ecransOnce, remplir, SANS_ECRANS, type TextesLireLeMonde } from './ecrans';
+  import { ecransOnce, remplir, SANS_ECRANS, type TextesDictionnaire, type TextesLireLeMonde } from './ecrans';
   import { joursDuChemin } from './etageres';
   import { noeudDeFamille, racinesDesCaracteres } from './foret';
-  import { glyph, nomAccessible } from './glyph';
+  import { nomAccessible } from './glyph';
   import {
     caracteresLus,
     lexique,
@@ -49,9 +73,10 @@
     type MotConnu,
     type Signe
   } from './lecteur-libre';
-  import { AIDE, LIBELLES_STATUT, chercher, corpus, ligne, statut, type Resultat } from './recherche';
+  import { noterRecente, type Recente } from './recentes';
+  import { corpus } from './recherche';
+  import type { TermeDuJour } from './saisons';
   import { jourParcours, type Progress } from './session';
-  import { type StrokeSet } from './strokes';
   import { humeur, stade } from './tao';
 
   let {
@@ -59,37 +84,49 @@
     q = $bindable(''),
     mode = $bindable('caractere'),
     texte = $bindable(''),
+    pile = $bindable([]),
     monde = true,
     xing = false,
+    complet = false,
+    terme = null,
+    Pave = null,
     onfamille,
+    onrecentes,
     onretour
   }: {
     p: Progress;
     /** La saisie, gardée par l'aiguillage pour le retour depuis l'arbre. */
     q?: string;
-    /** L'onglet ouvert : chercher un caractère, ou lire un texte. Gardé pour le retour. */
+    /** L'onglet ouvert : le dictionnaire, ou lire un texte. Gardé pour le retour. */
     mode?: 'caractere' | 'texte';
     /** Le texte à lire, gardé pour le retour depuis l'arbre. */
     texte?: string;
+    /** Les fiches ouvertes par-dessus la loupe, la dernière en haut. Gardées pour le retour. */
+    pile?: VueDico[];
     /**
-     * L'aventure (`ouvertures.ts`) : l'onglet « Un texte », Lire le monde, s'ouvre avec sa
-     * porte ; avant, Chercher n'a que la recherche d'un caractère, toujours là.
+     * L'aventure (`ouvertures.ts`) : l'onglet « Lire le monde » s'ouvre avec sa porte ; avant,
+     * Chercher n'a que le dictionnaire, toujours là.
      */
     monde?: boolean;
     /** Le maître Xing est rencontré : il remplace Tao, le livre ouvert. */
     xing?: boolean;
+    /** Wenlu complet ce jour-là : l'écriture au doigt (`droits.wenluComplet`). */
+    complet?: boolean;
+    /** Le terme solaire qui court : son caractère est celui du jour. */
+    terme?: TermeDuJour | null;
+    /**
+     * Le pavé de l'écriture au doigt (`PaveEcriture.svelte`, story 10.10), livré à part. Nul,
+     * le pinceau ne se montre pas.
+     */
+    Pave?: Component<{ onchoisir: (c: string) => void }> | null;
     /** Ouvre l'arbre d'une famille, le caractère touché choisi. */
     onfamille: (fam: Noeud, c: string) => void;
+    /** Les recherches récentes ont changé : la progression les garde. */
+    onrecentes: (l: Recente[]) => void;
     onretour: () => void;
   } = $props();
 
-  /** La taille d'un résultat : assez grand pour se lire, dessiné depuis les traits. */
-  const TAILLE = 44;
-
   let familles = $state<Famille[] | null>(null);
-  let traits = $state<StrokeSet>({});
-  /** Les familles dont les tracés sont demandés : une requête chacune, une seule fois. */
-  const demandees = new Set<string>();
 
   $effect(() => {
     let vivant = true;
@@ -106,25 +143,12 @@
   });
 
   const entrees = $derived(familles ? corpus(familles) : []);
-  const recherche = $derived(chercher(q, entrees));
-  const ligneAide = $derived(familles === null ? (q.trim() === '' ? AIDE : 'Un instant.') : ligne(q, recherche, entrees));
 
-  /* Les tracés des familles des résultats, et d'elles seules. */
-  $effect(() => {
-    for (const r of recherche.resultats) {
-      if (demandees.has(r.racine)) continue;
-      demandees.add(r.racine);
-      void traitsDeFamille(r.racine)
-        .then((set) => {
-          traits = { ...traits, ...set };
-        })
-        .catch(() => demandees.delete(r.racine));
-    }
-  });
-
-  /* ---------- Lire le monde ---------- */
+  /* ---------- les textes, le chemin ---------- */
 
   let tl = $state<TextesLireLeMonde>(SANS_ECRANS.lire);
+  let td = $state<TextesDictionnaire>(SANS_ECRANS.dico);
+  let maitreCar = $state('');
   let chemin = $state.raw<Map<string, number>>(new Map());
   let motsEclair = $state.raw<MotConnu[]>([]);
 
@@ -133,7 +157,10 @@
     let vivant = true;
     void ecransOnce()
       .then((e) => {
-        if (vivant) tl = e.lire;
+        if (!vivant) return;
+        tl = e.lire;
+        td = e.dico;
+        maitreCar = e.xing.caractere;
       })
       .catch(() => undefined);
     void contenu()
@@ -151,6 +178,136 @@
     };
   });
 
+  /* ---------- le dictionnaire ---------- */
+
+  let dico = $state.raw<ChargeurDico | null>(null);
+  let index = $state.raw<IndexDico | null>(null);
+  let absent = $state(false);
+
+  $effect(() => {
+    let vivant = true;
+    void dictionnaire()
+      .then(async (d) => {
+        if (d === null) {
+          if (vivant) absent = true;
+          return;
+        }
+        const i = await d.chargerIndex();
+        if (!vivant) return;
+        dico = d;
+        index = i;
+      })
+      .catch(() => {
+        if (vivant) absent = true;
+      });
+    return () => {
+      vivant = false;
+    };
+  });
+
+  /** Le ton choisi par les pastilles ; 0 : tous. Une nouvelle saisie les remet à tous. */
+  let ton = $state(0);
+
+  const lus = $derived(caracteresLus(p.cartes));
+  const ctx = $derived<ContexteStatut>({
+    lus,
+    cartes: new Set(p.cartes.map((k) => k.id)),
+    chemin,
+    /* le dernier jour du chemin fait, comme l'étagère « Bientôt » de Lire */
+    fait: jourParcours(p) - 1
+  });
+  const relues = $derived(glosesRelues(familles ?? []));
+  const env = $derived<EnvDico>({ t: td, ctx, relues });
+  /** Le pinyin des caractères et des briques des familles, pour celles hors du dictionnaire. */
+  const pinyins = $derived(
+    new Map(
+      (familles ?? []).flatMap((f) => [
+        [f.racine.c, f.racine.pinyin] as [string, string],
+        ...f.fiches.map((x) => [x.c, x.pinyin] as [string, string])
+      ])
+    )
+  );
+  const comptes = $derived({
+    caracteres: index?.entrees.filter((e) => e.genre === 'caractere').length ?? 0,
+    mots: index?.entrees.filter((e) => e.genre === 'mot').length ?? 0
+  });
+
+  const saisie = $derived(q.trim());
+  const recherche = $derived(index && saisie !== '' ? chercherDico(saisie, index) : null);
+  const rangement = $derived(recherche && index ? ranger(recherche.resultats, index) : null);
+  const pastilles = $derived(rangement && index ? pastillesDeTon(saisie, rangement, index.syllabes) : null);
+  const vus = $derived(rangement ? filtrerParTon(rangement, pastilles, ton) : null);
+
+  const compagnon = $derived(compagnonDuDico(xing));
+  const taoStade = $derived(stade(p.tao.croissance));
+  const taoHumeur = $derived(humeur(p.tao.activites, p.day));
+
+  /* ---------- la pile des fiches ---------- */
+
+  const vue = $derived<VueDico | null>(pile.length > 0 ? pile[pile.length - 1] : null);
+
+  function titreDe(v: VueDico): string {
+    if (v.t === 'car') return v.c;
+    if (v.t === 'mot') return index?.entrees.find((e) => e.genre === 'mot' && e.id === v.id)?.formes[0] ?? '';
+    return td['ecrire-titre'];
+  }
+
+  const labelRetour = $derived(pile.length > 1 ? titreDe(pile[pile.length - 2]) : td.retour);
+
+  function enHaut(): void {
+    if (typeof window !== 'undefined') window.scrollTo(0, 0);
+  }
+
+  /** Note des recherches récentes, d'un coup : la progression les garde. */
+  function noter(...rs: Recente[]): void {
+    let l = p.recentes;
+    for (const r of rs) l = noterRecente(l, r);
+    if (JSON.stringify(l) !== JSON.stringify(p.recentes)) onrecentes(l);
+  }
+
+  /** Ouvre une fiche par-dessus ce qui est là, et la note parmi les récentes. */
+  function ouvrir(v: VueDico, depuisSaisie = false): void {
+    const r: Recente[] = [];
+    if (depuisSaisie && saisie !== '') r.push({ genre: 'saisie', v: saisie });
+    if (v.t === 'car') r.push({ genre: 'caractere', v: v.c });
+    if (v.t === 'mot') r.push({ genre: 'mot', v: v.id });
+    if (r.length > 0) noter(...r);
+    pile = [...pile, v];
+    enHaut();
+  }
+
+  function retour(): void {
+    pile = pile.slice(0, -1);
+    enHaut();
+  }
+
+  /** L'écriture au doigt a choisi un caractère : il s'écrit dans le champ et sa fiche s'ouvre. */
+  let choisi = $state('');
+  function choisir(c: string): void {
+    choisi = c;
+    q = c;
+    ouvrir({ t: 'car', c });
+  }
+
+  function recente(r: Recente): void {
+    if (r.genre === 'saisie') {
+      q = r.v;
+      ton = 0;
+      noter(r);
+    } else if (r.genre === 'caractere') ouvrir({ t: 'car', c: r.v });
+    else ouvrir({ t: 'mot', id: r.v });
+  }
+
+  /** Le caractère, ou le mot, d'une récente, et son pinyin. */
+  function puce(r: Recente): { hz: string; py: string } | null {
+    if (r.genre === 'saisie') return null;
+    const e = index?.entrees.find((x) => x.genre === (r.genre === 'mot' ? 'mot' : 'caractere') && x.id === r.v);
+    if (!e) return r.genre === 'caractere' ? { hz: r.v, py: pinyins.get(r.v) ?? '' } : null;
+    return { hz: e.formes[0] ?? r.v, py: r.genre === 'caractere' ? pinyinDe(e.lectures[0] ?? []) : '' };
+  }
+
+  /* ---------- Lire le monde ---------- */
+
   /** Les mots de deux caractères de l'export : ceux des fiches relues, puis ceux de l'éclair. */
   const mots = $derived(
     lexique(
@@ -158,15 +315,7 @@
       motsEclair
     )
   );
-  const lecture = $derived(
-    lire(texte, {
-      lus: caracteresLus(p.cartes),
-      chemin,
-      /* le dernier jour du chemin fait, comme l'étagère « Bientôt » de Lire */
-      fait: jourParcours(p) - 1,
-      mots
-    })
-  );
+  const lecture = $derived(lire(texte, { lus, chemin, fait: jourParcours(p) - 1, mots }));
   const parCaractere = $derived(new Map(entrees.map((e) => [e.c, e])));
   const racines = $derived(racinesDesCaracteres(familles ?? []));
 
@@ -176,39 +325,81 @@
     return remplir(tl.ouvrir, { nom: nomAccessible(c, e?.pinyin ?? '', e?.fr ?? '') });
   }
 
-  /** Un caractère lu, touché : il se dit, et sa fiche s'ouvre dans l'arbre de sa famille. */
-  function ouvrirLu(c: string): void {
-    void dire(c);
+  /** Ouvre l'arbre de la famille d'un caractère, s'il est dans une famille exportée. */
+  function ouvrirFamille(c: string): void {
     const r = racines.get(c);
     const f = familles?.find((x) => x.racine.c === r);
     if (f) onfamille(noeudDeFamille(f, p.cartes), c);
   }
 
-  const taoStade = $derived(stade(p.tao.croissance));
-  const taoHumeur = $derived(humeur(p.tao.activites, p.day));
-
-  function toucher(r: Resultat): void {
-    void dire(r.c);
-    const f = familles?.find((x) => x.racine.c === r.racine);
-    if (f) onfamille(noeudDeFamille(f, p.cartes), r.c);
+  /** Un caractère lu, touché : il se dit, et sa fiche s'ouvre dans l'arbre de sa famille. */
+  function ouvrirLu(c: string): void {
+    void dire(c);
+    ouvrirFamille(c);
   }
 </script>
 
+<!-- Le compagnon : Tao avant la rencontre de Xing, Xing après, chacun dans sa posture. -->
+{#snippet perso(size: number)}
+  {#if compagnon.guide === 'xing'}
+    <Xing posture={POSTURES.dictionnaire} {size} />
+  {:else}
+    <Tao stade={taoStade} posture={POSTURES_TAO.dictionnaire} humeur={taoHumeur} {size} />
+  {/if}
+{/snippet}
+
 <main class="screen chercher">
-  <button class="k quit" onclick={onretour}>‹ Retour</button>
+  {#if vue !== null}
+    <div class="tb">
+      <button class="lien" onclick={retour}>‹ {labelRetour}</button>
+      <span class="mini">{@render perso(52)}</span>
+    </div>
+    {#if vue.t === 'ecrire'}
+      <header class="entete">
+        <div class="grow">
+          <div class="k surtitre">{td['ecrire-kicker']}</div>
+          <h1>{td['ecrire-titre']}</h1>
+        </div>
+        {@render perso(72)}
+      </header>
+      {#if Pave}
+        <EcrireAuDoigt t={td} {complet} {Pave} saisie={choisi} onchoisir={choisir} />
+      {/if}
+    {:else if index && dico}
+      {#if vue.t === 'car'}
+        {#key vue.c}
+          <FicheCaractere
+            c={vue.c}
+            {env}
+            {index}
+            {dico}
+            {pinyins}
+            xing={compagnon.guide === 'xing'}
+            maitre={td.maitre}
+            {maitreCar}
+            onouvrir={(v) => ouvrir(v)}
+            onfamille={racines.has(vue.c) ? ouvrirFamille : null}
+          />
+        {/key}
+      {:else}
+        {#key vue.id}
+          <FicheMot id={vue.id} {env} {index} {dico} onouvrir={(v) => ouvrir(v)} />
+        {/key}
+      {/if}
+    {:else}
+      <p class="k aide">{absent ? td.indisponible : td.chargement}</p>
+    {/if}
+  {:else}
+  <button class="k quit" onclick={onretour}>‹ {td.menu}</button>
 
   <header class="entete">
     <div class="grow">
       <div class="k surtitre">
-        {entrees.length > 0 ? `${entrees.length} caractères, ${familles?.length ?? 0} familles` : ' '}
+        {index ? remplir(td.surtitre, { caracteres: nombre(comptes.caracteres), mots: nombre(comptes.mots) }) : ' '}
       </div>
       <h1>Chercher</h1>
     </div>
-    {#if xing}
-      <Xing posture={POSTURES.dictionnaire} size={72} />
-    {:else}
-      <Tao stade={taoStade} posture="lecture" humeur={taoHumeur} size={72} />
-    {/if}
+    {@render perso(72)}
   </header>
 
   {#if monde}
@@ -286,50 +477,121 @@
       {/if}
     {/if}
   {:else}
-    <label class="champ">
+    <div class="champ">
       <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6" /><path d="M20 20l-4.5-4.5" /></svg>
       <input
         type="search"
         inputmode="search"
+        enterkeyhint="search"
         autocomplete="off"
         autocapitalize="off"
         spellcheck="false"
-        placeholder="好, hao, hǎo ou hao3"
-        aria-label="Chercher un caractère"
+        placeholder={td.invite}
+        aria-label={td.champ}
         bind:value={q}
+        oninput={() => (ton = 0)}
+        onchange={() => {
+          if (saisie !== '') noter({ genre: 'saisie', v: saisie });
+        }}
       />
-    </label>
-    <p class="k aide" aria-live="polite">{ligneAide}</p>
+      {#if q !== ''}
+        <button class="ico" aria-label={td['effacer-saisie']} onclick={() => ((q = ''), (ton = 0))}>
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 7l10 10M17 7L7 17" /></svg>
+        </button>
+      {/if}
+      {#if Pave}
+        <span class="sep" aria-hidden="true"></span>
+        <button class="ico" aria-label={td.ecrire} onclick={() => ouvrir({ t: 'ecrire' })}>
+          <svg viewBox="0 0 24 24" aria-hidden="true"
+            ><path d="M14.5 4.5l5 5L10 19l-5.5.5L5 14z" /><path d="M12.5 6.5l5 5" /></svg
+          >
+        </button>
+      {/if}
+    </div>
 
-    {#if recherche.resultats.length > 0}
-      <div class="liste">
-        {#each recherche.resultats as r (r.c)}
-          {@const s = statut(r.c, p.cartes)}
-          <button class="resultat" onclick={() => toucher(r)}>
-            <span class="gl">
-              <!-- eslint-disable-next-line svelte/no-at-html-tags -->
-              {@html glyph(r.c, traits[r.c], TAILLE, { write: false })}
-            </span>
-            <span class="grow txt">
-              <span class="l1">
-                {#if r.pinyin !== ''}<span class="pin">{r.pinyin}</span>{/if}
-                {#if r.fr !== ''}<span class="sens">{r.fr}</span>{/if}
-              </span>
-              <span class="l2">
-                <span
-                  >{#if r.racine === r.c}racine de sa famille{:else}famille <Hz
-                      c={r.racine}
-                      size={14}
-                      pistes={[r.racine]}
-                    />{/if}</span
-                >
-                <span class="st {s}">{LIBELLES_STATUT[s]}</span>
-              </span>
-            </span>
-          </button>
-        {/each}
-      </div>
+    {#if saisie === ''}
+      <p class="k aide">{absent ? td.indisponible : td.aide}</p>
+      <h3 class="sec">
+        {td.recentes}
+        {#if p.recentes.length > 0}
+          <button class="lien petit" aria-label={td['recentes-effacer-voix']} onclick={() => onrecentes([])}
+            >{td['recentes-effacer']}</button
+          >
+        {/if}
+      </h3>
+      {#if p.recentes.length > 0}
+        <div class="puces">
+          {#each p.recentes as r (r.genre + r.v)}
+            {@const x = puce(r)}
+            {#if r.genre === 'saisie'}
+              <button class="puce" onclick={() => recente(r)}>{r.v}</button>
+            {:else if x}
+              <button class="puce" onclick={() => recente(r)}
+                ><span class="hz" lang="zh-Hans">{x.hz}</span>{#if x.py !== ''}{x.py}{/if}</button
+              >
+            {/if}
+          {/each}
+        </div>
+      {:else}
+        <p class="k aide">{td['recentes-vide']}</p>
+      {/if}
+
+      {#if terme}
+        {@const c = terme.caractere.c}
+        {@const s = statutCaractere(c, ctx)}
+        <h3 class="sec">{td['jour-titre']} <small>{remplir(td['jour-terme'], { nom: terme.nomZh, fr: terme.fr })}</small></h3>
+        <button class="mdj" onclick={() => ouvrir({ t: 'car', c })}>
+          <DicoGlyph {c} size={60} write />
+          <span class="mdj-txt">
+            <span class="py">{terme.caractere.pinyin}</span>
+            {#if relues.get(c)}<span class="fr">{relues.get(c)}</span>{/if}
+            <span class="st {s.k}">{libelleStatut(s, td)}</span>
+          </span>
+        </button>
+      {/if}
+    {:else if !index}
+      <p class="k aide" aria-live="polite">{absent ? td.indisponible : td.chargement}</p>
+    {:else if vus}
+      {#if pastilles}
+        <div class="pastilles" role="group" aria-label={td.tons}>
+          <button aria-pressed={ton === 0} onclick={() => (ton = 0)}>{td.tous}</button>
+          {#each pastilles.tons as n (n)}
+            <button aria-pressed={ton === n} aria-label={remplir(td.ton, { n })} onclick={() => (ton = n)}
+              >{pinyinDe([{ base: pastilles.base, ton: n }])}</button
+            >
+          {/each}
+        </div>
+      {/if}
+      {#if vus.caracteres.length + vus.mots.length === 0}
+        <p class="k aide" aria-live="polite">{remplir(td.rien, { q: saisie })}</p>
+      {:else}
+        <p class="k aide" aria-live="polite">
+          {ligneResultats(td, vus.caracteres.length, vus.mots.length)}
+          {#if recherche && recherche.total > recherche.resultats.length}
+            {remplir(td.premiers, { n: recherche.resultats.length, total: recherche.total })}
+          {/if}
+        </p>
+        {#if vus.caracteres.length > 0}
+          <h3 class="sec">{td['titre-caracteres']} <small>{vus.caracteres.length}</small></h3>
+          <div class="liste">
+            {#each vus.caracteres as e (e.id)}
+              {@const l = ligneDe(e, env, lectureDeLigne(e, pastilles, ton))}
+              <LigneDico {...l} onclick={() => ouvrir({ t: 'car', c: e.id }, true)} />
+            {/each}
+          </div>
+        {/if}
+        {#if vus.mots.length > 0}
+          <h3 class="sec">{td['titre-mots']} <small>{vus.mots.length}</small></h3>
+          <div class="liste">
+            {#each vus.mots as e (e.id)}
+              {@const l = ligneDe(e, env, lectureDeLigne(e, pastilles, ton))}
+              <LigneDico {...l} onclick={() => ouvrir({ t: 'mot', id: e.id }, true)} />
+            {/each}
+          </div>
+        {/if}
+      {/if}
     {/if}
+  {/if}
   {/if}
 </main>
 
@@ -550,68 +812,155 @@
     line-height: 1.4;
   }
 
-  /* ---- les résultats : une ligne chacun, séparées d'un filet ---- */
-  .resultat {
+  /* ---- la barre d'une fiche : le retour, le compagnon ---- */
+  .tb {
     display: flex;
     align-items: center;
-    gap: 14px;
-    width: 100%;
-    min-height: 64px;
-    padding: 10px 2px;
-    border-top: 1px solid var(--line);
-    text-align: left;
+    justify-content: space-between;
+    gap: 10px;
+    min-height: 48px;
+    margin: -6px 0 4px;
   }
-  .resultat:first-child {
-    border-top: 0;
+  .lien {
+    color: var(--indigo);
+    font: 600 16px/1.2 var(--sans);
+    min-height: 44px;
+    display: inline-flex;
+    align-items: center;
   }
-  .resultat:active {
-    background: var(--card);
+  .lien.petit {
+    font-size: 14px;
+    margin-left: auto;
   }
-  .gl {
-    width: 48px;
-    display: flex;
-    justify-content: center;
-    flex-shrink: 0;
+  .mini {
+    width: 52px;
+    height: 52px;
+    flex: none;
     line-height: 0;
+  }
+
+  /* ---- le champ : la croix qui vide, le pinceau ---- */
+  .ico {
+    width: 44px;
+    height: 44px;
+    display: grid;
+    place-items: center;
+    flex: none;
+    border-radius: 10px;
+    color: var(--ink2);
+  }
+  .ico svg {
+    stroke-linejoin: round;
+  }
+  .sep {
+    width: 1px;
+    height: 26px;
+    background: var(--line);
+    flex: none;
+  }
+  input::-webkit-search-cancel-button {
+    display: none;
+  }
+
+  /* ---- la loupe vide : les récentes, le caractère du jour ---- */
+  .sec {
+    display: flex;
+    align-items: baseline;
+    gap: 8px;
+    margin: 22px 0 8px;
+    font: 700 17px/1.2 var(--head);
+  }
+  .sec small {
+    font: 400 13px/1.2 var(--sans);
+    color: var(--mist);
+  }
+  .puces {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .puce {
+    min-height: 44px;
+    padding: 0 14px;
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    background: var(--card);
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 15px;
+    color: var(--ink2);
+  }
+  .puce .hz {
+    font-size: 19px;
     color: var(--ink);
   }
-  .txt {
-    min-width: 0;
+  .mdj {
+    display: flex;
+    gap: 14px;
+    align-items: center;
+    width: 100%;
+    min-height: 44px;
+    background: var(--card);
+    border-radius: 16px;
+    padding: 14px;
+    text-align: left;
+    color: var(--ink);
+  }
+  .mdj-txt {
     display: flex;
     flex-direction: column;
     gap: 2px;
   }
-  .l1 {
-    display: flex;
-    align-items: baseline;
-    gap: 8px;
-    flex-wrap: wrap;
-  }
-  .pin {
+  .mdj .py {
+    font: 700 22px/1.1 var(--head);
     color: var(--indigo);
-    font-weight: 600;
-    font-size: 17px;
   }
-  .sens {
-    color: var(--ink);
+  .mdj .fr {
     font-size: 16px;
+    color: var(--ink);
   }
-  .l2 {
-    display: flex;
-    gap: 10px;
-    font-size: 14px;
-    color: var(--ink2);
-    line-height: 1.3;
-  }
-  .st {
-    margin-left: auto;
-    white-space: nowrap;
+  .mdj .st {
+    font-size: 13px;
     color: var(--mist);
   }
-  .st.lu {
+  .mdj .st.lu {
     color: var(--jade);
+    font-weight: 600;
   }
-  .st.encours {
+  .mdj .st.chemin,
+  .mdj .st.encours {
     color: var(--indigo);
+  }
+
+  /* ---- les résultats ---- */
+  .pastilles {
+    display: flex;
+    gap: 6px;
+    margin: 10px 0 2px;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+  .pastilles button {
+    min-height: 44px;
+    min-width: 52px;
+    padding: 0 12px;
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    font-weight: 600;
+    font-size: 15px;
+    color: var(--ink2);
+    text-align: center;
+    flex: none;
+  }
+  .pastilles button[aria-pressed='true'] {
+    border-color: var(--indigo);
+    color: var(--indigo);
+  }
+  .liste {
+    display: grid;
+  }
+  .liste > :global(.ligne-dico:first-child) {
+    border-top: 0;
   }
 </style>
