@@ -11,6 +11,7 @@ import {
   enonce,
   enonceRetenu,
   REPOS_APRES_ARRET_MS,
+  DOUBLON_MS,
   POINT_FINAL,
   voixMandarin,
   voixPretes,
@@ -586,14 +587,69 @@ describe('un seul son à la fois', () => {
     const premier = prononcer('人');
     await manifesteOnce();
     await Promise.resolve();
-    const second = prononcer('人');
+    const second = prononcer('天天');
     await manifesteOnce();
     await Promise.resolve();
     l.charger();
     expect(await premier).toBe('bloque');
     expect(await second).toBe('fichier');
     expect(s.dits).toEqual([]);
+    expect(l.joues).toEqual([`${import.meta.env.BASE_URL}${MANIFESTE.chemins['天天']}`]);
+  });
+
+  it('le même « Écouter » redemandé aussitôt (double toucher, effet relancé) ne coupe pas la voix pour la redire', async () => {
+    vi.useFakeTimers();
+    const s = syntheseDeVoix(APPLE);
+    configurerAudio({ synthese: () => s, fetchFn: fetchDEssai([]) });
+    const a = prononcer('人');
+    const b = prononcer('人');
+    expect(b).toBe(a);
+    expect(await a).toBe('telephone');
+    vi.advanceTimersByTime(DOUBLON_MS - 1);
+    expect(await prononcer('人')).toBe('telephone');
+    vi.advanceTimersByTime(REPOS_APRES_ARRET_MS);
+    expect(s.dits.map((d) => d.text)).toEqual(['人。']);
+    expect(s.annulations).toBe(0);
+  });
+
+  it('le même fichier redemandé pendant son chargement ne le recharge pas', async () => {
+    const s = syntheseDeVoix(APPLE);
+    const l = lecteurLent();
+    configurerAudio({ synthese: () => s, lecteur: () => l, fetchFn: fetchDEssai([]) });
+    reglerVoix('enregistree');
+    const premier = prononcer('人');
+    await manifesteOnce();
+    await Promise.resolve();
+    const second = prononcer('人');
+    l.charger();
+    expect(await premier).toBe('fichier');
+    expect(await second).toBe('fichier');
     expect(l.joues).toHaveLength(1);
+    expect(l.pauses).toBe(0);
+    expect(s.dits).toEqual([]);
+  });
+
+  it('passé le délai, ou si autre chose a parlé entre-temps, le même caractère se redit', async () => {
+    vi.useFakeTimers();
+    const s = syntheseDeVoix(APPLE);
+    configurerAudio({ synthese: () => s, fetchFn: fetchDEssai([]) });
+    await prononcer('人');
+    vi.advanceTimersByTime(DOUBLON_MS);
+    await prononcer('人');
+    vi.advanceTimersByTime(REPOS_APRES_ARRET_MS);
+    expect(s.dits.map((d) => d.text)).toEqual(['人。', '人。']);
+    taire();
+    await prononcer('人');
+    vi.advanceTimersByTime(REPOS_APRES_ARRET_MS);
+    expect(s.dits).toHaveLength(3);
+  });
+
+  it('un doublon d’une demande qui n’a rien dit (geste requis) redemande : c’est le geste attendu', async () => {
+    const l = lecteurQuiEchoue('NotAllowedError');
+    configurerAudio({ synthese: () => null, lecteur: () => l, fetchFn: fetchDEssai([]) });
+    expect(await prononcer('人')).toBe('bloque');
+    expect(await prononcer('人')).toBe('bloque');
+    expect(l.essais).toBe(2);
   });
 
   it('chaque demande fait taire ce qui jouait : le fichier et la voix de l’appareil', async () => {

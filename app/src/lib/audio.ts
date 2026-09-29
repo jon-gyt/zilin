@@ -140,6 +140,7 @@ export function configurerAudio(
   enonceEnCours = null;
   dernierArret = Number.NEGATIVE_INFINITY;
   natifEnCours = 0;
+  derniere = null;
   preference = null;
   tour = 0;
   manifestes.clear();
@@ -564,14 +565,52 @@ function apresRepos(moi: number, parler: () => void): void {
   }, reste);
 }
 
+/** Deux demandes du même texte plus rapprochées que ça n'en font qu'une (`prononcer`). */
+export const DOUBLON_MS = 400;
+
+/** La dernière demande de `prononcer`, pour reconnaître son doublon. */
+let derniere: {
+  texte: string;
+  file: string | undefined;
+  a: number;
+  tour: number;
+  dit: Promise<Dit>;
+  rendu: Dit | null;
+} | null = null;
+
 /**
  * Dit un texte, par la voix que règle « Voix » (`voixChoisie`) : la voix de l'appareil, ou le
  * fichier pré-généré ; chacune est le repli de l'autre ; sans aucune, rien, en silence. Ce
  * qui jouait se tait d'abord. Rend ce qui s'est passé (`Dit`). Une demande dépassée par une
  * plus récente, le temps de lire le manifeste ou de charger le fichier, ne joue plus rien et
  * rend `bloque` : rien ne s'est dit pour elle, et rien ne parle par-dessus la suivante.
+ *
+ * Le même texte redemandé moins de `DOUBLON_MS` après, sans rien entre les deux (un double
+ * toucher, un effet qui se relance, un double rendu), ne coupe pas ce qui commence à se dire
+ * pour le redire : il rend la même demande. Sauf si elle n'a rien dit (`bloque`, `muet`) : le
+ * second toucher est alors le geste qu'attendait le navigateur.
  */
-export async function prononcer(texte: string, file?: string): Promise<Dit> {
+export function prononcer(texte: string, file?: string): Promise<Dit> {
+  const d = derniere;
+  if (
+    d !== null &&
+    d.texte === texte &&
+    d.file === file &&
+    d.tour === tour &&
+    maintenant() - d.a < DOUBLON_MS &&
+    (d.rendu === null || d.rendu === 'fichier' || d.rendu === 'telephone')
+  ) {
+    return d.dit;
+  }
+  const dit = prononcerSansDoublon(texte, file);
+  /* `prononcerSansDoublon` a déjà pris son rang : `tour` est le sien. */
+  const cette = { texte, file, a: maintenant(), tour, dit, rendu: null as Dit | null };
+  derniere = cette;
+  void dit.then((r) => (cette.rendu = r));
+  return dit;
+}
+
+async function prononcerSansDoublon(texte: string, file?: string): Promise<Dit> {
   const moi = ++tour;
   taireTout();
   const m = await manifesteOnce(file);
