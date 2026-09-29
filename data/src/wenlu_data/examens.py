@@ -264,6 +264,9 @@ JETONS_TEXTES: dict[str, frozenset[str]] = {
     "etat_a_revoir": frozenset(),
     "info_pause": frozenset(),
     "rien_perdu": frozenset(),
+    "plaques_haoshe": frozenset(),
+    "plaque_academie": frozenset(),
+    "bang_entete": frozenset(),
 }
 
 #: Ce qu'aucun texte d'examen ne nomme : le dragon reste au décor de deux fêtes.
@@ -558,6 +561,16 @@ CHRONO = re.compile(r"\b(secondes?|minutes?|dans \{|il te reste|reste \d)", re.I
 def caracteres_dessines(examens: Iterable[Examen]) -> list[str]:
     """Les caractères des noms d'examen, que l'app dessine depuis leurs traits, triés."""
     return sorted({c for e in examens for c in e.hz if est_sinogramme(c)})
+
+
+#: Les écritures des scènes de l'examen, dessinées depuis leurs traits : les plaques des
+#: cellules du 号舍, celle du 书院, l'en-tête du 放榜.
+TEXTES_DESSINES: tuple[str, ...] = ("plaques_haoshe", "plaque_academie", "bang_entete")
+
+
+def caracteres_des_scenes(textes: Mapping[str, str]) -> list[str]:
+    """Les caractères des écritures des scènes (`TEXTES_DESSINES`), triés."""
+    return sorted({c for k in TEXTES_DESSINES for c in textes.get(k, "") if est_sinogramme(c)})
 
 
 # --------------------------------------------------------------------------- les séries
@@ -1251,7 +1264,7 @@ def document(
                 }
             )
         par_parcours[nom] = lignes
-    dessines = caracteres_dessines(examens)
+    dessines = sorted({*caracteres_dessines(examens), *caracteres_des_scenes(textes)})
     return {
         **en_tete,
         "reussite": {"justes": REUSSITE[0], "sur": REUSSITE[1]},
@@ -1400,7 +1413,7 @@ def controles(
         (nom, ex): sorted(s.serie for s in f.series if s.statut == RELU) for (nom, ex), f in fichiers.items()
     }
     a_relire = sum(1 for f in fichiers.values() for s in f.series if s.statut == A_RELIRE)
-    dessines = caracteres_dessines(examens)
+    dessines = sorted({*caracteres_dessines(examens), *caracteres_des_scenes(textes)})
     f_trt: list[str] = []
     f_exp: list[str] = []
     dossiers = export_mod.versions_exportees(destination or export_mod.EXPORT)

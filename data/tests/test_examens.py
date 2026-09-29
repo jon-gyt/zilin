@@ -201,6 +201,11 @@ def test_les_noms_d_examen_se_dessinent() -> None:
     assert ex.caracteres_dessines(examens) == sorted("县试府院乡会殿月课")
 
 
+def test_les_ecritures_des_scenes_se_dessinent() -> None:
+    textes, _ = ex.charger_textes()
+    assert ex.caracteres_des_scenes(textes) == sorted(set("天一二三书院放榜"))
+
+
 # --------------------------------------------------------------------------- l'acquis
 
 

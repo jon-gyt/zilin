@@ -33,7 +33,10 @@
 #   `suite_titre`, `suite_yueke` (le prochain examen à titre), `retour_menu` ;
 # - le 放榜 : `fangbang_kicker`, `fangbang_retour`, `sur_la_liste` ({nom}) ;
 # - pas encore : `ciblees`, `croise_sur` ({ou}), `ou_revue`, `etat_a_revoir`,
-#   `info_pause`, `rien_perdu`.
+#   `info_pause`, `rien_perdu` ;
+# - les écritures des scènes : `plaques_haoshe` (les plaques des cellules du 号舍, séparées
+#   d'une espace), `plaque_academie` (la plaque du 书院 du 月课), `bang_entete` (l'en-tête de
+#   la liste). Elles se dessinent depuis leurs traits.
 cle	fr	source
 ouvert	{lus} caractères lus : l'examen {examen} s'ouvre.	rédigé pour l'app, d'après le brief §8
 ouvert_yueke	{lus} caractères lus : le 月课 s'ouvre.	rédigé pour l'app, d'après le brief §8
@@ -117,3 +120,6 @@ ou_revue	la revue de l'acquis	d'après la maquette validée le 29 septembre 2026
 etat_a_revoir	à revoir	d'après la maquette validée le 29 septembre 2026
 info_pause	Les briques nouvelles attendent. L'échauffement prend ces caractères d'abord. **L'examen se repasse quand chacun est revu juste**, d'ordinaire en un à trois jours, avec d'autres textes.	d'après la maquette validée le 29 septembre 2026
 rien_perdu	Rien n'est perdu : ni points, ni acquis, ni série.	d'après la maquette validée le 29 septembre 2026
+plaques_haoshe	天一 天二 天三	maquette validée : le 千字文 numérote les rangées du 号舍, 天 d'abord
+plaque_academie	书院	d'après la maquette validée le 29 septembre 2026
+bang_entete	放榜	d'après la maquette validée le 29 septembre 2026
