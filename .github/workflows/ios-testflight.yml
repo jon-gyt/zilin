@@ -39,8 +39,9 @@ jobs:
           '
       # Ce que l'app iOS a de propre, reposé à chaque build sur le projet engendré :
       # manifeste de confidentialité, icône 1024, écran de lancement papier, Info.plist
-      # (ITSAppUsesNonExemptEncryption, thème clair), version tirée du tag et numéro de
-      # build tiré du run (TestFlight refuse deux fois le même). Voir docs/ios-sans-mac.md.
+      # (ITSAppUsesNonExemptEncryption, thème clair, la phrase du micro de « Dis-le »),
+      # version tirée du tag et numéro de build tiré du run (TestFlight refuse deux fois le
+      # même). Voir docs/ios-sans-mac.md.
       - name: Retoucher le projet iOS
         env:
           WENLU_VERSION: ${{ github.ref_name }}
@@ -48,6 +49,8 @@ jobs:
         run: |
           ruby -e "require 'xcodeproj'" 2>/dev/null || gem install --user-install --no-document xcodeproj
           ruby ios-template/patch.rb
+          # Sans cette phrase, iOS ferme l'app au premier appel du micro (« Dis-le »).
+          /usr/libexec/PlistBuddy -c 'Print :NSMicrophoneUsageDescription' ios/App/App/Info.plist
       - name: Scheme partagé
         run: |
           mkdir -p ios/App/App.xcodeproj/xcshareddata/xcschemes
