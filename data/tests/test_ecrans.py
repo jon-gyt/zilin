@@ -169,3 +169,11 @@ def test_changer_un_texte_rend_l_export_perime(
     monkeypatch.setattr(ecrans_mod, "DOSSIER", tmp_path)
     a_jour = next(c for c in export_mod.controles() if c.nom == "export : à jour")
     assert not a_jour.ok
+
+
+def test_les_textes_de_dis_le_ne_font_jamais_de_reproche() -> None:
+    e = charger()
+    assert fautes_sources(e) == []
+    textes = dict(e.textes)
+    textes["dire"] = tuple(replace(t, fr="Faux. Redis-le.") if t.cle == "redemander" else t for t in e.textes["dire"])
+    assert any("fait un reproche" in f for f in fautes_sources(replace(e, textes=textes)))

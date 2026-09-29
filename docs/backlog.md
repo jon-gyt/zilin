@@ -94,7 +94,7 @@ Décisions du propriétaire du 26 septembre 2026 : « aux paliers de caractères
 
 ## Épic 9 · Oral par IA
 Décisions du propriétaire du 29 septembre 2026 (brief §10, « L'oral par IA ») : sur le téléphone en gratuit, dans le nuage avec l'abonnement, « 5 € c'est une conversation par jour ». Analyse : `Wenlu face au marché` (29 septembre).
-- 9.1 Les tons sur l'appareil : suivi de hauteur (YIN), petit classifieur embarqué (moins de 1 Mo, moins de 100 ms), données d'entraînement sous licence ouverte vérifiée ; une question « Dis-le » : on prononce le caractère, l'app montre sa courbe sur celle du modèle et le ton reconnu. Sans réseau, notation automatique, jamais de reproche.
+- 9.1 Les tons sur l'appareil : suivi de hauteur (YIN), petit classifieur embarqué (moins de 1 Mo, moins de 100 ms), données d'entraînement sous licence ouverte vérifiée ; une question « Dis-le » : on prononce le caractère, l'app montre sa courbe sur celle du modèle et le ton reconnu. Sans réseau, notation automatique, jamais de reproche. **Livrée en partie le 29 septembre** (voir « Épic 9, en partie »).
 - 9.2 La conversation sur l'appareil, là où il le permet (modèle de langue, reconnaissance et synthèse vocales de l'appareil), limitée aux caractères acquis.
 - 9.3 Le relais : un seul serveur, sans compte, authentifié par la transaction App Store, qui ne garde rien ; quota d'une conversation par jour, sans accumulation.
 - 9.4 L'agent vocal par niveau dans le nuage : en cascade (reconnaissance, modèle de langue, contrôle de chaque réplique contre l'acquis, synthèse), des scènes par niveau rédigées par le pipeline.
@@ -813,7 +813,69 @@ Décisions du propriétaire du 29 septembre 2026 : « Ok maquette d'examen »
   à 200…), et leurs noms du 放榜 ; celles de la première étape passent le contrôle du
   pinyin.
 
+### Épic 9, en partie : « Dis-le », les tons sur l'appareil (29 septembre)
+
+Étude de faisabilité du 29 septembre 2026 (prototype mesuré : 88,5 % des caractères isolés
+d'une voix native jamais vue, 31 Ko de poids, 21 ms par seconde d'audio), puis
+intégration, pour que le propriétaire l'essaie sur son téléphone.
+
+- **Le moteur** : `app/src/lib/tons/` : `pitch.ts` (YIN, candidats et chemin de Viterbi,
+  voisement, découpe), `classifieur.ts` (30 points de contour, registre, règles, ensemble de
+  perceptrons, décision hybride, jugement prudent), `micro.ts` (`getUserMedia` et
+  AudioWorklet, repli ScriptProcessor, arrêt sur 600 ms de silence après la voix, plafond
+  de 4 s, rééchantillonnage à 16 kHz ; l'état du droit : accordé, à demander, refusé,
+  absent), `voix.ts` (la moyenne de la voix apprise sur les cinq premières syllabes, les
+  trente dernières gardées dans la progression, des nombres, jamais le son), `modele.ts`,
+  `dire.ts` (les règles). Tests Vitest, un par règle : `pitch`, `classifieur`, `micro`,
+  `dire`, `dire-charte`, et `srs` (« Bien » au mieux).
+- **Les poids par le pipeline** : `data/sources/tons/` (poids, `PROVENANCE.md` avec sources,
+  empreintes, OGDL 1.0 et son attribution, méthode et mesures ; `preparer.py`,
+  `entrainer.py`, et `app/scripts/tons/extraire.ts` qui calcule les caractéristiques avec le
+  code de l'app) ; `tons.json` nommé par l'index, avec l'attribution, et
+  `OGDL-Taiwan-1.0.txt` dans l'export ; contrôles bloquants « tons : poids » et « tons :
+  export » (taille, forme, licence, attribution, empreintes). `docs/sources-licences.md`
+  §11, `LICENCES.md` et la page des licences du site. La recette ne tourne pas en CI.
+- **La question** : dans Échauffer et la révision en plus, au plus une par séance, à la
+  place de la question d'une carte acquise de la pile (lecture principale connue, un des
+  quatre tons, un sens) ; le caractère depuis ses traits et son sens, ni pinyin ni son
+  avant ; appuyer, dire, relâcher, ou un toucher qui écoute jusqu'au silence ; la courbe de
+  la voix sur la forme canonique du ton attendu (Chao), le ton reconnu et un conseil, jamais
+  un reproche (`wenlu check` le vérifie) ; reconnu : « Bien » et un point 说 ; sinon rien de
+  noté, trois essais, puis on passe, la carte reste due ; « Suivant » passe sans rien noter ;
+  « Écouter » après la réponse. Micro refusé ou absent, modèle absent, réglage éteint : la
+  question ne se pose pas ; un refus à l'appui rend la question ordinaire de la carte et
+  éteint le réglage. Tao écoute, la tête penchée. Textes : `data/sources/ecrans/dire.tsv`.
+- **Le réglage** « Dire les tons » (allumé par défaut, dans la progression, export et import
+  compris ; relu allumé d'un export qui ne le porte pas) et « Essayer maintenant », dans
+  Réglages seulement : un caractère acquis au hasard, rien de noté.
+- **iOS** : `NSMicrophoneUsageDescription` posée par `app/ios-template/patch.rb`, relue par
+  la CI ; Capacitor 6 accorde la capture à sa page. **Confidentialité** : la page
+  `confidentialite/` (et `en/privacy/`) dit que la voix est analysée sur l'appareil, que rien
+  n'est envoyé ni enregistré, et ce que la progression garde.
+- **Vérifié** avec Playwright et le faux micro de Chromium (syllabes synthétiques) : ton
+  juste reconnu et noté « Bien » avec un point 说 ; ton faux, trois essais, rien de noté ;
+  micro refusé par le navigateur : la question ne se pose pas ; refusé à l'appui : la question
+  ordinaire revient et le réglage s'éteint. Captures à 393 × 660.
+- **Reste** :
+  - l'essai sur un vrai iPhone (PWA de Safari et app TestFlight) : la demande du micro une
+    seule fois, le haut-parleur après la prise de son, la fréquence réelle du micro, la
+    latence, et le bruit d'une vraie pièce ;
+  - relever sur la page du jeu 5961 de data.gov.tw le fournisseur, l'année et le nom exact
+    du jeu, pour compléter l'attribution OGDL (premier alinéa de l'annexe), depuis le
+    workflow `donnees` ;
+  - mesurer la précision sur des voix d'apprenants (une bêta d'enregistrements volontaires,
+    à trancher avec la politique de confidentialité) avant de noter autrement que « Bien » ;
+  - réentraîner sur des voix du continent (Common Voice, AISHELL-1, depuis le workflow
+    `donnees`) : le ton 3 plongeant du mandarin standard est la faiblesse du modèle actuel,
+    appris sur deux voix de Taïwan ;
+  - les mots de deux syllabes (74 % aujourd'hui), hors de cette livraison ;
+  - la voix de référence : les fichiers Kokoro ont des tons isolés peu marqués ; la courbe du
+    modèle reste la forme canonique tant qu'un natif ne les a pas écoutés ;
+  - la règle « seulement après une question « Le ton » réussie » de l'étude, que
+    l'historique des cartes ne permet pas de lire (il ne garde pas le type de question) ;
+  - 9.2 à 9.6.
+
 ### Non commencées
 
 2c.1, 2c.2, 6.2, 6.4, et dans 6.3 iCloud et le widget ; dans l'épic 7, 7.3 et 7.4. Dans
-l'épic 8, les séries au-delà du 月课 de 150.
+l'épic 8, les séries au-delà du 月课 de 150. Dans l'épic 9, 9.2 à 9.6.

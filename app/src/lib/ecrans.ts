@@ -1,8 +1,8 @@
 /**
  * Les textes d'interface de « Lire le monde » (Chercher), du tableau des révisions (Ma
- * forêt), et les lignes des examens sur « Mon personnage » et « La route devant » (stories
- * 8.5 et 8.6), tels que le pipeline les exporte dans `ecrans.json` (`data/sources/ecrans/`,
- * `data/schema.md`).
+ * forêt), les lignes des examens sur « Mon personnage » et « La route devant » (stories
+ * 8.5 et 8.6), et ceux de la question « Dis-le » et de son réglage (story 9.1), tels que le
+ * pipeline les exporte dans `ecrans.json` (`data/sources/ecrans/`, `data/schema.md`).
  *
  * L'app ne rédige aucun de ces textes : elle les lit ici et remplit leurs jetons entre
  * accolades (`remplir`). Un export sans `ecrans.json` rend des textes vides : l'écran se
@@ -65,15 +65,79 @@ export const CLES_PERSONNAGE = ['reste', 'recu', 'recu-un', 'palier', 'ouvert', 
 /** Les lignes des examens sur « La route devant », dans l'ordre de la source. */
 export const CLES_ROUTE = ['examen', 'ouvert', 'apres', 'lus'] as const;
 
+/** Les textes de « Dis-le » et de son réglage, dans l'ordre de la source. */
+export const CLES_DIRE = [
+  'label',
+  'enonce',
+  'appuie',
+  'ecoute',
+  'redire',
+  'confidentialite',
+  'nom-1',
+  'nom-2',
+  'nom-3',
+  'nom-4',
+  'nom-5',
+  'allure-1',
+  'allure-2',
+  'allure-3',
+  'allure-4',
+  'allure-5',
+  'juste',
+  'autre',
+  'conseil-1-2',
+  'conseil-1-3',
+  'conseil-1-4',
+  'conseil-1-5',
+  'conseil-2-1',
+  'conseil-2-3',
+  'conseil-2-4',
+  'conseil-2-5',
+  'conseil-3-1',
+  'conseil-3-2',
+  'conseil-3-4',
+  'conseil-3-5',
+  'conseil-4-1',
+  'conseil-4-2',
+  'conseil-4-3',
+  'conseil-4-5',
+  'redemander',
+  'silence',
+  'court',
+  'sature',
+  'passer',
+  'resume',
+  'etat-juste',
+  'etat-autre',
+  'etat-redemander',
+  'legende-voix',
+  'legende-modele',
+  'prochaine',
+  'ecouter',
+  'suivant',
+  'terminer',
+  'essai',
+  'retour',
+  'reglage',
+  'reglage-aide',
+  'essayer',
+  'essayer-aide',
+  'refuse',
+  'absent',
+  'indisponible'
+] as const;
+
 export type CleLireLeMonde = (typeof CLES_LIRE_LE_MONDE)[number];
 export type CleRevisions = (typeof CLES_REVISIONS)[number];
 export type ClePersonnage = (typeof CLES_PERSONNAGE)[number];
 export type CleRoute = (typeof CLES_ROUTE)[number];
+export type CleDire = (typeof CLES_DIRE)[number];
 
 export type TextesLireLeMonde = Record<CleLireLeMonde, string>;
 export type TextesRevisions = Record<CleRevisions, string>;
 export type TextesPersonnage = Record<ClePersonnage, string>;
 export type TextesRoute = Record<CleRoute, string>;
+export type TextesDire = Record<CleDire, string>;
 
 export type Ecrans = {
   version: string;
@@ -82,6 +146,7 @@ export type Ecrans = {
   revisions: TextesRevisions;
   personnage: TextesPersonnage;
   route: TextesRoute;
+  dire: TextesDire;
 };
 
 function vides<K extends string>(cles: readonly K[]): Record<K, string> {
@@ -95,7 +160,8 @@ export const SANS_ECRANS: Ecrans = {
   lire: vides(CLES_LIRE_LE_MONDE),
   revisions: vides(CLES_REVISIONS),
   personnage: vides(CLES_PERSONNAGE),
-  route: vides(CLES_ROUTE)
+  route: vides(CLES_ROUTE),
+  dire: vides(CLES_DIRE)
 };
 
 function objet(v: unknown): Record<string, unknown> {
@@ -122,7 +188,8 @@ export function lireEcrans(brut: unknown): Ecrans {
     lire: bloc(o['lire-le-monde'], CLES_LIRE_LE_MONDE),
     revisions: bloc(o.revisions, CLES_REVISIONS),
     personnage: bloc(o.personnage, CLES_PERSONNAGE),
-    route: bloc(o.route, CLES_ROUTE)
+    route: bloc(o.route, CLES_ROUTE),
+    dire: bloc(o.dire, CLES_DIRE)
   };
 }
 

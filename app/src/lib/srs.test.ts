@@ -39,6 +39,12 @@ describe('notation automatique', () => {
     /* Et la planification suit la note : un tracé lent revient aussi loin qu'un rapide. */
     expect(apres({ ...LENT, chrono: false }).due).toEqual(apres(RAPIDE).due);
   });
+
+  it('un ton reconnu à « Dis-le » vaut Bien, jamais Facile, même rapide', () => {
+    expect(grade({ ...RAPIDE, auMieuxBien: true })).toBe(Rating.Good);
+    expect(grade({ ...LENT, auMieuxBien: true })).toBe(Rating.Good);
+    expect(apres({ ...RAPIDE, auMieuxBien: true }).due).toEqual(apres(LENT).due);
+  });
 });
 
 describe("planification d'une carte neuve", () => {

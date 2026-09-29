@@ -1,8 +1,8 @@
 <script lang="ts">
   /**
    * Réglages : l'ossature. Le personnage (changer de bête ou de nom, sans rien perdre),
-   * le rythme, les révisions (rétention cible FSRS), le tracé, le mode relecture, et la
-   * progression qui s'exporte et se réimporte en JSON. Un seul thème, le papier clair : il
+   * le rythme, les révisions (rétention cible FSRS), le tracé, « Dire les tons » et son essai,
+   * le mode relecture, et la progression qui s'exporte et se réimporte en JSON. Un seul thème, le papier clair : il
    * n'y a rien à régler.
    *
    * Ni compte, ni réseau : le fichier est écrit et relu par le navigateur, la
@@ -18,6 +18,8 @@
   import { caracteresLus } from './foret';
   import { stade } from './tao';
   import { haptiqueDisponible } from './haptique';
+  import { ecransOnce, SANS_ECRANS, type TextesDire } from './ecrans';
+  import { etatMicro, type EtatMicro } from './tons/micro';
   import { autorisationRefusee, demanderAutorisation, instant, notificationsDisponibles } from './natif';
   import { HEURE_DEFAUT, SANS_TEXTES, heureValide, rappelsOnce, reglerRappel, setRappel, type TextesRappels } from './rappels';
   import {
@@ -27,6 +29,7 @@
     setHaptique,
     setRelecture,
     setBudget,
+    setDireTons,
     setRetention,
     setTrace,
     toJSON,
@@ -38,7 +41,8 @@
     p,
     vois = () => true,
     onprogression,
-    onretour
+    onretour,
+    onessayer = () => undefined
   }: {
     p: Progress;
     /**
@@ -50,6 +54,11 @@
     onprogression: (p: Progress) => void;
     /** Réglages s'ouvre par l'icône du menu ; un seul retour, vers le menu. */
     onretour: () => void;
+    /**
+     * « Essayer maintenant », sous « Dire les tons » : « Dis-le » sur un caractère acquis au
+     * hasard, sans rien noter. Ce n'est pas une porte de l'aventure : elle reste ici.
+     */
+    onessayer?: () => void;
   } = $props();
 
   const BUDGETS: Budget[] = [5, 10, 20];
@@ -100,6 +109,34 @@
 
   function choisirTrace(): void {
     onprogression(setTrace(p, !p.trace));
+  }
+
+  /*
+   * « Dire les tons » (story 9.1) : la question « Dis-le » de la révision. Allumé par défaut ;
+   * un micro refusé l'éteint, et la ligne dit comment le rouvrir. Ses textes viennent de
+   * `ecrans.json` ; sans eux, la ligne ne s'affiche pas.
+   */
+  let textesDire = $state<TextesDire>(SANS_ECRANS.dire);
+  let micro = $state<EtatMicro | null>(null);
+  $effect(() => {
+    let vivant = true;
+    void ecransOnce()
+      .then((e) => {
+        if (vivant) textesDire = e.dire;
+      })
+      .catch(() => undefined);
+    void etatMicro()
+      .then((e) => {
+        if (vivant) micro = e;
+      })
+      .catch(() => undefined);
+    return () => {
+      vivant = false;
+    };
+  });
+
+  function choisirDireTons(): void {
+    onprogression(setDireTons(p, !p.direTons));
   }
 
   /**
@@ -273,6 +310,30 @@
         onclick={choisirTrace}
       ></button>
     </div>
+    {#if textesDire.reglage !== ''}
+      <div class="tog">
+        <div>
+          <div>{textesDire.reglage}</div>
+          <div class="k">{textesDire['reglage-aide']}</div>
+        </div>
+        <button
+          class="sw"
+          class:on={p.direTons}
+          role="switch"
+          aria-checked={p.direTons}
+          aria-label={textesDire.reglage}
+          onclick={choisirDireTons}
+        ></button>
+      </div>
+      {#if micro === 'refuse' || micro === 'absent'}
+        <div class="k refus">{micro === 'refuse' ? textesDire.refuse : textesDire.absent}</div>
+      {:else}
+        <div class="essayer">
+          <button class="btn ghost" onclick={onessayer}>{textesDire.essayer}</button>
+          <div class="k">{textesDire['essayer-aide']}</div>
+        </div>
+      {/if}
+    {/if}
     <div class="tog">
       <div>
         <div>Mode relecture</div>
@@ -372,6 +433,25 @@
   }
   .refus {
     margin-top: 6px;
+  }
+  /* L'essai de « Dis-le », sous son réglage : un bouton au trait, sa ligne dessous. */
+  .essayer {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 4px 2px 12px;
+  }
+  /* Le réglage suivant garde son filet, comme entre deux interrupteurs. */
+  .essayer + :global(.tog),
+  .refus + :global(.tog) {
+    border-top: 1px solid var(--line);
+  }
+  .essayer .btn {
+    width: auto;
+    min-height: 44px;
+    flex-shrink: 0;
+    color: var(--indigo);
+    border-color: var(--indigo);
   }
   .date {
     display: block;

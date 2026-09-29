@@ -169,7 +169,8 @@ const FR: Textes = {
     tracesNote:
       "Les tracés des caractères sont dérivés de Make Me a Hanzi (graphics.txt), sous Arphic Public License. Ils sont publiés ici en entier, sous la même licence, avec la note de modification (APL §2).",
     textes: 'Textes des licences',
-    description: 'Les sources et licences des données de Wenlu : tracés sous Arphic Public License, pinyin Unihan, norme GF 0014-2009.'
+    description:
+      'Les sources et licences des données de Wenlu : tracés sous Arphic Public License, pinyin Unihan, norme GF 0014-2009, modèle des tons appris sur des données OGDL 1.0.'
   },
   confidentialite: {
     titre: 'Confidentialité · Wenlu',
@@ -192,6 +193,13 @@ const FR: Textes = {
         ]
       },
       {
+        h2: 'Ta voix',
+        p: [
+          "La question « Dis-le » te demande de prononcer un caractère ; le micro ne s'ouvre que lorsque tu appuies sur son bouton, et le téléphone te demande ton accord la première fois. Ta voix est analysée sur ton appareil, par le code de l'app : la hauteur de la voix est suivie, et un petit modèle embarqué reconnaît le ton. Rien n'est envoyé, ni à nous, ni à personne, et le son n'est pas enregistré : il est effacé dès que la courbe est tracée.",
+          "Seule la hauteur moyenne de ta voix, un nombre par syllabe (les trente dernières), reste dans ta progression, pour mieux situer tes tons ; elle part avec l'export de ta progression, et nulle part ailleurs. Tu peux couper la question dans les Réglages (« Dire les tons »), et retirer l'accès au micro dans les réglages du téléphone."
+        ]
+      },
+      {
         h2: 'GitHub et Apple',
         p: [
           "La version web et ce site sont servis par GitHub Pages. Comme tout hébergeur, GitHub peut consigner des données techniques de connexion, dont l'adresse IP, selon sa propre déclaration de confidentialité ; Wenlu n'y a pas accès. Une fois l'app web chargée, elle fonctionne hors ligne et n'envoie rien.",
@@ -205,7 +213,7 @@ const FR: Textes = {
         ]
       }
     ],
-    maj: 'Mise à jour le 26 septembre 2026.'
+    maj: 'Mise à jour le 29 septembre 2026.'
   },
   pied: {
     traces: "Tracés des caractères : Make Me a Hanzi (graphics.txt), d'après les polices d'Arphic Technology, © 1999 Arphic Technology Co., Ltd., sous",
@@ -302,6 +310,13 @@ const EN: Textes = {
         ]
       },
       {
+        h2: 'Your voice',
+        p: [
+          'The “Say it” question asks you to pronounce a character; the microphone only opens when you press its button, and your phone asks for your permission the first time. Your voice is analysed on your device, by the app’s own code: the pitch of your voice is tracked, and a small built-in model recognises the tone. Nothing is sent, not to us, not to anyone, and the sound is not recorded: it is discarded as soon as the curve is drawn.',
+          'Only the average pitch of your voice, one number per syllable (the last thirty), stays in your progress, to place your tones better; it leaves with your progress export, and nowhere else. You can turn the question off in Settings (“Dire les tons”), and remove microphone access in your phone’s settings.'
+        ]
+      },
+      {
         h2: 'GitHub and Apple',
         p: [
           'The web version and this site are served by GitHub Pages. Like any host, GitHub may log technical connection data, including IP addresses, under its own privacy statement; Wenlu has no access to it. Once loaded, the web app works offline and sends nothing.',
@@ -315,7 +330,7 @@ const EN: Textes = {
         ]
       }
     ],
-    maj: 'Last updated 26 September 2026.'
+    maj: 'Last updated 29 September 2026.'
   },
   pied: {
     traces: 'Character strokes: Make Me a Hanzi (graphics.txt), after the Arphic Technology fonts, © 1999 Arphic Technology Co., Ltd., under the',
@@ -701,6 +716,7 @@ function pageLicences(ctx: Contexte, ex: Export, langue: Langue): string {
     ['traits/MODIFICATIONS.md', 'MODIFICATIONS.md'],
     ['UNICODE-LICENSE.txt', 'Unicode License'],
     ['MIT-cjk-decomp.txt', 'MIT License (cjk-decomp)'],
+    ['OGDL-Taiwan-1.0.txt', 'Open Government Data License 1.0 (Taïwan)'],
     ['LICENCES.md', 'LICENCES.md']
   ];
   const corps = `<div class="licences">

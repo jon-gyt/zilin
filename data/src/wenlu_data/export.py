@@ -33,6 +33,9 @@ familles de fichiers, jamais mêlés :
 - `examens.json` : les trente-sept examens 科举 et 月课, les nominations, et les séries relues
   de chaque examen sur chaque chemin (`examens.py`), propriétaire, source citée ; nommé par
   l'index. Les noms des examens entrent dans le périmètre des traits : l'app les dessine.
+- `tons.json` : les poids du classifieur des tons de « Dis-le » (`tons.py`), dérivés de données
+  sous Open Government Data License 1.0, avec leur attribution ; nommé par l'index, et le texte
+  de la licence (`OGDL-Taiwan-1.0.txt`) copié à côté. Aucun son n'est embarqué.
 - `apercu/` : les textes encore à relire (voir plus bas), propriétaires eux aussi.
 
 Ce qui n'entre jamais dans l'export :
@@ -105,6 +108,7 @@ from . import ouvertures as ouvertures_mod
 from . import rythme as rythme_mod
 from . import saisons as saisons_mod
 from . import surcharges as surcharges_mod
+from . import tons as tons_mod
 from . import trois_lignes as trois_lignes_mod
 from . import unihan as unihan_mod
 from . import cjkdecomp
@@ -122,7 +126,7 @@ VERSION = "0.1.0"
 #: Version du format écrit par ce module. À incrémenter à chaque changement de
 #: ce que l'export produit à entrées égales (clé ajoutée, ordre, règle de
 #: sélection) : elle entre dans l'empreinte, et l'export versionné devient périmé.
-FORMAT_EXPORT = 19
+FORMAT_EXPORT = 20
 
 #: Le code de l'exporteur, lui aussi dans l'empreinte : un changement de ce
 #: fichier où l'on aurait oublié `FORMAT_EXPORT` rend quand même l'export périmé.
@@ -148,6 +152,8 @@ ARPHIC = "ARPHICPL.TXT"
 UNICODE_NOTICE = "UNICODE-LICENSE.txt"
 #: Texte de la MIT, que cjk-decomp propose parmi six licences et que le projet retient.
 MIT_CJK_DECOMP = "MIT-cjk-decomp.txt"
+#: Texte de l'Open Government Data License 1.0 (Taïwan), dont dérivent les poids des tons.
+OGDL = tons_mod.OGDL
 
 #: Substitués à l'écriture : la date ne fait pas varier le contenu comparé.
 JETON_DATE = "@date@"
@@ -213,6 +219,7 @@ def fichiers_sources(
         ("exporteur-anecdotes", Path(anecdotes_mod.__file__).resolve()),
         ("exporteur-trois-lignes", Path(trois_lignes_mod.__file__).resolve()),
         ("exporteur-examens", Path(examens_mod.__file__).resolve()),
+        ("exporteur-tons", Path(tons_mod.__file__).resolve()),
         ("decompositions", build / "decompositions.json"),
         ("graphe", build / "graphe.json"),
         *[(f"parcours-{nom}", build / f"parcours-{nom}.json") for nom in sorted(PARCOURS)],
@@ -257,6 +264,7 @@ def fichiers_sources(
         ("anecdotes", anecdotes_mod.ANECDOTES),
         *trois_lignes_mod.sources(),
         *examens_mod.sources(),
+        *tons_mod.sources(),
         ("interface", INTERFACE),
         ("arphicpl", LICENCES_SOURCE / ARPHIC),
         ("unicode", LICENCES_SOURCE / UNICODE_NOTICE),
@@ -1530,6 +1538,7 @@ def document_index(
         "rythme": rythme_mod.FICHIER,
         "rappels": rappels_mod.FICHIER,
         "ouvertures": ouvertures_mod.FICHIER,
+        "tons": tons_mod.FICHIER,
     }
     if apercu:
         document["apercu"] = f"{APERCU}/index.json"
@@ -1593,6 +1602,14 @@ TABLEAU_LICENCES: tuple[tuple[str, str, str, str, str], ...] = (
         "https://github.com/6tail/lunar-python",
     ),
     (
+        "Syllabes du mandarin, deux voix, jeu 5961 de data.gov.tw (Taïwan)",
+        "entraînement des poids du classifieur des tons de « Dis-le » (`tons.json`) ; aucun son"
+        " n'est embarqué",
+        tons_mod.LICENCE_DONNEES,
+        tons_mod.ATTRIBUTION,
+        f"`{tons_mod.OGDL}`",
+    ),
+    (
         "Surcharges du pipeline wenlu (`data/sources/surcharges/`)",
         "pinyin corrigés et décompositions rédigées pour Wenlu d'après GF 0014-2009,"
         " chacune avec sa raison (`sources: [\"surcharge\"]`)",
@@ -1646,6 +1663,9 @@ def licences_md(version: str) -> str:
         f"- `{UNICODE_NOTICE}` : notice de permission Unicode, qui couvre le pinyin.",
         f"- `{MIT_CJK_DECOMP}` : notice de copyright et texte de la MIT, qui couvrent les"
         " décompositions descendues de cjk-decomp.",
+        f"- `{tons_mod.FICHIER}` : les poids du classifieur des tons, propriétaires, dérivés de"
+        f" données sous {tons_mod.LICENCE_DONNEES} ; ils portent l'attribution exigée, et"
+        f" `{tons_mod.OGDL}` le texte de la licence.",
         "",
         "## Ce que l'export ne contient pas",
         "",
@@ -2046,9 +2066,21 @@ def assembler(
             racines={c: noeuds[c].racine for c in per.caracteres},
         )
     )
+    # Les poids du classifieur des tons (`tons.py`) : nommés par l'index, compacts (des nombres).
+    textes[tons_mod.FICHIER] = _json_compact(
+        tons_mod.document(
+            en_tete={
+                "version": version,
+                "license": tons_mod.LICENCE_EXPORT,
+                "source": tons_mod.SOURCE_EXPORT,
+                "source_url": URL_PIPELINE,
+                "modified": f"{JETON_JOUR} : copié par `wenlu export`, poids inchangés",
+            }
+        )
+    )
     textes["LICENCES.md"] = licences_md(version)
     textes["traits/MODIFICATIONS.md"] = modifications_md(version, len(graphies), decoupes)
-    for nom in (ARPHIC, UNICODE_NOTICE, MIT_CJK_DECOMP):
+    for nom in (ARPHIC, UNICODE_NOTICE, MIT_CJK_DECOMP, OGDL):
         texte = (licences / nom).read_text(encoding="utf-8")
         textes[nom] = texte
         if nom == ARPHIC:
@@ -2161,6 +2193,7 @@ TEXTES_DE_LICENCE: tuple[str, ...] = (
     ARPHIC,
     UNICODE_NOTICE,
     MIT_CJK_DECOMP,
+    OGDL,
     "LICENCES.md",
     f"traits/{ARPHIC}",
     "traits/MODIFICATIONS.md",

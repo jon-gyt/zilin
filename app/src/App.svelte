@@ -23,6 +23,7 @@
   import Open from './lib/Open.svelte';
   import Splash from './lib/Splash.svelte';
   import Settings from './lib/Settings.svelte';
+  import DireEssai from './lib/DireEssai.svelte';
   import Rewards from './lib/Rewards.svelte';
   import Route from './lib/Route.svelte';
   import Revisions from './lib/Revisions.svelte';
@@ -73,6 +74,8 @@
     finEchauffer,
     finFixer,
     finUtiliser,
+    noterVoix,
+    setDireTons,
     learnNext,
     nombreDues,
     noterActivite,
@@ -190,6 +193,7 @@
     | 'route'
     | 'revisions'
     | 'reglages'
+    | 'dire'
     | 'chercher'
     | 'personnage'
     | 'fangbang'
@@ -824,6 +828,24 @@
     enregistrer();
   }
 
+  /**
+   * « Dis-le » : la moyenne d'une syllabe analysée, rien d'autre. La voix de l'apprenant
+   * s'apprend ainsi ; le son, lui, n'a jamais quitté l'écran de la question.
+   */
+  function voixEntendue(hz: number): void {
+    const n = noterVoix(p, hz);
+    if (n === p) return;
+    p = n;
+    enregistrer();
+  }
+
+  /** « Dis-le » : le micro a été refusé ; la question ne revient pas avant que Réglages la rallume. */
+  function microRefuse(): void {
+    if (!p.direTons) return;
+    p = setDireTons(p, false);
+    enregistrer();
+  }
+
   /** La question suivante de la séance : la reprise se fait à celle-ci. */
   function echaufferAvancer(i: number): void {
     p = setRev(p, i);
@@ -1168,6 +1190,8 @@
     onfini={echaufferFini}
     onattente={echaufferAttente}
     onquitter={quitter}
+    onvoix={voixEntendue}
+    onmicrorefuse={microRefuse}
   />
 {:else if ecran === 'reviser'}
   <Warm
@@ -1178,6 +1202,8 @@
     onfini={reviserFini}
     onattente={echaufferAttente}
     onquitter={reviserFini}
+    onvoix={voixEntendue}
+    onmicrorefuse={microRefuse}
   />
 {:else if ecran === 'learn'}
   <Learn
@@ -1281,7 +1307,9 @@
 {:else if ecran === 'fangbang' && herosDonnees && p.heros}
   <Fangbang donnees={herosDonnees} heros={p.heros} rang={rangPromu} oncontinuer={fangbangVu} />
 {:else if ecran === 'reglages'}
-  <Settings {p} {vois} onprogression={remplacer} onretour={allerAuMenu} />
+  <Settings {p} {vois} onprogression={remplacer} onretour={allerAuMenu} onessayer={() => (ecran = 'dire')} />
+{:else if ecran === 'dire'}
+  <DireEssai {p} onvoix={voixEntendue} onmicrorefuse={microRefuse} onretour={() => (ecran = 'reglages')} />
 {:else}
   <Menu {p} {acces} {vois} {annonce} examen={examenMenu} ondecouvrir={decouvrir} textes={textesRythme} fete={feteJour} {fetes} terme={laJournee.terme} {saisons} ondemarrer={boutonMenu} oncase={caseMenu} onanecdote={() => relireAnecdote('menu')} onchercher={ouvrirChercher} onreglages={() => (ecran = 'reglages')} onpersonnage={() => (ecran = 'personnage')} onroute={() => ouvrirRoute('menu')} />
 {/if}

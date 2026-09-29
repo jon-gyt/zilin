@@ -222,6 +222,7 @@ def check() -> None:
     from .rappels import controles as controles_rappels
     from .ouvertures import controles as controles_ouvertures
     from .saisons import controles as controles_saisons
+    from .tons import controles as controles_tons
     from .trois_lignes import controles as controles_trois_lignes
     from .wechat import controles as controles_wechat
 
@@ -253,6 +254,7 @@ def check() -> None:
         *controles_anecdotes(),
         *controles_trois_lignes(),
         *controles_examens(),
+        *controles_tons(),
         *controles_fuites(),
     ]:
         typer.echo(f"{'ok   ' if controle.ok else 'écart'} {controle.nom} : {controle.detail}")

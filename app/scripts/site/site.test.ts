@@ -119,6 +119,24 @@ describe('site public', () => {
     expect(motifPagesDuSite(BASE).test('/zilin/en/privacy/')).toBe(true);
   });
 
+  it('dit que la voix de « Dis-le » est analysée sur l’appareil et que rien n’est envoyé', () => {
+    const fr = page('confidentialite/');
+    const en = page('en/privacy/');
+    expect(fr).toContain('<h2>Ta voix</h2>');
+    expect(fr).toContain('Ta voix est analysée sur ton appareil');
+    expect(fr).toContain("Rien n'est envoyé");
+    expect(fr).toContain("le son n'est pas enregistré");
+    expect(en).toContain('<h2>Your voice</h2>');
+    expect(en).toContain('Nothing is sent');
+  });
+
+  it('attribue les données d’entraînement du modèle des tons et publie le texte de leur licence', () => {
+    const licences = page('licences/');
+    expect(licences).toContain('Open Government Data License');
+    expect(licences).toContain('https://data.gov.tw/license');
+    expect(licences).toContain('OGDL-Taiwan-1.0.txt"');
+  });
+
   it('dessine les grands caractères depuis leurs traits, jamais depuis une police', () => {
     const html = page(cheminPage('fr', 'caractere', '休'));
     const grand = /<div class="grand">([\s\S]*?)<\/div>/.exec(html)![1];

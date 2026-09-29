@@ -1,0 +1,94 @@
+# Les textes de la question « Dis-le » et de son réglage (story 9.1, brief §10, « L'oral par
+# IA ») : on prononce un caractère acquis, l'app reconnaît le ton sur l'appareil, montre la
+# courbe de la voix sur la forme du ton attendu, nomme le ton reconnu et donne un conseil.
+#
+# Source : rédigé pour l'app, sans API, dans une session Claude Code ; l'allure des tons, les
+# conseils et les phrases de redemande viennent de l'étude de faisabilité du 29 septembre 2026
+# (§5, « Le retour à l'apprenant ») ; à relire. Jamais un reproche : ni faux, ni erreur, ni
+# raté, ni mauvais, ni échec, ni dommage, ni non, ni nul ; un conseil dit quoi faire, pas ce
+# qui est manqué. Ni temps passé, ni classement, ni emoji, ni dragon. `wenlu check` le vérifie.
+#
+# Format : TSV, `#` en commentaire, trois colonnes séparées par une tabulation : `cle`,
+# `fr`, `source`. Chaque clé est exigée une fois, avec exactement ses jetons entre
+# accolades, que l'app remplit (`ecrans.py`, `ECRANS`) :
+#
+# - `label`, `enonce` : le nom de la question en tête de la révision, et sa consigne ;
+# - `appuie`, `ecoute`, `redire`, `confidentialite` : le bouton du micro, au repos, pendant
+#   l'écoute, pour un nouvel essai, et la ligne dite avant la première prise ;
+# - `nom-1` à `nom-5` : le nom de chaque ton (le 5 est le neutre) ;
+# - `allure-1` à `allure-5` : ce que fait la voix sur chaque ton ;
+# - `juste` : le ton reconnu, `{nom}` et son `{allure}` ;
+# - `autre` : un autre ton dont l'app est sûre, `{attendu}`, l'`{allure}` entendue et le ton
+#   `{entendu}` ; suivi du conseil du couple, `conseil-<attendu>-<entendu>` (tons 1 à 4
+#   attendus : un caractère isolé n'a pas de ton neutre) ;
+# - `redemander`, `silence`, `court`, `sature` : on redemande, avec la raison quand on la sait ;
+# - `passer`, `resume` : trois essais sans ton reconnu, on passe sans rien noter ; la ligne du
+#   résumé de la séance pour ce caractère ;
+# - `etat-juste`, `etat-autre`, `etat-redemander` : l'étiquette du verdict ;
+# - `legende-voix`, `legende-modele` : la légende de la courbe, `{nom}` du ton attendu ;
+# - `prochaine` : l'échéance que FSRS a écrite, `{delai}` ;
+# - `ecouter`, `suivant`, `terminer` : les boutons après la réponse ;
+# - `essai`, `retour` : l'essai lancé depuis les Réglages, qui ne note rien ;
+# - `reglage`, `reglage-aide`, `essayer`, `essayer-aide`, `refuse`, `absent` : le réglage
+#   « Dire les tons » et son bouton « Essayer maintenant », et ce qu'il dit d'un micro refusé
+#   ou absent ;
+# - `indisponible` : les poids du classifieur ne se chargent pas, la question ne se pose pas.
+cle	fr	source
+label	Dis-le	rédigé pour l'app
+enonce	Dis ce caractère à voix haute.	rédigé pour l'app
+appuie	Appuie, dis-le, relâche	rédigé pour l'app
+ecoute	J'écoute…	rédigé pour l'app
+redire	Redis-le	rédigé pour l'app
+confidentialite	Ta voix est analysée sur ton téléphone et n'en sort pas.	rédigé pour l'app
+nom-1	ton 1	rédigé pour l'app
+nom-2	ton 2	rédigé pour l'app
+nom-3	ton 3	rédigé pour l'app
+nom-4	ton 4	rédigé pour l'app
+nom-5	ton neutre	rédigé pour l'app
+allure-1	reste haute et plate	rédigé pour l'app
+allure-2	monte	rédigé pour l'app
+allure-3	descend dans le grave puis remonte	rédigé pour l'app
+allure-4	tombe du haut vers le bas	rédigé pour l'app
+allure-5	reste courte et légère	rédigé pour l'app
+juste	{nom} : ta voix {allure}. C'est bien lui.	rédigé pour l'app
+autre	{attendu} attendu. Ta voix {allure} : j'entends le {entendu}.	rédigé pour l'app
+conseil-1-2	Pars déjà en haut et tiens la note, bien à plat.	rédigé pour l'app
+conseil-1-3	Reste en haut de ta voix, comme une note tenue.	rédigé pour l'app
+conseil-1-4	Tiens la note jusqu'au bout, sans la laisser tomber.	rédigé pour l'app
+conseil-1-5	Tiens la note haute un peu plus longtemps.	rédigé pour l'app
+conseil-2-1	Pars un peu plus bas et monte, comme dans « Hein ? ».	rédigé pour l'app
+conseil-2-3	Monte tout de suite, sans descendre d'abord.	rédigé pour l'app
+conseil-2-4	Fais monter la voix, comme une question.	rédigé pour l'app
+conseil-2-5	Prends le temps de monter, comme une question.	rédigé pour l'app
+conseil-3-1	Descends dans le grave de ta voix.	rédigé pour l'app
+conseil-3-2	Descends d'abord, bas et grave, avant de remonter.	rédigé pour l'app
+conseil-3-4	Commence plus bas et reste dans le grave.	rédigé pour l'app
+conseil-3-5	Appuie un peu plus et descends dans le grave.	rédigé pour l'app
+conseil-4-1	Pars de haut et laisse tomber franchement, comme un ordre.	rédigé pour l'app
+conseil-4-2	Fais tomber la voix, du haut vers le bas.	rédigé pour l'app
+conseil-4-3	Pars de plus haut et tombe d'un coup.	rédigé pour l'app
+conseil-4-5	Pars de haut et tombe franchement, avec un peu plus de force.	rédigé pour l'app
+redemander	Je n'ai pas bien entendu. Redis-le ?	rédigé pour l'app
+silence	Je n'entends pas ta voix. Rapproche-toi du micro ?	rédigé pour l'app
+court	C'était un peu court. Redis-le ?	rédigé pour l'app
+sature	Le son sature. Éloigne un peu le téléphone ?	rédigé pour l'app
+passer	On continue. Ce caractère reviendra à sa prochaine révision.	rédigé pour l'app
+resume	passé, rien de noté	rédigé pour l'app
+etat-juste	reconnu	rédigé pour l'app
+etat-autre	un autre ton	rédigé pour l'app
+etat-redemander	on redemande	rédigé pour l'app
+legende-voix	ta voix	rédigé pour l'app
+legende-modele	{nom} attendu	rédigé pour l'app
+prochaine	Prochaine fois : dans {delai}.	rédigé pour l'app
+ecouter	Écouter	rédigé pour l'app
+suivant	Suivant	rédigé pour l'app
+terminer	Terminer	rédigé pour l'app
+essai	Essai : rien n'est noté.	rédigé pour l'app
+retour	Réglages	rédigé pour l'app
+reglage	Dire les tons	rédigé pour l'app
+reglage-aide	Une question où tu dis un caractère acquis. Ta voix est analysée sur ton téléphone, rien n'est envoyé.	rédigé pour l'app
+essayer	Essayer maintenant	rédigé pour l'app
+essayer-aide	Un caractère acquis au hasard ; rien n'est noté.	rédigé pour l'app
+refuse	Le micro est fermé à Wenlu : la question ne se pose pas. Pour le rouvrir, passe par les réglages du téléphone, puis rallume « Dire les tons ».	rédigé pour l'app
+absent	Pas de micro ici : la question ne se pose pas.	rédigé pour l'app
+indisponible	La reconnaissance des tons ne se charge pas ici : la question ne se pose pas.	rédigé pour l'app

@@ -535,6 +535,8 @@ export type Index = {
   rappels?: string;
   /** Le calendrier d'ouverture des portes, `ouvertures.json` (`ouvertures.ts`) ; vide pour un export qui n'en porte pas. */
   ouvertures?: string;
+  /** Les poids du classifieur des tons, `tons.json` (`tons/modele.ts`) ; vide pour un export qui n'en porte pas. */
+  tons?: string;
 };
 
 /** La version de données que l'app lit : le dossier exporté par `wenlu export`. */
@@ -584,7 +586,8 @@ export async function loadIndex(
     examens: typeof brut.examens === 'string' ? brut.examens : '',
     rythme: typeof brut.rythme === 'string' ? brut.rythme : '',
     rappels: typeof brut.rappels === 'string' ? brut.rappels : '',
-    ouvertures: typeof brut.ouvertures === 'string' ? brut.ouvertures : ''
+    ouvertures: typeof brut.ouvertures === 'string' ? brut.ouvertures : '',
+    tons: typeof brut.tons === 'string' ? brut.tons : ''
   };
 }
 

@@ -19,7 +19,9 @@
 # 5. Info.plist : `ITSAppUsesNonExemptEncryption` à faux (aucune cryptographie propre :
 #    l'app ne fait même aucune requête réseau) ; `UIUserInterfaceStyle` à Light, un seul
 #    thème, le papier clair (brief §5), pour que la barre d'état reste lisible quand
-#    l'iPhone est en mode sombre ; et vérifie que le nom affiché vient d'`appName`
+#    l'iPhone est en mode sombre ; `NSMicrophoneUsageDescription`, la phrase qu'iOS montre
+#    en demandant le micro pour « Dis-le » (story 9.1) : sans elle, iOS ferme l'app au
+#    premier appel du micro ; et vérifie que le nom affiché vient d'`appName`
 #    (`capacitor.config.ts`) ;
 # 6. numéros de version : `MARKETING_VERSION` depuis `WENLU_VERSION` (le tag `ios-0.1.0`
 #    donne 0.1.0), `CURRENT_PROJECT_VERSION` depuis `WENLU_BUILD` (le numéro de run de la
@@ -46,6 +48,11 @@ ASSETS = File.join(DOSSIER_APP, 'Assets.xcassets')
 
 # Le papier de riz, #F4EEE2 (brief §5, `src/lib/tokens.css`).
 PAPIER = [0xF4, 0xEE, 0xE2].freeze
+
+# La phrase qu'iOS montre en demandant le micro (« Dis-le », story 9.1). En français, comme
+# l'app ; elle dit ce que la politique de confidentialité dit : rien ne sort de l'iPhone.
+MICRO = "Wenlu écoute ta voix pour reconnaître le ton du caractère que tu dis. L'analyse se fait sur ton iPhone : rien n'est enregistré ni envoyé."
+
 
 def echec(message)
   warn "patch.rb : #{message}"
@@ -165,7 +172,8 @@ end
 info = Xcodeproj::Plist.read_from_path(INFO)
 info['ITSAppUsesNonExemptEncryption'] = false
 info['UIUserInterfaceStyle'] = 'Light'
+info['NSMicrophoneUsageDescription'] = MICRO
 nom = info['CFBundleDisplayName'].to_s
 echec("CFBundleDisplayName « #{nom} » : `cap add ios` n'a pas repris appName.") if nom.empty? || nom == 'My App'
 Xcodeproj::Plist.write_to_path(info, INFO)
-etape("Info.plist : ITSAppUsesNonExemptEncryption = false, UIUserInterfaceStyle = Light, nom affiché « #{nom} ».")
+etape("Info.plist : ITSAppUsesNonExemptEncryption = false, UIUserInterfaceStyle = Light, micro décrit, nom affiché « #{nom} ».")
