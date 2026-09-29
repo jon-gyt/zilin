@@ -335,12 +335,21 @@
   </div>
 {/snippet}
 
-{#snippet enveloppe(petite: boolean)}
-  <!-- l'enveloppe au trait d'encre, son timbre à l'ocre ; Que se pose dessus -->
-  <span class="enveloppe" class:petite aria-hidden="true">
+{#snippet enveloppe(petite: boolean, entrouverte = false)}
+  <!-- l'enveloppe au trait d'encre, son timbre à l'ocre ; Que se pose dessus. Une lettre qui
+       vient d'arriver, pas encore lue, s'entrouvre : le rabat se lève, la feuille pointe. -->
+  <span class="enveloppe" class:petite class:entrouverte aria-hidden="true">
     <svg viewBox="0 0 70 50">
+      {#if entrouverte}
+        <!-- derrière : le rabat qui se lève, puis la feuille qui pointe devant lui -->
+        <path class="rabat-leve" d="M2 5 L33 29 L64 5 Z" fill="var(--card)" stroke="var(--ink)" stroke-width="1.6" stroke-linejoin="round" />
+        <g class="billet">
+          <rect x="10" y="8" width="46" height="34" rx="1.5" fill="var(--paper)" stroke="var(--ink)" stroke-width="1.2" />
+          <path d="M16 15h26M16 20h32" stroke="var(--ink)" stroke-width="1.2" opacity=".35" stroke-linecap="round" />
+        </g>
+      {/if}
       <rect x="2" y="4" width="62" height="42" rx="3" fill="var(--card)" stroke="var(--ink)" stroke-width="1.6" />
-      <path d="M2 6 L33 30 L64 6" fill="none" stroke="var(--ink)" stroke-width="1.6" stroke-linejoin="round" />
+      <path class="rabat" d="M2 6 L33 30 L64 6" fill="none" stroke="var(--ink)" stroke-width="1.6" stroke-linejoin="round" />
       <rect x="44" y="32" width="14" height="10" rx="1.5" fill="var(--ocre)" />
     </svg>
     {#if !petite}<span class="que"><Que size={34} pose="pose" /></span>{/if}
@@ -458,7 +467,7 @@
         {:else}
           {@const e = lettreDuJour}
           <button class="fiche lettre" onclick={() => ouvrirLettre(e)}>
-            {@render enveloppe(false)}
+            {@render enveloppe(false, e.nouvelle && !e.lue)}
             <span class="grow">
               <span class="t">
                 Lettre {e.lettre.n} de Que
@@ -678,6 +687,46 @@
     display: block;
     width: 100%;
     height: 100%;
+    overflow: visible;
+  }
+  /* Une lettre neuve s'entrouvre, une fois, à l'arrivée : le rabat se lève sur son pli, la
+     feuille pointe au-dessus. Sans animation, l'enveloppe reste fermée. */
+  .entrouverte .rabat {
+    animation: replie 0.15s linear 0.45s forwards;
+  }
+  .entrouverte .rabat-leve {
+    transform-box: fill-box;
+    transform-origin: 50% 0;
+    transform: scaleY(0);
+    animation: rabat 0.5s cubic-bezier(0.3, 0.8, 0.3, 1) 0.5s forwards;
+  }
+  .entrouverte .billet {
+    animation: billet 0.5s ease-out 0.85s forwards;
+  }
+  @keyframes replie {
+    to {
+      opacity: 0;
+    }
+  }
+  @keyframes rabat {
+    from {
+      transform: scaleY(0);
+    }
+    to {
+      transform: scaleY(-0.55);
+    }
+  }
+  @keyframes billet {
+    to {
+      transform: translateY(-13px);
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .entrouverte .rabat,
+    .entrouverte .rabat-leve,
+    .entrouverte .billet {
+      animation: none;
+    }
   }
   .enveloppe .que {
     position: absolute;

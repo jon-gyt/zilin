@@ -190,6 +190,23 @@ describe("au menu, les pas s'encrent un à un", () => {
   });
 });
 
+describe("Lire : l'enveloppe d'une lettre neuve de Que s'entrouvre", () => {
+  const x = source('Lire.svelte');
+  const css = x.slice(x.indexOf('<style>'));
+  it('la lettre de la semaine, pas encore lue : le rabat se lève, la feuille pointe', () => {
+    expect(x).toContain('{@render enveloppe(false, e.nouvelle && !e.lue)}');
+    expect(css).toMatch(/\.entrouverte \.rabat-leve \{[^}]*animation: rabat /);
+    expect(css).toMatch(/\.entrouverte \.billet \{\s*animation: billet /);
+    /* le timbre reste à l'ocre : ni cinabre, ni doré */
+    expect(x.slice(x.indexOf('{#snippet enveloppe'), x.indexOf('{/snippet}', x.indexOf('{#snippet enveloppe')))).not.toContain('--zhu');
+  });
+  it("reste fermée si l'on réduit les animations", () => {
+    expect(reduits(css)).toMatch(/\.entrouverte \.rabat,\s*\.entrouverte \.rabat-leve,\s*\.entrouverte \.billet \{\s*animation: none;/);
+    /* sans animation, le rabat levé reste replié à plat, invisible derrière l'enveloppe */
+    expect(css).toMatch(/\.entrouverte \.rabat-leve \{[^}]*transform: scaleY\(0\);/);
+  });
+});
+
 describe('le retour haptique, accordé aux petits moments', () => {
   it('une bonne réponse dans un jeu donne le même tap léger qu’en révision, une erreur rien', () => {
     expect(source('Game.svelte')).toMatch(/function reagirA\(correct: boolean\): void \{[\s\S]*?if \(correct\) bonneReponse\(\);/);
