@@ -90,6 +90,9 @@
           width: COTE,
           height: COTE,
           padding: 24,
+          /* De mémoire, le caractère ne paraît pas du tout : Hanzi Writer le dessine
+             d'abord en entier, puis l'efface en 400 ms au départ du tracé, le temps de le lire. */
+          showCharacter: !cache,
           showOutline: !cache || untrack(() => indice),
           strokeColor: couleur('--ink'),
           outlineColor: couleur('--guide') || couleur('--line'),
@@ -168,8 +171,10 @@
       <line x1="280" y1="0" x2="0" y2="280" />
     </g>
   </svg>
-  {#if sansDonnees}
-    <div class="repli"><Glyph {char} size={220} /></div>
+  <!-- De mémoire, le repli ne montre rien : la question passe sans être notée. En question,
+       le nom accessible s'en tient au caractère : son sens est la consigne. -->
+  {#if sansDonnees && !(quiz && cache)}
+    <div class="repli"><Glyph {char} size={220} seul={quiz} /></div>
   {/if}
 </div>
 

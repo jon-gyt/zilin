@@ -1065,4 +1065,12 @@ describe('rien ne souffle la réponse avant qu’on réponde', () => {
     }
   });
 
+  it('le tracé de mémoire ne montre pas le caractère, même un instant', () => {
+    const trace = readFileSync(new URL('Trace.svelte', import.meta.url), 'utf8');
+    /* Hanzi Writer dessinait le caractère entier, puis l’effaçait en 400 ms au départ du quiz. */
+    expect(trace).toContain('showCharacter: !cache,');
+    /* Sans traits, le repli ne le dessine pas non plus : la question passe sans être notée. */
+    expect(trace).toContain('{#if sansDonnees && !(quiz && cache)}');
+    expect(trace).toContain('seul={quiz}');
+  });
 });
