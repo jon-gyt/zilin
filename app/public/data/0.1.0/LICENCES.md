@@ -12,6 +12,7 @@
 | Norme GF 0014-2009 | les 514 composants : règle de décomposition | texte normatif, non reproduit | 《现代常用字部件及部件名称规范》 | — |
 | Seuils sinographiques (Éducation nationale) et référentiel HSK 3.0 | listes cibles (`listes`, `parcours`) | publications officielles, listes de faits | Eduscol ; Chinese Testing International | — |
 | Calendrier luni-solaire chinois | dates des fêtes (`fetes.json`) et des termes solaires (`saisons.json`), calculées par lunar_python | faits de calendrier ; bibliothèque MIT, non embarquée | lunar_python, Copyright (c) 6tail | https://github.com/6tail/lunar-python |
+| Syllabes du mandarin, deux voix, jeu 5961 de data.gov.tw (Taïwan) | entraînement des poids du classifieur des tons de « Dis-le » (`tons.json`) ; aucun son n'est embarqué | Open Government Data License 1.0 (OGDL-Taiwan-1.0), compatible CC BY 4.0 | Syllabes du mandarin, deux voix, jeu de données 5961 de data.gov.tw (https://data.gov.tw/dataset/5961). 此開放資料依政府資料開放授權條款 (Open Government Data License) 進行公眾釋出，使用者於遵守本條款各項規定之前提下，得利用之。 The Open Data is made available to the public under the Open Government Data License, User can make use of it when complying to the condition and obligation of its terms. Open Government Data License : https://data.gov.tw/license | `OGDL-Taiwan-1.0.txt` |
 | Surcharges du pipeline wenlu (`data/sources/surcharges/`) | pinyin corrigés et décompositions rédigées pour Wenlu d'après GF 0014-2009, chacune avec sa raison (`sources: ["surcharge"]`) | propriétaire | travail propre du projet, relu | — |
 | Fiches, contes, paires, fêtes, saisons, devinettes, dictionnaire éclair, coquilles, cuisine, lettres de Que, message WeChat, personnage, phrases de Tao à Jouer, lignes du rythme gratuit, rappels, textes d'écran, calendrier d'ouverture (pipeline wenlu) | `familles/`, `contes/`, `paires.json`, `fetes.json`, `saisons.json`, `devinettes.json`, `eclair.json`, `coquilles.json`, `cuisine.json`, `lettres.json`, `wechat.json`, `heros.json`, `jouer.json`, `rythme.json`, `rappels.json`, `ecrans.json`, `ouvertures.json`, et `apercu/` pour les textes encore à relire | propriétaire | textes rédigés pour l'app, relus | — |
 
@@ -23,6 +24,7 @@ Les trois régimes ne se mélangent jamais dans un même fichier (`docs/sources-
 - `familles/`, `contes/`, `paires.json`, `fetes.json`, `saisons.json`, `devinettes.json`, `eclair.json`, `coquilles.json`, `cuisine.json`, `lettres.json`, `wechat.json`, `heros.json`, `jouer.json`, `rythme.json`, `rappels.json`, `ecrans.json`, `ouvertures.json`, `apercu/` : décomposition canonique et textes rédigés pour l'app, propriétaires.
 - `UNICODE-LICENSE.txt` : notice de permission Unicode, qui couvre le pinyin.
 - `MIT-cjk-decomp.txt` : notice de copyright et texte de la MIT, qui couvrent les décompositions descendues de cjk-decomp.
+- `tons.json` : les poids du classifieur des tons, propriétaires, dérivés de données sous Open Government Data License 1.0 (OGDL-Taiwan-1.0), compatible CC BY 4.0 ; ils portent l'attribution exigée, et `OGDL-Taiwan-1.0.txt` le texte de la licence.
 
 ## Ce que l'export ne contient pas
 
