@@ -73,6 +73,7 @@ import {
   type Heros
 } from './heros';
 import { SANS_RAPPEL, lireRappel, type Rappel } from './rappels';
+import { ajouterMoyenne, lireVoix } from './tons/voix';
 import { lireDernierExport } from './garde';
 import { lireAvisDemande } from './avis';
 import { etatNeuf, lireEtatOuvertures, type EtatOuvertures } from './ouvertures';
@@ -414,6 +415,19 @@ export type Progress = {
    */
   rappel: Rappel;
   /**
+   * Réglage : « Dire les tons » (story 9.1), la question « Dis-le » de la révision, où l'on
+   * prononce un caractère acquis et l'app reconnaît le ton sur l'appareil. Allumé par
+   * défaut ; un micro refusé l'éteint, Réglages le rallume. Absent d'une progression plus
+   * ancienne : allumé.
+   */
+  direTons: boolean;
+  /**
+   * La voix de l'apprenant pour « Dis-le » (`tons/voix.ts`) : la moyenne, en hertz, de
+   * chacune des trente dernières syllabes analysées, rien d'autre. Jamais le son. Absente
+   * d'une progression plus ancienne : aucune, la voix s'apprend en cinq syllabes.
+   */
+  voix: number[];
+  /**
    * Le jour du dernier export de la progression (AAAA-MM-JJ), que Réglages montre
    * (`garde.ts`) ; `null` : jamais. L'export l'emporte avec lui. Absent d'une progression
    * plus ancienne : jamais.
@@ -595,6 +609,8 @@ export function emptyProgress(aujourdhui: string): Progress {
     relecture: false,
     haptique: true,
     rappel: SANS_RAPPEL,
+    direTons: true,
+    voix: [],
     dernierExport: null,
     avisDemande: null,
     motsDevines: [],
@@ -1264,6 +1280,20 @@ export function setRelecture(p: Progress, allume: boolean): Progress {
 /** Allume ou éteint le retour haptique de l'app iOS (Réglages). */
 export function setHaptique(p: Progress, allume: boolean): Progress {
   return { ...p, haptique: allume };
+}
+
+/** Allume ou éteint « Dire les tons », la question « Dis-le » (Réglages, story 9.1). */
+export function setDireTons(p: Progress, allume: boolean): Progress {
+  return { ...p, direTons: allume };
+}
+
+/**
+ * Range la moyenne d'une syllabe analysée à « Dis-le » : la voix de l'apprenant s'apprend
+ * ainsi, un nombre à la fois (`tons/voix.ts`). Le son, lui, n'est jamais gardé.
+ */
+export function noterVoix(p: Progress, hz: number): Progress {
+  const voix = ajouterMoyenne(p.voix, hz);
+  return voix.length === p.voix.length && voix.every((v, i) => v === p.voix[i]) ? p : { ...p, voix };
 }
 
 /** Note que le tracé de cette brique a été proposé : on ne le proposera plus. */
@@ -2084,6 +2114,10 @@ export function fromJSON(texte: string, aujourdhui: string): Progress {
     haptique: o.haptique !== false,
     /* Le rappel quotidien : absent d'un export plus ancien, éteint. */
     rappel: lireRappel(o.rappel),
+    /* « Dire les tons » : absent d'un export plus ancien, allumé. */
+    direTons: o.direTons !== false,
+    /* La voix de « Dis-le » : absente d'un export plus ancien, aucune. */
+    voix: lireVoix(o.voix),
     /* Le dernier export : absent d'un export plus ancien, jamais. */
     dernierExport: lireDernierExport(o.dernierExport),
     /* La dernière demande de note : absente d'un export plus ancien, aucune. */
