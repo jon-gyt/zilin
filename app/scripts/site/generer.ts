@@ -169,7 +169,8 @@ const FR: Textes = {
     tracesNote:
       "Les tracés des caractères sont dérivés de Make Me a Hanzi (graphics.txt), sous Arphic Public License. Ils sont publiés ici en entier, sous la même licence, avec la note de modification (APL §2).",
     textes: 'Textes des licences',
-    description: 'Les sources et licences des données de Wenlu : tracés sous Arphic Public License, pinyin Unihan, norme GF 0014-2009.'
+    description:
+      'Les sources et licences des données de Wenlu : tracés sous Arphic Public License, pinyin Unihan, norme GF 0014-2009, modèle des tons appris sur des données OGDL 1.0.'
   },
   confidentialite: {
     titre: 'Confidentialité · Wenlu',
@@ -701,6 +702,7 @@ function pageLicences(ctx: Contexte, ex: Export, langue: Langue): string {
     ['traits/MODIFICATIONS.md', 'MODIFICATIONS.md'],
     ['UNICODE-LICENSE.txt', 'Unicode License'],
     ['MIT-cjk-decomp.txt', 'MIT License (cjk-decomp)'],
+    ['OGDL-Taiwan-1.0.txt', 'Open Government Data License 1.0 (Taïwan)'],
     ['LICENCES.md', 'LICENCES.md']
   ];
   const corps = `<div class="licences">

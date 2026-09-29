@@ -119,6 +119,13 @@ describe('site public', () => {
     expect(motifPagesDuSite(BASE).test('/zilin/en/privacy/')).toBe(true);
   });
 
+  it('attribue les données d’entraînement du modèle des tons et publie le texte de leur licence', () => {
+    const licences = page('licences/');
+    expect(licences).toContain('Open Government Data License');
+    expect(licences).toContain('https://data.gov.tw/license');
+    expect(licences).toContain('OGDL-Taiwan-1.0.txt"');
+  });
+
   it('dessine les grands caractères depuis leurs traits, jamais depuis une police', () => {
     const html = page(cheminPage('fr', 'caractere', '休'));
     const grand = /<div class="grand">([\s\S]*?)<\/div>/.exec(html)![1];
