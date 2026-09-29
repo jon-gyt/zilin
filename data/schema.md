@@ -658,7 +658,8 @@ Les examens 科举 et les 月课 (brief §8, épic 8), tirés de `data/sources/e
  "textes": {"attente": "L'examen se repasse quand les caractères manqués sont revus.", "…": "…"},
  "parcours": {"lire": [{"examen": "xianshi", "jour": 25, "troncon": ["人", "…"],
                         "series": {"A": {"supports": ["…"], "questions": ["…"], "glose": {"…": "…"}},
-                                   "B": "…"}}],
+                                   "B": "…"},
+                        "noms": ["王大明", "…"], "pinyin": true}],
               "hsk": ["…"]},
  "racines": {"县": "且", "…": "…"}}
 ```
@@ -680,10 +681,17 @@ Les examens 科举 et les 月课 (brief §8, épic 8), tirés de `data/sources/e
   `porte` (les caractères qui portent la réponse, notés en révision) et `caracteres` (tout
   ce qu'elle montre : l'app ne garde qu'une question dont chacun a une carte). Types :
   `comprendre`, `reperer`, `vrai_faux`, `replique` (mises en situation) ; `sens`,
-  `caractere`, `trou` (au rang `trou`), `ton` (revue de l'acquis).
+  `caractere`, `trou` (au rang `trou`), `ton` (revue de l'acquis). `noms` : les noms
+  inventés du 放榜 (examen à titre). `pinyin` : vrai aux examens de la première étape du
+  chemin, dont les textes portent leur pinyin sous chaque caractère (décision du
+  propriétaire du 29 septembre 2026, « jusqu'à HSK 1 » : sur le chemin Lire jusqu'au 乡试,
+  le seuil 255 ; sur le chemin HSK jusqu'au 月课 de 405, la fin du HSK 1), faux après. Le
+  pinyin se montre sous les supports, l'affirmation d'un vrai ou faux et les répliques à
+  choisir, jamais sous l'objet ni les choix d'une question de revue.
 - `racines` : la famille de chaque caractère des noms, que l'app dessine depuis ses traits.
 
-Sources, versionnées : `examens.tsv` (la liste), `nominations.tsv`, `textes.tsv`,
+Sources, versionnées : `examens.tsv` (la liste, et `pinyin_sous`, les chemins où l'examen
+porte le pinyin sous les caractères), `nominations.tsv`, `textes.tsv`,
 `glossaire.tsv` (`zh`, `pinyin`, `fr`, `en`), et `<parcours>/<examen>.json` :
 `generation` (`modele` « rédaction manuelle », `api` « session Claude Code (sans API) »),
 `relecture` (la décision du propriétaire), puis `series`, `{serie, statut, supports,
@@ -699,7 +707,10 @@ tronçon), « pinyin », « glose », « questions » (nombre, quatre ou cinq de
 trois au 月课, au moins trois types de mise en situation, quatre choix distincts, la
 réponse parmi eux et pas toujours à la même place, les mots à repérer pris sur le
 support, le ton sans autre lecture du caractère, les caractères portés montrés par la
-question), « séries » (A et B sans texte commun), « couverture » (chaque examen jusqu'à 75
+question), « séries » (A et B sans texte commun), « fuites » (ni le surtitre, ni la
+consigne, ni, à un examen qui le porte, le pinyin sous les caractères ne donnent la
+réponse), « pinyin sous les caractères » (sur chaque chemin, tous les examens de la
+première étape et aucun après, sans trou), « couverture » (chaque examen jusqu'à 75
 caractères lus, sur les deux chemins), « périmètre des traits », « export ». Signalés : la
 relecture, et les examens du chemin qui n'ont pas encore de séries.
 
