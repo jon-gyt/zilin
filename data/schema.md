@@ -46,7 +46,7 @@ app/public/data/0.1.0/
   rythme.json                le rythme gratuit : les lignes du menu, de la route et de Clore
   rappels.json               le rappel quotidien (iOS) et la garde de la progression
   ouvertures.json            l'aventure : le calendrier d'ouverture des portes, les annonces de Tao
-  ecrans.json                les textes de « Lire le monde », des révisions, du personnage, de la route, de « Dis-le », de Mon chemin et du maître Xing
+  ecrans.json                les textes de « Lire le monde », des révisions, du personnage, de la route, de « Dis-le », de Mon chemin, du dictionnaire et du maître Xing
   anecdotes.json             les anecdotes du jour, une par caractère
   trois-lignes.json          les trois lignes du pas Utiliser, un texte par jour du chemin
   examens.json               les examens 科举 et les 月课 : la liste, les séries relues
@@ -729,7 +729,12 @@ chemin. »), les pavillons de la semaine, les auberges des familles, les rendez-
 `xing.tsv` (décision du propriétaire du 29 septembre 2026) : la rencontre du maître Xing 杏 à
 la porte du 县试 (son accueil, son nom, 杏 dessiné depuis ses traits, ses rôles) et sa ligne
 de tête au pas Apprendre, selon l'étiquette de la fiche (`brique-atteste`, `brique-mnemo`,
-`brique-sans`, et de même `compose-*`), qui ne présente jamais l'une pour l'autre.
+`brique-sans`, et de même `compose-*`), qui ne présente jamais l'une pour l'autre ; et
+`dictionnaire.tsv` (story 10.8, maquette `maquettes/dictionnaire.html`) : le premier onglet
+de Chercher, la loupe, les recherches récentes, le caractère du jour, les résultats et leur
+statut de Mon chemin, la fiche d'un caractère (l'ordre des traits, les briques, « origine à
+venir »), celle d'un mot, la place de l'écriture au doigt et les catégories de la liste
+HSK 3.0 ; il ne rédige jamais d'origine, qui vient de la fiche relue avec son étiquette.
 L'app remplit les jetons entre accolades (`app/src/lib/ecrans.ts`).
 
 ```json
@@ -740,6 +745,7 @@ L'app remplit les jetons entre accolades (`app/src/lib/ecrans.ts`).
  "route": {"examen": "{examen} · {n} caractères", "ouvert": "examen ouvert", "…": "…"},
  "dire": {"juste": "{nom} : ta voix {allure}. C'est bien lui.", "conseil-2-3": "Monte tout de suite, sans descendre d'abord.", "…": "…"},
  "chemin": {"menu-faite": "Pierre posée, une seule par jour", "clore-titre": "{c} rejoint ton chemin.", "…": "…"},
+ "dictionnaire": {"pas-appris": "Pas encore appris", "dans": "dans {n} j", "…": "…"},
  "xing": {"caractere": "杏", "accueil": "Bienvenue au 县试. Je suis Xing. …", "brique-mnemo": "… un moyen mnémotechnique, pas son histoire.", "…": "…"}}
 ```
 
@@ -1052,7 +1058,7 @@ ce que l'app embarque ; `docs/sources-licences.md` fait foi pour la décision.
 - « écrans : sources », « export » — bloquants : chaque texte de « Lire le monde » et du
   tableau des révisions, une fois, sourcé, avec exactement les jetons que l'app remplit ;
   ni emoji, ni dragon, ni temps passé, ni classement, ni percentile ; sept jours de la
-  semaine ; à « Dis-le » et chez Xing, aucun reproche (ni faux, ni erreur, ni raté, ni
+  semaine ; à « Dis-le », au dictionnaire et chez Xing, aucun reproche (ni faux, ni erreur, ni raté, ni
   mauvais, ni échec, ni dommage, ni non, ni nul) ; chez Xing, une ligne `-atteste` dit
   l'attestation, une `-mnemo` le moyen mnémotechnique, une `-sans` ni l'un ni l'autre ; `ecrans.json` dit les textes des sources, et
   `index.json` le nomme.
