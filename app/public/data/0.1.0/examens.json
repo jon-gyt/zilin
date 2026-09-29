@@ -507,6 +507,7 @@
   "info_yueke": "Pas de liste : le 月课 ne donne pas de titre, on revient au menu.",
   "juste": "Juste.",
   "kicker_revue": "Revue de l'acquis",
+  "ko_comprendre": "Relis le texte, mot à mot : la réponse y est écrite.",
   "ko_replique": "« {fr} » ne répond pas au message.",
   "ko_ton": "Ce n'est pas {syllabe}.",
   "menu": "Menu",
@@ -623,8 +624,8 @@
         "id": "s1",
         "genre": "message",
         "contexte": {
-         "fr": "Un message de Mingming à Daming",
-         "en": "A message from Mingming to Daming"
+         "fr": "Un message",
+         "en": "A message"
         },
         "lignes": [
          {
@@ -673,8 +674,8 @@
         "id": "s3",
         "genre": "enseigne",
         "contexte": {
-         "fr": "Une enseigne dans une vieille rue",
-         "en": "A shop sign in an old street"
+         "fr": "Une enseigne",
+         "en": "A sign"
         },
         "lignes": [
          {
@@ -689,8 +690,8 @@
         "id": "s4",
         "genre": "message",
         "contexte": {
-         "fr": "Mingming écrit à Daming",
-         "en": "Mingming writes to Daming"
+         "fr": "Un message",
+         "en": "A message"
         },
         "lignes": [
          {
@@ -705,8 +706,8 @@
         "id": "s5",
         "genre": "note",
         "contexte": {
-         "fr": "Une note sur la famille Wang",
-         "en": "A note about the Wang family"
+         "fr": "Une note",
+         "en": "A note"
         },
         "lignes": [
          {
@@ -1287,8 +1288,8 @@
         "id": "s1",
         "genre": "pancarte",
         "contexte": {
-         "fr": "Un panneau au bord d'un sentier",
-         "en": "A sign by a trail"
+         "fr": "Un panneau",
+         "en": "A sign"
         },
         "lignes": [
          {
@@ -1309,8 +1310,8 @@
         "id": "s2",
         "genre": "note",
         "contexte": {
-         "fr": "Une note sur une étudiante",
-         "en": "A note about a student"
+         "fr": "Une note",
+         "en": "A note"
         },
         "lignes": [
          {
@@ -1337,8 +1338,8 @@
         "id": "s3",
         "genre": "message",
         "contexte": {
-         "fr": "Daming écrit à Mingming",
-         "en": "Daming writes to Mingming"
+         "fr": "Un message",
+         "en": "A message"
         },
         "lignes": [
          {
@@ -1353,8 +1354,8 @@
         "id": "s4",
         "genre": "enseigne",
         "contexte": {
-         "fr": "De grands caractères au-dessus d'un portail",
-         "en": "Large characters above a gateway"
+         "fr": "Une enseigne",
+         "en": "A sign"
         },
         "lignes": [
          {
@@ -1391,8 +1392,8 @@
         "id": "s6",
         "genre": "pancarte",
         "contexte": {
-         "fr": "Un mot sur la porte d'un bureau",
-         "en": "A note on an office door"
+         "fr": "Un écriteau",
+         "en": "A notice"
         },
         "lignes": [
          {
@@ -1536,16 +1537,15 @@
          "en": "True or false?"
         },
         "affirmation": {
-         "zh": "星期天，她见大学朋友。",
-         "pinyin": "xīng qī tiān tā jiàn dà xué péng you",
-         "fr": "Le dimanche, elle voit ses amis de l'université.",
-         "en": "On Sundays she sees her university friends."
+         "zh": "她姓明。",
+         "pinyin": "tā xìng míng",
+         "fr": "Son nom de famille est Ming.",
+         "en": "Her surname is Ming."
         },
         "reponse": false,
         "porte": [
-         "天",
-         "只",
-         "玩"
+         "姓",
+         "明"
         ],
         "caracteres": [
          "她",
@@ -1564,7 +1564,8 @@
          "友",
          "天",
          "只",
-         "玩"
+         "玩",
+         "明"
         ]
        },
        {
@@ -1891,6 +1892,11 @@
         "fr": "Riyue (nom d'une montagne)",
         "en": "Riyue (a mountain's name)"
        },
+       "明": {
+        "pinyin": "míng",
+        "fr": "clair",
+        "en": "bright"
+       },
        "明天": {
         "pinyin": "míng tiān",
         "fr": "demain",
@@ -2015,8 +2021,8 @@
         "id": "s1",
         "genre": "affiche",
         "contexte": {
-         "fr": "La météo affichée à l'école",
-         "en": "The weather forecast posted at school"
+         "fr": "Une affiche",
+         "en": "A poster"
         },
         "lignes": [
          {
@@ -2043,8 +2049,8 @@
         "id": "s2",
         "genre": "message",
         "contexte": {
-         "fr": "Mingming écrit à Daming",
-         "en": "Mingming writes to Daming"
+         "fr": "Un message",
+         "en": "A message"
         },
         "lignes": [
          {
@@ -2065,8 +2071,8 @@
         "id": "s3",
         "genre": "enseigne",
         "contexte": {
-         "fr": "L'enseigne d'une petite boutique",
-         "en": "A small shop's sign"
+         "fr": "Une enseigne",
+         "en": "A sign"
         },
         "lignes": [
          {
@@ -2397,8 +2403,8 @@
         "id": "s1",
         "genre": "message",
         "contexte": {
-         "fr": "Daming écrit à Mingming",
-         "en": "Daming writes to Mingming"
+         "fr": "Un message",
+         "en": "A message"
         },
         "lignes": [
          {
@@ -2413,8 +2419,8 @@
         "id": "s2",
         "genre": "pancarte",
         "contexte": {
-         "fr": "Un panneau au pied d'une colline",
-         "en": "A sign at the foot of a hill"
+         "fr": "Un panneau",
+         "en": "A sign"
         },
         "lignes": [
          {
@@ -2457,8 +2463,8 @@
         "id": "s4",
         "genre": "pancarte",
         "contexte": {
-         "fr": "Un écriteau dans une gare",
-         "en": "A notice in a station"
+         "fr": "Un écriteau",
+         "en": "A notice"
         },
         "lignes": [
          {
@@ -2635,8 +2641,8 @@
         },
         "choix": [
          {
-          "fr": "De l'eau bouillie, pour le thé",
-          "en": "Boiled water, for tea"
+          "fr": "De l'eau bouillie",
+          "en": "Boiled water"
          },
          {
           "fr": "Une porte ouverte",
@@ -3197,8 +3203,8 @@
         "id": "s1",
         "genre": "etal",
         "contexte": {
-         "fr": "L'étal d'un marchand de riz",
-         "en": "A rice seller's stall"
+         "fr": "Un étal",
+         "en": "A stall"
         },
         "lignes": [
          {
@@ -3225,8 +3231,8 @@
         "id": "s2",
         "genre": "message",
         "contexte": {
-         "fr": "Maman écrit à son fils",
-         "en": "Mum writes to her son"
+         "fr": "Un message",
+         "en": "A message"
         },
         "lignes": [
          {
@@ -3247,8 +3253,8 @@
         "id": "s3",
         "genre": "billet",
         "contexte": {
-         "fr": "Un billet de train",
-         "en": "A train ticket"
+         "fr": "Un billet",
+         "en": "A ticket"
         },
         "lignes": [
          {
@@ -3281,8 +3287,8 @@
         "id": "s4",
         "genre": "enseigne",
         "contexte": {
-         "fr": "Au-dessus d'un portail",
-         "en": "Above a gateway"
+         "fr": "Une enseigne",
+         "en": "A sign"
         },
         "lignes": [
          {
@@ -3568,17 +3574,17 @@
          "en": "True or false?"
         },
         "affirmation": {
-         "zh": "八月十二日有火车。",
-         "pinyin": "bā yuè shí èr rì yǒu huǒ chē",
-         "fr": "Il y a un train le 12 août.",
-         "en": "There is a train on 12 August."
+         "zh": "火车二十八元。",
+         "pinyin": "huǒ chē èr shí bā yuán",
+         "fr": "Le train coûte 28 yuans.",
+         "en": "The train costs 28 yuan."
         },
         "reponse": true,
         "porte": [
-         "八",
-         "月",
+         "二",
          "十",
-         "二"
+         "八",
+         "元"
         ],
         "caracteres": [
          "火",
@@ -3591,8 +3597,7 @@
          "十",
          "二",
          "日",
-         "元",
-         "有"
+         "元"
         ]
        },
        {
@@ -3867,8 +3872,8 @@
         "id": "s1",
         "genre": "message",
         "contexte": {
-         "fr": "M. Ma écrit à Xiaobai",
-         "en": "Mr Ma writes to Xiaobai"
+         "fr": "Un message",
+         "en": "A message"
         },
         "lignes": [
          {
@@ -3883,8 +3888,8 @@
         "id": "s2",
         "genre": "affiche",
         "contexte": {
-         "fr": "Les tarifs d'un parc",
-         "en": "Prices at a park"
+         "fr": "Une affiche",
+         "en": "A poster"
         },
         "lignes": [
          {
@@ -3911,8 +3916,8 @@
         "id": "s3",
         "genre": "note",
         "contexte": {
-         "fr": "Une note sur Xiaobai",
-         "en": "A note about Xiaobai"
+         "fr": "Une note",
+         "en": "A note"
         },
         "lignes": [
          {
@@ -3933,8 +3938,8 @@
         "id": "s4",
         "genre": "enseigne",
         "contexte": {
-         "fr": "Une enseigne de boutique",
-         "en": "A shop sign"
+         "fr": "Une enseigne",
+         "en": "A sign"
         },
         "lignes": [
          {
@@ -3949,8 +3954,8 @@
         "id": "s5",
         "genre": "billet",
         "contexte": {
-         "fr": "Un billet de train",
-         "en": "A train ticket"
+         "fr": "Un billet",
+         "en": "A ticket"
         },
         "lignes": [
          {
@@ -3993,8 +3998,8 @@
           "en": "horse"
          },
          {
-          "fr": "vache, bœuf",
-          "en": "cow, ox"
+          "fr": "vache",
+          "en": "cow"
          },
          {
           "fr": "main",
@@ -4554,8 +4559,8 @@
         "id": "s1",
         "genre": "message",
         "contexte": {
-         "fr": "M. Ma écrit à Xiaobai",
-         "en": "Mr Ma writes to Xiaobai"
+         "fr": "Un message",
+         "en": "A message"
         },
         "lignes": [
          {
@@ -4576,8 +4581,8 @@
         "id": "s2",
         "genre": "menu",
         "contexte": {
-         "fr": "Le menu d'une petite cantine",
-         "en": "A small canteen's menu"
+         "fr": "Un menu",
+         "en": "A menu"
         },
         "lignes": [
          {
@@ -4604,8 +4609,8 @@
         "id": "s3",
         "genre": "enseigne",
         "contexte": {
-         "fr": "Au-dessus d'un portail",
-         "en": "Above a gateway"
+         "fr": "Une enseigne",
+         "en": "A sign"
         },
         "lignes": [
          {
@@ -4924,8 +4929,8 @@
         "id": "s1",
         "genre": "billet",
         "contexte": {
-         "fr": "Un billet de train",
-         "en": "A train ticket"
+         "fr": "Un billet",
+         "en": "A ticket"
         },
         "lignes": [
          {
@@ -4952,8 +4957,8 @@
         "id": "s2",
         "genre": "message",
         "contexte": {
-         "fr": "Maman écrit à son fils",
-         "en": "Mum writes to her son"
+         "fr": "Un message",
+         "en": "A message"
         },
         "lignes": [
          {
@@ -4968,8 +4973,8 @@
         "id": "s3",
         "genre": "pancarte",
         "contexte": {
-         "fr": "Un écriteau sur une porte",
-         "en": "A notice on a door"
+         "fr": "Un écriteau",
+         "en": "A notice"
         },
         "lignes": [
          {
@@ -4984,8 +4989,8 @@
         "id": "s4",
         "genre": "note",
         "contexte": {
-         "fr": "Une note sur la famille Ma",
-         "en": "A note about the Ma family"
+         "fr": "Une note",
+         "en": "A note"
         },
         "lignes": [
          {
