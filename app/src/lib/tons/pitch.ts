@@ -1,9 +1,13 @@
 /**
  * Suivi de hauteur (F0) par YIN, en TypeScript pur, sans dépendance (story 9.1, « Dis-le »).
- * Repris du prototype de l'étude de faisabilité du 29 septembre 2026, sans changement de
- * fond : les poids du classifieur (`classifieur.ts`) ont été appris sur les caractéristiques
- * que ce code calcule, et toute retouche du suivi demande de réentraîner
- * (`data/sources/tons/PROVENANCE.md`).
+ * Repris du prototype de l'étude de faisabilité du 29 septembre 2026 : les poids du
+ * classifieur (`classifieur.ts`) ont été appris sur les caractéristiques que ce code calcule,
+ * et toute retouche du suivi se mesure sur les voix de test de l'étude avant d'entrer
+ * (`data/sources/tons/PROVENANCE.md`). Une seule depuis : le nettoyage de la fin de la
+ * syllabe (`nettoyer`, le même jour), qui ne touche qu'aux courbes abîmées. Sans réentraîner,
+ * il fait passer le ton reconnu en tête de 88,5 à 91,3 % des caractères de Yue Tan (test) et
+ * de 90,6 à 91,4 % des syllabes de Chen Wang, et les fins qui bondissent de plus de 5
+ * demi-tons de 2,6 à 0,1 % et de 4,8 à 1,7 %.
  *
  * De Cheveigné et Kawahara, « YIN, a fundamental frequency estimator for speech
  * and music », JASA 111(4), 2002 : fonction de différence, différence cumulée
@@ -13,7 +17,8 @@
  *
  * Puis le post-traitement propre à une syllabe prononcée : décision de voisement
  * (périodicité et énergie relative), correction des sauts d'octave, lissage par
- * médiane, et découpe de la partie voisée (une ou plusieurs syllabes).
+ * médiane, découpe de la partie voisée (une ou plusieurs syllabes), et nettoyage de sa fin
+ * quand la voix s'éteint.
  */
 
 export interface Trame {
@@ -290,9 +295,11 @@ export interface Segment {
  * secondes sont comblés (le creux craqué du ton 3 coupe souvent le voisement) ;
  * on garde l'étendue qui porte le plus d'énergie, puis on la coupe en `n`
  * syllabes : aux plus grands trous non voisés s'il y en a, sinon au creux
- * d'énergie le plus net du milieu de chaque part.
+ * d'énergie le plus net du milieu de chaque part. Chaque syllabe est ensuite nettoyée
+ * (`OptionsFin`, `FIN_DEFAUT`) ; `fin` à `null` rend l'ancienne découpe, pour la mesure.
  */
-export function segmenter(trames: Trame[], n = 1, trouMax = 0.12): Segment[] {
+export function segmenter(trames: Trame[], n = 1, trouMax = 0.12, fin: Partial<OptionsFin> | null = {}): Segment[] {
+  const of = fin === null ? null : { ...FIN_DEFAUT, ...fin };
   const plages = plagesVoisees(trames);
   if (plages.length === 0) return [];
   const pas = trames.length > 1 ? trames[1].t - trames[0].t : 0.01;
@@ -346,22 +353,118 @@ export function segmenter(trames: Trame[], n = 1, trouMax = 0.12): Segment[] {
   bornes.push([debut, ext.b]);
 
   return bornes.map(([a, b]) => {
-    // retire les trames non voisées des bords, comble l'intérieur
+    // retire les trames non voisées des bords
     while (a < b && !trames[a].voisee) a++;
     while (b > a && !trames[b - 1].voisee) b--;
+    // la hauteur de travail : celle des trames, corrigée à la fin et aux sauts d'octave
+    const hz = trames.map((tr) => (tr.voisee ? tr.f0 : 0));
+    if (of !== null && b > a) b = nettoyer(trames, hz, a, b, of);
+    // comble l'intérieur
     const f0: number[] = [];
     const t: number[] = [];
     let vois = 0;
     for (let i = a; i < b; i++) {
       t.push(trames[i].t);
-      if (trames[i].voisee) { f0.push(trames[i].f0); vois++; continue; }
-      let g = i - 1; while (g >= a && !trames[g].voisee) g--;
-      let d = i + 1; while (d < b && !trames[d].voisee) d++;
-      const fg = trames[g].f0, fd = trames[d].f0;
+      if (hz[i] > 0) { f0.push(hz[i]); vois++; continue; }
+      let g = i - 1; while (g >= a && !(hz[g] > 0)) g--;
+      let d = i + 1; while (d < b && !(hz[d] > 0)) d++;
+      const fg = hz[g], fd = hz[d];
       f0.push(fg * Math.pow(fd / fg, (i - g) / (d - g)));
     }
+    if (of !== null && of.mediane > 1) lisser(f0, of.mediane);
     return { debut: a, fin: b, f0, t, duree: (b - a) * pas, voisement: b > a ? vois / (b - a) : 0 };
   });
+}
+
+/**
+ * Le nettoyage d'une syllabe, avant qu'elle ne devienne une courbe (retour du propriétaire
+ * du 29 septembre 2026 : « le ton détecté semble monter d'un coup à la fin »). Quand la voix
+ * s'éteint (souffle, voix craquée, énergie qui tombe), YIN prend un harmonique ou du bruit
+ * pour la hauteur : la courbe bondit vers l'aigu sur ses dernières trames.
+ */
+export interface OptionsFin {
+  /** La fin est coupée tant que ses trames sont à plus de tant de dB sous le pic de la syllabe… */
+  dbSousPic: number;
+  /** …ou que leur apériodicité (la confiance de YIN, 0 périodique, 1 bruit) dépasse ce plafond… */
+  apFin: number;
+  /** …sans jamais retirer plus de cette part de la syllabe. */
+  partMax: number;
+  /** Un saut de plus de tant de demi-tons d'une trame voisée à la suivante n'est pas une voix. */
+  saut: number;
+  /** Un saut final vers l'aigu est écarté si ce qui le suit tient dans cette part de la syllabe. */
+  partSaut: number;
+  /** Un aller et retour de plus de `saut` demi-tons sur au plus tant de trames est un saut d'octave. */
+  allerRetour: number;
+  /** Lissage médian de la courbe comblée, en trames (1 : aucun). */
+  mediane: number;
+}
+
+export const FIN_DEFAUT: OptionsFin = {
+  dbSousPic: 15,
+  apFin: 0.3,
+  partMax: 0.3,
+  saut: 7,
+  partSaut: 0.35,
+  allerRetour: 12,
+  mediane: 3,
+};
+
+/**
+ * Corrige `hz` (0 : trame écartée) entre `a` et `b`, et rend la nouvelle fin. Trois règles :
+ * - la fin qui s'éteint : on retire les dernières trames trop faibles face au pic de la
+ *   syllabe, ou trop peu périodiques, dans la limite de `partMax` ;
+ * - l'aller et retour : un saut de plus de `saut` demi-tons suivi, en peu de trames, du saut
+ *   inverse est un saut d'octave ; les trames du milieu sont ramenées à l'octave de leurs
+ *   voisines (ou écartées quand l'écart n'est pas une octave) ;
+ * - le saut final vers l'aigu sans retour, sur la fin de la syllabe : écarté.
+ */
+function nettoyer(trames: Trame[], hz: number[], a: number, b: number, o: OptionsFin): number {
+  const long = b - a;
+  let pic = 0;
+  for (let i = a; i < b; i++) if (hz[i] > 0) pic = Math.max(pic, trames[i].rms);
+  const plancher = pic * Math.pow(10, -o.dbSousPic / 20);
+  const minFin = b - Math.floor(o.partMax * long);
+  while (b > minFin && (hz[b - 1] <= 0 || trames[b - 1].rms < plancher || trames[b - 1].aperiodicite > o.apFin)) b--;
+  while (b > a && hz[b - 1] <= 0) b--;
+
+  // les trames voisées restantes, et leurs sauts
+  const v: number[] = [];
+  for (let i = a; i < b; i++) if (hz[i] > 0) v.push(i);
+  const st = (k: number) => 12 * Math.log2(hz[v[k]] / hz[v[k - 1]]);
+  for (let k = 1; k < v.length; k++) {
+    const d = st(k);
+    if (Math.abs(d) <= o.saut) continue;
+    // cherche le retour : le saut inverse, qui ramène près de la hauteur d'avant le saut
+    let m = -1;
+    for (let j = k + 1; j < v.length && j - k <= o.allerRetour; j++) {
+      const r = st(j);
+      const retour = Math.abs(12 * Math.log2(hz[v[j]] / hz[v[k - 1]])) <= o.saut;
+      if (Math.sign(r) === -Math.sign(d) && Math.abs(r) > o.saut && retour) { m = j; break; }
+    }
+    if (m > 0) {
+      const oct = Math.round(d / 12);
+      for (let j = k; j < m; j++) {
+        if (oct !== 0 && Math.abs(d - 12 * oct) < 3) hz[v[j]] /= Math.pow(2, oct);
+        else hz[v[j]] = 0;
+      }
+      k = m - 1;
+      continue;
+    }
+    // un saut vers l'aigu sans retour, sur la fin : on écarte ce qui le suit
+    if (d > 0 && b - v[k] <= o.partSaut * long) {
+      for (let j = k; j < v.length; j++) hz[v[j]] = 0;
+      b = v[k - 1] + 1;
+      break;
+    }
+  }
+  return b;
+}
+
+/** Médiane glissante de `k` points (impair), en place, bords compris. */
+function lisser(f: number[], k: number): void {
+  const h = k >> 1;
+  const v = [...f];
+  for (let i = 0; i < f.length; i++) f[i] = mediane(v.slice(Math.max(0, i - h), Math.min(v.length, i + h + 1)));
 }
 
 /** Hz vers demi-tons autour d'une référence (la moyenne du locuteur). */
