@@ -18,7 +18,10 @@ Sources, versionnées (`data/sources/examens/`) :
 - `examens.tsv` : la liste des trente-sept examens, dans l'ordre (identifiant, sorte, nom,
   pinyin, ce qu'il était, palier, titre accordé, nombre de questions) ;
 - `nominations.tsv` : les quatre rangs sans examen et leur palier de caractères lus ;
-- `textes.tsv` : les phrases de Tao et les lignes de l'écran, avec leurs jetons ;
+- `textes.tsv` : les phrases de Tao et toutes les lignes de l'écran de l'examen (8.3),
+  avec leurs jetons ;
+- `bang.tsv` : les noms inventés du 放榜 de chaque examen à titre, sur chaque chemin,
+  écrits avec l'acquis du palier (maquette validée le 29 septembre 2026) ;
 - `glossaire.tsv` : la glose partagée des séries, par caractère ou par mot, comme les trois
   lignes du pas Utiliser ; le lecteur découpe chaque texte par l'entrée la plus longue ;
 - `<parcours>/<examen>.json` : les deux séries d'un examen sur un chemin, `generation`
@@ -49,12 +52,13 @@ Contrôles (`wenlu check`), bloquants : « liste » (trente-sept examens dans l'
 paliers, les six à titre à leurs paliers, les 月课 sur leur grille, jamais plus de 55
 caractères d'un examen au suivant, les titres et les nominations dans l'ordre des rangs
 du personnage, dix questions à titre et cinq au 月课, décision du propriétaire du 29
-septembre 2026, « 10 et 5 », reçu à quatre sur cinq), « sources »
-(traçabilité, relecture, format), « périmètre » (aucun caractère hors de l'acquis du jour
-du palier sur ce chemin ; au 月课, chaque question porte un caractère du tronçon),
-« pinyin », « glose », « questions » (nombre, revue, types, choix, réponses, caractères
-portés), « séries » (A et B, sans texte commun), « couverture » (chaque examen jusqu'au
-palier `COUVERTURE`, sur les deux chemins), « périmètre des traits » (le nom de chaque
+septembre 2026, « 10 et 5 », reçu à quatre sur cinq), « sources » (traçabilité, relecture,
+format, textes de l'écran), « périmètre » (aucun caractère hors de l'acquis du jour du
+palier sur ce chemin ; au 月课, chaque question porte un caractère du tronçon), « pinyin »,
+« glose », « questions » (nombre, revue, types, choix, réponses, caractères portés),
+« séries » (A et B, sans texte commun), « couverture » (chaque examen jusqu'au palier
+`COUVERTURE`, sur les deux chemins), « 放榜 » (les noms de la liste, dans l'acquis du
+palier), « périmètre des traits » (le nom de chaque
 examen se dessine depuis ses traits) et « export ». Signalés : la relecture, et les
 examens au-delà qui n'ont pas encore de séries.
 
@@ -94,6 +98,7 @@ DOSSIER = DATA / "sources" / "examens"
 LISTE = DOSSIER / "examens.tsv"
 NOMINATIONS = DOSSIER / "nominations.tsv"
 TEXTES = DOSSIER / "textes.tsv"
+BANG = DOSSIER / "bang.tsv"
 GLOSSAIRE = DOSSIER / "glossaire.tsv"
 
 #: Le fichier écrit par `wenlu export`, nommé par l'index.
@@ -174,18 +179,91 @@ GENRES_REPLIQUE: tuple[str, ...] = ("message", "lettre", "note")
 #: le 县试 et le 月课 de 75, le premier lot du backlog (8.1).
 COUVERTURE = 75
 
-#: Les phrases de l'écran et de Tao, et les seuls jetons que chacune peut porter.
+#: Les phrases de l'écran et de Tao, et les seuls jetons que chacune peut porter : le menu
+#: et Clore, puis l'écran de l'examen (8.3), l'annonce, la question, le résultat, le 放榜.
 JETONS_TEXTES: dict[str, frozenset[str]] = {
-    "ouvert": frozenset({"lus", "examen"}),
+    "ouvert": frozenset({"examen", "lus"}),
     "ouvert_yueke": frozenset({"lus"}),
     "bouton": frozenset({"examen"}),
     "bouton_yueke": frozenset(),
+    "menu_ouvert": frozenset({"examen", "palier"}),
+    "menu_pause": frozenset(),
+    "menu_repasser": frozenset({"examen"}),
     "attente": frozenset(),
+    "tao_menu": frozenset({"examen"}),
+    "tao_menu_attente": frozenset(),
+    "tao_menu_recu": frozenset({"examen"}),
+    "menu": frozenset(),
     "tao_avant": frozenset(),
-    "recu": frozenset({"justes", "questions", "examen"}),
-    "pas_encore": frozenset({"justes", "questions", "reussite"}),
+    "donne_titre": frozenset({"sens", "titre"}),
+    "donne_avec": frozenset({"palier", "sens", "suivant", "titre"}),
+    "donne_yueke": frozenset(),
+    "troncon": frozenset({"examen", "n"}),
+    "troncon_plus": frozenset({"n"}),
+    "regle_questions": frozenset({"questions", "supports"}),
+    "regle_questions_yueke": frozenset({"questions"}),
+    "regle_reussite": frozenset({"questions", "reussite"}),
+    "regle_chrono": frozenset(),
+    "regle_reprise": frozenset(),
+    "regle_yueke": frozenset(),
+    "genre_enseigne": frozenset(),
+    "genre_pancarte": frozenset(),
+    "genre_menu": frozenset(),
+    "genre_etal": frozenset(),
+    "genre_billet": frozenset(),
+    "genre_message": frozenset(),
+    "genre_note": frozenset(),
+    "genre_lettre": frozenset(),
+    "genre_calendrier": frozenset(),
+    "genre_affiche": frozenset(),
+    "commencer": frozenset(),
+    "commencer_yueke": frozenset(),
+    "reprendre": frozenset({"n"}),
+    "quitter": frozenset(),
+    "question_n": frozenset({"n", "questions"}),
+    "kicker_revue": frozenset(),
+    "vrai": frozenset(),
+    "faux": frozenset(),
+    "ta_reponse": frozenset(),
+    "tao_attente": frozenset(),
+    "juste": frozenset(),
+    "rattrapee": frozenset(),
+    "rattrapee_suite": frozenset(),
+    "pas_celle": frozenset(),
+    "encore": frozenset(),
+    "vf_vrai": frozenset({"fr"}),
+    "vf_faux": frozenset({"fr"}),
+    "ko_replique": frozenset({"fr"}),
+    "ko_ton": frozenset({"syllabe"}),
+    "continuer": frozenset(),
+    "voir_resultat": frozenset(),
+    "resultat": frozenset(),
+    "constat": frozenset({"justes", "questions"}),
+    "recu": frozenset({"examen"}),
+    "pas_encore": frozenset(),
     "tao_recu": frozenset(),
+    "tao_recu_yueke": frozenset(),
     "tao_pas_encore": frozenset(),
+    "a_revoir": frozenset({"ou"}),
+    "a_revoir_un": frozenset({"ou"}),
+    "rien_a_revoir": frozenset(),
+    "points": frozenset({"justes", "points"}),
+    "points_rattrapes": frozenset({"justes", "points", "rattrapees"}),
+    "points_rattrape_un": frozenset({"justes", "points"}),
+    "info_yueke": frozenset(),
+    "voir_liste": frozenset(),
+    "suite_titre": frozenset({"examen", "palier", "sens", "titre"}),
+    "suite_yueke": frozenset({"examen", "palier", "titre"}),
+    "retour_menu": frozenset(),
+    "fangbang_kicker": frozenset(),
+    "fangbang_retour": frozenset(),
+    "sur_la_liste": frozenset({"nom"}),
+    "ciblees": frozenset(),
+    "croise_sur": frozenset({"ou"}),
+    "ou_revue": frozenset(),
+    "etat_a_revoir": frozenset(),
+    "info_pause": frozenset(),
+    "rien_perdu": frozenset(),
 }
 
 #: Ce qu'aucun texte d'examen ne nomme : le dragon reste au décor de deux fêtes.
@@ -194,6 +272,10 @@ INTERDITS = re.compile(r"dragon|龙|龍", re.IGNORECASE)
 COLONNES_LISTE = ("id", "sorte", "hz", "pinyin", "fr", "en", "palier", "titre", "questions", "source")
 COLONNES_NOMINATIONS = ("rang", "palier", "source")
 COLONNES_TEXTES = ("cle", "fr", "source")
+COLONNES_BANG = ("parcours", "examen", "noms", "source")
+#: Les noms d'un 放榜 : de quatre à huit, de deux ou trois caractères.
+NOMS_BANG: tuple[int, int] = (4, 8)
+LONGUEUR_NOM: tuple[int, int] = (2, 3)
 COLONNES_GLOSSAIRE = ("zh", "pinyin", "fr", "en")
 CHAMPS_FICHIER = ("examen", "parcours", "generation", "relecture", "series")
 CHAMPS_SERIE = ("serie", "statut", "supports", "questions")
@@ -305,6 +387,75 @@ def charger_textes(chemin: Path | None = None) -> tuple[dict[str, str], list[str
     return out, fautes
 
 
+def charger_bang(chemin: Path | None = None) -> tuple[dict[tuple[str, str], list[str]], list[str]]:
+    """`bang.tsv` : les noms du 放榜 par (parcours, examen), et les fautes de forme.
+
+    Absent : aucune liste (la couverture le dira).
+    """
+    c_ = chemin or BANG
+    if not c_.exists():
+        return {}, []
+    lignes, fautes = lire_tsv(c_)
+    out: dict[tuple[str, str], list[str]] = {}
+    for l in lignes:
+        c = l.cellules
+        if tuple(c) != COLONNES_BANG:
+            fautes.append(f"bang.tsv:{l.numero} : colonnes attendues {COLONNES_BANG}")
+            continue
+        cle = (c["parcours"], c["examen"])
+        if cle in out:
+            fautes.append(f"bang.tsv:{l.numero} : {c['parcours']}/{c['examen']} en double")
+            continue
+        if not c["source"].strip():
+            fautes.append(f"bang.tsv:{l.numero} : source vide")
+        out[cle] = c["noms"].split()
+    return out, fautes
+
+
+def fautes_bang(
+    noms: Mapping[tuple[str, str], Sequence[str]],
+    examens: Sequence[Examen],
+    parcours: Mapping[str, Mapping[str, object]],
+    jusqua: int = 0,
+) -> list[str]:
+    """Les listes du 放榜 : un examen à titre, quatre à huit noms, dans l'acquis du palier.
+
+    `parcours` : les chemins construits ; `jusqua` : le palier jusqu'où chaque examen à titre
+    du chemin doit avoir sa liste.
+    """
+    fautes: list[str] = []
+    par_id = {e.id: e for e in examens}
+    bas, haut = NOMS_BANG
+    court, long_ = LONGUEUR_NOM
+    for (nom, ex), liste in noms.items():
+        ou = f"bang.tsv {nom}/{ex}"
+        e = par_id.get(ex)
+        if nom not in PARCOURS or e is None or e.sorte != TITRE:
+            fautes.append(f"{ou} : attendu un chemin et un examen à titre")
+            continue
+        if not bas <= len(liste) <= haut:
+            fautes.append(f"{ou} : {len(liste)} noms, attendu {bas} à {haut}")
+        if len(set(liste)) != len(liste):
+            fautes.append(f"{ou} : nom en double")
+        for n in liste:
+            if not court <= len(n) <= long_ or not all(est_sinogramme(c) for c in n):
+                fautes.append(f"{ou} : {n}, attendu {court} ou {long_} sinogrammes")
+            if INTERDITS.search(n):
+                fautes.append(f"{ou} : pas de dragon")
+        doc = parcours.get(nom)
+        if doc is not None:
+            autorises = acquis_du_palier(e.palier, doc)
+            intrus = caracteres_hors_liste("".join(liste), autorises)
+            if intrus:
+                fautes.append(f"{ou} : hors de l'acquis du palier : {' '.join(intrus)}")
+    for nom, doc in parcours.items():
+        for e in examens:
+            if e.sorte == TITRE and e.palier <= jusqua and jour_du_palier(e.palier, doc) is not None:
+                if (nom, e.id) not in noms:
+                    fautes.append(f"{nom} : {e.hz} sans liste du 放榜")
+    return fautes
+
+
 def fautes_liste(
     examens: Sequence[Examen],
     nominations: Sequence[Nomination],
@@ -392,7 +543,16 @@ def fautes_textes(textes: Mapping[str, str]) -> list[str]:
             fautes.append(f"textes.tsv : clé inconnue {cle}")
         if INTERDITS.search(textes[cle]):
             fautes.append(f"textes.tsv : {cle}, pas de dragon")
+        if textes[cle].count("**") % 2:
+            fautes.append(f"textes.tsv : {cle}, gras ** sans sa fin")
+        if CHRONO.search(textes[cle]):
+            fautes.append(f"textes.tsv : {cle}, ni durée ni compte à rebours")
     return fautes
+
+
+#: Ce qu'aucune ligne de l'examen ne compte : une durée, un compte à rebours. « Pas de
+#: chronomètre » le dit sans en montrer un.
+CHRONO = re.compile(r"\b(secondes?|minutes?|dans \{|il te reste|reste \d)", re.IGNORECASE)
 
 
 def caracteres_dessines(examens: Iterable[Examen]) -> list[str]:
@@ -1065,6 +1225,7 @@ def document(
     examens, _ = charger_liste(d / LISTE.name)
     nominations, _ = charger_nominations(d / NOMINATIONS.name)
     textes, _ = charger_textes(d / TEXTES.name)
+    bang, _ = charger_bang(d / BANG.name)
     lexique = charger_glossaire(d / GLOSSAIRE.name)
     par_parcours: dict[str, list[dict[str, object]]] = {}
     for nom in PARCOURS:
@@ -1081,7 +1242,13 @@ def document(
                 if s.statut == RELU
             }
             lignes.append(
-                {"examen": e.id, "jour": jour, "troncon": troncon(e, examens, doc), "series": series}
+                {
+                    "examen": e.id,
+                    "jour": jour,
+                    "troncon": troncon(e, examens, doc),
+                    "series": series,
+                    "noms": bang.get((nom, e.id), []) if e.sorte == TITRE else [],
+                }
             )
         par_parcours[nom] = lignes
     dessines = caracteres_dessines(examens)
@@ -1116,6 +1283,7 @@ def sources() -> list[tuple[str, Path]]:
         ("examens-liste", LISTE),
         ("examens-nominations", NOMINATIONS),
         ("examens-textes", TEXTES),
+        ("examens-bang", BANG),
         ("examens-glossaire", GLOSSAIRE),
     ] + [(f"examens:{p.parent.name}/{p.stem}", p) for p in fichiers_ecrits()]
 
@@ -1153,6 +1321,8 @@ def controles(
     textes, f_txt = charger_textes(d / TEXTES.name)
 
     f_src: list[str] = f_txt + fautes_textes(textes)
+    noms_bang, f_bang = charger_bang(d / BANG.name)
+    chemins_construits: dict[str, Mapping[str, object]] = {}
     try:
         lexique = charger_glossaire(d / GLOSSAIRE.name)
     except (ExamensInvalides, OSError) as erreur:
@@ -1193,6 +1363,7 @@ def controles(
             construits = False
             continue
         doc = charger_parcours(nom, build)
+        chemins_construits[nom] = doc
         sur_le_chemin = [e for e in examens if jour_du_palier(e.palier, doc) is not None]
         for e in sur_le_chemin:
             f = fichiers.get((nom, e.id))
@@ -1223,6 +1394,7 @@ def controles(
                 pass  # la couverture le dit déjà
             else:
                 f_ser.append(f"{nom}/{ex} : séries {''.join(par_lettre)} pour AB")
+    f_bang += fautes_bang(noms_bang, examens, chemins_construits, jusqua)
 
     relues = {
         (nom, ex): sorted(s.serie for s in f.series if s.statut == RELU) for (nom, ex), f in fichiers.items()
@@ -1249,6 +1421,12 @@ def controles(
                 vues = sorted((ligne.get("series") or {}).keys())
                 if vues != relues.get((nom, str(ligne.get("examen"))), []):
                     f_exp.append(f"{v.name}/{FICHIER} : {nom}/{ligne.get('examen')}, séries exportées et relues différentes")
+                e_ = par_id.get(str(ligne.get("examen")))
+                attendus = noms_bang.get((nom, e_.id), []) if e_ is not None and e_.sorte == TITRE else []
+                if list(ligne.get("noms") or []) != attendus:
+                    f_exp.append(f"{v.name}/{FICHIER} : {nom}/{ligne.get('examen')}, noms du 放榜 hors des sources")
+        if (sortie.get("textes") or {}) != dict(sorted(textes.items())):
+            f_exp.append(f"{v.name}/{FICHIER} : les textes exportés ne sont pas ceux des sources")
         index = json.loads((v / "index.json").read_text(encoding="utf-8"))
         if index.get("examens") != FICHIER:
             f_exp.append(f"{v.name} : index.json ne nomme pas {FICHIER}")
@@ -1299,6 +1477,15 @@ def controles(
             bloquant=True,
         ),
         Controle("examens : séries", not f_ser, detail(f_ser, "séries A et B sans texte commun"), bloquant=True),
+        Controle(
+            "examens : 放榜",
+            not f_bang,
+            detail(
+                f_bang,
+                f"{len(noms_bang)} listes de noms inventés, chacune dans l'acquis de son palier, jusqu'à {jusqua} caractères lus",
+            ),
+            bloquant=True,
+        ),
         Controle(
             "examens : couverture",
             not f_cou,

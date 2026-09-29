@@ -3,7 +3,7 @@
 Un test par règle. Aucun réseau. Les règles (brief §8, « Les examens 科举 ») : trente-sept
 examens aux paliers de caractères lus, six à titre et trente et un 月课, jamais plus de 55
 caractères de l'un au suivant ; dix questions à titre, cinq au 月课 (« 10 et 5 », 29
-septembre 2026), reçu à quatre sur cinq ; deux séries par examen et par chemin, sans texte commun ; chaque série écrite avec
+septembre 2026), reçu à quatre sur cinq ; les noms du 放榜 dans l'acquis du palier ; deux séries par examen et par chemin, sans texte commun ; chaque série écrite avec
 les seuls caractères posés au jour du palier, et, au 月课, chaque question porte un
 caractère du tronçon ; pinyin aux tons du dictionnaire ; chaque sinogramme glosé ; seules
 les séries relues s'exportent ; la rédaction est traçable.
@@ -151,6 +151,49 @@ def test_les_phrases_de_l_ecran_n_ont_que_leurs_jetons() -> None:
     textes, fautes = ex.charger_textes()
     assert fautes == [] and ex.fautes_textes(textes) == []
     assert any("jeton inconnu" in f for f in ex.fautes_textes({**textes, "attente": "Dans {jours} jours."}))
+
+
+def test_chaque_texte_de_l_ecran_est_exige() -> None:
+    textes, _ = ex.charger_textes()
+    sans = {k: v for k, v in textes.items() if k != "tao_attente"}
+    assert any("tao_attente absent" in f for f in ex.fautes_textes(sans))
+
+
+def test_le_gras_va_par_paires() -> None:
+    textes, _ = ex.charger_textes()
+    assert any("gras" in f for f in ex.fautes_textes({**textes, "regle_chrono": "**Pas de chronomètre."}))
+
+
+def test_aucune_ligne_ne_compte_le_temps() -> None:
+    textes, _ = ex.charger_textes()
+    assert any("compte à rebours" in f for f in ex.fautes_textes({**textes, "encore": "Encore 30 secondes."}))
+
+
+# --------------------------------------------------------------------------- le 放榜
+
+
+def test_les_noms_du_bang_se_lisent_avec_l_acquis_du_palier() -> None:
+    noms = {("lire", "xianshi"): ["人大", "天月", "明天", "大明"]}
+    assert ex.fautes_bang(noms, [TITRE, YUEKE], {"lire": PARCOURS}) == []
+    noms = {("lire", "xianshi"): ["人大", "天月", "明天", "门口"]}
+    assert any("hors de l'acquis du palier : 门 口" in f for f in ex.fautes_bang(noms, [TITRE], {"lire": PARCOURS}))
+
+
+def test_le_bang_a_quatre_a_huit_noms_de_deux_ou_trois_caracteres() -> None:
+    assert any("3 noms" in f for f in ex.fautes_bang({("lire", "xianshi"): ["人大", "天月", "明天"]}, [TITRE], {}))
+    assert any("人, attendu" in f for f in ex.fautes_bang({("lire", "xianshi"): ["人", "天月", "明天", "大明"]}, [TITRE], {}))
+
+
+def test_un_yueke_n_a_pas_de_liste() -> None:
+    noms = {("lire", "yueke-8"): ["人大", "天月", "明天", "大明"]}
+    assert any("examen à titre" in f for f in ex.fautes_bang(noms, [TITRE, YUEKE], {}))
+
+
+def test_chaque_examen_a_titre_couvert_a_sa_liste() -> None:
+    assert any("sans liste du 放榜" in f for f in ex.fautes_bang({}, [TITRE], {"lire": PARCOURS}, jusqua=4))
+    noms, fautes = ex.charger_bang()
+    assert fautes == []
+    assert set(noms) >= {("lire", "xianshi"), ("hsk", "xianshi")}
 
 
 def test_les_noms_d_examen_se_dessinent() -> None:
@@ -316,7 +359,7 @@ def test_un_format_inconnu_est_refuse() -> None:
 def _dossier(tmp: Path, statut: str = "relu", generation: dict[str, str] | None = None) -> Path:
     d = tmp / "examens"
     (d / "lire").mkdir(parents=True)
-    for nom in ("examens.tsv", "nominations.tsv", "textes.tsv", "glossaire.tsv"):
+    for nom in ("examens.tsv", "nominations.tsv", "textes.tsv", "glossaire.tsv", "bang.tsv"):
         (d / nom).write_text((ex.DOSSIER / nom).read_text(encoding="utf-8"), encoding="utf-8")
     source = json.loads((ex.DOSSIER / "lire" / "xianshi.json").read_text(encoding="utf-8"))
     if generation is not None:
@@ -336,7 +379,10 @@ def test_seules_les_series_relues_s_exportent(tmp_path: Path) -> None:
     doc = ex.document(en_tete={}, parcours={"lire": charger_parcours("lire")}, racines={}, dossier=d)
     ligne = next(x for x in doc["parcours"]["lire"] if x["examen"] == "xianshi")  # type: ignore[index]
     assert list(ligne["series"]) == ["A"] and ligne["jour"] == 25
+    assert ligne["noms"] == ["王大明", "古天生", "王子如", "明心", "山今", "王友生"]
     assert [e["reussite"] for e in doc["examens"][:2]] == [8, 4]  # type: ignore[index]
+    yueke = next(x for x in doc["parcours"]["lire"] if x["examen"] == "yueke-75")  # type: ignore[index]
+    assert yueke["noms"] == []
 
 
 def test_la_redaction_est_tracable(tmp_path: Path) -> None:

@@ -1,32 +1,119 @@
-# Les lignes des examens et les phrases de Tao (brief §8, « Les examens 科举 », §9).
+# Les lignes des examens et les phrases de Tao (brief §8, « Les examens 科举 », §9), et tous
+# les textes de l'écran de l'examen (story 8.3), d'après la maquette validée par le
+# propriétaire le 29 septembre 2026 (`maquettes/examen.html`).
 #
-# Source : rédigé pour l'app, sans API, dans une session Claude Code, d'après le brief ;
-# relu sous l'approbation permanente du propriétaire (« Considère que les relectures c'est
-# bon »). Des constats, pas des félicitations ; Tao dit « pas encore », jamais un reproche ;
-# ni compte à rebours, ni horloge (brief §8 et §9).
+# Source : rédigé pour l'app, sans API, dans une session Claude Code, d'après le brief et la
+# maquette ; relu sous l'approbation permanente du propriétaire (« Considère que les
+# relectures c'est bon »). Des constats, pas des félicitations ; Tao dit « pas encore »,
+# jamais un reproche ; ni compte à rebours, ni horloge, ni chronomètre (brief §8 et §9).
 #
-# Format : TSV, `#` en commentaire, trois colonnes : `cle`, `fr`, `source`. Dix clés,
-# toutes exigées, chacune avec ses seuls jetons, que l'app remplit (`wenlu check` refuse un
-# jeton inconnu) :
+# Format : TSV, `#` en commentaire, trois colonnes : `cle`, `fr`, `source`. Chaque clé est
+# exigée une fois, avec ses seuls jetons entre accolades, que l'app remplit (`wenlu check`
+# refuse un jeton inconnu, `examens.JETONS_TEXTES`). `**…**` met un passage en gras, par
+# paires. Les guillemets français s'écrivent avec une espace insécable (U+00A0) à
+# l'intérieur.
 #
-# - `ouvert`, `ouvert_yueke` : la ligne de Clore, le palier atteint, à un examen à titre
-#   puis à un 月课 ; {lus} les caractères lus, {examen} le nom de l'examen à titre ;
-# - `bouton`, `bouton_yueke` : le bouton du menu, la journée faite ; {examen} ;
-# - `attente` : la ligne du menu tant que la reprise attend ;
-# - `tao_avant` : Tao, à l'entrée de l'examen ;
-# - `recu`, `pas_encore` : le constat du résultat ; {justes} les réponses justes du
-#   premier essai, {questions} les questions posées, {examen}, {reussite} ce qu'il fallait ;
-# - `tao_recu`, `tao_pas_encore` : Tao, au résultat.
-#
-# Les guillemets français s'écrivent avec une espace insécable (U+00A0) à l'intérieur.
+# - le menu et Clore : `ouvert`, `ouvert_yueke` (la ligne de Clore, le palier atteint ;
+#   {lus}, {examen}), `bouton`, `bouton_yueke` (le bouton plein, la journée faite),
+#   `menu_ouvert`, `menu_pause`, `menu_repasser`, `attente` (la ligne sous le chemin ;
+#   {palier}), `tao_menu`, `tao_menu_attente`, `tao_menu_recu` (Tao sur le chemin) ;
+# - l'annonce : `menu` (le retour), `tao_avant`, `donne_titre`, `donne_avec` (ce que
+#   l'examen donne ; {titre} et {sens} le rang et son mot à mot, {suivant} et {palier}
+#   l'examen qui le complète), `donne_yueke`, `troncon`, `troncon_plus`, `regle_*` (les
+#   règles, {questions}, {reussite}, {supports}), `genre_*` (les supports, dans
+#   `regle_questions`), `commencer`, `commencer_yueke`, `reprendre` ({n}) ;
+# - la question : `quitter`, `question_n` ({n} sur {questions}), `kicker_revue`, `vrai`,
+#   `faux`, `ta_reponse`, `tao_attente`, `juste`, `rattrapee`, `rattrapee_suite`,
+#   `pas_celle`, `encore`, `vf_vrai`, `vf_faux` ({fr}, l'affirmation), `ko_replique` ({fr},
+#   la réplique choisie), `ko_ton` ({syllabe}), `continuer`, `voir_resultat` ;
+# - le résultat : `resultat`, `constat` ({justes} sur {questions}), `recu` ({examen}),
+#   `pas_encore`, `tao_recu`, `tao_recu_yueke`, `tao_pas_encore`, `a_revoir`,
+#   `a_revoir_un` ({ou}), `rien_a_revoir`, `points`, `points_rattrapes`,
+#   `points_rattrape_un` ({points}, {justes}, {rattrapees}), `info_yueke`, `voir_liste`,
+#   `suite_titre`, `suite_yueke` (le prochain examen à titre), `retour_menu` ;
+# - le 放榜 : `fangbang_kicker`, `fangbang_retour`, `sur_la_liste` ({nom}) ;
+# - pas encore : `ciblees`, `croise_sur` ({ou}), `ou_revue`, `etat_a_revoir`,
+#   `info_pause`, `rien_perdu`.
 cle	fr	source
 ouvert	{lus} caractères lus : l'examen {examen} s'ouvre.	rédigé pour l'app, d'après le brief §8
 ouvert_yueke	{lus} caractères lus : le 月课 s'ouvre.	rédigé pour l'app, d'après le brief §8
 bouton	Passer l'examen {examen}	brief §6, mot pour mot
 bouton_yueke	Passer le 月课	brief §6, mot pour mot
+menu_ouvert	{palier} caractères lus : le {examen} est ouvert.	d'après la maquette validée le 29 septembre 2026
+menu_pause	Les briques attendent qu'il soit reçu.	d'après la maquette validée le 29 septembre 2026
+menu_repasser	Les caractères manqués sont revus : le {examen} se repasse.	rédigé pour l'app, d'après le brief §8
 attente	L'examen se repasse quand les caractères manqués sont revus.	brief §8, mot pour mot
-tao_avant	Des textes que tu n'as jamais vus. Lis-les comme ils viennent, je suis là.	rédigé pour l'app
-recu	{justes} sur {questions} du premier coup. Reçu au {examen}.	brief §8, mot pour mot
-pas_encore	{justes} sur {questions} du premier coup. Pas encore : il en fallait {reussite}.	rédigé pour l'app, d'après le brief §8
-tao_recu	Reçu. On reprend le chemin, une brique à la fois.	rédigé pour l'app
-tao_pas_encore	Pas encore. On revoit ces caractères, et on le repasse.	rédigé pour l'app, d'après le brief §8
+tao_menu	Le {examen} t'attend, rien ne presse.	d'après la maquette validée le 29 septembre 2026
+tao_menu_attente	On revoit les caractères manqués, un à un.	rédigé pour l'app
+tao_menu_recu	Reçu au {examen}. Demain, une brique nouvelle.	d'après la maquette validée le 29 septembre 2026
+menu	Menu	d'après la maquette validée le 29 septembre 2026
+tao_avant	Le panier 考篮 est prêt. On lit tranquillement.	d'après la maquette validée le 29 septembre 2026
+donne_titre	Il donne le titre {titre}, « {sens} ».	d'après la maquette validée le 29 septembre 2026
+donne_avec	Avec le {suivant}, à {palier} caractères, il donne le titre {titre}, « {sens} ».	d'après la maquette validée le 29 septembre 2026
+donne_yueke	Dans les académies 书院, on composait chaque mois pour se préparer. On n'y gagnait aucun titre.	d'après la maquette validée le 29 septembre 2026
+troncon	Le tronçon · {n} caractères depuis le {examen}	d'après la maquette validée le 29 septembre 2026
+troncon_plus	et {n} autres	d'après la maquette validée le 29 septembre 2026
+regle_questions	**{questions} questions**, des textes jamais vus : {supports}.	d'après la maquette validée le 29 septembre 2026
+regle_questions_yueke	**{questions} questions**, chacune porte un caractère du tronçon.	d'après la maquette validée le 29 septembre 2026
+regle_reussite	Reçu à **{reussite} justes sur {questions}** du premier coup.	d'après la maquette validée le 29 septembre 2026
+regle_chrono	**Pas de chronomètre.** « Quitter » garde ta place.	d'après la maquette validée le 29 septembre 2026
+regle_reprise	**Pas encore ?** On révise ce qui a manqué, puis on le repasse.	d'après la maquette validée le 29 septembre 2026
+regle_yueke	Ni titre, ni sceau, ni liste : **un point 读** par bonne réponse.	d'après la maquette validée le 29 septembre 2026
+genre_enseigne	une enseigne	rédigé pour l'app
+genre_pancarte	un panneau	rédigé pour l'app
+genre_menu	un menu	rédigé pour l'app
+genre_etal	un étal	rédigé pour l'app
+genre_billet	un billet	rédigé pour l'app
+genre_message	un message	rédigé pour l'app
+genre_note	une note	rédigé pour l'app
+genre_lettre	une lettre	rédigé pour l'app
+genre_calendrier	un calendrier	rédigé pour l'app
+genre_affiche	une affiche	rédigé pour l'app
+commencer	Commencer l'examen	d'après la maquette validée le 29 septembre 2026
+commencer_yueke	Passer le 月课	d'après la maquette validée le 29 septembre 2026
+reprendre	Reprendre à la question {n}	rédigé pour l'app
+quitter	Quitter	d'après la maquette validée le 29 septembre 2026
+question_n	question {n} sur {questions}	d'après la maquette validée le 29 septembre 2026
+kicker_revue	Revue de l'acquis	d'après la maquette validée le 29 septembre 2026
+vrai	Vrai	rédigé pour l'app
+faux	Faux	rédigé pour l'app
+ta_reponse	ta réponse	d'après la maquette validée le 29 septembre 2026
+tao_attente	Prends ton temps. J'attends à la porte avec le panier.	d'après la maquette validée le 29 septembre 2026
+juste	Juste.	d'après la maquette validée le 29 septembre 2026
+rattrapee	Rattrapée.	d'après la maquette validée le 29 septembre 2026
+rattrapee_suite	Le point 读 est à toi ; le premier coup reste manqué.	d'après la maquette validée le 29 septembre 2026
+pas_celle	Pas celle-là.	d'après la maquette validée le 29 septembre 2026
+encore	Encore un essai ?	d'après la maquette validée le 29 septembre 2026
+vf_vrai	Le texte le dit : « {fr} »	rédigé pour l'app
+vf_faux	Le texte ne le dit pas : « {fr} »	rédigé pour l'app
+ko_replique	« {fr} » ne répond pas au message.	d'après la maquette validée le 29 septembre 2026
+ko_ton	Ce n'est pas {syllabe}.	rédigé pour l'app
+continuer	Continuer	d'après la maquette validée le 29 septembre 2026
+voir_resultat	Voir le résultat	d'après la maquette validée le 29 septembre 2026
+resultat	résultat	d'après la maquette validée le 29 septembre 2026
+constat	{justes} sur {questions} du premier coup.	brief §8, mot pour mot
+recu	Reçu au {examen}.	brief §8, mot pour mot
+pas_encore	Pas encore.	d'après la maquette validée le 29 septembre 2026
+tao_recu	Des textes jamais vus, et tu les as lus sans les avoir appris.	d'après la maquette validée le 29 septembre 2026
+tao_recu_yueke	Le tronçon tient. Les briques reprennent demain.	d'après la maquette validée le 29 septembre 2026
+tao_pas_encore	Pas encore. On revoit ces caractères ensemble, et on y retourne.	d'après la maquette validée le 29 septembre 2026
+a_revoir	**À revoir**, manqués sur {ou}. Ils reviennent en révision, reçu ou non.	d'après la maquette validée le 29 septembre 2026
+a_revoir_un	**À revoir**, manqué sur {ou}. Il revient en révision, reçu ou non.	d'après la maquette validée le 29 septembre 2026
+rien_a_revoir	Rien à revoir : tout juste du premier coup.	d'après la maquette validée le 29 septembre 2026
+points	{points} points 读 : {justes} du premier coup.	d'après la maquette validée le 29 septembre 2026
+points_rattrapes	{points} points 读 : {justes} du premier coup, {rattrapees} rattrapés.	d'après la maquette validée le 29 septembre 2026
+points_rattrape_un	{points} points 读 : {justes} du premier coup, 1 rattrapé.	d'après la maquette validée le 29 septembre 2026
+info_yueke	Pas de liste : le 月课 ne donne pas de titre, on revient au menu.	d'après la maquette validée le 29 septembre 2026
+voir_liste	Voir la liste 放榜	d'après la maquette validée le 29 septembre 2026
+suite_titre	Prochaine étape : **le {examen}, à {palier} caractères lus.** Avec lui, le titre {titre}, « {sens} ».	d'après la maquette validée le 29 septembre 2026
+suite_yueke	Prochaine borne : **le {examen}, à {palier} caractères**, avec le titre {titre}.	d'après la maquette validée le 29 septembre 2026
+retour_menu	Retour au menu	d'après la maquette validée le 29 septembre 2026
+fangbang_kicker	放榜 · la liste	d'après la maquette validée le 29 septembre 2026
+fangbang_retour	Résultat	d'après la maquette validée le 29 septembre 2026
+sur_la_liste	{nom} est sur la liste.	d'après la maquette validée le 29 septembre 2026
+ciblees	Révisions ciblées	d'après la maquette validée le 29 septembre 2026
+croise_sur	croisé sur {ou}	d'après la maquette validée le 29 septembre 2026
+ou_revue	la revue de l'acquis	d'après la maquette validée le 29 septembre 2026
+etat_a_revoir	à revoir	d'après la maquette validée le 29 septembre 2026
+info_pause	Les briques nouvelles attendent. L'échauffement prend ces caractères d'abord. **L'examen se repasse quand chacun est revu juste**, d'ordinaire en un à trois jours, avec d'autres textes.	d'après la maquette validée le 29 septembre 2026
+rien_perdu	Rien n'est perdu : ni points, ni acquis, ni série.	d'après la maquette validée le 29 septembre 2026
