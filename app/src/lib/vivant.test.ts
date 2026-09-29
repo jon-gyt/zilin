@@ -376,3 +376,18 @@ describe("un filet de fumée monte du toit de l'auberge", () => {
     });
   }
 });
+
+describe('le personnage cligne, et le lapin et le panda bougent les oreilles', () => {
+  const x = source('Heros.svelte');
+  const css = x.slice(x.indexOf('<style>'));
+  it('les yeux des trois bêtes clignent, les oreilles du lapin et du panda frémissent', () => {
+    expect(x).toContain('return `<g class="paupieres">${[x1, x2]');
+    expect(x).toContain('<g class="paupieres"><circle cx="182" cy="133"');
+    expect(x.match(/<g class="oreilles">/g)?.length).toBe(2);
+    expect(css).toMatch(/\.heros-svg :global\(\.paupieres\) \{[^}]*animation: paupieres 6\.3s infinite;/);
+    expect(css).toMatch(/\.heros-svg :global\(\.oreilles\) \{[^}]*animation: oreilles 8\.9s ease-in-out 2s infinite;/);
+  });
+  it("s'arrêtent si l'on réduit les animations", () => {
+    expect(reduits(css)).toMatch(/\.heros-svg :global\(\.tourne\),\s*\.heros-svg :global\(\.paupieres\),\s*\.heros-svg :global\(\.oreilles\) \{\s*animation: none;/);
+  });
+});
