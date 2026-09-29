@@ -770,6 +770,32 @@ describe("le chargement de l'export", () => {
     expect(await traitsDe('無', [], V)).toBeNull();
   });
 
+  it('prend les tracés du dictionnaire quand aucune famille ne les porte, avant la démonstration', async () => {
+    const VD = 'test-export-lots';
+    const appels = servir(VD, {
+      [`data/${VD}/index.json`]: { ...indexSimule, version: VD, dictionnaire: 'dico/index.json' },
+      [`data/${VD}/familles/月.json`]: { ...familleSimulee, version: VD },
+      [`data/${VD}/traits/月.json`]: traitsSimules,
+      [`data/${VD}/dico/index.json`]: {
+        version: VD,
+        fichiers: { caracteres: 'dico/caracteres/{lot}.json', mots: 'dico/mots/{lot}.json', traits: 'traits/dico-{lot}.json' },
+        colonnes: { caracteres: ['c', 'lectures', 'niveau', 'lot', 'glose'], mots: ['id', 'formes', 'lectures', 'niveau', 'lot', 'glose'] },
+        caracteres: [['豪', 'hao2', 7, 3, '']],
+        mots: [],
+        traits_hors_liste: { 亠: 4 }
+      },
+      [`data/${VD}/traits/dico-3.json`]: { ...traitsSimules, traits: { 豪: { s: ['M 3 3'], m: [[[3, 3]]] } } },
+      [`data/${VD}/traits/dico-4.json`]: { ...traitsSimules, traits: { 亠: { s: ['M 4 4'], m: [[[4, 4]]] } } },
+      'strokes-demo.json': { 安: { s: ['M 1 1'], m: [[[1, 1]]] } }
+    });
+    expect((await traitsDe('月', [], VD))?.s).toEqual(['M 0 0']);
+    expect((await traitsDe('豪', [], VD))?.s).toEqual(['M 3 3']);
+    expect((await traitsDe('亠', [], VD))?.s).toEqual(['M 4 4']);
+    expect((await traitsDe('安', [], VD))?.s).toEqual(['M 1 1']);
+    expect(appels.filter((u) => u.endsWith('/dico/index.json'))).toHaveLength(1);
+    expect(appels.some((u) => u.includes('dico/caracteres/'))).toBe(false);
+  });
+
   it("lit les paires à ne pas confondre de l'export", async () => {
     servir(V, fichiers);
     expect(await pairesExport(V)).toEqual({ paires: [['日', '曰']] });
