@@ -138,6 +138,18 @@ describe('Mon chemin : les lanternes de la route devant se balancent', () => {
   });
 });
 
+describe("le fanion d'une auberge flotte au vent", () => {
+  for (const f of ['Chemin.svelte', 'Tree.svelte']) {
+    const x = source(f);
+    const css = x.slice(x.indexOf('<style>'));
+    it(`${f} : tenu au mât, sa brique avec lui ; arrêté si l'on réduit les animations`, () => {
+      expect(x).toMatch(/<g class="flotte"[^>]*>\s*<path class="fanion"/);
+      expect(css).toMatch(/\.flotte \{[^}]*transform-origin: 0 0;[^}]*animation: flotter/);
+      expect(reduits(css)).toMatch(/\.flotte \{\s*animation: none;/);
+    });
+  }
+});
+
 describe('le retour haptique, accordé aux petits moments', () => {
   it('une bonne réponse dans un jeu donne le même tap léger qu’en révision, une erreur rien', () => {
     expect(source('Game.svelte')).toMatch(/function reagirA\(correct: boolean\): void \{[\s\S]*?if \(correct\) bonneReponse\(\);/);

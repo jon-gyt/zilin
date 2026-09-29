@@ -201,6 +201,8 @@
           <rect class="porte-auberge" x="-5" y="-16" width="10" height="14" rx="1" />
           <path class="toit" d="M-23 -23q7-2 11-10h24q4 8 11 10z" />
           <path class="mat" d="M21 -1V-54" />
+          <!-- le fanion flotte au vent : sa brique et son sceau avec lui -->
+          <g class="flotte">
           <path class="fanion" class:sel={choisi === fam.c} d="M21 -52h21v27l-5.25 4-5.25-4-5.25 4-5.25-4z" />
           <g transform="translate(24.5 -45)">
             <!-- eslint-disable-next-line svelte/no-at-html-tags -->
@@ -216,6 +218,7 @@
               </g>
             </g>
           {/if}
+          </g>
         </g>
       </g>
 
@@ -437,5 +440,28 @@
   }
   .tao {
     pointer-events: none;
+  }
+  /* Le fanion 幌子 flotte au vent, tenu au mât : sa brique et son sceau suivent le tissu.
+     Un léger cisaillement, jamais plus de quelques degrés. */
+  .flotte {
+    transform-box: fill-box;
+    transform-origin: 0 0;
+    animation: flotter 2.8s ease-in-out infinite alternate;
+  }
+  @keyframes flotter {
+    0% {
+      transform: skewY(0deg) scaleX(1);
+    }
+    50% {
+      transform: skewY(-5deg) scaleX(0.95);
+    }
+    100% {
+      transform: skewY(3deg) scaleX(0.98);
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .flotte {
+      animation: none;
+    }
   }
 </style>
