@@ -340,3 +340,19 @@ describe("le message WeChat : les trois points de l'ami qui écrit", () => {
     expect(reduits(css)).toMatch(/\.bulle,\s*\.bulle\.ecrit i \{\s*animation: none;/);
   });
 });
+
+describe('Mon chemin : de loin en loin, un vol d’oiseaux passe dans le ciel', () => {
+  const x = source('Chemin.svelte');
+  const css = x.slice(x.indexOf('<style>'));
+  it('trois oiseaux au trait pâle, dix secondes de passage toutes les quarante, jamais un jour de fête', () => {
+    expect(x.match(/<g class="oiseaux">([\s\S]*?)<\/g>/)?.[1].match(/<path /g)?.length).toBe(3);
+    expect(css).toMatch(/\.oiseaux \{[^}]*stroke: var\(--ink2\);[^}]*animation: vol 40s linear 3s infinite;/);
+    expect(css).toMatch(/@keyframes vol \{[\s\S]*?25% \{[\s\S]*?100% \{/);
+    expect(css).toMatch(/:global\(html\[data-fete\]\) \.oiseaux \{\s*display: none;/);
+    /* ni dragon, ni cinabre */
+    expect(css.slice(css.indexOf('.oiseaux {'), css.indexOf('@keyframes vol'))).not.toMatch(/--zhu|dragon/);
+  });
+  it("disparaît si l'on réduit les animations", () => {
+    expect(reduits(css)).toMatch(/\.oiseaux \{\s*display: none;/);
+  });
+});
