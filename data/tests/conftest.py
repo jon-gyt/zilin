@@ -89,3 +89,15 @@ def _sans_ordres_figes(monkeypatch: pytest.MonkeyPatch, tmp_path: Path) -> None:
     from wenlu_data import graphe
 
     monkeypatch.setattr(graphe, "ORDRES", tmp_path / "sans-ordres")
+
+
+@pytest.fixture(autouse=True)
+def _sans_mots_hsk(monkeypatch: pytest.MonkeyPatch, tmp_path: Path) -> None:
+    """Les exports de test ne tirent pas la liste des mots du HSK 3.0 du vrai dépôt.
+
+    `data/sources/listes/hsk-mots.tsv` (11 092 mots) remplirait le dictionnaire de chaque
+    export factice. Un test qui veut la vraie liste la lit par `mots_hsk.LISTE_REELLE`.
+    """
+    from wenlu_data import mots_hsk
+
+    monkeypatch.setattr(mots_hsk, "LISTE", tmp_path / "sans-mots-hsk.tsv")

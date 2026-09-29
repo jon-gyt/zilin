@@ -57,6 +57,11 @@ app/public/data/0.1.0/
   traits/ARPHICPL.TXT        la même licence, à côté des fichiers qu'elle couvre
   traits/MODIFICATIONS.md    comment et quand les tracés ont été dérivés
   contes/<id>.json           un conte relu, une version par niveau (trois au seuil 255)
+  MIT-hsk30.txt              notice et texte de la MIT d'ivankra/hsk30 (liste des mots)
+  dico/index.json            le dictionnaire : l'index unique de Chercher, précaché
+  dico/caracteres/<n>.json   les entrées de caractère, par lots, chargées à la demande
+  dico/mots/<n>.json         les entrées de mot, par lots, chargées à la demande
+  traits/dico-<n>.json       les tracés des 3 000 caractères et de leurs composants, sous APL
 ```
 
 Trois régimes de licence, trois familles de fichiers, jamais mêlés
@@ -95,7 +100,8 @@ Trois régimes de licence, trois familles de fichiers, jamais mêlés
  "rappels": "rappels.json",
  "ecrans": "ecrans.json",
  "ouvertures": "ouvertures.json",
- "tons": "tons.json"
+ "tons": "tons.json",
+ "dictionnaire": "dico/index.json"
 }
 ```
 
@@ -190,6 +196,179 @@ l'hôte, recadrés par une homothétie arrondie à l'entier. `modified` nomme ce
 composants dans les fichiers qui en portent, et `MODIFICATIONS.md` décrit chaque
 découpe (hôte, indices des traits, échelle et décalage). Écriture compacte (sans
 indentation) : indentés, ces milliers de nombres pèseraient dix fois plus.
+
+## Le dictionnaire : `dico/` et `traits/dico-<n>.json` (stories D.2 et D.3)
+
+La loupe Chercher devient un dictionnaire du HSK 3.0 (décisions du propriétaire du
+29 septembre 2026, `maquettes/dictionnaire.html`) : les 3 000 caractères de
+`data/sources/listes/hsk-*.txt` et les 11 092 mots de `hsk-mots.tsv`, en consultation
+libre. `dictionnaire.py` les écrit ; `index.json` y renvoie par sa clé `dictionnaire`,
+absente quand il n'y a rien à écrire. Rien ne vient de CC-CEDICT.
+
+Trois sortes de fichiers, tous écrits compacts (sans indentation) :
+
+- **l'index**, `dico/index.json`, le seul chargé à l'ouverture de Chercher et le seul
+  précaché (≈ 520 Kio bruts, ≈ 150 Kio en gzip) ;
+- **les lots d'entrées**, `dico/caracteres/<n>.json` (60 lots de 50 caractères) et
+  `dico/mots/<n>.json` (56 lots de 200 mots), chargés à l'ouverture d'une fiche et mis en
+  cache au fil de la lecture ;
+- **les lots de traits**, `traits/dico-<n>.json` (64 lots), chargés quand un caractère se
+  dessine : le lot `n` de traits porte exactement les caractères du lot `n` de fiches
+  (lots 0 à 59), puis viennent les composants hors liste (lots 60 et suivants).
+
+Les lots suivent l'ordre du pinyin : la lecture principale numérotée (`hao2` avant `hao3`),
+puis le point de code pour les caractères, les syllabes puis l'`id` pour les mots. Une
+recherche par syllabe (`hao`) tombe donc dans un ou deux lots de caractères.
+
+### `dico/index.json`
+
+```json
+{"version": "0.1.0", "license": "propriétaire",
+ "license_files": ["MIT-hsk30.txt", "UNICODE-LICENSE.txt", "MIT-cjk-decomp.txt"],
+ "source": "liste HSK 3.0 (GF 0025-2021) : …", "source_url": "…", "modified": "…",
+ "liste": "HSK 3.0 (GF 0025-2021), niveaux 1 à 9",
+ "compte": {"caracteres": 3000, "mots": 11092, "sens_relus": 0,
+            "lots_caracteres": 60, "lots_mots": 56, "lots_traits": 64},
+ "niveaux": {"7": "7-9"},
+ "fichiers": {"caracteres": "dico/caracteres/{lot}.json", "mots": "dico/mots/{lot}.json",
+              "traits": "traits/dico-{lot}.json"},
+ "colonnes": {"caracteres": ["c", "lectures", "niveau", "lot", "glose"],
+              "mots": ["id", "formes", "lectures", "niveau", "lot", "glose"]},
+ "caracteres": [["好", "hao3|hao4", 1, 15, ""]],
+ "mots": [["L1-0474", "知道", "zhi1 dao5|zhi1 dao4", 1, 52, ""],
+          ["L1-0004", "爸爸|爸", "ba4 ba5|ba4", 1, 1, ""]],
+ "traits_hors_liste": {"亻": 60}}
+```
+
+Une ligne par entrée, en tableau, dans l'ordre de `colonnes` (un objet par ligne pèserait
+le double) :
+
+- `c` ou `id` : l'identifiant de l'entrée, le caractère lui-même ou l'`id` du mot
+  (`L1-0002`), la clé de son lot ;
+- `formes` (mots) : les graphies, séparées par `|`, la principale en tête ;
+- `lectures` : les lectures numérotées, séparées par `|` ; dans une lecture de mot, une
+  syllabe par sinogramme, séparées par une espace. Un caractère donne toutes ses lectures
+  (la principale d'abord : 好 `hao3|hao4`) ; un mot, sa lecture retenue, puis sa lecture
+  pleine (`·`, mots de position) et celles de ses variantes. `v` pour ü, `5` pour le ton
+  neutre, `r5` pour le 儿 de l'érhua ;
+- `niveau` : 1 à 6, et 7 pour « 7-9 » (`niveaux`) ;
+- `lot` : le numéro du lot où lire l'entrée (`fichiers`), et, pour un caractère, ses traits ;
+- `glose` : la glose française **relue** de l'entrée, 40 caractères au plus, celle de la
+  liste des résultats et de la recherche par le français ; `""` tant que le sens n'est pas
+  relu. Aujourd'hui toutes vides.
+
+`traits_hors_liste` : le lot de traits de chaque composant d'une décomposition réconciliée
+qui n'est pas un des 3 000 (亻, 氵, 亠…), pour dessiner les briques d'une fiche.
+
+### `dico/caracteres/<n>.json`
+
+`{version, license, license_files, source, source_url, modified, lot, entrees}`, où
+`entrees` associe chaque caractère du lot à son entrée :
+
+```json
+{"c": "好", "pinyin": "hǎo", "lectures": ["hǎo", "hào"], "niveau": 1,
+ "decomposition": {"norme": "GF 0014-2009", "parts": ["女", "子"], "sources": ["cjk-decomp"]},
+ "mots": ["L1-0002", "L1-0138", "…"],
+ "chemin": {"hsk": 14, "lire": 13},
+ "sens": null, "exemples": []}
+```
+
+- `pinyin`, `lectures` : comme les fiches des familles (Unihan et surcharges, la
+  principale en tête).
+- `decomposition` : la décomposition canonique GF 0014-2009 et ses sources, comme `parts`
+  et `sources` d'une fiche ; `parts` vide pour une brique de la norme. **`null` quand elle
+  n'est pas réconciliée** (60 caractères sur 3 000 : 兴, 段, 检…) : l'app ne montre pas
+  une décomposition que le pipeline n'a pas validée.
+- `mots` : les `id` des mots dont une graphie contient le caractère, par niveau puis dans
+  l'ordre de la norme (一 en a plus de deux cents).
+- `chemin` : le jour du chemin où le caractère est posé, par parcours (`lire`, `hsk`) ;
+  vide pour un caractère qu'aucun parcours ne pose encore. Le statut de l'apprenant (lu,
+  dans N jours) se calcule dans l'app, sur sa progression.
+- `sens`, `exemples` : les emplacements prévus, vides (ci-dessous).
+
+### `dico/mots/<n>.json`
+
+Même en-tête, `entrees` par `id` :
+
+```json
+{"id": "L1-0474", "hanzi": "知道", "pinyin": "zhīdao", "syllabes": ["zhi1", "dao5"],
+ "niveau": 1, "categories": ["V"], "officiel": "知道", "pleines": ["zhi1", "dao4"],
+ "sens": null, "exemples": []}
+```
+
+`hanzi`, `pinyin`, `syllabes`, `categories` (les codes de `categorie`, section « Liste des
+mots HSK 3.0 »), `officiel` viennent de `hsk-mots.tsv`. Clés présentes seulement quand elles
+servent : `pleines` (la lecture au ton plein), `variantes` (`[{hanzi, pinyin, syllabes}]`,
+爸 pour 爸爸), `emploi` (l'emploi que la norme cite, 第二 pour 第).
+
+### Les emplacements `sens` et `exemples`
+
+Prévus pour la story des sens (D.7) et celle des phrases d'exemple, qu'un autre chantier
+remplira. Le pipeline rédige, la relecture humaine passe chaque texte à `relu`, et **seuls
+les textes `relu` s'exportent** (`dictionnaire.sens_exporte`, `exemples_exportes`) : un
+sens `a_relire` reste hors de l'export principal, comme une fiche. Formes attendues :
+
+```json
+"sens": {"statut": "relu", "glose": "bon ; bien",
+         "acceptions": [{"categorie": "Adj", "fr": "bon, bien, satisfaisant"},
+                        {"categorie": "Adv", "fr": "très, bien (devant un adjectif)"}]},
+"exemples": [{"zh": "这本书很好看。", "pinyin": "Zhè běn shū hěn hǎokàn.",
+              "fr": "Ce livre est très beau.", "statut": "relu"}]
+```
+
+- `glose` : 40 caractères au plus, sans point final ni sinogramme ; c'est elle, et elle
+  seule, qui passe dans la colonne `glose` de l'index. Une glose relue plus longue ou vide
+  fait échouer l'export.
+- `acceptions` : une à trois, chacune avec la catégorie (codes de la liste) et son texte.
+- `exemples` : les phrases écrites par le pipeline avec les seuls caractères du HSK et
+  relues (pas de Tatoeba, décision du 29 septembre 2026), avec leur pinyin.
+
+`documents()` prend `sens` et `exemples` par identifiant d'entrée (le caractère ou l'`id`
+du mot) ; `export.assembler_dictionnaire` ne lui en passe aucun aujourd'hui.
+
+### `traits/dico-<n>.json`
+
+Exactement le format de `traits/<racine>.json` (en-tête de l'Arphic Public License,
+`license_file`, `modified`, clé `traits`), que `strokes.ts` lit déjà : `{c: {s, m}}`. Les
+tracés sont copiés tels quels de `graphics.txt`, sauf les composants découpés dans un hôte
+(nommés dans `modified` et décrits dans `traits/MODIFICATIONS.md`). Les quelque 600 caractères
+des familles figurent aussi dans `traits/<racine>.json` : le dictionnaire ne dépend pas du
+graphe des familles pour dessiner. Dans l'app, `content.traitsDe` cherche d'abord la famille,
+puis le lot du dictionnaire, puis `strokes-demo.json`.
+
+Les fichiers sont nommés `dico-<n>.json` à plat dans `traits/`, et non dans un
+sous-dossier : le site public publie chaque fichier de `traits/` (APL §2 b) et les
+contrôles de licence lisent ce dossier sans descendre.
+
+### Budget, mesuré sur l'export 0.1.0 du 29 septembre 2026
+
+| Fichiers | Nombre | Brut | gzip | Hors ligne |
+|---|---|---|---|---|
+| `dico/index.json` | 1 | 519 Kio | 147 Kio | précaché |
+| `dico/caracteres/` | 60 | 850 Kio | 172 Kio | à la demande |
+| `dico/mots/` | 56 | 1 855 Kio | 314 Kio | à la demande |
+| `traits/dico-*.json` | 64 | 7 942 Kio | 3 344 Kio | à la demande |
+| `MIT-hsk30.txt` | 1 | 1 Kio | 1 Kio | précaché |
+| **Total** | 182 | **11 167 Kio** | **3 977 Kio** | |
+
+Hors ligne (story D.12, `app/vite.config.ts`) : le service worker précache l'index et laisse
+les lots au cache d'exécution (`CacheFirst`, cache `wenlu-dictionnaire`), remplis à la
+première lecture ; l'URL d'un lot porte l'empreinte de l'export (`?v=`), si bien qu'un
+nouvel export ne sert jamais un lot d'hier. Mesuré par `npm run build` : le précache passe
+de 1 343 entrées et 10 214 Kio (main du 29 septembre) à 1 345 entrées et 11 060 Kio,
+**+846 Kio** : l'index (519 Kio, 147 Kio transférés), la police Noto Serif SC agrandie aux
+3 000 caractères que les listes de mots écrivent (`wenlu fonts`, 297 → 615 Kio, +311 Kio),
+le code (+10 Kio, +3 Kio transférés). Environ 465 Kio de plus à la première installation.
+Un lot jamais ouvert n'est pas là hors ligne : la totalité des lots pèse 3,8 Mio transférés
+(à proposer un jour dans Réglages, « Garder le dictionnaire hors ligne »). Dans le shell
+iOS, tout est dans le paquet : +11,2 Mio bruts.
+
+Contrôles (`wenlu check`), bloquants : « dico : entrées » (autant de lignes que de
+caractères des listes et de mots de `hsk-mots.tsv`, chaque entrée dans son lot, aucun
+fichier hors de l'index), « dico : traits » (chaque caractère et chaque composant hors
+liste a ses traits dans son lot), « dico : sens relus seulement » (aucun sens ni exemple
+qui ne soit `relu`, glose de 40 caractères au plus, glose de l'index égale à celle du sens
+relu, vide sinon).
 
 ## `paires.json`
 
@@ -767,6 +946,22 @@ ce que l'app embarque ; `docs/sources-licences.md` fait foi pour la décision.
 
 ## Contrôles (`uv run wenlu check`)
 
+- « mots HSK : comptes » — bloquant : 11 092 entrées, et le compte de chaque niveau
+  (500, 772, 973, 1 000, 1 071, 1 140, 5 636), identifiants uniques.
+- « mots HSK : sans CC-CEDICT » — bloquant : ni la colonne `CEDICT` ni `Variants` ne sont
+  lues ni écrites, et aucune clé d'entrée CC-CEDICT (`[ai4 hao4]`) n'est dans la liste.
+- « mots HSK : caractères » — bloquant : chaque sinogramme d'une graphie ou d'un exemple
+  est dans la liste des 3 000 caractères (`hsk-*.txt`) ; 2 971 le sont, 29 caractères de la
+  liste ne figurent dans aucun mot.
+- « mots HSK : concordance avec l'OCR » — bloquant quand `hsk30-wordlist.txt` est
+  téléchargé : la colonne `officiel`, niveau par niveau et dans l'ordre, est l'OCR
+  d'elkmovie. Signalé sans la source.
+- « mots HSK : source » — signalé : l'empreinte de `hsk30.csv` téléchargé est celle que
+  cite l'en-tête ; sinon relancer `wenlu listes mots` et relire le diff.
+- « mots HSK : pinyin » — bloquant : une syllabe numérotée par sinogramme, égale au pinyin
+  retenu ; les mots de position suivent `MOTS_DE_POSITION` ; une entrée à `·` a une
+  syllabe au ton neutre.
+- « mots HSK : lectures » — signalé : chaque syllabe est une lecture connue du caractère.
 - « fiches : sens » — bloquant : chaque fiche relue porte `sens_fr` et `sens_en`, et
   tout sens écrit tient en 40 caractères au plus, sans point final (voir « Le sens »).
 - « fiches : rôle son » — signalé : un rôle `son` dont la phonétique ne se lit pas
@@ -907,6 +1102,95 @@ Après `export`, hors de `tout`. La recette de la décision du 28 septembre 2026
 - `docs/licences-decompositions.md`, versionné : décompte par source, recette, lignes de
   surcharge superflues, ce que le projet doit encore à Make Me a Hanzi (embarqué ou non),
   puis caractère par caractère. Deux passages écrivent les mêmes octets.
+
+## Liste des mots HSK 3.0 (story D.1)
+
+`data/sources/listes/hsk-mots.tsv`, versionné, écrit par `uv run wenlu listes mots`
+(`mots_hsk.py`) depuis deux fichiers que `wenlu fetch` télécharge dans `data/work/sources/` :
+`hsk30.csv` d'`ivankra/hsk30` (MIT, la source) et `hsk30-wordlist.txt`, le `wordlist.txt`
+d'`elkmovie/hsk30` (MIT, l'OCR de Pleco du PDF officiel, le contrôle). Le PDF de
+GF 0025-2021 reste illisible d'ici (`moe.gov.cn` bloqué) : même montage que les listes de
+caractères `hsk-*.txt`. L'en-tête du fichier dit les sources, leurs SHA-256, leurs licences
+(texte dans `data/sources/licences/MIT-hsk30.txt`, exporté) et la date du relevé ; la
+commande garde cette date tant que l'empreinte de `hsk30.csv` ne change pas, et deux
+passages écrivent les mêmes octets.
+
+11 092 entrées, les seuls mots nouveaux de chaque niveau, lus en cumul comme les
+caractères : HSK 1 500, HSK 2 772, HSK 3 973, HSK 4 1 000, HSK 5 1 071, HSK 6 1 140,
+HSK 7-9 5 636. Une ligne par entrée, dans l'ordre de la norme :
+
+| Colonne | Contenu |
+|---|---|
+| `id` | l'identifiant d'ivankra, `L<niveau>-<rang>` (`L1-0002`) : le niveau et le rang dans la table du niveau |
+| `forme` | la graphie principale, en sinogrammes seuls |
+| `pinyin` | le pinyin retenu, sans sandhi, en diacritiques (`àihào`, `bù kèqì`, `Běijīng`) |
+| `syllabes` | une syllabe numérotée par sinogramme (`ai4 hao4`) ; `v` pour ü, `5` pour le ton neutre, `r5` pour le 儿 de l'érhua |
+| `syllabes_pleines` | la lecture au ton plein quand `pinyin` neutralise une syllabe (règles ci-dessous) ; vide sinon |
+| `niveau` | `1` à `6`, ou `7-9` |
+| `categorie` | la ou les catégories du site officiel, séparées par `/` : `N` nom, `V` verbe, `Adj` adjectif, `Adv` adverbe, `M` classificateur, `Num` numéral, `Pron` pronom, `Prep` préposition, `Conj` conjonction, `Aux` particule, `Intj` interjection, `Prefix`, `Suffix`, `Phonetic` onomatopée ; vide pour 1 359 entrées que le site ne classe pas |
+| `variantes` | les autres graphies, `forme:pinyin:syllabes`, séparées par `;` (`爸:bà:ba4`, `有一些:yǒuyīxiē:you3 yi1 xie1`, `谁:shuí:shui2`) |
+| `exemple` | l'emploi que la norme cite pour un affixe ou un mot-outil, même format (`第` → `第二:dì-èr:di4 er4`) |
+| `officiel` | l'entrée telle que la norme l'imprime (`白（形）`, `称¹（动）`, `…极了`, `爸爸｜爸`) |
+| `pinyin_officiel` | le pinyin du site officiel tel quel, avec `∥`, `·` et le sandhi |
+
+Lecture des graphies (`mots_hsk.deplier`) : `爸爸|爸` fait deux graphies ; `第（第二）`, dont
+la parenthèse contient le mot, est le mot 第 cité dans l'emploi 第二 (22 entrées) ; `有（一）些`,
+`好（不）容易`, `茅台（酒）` ont un élément facultatif, la forme courte d'abord ; `…极了`,
+`…分之…` perdent leurs points de suspension (le mot est 极了, `officiel` les garde) ; `称¹`,
+`面²` leur numéro d'homographe ; `谁 shéi/shuí` et `熟 shú/shóu` font deux graphies de mêmes
+sinogrammes. `〇`, hors des blocs de sinogrammes unifiés, se lit `líng`.
+
+Ce qui n'est jamais lu : la colonne `CEDICT` d'ivankra (la clé d'une entrée CC-CEDICT)
+et la colonne `Variants`, dont le JSON la recopie. Le lecteur (`lire_ivankra`) ne garde
+que `ID`, `Simplified`, `Pinyin`, `POS`, `Level`, `WebPinyin` et `OCR`. Aucun sens :
+la liste dit la forme, le pinyin, le niveau et la catégorie.
+
+### Le pinyin des mots, tranché
+
+Base : la colonne `Pinyin` d'ivankra, le pinyin du site officiel nettoyé **sans sandhi**
+(一 yī, 不 bù), la convention du dépôt (`pinyin.py`). Le pinyin du site (`WebPinyin`)
+écrit le sandhi (`yíxià`, `bú kèqì`) et deux notations que la base perd :
+
+- `∥` sépare un verbe séparable (`bāng∥máng`) : sans effet sur la lecture, ignoré.
+- `·` précède une syllabe au **ton neutre facultatif**, la notation du 现代汉语词典 : le
+  ton est neutre d'ordinaire et peut se dire plein (知道 zhī·dào, 学生 xué·shēng,
+  出来 chū∥·lái). **Règle retenue : la syllabe pointée s'écrit au ton neutre** (zhīdao,
+  xuésheng, chūlai), la lecture de l'oral courant, comme le dépôt le faisait déjà pour les
+  mots de fiche d'après CC-CEDICT et comme le propriétaire l'a décidé pour les mots de
+  position le 26 septembre 2026. La lecture au ton plein n'est pas fausse : elle reste
+  dans `syllabes_pleines` et la recherche l'accepte (`zhi1dao4` trouve 知道). 138 entrées
+  portent `·` ; pour 可不是 (kěbú·shi), la syllabe est déjà neutre dans la base.
+
+**Les neuf conflits avec les mots de position.** `pinyin.MOTS_DE_POSITION` (décision du
+propriétaire du 26 septembre 2026, « Je te laisse décider » : la lecture du 现代汉语词典)
+écrit au ton neutre la seconde syllabe de 21 mots de position (后面 hòumian, 这里 zhèli…) et
+garde le ton plein de 旁边, 那边, 这边. Neuf entrées de la liste disent autrement dans la
+colonne `Pinyin` :
+
+| Mot | `Pinyin` | `WebPinyin` | Retenu | Par |
+|---|---|---|---|---|
+| 哪里 | nǎlǐ | nǎ·lǐ | nǎli | la règle `·` (et la décision) |
+| 那里 | nàlǐ | nà·lǐ | nàli | la règle `·` (et la décision) |
+| 这里 | zhèlǐ | zhè·lǐ | zhèli | la règle `·` (et la décision) |
+| 外面 | wàimiàn | wài·miàn | wàimian | la règle `·` (et la décision) |
+| 后面 | hòumiàn | hòumiàn | hòumian | la décision du 26 septembre |
+| 里面 | lǐmiàn | lǐmiàn | lǐmian | la décision du 26 septembre |
+| 前面 | qiánmiàn | qiánmiàn | qiánmian | la décision du 26 septembre |
+| 上面 | shàngmiàn | shàngmiàn | shàngmian | la décision du 26 septembre |
+| 下面 | xiàmiàn | xiàmiàn | xiàmian | la décision du 26 septembre |
+
+**La décision du 26 septembre l'emporte**, pour trois raisons : c'est une décision écrite du
+propriétaire, que les contes, les lettres, WeChat et l'éclair suivent déjà
+(`ecarts_de_position`) ; le dictionnaire ne doit pas dire un autre pinyin que le reste de
+l'app pour le même mot ; et le 现代汉语词典, la référence que la norme suit elle-même pour
+`·`, écrit 后面 hòu·mian. Les douze autres mots de position de la liste (北边 běibian…,
+旁边 pángbiān) concordent déjà. La lecture pleine de la liste reste dans `syllabes_pleines` :
+`hou4 mian4` trouve 后面.
+
+Chaque syllabe se lit dans les lectures de son caractère (surcharges, puis `kMandarin`,
+`kTGHZ2013` et `kXHC1983` d'Unihan), au ton plein ou neutre : c'est ce qui découpe le pinyin
+en syllabes (`mots_hsk.decouper`), sans deviner. Les 11 092 entrées se lisent toutes ainsi, y
+compris 闺女 guīnü (女 au ton neutre).
 
 ## Format intermédiaire (story 1.1)
 
