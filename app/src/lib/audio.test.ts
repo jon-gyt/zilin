@@ -8,6 +8,8 @@ import {
   aFichier,
   aVoixTelephone,
   direParLeTelephone,
+  enonce,
+  POINT_FINAL,
   voixMandarin,
   voixPretes,
   classerVoix,
@@ -248,7 +250,7 @@ describe('la voix du téléphone en repli', () => {
     expect(aFichier(MANIFESTE, '住')).toBe(false);
     expect(aAudio(MANIFESTE, '住')).toBe(true);
     expect(await dire('住')).toBe(true);
-    expect(s.dits).toEqual(['住']);
+    expect(s.dits).toEqual(['住。']);
     expect(s.annulations).toBeGreaterThanOrEqual(1);
     expect(l.joues).toEqual([]);
   });
@@ -304,7 +306,7 @@ describe('un fichier qui ne se charge pas', () => {
     reglerVoix('enregistree');
     expect(await prononcer('人')).toBe('telephone');
     expect(l.essais).toBe(1);
-    expect(s.dits).toEqual(['人']);
+    expect(s.dits).toEqual(['人。']);
     expect(await dire('人')).toBe(true);
   });
 
@@ -452,7 +454,7 @@ describe('la voix de l’appareil, classée', () => {
     configurerAudio({ synthese: () => s, lecteur: () => l, fetchFn: fetchDEssai([]) });
     expect(await prononcer('人')).toBe('telephone');
     expect(l.joues).toEqual([]);
-    expect(s.dits).toEqual([{ text: '人', rate: vitesse('人'), uri: 'com.apple.voice.premium.zh-CN.Lilian' }]);
+    expect(s.dits).toEqual([{ text: '人。', rate: vitesse('人'), uri: 'com.apple.voice.premium.zh-CN.Lilian' }]);
     expect(vitesse('人')).toBeLessThan(vitesse('天天'));
     expect(vitesse('天天')).toBeLessThan(1);
   });
@@ -464,7 +466,7 @@ describe('la voix de l’appareil, classée', () => {
     reglerVoix('enregistree');
     expect(await prononcer('人')).toBe('fichier');
     expect(await prononcer('住')).toBe('telephone');
-    expect(s.dits.map((d) => d.text)).toEqual(['住']);
+    expect(s.dits.map((d) => d.text)).toEqual(['住。']);
   });
 
   it('dans l’app iOS, la voix passe par AVSpeechSynthesizer, nommée par son rang, session en lecture', async () => {
@@ -482,7 +484,7 @@ describe('la voix de l’appareil, classée', () => {
     expect(await voixPretes()).toBe(true);
     expect(voixMandarin()?.voiceURI).toBe('com.apple.voice.premium.zh-CN.Lilian');
     expect(await prononcer('人')).toBe('telephone');
-    expect(dits).toEqual([['人', 'zh-CN', 4]]);
+    expect(dits).toEqual([['人。', 'zh-CN', 4]]);
     expect(session.type).toBe('playback');
     expect(web.dits).toEqual([]);
   });
@@ -590,6 +592,60 @@ describe('un seul son à la fois', () => {
     expect(await jouerSon('blob:wenlu/voix')).toBe(true);
     expect(l.joues).toEqual(['blob:wenlu/voix']);
     expect(s.annulations).toBe(avant + 1);
+  });
+});
+
+/** Les caractères chinois d'un texte, dans l'ordre : ce qui se prononce. */
+function hanzi(t: string): string {
+  return [...t].filter((x) => /\p{Script=Han}/u.test(x)).join('');
+}
+
+describe('l’énoncé : un caractère seul n’est pas coupé net', () => {
+  it('un caractère seul finit sur un point final, qui lui donne sa chute', () => {
+    expect(enonce('人')).toBe('人。');
+    expect(enonce('好')).toBe(`好${POINT_FINAL}`);
+    expect(enonce('天天')).toBe('天天。');
+  });
+
+  it('un texte qui finit déjà sur une ponctuation finale reste tel quel', () => {
+    expect(enonce('你好。')).toBe('你好。');
+    expect(enonce('你好吗？')).toBe('你好吗？');
+    expect(enonce('太好了！')).toBe('太好了！');
+    expect(enonce('他说：「好。」')).toBe('他说：「好。」');
+    expect(enonce('好啊……')).toBe('好啊……');
+  });
+
+  it('une virgule ou une espace finale devient un point', () => {
+    expect(enonce(' 人 ')).toBe('人。');
+    expect(enonce('你好，')).toBe('你好。');
+    expect(enonce('春、')).toBe('春。');
+  });
+
+  it('ne change jamais ce qui se prononce : aucun mot ajouté, aucun retiré', () => {
+    for (const t of ['人', '天天', '叶公好龙', '你好，', '你好吗？', '他说：「好。」', '一', '了']) {
+      expect(hanzi(enonce(t))).toBe(hanzi(t));
+      expect(enonce(t).startsWith(t.trim().replace(/[，、]$/u, ''))).toBe(true);
+    }
+    expect(enonce('')).toBe('');
+    expect(enonce('，')).toBe('，');
+  });
+
+  it('la voix du web reçoit le point final, à la vitesse du caractère seul', async () => {
+    const s = syntheseDeVoix(APPLE);
+    configurerAudio({ synthese: () => s, fetchFn: fetchDEssai([]) });
+    (globalThis as { SpeechSynthesisUtterance?: unknown }).SpeechSynthesisUtterance = UtteranceDEssai;
+    await prononcer('人');
+    expect(s.dits).toEqual([{ text: '人。', rate: vitesse('人'), uri: 'com.apple.voice.premium.zh-CN.Lilian' }]);
+    expect(vitesse('人')).toBe(0.75);
+  });
+
+  it('la voix native aussi', async () => {
+    const dits: string[] = [];
+    const n: SyntheseNative = { voix: async () => APPLE, dire: async (t) => void dits.push(t), taire: async () => undefined };
+    configurerAudio({ natif: () => n, synthese: () => null, fetchFn: fetchDEssai([]) });
+    await voixPretes();
+    await prononcer('好');
+    expect(dits).toEqual(['好。']);
   });
 });
 

@@ -343,6 +343,39 @@ export function vitesse(texte: string): number {
   return [...texte].length <= 1 ? 0.75 : 0.9;
 }
 
+/**
+ * La ponctuation finale d'un énoncé : 。！？ (ou leurs formes latines, ou des points de
+ * suspension), suivie au plus de guillemets ou de parenthèses fermants.
+ */
+const FIN_DE_PHRASE = /[。！？!?．.…][」』”’"')）]*$/u;
+
+/** Une pause en fin de texte (virgule, deux-points) : le point final la remplace. */
+const PAUSE_FINALE = /[，、；：,;:\s]+$/u;
+
+/** Le point final ajouté à un texte qui n'en a pas. */
+export const POINT_FINAL = '。';
+
+/**
+ * Ce que la voix de l'appareil reçoit pour dire un texte : le texte, terminé par un point
+ * final (retour du propriétaire du 29 septembre 2026 : « quand je veux lire un seul
+ * caractère par la voix, le son est coupé trop vite »). Sans ponctuation, la synthèse d'Apple
+ * (AVSpeechSynthesizer, derrière `speechSynthesis` dans WebKit comme derrière le greffon), et
+ * bien d'autres, traitent un caractère seul comme un fragment : la syllabe s'arrête net, sans
+ * sa chute, et le ton perd sa fin (le 3e et le 4e surtout). Le point final donne la chute
+ * d'une phrase dite ; il ne se prononce pas. Un texte qui finit déjà sur 。！？ reste tel
+ * quel ; une virgule finale devient un point.
+ *
+ * Rien devant : c'est la fin qui est rognée, pas le début (le greffon ouvre la session audio
+ * dès son démarrage), et un signe placé devant ne fait pas de silence chez Apple. Aucun mot
+ * n'est ajouté : les caractères dits sont ceux du texte. Pur.
+ */
+export function enonce(texte: string): string {
+  const t = texte.trim();
+  if (t === '' || FIN_DE_PHRASE.test(t)) return t;
+  const nu = t.replace(PAUSE_FINALE, '');
+  return nu === '' ? t : `${nu}${POINT_FINAL}`;
+}
+
 /** Le temps laissé au navigateur pour annoncer ses voix. */
 export const ATTENTE_VOIX_MS = 1000;
 
@@ -515,8 +548,9 @@ export async function dire(texte: string, file?: string): Promise<boolean> {
 
 /**
  * La voix du téléphone : une seule phrase à la fois, en mandarin, par la voix classée en
- * tête (`classerVoix`). Dans l'app iOS, par la synthèse native ; ailleurs, `speechSynthesis`,
- * un peu ralentie (`vitesse`). Ce qui jouait se tait. `moi` : le rang de la demande
+ * tête (`classerVoix`), terminée par un point final (`enonce`). Dans l'app iOS, par la
+ * synthèse native ; ailleurs, `speechSynthesis`, un peu ralentie (`vitesse`). Ce qui jouait
+ * se tait. `moi` : le rang de la demande
  * (`prononcer`) ; un appel direct en prend un nouveau.
  */
 export function direParLeTelephone(texte: string, moi = ++tour): boolean {
@@ -527,7 +561,7 @@ export function direParLeTelephone(texte: string, moi = ++tour): boolean {
   if (n !== null && rang >= 0) {
     taireTout();
     reglerSession('playback');
-    void n.dire(texte, voix.lang, rang).catch(() => undefined);
+    void n.dire(enonce(texte), voix.lang, rang).catch(() => undefined);
     return true;
   }
   const s = synthese();
@@ -536,7 +570,8 @@ export function direParLeTelephone(texte: string, moi = ++tour): boolean {
   if (!web) return false;
   taireTout();
   try {
-    const u = new SpeechSynthesisUtterance(texte);
+    /* Le point final donne sa chute à la syllabe (`enonce`) ; la vitesse se lit sur le texte. */
+    const u = new SpeechSynthesisUtterance(enonce(texte));
     u.voice = web;
     u.lang = web.lang;
     u.rate = vitesse(texte);
