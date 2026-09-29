@@ -1,6 +1,6 @@
 # Sources et licences
 
-Décision de la story 0.4. Vérification faite le 21 septembre 2026 sur les sources primaires ; licence des décompositions instruite et tranchée le 26 septembre 2026, migration faite le 28 (§10).
+Décision de la story 0.4. Vérification faite le 21 septembre 2026 sur les sources primaires ; licence des décompositions instruite et tranchée le 26 septembre 2026, migration faite le 28 (§10) ; données d'entraînement du classifieur des tons ajoutées le 29 septembre 2026 (§11).
 Ce document fait foi pour le pipeline `data/` et pour l'écran « Licences » de l'app.
 
 Hypothèse de distribution : PWA gratuite sur le web, app iOS payante (achat à vie et abonnement), donc usage commercial et distribution par l'App Store.
@@ -27,6 +27,8 @@ Hypothèse de distribution : PWA gratuite sur le web, app iOS payante (achat à 
 | Polices 甲骨文 | formes oraculaires | aucune licence ouverte vérifiée | à écarter en l'état |
 | Audio — Kokoro (hexgrad) | voix neuronale pré-générée, modèle exécuté dans le pipeline | Apache 2.0, code et poids — `LICENSE` et `README.md` du dépôt lus le 21 septembre 2026, carte du modèle (`license: apache-2.0`) lue le 24 septembre 2026 | **fournisseur par défaut** ; rien n'est redistribué hors de nos propres fichiers, aucune redevance par écoute |
 | Audio — Azure AI Speech (Microsoft) | voix neuronale pré-générée | **à vérifier** : conditions non lues, `learn.microsoft.com` bloqué par le proxy de sortie (21 septembre 2026) | second fournisseur, hors défaut ; aucun fichier synthétisé par lui n'entre dans un artefact distribué avant lecture des conditions |
+| Tons, entraînement — syllabes du mandarin, jeu 5961 de data.gov.tw (deux voix de Taïwan), par la réédition `Punpuf/shenzhen-mandarin-audio@a3617b7` | entraînement des poids du classifieur des tons de « Dis-le » (`tons.json`) ; aucun son embarqué | Open Government Data License 1.0 (OGDL-Taiwan-1.0), compatible CC BY 4.0 — texte intégral lu dans `spdx/license-list-data` le 29 septembre 2026 ; page du jeu illisible depuis l'environnement | **utilisable avec obligations** : attribution dans `tons.json`, `LICENCES.md` et la page des licences, texte de la licence dans l'export (§11) ; fournisseur exact à relever sur la page du jeu |
+| Tons, développement et test — `hugolpz/audio-cmn` (voix de Chen Wang et de Yue Tan) | choix des seuils, mesure de la précision | CC BY-SA (README lu le 29 septembre 2026, version non précisée) | **jamais entraîné, jamais distribué** : aucun poids n'en dérive (§11) |
 
 Règle inchangée : aucune reprise de Wiktionary ni de sites d'étymologie tiers. Les textes d'origine sont rédigés pour l'app.
 
@@ -216,6 +218,7 @@ Fichiers de licence à embarquer, tels quels :
 - Notice de permission Unicode.
 - `OFL.txt` de chaque police ancienne retenue, avec ses notices de copyright.
 - Notice de copyright et texte de la MIT de cjk-decomp (`MIT-cjk-decomp.txt`).
+- Texte de l'Open Government Data License 1.0 (`OGDL-Taiwan-1.0.txt`), avec l'attribution du jeu 5961 dans `tons.json` et `LICENCES.md` (§11).
 - Aucun texte LGPL ni GPL : ni `dictionary.txt` ni rien qui en dérive n'est embarqué (§10).
 
 Pipeline `data/` :
@@ -255,6 +258,7 @@ App Store :
 - Couverture sigillaire insuffisante aujourd'hui. Choix à refaire quand Kaiyuan sera publiée.
 - Audio : tranché le 21 septembre 2026 en changeant de terrain. Plutôt que de faire vérifier les conditions d'un service, le pipeline exécute un modèle ouvert en local — **Kokoro** (`hexgrad/kokoro`), dont l'Apache 2.0 a été lue en entier sur `raw.githubusercontent.com/hexgrad/kokoro/main/LICENSE` et dont le `README.md` du même dépôt annonce des poids sous la même licence ; nous ne redistribuons ni le code ni les poids, seulement des fichiers audio produits chez nous, sur lesquels l'Apache 2.0 ne dit rien, sans service appelé donc sans redevance par écoute. Retenu contre MeloTTS (MIT, mais aucune version publiée sur PyPI dans le dépôt officiel, `transformers==4.27.4` épinglé, `mecab-python3` à compiler et un `unidic download`) et CosyVoice 2 (Apache 2.0, mais conda, sous-modules git, `sox` système et 0,5 milliard de paramètres) : Kokoro seul s'installe par `uv` sans compilation, tient sur un CPU avec ses 82 millions de paramètres, et rend déjà du 24 kHz, la fréquence visée. La carte du modèle `hexgrad/Kokoro-82M-v1.1-zh` sur Hugging Face, illisible depuis l'environnement de développement, a été lue par le workflow `donnees` le 24 septembre 2026 : elle déclare `license: apache-2.0` (run 36026523964, fichier `carte-modele.md` de l'artefact). La réserve est levée ; les 731 premiers fichiers du seuil 255 ont été produits avec la voix `zf_001`. Azure AI Speech reste disponible en second (`--fournisseur azure`), avec sa ligne « à vérifier » inchangée et l'avertissement à chaque passage.
 - Entité juridique porteuse du compte développeur, qui sera le titulaire des obligations d'attribution.
+- Tons : le fournisseur exact, l'année et le nom du jeu 5961 de data.gov.tw, que demande le premier alinéa de l'attribution OGDL, sont à relever sur la page du jeu depuis un réseau ouvert (le workflow `donnees`), avant la soumission à l'App Store (§11).
 - Licence des décompositions : **tranchée** le 26 septembre 2026, migrée le 28 (§10.6). Reste, avec le conseil du §9 : l'argument « des décompositions sont des faits » n'est plus nécessaire à notre position, mais les écarts à la norme repris de la 0.1.0 (§10.6) sont à corriger avec les fiches.
 - `app/public/strokes-demo.json` : corrigé le 28 septembre 2026, il porte l'en-tête APL (§10.6).
 
@@ -377,3 +381,14 @@ Correction des dix-huit écarts (28 septembre 2026) :
 - **Parcours** : six jours changent de brique, aucun composé de jour (lire 154 et 181 ; HSK 167, 171, 191 et 214) ; refigés par `wenlu parcours figer`. Les devinettes de 告, 走 et 旁, qui citeraient un composant découpé, sans carte, sont retirées ; celle de 画 suit l'ordre d'écriture.
 - **Export** : 330 décompositions ; cjk-decomp seul 233, nos surcharges seules 60, les deux 37 ; `dictionary.txt` 0. Familles déplacées : 帝, 旁, 真, 同, 告, 前, 师, 夏 ; familles 凡, 勿, 廿, 直 retirées.
 - **Relevé en passant** : le 学字头 de la norme (413, 𭕄) compte trois traits, sans 冖 ; la découpe de 𭕄 dans 学, et avec elle 学, 觉, 兴 et 举, sont à reprendre, ce qui déplacerait les jours dès le jour 13 : décision laissée au propriétaire (`decompositions-corrigees.md`).
+
+## 11. Les poids du classifieur des tons (29 septembre 2026)
+
+La question « Dis-le » (story 9.1) reconnaît le ton d'un caractère prononcé, sur l'appareil, sans réseau : un suivi de hauteur (YIN, code de l'app) et un petit ensemble de perceptrons, 31 Ko de poids (`data/sources/tons/modele.json`, exportés dans `tons.json`). Provenance complète, empreintes et méthode : `data/sources/tons/PROVENANCE.md`.
+
+- **Entraînement** : les deux voix du jeu 5961 de data.gov.tw (1 467 syllabes chacune), sous Open Government Data License 1.0. Le texte intégral (`data/sources/licences/OGDL-Taiwan-1.0.txt`) a été lu : licence mondiale, gratuite, irrévocable, pour tout usage, produits et services dérivés compris (§2.1) ; l'attribution est obligatoire, faute de quoi la licence est nulle *ab initio* (§3.2) ; compatible CC BY 4.0 (§4.2). Les poids en dérivent : ils sont à nous, sous l'obligation d'attribuer. Aucun son n'est embarqué.
+- **Attribution** : `wenlu export` l'écrit dans `tons.json` (champ `attribution`) et dans `LICENCES.md`, que la page « Licences et sources » du site reprend ; le texte de la licence est copié dans l'export. `wenlu check` (« tons : poids », « tons : export ») bloque si la licence, l'attribution, la provenance ou l'empreinte des poids manquent, ou si les poids dépassent 1 Mo.
+- **Contours paramétriques** : tirés des descriptions phonétiques des tons (Chao, Xu 1997), générés par le script d'entraînement, sans donnée tierce.
+- **Développement et test** : `hugolpz/audio-cmn` (CC BY-SA) et les fichiers Kokoro de l'app servent à régler les seuils et à mesurer ; aucun poids n'en dérive, rien n'en est distribué. Le partage à l'identique de la CC BY-SA ne s'applique donc pas.
+- **Écartés** : Tone Perfect (MSU), non commercial ; `zispace/hanyu-pinyin-audio`, sans licence. Common Voice (CC0), AISHELL-1 et THCHS-30 (Apache 2.0, licences non lues) restent des pistes pour réentraîner sur des voix du continent, depuis le workflow `donnees` : leurs sites sont bloqués ici.
+- **Réserve** : la page du jeu 5961 est illisible depuis l'environnement de développement. Le fournisseur, l'année et l'application de l'OGDL à ce jeu viennent du README de la réédition ; à vérifier avant tout usage commercial, comme la carte de Kokoro l'a été (§9).
