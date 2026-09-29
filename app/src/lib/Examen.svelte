@@ -3,7 +3,7 @@
    * L'écran de l'examen 科举 et du 月课 (story 8.3), d'après la maquette validée par le
    * propriétaire le 29 septembre 2026 (`maquettes/examen.html`), qui fait foi.
    *
-   * - L'annonce : la scène (le 号舍, Tao en robe bleue d'écolier 青衿 avec son pinceau et le
+   * - L'annonce : la scène (le 号舍, Tao au col bleu d'écolier 青衿, sans robe, avec son pinceau et le
    *   panier 考篮 ; au 月课, le 书院 et Tao un livre sous le bras), le nom de l'examen dessiné
    *   depuis ses traits, ce qu'il donne, les règles, le bouton.
    * - La question : « Quitter », l'examen et le rang de la question, les pastilles (jade du
@@ -115,7 +115,7 @@
     /**
      * Le maître Xing 杏 est rencontré (`xing.ts`) : c'est lui l'examinateur. Il pose les
      * questions derrière sa petite table, accorde la seconde chance et lit le 榜 ; Tao passe
-     * l'examen en robe d'écolier, comme avant. Avant la rencontre, Tao dit tout, sans changement.
+     * l'examen au col d'écolier, comme avant. Avant la rencontre, Tao dit tout, sans changement.
      */
     xing?: boolean;
     /** Commence (ou reprend) l'examen, avec les questions posables de la série. */
@@ -419,7 +419,7 @@
           ><!-- eslint-disable-next-line svelte/no-at-html-tags -->{@html dessinHaoshe(plaquesHaoshe, traits)}</svg
         >
         <div class="tao-pose" style="left:{HAOSHE_TAO.left * 100}%;top:{HAOSHE_TAO.top * 100}%;width:{HAOSHE_TAO.width * 100}%">
-          <Tao stade={taoStade} posture="chemin" humeur="calme" robe panier size={160} />
+          <Tao stade={taoStade} posture="chemin" humeur="calme" ecolier panier size={160} />
         </div>
         {#if xing}
           <!-- l'examinateur, derrière sa petite table, à la taille de Tao -->
@@ -573,7 +573,7 @@
           {#if xing}
             <span class="duo-poses">
               <Xing posture={POSTURES.examen} humeur={humeurXing(retour.ok ? 'juste' : 'pas-celle')} size={72} />
-              <Tao stade={taoStade} posture="chemin" humeur={retour.ok ? 'joie' : 'calme'} robe size={72} reaction={retour.ok ? 'bond' : null} />
+              <Tao stade={taoStade} posture="chemin" humeur={retour.ok ? 'joie' : 'calme'} ecolier size={72} reaction={retour.ok ? 'bond' : null} />
             </span>
           {:else}
             <Tao stade={taoStade} posture="chemin" humeur={retour.ok ? 'joie' : 'calme'} size={64} reaction={retour.ok ? 'bond' : null} />
@@ -590,7 +590,7 @@
         {#if xing}
           <span class="duo-poses">
             <Xing posture={POSTURES.examen} humeur={humeurXing('question')} size={72} />
-            <Tao stade={taoStade} posture="chemin" humeur="calme" robe panier size={72} />
+            <Tao stade={taoStade} posture="chemin" humeur="calme" ecolier panier size={72} />
           </span>
         {:else}
           <Tao stade={taoStade} posture="chemin" humeur="calme" panier size={76} />
