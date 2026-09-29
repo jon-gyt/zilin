@@ -9,6 +9,7 @@ Licence : Arphic Public License, texte intégral et inaltéré dans `ARPHICPL.TX
 
 - Conversion de format : les lignes JSON de `graphics.txt` deviennent un fichier par famille, `{"<caractère>": {"s": [tracés], "m": [médianes]}}`.
 - Sous-ensemble : 602 caractères seulement — le seuil 255, le HSK 1, les caractères dessinés des fêtes, des termes solaires et des mots expliqués des contes, et leurs briques.
+- Dictionnaire : 3152 caractères — les 3 000 du HSK 3.0 et les composants de leurs décompositions — copiés à part, par lots de `dico-<n>.json` rangés dans l'ordre du pinyin, pour la loupe Chercher.
 - Les tracés et les médianes ne sont pas retouchés — ni arrondi, ni simplification, ni renommage —, hors les composants découpés décrits ci-dessous.
 
 ## Composants découpés dans un caractère hôte
