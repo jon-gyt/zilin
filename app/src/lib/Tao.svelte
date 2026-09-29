@@ -1,11 +1,12 @@
 <script lang="ts">
   /**
-   * Tao 桃, la graine de pêcher. Cinq stades, une posture par activité, trois humeurs.
+   * Tao 桃, le noyau de pêche qui grandit. Cinq stades, une posture par activité, trois humeurs.
    * Traits simples, encre et jade, dans l'esprit de la maquette.
    *
    * Aucun cinabre : le rouge reste le sceau de l'app. Le seul rose (#E7A2B4) est celui
    * des fleurs, et seulement au stade « pêcher en fleur ». Ni ombre, ni dégradé, ni doré.
-   * Elle ne tombe jamais malade et ne pleure jamais : l'absence la met en pot, rien de plus.
+   * Elle ne tombe jamais malade et ne pleure jamais : après une absence, elle t'attend assise
+   * au pavillon 亭, un bol de thé à côté (`halte`, maquette validée `maquettes/chemin.html`).
    *
    * Les jours de fête, elle porte l'accessoire de la fête (brief §9). Au-dessus de la tête :
    * un flocon au Nouvel An 春节, un brin de saule à 清明, une étoile à 七夕, un chrysanthème
@@ -14,7 +15,7 @@
    * solstice d'hiver 冬至. Tous sont toujours dessinés et cachés ; `data-fete` sur <html>
    * montre le bon (`tokens.css`), sans que chaque écran ait à passer la fête. Pas
    * d'accessoire là où la place est déjà prise : ceux de la tête cèdent la place à la bulle
-   * et à la lanterne, ceux d'à côté au bol, à la feuille et au pot.
+   * et à la lanterne, ceux d'à côté au bol, à la feuille et au pavillon.
    *
    * En cuisine, elle goûte (`goute`) : un bol fumant à côté d'elle, la cuillère à la
    * bouche. Contente, elle saute (l'humeur `joie`) ; quand un ingrédient a été pris pour
@@ -34,7 +35,7 @@
   import type { Humeur, PostureVue, Reaction, Stade } from './tao';
 
   let {
-    stade = 'graine',
+    stade = 'noyau',
     posture = 'chemin',
     humeur = 'calme',
     size = 110,
@@ -81,13 +82,12 @@
 
   const arbre = $derived(stade === 'jeune' || stade === 'fleur' || stade === 'peches');
   const grand = $derived(stade === 'fleur' || stade === 'peches');
-  /** Les yeux se ferment en pot : elle attend, elle ne dort pas de tristesse. */
+  /** Au pavillon, elle attend : assise, plus petite, sous le toit. */
+  const halte = $derived(posture === 'halte');
   const grimace_ = $derived(grimace || reaction === 'grimace');
   /* Une bouchée la réveille : l'ennui cède au calme le temps de manger. */
   const regard = $derived(
-    posture === 'pot'
-      ? 'pot'
-      : grimace_
+    grimace_
         ? 'grimace'
         : reaction === 'bond'
           ? 'joie'
@@ -117,18 +117,28 @@
 <svg
   class="tao {stade} {posture} {humeur}"
   class:penchee
-  class:grimace={grimace_ && posture !== 'pot'}
+  class:grimace={grimace_ && !halte}
   class:croque={mange}
-  class:bondit={reaction === 'bond' && posture !== 'pot'}
+  class:bondit={reaction === 'bond' && !halte}
   width={size}
   height={size}
   viewBox="0 0 200 200"
   aria-hidden="true"
 >
-  {#if posture !== 'pot' && !robe}
+  {#if halte}
+    <!-- La halte : le pavillon 亭, son toit de malachite, ses poteaux et son banc de gomme-gutte. -->
+    <g class="pavillon">
+      <path d="M6 64q44-6 94-46q50 40 94 46z" fill="var(--chemin-toit)" />
+      <path d="M20 64h160M28 66v124M172 66v124" stroke="var(--chemin-bois)" stroke-width="7" stroke-linecap="round" />
+      <path d="M12 192h176" stroke="var(--line)" stroke-width="4" stroke-linecap="round" />
+      <path d="M44 146h112" stroke="var(--chemin-bois)" stroke-width="6" stroke-linecap="round" />
+      <path d="M52 146v34M148 146v34" stroke="var(--chemin-bois)" stroke-width="4" stroke-linecap="round" />
+    </g>
+  {:else if !robe}
     <path class="sol" d="M60 168q40 12 80 0" stroke="var(--line)" stroke-width="4" fill="none" stroke-linecap="round" />
   {/if}
 
+  <g transform={halte ? 'translate(30 44) scale(0.55)' : undefined}>
   <g class="vivant">
     {#if robe}
       <!-- la robe bleue de l'écolier 青衿, le col clair croisé, le sac à livres 书袋 -->
@@ -150,7 +160,7 @@
         </g>
         <circle cx="60" cy="173" r="6.5" fill="var(--h-carte)" stroke="var(--h-encre)" stroke-width="3" />
       </g>
-    {:else if posture === 'chemin'}
+    {:else if posture === 'chemin' || halte}
       <path class="pieds" d="M88 156v14M112 156v14" stroke="var(--jade)" stroke-width="7" stroke-linecap="round" />
     {:else if posture === 'anecdote'}
       <path
@@ -164,8 +174,7 @@
       />
     {/if}
 
-    <!-- en pot, elle se tient plus haut que le bord : son visage reste entier -->
-    <g class="enterree" transform={posture === 'pot' ? 'translate(0,-22)' : ''}>
+    <g class="corps">
       <g class="plante">
         {#if arbre}
           <g class="houppier">
@@ -204,7 +213,7 @@
               <path d="M100 98v-18" stroke="var(--jade)" stroke-width="7" stroke-linecap="round" />
             </g>
           {/if}
-          <!-- le noyau : une amande d'encre, la graine de pêche -->
+          <!-- le noyau : une amande d'encre, le noyau de pêche -->
           <path
             class="noyau"
             d="M100 98q36 6 36 30t-36 30q-36-6-36-30t36-30z"
@@ -254,15 +263,6 @@
           {:else if regard === 'ennui'}
             <path d="M82 127h12M106 127h12" stroke="var(--ink)" stroke-width="5" stroke-linecap="round" />
             <path d="M93 140h14" stroke="var(--ink)" stroke-width="5" stroke-linecap="round" />
-          {:else if regard === 'pot'}
-            <path
-              d="M81 126q7 6 14 0M105 126q7 6 14 0"
-              stroke="var(--ink)"
-              stroke-width="5"
-              fill="none"
-              stroke-linecap="round"
-            />
-            <path d="M95 140h10" stroke="var(--ink)" stroke-width="5" stroke-linecap="round" />
           {:else}
             <g class="yeux">
               <circle cx="88" cy="126" r="4.5" fill="var(--ink)" />
@@ -274,18 +274,13 @@
       </g>
     </g>
   </g>
+  </g>
 
-  {#if posture === 'pot'}
-    <!-- Sans personne, elle se met en pot et attend. Au retour, elle se redresse. -->
-    <g class="pot">
-      <path
-        d="M60 140h80l-12 46H72z"
-        fill="var(--card)"
-        stroke="var(--ink)"
-        stroke-width="5"
-        stroke-linejoin="round"
-      />
-      <path d="M64 154h72" stroke="var(--ink)" stroke-width="3" opacity=".4" />
+  {#if halte}
+    <!-- Au retour, elle t'attend au pavillon, sans reproche : un bol de thé fume à côté d'elle. -->
+    <g class="the">
+      <path d="M126 130h30q-2 14-15 14t-15-14z" fill="var(--card)" stroke="var(--ink)" stroke-width="3.5" stroke-linejoin="round" />
+      <path class="vapeur" d="M136 120q-4-6 0-11M147 120q-4-6 0-11" stroke="var(--mist)" stroke-width="3" fill="none" stroke-linecap="round" />
     </g>
   {:else if posture === 'lecon'}
     <g class="bulle">
@@ -356,8 +351,8 @@
     </g>
   {/if}
 
-  <!-- au-dessus de la tête, là où la bulle et la lanterne ne sont pas -->
-  {#if posture !== 'lecon' && posture !== 'jeu'}
+  <!-- au-dessus de la tête, là où la bulle, la lanterne et le toit du pavillon ne sont pas -->
+  {#if posture !== 'lecon' && posture !== 'jeu' && !halte}
     <g class="fete-acc flocon" transform="translate(140 62)" stroke="var(--t1)" stroke-width="4" stroke-linecap="round">
       <path d="M0-13v26M-11.3-6.5l22.6 13M-11.3 6.5l22.6-13" />
     </g>
@@ -384,8 +379,8 @@
       <circle r="4.5" fill="var(--ju-coeur)" />
     </g>
   {/if}
-  <!-- à côté d'elle, là où le bol, la feuille et le pot ne sont pas -->
-  {#if posture !== 'pot' && posture !== 'revision' && posture !== 'lecture' && posture !== 'goute' && !porte}
+  <!-- à côté d'elle, là où le bol, la feuille et le pavillon ne sont pas -->
+  {#if !halte && posture !== 'revision' && posture !== 'lecture' && posture !== 'goute' && !porte}
     <g class="fete-acc yuebing">
       <circle cx="46" cy="148" r="19" fill="var(--t2)" stroke="var(--ink)" stroke-width="4" />
       <circle cx="46" cy="148" r="10" fill="none" stroke="var(--ink)" stroke-width="3" opacity=".55" />

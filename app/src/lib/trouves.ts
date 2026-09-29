@@ -1,7 +1,7 @@
 /**
  * Les caractères trouvés en chemin : ceux que l'anecdote d'une fête ou d'un terme solaire
- * fait découvrir (年, 灯, 月 aux fêtes ; 露, 霜, 雪 aux termes), et le décor du cercle de Ma
- * forêt, le jour d'une fête ou d'un terme.
+ * fait découvrir (年, 灯, 月 aux fêtes ; 露, 霜, 雪 aux termes), et le décor de fête de Mon
+ * chemin, le jour d'une fête ou d'un terme.
  *
  * Module pur, comme `foret.ts` : aucune fonction ne lit l'horloge, n'écrit dans un stockage
  * ni ne touche au DOM. La journée est passée en argument, les textes viennent de
@@ -9,7 +9,7 @@
  *
  * Un caractère trouvé n'est pas une brique du parcours : il n'a pas de carte FSRS et
  * n'entre jamais en révision. La progression le garde une fois, avec la journée où il a
- * été trouvé et la fête ou le terme qui l'a apporté ; Ma forêt en fait une petite
+ * été trouvé et la fête ou le terme qui l'a apporté ; Mon chemin en fait une petite
  * collection, et le tableau des trophées les compte.
  */
 import type { FeteId, Fetes, Saisons } from './content';
@@ -109,9 +109,9 @@ export function lireTrouves(v: unknown): Trouve[] {
   return out;
 }
 
-/* ---------- la collection de Ma forêt ---------- */
+/* ---------- la collection de Mon chemin ---------- */
 
-/** Un caractère trouvé, tel que Ma forêt le montre. */
+/** Un caractère trouvé, tel que Mon chemin le montre. */
 export type Piece = {
   c: string;
   pinyin: string;
@@ -129,7 +129,7 @@ export type Piece = {
 /**
  * La collection « trouvés en chemin », dans l'ordre où ils ont été trouvés. Seuls les
  * caractères dont la fête ou le terme est encore dans le contenu y paraissent : on ne
- * montre jamais un nom inventé. Vide tant que rien n'a été trouvé, et alors Ma forêt ne
+ * montre jamais un nom inventé. Vide tant que rien n'a été trouvé, et alors Mon chemin ne
  * montre pas la collection.
  */
 export function collection(
@@ -170,7 +170,7 @@ export function collection(
   return out;
 }
 
-/** Ma forêt ne montre la collection qu'une fois un caractère trouvé. */
+/** Mon chemin ne montre la collection qu'une fois un caractère trouvé. */
 export function montrerCollection(pieces: readonly Piece[]): boolean {
   return pieces.length > 0;
 }
@@ -200,7 +200,7 @@ export function leJour(jour: string): string {
 }
 
 /**
- * Ce que Ma forêt dit d'un caractère touché, en une ligne : d'où il vient et quand.
+ * Ce que Mon chemin dit d'un caractère touché, en une ligne : d'où il vient et quand.
  * « Fête de la mi-automne 中秋节, le 25 septembre 2026 » ; « 白露, la rosée blanche, le
  * 7 septembre 2026 ».
  */
@@ -213,7 +213,7 @@ export function ligneTrouve(x: Piece): string {
 /* ---------- le décor du cercle ---------- */
 
 /**
- * Le décor du cercle de Ma forêt : la fête s'il y en a une, sinon l'ambiance du terme,
+ * Le décor de fête de Mon chemin : la fête s'il y en a une, sinon l'ambiance du terme,
  * sinon aucun. Même règle que le thème de l'app (`saisons.theme`) : la fête a priorité.
  */
 export type DecorCercle = { fete: FeteId; saison?: undefined } | { fete?: undefined; saison: string };

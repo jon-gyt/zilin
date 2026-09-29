@@ -47,7 +47,7 @@ UNITES = ("jour", "lus")
 PORTES: dict[str, str] = {
     "reviser": "温",
     "personnage": "personnage",
-    "foret": "林",
+    "foret": "路",
     "lire": "读",
     "jouer": "玩",
     "jeu-assembler": "拼",

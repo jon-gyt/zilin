@@ -11,13 +11,15 @@
    *
    * « Points ET examen » (story 8.5) : le rang en haut est le rang tenu, le titre accordé ;
    * la taille, la silhouette et l'âge suivent les points, la tenue le titre. Sous la barre,
-   * pleine quand les points y sont : « Reste le 院试 », sa stèle et « dans N j » ou
+   * pleine quand les points y sont : « Reste le 院试 », sa porte de ville 城门 (décision du
+   * propriétaire du 29 septembre 2026 : plus de stèle nulle part) et « dans N j » ou
    * « examen ouvert » ; l'examen réussi avant les points : « Reçu au 院试 · encore 12
    * points ». Puis le 榜 : les examens à titre réussis, chacun avec sa date, sans les 月课.
    * Les lignes viennent de `ecrans.json` (`personnage`), les examens de `examens.json`.
    */
   import ChoixHeros from './ChoixHeros.svelte';
   import Glyph from './Glyph.svelte';
+  import Porte from './Porte.svelte';
   import Heros from './Heros.svelte';
   import Tao from './Tao.svelte';
   import { contenu, nomParcours, toutesLesFamilles, type Famille } from './content';
@@ -89,7 +91,7 @@
 
   const points = $derived(total(p.arts));
   const rangs = $derived(donnees?.rangs ?? []);
-  /** Les caractères lus, au seuil de stabilité de Ma forêt : le palier des nominations. */
+  /** Les caractères lus, au seuil de stabilité de Mon chemin : le palier des nominations. */
   const lusCompte = $derived(caracteresLus(familles, p.cartes));
   const merite = $derived(meriteDe(p, lusCompte));
   const av = $derived(avance(rangs, merite));
@@ -200,11 +202,9 @@
       {#if ligneReste !== ''}
         <div class="reste" class:examen={examenReste !== null && av.reste.attend === 'examen'}>
           {#if examenReste && av.reste.attend === 'examen'}
-            <!-- la stèle de l'examen qui reste, son nom gravé depuis ses traits -->
-            <span class="stele" aria-hidden="true">
-              {#each [...examenReste.hz] as c, i (c + i)}
-                <Glyph char={c} size={17} write={false} color="var(--indigo)" pistes={pistesExamen(c)} />
-              {/each}
+            <!-- la porte de ville de l'examen qui reste, son nom sur le linteau, depuis ses traits -->
+            <span class="porte-examen">
+              <Porte hz={examenReste.hz} pistes={[...new Set([...examenReste.hz].flatMap(pistesExamen))]} largeur={60} ouverte={quandReste === tp.ouvert} />
             </span>
           {/if}
           <span class="lignes">
@@ -352,7 +352,7 @@
     background: var(--indigo);
     border-radius: 8px;
   }
-  /* ce qui reste avant le titre : la stèle de l'examen, à l'indigo, et sa ligne ; rien qui presse */
+  /* ce qui reste avant le titre : la porte de l'examen, à l'indigo, et sa ligne ; rien qui presse */
   .reste {
     display: flex;
     align-items: center;
@@ -361,15 +361,8 @@
     font-size: 14px;
     color: var(--ink2);
   }
-  .reste .stele {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+  .reste .porte-examen {
     line-height: 0;
-    padding: 3px 4px;
-    border: 1.3px dashed var(--indigo);
-    border-radius: 4px;
-    background: var(--paper);
     flex: none;
   }
   .reste .lignes {

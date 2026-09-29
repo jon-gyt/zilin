@@ -61,7 +61,7 @@ cd data && uv run wenlu check     # les seuls contrôles
 `wenlu fonts` ne fait pas partie de `wenlu tout` : il télécharge trois familles de
 polices et met une minute à produire les woff2. Il se lance à la main, après
 `export`, quand le périmètre exporté a changé — sinon Noto Serif SC n'embarque pas
-les caractères que « Ma forêt » affiche.
+les caractères que « Mon chemin » affiche.
 
 `audio`, `contes` et `fiches` sont à part aussi : elles se lancent à la main, jamais
 dans `wenlu tout`. `contes` et `fiches generer` appellent l'API Anthropic et

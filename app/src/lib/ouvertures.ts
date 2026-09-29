@@ -12,7 +12,7 @@
  *
  * Les règles :
  * - une porte s'ouvre à son seuil, en jours du chemin (la dernière leçon apprise) ou en
- *   caractères lus (le compte de Ma forêt), jamais en jours du calendrier, jamais à l'achat :
+ *   caractères lus (le compte de Mon chemin), jamais en jours du calendrier, jamais à l'achat :
  *   Wenlu complet ouvre le rythme, pas les portes ;
  * - une porte ouverte le reste, même si le compte des lus redescend ;
  * - une porte ouverte se montre quand Tao l'annonce, au retour au menu, une par retour, dans

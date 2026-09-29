@@ -7,7 +7,7 @@
 # Source : rédigé pour l'app, sans API, dans une session Claude Code, d'après le brief et
 # cette demande ; à relire. Chaque porte s'ouvre à un moment de l'aventure, compté en jours
 # du chemin (`jour` : la dernière leçon du parcours apprise ; la première session pose les
-# jours 1 à 3) ou en caractères lus (`lus` : le compte de Ma forêt et du trophée Lire),
+# jours 1 à 3) ou en caractères lus (`lus` : le compte de Mon chemin et du trophée Lire),
 # jamais en jours du calendrier, jamais à l'achat : Wenlu complet ouvre le rythme, pas les
 # portes. Une porte se montre quand elle sert, jamais avant, et une porte ouverte le reste.
 # Toujours visibles, et donc absents d'ici : Réglages, Chercher un caractère, la session.
@@ -30,19 +30,19 @@
 porte	unite	seuil	parent	annonce	source
 reviser	jour	4	-	Une nouvelle porte : Réviser 温.	rédigé pour l'app : la première révision passée, une révision de plus a un sens
 personnage	jour	5	-	Une nouvelle porte, en haut : ton personnage.	rédigé pour l'app : ses premiers points, il a de quoi grandir
-foret	jour	6	-	Une nouvelle porte : Ma forêt 林.	rédigé pour l'app : les premières graines, les premiers caractères lus
+foret	jour	6	-	Une nouvelle porte : Mon chemin 路.	rédigé pour l'app : les premières pierres posées, les premiers caractères lus
 lire	jour	7	-	Une nouvelle porte : Lire 读.	rédigé pour l'app : la première lettre de Que suit l'acquis du jour 7 ; l'anecdote s'y relit
 jouer	lus	6	-	Une nouvelle porte : Jouer 玩.	rédigé pour l'app : six caractères lus, les premiers jeux ont de quoi jouer sans démonstration
 jeu-assembler	lus	6	jouer	-	rédigé pour l'app : un composé lu et ses briques (从 = 人 + 人)
 jeu-chaine	lus	6	jouer	-	rédigé pour l'app : 人, 大, 天 font la première chaîne
-route	jour	9	-	Une nouvelle porte : la route devant 前路.	rédigé pour l'app : quelques jours de chemin, de quoi regarder devant
+route	jour	9	-	Une nouvelle porte, sur ton chemin : la route devant 前路.	rédigé pour l'app : quelques jours de chemin, de quoi regarder devant
 jeu-devinette	lus	10	jouer	Un nouveau jeu : la devinette du jour 谜.	rédigé pour l'app : des briques et leurs caractères à deviner
-trophees	lus	10	foret	Une nouvelle porte, dans Ma forêt : tes trophées.	rédigé pour l'app : le premier sceau, dix caractères lus
+trophees	lus	10	foret	Une nouvelle porte, sur ton chemin : tes trophées.	rédigé pour l'app : le premier sceau, dix caractères lus
 jeu-jumeaux	lus	15	jouer	Un nouveau jeu : les jumeaux 双.	rédigé pour l'app : des caractères lus assez proches pour les opposer
 jeu-eclair	lus	20	jouer	Un nouveau jeu : le dictionnaire éclair 典.	rédigé pour l'app : des mots de deux caractères lus, jamais appris
 contes	jour	25	lire	Une nouvelle porte, dans Lire : les contes 故事.	rédigé pour l'app : 学弈, la première fable du chemin, s'ouvre au jour 25
 jeu-wechat	lus	40	jouer	Un nouveau jeu : le message WeChat 信.	rédigé pour l'app : les premiers dialogues lisibles (dès le jour 21 du chemin Lire)
-revisions	jour	40	foret	Une nouvelle porte, dans Ma forêt : tes révisions.	rédigé pour l'app : un mois de révisions, une rétention qui se mesure
+revisions	jour	40	foret	Une nouvelle porte, sur ton chemin : tes révisions.	rédigé pour l'app : un mois de révisions, une rétention qui se mesure
 retention	jour	40	revisions	-	rédigé pour l'app : le réglage des révisions vient avec leur tableau
 jeu-coquille	lus	90	jouer	Un nouveau jeu : la coquille 错.	rédigé pour l'app : 天 et 夫 lus (夫 au jour 54 du chemin Lire)
 monde	lus	100	-	Une nouvelle porte, dans Chercher : lire le monde.	rédigé pour l'app : cent caractères lus, un texte du dehors se lit en partie

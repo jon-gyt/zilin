@@ -1,0 +1,936 @@
+<!-- Maquette de « Mon chemin 路 », validée par le propriétaire le 29 septembre 2026 (« C'était plutôt chemin A », « Tout est ok pour moi ») : variante A, avec sa note de conception et son tableau des textes et dessins à changer. La référence de Mon chemin, de la pierre posée, des auberges et des rendez-vous de la route devant, qu'on ne modifie plus. -->
+<meta charset="utf-8">
+<title>Mon chemin 路</title>
+<style>
+/* Mise en page : deux colonnes au-dessus de 820 px (le téléphone collé à gauche, la note à droite), une seule en dessous ; le tableau des textes en pleine largeur. Un seul thème, le papier clair, comme l'app (brief §5). */
+:root {
+  color-scheme: light;
+  --papier: #F4EEE2;
+  --carte: #FBF7EE;
+  --encre: #1F1B18;
+  --encre2: #4A443E;
+  --brume: #8B857C;
+  --filet: #D9D1C2;
+  --indigo: #2B4C7E;
+  --jade: #5E8A6A;
+  --ocre: #8C5A2B;
+  --cinabre: #C8371F;
+  --azur: #1E5A8A;
+  --gutte: #9A6300;
+  --pecher: #A8506B;
+  --malachite: #1F7A5A;
+  --titre: "Manrope", "Avenir Next", "Segoe UI", system-ui, sans-serif;
+  --texte: "Source Sans 3", "Source Sans Pro", "Helvetica Neue", Arial, sans-serif;
+  --hz: "Noto Serif SC", "Songti SC", "STSong", "SimSun", serif;
+}
+</style>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;600;700;800&family=Noto+Serif+SC:wght@400;500;700&family=Source+Sans+3:wght@400;600;700&display=swap">
+<style>
+* { box-sizing: border-box; }
+html, body { background: var(--papier); color: var(--encre); }
+body { margin: 0; font: 400 16px/1.5 var(--texte); -webkit-font-smoothing: antialiased; }
+.hz { font-family: var(--hz); }
+button { font: inherit; color: inherit; }
+:focus-visible { outline: 2px solid var(--indigo); outline-offset: 2px; }
+
+.page { max-width: 1240px; margin: 0 auto; padding-inline: 16px; padding-block: 28px 64px; }
+.tete-page { max-width: 72ch; display: grid; gap: 10px; margin-bottom: 26px; }
+.surtitre { font: 700 12px/1.2 var(--texte); letter-spacing: .12em; text-transform: uppercase; color: var(--brume); }
+h1.titre-page { margin: 0; font: 800 clamp(34px, 6vw, 52px)/1.05 var(--titre); letter-spacing: -.02em; text-wrap: balance; }
+h1.titre-page .hz { font-weight: 500; color: var(--encre2); margin-left: .15em; }
+.chapeau { margin: 0; font-size: 18px; color: var(--encre2); }
+.citation { margin: 0; padding-left: 14px; border-left: 2px solid var(--filet); color: var(--encre2); font-style: italic; }
+.citation small { font-style: normal; color: var(--brume); font-size: 13px; margin-left: 4px; }
+.retour-note { background: var(--carte); border-radius: 14px; padding: 14px 16px; display: grid; gap: 6px; }
+.retour-note b { font-family: var(--titre); color: var(--encre); }
+.ecartee { color: var(--brume); font-size: 14.5px; }
+
+.cols { display: grid; grid-template-columns: minmax(0, 1fr); gap: 32px; }
+@media (min-width: 820px) {
+  .cols { grid-template-columns: 425px minmax(0, 1fr); align-items: start; }
+  .col-tel { position: sticky; top: calc(env(safe-area-inset-top, 0px) + 16px); }
+}
+.col-tel { display: grid; grid-template-columns: minmax(0, 1fr); gap: 14px; min-width: 0; }
+
+.selecteur { display: flex; flex-wrap: wrap; gap: 6px; }
+.selecteur button { border: 1px solid var(--filet); background: var(--carte); border-radius: 999px; padding: 6px 12px; font-size: 14px; cursor: pointer; color: var(--encre2); }
+.selecteur button[aria-pressed="true"] { border-color: var(--indigo); color: var(--indigo); font-weight: 600; }
+
+.tel { width: min(393px, 100%); height: 660px; border: 1.5px solid var(--encre2); border-radius: 44px; padding: 8px; background: var(--encre2); margin-inline: auto; }
+.ecran { height: 100%; border-radius: 36px; background: var(--papier); overflow: hidden; position: relative; }
+.defile { height: 100%; overflow-y: auto; overflow-x: hidden; scrollbar-width: thin; }
+.legende-ecran { margin: 0 auto; width: min(393px, 100%); font-size: 14px; color: var(--brume); line-height: 1.45; }
+.legende-ecran b { color: var(--encre2); font-weight: 600; }
+
+/* ---------- l'intérieur de l'app ---------- */
+.app { padding: 14px 18px 16px; font-size: 15px; line-height: 1.35; }
+.k { color: var(--brume); }
+.retour { color: var(--indigo); font-weight: 600; font-size: 15px; background: none; border: 0; padding: 4px 0; cursor: pointer; }
+.app h2 { margin: 6px 0 2px; font: 700 29px/1.1 var(--titre); letter-spacing: -.01em; }
+.app h2 .hz { font-weight: 500; color: var(--encre2); font-size: 26px; margin-left: 6px; }
+.app .sous { color: var(--encre2); font-size: 14.5px; margin: 2px 0 10px; }
+.app .guide { color: var(--encre2); font-size: 14.5px; margin: 0 0 12px; }
+.carte { background: var(--carte); border-radius: 16px; }
+
+/* menu */
+.menu { display: flex; flex-direction: column; height: 100%; padding: 12px 18px 16px; gap: 10px; }
+.mhead { display: flex; align-items: center; gap: 10px; }
+.marque { display: flex; align-items: center; gap: 8px; flex: 1; min-width: 0; }
+.marque > svg { flex-shrink: 0; }
+.marque .nom { font: 700 21px/1 var(--titre); }
+.marque .cn { font-family: var(--hz); color: var(--encre2); font-size: 17px; margin-left: 6px; }
+.marque .terme { font-size: 12.5px; color: var(--encre2); margin-top: 3px; white-space: nowrap; }
+.ico { width: 30px; height: 30px; display: grid; place-items: center; color: var(--encre2); }
+.ico svg { width: 22px; height: 22px; stroke: currentColor; fill: none; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+.portrait { width: 36px; height: 36px; border-radius: 50%; border: 1px solid var(--filet); background: var(--carte); display: grid; place-items: center; }
+.jour { display: flex; gap: 14px; align-items: center; }
+.mizi { width: 104px; height: 104px; flex-shrink: 0; position: relative; border: 1.5px solid #D6C6A6; border-radius: 12px; background: var(--carte); display: grid; place-items: center; }
+.mizi svg.grille { position: absolute; inset: 0; width: 100%; height: 100%; }
+.mizi .grand { position: relative; font: 500 74px/1 var(--hz); }
+.jour .st { font: 600 11.5px/1.2 var(--texte); letter-spacing: .12em; text-transform: uppercase; color: var(--brume); }
+.jour .py { font: 700 36px/1.1 var(--titre); color: var(--indigo); display: flex; align-items: center; gap: 8px; }
+.jour .py svg { width: 20px; height: 20px; stroke: var(--encre2); fill: none; stroke-width: 1.8; stroke-linecap: round; }
+.jour .sens { font-size: 17px; color: var(--encre2); }
+.jour .part { font-size: 13.5px; color: var(--brume); margin-top: 4px; }
+.jour .part .hz { font-size: 18px; margin-right: 6px; }
+.chemin-menu { position: relative; height: 80px; }
+.chemin-menu svg { width: 100%; height: 100%; overflow: visible; }
+.lignes-menu { display: grid; gap: 3px; font-size: 14.5px; color: var(--encre2); }
+.lignes-menu .row { display: flex; justify-content: space-between; align-items: baseline; gap: 8px; }
+.lignes-menu .hz { font-size: 16px; margin-inline: 3px; }
+.lien { color: var(--indigo); font-weight: 600; white-space: nowrap; }
+.btn { width: 100%; border-radius: 14px; padding: 13px 16px; font: 600 16.5px/1.2 var(--texte); text-align: center; }
+.btn.plein { background: var(--indigo); color: var(--carte); border: 1.5px solid var(--indigo); }
+.btn.contour { background: transparent; color: var(--encre); border: 1.5px solid var(--filet); }
+.cases { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: auto; }
+.case { background: var(--carte); border-radius: 16px; padding: 10px 14px 11px; display: grid; gap: 2px; min-width: 0; }
+.case .haut { display: flex; justify-content: space-between; align-items: flex-start; }
+.case .g { font: 500 38px/1.05 var(--hz); color: var(--indigo); }
+.case .cpy { font: 600 12.5px/1 var(--texte); color: var(--encre2); margin-top: 6px; }
+.case .t { font: 700 17px/1.15 var(--titre); }
+.case .i { font-size: 13.5px; color: var(--encre2); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.case.nouvelle { outline: 1.5px dashed var(--brume); outline-offset: -1.5px; }
+
+/* Mon chemin */
+.scene { background: var(--carte); border-radius: 16px; overflow: hidden; }
+.scene svg { display: block; width: 100%; height: auto; }
+.legende { display: flex; flex-wrap: wrap; gap: 4px 12px; font-size: 12.5px; color: var(--brume); margin: 8px 2px 4px; }
+.legende i { display: inline-block; width: 11px; height: 11px; border-radius: 50%; margin-right: 5px; vertical-align: -1px; border: 1.8px solid; background: var(--carte); }
+.etape { background: var(--carte); border-radius: 16px; padding: 12px 14px; display: flex; gap: 12px; align-items: center; margin-bottom: 12px; }
+.etape .mz { width: 58px; height: 58px; flex-shrink: 0; border: 1.2px solid #D6C6A6; border-radius: 8px; display: grid; place-items: center; font: 500 40px/1 var(--hz); position: relative; }
+.etape .mz svg { position: absolute; inset: 0; width: 100%; height: 100%; }
+.etape .mz span { position: relative; }
+.etape .st { font: 600 11px/1.2 var(--texte); letter-spacing: .1em; text-transform: uppercase; color: var(--brume); }
+.etape .l1 { font-size: 15px; }
+.etape .l1 b { font-family: var(--titre); color: var(--indigo); margin-right: 4px; }
+.etape .l2 { font-size: 13.5px; color: var(--encre2); }
+.etape .l2 .hz { font-size: 15px; }
+.bloc { background: var(--carte); border-radius: 16px; padding: 12px 14px; margin-top: 12px; }
+.bloc .row { display: flex; justify-content: space-between; align-items: baseline; gap: 10px; }
+.bloc .t { font: 700 16px/1.25 var(--titre); }
+.bloc .big { font: 700 28px/1 var(--titre); }
+.pierres-semaine { display: flex; gap: 6px; align-items: center; margin: 10px 0 6px; }
+.pierres-semaine svg { width: 100%; height: auto; }
+.entree { display: flex; align-items: center; gap: 12px; background: var(--carte); border-radius: 14px; padding: 11px 12px; margin-top: 10px; }
+.entree .ic { width: 42px; height: 42px; border-radius: 10px; border: 1px solid var(--filet); display: grid; place-items: center; color: var(--encre2); flex-shrink: 0; }
+.entree .ic svg { width: 22px; height: 22px; stroke: currentColor; fill: none; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+.entree .gr { flex: 1; min-width: 0; display: grid; }
+.entree .gr b { font: 700 15.5px/1.2 var(--titre); }
+.entree .gr span { font-size: 13.5px; color: var(--encre2); }
+.entree .chev { color: var(--brume); font-size: 20px; }
+.entree .porte { font-size: 11.5px; color: var(--brume); }
+.chercher { margin-top: 8px; border: 1px solid var(--filet); border-radius: 10px; padding: 8px 10px; color: var(--brume); font-size: 14px; background: var(--papier); }
+.stats { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 12px; }
+.stats .bloc { margin: 0; }
+
+
+/* famille ouverte */
+.fam-tete { display: flex; align-items: center; gap: 12px; margin: 4px 0 10px; }
+.fam-tete .g { font: 500 54px/1 var(--hz); }
+.fam-tete h3 { margin: 0; font: 700 22px/1.15 var(--titre); }
+.fam-tete .py { color: var(--indigo); font-weight: 600; }
+.fam-tete .n { margin-left: auto; font-size: 14px; color: var(--brume); }
+.fiche { background: var(--carte); border-radius: 16px; padding: 12px 14px; margin-top: 12px; display: grid; gap: 8px; }
+.fiche .r { display: flex; gap: 12px; align-items: center; }
+.fiche .g { font: 500 44px/1 var(--hz); }
+.fiche .sens { font-weight: 600; }
+.fiche .sens .py { color: var(--indigo); margin-left: 6px; }
+.fiche p { margin: 0; font-size: 14px; color: var(--encre2); }
+.tag { justify-self: start; font-size: 12px; font-weight: 600; color: var(--jade); border: 1px solid var(--jade); border-radius: 999px; padding: 1px 8px; }
+.fiche .parts { font-size: 14px; color: var(--brume); }
+.fiche .parts .hz { color: var(--encre); font-size: 16px; }
+
+/* session : barre des six pas */
+.pas { display: flex; align-items: center; gap: 10px; }
+.pas svg { flex: 1; height: 14px; }
+.quitter { color: var(--brume); font-size: 14.5px; }
+.clore { text-align: center; padding: 14px 16px 16px; margin-top: 12px; display: grid; gap: 6px; justify-items: center; }
+.clore h3 { margin: 4px 0 0; font: 700 25px/1.2 var(--titre); text-wrap: balance; }
+.clore h3 .hz { font-weight: 500; }
+.clore p { margin: 0; }
+.clore .guide2 { color: var(--encre2); font-size: 16px; }
+.clore .constat { color: var(--brume); font-size: 13.5px; }
+.pied { position: absolute; left: 0; right: 0; bottom: 0; padding: 10px 18px 16px; background: var(--papier); border-top: 1px solid var(--filet); }
+
+/* animation de la pierre posée : coupée si l'on réduit les animations */
+@keyframes poser { 0% { transform: translateY(-46px); opacity: 0; } 60% { transform: translateY(3px); opacity: 1; } 100% { transform: translateY(0); opacity: 1; } }
+@keyframes cercler { from { stroke-dashoffset: 132; } to { stroke-dashoffset: 0; } }
+.pose { animation: poser .7s cubic-bezier(.3,.7,.3,1) .35s both; }
+.cercle-jour { stroke-dasharray: 132; animation: cercler .6s ease-out 1s both; }
+@media (prefers-reduced-motion: reduce) { .pose, .cercle-jour { animation: none; } }
+
+/* ---------- la note ---------- */
+.note { min-width: 0; display: grid; gap: 30px; max-width: 76ch; }
+.note section { display: grid; gap: 10px; }
+.note h2 { margin: 0; font: 700 23px/1.2 var(--titre); letter-spacing: -.01em; text-wrap: balance; }
+.note h3 { margin: 6px 0 0; font: 700 17px/1.3 var(--titre); }
+.note p { margin: 0; color: var(--encre2); }
+.note ul, .note ol { margin: 0; padding-left: 20px; color: var(--encre2); display: grid; gap: 6px; }
+.note .hz { font-size: 1.05em; }
+.vocab { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 10px; }
+.vocab figure { margin: 0; background: var(--carte); border-radius: 14px; padding: 10px 12px 12px; display: grid; gap: 6px; align-content: start; }
+.vocab svg { width: 100%; height: 86px; }
+.vocab figcaption { font-size: 14px; color: var(--encre2); line-height: 1.35; }
+.vocab figcaption b { color: var(--encre); display: block; font-family: var(--titre); }
+.vocab .avant { color: var(--brume); font-size: 12.5px; display: block; margin-top: 2px; }
+.variantes { display: grid; gap: 12px; }
+.variante { background: var(--carte); border-radius: 14px; padding: 14px 16px; display: grid; gap: 8px; align-content: start; }
+.variante .lettre { font: 800 13px/1 var(--titre); letter-spacing: .1em; color: var(--indigo); }
+.variante h3 { margin: 0; }
+.variante .pour, .variante .contre { font-size: 14.5px; }
+.variante .pour b { color: var(--jade); }
+.variante .contre b { color: var(--encre); }
+.questions li { padding-left: 2px; }
+.questions li b { color: var(--encre); }
+.chiffres { display: flex; flex-wrap: wrap; gap: 8px 22px; }
+.chiffres div { display: grid; }
+.chiffres b { font: 800 30px/1 var(--titre); font-variant-numeric: tabular-nums; }
+.chiffres span { font-size: 13.5px; color: var(--brume); }
+
+.tableau { margin-top: 40px; display: grid; grid-template-columns: minmax(0, 1fr); gap: 12px; }
+.tableau > * { min-width: 0; }
+.tableau h2 { margin: 0; font: 700 23px/1.2 var(--titre); }
+.tableau > p { margin: 0; color: var(--encre2); max-width: 76ch; }
+.table-defile { overflow-x: auto; background: var(--carte); border-radius: 14px; }
+table { border-collapse: collapse; width: 100%; min-width: 760px; font-size: 14px; }
+col.c1 { width: 17%; } col.c2 { width: 17%; } col.c3 { width: 31%; }
+th, td { text-align: left; vertical-align: top; padding: 8px 12px; border-bottom: 1px solid var(--filet); }
+thead th { font: 700 12px/1.2 var(--texte); letter-spacing: .08em; text-transform: uppercase; color: var(--brume); }
+tbody th[colspan] { background: var(--papier); font: 700 14px/1.3 var(--titre); color: var(--encre); padding-top: 12px; }
+td.f { font-family: ui-monospace, "SF Mono", Menlo, monospace; font-size: 12px; color: var(--encre2); overflow-wrap: anywhere; }
+td.av { color: var(--brume); }
+td.ap { color: var(--encre); }
+td .hz { font-size: 1.05em; }
+tr.inchange td.ap { color: var(--jade); }
+</style>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <!-- Tao 桃, la graine de pêcher, d'après la charte (viewBox 0 0 200 200) -->
+    <symbol id="tao" viewBox="0 0 200 200">
+      <path d="M88 156v14M112 156v14" stroke="#5E8A6A" stroke-width="7" stroke-linecap="round" fill="none"/>
+      <path d="M100 98v-18" stroke="#5E8A6A" stroke-width="6" stroke-linecap="round" fill="none"/>
+      <path d="M100 96q-30-8-34-40q26 4 34 30M100 96q30-8 34-40q-26 4-34 30" fill="#5E8A6A"/>
+      <path d="M100 98q36 6 36 30t-36 30q-36-6-36-30t36-30z" fill="#FBF7EE" stroke="#1F1B18" stroke-width="5"/>
+      <circle cx="88" cy="126" r="4.5" fill="#1F1B18"/>
+      <circle cx="112" cy="126" r="4.5" fill="#1F1B18"/>
+      <path d="M93 139q7 5 14 0" stroke="#1F1B18" stroke-width="4" stroke-linecap="round" fill="none"/>
+    </symbol>
+    <!-- Tao à la halte : assise au pavillon 亭, un bol de thé à côté. Le rattrapage, sans reproche. -->
+    <symbol id="tao-pavillon" viewBox="0 0 200 200">
+      <path d="M6 64q44-6 94-46q50 40 94 46z" fill="#1F7A5A"/>
+      <path d="M20 64h160" stroke="#9A6300" stroke-width="7" stroke-linecap="round"/>
+      <path d="M28 66v124M172 66v124" stroke="#9A6300" stroke-width="7" stroke-linecap="round"/>
+      <path d="M12 192h176" stroke="#D9D1C2" stroke-width="4" stroke-linecap="round"/>
+      <path d="M44 146h112" stroke="#9A6300" stroke-width="6" stroke-linecap="round"/>
+      <path d="M52 146v34M148 146v34" stroke="#9A6300" stroke-width="4" stroke-linecap="round"/>
+      <use href="#tao" x="30" y="44" width="110" height="110"/>
+      <path d="M126 130h30q-2 14-15 14t-15-14z" fill="#FBF7EE" stroke="#1F1B18" stroke-width="3.5" stroke-linejoin="round"/>
+      <path d="M136 120q-4-6 0-11M147 120q-4-6 0-11" stroke="#8B857C" stroke-width="3" stroke-linecap="round" fill="none"/>
+    </symbol>
+    <!-- la grille 米字格 -->
+    <symbol id="mizige" viewBox="0 0 100 100">
+      <path d="M50 0v100M0 50h100M0 0l100 100M100 0L0 100" stroke="#D6C6A6" stroke-width="1" stroke-dasharray="4 4" fill="none"/>
+    </symbol>
+  </defs>
+</svg>
+
+<div class="page">
+  <header class="tete-page">
+    <div class="surtitre">Wenlu 文路 · maquette validée par le propriétaire le 29 septembre 2026</div>
+    <h1 class="titre-page">Mon chemin<span class="hz">路</span></h1>
+    <p class="chapeau">Ma forêt devient Mon chemin, et toute l'image suit. Une pierre posée à plat chaque jour au lieu d'une graine, un pavillon 亭 toutes les sept pierres au lieu d'un arbre, une auberge 客栈 par famille au bord du sentier, Tao au pavillon avec un bol de thé quand on revient. Sur la route devant, les rendez-vous deviennent des portes de ville, des lanternes et des étals de livres.</p>
+    <p class="citation">« Je n'aime pas le terme "Ma forêt" dans l'application, ça n'a plus de lien avec Wenlu. Je trouve ça un peu ringard. »</p>
+    <p class="citation">« Borne et stèle font un peu cimetière… pierre tombale. » « Sinon c'était plutôt chemin A. »<small>retours du 29 septembre</small></p>
+  </header>
+
+  <div class="cols">
+    <div class="col-tel">
+      <nav class="selecteur" aria-label="Écran montré">
+        <button data-ecran="menu" aria-pressed="true">Menu</button>
+        <button data-ecran="chemin" aria-pressed="false">Mon chemin</button>
+        <button data-ecran="famille" aria-pressed="false">Famille ouverte</button>
+        <button data-ecran="clore" aria-pressed="false">Clore</button>
+        <button data-ecran="rattrapage" aria-pressed="false">Rattrapage</button>
+      </nav>
+
+      <div class="tel">
+        <!-- ================= MENU ================= -->
+        <div class="ecran" id="menu" data-legende="&lt;b&gt;Le menu, la journée faite, jour 15.&lt;/b&gt; La case 路 remplace 林 (dans l'app, 路 est dessiné depuis ses traits ; ici, une police). « Pierre posée, une seule par jour » remplace « Graine plantée ». « Devant › » remplace « Ma route › » et ouvre Mon chemin sur la route devant. Le tout tient à 393 × 660.">
+          <div class="menu">
+            <div class="mhead">
+              <div class="marque">
+                <svg width="30" height="30" viewBox="0 0 30 30" aria-hidden="true">
+                  <path d="M14 3.5l2.2 3.2" stroke="#C8371F" stroke-width="3.2" stroke-linecap="round"/>
+                  <path d="M4.5 10.5h21" stroke="#1F1B18" stroke-width="2.6" stroke-linecap="round"/>
+                  <path d="M21 11q-4 11-15.5 16" stroke="#1F1B18" stroke-width="2.6" stroke-linecap="round" fill="none"/>
+                  <path d="M9.5 12.5q5 10 16 14.5" stroke="#1F1B18" stroke-width="2.6" stroke-linecap="round" fill="none"/>
+                </svg>
+                <div>
+                  <div><span class="nom">Wenlu</span><span class="cn">文路</span></div>
+                  <div class="terme"><span class="hz">半 秋分</span> · l'équinoxe d'automne</div>
+                </div>
+              </div>
+              <span class="portrait" aria-label="Mon personnage">
+                <svg width="28" height="28" viewBox="0 0 28 28" aria-hidden="true">
+                  <circle cx="7" cy="7" r="4" fill="#1F1B18"/><circle cx="21" cy="7" r="4" fill="#1F1B18"/>
+                  <circle cx="14" cy="15" r="10" fill="#FBF7EE" stroke="#1F1B18" stroke-width="1.5"/>
+                  <ellipse cx="10" cy="14" rx="2.6" ry="3.2" fill="#1F1B18"/><ellipse cx="18" cy="14" rx="2.6" ry="3.2" fill="#1F1B18"/>
+                  <circle cx="10.5" cy="13.5" r=".9" fill="#FBF7EE"/><circle cx="17.5" cy="13.5" r=".9" fill="#FBF7EE"/>
+                  <ellipse cx="14" cy="19" rx="1.6" ry="1.1" fill="#1F1B18"/>
+                </svg>
+              </span>
+              <span class="ico" aria-label="Chercher"><svg viewBox="0 0 24 24"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.5 15.5L21 21"/></svg></span>
+              <span class="ico" aria-label="Réglages"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3.2"/><path d="M12 2.5v3M12 18.5v3M2.5 12h3M18.5 12h3M5.3 5.3l2.1 2.1M16.6 16.6l2.1 2.1M5.3 18.7l2.1-2.1M16.6 7.4l2.1-2.1"/></svg></span>
+            </div>
+
+            <div class="jour">
+              <div class="mizi"><svg class="grille" viewBox="0 0 100 100"><use href="#mizige"/></svg><span class="grand">儿</span></div>
+              <div>
+                <div class="st">Appris aujourd'hui</div>
+                <div class="py">ér <svg viewBox="0 0 24 24" aria-label="Écouter"><path d="M4 9.5h3.5L12 5.5v13l-4.5-4H4z"/><path d="M15.5 9q2 3 0 6M18 6.5q4 5.5 0 11"/></svg></div>
+                <div class="sens">enfant, fils</div>
+                <div class="part"><span class="hz" style="color:#C8371F">儿</span>la brique du jour</div>
+              </div>
+            </div>
+
+            <div class="chemin-menu" aria-label="Les six pas, faits">
+              <svg viewBox="0 0 357 80" preserveAspectRatio="xMidYMid meet">
+                <g stroke="#5E8A6A" stroke-width="7" stroke-linecap="round" fill="none">
+                  <path d="M6 72q24-2 46 0"/><path d="M66 72q24-2 46 0"/><path d="M126 72q24-2 46 0"/><path d="M186 72q24-2 46 0"/><path d="M246 72q24-2 46 0"/><path d="M306 72q22-2 44 0"/>
+                </g>
+                <g>
+                  <rect x="170" y="14" width="118" height="32" rx="16" fill="#FBF7EE" stroke="#1F1B18" stroke-width="1.5"/>
+                  <path d="M287 24l8 6-8 6" fill="#FBF7EE" stroke="#1F1B18" stroke-width="1.5" stroke-linejoin="round"/>
+                  <text x="229" y="35" text-anchor="middle" font-family="Source Sans 3, sans-serif" font-weight="700" font-size="15" fill="#1F1B18">Pierre posée !</text>
+                </g>
+                <use href="#tao" x="286" y="-12" width="80" height="80"/>
+              </svg>
+            </div>
+
+            <div class="lignes-menu">
+              <div>Pierre posée, une seule par jour</div>
+              <div class="row"><span>Demain :<span class="hz">母</span>mère</span><span class="lien">Devant ›</span></div>
+            </div>
+
+            <div class="btn contour">Une session de plus · une brique</div>
+
+            <div class="cases">
+              <div class="case"><div class="haut"><span class="g">温</span><span class="cpy">wēn</span></div><span class="t">Réviser</span><span class="i">3 cartes dues</span></div>
+              <div class="case"><div class="haut"><span class="g">玩</span><span class="cpy">wán</span></div><span class="t">Jouer</span><span class="i">La devinette du jour</span></div>
+              <div class="case"><div class="haut"><span class="g">读</span><span class="cpy">dú</span></div><span class="t">Lire</span><span class="i">Une lettre de Que</span></div>
+              <div class="case"><div class="haut"><span class="g">路</span><span class="cpy">lù</span></div><span class="t">Mon chemin</span><span class="i">26 lus</span></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ================= MON CHEMIN ================= -->
+        <div class="ecran" id="chemin" hidden data-legende="&lt;b&gt;Mon chemin, jour 15.&lt;/b&gt; En haut, la route devant 前路 : la porte de ville du 县试 avec la lanterne du seuil de 50, l'étal de livres de 学弈. Au milieu, la pierre du jour, en cinabre, et Tao. En descendant, le chemin parcouru, un pavé par jour jusqu'au jour 1 ; chaque famille lue tient son auberge, fanion à la brique, et son sentier. Défile dans le téléphone.">
+          <div class="defile">
+            <div class="app">
+              <button class="retour">‹ Retour</button>
+              <h2>Mon chemin<span class="hz">路</span></h2>
+              <p class="sous">26 caractères lus · 10 familles ouvertes · jour 15</p>
+              <div class="etape">
+                <div class="mz"><svg viewBox="0 0 100 100"><use href="#mizige"/></svg><span>母</span></div>
+                <div>
+                  <div class="st">Demain · jour 16</div>
+                  <div class="l1"><b>mǔ</b>mère · ouvre <span class="hz">每</span> chaque</div>
+                  <div class="l2">Prochain rendez-vous : <span class="hz">县试</span>, 50 caractères, dans 10 jours</div>
+                </div>
+              </div>
+              <div class="scene" id="scene-a"></div>
+              <div class="legende">
+                <span><i style="border-color:#5E8A6A"></i>lu</span>
+                <span><i style="border-color:#2B4C7E"></i>en cours</span>
+                <span><i style="border-color:#8B857C;border-style:dashed"></i>à venir</span>
+                <span><i style="border-color:#C8371F"></i>la pierre du jour</span>
+              </div>
+              <div class="bloc">
+                <div class="row"><div><div class="t">Ta semaine</div><div class="k" style="font-size:13.5px">2 pierres posées cette semaine.</div></div><div class="big">2</div></div>
+                <div class="pierres-semaine" data-semaine="2"></div>
+                <div class="k" style="font-size:13.5px">Chaque jour travaillé pose une pierre. Sept pierres, un pavillon : un jour de repos en réserve.</div>
+              </div>
+              <div class="entree"><span class="ic"><svg viewBox="0 0 24 24"><rect x="5" y="5" width="14" height="14" rx="1.5"/><rect x="8" y="8" width="8" height="8" rx=".8"/></svg></span><span class="gr"><b>Tes trophées</b><span>3 sur 26 · prochain : 50 caractères lus</span></span><span class="chev">›</span></div>
+              <div class="entree"><span class="ic"><svg viewBox="0 0 24 24"><path d="M4 20h16"/><path d="M6.5 20v-6M10.5 20V9M14.5 20v-4M18.5 20V6"/></svg></span><span class="gr"><b>Tes révisions</b><span>Demain 8 · cette semaine 41</span><span class="porte">se montre dès le jour 40, dessinée ici pour sa place</span></span><span class="chev">›</span></div>
+              <div class="stats">
+                <div class="bloc"><div class="k" style="font-size:13px">Lus</div><div class="big">26</div></div>
+                <div class="bloc"><div class="k" style="font-size:13px">Familles ouvertes</div><div class="big">10</div></div>
+              </div>
+              <div class="bloc">
+                <div class="row"><div class="t">Toutes les familles</div><span class="k">238</span></div>
+                <div class="k" style="font-size:13.5px">Le chemin montre les familles ouvertes. Les autres sont ici.</div>
+                <div class="chercher">Cherche une famille</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ================= FAMILLE OUVERTE ================= -->
+        <div class="ecran" id="famille" hidden data-legende="&lt;b&gt;Une famille ouverte : l'auberge de 日 et son sentier.&lt;/b&gt; Le sentier part de l'auberge, posée au jour 5, et monte, pavé de ses caractères : les lus au jade, ceux qui attendent au pointillé, « +3 » dans la brume. 题 bifurque de 是, qu'il contient. Le fanion attend le sceau de la famille, qui s'y pose quand elle est lue en entier. La fiche courte reste celle d'aujourd'hui.">
+          <div class="defile">
+            <div class="app">
+              <button class="retour">‹ Mon chemin</button>
+              <div class="fam-tete">
+                <span class="g">日</span>
+                <div><h3>soleil, jour</h3><span class="py">rì</span> <span class="k">· auberge du jour 5</span></div>
+                <span class="n">5 / 13</span>
+              </div>
+              <div class="scene" id="sentier-a"></div>
+              <div class="fiche">
+                <div class="r"><span class="g">明</span><div><div class="sens">clair, brillant, suivant<span class="py">míng</span></div><div class="k" style="font-size:13.5px">Lu · posé au jour 5</div></div></div>
+                <p>Sur les os oraculaires, 明 associe la lune 月 à un second élément, tantôt le soleil 日, tantôt une fenêtre ronde. Le Shuowen jiezi retient la forme à la fenêtre, la lune qui éclaire à travers elle. L'écriture courante a gardé 日 et 月 côte à côte, deux sources de lumière pour dire « clair ».</p>
+                <span class="tag">attesté</span>
+                <div class="parts"><span class="hz">日</span> + <span class="hz">月</span> = <span class="hz">明</span></div>
+              </div>
+              <div class="btn plein" style="margin-top:14px">Prochaine leçon</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ================= CLORE ================= -->
+        <div class="ecran" id="clore" hidden data-legende="&lt;b&gt;Clore, le pas 6.&lt;/b&gt; La pierre du jour se pose à plat sur le chemin, cerclée de cinabre, là où la graine germait. « 儿 rejoint ton chemin. » remplace « 儿 entre dans ta forêt. » La semaine se compte en pierres ; sept font un pavillon. L'animation se coupe si l'on réduit les animations.">
+          <div class="defile" style="padding-bottom:80px">
+            <div class="app">
+              <div class="pas"><span class="quitter">✕ Quitter</span></div>
+              <svg viewBox="0 0 357 14" style="width:100%;height:14px;margin-top:8px" aria-hidden="true">
+                <g stroke-width="6" stroke-linecap="round" fill="none">
+                  <path d="M4 7q24-2 48 0" stroke="#5E8A6A"/><path d="M64 7q24-2 48 0" stroke="#5E8A6A"/><path d="M124 7q24-2 48 0" stroke="#5E8A6A"/><path d="M184 7q24-2 48 0" stroke="#5E8A6A"/><path d="M244 7q24-2 48 0" stroke="#5E8A6A"/><path d="M304 7q24-2 48 0" stroke="#1F1B18"/>
+                </g>
+              </svg>
+              <div class="carte clore">
+                <svg id="clore-dessin" viewBox="0 0 300 150" width="100%" style="max-width:300px" aria-label="La pierre du jour posée à plat sur le chemin"></svg>
+                <h3><span class="hz">儿</span> rejoint ton chemin.</h3>
+                <p class="guide2">On te le remontre demain.</p>
+                <p class="constat">Aujourd'hui, une brique apprise, un texte lu, 3 cartes révisées, une anecdote.</p>
+              </div>
+              <div class="bloc">
+                <div class="t">13 jours d'affilée</div>
+                <div class="k" style="font-size:13.5px">2 pierres posées cette semaine. Sept pierres font un pavillon.</div>
+                <div class="pierres-semaine" data-semaine="2"></div>
+                <div class="k" style="font-size:13.5px">Que t'attend au 30e jour avec une semaine de Wenlu complet. Encore 17 jours.</div>
+              </div>
+            </div>
+          </div>
+          <div class="pied"><div class="btn plein">Terminer</div></div>
+        </div>
+
+        <!-- ================= RATTRAPAGE ================= -->
+        <div class="ecran" id="rattrapage" hidden data-legende="&lt;b&gt;Le menu en rattrapage, après une absence.&lt;/b&gt; Tao ne se met plus en pot : elle s'est assise au pavillon 亭, un bol de thé à côté, et t'attend. Pas de reproche, pas de compteur de jours. Les blocs de cinq minutes gardent leur ligne ; la ligne « Demain » ne se montre pas.">
+          <div class="menu">
+            <div class="mhead">
+              <div class="marque">
+                <svg width="30" height="30" viewBox="0 0 30 30" aria-hidden="true">
+                  <path d="M14 3.5l2.2 3.2" stroke="#C8371F" stroke-width="3.2" stroke-linecap="round"/>
+                  <path d="M4.5 10.5h21" stroke="#1F1B18" stroke-width="2.6" stroke-linecap="round"/>
+                  <path d="M21 11q-4 11-15.5 16" stroke="#1F1B18" stroke-width="2.6" stroke-linecap="round" fill="none"/>
+                  <path d="M9.5 12.5q5 10 16 14.5" stroke="#1F1B18" stroke-width="2.6" stroke-linecap="round" fill="none"/>
+                </svg>
+                <div>
+                  <div><span class="nom">Wenlu</span><span class="cn">文路</span></div>
+                  <div class="terme"><span class="hz">半 秋分</span> · l'équinoxe d'automne</div>
+                </div>
+              </div>
+              <span class="portrait" aria-label="Mon personnage">
+                <svg width="28" height="28" viewBox="0 0 28 28" aria-hidden="true">
+                  <circle cx="7" cy="7" r="4" fill="#1F1B18"/><circle cx="21" cy="7" r="4" fill="#1F1B18"/>
+                  <circle cx="14" cy="15" r="10" fill="#FBF7EE" stroke="#1F1B18" stroke-width="1.5"/>
+                  <ellipse cx="10" cy="14" rx="2.6" ry="3.2" fill="#1F1B18"/><ellipse cx="18" cy="14" rx="2.6" ry="3.2" fill="#1F1B18"/>
+                  <circle cx="10.5" cy="13.5" r=".9" fill="#FBF7EE"/><circle cx="17.5" cy="13.5" r=".9" fill="#FBF7EE"/>
+                  <ellipse cx="14" cy="19" rx="1.6" ry="1.1" fill="#1F1B18"/>
+                </svg>
+              </span>
+              <span class="ico" aria-label="Chercher"><svg viewBox="0 0 24 24"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.5 15.5L21 21"/></svg></span>
+              <span class="ico" aria-label="Réglages"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3.2"/><path d="M12 2.5v3M12 18.5v3M2.5 12h3M18.5 12h3M5.3 5.3l2.1 2.1M16.6 16.6l2.1 2.1M5.3 18.7l2.1-2.1M16.6 7.4l2.1-2.1"/></svg></span>
+            </div>
+
+            <div class="jour">
+              <div class="mizi"><svg class="grille" viewBox="0 0 100 100"><use href="#mizige"/></svg><span class="grand">早</span></div>
+              <div>
+                <div class="st">Le retour</div>
+                <div class="py">zǎo <svg viewBox="0 0 24 24" aria-label="Écouter"><path d="M4 9.5h3.5L12 5.5v13l-4.5-4H4z"/><path d="M15.5 9q2 3 0 6M18 6.5q4 5.5 0 11"/></svg></div>
+                <div class="sens">tôt, matin</div>
+                <div class="part">à revoir d'abord</div>
+              </div>
+            </div>
+
+            <div class="chemin-menu" aria-label="Trois blocs, le premier à faire">
+              <svg viewBox="0 0 357 80" preserveAspectRatio="xMidYMid meet">
+                <use href="#tao-pavillon" x="-4" y="-6" width="86" height="86"/>
+                <g stroke-width="7" stroke-linecap="round" fill="none">
+                  <path d="M92 72q40-2 80 0" stroke="#1F1B18"/><path d="M184 72q40-2 80 0" stroke="#D9D1C2"/><path d="M276 72q36-2 74 0" stroke="#D9D1C2"/>
+                </g>
+                <g>
+                  <rect x="92" y="10" width="252" height="32" rx="16" fill="#FBF7EE" stroke="#1F1B18" stroke-width="1.5"/>
+                  <path d="M93 20l-8 6 8 6" fill="#FBF7EE" stroke="#1F1B18" stroke-width="1.5" stroke-linejoin="round"/>
+                  <text x="218" y="31" text-anchor="middle" font-family="Source Sans 3, sans-serif" font-weight="700" font-size="14" fill="#1F1B18">Te revoilà ! On y va doucement ?</text>
+                </g>
+              </svg>
+            </div>
+
+            <div class="lignes-menu">
+              <div class="row"><span>Bloc 1 · 14 cartes</span><span class="k">5 min</span></div>
+            </div>
+
+            <div class="btn plein">Commencer le premier bloc</div>
+
+            <div class="cases">
+              <div class="case"><div class="haut"><span class="g">温</span><span class="cpy">wēn</span></div><span class="t">Réviser</span><span class="i">Dans les blocs</span></div>
+              <div class="case"><div class="haut"><span class="g">玩</span><span class="cpy">wán</span></div><span class="t">Jouer</span><span class="i">La devinette du jour</span></div>
+              <div class="case"><div class="haut"><span class="g">读</span><span class="cpy">dú</span></div><span class="t">Lire</span><span class="i">L'anecdote du jour</span></div>
+              <div class="case"><div class="haut"><span class="g">路</span><span class="cpy">lù</span></div><span class="t">Mon chemin</span><span class="i">26 lus</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <p class="legende-ecran" id="legende-ecran"></p>
+    </div>
+
+    <!-- ================= LA NOTE ================= -->
+    <div class="note">
+      <section class="retour-note">
+        <p><b>Retour du 29 septembre : ni borne ni stèle, l'image funéraire est écartée.</b></p>
+        <p>Plus rien ne se dresse en pierre : les pierres du chemin sont des pavés posés à plat, les familles des auberges, les rendez-vous de la route des portes, des lanternes et des étals. Tao se repose au pavillon, un bol de thé à côté. La variante A est retenue ; ces cinq écrans servent de référence pour l'intégration.</p>
+        <p class="ecartee">Écartée : la variante B, le rouleau horizontal où chaque famille était une stèle. Retirée de la page pour l'alléger.</p>
+      </section>
+
+      <section>
+        <h2>L'image, d'un bout à l'autre</h2>
+        <p>Le nom de l'app dit déjà l'image : 文路, le chemin de l'écrit. Mon chemin 路 montre ce qui est devant, la route et ses rendez-vous, et ce qui est derrière : les jours faits, les familles ouvertes, les semaines tenues. C'est un chemin qu'on emprunte, avec des haltes, des auberges et des lanternes.</p>
+        <div class="vocab" id="vocab"></div>
+      </section>
+
+      <section>
+        <h2>L'écran Mon chemin</h2>
+        <div class="variantes">
+          <div class="variante">
+            <span class="lettre">A · retenue</span>
+            <h3>Le chemin pavé, les familles en auberges</h3>
+            <p>Un seul dessin vertical. En haut, la route devant, dans le papier découpé d'aujourd'hui ; au milieu, la pierre du jour en cinabre et Tao ; en descendant, le chemin parcouru, un pavé par jour du chemin. À la pierre d'une brique qui a des caractères lus s'ouvre une auberge 客栈 : un petit toit, une porte, et le fanion 幌子 où la brique est écrite. Son sentier part de là, pavé de ses caractères.</p>
+            <p class="pour"><b>Pour :</b> la continuité avec 前路 (même scène, même geste), une lecture de haut en bas naturelle au téléphone, la parenté visible, et une image habitée : des auberges où l'on s'arrête.</p>
+            <p class="contre"><b>À régler :</b> le chemin s'allonge après cent jours. On peut le replier par tranches de trente jours, ou prévoir un saut « au jour 1 ».</p>
+          </div>
+        </div>
+        <p>Pourquoi l'auberge plutôt que la lanterne pour une famille : la lanterne sert déjà aux seuils de lecture sur la route devant, et l'auberge porte naturellement une enseigne, son fanion, où poser la brique et plus tard le sceau de famille.</p>
+      </section>
+
+      <section>
+        <h2>La route devant et le lien du menu</h2>
+        <ul>
+          <li>La route devant devient la partie « devant » de Mon chemin, le chemin parcouru la partie « derrière ». Les pierres, la carte de l'étape et toutes les règles de <code>route.ts</code> restent.</li>
+          <li>Les « bornes » deviennent des <b>rendez-vous</b>, toujours au pointillé d'indigo tant qu'ils sont à venir : un examen, c'est une <b>porte de ville 城门</b> au nom de l'examen sur le linteau ; un seuil du trophée Lire, une <b>lanterne 灯笼</b> au nombre ; un conte qui s'ouvre, un <b>étal de livres</b> avec le motif du conte. Un examen et un seuil au même palier partagent la porte, la lanterne pendue à son angle.</li>
+          <li>L'examen à passer ne dresse plus sa stèle : la <b>porte du 贡院</b> s'ouvre sur la route, juste devant la pierre du jour, au trait plein d'indigo. La toucher mène à l'examen.</li>
+          <li>« Prochaine borne : » devient « Prochain rendez-vous : ». Le petit repère d'indigo sur une pierre devient un fanion.</li>
+          <li>L'écran séparé « La route devant » n'a plus lieu d'être : son entrée dans Ma forêt s'efface, la carte de l'étape passe en tête de Mon chemin. « Ma route › » devient <b>« Devant › »</b>, qui ouvre Mon chemin sur la route devant, l'étape de demain choisie.</li>
+          <li>La porte du jour 9 reste : avant elle, le haut du chemin est dans la brume. Le jour 9, Tao l'annonce : « Une nouvelle porte, sur ton chemin : la route devant 前路. »</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>Ce qui ne change pas</h2>
+        <ul>
+          <li>La série, ses paliers et les cadeaux de Que ; le jour de repos, qui vient toujours toutes les sept journées travaillées (le pavillon le dit désormais).</li>
+          <li>Les trophées en sceaux 印, les révisions, les trouvés en chemin, la liste des 238 familles, les deux nombres.</li>
+          <li>Les portes et leurs seuils : Mon chemin 路 au jour 6, la route au jour 9, les trophées à 10 lus, les révisions au jour 40.</li>
+          <li>Tao reste la graine de pêcher qui grandit, sa pousse et ses fleurs : c'est un personnage, plus une métaphore de la journée.</li>
+          <li>Le cinabre ne marque que la pierre du jour, son sceau « jour 15 » et la brique nouvelle ; plus de « famille du moment » en cinabre.</li>
+          <li>Les identifiants du code et de la progression (<code>foret</code>, <code>joursTravailles</code>, le type <code>Borne</code> de <code>route.ts</code>) restent tels quels : aucune migration des progressions, export et import compris. Seuls les textes et les dessins changent.</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>L'étendue du changement</h2>
+        <div class="chiffres">
+          <div><b id="n-textes">0</b><span>textes et dessins à changer</span></div>
+          <div><b>17</b><span>fichiers de l'app</span></div>
+          <div><b>4</b><span>sources du pipeline</span></div>
+          <div><b>13</b><span>fichiers de tests à suivre</span></div>
+          <div><b>4</b><span>documents (brief, backlog, jeux, tokens)</span></div>
+        </div>
+        <p>Les « graine » du code qui nomment le tirage pseudo-aléatoire (<code>graineDuJour</code>, <code>melange(…, graine)</code>) et les <code>borner…</code> des calculs ne sont pas l'image : ils restent. Restent aussi les contes, fiches et devinettes où 林, 树 ou 木 sont du contenu, et 翰林, « la forêt des pinceaux », qui est le nom d'un rang. La maquette validée <code>maquettes/examen.html</code> montre encore la stèle de l'examen ; elle ne se modifie pas, l'app suivra la porte.</p>
+      </section>
+
+      <section class="questions">
+        <h2>Questions au propriétaire</h2>
+        <ol>
+          <li><b>Le nom des bornes :</b> « rendez-vous » (« Prochain rendez-vous : 县试, 50 caractères, dans 10 jours ») convient-il, dans l'app et dans le brief ?</li>
+          <li><b>La porte de l'examen</b> remplace aussi la stèle dans « Mon personnage » (« Reste le 院试 ») et sur la ligne d'examen du menu. D'accord pour l'appliquer là aussi, bien que la maquette d'examen validée montre une stèle ?</li>
+          <li><b>Le lien du menu :</b> « Devant › », ou garder « Ma route › », qui reste juste ?</li>
+          <li><b>Sept pierres, un pavillon 亭</b>, où Tao prend aussi son thé au retour : d'accord ?</li>
+          <li><b>Tao, graine de pêcher :</b> elle reste la seule graine de l'app. On la garde telle quelle ?</li>
+          <li><b>« L'arbre des caractères » :</b> le brief et le positionnement App Store disent « l'arbre étymologique qui apprend à lire ». On garde « arbre » pour la décomposition, terme d'usage, ou « le chemin de l'écrit » là aussi ?</li>
+          <li><b>« Le chemin » du menu :</b> les six coups de pinceau s'appellent déjà « le chemin » dans le brief. Les renommer « les six pas » pour ne pas les confondre avec Mon chemin ?</li>
+        </ol>
+      </section>
+    </div>
+  </div>
+
+  <!-- ================= LE TABLEAU DES TEXTES ================= -->
+  <section class="tableau">
+    <h2>Tous les textes et écrans à changer</h2>
+    <p>Relevés dans <code>app/src/</code>, <code>data/sources/</code> et <code>docs/product-brief.md</code> le 29 septembre 2026 : textes montrés à l'écran, lus par VoiceOver, et dessins. Les lignes en vert restent telles quelles, pour mémoire.</p>
+    <div class="table-defile">
+      <table>
+        <colgroup><col class="c1"><col class="c2"><col class="c3"><col></colgroup>
+        <thead><tr><th>Où</th><th>Fichier</th><th>Aujourd'hui</th><th>Proposé</th></tr></thead>
+        <tbody id="lignes"></tbody>
+      </table>
+    </div>
+  </section>
+</div>
+
+<script>
+(function () {
+  const C = { carte: '#FBF7EE', encre: '#1F1B18', encre2: '#4A443E', brume: '#8B857C', filet: '#D9D1C2', indigo: '#2B4C7E', jade: '#5E8A6A', cinabre: '#C8371F', gutte: '#9A6300', mala: '#1F7A5A', pecher: '#A8506B', mont1: '#EDE6D8', mont2: '#E6DDCC', chaussee: '#E8E0D0', jadep: '#DDE7DE' };
+  const HZ = 'Noto Serif SC, Songti SC, STSong, serif';
+  const SANS = 'Source Sans 3, Helvetica Neue, Arial, sans-serif';
+
+  const hz = (x, y, s, c, fill) => `<text x="${x}" y="${(y + s * 0.36).toFixed(1)}" font-family="${HZ}" font-size="${s}" text-anchor="middle" fill="${fill}">${c}</text>`;
+  const txt = (x, y, s, t, fill, w = 400, anchor = 'middle') => `<text x="${x}" y="${y}" font-family="${SANS}" font-size="${s}" font-weight="${w}" text-anchor="${anchor}" fill="${fill}">${t}</text>`;
+
+  /* un pavé posé à plat, vu en légère plongée : lu (jade), jour (cinabre, la position), devant (au trait), encours (indigo), avenir (pointillé) */
+  function pierre(x, y, r, c, etat, choisie) {
+    const st = {
+      lu: [C.jade, 2, '', C.jade],
+      jour: [C.cinabre, 3.2, '', C.encre],
+      devant: [C.brume, 1.5, '3 3', C.encre2],
+      encours: [C.indigo, 2.2, '', C.encre],
+      avenir: [C.brume, 1.3, '2.5 3', C.brume]
+    }[etat];
+    const rx = (r * 1.3).toFixed(1), ry = (r * 0.8).toFixed(1);
+    let s = '';
+    if (choisie) s += `<ellipse cx="${x}" cy="${y}" rx="${(r * 1.3 + 5).toFixed(1)}" ry="${(r * 0.8 + 4.5).toFixed(1)}" fill="none" stroke="${C.indigo}" stroke-width="2"/>`;
+    s += `<ellipse cx="${x}" cy="${y}" rx="${rx}" ry="${ry}" fill="${C.carte}" stroke="${st[0]}" stroke-width="${st[1]}" ${st[2] ? `stroke-dasharray="${st[2]}"` : ''}/>`;
+    return s + hz(x, y, r * 1.08, c, st[3]);
+  }
+  const plus = (x, y, r, n) => `<ellipse cx="${x}" cy="${y}" rx="${r * 1.3}" ry="${r * 0.8}" fill="${C.carte}" stroke="${C.brume}" stroke-width="1.3" stroke-dasharray="2.5 3"/>` + txt(x, y + 4, r * 0.9, '+' + n, C.encre2, 600);
+  const sceau = (x, y, s, c) => `<rect x="${x - s / 2}" y="${y - s / 2}" width="${s}" height="${s}" rx="2" fill="${C.encre}"/><rect x="${x - s / 2 + 2}" y="${y - s / 2 + 2}" width="${s - 4}" height="${s - 4}" rx="1.5" fill="none" stroke="${C.carte}" stroke-width=".8"/>` + hz(x, y, s * 0.62, c, C.carte);
+  const tao = (cx, pieds, taille) => `<use href="#tao" x="${cx - taille / 2}" y="${pieds - taille * 0.85}" width="${taille}" height="${taille}"/>`;
+  const pin = (x, y, k) => `<g transform="translate(${x} ${y}) scale(${k})"><path d="M0 -30 L11 -12 L5 -12 L14 2 L-14 2 L-5 -12 L-11 -12Z" fill="${C.jade}"/><rect x="-2" y="2" width="4" height="7" fill="${C.gutte}"/></g>`;
+  const brumeB = (x, y, w) => `<rect x="${x}" y="${y}" width="${w}" height="12" rx="6" fill="${C.carte}" opacity=".92"/>`;
+
+  /* l’auberge 客栈 d’une famille : un toit, une porte, et le fanion 幌子 où la brique est écrite */
+  function auberge(x, y, c, k = 1) {
+    return `<g transform="translate(${x} ${y}) scale(${k})">` +
+      `<rect x="-16" y="-24" width="32" height="22" fill="${C.carte}" stroke="${C.gutte}" stroke-width="1.5"/>` +
+      `<rect x="-5" y="-16" width="10" height="14" rx="1" fill="${C.gutte}"/>` +
+      `<path d="M-23 -23q7-2 11-10h24q4 8 11 10z" fill="${C.mala}"/>` +
+      `<path d="M21 -1V-54" stroke="${C.gutte}" stroke-width="2.4" stroke-linecap="round"/>` +
+      `<path d="M21 -52h21v27l-5.25 4-5.25-4-5.25 4-5.25-4z" fill="${C.carte}" stroke="${C.pecher}" stroke-width="1.6" stroke-linejoin="round"/>` +
+      hz(31.5, -38, 15, c, C.encre) + `</g>`;
+  }
+  /* les rendez-vous de la route devant, au pointillé d’indigo tant qu’ils sont à venir */
+  const D = `stroke="${C.indigo}" stroke-width="1.5" stroke-dasharray="4 3"`;
+  function porte(x, y, nom, lanterne, ouverte) {
+    const t = ouverte ? `stroke="${C.indigo}" stroke-width="1.8"` : D;
+    let s = `<path d="M${x - 38} ${y + 16}q13-2 19-14h38q6 12 19 14z" fill="${C.carte}" ${t}/>`;
+    s += `<rect x="${x - 31}" y="${y + 16}" width="62" height="34" fill="${C.carte}" ${t}/>`;
+    s += `<path d="M${x - 10} ${y + 50}v-11a10 10 0 0 1 20 0v11" fill="${ouverte ? C.jadep : C.carte}" ${t}/>`;
+    s += `<rect x="${x - 15}" y="${y + 19}" width="30" height="12" rx="1.5" fill="${C.carte}" stroke="${C.indigo}" stroke-width="1"/>` + hz(x, y + 25, 9.5, nom, C.indigo);
+    if (lanterne) {
+      s += `<path d="M${x + 27} ${y + 16}v7" stroke="${C.indigo}" stroke-width="1.2"/>`;
+      s += `<ellipse cx="${x + 27}" cy="${y + 32}" rx="8" ry="9.5" fill="${C.carte}" ${D}/><path d="M${x + 23} ${y + 22.5}h8M${x + 23} ${y + 41.5}h8" stroke="${C.indigo}" stroke-width="1.4"/>` + txt(x + 27, y + 35, 8, lanterne, C.indigo, 700);
+    }
+    return s;
+  }
+  function lanterneSeuil(x, y, n) {
+    return `<path d="M${x} ${y + 50}V${y}h14" stroke="${C.indigo}" stroke-width="1.6" stroke-dasharray="4 3" fill="none"/><path d="M${x + 14} ${y}v6" stroke="${C.indigo}" stroke-width="1.2"/>` +
+      `<ellipse cx="${x + 14}" cy="${y + 18}" rx="10" ry="12" fill="${C.carte}" ${D}/><path d="M${x + 9} ${y + 6.5}h10M${x + 9} ${y + 29.5}h10" stroke="${C.indigo}" stroke-width="1.4"/>` + txt(x + 14, y + 21.5, 9, n, C.indigo, 700);
+  }
+  function etal(x, y) {
+    let s = `<path d="M${x - 26} ${y + 16}l6-12h40l6 12z" fill="${C.carte}" ${D}/>`;
+    s += `<path d="M${x - 21} ${y + 16}v32M${x + 21} ${y + 16}v32" ${D}/>`;
+    s += `<rect x="${x - 26}" y="${y + 34}" width="52" height="6" fill="${C.carte}" ${D}/>`;
+    s += `<rect x="${x - 19}" y="${y + 28}" width="16" height="6" fill="${C.carte}" stroke="${C.indigo}" stroke-width="1.2"/><rect x="${x - 17}" y="${y + 23}" width="14" height="5" fill="${C.carte}" stroke="${C.indigo}" stroke-width="1.2"/>`;
+    s += `<rect x="${x + 1}" y="${y + 19}" width="18" height="15" rx="1" fill="${C.carte}" stroke="${C.indigo}" stroke-width="1.3"/>`;
+    s += `<g stroke="${C.indigo}" stroke-width="1" fill="none"><path d="M${x + 4} ${y + 24}h12M${x + 4} ${y + 29}h12M${x + 8} ${y + 21}v11M${x + 12} ${y + 21}v11"/></g><circle cx="${x + 8}" cy="${y + 24}" r="1.8" fill="${C.indigo}"/>`;
+    return s;
+  }
+  const legende = (x, y, titre, dans) => txt(x, y, 12.5, titre, C.encre2, 600) + txt(x, y + 14, 11.5, dans, C.brume);
+  const fanionRepere = (x, y) => `<path d="M${x} ${y}v-18" stroke="${C.indigo}" stroke-width="1.5"/><path d="M${x} ${y - 18}h10l-3 4 3 4h-10z" fill="${C.indigo}"/>`;
+
+  function lisse(pts) {
+    let d = `M${pts[0][0]} ${pts[0][1]}`;
+    for (let i = 0; i < pts.length - 1; i++) {
+      const p0 = pts[i - 1] || pts[i], p1 = pts[i], p2 = pts[i + 1], p3 = pts[i + 2] || p2;
+      const c1 = [p1[0] + (p2[0] - p0[0]) / 6, p1[1] + (p2[1] - p0[1]) / 6];
+      const c2 = [p2[0] - (p3[0] - p1[0]) / 6, p2[1] - (p3[1] - p1[1]) / 6];
+      d += ` C${c1[0].toFixed(1)} ${c1[1].toFixed(1)} ${c2[0].toFixed(1)} ${c2[1].toFixed(1)} ${p2[0]} ${p2[1]}`;
+    }
+    return d;
+  }
+
+  /* ---------- les données : le chemin Lire, jours 1 à 21 (data/sources/parcours/ordre-lire.tsv) ---------- */
+  const BRIQUES = { 1: '人', 2: '大', 3: '天', 4: '月', 5: '日', 6: '一', 7: '十', 8: '口', 9: '门', 10: '八', 11: '又', 12: '女', 13: '子', 14: '生', 15: '儿', 16: '母', 17: '见', 18: '王', 19: '二', 20: '其', 21: '也' };
+  /* les familles ouvertes au jour 15 : les lus, et ce qui attend encore (export 0.1.0, familles/*.json) */
+  const FAMILLES = {
+    1: { lus: ['从', '以'], avenir: 5 },
+    4: { lus: ['朋', '有'], avenir: 3 },
+    5: { lus: ['明', '是', '早', '星'], avenir: 8 },
+    7: { lus: ['古'], avenir: 3 },
+    8: { lus: ['只'], avenir: 17 },
+    9: { lus: ['问', '间'], avenir: 0, sceau: true },
+    11: { lus: ['友'], avenir: 6 },
+    12: { lus: ['如', '好', '姓'], avenir: 5 },
+    13: { lus: ['学'], avenir: 2 },
+    15: { encours: ['先'], lus: [], avenir: 0 }
+  };
+
+  /* ================= Mon chemin ================= */
+  function sceneA() {
+    const W = 361, pos = {};
+    const devant = { 21: [196, 76, 9], 20: [236, 116, 10], 19: [214, 158, 11], 18: [160, 200, 12], 17: [118, 244, 13], 16: [140, 292, 14] };
+    for (const d in devant) pos[d] = devant[d];
+    pos[15] = [180, 348, 18];
+    for (let d = 14; d >= 1; d--) {
+      const i = 15 - d;
+      pos[d] = [Math.round(100 + 22 * Math.sin(i * 0.95 + 0.6)), 348 + i * 64 + 20, 15];
+    }
+    const H = pos[1][1] + 56;
+    let s = `<svg viewBox="0 0 ${W} ${H}" role="group" aria-label="Ton chemin : la route devant en haut, le chemin parcouru en dessous">`;
+    s += `<rect width="${W}" height="${H}" fill="${C.carte}"/>`;
+    s += `<circle cx="268" cy="40" r="17" fill="#EFE5D0"/>`;
+    s += `<path d="M0 160 L38 118 L70 136 L116 66 L150 104 L178 86 L214 128 L252 96 L290 132 L322 104 L361 128 V380 H0Z" fill="${C.mont1}"/>`;
+    s += `<path d="M0 238 Q50 206 104 222 T214 212 T361 206 V380 H0Z" fill="${C.mont2}"/>`;
+    s += `<path d="M0 382 Q90 352 180 366 T361 358 V386 H0Z" fill="${C.carte}"/>`;
+    s += [[34, 232, .8], [56, 244, .6], [328, 262, .8], [304, 282, .6], [28, 322, .7]].map((p) => pin(...p)).join('');
+    s += txt(14, 20, 11, 'DEVANT 前路', C.brume, 700, 'start');
+    const ptsDevant = [21, 20, 19, 18, 17, 16, 15].map((d) => pos[d].slice(0, 2));
+    const ptsDerriere = [15, 14, 13, 12, 11, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1].map((d) => pos[d].slice(0, 2));
+    s += `<path d="${lisse([[186, 44], ...ptsDevant])}" stroke="${C.chaussee}" stroke-width="26" stroke-linecap="round" fill="none"/>`;
+    s += `<path d="${lisse(ptsDerriere)}" stroke="${C.jadep}" stroke-width="34" stroke-linecap="round" fill="none"/>`;
+    s += brumeB(150, 38, 110) + brumeB(196, 56, 92) + brumeB(136, 22, 80);
+    /* les deux prochains rendez-vous, dans la brume : la porte du 县试 avec la lanterne du seuil de 50, l’étal de 学弈 */
+    s += porte(72, 34, '县试', '50') + brumeB(30, 80, 84) + legende(72, 106, '县试 · 50 caractères', 'dans 10 j');
+    s += etal(314, 140) + brumeB(282, 176, 64) + legende(314, 200, '学弈', 'dans 10 j');
+    /* les auberges et leurs sentiers, avant les pavés */
+    for (const d in FAMILLES) {
+      const f = FAMILLES[d], [x, y] = pos[d];
+      const ax = x + 60;
+      const membres = [...(f.encours || []).map((c) => [c, 'encours']), ...f.lus.map((c) => [c, 'lu'])];
+      const sx = ax + 60;
+      const n = membres.length + (f.avenir ? 1 : 0);
+      s += `<path d="M${x + 18} ${y + 3}Q${ax - 22} ${y + 10} ${ax} ${y + 6}L${sx + (n - 1) * 30} ${y + 4}" stroke="${C.chaussee}" stroke-width="12" stroke-linecap="round" fill="none"/>`;
+      s += auberge(ax, y + 2, BRIQUES[d], 0.92);
+      membres.forEach(([c, e], k) => (s += pierre(sx + k * 30, y + 4, 11, c, e)));
+      if (f.avenir) s += plus(sx + membres.length * 30, y + 4, 11, f.avenir);
+      if (f.sceau) s += sceau(ax + 40, y - 18, 16, '门');
+    }
+    /* les pavés du chemin */
+    for (let d = 21; d >= 1; d--) {
+      const [x, y, r] = pos[d];
+      const etat = d > 15 ? 'devant' : d === 15 ? 'jour' : 'lu';
+      s += pierre(x, y, r, BRIQUES[d], etat, d === 16);
+    }
+    /* Tao sur la pierre du jour, et le sceau de la position */
+    const [jx, jy, jr] = pos[15];
+    s += tao(jx - 48, jy + 10, 56);
+    s += `<rect x="${jx - 30}" y="${jy + jr * 0.8 + 7}" width="60" height="19" rx="4" fill="${C.cinabre}"/>` + txt(jx, jy + jr * 0.8 + 20.5, 12.5, 'jour 15', C.carte, 700);
+    s += txt(14, pos[14][1] + 36, 11, 'DERRIÈRE', C.brume, 700, 'start');
+    s += txt(pos[1][0], pos[1][1] + 32, 11.5, 'jour 1 · la première session', C.brume, 400);
+    return s + '</svg>';
+  }
+
+  /* ================= la famille ouverte : l’auberge de 日 et son sentier ================= */
+  function sentierA() {
+    const W = 361, H = 410;
+    const pts = [[74, 372], [142, 336], [180, 294], [232, 252], [196, 208], [138, 174], [104, 130], [150, 94], [214, 68], [268, 42]];
+    const m = [['明', 'lu', true], ['是', 'lu'], ['早', 'lu'], ['星', 'lu'], ['时', 'avenir'], ['昨', 'avenir'], ['晚', 'avenir'], ['影', 'avenir']];
+    let s = `<svg viewBox="0 0 ${W} ${H}" role="group" aria-label="L’auberge de la famille 日 et son sentier">`;
+    s += `<rect width="${W}" height="${H}" fill="${C.carte}"/>`;
+    s += `<path d="M0 120 L50 70 L90 96 L150 30 L200 74 L250 44 L300 86 L361 50 V${H} H0Z" fill="${C.mont1}"/>`;
+    s += `<path d="M0 250 Q80 214 170 234 T361 222 V${H} H0Z" fill="${C.mont2}"/>`;
+    s += `<path d="M0 330 Q100 300 200 316 T361 306 V${H} H0Z" fill="${C.carte}"/>`;
+    s += `<path d="${lisse(pts.slice(0, 5))}" stroke="${C.jadep}" stroke-width="26" stroke-linecap="round" fill="none"/>`;
+    s += `<path d="${lisse(pts.slice(4))}" stroke="${C.chaussee}" stroke-width="24" stroke-linecap="round" fill="none"/>`;
+    s += `<path d="M180 294 Q240 300 290 322" stroke="${C.chaussee}" stroke-width="16" stroke-linecap="round" fill="none"/>`;
+    s += brumeB(220, 30, 110) + brumeB(250, 52, 100);
+    s += [[40, 240, .8], [322, 200, .7], [302, 226, .55], [28, 282, .6]].map((p) => pin(...p)).join('');
+    s += auberge(44, 396, '日', 1.35);
+    m.forEach(([c, e, sel], k) => (s += pierre(pts[k + 1][0], pts[k + 1][1], 16, c, e, sel)));
+    s += pierre(290, 322, 14, '题', 'avenir');
+    s += txt(290, 350, 11.5, 'par 是', C.brume);
+    s += plus(268, 42, 13, 3);
+    s += `<rect x="128" y="364" width="104" height="22" rx="11" fill="${C.carte}" stroke="${C.filet}"/>` + txt(180, 379, 11.5, 'sceau à venir · 5 / 13', C.brume);
+    s += tao(250, 398, 50);
+    return s + '</svg>';
+  }
+
+  /* ================= Clore ================= */
+  function cloreDessin() {
+    let s = `<path d="M-10 118q80-20 160-6t170-8" stroke="${C.jadep}" stroke-width="30" fill="none" stroke-linecap="round"/>`;
+    s += pierre(34, 112, 14, '女', 'lu') + pierre(84, 108, 14, '子', 'lu') + pierre(134, 111, 14, '生', 'lu');
+    s += `<g class="pose"><ellipse cx="196" cy="112" rx="24" ry="15" fill="${C.carte}" stroke="${C.filet}" stroke-width="2"/>` +
+      `<ellipse class="cercle-jour" cx="196" cy="112" rx="24" ry="15" fill="none" stroke="${C.cinabre}" stroke-width="3.2"/>` + hz(196, 112, 20, '儿', C.encre) + `</g>`;
+    s += pierre(254, 106, 11, '母', 'devant');
+    s += `<use href="#tao" x="150" y="4" width="90" height="90"/>`;
+    return s;
+  }
+
+  /* la semaine : sept pavés, puis le pavillon */
+  function pavillon(x, y, k, plein) {
+    const tr = plein ? '' : 'stroke-dasharray="3 3"';
+    return `<g transform="translate(${x} ${y}) scale(${k})"><path d="M-2 14q16-2 18-14q2 12 18 14z" fill="${plein ? C.mala : C.carte}" stroke="${plein ? C.mala : C.brume}" stroke-width="1.4" ${tr}/>` +
+      `<path d="M4 15v20M28 15v20M1 36h30" stroke="${plein ? C.gutte : C.brume}" stroke-width="1.8" stroke-linecap="round" ${tr}/></g>`;
+  }
+  function semaine(n) {
+    const jours = ['L', 'M', 'M', 'J', 'V', 'S', 'D'];
+    let s = `<svg viewBox="0 0 330 46" aria-label="Les pierres de la semaine : ${n} sur 7">`;
+    jours.forEach((j, i) => {
+      const x = 20 + i * 38, fait = i < n, auj = i === n - 1;
+      s += `<ellipse cx="${x}" cy="25" rx="17" ry="12" fill="${fait ? C.jade : C.carte}" stroke="${auj ? C.cinabre : fait ? C.jade : C.filet}" stroke-width="${auj ? 2.4 : 1.5}"/>`;
+      s += txt(x, 29.5, 12.5, j, fait ? C.carte : C.brume, 600);
+    });
+    s += `<g transform="translate(296 5)">` + pavillon(0, 0, 1, false) + `</g>`;
+    return s + '</svg>';
+  }
+
+  /* le vocabulaire de l’image, pour la note */
+  function vocab() {
+    const f = (svg, t, d, av) => `<figure><svg viewBox="0 0 150 86" aria-hidden="true">${svg}</svg><figcaption><b>${t}</b>${d}<span class="avant">avant : ${av}</span></figcaption></figure>`;
+    const sol = `<path d="M0 70q40-10 75-4t75-6" stroke="${C.jadep}" stroke-width="24" fill="none"/>`;
+    const route = `<path d="M0 72q40-10 75-4t75-6" stroke="${C.chaussee}" stroke-width="22" fill="none"/>`;
+    return [
+      f(sol + pierre(40, 68, 12, '生', 'lu') + pierre(92, 66, 15, '儿', 'jour') + tao(126, 70, 44), 'Le pavé', 'Un par jour travaillé, posé à plat sur le chemin, sa brique écrite dessus. Celui du jour en cinabre.', 'la graine'),
+      f(sol + pavillon(55, 14, 1.3, true), 'Le pavillon 亭', 'Sept pierres, un pavillon où l’on s’arrête : un jour de repos en réserve.', 'l’arbre de sept graines'),
+      f(sol + auberge(34, 70, '日', 0.95) + pierre(92, 68, 10, '明', 'lu') + pierre(122, 66, 10, '是', 'lu'), 'L’auberge 客栈', 'Une famille : sa brique sur le fanion, ses caractères en pavés sur le sentier.', 'l’arbre de la famille'),
+      f(sol + `<use href="#tao-pavillon" x="36" y="0" width="80" height="80"/>`, 'Tao au pavillon', 'Au retour après une absence, elle prend son thé au pavillon et t’attend, sans reproche.', 'Tao en pot'),
+      f(sol + auberge(46, 72, '门', 0.95) + sceau(104, 40, 30, '门'), 'Le sceau de famille', 'Une famille lue en entier : son sceau se pose sur le fanion de son auberge.', 'le sceau sur le pot de Tao'),
+      f(route + porte(75, 12, '县试', ''), 'La porte de ville 城门', 'Un examen à venir, son nom sur le linteau, au pointillé d’indigo.', 'la stèle au pointillé'),
+      f(route + porte(75, 12, '贡院', '', true), 'La porte ouverte 贡院', 'L’examen à passer : la porte s’ouvre sur la route, devant la pierre du jour.', 'la stèle dressée sur la route'),
+      f(route + lanterneSeuil(62, 10, '100'), 'La lanterne 灯笼', 'Un seuil du trophée Lire, son nombre sur la lanterne.', 'la stèle du seuil'),
+      f(route + etal(75, 14), 'L’étal de livres', 'Un conte qui s’ouvre, son motif sur la couverture (ici 学弈, le plateau de go).', 'la stèle du conte')
+    ].join('');
+  }
+
+  /* ---------- le tableau des textes ---------- */
+  const T = [
+    ['Menu'],
+    ['La 4e case', 'Menu.svelte', '林 · Ma forêt', '路 · Mon chemin (pinyin lù, dessiné depuis ses traits)'],
+    ['Picto de repli de la case', 'Menu.svelte', 'un sapin au trait', 'un sentier pavé'],
+    ['Ligne de la journée faite', 'parcours.ts', 'Graine plantée, une seule par jour', 'Pierre posée, une seule par jour'],
+    ['Idem, après une session de plus', 'parcours.ts', 'Graine plantée · 2 sessions de plus', 'Pierre posée · 2 sessions de plus'],
+    ['Lien sous le chemin', 'Menu.svelte', 'Ma route ›', 'Devant › (ouvre Mon chemin sur la route devant)'],
+    ['Idem, VoiceOver', 'Menu.svelte', 'Ma route : la route devant', 'Devant : la route devant, sur ton chemin'],
+    ['Ligne de l’examen ouvert, picto', 'Menu.svelte', 'une petite stèle au pointillé', 'une petite porte de ville'],
+    ['Tao, la journée faite', 'parcours.ts', 'Graine plantée !', 'Pierre posée !'],
+    ['Tao, reprise au pas 6', 'parcours.ts', 'Pas 6, on plante la graine !', 'Pas 6, on pose la pierre !'],
+    ['Tao en rattrapage (dessin)', 'Tao.svelte, tao.ts, parcours.ts', 'Tao en pot (posture « pot »)', 'Tao assise au pavillon 亭, un bol de thé à côté (posture « halte »)'],
+    ['Session et Clore'],
+    ['Le pas 6 dans la liste des pas', 'session.ts', 'Le constat et la graine', 'Le constat et la pierre du jour'],
+    ['Idem, en session de plus', 'session.ts', 'Le constat, sans seconde graine', 'Le constat, sans seconde pierre'],
+    ['Ligne de la journée faite', 'session.ts', 'La graine du jour est plantée. Rendez-vous demain.', 'La pierre du jour est posée. Rendez-vous demain.'],
+    ['Clore, le titre', 'Close.svelte', '儿 entre dans ta forêt.', '儿 rejoint ton chemin.'],
+    ['Clore, une session de plus', 'Close.svelte', 'La graine du jour est déjà plantée : une par jour, jamais deux.', 'La pierre du jour est déjà posée : une par jour, jamais deux.'],
+    ['Clore, le dessin', 'Close.svelte', 'la graine qui tombe et germe', 'le pavé du jour qui se pose à plat sur le chemin, cerclé de cinabre'],
+    ['Clore, VoiceOver', 'Close.svelte', 'Les graines de la semaine', 'Les pierres de la semaine'],
+    ['La semaine (Clore)', 'serie.ts', '2 graines plantées cette semaine. Sept graines font un arbre.', '2 pierres posées cette semaine. Sept pierres font un pavillon.'],
+    ['La semaine complète', 'serie.ts', '7 graines plantées cette semaine : un arbre de plus.', '7 pierres posées cette semaine : un pavillon de plus.'],
+    ['Le cadeau des 365 jours', 'serie.ts', 'Un an sans manquer. La forêt est à toi.', 'Un an sans manquer. Le chemin est à toi.'],
+    ['L’écran Mon chemin'],
+    ['Titre', 'Forest.svelte', 'Ta forêt', 'Mon chemin 路'],
+    ['Phrase d’aide', 'Forest.svelte', 'Autour de 字, les briques ; plus loin, les caractères qui les contiennent. Touche une brique pour ouvrir son arbre : « +3 », c’est ce qui y attend encore.', 'Au-dessus, la route devant ; dessous, le chemin parcouru. Touche une auberge pour ouvrir sa famille : « +3 », c’est ce qui y attend encore.'],
+    ['Le dessin', 'Forest.svelte, foret.ts', 'le cercle des familles autour de 字, zoom et déplacement', 'le chemin vertical, ses pavés et ses auberges ; plus de zoom'],
+    ['Consigne sous le dessin', 'Forest.svelte', 'Pince pour zoomer, glisse pour te déplacer, double tape pour recentrer.', 'Glisse vers le bas : le chemin parcouru.'],
+    ['VoiceOver du dessin', 'Forest.svelte', 'Le cercle de tes familles', 'Ton chemin'],
+    ['VoiceOver d’une famille', 'Forest.svelte', 'Ouvrir l’arbre de 人, rén, homme', 'Ouvrir l’auberge de 人, rén, homme'],
+    ['VoiceOver du « +N »', 'Forest.svelte', 'Ouvrir l’arbre de 人 : 5 caractères de plus', 'Ouvrir l’auberge de 人 : 5 caractères de plus'],
+    ['Légende', 'Forest.svelte', 'acquis · en cours · à venir · la famille du moment', 'lu · en cours · à venir · la pierre du jour'],
+    ['Liste des familles', 'Forest.svelte', 'Le cercle montre les familles ouvertes et les prochaines. Les autres sont ici.', 'Le chemin montre les familles ouvertes et les prochaines. Les autres sont ici.'],
+    ['La colline et Tao assise', 'Forest.svelte', 'Tao posée sur la colline', 'Tao debout près de la pierre du jour, sceau « jour 15 »'],
+    ['La semaine, le compte', 'foret.ts', 'Aucune graine cette semaine. Sept graines font un arbre.', 'Aucune pierre cette semaine. Sept pierres font un pavillon.'],
+    ['La semaine, complète', 'foret.ts', 'Sept graines : la semaine fait un arbre.', 'Sept pierres : la semaine fait un pavillon.'],
+    ['La semaine, en cours', 'foret.ts', 'Une graine / 3 graines cette semaine.', 'Une pierre / 3 pierres cette semaine.'],
+    ['La semaine, la note', 'Forest.svelte', 'Chaque jour travaillé plante une graine. Sept graines, un arbre.', 'Chaque jour travaillé pose une pierre. Sept pierres, un pavillon : un jour de repos en réserve.'],
+    ['L’entrée de la route', 'RouteEntree.svelte', 'La route devant 前路 › (entrée de Ma forêt)', 'retirée : la route est le haut du chemin, la carte de l’étape passe en tête'],
+    ['Le décor de fête', 'CercleDecor.svelte', 'posé dans les coins du cercle', 'posé autour du chemin, mêmes décors'],
+    ['La route devant : les rendez-vous'],
+    ['L’écran de la route', 'Route.svelte', 'La route devant 前路, écran à part', 'la partie « devant » de Mon chemin, même scène et mêmes règles (route.ts)'],
+    ['Les pierres de la route', 'Route.svelte', 'des disques', 'des pavés posés à plat, vus en légère plongée'],
+    ['Les deux bornes au loin', 'Route.svelte', 'deux stèles au pointillé d’indigo dans la brume', 'examen : porte de ville 城门, le nom sur le linteau ; seuil : lanterne 灯笼 au nombre ; conte : étal de livres, son motif sur la couverture ; toujours au pointillé d’indigo'],
+    ['L’examen à passer', 'Route.svelte', 'sa stèle se dresse sur la route, devant la pierre du jour', 'la porte du 贡院 s’ouvre sur la route, devant la pierre du jour, au trait plein'],
+    ['Le repère d’une pierre', 'Route.svelte', 'un petit rectangle d’indigo debout', 'un petit fanion d’indigo'],
+    ['Carte de l’étape', 'route.ts', 'Prochaine borne : 县试, 50 caractères.', 'Prochain rendez-vous : 县试, 50 caractères.'],
+    ['Carte de l’étape, ce jour-là', 'route.ts', 'Borne ce jour-là : 学弈, …', 'Rendez-vous ce jour-là : 学弈, …'],
+    ['Après un examen reçu', 'examens/textes.tsv', 'Prochaine borne : le 月课, à 75 caractères, avec le titre …', 'Prochain rendez-vous : le 月课, à 75 caractères, avec le titre …'],
+    ['« Reste le 院试 »', 'Personnage.svelte', 'la stèle de l’examen, son nom gravé', 'la porte de l’examen, son nom sur le linteau'],
+    ['La famille ouverte'],
+    ['Le retour', 'Tree.svelte', '‹ Ma forêt', '‹ Mon chemin'],
+    ['Le dessin', 'Tree.svelte, foret.ts', 'l’arbre : la racine en haut, les générations dessous', 'l’auberge de la brique, et son sentier pavé qui monte ; une bifurcation par génération'],
+    ['VoiceOver', 'Tree.svelte', 'L’arbre de la famille 日', 'L’auberge de la famille 日 et son sentier'],
+    ['Retours et trophées'],
+    ['Retour des trophées', 'Rewards.svelte', '‹ Ma forêt', '‹ Mon chemin'],
+    ['Retour d’un jeu', 'Game.svelte', '‹ Ma forêt · Revenir à ma forêt', '‹ Mon chemin · Revenir à mon chemin'],
+    ['Sceau de famille', 'trophees.ts', 'Une famille entière lue. Le sceau se pose sur le pot de Tao.', 'Une famille entière lue. Son sceau se pose sur le fanion de son auberge.'],
+    ['Série, explication', 'trophees.ts', 'Un jour travaillé, une graine, jamais plus : une session de plus ne compte pas double.', 'Un jour travaillé, une pierre, jamais plus : une session de plus ne compte pas double.'],
+    ['Pipeline, data/sources/'],
+    ['Caractères de l’interface', 'interface/caracteres.txt', '林 (la forêt)', '路 (le chemin) : ses traits et son pinyin entrent dans l’export'],
+    ['Porte du jour 6', 'ouvertures/portes.tsv', 'Une nouvelle porte : Ma forêt 林.', 'Une nouvelle porte : Mon chemin 路.'],
+    ['Porte du jour 9', 'ouvertures/portes.tsv', 'Une nouvelle porte : la route devant 前路.', 'Une nouvelle porte, sur ton chemin : la route devant 前路.'],
+    ['Porte des trophées', 'ouvertures/portes.tsv', 'Une nouvelle porte, dans Ma forêt : tes trophées.', 'Une nouvelle porte, sur ton chemin : tes trophées.'],
+    ['Porte des révisions', 'ouvertures/portes.tsv', 'Une nouvelle porte, dans Ma forêt : tes révisions.', 'Une nouvelle porte, sur ton chemin : tes révisions.'],
+    ['Retour du tableau des révisions', 'ecrans/revisions.tsv', 'Ma forêt', 'Mon chemin'],
+    ['Pour mémoire, inchangés', '', '', ''],
+    ['Le rang 翰林', 'heros/rangs.tsv', 'la forêt des pinceaux', 'inchangé : c’est le nom du rang', 1],
+    ['Contes, fiches, devinettes', 'contes/, fiches/, devinettes/', '木 l’arbre, 森林, 树林…', 'inchangé : c’est du contenu', 1],
+    ['Le tirage, les calculs', 'questions.ts, jeux.ts, srs.ts…', 'graine (du hasard), bornerRetention', 'inchangé : ce n’est pas l’image', 1],
+    ['Tao, ses stades', 'tao.ts, Tao.svelte', 'graine, pousse, jeune pêcher, fleurs, pêches', 'inchangé, sauf avis contraire (question 5)', 1],
+    ['Documents'],
+    ['Le brief, Ma forêt et la graine', 'docs/product-brief.md', '« Ma forêt » et « graine » dans les §5, 6, 8, 9, 10 (24 occurrences)', 'réécrits sur le même modèle ; §8 « Ma forêt : une colline… » devient la description de Mon chemin', 2],
+    ['Le brief, la route devant', 'docs/product-brief.md', '§8 : « les deux prochaines bornes… chacune sur une stèle au pointillé d’indigo », « une pierre qui porte l’une des deux bornes a son petit repère », « Prochaine borne : 50 caractères », « partagent une stèle », « sa stèle se dresse sur la route », « les bornes disent “dans N étapes” », « l’indigo les bornes »', 'rendez-vous ; porte de ville, lanterne, étal de livres ; « partagent la porte » ; « la porte du 贡院 s’ouvre sur la route » ; « l’indigo les rendez-vous »', 2],
+    ['Le brief, les examens', 'docs/product-brief.md', '§8 : « Reste le 院试 », avec sa stèle ; « depuis sa stèle sur la route devant » ; « l’indigo pour la stèle et l’action »', '« avec sa porte » ; « depuis sa porte sur la route devant » ; « l’indigo pour la porte et l’action »', 2],
+    ['Le brief, Tao', 'docs/product-brief.md', '§6 « Tao en pot » ; §9 « elle se met en pot et attend », « sceau de famille sur le pot »', '« Tao au pavillon » ; « elle s’assied au pavillon avec un bol de thé et attend » ; « sceau de famille sur le fanion de l’auberge »', 2],
+    ['Backlog, jeux, tokens', 'docs/backlog.md, docs/jeux.md, docs/design-tokens.md, tokens.css', 'Ma forêt, graine plantée', 'Mon chemin, pierre posée', 2]
+  ];
+  const tb = document.getElementById('lignes');
+  let n = 0;
+  tb.innerHTML = T.map((r) => {
+    if (r.length === 1 || (r[1] === '' && r[2] === '')) return `<tr><th colspan="4" scope="colgroup">${r[0]}</th></tr>`;
+    if (!r[4]) n++;
+    return `<tr${r[4] === 1 ? ' class="inchange"' : ''}><td>${r[0]}</td><td class="f">${r[1]}</td><td class="av">${r[2]}</td><td class="ap">${r[3]}</td></tr>`;
+  }).join('');
+  document.getElementById('n-textes').textContent = n;
+
+  document.getElementById('scene-a').innerHTML = sceneA();
+  document.getElementById('sentier-a').innerHTML = sentierA();
+  document.getElementById('clore-dessin').innerHTML = cloreDessin();
+  document.querySelectorAll('.pierres-semaine').forEach((el) => (el.innerHTML = semaine(+el.dataset.semaine)));
+  document.getElementById('vocab').innerHTML = vocab();
+
+  /* ---------- le sélecteur d’écran ---------- */
+  const boutons = [...document.querySelectorAll('.selecteur button')];
+  const legendeEcran = document.getElementById('legende-ecran');
+  function montrer(id) {
+    boutons.forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.ecran === id)));
+    document.querySelectorAll('.tel .ecran').forEach((e) => (e.hidden = e.id !== id));
+    legendeEcran.innerHTML = document.getElementById(id).dataset.legende;
+    if (id === 'clore') document.querySelectorAll('#clore .pose, #clore .cercle-jour').forEach((el) => { el.style.animation = 'none'; void el.getBoundingClientRect(); el.style.animation = ''; });
+  }
+  boutons.forEach((b) => b.addEventListener('click', () => montrer(b.dataset.ecran)));
+  const depart = (location.hash || '').slice(1);
+  const cible = depart && document.getElementById(depart);
+  montrer(cible && cible.classList.contains('ecran') ? depart : 'menu');
+})();
+</script>

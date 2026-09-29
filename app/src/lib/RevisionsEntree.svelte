@@ -1,6 +1,6 @@
 <script lang="ts">
   /**
-   * L'entrée « Tes révisions » de Ma forêt : combien de cartes reviennent demain et sur les
+   * L'entrée « Tes révisions » de Mon chemin : combien de cartes reviennent demain et sur les
    * sept jours. Le calcul est celui du tableau (`stats.ts`), sur les mêmes cartes : les deux
    * écrans disent toujours la même chose. Les textes viennent du pipeline (`ecrans.json`).
    */

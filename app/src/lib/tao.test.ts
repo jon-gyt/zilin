@@ -39,8 +39,8 @@ const nourrir = (n: number, type: TypeActivite, jour = JOUR): Tao => {
 };
 
 describe('les stades', () => {
-  it('partent de la graine et poussent dès la première activité', () => {
-    expect(stade(0)).toBe('graine');
+  it('partent du noyau et poussent dès la première activité', () => {
+    expect(stade(0)).toBe('noyau');
     expect(stade(ajouter(taoVide(), JOUR, 'revision').croissance)).toBe('pousse');
   });
 
@@ -102,10 +102,10 @@ describe('les postures', () => {
     expect(posture('cuisine')).toBe('goute');
   });
 
-  it("montrent le pot au retour d'absence et la marche la journée finie", () => {
+  it("montrent la halte au pavillon au retour d'absence et la marche la journée finie", () => {
     expect(poseDuJour({ rattrapage: false, fini: false })).toBeNull();
     expect(poseDuJour({ rattrapage: false, fini: true })).toEqual({ posture: 'chemin', humeur: 'joie' });
-    expect(poseDuJour({ rattrapage: true, fini: false })?.posture).toBe('pot');
+    expect(poseDuJour({ rattrapage: true, fini: false })?.posture).toBe('halte');
   });
 });
 
@@ -166,7 +166,7 @@ describe("l'humeur", () => {
 });
 
 describe("l'absence", () => {
-  it('met Tao en pot au même seuil que le rattrapage', () => {
+  it('met Tao à la halte au même seuil que le rattrapage', () => {
     expect(absente('2026-03-08', JOUR)).toBe(false);
     expect(absente('2026-03-07', JOUR)).toBe(false);
     expect(absente('2026-03-06', JOUR)).toBe(true);
@@ -296,6 +296,16 @@ describe('Tao accompagne les activités dans leur posture (brief §9)', () => {
     /* Hors du flux : la mise en page de l'anecdote ne bouge pas. */
     const css = readFileSync(new URL('tokens.css', import.meta.url), 'utf8');
     expect(css).toMatch(/\.ouvrir \.tao-assise\{position:absolute/);
+  });
+
+  it('au retour d’une absence, elle attend au pavillon 亭, un bol de thé à côté, jamais en pot', () => {
+    const source = readFileSync(new URL('Tao.svelte', import.meta.url), 'utf8');
+    expect(source).toContain('<g class="pavillon">');
+    expect(source).toContain('<g class="the">');
+    /* le toit de malachite et le bois de gomme-gutte : les pigments du chemin, jamais le cinabre */
+    expect(source).toContain('var(--chemin-toit)');
+    expect(source).toContain('var(--chemin-bois)');
+    expect(source).not.toMatch(/'pot'|class="pot"/);
   });
 
   it('ne commente jamais une réponse : elle n’a aucune bulle de texte', () => {

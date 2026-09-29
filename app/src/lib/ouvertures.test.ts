@@ -131,7 +131,7 @@ describe('quelles portes sont ouvertes selon la progression', () => {
 
 describe('quelle ouverture annoncer au retour au menu', () => {
   it('une seule par retour, dans l’ordre du calendrier ; la suivante au retour suivant', () => {
-    /* Jour 7, 8 lus : Réviser, le personnage, Ma forêt, Lire et Jouer sont atteints ensemble. */
+    /* Jour 7, 8 lus : Réviser, le personnage, Mon chemin, Lire et Jouer sont atteints ensemble. */
     const { annonces } = retours(etatNeuf(), 7, 8, 7);
     expect(annonces).toEqual(['reviser', 'personnage', 'foret', 'lire', 'jouer']);
   });
@@ -158,8 +158,8 @@ describe('quelle ouverture annoncer au retour au menu', () => {
     expect(visible(etat, CAL, 'jeu-cuisine')).toBe(false);
   });
 
-  it('une porte attend celle qui la contient : les trophées après Ma forêt', () => {
-    /* Jour 5, 12 lus : les trophées sont atteints, Ma forêt pas encore. */
+  it('une porte attend celle qui la contient : les trophées après Mon chemin', () => {
+    /* Jour 5, 12 lus : les trophées sont atteints, Mon chemin pas encore. */
     const { etat, annonces } = retours(etatNeuf(), 5, 12, 6);
     expect(Object.keys(etat.ouvertes)).toContain('trophees');
     expect(annonces).not.toContain('trophees');

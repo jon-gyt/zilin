@@ -29,7 +29,8 @@ import {
 } from './foret';
 import { auNiveau, duNiveau, jourDuNiveau, libelleNiveau, rangNiveau, trierNiveaux, type Niveau } from './niveaux';
 import { lirePaires, type Paires } from './questions';
-import { CADEAUX, NOTE_REMISE, PALIERS, etatSerie } from './serie';
+import { CADEAUX, NOTE_REMISE, PALIERS, detailCadeau, etatSerie } from './serie';
+import { SANS_ECRANS, type TextesChemin } from './ecrans';
 import type { Progress } from './session';
 import { SEUIL_DEBLOCAGE, type ReviewCard } from './srs';
 
@@ -42,7 +43,7 @@ export type FamilleTrophee = (typeof FAMILLES_TROPHEES)[number];
 
 /**
  * Ce qu'une règle compte. La liste est fermée, et c'est elle que le test tient :
- * aucune unité n'est une durée. La série compte des journées travaillées (une graine
+ * aucune unité n'est une durée. La série compte des journées travaillées (une pierre
  * par journée, jamais plus), pas du temps passé.
  */
 export const UNITES = [
@@ -125,6 +126,11 @@ export type ContenuTrophees = {
   paires: unknown;
   /** Le sens d'un caractère quand le contenu en donne un (surcouche comprise). */
   sens?: ReadonlyMap<string, string>;
+  /**
+   * L'image du chemin (`ecrans.json`) : l'explication des sceaux de famille et de la série,
+   * le cadeau des 365 jours. Absente, ces lignes se taisent plutôt que d'être écrites ici.
+   */
+  textes?: TextesChemin;
 };
 
 /* ---------- les constantes ---------- */
@@ -599,7 +605,8 @@ export function tropheesChemin(trouves: readonly { c: string }[], acquis: Acquis
 export function tropheesSerie(
   joursTravailles: readonly string[],
   aujourdhui: string,
-  acquis: Acquis = {}
+  acquis: Acquis = {},
+  t: TextesChemin = SANS_ECRANS.chemin
 ): Trophee[] {
   const s = etatSerie(joursTravailles, aujourdhui);
   return PALIERS.map((m) => {
@@ -611,7 +618,7 @@ export function tropheesSerie(
       forme: 'nombre',
       sceau: `${m} j`,
       nom: `${m} jours`,
-      detail: `${cadeau.titre}. ${cadeau.detail}${cadeau.remise ? ` ${NOTE_REMISE}` : ''}`,
+      detail: [`${cadeau.titre}.`, detailCadeau(m, t), cadeau.remise ? NOTE_REMISE : ''].filter((x) => x !== '').join(' '),
       unite: 'journee travaillee',
       actuel: obtenu ? m : s.jours,
       cible: m,
@@ -630,9 +637,10 @@ const TITRES: Record<FamilleTrophee, { titre: string; explication: string }> = {
     titre: 'Lire',
     explication: "Des caractères que tu sais lire. 255, c'est le premier seuil du français."
   },
+  /* L'explication vient de `ecrans.json` (`chemin/trophee-famille`) : le fanion de l'auberge. */
   sceaux: {
     titre: 'Sceaux de famille',
-    explication: 'Une famille entière lue. Le sceau se pose sur le pot de Tao.'
+    explication: ''
   },
   pieges: {
     titre: 'Pièges déjoués',
@@ -651,10 +659,10 @@ const TITRES: Record<FamilleTrophee, { titre: string; explication: string }> = {
     explication:
       'Un caractère par fête et par terme solaire, lu dans l’anecdote du jour. Il n’entre pas en révision.'
   },
+  /* L'explication vient de `ecrans.json` (`chemin/trophee-serie`) : une pierre par jour. */
   serie: {
     titre: 'Série',
-    explication:
-      'Les cadeaux de Que 雀. Un jour travaillé, une graine, jamais plus : une session de plus ne compte pas double.'
+    explication: ''
   }
 };
 
@@ -663,10 +671,18 @@ export const SECTION_VIDE: Partial<Record<FamilleTrophee, string>> = {
   contes: "Aucun conte n'est encore publié dans le contenu."
 };
 
-function section(famille: FamilleTrophee, trophees: Trophee[]): Section {
+/** Les explications que le pipeline écrit : l'image du chemin. */
+function explication(famille: FamilleTrophee, t: TextesChemin): string {
+  if (famille === 'sceaux') return t['trophee-famille'];
+  if (famille === 'serie') return t['trophee-serie'];
+  return TITRES[famille].explication;
+}
+
+function section(famille: FamilleTrophee, trophees: Trophee[], t: TextesChemin = SANS_ECRANS.chemin): Section {
   return {
     famille,
-    ...TITRES[famille],
+    titre: TITRES[famille].titre,
+    explication: explication(famille, t),
     trophees,
     obtenus: trophees.filter((t) => t.obtenu).length,
     total: trophees.length
@@ -700,14 +716,15 @@ export function tableau(
   const a: Acquis = p.tropheesAcquis;
   const date = (ts: Trophee[]): Trophee[] =>
     ts.map((t) => (a[t.id] !== undefined && t.obtenu ? { ...t, obtenuLe: a[t.id] } : t));
+  const t = c.textes ?? SANS_ECRANS.chemin;
   const sections = [
-    section('lire', date(tropheesLire(lus, a))),
-    section('sceaux', date(tropheesSceaux(c.familles, p.cartes, premierJour, sens, seuil, a))),
-    section('pieges', date(tropheesPieges(paires, p.cartes, pinyins(c.familles), sens, seuil, a))),
-    section('contes', date(tropheesContes(c.index, lus, a, p.contesLus))),
-    section('objets', date(tropheesObjets(p.tracesAchevees, a, p.devinettes, p.recettes))),
-    section('chemin', date(tropheesChemin(p.trouves, a))),
-    section('serie', date(tropheesSerie(p.joursTravailles, p.day, a)))
+    section('lire', date(tropheesLire(lus, a)), t),
+    section('sceaux', date(tropheesSceaux(c.familles, p.cartes, premierJour, sens, seuil, a)), t),
+    section('pieges', date(tropheesPieges(paires, p.cartes, pinyins(c.familles), sens, seuil, a)), t),
+    section('contes', date(tropheesContes(c.index, lus, a, p.contesLus)), t),
+    section('objets', date(tropheesObjets(p.tracesAchevees, a, p.devinettes, p.recettes)), t),
+    section('chemin', date(tropheesChemin(p.trouves, a)), t),
+    section('serie', date(tropheesSerie(p.joursTravailles, p.day, a, t)), t)
   ];
   const tous = sections.flatMap((s) => s.trophees);
   return {
@@ -761,7 +778,7 @@ export function ligneCompte(t: Tableau): string {
   return `${t.obtenus} ${t.obtenus > 1 ? 'trophées' : 'trophée'} sur ${t.total}`;
 }
 
-/** Le prochain, en quelques mots, pour l'entrée de Ma forêt. */
+/** Le prochain, en quelques mots, pour l'entrée de Mon chemin. */
 export function ligneProchain(t: Trophee | null): string {
   if (t === null) return 'tous obtenus';
   switch (t.famille) {

@@ -177,7 +177,7 @@ describe('le statut, lu dans p.cartes', () => {
   const sue: ReviewCard = schedule(newCard('好', TJ), { correct: true, tries: 0, seconds: 2 }, TJ).card;
   const neuve: ReviewCard = newCard('号', TJ);
 
-  it('dit « lu », « en cours » ou « pas encore », comme Ma forêt', () => {
+  it('dit « lu », « en cours » ou « pas encore », comme Mon chemin', () => {
     expect(statut('好', [sue, neuve])).toBe('lu');
     expect(statut('号', [sue, neuve])).toBe('encours');
     expect(statut('汉', [sue, neuve])).toBe('pasencore');

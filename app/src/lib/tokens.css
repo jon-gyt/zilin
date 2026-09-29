@@ -23,10 +23,17 @@
 /* Les étagères de Lire : la planche de bois, en aplat, son chant à l'ocre. Une image,
    comme les couvertures : les cases et les cartes restent au papier. */
 :root{ --bois:#B98A5A; --bois-chant:#8C5A2B; }
-/* 前路, la route devant : trois collines en aplats, de l'ocre fondu dans la carte, du plus
-   loin au plus proche. Mêlées aux variables du thème, elles suivent les fêtes et les nuits. */
+/* Mon chemin 路 (maquettes/chemin.html, validée le 29 septembre 2026) : la route devant 前路
+   en haut, trois collines en aplats, de l'ocre fondu dans la carte, du plus loin au plus
+   proche ; la chaussée, le chemin parcouru au jade pâle. Mêlées aux variables du thème,
+   elles suivent les fêtes et les nuits. Les auberges 客栈 des familles et le pavillon 亭 de
+   la semaine prennent les pigments de la peinture, à plat : le toit de malachite, le bois de
+   gomme-gutte, le fanion 幌子 au rouge de pêcher. Jamais de cinabre : il reste à la pierre du
+   jour. Ni borne, ni stèle, ni arbre : des pavés posés à plat. */
 :root{ --route-mont1:color-mix(in srgb, var(--ocre) 16%, var(--card)); --route-mont2:color-mix(in srgb, var(--ocre) 9%, var(--card));
-  --route-mont3:color-mix(in srgb, var(--ocre) 4%, var(--card)); }
+  --route-mont3:color-mix(in srgb, var(--ocre) 4%, var(--card));
+  --chemin-chaussee:color-mix(in srgb, var(--ocre) 11%, var(--card)); --chemin-parcouru:var(--jade-soft);
+  --chemin-toit:#1F7A5A; --chemin-bois:#9A6300; --chemin-fanion:#A8506B; }
 /* Le personnage (Heros.svelte, brief §8) : ses couleurs à lui, fixes, les jours de fête
    comme les autres, un papier découpé posé sur la page. Les pigments de la charte, l'abricot
    en aplat (jamais un doré), la pêche des fleurs de Tao ; pas de cinabre, il reste au chemin. */
@@ -257,7 +264,7 @@ h1{font-family:var(--head);font-weight:700;font-size:30px;line-height:1.15;lette
 /* le réglage : ne plus proposer le tracé */
 .pref{display:flex;align-items:center;gap:8px;margin-top:16px;font-size:15px;color:var(--ink2);min-height:44px}
 .pref input{width:20px;height:20px;accent-color:var(--indigo)}
-/* Tao 桃, la graine de pêcher. Un seul rose, celui des fleurs. */
+/* Tao 桃, le noyau de pêche qui grandit. Un seul rose, celui des fleurs. */
 :root{ --fleur:#E7A2B4; }
 .tao{display:inline-block;overflow:visible}
 .tao .plante{transform-origin:100px 160px;animation:respire 3.4s ease-in-out infinite}
@@ -267,11 +274,11 @@ h1{font-family:var(--head);font-weight:700;font-size:30px;line-height:1.15;lette
 /* humeurs : la joie saute sur place, l'ennui balance la tête, le calme respire */
 .tao.joie .plante{animation:bond 1s cubic-bezier(.3,0,.2,1) infinite alternate}
 .tao.ennui .plante{transform-origin:100px 160px;animation:soupire 2.6s ease-in-out infinite alternate}
-/* postures : la marche avance, l'assise s'installe, le pot attend */
+/* postures : la marche avance, l'assise s'installe, la halte au pavillon attend */
 .tao.chemin .vivant{transform-origin:100px 168px;animation:marche .9s ease-in-out infinite alternate}
 .tao.anecdote .vivant{transform-origin:100px 170px;transform:translateY(6px) rotate(-4deg)}
-.tao.pot .vivant{transform-origin:100px 150px;animation:redresse 2s cubic-bezier(.25,1,.3,1) forwards}
-.tao.pot .plante{animation:respire 5s ease-in-out infinite}
+.tao.halte .plante{animation:respire 5s ease-in-out infinite}
+.tao.halte .the .vapeur{animation:fume 2.4s ease-in-out infinite alternate}
 .tao .lanterne{transform-origin:164px 26px;animation:balance 3s ease-in-out infinite alternate}
 @keyframes respire{0%,100%{transform:scale(1,1)}50%{transform:scale(1.02,.98)}}
 @keyframes balance{from{transform:rotate(-4deg)}to{transform:rotate(4deg)}}
@@ -279,7 +286,7 @@ h1{font-family:var(--head);font-weight:700;font-size:30px;line-height:1.15;lette
 @keyframes bond{from{transform:translateY(0) scale(1.02,.98)}to{transform:translateY(-12px) scale(.98,1.02)}}
 @keyframes soupire{from{transform:rotate(-3deg)}to{transform:rotate(3deg)}}
 @keyframes marche{from{transform:translateY(0) rotate(-3deg)}to{transform:translateY(-6px) rotate(3deg)}}
-@keyframes redresse{from{transform:rotate(-9deg)}to{transform:rotate(0)}}
+@keyframes fume{from{opacity:.35;transform:translateY(2px)}to{opacity:.85;transform:translateY(-2px)}}
 @media (prefers-reduced-motion:reduce){.tao *{animation:none!important}}
 /* les accessoires de fête de Tao : toujours dessinés, montrés par la fête du jour */
 .tao .fete-acc{display:none}
@@ -327,18 +334,11 @@ h1{font-family:var(--head);font-weight:700;font-size:30px;line-height:1.15;lette
 .fb .leurre .hz{font-weight:400}
 .fb .ecoute-leurre{display:inline-flex;align-items:center;gap:4px;width:auto;min-height:44px;padding:0 12px;flex:none}
 
-/* ---- pas 6, Clore : la graine plantée (maquette s-l5) ---- */
-/* encre et jade, un trait par élément : ni dégradé, ni ombre */
+/* ---- pas 6, Clore : la pierre du jour posée sur le chemin (maquettes/chemin.html) ---- */
+/* encre et jade, un trait par élément : ni dégradé, ni ombre ; le dessin est dans Close.svelte */
 .clore{padding:28px 16px}
 .clore h1{margin-top:6px}
 .clore .guide{margin-bottom:8px}
-.seed{display:flex;justify-content:center;margin:8px 0 4px}
-.seed .sd{animation:tombe .9s cubic-bezier(.4,0,.6,1) forwards}
-.seed .st{stroke-dasharray:40;stroke-dashoffset:40;animation:pousse .7s ease-out 1s forwards}
-.seed .lf{stroke-dasharray:40;stroke-dashoffset:40;animation:pousse .6s ease-out 1.6s forwards}
-@keyframes tombe{to{transform:translateY(74px)}}
-@keyframes pousse{to{stroke-dashoffset:0}}
-@media (prefers-reduced-motion:reduce){.seed .sd{animation:none;transform:translateY(74px)}.seed .st,.seed .lf{animation:none;stroke-dashoffset:0}}
 
 /* ---- ouverture : le logo s'écrit en 1,6 s (maquette splash) ---- */
 .ouverture{justify-content:center}
@@ -394,37 +394,8 @@ h1{font-family:var(--head);font-weight:700;font-size:30px;line-height:1.15;lette
 .tog.pile .seg button{flex:1;padding:10px 6px;line-height:1.2}
 .cache{display:none}
 
-/* ---- story 4.1, Ma forêt : le cercle des familles (maquette s-me, renderForest) ---- */
-.forest{border-radius:16px;overflow:hidden;background:var(--card);min-height:200px;padding:6px}
-.forest > svg{display:block;width:100%;height:auto}
-.zoombox{position:relative;border-radius:16px;overflow:hidden;background:var(--card);touch-action:none;user-select:none;-webkit-user-select:none;width:100%}
-.zoombox::before{content:"";display:block;padding-top:100%}
-.zoombox .forest{position:absolute;left:0;top:0;width:100%;height:100%;transform-origin:0 0;will-change:transform;min-height:0}
-.zoombox .forest > svg{width:100%;height:100%}
-.zoomctl{position:absolute;right:8px;bottom:8px;display:flex;flex-direction:column;gap:4px}
-.zoomctl button{width:36px;height:36px;border-radius:9px;background:var(--paper);border:1px solid var(--line);font-size:18px;display:flex;align-items:center;justify-content:center;color:var(--ink2)}
-/* le secteur d'une famille */
-.forest .wg{fill:var(--paper);opacity:.5}
-.forest .wg.acquis{fill:var(--jade-soft);opacity:.9}
-.forest .wg.encours{fill:var(--jade-soft);opacity:.45}
-.forest .ring{fill:none;stroke:var(--line);stroke-width:1}
-.forest .lk{stroke:var(--line);stroke-width:2;fill:none}
-.forest .lk.acquis{stroke:var(--jade);stroke-width:2.5}
-/* les états : jade acquis, indigo en cours, brume à venir */
-.forest .nd{fill:var(--card);stroke:var(--line);stroke-width:2}
-.forest .nd.acquis{stroke:var(--jade);stroke-width:2.5}
-.forest .nd.encours{stroke:var(--indigo);stroke-width:2.5}
-.forest .nd.avenir{stroke:var(--mist);opacity:.6}
-.forest .nd.verrouille{stroke-dasharray:3 3;opacity:.45}
-.forest .nd.avenir ~ g{opacity:.6}
-/* le cinabre ne marque que la famille en cours, rien d'autre */
-.forest .nd.cinabre{stroke:var(--zhu);stroke-width:3;opacity:1}
-.forest .fam,.forest .tn{cursor:pointer}
-.forest .fam:focus,.forest .tn:focus{outline:none}
-.forest .fam:focus-visible .nd,.forest .tn:focus-visible .nd{stroke:var(--indigo);stroke-width:3}
-.forest .tn.sel .nd{fill:var(--indigo-soft)}
-.forest .g{color:var(--ink)}
-/* la légende des trois états */
+/* ---- Mon chemin 路 (maquettes/chemin.html) : la scène est dans Chemin.svelte ---- */
+/* la légende des états */
 .legende{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:4px 12px;margin-top:10px}
 .legende span{display:inline-flex;align-items:center;gap:5px}
 .legende i{width:9px;height:9px;border-radius:50%;display:inline-block}
@@ -432,13 +403,7 @@ h1{font-family:var(--head);font-weight:700;font-size:30px;line-height:1.15;lette
 .legende .d2{background:var(--zhu)}
 .legende .d3{background:var(--mist);opacity:.6}
 .legende .d4{background:var(--indigo)}
-/* la colline : Tao est chez elle ici, assise, au calme */
-.colline{position:relative;display:flex;justify-content:center;align-items:flex-end;height:108px;margin:6px 0 0}
-.colline .sol{position:absolute;left:-22px;bottom:0;width:calc(100% + 44px);height:96px}
-.colline .hill{fill:var(--jade-soft)}
-.colline .hill2{fill:var(--indigo-soft);opacity:.6}
-.colline .hote{position:relative;margin-bottom:4px}
-/* la liste des familles : un index, pas une leçon ; le tracé vient avec l'arbre */
+/* la liste des familles : un index, pas une leçon ; le tracé vient avec la famille ouverte */
 .famlist{margin-top:14px}
 .famlist .cherche{width:100%;margin:10px 0 6px;padding:10px 12px;border:1px solid var(--line);border-radius:12px;background:var(--bg);color:var(--ink);font:inherit;font-size:15px}
 .famlist .liste{max-height:224px;overflow-y:auto;-webkit-overflow-scrolling:touch}
@@ -446,14 +411,7 @@ h1{font-family:var(--head);font-weight:700;font-size:30px;line-height:1.15;lette
 .famrow:last-child{border-bottom:0}
 .famrow .hz{font-size:22px;min-width:30px}
 
-/* la semaine : une graine par jour travaillé, jamais un compteur de jours perdus */
-.semaine{margin-top:14px}
-.seeds{display:flex;gap:6px;margin:10px 0 6px}
-.seeds i{flex:1;height:34px;border-radius:9px;border:1px solid var(--line);display:flex;align-items:center;justify-content:center;font-style:normal;font-size:12px;color:var(--mist)}
-.seeds i.on{background:var(--jade);border-color:var(--jade);color:var(--on)}
-.seeds i.today{border-color:var(--zhu);color:var(--zhu)}
-
-/* ---- story 4.2, l'arbre d'une famille (maquette s-tree, renderTree) ---- */
+/* ---- une famille ouverte : son auberge et son sentier (Tree.svelte, maquettes/chemin.html) ---- */
 .tete{margin:4px 0 12px}
 .tete h1{margin:0;font-size:24px}
 .tete-g{display:flex;align-items:center;color:var(--ink)}
@@ -464,13 +422,7 @@ h1{font-family:var(--head);font-weight:700;font-size:30px;line-height:1.15;lette
 /* blocs communs aux deux écrans */
 .row{display:flex;align-items:center;gap:14px}
 .big{font-family:var(--head);font-weight:700;font-size:34px;line-height:1;letter-spacing:-.02em}
-/* les sept graines de la semaine, du lundi au dimanche */
-.seeds{display:flex;gap:6px;margin:10px 0 6px}
-.seeds i{flex:1;height:34px;border-radius:9px;border:1px solid var(--line);display:flex;align-items:center;justify-content:center;font-style:normal;font-size:12px;color:var(--mist)}
-.seeds i.on{background:var(--jade);border-color:var(--jade);color:var(--on)}
-/* le cinabre ne marque qu'une chose ici : où l'on en est */
-.seeds i.today{border-color:var(--zhu);color:var(--zhu)}
-.seeds i.on.today{color:var(--on)}
+/* les sept pierres de la semaine, du lundi au dimanche, et le pavillon : Semaine.svelte */
 /* un palier et son cadeau */
 .mile{display:flex;align-items:center;gap:14px;padding:12px 0;border-top:1px solid var(--line)}
 .mile .n{font-family:var(--head);font-weight:700;font-size:22px;width:62px;color:var(--indigo);letter-spacing:-.02em;flex-shrink:0}
@@ -483,33 +435,6 @@ h1{font-family:var(--head);font-weight:700;font-size:30px;line-height:1.15;lette
 .porteur{display:flex;align-items:center;gap:10px;margin-bottom:4px}
 .repos{margin-top:6px}
 
-/* l'écran de série : le compteur, le chemin, les graines, le cadeau */
-@keyframes seedin{to{opacity:1;transform:none}}
-@keyframes seedpop{0%{opacity:0;transform:scale(.4)}60%{opacity:1;transform:scale(1.25)}100%{opacity:1;transform:none}}
-
-/* le chemin en perspective : des aplats et des traits, ni dégradé ni ombre */
-.road{margin:10px -22px 0;overflow:hidden}
-.road>svg{display:block;width:100%;height:auto}
-/* Tao et Que sont des SVG imbriqués dans le chemin : ils suivent le repère du dessin,
-   pas la mise en page CSS. Sans cela, `display:inline-block` les sort de la perspective. */
-.road svg svg{display:inline;overflow:visible}
-.road .ciel{fill:var(--indigo-soft);opacity:.35}
-.road .loin{fill:var(--indigo-soft);opacity:.7}
-.road .pre{fill:var(--jade-soft);opacity:.55}
-.road .soleil{fill:var(--ocre);opacity:.9}
-.road .voie{fill:var(--card);stroke:var(--line);stroke-width:1.5}
-.road .arbre{stroke:var(--ink);stroke-width:4;stroke-linecap:round;fill:none;opacity:.9}
-.road .arbre.jeune{stroke:var(--mist);opacity:.5}
-.road .case{fill:var(--paper);stroke:var(--line);stroke-width:2}
-.road .case.on{fill:var(--jade);stroke:var(--jade)}
-.road .borne{fill:var(--indigo-soft);stroke:var(--indigo);stroke-width:2}
-.road .borne-l{font-family:var(--head);font-weight:700;fill:var(--indigo)}
-/* la position sur le chemin, et rien d'autre, porte le cinabre */
-.road .case.ici,.road .borne.ici{fill:var(--zhu);stroke:var(--zhu)}
-/* Tao avance d'une case : un pas, une seule fois, à l'ouverture de l'écran */
-.road .marche{animation:avance 1.2s cubic-bezier(.3,0,.2,1) .3s both}
-@keyframes avance{from{transform:translate(var(--dx),var(--dy))}to{transform:none}}
-@media (prefers-reduced-motion:reduce){.road .marche{animation:none}}
 
 /* le cadeau remis par Que, une fois Tao arrivée */
 .giftcard{margin-top:12px;background:var(--card);border-radius:14px;padding:14px 16px;text-align:left;animation:paraitre .35s ease-out 1.6s both}
@@ -596,7 +521,7 @@ h1{font-family:var(--head);font-weight:700;font-size:30px;line-height:1.15;lette
 .jeu .bilan h1{margin-top:4px;font-size:24px}
 .jeu .constat{font-family:var(--head);font-weight:700;font-size:22px;margin:0 0 8px}
 .jeu .foot .acts{margin-top:10px}
-/* l'entrée des jeux : une ligne sur Ma forêt, une proposition neutre sur le chemin */
+/* l'entrée des jeux : une proposition neutre sous les six pas */
 .jouer{margin-top:14px}
 .propose{display:flex;align-items:center;gap:10px;width:100%;min-height:48px;padding:10px 14px;margin:0 0 12px;border:1px solid var(--line);border-radius:12px;background:var(--card)}
 
@@ -654,11 +579,9 @@ h1{font-family:var(--head);font-weight:700;font-size:30px;line-height:1.15;lette
    gardent assez de place pour « Une autre manche » ou « Exporter en JSON » */
 .btn{text-align:center;line-height:1.2}
 .acts .btn{padding:0 10px}
-/* des zones de tap d'au moins 44 pt : le zoom du cercle, la liste des familles et
-   les nœuds d'un arbre (un disque transparent autour du caractère) */
-.zoomctl button{width:44px;height:44px}
+/* des zones de tap d'au moins 44 pt : la liste des familles ; les pavés d'un sentier ont
+   leur ellipse transparente (Tree.svelte) */
 .famrow{min-height:44px}
-.tn .hit{fill:transparent;stroke:none}
 /* les sélecteurs des réglages : un choix sur deux lignes reste centré dans sa case */
 .seg button{text-align:center;line-height:1.25}
 /* le gabarit gris du tracé : sa propre couleur, pour qu'une fête de nuit la change */

@@ -98,15 +98,14 @@ describe('un libellé de bouton sur deux lignes reste centré', () => {
 describe('des zones de tap d’au moins 44 pt', () => {
   const css = source('tokens.css');
 
-  it('le zoom du cercle et la liste des familles', () => {
-    expect(css).toContain('.zoomctl button{width:44px;height:44px}');
+  it('la liste des familles', () => {
     expect(css).toContain('.famrow{min-height:44px}');
   });
 
-  it("chaque nœud d'un arbre a un disque de tap plus large que son dessin", () => {
+  it("chaque pavé du sentier d'une famille a une zone de tap plus large que son dessin", () => {
     const tree = source('Tree.svelte');
-    expect(tree).toContain('<circle class="hit" r={Math.max(nd.r, RAYON_TAP)} />');
-    expect(tree).toContain('const RAYON_TAP = 34;');
+    /* 52 × 44 unités, à l'échelle 1 du sentier (361 de large) sur un écran de 393 px */
+    expect(tree).toContain('<ellipse class="hit" cx={q.x} cy={q.y} rx="26" ry="22" />');
   });
 });
 

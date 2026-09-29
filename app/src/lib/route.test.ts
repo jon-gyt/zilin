@@ -2,7 +2,7 @@
  * 前路 « La route devant » (retour du propriétaire du 26 septembre 2026) : un test par
  * règle. Les jours ci-dessous sont des fixtures ; l'app lit le parcours dans l'export.
  */
-import { readFileSync } from 'node:fs';
+import { existsSync, readFileSync } from 'node:fs';
 import { describe, it, expect } from 'vitest';
 import type { Conte, IndexJour } from './content';
 import { joursDuChemin, ouvertures } from './etageres';
@@ -161,7 +161,7 @@ describe('la sélection par défaut : demain', () => {
   });
 });
 
-describe('les bornes : les deux prochaines, seulement les vraies', () => {
+describe('les rendez-vous : les deux prochains, seulement les vrais', () => {
   /* Trois caractères par étape : le 10e entre au jour 4, le 50e au jour 17, le 100e plus loin. */
   const seuils = (lus = 0): SeuilLire[] => [10, 50, 100, 255].map((n) => ({ n, obtenu: lus >= n }));
   const contes: ConteAVenir[] = [
@@ -209,7 +209,7 @@ describe('les bornes : les deux prochaines, seulement les vraies', () => {
     expect(bornesDevant(ETAPES, r, seuils(40), []).map((x) => x.titre)).toEqual([]);
   });
 
-  it("avant la session, une borne sur la pierre du jour est encore devant : « aujourd'hui »", () => {
+  it("avant la session, un rendez-vous sur la pierre du jour est encore devant : « aujourd'hui »", () => {
     const r = route(ETAPES, positionDuJour(au(14, false)));
     const b = bornesDevant(ETAPES, r, [], contes);
     expect(b[0]).toMatchObject({ titre: '愚公移山', ecart: 0 });
@@ -218,15 +218,15 @@ describe('les bornes : les deux prochaines, seulement les vraies', () => {
     expect(bornesDevant(ETAPES, apres, [], contes).map((x) => x.titre)).toEqual(['拔苗助长']);
   });
 
-  it("la carte : la borne de l'étape, et demain la prochaine", () => {
+  it("la carte : le rendez-vous de l'étape, et demain le prochain", () => {
     const r = route(ETAPES, positionDuJour(au(12, true)));
     const b = bornesDevant(ETAPES, r, seuils(30), contes);
-    expect(ligneBorne(1, b)).toEqual({ tete: 'Prochaine borne :', titre: '愚公移山', suite: 'dans 2 jours.' });
-    expect(ligneBorne(2, b)).toEqual({ tete: 'Borne ce jour-là :', titre: '愚公移山', suite: "un conte s'ouvre." });
+    expect(ligneBorne(1, b)).toEqual({ tete: 'prochain', titre: '愚公移山', suite: 'dans 2 jours.' });
+    expect(ligneBorne(2, b)).toEqual({ tete: 'ce-jour', titre: '愚公移山', suite: "un conte s'ouvre." });
     expect(ligneBorne(3, b)).toBeNull();
   });
 
-  it('une fable du chemin est une borne au jour où entre son dernier caractère, avant les contes du seuil 255', () => {
+  it('une fable du chemin est un rendez-vous au jour où entre son dernier caractère, avant les contes du seuil 255', () => {
     /* Décision du propriétaire du 26 septembre 2026 : des fables de première lecture, dès le
        jour 25. Leur jour vient du calcul de l'étagère « Bientôt » ; un mot expliqué n'y
        compte pas. */
@@ -324,16 +324,30 @@ describe('les mots de la route', () => {
   });
 });
 
-describe('la charte de la route, dans les écrans', () => {
+describe('la charte de la route devant, le haut de Mon chemin', () => {
   const source = (f: string): string => readFileSync(new URL(f, import.meta.url), 'utf8');
   /** Le code seul : les commentaires disent justement ce qui est interdit. */
   const code = (s: string): string => s.replace(/\/\*[\s\S]*?\*\/|<!--[\s\S]*?-->|\/\/.*$/gm, '');
-  const ecran = code(source('Route.svelte'));
+  const ecran = code(source('Chemin.svelte'));
+
+  it('la route devant n’est plus un écran à part : elle est le haut de Mon chemin', () => {
+    expect(existsSync(new URL('Route.svelte', import.meta.url))).toBe(false);
+    expect(existsSync(new URL('RouteEntree.svelte', import.meta.url))).toBe(false);
+    const app = source('../App.svelte');
+    expect(app).not.toContain("ecran === 'route'");
+    expect(app).toContain("else if (id === 'route') ouvrirDevant();");
+    expect(app).toContain('onroute={ouvrirDevant}');
+    /* avant sa porte (jour 9), le haut du chemin est dans la brume, sans carte de l'étape */
+    expect(ecran).toContain("const devantOuvert = $derived(vois('route'));");
+    expect(ecran).toContain('{#if devantOuvert && pierre}');
+  });
 
   it('ni ombre, ni dégradé, ni doré, ni dragon, ni couleur hors des jetons', () => {
     for (const [nom, s] of [
-      ['Route', ecran],
-      ['RouteEntree', code(source('RouteEntree.svelte'))]
+      ['Chemin', ecran],
+      ['Tree', code(source('Tree.svelte'))],
+      ['Porte', code(source('Porte.svelte'))],
+      ['Semaine', code(source('Semaine.svelte'))]
     ]) {
       expect(s, nom).not.toMatch(/gradient|box-shadow|drop-shadow|text-shadow/i);
       expect(s, nom).not.toMatch(/gold|doré/i);
@@ -342,10 +356,12 @@ describe('la charte de la route, dans les écrans', () => {
     }
   });
 
-  it('le cinabre ne marque que la position : la pierre du jour, son sceau, son « aujourd’hui »', () => {
+  it('le cinabre ne marque que la position : la pierre du jour, son sceau, son « aujourd’hui », sa légende', () => {
     const regles = [...ecran.matchAll(/([^{}]+)\{[^}]*var\(--zhu\)[^}]*\}/g)].map((m) => m[1].trim());
-    expect(regles.sort()).toEqual(['.pierre.jour .disque', '.sceau', '.when.now']);
-    expect(ecran.match(/--zhu/g)).toHaveLength(3);
+    expect(regles.sort()).toEqual(['.legende .jour', '.pave.jour', '.sceau', '.st.now']);
+    expect(ecran.match(/--zhu/g)).toHaveLength(4);
+    /* ni la famille ouverte ni les auberges ne portent de cinabre */
+    expect(code(source('Tree.svelte'))).not.toContain('--zhu');
   });
 
   it('les briques se dessinent depuis leurs traits ; Tao marche sur la route', () => {
@@ -354,7 +370,7 @@ describe('la charte de la route, dans les écrans', () => {
     expect(ecran).toMatch(/<Tao [^>]*posture="chemin"/);
   });
 
-  it('au menu, « Ma route » ne paraît que la journée faite', () => {
+  it('au menu, « Devant › » ne paraît que la journée faite', () => {
     const menu = source('Menu.svelte');
     expect(menu).toContain('jourDeDemain(p)');
     expect(menu).toMatch(/\{#if demain && jourDemain !== null && quandDemain !== ''\}/);
@@ -417,7 +433,7 @@ describe('au rythme gratuit (story 7.5)', () => {
   });
 });
 
-describe('la borne des examens (story 8.6)', () => {
+describe('le rendez-vous des examens (story 8.6)', () => {
   /* Trois caractères par étape : le 50e entre au jour 17, le 75e plus loin, le 100e hors du chemin. */
   const examens: ExamenAVenir[] = [
     { id: 'xianshi', hz: '县试', palier: 50, titre: '县试 · 50 caractères', ligne: "l'examen du district" },
@@ -425,9 +441,9 @@ describe('la borne des examens (story 8.6)', () => {
     { id: 'fushi', hz: '府试', palier: 100, titre: '府试 · 100 caractères', ligne: "l'examen de la préfecture" }
   ];
   const trophees = (...n: number[]): SeuilLire[] => n.map((x) => ({ n: x, obtenu: false }));
-  const ecran = readFileSync(new URL('Route.svelte', import.meta.url), 'utf8');
+  const ecran = readFileSync(new URL('Chemin.svelte', import.meta.url), 'utf8');
 
-  it('l’examen est une borne au jour du chemin où entre son Ne caractère, son nom dessiné sur la stèle', () => {
+  it('l’examen est un rendez-vous au jour du chemin où entre son Ne caractère, son nom sur le linteau de sa porte', () => {
     const r = route(ETAPES, positionDuJour(au(12, true)));
     const b = bornesDevant(ETAPES, r, [], [], examens);
     expect(b.map((x) => [x.titre, x.jour, x.ecart])).toEqual([
@@ -435,8 +451,9 @@ describe('la borne des examens (story 8.6)', () => {
       ['月课 · 75 caractères', jourDuSeuil(ETAPES, 75), 13]
     ]);
     expect(b[0]).toMatchObject({ genre: 'examen', hz: '县试', suivant: true, passe: false });
-    /* le nom se dessine depuis ses traits, gravé de haut en bas sur la stèle */
-    expect(ecran).toMatch(/\{#each \[\.\.\.b\.hz\] as c, j \(c \+ j\)\}[\s\S]{0,200}dessin\(c, 18, 'var\(--indigo\)'\)/);
+    /* le nom se dessine depuis ses traits, sur le linteau de la porte de ville */
+    expect(ecran).toContain("{@render porteVille(q.x, q.y, b.hz, b.trophee ? String(b.palier) : '', false)}");
+    expect(ecran).toMatch(/\{#each \[\.\.\.hz\] as c, j \(c \+ j\)\}[\s\S]{0,200}dessin\(c, 10, 'var\(--indigo\)'\)/);
     expect(ecran).toContain('remplir(tr.examen, { examen: e.hz, n: nombre(e.palier) })');
   });
 
@@ -457,13 +474,13 @@ describe('la borne des examens (story 8.6)', () => {
     expect(prochainesBornes(toutes, 1).map((x) => x.titre)).toEqual(['县试 · 50 caractères']);
   });
 
-  it('une seule stèle quand il tombe sur un seuil du trophée Lire', () => {
+  it('une seule porte quand il tombe sur un seuil du trophée Lire, la lanterne pendue à son angle', () => {
     const r = route(ETAPES, positionDuJour(au(12, true)));
     const b = bornesDevant(ETAPES, r, trophees(50, 100), [], examens);
     expect(b.filter((x) => x.jour === 17)).toHaveLength(1);
     expect(b.find((x) => x.jour === 17)).toMatchObject({ genre: 'examen', titre: '县试 · 50 caractères', trophee: true });
     expect(b.some((x) => x.genre === 'lire' && x.seuil === 50)).toBe(false);
-    /* un trophée déjà obtenu : la stèle est celle de l'examen seul */
+    /* un trophée déjà obtenu : la porte est celle de l'examen seul, sans lanterne */
     const obtenu = bornesDevant(ETAPES, r, [{ n: 50, obtenu: true }], [], examens);
     expect(obtenu.find((x) => x.jour === 17)).toMatchObject({ genre: 'examen', trophee: false });
   });
@@ -481,7 +498,7 @@ describe('la borne des examens (story 8.6)', () => {
     expect(bornesDevant(ETAPES, r, [], [], [examens[2]])).toEqual([]);
   });
 
-  it('l’examen à passer se dresse devant la pierre du jour, « examen ouvert », et la suite n’a pas de compte', () => {
+  it('la porte de l’examen à passer s’ouvre devant la pierre du jour, « examen ouvert », et la suite n’a pas de compte', () => {
     const apres = "après l'examen";
     expect(quand(3, true, apres)).toBe(apres);
     expect(quand(1, true, apres)).toBe(apres);
@@ -492,22 +509,23 @@ describe('la borne des examens (story 8.6)', () => {
     const b = bornesDevant(ETAPES, r, [], [], examens.slice(1));
     const ouvert = { titre: '县试 · 50 caractères', ligne: 'examen ouvert' };
     expect(ligneBorne(1, b, true, ouvert)).toEqual({
-      tete: 'Prochaine borne :',
+      tete: 'prochain',
       titre: '县试 · 50 caractères',
       suite: 'examen ouvert.'
     });
     expect(ligneBorne(4, b, true, ouvert)?.titre).toBe('县试 · 50 caractères');
     expect(ligneBorne(-1, b, true, ouvert)).toBeNull();
     expect(quandExamen(ETAPES, r, examens[0], true)).toEqual({ etat: 'ouvert' });
-    /* l'écran : la stèle entre la pierre du jour et la suivante, la route sans compte ni prochaine brique */
-    expect(ecran).toContain('const b = PLACES_XY[ICI + 1];');
+    /* l'écran : la porte ouverte, au trait plein, devant la pierre du jour ; la route sans compte ni prochaine brique */
+    expect(ecran).toContain('{@const q = PORTE_OUVERTE}');
+    expect(ecran).toContain("{@render porteVille(q.x, q.y, ouvert.hz, '', true)}");
     expect(ecran).toContain('{tr.ouvert}');
     expect(ecran).toContain('quand(x.ecart, sur, apres)');
     expect(ecran).toContain('dansCourt(b.ecart, sur, apres)');
     expect(ecran).toContain('gratuit && ouvert === null');
   });
 
-  it('au rythme gratuit et en rattrapage, la borne d’examen se dit en étapes', () => {
+  it('au rythme gratuit et en rattrapage, le rendez-vous d’examen se dit en étapes', () => {
     const r = route(ETAPES, { jour: 12, faite: true, sur: false });
     const b = bornesDevant(ETAPES, r, [], [], examens);
     expect(dansCourt(b[0].ecart, false)).toBe('dans 5 étapes');

@@ -182,7 +182,7 @@ describe('quel examen est à passer', () => {
     expect(examenOuvert(LISTE, etat(), 50)?.hz).toBe('县试');
   });
 
-  it('compte les lus comme le trophée Lire, au seuil de stabilité de Ma forêt', () => {
+  it('compte les lus comme le trophée Lire, au seuil de stabilité de Mon chemin', () => {
     const familles = [{ racine: { c: '人' }, fiches: [{ c: '大' }, { c: '天' }] }] as unknown as Famille[];
     const stable = (id: string, s: number): ReviewCard => {
       const k = newCard(id, new Date(0));

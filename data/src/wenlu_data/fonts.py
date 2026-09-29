@@ -193,7 +193,7 @@ def caracteres_exportes(export: Path | None = None) -> set[str]:
 
     Ce sont eux que l'app affiche : racines de familles et briques comprises.
     Les listes de niveaux ne les couvrent pas — un composant comme ⺊ n'est dans
-    aucune liste, mais « Ma forêt » l'écrit en toutes lettres.
+    aucune liste, mais « Mon chemin » l'écrit en toutes lettres.
     """
     export = export or EXPORT
     trouves: set[str] = set()

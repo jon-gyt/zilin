@@ -1,4 +1,4 @@
-# Les textes du tableau des révisions, dans Ma forêt : ce qui revient, ce qu'on retient,
+# Les textes du tableau des révisions, sur Mon chemin : ce qui revient, ce qu'on retient,
 # ce qui résiste (rapport comparatif du 28 septembre 2026, §2.6, la transparence du SRS).
 #
 # Source : rédigé pour l'app, sans API, dans une session Claude Code ; à relire. Des
@@ -9,9 +9,9 @@
 # `fr`, `source`. Chaque clé est exigée une fois, avec exactement ses jetons entre
 # accolades, que l'app remplit (`ecrans.py`, `ECRANS`) :
 #
-# - `entree`, `entree-ligne`, `entree-vide` : l'entrée de Ma forêt, avec les cartes qui
+# - `entree`, `entree-ligne`, `entree-vide` : l'entrée de Mon chemin, avec les cartes qui
 #   reviennent demain et sur les sept jours, ou sa ligne quand il n'y en a aucune ;
-# - `retour` : le retour vers Ma forêt ;
+# - `retour` : le retour vers Mon chemin ;
 # - `titre` : le titre de l'écran ;
 # - `venir-titre`, `venir-ligne`, `venir-une`, `venir-rien` : les sept prochains jours ;
 # - `aujourdhui`, `jours` : sous les barres, « auj. » puis les jours de la semaine, du
@@ -26,7 +26,7 @@ cle	fr	source
 entree	Tes révisions	rédigé pour l'app
 entree-ligne	Demain {demain} · cette semaine {semaine}	rédigé pour l'app
 entree-vide	Ce qui revient, et ce que tu retiens	rédigé pour l'app
-retour	Ma forêt	rédigé pour l'app
+retour	Mon chemin	rédigé pour l'app
 titre	Tes révisions	rédigé pour l'app
 venir-titre	Les sept prochains jours	rédigé pour l'app
 venir-ligne	{n} cartes reviennent cette semaine.	rédigé pour l'app

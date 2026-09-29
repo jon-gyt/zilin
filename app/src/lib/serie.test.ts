@@ -1,8 +1,11 @@
 import { describe, it, expect } from 'vitest';
+import { readFileSync } from 'node:fs';
+import { lireEcrans } from './ecrans';
 import { fromJSON, noterJourTravaille, emptyProgress, toJSON, type Progress } from './session';
 import {
   CADEAUX,
   GRAINES_PAR_ARBRE,
+  detailCadeau,
   LETTRES,
   PALIERS,
   PHRASE_REPOS,
@@ -20,6 +23,11 @@ import {
   semaine,
   type Palier
 } from './serie';
+
+/** L'image du chemin, telle que le pipeline l'exporte (`ecrans.json`). */
+const CHEMIN = lireEcrans(
+  JSON.parse(readFileSync(new URL('../../public/data/0.1.0/ecrans.json', import.meta.url), 'utf8')) as unknown
+).chemin;
 
 /** Un lundi, pour que la semaine de la maquette se lise du premier coup. */
 const LUNDI = '2026-03-09';
@@ -124,7 +132,7 @@ describe('sans réserve', () => {
     );
     const textes = [
       messageProchain(s),
-      messageSemaine(s),
+      messageSemaine(s, CHEMIN),
       libelleJours(s),
       libelleReserve(s),
       PHRASE_REPOS
@@ -135,7 +143,7 @@ describe('sans réserve', () => {
   });
 });
 
-describe('les graines de la semaine', () => {
+describe('les pierres de la semaine', () => {
   it('sont les journées travaillées du lundi au dimanche', () => {
     const s = etatSerie(suite(LUNDI, 3), MERCREDI);
     expect(s.semaine.map((g) => g.lettre)).toEqual([...LETTRES]);
@@ -145,23 +153,34 @@ describe('les graines de la semaine', () => {
     expect(s.grainesSemaine).toBe(3);
   });
 
-  it('ne comptent pas les graines de la semaine précédente', () => {
+  it('ne comptent pas les pierres de la semaine précédente', () => {
     const s = etatSerie(suite(ajouteJours(LUNDI, -7), 10), ajouteJours(LUNDI, 2));
     expect(s.graines).toBe(10);
     expect(s.grainesSemaine).toBe(3);
   });
 });
 
-describe("l'arbre", () => {
-  it('pousse à la septième graine, et pas avant', () => {
+describe('le pavillon 亭', () => {
+  it('se bâtit à la septième pierre, et pas avant', () => {
     expect(etatSerie(suite(LUNDI, 6), dernier(LUNDI, 6)).arbres).toBe(0);
     expect(etatSerie(suite(LUNDI, 7), dernier(LUNDI, 7)).arbres).toBe(1);
     expect(etatSerie(suite(LUNDI, 15), dernier(LUNDI, 15)).arbres).toBe(2);
   });
 
-  it('se dit en graines plantées, jamais en points', () => {
+  it('se dit en pierres posées, jamais en points', () => {
     const s = etatSerie(suite(LUNDI, 3), MERCREDI);
-    expect(messageSemaine(s)).toBe('3 graines plantées cette semaine. Sept graines font un arbre.');
+    expect(messageSemaine(s, CHEMIN)).toBe('3 pierres posées cette semaine. Sept pierres font un pavillon.');
+    expect(messageSemaine(etatSerie([LUNDI], LUNDI), CHEMIN)).toBe(
+      '1 pierre posée cette semaine. Sept pierres font un pavillon.'
+    );
+    expect(messageSemaine(etatSerie(suite(LUNDI, 7), dernier(LUNDI, 7)), CHEMIN)).toBe(
+      '7 pierres posées cette semaine : un pavillon de plus.'
+    );
+  });
+
+  it('le cadeau des 365 jours dit le chemin, et vient du pipeline', () => {
+    expect(detailCadeau(365, CHEMIN)).toBe('Un an sans manquer. Le chemin est à toi.');
+    expect(detailCadeau(7, CHEMIN)).toBe(CADEAUX[7].detail);
   });
 });
 

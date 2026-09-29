@@ -129,7 +129,7 @@ describe("l'export et l'import de la progression", () => {
   });
 });
 
-describe('la collection « trouvés en chemin » de Ma forêt', () => {
+describe('la collection « trouvés en chemin » de Mon chemin', () => {
   it('chaque caractère porte son pinyin, son sens, et le nom de sa fête ou de son terme', () => {
     const pieces = collection(
       [
@@ -172,8 +172,8 @@ describe('la collection « trouvés en chemin » de Ma forêt', () => {
     expect(montrerCollection(collection([{ c: '月', jour: JOUR, fete: 'zhongqiu' }], fetes, saisons))).toBe(true);
   });
 
-  it('Ma forêt dessine chaque caractère depuis ses traits, le dit au toucher, sous condition', () => {
-    const foret = source('Forest.svelte');
+  it('Mon chemin dessine chaque caractère depuis ses traits, le dit au toucher, sous condition', () => {
+    const foret = source('Chemin.svelte');
     expect(foret).toContain('{#if montrerCollection(pieces)}');
     expect(foret).toContain('<Glyph char={x.c} size={40} write={x.c === touche} pistes={x.pistes} />');
     expect(foret).toContain('void dire(x.c);');

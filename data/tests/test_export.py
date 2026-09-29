@@ -980,4 +980,4 @@ def test_les_cases_du_menu_sont_dans_le_fichier_d_interface() -> None:
 
     from wenlu_data.paths import INTERFACE
 
-    assert {"文", "温", "玩", "读", "林"} <= set(caracteres_interface(INTERFACE))
+    assert {"文", "温", "玩", "读", "路"} <= set(caracteres_interface(INTERFACE))

@@ -122,20 +122,20 @@
 
 <script lang="ts">
   /**
-   * Le décor du cercle de Ma forêt, le jour d'une fête ou d'un terme solaire (story 4b.9).
+   * Le décor de fête de Mon chemin, le jour d'une fête ou d'un terme solaire (story 4b.9).
    *
-   * Un petit décor dessiné dans les coins du cercle, là où les familles ne vont pas : la
+   * Un petit décor dessiné dans les coins du haut de Mon chemin, autour de la route devant
+   * (maquette validée `maquettes/chemin.html` : « posé autour du chemin, mêmes décors ») : la
    * pleine lune et les lanternes célestes à la mi-automne, le saule et le cerf-volant à
    * 清明, la rosée sur l'herbe au terme 白露… Les fêtes gardent la priorité, comme pour le
    * thème de l'app (`trouves.decorDuCercle`). Les couleurs sont celles des jetons de la fête
    * ou de l'ambiance, posés par `[data-fete]` et `[data-saison]` dans `tokens.css`.
    *
    * Discret : des aplats, sans ombre ni dégradé ni reflet de métal. Le cinabre reste à la
-   * famille du moment ; le cramoisi de fête ne sert qu'au Nouvel An et à 元宵. Aucune bête
-   * fabuleuse au cercle, pas même aux fêtes qui en admettent une ; les bateaux de 端午 n'ont
-   * pas de tête. Il se tient dans les coins libres (le bas à droite porte les boutons du
-   * zoom), passe derrière le cercle, ne se touche pas, et disparaît si l'on réduit les
-   * animations.
+   * pierre du jour ; le cramoisi de fête ne sert qu'au Nouvel An et à 元宵. Aucune bête
+   * fabuleuse ici, pas même aux fêtes qui en admettent une ; les bateaux de 端午 n'ont pas
+   * de tête. Il se tient dans les coins, passe derrière le chemin, ne se touche pas, et
+   * disparaît si l'on réduit les animations. Le composant garde son nom d'origine.
    */
   import type { DecorCercle } from './trouves';
 
@@ -423,7 +423,7 @@
 {/if}
 
 <style>
-  /* derrière le cercle, dans sa boîte : il suit le zoom, ne se touche pas */
+  /* derrière le chemin, dans sa boîte, le carré du haut : il ne se touche pas */
   .cercle-decor {
     position: absolute;
     inset: 6px;

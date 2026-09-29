@@ -1,0 +1,102 @@
+# Les textes de l'image du chemin : « Mon chemin 路 », la pierre posée chaque jour, les
+# pavillons de la semaine, les auberges des familles, les rendez-vous de la route devant.
+#
+# Décisions du propriétaire du 29 septembre 2026 : « Je n'aime pas le terme "Ma forêt"…
+# un peu ringard » ; « Borne et stèle font un peu cimetière… pierre tombale » ; « C'était
+# plutôt chemin A » ; « Tout est ok pour moi ». Maquette validée : `maquettes/chemin.html`,
+# variante A, et son tableau des textes à changer. Plus de graine, d'arbre ni de forêt ;
+# plus de borne ni de stèle : `wenlu check` le vérifie (`vocabulaire.py`).
+#
+# Source : rédigé pour l'app, sans API, dans une session Claude Code, d'après la maquette
+# validée ; à relire. Des constats, jamais un reproche ; ni emoji, ni dragon, ni temps
+# passé, ni classement : `wenlu check` le vérifie.
+#
+# Format : TSV, `#` en commentaire, trois colonnes séparées par une tabulation : `cle`,
+# `fr`, `source`. Chaque clé est exigée une fois, avec exactement ses jetons entre
+# accolades, que l'app remplit (`ecrans.py`, `ECRANS`) :
+#
+# - le menu : `case`, le titre de la quatrième case (路) ; `menu-faite`, `menu-faite-plus`,
+#   `menu-faite-plus-une`, la ligne de la journée faite, `{n}` les sessions de plus ;
+#   `devant` et `devant-voix`, le lien vers la route devant et ce que VoiceOver en dit ;
+#   `tao-faite`, ce que Tao dit la journée faite ; `tao-clore`, la reprise au pas `{n}` ;
+# - Clore : `clore-titre`, `{c}` le caractère du jour ; `clore-deja`, une session de plus ;
+#   `clore-dessin`, VoiceOver du dessin ; `semaine-voix`, les pierres de la semaine ;
+#   `serie-semaine`, `serie-semaine-une`, `serie-semaine-pleine`, la semaine de la série,
+#   `{n}` les pierres posées ; `cadeau-an`, le cadeau de Que des 365 jours ;
+# - Mon chemin : `titre`, `aide`, puis la ligne du haut, `lus`, `lus-un`, `familles`,
+#   `familles-une`, `jour` ; `scene-voix`, `devant-titre`, `derriere-titre`,
+#   `premier-jour`, `sceau-jour` (le sceau de cinabre de la position, `{n}` le jour) ;
+#   `auberge-voix` (`{nom}` : « 人, rén, homme »), `plus-voix`, `plus-voix-un` (`{c}` la
+#   brique, `{n}` ce qui attend encore) ; `repli`, `repli-voix`, le chemin replié par
+#   tranches de trente jours au-delà de cent (`{de}`, `{a}`) ; la légende, `legende-lu`,
+#   `legende-encours`, `legende-avenir`, `legende-jour` ; la carte de l'étape,
+#   `rdv-prochain`, `rdv-ce-jour` ; la semaine, `semaine-titre`, `semaine-aucune`,
+#   `semaine-une`, `semaine-n`, `semaine-pleine`, `semaine-note` ; `liste`, la liste des
+#   familles ;
+# - la famille ouverte : `retour` (le retour vers Mon chemin, des trophées, d'un jeu, d'une
+#   famille), `retour-jeu` ; `famille-auberge`, `{n}` le jour de sa brique ;
+#   `famille-voix` ; `famille-sceau`, `{lus}` / `{n}` ; `famille-sceau-pose` ;
+#   `famille-par`, la bifurcation, `{c}` ; `famille-plus-voix` ; la fiche courte,
+#   `fiche-lu`, `fiche-encours`, `fiche-avenir`, `fiche-pose` (`{n}` le jour du chemin) ;
+# - les trophées : `trophee-famille`, `trophee-serie`, l'explication de deux familles.
+cle	fr	source
+case	Mon chemin	rédigé pour l'app
+menu-faite	Pierre posée, une seule par jour	rédigé pour l'app
+menu-faite-plus	Pierre posée · {n} sessions de plus	rédigé pour l'app
+menu-faite-plus-une	Pierre posée · 1 session de plus	rédigé pour l'app
+devant	Devant ›	rédigé pour l'app
+devant-voix	Devant : la route devant, sur ton chemin	rédigé pour l'app
+tao-faite	Pierre posée !	rédigé pour l'app
+tao-clore	Pas {n}, on pose la pierre !	rédigé pour l'app
+clore-titre	{c} rejoint ton chemin.	rédigé pour l'app
+clore-deja	La pierre du jour est déjà posée : une par jour, jamais deux.	rédigé pour l'app
+clore-dessin	La pierre du jour, posée sur ton chemin	rédigé pour l'app
+semaine-voix	Les pierres de la semaine	rédigé pour l'app
+serie-semaine	{n} pierres posées cette semaine. Sept pierres font un pavillon.	rédigé pour l'app
+serie-semaine-une	1 pierre posée cette semaine. Sept pierres font un pavillon.	rédigé pour l'app
+serie-semaine-pleine	{n} pierres posées cette semaine : un pavillon de plus.	rédigé pour l'app
+cadeau-an	Un an sans manquer. Le chemin est à toi.	rédigé pour l'app
+titre	Mon chemin	rédigé pour l'app
+aide	Au-dessus, la route devant ; dessous, le chemin parcouru. Touche une auberge pour ouvrir sa famille : « +3 », c'est ce qui y attend encore.	rédigé pour l'app
+lus	{n} caractères lus	rédigé pour l'app
+lus-un	1 caractère lu	rédigé pour l'app
+familles	{n} familles ouvertes	rédigé pour l'app
+familles-une	1 famille ouverte	rédigé pour l'app
+jour	jour {n}	rédigé pour l'app
+scene-voix	Ton chemin : la route devant en haut, le chemin parcouru en dessous	rédigé pour l'app
+devant-titre	Devant 前路	rédigé pour l'app
+derriere-titre	Derrière	rédigé pour l'app
+premier-jour	jour 1 · la première session	rédigé pour l'app
+sceau-jour	jour {n}	rédigé pour l'app
+auberge-voix	Ouvrir l'auberge de {nom}	rédigé pour l'app
+plus-voix	Ouvrir l'auberge de {c} : {n} caractères de plus	rédigé pour l'app
+plus-voix-un	Ouvrir l'auberge de {c} : 1 caractère de plus	rédigé pour l'app
+repli	jours {de} à {a}	rédigé pour l'app
+repli-voix	Déplier les jours {de} à {a} du chemin	rédigé pour l'app
+legende-lu	lu	rédigé pour l'app
+legende-encours	en cours	rédigé pour l'app
+legende-avenir	à venir	rédigé pour l'app
+legende-jour	la pierre du jour	rédigé pour l'app
+rdv-prochain	Prochain rendez-vous :	rédigé pour l'app
+rdv-ce-jour	Rendez-vous ce jour-là :	rédigé pour l'app
+semaine-titre	Ta semaine	rédigé pour l'app
+semaine-aucune	Aucune pierre cette semaine. Sept pierres font un pavillon.	rédigé pour l'app
+semaine-une	Une pierre cette semaine.	rédigé pour l'app
+semaine-n	{n} pierres cette semaine.	rédigé pour l'app
+semaine-pleine	Sept pierres : la semaine fait un pavillon.	rédigé pour l'app
+semaine-note	Chaque jour travaillé pose une pierre. Sept pierres, un pavillon : un jour de repos en réserve.	rédigé pour l'app
+liste	Le chemin montre les familles ouvertes. Toutes sont ici.	rédigé pour l'app
+retour	Mon chemin	rédigé pour l'app
+retour-jeu	Revenir à mon chemin	rédigé pour l'app
+famille-auberge	auberge du jour {n}	rédigé pour l'app
+famille-voix	L'auberge de la famille {c} et son sentier	rédigé pour l'app
+famille-sceau	sceau à venir · {lus} / {n}	rédigé pour l'app
+famille-sceau-pose	sceau posé sur le fanion	rédigé pour l'app
+famille-par	par {c}	rédigé pour l'app
+famille-plus-voix	Montrer {n} caractères de plus	rédigé pour l'app
+fiche-lu	Lu	rédigé pour l'app
+fiche-encours	En cours	rédigé pour l'app
+fiche-avenir	À venir	rédigé pour l'app
+fiche-pose	posé au jour {n}	rédigé pour l'app
+trophee-famille	Une famille entière lue. Son sceau se pose sur le fanion de son auberge.	rédigé pour l'app
+trophee-serie	Les cadeaux de Que 雀. Un jour travaillé, une pierre, jamais plus : une session de plus ne compte pas double.	rédigé pour l'app
