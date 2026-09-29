@@ -126,6 +126,8 @@ export const CLES_DIRE = [
   'refuse',
   'absent',
   'indisponible'
+] as const;
+
 /**
  * L'image du chemin (décisions du propriétaire du 29 septembre 2026, maquette validée
  * `maquettes/chemin.html`) : Mon chemin 路, la pierre posée, les pavillons de la semaine, les
