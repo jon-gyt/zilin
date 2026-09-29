@@ -727,8 +727,36 @@ révision de tout l'acquis reste toujours ouverte ; rien d'acquis ne se perd.
   moins 30 % sur l'achat à vie ») ; à reprendre avec le brief (la remise vers le 37e jour,
   6.2). Qui a Wenlu complet, et le web : le sceau et le cadeau, rien de plus.
 
+### Épic 8, en partie : l'écran de l'examen et les briques en pause (29 septembre)
+
+Décisions du propriétaire du 29 septembre 2026 : « Ok maquette d'examen »
+(`maquettes/examen.html`, qui fait foi) et « 10 et 5 ».
+
+- **8.1, ramenée à 10 et 5** : les séries du 县试 et du 月课 de 75, sur les deux chemins,
+  gardent 10 et 5 questions relues (3 de revue à titre, 1 ou 2 au 月课, chacune sur le
+  tronçon). Tous les textes de l'écran et les phrases de Tao dans `textes.tsv` (jetons,
+  gras par paires, ni durée ni compte à rebours, contrôlés) ; les noms inventés du 放榜
+  dans `bang.tsv`, dans l'acquis du palier (contrôle « examens : 放榜 ») ; les plaques des
+  scènes dans le périmètre des traits.
+- **8.2, complétée** : une seconde chance par question (rattrapée : le point 读, pas le
+  premier coup, rien de plus en révision ; au vrai ou faux, la réponse se montre) ;
+  « Quitter » reprend à la même question, essais compris ; les questions posables figées
+  au départ ; un examen sans ses deux séries sur le chemin ne s'ouvre pas.
+- **8.3, livrée** : `Examen.svelte`, `SupportExamen.svelte`, `examen-dessins.ts` : l'annonce
+  (le 号舍, Tao en 青衿 avec pinceau, sac et 考篮 ; au 月课, le 书院 et un livre), la
+  question et sa mise en situation dessinée à plat (enseigne, mot sur la porte, menu, étal,
+  billet, message, feuille, calendrier, panneau), le constat, les manqués dessinés depuis
+  leurs traits, le 放榜 (noms inventés, le personnage au pinceau cerclé de jade), le retour
+  au menu. Vérifié à 393 × 660 : le menu tient ; l'annonce, la question et le constat
+  défilent de quelques lignes quand le support est grand.
+- **8.4, livrée** : `session.ts` (`pauseDesBriques`, `examenDuMenu`, `repondreExamen`…),
+  un test par règle dans `session.test.ts` ; Clore dit le palier et ouvre l'examen ; au
+  menu, la journée faite, « Passer l'examen 县试 » ou « Passer le 月课 », puis « Réviser
+  encore » et la ligne d'attente ; Échauffer et Apprendre prennent d'abord les manqués.
+- **Reste** : 8.5 et 8.6 (en cours ailleurs) ; la stèle de la route ne mène pas encore à
+  l'examen ; les séries des examens suivants (府试 à 100…), et leurs noms du 放榜.
+
 ### Non commencées
 
-2c.1, 2c.2, 6.2, 6.4, et dans 6.3 iCloud et le widget ; dans l'épic 7, 7.3 et 7.4. L'épic 8
-(examens) est entamé : 8.1 pour le 县试 et le 月课 de 75, relus, et la logique de 8.2
-(`examens.ts`) ; l'écran (8.3) et la suite restent.
+2c.1, 2c.2, 6.2, 6.4, et dans 6.3 iCloud et le widget ; dans l'épic 7, 7.3 et 7.4. Dans
+l'épic 8, 8.5 et 8.6, et les séries au-delà du 月课 de 75.
