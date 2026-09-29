@@ -278,7 +278,9 @@
   }
 </script>
 
-<div class="q">
+<!-- chaque question arrive comme une carte qu'on retourne sur la table (`tokens.css`, `.q.carte`) -->
+{#key cle}
+<div class="q carte">
   <p class="ask">{q.enonce}</p>
 
   {#if q.type === 'sens' || q.type === 'son'}
@@ -440,6 +442,7 @@
     {/if}
   </div>
 </div>
+{/key}
 
 <div class="foot">
   <button class="btn" disabled={note === null && !sautable} onclick={avancer}>

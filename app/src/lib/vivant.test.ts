@@ -297,3 +297,16 @@ describe("le jour où un terme commence, une feuille traverse l'en-tête", () =>
     expect(reduits(css)).toMatch(/\.passe-terme \{\s*display: none;/);
   });
 });
+
+describe("en révision, chaque question arrive comme une carte qu'on retourne", () => {
+  it('un quart de tour à chaque question, jamais de tranche : lisible dès la première image', () => {
+    const ask = source('Ask.svelte');
+    expect(ask).toMatch(/\{#key cle\}\s*<div class="q carte">/);
+    expect(tokens).toContain('.q.carte{animation:carte .32s cubic-bezier(.2,.8,.3,1)}');
+    /* partie à 35 degrés et à moitié visible, jamais à 90 : la question se lit tout de suite */
+    expect(tokens).toMatch(/@keyframes carte\{from\{opacity:\.45;transform:perspective\(900px\) rotateY\(-35deg\)/);
+  });
+  it("s'arrête si l'on réduit les animations", () => {
+    expect(reduits(tokens)).toContain('.q.carte{animation:none}');
+  });
+});
