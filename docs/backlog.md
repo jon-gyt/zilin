@@ -103,6 +103,20 @@ Décisions du propriétaire du 29 septembre 2026 (brief §10, « L'oral par IA �
 - 9.5 L'abonnement à 4,99 € (6.2) et ce qu'il ouvre ; l'achat à vie et un palier au-dessus, à trancher.
 - 9.6 Le micro et la confidentialité : accord au premier usage, accord distinct pour le nuage, politique à deux régimes, fiche App Store mise à jour.
 
+## Épic 10 · Dictionnaire 字典
+Décisions du propriétaire du 29 septembre 2026, maquette `maquettes/dictionnaire.html` (brief §6, « Chercher, le dictionnaire 字典 », §10 et §11) : la loupe Chercher devient un dictionnaire du HSK 3.0 de 2021 (GF 0025-2021), 3 000 caractères et 11 092 mots, en consultation libre ; sens français rédigés par le pipeline et tous relus avant de s'afficher ; phrases d'exemple écrites par le pipeline, pas de Tatoeba ; le son par la voix de l'appareil, sans fichier ajouté ; l'écriture au doigt dans l'abonnement et dans l'achat à vie, le palier « Dictionnaire complet : 9 000 caractères » disparaît ; « origine à venir » là où l'origine n'est pas relue ; Tao avant la rencontre de Xing au 县试, Xing après. Aucun sens de CC-CEDICT. Étude des sources, des licences et du budget : `SOURCES.md` du 29 septembre (hors dépôt), reprise dans `data/schema.md`.
+- 10.1 La liste des mots du HSK 3.0 : `wenlu fetch` télécharge `ivankra/hsk30` (MIT) et l'OCR `elkmovie/hsk30` (MIT) ; `wenlu listes mots` écrit `data/sources/listes/hsk-mots.tsv` (niveau, catégorie grammaticale, pinyin officiel et retenu, syllabes numérotées) avec son en-tête de traçabilité (sources, SHA-256, licences, date) ; la colonne `CEDICT` jamais lue ; `·` au ton neutre, les neuf conflits avec les mots de position tranchés par la décision du 26 septembre (`data/schema.md`) ; `wenlu check` : comptes par niveau, sans CC-CEDICT, caractères dans les 3 000, concordance avec l'OCR, pinyin. **Faite le 29 septembre.**
+- 10.2 Le format d'export : `dico/index.json`, l'index unique chargé à l'ouverture de Chercher ; les lots d'entrées de caractère et de mot (pinyin, niveau, catégorie, décomposition GF quand elle est réconciliée, mots qui contiennent le caractère, jour du chemin) ; les emplacements `sens` (glose de 40 caractères au plus, acceptions, statut) et `exemples`, vides, documentés dans `data/schema.md` ; `FORMAT_EXPORT` 21 ; `wenlu check` : entrées, traits, sens relus seulement. **Faite le 29 septembre.**
+- 10.3 Les traits des 3 000 caractères et des composants de leurs décompositions, par lots (`traits/dico-<n>.json`, en-tête de l'Arphic Public License, `MODIFICATIONS.md`), au format que l'app lit déjà ; `content.traitsDe` les prend après la famille, avant `strokes-demo.json`. **Faite le 29 septembre.**
+- 10.4 La recherche, `app/src/lib/dictionnaire.ts`, pure et testée (un test par règle) : par caractère ; par pinyin avec ou sans tons, découpé par la table des syllabes, la dernière en début ; par français sur les seules gloses relues ; le classement de l'étude ; le chargement paresseux des lots. **Faite le 29 septembre.**
+- 10.5 Le cache hors ligne : l'index précaché, les lots mis en cache à la première lecture (`CacheFirst`, URL marquée de l'empreinte de l'export) ; budget mesuré. **Faite le 29 septembre**, sauf « Garder le dictionnaire hors ligne » dans Réglages (tous les lots d'un coup, 3,8 Mio transférés), à décider.
+- 10.6 Les sens français, par le pipeline : contexte (hanzi, pinyin officiel, catégorie, niveau, sens relus des caractères qui composent le mot, mots voisins), rédaction par lots (sans API ou par l'API), `valider()` (glose de 40 caractères au plus, sans sinogramme ni point final, une à trois acceptions, catégorie de la liste), traçabilité (`generation`), statut `a_relire`, aperçu, relecture ; contrôle anti-CC-CEDICT ; export dans l'emplacement `sens` (10.2) des seuls sens `relu`. HSK 1 à 3 d'abord (≈ 2 850 entrées). **Relecture humaine** de chaque sens.
+- 10.7 Les phrases d'exemple, par le pipeline, avec les seuls caractères du HSK, leur pinyin et leur traduction, tracées et relues, dans l'emplacement `exemples` (10.2). **Relecture humaine.**
+- 10.8 L'écran : Chercher devient le dictionnaire d'après la maquette (onglets « Dictionnaire » et « Lire le monde », champ, recherches récentes gardées sur l'appareil et effaçables, résultats avec le statut de Mon chemin, fiche de caractère, fiche de mot, caractère hors du chemin, « origine à venir »), Tao puis Xing dans leur posture. Après l'intégration de Xing dans `Chercher.svelte`. À décider : un mot d'un seul caractère (好 adjectif, 号 nom), entrée à part dans la liste HSK, se range-t-il sous la fiche du caractère plutôt qu'en ligne à part ? Vérifié à 393 × 660.
+- 10.9 Les 60 décompositions non réconciliées des 3 000 (兴, 段, 检, 举, 亏…) : surcharges rédigées d'après GF 0014-2009 et relues ; d'ici là, leur fiche n'a pas de décomposition. **Relecture humaine.**
+- 10.10 L'écriture au doigt : gabarits dérivés des médianes (APL), appariement sur l'appareil en TypeScript, dans un Web Worker, huit candidats ; jeu de test réel dans `data/`, précision mesurée par `wenlu check` ; droits dans `droits.ts` (Wenlu complet, abonnement et achat à vie) ; sans achat, une ligne et un lien. Étude du 29 septembre : prototype top-5 ≥ 99 % sur tracés synthétiques.
+- 10.11 Les origines des 3 000 : les fiches relues les donnent, étiquetées ; « origine à venir » ailleurs, jamais inventée. Rédaction et relecture par le circuit des fiches (1.4), niveau par niveau. **Relecture humaine.**
+
 ## État au 28 septembre 2026
 
 Relevé sur le dépôt le 21 septembre après une revue du pipeline, mis à jour le 28 septembre
@@ -890,7 +904,32 @@ intégration, pour que le propriétaire l'essaie sur son téléphone.
     l'historique des cartes ne permet pas de lire (il ne garde pas le type de question) ;
   - 9.2 à 9.6.
 
+### Épic 10, en partie : les données et la recherche du dictionnaire (29 septembre)
+
+Les stories sans relecture humaine, 10.1 à 10.5, d'après l'étude des sources du jour.
+
+- **La liste des mots** (10.1) : `data/sources/listes/hsk-mots.tsv`, 11 092 entrées (500, 772,
+  973, 1 000, 1 071, 1 140, 5 636), concordantes entrée par entrée avec l'OCR ; 2 971
+  sinogrammes, tous dans les 3 000 ; chaque syllabe lue dans les lectures du caractère
+  (Unihan, surcharges), 闺女 compris ; 138 entrées à `·` passées au ton neutre, neuf mots de
+  position à la décision du 26 septembre. Texte de la MIT dans `data/sources/licences/MIT-hsk30.txt`,
+  exporté.
+- **L'export** (10.2, 10.3) : `dictionnaire.py`, appelé par `wenlu export`. Mesuré : index 519 Kio
+  (147 Kio en gzip), 60 lots de caractères 850 Kio (172), 56 lots de mots 1 855 Kio (314),
+  64 lots de traits 7 942 Kio (3 344), soit 11,2 Mio bruts et 3,9 Mio en gzip. La police
+  Noto Serif SC passe de 297 à 615 Kio (`wenlu fonts`) : les mots s'écrivent en police, et leurs
+  3 000 caractères entrent dans le sous-ensemble.
+- **La recherche** (10.4) : `app/src/lib/dictionnaire.ts`, 38 tests Vitest, dont des requêtes sur le
+  vrai index (moins de 50 ms par saisie). 你好 n'est pas un mot de la liste HSK 3.0 : `nihao` ne
+  trouve rien, `你好` trouve 你 et 好.
+- **Hors ligne** (10.5) : précache +846 Kio (index, police, code) ; les lots à la demande.
+- **Reste** : 10.6 à 10.11 ; « Garder le dictionnaire hors ligne » ; le programme de novembre
+  2025 (考试大纲, brief §2) n'est pas étiqueté : les niveaux affichés sont ceux de GF 0025-2021 ;
+  le PDF officiel reste à relever depuis le workflow `donnees` (ordre des tables, caractères à
+  écrire).
+
 ### Non commencées
 
 2c.1, 2c.2, 6.2, 6.4, et dans 6.3 iCloud et le widget ; dans l'épic 7, 7.3 et 7.4. Dans
-l'épic 8, les séries au-delà du 月课 de 150. Dans l'épic 9, 9.2 à 9.6.
+l'épic 8, les séries au-delà du 月课 de 150. Dans l'épic 9, 9.2 à 9.6. Dans l'épic 10, 10.6 à
+10.11.
