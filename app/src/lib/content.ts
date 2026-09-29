@@ -889,7 +889,12 @@ export async function dictionnaire(version = VERSION_DONNEES): Promise<ChargeurD
   if (!i.dictionnaire) return null;
   let d = dictionnaires.get(version);
   if (!d) {
-    d = new ChargeurDico(`${import.meta.env.BASE_URL}${dossierVersion(i.version)}/`, i.dictionnaire);
+    d = new ChargeurDico(
+      `${import.meta.env.BASE_URL}${dossierVersion(i.version)}/`,
+      i.dictionnaire,
+      (...a) => fetch(...a),
+      i.empreinte
+    );
     dictionnaires.set(version, d);
   }
   return d;

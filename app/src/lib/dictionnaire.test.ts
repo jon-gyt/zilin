@@ -344,6 +344,27 @@ describe('le chargement paresseux', () => {
     for (const u of appels) expect(u.startsWith('/base/')).toBe(true);
   });
 
+  it("les lots portent l'empreinte de l'export, l'index non (il est précaché)", async () => {
+    const appels: string[] = [];
+    const { fetchFn } = servir(fichiers);
+    const d = new ChargeurDico(
+      '/base/data/t/',
+      'dico/index.json',
+      (async (u: RequestInfo | URL) => {
+        appels.push(String(u));
+        return fetchFn(String(u).split('?')[0]);
+      }) as typeof fetch,
+      'sha256:ab'
+    );
+    await d.caractere('好');
+    await d.traits('好');
+    expect(appels).toEqual([
+      '/base/data/t/dico/index.json',
+      '/base/data/t/dico/caracteres/0.json?v=sha256%3Aab',
+      '/base/data/t/traits/dico-0.json?v=sha256%3Aab'
+    ]);
+  });
+
   it("un échec n'est pas retenu : la demande suivante réessaie", async () => {
     let panne = true;
     const { fetchFn } = servir(fichiers);

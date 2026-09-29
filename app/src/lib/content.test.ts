@@ -638,7 +638,8 @@ describe("le chargement de l'export", () => {
     vi.stubGlobal('fetch', (async (u: RequestInfo | URL) => {
       const url = String(u);
       appels.push(url);
-      const chemin = url.slice(import.meta.env.BASE_URL.length);
+      /* Les lots du dictionnaire portent l’empreinte de l’export en paramètre (`?v=`). */
+      const chemin = url.slice(import.meta.env.BASE_URL.length).split('?')[0];
       if (chemin in fichiers) {
         return { ok: true, status: 200, json: async () => fichiers[chemin] } as Response;
       }
@@ -794,6 +795,10 @@ describe("le chargement de l'export", () => {
     expect((await traitsDe('安', [], VD))?.s).toEqual(['M 1 1']);
     expect(appels.filter((u) => u.endsWith('/dico/index.json'))).toHaveLength(1);
     expect(appels.some((u) => u.includes('dico/caracteres/'))).toBe(false);
+    expect(appels.filter((u) => u.includes('traits/dico-'))).toEqual([
+      `${import.meta.env.BASE_URL}data/${VD}/traits/dico-3.json?v=sha256%3A0`,
+      `${import.meta.env.BASE_URL}data/${VD}/traits/dico-4.json?v=sha256%3A0`
+    ]);
   });
 
   it("lit les paires à ne pas confondre de l'export", async () => {

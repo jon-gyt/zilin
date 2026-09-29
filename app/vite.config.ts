@@ -28,15 +28,40 @@ export default defineConfig({
       // (`NetworkFirst`) : ce qui a été ouvert une fois se relit hors ligne, le reste attend
       // le réseau — acceptable pour un aperçu. Ce sont des fichiers de l'app, servis avec
       // elle : aucune requête ne sort de son origine.
+      //
+      // Le dictionnaire de Chercher (`dictionnaire.ts`, `data/schema.md`) : son index,
+      // `dico/index.json` (≈ 520 Kio, ≈ 150 Kio transférés), est précaché comme tout JSON ;
+      // ses lots d'entrées (`dico/caracteres/`, `dico/mots/`, ≈ 2,7 Mio) et de traits
+      // (`traits/dico-*.json`, ≈ 7,9 Mio) ne le sont pas : chaque installation paierait
+      // ≈ 3,8 Mio transférés pour des fiches qu'elle n'ouvrira peut-être jamais. Ils se
+      // mettent en cache à la première lecture (`CacheFirst`) et se relisent ensuite hors
+      // ligne. Leur URL porte l'empreinte de l'export (`?v=`, `urlDeLot`) : un nouvel export
+      // ne sert jamais un lot d'hier ; les anciens sortent par `maxEntries`.
       workbox: {
         globPatterns: ['**/*.{js,css,html,webmanifest,json,svg,png,woff2,mp3,md,txt,TXT}'],
-        globIgnores: ['**/node_modules/**/*', 'data/*/apercu/**', ...GLOB_HORS_PRECACHE],
+        globIgnores: [
+          '**/node_modules/**/*',
+          'data/*/apercu/**',
+          'data/*/dico/caracteres/**',
+          'data/*/dico/mots/**',
+          'data/*/traits/dico-*.json',
+          ...GLOB_HORS_PRECACHE
+        ],
         navigateFallbackDenylist: [motifPagesDuSite(process.env.BASE_PATH)],
         runtimeCaching: [
           {
             urlPattern: /\/data\/[^/]+\/apercu\/.+\.json$/,
             handler: 'NetworkFirst',
             options: { cacheName: 'wenlu-apercu', expiration: { maxEntries: 400 } }
+          },
+          {
+            urlPattern: /\/data\/[^/]+\/(?:dico\/(?:caracteres|mots)\/\d+|traits\/dico-\d+)\.json(?:\?.*)?$/,
+            handler: 'CacheFirst',
+            options: {
+              cacheName: 'wenlu-dictionnaire',
+              expiration: { maxEntries: 400 },
+              cacheableResponse: { statuses: [200] }
+            }
           }
         ]
       }

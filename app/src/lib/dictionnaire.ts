@@ -549,8 +549,19 @@ export function cheminLot(modele: string, lot: number): string {
 }
 
 /**
+ * L'URL d'un lot, marquée de l'empreinte de l'export : le service worker garde les lots
+ * lus (`CacheFirst`, `vite.config.ts`) sous leur URL entière, si bien qu'un nouvel export,
+ * qui change l'empreinte, ne sert jamais un lot d'hier avec l'index d'aujourd'hui. L'index,
+ * lui, est précaché sous son URL nue.
+ */
+export function urlDeLot(dossier: string, relatif: string, revision: string): string {
+  return revision === '' ? `${dossier}${relatif}` : `${dossier}${relatif}?v=${encodeURIComponent(revision)}`;
+}
+
+/**
  * Le chargeur d'un dictionnaire exporté. `dossier` est l'URL du dossier de version, servi
- * avec l'app (`${BASE_URL}data/0.1.0/`), `index` le chemin de l'index dans ce dossier.
+ * avec l'app (`${BASE_URL}data/0.1.0/`), `index` le chemin de l'index dans ce dossier,
+ * `revision` l'empreinte de l'export (`index.json`), qui marque l'URL des lots.
  * Chaque fichier n'est demandé qu'une fois ; un échec n'est pas retenu, la demande suivante
  * réessaie.
  */
@@ -561,14 +572,16 @@ export class ChargeurDico {
   constructor(
     private readonly dossier: string,
     private readonly index: string = 'dico/index.json',
-    private readonly fetchFn: typeof fetch = (...a) => fetch(...a)
+    private readonly fetchFn: typeof fetch = (...a) => fetch(...a),
+    private readonly revision: string = ''
   ) {}
 
   /** Un fichier du dossier de version, une seule requête pour toute la vie du chargeur. */
   private lire(relatif: string): Promise<unknown> {
     let p = this.fichiers.get(relatif);
     if (!p) {
-      p = this.fetchFn(`${this.dossier}${relatif}`)
+      const url = relatif === this.index ? `${this.dossier}${relatif}` : urlDeLot(this.dossier, relatif, this.revision);
+      p = this.fetchFn(url)
         .then((r) => {
           if (!r.ok) throw new Error(`Dictionnaire introuvable : ${relatif} (${r.status})`);
           return r.json() as Promise<unknown>;

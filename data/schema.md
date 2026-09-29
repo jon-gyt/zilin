@@ -351,6 +351,18 @@ contrôles de licence lisent ce dossier sans descendre.
 | `MIT-hsk30.txt` | 1 | 1 Kio | 1 Kio | précaché |
 | **Total** | 182 | **11 167 Kio** | **3 977 Kio** | |
 
+Hors ligne (story D.12, `app/vite.config.ts`) : le service worker précache l'index et laisse
+les lots au cache d'exécution (`CacheFirst`, cache `wenlu-dictionnaire`), remplis à la
+première lecture ; l'URL d'un lot porte l'empreinte de l'export (`?v=`), si bien qu'un
+nouvel export ne sert jamais un lot d'hier. Mesuré par `npm run build` : le précache passe
+de 1 343 entrées et 10 214 Kio (main du 29 septembre) à 1 345 entrées et 11 060 Kio,
+**+846 Kio** : l'index (519 Kio, 147 Kio transférés), la police Noto Serif SC agrandie aux
+3 000 caractères que les listes de mots écrivent (`wenlu fonts`, 297 → 615 Kio, +311 Kio),
+le code (+10 Kio, +3 Kio transférés). Environ 465 Kio de plus à la première installation.
+Un lot jamais ouvert n'est pas là hors ligne : la totalité des lots pèse 3,8 Mio transférés
+(à proposer un jour dans Réglages, « Garder le dictionnaire hors ligne »). Dans le shell
+iOS, tout est dans le paquet : +11,2 Mio bruts.
+
 Contrôles (`wenlu check`), bloquants : « dico : entrées » (autant de lignes que de
 caractères des listes et de mots de `hsk-mots.tsv`, chaque entrée dans son lot, aucun
 fichier hors de l'index), « dico : traits » (chaque caractère et chaque composant hors
