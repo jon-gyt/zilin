@@ -23,7 +23,7 @@ Une PWA (TypeScript, Vite, Svelte) pour apprendre à lire le chinois par les fam
 - TypeScript strict. Svelte 5. Pas de framework CSS : tokens dans `app/src/lib/tokens.css`.
 - Toute donnée de contenu vient de `data/` via JSON versionné dans `app/public/data/`. L'app ne contient pas de contenu en dur.
 - Progression dans IndexedDB (Dexie). Export et import JSON.
-- Aucune requête réseau à l'exécution en dehors des assets de l'app.
+- Aucune requête réseau à l'exécution en dehors des assets de l'app, sauf l'oral par IA dans le nuage de l'abonnement, par le relais Wenlu (décision du propriétaire du 29 septembre 2026, brief §10). Tout le reste, analyse des tons sur l'appareil comprise, marche hors ligne.
 - Tests : Vitest pour `srs.ts`, `session.ts`, `graph.ts`. Un test par règle produit.
 - Commits en français, impératif, courts. Un sujet par commit.
 
@@ -42,4 +42,4 @@ cd data && uv run wenlu check  # contrôles qualité
 - Ne pas commiter `app/ios/` (généré en CI).
 - Ne pas ajouter de dépendance sans la justifier dans le message de commit.
 - Ne pas générer de texte d'origine sans passer par le pipeline `data/` (traçabilité de la source).
-- Ne pas introduire de compte utilisateur ni de backend.
+- Ne pas introduire de compte utilisateur. Un seul serveur : le relais de l'oral par IA de l'abonnement, sans compte, authentifié par la transaction App Store, qui ne garde rien de ce qui est dit.
