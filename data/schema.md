@@ -554,7 +554,10 @@ chemin. »), les pavillons de la semaine, les auberges des familles, les rendez-
 `xing.tsv` (décision du propriétaire du 29 septembre 2026) : la rencontre du maître Xing 杏 à
 la porte du 县试 (son accueil, son nom, 杏 dessiné depuis ses traits, ses rôles) et sa ligne
 de tête au pas Apprendre, selon l'étiquette de la fiche (`brique-atteste`, `brique-mnemo`,
-`brique-sans`, et de même `compose-*`), qui ne présente jamais l'une pour l'autre.
+`brique-sans`, et de même `compose-*`), qui ne présente jamais l'une pour l'autre ; et
+`ecrire.tsv` (maquette `maquettes/dictionnaire.html`, écran 5) : le pavé « Écrire au doigt »,
+ses boutons « Annuler le trait » et « Effacer », le compte des traits et des candidats, et, sans
+Wenlu complet, la ligne et le lien qui prennent sa place (`app/src/lib/PaveEcriture.svelte`).
 L'app remplit les jetons entre accolades (`app/src/lib/ecrans.ts`).
 
 ```json
@@ -565,7 +568,8 @@ L'app remplit les jetons entre accolades (`app/src/lib/ecrans.ts`).
  "route": {"examen": "{examen} · {n} caractères", "ouvert": "examen ouvert", "…": "…"},
  "dire": {"juste": "{nom} : ta voix {allure}. C'est bien lui.", "conseil-2-3": "Monte tout de suite, sans descendre d'abord.", "…": "…"},
  "chemin": {"menu-faite": "Pierre posée, une seule par jour", "clore-titre": "{c} rejoint ton chemin.", "…": "…"},
- "xing": {"caractere": "杏", "accueil": "Bienvenue au 县试. Je suis Xing. …", "brique-mnemo": "… un moyen mnémotechnique, pas son histoire.", "…": "…"}}
+ "xing": {"caractere": "杏", "accueil": "Bienvenue au 县试. Je suis Xing. …", "brique-mnemo": "… un moyen mnémotechnique, pas son histoire.", "…": "…"},
+ "ecrire": {"annuler": "Annuler le trait", "compte": "{n} traits · {c} candidats", "…": "…"}}
 ```
 
 - Un objet par écran, les textes par clé, dans l'ordre de `ecrans.ECRANS`, qui déclare

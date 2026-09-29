@@ -1,4 +1,4 @@
-"""Les textes d'interface de sept écrans : « Lire le monde », les révisions, le personnage, la route, « Dis-le », Mon chemin, le maître Xing.
+"""Les textes d'interface de huit écrans : « Lire le monde », les révisions, le personnage, la route, « Dis-le », Mon chemin, le maître Xing, « Écrire au doigt ».
 
 « Lire le monde » (Chercher) et le tableau des révisions : rapport comparatif du 28
 septembre 2026, §2.5 et §2.6. « Mon personnage » et « La route devant » : les lignes des
@@ -10,6 +10,7 @@ du chemin, la pierre posée, les pavillons, les auberges et les rendez-vous (dé
 propriétaire du 29 septembre 2026, maquette validée `maquettes/chemin.html`). Le maître Xing 杏 :
 sa rencontre à la porte du 县试 et ses lignes du pas Apprendre, qui distinguent toujours
 l'origine attestée du moyen mnémotechnique (décision du propriétaire du 29 septembre 2026).
+« Écrire au doigt » : le pavé du dictionnaire (maquette `maquettes/dictionnaire.html`, écran 5).
 Chaque écran a sa source
 versionnée, rédigée pour l'app et à relire, dans `data/sources/ecrans/<écran>.tsv` ;
 `wenlu export` en tire `ecrans.json`, que l'index nomme par sa clé `ecrans`.
@@ -248,6 +249,23 @@ ECRANS: dict[str, dict[str, tuple[str, ...]]] = {
         "compose-mnemo": (),
         "compose-sans": (),
     },
+    "ecrire": {
+        "titre": (),
+        "champ": (),
+        "pave": (),
+        "candidats": (),
+        "vide": (),
+        "compte": ("n", "c"),
+        "compte-un": ("c",),
+        "annuler": (),
+        "effacer": (),
+        "aide": (),
+        "chargement": (),
+        "indisponible": (),
+        "complet": (),
+        "complet-texte": (),
+        "complet-lien": (),
+    },
 }
 
 #: Les sept jours de la semaine, du dimanche au samedi (`Date.getDay`), dans `revisions/jours`.
@@ -269,9 +287,9 @@ REPROCHES = re.compile(
     r"\b(?:faux|fausses?|erreurs?|rat[ée]e?s?|mauvaise?s?|échecs?|dommage|non|nulle?s?)\b", re.IGNORECASE
 )
 
-#: Les écrans dont les textes passent aussi le contrôle des reproches : « Dis-le », et le
-#: maître Xing, qui ne gronde jamais.
-SANS_REPROCHE = ("dire", "xing")
+#: Les écrans dont les textes passent aussi le contrôle des reproches : « Dis-le », le
+#: maître Xing, qui ne gronde jamais, et le pavé d'écriture.
+SANS_REPROCHE = ("dire", "xing", "ecrire")
 
 #: Xing distingue toujours l'origine attestée du moyen mnémotechnique, sans jamais présenter
 #: l'un pour l'autre (CLAUDE.md) : chaque ligne dit l'étiquette de sa fiche, et elle seule.
@@ -297,7 +315,7 @@ JETON = re.compile(r"\{([^{}]*)\}")
 SOURCE_EXPORT = (
     "data/sources/ecrans/ : textes d'interface de « Lire le monde », du tableau des"
     " révisions, de « Mon personnage », de la route devant, de « Dis-le », de « Mon chemin »"
-    " et du maître Xing,"
+    ", du maître Xing et du pavé « Écrire au doigt »,"
     " rédigés pour l'app (à relire)"
 )
 

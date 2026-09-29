@@ -230,6 +230,28 @@ export const CLES_XING = [
   'compose-sans'
 ] as const;
 
+/**
+ * Le pavé « Écrire au doigt » du dictionnaire (maquette `maquettes/dictionnaire.html`, écran 5) :
+ * `PaveEcriture.svelte`. Dans l'ordre de la source.
+ */
+export const CLES_ECRIRE = [
+  'titre',
+  'champ',
+  'pave',
+  'candidats',
+  'vide',
+  'compte',
+  'compte-un',
+  'annuler',
+  'effacer',
+  'aide',
+  'chargement',
+  'indisponible',
+  'complet',
+  'complet-texte',
+  'complet-lien'
+] as const;
+
 export type CleLireLeMonde = (typeof CLES_LIRE_LE_MONDE)[number];
 export type CleRevisions = (typeof CLES_REVISIONS)[number];
 export type ClePersonnage = (typeof CLES_PERSONNAGE)[number];
@@ -237,6 +259,7 @@ export type CleRoute = (typeof CLES_ROUTE)[number];
 export type CleDire = (typeof CLES_DIRE)[number];
 export type CleChemin = (typeof CLES_CHEMIN)[number];
 export type CleXing = (typeof CLES_XING)[number];
+export type CleEcrire = (typeof CLES_ECRIRE)[number];
 
 export type TextesLireLeMonde = Record<CleLireLeMonde, string>;
 export type TextesRevisions = Record<CleRevisions, string>;
@@ -245,6 +268,7 @@ export type TextesRoute = Record<CleRoute, string>;
 export type TextesDire = Record<CleDire, string>;
 export type TextesChemin = Record<CleChemin, string>;
 export type TextesXing = Record<CleXing, string>;
+export type TextesEcrire = Record<CleEcrire, string>;
 
 export type Ecrans = {
   version: string;
@@ -256,6 +280,7 @@ export type Ecrans = {
   dire: TextesDire;
   chemin: TextesChemin;
   xing: TextesXing;
+  ecrire: TextesEcrire;
 };
 
 function vides<K extends string>(cles: readonly K[]): Record<K, string> {
@@ -272,7 +297,8 @@ export const SANS_ECRANS: Ecrans = {
   route: vides(CLES_ROUTE),
   dire: vides(CLES_DIRE),
   chemin: vides(CLES_CHEMIN),
-  xing: vides(CLES_XING)
+  xing: vides(CLES_XING),
+  ecrire: vides(CLES_ECRIRE)
 };
 
 function objet(v: unknown): Record<string, unknown> {
@@ -302,7 +328,8 @@ export function lireEcrans(brut: unknown): Ecrans {
     route: bloc(o.route, CLES_ROUTE),
     dire: bloc(o.dire, CLES_DIRE),
     chemin: bloc(o.chemin, CLES_CHEMIN),
-    xing: bloc(o.xing, CLES_XING)
+    xing: bloc(o.xing, CLES_XING),
+    ecrire: bloc(o.ecrire, CLES_ECRIRE)
   };
 }
 
