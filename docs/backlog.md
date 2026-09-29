@@ -90,6 +90,7 @@ Décisions du propriétaire du 26 septembre 2026 : « aux paliers de caractères
 - 8.4 Les briques en pause : pendant un examen à passer, la journée sans brique nouvelle (7.2), Échauffer et Apprendre prennent d'abord les caractères manqués ; pas de session de plus ; au menu, la journée faite, « Passer l'examen 县试 » ou « Passer le 月课 », puis, tant que la reprise attend, « Réviser encore » et une ligne sans compte à rebours ; Clore dit le palier atteint. Au rythme gratuit, les briques de la semaine attendent aussi, sans s'accumuler. Tests dans `session.ts`.
 - 8.5 Les rangs, « Points ET examen » : dans `heros.ts`, un titre s'accorde quand l'examen est réussi et les points atteints, dans l'ordre des rangs ; les quatre nominations à leur palier de caractères lus. Un 月课 ne donne ni ne retient un rang, même au palier d'une nomination (1 555, 1 800). La taille et la silhouette suivent les points, la tenue le titre accordé. L'en-tête montre le rang tenu, sans pastille ; « Mon personnage » : barre pleine et « Reste le 院试 », ou « Reçu au 院试 · encore 12 points », et les examens à titre réussis avec leur date, sans les 月课 ; le 放榜 au titre accordé, une fois. `rangs.tsv` prend l'examen ou le palier de chaque rang ; `heros.json` suit, contrôle des sources mis à jour. **Livrée le 29 septembre** (voir « Livrées »), sauf l'en-tête du menu, qui attend une ligne dans `Menu.svelte`.
 - 8.6 La borne de la route : l'examen dans `route.bornesDevant`, au jour du chemin où entre le Ne caractère, son nom sur la stèle ; l'examen suivant, à titre ou 月课, toujours l'une des deux bornes, à la place de la seconde si deux autres tombent avant lui ; une seule stèle quand il tombe sur un seuil du trophée Lire (50, 100, 255, 505, 1 555) ; l'examen à passer se dresse devant la pierre du jour, « examen ouvert », les pierres suivantes sans compte ; au rythme gratuit, en étapes. Tests dans `route.test.ts`. Pas de sceau aux trophées. **Livrée le 29 septembre** (voir « Livrées »).
+- 8.7 Le pinyin sous les caractères aux premiers examens. Décision du propriétaire du 29 septembre 2026 : « Il faudrait un mode avec pinyin sous les caractères sur les premiers examens (jusqu'à HSK 1), ensuite plus de pinyin pour les examens. » Sur le chemin Lire jusqu'au 乡试 (seuil 255), sur le chemin HSK jusqu'au 月课 de 405 (fin du HSK 1) ; décidé par les données (`examens.tsv`, `pinyin_sous`, exporté par chemin), contrôlé dans `wenlu check` (la première étape, sans trou ; le pinyin ne donne pas la réponse). À l'écran, sous le support, l'affirmation et les répliques ; jamais sous l'objet ni les choix d'une question de revue (brief §8). **Livrée le 29 septembre** (voir « Épic 8, en partie »).
 
 ## Épic 9 · Oral par IA
 Décisions du propriétaire du 29 septembre 2026 (brief §10, « L'oral par IA ») : sur le téléphone en gratuit, dans le nuage avec l'abonnement, « 5 € c'est une conversation par jour ». Analyse : `Wenlu face au marché` (29 septembre).
@@ -791,8 +792,26 @@ Décisions du propriétaire du 29 septembre 2026 : « Ok maquette d'examen »
   hors de `examens.json` : l'app n'ouvre ces deux examens qu'une fois leurs séries relues.
   Relecture : `wenlu examens apercu lire fushi` (et `hsk`, `yueke-150`), puis `statut: relu`
   et la décision dans `relecture`. Couverture bloquante portée à 150.
+- **8.7, livrée** : le pinyin sous les caractères aux premiers examens (décision du
+  propriétaire du 29 septembre, « jusqu'à HSK 1 »). `examens.tsv` prend la colonne
+  `pinyin_sous` (`lire hsk` du 县试 au 乡试, `hsk` pour les 月课 de 305, 355 et 405, `—`
+  après) ; `examens.json` dit `pinyin` pour chaque examen de chaque chemin. Contrôles :
+  « examens : pinyin sous les caractères » (sur Lire jusqu'au seuil 255, sur HSK jusqu'au
+  rang du dernier caractère du HSK 1 posé, 428 ; aucun après, sans trou) et, dans
+  « examens : fuites », le pinyin montré ne donne pas la réponse (la bonne réponse n'est pas
+  le seul choix qu'il transcrit ; la consigne d'un repérage ne transcrit pas le mot
+  cherché). Deux leurres du chemin Lire, encore à relire, réécrits pour cela : au 府试, A 4,
+  « À Nankin » → « À Nanjing » ; au 月课 de 150, B 1, « À Pékin » → « À Beijing ». À
+  l'écran (`Examen.svelte`, `SupportExamen.svelte`, `examen-dessins.ts`) : la syllabe sous
+  chaque caractère, à la brume, sur l'enseigne à l'encre claire de la plaque ; un mot de la
+  glose ne se coupe pas en fin de ligne ; jamais sur l'objet ni les choix de la revue
+  (`examens.pinyinDeQuestion`). Tests : `examen-pinyin.test.ts` (une règle par test, et le
+  balayage des séries exportées), `test_examens.py`. Vérifié à 393 × 660 : aucune ligne ne
+  déborde en largeur ; le pinyin ajoute une ligne de 12 à 13 px par ligne de texte, et les
+  plus grands supports (la page d'agenda, le billet) défilent de 20 à 40 px de plus.
 - **Reste** : la relecture du 府试 et du 月课 de 150 ; les séries des examens suivants (院试
-  à 200…), et leurs noms du 放榜.
+  à 200…), et leurs noms du 放榜 ; celles de la première étape passent le contrôle du
+  pinyin.
 
 ### Non commencées
 

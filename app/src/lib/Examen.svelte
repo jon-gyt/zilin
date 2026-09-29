@@ -14,6 +14,10 @@
    *   même question. Entre deux essais, Tao ne donne jamais la bonne réponse, ni directement
    *   ni par une glose (signalement du propriétaire du 29 septembre 2026) : au plus ce que
    *   veut dire le choix touché, ou une invitation à relire ; l'explication vient à la fin.
+   *   Aux premiers examens (décision du propriétaire du 29 septembre 2026, « jusqu'à HSK
+   *   1 »), le pinyin se lit sous chaque caractère du support, de l'affirmation d'un vrai ou
+   *   faux et des répliques à choisir ; jamais sous l'objet ni les choix d'une question de
+   *   revue, où il donnerait la réponse (`pinyinDeQuestion`).
    * - Le résultat : un constat, jamais en ocre (« 9 sur 10 du premier coup. Reçu au 县试. »,
    *   « 6 sur 10 du premier coup. Pas encore. »), les caractères manqués dessinés depuis leurs
    *   traits et nommés avec l'endroit où on les a croisés, les points 读.
@@ -47,6 +51,8 @@
     dessinHaoshe
   } from './examen-dessins';
   import {
+    SANS_PINYIN,
+    avecPinyin,
     cheminDesExamens,
     corriger,
     dateDuBang,
@@ -55,6 +61,7 @@
     genresDe,
     manquesDetailles,
     morceaux,
+    pinyinDeQuestion,
     prochainATitre,
     questionFinie,
     questionsDe,
@@ -64,6 +71,7 @@
     serieDe,
     serieDeTentative,
     situation,
+    grappesDePhrase,
     texteExamen,
     titreAvec,
     type Bilan,
@@ -132,6 +140,12 @@
   const essais = $derived(tentative?.essais ?? []);
   const fini = $derived(q !== null && questionFinie(q, essais));
   const support = $derived(q?.support === undefined || serie === null ? null : (serie.supports.find((x) => x.id === q.support) ?? null));
+  /** Le pinyin sous les caractères : l'examen le porte sur ce chemin (l'export le dit). */
+  const pinyin = $derived(tentative !== null && avecPinyin(donnees, tentative.chemin, tentative.examen));
+  /** Où cette question le montre : jamais sur ce qui donnerait la réponse. */
+  const py = $derived(q === null || serie === null ? SANS_PINYIN : pinyinDeQuestion(q, serie, pinyin));
+  /** Les mots de la glose : avec le pinyin, un mot ne se coupe pas en fin de ligne. */
+  const entrees = $derived(serie === null ? [] : Object.keys(serie.glose));
 
   /* ---------- les traits des grands caractères ---------- */
 
@@ -284,6 +298,15 @@
   {/each}
 {/snippet}
 
+{#snippet rubis(p: Phrase)}
+  <!-- une phrase, le pinyin sous chaque caractère ; rien sous la ponctuation -->
+  <span class="rubis cn" lang="zh-Hans"
+    >{#each grappesDePhrase(p, entrees) as g, j (j)}<span class="grappe"
+        >{#each g as x, k (k)}<span class="rubi"><span class="rb">{x.c}</span><span class="rt" aria-hidden="true">{x.py ?? ''}</span></span>{/each}</span
+      >{/each}</span
+  >
+{/snippet}
+
 {#snippet pastilles(etats: readonly string[], grand: boolean)}
   <div class={grand ? 'grospips' : 'pips'} aria-hidden="true">
     {#each etats as e, k (k)}
@@ -427,14 +450,16 @@
           etats={Object.fromEntries(essais.map((d) => [d as number, corriger(q, d) ? 'ok' : 'ko']))}
           ontoucher={(k) => toucher(k)}
           {fini}
-          reponse={q.type === 'replique' && fini ? (q.choix[q.reponse as number] as Phrase).zh : null}
+          reponse={q.type === 'replique' && fini ? (q.choix[q.reponse as number] as Phrase) : null}
           placeholder={q.type === 'replique' ? t('ta_reponse') : ''}
+          pinyin={py.support}
+          {entrees}
         />
       </div>
     {/if}
 
     {#if q.type === 'vrai_faux' && q.affirmation !== undefined}
-      <p class="affirmation cn">{q.affirmation.zh}</p>
+      <p class="affirmation cn" class:avec-py={py.affirmation}>{#if py.affirmation}{@render rubis(q.affirmation)}{:else}{q.affirmation.zh}{/if}</p>
       <div class="opts deux">
         {#each [true, false] as v (String(v))}
           {@const touche = essais.includes(v)}
@@ -482,8 +507,18 @@
       <div class="opts">
         {#each q.choix as c, k (k)}
           {@const touche = essais.includes(k)}
-          <button class="opt" class:ok={touche && corriger(q, k)} class:ko={touche && !corriger(q, k)} class:fin={fini && !touche} disabled={fini} onclick={() => toucher(k)}>
-            {#if q.type === 'replique'}
+          <button
+            class="opt"
+            class:avec-py={q.type === 'replique' && py.choix}
+            class:ok={touche && corriger(q, k)}
+            class:ko={touche && !corriger(q, k)}
+            class:fin={fini && !touche}
+            disabled={fini}
+            onclick={() => toucher(k)}
+          >
+            {#if q.type === 'replique' && py.choix}
+              <span class="l">{@render rubis(c as Phrase)}</span>
+            {:else if q.type === 'replique'}
               <span class="l cn">{(c as Phrase).zh}</span>
             {:else}
               <span class="l">{(c as Sens).fr}</span>
@@ -852,6 +887,41 @@
     margin: 0 0 12px;
     padding: 8px 12px;
     border-left: 3px solid var(--line);
+  }
+  /* le pinyin sous chaque caractère, à la manière d'un ruby : petit, à la brume */
+  .rubis {
+    display: inline-flex;
+    flex-wrap: wrap;
+    row-gap: 4px;
+  }
+  .rubis .grappe {
+    display: inline-flex;
+    white-space: nowrap;
+  }
+  .rubi {
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    line-height: 1.15;
+    padding: 0 2px;
+  }
+  .rubi .rt {
+    min-height: 1.3em;
+    font: 400 11px/1.3 var(--sans);
+    color: var(--mist);
+    white-space: nowrap;
+  }
+  .affirmation.avec-py {
+    line-height: 1.15;
+  }
+  /* une réplique et son pinyin : la ligne de pinyin prend la place du jour du bouton */
+  .opt.avec-py {
+    padding-top: 5px;
+    padding-bottom: 5px;
+  }
+  .opt.ok .rt,
+  .opt.ko .rt {
+    color: inherit;
   }
   .objet {
     display: flex;

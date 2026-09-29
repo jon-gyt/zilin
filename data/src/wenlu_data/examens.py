@@ -16,7 +16,8 @@ l'examen précédent : chacune de ses questions en porte au moins un.
 Sources, versionnées (`data/sources/examens/`) :
 
 - `examens.tsv` : la liste des trente-sept examens, dans l'ordre (identifiant, sorte, nom,
-  pinyin, ce qu'il était, palier, titre accordé, nombre de questions) ;
+  pinyin, ce qu'il était, palier, titre accordé, nombre de questions, chemins où ses textes
+  portent leur pinyin sous chaque caractère) ;
 - `nominations.tsv` : les quatre rangs sans examen et leur palier de caractères lus ;
 - `textes.tsv` : les phrases de Tao et toutes les lignes de l'écran de l'examen (8.3),
   avec leurs jetons ;
@@ -62,7 +63,12 @@ palier sur ce chemin ; au 月课, chaque question porte un caractère du tronço
 répondre ne donne la réponse : le surtitre ne dit que le genre, ni lui ni la consigne ne
 portent les mots de la bonne réponse, la consigne ne contient pas le caractère, le mot ou
 la syllabe cherchés, ni la traduction d'une affirmation ; signalement du propriétaire du 29
-septembre 2026), « couverture » (chaque examen jusqu'au palier
+septembre 2026 ; aux examens qui portent le pinyin sous les caractères, il ne donne pas
+la réponse non plus : la bonne réponse n'est pas le seul choix qu'il transcrit, la consigne
+d'un repérage ne transcrit pas le mot cherché), « pinyin sous les caractères » (décision du
+propriétaire du 29 septembre 2026, « jusqu'à HSK 1 » : sur chaque chemin, tous les examens
+de la première étape, le seuil 255 sur le chemin Lire, la fin du HSK 1 sur le chemin HSK, et
+aucun après, sans trou), « couverture » (chaque examen jusqu'au palier
 `COUVERTURE`, sur les deux chemins), « 放榜 » (les noms de la liste, dans l'acquis du
 palier), « périmètre des traits » (le nom de chaque
 examen se dessine depuis ses traits) et « export ». Signalés : la relecture, la forme des
@@ -186,6 +192,14 @@ GENRES_REPLIQUE: tuple[str, ...] = ("message", "lettre", "note")
 #: le 县试 et le 月课 de 75, le premier lot du backlog (8.1), puis le 府试 et le 月课 de 150.
 COUVERTURE = 150
 
+#: Le pinyin sous les caractères, aux examens de la première étape du chemin (décision du
+#: propriétaire du 29 septembre 2026, « Il faudrait un mode avec pinyin sous les caractères
+#: sur les premiers examens (jusqu'à HSK 1), ensuite plus de pinyin pour les examens ») : sur
+#: le chemin Lire, jusqu'au seuil 255 en caractères lus, le 乡试 compris ; sur le chemin HSK,
+#: jusqu'à la fin du HSK 1 (`fin_premiere_etape`). Les examens qui le portent se déclarent
+#: dans `examens.tsv` (`pinyin_sous`) : le contrôle vérifie que ce sont ceux-là, sans trou.
+SEUIL_PINYIN_LIRE = 255
+
 #: Les phrases de l'écran et de Tao, et les seuls jetons que chacune peut porter : le menu
 #: et Clore, puis l'écran de l'examen (8.3), l'annonce, la question, le résultat, le 放榜.
 JETONS_TEXTES: dict[str, frozenset[str]] = {
@@ -280,7 +294,7 @@ JETONS_TEXTES: dict[str, frozenset[str]] = {
 #: Ce qu'aucun texte d'examen ne nomme : le dragon reste au décor de deux fêtes.
 INTERDITS = re.compile(r"dragon|龙|龍", re.IGNORECASE)
 
-COLONNES_LISTE = ("id", "sorte", "hz", "pinyin", "fr", "en", "palier", "titre", "questions", "source")
+COLONNES_LISTE = ("id", "sorte", "hz", "pinyin", "fr", "en", "palier", "titre", "questions", "pinyin_sous", "source")
 COLONNES_NOMINATIONS = ("rang", "palier", "source")
 COLONNES_TEXTES = ("cle", "fr", "source")
 COLONNES_BANG = ("parcours", "examen", "noms", "source")
@@ -329,6 +343,8 @@ class Examen:
     questions: int
     source: str = ""
     numero: int = 0
+    #: Les chemins où ses textes portent leur pinyin sous chaque caractère (`PREMIERE_ETAPE`).
+    pinyin_sous: tuple[str, ...] = ()
 
 
 @dataclass(frozen=True)
@@ -359,8 +375,15 @@ def charger_liste(chemin: Path | None = None) -> tuple[list[Examen], list[str]]:
             fautes.append(f"examens.tsv:{l.numero} : palier et questions, attendus des nombres")
             continue
         titre = "" if c["titre"] in ("", "—", "-") else c["titre"]
+        sous = () if c["pinyin_sous"].strip() in ("", "—", "-") else tuple(c["pinyin_sous"].split())
+        inconnus = [x for x in sous if x not in PARCOURS]
+        if inconnus or len(set(sous)) != len(sous):
+            fautes.append(f"examens.tsv:{l.numero} : pinyin_sous, attendu {' ou '.join(PARCOURS)} ou —")
+            sous = tuple(x for x in dict.fromkeys(sous) if x in PARCOURS)
         examens.append(
-            Examen(c["id"], c["sorte"], c["hz"], c["pinyin"], c["fr"], c["en"], palier, titre, questions, c["source"], l.numero)
+            Examen(
+                c["id"], c["sorte"], c["hz"], c["pinyin"], c["fr"], c["en"], palier, titre, questions, c["source"], l.numero, sous
+            )
         )
     return examens, fautes
 
@@ -464,6 +487,46 @@ def fautes_bang(
             if e.sorte == TITRE and e.palier <= jusqua and jour_du_palier(e.palier, doc) is not None:
                 if (nom, e.id) not in noms:
                     fautes.append(f"{nom} : {e.hz} sans liste du 放榜")
+    return fautes
+
+
+def fin_premiere_etape(nom: str, parcours: Mapping[str, object]) -> int:
+    """Le dernier palier, en caractères lus, où les examens d'un chemin portent leur pinyin.
+
+    Lire : le seuil 255 (`SEUIL_PINYIN_LIRE`), le 乡试. HSK : la fin du HSK 1, le rang du
+    dernier caractère de la liste cible que le chemin pose, briques comprises (428 dans
+    l'export 0.1.0, le 月课 de 405 le dernier examen avant).
+    """
+    if nom == "lire":
+        return SEUIL_PINYIN_LIRE
+    cible = set(parcours.get("cible") or ())  # type: ignore[call-overload]
+    rangs = [k for k, (_, c) in enumerate(poses_par_jour(parcours), start=1) if c in cible]
+    return rangs[-1] if rangs else 0
+
+
+def fautes_pinyin_sous(examens: Sequence[Examen], parcours: Mapping[str, Mapping[str, object]]) -> list[str]:
+    """Le pinyin sous les caractères : sur chaque chemin, tous les examens de la première
+    étape et aucun après, sans trou. `parcours` : les chemins construits ; sans eux, seul
+    le trou se contrôle.
+    """
+    fautes: list[str] = []
+    for nom in PARCOURS:
+        declares = [e for e in examens if nom in e.pinyin_sous]
+        debut = examens[: len(declares)]
+        trous = [e for e in debut if nom not in e.pinyin_sous]
+        if trous:
+            fautes.append(f"{nom} : {', '.join(f'{e.hz} {e.palier}' for e in trous)} sans pinyin avant un examen qui en porte")
+        doc = parcours.get(nom)
+        if doc is None:
+            continue
+        fin = fin_premiere_etape(nom, doc)
+        attendus = [e for e in examens if e.palier <= fin and jour_du_palier(e.palier, doc) is not None]
+        manquants = [e for e in attendus if nom not in e.pinyin_sous]
+        en_trop = [e for e in declares if e not in attendus]
+        if manquants:
+            fautes.append(f"{nom} : {', '.join(f'{e.hz} {e.palier}' for e in manquants)} sans pinyin, dans la première étape (jusqu'à {fin})")
+        if en_trop:
+            fautes.append(f"{nom} : {', '.join(f'{e.hz} {e.palier}' for e in en_trop)} avec pinyin, après la première étape (jusqu'à {fin})")
     return fautes
 
 
@@ -1278,6 +1341,90 @@ def ecarts_fuites(serie: Serie, glossaire: Mapping[str, Glose] | None = None) ->
     return ecarts
 
 
+def _plat(texte: str) -> str:
+    """Sans accents ni casse : « zhōng shān » → « zhong shan », « Nüwa » → « nuwa »."""
+    import unicodedata
+
+    plat = unicodedata.normalize("NFD", texte.lower())
+    return "".join(c for c in plat if not unicodedata.combining(c))
+
+
+def transcriptions(pinyins: Iterable[str]) -> set[str]:
+    """Ce que le pinyin montré transcrit : chaque suite d'une à quatre syllabes d'une même
+    ligne, sans ton ni espace (« nán jīng zhōng shān » : nan, jing, nanjing, zhongshan…)."""
+    out: set[str] = set()
+    for p in pinyins:
+        syllabes = [re.sub(r"[^a-z]", "", _plat(x)) for x in p.split()]
+        for i in range(len(syllabes)):
+            for j in range(i + 1, min(i + 4, len(syllabes)) + 1):
+                out.add("".join(syllabes[i:j]))
+    return out
+
+
+#: Un mot français de moins de tant de lettres ne compte pas comme une transcription : « de »,
+#: « le », « a » sont aussi des syllabes (的, 了, 啊).
+TRANSCRIPTION_MIN = 3
+
+
+def mots_transcrits(texte: str, transcrits: set[str]) -> list[str]:
+    """Les mots d'un texte français qui transcrivent le pinyin montré (« À Zhongshan »)."""
+    mots = re.findall(r"[a-z]+", _plat(texte))
+    return sorted({m for m in mots if len(m) >= TRANSCRIPTION_MIN and m in transcrits})
+
+
+def pinyin_montre(q: Question, serie: Serie) -> list[str]:
+    """Le pinyin qu'une question montre sous ses caractères, à un examen qui le porte : son
+    support, son affirmation, les répliques à choisir. Jamais l'objet d'une question de
+    revue, ni les choix d'un caractère, d'un trou ou d'un ton : il donnerait la réponse.
+    """
+    out: list[str] = []
+    s = serie.support(q.support) if q.support else None
+    if s is not None:
+        out += [l.pinyin for l in s.lignes]
+    if q.affirmation is not None:
+        out.append(q.affirmation.pinyin)
+    if q.type == "replique":
+        out += [c.pinyin for c in q.choix if isinstance(c, Phrase)]
+    return out
+
+
+def ecarts_fuites_pinyin(serie: Serie, glossaire: Mapping[str, Glose] | None = None) -> list[str]:
+    """Le pinyin sous les caractères ne donne pas la réponse (décision du propriétaire du 29
+    septembre 2026, « jusqu'à HSK 1 », et la règle des fuites du même jour).
+
+    - Au sens d'une mise en situation (`comprendre`), la bonne réponse n'est pas le seul choix
+      à porter un mot que le pinyin montré transcrit : « À Zhongshan » parmi « À Nankin »,
+      « À Pékin », « À Shanghai », sous « nán jīng zhōng shān », se choisirait sans lire.
+    - Au repérage, la consigne ne transcrit pas le mot cherché, que le support montre avec
+      son pinyin (« Touche Nanjing »).
+    """
+    ecarts: list[str] = []
+    for q in serie.questions:
+        ou = f"question {q.rang} ({q.type})"
+        transcrits = transcriptions(pinyin_montre(q, serie))
+        valide = q.type != "vrai_faux" and isinstance(q.reponse, int) and 0 <= q.reponse < len(q.choix)
+        if not valide or not transcrits:
+            continue
+        if q.type == "comprendre":
+            porteurs = {k: mots_transcrits(_sens_du_choix(c), transcrits) for k, c in enumerate(q.choix)}
+            avec = [k for k, m in porteurs.items() if m]
+            if avec == [q.reponse]:
+                ecarts.append(
+                    f"{ou} : le pinyin sous les caractères donne la réponse « {_sens_du_choix(q.choix[q.reponse])} »"  # type: ignore[index]
+                    f" ({', '.join(porteurs[q.reponse])}), seule à le transcrire"  # type: ignore[index]
+                )
+        if q.type == "reperer" and glossaire is not None:
+            s = serie.support(q.support) if q.support else None
+            g = entrees(glossaire, s.glose if s is not None else {}).get(str(q.choix[q.reponse]))  # type: ignore[index]
+            if g is not None:
+                mot = re.sub(r"[^a-z]", "", _plat(g.pinyin))
+                mots = re.findall(r"[a-z]+", _plat(q.consigne[0]))
+                suites = {"".join(mots[i:j]) for i in range(len(mots)) for j in range(i + 1, min(i + 4, len(mots)) + 1)}
+                if len(mot) >= TRANSCRIPTION_MIN and mot in suites:
+                    ecarts.append(f"{ou} : la consigne transcrit le mot cherché {q.choix[q.reponse]} « {g.pinyin} »")  # type: ignore[index]
+    return ecarts
+
+
 def signaux_forme(serie: Serie) -> list[str]:
     """La bonne réponse ne se reconnaît pas à sa forme : bien plus longue que tous ses leurres,
     ou seule à aligner plusieurs sens (« vache, bœuf » parmi « cheval », « main »).
@@ -1404,6 +1551,7 @@ def document(
                     "troncon": troncon(e, examens, doc),
                     "series": series,
                     "noms": bang.get((nom, e.id), []) if e.sorte == TITRE else [],
+                    "pinyin": nom in e.pinyin_sous,
                 }
             )
         par_parcours[nom] = lignes
@@ -1546,6 +1694,8 @@ def controles(
                 f_glo += [f"{ou} : {x}" for x in ecarts_glose(s, lexique)]
                 f_que += [f"{ou} : {x}" for x in ecarts_questions(s, e, lectures, lexique)]
                 f_fui += [f"{ou} : {x}" for x in ecarts_fuites(s, lexique)]
+                if nom in e.pinyin_sous:
+                    f_fui += [f"{ou} : {x}" for x in ecarts_fuites_pinyin(s, lexique)]
                 forme += [f"{ou} : {x}" for x in signaux_forme(s)]
             par_lettre = {s.serie: s for s in f.series}
             if set(par_lettre) == set(SERIES):
@@ -1555,6 +1705,9 @@ def controles(
             else:
                 f_ser.append(f"{nom}/{ex} : séries {''.join(par_lettre)} pour AB")
     f_bang += fautes_bang(noms_bang, examens, chemins_construits, jusqua)
+    f_sous = fautes_pinyin_sous(examens, chemins_construits)
+    fins = {nom: fin_premiere_etape(nom, doc) for nom, doc in chemins_construits.items()}
+    sous = {nom: [f"{e.hz} {e.palier}" for e in examens if nom in e.pinyin_sous] for nom in PARCOURS}
 
     relues = {
         (nom, ex): sorted(s.serie for s in f.series if s.statut == RELU) for (nom, ex), f in fichiers.items()
@@ -1585,6 +1738,8 @@ def controles(
                 attendus = noms_bang.get((nom, e_.id), []) if e_ is not None and e_.sorte == TITRE else []
                 if list(ligne.get("noms") or []) != attendus:
                     f_exp.append(f"{v.name}/{FICHIER} : {nom}/{ligne.get('examen')}, noms du 放榜 hors des sources")
+                if e_ is not None and ligne.get("pinyin") is not (nom in e_.pinyin_sous):
+                    f_exp.append(f"{v.name}/{FICHIER} : {nom}/{ligne.get('examen')}, pinyin sous les caractères hors des sources")
         if (sortie.get("textes") or {}) != dict(sorted(textes.items())):
             f_exp.append(f"{v.name}/{FICHIER} : les textes exportés ne sont pas ceux des sources")
         index = json.loads((v / "index.json").read_text(encoding="utf-8"))
@@ -1642,7 +1797,23 @@ def controles(
             not f_fui,
             detail(
                 f_fui,
-                "le surtitre dit le genre, jamais le contenu ; ni le surtitre ni la consigne ne donnent la réponse",
+                "le surtitre dit le genre, jamais le contenu ; ni le surtitre, ni la consigne, ni le pinyin sous les"
+                " caractères ne donnent la réponse",
+            ),
+            bloquant=True,
+        ),
+        Controle(
+            "examens : pinyin sous les caractères",
+            not f_sous,
+            detail(
+                f_sous,
+                " ; ".join(
+                    f"{nom} : {len(sous[nom])} examens, de {sous[nom][0]} à {sous[nom][-1]}" + (f", jusqu'à {fins[nom]} caractères lus" if nom in fins else "")
+                    if sous[nom]
+                    else f"{nom} : aucun"
+                    for nom in PARCOURS
+                )
+                + " ; aucun après, sans trou",
             ),
             bloquant=True,
         ),

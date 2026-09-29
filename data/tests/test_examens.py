@@ -206,6 +206,114 @@ def test_les_ecritures_des_scenes_se_dessinent() -> None:
     assert ex.caracteres_des_scenes(textes) == sorted(set("天一二三书院放榜"))
 
 
+# --------------------------------------------------------------------------- le pinyin sous les caractères
+
+
+def _sous(examens: list[ex.Examen], id_: str, sous: tuple[str, ...]) -> list[ex.Examen]:
+    return [dataclasses.replace(e, pinyin_sous=sous) if e.id == id_ else e for e in examens]
+
+
+def test_le_pinyin_sous_les_caracteres_va_jusqu_au_xiangshi_et_a_la_fin_du_hsk_1() -> None:
+    examens, fautes = ex.charger_liste()
+    assert fautes == []
+    assert [e.id for e in examens if "lire" in e.pinyin_sous] == ["xianshi", "yueke-75", "fushi", "yueke-150", "yuanshi", "xiangshi"]
+    assert [e.palier for e in examens if "hsk" in e.pinyin_sous] == [50, 75, 100, 150, 200, 255, 305, 355, 405]
+    assert ex.fautes_pinyin_sous(examens, {}) == []
+
+
+def test_la_premiere_etape_finit_au_seuil_255_sur_lire_et_a_la_fin_de_la_liste_sur_hsk() -> None:
+    hsk = {**PARCOURS, "cible": ["天", "明"]}
+    # 人 大 天 月 明 : 明, le dernier de la liste, est le cinquième caractère posé.
+    assert ex.fin_premiere_etape("hsk", hsk) == 5
+    assert ex.fin_premiere_etape("lire", hsk) == ex.SEUIL_PINYIN_LIRE == 255
+    liste = [
+        dataclasses.replace(TITRE, palier=2, pinyin_sous=("hsk",)),
+        dataclasses.replace(TITRE, id="fushi", palier=4, pinyin_sous=("hsk",)),
+        dataclasses.replace(YUEKE, palier=6),
+    ]
+    assert ex.fautes_pinyin_sous(liste, {"hsk": hsk}) == []
+    en_trop = [*liste[:2], dataclasses.replace(liste[2], pinyin_sous=("hsk",))]
+    assert ex.fautes_pinyin_sous(en_trop, {"hsk": hsk}) == ["hsk : 月课 6 avec pinyin, après la première étape (jusqu'à 5)"]
+    manque = [liste[0], dataclasses.replace(liste[1], pinyin_sous=()), liste[2]]
+    assert ex.fautes_pinyin_sous(manque, {"hsk": hsk}) == ["hsk : 县试 4 sans pinyin, dans la première étape (jusqu'à 5)"]
+
+
+def test_le_pinyin_sous_les_caracteres_n_a_pas_de_trou() -> None:
+    examens, _ = ex.charger_liste()
+    troue = _sous(examens, "fushi", ("hsk",))
+    assert ex.fautes_pinyin_sous(troue, {}) == ["lire : 府试 100 sans pinyin avant un examen qui en porte"]
+
+
+def test_un_chemin_inconnu_dans_pinyin_sous_est_une_faute(tmp_path: Path) -> None:
+    texte = ex.LISTE.read_text(encoding="utf-8").replace("\tlire hsk\t", "\tlire voyager\t", 1)
+    (tmp_path / "examens.tsv").write_text(texte, encoding="utf-8")
+    examens, fautes = ex.charger_liste(tmp_path / "examens.tsv")
+    assert any("pinyin_sous, attendu lire ou hsk ou —" in f for f in fautes)
+    assert examens[0].pinyin_sous == ("lire",)
+
+
+def test_le_pinyin_montre_jamais_l_objet_d_une_revue() -> None:
+    objet = Phrase("门", "mén", "porte", "door")
+    ton = ex.Question(1, "ton", ("Quel ton ?", "?"), ("mēn", "mén", "měn", "mèn"), 1, ("门",), objet=objet)
+    trou = ex.Question(2, "trou", ("?", "?"), ("口", "日", "月", "人"), 0, ("口",), objet=Phrase("门口", "mén kǒu", "fr", "en"), trou=1)
+    caractere = ex.Question(3, "caractere", ("?", "?"), ("门", "口", "日", "月"), 0, ("门",), objet=objet)
+    sens = ex.Question(4, "sens", ("?", "?"), (("porte", "door"), ("bouche", "mouth"), ("soleil", "sun"), ("lune", "moon")), 0, ("门",), objet=objet)
+    s = serie((ton, trou, caractere, sens))
+    assert [ex.pinyin_montre(q, s) for q in s.questions] == [[], [], [], []]
+    vf = ex.Question(5, "vrai_faux", ("?", "?"), (), True, ("明",), "s1", affirmation=Phrase("明天见。", "míng tiān jiàn", "fr", "en"))
+    assert ex.pinyin_montre(vf, serie((vf,))) == ["míng tiān mén kǒu jiàn", "míng tiān jiàn"]
+
+
+def _billet(choix: tuple[str, ...]) -> ex.Serie:
+    q = ex.Question(1, "comprendre", ("Où va ce train ?", "?"), tuple((c, c) for c in choix), 0, ("门",), "s1")
+    return serie((q,), lignes=(("门口 — 明天", "nán jīng zhōng shān"),))
+
+
+def test_le_pinyin_ne_donne_pas_la_reponse_d_une_mise_en_situation() -> None:
+    fuit = _billet(("À Zhongshan", "À Nankin", "À Pékin", "À Shanghai"))
+    assert ex.ecarts_fuites_pinyin(fuit) == [
+        "question 1 (comprendre) : le pinyin sous les caractères donne la réponse « À Zhongshan » (zhongshan), seule à le transcrire"
+    ]
+    # Un leurre que le pinyin transcrit aussi : il faut lire le billet.
+    assert ex.ecarts_fuites_pinyin(_billet(("À Zhongshan", "À Nanjing", "À Pékin", "À Shanghai"))) == []
+    # Aucun choix transcrit : rien.
+    assert ex.ecarts_fuites_pinyin(_billet(("Au sud", "Au nord", "À l'est", "À l'ouest"))) == []
+
+
+def test_la_consigne_d_un_reperage_ne_transcrit_pas_le_mot_cherche() -> None:
+    q = ex.Question(1, "reperer", ("Touche le mot men kou.", "?"), ("门口", "明天", "见", "人"), 0, ("门", "口"), "s1")
+    assert ex.ecarts_fuites_pinyin(serie((q,)), GLOSSAIRE) == ["question 1 (reperer) : la consigne transcrit le mot cherché 门口 « mén kǒu »"]
+    q = dataclasses.replace(q, consigne=("Touche le mot qui dit où, à quel moment.", "?"))
+    assert ex.ecarts_fuites_pinyin(serie((q,)), GLOSSAIRE) == []
+
+
+def test_aucune_serie_a_pinyin_ne_donne_sa_reponse_par_le_pinyin() -> None:
+    examens, _ = ex.charger_liste()
+    par_id = {e.id: e for e in examens}
+    lexique = ex.charger_glossaire()
+    for chemin in ex.fichiers_ecrits():
+        nom, id_ = chemin.parent.name, chemin.stem
+        f = ex.charger_series(nom, id_)
+        assert f is not None
+        for s in f.series:
+            if nom in par_id[id_].pinyin_sous:
+                assert ex.ecarts_fuites_pinyin(s, lexique) == [], (chemin, s.serie)
+
+
+def test_le_pinyin_sous_les_caracteres_s_exporte_par_chemin(tmp_path: Path) -> None:
+    from wenlu_data.lettres import charger_parcours
+    from wenlu_data.paths import BUILD
+
+    if not (BUILD / "parcours-lire.json").exists():
+        pytest.skip("parcours non construit : `wenlu build`")
+    d = _dossier(tmp_path)
+    doc = ex.document(en_tete={}, parcours={n: charger_parcours(n) for n in ex.PARCOURS}, racines={}, dossier=d)
+    lignes = doc["parcours"]  # type: ignore[index]
+    assert [x["examen"] for x in lignes["lire"] if x["pinyin"]] == ["xianshi", "yueke-75", "fushi", "yueke-150", "yuanshi", "xiangshi"]
+    assert [x["examen"] for x in lignes["lire"] if not x["pinyin"]] == ["yueke-305", "yueke-355"]
+    assert all(x["pinyin"] for x in lignes["hsk"]) and lignes["hsk"][-1]["examen"] == "yueke-405"
+
+
 # --------------------------------------------------------------------------- l'acquis
 
 

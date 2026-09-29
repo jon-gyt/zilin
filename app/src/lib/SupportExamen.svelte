@@ -8,12 +8,17 @@
    * en police, comme un texte courant.
    *
    * Au repérage, les mots proposés se touchent sur le support : juste au jade, faux à
-   * l'ocre, jamais au cinabre. Les couleurs sont des jetons fixes (`--ex-*`) : le support est
+   * l'ocre, jamais au cinabre.
+   *
+   * Aux premiers examens (`pinyin`, décision du propriétaire du 29 septembre 2026, « jusqu'à
+   * HSK 1 »), chaque caractère porte sa syllabe dessous, à la manière d'un ruby : petite, à
+   * la brume, jamais au cinabre ; la ponctuation n'en a pas. Sur l'enseigne, la syllabe
+   * s'écrit sous le caractère, sur la plaque. Les couleurs sont des jetons fixes (`--ex-*`) : le support est
    * un objet posé sur la page, à plat, sans ombre ni dégradé.
    */
   import Glyph from './Glyph.svelte';
   import { dessinBoutique, dessinPorte, type Traits } from './examen-dessins';
-  import { decouperLigne, type Support } from './examens';
+  import { decouperLigneAvecPinyin, grappesDeLigne, syllabesParCaractere, type Phrase, type Support } from './examens';
 
   let {
     support,
@@ -23,7 +28,9 @@
     ontoucher,
     fini = false,
     reponse = null,
-    placeholder = ''
+    placeholder = '',
+    pinyin = false,
+    entrees = []
   }: {
     support: Support;
     /** Les traits des caractères du support, pour l'enseigne dessinée en SVG. */
@@ -36,17 +43,29 @@
     /** La question est close : plus rien ne se touche. */
     fini?: boolean;
     /** À la réplique, la réponse trouvée, qui s'écrit dans le fil ; `null` avant. */
-    reponse?: string | null;
+    reponse?: Phrase | null;
     /** À la réplique, la place de la réponse, avant qu'elle soit trouvée. */
     placeholder?: string;
+    /** Le pinyin sous chaque caractère, aux premiers examens (`pinyinDeQuestion`). */
+    pinyin?: boolean;
+    /** Les mots de la glose de la série : avec le pinyin, un mot ne se coupe pas en fin de ligne. */
+    entrees?: readonly string[];
   } = $props();
 
   const genre = $derived(support.genre);
   const lignes = $derived(support.lignes.map((l) => l.zh));
-  /** Les lignes à deux colonnes : ce qu'on vend ou ce qu'on paie, et son prix. */
-  const colonnes = (zh: string): [string, string] | null => {
+  /** Les syllabes de chaque ligne, caractère par caractère ; `null` sans pinyin. */
+  const syllabes = $derived(support.lignes.map((l) => (pinyin ? syllabesParCaractere(l) : null)));
+  /** Les syllabes d'une moitié de ligne, du caractère `debut` au caractère `fin`. */
+  const tranche = (py: readonly (string | null)[] | null, debut: number, fin?: number): (string | null)[] | null =>
+    py === null ? null : py.slice(debut, fin);
+  /**
+   * Les lignes à deux colonnes : ce qu'on vend ou ce qu'on paie, et son prix ; puis le rang
+   * du deux-points, en caractères, pour partager les syllabes.
+   */
+  const colonnes = (zh: string): [string, string, number] | null => {
     const k = zh.indexOf('：');
-    return k > 0 && k < zh.length - 1 ? [zh.slice(0, k), zh.slice(k + 1)] : null;
+    return k > 0 && k < zh.length - 1 ? [zh.slice(0, k), zh.slice(k + 1), [...zh.slice(0, k)].length] : null;
   };
   const plusLongue = $derived(Math.max(1, ...lignes.map((l) => [...l].length)));
   /** La taille des caractères d'un support : qu'ils tiennent, dessinés, dans sa largeur. */
@@ -56,45 +75,67 @@
   const estHz = (c: string): boolean => /[㐀-鿿]/.test(c);
 </script>
 
-{#snippet texte(zh: string, size: number, couleur: string)}
-  {#each decouperLigne(zh, mots) as m, i (i)}
-    {#if m.mot >= 0}
-      <button
-        class="mot"
-        class:ok={etats[m.mot] === 'ok'}
-        class:ko={etats[m.mot] === 'ko'}
-        disabled={fini}
-        aria-label={m.t}
-        onclick={() => ontoucher?.(m.mot)}
+{#snippet texte(zh: string, py: readonly (string | null)[] | null, size: number, couleur: string)}
+  {#if py === null}
+    {#each decouperLigneAvecPinyin(zh, null, mots) as m, i (i)}{@render morceau(m, size, couleur)}{/each}
+  {:else}
+    <!-- avec le pinyin, un caractère et sa ponctuation ne se séparent pas en fin de ligne -->
+    {#each grappesDeLigne(zh, py, mots, entrees) as g, j (j)}
+      <span class="grappe">{#each g as m, i (i)}{@render morceau(m, size, couleur)}{/each}</span>
+    {/each}
+  {/if}
+{/snippet}
+
+{#snippet morceau(m: { t: string; mot: number; py: (string | null)[] | null }, size: number, couleur: string)}
+  {#if m.mot >= 0}
+    <button
+      class="mot"
+      class:ok={etats[m.mot] === 'ok'}
+      class:ko={etats[m.mot] === 'ko'}
+      disabled={fini}
+      aria-label={m.t}
+      onclick={() => ontoucher?.(m.mot)}
+    >
+      {@render mot(m.t, m.py, size, couleur)}
+    </button>
+  {:else}
+    {@render mot(m.t, m.py, size, couleur)}
+  {/if}
+{/snippet}
+
+{#snippet mot(t: string, py: readonly (string | null)[] | null, size: number, couleur: string)}
+  {#each [...t] as c, k (k)}
+    {#if py !== null}
+      <!-- le caractère, sa syllabe dessous ; sous la ponctuation, la place vide garde l'alignement -->
+      <span class="rubi"
+        >{@render signe(c, size, couleur)}<span class="rt" aria-hidden="true" style="font-size:{Math.max(9.5, Math.round(size * 0.5))}px"
+          >{py[k] ?? ''}</span
+        ></span
       >
-        {@render mot(m.t, size, couleur)}
-      </button>
     {:else}
-      {@render mot(m.t, size, couleur)}
+      {@render signe(c, size, couleur)}
     {/if}
   {/each}
 {/snippet}
 
-{#snippet mot(t: string, size: number, couleur: string)}
-  {#each [...t] as c, k (k)}
-    {#if estHz(c) && size >= 24}
-      <Glyph char={c} {size} write={false} color={couleur} seul />
-    {:else if estHz(c)}
-      <span class="hz" style="font-size:{size}px;color:{couleur}">{c}</span>
-    {:else}
-      <span class="ponct" style="font-size:{Math.round(size * 0.8)}px;color:{couleur}">{c}</span>
-    {/if}
-  {/each}
+{#snippet signe(c: string, size: number, couleur: string)}
+  {#if estHz(c) && size >= 24}
+    <Glyph char={c} {size} write={false} color={couleur} seul />
+  {:else if estHz(c)}
+    <span class="hz" style="font-size:{size}px;color:{couleur}">{c}</span>
+  {:else}
+    <span class="ponct" style="font-size:{Math.round(size * 0.8)}px;color:{couleur}">{c}</span>
+  {/if}
 {/snippet}
 
 <div class="support {genre}">
   {#if genre === 'enseigne'}
     <!-- une boutique, son enseigne dessinée depuis ses traits -->
     <!-- eslint-disable-next-line svelte/no-at-html-tags -->
-    <svg class="dessin" viewBox="0 0 357 196" role="img" aria-label={lignes.join('')}>{@html dessinBoutique(lignes[0] ?? '', traits)}</svg>
+    <svg class="dessin" viewBox="0 0 357 196" role="img" aria-label={lignes.join('')}>{@html dessinBoutique(lignes[0] ?? '', traits, syllabes[0] ?? null)}</svg>
     {#if mots.length > 0 || lignes.length > 1}
       <div class="sous-enseigne">
-        {#each lignes as l, i (i)}<div class="ligne">{@render texte(l, 22, 'var(--ex-encre)')}</div>{/each}
+        {#each lignes as l, i (i)}<div class="ligne">{@render texte(l, syllabes[i], 22, 'var(--ex-encre)')}</div>{/each}
       </div>
     {/if}
   {:else if genre === 'note'}
@@ -103,7 +144,7 @@
     <svg class="fond" viewBox="0 0 357 250" preserveAspectRatio="xMidYMin slice" aria-hidden="true">{@html dessinPorte()}</svg>
     <div class="papier">
       {#each lignes as l, i (i)}
-        <div class="ligne">{@render texte(l, taille(30, 280), 'var(--ex-encre)')}</div>
+        <div class="ligne">{@render texte(l, syllabes[i], taille(30, 280), 'var(--ex-encre)')}</div>
       {/each}
     </div>
   {:else if genre === 'message' || genre === 'lettre'}
@@ -111,11 +152,11 @@
       <div class="qui">
         <span class="av" aria-hidden="true"></span>
         <div class="msg">
-          {#each lignes as l, i (i)}<div class="ligne flux">{@render texte(l, 21, 'var(--ex-encre)')}</div>{/each}
+          {#each lignes as l, i (i)}<div class="ligne flux">{@render texte(l, syllabes[i], 21, 'var(--ex-encre)')}</div>{/each}
         </div>
       </div>
       {#if reponse !== null}
-        <div class="moi rep apparait">{@render mot(reponse, 21, 'var(--ex-encre)')}</div>
+        <div class="moi rep apparait">{@render mot(reponse.zh, pinyin ? syllabesParCaractere(reponse) : null, 21, 'var(--ex-encre)')}</div>
       {:else if placeholder !== ''}
         <div class="moi">{placeholder}</div>
       {/if}
@@ -136,12 +177,12 @@
         {@const c = colonnes(l)}
         {#if c}
           <div class="rangee">
-            <span class="art">{@render texte(c[0], 22, 'var(--ex-encre)')}</span>
+            <span class="art">{@render texte(c[0], tranche(syllabes[i], 0, c[2]), 22, 'var(--ex-encre)')}</span>
             <span class="points" aria-hidden="true"></span>
-            <span class="prix">{@render texte(c[1], 22, 'var(--ex-encre)')}</span>
+            <span class="prix">{@render texte(c[1], tranche(syllabes[i], c[2] + 1), 22, 'var(--ex-encre)')}</span>
           </div>
         {:else}
-          <div class="ligne centre">{@render texte(l, 24, 'var(--ex-encre)')}</div>
+          <div class="ligne centre">{@render texte(l, syllabes[i], 24, 'var(--ex-encre)')}</div>
         {/if}
       {/each}
     </div>
@@ -151,7 +192,7 @@
       <div class="talon" aria-hidden="true"></div>
       <div class="billet-lignes">
         {#each lignes as l, i (i)}
-          <div class="ligne" class:grande={i === 0}>{@render texte(l, i === 0 ? 26 : 21, 'var(--ex-encre)')}</div>
+          <div class="ligne" class:grande={i === 0}>{@render texte(l, syllabes[i], i === 0 ? 26 : 21, 'var(--ex-encre)')}</div>
         {/each}
       </div>
     </div>
@@ -160,14 +201,14 @@
     <div class="page">
       <div class="anneaux" aria-hidden="true"><i></i><i></i></div>
       {#each lignes as l, i (i)}
-        <div class="ligne centre" class:grande={i === 0}>{@render texte(l, i === 0 ? taille(40, 240) : 22, 'var(--ex-encre)')}</div>
+        <div class="ligne centre" class:grande={i === 0}>{@render texte(l, syllabes[i], i === 0 ? taille(40, 240) : 22, 'var(--ex-encre)')}</div>
       {/each}
     </div>
   {:else}
     <!-- un panneau de bois sur ses deux poteaux -->
     <div class="panneau">
       {#each lignes as l, i (i)}
-        <div class="ligne centre">{@render texte(l, taille(30, 260), 'var(--ex-papier)')}</div>
+        <div class="ligne centre">{@render texte(l, syllabes[i], taille(30, 260), 'var(--ex-papier)')}</div>
       {/each}
     </div>
     <div class="poteaux" aria-hidden="true"><i></i><i></i></div>
@@ -203,6 +244,34 @@
   }
   .hz {
     font-weight: 500;
+  }
+  /* le pinyin sous le caractère, à la manière d'un ruby : petit, à la brume */
+  .rubi {
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    vertical-align: top;
+    line-height: 1.2;
+    padding: 0 1px;
+  }
+  .grappe {
+    display: inline-flex;
+    align-items: center;
+    vertical-align: top;
+    white-space: nowrap;
+  }
+  .rt {
+    display: block;
+    min-height: 1.25em;
+    line-height: 1.25;
+    font-family: var(--sans);
+    font-weight: 400;
+    color: var(--mist);
+    white-space: nowrap;
+  }
+  /* sur le panneau de bois, l'encre claire du panneau */
+  .pancarte .rt {
+    color: var(--ex-filet);
   }
   /* un mot à toucher : la zone se voit au toucher, juste au jade, faux à l'ocre */
   .mot {
