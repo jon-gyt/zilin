@@ -363,9 +363,21 @@ describe('le mot lu', () => {
     for (const c of mot.choix) expect(maquette).toContain(`>${c}</button>`);
     expect(mot.choix[mot.bonne]).toBe('chaque jour');
     expect(maquette).toContain(`data-ok="1">${mot.choix[mot.bonne]}`);
-    for (const t of [mot.indice, mot.juste, mot.faux]) {
-      expect(t).not.toBe('');
-      expect(maquette).toContain(t);
+    for (const t of [mot.indice, mot.juste, mot.faux]) expect(t).not.toBe('');
+    /* La correction juste reprend la maquette, et la règle que son indice donnait trop tôt. */
+    expect(mot.juste).toContain('Oui. 天 le jour, deux fois : chaque jour.');
+    expect(mot.juste).toContain('Un caractère répété veut souvent dire « chaque ».');
+    expect(mot.juste).toContain('Tu viens de lire ton premier mot.');
+  });
+
+  it('ne souffle pas la réponse, ni avant de répondre, ni après une erreur', () => {
+    /* L'indice de la maquette, « Un caractère répété veut souvent dire « chaque » », montré
+       avant la réponse, et la correction d'une erreur, « 天 veut dire jour », désignaient
+       « chaque jour », seul choix à dire « chaque » ou « jour » (retour du 29 septembre 2026). */
+    const bonne = mot.choix[mot.bonne].toLowerCase().split(/\s+/);
+    for (const t of [mot.indice, mot.faux]) {
+      const dit = t.toLowerCase();
+      for (const m of bonne) expect(dit).not.toMatch(new RegExp(`(^|[^\\p{L}])${m}([^\\p{L}]|$)`, 'u'));
     }
   });
 
