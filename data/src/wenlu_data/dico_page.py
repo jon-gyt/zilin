@@ -260,7 +260,7 @@ function retours() {
   for (const [id, a] of Object.entries(AVIS)) if (a && a.decision) decisions[id] = a;
   return JSON.stringify({ format: D.format, page: D.date, decisions }, null, 1);
 }
-function lireFormulaire(f) {
+function lireFormulaire(f, e) {
   const glose = f.querySelector("[name=glose]").value.trim();
   const acceptions = [...f.querySelectorAll("[data-accs] .rang")].map((r) => { const [s] = r.querySelectorAll("select"); const i = r.querySelectorAll("input"); const x = { categorie: s.value, fr: i[0].value.trim() }; if (i[1].value.trim()) x.pinyin = i[1].value.trim(); return x; }).filter((x) => x.fr);
   const exemples = [...f.querySelectorAll("[data-phs] .rang-ph")].map((r) => { const i = r.querySelectorAll("input"); return { zh: i[0].value.trim(), pinyin: i[1].value.trim(), fr: i[2].value.trim() }; }).filter((x) => x.zh);
@@ -268,6 +268,8 @@ function lireFormulaire(f) {
   if (!glose || glose.length > D.glose_max) fautes.push(`glose vide ou de plus de ${D.glose_max} caractères`);
   if (HAN.test(glose)) fautes.push("sinogramme dans la glose");
   if (acceptions.length > 3) fautes.push("trois acceptions au plus");
+  const repriseIntacte = e && e.sens && e.sens.provenance && e.sens.provenance.reprise && glose === e.sens.glose;
+  if (!acceptions.length && !repriseIntacte) fautes.push("au moins une acception, avec sa catégorie");
   if (exemples.length > 2) fautes.push("deux phrases au plus");
   if (exemples.some((x) => !x.pinyin || !x.fr)) fautes.push("chaque phrase a son pinyin et sa traduction");
   return { glose, acceptions, exemples, fautes };
@@ -316,7 +318,7 @@ document.addEventListener("click", (ev) => {
 document.addEventListener("submit", (ev) => {
   ev.preventDefault();
   const f = ev.target.closest("[data-form]"); if (!f) return;
-  const id = f.dataset.form, lu = lireFormulaire(f);
+  const id = f.dataset.form, lu = lireFormulaire(f, LOTS.flatMap((l) => l.entrees).find((x) => x.id === id));
   if (lu.fautes.length) { f.querySelector("[data-alerte]").textContent = lu.fautes.join(" ; ") + "."; return; }
   const note = document.querySelector(`[data-note="${CSS.escape(id)}"]`)?.value || "";
   AVIS[id] = { decision: "corrige", note, sens: { glose: lu.glose, acceptions: lu.acceptions }, exemples: lu.exemples };

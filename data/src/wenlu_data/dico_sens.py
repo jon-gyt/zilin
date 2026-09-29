@@ -983,7 +983,7 @@ def appliquer_relecture(
         entree = fichiers[chemin]["entrees"][i]  # type: ignore[index]
         note = _nfc(d.get("note"))
         decision = str(d["decision"])
-        trace: dict[str, object] = {"date": date, "decision": decision}
+        trace: dict[str, object] = {"date": date, "decision": decision, "par": "relecture humaine, page wenlu dico apercu"}
         if note:
             trace["note"] = note
         if decision == BON:
