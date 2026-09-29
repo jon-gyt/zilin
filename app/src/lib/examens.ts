@@ -115,8 +115,10 @@ export type LettreSerie = 'A' | 'B';
 export const SERIES: readonly LettreSerie[] = ['A', 'B'];
 
 /**
- * Un examen sur un chemin : le jour du palier, le tronçon, les séries relues, et les noms
- * inventés du 放榜 (examen à titre seulement), écrits avec l'acquis du palier.
+ * Un examen sur un chemin : le jour du palier, le tronçon, les séries relues, les noms
+ * inventés du 放榜 (examen à titre seulement), écrits avec l'acquis du palier, et `pinyin` :
+ * vrai aux examens de la première étape du chemin, dont les textes portent leur pinyin sous
+ * chaque caractère (décision du propriétaire du 29 septembre 2026, « jusqu'à HSK 1 »).
  */
 export type ExamenDuChemin = {
   examen: string;
@@ -124,6 +126,7 @@ export type ExamenDuChemin = {
   troncon: string[];
   series: Partial<Record<LettreSerie, SerieExamen>>;
   noms: string[];
+  pinyin: boolean;
 };
 
 /** Les deux chemins qui ont leurs séries. « Voyager » suit « Lire », comme partout. */
@@ -324,7 +327,14 @@ export function lireExamensDonnees(brut: unknown): ExamensDonnees {
         const lue = lireSerie(s[lettre]);
         if (lue !== null) series[lettre] = lue;
       }
-      parcours[chemin].push({ examen: texte(x.examen), jour, troncon: chaines(x.troncon), series, noms: chaines(x.noms) });
+      parcours[chemin].push({
+        examen: texte(x.examen),
+        jour,
+        troncon: chaines(x.troncon),
+        series,
+        noms: chaines(x.noms),
+        pinyin: x.pinyin === true
+      });
     }
   }
   const racines: Record<string, string> = {};
@@ -380,6 +390,244 @@ export function examensOnce(version = VERSION_DONNEES): Promise<ExamensDonnees> 
  */
 export function texteExamen(d: ExamensDonnees, cle: string, valeurs: Readonly<Record<string, string | number>> = {}): string {
   return remplir(d.textes[cle] ?? '', valeurs);
+}
+
+/* ---------- le pinyin sous les caractères ---------- */
+
+/*
+ * Décision du propriétaire du 29 septembre 2026 : « Il faudrait un mode avec pinyin sous les
+ * caractères sur les premiers examens (jusqu'à HSK 1), ensuite plus de pinyin pour les
+ * examens. » Quels examens le portent, c'est l'export qui le dit (`ExamenDuChemin.pinyin`,
+ * tiré de `examens.tsv`) : sur le chemin Lire jusqu'au 乡试, le seuil 255 ; sur le chemin
+ * HSK jusqu'au 月课 de 405, la fin du HSK 1. Jamais le pinyin quand il donnerait la réponse :
+ *
+ * | Où                                               | Pinyin |
+ * |--------------------------------------------------|--------|
+ * | les textes des supports (message, menu, billet…) | oui    |
+ * | l'affirmation d'un vrai ou faux                  | oui    |
+ * | les répliques à choisir (phrases en chinois)     | oui    |
+ * | les mots d'un repérage (déjà dans le support)    | oui    |
+ * | l'objet d'une question de ton                    | non    |
+ * | l'objet et les choix d'un trou                   | non    |
+ * | les choix d'une question « caractère »           | non    |
+ * | le caractère d'une question de sens              | non    |
+ *
+ * Les questions de revue n'en montrent aucun, ni sur l'objet ni sur les choix. Une mise en
+ * situation dont le pinyin désignerait seul la bonne réponse (`pinyinDonneLaReponse`) n'en
+ * montre pas non plus : le pipeline la refuse, et l'écran se tait si elle passait quand même.
+ */
+
+/** L'examen `id` porte-t-il le pinyin sous les caractères sur ce chemin ? */
+export function avecPinyin(d: ExamensDonnees, chemin: CheminExamen, id: string): boolean {
+  return examenDuChemin(d, chemin, id)?.pinyin === true;
+}
+
+/** Où une question montre le pinyin sous les caractères. */
+export type PinyinDeQuestion = {
+  /** Les lignes du support, les mots d'un repérage et la réplique trouvée compris. */
+  support: boolean;
+  /** L'affirmation d'un vrai ou faux. */
+  affirmation: boolean;
+  /** Les répliques à choisir. */
+  choix: boolean;
+};
+
+export const SANS_PINYIN: PinyinDeQuestion = { support: false, affirmation: false, choix: false };
+
+/** Un sinogramme (les blocs CJC unifiés du plan de base et leurs compatibilités). */
+const HZ = /[㐀-鿿豈-﫿]/;
+
+/**
+ * Le pinyin d'un texte, syllabe par caractère : une syllabe sous chaque sinogramme, rien sous
+ * la ponctuation. Le pipeline écrit une syllabe par sinogramme ; si le compte ne tombe pas
+ * juste, aucune : mieux vaut pas de pinyin qu'un pinyin décalé.
+ */
+export function syllabesParCaractere(p: { zh: string; pinyin: string }): (string | null)[] {
+  const signes = [...p.zh];
+  const syllabes = p.pinyin.split(/\s+/).filter((x) => x !== '');
+  if (syllabes.length !== signes.filter((c) => HZ.test(c)).length) return signes.map(() => null);
+  let k = 0;
+  return signes.map((c) => (HZ.test(c) ? (syllabes[k++] ?? null) : null));
+}
+
+/**
+ * `decouperLigne`, chaque morceau avec ses syllabes (`py`, alignées sur ses caractères), ou
+ * `null` sans pinyin.
+ */
+export function decouperLigneAvecPinyin(
+  zh: string,
+  py: readonly (string | null)[] | null,
+  mots: readonly string[]
+): { t: string; mot: number; py: (string | null)[] | null }[] {
+  let k = 0;
+  return decouperLigne(zh, mots).map((m) => {
+    const n = [...m.t].length;
+    const out = { ...m, py: py === null ? null : py.slice(k, k + n) };
+    k += n;
+    return out;
+  });
+}
+
+/** Un morceau fait de ponctuation ou d'espace seulement, sans sinogramme. */
+export function sansSinogramme(t: string): boolean {
+  return ![...t].some((c) => HZ.test(c));
+}
+
+/**
+ * Des grappes insécables : ce qui `colle` (la ponctuation) reste avec ce qui le précède, pour
+ * qu'un caractère et sa ponctuation ne se séparent pas en fin de ligne quand chacun porte sa
+ * syllabe dessous.
+ */
+export function grappes<T>(elements: readonly T[], colle: (x: T) => boolean): T[][] {
+  const out: T[][] = [];
+  for (const x of elements) {
+    const derniere = out[out.length - 1];
+    if (derniere !== undefined && colle(x)) derniere.push(x);
+    else out.push([x]);
+  }
+  return out;
+}
+
+/**
+ * Le mot de chaque caractère d'une ligne, tel que la glose de la série la découpe (l'entrée
+ * la plus longue d'abord, comme le pipeline) : un rang par caractère, le même pour les
+ * caractères d'un même mot. Un caractère sans entrée, ou la ponctuation, fait un mot à lui.
+ */
+export function motsDeLigne(zh: string, entrees: readonly string[]): number[] {
+  const signes = [...zh];
+  const parLongueur = entrees.filter((e) => e !== '').sort((a, b) => [...b].length - [...a].length);
+  const out: number[] = [];
+  let i = 0;
+  let n = 0;
+  while (i < signes.length) {
+    const reste = signes.slice(i).join('');
+    const e = HZ.test(signes[i]) ? parLongueur.find((x) => reste.startsWith(x)) : undefined;
+    const l = e === undefined ? 1 : [...e].length;
+    for (let k = 0; k < l; k++) out.push(n);
+    n += 1;
+    i += l;
+  }
+  return out;
+}
+
+/**
+ * Une ligne découpée (`decouperLigneAvecPinyin`), en grappes insécables : un mot de la glose
+ * ne se coupe pas en fin de ligne, et la ponctuation reste avec ce qui la précède.
+ */
+export function grappesDeLigne(
+  zh: string,
+  py: readonly (string | null)[] | null,
+  mots: readonly string[],
+  entrees: readonly string[]
+): { t: string; mot: number; py: (string | null)[] | null }[][] {
+  const rangs = motsDeLigne(zh, entrees);
+  let k = 0;
+  const morceaux = decouperLigneAvecPinyin(zh, py, mots).map((m) => {
+    const debut = k;
+    k += [...m.t].length;
+    return { m, debut };
+  });
+  return grappes(morceaux, (x) => (x.m.mot < 0 && sansSinogramme(x.m.t)) || (x.debut > 0 && rangs[x.debut] === rangs[x.debut - 1])).map(
+    (g) => g.map((x) => x.m)
+  );
+}
+
+/** Une phrase, signe par signe avec sa syllabe, en grappes insécables (`grappesDeLigne`). */
+export function grappesDePhrase(p: { zh: string; pinyin: string }, entrees: readonly string[] = []): { c: string; py: string | null }[][] {
+  const syllabes = syllabesParCaractere(p);
+  const rangs = motsDeLigne(p.zh, entrees);
+  return grappes(
+    [...p.zh].map((c, k) => ({ c, py: syllabes[k], k })),
+    (x) => sansSinogramme(x.c) || (x.k > 0 && rangs[x.k] === rangs[x.k - 1])
+  ).map((g) => g.map(({ c, py }) => ({ c, py })));
+}
+
+/** Sans accents ni casse : « zhōng shān » → « zhong shan ». */
+function plat(t: string): string {
+  return t.normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase();
+}
+
+/** Ce que le pinyin montré transcrit : chaque suite d'une à quatre syllabes d'une ligne. */
+function transcriptions(pinyins: readonly string[]): Set<string> {
+  const out = new Set<string>();
+  for (const p of pinyins) {
+    const s = p.split(/\s+/).map((x) => plat(x).replace(/[^a-z]/g, ''));
+    for (let i = 0; i < s.length; i++) for (let j = i + 1; j <= Math.min(i + 4, s.length); j++) out.add(s.slice(i, j).join(''));
+  }
+  out.delete('');
+  return out;
+}
+
+/** Un mot français plus court ne compte pas comme une transcription : « de », « le » sont aussi des syllabes. */
+const TRANSCRIPTION_MIN = 3;
+
+/** Les mots d'un texte français que le pinyin montré transcrit (« À Zhongshan »). */
+function motsTranscrits(texte: string, transcrits: ReadonlySet<string>): string[] {
+  return [...new Set(plat(texte).match(/[a-z]+/g) ?? [])].filter((m) => m.length >= TRANSCRIPTION_MIN && transcrits.has(m));
+}
+
+/** Le pinyin qu'une mise en situation montrerait : son support, son affirmation, ses répliques. */
+function pinyinsDeSituation(q: QuestionExamen, serie: SerieExamen): string[] {
+  const s = q.support === undefined ? undefined : serie.supports.find((x) => x.id === q.support);
+  const out = s?.lignes.map((l) => l.pinyin) ?? [];
+  if (q.affirmation !== undefined) out.push(q.affirmation.pinyin);
+  if (q.type === 'replique') for (const c of q.choix) if (typeof c === 'object' && 'zh' in c) out.push(c.pinyin);
+  return out;
+}
+
+/**
+ * Le pinyin donnerait-il la réponse ? Au sens d'une mise en situation, la bonne réponse
+ * serait le seul choix à porter un mot que le pinyin transcrit (« À Zhongshan » sous « nán
+ * jīng zhōng shān », parmi « À Nankin », « À Pékin ») ; au repérage, la consigne transcrirait
+ * le mot cherché. Rend les mots en cause, vide sinon. Le même contrôle est bloquant dans
+ * `wenlu check` : ici, c'est la garde de l'écran.
+ */
+export function pinyinDonneLaReponse(q: QuestionExamen, serie: SerieExamen): string[] {
+  if (typeof q.reponse !== 'number') return [];
+  const bonne = q.choix[q.reponse];
+  const transcrits = transcriptions(pinyinsDeSituation(q, serie));
+  if (bonne === undefined || transcrits.size === 0) return [];
+  if (q.type === 'comprendre') {
+    const avec = q.choix.map((c) => motsTranscrits(typeof c === 'object' ? c.fr : c, transcrits));
+    return avec.every((m, k) => (k === q.reponse ? m.length > 0 : m.length === 0)) ? avec[q.reponse] : [];
+  }
+  if (q.type === 'reperer' && typeof bonne === 'string') {
+    const g = serie.glose[bonne];
+    if (g === undefined) return [];
+    const mot = plat(g.pinyin).replace(/[^a-z]/g, '');
+    const mots = plat(q.consigne.fr).match(/[a-z]+/g) ?? [];
+    for (let i = 0; i < mots.length; i++) {
+      for (let j = i + 1; j <= Math.min(i + 4, mots.length); j++) {
+        if (mot.length >= TRANSCRIPTION_MIN && mots.slice(i, j).join('') === mot) return [mot];
+      }
+    }
+  }
+  return [];
+}
+
+/**
+ * Où la question montre le pinyin, à un examen qui le porte (`avec`) : le support,
+ * l'affirmation d'un vrai ou faux, les répliques à choisir. Jamais une question de revue
+ * (sens, caractère, trou, ton), ni sur l'objet ni sur les choix ; jamais une mise en
+ * situation dont le pinyin donnerait la réponse.
+ */
+export function pinyinDeQuestion(q: QuestionExamen, serie: SerieExamen, avec: boolean): PinyinDeQuestion {
+  if (!avec || !TYPES_SITUATION.includes(q.type)) return SANS_PINYIN;
+  if (pinyinDonneLaReponse(q, serie).length > 0) return SANS_PINYIN;
+  return { support: q.support !== undefined, affirmation: q.type === 'vrai_faux', choix: q.type === 'replique' };
+}
+
+/**
+ * Tout ce qu'une question montre avec son pinyin, pour le contrôle des fuites : les lignes
+ * du support, l'affirmation, les répliques à choisir. Vide sans pinyin.
+ */
+export function textesAvecPinyin(q: QuestionExamen, serie: SerieExamen, avec: boolean): Phrase[] {
+  const py = pinyinDeQuestion(q, serie, avec);
+  const out: Phrase[] = [];
+  if (py.support) out.push(...(serie.supports.find((x) => x.id === q.support)?.lignes ?? []));
+  if (py.affirmation && q.affirmation !== undefined) out.push(q.affirmation);
+  if (py.choix) for (const c of q.choix) if (typeof c === 'object' && 'zh' in c) out.push(c);
+  return out;
 }
 
 /* ---------- la progression ---------- */

@@ -135,15 +135,19 @@ export function dessinAcademie(plaque: string, traits: Traits): string {
 /**
  * Une boutique et son enseigne 匾额 : l'encre, les caractères clairs, dessinés depuis leurs
  * traits ; les vitrines (un vase, une théière, un bol, une jarre), une lanterne au bord du
- * toit. L'enseigne s'élargit avec son texte.
+ * toit. L'enseigne s'élargit avec son texte. `syllabes` : aux premiers examens, le pinyin de
+ * chaque caractère de l'enseigne (`syllabesParCaractere`), écrit dessous, petit, à l'encre
+ * claire de la plaque ; `null`, aucun.
  */
 export const BOUTIQUE = { w: 357, h: 196 } as const;
 
-export function dessinBoutique(enseigne: string, traits: Traits): string {
-  const chars = [...enseigne].filter((c) => c.trim() !== '');
+export function dessinBoutique(enseigne: string, traits: Traits, syllabes: readonly (string | null)[] | null = null): string {
+  const paires = [...enseigne].map((c, k) => [c, syllabes?.[k] ?? null] as const).filter(([c]) => c.trim() !== '');
+  const chars = paires.map(([c]) => c);
   const n = Math.max(1, chars.length);
-  const size = Math.min(40, Math.floor(190 / n));
-  const pas = size + 6;
+  const avecPy = syllabes !== null;
+  const size = Math.min(avecPy ? 30 : 40, Math.floor(190 / n));
+  const pas = avecPy ? Math.max(size + 6, 34) : size + 6;
   const larg = n * pas + 26;
   const x0 = 178.5 - larg / 2;
   let s = `<rect width="357" height="196" fill="var(--ex-papier)"/>`;
@@ -152,7 +156,18 @@ export function dessinBoutique(enseigne: string, traits: Traits): string {
   s += `<rect x="34" y="46" width="289" height="140" fill="var(--ex-facade)"/>`;
   s += `<rect x="34" y="46" width="14" height="140" fill="var(--ex-bois)" stroke="${ENCRE}" stroke-width="2"/><rect x="309" y="46" width="14" height="140" fill="var(--ex-bois)" stroke="${ENCRE}" stroke-width="2"/>`;
   s += `<rect x="${x0}" y="54" width="${larg}" height="54" rx="4" fill="${ENCRE}"/><rect x="${x0 + 5}" y="59" width="${larg - 10}" height="44" rx="2" fill="none" stroke="var(--ex-tuile)" stroke-width="1.5"/>`;
-  chars.forEach((c, k) => (s += caractere(c, traits, x0 + 13 + k * pas + 3, 81 - size / 2, size, 'var(--ex-papier)')));
+  if (avecPy) {
+    /* le caractère en haut de la plaque, sa syllabe dessous */
+    paires.forEach(([c, py], k) => {
+      const x = x0 + 13 + k * pas + (pas - 6 - size) / 2 + 3;
+      s += caractere(c, traits, x, 58, size, 'var(--ex-papier)');
+      if (py) {
+        s += `<text x="${x + size / 2}" y="${58 + size + 12}" text-anchor="middle" fill="var(--ex-filet)" style="font:400 11px var(--sans)">${sur(py)}</text>`;
+      }
+    });
+  } else {
+    chars.forEach((c, k) => (s += caractere(c, traits, x0 + 13 + k * pas + 3, 81 - size / 2, size, 'var(--ex-papier)')));
+  }
   s += `<rect x="60" y="118" width="110" height="68" fill="var(--ex-papier)" stroke="${ENCRE}" stroke-width="2.5"/><rect x="187" y="118" width="110" height="68" fill="var(--ex-papier)" stroke="${ENCRE}" stroke-width="2.5"/>`;
   s += `<path d="M60 150H170M187 150H297" stroke="${ENCRE}" stroke-width="2"/>`;
   s += `<path d="M84 148q-10-10-4-20h8q-2-4 0-6h6q2 2 0 6h8q6 10-4 20z" fill="var(--ex-azur)" stroke="${ENCRE}" stroke-width="2"/><path d="M82 136h22" stroke="var(--ex-papier)" stroke-width="2" stroke-dasharray="3 3"/>`;
