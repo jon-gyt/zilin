@@ -176,8 +176,8 @@ GENRES: tuple[str, ...] = (
 GENRES_REPLIQUE: tuple[str, ...] = ("message", "lettre", "note")
 
 #: Jusqu'où les séries doivent être écrites, en palier, sur les deux chemins (bloquant) :
-#: le 县试 et le 月课 de 75, le premier lot du backlog (8.1).
-COUVERTURE = 75
+#: le 县试 et le 月课 de 75, le premier lot du backlog (8.1), puis le 府试 et le 月课 de 150.
+COUVERTURE = 150
 
 #: Les phrases de l'écran et de Tao, et les seuls jetons que chacune peut porter : le menu
 #: et Clore, puis l'écran de l'examen (8.3), l'annonce, la question, le résultat, le 放榜.
