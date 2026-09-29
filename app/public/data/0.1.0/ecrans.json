@@ -1,7 +1,7 @@
 {
  "version": "0.1.0",
  "license": "propriétaire",
- "source": "data/sources/ecrans/ : textes d'interface de « Lire le monde », du tableau des révisions, de « Mon personnage », de la route devant, de « Dis-le », de « Mon chemin », du dictionnaire et du maître Xing, rédigés pour l'app (à relire)",
+ "source": "data/sources/ecrans/ : textes d'interface de « Lire le monde », du tableau des révisions, de « Mon personnage », de la route devant, de « Dis-le », de « Mon chemin », du dictionnaire, du maître Xing et du pavé « Écrire au doigt », rédigés pour l'app (à relire)",
  "source_url": "https://github.com/jon-gyt/zilin",
  "modified": "2026-09-29 : assemblé par `wenlu export`",
  "lire-le-monde": {
@@ -315,5 +315,17 @@
   "compose-atteste": "La brique est posée : voici ce qu'elle donne. Une origine attestée.",
   "compose-mnemo": "La brique est posée : voici ce qu'elle donne. Un moyen mnémotechnique, pas son histoire.",
   "compose-sans": "La brique est posée : voici ce qu'elle donne."
+ },
+ "ecrire": {
+  "pave": "Pavé d'écriture : trace un caractère",
+  "candidats": "Les caractères proches du tracé",
+  "vide": "Trace un caractère : les candidats viennent dès le premier trait.",
+  "compte": "{n} traits · {c} candidats",
+  "compte-un": "1 trait · {c} candidats",
+  "annuler": "Annuler le trait",
+  "effacer": "Effacer",
+  "aide": "Trace dans l'ordre des traits si tu le connais : les candidats s'affinent à chaque trait. Rien ne quitte l'appareil.",
+  "chargement": "Un instant.",
+  "indisponible": "Le pavé ne s'ouvre pas pour l'instant. Cherche par caractère, par pinyin ou en français : tout y est."
  }
 }

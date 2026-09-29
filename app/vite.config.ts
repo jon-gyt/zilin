@@ -37,6 +37,11 @@ export default defineConfig({
       // mettent en cache à la première lecture (`CacheFirst`) et se relisent ensuite hors
       // ligne. Leur URL porte l'empreinte de l'export (`?v=`, `urlDeLot`) : un nouvel export
       // ne sert jamais un lot d'hier ; les anciens sortent par `maxEntries`.
+      //
+      // Les gabarits de l'écriture au doigt (`data/<version>/ecriture/`, ~470 Kio) ne sont pas
+      // précachés non plus : le pavé ne s'ouvre qu'avec Wenlu complet, jamais sur le web
+      // (`droits.ts`), et le shell iOS les porte dans son paquet. Lus une fois, ils restent
+      // (`CacheFirst`) : le pavé marche ensuite hors ligne.
       workbox: {
         globPatterns: ['**/*.{js,css,html,webmanifest,json,svg,png,woff2,mp3,md,txt,TXT}'],
         globIgnores: [
@@ -45,6 +50,7 @@ export default defineConfig({
           'data/*/dico/caracteres/**',
           'data/*/dico/mots/**',
           'data/*/traits/dico-*.json',
+          'data/*/ecriture/**',
           ...GLOB_HORS_PRECACHE
         ],
         navigateFallbackDenylist: [motifPagesDuSite(process.env.BASE_PATH)],
@@ -53,6 +59,15 @@ export default defineConfig({
             urlPattern: /\/data\/[^/]+\/apercu\/.+\.json$/,
             handler: 'NetworkFirst',
             options: { cacheName: 'wenlu-apercu', expiration: { maxEntries: 400 } }
+          },
+          {
+            urlPattern: /\/data\/[^/]+\/ecriture\/.+\.json(?:\?.*)?$/,
+            handler: 'CacheFirst',
+            options: {
+              cacheName: 'wenlu-ecriture',
+              expiration: { maxEntries: 4 },
+              cacheableResponse: { statuses: [200] }
+            }
           },
           {
             urlPattern: /\/data\/[^/]+\/(?:dico\/(?:caracteres|mots)\/\d+|traits\/dico-\d+)\.json(?:\?.*)?$/,

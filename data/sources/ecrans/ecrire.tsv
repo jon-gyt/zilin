@@ -1,0 +1,31 @@
+# Les textes du pavé « Écrire au doigt » du dictionnaire (maquette `maquettes/dictionnaire.html`,
+# écran 5, publiée le 29 septembre 2026) : on trace un caractère, les candidats s'affinent à
+# chaque trait, on touche le bon. La reconnaissance tourne sur l'appareil, sans réseau
+# (`app/src/lib/ecriture/`). Le titre de l'écran, le champ et, sans Wenlu complet, la ligne qui
+# prend la place du pavé sont ceux du dictionnaire (`dictionnaire.tsv`, `ecrire-*`, `complet-*`).
+#
+# Source : rédigé pour l'app, sans API, dans une session Claude Code, d'après la maquette,
+# mot pour mot là où elle écrit le texte ; à relire. Ni emoji, ni dragon, ni temps passé, ni
+# classement, ni reproche.
+#
+# Format : TSV, `#` en commentaire, trois colonnes séparées par une tabulation : `cle`,
+# `fr`, `source`. Chaque clé est exigée une fois, avec exactement ses jetons (`ecrans.py`,
+# `ECRANS`) :
+#
+# - `pave` : le nom du pavé pour un lecteur d'écran ; `candidats` : celui de la rangée des
+#   candidats ; `vide` : la rangée avant le premier trait ;
+# - `compte` : sous le pavé, `{n}` traits (deux ou plus) et `{c}` candidats ; `compte-un` pour
+#   un seul trait ;
+# - `annuler`, `effacer` : les deux boutons ; `aide` : la ligne sous les boutons ;
+# - `chargement` : le temps de lire les gabarits ; `indisponible` : s'ils ne se lisent pas.
+cle	fr	source
+pave	Pavé d'écriture : trace un caractère	rédigé pour l'app
+candidats	Les caractères proches du tracé	rédigé pour l'app
+vide	Trace un caractère : les candidats viennent dès le premier trait.	rédigé pour l'app
+compte	{n} traits · {c} candidats	rédigé pour l'app
+compte-un	1 trait · {c} candidats	rédigé pour l'app
+annuler	Annuler le trait	rédigé pour l'app
+effacer	Effacer	rédigé pour l'app
+aide	Trace dans l'ordre des traits si tu le connais : les candidats s'affinent à chaque trait. Rien ne quitte l'appareil.	rédigé pour l'app
+chargement	Un instant.	rédigé pour l'app
+indisponible	Le pavé ne s'ouvre pas pour l'instant. Cherche par caractère, par pinyin ou en français : tout y est.	rédigé pour l'app

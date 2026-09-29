@@ -8,6 +8,8 @@
    * Ce qui s'ouvre après quoi se décide dans `parcours.ts`, pas ici.
    */
   import Chercher from './lib/Chercher.svelte';
+  /* Le pavé de l'écriture au doigt : Chercher le monte dans « Écrire au doigt », avec Wenlu complet. */
+  import PaveEcriture from './lib/PaveEcriture.svelte';
   import Fangbang from './lib/Fangbang.svelte';
   import Personnage from './lib/Personnage.svelte';
   import { herosOnce, meriteDe, rangTenu, titreAccorde, type BeteId, type HerosDonnees } from './lib/heros';
@@ -1336,7 +1338,7 @@
   {#if trouvee}
     <Tree fam={trouvee.fam} choix={trouvee.c} retour="Chercher" parcours={p.parcours} croissance={p.tao.croissance} tc={textesChemin} xing={maitre} onretour={() => (trouvee = null)} onlecon={quitter} />
   {:else}
-    <Chercher {p} xing={maitre} monde={vois('monde')} complet={wenluComplet(p.droits, acces, p.day)} terme={laJournee.terme} bind:q={requete} bind:mode={modeChercher} bind:texte={texteLibre} bind:pile={pileChercher} onfamille={(fam, c) => (trouvee = { fam, c })} onrecentes={noterRecentes} onretour={allerAuMenu} />
+    <Chercher {p} xing={maitre} monde={vois('monde')} complet={wenluComplet(p.droits, acces, p.day)} Pave={PaveEcriture} terme={laJournee.terme} bind:q={requete} bind:mode={modeChercher} bind:texte={texteLibre} bind:pile={pileChercher} onfamille={(fam, c) => (trouvee = { fam, c })} onrecentes={noterRecentes} onretour={allerAuMenu} />
   {/if}
 {:else if ecran === 'rencontre'}
   <Rencontre {p} textes={textesXing} examen={examensDonnees.examens[0]?.hz ?? ''} oncontinuer={allerAuMenu} />

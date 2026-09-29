@@ -220,7 +220,7 @@ def licences() -> None:
 
 @app.command()
 def check() -> None:
-    """Contrôles : composants inconnus, cycles, graphe, listes, liste des mots HSK 3.0, briques muettes, découpes, contes hors liste, fiches invalides, rôle son loin de la lecture moderne, textes sans audio, export à jour, dictionnaire (entrées, traits, sens relus seulement), aperçu des textes à relire, fêtes, termes solaires, devinettes, dictionnaire éclair, coquilles, cuisine, lettres de Que, message WeChat, personnage, phrases de Tao à Jouer, lignes du rythme gratuit, calendrier d'ouverture, anecdotes du jour, trois lignes du pas Utiliser, examens 科举, fuites de réponse, image du chemin (ni graine, ni forêt, ni borne, ni stèle), licence des décompositions."""
+    """Contrôles : composants inconnus, cycles, graphe, listes, liste des mots HSK 3.0, briques muettes, découpes, contes hors liste, fiches invalides, rôle son loin de la lecture moderne, textes sans audio, export à jour, dictionnaire (entrées, traits, sens relus seulement), aperçu des textes à relire, fêtes, termes solaires, devinettes, dictionnaire éclair, coquilles, cuisine, lettres de Que, message WeChat, personnage, phrases de Tao à Jouer, lignes du rythme gratuit, calendrier d'ouverture, anecdotes du jour, trois lignes du pas Utiliser, examens 科举, gabarits de l'écriture au doigt, fuites de réponse, image du chemin (ni graine, ni forêt, ni borne, ni stèle), licence des décompositions."""
     from .anecdotes import controles as controles_anecdotes
     from .audio import controles as controles_audio
     from .contes import controles as controles_contes
@@ -239,6 +239,7 @@ def check() -> None:
     from .heros import controles as controles_heros
     from .jouer import controles as controles_jouer
     from .ecrans import controles as controles_ecrans
+    from .ecriture import controles as controles_ecriture
     from .graphe import controles as controles_graphe
     from .lettres import controles as controles_lettres
     from .licences import controles as controles_licences
@@ -280,6 +281,7 @@ def check() -> None:
         *controles_rappels(),
         *controles_ouvertures(),
         *controles_ecrans(),
+        *controles_ecriture(),
         *controles_anecdotes(),
         *controles_trois_lignes(),
         *controles_examens(),
