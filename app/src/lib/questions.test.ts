@@ -1058,4 +1058,11 @@ describe('rien ne souffle la réponse avant qu’on réponde', () => {
     }
   });
 
+  it('Tao ne tient pas le caractère de la question dans sa bulle', () => {
+    for (const f of ['Warm.svelte', 'Fix.svelte']) {
+      const src = readFileSync(new URL(f, import.meta.url), 'utf8');
+      expect(src, f).not.toMatch(/<Tao\b[^>]*caractere=/);
+    }
+  });
+
 });

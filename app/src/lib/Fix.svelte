@@ -159,9 +159,10 @@
 
   {#if q}
     <div class="verif-tete">
-      <!-- Chaque verdict rejoue le geste : la clé change, le dessin repart. -->
+      <!-- Chaque verdict rejoue le geste : la clé change, le dessin repart. Tao ne tient pas le
+           caractère de la question : sa bulle, si une posture la montrait, donnerait la réponse. -->
       {#key tao.coup}
-        <Tao stade={taoStade} posture="revision" humeur={taoHumeur} size={72} caractere={q.c} reaction={tao.reaction} />
+        <Tao stade={taoStade} posture="revision" humeur={taoHumeur} size={72} reaction={tao.reaction} />
       {/key}
       <p class="guide grow">Vérifions.</p>
     </div>
