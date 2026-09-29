@@ -489,10 +489,12 @@
       </g>
     {/each}
     {#if lanterne !== ''}
-      <!-- un seuil du trophée Lire au même palier : la lanterne pendue à l'angle de la porte -->
-      <path class="fil" d="M{x + 27} {y + 16}v7" />
-      <ellipse class="lanterne" cx={x + 27} cy={y + 32} rx="8" ry="9.5" />
-      <text class="nombre" x={x + 27} y={y + 35} text-anchor="middle">{lanterne}</text>
+      <!-- un seuil du trophée Lire au même palier : la lanterne pendue à l'angle de la porte, qui se balance -->
+      <g class="balance">
+        <path class="fil" d="M{x + 27} {y + 16}v7" />
+        <ellipse class="lanterne" cx={x + 27} cy={y + 32} rx="8" ry="9.5" />
+        <text class="nombre" x={x + 27} y={y + 35} text-anchor="middle">{lanterne}</text>
+      </g>
     {/if}
   </g>
 {/snippet}
@@ -574,10 +576,13 @@
             {:else if b.genre === 'lire'}
               <!-- un seuil du trophée Lire : la lanterne 灯笼, son nombre -->
               <path class="potence" d="M{q.x - 14} {q.y + 50}V{q.y}h14" />
-              <path class="fil" d="M{q.x} {q.y}v6" />
-              <ellipse class="lanterne" cx={q.x} cy={q.y + 18} rx="10" ry="12" />
-              <path class="fil" d="M{q.x - 5} {q.y + 6.5}h10M{q.x - 5} {q.y + 29.5}h10" />
-              <text class="nombre" x={q.x} y={q.y + 21.5} text-anchor="middle">{b.seuil}</text>
+              <!-- elle se balance doucement au bout de sa potence -->
+              <g class="balance" style="animation-delay:{-k * 1.3}s">
+                <path class="fil" d="M{q.x} {q.y}v6" />
+                <ellipse class="lanterne" cx={q.x} cy={q.y + 18} rx="10" ry="12" />
+                <path class="fil" d="M{q.x - 5} {q.y + 6.5}h10M{q.x - 5} {q.y + 29.5}h10" />
+                <text class="nombre" x={q.x} y={q.y + 21.5} text-anchor="middle">{b.seuil}</text>
+              </g>
               <rect class="brume" x={q.x - 36} y={q.y + 44} width="72" height="12" rx="6" />
             {:else}
               <!-- un conte qui s'ouvre : l'étal de livres, son motif sur la couverture -->
@@ -1249,5 +1254,26 @@
   .detail-trouve .hz {
     font-size: 17px;
     margin-right: 6px;
+  }
+
+  /* Les lanternes de la route devant se balancent doucement, pendues à leur fil : le haut
+     du groupe, le crochet, ne bouge pas. Une rotation de trois degrés, rien de plus. */
+  .balance {
+    transform-box: fill-box;
+    transform-origin: 50% 0;
+    animation: balancer 3.4s ease-in-out infinite alternate;
+  }
+  @keyframes balancer {
+    from {
+      transform: rotate(-3deg);
+    }
+    to {
+      transform: rotate(3deg);
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .balance {
+      animation: none;
+    }
   }
 </style>

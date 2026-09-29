@@ -125,6 +125,19 @@ describe('au menu, Tao lève les yeux vers le caractère du jour', () => {
   });
 });
 
+describe('Mon chemin : les lanternes de la route devant se balancent', () => {
+  const chemin = source('Chemin.svelte');
+  const css = chemin.slice(chemin.indexOf('<style>'));
+  it('pendues à leur fil, celle du seuil comme celle de la porte de ville', () => {
+    expect(chemin.match(/<g class="balance"/g)?.length ?? 0).toBe(2);
+    expect(chemin).toMatch(/<g class="balance"[^>]*>\s*<path class="fil"[^>]*\/>\s*<ellipse class="lanterne"/);
+    expect(css).toMatch(/\.balance \{[^}]*transform-origin: 50% 0;[^}]*animation: balancer/);
+  });
+  it("s'arrêtent si l'on réduit les animations", () => {
+    expect(reduits(css)).toMatch(/\.balance \{\s*animation: none;/);
+  });
+});
+
 describe('le retour haptique, accordé aux petits moments', () => {
   it('une bonne réponse dans un jeu donne le même tap léger qu’en révision, une erreur rien', () => {
     expect(source('Game.svelte')).toMatch(/function reagirA\(correct: boolean\): void \{[\s\S]*?if \(correct\) bonneReponse\(\);/);
