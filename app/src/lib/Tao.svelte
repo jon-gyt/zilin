@@ -1,10 +1,15 @@
 <script lang="ts">
   /**
-   * Tao 桃, le noyau de pêche qui grandit. Cinq stades, une posture par activité, trois humeurs.
-   * Traits simples, encre et jade, dans l'esprit de la maquette.
+   * Tao 桃, le noyau de pêche qui fait la route. Cinq stades, une posture par activité, trois
+   * humeurs. Traits simples, encre et jade, dans l'esprit de la maquette.
    *
-   * Aucun cinabre : le rouge reste le sceau de l'app. Le seul rose (#E7A2B4) est celui
-   * des fleurs, et seulement au stade « pêcher en fleur ». Ni ombre, ni dégradé, ni doré.
+   * Elle ne devient pas un arbre (décision du propriétaire du 29 septembre 2026 : « plus le
+   * thème ») : elle garde sa pousse et s'équipe pour le chemin. Le baluchon à l'épaule à 100,
+   * le chapeau de paille 斗笠 à 300, la gourde 葫芦 à la hanche à 1 000. Le chapeau ne la
+   * quitte pas ; baluchon et gourde se posent quand les mains ou le côté sont pris (bol,
+   * feuille, cuisine, examen). Au pavillon, le chapeau pend au poteau.
+   *
+   * Aucun cinabre : le rouge reste le sceau de l'app. Ni ombre, ni dégradé, ni doré.
    * Elle ne tombe jamais malade et ne pleure jamais : après une absence, elle t'attend assise
    * au pavillon 亭, un bol de thé à côté (`halte`, maquette validée `maquettes/chemin.html`).
    *
@@ -80,10 +85,20 @@
   /** Ce qu'elle porte à côté d'elle : les accessoires de fête de ce côté-là lui cèdent la place. */
   const porte = $derived(robe || panier || livre);
 
-  const arbre = $derived(stade === 'jeune' || stade === 'fleur' || stade === 'peches');
-  const grand = $derived(stade === 'fleur' || stade === 'peches');
   /** Au pavillon, elle attend : assise, plus petite, sous le toit. */
   const halte = $derived(posture === 'halte');
+  const pousse = $derived(stade !== 'noyau');
+  /** Le chapeau de paille, à 300 : sur la tête, sauf en robe d'examen et au pavillon, où il pend au poteau. */
+  const coiffee = $derived((stade === 'chapeau' || stade === 'gourde') && !robe && !halte);
+  const chapeauPendu = $derived((stade === 'chapeau' || stade === 'gourde') && halte);
+  /** Les mains et le flanc libres : pas de bol, de feuille, de cuisine, d'examen ni de pavillon. */
+  const libre = $derived(
+    !halte && !porte && posture !== 'revision' && posture !== 'lecture' && posture !== 'goute'
+  );
+  const baluchon = $derived(libre && (stade === 'baluchon' || stade === 'chapeau' || stade === 'gourde'));
+  const gourde = $derived(libre && stade === 'gourde');
+  /** L'accessoire de fête de la tête : sous le chapeau, la pousse monte, il se décale à droite. */
+  const teteAcc = $derived(coiffee ? 'translate(160 74)' : 'translate(140 62)');
   const grimace_ = $derived(grimace || reaction === 'grimace');
   /* Une bouchée la réveille : l'ennui cède au calme le temps de manger. */
   const regard = $derived(
@@ -98,20 +113,6 @@
   /** La bouchée monte du bol à la bouche : une carte juste, et le bond aussi. */
   const mange = $derived(posture === 'revision' && (reaction === 'bouchee' || reaction === 'bond'));
 
-  /** Fleurs sur le houppier, au stade en fleur seulement. */
-  const FLEURS = [
-    [74, 62],
-    [100, 47],
-    [126, 63],
-    [86, 89],
-    [119, 86]
-  ];
-  /** Pêches, à l'ocre : le rose est réservé aux fleurs. */
-  const PECHES = [
-    [77, 73],
-    [111, 57],
-    [123, 90]
-  ];
 </script>
 
 <svg
@@ -133,6 +134,12 @@
       <path d="M12 192h176" stroke="var(--line)" stroke-width="4" stroke-linecap="round" />
       <path d="M44 146h112" stroke="var(--chemin-bois)" stroke-width="6" stroke-linecap="round" />
       <path d="M52 146v34M148 146v34" stroke="var(--chemin-bois)" stroke-width="4" stroke-linecap="round" />
+      {#if chapeauPendu}
+        <!-- son chapeau de paille, pendu au poteau le temps de la halte -->
+        <g transform="translate(-17 50) scale(0.45)">
+          <path d="M52 106L100 78L148 106q-48 10-96 0z" fill="var(--h-abricot-pale)" stroke="var(--ink)" stroke-width="7" stroke-linejoin="round" />
+        </g>
+      {/if}
     </g>
   {:else if !robe}
     <path class="sol" d="M60 168q40 12 80 0" stroke="var(--line)" stroke-width="4" fill="none" stroke-linecap="round" />
@@ -174,64 +181,50 @@
       />
     {/if}
 
+    {#if baluchon}
+      <!-- 包袱 : le baluchon à l'épaule, un carré de toile rose pêcher noué au bout du bâton -->
+      <g class="baluchon">
+        <path d="M78 152L44 90" stroke="var(--h-ocre)" stroke-width="5" stroke-linecap="round" />
+        <path d="M60 92q-14-16-30-2q-6 18 12 24q20 2 18-22z" fill="var(--h-peche)" stroke="var(--ink)" stroke-width="4" stroke-linejoin="round" />
+        <path d="M50 90l-8-10M44 90l-10-6" stroke="var(--h-rose)" stroke-width="3.5" stroke-linecap="round" />
+      </g>
+    {/if}
+
     <g class="corps">
       <g class="plante">
-        {#if arbre}
-          <g class="houppier">
-            {#if grand}
-              <ellipse cx="100" cy="74" rx="46" ry="34" fill="var(--jade)" />
-            {:else}
-              <ellipse cx="100" cy="80" rx="36" ry="26" fill="var(--jade)" />
-            {/if}
-            {#if stade === 'fleur'}
-              {#each FLEURS as [x, y] (x)}
-                <circle cx={x} cy={y} r="6.5" fill="var(--fleur)" />
-              {/each}
-            {:else if stade === 'peches'}
-              {#each PECHES as [x, y] (x)}
-                <!-- deux lobes : la silhouette de la pêche, sans rose ni dégradé -->
-                <g>
-                  <circle cx={x - 4} cy={y} r="8.5" fill="var(--ocre)" />
-                  <circle cx={x + 4} cy={y} r="8.5" fill="var(--ocre)" />
-                  <path d={`M${x} ${y - 9}v5`} stroke="var(--jade)" stroke-width="3" stroke-linecap="round" />
-                </g>
-              {/each}
-            {/if}
-          </g>
-          <!-- le tronc, rond comme le noyau dont il sort : un galet, jamais une boîte -->
-          <path
-            class="tronc"
-            d="M100 104c21 0 35 14 35 29s-15 27-35 27s-35-12-35-27s14-29 35-29z"
-            fill="var(--card)"
-            stroke="var(--ink)"
-            stroke-width="5"
-            stroke-linejoin="round"
-          />
-        {:else}
-          {#if stade === 'pousse'}
+        {#if pousse}
+          <!-- sous le chapeau, la pousse passe au travers : elle remonte d'autant -->
+          <g transform={coiffee ? 'translate(0 -20)' : undefined}>
             <g class="feuilles">
               <path d="M100 96q-30-8-34-40q26 4 34 30M100 96q30-8 34-40q-26 4-34 30" fill="var(--jade)" />
               <path d="M100 98v-18" stroke="var(--jade)" stroke-width="7" stroke-linecap="round" />
             </g>
-          {/if}
-          <!-- le noyau : une amande d'encre, le noyau de pêche -->
-          <path
-            class="noyau"
-            d="M100 98q36 6 36 30t-36 30q-36-6-36-30t36-30z"
-            fill="var(--card)"
-            stroke="var(--ink)"
-            stroke-width="5"
-            stroke-linejoin="round"
-          />
-          <path
-            class="sillons"
-            d="M76 140q7 6 11 12M124 140q-7 6-11 12"
-            stroke="var(--ink)"
-            stroke-width="3"
-            fill="none"
-            opacity=".3"
-            stroke-linecap="round"
-          />
+          </g>
+        {/if}
+        <!-- le noyau : une amande d'encre, le noyau de pêche -->
+        <path
+          class="noyau"
+          d="M100 98q36 6 36 30t-36 30q-36-6-36-30t36-30z"
+          fill="var(--card)"
+          stroke="var(--ink)"
+          stroke-width="5"
+          stroke-linejoin="round"
+        />
+        <path
+          class="sillons"
+          d="M76 140q7 6 11 12M124 140q-7 6-11 12"
+          stroke="var(--ink)"
+          stroke-width="3"
+          fill="none"
+          opacity=".3"
+          stroke-linecap="round"
+        />
+        {#if coiffee}
+          <!-- 斗笠 : le chapeau de paille conique, posé sur la tête, la pousse passe au travers -->
+          <g class="chapeau">
+            <path d="M52 106L100 78L148 106q-48 10-96 0z" fill="var(--h-abricot-pale)" stroke="var(--ink)" stroke-width="4.5" stroke-linejoin="round" />
+            <path d="M76 100L100 86M124 100L100 86" stroke="var(--h-gutte)" stroke-width="2.5" opacity=".6" stroke-linecap="round" />
+          </g>
         {/if}
 
         <g class="visage">
@@ -274,6 +267,15 @@
         </g>
       </g>
     </g>
+    {#if gourde}
+      <!-- 葫芦 : la gourde de calebasse, pendue à la hanche -->
+      <g class="gourde">
+        <path d="M130 132q6 2 8 10" stroke="var(--h-ocre)" stroke-width="3" fill="none" stroke-linecap="round" />
+        <circle cx="140" cy="146" r="6.5" fill="var(--h-abricot)" stroke="var(--ink)" stroke-width="3.5" />
+        <circle cx="142" cy="162" r="10" fill="var(--h-abricot)" stroke="var(--ink)" stroke-width="3.5" />
+        <path d="M134 146h12" stroke="var(--h-ocre)" stroke-width="3" stroke-linecap="round" />
+      </g>
+    {/if}
   </g>
   </g>
 
@@ -354,11 +356,11 @@
 
   <!-- au-dessus de la tête, là où la bulle, la lanterne et le toit du pavillon ne sont pas -->
   {#if posture !== 'lecon' && posture !== 'jeu' && !halte}
-    <g class="fete-acc flocon" transform="translate(140 62)" stroke="var(--t1)" stroke-width="4" stroke-linecap="round">
+    <g class="fete-acc flocon" transform={teteAcc} stroke="var(--t1)" stroke-width="4" stroke-linecap="round">
       <path d="M0-13v26M-11.3-6.5l22.6 13M-11.3 6.5l22.6-13" />
     </g>
     <!-- 清明 : un brin de saule, qu'on porte ce jour-là -->
-    <g class="fete-acc saule" transform="translate(140 62)">
+    <g class="fete-acc saule" transform={teteAcc}>
       <path d="M-14 18q4-18 20-30" stroke="var(--saule-fonce)" stroke-width="3.5" fill="none" stroke-linecap="round" />
       <g fill="var(--saule)">
         <ellipse cx="-9" cy="6" rx="3" ry="7" transform="rotate(-35 -9 6)" />
@@ -369,11 +371,11 @@
       </g>
     </g>
     <!-- 七夕 : une étoile, Véga ou Altaïr -->
-    <g class="fete-acc etoile" transform="translate(140 62)">
+    <g class="fete-acc etoile" transform={teteAcc}>
       <path d="M0-15q2.4 12.6 15 15q-12.6 2.4-15 15q-2.4-12.6-15-15q12.6-2.4 15-15z" fill="var(--etoile)" />
     </g>
     <!-- 重阳 : un chrysanthème -->
-    <g class="fete-acc ju" transform="translate(140 62)">
+    <g class="fete-acc ju" transform={teteAcc}>
       <g fill="var(--ju)">
         {#each [0, 36, 72, 108, 144, 180, 216, 252, 288, 324] as a (a)}<ellipse cx="0" cy="-8" rx="3.2" ry="7" transform="rotate({a})" />{/each}
       </g>

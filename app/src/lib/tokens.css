@@ -36,7 +36,7 @@
   --chemin-toit:#1F7A5A; --chemin-bois:#9A6300; --chemin-fanion:#A8506B; }
 /* Le personnage (Heros.svelte, brief §8) : ses couleurs à lui, fixes, les jours de fête
    comme les autres, un papier découpé posé sur la page. Les pigments de la charte, l'abricot
-   en aplat (jamais un doré), la pêche des fleurs de Tao ; pas de cinabre, il reste au chemin. */
+   en aplat (jamais un doré), la pêche du baluchon de Tao ; pas de cinabre, il reste au chemin. */
 :root{ --h-encre:#1F1B18; --h-carte:#FBF7EE; --h-fourrure:#FFFFFF; --h-argent:#EDEBE6; --h-brume:#8B857C;
   --h-indigo:#2B4C7E; --h-jade:#5E8A6A; --h-ocre:#8C5A2B; --h-azur:#1E5A8A; --h-rose:#A8506B;
   --h-abricot:#E3A33B; --h-abricot-pale:#F7E6C4; --h-peche:#E7A2B4;
@@ -264,12 +264,12 @@ h1{font-family:var(--head);font-weight:700;font-size:30px;line-height:1.15;lette
 /* le réglage : ne plus proposer le tracé */
 .pref{display:flex;align-items:center;gap:8px;margin-top:16px;font-size:15px;color:var(--ink2);min-height:44px}
 .pref input{width:20px;height:20px;accent-color:var(--indigo)}
-/* Tao 桃, le noyau de pêche qui grandit. Un seul rose, celui des fleurs. */
-:root{ --fleur:#E7A2B4; }
+/* Tao 桃, le noyau de pêche qui fait la route. */
 .tao{display:inline-block;overflow:visible}
 .tao .plante{transform-origin:100px 160px;animation:respire 3.4s ease-in-out infinite}
 .tao .feuilles{transform-origin:100px 98px;animation:balance 2.8s ease-in-out infinite alternate}
-.tao .houppier{transform-origin:100px 108px;animation:balance 3.6s ease-in-out infinite alternate}
+.tao .baluchon{transform-origin:78px 152px;animation:balance 1.8s ease-in-out infinite alternate}
+.tao .gourde{transform-origin:130px 132px;animation:balance 1.4s ease-in-out infinite alternate}
 .tao .yeux{transform-origin:100px 126px;animation:cligne 4.8s infinite}
 /* humeurs : la joie saute sur place, l'ennui balance la tête, le calme respire */
 .tao.joie .plante{animation:bond 1s cubic-bezier(.3,0,.2,1) infinite alternate}

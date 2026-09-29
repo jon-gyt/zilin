@@ -109,16 +109,20 @@ export function dernierJour(t: Tao): string | null {
 
 /* ---------- les stades ---------- */
 
-export type Stade = 'noyau' | 'pousse' | 'jeune' | 'fleur' | 'peches';
+/**
+ * Tao ne devient pas un arbre : elle garde sa pousse et s'équipe pour la route
+ * (décision du propriétaire du 29 septembre 2026).
+ */
+export type Stade = 'noyau' | 'pousse' | 'baluchon' | 'chapeau' | 'gourde';
 
-/** Les paliers du brief : 100, 300 (fleurs), 1 000 (pêches). */
-export const PALIERS = { jeune: 100, fleur: 300, peches: 1000 } as const;
+/** Les paliers du brief : 100 (le baluchon), 300 (le chapeau de paille), 1 000 (la gourde). */
+export const PALIERS = { baluchon: 100, chapeau: 300, gourde: 1000 } as const;
 
 /** Le stade ne dépend que de la croissance. Il ne redescend donc jamais. */
 export function stade(croissance: number): Stade {
-  if (croissance >= PALIERS.peches) return 'peches';
-  if (croissance >= PALIERS.fleur) return 'fleur';
-  if (croissance >= PALIERS.jeune) return 'jeune';
+  if (croissance >= PALIERS.gourde) return 'gourde';
+  if (croissance >= PALIERS.chapeau) return 'chapeau';
+  if (croissance >= PALIERS.baluchon) return 'baluchon';
   return croissance > 0 ? 'pousse' : 'noyau';
 }
 
