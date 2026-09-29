@@ -3,7 +3,7 @@
    * L'écran de l'examen 科举 et du 月课 (story 8.3), d'après la maquette validée par le
    * propriétaire le 29 septembre 2026 (`maquettes/examen.html`), qui fait foi.
    *
-   * - L'annonce : la scène (le 号舍, Tao au col bleu d'écolier 青衿, sans robe, avec son pinceau et le
+   * - L'annonce : la scène (le 号舍, Tao en écolière, sans robe ni col, avec son pinceau et le
    *   panier 考篮 ; au 月课, le 书院 et Tao un livre sous le bras), le nom de l'examen dessiné
    *   depuis ses traits, ce qu'il donne, les règles, le bouton.
    * - La question : « Quitter », l'examen et le rang de la question, les pastilles (jade du
@@ -115,7 +115,7 @@
     /**
      * Le maître Xing 杏 est rencontré (`xing.ts`) : c'est lui l'examinateur. Il pose les
      * questions derrière sa petite table, accorde la seconde chance et lit le 榜 ; Tao passe
-     * l'examen au col d'écolier, comme avant. Avant la rencontre, Tao dit tout, sans changement.
+     * l'examen en écolière, comme avant. Avant la rencontre, Tao dit tout, sans changement.
      */
     xing?: boolean;
     /** Commence (ou reprend) l'examen, avec les questions posables de la série. */

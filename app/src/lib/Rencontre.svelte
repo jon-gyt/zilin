@@ -5,7 +5,7 @@
    * `xing`), que Tao annonce au retour au menu ; sa bulle mène ici.
    *
    * La scène : la porte de ville 城门 du 县试, ouverte ; Xing salue les mains jointes 作揖,
-   * content ; Tao, au col d'écolier avec son panier 考篮, à côté de lui, à la même taille.
+   * content ; Tao, en écolière avec son pinceau et son panier 考篮, à côté de lui, à la même taille.
    * Sa bulle dit l'accueil. Dessous, son nom dessiné depuis ses traits (杏, l'abricotier), d'où
    * il vient (l'autel des abricotiers 杏坛, où Confucius enseignait) et ce qu'il fait
    * désormais. Un seul bouton, qui ramène au menu.

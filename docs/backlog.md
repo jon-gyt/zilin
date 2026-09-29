@@ -791,7 +791,7 @@ Décisions du propriétaire du 29 septembre 2026 : « Ok maquette d'examen »
   « Quitter » reprend à la même question, essais compris ; les questions posables figées
   au départ ; un examen sans ses deux séries sur le chemin ne s'ouvre pas.
 - **8.3, livrée** : `Examen.svelte`, `SupportExamen.svelte`, `examen-dessins.ts` : l'annonce
-  (le 号舍, Tao en 青衿 avec pinceau, sac et 考篮 ; au 月课, le 书院 et un livre), la
+  (le 号舍, Tao en écolière avec pinceau et 考篮, sans robe ni col ; au 月课, le 书院 et un livre), la
   question et sa mise en situation dessinée à plat (enseigne, mot sur la porte, menu, étal,
   billet, message, feuille, calendrier, panneau), le constat, les manqués dessinés depuis
   leurs traits, le 放榜 (noms inventés, le personnage au pinceau cerclé de jade), le retour

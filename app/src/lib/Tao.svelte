@@ -32,8 +32,8 @@
    * ne dure que le temps de le voir, et aucun chiffre ne dit la série. Sans animation (le
    * réglage « réduire les animations »), seul le visage change : la grimace ou la joie.
    *
-   * À l'examen (brief §9, maquette validée le 29 septembre 2026), elle porte le col bleu de
-   * l'écolier 青衿 et le pinceau (`ecolier`), sans robe, et le panier 考篮 à côté d'elle
+   * À l'examen (brief §9, maquette validée le 29 septembre 2026), elle tient le pinceau
+   * de l'écolière (`ecolier`), sans robe ni col, et le panier 考篮 à côté d'elle
    * (`panier`), avec lequel elle attend à la porte, puis lit la liste 榜 ; au 月课, un livre
    * sous le bras (`livre`). Ces couleurs sont fixes, comme celles du personnage.
    */
@@ -72,13 +72,13 @@
      */
     allumee?: boolean;
     /**
-     * À l'examen : le col bleu de l'écolier 青衿 et le pinceau à la main. Pas de robe : elle
-     * l'élargissait (décision du propriétaire du 29 septembre 2026, « ça le grossit »).
+     * À l'examen : le pinceau à la main. Ni robe ni col : ils l'élargissaient (décision du
+     * propriétaire du 29 septembre 2026, « ça le grossit », puis « enlève le col »).
      */
     ecolier?: boolean;
     /** Le panier d'examen 考篮, deux étages, un couvercle, une anse, posé à côté d'elle. */
     panier?: boolean;
-    /** Au 月课, un livre sous le bras, sans col d'écolier : il ne donne pas de titre. */
+    /** Au 月课, un livre sous le bras, sans pinceau : il ne donne pas de titre. */
     livre?: boolean;
   } = $props();
 
@@ -148,7 +148,7 @@
   <g transform={halte ? 'translate(18 30) scale(0.68)' : undefined}>
   <g class="vivant">
     {#if ecolier}
-      <!-- l'écolière : ni robe ni habit qui l'élargit, seulement le col bleu 青衿 qui lui donne son nom -->
+      <!-- l'écolière : ni robe ni col, rien qui l'élargisse ; le pinceau à la main suffit -->
       <path class="pieds" d="M88 156v14M112 156v14" stroke="var(--jade)" stroke-width="7" stroke-linecap="round" />
       <!-- le pinceau, tenu à la main -->
       <g class="pinceau-ecolier">
@@ -211,11 +211,7 @@
           stroke-linecap="round"
         />
         {#if ecolier}
-          <!-- 青衿 : le col bleu de l'écolier, croisé, sur le bas du noyau -->
-          <g class="col">
-            <path d="M73 146q27 17 54 0" stroke="var(--h-azur)" stroke-width="8" fill="none" stroke-linecap="round" />
-            <path d="M91 150l9 8l9-8" stroke="var(--h-carte)" stroke-width="3.5" fill="none" stroke-linecap="round" stroke-linejoin="round" />
-          </g>
+          <!-- la main qui tient le pinceau -->
           <circle cx="66" cy="160" r="6.5" fill="var(--h-carte)" stroke="var(--h-encre)" stroke-width="3" />
         {/if}
         {#if coiffee}
