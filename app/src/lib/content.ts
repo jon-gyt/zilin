@@ -525,8 +525,14 @@ export type Index = {
   heros?: string;
   /** Les phrases de Tao sur l'écran Jouer, `jouer.json` (`jouer.ts`) ; vide pour un export qui n'en porte pas. */
   jouer?: string;
+  /** Les textes de « Lire le monde » et du tableau des révisions, `ecrans.json` (`ecrans.ts`) ; vide sans. */
+  ecrans?: string;
   /** Les examens 科举 et les 月课, `examens.json` (`examens.ts`) ; vide pour un export qui n'en porte pas. */
   examens?: string;
+  /** Les lignes du rythme gratuit, `rythme.json` (`rythme.ts`) ; vide pour un export qui n'en porte pas. */
+  rythme?: string;
+  /** Les textes du rappel quotidien et de la garde de la progression, `rappels.json` (`rappels.ts`) ; vide pour un export qui n'en porte pas. */
+  rappels?: string;
 };
 
 /** La version de données que l'app lit : le dossier exporté par `wenlu export`. */
@@ -572,7 +578,10 @@ export async function loadIndex(
     wechat: typeof brut.wechat === 'string' ? brut.wechat : '',
     heros: typeof brut.heros === 'string' ? brut.heros : '',
     jouer: typeof brut.jouer === 'string' ? brut.jouer : '',
-    examens: typeof brut.examens === 'string' ? brut.examens : ''
+    ecrans: typeof brut.ecrans === 'string' ? brut.ecrans : '',
+    examens: typeof brut.examens === 'string' ? brut.examens : '',
+    rythme: typeof brut.rythme === 'string' ? brut.rythme : '',
+    rappels: typeof brut.rappels === 'string' ? brut.rappels : ''
   };
 }
 
@@ -941,6 +950,20 @@ export function briquesPosees(i: Index, nom: string, jour: number): string[] {
     .filter((j) => j.jour <= jour && j.brique !== null)
     .map((j) => j.brique as string)
     .reverse();
+}
+
+/**
+ * Les briques des leçons déjà posées, avant le jour `avant` du chemin, chacune avec le jour
+ * de sa leçon, dans l'ordre du chemin : celles sur lesquelles un jour sans brique nouvelle
+ * peut revenir (`session.preparerJournee`). Un jour non réconcilié ou sans brique n'en
+ * donne pas.
+ */
+export function briquesAcquises(i: Index, nom: string, avant: number): { c: string; jour: number }[] {
+  const p = i.parcours[nom];
+  if (!p) return [];
+  return p.jours
+    .filter((j) => j.jour < avant && j.brique !== null && !j.non_reconcilie)
+    .map((j) => ({ c: j.brique as string, jour: j.jour }));
 }
 
 /* ---------- les paires à ne pas confondre de l'export ---------- */

@@ -27,7 +27,7 @@
   } from './content';
   import { lirePaires, type Paires, type Question } from './questions';
   import { corpusFixer, questionsFixerDuJour } from './revision';
-  import { echeance, jourLecon, repriseFix, type Progress, type Revision } from './session';
+  import { carte, echeance, jourLecon, repriseFix, sansBrique, type Progress, type Revision } from './session';
   import { humeur, stade } from './tao';
   import { TaoMange } from './reactions.svelte';
 
@@ -84,8 +84,11 @@
     void lecon(choisi, n)
       .then((l) => {
         if (!vivant) return;
-        brique = l.brique?.c ?? null;
-        compose = l.composes[0]?.c ?? null;
+        /* Un jour sans brique nouvelle, rien n'entre en révision : seul ce qui a déjà sa carte se vérifie. */
+        const acquis = (c: string | undefined): string | null =>
+          c === undefined ? null : sansBrique(p) === null || carte(p, c) !== null ? c : null;
+        brique = acquis(l.brique?.c);
+        compose = acquis(l.composes[0]?.c);
       })
       .catch(() => {
         if (vivant) {

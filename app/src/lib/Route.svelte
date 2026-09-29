@@ -17,6 +17,11 @@
    * d'estimé. Ce composant lit le contenu et dessine. Ni ombre, ni dégradé, ni doré, ni
    * emoji, ni dragon ; rien ne bouge si l'on réduit les animations (le pinceau de la carte
    * et Tao s'arrêtent avec `tokens.css`).
+   *
+   * Au rythme gratuit (story 7.5), les bornes se disent en étapes ; seule la pierre suivante
+   * porte « prochaine brique dans N j », en jours du calendrier (`droits.prochaineBrique`),
+   * et la carte de l'étape suivante « Prochaine brique dans 3 jours ». Au bout, « fin du
+   * chemin gratuit » et la suite en une ligne. Les lignes viennent de `rythme.json`.
    */
   import Glyph from './Glyph.svelte';
   import Motif from './Motif.svelte';
@@ -37,12 +42,14 @@
   import { glyph, type StrokeData } from './glyph';
   import { bibliotheque, caracteresAcquis } from './lecture';
   import {
+    boutDuChemin,
     bornesDevant,
     choixParDefaut,
     dansCourt,
     etapesDuChemin,
     ligneBorne,
     ligneLus,
+    pierreSuivante,
     positionDuJour,
     prochainesBornes,
     quand,
@@ -53,11 +60,25 @@
     type Etape,
     type Pierre
   } from './route';
-  import type { Progress } from './session';
+  import { journeeDuJour, jourParcours, type Progress } from './session';
+  import { ACCES_WEB, prochaineBrique, wenluComplet, type Acces } from './droits';
+  import { quandCarte, quandPierre, SANS_RYTHME, suiteDuChemin, type TextesRythme } from './rythme';
   import { stade } from './tao';
   import { tropheesLire } from './trophees';
 
-  let { p, onretour }: { p: Progress; onretour: () => void } = $props();
+  let {
+    p,
+    acces = ACCES_WEB,
+    textes = SANS_RYTHME,
+    onretour
+  }: {
+    p: Progress;
+    /** Le web ou l'app, et l'achat : ce qui fixe le jour de la prochaine brique. */
+    acces?: Acces;
+    /** Les lignes du rythme gratuit (`rythme.json`). */
+    textes?: TextesRythme;
+    onretour: () => void;
+  } = $props();
 
   /* ---------- le contenu ---------- */
 
@@ -126,6 +147,14 @@
   const seuils = $derived(tropheesLire(lus, p.tropheesAcquis).map((t) => ({ n: t.cible, obtenu: t.obtenu })));
   const bornes = $derived(bornesDevant(etapes, r, seuils, contes));
   const loin = $derived(prochainesBornes(bornes));
+
+  /* ---------- le rythme gratuit ---------- */
+
+  const gratuit = $derived(journeeDuJour(p)?.rythme === 'gratuit');
+  /** La pierre suivante et son compte en jours du calendrier, au rythme gratuit seulement. */
+  const suivante = $derived(pierreSuivante(r, prochaineBrique(p.droits, acces, p.day, jourParcours(p)), gratuit));
+  /** Au bout : « fin du chemin gratuit » sans Wenlu complet, « fin du parcours » avec. */
+  const finDuChemin = $derived(boutDuChemin(r, wenluComplet(p.droits, acces, p.day)));
 
   /** La pierre choisie ; `null` : celle par défaut, demain. */
   let choisie = $state<number | null>(null);
@@ -263,8 +292,13 @@
     choisir(x);
   }
 
+  /** Quand, pour une pierre : la pierre suivante au rythme gratuit dit sa brique en jours du calendrier. */
+  function quandDe(x: Pierre): string {
+    return suivante !== null && x.jour === suivante.jour ? quandCarte(textes, suivante.dans) : quand(x.ecart, sur);
+  }
+
   function nomPierre(x: Pierre): string {
-    return `Jour ${x.jour}, ${x.brique}, ${quand(x.ecart, sur)}`;
+    return `Jour ${x.jour}, ${x.brique}, ${quandDe(x)}`;
   }
 
   const borneDe = (x: Pierre): Borne | undefined => loin.find((b) => b.jour === x.jour);
@@ -327,7 +361,9 @@
         </g>
       {/each}
       {#if auBout}
-        <text class="dans" x={finXY.x} y={finXY.y - finXY.r - 10} text-anchor="middle">fin du parcours</text>
+        <text class="dans fin" x={finXY.x} y={finXY.y - finXY.r - 10} text-anchor="middle"
+          >{finDuChemin === 'gratuit' ? textes.route_fin : 'fin du parcours'}</text
+        >
       {/if}
 
       <!-- les pierres, de la plus lointaine à la plus proche -->
@@ -360,6 +396,16 @@
         </g>
       {/each}
 
+      <!-- au rythme gratuit, la pierre suivante porte la prochaine brique, en jours du calendrier -->
+      {#if suivante}
+        {@const x = r.pierres.find((q) => q.jour === suivante.jour)}
+        {#if x}
+          {@const q = placeDe(x)}
+          <!-- au-dessus de la pierre, vers la droite : ni la pierre d'après, ni Tao ne sont là -->
+          <text class="dans prochaine" x={q.x - 6} y={q.y - q.r - 7} text-anchor="start">{quandPierre(textes, suivante.dans)}</text>
+        {/if}
+      {/if}
+
       <!-- Tao, sur la pierre du jour, et le sceau de la position -->
       {#if ici}
         {@const q = placeDe(ici)}
@@ -372,6 +418,10 @@
       {/if}
     </svg>
   </div>
+
+  {#if finDuChemin === 'gratuit' && auBout}
+    <p class="suite">{suiteDuChemin(textes, p.parcours)}</p>
+  {/if}
 
   {#if pierre}
     <section class="detail" aria-live="polite">
@@ -388,7 +438,7 @@
           {/if}
         </div>
         <div class="grow">
-          <div class="when" class:now={pierre.ecart === 0}>{quand(pierre.ecart, sur)} · jour {pierre.jour}</div>
+          <div class="when" class:now={pierre.ecart === 0}>{quandDe(pierre)} · jour {pierre.jour}</div>
           {#if brique}
             <div class="py">{brique.pinyin}</div>
             {#if brique.fr !== ''}<div class="sens">{brique.fr}</div>{/if}
@@ -437,6 +487,12 @@
     font-size: 21px;
     color: var(--ink2);
     margin-left: 4px;
+  }
+  /* la suite du chemin, au bout du chemin gratuit : une ligne, sans insistance */
+  .suite {
+    margin: -4px 0 0;
+    font-size: 14px;
+    color: var(--ink2);
   }
   .sub {
     margin: -6px 0 0;
@@ -522,6 +578,17 @@
   .dans {
     font: 400 11px var(--sans);
     fill: var(--mist);
+  }
+  /* la prochaine brique, sur la pierre suivante : à l'encre, sans pastille */
+  .dans.prochaine {
+    fill: var(--ink2);
+  }
+  /* un liseré du papier de la carte, pour se lire sur la route et les pins : un aplat, pas une ombre */
+  .dans.prochaine,
+  .dans.fin {
+    stroke: var(--card);
+    stroke-width: 3px;
+    paint-order: stroke;
   }
 
   /* les pierres : lues au jade, celle du jour cerclée de cinabre, à venir au trait */

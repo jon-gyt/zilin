@@ -122,15 +122,19 @@ export type Lecture = { texte: TexteDuJour; cinabre: string[] };
  * Le texte du jour `jour` du parcours choisi, ses caractères nouveaux en cinabre. Sans
  * texte ce jour-là, un texte d'un jour passé, tout à l'encre, pris par le rang de la
  * journée : d'un jour à l'autre, il change. `null` s'il n'y en a aucun.
+ *
+ * `relire` : la journée ne pose pas de brique nouvelle (brief §6) ; `jour` est la leçon à
+ * poser, et l'on relit toujours un texte d'un jour passé, tout à l'encre.
  */
 export function lectureDuJour(
   doc: TroisLignes,
   choisi: string | null,
   jour: number,
-  rang: number
+  rang: number,
+  relire = false
 ): Lecture | null {
   const textes = doc.parcours[choisi ?? ''] ?? doc.parcours[PARCOURS_DEFAUT] ?? [];
-  const exact = textes.find((t) => t.jour === jour);
+  const exact = relire ? undefined : textes.find((t) => t.jour === jour);
   if (exact) return { texte: exact, cinabre: [...exact.nouveaux] };
   const passes = textes.filter((t) => t.jour < jour);
   if (passes.length === 0) return null;

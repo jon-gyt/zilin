@@ -3,6 +3,9 @@
  * une seule fin, session de plus, rattrapage, premier jour).
  */
 import { describe, it, expect } from 'vitest';
+import { readFileSync } from 'node:fs';
+import { lireRythme } from './rythme';
+import { newCard } from './srs';
 import {
   anecdoteFaite,
   anecdoteRelue,
@@ -38,6 +41,7 @@ import {
   nextIndex,
   openDay,
   peutPlus,
+  preparerJournee,
   repriseRev,
   setDue,
   setRev,
@@ -423,5 +427,61 @@ describe('le jour du parcours', () => {
     const demain = openDay(p, '2026-03-03');
     expect(jourLecon(demain)).toBe(7);
     expect(nextIndex(demain)).toBe(0);
+  });
+});
+
+describe('la journée sans brique nouvelle, vue du menu (story 7.2)', () => {
+  const TEXTES = lireRythme(JSON.parse(readFileSync(new URL('../../public/data/0.1.0/rythme.json', import.meta.url), 'utf8')) as unknown);
+  const WEB = { web: true, achat: false };
+  /* Au 41e jour du chemin, la brique gratuite de la semaine déjà prise la veille. */
+  const sans = (): Progress =>
+    preparerJournee(
+      ouverte({
+        jourParcours: 41,
+        cartes: [newCard('口', MAINTENANT)],
+        droits: { cadeaux: [], gratuitDepuis: '2026-02-01', briques: ['2026-03-01'], annonce: null }
+      }),
+      WEB,
+      [{ c: '口', jour: 4 }]
+    );
+
+  it('la carte du jour montre la brique revue, sans cinabre', () => {
+    const p = sans();
+    expect(carteDuMenu(p)).toEqual({ source: 'revue', jour: 4 });
+    const m = menu(p, '口', TEXTES);
+    expect(m.surtitre).toBe(TEXTES.menu_revue);
+    expect(m.brique).toBe(TEXTES.menu_brique_revue);
+  });
+
+  it('Tao propose de revoir, pas d’apprendre', () => {
+    const phrases = phrasesDeTao(sans(), '口', TEXTES);
+    expect(phrases).toContain('口, on le revoit ?');
+    expect(phrases.join(' ')).not.toMatch(/apprend/);
+  });
+
+  it('la journée faite, « Réviser encore » en contour, et le bouton ouvre une révision, jamais une brique', () => {
+    const p = sessionFaite(sans());
+    const m = menu(p, '口', TEXTES);
+    expect(m.surtitre).toBe(TEXTES.menu_revue_faite);
+    expect(m.bouton).toBe('Réviser encore');
+    expect(m.plein).toBe(false);
+    expect(demarrer(p, JOUR).ecran).toBe('libre');
+  });
+
+  it('au rythme gratuit, un jour avec brique, la journée faite dit aussi « Réviser encore »', () => {
+    const avec = preparerJournee(
+      ouverte({ jourParcours: 41, droits: { cadeaux: [], gratuitDepuis: '2026-02-01', briques: [], annonce: null } }),
+      WEB,
+      []
+    );
+    const p = sessionFaite(avec);
+    expect(p.droits.briques).toEqual([JOUR]);
+    expect(menu(p, '', TEXTES).bouton).toBe('Réviser encore');
+    expect(demarrer(p, JOUR).ecran).toBe('libre');
+  });
+
+  it('dans les trente premiers jours du chemin, la session de plus reste', () => {
+    const p = sessionFaite(preparerJournee(ouverte(), WEB, []));
+    expect(menu(p, '', TEXTES).bouton).toBe('Une session de plus · une brique');
   });
 });

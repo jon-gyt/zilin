@@ -21,6 +21,7 @@
   import Glyph from './Glyph.svelte';
   import Tao from './Tao.svelte';
   import RouteEntree from './RouteEntree.svelte';
+  import RevisionsEntree from './RevisionsEntree.svelte';
   import TropheesEntree from './TropheesEntree.svelte';
   import { dire } from './audio';
   import {
@@ -38,7 +39,7 @@
     type Noeud,
     type Saisons
   } from './content';
-  import { glyph } from './glyph';
+  import { glyph, nomAccessible } from './glyph';
   import {
     acquis,
     caracteresLus,
@@ -65,6 +66,7 @@
     onfamille,
     onrecompenses,
     onroute = () => undefined,
+    onrevisions = () => undefined,
     onretour
   }: {
     p: Progress;
@@ -74,6 +76,8 @@
     onrecompenses: () => void;
     /** 前路, la route devant : les prochaines étapes du chemin, et leurs bornes. */
     onroute?: () => void;
+    /** Le tableau des révisions : ce qui revient, ce qu'on retient, ce qui résiste. */
+    onrevisions?: () => void;
     /** Ma forêt s'ouvre par sa case du menu ; un seul retour, vers le menu. */
     onretour: () => void;
   } = $props();
@@ -126,6 +130,12 @@
   });
 
   const cercle: Cercle | null = $derived(foret ? placerCercle(foret) : null);
+
+  /** Le nom d'une famille du cercle pour VoiceOver : « 人, rén, homme ». */
+  function nomDeFamille(i: number, c: string): string {
+    const f = foret?.familles[i];
+    return f && f.c === c ? nomAccessible(c, f.pinyin, f.fr) : c;
+  }
   /** Les deux nombres du bas, lus sur les cartes de la progression : voir `foret.ts`. */
   const lus = $derived(caracteresLus(familles, p.cartes));
   const ouvertes = $derived(famillesOuvertes(familles, p.cartes));
@@ -348,7 +358,7 @@
         <svg
           class="cercle"
           viewBox="0 0 {cercle.taille} {cercle.taille}"
-          role="img"
+          role="group"
           aria-label="Le cercle de tes familles"
         >
           {#each cercle.secteurs as sect (sect.c)}
@@ -374,7 +384,7 @@
                 role="button"
                 tabindex="0"
                 data-famille={nd.famille}
-                aria-label="Ouvrir l'arbre de {nd.c}"
+                aria-label="Ouvrir l'arbre de {nomDeFamille(nd.famille, nd.c)}"
                 transform="translate({nd.x} {nd.y})"
                 onkeydown={(e) => clavier(e, nd.famille)}
               >
@@ -510,6 +520,7 @@
   {/if}
 
   <TropheesEntree {p} onouvrir={onrecompenses} />
+  <RevisionsEntree {p} onouvrir={onrevisions} />
 
   <div class="card semaine">
     <div class="row">

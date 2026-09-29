@@ -74,6 +74,14 @@ import {
   repondreEchauffer,
   repondreFixer,
   rendezVous,
+  annonceRythmeGratuit,
+  briqueLaPlusFragile,
+  cloreSession,
+  jourLecon,
+  jourRencontre,
+  peutPlus,
+  plusPermise,
+  preparerJournee,
   type Progress,
   type Revision
 } from './session';
@@ -1273,5 +1281,194 @@ describe('les examens dans la progression (story 8.2)', () => {
       tentative: null,
       migre: false
     });
+  });
+});
+
+describe('les droits dans la progression (story 7.1)', () => {
+  const LUNDI = '2026-10-05';
+
+  it('une progression neuve n’a ni cadeau, ni brique gratuite, ni journée préparée', () => {
+    const p = emptyProgress(LUNDI);
+    expect(p.droits).toEqual({ cadeaux: [], gratuitDepuis: null, briques: [], annonce: null });
+    expect(p.journee).toBeNull();
+  });
+
+  it('garde les cadeaux et leurs dates, et les jours des briques gratuites, à l’export et à l’import', () => {
+    const p: Progress = {
+      ...emptyProgress(LUNDI),
+      droits: {
+        cadeaux: [
+          { palier: 7, duree: 'jour', recu: '2026-09-01', debut: '2026-09-02' },
+          { palier: 30, duree: 'semaine', recu: '2026-09-24', debut: null }
+        ],
+        gratuitDepuis: '2026-09-28',
+        briques: ['2026-09-28', '2026-10-01'],
+        annonce: '2026-09-28'
+      },
+      journee: { jour: LUNDI, rythme: 'gratuit', sansBrique: { raison: 'rythme', c: '口', lecon: 4 } }
+    };
+    const relue = fromJSON(toJSON(p), LUNDI);
+    expect(relue.droits).toEqual(p.droits);
+    expect(relue.journee).toEqual(p.journee);
+  });
+
+  it('une progression d’avant les droits se relit sans rien de reçu, sa journée à préparer', () => {
+    const brut = JSON.parse(toJSON(emptyProgress(LUNDI))) as Record<string, unknown>;
+    delete brut.droits;
+    delete brut.journee;
+    const relue = fromJSON(JSON.stringify(brut), LUNDI);
+    expect(relue.droits).toEqual(emptyProgress(LUNDI).droits);
+    expect(relue.journee).toBeNull();
+  });
+});
+
+describe('la journée sans brique nouvelle (story 7.2)', () => {
+  /* 2026-10-05 est un lundi ; le chemin est au 41e jour, au-delà des trente premiers. */
+  const LUNDI = '2026-10-05';
+  const MARDI = '2026-10-06';
+  const JEUDI = '2026-10-08';
+  const WEB = { web: true, achat: false };
+  const ACHAT = { web: false, achat: true };
+  const MAINTENANT = new Date('2026-10-05T08:00:00Z');
+
+  /** Trois briques acquises, 口 la plus fragile ; la brique gratuite du lundi déjà prise. */
+  const CANDIDATES = [
+    { c: '人', jour: 1 },
+    { c: '口', jour: 4 },
+    { c: '木', jour: 9 }
+  ];
+
+  function acquis(jour: string, briques: string[] = [LUNDI]): Progress {
+    let p: Progress = { ...emptyProgress(jour), premiere: false, days: 45, lastWorked: '2026-10-04', jourParcours: 41 };
+    p = assurerCartes(p, ['人', '口', '木', '口木'], MAINTENANT);
+    /* 人 et 木 revus juste deux fois : plus stables que 口, jamais revu. */
+    for (const c of ['人', '木']) {
+      p = planifierCarte(p, c, { correct: true, tries: 0, seconds: 2 }, MAINTENANT);
+      p = planifierCarte(p, c, { correct: true, tries: 0, seconds: 2 }, new Date('2026-10-17T08:00:00Z'));
+    }
+    return { ...p, droits: { ...p.droits, briques } };
+  }
+
+  const sans = (jour = MARDI): Progress => preparerJournee(acquis(jour), WEB, CANDIDATES);
+
+  /** Les six pas faits, Clore compris, ce jour-là. */
+  const fait = (p: Progress, jour: string): Progress => {
+    let n = p;
+    for (let i = 0; i < 6; i++) n = markDone(n, i, jour);
+    return n;
+  };
+
+  it('au rythme gratuit, entre deux briques, la journée ne pose pas de brique nouvelle', () => {
+    expect(sans().journee).toEqual({
+      jour: MARDI,
+      rythme: 'gratuit',
+      sansBrique: { raison: 'rythme', c: '口', lecon: 4 }
+    });
+    /* Trois jours après la brique du lundi, la suivante entre. */
+    expect(preparerJournee(acquis(JEUDI), WEB, CANDIDATES).journee?.sansBrique).toBeNull();
+  });
+
+  it('dans les trente premiers jours du chemin, ou avec Wenlu complet, la brique entre chaque jour', () => {
+    const trente = preparerJournee({ ...acquis(MARDI), jourParcours: 30 }, WEB, CANDIDATES);
+    expect(trente.journee).toMatchObject({ rythme: 'trente', sansBrique: null });
+    expect(preparerJournee(acquis(MARDI), ACHAT, CANDIDATES).journee).toMatchObject({
+      rythme: 'complet',
+      sansBrique: null
+    });
+  });
+
+  it('six pas, dans le même ordre, sur l’acquis', () => {
+    expect(steps(sans()).map((s) => s.id)).toEqual([...STEP_ORDER]);
+  });
+
+  it('Apprendre revient sur la brique acquise la plus fragile, et sur sa leçon', () => {
+    const p = sans();
+    expect(briqueLaPlusFragile(p, CANDIDATES)?.c).toBe('口');
+    expect(jourLecon(p)).toBe(4);
+    /* L'anecdote préfère ce qui a déjà été rencontré : la veille de la leçon à poser. */
+    expect(jourRencontre(p)).toBe(40);
+  });
+
+  it('les caractères prioritaires passent d’abord (8.4 : les manqués de l’examen)', () => {
+    const p = acquis(MARDI);
+    expect(briqueLaPlusFragile(p, CANDIDATES, [{ c: '木', jour: 9 }])?.c).toBe('木');
+    expect(briqueLaPlusFragile(p, CANDIDATES, [{ c: '水', jour: 12 }])?.c).toBe('口');
+    const pause = preparerJournee({ ...acquis(JEUDI), jourParcours: 30 }, WEB, CANDIDATES, {
+      raison: 'examen',
+      prioritaires: [{ c: '人', jour: 1 }]
+    });
+    expect(pause.journee?.sansBrique).toEqual({ raison: 'examen', c: '人', lecon: 1 });
+    expect(plusPermise(pause)).toBe(false);
+  });
+
+  it('le tracé de la brique revue suit le seul réglage', () => {
+    const p = traceVue(sans(), '口');
+    expect(learnNext(p, '口')).toBe('trace');
+    expect(learnNext(setTrace(p, false), '口')).toBe('compose');
+  });
+
+  it('aucun caractère n’entre en révision, le chemin n’avance pas, rien n’est appris', () => {
+    let p = sans();
+    p = markDone(markDone(p, 0, MARDI), 1, MARDI);
+    const avant = p.cartes.length;
+    const n = finApprendre(p, MARDI, MAINTENANT, ['口', '口木', '新'], 4);
+    expect(n.cartes.length).toBe(avant);
+    expect(carte(n, '新')).toBeNull();
+    expect(jourParcours(n)).toBe(41);
+    expect(n.jourAppris).toBeUndefined();
+    expect(n.droits.briques).toEqual([LUNDI]);
+    expect(n.tao.activites.filter((a) => a.type === 'lecon')).toEqual([]);
+    expect(currentStep(n)?.id).toBe('utiliser');
+  });
+
+  it('un jour avec brique au rythme gratuit, la brique se note parmi celles de la semaine', () => {
+    let p = preparerJournee(acquis(JEUDI), WEB, CANDIDATES);
+    p = markDone(markDone(p, 0, JEUDI), 1, JEUDI);
+    const n = finApprendre(p, JEUDI, MAINTENANT, ['日'], 41);
+    expect(n.droits.briques).toEqual([LUNDI, JEUDI]);
+    expect(jourParcours(n)).toBe(42);
+  });
+
+  it('Clore plante la graine comme un autre jour', () => {
+    let p = sans();
+    for (let i = 0; i < 5; i++) p = markDone(p, i, MARDI);
+    const n = cloreSession(p, MARDI);
+    expect(allDone(n)).toBe(true);
+    expect(n.joursTravailles).toContain(MARDI);
+  });
+
+  it('la session de plus : jamais un jour sans brique, ni au rythme gratuit', () => {
+    expect(peutPlus(fait(sans(), MARDI))).toBe(false);
+    expect(peutPlus(fait(preparerJournee(acquis(JEUDI), WEB, CANDIDATES), JEUDI))).toBe(false);
+  });
+
+  it('la session de plus : avec Wenlu complet, ou dans les trente premiers jours du chemin', () => {
+    expect(peutPlus(fait(preparerJournee(acquis(JEUDI), ACHAT, CANDIDATES), JEUDI))).toBe(true);
+    const trente = fait(preparerJournee({ ...acquis(JEUDI), jourParcours: 29 }, WEB, CANDIDATES), JEUDI);
+    expect(peutPlus(trente)).toBe(true);
+    /* La leçon suivante serait la 31e : elle n'est plus du rythme complet. */
+    expect(peutPlus(setJourParcours(trente, 31))).toBe(false);
+  });
+
+  it('une journée préparée ne bouge plus : la reprise retombe sur la même brique', () => {
+    const p = sans();
+    expect(preparerJournee(p, ACHAT, [{ c: '木', jour: 9 }])).toBe(p);
+    /* Une autre journée se prépare de nouveau. */
+    expect(preparerJournee({ ...p, day: '2026-10-07' }, WEB, CANDIDATES).journee?.jour).toBe('2026-10-07');
+  });
+
+  it('le premier jour du rythme gratuit se note à la journée préparée, et Clore le dit ce jour-là', () => {
+    let p = preparerJournee({ ...acquis(LUNDI, []), jourParcours: 31 }, WEB, CANDIDATES);
+    expect(p.droits.gratuitDepuis).toBe(LUNDI);
+    expect(annonceRythmeGratuit(p)).toBe(true);
+    for (let i = 0; i < 5; i++) p = markDone(p, i, LUNDI);
+    p = cloreSession(p, LUNDI);
+    expect(p.droits.annonce).toBe(LUNDI);
+    expect(annonceRythmeGratuit(p)).toBe(true);
+    const jeudi = preparerJournee(openDay(p, JEUDI), WEB, CANDIDATES);
+    expect(annonceRythmeGratuit(jeudi)).toBe(false);
+    /* Dans les trente premiers jours, rien à dire. */
+    const debut = preparerJournee({ ...acquis(LUNDI, []), jourParcours: 12 }, WEB, CANDIDATES);
+    expect(annonceRythmeGratuit(debut)).toBe(false);
   });
 });

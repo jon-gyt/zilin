@@ -27,7 +27,7 @@ familles de fichiers, jamais mêlés :
   fiches relues, propriétaires. Aucun tracé n'y entre.
 - `paires.json`, `contes/<id>.json`, `fetes.json`, `saisons.json`, `devinettes.json`,
   `eclair.json`, `coquilles.json`, `cuisine.json`, `lettres.json`, `wechat.json`, `heros.json`,
-  `jouer.json` : propriétaires, source citée. `lettres.json` ne porte que les lettres de Que relues (`lettres.py`).
+  `jouer.json`, `rythme.json`, `rappels.json`, `ecrans.json` : propriétaires, source citée. `lettres.json` ne porte que les lettres de Que relues (`lettres.py`).
 - `trois-lignes.json` : les trois lignes du pas Utiliser, un texte relu par jour du chemin et
   par parcours (`trois_lignes.py`), propriétaire, source citée ; l'app le lit à chemin fixe.
 - `examens.json` : les trente-sept examens 科举 et 月课, les nominations, et les séries relues
@@ -93,12 +93,15 @@ from . import coquilles as coquilles_mod
 from . import cuisine as cuisine_mod
 from . import devinettes as devinettes_mod
 from . import eclair as eclair_mod
+from . import ecrans as ecrans_mod
 from . import examens as examens_mod
 from . import fetes as fetes_mod
 from . import fiches as fiches_mod
 from . import heros as heros_mod
 from . import jouer as jouer_mod
+from . import rappels as rappels_mod
 from . import lettres as lettres_mod
+from . import rythme as rythme_mod
 from . import saisons as saisons_mod
 from . import surcharges as surcharges_mod
 from . import trois_lignes as trois_lignes_mod
@@ -118,7 +121,7 @@ VERSION = "0.1.0"
 #: Version du format écrit par ce module. À incrémenter à chaque changement de
 #: ce que l'export produit à entrées égales (clé ajoutée, ordre, règle de
 #: sélection) : elle entre dans l'empreinte, et l'export versionné devient périmé.
-FORMAT_EXPORT = 16
+FORMAT_EXPORT = 18
 
 #: Le code de l'exporteur, lui aussi dans l'empreinte : un changement de ce
 #: fichier où l'on aurait oublié `FORMAT_EXPORT` rend quand même l'export périmé.
@@ -202,6 +205,9 @@ def fichiers_sources(
         ("exporteur-wechat", Path(wechat_mod.__file__).resolve()),
         ("exporteur-heros", Path(heros_mod.__file__).resolve()),
         ("exporteur-jouer", Path(jouer_mod.__file__).resolve()),
+        ("exporteur-rythme", Path(rythme_mod.__file__).resolve()),
+        ("exporteur-rappels", Path(rappels_mod.__file__).resolve()),
+        ("exporteur-ecrans", Path(ecrans_mod.__file__).resolve()),
         ("exporteur-anecdotes", Path(anecdotes_mod.__file__).resolve()),
         ("exporteur-trois-lignes", Path(trois_lignes_mod.__file__).resolve()),
         ("exporteur-examens", Path(examens_mod.__file__).resolve()),
@@ -242,6 +248,9 @@ def fichiers_sources(
         ("heros-betes", heros_mod.BETES),
         ("heros-tao", heros_mod.TAO),
         ("jouer-tao", jouer_mod.TAO),
+        ("rythme-textes", rythme_mod.TEXTES),
+        ("rappels-textes", rappels_mod.TEXTES),
+        *ecrans_mod.sources(),
         ("anecdotes", anecdotes_mod.ANECDOTES),
         *trois_lignes_mod.sources(),
         *examens_mod.sources(),
@@ -1047,6 +1056,45 @@ def document_jouer(version: str) -> dict[str, object]:
     )
 
 
+def document_rythme(version: str) -> dict[str, object]:
+    """Le JSON écrit dans `rythme.json`, voir `rythme.py` : les lignes du rythme gratuit."""
+    return rythme_mod.document(
+        en_tete={
+            "version": version,
+            "license": LICENCE_PROPRIETAIRE,
+            "source": rythme_mod.SOURCE_EXPORT,
+            "source_url": URL_PIPELINE,
+            "modified": f"{JETON_JOUR} : assemblé par `wenlu export`",
+        },
+    )
+
+
+def document_rappels(version: str) -> dict[str, object]:
+    """Le JSON écrit dans `rappels.json`, voir `rappels.py` : le rappel quotidien et la garde."""
+    return rappels_mod.document(
+        en_tete={
+            "version": version,
+            "license": LICENCE_PROPRIETAIRE,
+            "source": rappels_mod.SOURCE_EXPORT,
+            "source_url": URL_PIPELINE,
+            "modified": f"{JETON_JOUR} : assemblé par `wenlu export`",
+        },
+    )
+
+
+def document_ecrans(version: str) -> dict[str, object]:
+    """Le JSON écrit dans `ecrans.json`, voir `ecrans.py` : les textes de « Lire le monde » et des révisions."""
+    return ecrans_mod.document(
+        en_tete={
+            "version": version,
+            "license": LICENCE_PROPRIETAIRE,
+            "source": ecrans_mod.SOURCE_EXPORT,
+            "source_url": URL_PIPELINE,
+            "modified": f"{JETON_JOUR} : assemblé par `wenlu export`",
+        },
+    )
+
+
 def en_tete_lettres(version: str) -> dict[str, object]:
     """L'en-tête de `lettres.json` et de `apercu/lettres.json` (story 4b.8), voir `lettres.py`."""
     return {
@@ -1459,7 +1507,10 @@ def document_index(
         "wechat": "wechat.json",
         "heros": "heros.json",
         "jouer": jouer_mod.FICHIER,
+        "ecrans": ecrans_mod.FICHIER,
         "examens": examens_mod.FICHIER,
+        "rythme": rythme_mod.FICHIER,
+        "rappels": rappels_mod.FICHIER,
     }
     if apercu:
         document["apercu"] = f"{APERCU}/index.json"
@@ -1532,10 +1583,12 @@ TABLEAU_LICENCES: tuple[tuple[str, str, str, str, str], ...] = (
     ),
     (
         "Fiches, contes, paires, fêtes, saisons, devinettes, dictionnaire éclair, coquilles, cuisine,"
-        " lettres de Que, message WeChat, personnage, phrases de Tao à Jouer (pipeline wenlu)",
+        " lettres de Que, message WeChat, personnage, phrases de Tao à Jouer, lignes du rythme"
+        " gratuit, rappels, textes d'écran (pipeline wenlu)",
         "`familles/`, `contes/`, `paires.json`, `fetes.json`, `saisons.json`, `devinettes.json`,"
         " `eclair.json`, `coquilles.json`, `cuisine.json`, `lettres.json`, `wechat.json`,"
-        " `heros.json`, `jouer.json`, et `apercu/` pour les textes encore à relire",
+        " `heros.json`, `jouer.json`, `rythme.json`, `rappels.json`, `ecrans.json`, et `apercu/`"
+        " pour les textes encore à relire",
         LICENCE_PROPRIETAIRE,
         "textes rédigés pour l'app, relus",
         "—",
@@ -1567,7 +1620,7 @@ def licences_md(version: str) -> str:
         " et `traits/MODIFICATIONS.md` qui dit comment et quand ils ont été dérivés.",
         "- `familles/`, `contes/`, `paires.json`, `fetes.json`, `saisons.json`, `devinettes.json`,"
         " `eclair.json`, `coquilles.json`, `cuisine.json`, `lettres.json`, `wechat.json`, `heros.json`,"
-        " `jouer.json`, `apercu/` :"
+        " `jouer.json`, `rythme.json`, `rappels.json`, `ecrans.json`, `apercu/` :"
         " décomposition canonique et"
         " textes rédigés pour l'app, propriétaires.",
         f"- `{UNICODE_NOTICE}` : notice de permission Unicode, qui couvre le pinyin.",
@@ -1927,6 +1980,10 @@ def assembler(
     textes["wechat.json"] = _json(document_wechat(version, per, noeuds, documents_parcours, ingest))
     textes["heros.json"] = _json(document_heros(version, per, noeuds))
     textes[jouer_mod.FICHIER] = _json(document_jouer(version))
+    # Les lignes du rythme gratuit (`rythme.py`) : nommées par l'index.
+    textes[rythme_mod.FICHIER] = _json(document_rythme(version))
+    textes[rappels_mod.FICHIER] = _json(document_rappels(version))
+    textes[ecrans_mod.FICHIER] = _json(document_ecrans(version))
     # Les anecdotes du jour (`anecdotes.py`) : l'app lit ce fichier à chemin fixe.
     textes[anecdotes_mod.FICHIER] = _json(
         anecdotes_mod.document(

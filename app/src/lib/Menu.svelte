@@ -63,11 +63,15 @@
   import { caseReviser, carteDuMenu, menu, traitsDeLAjout } from './parcours';
   import { familleDepart, fichesDepart } from './premiere';
   import { jourDeDemain, premierSens } from './route';
-  import { cartesDues, type Progress } from './session';
+  import { cartesDues, jourParcours, type Progress } from './session';
+  import { ACCES_WEB, prochaineBrique, type Acces } from './droits';
+  import { quandMenu, SANS_RYTHME, type TextesRythme } from './rythme';
   import { stade } from './tao';
 
   let {
     p,
+    acces = ACCES_WEB,
+    textes = SANS_RYTHME,
     fete = null,
     fetes = null,
     terme = null,
@@ -81,6 +85,10 @@
     onroute = () => undefined
   }: {
     p: Progress;
+    /** Le web ou l'app, et l'achat : ce qui fixe le jour de la prochaine brique (`droits.ts`). */
+    acces?: Acces;
+    /** Les lignes du rythme gratuit (`rythme.json`) : la journée sans brique, « Dans 3 j ». */
+    textes?: TextesRythme;
     /** La fête du jour : le vœu prend la place de la marque, l'emblème porte le caractère. */
     fete?: FeteDuJour | null;
     fetes?: Fetes | null;
@@ -125,6 +133,7 @@
     if (s.source === 'revision') {
       return `r:${cartesDues(p, new Date(), 1)[0]?.id ?? ''}`;
     }
+    if (s.source === 'revue') return `v:${p.parcours ?? ''}:${s.jour}`;
     return s.source === 'lecon' ? `l:${p.parcours ?? ''}:${s.jour}` : 'p';
   });
 
@@ -138,8 +147,13 @@
       const f = c === '' ? null : await fiche(c);
       return f ? { c: f.c, pinyin: f.pinyin, fr: f.fr, parts: f.parts, nouveau: [], pistes: [] } : null;
     }
-    const [, choisi, jour] = cle.split(':');
+    const [genre, choisi, jour] = cle.split(':');
     const l = await lecon(choisi === '' ? null : choisi, Number(jour));
+    if (genre === 'v') {
+      /* Un jour sans brique nouvelle : la brique revue, sans cinabre, rien n'est ajouté. */
+      const b = l.brique ?? l.composes[0];
+      return b ? { c: b.c, pinyin: b.pinyin, fr: b.fr, parts: b.parts, nouveau: [], pistes: l.pistes } : null;
+    }
     const f = l.composes[0] ?? l.brique;
     if (!f) return null;
     /* Un jour sans composé : la brique elle-même est l'élément ajouté. */
@@ -194,7 +208,7 @@
     void dire(carte.c);
   }
 
-  const m = $derived(menu(p, carte?.c ?? ''));
+  const m = $derived(menu(p, carte?.c ?? '', textes));
   /** Un jour sans composé : la décomposition montre la brique seule, en cinabre. */
   const briqueSeule = $derived(carte !== null && carte.parts.length === 0 && m.etat !== 'rattrapage' && m.etat !== 'premiere');
   /* Toutes les parties sont neuves : il n'y a pas d'élément ajouté à distinguer, tout reste à l'encre. */
@@ -205,11 +219,17 @@
 
   /**
    * « Demain : 子 enfant » : la brique de la prochaine session, la journée faite seulement
-   * (`route.jourDeDemain`), en jour du chemin. Une ligne discrète, pour que le menu tienne
-   * toujours sur un écran.
+   * (`route.jourDeDemain`), en jour du chemin. Au rythme gratuit, quand elle n'est pas pour
+   * le lendemain, « Dans 3 j : 子 enfant », en jours du calendrier, ceux que fixe la règle
+   * (`droits.prochaineBrique`). Une ligne discrète, pour que le menu tienne toujours sur un
+   * écran.
    */
   let demain = $state.raw<{ c: string; sens: string; pistes: string[] } | null>(null);
   const jourDemain = $derived(jourDeDemain(p));
+  const quandDemain = $derived.by(() => {
+    const k = prochaineBrique(p.droits, acces, p.day, jourParcours(p));
+    return k === null ? '' : quandMenu(textes, k.dans);
+  });
 
   $effect(() => {
     const jour = jourDemain;
@@ -479,10 +499,10 @@
         <span>{m.ligne}</span>
         {#if m.duree !== ''}<span class="duree">{m.duree}</span>{/if}
       </div>
-      {#if demain && jourDemain !== null}
+      {#if demain && jourDemain !== null && quandDemain !== ''}
         <div class="demain">
           <span class="dm"
-            >Demain : <span class="dgl"
+            >{quandDemain} : <span class="dgl"
               ><Glyph char={demain.c} size={16} write={false} color="var(--ink)" pistes={demain.pistes} /></span
             >{#if demain.sens !== ''}<span class="dsens">{demain.sens}</span>{/if}</span
           >

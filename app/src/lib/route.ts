@@ -15,9 +15,15 @@
  *   chemin où entre le Ne caractère) ou l'ouverture d'un conte (`etageres.ouvertures`, le
  *   jour où entre le dernier caractère qui lui manque) ;
  * - la carte de détail : l'étape choisie, demain par défaut.
+ *
+ * Au rythme gratuit (brief §8 et §10, story 7.5), un jour du chemin n'est plus un jour : les
+ * bornes se disent en étapes, et seule la pierre suivante porte un compte en jours du
+ * calendrier, « prochaine brique dans N j », celui que fixe `droits.prochaineBrique`. Au
+ * bout, « fin du chemin gratuit ».
  */
 import type { IndexJour } from './content';
-import { allDone, jourParcours, type Progress } from './session';
+import type { Prochaine } from './droits';
+import { allDone, journeeDuJour, jourParcours, sansBrique, type Progress } from './session';
 import { etatMenu } from './parcours';
 
 /* ---------- les étapes ---------- */
@@ -50,18 +56,47 @@ export function etapesDuChemin(jours: readonly IndexJour[]): Etape[] {
  * tant que la pile n'est pas redescendue : la suivante n'est pas « demain »).
  *
  * - la leçon apprise aujourd'hui (`jourAppris`), la session de plus comprise ;
- * - la journée faite sans leçon notée (le jour de la première session), ou le rattrapage :
- *   la dernière étape rencontrée ;
+ * - la journée faite sans leçon notée (le jour de la première session), le rattrapage, ou
+ *   un jour sans brique nouvelle : la dernière étape rencontrée ;
  * - sinon, celle que la session va poser.
+ *
+ * Au rythme gratuit, la suite n'est pas « demain » : `sur` est faux, comme en rattrapage.
  */
 export type Position = { jour: number; faite: boolean; sur: boolean };
 
 export function positionDuJour(p: Progress): Position {
   if (p.premiere) return { jour: 1, faite: false, sur: true };
-  if (p.jourAppris !== undefined) return { jour: p.jourAppris, faite: true, sur: !p.catchup };
+  const gratuit = journeeDuJour(p)?.rythme === 'gratuit';
+  if (p.jourAppris !== undefined) return { jour: p.jourAppris, faite: true, sur: !p.catchup && !gratuit };
   if (p.catchup) return { jour: jourParcours(p) - 1, faite: true, sur: false };
-  if (p.enPlus === null && allDone(p)) return { jour: jourParcours(p) - 1, faite: true, sur: true };
-  return { jour: jourParcours(p), faite: false, sur: true };
+  if (sansBrique(p) !== null) return { jour: jourParcours(p) - 1, faite: true, sur: false };
+  if (p.enPlus === null && allDone(p)) return { jour: jourParcours(p) - 1, faite: true, sur: !gratuit };
+  return { jour: jourParcours(p), faite: false, sur: !gratuit };
+}
+
+/**
+ * Au rythme gratuit, la pierre suivante et son compte en jours du calendrier : la prochaine
+ * brique (`droits.prochaineBrique`), jamais estimée. `null` hors du rythme gratuit, au bout
+ * du parcours, ou si rien ne se calcule.
+ */
+export function pierreSuivante(
+  r: Route,
+  prochaine: Prochaine | null,
+  gratuit: boolean
+): { jour: number; dans: number } | null {
+  if (!gratuit || prochaine === null) return null;
+  const x = r.pierres.find((q) => q.ecart === 1);
+  return x === undefined ? null : { jour: x.jour, dans: prochaine.dans };
+}
+
+/**
+ * Ce que dit la dernière pierre quand la route s'y arrête : « fin du chemin gratuit » sans
+ * Wenlu complet (l'export est le chemin gratuit, le seuil 255 et le HSK 1), « fin du
+ * parcours » sinon ; rien tant que la route continue dans la brume.
+ */
+export function boutDuChemin(r: Route, complet: boolean): 'gratuit' | 'parcours' | null {
+  if (!r.bout || r.pierres.length === 0) return null;
+  return complet ? 'parcours' : 'gratuit';
 }
 
 /**

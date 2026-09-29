@@ -117,13 +117,15 @@ describe("l'ouverture", () => {
 /* ---------- 2. l'enchaînement des écrans ---------- */
 
 describe('la première session', () => {
-  it('enchaîne les quatre écrans de la leçon, le bilan, les deux questions, puis le personnage', () => {
+  it('enchaîne les quatre écrans de la leçon, le bilan, les questions, puis le personnage', () => {
     expect(LECON).toEqual(['f1', 'f2', 'f3', 'f4', 'f5']);
-    expect(QUESTIONS).toEqual(['objectif', 'rythme', 'personnage']);
+    /* L'heure du rappel n'est posée que dans l'app iOS (`rappels.test.ts`). */
+    expect(QUESTIONS).toEqual(['objectif', 'rythme', 'heure', 'personnage']);
     const vues: EtapeDepart[] = ['f1'];
     for (let v = departNext('f1'); v !== null; v = departNext(v)) vues.push(v);
     expect(vues).toEqual([...ETAPES_DEPART]);
-    expect(departNext('rythme')).toBe('personnage');
+    expect(departNext('rythme')).toBe('heure');
+    expect(departNext('heure')).toBe('personnage');
     expect(departNext('personnage')).toBeNull();
   });
 

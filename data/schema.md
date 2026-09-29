@@ -43,6 +43,9 @@ app/public/data/0.1.0/
   wechat.json                le message WeChat : les dialogues avec l'ami
   heros.json                 le personnage : douze rangs, trois bêtes, les phrases de Tao
   jouer.json                 l'écran Jouer : les phrases de la bulle de Tao
+  rythme.json                le rythme gratuit : les lignes du menu, de la route et de Clore
+  rappels.json               le rappel quotidien (iOS) et la garde de la progression
+  ecrans.json                les textes de « Lire le monde » et du tableau des révisions
   anecdotes.json             les anecdotes du jour, une par caractère
   trois-lignes.json          les trois lignes du pas Utiliser, un texte par jour du chemin
   examens.json               les examens 科举 et les 月课 : la liste, les séries relues
@@ -84,7 +87,10 @@ Trois régimes de licence, trois familles de fichiers, jamais mêlés
                 "motif": "montagne"}],
  "paires": "paires.json",
  "heros": "heros.json",
- "jouer": "jouer.json"
+ "jouer": "jouer.json",
+ "rythme": "rythme.json",
+ "rappels": "rappels.json",
+ "ecrans": "ecrans.json"
 }
 ```
 
@@ -468,6 +474,68 @@ relire : ce que Tao dit en tendant son jeu. L'app choisit la phrase (`jeux.bulle
   l'éclair manqué), ce qui a été lu plutôt que « rien de revu ». Sans `jouer.json` (un
   export plus ancien), la bulle se tait.
 
+## `rythme.json`
+
+Tiré de `data/sources/interface/rythme.tsv` (épic 7, stories 7.2 et 7.5 ; brief §6, §8, §10),
+rédigé pour l'app et à relire : les lignes du rythme gratuit. Après les trente premiers
+jours du chemin, sans Wenlu complet, deux briques nouvelles par semaine ; les autres jours,
+la session revoit une brique acquise. L'app (`rythme.ts`) remplit les jetons ; les jours
+viennent de `droits.ts`, calculés, jamais estimés.
+
+```json
+{"version": "0.1.0", "license": "propriétaire", "source": "…", "source_url": "…", "modified": "…",
+ "textes": {"menu_demain": "Demain", "menu_dans": "Dans {n} j",
+            "route_pierre": "prochaine brique dans {n} j", "route_fin": "fin du chemin gratuit",
+            "clore_rythme": "Dès aujourd'hui, deux briques nouvelles par semaine ; …", "…": "…"}}
+```
+
+- `textes` : dix-sept lignes, chacune avec ses seuls jetons, {n} des jours du calendrier,
+  {c} un caractère. Le menu (`menu_demain`, `menu_dans`, `menu_revue`, `menu_revue_faite`,
+  `menu_brique_revue`, `menu_reviser`), Tao sur le chemin (`tao_revoir`), le pas Apprendre
+  (`apprendre_revue`), Clore (`clore_revue`, `clore_rythme`), la route devant
+  (`route_pierre_demain`, `route_pierre`, `route_carte_demain`, `route_carte`, `route_fin`,
+  `route_suite_lire`, `route_suite_hsk`). Sans `rythme.json` (un export plus ancien), ces
+  lignes se taisent.
+## `rappels.json`
+
+Tiré de `data/sources/rappels/textes.tsv` (brief §8, « Notification »), rédigé pour l'app et
+à relire : les textes du rappel quotidien de l'app iOS et de la garde de la progression.
+L'app les lit (`app/src/lib/rappels.ts`) ; le corps d'une notification est d'ordinaire le
+début de l'anecdote du jour, tiré de `anecdotes.json`, et n'est pas ici.
+
+```json
+{"version": "0.1.0", "license": "propriétaire", "source": "…", "source_url": "…", "modified": "…",
+ "textes": {"notif_brique_titre": "La prochaine brique",
+            "notif_brique": "{c} · {sens}, la brique de ta prochaine session.",
+            "question": "À quelle heure veux-tu lire ?", "…": "…",
+            "export_date": "Dernier export : {date}", "export_jamais": "Dernier export : jamais"}}
+```
+
+- `textes` : dix-huit textes, chacun une fois. `notif_brique_titre`, `notif_brique` : la
+  notification d'un jour dont l'anecdote est déjà lue ou annoncée, la brique de la
+  prochaine session (`{c}`, `{sens}`) ; `question`, `question_guide`, `question_accord`,
+  `matin`, `midi`, `soir`, `accepter`, `refuser` : la question de l'heure à la première
+  session ; `reglage`, `reglage_detail`, `reglage_heure`, `reglage_refuse` : Réglages ;
+  `accueil`, `accueil_comment` : sur le web iOS hors écran d'accueil ; `export_date`
+  (`{date}`), `export_jamais` : la date du dernier export. Sans `rappels.json` (un export
+  plus ancien), l'app ne programme aucun rappel et tait ces lignes.
+## `ecrans.json`
+
+Tiré de `data/sources/ecrans/lire-le-monde.tsv` et `revisions.tsv` (rapport comparatif du
+28 septembre 2026, §2.5 et §2.6), rédigé pour l'app et à relire : les textes d'interface de
+« Lire le monde », le second onglet de Chercher, et du tableau des révisions de Ma forêt.
+L'app remplit les jetons entre accolades (`app/src/lib/ecrans.ts`).
+
+```json
+{"version": "0.1.0", "license": "propriétaire", "source": "…", "source_url": "…", "modified": "…",
+ "lire-le-monde": {"compte": "Tu lis {lus} caractères sur {total}.", "dans": "dans {n} j", "…": "…"},
+ "revisions": {"titre": "Tes révisions", "jours": "dim. lun. mar. mer. jeu. ven. sam.", "…": "…"}}
+```
+
+- Un objet par écran, les textes par clé, dans l'ordre de `ecrans.ECRANS`, qui déclare
+  chaque clé et ses jetons. `revisions/jours` nomme les sept jours, du dimanche au samedi,
+  séparés d'une espace. Sans `ecrans.json` (un export plus ancien), les textes sont vides.
+
 ## `anecdotes.json`
 
 Tiré de `data/sources/anecdotes/anecdotes.tsv` : les anecdotes ordinaires du pas Ouvrir,
@@ -680,6 +748,18 @@ ce que l'app embarque ; `docs/sources-licences.md` fait foi pour la décision.
   chacune, sourcées, sans jeton, ni emoji ni dragon, et jamais un reproche (ni « tu n'as
   pas… », ni regret, ni impatience, ni compte de jours ou d'absence : brief §9) ;
   `jouer.json` dit les phrases de la source, et `index.json` le nomme.
+- « rythme : sources », « export » — bloquants : les dix-sept lignes du rythme gratuit,
+  une fois chacune, sourcées, avec leurs seuls jetons ; ni achat ni Wenlu complet, ni
+  urgence ni compte à rebours, ni estimation, ni emoji ni dragon ; Tao ne culpabilise
+  jamais (brief §10) ; `rythme.json` dit les lignes de la source, et `index.json` le nomme.
+- « rappels : sources », « export » — bloquants : les dix-huit textes, une fois chacun,
+  sourcés, avec leurs seuls jetons, ni emoji ni dragon, et jamais un reproche, une série
+  menacée, un manque (« tu nous manques »), une perte, un achat, une urgence ou une
+  exclamation ; `rappels.json` dit les textes de la source, et `index.json` le nomme.
+- « écrans : sources », « export » — bloquants : chaque texte de « Lire le monde » et du
+  tableau des révisions, une fois, sourcé, avec exactement les jetons que l'app remplit ;
+  ni emoji, ni dragon, ni temps passé, ni classement, ni percentile ; sept jours de la
+  semaine ; `ecrans.json` dit les textes des sources, et `index.json` le nomme.
 - « anecdotes : sources », « forme », « charte », « étymologie », « export » —
   bloquants : un seul caractère par anecdote, jamais deux fois, titre, texte et source
   présents (« rédigé pour l'app »), appui, étiquette et statut connus ; un titre de 8 à

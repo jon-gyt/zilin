@@ -1,0 +1,52 @@
+# Les lignes du rythme gratuit (épic 7, stories 7.2 et 7.5 ; brief §6, §8 « La route
+# devant », §10) : la journée sans brique nouvelle, la prochaine brique au menu et sur la
+# route, la ligne de Clore le jour où le rythme gratuit commence.
+#
+# Source : rédigé pour l'app, sans API, dans une session Claude Code, d'après le brief et
+# les décisions du propriétaire du 26 septembre 2026 (trente jours au rythme complet, puis
+# deux briques par semaine, du lundi au dimanche, trois jours au moins entre deux ; la
+# révision de tout l'acquis reste ouverte ; rien d'acquis ne se perd) ; à relire. Une
+# ligne reprise du brief le dit.
+#
+# La limite se dit calmement (brief §10) : ni compte à rebours, ni relance, ni urgence ;
+# aucune ligne ne parle d'achat, de prix ni de Wenlu complet, qui se présente dans
+# Réglages ; Tao ne culpabilise jamais. `wenlu check` le vérifie.
+#
+# Format : TSV, `#` en commentaire, trois colonnes séparées par une tabulation : `cle`,
+# `fr`, `source`. Dix-sept clés, toutes exigées, chacune avec ses seuls jetons, que l'app
+# remplit (`wenlu check` refuse un jeton inconnu ou manquant) :
+#
+# - `menu_demain`, `menu_dans` : la ligne du menu, la journée faite, avant la brique de la
+#   prochaine session ; {n} les jours du calendrier jusqu'à elle, deux au moins ;
+# - `menu_revue`, `menu_revue_faite` : au-dessus du pinyin de la carte du jour, un jour
+#   sans brique nouvelle, avant la session puis la journée faite ;
+# - `menu_brique_revue` : sous la décomposition, ce qu'est le caractère montré ;
+# - `menu_reviser` : le bouton en contour, la journée faite, quand la session de plus n'est
+#   pas du rythme ;
+# - `tao_revoir` : Tao sur le chemin, avant la session ; {c} la brique revue ;
+# - `apprendre_revue` : la ligne du pas Apprendre, à côté de Tao, un jour sans brique ;
+# - `clore_revue` : le titre de Clore un jour sans brique ; {c} la brique revue ;
+# - `clore_rythme` : la ligne de Clore le jour où le rythme gratuit commence ;
+# - `route_pierre_demain`, `route_pierre` : sur la pierre suivante de la route ; {n} ;
+# - `route_carte_demain`, `route_carte` : la carte de l'étape suivante ; {n} ;
+# - `route_fin` : au bout du chemin gratuit, sur la dernière pierre ;
+# - `route_suite_lire`, `route_suite_hsk` : la suite, en une ligne, sans insistance, sur
+#   le parcours Lire (le seuil 405) et sur le parcours HSK (le HSK 2).
+cle	fr	source
+menu_demain	Demain	brief §6, mot pour mot
+menu_dans	Dans {n} j	brief §6, mot pour mot
+menu_revue	À revoir aujourd'hui	rédigé pour l'app, d'après le brief §6
+menu_revue_faite	Revue aujourd'hui	rédigé pour l'app, d'après le brief §6
+menu_brique_revue	une brique acquise, revue	rédigé pour l'app, d'après le brief §6
+menu_reviser	Réviser encore	brief §6, mot pour mot
+tao_revoir	{c}, on le revoit ?	rédigé pour l'app
+apprendre_revue	Une brique déjà à toi : on la revoit.	rédigé pour l'app, d'après le brief §6
+clore_revue	{c}, revu aujourd'hui.	rédigé pour l'app, d'après le brief §6
+clore_rythme	Dès aujourd'hui, deux briques nouvelles par semaine ; tout ton acquis reste ouvert à la révision.	rédigé pour l'app, d'après le brief §10
+route_pierre_demain	prochaine brique demain	rédigé pour l'app, d'après le brief §8
+route_pierre	prochaine brique dans {n} j	brief §8, mot pour mot
+route_carte_demain	Prochaine brique demain	rédigé pour l'app, d'après le brief §8
+route_carte	Prochaine brique dans {n} jours	brief §8, mot pour mot
+route_fin	fin du chemin gratuit	brief §8, mot pour mot
+route_suite_lire	La suite du chemin : le seuil 405.	rédigé pour l'app, d'après le brief §8
+route_suite_hsk	La suite du chemin : le HSK 2.	rédigé pour l'app, d'après le brief §8

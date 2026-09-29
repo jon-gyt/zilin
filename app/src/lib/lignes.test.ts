@@ -85,6 +85,13 @@ describe('les trois lignes du jour', () => {
     expect(l?.texte.jour).toBeLessThan(70);
   });
 
+  it("un jour sans brique nouvelle, relisent un jour passé, tout à l'encre, même quand la leçon a son texte", () => {
+    const l = lectureDuJour(mini, 'lire', 6, 0, true);
+    expect(l?.cinabre).toEqual([]);
+    expect(l?.texte.jour).toBeLessThan(6);
+    expect(lectureDuJour(mini, 'lire', 4, 0, true)).toBeNull();
+  });
+
   it("changent de texte passé d'une journée à l'autre, par le rang de la journée", () => {
     const jours = [0, 1, 2].map((r) => lectureDuJour(mini, 'lire', 70, r)?.texte.jour);
     expect(new Set(jours).size).toBe(3);

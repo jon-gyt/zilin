@@ -9,6 +9,8 @@ import { joursDuChemin, ouvertures } from './etageres';
 import { bibliotheque } from './lecture';
 import {
   BORNES_MAX,
+  boutDuChemin,
+  pierreSuivante,
   DERRIERE,
   DEVANT,
   bornesDevant,
@@ -353,6 +355,62 @@ describe('la charte de la route, dans les écrans', () => {
   it('au menu, « Ma route » ne paraît que la journée faite', () => {
     const menu = source('Menu.svelte');
     expect(menu).toContain('jourDeDemain(p)');
-    expect(menu).toMatch(/\{#if demain && jourDemain !== null\}/);
+    expect(menu).toMatch(/\{#if demain && jourDemain !== null && quandDemain !== ''\}/);
+  });
+
+  it('au menu, « Dans 3 j » vient de la règle et du pipeline, jamais écrit en dur', () => {
+    const menu = source('Menu.svelte');
+    expect(menu).toContain('prochaineBrique(p.droits, acces, p.day, jourParcours(p))');
+    expect(menu).toContain('quandMenu(textes, k.dans)');
+    expect(menu).not.toMatch(/>Demain : /);
+  });
+
+  it('au rythme gratuit, la route dit la prochaine brique et le bout du chemin gratuit par le pipeline', () => {
+    expect(ecran).toContain('quandPierre(textes, suivante.dans)');
+    expect(ecran).toContain('textes.route_fin');
+    expect(ecran).toContain('suiteDuChemin(textes, p.parcours)');
+  });
+});
+
+describe('au rythme gratuit (story 7.5)', () => {
+  /** La journée préparée au rythme gratuit, avec ou sans brique nouvelle. */
+  function gratuit(p: Progress, revue: { c: string; lecon: number } | null = null): Progress {
+    return {
+      ...p,
+      journee: {
+        jour: p.day,
+        rythme: 'gratuit',
+        sansBrique: revue === null ? null : { raison: 'rythme', ...revue }
+      }
+    };
+  }
+
+  it('un jour du chemin n’est plus un jour : la suite se dit en étapes', () => {
+    expect(positionDuJour(gratuit(au(12, false)))).toEqual({ jour: 12, faite: false, sur: false });
+    expect(positionDuJour(gratuit(au(12, true)))).toEqual({ jour: 12, faite: true, sur: false });
+    expect(dansCourt(3, positionDuJour(gratuit(au(12, false))).sur)).toBe('dans 3 étapes');
+  });
+
+  it('un jour sans brique nouvelle, la pierre du jour est la dernière étape faite', () => {
+    const p = gratuit(au(12, false), { c: 'b4', lecon: 4 });
+    expect(positionDuJour(p)).toEqual({ jour: 11, faite: true, sur: false });
+    const r = route(ETAPES, positionDuJour(p));
+    expect(r.jour?.jour).toBe(11);
+    expect(r.pierres.find((x) => x.ecart === 1)?.jour).toBe(12);
+  });
+
+  it('seule la pierre suivante porte un compte en jours du calendrier, celui de la règle', () => {
+    const r = route(ETAPES, positionDuJour(gratuit(au(12, true))));
+    expect(pierreSuivante(r, { jour: '2026-10-16', dans: 3 }, true)).toEqual({ jour: 13, dans: 3 });
+    /* Au rythme complet, rien : la pierre suivante est demain. */
+    expect(pierreSuivante(r, { jour: '2026-10-14', dans: 1 }, false)).toBeNull();
+    expect(pierreSuivante(r, null, true)).toBeNull();
+  });
+
+  it('au bout du chemin, « fin du chemin gratuit » sans Wenlu complet', () => {
+    const fin = route(ETAPES, positionDuJour(au(28, true)));
+    expect(boutDuChemin(fin, false)).toBe('gratuit');
+    expect(boutDuChemin(fin, true)).toBe('parcours');
+    expect(boutDuChemin(route(ETAPES, positionDuJour(au(12, true))), false)).toBeNull();
   });
 });

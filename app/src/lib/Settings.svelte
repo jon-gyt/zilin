@@ -8,12 +8,16 @@
    * Ni compte, ni réseau : le fichier est écrit et relu par le navigateur, la
    * progression reste dans IndexedDB.
    */
-  import { exportProgress, importProgress } from './db';
+  import { importProgress, today } from './db';
+  import { Capacitor } from '@capacitor/core';
+  import { inviterEcranAccueil, ligneDernierExport, noterExport } from './garde';
   import ChoixHeros from './ChoixHeros.svelte';
   import Heros from './Heros.svelte';
   import { beteDe, herosOnce, rangDe, sansArticle, total, type BeteId, type HerosDonnees } from './heros';
   import { stade } from './tao';
   import { haptiqueDisponible } from './haptique';
+  import { autorisationRefusee, demanderAutorisation, instant, notificationsDisponibles } from './natif';
+  import { HEURE_DEFAUT, SANS_TEXTES, heureValide, rappelsOnce, reglerRappel, setRappel, type TextesRappels } from './rappels';
   import {
     choisirHeros,
     REGLAGES_RETENTION,
@@ -23,6 +27,7 @@
     setBudget,
     setRetention,
     setTrace,
+    toJSON,
     type Budget,
     type Progress
   } from './session';
@@ -99,9 +104,66 @@
     onprogression(setHaptique(p, !p.haptique));
   }
 
-  /** Export : un fichier JSON, téléchargé depuis le navigateur. */
+  /*
+   * Le rappel quotidien : dans l'app iOS seulement, où la notification existe. Ses textes
+   * viennent de `rappels.json` ; sans eux, la ligne ne s'affiche pas.
+   */
+  const rappelPossible = notificationsDisponibles();
+  let textesRappels: TextesRappels = $state(SANS_TEXTES);
+  /** L'iPhone a coupé les notifications de Wenlu : on dit où les rendre, sans insister. */
+  let refusee = $state(false);
+
+  $effect(() => {
+    let vivant = true;
+    void rappelsOnce()
+      .then((t) => {
+        if (vivant) textesRappels = t;
+      })
+      .catch(() => undefined);
+    if (rappelPossible) {
+      void autorisationRefusee().then((r) => {
+        if (vivant) refusee = r;
+      });
+    }
+    return () => {
+      vivant = false;
+    };
+  });
+
+  /** Allumer demande l'accord de l'iPhone ; refusé, l'interrupteur reste éteint. */
+  async function basculerRappel(): Promise<void> {
+    const heure = p.rappel.heure ?? HEURE_DEFAUT;
+    const actif = !p.rappel.actif && (await demanderAutorisation());
+    refusee = !p.rappel.actif && !actif;
+    const { jour, minute } = instant();
+    onprogression(setRappel(p, reglerRappel(p.rappel, { actif, heure }, jour, minute)));
+  }
+
+  function changerHeure(e: Event): void {
+    const heure = (e.target as HTMLInputElement).value;
+    if (!heureValide(heure)) return;
+    const { jour, minute } = instant();
+    onprogression(setRappel(p, reglerRappel(p.rappel, { actif: p.rappel.actif, heure }, jour, minute)));
+  }
+
+  /*
+   * Garder sa progression (`garde.ts`) : sur le web iOS, hors écran d'accueil, une ligne
+   * discrète dit comment l'y ajouter, sans fenêtre ni relance ; partout, la date du
+   * dernier export.
+   */
+  const nav = navigator as Navigator & { standalone?: boolean };
+  const inviter = inviterEcranAccueil(
+    { userAgent: nav.userAgent, maxTouchPoints: nav.maxTouchPoints, standalone: nav.standalone },
+    typeof matchMedia === 'function' && matchMedia('(display-mode: standalone)').matches,
+    Capacitor.isNativePlatform()
+  );
+  const dernierExport = $derived(ligneDernierExport(p.dernierExport, today(), textesRappels));
+
+  /** Export : un fichier JSON, téléchargé depuis le navigateur. Le jour de l'export est noté. */
   async function exporter(): Promise<void> {
-    const texte = await exportProgress(p.day);
+    const n = noterExport(p, today());
+    onprogression(n);
+    const texte = toJSON(n);
     const url = URL.createObjectURL(new Blob([texte], { type: 'application/json' }));
     const a = document.createElement('a');
     a.href = url;
@@ -225,12 +287,43 @@
         ></button>
       </div>
     {/if}
+    {#if rappelPossible && textesRappels.reglage !== ''}
+      <div class="tog">
+        <div>
+          <div>{textesRappels.reglage}</div>
+          <div class="k">{textesRappels.reglage_detail}</div>
+        </div>
+        <button
+          class="sw"
+          class:on={p.rappel.actif}
+          role="switch"
+          aria-checked={p.rappel.actif}
+          aria-label={textesRappels.reglage}
+          onclick={basculerRappel}
+        ></button>
+      </div>
+      {#if p.rappel.actif}
+        <div class="tog">
+          <label for="heure-rappel">{textesRappels.reglage_heure}</label>
+          <input id="heure-rappel" class="heure" type="time" value={p.rappel.heure ?? HEURE_DEFAUT} onchange={changerHeure} />
+        </div>
+      {:else if refusee}
+        <div class="k refus">{textesRappels.reglage_refuse}</div>
+      {/if}
+    {/if}
   </div>
 
   <div class="card">
     <div class="k" style="margin-bottom:10px">
       Ta progression reste sur cet appareil. Pas de compte, aucune requête réseau.
+      {#if dernierExport !== ''}<span class="date">{dernierExport}.</span>{/if}
     </div>
+    {#if inviter && textesRappels.accueil !== ''}
+      <div class="accueil">
+        <div>{textesRappels.accueil}</div>
+        <div class="k">{textesRappels.accueil_comment}</div>
+      </div>
+    {/if}
     <div class="acts">
       <button class="btn ghost" onclick={exporter}>Exporter en JSON</button>
       <button class="btn ghost" onclick={() => fichier?.click()}>Importer un fichier</button>
@@ -249,6 +342,30 @@
 </main>
 
 <style>
+  .heure {
+    font: inherit;
+    color: var(--ink);
+    background: var(--paper);
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    padding: 6px 10px;
+    min-height: 40px;
+  }
+  .refus {
+    margin-top: 6px;
+  }
+  .date {
+    display: block;
+    margin-top: 4px;
+  }
+  /* Une ligne discrète, pas une alerte : ni fenêtre, ni couleur, ni relance. */
+  .accueil {
+    margin: 0 0 12px;
+    padding-top: 10px;
+    border-top: 1px solid var(--line);
+    font-size: 15px;
+    color: var(--ink2);
+  }
   .perso {
     display: flex;
     align-items: center;

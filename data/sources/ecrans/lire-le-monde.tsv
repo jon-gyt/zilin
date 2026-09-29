@@ -1,0 +1,43 @@
+# Les textes de « Lire le monde », le second onglet de Chercher : on colle ou tape un texte
+# chinois, et l'app dit ce qu'on en lit déjà (rapport comparatif du 28 septembre 2026, §2.5).
+#
+# Source : rédigé pour l'app, sans API, dans une session Claude Code ; à relire. Un constat,
+# jamais un jugement : ce qu'on lit, jamais ce qui manque. Ni emoji, ni dragon, ni temps
+# passé, ni classement : `wenlu check` le vérifie.
+#
+# Format : TSV, `#` en commentaire, trois colonnes séparées par une tabulation : `cle`,
+# `fr`, `source`. Chaque clé est exigée une fois, avec exactement ses jetons entre
+# accolades, que l'app remplit (`ecrans.py`, `ECRANS`) :
+#
+# - `onglets` : le nom de la paire d'onglets, pour un lecteur d'écran ;
+# - `onglet-caractere`, `onglet-texte` : les deux onglets de Chercher ;
+# - `champ` : le nom du champ de texte, pour un lecteur d'écran ;
+# - `invite` : le texte du champ vide ;
+# - `aide-iphone` : la photo, sans code : le Texte en direct d'iOS copie le texte ;
+# - `chargement` : le temps de lire l'export ;
+# - `compte`, `compte-un` : le constat, `{lus}` et `{total}` en sinogrammes (la
+#   ponctuation et les lettres ne comptent pas) ; `compte-un` quand `{lus}` vaut 0 ou 1 ;
+# - `sans-chinois` : un texte sans aucun sinogramme ;
+# - `legende` : ce que disent le jade et la ligne sous un caractère ;
+# - `dans`, `demain` : sous un caractère du chemin, en jours du chemin ;
+# - `mots` : le titre des mots de deux caractères lus ;
+# - `ouvrir` : le nom d'un caractère lu, pour un lecteur d'écran, `{nom}` étant
+#   « 住, zhù, habiter » ;
+# - `effacer` : le bouton qui vide le champ.
+cle	fr	source
+onglets	Chercher un caractère ou lire un texte	rédigé pour l'app
+onglet-caractere	Un caractère	rédigé pour l'app
+onglet-texte	Un texte	rédigé pour l'app
+champ	Le texte à lire	rédigé pour l'app
+invite	Colle ou tape un texte chinois : une enseigne, un menu, un message.	rédigé pour l'app
+aide-iphone	Sur iPhone, le Texte en direct copie le texte d'une photo : touche le texte dans Photos, choisis Copier, puis colle-le ici.	rédigé pour l'app
+chargement	Un instant.	rédigé pour l'app
+compte	Tu lis {lus} caractères sur {total}.	rédigé pour l'app
+compte-un	Tu lis {lus} caractère sur {total}.	rédigé pour l'app
+sans-chinois	Aucun caractère chinois ici : la ponctuation et les lettres ne comptent pas.	rédigé pour l'app
+legende	En jade, ce que tu lis : touche-le pour ouvrir sa fiche. Dessous, quand un caractère arrive sur ton chemin.	rédigé pour l'app
+dans	dans {n} j	rédigé pour l'app
+demain	demain	rédigé pour l'app
+mots	Les mots que tu lis	rédigé pour l'app
+ouvrir	{nom}, lu. Ouvrir sa fiche.	rédigé pour l'app
+effacer	Effacer	rédigé pour l'app

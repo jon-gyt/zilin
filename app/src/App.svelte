@@ -24,10 +24,11 @@
   import Settings from './lib/Settings.svelte';
   import Rewards from './lib/Rewards.svelte';
   import Route from './lib/Route.svelte';
+  import Revisions from './lib/Revisions.svelte';
   import Tree from './lib/Tree.svelte';
   import Use from './lib/Use.svelte';
   import Warm from './lib/Warm.svelte';
-  import { apresSplash, suiteDepart } from './lib/premiere';
+  import { apresSplash, departApres, suiteDepart } from './lib/premiere';
   import {
     anecdoteFaite,
     anecdoteRelue,
@@ -42,7 +43,16 @@
   import { planifier, type JeuId } from './lib/jeux';
   import { noterMotDevine } from './lib/eclair';
   import type { Choix } from './lib/utiliser';
-  import { reglerApercu, toutesLesFamilles, type Noeud } from './lib/content';
+  import {
+    briquesAcquises,
+    contenu,
+    nomParcours,
+    reglerApercu,
+    toutesLesFamilles,
+    type Index,
+    type Noeud
+  } from './lib/content';
+  import { rythmeOnce, SANS_RYTHME, type TextesRythme } from './lib/rythme';
   import FeteDecor from './lib/FeteDecor.svelte';
   import { fetesOnce, saisonsOnce, type Fetes, type Saisons } from './lib/content';
   import { poserFete } from './lib/fetes';
@@ -72,7 +82,6 @@
     openDay,
     planifierCarte,
     setDepart,
-    departNext,
     finDepart,
     choisirHeros,
     annoncerRang,
@@ -99,6 +108,8 @@
     conclureDevinette,
     poserDevinette,
     noterRecette,
+    jourParcours,
+    preparerJournee,
     type Budget,
     type IssueDevinette,
     type LearnView,
@@ -106,8 +117,19 @@
     type Progress,
     type Revision
   } from './lib/session';
-  import { loadProgress, saveProgress, today } from './lib/db';
+  import { accesAppareil, loadProgress, saveProgress, today } from './lib/db';
   import { reglerHaptique } from './lib/haptique';
+  import {
+    avisDisponible,
+    demanderAutorisation,
+    demanderAvisNatif,
+    instant,
+    notificationsDisponibles,
+    reprogrammerRappels
+  } from './lib/natif';
+  import { momentDeClore, momentDeConte, noterAvisDemande, peutDemanderAvis, type Moment } from './lib/avis';
+  import { etatMenu } from './lib/parcours';
+  import { reglerRappel, setRappel } from './lib/rappels';
 
   /**
    * Un écran à la fois, pas de routeur. `menu` est la maison ; `rev` est le pas
@@ -129,12 +151,33 @@
     | 'foret'
     | 'rewards'
     | 'route'
+    | 'revisions'
     | 'reglages'
     | 'chercher'
     | 'personnage'
     | 'fangbang';
 
   let p: Progress = $state(emptyProgress(today()));
+
+  /*
+   * Les droits (`droits.ts`) : le web ou l'app iOS, et l'achat (StoreKit, story 6.2). La
+   * journée se prépare à son ouverture (`preparerJournee`) : son rythme et, sans brique
+   * nouvelle, la brique acquise la plus fragile, qu'Apprendre revoit. Les briques acquises
+   * se lisent dans l'index de l'export ; les lignes du rythme dans `rythme.json`.
+   */
+  const acces = accesAppareil();
+  let indexDonnees: Index | null = null;
+  let textesRythme: TextesRythme = $state(SANS_RYTHME);
+
+  /** Prépare la journée de la session, une fois : sans l'index, elle attend. */
+  function preparer(): void {
+    const i = indexDonnees;
+    if (i === null) return;
+    const n = preparerJournee(p, acces, briquesAcquises(i, nomParcours(i, p.parcours), jourParcours(p)));
+    if (n === p) return;
+    p = n;
+    enregistrer();
+  }
 
   /*
    * Les fêtes (fetes.json) et les termes solaires (saisons.json) : la journée de la session
@@ -189,11 +232,16 @@
   /** Chercher : la saisie, gardée pour le retour depuis l'arbre, et la famille ouverte. */
   let requete = $state('');
   let trouvee: { fam: Noeud; c: string } | null = $state(null);
+  /** « Lire le monde », dans Chercher : le mode choisi et le texte collé, gardés au retour de l’arbre. */
+  let modeChercher: 'caractere' | 'texte' = $state('caractere');
+  let texteLibre = $state('');
 
   /** La loupe du menu : une recherche neuve. */
   function ouvrirChercher(): void {
     requete = '';
     trouvee = null;
+    modeChercher = 'caractere';
+    texteLibre = '';
     ecran = 'chercher';
   }
 
@@ -221,11 +269,34 @@
     ecran = 'fangbang';
   }
 
-  /** Le 放榜 vu : le rang est noté, on arrive au menu. */
+  /** Le 放榜 vu : le rang est noté, on arrive au menu, où la demande de note peut venir. */
   function fangbangVu(): void {
     p = annoncerRang(p, rangPromu);
+    moment = 'fangbang';
     enregistrer();
     allerAuMenu();
+  }
+
+  /*
+   * La demande de note (`avis.ts`), dans l'app iOS seulement : un moment de fierté (un
+   * 放榜, un premier conte lu, un palier de la série) attend le retour au menu. Jamais en
+   * session, jamais dans les sept premiers jours, au plus une fois tous les cent vingt
+   * jours ; la fenêtre est celle du système.
+   */
+  let moment: Moment | null = null;
+
+  function demanderAvisAuMenu(): void {
+    /* Un 放榜 à l'écran : le moment attend son retour au menu. */
+    if (ecran !== 'menu') return;
+    const m = moment;
+    moment = null;
+    if (m === null || !avisDisponible()) return;
+    const enSession = etatMenu(p) === 'entamee' || etatMenu(p) === 'plus';
+    const jour = today();
+    if (!peutDemanderAvis(p, jour, enSession ? 'session' : 'menu', m)) return;
+    p = noterAvisDemande(p, jour);
+    enregistrer();
+    demanderAvisNatif();
   }
 
   /** Le rang que les points donnent, celui où un personnage choisi commence. */
@@ -249,6 +320,7 @@
     reglerHaptique(nouvelle.haptique);
     p = nouvelle;
     majDue();
+    preparer();
     enregistrer();
   }
 
@@ -260,8 +332,17 @@
    */
   void toutesLesFamilles().catch(() => undefined);
 
-  /** Au démarrage : on relit la progression et on ouvre la journée. */
-  void loadProgress().then((stored) => {
+  /**
+   * Au démarrage : on relit la progression et on ouvre la journée. L'index et les lignes du
+   * rythme se lisent avant : la journée se prépare avant que le menu ne s'ouvre.
+   */
+  void Promise.all([
+    loadProgress(),
+    contenu().catch(() => null),
+    rythmeOnce().catch(() => SANS_RYTHME)
+  ]).then(([stored, i, t]) => {
+    indexDonnees = i;
+    textesRythme = t;
     const jour = today();
     /* La pile due est recomptée sur les cartes : c'est elle qui ouvre et ferme le rattrapage. */
     const ouvert = setDue(openDay(stored, jour), nombreDues(stored, new Date()), jour);
@@ -269,7 +350,10 @@
     reglerHaptique(ouvert.haptique);
     p = ouvert;
     if (ouvert !== stored) void saveProgress(ouvert);
+    /* L'ouverture reprogramme les rappels des sept jours qui viennent (app iOS). */
+    reprogrammerRappels(ouvert);
     chargee = true;
+    preparer();
     aiguiller();
     /* Les lettres de Que relues : celle de la semaine arrive dès qu'elles sont lues. */
     void lettresRelues()
@@ -313,9 +397,11 @@
     aiguiller();
   }
 
-  /** Sauvegarde à chaque tap. */
+  /** Sauvegarde à chaque tap ; dans l'app iOS, les rappels des sept jours suivent. */
   function enregistrer(): void {
-    void saveProgress($state.snapshot(p));
+    const s = $state.snapshot(p);
+    void saveProgress(s);
+    reprogrammerRappels(s);
   }
 
   /*
@@ -338,6 +424,7 @@
     if (ouvert === p) return;
     p = setDue(ouvert, nombreDues(ouvert, new Date()), jour);
     enregistrer();
+    preparer();
     lettreDuJour();
   }
 
@@ -350,12 +437,16 @@
     basculer();
     lettreDuJour();
     annoncerUnRang();
+    /* Un 放榜 passe d'abord : la demande attend qu'on soit vraiment au menu. */
+    demanderAvisAuMenu();
   }
 
   /* Au retour au premier plan, sur le menu seulement : un pas ouvert ne bouge pas. */
   $effect(() => {
     const auPremierPlan = (): void => {
       if (document.visibilityState === 'visible' && ecran === 'menu') basculer();
+      /* Revenir au premier plan, c'est ouvrir l'app : les rappels repartent pour sept jours. */
+      if (document.visibilityState === 'visible' && chargee) reprogrammerRappels($state.snapshot(p));
     };
     document.addEventListener('visibilitychange', auPremierPlan);
     return () => document.removeEventListener('visibilitychange', auPremierPlan);
@@ -459,7 +550,8 @@
 
   /** Un écran de plus dans la première session. La reprise se fera à celui-ci. */
   function departSuivant(): void {
-    const vue = departNext(p.premiereVue);
+    /* L'heure du rappel ne se pose que dans l'app iOS : sur le web, elle est sautée. */
+    const vue = departApres(p.premiereVue, notificationsDisponibles());
     if (vue) p = setDepart(p, vue);
     enregistrer();
   }
@@ -474,6 +566,18 @@
   function departRythme(budget: Budget): void {
     p = setBudget(p, budget);
     enregistrer();
+  }
+
+  /**
+   * Troisième question, dans l'app iOS : l'heure du rappel. L'accord de l'iPhone se
+   * demande ici, une fois l'heure choisie, jamais au lancement ; refusé, le rappel reste
+   * éteint et l'heure gardée, pour Réglages.
+   */
+  async function departHeure(heure: string, rappeler: boolean): Promise<void> {
+    const accord = rappeler ? await demanderAutorisation() : false;
+    const { jour, minute } = instant();
+    p = setRappel(p, reglerRappel(p.rappel, { actif: accord, heure }, jour, minute));
+    departSuivant();
   }
 
   /** Le dernier écran : le personnage, sa bête et son nom. La première session se clôt ensuite. */
@@ -492,6 +596,7 @@
     void suiteDepart(p.parcours).then(({ appris, jour }) => {
       p = finDepart(p, p.day, new Date(), appris, jour);
       majDue();
+      preparer();
       enregistrer();
       allerAuMenu();
     });
@@ -721,7 +826,9 @@
    * plantée une fois par journée ; une session de plus n'en plante pas de seconde.
    */
   function clore(obtenus: string[] = []): void {
+    const avant = p;
     p = noterTrophees(cloreSession(p, p.day), obtenus, p.day);
+    moment = momentDeClore(avant, p, p.day) ?? moment;
     enregistrer();
     allerAuMenu();
   }
@@ -800,7 +907,9 @@
    * et Tao note un conte lu, qu'elle lit par-dessus l'épaule.
    */
   function conteLu(conte: string, seuil: Niveau): void {
+    const avant = p;
     p = noterActivite(noterConteLu(p, conte, seuil), p.day, 'conte');
+    moment = momentDeConte(avant, p) ?? moment;
     enregistrer();
   }
 
@@ -847,6 +956,7 @@
     onsuivant={departSuivant}
     onobjectif={departObjectif}
     onrythme={departRythme}
+    onheure={departHeure}
     onheros={departHeros}
     onfini={departFini}
     onquitter={quitter}
@@ -877,6 +987,7 @@
 {:else if ecran === 'learn'}
   <Learn
     {p}
+    textes={textesRythme}
     onsuivant={apprendreSuivant}
     onvue={apprendreVue}
     ontrace={reglerTrace}
@@ -903,7 +1014,7 @@
     onquitter={quitter}
   />
 {:else if ecran === 'close'}
-  <Close {p} onterminer={clore} onquitter={quitter} />
+  <Close {p} textes={textesRythme} onterminer={clore} onquitter={quitter} />
 {:else if ecran === 'game'}
   <Game
     {p}
@@ -937,11 +1048,14 @@
       onfamille={(f) => (famille = f)}
       onrecompenses={() => (ecran = 'rewards')}
       onroute={() => ouvrirRoute('foret')}
+      onrevisions={() => (ecran = 'revisions')}
       onretour={allerAuMenu}
     />
   {/if}
 {:else if ecran === 'route'}
-  <Route {p} onretour={fermerRoute} />
+  <Route {p} {acces} textes={textesRythme} onretour={fermerRoute} />
+{:else if ecran === 'revisions'}
+  <Revisions {p} onretour={() => (ecran = 'foret')} />
 {:else if ecran === 'rewards'}
   <Rewards {p} onretour={() => (ecran = 'foret')} onacquis={tropheesObtenus} />
 {:else if ecran === 'chercher'}
@@ -949,7 +1063,7 @@
   {#if trouvee}
     <Tree fam={trouvee.fam} choix={trouvee.c} retour="Chercher" onretour={() => (trouvee = null)} onlecon={quitter} />
   {:else}
-    <Chercher {p} bind:q={requete} onfamille={(fam, c) => (trouvee = { fam, c })} onretour={allerAuMenu} />
+    <Chercher {p} bind:q={requete} bind:mode={modeChercher} bind:texte={texteLibre} onfamille={(fam, c) => (trouvee = { fam, c })} onretour={allerAuMenu} />
   {/if}
 {:else if ecran === 'personnage'}
   <Personnage {p} donnees={herosDonnees} onretour={allerAuMenu} onchoisi={personnageChoisi} />
@@ -958,5 +1072,5 @@
 {:else if ecran === 'reglages'}
   <Settings {p} onprogression={remplacer} onretour={allerAuMenu} />
 {:else}
-  <Menu {p} fete={feteJour} {fetes} terme={laJournee.terme} {saisons} ondemarrer={boutonMenu} oncase={caseMenu} onanecdote={() => relireAnecdote('menu')} onchercher={ouvrirChercher} onreglages={() => (ecran = 'reglages')} onpersonnage={() => (ecran = 'personnage')} onroute={() => ouvrirRoute('menu')} />
+  <Menu {p} {acces} textes={textesRythme} fete={feteJour} {fetes} terme={laJournee.terme} {saisons} ondemarrer={boutonMenu} oncase={caseMenu} onanecdote={() => relireAnecdote('menu')} onchercher={ouvrirChercher} onreglages={() => (ecran = 'reglages')} onpersonnage={() => (ecran = 'personnage')} onroute={() => ouvrirRoute('menu')} />
 {/if}

@@ -784,7 +784,7 @@
               aria-label={c}
               onclick={() => deviner(c)}
             >
-              <Glyph char={c} size={resultat !== null ? 38 : 52} write={false} />
+              <Glyph seul char={c} size={resultat !== null ? 38 : 52} write={false} />
             </button>
           {/each}
         </div>
@@ -792,12 +792,12 @@
           <!-- La correction par les briques : la réponse, chaque brique et son nom, le sens. -->
           <div class="correction">
             <div class="ligne decompose">
-              <span class="tuile faite"><Glyph char={riddle.c} size={48} write={false} /></span>
+              <span class="tuile faite"><Glyph seul char={riddle.c} size={48} write={false} /></span>
               <span class="op">=</span>
               {#each riddle.briques as b, rang (b + rang)}
                 {#if rang > 0}<span class="op">+</span>{/if}
                 <span class="brique">
-                  <Glyph char={b} size={32} write={false} color="var(--ocre)" />
+                  <Glyph seul char={b} size={32} write={false} color="var(--ocre)" />
                   {#if nomDeBrique(b, corpus) !== ''}<small>{nomDeBrique(b, corpus)}</small>{/if}
                 </span>
               {/each}
@@ -814,12 +814,12 @@
           {#if l !== null}
             <div class="correction leurre-pris">
               <div class="ligne decompose">
-                <span class="tuile"><Glyph char={l.c} size={40} write={false} /></span>
+                <span class="tuile"><Glyph seul char={l.c} size={40} write={false} /></span>
                 <span class="op">=</span>
                 {#each l.briques as x, rang (x.b + rang)}
                   {#if rang > 0}<span class="op">+</span>{/if}
                   <span class="brique">
-                    <Glyph char={x.b} size={28} write={false} color="var(--ocre)" />
+                    <Glyph seul char={x.b} size={28} write={false} color="var(--ocre)" />
                     {#if x.nom !== ''}<small>{x.nom}</small>{/if}
                   </span>
                 {/each}
@@ -853,15 +853,15 @@
             <!-- La réponse : les briques dans l'ordre d'écriture, et ce qu'elles font. -->
             {#each t.reponse as b, rang (b + rang)}
               {#if rang > 0}<span class="op">+</span>{/if}
-              <span class="tuile"><Glyph char={b} size={48} write={false} color="var(--ocre)" /></span>
+              <span class="tuile"><Glyph seul char={b} size={48} write={false} color="var(--ocre)" /></span>
             {/each}
             <span class="op">=</span>
-            <span class="tuile faite"><Glyph char={t.c} size={48} write={false} /></span>
+            <span class="tuile faite"><Glyph seul char={t.c} size={48} write={false} /></span>
           {:else}
             {#each choisies as b, rang (b + rang)}
               {#if rang > 0}<span class="op">+</span>{/if}
               <button class="tuile prise" aria-label="Reposer {b}" onclick={() => reposer(rang)}>
-                <Glyph char={b} size={48} write={false} color="var(--ocre)" />
+                <Glyph seul char={b} size={48} write={false} color="var(--ocre)" />
               </button>
             {/each}
             {#each { length: Math.max(0, t.reponse.length - choisies.length) } as _, k (k)}
@@ -881,7 +881,7 @@
               aria-label={b}
               onclick={() => prendre(k)}
             >
-              <Glyph char={b} size={44} write={false} />
+              <Glyph seul char={b} size={44} write={false} />
             </button>
           {/each}
         </div>
@@ -893,6 +893,7 @@
             {#if k > 0}<span class="op" aria-hidden="true">→</span>{/if}
             <span class="maillon" class:dernier={k === suite.length - 1}>
               <Glyph
+                seul
                 char={c}
                 size={k === suite.length - 1 ? 72 : 40}
                 write={false}
@@ -902,7 +903,7 @@
           {/each}
           {#if resultat !== null}
             <span class="op" aria-hidden="true">→</span>
-            <span class="maillon faite"><Glyph char={t.c} size={56} write={false} indigo={dansLeMaillon(t.c)} /></span>
+            <span class="maillon faite"><Glyph seul char={t.c} size={56} write={false} indigo={dansLeMaillon(t.c)} /></span>
           {/if}
         </div>
         {#if resultat !== null && contenu !== null}
@@ -920,7 +921,7 @@
               aria-label={c}
               onclick={() => valider([c])}
             >
-              <Glyph char={c} size={56} write={false} />
+              <Glyph seul char={c} size={56} write={false} />
             </button>
           {/each}
         </div>
@@ -940,7 +941,7 @@
               aria-label={c}
               onclick={() => toucher(k)}
             >
-              <Glyph char={c} size={40} write={false} />
+              <Glyph seul char={c} size={40} write={false} />
             </button>
             <!-- La ponctuation du message se lit, elle ne se touche pas. -->
             {#if t.ponctuation?.[k]}<span class="ponct" lang="zh-Hans" aria-hidden="true">{t.ponctuation[k]}</span>{/if}
@@ -956,13 +957,13 @@
               {@const gx = glose(x.c, corpus)}
               <div class="ligne">
                 <span class="tuile" class:intrus={k === 0} class:faite={k === 1}>
-                  <Glyph char={x.c} size={48} write={false} />
+                  <Glyph seul char={x.c} size={48} write={false} />
                 </span>
                 {#if x.briques.length > 1}
                   <span class="op">=</span>
                   {#each x.briques as b, rang (b + rang)}
                     {#if rang > 0}<span class="op">+</span>{/if}
-                    <Glyph char={b} size={32} write={false} color="var(--ocre)" />
+                    <Glyph seul char={b} size={32} write={false} color="var(--ocre)" />
                   {/each}
                 {/if}
                 <span class="gl">
@@ -987,7 +988,7 @@
               onclick={() => valider([c])}
             >
               <span class="flash" class:cache>
-                <Glyph char={c} size={72} write={false} indigo={resultat !== null ? (distinguent[c] ?? []) : []} />
+                <Glyph seul char={c} size={72} write={false} indigo={resultat !== null ? (distinguent[c] ?? []) : []} />
               </span>
               {#if resultat !== null && (gc.pinyin !== '' || gc.fr !== '')}
                 <small class="jumeau-gl"><span class="py">{gc.pinyin}</span> {gc.fr}</small>

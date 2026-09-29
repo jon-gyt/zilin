@@ -85,16 +85,26 @@ export function tient(budget: Budget, secondes: number): boolean {
  * Le jeu du pas Utiliser pour la journée de rang `rang`, ou `null`. Le message passe
  * avant l'éclair son jour ; sans dialogue qui tienne, l'éclair prend la place si c'est
  * aussi un jour pair. Le mot de l'éclair est tiré d'après la graine (la journée).
+ *
+ * `complet` : le message WeChat est de Wenlu complet (brief §9 et §10, story 7.2). Sans
+ * lui, le jour du message prend l'éclair s'il y a un mot à deviner, sinon rien.
  */
-export function choisirJeu(rang: number, budget: Budget, offre: Offre, graine: string): Choix | null {
-  if (jourDeMessage(rang)) {
+export function choisirJeu(
+  rang: number,
+  budget: Budget,
+  offre: Offre,
+  graine: string,
+  complet = true
+): Choix | null {
+  if (complet && jourDeMessage(rang)) {
     const lus = new Set(offre.lus);
     const d = offre.dialogues.find(
       (x) => !lus.has(x.id) && x.echanges > 0 && tient(budget, secondesDuPas('message', x.echanges))
     );
     if (d !== undefined) return { jeu: 'message', id: d.id };
   }
-  if (jourDEclair(rang) && offre.mots.length > 0 && tient(budget, secondesDuPas('eclair'))) {
+  const eclair = jourDEclair(rang) || (!complet && jourDeMessage(rang));
+  if (eclair && offre.mots.length > 0 && tient(budget, secondesDuPas('eclair'))) {
     return { jeu: 'eclair', id: melange(offre.mots, `${graine}/utiliser/eclair`)[0] };
   }
   return null;

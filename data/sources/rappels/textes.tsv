@@ -1,0 +1,49 @@
+# Les textes du rappel quotidien et de la garde de la progression (brief §8,
+# « Notification : une par jour, à l'heure choisie, avec le début de l'anecdote » ;
+# docs/backlog.md, 6.5 et 6.6).
+#
+# Source : rédigé pour l'app, sans API, dans une session Claude Code, le 28 septembre 2026,
+# d'après le rapport comparatif du même jour (§2.1 et §2.3) ; à relire.
+#
+# Le rappel donne quelque chose à lire, jamais un reproche : ni série menacée, ni « tu nous
+# manques », ni compte de jours, ni achat, ni point d'exclamation, ni emoji, ni dragon.
+# `wenlu check` le vérifie sur chaque texte de ce fichier. Le corps d'une notification est
+# le plus souvent le début de l'anecdote du jour, tiré de `anecdotes.json` par l'app ; les
+# seuls textes propres aux notifications sont ceux de la brique.
+#
+# Format : TSV, `#` en commentaire, trois colonnes séparées par une tabulation : `cle`,
+# `fr`, `source`. Toutes les clés sont exigées, une fois chacune. Jetons permis :
+# `{c}` et `{sens}` dans `notif_brique` (la brique et son premier sens), `{date}` dans
+# `export_date` (« 12 septembre ») ; aucun ailleurs.
+#
+# - `notif_brique_titre`, `notif_brique` : la notification d'un jour dont l'anecdote a déjà
+#   été lue ou annoncée : la brique de la prochaine session (« 子 · enfant ») ;
+# - `question`, `question_guide`, `question_accord` : la question de l'heure, à la première
+#   session, après l'objectif et le rythme, dans l'app iOS seulement ;
+# - `matin`, `midi`, `soir` : les trois heures proposées (8 h, 12 h 30, 19 h) ;
+# - `accepter`, `refuser` : le bouton qui demande l'accord de l'iPhone, et celui qui s'en
+#   passe ;
+# - `reglage`, `reglage_detail`, `reglage_heure`, `reglage_refuse` : la ligne de Réglages,
+#   son heure, et ce qu'on dit quand l'iPhone a coupé les notifications de Wenlu ;
+# - `accueil`, `accueil_comment` : sur le web iOS, hors écran d'accueil, la ligne discrète
+#   de Réglages et comment faire ;
+# - `export_date`, `export_jamais` : la date du dernier export, dans Réglages.
+cle	fr	source
+notif_brique_titre	La prochaine brique	rédigé pour l'app
+notif_brique	{c} · {sens}, la brique de ta prochaine session.	rédigé pour l'app
+question	À quelle heure veux-tu lire ?	rédigé pour l'app
+question_guide	Chaque jour à cette heure-là, une ligne : le début de l'anecdote du jour. Rien le jour où la session est faite.	rédigé pour l'app
+question_accord	L'iPhone te demande ensuite ton accord. L'heure se change dans Réglages.	rédigé pour l'app
+matin	Le matin	rédigé pour l'app
+midi	À midi	rédigé pour l'app
+soir	Le soir	rédigé pour l'app
+accepter	Me le rappeler à cette heure	rédigé pour l'app
+refuser	Pas de rappel	rédigé pour l'app
+reglage	Rappel du jour	rédigé pour l'app
+reglage_detail	Le début de l'anecdote, à l'heure choisie. Rien le jour où la session est faite.	rédigé pour l'app
+reglage_heure	Heure	rédigé pour l'app
+reglage_refuse	Les notifications de Wenlu sont coupées sur cet iPhone : Réglages, Notifications, Wenlu.	rédigé pour l'app
+accueil	Ajoute Wenlu à l'écran d'accueil pour garder ta progression.	rédigé pour l'app
+accueil_comment	Dans Safari, touche Partager, puis « Sur l'écran d'accueil ». Safari peut effacer les données d'un site peu ouvert ; l'app de l'écran d'accueil garde les siennes.	rédigé pour l'app
+export_date	Dernier export : {date}	rédigé pour l'app
+export_jamais	Dernier export : jamais	rédigé pour l'app

@@ -11,6 +11,10 @@
    * mots et phrase viennent du JSON versionné de `app/public/data/`, et la ligne neutre
    * `LIGNE_SANS_FICHE` tient lieu d'origine tant que la fiche n'est pas écrite. L'aperçu
    * allumé (Réglages), une fiche à relire porte la mention « à relire ».
+   *
+   * Un jour sans brique nouvelle (story 7.2), le pas revient sur la brique acquise la plus
+   * fragile (`session.sansBrique`) : sa fiche, un composé qu'elle a ouvert, le tracé s'il est
+   * activé. Rien n'est ajouté : aucun cinabre, et la ligne de Tao vient de `rythme.json`.
    */
   import ARelire from './ARelire.svelte';
   import EnTetePas from './EnTetePas.svelte';
@@ -19,11 +23,13 @@
   import Trace from './Trace.svelte';
   import { ETIQUETTES, LIGNE_SANS_FICHE, lecon, type FicheLue } from './content';
   import { aAudio, dire, manifesteOnce, type Manifeste } from './audio';
-  import { jourLecon, traceProposee, type LearnView, type Progress } from './session';
+  import { jourLecon, sansBrique, traceProposee, type LearnView, type Progress } from './session';
+  import { SANS_RYTHME, type TextesRythme } from './rythme';
   import { humeur, stade } from './tao';
 
   let {
     p,
+    textes = SANS_RYTHME,
     onsuivant,
     onvue,
     ontrace,
@@ -31,6 +37,8 @@
     onquitter
   }: {
     p: Progress;
+    /** Les lignes du rythme gratuit : la ligne de Tao un jour sans brique nouvelle. */
+    textes?: TextesRythme;
     /**
      * Enchaîne vers la vue suivante. La brique et le composé de la session remontent :
      * à la fin du pas, ils reçoivent chacun une carte de révision. `jour` est le jour du
@@ -103,8 +111,13 @@
   const vue = $derived(p.learn === 'compose' && compo === null ? 'brique' : p.learn);
   const mots = $derived(compo?.mots ?? []);
   const phrase = $derived(compo?.phrase ?? null);
-  /** Le tracé est-il dans l'enchaînement de cette session ? Une fois par brique, et réglable. */
-  const traceOfferte = $derived(brique ? traceProposee(p, brique.c) : false);
+  /** Un jour sans brique nouvelle : la brique est revue, rien n'est ajouté. */
+  const revue = $derived(sansBrique(p) !== null);
+  /**
+   * Le tracé est-il dans l'enchaînement de cette session ? Une fois par brique, et réglable ;
+   * un jour sans brique nouvelle, selon le seul réglage.
+   */
+  const traceOfferte = $derived(brique ? (revue ? p.trace : traceProposee(p, brique.c)) : false);
 
   /* Tao en posture leçon, la bulle sur le caractère du moment. Elle ne dit rien. */
   const taoHumeur = $derived(humeur(p.tao.activites, p.day));
@@ -125,7 +138,7 @@
 
   /** L'élément ajouté, et lui seul, porte le cinabre ; les autres briques sont en ocre. */
   function couleur(x: FicheLue, i: number): string {
-    return x.nouveau.includes(i) ? 'var(--zhu)' : 'var(--ocre)';
+    return !revue && x.nouveau.includes(i) ? 'var(--zhu)' : 'var(--ocre)';
   }
 
   /** Le dernier trait posé : le bouton du bas change, et le tracé achevé est noté. */
@@ -148,7 +161,7 @@
   {#if vue === 'brique' && brique}
     <div class="verif-tete">
       <Tao stade={taoStade} posture="lecon" humeur={taoHumeur} size={72} caractere={brique.c} />
-      <p class="guide grow">D'abord la brique.</p>
+      <p class="guide grow">{revue ? textes.apprendre_revue : "D'abord la brique."}</p>
     </div>
     <div class="card center">
       <button
@@ -166,7 +179,7 @@
         <div class="formula">
           {#each brique.parts as part, i (part + i)}
             {#if i > 0}<span class="op">+</span>{/if}
-            <span class="p" class:new={brique.nouveau.includes(i)}>
+            <span class="p" class:new={!revue && brique.nouveau.includes(i)}>
               <Glyph char={part} size={40} write={false} color={couleur(brique, i)} {pistes} />
             </span>
           {/each}
@@ -220,7 +233,7 @@
       <div class="formula">
         {#each compo.parts as part, i (part + i)}
           {#if i > 0}<span class="op">+</span>{/if}
-          <span class="p" class:new={compo.nouveau.includes(i)}>
+          <span class="p" class:new={!revue && compo.nouveau.includes(i)}>
             <Glyph char={part} size={48} write={false} color={couleur(compo, i)} {pistes} />
           </span>
         {/each}

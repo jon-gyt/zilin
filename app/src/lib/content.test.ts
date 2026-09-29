@@ -10,6 +10,7 @@ import {
   PARCOURS_DEFAUT,
   VERSION_DONNEES,
   aDesTextes,
+  briquesAcquises,
   briquesPosees,
   caractereDuJour,
   contenu,
@@ -599,6 +600,30 @@ describe('le parcours de l’index', () => {
         .map((j) => j.brique)
         .reverse()
     );
+  });
+
+  it('rend les briques des leçons déjà posées, avec leur jour, sans jour sauté ni jour sans brique', () => {
+    const bricole: Index = {
+      ...index,
+      parcours: {
+        lire: {
+          liste: 'seuil-255',
+          regle: '',
+          jours: [
+            { jour: 1, brique: '人', composes: [], non_reconcilie: false },
+            { jour: 2, brique: '口', composes: ['吃'], non_reconcilie: true },
+            { jour: 3, brique: null, composes: ['大'], non_reconcilie: false },
+            { jour: 4, brique: '月', composes: ['朋'], non_reconcilie: false },
+            { jour: 5, brique: '木', composes: [], non_reconcilie: false }
+          ]
+        }
+      }
+    };
+    expect(briquesAcquises(bricole, 'lire', 5)).toEqual([
+      { c: '人', jour: 1 },
+      { c: '月', jour: 4 }
+    ]);
+    expect(briquesAcquises(bricole, 'hsk', 5)).toEqual([]);
   });
 
   it("nomme le fichier des paires de l'export", () => {

@@ -65,8 +65,11 @@
   import { aAudio, dire, manifesteOnce, type Manifeste } from './audio';
   import {
     jeuDuJour,
+    journeeDuJour,
     jourLecon,
+    jourParcours,
     rangDuJour,
+    sansBrique,
     type Progress,
     type Revision,
     type UseView
@@ -122,7 +125,9 @@
   /* Le choix se fait une fois par journée, dès que le contenu est lu (`utiliser.ts`). */
   $effect(() => {
     if (corpus === null || jeuDuJour(p) !== null) return;
-    onposer(choisirJeu(rangDuJour(p), p.budget, offreDuCorpus(corpus, p.messagesLus), p.day));
+    /* Le message WeChat est de Wenlu complet : sans lui, son jour prend l'éclair (story 7.2). */
+    const complet = journeeDuJour(p)?.rythme === 'complet';
+    onposer(choisirJeu(rangDuJour(p), p.budget, offreDuCorpus(corpus, p.messagesLus), p.day, complet));
   });
 
   const jeuJ = $derived(jeuDuJour(p));
@@ -249,13 +254,15 @@
   });
 
   $effect(() => {
-    const n = jourLecon(p);
+    /* Un jour sans brique nouvelle, un texte d'un jour passé, tout à l'encre (brief §6). */
+    const relire = sansBrique(p) !== null;
+    const n = relire ? jourParcours(p) : jourLecon(p);
     const choisi = p.parcours;
     const rang = rangDuJour(p);
     let vivant = true;
     void troisLignesOnce()
       .then((doc) => {
-        if (vivant) lu = lectureDuJour(doc, choisi, n, rang);
+        if (vivant) lu = lectureDuJour(doc, choisi, n, rang, relire);
       })
       .catch(() => {
         if (vivant) lu = null;

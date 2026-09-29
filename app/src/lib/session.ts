@@ -22,6 +22,20 @@ import {
 import { ajouter, journal, lireTao, taoVide, type Tao, type TypeActivite } from './tao';
 import { lireTrouves, type Trouve } from './trouves';
 import { etatExamensVide, lireEtatExamens, type EtatExamens } from './examens';
+import {
+  annonceDuRythme,
+  briqueDuJour,
+  dansLesTrente,
+  droitsVides,
+  lireDroits,
+  noterAnnonce,
+  noterBascule,
+  noterBriqueGratuite,
+  rythme,
+  type Acces,
+  type EtatDroits,
+  type Rythme
+} from './droits';
 import { lireLettresNotees, type LettreNotee } from './lettres';
 import { cleLecture, lireChapitre, type LectureChapitres } from './lecture';
 import { lireNiveau, lireNiveaux, trierNiveaux, type Niveau } from './niveaux';
@@ -38,6 +52,9 @@ import {
   type BeteId,
   type Heros
 } from './heros';
+import { SANS_RAPPEL, lireRappel, type Rappel } from './rappels';
+import { lireDernierExport } from './garde';
+import { lireAvisDemande } from './avis';
 
 
 /** Budget choisi par l'utilisateur, en minutes. */
@@ -53,12 +70,16 @@ export type Parcours = 'lire' | 'hsk' | 'voyage';
 /**
  * Les écrans de la première session, dans l'ordre de la maquette : les trois briques
  * (f1 人, f2 大, f3 天), le mot lu (f4 天天), le bilan (f5), les deux questions
- * (objectif, rythme), puis le choix du personnage (brief §8). La reprise se fait à
+ * (objectif, rythme), l'heure du rappel, puis le choix du personnage (brief §8). La reprise se fait à
  * l'écran exact.
  */
-export type EtapeDepart = 'f1' | 'f2' | 'f3' | 'f4' | 'f5' | 'objectif' | 'rythme' | 'personnage';
+export type EtapeDepart = 'f1' | 'f2' | 'f3' | 'f4' | 'f5' | 'objectif' | 'rythme' | 'heure' | 'personnage';
 
-export const ETAPES_DEPART = ['f1', 'f2', 'f3', 'f4', 'f5', 'objectif', 'rythme', 'personnage'] as const;
+/**
+ * `heure` : l'heure du rappel quotidien, dans l'app iOS seulement ; sur le web,
+ * `premiere.departApres` la saute.
+ */
+export const ETAPES_DEPART = ['f1', 'f2', 'f3', 'f4', 'f5', 'objectif', 'rythme', 'heure', 'personnage'] as const;
 
 export type StepId =
   | 'ouvrir'
@@ -178,6 +199,29 @@ export type DevinetteDuJour = { jour: string; id: string; issue: IssueDevinette 
  * ne bouge pas sous les doigts quand la pile baisse.
  */
 export type SessionPlus = { echauffer: boolean };
+
+/**
+ * Pourquoi une journée ne pose pas de brique nouvelle : le rythme gratuit, entre deux
+ * briques (story 7.2), ou un examen à passer (story 8.4, « Pause jusqu'à réussite »).
+ */
+export type RaisonSansBrique = 'rythme' | 'examen';
+
+/** Une brique acquise : son caractère, et le jour du chemin dont elle est la leçon. */
+export type BriqueAcquise = { c: string; jour: number };
+
+/**
+ * La journée sans brique nouvelle : sa raison, et la brique acquise sur laquelle le pas
+ * Apprendre revient (`c`), avec le jour du chemin qui l'a posée (`lecon`) : sa fiche, un
+ * composé qu'elle a ouvert, le tracé s'il est activé. `c` vide : aucune brique acquise n'a
+ * de carte, Apprendre relit la dernière leçon.
+ */
+export type SansBrique = { raison: RaisonSansBrique; c: string; lecon: number };
+
+/**
+ * La journée telle que la session l'a ouverte (`preparerJournee`) : son rythme
+ * (`droits.rythme`), et, les jours sans brique nouvelle, ce qu'Apprendre revoit.
+ */
+export type Journee = { jour: string; rythme: Rythme; sansBrique: SansBrique | null };
 
 /** L'état complet d'une progression. Sérialisable tel quel. */
 export type Progress = {
@@ -342,6 +386,24 @@ export type Progress = {
    */
   haptique: boolean;
   /**
+   * Réglage : le rappel quotidien de l'app iOS (`rappels.ts`), une notification par jour à
+   * l'heure choisie, avec le début de l'anecdote. L'heure se choisit à la première session,
+   * après l'objectif et le rythme, ou dans Réglages ; sans effet sur le web. Absent d'une
+   * progression plus ancienne : éteint, sans heure.
+   */
+  rappel: Rappel;
+  /**
+   * Le jour du dernier export de la progression (AAAA-MM-JJ), que Réglages montre
+   * (`garde.ts`) ; `null` : jamais. L'export l'emporte avec lui. Absent d'une progression
+   * plus ancienne : jamais.
+   */
+  dernierExport: string | null;
+  /**
+   * La journée de la dernière demande de note de l'app iOS (`avis.ts`) ; `null` : aucune.
+   * La suivante attend cent vingt jours. Absente d'une progression plus ancienne : aucune.
+   */
+  avisDemande: string | null;
+  /**
    * Les mots devinés au dictionnaire éclair, par identifiant, chacun une fois, dans
    * l'ordre : le compteur « mots devinés » (`eclair.ts`, `noterMotDevine`). Absent d'une
    * progression plus ancienne : aucun mot deviné.
@@ -404,6 +466,20 @@ export type Progress = {
    * et `migre` faux, pour que ses rangs déjà annoncés deviennent des examens reçus.
    */
   examens: EtatExamens;
+  /**
+   * Les droits (`droits.ts`, story 7.1) : les cadeaux des paliers et leurs dates, le premier
+   * jour du rythme gratuit, les jours des briques gratuites, le jour où Clore l'a dit.
+   * L'achat, lui, n'est pas gardé : l'appareil le dit (`Acces`). Absents d'une progression
+   * d'avant eux : rien de reçu, rien de noté.
+   */
+  droits: EtatDroits;
+  /**
+   * La journée préparée (`preparerJournee`) : son rythme et, sans brique nouvelle, la brique
+   * revue. Figée pour la journée : la reprise au pas exact retombe sur la même brique. Celle
+   * d'une autre journée ne compte pas (`journeeDuJour`). Absente d'une progression plus
+   * ancienne : elle se prépare à l'ouverture.
+   */
+  journee: Journee | null;
 };
 
 /**
@@ -420,7 +496,7 @@ export function jourParcours(p: Progress): number {
  * Utiliser, Fixer et Clore voient ainsi la même leçon, même une fois le parcours avancé.
  */
 export function jourLecon(p: Progress): number {
-  return p.jourAppris ?? jourParcours(p);
+  return sansBrique(p)?.lecon ?? p.jourAppris ?? jourParcours(p);
 }
 
 /**
@@ -432,7 +508,8 @@ export function jourLecon(p: Progress): number {
 export function jourRencontre(p: Progress): number {
   if (p.premiere) return 0;
   if (p.jourAppris !== undefined) return p.jourAppris;
-  return p.catchup ? jourParcours(p) - 1 : jourParcours(p);
+  /* En rattrapage ou un jour sans brique, rien de neuf n'entre : la veille de la leçon à poser. */
+  return p.catchup || sansBrique(p) !== null ? jourParcours(p) - 1 : jourParcours(p);
 }
 
 /** Range le jour du parcours atteint. Le parcours n'avance jamais tout seul. */
@@ -480,6 +557,9 @@ export function emptyProgress(aujourdhui: string): Progress {
     chapitres: {},
     relecture: false,
     haptique: true,
+    rappel: SANS_RAPPEL,
+    dernierExport: null,
+    avisDemande: null,
     motsDevines: [],
     trouves: [],
     fetesVues: {},
@@ -488,7 +568,9 @@ export function emptyProgress(aujourdhui: string): Progress {
     lettres: [],
     heros: null,
     arts: artsVides(),
-    examens: etatExamensVide()
+    examens: etatExamensVide(),
+    droits: droitsVides(),
+    journee: null
   };
 }
 
@@ -608,14 +690,113 @@ export function resetDay(p: Progress): Progress {
   };
 }
 
+/* ---------- la journée sans brique nouvelle ---------- */
+
+/** La journée préparée, si c'est bien celle de la session ; `null` sinon. */
+export function journeeDuJour(p: Progress): Journee | null {
+  return p.journee !== null && p.journee.jour === p.day ? p.journee : null;
+}
+
+/**
+ * La journée ne pose pas de brique nouvelle : ce qu'Apprendre revoit à la place. `null` un
+ * jour avec brique, en session de plus, ou tant que la journée n'est pas préparée.
+ */
+export function sansBrique(p: Progress): SansBrique | null {
+  return p.enPlus === null ? (journeeDuJour(p)?.sansBrique ?? null) : null;
+}
+
+/**
+ * La brique acquise la plus fragile : la plus basse stabilité FSRS parmi celles qui ont une
+ * carte, la première des candidates à égalité. Les prioritaires passent d'abord (story 8.4 :
+ * les caractères manqués à l'examen) ; aucune n'a de carte, on revient aux candidates.
+ */
+export function briqueLaPlusFragile(
+  p: Progress,
+  candidates: readonly BriqueAcquise[],
+  prioritaires: readonly BriqueAcquise[] = []
+): BriqueAcquise | null {
+  const choisir = (l: readonly BriqueAcquise[]): BriqueAcquise | null => {
+    let mieux: BriqueAcquise | null = null;
+    let plusBasse = Infinity;
+    for (const b of l) {
+      const k = carte(p, b.c);
+      if (k === null || k.card.stability >= plusBasse) continue;
+      mieux = b;
+      plusBasse = k.card.stability;
+    }
+    return mieux;
+  };
+  return choisir(prioritaires) ?? choisir(candidates);
+}
+
+/**
+ * Une pause des briques décidée hors d'ici : l'examen à passer (story 8.4), avec les
+ * caractères manqués qu'Apprendre prend d'abord.
+ */
+export type PauseDesBriques = { raison: 'examen'; prioritaires: readonly BriqueAcquise[] };
+
+/**
+ * Prépare la journée, une fois, à son ouverture : son rythme (`droits.rythme`), le premier
+ * jour du rythme gratuit s'il tombe aujourd'hui, et, si elle ne pose pas de brique
+ * nouvelle, la brique acquise sur laquelle Apprendre revient, la plus fragile.
+ *
+ * Sans brique nouvelle, la session garde ses six pas, dans le même ordre, sur l'acquis
+ * (brief §6) : au rythme gratuit entre deux briques (`droits.briqueDuJour`), ou quand une
+ * pause est passée. La story 8.4 s'y branche ainsi : l'examen à passer
+ * (`examens.briquesEnPause`) devient `pause`, ses caractères manqués (avec le jour de leur
+ * leçon) ses prioritaires ; rien d'autre ne change ici.
+ *
+ * `candidates` : les briques des leçons déjà posées (`content.briquesAcquises`). Une
+ * journée déjà préparée ne bouge plus : la reprise au pas exact retombe sur la même brique.
+ */
+export function preparerJournee(
+  p: Progress,
+  acces: Acces,
+  candidates: readonly BriqueAcquise[],
+  pause: PauseDesBriques | null = null
+): Progress {
+  if (p.premiere || journeeDuJour(p) !== null) return p;
+  const chemin = jourParcours(p);
+  const droits = noterBascule(p.droits, chemin, p.day);
+  const raison: RaisonSansBrique | null =
+    pause !== null ? pause.raison : briqueDuJour(droits, acces, p.day, chemin) ? null : 'rythme';
+  let revue: SansBrique | null = null;
+  if (raison !== null) {
+    const b = briqueLaPlusFragile(p, candidates, pause?.prioritaires ?? []);
+    revue = { raison, c: b?.c ?? '', lecon: b?.jour ?? Math.max(1, chemin - 1) };
+  }
+  return { ...p, droits, journee: { jour: p.day, rythme: rythme(droits, acces, p.day, chemin), sansBrique: revue } };
+}
+
+/**
+ * Clore dit-il aujourd'hui que le rythme gratuit commence ? Le premier jour où la journée
+ * est au rythme gratuit, ce jour-là seulement (`droits.annonceDuRythme`).
+ */
+export function annonceRythmeGratuit(p: Progress): boolean {
+  const j = journeeDuJour(p);
+  return j !== null && annonceDuRythme(p.droits, j.rythme, p.day);
+}
+
 /* ---------- la session de plus ---------- */
 
 /**
+ * La session de plus est-elle du rythme de la journée ? Avec Wenlu complet, ou tant que la
+ * leçon qu'elle poserait est dans les trente premiers jours du chemin (`droits.sessionDePlus`) ;
+ * jamais un jour sans brique nouvelle. Sinon, le menu propose « Réviser encore ».
+ */
+export function plusPermise(p: Progress): boolean {
+  const j = journeeDuJour(p);
+  if (j?.sansBrique) return false;
+  return j?.rythme === 'complet' || dansLesTrente(jourParcours(p));
+}
+
+/**
  * Une session de plus se propose une fois la journée faite, et jamais en rattrapage :
- * aucune brique nouvelle n'entre tant que la pile n'est pas redescendue.
+ * aucune brique nouvelle n'entre tant que la pile n'est pas redescendue. Au rythme
+ * gratuit, elle ne se propose pas (`plusPermise`).
  */
 export function peutPlus(p: Progress): boolean {
-  return !p.premiere && !p.catchup && p.enPlus === null && allDone(p);
+  return !p.premiere && !p.catchup && p.enPlus === null && allDone(p) && plusPermise(p);
 }
 
 /**
@@ -634,7 +815,10 @@ export function commencerPlus(p: Progress): Progress {
  * faite et compte une session de plus ; elle ne plante jamais une seconde graine.
  */
 export function cloreSession(p: Progress, jour: string): Progress {
-  const n = noterJourTravaille(faitPasCourant(p, jour), jour);
+  const f = faitPasCourant(p, jour);
+  /* Le premier jour du rythme gratuit, Clore l'a dit : il ne le redira pas. */
+  const dit = annonceRythmeGratuit(f) ? { ...f, droits: noterAnnonce(f.droits, jour) } : f;
+  const n = noterJourTravaille(dit, jour);
   if (n.enPlus === null) return n;
   const journee: Progress = { ...n, enPlus: null, plus: n.plus + 1 };
   return { ...journee, done: sessionSteps(journee).map(() => true) };
@@ -1033,7 +1217,9 @@ export function setLearnView(p: Progress, vue: LearnView): Progress {
  * composé. `null` quand il n'y a plus de vue : le pas est fini.
  */
 export function learnNext(p: Progress, brique: string): LearnView | null {
-  if (p.learn === 'brique') return traceProposee(p, brique) ? 'trace' : 'compose';
+  /* Un jour sans brique nouvelle, le tracé de la brique revue suit le seul réglage. */
+  const trace = sansBrique(p) !== null ? p.trace : traceProposee(p, brique);
+  if (p.learn === 'brique') return trace ? 'trace' : 'compose';
   return p.learn === 'trace' ? 'compose' : null;
 }
 
@@ -1053,9 +1239,18 @@ export function finApprendre(
   appris: readonly string[],
   jour: number = jourLecon(p)
 ): Progress {
+  /*
+   * Un jour sans brique nouvelle, Apprendre a revu une brique acquise : aucun caractère
+   * n'entre en révision qui n'y était déjà, le chemin n'avance pas, et rien n'est appris.
+   */
+  if (sansBrique(p) !== null) return setLearnView(faitPasCourant(p, aujourdhui), 'brique');
   let n = faitPasCourant(p, aujourdhui);
   n = assurerCartes(n, appris, maintenant);
   n = noterActivite(n, aujourdhui, 'lecon');
+  /* Au rythme gratuit, la brique du jour est une des deux de la semaine : elle se note. */
+  if (n.enPlus === null && journeeDuJour(n)?.rythme === 'gratuit') {
+    n = { ...n, droits: noterBriqueGratuite(n.droits, aujourdhui) };
+  }
   const j = Math.max(1, Math.floor(jour));
   return setLearnView({ ...n, jourAppris: j, jourParcours: j + 1 }, 'brique');
 }
@@ -1446,6 +1641,22 @@ function isParcours(v: unknown): v is Parcours {
   return v === 'lire' || v === 'hsk' || v === 'voyage';
 }
 
+/** Relit la journée préparée. Absente ou aberrante : aucune, elle se prépare de nouveau. */
+function lireJournee(v: unknown): Journee | null {
+  if (typeof v !== 'object' || v === null) return null;
+  const o = v as Record<string, unknown>;
+  if (typeof o.jour !== 'string' || !FORMAT_JOUR.test(o.jour)) return null;
+  if (o.rythme !== 'complet' && o.rythme !== 'trente' && o.rythme !== 'gratuit') return null;
+  let sb: SansBrique | null = null;
+  if (typeof o.sansBrique === 'object' && o.sansBrique !== null) {
+    const x = o.sansBrique as Record<string, unknown>;
+    if (x.raison !== 'rythme' && x.raison !== 'examen') return null;
+    if (typeof x.c !== 'string' || typeof x.lecon !== 'number' || x.lecon < 1) return null;
+    sb = { raison: x.raison, c: x.c, lecon: Math.floor(x.lecon) };
+  }
+  return { jour: o.jour, rythme: o.rythme, sansBrique: sb };
+}
+
 /** Relit la session de plus en cours. Absente ou aberrante : aucune. */
 function lirePlus(v: unknown): SessionPlus | null {
   if (typeof v !== 'object' || v === null) return null;
@@ -1665,6 +1876,12 @@ export function fromJSON(texte: string, aujourdhui: string): Progress {
     relecture: o.relecture === true,
     /* Le retour haptique : absent d'un export plus ancien, allumé. */
     haptique: o.haptique !== false,
+    /* Le rappel quotidien : absent d'un export plus ancien, éteint. */
+    rappel: lireRappel(o.rappel),
+    /* Le dernier export : absent d'un export plus ancien, jamais. */
+    dernierExport: lireDernierExport(o.dernierExport),
+    /* La dernière demande de note : absente d'un export plus ancien, aucune. */
+    avisDemande: lireAvisDemande(o.avisDemande),
     /* Les mots devinés : absents d'un export plus ancien, aucun n'est deviné. */
     motsDevines: listeDeCaracteres(o.motsDevines),
     /* Les caractères trouvés en chemin : absents d'un export plus ancien, aucun. */
@@ -1682,6 +1899,10 @@ export function fromJSON(texte: string, aujourdhui: string): Progress {
     /* Les points : absents d'un export plus ancien, ils se recalculent de ce qu'il garde. */
     arts: lireArts(o.arts) ?? pointsDerives(cartes, tracesAchevees),
     /* Les examens : absents d'un export plus ancien, rien de réussi, rangs à reporter. */
-    examens: lireEtatExamens(o.examens)
+    examens: lireEtatExamens(o.examens),
+    /* Les droits : absents d'un export plus ancien, rien de reçu, rien de noté. */
+    droits: lireDroits(o.droits),
+    /* La journée préparée : absente d'un export plus ancien, elle se prépare à l'ouverture. */
+    journee: lireJournee(o.journee)
   };
 }
