@@ -43,6 +43,9 @@ servent à relire et à compléter la base des devinettes, qu'`export` lit aussi
 `lettres` rédige sans API, importe et relit les lettres de Que (contexte, importer,
 exporter-relecture, appliquer-relecture, apercu), qu'`export` lit une fois relues.
 `wechat apercu` relit les dialogues du message WeChat.
+`dico` rédige sans API les sens français et les phrases d'exemple du dictionnaire (plan,
+contexte, importer), écrit la page de relecture (apercu) et en réintègre les retours
+(appliquer-relecture), qu'`export` lit une fois relus.
 `trois-lignes` donne le contexte de rédaction des trois lignes du pas Utiliser (l'acquis
 et les caractères nouveaux d'un jour du chemin) et les relit (apercu).
 `examens` donne le contexte de rédaction des séries d'un examen 科举 ou d'un 月课 (le jour
@@ -63,6 +66,7 @@ from .contes import app as _contes
 from .coquilles import app as _coquilles
 from .cuisine import app as _cuisine
 from .devinettes import app as _devinettes
+from .dico_sens import app as _dico
 from .eclair import app as _eclair
 from .examens import app as _examens
 from .export import VERSION
@@ -220,12 +224,13 @@ def licences() -> None:
 
 @app.command()
 def check() -> None:
-    """Contrôles : composants inconnus, cycles, graphe, listes, liste des mots HSK 3.0, briques muettes, découpes, contes hors liste, fiches invalides, rôle son loin de la lecture moderne, textes sans audio, export à jour, dictionnaire (entrées, traits, sens relus seulement), aperçu des textes à relire, fêtes, termes solaires, devinettes, dictionnaire éclair, coquilles, cuisine, lettres de Que, message WeChat, personnage, phrases de Tao à Jouer, lignes du rythme gratuit, calendrier d'ouverture, anecdotes du jour, trois lignes du pas Utiliser, examens 科举, fuites de réponse, image du chemin (ni graine, ni forêt, ni borne, ni stèle), licence des décompositions."""
+    """Contrôles : composants inconnus, cycles, graphe, listes, liste des mots HSK 3.0, briques muettes, découpes, contes hors liste, fiches invalides, rôle son loin de la lecture moderne, textes sans audio, export à jour, dictionnaire (entrées, traits, sens relus seulement ; sens et phrases rédigés : forme, caractères HSK, pinyin, fuites, export, sans CC-CEDICT), aperçu des textes à relire, fêtes, termes solaires, devinettes, dictionnaire éclair, coquilles, cuisine, lettres de Que, message WeChat, personnage, phrases de Tao à Jouer, lignes du rythme gratuit, calendrier d'ouverture, anecdotes du jour, trois lignes du pas Utiliser, examens 科举, fuites de réponse, image du chemin (ni graine, ni forêt, ni borne, ni stèle), licence des décompositions."""
     from .anecdotes import controles as controles_anecdotes
     from .audio import controles as controles_audio
     from .contes import controles as controles_contes
     from .decoupes import controles as controles_decoupes
     from .dictionnaire import controles as controles_dictionnaire
+    from .dico_sens import controles as controles_dico_sens
     from .coquilles import controles as controles_coquilles
     from .cuisine import controles as controles_cuisine
     from .devinettes import controles as controles_devinettes
@@ -265,6 +270,7 @@ def check() -> None:
         *controles_audio(),
         *controles_export(),
         *controles_dictionnaire(),
+        *controles_dico_sens(),
         *controles_licences(),
         *controles_fetes(),
         *controles_saisons(),
@@ -330,6 +336,7 @@ app.add_typer(_contes, name="contes")
 app.add_typer(_coquilles, name="coquilles")
 app.add_typer(_cuisine, name="cuisine")
 app.add_typer(_devinettes, name="devinettes")
+app.add_typer(_dico, name="dico")
 app.add_typer(_eclair, name="eclair")
 app.add_typer(_examens, name="examens")
 app.add_typer(_fetes, name="fetes")

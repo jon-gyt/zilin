@@ -92,6 +92,7 @@ from pydantic import ValidationError
 from . import anecdotes as anecdotes_mod
 from . import contes as contes_mod
 from . import decoupes as decoupes_mod
+from . import dico_sens as dico_sens_mod
 from . import dictionnaire as dictionnaire_mod
 from . import coquilles as coquilles_mod
 from . import cuisine as cuisine_mod
@@ -226,6 +227,7 @@ def fichiers_sources(
         ("exporteur-tons", Path(tons_mod.__file__).resolve()),
         ("exporteur-dictionnaire", Path(dictionnaire_mod.__file__).resolve()),
         ("exporteur-mots-hsk", Path(mots_hsk_mod.__file__).resolve()),
+        *[(f"dico-{p.parent.name}-{p.stem}", p) for p in dico_sens_mod.lots_ecrits()],
         ("mots-hsk", mots_hsk_mod.LISTE),
         ("decompositions", build / "decompositions.json"),
         ("graphe", build / "graphe.json"),
@@ -2185,6 +2187,8 @@ def assembler_dictionnaire(
     }
     traits_decoupes = decoupes_mod.traits(build)
     graphies = charger_graphies(ingest, [*caracteres, *parts], traits_decoupes)
+    # Les sens et les phrases rédigés (`dico_sens`) : `documents` n'en garde que les relus.
+    sens, exemples = dico_sens_mod.pour_export()
     textes = dictionnaire_mod.documents(
         version,
         listes=listes,
@@ -2204,6 +2208,8 @@ def assembler_dictionnaire(
             "modified": MODIF_TRAITS_DICO,
         },
         decoupes=set(traits_decoupes),
+        sens=sens,
+        exemples=exemples,
         modified=f"{JETON_JOUR} : assemblé par `wenlu export`",
         source_url=URL_PIPELINE,
     )

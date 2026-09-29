@@ -101,3 +101,17 @@ def _sans_mots_hsk(monkeypatch: pytest.MonkeyPatch, tmp_path: Path) -> None:
     from wenlu_data import mots_hsk
 
     monkeypatch.setattr(mots_hsk, "LISTE", tmp_path / "sans-mots-hsk.tsv")
+
+
+@pytest.fixture(autouse=True)
+def _sans_dico(monkeypatch: pytest.MonkeyPatch, tmp_path: Path) -> None:
+    """Les exports de test ne tirent pas les sens et les phrases du dictionnaire du vrai dépôt.
+
+    `data/sources/dico/` porte les lots rédigés, dont les gloses reprises des fiches sont
+    relues ; un export factice n'a pas à les recevoir. Un test qui les veut passe le dossier
+    explicitement (`dico_sens.DOSSIER_REEL`).
+    """
+    from wenlu_data import dico_sens
+
+    monkeypatch.setattr(dico_sens, "DOSSIER", tmp_path / "sans-dico")
+    monkeypatch.setattr(dico_sens, "BROUILLONS", tmp_path / "sans-dico-brouillons")
