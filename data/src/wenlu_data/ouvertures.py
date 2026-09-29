@@ -45,6 +45,7 @@ UNITES = ("jour", "lus")
 #: de la case ou du jeu, ou le mot de l'écran). L'app tient la même liste
 #: (`ouvertures.PORTES`) ; un test de l'app relit l'export pour s'en assurer.
 PORTES: dict[str, str] = {
+    "xing": "杏",
     "reviser": "温",
     "personnage": "personnage",
     "foret": "路",
@@ -65,6 +66,12 @@ PORTES: dict[str, str] = {
     "monde": "lire le monde",
     "jeu-cuisine": "菜",
 }
+
+#: La rencontre du maître Xing 杏 (décision du propriétaire du 29 septembre 2026) : Tao le
+#: rencontre à la porte du premier examen, au palier de caractères lus qui ouvre le 县试.
+#: Sa porte vient en tête du calendrier : le jour où l'examen s'ouvre, elle s'annonce avant
+#: toute autre, pour que l'examinateur soit là.
+RENCONTRE = "xing"
 
 #: La première session pose les jours 1 à 3 du chemin (人, 大, 天) : aucune porte ne s'ouvre
 #: avant le lendemain, le premier menu reste simple.
@@ -205,11 +212,22 @@ def fautes_sources(c: Calendrier) -> list[str]:
     return fautes
 
 
-def fautes_contenu(c: Calendrier, *, premiere_lettre: int, premiere_fable: int | None) -> list[str]:
+def fautes_contenu(
+    c: Calendrier, *, premiere_lettre: int, premiere_fable: int | None, premier_examen: int | None = None
+) -> list[str]:
     """Une porte se montre quand elle sert : Lire à la première lettre de Que au plus tard,
-    les contes le jour même de la première fable du chemin."""
+    les contes le jour même de la première fable du chemin, et la rencontre du maître Xing au
+    palier du premier examen, en tête du calendrier."""
     fautes: list[str] = []
     par_id = {p.porte: p for p in c.portes}
+    xing = par_id.get(RENCONTRE)
+    if xing is not None:
+        if premier_examen is not None and not (xing.unite == "lus" and xing.nombre == premier_examen):
+            fautes.append(
+                f"Xing se rencontre à la porte du premier examen : {premier_examen} caractères lus, en lus"
+            )
+        if c.portes and c.portes[0].porte != RENCONTRE:
+            fautes.append("la rencontre de Xing vient en tête du calendrier, avant toute autre porte")
     lire = par_id.get("lire")
     if lire is not None and not (lire.unite == "jour" and (lire.nombre or 0) <= premiere_lettre):
         fautes.append(f"Lire doit être ouvert au jour {premiere_lettre}, celui de la première lettre de Que")
@@ -234,6 +252,14 @@ def fautes_export(sortie: dict[str, object], c: Calendrier) -> list[str]:
     return fautes or ["les portes ne sont pas celles des sources"]
 
 
+def premier_examen() -> int | None:
+    """Le palier du premier examen de la liste (`examens.tsv`), le 县试 : 50 caractères lus."""
+    from .examens import charger_liste
+
+    examens = charger_liste()[0]
+    return min((e.palier for e in examens), default=None)
+
+
 def premiere_fable() -> int | None:
     """Le jour de la première fable du chemin, au catalogue des contes (`jour25`)."""
     from .contes import charger_catalogue, est_chemin, jour_du_niveau
@@ -247,7 +273,8 @@ def controles(destination: Path | None = None, *, chemin: Path | None = None) ->
 
     « sources » : chaque porte une fois, en jours ou en lus, après la première session, sous
     son parent ; une annonce qui la nomme, calme, sans achat ni emoji ni dragon.
-    « contenu » : Lire à la première lettre de Que, les contes à la première fable.
+    « contenu » : Lire à la première lettre de Que, les contes à la première fable, la
+    rencontre de Xing au palier du premier examen, en tête.
     « export » : `ouvertures.json` dit les portes des sources, et `index.json` le nomme.
     """
     from .export import versions_exportees
@@ -255,7 +282,9 @@ def controles(destination: Path | None = None, *, chemin: Path | None = None) ->
 
     c = charger(chemin)
     f_src = fautes_sources(c)
-    f_contenu = fautes_contenu(c, premiere_lettre=jour_de_lettre(1), premiere_fable=premiere_fable())
+    f_contenu = fautes_contenu(
+        c, premiere_lettre=jour_de_lettre(1), premiere_fable=premiere_fable(), premier_examen=premier_examen()
+    )
     dossiers = versions_exportees(destination or EXPORT)
     f_exp: list[str] = []
     for d in dossiers:
@@ -282,7 +311,7 @@ def controles(destination: Path | None = None, *, chemin: Path | None = None) ->
         Controle(
             "ouvertures : contenu",
             not f_contenu,
-            detail(f_contenu, "Lire à la première lettre de Que, les contes à la première fable"),
+            detail(f_contenu, "Lire à la première lettre de Que, les contes à la première fable, Xing au 县试"),
             bloquant=True,
         ),
         Controle(

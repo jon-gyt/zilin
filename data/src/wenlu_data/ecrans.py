@@ -1,4 +1,4 @@
-"""Les textes d'interface de six écrans : « Lire le monde », les révisions, le personnage, la route, « Dis-le », Mon chemin.
+"""Les textes d'interface de sept écrans : « Lire le monde », les révisions, le personnage, la route, « Dis-le », Mon chemin, le maître Xing.
 
 « Lire le monde » (Chercher) et le tableau des révisions : rapport comparatif du 28
 septembre 2026, §2.5 et §2.6. « Mon personnage » et « La route devant » : les lignes des
@@ -7,7 +7,10 @@ examens 科举 (stories 8.5 et 8.6, brief §8, « Le personnage » et « La rout
 où l'on prononce un caractère acquis et son réglage « Dire les tons » (story 9.1, brief §10,
 « L'oral par IA »), dont les phrases ne font jamais de reproche. « Mon chemin 路 » : l'image
 du chemin, la pierre posée, les pavillons, les auberges et les rendez-vous (décisions du
-propriétaire du 29 septembre 2026, maquette validée `maquettes/chemin.html`). Chaque écran a sa source
+propriétaire du 29 septembre 2026, maquette validée `maquettes/chemin.html`). Le maître Xing 杏 :
+sa rencontre à la porte du 县试 et ses lignes du pas Apprendre, qui distinguent toujours
+l'origine attestée du moyen mnémotechnique (décision du propriétaire du 29 septembre 2026).
+Chaque écran a sa source
 versionnée, rédigée pour l'app et à relire, dans `data/sources/ecrans/<écran>.tsv` ;
 `wenlu export` en tire `ecrans.json`, que l'index nomme par sa clé `ecrans`.
 
@@ -227,6 +230,24 @@ ECRANS: dict[str, dict[str, tuple[str, ...]]] = {
         "trophee-famille": (),
         "trophee-serie": (),
     },
+    "xing": {
+        "kicker": (),
+        "caractere": (),
+        "nom": (),
+        "pinyin": (),
+        "sens": (),
+        "presentation": (),
+        "accueil": (),
+        "roles": (),
+        "bouton": (),
+        "voix": (),
+        "brique-atteste": (),
+        "brique-mnemo": (),
+        "brique-sans": (),
+        "compose-atteste": (),
+        "compose-mnemo": (),
+        "compose-sans": (),
+    },
 }
 
 #: Les sept jours de la semaine, du dimanche au samedi (`Date.getDay`), dans `revisions/jours`.
@@ -248,14 +269,35 @@ REPROCHES = re.compile(
     r"\b(?:faux|fausses?|erreurs?|rat[ée]e?s?|mauvaise?s?|échecs?|dommage|non|nulle?s?)\b", re.IGNORECASE
 )
 
-#: Les écrans dont les textes passent aussi le contrôle des reproches.
-SANS_REPROCHE = ("dire",)
+#: Les écrans dont les textes passent aussi le contrôle des reproches : « Dis-le », et le
+#: maître Xing, qui ne gronde jamais.
+SANS_REPROCHE = ("dire", "xing")
+
+#: Xing distingue toujours l'origine attestée du moyen mnémotechnique, sans jamais présenter
+#: l'un pour l'autre (CLAUDE.md) : chaque ligne dit l'étiquette de sa fiche, et elle seule.
+ATTESTE = re.compile(r"attest", re.IGNORECASE)
+MNEMO = re.compile(r"mnémotechnique", re.IGNORECASE)
+
+
+def fautes_etiquettes(cle: str, texte: str) -> list[str]:
+    """Une ligne `-atteste` dit l'attestation, une `-mnemo` le moyen mnémotechnique, une
+    `-sans` ni l'un ni l'autre ; jamais l'une pour l'autre."""
+    fautes: list[str] = []
+    dit_atteste, dit_mnemo = bool(ATTESTE.search(texte)), bool(MNEMO.search(texte))
+    if cle.endswith("-atteste") and (not dit_atteste or dit_mnemo):
+        fautes.append(f"{cle} doit dire l'origine attestée, et elle seule")
+    elif cle.endswith("-mnemo") and (not dit_mnemo or dit_atteste):
+        fautes.append(f"{cle} doit dire le moyen mnémotechnique, jamais une attestation")
+    elif cle.endswith("-sans") and (dit_atteste or dit_mnemo):
+        fautes.append(f"{cle} ne dit ni attesté ni mnémotechnique : la fiche n'a pas d'origine relue")
+    return fautes
 
 JETON = re.compile(r"\{([^{}]*)\}")
 
 SOURCE_EXPORT = (
     "data/sources/ecrans/ : textes d'interface de « Lire le monde », du tableau des"
-    " révisions, de « Mon personnage », de la route devant, de « Dis-le » et de « Mon chemin »,"
+    " révisions, de « Mon personnage », de la route devant, de « Dis-le », de « Mon chemin »"
+    " et du maître Xing,"
     " rédigés pour l'app (à relire)"
 )
 
@@ -363,6 +405,8 @@ def fautes_sources(e: Ecrans) -> list[str]:
             reproche = REPROCHES.search(t.fr) if ecran in SANS_REPROCHE else None
             if reproche:
                 fautes.append(f"{ou} : {t.cle} fait un reproche ({reproche.group(0)})")
+            if ecran == "xing":
+                fautes += [f"{ou} : {f}" for f in fautes_etiquettes(t.cle, t.fr)]
         jours = next((t.fr for t in textes if t.cle == "jours"), None)
         if jours is not None and len(jours.split()) != JOURS_SEMAINE:
             fautes.append(f"{ecran}.tsv : jours porte {len(jours.split())} noms, attendu {JOURS_SEMAINE}")
@@ -423,7 +467,7 @@ def controles(destination: Path | None = None, *, dossier: Path | None = None) -
             detail(
                 f_src,
                 f"{n} textes pour {len(ECRANS)} écrans, jetons attendus, ni temps passé ni classement,"
-                " aucun reproche à « Dis-le »",
+                " aucun reproche à « Dis-le » ni chez Xing, attesté et mnémotechnique distingués",
             ),
             bloquant=True,
         ),

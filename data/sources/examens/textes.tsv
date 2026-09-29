@@ -36,6 +36,12 @@
 # - le 放榜 : `fangbang_kicker`, `fangbang_retour`, `sur_la_liste` ({nom}) ;
 # - pas encore : `ciblees`, `croise_sur` ({ou}), `ou_revue`, `etat_a_revoir`,
 #   `info_pause`, `rien_perdu` ;
+# - le maître Xing 杏, l'examinateur, une fois rencontré (décision du propriétaire du 29
+#   septembre 2026) : `xing_avant`, `xing_avant_yueke` (l'annonce), `xing_attente` (la
+#   question, avant de répondre), `xing_recu`, `xing_recu_yueke`, `xing_pas_encore` (le
+#   résultat), `xing_bang` (il lit la liste). Il pose les questions, accorde la seconde chance
+#   avec bienveillance et lit le 榜 ; il ne gronde jamais : un examen pas encore reçu, « on se
+#   revoit au prochain ». Avant la rencontre, Tao garde les phrases `tao_*`.
 # - les écritures des scènes : `plaques_haoshe` (les plaques des cellules du 号舍, séparées
 #   d'une espace), `plaque_academie` (la plaque du 书院 du 月课), `bang_entete` (l'en-tête de
 #   la liste). Elles se dessinent depuis leurs traits.
@@ -123,6 +129,13 @@ ou_revue	la revue de l'acquis	d'après la maquette validée le 29 septembre 2026
 etat_a_revoir	à revoir	d'après la maquette validée le 29 septembre 2026
 info_pause	Les briques nouvelles attendent. L'échauffement prend ces caractères d'abord. **L'examen se repasse quand chacun est revu juste**, d'ordinaire en un à trois jours, avec d'autres textes.	d'après la maquette validée le 29 septembre 2026
 rien_perdu	Rien n'est perdu : ni points, ni acquis, ni série.	d'après la maquette validée le 29 septembre 2026
+xing_avant	Assieds-toi. Je pose les questions, tu lis à ton rythme.	rédigé pour l'app : le maître Xing 杏, décision du propriétaire du 29 septembre 2026
+xing_avant_yueke	La leçon du mois : on relit le tronçon, ce que le chemin a posé après le dernier examen.	rédigé pour l'app : le maître Xing 杏, décision du propriétaire du 29 septembre 2026
+xing_attente	Lis tranquillement. Si la première réponse ne va pas, tu en choisis une autre.	rédigé pour l'app : le maître Xing 杏, décision du propriétaire du 29 septembre 2026
+xing_recu	Des textes jamais vus, et tu les as lus. Allons lire la liste.	rédigé pour l'app : le maître Xing 杏, décision du propriétaire du 29 septembre 2026
+xing_recu_yueke	Le tronçon tient. Les briques reprennent demain.	rédigé pour l'app : le maître Xing 杏, décision du propriétaire du 29 septembre 2026
+xing_pas_encore	Pas encore. Revois ces caractères, et on se revoit au prochain.	rédigé pour l'app : le maître Xing 杏, décision du propriétaire du 29 septembre 2026
+xing_bang	Je lis la liste : ton nom y est.	rédigé pour l'app : le maître Xing 杏, décision du propriétaire du 29 septembre 2026
 plaques_haoshe	天一 天二 天三	maquette validée : le 千字文 numérote les rangées du 号舍, 天 d'abord
 plaque_academie	书院	d'après la maquette validée le 29 septembre 2026
 bang_entete	放榜	d'après la maquette validée le 29 septembre 2026

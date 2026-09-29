@@ -93,7 +93,8 @@
     onlettre = () => undefined,
     onchapitre = () => undefined,
     onreprise = () => undefined,
-    contes = true
+    contes = true,
+    xing = false
   }: {
     p: Progress;
     onretour: () => void;
@@ -112,6 +113,8 @@
      * du chemin ; avant, Lire garde « Aujourd'hui », l'anecdote et les lettres de Que.
      */
     contes?: boolean;
+    /** Le maître Xing 杏 est rencontré (`xing.ts`) : c'est lui qui raconte les contes. */
+    xing?: boolean;
   } = $props();
 
   /** L'anecdote de la journée de la session, la même que l'écran Ouvrir. */
@@ -421,6 +424,7 @@
 {:else if lecture}
   <Conte
     {p}
+    {xing}
     entree={lecture}
     enCours={lecture.version && !lecture.sansCompte
       ? p.chapitres[cleLecture(lecture.id, lecture.version.seuil)]

@@ -15,12 +15,20 @@
    * Un jour sans brique nouvelle (story 7.2), le pas revient sur la brique acquise la plus
    * fragile (`session.sansBrique`) : sa fiche, un composé qu'elle a ouvert, le tracé s'il est
    * activé. Rien n'est ajouté : aucun cinabre, et la ligne de Tao vient de `rythme.json`.
+   *
+   * Une fois le maître Xing 杏 rencontré (`xing.ts`), c'est lui qui explique d'où vient le
+   * caractère, la bulle sur le caractère du moment : sa ligne de tête dit l'étiquette de la
+   * fiche, attestée ou mnémotechnique, jamais l'une pour l'autre (`ecrans.json`, `xing`). Le
+   * tracé reste à Tao, son pinceau à la main.
    */
   import ARelire from './ARelire.svelte';
   import EnTetePas from './EnTetePas.svelte';
   import Glyph from './Glyph.svelte';
   import Tao from './Tao.svelte';
   import Trace from './Trace.svelte';
+  import Xing from './Xing.svelte';
+  import { SANS_ECRANS, type TextesXing } from './ecrans';
+  import { POSTURES, cleExplication } from './xing';
   import { ETIQUETTES, LIGNE_SANS_FICHE, lecon, type FicheLue } from './content';
   import { aAudio, dire, manifesteOnce, type Manifeste } from './audio';
   import { jourLecon, sansBrique, traceProposee, type LearnView, type Progress } from './session';
@@ -30,6 +38,8 @@
   let {
     p,
     textes = SANS_RYTHME,
+    xing = false,
+    textesXing = SANS_ECRANS.xing,
     onsuivant,
     onvue,
     ontrace,
@@ -39,6 +49,10 @@
     p: Progress;
     /** Les lignes du rythme gratuit : la ligne de Tao un jour sans brique nouvelle. */
     textes?: TextesRythme;
+    /** Le maître Xing est rencontré : il explique la brique et le composé. */
+    xing?: boolean;
+    /** Ses lignes de tête, selon l'étiquette de la fiche. */
+    textesXing?: TextesXing;
     /**
      * Enchaîne vers la vue suivante. La brique et le composé de la session remontent :
      * à la fin du pas, ils reçoivent chacun une carte de révision. `jour` est le jour du
@@ -147,6 +161,16 @@
     ontraceachevee(c);
   }
 
+  /**
+   * La ligne de tête : un jour sans brique nouvelle, celle du rythme ; sinon, une fois Xing
+   * rencontré, la sienne, qui dit l'étiquette de la fiche ; avant, celle de toujours.
+   */
+  function ligne(vue: 'brique' | 'compose', f: FicheLue, avant: string): string {
+    if (vue === 'brique' && revue) return textes.apprendre_revue;
+    if (!xing) return avant;
+    return textesXing[cleExplication(vue, f.etiquette, f.origine_fr)] || avant;
+  }
+
   /** Le composé à apprendre avec la brique, quand le jour en pose un. */
   const suivantDuJour = $derived(compo?.c ?? null);
 </script>
@@ -160,8 +184,12 @@
 
   {#if vue === 'brique' && brique}
     <div class="verif-tete">
-      <Tao stade={taoStade} posture="lecon" humeur={taoHumeur} size={72} caractere={brique.c} />
-      <p class="guide grow">{revue ? textes.apprendre_revue : "D'abord la brique."}</p>
+      {#if xing}
+        <Xing posture={POSTURES.etymologie} size={72} caractere={brique.c} />
+      {:else}
+        <Tao stade={taoStade} posture="lecon" humeur={taoHumeur} size={72} caractere={brique.c} />
+      {/if}
+      <p class="guide grow">{ligne('brique', brique, "D'abord la brique.")}</p>
     </div>
     <div class="card center">
       <button
@@ -226,8 +254,12 @@
     </div>
   {:else if vue === 'compose' && compo}
     <div class="verif-tete">
-      <Tao stade={taoStade} posture="lecon" humeur={taoHumeur} size={72} caractere={compo.c} />
-      <p class="guide grow">La brique est posée : voici ce qu'elle donne.</p>
+      {#if xing}
+        <Xing posture={POSTURES.etymologie} size={72} caractere={compo.c} />
+      {:else}
+        <Tao stade={taoStade} posture="lecon" humeur={taoHumeur} size={72} caractere={compo.c} />
+      {/if}
+      <p class="guide grow">{ligne('compose', compo, "La brique est posée : voici ce qu'elle donne.")}</p>
     </div>
     <div class="card center">
       <div class="formula">

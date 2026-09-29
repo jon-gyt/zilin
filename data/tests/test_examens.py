@@ -631,3 +631,15 @@ def test_la_redaction_est_tracable(tmp_path: Path) -> None:
     d = _dossier(tmp_path, generation={"modele": "claude", "api": "Messages API"})
     sources = next(c for c in ex.controles(dossier=d, build=tmp_path, destination=tmp_path / "vide") if c.nom == "examens : sources")
     assert not sources.ok and "generation" in sources.detail
+
+
+def test_xing_l_examinateur_ne_gronde_jamais() -> None:
+    """Le maître Xing 杏 pose les questions et lit le 榜 ; un examen pas encore reçu, « on se
+    revoit au prochain », jamais un reproche (décision du propriétaire du 29 septembre 2026)."""
+    textes, fautes = ex.charger_textes()
+    assert fautes == [] and ex.fautes_textes(textes) == []
+    for cle in ("xing_avant", "xing_attente", "xing_recu", "xing_pas_encore", "xing_bang"):
+        assert textes[cle].strip()
+    assert "prochain" in textes["xing_pas_encore"]
+    grondee = {**textes, "xing_pas_encore": "Dommage, tu as raté."}
+    assert any("ne gronde jamais" in f for f in ex.fautes_textes(grondee))

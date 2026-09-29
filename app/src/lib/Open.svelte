@@ -4,7 +4,9 @@
    * Le texte vient du JSON versionné de `app/public/data/`, jamais du code.
    *
    * Tao écoute l'anecdote assise (brief §9) : petite, dans le coin, sans un mot. Elle
-   * est posée hors du flux, la mise en page de l'estampe ne bouge pas.
+   * est posée hors du flux, la mise en page de l'estampe ne bouge pas. Une fois le maître Xing
+   * 杏 rencontré (`xing.ts`), c'est lui qui la raconte, assis, le rouleau ouvert, et Tao
+   * l'écoute assise à côté de lui, à la même taille.
    *
    * Le jour où se montre celle d'une fête (`fetes.json`) — une fois par occurrence, le
    * premier jour de sa fenêtre où l'on ouvre l'app (`saisons.anecdoteDeFete`) —, l'anecdote
@@ -25,6 +27,8 @@
   import Glyph from './Glyph.svelte';
   import Marque from './Marque.svelte';
   import Tao from './Tao.svelte';
+  import Xing from './Xing.svelte';
+  import { POSTURES } from './xing';
   import { autourDuJour } from './anecdotes';
   import { ETIQUETTES, anecdotesOnce, contenu, fetesOnce, saisonsOnce, type Anecdote } from './content';
   import type { FeteDuJour } from './fetes';
@@ -36,11 +40,14 @@
 
   let {
     p,
+    xing = false,
     oncontinuer,
     onquitter,
     onmontree = () => undefined
   }: {
     p: Progress;
+    /** Le maître Xing est rencontré : il raconte l'anecdote. */
+    xing?: boolean;
     oncontinuer: () => void;
     onquitter: () => void;
     /**
@@ -128,7 +135,10 @@
 
 <main class="screen ouvrir">
   <button class="k quit" onclick={onquitter}>✕ Quitter</button>
-  <div class="tao-assise"><Tao stade={taoStade} posture="anecdote" humeur={taoHumeur} size={56} /></div>
+  <div class="tao-assise" class:duo={xing}>
+    {#if xing}<Xing posture={POSTURES.anecdote} size={56} />{/if}
+    <Tao stade={taoStade} posture="anecdote" humeur={taoHumeur} size={56} />
+  </div>
 
   <div class="anec">
     {#if a}
@@ -190,6 +200,12 @@
 </main>
 
 <style>
+  /* le maître raconte, Tao écoute à côté de lui */
+  .tao-assise.duo {
+    display: flex;
+    align-items: flex-end;
+    gap: 0;
+  }
   /* le caractère se touche : il se réécrit et se dit ; le bouton ne se voit pas */
   button.grand {
     display: flex;

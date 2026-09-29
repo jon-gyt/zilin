@@ -2,7 +2,8 @@
  * Les textes d'interface de « Lire le monde » (Chercher), du tableau des révisions (Mon
  * chemin), les lignes des examens sur « Mon personnage » et la route devant (stories 8.5 et
  * 8.6), ceux de la question « Dis-le » et de son réglage (story 9.1), et l'image du chemin
- * (Mon chemin 路, la pierre posée, les auberges, les rendez-vous), tels que le pipeline les
+ * (Mon chemin 路, la pierre posée, les auberges, les rendez-vous) et du maître Xing 杏 (sa
+ * rencontre, sa ligne du pas Apprendre), tels que le pipeline les
  * exporte dans `ecrans.json` (`data/sources/ecrans/`, `data/schema.md`).
  *
  * L'app ne rédige aucun de ces textes : elle les lit ici et remplit leurs jetons entre
@@ -206,12 +207,36 @@ export const CLES_CHEMIN = [
   'trophee-serie'
 ] as const;
 
+/**
+ * Le maître Xing 杏 (décision du propriétaire du 29 septembre 2026) : sa rencontre à la porte du
+ * 县试, et sa ligne de tête au pas Apprendre selon l'étiquette de la fiche. Dans l'ordre de la source.
+ */
+export const CLES_XING = [
+  'kicker',
+  'caractere',
+  'nom',
+  'pinyin',
+  'sens',
+  'presentation',
+  'accueil',
+  'roles',
+  'bouton',
+  'voix',
+  'brique-atteste',
+  'brique-mnemo',
+  'brique-sans',
+  'compose-atteste',
+  'compose-mnemo',
+  'compose-sans'
+] as const;
+
 export type CleLireLeMonde = (typeof CLES_LIRE_LE_MONDE)[number];
 export type CleRevisions = (typeof CLES_REVISIONS)[number];
 export type ClePersonnage = (typeof CLES_PERSONNAGE)[number];
 export type CleRoute = (typeof CLES_ROUTE)[number];
 export type CleDire = (typeof CLES_DIRE)[number];
 export type CleChemin = (typeof CLES_CHEMIN)[number];
+export type CleXing = (typeof CLES_XING)[number];
 
 export type TextesLireLeMonde = Record<CleLireLeMonde, string>;
 export type TextesRevisions = Record<CleRevisions, string>;
@@ -219,6 +244,7 @@ export type TextesPersonnage = Record<ClePersonnage, string>;
 export type TextesRoute = Record<CleRoute, string>;
 export type TextesDire = Record<CleDire, string>;
 export type TextesChemin = Record<CleChemin, string>;
+export type TextesXing = Record<CleXing, string>;
 
 export type Ecrans = {
   version: string;
@@ -229,6 +255,7 @@ export type Ecrans = {
   route: TextesRoute;
   dire: TextesDire;
   chemin: TextesChemin;
+  xing: TextesXing;
 };
 
 function vides<K extends string>(cles: readonly K[]): Record<K, string> {
@@ -244,7 +271,8 @@ export const SANS_ECRANS: Ecrans = {
   personnage: vides(CLES_PERSONNAGE),
   route: vides(CLES_ROUTE),
   dire: vides(CLES_DIRE),
-  chemin: vides(CLES_CHEMIN)
+  chemin: vides(CLES_CHEMIN),
+  xing: vides(CLES_XING)
 };
 
 function objet(v: unknown): Record<string, unknown> {
@@ -273,7 +301,8 @@ export function lireEcrans(brut: unknown): Ecrans {
     personnage: bloc(o.personnage, CLES_PERSONNAGE),
     route: bloc(o.route, CLES_ROUTE),
     dire: bloc(o.dire, CLES_DIRE),
-    chemin: bloc(o.chemin, CLES_CHEMIN)
+    chemin: bloc(o.chemin, CLES_CHEMIN),
+    xing: bloc(o.xing, CLES_XING)
   };
 }
 

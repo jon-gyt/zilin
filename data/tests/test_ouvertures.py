@@ -24,6 +24,7 @@ from wenlu_data.ouvertures import (
     fautes_contenu,
     fautes_export,
     fautes_sources,
+    premier_examen,
     premiere_fable,
 )
 
@@ -51,9 +52,10 @@ def test_chaque_porte_est_exigee_une_fois() -> None:
     c = charger()
     sans = replace(c, portes=tuple(p for p in c.portes if p.porte != "jouer"))
     assert any("0 lignes pour jouer" in f for f in fautes_sources(sans))
-    double = replace(c, portes=(*c.portes, c.portes[0]))
+    reviser = next(p for p in c.portes if p.porte == "reviser")
+    double = replace(c, portes=(*c.portes, reviser))
     assert any("2 lignes pour reviser" in f for f in fautes_sources(double))
-    inconnue = replace(c, portes=(*c.portes, replace(c.portes[0], porte="boutique")))
+    inconnue = replace(c, portes=(*c.portes, replace(reviser, porte="boutique")))
     assert any("porte inconnue 'boutique'" in f for f in fautes_sources(inconnue))
 
 
@@ -109,6 +111,30 @@ def test_lire_s_ouvre_a_la_premiere_lettre_et_les_contes_a_la_premiere_fable() -
     assert fautes_contenu(c, premiere_lettre=7, premiere_fable=25) == []
     assert any("première lettre" in f for f in fautes_contenu(avec("lire", seuil="9"), premiere_lettre=7, premiere_fable=25))
     assert any("première fable" in f for f in fautes_contenu(avec("contes", seuil="30"), premiere_lettre=7, premiere_fable=25))
+
+
+def test_xing_se_rencontre_a_la_porte_du_premier_examen() -> None:
+    c = charger()
+    assert premier_examen() == 50
+    xing = next(p for p in c.portes if p.porte == "xing")
+    assert (xing.unite, xing.nombre, xing.parent) == ("lus", 50, "-")
+    assert "杏" in xing.annonce and "县试" in xing.annonce
+    assert fautes_contenu(c, premiere_lettre=7, premiere_fable=25, premier_examen=50) == []
+    assert any(
+        "premier examen" in f
+        for f in fautes_contenu(avec("xing", seuil="40"), premiere_lettre=7, premiere_fable=25, premier_examen=50)
+    )
+    assert any(
+        "premier examen" in f
+        for f in fautes_contenu(avec("xing", unite="jour"), premiere_lettre=7, premiere_fable=25, premier_examen=50)
+    )
+
+
+def test_la_rencontre_de_xing_s_annonce_avant_toute_autre_porte() -> None:
+    c = charger()
+    assert c.portes[0].porte == "xing"
+    apres = replace(c, portes=(*c.portes[1:], c.portes[0]))
+    assert any("en tête" in f for f in fautes_contenu(apres, premiere_lettre=7, premiere_fable=25, premier_examen=50))
 
 
 # ----------------------------------------------------------------------------- export
