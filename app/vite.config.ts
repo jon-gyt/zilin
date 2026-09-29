@@ -28,15 +28,25 @@ export default defineConfig({
       // (`NetworkFirst`) : ce qui a été ouvert une fois se relit hors ligne, le reste attend
       // le réseau — acceptable pour un aperçu. Ce sont des fichiers de l'app, servis avec
       // elle : aucune requête ne sort de son origine.
+      //
+      // Les gabarits de l'écriture au doigt (`data/<version>/ecriture/`, ~470 Kio) ne sont pas
+      // précachés non plus : le pavé ne s'ouvre qu'avec Wenlu complet, jamais sur le web
+      // (`droits.ts`), et le shell iOS les porte dans son paquet. Lus une fois, ils restent
+      // (`CacheFirst`) : le pavé marche ensuite hors ligne.
       workbox: {
         globPatterns: ['**/*.{js,css,html,webmanifest,json,svg,png,woff2,mp3,md,txt,TXT}'],
-        globIgnores: ['**/node_modules/**/*', 'data/*/apercu/**', ...GLOB_HORS_PRECACHE],
+        globIgnores: ['**/node_modules/**/*', 'data/*/apercu/**', 'data/*/ecriture/**', ...GLOB_HORS_PRECACHE],
         navigateFallbackDenylist: [motifPagesDuSite(process.env.BASE_PATH)],
         runtimeCaching: [
           {
             urlPattern: /\/data\/[^/]+\/apercu\/.+\.json$/,
             handler: 'NetworkFirst',
             options: { cacheName: 'wenlu-apercu', expiration: { maxEntries: 400 } }
+          },
+          {
+            urlPattern: /\/data\/[^/]+\/ecriture\/.+\.json$/,
+            handler: 'CacheFirst',
+            options: { cacheName: 'wenlu-ecriture', expiration: { maxEntries: 4 } }
           }
         ]
       }
