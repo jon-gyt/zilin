@@ -177,6 +177,19 @@ describe("d'un écran à l'autre, la feuille glisse en place", () => {
   });
 });
 
+describe("au menu, les pas s'encrent un à un", () => {
+  const x = source('Pinceaux.svelte');
+  const css = x.slice(x.indexOf('<style>'));
+  it('les faits et celui en cours, de gauche à droite ; au menu seulement', () => {
+    expect(css).toMatch(/\.encrer \.fait,\s*\.encrer \.encours \{\s*animation: encrer 0\.3s ease-out both;\s*animation-delay: calc\(0\.12s \+ var\(--i\) \* 0\.07s\);/);
+    expect(source('Menu.svelte')).toContain('<Pinceaux coups={m.coups} label={m.ligne} encrer />');
+    expect(source('EnTetePas.svelte')).not.toMatch(/<Pinceaux[^>]*encrer/);
+  });
+  it("s'arrête si l'on réduit les animations", () => {
+    expect(reduits(css)).toMatch(/\.encrer \.fait,\s*\.encrer \.encours \{\s*animation: none;/);
+  });
+});
+
 describe('le retour haptique, accordé aux petits moments', () => {
   it('une bonne réponse dans un jeu donne le même tap léger qu’en révision, une erreur rien', () => {
     expect(source('Game.svelte')).toMatch(/function reagirA\(correct: boolean\): void \{[\s\S]*?if \(correct\) bonneReponse\(\);/);

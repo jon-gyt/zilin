@@ -546,7 +546,7 @@
           />
         {/key}
       {/if}
-      <Pinceaux coups={m.coups} label={m.ligne} />
+      <Pinceaux coups={m.coups} label={m.ligne} encrer />
       <div class="pas">
         <span>{m.ligne}</span>
         {#if m.duree !== ''}<span class="duree">{m.duree}</span>{/if}

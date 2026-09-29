@@ -14,16 +14,20 @@
   /**
    * La barre de la session : un coup de pinceau par pas. Les pas faits en jade, le pas en
    * cours à l'encre, les pas à venir en filet. La même sur le menu et en tête des pas.
-   * Ni cinabre ni animation : elle dit où l'on en est, rien d'autre.
+   * Ni cinabre : elle dit où l'on en est, rien d'autre.
+   *
+   * Au menu (`encrer`), les coups faits et celui en cours s'encrent un à un, de gauche à
+   * droite, comme un pinceau qui repasse le chemin : trois dixièmes de seconde chacun, et
+   * rien ne bouge si l'on réduit les animations. En tête des pas, la barre reste immobile.
    */
   import type { Coup } from './parcours';
 
-  let { coups, label = '' }: { coups: readonly Coup[]; label?: string } = $props();
+  let { coups, label = '', encrer = false }: { coups: readonly Coup[]; label?: string; encrer?: boolean } = $props();
 </script>
 
-<div class="pinceaux" role={label ? 'img' : undefined} aria-label={label || undefined} aria-hidden={label ? undefined : 'true'}>
+<div class="pinceaux" class:encrer role={label ? 'img' : undefined} aria-label={label || undefined} aria-hidden={label ? undefined : 'true'}>
   {#each coups as c, i (i)}
-    <svg class={c} viewBox="0 0 100 12" preserveAspectRatio="none" aria-hidden="true">
+    <svg class={c} style="--i:{i}" viewBox="0 0 100 12" preserveAspectRatio="none" aria-hidden="true">
       <path d={BRUSH[i % BRUSH.length]} />
     </svg>
   {/each}
@@ -50,5 +54,25 @@
   }
   .encours path {
     fill: var(--ink);
+  }
+  /* le pinceau repasse les pas faits, un coup après l'autre */
+  .encrer .fait,
+  .encrer .encours {
+    animation: encrer 0.3s ease-out both;
+    animation-delay: calc(0.12s + var(--i) * 0.07s);
+  }
+  @keyframes encrer {
+    from {
+      clip-path: inset(0 100% 0 0);
+    }
+    to {
+      clip-path: inset(0 0 0 0);
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .encrer .fait,
+    .encrer .encours {
+      animation: none;
+    }
   }
 </style>
