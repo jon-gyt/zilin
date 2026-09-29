@@ -1,0 +1,767 @@
+{
+ "examen": "fushi",
+ "parcours": "hsk",
+ "generation": {
+  "modele": "rédaction manuelle",
+  "api": "session Claude Code (sans API)",
+  "date": "2026-09-29"
+ },
+ "relecture": {
+  "statut": "a_relire",
+  "note": "rédigé le 29 septembre 2026, à relire par le propriétaire (`wenlu examens apercu`) ; une série passe à `relu` sur sa décision, citée ici"
+ },
+ "series": [
+  {
+   "serie": "A",
+   "statut": "a_relire",
+   "supports": [
+    {
+     "id": "s1",
+     "genre": "etal",
+     "contexte": {
+      "fr": "L'étal d'un marchand de vêtements",
+      "en": "A clothes stall"
+     },
+     "lignes": [
+      {
+       "zh": "毛衣：六十元",
+       "pinyin": "máo yī liù shí yuán",
+       "fr": "Pull : 60 yuans",
+       "en": "Sweater: 60 yuan"
+      },
+      {
+       "zh": "大衣：一百五十元",
+       "pinyin": "dà yī yī bǎi wǔ shí yuán",
+       "fr": "Manteau : 150 yuans",
+       "en": "Coat: 150 yuan"
+      },
+      {
+       "zh": "上衣：三十元",
+       "pinyin": "shàng yī sān shí yuán",
+       "fr": "Veste : 30 yuans",
+       "en": "Jacket: 30 yuan"
+      }
+     ],
+     "glose": [
+      {
+       "zh": "六十元",
+       "pinyin": "liù shí yuán",
+       "fr": "60 yuans",
+       "en": "60 yuan"
+      },
+      {
+       "zh": "一百五十元",
+       "pinyin": "yī bǎi wǔ shí yuán",
+       "fr": "150 yuans",
+       "en": "150 yuan"
+      },
+      {
+       "zh": "三十元",
+       "pinyin": "sān shí yuán",
+       "fr": "30 yuans",
+       "en": "30 yuan"
+      }
+     ]
+    },
+    {
+     "id": "s2",
+     "genre": "message",
+     "contexte": {
+      "fr": "La maman de Xiaobai écrit à M. Ma",
+      "en": "Xiaobai's mum writes to Mr Ma"
+     },
+     "lignes": [
+      {
+       "zh": "马先生，我是小白妈妈。",
+       "pinyin": "mǎ xiān sheng wǒ shì xiǎo bái mā ma",
+       "fr": "Monsieur Ma, je suis la maman de Xiaobai.",
+       "en": "Mr Ma, I'm Xiaobai's mum."
+      },
+      {
+       "zh": "小白今天不来上学了。",
+       "pinyin": "xiǎo bái jīn tiān bù lái shàng xué le",
+       "fr": "Xiaobai ne vient pas à l'école aujourd'hui.",
+       "en": "Xiaobai won't come to school today."
+      }
+     ]
+    },
+    {
+     "id": "s3",
+     "genre": "calendrier",
+     "contexte": {
+      "fr": "Une page de calendrier",
+      "en": "A calendar page"
+     },
+     "lignes": [
+      {
+       "zh": "三月八日",
+       "pinyin": "sān yuè bā rì",
+       "fr": "8 mars",
+       "en": "8 March"
+      },
+      {
+       "zh": "妈妈生日",
+       "pinyin": "mā ma shēng rì",
+       "fr": "anniversaire de maman",
+       "en": "Mum's birthday"
+      }
+     ]
+    },
+    {
+     "id": "s4",
+     "genre": "affiche",
+     "contexte": {
+      "fr": "La météo affichée à l'entrée d'un bureau",
+      "en": "The weather posted at an office entrance"
+     },
+     "lignes": [
+      {
+       "zh": "上午：小雨",
+       "pinyin": "shàng wǔ xiǎo yǔ",
+       "fr": "Matin : petite pluie",
+       "en": "Morning: light rain"
+      },
+      {
+       "zh": "中午：大风",
+       "pinyin": "zhōng wǔ dà fēng",
+       "fr": "Midi : vent fort",
+       "en": "Noon: strong wind"
+      },
+      {
+       "zh": "明天：天气好",
+       "pinyin": "míng tiān tiān qì hǎo",
+       "fr": "Demain : beau temps",
+       "en": "Tomorrow: fine weather"
+      }
+     ]
+    }
+   ],
+   "questions": [
+    {
+     "type": "comprendre",
+     "support": "s1",
+     "consigne": {
+      "fr": "Combien coûte le pull ?",
+      "en": "How much is the sweater?"
+     },
+     "choix": [
+      {
+       "fr": "30 yuans",
+       "en": "30 yuan"
+      },
+      {
+       "fr": "60 yuans",
+       "en": "60 yuan"
+      },
+      {
+       "fr": "150 yuans",
+       "en": "150 yuan"
+      },
+      {
+       "fr": "16 yuans",
+       "en": "16 yuan"
+      }
+     ],
+     "reponse": 1,
+     "porte": [
+      "毛",
+      "衣",
+      "六"
+     ]
+    },
+    {
+     "type": "reperer",
+     "support": "s1",
+     "consigne": {
+      "fr": "Touche le vêtement le plus cher.",
+      "en": "Tap the most expensive item."
+     },
+     "choix": [
+      "毛衣",
+      "上衣",
+      "一百五十元",
+      "大衣"
+     ],
+     "reponse": 3,
+     "porte": [
+      "大",
+      "衣",
+      "百"
+     ]
+    },
+    {
+     "type": "sens",
+     "consigne": {
+      "fr": "Que veut dire ce caractère ?",
+      "en": "What does this character mean?"
+     },
+     "objet": {
+      "zh": "重",
+      "pinyin": "zhòng",
+      "fr": "lourd, important",
+      "en": "heavy, important"
+     },
+     "choix": [
+      {
+       "fr": "lourd, important",
+       "en": "heavy, important"
+      },
+      {
+       "fr": "haut",
+       "en": "tall"
+      },
+      {
+       "fr": "vieux",
+       "en": "old"
+      },
+      {
+       "fr": "blanc",
+       "en": "white"
+      }
+     ],
+     "reponse": 0,
+     "porte": [
+      "重"
+     ]
+    },
+    {
+     "type": "comprendre",
+     "support": "s2",
+     "consigne": {
+      "fr": "Qui écrit ce message ?",
+      "en": "Who wrote this message?"
+     },
+     "choix": [
+      {
+       "fr": "M. Ma",
+       "en": "Mr Ma"
+      },
+      {
+       "fr": "Xiaobai",
+       "en": "Xiaobai"
+      },
+      {
+       "fr": "La maman de Xiaobai",
+       "en": "Xiaobai's mum"
+      },
+      {
+       "fr": "Le frère de Xiaobai",
+       "en": "Xiaobai's brother"
+      }
+     ],
+     "reponse": 2,
+     "porte": [
+      "妈"
+     ]
+    },
+    {
+     "type": "replique",
+     "support": "s2",
+     "consigne": {
+      "fr": "Que répond M. Ma ?",
+      "en": "What does Mr Ma reply?"
+     },
+     "choix": [
+      {
+       "zh": "上衣三十元。",
+       "pinyin": "shàng yī sān shí yuán",
+       "fr": "La veste fait 30 yuans.",
+       "en": "The jacket is 30 yuan."
+      },
+      {
+       "zh": "好，明白了。",
+       "pinyin": "hǎo míng bai le",
+       "fr": "D'accord, c'est noté.",
+       "en": "OK, understood."
+      },
+      {
+       "zh": "明天是六月九日。",
+       "pinyin": "míng tiān shì liù yuè jiǔ rì",
+       "fr": "Demain, c'est le 9 juin.",
+       "en": "Tomorrow is 9 June."
+      },
+      {
+       "zh": "小白不是学生。",
+       "pinyin": "xiǎo bái bù shì xué sheng",
+       "fr": "Xiaobai n'est pas élève.",
+       "en": "Xiaobai isn't a pupil."
+      }
+     ],
+     "reponse": 1,
+     "porte": [
+      "明",
+      "白",
+      "了"
+     ]
+    },
+    {
+     "type": "caractere",
+     "consigne": {
+      "fr": "Quel caractère a ce sens ?",
+      "en": "Which character has this meaning?"
+     },
+     "objet": {
+      "zh": "身",
+      "pinyin": "shēn",
+      "fr": "corps",
+      "en": "body"
+     },
+     "choix": [
+      "手",
+      "牛",
+      "马",
+      "身"
+     ],
+     "reponse": 3,
+     "porte": [
+      "身"
+     ]
+    },
+    {
+     "type": "vrai_faux",
+     "support": "s3",
+     "consigne": {
+      "fr": "Vrai ou faux ?",
+      "en": "True or false?"
+     },
+     "affirmation": {
+      "zh": "三月八日是妈妈生日。",
+      "pinyin": "sān yuè bā rì shì mā ma shēng rì",
+      "fr": "Le 8 mars, c'est l'anniversaire de maman.",
+      "en": "8 March is Mum's birthday."
+     },
+     "reponse": true,
+     "porte": [
+      "三",
+      "八",
+      "妈"
+     ]
+    },
+    {
+     "type": "trou",
+     "consigne": {
+      "fr": "Quel caractère manque dans ce mot ?",
+      "en": "Which character is missing from this word?"
+     },
+     "objet": {
+      "zh": "上午",
+      "pinyin": "shàng wǔ",
+      "fr": "matin, matinée",
+      "en": "morning"
+     },
+     "trou": 1,
+     "choix": [
+      "牛",
+      "午",
+      "干",
+      "半"
+     ],
+     "reponse": 1,
+     "porte": [
+      "午"
+     ]
+    },
+    {
+     "type": "reperer",
+     "support": "s4",
+     "consigne": {
+      "fr": "Touche le temps qu'il fera à midi.",
+      "en": "Tap the weather for noon."
+     },
+     "choix": [
+      "小雨",
+      "大风",
+      "天气",
+      "明天"
+     ],
+     "reponse": 1,
+     "porte": [
+      "中",
+      "午",
+      "风"
+     ]
+    },
+    {
+     "type": "vrai_faux",
+     "support": "s4",
+     "consigne": {
+      "fr": "Vrai ou faux ?",
+      "en": "True or false?"
+     },
+     "affirmation": {
+      "zh": "上午有大风。",
+      "pinyin": "shàng wǔ yǒu dà fēng",
+      "fr": "Le matin, il y a un vent fort.",
+      "en": "There's a strong wind in the morning."
+     },
+     "reponse": false,
+     "porte": [
+      "上",
+      "午",
+      "风"
+     ]
+    }
+   ]
+  },
+  {
+   "serie": "B",
+   "statut": "a_relire",
+   "supports": [
+    {
+     "id": "s1",
+     "genre": "message",
+     "contexte": {
+      "fr": "Xiaoming écrit à sa maman",
+      "en": "Xiaoming writes to his mum"
+     },
+     "lignes": [
+      {
+       "zh": "妈妈，今天风太大了！",
+       "pinyin": "mā ma jīn tiān fēng tài dà le",
+       "fr": "Maman, il y a trop de vent aujourd'hui !",
+       "en": "Mum, it's far too windy today!"
+      },
+      {
+       "zh": "我中午不出门了。",
+       "pinyin": "wǒ zhōng wǔ bù chū mén le",
+       "fr": "Finalement, je ne sors pas à midi.",
+       "en": "I won't go out at noon after all."
+      }
+     ]
+    },
+    {
+     "id": "s2",
+     "genre": "note",
+     "contexte": {
+      "fr": "Une page d'agenda",
+      "en": "A diary page"
+     },
+     "lignes": [
+      {
+       "zh": "五月三日：学开车。",
+       "pinyin": "wǔ yuè sān rì xué kāi chē",
+       "fr": "3 mai : leçon de conduite.",
+       "en": "3 May: driving lesson."
+      },
+      {
+       "zh": "五月六日：见马先生。",
+       "pinyin": "wǔ yuè liù rì jiàn mǎ xiān sheng",
+       "fr": "6 mai : voir M. Ma.",
+       "en": "6 May: see Mr Ma."
+      },
+      {
+       "zh": "五月九日：去南京。",
+       "pinyin": "wǔ yuè jiǔ rì qù nán jīng",
+       "fr": "9 mai : aller à Nankin.",
+       "en": "9 May: go to Nanjing."
+      }
+     ]
+    },
+    {
+     "id": "s3",
+     "genre": "pancarte",
+     "contexte": {
+      "fr": "Un panneau dans une gare",
+      "en": "A sign in a station"
+     },
+     "lignes": [
+      {
+       "zh": "出口",
+       "pinyin": "chū kǒu",
+       "fr": "Sortie",
+       "en": "Exit"
+      },
+      {
+       "zh": "火车：左",
+       "pinyin": "huǒ chē zuǒ",
+       "fr": "Trains : à gauche",
+       "en": "Trains: left"
+      },
+      {
+       "zh": "电车：右",
+       "pinyin": "diàn chē yòu",
+       "fr": "Tramways : à droite",
+       "en": "Trams: right"
+      }
+     ]
+    }
+   ],
+   "questions": [
+    {
+     "type": "comprendre",
+     "support": "s1",
+     "consigne": {
+      "fr": "Pourquoi Xiaoming ne sort-il pas ?",
+      "en": "Why isn't Xiaoming going out?"
+     },
+     "choix": [
+      {
+       "fr": "Il pleut fort.",
+       "en": "It's raining hard."
+      },
+      {
+       "fr": "Il a cours.",
+       "en": "He has class."
+      },
+      {
+       "fr": "Il fait trop froid.",
+       "en": "It's too cold."
+      },
+      {
+       "fr": "Il y a trop de vent.",
+       "en": "It's too windy."
+      }
+     ],
+     "reponse": 3,
+     "porte": [
+      "风",
+      "太"
+     ]
+    },
+    {
+     "type": "vrai_faux",
+     "support": "s1",
+     "consigne": {
+      "fr": "Vrai ou faux ?",
+      "en": "True or false?"
+     },
+     "affirmation": {
+      "zh": "今天风不大。",
+      "pinyin": "jīn tiān fēng bù dà",
+      "fr": "Aujourd'hui, il n'y a pas beaucoup de vent.",
+      "en": "It isn't very windy today."
+     },
+     "reponse": false,
+     "porte": [
+      "风",
+      "太",
+      "大"
+     ]
+    },
+    {
+     "type": "sens",
+     "consigne": {
+      "fr": "Que veut dire ce caractère ?",
+      "en": "What does this character mean?"
+     },
+     "objet": {
+      "zh": "半",
+      "pinyin": "bàn",
+      "fr": "moitié, demi",
+      "en": "half"
+     },
+     "choix": [
+      {
+       "fr": "cent",
+       "en": "hundred"
+      },
+      {
+       "fr": "moitié, demi",
+       "en": "half"
+      },
+      {
+       "fr": "deux",
+       "en": "two"
+      },
+      {
+       "fr": "huit",
+       "en": "eight"
+      }
+     ],
+     "reponse": 1,
+     "porte": [
+      "半"
+     ]
+    },
+    {
+     "type": "replique",
+     "support": "s1",
+     "consigne": {
+      "fr": "Que répond sa maman ?",
+      "en": "What does his mum reply?"
+     },
+     "choix": [
+      {
+       "zh": "好，明天再去。",
+       "pinyin": "hǎo míng tiān zài qù",
+       "fr": "D'accord, tu iras demain.",
+       "en": "OK, you can go tomorrow."
+      },
+      {
+       "zh": "毛衣六十元。",
+       "pinyin": "máo yī liù shí yuán",
+       "fr": "Le pull fait 60 yuans.",
+       "en": "The sweater is 60 yuan."
+      },
+      {
+       "zh": "今天是三月八日。",
+       "pinyin": "jīn tiān shì sān yuè bā rì",
+       "fr": "Aujourd'hui, c'est le 8 mars.",
+       "en": "Today is 8 March."
+      },
+      {
+       "zh": "马先生是老人。",
+       "pinyin": "mǎ xiān sheng shì lǎo rén",
+       "fr": "M. Ma est une personne âgée.",
+       "en": "Mr Ma is an old man."
+      }
+     ],
+     "reponse": 0,
+     "porte": [
+      "不",
+      "出",
+      "门"
+     ]
+    },
+    {
+     "type": "comprendre",
+     "support": "s2",
+     "consigne": {
+      "fr": "Quel jour va-t-il à Nankin ?",
+      "en": "Which day is he going to Nanjing?"
+     },
+     "choix": [
+      {
+       "fr": "Le 3 mai",
+       "en": "3 May"
+      },
+      {
+       "fr": "Le 6 mai",
+       "en": "6 May"
+      },
+      {
+       "fr": "Le 9 mai",
+       "en": "9 May"
+      },
+      {
+       "fr": "Le 9 juin",
+       "en": "9 June"
+      }
+     ],
+     "reponse": 2,
+     "porte": [
+      "九",
+      "南",
+      "京"
+     ]
+    },
+    {
+     "type": "vrai_faux",
+     "support": "s2",
+     "consigne": {
+      "fr": "Vrai ou faux ?",
+      "en": "True or false?"
+     },
+     "affirmation": {
+      "zh": "五月三日学开车。",
+      "pinyin": "wǔ yuè sān rì xué kāi chē",
+      "fr": "Le 3 mai, leçon de conduite.",
+      "en": "3 May: driving lesson."
+     },
+     "reponse": true,
+     "porte": [
+      "三",
+      "开",
+      "车"
+     ]
+    },
+    {
+     "type": "caractere",
+     "consigne": {
+      "fr": "Quel caractère a ce sens ?",
+      "en": "Which character has this meaning?"
+     },
+     "objet": {
+      "zh": "来",
+      "pinyin": "lái",
+      "fr": "venir",
+      "en": "to come"
+     },
+     "choix": [
+      "来",
+      "米",
+      "半",
+      "本"
+     ],
+     "reponse": 0,
+     "porte": [
+      "来"
+     ]
+    },
+    {
+     "type": "comprendre",
+     "support": "s3",
+     "consigne": {
+      "fr": "Où va-t-on pour prendre le tramway ?",
+      "en": "Which way for the tram?"
+     },
+     "choix": [
+      {
+       "fr": "À gauche",
+       "en": "Left"
+      },
+      {
+       "fr": "À droite",
+       "en": "Right"
+      },
+      {
+       "fr": "Tout droit",
+       "en": "Straight on"
+      },
+      {
+       "fr": "À l'étage",
+       "en": "Upstairs"
+      }
+     ],
+     "reponse": 1,
+     "porte": [
+      "电",
+      "右"
+     ]
+    },
+    {
+     "type": "reperer",
+     "support": "s3",
+     "consigne": {
+      "fr": "Touche le mot qui veut dire « sortie ».",
+      "en": "Tap the word that means “exit”."
+     },
+     "choix": [
+      "火车",
+      "出口",
+      "电车",
+      "左"
+     ],
+     "reponse": 1,
+     "porte": [
+      "出",
+      "口"
+     ]
+    },
+    {
+     "type": "ton",
+     "consigne": {
+      "fr": "Quel est le ton de ce caractère ?",
+      "en": "Which tone does this character have?"
+     },
+     "objet": {
+      "zh": "老",
+      "pinyin": "lǎo",
+      "fr": "vieux, âgé",
+      "en": "old"
+     },
+     "choix": [
+      "lāo",
+      "láo",
+      "lǎo",
+      "lào"
+     ],
+     "reponse": 2,
+     "porte": [
+      "老"
+     ]
+    }
+   ]
+  }
+ ]
+}

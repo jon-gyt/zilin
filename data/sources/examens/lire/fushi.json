@@ -1,0 +1,785 @@
+{
+ "examen": "fushi",
+ "parcours": "lire",
+ "generation": {
+  "modele": "rédaction manuelle",
+  "api": "session Claude Code (sans API)",
+  "date": "2026-09-29"
+ },
+ "relecture": {
+  "statut": "a_relire",
+  "note": "rédigé le 29 septembre 2026, à relire par le propriétaire (`wenlu examens apercu`) ; une série passe à `relu` sur sa décision, citée ici"
+ },
+ "series": [
+  {
+   "serie": "A",
+   "statut": "a_relire",
+   "supports": [
+    {
+     "id": "s1",
+     "genre": "message",
+     "contexte": {
+      "fr": "Mingming écrit à Daming",
+      "en": "Mingming writes to Daming"
+     },
+     "lignes": [
+      {
+       "zh": "大明，今天中午我不去了。",
+       "pinyin": "dà míng jīn tiān zhōng wǔ wǒ bù qù le",
+       "fr": "Daming, finalement, ce midi, je n'y vais pas.",
+       "en": "Daming, I'm not going at noon today after all."
+      },
+      {
+       "zh": "明天中午再见面，好不好？",
+       "pinyin": "míng tiān zhōng wǔ zài jiàn miàn hǎo bu hǎo",
+       "fr": "On se voit plutôt demain midi, d'accord ?",
+       "en": "Shall we meet tomorrow at noon instead?"
+      }
+     ]
+    },
+    {
+     "id": "s2",
+     "genre": "billet",
+     "contexte": {
+      "fr": "Un billet de train",
+      "en": "A train ticket"
+     },
+     "lignes": [
+      {
+       "zh": "火车",
+       "pinyin": "huǒ chē",
+       "fr": "Train",
+       "en": "Train"
+      },
+      {
+       "zh": "南京 — 中山",
+       "pinyin": "nán jīng zhōng shān",
+       "fr": "Nankin — Zhongshan",
+       "en": "Nanjing — Zhongshan"
+      },
+      {
+       "zh": "七月十五日上午",
+       "pinyin": "qī yuè shí wǔ rì shàng wǔ",
+       "fr": "15 juillet, le matin",
+       "en": "15 July, morning"
+      }
+     ],
+     "glose": [
+      {
+       "zh": "中山",
+       "pinyin": "zhōng shān",
+       "fr": "Zhongshan (nom de lieu)",
+       "en": "Zhongshan (a place name)"
+      }
+     ]
+    },
+    {
+     "id": "s3",
+     "genre": "note",
+     "contexte": {
+      "fr": "Un mot sur une porte",
+      "en": "A note on a door"
+     },
+     "lignes": [
+      {
+       "zh": "王先生上午出门了。",
+       "pinyin": "wáng xiān sheng shàng wǔ chū mén le",
+       "fr": "M. Wang est sorti ce matin.",
+       "en": "Mr Wang went out this morning."
+      },
+      {
+       "zh": "中午再来！",
+       "pinyin": "zhōng wǔ zài lái",
+       "fr": "Repassez à midi !",
+       "en": "Come back at noon!"
+      }
+     ]
+    },
+    {
+     "id": "s4",
+     "genre": "calendrier",
+     "contexte": {
+      "fr": "Une page de calendrier",
+      "en": "A calendar page"
+     },
+     "lignes": [
+      {
+       "zh": "五月一日",
+       "pinyin": "wǔ yuè yī rì",
+       "fr": "1er mai",
+       "en": "1 May"
+      },
+      {
+       "zh": "星期五",
+       "pinyin": "xīng qī wǔ",
+       "fr": "vendredi",
+       "en": "Friday"
+      },
+      {
+       "zh": "上午：见王太太",
+       "pinyin": "shàng wǔ jiàn wáng tài tai",
+       "fr": "Matin : voir Mme Wang",
+       "en": "Morning: see Mrs Wang"
+      }
+     ]
+    }
+   ],
+   "questions": [
+    {
+     "type": "sens",
+     "consigne": {
+      "fr": "Que veut dire ce caractère ?",
+      "en": "What does this character mean?"
+     },
+     "objet": {
+      "zh": "老",
+      "pinyin": "lǎo",
+      "fr": "vieux, âgé",
+      "en": "old"
+     },
+     "choix": [
+      {
+       "fr": "haut",
+       "en": "tall"
+      },
+      {
+       "fr": "long",
+       "en": "long"
+      },
+      {
+       "fr": "vieux, âgé",
+       "en": "old"
+      },
+      {
+       "fr": "lourd",
+       "en": "heavy"
+      }
+     ],
+     "reponse": 2,
+     "porte": [
+      "老"
+     ]
+    },
+    {
+     "type": "replique",
+     "support": "s1",
+     "consigne": {
+      "fr": "Que réponds-tu ?",
+      "en": "What do you reply?"
+     },
+     "choix": [
+      {
+       "zh": "我是大学生。",
+       "pinyin": "wǒ shì dà xué sheng",
+       "fr": "Je suis étudiant.",
+       "en": "I'm a university student."
+      },
+      {
+       "zh": "好，明天中午见！",
+       "pinyin": "hǎo míng tiān zhōng wǔ jiàn",
+       "fr": "D'accord, à demain midi !",
+       "en": "OK, see you tomorrow at noon!"
+      },
+      {
+       "zh": "今天是星期三。",
+       "pinyin": "jīn tiān shì xīng qī sān",
+       "fr": "Aujourd'hui, c'est mercredi.",
+       "en": "Today is Wednesday."
+      },
+      {
+       "zh": "明天是七月一日。",
+       "pinyin": "míng tiān shì qī yuè yī rì",
+       "fr": "Demain, c'est le 1er juillet.",
+       "en": "Tomorrow is 1 July."
+      }
+     ],
+     "reponse": 1,
+     "porte": [
+      "中",
+      "午",
+      "见"
+     ]
+    },
+    {
+     "type": "vrai_faux",
+     "support": "s1",
+     "consigne": {
+      "fr": "Vrai ou faux ?",
+      "en": "True or false?"
+     },
+     "affirmation": {
+      "zh": "明明今天中午去见大明。",
+      "pinyin": "míng míng jīn tiān zhōng wǔ qù jiàn dà míng",
+      "fr": "Mingming va voir Daming ce midi.",
+      "en": "Mingming is going to see Daming at noon today."
+     },
+     "reponse": false,
+     "porte": [
+      "不",
+      "去",
+      "了"
+     ]
+    },
+    {
+     "type": "comprendre",
+     "support": "s2",
+     "consigne": {
+      "fr": "Où va ce train ?",
+      "en": "Where is this train going?"
+     },
+     "choix": [
+      {
+       "fr": "À Nankin",
+       "en": "To Nanjing"
+      },
+      {
+       "fr": "À Pékin",
+       "en": "To Beijing"
+      },
+      {
+       "fr": "À Shanghai",
+       "en": "To Shanghai"
+      },
+      {
+       "fr": "À Zhongshan",
+       "en": "To Zhongshan"
+      }
+     ],
+     "reponse": 3,
+     "porte": [
+      "中",
+      "山"
+     ]
+    },
+    {
+     "type": "reperer",
+     "support": "s2",
+     "consigne": {
+      "fr": "Touche la ville de départ.",
+      "en": "Tap the city the train leaves from."
+     },
+     "choix": [
+      "火车",
+      "南京",
+      "中山",
+      "上午"
+     ],
+     "reponse": 1,
+     "porte": [
+      "南",
+      "京"
+     ]
+    },
+    {
+     "type": "caractere",
+     "consigne": {
+      "fr": "Quel caractère a ce sens ?",
+      "en": "Which character has this meaning?"
+     },
+     "objet": {
+      "zh": "南",
+      "pinyin": "nán",
+      "fr": "sud",
+      "en": "south"
+     },
+     "choix": [
+      "东",
+      "西",
+      "南",
+      "两"
+     ],
+     "reponse": 2,
+     "porte": [
+      "南"
+     ]
+    },
+    {
+     "type": "comprendre",
+     "support": "s3",
+     "consigne": {
+      "fr": "Que dit ce mot ?",
+      "en": "What does this note say?"
+     },
+     "choix": [
+      {
+       "fr": "M. Wang est sorti : repassez à midi.",
+       "en": "Mr Wang is out: come back at noon."
+      },
+      {
+       "fr": "M. Wang arrive ce matin : attendez-le.",
+       "en": "Mr Wang arrives this morning: wait for him."
+      },
+      {
+       "fr": "M. Wang ne reçoit pas à midi.",
+       "en": "Mr Wang sees nobody at noon."
+      },
+      {
+       "fr": "La porte n'ouvre qu'à midi.",
+       "en": "The door only opens at noon."
+      }
+     ],
+     "reponse": 0,
+     "porte": [
+      "出",
+      "门",
+      "再",
+      "来"
+     ]
+    },
+    {
+     "type": "reperer",
+     "support": "s3",
+     "consigne": {
+      "fr": "Touche le mot qui dit quand repasser.",
+      "en": "Tap the word that says when to come back."
+     },
+     "choix": [
+      "王先生",
+      "上午",
+      "出门",
+      "中午"
+     ],
+     "reponse": 3,
+     "porte": [
+      "中",
+      "午"
+     ]
+    },
+    {
+     "type": "trou",
+     "consigne": {
+      "fr": "Quel caractère manque dans ce mot ?",
+      "en": "Which character is missing from this word?"
+     },
+     "objet": {
+      "zh": "再见",
+      "pinyin": "zài jiàn",
+      "fr": "au revoir",
+      "en": "goodbye"
+     },
+     "trou": 0,
+     "choix": [
+      "两",
+      "再",
+      "面",
+      "百"
+     ],
+     "reponse": 1,
+     "porte": [
+      "再"
+     ]
+    },
+    {
+     "type": "vrai_faux",
+     "support": "s4",
+     "consigne": {
+      "fr": "Vrai ou faux ?",
+      "en": "True or false?"
+     },
+     "affirmation": {
+      "zh": "五月一日上午见王太太。",
+      "pinyin": "wǔ yuè yī rì shàng wǔ jiàn wáng tài tai",
+      "fr": "Le 1er mai au matin : voir Mme Wang.",
+      "en": "1 May, morning: see Mrs Wang."
+     },
+     "reponse": true,
+     "porte": [
+      "上",
+      "午",
+      "太"
+     ]
+    }
+   ]
+  },
+  {
+   "serie": "B",
+   "statut": "a_relire",
+   "supports": [
+    {
+     "id": "s1",
+     "genre": "pancarte",
+     "contexte": {
+      "fr": "Un panneau dans une gare",
+      "en": "A sign in a station"
+     },
+     "lignes": [
+      {
+       "zh": "出口",
+       "pinyin": "chū kǒu",
+       "fr": "Sortie",
+       "en": "Exit"
+      },
+      {
+       "zh": "东口：中山门",
+       "pinyin": "dōng kǒu zhōng shān mén",
+       "fr": "Sortie est : Zhongshanmen",
+       "en": "East exit: Zhongshanmen"
+      },
+      {
+       "zh": "西口：南京大学",
+       "pinyin": "xī kǒu nán jīng dà xué",
+       "fr": "Sortie ouest : université de Nankin",
+       "en": "West exit: Nanjing University"
+      }
+     ],
+     "glose": [
+      {
+       "zh": "中山门",
+       "pinyin": "zhōng shān mén",
+       "fr": "Zhongshanmen (nom de lieu)",
+       "en": "Zhongshanmen (a place name)"
+      }
+     ]
+    },
+    {
+     "id": "s2",
+     "genre": "message",
+     "contexte": {
+      "fr": "Daming écrit à Mingming",
+      "en": "Daming writes to Mingming"
+     },
+     "lignes": [
+      {
+       "zh": "明明，我父母今天从南京来了！",
+       "pinyin": "míng míng wǒ fù mǔ jīn tiān cóng nán jīng lái le",
+       "fr": "Mingming, mes parents sont arrivés de Nankin aujourd'hui !",
+       "en": "Mingming, my parents arrived from Nanjing today!"
+      },
+      {
+       "zh": "明天上午，我不去学中文了。",
+       "pinyin": "míng tiān shàng wǔ wǒ bù qù xué zhōng wén le",
+       "fr": "Demain matin, je ne vais pas au cours de chinois.",
+       "en": "Tomorrow morning I'm not going to Chinese class."
+      }
+     ]
+    },
+    {
+     "id": "s3",
+     "genre": "note",
+     "contexte": {
+      "fr": "Un mot sur la porte d'une boutique",
+      "en": "A note on a shop door"
+     },
+     "lignes": [
+      {
+       "zh": "星期天不开门。",
+       "pinyin": "xīng qī tiān bù kāi mén",
+       "fr": "Fermé le dimanche.",
+       "en": "Closed on Sundays."
+      },
+      {
+       "zh": "星期六只开上午。",
+       "pinyin": "xīng qī liù zhǐ kāi shàng wǔ",
+       "fr": "Le samedi, ouvert le matin seulement.",
+       "en": "On Saturdays, open in the morning only."
+      }
+     ]
+    },
+    {
+     "id": "s4",
+     "genre": "enseigne",
+     "contexte": {
+      "fr": "L'enseigne d'une boutique",
+      "en": "A shop sign"
+     },
+     "lignes": [
+      {
+       "zh": "南方水果",
+       "pinyin": "nán fāng shuǐ guǒ",
+       "fr": "Fruits du Sud",
+       "en": "Southern Fruit"
+      }
+     ]
+    }
+   ],
+   "questions": [
+    {
+     "type": "comprendre",
+     "support": "s1",
+     "consigne": {
+      "fr": "Par quelle sortie va-t-on à l'université ?",
+      "en": "Which exit leads to the university?"
+     },
+     "choix": [
+      {
+       "fr": "Par la sortie est",
+       "en": "The east exit"
+      },
+      {
+       "fr": "Par la sortie ouest",
+       "en": "The west exit"
+      },
+      {
+       "fr": "Par la sortie sud",
+       "en": "The south exit"
+      },
+      {
+       "fr": "Par la sortie nord",
+       "en": "The north exit"
+      }
+     ],
+     "reponse": 1,
+     "porte": [
+      "西",
+      "口"
+     ]
+    },
+    {
+     "type": "reperer",
+     "support": "s1",
+     "consigne": {
+      "fr": "Touche le mot qui veut dire « sortie ».",
+      "en": "Tap the word that means “exit”."
+     },
+     "choix": [
+      "东口",
+      "西口",
+      "中山门",
+      "出口"
+     ],
+     "reponse": 3,
+     "porte": [
+      "出",
+      "口"
+     ]
+    },
+    {
+     "type": "sens",
+     "consigne": {
+      "fr": "Que veut dire ce caractère ?",
+      "en": "What does this character mean?"
+     },
+     "objet": {
+      "zh": "两",
+      "pinyin": "liǎng",
+      "fr": "deux, les deux",
+      "en": "two, both"
+     },
+     "choix": [
+      {
+       "fr": "deux",
+       "en": "two"
+      },
+      {
+       "fr": "cent",
+       "en": "hundred"
+      },
+      {
+       "fr": "moitié",
+       "en": "half"
+      },
+      {
+       "fr": "sept",
+       "en": "seven"
+      }
+     ],
+     "reponse": 0,
+     "porte": [
+      "两"
+     ]
+    },
+    {
+     "type": "comprendre",
+     "support": "s2",
+     "consigne": {
+      "fr": "Qui est arrivé aujourd'hui ?",
+      "en": "Who arrived today?"
+     },
+     "choix": [
+      {
+       "fr": "M. Wang",
+       "en": "Mr Wang"
+      },
+      {
+       "fr": "Sa professeure de chinois",
+       "en": "His Chinese teacher"
+      },
+      {
+       "fr": "Ses parents",
+       "en": "His parents"
+      },
+      {
+       "fr": "Mingming",
+       "en": "Mingming"
+      }
+     ],
+     "reponse": 2,
+     "porte": [
+      "父",
+      "母",
+      "来"
+     ]
+    },
+    {
+     "type": "replique",
+     "support": "s2",
+     "consigne": {
+      "fr": "Que réponds-tu ?",
+      "en": "What do you reply?"
+     },
+     "choix": [
+      {
+       "zh": "明天是星期一。",
+       "pinyin": "míng tiān shì xīng qī yī",
+       "fr": "Demain, c'est lundi.",
+       "en": "Tomorrow is Monday."
+      },
+      {
+       "zh": "七月十五日。",
+       "pinyin": "qī yuè shí wǔ rì",
+       "fr": "Le 15 juillet.",
+       "en": "15 July."
+      },
+      {
+       "zh": "王先生是老人。",
+       "pinyin": "wáng xiān sheng shì lǎo rén",
+       "fr": "M. Wang est une personne âgée.",
+       "en": "Mr Wang is an old man."
+      },
+      {
+       "zh": "太好了！问父母好！",
+       "pinyin": "tài hǎo le wèn fù mǔ hǎo",
+       "fr": "Super ! Salue tes parents de ma part !",
+       "en": "Great! Say hello to your parents for me!"
+      }
+     ],
+     "reponse": 3,
+     "porte": [
+      "问",
+      "父",
+      "母"
+     ]
+    },
+    {
+     "type": "caractere",
+     "consigne": {
+      "fr": "Quel caractère a ce sens ?",
+      "en": "Which character has this meaning?"
+     },
+     "objet": {
+      "zh": "父",
+      "pinyin": "fù",
+      "fr": "père",
+      "en": "father"
+     },
+     "choix": [
+      "夫",
+      "父",
+      "太",
+      "大"
+     ],
+     "reponse": 1,
+     "porte": [
+      "父"
+     ]
+    },
+    {
+     "type": "vrai_faux",
+     "support": "s3",
+     "consigne": {
+      "fr": "Vrai ou faux ?",
+      "en": "True or false?"
+     },
+     "affirmation": {
+      "zh": "星期天开门。",
+      "pinyin": "xīng qī tiān kāi mén",
+      "fr": "La boutique ouvre le dimanche.",
+      "en": "The shop is open on Sundays."
+     },
+     "reponse": false,
+     "porte": [
+      "不",
+      "开",
+      "门"
+     ]
+    },
+    {
+     "type": "comprendre",
+     "support": "s3",
+     "consigne": {
+      "fr": "Quand peut-on venir le samedi ?",
+      "en": "When can you come on Saturday?"
+     },
+     "choix": [
+      {
+       "fr": "L'après-midi seulement",
+       "en": "Only in the afternoon"
+      },
+      {
+       "fr": "Toute la journée",
+       "en": "All day"
+      },
+      {
+       "fr": "Jamais",
+       "en": "Never"
+      },
+      {
+       "fr": "Le matin seulement",
+       "en": "Only in the morning"
+      }
+     ],
+     "reponse": 3,
+     "porte": [
+      "只",
+      "上",
+      "午"
+     ]
+    },
+    {
+     "type": "ton",
+     "consigne": {
+      "fr": "Quel est le ton de ce caractère ?",
+      "en": "Which tone does this character have?"
+     },
+     "objet": {
+      "zh": "面",
+      "pinyin": "miàn",
+      "fr": "visage, côté",
+      "en": "face, side"
+     },
+     "choix": [
+      "miān",
+      "mián",
+      "miǎn",
+      "miàn"
+     ],
+     "reponse": 3,
+     "porte": [
+      "面"
+     ]
+    },
+    {
+     "type": "comprendre",
+     "support": "s4",
+     "consigne": {
+      "fr": "D'où viennent les fruits de cette boutique ?",
+      "en": "Where does this shop's fruit come from?"
+     },
+     "choix": [
+      {
+       "fr": "De l'est",
+       "en": "From the east"
+      },
+      {
+       "fr": "Du sud",
+       "en": "From the south"
+      },
+      {
+       "fr": "De l'ouest",
+       "en": "From the west"
+      },
+      {
+       "fr": "Des montagnes",
+       "en": "From the mountains"
+      }
+     ],
+     "reponse": 1,
+     "porte": [
+      "南",
+      "方"
+     ]
+    }
+   ]
+  }
+ ]
+}

@@ -785,9 +785,16 @@ Décisions du propriétaire du 29 septembre 2026 : « Ok maquette d'examen »
   un test par règle dans `session.test.ts` ; Clore dit le palier et ouvre l'examen ; au
   menu, la journée faite, « Passer l'examen 县试 » ou « Passer le 月课 », puis « Réviser
   encore » et la ligne d'attente ; Échauffer et Apprendre prennent d'abord les manqués.
-- **Reste** : les séries des examens suivants (府试 à 100…), et leurs noms du 放榜.
+- **8.1, suite (29 septembre), à relire** : les séries A et B du 府试 (10 questions, 3 de
+  revue) et du 月课 de 150 (5 questions, chacune sur le tronçon, le premier menu), sur les
+  deux chemins, et les noms du 放榜 du 府试 ; rédigées sans API, au statut `a_relire`, donc
+  hors de `examens.json` : l'app n'ouvre ces deux examens qu'une fois leurs séries relues.
+  Relecture : `wenlu examens apercu lire fushi` (et `hsk`, `yueke-150`), puis `statut: relu`
+  et la décision dans `relecture`. Couverture bloquante portée à 150.
+- **Reste** : la relecture du 府试 et du 月课 de 150 ; les séries des examens suivants (院试
+  à 200…), et leurs noms du 放榜.
 
 ### Non commencées
 
 2c.1, 2c.2, 6.2, 6.4, et dans 6.3 iCloud et le widget ; dans l'épic 7, 7.3 et 7.4. Dans
-l'épic 8, les séries au-delà du 月课 de 75.
+l'épic 8, les séries au-delà du 月课 de 150.
