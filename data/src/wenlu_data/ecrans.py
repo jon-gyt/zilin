@@ -1,9 +1,11 @@
-"""Les textes d'interface de quatre écrans : « Lire le monde », les révisions, le personnage, la route.
+"""Les textes d'interface de cinq écrans : « Lire le monde », les révisions, le personnage, la route, « Dis-le ».
 
 « Lire le monde » (Chercher) et le tableau des révisions : rapport comparatif du 28
 septembre 2026, §2.5 et §2.6. « Mon personnage » et « La route devant » : les lignes des
 examens 科举 (stories 8.5 et 8.6, brief §8, « Le personnage » et « La route devant »),
-« Reste le 院试 », « Reçu au 院试 · encore 12 points », « examen ouvert ». Chaque écran a sa source
+« Reste le 院试 », « Reçu au 院试 · encore 12 points », « examen ouvert ». « Dis-le » : la question
+où l'on prononce un caractère acquis et son réglage « Dire les tons » (story 9.1, brief §10,
+« L'oral par IA »), dont les phrases ne font jamais de reproche. Chaque écran a sa source
 versionnée, rédigée pour l'app et à relire, dans `data/sources/ecrans/<écran>.tsv` ;
 `wenlu export` en tire `ecrans.json`, que l'index nomme par sa clé `ecrans`.
 
@@ -91,6 +93,66 @@ ECRANS: dict[str, dict[str, tuple[str, ...]]] = {
         "apres": (),
         "lus": ("lus", "n"),
     },
+    "dire": {
+        "label": (),
+        "enonce": (),
+        "appuie": (),
+        "ecoute": (),
+        "redire": (),
+        "confidentialite": (),
+        "nom-1": (),
+        "nom-2": (),
+        "nom-3": (),
+        "nom-4": (),
+        "nom-5": (),
+        "allure-1": (),
+        "allure-2": (),
+        "allure-3": (),
+        "allure-4": (),
+        "allure-5": (),
+        "juste": ("nom", "allure"),
+        "autre": ("attendu", "allure", "entendu"),
+        "conseil-1-2": (),
+        "conseil-1-3": (),
+        "conseil-1-4": (),
+        "conseil-1-5": (),
+        "conseil-2-1": (),
+        "conseil-2-3": (),
+        "conseil-2-4": (),
+        "conseil-2-5": (),
+        "conseil-3-1": (),
+        "conseil-3-2": (),
+        "conseil-3-4": (),
+        "conseil-3-5": (),
+        "conseil-4-1": (),
+        "conseil-4-2": (),
+        "conseil-4-3": (),
+        "conseil-4-5": (),
+        "redemander": (),
+        "silence": (),
+        "court": (),
+        "sature": (),
+        "passer": (),
+        "resume": (),
+        "etat-juste": (),
+        "etat-autre": (),
+        "etat-redemander": (),
+        "legende-voix": (),
+        "legende-modele": ("nom",),
+        "prochaine": ("delai",),
+        "ecouter": (),
+        "suivant": (),
+        "terminer": (),
+        "essai": (),
+        "retour": (),
+        "reglage": (),
+        "reglage-aide": (),
+        "essayer": (),
+        "essayer-aide": (),
+        "refuse": (),
+        "absent": (),
+        "indisponible": (),
+    },
 }
 
 #: Les sept jours de la semaine, du dimanche au samedi (`Date.getDay`), dans `revisions/jours`.
@@ -106,11 +168,21 @@ INTERDITS: tuple[tuple[re.Pattern[str], str], ...] = tuple(
     )
 )
 
+#: Ce que « Dis-le » ne dit jamais : un reproche (étude du 29 septembre 2026, §5 ; CLAUDE.md :
+#: Tao ne culpabilise jamais). Un conseil dit quoi faire, pas ce qui est manqué.
+REPROCHES = re.compile(
+    r"\b(?:faux|fausses?|erreurs?|rat[ée]e?s?|mauvaise?s?|échecs?|dommage|non|nulle?s?)\b", re.IGNORECASE
+)
+
+#: Les écrans dont les textes passent aussi le contrôle des reproches.
+SANS_REPROCHE = ("dire",)
+
 JETON = re.compile(r"\{([^{}]*)\}")
 
 SOURCE_EXPORT = (
     "data/sources/ecrans/ : textes d'interface de « Lire le monde », du tableau des"
-    " révisions, de « Mon personnage » et de « La route devant », rédigés pour l'app (à relire)"
+    " révisions, de « Mon personnage », de « La route devant » et de « Dis-le », rédigés pour"
+    " l'app (à relire)"
 )
 
 
@@ -214,6 +286,9 @@ def fautes_sources(e: Ecrans) -> list[str]:
                 fautes.append(f"{ou} : {t.cle} porte un emoji")
             for raison in interdits(t.fr):
                 fautes.append(f"{ou} : {t.cle} porte {raison}")
+            reproche = REPROCHES.search(t.fr) if ecran in SANS_REPROCHE else None
+            if reproche:
+                fautes.append(f"{ou} : {t.cle} fait un reproche ({reproche.group(0)})")
         jours = next((t.fr for t in textes if t.cle == "jours"), None)
         if jours is not None and len(jours.split()) != JOURS_SEMAINE:
             fautes.append(f"{ecran}.tsv : jours porte {len(jours.split())} noms, attendu {JOURS_SEMAINE}")
@@ -243,7 +318,7 @@ def controles(destination: Path | None = None, *, dossier: Path | None = None) -
     """Contrôles des textes d'écran, pour `wenlu check`. Tous bloquants.
 
     « sources » : chaque clé une fois, sourcée, avec exactement ses jetons, sans emoji, ni
-    dragon, ni temps passé, ni classement. « export » : `ecrans.json` dit les textes des
+    dragon, ni temps passé, ni classement ; à « Dis-le », aucun reproche. « export » : `ecrans.json` dit les textes des
     sources, et `index.json` le nomme.
     """
     from .export import versions_exportees
@@ -271,7 +346,11 @@ def controles(destination: Path | None = None, *, dossier: Path | None = None) -
         Controle(
             "écrans : sources",
             not f_src,
-            detail(f_src, f"{n} textes pour {len(ECRANS)} écrans, jetons attendus, ni temps passé ni classement"),
+            detail(
+                f_src,
+                f"{n} textes pour {len(ECRANS)} écrans, jetons attendus, ni temps passé ni classement,"
+                " aucun reproche à « Dis-le »",
+            ),
             bloquant=True,
         ),
         Controle(

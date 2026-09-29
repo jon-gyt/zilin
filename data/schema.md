@@ -46,10 +46,12 @@ app/public/data/0.1.0/
   rythme.json                le rythme gratuit : les lignes du menu, de la route et de Clore
   rappels.json               le rappel quotidien (iOS) et la garde de la progression
   ouvertures.json            l'aventure : le calendrier d'ouverture des portes, les annonces de Tao
-  ecrans.json                les textes de « Lire le monde », des révisions, du personnage et de la route
+  ecrans.json                les textes de « Lire le monde », des révisions, du personnage, de la route et de « Dis-le »
   anecdotes.json             les anecdotes du jour, une par caractère
   trois-lignes.json          les trois lignes du pas Utiliser, un texte par jour du chemin
   examens.json               les examens 科举 et les 月课 : la liste, les séries relues
+  tons.json                  les poids du classifieur des tons de « Dis-le », avec leur attribution
+  OGDL-Taiwan-1.0.txt        le texte de la licence des données dont ces poids dérivent
   familles/<racine>.json     une famille : `Famille` de models.py
   traits/<racine>.json       les tracés de la famille, sous APL, et rien d'autre
   traits/ARPHICPL.TXT        la même licence, à côté des fichiers qu'elle couvre
@@ -92,7 +94,8 @@ Trois régimes de licence, trois familles de fichiers, jamais mêlés
  "rythme": "rythme.json",
  "rappels": "rappels.json",
  "ecrans": "ecrans.json",
- "ouvertures": "ouvertures.json"
+ "ouvertures": "ouvertures.json",
+ "tons": "tons.json"
 }
 ```
 
@@ -533,10 +536,13 @@ début de l'anecdote du jour, tiré de `anecdotes.json`, et n'est pas ici.
 
 Tiré de `data/sources/ecrans/lire-le-monde.tsv` et `revisions.tsv` (rapport comparatif du
 28 septembre 2026, §2.5 et §2.6), `personnage.tsv` et `route.tsv` (stories 8.5 et 8.6),
-rédigé pour l'app et à relire : les textes d'interface de « Lire le monde », le second
-onglet de Chercher, du tableau des révisions de Ma forêt, et les lignes des examens sur
-« Mon personnage » (« Reste le 院试 », « Reçu au 院试 · encore 12 points ») et sur « La
-route devant » (« 县试 · 50 caractères », « examen ouvert »).
+`dire.tsv` (story 9.1), rédigé pour l'app et à relire : les textes d'interface de « Lire le
+monde », le second onglet de Chercher, du tableau des révisions de Ma forêt, les lignes des
+examens sur « Mon personnage » (« Reste le 院试 », « Reçu au 院试 · encore 12 points ») et
+sur « La route devant » (« 县试 · 50 caractères », « examen ouvert »), et la question
+« Dis-le » avec son réglage « Dire les tons » : la consigne, le bouton du micro, le nom et
+l'allure de chaque ton, le ton reconnu, un autre ton et le conseil de chaque couple
+(`conseil-<attendu>-<entendu>`), les redemandes, l'essai des Réglages.
 L'app remplit les jetons entre accolades (`app/src/lib/ecrans.ts`).
 
 ```json
@@ -544,12 +550,37 @@ L'app remplit les jetons entre accolades (`app/src/lib/ecrans.ts`).
  "lire-le-monde": {"compte": "Tu lis {lus} caractères sur {total}.", "dans": "dans {n} j", "…": "…"},
  "revisions": {"titre": "Tes révisions", "jours": "dim. lun. mar. mer. jeu. ven. sam.", "…": "…"},
  "personnage": {"reste": "Reste le {examen}", "recu": "Reçu au {examen} · encore {n} points", "…": "…"},
- "route": {"examen": "{examen} · {n} caractères", "ouvert": "examen ouvert", "…": "…"}}
+ "route": {"examen": "{examen} · {n} caractères", "ouvert": "examen ouvert", "…": "…"},
+ "dire": {"juste": "{nom} : ta voix {allure}. C'est bien lui.", "conseil-2-3": "Monte tout de suite, sans descendre d'abord.", "…": "…"}}
 ```
 
 - Un objet par écran, les textes par clé, dans l'ordre de `ecrans.ECRANS`, qui déclare
   chaque clé et ses jetons. `revisions/jours` nomme les sept jours, du dimanche au samedi,
   séparés d'une espace. Sans `ecrans.json` (un export plus ancien), les textes sont vides.
+
+## `tons.json`
+
+Tiré de `data/sources/tons/modele.json` (story 9.1, provenance dans
+`data/sources/tons/PROVENANCE.md`) : les poids du classifieur des tons de « Dis-le », tels
+que l'entraînement les a écrits, compacts. En tête, l'en-tête de licence, l'attribution
+exigée par l'Open Government Data License 1.0 et le fichier de son texte ; puis les poids.
+
+```json
+{"version": "0.1.0-2026-09-29", "license": "propriétaire (poids Wenlu) ; données d'entraînement sous Open Government Data License 1.0 …",
+ "source": "…", "source_url": "…", "modified": "…",
+ "attribution": "Syllabes du mandarin, deux voix, jeu de données 5961 de data.gov.tw … https://data.gov.tw/license",
+ "license_file": "OGDL-Taiwan-1.0.txt",
+ "format": "wenlu-tons-mlp", "classes": [1, 2, 3, 4, 5], "entrees": 34,
+ "membres": [{"normalisation": {"moyenne": […], "ecart": […]}, "couches": [{"poids": [[…]], "biais": […]}, …]}, …],
+ "temperature": 1.2, "poidsRegles": 4, "licence": {…}, "entrainement": {…}}
+```
+
+- `version` est celle des poids (`0.1.0-<jour de l'entraînement>`), pas celle de l'export.
+- `membres` : cinq perceptrons 34-16-5 (ReLU), dont l'app moyenne les probabilités après une
+  température ; `poidsRegles` pèse la base à règles dans la décision hybride
+  (`app/src/lib/tons/classifieur.ts`). Les 34 entrées : 30 points de contour en demi-tons,
+  le registre face à la voix de l'apprenant et son indicateur, la durée, le voisement.
+- Sans `tons.json` (un export plus ancien), ou des poids mal formés, « Dis-le » ne se pose pas.
 
 ## `ouvertures.json`
 
@@ -815,7 +846,16 @@ ce que l'app embarque ; `docs/sources-licences.md` fait foi pour la décision.
 - « écrans : sources », « export » — bloquants : chaque texte de « Lire le monde » et du
   tableau des révisions, une fois, sourcé, avec exactement les jetons que l'app remplit ;
   ni emoji, ni dragon, ni temps passé, ni classement, ni percentile ; sept jours de la
-  semaine ; `ecrans.json` dit les textes des sources, et `index.json` le nomme.
+  semaine ; à « Dis-le », aucun reproche (ni faux, ni erreur, ni raté, ni mauvais, ni
+  échec, ni dommage, ni non, ni nul) ; `ecrans.json` dit les textes des sources, et
+  `index.json` le nomme.
+- « tons : poids », « export » — bloquants : `modele.json` a la forme que l'app lit (format,
+  34 entrées, cinq classes, couches cohérentes, température), pèse moins de 1 Mo, déclare
+  ses données d'entraînement sous OGDL 1.0 avec leur attribution ; `PROVENANCE.md` porte
+  l'empreinte des poids et du texte de la licence, la source, la licence, l'attribution et la
+  recette ; `docs/sources-licences.md` nomme la source ; `tons.json` porte les mêmes poids et
+  l'attribution, reste sous 1 Mo, `index.json` le nomme, `LICENCES.md` dit la licence et
+  `OGDL-Taiwan-1.0.txt` est à côté.
 - « ouvertures : sources », « contenu », « export » — bloquants : chaque porte une fois,
   comptée en `jour` ou en `lus`, jamais pendant la première session (jour 3 au plus) ; un
   parent connu, placé avant, et qui ne s'ouvre pas après elle ; une porte silencieuse au
