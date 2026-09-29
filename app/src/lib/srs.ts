@@ -31,6 +31,13 @@ export type Outcome = {
    * « Facile » quel que soit le temps. Absent : la règle des six secondes s'applique.
    */
   chrono?: false;
+  /**
+   * `true` : juste, la réponse ne vaut jamais plus que « Bien ». « Dis-le » (story 9.1) : le
+   * ton reconnu par la machine, dont la précision n'est pas encore mesurée sur des voix
+   * d'apprenants, ne pousse pas une carte aussi loin qu'une réponse lue. Absent : la règle
+   * ordinaire.
+   */
+  auMieuxBien?: true;
 };
 
 /**
@@ -80,11 +87,12 @@ export const SECONDES_RAPIDE = 6;
 /**
  * juste du premier coup en < 6 s : Facile ; juste : Bien ; juste après erreur : Dur ; faux :
  * Oublié. Une réponse sans chronomètre (`chrono: false`, le tracé) juste du premier coup
- * vaut Facile, quel que soit le temps.
+ * vaut Facile, quel que soit le temps. Un ton reconnu à « Dis-le » (`auMieuxBien`) vaut Bien.
  */
 export function grade(o: Outcome): Grade {
   if (!o.correct) return Rating.Again;
   if (o.tries > 0) return Rating.Hard;
+  if (o.auMieuxBien === true) return Rating.Good;
   if (o.chrono === false) return Rating.Easy;
   return o.seconds < SECONDES_RAPIDE ? Rating.Easy : Rating.Good;
 }

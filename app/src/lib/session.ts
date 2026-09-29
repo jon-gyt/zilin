@@ -202,6 +202,8 @@ export type Revision = {
   leurres?: string[];
   /** `false` : la réponse ne se juge pas au temps, comme le tracé (`Outcome.chrono`). */
   chrono?: false;
+  /** `true` : jamais plus que « Bien », comme un ton reconnu à « Dis-le » (`Outcome.auMieuxBien`). */
+  auMieuxBien?: true;
   /**
    * L'art du personnage que la réponse exerce (`heros.ts`) : la question le dit d'après
    * son type. Absent (un jeu, un événement d'avant ce champ) : la lecture.
@@ -1923,6 +1925,7 @@ function lireRevisions(brut: unknown): Revision[] {
     };
     /* Les leurres pris : absents d'un événement plus ancien, on ne les devine pas. */
     if (Array.isArray(r.leurres)) lue.leurres = listeDeCaracteres(r.leurres);
+    if (r.auMieuxBien === true) lue.auMieuxBien = true;
     const art = lireArt(r.art);
     if (art !== undefined) lue.art = art;
     return [lue];

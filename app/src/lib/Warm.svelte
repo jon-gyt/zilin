@@ -7,9 +7,15 @@
    * `revision.ts`, la planification de `srs.ts`. Tao est là en posture révision, sans
    * commentaire : on apprend, elle ne parle pas. Elle mange (`TaoMange`) : une bouchée par
    * carte juste, une grimace sur une erreur, un bond après trois justes d'affilée.
+   *
+   * « Dis-le » (story 9.1, `tons/dire.ts`) : au plus une question de la séance devient une
+   * question où l'on prononce le caractère, quand le réglage est allumé, le micro permis et
+   * le modèle chargé. Tao écoute alors, la tête penchée. Un micro qui se révèle refusé ou
+   * absent rend la question ordinaire de la carte, à la même place : jamais d'écran muet.
    */
   import { untrack } from 'svelte';
   import Ask from './Ask.svelte';
+  import Dire from './Dire.svelte';
   import EnTetePas from './EnTetePas.svelte';
   import Glyph from './Glyph.svelte';
   import Tao from './Tao.svelte';
@@ -24,12 +30,18 @@
   import {
     cartesEnAttente,
     corpusRevision,
+    graineDuJour,
     ligneEnAttente,
     questionsRevision,
     resume,
     sures
   } from './revision';
   import { echeance, repriseRev, type Progress, type Revision } from './session';
+  import { ecransOnce, SANS_ECRANS, type TextesDire } from './ecrans';
+  import { choisirDire, cibleDire } from './tons/dire';
+  import { etatMicro, microPossible, type EtatMicro } from './tons/micro';
+  import { modeleOnce } from './tons/modele';
+  import type { Modele } from './tons/classifieur';
   import { manifesteOnce, voixPretes } from './audio';
   import { humeur, stade } from './tao';
   import { TaoMange } from './reactions.svelte';
@@ -41,6 +53,8 @@
     onfini,
     onattente,
     onquitter,
+    onvoix,
+    onmicrorefuse,
     libre = false
   }: {
     p: Progress;
@@ -64,6 +78,10 @@
      */
     onattente: (ids: string[]) => void;
     onquitter: () => void;
+    /** « Dis-le » : la moyenne d'une syllabe analysée, la voix s'apprend. */
+    onvoix?: (hz: number) => void;
+    /** « Dis-le » : le micro a été refusé, le réglage s'éteint (Réglages le rallume). */
+    onmicrorefuse?: () => void;
   } = $props();
 
   /**
@@ -177,7 +195,44 @@
     };
   });
 
-  const pret = $derived(chargee && v !== null && voix !== null && manifeste !== null);
+  /*
+   * « Dis-le » : le modèle des tons, l'état du micro et les textes, attendus avant de tirer la
+   * série, comme la voix : la question choisie ne change pas en route.
+   */
+  let modele = $state.raw<Modele | null | undefined>(undefined);
+  let micro = $state<EtatMicro | null>(null);
+  let textesDire = $state<TextesDire | null>(null);
+
+  $effect(() => {
+    let vivant = true;
+    void modeleOnce().then((m) => {
+      if (vivant) modele = m;
+    });
+    void etatMicro()
+      .then((e) => {
+        if (vivant) micro = e;
+      })
+      .catch(() => {
+        if (vivant) micro = 'absent';
+      });
+    void ecransOnce()
+      .then((e) => {
+        if (vivant) textesDire = e.dire;
+      })
+      .catch(() => {
+        if (vivant) textesDire = SANS_ECRANS.dire;
+      });
+    return () => {
+      vivant = false;
+    };
+  });
+
+  /** Le micro s'est révélé refusé ou absent : la carte reprend sa question ordinaire. */
+  let repli = $state(false);
+
+  const pret = $derived(
+    chargee && v !== null && voix !== null && manifeste !== null && modele !== undefined && micro !== null && textesDire !== null
+  );
 
   const corpus = $derived(
     corpusRevision({
@@ -209,12 +264,42 @@
       attente.length === p.enAttente.length && attente.every((c) => p.enAttente.includes(c));
     if (!meme) onattente(attente);
   });
+  /**
+   * La question de la séance qui devient « Dis-le », lue une fois la série tirée : l'acquis de
+   * l'ouverture, la graine du jour. Le réglage est lu à l'ouverture (`untrack`) : l'éteindre
+   * sur un refus ne déplace rien de la séance, le repli s'en charge.
+   */
+  const direTons = untrack(() => p.direTons);
+  const iDire = $derived(
+    pret && micro && textesDire
+      ? choisirDire(liste, corpus, graineDuJour('rev', p.day), {
+          reglage: direTons,
+          micro: microPossible(micro),
+          modele: modele !== null && modele !== undefined && textesDire.label !== ''
+        })
+      : null
+  );
+
   /** L'index de la question en cours ; au-delà de la dernière, c'est le résumé. */
   const i = $derived(Math.min(Math.max(p.rev, debut), liste.length));
   const q: Question | null = $derived(liste[i] ?? null);
 
-  /** Le résumé lit les cartes : la note et l'échéance sont celles que FSRS a écrites. */
-  const lignes = $derived(resume(liste, p.cartes, new Date()));
+  /** « Dis-le » est la question en cours : sa cible, ou `null`. */
+  const cible = $derived(i === iDire && !repli && q ? cibleDire(q.c, corpus) : null);
+
+  /**
+   * Le résumé lit les cartes : la note et l'échéance sont celles que FSRS a écrites. « Dis-le »
+   * y garde son nom ; passé sans ton reconnu, il n'a rien noté aujourd'hui : il le dit.
+   */
+  const lignes = $derived(
+    resume(liste, p.cartes, new Date()).map((l, k) =>
+      k !== iDire || repli || !textesDire
+        ? l
+        : p.revisions.some((r) => r.c === l.c)
+          ? { ...l, label: textesDire.label }
+          : { ...l, label: textesDire.label, sure: false, verdict: textesDire.resume, quand: '' }
+    )
+  );
   const taoHumeur = $derived(humeur(p.tao.activites, p.day));
   const taoStade = $derived(stade(p.tao.croissance));
   const avance = $derived(liste.length === 0 ? 100 : Math.round((i / liste.length) * 100));
@@ -241,13 +326,18 @@
     <div class="grow">
       <h1>Réviser</h1>
       <div class="k">
-        {#if q}{i + 1} / {liste.length} · {q.label}{:else if p.revue.length > 0}terminé{/if}
+        {#if q}{i + 1} / {liste.length} · {cible && textesDire ? textesDire.label : q.label}{:else if p.revue.length > 0}terminé{/if}
       </div>
     </div>
     <!-- Chaque verdict rejoue le geste : la clé change, le dessin repart. -->
-    {#key tao.coup}
-      <Tao stade={taoStade} posture="revision" humeur={taoHumeur} size={64} reaction={tao.reaction} />
-    {/key}
+    {#if cible}
+      <!-- « Dis-le » : elle écoute, la tête penchée. -->
+      <Tao stade={taoStade} posture="jeu" penchee humeur={taoHumeur} size={64} />
+    {:else}
+      {#key tao.coup}
+        <Tao stade={taoStade} posture="revision" humeur={taoHumeur} size={64} reaction={tao.reaction} />
+      {/key}
+    {/if}
   </div>
 
   {#if p.revue.length > 0}
@@ -259,6 +349,27 @@
     <div class="foot"><button class="btn" onclick={onfini}>{fin}</button></div>
   {:else if !pret}
     <p class="guide">Un instant.</p>
+  {:else if q && cible && modele && micro && textesDire}
+    <Dire
+      {cible}
+      cle={i}
+      textes={textesDire}
+      {modele}
+      voix={p.voix}
+      {micro}
+      echeanceDe={(c) => echeance(p, c)}
+      onnote={(r) => {
+        onrepondu(r, i);
+        tao.verdict(true);
+      }}
+      onvoix={(hz) => onvoix?.(hz)}
+      onmicro={(e) => {
+        repli = true;
+        if (e === 'refuse') onmicrorefuse?.();
+      }}
+      onsuivant={() => onavancer(i + 1)}
+      dernier={i + 1 >= liste.length}
+    />
   {:else if q}
     <Ask
       {q}

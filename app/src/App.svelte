@@ -73,6 +73,8 @@
     finEchauffer,
     finFixer,
     finUtiliser,
+    noterVoix,
+    setDireTons,
     learnNext,
     nombreDues,
     noterActivite,
@@ -824,6 +826,24 @@
     enregistrer();
   }
 
+  /**
+   * « Dis-le » : la moyenne d'une syllabe analysée, rien d'autre. La voix de l'apprenant
+   * s'apprend ainsi ; le son, lui, n'a jamais quitté l'écran de la question.
+   */
+  function voixEntendue(hz: number): void {
+    const n = noterVoix(p, hz);
+    if (n === p) return;
+    p = n;
+    enregistrer();
+  }
+
+  /** « Dis-le » : le micro a été refusé ; la question ne revient pas avant que Réglages la rallume. */
+  function microRefuse(): void {
+    if (!p.direTons) return;
+    p = setDireTons(p, false);
+    enregistrer();
+  }
+
   /** La question suivante de la séance : la reprise se fait à celle-ci. */
   function echaufferAvancer(i: number): void {
     p = setRev(p, i);
@@ -1168,6 +1188,8 @@
     onfini={echaufferFini}
     onattente={echaufferAttente}
     onquitter={quitter}
+    onvoix={voixEntendue}
+    onmicrorefuse={microRefuse}
   />
 {:else if ecran === 'reviser'}
   <Warm
@@ -1178,6 +1200,8 @@
     onfini={reviserFini}
     onattente={echaufferAttente}
     onquitter={reviserFini}
+    onvoix={voixEntendue}
+    onmicrorefuse={microRefuse}
   />
 {:else if ecran === 'learn'}
   <Learn
