@@ -21,6 +21,7 @@
   import Lire from './lib/Lire.svelte';
   import Menu, { type CaseId } from './lib/Menu.svelte';
   import Open from './lib/Open.svelte';
+  import Rencontre from './lib/Rencontre.svelte';
   import Splash from './lib/Splash.svelte';
   import Settings from './lib/Settings.svelte';
   import DireEssai from './lib/DireEssai.svelte';
@@ -55,7 +56,8 @@
     type Noeud
   } from './lib/content';
   import { rythmeOnce, SANS_RYTHME, type TextesRythme } from './lib/rythme';
-  import { ecransOnce, SANS_ECRANS, type TextesChemin } from './lib/ecrans';
+  import { ecransOnce, SANS_ECRANS, type TextesChemin, type TextesXing } from './lib/ecrans';
+  import { rencontre } from './lib/xing';
   import FeteDecor from './lib/FeteDecor.svelte';
   import { fetesOnce, saisonsOnce, type Fetes, type Saisons } from './lib/content';
   import { poserFete } from './lib/fetes';
@@ -198,7 +200,8 @@
     | 'chercher'
     | 'personnage'
     | 'fangbang'
-    | 'examen';
+    | 'examen'
+    | 'rencontre';
 
   let p: Progress = $state(emptyProgress(today()));
 
@@ -213,6 +216,8 @@
   let textesRythme: TextesRythme = $state(SANS_RYTHME);
   /** L'image du chemin (`ecrans.json`, `chemin`) : Mon chemin, la pierre posée, les auberges. */
   let textesChemin: TextesChemin = $state.raw(SANS_ECRANS.chemin);
+  /** Le maître Xing 杏 (`ecrans.json`, `xing`) : sa rencontre et sa ligne du pas Apprendre. */
+  let textesXing: TextesXing = $state.raw(SANS_ECRANS.xing);
 
   /*
    * Les examens 科举 et les 月课 (`examens.json`, stories 8.3 et 8.4) : ceux qu'on peut passer
@@ -412,6 +417,14 @@
   /** Une porte, ou ce qui n'en est pas une, est-elle visible ? */
   const vois = (id: string): boolean => visible(p.ouvertures, calendrier, id);
 
+  /**
+   * Le maître Xing 杏 (`xing.ts`, décision du propriétaire du 29 septembre 2026) : rencontré à
+   * la porte du 县试, il fait passer les examens, explique d'où vient un caractère, raconte
+   * l'anecdote et les contes, et tient Chercher. Avant, Tao garde ces rôles. La rencontre se
+   * lit sur les portes que la progression garde, sans champ de plus.
+   */
+  const maitre = $derived(rencontre(p.ouvertures, calendrier));
+
   /** Les jeux montrés dans Jouer : ceux dont la porte l'est. */
   const jeuxMontres = $derived(JEUX_DES_PORTES.filter((x) => vois(x.porte)).map((x) => x.jeu));
 
@@ -444,6 +457,7 @@
       ouvrirChercher();
       modeChercher = 'texte';
     } else if (id === 'retention') ecran = 'reglages';
+    else if (id === 'xing') ecran = 'rencontre';
     else {
       jeu = null;
       ecran = 'game';
@@ -502,6 +516,7 @@
     indexDonnees = i;
     textesRythme = t;
     textesChemin = ec.chemin;
+    textesXing = ec.xing;
     examensDonnees = ex;
     examensCharges = ex !== SANS_EXAMENS;
     if (familles !== null) famillesLues = familles;
@@ -1183,9 +1198,9 @@
     onquitter={quitter}
   />
 {:else if ecran === 'anec' && anecRetour !== null}
-  <Open {p} oncontinuer={anecdoteRefermee} onquitter={anecdoteRefermee} onmontree={anecdoteMontree} />
+  <Open {p} xing={maitre} oncontinuer={anecdoteRefermee} onquitter={anecdoteRefermee} onmontree={anecdoteMontree} />
 {:else if ecran === 'anec'}
-  <Open {p} oncontinuer={ouvrirFait} onquitter={anecOuverture ? ouvrirFait : quitter} onmontree={anecdoteMontree} />
+  <Open {p} xing={maitre} oncontinuer={ouvrirFait} onquitter={anecOuverture ? ouvrirFait : quitter} onmontree={anecdoteMontree} />
 {:else if ecran === 'rev'}
   <Warm
     {p}
@@ -1213,6 +1228,8 @@
   <Learn
     {p}
     textes={textesRythme}
+    xing={maitre}
+    textesXing={textesXing}
     onsuivant={apprendreSuivant}
     onvue={apprendreVue}
     ontrace={reglerTrace}
@@ -1246,6 +1263,7 @@
     donnees={examensDonnees}
     heros={herosDonnees}
     lus={ctxExamens.lus}
+    xing={maitre}
     oncommencer={examenCommencer}
     onrepondre={examenRepondre}
     onavancer={examenAvancer}
@@ -1270,6 +1288,7 @@
   <Lire
     {p}
     contes={vois('contes')}
+    xing={maitre}
     onretour={allerAuMenu}
     onlu={conteLu}
     onchapitre={chapitreLu}
@@ -1280,7 +1299,7 @@
 {:else if ecran === 'foret'}
   <!-- Mon chemin 路, deux niveaux au plus : le chemin, puis une famille (son auberge) ou les trophées. -->
   {#if famille}
-    <Tree fam={famille} parcours={p.parcours} croissance={p.tao.croissance} tc={textesChemin} onretour={() => (famille = null)} onlecon={quitter} />
+    <Tree fam={famille} parcours={p.parcours} croissance={p.tao.croissance} tc={textesChemin} xing={maitre} onretour={() => (famille = null)} onlecon={quitter} />
   {:else}
     <Chemin
       {p}
@@ -1303,10 +1322,12 @@
 {:else if ecran === 'chercher'}
   <!-- Chercher, puis l'arbre de la famille touchée ; son retour ramène à Chercher. -->
   {#if trouvee}
-    <Tree fam={trouvee.fam} choix={trouvee.c} retour="Chercher" parcours={p.parcours} croissance={p.tao.croissance} tc={textesChemin} onretour={() => (trouvee = null)} onlecon={quitter} />
+    <Tree fam={trouvee.fam} choix={trouvee.c} retour="Chercher" parcours={p.parcours} croissance={p.tao.croissance} tc={textesChemin} xing={maitre} onretour={() => (trouvee = null)} onlecon={quitter} />
   {:else}
-    <Chercher {p} monde={vois('monde')} bind:q={requete} bind:mode={modeChercher} bind:texte={texteLibre} onfamille={(fam, c) => (trouvee = { fam, c })} onretour={allerAuMenu} />
+    <Chercher {p} xing={maitre} monde={vois('monde')} bind:q={requete} bind:mode={modeChercher} bind:texte={texteLibre} onfamille={(fam, c) => (trouvee = { fam, c })} onretour={allerAuMenu} />
   {/if}
+{:else if ecran === 'rencontre'}
+  <Rencontre {p} textes={textesXing} examen={examensDonnees.examens[0]?.hz ?? ''} oncontinuer={allerAuMenu} />
 {:else if ecran === 'personnage'}
   <Personnage {p} donnees={herosDonnees} onretour={allerAuMenu} onchoisi={personnageChoisi} />
 {:else if ecran === 'fangbang' && herosDonnees && p.heros}

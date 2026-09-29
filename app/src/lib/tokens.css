@@ -42,6 +42,13 @@
   --h-abricot:#E3A33B; --h-abricot-pale:#F7E6C4; --h-peche:#E7A2B4;
   /* le panier d'examen 考篮 de Tao, à la gomme-gutte, fixe comme le personnage */
   --h-gutte:#9A6300; }
+/* Le maître Xing 杏 (Xing.svelte, décision du propriétaire du 29 septembre 2026) : ses couleurs
+   à lui, fixes comme celles du personnage, les jours de fête aussi. Le noyau d'abricot pâle
+   cerné d'encre, le chignon d'encre, l'épingle et les pieds à l'ocre, les sourcils, la
+   moustache et la barbe blancs ; les lamelles de bambou 竹简, la petite table, le rouleau et
+   le livre de ses postures. Ni cinabre, ni doré, ni ombre, ni dégradé. */
+:root{ --x-corps:#F7E6C4; --x-encre:#1F1B18; --x-ocre:#8C5A2B; --x-blanc:#FFFFFF; --x-poil:#9B958C;
+  --x-bambou:#F7E6C4; --x-papier:#FBF7EE; --x-bois:#B98A5A; --x-livre:#1E5A8A; }
 /* L'examen 科举 (maquettes/examen.html, validée le 29 septembre 2026) : le décor des scènes et
    des mises en situation, dessiné à plat, aux tons de la maquette et aux pigments de la
    peinture. Fixe, comme le personnage : un papier posé sur la page, les jours de fête aussi. */

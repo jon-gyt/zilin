@@ -15,6 +15,7 @@ import pytest
 
 from wenlu_data import ecrans as ecrans_mod
 from wenlu_data import export as export_mod
+from wenlu_data import paths
 from wenlu_data.ecrans import ECRANS, charger, controles, document, fautes_export, fautes_sources, interdits
 
 from test_export import atelier, lire  # noqa: F401 — fixture partagée
@@ -191,3 +192,30 @@ def test_les_textes_de_dis_le_ne_font_jamais_de_reproche() -> None:
     textes = dict(e.textes)
     textes["dire"] = tuple(replace(t, fr="Faux. Redis-le.") if t.cle == "redemander" else t for t in e.textes["dire"])
     assert any("fait un reproche" in f for f in fautes_sources(replace(e, textes=textes)))
+
+
+def test_xing_ne_gronde_jamais() -> None:
+    assert any("fait un reproche" in f for f in fautes_sources(avec("xing", "accueil", "Encore une erreur.")))
+
+
+@pytest.mark.parametrize(
+    ("cle", "fr"),
+    [
+        ("brique-atteste", "D'abord la brique. Un moyen mnémotechnique."),
+        ("brique-atteste", "D'abord la brique."),
+        ("brique-mnemo", "D'abord la brique. Son origine est attestée."),
+        ("compose-mnemo", "Voici ce qu'elle donne, pour la retenir."),
+        ("compose-sans", "Voici ce qu'elle donne. Une origine attestée."),
+    ],
+)
+def test_xing_ne_presente_jamais_le_mnemotechnique_pour_l_atteste(cle: str, fr: str) -> None:
+    """Au pas Apprendre, Xing dit l'étiquette de la fiche, et elle seule (CLAUDE.md)."""
+    assert any(cle in f for f in fautes_sources(avec("xing", cle, fr)))
+
+
+def test_le_nom_de_xing_se_dessine_depuis_ses_traits() -> None:
+    """杏 est dessiné sur l'écran de la rencontre : il entre dans l'export avec l'interface."""
+    textes = {t.cle: t.fr for t in charger().textes["xing"]}
+    assert textes["caractere"] == "杏"
+    assert "杏" in export_mod.caracteres_interface(paths.INTERFACE)
+    assert "杏坛" in textes["presentation"]

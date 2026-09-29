@@ -292,7 +292,8 @@ describe('Tao accompagne les activités dans leur posture (brief §9)', () => {
     expect(taille).toBeLessThanOrEqual(64);
     /* Sans commentaire : ni bulle, ni texte à côté d'elle. */
     expect(balise).not.toContain('caractere');
-    expect(source).toMatch(/<div class="tao-assise"><Tao [^>]*\/><\/div>/);
+    /* Une fois Xing rencontré, il raconte à côté d'elle, dans le même coin (`xing.ts`). */
+    expect(source).toMatch(/<div class="tao-assise"[^>]*>\s*(\{#if xing\}<Xing [^>]*\/>\{\/if\}\s*)?<Tao [^>]*\/>\s*<\/div>/);
     /* Hors du flux : la mise en page de l'anecdote ne bouge pas. */
     const css = readFileSync(new URL('tokens.css', import.meta.url), 'utf8');
     expect(css).toMatch(/\.ouvrir \.tao-assise\{position:absolute/);

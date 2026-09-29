@@ -1,0 +1,41 @@
+# Le maître Xing 杏 (décision du propriétaire du 29 septembre 2026) : sa rencontre à la porte
+# du premier examen, le 县试, et ce qu'il dit au pas Apprendre, où c'est lui qui explique
+# d'où vient un caractère. Tao reste la compagne de route ; Xing est le maître, « le
+# sachant ». Son nom vient de l'autel des abricotiers 杏坛, où Confucius enseignait.
+#
+# Source : rédigé pour l'app, sans API, dans une session Claude Code, d'après la décision du
+# propriétaire et le brief (§9) ; à relire. Il ne gronde jamais. Il distingue toujours
+# l'origine attestée du moyen mnémotechnique, sans jamais présenter l'un pour l'autre :
+# `wenlu check` refuse une ligne `-atteste` qui parle de mnémotechnique, une ligne `-mnemo`
+# qui parle d'attestation ou ne dit pas « mnémotechnique », une ligne `-sans` qui dit l'un
+# ou l'autre. Ni emoji, ni dragon, ni temps passé, ni classement, ni reproche.
+#
+# Format : TSV, `#` en commentaire, trois colonnes séparées par une tabulation : `cle`,
+# `fr`, `source`. Chaque clé est exigée une fois, sans jeton (`ecrans.py`, `ECRANS`) :
+#
+# - la rencontre : `kicker` (au-dessus de la scène), `caractere` (son nom, dessiné depuis
+#   ses traits ; il entre dans l'export par `data/sources/interface/caracteres.txt`),
+#   `nom`, `pinyin`, `sens`, `presentation` (d'où vient son nom), `accueil` (ce qu'il dit à
+#   Tao, dans sa bulle), `roles` (ce qu'il fait désormais), `bouton`, `voix` (la scène, pour
+#   les lecteurs d'écran) ; le pinyin est celui d'Unihan (kMandarin de U+674F), 杏坛 le
+#   lieu où Confucius enseignait selon le 《庄子·渔父》 ;
+# - au pas Apprendre, la ligne de tête selon l'étiquette de la fiche : `brique-atteste`,
+#   `brique-mnemo`, `brique-sans` (la brique), `compose-atteste`, `compose-mnemo`,
+#   `compose-sans` (le composé) ; `-sans` quand la fiche n'a pas encore d'origine relue.
+cle	fr	source
+kicker	Une rencontre	rédigé pour l'app
+caractere	杏	rédigé pour l'app
+nom	Xing, le maître	rédigé pour l'app
+pinyin	xìng	rédigé pour l'app
+sens	l'abricotier	rédigé pour l'app
+presentation	Son nom vient de l'autel des abricotiers 杏坛, où Confucius enseignait.	rédigé pour l'app
+accueil	Bienvenue au 县试. Je suis Xing. Je pose les questions, et on lit sans hâte.	rédigé pour l'app
+roles	Désormais, il fait passer les examens, explique d'où viennent les caractères, raconte l'anecdote et les contes, et te guide dans Chercher.	rédigé pour l'app
+bouton	Continuer	rédigé pour l'app
+voix	Xing salue Tao, les mains jointes, devant la porte du 县试.	rédigé pour l'app
+brique-atteste	D'abord la brique. Son origine est attestée : voici ce qu'en disent les sources.	rédigé pour l'app
+brique-mnemo	D'abord la brique. Son origine n'est pas établie : voici un moyen mnémotechnique, pas son histoire.	rédigé pour l'app
+brique-sans	D'abord la brique.	rédigé pour l'app
+compose-atteste	La brique est posée : voici ce qu'elle donne. Une origine attestée.	rédigé pour l'app
+compose-mnemo	La brique est posée : voici ce qu'elle donne. Un moyen mnémotechnique, pas son histoire.	rédigé pour l'app
+compose-sans	La brique est posée : voici ce qu'elle donne.	rédigé pour l'app

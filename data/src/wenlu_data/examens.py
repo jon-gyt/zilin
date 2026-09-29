@@ -104,6 +104,7 @@ from .contes import (
 from .fetes import lire_tsv
 from .gf0014 import Controle
 from .ingest import est_sinogramme
+from .jouer import reproches
 from .lettres import acquis_au_jour, charger_parcours, poses_par_jour
 from .paths import BUILD, DATA
 
@@ -286,6 +287,13 @@ JETONS_TEXTES: dict[str, frozenset[str]] = {
     "etat_a_revoir": frozenset(),
     "info_pause": frozenset(),
     "rien_perdu": frozenset(),
+    "xing_avant": frozenset(),
+    "xing_avant_yueke": frozenset(),
+    "xing_attente": frozenset(),
+    "xing_recu": frozenset(),
+    "xing_recu_yueke": frozenset(),
+    "xing_pas_encore": frozenset(),
+    "xing_bang": frozenset(),
     "plaques_haoshe": frozenset(),
     "plaque_academie": frozenset(),
     "bang_entete": frozenset(),
@@ -621,6 +629,9 @@ def fautes_textes(textes: Mapping[str, str]) -> list[str]:
             fautes.append(f"textes.tsv : {cle}, gras ** sans sa fin")
         if CHRONO.search(textes[cle]):
             fautes.append(f"textes.tsv : {cle}, ni durée ni compte à rebours")
+        if cle.startswith("xing_"):
+            for raison in reproches(textes[cle]):
+                fautes.append(f"textes.tsv : {cle}, le maître ne gronde jamais ({raison})")
     return fautes
 
 

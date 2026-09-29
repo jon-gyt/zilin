@@ -46,7 +46,7 @@ app/public/data/0.1.0/
   rythme.json                le rythme gratuit : les lignes du menu, de la route et de Clore
   rappels.json               le rappel quotidien (iOS) et la garde de la progression
   ouvertures.json            l'aventure : le calendrier d'ouverture des portes, les annonces de Tao
-  ecrans.json                les textes de « Lire le monde », des révisions, du personnage, de la route, de « Dis-le » et de Mon chemin
+  ecrans.json                les textes de « Lire le monde », des révisions, du personnage, de la route, de « Dis-le », de Mon chemin et du maître Xing
   anecdotes.json             les anecdotes du jour, une par caractère
   trois-lignes.json          les trois lignes du pas Utiliser, un texte par jour du chemin
   examens.json               les examens 科举 et les 月课 : la liste, les séries relues
@@ -546,7 +546,11 @@ sur « La route devant » (« 县试 · 50 caractères », « examen ouvert »),
 l'allure de chaque ton, le ton reconnu, un autre ton et le conseil de chaque couple
 (`conseil-<attendu>-<entendu>`), les redemandes, l'essai des Réglages ; et l'image du chemin :
 Mon chemin 路, la pierre posée (« Pierre posée, une seule par jour », « 儿 rejoint ton
-chemin. »), les pavillons de la semaine, les auberges des familles, les rendez-vous.
+chemin. »), les pavillons de la semaine, les auberges des familles, les rendez-vous ; et
+`xing.tsv` (décision du propriétaire du 29 septembre 2026) : la rencontre du maître Xing 杏 à
+la porte du 县试 (son accueil, son nom, 杏 dessiné depuis ses traits, ses rôles) et sa ligne
+de tête au pas Apprendre, selon l'étiquette de la fiche (`brique-atteste`, `brique-mnemo`,
+`brique-sans`, et de même `compose-*`), qui ne présente jamais l'une pour l'autre.
 L'app remplit les jetons entre accolades (`app/src/lib/ecrans.ts`).
 
 ```json
@@ -556,7 +560,8 @@ L'app remplit les jetons entre accolades (`app/src/lib/ecrans.ts`).
  "personnage": {"reste": "Reste le {examen}", "recu": "Reçu au {examen} · encore {n} points", "…": "…"},
  "route": {"examen": "{examen} · {n} caractères", "ouvert": "examen ouvert", "…": "…"},
  "dire": {"juste": "{nom} : ta voix {allure}. C'est bien lui.", "conseil-2-3": "Monte tout de suite, sans descendre d'abord.", "…": "…"},
- "chemin": {"menu-faite": "Pierre posée, une seule par jour", "clore-titre": "{c} rejoint ton chemin.", "…": "…"}}
+ "chemin": {"menu-faite": "Pierre posée, une seule par jour", "clore-titre": "{c} rejoint ton chemin.", "…": "…"},
+ "xing": {"caractere": "杏", "accueil": "Bienvenue au 县试. Je suis Xing. …", "brique-mnemo": "… un moyen mnémotechnique, pas son histoire.", "…": "…"}}
 ```
 
 - Un objet par écran, les textes par clé, dans l'ordre de `ecrans.ECRANS`, qui déclare
@@ -601,8 +606,9 @@ décide que du moment de montrer.
             {"id": "jeu-chaine", "unite": "lus", "seuil": 6, "parent": "jouer", "annonce": ""}]}
 ```
 
-- `portes` : dix-neuf portes, dans l'ordre où elles s'annoncent quand plusieurs tombent le
-  même jour. `id` : `reviser`, `jouer`, `lire`, `foret` (les cases du menu), `personnage`
+- `portes` : vingt portes, dans l'ordre où elles s'annoncent quand plusieurs tombent le
+  même jour. `id` : `xing` (la rencontre du maître Xing 杏, en tête, au palier du premier
+  examen, en `lus`), `reviser`, `jouer`, `lire`, `foret` (les cases du menu), `personnage`
   (le portrait de l'en-tête), `route` (« Devant › » et la route devant, le haut de Mon
   chemin), `trophees`, `revisions` (les entrées de Mon chemin), `retention` (le réglage des révisions), `contes`
   (les étagères de Lire), `monde` (l'onglet « Un texte » de Chercher), et un `jeu-<id>` par
@@ -867,8 +873,9 @@ ce que l'app embarque ; `docs/sources-licences.md` fait foi pour la décision.
 - « écrans : sources », « export » — bloquants : chaque texte de « Lire le monde » et du
   tableau des révisions, une fois, sourcé, avec exactement les jetons que l'app remplit ;
   ni emoji, ni dragon, ni temps passé, ni classement, ni percentile ; sept jours de la
-  semaine ; à « Dis-le », aucun reproche (ni faux, ni erreur, ni raté, ni mauvais, ni
-  échec, ni dommage, ni non, ni nul) ; `ecrans.json` dit les textes des sources, et
+  semaine ; à « Dis-le » et chez Xing, aucun reproche (ni faux, ni erreur, ni raté, ni
+  mauvais, ni échec, ni dommage, ni non, ni nul) ; chez Xing, une ligne `-atteste` dit
+  l'attestation, une `-mnemo` le moyen mnémotechnique, une `-sans` ni l'un ni l'autre ; `ecrans.json` dit les textes des sources, et
   `index.json` le nomme.
 - « tons : poids », « export » — bloquants : `modele.json` a la forme que l'app lit (format,
   34 entrées, cinq classes, couches cohérentes, température), pèse moins de 1 Mo, déclare
@@ -887,7 +894,8 @@ ce que l'app embarque ; `docs/sources-licences.md` fait foi pour la décision.
   parent connu, placé avant, et qui ne s'ouvre pas après elle ; une porte silencieuse au
   même seuil que son parent ; une annonce qui nomme sa porte, sans achat ni déblocage,
   urgence, estimation, reproche, emoji ni dragon ; Lire ouvert au jour de la première lettre
-  de Que, les contes au jour de la première fable du chemin ; `ouvertures.json` dit les
+  de Que, les contes au jour de la première fable du chemin, la rencontre de Xing au palier
+  du premier examen, en tête du calendrier ; `ouvertures.json` dit les
   portes de la source, et `index.json` le nomme.
 - « anecdotes : sources », « forme », « charte », « étymologie », « export » —
   bloquants : un seul caractère par anecdote, jamais deux fois, titre, texte et source

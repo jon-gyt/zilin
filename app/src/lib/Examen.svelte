@@ -35,17 +35,21 @@
   import Heros from './Heros.svelte';
   import SupportExamen from './SupportExamen.svelte';
   import Tao from './Tao.svelte';
+  import Xing from './Xing.svelte';
   import { fiche, traitsDe } from './content';
   import {
     ACADEMIE,
     ACADEMIE_TAO,
+    ACADEMIE_XING,
     BANG,
     BANG_FIN,
     BANG_HEROS,
     BANG_TAO,
+    BANG_XING,
     HAOSHE,
     HAOSHE_TAO,
     HAOSHE_VUE,
+    HAOSHE_XING,
     dessinAcademie,
     dessinBang,
     dessinHaoshe
@@ -87,12 +91,14 @@
   import { meriteDe, rangTenu, type HerosDonnees } from './heros';
   import type { Progress } from './session';
   import { stade } from './tao';
+  import { POSTURES, humeurXing } from './xing';
 
   let {
     p,
     donnees,
     heros = null,
     lus,
+    xing = false,
     oncommencer,
     onrepondre,
     onavancer,
@@ -106,6 +112,12 @@
     heros?: HerosDonnees | null;
     /** Les caractères lus, au seuil de Ma forêt : l'examen ouvert se lit dessus. */
     lus: number;
+    /**
+     * Le maître Xing 杏 est rencontré (`xing.ts`) : c'est lui l'examinateur. Il pose les
+     * questions derrière sa petite table, accorde la seconde chance et lit le 榜 ; Tao passe
+     * l'examen en robe d'écolier, comme avant. Avant la rencontre, Tao dit tout, sans changement.
+     */
+    xing?: boolean;
     /** Commence (ou reprend) l'examen, avec les questions posables de la série. */
     oncommencer: (poses: number[]) => void;
     /** Une réponse touchée à la question `i`. */
@@ -284,6 +296,11 @@
 
   const taoStade = $derived(stade(p.tao.croissance));
   const yueke = $derived(examen?.sorte === 'yueke');
+
+  /* ---------- Xing, l'examinateur ---------- */
+
+  /** Qui parle : le maître une fois rencontré, Tao avant. Les phrases viennent de `examens.json`. */
+  const dit = (cleTao: string, cleXing: string): string => t(xing ? cleXing : cleTao);
 </script>
 
 {#snippet riche(texte: string)}
@@ -390,6 +407,13 @@
         <div class="tao-pose" style="left:{ACADEMIE_TAO.left * 100}%;top:{ACADEMIE_TAO.top * 100}%;width:{ACADEMIE_TAO.width * 100}%">
           <Tao stade={taoStade} posture="chemin" humeur="calme" livre size={120} />
         </div>
+        {#if xing}
+          <!-- le maître de l'académie, à sa table, à la taille de Tao -->
+          <div class="tao-pose" style="left:{ACADEMIE_XING.left * 100}%;top:{ACADEMIE_TAO.top * 100}%;width:{ACADEMIE_TAO.width * 100}%">
+            <Xing posture={POSTURES.examen} humeur="calme" size={120} />
+          </div>
+          <div class="bulle bl apparait" style="--dl:.5s">{@render hanzi(t('xing_avant_yueke'))}</div>
+        {/if}
       {:else}
         <svg class="dessin" viewBox="0 {HAOSHE_VUE.y} {HAOSHE.w} {HAOSHE_VUE.h}" aria-hidden="true"
           ><!-- eslint-disable-next-line svelte/no-at-html-tags -->{@html dessinHaoshe(plaquesHaoshe, traits)}</svg
@@ -397,7 +421,15 @@
         <div class="tao-pose" style="left:{HAOSHE_TAO.left * 100}%;top:{HAOSHE_TAO.top * 100}%;width:{HAOSHE_TAO.width * 100}%">
           <Tao stade={taoStade} posture="chemin" humeur="calme" robe panier size={160} />
         </div>
-        <div class="bulle br apparait" style="--dl:.5s">{@render hanzi(t('tao_avant'))}</div>
+        {#if xing}
+          <!-- l'examinateur, derrière sa petite table, à la taille de Tao -->
+          <div class="tao-pose" style="left:{HAOSHE_XING.left * 100}%;top:{HAOSHE_TAO.top * 100}%;width:{HAOSHE_TAO.width * 100}%">
+            <Xing posture={POSTURES.examen} humeur="calme" size={160} />
+          </div>
+          <div class="bulle bl apparait" style="--dl:.5s">{@render hanzi(t('xing_avant'))}</div>
+        {:else}
+          <div class="bulle br apparait" style="--dl:.5s">{@render hanzi(t('tao_avant'))}</div>
+        {/if}
       {/if}
     </div>
     <div class="titre-ex">
@@ -537,8 +569,15 @@
 
     {#if retour !== null}
       {#key essais.length}
-        <div class="fb" class:ko={!retour.ok}>
-          <Tao stade={taoStade} posture="chemin" humeur={retour.ok ? 'joie' : 'calme'} size={64} reaction={retour.ok ? 'bond' : null} />
+        <div class="fb" class:ko={!retour.ok} class:duo={xing}>
+          {#if xing}
+            <span class="duo-poses">
+              <Xing posture={POSTURES.examen} humeur={humeurXing(retour.ok ? 'juste' : 'pas-celle')} size={72} />
+              <Tao stade={taoStade} posture="chemin" humeur={retour.ok ? 'joie' : 'calme'} robe size={72} reaction={retour.ok ? 'bond' : null} />
+            </span>
+          {:else}
+            <Tao stade={taoStade} posture="chemin" humeur={retour.ok ? 'joie' : 'calme'} size={64} reaction={retour.ok ? 'bond' : null} />
+          {/if}
           <div class="txt">
             <b>{retour.titre}</b>
             {#if retour.texte !== ''}{@render hanzi(retour.texte)}{/if}
@@ -547,9 +586,16 @@
         </div>
       {/key}
     {:else}
-      <div class="fb attente">
-        <Tao stade={taoStade} posture="chemin" humeur="calme" panier size={76} />
-        <div class="txt">{t('tao_attente')}</div>
+      <div class="fb attente" class:duo={xing}>
+        {#if xing}
+          <span class="duo-poses">
+            <Xing posture={POSTURES.examen} humeur={humeurXing('question')} size={72} />
+            <Tao stade={taoStade} posture="chemin" humeur="calme" robe panier size={72} />
+          </span>
+        {:else}
+          <Tao stade={taoStade} posture="chemin" humeur="calme" panier size={76} />
+        {/if}
+        <div class="txt">{dit('tao_attente', 'xing_attente')}</div>
       </div>
     {/if}
     <div class="bas">
@@ -566,7 +612,11 @@
       <p class="constat2 apparait" style="--dl:.25s">{@render hanzi(t('recu', { examen: examen.hz }))}</p>
       <div class="taoligne">
         <Tao stade={taoStade} posture="chemin" humeur="joie" panier={!yueke} livre={yueke} size={80} reaction="bond" />
-        <div class="bulle g">{@render hanzi(yueke ? t('tao_recu_yueke') : t('tao_recu'))}</div>
+        {#if xing}
+          <!-- le maître parle : il se tient à côté de sa bulle -->
+          <Xing posture={POSTURES.examen} humeur={humeurXing('recu')} size={80} />
+        {/if}
+        <div class="bulle g">{@render hanzi(yueke ? dit('tao_recu_yueke', 'xing_recu_yueke') : dit('tao_recu', 'xing_recu'))}</div>
       </div>
       {#if manques.length > 0}
         <div class="arevoir">
@@ -595,7 +645,10 @@
       <p class="constat2 encre">{t('pas_encore')}</p>
       <div class="taoligne">
         <Tao stade={taoStade} posture="chemin" humeur="calme" size={76} />
-        <div class="bulle g">{t('tao_pas_encore')}</div>
+        {#if xing}
+          <Xing posture={POSTURES.examen} humeur={humeurXing('pas-encore')} size={76} />
+        {/if}
+        <div class="bulle g">{dit('tao_pas_encore', 'xing_pas_encore')}</div>
       </div>
       <div class="kicker">{t('ciblees')}</div>
       <div class="ciblees">
@@ -631,7 +684,16 @@
       <div class="pose" style="left:{BANG_TAO.left * 100}%;top:{BANG_TAO.top * 100}%;width:{BANG_TAO.width * 100}%">
         <Tao stade={taoStade} posture="chemin" humeur="joie" panier size={122} />
       </div>
+      {#if xing}
+        <!-- le maître lit la liste, ses lamelles à la main, à la taille de Tao -->
+        <div class="pose" style="left:{BANG_XING.left * 100}%;top:{BANG_TAO.top * 100}%;width:{BANG_TAO.width * 100}%">
+          <Xing posture="explique" humeur={humeurXing('recu')} size={122} />
+        </div>
+      {/if}
     </div>
+    {#if xing}
+      <p class="bulle lit apparait" style="--dl:{BANG_FIN}s">{@render hanzi(t('xing_bang'))}</p>
+    {/if}
     <div class="apparait apres" style="--dl:{BANG_FIN}s">
       {#if nomHeros !== ''}<p class="constat gauche">{@render hanzi(t('sur_la_liste', { nom: nomHeros }))}</p>{/if}
       <p class="constat gauche jade">{@render hanzi(t('recu', { examen: examen.hz }))}</p>
@@ -764,6 +826,38 @@
     background: var(--card);
     border-right: 1.5px solid var(--ink);
     border-bottom: 1.5px solid var(--ink);
+    transform: rotate(45deg);
+  }
+  .bulle.bl::after {
+    content: '';
+    position: absolute;
+    left: 50px;
+    bottom: -8px;
+    width: 12px;
+    height: 12px;
+    background: var(--card);
+    border-right: 1.5px solid var(--ink);
+    border-bottom: 1.5px solid var(--ink);
+    transform: rotate(45deg);
+  }
+  .scene .bulle.bl {
+    right: auto;
+    left: 16px;
+  }
+  /* au 放榜, ce que dit le maître qui lit la liste */
+  .bulle.lit {
+    margin: 10px 0 0;
+  }
+  .bulle.lit::after {
+    content: '';
+    position: absolute;
+    left: 58px;
+    top: -7px;
+    width: 12px;
+    height: 12px;
+    background: var(--card);
+    border-left: 1.5px solid var(--ink);
+    border-top: 1.5px solid var(--ink);
     transform: rotate(45deg);
   }
   .bulle.g::after {
@@ -1034,6 +1128,17 @@
   }
   .fb.attente {
     grid-template-columns: 76px 1fr;
+  }
+  /* le maître et Tao côte à côte, à la même taille */
+  .fb.duo {
+    grid-template-columns: 132px 1fr;
+  }
+  .duo-poses {
+    display: flex;
+    line-height: 0;
+  }
+  .duo-poses :global(.tao) {
+    margin-left: -12px;
   }
   .fb .txt {
     border-left: 3px solid var(--jade);
