@@ -537,6 +537,8 @@ export type Index = {
   ouvertures?: string;
   /** Les poids du classifieur des tons, `tons.json` (`tons/modele.ts`) ; vide pour un export qui n'en porte pas. */
   tons?: string;
+  /** Les gabarits de l'écriture au doigt, `ecriture/gabarits.json` (`ecriture/`) ; vide pour un export qui n'en porte pas. */
+  ecriture?: string;
 };
 
 /** La version de données que l'app lit : le dossier exporté par `wenlu export`. */
@@ -587,7 +589,8 @@ export async function loadIndex(
     rythme: typeof brut.rythme === 'string' ? brut.rythme : '',
     rappels: typeof brut.rappels === 'string' ? brut.rappels : '',
     ouvertures: typeof brut.ouvertures === 'string' ? brut.ouvertures : '',
-    tons: typeof brut.tons === 'string' ? brut.tons : ''
+    tons: typeof brut.tons === 'string' ? brut.tons : '',
+    ecriture: typeof brut.ecriture === 'string' ? brut.ecriture : ''
   };
 }
 
