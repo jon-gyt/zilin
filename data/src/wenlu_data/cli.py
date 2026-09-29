@@ -196,7 +196,7 @@ def licences() -> None:
 
 @app.command()
 def check() -> None:
-    """Contrôles : composants inconnus, cycles, graphe, listes, briques muettes, découpes, contes hors liste, fiches invalides, rôle son loin de la lecture moderne, textes sans audio, export à jour, aperçu des textes à relire, fêtes, termes solaires, devinettes, dictionnaire éclair, coquilles, cuisine, lettres de Que, message WeChat, personnage, phrases de Tao à Jouer, lignes du rythme gratuit, calendrier d'ouverture, anecdotes du jour, trois lignes du pas Utiliser, examens 科举, licence des décompositions."""
+    """Contrôles : composants inconnus, cycles, graphe, listes, briques muettes, découpes, contes hors liste, fiches invalides, rôle son loin de la lecture moderne, textes sans audio, export à jour, aperçu des textes à relire, fêtes, termes solaires, devinettes, dictionnaire éclair, coquilles, cuisine, lettres de Que, message WeChat, personnage, phrases de Tao à Jouer, lignes du rythme gratuit, calendrier d'ouverture, anecdotes du jour, trois lignes du pas Utiliser, examens 科举, fuites de réponse, licence des décompositions."""
     from .anecdotes import controles as controles_anecdotes
     from .audio import controles as controles_audio
     from .contes import controles as controles_contes
@@ -209,6 +209,7 @@ def check() -> None:
     from .export import controles as controles_export
     from .fetes import controles as controles_fetes
     from .fiches import controles as controles_fiches
+    from .fuites import controles as controles_fuites
     from .gf0014 import controles
     from .heros import controles as controles_heros
     from .jouer import controles as controles_jouer
@@ -252,6 +253,7 @@ def check() -> None:
         *controles_anecdotes(),
         *controles_trois_lignes(),
         *controles_examens(),
+        *controles_fuites(),
     ]:
         typer.echo(f"{'ok   ' if controle.ok else 'écart'} {controle.nom} : {controle.detail}")
         if not controle.ok and controle.bloquant:
