@@ -1,6 +1,7 @@
 /**
- * Les textes d'interface de « Lire le monde » (Chercher) et du tableau des révisions (Ma
- * forêt), tels que le pipeline les exporte dans `ecrans.json` (`data/sources/ecrans/`,
+ * Les textes d'interface de « Lire le monde » (Chercher), du tableau des révisions (Ma
+ * forêt), et les lignes des examens sur « Mon personnage » et « La route devant » (stories
+ * 8.5 et 8.6), tels que le pipeline les exporte dans `ecrans.json` (`data/sources/ecrans/`,
  * `data/schema.md`).
  *
  * L'app ne rédige aucun de ces textes : elle les lit ici et remplit leurs jetons entre
@@ -58,17 +59,29 @@ export const CLES_REVISIONS = [
   'resistent-rien'
 ] as const;
 
+/** Les lignes des examens sur « Mon personnage », dans l'ordre de la source. */
+export const CLES_PERSONNAGE = ['reste', 'recu', 'recu-un', 'palier', 'ouvert', 'bang', 'bang-date'] as const;
+
+/** Les lignes des examens sur « La route devant », dans l'ordre de la source. */
+export const CLES_ROUTE = ['examen', 'ouvert', 'apres', 'lus'] as const;
+
 export type CleLireLeMonde = (typeof CLES_LIRE_LE_MONDE)[number];
 export type CleRevisions = (typeof CLES_REVISIONS)[number];
+export type ClePersonnage = (typeof CLES_PERSONNAGE)[number];
+export type CleRoute = (typeof CLES_ROUTE)[number];
 
 export type TextesLireLeMonde = Record<CleLireLeMonde, string>;
 export type TextesRevisions = Record<CleRevisions, string>;
+export type TextesPersonnage = Record<ClePersonnage, string>;
+export type TextesRoute = Record<CleRoute, string>;
 
 export type Ecrans = {
   version: string;
   source: string;
   lire: TextesLireLeMonde;
   revisions: TextesRevisions;
+  personnage: TextesPersonnage;
+  route: TextesRoute;
 };
 
 function vides<K extends string>(cles: readonly K[]): Record<K, string> {
@@ -80,7 +93,9 @@ export const SANS_ECRANS: Ecrans = {
   version: '',
   source: '',
   lire: vides(CLES_LIRE_LE_MONDE),
-  revisions: vides(CLES_REVISIONS)
+  revisions: vides(CLES_REVISIONS),
+  personnage: vides(CLES_PERSONNAGE),
+  route: vides(CLES_ROUTE)
 };
 
 function objet(v: unknown): Record<string, unknown> {
@@ -105,7 +120,9 @@ export function lireEcrans(brut: unknown): Ecrans {
     version: texte(o.version),
     source: texte(o.source),
     lire: bloc(o['lire-le-monde'], CLES_LIRE_LE_MONDE),
-    revisions: bloc(o.revisions, CLES_REVISIONS)
+    revisions: bloc(o.revisions, CLES_REVISIONS),
+    personnage: bloc(o.personnage, CLES_PERSONNAGE),
+    route: bloc(o.route, CLES_ROUTE)
   };
 }
 
