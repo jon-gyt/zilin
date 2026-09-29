@@ -100,6 +100,12 @@ describe('Clore : la pierre du jour se pose avec un rebond et une onde', () => {
     expect(css.slice(css.indexOf('.onde {'), css.indexOf('@keyframes onde'))).not.toContain('--zhu');
     expect(close).toMatch(/\{#if !dejaPlantee\}\s*<!--[^>]*-->\s*<ellipse class="onde"/);
   });
+  it('le signal haptique tombe quand la pierre touche le chemin, sans rien faire attendre', () => {
+    expect(close).toContain('const POSE_MS = 790;');
+    expect(close).toContain("matchMedia('(prefers-reduced-motion: reduce)').matches");
+    /* quitter l'écran avant le donne aussitôt */
+    expect(close).toMatch(/return \(\) => \{\s*clearTimeout\(t\);\s*signal\(\);/);
+  });
   it("s'arrête si l'on réduit les animations", () => {
     const r = reduits(css);
     expect(r).toMatch(/\.pose,\s*\.cercle-jour \{\s*animation: none;/);
@@ -116,5 +122,14 @@ describe('au menu, Tao lève les yeux vers le caractère du jour', () => {
   });
   it("s'arrête si l'on réduit les animations", () => {
     expect(reduits(css)).toMatch(/\.marcheur :global\(\.tao \.yeux\) \{\s*animation: none;/);
+  });
+});
+
+describe('le retour haptique, accordé aux petits moments', () => {
+  it('une bonne réponse dans un jeu donne le même tap léger qu’en révision, une erreur rien', () => {
+    expect(source('Game.svelte')).toMatch(/function reagirA\(correct: boolean\): void \{[\s\S]*?if \(correct\) bonneReponse\(\);/);
+    expect(source('WeChat.svelte')).toMatch(/function reagirA\(juste: boolean\): void \{\s*if \(juste\) bonneReponse\(\);/);
+    expect(source('Use.svelte')).toContain('if (r.correct) bonneReponse();');
+    expect(source('Cuisine.svelte')).toMatch(/if \(r\.correct\) \{\s*bonneReponse\(\);/);
   });
 });

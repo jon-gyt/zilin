@@ -25,6 +25,7 @@
   import Tao from './Tao.svelte';
   import TaoReagit from './TaoReagit.svelte';
   import { reagir, type Reaction } from './reaction';
+  import { bonneReponse } from './haptique';
   import { JEUX, fini, type CorpusJeux, type Manche } from './jeux';
   import { delai } from './revision';
   import { echeance, type Progress, type Revision } from './session';
@@ -102,6 +103,7 @@
   let reaction = $state<Reaction | null>(null);
   let cleReaction = $state(0);
   function reagirA(juste: boolean): void {
+    if (juste) bonneReponse();
     const r = reagir(serie, juste);
     serie = r.serie;
     reaction = r.reaction;

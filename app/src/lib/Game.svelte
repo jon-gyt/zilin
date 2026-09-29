@@ -36,6 +36,7 @@
   import Tao from './Tao.svelte';
   import TaoReagit from './TaoReagit.svelte';
   import { reagir, type Reaction } from './reaction';
+  import { bonneReponse } from './haptique';
   import DessinJeu, { PIGMENTS } from './DessinJeu.svelte';
   import {
     devinettesOnce,
@@ -276,6 +277,8 @@
   let cleReaction = $state(0);
 
   function reagirA(correct: boolean): void {
+    /* une bonne réponse, dans l'app iOS : le même tap léger qu'en révision */
+    if (correct) bonneReponse();
     const r = reagir(serie, correct);
     serie = r.serie;
     reaction = r.reaction;

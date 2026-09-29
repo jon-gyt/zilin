@@ -92,8 +92,30 @@
     };
   });
 
-  /** L'arrivée au pas Clore : dans l'app iOS, un signal doux, une fois. */
-  onMount(sessionClose);
+  /**
+   * L'arrivée au pas Clore : dans l'app iOS, un signal doux, une fois, au moment où la pierre
+   * du jour touche le chemin (`POSE_MS`, la fin de sa chute). Déjà posée, ou sans animation,
+   * il vient tout de suite. Rien n'attend ce signal : quitter l'écran avant le donne aussitôt.
+   */
+  const POSE_MS = 790;
+  onMount(() => {
+    const immobile = dejaPlantee || matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (immobile) {
+      sessionClose();
+      return;
+    }
+    let fait = false;
+    const signal = (): void => {
+      if (fait) return;
+      fait = true;
+      sessionClose();
+    };
+    const t = setTimeout(signal, POSE_MS);
+    return () => {
+      clearTimeout(t);
+      signal();
+    };
+  });
 
   /** Les trophées obtenus une fois la session close, pierre du jour comprise. */
   function terminer(): void {
