@@ -300,6 +300,9 @@ h1{font-family:var(--head);font-weight:700;font-size:30px;line-height:1.15;lette
 .tao.halte .plante{animation:respire 5s ease-in-out infinite}
 .tao.halte .the .vapeur{animation:fume 2.4s ease-in-out infinite alternate}
 .tao .lanterne{transform-origin:164px 26px;animation:balance 3s ease-in-out infinite alternate}
+/* la devinette trouvée : la lanterne s'allume d'un scintillement bref et pâle, sans halo */
+.tao .lanterne.allumee{animation:balance 3s ease-in-out infinite alternate,scintille .9s ease-out .15s 1}
+@keyframes scintille{0%,100%{opacity:1}20%{opacity:.5}40%{opacity:1}60%{opacity:.72}}
 @keyframes respire{0%,100%{transform:scale(1,1)}50%{transform:scale(1.02,.98)}}
 @keyframes balance{from{transform:rotate(-4deg)}to{transform:rotate(4deg)}}
 /* Elle cligne à intervalles irréguliers, comme on cligne : un battement, puis deux de suite,

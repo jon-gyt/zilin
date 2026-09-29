@@ -231,7 +231,7 @@ describe('Jouer : la lanterne de la devinette se balance', () => {
     expect(css).toMatch(/\.lampion:not\(\.indispo\) \.lampion-dessin \{\s*transform-origin: 50% 0;\s*animation: lampion 3\.6s/);
   });
   it("s'arrête si l'on réduit les animations", () => {
-    expect(reduits(css)).toMatch(/\.lampion:not\(\.indispo\) \.lampion-dessin \{\s*animation: none;/);
+    expect(reduits(css)).toMatch(/\.lampion:not\(\.indispo\) \.lampion-dessin[,\s\w.:()-]*\{\s*animation: none;/);
   });
 });
 
@@ -308,5 +308,21 @@ describe("en révision, chaque question arrive comme une carte qu'on retourne", 
   });
   it("s'arrête si l'on réduit les animations", () => {
     expect(reduits(tokens)).toContain('.q.carte{animation:none}');
+  });
+});
+
+describe("la devinette trouvée, la lanterne s'allume d'un scintillement bref", () => {
+  const game = source('Game.svelte');
+  const css = game.slice(game.indexOf('<style>'));
+  it('une fois, pâle, sans halo : dans Jouer et dans la main de Tao', () => {
+    expect(css).toMatch(/\.lampion\.faite \.lampion-dessin:not\(\.eteinte\) \{\s*animation:\s*lampion 3\.6s ease-in-out infinite alternate,\s*scintille 0\.9s ease-out 0\.3s 1;/);
+    expect(tokens).toContain('.tao .lanterne.allumee{animation:balance 3s ease-in-out infinite alternate,scintille .9s ease-out .15s 1}');
+    const k = tokens.match(/@keyframes scintille\{[^@]*?\}\}/)?.[0] ?? '';
+    expect(k).toContain('opacity');
+    expect(k).not.toMatch(/shadow|filter|gradient|blur/);
+  });
+  it("s'arrête si l'on réduit les animations", () => {
+    expect(reduits(css)).toMatch(/\.lampion:not\(\.indispo\) \.lampion-dessin,\s*\.lampion\.faite \.lampion-dessin:not\(\.eteinte\) \{\s*animation: none;/);
+    expect(reduits(tokens)).toMatch(/\.tao \*\{animation:none!important\}/);
   });
 });

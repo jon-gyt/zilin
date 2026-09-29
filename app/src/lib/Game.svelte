@@ -1313,8 +1313,16 @@
       transform: rotate(3deg);
     }
   }
+  /* La devinette trouvée, la lanterne allumée scintille une fois, brève et pâle, comme une
+     flamme qui prend : sans halo ni doré, l'aplat seul. */
+  .lampion.faite .lampion-dessin:not(.eteinte) {
+    animation:
+      lampion 3.6s ease-in-out infinite alternate,
+      scintille 0.9s ease-out 0.3s 1;
+  }
   @media (prefers-reduced-motion: reduce) {
-    .lampion:not(.indispo) .lampion-dessin {
+    .lampion:not(.indispo) .lampion-dessin,
+    .lampion.faite .lampion-dessin:not(.eteinte) {
       animation: none;
     }
   }
