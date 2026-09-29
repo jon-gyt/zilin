@@ -28,14 +28,15 @@ import {
 } from './session';
 import { humeur, type Humeur } from './tao';
 import { ligne, SANS_RYTHME, type TextesRythme } from './rythme';
+import type { ExamenDuMenu } from './session';
 
 /* ---------- les écrans ---------- */
 
 /** Les écrans des pas, tels que `Step.go` les nomme. */
 export type EcranPas = 'anec' | 'rev' | 'learn' | 'use' | 'check' | 'close';
 
-/** Où mène un bouton du parcours : un pas, la première session, ou le menu. */
-export type Destination = EcranPas | 'premiere' | 'menu';
+/** Où mène un bouton du parcours : un pas, la première session, l'examen, ou le menu. */
+export type Destination = EcranPas | 'premiere' | 'examen' | 'menu';
 
 const ECRANS_PAS: readonly string[] = ['anec', 'rev', 'learn', 'use', 'check', 'close'];
 
@@ -104,8 +105,14 @@ export function ecranSuivant(p: Progress, depuisRattrapage: boolean = p.catchup)
  * déjà vue compte pour le pas Ouvrir. `libre` : le rattrapage du jour est fait, le bouton
  * ouvre une révision en plus, jamais une brique nouvelle.
  */
-export function demarrer(p: Progress, jour: string): { p: Progress; ecran: Destination | 'libre' } {
+export function demarrer(
+  p: Progress,
+  jour: string,
+  passerExamen = false
+): { p: Progress; ecran: Destination | 'libre' } {
   if (p.premiere) return { p, ecran: 'premiere' };
+  /* La journée faite, un examen à passer : le bouton plein l'ouvre (`session.examenDuMenu`). */
+  if (passerExamen && allDone(p) && !p.catchup && p.enPlus === null) return { p, ecran: 'examen' };
   let n = p;
   if (peutPlus(n)) n = commencerPlus(n);
   else if (allDone(n)) return { p, ecran: 'libre' };
@@ -290,7 +297,13 @@ function sessionsDePlus(n: number): string {
  * journée, le bouton de la journée faite devient « Réviser encore ». `jouer` : la porte de
  * Jouer est-elle montrée (`ouvertures.ts`) ? Tao ne propose pas un jeu qu'on ne voit pas.
  */
-export function menu(p: Progress, caractere = '', t: TextesRythme = SANS_RYTHME, jouer = true): ModeleMenu {
+export function menu(
+  p: Progress,
+  caractere = '',
+  t: TextesRythme = SANS_RYTHME,
+  jouer = true,
+  examen: ExamenDuMenu | null = null
+): ModeleMenu {
   const etat = etatMenu(p);
   const l = steps(p).filter((s) => s.go !== null);
   const n = nextIndex(p);
@@ -305,7 +318,11 @@ export function menu(p: Progress, caractere = '', t: TextesRythme = SANS_RYTHME,
       posture: (etat === 'rattrapage' && !entamee(p) ? 'pot' : 'chemin') as 'chemin' | 'pot',
       humeur: (etat === 'faite' ? 'joie' : humeur(p.tao.activites, p.day)) as Humeur
     },
-    phrases: phrasesDeTao(p, caractere, t, jouer)
+    /* Un examen ouvert, ou reçu aujourd'hui : Tao le dit d'abord, jamais au milieu d'un bloc. */
+    phrases: [
+      ...(examen !== null && examen.tao !== '' && etat !== 'rattrapage' && etat !== 'premiere' ? [examen.tao] : []),
+      ...phrasesDeTao(p, caractere, t, jouer)
+    ]
   };
   const pas = s ? `Pas ${n + 1} sur ${l.length} · ${s.t}` : '';
   /* Un jour sans brique nouvelle : la carte montre la brique revue. */
@@ -364,8 +381,9 @@ export function menu(p: Progress, caractere = '', t: TextesRythme = SANS_RYTHME,
         ligne: p.plus > 0 ? `Graine plantée · ${sessionsDePlus(p.plus)}` : 'Graine plantée, une seule par jour',
         duree: '',
         /* Au rythme gratuit, ou un jour sans brique : une révision de plus, jamais une brique. */
-        bouton: plusPermise(p) ? 'Une session de plus · une brique' : t.menu_reviser,
-        plein: false
+        /* Un examen à passer : « Passer l'examen 县试 », plein ; en attente, « Réviser encore ». */
+        bouton: examen?.passer ? examen.bouton : plusPermise(p) ? 'Une session de plus · une brique' : t.menu_reviser,
+        plein: examen?.passer === true
       };
     }
     case 'entamee':

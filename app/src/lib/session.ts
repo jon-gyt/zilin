@@ -21,7 +21,27 @@ import {
 } from './srs';
 import { ajouter, journal, lireTao, taoVide, type Tao, type TypeActivite } from './tao';
 import { lireTrouves, type Trouve } from './trouves';
-import { etatExamensVide, lireEtatExamens, type EtatExamens } from './examens';
+import {
+  avancer,
+  commencer,
+  essayer,
+  etatExamensVide,
+  examenOuvert,
+  issue as issueExamen,
+  lireEtatExamens,
+  ouvrirExamen,
+  peutPasser,
+  situation,
+  terminer,
+  texteExamen,
+  type Bilan as BilanExamen,
+  type CheminExamen,
+  type EtatExamens,
+  type Examen,
+  type ExamensDonnees,
+  type QuestionExamen,
+  type Situation
+} from './examens';
 import {
   annonceDuRythme,
   briqueDuJour,
@@ -805,6 +825,8 @@ export function annonceRythmeGratuit(p: Progress): boolean {
 export function plusPermise(p: Progress): boolean {
   const j = journeeDuJour(p);
   if (j?.sansBrique) return false;
+  /* Un examen ouvert, à passer ou manqué : aucune brique nouvelle, pas de session de plus. */
+  if (p.examens.ouvert !== null) return false;
   return j?.rythme === 'complet' || dansLesTrente(jourParcours(p));
 }
 
@@ -840,6 +862,167 @@ export function cloreSession(p: Progress, jour: string): Progress {
   if (n.enPlus === null) return n;
   const journee: Progress = { ...n, enPlus: null, plus: n.plus + 1 };
   return { ...journee, done: sessionSteps(journee).map(() => true) };
+}
+
+/* ---------- les examens : les briques en pause (story 8.4) ---------- */
+
+/**
+ * Ce que la session sait des examens pour décider : la liste qu'on peut passer sur le chemin
+ * (`examens.examensPassables`), et les caractères lus, au seuil de Ma forêt
+ * (`examens.lusPourExamens`). Rien d'autre : ni l'horloge, ni une durée.
+ */
+export type ContexteExamens = { liste: readonly Examen[]; lus: number };
+
+/** Où en est l'examen (`examens.situation`) : à passer, en cours, en attente, à repasser. */
+export function situationExamen(p: Progress, ctx: ContexteExamens): Situation {
+  return situation(ctx.liste, p.examens, ctx.lus, p.cartes);
+}
+
+/** Les caractères manqués à la dernière tentative, tant que l'examen attend d'être repassé. */
+export function manquesARevoir(p: Progress, ctx: ContexteExamens): string[] {
+  const s = situationExamen(p, ctx);
+  return s.etat === 'attente' || s.etat === 'a_repasser' ? [...s.tentative.manques] : [];
+}
+
+/**
+ * La pause des briques pour `preparerJournee` : un examen ouvert, à passer ou manqué, et
+ * aucune brique nouvelle n'entre avant qu'il soit réussi. Les caractères manqués, avec le jour
+ * de leur leçon (`content.leconsPosees`), sont ses prioritaires : Apprendre revient d'abord
+ * sur eux. `null` : aucun examen n'attend, les briques avancent.
+ */
+export function pauseDesBriques(
+  p: Progress,
+  ctx: ContexteExamens,
+  lecons: readonly BriqueAcquise[]
+): PauseDesBriques | null {
+  if (situationExamen(p, ctx).etat === 'aucun') return null;
+  const prioritaires = manquesARevoir(p, ctx).flatMap((c) => lecons.filter((l) => l.c === c).slice(0, 1));
+  return { raison: 'examen', prioritaires };
+}
+
+/**
+ * Le palier atteint, l'examen s'ouvre et le reste, même si le compte des lus redescend
+ * (`examens.ouvrirExamen`). Clore l'appelle ; rien à ouvrir : le même état.
+ */
+export function ouvrirExamenAuPalier(p: Progress, ctx: ContexteExamens): Progress {
+  const e = ouvrirExamen(ctx.liste, p.examens, ctx.lus);
+  return e === p.examens ? p : { ...p, examens: e };
+}
+
+/**
+ * L'examen que Clore annonce : celui dont le palier est atteint et qui ne s'était pas encore
+ * ouvert. Clore le dit en une ligne, une fois, puis l'ouvre. `null` : rien à dire.
+ */
+export function examenAAnnoncer(p: Progress, ctx: ContexteExamens): Examen | null {
+  const e = examenOuvert(ctx.liste, p.examens, ctx.lus);
+  return e !== null && p.examens.ouvert !== e.id ? e : null;
+}
+
+/** La ligne de Clore, le palier atteint : « 50 caractères lus : l'examen 县试 s'ouvre. » */
+export function ligneDeClore(d: ExamensDonnees, e: Examen): string {
+  return e.sorte === 'yueke'
+    ? texteExamen(d, 'ouvert_yueke', { lus: e.palier })
+    : texteExamen(d, 'ouvert', { lus: e.palier, examen: e.hz });
+}
+
+/**
+ * L'examen, vu du menu : l'état, le bouton de la journée faite, la ligne sous le chemin et la
+ * phrase de Tao. Le bouton ne passe l'examen que la journée faite, hors session de plus,
+ * jamais en rattrapage, et, manqué, seulement quand la reprise est permise ; tant qu'elle
+ * attend, le bouton reste « Réviser encore » et la ligne le dit, sans compte à rebours.
+ * Le jour où un examen est reçu, Tao le constate. `null` : aucun examen à dire.
+ */
+export type ExamenDuMenu = {
+  etat: Situation['etat'] | 'recu';
+  examen: Examen;
+  /** Le bouton plein passe l'examen. */
+  passer: boolean;
+  bouton: string;
+  /** La ligne sous le chemin, en gras la première phrase ; vide le jour de la réussite. */
+  ligne: string;
+  suite: string;
+  tao: string;
+};
+
+export function examenDuMenu(p: Progress, d: ExamensDonnees, ctx: ContexteExamens): ExamenDuMenu | null {
+  const s = situationExamen(p, ctx);
+  if (s.etat === 'aucun') {
+    const recu = ctx.liste.find((e) => p.examens.reussis[e.id] === p.day);
+    if (recu === undefined) return null;
+    return { etat: 'recu', examen: recu, passer: false, bouton: '', ligne: '', suite: '', tao: texteExamen(d, 'tao_menu_recu', { examen: recu.hz }) };
+  }
+  const e = s.examen;
+  const passer = peutPasser(s, { journeeFaite: allDone(p) && p.enPlus === null, rattrapage: p.catchup });
+  const bouton = e.sorte === 'yueke' ? texteExamen(d, 'bouton_yueke') : texteExamen(d, 'bouton', { examen: e.hz });
+  if (s.etat === 'attente') {
+    return { etat: s.etat, examen: e, passer, bouton, ligne: texteExamen(d, 'attente'), suite: '', tao: texteExamen(d, 'tao_menu_attente') };
+  }
+  const ligne =
+    s.etat === 'a_repasser'
+      ? texteExamen(d, 'menu_repasser', { examen: e.hz })
+      : texteExamen(d, 'menu_ouvert', { palier: e.palier, examen: e.hz });
+  return {
+    etat: s.etat,
+    examen: e,
+    passer,
+    bouton,
+    ligne,
+    suite: texteExamen(d, 'menu_pause'),
+    tao: texteExamen(d, 'tao_menu', { examen: e.hz })
+  };
+}
+
+/**
+ * Commence l'examen, ou le reprend à la même question (`examens.commencer`). `poses` : les
+ * questions posables de la série, figées au départ.
+ */
+export function commencerExamen(p: Progress, e: Examen, chemin: CheminExamen, poses: readonly number[] = []): Progress {
+  const n = commencer(p.examens, e, chemin, poses);
+  return n === p.examens ? p : { ...p, examens: n };
+}
+
+/**
+ * Une réponse touchée à la question `i` de l'examen. Le premier essai note les caractères qui
+ * portent la réponse par `grade` (juste : Bien, sans chronomètre ; faux : Oublié), qu'ils
+ * reviennent en révision, reçu ou non. Chaque bonne réponse donne son point 读, au premier
+ * essai comme rattrapée ; une rattrapée ne note rien de plus. Une erreur ne coûte rien.
+ */
+export function repondreExamen(
+  p: Progress,
+  i: number,
+  q: QuestionExamen,
+  donnee: number | boolean,
+  maintenant: Date
+): Progress {
+  const r = essayer(p.examens, i, q, donnee);
+  if (!r.nouveau) return p;
+  let n: Progress = { ...p, examens: r.etat };
+  if (r.premier) for (const c of q.porte) n = planifierCarte(n, c, issueExamen(r.juste), maintenant);
+  if (r.juste) n = { ...n, arts: ajouterPoint(n.arts, 'du') };
+  return n;
+}
+
+/** La question suivante : « Quitter » reprendra à celle-ci. */
+export function avancerExamen(p: Progress, i: number): Progress {
+  const e = avancer(p.examens, i);
+  return e === p.examens ? p : { ...p, examens: e };
+}
+
+/**
+ * La dernière question répondue : le constat. Reçu, l'examen est noté réussi à sa journée et
+ * les briques reprennent ; pas encore, l'échec est noté, les manqués attendent d'être revus.
+ * L'examen fait lire : Tao le compte comme une lecture, une fois.
+ */
+export function terminerExamen(
+  p: Progress,
+  jour: string,
+  maintenant: Date,
+  questions: number,
+  regle: { justes: number; sur: number }
+): { p: Progress; bilan: BilanExamen } {
+  const r = terminer(p.examens, questions, maintenant, jour, regle);
+  if (r.etat === p.examens) return { p, bilan: r.bilan };
+  return { p: noterActivite({ ...p, examens: r.etat }, jour, 'lecture'), bilan: r.bilan };
 }
 
 /* ---------- les cartes de révision ---------- */
@@ -930,9 +1113,14 @@ function duesPosables(p: Progress, maintenant: Date): ReviewCard[] {
 export function cartesDues(
   p: Progress,
   maintenant: Date,
-  max: number = CARTES_PAR_SEANCE
+  max: number = CARTES_PAR_SEANCE,
+  prioritaires: readonly string[] = []
 ): ReviewCard[] {
-  return duesPosables(p, maintenant).slice(0, Math.max(0, max));
+  const dues = duesPosables(p, maintenant);
+  /* Les caractères manqués à l'examen passent d'abord (story 8.4), s'ils sont dus : une
+     révision en avance ne compterait pas pour la reprise. Le reste garde son ordre. */
+  const d = prioritaires.length === 0 ? dues : [...dues.filter((c) => prioritaires.includes(c.id)), ...dues.filter((c) => !prioritaires.includes(c.id))];
+  return d.slice(0, Math.max(0, max));
 }
 
 /**

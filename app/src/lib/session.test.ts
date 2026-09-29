@@ -82,6 +82,17 @@ import {
   peutPlus,
   plusPermise,
   preparerJournee,
+  avancerExamen,
+  commencerExamen,
+  examenAAnnoncer,
+  examenDuMenu,
+  ligneDeClore,
+  manquesARevoir,
+  ouvrirExamenAuPalier,
+  pauseDesBriques,
+  repondreExamen,
+  terminerExamen,
+  type ContexteExamens,
   type Progress,
   type Revision
 } from './session';
@@ -98,7 +109,17 @@ import {
   stability
 } from './srs';
 import { planifier } from './jeux';
-import { avancer as avancerExamenEtat, commencer as commencerExamen, essayer as essayerExamen } from './examens';
+import {
+  avancer as avancerExamenEtat,
+  commencer as commencerTentative,
+  essayer as essayerExamen,
+  examensPassables,
+  lireExamensDonnees,
+  questionsDe,
+  serieDe
+} from './examens';
+import { demarrer, menu } from './parcours';
+import { lireRythme } from './rythme';
 
 const JOUR = '2026-03-02';
 const neuf = (): Progress => emptyProgress(JOUR);
@@ -1274,7 +1295,7 @@ describe('les examens dans la progression (story 8.2)', () => {
 
   it('garde les examens à l’export et à l’import, tentative, essais et rattrapées compris', () => {
     const p = emptyProgress(JOUR_EX);
-    let e = commencerExamen({ ...p.examens, reussis: { 'yueke-0': JOUR_EX }, ouvert: 'xianshi' }, XIANSHI, 'hsk', [0, 1, 3]);
+    let e = commencerTentative({ ...p.examens, reussis: { 'yueke-0': JOUR_EX }, ouvert: 'xianshi' }, XIANSHI, 'hsk', [0, 1, 3]);
     e = essayerExamen(e, 0, Q_EX, 2).etat;
     e = essayerExamen(e, 0, Q_EX, 0).etat;
     const relue = fromJSON(toJSON({ ...p, examens: e }), JOUR_EX);
@@ -1491,5 +1512,207 @@ describe('la journée sans brique nouvelle (story 7.2)', () => {
     /* Dans les trente premiers jours, rien à dire. */
     const debut = preparerJournee({ ...acquis(LUNDI, []), jourParcours: 12 }, WEB, CANDIDATES);
     expect(annonceRythmeGratuit(debut)).toBe(false);
+  });
+});
+
+describe('les briques en pause pendant un examen (story 8.4)', () => {
+  /* 2026-10-05 est un lundi ; le chemin est au 41e jour, au-delà des trente premiers. */
+  const LUNDI = '2026-10-05';
+  const MARDI = '2026-10-06';
+  const VENDREDI = '2026-10-09';
+  const SAMEDI = '2026-10-10';
+  const DIMANCHE = '2026-10-11';
+  const WEB = { web: true, achat: false };
+  const ACHAT = { web: false, achat: true };
+  const MAINTENANT = new Date('2026-10-05T08:00:00Z');
+  const source = (f: string): string => readFileSync(new URL(f, import.meta.url), 'utf8');
+  /** Le vrai `examens.json` de l'export : le 县试 à 50, le 月课 à 75, leurs séries. */
+  const D = lireExamensDonnees(JSON.parse(source('../../public/data/0.1.0/examens.json')) as unknown);
+  const LISTE = examensPassables(D, 'lire');
+  const T = lireRythme(JSON.parse(source('../../public/data/0.1.0/rythme.json')) as unknown);
+  const ctx = (lus: number): ContexteExamens => ({ liste: LISTE, lus });
+  const CANDIDATES = [
+    { c: '人', jour: 1 },
+    { c: '口', jour: 4 },
+    { c: '木', jour: 9 }
+  ];
+  /** Les leçons posées, briques et composés : 门 est le composé du jour 4. */
+  const LECONS = [...CANDIDATES, { c: '门', jour: 4 }];
+
+  function acquis(jour: string, briques: string[] = []): Progress {
+    let p: Progress = { ...emptyProgress(jour), premiere: false, days: 45, lastWorked: '2026-10-04', jourParcours: 41 };
+    p = assurerCartes(p, ['人', '口', '木', '门'], MAINTENANT);
+    for (const c of ['人', '口', '木', '门']) {
+      p = planifierCarte(p, c, { correct: true, tries: 0, seconds: 2 }, MAINTENANT);
+      p = planifierCarte(p, c, { correct: true, tries: 0, seconds: 2 }, new Date('2026-10-17T08:00:00Z'));
+    }
+    return { ...p, day: jour, droits: { ...p.droits, briques } };
+  }
+
+  /** Les six pas faits ce jour-là. */
+  const fait = (p: Progress, jour: string): Progress => {
+    let n = p;
+    for (let i = 0; i < 6; i++) n = markDone(n, i, jour);
+    return n;
+  };
+
+  /** Le 县试 manqué : les trois premières questions fausses du premier coup, 门 parmi les manqués. */
+  function manque(p: Progress, echec: Date): Progress {
+    let n = commencerExamen(p, LISTE[0], 'lire');
+    const serie = serieDe(D, n.examens.tentative!)!;
+    const qs = questionsDe(serie, n.examens.tentative!);
+    qs.forEach((q, i) => {
+      const faux = q.type === 'vrai_faux' ? !q.reponse : ((q.reponse as number) + 1) % 4;
+      const q2 = i === 0 ? { ...q, porte: ['门'] } : q;
+      n = repondreExamen(n, i, q2, i < 3 ? faux : q.reponse, echec);
+      n = avancerExamen(n, i);
+    });
+    return terminerExamen(n, VENDREDI, echec, qs.length, D.regle).p;
+  }
+
+  it('au palier, l’examen s’ouvre, et Clore le dit une fois', () => {
+    const p = acquis(LUNDI);
+    expect(examenAAnnoncer(p, ctx(49))).toBeNull();
+    const e = examenAAnnoncer(p, ctx(50));
+    expect(e?.hz).toBe('县试');
+    expect(ligneDeClore(D, e!)).toBe("50 caractères lus : l'examen 县试 s'ouvre.");
+    const ouvert = ouvrirExamenAuPalier(p, ctx(50));
+    expect(ouvert.examens.ouvert).toBe('xianshi');
+    expect(examenAAnnoncer(ouvert, ctx(52))).toBeNull();
+    /* Au 月课 de 75, le 县试 reçu : la ligne sans titre. */
+    const recu = { ...p, examens: { ...p.examens, reussis: { xianshi: LUNDI } } };
+    expect(ligneDeClore(D, examenAAnnoncer(recu, ctx(75))!)).toBe("75 caractères lus : le 月课 s'ouvre.");
+  });
+
+  it('la journée faite, le bouton plein passe l’examen 县试, ou le 月课', () => {
+    const p = ouvrirExamenAuPalier(acquis(LUNDI), ctx(50));
+    expect(examenDuMenu(p, D, ctx(50))).toMatchObject({ etat: 'a_passer', passer: false });
+    const f = fait(p, LUNDI);
+    const m = examenDuMenu(f, D, ctx(50))!;
+    expect(m).toMatchObject({ passer: true, bouton: "Passer l'examen 县试" });
+    expect(m.ligne).toBe('50 caractères lus : le 县试 est ouvert.');
+    expect(menu(f, '', T, true, m)).toMatchObject({ bouton: "Passer l'examen 县试", plein: true });
+    expect(demarrer(f, LUNDI, m.passer).ecran).toBe('examen');
+    const recu = fait({ ...acquis(LUNDI), examens: { ...p.examens, reussis: { xianshi: '2026-10-01' }, ouvert: null } }, LUNDI);
+    expect(examenDuMenu(recu, D, ctx(80))).toMatchObject({ passer: true, bouton: 'Passer le 月课' });
+  });
+
+  it('tant qu’il n’est pas réussi, aucune brique nouvelle n’entre, même avec Wenlu complet', () => {
+    const p = ouvrirExamenAuPalier(acquis(MARDI), ctx(50));
+    const pause = pauseDesBriques(p, ctx(50), LECONS);
+    expect(pause).toEqual({ raison: 'examen', prioritaires: [] });
+    expect(preparerJournee(p, ACHAT, CANDIDATES, pause).journee?.sansBrique?.raison).toBe('examen');
+    const recu = { ...p, examens: { ...p.examens, reussis: { xianshi: LUNDI }, ouvert: null } };
+    expect(pauseDesBriques(recu, ctx(60), LECONS)).toBeNull();
+    expect(preparerJournee(recu, ACHAT, CANDIDATES, null).journee?.sansBrique).toBeNull();
+  });
+
+  it('pas de session de plus tant que l’examen attend', () => {
+    const p = fait(preparerJournee(acquis(LUNDI), ACHAT, CANDIDATES), LUNDI);
+    expect(peutPlus(p)).toBe(true);
+    const ouvert = ouvrirExamenAuPalier(p, ctx(50));
+    expect(plusPermise(ouvert)).toBe(false);
+    expect(peutPlus(ouvert)).toBe(false);
+  });
+
+  it('une réponse d’examen : le premier essai note en révision, chaque bonne réponse donne un point 读', () => {
+    let p = commencerExamen(ouvrirExamenAuPalier(acquis(LUNDI), ctx(50)), LISTE[0], 'lire');
+    const q = { ...questionsDe(serieDe(D, p.examens.tentative!)!, p.examens.tentative!)[0], porte: ['口'] };
+    const faux = ((q.reponse as number) + 1) % 4;
+    const avant = carte(p, '口')!.history.length;
+    p = repondreExamen(p, 0, q, faux, MAINTENANT);
+    expect(carte(p, '口')!.history.length).toBe(avant + 1);
+    expect(p.arts.du).toBe(0);
+    p = repondreExamen(p, 0, q, q.reponse, MAINTENANT);
+    /* Rattrapée : son point, rien de plus en révision. */
+    expect(p.arts.du).toBe(1);
+    expect(carte(p, '口')!.history.length).toBe(avant + 1);
+    expect(p.examens.tentative).toMatchObject({ reponses: [false], rattrapees: 1 });
+    /* « Quitter » : la même tentative, la même question. */
+    expect(commencerExamen(p, LISTE[0], 'lire')).toBe(p);
+  });
+
+  it('Apprendre revient d’abord sur un caractère manqué, et sur sa leçon', () => {
+    const p = manque(ouvrirExamenAuPalier(acquis(VENDREDI), ctx(50)), new Date('2026-10-09T18:00:00Z'));
+    expect(p.examens.tentative?.manques).toContain('门');
+    const pause = pauseDesBriques(p, ctx(50), LECONS)!;
+    expect(pause.prioritaires).toContainEqual({ c: '门', jour: 4 });
+    const n = preparerJournee({ ...openDay(p, SAMEDI), journee: null }, ACHAT, CANDIDATES, pause);
+    expect(n.journee?.sansBrique).toMatchObject({ raison: 'examen' });
+    expect(manquesARevoir(n, ctx(50))).toContain(n.journee?.sansBrique?.c);
+  });
+
+  it('Échauffer prend d’abord les caractères manqués qui sont dus', () => {
+    let p = manque(ouvrirExamenAuPalier(acquis(VENDREDI), ctx(50)), new Date('2026-10-09T18:00:00Z'));
+    /* 人, oublié plus tôt, est plus urgent que 门 : sans l'examen, il passerait devant. */
+    p = planifierCarte(p, '人', { correct: false, tries: 1, seconds: 2 }, new Date('2026-10-01T08:00:00Z'));
+    const plusTard = new Date('2026-10-12T08:00:00Z');
+    const manques = manquesARevoir(p, ctx(50));
+    expect(manques).toContain('门');
+    const sans = cartesDues(p, plusTard, 20).map((c) => c.id);
+    expect(sans.indexOf('人')).toBeLessThan(sans.indexOf('门'));
+    const pile = cartesDues(p, plusTard, 20, manques).map((c) => c.id);
+    expect(pile.indexOf('门')).toBeLessThan(pile.indexOf('人'));
+    expect(pile.slice(0, pile.filter((c) => manques.includes(c)).length).every((c) => manques.includes(c))).toBe(true);
+  });
+
+  it('manqué : « Réviser encore » et une ligne sans compte à rebours, tant que les manqués ne sont pas revus', () => {
+    const p = fait(manque(ouvrirExamenAuPalier(acquis(VENDREDI), ctx(50)), new Date('2026-10-09T18:00:00Z')), VENDREDI);
+    const m = examenDuMenu(p, D, ctx(50))!;
+    expect(m).toMatchObject({ etat: 'attente', passer: false, ligne: "L'examen se repasse quand les caractères manqués sont revus." });
+    expect(m.ligne).not.toMatch(/\d/);
+    expect(menu(p, '', T, true, m)).toMatchObject({ bouton: T.menu_reviser, plein: false });
+    expect(demarrer(p, VENDREDI, m.passer).ecran).not.toBe('examen');
+  });
+
+  it('la reprise : chaque manqué revu juste à son échéance, l’examen se repasse sur l’autre série', () => {
+    let p = fait(manque(ouvrirExamenAuPalier(acquis(VENDREDI), ctx(50)), new Date('2026-10-09T18:00:00Z')), VENDREDI);
+    for (const c of p.examens.tentative!.manques) {
+      const k = carte(p, c);
+      if (k !== null) p = planifierCarte(p, c, { correct: true, tries: 0, seconds: 2 }, new Date(k.card.due.getTime() + 60_000));
+    }
+    const m = examenDuMenu(p, D, ctx(50))!;
+    expect(m).toMatchObject({ etat: 'a_repasser', passer: true, bouton: "Passer l'examen 县试" });
+    expect(commencerExamen(p, LISTE[0], 'lire').examens.tentative).toMatchObject({ serie: 'B', numero: 1, i: 0 });
+  });
+
+  it('jamais en rattrapage : la pile redescend d’abord', () => {
+    const p = { ...fait(ouvrirExamenAuPalier(acquis(LUNDI), ctx(50)), LUNDI), catchup: true };
+    expect(examenDuMenu(p, D, ctx(50))?.passer).toBe(false);
+    expect(demarrer(p, LUNDI, false).ecran).not.toBe('examen');
+  });
+
+  it('reçu : la pause se lève, Tao le constate au menu ce jour-là, et l’examen compte une lecture', () => {
+    let p = commencerExamen(fait(ouvrirExamenAuPalier(acquis(VENDREDI), ctx(50)), VENDREDI), LISTE[0], 'lire');
+    const qs = questionsDe(serieDe(D, p.examens.tentative!)!, p.examens.tentative!);
+    qs.forEach((q, i) => {
+      p = avancerExamen(repondreExamen(p, i, q, q.reponse, MAINTENANT), i);
+    });
+    const r = terminerExamen(p, VENDREDI, MAINTENANT, qs.length, D.regle);
+    expect(r.bilan).toMatchObject({ justes: 10, questions: 10, reussite: 8, recu: true });
+    expect(r.p.examens.reussis).toEqual({ xianshi: VENDREDI });
+    expect(pauseDesBriques(r.p, ctx(60), LECONS)).toBeNull();
+    expect(examenDuMenu(r.p, D, ctx(60))).toMatchObject({ etat: 'recu', tao: 'Reçu au 县试. Demain, une brique nouvelle.' });
+    expect(r.p.tao.activites.filter((a) => a.jour === VENDREDI && a.type === 'lecture')).toHaveLength(1);
+    expect(r.p.arts.du).toBe(10);
+  });
+
+  it('au rythme gratuit, les briques de la semaine attendent sans s’accumuler', () => {
+    /* L'examen ouvert du lundi au vendredi : aucune brique, aucune ne se note. */
+    let p = ouvrirExamenAuPalier(acquis(LUNDI), ctx(50));
+    for (const jour of [LUNDI, MARDI, '2026-10-07', '2026-10-08', VENDREDI]) {
+      p = preparerJournee({ ...openDay(p, jour), journee: null }, WEB, CANDIDATES, pauseDesBriques(p, ctx(50), LECONS));
+      expect(p.journee?.sansBrique?.raison).toBe('examen');
+      p = finApprendre(markDone(markDone(p, 0, jour), 1, jour), jour, MAINTENANT, ['新'], 41);
+    }
+    expect(p.droits.briques).toEqual([]);
+    /* Reçu le vendredi : le samedi, une brique ; le dimanche, pas une seconde. */
+    p = { ...p, examens: { ...p.examens, reussis: { xianshi: VENDREDI }, ouvert: null, tentative: null } };
+    p = preparerJournee({ ...openDay(p, SAMEDI), journee: null }, WEB, CANDIDATES, pauseDesBriques(p, ctx(50), LECONS));
+    expect(p.journee?.sansBrique).toBeNull();
+    p = finApprendre(markDone(markDone(p, 0, SAMEDI), 1, SAMEDI), SAMEDI, MAINTENANT, ['新'], 41);
+    expect(p.droits.briques).toEqual([SAMEDI]);
+    p = preparerJournee({ ...openDay(p, DIMANCHE), journee: null }, WEB, CANDIDATES, pauseDesBriques(p, ctx(50), LECONS));
+    expect(p.journee?.sansBrique?.raison).toBe('rythme');
   });
 });
