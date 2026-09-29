@@ -1,0 +1,1415 @@
+{
+ "niveau": "1",
+ "lot": "06",
+ "source": "rédigé pour l'app dans le pipeline wenlu, sans API ; faits lus : liste HSK 3.0 (forme, pinyin, niveau, catégorie), lectures d'Unihan et des surcharges, gloses relues des fiches",
+ "brouillon": "data/sources/dico-brouillons/1/06.json",
+ "generation": {
+  "modele": "rédaction manuelle",
+  "api": "session Claude Code (sans API)",
+  "date": "2026-09-29",
+  "empreinte_invite": "sha256:6bef09fe30475fcb8f8c1e030182611f0784fe8f987533ee8fd43e96a48b6596",
+  "contexte": "wenlu dico contexte 1 06",
+  "essais": 1,
+  "refus": []
+ },
+ "entrees": [
+  {
+   "id": "L1-0184",
+   "genre": "mot",
+   "hanzi": "进去",
+   "pinyin": "jìnqu",
+   "sens": {
+    "glose": "entrer (là-dedans)",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "entrer, aller à l'intérieur, en s'éloignant de celui qui parle"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "我们进去看看吧。",
+     "pinyin": "Wǒmen jìnqu kànkan ba.",
+     "fr": "Entrons jeter un œil.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "九",
+   "genre": "caractere",
+   "hanzi": "九",
+   "pinyin": "jiǔ",
+   "mots": [
+    "L1-0185"
+   ],
+   "sens": {
+    "glose": "neuf",
+    "acceptions": [],
+    "statut": "relu",
+    "provenance": {
+     "reprise": "data/sources/fiches/九.json",
+     "champ": "sens_fr"
+    }
+   },
+   "exemples": [
+    {
+     "zh": "我九点上班。",
+     "pinyin": "Wǒ jiǔ diǎn shàngbān.",
+     "fr": "Je commence le travail à neuf heures.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "就",
+   "genre": "caractere",
+   "hanzi": "就",
+   "pinyin": "jiù",
+   "mots": [
+    "L1-0186"
+   ],
+   "sens": {
+    "glose": "tout de suite, alors, justement",
+    "acceptions": [],
+    "statut": "relu",
+    "provenance": {
+     "reprise": "data/sources/fiches/就.json",
+     "champ": "sens_fr"
+    }
+   },
+   "exemples": [
+    {
+     "zh": "你想吃就吃吧。",
+     "pinyin": "Nǐ xiǎng chī jiù chī ba.",
+     "fr": "Si tu as envie de manger, mange.",
+     "statut": "a_relire"
+    },
+    {
+     "zh": "他就是我哥哥。",
+     "pinyin": "Tā jiù shì wǒ gēge.",
+     "fr": "C'est lui, mon grand frère.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "觉",
+   "genre": "caractere",
+   "hanzi": "觉",
+   "pinyin": "jué",
+   "mots": [
+    "L6-0437"
+   ],
+   "sens": {
+    "glose": "sentir, percevoir ; sommeil",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "sentir, percevoir ; se rendre compte"
+     },
+     {
+      "categorie": "N",
+      "fr": "sommeil, somme",
+      "pinyin": "jiào"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "我睡了一个好觉。",
+     "pinyin": "Wǒ shuì le yī ge hǎo jiào.",
+     "fr": "J'ai passé une bonne nuit.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L1-0187",
+   "genre": "mot",
+   "hanzi": "觉得",
+   "pinyin": "juéde",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "trouver, penser ; ressentir",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "trouver, penser, estimer"
+     },
+     {
+      "categorie": "V",
+      "fr": "sentir, ressentir"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "你觉得这个怎么样？",
+     "pinyin": "Nǐ juéde zhège zěnmeyàng?",
+     "fr": "Qu'est-ce que tu en penses ?",
+     "statut": "a_relire"
+    },
+    {
+     "zh": "我觉得有点儿冷。",
+     "pinyin": "Wǒ juéde yǒudiǎnr lěng.",
+     "fr": "J'ai un peu froid.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L1-0189",
+   "genre": "mot",
+   "hanzi": "开车",
+   "pinyin": "kāichē",
+   "sens": {
+    "glose": "conduire (une voiture)",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "conduire une voiture ; démarrer un véhicule"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他开车去上班。",
+     "pinyin": "Tā kāichē qù shàngbān.",
+     "fr": "Il va au travail en voiture.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L1-0190",
+   "genre": "mot",
+   "hanzi": "开会",
+   "pinyin": "kāihuì",
+   "sens": {
+    "glose": "tenir une réunion, être en réunion",
+    "acceptions": [],
+    "statut": "relu",
+    "provenance": {
+     "reprise": "data/sources/fiches/会.json",
+     "champ": "mots[].fr"
+    }
+   },
+   "exemples": [
+    {
+     "zh": "我们下午三点开会。",
+     "pinyin": "Wǒmen xiàwǔ sān diǎn kāihuì.",
+     "fr": "Nous avons une réunion à quinze heures.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "笑",
+   "genre": "caractere",
+   "hanzi": "笑",
+   "pinyin": "xiào",
+   "mots": [
+    "L1-0408"
+   ],
+   "sens": {
+    "glose": "rire, sourire ; se moquer de",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "rire, sourire"
+     },
+     {
+      "categorie": "V",
+      "fr": "se moquer de"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "她笑了。",
+     "pinyin": "Tā xiào le.",
+     "fr": "Elle a souri.",
+     "statut": "a_relire"
+    },
+    {
+     "zh": "别笑我。",
+     "pinyin": "Bié xiào wǒ.",
+     "fr": "Ne te moque pas de moi.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L1-0191",
+   "genre": "mot",
+   "hanzi": "开玩笑",
+   "pinyin": "kāi wánxiào",
+   "sens": {
+    "glose": "plaisanter",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "plaisanter, faire une blague"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "别开玩笑了！",
+     "pinyin": "Bié kāi wánxiào le!",
+     "fr": "Arrête de blaguer !",
+     "statut": "a_relire"
+    },
+    {
+     "zh": "我是开玩笑的。",
+     "pinyin": "Wǒ shì kāi wánxiào de.",
+     "fr": "Je blaguais.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L1-0193",
+   "genre": "mot",
+   "hanzi": "看病",
+   "pinyin": "kànbìng",
+   "sens": {
+    "glose": "consulter un médecin ; soigner un malade",
+    "acceptions": [],
+    "statut": "relu",
+    "provenance": {
+     "reprise": "data/sources/fiches/病.json",
+     "champ": "mots[].fr"
+    }
+   },
+   "exemples": [
+    {
+     "zh": "我明天去医院看病。",
+     "pinyin": "Wǒ míngtiān qù yīyuàn kànbìng.",
+     "fr": "Demain, je vais voir le médecin à l'hôpital.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L1-0194",
+   "genre": "mot",
+   "hanzi": "看到",
+   "pinyin": "kàndào",
+   "sens": {
+    "glose": "voir, apercevoir",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "voir, apercevoir"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "我看到他了。",
+     "pinyin": "Wǒ kàndào tā le.",
+     "fr": "Je l'ai vu.",
+     "statut": "a_relire"
+    },
+    {
+     "zh": "你看到我的手机了吗？",
+     "pinyin": "Nǐ kàndào wǒ de shǒujī le ma?",
+     "fr": "Tu as vu mon téléphone ?",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L1-0195",
+   "genre": "mot",
+   "hanzi": "看见",
+   "pinyin": "kànjiàn",
+   "sens": {
+    "glose": "voir, apercevoir",
+    "acceptions": [],
+    "statut": "relu",
+    "provenance": {
+     "reprise": "data/sources/fiches/看.json",
+     "champ": "mots[].fr"
+    }
+   },
+   "exemples": [
+    {
+     "zh": "我没看见他。",
+     "pinyin": "Wǒ méi kànjiàn tā.",
+     "fr": "Je ne l'ai pas vu.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "考",
+   "genre": "caractere",
+   "hanzi": "考",
+   "pinyin": "kǎo",
+   "mots": [
+    "L1-0196"
+   ],
+   "sens": {
+    "glose": "passer un examen ; interroger",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "passer un examen ; faire passer un examen, interroger"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "明天考汉语。",
+     "pinyin": "Míngtiān kǎo Hànyǔ.",
+     "fr": "Demain, il y a l'examen de chinois.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "试",
+   "genre": "caractere",
+   "hanzi": "试",
+   "pinyin": "shì",
+   "mots": [
+    "L1-0336"
+   ],
+   "sens": {
+    "glose": "essayer",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "essayer, tenter"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "我想试一下。",
+     "pinyin": "Wǒ xiǎng shì yīxià.",
+     "fr": "J'aimerais bien essayer.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L1-0197",
+   "genre": "mot",
+   "hanzi": "考试",
+   "pinyin": "kǎoshì",
+   "sens": {
+    "glose": "examen ; passer un examen",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "examen"
+     },
+     {
+      "categorie": "V",
+      "fr": "passer un examen"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "明天有考试。",
+     "pinyin": "Míngtiān yǒu kǎoshì.",
+     "fr": "Il y a une épreuve demain.",
+     "statut": "a_relire"
+    },
+    {
+     "zh": "他考试考得很好。",
+     "pinyin": "Tā kǎoshì kǎo de hěn hǎo.",
+     "fr": "Il a très bien réussi.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "渴",
+   "genre": "caractere",
+   "hanzi": "渴",
+   "pinyin": "kě",
+   "mots": [
+    "L1-0198"
+   ],
+   "sens": {
+    "glose": "avoir soif",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "assoiffé, qui a soif"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "我很渴，想喝水。",
+     "pinyin": "Wǒ hěn kě, xiǎng hē shuǐ.",
+     "fr": "Je voudrais de l'eau, je meurs de soif.",
+     "statut": "a_relire"
+    },
+    {
+     "zh": "你渴不渴？",
+     "pinyin": "Nǐ kě bu kě?",
+     "fr": "Tu as soif ?",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "课",
+   "genre": "caractere",
+   "hanzi": "课",
+   "pinyin": "kè",
+   "mots": [
+    "L1-0199"
+   ],
+   "sens": {
+    "glose": "cours, leçon",
+    "acceptions": [],
+    "statut": "relu",
+    "provenance": {
+     "reprise": "data/sources/fiches/课.json",
+     "champ": "sens_fr"
+    }
+   },
+   "exemples": [
+    {
+     "zh": "今天没有课。",
+     "pinyin": "Jīntiān méiyou kè.",
+     "fr": "Il n'y a pas cours aujourd'hui.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L1-0200",
+   "genre": "mot",
+   "hanzi": "课本",
+   "pinyin": "kèběn",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "manuel scolaire",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "manuel scolaire, livre de cours"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "请打开课本。",
+     "pinyin": "Qǐng dǎkāi kèběn.",
+     "fr": "Ouvrez votre manuel, s'il vous plaît.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "文",
+   "genre": "caractere",
+   "hanzi": "文",
+   "pinyin": "wén",
+   "mots": [
+    "L7-4328"
+   ],
+   "sens": {
+    "glose": "écrit, langue, culture",
+    "acceptions": [],
+    "statut": "relu",
+    "provenance": {
+     "reprise": "data/sources/fiches/文.json",
+     "champ": "sens_fr"
+    }
+   },
+   "exemples": [
+    {
+     "zh": "他会说中文。",
+     "pinyin": "Tā huì shuō Zhōngwén.",
+     "fr": "Il parle chinois.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L1-0201",
+   "genre": "mot",
+   "hanzi": "课文",
+   "pinyin": "kèwén",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "texte de la leçon",
+    "acceptions": [],
+    "statut": "relu",
+    "provenance": {
+     "reprise": "data/sources/fiches/课.json",
+     "champ": "mots[].fr"
+    }
+   },
+   "exemples": [
+    {
+     "zh": "请读一下课文。",
+     "pinyin": "Qǐng dú yīxià kèwén.",
+     "fr": "Lisez le texte, s'il vous plaît.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "口",
+   "genre": "caractere",
+   "hanzi": "口",
+   "pinyin": "kǒu",
+   "mots": [
+    "L1-0202"
+   ],
+   "sens": {
+    "glose": "bouche, ouverture",
+    "acceptions": [],
+    "statut": "relu",
+    "provenance": {
+     "reprise": "data/sources/fiches/口.json",
+     "champ": "sens_fr"
+    }
+   },
+   "exemples": [
+    {
+     "zh": "我在门口等你。",
+     "pinyin": "Wǒ zài ménkǒu děng nǐ.",
+     "fr": "Je t'attends à l'entrée.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "块",
+   "genre": "caractere",
+   "hanzi": "块",
+   "pinyin": "kuài",
+   "mots": [
+    "L1-0203"
+   ],
+   "sens": {
+    "glose": "morceau, bloc, yuan (familier)",
+    "acceptions": [],
+    "statut": "relu",
+    "provenance": {
+     "reprise": "data/sources/fiches/块.json",
+     "champ": "sens_fr"
+    }
+   },
+   "exemples": [
+    {
+     "zh": "给我一块。",
+     "pinyin": "Gěi wǒ yī kuài.",
+     "fr": "Donne-m'en un morceau.",
+     "statut": "a_relire"
+    },
+    {
+     "zh": "这本书二十块。",
+     "pinyin": "Zhè běn shū èrshí kuài.",
+     "fr": "Ce livre coûte vingt yuans.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "快",
+   "genre": "caractere",
+   "hanzi": "快",
+   "pinyin": "kuài",
+   "mots": [
+    "L1-0204"
+   ],
+   "sens": {
+    "glose": "rapide, bientôt, joyeux",
+    "acceptions": [],
+    "statut": "relu",
+    "provenance": {
+     "reprise": "data/sources/fiches/快.json",
+     "champ": "sens_fr"
+    }
+   },
+   "exemples": [
+    {
+     "zh": "快点儿！",
+     "pinyin": "Kuài diǎnr!",
+     "fr": "Plus vite !",
+     "statut": "a_relire"
+    },
+    {
+     "zh": "快下雨了。",
+     "pinyin": "Kuài xià yǔ le.",
+     "fr": "Il va bientôt pleuvoir.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L1-0206",
+   "genre": "mot",
+   "hanzi": "来到",
+   "pinyin": "láidào",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "arriver à, venir à",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "arriver à, venir jusqu'à"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "我们来到了北京。",
+     "pinyin": "Wǒmen láidào le Běijīng.",
+     "fr": "Nous voici à Pékin.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "老",
+   "genre": "caractere",
+   "hanzi": "老",
+   "pinyin": "lǎo",
+   "mots": [
+    "L1-0207",
+    "L2-0339",
+    "L2-0340"
+   ],
+   "sens": {
+    "glose": "vieux, âgé ; sans cesse",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "vieux, âgé ; ancien"
+     },
+     {
+      "categorie": "Adv",
+      "fr": "toujours, sans cesse"
+     },
+     {
+      "categorie": "Prefix",
+      "fr": "préfixe familier devant un nom ou un rang : le vieux Wang, le cadet"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他老了。",
+     "pinyin": "Tā lǎo le.",
+     "fr": "Il a vieilli.",
+     "statut": "a_relire"
+    },
+    {
+     "zh": "你怎么老不来？",
+     "pinyin": "Nǐ zěnme lǎo bù lái?",
+     "fr": "Pourquoi tu ne viens jamais ?",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L1-0208",
+   "genre": "mot",
+   "hanzi": "老人",
+   "pinyin": "lǎorén",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "personne âgée",
+    "acceptions": [],
+    "statut": "relu",
+    "provenance": {
+     "reprise": "data/sources/fiches/老.json",
+     "champ": "mots[].fr"
+    }
+   },
+   "exemples": [
+    {
+     "zh": "这个老人八十岁了。",
+     "pinyin": "Zhège lǎorén bāshí suì le.",
+     "fr": "Ce vieil homme a quatre-vingts ans.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "师",
+   "genre": "caractere",
+   "hanzi": "师",
+   "pinyin": "shī",
+   "sens": {
+    "glose": "maître, professeur, armée",
+    "acceptions": [],
+    "statut": "relu",
+    "provenance": {
+     "reprise": "data/sources/fiches/师.json",
+     "champ": "sens_fr"
+    }
+   },
+   "exemples": []
+  },
+  {
+   "id": "L1-0209",
+   "genre": "mot",
+   "hanzi": "老师",
+   "pinyin": "lǎoshī",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "professeur, enseignant",
+    "acceptions": [],
+    "statut": "relu",
+    "provenance": {
+     "reprise": "data/sources/fiches/师.json",
+     "champ": "mots[].fr"
+    }
+   },
+   "exemples": [
+    {
+     "zh": "我们的老师很好。",
+     "pinyin": "Wǒmen de lǎoshī hěn hǎo.",
+     "fr": "Notre professeur est très bien.",
+     "statut": "a_relire"
+    },
+    {
+     "zh": "老师好！",
+     "pinyin": "Lǎoshī hǎo!",
+     "fr": "Bonjour, professeur !",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "了",
+   "genre": "caractere",
+   "hanzi": "了",
+   "pinyin": "le",
+   "mots": [
+    "L1-0210",
+    "L3-0455"
+   ],
+   "sens": {
+    "glose": "marque l'action accomplie, finir",
+    "acceptions": [],
+    "statut": "relu",
+    "provenance": {
+     "reprise": "data/sources/fiches/了.json",
+     "champ": "sens_fr"
+    }
+   },
+   "exemples": [
+    {
+     "zh": "他走了。",
+     "pinyin": "Tā zǒu le.",
+     "fr": "Il est parti.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "累",
+   "genre": "caractere",
+   "hanzi": "累",
+   "pinyin": "lèi",
+   "mots": [
+    "L1-0211"
+   ],
+   "sens": {
+    "glose": "fatigué",
+    "acceptions": [],
+    "statut": "relu",
+    "provenance": {
+     "reprise": "data/sources/fiches/累.json",
+     "champ": "sens_fr"
+    }
+   },
+   "exemples": [
+    {
+     "zh": "我今天很累。",
+     "pinyin": "Wǒ jīntiān hěn lèi.",
+     "fr": "Je suis épuisé aujourd'hui.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "冷",
+   "genre": "caractere",
+   "hanzi": "冷",
+   "pinyin": "lěng",
+   "mots": [
+    "L1-0212"
+   ],
+   "sens": {
+    "glose": "froid",
+    "acceptions": [],
+    "statut": "relu",
+    "provenance": {
+     "reprise": "data/sources/fiches/冷.json",
+     "champ": "sens_fr"
+    }
+   },
+   "exemples": [
+    {
+     "zh": "外边很冷。",
+     "pinyin": "Wàibian hěn lěng.",
+     "fr": "Il fait froid dehors.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L1-0214",
+   "genre": "mot",
+   "hanzi": "里边",
+   "pinyin": "lǐbian",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "dedans, à l'intérieur",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "l'intérieur, dedans"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "里边有人吗？",
+     "pinyin": "Lǐbian yǒu rén ma?",
+     "fr": "Il y a quelqu'un ?",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "两",
+   "genre": "caractere",
+   "hanzi": "两",
+   "pinyin": "liǎng",
+   "mots": [
+    "L1-0215",
+    "L2-0356"
+   ],
+   "sens": {
+    "glose": "deux, les deux",
+    "acceptions": [],
+    "statut": "relu",
+    "provenance": {
+     "reprise": "data/sources/fiches/两.json",
+     "champ": "sens_fr"
+    }
+   },
+   "exemples": [
+    {
+     "zh": "我有两个哥哥。",
+     "pinyin": "Wǒ yǒu liǎng ge gēge.",
+     "fr": "J'ai deux grands frères.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "零",
+   "genre": "caractere",
+   "hanzi": "零",
+   "pinyin": "líng",
+   "mots": [
+    "L1-0216"
+   ],
+   "sens": {
+    "glose": "zéro",
+    "acceptions": [
+     {
+      "categorie": "Num",
+      "fr": "zéro"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "我是二零零八年出生的。",
+     "pinyin": "Wǒ shì èr líng líng bā nián chūshēng de.",
+     "fr": "Je suis né en 2008.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "六",
+   "genre": "caractere",
+   "hanzi": "六",
+   "pinyin": "liù",
+   "mots": [
+    "L1-0217"
+   ],
+   "sens": {
+    "glose": "six",
+    "acceptions": [],
+    "statut": "relu",
+    "provenance": {
+     "reprise": "data/sources/fiches/六.json",
+     "champ": "sens_fr"
+    }
+   },
+   "exemples": [
+    {
+     "zh": "六月我们放假。",
+     "pinyin": "Liùyuè wǒmen fàngjià.",
+     "fr": "En juin, nous sommes en vacances.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L1-0219",
+   "genre": "mot",
+   "hanzi": "楼上",
+   "pinyin": "lóu shàng",
+   "sens": {
+    "glose": "à l'étage, en haut",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "l'étage au-dessus, en haut"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他住在楼上。",
+     "pinyin": "Tā zhù zài lóu shàng.",
+     "fr": "Il habite juste au-dessus.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "下",
+   "genre": "caractere",
+   "hanzi": "下",
+   "pinyin": "xià",
+   "mots": [
+    "L1-0389",
+    "L2-0589"
+   ],
+   "sens": {
+    "glose": "en bas, sous, descendre",
+    "acceptions": [],
+    "statut": "relu",
+    "provenance": {
+     "reprise": "data/sources/fiches/下.json",
+     "champ": "sens_fr"
+    }
+   },
+   "exemples": [
+    {
+     "zh": "我们下楼吧。",
+     "pinyin": "Wǒmen xià lóu ba.",
+     "fr": "Descendons.",
+     "statut": "a_relire"
+    },
+    {
+     "zh": "他在树下看书。",
+     "pinyin": "Tā zài shù xià kàn shū.",
+     "fr": "Il lit sous un arbre.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L1-0220",
+   "genre": "mot",
+   "hanzi": "楼下",
+   "pinyin": "lóu xià",
+   "sens": {
+    "glose": "en bas (de l'immeuble)",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "l'étage en dessous, en bas de l'immeuble"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "我在楼下等你。",
+     "pinyin": "Wǒ zài lóu xià děng nǐ.",
+     "fr": "Je t'attends au pied de l'immeuble.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "路",
+   "genre": "caractere",
+   "hanzi": "路",
+   "pinyin": "lù",
+   "mots": [
+    "L1-0221"
+   ],
+   "sens": {
+    "glose": "route, chemin ; ligne de bus",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "route, chemin, rue"
+     },
+     {
+      "categorie": "M",
+      "fr": "ligne de bus"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这条路很长。",
+     "pinyin": "Zhè tiáo lù hěn cháng.",
+     "fr": "Cette route est très longue.",
+     "statut": "a_relire"
+    },
+    {
+     "zh": "你坐几路车？",
+     "pinyin": "Nǐ zuò jǐ lù chē?",
+     "fr": "Tu prends quel bus ?",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L1-0222",
+   "genre": "mot",
+   "hanzi": "路口",
+   "pinyin": "lùkǒu",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "carrefour, croisement",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "carrefour, croisement"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "我们在路口见。",
+     "pinyin": "Wǒmen zài lùkǒu jiàn.",
+     "fr": "On se retrouve au coin de la rue.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L1-0223",
+   "genre": "mot",
+   "hanzi": "路上",
+   "pinyin": "lùshang",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "en chemin, sur la route",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "en chemin, pendant le trajet"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "路上人很多。",
+     "pinyin": "Lùshang rén hěn duō.",
+     "fr": "Il y a beaucoup de monde sur la route.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "妈",
+   "genre": "caractere",
+   "hanzi": "妈",
+   "pinyin": "mā",
+   "sens": {
+    "glose": "maman, mère",
+    "acceptions": [],
+    "statut": "relu",
+    "provenance": {
+     "reprise": "data/sources/fiches/妈.json",
+     "champ": "sens_fr"
+    }
+   },
+   "exemples": []
+  },
+  {
+   "id": "L1-0224",
+   "genre": "mot",
+   "hanzi": "妈妈",
+   "pinyin": "māma",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "maman",
+    "acceptions": [],
+    "statut": "relu",
+    "provenance": {
+     "reprise": "data/sources/fiches/妈.json",
+     "champ": "mots[].fr"
+    }
+   },
+   "exemples": [
+    {
+     "zh": "妈妈，我回来了！",
+     "pinyin": "Māma, wǒ huílai le!",
+     "fr": "Maman, je suis rentré !",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "马",
+   "genre": "caractere",
+   "hanzi": "马",
+   "pinyin": "mǎ",
+   "mots": [
+    "L3-0472"
+   ],
+   "sens": {
+    "glose": "cheval",
+    "acceptions": [],
+    "statut": "relu",
+    "provenance": {
+     "reprise": "data/sources/fiches/马.json",
+     "champ": "sens_fr"
+    }
+   },
+   "exemples": [
+    {
+     "zh": "马跑得很快。",
+     "pinyin": "Mǎ pǎo de hěn kuài.",
+     "fr": "Les chevaux courent vite.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L1-0225",
+   "genre": "mot",
+   "hanzi": "马路",
+   "pinyin": "mǎlù",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "rue, route, chaussée",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "rue, route, chaussée"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "过马路要看车。",
+     "pinyin": "Guò mǎlù yào kàn chē.",
+     "fr": "Quand on traverse, il faut regarder les voitures.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L1-0226",
+   "genre": "mot",
+   "hanzi": "马上",
+   "pinyin": "mǎshàng",
+   "categories": [
+    "Adv"
+   ],
+   "sens": {
+    "glose": "tout de suite",
+    "acceptions": [],
+    "statut": "relu",
+    "provenance": {
+     "reprise": "data/sources/fiches/马.json",
+     "champ": "mots[].fr"
+    }
+   },
+   "exemples": [
+    {
+     "zh": "他马上回来。",
+     "pinyin": "Tā mǎshàng huílai.",
+     "fr": "Il revient dans un instant.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "吗",
+   "genre": "caractere",
+   "hanzi": "吗",
+   "pinyin": "ma",
+   "mots": [
+    "L1-0227"
+   ],
+   "sens": {
+    "glose": "particule interrogative",
+    "acceptions": [],
+    "statut": "relu",
+    "provenance": {
+     "reprise": "data/sources/fiches/吗.json",
+     "champ": "sens_fr"
+    }
+   },
+   "exemples": [
+    {
+     "zh": "你好吗？",
+     "pinyin": "Nǐ hǎo ma?",
+     "fr": "Comment vas-tu ?",
+     "statut": "a_relire"
+    },
+    {
+     "zh": "这是你的吗？",
+     "pinyin": "Zhè shì nǐ de ma?",
+     "fr": "C'est à toi ?",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "买",
+   "genre": "caractere",
+   "hanzi": "买",
+   "pinyin": "mǎi",
+   "mots": [
+    "L1-0228"
+   ],
+   "sens": {
+    "glose": "acheter",
+    "acceptions": [],
+    "statut": "relu",
+    "provenance": {
+     "reprise": "data/sources/fiches/买.json",
+     "champ": "sens_fr"
+    }
+   },
+   "exemples": [
+    {
+     "zh": "我想买一个新手机。",
+     "pinyin": "Wǒ xiǎng mǎi yī ge xīn shǒujī.",
+     "fr": "Je voudrais acheter un nouveau téléphone.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "慢",
+   "genre": "caractere",
+   "hanzi": "慢",
+   "pinyin": "màn",
+   "mots": [
+    "L1-0229"
+   ],
+   "sens": {
+    "glose": "lent, lentement",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "lent ; lentement"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "请说慢一点儿。",
+     "pinyin": "Qǐng shuō màn yīdiǎnr.",
+     "fr": "Parlez moins vite, s'il vous plaît.",
+     "statut": "a_relire"
+    },
+    {
+     "zh": "他走得很慢。",
+     "pinyin": "Tā zǒu de hěn màn.",
+     "fr": "Il marche très lentement.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "毛",
+   "genre": "caractere",
+   "hanzi": "毛",
+   "pinyin": "máo",
+   "mots": [
+    "L1-0231",
+    "L3-0475"
+   ],
+   "sens": {
+    "glose": "poil, plume, dix centimes",
+    "acceptions": [],
+    "statut": "relu",
+    "provenance": {
+     "reprise": "data/sources/fiches/毛.json",
+     "champ": "sens_fr"
+    }
+   },
+   "exemples": [
+    {
+     "zh": "这个杯子一块五毛。",
+     "pinyin": "Zhège bēizi yī kuài wǔ máo.",
+     "fr": "Ce verre coûte un yuan cinquante.",
+     "statut": "a_relire"
+    }
+   ]
+  }
+ ]
+}
