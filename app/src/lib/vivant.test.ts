@@ -391,3 +391,18 @@ describe('le personnage cligne, et le lapin et le panda bougent les oreilles', (
     expect(reduits(css)).toMatch(/\.heros-svg :global\(\.tourne\),\s*\.heros-svg :global\(\.paupieres\),\s*\.heros-svg :global\(\.oreilles\) \{\s*animation: none;/);
   });
 });
+
+describe("Clore : les pas des jours d'avant s'impriment sur le chemin", () => {
+  const x = source('Close.svelte');
+  const css = x.slice(x.indexOf('<style>'));
+  it('du plus loin au plus près, avant que la pierre du jour ne tombe ; pas pour une pierre déjà posée', () => {
+    expect(x).toContain('<g class="pas-passe" class:deja={dejaPlantee} style="animation-delay:{((bout.avant.length - 1 - k) * 0.1).toFixed(1)}s">');
+    expect(css).toMatch(/\.pas-passe \{[^}]*animation: imprimer-pas 0\.3s/);
+    expect(css).toMatch(/\.pas-passe\.deja \{\s*animation: none;/);
+    /* la dernière s'imprime avant la chute de la pierre du jour */
+    expect(css).toMatch(/\.pose \{\s*animation: poser 0\.8s cubic-bezier\(0\.3, 0\.7, 0\.3, 1\) 0\.35s both;/);
+  });
+  it("s'arrête si l'on réduit les animations", () => {
+    expect(reduits(css)).toMatch(/\.pas-passe \{\s*animation: none;/);
+  });
+});
