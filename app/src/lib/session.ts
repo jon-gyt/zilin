@@ -78,6 +78,7 @@ import type { ChoixVoix } from './audio';
 import { lireDernierExport } from './garde';
 import { lireAvisDemande } from './avis';
 import { etatNeuf, lireEtatOuvertures, type EtatOuvertures } from './ouvertures';
+import { lireRecentes, type Recente } from './recentes';
 
 
 /** Budget choisi par l'utilisateur, en minutes. */
@@ -533,6 +534,12 @@ export type Progress = {
    * silence, sans rafale d'annonces.
    */
   ouvertures: EtatOuvertures | null;
+  /**
+   * Les recherches récentes du dictionnaire (`recentes.ts`, story 10.8) : les saisies et les
+   * fiches ouvertes, la plus récente en tête. Elles restent sur l'appareil, partent avec
+   * l'export, et « Effacer » les vide. Absentes d'une progression plus ancienne : aucune.
+   */
+  recentes: Recente[];
 };
 
 /**
@@ -636,7 +643,8 @@ export function emptyProgress(aujourdhui: string): Progress {
     examens: etatExamensVide(),
     droits: droitsVides(),
     journee: null,
-    ouvertures: etatNeuf()
+    ouvertures: etatNeuf(),
+    recentes: []
   };
 }
 
@@ -2170,6 +2178,8 @@ export function fromJSON(texte: string, aujourdhui: string): Progress {
     /* La journée préparée : absente d'un export plus ancien, elle se prépare à l'ouverture. */
     journee: lireJournee(o.journee),
     /* L'aventure : absente d'un export plus ancien, ce qu'il a atteint s'ouvrira en silence. */
-    ouvertures: lireEtatOuvertures(o.ouvertures)
+    ouvertures: lireEtatOuvertures(o.ouvertures),
+    /* Les recherches récentes : absentes d'un export plus ancien, aucune. */
+    recentes: lireRecentes(o.recentes)
   };
 }

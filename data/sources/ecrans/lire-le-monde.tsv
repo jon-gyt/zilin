@@ -10,7 +10,8 @@
 # accolades, que l'app remplit (`ecrans.py`, `ECRANS`) :
 #
 # - `onglets` : le nom de la paire d'onglets, pour un lecteur d'écran ;
-# - `onglet-caractere`, `onglet-texte` : les deux onglets de Chercher ;
+# - `onglet-caractere`, `onglet-texte` : les deux onglets de Chercher, « Dictionnaire » et
+#   « Lire le monde » depuis la maquette du dictionnaire (29 septembre 2026) ;
 # - `champ` : le nom du champ de texte, pour un lecteur d'écran ;
 # - `invite` : le texte du champ vide ;
 # - `aide-iphone` : la photo, sans code : le Texte en direct d'iOS copie le texte ;
@@ -26,8 +27,8 @@
 # - `effacer` : le bouton qui vide le champ.
 cle	fr	source
 onglets	Chercher un caractère ou lire un texte	rédigé pour l'app
-onglet-caractere	Un caractère	rédigé pour l'app
-onglet-texte	Un texte	rédigé pour l'app
+onglet-caractere	Dictionnaire	rédigé pour l'app
+onglet-texte	Lire le monde	rédigé pour l'app
 champ	Le texte à lire	rédigé pour l'app
 invite	Colle ou tape un texte chinois : une enseigne, un menu, un message.	rédigé pour l'app
 aide-iphone	Sur iPhone, le Texte en direct copie le texte d'une photo : touche le texte dans Photos, choisis Copier, puis colle-le ici.	rédigé pour l'app
