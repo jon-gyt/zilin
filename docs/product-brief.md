@@ -130,7 +130,7 @@ Décisions du propriétaire du 29 septembre 2026, maquette `maquettes/dictionnai
 - L'écriture au doigt : dans Wenlu complet, sous ses deux formes, l'abonnement et l'achat à vie (§10) ; la reconnaissance tourne sur l'appareil, sans réseau. Sans achat, la même place le dit en une ligne, avec un lien : ni cadenas, ni fenêtre, rien de grisé ailleurs, la recherche reste entière.
 - Tao lit par-dessus l'épaule avant la rencontre de Xing au 县试 ; Xing, le livre ouvert, accompagne le dictionnaire après et en explique les fiches (§9).
 - Hors ligne : l'index du dictionnaire est gardé avec l'app ; une fiche ouverte une fois se relit sans réseau (`data/schema.md`, « Le dictionnaire »).
-- Livré le 29 septembre 2026 (docs/backlog.md, épic 10) : la liste des mots, le format d'export (l'index, les lots d'entrées, les emplacements des sens et des exemples), les traits des 3 000 caractères, la recherche (`app/src/lib/dictionnaire.ts`) et le cache hors ligne. Reste : les sens, les phrases, l'écran, l'écriture au doigt.
+- Livré le 29 septembre 2026 (docs/backlog.md, épic 10) : la liste des mots, le format d'export (l'index, les lots d'entrées, les emplacements des sens et des exemples), les traits des 3 000 caractères, la recherche (`app/src/lib/dictionnaire.ts`) et le cache hors ligne. Les sens et les phrases du HSK 1 et du HSK 2 sont rédigés, à relire (`wenlu dico`, page de relecture) ; seules les gloses reprises des fiches relues s'affichent. Reste : leur relecture, les niveaux suivants.
 
 ### La session, six pas dans le même ordre
 

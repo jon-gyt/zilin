@@ -259,7 +259,8 @@ le double) :
 - `lot` : le numéro du lot où lire l'entrée (`fichiers`), et, pour un caractère, ses traits ;
 - `glose` : la glose française **relue** de l'entrée, 40 caractères au plus, celle de la
   liste des résultats et de la recherche par le français ; `""` tant que le sens n'est pas
-  relu. Aujourd'hui toutes vides.
+  relu, et pour un mot d'un seul caractère (son sens est celui du caractère). Aujourd'hui
+  seules les gloses reprises des fiches relues sont remplies.
 
 `traits_hors_liste` : le lot de traits de chaque composant d'une décomposition réconciliée
 qui n'est pas un des 3 000 (亻, 氵, 亠…), pour dessiner les briques d'une fiche.
@@ -305,30 +306,102 @@ mots HSK 3.0 »), `officiel` viennent de `hsk-mots.tsv`. Clés présentes seulem
 servent : `pleines` (la lecture au ton plein), `variantes` (`[{hanzi, pinyin, syllabes}]`,
 爸 pour 爸爸), `emploi` (l'emploi que la norme cite, 第二 pour 第).
 
-### Les emplacements `sens` et `exemples`
+### Les emplacements `sens` et `exemples` (stories 10.6 et 10.7)
 
-Prévus pour la story des sens (D.7) et celle des phrases d'exemple, qu'un autre chantier
-remplira. Le pipeline rédige, la relecture humaine passe chaque texte à `relu`, et **seuls
-les textes `relu` s'exportent** (`dictionnaire.sens_exporte`, `exemples_exportes`) : un
-sens `a_relire` reste hors de l'export principal, comme une fiche. Formes attendues :
+Le pipeline rédige (`dico_sens.py`, ci-dessous), la relecture humaine passe chaque texte à
+`relu`, et **seuls les textes `relu` s'exportent** (`dictionnaire.sens_exporte`,
+`exemples_exportes`) : un sens `a_relire` ou `rejete` reste hors de l'export, comme une
+fiche. Formes exportées :
 
 ```json
 "sens": {"statut": "relu", "glose": "bon ; bien",
          "acceptions": [{"categorie": "Adj", "fr": "bon, bien, satisfaisant"},
-                        {"categorie": "Adv", "fr": "très, bien (devant un adjectif)"}]},
+                        {"categorie": "V", "fr": "aimer, avoir le goût de", "pinyin": "hào"}]},
 "exemples": [{"zh": "这本书很好看。", "pinyin": "Zhè běn shū hěn hǎokàn.",
-              "fr": "Ce livre est très beau.", "statut": "relu"}]
+              "fr": "Ce livre est très bien.", "statut": "relu"}]
 ```
 
 - `glose` : 40 caractères au plus, sans point final ni sinogramme ; c'est elle, et elle
   seule, qui passe dans la colonne `glose` de l'index. Une glose relue plus longue ou vide
   fait échouer l'export.
-- `acceptions` : une à trois, chacune avec la catégorie (codes de la liste) et son texte.
-- `exemples` : les phrases écrites par le pipeline avec les seuls caractères du HSK et
-  relues (pas de Tatoeba, décision du 29 septembre 2026), avec leur pinyin.
+- `acceptions` : une à trois, chacune avec la catégorie (codes de la liste) et son texte ;
+  `pinyin`, seulement pour un caractère, quand l'acception se lit autrement que la lecture
+  principale (好 hào, 长 cháng, 还 huán). Vide pour une glose reprise d'une fiche relue :
+  aucune acception n'a été relue avec elle.
+- `exemples` : une ou deux phrases écrites par le pipeline avec les seuls caractères du HSK
+  (pas de Tatoeba, décision du 29 septembre 2026), leur pinyin écrit par mot, leur
+  traduction.
+
+**Un mot d'un seul caractère** (好 adjectif, 号 nom, 们 suffixe : 408 entrées aux HSK 1 et
+2) n'a pas de sens à lui : son entrée de `dico/mots/` garde `sens: null` et `exemples: []`,
+et sa glose d'index reste vide. Ses sens et ses phrases sont ceux du caractère, dans
+`dico/caracteres/`, dont les acceptions portent la catégorie de chaque emploi de la liste
+(et sa lecture quand elle diffère). Tranché par la story 10.6, en accord avec 10.8 (le mot
+d'un seul caractère se range sous la fiche du caractère, jamais en ligne à part) : l'app
+lit le sens de « Comme mot » dans les acceptions du caractère de même catégorie.
 
 `documents()` prend `sens` et `exemples` par identifiant d'entrée (le caractère ou l'`id`
-du mot) ; `export.assembler_dictionnaire` ne lui en passe aucun aujourd'hui.
+du mot) ; `export.assembler_dictionnaire` les lit dans les lots rédigés
+(`dico_sens.pour_export`), tous statuts, et `documents()` n'en garde que les relus.
+
+#### Les lots rédigés : `data/sources/dico/<niveau>/<lot>.json`
+
+Le circuit des fiches et des lettres, sans API (`wenlu dico`) :
+
+1. `wenlu dico plan` range les entrées de chaque niveau en lots de 50 : chaque caractère de
+   `hsk-<n>.txt` devant le premier mot du niveau qui le contient, puis les mots de plusieurs
+   caractères dans l'ordre de la liste, les caractères restants à la fin. Un niveau ne
+   dépend d'aucun autre : ses lots, ses brouillons et ses fichiers lui sont propres, et deux
+   rédacteurs peuvent écrire deux niveaux en même temps.
+2. `wenlu dico contexte <niveau> <lot>` donne les faits de chaque entrée : sinogrammes,
+   pinyin retenu et officiel, catégories, niveau, lectures du caractère (Unihan et
+   surcharges), mots d'un seul caractère qu'il porte, sens déjà écrits des caractères d'un
+   mot, voisins de la liste, glose relue d'une fiche ; et les caractères des niveaux 1 à n.
+   Jamais la colonne `CEDICT` d'ivankra, `mots.json` ni `unihan-definitions.json`
+   (`kDefinition` n'est pas autorisé tant que le propriétaire n'a pas tranché).
+3. Le rédacteur écrit `data/sources/dico-brouillons/<niveau>/<lot>.json` :
+   `{"entrees": {"<id>": {"glose", "acceptions": [[cat, fr], [cat, fr, pinyin]],
+   "exemples": [[zh, pinyin, fr]]}}}`, ou `{"reprise": true, "exemples": […]}` pour reprendre
+   telle quelle la glose relue d'une fiche (le sens du caractère, ou celui d'un mot de fiche
+   au même pinyin).
+4. `wenlu dico importer` valide tout le lot (`valider()`), refuse tout s'il y a une faute, et
+   écrit le lot : chaque entrée (`id`, `genre`, `hanzi`, `pinyin`, `categories`, `mots` : les
+   mots d'un seul caractère qu'elle porte), son `sens` et ses `exemples`, chacun avec son
+   `statut`, et le bloc `generation` des fiches (`modele` « rédaction manuelle », `api`
+   « session Claude Code (sans API) », `date`, `empreinte_invite` : l'empreinte du
+   brouillon, `contexte` : la commande qui donne les faits). Une glose reprise garde
+   `statut: relu` et dit sa `provenance` (`reprise` : le fichier de la fiche, `champ`). Un
+   brouillon inchangé ne réécrit rien ; un texte modifié repart `a_relire`.
+5. `wenlu dico apercu --niveau 1 --niveau 2 --sortie <page>.html` écrit la page de relecture :
+   un HTML autonome (données incluses, `<title>` puis `<style>`, sans `html`, `head` ni
+   `body`), lot par lot ; le propriétaire marque « Bon », corrige (glose, acceptions,
+   phrases) ou renvoie « À refaire » avec une note, et copie ses retours en JSON :
+   `{"format": "wenlu-dico-relecture", "decisions": {"<id>": {"decision": "bon" | "corrige" |
+   "a_refaire", "sens": {…}, "exemples": […], "note": "…"}}}`.
+6. `wenlu dico appliquer-relecture <fichier>` les réintègre, tout ou rien : « bon » passe à
+   `relu` ce qui était à relire ; « corrige » remplace les textes, les repasse par
+   `valider()`, les passe à `relu` et garde le texte d'avant (`relecture.avant`), une phrase
+   ôtée sans remplaçante allant dans `retirees` (elle ne revient pas du brouillon) ;
+   « a_refaire » passe à `rejete`. Chaque texte relu porte `relecture` : `date`, `decision`,
+   `par`, `note`. Réimporter le brouillon d'origine ne défait pas une correction.
+
+Contrôles (`wenlu check`), bloquants sauf les deux derniers : « dico sens : lots » (entrées
+du plan, `generation` complète, statuts, glose reprise égale à celle de la fiche), « sans
+sinogramme » (gloses, acceptions, traductions), « longueurs » (glose de 40 caractères, 1 à 3
+acceptions, 2 phrases au plus, de 20 sinogrammes au plus, la phrase contient l'entrée),
+« catégories » (celles de la liste pour un mot classé ; lecture d'une acception connue du
+caractère), « phrases : caractères HSK » (les 3 000 et la ponctuation chinoise de la police),
+« phrases : pinyin » (lu caractère par caractère dans les lectures du dépôt, le mot au pinyin
+de la liste, ton neutre et écriture par mot compris, mots de position, majuscule et
+ponctuation finale), « phrases : fuites » (la traduction ne redit ni la glose ni une
+acception ; la phrase n'est pas le mot seul), « sens : export » (l'export porte exactement les
+textes relus des lots), « sans CC-CEDICT » (le référentiel ne lit ni CC-CEDICT ni
+`unihan-definitions.json`, aucun lot ne le cite ; aucune glose anglaise n'est rédigée, donc
+le garde-fou de comparaison aux définitions anglaises de CC-CEDICT, `recouvrement_cedict`,
+n'a rien à comparer : une clé `en` dans un lot est une faute tant qu'il n'est pas branché) ;
+signalés : « phrases : niveau » (une phrase au-dessus du niveau de son entrée) et « phrases :
+autres mots » (un autre mot de la liste lu à d'autres tons dans une phrase, par un découpage
+au plus long, donc approximatif).
 
 ### `traits/dico-<n>.json`
 
