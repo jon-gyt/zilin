@@ -78,6 +78,9 @@ export function glyph(c: string, d: StrokeData | undefined, size: number, opts: 
   const id = ++GID; let delay = 0.05, defs = '', body = '';
   d.s.forEach((p, i) => {
     const m = d.m[i]; let L = 0; for (let k = 1; k < m.length; k++) L += Math.hypot(m[k][0] - m[k - 1][0], m[k][1] - m[k - 1][1]);
+    /* Le tiret dépasse un peu la médiane : arrondi en dessous, il laissait un bout de tiret, et
+       sa terminaison ronde, au bout du trait avant que le pinceau n'y arrive. */
+    L = Math.ceil(L) + 2;
     const dur = Math.max(0.08, L / 3600);
     defs += `<clipPath id="k${id}_${i}"><path d="${p}"/></clipPath>`;
     body += `<polyline points="${m.map((q) => q.join(',')).join(' ')}" clip-path="url(#k${id}_${i})" class="br${zhu(i)}" style="stroke-dasharray:${L.toFixed(0)};stroke-dashoffset:${L.toFixed(0)};animation-duration:${dur.toFixed(2)}s;animation-delay:${delay.toFixed(2)}s"/><path d="${p}" class="fill${zhu(i)}" style="animation-delay:${(delay + dur).toFixed(2)}s"/>`;
