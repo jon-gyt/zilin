@@ -96,6 +96,8 @@ describe('site public', () => {
     }
     // les fichiers de tracés dérivés sont publiés depuis la page des licences (APL §2 b)
     for (const t of ex.fichiersTraits) expect(page('licences/')).toContain(`traits/${encodeURIComponent(t)}"`);
+    expect(ex.fichiersEcriture).toContain('gabarits.json');
+    for (const t of ex.fichiersEcriture) expect(page('licences/')).toContain(`ecriture/${encodeURIComponent(t)}"`);
   });
 
   it('publie la politique de confidentialité à une adresse stable, liée depuis chaque page', () => {

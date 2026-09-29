@@ -18,7 +18,7 @@
  * `genererSite` est pure : elle rend la liste des fichiers à écrire, chemin relatif à
  * `dist/` et contenu. `cli.ts` les écrit.
  */
-import { readdirSync, readFileSync } from 'node:fs';
+import { existsSync, readdirSync, readFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { glyph, horsPolice, type StrokeData } from '../../src/lib/glyph';
 import type { Famille, Fiche, Index, Mot } from '../../src/lib/content';
@@ -35,6 +35,8 @@ export type Export = {
   licences: string;
   /** Les fichiers de `traits/`, publiés sous APL (§2 b) : noms relatifs à `traits/`. */
   fichiersTraits: string[];
+  /** Les fichiers de `ecriture/`, les gabarits de l'écriture au doigt, publiés sous APL (§2 b). */
+  fichiersEcriture: string[];
 };
 
 export type Options = {
@@ -60,7 +62,15 @@ export function lireExport(dossier: string): Export {
     for (const [c, d] of Object.entries(t.traits)) if (!(c in traits)) traits[c] = d;
   }
   const fichiersTraits = readdirSync(join(dossier, 'traits')).sort();
-  return { index, familles, traits, licences: readFileSync(join(dossier, 'LICENCES.md'), 'utf8'), fichiersTraits };
+  const fichiersEcriture = existsSync(join(dossier, 'ecriture')) ? readdirSync(join(dossier, 'ecriture')).sort() : [];
+  return {
+    index,
+    familles,
+    traits,
+    licences: readFileSync(join(dossier, 'LICENCES.md'), 'utf8'),
+    fichiersTraits,
+    fichiersEcriture
+  };
 }
 
 // ---------------------------------------------------------------------------------
@@ -708,8 +718,11 @@ function pageFamilles(ctx: Contexte, langue: Langue): string {
 
 function pageLicences(ctx: Contexte, ex: Export, langue: Langue): string {
   const t = TEXTES[langue];
-  const traces = ex.fichiersTraits
-    .map((f) => `<li><a href="${donnees(ctx, `traits/${encodeURIComponent(f)}`)}">${echapper(f)}</a></li>`)
+  const traces = [
+    ...ex.fichiersTraits.map((f) => `traits/${encodeURIComponent(f)}`),
+    ...ex.fichiersEcriture.map((f) => `ecriture/${encodeURIComponent(f)}`)
+  ]
+    .map((f) => `<li><a href="${donnees(ctx, f)}">${echapper(decodeURIComponent(f))}</a></li>`)
     .join('');
   const textes = [
     ['traits/ARPHICPL.TXT', 'Arphic Public License'],
