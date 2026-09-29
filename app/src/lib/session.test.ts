@@ -98,7 +98,7 @@ import {
   stability
 } from './srs';
 import { planifier } from './jeux';
-import { commencer as commencerExamen, repondre as repondreExamen } from './examens';
+import { avancer as avancerExamenEtat, commencer as commencerExamen, essayer as essayerExamen } from './examens';
 
 const JOUR = '2026-03-02';
 const neuf = (): Progress => emptyProgress(JOUR);
@@ -1256,20 +1256,41 @@ describe('les examens dans la progression (story 8.2)', () => {
     en: '',
     palier: 50,
     titre: null,
-    questions: 15
+    questions: 10
+  };
+  const Q_EX = {
+    type: 'comprendre' as const,
+    support: 's1',
+    consigne: { fr: '?', en: '?' },
+    choix: ['a', 'b', 'c', 'd'].map((x) => ({ fr: x, en: x })),
+    reponse: 0,
+    porte: ['雨'],
+    caracteres: ['雨']
   };
 
   it('une progression neuve n’a aucun examen réussi et rien à reporter', () => {
     expect(emptyProgress(JOUR_EX).examens).toEqual({ reussis: {}, ouvert: null, tentative: null, migre: true });
   });
 
-  it('garde les examens à l’export et à l’import, tentative comprise', () => {
+  it('garde les examens à l’export et à l’import, tentative, essais et rattrapées compris', () => {
     const p = emptyProgress(JOUR_EX);
-    let e = commencerExamen({ ...p.examens, reussis: { 'yueke-0': JOUR_EX }, ouvert: 'xianshi' }, XIANSHI, 'hsk');
-    e = repondreExamen(e, 0, false, ['雨']);
+    let e = commencerExamen({ ...p.examens, reussis: { 'yueke-0': JOUR_EX }, ouvert: 'xianshi' }, XIANSHI, 'hsk', [0, 1, 3]);
+    e = essayerExamen(e, 0, Q_EX, 2).etat;
+    e = essayerExamen(e, 0, Q_EX, 0).etat;
     const relue = fromJSON(toJSON({ ...p, examens: e }), JOUR_EX);
     expect(relue.examens).toEqual(e);
-    expect(relue.examens.tentative).toMatchObject({ examen: 'xianshi', chemin: 'hsk', serie: 'A', i: 1, manques: ['雨'] });
+    expect(relue.examens.tentative).toMatchObject({
+      examen: 'xianshi',
+      chemin: 'hsk',
+      serie: 'A',
+      poses: [0, 1, 3],
+      i: 0,
+      essais: [2, 0],
+      rattrapees: 1,
+      manques: ['雨']
+    });
+    const suite = avancerExamenEtat(e, 0);
+    expect(fromJSON(toJSON({ ...p, examens: suite }), JOUR_EX).examens.tentative).toMatchObject({ i: 1, essais: [] });
   });
 
   it('une progression d’avant les examens se relit sans rien de réussi, ses rangs à reporter', () => {
