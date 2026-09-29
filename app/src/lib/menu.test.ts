@@ -33,10 +33,13 @@ describe('le menu et le parcours, dans les écrans', () => {
     expect(quitter.slice(0, quitter.indexOf('\n  }\n'))).toContain('allerAuMenu()');
   });
 
-  it("Clore montre le constat, la graine et la semaine ; l'écran de série n'existe plus", () => {
+  it("Clore montre le constat, la pierre du jour et la semaine ; l'écran de série n'existe plus", () => {
     expect(existsSync(new URL('Streak.svelte', import.meta.url))).toBe(false);
     const close = source('Close.svelte');
-    expect(close).toContain('class="seed"');
+    /* la pierre du jour se pose à plat sur le chemin, cerclée de cinabre ; la semaine en pierres */
+    expect(close).toContain('class="pose-pierre"');
+    expect(close).toContain('class="cercle-jour"');
+    expect(close).toContain('<Semaine');
     expect(close).toContain('s.semaine');
     expect(close).toContain('constat(p, p.day)');
     const app = source('../App.svelte');
@@ -50,7 +53,7 @@ describe('le menu et le parcours, dans les écrans', () => {
     expect(source('session.ts')).not.toContain('Recommencer une session');
   });
 
-  it("n'a pas de barre d'onglets : Réglages par l'icône, Ma forêt par sa case", () => {
+  it("n'a pas de barre d'onglets : Réglages par l'icône, Mon chemin 路 par sa case", () => {
     expect(existsSync(new URL('Tabs.svelte', import.meta.url))).toBe(false);
     expect(existsSync(new URL('Today.svelte', import.meta.url))).toBe(false);
     const app = source('../App.svelte');
@@ -58,11 +61,13 @@ describe('le menu et le parcours, dans les écrans', () => {
     const m = source('Menu.svelte');
     expect(m).not.toContain('class="tabs"');
     expect(m).toContain('aria-label="Réglages"');
-    expect(m).toMatch(/\{ id: 'foret', c: '林', t: 'Ma forêt' \}/);
+    /* l'identifiant reste `foret` (aucune migration) ; le caractère est 路, le titre vient du pipeline */
+    expect(m).toMatch(/\{ id: 'foret', c: '路', t: '' \}/);
+    expect(m).toContain("x.id === 'foret' ? tc.case : x.t");
   });
 
   it('les jeux n’ont qu’une porte, la case Jouer', () => {
-    expect(source('Forest.svelte')).not.toContain('onjouer');
+    expect(source('Chemin.svelte')).not.toContain('onjouer');
     expect(source('../App.svelte')).not.toContain('retourJeu');
   });
 

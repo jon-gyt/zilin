@@ -4,7 +4,7 @@
  * ni de stockage. Le contenu vient de l'export (`content.ts`), la progression des cartes.
  *
  * Règles (brief §7, backlog 2c.1 et 2c.2) :
- * - un caractère est acquis selon la règle de Ma forêt (`foret.avancement`) : sa carte
+ * - un caractère est acquis selon la règle de Mon chemin (`foret.avancement`) : sa carte
  *   passe le seuil de stabilité FSRS de `srs.ts` ;
  * - l'app ouvre, de chaque conte, la version du niveau le plus haut (seuil 255, puis les
  *   niveaux HSK, rangés par leur nombre de caractères, `niveaux.ts`) dont tous les
@@ -44,7 +44,7 @@ export function estHan(c: string): boolean {
 }
 
 /**
- * Les caractères acquis, d'après les cartes : la même règle que Ma forêt, un caractère
+ * Les caractères acquis, d'après les cartes : la même règle que Mon chemin, un caractère
  * dont l'avancement vaut « acquis » (stabilité FSRS au seuil de déblocage).
  */
 export function caracteresAcquis(

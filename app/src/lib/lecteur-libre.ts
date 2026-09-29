@@ -5,7 +5,7 @@
  * Module pur : il ne lit ni le réseau, ni l'horloge, ni le DOM. L'écran (`Chercher.svelte`)
  * lui passe ce qu'il a lu de l'export et de la progression :
  *
- * - les caractères lus, par la règle de Ma forêt : une carte dont la stabilité FSRS passe
+ * - les caractères lus, par la règle de Mon chemin : une carte dont la stabilité FSRS passe
  *   le seuil de déblocage (`foret.caracteresLus`, `recherche.statut`) ;
  * - le chemin, le jour du parcours où chaque caractère entre (`etageres.joursDuChemin`), et
  *   le dernier jour fait : un caractère à venir dit « dans N j », en jours du chemin, par
@@ -32,7 +32,7 @@ export function estSinogramme(x: string): boolean {
 
 /* ---------- ce que l'app sait du lecteur ---------- */
 
-/** Les caractères lus : ceux dont la carte passe le seuil de déblocage, la règle de Ma forêt. */
+/** Les caractères lus : ceux dont la carte passe le seuil de déblocage, la règle de Mon chemin. */
 export function caracteresLus(cartes: readonly ReviewCard[], seuil: number = SEUIL_DEBLOCAGE): Set<string> {
   return new Set(cartes.filter((k) => stability(k) >= seuil).map((k) => k.id));
 }

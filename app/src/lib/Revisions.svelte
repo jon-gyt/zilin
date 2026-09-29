@@ -1,6 +1,6 @@
 <script lang="ts">
   /**
-   * Le tableau des révisions, dans Ma forêt : la transparence du SRS (rapport comparatif du
+   * Le tableau des révisions, dans Mon chemin : la transparence du SRS (rapport comparatif du
    * 28 septembre 2026, §2.6). Trois parties, sous un filet chacune :
    *
    * - les sept prochains jours, en petites barres dessinées à plat : les cartes qui
@@ -52,7 +52,7 @@
     };
   });
 
-  /* L'écran s'ouvre en haut, pas à la hauteur où Ma forêt était défilée. */
+  /* L'écran s'ouvre en haut, pas à la hauteur où Mon chemin était défilée. */
   $effect(() => {
     if (typeof window !== 'undefined') window.scrollTo(0, 0);
   });

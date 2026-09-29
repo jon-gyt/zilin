@@ -44,7 +44,7 @@ describe('les sinogrammes', () => {
 });
 
 describe('ce qu’on lit', () => {
-  it('lu : la carte passe le seuil de déblocage, la règle de Ma forêt', () => {
+  it('lu : la carte passe le seuil de déblocage, la règle de Mon chemin', () => {
     const lus = caracteresLus([carte('人', SEUIL_DEBLOCAGE), carte('大', SEUIL_DEBLOCAGE - 0.1)]);
     expect([...lus]).toEqual(['人']);
     const l = lire('人大', ctx({ lus }));

@@ -295,7 +295,7 @@ export function pairesOnce(file = FICHIER_PAIRES_DEMO): Promise<unknown> {
   return p;
 }
 
-/* ---------- le cercle des familles (Ma forêt) ---------- */
+/* ---------- les familles de démonstration (le cercle d'avant Mon chemin) ---------- */
 
 /**
  * Un nœud du cercle : un caractère, son avancement, et les caractères qu'il engendre.
@@ -342,9 +342,9 @@ export async function loadForet(
   fetchFn: typeof fetch = fetch
 ): Promise<Foret> {
   const r = await fetchFn(`${import.meta.env.BASE_URL}${file}`);
-  if (!r.ok) throw new Error(`Forêt introuvable : ${file} (${r.status})`);
+  if (!r.ok) throw new Error(`Familles de démonstration introuvables : ${file} (${r.status})`);
   const brut = (await r.json()) as Partial<Foret>;
-  if (!Array.isArray(brut.familles)) throw new Error(`Forêt illisible : ${file}`);
+  if (!Array.isArray(brut.familles)) throw new Error(`Familles de démonstration illisibles : ${file}`);
   return {
     version: typeof brut.version === 'string' ? brut.version : '',
     source: typeof brut.source === 'string' ? brut.source : '',
@@ -675,7 +675,7 @@ export const FRONT = 8;
 const toutes = new Map<string, Promise<Famille[]>>();
 
 /**
- * Toutes les familles de l'export, lues une fois. Ma forêt en a besoin (238 familles,
+ * Toutes les familles de l'export, lues une fois. Mon chemin en a besoin (238 familles,
  * 323 Kio au total, toutes précachées par le service worker) ; les pas de la session,
  * eux, n'en lisent qu'une poignée.
  */

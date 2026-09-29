@@ -171,7 +171,7 @@ export function ligneAVenir(t: TextesRevisions, total: number): string {
   return total === 1 ? t['venir-une'] : remplir(t['venir-ligne'], { n: total });
 }
 
-/** L'entrée de Ma forêt : « Demain 8 · cette semaine 41 », ou sa ligne quand rien ne revient. */
+/** L'entrée de Mon chemin : « Demain 8 · cette semaine 41 », ou sa ligne quand rien ne revient. */
 export function ligneEntree(t: TextesRevisions, jours: readonly JourAVenir[]): string {
   const semaine = totalAVenir(jours);
   if (semaine === 0) return t['entree-vide'];

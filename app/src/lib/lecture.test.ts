@@ -87,7 +87,7 @@ const INDEX: IndexConte = { id: 'essai', titre_fr: 'Essai', seuils: ['255', '405
 const tous = (v: VersionConte): Set<string> => new Set(caracteresDeVersion(v));
 const union = (...vs: VersionConte[]): Set<string> => new Set(vs.flatMap(caracteresDeVersion));
 
-describe("l'acquis suit la règle de Ma forêt", () => {
+describe("l'acquis suit la règle de Mon chemin", () => {
   it('un caractère est acquis quand sa carte passe le seuil de stabilité, pas avant', () => {
     const cartes = [sue('人'), neuve('大')];
     expect(stability(cartes[0])).toBeGreaterThanOrEqual(SEUIL_DEBLOCAGE);

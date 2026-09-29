@@ -11,7 +11,7 @@
  *
  * Règles :
  * - un examen s'ouvre quand son palier de caractères lus est atteint, lus au seuil de
- *   stabilité de Ma forêt (le compte du trophée Lire, `foret.caracteresLus`) ; les examens
+ *   stabilité de Mon chemin (le compte du trophée Lire, `foret.caracteresLus`) ; les examens
  *   se passent dans l'ordre, et un examen ouvert le reste jusqu'à sa réussite ;
  * - tant qu'un examen est ouvert, à passer ou manqué, aucune brique nouvelle n'entre
  *   (`briquesEnPause`) ; il se passe hors session, la journée faite, jamais en rattrapage ;
@@ -738,7 +738,7 @@ export function cheminDesExamens(parcours: string | null): CheminExamen {
   return parcours === 'hsk' ? 'hsk' : 'lire';
 }
 
-/** Les caractères lus : ceux de Ma forêt, au seuil de stabilité, le compte du trophée Lire. */
+/** Les caractères lus : ceux de Mon chemin, au seuil de stabilité, le compte du trophée Lire. */
 export function lusPourExamens(
   familles: readonly Famille[],
   cartes: readonly ReviewCard[],

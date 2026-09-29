@@ -1,15 +1,17 @@
 <script lang="ts" module>
   /**
    * Les quatre cases du menu. Leurs caractères sont un choix d'interface (温 réviser,
-   * 玩 jouer, 读 lire, 林 la forêt) ; leurs traits et leur pinyin viennent de l'export,
+   * 玩 jouer, 读 lire, 路 le chemin) ; leurs traits et leur pinyin viennent de l'export,
    * comme pour tout caractère. Un caractère absent de l'export laisse son picto au trait.
+   * La quatrième case, Mon chemin 路 (décision du propriétaire du 29 septembre 2026), garde
+   * son identifiant d'origine, `foret` : aucune migration. Son titre vient de `ecrans.json`.
    */
   export type CaseId = 'reviser' | 'jouer' | 'lire' | 'foret';
   export const CASES: readonly { id: CaseId; c: string; t: string }[] = [
     { id: 'reviser', c: '温', t: 'Réviser' },
     { id: 'jouer', c: '玩', t: 'Jouer' },
     { id: 'lire', c: '读', t: 'Lire' },
-    { id: 'foret', c: '林', t: 'Ma forêt' }
+    { id: 'foret', c: '路', t: '' }
   ];
 </script>
 
@@ -33,8 +35,8 @@
    * l'en-tête : sa tête à son rang, dans la case d'une icône, sans une ligne de plus, pour
    * que le menu tienne toujours sur un écran. Sans personnage, un visage au trait.
    *
-   * L'aventure (brief §6, `ouvertures.ts`) : le premier jour, la carte du jour, le chemin et
-   * le bouton, avec Chercher et Réglages ; les cases, le portrait et « Ma route › »
+   * L'aventure (brief §6, `ouvertures.ts`) : le premier jour, la carte du jour, les six pas et
+   * le bouton, avec Chercher et Réglages ; les cases, le portrait et « Devant › »
    * apparaissent chacun quand leur porte s'ouvre. La grille garde deux colonnes ; un nombre
    * impair de cases pose la dernière en largeur, pour qu'aucun trou ne reste. La porte qui
    * s'ouvre à ce retour se pose d'une courte animation (coupée si l'on réduit les
@@ -73,6 +75,8 @@
   import { cartesDues, jourParcours, type ExamenDuMenu, type Progress } from './session';
   import { ACCES_WEB, prochaineBrique, type Acces } from './droits';
   import { quandMenu, SANS_RYTHME, type TextesRythme } from './rythme';
+  import { SANS_ECRANS, type TextesChemin } from './ecrans';
+  import PorteVille from './Porte.svelte';
   import { stade } from './tao';
   import type { Porte, PorteId } from './ouvertures';
 
@@ -80,6 +84,7 @@
     p,
     acces = ACCES_WEB,
     textes = SANS_RYTHME,
+    tc = SANS_ECRANS.chemin,
     fete = null,
     fetes = null,
     terme = null,
@@ -101,6 +106,8 @@
     acces?: Acces;
     /** Les lignes du rythme gratuit (`rythme.json`) : la journée sans brique, « Dans 3 j ». */
     textes?: TextesRythme;
+    /** L'image du chemin (`ecrans.json`) : « Pierre posée », « Devant › », la case Mon chemin. */
+    tc?: TextesChemin;
     /** La fête du jour : le vœu prend la place de la marque, l'emblème porte le caractère. */
     fete?: FeteDuJour | null;
     fetes?: Fetes | null;
@@ -117,7 +124,7 @@
     onpersonnage?: () => void;
     /** La ligne de fête ou de terme de l'en-tête : rouvre l'anecdote du jour. */
     onanecdote?: () => void;
-    /** « Ma route › » sous le chemin, la journée faite : 前路, la route devant. */
+    /** « Devant › » sous les six pas, la journée faite : Mon chemin, sur la route devant 前路. */
     onroute?: () => void;
     /** L'aventure : une porte est-elle montrée ? Sans calendrier, tout l'est. */
     vois?: (id: string) => boolean;
@@ -135,6 +142,8 @@
 
   /** Les cases montrées, dans leur ordre ; la porte annoncée se pose en dernier venu. */
   const cases = $derived(CASES.filter((x) => vois(x.id)));
+  /** Le titre d'une case ; celui de Mon chemin vient du pipeline. */
+  const titre = (x: { id: CaseId; t: string }): string => (x.id === 'foret' ? tc.case : x.t);
   const neuve = (id: string): boolean => annonce?.id === id;
 
   /* ---------- la carte du jour ---------- */
@@ -236,7 +245,7 @@
     void dire(carte.c);
   }
 
-  const m = $derived(menu(p, carte?.c ?? '', textes, vois('jouer'), examen));
+  const m = $derived(menu(p, carte?.c ?? '', textes, vois('jouer'), examen, tc));
   /**
    * La ligne de l'examen sous le chemin, la journée faite, comme « Demain : 子 », dont elle
    * prend la place : les briques attendent, il n'y a pas de demain à annoncer.
@@ -393,7 +402,7 @@
     reviser: '<rect x="3.5" y="7.5" width="12" height="13.5" rx="2"/><path d="M8 3.5h10.5a2 2 0 0 1 2 2V17"/>',
     jouer: '<rect x="3.5" y="3.5" width="17" height="17" rx="3.5"/><g fill="currentColor"><circle cx="8.5" cy="8.5" r="1.1"/><circle cx="15.5" cy="8.5" r="1.1"/><circle cx="12" cy="12" r="1.1"/><circle cx="8.5" cy="15.5" r="1.1"/><circle cx="15.5" cy="15.5" r="1.1"/></g>',
     lire: '<path d="M3 5.5h6a3 3 0 0 1 3 3V20a2.5 2.5 0 0 0-2.5-2.5H3z"/><path d="M21 5.5h-6a3 3 0 0 0-3 3V20a2.5 2.5 0 0 1 2.5-2.5H21z"/>',
-    foret: '<path d="M12 21.5V16"/><path d="M12 2.5l5.5 7.5h-2.8l4.3 6H5l4.3-6H6.5z"/>'
+    foret: '<ellipse cx="7" cy="19.5" rx="3.4" ry="1.8"/><ellipse cx="13" cy="14.5" rx="3" ry="1.6"/><ellipse cx="16.5" cy="9.5" rx="2.6" ry="1.4"/><ellipse cx="17.5" cy="5" rx="2.2" ry="1.2"/>'
   };
 </script>
 
@@ -516,13 +525,14 @@
     <div class="chemin">
       <button
         class="marcheur"
+        class:halte={m.tao.posture === 'halte'}
         class:saute
         style="left:{pct.toFixed(2)}%"
         aria-label="Tao"
         onclick={toucherTao}
         onanimationend={() => (saute = false)}
       >
-        <Tao stade={taoStade} posture={m.tao.posture} humeur={m.tao.humeur} size={56} />
+        <Tao stade={taoStade} posture={m.tao.posture} humeur={m.tao.humeur} size={m.tao.posture === 'halte' ? 76 : 56} />
       </button>
       {#if texte !== ''}
         {#key texte}
@@ -542,21 +552,14 @@
         {#if m.duree !== ''}<span class="duree">{m.duree}</span>{/if}
       </div>
       {#if ligneExamen}
-        <!-- l'examen ouvert : la stèle, une ligne, sans compte à rebours ; la route à droite -->
+        <!-- l'examen ouvert : sa porte de ville, une ligne, sans compte à rebours ; la route à droite -->
         <div class="examen-ligne">
-          <svg class="stele" class:attente={ligneExamen.etat === 'attente'} width="18" height="23" viewBox="0 0 30 38" aria-hidden="true"
-            ><path d="M5 34V8q10-7 20 0v26z" fill="var(--card)" stroke="currentColor" stroke-width="2.4" stroke-dasharray="3 2.5" /><path
-              d="M2 35h26M10 15h10M10 20h10M10 25h6"
-              stroke="currentColor"
-              stroke-width="2.2"
-              stroke-linecap="round"
-            /></svg
-          >
+          <span class="porte-picto" class:attente={ligneExamen.etat === 'attente'}><PorteVille largeur={26} ouverte={ligneExamen.etat !== 'attente'} /></span>
           <span class="el"
             ><b>{ligneExamen.ligne}</b>{#if ligneExamen.suite !== ''}{' '}{ligneExamen.suite}{/if}</span
           >
           {#if vois('route')}
-            <button class="vers-route" class:neuve={neuve('route')} aria-label="Ma route : la route devant" onclick={onroute}>Ma route ›</button>
+            <button class="vers-route" class:neuve={neuve('route')} aria-label={tc['devant-voix']} onclick={onroute}>{tc.devant}</button>
           {/if}
         </div>
       {/if}
@@ -568,7 +571,7 @@
             >{#if demain.sens !== ''}<span class="dsens">{demain.sens}</span>{/if}</span
           >
           {#if vois('route')}
-            <button class="vers-route" class:neuve={neuve('route')} aria-label="Ma route : la route devant" onclick={onroute}>Ma route ›</button>
+            <button class="vers-route" class:neuve={neuve('route')} aria-label={tc['devant-voix']} onclick={onroute}>{tc.devant}</button>
           {/if}
         </div>
       {/if}
@@ -595,7 +598,7 @@
           <span class="gl">
             {#if casesTraits[x.c]}
               <!-- eslint-disable-next-line svelte/no-at-html-tags -->
-              {@html glyph(x.c, casesTraits[x.c] ?? undefined, 46, { write: false, color: 'var(--tile-fg, var(--indigo))', label: x.t })}
+              {@html glyph(x.c, casesTraits[x.c] ?? undefined, 46, { write: false, color: 'var(--tile-fg, var(--indigo))', label: titre(x) })}
             {:else}
               <span class="picto">
                 <!-- eslint-disable-next-line svelte/no-at-html-tags -->
@@ -606,7 +609,7 @@
           {#if casesPinyin[x.c]}<span class="cpy">{casesPinyin[x.c]}</span>{/if}
         </span>
         <span class="textes">
-          <span class="titre">{x.t}</span>
+          <span class="titre">{titre(x)}</span>
           <span class="info">{info(x.id)}</span>
         </span>
       </button>
@@ -877,6 +880,10 @@
   .marcheur.saute {
     animation: saute 0.5s cubic-bezier(0.2, 1.4, 0.5, 1) 2;
   }
+  /* au retour d'une absence, Tao attend au pavillon 亭, un peu plus grand, posé sur le trait */
+  .marcheur.halte {
+    top: -12px;
+  }
   @keyframes saute {
     0% {
       transform: translateX(-50%) translateY(0);
@@ -946,12 +953,13 @@
     font-weight: 600;
     color: var(--ink);
   }
-  .stele {
+  .porte-picto {
     flex: none;
-    color: var(--indigo);
+    line-height: 0;
   }
-  .stele.attente {
-    color: var(--mist);
+  /* en attente de repasser l'examen : la porte reste au pointillé, estompée */
+  .porte-picto.attente {
+    opacity: 0.55;
   }
   .vers-route {
     position: relative;

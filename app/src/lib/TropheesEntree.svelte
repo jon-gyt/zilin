@@ -1,6 +1,6 @@
 <script lang="ts">
   /**
-   * L'entrée « Tes trophées » de Ma forêt : combien sur combien, et le prochain. Le
+   * L'entrée « Tes trophées » de Mon chemin : combien sur combien, et le prochain. Le
    * calcul est celui du tableau (`trophees.ts`), sur le même contenu : les deux écrans
    * disent toujours la même chose.
    */

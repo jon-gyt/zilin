@@ -15,7 +15,7 @@
   import Examen from './lib/Examen.svelte';
   import FirstSession from './lib/FirstSession.svelte';
   import Fix from './lib/Fix.svelte';
-  import Forest from './lib/Forest.svelte';
+  import Chemin from './lib/Chemin.svelte';
   import Game from './lib/Game.svelte';
   import Learn from './lib/Learn.svelte';
   import Lire from './lib/Lire.svelte';
@@ -25,7 +25,6 @@
   import Settings from './lib/Settings.svelte';
   import DireEssai from './lib/DireEssai.svelte';
   import Rewards from './lib/Rewards.svelte';
-  import Route from './lib/Route.svelte';
   import Revisions from './lib/Revisions.svelte';
   import Tree from './lib/Tree.svelte';
   import Use from './lib/Use.svelte';
@@ -56,6 +55,7 @@
     type Noeud
   } from './lib/content';
   import { rythmeOnce, SANS_RYTHME, type TextesRythme } from './lib/rythme';
+  import { ecransOnce, SANS_ECRANS, type TextesChemin } from './lib/ecrans';
   import FeteDecor from './lib/FeteDecor.svelte';
   import { fetesOnce, saisonsOnce, type Fetes, type Saisons } from './lib/content';
   import { poserFete } from './lib/fetes';
@@ -190,7 +190,6 @@
     | 'lire'
     | 'foret'
     | 'rewards'
-    | 'route'
     | 'revisions'
     | 'reglages'
     | 'dire'
@@ -210,17 +209,19 @@
   const acces = accesAppareil();
   let indexDonnees: Index | null = null;
   let textesRythme: TextesRythme = $state(SANS_RYTHME);
+  /** L'image du chemin (`ecrans.json`, `chemin`) : Mon chemin, la pierre posée, les auberges. */
+  let textesChemin: TextesChemin = $state.raw(SANS_ECRANS.chemin);
 
   /*
    * Les examens 科举 et les 月课 (`examens.json`, stories 8.3 et 8.4) : ceux qu'on peut passer
-   * sur le chemin, et les caractères lus, au seuil de Ma forêt, qui les ouvrent. Tant qu'un
+   * sur le chemin, et les caractères lus, au seuil de Mon chemin, qui les ouvrent. Tant qu'un
    * examen attend d'être réussi, la journée se prépare sans brique nouvelle, les caractères
    * manqués d'abord (`session.pauseDesBriques`).
    */
   let examensDonnees: ExamensDonnees = $state.raw(SANS_EXAMENS);
   /** Vrai une fois `examens.json` lu : les rangs d'une progression d'avant les examens s'y reportent. */
   let examensCharges = false;
-  /** Les familles de l'export, comme Ma forêt les compte : les portes et les examens s'y lisent. */
+  /** Les familles de l'export, comme Mon chemin les compte : les portes et les examens s'y lisent. */
   let famillesLues: Famille[] | null = $state.raw(null);
   const ctxExamens: ContexteExamens = $derived({
     liste: examensPassables(examensDonnees, cheminDesExamens(p.parcours)),
@@ -278,22 +279,16 @@
   let anecRetour: RetourAnecdote | null = $state(null);
 
   /**
-   * 前路, la route devant : ouverte depuis Ma forêt, ou depuis la carte du jour du menu une
-   * fois la journée faite. Son seul retour ramène là d'où l'on vient.
+   * 前路, la route devant : le haut de Mon chemin (décision du propriétaire du 29 septembre
+   * 2026). « Devant › », sous les six pas du menu la journée faite, ouvre Mon chemin sur la
+   * route devant, l'étape de demain choisie ; son seul retour ramène au menu.
    */
-  let routeRetour: 'menu' | 'foret' = $state('menu');
-
-  function ouvrirRoute(depuis: 'menu' | 'foret'): void {
-    routeRetour = depuis;
-    ecran = 'route';
+  function ouvrirDevant(): void {
+    famille = null;
+    ecran = 'foret';
   }
 
-  function fermerRoute(): void {
-    if (routeRetour === 'foret') ecran = 'foret';
-    else allerAuMenu();
-  }
-
-  /** La famille ouverte dans Ma forêt, `null` quand on est sur le cercle. */
+  /** La famille ouverte sur Mon chemin, `null` quand on est sur le chemin. */
   let famille: Noeud | null = $state(null);
 
   /** Chercher : la saisie, gardée pour le retour depuis l'arbre, et la famille ouverte. */
@@ -338,7 +333,7 @@
     enregistrer();
   }
 
-  /** Les caractères lus, au seuil de stabilité de Ma forêt : le palier des nominations. */
+  /** Les caractères lus, au seuil de stabilité de Mon chemin : le palier des nominations. */
   function lusDuPersonnage(): number {
     return famillesLues === null ? 0 : caracteresLus(famillesLues, p.cartes);
   }
@@ -403,7 +398,7 @@
    * L'aventure (`ouvertures.ts`, brief §6) : les portes s'ouvrent au fil du chemin, en jours
    * du chemin ou en caractères lus, et Tao en annonce une par retour au menu, après le 放榜
    * s'il y en a un. Le calendrier vient de `ouvertures.json` ; les lus, des familles de
-   * l'export, comme Ma forêt les compte.
+   * l'export, comme Mon chemin les compte.
    */
   let calendrier: Calendrier | null = $state(null);
   void ouverturesOnce()
@@ -439,7 +434,7 @@
     annonce = null;
     if (id === 'reviser' || id === 'jouer' || id === 'lire' || id === 'foret') caseMenu(id);
     else if (id === 'personnage') ecran = 'personnage';
-    else if (id === 'route') ouvrirRoute('menu');
+    else if (id === 'route') ouvrirDevant();
     else if (id === 'trophees') ouvrirDetour('rewards', 'menu');
     else if (id === 'revisions') ouvrirDetour('revisions', 'menu');
     else if (id === 'contes') ecran = 'lire';
@@ -453,7 +448,7 @@
     }
   }
 
-  /** Les trophées et le tableau des révisions : ouverts depuis Ma forêt, ou depuis l'annonce. */
+  /** Les trophées et le tableau des révisions : ouverts depuis Mon chemin, ou depuis l'annonce. */
   let detourRetour: 'menu' | 'foret' = $state('foret');
   function ouvrirDetour(e: 'rewards' | 'revisions', depuis: 'menu' | 'foret'): void {
     detourRetour = depuis;
@@ -495,10 +490,12 @@
     contenu().catch(() => null),
     rythmeOnce().catch(() => SANS_RYTHME),
     examensOnce().catch(() => SANS_EXAMENS),
-    toutesLesFamilles().catch(() => null)
-  ]).then(([stored, i, t, ex, familles]) => {
+    toutesLesFamilles().catch(() => null),
+    ecransOnce().catch(() => SANS_ECRANS)
+  ]).then(([stored, i, t, ex, familles, ec]) => {
     indexDonnees = i;
     textesRythme = t;
+    textesChemin = ec.chemin;
     examensDonnees = ex;
     examensCharges = ex !== SANS_EXAMENS;
     if (familles !== null) famillesLues = familles;
@@ -773,7 +770,7 @@
    * ouverte depuis le menu, la session enchaîne sur le pas suivant.
    */
   function ouvrirFait(): void {
-    /* L'anecdote d'une fête ou d'un terme fait trouver un caractère : Ma forêt le garde. */
+    /* L'anecdote d'une fête ou d'un terme fait trouver un caractère : Mon chemin le garde. */
     p = noterTrouve(anecdoteFaite(p, p.day), rencontreDuJour(laJournee, p.fetesVues, p.day), p.day);
     enregistrer();
     if (anecOuverture) allerAuMenu();
@@ -1235,7 +1232,7 @@
     onquitter={quitter}
   />
 {:else if ecran === 'close'}
-  <Close {p} textes={textesRythme} examen={ligneExamenClore} onterminer={clore} onquitter={quitter} />
+  <Close {p} textes={textesRythme} tc={textesChemin} examen={ligneExamenClore} onterminer={clore} onquitter={quitter} />
 {:else if ecran === 'examen'}
   <Examen
     {p}
@@ -1274,31 +1271,32 @@
     onlettre={lettreLue}
   />
 {:else if ecran === 'foret'}
-  <!-- Ma forêt, deux niveaux au plus : le cercle, puis une famille ou les récompenses. -->
+  <!-- Mon chemin 路, deux niveaux au plus : le chemin, puis une famille (son auberge) ou les trophées. -->
   {#if famille}
-    <Tree fam={famille} onretour={() => (famille = null)} onlecon={quitter} />
+    <Tree fam={famille} parcours={p.parcours} croissance={p.tao.croissance} tc={textesChemin} onretour={() => (famille = null)} onlecon={quitter} />
   {:else}
-    <Forest
+    <Chemin
       {p}
       jour={p.day}
+      {acces}
+      textes={textesRythme}
+      tc={textesChemin}
       onfamille={(f) => (famille = f)}
       onrecompenses={() => ouvrirDetour('rewards', 'foret')}
-      onroute={() => ouvrirRoute('foret')}
       onrevisions={() => ouvrirDetour('revisions', 'foret')}
+      onexamen={examenMenu?.passer ? boutonMenu : undefined}
       {vois}
       onretour={allerAuMenu}
     />
   {/if}
-{:else if ecran === 'route'}
-  <Route {p} {acces} textes={textesRythme} onretour={fermerRoute} onexamen={examenMenu?.passer ? boutonMenu : undefined} />
 {:else if ecran === 'revisions'}
   <Revisions {p} onretour={fermerDetour} />
 {:else if ecran === 'rewards'}
-  <Rewards {p} onretour={fermerDetour} onacquis={tropheesObtenus} />
+  <Rewards {p} tc={textesChemin} retour={detourRetour === 'menu' ? 'Menu' : ''} onretour={fermerDetour} onacquis={tropheesObtenus} />
 {:else if ecran === 'chercher'}
   <!-- Chercher, puis l'arbre de la famille touchée ; son retour ramène à Chercher. -->
   {#if trouvee}
-    <Tree fam={trouvee.fam} choix={trouvee.c} retour="Chercher" onretour={() => (trouvee = null)} onlecon={quitter} />
+    <Tree fam={trouvee.fam} choix={trouvee.c} retour="Chercher" parcours={p.parcours} croissance={p.tao.croissance} tc={textesChemin} onretour={() => (trouvee = null)} onlecon={quitter} />
   {:else}
     <Chercher {p} monde={vois('monde')} bind:q={requete} bind:mode={modeChercher} bind:texte={texteLibre} onfamille={(fam, c) => (trouvee = { fam, c })} onretour={allerAuMenu} />
   {/if}
@@ -1311,5 +1309,5 @@
 {:else if ecran === 'dire'}
   <DireEssai {p} onvoix={voixEntendue} onmicrorefuse={microRefuse} onretour={() => (ecran = 'reglages')} />
 {:else}
-  <Menu {p} {acces} {vois} {annonce} examen={examenMenu} ondecouvrir={decouvrir} textes={textesRythme} fete={feteJour} {fetes} terme={laJournee.terme} {saisons} ondemarrer={boutonMenu} oncase={caseMenu} onanecdote={() => relireAnecdote('menu')} onchercher={ouvrirChercher} onreglages={() => (ecran = 'reglages')} onpersonnage={() => (ecran = 'personnage')} onroute={() => ouvrirRoute('menu')} />
+  <Menu {p} {acces} {vois} {annonce} examen={examenMenu} ondecouvrir={decouvrir} textes={textesRythme} tc={textesChemin} fete={feteJour} {fetes} terme={laJournee.terme} {saisons} ondemarrer={boutonMenu} oncase={caseMenu} onanecdote={() => relireAnecdote('menu')} onchercher={ouvrirChercher} onreglages={() => (ecran = 'reglages')} onpersonnage={() => (ecran = 'personnage')} onroute={ouvrirDevant} />
 {/if}

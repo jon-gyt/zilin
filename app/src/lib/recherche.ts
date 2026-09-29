@@ -4,7 +4,7 @@
  * Module pur : il ne lit ni le réseau, ni l'horloge, ni le DOM. Le corpus se construit
  * sur les familles que `content.toutesLesFamilles` a lues — l'export et lui seul, aucun
  * dictionnaire embarqué — et le statut d'un caractère se lit sur les cartes de la
- * progression, par la même règle que Ma forêt (`foret.avancement`).
+ * progression, par la même règle que Mon chemin (`foret.avancement`).
  *
  * Le classement, dans cet ordre :
  *
@@ -211,7 +211,7 @@ export function chercher(
 
 /* ---------- le statut, lu sur les cartes ---------- */
 
-/** Trois statuts, ceux de Ma forêt : acquis, en cours, à venir. */
+/** Trois statuts, ceux de Mon chemin : acquis, en cours, à venir. */
 export type StatutLecture = 'lu' | 'encours' | 'pasencore';
 
 export const LIBELLES_STATUT: Record<StatutLecture, string> = {
@@ -221,7 +221,7 @@ export const LIBELLES_STATUT: Record<StatutLecture, string> = {
 };
 
 /**
- * Le statut d'un caractère pour l'utilisateur, par la règle de Ma forêt : « lu » quand
+ * Le statut d'un caractère pour l'utilisateur, par la règle de Mon chemin : « lu » quand
  * sa carte passe le seuil de déblocage, « en cours » dès qu'elle existe, sinon « pas
  * encore ».
  */

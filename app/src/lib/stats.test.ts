@@ -168,7 +168,7 @@ describe('ceux qui te résistent', () => {
 });
 
 describe('les lignes viennent du pipeline', () => {
-  it('l’entrée de Ma forêt : « Demain 2 · cette semaine 4 »', () => {
+  it('l’entrée de Mon chemin : « Demain 2 · cette semaine 4 »', () => {
     const jours = aVenir([due('人', a(0, 3)), due('大', a(1)), due('天', a(1, 2)), due('口', a(6))], MAINTENANT);
     expect(ligneEntree(TEXTES, jours)).toBe('Demain 2 · cette semaine 4');
     expect(ligneEntree(TEXTES, aVenir([], MAINTENANT))).toBe(TEXTES['entree-vide']);

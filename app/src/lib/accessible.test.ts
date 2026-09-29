@@ -128,13 +128,13 @@ describe('un caractère dessiné porte un nom', () => {
     expect(source('Hz.svelte')).toContain('<span class="hz" lang="zh-Hans">');
   });
 
-  it('les nœuds de l’arbre et du cercle se nomment par le caractère, son pinyin et son sens', () => {
-    expect(COMPOSANTS['Tree.svelte']).toContain('aria-label="Fiche de {nomDuNoeud(nd.c)}"');
-    expect(COMPOSANTS['Forest.svelte']).toContain("aria-label=\"Ouvrir l'arbre de {nomDeFamille(nd.famille, nd.c)}\"");
+  it('les pavés d’un sentier et les auberges du chemin se nomment par le caractère, son pinyin et son sens', () => {
+    expect(COMPOSANTS['Tree.svelte']).toContain('aria-label="Fiche de {nomDuNoeud(q.c)}"');
+    expect(COMPOSANTS['Chemin.svelte']).toContain("aria-label={remplir(tc['auberge-voix'], { nom: nomAccessible(a.racine, a.pinyin, a.fr) })}");
   });
 
   it('un dessin qui porte des boutons n’est pas une image : ses boutons resteraient muets', () => {
-    for (const f of ['Tree.svelte', 'Forest.svelte']) {
+    for (const f of ['Tree.svelte', 'Chemin.svelte']) {
       const svg = COMPOSANTS[f].match(/<svg\b[^>]*>[\s\S]*?role="button"/g) ?? [];
       expect(svg.length, f).toBeGreaterThan(0);
       for (const x of svg) expect(x.match(/<svg\b[^>]*>/)?.[0], f).not.toContain('role="img"');
@@ -154,10 +154,10 @@ describe('un bouton-icône a un label', () => {
     expect(muets).toEqual([]);
   });
 
-  it('les icônes de l’en-tête du menu et du zoom ont leur label', () => {
+  it('les icônes de l’en-tête du menu ont leur label, et « Devant › » le sien', () => {
     expect(COMPOSANTS['Menu.svelte']).toContain('aria-label="Chercher un caractère"');
     expect(COMPOSANTS['Menu.svelte']).toContain('aria-label="Réglages"');
-    for (const l of ['Réduire', 'Agrandir', 'Recentrer']) expect(COMPOSANTS['Forest.svelte']).toContain(`aria-label="${l}"`);
+    expect(COMPOSANTS['Menu.svelte']).toContain("aria-label={tc['devant-voix']}");
   });
 
   it('le bouton qui fait réentendre le leurre se nomme « Écouter », la note ♪ est cachée', () => {
@@ -171,14 +171,15 @@ describe('un décor est caché aux lecteurs d’écran', () => {
     expect(COMPOSANTS['CercleDecor.svelte']).toContain('aria-hidden="true"');
   });
 
-  it('Tao, le personnage, la colline de Ma forêt, les icônes des entrées', () => {
-    for (const f of ['Tao.svelte', 'Heros.svelte', 'RouteEntree.svelte', 'TropheesEntree.svelte', 'RevisionsEntree.svelte']) {
+  it('Tao, le personnage, la porte de ville, les icônes des entrées', () => {
+    for (const f of ['Tao.svelte', 'Heros.svelte', 'Porte.svelte', 'TropheesEntree.svelte', 'RevisionsEntree.svelte']) {
       const svgs = COMPOSANTS[f].match(/<svg\b[^>]*>/g) ?? [];
       const caches = svgs.filter((x) => x.includes('aria-hidden="true"')).length;
       const dansUnCache = (COMPOSANTS[f].match(/aria-hidden="true">\s*<svg/g) ?? []).length;
       expect(caches + dansUnCache, f).toBeGreaterThanOrEqual(svgs.length);
     }
-    expect(COMPOSANTS['Forest.svelte']).toMatch(/<svg class="sol"[^>]*aria-hidden="true"/);
+    /* le décor de fête de Mon chemin, derrière le chemin, ne se touche pas */
+    expect(COMPOSANTS['Chemin.svelte']).toContain('<div class="decor-haut"><CercleDecor {decor} /></div>');
   });
 
   it('un dessin sans nom est un décor : aria-hidden, sans rôle', () => {

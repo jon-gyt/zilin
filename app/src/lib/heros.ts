@@ -332,8 +332,8 @@ export function taille(points: number, rangs: readonly Rang[]): number {
 
 /**
  * Ce qui accorde un titre : les points, les examens réussis (chacun avec sa journée, 月课
- * compris, que les rangs ne lisent pas), les caractères lus (au seuil de stabilité de Ma
- * forêt, le compte du trophée Lire), et le dernier rang annoncé au 放榜.
+ * compris, que les rangs ne lisent pas), les caractères lus (au seuil de stabilité de Mon
+ * chemin, le compte du trophée Lire), et le dernier rang annoncé au 放榜.
  */
 export type Merite = {
   points: number;
