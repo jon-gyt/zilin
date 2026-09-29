@@ -164,6 +164,12 @@ button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:poin
 #app{position:relative;z-index:1;display:flex;flex-direction:column;min-height:100%;max-width:520px;margin:0 auto}
 .screen{flex:1;display:flex;flex-direction:column;padding:calc(env(safe-area-inset-top) + 20px) 22px 28px}
 .screen > *{flex-shrink:0}
+/* D'un écran à l'autre, la nouvelle feuille glisse en place, comme un papier qu'on pose
+   (maquette validée `examen.html`, `.view`). Courte, et rien n'attend : on peut toucher dès
+   la première image. Chaque écran a pour racine un <main>. */
+#app > main{animation:feuille .24s ease-out}
+@keyframes feuille{from{opacity:.2;transform:translateY(10px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){#app > main{animation:none}}
 h1{font-family:var(--head);font-weight:700;font-size:30px;line-height:1.15;letter-spacing:-.02em;margin:0 0 8px}
 .guide{font-weight:400;color:var(--ink2);margin:0 0 24px}
 .k{font-size:13px;color:var(--mist)}

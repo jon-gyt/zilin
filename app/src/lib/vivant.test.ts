@@ -163,6 +163,20 @@ describe("les caractères lus s'impriment en jade dans le sentier d'une auberge"
   });
 });
 
+describe("d'un écran à l'autre, la feuille glisse en place", () => {
+  it('chaque écran a un <main> pour racine, qui entre en un quart de seconde, sans jamais partir de rien', () => {
+    expect(tokens).toContain('#app > main{animation:feuille .24s ease-out}');
+    /* jamais invisible : on lit et on touche dès la première image */
+    expect(tokens).toMatch(/@keyframes feuille\{from\{opacity:\.2;/);
+    for (const f of ['Menu', 'Warm', 'Learn', 'Use', 'Fix', 'Close', 'Chemin', 'Lire', 'Game', 'Examen', 'Personnage', 'Settings']) {
+      expect(source(`${f}.svelte`)).toMatch(/^\s*<main class="/m);
+    }
+  });
+  it("s'arrête si l'on réduit les animations", () => {
+    expect(reduits(tokens)).toContain('#app > main{animation:none}');
+  });
+});
+
 describe('le retour haptique, accordé aux petits moments', () => {
   it('une bonne réponse dans un jeu donne le même tap léger qu’en révision, une erreur rien', () => {
     expect(source('Game.svelte')).toMatch(/function reagirA\(correct: boolean\): void \{[\s\S]*?if \(correct\) bonneReponse\(\);/);
