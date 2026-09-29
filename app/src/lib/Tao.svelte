@@ -138,7 +138,7 @@
     <path class="sol" d="M60 168q40 12 80 0" stroke="var(--line)" stroke-width="4" fill="none" stroke-linecap="round" />
   {/if}
 
-  <g transform={halte ? 'translate(30 44) scale(0.55)' : undefined}>
+  <g transform={halte ? 'translate(18 30) scale(0.68)' : undefined}>
   <g class="vivant">
     {#if robe}
       <!-- la robe bleue de l'écolier 青衿, le col clair croisé, le sac à livres 书袋 -->
@@ -198,9 +198,10 @@
               {/each}
             {/if}
           </g>
+          <!-- le tronc, rond comme le noyau dont il sort : un galet, jamais une boîte -->
           <path
             class="tronc"
-            d="M74 158q5-28 1-50h50q-4 22 1 50z"
+            d="M100 104c21 0 35 14 35 29s-15 27-35 27s-35-12-35-27s14-29 35-29z"
             fill="var(--card)"
             stroke="var(--ink)"
             stroke-width="5"
