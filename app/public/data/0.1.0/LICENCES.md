@@ -5,7 +5,7 @@
 
 | Source | Usage dans l'export | Licence | Attribution | Texte de la licence |
 |---|---|---|---|---|
-| Make Me a Hanzi — graphics.txt | tracés et médianes (`traits/`) | Arphic Public License | Copyright (C) 1999 Arphic Technology Co., Ltd. | `ARPHICPL.TXT` (racine de l'export et `traits/`) |
+| Make Me a Hanzi — graphics.txt | tracés et médianes (`traits/`) ; gabarits de l'écriture au doigt, dérivés des médianes (`ecriture/`) | Arphic Public License | Copyright (C) 1999 Arphic Technology Co., Ltd. | `ARPHICPL.TXT` (racine de l'export, `traits/` et `ecriture/`) |
 | Unihan (Unicode Character Database) | pinyin (`kMandarin`) des fiches | Unicode License | Copyright © 1991-2009 Unicode, Inc. | `UNICODE-LICENSE.txt` |
 | cjk-decomp (CJK Decomposition Data) | chaîne IDS réconciliée avec GF 0014-2009 (`parts`, `sources: ["cjk-decomp"]`) | MIT (retenue parmi les six licences proposées) | Copyright (c) Gavin Grover (CJK Decomposition Data) — https://github.com/amake/cjk-decomp | `MIT-cjk-decomp.txt` |
 | CC-CEDICT (MDBG) | mots candidats (hanzi et pinyin) des fiches relues ; mots du dictionnaire éclair (le mot seul, `eclair.json`) | CC BY-SA 4.0 | CC-CEDICT, publié par MDBG, CC BY-SA 4.0 — fichier modifié | https://creativecommons.org/licenses/by-sa/4.0/ |
@@ -21,6 +21,7 @@
 Les trois régimes ne se mélangent jamais dans un même fichier (`docs/sources-licences.md` §2.1 et §8) :
 
 - `traits/` : tracés sous Arphic Public License, avec `ARPHICPL.TXT` inaltéré à côté et `traits/MODIFICATIONS.md` qui dit comment et quand ils ont été dérivés.
+- `ecriture/` : gabarits de l'écriture au doigt, dérivés des médianes, sous Arphic Public License, avec `ARPHICPL.TXT` inaltéré à côté et `ecriture/MODIFICATIONS.md`.
 - `familles/`, `contes/`, `paires.json`, `fetes.json`, `saisons.json`, `devinettes.json`, `eclair.json`, `coquilles.json`, `cuisine.json`, `lettres.json`, `wechat.json`, `heros.json`, `jouer.json`, `rythme.json`, `rappels.json`, `ecrans.json`, `ouvertures.json`, `apercu/` : décomposition canonique et textes rédigés pour l'app, propriétaires.
 - `UNICODE-LICENSE.txt` : notice de permission Unicode, qui couvre le pinyin.
 - `MIT-cjk-decomp.txt` : notice de copyright et texte de la MIT, qui couvrent les décompositions descendues de cjk-decomp.
@@ -38,5 +39,5 @@ Chaque décomposition (`parts`) descend nos surcharges, rédigées pour Wenlu d'
 
 ## Obligations hors app
 
-- Publier les fichiers de `traits/` sur le site public, avec `ARPHICPL.TXT` et la note de modification (APL §2 b).
+- Publier les fichiers de `traits/` et de `ecriture/` sur le site public, avec `ARPHICPL.TXT` et la note de modification (APL §2 b).
 - Reprendre ce tableau sur l'écran « Licences » des Réglages et sur le site.
