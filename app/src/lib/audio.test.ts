@@ -1,4 +1,5 @@
 import { describe, it, expect, beforeEach, afterEach, vi } from 'vitest';
+import { readFileSync } from 'node:fs';
 import { VERSION_DONNEES } from './content';
 import {
   FICHIER_AUDIO,
@@ -12,6 +13,9 @@ import {
   enonceRetenu,
   REPOS_APRES_ARRET_MS,
   DOUBLON_MS,
+  FIN_DU_SON_MAX_MS,
+  finDuSon,
+  sonJoue,
   POINT_FINAL,
   voixMandarin,
   voixPretes,
@@ -847,6 +851,132 @@ describe('l’énoncé retenu jusqu’à sa fin', () => {
     /* la fin tardive du premier ne lâche pas le second */
     premier.onend?.();
     expect(enonceRetenu()).toBe(second);
+  });
+});
+
+/** Un lecteur qui prévient de sa fin, comme un `HTMLAudioElement`. */
+function lecteurAvecFin(): Lecteur & { finir: () => void; paused: boolean; pauses: number } {
+  const cible = new EventTarget();
+  const l = {
+    src: '',
+    currentTime: 0,
+    preload: '',
+    paused: true,
+    pauses: 0,
+    play() {
+      l.paused = false;
+      return Promise.resolve();
+    },
+    pause() {
+      l.pauses += 1;
+      l.paused = true;
+      cible.dispatchEvent(new Event('pause'));
+    },
+    /* la vraie fin : le navigateur passe à l'arrêt et dit `pause` puis `ended` ; rien ne l'a mis en pause */
+    finir() {
+      l.paused = true;
+      cible.dispatchEvent(new Event('pause'));
+      cible.dispatchEvent(new Event('ended'));
+    },
+    addEventListener: cible.addEventListener.bind(cible)
+  };
+  return l as unknown as Lecteur & { finir: () => void; paused: boolean; pauses: number };
+}
+
+describe('l’avance automatique ne coupe pas la voix', () => {
+  beforeEach(() => {
+    (globalThis as { SpeechSynthesisUtterance?: unknown }).SpeechSynthesisUtterance = UtteranceDEssai;
+  });
+
+  it('rien ne se dit : on avance tout de suite', async () => {
+    configurerAudio({ synthese: () => syntheseDeVoix(APPLE), fetchFn: fetchDEssai([]) });
+    expect(sonJoue()).toBe(false);
+    await expect(finDuSon()).resolves.toBeUndefined();
+  });
+
+  it('une bonne réponse pendant la lecture : la question suivante attend la fin de la voix, sans cancel()', async () => {
+    vi.useFakeTimers();
+    const s = syntheseDeVoix(APPLE);
+    configurerAudio({ synthese: () => s, fetchFn: fetchDEssai([]) });
+    /* « Écouter » sur 人, puis la bonne réponse ; l'avance automatique part (Ask.avancerSeul) */
+    await prononcer('人');
+    const u = enonceRetenu() as unknown as UtteranceDEssai;
+    let avance = false;
+    const suivante = finDuSon().then(async () => {
+      avance = true;
+      /* la question suivante, à l'oreille, dit son caractère */
+      await prononcer('大');
+    });
+    await vi.advanceTimersByTimeAsync(800);
+    expect(avance).toBe(false);
+    expect(s.annulations).toBe(0);
+    /* la voix finit d'elle-même */
+    u.onend?.();
+    await suivante;
+    expect(avance).toBe(true);
+    expect(s.annulations).toBe(0);
+    expect(s.dits.map((d) => d.text)).toEqual(['人。', '大。']);
+  });
+
+  it('une voix qui ne dit jamais sa fin ne bloque pas l’avance : plafond', async () => {
+    vi.useFakeTimers();
+    const s = syntheseDeVoix(APPLE);
+    configurerAudio({ synthese: () => s, fetchFn: fetchDEssai([]) });
+    await prononcer('人');
+    let avance = false;
+    void finDuSon().then(() => (avance = true));
+    await vi.advanceTimersByTimeAsync(FIN_DU_SON_MAX_MS - 1);
+    expect(avance).toBe(false);
+    await vi.advanceTimersByTimeAsync(1);
+    expect(avance).toBe(true);
+  });
+
+  it('un fichier : fini à sa vraie fin (ended), et rien ne le met en pause avant', async () => {
+    const l = lecteurAvecFin();
+    configurerAudio({ synthese: () => null, lecteur: () => l, fetchFn: fetchDEssai([]) });
+    reglerVoix('enregistree');
+    expect(await prononcer('人')).toBe('fichier');
+    expect(sonJoue()).toBe(true);
+    let fini = false;
+    const attente = finDuSon().then(() => (fini = true));
+    await Promise.resolve();
+    expect(fini).toBe(false);
+    l.finir();
+    await attente;
+    expect(fini).toBe(true);
+    expect(l.pauses).toBe(0);
+    expect(sonJoue()).toBe(false);
+  });
+
+  it('dans l’app iOS : fini quand le greffon rend la main', async () => {
+    let rendre: () => void = () => undefined;
+    const n: SyntheseNative = {
+      voix: async () => APPLE,
+      dire: () => new Promise<void>((r) => (rendre = r)),
+      taire: async () => undefined
+    };
+    configurerAudio({ natif: () => n, synthese: () => null, fetchFn: fetchDEssai([]) });
+    await voixPretes();
+    await prononcer('人');
+    expect(sonJoue()).toBe(true);
+    const attente = finDuSon();
+    rendre();
+    await attente;
+    expect(sonJoue()).toBe(false);
+  });
+
+  it('l’écran de question attend la fin de la voix avant d’avancer seul, et un tap l’annule', () => {
+    const src = readFileSync(new URL('Ask.svelte', import.meta.url), 'utf8');
+    expect(src).toContain('minuteur = setTimeout(avancerSeul, attente)');
+    const seul = src.slice(src.indexOf('function avancerSeul'));
+    expect(seul.slice(0, seul.indexOf('\n  }\n'))).toContain('finDuSon()');
+    expect(seul.slice(0, seul.indexOf('\n  }\n'))).toContain('if (moi === avances) avancer();');
+    const arreter = src.slice(src.indexOf('function arreter'));
+    expect(arreter.slice(0, arreter.indexOf('\n  }\n'))).toContain('avances += 1;');
+    /* aucun écran ne fait taire la voix en partant : seul le micro qui s'ouvre la coupe */
+    for (const f of ['Ask.svelte', 'Fix.svelte', 'Warm.svelte', 'Learn.svelte', 'Menu.svelte', 'Revisions.svelte']) {
+      expect(readFileSync(new URL(f, import.meta.url), 'utf8')).not.toMatch(/\btaire\(\)/);
+    }
   });
 });
 

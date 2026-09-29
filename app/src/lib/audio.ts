@@ -54,7 +54,7 @@ export const FICHIERS_AUDIO: readonly string[] = [FICHIER_AUDIO, FICHIER_AUDIO_D
 
 /** Ce que ce module demande à un lecteur : de quoi jouer un fichier, et s'il est à l'arrêt. */
 export type Lecteur = Pick<HTMLAudioElement, 'src' | 'currentTime' | 'preload' | 'play' | 'pause'> &
-  Partial<Pick<HTMLAudioElement, 'paused'>>;
+  Partial<Pick<HTMLAudioElement, 'paused' | 'addEventListener'>>;
 
 /** Ce que ce module demande à la synthèse du téléphone : ses voix, parler, se taire, si elle parle. */
 export type Synthese = Pick<SpeechSynthesis, 'getVoices' | 'speak' | 'cancel'> &
@@ -141,6 +141,7 @@ export function configurerAudio(
   dernierArret = Number.NEGATIVE_INFINITY;
   natifEnCours = 0;
   derniere = null;
+  sonEnCours = null;
   preference = null;
   tour = 0;
   manifestes.clear();
@@ -484,14 +485,78 @@ export function enonceRetenu(): SpeechSynthesisUtterance | null {
   return enonceEnCours;
 }
 
-/** Retient un énoncé jusqu'à sa fin ; le suivant prend sa place. */
-function retenir(u: SpeechSynthesisUtterance): void {
+/** Retient un énoncé jusqu'à sa fin ; le suivant prend sa place. `fini` : sa fin, pour `finDuSon`. */
+function retenir(u: SpeechSynthesisUtterance, fini: () => void = () => undefined): void {
   enonceEnCours = u;
   const lacher = (): void => {
     if (enonceEnCours === u) enonceEnCours = null;
+    fini();
   };
   u.onend = lacher;
   u.onerror = lacher;
+}
+
+/* ---------- la fin du son en cours ---------- */
+
+/** Le plafond de l'attente de `finDuSon` : une voix qui ne dit jamais sa fin ne bloque rien. */
+export const FIN_DU_SON_MAX_MS = 3000;
+
+/** Le son en cours (fichier, voix du web, voix native) : sa fin, et de quoi la marquer. */
+let sonEnCours: { fin: Promise<void>; finir: () => void } | null = null;
+
+/** Un son commence : le précédent est fini. Rend de quoi marquer la fin de celui-ci. */
+function commencerSon(): () => void {
+  sonEnCours?.finir();
+  let resoudre: () => void = () => undefined;
+  const fin = new Promise<void>((r) => (resoudre = r));
+  const son = {
+    fin,
+    finir: (): void => {
+      if (sonEnCours === son) sonEnCours = null;
+      resoudre();
+    }
+  };
+  sonEnCours = son;
+  return son.finir;
+}
+
+/** Quelque chose se dit-il en ce moment (ou va se dire, après le repos) ? */
+export function sonJoue(): boolean {
+  return sonEnCours !== null;
+}
+
+/**
+ * Attend la fin de ce qui se dit, `plafond` millisecondes au plus ; tout de suite si rien ne
+ * se dit. C'est ce qu'attend l'avance automatique après une bonne réponse (`Ask.svelte`) :
+ * l'écran suivant, qui peut parler à son tour, ne coupe jamais la voix en cours.
+ */
+export function finDuSon(plafond = FIN_DU_SON_MAX_MS): Promise<void> {
+  const son = sonEnCours;
+  if (son === null) return Promise.resolve();
+  return new Promise<void>((r) => {
+    const minuteur = setTimeout(r, plafond);
+    void son.fin.then(() => {
+      clearTimeout(minuteur);
+      r();
+    });
+  });
+}
+
+/**
+ * Suit un fichier jusqu'à sa vraie fin (`ended`), ou son arrêt (`pause`, `error`). Rien ne met
+ * en pause un fichier qui finit : c'est le navigateur qui le dit fini.
+ */
+function suivreFichier(l: Lecteur, fini: () => void): void {
+  if (typeof l.addEventListener !== 'function') {
+    fini();
+    return;
+  }
+  const fin = new AbortController();
+  const finir = (): void => {
+    fin.abort();
+    fini();
+  };
+  for (const e of ['ended', 'pause', 'error'] as const) l.addEventListener(e, finir, { signal: fin.signal });
 }
 
 /**
@@ -542,6 +607,8 @@ function taireTout(tout = false): boolean {
     arrete = true;
   }
   if (arrete) dernierArret = maintenant();
+  /* ce qui se disait est fini, arrêté ou pas encore parti */
+  sonEnCours?.finir();
   return arrete;
 }
 
@@ -624,10 +691,13 @@ async function prononcerSansDoublon(texte: string, file?: string): Promise<Dit> 
     if (l !== null) {
       l.src = urlAudio(c);
       l.currentTime = 0;
+      const fini = commencerSon();
+      suivreFichier(l, fini);
       try {
         await l.play();
         return moi === tour ? 'fichier' : 'bloque';
       } catch (e) {
+        fini();
         /* dépassée : une autre demande a pris le lecteur ; ne rien dire par-dessus */
         if (moi !== tour) return 'bloque';
         /* lecture refusée ou fichier introuvable : on tente la voix du téléphone */
@@ -650,10 +720,13 @@ export async function jouerSon(url: string): Promise<boolean> {
   if (l === null) return false;
   l.src = url;
   l.currentTime = 0;
+  const fini = commencerSon();
+  suivreFichier(l, fini);
   try {
     await l.play();
     return moi === tour;
   } catch {
+    fini();
     return false;
   }
 }
@@ -685,10 +758,12 @@ export function direParLeTelephone(texte: string, moi = ++tour): boolean {
   if (n !== null && rang >= 0) {
     taireTout();
     reglerSession('playback');
+    const son = commencerSon();
     apresRepos(moi, () => {
       natifEnCours += 1;
       const fini = (): void => {
         natifEnCours = Math.max(0, natifEnCours - 1);
+        son();
       };
       /* Le greffon rend la main à la fin de la phrase (ou à son arrêt). */
       void n.dire(enonce(texte), voix.lang, rang).then(fini, fini);
@@ -711,14 +786,16 @@ export function direParLeTelephone(texte: string, moi = ++tour): boolean {
     /* une voix que le navigateur refuse : rien n'est dit */
     return false;
   }
+  const son = commencerSon();
   const parler = (): boolean => {
-    retenir(u);
+    retenir(u, son);
     try {
       s.speak(u);
       return true;
     } catch {
       /* une voix que le navigateur refuse : rien n'est dit */
       enonceEnCours = null;
+      son();
       return false;
     }
   };
