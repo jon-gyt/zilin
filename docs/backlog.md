@@ -91,6 +91,15 @@ Décisions du propriétaire du 26 septembre 2026 : « aux paliers de caractères
 - 8.5 Les rangs, « Points ET examen » : dans `heros.ts`, un titre s'accorde quand l'examen est réussi et les points atteints, dans l'ordre des rangs ; les quatre nominations à leur palier de caractères lus. Un 月课 ne donne ni ne retient un rang, même au palier d'une nomination (1 555, 1 800). La taille et la silhouette suivent les points, la tenue le titre accordé. L'en-tête montre le rang tenu, sans pastille ; « Mon personnage » : barre pleine et « Reste le 院试 », ou « Reçu au 院试 · encore 12 points », et les examens à titre réussis avec leur date, sans les 月课 ; le 放榜 au titre accordé, une fois. `rangs.tsv` prend l'examen ou le palier de chaque rang ; `heros.json` suit, contrôle des sources mis à jour.
 - 8.6 La borne de la route : l'examen dans `route.bornesDevant`, au jour du chemin où entre le Ne caractère, son nom sur la stèle ; l'examen suivant, à titre ou 月课, toujours l'une des deux bornes, à la place de la seconde si deux autres tombent avant lui ; une seule stèle quand il tombe sur un seuil du trophée Lire (50, 100, 255, 505, 1 555) ; l'examen à passer se dresse devant la pierre du jour, « examen ouvert », les pierres suivantes sans compte ; au rythme gratuit, en étapes. Tests dans `route.test.ts`. Pas de sceau aux trophées.
 
+## Épic 9 · Oral par IA
+Décisions du propriétaire du 29 septembre 2026 (brief §10, « L'oral par IA ») : sur le téléphone en gratuit, dans le nuage avec l'abonnement, « 5 € c'est une conversation par jour ». Analyse : `Wenlu face au marché` (29 septembre).
+- 9.1 Les tons sur l'appareil : suivi de hauteur (YIN), petit classifieur embarqué (moins de 1 Mo, moins de 100 ms), données d'entraînement sous licence ouverte vérifiée ; une question « Dis-le » : on prononce le caractère, l'app montre sa courbe sur celle du modèle et le ton reconnu. Sans réseau, notation automatique, jamais de reproche.
+- 9.2 La conversation sur l'appareil, là où il le permet (modèle de langue, reconnaissance et synthèse vocales de l'appareil), limitée aux caractères acquis.
+- 9.3 Le relais : un seul serveur, sans compte, authentifié par la transaction App Store, qui ne garde rien ; quota d'une conversation par jour, sans accumulation.
+- 9.4 L'agent vocal par niveau dans le nuage : en cascade (reconnaissance, modèle de langue, contrôle de chaque réplique contre l'acquis, synthèse), des scènes par niveau rédigées par le pipeline.
+- 9.5 L'abonnement à 4,99 € (6.2) et ce qu'il ouvre ; l'achat à vie et un palier au-dessus, à trancher.
+- 9.6 Le micro et la confidentialité : accord au premier usage, accord distinct pour le nuage, politique à deux régimes, fiche App Store mise à jour.
+
 ## État au 28 septembre 2026
 
 Relevé sur le dépôt le 21 septembre après une revue du pipeline, mis à jour le 28 septembre

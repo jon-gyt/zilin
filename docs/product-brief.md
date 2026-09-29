@@ -373,9 +373,18 @@ La limite se dit calmement : ni compte à rebours, ni relance, ni fenêtre modal
 
 Deux lignes de l'ancienne liste payante passent au gratuit, parce qu'elles contredisaient ce qui reste gratuit pour toujours : les exercices « paires à ne pas confondre », qui sont de la révision (§7), et les saisons avec leurs caractères bonus, qui viennent des anecdotes.
 
+### L'oral par IA
+
+Décisions du propriétaire du 29 septembre 2026 : « J'aimerais que l'analyse des tons des enregistrements oraux soit faite par IA. On pourrait aussi intégrer un agent conversationnel audio par IA, par niveau », puis « Sur le téléphone en gratuit, sur le cloud avec abonnement », et « 5 € c'est une conversation par jour ». L'oral n'est plus hors périmètre.
+
+- Gratuit, sur l'appareil, sans réseau : l'analyse des tons de la voix de l'apprenant (suivi de hauteur et petit modèle embarqué), sa courbe posée sur celle du modèle, le ton reconnu et un conseil, jamais un reproche ; une conversation simple sur l'appareil là où il le permet. Rien n'est envoyé.
+- Abonnement Wenlu complet à 4,99 € par mois : une conversation par jour avec l'agent vocal dans le nuage, à son niveau. Elle ne s'accumule pas (comme les briques du rythme gratuit). Chaque réplique de l'agent est vérifiée contre les caractères acquis avant d'être dite, comme les contes. Elle passe par le relais Wenlu, sans compte.
+- Le micro se demande au premier usage, avec un accord distinct pour le nuage. La politique de confidentialité dit les deux régimes : sur l'appareil, rien ne sort ; dans le nuage, la voix passe par le relais pour la conversation et n'est pas gardée.
+- À trancher : l'achat à vie (couvre-t-il la conversation dans le nuage, dont chaque minute coûte ?) et un palier au-dessus d'une conversation par jour. Analyse du 29 septembre 2026 : l'achat à vie couvre Wenlu complet et l'IA sur l'appareil, pas le nuage.
+
 ### Hors périmètre V1
 
-- Grammaire, oral en production. Les tons se reconnaissent (la question de ton, décision du propriétaire), ils ne se prononcent pas.
+- Grammaire.
 - Comptes utilisateurs, social, classements.
 - Android (V2, même code web).
 
@@ -403,7 +412,7 @@ Pipeline (Python, dépôt séparé) : ingestion, réconciliation des décomposit
 ## 13. Monétisation
 
 - Web : gratuit, le seul périmètre gratuit et les pages publiques ; ni achat, ni compte, ni serveur. Rôle : acquisition et référencement.
-- iOS : achats intégrés, Wenlu complet (§10), les mêmes droits par les deux voies. Achat à vie non consommable autour de 29,99 €. Abonnement mensuel autour de 3,99 €. Grilles Apple par pays.
+- iOS : achats intégrés, Wenlu complet (§10), les mêmes droits par les deux voies. Achat à vie non consommable autour de 29,99 €. Abonnement mensuel à 4,99 €, qui comprend une conversation par jour avec l'agent vocal dans le nuage (§10, « L'oral par IA » ; décision du propriétaire du 29 septembre 2026). Grilles Apple par pays.
 - Ce qu'on achète : le rythme et la suite du parcours, jamais l'acquis. Les moments : la fin des trente jours gratuits du chemin, la semaine offerte du palier de 30 jours, puis, vers le 37e jour, le code à usage unique de moins 30 % sur l'achat à vie (§8). Pas de remise sur l'abonnement.
 - Sans compte ni serveur : les achats viennent de StoreKit 2, liés à l'identifiant Apple et restaurables ; les cadeaux des paliers viennent de la progression locale. Une progression modifiée à la main peut ouvrir un cadeau de palier : risque accepté, faute de serveur.
 - Small Business Program (15 %). Entité porteuse du compte développeur à trancher.
