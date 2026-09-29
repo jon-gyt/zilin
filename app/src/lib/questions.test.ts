@@ -20,6 +20,7 @@ import {
   texteADire,
   marquerTon,
   outcomeDuTrace,
+  tonDe,
   premierSens,
   syllabesDuTon,
   question,
@@ -790,7 +791,7 @@ describe('le trou : le mot s’entend, il ne se traduit plus', () => {
 
   it('l’écran fait entendre le mot et tait le pinyin des choix jusqu’à la correction', () => {
     const src = readFileSync(new URL('Ask.svelte', import.meta.url), 'utf8');
-    expect(src).toContain("(q.type === 'oreille' || q.type === 'caractere' || q.type === 'trou') && note === null");
+    expect(src).toContain('const pinyinCache = $derived(note === null);');
     expect(src).toContain('void prononcer(texteADire(q))');
     expect(src).toContain('{ligneDuMot(q)}');
   });
@@ -962,4 +963,28 @@ describe('le contour du ton, dessiné à la correction', () => {
     expect(regle).not.toContain('--zhu');
     expect(css).toContain('@media (prefers-reduced-motion:reduce){.contour .trait{animation:none;stroke-dashoffset:0}}');
   });
+});
+
+/* ---------- les fuites de réponse (retour du propriétaire du 29 septembre 2026) ---------- */
+
+describe('rien ne souffle la réponse avant qu’on réponde', () => {
+  const ask = readFileSync(new URL('Ask.svelte', import.meta.url), 'utf8');
+
+  it('« quel élément donne le son ? » : le pinyin des choix ne paraît qu’à la correction', () => {
+    /* mǎ sous 马 donnait le son de 妈 (mā) sans rien lire ; à l’assemblage, la syllabe de la
+       cible désignait sa brique de son. Le pinyin sous un choix attend la correction, partout. */
+    expect(ask).toContain('const pinyinCache = $derived(note === null);');
+    expect(ask).toMatch(/<small>\{pinyinCache \? '.' : pinyinDe\(o, corpus\)\}<\/small>/u);
+  });
+
+  it('la question de ton n’affiche pas le pinyin accentué, et ne fait rien entendre avant', () => {
+    const q = poser('ton');
+    expect(q.sansTon).toBe('hao');
+    expect(tonDe(q.sansTon ?? '')).toBe(0);
+    expect(ask).toContain('{note === null ? q.sansTon : q.reponse[0]}');
+    expect(ask).toContain('{#if note !== null && ecoutable}');
+    /* Seules l’oreille et le trou font entendre avant la réponse : c’est leur question. */
+    expect(ask).toContain("const aEcouter = $derived(q.type === 'oreille' || q.type === 'trou');");
+  });
+
 });
