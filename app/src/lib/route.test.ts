@@ -25,9 +25,11 @@ import {
   premierSens,
   prochainesBornes,
   quand,
+  quandExamen,
   route,
   type ConteAVenir,
   type Etape,
+  type ExamenAVenir,
   type SeuilLire
 } from './route';
 import {
@@ -412,5 +414,112 @@ describe('au rythme gratuit (story 7.5)', () => {
     expect(boutDuChemin(fin, false)).toBe('gratuit');
     expect(boutDuChemin(fin, true)).toBe('parcours');
     expect(boutDuChemin(route(ETAPES, positionDuJour(au(12, true))), false)).toBeNull();
+  });
+});
+
+describe('la borne des examens (story 8.6)', () => {
+  /* Trois caractères par étape : le 50e entre au jour 17, le 75e plus loin, le 100e hors du chemin. */
+  const examens: ExamenAVenir[] = [
+    { id: 'xianshi', hz: '县试', palier: 50, titre: '县试 · 50 caractères', ligne: "l'examen du district" },
+    { id: 'yueke-75', hz: '月课', palier: 75, titre: '月课 · 75 caractères', ligne: 'la leçon du mois' },
+    { id: 'fushi', hz: '府试', palier: 100, titre: '府试 · 100 caractères', ligne: "l'examen de la préfecture" }
+  ];
+  const trophees = (...n: number[]): SeuilLire[] => n.map((x) => ({ n: x, obtenu: false }));
+  const ecran = readFileSync(new URL('Route.svelte', import.meta.url), 'utf8');
+
+  it('l’examen est une borne au jour du chemin où entre son Ne caractère, son nom dessiné sur la stèle', () => {
+    const r = route(ETAPES, positionDuJour(au(12, true)));
+    const b = bornesDevant(ETAPES, r, [], [], examens);
+    expect(b.map((x) => [x.titre, x.jour, x.ecart])).toEqual([
+      ['县试 · 50 caractères', 17, 5],
+      ['月课 · 75 caractères', jourDuSeuil(ETAPES, 75), 13]
+    ]);
+    expect(b[0]).toMatchObject({ genre: 'examen', hz: '县试', suivant: true, passe: false });
+    /* le nom se dessine depuis ses traits, gravé de haut en bas sur la stèle */
+    expect(ecran).toMatch(/\{#each \[\.\.\.b\.hz\] as c, j \(c \+ j\)\}[\s\S]{0,200}dessin\(c, 18, 'var\(--indigo\)'\)/);
+    expect(ecran).toContain('remplir(tr.examen, { examen: e.hz, n: nombre(e.palier) })');
+  });
+
+  it('l’examen suivant est toujours l’une des deux bornes, à la place de la seconde si deux autres tombent avant lui', () => {
+    const r = route(ETAPES, positionDuJour(au(2, true)));
+    const contes: ConteAVenir[] = [{ id: 'a', titre: '愚公移山', jour: 14 }];
+    const toutes = bornesDevant(ETAPES, r, trophees(10), contes, examens);
+    expect(toutes.map((x) => x.titre)).toEqual(['10 caractères', '愚公移山', '县试 · 50 caractères', '月课 · 75 caractères']);
+    expect(prochainesBornes(toutes).map((x) => x.titre)).toEqual(['10 caractères', '县试 · 50 caractères']);
+    /* sans examen à annoncer, les deux premières */
+    expect(prochainesBornes(bornesDevant(ETAPES, r, trophees(10), contes)).map((x) => x.titre)).toEqual([
+      '10 caractères',
+      '愚公移山'
+    ]);
+    /* le suivant déjà parmi les deux : rien ne bouge ; jamais plus que demandé */
+    const proche = prochainesBornes(bornesDevant(ETAPES, route(ETAPES, positionDuJour(au(12, true))), [], contes, examens));
+    expect(proche.map((x) => x.titre)).toEqual(['愚公移山', '县试 · 50 caractères']);
+    expect(prochainesBornes(toutes, 1).map((x) => x.titre)).toEqual(['县试 · 50 caractères']);
+  });
+
+  it('une seule stèle quand il tombe sur un seuil du trophée Lire', () => {
+    const r = route(ETAPES, positionDuJour(au(12, true)));
+    const b = bornesDevant(ETAPES, r, trophees(50, 100), [], examens);
+    expect(b.filter((x) => x.jour === 17)).toHaveLength(1);
+    expect(b.find((x) => x.jour === 17)).toMatchObject({ genre: 'examen', titre: '县试 · 50 caractères', trophee: true });
+    expect(b.some((x) => x.genre === 'lire' && x.seuil === 50)).toBe(false);
+    /* un trophée déjà obtenu : la stèle est celle de l'examen seul */
+    const obtenu = bornesDevant(ETAPES, r, [{ n: 50, obtenu: true }], [], examens);
+    expect(obtenu.find((x) => x.jour === 17)).toMatchObject({ genre: 'examen', trophee: false });
+  });
+
+  it('le prochain examen, son jour fait sans ses caractères lus, dit le compte des lus, rien d’estimé', () => {
+    const r = route(ETAPES, positionDuJour(au(21, true)));
+    const b = bornesDevant(ETAPES, r, [], [], examens);
+    expect(b[0]).toMatchObject({ id: 'xianshi', passe: true, suivant: true });
+    expect(b[0].ecart).toBeLessThan(0);
+    /* un examen plus loin dont le jour est fait ne s'annonce pas */
+    const plusLoin = bornesDevant(ETAPES, route(ETAPES, positionDuJour(au(28, true))), [], [], examens);
+    expect(plusLoin.map((x) => x.titre)).toEqual(['县试 · 50 caractères']);
+    expect(ecran).toContain('remplir(tr.lus, { lus: nombre(lus), n: nombre(b.palier) })');
+    /* au-delà du parcours, rien ne se calcule, rien ne s'affiche */
+    expect(bornesDevant(ETAPES, r, [], [], [examens[2]])).toEqual([]);
+  });
+
+  it('l’examen à passer se dresse devant la pierre du jour, « examen ouvert », et la suite n’a pas de compte', () => {
+    const apres = "après l'examen";
+    expect(quand(3, true, apres)).toBe(apres);
+    expect(quand(1, true, apres)).toBe(apres);
+    expect(quand(0, true, apres)).toBe("aujourd'hui");
+    expect(quand(-1, true, apres)).toBe('déjà lu');
+    expect(dansCourt(9, true, apres)).toBe(apres);
+    const r = route(ETAPES, positionDuJour(au(12, true)));
+    const b = bornesDevant(ETAPES, r, [], [], examens.slice(1));
+    const ouvert = { titre: '县试 · 50 caractères', ligne: 'examen ouvert' };
+    expect(ligneBorne(1, b, true, ouvert)).toEqual({
+      tete: 'Prochaine borne :',
+      titre: '县试 · 50 caractères',
+      suite: 'examen ouvert.'
+    });
+    expect(ligneBorne(4, b, true, ouvert)?.titre).toBe('县试 · 50 caractères');
+    expect(ligneBorne(-1, b, true, ouvert)).toBeNull();
+    expect(quandExamen(ETAPES, r, examens[0], true)).toEqual({ etat: 'ouvert' });
+    /* l'écran : la stèle entre la pierre du jour et la suivante, la route sans compte ni prochaine brique */
+    expect(ecran).toContain('const b = PLACES_XY[ICI + 1];');
+    expect(ecran).toContain('{tr.ouvert}');
+    expect(ecran).toContain('quand(x.ecart, sur, apres)');
+    expect(ecran).toContain('dansCourt(b.ecart, sur, apres)');
+    expect(ecran).toContain('gratuit && ouvert === null');
+  });
+
+  it('au rythme gratuit et en rattrapage, la borne d’examen se dit en étapes', () => {
+    const r = route(ETAPES, { jour: 12, faite: true, sur: false });
+    const b = bornesDevant(ETAPES, r, [], [], examens);
+    expect(dansCourt(b[0].ecart, false)).toBe('dans 5 étapes');
+    expect(quandExamen(ETAPES, r, examens[0], false)).toEqual({ etat: 'dans', ecart: 5 });
+    expect(quandExamen(ETAPES, route(ETAPES, positionDuJour(au(21, true))), examens[0], false)).toEqual({ etat: 'lus' });
+    expect(quandExamen(ETAPES, r, examens[2], false)).toBeNull();
+  });
+
+  it('pas de sceau aux trophées pour un examen', () => {
+    const code = (f: string): string =>
+      readFileSync(new URL(f, import.meta.url), 'utf8').replace(/\/\*[\s\S]*?\*\/|<!--[\s\S]*?-->|\/\/.*$/gm, '');
+    expect(code('trophees.ts')).not.toMatch(/examen|yueke|月课|县试/);
+    expect(code('Rewards.svelte')).not.toMatch(/examen|yueke|月课|县试/);
   });
 });
