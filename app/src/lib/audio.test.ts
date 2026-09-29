@@ -1,4 +1,5 @@
-import { describe, it, expect, beforeEach } from 'vitest';
+import { describe, it, expect, beforeEach, afterEach, vi } from 'vitest';
+import { readFileSync } from 'node:fs';
 import { VERSION_DONNEES } from './content';
 import {
   FICHIER_AUDIO,
@@ -8,6 +9,14 @@ import {
   aFichier,
   aVoixTelephone,
   direParLeTelephone,
+  enonce,
+  enonceRetenu,
+  REPOS_APRES_ARRET_MS,
+  DOUBLON_MS,
+  FIN_DU_SON_MAX_MS,
+  finDuSon,
+  sonJoue,
+  POINT_FINAL,
   voixMandarin,
   voixPretes,
   classerVoix,
@@ -54,12 +63,17 @@ function lecteurDEssai(): Lecteur & { joues: string[] } {
     src: '',
     currentTime: 0,
     preload: '',
+    /* comme un navigateur : à l'arrêt tant qu'il ne joue pas, et de nouveau à la fin */
+    paused: true,
     joues: [] as string[],
-    play(this: { src: string; joues: string[] }) {
+    play(this: { src: string; joues: string[]; paused: boolean }) {
       this.joues.push(this.src);
+      this.paused = false;
       return Promise.resolve();
     },
-    pause() {}
+    pause(this: { paused: boolean }) {
+      this.paused = true;
+    }
   } as Lecteur & { joues: string[] };
 }
 
@@ -76,6 +90,9 @@ function fetchDEssai(urls: string[], document: unknown = MANIFESTE, ok = true): 
 }
 
 beforeEach(() => configurerAudio());
+afterEach(() => {
+  vi.useRealTimers();
+});
 
 describe('le manifeste audio', () => {
   it('est chargé depuis le fichier servi avec l’app', async () => {
@@ -224,6 +241,8 @@ class UtteranceDEssai {
   voice: unknown = null;
   lang = '';
   rate = 1;
+  onend: (() => void) | null = null;
+  onerror: (() => void) | null = null;
   constructor(text: string) { this.text = text; }
 }
 
@@ -248,8 +267,9 @@ describe('la voix du téléphone en repli', () => {
     expect(aFichier(MANIFESTE, '住')).toBe(false);
     expect(aAudio(MANIFESTE, '住')).toBe(true);
     expect(await dire('住')).toBe(true);
-    expect(s.dits).toEqual(['住']);
-    expect(s.annulations).toBeGreaterThanOrEqual(1);
+    expect(s.dits).toEqual(['住。']);
+    /* rien ne jouait : rien à faire taire, pas de cancel() juste avant speak() */
+    expect(s.annulations).toBe(0);
     expect(l.joues).toEqual([]);
   });
 
@@ -278,6 +298,8 @@ function lecteurQuiEchoue(nom: string): Lecteur & { essais: number } {
     currentTime: 0,
     preload: '',
     essais: 0,
+    /* play() rejette : il ne joue jamais */
+    paused: true,
     play() {
       l.essais += 1;
       return Promise.reject(Object.assign(new Error(nom), { name: nom }));
@@ -304,7 +326,7 @@ describe('un fichier qui ne se charge pas', () => {
     reglerVoix('enregistree');
     expect(await prononcer('人')).toBe('telephone');
     expect(l.essais).toBe(1);
-    expect(s.dits).toEqual(['人']);
+    expect(s.dits).toEqual(['人。']);
     expect(await dire('人')).toBe(true);
   });
 
@@ -376,20 +398,33 @@ function voix(lang: string, voiceURI = lang, localService = true, name = voiceUR
 }
 
 /** Une synthèse d'essai qui rend des voix complètes (identifiant, service). */
-function syntheseDeVoix(liste: VoixAppareil[]): Synthese & { dits: { text: string; rate: number; uri: string }[]; annulations: number } {
+function syntheseDeVoix(liste: VoixAppareil[]): Synthese & { dits: { text: string; rate: number; uri: string }[]; annulations: number; speaking: boolean } {
   const dits: { text: string; rate: number; uri: string }[] = [];
   const s = {
     dits,
     annulations: 0,
+    /* comme un navigateur : elle parle de `speak` jusqu'à la fin de l'énoncé, ou `cancel` */
+    speaking: false,
     getVoices: () => liste,
     speak: (u: SpeechSynthesisUtterance) => {
       dits.push({ text: u.text, rate: u.rate, uri: (u.voice as VoixAppareil | null)?.voiceURI ?? '' });
+      s.speaking = true;
+      const [fin, erreur] = [u.onend, u.onerror];
+      u.onend = (e) => {
+        s.speaking = false;
+        fin?.call(u, e);
+      };
+      u.onerror = (e) => {
+        s.speaking = false;
+        erreur?.call(u, e);
+      };
     },
     cancel() {
       s.annulations += 1;
+      s.speaking = false;
     }
   };
-  return s as unknown as Synthese & { dits: { text: string; rate: number; uri: string }[]; annulations: number };
+  return s as unknown as Synthese & { dits: { text: string; rate: number; uri: string }[]; annulations: number; speaking: boolean };
 }
 
 const APPLE = [
@@ -452,7 +487,7 @@ describe('la voix de l’appareil, classée', () => {
     configurerAudio({ synthese: () => s, lecteur: () => l, fetchFn: fetchDEssai([]) });
     expect(await prononcer('人')).toBe('telephone');
     expect(l.joues).toEqual([]);
-    expect(s.dits).toEqual([{ text: '人', rate: vitesse('人'), uri: 'com.apple.voice.premium.zh-CN.Lilian' }]);
+    expect(s.dits).toEqual([{ text: '人。', rate: vitesse('人'), uri: 'com.apple.voice.premium.zh-CN.Lilian' }]);
     expect(vitesse('人')).toBeLessThan(vitesse('天天'));
     expect(vitesse('天天')).toBeLessThan(1);
   });
@@ -463,8 +498,10 @@ describe('la voix de l’appareil, classée', () => {
     configurerAudio({ synthese: () => s, lecteur: () => l, fetchFn: fetchDEssai([]) });
     reglerVoix('enregistree');
     expect(await prononcer('人')).toBe('fichier');
+    /* le fichier a fini : la voix part tout de suite */
+    (l as { paused: boolean }).paused = true;
     expect(await prononcer('住')).toBe('telephone');
-    expect(s.dits.map((d) => d.text)).toEqual(['住']);
+    expect(s.dits.map((d) => d.text)).toEqual(['住。']);
   });
 
   it('dans l’app iOS, la voix passe par AVSpeechSynthesizer, nommée par son rang, session en lecture', async () => {
@@ -482,7 +519,7 @@ describe('la voix de l’appareil, classée', () => {
     expect(await voixPretes()).toBe(true);
     expect(voixMandarin()?.voiceURI).toBe('com.apple.voice.premium.zh-CN.Lilian');
     expect(await prononcer('人')).toBe('telephone');
-    expect(dits).toEqual([['人', 'zh-CN', 4]]);
+    expect(dits).toEqual([['人。', 'zh-CN', 4]]);
     expect(session.type).toBe('playback');
     expect(web.dits).toEqual([]);
   });
@@ -554,42 +591,392 @@ describe('un seul son à la fois', () => {
     const premier = prononcer('人');
     await manifesteOnce();
     await Promise.resolve();
-    const second = prononcer('人');
+    const second = prononcer('天天');
     await manifesteOnce();
     await Promise.resolve();
     l.charger();
     expect(await premier).toBe('bloque');
     expect(await second).toBe('fichier');
     expect(s.dits).toEqual([]);
+    expect(l.joues).toEqual([`${import.meta.env.BASE_URL}${MANIFESTE.chemins['天天']}`]);
+  });
+
+  it('le même « Écouter » redemandé aussitôt (double toucher, effet relancé) ne coupe pas la voix pour la redire', async () => {
+    vi.useFakeTimers();
+    const s = syntheseDeVoix(APPLE);
+    configurerAudio({ synthese: () => s, fetchFn: fetchDEssai([]) });
+    const a = prononcer('人');
+    const b = prononcer('人');
+    expect(b).toBe(a);
+    expect(await a).toBe('telephone');
+    vi.advanceTimersByTime(DOUBLON_MS - 1);
+    expect(await prononcer('人')).toBe('telephone');
+    vi.advanceTimersByTime(REPOS_APRES_ARRET_MS);
+    expect(s.dits.map((d) => d.text)).toEqual(['人。']);
+    expect(s.annulations).toBe(0);
+  });
+
+  it('le même fichier redemandé pendant son chargement ne le recharge pas', async () => {
+    const s = syntheseDeVoix(APPLE);
+    const l = lecteurLent();
+    configurerAudio({ synthese: () => s, lecteur: () => l, fetchFn: fetchDEssai([]) });
+    reglerVoix('enregistree');
+    const premier = prononcer('人');
+    await manifesteOnce();
+    await Promise.resolve();
+    const second = prononcer('人');
+    l.charger();
+    expect(await premier).toBe('fichier');
+    expect(await second).toBe('fichier');
     expect(l.joues).toHaveLength(1);
+    expect(l.pauses).toBe(0);
+    expect(s.dits).toEqual([]);
+  });
+
+  it('passé le délai, ou si autre chose a parlé entre-temps, le même caractère se redit', async () => {
+    vi.useFakeTimers();
+    const s = syntheseDeVoix(APPLE);
+    configurerAudio({ synthese: () => s, fetchFn: fetchDEssai([]) });
+    await prononcer('人');
+    vi.advanceTimersByTime(DOUBLON_MS);
+    await prononcer('人');
+    vi.advanceTimersByTime(REPOS_APRES_ARRET_MS);
+    expect(s.dits.map((d) => d.text)).toEqual(['人。', '人。']);
+    taire();
+    await prononcer('人');
+    vi.advanceTimersByTime(REPOS_APRES_ARRET_MS);
+    expect(s.dits).toHaveLength(3);
+  });
+
+  it('un doublon d’une demande qui n’a rien dit (geste requis) redemande : c’est le geste attendu', async () => {
+    const l = lecteurQuiEchoue('NotAllowedError');
+    configurerAudio({ synthese: () => null, lecteur: () => l, fetchFn: fetchDEssai([]) });
+    expect(await prononcer('人')).toBe('bloque');
+    expect(await prononcer('人')).toBe('bloque');
+    expect(l.essais).toBe(2);
   });
 
   it('chaque demande fait taire ce qui jouait : le fichier et la voix de l’appareil', async () => {
+    vi.useFakeTimers();
     const s = syntheseDeVoix(APPLE);
-    const l = lecteurDEssai() as Lecteur & { joues: string[] } & { pauses?: number };
+    const l = lecteurDEssai() as Lecteur & { joues: string[]; paused: boolean };
     let pauses = 0;
     l.pause = () => {
       pauses += 1;
+      l.paused = true;
     };
     configurerAudio({ synthese: () => s, lecteur: () => l, fetchFn: fetchDEssai([]) });
     reglerVoix('enregistree');
     await prononcer('人');
-    const avant = s.annulations;
+    /* le fichier joue encore : il se tait, et la voix attend le repos qui suit l'arrêt */
     await prononcer('住');
-    expect(pauses).toBeGreaterThanOrEqual(1);
-    expect(s.annulations).toBeGreaterThan(avant);
+    expect(pauses).toBe(1);
+    expect(s.dits).toEqual([]);
+    vi.advanceTimersByTime(REPOS_APRES_ARRET_MS);
+    expect(s.dits.map((d) => d.text)).toEqual(['住。']);
+    /* la voix parle encore : elle se tait */
+    const avant = s.annulations;
+    await prononcer('人');
+    expect(s.annulations).toBe(avant + 1);
     taire();
     expect(pauses).toBeGreaterThanOrEqual(2);
+  });
+
+  it('rien ne jouait : ni cancel() ni pause() avant speak(), la voix part tout de suite', async () => {
+    const s = syntheseDeVoix(APPLE);
+    const l = lecteurDEssai() as Lecteur & { joues: string[]; paused: boolean };
+    let pauses = 0;
+    l.pause = () => void (pauses += 1);
+    configurerAudio({ synthese: () => s, lecteur: () => l, fetchFn: fetchDEssai([]) });
+    /* le lecteur existe (« Réécouter » l'a créé), à l'arrêt */
+    expect(await jouerSon('blob:wenlu/voix')).toBe(true);
+    l.paused = true;
+    expect(await prononcer('人')).toBe('telephone');
+    expect(s.dits.map((d) => d.text)).toEqual(['人。']);
+    expect(s.annulations).toBe(0);
+    expect(pauses).toBe(0);
+  });
+
+  it('deux « Écouter » rapprochés, deux caractères : un seul cancel(), et la seconde voix attend le repos', async () => {
+    vi.useFakeTimers();
+    const s = syntheseDeVoix(APPLE);
+    configurerAudio({ synthese: () => s, fetchFn: fetchDEssai([]) });
+    await prononcer('人');
+    expect(s.dits.map((d) => d.text)).toEqual(['人。']);
+    await prononcer('大');
+    expect(s.annulations).toBe(1);
+    expect(s.dits).toHaveLength(1);
+    vi.advanceTimersByTime(REPOS_APRES_ARRET_MS - 1);
+    expect(s.dits).toHaveLength(1);
+    vi.advanceTimersByTime(1);
+    expect(s.dits.map((d) => d.text)).toEqual(['人。', '大。']);
+    expect(s.annulations).toBe(1);
+  });
+
+  it('une demande dépassée pendant le repos ne parle plus', async () => {
+    vi.useFakeTimers();
+    const s = syntheseDeVoix(APPLE);
+    configurerAudio({ synthese: () => s, fetchFn: fetchDEssai([]) });
+    await prononcer('人');
+    await prononcer('大');
+    taire();
+    vi.advanceTimersByTime(REPOS_APRES_ARRET_MS * 2);
+    expect(s.dits.map((d) => d.text)).toEqual(['人。']);
+  });
+
+  it('dans l’app iOS, le greffon n’est arrêté que s’il parle, et la phrase suivante attend le repos', async () => {
+    vi.useFakeTimers();
+    const appels: string[] = [];
+    let finir: () => void = () => undefined;
+    const n: SyntheseNative = {
+      voix: async () => APPLE,
+      dire: (t) => {
+        appels.push(`dire ${t}`);
+        return new Promise<void>((r) => (finir = r));
+      },
+      taire: async () => {
+        appels.push('stop');
+        finir();
+      }
+    };
+    configurerAudio({ natif: () => n, synthese: () => null, session: () => ({ type: 'playback' }), fetchFn: fetchDEssai([]) });
+    await voixPretes();
+    await prononcer('人');
+    expect(appels).toEqual(['dire 人。']);
+    /* 人 parle encore : il s'arrête, 好 attend le repos */
+    await prononcer('好');
+    expect(appels).toEqual(['dire 人。', 'stop']);
+    vi.advanceTimersByTime(REPOS_APRES_ARRET_MS);
+    expect(appels).toEqual(['dire 人。', 'stop', 'dire 好。']);
+    /* 好 a fini (le greffon rend la main) : 天 part sans stop() */
+    finir();
+    await vi.advanceTimersByTimeAsync(0);
+    await prononcer('天');
+    expect(appels).toEqual(['dire 人。', 'stop', 'dire 好。', 'dire 天。']);
   });
 
   it('« Réécouter » joue un son en mémoire sur le même lecteur, et fait taire la voix', async () => {
     const s = syntheseDeVoix(APPLE);
     const l = lecteurDEssai();
     configurerAudio({ synthese: () => s, lecteur: () => l });
+    /* la voix de référence parle encore */
+    s.speaking = true;
     const avant = s.annulations;
     expect(await jouerSon('blob:wenlu/voix')).toBe(true);
     expect(l.joues).toEqual(['blob:wenlu/voix']);
     expect(s.annulations).toBe(avant + 1);
+  });
+});
+
+/** Les caractères chinois d'un texte, dans l'ordre : ce qui se prononce. */
+function hanzi(t: string): string {
+  return [...t].filter((x) => /\p{Script=Han}/u.test(x)).join('');
+}
+
+describe('l’énoncé : un caractère seul n’est pas coupé net', () => {
+  it('un caractère seul finit sur un point final, qui lui donne sa chute', () => {
+    expect(enonce('人')).toBe('人。');
+    expect(enonce('好')).toBe(`好${POINT_FINAL}`);
+    expect(enonce('天天')).toBe('天天。');
+  });
+
+  it('un texte qui finit déjà sur une ponctuation finale reste tel quel', () => {
+    expect(enonce('你好。')).toBe('你好。');
+    expect(enonce('你好吗？')).toBe('你好吗？');
+    expect(enonce('太好了！')).toBe('太好了！');
+    expect(enonce('他说：「好。」')).toBe('他说：「好。」');
+    expect(enonce('好啊……')).toBe('好啊……');
+  });
+
+  it('une virgule ou une espace finale devient un point', () => {
+    expect(enonce(' 人 ')).toBe('人。');
+    expect(enonce('你好，')).toBe('你好。');
+    expect(enonce('春、')).toBe('春。');
+  });
+
+  it('ne change jamais ce qui se prononce : aucun mot ajouté, aucun retiré', () => {
+    for (const t of ['人', '天天', '叶公好龙', '你好，', '你好吗？', '他说：「好。」', '一', '了']) {
+      expect(hanzi(enonce(t))).toBe(hanzi(t));
+      expect(enonce(t).startsWith(t.trim().replace(/[，、]$/u, ''))).toBe(true);
+    }
+    expect(enonce('')).toBe('');
+    expect(enonce('，')).toBe('，');
+  });
+
+  it('la voix du web reçoit le point final, à la vitesse du caractère seul', async () => {
+    const s = syntheseDeVoix(APPLE);
+    configurerAudio({ synthese: () => s, fetchFn: fetchDEssai([]) });
+    (globalThis as { SpeechSynthesisUtterance?: unknown }).SpeechSynthesisUtterance = UtteranceDEssai;
+    await prononcer('人');
+    expect(s.dits).toEqual([{ text: '人。', rate: vitesse('人'), uri: 'com.apple.voice.premium.zh-CN.Lilian' }]);
+    expect(vitesse('人')).toBe(0.75);
+  });
+
+  it('la voix native aussi', async () => {
+    const dits: string[] = [];
+    const n: SyntheseNative = { voix: async () => APPLE, dire: async (t) => void dits.push(t), taire: async () => undefined };
+    configurerAudio({ natif: () => n, synthese: () => null, fetchFn: fetchDEssai([]) });
+    await voixPretes();
+    await prononcer('好');
+    expect(dits).toEqual(['好。']);
+  });
+});
+
+describe('l’énoncé retenu jusqu’à sa fin', () => {
+  beforeEach(() => {
+    (globalThis as { SpeechSynthesisUtterance?: unknown }).SpeechSynthesisUtterance = UtteranceDEssai;
+  });
+
+  it('le ramasse-miettes ne peut pas le prendre en pleine lecture : il est gardé jusqu’à end', async () => {
+    const s = syntheseDeVoix(APPLE);
+    configurerAudio({ synthese: () => s, fetchFn: fetchDEssai([]) });
+    await prononcer('人');
+    const u = enonceRetenu() as unknown as UtteranceDEssai;
+    expect(u).not.toBeNull();
+    expect(u.text).toBe('人。');
+    u.onend?.();
+    expect(enonceRetenu()).toBeNull();
+  });
+
+  it('ou jusqu’à error ; le suivant prend sa place', async () => {
+    const s = syntheseDeVoix(APPLE);
+    configurerAudio({ synthese: () => s, fetchFn: fetchDEssai([]) });
+    await prononcer('人');
+    const premier = enonceRetenu() as unknown as UtteranceDEssai;
+    premier.onerror?.();
+    expect(enonceRetenu()).toBeNull();
+    await prononcer('天天');
+    const second = enonceRetenu() as unknown as UtteranceDEssai;
+    expect(second.text).toBe('天天。');
+    /* la fin tardive du premier ne lâche pas le second */
+    premier.onend?.();
+    expect(enonceRetenu()).toBe(second);
+  });
+});
+
+/** Un lecteur qui prévient de sa fin, comme un `HTMLAudioElement`. */
+function lecteurAvecFin(): Lecteur & { finir: () => void; paused: boolean; pauses: number } {
+  const cible = new EventTarget();
+  const l = {
+    src: '',
+    currentTime: 0,
+    preload: '',
+    paused: true,
+    pauses: 0,
+    play() {
+      l.paused = false;
+      return Promise.resolve();
+    },
+    pause() {
+      l.pauses += 1;
+      l.paused = true;
+      cible.dispatchEvent(new Event('pause'));
+    },
+    /* la vraie fin : le navigateur passe à l'arrêt et dit `pause` puis `ended` ; rien ne l'a mis en pause */
+    finir() {
+      l.paused = true;
+      cible.dispatchEvent(new Event('pause'));
+      cible.dispatchEvent(new Event('ended'));
+    },
+    addEventListener: cible.addEventListener.bind(cible)
+  };
+  return l as unknown as Lecteur & { finir: () => void; paused: boolean; pauses: number };
+}
+
+describe('l’avance automatique ne coupe pas la voix', () => {
+  beforeEach(() => {
+    (globalThis as { SpeechSynthesisUtterance?: unknown }).SpeechSynthesisUtterance = UtteranceDEssai;
+  });
+
+  it('rien ne se dit : on avance tout de suite', async () => {
+    configurerAudio({ synthese: () => syntheseDeVoix(APPLE), fetchFn: fetchDEssai([]) });
+    expect(sonJoue()).toBe(false);
+    await expect(finDuSon()).resolves.toBeUndefined();
+  });
+
+  it('une bonne réponse pendant la lecture : la question suivante attend la fin de la voix, sans cancel()', async () => {
+    vi.useFakeTimers();
+    const s = syntheseDeVoix(APPLE);
+    configurerAudio({ synthese: () => s, fetchFn: fetchDEssai([]) });
+    /* « Écouter » sur 人, puis la bonne réponse ; l'avance automatique part (Ask.avancerSeul) */
+    await prononcer('人');
+    const u = enonceRetenu() as unknown as UtteranceDEssai;
+    let avance = false;
+    const suivante = finDuSon().then(async () => {
+      avance = true;
+      /* la question suivante, à l'oreille, dit son caractère */
+      await prononcer('大');
+    });
+    await vi.advanceTimersByTimeAsync(800);
+    expect(avance).toBe(false);
+    expect(s.annulations).toBe(0);
+    /* la voix finit d'elle-même */
+    u.onend?.();
+    await suivante;
+    expect(avance).toBe(true);
+    expect(s.annulations).toBe(0);
+    expect(s.dits.map((d) => d.text)).toEqual(['人。', '大。']);
+  });
+
+  it('une voix qui ne dit jamais sa fin ne bloque pas l’avance : plafond', async () => {
+    vi.useFakeTimers();
+    const s = syntheseDeVoix(APPLE);
+    configurerAudio({ synthese: () => s, fetchFn: fetchDEssai([]) });
+    await prononcer('人');
+    let avance = false;
+    void finDuSon().then(() => (avance = true));
+    await vi.advanceTimersByTimeAsync(FIN_DU_SON_MAX_MS - 1);
+    expect(avance).toBe(false);
+    await vi.advanceTimersByTimeAsync(1);
+    expect(avance).toBe(true);
+  });
+
+  it('un fichier : fini à sa vraie fin (ended), et rien ne le met en pause avant', async () => {
+    const l = lecteurAvecFin();
+    configurerAudio({ synthese: () => null, lecteur: () => l, fetchFn: fetchDEssai([]) });
+    reglerVoix('enregistree');
+    expect(await prononcer('人')).toBe('fichier');
+    expect(sonJoue()).toBe(true);
+    let fini = false;
+    const attente = finDuSon().then(() => (fini = true));
+    await Promise.resolve();
+    expect(fini).toBe(false);
+    l.finir();
+    await attente;
+    expect(fini).toBe(true);
+    expect(l.pauses).toBe(0);
+    expect(sonJoue()).toBe(false);
+  });
+
+  it('dans l’app iOS : fini quand le greffon rend la main', async () => {
+    let rendre: () => void = () => undefined;
+    const n: SyntheseNative = {
+      voix: async () => APPLE,
+      dire: () => new Promise<void>((r) => (rendre = r)),
+      taire: async () => undefined
+    };
+    configurerAudio({ natif: () => n, synthese: () => null, fetchFn: fetchDEssai([]) });
+    await voixPretes();
+    await prononcer('人');
+    expect(sonJoue()).toBe(true);
+    const attente = finDuSon();
+    rendre();
+    await attente;
+    expect(sonJoue()).toBe(false);
+  });
+
+  it('l’écran de question attend la fin de la voix avant d’avancer seul, et un tap l’annule', () => {
+    const src = readFileSync(new URL('Ask.svelte', import.meta.url), 'utf8');
+    expect(src).toContain('minuteur = setTimeout(avancerSeul, attente)');
+    const seul = src.slice(src.indexOf('function avancerSeul'));
+    expect(seul.slice(0, seul.indexOf('\n  }\n'))).toContain('finDuSon()');
+    expect(seul.slice(0, seul.indexOf('\n  }\n'))).toContain('if (moi === avances) avancer();');
+    const arreter = src.slice(src.indexOf('function arreter'));
+    expect(arreter.slice(0, arreter.indexOf('\n  }\n'))).toContain('avances += 1;');
+    /* aucun écran ne fait taire la voix en partant : seul le micro qui s'ouvre la coupe */
+    for (const f of ['Ask.svelte', 'Fix.svelte', 'Warm.svelte', 'Learn.svelte', 'Menu.svelte', 'Revisions.svelte']) {
+      expect(readFileSync(new URL(f, import.meta.url), 'utf8')).not.toMatch(/\btaire\(\)/);
+    }
   });
 });
 
@@ -603,6 +990,25 @@ describe('la session audio', () => {
     expect(session.type).toBe('playback');
     configurerAudio({ session: () => null });
     expect(reglerSession('playback')).toBe(false);
+  });
+
+  it('déjà du bon type, elle n’est pas réglée de nouveau au moment où la voix part', () => {
+    let reglages = 0;
+    let type = 'playback';
+    const session = {
+      get type() {
+        return type;
+      },
+      set type(v: string) {
+        reglages += 1;
+        type = v;
+      }
+    };
+    configurerAudio({ session: () => session });
+    expect(reglerSession('playback')).toBe(true);
+    expect(reglages).toBe(0);
+    expect(reglerSession('play-and-record')).toBe(true);
+    expect(reglages).toBe(1);
   });
 });
 

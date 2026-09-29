@@ -28,7 +28,16 @@ export function syntheseNative(): SyntheseNative | null {
   if (!voixNativeDisponible()) return null;
   return {
     voix: async () => (await TextToSpeech.getSupportedVoices()).voices,
-    /* `voice` : le rang dans la liste de `getSupportedVoices`, qui est celle d'AVSpeechSynthesisVoice. */
+    /*
+     * `voice` : le rang dans la liste de `getSupportedVoices`, qui est celle d'AVSpeechSynthesisVoice.
+     * Ce que fait le greffon (4.1, `ios/Plugin/TextToSpeech.swift`) de la fin d'une phrase : rien
+     * à régler. Il n'a pas de `queueStrategy` (chaque `speak` commence par
+     * `stopSpeaking(at: .immediate)`, d'où un seul arrêt, le sien, quand rien ne joue :
+     * `audio.taireTout`), ni de `postUtteranceDelay` ; `category` est ignoré sur iOS (la session
+     * est mise en `playback` avec `duckOthers` à son démarrage, et jamais désactivée à la fin
+     * d'une phrase). La phrase reçue finit sur un point final (`audio.enonce`), et la promesse
+     * rendue se résout à la fin de la phrase ou à son arrêt (`audio.finDuSon`).
+     */
     dire: (texte, lang, rang) => TextToSpeech.speak({ text: texte, lang, voice: rang, rate: 1, category: 'playback' }),
     taire: () => TextToSpeech.stop()
   };
