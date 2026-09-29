@@ -88,6 +88,25 @@ describe("le caractère du jour écrit, une goutte d'encre se pose", () => {
   });
 });
 
+describe('Clore : la pierre du jour se pose avec un rebond et une onde', () => {
+  const close = source('Close.svelte');
+  const css = close.slice(close.indexOf('<style>'));
+  it('elle touche le chemin, rebondit et se pose ; deux ondes partent à ce moment-là', () => {
+    expect(css).toMatch(/@keyframes poser \{[\s\S]*72% \{\s*transform: translateY\(-6px\);/);
+    expect(close).toContain('<ellipse class="onde" cx="196" cy="112"');
+    expect(close).toContain('<ellipse class="onde deux"');
+    expect(css).toMatch(/\.onde \{[^}]*stroke: var\(--mist\);[^}]*animation: onde 0\.9s ease-out 0\.79s forwards;/);
+    /* l'onde n'est jamais au cinabre, et une pierre déjà posée ne retombe pas */
+    expect(css.slice(css.indexOf('.onde {'), css.indexOf('@keyframes onde'))).not.toContain('--zhu');
+    expect(close).toMatch(/\{#if !dejaPlantee\}\s*<!--[^>]*-->\s*<ellipse class="onde"/);
+  });
+  it("s'arrête si l'on réduit les animations", () => {
+    const r = reduits(css);
+    expect(r).toMatch(/\.pose,\s*\.cercle-jour \{\s*animation: none;/);
+    expect(r).toMatch(/\.onde \{\s*display: none;/);
+  });
+});
+
 describe('au menu, Tao lève les yeux vers le caractère du jour', () => {
   const menu = source('Menu.svelte');
   const css = menu.slice(menu.indexOf('<style>'));
