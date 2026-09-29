@@ -52,11 +52,13 @@ export const FICHIER_AUDIO_DEMO = 'data/demo/audio/manifeste.json';
 /** Les manifestes essayés dans l'ordre quand aucun n'est nommé : l'export, puis la démonstration. */
 export const FICHIERS_AUDIO: readonly string[] = [FICHIER_AUDIO, FICHIER_AUDIO_DEMO];
 
-/** Ce que ce module demande à un lecteur : de quoi jouer un fichier, rien de plus. */
-export type Lecteur = Pick<HTMLAudioElement, 'src' | 'currentTime' | 'preload' | 'play' | 'pause'>;
+/** Ce que ce module demande à un lecteur : de quoi jouer un fichier, et s'il est à l'arrêt. */
+export type Lecteur = Pick<HTMLAudioElement, 'src' | 'currentTime' | 'preload' | 'play' | 'pause'> &
+  Partial<Pick<HTMLAudioElement, 'paused'>>;
 
-/** Ce que ce module demande à la synthèse du téléphone : ses voix, parler, se taire. */
-export type Synthese = Pick<SpeechSynthesis, 'getVoices' | 'speak' | 'cancel'>;
+/** Ce que ce module demande à la synthèse du téléphone : ses voix, parler, se taire, si elle parle. */
+export type Synthese = Pick<SpeechSynthesis, 'getVoices' | 'speak' | 'cancel'> &
+  Partial<Pick<SpeechSynthesis, 'speaking' | 'pending'>>;
 
 /** Une voix de l'appareil, telle que `speechSynthesis` ou le greffon natif la décrivent. */
 export type VoixAppareil = Pick<SpeechSynthesisVoice, 'lang' | 'name' | 'voiceURI' | 'localService' | 'default'>;
@@ -136,6 +138,8 @@ export function configurerAudio(
   voixAttendues = null;
   voixNatives = [];
   enonceEnCours = null;
+  dernierArret = Number.NEGATIVE_INFINITY;
+  natifEnCours = 0;
   preference = null;
   tour = 0;
   manifestes.clear();
@@ -155,13 +159,15 @@ export function poserSyntheseNative(f: () => SyntheseNative | null): void {
  * `play-and-record` le temps d'une prise au micro, `playback` ensuite. Sur iOS, ouvrir le
  * micro fait passer la session en lecture et enregistrement, avec le traitement de la voix
  * des appels ; laissée ainsi, la lecture qui suit sort étouffée, hachée ou par l'écouteur.
- * Rend `true` si la session a été réglée.
+ * Une session déjà du bon type n'est pas touchée : la régler de nouveau au moment où une voix
+ * part peut reconfigurer la sortie de l'iPhone sous elle. Rend `true` si la session est du
+ * type demandé.
  */
 export function reglerSession(type: 'play-and-record' | 'playback'): boolean {
   const s = session();
   if (s === null) return false;
   try {
-    s.type = type;
+    if (s.type !== type) s.type = type;
     return true;
   } catch {
     return false;
@@ -487,19 +493,75 @@ function retenir(u: SpeechSynthesisUtterance): void {
   u.onerror = lacher;
 }
 
-/** Fait taire tout ce qui joue : le fichier, la voix du web, la voix native. */
-function taireTout(): void {
+/**
+ * Le repos entre l'arrêt d'une voix et la suivante. WebKit (sur iOS, `cancel()` part vers
+ * AVSpeechSynthesizer, qui s'arrête de son côté), Chromium et le greffon natif traitent l'arrêt
+ * à part : un `speak` qui le suit de trop près peut être pris dans l'arrêt, et la voix neuve
+ * est coupée net ou ne dit rien. On ne laisse ce repos qu'après un vrai arrêt : quand rien ne
+ * jouait, la voix part tout de suite, dans le geste de l'apprenant.
+ */
+export const REPOS_APRES_ARRET_MS = 150;
+
+/** L'instant du dernier arrêt effectif d'un son (`taireTout`), pour le repos qui le suit. */
+let dernierArret = Number.NEGATIVE_INFINITY;
+
+/** Le nombre de phrases confiées au greffon natif qu'il n'a pas encore finies ni arrêtées. */
+let natifEnCours = 0;
+
+/**
+ * Fait taire ce qui joue : le fichier, la voix du web, la voix native. Seulement ce qui joue :
+ * un `cancel()` ou un `stop()` lancé sans raison juste avant un `speak` rognait la voix
+ * suivante (la règle « un seul son à la fois » en lançait un à chaque « Écouter », deux fois).
+ * `tout` : sans regarder ce qui joue (`taire`, l'écran qui s'en va, le micro qui s'ouvre).
+ * Rend `true` si quelque chose a été arrêté.
+ */
+function taireTout(tout = false): boolean {
+  let arrete = false;
   try {
-    if (cree) unique?.pause();
+    if (cree && unique !== null && (tout || unique.paused !== true)) {
+      unique.pause();
+      arrete = true;
+    }
   } catch {
     /* un lecteur déjà arrêté */
   }
   try {
-    synthese()?.cancel();
+    const s = synthese();
+    if (s !== null && (tout || s.speaking === true || s.pending === true)) {
+      s.cancel();
+      enonceEnCours = null;
+      arrete = true;
+    }
   } catch {
     /* rien à faire taire */
   }
-  void natif()?.taire().catch(() => undefined);
+  const n = natif();
+  if (n !== null && (tout || natifEnCours > 0)) {
+    void n.taire().catch(() => undefined);
+    arrete = true;
+  }
+  if (arrete) dernierArret = maintenant();
+  return arrete;
+}
+
+/** L'horloge du repos ; `Date.now`, que les minuteurs d'essai de Vitest savent avancer. */
+function maintenant(): number {
+  return Date.now();
+}
+
+/**
+ * Lance `parler` tout de suite, ou après le repos qui suit un arrêt (`REPOS_APRES_ARRET_MS`),
+ * si la demande `moi` n'a pas été dépassée entre-temps.
+ */
+function apresRepos(moi: number, parler: () => void): void {
+  const reste = dernierArret + REPOS_APRES_ARRET_MS - maintenant();
+  if (reste <= 0) {
+    parler();
+    return;
+  }
+  setTimeout(() => {
+    if (moi === tour) parler();
+  }, reste);
 }
 
 /**
@@ -557,10 +619,10 @@ export async function jouerSon(url: string): Promise<boolean> {
   }
 }
 
-/** Fait taire l'app : l'écran qui disait quelque chose s'en va. */
+/** Fait taire l'app : l'écran qui disait quelque chose s'en va, le micro s'ouvre. */
 export function taire(): void {
   tour += 1;
-  taireTout();
+  taireTout(true);
 }
 
 /** Dit un texte, comme `prononcer`. Rend `true` si quelque chose a été dit. */
@@ -573,8 +635,8 @@ export async function dire(texte: string, file?: string): Promise<boolean> {
  * La voix du téléphone : une seule phrase à la fois, en mandarin, par la voix classée en
  * tête (`classerVoix`), terminée par un point final (`enonce`). Dans l'app iOS, par la
  * synthèse native ; ailleurs, `speechSynthesis`, un peu ralentie (`vitesse`). Ce qui jouait
- * se tait. `moi` : le rang de la demande
- * (`prononcer`) ; un appel direct en prend un nouveau.
+ * se tait, et la voix ne part qu'après le repos qui suit cet arrêt (`apresRepos`). `moi` : le
+ * rang de la demande (`prononcer`) ; un appel direct en prend un nouveau.
  */
 export function direParLeTelephone(texte: string, moi = ++tour): boolean {
   const voix = voixMandarin();
@@ -584,7 +646,14 @@ export function direParLeTelephone(texte: string, moi = ++tour): boolean {
   if (n !== null && rang >= 0) {
     taireTout();
     reglerSession('playback');
-    void n.dire(enonce(texte), voix.lang, rang).catch(() => undefined);
+    apresRepos(moi, () => {
+      natifEnCours += 1;
+      const fini = (): void => {
+        natifEnCours = Math.max(0, natifEnCours - 1);
+      };
+      /* Le greffon rend la main à la fin de la phrase (ou à son arrêt). */
+      void n.dire(enonce(texte), voix.lang, rang).then(fini, fini);
+    });
     return true;
   }
   const s = synthese();
@@ -592,19 +661,32 @@ export function direParLeTelephone(texte: string, moi = ++tour): boolean {
   const web = s.getVoices().find((v) => v.voiceURI === voix.voiceURI && v.lang === voix.lang);
   if (!web) return false;
   taireTout();
+  let u: SpeechSynthesisUtterance;
   try {
     /* Le point final donne sa chute à la syllabe (`enonce`) ; la vitesse se lit sur le texte. */
-    const u = new SpeechSynthesisUtterance(enonce(texte));
+    u = new SpeechSynthesisUtterance(enonce(texte));
     u.voice = web;
     u.lang = web.lang;
     u.rate = vitesse(texte);
-    retenir(u);
-    s.speak(u);
-    return true;
   } catch {
     /* une voix que le navigateur refuse : rien n'est dit */
     return false;
   }
+  const parler = (): boolean => {
+    retenir(u);
+    try {
+      s.speak(u);
+      return true;
+    } catch {
+      /* une voix que le navigateur refuse : rien n'est dit */
+      enonceEnCours = null;
+      return false;
+    }
+  };
+  /* Sans arrêt juste avant, la voix part tout de suite, dans le geste : iOS l'exige la première fois. */
+  if (dernierArret + REPOS_APRES_ARRET_MS <= maintenant()) return parler();
+  apresRepos(moi, () => void parler());
+  return true;
 }
 
 /**

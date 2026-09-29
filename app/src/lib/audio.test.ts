@@ -1,4 +1,4 @@
-import { describe, it, expect, beforeEach } from 'vitest';
+import { describe, it, expect, beforeEach, afterEach, vi } from 'vitest';
 import { VERSION_DONNEES } from './content';
 import {
   FICHIER_AUDIO,
@@ -10,6 +10,7 @@ import {
   direParLeTelephone,
   enonce,
   enonceRetenu,
+  REPOS_APRES_ARRET_MS,
   POINT_FINAL,
   voixMandarin,
   voixPretes,
@@ -57,12 +58,17 @@ function lecteurDEssai(): Lecteur & { joues: string[] } {
     src: '',
     currentTime: 0,
     preload: '',
+    /* comme un navigateur : à l'arrêt tant qu'il ne joue pas, et de nouveau à la fin */
+    paused: true,
     joues: [] as string[],
-    play(this: { src: string; joues: string[] }) {
+    play(this: { src: string; joues: string[]; paused: boolean }) {
       this.joues.push(this.src);
+      this.paused = false;
       return Promise.resolve();
     },
-    pause() {}
+    pause(this: { paused: boolean }) {
+      this.paused = true;
+    }
   } as Lecteur & { joues: string[] };
 }
 
@@ -79,6 +85,9 @@ function fetchDEssai(urls: string[], document: unknown = MANIFESTE, ok = true): 
 }
 
 beforeEach(() => configurerAudio());
+afterEach(() => {
+  vi.useRealTimers();
+});
 
 describe('le manifeste audio', () => {
   it('est chargé depuis le fichier servi avec l’app', async () => {
@@ -254,7 +263,8 @@ describe('la voix du téléphone en repli', () => {
     expect(aAudio(MANIFESTE, '住')).toBe(true);
     expect(await dire('住')).toBe(true);
     expect(s.dits).toEqual(['住。']);
-    expect(s.annulations).toBeGreaterThanOrEqual(1);
+    /* rien ne jouait : rien à faire taire, pas de cancel() juste avant speak() */
+    expect(s.annulations).toBe(0);
     expect(l.joues).toEqual([]);
   });
 
@@ -283,6 +293,8 @@ function lecteurQuiEchoue(nom: string): Lecteur & { essais: number } {
     currentTime: 0,
     preload: '',
     essais: 0,
+    /* play() rejette : il ne joue jamais */
+    paused: true,
     play() {
       l.essais += 1;
       return Promise.reject(Object.assign(new Error(nom), { name: nom }));
@@ -381,20 +393,33 @@ function voix(lang: string, voiceURI = lang, localService = true, name = voiceUR
 }
 
 /** Une synthèse d'essai qui rend des voix complètes (identifiant, service). */
-function syntheseDeVoix(liste: VoixAppareil[]): Synthese & { dits: { text: string; rate: number; uri: string }[]; annulations: number } {
+function syntheseDeVoix(liste: VoixAppareil[]): Synthese & { dits: { text: string; rate: number; uri: string }[]; annulations: number; speaking: boolean } {
   const dits: { text: string; rate: number; uri: string }[] = [];
   const s = {
     dits,
     annulations: 0,
+    /* comme un navigateur : elle parle de `speak` jusqu'à la fin de l'énoncé, ou `cancel` */
+    speaking: false,
     getVoices: () => liste,
     speak: (u: SpeechSynthesisUtterance) => {
       dits.push({ text: u.text, rate: u.rate, uri: (u.voice as VoixAppareil | null)?.voiceURI ?? '' });
+      s.speaking = true;
+      const [fin, erreur] = [u.onend, u.onerror];
+      u.onend = (e) => {
+        s.speaking = false;
+        fin?.call(u, e);
+      };
+      u.onerror = (e) => {
+        s.speaking = false;
+        erreur?.call(u, e);
+      };
     },
     cancel() {
       s.annulations += 1;
+      s.speaking = false;
     }
   };
-  return s as unknown as Synthese & { dits: { text: string; rate: number; uri: string }[]; annulations: number };
+  return s as unknown as Synthese & { dits: { text: string; rate: number; uri: string }[]; annulations: number; speaking: boolean };
 }
 
 const APPLE = [
@@ -468,6 +493,8 @@ describe('la voix de l’appareil, classée', () => {
     configurerAudio({ synthese: () => s, lecteur: () => l, fetchFn: fetchDEssai([]) });
     reglerVoix('enregistree');
     expect(await prononcer('人')).toBe('fichier');
+    /* le fichier a fini : la voix part tout de suite */
+    (l as { paused: boolean }).paused = true;
     expect(await prononcer('住')).toBe('telephone');
     expect(s.dits.map((d) => d.text)).toEqual(['住。']);
   });
@@ -570,27 +597,110 @@ describe('un seul son à la fois', () => {
   });
 
   it('chaque demande fait taire ce qui jouait : le fichier et la voix de l’appareil', async () => {
+    vi.useFakeTimers();
     const s = syntheseDeVoix(APPLE);
-    const l = lecteurDEssai() as Lecteur & { joues: string[] } & { pauses?: number };
+    const l = lecteurDEssai() as Lecteur & { joues: string[]; paused: boolean };
     let pauses = 0;
     l.pause = () => {
       pauses += 1;
+      l.paused = true;
     };
     configurerAudio({ synthese: () => s, lecteur: () => l, fetchFn: fetchDEssai([]) });
     reglerVoix('enregistree');
     await prononcer('人');
-    const avant = s.annulations;
+    /* le fichier joue encore : il se tait, et la voix attend le repos qui suit l'arrêt */
     await prononcer('住');
-    expect(pauses).toBeGreaterThanOrEqual(1);
-    expect(s.annulations).toBeGreaterThan(avant);
+    expect(pauses).toBe(1);
+    expect(s.dits).toEqual([]);
+    vi.advanceTimersByTime(REPOS_APRES_ARRET_MS);
+    expect(s.dits.map((d) => d.text)).toEqual(['住。']);
+    /* la voix parle encore : elle se tait */
+    const avant = s.annulations;
+    await prononcer('人');
+    expect(s.annulations).toBe(avant + 1);
     taire();
     expect(pauses).toBeGreaterThanOrEqual(2);
+  });
+
+  it('rien ne jouait : ni cancel() ni pause() avant speak(), la voix part tout de suite', async () => {
+    const s = syntheseDeVoix(APPLE);
+    const l = lecteurDEssai() as Lecteur & { joues: string[]; paused: boolean };
+    let pauses = 0;
+    l.pause = () => void (pauses += 1);
+    configurerAudio({ synthese: () => s, lecteur: () => l, fetchFn: fetchDEssai([]) });
+    /* le lecteur existe (« Réécouter » l'a créé), à l'arrêt */
+    expect(await jouerSon('blob:wenlu/voix')).toBe(true);
+    l.paused = true;
+    expect(await prononcer('人')).toBe('telephone');
+    expect(s.dits.map((d) => d.text)).toEqual(['人。']);
+    expect(s.annulations).toBe(0);
+    expect(pauses).toBe(0);
+  });
+
+  it('deux « Écouter » rapprochés, deux caractères : un seul cancel(), et la seconde voix attend le repos', async () => {
+    vi.useFakeTimers();
+    const s = syntheseDeVoix(APPLE);
+    configurerAudio({ synthese: () => s, fetchFn: fetchDEssai([]) });
+    await prononcer('人');
+    expect(s.dits.map((d) => d.text)).toEqual(['人。']);
+    await prononcer('大');
+    expect(s.annulations).toBe(1);
+    expect(s.dits).toHaveLength(1);
+    vi.advanceTimersByTime(REPOS_APRES_ARRET_MS - 1);
+    expect(s.dits).toHaveLength(1);
+    vi.advanceTimersByTime(1);
+    expect(s.dits.map((d) => d.text)).toEqual(['人。', '大。']);
+    expect(s.annulations).toBe(1);
+  });
+
+  it('une demande dépassée pendant le repos ne parle plus', async () => {
+    vi.useFakeTimers();
+    const s = syntheseDeVoix(APPLE);
+    configurerAudio({ synthese: () => s, fetchFn: fetchDEssai([]) });
+    await prononcer('人');
+    await prononcer('大');
+    taire();
+    vi.advanceTimersByTime(REPOS_APRES_ARRET_MS * 2);
+    expect(s.dits.map((d) => d.text)).toEqual(['人。']);
+  });
+
+  it('dans l’app iOS, le greffon n’est arrêté que s’il parle, et la phrase suivante attend le repos', async () => {
+    vi.useFakeTimers();
+    const appels: string[] = [];
+    let finir: () => void = () => undefined;
+    const n: SyntheseNative = {
+      voix: async () => APPLE,
+      dire: (t) => {
+        appels.push(`dire ${t}`);
+        return new Promise<void>((r) => (finir = r));
+      },
+      taire: async () => {
+        appels.push('stop');
+        finir();
+      }
+    };
+    configurerAudio({ natif: () => n, synthese: () => null, session: () => ({ type: 'playback' }), fetchFn: fetchDEssai([]) });
+    await voixPretes();
+    await prononcer('人');
+    expect(appels).toEqual(['dire 人。']);
+    /* 人 parle encore : il s'arrête, 好 attend le repos */
+    await prononcer('好');
+    expect(appels).toEqual(['dire 人。', 'stop']);
+    vi.advanceTimersByTime(REPOS_APRES_ARRET_MS);
+    expect(appels).toEqual(['dire 人。', 'stop', 'dire 好。']);
+    /* 好 a fini (le greffon rend la main) : 天 part sans stop() */
+    finir();
+    await vi.advanceTimersByTimeAsync(0);
+    await prononcer('天');
+    expect(appels).toEqual(['dire 人。', 'stop', 'dire 好。', 'dire 天。']);
   });
 
   it('« Réécouter » joue un son en mémoire sur le même lecteur, et fait taire la voix', async () => {
     const s = syntheseDeVoix(APPLE);
     const l = lecteurDEssai();
     configurerAudio({ synthese: () => s, lecteur: () => l });
+    /* la voix de référence parle encore */
+    s.speaking = true;
     const avant = s.annulations;
     expect(await jouerSon('blob:wenlu/voix')).toBe(true);
     expect(l.joues).toEqual(['blob:wenlu/voix']);
@@ -694,6 +804,25 @@ describe('la session audio', () => {
     expect(session.type).toBe('playback');
     configurerAudio({ session: () => null });
     expect(reglerSession('playback')).toBe(false);
+  });
+
+  it('déjà du bon type, elle n’est pas réglée de nouveau au moment où la voix part', () => {
+    let reglages = 0;
+    let type = 'playback';
+    const session = {
+      get type() {
+        return type;
+      },
+      set type(v: string) {
+        reglages += 1;
+        type = v;
+      }
+    };
+    configurerAudio({ session: () => session });
+    expect(reglerSession('playback')).toBe(true);
+    expect(reglages).toBe(0);
+    expect(reglerSession('play-and-record')).toBe(true);
+    expect(reglages).toBe(1);
   });
 });
 
