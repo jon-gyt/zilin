@@ -688,6 +688,42 @@ export function premierSens(fr: string): string {
     .replace(/\s*\((clé|composant)\)$/u, '');
 }
 
+/** Un sinogramme, de n'importe quel bloc. */
+const HAN = /\p{Script=Han}/u;
+
+/**
+ * Le sens tel qu'un choix de la question `sens` le montre : sans ce qui est entre
+ * parenthèses. La note d'atelier (« parole (clé) », « haut de 要 (composant) ») désignait
+ * la clé parmi quatre caractères qui n'en portent pas, et une seule précision entre
+ * parenthèses désignait la réponse par sa forme (« tôt, matin, bonjour (le matin) »). La
+ * correction redonne le sens entier. Rien n'est rédigé : on retire, on ne réécrit pas. Un
+ * sens tout entier entre parenthèses reste tel quel.
+ */
+export function sensDuChoix(fr: string): string {
+  let prof = 0;
+  let out = '';
+  for (const x of fr) {
+    if (x === '(') prof += 1;
+    else if (x === ')') prof = Math.max(0, prof - 1);
+    else if (prof === 0) out += x;
+  }
+  const net = out
+    .replace(/\s+([,;])/g, '$1')
+    .replace(/\s{2,}/g, ' ')
+    .replace(/[,;]\s*$/u, '')
+    .trim();
+  return net === '' ? fr.trim() : net;
+}
+
+/**
+ * Un sens qui cite un caractère (« haut de 青 », « vieillesse, haut de 老 ») décrit un
+ * composant : parmi des sens de mots, il se repère à sa seule forme. Les leurres d'une
+ * question `sens` sont de la même nature que la réponse.
+ */
+export function citeUnCaractere(sens: string): boolean {
+  return HAN.test(sens);
+}
+
 /**
  * La fiche de correction. Le texte n'est pas rédigé ici : il assemble ce que le pipeline
  * `data/` a produit (pinyin, sens, origine) autour de la décomposition canonique.
@@ -754,7 +790,9 @@ export function question(
   const q = base(f, type, corpus);
 
   if (type === 'sens') {
-    const bonne = f.fr;
+    /* Les choix se ressemblent par la forme : sans parenthèses, et de la même nature. */
+    const bonne = sensDuChoix(f.fr);
+    const nature = citeUnCaractere(bonne);
     const sens = choisirLeurres(
       [f.c],
       candidatsCaracteres(f.c, corpus, false),
@@ -762,7 +800,10 @@ export function question(
       g,
       NB_LEURRES,
       [f.c],
-      (c) => fiche(c, corpus)?.fr ?? '',
+      (c) => {
+        const x = sensDuChoix(fiche(c, corpus)?.fr ?? '');
+        return citeUnCaractere(x) === nature ? x : '';
+      },
       [bonne]
     );
     q.enonce = 'Que veut dire ce caractère ?';

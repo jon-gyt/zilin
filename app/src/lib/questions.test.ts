@@ -21,6 +21,8 @@ import {
   marquerTon,
   motDuTrou,
   outcomeDuTrace,
+  sensDuChoix,
+  citeUnCaractere,
   tonDe,
   premierSens,
   syllabesDuTon,
@@ -995,6 +997,47 @@ describe('rien ne souffle la réponse avant qu’on réponde', () => {
     const seul = { ...hao, mots: [redouble] };
     expect(motDuTrou(seul, CORPUS)).toBeNull();
     expect(typesPossibles(seul, { ...CORPUS, voix: true })).not.toContain('trou');
+  });
+
+  it('au sens, aucun choix ne se désigne par ses parenthèses ou sa note d’atelier', () => {
+    expect(sensDuChoix('eau (clé)')).toBe('eau');
+    expect(sensDuChoix('tôt, matin, bonjour (le matin)')).toBe('tôt, matin, bonjour');
+    expect(sensDuChoix('ans (âge), année')).toBe('ans, année');
+    const cle = f('氵', 'shuǐ', 'eau (clé)', [], 'sens', '');
+    const fiches = [
+      ...FICHES,
+      cle,
+      f('水', 'shuǐ', 'eau', [], 'sens', ''),
+      f('汉', 'hàn', 'Han, chinois (peuple)', ['氵', '又'], 'sens', ''),
+      f('没', 'méi', 'ne pas avoir', ['氵', '殳'], 'sens', ''),
+      f('酒', 'jiǔ', 'alcool, vin', ['氵', '酉'], 'sens', '')
+    ];
+    const corpus: Corpus = { ...CORPUS, fiches, acquis: fiches.map((x) => ({ c: x.c, stabilite: 10 })) };
+    for (const g of ['a', 'b', 'c', 'd', 'e']) {
+      const q = question(cle, 'sens', corpus, g);
+      expect(q.reponse).toEqual(['eau']);
+      for (const x of q.choix) expect(x, g).not.toMatch(/[()]/);
+      /* 水 dit aussi « eau » : deux bonnes réponses n’en font pas une, il n’est pas proposé. */
+      expect(q.choix.filter((x) => x === 'eau')).toHaveLength(1);
+    }
+  });
+
+  it('au sens, les leurres sont de la même nature que la réponse : un composant contre des composants', () => {
+    const fiches = [
+      ...FICHES,
+      f('龶', '', 'haut de 青 (composant)', [], 'forme', ''),
+      f('覀', '', 'haut de 要 (composant)', [], 'forme', ''),
+      f('⺌', '', 'haut de 尚 (composant)', [], 'forme', ''),
+      f('㠯', '', 'bas de 官 (composant)', [], 'forme', '')
+    ];
+    const corpus: Corpus = { ...CORPUS, fiches, acquis: fiches.map((x) => ({ c: x.c, stabilite: 10 })) };
+    const composant = question(fiches.find((x) => x.c === '龶') as Fiche, 'sens', corpus, 'g');
+    expect(composant.leurres.length).toBe(3);
+    for (const x of composant.choix) expect(citeUnCaractere(x), x).toBe(true);
+    /* « haut de 要 » parmi des sens de mots se repère à sa forme : jamais un leurre pour 好. */
+    for (const g of ['a', 'b', 'c', 'd', 'e']) {
+      for (const x of question(fiche('好'), 'sens', corpus, g).choix) expect(citeUnCaractere(x), x).toBe(false);
+    }
   });
 
 });
