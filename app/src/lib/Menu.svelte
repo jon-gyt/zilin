@@ -7,6 +7,10 @@
    * son identifiant d'origine, `foret` : aucune migration. Son titre vient de `ecrans.json`.
    */
   export type CaseId = 'reviser' | 'jouer' | 'lire' | 'foret';
+  /** La pile due au dernier passage au menu, le temps que l'app est ouverte : le décompte part de là. */
+  let dusAuMenu: number | null = null;
+  /** Le terme dont la feuille a déjà traversé l'en-tête, le temps que l'app est ouverte. */
+  let termePasse = '';
   export const CASES: readonly { id: CaseId; c: string; t: string }[] = [
     { id: 'reviser', c: '温', t: 'Réviser' },
     { id: 'jouer', c: '玩', t: 'Jouer' },
@@ -71,7 +75,7 @@
   import { glyph, type StrokeData } from './glyph';
   import { MINUTES_MAX, MINUTES_MIN, devinetteAAnnoncer, propose } from './jeux';
   import { ANNONCE_LETTRE, lettreAnnoncee } from './lettres';
-  import { caseReviser, carteDuMenu, menu, traitsDeLAjout } from './parcours';
+  import { caseReviser, carteDuMenu, decompte, menu, traitsDeLAjout } from './parcours';
   import { familleDepart, fichesDepart } from './premiere';
   import { jourDeDemain, premierSens } from './route';
   import { cartesDues, jourParcours, type ExamenDuMenu, type Progress } from './session';
@@ -376,12 +380,69 @@
   });
 
   const reviser = $derived(caseReviser(p));
+
+  /**
+   * Le jour où un terme solaire commence, une feuille, à la couleur du décor de l'ambiance,
+   * traverse l'en-tête une fois, de droite à gauche, au premier passage au menu. Derrière la
+   * marque et les icônes, jamais touchée ; rien si l'on réduit les animations, ni un jour de
+   * fête.
+   */
+  const feuilleDuTerme = $derived(terme !== null && terme.commence && fete === null && termePasse !== terme.id);
+  $effect(() => {
+    if (feuilleDuTerme && terme) {
+      const id = terme.id;
+      const t = setTimeout(() => (termePasse = id), 5000);
+      return () => {
+        clearTimeout(t);
+        termePasse = id;
+      };
+    }
+  });
+
+  /**
+   * La pile a baissé depuis le dernier passage au menu (une révision de plus, un bloc de
+   * rattrapage) : le compte de la case Réviser se décompte doucement jusqu'au nouveau, un
+   * pas tous les 90 ms, après un court temps pour qu'on le voie. Rien ne s'attend : la case
+   * se touche tout du long. Sans animation, le nouveau compte d'emblée.
+   */
+  let decompteDu = $state<number | null>(null);
+  $effect(() => {
+    const n = p.due;
+    const avant = dusAuMenu;
+    dusAuMenu = n;
+    const immobile = typeof matchMedia === 'function' && matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const pas = avant === null || immobile ? [] : decompte(avant, n);
+    if (pas.length === 0) {
+      decompteDu = null;
+      return;
+    }
+    decompteDu = pas[0];
+    let k = 0;
+    let t: ReturnType<typeof setInterval> | undefined;
+    const depart = setTimeout(() => {
+      t = setInterval(() => {
+        k += 1;
+        if (k >= pas.length) {
+          clearInterval(t);
+          decompteDu = null;
+        } else decompteDu = pas[k];
+      }, 90);
+    }, 450);
+    return () => {
+      clearTimeout(depart);
+      clearInterval(t);
+    };
+  });
+  /** Ce que dit la case Réviser, le compte en cours de décompte compris. */
+  const infoReviser = $derived(
+    decompteDu !== null && reviser.action !== 'echauffer' ? caseReviser({ ...p, due: decompteDu }).info : reviser.info
+  );
   const lus = $derived(caracteresLus(familles, p.cartes));
   /** Le rang tenu : les points et les examens (« Points ET examen », story 8.5). */
   const rangHeros = $derived(rangTenu(rangsHeros, meriteDe(p, lus)));
 
   function info(id: CaseId): string {
-    if (id === 'reviser') return reviser.info;
+    if (id === 'reviser') return infoReviser;
     if (id === 'jouer') {
       if (propose(p, p.day)) return 'Tao propose un jeu';
       return vois('jeu-devinette') && devinetteAAnnoncer(p, devinettes)
@@ -410,6 +471,12 @@
 
 <main class="menu">
   <header class="mhead">
+    {#if feuilleDuTerme}
+      <!-- le terme commence : une feuille traverse l'en-tête, une fois -->
+      <span class="passe-terme" aria-hidden="true">
+        <svg viewBox="0 0 20 12"><path d="M1 6Q7-1 19 6Q7 13 1 6Z" /><path class="nervure" d="M3 6H16" /></svg>
+      </span>
+    {/if}
     {#if fete}
       <div class="marque"><Voeu {fete} pistes={fetes ? pistesFete(fetes, '福') : []} onouvrir={onanecdote} /></div>
     {:else}
@@ -656,6 +723,7 @@
 
   /* ---- l'en-tête ---- */
   .mhead {
+    position: relative;
     display: flex;
     align-items: center;
     min-height: 44px;
@@ -1160,6 +1228,61 @@
   @media (prefers-reduced-motion: reduce) {
     .marcheur :global(.tao .yeux) {
       animation: none;
+    }
+  }
+
+  /* La feuille du terme qui commence : elle entre à droite, ondule en tournant et sort à
+     gauche, une fois. Sa couleur est celle du décor de l'ambiance, sinon la brume. */
+  .passe-terme {
+    position: absolute;
+    inset: 0 -20px 0 0;
+    overflow: hidden;
+    pointer-events: none;
+    z-index: -1;
+  }
+  .passe-terme svg {
+    position: absolute;
+    top: 14px;
+    right: -24px;
+    width: 18px;
+    height: 11px;
+    opacity: 0;
+    animation: passe-terme 3.4s ease-in-out 0.9s forwards;
+  }
+  .passe-terme path {
+    fill: var(--s-feuille, var(--s-fleur, var(--s-luciole, var(--s-rosee, var(--s-neige-bleu, var(--s-pluie, var(--s-duvet-fil, var(--mist))))))));
+  }
+  .passe-terme .nervure {
+    fill: none;
+    stroke: var(--card);
+    stroke-width: 0.8;
+    opacity: 0.6;
+  }
+  @keyframes passe-terme {
+    0% {
+      opacity: 0;
+      transform: translate(0, -6px) rotate(10deg);
+    }
+    8% {
+      opacity: 0.9;
+    }
+    30% {
+      transform: translate(-120px, 10px) rotate(-30deg);
+    }
+    60% {
+      transform: translate(-250px, -2px) rotate(20deg);
+    }
+    92% {
+      opacity: 0.9;
+    }
+    100% {
+      opacity: 0;
+      transform: translate(-420px, 14px) rotate(-40deg);
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .passe-terme {
+      display: none;
     }
   }
 </style>

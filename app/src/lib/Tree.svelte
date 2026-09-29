@@ -205,6 +205,9 @@
           <rect class="mur" x="-16" y="-24" width="32" height="22" />
           <rect class="porte-auberge" x="-5" y="-16" width="10" height="14" rx="1" />
           <path class="toit" d="M-23 -23q7-2 11-10h24q4 8 11 10z" />
+          <!-- l'auberge est ouverte : un filet de fumée monte du toit et s'efface -->
+          <path class="fumee" d="M6 -34q-3-4 0-8t0-8" />
+          <path class="fumee deux" d="M6 -34q-3-4 0-8t0-8" />
           <path class="mat" d="M21 -1V-54" />
           <!-- le fanion flotte au vent : sa brique et son sceau avec lui -->
           <g class="flotte">
@@ -491,6 +494,40 @@
   @media (prefers-reduced-motion: reduce) {
     .imprime {
       animation: none;
+    }
+  }
+
+  /* La fumée de l'auberge : deux filets qui montent du toit, s'élargissent un peu et
+     s'effacent, l'un après l'autre. À la brume, jamais un aplat. */
+  .fumee {
+    fill: none;
+    stroke: var(--mist);
+    stroke-width: 2;
+    stroke-linecap: round;
+    opacity: 0;
+    transform-box: fill-box;
+    transform-origin: 50% 100%;
+    animation: fumer 3.6s ease-out infinite;
+  }
+  .fumee.deux {
+    animation-delay: 1.8s;
+  }
+  @keyframes fumer {
+    0% {
+      opacity: 0;
+      transform: none;
+    }
+    25% {
+      opacity: 0.7;
+    }
+    100% {
+      opacity: 0;
+      transform: translateY(-10px) scale(1.3);
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .fumee {
+      display: none;
     }
   }
 

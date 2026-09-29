@@ -143,6 +143,18 @@ export function caseReviser(p: Progress): CaseReviser {
   return { info: p.due > 0 ? cartes(p.due) : 'À jour, rien de dû', action: 'libre' };
 }
 
+/**
+ * Le compte de la case Réviser, quand la pile a baissé depuis le dernier passage au menu :
+ * les valeurs à montrer l'une après l'autre, de l'ancienne à la nouvelle, huit pas au plus
+ * (un grand écart se décompte par sauts). Rien quand la pile n'a pas baissé : le compte
+ * ne monte jamais sous les yeux, il ne presse pas.
+ */
+export function decompte(de: number, a: number, max = 8): number[] {
+  if (!(de > a) || a < 0) return [];
+  const n = Math.min(max, de - a);
+  return Array.from({ length: n + 1 }, (_, k) => Math.round(de - ((de - a) * k) / n));
+}
+
 /** Ouvre la session au pas Échauffer : l'anecdote, déjà vue à l'ouverture, est faite. */
 export function versEchauffer(p: Progress, jour: string): Progress {
   const s = currentStep(p);
