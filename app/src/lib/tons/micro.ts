@@ -8,8 +8,9 @@
  * (`app/ios-template/patch.rb`). Sur le web, `getUserMedia` exige HTTPS (GitHub Pages le
  * donne) et le navigateur pose sa propre question.
  *
- * Rien ne sort de l'appareil : le son capté reste en mémoire le temps de l'analyse
- * (`classifieur.analyser`), puis il est jeté ; aucune requête réseau.
+ * Rien ne sort de l'appareil : le son capté reste en mémoire le temps de la question, pour
+ * l'analyse (`classifieur.analyser`) et pour « Réécouter » (`reecoute.ts`), puis il est jeté ;
+ * aucune requête réseau.
  *
  * La session audio (retour du propriétaire du 29 septembre 2026 : « la voix chinoise est
  * coupée, comme s'il y avait un autre son derrière ») : sur iOS, ouvrir le micro fait passer
@@ -174,8 +175,12 @@ export class Detecteur {
 
 /* ---------- la prise de son ---------- */
 
-/** Ce que la prise rend : le son mono à 16 kHz, et si une voix y a été entendue. */
-export type Enregistrement = { x: Float32Array; sr: number; voix: boolean };
+/**
+ * Ce que la prise rend : le son mono à 16 kHz pour l'analyse, et si une voix y a été
+ * entendue ; le son tel que capté (`brut`, à `srBrut`), pour « Réécouter ». Rien n'en est
+ * gardé au-delà de la question.
+ */
+export type Enregistrement = { x: Float32Array; sr: number; voix: boolean; brut: Float32Array; srBrut: number };
 
 /** Une prise en cours : `arreter` la clôt (on relâche le bouton), `fin` rend le son. */
 export type Prise = { arreter: () => void; fin: Promise<Enregistrement>; detecteur: Detecteur };
@@ -269,7 +274,7 @@ export async function ecouter(surNiveau: (n: number) => void = () => undefined):
       o += b.length;
     }
     blocs.length = 0;
-    rendre({ x: reechantillonner(x, ctx.sampleRate, 16000), sr: 16000, voix: detecteur.voix });
+    rendre({ x: reechantillonner(x, ctx.sampleRate, 16000), sr: 16000, voix: detecteur.voix, brut: x, srBrut: ctx.sampleRate });
   }
 
   if (ctx.audioWorklet && typeof AudioWorkletNode !== 'undefined') {

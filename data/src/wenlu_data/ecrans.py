@@ -154,6 +154,8 @@ ECRANS: dict[str, dict[str, tuple[str, ...]]] = {
         "refuse": (),
         "absent": (),
         "indisponible": (),
+        "reecouter": (),
+        "reecouter-aide": (),
         "voix": (),
         "voix-aide": (),
         "voix-appareil": (),

@@ -12,12 +12,13 @@ import {
   voixPretes,
   classerVoix,
   estContinent,
+  jouerSon,
   qualiteVoix,
   reglerSession,
   reglerVoix,
   relireVoix,
-  vitesse,
   taire,
+  vitesse,
   voixChoisie,
   voixParDefaut,
   type SyntheseNative,
@@ -581,6 +582,15 @@ describe('un seul son à la fois', () => {
     expect(pauses).toBeGreaterThanOrEqual(2);
   });
 
+  it('« Réécouter » joue un son en mémoire sur le même lecteur, et fait taire la voix', async () => {
+    const s = syntheseDeVoix(APPLE);
+    const l = lecteurDEssai();
+    configurerAudio({ synthese: () => s, lecteur: () => l });
+    const avant = s.annulations;
+    expect(await jouerSon('blob:wenlu/voix')).toBe(true);
+    expect(l.joues).toEqual(['blob:wenlu/voix']);
+    expect(s.annulations).toBe(avant + 1);
+  });
 });
 
 describe('la session audio', () => {

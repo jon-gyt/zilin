@@ -126,6 +126,8 @@ export const CLES_DIRE = [
   'refuse',
   'absent',
   'indisponible',
+  'reecouter',
+  'reecouter-aide',
   'voix',
   'voix-aide',
   'voix-appareil',

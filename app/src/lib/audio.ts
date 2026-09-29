@@ -482,6 +482,25 @@ export async function prononcer(texte: string, file?: string): Promise<Dit> {
   return refuse ? 'bloque' : 'muet';
 }
 
+/**
+ * Joue un son déjà en mémoire (l'enregistrement de l'apprenant, « Réécouter »), par l'URL
+ * locale d'un `Blob`, sur le même lecteur : ce qui jouait se tait. Rend `true` s'il joue.
+ */
+export async function jouerSon(url: string): Promise<boolean> {
+  const moi = ++tour;
+  taireTout();
+  const l = lecteur();
+  if (l === null) return false;
+  l.src = url;
+  l.currentTime = 0;
+  try {
+    await l.play();
+    return moi === tour;
+  } catch {
+    return false;
+  }
+}
+
 /** Fait taire l'app : l'écran qui disait quelque chose s'en va. */
 export function taire(): void {
   tour += 1;

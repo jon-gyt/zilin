@@ -33,6 +33,8 @@
 #   « Dire les tons » et son bouton « Essayer maintenant », et ce qu'il dit d'un micro refusé
 #   ou absent ;
 # - `indisponible` : les poids du classifieur ne se chargent pas, la question ne se pose pas ;
+# - `reecouter`, `reecouter-aide` : le bouton qui rejoue la voix de l'apprenant après chaque
+#   prise, et son nom pour les lecteurs d'écran (retour du propriétaire du 29 septembre 2026) ;
 # - `voix`, `voix-aide`, `voix-appareil`, `voix-enregistree`, `voix-appareil-nom`,
 #   `voix-sans-appareil`, `voix-comment`, `voix-etapes` : le réglage « Voix » (décision du
 #   propriétaire du 29 septembre 2026, brief §7) : la voix de l'appareil, `{nom}` de la voix
@@ -96,6 +98,8 @@ essayer-aide	Un caractère acquis au hasard ; rien n'est noté.	rédigé pour l'
 refuse	Le micro est fermé à Wenlu : la question ne se pose pas. Pour le rouvrir, passe par les réglages du téléphone, puis rallume « Dire les tons ».	rédigé pour l'app
 absent	Pas de micro ici : la question ne se pose pas.	rédigé pour l'app
 indisponible	La reconnaissance des tons ne se charge pas ici : la question ne se pose pas.	rédigé pour l'app
+reecouter	Réécouter	rédigé pour l'app
+reecouter-aide	Réécouter ta voix, gardée sur ton téléphone le temps de la question	rédigé pour l'app
 voix	Voix	rédigé pour l'app
 voix-aide	La voix qui dit les caractères et les mots, sans réseau.	rédigé pour l'app
 voix-appareil	Voix de l'appareil	rédigé pour l'app
