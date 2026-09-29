@@ -1,0 +1,1387 @@
+{
+ "niveau": "2",
+ "lot": "16",
+ "source": "rédigé pour l'app dans le pipeline wenlu, sans API ; faits lus : liste HSK 3.0 (forme, pinyin, niveau, catégorie), lectures d'Unihan et des surcharges, gloses relues des fiches",
+ "brouillon": "data/sources/dico-brouillons/2/16.json",
+ "generation": {
+  "modele": "rédaction manuelle",
+  "api": "session Claude Code (sans API)",
+  "date": "2026-09-29",
+  "empreinte_invite": "sha256:a197079f7fed46bdc3dda112911e9bc042922965d57f3db73d782785efec5221",
+  "contexte": "wenlu dico contexte 2 16",
+  "essais": 1,
+  "refus": []
+ },
+ "entrees": [
+  {
+   "id": "L2-0659",
+   "genre": "mot",
+   "hanzi": "椅子",
+   "pinyin": "yǐzi",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "chaise",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "chaise"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这个椅子很舒服。",
+     "pinyin": "Zhège yǐzi hěn shūfu.",
+     "fr": "On est bien assis sur cette chaise.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "般",
+   "genre": "caractere",
+   "hanzi": "般",
+   "pinyin": "bān",
+   "sens": {
+    "glose": "sorte, genre, manière",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "sorte, genre, manière"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": []
+  },
+  {
+   "id": "L2-0660",
+   "genre": "mot",
+   "hanzi": "一般",
+   "pinyin": "yībān",
+   "categories": [
+    "Adj"
+   ],
+   "sens": {
+    "glose": "ordinaire ; en général",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "ordinaire, moyen ; en général, d'habitude"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "我一般七点起床。",
+     "pinyin": "Wǒ yībān qī diǎn qǐchuáng.",
+     "fr": "En général, je me lève à sept heures.",
+     "statut": "a_relire"
+    },
+    {
+     "zh": "这个菜很一般。",
+     "pinyin": "Zhège cài hěn yībān.",
+     "fr": "Ce plat est quelconque.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L2-0661",
+   "genre": "mot",
+   "hanzi": "一点点",
+   "pinyin": "yī diǎndiǎn",
+   "sens": {
+    "glose": "un tout petit peu",
+    "acceptions": [
+     {
+      "categorie": "M",
+      "fr": "un tout petit peu"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "我只会说一点点汉语。",
+     "pinyin": "Wǒ zhǐ huì shuō yī diǎndiǎn Hànyǔ.",
+     "fr": "Je ne parle presque pas chinois.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L2-0662",
+   "genre": "mot",
+   "hanzi": "一生",
+   "pinyin": "yīshēng",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "toute la vie",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "toute la vie, une vie entière"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他的一生都在教书。",
+     "pinyin": "Tā de yīshēng dōu zài jiāo shū.",
+     "fr": "Il a enseigné jusqu'à la fin de ses jours.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "直",
+   "genre": "caractere",
+   "hanzi": "直",
+   "pinyin": "zhí",
+   "mots": [
+    "L3-0906"
+   ],
+   "sens": {
+    "glose": "droit ; direct ; tout droit",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "droit ; franc, direct"
+     },
+     {
+      "categorie": "Adv",
+      "fr": "tout droit, directement ; sans cesse"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这条路很直。",
+     "pinyin": "Zhè tiáo lù hěn zhí.",
+     "fr": "Cette route est toute droite.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L2-0663",
+   "genre": "mot",
+   "hanzi": "一直",
+   "pinyin": "yīzhí",
+   "categories": [
+    "Adv"
+   ],
+   "sens": {
+    "glose": "tout droit ; toujours, sans arrêt",
+    "acceptions": [
+     {
+      "categorie": "Adv",
+      "fr": "tout droit"
+     },
+     {
+      "categorie": "Adv",
+      "fr": "toujours, sans arrêt, depuis toujours"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "雨一直下。",
+     "pinyin": "Yǔ yīzhí xià.",
+     "fr": "Il n'a pas arrêté de pleuvoir.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "亿",
+   "genre": "caractere",
+   "hanzi": "亿",
+   "pinyin": "yì",
+   "mots": [
+    "L2-0664"
+   ],
+   "sens": {
+    "glose": "cent millions",
+    "acceptions": [
+     {
+      "categorie": "Num",
+      "fr": "cent millions"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "中国有十四亿人。",
+     "pinyin": "Zhōngguó yǒu shísì yì rén.",
+     "fr": "La Chine compte 1,4 milliard d'habitants.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L2-0665",
+   "genre": "mot",
+   "hanzi": "意见",
+   "pinyin": "yìjian",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "avis, opinion ; objection",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "avis, opinion, suggestion"
+     },
+     {
+      "categorie": "N",
+      "fr": "objection, grief"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "你有什么意见？",
+     "pinyin": "Nǐ yǒu shénme yìjian?",
+     "fr": "Tu en penses quoi ?",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L2-0666",
+   "genre": "mot",
+   "hanzi": "意思",
+   "pinyin": "yìsi",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "sens, signification ; intérêt",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "sens, signification"
+     },
+     {
+      "categorie": "N",
+      "fr": "intention ; intérêt, plaisir"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这个字是什么意思？",
+     "pinyin": "Zhège zì shì shénme yìsi?",
+     "fr": "Que veut dire ce caractère ?",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "因",
+   "genre": "caractere",
+   "hanzi": "因",
+   "pinyin": "yīn",
+   "mots": [
+    "L6-0968"
+   ],
+   "sens": {
+    "glose": "cause, parce que",
+    "acceptions": [],
+    "statut": "relu",
+    "provenance": {
+     "reprise": "data/sources/fiches/因.json",
+     "champ": "sens_fr"
+    }
+   },
+   "exemples": [
+    {
+     "zh": "他因病没来。",
+     "pinyin": "Tā yīn bìng méi lái.",
+     "fr": "Il n'est pas venu pour cause de maladie.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L2-0667",
+   "genre": "mot",
+   "hanzi": "因为",
+   "pinyin": "yīnwei",
+   "categories": [
+    "Conj",
+    "Prep"
+   ],
+   "sens": {
+    "glose": "parce que ; à cause de",
+    "acceptions": [
+     {
+      "categorie": "Conj",
+      "fr": "parce que"
+     },
+     {
+      "categorie": "Prep",
+      "fr": "à cause de"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "因为下雨，我们没去。",
+     "pinyin": "Yīnwei xià yǔ, wǒmen méi qù.",
+     "fr": "Comme il pleuvait, nous n'y sommes pas allés.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "阴",
+   "genre": "caractere",
+   "hanzi": "阴",
+   "pinyin": "yīn",
+   "mots": [
+    "L2-0668"
+   ],
+   "sens": {
+    "glose": "couvert, nuageux ; yin",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "couvert, nuageux, sombre"
+     },
+     {
+      "categorie": "N",
+      "fr": "principe yin ; ombre"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "今天天阴了。",
+     "pinyin": "Jīntiān tiān yīn le.",
+     "fr": "Le ciel s'est couvert aujourd'hui.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L2-0669",
+   "genre": "mot",
+   "hanzi": "阴天",
+   "pinyin": "yīntiān",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "temps couvert",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "temps couvert, ciel gris"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "明天是阴天。",
+     "pinyin": "Míngtiān shì yīntiān.",
+     "fr": "Demain, le ciel sera gris.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L2-0670",
+   "genre": "mot",
+   "hanzi": "音节",
+   "pinyin": "yīnjié",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "syllabe",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "syllabe"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这个词有两个音节。",
+     "pinyin": "Zhège cí yǒu liǎng ge yīnjié.",
+     "fr": "Ce mot a deux syllabes.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L2-0671",
+   "genre": "mot",
+   "hanzi": "音乐",
+   "pinyin": "yīnyuè",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "musique",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "musique"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "你喜欢什么音乐？",
+     "pinyin": "Nǐ xǐhuan shénme yīnyuè?",
+     "fr": "Qu'est-ce que tu écoutes comme genre ?",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L2-0672",
+   "genre": "mot",
+   "hanzi": "音乐会",
+   "pinyin": "yīnyuèhuì",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "concert",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "concert"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "明天晚上我们去听音乐会。",
+     "pinyin": "Míngtiān wǎnshang wǒmen qù tīng yīnyuèhuì.",
+     "fr": "Demain soir, nous allons au concert.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "银",
+   "genre": "caractere",
+   "hanzi": "银",
+   "pinyin": "yín",
+   "mots": [
+    "L3-0843"
+   ],
+   "sens": {
+    "glose": "argent (métal)",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "argent, le métal"
+     },
+     {
+      "categorie": "Adj",
+      "fr": "argenté"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这是银的。",
+     "pinyin": "Zhè shì yín de.",
+     "fr": "C'est en argent.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L2-0673",
+   "genre": "mot",
+   "hanzi": "银行",
+   "pinyin": "yínháng",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "banque",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "banque"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "银行几点关门？",
+     "pinyin": "Yínháng jǐ diǎn guān mén?",
+     "fr": "À quelle heure ferme la banque ?",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L2-0674",
+   "genre": "mot",
+   "hanzi": "银行卡",
+   "pinyin": "yínhángkǎ",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "carte bancaire",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "carte bancaire"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "我的银行卡不见了。",
+     "pinyin": "Wǒ de yínhángkǎ bùjiàn le.",
+     "fr": "Je ne trouve plus ma carte bleue.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L2-0675",
+   "genre": "mot",
+   "hanzi": "应该",
+   "pinyin": "yīnggāi",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "devoir, il faudrait",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "devoir, il faudrait ; normalement"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "你应该早点儿睡觉。",
+     "pinyin": "Nǐ yīnggāi zǎo diǎnr shuìjiào.",
+     "fr": "Tu devrais te coucher plus tôt.",
+     "statut": "a_relire"
+    },
+    {
+     "zh": "他应该到了。",
+     "pinyin": "Tā yīnggāi dào le.",
+     "fr": "Il devrait être arrivé.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "英",
+   "genre": "caractere",
+   "hanzi": "英",
+   "pinyin": "yīng",
+   "sens": {
+    "glose": "héros, élite ; anglais",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "héros, élite ; fleur"
+     },
+     {
+      "categorie": "N",
+      "fr": "Angleterre, anglais : abréviation"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": []
+  },
+  {
+   "id": "L2-0676",
+   "genre": "mot",
+   "hanzi": "英文",
+   "pinyin": "Yīngwén",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "l'anglais (écrit)",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "l'anglais, la langue anglaise"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这本书是英文的。",
+     "pinyin": "Zhè běn shū shì Yīngwén de.",
+     "fr": "Ce livre est en anglais.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L2-0677",
+   "genre": "mot",
+   "hanzi": "英语",
+   "pinyin": "Yīngyǔ",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "l'anglais",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "l'anglais, la langue anglaise"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "你会说英语吗？",
+     "pinyin": "Nǐ huì shuō Yīngyǔ ma?",
+     "fr": "Tu parles anglais ?",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L2-0678",
+   "genre": "mot",
+   "hanzi": "影片",
+   "pinyin": "yǐngpiàn",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "film, long métrage",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "film, long métrage"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这部影片很有名。",
+     "pinyin": "Zhè bù yǐngpiàn hěn yǒumíng.",
+     "fr": "Ce film est très connu.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L2-0679",
+   "genre": "mot",
+   "hanzi": "影响",
+   "pinyin": "yǐngxiǎng",
+   "categories": [
+    "V",
+    "N"
+   ],
+   "sens": {
+    "glose": "influencer ; influence",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "influencer, affecter, déranger"
+     },
+     {
+      "categorie": "N",
+      "fr": "influence, effet"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "别影响别人学习。",
+     "pinyin": "Bié yǐngxiǎng biéren xuéxí.",
+     "fr": "Ne dérange pas les autres pendant qu'ils étudient.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "永",
+   "genre": "caractere",
+   "hanzi": "永",
+   "pinyin": "yǒng",
+   "sens": {
+    "glose": "pour toujours",
+    "acceptions": [
+     {
+      "categorie": "Adv",
+      "fr": "pour toujours, éternellement"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": []
+  },
+  {
+   "id": "L2-0680",
+   "genre": "mot",
+   "hanzi": "永远",
+   "pinyin": "yǒngyuǎn",
+   "categories": [
+    "Adv"
+   ],
+   "sens": {
+    "glose": "pour toujours, à jamais",
+    "acceptions": [
+     {
+      "categorie": "Adv",
+      "fr": "pour toujours, à jamais"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "我永远不会忘记你。",
+     "pinyin": "Wǒ yǒngyuǎn bù huì wàngjì nǐ.",
+     "fr": "Je ne t'oublierai jamais.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L2-0682",
+   "genre": "mot",
+   "hanzi": "游客",
+   "pinyin": "yóukè",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "touriste, visiteur",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "touriste, visiteur"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "夏天这里有很多游客。",
+     "pinyin": "Xiàtiān zhèli yǒu hěn duō yóukè.",
+     "fr": "En été, il y a beaucoup de visiteurs ici.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L2-0683",
+   "genre": "mot",
+   "hanzi": "友好",
+   "pinyin": "yǒuhǎo",
+   "categories": [
+    "Adj"
+   ],
+   "sens": {
+    "glose": "amical, bienveillant",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "amical, bienveillant"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这里的人都很友好。",
+     "pinyin": "Zhèli de rén dōu hěn yǒuhǎo.",
+     "fr": "Les gens d'ici sont très accueillants.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L2-0684",
+   "genre": "mot",
+   "hanzi": "有空儿",
+   "pinyin": "yǒukòngr",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "avoir du temps libre",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "avoir du temps libre, être disponible"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "你明天有空儿吗？",
+     "pinyin": "Nǐ míngtiān yǒukòngr ma?",
+     "fr": "Tu as un moment demain ?",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L2-0685",
+   "genre": "mot",
+   "hanzi": "有人",
+   "pinyin": "yǒu rén",
+   "sens": {
+    "glose": "quelqu'un ; il y a quelqu'un",
+    "acceptions": [],
+    "statut": "relu",
+    "provenance": {
+     "reprise": "data/sources/fiches/有.json",
+     "champ": "mots[].fr"
+    }
+   },
+   "exemples": [
+    {
+     "zh": "门口有人找你。",
+     "pinyin": "Ménkǒu yǒu rén zhǎo nǐ.",
+     "fr": "On te demande à la porte.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L2-0686",
+   "genre": "mot",
+   "hanzi": "有点儿",
+   "pinyin": "yǒudiǎnr",
+   "categories": [
+    "Adv"
+   ],
+   "sens": {
+    "glose": "un peu, légèrement",
+    "acceptions": [
+     {
+      "categorie": "Adv",
+      "fr": "un peu, légèrement : souvent pour une gêne"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "我有点儿累。",
+     "pinyin": "Wǒ yǒudiǎnr lèi.",
+     "fr": "Je suis un peu fatigué.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L2-0687",
+   "genre": "mot",
+   "hanzi": "有意思",
+   "pinyin": "yǒu yìsi",
+   "sens": {
+    "glose": "intéressant, amusant",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "intéressant, amusant"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这本书很有意思。",
+     "pinyin": "Zhè běn shū hěn yǒu yìsi.",
+     "fr": "Ce livre est passionnant.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "又",
+   "genre": "caractere",
+   "hanzi": "又",
+   "pinyin": "yòu",
+   "mots": [
+    "L2-0688"
+   ],
+   "sens": {
+    "glose": "de nouveau, encore, main (clé)",
+    "acceptions": [],
+    "statut": "relu",
+    "provenance": {
+     "reprise": "data/sources/fiches/又.json",
+     "champ": "sens_fr"
+    }
+   },
+   "exemples": [
+    {
+     "zh": "他又来了。",
+     "pinyin": "Tā yòu lái le.",
+     "fr": "Le revoilà.",
+     "statut": "a_relire"
+    },
+    {
+     "zh": "他又高又大。",
+     "pinyin": "Tā yòu gāo yòu dà.",
+     "fr": "Il est grand et costaud.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "鱼",
+   "genre": "caractere",
+   "hanzi": "鱼",
+   "pinyin": "yú",
+   "mots": [
+    "L2-0689"
+   ],
+   "sens": {
+    "glose": "poisson",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "poisson"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "河里有很多鱼。",
+     "pinyin": "Hé li yǒu hěn duō yú.",
+     "fr": "La rivière est très poissonneuse.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "言",
+   "genre": "caractere",
+   "hanzi": "言",
+   "pinyin": "yán",
+   "sens": {
+    "glose": "parole, dire",
+    "acceptions": [],
+    "statut": "relu",
+    "provenance": {
+     "reprise": "data/sources/fiches/言.json",
+     "champ": "sens_fr"
+    }
+   },
+   "exemples": []
+  },
+  {
+   "id": "L2-0690",
+   "genre": "mot",
+   "hanzi": "语言",
+   "pinyin": "yǔyán",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "langue, langage",
+    "acceptions": [],
+    "statut": "relu",
+    "provenance": {
+     "reprise": "data/sources/fiches/言.json",
+     "champ": "mots[].fr"
+    }
+   },
+   "exemples": [
+    {
+     "zh": "学语言要多说。",
+     "pinyin": "Xué yǔyán yào duō shuō.",
+     "fr": "Pour apprendre une langue, il faut beaucoup parler.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "原",
+   "genre": "caractere",
+   "hanzi": "原",
+   "pinyin": "yuán",
+   "mots": [
+    "L6-1006"
+   ],
+   "sens": {
+    "glose": "original, initial ; plaine",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "original, initial, primitif"
+     },
+     {
+      "categorie": "N",
+      "fr": "plaine"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他回到了原来的学校。",
+     "pinyin": "Tā huídào le yuánlái de xuéxiào.",
+     "fr": "Il est retourné dans son ancienne école.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L2-0691",
+   "genre": "mot",
+   "hanzi": "原来",
+   "pinyin": "yuánlái",
+   "categories": [
+    "Adj",
+    "Adv"
+   ],
+   "sens": {
+    "glose": "d'origine ; en fait",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "initial, d'origine"
+     },
+     {
+      "categorie": "Adv",
+      "fr": "en fait, c'était donc : quand on découvre quelque chose"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "原来是你！",
+     "pinyin": "Yuánlái shì nǐ!",
+     "fr": "Ah, c'était toi !",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L2-0692",
+   "genre": "mot",
+   "hanzi": "原因",
+   "pinyin": "yuányīn",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "cause, raison",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "cause, raison"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "你知道他没来的原因吗？",
+     "pinyin": "Nǐ zhīdao tā méi lái de yuányīn ma?",
+     "fr": "Tu sais pourquoi il n'est pas venu ?",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L2-0694",
+   "genre": "mot",
+   "hanzi": "院长",
+   "pinyin": "yuànzhǎng",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "directeur (d'hôpital, d'institut)",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "directeur d'un hôpital, d'un institut ; doyen"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他是这个医院的院长。",
+     "pinyin": "Tā shì zhège yīyuàn de yuànzhǎng.",
+     "fr": "C'est lui qui dirige cet hôpital.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L2-0695",
+   "genre": "mot",
+   "hanzi": "院子",
+   "pinyin": "yuànzi",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "cour (d'une maison)",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "cour d'une maison, jardin"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "我们在院子里吃饭吧。",
+     "pinyin": "Wǒmen zài yuànzi li chīfàn ba.",
+     "fr": "Mangeons dehors, dans la cour.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "愿",
+   "genre": "caractere",
+   "hanzi": "愿",
+   "pinyin": "yuàn",
+   "mots": [
+    "L5-0943"
+   ],
+   "sens": {
+    "glose": "vouloir bien ; vœu",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "vouloir bien, souhaiter"
+     },
+     {
+      "categorie": "N",
+      "fr": "souhait, vœu"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "我不愿去。",
+     "pinyin": "Wǒ bù yuàn qù.",
+     "fr": "Je ne veux pas y aller.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L2-0696",
+   "genre": "mot",
+   "hanzi": "愿意",
+   "pinyin": "yuànyì",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "vouloir bien, accepter de",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "vouloir bien, accepter de, être disposé à"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "你愿意跟我一起去吗？",
+     "pinyin": "Nǐ yuànyì gēn wǒ yīqǐ qù ma?",
+     "fr": "Tu veux bien venir avec moi ?",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L2-0697",
+   "genre": "mot",
+   "hanzi": "月份",
+   "pinyin": "yuèfèn",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "mois (du calendrier)",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "mois du calendrier"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "你最喜欢哪个月份？",
+     "pinyin": "Nǐ zuì xǐhuan nǎge yuèfèn?",
+     "fr": "Quel est ton mois préféré ?",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L2-0698",
+   "genre": "mot",
+   "hanzi": "月亮",
+   "pinyin": "yuèliang",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "lune",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "lune"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "今天晚上的月亮很亮。",
+     "pinyin": "Jīntiān wǎnshang de yuèliang hěn liàng.",
+     "fr": "La lune brille fort ce soir.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "越",
+   "genre": "caractere",
+   "hanzi": "越",
+   "pinyin": "yuè",
+   "mots": [
+    "L2-0699"
+   ],
+   "sens": {
+    "glose": "franchir ; plus… plus",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "franchir, dépasser"
+     },
+     {
+      "categorie": "Adv",
+      "fr": "plus… plus : en paire"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "雨越下越大。",
+     "pinyin": "Yǔ yuè xià yuè dà.",
+     "fr": "La pluie redouble.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L2-0700",
+   "genre": "mot",
+   "hanzi": "越来越",
+   "pinyin": "yuè lái yuè",
+   "sens": {
+    "glose": "de plus en plus",
+    "acceptions": [
+     {
+      "categorie": "Adv",
+      "fr": "de plus en plus"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "天气越来越冷了。",
+     "pinyin": "Tiānqì yuè lái yuè lěng le.",
+     "fr": "Il fait de plus en plus froid.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "运",
+   "genre": "caractere",
+   "hanzi": "运",
+   "pinyin": "yùn",
+   "mots": [
+    "L5-0948"
+   ],
+   "sens": {
+    "glose": "transporter ; chance",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "transporter"
+     },
+     {
+      "categorie": "N",
+      "fr": "chance, destin"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这些东西要运到北京。",
+     "pinyin": "Zhèxiē dōngxi yào yùn dào Běijīng.",
+     "fr": "Ces marchandises doivent être acheminées à Pékin.",
+     "statut": "a_relire"
+    }
+   ]
+  }
+ ]
+}

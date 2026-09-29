@@ -1,0 +1,1373 @@
+{
+ "niveau": "2",
+ "lot": "14",
+ "source": "rédigé pour l'app dans le pipeline wenlu, sans API ; faits lus : liste HSK 3.0 (forme, pinyin, niveau, catégorie), lectures d'Unihan et des surcharges, gloses relues des fiches",
+ "brouillon": "data/sources/dico-brouillons/2/14.json",
+ "generation": {
+  "modele": "rédaction manuelle",
+  "api": "session Claude Code (sans API)",
+  "date": "2026-09-29",
+  "empreinte_invite": "sha256:533459a8ae65f272ec46641c0850a6d7b2321c6e5ebaf3ad788fa9276daa0fec",
+  "contexte": "wenlu dico contexte 2 14",
+  "essais": 1,
+  "refus": []
+ },
+ "entrees": [
+  {
+   "id": "L2-0560",
+   "genre": "mot",
+   "hanzi": "晚安",
+   "pinyin": "wǎn'ān",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "bonne nuit",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "bonne nuit : souhait du soir"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "晚安，明天见！",
+     "pinyin": "Wǎn'ān, míngtiān jiàn!",
+     "fr": "Bonne nuit, à demain !",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L2-0561",
+   "genre": "mot",
+   "hanzi": "晚报",
+   "pinyin": "wǎnbào",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "journal du soir",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "journal du soir"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "爸爸在看晚报。",
+     "pinyin": "Bàba zài kàn wǎnbào.",
+     "fr": "Papa lit l'édition du soir.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L2-0562",
+   "genre": "mot",
+   "hanzi": "晚餐",
+   "pinyin": "wǎncān",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "dîner (plus soutenu)",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "dîner, repas du soir"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "晚餐准备好了。",
+     "pinyin": "Wǎncān zhǔnbèi hǎo le.",
+     "fr": "Le dîner est servi.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L2-0563",
+   "genre": "mot",
+   "hanzi": "晚会",
+   "pinyin": "wǎnhuì",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "soirée, fête du soir",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "soirée, fête, spectacle du soir"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "明天晚上有一个晚会。",
+     "pinyin": "Míngtiān wǎnshang yǒu yī ge wǎnhuì.",
+     "fr": "Il y a une fête demain soir.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "碗",
+   "genre": "caractere",
+   "hanzi": "碗",
+   "pinyin": "wǎn",
+   "mots": [
+    "L2-0564"
+   ],
+   "sens": {
+    "glose": "bol",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "bol ; un bol de"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "我吃了两碗米饭。",
+     "pinyin": "Wǒ chī le liǎng wǎn mǐfàn.",
+     "fr": "J'ai mangé deux bols de riz.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "万",
+   "genre": "caractere",
+   "hanzi": "万",
+   "pinyin": "wàn",
+   "mots": [
+    "L2-0565"
+   ],
+   "sens": {
+    "glose": "dix mille",
+    "acceptions": [
+     {
+      "categorie": "Num",
+      "fr": "dix mille ; innombrable"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这辆车要十万块。",
+     "pinyin": "Zhè liàng chē yào shí wàn kuài.",
+     "fr": "Cette voiture coûte cent mille yuans.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L2-0567",
+   "genre": "mot",
+   "hanzi": "网球",
+   "pinyin": "wǎngqiú",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "tennis",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "tennis ; balle de tennis"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "你会打网球吗？",
+     "pinyin": "Nǐ huì dǎ wǎngqiú ma?",
+     "fr": "Tu sais jouer au tennis ?",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L2-0568",
+   "genre": "mot",
+   "hanzi": "网站",
+   "pinyin": "wǎngzhàn",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "site web",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "site web"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这个网站很有用。",
+     "pinyin": "Zhège wǎngzhàn hěn yǒuyòng.",
+     "fr": "Ce site est très utile.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "往",
+   "genre": "caractere",
+   "hanzi": "往",
+   "pinyin": "wǎng",
+   "mots": [
+    "L2-0569"
+   ],
+   "sens": {
+    "glose": "vers, en direction de",
+    "acceptions": [
+     {
+      "categorie": "Prep",
+      "fr": "vers, en direction de"
+     },
+     {
+      "categorie": "V",
+      "fr": "aller vers"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "一直往前走。",
+     "pinyin": "Yīzhí wǎng qián zǒu.",
+     "fr": "Continuez tout droit.",
+     "statut": "a_relire"
+    },
+    {
+     "zh": "往左走。",
+     "pinyin": "Wǎng zuǒ zǒu.",
+     "fr": "Tournez à gauche.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L2-0571",
+   "genre": "mot",
+   "hanzi": "为什么",
+   "pinyin": "wèi shénme",
+   "sens": {
+    "glose": "pourquoi",
+    "acceptions": [
+     {
+      "categorie": "Pron",
+      "fr": "pourquoi"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "你为什么不来？",
+     "pinyin": "Nǐ wèi shénme bù lái?",
+     "fr": "Pour quelle raison tu ne viens pas ?",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "味",
+   "genre": "caractere",
+   "hanzi": "味",
+   "pinyin": "wèi",
+   "sens": {
+    "glose": "goût, saveur ; odeur",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "goût, saveur ; odeur"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": []
+  },
+  {
+   "id": "L2-0573",
+   "genre": "mot",
+   "hanzi": "味道",
+   "pinyin": "wèidao",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "goût, saveur",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "goût, saveur ; odeur"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这个菜味道很好。",
+     "pinyin": "Zhège cài wèidao hěn hǎo.",
+     "fr": "Ce plat est savoureux.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "喂",
+   "genre": "caractere",
+   "hanzi": "喂",
+   "pinyin": "wèi",
+   "mots": [
+    "L2-0574",
+    "L4-0760"
+   ],
+   "sens": {
+    "glose": "allô ; nourrir",
+    "acceptions": [
+     {
+      "categorie": "Intj",
+      "fr": "allô ; hé !"
+     },
+     {
+      "categorie": "V",
+      "fr": "nourrir, donner à manger"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "喂，你好！",
+     "pinyin": "Wèi, nǐ hǎo!",
+     "fr": "Allô, bonjour !",
+     "statut": "a_relire"
+    },
+    {
+     "zh": "我去喂猫。",
+     "pinyin": "Wǒ qù wèi māo.",
+     "fr": "Je vais donner à manger au chat.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L2-0575",
+   "genre": "mot",
+   "hanzi": "温度",
+   "pinyin": "wēndù",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "température",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "température"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "今天的温度是二十度。",
+     "pinyin": "Jīntiān de wēndù shì èrshí dù.",
+     "fr": "Il fait vingt degrés aujourd'hui.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "闻",
+   "genre": "caractere",
+   "hanzi": "闻",
+   "pinyin": "wén",
+   "mots": [
+    "L2-0576"
+   ],
+   "sens": {
+    "glose": "sentir (une odeur) ; entendre",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "sentir, flairer une odeur"
+     },
+     {
+      "categorie": "V",
+      "fr": "entendre ; nouvelle"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "你闻一下这个。",
+     "pinyin": "Nǐ wén yīxià zhège.",
+     "fr": "Sens un peu ça.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L2-0577",
+   "genre": "mot",
+   "hanzi": "问路",
+   "pinyin": "wènlù",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "demander son chemin",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "demander son chemin"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他在向别人问路。",
+     "pinyin": "Tā zài xiàng biéren wènlù.",
+     "fr": "Il demande à quelqu'un comment aller quelque part.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L2-0578",
+   "genre": "mot",
+   "hanzi": "问题",
+   "pinyin": "wèntí",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "question, problème",
+    "acceptions": [],
+    "statut": "relu",
+    "provenance": {
+     "reprise": "data/sources/fiches/题.json",
+     "champ": "mots[].fr"
+    }
+   },
+   "exemples": [
+    {
+     "zh": "你有什么问题吗？",
+     "pinyin": "Nǐ yǒu shénme wèntí ma?",
+     "fr": "Tu as des questions ?",
+     "statut": "a_relire"
+    },
+    {
+     "zh": "没问题。",
+     "pinyin": "Méi wèntí.",
+     "fr": "Aucun souci.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L2-0579",
+   "genre": "mot",
+   "hanzi": "午餐",
+   "pinyin": "wǔcān",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "déjeuner (plus soutenu)",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "déjeuner, repas de midi"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "午餐我们吃什么？",
+     "pinyin": "Wǔcān wǒmen chī shénme?",
+     "fr": "Qu'est-ce qu'on mange à midi ?",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L2-0580",
+   "genre": "mot",
+   "hanzi": "午睡",
+   "pinyin": "wǔshuì",
+   "categories": [
+    "N",
+    "V"
+   ],
+   "sens": {
+    "glose": "sieste ; faire la sieste",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "sieste"
+     },
+     {
+      "categorie": "V",
+      "fr": "faire la sieste"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "爷爷在午睡。",
+     "pinyin": "Yéye zài wǔshuì.",
+     "fr": "Grand-père se repose après le déjeuner.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L2-0581",
+   "genre": "mot",
+   "hanzi": "西北",
+   "pinyin": "xīběi",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "le nord-ouest",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "le nord-ouest"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他去了中国西北。",
+     "pinyin": "Tā qù le Zhōngguó xīběi.",
+     "fr": "Il est parti dans le nord-ouest de la Chine.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L2-0582",
+   "genre": "mot",
+   "hanzi": "西餐",
+   "pinyin": "xīcān",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "cuisine occidentale",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "cuisine occidentale, repas à l'occidentale"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "你喜欢吃西餐吗？",
+     "pinyin": "Nǐ xǐhuan chī xīcān ma?",
+     "fr": "Tu aimes manger à l'occidentale ?",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L2-0583",
+   "genre": "mot",
+   "hanzi": "西方",
+   "pinyin": "xīfāng",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "l'ouest ; l'Occident",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "l'ouest ; l'Occident"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他在西方生活了很多年。",
+     "pinyin": "Tā zài xīfāng shēnghuó le hěn duō nián.",
+     "fr": "Il a vécu de nombreuses années en Occident.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L2-0584",
+   "genre": "mot",
+   "hanzi": "西南",
+   "pinyin": "xīnán",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "le sud-ouest",
+    "acceptions": [],
+    "statut": "relu",
+    "provenance": {
+     "reprise": "data/sources/fiches/南.json",
+     "champ": "mots[].fr"
+    }
+   },
+   "exemples": [
+    {
+     "zh": "他家在北京西南。",
+     "pinyin": "Tā jiā zài Běijīng xīnán.",
+     "fr": "Sa famille habite au sud-ouest de Pékin.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L2-0585",
+   "genre": "mot",
+   "hanzi": "西医",
+   "pinyin": "xīyī",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "médecine occidentale",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "médecine occidentale ; médecin formé à l'occidentale"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他是西医，不是中医。",
+     "pinyin": "Tā shì xīyī, bù shì zhōngyī.",
+     "fr": "Il pratique la médecine occidentale, pas la médecine chinoise.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "惯",
+   "genre": "caractere",
+   "hanzi": "惯",
+   "pinyin": "guàn",
+   "mots": [
+    "L7-1474"
+   ],
+   "sens": {
+    "glose": "être habitué ; gâter",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "avoir l'habitude de, être habitué"
+     },
+     {
+      "categorie": "V",
+      "fr": "gâter un enfant"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "我吃不惯这里的菜。",
+     "pinyin": "Wǒ chī bu guàn zhèli de cài.",
+     "fr": "Je ne m'habitue pas à la cuisine d'ici.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L2-0586",
+   "genre": "mot",
+   "hanzi": "习惯",
+   "pinyin": "xíguàn",
+   "categories": [
+    "N",
+    "V"
+   ],
+   "sens": {
+    "glose": "habitude ; s'habituer",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "habitude"
+     },
+     {
+      "categorie": "V",
+      "fr": "s'habituer à, avoir l'habitude de"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "你习惯这里的生活了吗？",
+     "pinyin": "Nǐ xíguàn zhèli de shēnghuó le ma?",
+     "fr": "Tu t'es fait à la vie d'ici ?",
+     "statut": "a_relire"
+    },
+    {
+     "zh": "我有早起的习惯。",
+     "pinyin": "Wǒ yǒu zǎo qǐ de xíguàn.",
+     "fr": "J'ai pour habitude de me lever tôt.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L2-0587",
+   "genre": "mot",
+   "hanzi": "洗衣机",
+   "pinyin": "xǐyījī",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "machine à laver",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "machine à laver"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "洗衣机坏了。",
+     "pinyin": "Xǐyījī huài le.",
+     "fr": "Le lave-linge est en panne.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "澡",
+   "genre": "caractere",
+   "hanzi": "澡",
+   "pinyin": "zǎo",
+   "sens": {
+    "glose": "bain",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "bain, fait de se laver"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": []
+  },
+  {
+   "id": "L2-0588",
+   "genre": "mot",
+   "hanzi": "洗澡",
+   "pinyin": "xǐzǎo",
+   "sens": {
+    "glose": "se laver, prendre une douche",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "se laver, prendre un bain ou une douche"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "我先去洗澡。",
+     "pinyin": "Wǒ xiān qù xǐzǎo.",
+     "fr": "Je file d'abord sous la douche.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "雪",
+   "genre": "caractere",
+   "hanzi": "雪",
+   "pinyin": "xuě",
+   "mots": [
+    "L2-0632"
+   ],
+   "sens": {
+    "glose": "neige",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "neige"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "山上有很多雪。",
+     "pinyin": "Shān shang yǒu hěn duō xuě.",
+     "fr": "La montagne est couverte de neige.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L2-0590",
+   "genre": "mot",
+   "hanzi": "下雪",
+   "pinyin": "xià xuě",
+   "sens": {
+    "glose": "neiger",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "neiger"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "外边下雪了。",
+     "pinyin": "Wàibian xià xuě le.",
+     "fr": "Il neige dehors.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L2-0591",
+   "genre": "mot",
+   "hanzi": "下周",
+   "pinyin": "xià zhōu",
+   "sens": {
+    "glose": "la semaine prochaine",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "la semaine prochaine"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "我们下周见。",
+     "pinyin": "Wǒmen xià zhōu jiàn.",
+     "fr": "On se voit dans huit jours.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "夏",
+   "genre": "caractere",
+   "hanzi": "夏",
+   "pinyin": "xià",
+   "sens": {
+    "glose": "été",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "été"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": []
+  },
+  {
+   "id": "L2-0592",
+   "genre": "mot",
+   "hanzi": "夏天",
+   "pinyin": "xiàtiān",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "l'été (la saison)",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "été"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "北京的夏天很热。",
+     "pinyin": "Běijīng de xiàtiān hěn rè.",
+     "fr": "À Pékin, il fait très chaud en juillet et en août.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "相",
+   "genre": "caractere",
+   "hanzi": "相",
+   "pinyin": "xiāng",
+   "sens": {
+    "glose": "mutuellement ; apparence",
+    "acceptions": [
+     {
+      "categorie": "Adv",
+      "fr": "mutuellement, l'un l'autre"
+     },
+     {
+      "categorie": "N",
+      "fr": "apparence ; photo",
+      "pinyin": "xiàng"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": []
+  },
+  {
+   "id": "L2-0593",
+   "genre": "mot",
+   "hanzi": "相同",
+   "pinyin": "xiāngtóng",
+   "categories": [
+    "Adj"
+   ],
+   "sens": {
+    "glose": "identique, semblable",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "identique, semblable"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "我们的爱好相同。",
+     "pinyin": "Wǒmen de àihào xiāngtóng.",
+     "fr": "Nous avons les mêmes loisirs.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L2-0594",
+   "genre": "mot",
+   "hanzi": "相信",
+   "pinyin": "xiāngxìn",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "croire, faire confiance",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "croire, faire confiance à"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "我相信你。",
+     "pinyin": "Wǒ xiāngxìn nǐ.",
+     "fr": "Je te crois.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "响",
+   "genre": "caractere",
+   "hanzi": "响",
+   "pinyin": "xiǎng",
+   "mots": [
+    "L2-0595"
+   ],
+   "sens": {
+    "glose": "sonore, bruyant ; sonner",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "sonore, bruyant"
+     },
+     {
+      "categorie": "V",
+      "fr": "sonner, retentir"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "电话响了。",
+     "pinyin": "Diànhuà xiǎng le.",
+     "fr": "Le téléphone sonne.",
+     "statut": "a_relire"
+    },
+    {
+     "zh": "声音太响了。",
+     "pinyin": "Shēngyīn tài xiǎng le.",
+     "fr": "Le son est trop fort.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L2-0596",
+   "genre": "mot",
+   "hanzi": "想到",
+   "pinyin": "xiǎngdào",
+   "sens": {
+    "glose": "penser à ; s'attendre à",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "penser à, avoir l'idée de ; s'attendre à"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "我没想到他会来。",
+     "pinyin": "Wǒ méi xiǎngdào tā huì lái.",
+     "fr": "Je ne pensais pas qu'il viendrait.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L2-0597",
+   "genre": "mot",
+   "hanzi": "想法",
+   "pinyin": "xiǎngfa",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "idée, avis",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "idée, avis, façon de voir"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这是一个好想法。",
+     "pinyin": "Zhè shì yī ge hǎo xiǎngfa.",
+     "fr": "C'est une bonne idée.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L2-0598",
+   "genre": "mot",
+   "hanzi": "想起",
+   "pinyin": "xiǎngqǐ",
+   "sens": {
+    "glose": "se rappeler, se souvenir",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "se rappeler, se souvenir soudain de"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "我想起了小时候的事。",
+     "pinyin": "Wǒ xiǎngqǐ le xiǎoshíhou de shì.",
+     "fr": "Des souvenirs d'enfance me sont revenus.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L2-0600",
+   "genre": "mot",
+   "hanzi": "相机",
+   "pinyin": "xiàngjī",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "appareil photo",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "appareil photo"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "我买了一个新相机。",
+     "pinyin": "Wǒ mǎi le yī ge xīn xiàngjī.",
+     "fr": "J'ai acheté un nouvel appareil photo.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L2-0603",
+   "genre": "mot",
+   "hanzi": "小声",
+   "pinyin": "xiǎo shēng",
+   "sens": {
+    "glose": "à voix basse",
+    "acceptions": [
+     {
+      "categorie": "Adv",
+      "fr": "à voix basse, doucement"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "请小声说话。",
+     "pinyin": "Qǐng xiǎo shēng shuōhuà.",
+     "fr": "Parlez moins fort, s'il vous plaît.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L2-0604",
+   "genre": "mot",
+   "hanzi": "小时候",
+   "pinyin": "xiǎoshíhou",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "dans l'enfance",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "enfance ; quand on était petit"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "我小时候住在北京。",
+     "pinyin": "Wǒ xiǎoshíhou zhù zài Běijīng.",
+     "fr": "Enfant, j'habitais à Pékin.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L2-0605",
+   "genre": "mot",
+   "hanzi": "小说",
+   "pinyin": "xiǎoshuō",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "roman",
+    "acceptions": [],
+    "statut": "relu",
+    "provenance": {
+     "reprise": "data/sources/fiches/说.json",
+     "champ": "mots[].fr"
+    }
+   },
+   "exemples": [
+    {
+     "zh": "我在看一本小说。",
+     "pinyin": "Wǒ zài kàn yī běn xiǎoshuō.",
+     "fr": "Je lis un roman.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L2-0606",
+   "genre": "mot",
+   "hanzi": "小心",
+   "pinyin": "xiǎoxīn",
+   "categories": [
+    "Adj",
+    "V"
+   ],
+   "sens": {
+    "glose": "faire attention",
+    "acceptions": [],
+    "statut": "relu",
+    "provenance": {
+     "reprise": "data/sources/fiches/小.json",
+     "champ": "mots[].fr"
+    }
+   },
+   "exemples": [
+    {
+     "zh": "路上小心！",
+     "pinyin": "Lùshang xiǎoxīn!",
+     "fr": "Sois prudent sur la route !",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "组",
+   "genre": "caractere",
+   "hanzi": "组",
+   "pinyin": "zǔ",
+   "mots": [
+    "L2-0759"
+   ],
+   "sens": {
+    "glose": "groupe ; organiser",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "groupe, équipe"
+     },
+     {
+      "categorie": "V",
+      "fr": "organiser, former"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "我们三个人一组。",
+     "pinyin": "Wǒmen sān ge rén yī zǔ.",
+     "fr": "On travaille par groupes de trois.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L2-0607",
+   "genre": "mot",
+   "hanzi": "小组",
+   "pinyin": "xiǎozǔ",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "petit groupe, équipe",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "petit groupe, équipe"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "我们小组有五个人。",
+     "pinyin": "Wǒmen xiǎozǔ yǒu wǔ ge rén.",
+     "fr": "Notre équipe compte cinq personnes.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L2-0608",
+   "genre": "mot",
+   "hanzi": "校园",
+   "pinyin": "xiàoyuán",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "campus",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "campus, enceinte de l'école"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "我们的校园很大。",
+     "pinyin": "Wǒmen de xiàoyuán hěn dà.",
+     "fr": "Notre campus est très grand.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L2-0609",
+   "genre": "mot",
+   "hanzi": "校长",
+   "pinyin": "xiàozhǎng",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "directeur d'école, proviseur",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "directeur d'école, proviseur, président d'université"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这是我们学校的校长。",
+     "pinyin": "Zhè shì wǒmen xuéxiào de xiàozhǎng.",
+     "fr": "Je vous présente le directeur de notre école.",
+     "statut": "a_relire"
+    }
+   ]
+  }
+ ]
+}

@@ -1,0 +1,1407 @@
+{
+ "niveau": "2",
+ "lot": "03",
+ "source": "rédigé pour l'app dans le pipeline wenlu, sans API ; faits lus : liste HSK 3.0 (forme, pinyin, niveau, catégorie), lectures d'Unihan et des surcharges, gloses relues des fiches",
+ "brouillon": "data/sources/dico-brouillons/2/03.json",
+ "generation": {
+  "modele": "rédaction manuelle",
+  "api": "session Claude Code (sans API)",
+  "date": "2026-09-29",
+  "empreinte_invite": "sha256:d9b301236a7303b9714b61172afd46478a2056624c55b63749038488f81a7d93",
+  "contexte": "wenlu dico contexte 2 03",
+  "essais": 1,
+  "refus": []
+ },
+ "entrees": [
+  {
+   "id": "L2-0068",
+   "genre": "mot",
+   "hanzi": "出发",
+   "pinyin": "chūfā",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "partir, se mettre en route",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "partir, se mettre en route"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "我们几点出发？",
+     "pinyin": "Wǒmen jǐ diǎn chūfā?",
+     "fr": "On part à quelle heure ?",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L2-0069",
+   "genre": "mot",
+   "hanzi": "出国",
+   "pinyin": "chūguó",
+   "sens": {
+    "glose": "partir à l'étranger",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "aller à l'étranger, quitter le pays"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他明年想出国学习。",
+     "pinyin": "Tā míngnián xiǎng chūguó xuéxí.",
+     "fr": "L'an prochain, il veut aller étudier hors de Chine.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L2-0070",
+   "genre": "mot",
+   "hanzi": "出口",
+   "pinyin": "chūkǒu",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "sortie ; exportation",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "sortie"
+     },
+     {
+      "categorie": "N",
+      "fr": "exportation"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "出口在哪儿？",
+     "pinyin": "Chūkǒu zài nǎr?",
+     "fr": "Où est la sortie ?",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L2-0071",
+   "genre": "mot",
+   "hanzi": "出门",
+   "pinyin": "chūmén",
+   "sens": {
+    "glose": "sortir de chez soi",
+    "acceptions": [],
+    "statut": "relu",
+    "provenance": {
+     "reprise": "data/sources/fiches/出.json",
+     "champ": "mots[].fr"
+    }
+   },
+   "exemples": [
+    {
+     "zh": "我出门的时候下雨了。",
+     "pinyin": "Wǒ chūmén de shíhou xià yǔ le.",
+     "fr": "Il pleuvait quand je suis sorti.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L2-0072",
+   "genre": "mot",
+   "hanzi": "出生",
+   "pinyin": "chūshēng",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "naître",
+    "acceptions": [],
+    "statut": "relu",
+    "provenance": {
+     "reprise": "data/sources/fiches/出.json",
+     "champ": "mots[].fr"
+    }
+   },
+   "exemples": [
+    {
+     "zh": "我是在北京出生的。",
+     "pinyin": "Wǒ shì zài Běijīng chūshēng de.",
+     "fr": "Je suis né à Pékin.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L2-0073",
+   "genre": "mot",
+   "hanzi": "出现",
+   "pinyin": "chūxiàn",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "apparaître, se présenter",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "apparaître, surgir, se produire"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "天上出现了很多星星。",
+     "pinyin": "Tiānshàng chūxiàn le hěn duō xīngxing.",
+     "fr": "Beaucoup d'étoiles se sont montrées dans le ciel.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L2-0074",
+   "genre": "mot",
+   "hanzi": "出院",
+   "pinyin": "chūyuàn",
+   "sens": {
+    "glose": "sortir de l'hôpital",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "sortir de l'hôpital"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他的病好了，明天出院。",
+     "pinyin": "Tā de bìng hǎo le, míngtiān chūyuàn.",
+     "fr": "Il est guéri, il rentre chez lui demain.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "租",
+   "genre": "caractere",
+   "hanzi": "租",
+   "pinyin": "zū",
+   "mots": [
+    "L2-0758"
+   ],
+   "sens": {
+    "glose": "louer",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "louer : prendre ou donner en location"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "我在北京租了一个房子。",
+     "pinyin": "Wǒ zài Běijīng zū le yī ge fángzi.",
+     "fr": "J'ai pris un appartement en location à Pékin.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L2-0075",
+   "genre": "mot",
+   "hanzi": "出租",
+   "pinyin": "chūzū",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "donner en location",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "donner en location, louer à quelqu'un"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这个房子出租吗？",
+     "pinyin": "Zhège fángzi chūzū ma?",
+     "fr": "Cette maison est-elle à louer ?",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L2-0076",
+   "genre": "mot",
+   "hanzi": "出租车",
+   "pinyin": "chūzūchē",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "taxi",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "taxi"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "我们坐出租车去机场吧。",
+     "pinyin": "Wǒmen zuò chūzūchē qù jīchǎng ba.",
+     "fr": "Prenons un taxi pour l'aéroport.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "船",
+   "genre": "caractere",
+   "hanzi": "船",
+   "pinyin": "chuán",
+   "mots": [
+    "L2-0077"
+   ],
+   "sens": {
+    "glose": "bateau, navire",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "bateau, navire"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "我们坐船去吧。",
+     "pinyin": "Wǒmen zuò chuán qù ba.",
+     "fr": "Allons-y en bateau.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "吹",
+   "genre": "caractere",
+   "hanzi": "吹",
+   "pinyin": "chuī",
+   "mots": [
+    "L2-0078"
+   ],
+   "sens": {
+    "glose": "souffler ; se vanter",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "souffler ; jouer d'un instrument à vent"
+     },
+     {
+      "categorie": "V",
+      "fr": "se vanter, fanfaronner"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "风吹走了我的纸。",
+     "pinyin": "Fēng chuī zǒu le wǒ de zhǐ.",
+     "fr": "Le vent a emporté ma feuille.",
+     "statut": "a_relire"
+    },
+    {
+     "zh": "别吹了！",
+     "pinyin": "Bié chuī le!",
+     "fr": "Arrête de te vanter !",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "春",
+   "genre": "caractere",
+   "hanzi": "春",
+   "pinyin": "chūn",
+   "sens": {
+    "glose": "printemps",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "printemps"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": []
+  },
+  {
+   "id": "节",
+   "genre": "caractere",
+   "hanzi": "节",
+   "pinyin": "jié",
+   "mots": [
+    "L2-0288",
+    "L6-0443"
+   ],
+   "sens": {
+    "glose": "fête ; section ; économiser",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "fête ; nœud, articulation"
+     },
+     {
+      "categorie": "M",
+      "fr": "classificateur des cours et des sections : une heure de cours"
+     },
+     {
+      "categorie": "V",
+      "fr": "économiser, épargner"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "今天我有三节课。",
+     "pinyin": "Jīntiān wǒ yǒu sān jié kè.",
+     "fr": "J'ai trois heures de cours aujourd'hui.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L2-0079",
+   "genre": "mot",
+   "hanzi": "春节",
+   "pinyin": "Chūnjié",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "fête du Printemps, Nouvel An chinois",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "fête du Printemps, le Nouvel An chinois"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "春节我们回家。",
+     "pinyin": "Chūnjié wǒmen huí jiā.",
+     "fr": "Pour la fête du Printemps, nous rentrons à la maison.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L2-0080",
+   "genre": "mot",
+   "hanzi": "春天",
+   "pinyin": "chūntiān",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "printemps (la saison)",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "printemps"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "春天来了。",
+     "pinyin": "Chūntiān lái le.",
+     "fr": "Le printemps est arrivé.",
+     "statut": "a_relire"
+    },
+    {
+     "zh": "北京的春天很短。",
+     "pinyin": "Běijīng de chūntiān hěn duǎn.",
+     "fr": "À Pékin, le printemps est très court.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "词",
+   "genre": "caractere",
+   "hanzi": "词",
+   "pinyin": "cí",
+   "mots": [
+    "L2-0081"
+   ],
+   "sens": {
+    "glose": "mot ; paroles (de chanson)",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "mot, terme"
+     },
+     {
+      "categorie": "N",
+      "fr": "paroles d'une chanson ; poème chanté"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这个词是什么意思？",
+     "pinyin": "Zhège cí shì shénme yìsi?",
+     "fr": "Que veut dire ce mot ?",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "典",
+   "genre": "caractere",
+   "hanzi": "典",
+   "pinyin": "diǎn",
+   "sens": {
+    "glose": "modèle, règle ; ouvrage de référence",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "modèle, règle ; ouvrage de référence"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": []
+  },
+  {
+   "id": "L2-0082",
+   "genre": "mot",
+   "hanzi": "词典",
+   "pinyin": "cídiǎn",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "dictionnaire",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "dictionnaire"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "你可以查一下词典。",
+     "pinyin": "Nǐ kěyǐ chá yīxià cídiǎn.",
+     "fr": "Tu peux regarder dans le dictionnaire.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L2-0083",
+   "genre": "mot",
+   "hanzi": "词语",
+   "pinyin": "cíyǔ",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "mots, expressions",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "mots, expressions, vocabulaire"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这些词语很常用。",
+     "pinyin": "Zhèxiē cíyǔ hěn cháng yòng.",
+     "fr": "Ces expressions sont très courantes.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L2-0084",
+   "genre": "mot",
+   "hanzi": "从小",
+   "pinyin": "cóngxiǎo",
+   "categories": [
+    "Adv"
+   ],
+   "sens": {
+    "glose": "depuis l'enfance",
+    "acceptions": [
+     {
+      "categorie": "Adv",
+      "fr": "depuis l'enfance, depuis tout petit"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他从小就喜欢唱歌。",
+     "pinyin": "Tā cóngxiǎo jiù xǐhuan chànggē.",
+     "fr": "Il aime chanter depuis tout petit.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "应",
+   "genre": "caractere",
+   "hanzi": "应",
+   "pinyin": "yīng",
+   "mots": [
+    "L4-0885",
+    "L5-0908"
+   ],
+   "sens": {
+    "glose": "devoir ; répondre, accepter",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "devoir, il faudrait"
+     },
+     {
+      "categorie": "V",
+      "fr": "répondre ; accepter, s'adapter à",
+      "pinyin": "yìng"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "我叫他，他没应。",
+     "pinyin": "Wǒ jiào tā, tā méi yìng.",
+     "fr": "Je l'ai appelé, il n'a pas répondu.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L2-0085",
+   "genre": "mot",
+   "hanzi": "答应",
+   "pinyin": "dāying",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "promettre, accepter ; répondre",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "accepter, promettre"
+     },
+     {
+      "categorie": "V",
+      "fr": "répondre à un appel"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他答应明天来。",
+     "pinyin": "Tā dāying míngtiān lái.",
+     "fr": "Il a promis de venir demain.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L2-0086",
+   "genre": "mot",
+   "hanzi": "打工",
+   "pinyin": "dǎgōng",
+   "sens": {
+    "glose": "faire un petit boulot",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "travailler pour un patron ; faire un petit boulot"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他在饭馆打工。",
+     "pinyin": "Tā zài fànguǎn dǎgōng.",
+     "fr": "Il travaille dans un restaurant pour gagner un peu d'argent.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "算",
+   "genre": "caractere",
+   "hanzi": "算",
+   "pinyin": "suàn",
+   "mots": [
+    "L2-0509"
+   ],
+   "sens": {
+    "glose": "calculer ; compter comme",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "calculer, compter"
+     },
+     {
+      "categorie": "V",
+      "fr": "considérer comme, compter pour"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "你算一下多少钱。",
+     "pinyin": "Nǐ suàn yīxià duōshao qián.",
+     "fr": "Calcule combien ça fait.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L2-0087",
+   "genre": "mot",
+   "hanzi": "打算",
+   "pinyin": "dǎsuan",
+   "categories": [
+    "V",
+    "N"
+   ],
+   "sens": {
+    "glose": "avoir l'intention de ; projet",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "compter, avoir l'intention de"
+     },
+     {
+      "categorie": "N",
+      "fr": "projet, intention"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "你打算什么时候回国？",
+     "pinyin": "Nǐ dǎsuan shénme shíhou huí guó?",
+     "fr": "Quand comptes-tu rentrer dans ton pays ?",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "印",
+   "genre": "caractere",
+   "hanzi": "印",
+   "pinyin": "yìn",
+   "mots": [
+    "L6-0976"
+   ],
+   "sens": {
+    "glose": "imprimer ; sceau, trace",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "imprimer"
+     },
+     {
+      "categorie": "N",
+      "fr": "sceau ; trace, empreinte"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这本书印得很好。",
+     "pinyin": "Zhè běn shū yìn de hěn hǎo.",
+     "fr": "Ce livre est très bien imprimé.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L2-0088",
+   "genre": "mot",
+   "hanzi": "打印",
+   "pinyin": "dǎyìn",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "imprimer (sur imprimante)",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "imprimer avec une imprimante"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "请帮我打印一下。",
+     "pinyin": "Qǐng bāng wǒ dǎyìn yīxià.",
+     "fr": "Tu peux me sortir ça sur papier ?",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L2-0089",
+   "genre": "mot",
+   "hanzi": "大部分",
+   "pinyin": "dàbùfen",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "la plupart, la majeure partie",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "la plupart, la majeure partie"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "大部分学生都来了。",
+     "pinyin": "Dàbùfen xuésheng dōu lái le.",
+     "fr": "Presque tous les élèves sont venus.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L2-0090",
+   "genre": "mot",
+   "hanzi": "大大",
+   "pinyin": "dàdà",
+   "categories": [
+    "Adv"
+   ],
+   "sens": {
+    "glose": "grandement, largement",
+    "acceptions": [],
+    "statut": "relu",
+    "provenance": {
+     "reprise": "data/sources/fiches/大.json",
+     "champ": "mots[].fr"
+    }
+   },
+   "exemples": [
+    {
+     "zh": "他的汉语大大提高了。",
+     "pinyin": "Tā de Hànyǔ dàdà tígāo le.",
+     "fr": "Son chinois a fait de gros progrès.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "数",
+   "genre": "caractere",
+   "hanzi": "数",
+   "pinyin": "shù",
+   "mots": [
+    "L2-0501"
+   ],
+   "sens": {
+    "glose": "compter ; nombre",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "compter",
+      "pinyin": "shǔ"
+     },
+     {
+      "categorie": "N",
+      "fr": "nombre, chiffre"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "你数一下有多少人。",
+     "pinyin": "Nǐ shǔ yīxià yǒu duōshao rén.",
+     "fr": "Compte combien de personnes il y a.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L2-0091",
+   "genre": "mot",
+   "hanzi": "大多数",
+   "pinyin": "dàduōshù",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "la grande majorité",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "la grande majorité, la plupart"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "大多数人都同意。",
+     "pinyin": "Dàduōshù rén dōu tóngyì.",
+     "fr": "Presque tout le monde est d'accord.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "海",
+   "genre": "caractere",
+   "hanzi": "海",
+   "pinyin": "hǎi",
+   "mots": [
+    "L2-0211"
+   ],
+   "sens": {
+    "glose": "mer",
+    "acceptions": [],
+    "statut": "relu",
+    "provenance": {
+     "reprise": "data/sources/fiches/海.json",
+     "champ": "sens_fr"
+    }
+   },
+   "exemples": [
+    {
+     "zh": "我没见过海。",
+     "pinyin": "Wǒ méi jiànguo hǎi.",
+     "fr": "Je n'ai jamais vu la mer.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L2-0092",
+   "genre": "mot",
+   "hanzi": "大海",
+   "pinyin": "dàhǎi",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "la mer, le large",
+    "acceptions": [],
+    "statut": "relu",
+    "provenance": {
+     "reprise": "data/sources/fiches/海.json",
+     "champ": "mots[].fr"
+    }
+   },
+   "exemples": [
+    {
+     "zh": "我喜欢看大海。",
+     "pinyin": "Wǒ xǐhuan kàn dàhǎi.",
+     "fr": "J'aime contempler la mer.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L2-0093",
+   "genre": "mot",
+   "hanzi": "大家",
+   "pinyin": "dàjiā",
+   "categories": [
+    "Pron"
+   ],
+   "sens": {
+    "glose": "tout le monde",
+    "acceptions": [],
+    "statut": "relu",
+    "provenance": {
+     "reprise": "data/sources/fiches/家.json",
+     "champ": "mots[].fr"
+    }
+   },
+   "exemples": [
+    {
+     "zh": "大家好！",
+     "pinyin": "Dàjiā hǎo!",
+     "fr": "Bonjour à tous !",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "量",
+   "genre": "caractere",
+   "hanzi": "量",
+   "pinyin": "liàng",
+   "mots": [
+    "L4-0477"
+   ],
+   "sens": {
+    "glose": "mesurer ; quantité",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "mesurer",
+      "pinyin": "liáng"
+     },
+     {
+      "categorie": "N",
+      "fr": "quantité, volume"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "你量一下有多长。",
+     "pinyin": "Nǐ liáng yīxià yǒu duō cháng.",
+     "fr": "Mesure la longueur.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L2-0094",
+   "genre": "mot",
+   "hanzi": "大量",
+   "pinyin": "dàliàng",
+   "categories": [
+    "Adj"
+   ],
+   "sens": {
+    "glose": "en grande quantité",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "en grande quantité, massif"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他买了大量的书。",
+     "pinyin": "Tā mǎi le dàliàng de shū.",
+     "fr": "Il a acheté des livres par dizaines.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L2-0095",
+   "genre": "mot",
+   "hanzi": "大门",
+   "pinyin": "dàmén",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "grande porte, entrée principale",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "grande porte, portail, entrée principale"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "学校的大门开了。",
+     "pinyin": "Xuéxiào de dàmén kāi le.",
+     "fr": "Le portail de l'école est ouvert.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L2-0096",
+   "genre": "mot",
+   "hanzi": "大人",
+   "pinyin": "dàren",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "adulte, grande personne",
+    "acceptions": [],
+    "statut": "relu",
+    "provenance": {
+     "reprise": "data/sources/fiches/人.json",
+     "champ": "mots[].fr"
+    }
+   },
+   "exemples": [
+    {
+     "zh": "这是大人的事。",
+     "pinyin": "Zhè shì dàren de shì.",
+     "fr": "Ce sont des affaires de grandes personnes.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "声",
+   "genre": "caractere",
+   "hanzi": "声",
+   "pinyin": "shēng",
+   "mots": [
+    "L5-0674"
+   ],
+   "sens": {
+    "glose": "son, voix ; classif. des cris",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "son, bruit ; voix"
+     },
+     {
+      "categorie": "M",
+      "fr": "classificateur des cris et des sons"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他叫了一声。",
+     "pinyin": "Tā jiào le yī shēng.",
+     "fr": "Il a poussé un cri.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L2-0097",
+   "genre": "mot",
+   "hanzi": "大声",
+   "pinyin": "dà shēng",
+   "sens": {
+    "glose": "à voix haute, fort",
+    "acceptions": [
+     {
+      "categorie": "Adv",
+      "fr": "à voix haute, fort"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "请大声说。",
+     "pinyin": "Qǐng dà shēng shuō.",
+     "fr": "Parlez plus fort, s'il vous plaît.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L2-0098",
+   "genre": "mot",
+   "hanzi": "大小",
+   "pinyin": "dàxiǎo",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "taille, dimensions",
+    "acceptions": [],
+    "statut": "relu",
+    "provenance": {
+     "reprise": "data/sources/fiches/小.json",
+     "champ": "mots[].fr"
+    }
+   },
+   "exemples": [
+    {
+     "zh": "这两个杯子大小一样。",
+     "pinyin": "Zhè liǎng ge bēizi dàxiǎo yīyàng.",
+     "fr": "Ces deux verres sont pareils.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L2-0099",
+   "genre": "mot",
+   "hanzi": "大衣",
+   "pinyin": "dàyī",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "manteau, pardessus",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "manteau, pardessus"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "外边很冷，穿上大衣吧。",
+     "pinyin": "Wàibian hěn lěng, chuānshang dàyī ba.",
+     "fr": "Il fait froid dehors, couvre-toi bien.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "自",
+   "genre": "caractere",
+   "hanzi": "自",
+   "pinyin": "zì",
+   "mots": [
+    "L4-0987"
+   ],
+   "sens": {
+    "glose": "soi-même ; depuis",
+    "acceptions": [
+     {
+      "categorie": "Pron",
+      "fr": "soi-même, de soi"
+     },
+     {
+      "categorie": "Prep",
+      "fr": "depuis, à partir de"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "我自己来。",
+     "pinyin": "Wǒ zìjǐ lái.",
+     "fr": "Je m'en occupe moi-même.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "然",
+   "genre": "caractere",
+   "hanzi": "然",
+   "pinyin": "rán",
+   "sens": {
+    "glose": "ainsi ; suffixe d'adverbe",
+    "acceptions": [
+     {
+      "categorie": "Adv",
+      "fr": "ainsi, de cette manière"
+     },
+     {
+      "categorie": "Suffix",
+      "fr": "suffixe d'adjectif ou d'adverbe"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": []
+  },
+  {
+   "id": "L2-0100",
+   "genre": "mot",
+   "hanzi": "大自然",
+   "pinyin": "dàzìrán",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "la nature",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "la nature"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "我们去山里看看大自然吧。",
+     "pinyin": "Wǒmen qù shān li kànkan dàzìrán ba.",
+     "fr": "Allons profiter du grand air à la montagne.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "带",
+   "genre": "caractere",
+   "hanzi": "带",
+   "pinyin": "dài",
+   "mots": [
+    "L2-0101"
+   ],
+   "sens": {
+    "glose": "apporter, emporter ; mener",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "apporter, emporter, avoir sur soi"
+     },
+     {
+      "categorie": "V",
+      "fr": "mener, accompagner ; s'occuper de"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "别忘了带钱。",
+     "pinyin": "Bié wàng le dài qián.",
+     "fr": "N'oublie pas de prendre de l'argent.",
+     "statut": "a_relire"
+    },
+    {
+     "zh": "我带你去。",
+     "pinyin": "Wǒ dài nǐ qù.",
+     "fr": "Je t'y emmène.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L2-0102",
+   "genre": "mot",
+   "hanzi": "带来",
+   "pinyin": "dàilai",
+   "sens": {
+    "glose": "apporter, amener",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "apporter, amener ; causer"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "你带来了什么？",
+     "pinyin": "Nǐ dàilai le shénme?",
+     "fr": "Qu'est-ce que tu nous as apporté ?",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "位",
+   "genre": "caractere",
+   "hanzi": "位",
+   "pinyin": "wèi",
+   "mots": [
+    "L2-0572"
+   ],
+   "sens": {
+    "glose": "classif. poli des personnes ; place",
+    "acceptions": [
+     {
+      "categorie": "M",
+      "fr": "classificateur poli des personnes"
+     },
+     {
+      "categorie": "N",
+      "fr": "place, position"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "你们几位？",
+     "pinyin": "Nǐmen jǐ wèi?",
+     "fr": "Vous êtes combien ?",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L2-0103",
+   "genre": "mot",
+   "hanzi": "单位",
+   "pinyin": "dānwèi",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "lieu de travail ; unité",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "lieu de travail, organisme employeur"
+     },
+     {
+      "categorie": "N",
+      "fr": "unité de mesure"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "你在哪个单位工作？",
+     "pinyin": "Nǐ zài nǎge dānwèi gōngzuò?",
+     "fr": "Dans quel organisme travailles-tu ?",
+     "statut": "a_relire"
+    }
+   ]
+  }
+ ]
+}

@@ -1,0 +1,1366 @@
+{
+ "niveau": "2",
+ "lot": "17",
+ "source": "rédigé pour l'app dans le pipeline wenlu, sans API ; faits lus : liste HSK 3.0 (forme, pinyin, niveau, catégorie), lectures d'Unihan et des surcharges, gloses relues des fiches",
+ "brouillon": "data/sources/dico-brouillons/2/17.json",
+ "generation": {
+  "modele": "rédaction manuelle",
+  "api": "session Claude Code (sans API)",
+  "date": "2026-09-29",
+  "empreinte_invite": "sha256:da5b006fd57e332e32469e59f03a2b2e3e469d9a556d6683aad1e530a6664d01",
+  "contexte": "wenlu dico contexte 2 17",
+  "essais": 1,
+  "refus": []
+ },
+ "entrees": [
+  {
+   "id": "L2-0702",
+   "genre": "mot",
+   "hanzi": "运动",
+   "pinyin": "yùndòng",
+   "categories": [
+    "V",
+    "N"
+   ],
+   "sens": {
+    "glose": "sport ; faire du sport ; mouvement",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "sport ; mouvement social"
+     },
+     {
+      "categorie": "V",
+      "fr": "faire du sport, bouger"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "你喜欢什么运动？",
+     "pinyin": "Nǐ xǐhuan shénme yùndòng?",
+     "fr": "Quel sport aimes-tu ?",
+     "statut": "a_relire"
+    },
+    {
+     "zh": "我们去运动一下吧。",
+     "pinyin": "Wǒmen qù yùndòng yīxià ba.",
+     "fr": "Allons faire un peu d'exercice.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "咱",
+   "genre": "caractere",
+   "hanzi": "咱",
+   "pinyin": "zán",
+   "mots": [
+    "L2-0703"
+   ],
+   "sens": {
+    "glose": "nous (toi et moi) ; moi",
+    "acceptions": [
+     {
+      "categorie": "Pron",
+      "fr": "nous, toi et moi ; moi"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "咱走吧。",
+     "pinyin": "Zán zǒu ba.",
+     "fr": "Allez, on y va.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L2-0704",
+   "genre": "mot",
+   "hanzi": "咱们",
+   "pinyin": "zánmen",
+   "categories": [
+    "Pron"
+   ],
+   "sens": {
+    "glose": "nous (toi et moi compris)",
+    "acceptions": [
+     {
+      "categorie": "Pron",
+      "fr": "nous, en incluant celui à qui l'on parle"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "咱们一起吃饭吧。",
+     "pinyin": "Zánmen yīqǐ chīfàn ba.",
+     "fr": "On mange ensemble ?",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "脏",
+   "genre": "caractere",
+   "hanzi": "脏",
+   "pinyin": "zàng",
+   "mots": [
+    "L2-0705"
+   ],
+   "sens": {
+    "glose": "sale ; viscère",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "sale",
+      "pinyin": "zāng"
+     },
+     {
+      "categorie": "N",
+      "fr": "viscère, organe interne"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "你的衣服脏了。",
+     "pinyin": "Nǐ de yīfu zāng le.",
+     "fr": "Tes vêtements sont sales.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L2-0706",
+   "genre": "mot",
+   "hanzi": "早餐",
+   "pinyin": "zǎocān",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "petit déjeuner (plus soutenu)",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "petit déjeuner"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "酒店有早餐吗？",
+     "pinyin": "Jiǔdiàn yǒu zǎocān ma?",
+     "fr": "L'hôtel sert-il le petit déjeuner ?",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "晨",
+   "genre": "caractere",
+   "hanzi": "晨",
+   "pinyin": "chén",
+   "sens": {
+    "glose": "matin, aube",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "matin, aube"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": []
+  },
+  {
+   "id": "L2-0707",
+   "genre": "mot",
+   "hanzi": "早晨",
+   "pinyin": "zǎochen",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "matin, tôt le matin",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "matin, tôt le matin"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "早晨的空气很好。",
+     "pinyin": "Zǎochen de kōngqì hěn hǎo.",
+     "fr": "L'air est très bon au lever du jour.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L2-0708",
+   "genre": "mot",
+   "hanzi": "早就",
+   "pinyin": "zǎo jiù",
+   "sens": {
+    "glose": "depuis longtemps déjà",
+    "acceptions": [],
+    "statut": "relu",
+    "provenance": {
+     "reprise": "data/sources/fiches/就.json",
+     "champ": "mots[].fr"
+    }
+   },
+   "exemples": [
+    {
+     "zh": "我早就知道了。",
+     "pinyin": "Wǒ zǎo jiù zhīdao le.",
+     "fr": "Je le savais depuis longtemps.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L2-0709",
+   "genre": "mot",
+   "hanzi": "怎么办",
+   "pinyin": "zěnme bàn",
+   "sens": {
+    "glose": "que faire ?",
+    "acceptions": [
+     {
+      "categorie": "Pron",
+      "fr": "que faire ? comment faire ?"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "钱包不见了，怎么办？",
+     "pinyin": "Qiánbāo bùjiàn le, zěnme bàn?",
+     "fr": "Mon portefeuille a disparu, qu'est-ce que je fais ?",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L2-0710",
+   "genre": "mot",
+   "hanzi": "怎么样",
+   "pinyin": "zěnmeyàng",
+   "categories": [
+    "Pron"
+   ],
+   "sens": {
+    "glose": "comment ; qu'en dis-tu ?",
+    "acceptions": [
+     {
+      "categorie": "Pron",
+      "fr": "comment, de quelle manière ; qu'en dis-tu ?"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "你最近怎么样？",
+     "pinyin": "Nǐ zuìjìn zěnmeyàng?",
+     "fr": "Comment ça va ces temps-ci ?",
+     "statut": "a_relire"
+    },
+    {
+     "zh": "我们去看电影，怎么样？",
+     "pinyin": "Wǒmen qù kàn diànyǐng, zěnmeyàng?",
+     "fr": "Et si on allait au cinéma ?",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L2-0711",
+   "genre": "mot",
+   "hanzi": "怎样",
+   "pinyin": "zěnyàng",
+   "categories": [
+    "Pron"
+   ],
+   "sens": {
+    "glose": "comment, de quelle manière",
+    "acceptions": [],
+    "statut": "relu",
+    "provenance": {
+     "reprise": "data/sources/fiches/怎.json",
+     "champ": "mots[].fr"
+    }
+   },
+   "exemples": [
+    {
+     "zh": "这个字怎样写？",
+     "pinyin": "Zhège zì zěnyàng xiě?",
+     "fr": "Comment s'écrit ce caractère ?",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "占",
+   "genre": "caractere",
+   "hanzi": "占",
+   "pinyin": "zhàn",
+   "mots": [
+    "L2-0712"
+   ],
+   "sens": {
+    "glose": "occuper, prendre (une place)",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "occuper, prendre une place"
+     },
+     {
+      "categorie": "V",
+      "fr": "représenter, constituer une part"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这个位子有人占了。",
+     "pinyin": "Zhège wèizi yǒu rén zhàn le.",
+     "fr": "Cette place est prise.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L2-0714",
+   "genre": "mot",
+   "hanzi": "站住",
+   "pinyin": "zhànzhù",
+   "sens": {
+    "glose": "s'arrêter ; tenir debout",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "s'arrêter, ne plus bouger ; tenir debout"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "站住！别跑！",
+     "pinyin": "Zhànzhù! Bié pǎo!",
+     "fr": "Halte ! Ne cours pas !",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L2-0716",
+   "genre": "mot",
+   "hanzi": "长大",
+   "pinyin": "zhǎngdà",
+   "sens": {
+    "glose": "grandir",
+    "acceptions": [],
+    "statut": "relu",
+    "provenance": {
+     "reprise": "data/sources/fiches/长.json",
+     "champ": "mots[].fr"
+    }
+   },
+   "exemples": [
+    {
+     "zh": "我是在北京长大的。",
+     "pinyin": "Wǒ shì zài Běijīng zhǎngdà de.",
+     "fr": "J'ai passé mon enfance à Pékin.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L2-0717",
+   "genre": "mot",
+   "hanzi": "找出",
+   "pinyin": "zhǎochū",
+   "sens": {
+    "glose": "trouver, dénicher",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "trouver, dénicher, repérer"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "请找出文中的生词。",
+     "pinyin": "Qǐng zhǎochū wén zhōng de shēngcí.",
+     "fr": "Relevez les mots nouveaux du texte, s'il vous plaît.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L2-0718",
+   "genre": "mot",
+   "hanzi": "照顾",
+   "pinyin": "zhàogù",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "prendre soin de, s'occuper de",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "prendre soin de, s'occuper de"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "她在家照顾孩子。",
+     "pinyin": "Tā zàijiā zhàogù háizi.",
+     "fr": "Elle garde les enfants à la maison.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L2-0719",
+   "genre": "mot",
+   "hanzi": "照片",
+   "pinyin": "zhàopiàn",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "photo",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "photo, photographie"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这是我小时候的照片。",
+     "pinyin": "Zhè shì wǒ xiǎoshíhou de zhàopiàn.",
+     "fr": "C'est moi quand j'étais petit.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L2-0720",
+   "genre": "mot",
+   "hanzi": "照相",
+   "pinyin": "zhàoxiàng",
+   "sens": {
+    "glose": "prendre des photos",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "prendre des photos, se faire photographier"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "我们在这儿照相吧。",
+     "pinyin": "Wǒmen zài zhèr zhàoxiàng ba.",
+     "fr": "Faisons une photo ici.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L2-0721",
+   "genre": "mot",
+   "hanzi": "这么",
+   "pinyin": "zhème",
+   "categories": [
+    "Pron"
+   ],
+   "sens": {
+    "glose": "si, tellement ; ainsi",
+    "acceptions": [
+     {
+      "categorie": "Pron",
+      "fr": "si, tellement ; ainsi, comme ça"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "你怎么来得这么晚？",
+     "pinyin": "Nǐ zěnme lái de zhème wǎn?",
+     "fr": "Pourquoi tu arrives si tard ?",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L2-0722",
+   "genre": "mot",
+   "hanzi": "这时候",
+   "pinyin": "zhè shíhou",
+   "sens": {
+    "glose": "à ce moment, juste alors",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "à ce moment, juste alors"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这时候，电话响了。",
+     "pinyin": "Zhè shíhou, diànhuà xiǎng le.",
+     "fr": "C'est alors que le téléphone a sonné.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L2-0723",
+   "genre": "mot",
+   "hanzi": "这样",
+   "pinyin": "zhèyàng",
+   "categories": [
+    "Pron"
+   ],
+   "sens": {
+    "glose": "ainsi, comme ceci",
+    "acceptions": [
+     {
+      "categorie": "Pron",
+      "fr": "ainsi, comme ceci, tel"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这个字应该这样写。",
+     "pinyin": "Zhège zì yīnggāi zhèyàng xiě.",
+     "fr": "Ce caractère s'écrit comme ça.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L2-0724",
+   "genre": "mot",
+   "hanzi": "真正",
+   "pinyin": "zhēnzhèng",
+   "categories": [
+    "Adj"
+   ],
+   "sens": {
+    "glose": "vrai, véritable",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "vrai, véritable, authentique"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他是我真正的朋友。",
+     "pinyin": "Tā shì wǒ zhēnzhèng de péngyou.",
+     "fr": "C'est un ami, un vrai.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L2-0725",
+   "genre": "mot",
+   "hanzi": "正常",
+   "pinyin": "zhèngcháng",
+   "categories": [
+    "Adj"
+   ],
+   "sens": {
+    "glose": "normal",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "normal"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这很正常。",
+     "pinyin": "Zhè hěn zhèngcháng.",
+     "fr": "C'est tout à fait normal.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L2-0726",
+   "genre": "mot",
+   "hanzi": "正好",
+   "pinyin": "zhènghǎo",
+   "categories": [
+    "Adj",
+    "Adv"
+   ],
+   "sens": {
+    "glose": "juste ce qu'il faut ; justement",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "juste ce qu'il faut, parfait"
+     },
+     {
+      "categorie": "Adv",
+      "fr": "justement, par chance"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这件衣服大小正好。",
+     "pinyin": "Zhè jiàn yīfu dàxiǎo zhènghǎo.",
+     "fr": "Ce vêtement est pile à ma taille.",
+     "statut": "a_relire"
+    },
+    {
+     "zh": "你来得正好。",
+     "pinyin": "Nǐ lái de zhènghǎo.",
+     "fr": "Tu tombes bien.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "确",
+   "genre": "caractere",
+   "hanzi": "确",
+   "pinyin": "què",
+   "sens": {
+    "glose": "vraiment ; ferme, sûr",
+    "acceptions": [
+     {
+      "categorie": "Adv",
+      "fr": "vraiment, certainement"
+     },
+     {
+      "categorie": "Adj",
+      "fr": "ferme, sûr"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": []
+  },
+  {
+   "id": "L2-0727",
+   "genre": "mot",
+   "hanzi": "正确",
+   "pinyin": "zhèngquè",
+   "categories": [
+    "Adj"
+   ],
+   "sens": {
+    "glose": "correct, juste",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "correct, juste, exact"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "你的回答是正确的。",
+     "pinyin": "Nǐ de huídá shì zhèngquè de.",
+     "fr": "Tu as bien répondu.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L2-0728",
+   "genre": "mot",
+   "hanzi": "正是",
+   "pinyin": "zhèngshì",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "c'est justement",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "c'est justement, c'est précisément"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这正是我想要的。",
+     "pinyin": "Zhè zhèngshì wǒ xiǎng yào de.",
+     "fr": "C'est exactement ce que je voulais.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L2-0729",
+   "genre": "mot",
+   "hanzi": "直接",
+   "pinyin": "zhíjiē",
+   "categories": [
+    "Adj"
+   ],
+   "sens": {
+    "glose": "direct ; directement",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "direct ; directement"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "你可以直接去找他。",
+     "pinyin": "Nǐ kěyǐ zhíjiē qù zhǎo tā.",
+     "fr": "Tu peux aller le voir sans intermédiaire.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "只",
+   "genre": "caractere",
+   "hanzi": "只",
+   "pinyin": "zhǐ",
+   "mots": [
+    "L2-0730",
+    "L3-0905"
+   ],
+   "sens": {
+    "glose": "seulement, classificateur (animaux)",
+    "acceptions": [],
+    "statut": "relu",
+    "provenance": {
+     "reprise": "data/sources/fiches/只.json",
+     "champ": "sens_fr"
+    }
+   },
+   "exemples": [
+    {
+     "zh": "我只想喝水。",
+     "pinyin": "Wǒ zhǐ xiǎng hē shuǐ.",
+     "fr": "Je veux juste de l'eau.",
+     "statut": "a_relire"
+    },
+    {
+     "zh": "我家有三只鸡。",
+     "pinyin": "Wǒ jiā yǒu sān zhī jī.",
+     "fr": "Nous avons trois poules.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L2-0731",
+   "genre": "mot",
+   "hanzi": "只能",
+   "pinyin": "zhǐ néng",
+   "sens": {
+    "glose": "ne pouvoir que",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "ne pouvoir que, être obligé de"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "没有车了，我们只能走路回家。",
+     "pinyin": "Méiyou chē le, wǒmen zhǐ néng zǒulù huí jiā.",
+     "fr": "Il n'y a plus de bus, on n'a plus qu'à rentrer à pied.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L2-0732",
+   "genre": "mot",
+   "hanzi": "只要",
+   "pinyin": "zhǐyào",
+   "categories": [
+    "Conj"
+   ],
+   "sens": {
+    "glose": "pourvu que, il suffit que",
+    "acceptions": [
+     {
+      "categorie": "Conj",
+      "fr": "pourvu que, il suffit que"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "只要你努力，就能学好汉语。",
+     "pinyin": "Zhǐyào nǐ nǔlì, jiù néng xué hǎo Hànyǔ.",
+     "fr": "Si tu travailles, tu apprendras bien le chinois.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L2-0734",
+   "genre": "mot",
+   "hanzi": "中餐",
+   "pinyin": "zhōngcān",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "cuisine chinoise",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "cuisine chinoise, repas chinois"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "我很喜欢吃中餐。",
+     "pinyin": "Wǒ hěn xǐhuan chī zhōngcān.",
+     "fr": "J'adore manger chinois.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L2-0735",
+   "genre": "mot",
+   "hanzi": "中级",
+   "pinyin": "zhōngjí",
+   "categories": [
+    "Adj"
+   ],
+   "sens": {
+    "glose": "intermédiaire, de niveau moyen",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "intermédiaire, de niveau moyen"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "我在学中级汉语。",
+     "pinyin": "Wǒ zài xué zhōngjí Hànyǔ.",
+     "fr": "J'étudie le chinois de niveau intermédiaire.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L2-0736",
+   "genre": "mot",
+   "hanzi": "中年",
+   "pinyin": "zhōngnián",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "âge mûr",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "âge mûr, entre quarante et soixante ans"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他是一个中年人。",
+     "pinyin": "Tā shì yī ge zhōngnián rén.",
+     "fr": "C'est un homme dans la force de l'âge.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L2-0737",
+   "genre": "mot",
+   "hanzi": "中小学",
+   "pinyin": "zhōng-xiǎoxué",
+   "sens": {
+    "glose": "écoles primaires et secondaires",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "écoles primaires et secondaires"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这里有很多中小学。",
+     "pinyin": "Zhèli yǒu hěn duō zhōng-xiǎoxué.",
+     "fr": "Il y a beaucoup d'écoles et de collèges ici.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L2-0738",
+   "genre": "mot",
+   "hanzi": "中心",
+   "pinyin": "zhōngxīn",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "centre",
+    "acceptions": [],
+    "statut": "relu",
+    "provenance": {
+     "reprise": "data/sources/fiches/中.json",
+     "champ": "mots[].fr"
+    }
+   },
+   "exemples": [
+    {
+     "zh": "这里是学校的中心。",
+     "pinyin": "Zhèli shì xuéxiào de zhōngxīn.",
+     "fr": "Nous sommes au cœur du campus.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L2-0739",
+   "genre": "mot",
+   "hanzi": "中医",
+   "pinyin": "zhōngyī",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "médecine chinoise",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "médecine chinoise traditionnelle ; médecin de cette médecine"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "我想去看中医。",
+     "pinyin": "Wǒ xiǎng qù kàn zhōngyī.",
+     "fr": "Je voudrais consulter un médecin traditionnel chinois.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L2-0740",
+   "genre": "mot",
+   "hanzi": "重点",
+   "pinyin": "zhòngdiǎn",
+   "categories": [
+    "N",
+    "Adv"
+   ],
+   "sens": {
+    "glose": "point essentiel ; en priorité",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "point essentiel, priorité"
+     },
+     {
+      "categorie": "Adv",
+      "fr": "en priorité, particulièrement"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这是这课的重点。",
+     "pinyin": "Zhè shì zhè kè de zhòngdiǎn.",
+     "fr": "C'est ce qu'il faut retenir de cette leçon.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L2-0741",
+   "genre": "mot",
+   "hanzi": "重视",
+   "pinyin": "zhòngshì",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "attacher de l'importance à",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "attacher de l'importance à, prendre au sérieux"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他很重视学习。",
+     "pinyin": "Tā hěn zhòngshì xuéxí.",
+     "fr": "Pour lui, les études passent avant tout.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "末",
+   "genre": "caractere",
+   "hanzi": "末",
+   "pinyin": "mò",
+   "mots": [
+    "L4-0528"
+   ],
+   "sens": {
+    "glose": "fin, bout ; poudre",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "fin, bout"
+     },
+     {
+      "categorie": "N",
+      "fr": "poudre, poussière"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "月末我很忙。",
+     "pinyin": "Yuè mò wǒ hěn máng.",
+     "fr": "Je suis très occupé en fin de mois.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L2-0743",
+   "genre": "mot",
+   "hanzi": "周末",
+   "pinyin": "zhōumò",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "week-end",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "week-end"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "周末你打算做什么？",
+     "pinyin": "Zhōumò nǐ dǎsuan zuò shénme?",
+     "fr": "Qu'est-ce que tu comptes faire samedi et dimanche ?",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L2-0744",
+   "genre": "mot",
+   "hanzi": "周年",
+   "pinyin": "zhōunián",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "anniversaire (d'un événement)",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "anniversaire d'un événement, année révolue"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "今天是我们学校的一百周年。",
+     "pinyin": "Jīntiān shì wǒmen xuéxiào de yībǎi zhōunián.",
+     "fr": "Aujourd'hui, notre école fête ses cent ans.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "主",
+   "genre": "caractere",
+   "hanzi": "主",
+   "pinyin": "zhǔ",
+   "mots": [
+    "L7-5450"
+   ],
+   "sens": {
+    "glose": "maître, principal",
+    "acceptions": [],
+    "statut": "relu",
+    "provenance": {
+     "reprise": "data/sources/fiches/主.json",
+     "champ": "sens_fr"
+    }
+   },
+   "exemples": [
+    {
+     "zh": "这件事你自己做主吧。",
+     "pinyin": "Zhè jiàn shì nǐ zìjǐ zuò zhǔ ba.",
+     "fr": "C'est à toi de décider.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L2-0745",
+   "genre": "mot",
+   "hanzi": "主人",
+   "pinyin": "zhǔren",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "hôte ; propriétaire",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "hôte, maître de maison ; propriétaire"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "主人请我们喝茶。",
+     "pinyin": "Zhǔren qǐng wǒmen hē chá.",
+     "fr": "Le maître de maison nous a servi du thé.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L2-0746",
+   "genre": "mot",
+   "hanzi": "主要",
+   "pinyin": "zhǔyào",
+   "categories": [
+    "Adj"
+   ],
+   "sens": {
+    "glose": "principal",
+    "acceptions": [],
+    "statut": "relu",
+    "provenance": {
+     "reprise": "data/sources/fiches/主.json",
+     "champ": "mots[].fr"
+    }
+   },
+   "exemples": [
+    {
+     "zh": "我来中国的主要目的是学汉语。",
+     "pinyin": "Wǒ lái Zhōngguó de zhǔyào mùdì shì xué Hànyǔ.",
+     "fr": "Je suis venu en Chine surtout pour apprendre le chinois.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L2-0747",
+   "genre": "mot",
+   "hanzi": "住房",
+   "pinyin": "zhùfáng",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "logement",
+    "acceptions": [],
+    "statut": "relu",
+    "provenance": {
+     "reprise": "data/sources/fiches/住.json",
+     "champ": "mots[].fr"
+    }
+   },
+   "exemples": [
+    {
+     "zh": "这里的住房很贵。",
+     "pinyin": "Zhèli de zhùfáng hěn guì.",
+     "fr": "Se loger coûte cher ici.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L2-0748",
+   "genre": "mot",
+   "hanzi": "住院",
+   "pinyin": "zhùyuàn",
+   "sens": {
+    "glose": "être hospitalisé",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "être hospitalisé, séjourner à l'hôpital"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他病了，住院了。",
+     "pinyin": "Tā bìng le, zhùyuàn le.",
+     "fr": "Il est malade, on l'a gardé à l'hôpital.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "装",
+   "genre": "caractere",
+   "hanzi": "装",
+   "pinyin": "zhuāng",
+   "mots": [
+    "L2-0749"
+   ],
+   "sens": {
+    "glose": "mettre dans, installer ; faire semblant",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "mettre dans, emballer ; installer"
+     },
+     {
+      "categorie": "V",
+      "fr": "faire semblant de"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "包里装着什么？",
+     "pinyin": "Bāo li zhuāng zhe shénme?",
+     "fr": "Qu'est-ce qu'il y a dans le sac ?",
+     "statut": "a_relire"
+    },
+    {
+     "zh": "别装了！",
+     "pinyin": "Bié zhuāng le!",
+     "fr": "Arrête de faire semblant !",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L2-0750",
+   "genre": "mot",
+   "hanzi": "准确",
+   "pinyin": "zhǔnquè",
+   "categories": [
+    "Adj"
+   ],
+   "sens": {
+    "glose": "exact, précis, juste",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "exact, précis, juste"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这个时间不太准确。",
+     "pinyin": "Zhège shíjiān bù tài zhǔnquè.",
+     "fr": "Cet horaire n'est pas très fiable.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "己",
+   "genre": "caractere",
+   "hanzi": "己",
+   "pinyin": "jǐ",
+   "sens": {
+    "glose": "soi, soi-même",
+    "acceptions": [
+     {
+      "categorie": "Pron",
+      "fr": "soi, soi-même"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": []
+  }
+ ]
+}
