@@ -8,7 +8,10 @@
  },
  "relecture": {
   "statut": "a_relire",
-  "note": "rédigé le 29 septembre 2026, à relire par le propriétaire (`wenlu examens apercu`) ; une série passe à `relu` sur sa décision, citée ici"
+  "note": "rédigé le 29 septembre 2026, à relire par le propriétaire (`wenlu examens apercu`) ; une série passe à `relu` sur sa décision, citée ici",
+  "corrections": [
+   "le 29 septembre 2026, surtitres ramenés au genre du support, sur le signalement du propriétaire (« tu donnes les réponses dans les intitulés ») : le surtitre se lit avant la question et ne dit plus son contenu : A s1 « Le menu d'un petit restaurant » → « Un menu » ; A s2 « Xiao Li écrit à Mingming » → « Un message » ; B s2 « Une affiche dans une école » → « Une affiche »"
+  ]
  },
  "series": [
   {
@@ -19,8 +22,8 @@
      "id": "s1",
      "genre": "menu",
      "contexte": {
-      "fr": "Le menu d'un petit restaurant",
-      "en": "The menu of a small restaurant"
+      "fr": "Un menu",
+      "en": "A menu"
      },
      "lignes": [
       {
@@ -53,8 +56,8 @@
      "id": "s2",
      "genre": "message",
      "contexte": {
-      "fr": "Xiao Li écrit à Mingming",
-      "en": "Xiao Li writes to Mingming"
+      "fr": "Un message",
+      "en": "A message"
      },
      "lignes": [
       {
@@ -237,8 +240,8 @@
      "id": "s2",
      "genre": "affiche",
      "contexte": {
-      "fr": "Une affiche dans une école",
-      "en": "A poster in a school"
+      "fr": "Une affiche",
+      "en": "A poster"
      },
      "lignes": [
       {

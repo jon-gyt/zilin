@@ -8,7 +8,10 @@
  },
  "relecture": {
   "statut": "a_relire",
-  "note": "rédigé le 29 septembre 2026, à relire par le propriétaire (`wenlu examens apercu`) ; une série passe à `relu` sur sa décision, citée ici"
+  "note": "rédigé le 29 septembre 2026, à relire par le propriétaire (`wenlu examens apercu`) ; une série passe à `relu` sur sa décision, citée ici",
+  "corrections": [
+   "le 29 septembre 2026, surtitres ramenés au genre du support, sur le signalement du propriétaire (« tu donnes les réponses dans les intitulés ») : le surtitre se lit avant la question et ne dit plus son contenu : A s1 « Mingming écrit à Daming » → « Un message » ; A s2 « Un billet de train » → « Un billet » ; B s1 « Un panneau dans une gare » → « Un panneau » ; B s2 « Daming écrit à Mingming » → « Un message » ; B s3 « Un mot sur la porte d'une boutique » → « Un mot sur une porte » ; B s4 « L'enseigne d'une boutique » → « Une enseigne »"
+  ]
  },
  "series": [
   {
@@ -19,8 +22,8 @@
      "id": "s1",
      "genre": "message",
      "contexte": {
-      "fr": "Mingming écrit à Daming",
-      "en": "Mingming writes to Daming"
+      "fr": "Un message",
+      "en": "A message"
      },
      "lignes": [
       {
@@ -41,8 +44,8 @@
      "id": "s2",
      "genre": "billet",
      "contexte": {
-      "fr": "Un billet de train",
-      "en": "A train ticket"
+      "fr": "Un billet",
+      "en": "A ticket"
      },
      "lignes": [
       {
@@ -399,8 +402,8 @@
      "id": "s1",
      "genre": "pancarte",
      "contexte": {
-      "fr": "Un panneau dans une gare",
-      "en": "A sign in a station"
+      "fr": "Un panneau",
+      "en": "A sign"
      },
      "lignes": [
       {
@@ -435,8 +438,8 @@
      "id": "s2",
      "genre": "message",
      "contexte": {
-      "fr": "Daming écrit à Mingming",
-      "en": "Daming writes to Mingming"
+      "fr": "Un message",
+      "en": "A message"
      },
      "lignes": [
       {
@@ -457,8 +460,8 @@
      "id": "s3",
      "genre": "note",
      "contexte": {
-      "fr": "Un mot sur la porte d'une boutique",
-      "en": "A note on a shop door"
+      "fr": "Un mot sur une porte",
+      "en": "A note on a door"
      },
      "lignes": [
       {
@@ -479,8 +482,8 @@
      "id": "s4",
      "genre": "enseigne",
      "contexte": {
-      "fr": "L'enseigne d'une boutique",
-      "en": "A shop sign"
+      "fr": "Une enseigne",
+      "en": "A sign"
      },
      "lignes": [
       {
