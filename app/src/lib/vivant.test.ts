@@ -150,6 +150,19 @@ describe("le fanion d'une auberge flotte au vent", () => {
   }
 });
 
+describe("les caractères lus s'impriment en jade dans le sentier d'une auberge", () => {
+  const x = source('Tree.svelte');
+  const css = x.slice(x.indexOf('<style>'));
+  it("les lus seuls, l'un après l'autre en montant, sans rien faire attendre", () => {
+    expect(x).toContain("class:imprime={q.etat === 'lu'}");
+    expect(x).toContain('animation-delay:${(0.15 + i * 0.06).toFixed(2)}s');
+    expect(css).toMatch(/\.imprime \{[^}]*animation: imprimer 0\.42s/);
+  });
+  it("s'arrête si l'on réduit les animations", () => {
+    expect(reduits(css)).toMatch(/\.imprime \{\s*animation: none;/);
+  });
+});
+
 describe('le retour haptique, accordé aux petits moments', () => {
   it('une bonne réponse dans un jeu donne le même tap léger qu’en révision, une erreur rien', () => {
     expect(source('Game.svelte')).toMatch(/function reagirA\(correct: boolean\): void \{[\s\S]*?if \(correct\) bonneReponse\(\);/);
