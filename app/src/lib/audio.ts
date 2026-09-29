@@ -135,6 +135,7 @@ export function configurerAudio(
   charge = null;
   voixAttendues = null;
   voixNatives = [];
+  enonceEnCours = null;
   preference = null;
   tour = 0;
   manifestes.clear();
@@ -464,6 +465,28 @@ function refusSansEchec(e: unknown): boolean {
   return nom === 'NotAllowedError' || nom === 'AbortError';
 }
 
+/**
+ * L'énoncé que dit la voix du web, retenu jusqu'à sa fin (`end` ou `error`). Bug connu de
+ * WebKit et de Chromium : un `SpeechSynthesisUtterance` que plus rien ne référence peut être
+ * ramassé en pleine lecture, qui s'interrompt, ou dont `end` ne vient jamais.
+ */
+let enonceEnCours: SpeechSynthesisUtterance | null = null;
+
+/** L'énoncé que la voix du web dit en ce moment, retenu par ce module ; `null` sinon. */
+export function enonceRetenu(): SpeechSynthesisUtterance | null {
+  return enonceEnCours;
+}
+
+/** Retient un énoncé jusqu'à sa fin ; le suivant prend sa place. */
+function retenir(u: SpeechSynthesisUtterance): void {
+  enonceEnCours = u;
+  const lacher = (): void => {
+    if (enonceEnCours === u) enonceEnCours = null;
+  };
+  u.onend = lacher;
+  u.onerror = lacher;
+}
+
 /** Fait taire tout ce qui joue : le fichier, la voix du web, la voix native. */
 function taireTout(): void {
   try {
@@ -575,6 +598,7 @@ export function direParLeTelephone(texte: string, moi = ++tour): boolean {
     u.voice = web;
     u.lang = web.lang;
     u.rate = vitesse(texte);
+    retenir(u);
     s.speak(u);
     return true;
   } catch {

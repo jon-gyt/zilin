@@ -9,6 +9,7 @@ import {
   aVoixTelephone,
   direParLeTelephone,
   enonce,
+  enonceRetenu,
   POINT_FINAL,
   voixMandarin,
   voixPretes,
@@ -226,6 +227,8 @@ class UtteranceDEssai {
   voice: unknown = null;
   lang = '';
   rate = 1;
+  onend: (() => void) | null = null;
+  onerror: (() => void) | null = null;
   constructor(text: string) { this.text = text; }
 }
 
@@ -646,6 +649,38 @@ describe('l’énoncé : un caractère seul n’est pas coupé net', () => {
     await voixPretes();
     await prononcer('好');
     expect(dits).toEqual(['好。']);
+  });
+});
+
+describe('l’énoncé retenu jusqu’à sa fin', () => {
+  beforeEach(() => {
+    (globalThis as { SpeechSynthesisUtterance?: unknown }).SpeechSynthesisUtterance = UtteranceDEssai;
+  });
+
+  it('le ramasse-miettes ne peut pas le prendre en pleine lecture : il est gardé jusqu’à end', async () => {
+    const s = syntheseDeVoix(APPLE);
+    configurerAudio({ synthese: () => s, fetchFn: fetchDEssai([]) });
+    await prononcer('人');
+    const u = enonceRetenu() as unknown as UtteranceDEssai;
+    expect(u).not.toBeNull();
+    expect(u.text).toBe('人。');
+    u.onend?.();
+    expect(enonceRetenu()).toBeNull();
+  });
+
+  it('ou jusqu’à error ; le suivant prend sa place', async () => {
+    const s = syntheseDeVoix(APPLE);
+    configurerAudio({ synthese: () => s, fetchFn: fetchDEssai([]) });
+    await prononcer('人');
+    const premier = enonceRetenu() as unknown as UtteranceDEssai;
+    premier.onerror?.();
+    expect(enonceRetenu()).toBeNull();
+    await prononcer('天天');
+    const second = enonceRetenu() as unknown as UtteranceDEssai;
+    expect(second.text).toBe('天天。');
+    /* la fin tardive du premier ne lâche pas le second */
+    premier.onend?.();
+    expect(enonceRetenu()).toBe(second);
   });
 });
 
