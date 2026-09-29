@@ -198,9 +198,10 @@ def test_pas_de_fuite_la_phrase_n_est_pas_le_mot_seul(ref: d.Referentiel) -> Non
 
 
 def test_autres_mots_signales_sans_bloquer(ref: d.Referentiel) -> None:
-    e = d.Exemple("今天我知道。", "Jīn tiān wǒ zhīdao.", "Aujourd'hui, je suis au courant.")
+    ref.lectures = {**ref.lectures, "天": ["tiān", "tiǎn"]}
+    e = d.Exemple("今天我知道。", "Jīntiǎn wǒ zhīdao.", "Aujourd'hui, je suis au courant.")
     assert d.ecarts_phrase(e, _place(ref, "L1-0002"), ref) == []
-    assert any("今天 écrit « Jīn tiān »" in x for x in d.ecarts_autres_mots(e, _place(ref, "L1-0002"), ref))
+    assert any("今天 écrit « Jīntiǎn »" in x for x in d.ecarts_autres_mots(e, _place(ref, "L1-0002"), ref))
 
 
 # ----------------------------------------------------- import, relecture, export

@@ -1116,10 +1116,17 @@ def _ranger(ecart: str, bilan: Bilan) -> None:
         bilan.longueurs.append(ecart)
 
 
+def _meme_lecture(lu: Sequence[str], liste: Sequence[str]) -> bool:
+    """Les syllabes de la liste, ou les mêmes où la phrase neutralise un ton (不 dans 难不难)."""
+    if len(lu) != len(liste):
+        return False
+    return all(a == b or (a[:-1] == b[:-1] and a.endswith("5")) for a, b in zip(lu, liste))
+
+
 def ecarts_autres_mots(e: Exemple, place: Place, ref: Referentiel) -> list[str]:
-    """Les mots de la liste (deux caractères et plus) écrits dans la phrase autrement que la
-    liste (tons, ton neutre, ou en deux morceaux). Découpage au plus long, donc approximatif :
-    signalé, jamais bloquant."""
+    """Les mots de la liste (deux caractères et plus) lus dans la phrase à d'autres tons que
+    ceux de la liste (ton neutre compris). Découpage au plus long, donc approximatif (的话 dans
+    说的话) : signalé, jamais bloquant ; l'écriture par mot n'est contrôlée que pour l'entrée."""
     signes = _sans_ponctuation(e.zh)
     formes = aligner(e.zh, e.pinyin, {c: ref.lectures.get(c, []) for c in set(signes)})
     if formes is None:
@@ -1132,8 +1139,9 @@ def ecarts_autres_mots(e: Exemple, place: Place, ref: Referentiel) -> list[str]:
             candidates = ref.formes_multiples.get(signes[i : i + n])
             if candidates:
                 texte = _pinyin_du_rang(e.pinyin, formes, i, i + n)
+                lu = tuple(numeroter(f) for f in formes[i : i + n])
                 if signes[i : i + n] not in {h for h, _ in place.formes} and not any(
-                    _comparable(texte) == _comparable(f.pinyin) for f in candidates
+                    _meme_lecture(lu, f.syllabes) or _meme_lecture(lu, f.pleines) for f in candidates
                 ):
                     ecarts.append(f"« {e.zh} » : {signes[i:i+n]} écrit « {texte} », la liste dit « {candidates[0].pinyin} »")
                 pris = n
