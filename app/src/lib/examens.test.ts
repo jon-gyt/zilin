@@ -27,6 +27,7 @@ import {
   rangAccorde,
   avancer,
   dateDuBang,
+  decouperLigne,
   essayer,
   examensPassables,
   genresDe,
@@ -361,6 +362,18 @@ describe('ce que l’écran montre', () => {
     expect(prochainATitre(LISTE, 'yueke-75')?.hz).toBe('府试');
     expect(titreAvec(LISTE, LISTE[0])?.titre).toBe('童生');
     expect(titreAvec(LISTE, LISTE[2])).toBeNull();
+  });
+
+  it('découpe une ligne du support pour le repérage : les mots proposés se touchent', () => {
+    expect(decouperLigne('明天一早，门口见！', ['门口', '明天', '一早', '生日'])).toEqual([
+      { t: '明天', mot: 1 },
+      { t: '一早', mot: 2 },
+      { t: '，', mot: -1 },
+      { t: '门口', mot: 0 },
+      { t: '见', mot: -1 },
+      { t: '！', mot: -1 }
+    ]);
+    expect(decouperLigne('星期二', ['星期', '星期二'])).toEqual([{ t: '星期二', mot: 1 }]);
   });
 
   it('dit les genres des supports, le gras par paires, et la date du 放榜 en chiffres chinois', () => {

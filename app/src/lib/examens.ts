@@ -848,6 +848,28 @@ export function morceaux(texte: string): { t: string; gras: boolean }[] {
     .filter((m) => m.t !== '');
 }
 
+/**
+ * Une ligne d'un support découpée pour le repérage : les mots proposés (`mots`, le plus long
+ * d'abord là où deux commencent au même endroit) deviennent des morceaux à toucher, avec
+ * leur rang ; le reste, caractère par caractère, `mot` à -1.
+ */
+export function decouperLigne(zh: string, mots: readonly string[]): { t: string; mot: number }[] {
+  const out: { t: string; mot: number }[] = [];
+  const ordre = mots.map((m, k) => ({ m, k })).sort((a, b) => b.m.length - a.m.length);
+  let i = 0;
+  while (i < zh.length) {
+    const trouve = ordre.find(({ m }) => m !== '' && zh.startsWith(m, i));
+    if (trouve) {
+      out.push({ t: trouve.m, mot: trouve.k });
+      i += trouve.m.length;
+    } else {
+      out.push({ t: zh[i], mot: -1 });
+      i += 1;
+    }
+  }
+  return out;
+}
+
 /** Les chiffres chinois d'un nombre de 1 à 99 : 十二, 二十九. */
 function chiffres(n: number): string {
   const C = '〇一二三四五六七八九';
