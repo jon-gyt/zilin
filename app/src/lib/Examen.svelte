@@ -73,7 +73,7 @@
     type SerieExamen
   } from './examens';
   import type { StrokeData } from './glyph';
-  import { rangDe, total, type HerosDonnees } from './heros';
+  import { meriteDe, rangTenu, type HerosDonnees } from './heros';
   import type { Progress } from './session';
   import { stade } from './tao';
 
@@ -305,7 +305,7 @@
 
   const noms = $derived(examen === null ? [] : (examenDuChemin(donnees, chemin, examen.id)?.noms ?? []));
   const nomHeros = $derived(p.heros?.nom ?? '');
-  const rangHeros = $derived(rangDe(total(p.arts), rangs));
+  const rangHeros = $derived(rangTenu(rangs, meriteDe(p, lus)));
   const date = $derived(dateDuBang(p.day));
 
   /* ---------- Tao ---------- */

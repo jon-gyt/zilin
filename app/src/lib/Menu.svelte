@@ -51,7 +51,7 @@
   import Pinceaux from './Pinceaux.svelte';
   import Tao from './Tao.svelte';
   import Heros from './Heros.svelte';
-  import { herosOnce, rangDe, total, type Rang } from './heros';
+  import { herosOnce, meriteDe, rangTenu, type Rang } from './heros';
   import { aAudio, dire, manifesteOnce, type Manifeste } from './audio';
   import {
     devinettesOnce,
@@ -319,7 +319,6 @@
       vivant = false;
     };
   });
-  const rangHeros = $derived(rangDe(total(p.arts), rangsHeros));
 
   /* ---------- les cases ---------- */
 
@@ -367,6 +366,8 @@
 
   const reviser = $derived(caseReviser(p));
   const lus = $derived(caracteresLus(familles, p.cartes));
+  /** Le rang tenu : les points et les examens (« Points ET examen », story 8.5). */
+  const rangHeros = $derived(rangTenu(rangsHeros, meriteDe(p, lus)));
 
   function info(id: CaseId): string {
     if (id === 'reviser') return reviser.info;

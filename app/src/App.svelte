@@ -11,7 +11,6 @@
   import Fangbang from './lib/Fangbang.svelte';
   import Personnage from './lib/Personnage.svelte';
   import { herosOnce, meriteDe, rangTenu, titreAccorde, type BeteId, type HerosDonnees } from './lib/heros';
-  import { examensOnce, migrerRangsAnnonces, type ExamensDonnees } from './lib/examens';
   import Close from './lib/Close.svelte';
   import Examen from './lib/Examen.svelte';
   import FirstSession from './lib/FirstSession.svelte';
@@ -138,6 +137,7 @@
     cheminDesExamens,
     examensOnce,
     examensPassables,
+    migrerRangsAnnonces,
     type Bilan,
     type ExamensDonnees,
     type QuestionExamen
@@ -214,6 +214,8 @@
    * manqués d'abord (`session.pauseDesBriques`).
    */
   let examensDonnees: ExamensDonnees = $state.raw(SANS_EXAMENS);
+  /** Vrai une fois `examens.json` lu : les rangs d'une progression d'avant les examens s'y reportent. */
+  let examensCharges = false;
   /** Les familles de l'export, comme Ma forêt les compte : les portes et les examens s'y lisent. */
   let famillesLues: Famille[] | null = $state.raw(null);
   const ctxExamens: ContexteExamens = $derived({
@@ -320,22 +322,13 @@
     })
     .catch(() => undefined);
 
-  /** Les examens (`examens.json`) : ici, pour reporter les rangs d'une progression d'avant eux. */
-  let examensDonnees: ExamensDonnees | null = null;
-  void examensOnce()
-    .then((d) => {
-      examensDonnees = d;
-      reporterLesRangs();
-    })
-    .catch(() => undefined);
-
   /**
    * Une progression d'avant les examens garde ses rangs annoncés : les examens en dessous,
    * 月课 compris, sont notés reçus à la journée de la mise à jour, une seule fois
    * (`examens.migrerRangsAnnonces`). Le suivant s'ouvre de lui-même si son palier est atteint.
    */
   function reporterLesRangs(): void {
-    if (!chargee || herosDonnees === null || examensDonnees === null || p.examens.migre) return;
+    if (!chargee || herosDonnees === null || !examensCharges || p.examens.migre) return;
     const examens = migrerRangsAnnonces(p.examens, p.heros?.rang ?? 0, herosDonnees.rangs, examensDonnees.examens, p.day);
     p = { ...p, examens };
     enregistrer();
@@ -503,6 +496,7 @@
     indexDonnees = i;
     textesRythme = t;
     examensDonnees = ex;
+    examensCharges = ex !== SANS_EXAMENS;
     if (familles !== null) famillesLues = familles;
     const jour = today();
     /* La pile due est recomptée sur les cartes : c'est elle qui ouvre et ferme le rattrapage. */
@@ -1270,7 +1264,7 @@
     />
   {/if}
 {:else if ecran === 'route'}
-  <Route {p} {acces} textes={textesRythme} onretour={fermerRoute} />
+  <Route {p} {acces} textes={textesRythme} onretour={fermerRoute} onexamen={examenMenu?.passer ? boutonMenu : undefined} />
 {:else if ecran === 'revisions'}
   <Revisions {p} onretour={fermerDetour} />
 {:else if ecran === 'rewards'}
