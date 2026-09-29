@@ -821,6 +821,9 @@ Décisions du propriétaire du 29 septembre 2026 : « Ok maquette d'examen »
   hors de `examens.json` : l'app n'ouvre ces deux examens qu'une fois leurs séries relues.
   Relecture : `wenlu examens apercu lire fushi` (et `hsk`, `yueke-150`), puis `statut: relu`
   et la décision dans `relecture`. Couverture bloquante portée à 150.
+  **Relues** le 29 septembre, par décision du propriétaire (« Tout est ok ») : relecture
+  considérée faite, sans relecture ligne à ligne, citée dans `relecture` ; les deux examens
+  s'ouvrent.
 - **8.7, livrée** : le pinyin sous les caractères aux premiers examens (décision du
   propriétaire du 29 septembre, « jusqu'à HSK 1 »). `examens.tsv` prend la colonne
   `pinyin_sous` (`lire hsk` du 县试 au 乡试, `hsk` pour les 月课 de 305, 355 et 405, `—`
