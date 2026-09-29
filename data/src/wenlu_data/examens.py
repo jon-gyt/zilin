@@ -242,6 +242,7 @@ JETONS_TEXTES: dict[str, frozenset[str]] = {
     "vf_faux": frozenset({"fr"}),
     "ko_replique": frozenset({"fr"}),
     "ko_ton": frozenset({"syllabe"}),
+    "ko_comprendre": frozenset(),
     "continuer": frozenset(),
     "voir_resultat": frozenset(),
     "resultat": frozenset(),

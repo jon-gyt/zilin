@@ -25,7 +25,9 @@
 # - la question : `quitter`, `question_n` ({n} sur {questions}), `kicker_revue`, `vrai`,
 #   `faux`, `ta_reponse`, `tao_attente`, `juste`, `rattrapee`, `rattrapee_suite`,
 #   `pas_celle`, `encore`, `vf_vrai`, `vf_faux` ({fr}, l'affirmation), `ko_replique` ({fr},
-#   la réplique choisie), `ko_ton` ({syllabe}), `continuer`, `voir_resultat` ;
+#   la réplique choisie), `ko_ton` ({syllabe}), `ko_comprendre` (après une réponse fausse
+#   au sens d'une mise en situation : relire, sans rien donner de la réponse), `continuer`,
+#   `voir_resultat` ;
 # - le résultat : `resultat`, `constat` ({justes} sur {questions}), `recu` ({examen}),
 #   `pas_encore`, `tao_recu`, `tao_recu_yueke`, `tao_pas_encore`, `a_revoir`,
 #   `a_revoir_un` ({ou}), `rien_a_revoir`, `points`, `points_rattrapes`,
@@ -91,6 +93,7 @@ vf_vrai	Le texte le dit : « {fr} »	rédigé pour l'app
 vf_faux	Le texte ne le dit pas : « {fr} »	rédigé pour l'app
 ko_replique	« {fr} » ne répond pas au message.	d'après la maquette validée le 29 septembre 2026
 ko_ton	Ce n'est pas {syllabe}.	rédigé pour l'app
+ko_comprendre	Relis le texte, mot à mot : la réponse y est écrite.	rédigé pour l'app, sur le signalement du propriétaire du 29 septembre 2026 (« tu donnes les réponses dans les intitulés ») : entre deux essais, rien ne donne la réponse
 continuer	Continuer	d'après la maquette validée le 29 septembre 2026
 voir_resultat	Voir le résultat	d'après la maquette validée le 29 septembre 2026
 resultat	résultat	d'après la maquette validée le 29 septembre 2026

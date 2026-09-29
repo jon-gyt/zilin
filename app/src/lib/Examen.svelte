@@ -11,7 +11,9 @@
    *   seconde chance : après une erreur, une autre réponse se touche ; rattrapée, elle donne
    *   son point 读 mais ne compte pas pour le premier coup. Tao attend à la porte avec le
    *   panier, puis dit ce qu'on vient de lire. Sans chronomètre ; « Quitter » reprend à la
-   *   même question.
+   *   même question. Entre deux essais, Tao ne donne jamais la bonne réponse, ni directement
+   *   ni par une glose (signalement du propriétaire du 29 septembre 2026) : au plus ce que
+   *   veut dire le choix touché, ou une invitation à relire ; l'explication vient à la fin.
    * - Le résultat : un constat, jamais en ocre (« 9 sur 10 du premier coup. Reçu au 县试. »,
    *   « 6 sur 10 du premier coup. Pas encore. »), les caractères manqués dessinés depuis leurs
    *   traits et nommés avec l'endroit où on les a croisés, les points 读.
@@ -57,6 +59,7 @@
     questionFinie,
     questionsDe,
     rangsPosables,
+    retourQuestion,
     reussite,
     serieDe,
     serieDeTentative,
@@ -127,7 +130,6 @@
   const i = $derived(tentative?.i ?? 0);
   const q = $derived(questions[i] ?? null);
   const essais = $derived(tentative?.essais ?? []);
-  const dernier = $derived(essais.length > 0 ? essais[essais.length - 1] : undefined);
   const fini = $derived(q !== null && questionFinie(q, essais));
   const support = $derived(q?.support === undefined || serie === null ? null : (serie.supports.find((x) => x.id === q.support) ?? null));
 
@@ -205,55 +207,11 @@
     onrepondre(i, q, donnee);
   }
 
-  /** La glose de la série : ce que Tao dit d'un mot, « 古玩 gǔ wán : antiquités ». */
-  function glose(zh: string): string {
-    const g = serie?.glose[zh];
-    return g ? `${zh} ${g.pinyin} : ${g.fr}` : '';
-  }
-  /** Les mots du support qui portent la réponse, glosés. */
-  function gloseDesPortes(x: QuestionExamen): string {
-    if (serie === null) return '';
-    const porte = new Set(x.porte);
-    const texte = support?.lignes.map((l) => l.zh).join('') ?? '';
-    return Object.keys(serie.glose)
-      .filter((zh) => [...zh].some((c) => porte.has(c)) && [...zh].every((c) => porte.has(c)) && texte.includes(zh))
-      .sort((a, b) => b.length - a.length)
-      .filter((zh, k, l) => !l.slice(0, k).some((plus) => plus.includes(zh)))
-      .sort((a, b) => texte.indexOf(a) - texte.indexOf(b))
-      .slice(0, 3)
-      .map(glose)
-      .filter((g) => g !== '')
-      .join(' · ');
-  }
-  const phraseDe = (x: Phrase): string => `« ${x.fr} »`;
-  /** Ce que la bonne réponse fait lire. */
-  function explication(x: QuestionExamen): string {
-    if (x.objet !== undefined && (x.type === 'sens' || x.type === 'caractere' || x.type === 'trou' || x.type === 'ton')) {
-      return `${x.objet.zh} ${x.objet.pinyin} : ${x.objet.fr}`;
-    }
-    if (x.type === 'vrai_faux' && x.affirmation !== undefined) {
-      return t(x.reponse === true ? 'vf_vrai' : 'vf_faux', { fr: x.affirmation.fr });
-    }
-    if (x.type === 'replique') return phraseDe(x.choix[x.reponse as number] as Phrase);
-    return gloseDesPortes(x);
-  }
-  /** Ce que dit une réponse fausse, pour relire avant le second essai. */
-  function detailFaux(x: QuestionExamen, d: number | boolean): string {
-    if (x.type === 'reperer') return glose(String(x.choix[d as number] ?? ''));
-    if (x.type === 'replique') return t('ko_replique', { fr: (x.choix[d as number] as Phrase).fr });
-    if (x.type === 'ton') return t('ko_ton', { syllabe: String(x.choix[d as number] ?? '') });
-    if (x.type === 'caractere' || x.type === 'trou') return glose(String(x.choix[d as number] ?? ''));
-    if (x.type === 'comprendre') return gloseDesPortes(x);
-    return '';
-  }
-  const retour = $derived.by((): { ok: boolean; titre: string; texte: string; suite: string } | null => {
-    if (q === null || dernier === undefined) return null;
-    const juste = corriger(q, dernier);
-    if (juste && essais.length === 1) return { ok: true, titre: t('juste'), texte: explication(q), suite: '' };
-    if (juste) return { ok: true, titre: t('rattrapee'), texte: explication(q), suite: t('rattrapee_suite') };
-    if (q.type === 'vrai_faux') return { ok: false, titre: t('pas_celle'), texte: explication(q), suite: '' };
-    return { ok: false, titre: t('pas_celle'), texte: detailFaux(q, dernier), suite: fini ? '' : t('encore') };
-  });
+  /**
+   * Le retour de Tao : l'explication complète une fois la question close ; entre deux
+   * essais, jamais la bonne réponse, ni directement ni par une glose (`retourSecondEssai`).
+   */
+  const retour = $derived(q === null || serie === null ? null : retourQuestion(q, essais, serie, support, t));
 
   /* ---------- le résultat ---------- */
 
