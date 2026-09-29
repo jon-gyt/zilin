@@ -165,7 +165,7 @@ describe('ses textes viennent du pipeline', () => {
   });
 
   it('les écrans n’écrivent aucune de ses phrases en dur', () => {
-    for (const f of ['Examen.svelte', 'Learn.svelte']) {
+    for (const f of ['Rencontre.svelte', 'Examen.svelte', 'Learn.svelte']) {
       expect(source(f), f).not.toMatch(/Je suis Xing|on se revoit/);
     }
   });

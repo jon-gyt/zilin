@@ -8,7 +8,8 @@
    * Chaque résultat : le caractère dessiné depuis ses traits (style 楷), son pinyin, son
    * sens quand la fiche relue en a un, sa famille et son statut lu sur les cartes. Le
    * toucher le prononce et ouvre sa famille dans l'arbre ; le retour de l'arbre ramène
-   * ici, la saisie gardée. Un seul retour, vers le menu. Tao lit par-dessus l'épaule.
+   * ici, la saisie gardée. Un seul retour, vers le menu. Tao lit par-dessus l'épaule ; une fois
+   * le maître Xing 杏 rencontré (`xing.ts`), c'est lui qui tient Chercher, le livre ouvert.
    * Pas de cinabre ici : rien n'y est ajouté.
    *
    * Le second onglet, « Lire le monde » (rapport comparatif du 28 septembre 2026, §2.5) : on
@@ -22,6 +23,8 @@
    */
   import Hz from './Hz.svelte';
   import Tao from './Tao.svelte';
+  import Xing from './Xing.svelte';
+  import { POSTURES } from './xing';
   import { dire } from './audio';
   import {
     contenu,
@@ -57,6 +60,7 @@
     mode = $bindable('caractere'),
     texte = $bindable(''),
     monde = true,
+    xing = false,
     onfamille,
     onretour
   }: {
@@ -72,6 +76,8 @@
      * porte ; avant, Chercher n'a que la recherche d'un caractère, toujours là.
      */
     monde?: boolean;
+    /** Le maître Xing est rencontré : il remplace Tao, le livre ouvert. */
+    xing?: boolean;
     /** Ouvre l'arbre d'une famille, le caractère touché choisi. */
     onfamille: (fam: Noeud, c: string) => void;
     onretour: () => void;
@@ -198,7 +204,11 @@
       </div>
       <h1>Chercher</h1>
     </div>
-    <Tao stade={taoStade} posture="lecture" humeur={taoHumeur} size={72} />
+    {#if xing}
+      <Xing posture={POSTURES.dictionnaire} size={72} />
+    {:else}
+      <Tao stade={taoStade} posture="lecture" humeur={taoHumeur} size={72} />
+    {/if}
   </header>
 
   {#if monde}

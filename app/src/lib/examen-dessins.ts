@@ -73,6 +73,8 @@ export const HAOSHE = { w: 393, h: 262 } as const;
 export const HAOSHE_VUE = { y: 14, h: 248 } as const;
 /** Où Tao se pose dans le 号舍, en fractions de la scène : à droite, sur l'allée. */
 export const HAOSHE_TAO = { left: 0.584, top: (84.8 - 14) / 248, width: 0.407 } as const;
+/** Le maître Xing 杏, une fois rencontré : l'examinateur, à gauche de Tao, à sa taille. */
+export const HAOSHE_XING = { left: 0.02 } as const;
 
 export function dessinHaoshe(plaques: readonly string[], traits: Traits): string {
   const { w: W, h: H } = HAOSHE;
@@ -114,6 +116,8 @@ export function dessinHaoshe(plaques: readonly string[], traits: Traits): string
  */
 export const ACADEMIE = { w: 393, h: 214 } as const;
 export const ACADEMIE_TAO = { left: 0.67, top: 0.33, width: 0.32 } as const;
+/** Le maître de l'académie, Xing 杏, une fois rencontré : à gauche, à la taille de Tao. */
+export const ACADEMIE_XING = { left: 0.02 } as const;
 
 export function dessinAcademie(plaque: string, traits: Traits): string {
   const { w: W, h: H } = ACADEMIE;
@@ -205,6 +209,8 @@ export function dessinPorte(): string {
 export const BANG = { w: 393, h: 400 } as const;
 export const BANG_HEROS = { left: 0.3, top: 0.608, width: 0.275 } as const;
 export const BANG_TAO = { left: 0.478, top: 0.698, width: 0.309 } as const;
+/** Xing 杏, qui lit la liste, à la taille de Tao, à gauche du personnage. */
+export const BANG_XING = { left: 0.02 } as const;
 /** Le moment où le nom du personnage a fini de s'écrire : le texte vient après. */
 export const BANG_FIN = 4.4;
 

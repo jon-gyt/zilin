@@ -28,6 +28,8 @@
   } from './content';
   import ARelire from './ARelire.svelte';
   import Tao from './Tao.svelte';
+  import Xing from './Xing.svelte';
+  import { POSTURES } from './xing';
   import { etatPave, joursDesCaracteres, lusDeLaFamille, placerSentierFamille } from './chemin';
   import { remplir, SANS_ECRANS, type TextesChemin } from './ecrans';
   import { noeud } from './foret';
@@ -44,6 +46,7 @@
     parcours = null,
     croissance = 0,
     tc = SANS_ECRANS.chemin,
+    xing = false,
     onretour,
     onlecon
   }: {
@@ -58,6 +61,8 @@
     croissance?: number;
     /** L'image du chemin (`ecrans.json`, `chemin`). */
     tc?: TextesChemin;
+    /** Le maître Xing 杏 est rencontré (`xing.ts`) : c'est lui qui explique l'origine, dans la fiche. */
+    xing?: boolean;
     onretour: () => void;
     onlecon: () => void;
   } = $props();
@@ -283,7 +288,15 @@
       </div>
     </div>
     {#if pleine && pleine.origine_fr !== ''}
-      <p class="origine">{pleine.origine_fr}</p>
+      {#if xing}
+        <!-- le maître explique d'où vient le caractère, l'étiquette sous sa parole -->
+        <div class="explique">
+          <Xing posture={POSTURES.etymologie} size={52} />
+          <p class="origine">{pleine.origine_fr}</p>
+        </div>
+      {:else}
+        <p class="origine">{pleine.origine_fr}</p>
+      {/if}
       {#if pleine.etiquette}<span class="tag">{ETIQUETTES[pleine.etiquette]}</span>{/if}
       <ARelire de={pleine} />
     {:else}
@@ -306,6 +319,16 @@
 </main>
 
 <style>
+  /* dans la fiche, le maître à côté de l'origine qu'il explique */
+  .explique {
+    display: flex;
+    align-items: flex-start;
+    gap: 6px;
+  }
+  .explique :global(.xing) {
+    flex: none;
+    margin-left: -6px;
+  }
   .tete {
     margin: 4px 0 10px;
   }
