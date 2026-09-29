@@ -121,3 +121,32 @@ Sur des voix natives absentes de l'entraînement, voix calibrée sur cinq syllab
 Aucune voix d'apprenant n'a été mesurée ; les mots de deux syllabes ne sont reconnus qu'à
 74 %. D'où les règles de l'app : caractères isolés seulement, jamais de note sur un échec,
 au mieux « Bien » sur un ton reconnu.
+
+## Retouche du suivi : la fin de la syllabe (29 septembre 2026)
+
+Retour du propriétaire après l'essai sur iPhone : « Des fois, sur certains tons, le ton
+détecté semble monter d'un coup à la fin. » Quand la voix s'éteint (souffle, voix
+craquée, énergie qui chute), YIN prend un harmonique, un formant ou du bruit pour la
+hauteur. `segmenter` nettoie désormais chaque syllabe (`pitch.ts`, `nettoyer`,
+`FIN_DEFAUT`) : la fin est coupée tant que ses trames sont à plus de 15 dB sous le pic de
+la syllabe ou d'apériodicité supérieure à 0,3 (30 % de la syllabe au plus) ; un aller et
+retour de plus de 7 demi-tons est ramené à l'octave de ses voisines ; un saut final de plus
+de 7 demi-tons vers l'aigu, sans retour, est écarté ; puis une médiane de trois points.
+Les seuils sont posés a priori et vérifiés sur le développement (Chen Wang) ; **les poids
+n'ont pas été réentraînés**.
+
+Mesure avec le code de l'app, voix de test retéléchargées (`hugolpz/audio-cmn`), voix
+calibrée comme dans l'étude. « Saut final » : une montée de plus de 5 demi-tons en 30 ms au
+plus sur le dernier quart de la syllabe.
+
+| Jeu | Ton en tête, avant → après | « reconnu » | autre ton affirmé à tort | Sauts finaux |
+|---|---|---|---|---|
+| Chen Wang (1 688, développement) | 90,6 → 91,4 % | 87,4 → 88,1 % | 1,0 → 0,5 % | 81 → 28 |
+| Yue Tan, caractères (1 094, test) | 88,5 → 91,3 % | 85,1 → 88,6 % | 2,4 → 1,2 % | 28 → 1 |
+| Kokoro `zf_001` (248) | 40,3 → 41,1 % | 34,3 → 35,5 % | 8,9 → 8,5 % | 0 → 0 |
+| Syllabes synthétiques à friture vocale (60) | 61,7 → 68,3 % | 56,7 → 66,7 % | 18,3 → 15,0 % | 12 → 0 |
+
+Les sauts restants de Chen Wang sont des fins de ton 2 qui montent de 5 à 7 demi-tons en
+20 ou 30 ms, sous le seuil d'un saut d'octave. `pitch.test.ts` couvre une fin qui
+s'éteint, une fin qui perd sa périodicité, un saut d'octave final, un aller et retour
+d'octave, une montée rapide de ton 2 gardée, et une friture vocale.

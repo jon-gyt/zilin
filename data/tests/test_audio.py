@@ -309,7 +309,33 @@ def test_le_moteur_injecte_produit_un_fichier_au_bon_format(tmp_path: Path) -> N
         assert lu.getnchannels() == module.CANAUX
         assert lu.getsampwidth() == 2
         assert lu.getframerate() == ECHANTILLONNAGE
-        assert lu.getnframes() == moteur.nombre
+        # la rampe finit sonore : `finir` y ajoute le silence de fin, son fondu compris
+        silence = int(module.SILENCE_FIN * ECHANTILLONNAGE)
+        assert moteur.nombre + silence - 5 <= lu.getnframes() <= moteur.nombre + silence
+
+
+def test_un_rendu_qui_finit_sur_la_voix_finit_sur_un_fondu_et_un_silence() -> None:
+    """时, 识, 十, 师 finissaient sur la voix, coupée net (mesure du 29 septembre 2026)."""
+    sr = ECHANTILLONNAGE
+    voix = [0.5 * ((-1) ** (i // 40)) for i in range(sr // 2)]
+    x = module.finir(voix, sr)
+    fondu = int(module.FONDU_FIN * sr)
+    silence = int(module.SILENCE_FIN * sr)
+    assert len(voix) + silence - 5 <= len(x) <= len(voix) + silence
+    assert all(v == 0.0 for v in x[-silence:])
+    assert x[len(voix) - 1] == 0.0
+    assert abs(x[len(voix) - fondu // 2]) < 0.3
+    assert x[: len(voix) - fondu] == voix[: len(voix) - fondu]
+    assert all(v == 0.0 for v in x[len(voix):])
+
+
+def test_un_rendu_deja_fini_n_est_pas_touche() -> None:
+    """Assez de silence après la voix : rien n'est ajouté, rien n'est fondu."""
+    sr = ECHANTILLONNAGE
+    voix = [0.3] * 1000 + [0.0] * int(0.2 * sr)
+    assert module.finir(voix, sr) == voix
+    court = [0.3] * 1000 + [0.0] * int(0.05 * sr)
+    assert len(module.finir(court, sr)) == 1000 + int(module.SILENCE_FIN * sr)
 
 
 def test_le_manifeste_porte_le_fournisseur_et_la_voix_locaux(tmp_path: Path) -> None:

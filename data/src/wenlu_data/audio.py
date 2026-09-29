@@ -359,6 +359,16 @@ ECHANTILLONNAGE = 24_000
 CANAUX = 1
 DEBIT_KBIT = 48
 
+#: La fin d'un fichier de la voix locale (`finir`). Mesure du 29 septembre 2026 sur les 731
+#: fichiers de l'app : 300 ms de silence au début, 170 ms à la fin en médiane, mais quatre
+#: fichiers (时, 识, 十, 师) finissaient sur la voix encore sonore, coupée net, à 27 dB sous
+#: leur trame la plus forte dans leurs 30 dernières ms. Au moins `SILENCE_FIN` secondes de
+#: silence après la voix, et un fondu de `FONDU_FIN` secondes sur une fin encore sonore.
+SILENCE_FIN = 0.15
+FONDU_FIN = 0.01
+#: Sous ce niveau (pleine échelle, -60 dBFS), un échantillon compte pour du silence.
+SEUIL_SILENCE = 10 ** (-60 / 20)
+
 #: Encodeur MP3 : ffmpeg, appelé en sous-processus. Voir `EncodeurFfmpeg`.
 FFMPEG = "ffmpeg"
 
@@ -502,6 +512,26 @@ def message_paquet_absent() -> str:
         "Installez le groupe optionnel depuis data/ : `uv sync --extra audio`. "
         "Aucun appel n'est fait et aucun fichier n'est écrit."
     )
+
+
+def finir(echantillons: Sequence[float], echantillonnage: int) -> list[float]:
+    """La fin d'un rendu : un fondu si elle sonne encore, puis assez de silence.
+
+    Un fichier qui finit sur la voix se coupe net à la lecture (un clic, une syllabe
+    tronquée) ; un silence trop court laisse le lecteur couper la queue du son.
+    """
+    x = [float(v) for v in echantillons]
+    n = max(1, int(FONDU_FIN * echantillonnage))
+    queue = x[-n:]
+    if queue and (sum(v * v for v in queue) / len(queue)) ** 0.5 > SEUIL_SILENCE:
+        debut = len(x) - len(queue)
+        for i in range(len(queue)):
+            x[debut + i] *= 1 - (i + 1) / len(queue)
+    silence = 0
+    while silence < len(x) and abs(x[-1 - silence]) < SEUIL_SILENCE:
+        silence += 1
+    manque = int(SILENCE_FIN * echantillonnage) - silence
+    return x + [0.0] * max(0, manque)
 
 
 def _pcm16(echantillons: Sequence[float]) -> bytes:
@@ -659,6 +689,7 @@ class FournisseurLocal:
         echantillons = self.moteur.echantillons(texte, voix)
         if not len(echantillons):
             raise SyntheseImpossible(f"aucun échantillon rendu pour {texte!r}")
+        echantillons = finir(echantillons, self.moteur.echantillonnage)
         audio = self.encodeur.encoder(echantillons, self.moteur.echantillonnage)
         if not audio:
             raise SyntheseImpossible(f"encodage vide pour {texte!r}")

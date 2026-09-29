@@ -1,7 +1,7 @@
 <script lang="ts">
   /**
    * Réglages : l'ossature. Le personnage (changer de bête ou de nom, sans rien perdre),
-   * le rythme, les révisions (rétention cible FSRS), le tracé, « Dire les tons » et son essai,
+   * le rythme, les révisions (rétention cible FSRS), le tracé, la voix, « Dire les tons » et son essai,
    * le mode relecture, et la progression qui s'exporte et se réimporte en JSON. Un seul thème, le papier clair : il
    * n'y a rien à régler.
    *
@@ -18,8 +18,9 @@
   import { caracteresLus } from './foret';
   import { stade } from './tao';
   import { haptiqueDisponible } from './haptique';
-  import { ecransOnce, SANS_ECRANS, type TextesDire } from './ecrans';
+  import { ecransOnce, remplir, SANS_ECRANS, type TextesDire } from './ecrans';
   import { etatMicro, type EtatMicro } from './tons/micro';
+  import { relireVoix, reglerVoix, voixMandarin, voixParDefaut, type ChoixVoix, type VoixAppareil } from './audio';
   import { autorisationRefusee, demanderAutorisation, instant, notificationsDisponibles } from './natif';
   import { HEURE_DEFAUT, SANS_TEXTES, heureValide, rappelsOnce, reglerRappel, setRappel, type TextesRappels } from './rappels';
   import {
@@ -31,6 +32,7 @@
     setBudget,
     setDireTons,
     setRetention,
+    setVoixReference,
     setTrace,
     toJSON,
     type Budget,
@@ -137,6 +139,35 @@
 
   function choisirDireTons(): void {
     onprogression(setDireTons(p, !p.direTons));
+  }
+
+  /*
+   * « Voix » (brief §7, décision du propriétaire du 29 septembre 2026) : la voix chinoise de
+   * l'appareil, par défaut quand il en a une du continent, ou la voix enregistrée (les
+   * fichiers). Sans voix chinoise sur l'appareil, seule la voix enregistrée se choisit, et la
+   * ligne dit comment en télécharger une. Les voix sont relues à l'ouverture : une voix
+   * téléchargée entre-temps est prise.
+   */
+  let voixAppareil = $state.raw<VoixAppareil | null>(null);
+  $effect(() => {
+    let vivant = true;
+    void relireVoix()
+      .then(() => {
+        if (vivant) voixAppareil = voixMandarin();
+      })
+      .catch(() => undefined);
+    return () => {
+      vivant = false;
+    };
+  });
+  const voixCourante = $derived<ChoixVoix>(
+    voixAppareil === null ? 'enregistree' : (p.voixReference ?? voixParDefaut(voixAppareil))
+  );
+
+  function choisirVoix(v: ChoixVoix): void {
+    if (v === 'appareil' && voixAppareil === null) return;
+    reglerVoix(v);
+    onprogression(setVoixReference(p, v));
   }
 
   /**
@@ -310,6 +341,36 @@
         onclick={choisirTrace}
       ></button>
     </div>
+    {#if textesDire.voix !== ''}
+      <div class="tog pile voix">
+        <div>
+          <div>{textesDire.voix}</div>
+          <div class="k">
+            {textesDire['voix-aide']}
+            {voixAppareil === null
+              ? textesDire['voix-sans-appareil']
+              : remplir(textesDire['voix-appareil-nom'], { nom: voixAppareil.name })}
+          </div>
+        </div>
+        <div class="seg" role="group" aria-label={textesDire.voix}>
+          <button
+            class:on={voixCourante === 'appareil'}
+            aria-pressed={voixCourante === 'appareil'}
+            disabled={voixAppareil === null}
+            onclick={() => choisirVoix('appareil')}>{textesDire['voix-appareil']}</button
+          >
+          <button
+            class:on={voixCourante === 'enregistree'}
+            aria-pressed={voixCourante === 'enregistree'}
+            onclick={() => choisirVoix('enregistree')}>{textesDire['voix-enregistree']}</button
+          >
+        </div>
+        <details class="comment">
+          <summary>{textesDire['voix-comment']}</summary>
+          <p class="k">{textesDire['voix-etapes']}</p>
+        </details>
+      </div>
+    {/if}
     {#if textesDire.reglage !== ''}
       <div class="tog">
         <div>
@@ -433,6 +494,21 @@
   }
   .refus {
     margin-top: 6px;
+  }
+  /* « Voix » : le choix, puis, repliée, la marche à suivre pour une voix améliorée. */
+  .voix .seg button:disabled {
+    opacity: 0.45;
+  }
+  .comment summary {
+    color: var(--indigo);
+    font-size: 15px;
+    cursor: pointer;
+  }
+  .comment p {
+    margin: 6px 0 0;
+  }
+  .voix + :global(.tog) {
+    border-top: 1px solid var(--line);
   }
   /* L'essai de « Dis-le », sous son réglage : un bouton au trait, sa ligne dessous. */
   .essayer {

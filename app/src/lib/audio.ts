@@ -1,13 +1,22 @@
 /**
- * L'audio de l'app : une voix neuronale pré-générée, servie avec l'app, et en repli
- * la voix du téléphone.
+ * L'audio de l'app : la voix chinoise de l'appareil, et les fichiers d'une voix neuronale
+ * pré-générée, servis avec l'app.
  *
- * Brief §11 : « voix neuronale pré-générée et embarquée pour tous les caractères et
- * mots ; la voix du téléphone en repli ». Ce module lit d'abord un fichier déjà là,
- * dont le chemin vient du manifeste écrit par `wenlu audio exporter` (voir
- * `data/schema.md`). Un texte sans fichier est dit par la synthèse du téléphone
- * (`speechSynthesis`, voix mandarin) quand elle existe ; sinon il ne dit rien, en
- * silence. Aucune requête à un service.
+ * Brief §7 (décision du propriétaire du 29 septembre 2026, « Tu ne peux pas utiliser l'IA de
+ * l'iPhone pour générer ? ») : la voix de référence est celle de l'appareil quand il a une
+ * voix du mandarin du continent (`zh-CN`) : les voix d'Apple, « Premium » et « Améliorée »
+ * quand l'apprenant les a téléchargées, compactes sinon, marquent les tons et marchent hors
+ * ligne. Dans l'app iOS, elles passent par AVSpeechSynthesizer (greffon
+ * `@capacitor-community/text-to-speech`, `voix-native.ts`), qui les voit toutes ; sur le web, par
+ * `speechSynthesis`. Le réglage « Voix » (`reglerVoix`) choisit entre elle et les fichiers
+ * (« Voix enregistrée »), lus d'après le manifeste écrit par `wenlu audio exporter` (voir
+ * `data/schema.md`). Chacune est le repli de l'autre ; sans aucune, l'app se tait. Une voix
+ * qui passe par un service (`localService` faux, les voix « en ligne » de Chrome ou d'Edge)
+ * n'est jamais prise : aucune requête à un service.
+ *
+ * Un seul son à la fois : chaque demande fait taire la précédente, fichier comme voix de
+ * l'appareil, et une demande dépassée par une plus récente ne joue plus rien (`tour`). Deux
+ * « Écouter » rapprochés faisaient parler l'appareil par-dessus le fichier.
  *
  * Un seul `HTMLAudioElement` pour toute l'app, réutilisé d'un texte à l'autre : sur
  * iOS, un élément déjà débloqué par un geste continue de jouer, et n'en créer qu'un
@@ -49,11 +58,44 @@ export type Lecteur = Pick<HTMLAudioElement, 'src' | 'currentTime' | 'preload' |
 /** Ce que ce module demande à la synthèse du téléphone : ses voix, parler, se taire. */
 export type Synthese = Pick<SpeechSynthesis, 'getVoices' | 'speak' | 'cancel'>;
 
+/** Une voix de l'appareil, telle que `speechSynthesis` ou le greffon natif la décrivent. */
+export type VoixAppareil = Pick<SpeechSynthesisVoice, 'lang' | 'name' | 'voiceURI' | 'localService' | 'default'>;
+
+/**
+ * La synthèse native de l'app iOS (AVSpeechSynthesizer, par le greffon
+ * `@capacitor-community/text-to-speech`) : ses voix, dire avec l'une d'elles (son rang dans la
+ * liste), se taire. `null` sur le web.
+ */
+export type SyntheseNative = {
+  voix(): Promise<VoixAppareil[]>;
+  dire(texte: string, lang: string, rang: number): Promise<void>;
+  taire(): Promise<void>;
+};
+
+/** La session audio de Safari 17 et plus (`navigator.audioSession`), `null` ailleurs. */
+export type SessionAudio = { type: string };
+
 function syntheseParDefaut(): Synthese | null {
   return typeof window === 'undefined' || !('speechSynthesis' in window) ? null : window.speechSynthesis;
 }
 
+function sessionParDefaut(): SessionAudio | null {
+  if (typeof navigator === 'undefined') return null;
+  const s = (navigator as Navigator & { audioSession?: SessionAudio }).audioSession;
+  return s && typeof s === 'object' && 'type' in s ? s : null;
+}
+
+/** La synthèse native que le shell iOS pose au démarrage (`poserSyntheseNative`). */
+let natifPose: () => SyntheseNative | null = () => null;
 let synthese: () => Synthese | null = syntheseParDefaut;
+let natif: () => SyntheseNative | null = () => natifPose();
+let session: () => SessionAudio | null = sessionParDefaut;
+/** Les voix de la synthèse native, relues par `voixPretes` ; vide tant qu'elles ne le sont pas. */
+let voixNatives: VoixAppareil[] = [];
+/** Le réglage « Voix » : `null`, la voix par défaut (`voixParDefaut`). */
+let preference: ChoixVoix | null = null;
+/** Le rang de la dernière demande de son : une demande dépassée ne joue plus rien. */
+let tour = 0;
 
 /** Un manifeste vide : ce que rend un fichier absent. L'app se tait, sans erreur. */
 const VIDE: Manifeste = { version: '', fournisseur: '', format: '', chemins: {} };
@@ -75,16 +117,54 @@ let charge: Manifeste | null = null;
  * pourra y poser son propre lecteur sans toucher au reste.
  */
 export function configurerAudio(
-  options: { lecteur?: () => Lecteur | null; fetchFn?: typeof fetch; synthese?: () => Synthese | null } = {}
+  options: {
+    lecteur?: () => Lecteur | null;
+    fetchFn?: typeof fetch;
+    synthese?: () => Synthese | null;
+    natif?: () => SyntheseNative | null;
+    session?: () => SessionAudio | null;
+  } = {}
 ): void {
   fabrique = options.lecteur ?? lecteurParDefaut;
   synthese = options.synthese ?? syntheseParDefaut;
+  natif = options.natif ?? (() => natifPose());
+  session = options.session ?? sessionParDefaut;
   requete = options.fetchFn ?? ((...args) => fetch(...args));
   unique = null;
   cree = false;
   charge = null;
   voixAttendues = null;
+  voixNatives = [];
+  preference = null;
+  tour = 0;
   manifestes.clear();
+}
+
+/**
+ * La synthèse native, posée par le shell iOS au démarrage (`voix-native.ts`) : sans elle, la voix
+ * de l'appareil passe par `speechSynthesis`. Les voix seront relues par `voixPretes`.
+ */
+export function poserSyntheseNative(f: () => SyntheseNative | null): void {
+  natifPose = f;
+  voixAttendues = null;
+}
+
+/**
+ * La session audio de la page, quand le navigateur la laisse régler (Safari 17 et plus) :
+ * `play-and-record` le temps d'une prise au micro, `playback` ensuite. Sur iOS, ouvrir le
+ * micro fait passer la session en lecture et enregistrement, avec le traitement de la voix
+ * des appels ; laissée ainsi, la lecture qui suit sort étouffée, hachée ou par l'écouteur.
+ * Rend `true` si la session a été réglée.
+ */
+export function reglerSession(type: 'play-and-record' | 'playback'): boolean {
+  const s = session();
+  if (s === null) return false;
+  try {
+    s.type = type;
+    return true;
+  } catch {
+    return false;
+  }
 }
 
 /** Le lecteur de l'app : le même à chaque appel, créé à la première lecture. */
@@ -169,20 +249,98 @@ export function aFichier(m: Manifeste | null, texte: string): boolean {
   return chemin(m, texte) !== null;
 }
 
+/* ---------- les voix de l'appareil ---------- */
+
+/** Le réglage « Voix » : la voix de l'appareil, ou les fichiers (« Voix enregistrée »). */
+export type ChoixVoix = 'appareil' | 'enregistree';
+
 /**
- * La voix mandarin du téléphone, `null` s'il n'en a pas. Le mandarin standard d'abord
- * (`zh-CN`), puis toute voix chinoise sauf le cantonais (`zh-HK`).
+ * Une voix du mandarin : `zh` ou `cmn`, sans le cantonais (`zh-HK`, `yue`), qui n'a pas les
+ * tons du mandarin.
  */
-export function voixMandarin(): SpeechSynthesisVoice | null {
+export function estMandarin(v: Pick<VoixAppareil, 'lang'>): boolean {
+  const l = v.lang.replace('_', '-');
+  return /^(zh|cmn)(-|$)/i.test(l) && !/-(hk|mo)\b|yue/i.test(l);
+}
+
+/** Une voix du mandarin du continent (`zh-CN`, `zh-Hans`, ou `zh` seul). */
+export function estContinent(v: Pick<VoixAppareil, 'lang'>): boolean {
+  const l = v.lang.replace('_', '-');
+  return estMandarin(v) && !/-(tw|hant)\b/i.test(l) && (/-(cn|hans)\b/i.test(l) || /^(zh|cmn)$/i.test(l));
+}
+
+/**
+ * La qualité d'une voix, d'après son identifiant et son nom : les voix d'Apple le disent
+ * (`com.apple.voice.premium.zh-CN.…`, `….enhanced.…`, `….compact.…`), comme les voix
+ * neuronales ailleurs. 3 Premium, 2 améliorée ou neuronale, 0 compacte, 1 sinon.
+ */
+export function qualiteVoix(v: Pick<VoixAppareil, 'name' | 'voiceURI'>): number {
+  const id = `${v.voiceURI} ${v.name}`;
+  if (/premium/i.test(id)) return 3;
+  if (/enhanced|am[ée]lior[ée]e?|neural|natural|siri/i.test(id)) return 2;
+  if (/compact/i.test(id)) return 0;
+  return 1;
+}
+
+/**
+ * Les voix du mandarin de l'appareil, de la plus sûre à la moins sûre : celles du continent
+ * avant celles de Taïwan, puis par qualité, puis la voix par défaut. Jamais une voix qui passe
+ * par un service (`localService` faux) : aucune requête réseau à l'exécution.
+ */
+export function classerVoix(voix: readonly VoixAppareil[]): VoixAppareil[] {
+  return voix
+    .filter((v) => estMandarin(v) && v.localService !== false)
+    .map((v, i) => ({ v, i }))
+    .sort(
+      (a, b) =>
+        Number(estContinent(b.v)) - Number(estContinent(a.v)) ||
+        qualiteVoix(b.v) - qualiteVoix(a.v) ||
+        Number(b.v.default) - Number(a.v.default) ||
+        a.i - b.i
+    )
+    .map((x) => x.v);
+}
+
+/** Les voix connues de l'appareil : celles de la synthèse native si elle est là, sinon du web. */
+function voixConnues(): VoixAppareil[] {
+  if (natif() !== null && voixNatives.length > 0) return voixNatives;
   const s = synthese();
-  if (s === null) return null;
-  const voix = s.getVoices().filter((v) => /^zh([-_]|$)/i.test(v.lang) && !/hk/i.test(v.lang));
-  return voix.find((v) => /^zh[-_]cn/i.test(v.lang)) ?? voix[0] ?? null;
+  return s === null ? [] : s.getVoices();
+}
+
+/** La voix mandarin de l'appareil que l'app prend, `null` s'il n'en a pas. */
+export function voixMandarin(): VoixAppareil | null {
+  return classerVoix(voixConnues())[0] ?? null;
 }
 
 /** Le téléphone peut-il dire du mandarin ? */
 export function aVoixTelephone(): boolean {
   return voixMandarin() !== null;
+}
+
+/** La voix par défaut : celle de l'appareil s'il a une voix du continent, sinon les fichiers. */
+export function voixParDefaut(v: VoixAppareil | null = voixMandarin()): ChoixVoix {
+  return v !== null && estContinent(v) ? 'appareil' : 'enregistree';
+}
+
+/** Recopie le réglage « Voix » de la progression (`null` : la voix par défaut). */
+export function reglerVoix(c: ChoixVoix | null): void {
+  preference = c;
+}
+
+/** La voix que l'app prend d'abord, réglage et appareil compris. */
+export function voixChoisie(): ChoixVoix {
+  if (preference === 'appareil' && !aVoixTelephone()) return 'enregistree';
+  return preference ?? voixParDefaut();
+}
+
+/**
+ * La vitesse de la voix du web : un peu lente pour un caractère isolé, qu'on écoute pour son
+ * ton, presque normale pour un mot. La voix native garde son débit : le greffon iOS ne sait
+ * ralentir qu'en sautant de 0,5 à 0,25 (sa conversion vers AVSpeechUtterance), trop lent.
+ */
+export function vitesse(texte: string): number {
+  return [...texte].length <= 1 ? 0.75 : 0.9;
 }
 
 /** Le temps laissé au navigateur pour annoncer ses voix. */
@@ -199,6 +357,17 @@ let voixAttendues: Promise<boolean> | null = null;
  */
 export function voixPretes(delai = ATTENTE_VOIX_MS): Promise<boolean> {
   if (voixAttendues !== null) return voixAttendues;
+  const n = natif();
+  if (n !== null) {
+    voixAttendues = n
+      .voix()
+      .then((v) => {
+        voixNatives = v;
+        return aVoixTelephone();
+      })
+      .catch(() => aVoixTelephone());
+    return voixAttendues;
+  }
   voixAttendues = new Promise<boolean>((resolve) => {
     const s = synthese();
     if (s === null) {
@@ -223,6 +392,15 @@ export function voixPretes(delai = ATTENTE_VOIX_MS): Promise<boolean> {
 }
 
 /**
+ * Relit les voix de l'appareil (Réglages) : une voix chinoise téléchargée pendant que l'app
+ * était ouverte est prise sans la relancer.
+ */
+export function relireVoix(delai = ATTENTE_VOIX_MS): Promise<boolean> {
+  voixAttendues = null;
+  return voixPretes(delai);
+}
+
+/**
  * Ce texte peut-il être dit ? Par un fichier pré-généré, ou à défaut par la voix du
  * téléphone. C'est ce qui décide d'un bouton « Écouter » actif.
  */
@@ -237,7 +415,8 @@ export function aAudio(m: Manifeste | null, texte: string): boolean {
  *   chargé, ou lecture refusée) ;
  * - `bloque` : le fichier est là mais le navigateur a refusé de le jouer (`NotAllowedError`,
  *   geste requis, ou `AbortError`, lecture interrompue par une autre), et le téléphone n'a
- *   pas de voix : un toucher sur « Écouter » le jouera ;
+ *   pas de voix : un toucher sur « Écouter » le jouera ; ou une demande plus récente a pris
+ *   la place de celle-ci ;
  * - `muet` : rien à dire, ni fichier lisible ni voix du téléphone.
  */
 export type Dit = 'fichier' | 'telephone' | 'bloque' | 'muet';
@@ -252,12 +431,35 @@ function refusSansEchec(e: unknown): boolean {
   return nom === 'NotAllowedError' || nom === 'AbortError';
 }
 
+/** Fait taire tout ce qui joue : le fichier, la voix du web, la voix native. */
+function taireTout(): void {
+  try {
+    if (cree) unique?.pause();
+  } catch {
+    /* un lecteur déjà arrêté */
+  }
+  try {
+    synthese()?.cancel();
+  } catch {
+    /* rien à faire taire */
+  }
+  void natif()?.taire().catch(() => undefined);
+}
+
 /**
- * Dit un texte. Le fichier pré-généré d'abord ; s'il n'y en a pas ou qu'il ne se lit pas,
- * la voix du téléphone ; sinon rien, en silence. Rend ce qui s'est passé (`Dit`).
+ * Dit un texte, par la voix que règle « Voix » (`voixChoisie`) : la voix de l'appareil, ou le
+ * fichier pré-généré ; chacune est le repli de l'autre ; sans aucune, rien, en silence. Ce
+ * qui jouait se tait d'abord. Rend ce qui s'est passé (`Dit`). Une demande dépassée par une
+ * plus récente, le temps de lire le manifeste ou de charger le fichier, ne joue plus rien et
+ * rend `bloque` : rien ne s'est dit pour elle, et rien ne parle par-dessus la suivante.
  */
 export async function prononcer(texte: string, file?: string): Promise<Dit> {
+  const moi = ++tour;
+  taireTout();
   const m = await manifesteOnce(file);
+  if (moi !== tour) return 'bloque';
+  const appareilDabord = voixChoisie() === 'appareil';
+  if (appareilDabord && direParLeTelephone(texte, moi)) return 'telephone';
   const c = chemin(m, texte);
   let refuse = false;
   if (c !== null) {
@@ -267,15 +469,42 @@ export async function prononcer(texte: string, file?: string): Promise<Dit> {
       l.currentTime = 0;
       try {
         await l.play();
-        return 'fichier';
+        return moi === tour ? 'fichier' : 'bloque';
       } catch (e) {
+        /* dépassée : une autre demande a pris le lecteur ; ne rien dire par-dessus */
+        if (moi !== tour) return 'bloque';
         /* lecture refusée ou fichier introuvable : on tente la voix du téléphone */
         refuse = refusSansEchec(e);
       }
     }
   }
-  if (direParLeTelephone(texte)) return 'telephone';
+  if (!appareilDabord && direParLeTelephone(texte, moi)) return 'telephone';
   return refuse ? 'bloque' : 'muet';
+}
+
+/**
+ * Joue un son déjà en mémoire (l'enregistrement de l'apprenant, « Réécouter »), par l'URL
+ * locale d'un `Blob`, sur le même lecteur : ce qui jouait se tait. Rend `true` s'il joue.
+ */
+export async function jouerSon(url: string): Promise<boolean> {
+  const moi = ++tour;
+  taireTout();
+  const l = lecteur();
+  if (l === null) return false;
+  l.src = url;
+  l.currentTime = 0;
+  try {
+    await l.play();
+    return moi === tour;
+  } catch {
+    return false;
+  }
+}
+
+/** Fait taire l'app : l'écran qui disait quelque chose s'en va. */
+export function taire(): void {
+  tour += 1;
+  taireTout();
 }
 
 /** Dit un texte, comme `prononcer`. Rend `true` si quelque chose a été dit. */
@@ -284,18 +513,39 @@ export async function dire(texte: string, file?: string): Promise<boolean> {
   return d === 'fichier' || d === 'telephone';
 }
 
-/** La voix du téléphone : une seule phrase à la fois, en mandarin, un peu ralentie. */
-export function direParLeTelephone(texte: string): boolean {
-  const s = synthese();
+/**
+ * La voix du téléphone : une seule phrase à la fois, en mandarin, par la voix classée en
+ * tête (`classerVoix`). Dans l'app iOS, par la synthèse native ; ailleurs, `speechSynthesis`,
+ * un peu ralentie (`vitesse`). Ce qui jouait se tait. `moi` : le rang de la demande
+ * (`prononcer`) ; un appel direct en prend un nouveau.
+ */
+export function direParLeTelephone(texte: string, moi = ++tour): boolean {
   const voix = voixMandarin();
-  if (s === null || voix === null) return false;
-  s.cancel();
-  const u = new SpeechSynthesisUtterance(texte);
-  u.voice = voix;
-  u.lang = voix.lang;
-  u.rate = 0.9;
-  s.speak(u);
-  return true;
+  if (voix === null || moi !== tour) return false;
+  const n = natif();
+  const rang = n === null ? -1 : voixNatives.indexOf(voix);
+  if (n !== null && rang >= 0) {
+    taireTout();
+    reglerSession('playback');
+    void n.dire(texte, voix.lang, rang).catch(() => undefined);
+    return true;
+  }
+  const s = synthese();
+  if (s === null) return false;
+  const web = s.getVoices().find((v) => v.voiceURI === voix.voiceURI && v.lang === voix.lang);
+  if (!web) return false;
+  taireTout();
+  try {
+    const u = new SpeechSynthesisUtterance(texte);
+    u.voice = web;
+    u.lang = web.lang;
+    u.rate = vitesse(texte);
+    s.speak(u);
+    return true;
+  } catch {
+    /* une voix que le navigateur refuse : rien n'est dit */
+    return false;
+  }
 }
 
 /**

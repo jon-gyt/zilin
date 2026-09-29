@@ -13,14 +13,20 @@
    * point 说 ; un autre ton, une confiance basse ou un silence ne notent rien et redemandent,
    * trois fois au plus, puis on passe sans rien noter. L'essai des Réglages (`essai`) ne note
    * jamais rien. « Suivant » reste toujours possible : on peut passer sans parler, rien n'est
-   * noté. Le son est jeté après l'analyse ; seule la moyenne de la voix remonte (`onvoix`).
+   * noté. Seule la moyenne de la voix remonte (`onvoix`).
+   *
+   * « Réécouter » (retour du propriétaire du 29 septembre 2026) : après chaque prise, pendant
+   * les redemandes comme après la réponse, et dans l'essai des Réglages, l'apprenant rejoue sa
+   * voix pour la comparer à « Écouter ». La prise reste en mémoire le temps de la question
+   * (`tons/reecoute.ts`) : une nouvelle prise la remplace, la question suivante l'oublie ;
+   * elle n'est jamais gardée ni envoyée.
    *
    * Les phrases viennent du pipeline (`ecrans.json`, écran `dire`). Charte : l'indigo pour
    * l'action, le jade pour le ton reconnu, l'ocre pour un autre ton ; ni cinabre, ni ombre.
    */
   import CourbeTon from './CourbeTon.svelte';
   import Glyph from './Glyph.svelte';
-  import { aAudio, manifesteOnce, prononcer } from './audio';
+  import { aAudio, manifesteOnce, prononcer, taire } from './audio';
   import { remplir, type TextesDire } from './ecrans';
   import { contourDuTon, tonDe } from './questions';
   import { delai } from './revision';
@@ -28,6 +34,7 @@
   import { analyser, type Contour, type Probleme, type Verdict } from './tons/classifieur';
   import { courbes, issueDire, messageDire, nomTon, revisionDire, type CibleDire, type Issue } from './tons/dire';
   import { ErreurMicro, ecouter, type EtatMicro, type Prise } from './tons/micro';
+  import { Reecoute } from './tons/reecoute';
   import type { Modele } from './tons/classifieur';
   import { refLocuteur } from './tons/voix';
 
@@ -84,10 +91,15 @@
   let prise: Prise | null = null;
   let appuiA = 0;
   let depart = Date.now();
+  /** La dernière prise, en mémoire le temps de la question, pour « Réécouter ». */
+  const reecoute = new Reecoute();
+  let reecoutable = $state(false);
 
-  /** Remise à zéro à chaque question. */
+  /** Remise à zéro à chaque question : la prise de la question d'avant est oubliée. */
   $effect(() => {
     void cle;
+    reecoute.oublier();
+    reecoutable = false;
     phase = 'pret';
     essais = 0;
     verdict = null;
@@ -107,6 +119,7 @@
   $effect(() => () => {
     abandons += 1;
     prise?.arreter();
+    reecoute.oublier();
   });
 
   /** « Écouter » n'existe que si le caractère peut être dit, et seulement après la réponse. */
@@ -129,6 +142,8 @@
   async function commencer(): Promise<void> {
     if (phase !== 'pret') return;
     appuiA = performance.now();
+    /* Rien ne joue pendant la prise : ni « Écouter », ni « Réécouter », que le micro entendrait. */
+    taire();
     phase = 'ecoute';
     niveau = 0;
     const rang = cle;
@@ -150,6 +165,8 @@
     const enr = await p.fin;
     prise = null;
     if (partie()) return;
+    reecoute.garder(enr.brut, enr.srBrut);
+    reecoutable = reecoute.pret;
     juger(enr.x, enr.sr);
   }
 
@@ -187,9 +204,26 @@
   function suivant(): void {
     abandons += 1;
     prise?.arreter();
+    reecoute.oublier();
+    reecoutable = false;
     onsuivant();
   }
 </script>
+
+{#snippet rejouer()}
+  <button
+    class="btn ghost rejouer"
+    disabled={phase === 'ecoute'}
+    aria-label={t['reecouter-aide']}
+    onclick={() => void reecoute.jouer()}
+  >
+    <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true">
+      <path d="M4 12a8 8 0 1 0 2.4-5.7M4 4v4.5h4.5" />
+      <path class="plein" d="M10 8.8v6.4l5.2-3.2z" />
+    </svg>
+    {t.reecouter}
+  </button>
+{/snippet}
 
 <div class="q dire" class:analyse={essais > 0}>
   <p class="ask">{t.enonce}</p>
@@ -206,9 +240,6 @@
             <path class="portee" d="M2 4H38M2 12H38M2 20H38M2 28H38M2 36H38" />
             <path class="trait" d={contourDuTon(tonDe(cible.pinyin))} pathLength="1" />
           </svg>
-          {#if ecoutable}
-            <button class="btn ghost ecoute" onclick={() => void prononcer(cible.c)}>♪ {t.ecouter}</button>
-          {/if}
         </div>
       {/if}
     </div>
@@ -228,6 +259,17 @@
       {#if prochaine !== ''}<span class="next">{prochaine}</span>{/if}
       {#if essai && phase === 'fin'}<span class="next">{t.essai}</span>{/if}
     </div>
+    {#if phase === 'fin' && (reecoutable || ecoutable)}
+      <!-- Après la réponse : sa voix, puis la voix de référence, côte à côte, pour comparer. -->
+      <div class="comparer">
+        {#if reecoutable}
+          {@render rejouer()}
+        {/if}
+        {#if ecoutable}
+          <button class="btn ghost ecoute" onclick={() => void prononcer(cible.c)}>♪ {t.ecouter}</button>
+        {/if}
+      </div>
+    {/if}
   {/if}
 
   {#if phase !== 'fin'}
@@ -255,6 +297,10 @@
         </svg>
       </button>
       <span class="consigne">{phase === 'ecoute' ? t.ecoute : essais === 0 ? t.appuie : t.redire}</span>
+      <!-- Pendant les redemandes : réécouter sa prise avant de redire. -->
+      {#if reecoutable}
+        {@render rejouer()}
+      {/if}
     </div>
     {#if micro === 'a-demander' && essais === 0}<p class="k conf">{t.confidentialite}</p>{/if}
   {/if}
@@ -305,11 +351,36 @@
     font-weight: 600;
     color: var(--indigo);
   }
-  .ecoute {
+  /* « Réécouter » et « Écouter » côte à côte, au trait, comme les autres boutons secondaires. */
+  .comparer {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 8px;
+  }
+  .ecoute,
+  .rejouer {
     width: auto;
     min-height: 40px;
     padding: 0 12px;
     font-size: 15px;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .rejouer svg {
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+  .rejouer svg .plein {
+    fill: currentColor;
+    stroke: none;
+  }
+  .rejouer:disabled {
+    opacity: 0.5;
   }
   .fb {
     margin-top: 8px;

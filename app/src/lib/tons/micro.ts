@@ -8,12 +8,21 @@
  * (`app/ios-template/patch.rb`). Sur le web, `getUserMedia` exige HTTPS (GitHub Pages le
  * donne) et le navigateur pose sa propre question.
  *
- * Rien ne sort de l'appareil : le son capté reste en mémoire le temps de l'analyse
- * (`classifieur.analyser`), puis il est jeté ; aucune requête réseau.
+ * Rien ne sort de l'appareil : le son capté reste en mémoire le temps de la question, pour
+ * l'analyse (`classifieur.analyser`) et pour « Réécouter » (`reecoute.ts`), puis il est jeté ;
+ * aucune requête réseau.
+ *
+ * La session audio (retour du propriétaire du 29 septembre 2026 : « la voix chinoise est
+ * coupée, comme s'il y avait un autre son derrière ») : sur iOS, ouvrir le micro fait passer
+ * la page en lecture et enregistrement, avec le traitement de la voix des appels ; la lecture
+ * qui suit sortait étouffée, hachée ou par l'écouteur. La prise demande `play-and-record`
+ * (`navigator.audioSession`, Safari 17 et plus) et, dès sa fin, coupe toutes les pistes du
+ * micro, ferme le contexte audio de capture et rend la session à la lecture (`playback`).
  *
  * `decider` et `Detecteur` sont purs et testés ; `etatMicro` et `ecouter` touchent le
  * navigateur.
  */
+import { reglerSession } from '../audio';
 import { reechantillonner } from './wav';
 
 /** Ce que l'app sait du micro avant de poser la question. */
@@ -166,8 +175,12 @@ export class Detecteur {
 
 /* ---------- la prise de son ---------- */
 
-/** Ce que la prise rend : le son mono à 16 kHz, et si une voix y a été entendue. */
-export type Enregistrement = { x: Float32Array; sr: number; voix: boolean };
+/**
+ * Ce que la prise rend : le son mono à 16 kHz pour l'analyse, et si une voix y a été
+ * entendue ; le son tel que capté (`brut`, à `srBrut`), pour « Réécouter ». Rien n'en est
+ * gardé au-delà de la question.
+ */
+export type Enregistrement = { x: Float32Array; sr: number; voix: boolean; brut: Float32Array; srBrut: number };
 
 /** Une prise en cours : `arreter` la clôt (on relâche le bouton), `fin` rend le son. */
 export type Prise = { arreter: () => void; fin: Promise<Enregistrement>; detecteur: Detecteur };
@@ -202,22 +215,24 @@ type FenetreAudio = typeof globalThis & { webkitAudioContext?: typeof AudioConte
  * iOS n'ouvre le son qu'ainsi. Échec : `ErreurMicro`, refusé ou absent. La prise s'arrête
  * d'elle-même sur le silence qui suit la voix, ou au plafond ; `arreter` la clôt plus tôt.
  * Aucune contrainte de traitement : l'annulation d'écho, le débruitage et le gain
- * automatique abîment le voisement.
+ * automatique abîment le voisement, et sur iOS ils font passer la session audio en mode
+ * « appel ».
  */
 export async function ecouter(surNiveau: (n: number) => void = () => undefined): Promise<Prise> {
   const md = typeof navigator === 'undefined' ? undefined : navigator.mediaDevices;
   if (typeof md?.getUserMedia !== 'function') throw new ErreurMicro('absent');
   const Ctx = globalThis.AudioContext ?? (globalThis as FenetreAudio).webkitAudioContext;
   if (!Ctx) throw new ErreurMicro('absent');
+  /* La session en lecture et enregistrement le temps de la prise, avant d'ouvrir le micro. */
+  reglerSession('play-and-record');
   /* Le contexte naît dans le geste, avant toute attente : iOS le laisse alors jouer. */
   const ctx = new Ctx();
   let flux: MediaStream;
   try {
-    flux = await md.getUserMedia({
-      audio: { echoCancellation: false, noiseSuppression: false, autoGainControl: false, channelCount: 1 }
-    });
+    flux = await md.getUserMedia({ audio: CONTRAINTES });
   } catch (e) {
     void ctx.close().catch(() => undefined);
+    reglerSession('playback');
     const nom = (e as { name?: string }).name ?? '';
     if (nom === 'NotAllowedError' || nom === 'SecurityError' || nom === 'PermissionDeniedError') {
       refuseIci = true;
@@ -234,6 +249,7 @@ export async function ecouter(surNiveau: (n: number) => void = () => undefined):
   let rendre: (e: Enregistrement) => void = () => undefined;
   const fin = new Promise<Enregistrement>((r) => (rendre = r));
   let noeud: AudioNode | null = null;
+  let muet: AudioNode | null = null;
   let url = '';
 
   const recevoir = (b: Float32Array): void => {
@@ -247,11 +263,8 @@ export async function ecouter(surNiveau: (n: number) => void = () => undefined):
   function arreter(): void {
     if (arrete) return;
     arrete = true;
-    for (const t of flux.getTracks()) t.stop();
-    source.disconnect();
-    noeud?.disconnect();
+    fermer(flux, ctx, [source, noeud, muet]);
     if (url !== '') URL.revokeObjectURL(url);
-    void ctx.close().catch(() => undefined);
     let n = 0;
     for (const b of blocs) n += b.length;
     const x = new Float32Array(n);
@@ -261,7 +274,7 @@ export async function ecouter(surNiveau: (n: number) => void = () => undefined):
       o += b.length;
     }
     blocs.length = 0;
-    rendre({ x: reechantillonner(x, ctx.sampleRate, 16000), sr: 16000, voix: detecteur.voix });
+    rendre({ x: reechantillonner(x, ctx.sampleRate, 16000), sr: 16000, voix: detecteur.voix, brut: x, srBrut: ctx.sampleRate });
   }
 
   if (ctx.audioWorklet && typeof AudioWorkletNode !== 'undefined') {
@@ -283,9 +296,52 @@ export async function ecouter(surNiveau: (n: number) => void = () => undefined):
   }
   source.connect(noeud);
   /* Un nœud de traitement ne tourne que relié à la sortie : par un gain nul, rien ne s'entend. */
-  const muet = ctx.createGain();
-  muet.gain.value = 0;
-  noeud.connect(muet);
-  muet.connect(ctx.destination);
+  const gain = ctx.createGain();
+  gain.gain.value = 0;
+  noeud.connect(gain);
+  gain.connect(ctx.destination);
+  muet = gain;
   return { arreter, fin, detecteur };
+}
+
+/**
+ * Ce que la prise demande au micro : le son brut, sans annulation d'écho, sans débruitage,
+ * sans gain automatique (meilleur pour le suivi de hauteur, et sur iOS la session ne passe
+ * pas en mode « appel »), sur un seul canal.
+ */
+export const CONTRAINTES: MediaTrackConstraints = {
+  echoCancellation: false,
+  noiseSuppression: false,
+  autoGainControl: false,
+  channelCount: 1
+};
+
+/**
+ * La fin d'une prise : toutes les pistes du micro s'arrêtent (l'indicateur du micro s'éteint),
+ * les nœuds se détachent, le contexte de capture se ferme, et la session revient à la lecture.
+ * Rien ne reste ouvert.
+ */
+export function fermer(
+  flux: Pick<MediaStream, 'getTracks'>,
+  ctx: Pick<AudioContext, 'close'>,
+  noeuds: readonly (Pick<AudioNode, 'disconnect'> | null)[]
+): void {
+  for (const t of flux.getTracks()) {
+    try {
+      t.stop();
+    } catch {
+      /* déjà arrêtée */
+    }
+  }
+  for (const n of noeuds) {
+    try {
+      n?.disconnect();
+    } catch {
+      /* déjà détaché */
+    }
+  }
+  void Promise.resolve()
+    .then(() => ctx.close())
+    .catch(() => undefined);
+  reglerSession('playback');
 }

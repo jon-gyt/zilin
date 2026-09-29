@@ -13,7 +13,7 @@ const sansCommentaires = (s: string): string =>
 const FICHIERS = ['Dire.svelte', 'CourbeTon.svelte', 'DireEssai.svelte'];
 const code = FICHIERS.map((f) => sansCommentaires(source(f))).join('\n');
 const dire = source('Dire.svelte');
-const TONS = ['tons/micro.ts', 'tons/classifieur.ts', 'tons/pitch.ts', 'tons/voix.ts', 'tons/dire.ts', 'tons/modele.ts'];
+const TONS = ['tons/micro.ts', 'tons/classifieur.ts', 'tons/pitch.ts', 'tons/voix.ts', 'tons/dire.ts', 'tons/modele.ts', 'tons/reecoute.ts'];
 
 describe('l’écran de « Dis-le »', () => {
   it('ni cinabre, ni ombre, ni dégradé, ni doré, ni dragon', () => {
@@ -43,7 +43,7 @@ describe('l’écran de « Dis-le »', () => {
   });
 
   it('les phrases viennent du pipeline : aucune n’est écrite dans l’écran', () => {
-    for (const cle of ['enonce', 'appuie', 'ecoute', 'redire', 'confidentialite', 'passer', 'ecouter', 'suivant']) {
+    for (const cle of ['enonce', 'appuie', 'ecoute', 'redire', 'confidentialite', 'passer', 'ecouter', 'suivant', 'reecouter', 'reecouter-aide']) {
       expect(dire).toMatch(new RegExp(`t\\.${cle}\\b|t\\['${cle}'\\]`));
     }
   });
@@ -61,4 +61,15 @@ describe('l’écran de « Dis-le »', () => {
     expect(app.match(/ecran = 'dire'/g)?.length).toBe(1);
     expect(source('ouvertures.ts')).not.toMatch(/dire|Dis-le/);
   });
+
+  it('« Réécouter » : la prise de la question est oubliée à la question suivante et quand l’écran s’en va', () => {
+    expect(dire).toMatch(/void cle;\s*reecoute\.oublier\(\)/);
+    expect(dire.match(/reecoute\.oublier\(\)/g)?.length).toBeGreaterThanOrEqual(3);
+    expect(dire).toMatch(/reecoute\.garder\(enr\.brut, enr\.srBrut\)/);
+  });
+
+  it('rien ne joue pendant la prise : le micro n’entend ni « Écouter » ni « Réécouter »', () => {
+    expect(dire).toMatch(/taire\(\);\s*phase = 'ecoute'/);
+  });
 });
+

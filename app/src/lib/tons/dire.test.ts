@@ -9,7 +9,7 @@ import type { Fiche } from '../content';
 import { lireEcrans } from '../ecrans';
 import { serie, type Corpus } from '../questions';
 import { grade } from '../srs';
-import { emptyProgress, fromJSON, noterRevision, noterVoix, planifierCarte, setDireTons, toJSON } from '../session';
+import { emptyProgress, fromJSON, noterRevision, noterVoix, planifierCarte, setDireTons, setVoixReference, toJSON } from '../session';
 import { juger, type Ton } from './classifieur';
 import {
   ESSAIS_DIRE,
@@ -233,3 +233,16 @@ describe('la progression', () => {
     expect(fromJSON(toJSON(p), JOUR).voix).toEqual(p.voix);
   });
 });
+
+describe('le réglage « Voix »', () => {
+  it('la voix par défaut d’abord ; le choix se garde, s’exporte et se réimporte ; un choix inconnu rend le défaut', () => {
+    expect(emptyProgress(JOUR).voixReference).toBeNull();
+    const p = setVoixReference(emptyProgress(JOUR), 'enregistree');
+    expect(fromJSON(toJSON(p), JOUR).voixReference).toBe('enregistree');
+    const ancien = JSON.parse(toJSON(emptyProgress(JOUR))) as Record<string, unknown>;
+    delete ancien.voixReference;
+    expect(fromJSON(JSON.stringify(ancien), JOUR).voixReference).toBeNull();
+    expect(fromJSON(JSON.stringify({ ...ancien, voixReference: 'robot' }), JOUR).voixReference).toBeNull();
+  });
+});
+
