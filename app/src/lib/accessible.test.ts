@@ -110,6 +110,20 @@ describe('un caractère dessiné porte un nom', () => {
     }
   });
 
+  it('le nom accessible d’un choix ne donne pas la réponse : ni pinyin, ni sens, ni glose', () => {
+    /* VoiceOver lit l’aria-label d’un bouton à la place de son contenu : un nom qui dirait
+       « 马, mǎ » sous « quel élément donne le son ? » soufflerait la réponse. */
+    for (const f of ['Ask.svelte', 'Game.svelte', 'EclairTour.svelte', 'RepliquesWechat.svelte', 'Cuisine.svelte', 'FilWechat.svelte']) {
+      const noms = sansCommentaires(COMPOSANTS[f]).match(/aria-label=(\{[^}]*\}|"[^"]*")/g) ?? [];
+      for (const n of noms) {
+        const expressions = n.match(/\{[^}]*\}/g) ?? [];
+        for (const e of expressions) expect(e, `${f} ${n}`).not.toMatch(/\.(pinyin|fr|sens)\b|glose\(|sens\(|lecture\(|nomAccessible|pinyinDe/);
+      }
+    }
+    /* Le tracé de mémoire : si les traits manquent, le repli se nomme par le seul caractère. */
+    expect(COMPOSANTS['Trace.svelte']).toContain('seul={quiz}');
+  });
+
   it('un caractère en police dans le texte se dit en mandarin', () => {
     expect(source('Hz.svelte')).toContain('<span class="hz" lang="zh-Hans">');
   });
