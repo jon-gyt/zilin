@@ -3,7 +3,7 @@
  "license": "propriétaire",
  "source": "data/sources/heros/ : rangs, bêtes et phrases de Tao rédigés pour l'app (à relire), d'après la maquette validée par le propriétaire",
  "source_url": "https://github.com/jon-gyt/zilin",
- "modified": "2026-09-25 : assemblé par `wenlu export`",
+ "modified": "2026-09-29 : assemblé par `wenlu export`",
  "rangs": [
   {
    "hz": "启蒙",
@@ -11,7 +11,9 @@
    "fr": "lever le voile",
    "role": "les tout premiers caractères",
    "age": "bébé",
-   "seuil": 0
+   "seuil": 0,
+   "examens": [],
+   "palier": null
   },
   {
    "hz": "蒙童",
@@ -19,7 +21,9 @@
    "fr": "l'enfant qu'on éveille",
    "role": "les premières leçons",
    "age": "tout-petit",
-   "seuil": 10
+   "seuil": 10,
+   "examens": [],
+   "palier": null
   },
   {
    "hz": "学童",
@@ -27,23 +31,34 @@
    "fr": "l'enfant qui étudie",
    "role": "l'école du village, 私塾",
    "age": "enfant",
-   "seuil": 25
+   "seuil": 25,
+   "examens": [],
+   "palier": null
   },
   {
    "hz": "童生",
    "pinyin": "tóngshēng",
    "fr": "l'enfant lettré",
-   "role": "en route pour le premier examen",
+   "role": "reçu au district et à la préfecture, candidat au 院试",
    "age": "grand enfant",
-   "seuil": 50
+   "seuil": 50,
+   "examens": [
+    "xianshi",
+    "fushi"
+   ],
+   "palier": null
   },
   {
    "hz": "秀才",
    "pinyin": "xiùcai",
    "fr": "talent éclos",
-   "role": "reçu à l'examen du district",
+   "role": "reçu à l'examen du commissaire aux études",
    "age": "ado",
-   "seuil": 80
+   "seuil": 80,
+   "examens": [
+    "yuanshi"
+   ],
+   "palier": null
   },
   {
    "hz": "举人",
@@ -51,7 +66,11 @@
    "fr": "la personne recommandée",
    "role": "reçu à l'examen de la province",
    "age": "ado",
-   "seuil": 120
+   "seuil": 120,
+   "examens": [
+    "xiangshi"
+   ],
+   "palier": null
   },
   {
    "hz": "贡士",
@@ -59,7 +78,11 @@
    "fr": "le lettré offert au trône",
    "role": "reçu au concours de la capitale",
    "age": "jeune",
-   "seuil": 180
+   "seuil": 180,
+   "examens": [
+    "huishi"
+   ],
+   "palier": null
   },
   {
    "hz": "进士",
@@ -67,7 +90,11 @@
    "fr": "le lettré qui s'avance",
    "role": "reçu à l'examen du palais",
    "age": "jeune",
-   "seuil": 260
+   "seuil": 260,
+   "examens": [
+    "dianshi"
+   ],
+   "palier": null
   },
   {
    "hz": "翰林",
@@ -75,7 +102,9 @@
    "fr": "la forêt des pinceaux",
    "role": "membre de l'Académie impériale",
    "age": "adulte",
-   "seuil": 360
+   "seuil": 360,
+   "examens": [],
+   "palier": 1000
   },
   {
    "hz": "探花",
@@ -83,7 +112,9 @@
    "fr": "cueillir les fleurs",
    "role": "troisième à l'examen du palais",
    "age": "adulte",
-   "seuil": 500
+   "seuil": 500,
+   "examens": [],
+   "palier": 1200
   },
   {
    "hz": "榜眼",
@@ -91,7 +122,9 @@
    "fr": "l'œil du tableau",
    "role": "deuxième à l'examen du palais",
    "age": "adulte",
-   "seuil": 700
+   "seuil": 700,
+   "examens": [],
+   "palier": 1555
   },
   {
    "hz": "状元",
@@ -99,7 +132,9 @@
    "fr": "tête de liste",
    "role": "en tête de l'examen du palais",
    "age": "adulte",
-   "seuil": 1000
+   "seuil": 1000,
+   "examens": [],
+   "palier": 1800
   }
  ],
  "betes": [
@@ -147,8 +182,10 @@
   "essayer": "Et si on essayait {art}, {art_fr} ? Je t'aide.",
   "presque": "Plus que {reste} points pour {rang} !",
   "presque_un": "Plus qu'un point pour {rang} !",
+  "examen": "Les points de {rang} y sont. Reste le {examen} : je t'accompagne.",
+  "palier": "{rang} viendra à {palier} caractères lus. On lit ensemble ?",
   "sommet": "{nom}, premier du concours. On continue de lire ensemble ?",
-  "fangbang": "Ton nom est sur la liste, {nom} : {rang}, « {rang_fr} », {role}. Tu grandis d'un cran. Tao applaudit."
+  "fangbang": "Ton nom est sur la liste, {nom} : {rang}, « {rang_fr} », {role}. Tu en prends la tenue. Tao applaudit."
  },
  "racines": {
   "举": "一",

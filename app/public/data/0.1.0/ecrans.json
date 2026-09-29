@@ -1,7 +1,7 @@
 {
  "version": "0.1.0",
  "license": "propriétaire",
- "source": "data/sources/ecrans/ : textes d'interface de « Lire le monde » et du tableau des révisions, rédigés pour l'app (à relire)",
+ "source": "data/sources/ecrans/ : textes d'interface de « Lire le monde », du tableau des révisions, de « Mon personnage » et de « La route devant », rédigés pour l'app (à relire)",
  "source_url": "https://github.com/jon-gyt/zilin",
  "modified": "2026-09-29 : assemblé par `wenlu export`",
  "lire-le-monde": {
@@ -47,5 +47,20 @@
   "resistent-ligne": "manqué {n} fois",
   "resistent-une": "manqué une fois",
   "resistent-rien": "Aucun caractère manqué ces {jours} jours."
+ },
+ "personnage": {
+  "reste": "Reste le {examen}",
+  "recu": "Reçu au {examen} · encore {n} points",
+  "recu-un": "Reçu au {examen} · encore un point",
+  "palier": "{rang} à {palier} caractères lus · tu en lis {lus}",
+  "ouvert": "examen ouvert",
+  "bang": "榜 · les examens réussis",
+  "bang-date": "reçu le {date}"
+ },
+ "route": {
+  "examen": "{examen} · {n} caractères",
+  "ouvert": "examen ouvert",
+  "apres": "après l'examen",
+  "lus": "{lus} lus sur {n}"
  }
 }
