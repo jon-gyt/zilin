@@ -242,3 +242,19 @@ describe('le retour haptique, accordé aux petits moments', () => {
     expect(source('Cuisine.svelte')).toMatch(/if \(r\.correct\) \{\s*bonneReponse\(\);/);
   });
 });
+
+/* ---------- deuxième passe (« Rajoute encore des petits détails ») ---------- */
+
+describe("la bulle de Tao s'écrit au lieu d'apparaître d'un bloc", () => {
+  const x = source('Bulle.svelte');
+  const css = x.slice(x.indexOf('<style>'));
+  it("de gauche à droite, une fois ouverte, jamais plus de 0,8 s ; l'annonce se lit d'un bloc", () => {
+    expect(x).toContain('Math.min(0.8, Math.max(0.25, [...texte].length * 0.025))');
+    expect(x).toMatch(/role="status" aria-live="polite"><span class="ecrit" style="--duree:\{duree\}s">\{texte\}<\/span>/);
+    expect(x).not.toMatch(/<button class="bulle action[^>]*>\s*<span class="ecrit"/);
+    expect(css).toMatch(/\.ecrit \{[^}]*clip-path: inset\(0 100% 0 0\);[^}]*animation: ecrire var\(--duree\) linear 0\.6s forwards;/);
+  });
+  it("la phrase est là d'un coup si l'on réduit les animations", () => {
+    expect(reduits(css)).toMatch(/\.ecrit \{\s*clip-path: none;\s*animation: none;/);
+  });
+});

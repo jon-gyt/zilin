@@ -7,6 +7,11 @@
    *
    * Avec `action`, la bulle mène quelque part (une porte qui s'ouvre, brief §6) : elle se
    * touche, son filet et sa flèche passent à l'indigo, l'action.
+   *
+   * La phrase de Tao s'écrit de gauche à droite, comme au pinceau, une fois la bulle ouverte :
+   * un peu plus longue la phrase, un peu plus long le geste, jamais plus de 0,8 s. Le lecteur
+   * d'écran a la phrase entière d'emblée. Une annonce (`action`) se lit tout de suite, d'un
+   * bloc : elle mène quelque part. Sans animation, la phrase est là d'un coup.
    */
   let {
     texte,
@@ -14,12 +19,15 @@
     style = '',
     action
   }: { texte: string; cote?: 'droite' | 'gauche'; style?: string; action?: () => void } = $props();
+
+  /** La durée du geste : 25 ms par signe, entre 0,25 et 0,8 s. */
+  const duree = $derived(Math.min(0.8, Math.max(0.25, [...texte].length * 0.025)));
 </script>
 
 {#if action}
   <button class="bulle action {cote}" {style} aria-live="polite" onclick={action}>{texte} <span aria-hidden="true">›</span></button>
 {:else}
-  <div class="bulle {cote}" {style} role="status" aria-live="polite">{texte}</div>
+  <div class="bulle {cote}" {style} role="status" aria-live="polite"><span class="ecrit" style="--duree:{duree}s">{texte}</span></div>
 {/if}
 
 <style>
@@ -93,8 +101,23 @@
       opacity: 1;
     }
   }
+  /* la phrase s'écrit, de gauche à droite, une fois la bulle ouverte */
+  .ecrit {
+    display: inline-block;
+    clip-path: inset(0 100% 0 0);
+    animation: ecrire var(--duree) linear 0.6s forwards;
+  }
+  @keyframes ecrire {
+    to {
+      clip-path: inset(0 0 0 0);
+    }
+  }
   @media (prefers-reduced-motion: reduce) {
     .bulle {
+      animation: none;
+    }
+    .ecrit {
+      clip-path: none;
       animation: none;
     }
   }
