@@ -26,6 +26,7 @@ Format BMAD : épics puis stories. Priorité dans l'ordre. Une story se termine 
 - 2.6 Pas 5 Fixer et pas 6 Clore : vérification, graine plantée.
 - 2.7 Première session : 人, 大, 天, lire 天天, puis objectif et rythme. On arrive sur le menu, la journée faite.
 - 2.8 Le parcours : logo, anecdote, menu ; les pas enchaînés sans repasser par le menu, « Quitter » au pas exact ; une seule fin (Clore) ; la session de plus (quatre pas, une brique, jamais une seconde graine) ; le rattrapage annoncé un bloc à la fois.
+- 2.9 L'aventure, les portes qui s'ouvrent (décision du propriétaire du 29 septembre 2026, brief §6) : le premier jour, la carte du jour, le chemin et le bouton, avec Chercher et Réglages ; chaque autre porte (cases, portrait, route devant, jeux, contes, trophées, révisions, Lire le monde) s'ouvre en jours du chemin ou en caractères lus, jamais à l'achat, reste ouverte, et s'annonce par Tao au retour au menu, une par retour, après le 放榜.
 
 ## Épic 2c · Contes
 - 2c.1 Mode Lire : bibliothèque de contes, version choisie d'après l'acquis (le niveau le plus haut dont tous les caractères sont acquis), lecture avec glose au toucher, audio.
@@ -119,7 +120,7 @@ Compté dans `data/sources/` et dans l'export 0.1.0 :
   fetch, ingest, build, export et check, et deux passages écrivent les mêmes octets.
   8 148 caractères sur 9 574 réconciliés ; 241 du seuil 255 sur 255, 280 du HSK 1 sur 300 ;
   238 familles exportées en 1,33 Mio.
-- Épic 2 : 2.1 à 2.8 (2.2 et 2.8 revues le 24 septembre : le menu et le parcours du prototype validé). Épic 3 : 3.1 à 3.4. Épic 4 : 4.1 à 4.5 (4.4, Chercher, le 24 septembre : la recherche en français lit le sens des fiches relues, 356 dans l'export au 28 septembre ; 4.5, le personnage, le 25 septembre).
+- Épic 2 : 2.1 à 2.9 (2.2 et 2.8 revues le 24 septembre : le menu et le parcours du prototype validé ; 2.9, l'aventure, le 29 septembre). Épic 3 : 3.1 à 3.4. Épic 4 : 4.1 à 4.5 (4.4, Chercher, le 24 septembre : la recherche en français lit le sens des fiches relues, 356 dans l'export au 28 septembre ; 4.5, le personnage, le 25 septembre).
 - Épic 4b : 4b.1 à 4b.9 (textes des jeux à relire). Épic 5 : 5.1, et 5.2 (24 septembre).
 - 5.2, le site public : `app/scripts/site/` génère du HTML statique depuis l'export
   versionné, dans l'artefact Pages de l'app, après `vite build`. 480 caractères dessinables
@@ -393,6 +394,35 @@ Compté dans `data/sources/` et dans l'export 0.1.0 :
   n'est noté, le format de la progression ne bouge pas. Rien au temps passé, ni classement,
   ni percentile ; Tao dans sa posture de révision. Vérifié à 393 × 660 sur une progression
   simulée de quarante jours.
+- 2.9, l'aventure (29 septembre), décision du propriétaire : « Je veux aussi qu'au début, on ne
+  voie pas tout ce qui est accessible, mais que ça se débloque au fur et à mesure de
+  l'aventure. » **Calendrier et phrases à relire.** Dix-neuf portes dans
+  `data/sources/ouvertures/portes.tsv`, exportées dans `ouvertures.json` (format 19), chacune
+  en `jour` (la dernière leçon apprise ; la première session pose les jours 1 à 3) ou en
+  `lus` : Réviser au jour 4, le personnage au 5, Ma forêt au 6, Lire au 7 (la première lettre
+  de Que), Jouer à 6 lus avec assembler et la chaîne, la route devant au jour 9, la devinette
+  et les trophées à 10 lus, les jumeaux à 15, l'éclair à 20, les contes au jour 25 (学弈), le
+  message WeChat à 40 lus, le tableau des révisions et son réglage au jour 40, la coquille à
+  90 lus, Lire le monde à 100, la cuisine à 150 (tableau au brief §6). Contrôles bloquants
+  « ouvertures : sources, contenu, export » (portes connues, unités, rien pendant la première
+  session, parent avant l'enfant, silence au seuil du parent, annonce qui nomme sa porte, ni
+  achat ni urgence ni reproche, Lire à la première lettre, contes à la première fable). Dans
+  l'app, `ouvertures.ts`, pur, un test par règle : les portes atteintes s'ouvrent et le
+  restent ; une seule s'annonce par retour au menu, après le 放榜 ; une porte silencieuse
+  vient avec son parent ; une progression d'avant l'aventure, ou importée sans ce suivi,
+  ouvre en silence ce qu'elle a atteint. `Progress.ouvertures` (portes ouvertes et leur
+  journée, portes annoncées), export et import compris, relu à son défaut sans changer de
+  format. Menu : les cases sur deux colonnes, la dernière en largeur quand elles sont en
+  nombre impair ; la porte qui s'ouvre se pose d'une courte animation, cerclée d'indigo, et
+  la bulle de Tao, à l'indigo, y mène d'un toucher ; le premier jour, la carte du jour se
+  centre. Jouer, Lire, Ma forêt, Chercher et Réglages ne montrent que ce qui est ouvert.
+  Tranché : l'achat ouvre le rythme, pas les portes ; les examens ne sont pas une porte (ils
+  s'ouvrent à leur palier) ; le mode relecture, l'export et l'import restent toujours dans
+  Réglages (outils du propriétaire et garde de la progression) ; les jeux du pas Utiliser
+  restent dans la session. Vérifié à 393 × 660 aux journées 1, 2, 3, 5, 7, 8, 10, 23, 25,
+  38 et 60, au Nouvel An, et en animations réduites. Reste : relire les seuils et les phrases ;
+  relier le seuil d'un jeu à sa jouabilité réelle sur chaque parcours (un jeu ouvert mais pas
+  encore jouable reste en pointillés, comme avant) ; les phrases en anglais.
 - 5.3, VoiceOver (28 septembre), rapport comparatif §2.12, sans Dynamic Type : un caractère
   dessiné depuis ses traits est une image nommée (`role="img"`), « 住, zhù, habiter »,
   pinyin et premier sens lus dans la fiche de l'export avec les tracés (`Glyph.svelte`,
