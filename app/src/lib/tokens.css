@@ -32,7 +32,17 @@
    en aplat (jamais un doré), la pêche des fleurs de Tao ; pas de cinabre, il reste au chemin. */
 :root{ --h-encre:#1F1B18; --h-carte:#FBF7EE; --h-fourrure:#FFFFFF; --h-argent:#EDEBE6; --h-brume:#8B857C;
   --h-indigo:#2B4C7E; --h-jade:#5E8A6A; --h-ocre:#8C5A2B; --h-azur:#1E5A8A; --h-rose:#A8506B;
-  --h-abricot:#E3A33B; --h-abricot-pale:#F7E6C4; --h-peche:#E7A2B4; }
+  --h-abricot:#E3A33B; --h-abricot-pale:#F7E6C4; --h-peche:#E7A2B4;
+  /* le panier d'examen 考篮 de Tao, à la gomme-gutte, fixe comme le personnage */
+  --h-gutte:#9A6300; }
+/* L'examen 科举 (maquettes/examen.html, validée le 29 septembre 2026) : le décor des scènes et
+   des mises en situation, dessiné à plat, aux tons de la maquette et aux pigments de la
+   peinture. Fixe, comme le personnage : un papier posé sur la page, les jours de fête aussi. */
+:root{ --ex-mur:#E7DCC8; --ex-joint:#D8CAB1; --ex-toit:#4A443E; --ex-tuile:#6A625A; --ex-loin:#E6DAC4; --ex-astre:#EFE3CC;
+  --ex-cellule:#DDD0B8; --ex-cellule-nous:#D9CAAE; --ex-bord:#CDBC9E; --ex-bois:#8C5A2B; --ex-bois-fonce:#6A4520;
+  --ex-sol:#E9DFCC; --ex-fond:#EDE3D1; --ex-facade:#EFE5D2; --ex-scotch:#E4D8C2; --ex-seuil:#DDCFB6; --ex-trait:#3A342F;
+  --ex-papier:#FBF7EE; --ex-encre:#1F1B18; --ex-gris:#8B857C; --ex-filet:#D9D1C2;
+  --ex-azur:#1E5A8A; --ex-gutte:#9A6300; --ex-peche:#A8506B; --ex-malachite:#1F7A5A; --ex-abricot:#E3A33B; --ex-abricot-pale:#F7E6C4; }
 
 /* ---- Les thèmes de fête ----
    `data-fete` sur <html> (App.svelte, d'après fetes.json) repeint l'app quelques jours par
