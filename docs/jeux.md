@@ -33,4 +33,4 @@ Postures par activité : leçon (bulle avec le caractère, répète à l'audio),
 
 État : `croissance` (somme pondérée des activités, paliers 100 / 300 / 1 000), `humeur` (variété sur 7 jours, jours de repos neutres), `journal` (liste des activités du jour), `collection` (objets gagnés). Règles : jamais malade, jamais morte, jamais de reproche ; absence = halte au pavillon 亭, un bol de thé à côté, et attente, sans reproche. Ennui : trois activités identiques d'affilée → proposition d'un jeu différent.
 
-Stades : noyau, pousse (deux feuilles), jeune pêcher, pêcher en fleur (rose #E7A2B4), pêches.
+Stades : noyau, pousse (deux feuilles), baluchon (100), chapeau de paille 斗笠 (300), gourde 葫芦 (1 000). Pas d'arbre ni de fruit (décision du propriétaire du 29 septembre 2026). Le chapeau reste sur la tête, sauf en robe d'examen et au pavillon, où il pend au poteau ; baluchon et gourde se posent quand elle tient un bol, une feuille ou la cuillère.

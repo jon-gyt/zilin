@@ -45,18 +45,18 @@ describe('les stades', () => {
   });
 
   it('suivent les paliers 100, 300 et 1 000', () => {
-    expect(stade(PALIERS.jeune - 1)).toBe('pousse');
-    expect(stade(PALIERS.jeune)).toBe('jeune');
-    expect(stade(PALIERS.fleur - 1)).toBe('jeune');
-    expect(stade(PALIERS.fleur)).toBe('fleur');
-    expect(stade(PALIERS.peches - 1)).toBe('fleur');
-    expect(stade(PALIERS.peches)).toBe('peches');
+    expect(stade(PALIERS.baluchon - 1)).toBe('pousse');
+    expect(stade(PALIERS.baluchon)).toBe('baluchon');
+    expect(stade(PALIERS.chapeau - 1)).toBe('baluchon');
+    expect(stade(PALIERS.chapeau)).toBe('chapeau');
+    expect(stade(PALIERS.gourde - 1)).toBe('chapeau');
+    expect(stade(PALIERS.gourde)).toBe('gourde');
   });
 
   it('ne redescendent jamais', () => {
-    const t = nourrir(PALIERS.jeune, 'revision');
-    expect(stade(t.croissance)).toBe('jeune');
-    expect(stade(ajouter(t, '2026-04-01', 'revision').croissance)).toBe('jeune');
+    const t = nourrir(PALIERS.baluchon, 'revision');
+    expect(stade(t.croissance)).toBe('baluchon');
+    expect(stade(ajouter(t, '2026-04-01', 'revision').croissance)).toBe('baluchon');
   });
 });
 
