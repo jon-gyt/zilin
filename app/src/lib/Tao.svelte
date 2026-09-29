@@ -32,8 +32,8 @@
    * ne dure que le temps de le voir, et aucun chiffre ne dit la série. Sans animation (le
    * réglage « réduire les animations »), seul le visage change : la grimace ou la joie.
    *
-   * À l'examen (brief §9, maquette validée le 29 septembre 2026), elle porte la robe bleue
-   * de l'écolier 青衿, le pinceau et le sac (`robe`), et le panier 考篮 à côté d'elle
+   * À l'examen (brief §9, maquette validée le 29 septembre 2026), elle porte le col bleu de
+   * l'écolier 青衿 et le pinceau (`ecolier`), sans robe, et le panier 考篮 à côté d'elle
    * (`panier`), avec lequel elle attend à la porte, puis lit la liste 榜 ; au 月课, un livre
    * sous le bras (`livre`). Ces couleurs sont fixes, comme celles du personnage.
    */
@@ -49,7 +49,7 @@
     grimace = false,
     reaction = null,
     allumee = false,
-    robe = false,
+    ecolier = false,
     panier = false,
     livre = false
   }: {
@@ -72,24 +72,24 @@
      */
     allumee?: boolean;
     /**
-     * À l'examen (maquette validée le 29 septembre 2026) : la robe bleue de l'écolier 青衿,
-     * le col clair croisé, le sac à livres et le pinceau à la main.
+     * À l'examen : le col bleu de l'écolier 青衿 et le pinceau à la main. Pas de robe : elle
+     * l'élargissait (décision du propriétaire du 29 septembre 2026, « ça le grossit »).
      */
-    robe?: boolean;
+    ecolier?: boolean;
     /** Le panier d'examen 考篮, deux étages, un couvercle, une anse, posé à côté d'elle. */
     panier?: boolean;
-    /** Au 月课, un livre sous le bras, sans robe : il ne donne pas de titre. */
+    /** Au 月课, un livre sous le bras, sans col d'écolier : il ne donne pas de titre. */
     livre?: boolean;
   } = $props();
 
   /** Ce qu'elle porte à côté d'elle : les accessoires de fête de ce côté-là lui cèdent la place. */
-  const porte = $derived(robe || panier || livre);
+  const porte = $derived(ecolier || panier || livre);
 
   /** Au pavillon, elle attend : assise, plus petite, sous le toit. */
   const halte = $derived(posture === 'halte');
   const pousse = $derived(stade !== 'noyau');
-  /** Le chapeau de paille, à 300 : sur la tête, sauf en robe d'examen et au pavillon, où il pend au poteau. */
-  const coiffee = $derived((stade === 'chapeau' || stade === 'gourde') && !robe && !halte);
+  /** Le chapeau de paille, à 300 : sur la tête, sauf à l'examen et au pavillon, où il pend au poteau. */
+  const coiffee = $derived((stade === 'chapeau' || stade === 'gourde') && !ecolier && !halte);
   const chapeauPendu = $derived((stade === 'chapeau' || stade === 'gourde') && halte);
   /** Les mains et le flanc libres : pas de bol, de feuille, de cuisine, d'examen ni de pavillon. */
   const libre = $derived(
@@ -141,31 +141,22 @@
         </g>
       {/if}
     </g>
-  {:else if !robe}
+  {:else}
     <path class="sol" d="M60 168q40 12 80 0" stroke="var(--line)" stroke-width="4" fill="none" stroke-linecap="round" />
   {/if}
 
   <g transform={halte ? 'translate(18 30) scale(0.68)' : undefined}>
   <g class="vivant">
-    {#if robe}
-      <!-- la robe bleue de l'écolier 青衿, le col clair croisé, le sac à livres 书袋 -->
-      <path class="pieds" d="M91 176v10M109 176v10" stroke="var(--jade)" stroke-width="7" stroke-linecap="round" />
-      <g class="robe">
-        <path d="M70 146Q60 168 66 180H134Q140 168 130 146Z" fill="var(--h-azur)" stroke="var(--h-encre)" stroke-width="4" stroke-linejoin="round" />
-        <path d="M86 156L100 176L114 156" fill="none" stroke="var(--h-carte)" stroke-width="5" stroke-linejoin="round" />
-        <path d="M100 176V180" stroke="var(--h-encre)" stroke-width="2.5" opacity=".4" />
-        <path d="M122 150L84 178" stroke="var(--h-ocre)" stroke-width="4" stroke-linecap="round" />
-        <rect x="122" y="160" width="18" height="16" rx="3" fill="var(--h-abricot-pale)" stroke="var(--h-encre)" stroke-width="3" />
-        <path d="M72 152Q58 158 54 172L64 176Q68 166 76 162Z" fill="var(--h-azur)" stroke="var(--h-encre)" stroke-width="3.5" stroke-linejoin="round" />
-      </g>
+    {#if ecolier}
+      <!-- l'écolière : ni robe ni habit qui l'élargit, seulement le col bleu 青衿 qui lui donne son nom -->
+      <path class="pieds" d="M88 156v14M112 156v14" stroke="var(--jade)" stroke-width="7" stroke-linecap="round" />
       <!-- le pinceau, tenu à la main -->
       <g class="pinceau-ecolier">
-        <g transform="rotate(-22 60 172)">
-          <rect x="56.5" y="122" width="7" height="48" rx="3" fill="var(--h-ocre)" stroke="var(--h-encre)" stroke-width="2.5" />
-          <rect x="55" y="166" width="10" height="6" rx="1.5" fill="var(--h-carte)" stroke="var(--h-encre)" stroke-width="2" />
-          <path d="M54.5 172q1 12 5.5 22q4.5-10 5.5-22z" fill="var(--h-encre)" />
+        <g transform="rotate(-22 60 164)">
+          <rect x="56.5" y="114" width="7" height="48" rx="3" fill="var(--h-ocre)" stroke="var(--h-encre)" stroke-width="2.5" />
+          <rect x="55" y="158" width="10" height="6" rx="1.5" fill="var(--h-carte)" stroke="var(--h-encre)" stroke-width="2" />
+          <path d="M54.5 164q1 12 5.5 22q4.5-10 5.5-22z" fill="var(--h-encre)" />
         </g>
-        <circle cx="60" cy="173" r="6.5" fill="var(--h-carte)" stroke="var(--h-encre)" stroke-width="3" />
       </g>
     {:else if posture === 'chemin' || halte}
       <path class="pieds" d="M88 156v14M112 156v14" stroke="var(--jade)" stroke-width="7" stroke-linecap="round" />
@@ -219,6 +210,14 @@
           opacity=".3"
           stroke-linecap="round"
         />
+        {#if ecolier}
+          <!-- 青衿 : le col bleu de l'écolier, croisé, sur le bas du noyau -->
+          <g class="col">
+            <path d="M73 146q27 17 54 0" stroke="var(--h-azur)" stroke-width="8" fill="none" stroke-linecap="round" />
+            <path d="M91 150l9 8l9-8" stroke="var(--h-carte)" stroke-width="3.5" fill="none" stroke-linecap="round" stroke-linejoin="round" />
+          </g>
+          <circle cx="66" cy="160" r="6.5" fill="var(--h-carte)" stroke="var(--h-encre)" stroke-width="3" />
+        {/if}
         {#if coiffee}
           <!-- 斗笠 : le chapeau de paille conique, posé sur la tête, la pousse passe au travers -->
           <g class="chapeau">
