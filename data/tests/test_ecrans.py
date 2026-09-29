@@ -49,6 +49,17 @@ def test_le_constat_dit_ce_qu_on_lit() -> None:
     assert lm["compte-un"].format(lus=1, total=3) == "Tu lis 1 caractère sur 3."
 
 
+def test_le_personnage_et_la_route_disent_les_examens_comme_le_brief() -> None:
+    """« Points ET examen » (8.5) et la borne de la route (8.6), brief §8, mot pour mot."""
+    perso = {t.cle: t.fr for t in charger().textes["personnage"]}
+    assert perso["reste"].format(examen="院试") == "Reste le 院试"
+    assert perso["recu"].format(examen="院试", n=12) == "Reçu au 院试 · encore 12 points"
+    assert perso["ouvert"] == "examen ouvert"
+    route = {t.cle: t.fr for t in charger().textes["route"]}
+    assert route["examen"].format(examen="县试", n=50) == "县试 · 50 caractères"
+    assert route["ouvert"] == "examen ouvert"
+
+
 def test_la_photo_passe_par_le_texte_en_direct_sans_reseau() -> None:
     aide = {t.cle: t.fr for t in charger().textes["lire-le-monde"]}["aide-iphone"]
     assert "Texte en direct" in aide

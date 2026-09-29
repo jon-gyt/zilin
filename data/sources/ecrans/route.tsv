@@ -1,0 +1,27 @@
+# Les lignes des examens sur « La route devant » 前路 (story 8.6, brief §8, « La route
+# devant » et « Les examens 科举 »).
+#
+# Source : rédigé pour l'app, sans API, dans une session Claude Code, d'après le brief ; à
+# relire. Les jours sont ceux du chemin, jamais des dates ; un examen à passer arrête le
+# compte, sans compte à rebours. Ni emoji, ni dragon, ni temps passé, ni classement :
+# `wenlu check` le vérifie.
+#
+# Format : TSV, `#` en commentaire, trois colonnes séparées par une tabulation : `cle`,
+# `fr`, `source`. Chaque clé est exigée une fois, avec exactement ses jetons entre
+# accolades, que l'app remplit (`ecrans.py`, `ECRANS`) :
+#
+# - `examen` : sous la stèle d'un examen, à titre ou 月课, et dans la carte de l'étape ;
+#   `{examen}` son nom, `{n}` son palier de caractères lus (« 县试 · 50 caractères »,
+#   « 月课 · 1 555 caractères », mot pour mot du brief) ; une seule stèle quand il tombe
+#   sur un seuil du trophée Lire ;
+# - `ouvert` : l'examen à passer, sa stèle dressée devant la pierre du jour ;
+# - `apres` : tant qu'il n'est pas réussi, ce que disent les pierres et les bornes
+#   suivantes, sans compte ;
+# - `lus` : l'examen suivant dont le jour du chemin est passé sans que ses caractères
+#   soient encore lus (le compte des lus suit de quelques jours) ; `{lus}` les caractères
+#   lus, `{n}` son palier. Un constat, rien d'estimé.
+cle	fr	source
+examen	{examen} · {n} caractères	rédigé pour l'app
+ouvert	examen ouvert	rédigé pour l'app
+apres	après l'examen	rédigé pour l'app
+lus	{lus} lus sur {n}	rédigé pour l'app

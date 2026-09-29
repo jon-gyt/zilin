@@ -46,7 +46,7 @@ app/public/data/0.1.0/
   rythme.json                le rythme gratuit : les lignes du menu, de la route et de Clore
   rappels.json               le rappel quotidien (iOS) et la garde de la progression
   ouvertures.json            l'aventure : le calendrier d'ouverture des portes, les annonces de Tao
-  ecrans.json                les textes de « Lire le monde » et du tableau des révisions
+  ecrans.json                les textes de « Lire le monde », des révisions, du personnage et de la route
   anecdotes.json             les anecdotes du jour, une par caractère
   trois-lignes.json          les trois lignes du pas Utiliser, un texte par jour du chemin
   examens.json               les examens 科举 et les 月课 : la liste, les séries relues
@@ -532,14 +532,19 @@ début de l'anecdote du jour, tiré de `anecdotes.json`, et n'est pas ici.
 ## `ecrans.json`
 
 Tiré de `data/sources/ecrans/lire-le-monde.tsv` et `revisions.tsv` (rapport comparatif du
-28 septembre 2026, §2.5 et §2.6), rédigé pour l'app et à relire : les textes d'interface de
-« Lire le monde », le second onglet de Chercher, et du tableau des révisions de Ma forêt.
+28 septembre 2026, §2.5 et §2.6), `personnage.tsv` et `route.tsv` (stories 8.5 et 8.6),
+rédigé pour l'app et à relire : les textes d'interface de « Lire le monde », le second
+onglet de Chercher, du tableau des révisions de Ma forêt, et les lignes des examens sur
+« Mon personnage » (« Reste le 院试 », « Reçu au 院试 · encore 12 points ») et sur « La
+route devant » (« 县试 · 50 caractères », « examen ouvert »).
 L'app remplit les jetons entre accolades (`app/src/lib/ecrans.ts`).
 
 ```json
 {"version": "0.1.0", "license": "propriétaire", "source": "…", "source_url": "…", "modified": "…",
  "lire-le-monde": {"compte": "Tu lis {lus} caractères sur {total}.", "dans": "dans {n} j", "…": "…"},
- "revisions": {"titre": "Tes révisions", "jours": "dim. lun. mar. mer. jeu. ven. sam.", "…": "…"}}
+ "revisions": {"titre": "Tes révisions", "jours": "dim. lun. mar. mer. jeu. ven. sam.", "…": "…"},
+ "personnage": {"reste": "Reste le {examen}", "recu": "Reçu au {examen} · encore {n} points", "…": "…"},
+ "route": {"examen": "{examen} · {n} caractères", "ouvert": "examen ouvert", "…": "…"}}
 ```
 
 - Un objet par écran, les textes par clé, dans l'ordre de `ecrans.ECRANS`, qui déclare

@@ -1101,7 +1101,7 @@ def document_rappels(version: str) -> dict[str, object]:
 
 
 def document_ecrans(version: str) -> dict[str, object]:
-    """Le JSON écrit dans `ecrans.json`, voir `ecrans.py` : les textes de « Lire le monde » et des révisions."""
+    """Le JSON écrit dans `ecrans.json`, voir `ecrans.py` : les textes de quatre écrans de l'app."""
     return ecrans_mod.document(
         en_tete={
             "version": version,

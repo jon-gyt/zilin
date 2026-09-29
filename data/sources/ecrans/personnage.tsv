@@ -1,0 +1,29 @@
+# Les lignes des examens sur « Mon personnage » (story 8.5, brief §8, « Le personnage » :
+# décision du propriétaire du 26 septembre 2026, « Points ET examen »).
+#
+# Source : rédigé pour l'app, sans API, dans une session Claude Code, d'après le brief ; à
+# relire. Rien qui presse : ni pastille, ni compte à rebours, ni horloge ; un constat. Ni
+# emoji, ni dragon, ni temps passé, ni classement : `wenlu check` le vérifie.
+#
+# Format : TSV, `#` en commentaire, trois colonnes séparées par une tabulation : `cle`,
+# `fr`, `source`. Chaque clé est exigée une fois, avec exactement ses jetons entre
+# accolades, que l'app remplit (`ecrans.py`, `ECRANS`) :
+#
+# - `reste` : sous la barre pleine, les points du titre suivant atteints, l'examen à titre
+#   pas encore réussi ; `{examen}` son nom (« Reste le 院试 », mot pour mot du brief) ;
+# - `recu`, `recu-un` : l'examen réussi avant les points ; `{examen}`, `{n}` les points
+#   qui manquent, plus d'un (« Reçu au 院试 · encore 12 points », mot pour mot du brief) ;
+#   `recu-un` quand il n'en manque qu'un ;
+# - `palier` : les points d'une nomination atteints, pas ses caractères lus ; `{rang}` la
+#   nomination, `{palier}` les caractères lus qu'elle demande, `{lus}` ceux qu'on lit ;
+# - `ouvert` : sous `reste`, l'examen dont le palier est atteint (« examen ouvert ») ;
+# - `bang`, `bang-date` : le 榜 du personnage, les examens à titre réussis, sans les 月课 ;
+#   `{date}` la journée de la réussite.
+cle	fr	source
+reste	Reste le {examen}	rédigé pour l'app
+recu	Reçu au {examen} · encore {n} points	rédigé pour l'app
+recu-un	Reçu au {examen} · encore un point	rédigé pour l'app
+palier	{rang} à {palier} caractères lus · tu en lis {lus}	rédigé pour l'app
+ouvert	examen ouvert	rédigé pour l'app
+bang	榜 · les examens réussis	rédigé pour l'app
+bang-date	reçu le {date}	rédigé pour l'app
