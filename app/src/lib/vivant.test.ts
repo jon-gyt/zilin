@@ -223,6 +223,17 @@ describe("l'appui s'enfonce à peine, la relâche revient", () => {
   });
 });
 
+describe('Jouer : la lanterne de la devinette se balance', () => {
+  const x = source('Game.svelte');
+  const css = x.slice(x.indexOf('<style>'));
+  it('pendue par le haut, sauf celle qui attend son jour', () => {
+    expect(css).toMatch(/\.lampion:not\(\.indispo\) \.lampion-dessin \{\s*transform-origin: 50% 0;\s*animation: lampion 3\.6s/);
+  });
+  it("s'arrête si l'on réduit les animations", () => {
+    expect(reduits(css)).toMatch(/\.lampion:not\(\.indispo\) \.lampion-dessin \{\s*animation: none;/);
+  });
+});
+
 describe('le retour haptique, accordé aux petits moments', () => {
   it('une bonne réponse dans un jeu donne le même tap léger qu’en révision, une erreur rien', () => {
     expect(source('Game.svelte')).toMatch(/function reagirA\(correct: boolean\): void \{[\s\S]*?if \(correct\) bonneReponse\(\);/);

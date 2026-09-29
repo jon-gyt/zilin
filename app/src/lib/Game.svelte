@@ -1299,6 +1299,25 @@
   .lampion-dessin.eteinte {
     opacity: 0.45;
   }
+  /* La lanterne de la devinette se balance doucement, pendue par le haut ; pas celle qui
+     attend son jour. Coupé si l'on réduit les animations. */
+  .lampion:not(.indispo) .lampion-dessin {
+    transform-origin: 50% 0;
+    animation: lampion 3.6s ease-in-out infinite alternate;
+  }
+  @keyframes lampion {
+    from {
+      transform: rotate(-3deg);
+    }
+    to {
+      transform: rotate(3deg);
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .lampion:not(.indispo) .lampion-dessin {
+      animation: none;
+    }
+  }
   .lampion-zh {
     position: absolute;
     left: 50%;
