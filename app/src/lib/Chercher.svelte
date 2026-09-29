@@ -360,7 +360,6 @@
           <div class="k surtitre">{td['ecrire-kicker']}</div>
           <h1>{td['ecrire-titre']}</h1>
         </div>
-        {@render perso(72)}
       </header>
       {#if Pave}
         <EcrireAuDoigt t={td} {complet} {Pave} saisie={choisi} onchoisir={choisir} />

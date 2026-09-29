@@ -1,4 +1,4 @@
-"""Les textes d'interface de huit écrans : « Lire le monde », les révisions, le personnage, la route, « Dis-le », Mon chemin, le dictionnaire, le maître Xing.
+"""Les textes d'interface de neuf écrans : « Lire le monde », les révisions, le personnage, la route, « Dis-le », Mon chemin, le dictionnaire, le maître Xing, « Écrire au doigt ».
 
 « Lire le monde » (Chercher) et le tableau des révisions : rapport comparatif du 28
 septembre 2026, §2.5 et §2.6. « Mon personnage » et « La route devant » : les lignes des
@@ -13,6 +13,7 @@ l'origine attestée du moyen mnémotechnique (décision du propriétaire du 29 s
 Le dictionnaire 字典, premier onglet de Chercher (story 10.8, maquette
 `maquettes/dictionnaire.html`) : la loupe, les résultats, les fiches ; il ne rédige jamais
 d'origine, qui vient de la fiche relue avec son étiquette.
+« Écrire au doigt » : le pavé du dictionnaire (maquette `maquettes/dictionnaire.html`, écran 5).
 Chaque écran a sa source
 versionnée, rédigée pour l'app et à relire, dans `data/sources/ecrans/<écran>.tsv` ;
 `wenlu export` en tire `ecrans.json`, que l'index nomme par sa clé `ecrans`.
@@ -354,6 +355,18 @@ ECRANS: dict[str, dict[str, tuple[str, ...]]] = {
         "compose-mnemo": (),
         "compose-sans": (),
     },
+    "ecrire": {
+        "pave": (),
+        "candidats": (),
+        "vide": (),
+        "compte": ("n", "c"),
+        "compte-un": ("c",),
+        "annuler": (),
+        "effacer": (),
+        "aide": (),
+        "chargement": (),
+        "indisponible": (),
+    },
 }
 
 #: Les sept jours de la semaine, du dimanche au samedi (`Date.getDay`), dans `revisions/jours`.
@@ -376,8 +389,9 @@ REPROCHES = re.compile(
 )
 
 #: Les écrans dont les textes passent aussi le contrôle des reproches : « Dis-le », le
-#: dictionnaire, que Xing tient après la rencontre, et le maître Xing, qui ne gronde jamais.
-SANS_REPROCHE = ("dire", "dictionnaire", "xing")
+#: dictionnaire, que Xing tient après la rencontre, le maître Xing, qui ne gronde jamais, et le
+#: pavé d'écriture.
+SANS_REPROCHE = ("dire", "dictionnaire", "xing", "ecrire")
 
 #: Xing distingue toujours l'origine attestée du moyen mnémotechnique, sans jamais présenter
 #: l'un pour l'autre (CLAUDE.md) : chaque ligne dit l'étiquette de sa fiche, et elle seule.
@@ -403,7 +417,7 @@ JETON = re.compile(r"\{([^{}]*)\}")
 SOURCE_EXPORT = (
     "data/sources/ecrans/ : textes d'interface de « Lire le monde », du tableau des"
     " révisions, de « Mon personnage », de la route devant, de « Dis-le », de « Mon chemin »,"
-    " du dictionnaire et du maître Xing,"
+    " du dictionnaire, du maître Xing et du pavé « Écrire au doigt »,"
     " rédigés pour l'app (à relire)"
 )
 

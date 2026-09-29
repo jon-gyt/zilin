@@ -540,6 +540,8 @@ export type Index = {
   tons?: string;
   /** L'index du dictionnaire de Chercher, `dico/index.json` (`dictionnaire.ts`) ; vide pour un export qui n'en porte pas. */
   dictionnaire?: string;
+  /** Les gabarits de l'écriture au doigt, `ecriture/gabarits.json` (`ecriture/`) ; vide pour un export qui n'en porte pas. */
+  ecriture?: string;
 };
 
 /** La version de données que l'app lit : le dossier exporté par `wenlu export`. */
@@ -591,7 +593,8 @@ export async function loadIndex(
     rappels: typeof brut.rappels === 'string' ? brut.rappels : '',
     ouvertures: typeof brut.ouvertures === 'string' ? brut.ouvertures : '',
     tons: typeof brut.tons === 'string' ? brut.tons : '',
-    dictionnaire: typeof brut.dictionnaire === 'string' ? brut.dictionnaire : ''
+    dictionnaire: typeof brut.dictionnaire === 'string' ? brut.dictionnaire : '',
+    ecriture: typeof brut.ecriture === 'string' ? brut.ecriture : ''
   };
 }
 

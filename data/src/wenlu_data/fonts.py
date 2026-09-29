@@ -219,7 +219,8 @@ def caracteres_des_textes(export: Path | None = None) -> set[str]:
     (嫦娥, 月饼) s'écrit en police et doit donc être dans le sous-ensemble. Les textes
     à relire de `apercu/` en sont aussi : l'app les montre quand le mode relecture des
     Réglages est allumé.
-    Les fichiers de tracés sont laissés à `caracteres_exportes`.
+    Les fichiers de tracés sont laissés à `caracteres_exportes` ; les gabarits de l'écriture au
+    doigt (`ecriture/`) n'en sont pas : leurs 3 000 caractères ne s'affichent que dessinés.
     """
     export = export or EXPORT
     trouves: set[str] = set()
@@ -227,7 +228,9 @@ def caracteres_des_textes(export: Path | None = None) -> set[str]:
         return trouves
     for index in sorted(export.glob("*/index.json")):
         for fichier in sorted(index.parent.rglob("*.json")):
-            if "traits" in fichier.relative_to(index.parent).parts:
+            # Les tracés, et les gabarits de l'écriture au doigt : ce qui se dessine, ou ne
+            # s'affiche pas, n'entre pas dans la police.
+            if {"traits", "ecriture"} & set(fichier.relative_to(index.parent).parts):
                 continue
             trouves.update(_CJK.findall(fichier.read_text(encoding="utf-8")))
     return trouves

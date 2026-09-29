@@ -145,8 +145,8 @@ describe('le contenu', () => {
   });
 
   it('ne passe que les examens dont les deux séries sont écrites, dans l’ordre', () => {
-    expect(examensPassables(DONNEES, 'lire').map((e) => e.id)).toEqual(['xianshi', 'yueke-75']);
-    expect(examensPassables(DONNEES, 'hsk').map((e) => e.id)).toEqual(['xianshi', 'yueke-75']);
+    expect(examensPassables(DONNEES, 'lire').map((e) => e.id)).toEqual(['xianshi', 'yueke-75', 'fushi', 'yueke-150']);
+    expect(examensPassables(DONNEES, 'hsk').map((e) => e.id)).toEqual(['xianshi', 'yueke-75', 'fushi', 'yueke-150']);
     const sansB = { ...DONNEES, parcours: { ...DONNEES.parcours, lire: DONNEES.parcours.lire.map((x) => (x.examen === 'xianshi' ? { ...x, series: { A: x.series.A } } : x)) } };
     expect(examensPassables(sansB, 'lire')).toEqual([]);
   });

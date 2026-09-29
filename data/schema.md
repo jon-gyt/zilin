@@ -56,6 +56,9 @@ app/public/data/0.1.0/
   traits/<racine>.json       les tracés de la famille, sous APL, et rien d'autre
   traits/ARPHICPL.TXT        la même licence, à côté des fichiers qu'elle couvre
   traits/MODIFICATIONS.md    comment et quand les tracés ont été dérivés
+  ecriture/gabarits.json     les gabarits de l'écriture au doigt (3 000 caractères du HSK), sous APL
+  ecriture/ARPHICPL.TXT      la même licence, à côté des gabarits
+  ecriture/MODIFICATIONS.md  comment et quand les gabarits ont été dérivés des médianes
   contes/<id>.json           un conte relu, une version par niveau (trois au seuil 255)
   MIT-hsk30.txt              notice et texte de la MIT d'ivankra/hsk30 (liste des mots)
   dico/index.json            le dictionnaire : l'index unique de Chercher, précaché
@@ -101,7 +104,8 @@ Trois régimes de licence, trois familles de fichiers, jamais mêlés
  "ecrans": "ecrans.json",
  "ouvertures": "ouvertures.json",
  "tons": "tons.json",
- "dictionnaire": "dico/index.json"
+ "dictionnaire": "dico/index.json",
+ "ecriture": "ecriture/gabarits.json"
 }
 ```
 
@@ -734,7 +738,11 @@ de tête au pas Apprendre, selon l'étiquette de la fiche (`brique-atteste`, `br
 de Chercher, la loupe, les recherches récentes, le caractère du jour, les résultats et leur
 statut de Mon chemin, la fiche d'un caractère (l'ordre des traits, les briques, « origine à
 venir »), celle d'un mot, la place de l'écriture au doigt et les catégories de la liste
-HSK 3.0 ; il ne rédige jamais d'origine, qui vient de la fiche relue avec son étiquette.
+HSK 3.0 ; il ne rédige jamais d'origine, qui vient de la fiche relue avec son étiquette ; et
+`ecrire.tsv` (maquette `maquettes/dictionnaire.html`, écran 5) : le pavé « Écrire au doigt »,
+ses boutons « Annuler le trait » et « Effacer », le compte des traits et des candidats
+(`app/src/lib/PaveEcriture.svelte`) ; le titre, le champ et la ligne « Wenlu complet » sont
+ceux du dictionnaire.
 L'app remplit les jetons entre accolades (`app/src/lib/ecrans.ts`).
 
 ```json
@@ -746,7 +754,8 @@ L'app remplit les jetons entre accolades (`app/src/lib/ecrans.ts`).
  "dire": {"juste": "{nom} : ta voix {allure}. C'est bien lui.", "conseil-2-3": "Monte tout de suite, sans descendre d'abord.", "…": "…"},
  "chemin": {"menu-faite": "Pierre posée, une seule par jour", "clore-titre": "{c} rejoint ton chemin.", "…": "…"},
  "dictionnaire": {"pas-appris": "Pas encore appris", "dans": "dans {n} j", "…": "…"},
- "xing": {"caractere": "杏", "accueil": "Bienvenue au 县试. Je suis Xing. …", "brique-mnemo": "… un moyen mnémotechnique, pas son histoire.", "…": "…"}}
+ "xing": {"caractere": "杏", "accueil": "Bienvenue au 县试. Je suis Xing. …", "brique-mnemo": "… un moyen mnémotechnique, pas son histoire.", "…": "…"},
+ "ecrire": {"annuler": "Annuler le trait", "compte": "{n} traits · {c} candidats", "…": "…"}}
 ```
 
 - Un objet par écran, les textes par clé, dans l'ordre de `ecrans.ECRANS`, qui déclare
@@ -776,6 +785,33 @@ exigée par l'Open Government Data License 1.0 et le fichier de son texte ; puis
   (`app/src/lib/tons/classifieur.ts`). Les 34 entrées : 30 points de contour en demi-tons,
   le registre face à la voix de l'apprenant et son indicateur, la durée, le voisement.
 - Sans `tons.json` (un export plus ancien), ou des poids mal formés, « Dis-le » ne se pose pas.
+
+## `ecriture/gabarits.json`
+
+Écrit par `ecriture.py`, nommé par l'index (clé `ecriture`) : les gabarits de l'écriture au
+doigt du dictionnaire (Wenlu complet), un seul fichier que l'app lit à la première ouverture
+du pavé, dans son Web Worker (`app/src/lib/ecriture/`). Ils dérivent des médianes de
+`graphics.txt` : sous Arphic Public License, dans leur propre dossier, avec
+`ecriture/ARPHICPL.TXT` et `ecriture/MODIFICATIONS.md` à côté. Aucun texte propriétaire n'y
+entre ; la police ne lit pas ce dossier (`fonts.py`).
+
+```json
+{"version": "0.1.0", "license": "Arphic Public License", "license_file": "ARPHICPL.TXT",
+ "source": "Make Me a Hanzi — graphics.txt (médianes)", "source_url": "https://github.com/skishore/makemeahanzi",
+ "modified": "2026-09-29 : médianes rééchantillonnées à 8 points par trait, … Voir MODIFICATIONS.md.",
+ "format": {"points": 8, "niveaux": 64, "alphabet": "ABC…-_", "repere": "…"},
+ "listes": [["hsk-1", 300], ["hsk-2", 300], …, ["hsk-7-9", 1200]],
+ "caracteres": "爱八爸…", "traits": "KCI…", "gabarits": "oBkA…"}
+```
+
+- `caracteres` : les 3 000 caractères du HSK 3.0, niveau par niveau (l'ordre de `listes`).
+- `traits` : un signe par caractère, le rang dans `alphabet` de son nombre de traits.
+- `gabarits` : pour chaque caractère, chaque trait dans l'ordre d'écriture, `points` points
+  également espacés le long de la médiane, x puis y, un signe chacun (64 crans). Repère de
+  l'écran (y vers le bas), boîte du caractère centrée, plus grand côté sur 63 crans,
+  proportions gardées.
+- 28 364 traits, 467 Ko (326 Ko en gzip). Hors précache de la PWA (le pavé ne s'ouvre pas sur
+  le web) ; mis en cache à la première lecture (`vite.config.ts`).
 
 ## `ouvertures.json`
 
@@ -1069,6 +1105,12 @@ ce que l'app embarque ; `docs/sources-licences.md` fait foi pour la décision.
   recette ; `docs/sources-licences.md` nomme la source ; `tons.json` porte les mêmes poids et
   l'attribution, reste sous 1 Mo, `index.json` le nomme, `LICENCES.md` dit la licence et
   `OGDL-Taiwan-1.0.txt` est à côté.
+- « écriture : gabarits », « couverture », « taille » — bloquants : chaque version exportée
+  nomme `ecriture/gabarits.json` dans son index et le porte avec `ARPHICPL.TXT` et
+  `MODIFICATIONS.md` à côté ; il se relit, porte exactement les 3 000 caractères du HSK 3.0
+  dans l'ordre des niveaux, chacun avec autant de traits que ses médianes, et pèse moins de
+  480 Ko. « écriture : étendue » (signalé) : aucun gabarit réduit à un point. La séparation
+  des licences refuse dans `ecriture/` un fichier sans en-tête APL ou avec une clé étrangère.
 - « image du chemin » — bloquant : aucun texte affiché que le pipeline écrit (textes
   d'écran, rythme, annonces des portes, examens, phrases de Tao, bêtes, rappels) ne dit
   graine, forêt, arbre, borne ni stèle (décisions du propriétaire du 29 septembre 2026) ;
