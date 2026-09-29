@@ -67,8 +67,10 @@ ENTETE_ELKMOVIE = "# HSK 3.0 word list"
 #: Le texte de la MIT d'ivankra/hsk30, versionné dans `data/sources/licences/` et exporté.
 TEXTE_LICENCE = "MIT-hsk30.txt"
 
-#: La liste versionnée, la seule que lit l'export.
+#: La liste versionnée, la seule que lit l'export. `LISTE_REELLE` garde le chemin du dépôt
+#: quand les tests remplacent `LISTE`.
 LISTE = LISTES / "hsk-mots.tsv"
+LISTE_REELLE = LISTE
 
 #: Les seules colonnes d'ivankra que le pipeline lit. Jamais `CEDICT`, jamais `Variants`.
 COLONNES_LUES: tuple[str, ...] = ("ID", "Simplified", "Pinyin", "POS", "Level", "WebPinyin", "OCR")

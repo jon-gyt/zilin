@@ -220,11 +220,12 @@ def licences() -> None:
 
 @app.command()
 def check() -> None:
-    """Contrôles : composants inconnus, cycles, graphe, listes, liste des mots HSK 3.0, briques muettes, découpes, contes hors liste, fiches invalides, rôle son loin de la lecture moderne, textes sans audio, export à jour, aperçu des textes à relire, fêtes, termes solaires, devinettes, dictionnaire éclair, coquilles, cuisine, lettres de Que, message WeChat, personnage, phrases de Tao à Jouer, lignes du rythme gratuit, calendrier d'ouverture, anecdotes du jour, trois lignes du pas Utiliser, examens 科举, fuites de réponse, image du chemin (ni graine, ni forêt, ni borne, ni stèle), licence des décompositions."""
+    """Contrôles : composants inconnus, cycles, graphe, listes, liste des mots HSK 3.0, briques muettes, découpes, contes hors liste, fiches invalides, rôle son loin de la lecture moderne, textes sans audio, export à jour, dictionnaire (entrées, traits, sens relus seulement), aperçu des textes à relire, fêtes, termes solaires, devinettes, dictionnaire éclair, coquilles, cuisine, lettres de Que, message WeChat, personnage, phrases de Tao à Jouer, lignes du rythme gratuit, calendrier d'ouverture, anecdotes du jour, trois lignes du pas Utiliser, examens 科举, fuites de réponse, image du chemin (ni graine, ni forêt, ni borne, ni stèle), licence des décompositions."""
     from .anecdotes import controles as controles_anecdotes
     from .audio import controles as controles_audio
     from .contes import controles as controles_contes
     from .decoupes import controles as controles_decoupes
+    from .dictionnaire import controles as controles_dictionnaire
     from .coquilles import controles as controles_coquilles
     from .cuisine import controles as controles_cuisine
     from .devinettes import controles as controles_devinettes
@@ -263,6 +264,7 @@ def check() -> None:
         *controles_phonetiques(),
         *controles_audio(),
         *controles_export(),
+        *controles_dictionnaire(),
         *controles_licences(),
         *controles_fetes(),
         *controles_saisons(),

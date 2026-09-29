@@ -57,6 +57,11 @@ app/public/data/0.1.0/
   traits/ARPHICPL.TXT        la même licence, à côté des fichiers qu'elle couvre
   traits/MODIFICATIONS.md    comment et quand les tracés ont été dérivés
   contes/<id>.json           un conte relu, une version par niveau (trois au seuil 255)
+  MIT-hsk30.txt              notice et texte de la MIT d'ivankra/hsk30 (liste des mots)
+  dico/index.json            le dictionnaire : l'index unique de Chercher, précaché
+  dico/caracteres/<n>.json   les entrées de caractère, par lots, chargées à la demande
+  dico/mots/<n>.json         les entrées de mot, par lots, chargées à la demande
+  traits/dico-<n>.json       les tracés des 3 000 caractères et de leurs composants, sous APL
 ```
 
 Trois régimes de licence, trois familles de fichiers, jamais mêlés
@@ -95,7 +100,8 @@ Trois régimes de licence, trois familles de fichiers, jamais mêlés
  "rappels": "rappels.json",
  "ecrans": "ecrans.json",
  "ouvertures": "ouvertures.json",
- "tons": "tons.json"
+ "tons": "tons.json",
+ "dictionnaire": "dico/index.json"
 }
 ```
 
@@ -190,6 +196,167 @@ l'hôte, recadrés par une homothétie arrondie à l'entier. `modified` nomme ce
 composants dans les fichiers qui en portent, et `MODIFICATIONS.md` décrit chaque
 découpe (hôte, indices des traits, échelle et décalage). Écriture compacte (sans
 indentation) : indentés, ces milliers de nombres pèseraient dix fois plus.
+
+## Le dictionnaire : `dico/` et `traits/dico-<n>.json` (stories D.2 et D.3)
+
+La loupe Chercher devient un dictionnaire du HSK 3.0 (décisions du propriétaire du
+29 septembre 2026, `maquettes/dictionnaire.html`) : les 3 000 caractères de
+`data/sources/listes/hsk-*.txt` et les 11 092 mots de `hsk-mots.tsv`, en consultation
+libre. `dictionnaire.py` les écrit ; `index.json` y renvoie par sa clé `dictionnaire`,
+absente quand il n'y a rien à écrire. Rien ne vient de CC-CEDICT.
+
+Trois sortes de fichiers, tous écrits compacts (sans indentation) :
+
+- **l'index**, `dico/index.json`, le seul chargé à l'ouverture de Chercher et le seul
+  précaché (≈ 520 Kio bruts, ≈ 150 Kio en gzip) ;
+- **les lots d'entrées**, `dico/caracteres/<n>.json` (60 lots de 50 caractères) et
+  `dico/mots/<n>.json` (56 lots de 200 mots), chargés à l'ouverture d'une fiche et mis en
+  cache au fil de la lecture ;
+- **les lots de traits**, `traits/dico-<n>.json` (64 lots), chargés quand un caractère se
+  dessine : le lot `n` de traits porte exactement les caractères du lot `n` de fiches
+  (lots 0 à 59), puis viennent les composants hors liste (lots 60 et suivants).
+
+Les lots suivent l'ordre du pinyin : la lecture principale numérotée (`hao2` avant `hao3`),
+puis le point de code pour les caractères, les syllabes puis l'`id` pour les mots. Une
+recherche par syllabe (`hao`) tombe donc dans un ou deux lots de caractères.
+
+### `dico/index.json`
+
+```json
+{"version": "0.1.0", "license": "propriétaire",
+ "license_files": ["MIT-hsk30.txt", "UNICODE-LICENSE.txt", "MIT-cjk-decomp.txt"],
+ "source": "liste HSK 3.0 (GF 0025-2021) : …", "source_url": "…", "modified": "…",
+ "liste": "HSK 3.0 (GF 0025-2021), niveaux 1 à 9",
+ "compte": {"caracteres": 3000, "mots": 11092, "sens_relus": 0,
+            "lots_caracteres": 60, "lots_mots": 56, "lots_traits": 64},
+ "niveaux": {"7": "7-9"},
+ "fichiers": {"caracteres": "dico/caracteres/{lot}.json", "mots": "dico/mots/{lot}.json",
+              "traits": "traits/dico-{lot}.json"},
+ "colonnes": {"caracteres": ["c", "lectures", "niveau", "lot", "glose"],
+              "mots": ["id", "formes", "lectures", "niveau", "lot", "glose"]},
+ "caracteres": [["好", "hao3|hao4", 1, 15, ""]],
+ "mots": [["L1-0474", "知道", "zhi1 dao5|zhi1 dao4", 1, 52, ""],
+          ["L1-0004", "爸爸|爸", "ba4 ba5|ba4", 1, 1, ""]],
+ "traits_hors_liste": {"亻": 60}}
+```
+
+Une ligne par entrée, en tableau, dans l'ordre de `colonnes` (un objet par ligne pèserait
+le double) :
+
+- `c` ou `id` : l'identifiant de l'entrée, le caractère lui-même ou l'`id` du mot
+  (`L1-0002`), la clé de son lot ;
+- `formes` (mots) : les graphies, séparées par `|`, la principale en tête ;
+- `lectures` : les lectures numérotées, séparées par `|` ; dans une lecture de mot, une
+  syllabe par sinogramme, séparées par une espace. Un caractère donne toutes ses lectures
+  (la principale d'abord : 好 `hao3|hao4`) ; un mot, sa lecture retenue, puis sa lecture
+  pleine (`·`, mots de position) et celles de ses variantes. `v` pour ü, `5` pour le ton
+  neutre, `r5` pour le 儿 de l'érhua ;
+- `niveau` : 1 à 6, et 7 pour « 7-9 » (`niveaux`) ;
+- `lot` : le numéro du lot où lire l'entrée (`fichiers`), et, pour un caractère, ses traits ;
+- `glose` : la glose française **relue** de l'entrée, 40 caractères au plus, celle de la
+  liste des résultats et de la recherche par le français ; `""` tant que le sens n'est pas
+  relu. Aujourd'hui toutes vides.
+
+`traits_hors_liste` : le lot de traits de chaque composant d'une décomposition réconciliée
+qui n'est pas un des 3 000 (亻, 氵, 亠…), pour dessiner les briques d'une fiche.
+
+### `dico/caracteres/<n>.json`
+
+`{version, license, license_files, source, source_url, modified, lot, entrees}`, où
+`entrees` associe chaque caractère du lot à son entrée :
+
+```json
+{"c": "好", "pinyin": "hǎo", "lectures": ["hǎo", "hào"], "niveau": 1,
+ "decomposition": {"norme": "GF 0014-2009", "parts": ["女", "子"], "sources": ["cjk-decomp"]},
+ "mots": ["L1-0002", "L1-0138", "…"],
+ "chemin": {"hsk": 14, "lire": 13},
+ "sens": null, "exemples": []}
+```
+
+- `pinyin`, `lectures` : comme les fiches des familles (Unihan et surcharges, la
+  principale en tête).
+- `decomposition` : la décomposition canonique GF 0014-2009 et ses sources, comme `parts`
+  et `sources` d'une fiche ; `parts` vide pour une brique de la norme. **`null` quand elle
+  n'est pas réconciliée** (60 caractères sur 3 000 : 兴, 段, 检…) : l'app ne montre pas
+  une décomposition que le pipeline n'a pas validée.
+- `mots` : les `id` des mots dont une graphie contient le caractère, par niveau puis dans
+  l'ordre de la norme (一 en a plus de deux cents).
+- `chemin` : le jour du chemin où le caractère est posé, par parcours (`lire`, `hsk`) ;
+  vide pour un caractère qu'aucun parcours ne pose encore. Le statut de l'apprenant (lu,
+  dans N jours) se calcule dans l'app, sur sa progression.
+- `sens`, `exemples` : les emplacements prévus, vides (ci-dessous).
+
+### `dico/mots/<n>.json`
+
+Même en-tête, `entrees` par `id` :
+
+```json
+{"id": "L1-0474", "hanzi": "知道", "pinyin": "zhīdao", "syllabes": ["zhi1", "dao5"],
+ "niveau": 1, "categories": ["V"], "officiel": "知道", "pleines": ["zhi1", "dao4"],
+ "sens": null, "exemples": []}
+```
+
+`hanzi`, `pinyin`, `syllabes`, `categories` (les codes de `categorie`, section « Liste des
+mots HSK 3.0 »), `officiel` viennent de `hsk-mots.tsv`. Clés présentes seulement quand elles
+servent : `pleines` (la lecture au ton plein), `variantes` (`[{hanzi, pinyin, syllabes}]`,
+爸 pour 爸爸), `emploi` (l'emploi que la norme cite, 第二 pour 第).
+
+### Les emplacements `sens` et `exemples`
+
+Prévus pour la story des sens (D.7) et celle des phrases d'exemple, qu'un autre chantier
+remplira. Le pipeline rédige, la relecture humaine passe chaque texte à `relu`, et **seuls
+les textes `relu` s'exportent** (`dictionnaire.sens_exporte`, `exemples_exportes`) : un
+sens `a_relire` reste hors de l'export principal, comme une fiche. Formes attendues :
+
+```json
+"sens": {"statut": "relu", "glose": "bon ; bien",
+         "acceptions": [{"categorie": "Adj", "fr": "bon, bien, satisfaisant"},
+                        {"categorie": "Adv", "fr": "très, bien (devant un adjectif)"}]},
+"exemples": [{"zh": "这本书很好看。", "pinyin": "Zhè běn shū hěn hǎokàn.",
+              "fr": "Ce livre est très beau.", "statut": "relu"}]
+```
+
+- `glose` : 40 caractères au plus, sans point final ni sinogramme ; c'est elle, et elle
+  seule, qui passe dans la colonne `glose` de l'index. Une glose relue plus longue ou vide
+  fait échouer l'export.
+- `acceptions` : une à trois, chacune avec la catégorie (codes de la liste) et son texte.
+- `exemples` : les phrases écrites par le pipeline avec les seuls caractères du HSK et
+  relues (pas de Tatoeba, décision du 29 septembre 2026), avec leur pinyin.
+
+`documents()` prend `sens` et `exemples` par identifiant d'entrée (le caractère ou l'`id`
+du mot) ; `export.assembler_dictionnaire` ne lui en passe aucun aujourd'hui.
+
+### `traits/dico-<n>.json`
+
+Exactement le format de `traits/<racine>.json` (en-tête de l'Arphic Public License,
+`license_file`, `modified`, clé `traits`), que `strokes.ts` lit déjà : `{c: {s, m}}`. Les
+tracés sont copiés tels quels de `graphics.txt`, sauf les composants découpés dans un hôte
+(nommés dans `modified` et décrits dans `traits/MODIFICATIONS.md`). Les quelque 600 caractères
+des familles figurent aussi dans `traits/<racine>.json` : le dictionnaire ne dépend pas du
+graphe des familles pour dessiner. Dans l'app, `content.traitsDe` cherche d'abord la famille,
+puis le lot du dictionnaire, puis `strokes-demo.json`.
+
+Les fichiers sont nommés `dico-<n>.json` à plat dans `traits/`, et non dans un
+sous-dossier : le site public publie chaque fichier de `traits/` (APL §2 b) et les
+contrôles de licence lisent ce dossier sans descendre.
+
+### Budget, mesuré sur l'export 0.1.0 du 29 septembre 2026
+
+| Fichiers | Nombre | Brut | gzip | Hors ligne |
+|---|---|---|---|---|
+| `dico/index.json` | 1 | 519 Kio | 147 Kio | précaché |
+| `dico/caracteres/` | 60 | 850 Kio | 172 Kio | à la demande |
+| `dico/mots/` | 56 | 1 855 Kio | 314 Kio | à la demande |
+| `traits/dico-*.json` | 64 | 7 942 Kio | 3 344 Kio | à la demande |
+| `MIT-hsk30.txt` | 1 | 1 Kio | 1 Kio | précaché |
+| **Total** | 182 | **11 167 Kio** | **3 977 Kio** | |
+
+Contrôles (`wenlu check`), bloquants : « dico : entrées » (autant de lignes que de
+caractères des listes et de mots de `hsk-mots.tsv`, chaque entrée dans son lot, aucun
+fichier hors de l'index), « dico : traits » (chaque caractère et chaque composant hors
+liste a ses traits dans son lot), « dico : sens relus seulement » (aucun sens ni exemple
+qui ne soit `relu`, glose de 40 caractères au plus, glose de l'index égale à celle du sens
+relu, vide sinon).
 
 ## `paires.json`
 

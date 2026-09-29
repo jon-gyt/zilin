@@ -143,9 +143,9 @@ def test_la_concordance_avec_l_ocr() -> None:
 
 def test_la_liste_versionnee_passe_ses_controles() -> None:
     """La vraie liste : comptes, sans CC-CEDICT, caractères dans les 3 000, pinyin tranché."""
-    if not mots_hsk.LISTE.exists():
+    if not mots_hsk.LISTE_REELLE.exists():
         pytest.skip("liste absente")
-    resultats = {c.nom: c for c in controles()}
+    resultats = {c.nom: c for c in controles(mots_hsk.LISTE_REELLE)}
     for nom in ("mots HSK : comptes", "mots HSK : sans CC-CEDICT", "mots HSK : caractères", "mots HSK : pinyin"):
         assert resultats[nom].ok, resultats[nom].detail
 

@@ -21,6 +21,7 @@ Hypothèse de distribution : PWA gratuite sur le web, app iOS payante (achat à 
 | Norme GF 0014-2009 | 514 composants | texte normatif, non vérifié en ligne | utilisable pour la logique ; ne pas reproduire le document |
 | Listes Eduscol | parcours Lire | publication officielle, page non consultable | utilisable comme liste de caractères ; pas de reprise de texte |
 | Référentiel HSK 3.0 | parcours HSK | publication officielle, page non consultable | idem ; ne pas rediffuser le PDF |
+| Liste des mots HSK 3.0 : `ivankra/hsk30` (`hsk30.csv`), contrôlée contre `elkmovie/hsk30` (`wordlist.txt`) | mots du dictionnaire : graphie, pinyin, niveau, catégorie (`data/sources/listes/hsk-mots.tsv`, `dico/`) ; la colonne `CEDICT` n'est jamais lue | MIT, `LICENSE` des deux dépôts lus le 29 septembre 2026 (Copyright (c) 2023 Ivan Krasilnikov, (c) 2021 Shawky, (c) 2021 Pleco Inc.) | **utilisable avec obligations** : notice et texte MIT dans l'export (`MIT-hsk30.txt`) ; la table reprend une norme d'État (§6) |
 | `lunar_python` (6tail) | dates des fêtes (春节, 元宵, 清明, 端午, 七夕, 中秋, 重阳, 冬至) calculées dans le pipeline | MIT, `LICENSE` du paquet 1.4.8 | utilisable ; bibliothèque du pipeline seulement, jamais embarquée : l'app ne reçoit que des dates, qui sont des faits de calendrier |
 | LxgwSeal (小篆) | formes sigillaires | SIL OFL 1.1 | utilisable avec obligations ; couverture insuffisante aujourd'hui |
 | Kaiyuan Small Seal (小篆) | formes sigillaires | SIL OFL 1.1 annoncée | à surveiller ; police non encore publiée |
@@ -173,7 +174,7 @@ Aucune de ces trois sources n'a pu être vérifiée en ligne : `eduscol.educatio
 |---|---|---|
 | GF 0014-2009 | utilisable pour la logique | La liste des 514 composants et leur découpage sont des données factuelles normatives. On s'en sert comme règle de décomposition. On ne reproduit ni le texte du document, ni sa mise en page, ni ses commentaires. |
 | Listes Eduscol | utilisable comme liste | Un seuil de caractères est une liste de faits. On reprend les caractères et leur rang, pas les textes d'accompagnement du programme. |
-| Référentiel HSK 3.0 | utilisable comme liste | Idem. Le PDF n'est ni rediffusé ni extrait page par page dans l'app. Seule la table caractère/niveau entre dans le pipeline. |
+| Référentiel HSK 3.0 | utilisable comme liste | Idem. Le PDF n'est ni rediffusé ni extrait page par page dans l'app. Seules les tables caractère/niveau et, depuis le 29 septembre 2026 (dictionnaire), mot/niveau/pinyin/catégorie entrent dans le pipeline, par deux transcriptions sous MIT. |
 
 Dans les trois cas, l'attribution est faite sur l'écran « Licences » par courtoisie et pour la traçabilité, même si elle n'est pas exigée.
 
