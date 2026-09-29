@@ -2122,9 +2122,9 @@ def assembler(
         parcours=documents_parcours,
     )
     textes.update(dico_textes)
-    vus_decoupes = {str(d["c"]) for d in decoupes}
-    decoupes_decrites = [*decoupes, *(d for d in dico_decoupes if str(d["c"]) not in vus_decoupes)]
-    decoupes_decrites.sort(key=lambda d: str(d["c"]))
+    # Les découpes des familles et du dictionnaire, dans l'ordre de la table des découpes.
+    decrites = {str(d["c"]) for d in (*decoupes, *dico_decoupes)}
+    decoupes_decrites = [d for d in decoupes_mod.charger(build) if str(d["c"]) in decrites]
     textes["LICENCES.md"] = licences_md(version)
     textes["traits/MODIFICATIONS.md"] = modifications_md(version, len(graphies), decoupes_decrites, dico_traits)
     for nom in (ARPHIC, UNICODE_NOTICE, MIT_CJK_DECOMP, OGDL, MIT_HSK30):
