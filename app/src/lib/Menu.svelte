@@ -23,10 +23,12 @@
    * quatre cases identiques. Tout ce qui se décide (état, libellés, phrases de Tao) vient
    * de `parcours.ts` ; ce composant ne fait qu'afficher et charger le contenu.
    *
-   * Le cinabre ne marque que la brique nouvelle. Aucune animation à l'appui des cases ni des
-   * boutons : l'appui ne change que le fond ; seule la porte qui s'ouvre se pose d'un geste. Le caractère s'écrit au pinceau à l'arrivée
-   * et au toucher, Tao saute quand on la touche ; rien ne bouge si l'on réduit les
-   * animations.
+   * Le cinabre ne marque que la brique nouvelle. Aucune animation à l'appui des cases : l'appui
+   * ne change que leur fond ; seule la porte qui s'ouvre se pose d'un geste. Le bouton plein
+   * s'enfonce à peine, comme tous les boutons (`tokens.css`). Le caractère s'écrit au pinceau à
+   * l'arrivée et au toucher, une goutte d'encre se pose au bout ; les pas faits s'encrent un à
+   * un ; Tao cligne, lève les yeux vers le caractère, saute quand on la touche ; rien ne bouge
+   * si l'on réduit les animations.
    *
    * La ligne de fête (le vœu) ou de terme sous la marque se touche : elle rouvre
    * l'anecdote du jour, qui ramène au menu.
@@ -975,7 +977,7 @@
     inset: -12px -10px;
   }
 
-  /* ---- le bouton unique, en pilule ; sans animation, l'appui ne change que le fond ---- */
+  /* ---- le bouton unique, en pilule ; l'appui change le fond, et s'enfonce à peine (`.btn`) ---- */
   .pilule {
     border-radius: 999px;
     min-height: 54px;

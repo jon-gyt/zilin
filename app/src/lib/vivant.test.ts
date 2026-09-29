@@ -207,6 +207,22 @@ describe("Lire : l'enveloppe d'une lettre neuve de Que s'entrouvre", () => {
   });
 });
 
+describe("l'appui s'enfonce à peine, la relâche revient", () => {
+  it('le bouton, les choix et les options ; jamais les cases du menu', () => {
+    expect(tokens).toContain('.btn,.choices button,.opt button{transition:transform .12s ease-out}');
+    expect(tokens).toContain('.btn:active:not(:disabled){transform:scale(.98)}');
+    expect(tokens).toContain('.choices button:active:not(:disabled){transform:scale(.97)}');
+    const menu = source('Menu.svelte');
+    const css = menu.slice(menu.indexOf('<style>'));
+    expect(css.slice(css.indexOf('.case {'), css.indexOf('.haut {'))).not.toMatch(/transform|transition/);
+  });
+  it("rien ne bouge si l'on réduit les animations", () => {
+    const r = reduits(tokens);
+    expect(r).toContain('.btn,.choices button,.opt button{transition:none}');
+    expect(r).toMatch(/\.btn:active:not\(:disabled\),\.choices button:active:not\(:disabled\),\.opt button:active:not\(:disabled\)\{transform:none\}/);
+  });
+});
+
 describe('le retour haptique, accordé aux petits moments', () => {
   it('une bonne réponse dans un jeu donne le même tap léger qu’en révision, une erreur rien', () => {
     expect(source('Game.svelte')).toMatch(/function reagirA\(correct: boolean\): void \{[\s\S]*?if \(correct\) bonneReponse\(\);/);

@@ -215,6 +215,14 @@ h1{font-family:var(--head);font-weight:700;font-size:30px;line-height:1.15;lette
 .btn{display:flex;align-items:center;justify-content:center;gap:8px;min-height:50px;padding:0 18px;border-radius:12px;background:var(--act);color:var(--act-ink);font-weight:600;font-size:17px;width:100%}
 .btn.ghost{background:transparent;border:1px solid var(--line);color:var(--ink)}
 .btn:disabled{opacity:.4}
+/* L'appui s'enfonce à peine et la relâche revient, comme à l'examen (maquette validée
+   `examen.html`) : le bouton, les choix d'une question, les options. Les cases du menu gardent
+   leur seul changement de fond. Rien ne bouge si l'on réduit les animations. */
+.btn,.choices button,.opt button{transition:transform .12s ease-out}
+.btn:active:not(:disabled){transform:scale(.98)}
+.choices button:active:not(:disabled){transform:scale(.97)}
+.opt button:active:not(:disabled){transform:scale(.985)}
+@media (prefers-reduced-motion:reduce){.btn,.choices button,.opt button{transition:none}.btn:active:not(:disabled),.choices button:active:not(:disabled),.opt button:active:not(:disabled){transform:none}}
 
 /* quitter : discret en haut d'écran, sauvegarde sans question */
 .quit{min-height:44px;align-self:flex-start}
