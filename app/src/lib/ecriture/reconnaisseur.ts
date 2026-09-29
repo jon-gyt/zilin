@@ -8,6 +8,7 @@
  * suivent ainsi le doigt sans file d'attente, même sur un téléphone lent.
  */
 import { contenu, dossierVersion, VERSION_DONNEES, type Index } from '../content';
+import { urlDeLot } from '../dictionnaire';
 import type { Demande, Reponse } from './protocole';
 import { CANDIDATS, type Candidat, type Trace } from './reconnaissance';
 
@@ -16,11 +17,17 @@ export function fichierGabarits(i: Index): string {
   return !i.ecriture ? '' : `${dossierVersion(i.version)}/${i.ecriture}`;
 }
 
-/** L'adresse des gabarits de la version courante, un asset de l'app ; vide sans. */
+/**
+ * L'adresse des gabarits de la version courante, un asset de l'app ; vide sans. Marquée de
+ * l'empreinte de l'export comme les lots du dictionnaire (`urlDeLot`) : le service worker les
+ * garde (`CacheFirst`), et un nouvel export ne sert jamais les gabarits d'hier.
+ */
 export async function adresseGabarits(version = VERSION_DONNEES): Promise<string> {
-  const file = fichierGabarits(await contenu(version));
+  const i = await contenu(version);
+  const file = fichierGabarits(i);
   if (file === '') return '';
-  return new URL(`${import.meta.env.BASE_URL}${file}`, globalThis.location?.href ?? 'http://localhost/').href;
+  const base = new URL(import.meta.env.BASE_URL, globalThis.location?.href ?? 'http://localhost/').href;
+  return urlDeLot(base, file, i.empreinte);
 }
 
 export type Reconnaisseur = {
