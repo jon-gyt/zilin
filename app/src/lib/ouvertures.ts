@@ -27,6 +27,8 @@ import type { JeuId } from './jeux';
 
 /** Les portes que l'app sait montrer ou cacher. Le pipeline tient la même liste (`ouvertures.PORTES`). */
 export const PORTES = [
+  /* La rencontre du maître Xing 杏, à la porte du 县试 : en tête, elle s'annonce avant les autres (`xing.ts`). */
+  'xing',
   'reviser',
   'personnage',
   'foret',
