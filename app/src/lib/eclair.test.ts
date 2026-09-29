@@ -14,6 +14,7 @@ import {
   motsDevines,
   motsPossibles,
   noterMotDevine,
+  tourDuMot,
   toursEclair,
   type Eclair
 } from './eclair';
@@ -377,5 +378,39 @@ describe('eclair.json de l’export', () => {
   it('pose 电脑 dès que 电 et 脑 sont acquis', () => {
     const c = corpusDeJeu({ eclair: lu, cartes: [stable('电'), stable('脑')], traits: ['电', '脑'] });
     expect(motsPossibles(c).map((m) => m.id)).toEqual(['电脑']);
+  });
+});
+
+/* ---------- les fuites de réponse (retour du propriétaire du 29 septembre 2026) ---------- */
+
+describe('aucun sens ne se désigne par sa forme', () => {
+  it('les choix n’ont pas de parenthèses : « but (au football) », seul à préciser, se trouvait sans lire', () => {
+    const mots = [
+      { id: '球门', mot: '球门', pinyin: 'qiúmén', fr: 'but (au football)', en: 'goal', leurres: ['大门', '球场', '地球'] },
+      { id: '大门', mot: '大门', pinyin: 'dàmén', fr: 'grande porte', en: 'gate', leurres: [] },
+      { id: '球场', mot: '球场', pinyin: 'qiúchǎng', fr: 'terrain de sport', en: 'court', leurres: [] },
+      { id: '地球', mot: '地球', pinyin: 'dìqiú', fr: 'la Terre', en: 'Earth', leurres: [] }
+    ];
+    for (const g of ['a', 'b', 'c']) {
+      const t = tourDuMot(mots[0], mots, g);
+      expect(t.reponse).toEqual(['but']);
+      expect(t.choix).toHaveLength(SENS_ECLAIR);
+      for (const x of t.choix) expect(x).not.toMatch(/[()]/);
+    }
+    /* La correction, elle, dit le sens entier. */
+    const src = readFileSync(new URL('EclairTour.svelte', import.meta.url), 'utf8');
+    expect(src).toContain('<b>{mot.fr}</b>');
+  });
+
+  it('dans l’export, les quatre sens de chaque mot restent distincts sans leurs parenthèses', () => {
+    const brut = JSON.parse(
+      readFileSync(new URL(`../../public/data/${VERSION_DONNEES}/eclair.json`, import.meta.url), 'utf8')
+    );
+    const lu = lireEclair(brut);
+    for (const m of lu.mots) {
+      const t = tourDuMot(m, lu.mots, 'g');
+      expect(new Set(t.choix).size, m.mot).toBe(t.choix.length);
+      for (const x of t.choix) expect(x, m.mot).not.toMatch(/[()]/);
+    }
   });
 });
