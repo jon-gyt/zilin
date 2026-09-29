@@ -34,10 +34,17 @@
 
   let {
     p,
+    vois = () => true,
     onprogression,
     onretour
   }: {
     p: Progress;
+    /**
+     * L'aventure (`ouvertures.ts`) : le personnage se change quand sa porte est ouverte, le
+     * réglage des révisions vient avec leur tableau. Le rythme, le tracé, la relecture et la
+     * progression restent toujours là.
+     */
+    vois?: (id: string) => boolean;
     onprogression: (p: Progress) => void;
     /** Réglages s'ouvre par l'icône du menu ; un seul retour, vers le menu. */
     onretour: () => void;
@@ -196,7 +203,7 @@
   <button class="k quit" onclick={onretour}>‹ Retour</button>
   <h1>Réglages</h1>
 
-  {#if donnees && donnees.betes.length > 0}
+  {#if donnees && donnees.betes.length > 0 && vois('personnage')}
     <div class="card perso">
       {#if p.heros}
         <span class="portrait"><Heros bete={p.heros.bete} {rang} cadre="portrait" largeur={46} /></span>
@@ -225,6 +232,7 @@
         {/each}
       </div>
     </div>
+    {#if vois('retention')}
     <div class="tog pile">
       <div>
         <div>Révisions</div>
@@ -240,6 +248,7 @@
         {/each}
       </div>
     </div>
+    {/if}
     <div class="tog">
       <div>
         <div>Tracé des briques</div>

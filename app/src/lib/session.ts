@@ -55,6 +55,7 @@ import {
 import { SANS_RAPPEL, lireRappel, type Rappel } from './rappels';
 import { lireDernierExport } from './garde';
 import { lireAvisDemande } from './avis';
+import { etatNeuf, lireEtatOuvertures, type EtatOuvertures } from './ouvertures';
 
 
 /** Budget choisi par l'utilisateur, en minutes. */
@@ -480,6 +481,13 @@ export type Progress = {
    * ancienne : elle se prépare à l'ouverture.
    */
   journee: Journee | null;
+  /**
+   * L'aventure (`ouvertures.ts`) : les portes ouvertes, avec leur journée, et celles que Tao
+   * a déjà annoncées. Une porte ouverte le reste. `null` : une progression d'avant l'aventure,
+   * ou importée sans ce suivi ; au premier retour au menu, ce qu'elle a atteint s'ouvre en
+   * silence, sans rafale d'annonces.
+   */
+  ouvertures: EtatOuvertures | null;
 };
 
 /**
@@ -488,6 +496,15 @@ export type Progress = {
  */
 export function jourParcours(p: Progress): number {
   return Math.max(1, Math.floor(p.jourParcours ?? p.days));
+}
+
+/**
+ * Le jour du chemin atteint, celui de l'aventure (`ouvertures.ts`) : la dernière leçon du
+ * parcours apprise. 0 pendant la première session, 3 après elle (人, 大, 天) ; il avance avec
+ * chaque brique apprise, jamais avec l'horloge ni l'achat.
+ */
+export function jourDuChemin(p: Progress): number {
+  return p.premiere ? 0 : jourParcours(p) - 1;
 }
 
 /**
@@ -570,7 +587,8 @@ export function emptyProgress(aujourdhui: string): Progress {
     arts: artsVides(),
     examens: etatExamensVide(),
     droits: droitsVides(),
-    journee: null
+    journee: null,
+    ouvertures: etatNeuf()
   };
 }
 
@@ -1903,6 +1921,8 @@ export function fromJSON(texte: string, aujourdhui: string): Progress {
     /* Les droits : absents d'un export plus ancien, rien de reçu, rien de noté. */
     droits: lireDroits(o.droits),
     /* La journée préparée : absente d'un export plus ancien, elle se prépare à l'ouverture. */
-    journee: lireJournee(o.journee)
+    journee: lireJournee(o.journee),
+    /* L'aventure : absente d'un export plus ancien, ce qu'il a atteint s'ouvrira en silence. */
+    ouvertures: lireEtatOuvertures(o.ouvertures)
   };
 }

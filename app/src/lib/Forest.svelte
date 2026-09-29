@@ -67,6 +67,7 @@
     onrecompenses,
     onroute = () => undefined,
     onrevisions = () => undefined,
+    vois = () => true,
     onretour
   }: {
     p: Progress;
@@ -78,6 +79,8 @@
     onroute?: () => void;
     /** Le tableau des révisions : ce qui revient, ce qu'on retient, ce qui résiste. */
     onrevisions?: () => void;
+    /** L'aventure (`ouvertures.ts`) : la route, les trophées, les révisions, chacun quand sa porte s'ouvre. */
+    vois?: (id: string) => boolean;
     /** Ma forêt s'ouvre par sa case du menu ; un seul retour, vers le menu. */
     onretour: () => void;
   } = $props();
@@ -444,7 +447,7 @@
   </div>
 
   <!-- 前路 : la suite du chemin, d'un tap, avant la liste des familles -->
-  <RouteEntree {p} onouvrir={onroute} />
+  {#if vois('route')}<RouteEntree {p} onouvrir={onroute} />{/if}
 
   <div class="card famlist">
     <div class="row">
@@ -519,8 +522,8 @@
     </div>
   {/if}
 
-  <TropheesEntree {p} onouvrir={onrecompenses} />
-  <RevisionsEntree {p} onouvrir={onrevisions} />
+  {#if vois('trophees')}<TropheesEntree {p} onouvrir={onrecompenses} />{/if}
+  {#if vois('revisions')}<RevisionsEntree {p} onouvrir={onrevisions} />{/if}
 
   <div class="card semaine">
     <div class="row">

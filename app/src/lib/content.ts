@@ -533,6 +533,8 @@ export type Index = {
   rythme?: string;
   /** Les textes du rappel quotidien et de la garde de la progression, `rappels.json` (`rappels.ts`) ; vide pour un export qui n'en porte pas. */
   rappels?: string;
+  /** Le calendrier d'ouverture des portes, `ouvertures.json` (`ouvertures.ts`) ; vide pour un export qui n'en porte pas. */
+  ouvertures?: string;
 };
 
 /** La version de données que l'app lit : le dossier exporté par `wenlu export`. */
@@ -581,7 +583,8 @@ export async function loadIndex(
     ecrans: typeof brut.ecrans === 'string' ? brut.ecrans : '',
     examens: typeof brut.examens === 'string' ? brut.examens : '',
     rythme: typeof brut.rythme === 'string' ? brut.rythme : '',
-    rappels: typeof brut.rappels === 'string' ? brut.rappels : ''
+    rappels: typeof brut.rappels === 'string' ? brut.rappels : '',
+    ouvertures: typeof brut.ouvertures === 'string' ? brut.ouvertures : ''
   };
 }
 

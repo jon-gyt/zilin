@@ -67,18 +67,53 @@ Ouverture : le logo s'écrit (1,6 s), puis l'anecdote du jour, qui compte comme 
 
 ### Le menu
 
-Il tient sur un écran de téléphone, sans défiler.
+Il tient sur un écran de téléphone, sans défiler. Il se remplit au fil de l'aventure (« Les portes qui s'ouvrent », ci-dessous) : le premier jour, la carte du jour, le chemin et le bouton, avec Chercher et Réglages.
 
-- En-tête : la marque, puis le portrait du personnage, Chercher (une loupe) et Réglages, par trois icônes. Le portrait est la tête du personnage à son rang, dans la case d'une icône ; il ouvre « Mon personnage ». Pendant une fête, le vœu prend la place de la marque ; les icônes restent.
+- En-tête : la marque, puis le portrait du personnage (dès sa porte, jour 5 du chemin), Chercher (une loupe) et Réglages, par trois icônes. Le portrait est la tête du personnage à son rang, dans la case d'une icône ; il ouvre « Mon personnage ». Pendant une fête, le vœu prend la place de la marque ; les icônes restent.
 - La carte du jour : le caractère dans son 米字格, dessiné depuis les traits, la brique nouvelle en cinabre ; son pinyin, qui se fait entendre ; son sens et sa décomposition (亻 + 主). Toucher le caractère le réécrit au pinceau et le prononce.
 - Le chemin : six coups de pinceau, un par pas (faits en jade, en cours à l'encre, à venir en filet). Tao marche sur le pas en cours et dit une phrase qui dépend de l'état de la journée ; la toucher la fait sauter et changer de phrase. Dessous, « Pas 2 sur 6 · Échauffer » et la durée.
-- La journée faite, une ligne discrète sous le chemin : « Demain : 子 enfant », la brique de la prochaine session dessinée depuis ses traits et son premier sens, et à droite « Ma route › », qui ouvre la route devant 前路 (§8) et y ramène. Au rythme gratuit (§10), quand la brique suivante n'est pas pour le lendemain : « Dans 3 j : 子 enfant », en jours du calendrier, ceux que fixe la règle, jamais estimés. Ni avant la session, ni pendant, ni en session de plus, ni en rattrapage ; rien au bout du parcours. Retour du propriétaire du 26 septembre 2026 : « il manque une visibilité sur ce qui va être appris au fur et à mesure ». La ligne ne prend que la hauteur de son texte : le menu tient toujours à 393 × 660, fêtes comprises.
+- La journée faite, une ligne discrète sous le chemin : « Demain : 子 enfant », la brique de la prochaine session dessinée depuis ses traits et son premier sens, et à droite, une fois sa porte ouverte (jour 9 du chemin), « Ma route › », qui ouvre la route devant 前路 (§8) et y ramène. Au rythme gratuit (§10), quand la brique suivante n'est pas pour le lendemain : « Dans 3 j : 子 enfant », en jours du calendrier, ceux que fixe la règle, jamais estimés. Ni avant la session, ni pendant, ni en session de plus, ni en rattrapage ; rien au bout du parcours. Retour du propriétaire du 26 septembre 2026 : « il manque une visibilité sur ce qui va être appris au fur et à mesure ». La ligne ne prend que la hauteur de son texte : le menu tient toujours à 393 × 660, fêtes comprises.
 - Un seul bouton plein : « Commencer la session », « Reprendre au pas 3 ». La journée faite, il devient « Une session de plus · une brique », en contour, avec Wenlu complet et pendant les trente premiers jours du chemin ; au rythme gratuit, « Réviser encore », en contour : une révision de plus, sans brique. Un examen à passer (§8, « Les examens 科举 »), la journée faite, il devient « Passer l'examen 县试 », ou « Passer le 月课 », plein.
-- Quatre cases identiques : Réviser 温, Jouer 玩, Lire 读, Ma forêt 林. Avant la session, Réviser dit « Dans la session » et ouvre le pas Échauffer, pour que la pile ne se vide jamais en douce ; après, elle ouvre une révision en plus. Jouer est la seule porte des jeux (§9, « L'écran Jouer »). Lire ouvre les contes, et en tête l'anecdote du jour, à relire. Ma forêt garde les familles, la série, les récompenses et la route devant (§8), deux niveaux au plus.
+- Quatre cases identiques, chacune à sa porte : Réviser 温, Jouer 玩, Lire 读, Ma forêt 林, toujours dans cet ordre, sur deux colonnes ; un nombre impair de cases pose la dernière en largeur, couchée, pour qu'aucun trou ne reste. Avant la session, Réviser dit « Dans la session » et ouvre le pas Échauffer, pour que la pile ne se vide jamais en douce ; après, elle ouvre une révision en plus. Jouer est la seule porte des jeux (§9, « L'écran Jouer »). Lire ouvre les contes, et en tête l'anecdote du jour, à relire ; avant les contes (jour 25), l'anecdote et les lettres de Que seules. Ma forêt garde les familles, la série, les récompenses et la route devant (§8), deux niveaux au plus.
 - Chaque écran ouvert depuis le menu a un seul retour, qui y ramène.
 - Quand un titre du personnage est accordé (§8), l'écran 放榜 passe au retour au menu, avant lui, jamais au milieu d'un pas.
+- Quand une porte s'ouvre, Tao l'annonce au retour au menu, après le 放榜 s'il y en a un (« Les portes qui s'ouvrent », ci-dessous).
 
 États du menu : nouvelle journée ; session entamée (reprise au pas exact, sauvegarde à chaque tap) ; journée faite (« Graine plantée, une seule par jour ») ; session de plus en cours ; journée sans brique nouvelle au rythme gratuit (la carte du jour montre la brique revue, sans cinabre : rien n'est ajouté) ; examen à passer, puis, s'il n'est pas réussi, pause jusqu'à réussite (§8, « Les examens 科举 ») ; retour après absence (mode rattrapage : révisions seules par blocs de cinq minutes, annoncés un à la fois, « Bloc 1 · 14 cartes », Tao en pot, aucun nouveau caractère tant que la pile n'est pas redescendue, message neutre, jamais de compteur de jours perdus).
+
+### Les portes qui s'ouvrent, l'aventure
+
+Décision du propriétaire du 29 septembre 2026 : « Je veux aussi qu'au début, on ne voie pas tout ce qui est accessible, mais que ça se débloque au fur et à mesure de l'aventure. »
+
+- Toujours là : la session (la carte du jour, le chemin, le bouton), Chercher un caractère et Réglages. La révision de l'acquis passe par la session dès le premier jour, et le rattrapage par le bouton : rien ne bloque la pédagogie.
+- Tout le reste est une porte, qui s'ouvre à un moment de l'aventure, compté en jours du chemin (la dernière leçon du parcours apprise ; la première session pose les jours 1 à 3) ou en caractères lus (le compte de Ma forêt), jamais en jours du calendrier. Une porte se montre quand elle sert, jamais avant.
+- Une porte ouverte le reste, même si le compte des lus redescend.
+- Wenlu complet ouvre le rythme, pas les portes : l'achat ne raccourcit pas l'aventure, qui se mesure en leçons et en caractères lus ; avec lui, on marche seulement plus vite sur le même chemin. La fermeture est celle de l'aventure, jamais de l'argent : aucune annonce ne parle d'achat.
+- Le moment : au retour au menu, jamais au milieu d'un pas, après le 放榜 s'il y en a un ; une porte par retour, les suivantes aux retours suivants, dans l'ordre du calendrier. La case (ou le portrait, ou « Ma route › ») se pose d'une courte animation, coupée si l'on réduit les animations, cerclée d'indigo le temps de ce retour ; Tao le dit dans sa bulle, à l'indigo, « Une nouvelle porte : Jouer 玩. › », et la toucher mène à la porte. Une porte dans un écran (les contes, un jeu, les trophées…) s'annonce de même, et la bulle mène à son écran. Ni fenêtre modale, ni cinabre, ni ombre, ni doré, ni emoji.
+- Une porte silencieuse vient avec celle qui la contient (les deux premiers jeux avec Jouer, le réglage des révisions avec leur tableau).
+- Une progression d'avant l'aventure, ou importée sans son suivi, ouvre en silence tout ce qu'elle a atteint : pas de rafale d'annonces ; seules les suivantes s'annoncent, au moment où elles arrivent. La progression garde les portes ouvertes, leur journée et celles qui ont été annoncées, export et import compris.
+- Le calendrier et les phrases de Tao viennent du pipeline (`data/sources/ouvertures/portes.tsv`, `ouvertures.json`), contrôlés par `wenlu check` ; tout se décide dans `app/src/lib/ouvertures.ts`.
+
+| Porte | Ce qui s'ouvre | S'ouvre à | Pourquoi |
+|---|---|---|---|
+| Réviser 温 | la case | jour 4 | la première révision passée, une révision de plus a un sens |
+| Mon personnage | le portrait de l'en-tête, et son réglage | jour 5 | ses premiers points |
+| Ma forêt 林 | la case | jour 6 | les premières graines, les premiers lus |
+| Lire 读 | la case : l'anecdote du jour et les lettres de Que | jour 7 | la première lettre de Que suit l'acquis du jour 7 |
+| Jouer 玩 | la case, avec assembler 拼 et la chaîne 链 | 6 lus | les premiers jeux ont de quoi jouer sans démonstration |
+| La route devant 前路 | « Ma route › » et l'entrée de Ma forêt | jour 9 | quelques jours de chemin derrière soi |
+| La devinette 谜 | la lanterne de Jouer, et la case qui l'annonce | 10 lus | des briques et leurs caractères à deviner |
+| Tes trophées | l'entrée de Ma forêt | 10 lus | le premier sceau |
+| Les jumeaux 双 | dans Jouer | 15 lus | des caractères proches à opposer |
+| Le dictionnaire éclair 典 | dans Jouer | 20 lus | des mots de deux caractères lus |
+| Les contes 故事 | les étagères de Lire | jour 25 | 学弈, la première fable du chemin |
+| Le message WeChat 信 | dans Jouer | 40 lus | les premiers dialogues lisibles |
+| Tes révisions | le tableau de Ma forêt, et le réglage des révisions | jour 40 | un mois de révisions, une rétention qui se mesure |
+| La coquille 错 | dans Jouer | 90 lus | 天 et 夫 lus |
+| Lire le monde | l'onglet « Un texte » de Chercher | 100 lus | un texte du dehors se lit en partie |
+| La cuisine de Tao 菜 | dans Jouer | 150 lus | le premier plat lisible |
+
+Les examens ne sont pas une porte : chacun s'ouvre de lui-même à son palier de caractères lus (le 县试 à 50), et Clore le dit (§8). La ligne de fête ou de terme de l'en-tête, décor du jour, reste là. Au rythme complet, un jour du chemin par journée après la première : Réviser le 2e jour, le personnage le 3e, Ma forêt le 4e, Lire le 5e, Jouer vers le 6e, la route le 7e, les contes le 23e.
 
 ### La session, six pas dans le même ordre
 
@@ -132,7 +167,7 @@ Fluidité : un tap par écran, bouton principal unique en bas, avance automatiqu
 
   Pas de remise sur l'abonnement mensuel. Qui a déjà Wenlu complet reçoit le sceau et le cadeau de Que, rien de plus. Sur le web, ni achat ni code : les paliers y donnent le sceau et le cadeau de Que.
 - Ma forêt : une colline, un arbre par famille dont la taille suit la progression, un brin d'herbe par caractère, Miao dessus. Le dimanche, récapitulatif de la semaine partageable en image.
-- La route devant 前路 : ce qui va être appris, au fur et à mesure. Retour du propriétaire du 26 septembre 2026 : « il manque une visibilité sur ce qui va être appris au fur et à mesure » ; la carte entière du parcours est écartée (« pas besoin de tout voir, juste le détail de l'étape et une vue partielle proche des prochaines étapes »), et l'écran doit être « plus joli ». On y entre depuis Ma forêt (« La route devant », avec la brique de demain), ou depuis la ligne « Demain » du menu, la journée faite ; un seul retour ramène là d'où l'on vient.
+- La route devant 前路 : ce qui va être appris, au fur et à mesure. Retour du propriétaire du 26 septembre 2026 : « il manque une visibilité sur ce qui va être appris au fur et à mesure » ; la carte entière du parcours est écartée (« pas besoin de tout voir, juste le détail de l'étape et une vue partielle proche des prochaines étapes »), et l'écran doit être « plus joli ». On y entre depuis Ma forêt (« La route devant », avec la brique de demain), ou depuis la ligne « Demain » du menu, la journée faite, une fois sa porte ouverte (jour 9 du chemin, §6) ; un seul retour ramène là d'où l'on vient.
   - En tête : « ‹ Retour », « La route devant 前路 », puis « 25 caractères lus · 20 / 300 du HSK 1 » (les lus de Ma forêt).
   - La scène, en papier découpé : trois collines en aplats, quelques pins de jade, un soleil pâle, et la route qui monte en lacets vers la montagne. Sur la route, chaque pierre porte sa brique, dessinée depuis ses traits : deux derrière, lues, au jade ; celle du jour, cerclée de cinabre, la position, où se tient Tao, dans sa posture du chemin, avec un sceau « jour 12 » ; six devant, au trait. Au premier jour, rien derrière ; près du bout, moins de pierres devant, et la route s'arrête à la dernière (« fin du parcours »). Toucher une pierre la choisit.
   - Au bout, dans la brume (des bandes de papier), les deux prochaines bornes, et rien au-delà, chacune sur une stèle au pointillé d'indigo avec « dans 13 j » : un seuil du trophée Lire (10, 50, 100, 255…), au jour du chemin où entre le Ne caractère, un examen (« Les examens 科举 » ci-dessous), à son palier compté de la même façon, son nom dessiné depuis ses traits, ou un conte qui s'ouvre, au jour où entre le dernier caractère qui lui manque (le calcul de l'étagère « Bientôt » de Lire), son motif sur la stèle. Un trophée obtenu, un seuil dont les caractères sont déjà rencontrés sans être lus, un conte dont le jour ne se calcule pas ne s'annoncent pas. L'examen suivant, à titre ou 月课, est toujours l'une des deux : il met les briques en pause, on le voit venir. Si deux autres bornes tombent avant lui, il prend la place de la seconde. Avec un examen tous les cinquante caractères au plus, il est rarement loin. Une pierre qui porte l'une des deux bornes a son petit repère d'indigo.
@@ -145,7 +180,7 @@ Fluidité : un tap par écran, bouton principal unique en bas, avance automatiqu
 
 ### Le tableau des trophées
 
-On y entre depuis Ma forêt (« Tes trophées », N sur M et le prochain). Règle : chaque trophée se gagne en lisant, jamais au temps passé. Aucune règle ne lit une durée, un budget ou un temps de réponse. Pas de points, pas de classement, pas de doré. Tout se calcule depuis la progression et le contenu exporté (`app/src/lib/trophees.ts`). Les examens n'y ont pas de sceau (« Les examens 科举 » ci-dessous).
+On y entre depuis Ma forêt (« Tes trophées », N sur M et le prochain), dès sa porte, à 10 caractères lus (§6). Règle : chaque trophée se gagne en lisant, jamais au temps passé. Aucune règle ne lit une durée, un budget ou un temps de réponse. Pas de points, pas de classement, pas de doré. Tout se calcule depuis la progression et le contenu exporté (`app/src/lib/trophees.ts`). Les examens n'y ont pas de sceau (« Les examens 科举 » ci-dessous).
 
 | Famille | Ce qui le donne | Sceau |
 |---|---|---|
@@ -293,7 +328,7 @@ Décision du propriétaire du 26 septembre 2026 : l'ancien menu en ligne était 
 
 - En tête : 玩 dessiné depuis ses traits, « Jouer », « Une à trois minutes », et le retour vers le menu (ou Ma forêt).
 - « Aujourd'hui 今天 » : Tao, dans sa posture de jeu, tend un jeu dans une bulle. Ce jeu est un jeu jouable, jamais la devinette ; il part du jour, pas de l'horloge (le même toute la journée), et après trois plats d'affilée ce n'est pas la cuisine. Quand elle s'ennuie, sa bulle propose de changer ; sinon, elle invite. Sa carte prend toute la largeur, cerclée d'indigo, sous « Tao propose ». Dessous, la devinette du jour devient une lanterne 灯谜 : l'énoncé et « 1 min » ; une par jour, et une fois résolue ou montrée la carte le dit (« Résolue aujourd'hui. La suivante demain. »), la lanterne restant allumée si elle a été trouvée.
-- « Les autres jeux 游戏 », avec leur nombre : une grille de cartes sur deux colonnes, les jouables d'abord. Chaque carte porte un petit dessin plat et le caractère du jeu (菜 la cuisine, 信 le message, 典 le dictionnaire éclair, 拼 assembler, 双 les jumeaux, 链 la chaîne, 错 la coquille), le titre, ce qu'il fait lire, et la durée dans un cartouche indigo, dans le flux du texte. Un jeu pas encore jouable reste en pointillés, en retrait, avec ce qui lui manque ; son bouton est désactivé.
+- « Les autres jeux 游戏 », avec leur nombre : une grille de cartes sur deux colonnes, les jouables d'abord. Seuls y sont les jeux dont la porte est ouverte (§6, « Les portes qui s'ouvrent ») : assembler et la chaîne avec Jouer, les autres à leur seuil de lus. Chaque carte porte un petit dessin plat et le caractère du jeu (菜 la cuisine, 信 le message, 典 le dictionnaire éclair, 拼 assembler, 双 les jumeaux, 链 la chaîne, 错 la coquille), le titre, ce qu'il fait lire, et la durée dans un cartouche indigo, dans le flux du texte. Un jeu pas encore jouable reste en pointillés, en retrait, avec ce qui lui manque ; son bouton est désactivé.
 - Fonds neutres : toutes les cartes ont le fond papier de la carte et un filet fin. La couleur n'est que dans les images (dessins, caractères, lanterne), aux pigments de peinture (`--t1` à `--t4`). L'indigo marque l'action (la carte que tend Tao, les durées). Ni cinabre, ni ombre, ni dégradé, ni doré, ni emoji. Les caractères des cartes se dessinent depuis leurs traits ; sans traits dans l'export, la carte garde son seul dessin.
 
 ### Les jeux du pas Utiliser

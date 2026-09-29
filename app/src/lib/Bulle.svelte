@@ -4,15 +4,23 @@
    * côté de Tao la bulle se tient ; le parent la place. Ni ombre ni dégradé : un filet
    * d'encre sur la carte. Elle s'ouvre d'un petit rebond, sauf si l'on réduit les
    * animations.
+   *
+   * Avec `action`, la bulle mène quelque part (une porte qui s'ouvre, brief §6) : elle se
+   * touche, son filet et sa flèche passent à l'indigo, l'action.
    */
   let {
     texte,
     cote = 'droite',
-    style = ''
-  }: { texte: string; cote?: 'droite' | 'gauche'; style?: string } = $props();
+    style = '',
+    action
+  }: { texte: string; cote?: 'droite' | 'gauche'; style?: string; action?: () => void } = $props();
 </script>
 
-<div class="bulle {cote}" {style} role="status" aria-live="polite">{texte}</div>
+{#if action}
+  <button class="bulle action {cote}" {style} aria-live="polite" onclick={action}>{texte} <span aria-hidden="true">›</span></button>
+{:else}
+  <div class="bulle {cote}" {style} role="status" aria-live="polite">{texte}</div>
+{/if}
 
 <style>
   .bulle {
@@ -38,6 +46,26 @@
     background: var(--card);
     border: 1.5px solid var(--ink);
     transform: translateY(-50%) rotate(45deg);
+  }
+  /* Une bulle qui mène à une porte : on la touche, l'indigo dit l'action. */
+  .action {
+    pointer-events: auto;
+    /* une annonce longue passe à la ligne plutôt que de sortir de l'écran */
+    white-space: normal;
+    width: max-content;
+    max-width: min(300px, calc(100vw - 104px));
+    border-color: var(--indigo);
+    color: var(--indigo);
+    text-align: left;
+  }
+  .action::before {
+    border-color: var(--indigo);
+  }
+  /* sa cible de toucher dépasse la bulle, sans la grandir */
+  .action::after {
+    content: '';
+    position: absolute;
+    inset: -8px -4px;
   }
   .droite {
     transform-origin: 0 50%;

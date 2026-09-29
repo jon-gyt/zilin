@@ -130,6 +130,19 @@
   import { momentDeClore, momentDeConte, noterAvisDemande, peutDemanderAvis, type Moment } from './lib/avis';
   import { etatMenu } from './lib/parcours';
   import { reglerRappel, setRappel } from './lib/rappels';
+  import { caracteresLus } from './lib/foret';
+  import type { Famille } from './lib/content';
+  import { jourDuChemin } from './lib/session';
+  import {
+    JEUX_DES_PORTES,
+    mesure,
+    ouverturesOnce,
+    retourAuMenu,
+    visible,
+    type Calendrier,
+    type Porte,
+    type PorteId
+  } from './lib/ouvertures';
 
   /**
    * Un écran à la fois, pas de routeur. `menu` est la maison ; `rev` est le pas
@@ -313,6 +326,72 @@
   /** Le jeu ouvert, `null` quand l'écran hôte montre le choix. */
   let jeu: JeuId | null = $state(null);
 
+  /*
+   * L'aventure (`ouvertures.ts`, brief §6) : les portes s'ouvrent au fil du chemin, en jours
+   * du chemin ou en caractères lus, et Tao en annonce une par retour au menu, après le 放榜
+   * s'il y en a un. Le calendrier vient de `ouvertures.json` ; les lus, des familles de
+   * l'export, comme Ma forêt les compte.
+   */
+  let calendrier: Calendrier | null = $state(null);
+  let famillesLues: Famille[] | null = null;
+  void ouverturesOnce()
+    .then((c) => (calendrier = c))
+    .catch(() => (calendrier = []));
+  /** La porte que Tao annonce sur le menu, le temps de ce retour. */
+  let annonce: Porte | null = $state(null);
+
+  /** Une porte, ou ce qui n'en est pas une, est-elle visible ? */
+  const vois = (id: string): boolean => visible(p.ouvertures, calendrier, id);
+
+  /** Les jeux montrés dans Jouer : ceux dont la porte l'est. */
+  const jeuxMontres = $derived(JEUX_DES_PORTES.filter((x) => vois(x.porte)).map((x) => x.jeu));
+
+  /**
+   * Le retour au menu : les portes atteintes s'ouvrent, une s'annonce. Sans calendrier encore
+   * lu, rien ne bouge. Jamais au milieu d'un pas : on n'est appelé qu'au menu.
+   */
+  function ouvrirPortes(): void {
+    annonce = null;
+    const cal = calendrier;
+    if (cal === null || !chargee || p.premiere) return;
+    const lus = famillesLues === null ? null : caracteresLus(famillesLues, p.cartes);
+    const r = retourAuMenu(p.ouvertures, cal, mesure(jourDuChemin(p), lus), p.day);
+    annonce = r.annonce;
+    if (JSON.stringify(r.etat) === JSON.stringify(p.ouvertures)) return;
+    p = { ...p, ouvertures: r.etat };
+    enregistrer();
+  }
+
+  /** Toucher l'annonce, ou la case qui vient d'apparaître : on découvre la porte. */
+  function decouvrir(id: PorteId): void {
+    annonce = null;
+    if (id === 'reviser' || id === 'jouer' || id === 'lire' || id === 'foret') caseMenu(id);
+    else if (id === 'personnage') ecran = 'personnage';
+    else if (id === 'route') ouvrirRoute('menu');
+    else if (id === 'trophees') ouvrirDetour('rewards', 'menu');
+    else if (id === 'revisions') ouvrirDetour('revisions', 'menu');
+    else if (id === 'contes') ecran = 'lire';
+    else if (id === 'monde') {
+      ouvrirChercher();
+      modeChercher = 'texte';
+    } else if (id === 'retention') ecran = 'reglages';
+    else {
+      jeu = null;
+      ecran = 'game';
+    }
+  }
+
+  /** Les trophées et le tableau des révisions : ouverts depuis Ma forêt, ou depuis l'annonce. */
+  let detourRetour: 'menu' | 'foret' = $state('foret');
+  function ouvrirDetour(e: 'rewards' | 'revisions', depuis: 'menu' | 'foret'): void {
+    detourRetour = depuis;
+    ecran = e;
+  }
+  function fermerDetour(): void {
+    if (detourRetour === 'menu') allerAuMenu();
+    else ecran = 'foret';
+  }
+
   /** Réglages : le budget, le tracé, une progression importée. */
   function remplacer(nouvelle: Progress): void {
     /* Le mode relecture règle l'aperçu avant que le menu ne relise le contenu. */
@@ -330,7 +409,9 @@
    * sans ce réchauffage, le premier écran qui cherche la famille d'un composé la
    * reconstruirait au moment où il en a besoin. Les fichiers sont précachés (509 entrées).
    */
-  void toutesLesFamilles().catch(() => undefined);
+  void toutesLesFamilles()
+    .then((l) => (famillesLues = l))
+    .catch(() => undefined);
 
   /**
    * Au démarrage : on relit la progression et on ouvre la journée. L'index et les lignes du
@@ -390,6 +471,7 @@
     anecRetour = null;
     ecran = apresSplash(p);
     if (ecran === 'menu') annoncerUnRang();
+    if (ecran === 'menu') ouvrirPortes();
   }
 
   function splashFini(): void {
@@ -437,6 +519,8 @@
     basculer();
     lettreDuJour();
     annoncerUnRang();
+    /* Un 放榜 passe d'abord ; la porte qui s'ouvre vient après lui, au menu. */
+    if (ecran === 'menu') ouvrirPortes();
     /* Un 放榜 passe d'abord : la demande attend qu'on soit vraiment au menu. */
     demanderAvisAuMenu();
   }
@@ -1019,6 +1103,7 @@
   <Game
     {p}
     {jeu}
+    montres={jeuxMontres}
     onchoisir={(id) => (jeu = id)}
     onrepondu={jeuRepondu}
     ondevinette={devinetteJouee}
@@ -1030,6 +1115,7 @@
 {:else if ecran === 'lire'}
   <Lire
     {p}
+    contes={vois('contes')}
     onretour={allerAuMenu}
     onlu={conteLu}
     onchapitre={chapitreLu}
@@ -1046,31 +1132,32 @@
       {p}
       jour={p.day}
       onfamille={(f) => (famille = f)}
-      onrecompenses={() => (ecran = 'rewards')}
+      onrecompenses={() => ouvrirDetour('rewards', 'foret')}
       onroute={() => ouvrirRoute('foret')}
-      onrevisions={() => (ecran = 'revisions')}
+      onrevisions={() => ouvrirDetour('revisions', 'foret')}
+      {vois}
       onretour={allerAuMenu}
     />
   {/if}
 {:else if ecran === 'route'}
   <Route {p} {acces} textes={textesRythme} onretour={fermerRoute} />
 {:else if ecran === 'revisions'}
-  <Revisions {p} onretour={() => (ecran = 'foret')} />
+  <Revisions {p} onretour={fermerDetour} />
 {:else if ecran === 'rewards'}
-  <Rewards {p} onretour={() => (ecran = 'foret')} onacquis={tropheesObtenus} />
+  <Rewards {p} onretour={fermerDetour} onacquis={tropheesObtenus} />
 {:else if ecran === 'chercher'}
   <!-- Chercher, puis l'arbre de la famille touchée ; son retour ramène à Chercher. -->
   {#if trouvee}
     <Tree fam={trouvee.fam} choix={trouvee.c} retour="Chercher" onretour={() => (trouvee = null)} onlecon={quitter} />
   {:else}
-    <Chercher {p} bind:q={requete} bind:mode={modeChercher} bind:texte={texteLibre} onfamille={(fam, c) => (trouvee = { fam, c })} onretour={allerAuMenu} />
+    <Chercher {p} monde={vois('monde')} bind:q={requete} bind:mode={modeChercher} bind:texte={texteLibre} onfamille={(fam, c) => (trouvee = { fam, c })} onretour={allerAuMenu} />
   {/if}
 {:else if ecran === 'personnage'}
   <Personnage {p} donnees={herosDonnees} onretour={allerAuMenu} onchoisi={personnageChoisi} />
 {:else if ecran === 'fangbang' && herosDonnees && p.heros}
   <Fangbang donnees={herosDonnees} heros={p.heros} rang={rangPromu} oncontinuer={fangbangVu} />
 {:else if ecran === 'reglages'}
-  <Settings {p} onprogression={remplacer} onretour={allerAuMenu} />
+  <Settings {p} {vois} onprogression={remplacer} onretour={allerAuMenu} />
 {:else}
-  <Menu {p} {acces} textes={textesRythme} fete={feteJour} {fetes} terme={laJournee.terme} {saisons} ondemarrer={boutonMenu} oncase={caseMenu} onanecdote={() => relireAnecdote('menu')} onchercher={ouvrirChercher} onreglages={() => (ecran = 'reglages')} onpersonnage={() => (ecran = 'personnage')} onroute={() => ouvrirRoute('menu')} />
+  <Menu {p} {acces} {vois} {annonce} ondecouvrir={decouvrir} textes={textesRythme} fete={feteJour} {fetes} terme={laJournee.terme} {saisons} ondemarrer={boutonMenu} oncase={caseMenu} onanecdote={() => relireAnecdote('menu')} onchercher={ouvrirChercher} onreglages={() => (ecran = 'reglages')} onpersonnage={() => (ecran = 'personnage')} onroute={() => ouvrirRoute('menu')} />
 {/if}

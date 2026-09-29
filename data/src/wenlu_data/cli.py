@@ -196,7 +196,7 @@ def licences() -> None:
 
 @app.command()
 def check() -> None:
-    """Contrôles : composants inconnus, cycles, graphe, listes, briques muettes, découpes, contes hors liste, fiches invalides, rôle son loin de la lecture moderne, textes sans audio, export à jour, aperçu des textes à relire, fêtes, termes solaires, devinettes, dictionnaire éclair, coquilles, cuisine, lettres de Que, message WeChat, personnage, phrases de Tao à Jouer, lignes du rythme gratuit, anecdotes du jour, trois lignes du pas Utiliser, examens 科举, licence des décompositions."""
+    """Contrôles : composants inconnus, cycles, graphe, listes, briques muettes, découpes, contes hors liste, fiches invalides, rôle son loin de la lecture moderne, textes sans audio, export à jour, aperçu des textes à relire, fêtes, termes solaires, devinettes, dictionnaire éclair, coquilles, cuisine, lettres de Que, message WeChat, personnage, phrases de Tao à Jouer, lignes du rythme gratuit, calendrier d'ouverture, anecdotes du jour, trois lignes du pas Utiliser, examens 科举, licence des décompositions."""
     from .anecdotes import controles as controles_anecdotes
     from .audio import controles as controles_audio
     from .contes import controles as controles_contes
@@ -219,6 +219,7 @@ def check() -> None:
     from .phonetiques import controles as controles_phonetiques
     from .rythme import controles as controles_rythme
     from .rappels import controles as controles_rappels
+    from .ouvertures import controles as controles_ouvertures
     from .saisons import controles as controles_saisons
     from .trois_lignes import controles as controles_trois_lignes
     from .wechat import controles as controles_wechat
@@ -246,6 +247,7 @@ def check() -> None:
         *controles_jouer(),
         *controles_rythme(),
         *controles_rappels(),
+        *controles_ouvertures(),
         *controles_ecrans(),
         *controles_anecdotes(),
         *controles_trois_lignes(),

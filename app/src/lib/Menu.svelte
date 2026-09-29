@@ -21,8 +21,8 @@
    * quatre cases identiques. Tout ce qui se décide (état, libellés, phrases de Tao) vient
    * de `parcours.ts` ; ce composant ne fait qu'afficher et charger le contenu.
    *
-   * Le cinabre ne marque que la brique nouvelle. Aucune animation sur les cases ni sur les
-   * boutons : l'appui ne change que le fond. Le caractère s'écrit au pinceau à l'arrivée
+   * Le cinabre ne marque que la brique nouvelle. Aucune animation à l'appui des cases ni des
+   * boutons : l'appui ne change que le fond ; seule la porte qui s'ouvre se pose d'un geste. Le caractère s'écrit au pinceau à l'arrivée
    * et au toucher, Tao saute quand on la touche ; rien ne bouge si l'on réduit les
    * animations.
    *
@@ -32,6 +32,13 @@
    * Le personnage (brief §8) s'ouvre par son portrait, la première des trois icônes de
    * l'en-tête : sa tête à son rang, dans la case d'une icône, sans une ligne de plus, pour
    * que le menu tienne toujours sur un écran. Sans personnage, un visage au trait.
+   *
+   * L'aventure (brief §6, `ouvertures.ts`) : le premier jour, la carte du jour, le chemin et
+   * le bouton, avec Chercher et Réglages ; les cases, le portrait et « Ma route › »
+   * apparaissent chacun quand leur porte s'ouvre. La grille garde deux colonnes ; un nombre
+   * impair de cases pose la dernière en largeur, pour qu'aucun trou ne reste. La porte qui
+   * s'ouvre à ce retour se pose d'une courte animation (coupée si l'on réduit les
+   * animations), cerclée d'indigo, et Tao l'annonce dans sa bulle, qui y mène d'un toucher.
    */
   import Bulle from './Bulle.svelte';
   import Embleme from './Embleme.svelte';
@@ -67,6 +74,7 @@
   import { ACCES_WEB, prochaineBrique, type Acces } from './droits';
   import { quandMenu, SANS_RYTHME, type TextesRythme } from './rythme';
   import { stade } from './tao';
+  import type { Porte, PorteId } from './ouvertures';
 
   let {
     p,
@@ -82,7 +90,10 @@
     onreglages,
     onpersonnage = () => undefined,
     onanecdote = () => undefined,
-    onroute = () => undefined
+    onroute = () => undefined,
+    vois = () => true,
+    annonce = null,
+    ondecouvrir = () => undefined
   }: {
     p: Progress;
     /** Le web ou l'app, et l'achat : ce qui fixe le jour de la prochaine brique (`droits.ts`). */
@@ -107,7 +118,17 @@
     onanecdote?: () => void;
     /** « Ma route › » sous le chemin, la journée faite : 前路, la route devant. */
     onroute?: () => void;
+    /** L'aventure : une porte est-elle montrée ? Sans calendrier, tout l'est. */
+    vois?: (id: string) => boolean;
+    /** La porte qui s'ouvre à ce retour au menu, que Tao annonce. */
+    annonce?: Porte | null;
+    /** Toucher l'annonce, ou la case qui vient d'apparaître. */
+    ondecouvrir?: (id: PorteId) => void;
   } = $props();
+
+  /** Les cases montrées, dans leur ordre ; la porte annoncée se pose en dernier venu. */
+  const cases = $derived(CASES.filter((x) => vois(x.id)));
+  const neuve = (id: string): boolean => annonce?.id === id;
 
   /* ---------- la carte du jour ---------- */
 
@@ -208,7 +229,7 @@
     void dire(carte.c);
   }
 
-  const m = $derived(menu(p, carte?.c ?? '', textes));
+  const m = $derived(menu(p, carte?.c ?? '', textes, vois('jouer')));
   /** Un jour sans composé : la décomposition montre la brique seule, en cinabre. */
   const briqueSeule = $derived(carte !== null && carte.parts.length === 0 && m.etat !== 'rattrapage' && m.etat !== 'premiere');
   /* Toutes les parties sont neuves : il n'y a pas d'élément ajouté à distinguer, tout reste à l'encre. */
@@ -259,8 +280,9 @@
   const taoStade = $derived(stade(p.tao.croissance));
   const pct = $derived(((m.position + 0.5) / Math.max(1, m.coups.length)) * 100);
   const aDroite = $derived(pct < 55);
-  /* Un jour de fête, Tao commence par la fête, un jour de terme par le terme, puis revient à la journée. */
-  const phrases = $derived(phrasesDeTao(fete, terme, m.phrases));
+  /* Un jour de fête, Tao commence par la fête, un jour de terme par le terme, puis revient à la journée.
+     Une porte qui s'ouvre passe avant tout : c'est ce retour-là qu'elle l'annonce. */
+  const phrases = $derived(annonce !== null ? [annonce.annonce] : phrasesDeTao(fete, terme, m.phrases));
   const texte = $derived(phrases.length === 0 ? '' : phrases[phrase % phrases.length]);
 
   function toucherTao(): void {
@@ -338,11 +360,15 @@
     if (id === 'reviser') return reviser.info;
     if (id === 'jouer') {
       if (propose(p, p.day)) return 'Tao propose un jeu';
-      return devinetteAAnnoncer(p, devinettes) ? 'La devinette du jour' : `${MINUTES_MIN} à ${MINUTES_MAX} minutes`;
+      return vois('jeu-devinette') && devinetteAAnnoncer(p, devinettes)
+        ? 'La devinette du jour'
+        : `${MINUTES_MIN} à ${MINUTES_MAX} minutes`;
     }
     if (id === 'lire') {
       /* La semaine où une lettre de Que arrive, la case Lire l'annonce, sobrement. */
       if (lettreAnnoncee(p.lettres, p.day)) return ANNONCE_LETTRE;
+      /* Avant les contes, Lire garde l'anecdote du jour et les lettres de Que. */
+      if (!vois('contes')) return 'L’anecdote du jour';
       if (contes === null) return '';
       return contes > 0 ? `${contes} conte${contes > 1 ? 's' : ''}` : 'Les contes arrivent';
     }
@@ -379,7 +405,8 @@
         </span>
       </div>
     {/if}
-    <button class="icone perso" aria-label={p.heros ? `Mon personnage, ${p.heros.nom}` : 'Mon personnage'} onclick={onpersonnage}>
+    {#if vois('personnage')}
+    <button class="icone perso" class:neuve={neuve('personnage')} aria-label={p.heros ? `Mon personnage, ${p.heros.nom}` : 'Mon personnage'} onclick={onpersonnage}>
       {#if p.heros}
         <span class="portrait"><Heros bete={p.heros.bete} rang={rangHeros} cadre="portrait" largeur={34} /></span>
       {:else}
@@ -388,6 +415,7 @@
         </svg>
       {/if}
     </button>
+    {/if}
     <button class="icone" aria-label="Chercher un caractère" onclick={onchercher}>
       <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6" /><path d="M20 20l-4.5-4.5" /></svg>
     </button>
@@ -401,7 +429,7 @@
     </button>
   </header>
 
-  <section class="jour" class:fete={fete !== null}>
+  <section class="jour" class:fete={fete !== null} class:seul={cases.length === 0}>
     <div class="jour-haut">
       <button
         class="mizi"
@@ -487,10 +515,11 @@
         {#key texte}
           <Bulle
             {texte}
+            action={annonce !== null ? () => annonce && ondecouvrir(annonce.id) : undefined}
             cote={aDroite ? 'droite' : 'gauche'}
             style={aDroite
-              ? `top:13px;left:calc(${pct.toFixed(2)}% + 34px)`
-              : `top:13px;right:calc(${(100 - pct).toFixed(2)}% + 34px)`}
+              ? `bottom:calc(100% - 45px);left:calc(${pct.toFixed(2)}% + 34px)`
+              : `bottom:calc(100% - 45px);right:calc(${(100 - pct).toFixed(2)}% + 34px)`}
           />
         {/key}
       {/if}
@@ -506,7 +535,9 @@
               ><Glyph char={demain.c} size={16} write={false} color="var(--ink)" pistes={demain.pistes} /></span
             >{#if demain.sens !== ''}<span class="dsens">{demain.sens}</span>{/if}</span
           >
-          <button class="vers-route" aria-label="Ma route : la route devant" onclick={onroute}>Ma route ›</button>
+          {#if vois('route')}
+            <button class="vers-route" class:neuve={neuve('route')} aria-label="Ma route : la route devant" onclick={onroute}>Ma route ›</button>
+          {/if}
         </div>
       {/if}
     </div>
@@ -519,9 +550,15 @@
     </button>
   </section>
 
+  {#if cases.length > 0}
   <nav class="cases" aria-label="Activités">
-    {#each CASES as x (x.id)}
-      <button class="case" onclick={() => oncase(x.id)}>
+    {#each cases as x, i (x.id)}
+      <button
+        class="case"
+        class:large={cases.length % 2 === 1 && i === cases.length - 1}
+        class:neuve={neuve(x.id)}
+        onclick={() => (neuve(x.id) ? ondecouvrir(x.id) : oncase(x.id))}
+      >
         <span class="haut">
           <span class="gl">
             {#if casesTraits[x.c]}
@@ -536,11 +573,14 @@
           </span>
           {#if casesPinyin[x.c]}<span class="cpy">{casesPinyin[x.c]}</span>{/if}
         </span>
-        <span class="titre">{x.t}</span>
-        <span class="info">{info(x.id)}</span>
+        <span class="textes">
+          <span class="titre">{x.t}</span>
+          <span class="info">{info(x.id)}</span>
+        </span>
       </button>
     {/each}
   </nav>
+  {/if}
 </main>
 
 <style>
@@ -680,6 +720,10 @@
     flex-direction: column;
     gap: 10px;
     margin-top: auto;
+  }
+  /* Le premier jour, sans case : la carte du jour se centre, sans trou au-dessus. */
+  .jour.seul {
+    margin-bottom: auto;
   }
   .jour-haut {
     display: flex;
@@ -946,14 +990,42 @@
     color: var(--tile-ink2, var(--ink2));
     margin-top: 6px;
   }
+  .textes {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    margin-top: auto;
+  }
   .titre {
     font-family: var(--head);
     font-weight: 700;
     font-size: 18px;
     letter-spacing: -0.02em;
     line-height: 1.1;
-    margin-top: auto;
     color: var(--tile-ink, var(--ink));
+  }
+  /* Un nombre impair de cases : la dernière prend la largeur, couchée, sans laisser de trou. */
+  .case.large {
+    grid-column: 1 / -1;
+    flex-direction: row;
+    align-items: center;
+    gap: 12px;
+    min-height: 76px;
+    padding: 8px 16px 8px 14px;
+  }
+  .case.large .haut {
+    display: contents;
+  }
+  .case.large .textes {
+    flex: 1;
+    margin-top: 0;
+    order: 1;
+  }
+  .case.large .cpy {
+    order: 2;
+    margin-top: 0;
+    align-self: flex-start;
+    margin-top: 4px;
   }
   .info {
     font-size: 14px;
@@ -965,6 +1037,37 @@
 
   @media (prefers-reduced-motion: reduce) {
     .marcheur.saute {
+      animation: none;
+    }
+  }
+
+  /* La porte qui s'ouvre à ce retour : cerclée d'indigo, l'action, et posée d'un geste court. */
+  .case.neuve {
+    outline: 1.5px solid var(--indigo);
+    outline-offset: -1.5px;
+    animation: pose 0.45s cubic-bezier(0.2, 0.8, 0.3, 1) 0.2s both;
+  }
+  .perso.neuve .portrait {
+    border-color: var(--indigo);
+  }
+  .perso.neuve,
+  .vers-route.neuve {
+    animation: pose 0.45s cubic-bezier(0.2, 0.8, 0.3, 1) 0.2s both;
+  }
+  @keyframes pose {
+    from {
+      opacity: 0;
+      transform: translateY(8px) scale(0.97);
+    }
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .case.neuve,
+    .perso.neuve,
+    .vers-route.neuve {
       animation: none;
     }
   }
