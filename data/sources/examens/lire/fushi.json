@@ -10,7 +10,9 @@
   "statut": "a_relire",
   "note": "rédigé le 29 septembre 2026, à relire par le propriétaire (`wenlu examens apercu`) ; une série passe à `relu` sur sa décision, citée ici",
   "corrections": [
-   "le 29 septembre 2026, surtitres ramenés au genre du support, sur le signalement du propriétaire (« tu donnes les réponses dans les intitulés ») : le surtitre se lit avant la question et ne dit plus son contenu : A s1 « Mingming écrit à Daming » → « Un message » ; A s2 « Un billet de train » → « Un billet » ; B s1 « Un panneau dans une gare » → « Un panneau » ; B s2 « Daming écrit à Mingming » → « Un message » ; B s3 « Un mot sur la porte d'une boutique » → « Un mot sur une porte » ; B s4 « L'enseigne d'une boutique » → « Une enseigne »"
+   "le 29 septembre 2026, surtitres ramenés au genre du support, sur le signalement du propriétaire (« tu donnes les réponses dans les intitulés ») : le surtitre se lit avant la question et ne dit plus son contenu : A s1 « Mingming écrit à Daming » → « Un message » ; A s2 « Un billet de train » → « Un billet » ; B s1 « Un panneau dans une gare » → « Un panneau » ; B s2 « Daming écrit à Mingming » → « Un message » ; B s3 « Un mot sur la porte d'une boutique » → « Un mot sur une porte » ; B s4 « L'enseigne d'une boutique » → « Une enseigne »",
+   "le 29 septembre 2026, questions qui se donnaient l'une l'autre (audit des fuites) : série A, le vrai ou faux « 明明今天中午去见大明 » passe avant la réplique (question 2, puis 3), dont la bonne réponse « 好，明天中午见！ » disait déjà que ce n'est pas aujourd'hui ; série A, question 8, le repérage demandait « quand repasser », et la question 7 venait de dire « repassez à midi » : il demande maintenant quand M. Wang est sorti (上午) ; série B, le repérage de 出口 passe avant la question des sorties (question 1, puis 2), dont l'explication glosait 西口 « sortie ouest ». Série à relire.",
+   "le 29 septembre 2026, bonne réponse reconnaissable à sa forme (audit des fuites) : série A, question 1, « vieux, âgé » était le seul choix à aligner deux sens ; il dit « vieux », comme ses leurres un seul sens. Série à relire."
   ]
  },
  "series": [
@@ -150,7 +152,7 @@
        "en": "long"
       },
       {
-       "fr": "vieux, âgé",
+       "fr": "vieux",
        "en": "old"
       },
       {
@@ -161,6 +163,26 @@
      "reponse": 2,
      "porte": [
       "老"
+     ]
+    },
+    {
+     "type": "vrai_faux",
+     "support": "s1",
+     "consigne": {
+      "fr": "Vrai ou faux ?",
+      "en": "True or false?"
+     },
+     "affirmation": {
+      "zh": "明明今天中午去见大明。",
+      "pinyin": "míng míng jīn tiān zhōng wǔ qù jiàn dà míng",
+      "fr": "Mingming va voir Daming ce midi.",
+      "en": "Mingming is going to see Daming at noon today."
+     },
+     "reponse": false,
+     "porte": [
+      "不",
+      "去",
+      "了"
      ]
     },
     {
@@ -201,26 +223,6 @@
       "中",
       "午",
       "见"
-     ]
-    },
-    {
-     "type": "vrai_faux",
-     "support": "s1",
-     "consigne": {
-      "fr": "Vrai ou faux ?",
-      "en": "True or false?"
-     },
-     "affirmation": {
-      "zh": "明明今天中午去见大明。",
-      "pinyin": "míng míng jīn tiān zhōng wǔ qù jiàn dà míng",
-      "fr": "Mingming va voir Daming ce midi.",
-      "en": "Mingming is going to see Daming at noon today."
-     },
-     "reponse": false,
-     "porte": [
-      "不",
-      "去",
-      "了"
      ]
     },
     {
@@ -333,8 +335,8 @@
      "type": "reperer",
      "support": "s3",
      "consigne": {
-      "fr": "Touche le mot qui dit quand repasser.",
-      "en": "Tap the word that says when to come back."
+      "fr": "Touche le mot qui dit quand M. Wang est sorti.",
+      "en": "Tap the word that says when Mr Wang went out."
      },
      "choix": [
       "王先生",
@@ -342,9 +344,9 @@
       "出门",
       "中午"
      ],
-     "reponse": 3,
+     "reponse": 1,
      "porte": [
-      "中",
+      "上",
       "午"
      ]
     },
@@ -497,6 +499,25 @@
    ],
    "questions": [
     {
+     "type": "reperer",
+     "support": "s1",
+     "consigne": {
+      "fr": "Touche le mot qui veut dire « sortie ».",
+      "en": "Tap the word that means “exit”."
+     },
+     "choix": [
+      "东口",
+      "西口",
+      "中山门",
+      "出口"
+     ],
+     "reponse": 3,
+     "porte": [
+      "出",
+      "口"
+     ]
+    },
+    {
      "type": "comprendre",
      "support": "s1",
      "consigne": {
@@ -524,25 +545,6 @@
      "reponse": 1,
      "porte": [
       "西",
-      "口"
-     ]
-    },
-    {
-     "type": "reperer",
-     "support": "s1",
-     "consigne": {
-      "fr": "Touche le mot qui veut dire « sortie ».",
-      "en": "Tap the word that means “exit”."
-     },
-     "choix": [
-      "东口",
-      "西口",
-      "中山门",
-      "出口"
-     ],
-     "reponse": 3,
-     "porte": [
-      "出",
       "口"
      ]
     },
