@@ -406,3 +406,18 @@ describe("Clore : les pas des jours d'avant s'impriment sur le chemin", () => {
     expect(reduits(css)).toMatch(/\.pas-passe \{\s*animation: none;/);
   });
 });
+
+describe('Xing, le maître, hausse ses sourcils blancs de loin en loin', () => {
+  it('par du CSS d’ici, sans toucher à son dessin : les deuxième et troisième traits de son visage', () => {
+    const xing = source('Xing.svelte');
+    /* les sourcils sont bien les deuxième et troisième traits du visage */
+    const visage = xing.slice(xing.indexOf('<g class="visage">'), xing.indexOf('</g>', xing.indexOf('<g class="visage">')));
+    const traits = [...visage.matchAll(/<path\s+d="([^"]+)"/g)].map((x) => x[1]);
+    expect(traits[1]).toBe('M78 115q9-7 17-1M105 114q8-6 17 1');
+    expect(traits[2]).toBe('M78 115q9-7 17-1M105 114q8-6 17 1');
+    expect(tokens).toContain('.xing .visage > path:nth-child(2),.xing .visage > path:nth-child(3){animation:sourcils 7.4s ease-in-out 1.5s infinite}');
+  });
+  it("s'arrête si l'on réduit les animations", () => {
+    expect(reduits(tokens)).toContain('.xing .visage > path:nth-child(2),.xing .visage > path:nth-child(3){animation:none}');
+  });
+});

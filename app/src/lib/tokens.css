@@ -320,6 +320,12 @@ h1{font-family:var(--head);font-weight:700;font-size:30px;line-height:1.15;lette
 @keyframes marche{from{transform:translateY(0) rotate(-3deg)}to{transform:translateY(-6px) rotate(3deg)}}
 @keyframes fume{from{opacity:.35;transform:translateY(2px)}to{opacity:.85;transform:translateY(-2px)}}
 @media (prefers-reduced-motion:reduce){.tao *{animation:none!important}}
+/* Xing 杏, le maître, hausse ses sourcils blancs de loin en loin, comme on s'étonne d'une bonne
+   question, puis revient à son regard calme. Par du CSS d'ici : son dessin ne change pas (les
+   sourcils sont les deuxième et troisième traits de son visage). */
+.xing .visage > path:nth-child(2),.xing .visage > path:nth-child(3){animation:sourcils 7.4s ease-in-out 1.5s infinite}
+@keyframes sourcils{0%,82%,100%{transform:none}86%,92%{transform:translateY(-3px)}}
+@media (prefers-reduced-motion:reduce){.xing .visage > path:nth-child(2),.xing .visage > path:nth-child(3){animation:none}}
 /* les accessoires de fête de Tao : toujours dessinés, montrés par la fête du jour */
 .tao .fete-acc{display:none}
 [data-fete="chunjie"] .tao .flocon,[data-fete="zhongqiu"] .tao .yuebing{display:inline}
