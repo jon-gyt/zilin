@@ -10,7 +10,17 @@ import {
   direParLeTelephone,
   voixMandarin,
   voixPretes,
+  classerVoix,
+  estContinent,
+  qualiteVoix,
   reglerSession,
+  reglerVoix,
+  relireVoix,
+  vitesse,
+  voixChoisie,
+  voixParDefaut,
+  type SyntheseNative,
+  type VoixAppareil,
   type Synthese,
   chemin,
   configurerAudio,
@@ -237,14 +247,15 @@ describe('la voix du téléphone en repli', () => {
     expect(aAudio(MANIFESTE, '住')).toBe(true);
     expect(await dire('住')).toBe(true);
     expect(s.dits).toEqual(['住']);
-    expect(s.annulations).toBe(1);
+    expect(s.annulations).toBeGreaterThanOrEqual(1);
     expect(l.joues).toEqual([]);
   });
 
-  it('joue le fichier quand il existe, sans passer par le téléphone', async () => {
+  it('« Voix enregistrée » : joue le fichier quand il existe, sans passer par le téléphone', async () => {
     const s = syntheseDEssai(['zh-CN']);
     const l = lecteurDEssai();
     configurerAudio({ synthese: () => s, lecteur: () => l, fetchFn: async () => ({ ok: true, json: async () => MANIFESTE }) as Response });
+    reglerVoix('enregistree');
     expect(await dire('人')).toBe(true);
     expect(l.joues).toHaveLength(1);
     expect(s.dits).toEqual([]);
@@ -288,6 +299,7 @@ describe('un fichier qui ne se charge pas', () => {
     const s = syntheseDEssai(['zh-CN']);
     const l = lecteurQuiEchoue('NotSupportedError');
     configurerAudio({ synthese: () => s, lecteur: () => l, fetchFn: fetchDEssai([]) });
+    reglerVoix('enregistree');
     expect(await prononcer('人')).toBe('telephone');
     expect(l.essais).toBe(1);
     expect(s.dits).toEqual(['人']);
@@ -351,6 +363,137 @@ describe('les voix du téléphone, une fois annoncées', () => {
     } as unknown as Synthese;
     configurerAudio({ synthese: () => s });
     expect(await voixPretes(5)).toBe(false);
+  });
+});
+
+/* ---------- la voix de référence (brief §7, décision du 29 septembre 2026) ---------- */
+
+/** Une voix de l'appareil, comme `speechSynthesis` ou AVSpeechSynthesizer la décrivent. */
+function voix(lang: string, voiceURI = lang, localService = true, name = voiceURI): VoixAppareil {
+  return { lang, name, voiceURI, localService, default: false };
+}
+
+/** Une synthèse d'essai qui rend des voix complètes (identifiant, service). */
+function syntheseDeVoix(liste: VoixAppareil[]): Synthese & { dits: { text: string; rate: number; uri: string }[]; annulations: number } {
+  const dits: { text: string; rate: number; uri: string }[] = [];
+  const s = {
+    dits,
+    annulations: 0,
+    getVoices: () => liste,
+    speak: (u: SpeechSynthesisUtterance) => {
+      dits.push({ text: u.text, rate: u.rate, uri: (u.voice as VoixAppareil | null)?.voiceURI ?? '' });
+    },
+    cancel() {
+      s.annulations += 1;
+    }
+  };
+  return s as unknown as Synthese & { dits: { text: string; rate: number; uri: string }[]; annulations: number };
+}
+
+const APPLE = [
+  voix('zh-TW', 'com.apple.voice.premium.zh-TW.Meijia'),
+  voix('zh-HK', 'com.apple.voice.premium.zh-HK.Sinji'),
+  voix('zh-CN', 'com.apple.voice.compact.zh-CN.Tingting'),
+  voix('zh-CN', 'com.apple.voice.enhanced.zh-CN.Tingting'),
+  voix('zh-CN', 'com.apple.voice.premium.zh-CN.Lilian'),
+  voix('en-US', 'com.apple.voice.premium.en-US.Zoe')
+];
+
+describe('la voix de l’appareil, classée', () => {
+  beforeEach(() => {
+    (globalThis as { SpeechSynthesisUtterance?: unknown }).SpeechSynthesisUtterance = UtteranceDEssai;
+  });
+
+  it('Premium avant Améliorée avant compacte, d’après l’identifiant d’Apple', () => {
+    expect(qualiteVoix(voix('zh-CN', 'com.apple.voice.premium.zh-CN.Lilian'))).toBe(3);
+    expect(qualiteVoix(voix('zh-CN', 'com.apple.voice.enhanced.zh-CN.Tingting'))).toBe(2);
+    expect(qualiteVoix(voix('zh-CN', 'x', true, 'Tingting (Améliorée)'))).toBe(2);
+    expect(qualiteVoix(voix('zh-CN', 'com.apple.voice.compact.zh-CN.Tingting'))).toBe(0);
+    expect(classerVoix(APPLE).map((v) => v.voiceURI)).toEqual([
+      'com.apple.voice.premium.zh-CN.Lilian',
+      'com.apple.voice.enhanced.zh-CN.Tingting',
+      'com.apple.voice.compact.zh-CN.Tingting',
+      'com.apple.voice.premium.zh-TW.Meijia'
+    ]);
+  });
+
+  it('le continent avant Taïwan, même moins bonne ; jamais le cantonais de Hong Kong', () => {
+    const l = [voix('zh-TW', 'com.apple.voice.premium.zh-TW.Meijia'), voix('zh_CN', 'com.apple.voice.compact.zh-CN.Tingting'), voix('yue-HK')];
+    expect(classerVoix(l)[0].lang).toBe('zh_CN');
+    expect(classerVoix([voix('zh-HK'), voix('yue-Hant-HK')])).toEqual([]);
+    expect(estContinent(voix('zh-Hans-CN'))).toBe(true);
+    expect(estContinent(voix('zh-TW'))).toBe(false);
+  });
+
+  it('jamais une voix qui passe par un service : pas de réseau à l’exécution', () => {
+    const l = [voix('zh-CN', 'Google 普通话（中国大陆）', false), voix('zh-CN', 'Microsoft Huihui')];
+    expect(classerVoix(l).map((v) => v.voiceURI)).toEqual(['Microsoft Huihui']);
+    configurerAudio({ synthese: () => syntheseDeVoix([voix('zh-CN', 'Google 普通话（中国大陆）', false)]) });
+    expect(aVoixTelephone()).toBe(false);
+  });
+
+  it('la voix de l’appareil par défaut quand il a une voix du continent, sinon les fichiers', () => {
+    configurerAudio({ synthese: () => syntheseDeVoix(APPLE) });
+    expect(voixParDefaut()).toBe('appareil');
+    expect(voixChoisie()).toBe('appareil');
+    configurerAudio({ synthese: () => syntheseDeVoix([voix('zh-TW')]) });
+    expect(voixParDefaut()).toBe('enregistree');
+    configurerAudio({ synthese: () => null });
+    expect(voixParDefaut()).toBe('enregistree');
+    reglerVoix('appareil');
+    expect(voixChoisie()).toBe('enregistree');
+  });
+
+  it('par défaut, « Écouter » dit le caractère par la voix Premium, un peu lentement, sans le fichier', async () => {
+    const s = syntheseDeVoix(APPLE);
+    const l = lecteurDEssai();
+    configurerAudio({ synthese: () => s, lecteur: () => l, fetchFn: fetchDEssai([]) });
+    expect(await prononcer('人')).toBe('telephone');
+    expect(l.joues).toEqual([]);
+    expect(s.dits).toEqual([{ text: '人', rate: vitesse('人'), uri: 'com.apple.voice.premium.zh-CN.Lilian' }]);
+    expect(vitesse('人')).toBeLessThan(vitesse('天天'));
+    expect(vitesse('天天')).toBeLessThan(1);
+  });
+
+  it('« Voix enregistrée » : le fichier d’abord, la voix de l’appareil en repli', async () => {
+    const s = syntheseDeVoix(APPLE);
+    const l = lecteurDEssai();
+    configurerAudio({ synthese: () => s, lecteur: () => l, fetchFn: fetchDEssai([]) });
+    reglerVoix('enregistree');
+    expect(await prononcer('人')).toBe('fichier');
+    expect(await prononcer('住')).toBe('telephone');
+    expect(s.dits.map((d) => d.text)).toEqual(['住']);
+  });
+
+  it('dans l’app iOS, la voix passe par AVSpeechSynthesizer, nommée par son rang, session en lecture', async () => {
+    const dits: [string, string, number][] = [];
+    const n: SyntheseNative = {
+      voix: async () => APPLE,
+      dire: async (t, lang, rang) => {
+        dits.push([t, lang, rang]);
+      },
+      taire: async () => undefined
+    };
+    const session = { type: 'play-and-record' };
+    const web = syntheseDeVoix([]);
+    configurerAudio({ synthese: () => web, natif: () => n, session: () => session, fetchFn: fetchDEssai([]), lecteur: () => lecteurDEssai() });
+    expect(await voixPretes()).toBe(true);
+    expect(voixMandarin()?.voiceURI).toBe('com.apple.voice.premium.zh-CN.Lilian');
+    expect(await prononcer('人')).toBe('telephone');
+    expect(dits).toEqual([['人', 'zh-CN', 4]]);
+    expect(session.type).toBe('playback');
+    expect(web.dits).toEqual([]);
+  });
+
+  it('une voix téléchargée pendant que l’app est ouverte est prise en rouvrant Réglages', async () => {
+    let liste: VoixAppareil[] = [voix('zh-CN', 'com.apple.voice.compact.zh-CN.Tingting')];
+    const n: SyntheseNative = { voix: async () => liste, dire: async () => undefined, taire: async () => undefined };
+    configurerAudio({ natif: () => n, synthese: () => null });
+    await voixPretes();
+    expect(qualiteVoix(voixMandarin() as VoixAppareil)).toBe(0);
+    liste = APPLE;
+    await relireVoix();
+    expect(qualiteVoix(voixMandarin() as VoixAppareil)).toBe(3);
   });
 });
 

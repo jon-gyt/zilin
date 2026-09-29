@@ -74,6 +74,7 @@ import {
 } from './heros';
 import { SANS_RAPPEL, lireRappel, type Rappel } from './rappels';
 import { ajouterMoyenne, lireVoix } from './tons/voix';
+import type { ChoixVoix } from './audio';
 import { lireDernierExport } from './garde';
 import { lireAvisDemande } from './avis';
 import { etatNeuf, lireEtatOuvertures, type EtatOuvertures } from './ouvertures';
@@ -424,6 +425,14 @@ export type Progress = {
    */
   direTons: boolean;
   /**
+   * Réglage : « Voix » (décision du propriétaire du 29 septembre 2026, brief §7), la voix qui
+   * dit les caractères et les mots : celle de l'appareil (`appareil`) ou les fichiers
+   * enregistrés (`enregistree`). `null` : la voix par défaut, celle de l'appareil s'il a une
+   * voix du mandarin du continent, sinon les fichiers (`audio.voixParDefaut`). Absent d'une
+   * progression plus ancienne : la voix par défaut.
+   */
+  voixReference: ChoixVoix | null;
+  /**
    * La voix de l'apprenant pour « Dis-le » (`tons/voix.ts`) : la moyenne, en hertz, de
    * chacune des trente dernières syllabes analysées, rien d'autre. Jamais le son. Absente
    * d'une progression plus ancienne : aucune, la voix s'apprend en cinq syllabes.
@@ -612,6 +621,7 @@ export function emptyProgress(aujourdhui: string): Progress {
     haptique: true,
     rappel: SANS_RAPPEL,
     direTons: true,
+    voixReference: null,
     voix: [],
     dernierExport: null,
     avisDemande: null,
@@ -1287,6 +1297,16 @@ export function setHaptique(p: Progress, allume: boolean): Progress {
 /** Allume ou éteint « Dire les tons », la question « Dis-le » (Réglages, story 9.1). */
 export function setDireTons(p: Progress, allume: boolean): Progress {
   return { ...p, direTons: allume };
+}
+
+/** Choisit la voix de l'app (Réglages, « Voix ») : celle de l'appareil ou les fichiers. */
+export function setVoixReference(p: Progress, voix: ChoixVoix): Progress {
+  return { ...p, voixReference: voix };
+}
+
+/** Relit le réglage « Voix » d'un export : une valeur inconnue rend la voix par défaut. */
+export function lireVoixReference(v: unknown): ChoixVoix | null {
+  return v === 'appareil' || v === 'enregistree' ? v : null;
 }
 
 /**
@@ -2119,6 +2139,8 @@ export function fromJSON(texte: string, aujourdhui: string): Progress {
     rappel: lireRappel(o.rappel),
     /* « Dire les tons » : absent d'un export plus ancien, allumé. */
     direTons: o.direTons !== false,
+    /* La voix de l'app : absente d'un export plus ancien, la voix par défaut. */
+    voixReference: lireVoixReference(o.voixReference),
     /* La voix de « Dis-le » : absente d'un export plus ancien, aucune. */
     voix: lireVoix(o.voix),
     /* Le dernier export : absent d'un export plus ancien, jamais. */

@@ -146,6 +146,8 @@
     type QuestionExamen
   } from './lib/examens';
   import { reglerHaptique } from './lib/haptique';
+  import { poserSyntheseNative, reglerVoix } from './lib/audio';
+  import { syntheseNative } from './lib/voix-native';
   import {
     avisDisponible,
     demanderAutorisation,
@@ -464,6 +466,7 @@
     /* Le mode relecture règle l'aperçu avant que le menu ne relise le contenu. */
     reglerApercu(nouvelle.relecture);
     reglerHaptique(nouvelle.haptique);
+    reglerVoix(nouvelle.voixReference);
     p = nouvelle;
     majDue();
     preparer();
@@ -480,6 +483,9 @@
   void toutesLesFamilles()
     .then((l) => (famillesLues = l))
     .catch(() => undefined);
+
+  /* Dans l'app iOS, la voix chinoise de l'appareil passe par AVSpeechSynthesizer (brief §7). */
+  poserSyntheseNative(syntheseNative);
 
   /**
    * Au démarrage : on relit la progression et on ouvre la journée. L'index et les lignes du
@@ -504,6 +510,7 @@
     const ouvert = setDue(openDay(stored, jour), nombreDues(stored, new Date()), jour);
     reglerApercu(ouvert.relecture);
     reglerHaptique(ouvert.haptique);
+    reglerVoix(ouvert.voixReference);
     p = ouvert;
     if (ouvert !== stored) void saveProgress(ouvert);
     /* L'ouverture reprogramme les rappels des sept jours qui viennent (app iOS). */

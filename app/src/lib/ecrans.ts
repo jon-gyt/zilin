@@ -125,7 +125,15 @@ export const CLES_DIRE = [
   'essayer-aide',
   'refuse',
   'absent',
-  'indisponible'
+  'indisponible',
+  'voix',
+  'voix-aide',
+  'voix-appareil',
+  'voix-enregistree',
+  'voix-appareil-nom',
+  'voix-sans-appareil',
+  'voix-comment',
+  'voix-etapes'
 ] as const;
 
 /**

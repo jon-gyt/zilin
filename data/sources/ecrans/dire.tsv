@@ -32,7 +32,11 @@
 # - `reglage`, `reglage-aide`, `essayer`, `essayer-aide`, `refuse`, `absent` : le réglage
 #   « Dire les tons » et son bouton « Essayer maintenant », et ce qu'il dit d'un micro refusé
 #   ou absent ;
-# - `indisponible` : les poids du classifieur ne se chargent pas, la question ne se pose pas.
+# - `indisponible` : les poids du classifieur ne se chargent pas, la question ne se pose pas ;
+# - `voix`, `voix-aide`, `voix-appareil`, `voix-enregistree`, `voix-appareil-nom`,
+#   `voix-sans-appareil`, `voix-comment`, `voix-etapes` : le réglage « Voix » (décision du
+#   propriétaire du 29 septembre 2026, brief §7) : la voix de l'appareil, `{nom}` de la voix
+#   prise, ou les fichiers enregistrés ; et comment télécharger une voix chinoise améliorée.
 cle	fr	source
 label	Dis-le	rédigé pour l'app
 enonce	Dis ce caractère à voix haute.	rédigé pour l'app
@@ -92,3 +96,11 @@ essayer-aide	Un caractère acquis au hasard ; rien n'est noté.	rédigé pour l'
 refuse	Le micro est fermé à Wenlu : la question ne se pose pas. Pour le rouvrir, passe par les réglages du téléphone, puis rallume « Dire les tons ».	rédigé pour l'app
 absent	Pas de micro ici : la question ne se pose pas.	rédigé pour l'app
 indisponible	La reconnaissance des tons ne se charge pas ici : la question ne se pose pas.	rédigé pour l'app
+voix	Voix	rédigé pour l'app
+voix-aide	La voix qui dit les caractères et les mots, sans réseau.	rédigé pour l'app
+voix-appareil	Voix de l'appareil	rédigé pour l'app
+voix-enregistree	Voix enregistrée	rédigé pour l'app
+voix-appareil-nom	La voix chinoise de ton téléphone : {nom}.	rédigé pour l'app
+voix-sans-appareil	Ce téléphone n'a pas encore de voix chinoise : la voix enregistrée dit les caractères.	rédigé pour l'app
+voix-comment	Télécharger une voix chinoise améliorée	rédigé pour l'app
+voix-etapes	Sur l'iPhone : Réglages → Accessibilité → Contenu énoncé → Voix → Chinois (Chine continentale). Choisis une voix, puis télécharge sa version « Améliorée » ou « Premium ». Reviens ensuite dans Wenlu : elle est prise d'elle-même.	rédigé pour l'app
