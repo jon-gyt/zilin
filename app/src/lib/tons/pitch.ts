@@ -295,10 +295,22 @@ export interface Segment {
  * secondes sont comblés (le creux craqué du ton 3 coupe souvent le voisement) ;
  * on garde l'étendue qui porte le plus d'énergie, puis on la coupe en `n`
  * syllabes : aux plus grands trous non voisés s'il y en a, sinon au creux
- * d'énergie le plus net du milieu de chaque part. Chaque syllabe est ensuite nettoyée
+ * d'énergie le plus net du milieu de chaque part (pour deux syllabes : le creux le plus
+ * marqué entre deux crêtes, `creux`). Chaque syllabe est ensuite nettoyée
  * (`OptionsFin`, `FIN_DEFAUT`) ; `fin` à `null` rend l'ancienne découpe, pour la mesure.
+ *
+ * `liees` (les mots, story 9.1) : pour chaque frontière, vrai si la syllabe suivante commence
+ * par une voix (m, n, l, r, y, w, une voyelle) ; un trou de moins de `TROU_LIE` n'y est pas
+ * une coupe. Mesure du 30 septembre 2026, mots de Yue Tan (dev) : la première syllabe d'un
+ * mot à frontière voisée passe de 73,6 à 83,8 % de tons reconnus en tête.
  */
-export function segmenter(trames: Trame[], n = 1, trouMax = 0.12, fin: Partial<OptionsFin> | null = {}): Segment[] {
+export function segmenter(
+  trames: Trame[],
+  n = 1,
+  trouMax = 0.12,
+  fin: Partial<OptionsFin> | null = {},
+  liees: readonly boolean[] | null = null,
+): Segment[] {
   const of = fin === null ? null : { ...FIN_DEFAUT, ...fin };
   const plages = plagesVoisees(trames);
   if (plages.length === 0) return [];
@@ -322,11 +334,21 @@ export function segmenter(trames: Trame[], n = 1, trouMax = 0.12, fin: Partial<O
   const coupes: Array<[number, number]> = [];
   if (n > 1) {
     const len = ext.b - ext.a;
+    // une seconde syllabe qui commence par une voix (m, n, l, r, y, w, une voyelle) n'a pas
+    // de silence devant elle : un trou court y est le creux craqué d'un ton 3, pas la coupe
+    const liee = liees !== null && liees.length === n - 1 && liees.every((l) => l);
+    const trouLie = Math.round(TROU_LIE / pas);
     const candidats = ext.trous
       .filter(([a, b]) => a - ext.a > 0.15 * len && ext.b - b > 0.15 * len)
+      .filter(([a, b]) => !liee || b - a >= trouLie)
       .sort((p, q) => q[1] - q[0] - (p[1] - p[0]));
     const pris = candidats.slice(0, n - 1).sort((p, q) => p[0] - q[0]);
     coupes.push(...pris);
+    // deux syllabes sans trou : au creux d'énergie le plus marqué entre deux crêtes
+    if (coupes.length < n - 1 && n === 2) {
+      const c = creux(trames, ext.a, ext.b);
+      if (c >= 0) coupes.push([c, c + 1]);
+    }
     // pas assez de trous : couper au creux d'énergie de la part la plus longue
     while (coupes.length < n - 1) {
       const bornes = [ext.a, ...coupes.flatMap((c) => c), ext.b];
@@ -374,6 +396,36 @@ export function segmenter(trames: Trame[], n = 1, trouMax = 0.12, fin: Partial<O
     if (of !== null && of.mediane > 1) lisser(f0, of.mediane);
     return { debut: a, fin: b, f0, t, duree: (b - a) * pas, voisement: b > a ? vois / (b - a) : 0 };
   });
+}
+
+/** Devant une syllabe liée, un trou plus court que ça (s) n'est pas la frontière. */
+export const TROU_LIE = 0.15;
+
+/**
+ * Le creux d'énergie le plus marqué entre deux syllabes voisées : l'énergie en dB, lissée sur
+ * cinq trames ; parmi les minimums locaux du milieu de l'étendue, celui dont la
+ * proéminence (la plus basse des deux crêtes qui l'encadrent, moins lui) est la plus
+ * grande. -1 s'il n'y en a pas.
+ */
+export function creux(trames: Trame[], a: number, b: number, bord = 0.2): number {
+  const db = trames.map((t) => 20 * Math.log10(Math.max(t.rms, 1e-7)));
+  const l: number[] = [];
+  for (let i = a; i < b; i++) {
+    let s = 0, k = 0;
+    for (let j = Math.max(a, i - 2); j <= Math.min(b - 1, i + 2); j++) { s += db[j]; k++; }
+    l.push(s / k);
+  }
+  const i0 = Math.max(1, Math.round(bord * l.length)), i1 = Math.min(l.length - 1, Math.round((1 - bord) * l.length));
+  let meilleur = -1, prom = -Infinity;
+  for (let i = i0; i < i1; i++) {
+    if (!(l[i] <= l[i - 1] && l[i] <= l[i + 1])) continue;
+    let g = -Infinity, d = -Infinity;
+    for (let j = 0; j < i; j++) g = Math.max(g, l[j]);
+    for (let j = i + 1; j < l.length; j++) d = Math.max(d, l[j]);
+    const p = Math.min(g, d) - l[i];
+    if (p > prom) { prom = p; meilleur = i; }
+  }
+  return meilleur < 0 ? -1 : a + meilleur;
 }
 
 /**

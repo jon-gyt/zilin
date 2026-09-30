@@ -96,7 +96,7 @@ Décisions du propriétaire du 26 septembre 2026 : « aux paliers de caractères
 
 ## Épic 9 · Oral par IA
 Décisions du propriétaire du 29 septembre 2026 (brief §10, « L'oral par IA ») : sur le téléphone en gratuit, dans le nuage avec l'abonnement, « 5 € c'est une conversation par jour ». Analyse : `Wenlu face au marché` (29 septembre).
-- 9.1 Les tons sur l'appareil : suivi de hauteur (YIN), petit classifieur embarqué (moins de 1 Mo, moins de 100 ms), données d'entraînement sous licence ouverte vérifiée ; une question « Dis-le » : on prononce le caractère, l'app montre sa courbe sur celle du modèle et le ton reconnu. Sans réseau, notation automatique, jamais de reproche. **Livrée en partie le 29 septembre** (voir « Épic 9, en partie »).
+- 9.1 Les tons sur l'appareil : suivi de hauteur (YIN), petit classifieur embarqué (moins de 1 Mo, moins de 100 ms), données d'entraînement sous licence ouverte vérifiée ; une question « Dis-le » : on prononce le caractère, l'app montre sa courbe sur celle du modèle et le ton reconnu. Sans réseau, notation automatique, jamais de reproche. **Livrée en partie le 29 septembre** ; les mots de deux syllabes prêts le 30, éteints faute de mesure suffisante (voir « Épic 9, en partie »).
 - 9.2 La conversation sur l'appareil, là où il le permet (modèle de langue, reconnaissance et synthèse vocales de l'appareil), limitée aux caractères acquis.
 - 9.3 Le relais : un seul serveur, sans compte, authentifié par la transaction App Store, qui ne garde rien ; quota d'une conversation par jour, sans accumulation.
 - 9.4 L'agent vocal par niveau dans le nuage : en cascade (reconnaissance, modèle de langue, contrôle de chaque réplique contre l'acquis, synthèse), des scènes par niveau rédigées par le pipeline.
@@ -845,7 +845,7 @@ Décisions du propriétaire du 29 septembre 2026 : « Ok maquette d'examen »
   à 200…), et leurs noms du 放榜 ; celles de la première étape passent le contrôle du
   pinyin.
 
-### Épic 9, en partie : « Dis-le », les tons sur l'appareil (29 septembre)
+### Épic 9, en partie : « Dis-le », les tons sur l'appareil (29 et 30 septembre)
 
 Étude de faisabilité du 29 septembre 2026 (prototype mesuré : 88,5 % des caractères isolés
 d'une voix native jamais vue, 31 Ko de poids, 21 ms par seconde d'audio), puis
@@ -893,14 +893,31 @@ intégration, pour que le propriétaire l'essaie sur son téléphone.
     seule fois, le haut-parleur après la prise de son, la fréquence réelle du micro, la
     latence, et le bruit d'une vraie pièce ;
   - relever sur la page du jeu 5961 de data.gov.tw le fournisseur, l'année et le nom exact
-    du jeu, pour compléter l'attribution OGDL (premier alinéa de l'annexe), depuis le
-    workflow `donnees` ;
+    du jeu, pour compléter l'attribution OGDL (premier alinéa de l'annexe) : l'étape `tons`
+    du workflow `donnees` (30 septembre) lit la page et la garde dans l'artefact ; il reste
+    à la lancer et à reporter ce qu'elle dit ;
   - mesurer la précision sur des voix d'apprenants (une bêta d'enregistrements volontaires,
     à trancher avec la politique de confidentialité) avant de noter autrement que « Bien » ;
-  - réentraîner sur des voix du continent (Common Voice, AISHELL-1, depuis le workflow
-    `donnees`) : le ton 3 plongeant du mandarin standard est la faiblesse du modèle actuel,
-    appris sur deux voix de Taïwan ;
-  - les mots de deux syllabes (74 % aujourd'hui), hors de cette livraison ;
+  - réentraîner sur des voix du continent : le ton 3 plongeant du mandarin standard est la
+    faiblesse du modèle actuel, appris sur deux voix de Taïwan. Essai du 30 septembre :
+    aucune licence lisible d'ici (huggingface.co, arxiv.org, openslr.org, Wikimedia, Lingua
+    Libre, Common Voice refusés par le proxy) ; seul l'audio de FLEURS `cmn_hans_cn`
+    s'atteint, sans sa licence, et rien n'en est dérivé (`docs/sources-licences.md` §11).
+    L'étape `tons` du workflow `donnees` lit les cartes de FLEURS, THCHS-30 et AISHELL-1.
+    Ensuite, des phrases lues : il faudra un alignement forcé syllabe par syllabe (outil et
+    licence à choisir) avant `preparer.py`, puis mesurer sur une voix du continent jamais
+    vue, ton 3 compris, avant de remplacer `modele.json` ;
+  - les mots de deux syllabes, la question prête et **éteinte** (30 septembre) : un mot de
+    la fiche dont les deux caractères sont acquis, une séance sur deux, la carte notée restant
+    celle du caractère ; la voix coupée en deux syllabes au creux d'énergie, le ton de
+    chacune jugé avec des réglages propres aux mots ; le sandhi attendu et dit sans reproche
+    (3-3 → 2-3, 不 devant un ton 4 → 2), le ton neutre en seconde syllabe ; textes dans
+    `dire.tsv`. Mesure sur 3 061 mots de Yue Tan (moitié test) : 47,5 → 67,5 % des mots
+    reconnus, 7,6 → 2,1 % d'autres tons affirmés à tort ; le seuil (80 %, 3 %, 3 %) n'est
+    pas passé, `MOTS_DIRE` reste faux (`PROVENANCE.md`, « Les mots de deux syllabes »).
+    Vérifié avec le faux micro de Chromium sur une build où la constante était allumée
+    (不用 synthétique : reconnu, sandhi dit ; sans sandhi : on redemande). Reste le ton 3
+    en fin de mot (43 %) et le neutre (33 %) ;
   - la voix de référence : les fichiers Kokoro ont des tons isolés peu marqués ; la courbe du
     modèle reste la forme canonique tant qu'un natif ne les a pas écoutés ;
   - la règle « seulement après une question « Le ton » réussie » de l'étude, que

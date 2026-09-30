@@ -27,12 +27,24 @@
   import CourbeTon from './CourbeTon.svelte';
   import Glyph from './Glyph.svelte';
   import { aAudio, manifesteOnce, prononcer, taire } from './audio';
-  import { remplir, type TextesDire } from './ecrans';
+  import { remplir, SANS_ECRANS, type TextesDire, type TextesDireMots } from './ecrans';
   import { contourDuTon, tonDe } from './questions';
   import { delai } from './revision';
   import type { Revision } from './session';
-  import { analyser, type Contour, type Probleme, type Verdict } from './tons/classifieur';
-  import { courbes, issueDire, messageDire, nomTon, revisionDire, type CibleDire, type Issue } from './tons/dire';
+  import { analyser, type Contour, type Etat, type Probleme, type Verdict } from './tons/classifieur';
+  import {
+    attendusDe,
+    courbes,
+    courbesMot,
+    issueDire,
+    messageDire,
+    messageDireMot,
+    nomTon,
+    nomsTons,
+    revisionDire,
+    type CibleDire,
+    type Issue
+  } from './tons/dire';
   import { ErreurMicro, ecouter, type EtatMicro, type Prise } from './tons/micro';
   import { Reecoute } from './tons/reecoute';
   import type { Modele } from './tons/classifieur';
@@ -42,6 +54,7 @@
     cible,
     cle,
     textes: t,
+    textesMots: tm = SANS_ECRANS.direMots,
     modele,
     voix,
     micro,
@@ -57,6 +70,8 @@
     /** Le rang de la question : il remet l'écran à zéro. */
     cle: number;
     textes: TextesDire;
+    /** Les textes d'un mot de deux syllabes (`cible.mot`). */
+    textesMots?: TextesDireMots;
     modele: Modele;
     /** Les moyennes de la voix de l'apprenant (`Progress.voix`). */
     voix: readonly number[];
@@ -84,6 +99,10 @@
   let verdict = $state<Verdict | null>(null);
   let probleme = $state<Probleme | null>(null);
   let contour = $state<Contour | null>(null);
+  /** Un mot : le verdict et la courbe de chaque syllabe, et celui du mot entier. */
+  let verdicts = $state<Verdict[] | null>(null);
+  let contours = $state<Contour[] | null>(null);
+  let etatMot = $state<Etat | null>(null);
   let issue = $state<Issue | null>(null);
   let niveau = $state(0);
   let prochaine = $state('');
@@ -105,6 +124,9 @@
     verdict = null;
     probleme = null;
     contour = null;
+    verdicts = null;
+    contours = null;
+    etatMot = null;
     issue = null;
     niveau = 0;
     prochaine = '';
@@ -135,9 +157,20 @@
   });
 
   const ref = $derived(refLocuteur(voix));
-  const vues = $derived(courbes(contour, cible.ton, ref));
-  const message = $derived(essais === 0 ? '' : messageDire(t, verdict, probleme));
-  const etat = $derived(essais === 0 || probleme !== null || verdict === null ? null : verdict.etat);
+  const attendus = $derived(attendusDe(cible));
+  const vues = $derived(cible.mot ? courbesMot(contours, attendus, ref) : courbes(contour, cible.ton, ref));
+  const message = $derived(
+    essais === 0
+      ? ''
+      : cible.mot
+        ? messageDireMot(t, tm, cible.mot, verdicts, etatMot, probleme)
+        : messageDire(t, verdict, probleme)
+  );
+  const etat = $derived(
+    essais === 0 || probleme !== null ? null : cible.mot ? etatMot : verdict === null ? null : verdict.etat
+  );
+  /** La carte que « Bien » note : le caractère, ou celui dont la fiche porte le mot. */
+  const carte = $derived(cible.mot?.carte ?? cible.c);
 
   async function commencer(): Promise<void> {
     if (phase !== 'pret') return;
@@ -185,17 +218,21 @@
   }
 
   function juger(x: Float32Array, sr: number): void {
-    const a = analyser(x, sr, [cible.ton], modele, ref);
-    const s = a.syllabes[0];
+    const a = analyser(x, sr, attendus, modele, ref, {}, cible.mot?.liees ?? null);
+    const ok = a.probleme === null && a.syllabes.length === attendus.length;
     essais += 1;
     probleme = a.probleme;
-    verdict = a.probleme === null && s ? s.verdict : null;
-    contour = a.probleme === null && s ? s.contour : null;
-    if (contour) onvoix(contour.moyenne);
-    issue = issueDire(verdict?.etat ?? null, essais);
+    verdicts = ok ? a.syllabes.map((s) => s.verdict) : null;
+    contours = ok ? a.syllabes.map((s) => s.contour) : null;
+    verdict = verdicts?.[0] ?? null;
+    contour = contours?.[0] ?? null;
+    etatMot = ok ? a.etat : null;
+    /* Seul un caractère isolé apprend la voix : dans un mot, la voix va plus vite et descend. */
+    if (contour && !cible.mot) onvoix(contour.moyenne);
+    issue = issueDire(cible.mot ? etatMot : (verdict?.etat ?? null), essais);
     if (issue === 'note' && !essai) {
-      onnote(revisionDire(cible.c, (Date.now() - depart) / 1000));
-      const due = echeanceDe(cible.c);
+      onnote(revisionDire(carte, (Date.now() - depart) / 1000));
+      const due = echeanceDe(carte);
       prochaine = due === null ? '' : remplir(t.prochaine, { delai: delai(new Date(), due) });
     }
     phase = issue === 'redemander' ? 'pret' : 'fin';
@@ -226,20 +263,28 @@
 {/snippet}
 
 <div class="q dire" class:analyse={essais > 0}>
-  <p class="ask">{t.enonce}</p>
+  <p class="ask">{cible.mot ? tm['enonce-mot'] : t.enonce}</p>
 
   <div class="stim cible">
-    <Glyph seul char={cible.c} size={essais === 0 ? 104 : 60} />
+    {#if cible.mot}
+      <div class="mot">
+        {#each [...cible.c] as ch, k (k)}<Glyph seul char={ch} size={essais === 0 ? 84 : 52} />{/each}
+      </div>
+    {:else}
+      <Glyph seul char={cible.c} size={essais === 0 ? 104 : 60} />
+    {/if}
     <div class="lecture">
       <p class="sens">« {cible.sens} »</p>
       {#if phase === 'fin'}
         <!-- Après la réponse seulement : la lecture et son ton, et le son. -->
         <div class="syllabe">
-          <span class="py">{cible.pinyin}</span>
-          <svg class="contour" width="34" height="34" viewBox="0 0 40 40" role="img" aria-label={nomTon(t, cible.ton)}>
-            <path class="portee" d="M2 4H38M2 12H38M2 20H38M2 28H38M2 36H38" />
-            <path class="trait" d={contourDuTon(tonDe(cible.pinyin))} pathLength="1" />
-          </svg>
+          {#each cible.mot ? cible.mot.syllabes : [cible.pinyin] as s, k (k)}
+            <span class="py">{s}</span>
+            <svg class="contour" width="34" height="34" viewBox="0 0 40 40" role="img" aria-label={nomTon(t, cible.mot ? cible.mot.dico[k] : cible.ton)}>
+              <path class="portee" d="M2 4H38M2 12H38M2 20H38M2 28H38M2 36H38" />
+              <path class="trait" d={contourDuTon(tonDe(s))} pathLength="1" />
+            </svg>
+          {/each}
         </div>
       {/if}
     </div>
@@ -250,7 +295,9 @@
       voix={vues.voix}
       modele={vues.modele}
       legendeVoix={t['legende-voix']}
-      legendeModele={remplir(t['legende-modele'], { nom: nomTon(t, cible.ton) })}
+      legendeModele={cible.mot
+        ? remplir(tm['legende-modele-mot'], { noms: nomsTons(t, tm, attendus) })
+        : remplir(t['legende-modele'], { nom: nomTon(t, cible.ton) })}
     />
     <div class="fb" aria-live="polite">
       {#if etat}<span class="etat {etat}">{t[`etat-${etat}`]}</span>{/if}
@@ -326,6 +373,11 @@
   }
   .analyse .ask {
     margin-bottom: 6px;
+  }
+  /* Un mot : ses deux caractères côte à côte. */
+  .mot {
+    display: flex;
+    gap: 2px;
   }
   .lecture {
     display: flex;

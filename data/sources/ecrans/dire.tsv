@@ -38,7 +38,15 @@
 # - `voix`, `voix-aide`, `voix-appareil`, `voix-enregistree`, `voix-appareil-nom`,
 #   `voix-sans-appareil`, `voix-comment`, `voix-etapes` : le réglage « Voix » (décision du
 #   propriétaire du 29 septembre 2026, brief §7) : la voix de l'appareil, `{nom}` de la voix
-#   prise, ou les fichiers enregistrés ; et comment télécharger une voix chinoise améliorée.
+#   prise, ou les fichiers enregistrés ; et comment télécharger une voix chinoise améliorée ;
+# - les mots de deux syllabes (30 septembre 2026 ; la question de mot reste éteinte tant que la
+#   mesure ne la justifie pas, `app/src/lib/tons/dire.ts`, `MOTS_DIRE`) : `enonce-mot`, la
+#   consigne ; `juste-mot`, les deux tons reconnus, `{noms}` (« ton 2 puis ton 3 ») ;
+#   `autre-mot`, un autre ton sûr sur une syllabe, `{rang}` (`rang-1`, `rang-2`), `{attendu}`,
+#   l'`{allure}` entendue, `{entendu}` ; `puis`, entre deux noms de tons ; `conseil-5`, le
+#   conseil quand le ton neutre est attendu ; `sandhi-33`, `sandhi-bu`, `neutre`, ce que le mot
+#   a de particulier, dit après un essai, sans reproche (le ton que la voix fait n'est pas celui
+#   du dictionnaire) ; `legende-modele-mot`, la légende de la courbe, `{noms}`.
 cle	fr	source
 label	Dis-le	rédigé pour l'app
 enonce	Dis ce caractère à voix haute.	rédigé pour l'app
@@ -108,3 +116,14 @@ voix-appareil-nom	La voix chinoise de ton téléphone : {nom}.	rédigé pour l'a
 voix-sans-appareil	Ce téléphone n'a pas encore de voix chinoise : la voix enregistrée dit les caractères.	rédigé pour l'app
 voix-comment	Télécharger une voix chinoise améliorée	rédigé pour l'app
 voix-etapes	Sur l'iPhone : Réglages → Accessibilité → Contenu énoncé → Voix → Chinois (Chine continentale). Choisis une voix, puis télécharge sa version « Améliorée » ou « Premium ». Reviens ensuite dans Wenlu : elle est prise d'elle-même.	rédigé pour l'app
+enonce-mot	Dis ce mot à voix haute.	rédigé pour l'app
+juste-mot	{noms} : c'est bien ça.	rédigé pour l'app
+autre-mot	{rang} syllabe, {attendu} attendu. Ta voix {allure} : j'entends le {entendu}.	rédigé pour l'app
+rang-1	première	rédigé pour l'app
+rang-2	deuxième	rédigé pour l'app
+puis	puis	rédigé pour l'app
+conseil-5	Dis-la brève et légère, sans appuyer.	rédigé pour l'app
+sandhi-33	Deux tons 3 de suite : le premier se dit comme un ton 2, c'est lui qu'on attend.	rédigé pour l'app
+sandhi-bu	不 devant un ton 4 se dit au ton 2 : c'est lui qu'on attend.	rédigé pour l'app
+neutre	La deuxième syllabe est au ton neutre : brève et légère.	rédigé pour l'app
+legende-modele-mot	{noms} attendus	rédigé pour l'app

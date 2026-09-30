@@ -11,12 +11,12 @@
   import Dire from './Dire.svelte';
   import Tao from './Tao.svelte';
   import { toutesLesFiches, type FicheLue } from './content';
-  import { ecransOnce, SANS_ECRANS, type TextesDire } from './ecrans';
+  import { ecransOnce, SANS_ECRANS, type TextesDire, type TextesDireMots } from './ecrans';
   import { corpusRevision } from './revision';
   import type { Progress } from './session';
   import { humeur, stade } from './tao';
   import type { Modele } from './tons/classifieur';
-  import { cibleDEssai, type CibleDire } from './tons/dire';
+  import { cibleDEssai, MOTS_DIRE, motsLisibles, type CibleDire } from './tons/dire';
   import { etatMicro, microPossible, type EtatMicro } from './tons/micro';
   import { modeleOnce } from './tons/modele';
 
@@ -33,6 +33,7 @@
   } = $props();
 
   let t = $state<TextesDire>(SANS_ECRANS.dire);
+  let tm = $state<TextesDireMots>(SANS_ECRANS.direMots);
   let fiches = $state.raw<FicheLue[] | null>(null);
   let modele = $state.raw<Modele | null | undefined>(undefined);
   let micro = $state<EtatMicro | null>(null);
@@ -43,7 +44,10 @@
     let vivant = true;
     void ecransOnce()
       .then((e) => {
-        if (vivant) t = e.dire;
+        if (vivant) {
+          t = e.dire;
+          tm = e.direMots;
+        }
       })
       .catch(() => undefined);
     void toutesLesFiches()
@@ -72,7 +76,7 @@
   function tirer(): void {
     if (fiches === null) return;
     const corpus = corpusRevision({ fiches, voisins: null, cartes: p.cartes });
-    cible = cibleDEssai(corpus, p.cartes.map((c) => c.id), Math.random());
+    cible = cibleDEssai(corpus, p.cartes.map((c) => c.id), Math.random(), MOTS_DIRE && motsLisibles(tm));
     tour += 1;
   }
 
@@ -104,6 +108,7 @@
       {cible}
       cle={tour}
       textes={t}
+      textesMots={tm}
       {modele}
       voix={p.voix}
       {micro}

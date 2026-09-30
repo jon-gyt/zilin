@@ -68,6 +68,13 @@ describe('l’écran de « Dis-le »', () => {
     expect(dire).toMatch(/reecoute\.garder\(enr\.brut, enr\.srBrut\)/);
   });
 
+  it('un mot : « Bien » note la carte du caractère ; seule la voix d’un caractère isolé s’apprend', () => {
+    expect(dire).toMatch(/const carte = \$derived\(cible\.mot\?\.carte \?\? cible\.c\)/);
+    expect(dire).toMatch(/onnote\(revisionDire\(carte,/);
+    expect(dire).toMatch(/if \(contour && !cible\.mot\) onvoix\(/);
+    expect(dire).toMatch(/analyser\(x, sr, attendus, modele, ref, \{\}, cible\.mot\?\.liees \?\? null\)/);
+  });
+
   it('rien ne joue pendant la prise : le micro n’entend ni « Écouter » ni « Réécouter »', () => {
     expect(dire).toMatch(/taire\(\);\s*phase = 'ecoute'/);
   });

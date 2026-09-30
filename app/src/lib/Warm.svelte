@@ -37,8 +37,8 @@
     sures
   } from './revision';
   import { echeance, repriseRev, type Progress, type Revision } from './session';
-  import { ecransOnce, SANS_ECRANS, type TextesDire } from './ecrans';
-  import { choisirDire, cibleDire } from './tons/dire';
+  import { ecransOnce, SANS_ECRANS, type TextesDire, type TextesDireMots } from './ecrans';
+  import { choisirDire, cibleDire, MOTS_DIRE, motsLisibles } from './tons/dire';
   import { etatMicro, microPossible, type EtatMicro } from './tons/micro';
   import { modeleOnce } from './tons/modele';
   import type { Modele } from './tons/classifieur';
@@ -202,6 +202,7 @@
   let modele = $state.raw<Modele | null | undefined>(undefined);
   let micro = $state<EtatMicro | null>(null);
   let textesDire = $state<TextesDire | null>(null);
+  let textesMots = $state<TextesDireMots>(SANS_ECRANS.direMots);
 
   $effect(() => {
     let vivant = true;
@@ -217,7 +218,10 @@
       });
     void ecransOnce()
       .then((e) => {
-        if (vivant) textesDire = e.dire;
+        if (vivant) {
+          textesDire = e.dire;
+          textesMots = e.direMots;
+        }
       })
       .catch(() => {
         if (vivant) textesDire = SANS_ECRANS.dire;
@@ -285,7 +289,11 @@
   const q: Question | null = $derived(liste[i] ?? null);
 
   /** « Dis-le » est la question en cours : sa cible, ou `null`. */
-  const cible = $derived(i === iDire && !repli && q ? cibleDire(q.c, corpus) : null);
+  const cible = $derived(
+    i === iDire && !repli && q
+      ? cibleDire(q.c, corpus, graineDuJour('rev', p.day), MOTS_DIRE && motsLisibles(textesMots))
+      : null
+  );
 
   /**
    * Le résumé lit les cartes : la note et l'échéance sont celles que FSRS a écrites. « Dis-le »
@@ -354,6 +362,7 @@
       {cible}
       cle={i}
       textes={textesDire}
+      {textesMots}
       {modele}
       voix={p.voix}
       {micro}

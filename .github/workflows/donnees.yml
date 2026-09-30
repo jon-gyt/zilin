@@ -13,15 +13,21 @@
 # lots aboutissent sous 24 h), récupère et valide. Le journal des lots survit d'un
 # passage à l'autre dans le cache `travail-*`. Sans le secret ANTHROPIC_API_KEY, ces
 # étapes sont sautées et le résumé le dit ; le reste du workflow passe.
+#
+# `etapes: tons` (story 9.1, 30 septembre 2026) lit ce que le poste de développement ne peut
+# pas lire pour réentraîner le classifieur des tons sur des voix du continent : les cartes
+# et pages de licence des jeux candidats (FLEURS, THCHS-30, AISHELL-1) et la page du jeu
+# 5961 de data.gov.tw (fournisseur et année de l'attribution OGDL), dans l'artefact et le
+# résumé. Rien n'est entraîné ici : la recette est dans `data/sources/tons/PROVENANCE.md`.
 name: donnees
 
 on:
   workflow_dispatch:
     inputs:
       etapes:
-        description: "Étape après wenlu tout : audio, fiches, contes, recuperer (lots soumis), tout (audio + fiches + contes)"
+        description: "Étape après wenlu tout : audio, fiches, contes, recuperer (lots soumis), tout (audio + fiches + contes), tons (licences des voix)"
         type: choice
-        options: [audio, fiches, contes, recuperer, tout]
+        options: [audio, fiches, contes, recuperer, tout, tons]
         default: audio
       seuil:
         description: "Seuil de la liste cible (audio du parcours lire, contes)"
@@ -66,7 +72,7 @@ jobs:
       VOIX: ${{ inputs.voix }}
       JUSQUA: ${{ inputs.jusqua }}
       AVEC_AUDIO: ${{ inputs.etapes == 'audio' || inputs.etapes == 'tout' }}
-      AVEC_CLAUDE: ${{ inputs.etapes != 'audio' }}
+      AVEC_CLAUDE: ${{ inputs.etapes != 'audio' && inputs.etapes != 'tons' }}
       # Après `uv sync`, `uv run` ne resynchronise plus : torch CPU, posé à la main
       # ci-dessous, serait sinon remplacé par la roue CUDA du verrou.
       UV_NO_SYNC: '1'
@@ -178,6 +184,46 @@ jobs:
         with:
           path: ~/.cache/huggingface
           key: huggingface-kokoro-v1.1-zh-${{ hashFiles('data/src/wenlu_data/audio.py') }}
+
+      # ------------------------------------------------------------------- tons
+
+      # Les licences se lisent sur la source primaire, jamais de mémoire : la carte du jeu
+      # écrite par son auteur, la page OpenSLR, la page de data.gov.tw. Chaque fichier est
+      # gardé avec son SHA-256 ; le résumé montre les lignes de licence trouvées.
+      - name: Tons, licences des voix candidates
+        if: env.ETAPE == 'tons'
+        continue-on-error: true
+        run: |
+          mkdir -p work/tons/licences
+          cd work/tons/licences
+          prendre() {
+            code=$(curl -sSL -m 60 -o "$2" -w '%{http_code}' "$1" || echo 000)
+            echo "$code $1 -> $2 $( [ -s "$2" ] && sha256sum "$2" | cut -c1-64)" | tee -a SHA256SUMS.txt
+          }
+          # FLEURS, mandarin du continent (cmn_hans_cn) : carte de Google sur Hugging Face
+          prendre https://huggingface.co/datasets/google/fleurs/raw/main/README.md fleurs-carte.md
+          prendre https://huggingface.co/api/datasets/google/fleurs fleurs-api.json
+          # THCHS-30 (OpenSLR 18) et AISHELL-1 (OpenSLR 33) : pages de la ressource
+          prendre https://www.openslr.org/18/ openslr-18.html
+          prendre https://www.openslr.org/33/ openslr-33.html
+          # data.gov.tw, jeu 5961 : fournisseur, année, nom exact (attribution OGDL)
+          prendre https://data.gov.tw/dataset/5961 data-gov-tw-5961.html
+          prendre https://data.gov.tw/api/v2/rest/dataset/5961 data-gov-tw-5961.json
+          {
+            echo "### Tons : licences lues"
+            echo
+            echo '```'
+            cat SHA256SUMS.txt
+            echo
+            grep -m3 -i '^license' fleurs-carte.md 2>/dev/null | sed 's/^/FLEURS carte : /' || echo "FLEURS carte : ligne license absente"
+            grep -o -i '"license:[^"]*"' fleurs-api.json 2>/dev/null | sed 's/^/FLEURS api : /' | head -3 || true
+            for f in openslr-18.html openslr-33.html; do
+              sed 's/<[^>]*>/ /g' "$f" 2>/dev/null | grep -i -m2 'licen' | tr -s ' ' | sed "s/^/$f : /" || true
+            done
+            grep -o -m5 -E '提供機關[^<]{0,80}|"publisher"[^,]{0,80}|"organization"[^,]{0,80}' data-gov-tw-5961.* 2>/dev/null || echo "data.gov.tw : fournisseur non trouvé, voir l'artefact"
+            echo '```'
+            echo
+          } >> "$GITHUB_STEP_SUMMARY"
 
       # ------------------------------------------------------- fiches et contes
 
@@ -315,6 +361,7 @@ jobs:
           path: |
             data/work/audio/audio.json
             data/work/audio/carte-modele.md
+            data/work/tons/licences/
             data/work/qualite.md
             data/work/journaux/
             data/work/sources/PROVENANCE.md

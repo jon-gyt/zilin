@@ -150,3 +150,70 @@ Les sauts restants de Chen Wang sont des fins de ton 2 qui montent de 5 à 7 dem
 20 ou 30 ms, sous le seuil d'un saut d'octave. `pitch.test.ts` couvre une fin qui
 s'éteint, une fin qui perd sa périodicité, un saut d'octave final, un aller et retour
 d'octave, une montée rapide de ton 2 gardée, et une friture vocale.
+
+## Les mots de deux syllabes (30 septembre 2026)
+
+La question « Dis-le » peut demander un mot de deux caractères acquis, pris dans les mots de
+la fiche de la carte (`app/src/lib/tons/dire.ts`, `cibleDeMot`) : la voix est coupée en deux
+syllabes, le ton de chacune reconnu, et l'app attend les tons que la voix fait, sandhi
+appliqué (deux tons 3 de suite : le premier au ton 2 ; 不 devant un ton 4 : au ton 2) ; la
+seconde syllabe peut être au ton neutre. **Les poids n'ont pas été réentraînés** : le
+modèle des syllabes isolées sert tel quel, avec des réglages propres aux mots.
+
+- **La découpe** (`pitch.ts`, `segmenter`, `creux`, `TROU_LIE`) : sans trou entre les deux
+  syllabes, la coupe se fait au creux d'énergie le plus marqué entre deux crêtes ; devant une
+  syllabe qui commence par une voix (m, n, l, r, y, w, une voyelle), un trou de moins de
+  0,15 s n'est pas la frontière (c'est le creux craqué d'un ton 3).
+- **Les réglages** (`classifieur.ts`, `REGLAGES_MOTS`) : une syllabe de mot est lue comme si
+  elle durait 0,35 / 0,2 fois plus ; la référence de la voix est abaissée de 1 demi-ton pour
+  la première syllabe et de 4 pour la seconde (la voix descend au fil du mot) ; le ton
+  neutre n'est jamais entendu en tête, et sa probabilité est multipliée par 0,5 en seconde
+  syllabe ; pour affirmer un autre ton sur un mot, l'app doit en être sûre à 0,98 (au lieu
+  de 0,9), le ton attendu sous 1 % (au lieu de 5 %).
+
+### Le jeu de mesure, jamais l'entraînement
+
+Les mots de Yue Tan (`hugolpz/audio-cmn`, Shtooka `cmn-caen-tan`, **CC BY-SA**), par la
+réédition `Punpuf/shenzhen-mandarin-audio`, commit
+`a3617b73489a152f3a307ad3ef9fc67d1b8e1ed3`, dossier `words_opus_48k` (6 726 fichiers, arbre
+git `546ce3301020eac980f13c29b5d92b91cfe1afbf`, manifeste
+`17e28c660b1f6b53f3dddc2c3e28a791b733b1cbf99cfd4f794a2ebf367d93e0`). Retenus : les 6 070
+mots de deux syllabes dont le nom de fichier donne le pinyin et qui ne commencent ni par
+yi ni par bu (leur sandhi demande le caractère, que le nom ne donne pas), ni par un ton
+neutre ; tons de surface : 3-3 lu 2-3 (186 mots). Deux moitiés par le hachage FNV-1a du
+nom : « dev » (3 009 mots, réglages) et « test » (3 061, tenue à part). La voix est
+calibrée comme dans l'app, sur 5 à 30 de ses caractères isolés tirés au hasard. Aucun poids
+n'en dérive, rien n'en est distribué.
+
+### La mesure, code de l'app, moitié test (3 061 mots)
+
+| | avant (code du 29 septembre) | après |
+|---|---|---|
+| ton de chaque syllabe en tête | 75,2 % | 85,4 % |
+| les deux tons en tête | 58,6 % | 73,7 % |
+| **mot reconnu** (« Bien ») | 47,5 % | **67,5 %** |
+| autre ton affirmé à tort | 7,6 % | 2,1 % |
+| on redemande | 44,9 % | 30,4 % |
+| reconnu à tort (un autre ton attendu sur une syllabe) | 2,3 % | 1,7 % |
+
+Par ton, en tête, avant → après : première syllabe, ton 1 85,4 → 96,0, ton 2 76,0 → 83,1,
+ton 3 (ou 2 de sandhi) 76,3 → 85,2, ton 4 85,3 → 94,7 ; seconde syllabe, ton 1 94,7 → 97,5,
+ton 2 83,9 → 82,4, ton 3 46,7 → 43,0, ton 4 59,4 → 93,1, neutre 68,3 → 33,2. La moitié dev :
+74,3 → 84,7 % des syllabes, 46,4 → 65,1 % des mots reconnus. Les caractères isolés ne
+bougent pas (Chen Wang 88,3 %, Yue Tan 88,2 % reconnus, avant comme après). Le ton 3 en fin
+de mot, souvent craqué ou à peine descendu, et le neutre restent les faiblesses.
+
+Essai écarté : un second modèle appris sur des pseudo-mots faits de deux syllabes de
+Taïwan mises bout à bout (même recette, `MLPClassifier`) ne reconnaît que 66,1 % des
+syllabes du test (ton 3 en tête : 19 %).
+
+### Le seuil, et la question éteinte
+
+La question de mot ne se pose que si la mesure passe ces seuils (`dire.ts`,
+`SEUILS_MOTS_DIRE`, `MESURE_MOTS_DIRE`, `MOTS_DIRE`) : un mot dit juste reconnu au moins
+80 fois sur 100 (les caractères : 88 %), un autre ton affirmé à tort au plus 3 fois sur
+100, un mot reconnu alors qu'on attend un autre ton au plus 3 fois sur 100. Mesuré le
+30 septembre : 67,5 %, 2,1 %, 1,7 %. **La question de mot reste éteinte** ; le code, les
+textes (`data/sources/ecrans/dire.tsv`) et les tests sont prêts, une meilleure mesure
+l'allume. Les mots de la voix Kokoro de l'app (139) ne sont reconnus qu'à 10 % : ses
+tons en contexte sont peu marqués.
