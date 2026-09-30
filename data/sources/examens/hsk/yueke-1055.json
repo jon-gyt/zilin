@@ -1,0 +1,421 @@
+{
+ "examen": "yueke-1055",
+ "parcours": "hsk",
+ "generation": {
+  "modele": "rédaction manuelle",
+  "api": "session Claude Code (sans API)",
+  "date": "2026-09-30"
+ },
+ "relecture": {
+  "statut": "a_relire",
+  "note": "rédigé le 30 septembre 2026, à relire par le propriétaire (`wenlu examens apercu hsk yueke-1055`) ; une série passe à `relu` sur sa décision, citée ici"
+ },
+ "series": [
+  {
+   "serie": "A",
+   "statut": "a_relire",
+   "supports": [
+    {
+     "id": "s1",
+     "genre": "note",
+     "contexte": {
+      "fr": "Une note",
+      "en": "A note"
+     },
+     "lignes": [
+      {
+       "zh": "明天上午十点有会议，",
+       "pinyin": "míng tiān shàng wǔ shí diǎn yǒu huì yì",
+       "fr": "Réunion demain à dix heures du matin,",
+       "en": "Meeting tomorrow at 10 am,"
+      },
+      {
+       "zh": "会议在三楼，",
+       "pinyin": "huì yì zài sān lóu",
+       "fr": "au deuxième étage :",
+       "en": "on the third floor:"
+      },
+      {
+       "zh": "请大家准时到。",
+       "pinyin": "qǐng dà jiā zhǔn shí dào",
+       "fr": "soyez à l'heure.",
+       "en": "please be on time."
+      },
+      {
+       "zh": "不能来的，请告诉张经理。",
+       "pinyin": "bù néng lái de qǐng gào su zhāng jīng lǐ",
+       "fr": "En cas d'absence, prévenez M. Zhang, le directeur.",
+       "en": "If you can't come, tell Manager Zhang."
+      }
+     ]
+    },
+    {
+     "id": "s2",
+     "genre": "menu",
+     "contexte": {
+      "fr": "Un menu",
+      "en": "A menu"
+     },
+     "lignes": [
+      {
+       "zh": "果汁：十二元",
+       "pinyin": "guǒ zhī shí èr yuán",
+       "fr": "Jus de fruits : 12 yuans",
+       "en": "Fruit juice: 12 yuan"
+      },
+      {
+       "zh": "牛奶：八元",
+       "pinyin": "niú nǎi bā yuán",
+       "fr": "Lait : 8 yuans",
+       "en": "Milk: 8 yuan"
+      },
+      {
+       "zh": "咖啡：十五元",
+       "pinyin": "kā fēi shí wǔ yuán",
+       "fr": "Café : 15 yuans",
+       "en": "Coffee: 15 yuan"
+      }
+     ]
+    }
+   ],
+   "questions": [
+    {
+     "type": "comprendre",
+     "support": "s1",
+     "consigne": {
+      "fr": "Quand a lieu la réunion ?",
+      "en": "When is the meeting?"
+     },
+     "choix": [
+      {
+       "fr": "Aujourd'hui à dix heures",
+       "en": "Today at ten"
+      },
+      {
+       "fr": "Demain à trois heures",
+       "en": "Tomorrow at three"
+      },
+      {
+       "fr": "Ce soir à dix heures",
+       "en": "Tonight at ten"
+      },
+      {
+       "fr": "Demain à dix heures",
+       "en": "Tomorrow at ten"
+      }
+     ],
+     "reponse": 3,
+     "porte": [
+      "明",
+      "天",
+      "十",
+      "点",
+      "议"
+     ]
+    },
+    {
+     "type": "vrai_faux",
+     "support": "s1",
+     "consigne": {
+      "fr": "Vrai ou faux ?",
+      "en": "True or false?"
+     },
+     "affirmation": {
+      "zh": "会议在二楼。",
+      "pinyin": "huì yì zài èr lóu",
+      "fr": "La réunion a lieu au premier étage.",
+      "en": "The meeting is on the second floor."
+     },
+     "reponse": false,
+     "porte": [
+      "议",
+      "三",
+      "楼"
+     ]
+    },
+    {
+     "type": "reperer",
+     "support": "s1",
+     "consigne": {
+      "fr": "Touche la personne à prévenir.",
+      "en": "Tap the person to tell."
+     },
+     "choix": [
+      "会议",
+      "三楼",
+      "大家",
+      "张经理"
+     ],
+     "reponse": 3,
+     "porte": [
+      "张",
+      "经",
+      "理"
+     ]
+    },
+    {
+     "type": "comprendre",
+     "support": "s2",
+     "consigne": {
+      "fr": "Combien coûte un jus de fruits ?",
+      "en": "How much is a fruit juice?"
+     },
+     "choix": [
+      {
+       "fr": "8 yuans",
+       "en": "8 yuan"
+      },
+      {
+       "fr": "12 yuans",
+       "en": "12 yuan"
+      },
+      {
+       "fr": "15 yuans",
+       "en": "15 yuan"
+      },
+      {
+       "fr": "20 yuans",
+       "en": "20 yuan"
+      }
+     ],
+     "reponse": 1,
+     "porte": [
+      "果",
+      "汁",
+      "十",
+      "二"
+     ]
+    },
+    {
+     "type": "sens",
+     "consigne": {
+      "fr": "Que veut dire ce caractère ?",
+      "en": "What does this character mean?"
+     },
+     "objet": {
+      "zh": "赢",
+      "pinyin": "yíng",
+      "fr": "gagner",
+      "en": "to win"
+     },
+     "choix": [
+      {
+       "fr": "perdre",
+       "en": "to lose"
+      },
+      {
+       "fr": "jouer",
+       "en": "to play"
+      },
+      {
+       "fr": "gagner",
+       "en": "to win"
+      },
+      {
+       "fr": "courir",
+       "en": "to run"
+      }
+     ],
+     "reponse": 2,
+     "porte": [
+      "赢"
+     ]
+    }
+   ]
+  },
+  {
+   "serie": "B",
+   "statut": "a_relire",
+   "supports": [
+    {
+     "id": "s1",
+     "genre": "message",
+     "contexte": {
+      "fr": "Un message",
+      "en": "A message"
+     },
+     "lignes": [
+      {
+       "zh": "昨天的足球比赛我们赢了！",
+       "pinyin": "zuó tiān de zú qiú bǐ sài wǒ men yíng le",
+       "fr": "Hier, au football, nous avons gagné !",
+       "en": "We won yesterday's football match!"
+      },
+      {
+       "zh": "三比一。",
+       "pinyin": "sān bǐ yī",
+       "fr": "Trois à un.",
+       "en": "Three-one."
+      },
+      {
+       "zh": "下星期六还有一场。",
+       "pinyin": "xià xīng qī liù hái yǒu yī chǎng",
+       "fr": "Il y a un autre match samedi prochain.",
+       "en": "There's another match next Saturday."
+      }
+     ]
+    },
+    {
+     "id": "s2",
+     "genre": "pancarte",
+     "contexte": {
+      "fr": "Un panneau",
+      "en": "A sign"
+     },
+     "lignes": [
+      {
+       "zh": "游泳馆",
+       "pinyin": "yóu yǒng guǎn",
+       "fr": "Piscine",
+       "en": "Swimming pool"
+      },
+      {
+       "zh": "每天早上六点开门",
+       "pinyin": "měi tiān zǎo shang liù diǎn kāi mén",
+       "fr": "Ouverte tous les jours à 6 heures du matin",
+       "en": "Opens daily at 6 am"
+      },
+      {
+       "zh": "进去以前请洗澡。",
+       "pinyin": "jìn qù yǐ qián qǐng xǐ zǎo",
+       "fr": "Douche obligatoire avant d'entrer.",
+       "en": "Please shower before going in."
+      }
+     ]
+    }
+   ],
+   "questions": [
+    {
+     "type": "comprendre",
+     "support": "s1",
+     "consigne": {
+      "fr": "Qu'annonce le message ?",
+      "en": "What does the message announce?"
+     },
+     "choix": [
+      {
+       "fr": "Le match est annulé",
+       "en": "The match is cancelled"
+      },
+      {
+       "fr": "Ils ont perdu le match",
+       "en": "They lost the match"
+      },
+      {
+       "fr": "Ils ont gagné le match",
+       "en": "They won the match"
+      },
+      {
+       "fr": "Le match est reporté",
+       "en": "The match is postponed"
+      }
+     ],
+     "reponse": 2,
+     "porte": [
+      "赢"
+     ]
+    },
+    {
+     "type": "reperer",
+     "support": "s1",
+     "consigne": {
+      "fr": "Touche le nom du sport.",
+      "en": "Tap the name of the sport."
+     },
+     "choix": [
+      "昨天",
+      "足球",
+      "比赛",
+      "下星期六"
+     ],
+     "reponse": 1,
+     "porte": [
+      "足",
+      "球"
+     ]
+    },
+    {
+     "type": "replique",
+     "support": "s1",
+     "consigne": {
+      "fr": "Que répond son ami ?",
+      "en": "What does the friend reply?"
+     },
+     "choix": [
+      {
+       "zh": "我不吃猪肉。",
+       "pinyin": "wǒ bù chī zhū ròu",
+       "fr": "Je ne mange pas de porc.",
+       "en": "I don't eat pork."
+      },
+      {
+       "zh": "这本杂志很有意思。",
+       "pinyin": "zhè běn zá zhì hěn yǒu yì si",
+       "fr": "Ce magazine est très intéressant.",
+       "en": "This magazine is very interesting."
+      },
+      {
+       "zh": "太好了！祝你们下次也赢！",
+       "pinyin": "tài hǎo le zhù nǐ men xià cì yě yíng",
+       "fr": "Génial ! Bonne chance pour le prochain !",
+       "en": "Great! Hope you win next time too!"
+      },
+      {
+       "zh": "这个演员很有名。",
+       "pinyin": "zhè gè yǎn yuán hěn yǒu míng",
+       "fr": "Cet acteur est très connu.",
+       "en": "This actor is very famous."
+      }
+     ],
+     "reponse": 2,
+     "porte": [
+      "赢"
+     ]
+    },
+    {
+     "type": "vrai_faux",
+     "support": "s2",
+     "consigne": {
+      "fr": "Vrai ou faux ?",
+      "en": "True or false?"
+     },
+     "affirmation": {
+      "zh": "去游泳以前要先洗澡。",
+      "pinyin": "qù yóu yǒng yǐ qián yào xiān xǐ zǎo",
+      "fr": "Il faut se doucher avant d'aller nager.",
+      "en": "You must shower before swimming."
+     },
+     "reponse": true,
+     "porte": [
+      "泳",
+      "洗",
+      "澡"
+     ]
+    },
+    {
+     "type": "ton",
+     "consigne": {
+      "fr": "Quel est le ton de ce caractère ?",
+      "en": "What is the tone of this character?"
+     },
+     "objet": {
+      "zh": "暗",
+      "pinyin": "àn",
+      "fr": "sombre",
+      "en": "dark"
+     },
+     "choix": [
+      "ān",
+      "án",
+      "ǎn",
+      "àn"
+     ],
+     "reponse": 3,
+     "porte": [
+      "暗"
+     ]
+    }
+   ]
+  }
+ ]
+}
