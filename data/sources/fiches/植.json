@@ -21,20 +21,33 @@
   "木": "sens",
   "直": "son"
  },
- "mots": [],
+ "mots": [
+  {
+   "hanzi": "植物",
+   "pinyin": "zhíwù",
+   "fr": "plante",
+   "en": "plant"
+  },
+  {
+   "hanzi": "植树",
+   "pinyin": "zhíshù",
+   "fr": "planter des arbres",
+   "en": "to plant trees"
+  }
+ ],
  "phrase": {
-  "zh": "",
-  "pinyin": "",
-  "fr": "",
-  "en": ""
+  "zh": "她家里有很多植物。",
+  "pinyin": "Tā jiā li yǒu hěn duō zhíwù.",
+  "fr": "Chez elle, il y a beaucoup de plantes.",
+  "en": "There are lots of plants in her home."
  },
  "generation": {
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:083a0ee3feb5829ec6971b48dcfa72ad3e7c0c77fa405953f4a2a7351d0aba24",
-  "essais": 1,
+  "empreinte_invite": "sha256:88467ef42871a741282d4df03ebf0664fc89284e86826da33e2b0b9013a2250c",
+  "essais": 2,
   "refus": []
  },
- "statut": "relu"
+ "statut": "a_relire"
 }

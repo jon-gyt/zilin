@@ -19,20 +19,33 @@
  "roles": {
   "之": "forme"
  },
- "mots": [],
+ "mots": [
+  {
+   "hanzi": "之间",
+   "pinyin": "zhījiān",
+   "fr": "entre",
+   "en": "between"
+  },
+  {
+   "hanzi": "之后",
+   "pinyin": "zhīhòu",
+   "fr": "après",
+   "en": "after"
+  }
+ ],
  "phrase": {
-  "zh": "",
-  "pinyin": "",
-  "fr": "",
-  "en": ""
+  "zh": "三天之后我回来。",
+  "pinyin": "Sān tiān zhīhòu wǒ huílai.",
+  "fr": "Je reviens dans trois jours.",
+  "en": "I'll be back in three days."
  },
  "generation": {
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:8afeaa910d8b5a4c878bccf97193e4bfbb4b68bdf15c7bdb7b32328f58830c8c",
-  "essais": 1,
+  "empreinte_invite": "sha256:deb9ade292c8504f81e2dbf07bc3eb78789050068340b10eb3710110d50e1153",
+  "essais": 2,
   "refus": []
  },
- "statut": "relu"
+ "statut": "a_relire"
 }

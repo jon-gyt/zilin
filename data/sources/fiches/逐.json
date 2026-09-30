@@ -21,20 +21,33 @@
   "辶": "sens",
   "豕": "sens"
  },
- "mots": [],
+ "mots": [
+  {
+   "hanzi": "逐渐",
+   "pinyin": "zhújiàn",
+   "fr": "peu à peu",
+   "en": "gradually"
+  },
+  {
+   "hanzi": "逐步",
+   "pinyin": "zhúbù",
+   "fr": "pas à pas",
+   "en": "step by step"
+  }
+ ],
  "phrase": {
-  "zh": "",
-  "pinyin": "",
-  "fr": "",
-  "en": ""
+  "zh": "天气逐渐冷了。",
+  "pinyin": "Tiānqì zhújiàn lěng le.",
+  "fr": "Le temps se refroidit peu à peu.",
+  "en": "The weather is gradually getting colder."
  },
  "generation": {
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:b18710f212209912cb18a34c130cff201f71a7aaab0174465ffa02f02bc701fe",
-  "essais": 1,
+  "empreinte_invite": "sha256:a78530a46e4c6775af5514f3a3810bac4a64bcf29a88ea47137233f1e3f79ae8",
+  "essais": 2,
   "refus": []
  },
- "statut": "relu"
+ "statut": "a_relire"
 }

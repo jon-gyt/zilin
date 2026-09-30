@@ -23,20 +23,33 @@
   "戈": "son",
   "车": "sens"
  },
- "mots": [],
+ "mots": [
+  {
+   "hanzi": "超载",
+   "pinyin": "chāozài",
+   "fr": "surcharger, surcharge",
+   "en": "to overload"
+  },
+  {
+   "hanzi": "加载",
+   "pinyin": "jiāzài",
+   "fr": "charger (un programme)",
+   "en": "to load (software)"
+  }
+ ],
  "phrase": {
-  "zh": "",
-  "pinyin": "",
-  "fr": "",
-  "en": ""
+  "zh": "这辆车超载了。",
+  "pinyin": "Zhè liàng chē chāozài le.",
+  "fr": "Ce véhicule est en surcharge.",
+  "en": "This vehicle is overloaded."
  },
  "generation": {
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:7cdceea29e3b9e58a98bf8eaa69f68a11f08c768cc230b0b08c6f101916e777e",
-  "essais": 1,
+  "empreinte_invite": "sha256:3b785f261d2de3cde8a281b07ad2ea610f634d07e4fd6b6ad0198ef665352743",
+  "essais": 2,
   "refus": []
  },
- "statut": "relu"
+ "statut": "a_relire"
 }
