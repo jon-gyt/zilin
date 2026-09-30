@@ -21,20 +21,33 @@
   "禾": "forme",
   "匕": "forme"
  },
- "mots": [],
+ "mots": [
+  {
+   "hanzi": "乘客",
+   "pinyin": "chéngkè",
+   "fr": "passager",
+   "en": "passenger"
+  },
+  {
+   "hanzi": "乘坐",
+   "pinyin": "chéngzuò",
+   "fr": "prendre (un transport)",
+   "en": "to ride, to take (transport)"
+  }
+ ],
  "phrase": {
-  "zh": "",
-  "pinyin": "",
-  "fr": "",
-  "en": ""
+  "zh": "乘客请在这里下车。",
+  "pinyin": "Chéngkè qǐng zài zhèli xià chē.",
+  "fr": "Les passagers sont priés de descendre ici.",
+  "en": "Passengers please get off here."
  },
  "generation": {
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:446ec744ce7b87a5a9a70eab6694ce72972d9ec5f629de04553f11d9c23018b8",
-  "essais": 1,
+  "empreinte_invite": "sha256:8c4018047470034b73c64dab7a14203874dce2d5b18ffb2829f37f50a24449c7",
+  "essais": 2,
   "refus": []
  },
- "statut": "relu"
+ "statut": "a_relire"
 }

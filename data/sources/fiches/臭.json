@@ -21,20 +21,33 @@
   "自": "sens",
   "犬": "sens"
  },
- "mots": [],
+ "mots": [
+  {
+   "hanzi": "臭味",
+   "pinyin": "chòuwèi",
+   "fr": "mauvaise odeur",
+   "en": "bad smell"
+  },
+  {
+   "hanzi": "口臭",
+   "pinyin": "kǒuchòu",
+   "fr": "mauvaise haleine",
+   "en": "bad breath"
+  }
+ ],
  "phrase": {
-  "zh": "",
-  "pinyin": "",
-  "fr": "",
-  "en": ""
+  "zh": "冰箱里的鱼臭了。",
+  "pinyin": "Bīngxiāng li de yú chòu le.",
+  "fr": "Le poisson dans le réfrigérateur sent mauvais.",
+  "en": "The fish in the fridge has gone off."
  },
  "generation": {
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:6de976e0d57d0f468f7d19a1e7d35924faff6da27e6b3b43323dcf28628ac4cd",
-  "essais": 1,
+  "empreinte_invite": "sha256:d0a6832993d1f0a3f0770c2830d039291b94bc13d11e0d667b8e8422f8e42f45",
+  "essais": 2,
   "refus": []
  },
- "statut": "relu"
+ "statut": "a_relire"
 }

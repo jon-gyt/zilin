@@ -21,20 +21,33 @@
   "门": "sens",
   "马": "sens"
  },
- "mots": [],
+ "mots": [
+  {
+   "hanzi": "闯入",
+   "pinyin": "chuǎngrù",
+   "fr": "faire irruption",
+   "en": "to burst in"
+  },
+  {
+   "hanzi": "闯关",
+   "pinyin": "chuǎngguān",
+   "fr": "franchir un obstacle, passer un niveau",
+   "en": "to break through, to clear a level"
+  }
+ ],
  "phrase": {
-  "zh": "",
-  "pinyin": "",
-  "fr": "",
-  "en": ""
+  "zh": "他开车闯了红灯。",
+  "pinyin": "Tā kāichē chuǎng le hóngdēng.",
+  "fr": "Il a grillé un feu rouge en voiture.",
+  "en": "He ran a red light."
  },
  "generation": {
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:e36ec389d0053416bf41ade2045a8aa26eb1684fe32eabf5a3e1729f2c1d4646",
-  "essais": 1,
+  "empreinte_invite": "sha256:c54888cf22d9026ed491a256f35db7fbca096579db892c110c5f5694360ec1dc",
+  "essais": 2,
   "refus": []
  },
- "statut": "relu"
+ "statut": "a_relire"
 }
