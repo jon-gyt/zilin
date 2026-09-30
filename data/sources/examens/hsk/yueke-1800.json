@@ -1,0 +1,419 @@
+{
+ "examen": "yueke-1800",
+ "parcours": "hsk",
+ "generation": {
+  "modele": "rédaction manuelle",
+  "api": "session Claude Code (sans API)",
+  "date": "2026-09-30"
+ },
+ "relecture": {
+  "statut": "a_relire",
+  "note": "rédigé le 30 septembre 2026, à relire par le propriétaire (`wenlu examens apercu`) ; une série passe à `relu` sur sa décision, citée ici"
+ },
+ "series": [
+  {
+   "serie": "A",
+   "statut": "a_relire",
+   "supports": [
+    {
+     "id": "s1",
+     "genre": "note",
+     "contexte": {
+      "fr": "Une note",
+      "en": "A note"
+     },
+     "lignes": [
+      {
+       "zh": "报名截止日期：十月二十日",
+       "pinyin": "bào míng jié zhǐ rì qī shí yuè èr shí rì",
+       "fr": "Date limite d'inscription : 20 octobre",
+       "en": "Registration deadline: 20 October"
+      },
+      {
+       "zh": "请把报名表交给杰克老师，",
+       "pinyin": "qǐng bǎ bào míng biǎo jiāo gěi jié kè lǎo shī",
+       "fr": "Remettez le formulaire au professeur Jack ;",
+       "en": "Hand the form to Jack, the teacher;"
+      },
+      {
+       "zh": "晚了就不能参加了。",
+       "pinyin": "wǎn le jiù bù néng cān jiā le",
+       "fr": "passé ce délai, on ne pourra plus participer.",
+       "en": "after that you can't take part."
+      }
+     ]
+    },
+    {
+     "id": "s2",
+     "genre": "pancarte",
+     "contexte": {
+      "fr": "Un panneau",
+      "en": "A sign"
+     },
+     "lignes": [
+      {
+       "zh": "桥梁维修，",
+       "pinyin": "qiáo liáng wéi xiū",
+       "fr": "Pont en travaux :",
+       "en": "Bridge under repair:"
+      },
+      {
+       "zh": "请走旁边的小路，",
+       "pinyin": "qǐng zǒu páng biān de xiǎo lù",
+       "fr": "prenez le petit chemin d'à côté,",
+       "en": "please use the path alongside,"
+      },
+      {
+       "zh": "不要跨过栏杆。",
+       "pinyin": "bù yào kuà guò lán gān",
+       "fr": "ne franchissez pas la barrière.",
+       "en": "do not climb over the railing."
+      }
+     ]
+    }
+   ],
+   "questions": [
+    {
+     "type": "comprendre",
+     "support": "s1",
+     "consigne": {
+      "fr": "Jusqu'à quand peut-on s'inscrire ?",
+      "en": "Until when can you register?"
+     },
+     "choix": [
+      {
+       "fr": "Jusqu'au 10 octobre",
+       "en": "Until 10 October"
+      },
+      {
+       "fr": "Jusqu'au 20 octobre",
+       "en": "Until 20 October"
+      },
+      {
+       "fr": "Jusqu'au 20 novembre",
+       "en": "Until 20 November"
+      },
+      {
+       "fr": "Jusqu'au 2 octobre",
+       "en": "Until 2 October"
+      }
+     ],
+     "reponse": 1,
+     "porte": [
+      "截",
+      "止",
+      "二",
+      "十",
+      "日"
+     ]
+    },
+    {
+     "type": "reperer",
+     "support": "s1",
+     "consigne": {
+      "fr": "Touche la personne qui reçoit le formulaire.",
+      "en": "Tap the person who collects the form."
+     },
+     "choix": [
+      "报名表",
+      "日期",
+      "杰克",
+      "十月"
+     ],
+     "reponse": 2,
+     "porte": [
+      "杰",
+      "克"
+     ]
+    },
+    {
+     "type": "vrai_faux",
+     "support": "s2",
+     "consigne": {
+      "fr": "Vrai ou faux ?",
+      "en": "True or false?"
+     },
+     "affirmation": {
+      "zh": "现在可以从桥上走过去。",
+      "pinyin": "xiàn zài kě yǐ cóng qiáo shàng zǒu guò qù",
+      "fr": "En ce moment, on peut passer par le pont.",
+      "en": "You can walk across the bridge right now."
+     },
+     "reponse": false,
+     "porte": [
+      "梁",
+      "维",
+      "修"
+     ]
+    },
+    {
+     "type": "comprendre",
+     "support": "s2",
+     "consigne": {
+      "fr": "Que ne faut-il pas faire ?",
+      "en": "What must you not do?"
+     },
+     "choix": [
+      {
+       "fr": "Prendre des photos",
+       "en": "Take photos"
+      },
+      {
+       "fr": "Jeter des déchets",
+       "en": "Drop litter"
+      },
+      {
+       "fr": "Rouler à vélo",
+       "en": "Ride a bike"
+      },
+      {
+       "fr": "Franchir la barrière",
+       "en": "Climb over the railing"
+      }
+     ],
+     "reponse": 3,
+     "porte": [
+      "跨",
+      "栏",
+      "杆"
+     ]
+    },
+    {
+     "type": "ton",
+     "consigne": {
+      "fr": "Quel est le ton de ce caractère ?",
+      "en": "Which tone does this character have?"
+     },
+     "objet": {
+      "zh": "灵",
+      "pinyin": "líng",
+      "fr": "efficace, vif",
+      "en": "effective, quick"
+     },
+     "choix": [
+      "līng",
+      "líng",
+      "lǐng",
+      "lìng"
+     ],
+     "reponse": 1,
+     "porte": [
+      "灵"
+     ]
+    }
+   ]
+  },
+  {
+   "serie": "B",
+   "statut": "a_relire",
+   "supports": [
+    {
+     "id": "s1",
+     "genre": "message",
+     "contexte": {
+      "fr": "Un message",
+      "en": "A message"
+     },
+     "lignes": [
+      {
+       "zh": "公园里的梅花开了，",
+       "pinyin": "gōng yuán lǐ de méi huā kāi le",
+       "fr": "Les pruniers du parc sont en fleurs :",
+       "en": "The plum blossoms in the park are out:"
+      },
+      {
+       "zh": "星期六我们去看吧！",
+       "pinyin": "xīng qī liù wǒ men qù kàn ba",
+       "fr": "allons les voir samedi !",
+       "en": "let's go and see them on Saturday!"
+      },
+      {
+       "zh": "我带馒头，你带水果，怎么样？",
+       "pinyin": "wǒ dài mán tou nǐ dài shuǐ guǒ zěn me yàng",
+       "fr": "J'apporte des petits pains, toi des fruits : ça te va ?",
+       "en": "I'll bring steamed buns, you bring fruit. OK?"
+      }
+     ]
+    },
+    {
+     "id": "s2",
+     "genre": "etal",
+     "contexte": {
+      "fr": "Un étal",
+      "en": "A stall"
+     },
+     "lignes": [
+      {
+       "zh": "面粉：五元一斤",
+       "pinyin": "miàn fěn wǔ yuán yī jīn",
+       "fr": "Farine : 5 yuans la livre",
+       "en": "Flour: 5 yuan per jin"
+      },
+      {
+       "zh": "酱油：八元一瓶",
+       "pinyin": "jiàng yóu bā yuán yī píng",
+       "fr": "Sauce de soja : 8 yuans la bouteille",
+       "en": "Soy sauce: 8 yuan a bottle"
+      },
+      {
+       "zh": "买两瓶打九折",
+       "pinyin": "mǎi liǎng píng dǎ jiǔ zhé",
+       "fr": "10 % de remise pour deux bouteilles",
+       "en": "10% off when you buy two bottles"
+      }
+     ]
+    }
+   ],
+   "questions": [
+    {
+     "type": "comprendre",
+     "support": "s1",
+     "consigne": {
+      "fr": "Que propose-t-on d'aller voir ?",
+      "en": "What is the plan to go and see?"
+     },
+     "choix": [
+      {
+       "fr": "Un match de football",
+       "en": "A football match"
+      },
+      {
+       "fr": "Une exposition",
+       "en": "An exhibition"
+      },
+      {
+       "fr": "Des pruniers en fleurs",
+       "en": "Plum blossoms"
+      },
+      {
+       "fr": "Un film",
+       "en": "A film"
+      }
+     ],
+     "reponse": 2,
+     "porte": [
+      "梅",
+      "花"
+     ]
+    },
+    {
+     "type": "vrai_faux",
+     "support": "s1",
+     "consigne": {
+      "fr": "Vrai ou faux ?",
+      "en": "True or false?"
+     },
+     "affirmation": {
+      "zh": "发消息的人带馒头。",
+      "pinyin": "fā xiāo xi de rén dài mán tou",
+      "fr": "La personne qui écrit apporte les petits pains.",
+      "en": "The writer is bringing the buns."
+     },
+     "reponse": true,
+     "porte": [
+      "我",
+      "带",
+      "馒",
+      "头"
+     ]
+    },
+    {
+     "type": "replique",
+     "support": "s1",
+     "consigne": {
+      "fr": "Que répond son ami ?",
+      "en": "What does the friend reply?"
+     },
+     "choix": [
+      {
+       "zh": "没问题，我去买苹果。",
+       "pinyin": "méi wèn tí wǒ qù mǎi píng guǒ",
+       "fr": "Pas de problème, je vais acheter des pommes.",
+       "en": "No problem, I'll buy some apples."
+      },
+      {
+       "zh": "这条裙子太长了。",
+       "pinyin": "zhè tiáo qún zi tài cháng le",
+       "fr": "Cette jupe est trop longue.",
+       "en": "This skirt is too long."
+      },
+      {
+       "zh": "他的房间很干净。",
+       "pinyin": "tā de fáng jiān hěn gān jìng",
+       "fr": "Sa chambre est très propre.",
+       "en": "His room is very clean."
+      },
+      {
+       "zh": "我哥哥在银行工作。",
+       "pinyin": "wǒ gē ge zài yín háng gōng zuò",
+       "fr": "Mon grand frère travaille dans une banque.",
+       "en": "My elder brother works at a bank."
+      }
+     ],
+     "reponse": 0,
+     "porte": [
+      "馒",
+      "带",
+      "果"
+     ]
+    },
+    {
+     "type": "reperer",
+     "support": "s2",
+     "consigne": {
+      "fr": "Touche ce qui coûte huit yuans.",
+      "en": "Tap the item that costs eight yuan."
+     },
+     "choix": [
+      "面粉",
+      "一斤",
+      "酱油",
+      "一瓶"
+     ],
+     "reponse": 2,
+     "porte": [
+      "酱",
+      "油",
+      "八"
+     ]
+    },
+    {
+     "type": "sens",
+     "consigne": {
+      "fr": "Que veut dire ce mot ?",
+      "en": "What does this word mean?"
+     },
+     "objet": {
+      "zh": "骄傲",
+      "pinyin": "jiāo ào",
+      "fr": "fier",
+      "en": "proud"
+     },
+     "choix": [
+      {
+       "fr": "timide",
+       "en": "shy"
+      },
+      {
+       "fr": "fier",
+       "en": "proud"
+      },
+      {
+       "fr": "paresseux",
+       "en": "lazy"
+      },
+      {
+       "fr": "poli",
+       "en": "polite"
+      }
+     ],
+     "reponse": 1,
+     "porte": [
+      "骄",
+      "傲"
+     ]
+    }
+   ]
+  }
+ ]
+}

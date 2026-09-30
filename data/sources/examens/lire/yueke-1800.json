@@ -1,0 +1,416 @@
+{
+ "examen": "yueke-1800",
+ "parcours": "lire",
+ "generation": {
+  "modele": "rédaction manuelle",
+  "api": "session Claude Code (sans API)",
+  "date": "2026-09-30"
+ },
+ "relecture": {
+  "statut": "a_relire",
+  "note": "rédigé le 30 septembre 2026, à relire par le propriétaire (`wenlu examens apercu`) ; une série passe à `relu` sur sa décision, citée ici"
+ },
+ "series": [
+  {
+   "serie": "A",
+   "statut": "a_relire",
+   "supports": [
+    {
+     "id": "s1",
+     "genre": "message",
+     "contexte": {
+      "fr": "Un message",
+      "en": "A message"
+     },
+     "lignes": [
+      {
+       "zh": "对不起，昨天早上我太懒，",
+       "pinyin": "duì bu qǐ zuó tiān zǎo shang wǒ tài lǎn",
+       "fr": "Pardon : hier matin, j'ai eu la flemme,",
+       "en": "Sorry: yesterday morning I was too lazy,"
+      },
+      {
+       "zh": "起晚了，让你在门口等了半个小时。",
+       "pinyin": "qǐ wǎn le ràng nǐ zài mén kǒu děng le bàn gè xiǎo shí",
+       "fr": "je me suis levé tard et je t'ai fait attendre une demi-heure devant la porte.",
+       "en": "I got up late and kept you waiting at the door for half an hour."
+      },
+      {
+       "zh": "请你原谅我吧！",
+       "pinyin": "qǐng nǐ yuán liàng wǒ ba",
+       "fr": "Pardonne-moi, s'il te plaît !",
+       "en": "Please forgive me!"
+      }
+     ]
+    },
+    {
+     "id": "s2",
+     "genre": "menu",
+     "contexte": {
+      "fr": "Un menu",
+      "en": "A menu"
+     },
+     "lignes": [
+      {
+       "zh": "馒头：一元一个",
+       "pinyin": "mán tou yī yuán yī gè",
+       "fr": "Pain vapeur : 1 yuan pièce",
+       "en": "Steamed bun: 1 yuan each"
+      },
+      {
+       "zh": "酱牛肉：三十五元",
+       "pinyin": "jiàng niú ròu sān shí wǔ yuán",
+       "fr": "Bœuf braisé à la sauce de soja : 35 yuans",
+       "en": "Soy-braised beef: 35 yuan"
+      },
+      {
+       "zh": "麦茶：免费",
+       "pinyin": "mài chá miǎn fèi",
+       "fr": "Thé d'orge : gratuit",
+       "en": "Barley tea: free"
+      }
+     ]
+    }
+   ],
+   "questions": [
+    {
+     "type": "comprendre",
+     "support": "s1",
+     "consigne": {
+      "fr": "Pourquoi la personne qui écrit s'excuse-t-elle ?",
+      "en": "Why is the writer apologising?"
+     },
+     "choix": [
+      {
+       "fr": "Son bus est tombé en panne",
+       "en": "Her bus broke down"
+      },
+      {
+       "fr": "Elle s'est levée trop tard",
+       "en": "She got up too late"
+      },
+      {
+       "fr": "Elle a perdu son téléphone",
+       "en": "She lost her phone"
+      },
+      {
+       "fr": "Elle s'est trompée d'adresse",
+       "en": "She went to the wrong address"
+      }
+     ],
+     "reponse": 1,
+     "porte": [
+      "懒",
+      "起",
+      "晚"
+     ]
+    },
+    {
+     "type": "replique",
+     "support": "s1",
+     "consigne": {
+      "fr": "Que lui répond son ami ?",
+      "en": "What does the friend reply?"
+     },
+     "choix": [
+      {
+       "zh": "我最近很忙。",
+       "pinyin": "wǒ zuì jìn hěn máng",
+       "fr": "Je suis très occupé ces temps-ci.",
+       "en": "I've been very busy lately."
+      },
+      {
+       "zh": "北京的冬天很冷。",
+       "pinyin": "běi jīng de dōng tiān hěn lěng",
+       "fr": "L'hiver est très froid à Pékin.",
+       "en": "Winters in Beijing are very cold."
+      },
+      {
+       "zh": "没关系，下次别再迟到了。",
+       "pinyin": "méi guān xi xià cì bié zài chí dào le",
+       "fr": "Ce n'est rien, mais ne sois plus en retard.",
+       "en": "Never mind, just don't be late again."
+      },
+      {
+       "zh": "你的中文说得真好。",
+       "pinyin": "nǐ de zhōng wén shuō de zhēn hǎo",
+       "fr": "Tu parles vraiment bien chinois.",
+       "en": "Your Chinese is really good."
+      }
+     ],
+     "reponse": 2,
+     "porte": [
+      "原",
+      "谅"
+     ]
+    },
+    {
+     "type": "reperer",
+     "support": "s2",
+     "consigne": {
+      "fr": "Touche ce qui est gratuit.",
+      "en": "Tap what is free."
+     },
+     "choix": [
+      "馒头",
+      "酱牛肉",
+      "麦茶",
+      "一个"
+     ],
+     "reponse": 2,
+     "porte": [
+      "麦",
+      "茶",
+      "免",
+      "费"
+     ]
+    },
+    {
+     "type": "vrai_faux",
+     "support": "s2",
+     "consigne": {
+      "fr": "Vrai ou faux ?",
+      "en": "True or false?"
+     },
+     "affirmation": {
+      "zh": "馒头比酱牛肉贵。",
+      "pinyin": "mán tou bǐ jiàng niú ròu guì",
+      "fr": "Le pain vapeur coûte plus cher que le bœuf braisé.",
+      "en": "The steamed bun costs more than the braised beef."
+     },
+     "reponse": false,
+     "porte": [
+      "馒",
+      "头",
+      "酱",
+      "牛",
+      "肉"
+     ]
+    },
+    {
+     "type": "sens",
+     "consigne": {
+      "fr": "Que veut dire ce caractère ?",
+      "en": "What does this character mean?"
+     },
+     "objet": {
+      "zh": "尖",
+      "pinyin": "jiān",
+      "fr": "pointu",
+      "en": "pointed"
+     },
+     "choix": [
+      {
+       "fr": "pointu",
+       "en": "pointed"
+      },
+      {
+       "fr": "rond",
+       "en": "round"
+      },
+      {
+       "fr": "plat",
+       "en": "flat"
+      },
+      {
+       "fr": "carré",
+       "en": "square"
+      }
+     ],
+     "reponse": 0,
+     "porte": [
+      "尖"
+     ]
+    }
+   ]
+  },
+  {
+   "serie": "B",
+   "statut": "a_relire",
+   "supports": [
+    {
+     "id": "s1",
+     "genre": "affiche",
+     "contexte": {
+      "fr": "Une affiche",
+      "en": "A poster"
+     },
+     "lignes": [
+      {
+       "zh": "爱心捐款活动",
+       "pinyin": "ài xīn juān kuǎn huó dòng",
+       "fr": "Collecte de dons solidaire",
+       "en": "Charity collection"
+      },
+      {
+       "zh": "为山区的孩子买书和衣服",
+       "pinyin": "wèi shān qū de hái zi mǎi shū hé yī fu",
+       "fr": "Pour offrir livres et vêtements aux enfants des montagnes",
+       "en": "To buy books and clothes for children in the mountains"
+      },
+      {
+       "zh": "时间：本周六上午九点到十二点",
+       "pinyin": "shí jiān běn zhōu liù shàng wǔ jiǔ diǎn dào shí èr diǎn",
+       "fr": "Quand : ce samedi, de 9 h à 12 h",
+       "en": "When: this Saturday, 9 am to 12 noon"
+      }
+     ]
+    },
+    {
+     "id": "s2",
+     "genre": "pancarte",
+     "contexte": {
+      "fr": "Un panneau",
+      "en": "A sign"
+     },
+     "lignes": [
+      {
+       "zh": "出口请按箭头方向走",
+       "pinyin": "chū kǒu qǐng àn jiàn tóu fāng xiàng zǒu",
+       "fr": "Pour la sortie, suivez les flèches",
+       "en": "To the exit: follow the arrows"
+      },
+      {
+       "zh": "楼梯口有监控",
+       "pinyin": "lóu tī kǒu yǒu jiān kòng",
+       "fr": "Vidéosurveillance en haut des marches",
+       "en": "CCTV at the top of the stairs"
+      }
+     ]
+    }
+   ],
+   "questions": [
+    {
+     "type": "comprendre",
+     "support": "s1",
+     "consigne": {
+      "fr": "À quoi servira l'argent ?",
+      "en": "What will the money be used for?"
+     },
+     "choix": [
+      {
+       "fr": "Construire une école",
+       "en": "Building a school"
+      },
+      {
+       "fr": "Soigner des malades",
+       "en": "Treating the sick"
+      },
+      {
+       "fr": "Planter des arbres",
+       "en": "Planting trees"
+      },
+      {
+       "fr": "Acheter livres et vêtements",
+       "en": "Buying books and clothes"
+      }
+     ],
+     "reponse": 3,
+     "porte": [
+      "捐",
+      "款",
+      "买",
+      "书",
+      "衣",
+      "服"
+     ]
+    },
+    {
+     "type": "vrai_faux",
+     "support": "s1",
+     "consigne": {
+      "fr": "Vrai ou faux ?",
+      "en": "True or false?"
+     },
+     "affirmation": {
+      "zh": "捐款活动在星期天。",
+      "pinyin": "juān kuǎn huó dòng zài xīng qī tiān",
+      "fr": "La collecte a lieu dimanche.",
+      "en": "The collection is on Sunday."
+     },
+     "reponse": false,
+     "porte": [
+      "捐",
+      "周",
+      "六"
+     ]
+    },
+    {
+     "type": "reperer",
+     "support": "s2",
+     "consigne": {
+      "fr": "Touche le mot qui signale les caméras.",
+      "en": "Tap the word that mentions cameras."
+     },
+     "choix": [
+      "出口",
+      "箭头",
+      "方向",
+      "监控"
+     ],
+     "reponse": 3,
+     "porte": [
+      "监",
+      "控"
+     ]
+    },
+    {
+     "type": "comprendre",
+     "support": "s2",
+     "consigne": {
+      "fr": "Comment trouver la sortie ?",
+      "en": "How do you find the exit?"
+     },
+     "choix": [
+      {
+       "fr": "Suivre les flèches",
+       "en": "Follow the arrows"
+      },
+      {
+       "fr": "Prendre l'ascenseur",
+       "en": "Take the lift"
+      },
+      {
+       "fr": "Demander au gardien",
+       "en": "Ask the guard"
+      },
+      {
+       "fr": "Suivre les lampes vertes",
+       "en": "Follow the green lights"
+      }
+     ],
+     "reponse": 0,
+     "porte": [
+      "箭",
+      "头",
+      "方",
+      "向"
+     ]
+    },
+    {
+     "type": "caractere",
+     "consigne": {
+      "fr": "Quel caractère a ce sens ?",
+      "en": "Which character has this meaning?"
+     },
+     "objet": {
+      "zh": "盲",
+      "pinyin": "máng",
+      "fr": "aveugle",
+      "en": "blind"
+     },
+     "choix": [
+      "忙",
+      "忘",
+      "盲",
+      "亡"
+     ],
+     "reponse": 2,
+     "porte": [
+      "盲"
+     ]
+    }
+   ]
+  }
+ ]
+}
