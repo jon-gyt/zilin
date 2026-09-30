@@ -21,20 +21,33 @@
   "氵": "sens",
   "世": "forme"
  },
- "mots": [],
+ "mots": [
+  {
+   "hanzi": "泄漏",
+   "pinyin": "xièlòu",
+   "fr": "fuir, fuite",
+   "en": "to leak"
+  },
+  {
+   "hanzi": "发泄",
+   "pinyin": "fāxiè",
+   "fr": "se défouler, décharger",
+   "en": "to vent, to give vent to"
+  }
+ ],
  "phrase": {
-  "zh": "",
-  "pinyin": "",
-  "fr": "",
-  "en": ""
+  "zh": "这里的煤气泄漏了。",
+  "pinyin": "Zhèli de méiqì xièlòu le.",
+  "fr": "Il y a une fuite de gaz ici.",
+  "en": "The gas is leaking here."
  },
  "generation": {
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:95de18dbae8b0888defb3b3f4264c76dd60ca789a663ec1d6494239b98d014ef",
-  "essais": 1,
+  "empreinte_invite": "sha256:f7c1cf08d92067d2dfcf07f2fe65232112f46486891690536b453835b618b5c9",
+  "essais": 2,
   "refus": []
  },
- "statut": "relu"
+ "statut": "a_relire"
 }

@@ -23,20 +23,33 @@
   "月": "forme",
   "刂": "sens"
  },
- "mots": [],
+ "mots": [
+  {
+   "hanzi": "削弱",
+   "pinyin": "xuēruò",
+   "fr": "affaiblir",
+   "en": "to weaken"
+  },
+  {
+   "hanzi": "削减",
+   "pinyin": "xuējiǎn",
+   "fr": "réduire, diminuer",
+   "en": "to cut, to reduce"
+  }
+ ],
  "phrase": {
-  "zh": "",
-  "pinyin": "",
-  "fr": "",
-  "en": ""
+  "zh": "公司削减了开支。",
+  "pinyin": "Gōngsī xuējiǎn le kāizhī.",
+  "fr": "L'entreprise a réduit ses dépenses.",
+  "en": "The company cut its spending."
  },
  "generation": {
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:e469d29f55cddcc1b2a5f9ce060e76acbb7ec1e5e2a6ecfcae9d8c9aadf3e64a",
-  "essais": 1,
+  "empreinte_invite": "sha256:0af5bfc3d3b4531e4b3eda9f4b12581d9bc133cccef8b2a90dabb03316ec579e",
+  "essais": 2,
   "refus": []
  },
- "statut": "relu"
+ "statut": "a_relire"
 }
