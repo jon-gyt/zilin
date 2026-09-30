@@ -1,0 +1,1374 @@
+{
+ "niveau": "7-9",
+ "lot": "45",
+ "source": "rédigé pour l'app dans le pipeline wenlu, sans API ; faits lus : liste HSK 3.0 (forme, pinyin, niveau, catégorie), lectures d'Unihan et des surcharges, gloses relues des fiches",
+ "brouillon": "data/sources/dico-brouillons/7-9/45.json",
+ "generation": {
+  "modele": "rédaction manuelle",
+  "api": "session Claude Code (sans API)",
+  "date": "2026-09-30",
+  "empreinte_invite": "sha256:62fc92db8588210864cb01fd1905c1e11f1b89550d940d0ecb7e247ded582036",
+  "contexte": "wenlu dico contexte 7-9 45",
+  "essais": 1,
+  "refus": []
+ },
+ "entrees": [
+  {
+   "id": "L7-1866",
+   "genre": "mot",
+   "hanzi": "激发",
+   "pinyin": "jīfā",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "stimuler, éveiller",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "stimuler, éveiller, susciter"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "老师想办法激发学生的兴趣。",
+     "pinyin": "Lǎoshī xiǎng bànfǎ jīfā xuésheng de xìngqù.",
+     "fr": "Le professeur cherche à éveiller la curiosité des élèves.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-1867",
+   "genre": "mot",
+   "hanzi": "激光",
+   "pinyin": "jīguāng",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "laser",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "laser"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "医生用激光给他做了手术。",
+     "pinyin": "Yīshēng yòng jīguāng gěi tā zuò le shǒushù.",
+     "fr": "Le médecin l'a opéré au laser.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-1868",
+   "genre": "mot",
+   "hanzi": "激化",
+   "pinyin": "jīhuà",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "s'aggraver, s'envenimer",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "s'aggraver, s'envenimer, exacerber"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "双方的矛盾进一步激化了。",
+     "pinyin": "Shuāngfāng de máodùn jìnyībù jīhuà le.",
+     "fr": "Le conflit entre les deux parties s'est encore envenimé.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-1869",
+   "genre": "mot",
+   "hanzi": "激活",
+   "pinyin": "jīhuó",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "activer",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "activer ; redynamiser"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "新手机要先激活才能用。",
+     "pinyin": "Xīn shǒujī yào xiān jīhuó cái néng yòng.",
+     "fr": "Un nouveau téléphone doit être mis en service avant utilisation.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-1870",
+   "genre": "mot",
+   "hanzi": "激励",
+   "pinyin": "jīlì",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "encourager, motiver",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "encourager, motiver, stimuler"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "父母的话一直激励着我。",
+     "pinyin": "Fùmǔ de huà yīzhí jīlì zhe wǒ.",
+     "fr": "Les paroles de mes parents m'ont toujours porté.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-1871",
+   "genre": "mot",
+   "hanzi": "激起",
+   "pinyin": "jīqǐ",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "provoquer, susciter",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "provoquer, soulever, susciter"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他的话激起了大家的不满。",
+     "pinyin": "Tā de huà jīqǐ le dàjiā de bùmǎn.",
+     "fr": "Ses propos ont soulevé le mécontentement général.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-1872",
+   "genre": "mot",
+   "hanzi": "激素",
+   "pinyin": "jīsù",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "hormone",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "hormone"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这种药里含有激素。",
+     "pinyin": "Zhè zhǒng yào li hányǒu jīsù.",
+     "fr": "Ce médicament contient des hormones.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-1874",
+   "genre": "mot",
+   "hanzi": "及其",
+   "pinyin": "jí qí",
+   "sens": {
+    "glose": "et ses, ainsi que ses",
+    "acceptions": [
+     {
+      "categorie": "Conj",
+      "fr": "et son, et leur, ainsi que ses"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "我们要了解这个问题及其原因。",
+     "pinyin": "Wǒmen yào liǎojiě zhège wèntí jí qí yuányīn.",
+     "fr": "Nous devons comprendre ce problème et ce qui l'a causé.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-1875",
+   "genre": "mot",
+   "hanzi": "及早",
+   "pinyin": "jízǎo",
+   "categories": [
+    "Adv"
+   ],
+   "sens": {
+    "glose": "au plus tôt, sans tarder",
+    "acceptions": [
+     {
+      "categorie": "Adv",
+      "fr": "au plus tôt, sans tarder, à temps"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "有病要及早治疗。",
+     "pinyin": "Yǒu bìng yào jízǎo zhìliáo.",
+     "fr": "Quand on est malade, il faut se soigner sans attendre.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-1876",
+   "genre": "mot",
+   "hanzi": "吉普",
+   "pinyin": "jípǔ",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "jeep",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "jeep, tout-terrain"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他们开着一辆吉普进了山。",
+     "pinyin": "Tāmen kāi zhe yī liàng jípǔ jìn le shān.",
+     "fr": "Ils sont partis en montagne à bord d'une jeep.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-1877",
+   "genre": "mot",
+   "hanzi": "吉他",
+   "pinyin": "jítā",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "guitare",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "guitare"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他会一边弹吉他一边唱歌。",
+     "pinyin": "Tā huì yībiān tán jítā yībiān chànggē.",
+     "fr": "Il sait chanter en s'accompagnant à la guitare.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-1878",
+   "genre": "mot",
+   "hanzi": "吉祥物",
+   "pinyin": "jíxiángwù",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "mascotte",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "mascotte"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "熊猫是这次运动会的吉祥物。",
+     "pinyin": "Xióngmāo shì zhè cì yùndònghuì de jíxiángwù.",
+     "fr": "Le panda est la mascotte de ces jeux.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-1879",
+   "genre": "mot",
+   "hanzi": "级别",
+   "pinyin": "jíbié",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "niveau, grade, échelon",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "niveau, grade, échelon"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他们两个人的级别一样。",
+     "pinyin": "Tāmen liǎng ge rén de jíbié yīyàng.",
+     "fr": "Ils sont tous les deux au même grade.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-1880",
+   "genre": "mot",
+   "hanzi": "极度",
+   "pinyin": "jídù",
+   "categories": [
+    "Adv"
+   ],
+   "sens": {
+    "glose": "extrêmement, au plus haut point",
+    "acceptions": [
+     {
+      "categorie": "Adv",
+      "fr": "extrêmement, au plus haut point"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他当时极度紧张。",
+     "pinyin": "Tā dāngshí jídù jǐnzhāng.",
+     "fr": "Sur le moment, il était extrêmement tendu.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-1881",
+   "genre": "mot",
+   "hanzi": "极力",
+   "pinyin": "jílì",
+   "categories": [
+    "Adv"
+   ],
+   "sens": {
+    "glose": "de toutes ses forces",
+    "acceptions": [
+     {
+      "categorie": "Adv",
+      "fr": "de toutes ses forces, par tous les moyens"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他极力反对这个计划。",
+     "pinyin": "Tā jílì fǎnduì zhège jìhuà.",
+     "fr": "Il s'oppose de toutes ses forces à ce projet.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-1882",
+   "genre": "mot",
+   "hanzi": "极少数",
+   "pinyin": "jí shǎoshù",
+   "sens": {
+    "glose": "une infime minorité",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "une infime minorité, très peu de"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "只有极少数人知道这件事。",
+     "pinyin": "Zhǐyǒu jí shǎoshù rén zhīdào zhè jiàn shì.",
+     "fr": "Seules de très rares personnes sont au courant.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-1883",
+   "genre": "mot",
+   "hanzi": "极为",
+   "pinyin": "jíwéi",
+   "categories": [
+    "Adv"
+   ],
+   "sens": {
+    "glose": "extrêmement, très",
+    "acceptions": [
+     {
+      "categorie": "Adv",
+      "fr": "extrêmement, au plus haut degré"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这个问题极为重要。",
+     "pinyin": "Zhège wèntí jíwéi zhòngyào.",
+     "fr": "Cette question est de la plus haute importance.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-1884",
+   "genre": "mot",
+   "hanzi": "极限",
+   "pinyin": "jíxiàn",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "limite, extrême limite",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "limite, extrême limite"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他已经到了体力的极限。",
+     "pinyin": "Tā yǐjīng dào le tǐlì de jíxiàn.",
+     "fr": "Il est déjà au bout de ses forces.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-1886",
+   "genre": "mot",
+   "hanzi": "即便",
+   "pinyin": "jíbiàn",
+   "categories": [
+    "Conj"
+   ],
+   "sens": {
+    "glose": "même si",
+    "acceptions": [
+     {
+      "categorie": "Conj",
+      "fr": "même si, quand bien même"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "即便下雨，比赛也会照常进行。",
+     "pinyin": "Jíbiàn xià yǔ, bǐsài yě huì zhàocháng jìnxíng.",
+     "fr": "Même en cas de pluie, le match aura lieu comme prévu.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-1887",
+   "genre": "mot",
+   "hanzi": "即可",
+   "pinyin": "jíkě",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "il suffit de, cela suffit",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "il suffit de, cela suffit"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "在网上填好表格即可。",
+     "pinyin": "Zài wǎngshang tián hǎo biǎogé jíkě.",
+     "fr": "Il suffit de remplir le formulaire en ligne.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-1888",
+   "genre": "mot",
+   "hanzi": "急剧",
+   "pinyin": "jíjù",
+   "categories": [
+    "Adj"
+   ],
+   "sens": {
+    "glose": "brusque, rapide",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "brusque, rapide, soudain"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这几年城市人口急剧增加。",
+     "pinyin": "Zhè jǐ nián chéngshì rénkǒu jíjù zēngjiā.",
+     "fr": "Ces dernières années, la population urbaine a explosé.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-1889",
+   "genre": "mot",
+   "hanzi": "急迫",
+   "pinyin": "jípò",
+   "categories": [
+    "Adj"
+   ],
+   "sens": {
+    "glose": "pressant, urgent",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "pressant, urgent"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这是一个很急迫的问题。",
+     "pinyin": "Zhè shì yī ge hěn jípò de wèntí.",
+     "fr": "C'est une question qui ne peut pas attendre.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-1890",
+   "genre": "mot",
+   "hanzi": "急性",
+   "pinyin": "jíxìng",
+   "categories": [
+    "Adj"
+   ],
+   "sens": {
+    "glose": "aigu (maladie) ; impatient",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "aigu (maladie)"
+     },
+     {
+      "categorie": "Adj",
+      "fr": "impatient, vif (caractère)"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他得了急性肠炎。",
+     "pinyin": "Tā dé le jíxìng chángyán.",
+     "fr": "Il a une entérite aiguë.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-1891",
+   "genre": "mot",
+   "hanzi": "急需",
+   "pinyin": "jíxū",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "avoir un besoin urgent de",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "avoir un besoin urgent de"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "灾区急需食物和水。",
+     "pinyin": "Zāiqū jíxū shíwù hé shuǐ.",
+     "fr": "La zone sinistrée manque cruellement de nourriture et d'eau.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-1892",
+   "genre": "mot",
+   "hanzi": "急于",
+   "pinyin": "jíyú",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "être pressé de, avoir hâte de",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "être pressé de, avoir hâte de"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "你不要急于做决定。",
+     "pinyin": "Nǐ bù yào jíyú zuò juédìng.",
+     "fr": "Ne te précipite pas pour décider.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-1893",
+   "genre": "mot",
+   "hanzi": "急诊",
+   "pinyin": "jízhěn",
+   "categories": [
+    "V",
+    "N"
+   ],
+   "sens": {
+    "glose": "urgences ; soins d'urgence",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "recevoir en urgence, soigner en urgence"
+     },
+     {
+      "categorie": "N",
+      "fr": "urgences, service des urgences"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他半夜被送去医院看急诊。",
+     "pinyin": "Tā bànyè bèi sòng qù yīyuàn kàn jízhěn.",
+     "fr": "Il a été conduit aux urgences en pleine nuit.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-1894",
+   "genre": "mot",
+   "hanzi": "急转弯",
+   "pinyin": "jízhuǎnwān",
+   "sens": {
+    "glose": "virage serré ; volte-face",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "virage serré ; revirement soudain"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "前面有一个急转弯，开慢点儿。",
+     "pinyin": "Qiánmian yǒu yī ge jízhuǎnwān, kāi màn diǎnr.",
+     "fr": "Il y a un virage serré devant, ralentis.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "棘",
+   "genre": "caractere",
+   "hanzi": "棘",
+   "pinyin": "jí",
+   "sens": {
+    "glose": "jujubier épineux ; épine",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "jujubier épineux ; épine, ronce"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这件事很棘手。",
+     "pinyin": "Zhè jiàn shì hěn jíshǒu.",
+     "fr": "Cette affaire est épineuse.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-1895",
+   "genre": "mot",
+   "hanzi": "棘手",
+   "pinyin": "jíshǒu",
+   "categories": [
+    "Adj"
+   ],
+   "sens": {
+    "glose": "épineux, délicat",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "épineux, délicat, difficile à régler"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "我们遇到了一个棘手的问题。",
+     "pinyin": "Wǒmen yùdào le yī ge jíshǒu de wèntí.",
+     "fr": "Nous sommes tombés sur un os.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-1896",
+   "genre": "mot",
+   "hanzi": "集会",
+   "pinyin": "jíhuì",
+   "categories": [
+    "N",
+    "V"
+   ],
+   "sens": {
+    "glose": "rassemblement, meeting ; se rassembler",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "rassemblement, réunion publique, meeting"
+     },
+     {
+      "categorie": "V",
+      "fr": "se rassembler, tenir une réunion"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "很多人在广场上集会。",
+     "pinyin": "Hěn duō rén zài guǎngchǎng shang jíhuì.",
+     "fr": "Beaucoup de gens se sont rassemblés sur la place.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-1897",
+   "genre": "mot",
+   "hanzi": "集结",
+   "pinyin": "jíjié",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "concentrer, masser (des troupes)",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "concentrer, masser, regrouper"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "部队在城外集结。",
+     "pinyin": "Bùduì zài chéng wài jíjié.",
+     "fr": "Les troupes se massent aux portes de la ville.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-1898",
+   "genre": "mot",
+   "hanzi": "集邮",
+   "pinyin": "jíyóu",
+   "sens": {
+    "glose": "collectionner les timbres",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "collectionner les timbres"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "我爸爸从小就喜欢集邮。",
+     "pinyin": "Wǒ bàba cóngxiǎo jiù xǐhuan jíyóu.",
+     "fr": "Depuis l'enfance, mon père est philatéliste.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-1899",
+   "genre": "mot",
+   "hanzi": "集装箱",
+   "pinyin": "jízhuāngxiāng",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "conteneur",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "conteneur (de transport)"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "港口上堆满了集装箱。",
+     "pinyin": "Gǎngkǒu shang duī mǎn le jízhuāngxiāng.",
+     "fr": "Le port est encombré de conteneurs.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-1900",
+   "genre": "mot",
+   "hanzi": "集资",
+   "pinyin": "jízī",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "réunir des fonds",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "réunir des fonds, lever des capitaux"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "村民集资修了一条路。",
+     "pinyin": "Cūnmín jízī xiū le yī tiáo lù.",
+     "fr": "Les villageois se sont cotisés pour construire une route.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "嫉",
+   "genre": "caractere",
+   "hanzi": "嫉",
+   "pinyin": "jí",
+   "sens": {
+    "glose": "envier, jalouser ; haïr",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "envier, jalouser ; haïr"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他嫉恶如仇。",
+     "pinyin": "Tā jí'è-rúchóu.",
+     "fr": "Il déteste le mal comme on déteste un ennemi.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-1901",
+   "genre": "mot",
+   "hanzi": "嫉妒",
+   "pinyin": "jídù",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "envier, être jaloux",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "envier, être jaloux de"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "别人成功了，他就很嫉妒。",
+     "pinyin": "Biérén chénggōng le, tā jiù hěn jídù.",
+     "fr": "Il ne supporte pas que les autres réussissent.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-1902",
+   "genre": "mot",
+   "hanzi": "挤压",
+   "pinyin": "jǐyā",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "comprimer, écraser",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "comprimer, écraser, presser"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "车里人太多，大家互相挤压。",
+     "pinyin": "Chē li rén tài duō, dàjiā hùxiāng jǐyā.",
+     "fr": "Il y a trop de monde dans le bus, tout le monde est serré.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "脊",
+   "genre": "caractere",
+   "hanzi": "脊",
+   "pinyin": "jǐ",
+   "sens": {
+    "glose": "dos, colonne vertébrale ; faîte",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "dos, colonne vertébrale"
+     },
+     {
+      "categorie": "N",
+      "fr": "faîte, arête (d'un toit, d'une montagne)"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他的脊背挺得很直。",
+     "pinyin": "Tā de jǐbèi tǐng de hěn zhí.",
+     "fr": "Il se tient le dos bien droit.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-1903",
+   "genre": "mot",
+   "hanzi": "脊梁",
+   "pinyin": "jǐliang",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "dos, échine ; pilier",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "dos, échine"
+     },
+     {
+      "categorie": "N",
+      "fr": "pilier, épine dorsale (d'un groupe)"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他们是国家的脊梁。",
+     "pinyin": "Tāmen shì guójiā de jǐliang.",
+     "fr": "Ils sont la colonne vertébrale du pays.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-1905",
+   "genre": "mot",
+   "hanzi": "计策",
+   "pinyin": "jìcè",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "stratagème, plan",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "stratagème, plan, ruse"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他想出了一条好计策。",
+     "pinyin": "Tā xiǎng chū le yī tiáo hǎo jìcè.",
+     "fr": "Il a trouvé une bonne tactique.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-1906",
+   "genre": "mot",
+   "hanzi": "计较",
+   "pinyin": "jìjiào",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "être pointilleux ; se disputer pour",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "être pointilleux, faire des histoires pour"
+     },
+     {
+      "categorie": "V",
+      "fr": "discuter, débattre"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "朋友之间不要太计较。",
+     "pinyin": "Péngyou zhī jiān bù yào tài jìjiào.",
+     "fr": "Entre amis, il ne faut pas compter.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-1907",
+   "genre": "mot",
+   "hanzi": "计时",
+   "pinyin": "jìshí",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "chronométrer",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "chronométrer, compter le temps"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "考试开始计时。",
+     "pinyin": "Kǎoshì kāishǐ jìshí.",
+     "fr": "Le chrono de l'examen démarre.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-1908",
+   "genre": "mot",
+   "hanzi": "记号",
+   "pinyin": "jìhao",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "marque, signe",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "marque, signe, repère"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "我在书上做了个记号。",
+     "pinyin": "Wǒ zài shū shang zuò le ge jìhao.",
+     "fr": "J'ai mis un repère dans le livre.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-1909",
+   "genre": "mot",
+   "hanzi": "记忆犹新",
+   "pinyin": "jìyì-yóuxīn",
+   "sens": {
+    "glose": "encore frais dans la mémoire",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "encore frais dans la mémoire"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "那天的事我至今记忆犹新。",
+     "pinyin": "Nà tiān de shì wǒ zhìjīn jìyì-yóuxīn.",
+     "fr": "Je me souviens de ce jour-là comme si c'était hier.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-1910",
+   "genre": "mot",
+   "hanzi": "纪录片",
+   "pinyin": "jìlùpiàn",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "documentaire",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "film documentaire"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "我们看了一部关于大熊猫的纪录片。",
+     "pinyin": "Wǒmen kàn le yī bù guānyú dàxióngmāo de jìlùpiàn.",
+     "fr": "Nous avons regardé un film sur les pandas géants.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-1911",
+   "genre": "mot",
+   "hanzi": "纪念碑",
+   "pinyin": "jìniànbēi",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "monument commémoratif",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "monument commémoratif, stèle"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "广场中间有一座纪念碑。",
+     "pinyin": "Guǎngchǎng zhōngjiān yǒu yī zuò jìniànbēi.",
+     "fr": "Au milieu de la place se dresse un monument.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-1912",
+   "genre": "mot",
+   "hanzi": "纪念馆",
+   "pinyin": "jìniànguǎn",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "musée commémoratif, mémorial",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "musée commémoratif, mémorial"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "我们参观了一个名人纪念馆。",
+     "pinyin": "Wǒmen cānguān le yī ge míngrén jìniànguǎn.",
+     "fr": "Nous avons visité le musée consacré à un personnage célèbre.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-1913",
+   "genre": "mot",
+   "hanzi": "纪念日",
+   "pinyin": "jìniànrì",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "jour commémoratif, anniversaire",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "jour commémoratif, anniversaire (d'un événement)"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "今天是他们的结婚纪念日。",
+     "pinyin": "Jīntiān shì tāmen de jiéhūn jìniànrì.",
+     "fr": "Aujourd'hui, c'est leur anniversaire de mariage.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-1914",
+   "genre": "mot",
+   "hanzi": "纪实",
+   "pinyin": "jìshí",
+   "categories": [
+    "V",
+    "N"
+   ],
+   "sens": {
+    "glose": "relater fidèlement ; récit documentaire",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "rapporter fidèlement les faits"
+     },
+     {
+      "categorie": "N",
+      "fr": "récit documentaire, reportage"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这是一部纪实文学作品。",
+     "pinyin": "Zhè shì yī bù jìshí wénxué zuòpǐn.",
+     "fr": "C'est une œuvre de littérature de témoignage.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-1915",
+   "genre": "mot",
+   "hanzi": "技艺",
+   "pinyin": "jìyì",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "savoir-faire, art",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "savoir-faire, art, habileté"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这位老人的剪纸技艺非常高。",
+     "pinyin": "Zhè wèi lǎorén de jiǎnzhǐ jìyì fēicháng gāo.",
+     "fr": "Ce vieil homme est un maître dans l'art du papier découpé.",
+     "statut": "a_relire"
+    }
+   ]
+  }
+ ]
+}

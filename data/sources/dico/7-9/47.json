@@ -1,0 +1,1365 @@
+{
+ "niveau": "7-9",
+ "lot": "47",
+ "source": "rédigé pour l'app dans le pipeline wenlu, sans API ; faits lus : liste HSK 3.0 (forme, pinyin, niveau, catégorie), lectures d'Unihan et des surcharges, gloses relues des fiches",
+ "brouillon": "data/sources/dico-brouillons/7-9/47.json",
+ "generation": {
+  "modele": "rédaction manuelle",
+  "api": "session Claude Code (sans API)",
+  "date": "2026-09-30",
+  "empreinte_invite": "sha256:84f66cb3cd7e2db2b83314a2458536aabb46be6433d67d8e158e998d29836b93",
+  "contexte": "wenlu dico contexte 7-9 47",
+  "essais": 1,
+  "refus": []
+ },
+ "entrees": [
+  {
+   "id": "奸",
+   "genre": "caractere",
+   "hanzi": "奸",
+   "pinyin": "jiān",
+   "sens": {
+    "glose": "perfide, fourbe ; traître",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "perfide, fourbe, rusé"
+     },
+     {
+      "categorie": "N",
+      "fr": "traître"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这个商人很奸，大家都不信他。",
+     "pinyin": "Zhège shāngrén hěn jiān, dàjiā dōu bù xìn tā.",
+     "fr": "Ce commerçant est retors, personne ne lui fait confiance.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-1962",
+   "genre": "mot",
+   "hanzi": "奸诈",
+   "pinyin": "jiānzhà",
+   "categories": [
+    "Adj"
+   ],
+   "sens": {
+    "glose": "fourbe, perfide",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "fourbe, perfide, sournois"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "故事里的坏人又奸诈又狠毒。",
+     "pinyin": "Gùshi li de huàirén yòu jiānzhà yòu hěndú.",
+     "fr": "Dans l'histoire, le méchant est aussi fourbe que cruel.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "歼",
+   "genre": "caractere",
+   "hanzi": "歼",
+   "pinyin": "jiān",
+   "sens": {
+    "glose": "anéantir, exterminer",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "anéantir, exterminer"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "敌人被全部歼灭了。",
+     "pinyin": "Dírén bèi quánbù jiānmiè le.",
+     "fr": "Les ennemis ont été entièrement anéantis.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-1963",
+   "genre": "mot",
+   "hanzi": "歼灭",
+   "pinyin": "jiānmiè",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "anéantir, exterminer",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "anéantir, écraser (l'ennemi)"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这次战斗歼灭了敌人一个师。",
+     "pinyin": "Zhè cì zhàndòu jiānmiè le dírén yī ge shī.",
+     "fr": "Au cours de cette bataille, une division ennemie a été détruite.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-1964",
+   "genre": "mot",
+   "hanzi": "坚持不懈",
+   "pinyin": "jiānchí-bùxiè",
+   "sens": {
+    "glose": "persévérer sans relâche",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "persévérer sans relâche"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "只要坚持不懈，就一定能成功。",
+     "pinyin": "Zhǐyào jiānchí-bùxiè, jiù yīdìng néng chénggōng.",
+     "fr": "Avec de la persévérance, on finit toujours par réussir.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "韧",
+   "genre": "caractere",
+   "hanzi": "韧",
+   "pinyin": "rèn",
+   "sens": {
+    "glose": "souple et résistant, tenace",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "souple et résistant, tenace"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这种材料很有韧性。",
+     "pinyin": "Zhè zhǒng cáiliào hěn yǒu rènxìng.",
+     "fr": "Ce matériau est très résistant.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-1965",
+   "genre": "mot",
+   "hanzi": "坚韧",
+   "pinyin": "jiānrèn",
+   "categories": [
+    "Adj"
+   ],
+   "sens": {
+    "glose": "tenace, endurant",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "tenace, endurant, résistant"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "她是一个坚韧的女人。",
+     "pinyin": "Tā shì yī ge jiānrèn de nǚrén.",
+     "fr": "C'est une femme d'une grande ténacité.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-1966",
+   "genre": "mot",
+   "hanzi": "坚实",
+   "pinyin": "jiānshí",
+   "categories": [
+    "Adj"
+   ],
+   "sens": {
+    "glose": "solide, robuste",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "solide, robuste, bien assis"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这为以后的发展打下了坚实的基础。",
+     "pinyin": "Zhè wèi yǐhòu de fāzhǎn dǎ xià le jiānshí de jīchǔ.",
+     "fr": "Cela a posé des bases solides pour l'avenir.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-1967",
+   "genre": "mot",
+   "hanzi": "坚守",
+   "pinyin": "jiānshǒu",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "tenir bon, rester à son poste",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "tenir bon, rester fidèle à son poste"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "医生们一直坚守在工作岗位上。",
+     "pinyin": "Yīshēngmen yīzhí jiānshǒu zài gōngzuò gǎngwèi shang.",
+     "fr": "Les médecins ne quittent pas leur poste.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-1968",
+   "genre": "mot",
+   "hanzi": "坚信",
+   "pinyin": "jiānxìn",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "croire fermement",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "croire fermement, être convaincu"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "我坚信我们一定会成功。",
+     "pinyin": "Wǒ jiānxìn wǒmen yīdìng huì chénggōng.",
+     "fr": "Je suis certain que nous réussirons.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-1969",
+   "genre": "mot",
+   "hanzi": "坚硬",
+   "pinyin": "jiānyìng",
+   "categories": [
+    "Adj"
+   ],
+   "sens": {
+    "glose": "dur, solide",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "dur, solide"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这种石头非常坚硬。",
+     "pinyin": "Zhè zhǒng shítou fēicháng jiānyìng.",
+     "fr": "Cette pierre est extrêmement dure.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-1970",
+   "genre": "mot",
+   "hanzi": "肩膀",
+   "pinyin": "jiānbǎng",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "épaule",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "épaule"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "爸爸把孩子放在肩膀上。",
+     "pinyin": "Bàba bǎ háizi fàng zài jiānbǎng shang.",
+     "fr": "Le père a pris l'enfant sur ses épaules.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-1971",
+   "genre": "mot",
+   "hanzi": "肩负",
+   "pinyin": "jiānfù",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "porter sur ses épaules, assumer",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "assumer, porter (une responsabilité)"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "年轻人肩负着国家的未来。",
+     "pinyin": "Niánqīngrén jiānfù zhe guójiā de wèilái.",
+     "fr": "L'avenir du pays repose sur les jeunes.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-1972",
+   "genre": "mot",
+   "hanzi": "艰巨",
+   "pinyin": "jiānjù",
+   "categories": [
+    "Adj"
+   ],
+   "sens": {
+    "glose": "ardu, colossal",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "ardu, colossal, lourd (tâche)"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这是一项艰巨的任务。",
+     "pinyin": "Zhè shì yī xiàng jiānjù de rènwu.",
+     "fr": "C'est une mission très lourde.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-1973",
+   "genre": "mot",
+   "hanzi": "艰苦奋斗",
+   "pinyin": "jiānkǔ-fèndòu",
+   "sens": {
+    "glose": "lutter avec acharnement",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "lutter avec acharnement dans des conditions dures"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他们艰苦奋斗了十年，终于成功了。",
+     "pinyin": "Tāmen jiānkǔ-fèndòu le shí nián, zhōngyú chénggōng le.",
+     "fr": "Après dix ans d'efforts acharnés, ils ont enfin réussi.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-1974",
+   "genre": "mot",
+   "hanzi": "艰险",
+   "pinyin": "jiānxiǎn",
+   "categories": [
+    "Adj"
+   ],
+   "sens": {
+    "glose": "difficile et dangereux",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "difficile et dangereux, périlleux"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这条山路十分艰险。",
+     "pinyin": "Zhè tiáo shānlù shífēn jiānxiǎn.",
+     "fr": "Ce chemin de montagne est très périlleux.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-1975",
+   "genre": "mot",
+   "hanzi": "艰辛",
+   "pinyin": "jiānxīn",
+   "categories": [
+    "Adj"
+   ],
+   "sens": {
+    "glose": "pénible, dur",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "pénible, dur, plein d'épreuves"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "创业的过程非常艰辛。",
+     "pinyin": "Chuàngyè de guòchéng fēicháng jiānxīn.",
+     "fr": "Créer son entreprise est un parcours semé d'embûches.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-1976",
+   "genre": "mot",
+   "hanzi": "监察",
+   "pinyin": "jiānchá",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "contrôler, inspecter",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "contrôler, inspecter (l'action des agents publics)"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这个部门负责监察政府官员。",
+     "pinyin": "Zhège bùmén fùzé jiānchá zhèngfǔ guānyuán.",
+     "fr": "Ce service contrôle les fonctionnaires.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-1977",
+   "genre": "mot",
+   "hanzi": "监管",
+   "pinyin": "jiānguǎn",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "superviser, réglementer",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "superviser, réglementer, contrôler"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "政府要加强对食品安全的监管。",
+     "pinyin": "Zhèngfǔ yào jiāqiáng duì shípǐn ānquán de jiānguǎn.",
+     "fr": "Le gouvernement doit renforcer le contrôle de la sécurité alimentaire.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-1978",
+   "genre": "mot",
+   "hanzi": "监护",
+   "pinyin": "jiānhù",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "avoir la garde, la tutelle de",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "avoir la garde de, exercer la tutelle"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "孩子的父母是他的监护人。",
+     "pinyin": "Háizi de fùmǔ shì tā de jiānhùrén.",
+     "fr": "Les parents de l'enfant sont ses tuteurs légaux.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-1979",
+   "genre": "mot",
+   "hanzi": "监控",
+   "pinyin": "jiānkòng",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "surveiller, contrôler",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "surveiller, contrôler (par caméra, instrument)"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这条路上装了很多监控。",
+     "pinyin": "Zhè tiáo lù shang zhuāng le hěn duō jiānkòng.",
+     "fr": "Cette route est équipée de nombreuses caméras.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-1980",
+   "genre": "mot",
+   "hanzi": "监视",
+   "pinyin": "jiānshì",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "surveiller, épier",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "surveiller, épier"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他觉得有人在监视他。",
+     "pinyin": "Tā juéde yǒu rén zài jiānshì tā.",
+     "fr": "Il a l'impression qu'on l'épie.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-1981",
+   "genre": "mot",
+   "hanzi": "监狱",
+   "pinyin": "jiānyù",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "prison",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "prison"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他在监狱里待了五年。",
+     "pinyin": "Tā zài jiānyù li dāi le wǔ nián.",
+     "fr": "Il a passé cinq ans derrière les barreaux.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "兼",
+   "genre": "caractere",
+   "hanzi": "兼",
+   "pinyin": "jiān",
+   "mots": [
+    "L7-1982"
+   ],
+   "sens": {
+    "glose": "cumuler, à la fois ; double",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "cumuler, occuper en même temps"
+     },
+     {
+      "categorie": "Adj",
+      "fr": "double, deux fois"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他是校长兼老师。",
+     "pinyin": "Tā shì xiàozhǎng jiān lǎoshī.",
+     "fr": "Il est à la fois directeur et enseignant.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-1983",
+   "genre": "mot",
+   "hanzi": "兼顾",
+   "pinyin": "jiāngù",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "concilier, prendre en compte à la fois",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "concilier, s'occuper à la fois de"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "她很难兼顾工作和家庭。",
+     "pinyin": "Tā hěn nán jiāngù gōngzuò hé jiātíng.",
+     "fr": "Elle a du mal à concilier travail et vie de famille.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-1984",
+   "genre": "mot",
+   "hanzi": "兼任",
+   "pinyin": "jiānrèn",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "cumuler (un poste)",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "cumuler, occuper en même temps (un poste)"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他还兼任学校的足球教练。",
+     "pinyin": "Tā hái jiānrèn xuéxiào de zúqiú jiàoliàn.",
+     "fr": "Il est aussi entraîneur de football de l'école.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-1985",
+   "genre": "mot",
+   "hanzi": "兼容",
+   "pinyin": "jiānróng",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "être compatible",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "être compatible ; admettre, englober"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这个软件和新系统不兼容。",
+     "pinyin": "Zhège ruǎnjiàn hé xīn xìtǒng bù jiānróng.",
+     "fr": "Ce logiciel ne fonctionne pas avec le nouveau système.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-1986",
+   "genre": "mot",
+   "hanzi": "兼职",
+   "pinyin": "jiānzhí",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "emploi à temps partiel, second emploi",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "emploi à temps partiel, second emploi"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他在一家咖啡馆做兼职。",
+     "pinyin": "Tā zài yī jiā kāfēiguǎn zuò jiānzhí.",
+     "fr": "Il a un petit boulot dans un café.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "煎",
+   "genre": "caractere",
+   "hanzi": "煎",
+   "pinyin": "jiān",
+   "mots": [
+    "L7-1987"
+   ],
+   "sens": {
+    "glose": "poêler, frire ; faire infuser",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "poêler, faire revenir, frire (peu d'huile)"
+     },
+     {
+      "categorie": "V",
+      "fr": "faire bouillir, décocter (remède)"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "妈妈早上给我煎了两个鸡蛋。",
+     "pinyin": "Māma zǎoshang gěi wǒ jiān le liǎng ge jīdàn.",
+     "fr": "Ce matin, maman m'a fait deux œufs au plat.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "拣",
+   "genre": "caractere",
+   "hanzi": "拣",
+   "pinyin": "jiǎn",
+   "mots": [
+    "L7-1988"
+   ],
+   "sens": {
+    "glose": "choisir, trier ; ramasser",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "choisir, trier"
+     },
+     {
+      "categorie": "V",
+      "fr": "ramasser"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "她从地上拣起了一片叶子。",
+     "pinyin": "Tā cóng dì shang jiǎn qǐ le yī piàn yèzi.",
+     "fr": "Elle a ramassé une feuille par terre.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-1989",
+   "genre": "mot",
+   "hanzi": "检察",
+   "pinyin": "jiǎnchá",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "instruire (parquet), contrôler",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "enquêter, instruire (ministère public)"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他在检察院工作。",
+     "pinyin": "Tā zài jiǎncháyuàn gōngzuò.",
+     "fr": "Il travaille au parquet.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-1990",
+   "genre": "mot",
+   "hanzi": "检讨",
+   "pinyin": "jiǎntǎo",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "faire son autocritique",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "faire son autocritique, reconnaître ses torts"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他写了一份检讨，承认了自己的错误。",
+     "pinyin": "Tā xiě le yī fèn jiǎntǎo, chéngrèn le zìjǐ de cuòwù.",
+     "fr": "Il a rédigé une autocritique où il reconnaît ses fautes.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-1991",
+   "genre": "mot",
+   "hanzi": "减免",
+   "pinyin": "jiǎnmiǎn",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "réduire ou exonérer",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "réduire ou supprimer (impôts, frais)"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "学校为困难学生减免学费。",
+     "pinyin": "Xuéxiào wèi kùnnan xuésheng jiǎnmiǎn xuéfèi.",
+     "fr": "L'école allège les frais de scolarité des élèves en difficulté.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-1992",
+   "genre": "mot",
+   "hanzi": "减弱",
+   "pinyin": "jiǎnruò",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "faiblir, s'atténuer",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "faiblir, diminuer, s'atténuer"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "到了晚上，风力减弱了。",
+     "pinyin": "Dào le wǎnshang, fēnglì jiǎnruò le.",
+     "fr": "Le soir venu, le vent est tombé.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-1993",
+   "genre": "mot",
+   "hanzi": "减速",
+   "pinyin": "jiǎnsù",
+   "sens": {
+    "glose": "ralentir",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "ralentir, réduire la vitesse"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "前面有学校，请减速慢行。",
+     "pinyin": "Qiánmian yǒu xuéxiào, qǐng jiǎnsù màn xíng.",
+     "fr": "École à proximité, roulez doucement.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-1994",
+   "genre": "mot",
+   "hanzi": "减压",
+   "pinyin": "jiǎnyā",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "décompresser ; réduire la pression",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "réduire la pression, décompresser"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "运动可以帮助减压。",
+     "pinyin": "Yùndòng kěyǐ bāngzhù jiǎnyā.",
+     "fr": "Le sport aide à évacuer le stress.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-1995",
+   "genre": "mot",
+   "hanzi": "简称",
+   "pinyin": "jiǎnchēng",
+   "categories": [
+    "V",
+    "N"
+   ],
+   "sens": {
+    "glose": "abréger ; forme abrégée",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "appeler en abrégé"
+     },
+     {
+      "categorie": "N",
+      "fr": "forme abrégée, abréviation"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "北京大学简称北大。",
+     "pinyin": "Běijīng Dàxué jiǎnchēng Běidà.",
+     "fr": "On dit Beida pour l'université de Pékin.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-1996",
+   "genre": "mot",
+   "hanzi": "简短",
+   "pinyin": "jiǎnduǎn",
+   "categories": [
+    "Adj"
+   ],
+   "sens": {
+    "glose": "bref, concis",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "bref, concis"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他做了一个简短的发言。",
+     "pinyin": "Tā zuò le yī ge jiǎnduǎn de fāyán.",
+     "fr": "Il a pris la parole quelques instants.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-1997",
+   "genre": "mot",
+   "hanzi": "简化",
+   "pinyin": "jiǎnhuà",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "simplifier",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "simplifier"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "办事的手续简化了很多。",
+     "pinyin": "Bànshì de shǒuxù jiǎnhuà le hěn duō.",
+     "fr": "Les démarches ont été beaucoup allégées.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-1998",
+   "genre": "mot",
+   "hanzi": "简洁",
+   "pinyin": "jiǎnjié",
+   "categories": [
+    "Adj"
+   ],
+   "sens": {
+    "glose": "concis, épuré",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "concis, sobre, épuré"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他的文章写得很简洁。",
+     "pinyin": "Tā de wénzhāng xiě de hěn jiǎnjié.",
+     "fr": "Il écrit de façon sobre et claire.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-1999",
+   "genre": "mot",
+   "hanzi": "简陋",
+   "pinyin": "jiǎnlòu",
+   "categories": [
+    "Adj"
+   ],
+   "sens": {
+    "glose": "sommaire, rudimentaire",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "sommaire, rudimentaire, modeste"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他们住在一间简陋的小房子里。",
+     "pinyin": "Tāmen zhù zài yī jiān jiǎnlòu de xiǎo fángzi li.",
+     "fr": "Ils vivent dans une petite maison très sommairement équipée.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2000",
+   "genre": "mot",
+   "hanzi": "简体字",
+   "pinyin": "jiǎntǐzì",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "caractère simplifié",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "caractère simplifié"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "中国大陆使用简体字。",
+     "pinyin": "Zhōngguó dàlù shǐyòng jiǎntǐzì.",
+     "fr": "En Chine continentale, on écrit en caractères simplifiés.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2001",
+   "genre": "mot",
+   "hanzi": "简要",
+   "pinyin": "jiǎnyào",
+   "categories": [
+    "Adj"
+   ],
+   "sens": {
+    "glose": "succinct, résumé",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "succinct, bref et essentiel"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "请简要介绍一下你自己。",
+     "pinyin": "Qǐng jiǎnyào jièshào yīxià nǐ zìjǐ.",
+     "fr": "Présente-toi en quelques mots, s'il te plaît.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2002",
+   "genre": "mot",
+   "hanzi": "简易",
+   "pinyin": "jiǎnyì",
+   "categories": [
+    "Adj"
+   ],
+   "sens": {
+    "glose": "simple, sommaire",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "simple, facile ; sommaire, provisoire"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他们在山上搭了一个简易的房子。",
+     "pinyin": "Tāmen zài shān shang dā le yī ge jiǎnyì de fángzi.",
+     "fr": "Ils ont monté un abri de fortune sur la montagne.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2003",
+   "genre": "mot",
+   "hanzi": "见解",
+   "pinyin": "jiànjiě",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "point de vue, opinion",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "point de vue, opinion, idée"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "她对这个问题有独到的见解。",
+     "pinyin": "Tā duì zhège wèntí yǒu dúdào de jiànjiě.",
+     "fr": "Elle a une vision originale de ce problème.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2004",
+   "genre": "mot",
+   "hanzi": "见钱眼开",
+   "pinyin": "jiànqián-yǎnkāi",
+   "sens": {
+    "glose": "avide d'argent",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "cupide, qui n'a d'yeux que pour l'argent"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这个人见钱眼开，不能相信他。",
+     "pinyin": "Zhège rén jiànqián-yǎnkāi, bù néng xiāngxìn tā.",
+     "fr": "Cet homme ne pense qu'à l'argent, on ne peut pas lui faire confiance.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "仁",
+   "genre": "caractere",
+   "hanzi": "仁",
+   "pinyin": "rén",
+   "sens": {
+    "glose": "bonté, humanité ; amande",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "bonté, humanité, bienveillance"
+     },
+     {
+      "categorie": "N",
+      "fr": "amande, noyau (de fruit)"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他对别人很仁慈。",
+     "pinyin": "Tā duì biérén hěn réncí.",
+     "fr": "Il est très bon envers les autres.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2005",
+   "genre": "mot",
+   "hanzi": "见仁见智",
+   "pinyin": "jiànrén-jiànzhì",
+   "sens": {
+    "glose": "à chacun son avis",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "chacun voit les choses à sa manière"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这个问题见仁见智，没有标准答案。",
+     "pinyin": "Zhège wèntí jiànrén-jiànzhì, méiyǒu biāozhǔn dá'àn.",
+     "fr": "Sur cette question, les avis divergent ; il n'y a pas de bonne réponse.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2006",
+   "genre": "mot",
+   "hanzi": "见识",
+   "pinyin": "jiànshi",
+   "categories": [
+    "V",
+    "N"
+   ],
+   "sens": {
+    "glose": "expérience, connaissances acquises",
+    "acceptions": [],
+    "statut": "relu",
+    "provenance": {
+     "reprise": "data/sources/fiches/识.json",
+     "champ": "mots[].fr"
+    }
+   },
+   "exemples": [
+    {
+     "zh": "出国旅行让他长了不少见识。",
+     "pinyin": "Chūguó lǚxíng ràng tā zhǎng le bù shǎo jiànshi.",
+     "fr": "Voyager à l'étranger lui a beaucoup ouvert l'esprit.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2007",
+   "genre": "mot",
+   "hanzi": "见外",
+   "pinyin": "jiànwài",
+   "categories": [
+    "Adj"
+   ],
+   "sens": {
+    "glose": "faire des manières, traiter en étranger",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "trop cérémonieux, qui traite l'autre en étranger"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "大家都是朋友，别见外。",
+     "pinyin": "Dàjiā dōu shì péngyou, bié jiànwài.",
+     "fr": "On est entre amis, ne fais pas de manières.",
+     "statut": "a_relire"
+    }
+   ]
+  }
+ ]
+}
