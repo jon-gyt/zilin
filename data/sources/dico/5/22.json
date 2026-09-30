@@ -1,0 +1,1390 @@
+{
+ "niveau": "5",
+ "lot": "22",
+ "source": "rédigé pour l'app dans le pipeline wenlu, sans API ; faits lus : liste HSK 3.0 (forme, pinyin, niveau, catégorie), lectures d'Unihan et des surcharges, gloses relues des fiches",
+ "brouillon": "data/sources/dico-brouillons/5/22.json",
+ "generation": {
+  "modele": "rédaction manuelle",
+  "api": "session Claude Code (sans API)",
+  "date": "2026-09-30",
+  "empreinte_invite": "sha256:33fe22670b76812abd9202fcb164953e3a6e83e4a20c5e7ebc04b78bb9e7c46f",
+  "contexte": "wenlu dico contexte 5 22",
+  "essais": 1,
+  "refus": []
+ },
+ "entrees": [
+  {
+   "id": "L5-0940",
+   "genre": "mot",
+   "hanzi": "原有",
+   "pinyin": "yuányǒu",
+   "sens": {
+    "glose": "existant, d'origine",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "existant, déjà en place, d'origine"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "我们要保留原有的建筑。",
+     "pinyin": "Wǒmen yào bǎoliú yuányǒu de jiànzhù.",
+     "fr": "Il faut conserver les bâtiments anciens.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L5-0941",
+   "genre": "mot",
+   "hanzi": "远处",
+   "pinyin": "yuǎnchù",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "au loin, lieu éloigné",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "au loin, lieu éloigné"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "远处有一座小山。",
+     "pinyin": "Yuǎnchù yǒu yī zuò xiǎo shān.",
+     "fr": "On aperçoit une colline au loin.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L5-0944",
+   "genre": "mot",
+   "hanzi": "约束",
+   "pinyin": "yuēshù",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "restreindre, contraindre, encadrer",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "restreindre, contraindre, encadrer"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "父母不能太约束孩子。",
+     "pinyin": "Fùmǔ bù néng tài yuēshù háizi.",
+     "fr": "Les parents ne doivent pas trop brider leurs enfants.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L5-0945",
+   "genre": "mot",
+   "hanzi": "月饼",
+   "pinyin": "yuèbing",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "gâteau de lune",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "gâteau de lune (fête de la mi-automne)"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "中秋节大家都吃月饼。",
+     "pinyin": "Zhōngqiūjié dàjiā dōu chī yuèbing.",
+     "fr": "À la fête de la mi-automne, tout le monde mange des gâteaux ronds.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L5-0946",
+   "genre": "mot",
+   "hanzi": "月球",
+   "pinyin": "yuèqiú",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "la Lune (l'astre)",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "la Lune (l'astre)"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "人类第一次登上月球是在一九六九年。",
+     "pinyin": "Rénlèi dì-yī cì dēng shàng yuèqiú shì zài yī jiǔ liù jiǔ nián.",
+     "fr": "L'homme a marché sur la Lune pour la première fois en 1969.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L5-0947",
+   "genre": "mot",
+   "hanzi": "阅览室",
+   "pinyin": "yuèlǎnshì",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "salle de lecture",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "salle de lecture"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "图书馆的阅览室很安静。",
+     "pinyin": "Túshūguǎn de yuèlǎnshì hěn ānjìng.",
+     "fr": "On lit au calme à la bibliothèque.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L5-0949",
+   "genre": "mot",
+   "hanzi": "运行",
+   "pinyin": "yùnxíng",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "fonctionner, tourner ; circuler",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "fonctionner, tourner (machine, système)"
+     },
+     {
+      "categorie": "V",
+      "fr": "circuler, se déplacer (astre, train)"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "电脑运行得太慢了。",
+     "pinyin": "Diànnǎo yùnxíng de tài màn le.",
+     "fr": "L'ordinateur est beaucoup trop lent.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L5-0951",
+   "genre": "mot",
+   "hanzi": "灾害",
+   "pinyin": "zāihài",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "catastrophe, désastre",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "catastrophe, désastre, sinistre"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这里经常发生自然灾害。",
+     "pinyin": "Zhèli jīngcháng fāshēng zìrán zāihài.",
+     "fr": "Les catastrophes naturelles sont fréquentes ici.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L5-0952",
+   "genre": "mot",
+   "hanzi": "灾难",
+   "pinyin": "zāinàn",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "calamité, désastre",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "calamité, désastre, malheur"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "战争给人们带来了巨大的灾难。",
+     "pinyin": "Zhànzhēng gěi rénmen dàilái le jùdà de zāinàn.",
+     "fr": "La guerre a apporté d'immenses malheurs.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L5-0953",
+   "genre": "mot",
+   "hanzi": "灾区",
+   "pinyin": "zāiqū",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "zone sinistrée",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "zone sinistrée"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "很多人给灾区捐了钱。",
+     "pinyin": "Hěn duō rén gěi zāiqū juān le qián.",
+     "fr": "Beaucoup de gens ont donné de l'argent pour les sinistrés.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L5-0954",
+   "genre": "mot",
+   "hanzi": "再次",
+   "pinyin": "zàicì",
+   "categories": [
+    "Adv"
+   ],
+   "sens": {
+    "glose": "de nouveau, une fois de plus",
+    "acceptions": [
+     {
+      "categorie": "Adv",
+      "fr": "de nouveau, une fois de plus"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "欢迎你再次来中国。",
+     "pinyin": "Huānyíng nǐ zàicì lái Zhōngguó.",
+     "fr": "Tu seras toujours le bienvenu en Chine.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L5-0955",
+   "genre": "mot",
+   "hanzi": "再也",
+   "pinyin": "zài yě",
+   "sens": {
+    "glose": "(ne…) plus jamais",
+    "acceptions": [
+     {
+      "categorie": "Adv",
+      "fr": "(ne…) plus jamais, plus du tout"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "我再也不相信他了。",
+     "pinyin": "Wǒ zài yě bù xiāngxìn tā le.",
+     "fr": "Je ne le crois plus.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L5-0956",
+   "genre": "mot",
+   "hanzi": "在场",
+   "pinyin": "zàichǎng",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "être présent, sur place",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "être présent, être sur les lieux"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "当时我不在场。",
+     "pinyin": "Dāngshí wǒ bù zàichǎng.",
+     "fr": "Je n'étais pas là à ce moment-là.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L5-0957",
+   "genre": "mot",
+   "hanzi": "在内",
+   "pinyin": "zàinèi",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "y compris, inclus",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "être compris, y compris"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "包括我在内，一共有十个人。",
+     "pinyin": "Bāokuò wǒ zàinèi, yīgòng yǒu shí ge rén.",
+     "fr": "Nous sommes dix en tout, moi compris.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "暂",
+   "genre": "caractere",
+   "hanzi": "暂",
+   "pinyin": "zàn",
+   "mots": [
+    "L7-5194"
+   ],
+   "sens": {
+    "glose": "temporairement, pour le moment",
+    "acceptions": [
+     {
+      "categorie": "Adv",
+      "fr": "temporairement, pour le moment"
+     },
+     {
+      "categorie": "Adj",
+      "fr": "bref, de courte durée"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这件事暂不讨论。",
+     "pinyin": "Zhè jiàn shì zàn bù tǎolùn.",
+     "fr": "Cette question est laissée de côté pour l'instant.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L5-0958",
+   "genre": "mot",
+   "hanzi": "暂时",
+   "pinyin": "zànshí",
+   "categories": [
+    "Adj"
+   ],
+   "sens": {
+    "glose": "temporaire, provisoire",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "temporaire, provisoire ; pour l'instant"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "我暂时住在朋友家。",
+     "pinyin": "Wǒ zànshí zhù zài péngyou jiā.",
+     "fr": "Pour le moment, je loge chez un ami.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L5-0959",
+   "genre": "mot",
+   "hanzi": "暂停",
+   "pinyin": "zàntíng",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "suspendre, interrompre",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "suspendre, interrompre, faire une pause"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "因为下雨，比赛暂停了。",
+     "pinyin": "Yīnwèi xià yǔ, bǐsài zàntíng le.",
+     "fr": "À cause de la pluie, le match a été arrêté.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "糟",
+   "genre": "caractere",
+   "hanzi": "糟",
+   "pinyin": "zāo",
+   "mots": [
+    "L5-0960"
+   ],
+   "sens": {
+    "glose": "mauvais, raté ; drêche",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "mauvais, raté, en piteux état"
+     },
+     {
+      "categorie": "N",
+      "fr": "drêche, marc"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他的身体越来越糟。",
+     "pinyin": "Tā de shēntǐ yuèláiyuè zāo.",
+     "fr": "Sa santé se dégrade de plus en plus.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L5-0961",
+   "genre": "mot",
+   "hanzi": "糟糕",
+   "pinyin": "zāogāo",
+   "categories": [
+    "Adj"
+   ],
+   "sens": {
+    "glose": "mauvais, fichu ; zut",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "mauvais, fichu, raté"
+     },
+     {
+      "categorie": "Adj",
+      "fr": "zut, mince (en exclamation)"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "今天的天气真糟糕。",
+     "pinyin": "Jīntiān de tiānqì zhēn zāogāo.",
+     "fr": "Il fait vraiment un temps affreux aujourd'hui.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L5-0962",
+   "genre": "mot",
+   "hanzi": "早期",
+   "pinyin": "zǎoqī",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "début, premiers temps",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "début, premiers temps, stade précoce"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这种病早期很容易治好。",
+     "pinyin": "Zhè zhǒng bìng zǎoqī hěn róngyì zhìhǎo.",
+     "fr": "Prise tôt, cette maladie se soigne facilement.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L5-0964",
+   "genre": "mot",
+   "hanzi": "增产",
+   "pinyin": "zēngchǎn",
+   "sens": {
+    "glose": "augmenter la production",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "augmenter la production"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "今年粮食增产了百分之十。",
+     "pinyin": "Jīnnián liángshi zēngchǎn le bǎi fēn zhī shí.",
+     "fr": "Cette année, la récolte de céréales a progressé de dix pour cent.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L5-0965",
+   "genre": "mot",
+   "hanzi": "增大",
+   "pinyin": "zēngdà",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "augmenter, agrandir",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "augmenter, agrandir, accroître"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "工作压力增大了。",
+     "pinyin": "Gōngzuò yālì zēngdà le.",
+     "fr": "La pression au travail s'est accrue.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L5-0966",
+   "genre": "mot",
+   "hanzi": "增多",
+   "pinyin": "zēngduō",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "augmenter, se multiplier",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "augmenter (en nombre), se multiplier"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "来这里旅游的人增多了。",
+     "pinyin": "Lái zhèli lǚyóu de rén zēngduō le.",
+     "fr": "Les touristes sont de plus en plus nombreux ici.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L5-0967",
+   "genre": "mot",
+   "hanzi": "增强",
+   "pinyin": "zēngqiáng",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "renforcer, accroître",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "renforcer, accroître"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "锻炼能增强体质。",
+     "pinyin": "Duànliàn néng zēngqiáng tǐzhì.",
+     "fr": "Le sport fortifie l'organisme.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "赠",
+   "genre": "caractere",
+   "hanzi": "赠",
+   "pinyin": "zèng",
+   "mots": [
+    "L5-0968"
+   ],
+   "sens": {
+    "glose": "offrir, faire cadeau de",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "offrir, faire cadeau de"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他赠给我一本书。",
+     "pinyin": "Tā zèng gěi wǒ yī běn shū.",
+     "fr": "Il m'a offert un livre.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L5-0969",
+   "genre": "mot",
+   "hanzi": "赠送",
+   "pinyin": "zèngsòng",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "offrir, donner en cadeau",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "offrir, donner en cadeau"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "买这台电脑赠送一个鼠标。",
+     "pinyin": "Mǎi zhè tái diànnǎo zèngsòng yī ge shǔbiāo.",
+     "fr": "Pour l'achat de cet ordinateur, une souris est offerte.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "摘",
+   "genre": "caractere",
+   "hanzi": "摘",
+   "pinyin": "zhāi",
+   "mots": [
+    "L5-0970"
+   ],
+   "sens": {
+    "glose": "cueillir ; enlever ; extraire",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "cueillir"
+     },
+     {
+      "categorie": "V",
+      "fr": "enlever, ôter (lunettes, chapeau)"
+     },
+     {
+      "categorie": "V",
+      "fr": "extraire, citer"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "我们去山上摘苹果吧。",
+     "pinyin": "Wǒmen qù shān shang zhāi píngguǒ ba.",
+     "fr": "Allons cueillir des pommes dans la montagne.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L5-0971",
+   "genre": "mot",
+   "hanzi": "展览",
+   "pinyin": "zhǎnlǎn",
+   "categories": [
+    "V",
+    "N"
+   ],
+   "sens": {
+    "glose": "exposer ; exposition",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "exposer"
+     },
+     {
+      "categorie": "N",
+      "fr": "exposition"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "博物馆正在展览古代的画。",
+     "pinyin": "Bówùguǎn zhèngzài zhǎnlǎn gǔdài de huà.",
+     "fr": "Le musée présente en ce moment des peintures anciennes.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L5-0972",
+   "genre": "mot",
+   "hanzi": "展示",
+   "pinyin": "zhǎnshì",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "montrer, présenter",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "montrer, présenter, mettre en valeur"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他在比赛中展示了自己的能力。",
+     "pinyin": "Tā zài bǐsài zhōng zhǎnshì le zìjǐ de nénglì.",
+     "fr": "Il a montré tout son talent pendant la compétition.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L5-0973",
+   "genre": "mot",
+   "hanzi": "展现",
+   "pinyin": "zhǎnxiàn",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "montrer, révéler, déployer",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "montrer, révéler, déployer (devant les yeux)"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "一片美丽的风景展现在我们眼前。",
+     "pinyin": "Yī piàn měilì de fēngjǐng zhǎnxiàn zài wǒmen yǎnqián.",
+     "fr": "Un magnifique paysage s'offre à nos yeux.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L5-0974",
+   "genre": "mot",
+   "hanzi": "占领",
+   "pinyin": "zhànlǐng",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "occuper, s'emparer de",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "occuper, s'emparer de (un territoire, un marché)"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这家公司很快占领了市场。",
+     "pinyin": "Zhè jiā gōngsī hěn kuài zhànlǐng le shìchǎng.",
+     "fr": "Cette entreprise s'est vite imposée sur le marché.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L5-0975",
+   "genre": "mot",
+   "hanzi": "占有",
+   "pinyin": "zhànyǒu",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "posséder, occuper, détenir",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "posséder, occuper, détenir"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这个问题占有很重要的地位。",
+     "pinyin": "Zhège wèntí zhànyǒu hěn zhòngyào de dìwèi.",
+     "fr": "Cette question tient une place très importante.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L5-0977",
+   "genre": "mot",
+   "hanzi": "涨价",
+   "pinyin": "zhǎngjià",
+   "sens": {
+    "glose": "augmenter de prix",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "augmenter de prix, renchérir"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "最近水果又涨价了。",
+     "pinyin": "Zuìjìn shuǐguǒ yòu zhǎngjià le.",
+     "fr": "Les fruits sont encore devenus plus chers.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L5-0978",
+   "genre": "mot",
+   "hanzi": "掌握",
+   "pinyin": "zhǎngwò",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "maîtriser ; avoir en main",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "maîtriser (un savoir)"
+     },
+     {
+      "categorie": "V",
+      "fr": "avoir en main, contrôler"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "学外语要掌握好发音。",
+     "pinyin": "Xué wàiyǔ yào zhǎngwò hǎo fāyīn.",
+     "fr": "Pour apprendre une langue, il faut bien en posséder la prononciation.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L5-0979",
+   "genre": "mot",
+   "hanzi": "招生",
+   "pinyin": "zhāoshēng",
+   "sens": {
+    "glose": "recruter des élèves",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "recruter des élèves, des étudiants"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这所大学每年招生三千人。",
+     "pinyin": "Zhè suǒ dàxué měi nián zhāoshēng sānqiān rén.",
+     "fr": "Cette université admet trois mille étudiants par an.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L5-0980",
+   "genre": "mot",
+   "hanzi": "招手",
+   "pinyin": "zhāoshǒu",
+   "sens": {
+    "glose": "faire signe de la main",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "faire signe de la main, saluer de la main"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "她在远处向我招手。",
+     "pinyin": "Tā zài yuǎnchù xiàng wǒ zhāoshǒu.",
+     "fr": "Elle me salue de loin.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "珍",
+   "genre": "caractere",
+   "hanzi": "珍",
+   "pinyin": "zhēn",
+   "sens": {
+    "glose": "précieux ; trésor",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "précieux, rare"
+     },
+     {
+      "categorie": "N",
+      "fr": "trésor, objet précieux"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他把这张照片珍藏了很多年。",
+     "pinyin": "Tā bǎ zhè zhāng zhàopiàn zhēncáng le hěn duō nián.",
+     "fr": "Il a gardé précieusement cette photo pendant des années.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L5-0981",
+   "genre": "mot",
+   "hanzi": "珍贵",
+   "pinyin": "zhēnguì",
+   "categories": [
+    "Adj"
+   ],
+   "sens": {
+    "glose": "précieux, de grande valeur",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "précieux, de grande valeur"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这些照片对我来说很珍贵。",
+     "pinyin": "Zhèxiē zhàopiàn duì wǒ lái shuō hěn zhēnguì.",
+     "fr": "Ces photos comptent énormément pour moi.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L5-0982",
+   "genre": "mot",
+   "hanzi": "珍惜",
+   "pinyin": "zhēnxī",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "chérir, apprécier à sa juste valeur",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "chérir, tenir à, apprécier à sa juste valeur"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "要珍惜身边的人。",
+     "pinyin": "Yào zhēnxī shēnbiān de rén.",
+     "fr": "Il faut prendre soin de ceux qui nous entourent.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "珠",
+   "genre": "caractere",
+   "hanzi": "珠",
+   "pinyin": "zhū",
+   "sens": {
+    "glose": "perle ; bille, goutte",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "perle"
+     },
+     {
+      "categorie": "N",
+      "fr": "bille, goutte (de forme ronde)"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "你有圆珠笔吗？",
+     "pinyin": "Nǐ yǒu yuánzhūbǐ ma?",
+     "fr": "Tu as un stylo à bille ?",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L5-0983",
+   "genre": "mot",
+   "hanzi": "珍珠",
+   "pinyin": "zhēnzhū",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "perle",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "perle"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "她戴着一串珍珠。",
+     "pinyin": "Tā dài zhe yī chuàn zhēnzhū.",
+     "fr": "Elle porte un collier de perles.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L5-0984",
+   "genre": "mot",
+   "hanzi": "真诚",
+   "pinyin": "zhēnchéng",
+   "categories": [
+    "Adj"
+   ],
+   "sens": {
+    "glose": "sincère, franc",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "sincère, franc, authentique"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "谢谢你真诚的帮助。",
+     "pinyin": "Xièxie nǐ zhēnchéng de bāngzhù.",
+     "fr": "Merci de m'avoir aidé de tout cœur.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L5-0985",
+   "genre": "mot",
+   "hanzi": "真理",
+   "pinyin": "zhēnlǐ",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "vérité",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "vérité (principe vrai)"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他一直在追求真理。",
+     "pinyin": "Tā yīzhí zài zhuīqiú zhēnlǐ.",
+     "fr": "Il a toujours été en quête de vérité.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L5-0986",
+   "genre": "mot",
+   "hanzi": "真相",
+   "pinyin": "zhēnxiàng",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "vérité des faits, fond de l'affaire",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "vérité des faits, fond de l'affaire"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "大家都想知道事情的真相。",
+     "pinyin": "Dàjiā dōu xiǎng zhīdào shìqing de zhēnxiàng.",
+     "fr": "Tout le monde veut savoir ce qui s'est vraiment passé.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L5-0987",
+   "genre": "mot",
+   "hanzi": "诊断",
+   "pinyin": "zhěnduàn",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "diagnostiquer",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "diagnostiquer"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "医生诊断他得了胃病。",
+     "pinyin": "Yīshēng zhěnduàn tā dé le wèibìng.",
+     "fr": "Selon le médecin, il souffre de l'estomac.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "振",
+   "genre": "caractere",
+   "hanzi": "振",
+   "pinyin": "zhèn",
+   "sens": {
+    "glose": "secouer ; stimuler, relever",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "secouer, agiter"
+     },
+     {
+      "categorie": "V",
+      "fr": "stimuler, redresser, relever"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "听到这个好消息，大家都很振奋。",
+     "pinyin": "Tīngdào zhège hǎo xiāoxi, dàjiā dōu hěn zhènfèn.",
+     "fr": "En apprenant la bonne nouvelle, tout le monde a repris courage.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L5-0988",
+   "genre": "mot",
+   "hanzi": "振动",
+   "pinyin": "zhèndòng",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "vibrer, osciller",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "vibrer, osciller"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "手机在桌子上振动了一下。",
+     "pinyin": "Shǒujī zài zhuōzi shang zhèndòng le yīxià.",
+     "fr": "Le portable a vibré sur la table.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L5-0989",
+   "genre": "mot",
+   "hanzi": "震惊",
+   "pinyin": "zhènjīng",
+   "categories": [
+    "Adj",
+    "V"
+   ],
+   "sens": {
+    "glose": "choqué, stupéfait ; choquer",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "choqué, stupéfait"
+     },
+     {
+      "categorie": "V",
+      "fr": "choquer, stupéfier, bouleverser"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "听到这个消息，大家都很震惊。",
+     "pinyin": "Tīngdào zhège xiāoxi, dàjiā dōu hěn zhènjīng.",
+     "fr": "Tout le monde a été sidéré par la nouvelle.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L5-0990",
+   "genre": "mot",
+   "hanzi": "争议",
+   "pinyin": "zhēngyì",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "débattre, contester ; controverse",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "débattre, contester, discuter"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这个问题还有争议。",
+     "pinyin": "Zhège wèntí hái yǒu zhēngyì.",
+     "fr": "Cette question fait encore débat.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L5-0991",
+   "genre": "mot",
+   "hanzi": "正版",
+   "pinyin": "zhèngbǎn",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "version officielle, original",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "version officielle, original (non piraté)"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "我们应该买正版的书。",
+     "pinyin": "Wǒmen yīnggāi mǎi zhèngbǎn de shū.",
+     "fr": "Il faut acheter des livres authentiques, pas des copies.",
+     "statut": "a_relire"
+    }
+   ]
+  }
+ ]
+}
