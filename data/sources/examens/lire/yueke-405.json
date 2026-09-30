@@ -1,0 +1,442 @@
+{
+ "examen": "yueke-405",
+ "parcours": "lire",
+ "generation": {
+  "modele": "rédaction manuelle",
+  "api": "session Claude Code (sans API)",
+  "date": "2026-09-30"
+ },
+ "relecture": {
+  "statut": "a_relire",
+  "note": "rédigé le 30 septembre 2026, à relire par le propriétaire (`wenlu examens apercu`) ; une série passe à `relu` sur sa décision, citée ici"
+ },
+ "series": [
+  {
+   "serie": "A",
+   "statut": "a_relire",
+   "supports": [
+    {
+     "id": "s1",
+     "genre": "message",
+     "contexte": {
+      "fr": "Un message",
+      "en": "A message"
+     },
+     "lignes": [
+      {
+       "zh": "妈妈，我在机场。",
+       "pinyin": "mā ma wǒ zài jī chǎng",
+       "fr": "Maman, je suis à l'aéroport.",
+       "en": "Mum, I'm at the airport."
+      },
+      {
+       "zh": "飞机坏了，要晚两个小时。",
+       "pinyin": "fēi jī huài le yào wǎn liǎng gè xiǎo shí",
+       "fr": "L'avion est en panne : il aura deux heures de retard.",
+       "en": "The plane has broken down: it will be two hours late."
+      },
+      {
+       "zh": "你们先吃饭，别等我！",
+       "pinyin": "nǐ men xiān chī fàn bié děng wǒ",
+       "fr": "Mangez sans moi, ne m'attendez pas !",
+       "en": "Eat without me, don't wait for me!"
+      }
+     ]
+    },
+    {
+     "id": "s2",
+     "genre": "affiche",
+     "contexte": {
+      "fr": "Une affiche",
+      "en": "A poster"
+     },
+     "lignes": [
+      {
+       "zh": "三班的同学：",
+       "pinyin": "sān bān de tóng xué",
+       "fr": "Aux élèves de la classe 3 :",
+       "en": "To the pupils of class 3:"
+      },
+      {
+       "zh": "星期一上午考中文，",
+       "pinyin": "xīng qī yī shàng wǔ kǎo zhōng wén",
+       "fr": "lundi matin, examen de chinois ;",
+       "en": "Monday morning, Chinese exam;"
+      },
+      {
+       "zh": "请七点半到二楼。",
+       "pinyin": "qǐng qī diǎn bàn dào èr lóu",
+       "fr": "rendez-vous à sept heures et demie, au premier étage.",
+       "en": "please be on the first floor at half past seven."
+      }
+     ]
+    }
+   ],
+   "questions": [
+    {
+     "type": "comprendre",
+     "support": "s1",
+     "consigne": {
+      "fr": "Pourquoi ce retard ?",
+      "en": "Why the delay?"
+     },
+     "choix": [
+      {
+       "fr": "Le vent",
+       "en": "The wind"
+      },
+      {
+       "fr": "La pluie",
+       "en": "The rain"
+      },
+      {
+       "fr": "Un billet perdu",
+       "en": "A lost ticket"
+      },
+      {
+       "fr": "Une panne",
+       "en": "A breakdown"
+      }
+     ],
+     "reponse": 3,
+     "porte": [
+      "坏"
+     ]
+    },
+    {
+     "type": "replique",
+     "support": "s1",
+     "consigne": {
+      "fr": "Que répond sa mère ?",
+      "en": "What does the mother reply?"
+     },
+     "choix": [
+      {
+       "zh": "好的，路上小心！",
+       "pinyin": "hǎo de lù shang xiǎo xīn",
+       "fr": "D'accord, fais attention en route !",
+       "en": "OK, be careful on the way!"
+      },
+      {
+       "zh": "我的床很大。",
+       "pinyin": "wǒ de chuáng hěn dà",
+       "fr": "Mon lit est grand.",
+       "en": "My bed is big."
+      },
+      {
+       "zh": "这是弟弟的书包。",
+       "pinyin": "zhè shì dì di de shū bāo",
+       "fr": "C'est le cartable de ton petit frère.",
+       "en": "That's your little brother's schoolbag."
+      },
+      {
+       "zh": "今天风很大。",
+       "pinyin": "jīn tiān fēng hěn dà",
+       "fr": "Il y a beaucoup de vent aujourd'hui.",
+       "en": "It's very windy today."
+      }
+     ],
+     "reponse": 0,
+     "porte": [
+      "机",
+      "场",
+      "坏",
+      "路"
+     ]
+    },
+    {
+     "type": "reperer",
+     "support": "s2",
+     "consigne": {
+      "fr": "Touche la matière de l'examen.",
+      "en": "Tap the subject of the exam."
+     },
+     "choix": [
+      "同学",
+      "星期一",
+      "中文",
+      "七点半"
+     ],
+     "reponse": 2,
+     "porte": [
+      "考",
+      "中",
+      "文"
+     ]
+    },
+    {
+     "type": "vrai_faux",
+     "support": "s2",
+     "consigne": {
+      "fr": "Vrai ou faux ?",
+      "en": "True or false?"
+     },
+     "affirmation": {
+      "zh": "星期一下午考中文。",
+      "pinyin": "xīng qī yī xià wǔ kǎo zhōng wén",
+      "fr": "Lundi après-midi, il y a l'examen de chinois.",
+      "en": "On Monday afternoon there's the Chinese exam."
+     },
+     "reponse": false,
+     "porte": [
+      "考",
+      "上",
+      "下",
+      "午"
+     ]
+    },
+    {
+     "type": "sens",
+     "consigne": {
+      "fr": "Que veut dire ce caractère ?",
+      "en": "What does this character mean?"
+     },
+     "objet": {
+      "zh": "渴",
+      "pinyin": "kě",
+      "fr": "avoir soif",
+      "en": "thirsty"
+     },
+     "choix": [
+      {
+       "fr": "avoir faim",
+       "en": "hungry"
+      },
+      {
+       "fr": "avoir soif",
+       "en": "thirsty"
+      },
+      {
+       "fr": "avoir froid",
+       "en": "cold"
+      },
+      {
+       "fr": "avoir sommeil",
+       "en": "sleepy"
+      }
+     ],
+     "reponse": 1,
+     "porte": [
+      "渴"
+     ]
+    }
+   ]
+  },
+  {
+   "serie": "B",
+   "statut": "a_relire",
+   "supports": [
+    {
+     "id": "s1",
+     "genre": "menu",
+     "contexte": {
+      "fr": "Un menu",
+      "en": "A menu"
+     },
+     "lignes": [
+      {
+       "zh": "鸡蛋面：八块",
+       "pinyin": "jī dàn miàn bā kuài",
+       "fr": "Nouilles aux œufs : 8 yuans",
+       "en": "Egg noodles: 8 yuan"
+      },
+      {
+       "zh": "牛肉面：十二块",
+       "pinyin": "niú ròu miàn shí èr kuài",
+       "fr": "Nouilles au bœuf : 12 yuans",
+       "en": "Beef noodles: 12 yuan"
+      },
+      {
+       "zh": "鸡肉饭：十块",
+       "pinyin": "jī ròu fàn shí kuài",
+       "fr": "Riz au poulet : 10 yuans",
+       "en": "Chicken rice: 10 yuan"
+      },
+      {
+       "zh": "茶：一块",
+       "pinyin": "chá yī kuài",
+       "fr": "Thé : 1 yuan",
+       "en": "Tea: 1 yuan"
+      }
+     ]
+    },
+    {
+     "id": "s2",
+     "genre": "message",
+     "contexte": {
+      "fr": "Un message",
+      "en": "A message"
+     },
+     "lignes": [
+      {
+       "zh": "小李，我的电脑坏了，",
+       "pinyin": "xiǎo lǐ wǒ de diàn nǎo huài le",
+       "fr": "Xiao Li, mon ordinateur est en panne,",
+       "en": "Xiao Li, my computer has broken down,"
+      },
+      {
+       "zh": "明天要用。",
+       "pinyin": "míng tiān yào yòng",
+       "fr": "et j'en ai besoin demain.",
+       "en": "and I need it tomorrow."
+      },
+      {
+       "zh": "你下午能来我家看看吗？",
+       "pinyin": "nǐ xià wǔ néng lái wǒ jiā kàn kan ma",
+       "fr": "Tu peux passer chez moi cet après-midi pour y jeter un œil ?",
+       "en": "Can you come round this afternoon and take a look?"
+      },
+      {
+       "zh": "我住五号楼。",
+       "pinyin": "wǒ zhù wǔ hào lóu",
+       "fr": "J'habite au bâtiment 5.",
+       "en": "I live in building 5."
+      }
+     ]
+    }
+   ],
+   "questions": [
+    {
+     "type": "comprendre",
+     "support": "s1",
+     "consigne": {
+      "fr": "Combien coûtent les nouilles aux œufs ?",
+      "en": "How much are the egg noodles?"
+     },
+     "choix": [
+      {
+       "fr": "8 yuans",
+       "en": "8 yuan"
+      },
+      {
+       "fr": "10 yuans",
+       "en": "10 yuan"
+      },
+      {
+       "fr": "12 yuans",
+       "en": "12 yuan"
+      },
+      {
+       "fr": "1 yuan",
+       "en": "1 yuan"
+      }
+     ],
+     "reponse": 0,
+     "porte": [
+      "鸡",
+      "蛋",
+      "面",
+      "八",
+      "块"
+     ]
+    },
+    {
+     "type": "vrai_faux",
+     "support": "s1",
+     "consigne": {
+      "fr": "Vrai ou faux ?",
+      "en": "True or false?"
+     },
+     "affirmation": {
+      "zh": "牛肉面比鸡肉饭贵。",
+      "pinyin": "niú ròu miàn bǐ jī ròu fàn guì",
+      "fr": "Les nouilles au bœuf coûtent plus cher que le riz au poulet.",
+      "en": "The beef noodles cost more than the chicken rice."
+     },
+     "reponse": true,
+     "porte": [
+      "牛",
+      "鸡",
+      "十",
+      "二",
+      "块"
+     ]
+    },
+    {
+     "type": "reperer",
+     "support": "s2",
+     "consigne": {
+      "fr": "Touche ce qui ne marche plus.",
+      "en": "Tap what no longer works."
+     },
+     "choix": [
+      "小李",
+      "电脑",
+      "明天",
+      "五号楼"
+     ],
+     "reponse": 1,
+     "porte": [
+      "电",
+      "脑",
+      "坏"
+     ]
+    },
+    {
+     "type": "replique",
+     "support": "s2",
+     "consigne": {
+      "fr": "Que répond Xiao Li ?",
+      "en": "What does Xiao Li reply?"
+     },
+     "choix": [
+      {
+       "zh": "我的衣服很好看。",
+       "pinyin": "wǒ de yī fu hěn hǎo kàn",
+       "fr": "Mes vêtements sont jolis.",
+       "en": "My clothes are pretty."
+      },
+      {
+       "zh": "好，我下午去你家看看。",
+       "pinyin": "hǎo wǒ xià wǔ qù nǐ jiā kàn kan",
+       "fr": "D'accord, je passe chez toi cet après-midi.",
+       "en": "OK, I'll come round this afternoon."
+      },
+      {
+       "zh": "我弟弟在读书。",
+       "pinyin": "wǒ dì di zài dú shū",
+       "fr": "Mon petit frère est en train de lire.",
+       "en": "My little brother is reading."
+      },
+      {
+       "zh": "这个菜太贵了。",
+       "pinyin": "zhè gè cài tài guì le",
+       "fr": "Ce plat est trop cher.",
+       "en": "This dish is too expensive."
+      }
+     ],
+     "reponse": 1,
+     "porte": [
+      "脑",
+      "坏",
+      "来",
+      "看"
+     ]
+    },
+    {
+     "type": "caractere",
+     "consigne": {
+      "fr": "Quel caractère a ce sens ?",
+      "en": "Which character has this meaning?"
+     },
+     "objet": {
+      "zh": "鸟",
+      "pinyin": "niǎo",
+      "fr": "oiseau",
+      "en": "bird"
+     },
+     "choix": [
+      "马",
+      "鸡",
+      "鸟",
+      "写"
+     ],
+     "reponse": 2,
+     "porte": [
+      "鸟"
+     ]
+    }
+   ]
+  }
+ ]
+}
