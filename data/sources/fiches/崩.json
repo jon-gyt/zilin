@@ -21,20 +21,33 @@
   "山": "sens",
   "月": "forme"
  },
- "mots": [],
+ "mots": [
+  {
+   "hanzi": "雪崩",
+   "pinyin": "xuěbēng",
+   "fr": "avalanche",
+   "en": "avalanche"
+  },
+  {
+   "hanzi": "山崩",
+   "pinyin": "shānbēng",
+   "fr": "éboulement",
+   "en": "landslide"
+  }
+ ],
  "phrase": {
-  "zh": "",
-  "pinyin": "",
-  "fr": "",
-  "en": ""
+  "zh": "大雨过后发生了山崩。",
+  "pinyin": "Dà yǔ guò hòu fāshēng le shānbēng.",
+  "fr": "Après les fortes pluies, il y a eu un éboulement.",
+  "en": "After the heavy rain, there was a landslide."
  },
  "generation": {
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:227f02a9805c5814754e1e540f4748a603fb9a05b17c254e1800d6e1b4836abe",
-  "essais": 1,
+  "empreinte_invite": "sha256:ef2e660263a2cf48d50cda39af46d2033507d0c85b23eeb122e30f23532fe0bb",
+  "essais": 2,
   "refus": []
  },
- "statut": "relu"
+ "statut": "a_relire"
 }
