@@ -1,0 +1,446 @@
+{
+ "examen": "yueke-1705",
+ "parcours": "hsk",
+ "generation": {
+  "modele": "rédaction manuelle",
+  "api": "session Claude Code (sans API)",
+  "date": "2026-09-30"
+ },
+ "relecture": {
+  "statut": "a_relire",
+  "note": "rédigé le 30 septembre 2026, à relire par le propriétaire (`wenlu examens apercu`) ; une série passe à `relu` sur sa décision, citée ici"
+ },
+ "series": [
+  {
+   "serie": "A",
+   "statut": "a_relire",
+   "supports": [
+    {
+     "id": "s1",
+     "genre": "message",
+     "contexte": {
+      "fr": "Un message",
+      "en": "A message"
+     },
+     "lignes": [
+      {
+       "zh": "我们的船傍晚六点抵达小岛，",
+       "pinyin": "wǒ men de chuán bàng wǎn liù diǎn dǐ dá xiǎo dǎo",
+       "fr": "Notre bateau arrive à l'île vers six heures du soir,",
+       "en": "Our boat reaches the island around six in the evening,"
+      },
+      {
+       "zh": "晚饭在岛上的饭馆吃。",
+       "pinyin": "wǎn fàn zài dǎo shàng de fàn guǎn chī",
+       "fr": "et on dîne dans un restaurant de l'île.",
+       "en": "and we'll have dinner at a restaurant on the island."
+      },
+      {
+       "zh": "别忘了带雨伞，可能有暴雨！",
+       "pinyin": "bié wàng le dài yǔ sǎn kě néng yǒu bào yǔ",
+       "fr": "N'oublie pas ton parapluie, il pourrait y avoir de l'orage !",
+       "en": "Don't forget your umbrella, there may be a storm!"
+      }
+     ]
+    },
+    {
+     "id": "s2",
+     "genre": "pancarte",
+     "contexte": {
+      "fr": "Un panneau",
+      "en": "A sign"
+     },
+     "lignes": [
+      {
+       "zh": "请勿踩草地",
+       "pinyin": "qǐng wù cǎi cǎo dì",
+       "fr": "Ne marchez pas sur la pelouse",
+       "en": "Keep off the grass"
+      },
+      {
+       "zh": "雨天路滑，小心慢行",
+       "pinyin": "yǔ tiān lù huá xiǎo xīn màn xíng",
+       "fr": "Chaussée glissante par temps de pluie : avancez prudemment",
+       "en": "Slippery when wet: go slowly"
+      }
+     ]
+    }
+   ],
+   "questions": [
+    {
+     "type": "vrai_faux",
+     "support": "s1",
+     "consigne": {
+      "fr": "Vrai ou faux ?",
+      "en": "True or false?"
+     },
+     "affirmation": {
+      "zh": "晚饭在船上吃。",
+      "pinyin": "wǎn fàn zài chuán shàng chī",
+      "fr": "On dîne sur le bateau.",
+      "en": "Dinner is on the boat."
+     },
+     "reponse": false,
+     "porte": [
+      "岛",
+      "饭",
+      "馆"
+     ]
+    },
+    {
+     "type": "comprendre",
+     "support": "s1",
+     "consigne": {
+      "fr": "À quelle heure le bateau arrive-t-il ?",
+      "en": "What time does the boat arrive?"
+     },
+     "choix": [
+      {
+       "fr": "Vers 16 heures",
+       "en": "Around 4 pm"
+      },
+      {
+       "fr": "Vers 18 heures",
+       "en": "Around 6 pm"
+      },
+      {
+       "fr": "Vers 20 heures",
+       "en": "Around 8 pm"
+      },
+      {
+       "fr": "Vers 12 heures",
+       "en": "Around 12 noon"
+      }
+     ],
+     "reponse": 1,
+     "porte": [
+      "傍",
+      "晚",
+      "六",
+      "点",
+      "抵",
+      "达"
+     ]
+    },
+    {
+     "type": "replique",
+     "support": "s1",
+     "consigne": {
+      "fr": "Que lui répond-on ?",
+      "en": "What is the reply?"
+     },
+     "choix": [
+      {
+       "zh": "好的，我放在包里了。",
+       "pinyin": "hǎo de wǒ fàng zài bāo lǐ le",
+       "fr": "D'accord, je l'ai mis dans mon sac.",
+       "en": "OK, I've put it in my bag."
+      },
+      {
+       "zh": "我的小狗很可爱。",
+       "pinyin": "wǒ de xiǎo gǒu hěn kě ài",
+       "fr": "Mon petit chien est très mignon.",
+       "en": "My puppy is very cute."
+      },
+      {
+       "zh": "那本书我还没看完。",
+       "pinyin": "nà běn shū wǒ hái méi kàn wán",
+       "fr": "Je n'ai pas fini ce livre.",
+       "en": "I haven't finished that book."
+      },
+      {
+       "zh": "他家住在城南。",
+       "pinyin": "tā jiā zhù zài chéng nán",
+       "fr": "Il habite dans le sud de la ville.",
+       "en": "He lives in the south of town."
+      }
+     ],
+     "reponse": 0,
+     "porte": [
+      "伞",
+      "暴",
+      "雨"
+     ]
+    },
+    {
+     "type": "comprendre",
+     "support": "s2",
+     "consigne": {
+      "fr": "Que demande ce panneau ?",
+      "en": "What does this sign ask?"
+     },
+     "choix": [
+      {
+       "fr": "De ne pas cueillir les fleurs",
+       "en": "Not to pick the flowers"
+      },
+      {
+       "fr": "De ne pas faire de bruit",
+       "en": "Not to make noise"
+      },
+      {
+       "fr": "De ne pas marcher sur la pelouse",
+       "en": "Not to walk on the grass"
+      },
+      {
+       "fr": "De tenir son chien en laisse",
+       "en": "To keep dogs on a lead"
+      }
+     ],
+     "reponse": 2,
+     "porte": [
+      "勿",
+      "踩",
+      "草"
+     ]
+    },
+    {
+     "type": "sens",
+     "consigne": {
+      "fr": "Que veut dire ce caractère ?",
+      "en": "What does this character mean?"
+     },
+     "objet": {
+      "zh": "醋",
+      "pinyin": "cù",
+      "fr": "vinaigre",
+      "en": "vinegar"
+     },
+     "choix": [
+      {
+       "fr": "sucre",
+       "en": "sugar"
+      },
+      {
+       "fr": "vinaigre",
+       "en": "vinegar"
+      },
+      {
+       "fr": "sel",
+       "en": "salt"
+      },
+      {
+       "fr": "huile",
+       "en": "oil"
+      }
+     ],
+     "reponse": 1,
+     "porte": [
+      "醋"
+     ]
+    }
+   ]
+  },
+  {
+   "serie": "B",
+   "statut": "a_relire",
+   "supports": [
+    {
+     "id": "s1",
+     "genre": "billet",
+     "contexte": {
+      "fr": "Un billet",
+      "en": "A ticket"
+     },
+     "lignes": [
+      {
+       "zh": "轮渡船票",
+       "pinyin": "lún dù chuán piào",
+       "fr": "Bac : titre de transport",
+       "en": "Ferry: passenger pass"
+      },
+      {
+       "zh": "从东码头到小岛",
+       "pinyin": "cóng dōng mǎ tóu dào xiǎo dǎo",
+       "fr": "Du quai est jusqu'à la petite île",
+       "en": "From East Pier to the island"
+      },
+      {
+       "zh": "十月三日上午九点半开船",
+       "pinyin": "shí yuè sān rì shàng wǔ jiǔ diǎn bàn kāi chuán",
+       "fr": "Départ le 3 octobre à 9 h 30",
+       "en": "Departs 3 October at 9:30 am"
+      }
+     ]
+    },
+    {
+     "id": "s2",
+     "genre": "message",
+     "contexte": {
+      "fr": "Un message",
+      "en": "A message"
+     },
+     "lignes": [
+      {
+       "zh": "电梯坏了，",
+       "pinyin": "diàn tī huài le",
+       "fr": "L'ascenseur est en panne :",
+       "en": "The lift is out of order:"
+      },
+      {
+       "zh": "我把你的箱子放在楼下的仓库里了，",
+       "pinyin": "wǒ bǎ nǐ de xiāng zi fàng zài lóu xià de cāng kù lǐ le",
+       "fr": "j'ai mis ta valise dans la réserve, en bas ;",
+       "en": "I've put your suitcase in the storeroom downstairs;"
+      },
+      {
+       "zh": "你回来的时候记得去拿。",
+       "pinyin": "nǐ huí lái de shí hou jì de qù ná",
+       "fr": "pense à aller la chercher en rentrant.",
+       "en": "remember to pick it up when you get back."
+      }
+     ]
+    }
+   ],
+   "questions": [
+    {
+     "type": "vrai_faux",
+     "support": "s1",
+     "consigne": {
+      "fr": "Vrai ou faux ?",
+      "en": "True or false?"
+     },
+     "affirmation": {
+      "zh": "这张票是坐船用的。",
+      "pinyin": "zhè zhāng piào shì zuò chuán yòng de",
+      "fr": "Ce billet sert à prendre le bateau.",
+      "en": "This ticket is for a boat."
+     },
+     "reponse": true,
+     "porte": [
+      "渡",
+      "船",
+      "票"
+     ]
+    },
+    {
+     "type": "comprendre",
+     "support": "s1",
+     "consigne": {
+      "fr": "Jusqu'où va ce bateau ?",
+      "en": "Where does this boat go?"
+     },
+     "choix": [
+      {
+       "fr": "Jusqu'à l'autre rive du fleuve",
+       "en": "To the other bank of the river"
+      },
+      {
+       "fr": "Jusqu'au port de la ville",
+       "en": "To the city port"
+      },
+      {
+       "fr": "Jusqu'à une petite île",
+       "en": "To a small island"
+      },
+      {
+       "fr": "Jusqu'à un village de pêcheurs",
+       "en": "To a fishing village"
+      }
+     ],
+     "reponse": 2,
+     "porte": [
+      "小",
+      "岛"
+     ]
+    },
+    {
+     "type": "comprendre",
+     "support": "s2",
+     "consigne": {
+      "fr": "Où est la valise ?",
+      "en": "Where is the suitcase?"
+     },
+     "choix": [
+      {
+       "fr": "Dans la réserve en bas",
+       "en": "In the storeroom downstairs"
+      },
+      {
+       "fr": "Devant la porte",
+       "en": "In front of the door"
+      },
+      {
+       "fr": "Dans l'ascenseur",
+       "en": "In the lift"
+      },
+      {
+       "fr": "Chez un voisin",
+       "en": "At a neighbour's"
+      }
+     ],
+     "reponse": 0,
+     "porte": [
+      "仓",
+      "库",
+      "楼",
+      "下"
+     ]
+    },
+    {
+     "type": "replique",
+     "support": "s2",
+     "consigne": {
+      "fr": "Que répond-on à ce message ?",
+      "en": "What is the reply to this message?"
+     },
+     "choix": [
+      {
+       "zh": "我昨天没有吃早饭。",
+       "pinyin": "wǒ zuó tiān méi yǒu chī zǎo fàn",
+       "fr": "Hier, je n'ai pas pris de petit-déjeuner.",
+       "en": "I skipped breakfast yesterday."
+      },
+      {
+       "zh": "这件衣服太贵了。",
+       "pinyin": "zhè jiàn yī fu tài guì le",
+       "fr": "Ce vêtement est trop cher.",
+       "en": "This piece of clothing is too expensive."
+      },
+      {
+       "zh": "他会说三种语言。",
+       "pinyin": "tā huì shuō sān zhǒng yǔ yán",
+       "fr": "Il parle trois langues.",
+       "en": "He speaks three languages."
+      },
+      {
+       "zh": "谢谢，我晚上去拿。",
+       "pinyin": "xiè xie wǒ wǎn shang qù ná",
+       "fr": "Merci, j'irai la chercher ce soir.",
+       "en": "Thanks, I'll pick it up tonight."
+      }
+     ],
+     "reponse": 3,
+     "porte": [
+      "仓",
+      "库",
+      "拿"
+     ]
+    },
+    {
+     "type": "ton",
+     "consigne": {
+      "fr": "Quel est le ton de ce caractère ?",
+      "en": "Which tone does this character have?"
+     },
+     "objet": {
+      "zh": "滴",
+      "pinyin": "dī",
+      "fr": "goutte",
+      "en": "drop"
+     },
+     "choix": [
+      "dī",
+      "dí",
+      "dǐ",
+      "dì"
+     ],
+     "reponse": 0,
+     "porte": [
+      "滴"
+     ]
+    }
+   ]
+  }
+ ]
+}

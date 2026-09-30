@@ -1,0 +1,413 @@
+{
+ "examen": "yueke-1705",
+ "parcours": "lire",
+ "generation": {
+  "modele": "rédaction manuelle",
+  "api": "session Claude Code (sans API)",
+  "date": "2026-09-30"
+ },
+ "relecture": {
+  "statut": "a_relire",
+  "note": "rédigé le 30 septembre 2026, à relire par le propriétaire (`wenlu examens apercu`) ; une série passe à `relu` sur sa décision, citée ici"
+ },
+ "series": [
+  {
+   "serie": "A",
+   "statut": "a_relire",
+   "supports": [
+    {
+     "id": "s1",
+     "genre": "message",
+     "contexte": {
+      "fr": "Un message",
+      "en": "A message"
+     },
+     "lignes": [
+      {
+       "zh": "小王，明天我要出差三天，",
+       "pinyin": "xiǎo wáng míng tiān wǒ yào chū chāi sān tiān",
+       "fr": "Xiao Wang, demain je pars trois jours en déplacement :",
+       "en": "Xiao Wang, I'm away on a work trip for three days from tomorrow."
+      },
+      {
+       "zh": "能帮我照顾一下我的宠物狗吗？",
+       "pinyin": "néng bāng wǒ zhào gù yī xià wǒ de chǒng wù gǒu ma",
+       "fr": "peux-tu t'occuper de mon chien ?",
+       "en": "Could you look after my dog?"
+      },
+      {
+       "zh": "它每天傍晚要出去跑一跑。",
+       "pinyin": "tā měi tiān bàng wǎn yào chū qù pǎo yi pǎo",
+       "fr": "Il doit sortir courir un peu chaque jour en fin d'après-midi.",
+       "en": "He needs to go out for a run every day towards evening."
+      }
+     ]
+    },
+    {
+     "id": "s2",
+     "genre": "menu",
+     "contexte": {
+      "fr": "Un menu",
+      "en": "A menu"
+     },
+     "lignes": [
+      {
+       "zh": "蛋炒饭：十二元",
+       "pinyin": "dàn chǎo fàn shí èr yuán",
+       "fr": "Riz sauté aux œufs : 12 yuans",
+       "en": "Egg fried rice: 12 yuan"
+      },
+      {
+       "zh": "糖醋鱼：三十八元",
+       "pinyin": "táng cù yú sān shí bā yuán",
+       "fr": "Poisson aigre-doux : 38 yuans",
+       "en": "Sweet and sour fish: 38 yuan"
+      },
+      {
+       "zh": "炒青菜：十元",
+       "pinyin": "chǎo qīng cài shí yuán",
+       "fr": "Légumes verts sautés : 10 yuans",
+       "en": "Stir-fried greens: 10 yuan"
+      }
+     ]
+    }
+   ],
+   "questions": [
+    {
+     "type": "comprendre",
+     "support": "s1",
+     "consigne": {
+      "fr": "Que demande la personne qui écrit ?",
+      "en": "What is the writer asking for?"
+     },
+     "choix": [
+      {
+       "fr": "De lui prêter de l'argent",
+       "en": "To lend some money"
+      },
+      {
+       "fr": "De s'occuper de son chien",
+       "en": "To look after the dog"
+      },
+      {
+       "fr": "De l'emmener à la gare",
+       "en": "A lift to the station"
+      },
+      {
+       "fr": "D'arroser ses plantes",
+       "en": "To water the plants"
+      }
+     ],
+     "reponse": 1,
+     "porte": [
+      "照",
+      "顾",
+      "宠",
+      "物",
+      "狗"
+     ]
+    },
+    {
+     "type": "reperer",
+     "support": "s1",
+     "consigne": {
+      "fr": "Touche le moment de la sortie quotidienne.",
+      "en": "Tap when the daily outing happens."
+     },
+     "choix": [
+      "明天",
+      "三天",
+      "傍晚",
+      "宠物狗"
+     ],
+     "reponse": 2,
+     "porte": [
+      "傍",
+      "晚"
+     ]
+    },
+    {
+     "type": "replique",
+     "support": "s1",
+     "consigne": {
+      "fr": "Que répond Xiao Wang ?",
+      "en": "What does Xiao Wang reply?"
+     },
+     "choix": [
+      {
+       "zh": "没问题，你放心去吧！",
+       "pinyin": "méi wèn tí nǐ fàng xīn qù ba",
+       "fr": "Pas de problème, pars tranquille !",
+       "en": "No problem, off you go!"
+      },
+      {
+       "zh": "我家没有醋了。",
+       "pinyin": "wǒ jiā méi yǒu cù le",
+       "fr": "Je n'ai plus de vinaigre à la maison.",
+       "en": "I'm out of vinegar at home."
+      },
+      {
+       "zh": "我昨天买了一双鞋。",
+       "pinyin": "wǒ zuó tiān mǎi le yī shuāng xié",
+       "fr": "Hier, j'ai acheté des chaussures.",
+       "en": "I bought some shoes yesterday."
+      },
+      {
+       "zh": "他在银行工作。",
+       "pinyin": "tā zài yín háng gōng zuò",
+       "fr": "Il travaille dans une banque.",
+       "en": "He works at a bank."
+      }
+     ],
+     "reponse": 0,
+     "porte": [
+      "照",
+      "顾",
+      "宠"
+     ]
+    },
+    {
+     "type": "vrai_faux",
+     "support": "s2",
+     "consigne": {
+      "fr": "Vrai ou faux ?",
+      "en": "True or false?"
+     },
+     "affirmation": {
+      "zh": "糖醋鱼比蛋炒饭贵。",
+      "pinyin": "táng cù yú bǐ dàn chǎo fàn guì",
+      "fr": "Le poisson aigre-doux coûte plus cher que le riz sauté.",
+      "en": "The sweet and sour fish costs more than the fried rice."
+     },
+     "reponse": true,
+     "porte": [
+      "糖",
+      "醋",
+      "鱼",
+      "蛋",
+      "炒",
+      "饭"
+     ]
+    },
+    {
+     "type": "sens",
+     "consigne": {
+      "fr": "Que veut dire ce caractère ?",
+      "en": "What does this character mean?"
+     },
+     "objet": {
+      "zh": "蹲",
+      "pinyin": "dūn",
+      "fr": "s'accroupir",
+      "en": "to squat"
+     },
+     "choix": [
+      {
+       "fr": "sauter",
+       "en": "to jump"
+      },
+      {
+       "fr": "courir",
+       "en": "to run"
+      },
+      {
+       "fr": "grimper",
+       "en": "to climb"
+      },
+      {
+       "fr": "s'accroupir",
+       "en": "to squat"
+      }
+     ],
+     "reponse": 3,
+     "porte": [
+      "蹲"
+     ]
+    }
+   ]
+  },
+  {
+   "serie": "B",
+   "statut": "a_relire",
+   "supports": [
+    {
+     "id": "s1",
+     "genre": "note",
+     "contexte": {
+      "fr": "Une note",
+      "en": "A note"
+     },
+     "lignes": [
+      {
+       "zh": "我找到了一份兼职，",
+       "pinyin": "wǒ zhǎo dào le yī fèn jiān zhí",
+       "fr": "J'ai trouvé un petit boulot :",
+       "en": "I've found a part-time job:"
+      },
+      {
+       "zh": "每个周末去仓库帮忙搬东西，",
+       "pinyin": "měi gè zhōu mò qù cāng kù bāng máng bān dōng xi",
+       "fr": "chaque week-end, j'aide à porter des marchandises dans un entrepôt,",
+       "en": "every weekend I help move goods at a warehouse,"
+      },
+      {
+       "zh": "一天两百元。",
+       "pinyin": "yī tiān liǎng bǎi yuán",
+       "fr": "pour 200 yuans par jour.",
+       "en": "for 200 yuan a day."
+      }
+     ]
+    },
+    {
+     "id": "s2",
+     "genre": "pancarte",
+     "contexte": {
+      "fr": "Un panneau",
+      "en": "A sign"
+     },
+     "lignes": [
+      {
+       "zh": "厕所在楼梯右侧",
+       "pinyin": "cè suǒ zài lóu tī yòu cè",
+       "fr": "Toilettes à droite de l'escalier",
+       "en": "Toilets to the right of the stairs"
+      },
+      {
+       "zh": "楼内请勿吸烟",
+       "pinyin": "lóu nèi qǐng wù xī yān",
+       "fr": "Défense de fumer dans le bâtiment",
+       "en": "No smoking in the building"
+      }
+     ]
+    }
+   ],
+   "questions": [
+    {
+     "type": "comprendre",
+     "support": "s1",
+     "consigne": {
+      "fr": "Où la personne qui écrit va-t-elle travailler ?",
+      "en": "Where will the writer work?"
+     },
+     "choix": [
+      {
+       "fr": "Dans un restaurant",
+       "en": "In a restaurant"
+      },
+      {
+       "fr": "Dans une école",
+       "en": "In a school"
+      },
+      {
+       "fr": "Dans un entrepôt",
+       "en": "In a warehouse"
+      },
+      {
+       "fr": "Dans un hôpital",
+       "en": "In a hospital"
+      }
+     ],
+     "reponse": 2,
+     "porte": [
+      "仓",
+      "库"
+     ]
+    },
+    {
+     "type": "vrai_faux",
+     "support": "s1",
+     "consigne": {
+      "fr": "Vrai ou faux ?",
+      "en": "True or false?"
+     },
+     "affirmation": {
+      "zh": "我每天都去仓库工作。",
+      "pinyin": "wǒ měi tiān dōu qù cāng kù gōng zuò",
+      "fr": "Je vais travailler à l'entrepôt tous les jours.",
+      "en": "I work at the warehouse every day."
+     },
+     "reponse": false,
+     "porte": [
+      "周",
+      "末",
+      "兼",
+      "职"
+     ]
+    },
+    {
+     "type": "reperer",
+     "support": "s2",
+     "consigne": {
+      "fr": "Touche le mot qui désigne les toilettes.",
+      "en": "Tap the word for toilets."
+     },
+     "choix": [
+      "楼梯",
+      "厕所",
+      "右侧",
+      "吸烟"
+     ],
+     "reponse": 1,
+     "porte": [
+      "厕",
+      "所"
+     ]
+    },
+    {
+     "type": "comprendre",
+     "support": "s2",
+     "consigne": {
+      "fr": "Où se trouvent les toilettes ?",
+      "en": "Where are the toilets?"
+     },
+     "choix": [
+      {
+       "fr": "À gauche de l'escalier",
+       "en": "Left of the stairs"
+      },
+      {
+       "fr": "En haut de l'escalier",
+       "en": "At the top of the stairs"
+      },
+      {
+       "fr": "Près de l'entrée",
+       "en": "Near the entrance"
+      },
+      {
+       "fr": "À droite de l'escalier",
+       "en": "Right of the stairs"
+      }
+     ],
+     "reponse": 3,
+     "porte": [
+      "右",
+      "侧"
+     ]
+    },
+    {
+     "type": "caractere",
+     "consigne": {
+      "fr": "Quel caractère a ce sens ?",
+      "en": "Which character has this meaning?"
+     },
+     "objet": {
+      "zh": "踩",
+      "pinyin": "cǎi",
+      "fr": "marcher sur",
+      "en": "to step on"
+     },
+     "choix": [
+      "跳",
+      "踩",
+      "采",
+      "跑"
+     ],
+     "reponse": 1,
+     "porte": [
+      "踩"
+     ]
+    }
+   ]
+  }
+ ]
+}
