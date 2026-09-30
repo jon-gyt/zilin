@@ -2,16 +2,12 @@
  * Ce que les traits d'un caractère disent de plus qu'un autre, lu dans les données de
  * tracé (les médianes de chaque trait, dans la boîte 1024 × 1024 de l'export).
  *
- * Deux usages, tous deux à la correction d'un jeu :
- *
- * - Les jumeaux : le ou les traits qui distinguent deux caractères proches (le point de
- *   主 sur 王, le point de 玉 sous 王, le trait du haut de 士 plus long que celui de 土).
- *   Deux caractères du même compte de traits se comparent trait à trait, dans la même
- *   boîte ; quand l'un en a plus, on cherche l'autre dans ses traits, dans l'ordre
- *   d'écriture, et ce qui reste est ce qu'il a de plus.
- * - La chaîne : les traits du grand caractère qui forment le caractère qu'il contient
- *   (见 dans 觉, 天 dans 吞). Le petit y est tassé, déplacé : on compare les formes une
- *   fois ramenées chacune à sa boîte, sur une suite de traits consécutifs.
+ * À la correction des jumeaux : le ou les traits qui distinguent deux caractères proches
+ * (le point de 主 sur 王, le point de 玉 sous 王, le trait du haut de 士 plus long que
+ * celui de 土). Deux caractères du même compte de traits se comparent trait à trait, dans
+ * la même boîte ; quand l'un en a plus, on cherche l'autre dans ses traits, dans l'ordre
+ * d'écriture, et ce qui reste est ce qu'il a de plus. (La chaîne, devenue une chaîne de
+ * mots le 30 septembre 2026, ne peint plus le caractère contenu.)
  *
  * L'écran peint ces traits en indigo : ce n'est ni l'élément ajouté ni la position sur le
  * chemin, le cinabre n'y a pas sa place. Module pur, sans horloge ni stockage. Quand les
@@ -27,13 +23,6 @@ const POINTS = 8;
 
 /** Sous cet écart moyen (unités de la boîte 1024), deux traits sont le même trait. */
 export const SEUIL_MEME_TRAIT = 55;
-
-/**
- * Au-delà de cet écart moyen, une fois les formes ramenées à leur boîte, ce n'est pas le
- * même dessin. Une brique en clé de gauche change un peu de forme (le dernier trait de 女
- * remonte dans 姓, 又 se resserre dans 对) : l'écart y monte jusqu'à 0,2.
- */
-export const SEUIL_MEME_FORME = 0.25;
 
 function longueur(m: readonly Point[]): number {
   let l = 0;
@@ -131,44 +120,4 @@ export function traitsQuiDistinguent(a: StrokeData, b: StrokeData): number[] {
   const max = Math.max(...ecarts);
   if (max < SEUIL_MEME_TRAIT) return [];
   return ecarts.flatMap((e, i) => (e >= SEUIL_MEME_TRAIT && e >= max / 2 ? [i] : []));
-}
-
-/** Des traits ramenés à leur boîte commune, chaque axe à part : un 见 tassé dans 觉 reste 见. */
-function ramener(ts: readonly Point[][]): Point[][] {
-  const xs = ts.flatMap((t) => t.map((p) => p[0]));
-  const ys = ts.flatMap((t) => t.map((p) => p[1]));
-  const [x0, x1, y0, y1] = [Math.min(...xs), Math.max(...xs), Math.min(...ys), Math.max(...ys)];
-  const plus = Math.max(x1 - x0, y1 - y0, 1);
-  /* Un axe presque plat (un trait seul, horizontal) garde une échelle raisonnable. */
-  const w = Math.max(x1 - x0, plus / 4);
-  const h = Math.max(y1 - y0, plus / 4);
-  return ts.map((t) => t.map((p) => [(p[0] - x0) / w, (p[1] - y0) / h] as const));
-}
-
-/**
- * Les traits de `grand` qui dessinent `petit`, quand `grand` le contient : une suite de
- * traits consécutifs, dans l'ordre d'écriture, dont la forme ramenée à sa boîte est celle
- * de `petit`. Vide quand aucune suite ne lui ressemble assez (`SEUIL_MEME_FORME`) : un
- * caractère enveloppant, écrit en deux temps (囗 ouvert, puis fermé), n'est pas surligné.
- */
-export function traitsContenus(grand: StrokeData, petit: StrokeData): number[] {
-  const tg = traits(grand);
-  const tp = traits(petit);
-  const k = tp.length;
-  if (k === 0 || k > tg.length) return [];
-  const p = ramener(tp);
-  let meilleur = -1;
-  let score = Number.POSITIVE_INFINITY;
-  for (let i = 0; i + k <= tg.length; i++) {
-    const g = ramener(tg.slice(i, i + k));
-    let s = 0;
-    for (let j = 0; j < k; j++) s += ecart(g[j], p[j]);
-    s /= k;
-    if (s < score) {
-      score = s;
-      meilleur = i;
-    }
-  }
-  if (meilleur < 0 || score > SEUIL_MEME_FORME) return [];
-  return Array.from({ length: k }, (_, j) => meilleur + j);
 }

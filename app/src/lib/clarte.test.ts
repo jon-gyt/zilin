@@ -133,7 +133,7 @@ describe('un seul thème : le papier clair', () => {
   });
 });
 
-describe('la chaîne : la limite de trois minutes ne ferme pas le tour en cours', () => {
+describe('la limite d’une manche ne ferme pas le tour en cours', () => {
   const echoir = corps(source('Game.svelte'), 'echoir');
 
   it("à l'échéance, la manche est seulement marquée ; elle se clôt au bouton suivant", () => {

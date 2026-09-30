@@ -20,6 +20,11 @@
    */
   import EclairTour from './EclairTour.svelte';
   /**
+   * La chaîne de mots (décision du propriétaire du 30 septembre 2026) est posée par
+   * `ChaineTour` : le mot d'avant, le mot nouveau qui commence où il finit, quatre sens.
+   */
+  import ChaineTour from './ChaineTour.svelte';
+  /**
    * La cuisine de Tao (4b.6) a son propre écran, `Cuisine.svelte`, ouvert d'ici : le choix
    * d'un plat, la recette, l'étal, Tao qui goûte.
    */
@@ -49,7 +54,7 @@
     voisinsOnce
   } from './content';
   import { glyph, type StrokeData } from './glyph';
-  import { traitsContenus, traitsQuiDistinguent } from './ecarts';
+  import { traitsQuiDistinguent } from './ecarts';
   import { corpusDeManche, eclairOnce, ligneMotsDevines, TAO_ECLAIR } from './eclair';
   import { racinesDesCaracteres } from './foret';
   import { coquillesOnce } from './coquilles';
@@ -290,7 +295,7 @@
   let horloge: ReturnType<typeof setInterval> | null = null;
   let flash: ReturnType<typeof setTimeout> | null = null;
   let minuteur: ReturnType<typeof setTimeout> | null = null;
-  /** La limite de la manche entière (la chaîne : trois minutes). Elle ne note rien. */
+  /** La limite de la manche entière, pour un jeu qui en a une (`Jeu.limite`). Elle ne note rien. */
   let limite: ReturnType<typeof setTimeout> | null = null;
   /** La limite est passée : la manche se clôt au prochain tour, sans reproche. */
   let echue = $state(false);
@@ -427,8 +432,9 @@
     for (const e of evenementsANoter(courante.jeu, r)) onrepondu(e);
     /* Le dictionnaire éclair : un mot deviné compte une fois, dans la progression. */
     if (r.correct && mot !== '') onmotdevine(mot);
-    /* La coquille et l'éclair laissent lire leur correction : on n'avance pas tout seul. */
-    if (r.correct && courante.jeu !== 'coquille' && courante.jeu !== 'eclair') {
+    /* La coquille, l'éclair et la chaîne laissent lire leur correction (le message
+       traduit, le pinyin et le sens du mot) : on n'avance pas tout seul. */
+    if (r.correct && courante.jeu !== 'coquille' && courante.jeu !== 'eclair' && courante.jeu !== 'chaine') {
       minuteur = setTimeout(suivant, AVANCE_MS);
     }
   }
@@ -471,39 +477,6 @@
       vivant = false;
     };
   });
-
-  /**
-   * La chaîne, à la correction : dans le plus grand des deux maillons, les traits du plus
-   * petit, peints en indigo (`ecarts.traitsContenus`) : on voit où 见 se cache dans 觉.
-   * En montant, le grand est le nouveau maillon ; en descendant, c'est le précédent.
-   */
-  let contenu = $state<{ grand: string; petit: string; traits: number[] } | null>(null);
-  $effect(() => {
-    const tr = t;
-    const suite = tr?.suite ?? [];
-    const dernier = suite[suite.length - 1];
-    if (jeu !== 'chaine' || tr === null || resultat === null || dernier === undefined) {
-      contenu = null;
-      return;
-    }
-    const [grand, petit] = tr.lien === 'descend' ? [dernier, tr.c] : [tr.c, dernier];
-    let vivant = true;
-    void Promise.all([traitsDe(grand), traitsDe(petit)])
-      .then(([dg, dp]) => {
-        if (!vivant || !dg || !dp) return;
-        const traits = traitsContenus(dg, dp);
-        contenu = traits.length > 0 ? { grand, petit, traits } : null;
-      })
-      .catch(() => undefined);
-    return () => {
-      vivant = false;
-    };
-  });
-
-  /** Les traits à peindre en indigo dans un maillon de la chaîne, à la correction. */
-  function dansLeMaillon(c: string): number[] {
-    return contenu !== null && contenu.grand === c ? contenu.traits : [];
-  }
 
   /** Une brique prise : quand le compte y est, la réponse part telle quelle. */
   function prendre(k: number): void {
@@ -912,45 +885,7 @@
           {/each}
         </div>
       {:else if jeu === 'chaine'}
-        {@const suite = t.suite ?? []}
-        <!-- La chaîne jusque-là ; son dernier caractère, en grand, est ce qu'on cherche. -->
-        <div class="chaine" aria-label="La chaîne">
-          {#each suite as c, k (c + k)}
-            {#if k > 0}<span class="op" aria-hidden="true">→</span>{/if}
-            <span class="maillon" class:dernier={k === suite.length - 1}>
-              <Glyph
-                seul
-                char={c}
-                size={k === suite.length - 1 ? 72 : 40}
-                write={false}
-                indigo={k === suite.length - 1 ? dansLeMaillon(c) : []}
-              />
-            </span>
-          {/each}
-          {#if resultat !== null}
-            <span class="op" aria-hidden="true">→</span>
-            <span class="maillon faite"><Glyph seul char={t.c} size={56} write={false} indigo={dansLeMaillon(t.c)} /></span>
-          {/if}
-        </div>
-        {#if resultat !== null && contenu !== null}
-          <!-- Où l'un se cache dans l'autre : ses traits, en indigo. -->
-          <p class="k distingue">En indigo, {contenu.petit} dans {contenu.grand}.</p>
-        {:else}
-          <p class="consigne">{t.enonce}</p>
-        {/if}
-        <div class="choices quatre maillons">
-          {#each t.choix as c, k (c + k)}
-            <button
-              class:ok={resultat !== null && c === t.reponse[0]}
-              class:ko={resultat !== null && !resultat.correct && donnee[0] === c}
-              disabled={resultat !== null}
-              aria-label={c}
-              onclick={() => valider([c])}
-            >
-              <Glyph seul char={c} size={56} write={false} />
-            </button>
-          {/each}
-        </div>
+        <ChaineTour {t} {corpus} {resultat} {donnee} onchoisir={(x) => valider([x])} />
       {:else if jeu === 'eclair'}
         <EclairTour {t} {corpus} {resultat} {donnee} onchoisir={(s) => valider([s])} />
       {:else if jeu === 'coquille'}
@@ -1485,12 +1420,5 @@
   .distingue {
     margin: 6px 0 0;
     text-align: center;
-  }
-  /* La chaîne tient dans l'écran d'un téléphone : le dernier maillon et les quatre cases. */
-  .chaine {
-    min-height: 92px;
-  }
-  .choices.maillons button {
-    min-height: 78px;
   }
 </style>

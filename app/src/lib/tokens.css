@@ -584,12 +584,6 @@ h1{font-family:var(--head);font-weight:700;font-size:30px;line-height:1.15;lette
 /* ---- story 4b.3, la chaîne et la coquille ---- */
 /* un jeu que l'acquis ne permet pas encore : la même ligne, sans couleur d'alerte */
 .jeu .opt button.indispo{opacity:.6}
-/* la chaîne : les maillons déjà posés, le dernier en grand, sans cinabre */
-.chaine{display:flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:6px;min-height:104px;margin:0 0 8px}
-.chaine .op{color:var(--mist);font-size:20px}
-.chaine .maillon{display:inline-flex;align-items:center;justify-content:center;border:1.5px solid transparent;border-radius:12px;padding:2px}
-.chaine .maillon.dernier{border-color:var(--indigo);background:var(--card);padding:6px}
-.chaine .maillon.faite{border-color:var(--jade);background:var(--jade-soft);padding:4px;animation:paraitre .25s ease-out both}
 .choices.quatre{grid-template-columns:1fr 1fr}
 .choices.quatre button{min-height:92px}
 /* la coquille : le message, mot après mot, chaque caractère se touche */
@@ -606,7 +600,6 @@ h1{font-family:var(--head);font-weight:700;font-size:30px;line-height:1.15;lette
 .correction .tuile.intrus{border-style:dashed;border-color:var(--ink2)}
 .correction .gl{display:flex;flex-direction:column;margin-left:auto;text-align:right;font-size:15px;color:var(--ink2)}
 .correction .gl .py{font-size:16px}
-@media (prefers-reduced-motion:reduce){.chaine .maillon.faite{animation:none}}
 
 /* ---- clarté pour un débutant : ce que l'écran attend se voit d'un coup d'œil ---- */
 /* le caractère du jour, sur le chemin, avec la ligne qui dit ce qu'il fait là */

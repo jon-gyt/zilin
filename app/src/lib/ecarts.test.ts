@@ -1,12 +1,11 @@
 /**
  * Ce que les traits d'un caractère ont de plus qu'un autre (`ecarts.ts`), lu sur les
- * traits de l'export servi avec l'app : le point de 主, le point de 玉, le caractère
- * contenu dans un maillon de la chaîne. Et la règle de couleur : l'indigo, jamais le
+ * traits de l'export servi avec l'app : le point de 主, le point de 玉. Et la règle de couleur : l'indigo, jamais le
  * cinabre, qui marque l'élément ajouté et la position sur le chemin, rien d'autre.
  */
 import { describe, expect, it } from 'vitest';
 import { readdirSync, readFileSync } from 'node:fs';
-import { traitsContenus, traitsQuiDistinguent, reechantillonner } from './ecarts';
+import { traitsQuiDistinguent, reechantillonner } from './ecarts';
 import { glyph, type StrokeData } from './glyph';
 import { VERSION_DONNEES } from './content';
 
@@ -50,33 +49,6 @@ describe('les traits qui distinguent deux jumeaux', () => {
   });
 });
 
-describe('les traits du caractère contenu, pour la chaîne', () => {
-  it('trouve 见 dans 觉, 可 dans 哥, 口 dans 可, 大 dans 天, 人 dans 大', () => {
-    expect(traitsContenus(tr('觉'), tr('见'))).toEqual([5, 6, 7, 8]);
-    expect(traitsContenus(tr('哥'), tr('可'))).toEqual([5, 6, 7, 8, 9]);
-    expect(traitsContenus(tr('可'), tr('口'))).toEqual([1, 2, 3]);
-    expect(traitsContenus(tr('天'), tr('大'))).toEqual([1, 2, 3]);
-    expect(traitsContenus(tr('大'), tr('人'))).toEqual([1, 2]);
-  });
-
-  it('trouve une brique en clé de gauche, même resserrée : 女 dans 姓, 又 dans 对, 木 dans 杯', () => {
-    expect(traitsContenus(tr('姓'), tr('女'))).toEqual([0, 1, 2]);
-    expect(traitsContenus(tr('对'), tr('又'))).toEqual([0, 1]);
-    expect(traitsContenus(tr('杯'), tr('木'))).toEqual([0, 1, 2, 3]);
-  });
-
-  it('trouve la bonne moitié : 女 à gauche de 好, 子 à droite ; 门 autour de 问', () => {
-    expect(traitsContenus(tr('好'), tr('女'))).toEqual([0, 1, 2]);
-    expect(traitsContenus(tr('好'), tr('子'))).toEqual([3, 4, 5]);
-    expect(traitsContenus(tr('问'), tr('门'))).toEqual([0, 1, 2]);
-    expect(traitsContenus(tr('问'), tr('口'))).toEqual([3, 4, 5]);
-  });
-
-  it('ne rend rien quand le petit a plus de traits que le grand', () => {
-    expect(traitsContenus(tr('人'), tr('大'))).toEqual([]);
-  });
-});
-
 describe('le rendu', () => {
   it('rééchantillonne une médiane en huit points, du début à la fin', () => {
     const r = reechantillonner([
@@ -95,10 +67,9 @@ describe('le rendu', () => {
     const w = glyph('主', tr('主'), 72, { write: true, indigo: [0] });
     expect(w).toContain('class="br lan"');
     expect(w).toContain('class="fill lan"');
-    /* À la correction de la chaîne, le petit se peint dans le grand ; des jumeaux, le trait qui les distingue. */
+    /* À la correction des jumeaux, le trait qui les distingue. */
     const game = readFileSync(new URL('Game.svelte', import.meta.url), 'utf8');
-    expect(game).toContain('traitsContenus(dg, dp)');
-    expect(game).toContain('indigo={dansLeMaillon(t.c)}');
+    expect(game).toContain('traitsQuiDistinguent(da, db)');
     const css = readFileSync(new URL('tokens.css', import.meta.url), 'utf8');
     expect(css).toContain('.g .lan{color:var(--indigo)}');
   });
