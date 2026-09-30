@@ -1,0 +1,594 @@
+{
+ "examen": "yueke-1555",
+ "parcours": "hsk",
+ "generation": {
+  "modele": "rédaction manuelle",
+  "api": "session Claude Code (sans API)",
+  "date": "2026-09-30"
+ },
+ "relecture": {
+  "statut": "a_relire",
+  "note": "rédigé le 30 septembre 2026, à relire par le propriétaire (`wenlu examens apercu`) ; une série passe à `relu` sur sa décision, citée ici"
+ },
+ "series": [
+  {
+   "serie": "A",
+   "statut": "a_relire",
+   "supports": [
+    {
+     "id": "s1",
+     "genre": "billet",
+     "contexte": {
+      "fr": "Un billet",
+      "en": "A ticket"
+     },
+     "lignes": [
+      {
+       "zh": "电影：沙漠里的小马",
+       "pinyin": "diàn yǐng shā mò lǐ de xiǎo mǎ",
+       "fr": "Film : Le Petit Cheval du désert",
+       "en": "Film: The Little Horse of the Desert"
+      },
+      {
+       "zh": "六月八日：晚上七点",
+       "pinyin": "liù yuè bā rì wǎn shang qī diǎn",
+       "fr": "8 juin, 19 h",
+       "en": "8 June, 7 pm"
+      }
+     ],
+     "glose": [
+      {
+       "zh": "沙漠",
+       "pinyin": "shā mò",
+       "fr": "désert",
+       "en": "desert"
+      },
+      {
+       "zh": "里",
+       "pinyin": "lǐ",
+       "fr": "dans",
+       "en": "in"
+      },
+      {
+       "zh": "八日",
+       "pinyin": "bā rì",
+       "fr": "le 8 (du mois)",
+       "en": "the 8th"
+      }
+     ]
+    },
+    {
+     "id": "s2",
+     "genre": "message",
+     "contexte": {
+      "fr": "Un message",
+      "en": "A message"
+     },
+     "lignes": [
+      {
+       "zh": "妈妈，我把头发染成红色了，",
+       "pinyin": "mā ma wǒ bǎ tóu fa rǎn chéng hóng sè le",
+       "fr": "Maman, je me suis teint les cheveux en rouge,",
+       "en": "Mum, I've dyed my hair red,"
+      },
+      {
+       "zh": "您别骂我啊！",
+       "pinyin": "nín bié mà wǒ a",
+       "fr": "ne me gronde pas, hein !",
+       "en": "please don't tell me off!"
+      }
+     ],
+     "glose": [
+      {
+       "zh": "把",
+       "pinyin": "bǎ",
+       "fr": "(objet mis en avant)",
+       "en": "(object marker)"
+      },
+      {
+       "zh": "头发",
+       "pinyin": "tóu fa",
+       "fr": "cheveux",
+       "en": "hair"
+      },
+      {
+       "zh": "染",
+       "pinyin": "rǎn",
+       "fr": "teindre",
+       "en": "to dye"
+      },
+      {
+       "zh": "成",
+       "pinyin": "chéng",
+       "fr": "en (devenir)",
+       "en": "into"
+      },
+      {
+       "zh": "红色",
+       "pinyin": "hóng sè",
+       "fr": "rouge",
+       "en": "red"
+      },
+      {
+       "zh": "骂",
+       "pinyin": "mà",
+       "fr": "gronder",
+       "en": "to scold"
+      },
+      {
+       "zh": "啊",
+       "pinyin": "a",
+       "fr": "(exclamation)",
+       "en": "(exclamation)"
+      },
+      {
+       "zh": "让",
+       "pinyin": "ràng",
+       "fr": "laisser",
+       "en": "to let"
+      },
+      {
+       "zh": "瞧瞧",
+       "pinyin": "qiáo qiáo",
+       "fr": "jeter un œil",
+       "en": "to have a look"
+      },
+      {
+       "zh": "我的",
+       "pinyin": "wǒ de",
+       "fr": "mon, ma",
+       "en": "my"
+      },
+      {
+       "zh": "钱包",
+       "pinyin": "qián bāo",
+       "fr": "porte-monnaie",
+       "en": "wallet"
+      },
+      {
+       "zh": "丢",
+       "pinyin": "diū",
+       "fr": "perdre",
+       "en": "to lose"
+      },
+      {
+       "zh": "练",
+       "pinyin": "liàn",
+       "fr": "s'exercer",
+       "en": "to practise"
+      },
+      {
+       "zh": "钢琴",
+       "pinyin": "gāng qín",
+       "fr": "piano",
+       "en": "piano"
+      }
+     ]
+    }
+   ],
+   "questions": [
+    {
+     "type": "comprendre",
+     "support": "s1",
+     "consigne": {
+      "fr": "De quoi parle ce film, d'après son titre ?",
+      "en": "What is this film about, going by its title?"
+     },
+     "choix": [
+      {
+       "fr": "D'un petit chat de la ville",
+       "en": "A little cat in the city"
+      },
+      {
+       "fr": "D'un petit oiseau de la forêt",
+       "en": "A little bird in the forest"
+      },
+      {
+       "fr": "D'un petit poisson de la mer",
+       "en": "A little fish in the sea"
+      },
+      {
+       "fr": "D'un petit cheval du désert",
+       "en": "A little horse in the desert"
+      }
+     ],
+     "reponse": 3,
+     "porte": [
+      "漠",
+      "马"
+     ]
+    },
+    {
+     "type": "comprendre",
+     "support": "s2",
+     "consigne": {
+      "fr": "Qu'a fait la personne qui écrit ?",
+      "en": "What has the writer done?"
+     },
+     "choix": [
+      {
+       "fr": "Elle s'est teint les cheveux",
+       "en": "She has dyed her hair"
+      },
+      {
+       "fr": "Elle a acheté une robe",
+       "en": "She has bought a dress"
+      },
+      {
+       "fr": "Elle s'est coupé les cheveux",
+       "en": "She has cut her hair"
+      },
+      {
+       "fr": "Elle a repeint sa chambre",
+       "en": "She has repainted her room"
+      }
+     ],
+     "reponse": 0,
+     "porte": [
+      "染"
+     ]
+    },
+    {
+     "type": "reperer",
+     "support": "s2",
+     "consigne": {
+      "fr": "Touche ce qu'elle craint de la part de sa mère.",
+      "en": "Tap what she fears from her mother."
+     },
+     "choix": [
+      "头发",
+      "红色",
+      "骂",
+      "妈妈"
+     ],
+     "reponse": 2,
+     "porte": [
+      "骂"
+     ]
+    },
+    {
+     "type": "replique",
+     "support": "s2",
+     "consigne": {
+      "fr": "Que répond sa mère ?",
+      "en": "What does her mother reply?"
+     },
+     "choix": [
+      {
+       "zh": "我的钱包丢了。",
+       "pinyin": "wǒ de qián bāo diū le",
+       "fr": "J'ai perdu mon porte-monnaie.",
+       "en": "I've lost my wallet."
+      },
+      {
+       "zh": "好看吗？快让我瞧瞧！",
+       "pinyin": "hǎo kàn ma kuài ràng wǒ qiáo qiáo",
+       "fr": "C'est joli ? Montre-moi vite !",
+       "en": "Does it look nice? Quick, let me see!"
+      },
+      {
+       "zh": "明天会下雨。",
+       "pinyin": "míng tiān huì xià yǔ",
+       "fr": "Il va pleuvoir demain.",
+       "en": "It will rain tomorrow."
+      },
+      {
+       "zh": "他在练钢琴。",
+       "pinyin": "tā zài liàn gāng qín",
+       "fr": "Il travaille son piano.",
+       "en": "He's practising the piano."
+      }
+     ],
+     "reponse": 1,
+     "porte": [
+      "染",
+      "瞧"
+     ]
+    },
+    {
+     "type": "ton",
+     "consigne": {
+      "fr": "Quel est le ton de ce caractère ?",
+      "en": "Which tone does this character have?"
+     },
+     "objet": {
+      "zh": "抢",
+      "pinyin": "qiǎng",
+      "fr": "arracher, s'emparer de",
+      "en": "to grab"
+     },
+     "choix": [
+      "qiāng",
+      "qiáng",
+      "qiǎng",
+      "qiàng"
+     ],
+     "reponse": 2,
+     "porte": [
+      "抢"
+     ]
+    }
+   ]
+  },
+  {
+   "serie": "B",
+   "statut": "a_relire",
+   "supports": [
+    {
+     "id": "s1",
+     "genre": "pancarte",
+     "contexte": {
+      "fr": "Un écriteau",
+      "en": "A notice"
+     },
+     "lignes": [
+      {
+       "zh": "房间里有人休息，",
+       "pinyin": "fáng jiān lǐ yǒu rén xiū xi",
+       "fr": "Quelqu'un se repose dans la chambre,",
+       "en": "Someone is resting in this room,"
+      },
+      {
+       "zh": "请勿打扰。",
+       "pinyin": "qǐng wù dǎ rǎo",
+       "fr": "ne pas déranger.",
+       "en": "do not disturb."
+      }
+     ],
+     "glose": [
+      {
+       "zh": "房间",
+       "pinyin": "fáng jiān",
+       "fr": "chambre, pièce",
+       "en": "room"
+      },
+      {
+       "zh": "里",
+       "pinyin": "lǐ",
+       "fr": "dans",
+       "en": "in"
+      },
+      {
+       "zh": "有人",
+       "pinyin": "yǒu rén",
+       "fr": "il y a quelqu'un",
+       "en": "someone"
+      },
+      {
+       "zh": "休息",
+       "pinyin": "xiū xi",
+       "fr": "se reposer",
+       "en": "to rest"
+      },
+      {
+       "zh": "请勿",
+       "pinyin": "qǐng wù",
+       "fr": "prière de ne pas",
+       "en": "please do not"
+      },
+      {
+       "zh": "打扰",
+       "pinyin": "dǎ rǎo",
+       "fr": "déranger",
+       "en": "to disturb"
+      }
+     ]
+    },
+    {
+     "id": "s2",
+     "genre": "note",
+     "contexte": {
+      "fr": "Une note",
+      "en": "A note"
+     },
+     "lignes": [
+      {
+       "zh": "小李：你的钢琴课我帮你请假了，",
+       "pinyin": "xiǎo lǐ nǐ de gāng qín kè wǒ bāng nǐ qǐng jià le",
+       "fr": "Xiao Li : j'ai excusé ton absence au cours de piano,",
+       "en": "Xiao Li: I told your piano teacher you'd be absent,"
+      },
+      {
+       "zh": "老师说下星期要多练，",
+       "pinyin": "lǎo shī shuō xià xīng qī yào duō liàn",
+       "fr": "le professeur dit qu'il faudra plus t'exercer la semaine prochaine,",
+       "en": "the teacher says you must practise more next week,"
+      },
+      {
+       "zh": "她很有耐心，别怕。",
+       "pinyin": "tā hěn yǒu nài xīn bié pà",
+       "fr": "elle est très patiente, n'aie pas peur.",
+       "en": "she's very patient, don't worry."
+      }
+     ],
+     "glose": [
+      {
+       "zh": "你的",
+       "pinyin": "nǐ de",
+       "fr": "ton, ta",
+       "en": "your"
+      },
+      {
+       "zh": "钢琴课",
+       "pinyin": "gāng qín kè",
+       "fr": "cours de piano",
+       "en": "piano lesson"
+      },
+      {
+       "zh": "请假",
+       "pinyin": "qǐng jià",
+       "fr": "demander un congé, excuser une absence",
+       "en": "to ask for leave"
+      },
+      {
+       "zh": "下星期",
+       "pinyin": "xià xīng qī",
+       "fr": "la semaine prochaine",
+       "en": "next week"
+      },
+      {
+       "zh": "练",
+       "pinyin": "liàn",
+       "fr": "s'exercer",
+       "en": "to practise"
+      },
+      {
+       "zh": "耐心",
+       "pinyin": "nài xīn",
+       "fr": "patience",
+       "en": "patience"
+      },
+      {
+       "zh": "怕",
+       "pinyin": "pà",
+       "fr": "avoir peur",
+       "en": "to be afraid"
+      },
+      {
+       "zh": "这件",
+       "pinyin": "zhè jiàn",
+       "fr": "ce (vêtement)",
+       "en": "this (garment)"
+      },
+      {
+       "zh": "北边",
+       "pinyin": "běi bian",
+       "fr": "au nord",
+       "en": "to the north"
+      }
+     ]
+    }
+   ],
+   "questions": [
+    {
+     "type": "comprendre",
+     "support": "s1",
+     "consigne": {
+      "fr": "Que demande cet écriteau ?",
+      "en": "What does this notice ask?"
+     },
+     "choix": [
+      {
+       "fr": "De ne pas fumer",
+       "en": "Not to smoke"
+      },
+      {
+       "fr": "De ne pas toucher",
+       "en": "Not to touch"
+      },
+      {
+       "fr": "De ne pas déranger",
+       "en": "Not to disturb"
+      },
+      {
+       "fr": "De ne pas manger",
+       "en": "Not to eat"
+      }
+     ],
+     "reponse": 2,
+     "porte": [
+      "扰"
+     ]
+    },
+    {
+     "type": "reperer",
+     "support": "s2",
+     "consigne": {
+      "fr": "Touche l'instrument dont Xiao Li prend des cours.",
+      "en": "Tap the instrument Xiao Li takes lessons in."
+     },
+     "choix": [
+      "钢琴课",
+      "请假",
+      "下星期",
+      "耐心"
+     ],
+     "reponse": 0,
+     "porte": [
+      "琴"
+     ]
+    },
+    {
+     "type": "vrai_faux",
+     "support": "s2",
+     "consigne": {
+      "fr": "Vrai ou faux ?",
+      "en": "True or false?"
+     },
+     "affirmation": {
+      "zh": "老师没有耐心。",
+      "pinyin": "lǎo shī méi yǒu nài xīn",
+      "fr": "Le professeur manque de patience.",
+      "en": "The teacher is impatient."
+     },
+     "reponse": false,
+     "porte": [
+      "耐"
+     ]
+    },
+    {
+     "type": "replique",
+     "support": "s2",
+     "consigne": {
+      "fr": "Que répond Xiao Li ?",
+      "en": "What does Xiao Li reply?"
+     },
+     "choix": [
+      {
+       "zh": "这件衣服太大了。",
+       "pinyin": "zhè jiàn yī fu tài dà le",
+       "fr": "Ce vêtement est trop grand.",
+       "en": "These clothes are too big."
+      },
+      {
+       "zh": "我家在北边。",
+       "pinyin": "wǒ jiā zài běi bian",
+       "fr": "J'habite au nord.",
+       "en": "I live up north."
+      },
+      {
+       "zh": "今天星期五。",
+       "pinyin": "jīn tiān xīng qī wǔ",
+       "fr": "Aujourd'hui, c'est vendredi.",
+       "en": "Today is Friday."
+      },
+      {
+       "zh": "谢谢你！我会多练的。",
+       "pinyin": "xiè xie nǐ wǒ huì duō liàn de",
+       "fr": "Merci ! Je m'exercerai davantage.",
+       "en": "Thanks! I'll practise more."
+      }
+     ],
+     "reponse": 3,
+     "porte": [
+      "琴",
+      "练"
+     ]
+    },
+    {
+     "type": "caractere",
+     "consigne": {
+      "fr": "Quel caractère a ce sens ?",
+      "en": "Which character has this meaning?"
+     },
+     "objet": {
+      "zh": "扔",
+      "pinyin": "rēng",
+      "fr": "jeter",
+      "en": "to throw"
+     },
+     "choix": [
+      "仍",
+      "扬",
+      "奶",
+      "扔"
+     ],
+     "reponse": 3,
+     "porte": [
+      "扔"
+     ]
+    }
+   ]
+  }
+ ]
+}

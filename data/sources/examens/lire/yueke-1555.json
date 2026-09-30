@@ -1,0 +1,651 @@
+{
+ "examen": "yueke-1555",
+ "parcours": "lire",
+ "generation": {
+  "modele": "rédaction manuelle",
+  "api": "session Claude Code (sans API)",
+  "date": "2026-09-30"
+ },
+ "relecture": {
+  "statut": "a_relire",
+  "note": "rédigé le 30 septembre 2026, à relire par le propriétaire (`wenlu examens apercu`) ; une série passe à `relu` sur sa décision, citée ici"
+ },
+ "series": [
+  {
+   "serie": "A",
+   "statut": "a_relire",
+   "supports": [
+    {
+     "id": "s1",
+     "genre": "message",
+     "contexte": {
+      "fr": "Un message",
+      "en": "A message"
+     },
+     "lignes": [
+      {
+       "zh": "小林，我在家练钢琴，",
+       "pinyin": "xiǎo lín wǒ zài jiā liàn gāng qín",
+       "fr": "Xiao Lin, je suis chez moi à travailler le piano,",
+       "en": "Xiao Lin, I'm at home practising the piano,"
+      },
+      {
+       "zh": "你来的时候先敲门，",
+       "pinyin": "nǐ lái de shí hou xiān qiāo mén",
+       "fr": "quand tu arrives, frappe à la porte,",
+       "en": "when you come, knock on the door,"
+      },
+      {
+       "zh": "门铃坏了。",
+       "pinyin": "mén líng huài le",
+       "fr": "la sonnette est en panne.",
+       "en": "the doorbell is broken."
+      }
+     ],
+     "glose": [
+      {
+       "zh": "小林",
+       "pinyin": "xiǎo lín",
+       "fr": "Xiao Lin (nom)",
+       "en": "Xiao Lin (name)"
+      },
+      {
+       "zh": "在家",
+       "pinyin": "zài jiā",
+       "fr": "à la maison",
+       "en": "at home"
+      },
+      {
+       "zh": "练",
+       "pinyin": "liàn",
+       "fr": "s'exercer",
+       "en": "to practise"
+      },
+      {
+       "zh": "钢琴",
+       "pinyin": "gāng qín",
+       "fr": "piano",
+       "en": "piano"
+      },
+      {
+       "zh": "的时候",
+       "pinyin": "de shí hou",
+       "fr": "quand, au moment où",
+       "en": "when"
+      },
+      {
+       "zh": "敲门",
+       "pinyin": "qiāo mén",
+       "fr": "frapper à la porte",
+       "en": "to knock on the door"
+      },
+      {
+       "zh": "门铃",
+       "pinyin": "mén líng",
+       "fr": "sonnette",
+       "en": "doorbell"
+      },
+      {
+       "zh": "在学校",
+       "pinyin": "zài xué xiào",
+       "fr": "à l'école",
+       "en": "at school"
+      },
+      {
+       "zh": "好的",
+       "pinyin": "hǎo de",
+       "fr": "d'accord",
+       "en": "OK"
+      },
+      {
+       "zh": "到了",
+       "pinyin": "dào le",
+       "fr": "être arrivé",
+       "en": "to have arrived"
+      },
+      {
+       "zh": "就",
+       "pinyin": "jiù",
+       "fr": "aussitôt",
+       "en": "right away"
+      },
+      {
+       "zh": "不会",
+       "pinyin": "bù huì",
+       "fr": "ne pas savoir",
+       "en": "can't"
+      },
+      {
+       "zh": "游泳",
+       "pinyin": "yóu yǒng",
+       "fr": "nager",
+       "en": "to swim"
+      },
+      {
+       "zh": "这个",
+       "pinyin": "zhè gè",
+       "fr": "ce, cette",
+       "en": "this"
+      },
+      {
+       "zh": "好吃",
+       "pinyin": "hǎo chī",
+       "fr": "bon (à manger)",
+       "en": "tasty"
+      },
+      {
+       "zh": "他的",
+       "pinyin": "tā de",
+       "fr": "son, sa (à lui)",
+       "en": "his"
+      },
+      {
+       "zh": "脾气",
+       "pinyin": "pí qi",
+       "fr": "caractère, humeur",
+       "en": "temper"
+      }
+     ]
+    },
+    {
+     "id": "s2",
+     "genre": "pancarte",
+     "contexte": {
+      "fr": "Un écriteau",
+      "en": "A notice"
+     },
+     "lignes": [
+      {
+       "zh": "小心，地很滑！",
+       "pinyin": "xiǎo xīn dì hěn huá",
+       "fr": "Attention, sol glissant !",
+       "en": "Caution, slippery floor!"
+      },
+      {
+       "zh": "请勿乱扔垃圾",
+       "pinyin": "qǐng wù luàn rēng lā jī",
+       "fr": "Ne jetez pas vos déchets n'importe où",
+       "en": "Do not litter"
+      }
+     ],
+     "glose": [
+      {
+       "zh": "地",
+       "pinyin": "dì",
+       "fr": "sol",
+       "en": "ground, floor"
+      },
+      {
+       "zh": "滑",
+       "pinyin": "huá",
+       "fr": "glissant",
+       "en": "slippery"
+      },
+      {
+       "zh": "请勿",
+       "pinyin": "qǐng wù",
+       "fr": "prière de ne pas",
+       "en": "please do not"
+      },
+      {
+       "zh": "乱扔",
+       "pinyin": "luàn rēng",
+       "fr": "jeter n'importe où",
+       "en": "to throw about"
+      },
+      {
+       "zh": "垃圾",
+       "pinyin": "lā jī",
+       "fr": "déchets",
+       "en": "rubbish"
+      }
+     ]
+    }
+   ],
+   "questions": [
+    {
+     "type": "reperer",
+     "support": "s1",
+     "consigne": {
+      "fr": "Touche l'instrument dont joue la personne qui écrit.",
+      "en": "Tap the instrument the writer is playing."
+     },
+     "choix": [
+      "门铃",
+      "钢琴",
+      "敲门",
+      "小林"
+     ],
+     "reponse": 1,
+     "porte": [
+      "钢",
+      "琴"
+     ]
+    },
+    {
+     "type": "vrai_faux",
+     "support": "s1",
+     "consigne": {
+      "fr": "Vrai ou faux ?",
+      "en": "True or false?"
+     },
+     "affirmation": {
+      "zh": "他在学校练钢琴。",
+      "pinyin": "tā zài xué xiào liàn gāng qín",
+      "fr": "Il travaille le piano à l'école.",
+      "en": "He's practising the piano at school."
+     },
+     "reponse": false,
+     "porte": [
+      "在",
+      "家",
+      "琴"
+     ]
+    },
+    {
+     "type": "replique",
+     "support": "s1",
+     "consigne": {
+      "fr": "Que répond Xiao Lin ?",
+      "en": "What does Xiao Lin reply?"
+     },
+     "choix": [
+      {
+       "zh": "我不会游泳。",
+       "pinyin": "wǒ bù huì yóu yǒng",
+       "fr": "Je ne sais pas nager.",
+       "en": "I can't swim."
+      },
+      {
+       "zh": "这个菜很好吃。",
+       "pinyin": "zhè gè cài hěn hǎo chī",
+       "fr": "Ce plat est très bon.",
+       "en": "This dish is very tasty."
+      },
+      {
+       "zh": "他的脾气很好。",
+       "pinyin": "tā de pí qi hěn hǎo",
+       "fr": "Il a bon caractère.",
+       "en": "He's good-tempered."
+      },
+      {
+       "zh": "好的，我到了就敲门。",
+       "pinyin": "hǎo de wǒ dào le jiù qiāo mén",
+       "fr": "D'accord, je frapperai en arrivant.",
+       "en": "OK, I'll knock when I get there."
+      }
+     ],
+     "reponse": 3,
+     "porte": [
+      "敲",
+      "门",
+      "铃"
+     ]
+    },
+    {
+     "type": "comprendre",
+     "support": "s2",
+     "consigne": {
+      "fr": "Qu'est-ce qui est interdit ?",
+      "en": "What is not allowed?"
+     },
+     "choix": [
+      {
+       "fr": "Fumer",
+       "en": "Smoking"
+      },
+      {
+       "fr": "Jeter ses déchets",
+       "en": "Littering"
+      },
+      {
+       "fr": "Courir",
+       "en": "Running"
+      },
+      {
+       "fr": "Se baigner",
+       "en": "Swimming"
+      }
+     ],
+     "reponse": 1,
+     "porte": [
+      "扔",
+      "垃",
+      "圾"
+     ]
+    },
+    {
+     "type": "sens",
+     "consigne": {
+      "fr": "Que veut dire ce caractère ?",
+      "en": "What does this character mean?"
+     },
+     "objet": {
+      "zh": "软",
+      "pinyin": "ruǎn",
+      "fr": "mou, tendre",
+      "en": "soft"
+     },
+     "choix": [
+      {
+       "fr": "lourd, pesant",
+       "en": "heavy"
+      },
+      {
+       "fr": "mou, tendre",
+       "en": "soft"
+      },
+      {
+       "fr": "sale, crasseux",
+       "en": "dirty"
+      },
+      {
+       "fr": "froid, glacé",
+       "en": "cold"
+      }
+     ],
+     "reponse": 1,
+     "porte": [
+      "软"
+     ]
+    }
+   ]
+  },
+  {
+   "serie": "B",
+   "statut": "a_relire",
+   "supports": [
+    {
+     "id": "s1",
+     "genre": "note",
+     "contexte": {
+      "fr": "Une note",
+      "en": "A note"
+     },
+     "lignes": [
+      {
+       "zh": "我陪妈妈去医院了，",
+       "pinyin": "wǒ péi mā ma qù yī yuàn le",
+       "fr": "J'ai accompagné Maman à l'hôpital,",
+       "en": "I've gone to the hospital with Mum,"
+      },
+      {
+       "zh": "晚饭不回来吃了，",
+       "pinyin": "wǎn fàn bù huí lái chī le",
+       "fr": "je ne rentre pas dîner,",
+       "en": "I won't be back for dinner,"
+      },
+      {
+       "zh": "你别等我。",
+       "pinyin": "nǐ bié děng wǒ",
+       "fr": "ne m'attends pas.",
+       "en": "don't wait for me."
+      }
+     ],
+     "glose": [
+      {
+       "zh": "陪",
+       "pinyin": "péi",
+       "fr": "accompagner",
+       "en": "to accompany"
+      },
+      {
+       "zh": "晚饭",
+       "pinyin": "wǎn fàn",
+       "fr": "dîner",
+       "en": "dinner"
+      },
+      {
+       "zh": "一个人",
+       "pinyin": "yī gè rén",
+       "fr": "seul, toute seule",
+       "en": "alone"
+      }
+     ]
+    },
+    {
+     "id": "s2",
+     "genre": "message",
+     "contexte": {
+      "fr": "Un message",
+      "en": "A message"
+     },
+     "lignes": [
+      {
+       "zh": "王老师，这么晚还打扰您，真不好意思。",
+       "pinyin": "wáng lǎo shī zhè me wǎn hái dǎ rǎo nín zhēn bù hǎo yì si",
+       "fr": "Monsieur Wang, désolé de vous déranger si tard.",
+       "en": "Mr Wang, sorry to bother you so late."
+      },
+      {
+       "zh": "明天的考试可以带词典吗？",
+       "pinyin": "míng tiān de kǎo shì kě yǐ dài cí diǎn ma",
+       "fr": "Pour l'examen de demain, peut-on apporter un dictionnaire ?",
+       "en": "May we bring a dictionary to tomorrow's exam?"
+      }
+     ],
+     "glose": [
+      {
+       "zh": "这么",
+       "pinyin": "zhè me",
+       "fr": "si, aussi",
+       "en": "so"
+      },
+      {
+       "zh": "晚",
+       "pinyin": "wǎn",
+       "fr": "tard",
+       "en": "late"
+      },
+      {
+       "zh": "打扰",
+       "pinyin": "dǎ rǎo",
+       "fr": "déranger",
+       "en": "to disturb"
+      },
+      {
+       "zh": "真",
+       "pinyin": "zhēn",
+       "fr": "vraiment",
+       "en": "really"
+      },
+      {
+       "zh": "不好意思",
+       "pinyin": "bù hǎo yì si",
+       "fr": "désolé, gêné",
+       "en": "sorry, embarrassed"
+      },
+      {
+       "zh": "考试",
+       "pinyin": "kǎo shì",
+       "fr": "examen",
+       "en": "exam"
+      },
+      {
+       "zh": "带",
+       "pinyin": "dài",
+       "fr": "apporter",
+       "en": "to bring"
+      },
+      {
+       "zh": "词典",
+       "pinyin": "cí diǎn",
+       "fr": "dictionnaire",
+       "en": "dictionary"
+      },
+      {
+       "zh": "不打扰",
+       "pinyin": "bù dǎ rǎo",
+       "fr": "vous ne dérangez pas",
+       "en": "no bother"
+      },
+      {
+       "zh": "漫画",
+       "pinyin": "màn huà",
+       "fr": "bande dessinée",
+       "en": "comics"
+      },
+      {
+       "zh": "弹",
+       "pinyin": "dàn",
+       "fr": "jouer (d'un instrument)",
+       "en": "to play (an instrument)"
+      },
+      {
+       "zh": "钢琴",
+       "pinyin": "gāng qín",
+       "fr": "piano",
+       "en": "piano"
+      },
+      {
+       "zh": "那个",
+       "pinyin": "nà gè",
+       "fr": "ce, cette",
+       "en": "that"
+      }
+     ]
+    }
+   ],
+   "questions": [
+    {
+     "type": "comprendre",
+     "support": "s1",
+     "consigne": {
+      "fr": "Où est allée la personne qui écrit ?",
+      "en": "Where has the writer gone?"
+     },
+     "choix": [
+      {
+       "fr": "À la gare",
+       "en": "To the station"
+      },
+      {
+       "fr": "À l'hôpital",
+       "en": "To the hospital"
+      },
+      {
+       "fr": "Au cinéma",
+       "en": "To the cinema"
+      },
+      {
+       "fr": "À la poste",
+       "en": "To the post office"
+      }
+     ],
+     "reponse": 1,
+     "porte": [
+      "陪",
+      "医",
+      "院"
+     ]
+    },
+    {
+     "type": "vrai_faux",
+     "support": "s1",
+     "consigne": {
+      "fr": "Vrai ou faux ?",
+      "en": "True or false?"
+     },
+     "affirmation": {
+      "zh": "她一个人去医院了。",
+      "pinyin": "tā yī gè rén qù yī yuàn le",
+      "fr": "Elle est allée seule à l'hôpital.",
+      "en": "She went to the hospital alone."
+     },
+     "reponse": false,
+     "porte": [
+      "陪",
+      "妈"
+     ]
+    },
+    {
+     "type": "replique",
+     "support": "s2",
+     "consigne": {
+      "fr": "Que répond M. Wang ?",
+      "en": "What does Mr Wang reply?"
+     },
+     "choix": [
+      {
+       "zh": "我喜欢看漫画。",
+       "pinyin": "wǒ xǐ huan kàn màn huà",
+       "fr": "J'aime lire des BD.",
+       "en": "I like reading comics."
+      },
+      {
+       "zh": "他会弹钢琴。",
+       "pinyin": "tā huì dàn gāng qín",
+       "fr": "Il sait jouer du piano.",
+       "en": "He can play the piano."
+      },
+      {
+       "zh": "不打扰！可以带。",
+       "pinyin": "bù dǎ rǎo kě yǐ dài",
+       "fr": "Pas de souci ! Oui, c'est permis.",
+       "en": "No bother! Yes, you may."
+      },
+      {
+       "zh": "那个商店关门了。",
+       "pinyin": "nà gè shāng diàn guān mén le",
+       "fr": "Ce magasin est fermé.",
+       "en": "That shop is closed."
+      }
+     ],
+     "reponse": 2,
+     "porte": [
+      "扰",
+      "带"
+     ]
+    },
+    {
+     "type": "trou",
+     "consigne": {
+      "fr": "Quel caractère manque dans ce mot ?",
+      "en": "Which character is missing from this word?"
+     },
+     "objet": {
+      "zh": "耐心",
+      "pinyin": "nài xīn",
+      "fr": "patient ; patience",
+      "en": "patient; patience"
+     },
+     "trou": 0,
+     "choix": [
+      "而",
+      "需",
+      "耐",
+      "奈"
+     ],
+     "reponse": 2,
+     "porte": [
+      "耐",
+      "心"
+     ]
+    },
+    {
+     "type": "ton",
+     "consigne": {
+      "fr": "Quel est le ton de ce caractère ?",
+      "en": "Which tone does this character have?"
+     },
+     "objet": {
+      "zh": "忍",
+      "pinyin": "rěn",
+      "fr": "supporter, endurer",
+      "en": "to endure"
+     },
+     "choix": [
+      "rēn",
+      "rén",
+      "rěn",
+      "rèn"
+     ],
+     "reponse": 2,
+     "porte": [
+      "忍"
+     ]
+    }
+   ]
+  }
+ ]
+}
