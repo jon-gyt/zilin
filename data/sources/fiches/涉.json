@@ -23,20 +23,33 @@
   "止": "sens",
   "𣥂": "sens"
  },
- "mots": [],
+ "mots": [
+  {
+   "hanzi": "涉及",
+   "pinyin": "shèjí",
+   "fr": "concerner, toucher à",
+   "en": "to involve, to concern"
+  },
+  {
+   "hanzi": "干涉",
+   "pinyin": "gānshè",
+   "fr": "s'ingérer, intervenir",
+   "en": "to interfere"
+  }
+ ],
  "phrase": {
-  "zh": "",
-  "pinyin": "",
-  "fr": "",
-  "en": ""
+  "zh": "这件事涉及很多人。",
+  "pinyin": "Zhè jiàn shì shèjí hěn duō rén.",
+  "fr": "Cette affaire concerne beaucoup de gens.",
+  "en": "This matter involves many people."
  },
  "generation": {
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:48ae4a70a4bec99e0c202601fc040f6f3ffc98126be0c86f5fbde2f5bbb55454",
-  "essais": 1,
+  "empreinte_invite": "sha256:4ab32b46af0229d3e5a75a1e43c67b0de5833dba3cdb92f454a527ea28b67a87",
+  "essais": 2,
   "refus": []
  },
- "statut": "relu"
+ "statut": "a_relire"
 }

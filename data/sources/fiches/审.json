@@ -21,20 +21,33 @@
   "宀": "sens",
   "申": "son"
  },
- "mots": [],
+ "mots": [
+  {
+   "hanzi": "审查",
+   "pinyin": "shěnchá",
+   "fr": "examiner, contrôler",
+   "en": "to examine, to review"
+  },
+  {
+   "hanzi": "审判",
+   "pinyin": "shěnpàn",
+   "fr": "juger (au tribunal)",
+   "en": "to try (in court)"
+  }
+ ],
  "phrase": {
-  "zh": "",
-  "pinyin": "",
-  "fr": "",
-  "en": ""
+  "zh": "法院明天审这个案子。",
+  "pinyin": "Fǎyuàn míngtiān shěn zhège ànzi.",
+  "fr": "Le tribunal juge cette affaire demain.",
+  "en": "The court hears this case tomorrow."
  },
  "generation": {
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:a61ff67b16faabca6c25c84bcbbc64c9a712a74e5676a3f5000b11db5ec88e04",
-  "essais": 1,
+  "empreinte_invite": "sha256:521246790ee3646e2f8c1e315b0b0310f813359ca49321ca5ec80b04bc5c5dfd",
+  "essais": 2,
   "refus": []
  },
- "statut": "relu"
+ "statut": "a_relire"
 }

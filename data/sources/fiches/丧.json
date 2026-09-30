@@ -19,20 +19,33 @@
  "roles": {
   "丧": "sens"
  },
- "mots": [],
+ "mots": [
+  {
+   "hanzi": "丧失",
+   "pinyin": "sàngshī",
+   "fr": "perdre",
+   "en": "to lose"
+  },
+  {
+   "hanzi": "丧气",
+   "pinyin": "sàngqì",
+   "fr": "découragé",
+   "en": "discouraged"
+  }
+ ],
  "phrase": {
-  "zh": "",
-  "pinyin": "",
-  "fr": "",
-  "en": ""
+  "zh": "他没有丧失希望。",
+  "pinyin": "Tā méiyǒu sàngshī xīwàng.",
+  "fr": "Il n'a pas perdu espoir.",
+  "en": "He has not lost hope."
  },
  "generation": {
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:be2d7e59df7987f754a5f648b52a0c64aa52e8ed7e72e78d78820d92357425df",
-  "essais": 1,
+  "empreinte_invite": "sha256:c4d4aaa086fea9e579dbb14e303259ed3e54782abc7c75d1850bea962dfe737a",
+  "essais": 2,
   "refus": []
  },
- "statut": "relu"
+ "statut": "a_relire"
 }

@@ -25,20 +25,33 @@
   "口": "forme",
   "儿": "forme"
  },
- "mots": [],
+ "mots": [
+  {
+   "hanzi": "纳税",
+   "pinyin": "nàshuì",
+   "fr": "payer ses impôts",
+   "en": "to pay taxes"
+  },
+  {
+   "hanzi": "免税",
+   "pinyin": "miǎnshuì",
+   "fr": "exonéré de taxes, hors taxes",
+   "en": "tax-free, duty-free"
+  }
+ ],
  "phrase": {
-  "zh": "",
-  "pinyin": "",
-  "fr": "",
-  "en": ""
+  "zh": "这些东西都是免税的。",
+  "pinyin": "Zhèxiē dōngxi dōu shì miǎnshuì de.",
+  "fr": "Ces articles sont tous hors taxes.",
+  "en": "These goods are all duty-free."
  },
  "generation": {
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:7fd92033cb96cb4e63a7695694a368abc6b5e06ba30b8d51b96799191a3fb7ea",
-  "essais": 1,
+  "empreinte_invite": "sha256:93bddec8d1049b2815a71e71aaf82f16804e3b74454f7543c5420cd211acd2b4",
+  "essais": 2,
   "refus": []
  },
- "statut": "relu"
+ "statut": "a_relire"
 }

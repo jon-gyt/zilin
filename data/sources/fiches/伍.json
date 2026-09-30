@@ -21,20 +21,33 @@
   "亻": "sens",
   "五": "son"
  },
- "mots": [],
+ "mots": [
+  {
+   "hanzi": "队伍",
+   "pinyin": "duìwǔ",
+   "fr": "troupe, file, équipe",
+   "en": "ranks, team, line"
+  },
+  {
+   "hanzi": "退伍",
+   "pinyin": "tuìwǔ",
+   "fr": "quitter l'armée",
+   "en": "to leave the army"
+  }
+ ],
  "phrase": {
-  "zh": "",
-  "pinyin": "",
-  "fr": "",
-  "en": ""
+  "zh": "他去年退伍回家了。",
+  "pinyin": "Tā qùnián tuìwǔ huí jiā le.",
+  "fr": "Il a quitté l'armée l'an dernier et est rentré chez lui.",
+  "en": "He left the army last year and came home."
  },
  "generation": {
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:7d9174dd412492541608687411923364cf3a2e1d3dc3cf2d06e713232b5c2e1b",
-  "essais": 1,
+  "empreinte_invite": "sha256:f5b9f33d67bdb30a547542eeb279c16f8c0c906103069c9e784cec5031e755fb",
+  "essais": 2,
   "refus": []
  },
- "statut": "relu"
+ "statut": "a_relire"
 }
