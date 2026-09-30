@@ -21,20 +21,33 @@
   "阝": "sens",
   "日": "sens"
  },
- "mots": [],
+ "mots": [
+  {
+   "hanzi": "太阳",
+   "pinyin": "tàiyang",
+   "fr": "soleil",
+   "en": "sun"
+  },
+  {
+   "hanzi": "夕阳",
+   "pinyin": "xīyáng",
+   "fr": "soleil couchant",
+   "en": "setting sun"
+  }
+ ],
  "phrase": {
-  "zh": "",
-  "pinyin": "",
-  "fr": "",
-  "en": ""
+  "zh": "今天的太阳很大。",
+  "pinyin": "Jīntiān de tàiyang hěn dà.",
+  "fr": "Le soleil tape fort aujourd'hui.",
+  "en": "The sun is strong today."
  },
  "generation": {
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:65ae1f37bc75a79cd73944e8458834adc68e75aa86f8fdd3d647892d028b9a7f",
-  "essais": 1,
+  "empreinte_invite": "sha256:0345754ac16c00023b22840d85736132518be6ab3274c783fba4a7539ae9f07c",
+  "essais": 2,
   "refus": []
  },
- "statut": "relu"
+ "statut": "a_relire"
 }

@@ -21,20 +21,33 @@
   "阝": "sens",
   "月": "sens"
  },
- "mots": [],
+ "mots": [
+  {
+   "hanzi": "阴天",
+   "pinyin": "yīntiān",
+   "fr": "temps couvert",
+   "en": "overcast day"
+  },
+  {
+   "hanzi": "阴凉",
+   "pinyin": "yīnliáng",
+   "fr": "ombragé et frais",
+   "en": "shady and cool"
+  }
+ ],
  "phrase": {
-  "zh": "",
-  "pinyin": "",
-  "fr": "",
-  "en": ""
+  "zh": "今天是阴天。",
+  "pinyin": "Jīntiān shì yīntiān.",
+  "fr": "Aujourd'hui, le temps est couvert.",
+  "en": "It's overcast today."
  },
  "generation": {
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:2beeaa0c2ba90449daa80053094fffc6745b09c6cfb4836ca686e060e9872045",
-  "essais": 1,
+  "empreinte_invite": "sha256:aeb1e807390f7aabccc73c5b9bc4863c1d28c46aae37dc36220677883bb2e4fd",
+  "essais": 2,
   "refus": []
  },
- "statut": "relu"
+ "statut": "a_relire"
 }
