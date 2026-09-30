@@ -1,0 +1,1340 @@
+{
+ "niveau": "7-9",
+ "lot": "88",
+ "source": "rédigé pour l'app dans le pipeline wenlu, sans API ; faits lus : liste HSK 3.0 (forme, pinyin, niveau, catégorie), lectures d'Unihan et des surcharges, gloses relues des fiches",
+ "brouillon": "data/sources/dico-brouillons/7-9/88.json",
+ "generation": {
+  "modele": "rédaction manuelle",
+  "api": "session Claude Code (sans API)",
+  "date": "2026-09-30",
+  "empreinte_invite": "sha256:94c35c7a8b96514f53e0c2eef2d0392714926a42c52ff334f8f5747a959cc084",
+  "contexte": "wenlu dico contexte 7-9 88",
+  "essais": 1,
+  "refus": []
+ },
+ "entrees": [
+  {
+   "id": "L7-3804",
+   "genre": "mot",
+   "hanzi": "书面",
+   "pinyin": "shūmiàn",
+   "categories": [
+    "Adj"
+   ],
+   "sens": {
+    "glose": "écrit, par écrit",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "écrit, par écrit ; soutenu (langue)"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "请提交书面申请。",
+     "pinyin": "Qǐng tíjiāo shūmiàn shēnqǐng.",
+     "fr": "Veuillez déposer votre demande sur papier.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-3805",
+   "genre": "mot",
+   "hanzi": "书写",
+   "pinyin": "shūxiě",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "écrire, calligraphier",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "écrire, calligraphier"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "请用中文书写。",
+     "pinyin": "Qǐng yòng Zhōngwén shūxiě.",
+     "fr": "Merci de remplir en chinois.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "抒",
+   "genre": "caractere",
+   "hanzi": "抒",
+   "pinyin": "shū",
+   "sens": {
+    "glose": "exprimer, épancher",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "exprimer, épancher"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": []
+  },
+  {
+   "id": "L7-3806",
+   "genre": "mot",
+   "hanzi": "抒情",
+   "pinyin": "shūqíng",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "exprimer ses sentiments ; lyrique",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "exprimer ses sentiments ; être lyrique"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这是一首抒情的歌。",
+     "pinyin": "Zhè shì yī shǒu shūqíng de gē.",
+     "fr": "C'est une chanson sentimentale.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "枢",
+   "genre": "caractere",
+   "hanzi": "枢",
+   "pinyin": "shū",
+   "sens": {
+    "glose": "pivot ; centre",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "pivot, gond ; centre, axe"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": []
+  },
+  {
+   "id": "L7-3807",
+   "genre": "mot",
+   "hanzi": "枢纽",
+   "pinyin": "shūniǔ",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "nœud, plaque tournante",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "nœud, plaque tournante, pivot"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这座城市是重要的交通枢纽。",
+     "pinyin": "Zhè zuò chéngshì shì zhòngyào de jiāotōng shūniǔ.",
+     "fr": "Cette ville est un carrefour majeur des transports.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "梳",
+   "genre": "caractere",
+   "hanzi": "梳",
+   "pinyin": "shū",
+   "mots": [
+    "L7-3808"
+   ],
+   "sens": {
+    "glose": "peigner, coiffer ; peigne",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "peigner, coiffer"
+     },
+     {
+      "categorie": "N",
+      "fr": "peigne"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "她每天早上梳头。",
+     "pinyin": "Tā měi tiān zǎoshang shū tóu.",
+     "fr": "Elle se fait les cheveux tous les matins.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-3809",
+   "genre": "mot",
+   "hanzi": "梳理",
+   "pinyin": "shūlǐ",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "démêler ; mettre de l'ordre dans",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "peigner, démêler"
+     },
+     {
+      "categorie": "V",
+      "fr": "mettre de l'ordre dans, organiser (idées)"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "我们先梳理一下思路。",
+     "pinyin": "Wǒmen xiān shūlǐ yīxià sīlù.",
+     "fr": "Commençons par organiser nos idées.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-3810",
+   "genre": "mot",
+   "hanzi": "梳子",
+   "pinyin": "shūzi",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "peigne",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "peigne"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "我找不到我的梳子了。",
+     "pinyin": "Wǒ zhǎo bu dào wǒ de shūzi le.",
+     "fr": "Je ne sais plus où j'ai mis mon peigne.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-3811",
+   "genre": "mot",
+   "hanzi": "舒畅",
+   "pinyin": "shūchàng",
+   "categories": [
+    "Adj"
+   ],
+   "sens": {
+    "glose": "détendu, serein",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "détendu, serein, à l'aise"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "听了这个消息，他心情舒畅。",
+     "pinyin": "Tīng le zhège xiāoxi, tā xīnqíng shūchàng.",
+     "fr": "Cette nouvelle l'a rasséréné.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "疏",
+   "genre": "caractere",
+   "hanzi": "疏",
+   "pinyin": "shū",
+   "sens": {
+    "glose": "clairsemé ; dégager ; négliger",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "clairsemé, espacé ; distant"
+     },
+     {
+      "categorie": "V",
+      "fr": "dégager, déboucher ; négliger"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": []
+  },
+  {
+   "id": "L7-3812",
+   "genre": "mot",
+   "hanzi": "疏导",
+   "pinyin": "shūdǎo",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "canaliser, réguler (trafic, eaux)",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "canaliser, réguler (trafic, eaux) ; apaiser"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "警察正在路口疏导交通。",
+     "pinyin": "Jǐngchá zhèngzài lùkǒu shūdǎo jiāotōng.",
+     "fr": "Le policier règle la circulation au carrefour.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-3813",
+   "genre": "mot",
+   "hanzi": "疏忽",
+   "pinyin": "shūhu",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "négliger, être inattentif",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "négliger, être inattentif, laisser échapper"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "由于一时疏忽，他把钥匙丢了。",
+     "pinyin": "Yóuyú yīshí shūhu, tā bǎ yàoshi diū le.",
+     "fr": "Dans un moment de distraction, il a perdu ses clés.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-3814",
+   "genre": "mot",
+   "hanzi": "疏散",
+   "pinyin": "shūsàn",
+   "categories": [
+    "Adj",
+    "V"
+   ],
+   "sens": {
+    "glose": "évacuer ; épars",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "évacuer, disperser"
+     },
+     {
+      "categorie": "Adj",
+      "fr": "épars, clairsemé"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "着火以后，大家很快就疏散了。",
+     "pinyin": "Zháohuǒ yǐhòu, dàjiā hěn kuài jiù shūsàn le.",
+     "fr": "Quand le feu a pris, tout le monde est vite sorti.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-3815",
+   "genre": "mot",
+   "hanzi": "疏通",
+   "pinyin": "shūtōng",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "déboucher ; arrondir les angles",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "déboucher, curer (canal, conduite)"
+     },
+     {
+      "categorie": "V",
+      "fr": "arranger, arrondir les angles"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "工人们正在疏通下水道。",
+     "pinyin": "Gōngrénmen zhèngzài shūtōng xiàshuǐdào.",
+     "fr": "Les ouvriers dégagent les égouts.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-3816",
+   "genre": "mot",
+   "hanzi": "输家",
+   "pinyin": "shūjiā",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "perdant",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "perdant, vaincu"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这场比赛没有输家。",
+     "pinyin": "Zhè chǎng bǐsài méiyou shūjiā.",
+     "fr": "Dans ce match, tout le monde a gagné.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-3817",
+   "genre": "mot",
+   "hanzi": "输送",
+   "pinyin": "shūsòng",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "acheminer, transporter ; fournir",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "acheminer, transporter ; fournir"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这条管道向城市输送天然气。",
+     "pinyin": "Zhè tiáo guǎndào xiàng chéngshì shūsòng tiānránqì.",
+     "fr": "Ce gazoduc alimente la ville en gaz naturel.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-3818",
+   "genre": "mot",
+   "hanzi": "输血",
+   "pinyin": "shūxuè",
+   "sens": {
+    "glose": "transfusion sanguine ; renflouer",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "faire une transfusion sanguine"
+     },
+     {
+      "categorie": "V",
+      "fr": "renflouer, apporter une aide financière"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "病人需要马上输血。",
+     "pinyin": "Bìngrén xūyào mǎshàng shūxuè.",
+     "fr": "Il faut donner du sang au patient tout de suite.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-3819",
+   "genre": "mot",
+   "hanzi": "输液",
+   "pinyin": "shūyè",
+   "sens": {
+    "glose": "mettre sous perfusion",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "mettre sous perfusion, être sous perfusion"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "护士正在给他输液。",
+     "pinyin": "Hùshi zhèngzài gěi tā shūyè.",
+     "fr": "L'infirmière lui pose une perfusion.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "赎",
+   "genre": "caractere",
+   "hanzi": "赎",
+   "pinyin": "shú",
+   "mots": [
+    "L7-3820"
+   ],
+   "sens": {
+    "glose": "racheter ; expier",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "racheter, dégager (un objet, un otage)"
+     },
+     {
+      "categorie": "V",
+      "fr": "expier (une faute)"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他从当铺里赎回了手表。",
+     "pinyin": "Tā cóng dàngpù li shú huí le shǒubiǎo.",
+     "fr": "Il a récupéré sa montre au mont-de-piété.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-3821",
+   "genre": "mot",
+   "hanzi": "暑期",
+   "pinyin": "shǔqī",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "vacances d'été, période estivale",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "vacances d'été, période estivale"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他暑期在一家公司实习。",
+     "pinyin": "Tā shǔqī zài yī jiā gōngsī shíxí.",
+     "fr": "Cet été, il fait un stage dans une entreprise.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-3822",
+   "genre": "mot",
+   "hanzi": "属性",
+   "pinyin": "shǔxìng",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "propriété, attribut",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "propriété, attribut, nature"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这种材料有什么属性？",
+     "pinyin": "Zhè zhǒng cáiliào yǒu shénme shǔxìng?",
+     "fr": "Quelles sont les caractéristiques de ce matériau ?",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "曙",
+   "genre": "caractere",
+   "hanzi": "曙",
+   "pinyin": "shǔ",
+   "sens": {
+    "glose": "aube",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "aube, point du jour"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": []
+  },
+  {
+   "id": "L7-3823",
+   "genre": "mot",
+   "hanzi": "曙光",
+   "pinyin": "shǔguāng",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "lueur de l'aube ; lueur d'espoir",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "lueur de l'aube"
+     },
+     {
+      "categorie": "N",
+      "fr": "lueur d'espoir"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "我们终于看到了成功的曙光。",
+     "pinyin": "Wǒmen zhōngyú kàndào le chénggōng de shǔguāng.",
+     "fr": "Nous voyons enfin poindre le succès.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "缚",
+   "genre": "caractere",
+   "hanzi": "缚",
+   "pinyin": "fù",
+   "sens": {
+    "glose": "lier, attacher",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "lier, attacher, ligoter"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": []
+  },
+  {
+   "id": "L7-3824",
+   "genre": "mot",
+   "hanzi": "束缚",
+   "pinyin": "shùfù",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "entraver, lier",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "entraver, lier, enchaîner"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "不要被旧观念束缚。",
+     "pinyin": "Bùyào bèi jiù guānniàn shùfù.",
+     "fr": "Ne te laisse pas enfermer par les vieilles idées.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-3825",
+   "genre": "mot",
+   "hanzi": "树立",
+   "pinyin": "shùlì",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "établir, instaurer (exemple, image)",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "établir, instaurer (un exemple, une image, un idéal)"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "老师要给学生树立好榜样。",
+     "pinyin": "Lǎoshī yào gěi xuésheng shùlì hǎo bǎngyàng.",
+     "fr": "Les enseignants doivent donner le bon exemple aux élèves.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-3826",
+   "genre": "mot",
+   "hanzi": "树木",
+   "pinyin": "shùmù",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "arbres",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "arbres, végétation arborée"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "山上的树木很茂盛。",
+     "pinyin": "Shān shang de shùmù hěn màoshèng.",
+     "fr": "La montagne est couverte d'une végétation luxuriante.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "梢",
+   "genre": "caractere",
+   "hanzi": "梢",
+   "pinyin": "shāo",
+   "sens": {
+    "glose": "bout, extrémité",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "bout, extrémité (branche, cheveux)"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": []
+  },
+  {
+   "id": "L7-3827",
+   "genre": "mot",
+   "hanzi": "树梢",
+   "pinyin": "shùshāo",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "cime d'un arbre",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "cime d'un arbre, bout des branches"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "一只鸟站在树梢上。",
+     "pinyin": "Yī zhī niǎo zhàn zài shùshāo shang.",
+     "fr": "Un oiseau est perché tout en haut de l'arbre.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "荫",
+   "genre": "caractere",
+   "hanzi": "荫",
+   "pinyin": "yīn",
+   "sens": {
+    "glose": "ombre (des arbres) ; ombragé",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "ombre (des arbres)"
+     },
+     {
+      "categorie": "Adj",
+      "fr": "ombragé, frais",
+      "pinyin": "yìn"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": []
+  },
+  {
+   "id": "L7-3828",
+   "genre": "mot",
+   "hanzi": "树荫",
+   "pinyin": "shùyīn",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "ombre d'un arbre",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "ombre d'un arbre"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "我们在树荫下休息吧。",
+     "pinyin": "Wǒmen zài shùyīn xià xiūxi ba.",
+     "fr": "Reposons-nous à l'abri du soleil.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-3829",
+   "genre": "mot",
+   "hanzi": "树枝",
+   "pinyin": "shùzhī",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "branche",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "branche, rameau"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "风把树枝吹断了。",
+     "pinyin": "Fēng bǎ shùzhī chuī duàn le.",
+     "fr": "Le vent a cassé des branches.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-3831",
+   "genre": "mot",
+   "hanzi": "数额",
+   "pinyin": "shù'é",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "montant, somme",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "montant, somme, quantité fixée"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这笔钱的数额很大。",
+     "pinyin": "Zhè bǐ qián de shù'é hěn dà.",
+     "fr": "C'est beaucoup d'argent.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-3832",
+   "genre": "mot",
+   "hanzi": "数据库",
+   "pinyin": "shùjùkù",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "base de données",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "base de données"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "所有资料都存在数据库里。",
+     "pinyin": "Suǒyǒu zīliào dōu cún zài shùjùkù li.",
+     "fr": "Toutes les informations sont stockées dans le système.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-3833",
+   "genre": "mot",
+   "hanzi": "刷新",
+   "pinyin": "shuāxīn",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "battre (un record) ; actualiser",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "battre, améliorer (un record)"
+     },
+     {
+      "categorie": "V",
+      "fr": "rafraîchir, actualiser (une page)"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他刷新了世界纪录。",
+     "pinyin": "Tā shuāxīn le shìjiè jìlù.",
+     "fr": "Il a établi un nouveau record du monde.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "耍",
+   "genre": "caractere",
+   "hanzi": "耍",
+   "pinyin": "shuǎ",
+   "mots": [
+    "L7-3834"
+   ],
+   "sens": {
+    "glose": "jouer ; se moquer de",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "jouer, s'amuser (oral)"
+     },
+     {
+      "categorie": "V",
+      "fr": "jouer (des tours), faire montre de ; se moquer de"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "你别耍我了！",
+     "pinyin": "Nǐ bié shuǎ wǒ le!",
+     "fr": "Arrête de te payer ma tête !",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-3835",
+   "genre": "mot",
+   "hanzi": "耍赖",
+   "pinyin": "shuǎlài",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "tricher, se dédire",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "tricher, se dédire, faire l'enfant gâté"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "输了就不能耍赖。",
+     "pinyin": "Shū le jiù bù néng shuǎlài.",
+     "fr": "Quand on perd, on ne se défile pas.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "衰",
+   "genre": "caractere",
+   "hanzi": "衰",
+   "pinyin": "shuāi",
+   "sens": {
+    "glose": "décliner, s'affaiblir",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "décliner, s'affaiblir"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": []
+  },
+  {
+   "id": "L7-3836",
+   "genre": "mot",
+   "hanzi": "衰减",
+   "pinyin": "shuāijiǎn",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "s'affaiblir, diminuer",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "s'affaiblir, diminuer, s'atténuer"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他的听力逐渐衰减。",
+     "pinyin": "Tā de tīnglì zhújiàn shuāijiǎn.",
+     "fr": "Son ouïe baisse peu à peu.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-3837",
+   "genre": "mot",
+   "hanzi": "衰竭",
+   "pinyin": "shuāijié",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "défaillance (organe) ; épuisement",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "défaillir (organe), s'épuiser"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他因心力衰竭住进了医院。",
+     "pinyin": "Tā yīn xīnlì shuāijié zhù jìn le yīyuàn.",
+     "fr": "Il a été hospitalisé pour une insuffisance cardiaque.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-3838",
+   "genre": "mot",
+   "hanzi": "衰老",
+   "pinyin": "shuāilǎo",
+   "categories": [
+    "Adj"
+   ],
+   "sens": {
+    "glose": "vieillissant, décrépit",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "vieillissant, décrépit, sénile"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他看起来比以前衰老了很多。",
+     "pinyin": "Tā kàn qǐlai bǐ yǐqián shuāilǎo le hěn duō.",
+     "fr": "Il a pris un sacré coup de vieux.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-3839",
+   "genre": "mot",
+   "hanzi": "衰弱",
+   "pinyin": "shuāiruò",
+   "categories": [
+    "Adj"
+   ],
+   "sens": {
+    "glose": "affaibli, faible",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "affaibli, faible, épuisé"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "病后他的身体很衰弱。",
+     "pinyin": "Bìng hòu tā de shēntǐ hěn shuāiruò.",
+     "fr": "Après sa maladie, il est très diminué.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-3840",
+   "genre": "mot",
+   "hanzi": "衰退",
+   "pinyin": "shuāituì",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "décliner, régresser",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "décliner, régresser ; entrer en récession"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "经济开始衰退。",
+     "pinyin": "Jīngjì kāishǐ shuāituì.",
+     "fr": "L'économie commence à ralentir.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "跤",
+   "genre": "caractere",
+   "hanzi": "跤",
+   "pinyin": "jiāo",
+   "sens": {
+    "glose": "chute ; lutte",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "chute, culbute ; lutte"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": []
+  },
+  {
+   "id": "L7-3841",
+   "genre": "mot",
+   "hanzi": "摔跤",
+   "pinyin": "shuāijiāo",
+   "sens": {
+    "glose": "tomber ; lutte",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "tomber, faire une chute"
+     },
+     {
+      "categorie": "N",
+      "fr": "lutte (sport)"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "路很滑，小心摔跤。",
+     "pinyin": "Lù hěn huá, xiǎoxīn shuāijiāo.",
+     "fr": "La route glisse, attention à ne pas te retrouver par terre.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "甩",
+   "genre": "caractere",
+   "hanzi": "甩",
+   "pinyin": "shuǎi",
+   "mots": [
+    "L7-3842"
+   ],
+   "sens": {
+    "glose": "agiter ; jeter ; plaquer",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "agiter, balancer, secouer"
+     },
+     {
+      "categorie": "V",
+      "fr": "jeter, lancer"
+     },
+     {
+      "categorie": "V",
+      "fr": "semer, distancer ; plaquer (oral)"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "她把头发往后一甩。",
+     "pinyin": "Tā bǎ tóufa wǎng hòu yī shuǎi.",
+     "fr": "D'un mouvement de tête, elle a rejeté ses cheveux en arrière.",
+     "statut": "a_relire"
+    },
+    {
+     "zh": "他被女朋友甩了。",
+     "pinyin": "Tā bèi nǚpéngyou shuǎi le.",
+     "fr": "Sa copine l'a largué.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "拴",
+   "genre": "caractere",
+   "hanzi": "拴",
+   "pinyin": "shuān",
+   "mots": [
+    "L7-3844"
+   ],
+   "sens": {
+    "glose": "attacher, lier",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "attacher, lier (avec une corde)"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他把马拴在树上。",
+     "pinyin": "Tā bǎ mǎ shuān zài shù shang.",
+     "fr": "Il a noué la bride du cheval à un arbre.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "涮",
+   "genre": "caractere",
+   "hanzi": "涮",
+   "pinyin": "shuàn",
+   "mots": [
+    "L7-3845"
+   ],
+   "sens": {
+    "glose": "rincer ; cuire à la fondue ; duper",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "rincer"
+     },
+     {
+      "categorie": "V",
+      "fr": "cuire à la fondue (tranches de viande)"
+     },
+     {
+      "categorie": "V",
+      "fr": "duper, faire marcher (oral)"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "冬天我们爱吃涮羊肉。",
+     "pinyin": "Dōngtiān wǒmen ài chī shuàn yángròu.",
+     "fr": "L'hiver, nous aimons la fondue au mouton.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-3846",
+   "genre": "mot",
+   "hanzi": "双胞胎",
+   "pinyin": "shuāngbāotāi",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "jumeaux",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "jumeaux, jumelles"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "她们是一对双胞胎。",
+     "pinyin": "Tāmen shì yī duì shuāngbāotāi.",
+     "fr": "Elles sont nées le même jour, de la même mère.",
+     "statut": "a_relire"
+    }
+   ]
+  }
+ ]
+}
