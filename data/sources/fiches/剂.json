@@ -23,20 +23,33 @@
   "丨": "forme",
   "刂": "sens"
  },
- "mots": [],
+ "mots": [
+  {
+   "hanzi": "剂量",
+   "pinyin": "jìliàng",
+   "fr": "dose",
+   "en": "dosage"
+  },
+  {
+   "hanzi": "药剂",
+   "pinyin": "yàojì",
+   "fr": "médicament, préparation",
+   "en": "medicine, preparation"
+  }
+ ],
  "phrase": {
-  "zh": "",
-  "pinyin": "",
-  "fr": "",
-  "en": ""
+  "zh": "医生说要减少剂量。",
+  "pinyin": "Yīshēng shuō yào jiǎnshǎo jìliàng.",
+  "fr": "Le médecin dit qu'il faut réduire la dose.",
+  "en": "The doctor says the dosage should be reduced."
  },
  "generation": {
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:187db5516033cb9719d09083c7bd83e45e228bc1df198c72a176c2e3433a7d1c",
-  "essais": 1,
+  "empreinte_invite": "sha256:50a21375e900e27f2b005954f53b0344c31aa4e7ff58844ca8994055790c5209",
+  "essais": 2,
   "refus": []
  },
- "statut": "relu"
+ "statut": "a_relire"
 }

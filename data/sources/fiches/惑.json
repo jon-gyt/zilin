@@ -25,20 +25,33 @@
   "一": "son",
   "心": "sens"
  },
- "mots": [],
+ "mots": [
+  {
+   "hanzi": "困惑",
+   "pinyin": "kùnhuò",
+   "fr": "perplexe",
+   "en": "puzzled"
+  },
+  {
+   "hanzi": "疑惑",
+   "pinyin": "yíhuò",
+   "fr": "doute, douter",
+   "en": "doubt, to wonder"
+  }
+ ],
  "phrase": {
-  "zh": "",
-  "pinyin": "",
-  "fr": "",
-  "en": ""
+  "zh": "他的话让我很困惑。",
+  "pinyin": "Tā de huà ràng wǒ hěn kùnhuò.",
+  "fr": "Ses paroles m'ont laissé perplexe.",
+  "en": "His words left me puzzled."
  },
  "generation": {
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:c26214714307914d53567d148d750f17d04f6a9a19c945ef70e255877d941010",
-  "essais": 1,
+  "empreinte_invite": "sha256:b45eede2eacba1b6e37697ef30acca6393568cf8f524a0c4917730019b6f57ce",
+  "essais": 2,
   "refus": []
  },
- "statut": "relu"
+ "statut": "a_relire"
 }

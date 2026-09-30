@@ -23,20 +23,33 @@
   "口": "forme",
   "内": "forme"
  },
- "mots": [],
+ "mots": [
+  {
+   "hanzi": "车祸",
+   "pinyin": "chēhuò",
+   "fr": "accident de la route",
+   "en": "traffic accident"
+  },
+  {
+   "hanzi": "闯祸",
+   "pinyin": "chuǎnghuò",
+   "fr": "causer des ennuis",
+   "en": "to get into trouble"
+  }
+ ],
  "phrase": {
-  "zh": "",
-  "pinyin": "",
-  "fr": "",
-  "en": ""
+  "zh": "他昨天出了车祸。",
+  "pinyin": "Tā zuótiān chū le chēhuò.",
+  "fr": "Il a eu un accident de voiture hier.",
+  "en": "He was in a car accident yesterday."
  },
  "generation": {
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:e78fd1771d8bb90c51f9f5d10d8bbcb86b66419506b9adacc22abb2d2be364f4",
-  "essais": 1,
+  "empreinte_invite": "sha256:d8fff1b386176dc51ed1522d210a6134d9bd73d8bcad3165ca599b008b773e7c",
+  "essais": 2,
   "refus": []
  },
- "statut": "relu"
+ "statut": "a_relire"
 }
