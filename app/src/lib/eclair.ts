@@ -209,6 +209,27 @@ export function motsPossibles(corpus: CorpusJeux): MotEclair[] {
   );
 }
 
+/**
+ * Le corpus d'une nouvelle manche : les mots devinés depuis l'ouverture de l'écran sont
+ * écartés, et ceux déjà posés dans la visite aussi, tant qu'il reste un mot à poser.
+ * Sans cela, rejouer reposait le même mot, surtout en début de chemin, quand l'acquis
+ * n'en permet que quelques-uns.
+ */
+export function corpusDeManche(
+  corpus: CorpusJeux,
+  devines: readonly string[],
+  vus: readonly string[]
+): CorpusJeux {
+  const d = corpus.eclair;
+  if (!d) return corpus;
+  const avec = (ecartes: readonly string[]): CorpusJeux => ({
+    ...corpus,
+    eclair: { ...d, devines: [...new Set([...d.devines, ...ecartes])] }
+  });
+  const neufs = avec([...devines, ...vus]);
+  return motsPossibles(neufs).length > 0 ? neufs : avec(devines);
+}
+
 /** Le mot d'un tour, tel que le contenu le donne. */
 export function motDe(t: Tour, corpus: CorpusJeux): MotEclair | null {
   return corpus.eclair?.mots.find((m) => m.id === t.mot) ?? null;
