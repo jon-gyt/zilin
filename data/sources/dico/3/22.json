@@ -1,0 +1,1340 @@
+{
+ "niveau": "3",
+ "lot": "22",
+ "source": "rédigé pour l'app dans le pipeline wenlu, sans API ; faits lus : liste HSK 3.0 (forme, pinyin, niveau, catégorie), lectures d'Unihan et des surcharges, gloses relues des fiches",
+ "brouillon": "data/sources/dico-brouillons/3/22.json",
+ "generation": {
+  "modele": "rédaction manuelle",
+  "api": "session Claude Code (sans API)",
+  "date": "2026-09-30",
+  "empreinte_invite": "sha256:85edc7356aff10f0c3b4bcc44aa3c1fc9c8f9762ab399b57540428b9998ec2d8",
+  "contexte": "wenlu dico contexte 3 22",
+  "essais": 1,
+  "refus": []
+ },
+ "entrees": [
+  {
+   "id": "L3-0924",
+   "genre": "mot",
+   "hanzi": "制度",
+   "pinyin": "zhìdù",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "système, régime, règlement",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "système, régime, règlement"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "我们公司的休假制度很好。",
+     "pinyin": "Wǒmen gōngsī de xiūjià zhìdù hěn hǎo.",
+     "fr": "Notre entreprise est généreuse en congés.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L3-0925",
+   "genre": "mot",
+   "hanzi": "制造",
+   "pinyin": "zhìzào",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "fabriquer, produire ; provoquer",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "fabriquer, produire"
+     },
+     {
+      "categorie": "V",
+      "fr": "provoquer, créer (des ennuis)"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这个工厂制造手机。",
+     "pinyin": "Zhège gōngchǎng zhìzào shǒujī.",
+     "fr": "Cette usine fabrique des téléphones.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L3-0926",
+   "genre": "mot",
+   "hanzi": "制作",
+   "pinyin": "zhìzuò",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "fabriquer, réaliser, confectionner",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "fabriquer, réaliser, confectionner"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这个节目是他们制作的。",
+     "pinyin": "Zhège jiémù shì tāmen zhìzuò de.",
+     "fr": "Ce sont eux qui ont réalisé cette émission.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L3-0927",
+   "genre": "mot",
+   "hanzi": "中部",
+   "pinyin": "zhōngbù",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "le centre (d'un pays, d'une région)",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "la partie centrale, le centre (d'un pays, d'une région)"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "我的家乡在中国中部。",
+     "pinyin": "Wǒ de jiāxiāng zài Zhōngguó zhōngbù.",
+     "fr": "Je suis originaire du centre de la Chine.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L3-0928",
+   "genre": "mot",
+   "hanzi": "中华民族",
+   "pinyin": "Zhōnghuá Mínzú",
+   "sens": {
+    "glose": "la nation chinoise",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "la nation chinoise, le peuple chinois"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这是中华民族的节日。",
+     "pinyin": "Zhè shì Zhōnghuá Mínzú de jiérì.",
+     "fr": "C'est une fête de tout le peuple chinois.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L3-0929",
+   "genre": "mot",
+   "hanzi": "终于",
+   "pinyin": "zhōngyú",
+   "categories": [
+    "Adv"
+   ],
+   "sens": {
+    "glose": "enfin, finalement",
+    "acceptions": [
+     {
+      "categorie": "Adv",
+      "fr": "enfin, finalement"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "我终于找到工作了。",
+     "pinyin": "Wǒ zhōngyú zhǎo dào gōngzuò le.",
+     "fr": "J'ai enfin trouvé du travail.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L3-0932",
+   "genre": "mot",
+   "hanzi": "种子",
+   "pinyin": "zhǒngzi",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "graine, semence",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "graine, semence"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "爷爷买了一些花的种子。",
+     "pinyin": "Yéye mǎi le yīxiē huā de zhǒngzi.",
+     "fr": "Grand-père a acheté des graines de fleurs.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L3-0933",
+   "genre": "mot",
+   "hanzi": "重大",
+   "pinyin": "zhòngdà",
+   "categories": [
+    "Adj"
+   ],
+   "sens": {
+    "glose": "important, majeur",
+    "acceptions": [],
+    "statut": "relu",
+    "provenance": {
+     "reprise": "data/sources/fiches/重.json",
+     "champ": "mots[].fr"
+    }
+   },
+   "exemples": [
+    {
+     "zh": "这是一个重大的决定。",
+     "pinyin": "Zhè shì yī ge zhòngdà de juédìng.",
+     "fr": "C'est une décision lourde de conséquences.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L3-0934",
+   "genre": "mot",
+   "hanzi": "周围",
+   "pinyin": "zhōuwéi",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "alentours, autour",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "alentours, environs, autour"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "我家周围有很多商店。",
+     "pinyin": "Wǒ jiā zhōuwéi yǒu hěn duō shāngdiàn.",
+     "fr": "Il y a beaucoup de magasins près de chez moi.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "猪",
+   "genre": "caractere",
+   "hanzi": "猪",
+   "pinyin": "zhū",
+   "mots": [
+    "L3-0935"
+   ],
+   "sens": {
+    "glose": "cochon, porc",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "cochon, porc"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他家养了两头猪。",
+     "pinyin": "Tā jiā yǎng le liǎng tóu zhū.",
+     "fr": "Sa famille élève deux cochons.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L3-0936",
+   "genre": "mot",
+   "hanzi": "主持",
+   "pinyin": "zhǔchí",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "présider, animer (une émission)",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "présider, animer (une émission, une soirée)"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "今天的晚会由她主持。",
+     "pinyin": "Jīntiān de wǎnhuì yóu tā zhǔchí.",
+     "fr": "C'est elle qui présente la soirée de ce soir.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L3-0937",
+   "genre": "mot",
+   "hanzi": "主动",
+   "pinyin": "zhǔdòng",
+   "categories": [
+    "Adj"
+   ],
+   "sens": {
+    "glose": "de sa propre initiative, actif",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "de sa propre initiative, actif, spontané"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他很主动地帮助别人。",
+     "pinyin": "Tā hěn zhǔdòng de bāngzhù biéren.",
+     "fr": "Il aide les autres sans qu'on le lui demande.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L3-0938",
+   "genre": "mot",
+   "hanzi": "主任",
+   "pinyin": "zhǔrèn",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "directeur, responsable, chef",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "directeur, responsable, chef (de service)"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他是我们的班主任。",
+     "pinyin": "Tā shì wǒmen de bānzhǔrèn.",
+     "fr": "C'est notre professeur principal.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L3-0939",
+   "genre": "mot",
+   "hanzi": "主意",
+   "pinyin": "zhǔyi",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "idée, avis ; décision",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "idée, avis ; décision"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这是个好主意！",
+     "pinyin": "Zhè shì ge hǎo zhǔyi!",
+     "fr": "Excellente idée !",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L3-0940",
+   "genre": "mot",
+   "hanzi": "主张",
+   "pinyin": "zhǔzhāng",
+   "categories": [
+    "V",
+    "N"
+   ],
+   "sens": {
+    "glose": "préconiser, être d'avis ; position",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "préconiser, être d'avis que"
+     },
+     {
+      "categorie": "N",
+      "fr": "position, point de vue"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "我主张明天再去。",
+     "pinyin": "Wǒ zhǔzhāng míngtiān zài qù.",
+     "fr": "Je propose qu'on y retourne demain.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L3-0941",
+   "genre": "mot",
+   "hanzi": "注意",
+   "pinyin": "zhùyì",
+   "sens": {
+    "glose": "faire attention à",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "faire attention à, prêter attention"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "过马路要注意车。",
+     "pinyin": "Guò mǎlù yào zhùyì chē.",
+     "fr": "En traversant la rue, prends garde aux voitures.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "抓",
+   "genre": "caractere",
+   "hanzi": "抓",
+   "pinyin": "zhuā",
+   "mots": [
+    "L3-0943"
+   ],
+   "sens": {
+    "glose": "saisir, attraper ; arrêter",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "saisir, attraper, empoigner"
+     },
+     {
+      "categorie": "V",
+      "fr": "arrêter (un voleur) ; s'occuper de"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他抓了一把米。",
+     "pinyin": "Tā zhuā le yī bǎ mǐ.",
+     "fr": "Il a pris une poignée de riz.",
+     "statut": "a_relire"
+    },
+    {
+     "zh": "警察抓了一个人。",
+     "pinyin": "Jǐngchá zhuā le yī ge rén.",
+     "fr": "La police a interpellé quelqu'un.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L3-0944",
+   "genre": "mot",
+   "hanzi": "抓住",
+   "pinyin": "zhuāzhù",
+   "sens": {
+    "glose": "saisir, attraper, tenir ferme",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "saisir, attraper ; ne pas laisser passer"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "你要抓住这个机会。",
+     "pinyin": "Nǐ yào zhuāzhù zhège jīhuì.",
+     "fr": "Ne laisse pas passer cette occasion.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "专",
+   "genre": "caractere",
+   "hanzi": "专",
+   "pinyin": "zhuān",
+   "sens": {
+    "glose": "spécial, spécialisé ; exclusif",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "spécial, spécialisé ; exclusif"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": []
+  },
+  {
+   "id": "L3-0945",
+   "genre": "mot",
+   "hanzi": "专家",
+   "pinyin": "zhuānjiā",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "expert, spécialiste",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "expert, spécialiste"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他是这方面的专家。",
+     "pinyin": "Tā shì zhè fāngmiàn de zhuānjiā.",
+     "fr": "Il s'y connaît très bien dans ce domaine.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L3-0946",
+   "genre": "mot",
+   "hanzi": "专门",
+   "pinyin": "zhuānmén",
+   "categories": [
+    "Adv"
+   ],
+   "sens": {
+    "glose": "exprès, spécialement",
+    "acceptions": [
+     {
+      "categorie": "Adv",
+      "fr": "exprès, spécialement"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "我是专门来看你的。",
+     "pinyin": "Wǒ shì zhuānmén lái kàn nǐ de.",
+     "fr": "Je suis venu uniquement pour te voir.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L3-0947",
+   "genre": "mot",
+   "hanzi": "专题",
+   "pinyin": "zhuāntí",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "thème, sujet spécial",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "thème, sujet spécial, dossier"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这期杂志有一个关于环保的专题。",
+     "pinyin": "Zhè qī zázhì yǒu yī ge guānyú huánbǎo de zhuāntí.",
+     "fr": "Ce numéro du magazine consacre un dossier à l'écologie.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L3-0948",
+   "genre": "mot",
+   "hanzi": "专业",
+   "pinyin": "zhuānyè",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "spécialité, filière",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "spécialité, filière, discipline (d'études)"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "你在大学学什么专业？",
+     "pinyin": "Nǐ zài dàxué xué shénme zhuānyè?",
+     "fr": "Tu étudies quoi à l'université ?",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "转",
+   "genre": "caractere",
+   "hanzi": "转",
+   "pinyin": "zhuǎn",
+   "mots": [
+    "L3-0949",
+    "L6-1103"
+   ],
+   "sens": {
+    "glose": "tourner, changer ; faire un tour",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "tourner, changer de direction ; transférer"
+     },
+     {
+      "categorie": "V",
+      "fr": "tourner (en rond), faire un tour",
+      "pinyin": "zhuàn"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "前面路口往左转。",
+     "pinyin": "Qiánmian lùkǒu wǎng zuǒ zhuǎn.",
+     "fr": "Au prochain carrefour, tournez à gauche.",
+     "statut": "a_relire"
+    },
+    {
+     "zh": "我们去公园转转吧。",
+     "pinyin": "Wǒmen qù gōngyuán zhuànzhuan ba.",
+     "fr": "Allons faire un tour au parc.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L3-0950",
+   "genre": "mot",
+   "hanzi": "转变",
+   "pinyin": "zhuǎnbiàn",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "changer, transformer",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "changer, transformer, évoluer"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他的想法转变了。",
+     "pinyin": "Tā de xiǎngfa zhuǎnbiàn le.",
+     "fr": "Il a changé d'avis.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L3-0951",
+   "genre": "mot",
+   "hanzi": "状况",
+   "pinyin": "zhuàngkuàng",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "état, situation",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "état, situation, condition"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他的身体状况很好。",
+     "pinyin": "Tā de shēntǐ zhuàngkuàng hěn hǎo.",
+     "fr": "Il est en bonne santé.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L3-0952",
+   "genre": "mot",
+   "hanzi": "状态",
+   "pinyin": "zhuàngtài",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "état, forme",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "état, forme, condition"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他今天状态很好。",
+     "pinyin": "Tā jīntiān zhuàngtài hěn hǎo.",
+     "fr": "Il est en pleine forme aujourd'hui.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "追",
+   "genre": "caractere",
+   "hanzi": "追",
+   "pinyin": "zhuī",
+   "mots": [
+    "L3-0953"
+   ],
+   "sens": {
+    "glose": "poursuivre, courir après",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "poursuivre, courir après, rattraper"
+     },
+     {
+      "categorie": "V",
+      "fr": "faire la cour à"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "狗在追一只猫。",
+     "pinyin": "Gǒu zài zhuī yī zhī māo.",
+     "fr": "Le chien court après un chat.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L3-0955",
+   "genre": "mot",
+   "hanzi": "资格",
+   "pinyin": "zīgé",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "qualification, droit ; ancienneté",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "qualification, droit (de faire), conditions requises ; ancienneté"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "你没有资格参加比赛。",
+     "pinyin": "Nǐ méiyǒu zīgé cānjiā bǐsài.",
+     "fr": "Tu ne remplis pas les conditions pour participer au concours.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L3-0956",
+   "genre": "mot",
+   "hanzi": "资金",
+   "pinyin": "zījīn",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "fonds, capital",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "fonds, capital"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "我们的资金不够。",
+     "pinyin": "Wǒmen de zījīn bù gòu.",
+     "fr": "Nous n'avons pas assez d'argent.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L3-0957",
+   "genre": "mot",
+   "hanzi": "子女",
+   "pinyin": "zǐnǚ",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "les enfants, fils et filles",
+    "acceptions": [],
+    "statut": "relu",
+    "provenance": {
+     "reprise": "data/sources/fiches/子.json",
+     "champ": "mots[].fr"
+    }
+   },
+   "exemples": [
+    {
+     "zh": "父母都希望子女过得好。",
+     "pinyin": "Fùmǔ dōu xīwàng zǐnǚ guò de hǎo.",
+     "fr": "Tous les parents veulent que leurs enfants soient heureux.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L3-0958",
+   "genre": "mot",
+   "hanzi": "自从",
+   "pinyin": "zìcóng",
+   "categories": [
+    "Prep"
+   ],
+   "sens": {
+    "glose": "depuis",
+    "acceptions": [
+     {
+      "categorie": "Prep",
+      "fr": "depuis (un moment du passé)"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "自从他来了以后，大家都很高兴。",
+     "pinyin": "Zìcóng tā lái le yǐhòu, dàjiā dōu hěn gāoxìng.",
+     "fr": "Depuis qu'il est arrivé, tout le monde est content.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L3-0959",
+   "genre": "mot",
+   "hanzi": "自动",
+   "pinyin": "zìdòng",
+   "categories": [
+    "Adj",
+    "Adv"
+   ],
+   "sens": {
+    "glose": "automatique ; de soi-même",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "automatique"
+     },
+     {
+      "categorie": "Adv",
+      "fr": "de soi-même, spontanément"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这个门是自动的。",
+     "pinyin": "Zhège mén shì zìdòng de.",
+     "fr": "Cette porte s'ouvre toute seule.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L3-0960",
+   "genre": "mot",
+   "hanzi": "自觉",
+   "pinyin": "zìjué",
+   "categories": [
+    "Adj"
+   ],
+   "sens": {
+    "glose": "consciencieux ; conscient",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "consciencieux, qui agit de soi-même"
+     },
+     {
+      "categorie": "Adj",
+      "fr": "conscient"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他学习很自觉。",
+     "pinyin": "Tā xuéxí hěn zìjué.",
+     "fr": "Il travaille sans qu'on ait besoin de le pousser.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L3-0961",
+   "genre": "mot",
+   "hanzi": "自然",
+   "pinyin": "zìrán",
+   "categories": [
+    "N",
+    "Adj",
+    "Adv"
+   ],
+   "sens": {
+    "glose": "nature ; naturel ; naturellement",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "nature"
+     },
+     {
+      "categorie": "Adj",
+      "fr": "naturel, spontané"
+     },
+     {
+      "categorie": "Adv",
+      "fr": "naturellement, bien sûr"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "我们要保护自然。",
+     "pinyin": "Wǒmen yào bǎohù zìrán.",
+     "fr": "Nous devons préserver l'environnement.",
+     "statut": "a_relire"
+    },
+    {
+     "zh": "你多练习，自然就会了。",
+     "pinyin": "Nǐ duō liànxí, zìrán jiù huì le.",
+     "fr": "Entraîne-toi et ça viendra tout seul.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L3-0962",
+   "genre": "mot",
+   "hanzi": "自身",
+   "pinyin": "zìshēn",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "soi-même, propre",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "soi-même, propre (à soi)"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "你要先看到自身的问题。",
+     "pinyin": "Nǐ yào xiān kàn dào zìshēn de wèntí.",
+     "fr": "Commence par voir tes propres défauts.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L3-0963",
+   "genre": "mot",
+   "hanzi": "自主",
+   "pinyin": "zìzhǔ",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "décider par soi-même, être autonome",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "décider par soi-même, être autonome"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "孩子长大了，要学会自主。",
+     "pinyin": "Háizi zhǎng dà le, yào xuéhuì zìzhǔ.",
+     "fr": "En grandissant, l'enfant doit apprendre à se débrouiller seul.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "总",
+   "genre": "caractere",
+   "hanzi": "总",
+   "pinyin": "zǒng",
+   "mots": [
+    "L3-0964"
+   ],
+   "sens": {
+    "glose": "toujours ; total, général",
+    "acceptions": [
+     {
+      "categorie": "Adv",
+      "fr": "toujours, sans cesse ; finalement"
+     },
+     {
+      "categorie": "Adj",
+      "fr": "total, général ; principal"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他总说自己很忙。",
+     "pinyin": "Tā zǒng shuō zìjǐ hěn máng.",
+     "fr": "Il répète sans arrêt qu'il est débordé.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L3-0965",
+   "genre": "mot",
+   "hanzi": "总结",
+   "pinyin": "zǒngjié",
+   "categories": [
+    "V",
+    "N"
+   ],
+   "sens": {
+    "glose": "résumer, faire le bilan ; bilan",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "résumer, faire le bilan"
+     },
+     {
+      "categorie": "N",
+      "fr": "bilan, résumé"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "请你总结一下今天学的内容。",
+     "pinyin": "Qǐng nǐ zǒngjié yīxià jīntiān xué de nèiróng.",
+     "fr": "Résume ce qu'on a appris aujourd'hui, s'il te plaît.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L3-0966",
+   "genre": "mot",
+   "hanzi": "总是",
+   "pinyin": "zǒngshì",
+   "categories": [
+    "Adv"
+   ],
+   "sens": {
+    "glose": "toujours, tout le temps",
+    "acceptions": [
+     {
+      "categorie": "Adv",
+      "fr": "toujours, tout le temps"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他总是很忙。",
+     "pinyin": "Tā zǒngshì hěn máng.",
+     "fr": "Il n'a jamais une minute à lui.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L3-0967",
+   "genre": "mot",
+   "hanzi": "足够",
+   "pinyin": "zúgòu",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "suffire, être suffisant",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "suffire, être suffisant"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这些钱足够了。",
+     "pinyin": "Zhèxiē qián zúgòu le.",
+     "fr": "Cet argent fera l'affaire.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L3-0968",
+   "genre": "mot",
+   "hanzi": "足球",
+   "pinyin": "zúqiú",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "football",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "football ; ballon de football"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "我喜欢看足球比赛。",
+     "pinyin": "Wǒ xǐhuan kàn zúqiú bǐsài.",
+     "fr": "J'aime regarder les matchs de foot.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L3-0969",
+   "genre": "mot",
+   "hanzi": "组合",
+   "pinyin": "zǔhé",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "combiner, assembler",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "combiner, assembler, composer"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这些字可以组合成一个词。",
+     "pinyin": "Zhèxiē zì kěyǐ zǔhé chéng yī ge cí.",
+     "fr": "Ces caractères peuvent former un mot.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L3-0970",
+   "genre": "mot",
+   "hanzi": "左右",
+   "pinyin": "zuǒyòu",
+   "categories": [
+    "N",
+    "V"
+   ],
+   "sens": {
+    "glose": "environ ; de chaque côté ; influencer",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "environ, à peu près : après un nombre"
+     },
+     {
+      "categorie": "N",
+      "fr": "gauche et droite, de chaque côté"
+     },
+     {
+      "categorie": "V",
+      "fr": "influencer, dominer"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他三十岁左右。",
+     "pinyin": "Tā sānshí suì zuǒyòu.",
+     "fr": "Il a la trentaine.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L3-0971",
+   "genre": "mot",
+   "hanzi": "作品",
+   "pinyin": "zuòpǐn",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "œuvre (d'art, littéraire)",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "œuvre (d'art, littéraire)"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这是他最有名的作品。",
+     "pinyin": "Zhè shì tā zuì yǒumíng de zuòpǐn.",
+     "fr": "C'est ce qu'il a fait de plus connu.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L3-0972",
+   "genre": "mot",
+   "hanzi": "作者",
+   "pinyin": "zuòzhě",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "auteur",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "auteur, autrice"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这本书的作者是谁？",
+     "pinyin": "Zhè běn shū de zuòzhě shì shéi?",
+     "fr": "Qui a écrit ce livre ?",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L3-0973",
+   "genre": "mot",
+   "hanzi": "做客",
+   "pinyin": "zuòkè",
+   "sens": {
+    "glose": "être invité, rendre visite",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "être invité chez quelqu'un, rendre visite"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "欢迎你来我家做客。",
+     "pinyin": "Huānyíng nǐ lái wǒ jiā zuòkè.",
+     "fr": "Tu es le bienvenu chez moi.",
+     "statut": "a_relire"
+    }
+   ]
+  }
+ ]
+}
