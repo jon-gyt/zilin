@@ -21,20 +21,33 @@
   "勹": "sens",
   "日": "sens"
  },
- "mots": [],
+ "mots": [
+  {
+   "hanzi": "上旬",
+   "pinyin": "shàngxún",
+   "fr": "première décade du mois",
+   "en": "first ten days of a month"
+  },
+  {
+   "hanzi": "下旬",
+   "pinyin": "xiàxún",
+   "fr": "dernière décade du mois",
+   "en": "last ten days of a month"
+  }
+ ],
  "phrase": {
-  "zh": "",
-  "pinyin": "",
-  "fr": "",
-  "en": ""
+  "zh": "我下个月上旬回来。",
+  "pinyin": "Wǒ xià gè yuè shàngxún huílai.",
+  "fr": "Je reviens dans les dix premiers jours du mois prochain.",
+  "en": "I'll be back early next month."
  },
  "generation": {
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:3b3d92da5e19254ee345f1c0c59277347f92cea811f78f6937bb4bd78a599218",
-  "essais": 1,
+  "empreinte_invite": "sha256:058ee5e7132a9e166f0cdcea717394e4c5b18e07fd5233fa329c173d89e5bdf0",
+  "essais": 2,
   "refus": []
  },
- "statut": "relu"
+ "statut": "a_relire"
 }

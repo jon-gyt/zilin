@@ -19,20 +19,33 @@
  "roles": {
   "熏": "sens"
  },
- "mots": [],
+ "mots": [
+  {
+   "hanzi": "熏肉",
+   "pinyin": "xūnròu",
+   "fr": "viande fumée",
+   "en": "smoked meat"
+  },
+  {
+   "hanzi": "烟熏",
+   "pinyin": "yānxūn",
+   "fr": "fumé",
+   "en": "smoked"
+  }
+ ],
  "phrase": {
-  "zh": "",
-  "pinyin": "",
-  "fr": "",
-  "en": ""
+  "zh": "这种熏肉很香。",
+  "pinyin": "Zhè zhǒng xūnròu hěn xiāng.",
+  "fr": "Cette viande fumée sent très bon.",
+  "en": "This smoked meat smells delicious."
  },
  "generation": {
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:2171ccd0ea5bc2506bff179f2c32b42a5dfc9ab62325d1b39d1bcd6f52ffc3ec",
-  "essais": 1,
+  "empreinte_invite": "sha256:b102fe1182b1d3bb3f26c44d4651368246a4ad7a2a465e67dde7189cdb70ade3",
+  "essais": 2,
   "refus": []
  },
- "statut": "relu"
+ "statut": "a_relire"
 }

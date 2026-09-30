@@ -25,20 +25,33 @@
   "丁": "sens",
   "氵": "sens"
  },
- "mots": [],
+ "mots": [
+  {
+   "hanzi": "衍生",
+   "pinyin": "yǎnshēng",
+   "fr": "dériver, engendrer",
+   "en": "to derive, to spawn"
+  },
+  {
+   "hanzi": "敷衍",
+   "pinyin": "fūyǎn",
+   "fr": "bâcler, faire semblant",
+   "en": "to go through the motions"
+  }
+ ],
  "phrase": {
-  "zh": "",
-  "pinyin": "",
-  "fr": "",
-  "en": ""
+  "zh": "做事不能敷衍。",
+  "pinyin": "Zuòshì bù néng fūyǎn.",
+  "fr": "Il ne faut pas bâcler ce qu'on fait.",
+  "en": "You shouldn't just go through the motions."
  },
  "generation": {
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:db322f244938d82257687b23067e1d7dcf9f1c2e484d45f8d64328c7a9591cc2",
-  "essais": 1,
+  "empreinte_invite": "sha256:104f152604f56ba5a2a718cd9c02b919bc6f38abe7c572df4f01cf2b9575df2f",
+  "essais": 2,
   "refus": []
  },
- "statut": "relu"
+ "statut": "a_relire"
 }
