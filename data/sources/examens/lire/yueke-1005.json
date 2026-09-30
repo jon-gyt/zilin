@@ -1,0 +1,440 @@
+{
+ "examen": "yueke-1005",
+ "parcours": "lire",
+ "generation": {
+  "modele": "rédaction manuelle",
+  "api": "session Claude Code (sans API)",
+  "date": "2026-09-30"
+ },
+ "relecture": {
+  "statut": "a_relire",
+  "note": "rédigé le 30 septembre 2026, à relire par le propriétaire (`wenlu examens apercu lire yueke-1005`) ; une série passe à `relu` sur sa décision, citée ici"
+ },
+ "series": [
+  {
+   "serie": "A",
+   "statut": "a_relire",
+   "supports": [
+    {
+     "id": "s1",
+     "genre": "message",
+     "contexte": {
+      "fr": "Un message",
+      "en": "A message"
+     },
+     "lignes": [
+      {
+       "zh": "老师，我昨天跳舞的时候，",
+       "pinyin": "lǎo shī wǒ zuó tiān tiào wǔ de shí hou",
+       "fr": "Madame, hier, en dansant,",
+       "en": "Miss, yesterday, while dancing,"
+      },
+      {
+       "zh": "脚受伤了，很痛，",
+       "pinyin": "jiǎo shòu shāng le hěn tòng",
+       "fr": "je me suis blessé au pied, j'ai très mal :",
+       "en": "I hurt my foot, it's very painful:"
+      },
+      {
+       "zh": "需要休息两天。",
+       "pinyin": "xū yào xiū xi liǎng tiān",
+       "fr": "je dois me reposer deux jours.",
+       "en": "I need two days' rest."
+      }
+     ]
+    },
+    {
+     "id": "s2",
+     "genre": "menu",
+     "contexte": {
+      "fr": "Un menu",
+      "en": "A menu"
+     },
+     "lignes": [
+      {
+       "zh": "今日特价",
+       "pinyin": "jīn rì tè jià",
+       "fr": "Promotions du jour",
+       "en": "Today's specials"
+      },
+      {
+       "zh": "鸡蛋汤：八元",
+       "pinyin": "jī dàn tāng bā yuán",
+       "fr": "Soupe aux œufs : 8 yuans",
+       "en": "Egg soup: 8 yuan"
+      },
+      {
+       "zh": "甜点：十元",
+       "pinyin": "tián diǎn shí yuán",
+       "fr": "Dessert : 10 yuans",
+       "en": "Dessert: 10 yuan"
+      }
+     ]
+    }
+   ],
+   "questions": [
+    {
+     "type": "comprendre",
+     "support": "s1",
+     "consigne": {
+      "fr": "Pourquoi l'élève écrit-il ?",
+      "en": "Why is the pupil writing?"
+     },
+     "choix": [
+      {
+       "fr": "Il a perdu son cartable",
+       "en": "He has lost his school bag"
+      },
+      {
+       "fr": "Il a raté le car",
+       "en": "He missed the bus"
+      },
+      {
+       "fr": "Il s'est blessé au pied",
+       "en": "He has hurt his foot"
+      },
+      {
+       "fr": "Il part en vacances",
+       "en": "He is going on holiday"
+      }
+     ],
+     "reponse": 2,
+     "porte": [
+      "脚",
+      "受",
+      "伤"
+     ]
+    },
+    {
+     "type": "reperer",
+     "support": "s1",
+     "consigne": {
+      "fr": "Touche ce qu'il faisait quand c'est arrivé.",
+      "en": "Tap what he was doing when it happened."
+     },
+     "choix": [
+      "昨天",
+      "跳舞",
+      "脚",
+      "休息"
+     ],
+     "reponse": 1,
+     "porte": [
+      "跳",
+      "舞"
+     ]
+    },
+    {
+     "type": "replique",
+     "support": "s1",
+     "consigne": {
+      "fr": "Que répond le professeur ?",
+      "en": "What does the teacher reply?"
+     },
+     "choix": [
+      {
+       "zh": "没关系，你先看医生吧。",
+       "pinyin": "méi guān xi nǐ xiān kàn yī shēng ba",
+       "fr": "Ce n'est rien, va d'abord voir un médecin.",
+       "en": "Don't worry, go and see a doctor first."
+      },
+      {
+       "zh": "这个汤太甜了。",
+       "pinyin": "zhè gè tāng tài tián le",
+       "fr": "Cette soupe est trop sucrée.",
+       "en": "This soup is too sweet."
+      },
+      {
+       "zh": "我家有两个箱子。",
+       "pinyin": "wǒ jiā yǒu liǎng gè xiāng zi",
+       "fr": "Chez moi, il y a deux valises.",
+       "en": "There are two suitcases at my place."
+      },
+      {
+       "zh": "明天我们去看电影。",
+       "pinyin": "míng tiān wǒ men qù kàn diàn yǐng",
+       "fr": "Demain, on va au cinéma.",
+       "en": "Tomorrow we're going to the cinema."
+      }
+     ],
+     "reponse": 0,
+     "porte": [
+      "伤",
+      "痛"
+     ]
+    },
+    {
+     "type": "vrai_faux",
+     "support": "s2",
+     "consigne": {
+      "fr": "Vrai ou faux ?",
+      "en": "True or false?"
+     },
+     "affirmation": {
+      "zh": "甜点比鸡蛋汤贵。",
+      "pinyin": "tián diǎn bǐ jī dàn tāng guì",
+      "fr": "Le dessert coûte plus cher que la soupe aux œufs.",
+      "en": "The dessert costs more than the egg soup."
+     },
+     "reponse": true,
+     "porte": [
+      "甜",
+      "汤",
+      "贵"
+     ]
+    },
+    {
+     "type": "sens",
+     "consigne": {
+      "fr": "Que veut dire ce caractère ?",
+      "en": "What does this character mean?"
+     },
+     "objet": {
+      "zh": "深",
+      "pinyin": "shēn",
+      "fr": "profond",
+      "en": "deep"
+     },
+     "choix": [
+      {
+       "fr": "étroit",
+       "en": "narrow"
+      },
+      {
+       "fr": "rapide",
+       "en": "fast"
+      },
+      {
+       "fr": "sale",
+       "en": "dirty"
+      },
+      {
+       "fr": "profond",
+       "en": "deep"
+      }
+     ],
+     "reponse": 3,
+     "porte": [
+      "深"
+     ]
+    }
+   ]
+  },
+  {
+   "serie": "B",
+   "statut": "a_relire",
+   "supports": [
+    {
+     "id": "s1",
+     "genre": "affiche",
+     "contexte": {
+      "fr": "Une affiche",
+      "en": "A poster"
+     },
+     "lignes": [
+      {
+       "zh": "学校舞会",
+       "pinyin": "xué xiào wǔ huì",
+       "fr": "Bal de l'école",
+       "en": "School dance"
+      },
+      {
+       "zh": "时间：星期五晚上八点",
+       "pinyin": "shí jiān xīng qī wǔ wǎn shang bā diǎn",
+       "fr": "Heure : vendredi, 20 heures",
+       "en": "Time: Friday, 8 pm"
+      },
+      {
+       "zh": "地点：三号楼二层",
+       "pinyin": "dì diǎn sān hào lóu èr céng",
+       "fr": "Lieu : bâtiment 3, premier étage",
+       "en": "Venue: Building 3, second floor"
+      },
+      {
+       "zh": "请穿正式一点的衣服。",
+       "pinyin": "qǐng chuān zhèng shì yī diǎn de yī fu",
+       "fr": "Tenue soignée, s'il vous plaît.",
+       "en": "Please dress smartly."
+      }
+     ]
+    },
+    {
+     "id": "s2",
+     "genre": "message",
+     "contexte": {
+      "fr": "Un message",
+      "en": "A message"
+     },
+     "lignes": [
+      {
+       "zh": "妈妈，我的箱子坏了，",
+       "pinyin": "mā ma wǒ de xiāng zi huài le",
+       "fr": "Maman, ma valise est cassée :",
+       "en": "Mum, my suitcase is broken:"
+      },
+      {
+       "zh": "能借我你的吗？",
+       "pinyin": "néng jiè wǒ nǐ de ma",
+       "fr": "tu peux me prêter la tienne ?",
+       "en": "can you lend me yours?"
+      },
+      {
+       "zh": "星期天我还给你。",
+       "pinyin": "xīng qī tiān wǒ huán gěi nǐ",
+       "fr": "Je te la rends dimanche.",
+       "en": "I'll give it back on Sunday."
+      }
+     ]
+    }
+   ],
+   "questions": [
+    {
+     "type": "comprendre",
+     "support": "s1",
+     "consigne": {
+      "fr": "Qu'annonce cette affiche ?",
+      "en": "What does this poster announce?"
+     },
+     "choix": [
+      {
+       "fr": "Un concert",
+       "en": "A concert"
+      },
+      {
+       "fr": "Un bal",
+       "en": "A dance"
+      },
+      {
+       "fr": "Un match",
+       "en": "A match"
+      },
+      {
+       "fr": "Un examen",
+       "en": "An exam"
+      }
+     ],
+     "reponse": 1,
+     "porte": [
+      "舞",
+      "会"
+     ]
+    },
+    {
+     "type": "vrai_faux",
+     "support": "s1",
+     "consigne": {
+      "fr": "Vrai ou faux ?",
+      "en": "True or false?"
+     },
+     "affirmation": {
+      "zh": "舞会在星期六。",
+      "pinyin": "wǔ huì zài xīng qī liù",
+      "fr": "La soirée a lieu samedi.",
+      "en": "The party is on Saturday."
+     },
+     "reponse": false,
+     "porte": [
+      "星",
+      "期",
+      "五",
+      "舞"
+     ]
+    },
+    {
+     "type": "comprendre",
+     "support": "s1",
+     "consigne": {
+      "fr": "Comment faut-il s'habiller ?",
+      "en": "How should you dress?"
+     },
+     "choix": [
+      {
+       "fr": "En tenue de sport",
+       "en": "In sportswear"
+      },
+      {
+       "fr": "En uniforme",
+       "en": "In uniform"
+      },
+      {
+       "fr": "En noir",
+       "en": "In black"
+      },
+      {
+       "fr": "Avec soin",
+       "en": "Smartly"
+      }
+     ],
+     "reponse": 3,
+     "porte": [
+      "正",
+      "式"
+     ]
+    },
+    {
+     "type": "replique",
+     "support": "s2",
+     "consigne": {
+      "fr": "Que répond sa mère ?",
+      "en": "What does the mother reply?"
+     },
+     "choix": [
+      {
+       "zh": "我不喜欢吃糖。",
+       "pinyin": "wǒ bù xǐ huan chī táng",
+       "fr": "Je n'aime pas les bonbons.",
+       "en": "I don't like sweets."
+      },
+      {
+       "zh": "今天的汤很好喝。",
+       "pinyin": "jīn tiān de tāng hěn hǎo hē",
+       "fr": "La soupe est très bonne aujourd'hui.",
+       "en": "Today's soup is very good."
+      },
+      {
+       "zh": "好，你来拿吧。",
+       "pinyin": "hǎo nǐ lái ná ba",
+       "fr": "D'accord, viens la chercher.",
+       "en": "OK, come and get it."
+      },
+      {
+       "zh": "我们去跳舞吧！",
+       "pinyin": "wǒ men qù tiào wǔ ba",
+       "fr": "Allons danser !",
+       "en": "Let's go dancing!"
+      }
+     ],
+     "reponse": 2,
+     "porte": [
+      "箱",
+      "借"
+     ]
+    },
+    {
+     "type": "trou",
+     "consigne": {
+      "fr": "Quel caractère manque dans ce mot ?",
+      "en": "Which character is missing from this word?"
+     },
+     "objet": {
+      "zh": "希望",
+      "pinyin": "xī wàng",
+      "fr": "espérer",
+      "en": "to hope"
+     },
+     "trou": 0,
+     "choix": [
+      "布",
+      "市",
+      "希",
+      "常"
+     ],
+     "reponse": 2,
+     "porte": [
+      "希"
+     ]
+    }
+   ]
+  }
+ ]
+}
