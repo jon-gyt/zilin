@@ -1,0 +1,1396 @@
+{
+ "niveau": "7-9",
+ "lot": "57",
+ "source": "rédigé pour l'app dans le pipeline wenlu, sans API ; faits lus : liste HSK 3.0 (forme, pinyin, niveau, catégorie), lectures d'Unihan et des surcharges, gloses relues des fiches",
+ "brouillon": "data/sources/dico-brouillons/7-9/57.json",
+ "generation": {
+  "modele": "rédaction manuelle",
+  "api": "session Claude Code (sans API)",
+  "date": "2026-09-30",
+  "empreinte_invite": "sha256:8668d1bdade5a3b9ba9a31b4055b006f0a1f2b267df684fc89aef348c243ebf1",
+  "contexte": "wenlu dico contexte 7-9 57",
+  "essais": 1,
+  "refus": []
+ },
+ "entrees": [
+  {
+   "id": "L7-2413",
+   "genre": "mot",
+   "hanzi": "恐吓",
+   "pinyin": "kǒnghè",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "menacer, intimider",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "menacer, intimider"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "有人打电话恐吓他。",
+     "pinyin": "Yǒu rén dǎ diànhuà kǒnghè tā.",
+     "fr": "Quelqu'un l'a appelé pour le menacer.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2414",
+   "genre": "mot",
+   "hanzi": "恐慌",
+   "pinyin": "kǒnghuāng",
+   "categories": [
+    "Adj"
+   ],
+   "sens": {
+    "glose": "paniqué ; panique",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "paniqué, pris de panique"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "听到这个消息，很多人都很恐慌。",
+     "pinyin": "Tīngdào zhège xiāoxi, hěn duō rén dōu hěn kǒnghuāng.",
+     "fr": "À cette nouvelle, beaucoup de gens se sont affolés.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "惧",
+   "genre": "caractere",
+   "hanzi": "惧",
+   "pinyin": "jù",
+   "sens": {
+    "glose": "craindre, avoir peur",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "craindre, avoir peur de"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他面对困难毫不畏惧。",
+     "pinyin": "Tā miànduì kùnnan háo bù wèijù.",
+     "fr": "Il affronte les difficultés sans aucune crainte.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2415",
+   "genre": "mot",
+   "hanzi": "恐惧",
+   "pinyin": "kǒngjù",
+   "categories": [
+    "Adj"
+   ],
+   "sens": {
+    "glose": "effrayé, terrifié",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "effrayé, terrifié, angoissé"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "孩子对黑暗感到恐惧。",
+     "pinyin": "Háizi duì hēi'àn gǎndào kǒngjù.",
+     "fr": "L'enfant a peur du noir.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2416",
+   "genre": "mot",
+   "hanzi": "恐龙",
+   "pinyin": "kǒnglóng",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "dinosaure",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "dinosaure"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "恐龙在很久以前就消失了。",
+     "pinyin": "Kǒnglóng zài hěn jiǔ yǐqián jiù xiāoshī le.",
+     "fr": "Les dinosaures ont disparu il y a très longtemps.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2417",
+   "genre": "mot",
+   "hanzi": "空白",
+   "pinyin": "kòngbái",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "blanc, espace vide ; lacune",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "blanc, espace vide ; lacune, vide"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "请在空白处写上你的名字。",
+     "pinyin": "Qǐng zài kòngbái chù xiě shang nǐ de míngzi.",
+     "fr": "Inscrivez votre nom dans la case libre.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2418",
+   "genre": "mot",
+   "hanzi": "空地",
+   "pinyin": "kòngdì",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "terrain vague, espace libre",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "terrain vague, espace libre"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "孩子们在楼前的空地上踢球。",
+     "pinyin": "Háizimen zài lóu qián de kòngdì shang tī qiú.",
+     "fr": "Les enfants jouent au ballon sur le terrain devant l'immeuble.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2419",
+   "genre": "mot",
+   "hanzi": "空隙",
+   "pinyin": "kòngxì",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "interstice ; moment libre",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "interstice, espace ; moment libre"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他利用工作的空隙学习英语。",
+     "pinyin": "Tā lìyòng gōngzuò de kòngxì xuéxí Yīngyǔ.",
+     "fr": "Il profite de ses moments libres au travail pour apprendre l'anglais.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2420",
+   "genre": "mot",
+   "hanzi": "控告",
+   "pinyin": "kònggào",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "porter plainte contre, accuser",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "porter plainte contre, accuser (en justice)"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "她向法院控告了那家公司。",
+     "pinyin": "Tā xiàng fǎyuàn kònggào le nà jiā gōngsī.",
+     "fr": "Elle a poursuivi cette entreprise en justice.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "抠",
+   "genre": "caractere",
+   "hanzi": "抠",
+   "pinyin": "kōu",
+   "mots": [
+    "L7-2421"
+   ],
+   "sens": {
+    "glose": "gratter, curer ; radin",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "gratter, curer (avec le doigt)"
+     },
+     {
+      "categorie": "V",
+      "fr": "chercher la petite bête, pinailler"
+     },
+     {
+      "categorie": "Adj",
+      "fr": "radin, pingre"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他这个人很抠，从来不请客。",
+     "pinyin": "Tā zhège rén hěn kōu, cónglái bù qǐngkè.",
+     "fr": "Il est très pingre, il n'invite jamais personne.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2422",
+   "genre": "mot",
+   "hanzi": "口碑",
+   "pinyin": "kǒubēi",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "réputation, bouche-à-oreille",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "réputation, avis du public, bouche-à-oreille"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这家饭馆的口碑很好。",
+     "pinyin": "Zhè jiā fànguǎn de kǒubēi hěn hǎo.",
+     "fr": "Ce restaurant a très bonne réputation.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2423",
+   "genre": "mot",
+   "hanzi": "口才",
+   "pinyin": "kǒucái",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "éloquence",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "éloquence, talent oratoire"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他口才很好，适合当律师。",
+     "pinyin": "Tā kǒucái hěn hǎo, shìhé dāng lǜshī.",
+     "fr": "Il parle très bien, il ferait un bon avocat.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2424",
+   "genre": "mot",
+   "hanzi": "口吃",
+   "pinyin": "kǒuchī",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "bégayer",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "bégayer"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他一紧张就口吃。",
+     "pinyin": "Tā yī jǐnzhāng jiù kǒuchī.",
+     "fr": "Dès qu'il est nerveux, il bégaie.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2425",
+   "genre": "mot",
+   "hanzi": "口感",
+   "pinyin": "kǒugǎn",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "texture, sensation en bouche",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "texture, sensation en bouche"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这种面包的口感很好。",
+     "pinyin": "Zhè zhǒng miànbāo de kǒugǎn hěn hǎo.",
+     "fr": "Ce pain a une mie très agréable.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2426",
+   "genre": "mot",
+   "hanzi": "口径",
+   "pinyin": "kǒujìng",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "calibre ; version officielle",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "calibre, diamètre"
+     },
+     {
+      "categorie": "N",
+      "fr": "version commune, ligne officielle (à tenir)"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "大家对外说话要统一口径。",
+     "pinyin": "Dàjiā duì wài shuōhuà yào tǒngyī kǒujìng.",
+     "fr": "Face à l'extérieur, tout le monde doit tenir le même discours.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2427",
+   "genre": "mot",
+   "hanzi": "口令",
+   "pinyin": "kǒulìng",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "mot de passe ; commandement",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "mot de passe"
+     },
+     {
+      "categorie": "N",
+      "fr": "commandement (militaire)"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "请说出口令。",
+     "pinyin": "Qǐng shuō chū kǒulìng.",
+     "fr": "Donnez le mot de passe.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2428",
+   "genre": "mot",
+   "hanzi": "口气",
+   "pinyin": "kǒuqi",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "ton ; sous-entendu",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "ton (de la voix), manière de parler"
+     },
+     {
+      "categorie": "N",
+      "fr": "sous-entendu, intention"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "听他的口气，好像不太高兴。",
+     "pinyin": "Tīng tā de kǒuqi, hǎoxiàng bù tài gāoxìng.",
+     "fr": "À l'entendre, il n'a pas l'air très content.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "腔",
+   "genre": "caractere",
+   "hanzi": "腔",
+   "pinyin": "qiāng",
+   "mots": [
+    "L7-3280"
+   ],
+   "sens": {
+    "glose": "cavité ; accent, ton",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "cavité (du corps)"
+     },
+     {
+      "categorie": "N",
+      "fr": "accent, intonation ; air (musical)"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他说话带着很重的南方腔。",
+     "pinyin": "Tā shuōhuà dài zhe hěn zhòng de nánfāng qiāng.",
+     "fr": "Il parle avec un fort accent du Sud.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2429",
+   "genre": "mot",
+   "hanzi": "口腔",
+   "pinyin": "kǒuqiāng",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "cavité buccale",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "cavité buccale, bouche"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "医生检查了他的口腔。",
+     "pinyin": "Yīshēng jiǎnchá le tā de kǒuqiāng.",
+     "fr": "Le médecin lui a examiné la bouche.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "哨",
+   "genre": "caractere",
+   "hanzi": "哨",
+   "pinyin": "shào",
+   "sens": {
+    "glose": "sifflet ; poste de garde",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "sifflet"
+     },
+     {
+      "categorie": "N",
+      "fr": "poste de garde, sentinelle"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "裁判吹响了哨子。",
+     "pinyin": "Cáipàn chuī xiǎng le shàozi.",
+     "fr": "L'arbitre a donné un coup de sifflet.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2430",
+   "genre": "mot",
+   "hanzi": "口哨",
+   "pinyin": "kǒushào",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "sifflement (avec la bouche)",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "sifflement (fait avec la bouche)"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他一边走路一边吹口哨。",
+     "pinyin": "Tā yībiān zǒulù yībiān chuī kǒushào.",
+     "fr": "Il sifflote en marchant.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2431",
+   "genre": "mot",
+   "hanzi": "口水",
+   "pinyin": "kǒushuǐ",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "salive",
+    "acceptions": [],
+    "statut": "relu",
+    "provenance": {
+     "reprise": "data/sources/fiches/水.json",
+     "champ": "mots[].fr"
+    }
+   },
+   "exemples": [
+    {
+     "zh": "看到好吃的，他都快流口水了。",
+     "pinyin": "Kàndào hǎochī de, tā dōu kuài liú kǒushuǐ le.",
+     "fr": "Devant ces bonnes choses, il en bave presque.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2432",
+   "genre": "mot",
+   "hanzi": "口头",
+   "pinyin": "kǒutóu",
+   "categories": [
+    "N",
+    "Adj"
+   ],
+   "sens": {
+    "glose": "oral, verbal",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "forme orale"
+     },
+     {
+      "categorie": "Adj",
+      "fr": "oral, verbal"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "我们只达成了口头协议。",
+     "pinyin": "Wǒmen zhǐ dáchéng le kǒutóu xiéyì.",
+     "fr": "Nous n'avons conclu qu'un accord verbal.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2433",
+   "genre": "mot",
+   "hanzi": "口味",
+   "pinyin": "kǒuwèi",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "goût, préférence",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "goût, saveur ; préférence"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这道菜很适合我的口味。",
+     "pinyin": "Zhè dào cài hěn shìhé wǒ de kǒuwèi.",
+     "fr": "Ce plat me plaît beaucoup.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2434",
+   "genre": "mot",
+   "hanzi": "口香糖",
+   "pinyin": "kǒuxiāngtáng",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "chewing-gum",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "chewing-gum, gomme à mâcher"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "上课的时候不能吃口香糖。",
+     "pinyin": "Shàngkè de shíhou bù néng chī kǒuxiāngtáng.",
+     "fr": "Il est interdit de mâcher du chewing-gum en classe.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2435",
+   "genre": "mot",
+   "hanzi": "口音",
+   "pinyin": "kǒuyīn",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "accent",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "accent (régional)"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他说普通话带一点儿广东口音。",
+     "pinyin": "Tā shuō pǔtōnghuà dài yīdiǎnr Guǎngdōng kǒuyīn.",
+     "fr": "Il parle mandarin avec une pointe d'accent cantonais.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "罩",
+   "genre": "caractere",
+   "hanzi": "罩",
+   "pinyin": "zhào",
+   "mots": [
+    "L7-5279"
+   ],
+   "sens": {
+    "glose": "couvrir ; housse, cloche",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "couvrir, recouvrir, envelopper"
+     },
+     {
+      "categorie": "N",
+      "fr": "housse, couvercle, cloche ; abat-jour"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "山上罩着一层白雾。",
+     "pinyin": "Shān shang zhào zhe yī céng bái wù.",
+     "fr": "Un voile de brume blanche enveloppe la montagne.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2436",
+   "genre": "mot",
+   "hanzi": "口罩",
+   "pinyin": "kǒuzhào",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "masque (de protection)",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "masque (de protection)"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "出门的时候记得戴口罩。",
+     "pinyin": "Chūmén de shíhou jìde dài kǒuzhào.",
+     "fr": "N'oublie pas de mettre un masque en sortant.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2437",
+   "genre": "mot",
+   "hanzi": "口子",
+   "pinyin": "kǒuzi",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "entaille, coupure ; brèche",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "entaille, coupure, déchirure ; brèche"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他的手上划了一个口子。",
+     "pinyin": "Tā de shǒu shang huá le yī ge kǒuzi.",
+     "fr": "Il s'est fait une entaille à la main.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2438",
+   "genre": "mot",
+   "hanzi": "扣除",
+   "pinyin": "kòuchú",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "déduire, retenir",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "déduire, retenir (une somme)"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "工资要扣除税款。",
+     "pinyin": "Gōngzī yào kòuchú shuìkuǎn.",
+     "fr": "Les impôts sont prélevés sur le salaire.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2439",
+   "genre": "mot",
+   "hanzi": "扣留",
+   "pinyin": "kòuliú",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "retenir, détenir",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "retenir, détenir (une personne, un bien)"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他的护照被海关扣留了。",
+     "pinyin": "Tā de hùzhào bèi hǎiguān kòuliú le.",
+     "fr": "La douane a confisqué son passeport.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "弦",
+   "genre": "caractere",
+   "hanzi": "弦",
+   "pinyin": "xián",
+   "mots": [
+    "L7-4486"
+   ],
+   "sens": {
+    "glose": "corde (d'instrument, d'arc)",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "corde (d'instrument, d'arc) ; ressort"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "吉他的一根弦断了。",
+     "pinyin": "Jítā de yī gēn xián duàn le.",
+     "fr": "Une corde de la guitare a cassé.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2440",
+   "genre": "mot",
+   "hanzi": "扣人心弦",
+   "pinyin": "kòurénxīnxián",
+   "sens": {
+    "glose": "palpitant, qui tient en haleine",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "palpitant, captivant, qui tient en haleine"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这场比赛非常扣人心弦。",
+     "pinyin": "Zhè chǎng bǐsài fēicháng kòurénxīnxián.",
+     "fr": "Ce match nous a tenus en haleine du début à la fin.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2441",
+   "genre": "mot",
+   "hanzi": "扣押",
+   "pinyin": "kòuyā",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "saisir, détenir",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "saisir, confisquer ; détenir"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "警察扣押了那辆车。",
+     "pinyin": "Jǐngchá kòuyā le nà liàng chē.",
+     "fr": "La police a mis la voiture en fourrière.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "枯",
+   "genre": "caractere",
+   "hanzi": "枯",
+   "pinyin": "kū",
+   "sens": {
+    "glose": "fané, desséché",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "fané, sec, desséché"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "花都枯了。",
+     "pinyin": "Huā dōu kū le.",
+     "fr": "Les fleurs ont toutes fané.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2442",
+   "genre": "mot",
+   "hanzi": "枯燥",
+   "pinyin": "kūzào",
+   "categories": [
+    "Adj"
+   ],
+   "sens": {
+    "glose": "ennuyeux, monotone",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "ennuyeux, monotone, aride"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这门课很枯燥，学生们都不爱听。",
+     "pinyin": "Zhè mén kè hěn kūzào, xuéshengmen dōu bù ài tīng.",
+     "fr": "Ce cours est rébarbatif, les élèves n'aiment pas l'écouter.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2443",
+   "genre": "mot",
+   "hanzi": "哭泣",
+   "pinyin": "kūqì",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "pleurer, sangloter",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "pleurer, sangloter"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "那个孩子一直在角落里哭泣。",
+     "pinyin": "Nàge háizi yīzhí zài jiǎoluò li kūqì.",
+     "fr": "Cet enfant sanglote dans un coin depuis tout à l'heure.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2444",
+   "genre": "mot",
+   "hanzi": "哭笑不得",
+   "pinyin": "kūxiào-bùdé",
+   "sens": {
+    "glose": "ne savoir s'il faut rire ou pleurer",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "partagé entre le rire et les larmes"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他的回答让人哭笑不得。",
+     "pinyin": "Tā de huídá ràng rén kūxiào-bùdé.",
+     "fr": "Sa réponse vous laisse sans savoir s'il faut en rire ou en pleurer.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "窟",
+   "genre": "caractere",
+   "hanzi": "窟",
+   "pinyin": "kū",
+   "sens": {
+    "glose": "grotte, caverne ; repaire",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "grotte, caverne"
+     },
+     {
+      "categorie": "N",
+      "fr": "repaire, antre"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这里有很多古代的石窟。",
+     "pinyin": "Zhèli yǒu hěn duō gǔdài de shíkū.",
+     "fr": "Il y a ici de nombreuses grottes ornées anciennes.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "窿",
+   "genre": "caractere",
+   "hanzi": "窿",
+   "pinyin": "lóng",
+   "sens": {
+    "glose": "trou, cavité",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "trou, cavité (en composé)"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "墙上有一个大窟窿。",
+     "pinyin": "Qiáng shang yǒu yī ge dà kūlong.",
+     "fr": "Il y a un grand trou dans le mur.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2445",
+   "genre": "mot",
+   "hanzi": "窟窿",
+   "pinyin": "kūlong",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "trou ; déficit",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "trou"
+     },
+     {
+      "categorie": "N",
+      "fr": "déficit, dette"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他的袜子上破了一个窟窿。",
+     "pinyin": "Tā de wàzi shang pò le yī ge kūlong.",
+     "fr": "Sa chaussette est trouée.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2446",
+   "genre": "mot",
+   "hanzi": "苦力",
+   "pinyin": "kǔlì",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "coolie, manœuvre",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "coolie, manœuvre, travailleur de force"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他年轻的时候在码头做苦力。",
+     "pinyin": "Tā niánqīng de shíhou zài mǎtou zuò kǔlì.",
+     "fr": "Dans sa jeunesse, il était docker.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2447",
+   "genre": "mot",
+   "hanzi": "苦练",
+   "pinyin": "kǔ liàn",
+   "sens": {
+    "glose": "s'entraîner dur",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "s'entraîner dur, travailler avec acharnement"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "为了比赛，他每天苦练五个小时。",
+     "pinyin": "Wèile bǐsài, tā měi tiān kǔ liàn wǔ ge xiǎoshí.",
+     "fr": "Pour la compétition, il s'entraîne cinq heures par jour.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2448",
+   "genre": "mot",
+   "hanzi": "苦难",
+   "pinyin": "kǔnàn",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "souffrance, misère",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "souffrance, misère, calamité"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "那个时代人民经历了很多苦难。",
+     "pinyin": "Nàge shídài rénmín jīnglì le hěn duō kǔnàn.",
+     "fr": "À cette époque, le peuple a enduré bien des malheurs.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2449",
+   "genre": "mot",
+   "hanzi": "苦恼",
+   "pinyin": "kǔnǎo",
+   "categories": [
+    "Adj"
+   ],
+   "sens": {
+    "glose": "tracassé, tourmenté",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "tracassé, tourmenté, soucieux"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他为找不到工作而苦恼。",
+     "pinyin": "Tā wèi zhǎo bù dào gōngzuò ér kǔnǎo.",
+     "fr": "Il se désole de ne pas trouver de travail.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2450",
+   "genre": "mot",
+   "hanzi": "苦笑",
+   "pinyin": "kǔxiào",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "sourire amèrement",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "avoir un sourire amer, sourire jaune"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "听了这话，他只能苦笑。",
+     "pinyin": "Tīng le zhè huà, tā zhǐ néng kǔxiào.",
+     "fr": "En entendant cela, il n'a pu que sourire jaune.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2451",
+   "genre": "mot",
+   "hanzi": "苦心",
+   "pinyin": "kǔxīn",
+   "categories": [
+    "N",
+    "Adv"
+   ],
+   "sens": {
+    "glose": "peine, efforts ; avec peine",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "peine, efforts, soins dévoués"
+     },
+     {
+      "categorie": "Adv",
+      "fr": "avec peine, avec beaucoup d'efforts"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "父母的一片苦心，你要明白。",
+     "pinyin": "Fùmǔ de yī piàn kǔxīn, nǐ yào míngbai.",
+     "fr": "Tu dois comprendre tout le mal que se donnent tes parents.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2452",
+   "genre": "mot",
+   "hanzi": "酷似",
+   "pinyin": "kùsì",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "ressembler beaucoup à",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "ressembler beaucoup à, être le portrait de"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他长得酷似他的父亲。",
+     "pinyin": "Tā zhǎng de kùsì tā de fùqin.",
+     "fr": "Il est le portrait craché de son père.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "夸",
+   "genre": "caractere",
+   "hanzi": "夸",
+   "pinyin": "kuā",
+   "mots": [
+    "L7-2453"
+   ],
+   "sens": {
+    "glose": "louer, complimenter ; exagérer",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "louer, complimenter, féliciter"
+     },
+     {
+      "categorie": "V",
+      "fr": "exagérer, se vanter"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "老师夸他字写得好。",
+     "pinyin": "Lǎoshī kuā tā zì xiě de hǎo.",
+     "fr": "Le professeur l'a félicité pour sa belle écriture.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2454",
+   "genre": "mot",
+   "hanzi": "夸大",
+   "pinyin": "kuādà",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "exagérer, grossir",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "exagérer, grossir, amplifier"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他说的话有点儿夸大。",
+     "pinyin": "Tā shuō de huà yǒudiǎnr kuādà.",
+     "fr": "Ce qu'il dit est un peu exagéré.",
+     "statut": "a_relire"
+    }
+   ]
+  }
+ ]
+}

@@ -1,0 +1,1360 @@
+{
+ "niveau": "7-9",
+ "lot": "55",
+ "source": "rédigé pour l'app dans le pipeline wenlu, sans API ; faits lus : liste HSK 3.0 (forme, pinyin, niveau, catégorie), lectures d'Unihan et des surcharges, gloses relues des fiches",
+ "brouillon": "data/sources/dico-brouillons/7-9/55.json",
+ "generation": {
+  "modele": "rédaction manuelle",
+  "api": "session Claude Code (sans API)",
+  "date": "2026-09-30",
+  "empreinte_invite": "sha256:5838e1a27701f870068652957f8f788b408d96e72074849800a0d90a8f5d16ee",
+  "contexte": "wenlu dico contexte 7-9 55",
+  "essais": 1,
+  "refus": []
+ },
+ "entrees": [
+  {
+   "id": "L7-2326",
+   "genre": "mot",
+   "hanzi": "卡通",
+   "pinyin": "kǎtōng",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "dessin animé",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "dessin animé, bande dessinée, personnage de BD"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "孩子们都喜欢看卡通片。",
+     "pinyin": "Háizimen dōu xǐhuan kàn kǎtōngpiàn.",
+     "fr": "Les enfants adorent les dessins animés.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2327",
+   "genre": "mot",
+   "hanzi": "开办",
+   "pinyin": "kāibàn",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "ouvrir, fonder (une école, une usine)",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "ouvrir, fonder, créer (école, usine, entreprise)"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他在老家开办了一所学校。",
+     "pinyin": "Tā zài lǎojiā kāibàn le yī suǒ xuéxiào.",
+     "fr": "Il a fondé une école dans son village natal.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2328",
+   "genre": "mot",
+   "hanzi": "开采",
+   "pinyin": "kāicǎi",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "exploiter (une mine)",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "exploiter, extraire (minerai, pétrole)"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这里正在开采石油。",
+     "pinyin": "Zhèli zhèngzài kāicǎi shíyóu.",
+     "fr": "On extrait du pétrole ici.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2329",
+   "genre": "mot",
+   "hanzi": "开场",
+   "pinyin": "kāichǎng",
+   "sens": {
+    "glose": "commencer (un spectacle)",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "commencer, débuter (un spectacle, une séance)"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "电影已经开场十分钟了。",
+     "pinyin": "Diànyǐng yǐjīng kāichǎng shí fēnzhōng le.",
+     "fr": "Le film a commencé il y a dix minutes.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2330",
+   "genre": "mot",
+   "hanzi": "开场白",
+   "pinyin": "kāichǎngbái",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "prologue, introduction",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "prologue, introduction, mot d'ouverture"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他的开场白很幽默。",
+     "pinyin": "Tā de kāichǎngbái hěn yōumò.",
+     "fr": "Son discours d'ouverture était plein d'humour.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2331",
+   "genre": "mot",
+   "hanzi": "开除",
+   "pinyin": "kāichú",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "renvoyer, exclure",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "renvoyer, exclure, licencier"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他因为经常迟到被公司开除了。",
+     "pinyin": "Tā yīnwèi jīngcháng chídào bèi gōngsī kāichú le.",
+     "fr": "Il a été renvoyé parce qu'il arrivait souvent en retard.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2332",
+   "genre": "mot",
+   "hanzi": "开动",
+   "pinyin": "kāidòng",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "démarrer, mettre en marche",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "démarrer, mettre en marche ; se mettre en route"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "火车开动了。",
+     "pinyin": "Huǒchē kāidòng le.",
+     "fr": "Le train s'est ébranlé.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2333",
+   "genre": "mot",
+   "hanzi": "开发区",
+   "pinyin": "kāifāqū",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "zone de développement",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "zone de développement (économique)"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "很多工厂搬到了开发区。",
+     "pinyin": "Hěn duō gōngchǎng bān dào le kāifāqū.",
+     "fr": "Beaucoup d'usines ont déménagé dans la zone industrielle.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2334",
+   "genre": "mot",
+   "hanzi": "开发商",
+   "pinyin": "kāifāshāng",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "promoteur (immobilier)",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "promoteur immobilier"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "开发商在这里盖了很多新房子。",
+     "pinyin": "Kāifāshāng zài zhèli gài le hěn duō xīn fángzi.",
+     "fr": "Les promoteurs ont construit beaucoup de logements neufs ici.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2335",
+   "genre": "mot",
+   "hanzi": "开工",
+   "pinyin": "kāigōng",
+   "sens": {
+    "glose": "commencer les travaux",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "commencer les travaux, se mettre au travail ; démarrer (usine)"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "新医院下个月开工。",
+     "pinyin": "Xīn yīyuàn xià ge yuè kāigōng.",
+     "fr": "Le chantier du nouvel hôpital débute le mois prochain.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "垦",
+   "genre": "caractere",
+   "hanzi": "垦",
+   "pinyin": "kěn",
+   "sens": {
+    "glose": "défricher",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "défricher, cultiver (une terre)"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这些地都是他们一点点垦出来的。",
+     "pinyin": "Zhèxiē dì dōu shì tāmen yīdiǎndiǎn kěn chūlai de.",
+     "fr": "Ces terres, ils les ont défrichées petit à petit.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2336",
+   "genre": "mot",
+   "hanzi": "开垦",
+   "pinyin": "kāikěn",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "défricher, mettre en culture",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "défricher, mettre en culture"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "农民们开垦了一大片荒地。",
+     "pinyin": "Nóngmínmen kāikěn le yī dà piàn huāngdì.",
+     "fr": "Les paysans ont défriché une vaste étendue de terres incultes.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2337",
+   "genre": "mot",
+   "hanzi": "开口",
+   "pinyin": "kāikǒu",
+   "sens": {
+    "glose": "ouvrir la bouche, prendre la parole",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "ouvrir la bouche, prendre la parole"
+     },
+     {
+      "categorie": "N",
+      "fr": "ouverture, entaille"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他想借钱，可是不好意思开口。",
+     "pinyin": "Tā xiǎng jiè qián, kěshì bù hǎoyìsi kāikǒu.",
+     "fr": "Il voudrait emprunter de l'argent, mais n'ose pas le demander.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2338",
+   "genre": "mot",
+   "hanzi": "开阔",
+   "pinyin": "kāikuò",
+   "categories": [
+    "Adj",
+    "V"
+   ],
+   "sens": {
+    "glose": "vaste, dégagé ; élargir",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "vaste, dégagé ; large (esprit)"
+     },
+     {
+      "categorie": "V",
+      "fr": "élargir, ouvrir"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "读书可以开阔眼界。",
+     "pinyin": "Dúshū kěyǐ kāikuò yǎnjiè.",
+     "fr": "La lecture élargit l'horizon.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2339",
+   "genre": "mot",
+   "hanzi": "开朗",
+   "pinyin": "kāilǎng",
+   "categories": [
+    "Adj"
+   ],
+   "sens": {
+    "glose": "gai, ouvert, optimiste",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "gai, ouvert, d'humeur joyeuse"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "她性格开朗，朋友很多。",
+     "pinyin": "Tā xìnggé kāilǎng, péngyou hěn duō.",
+     "fr": "Elle a un caractère enjoué et beaucoup d'amis.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "辟",
+   "genre": "caractere",
+   "hanzi": "辟",
+   "pinyin": "pì",
+   "sens": {
+    "glose": "ouvrir, frayer ; réfuter",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "ouvrir, frayer (un chemin)"
+     },
+     {
+      "categorie": "V",
+      "fr": "réfuter, démentir"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他的分析很精辟。",
+     "pinyin": "Tā de fēnxī hěn jīngpì.",
+     "fr": "Son analyse est d'une grande pertinence.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2340",
+   "genre": "mot",
+   "hanzi": "开辟",
+   "pinyin": "kāipì",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "ouvrir, frayer, créer",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "ouvrir, frayer, créer (voie, marché)"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "公司开辟了新的市场。",
+     "pinyin": "Gōngsī kāipì le xīn de shìchǎng.",
+     "fr": "L'entreprise a conquis de nouveaux marchés.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2341",
+   "genre": "mot",
+   "hanzi": "开启",
+   "pinyin": "kāiqǐ",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "ouvrir ; inaugurer",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "ouvrir ; inaugurer, commencer"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他们开启了新的生活。",
+     "pinyin": "Tāmen kāiqǐ le xīn de shēnghuó.",
+     "fr": "Ils ont entamé une nouvelle vie.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2342",
+   "genre": "mot",
+   "hanzi": "开枪",
+   "pinyin": "kāi qiāng",
+   "sens": {
+    "glose": "tirer (un coup de feu)",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "tirer un coup de feu, faire feu"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "警察向天开枪。",
+     "pinyin": "Jǐngchá xiàng tiān kāi qiāng.",
+     "fr": "Le policier a tiré en l'air.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2343",
+   "genre": "mot",
+   "hanzi": "开天辟地",
+   "pinyin": "kāitiān-pìdì",
+   "sens": {
+    "glose": "sans précédent ; création du monde",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "sans précédent, inédit ; (mythe) création du monde"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这是开天辟地第一次。",
+     "pinyin": "Zhè shì kāitiān-pìdì dì-yī cì.",
+     "fr": "C'est une première absolue.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "拓",
+   "genre": "caractere",
+   "hanzi": "拓",
+   "pinyin": "tà",
+   "sens": {
+    "glose": "élargir, défricher ; estamper",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "élargir, étendre, défricher",
+      "pinyin": "tuò"
+     },
+     {
+      "categorie": "V",
+      "fr": "estamper, faire un frottis (inscription)"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他们拓宽了这条路。",
+     "pinyin": "Tāmen tuòkuān le zhè tiáo lù.",
+     "fr": "Ils ont élargi cette route.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2344",
+   "genre": "mot",
+   "hanzi": "开拓",
+   "pinyin": "kāituò",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "défricher, ouvrir, développer",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "défricher, ouvrir, développer (un marché, un domaine)"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "我们要开拓国际市场。",
+     "pinyin": "Wǒmen yào kāituò guójì shìchǎng.",
+     "fr": "Nous devons partir à la conquête des marchés internationaux.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2345",
+   "genre": "mot",
+   "hanzi": "开销",
+   "pinyin": "kāixiao",
+   "categories": [
+    "V",
+    "N"
+   ],
+   "sens": {
+    "glose": "dépenser ; dépenses",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "dépenser, payer"
+     },
+     {
+      "categorie": "N",
+      "fr": "dépenses, frais"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "在大城市生活，开销很大。",
+     "pinyin": "Zài dà chéngshì shēnghuó, kāixiao hěn dà.",
+     "fr": "Vivre dans une grande ville coûte très cher.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2346",
+   "genre": "mot",
+   "hanzi": "开张",
+   "pinyin": "kāizhāng",
+   "sens": {
+    "glose": "ouvrir (un commerce)",
+    "acceptions": [],
+    "statut": "relu",
+    "provenance": {
+     "reprise": "data/sources/fiches/张.json",
+     "champ": "mots[].fr"
+    }
+   },
+   "exemples": [
+    {
+     "zh": "这家新饭馆明天开张。",
+     "pinyin": "Zhè jiā xīn fànguǎn míngtiān kāizhāng.",
+     "fr": "Ce nouveau restaurant ouvre ses portes demain.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2347",
+   "genre": "mot",
+   "hanzi": "开支",
+   "pinyin": "kāizhī",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "dépenses, frais",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "dépenses, frais"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这个月家里的开支太大了。",
+     "pinyin": "Zhège yuè jiā li de kāizhī tài dà le.",
+     "fr": "Ce mois-ci, le ménage a trop dépensé.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "凯",
+   "genre": "caractere",
+   "hanzi": "凯",
+   "pinyin": "kǎi",
+   "sens": {
+    "glose": "victoire, triomphe",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "victoire, triomphe (dans des composés)"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "战士们凯旋归来。",
+     "pinyin": "Zhànshìmen kǎixuán guīlái.",
+     "fr": "Les soldats sont revenus victorieux.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2348",
+   "genre": "mot",
+   "hanzi": "凯歌",
+   "pinyin": "kǎigē",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "chant de victoire",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "chant de victoire, hymne triomphal"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "我们队唱着凯歌回到了学校。",
+     "pinyin": "Wǒmen duì chàng zhe kǎigē huí dào le xuéxiào.",
+     "fr": "Notre équipe est rentrée à l'école en chantant victoire.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "楷",
+   "genre": "caractere",
+   "hanzi": "楷",
+   "pinyin": "kǎi",
+   "sens": {
+    "glose": "modèle ; écriture régulière",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "modèle, exemple"
+     },
+     {
+      "categorie": "N",
+      "fr": "écriture régulière (kaishu)"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他写得一手漂亮的楷书。",
+     "pinyin": "Tā xiě de yī shǒu piàoliang de kǎishū.",
+     "fr": "Il a une belle écriture régulière.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2349",
+   "genre": "mot",
+   "hanzi": "楷模",
+   "pinyin": "kǎimó",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "modèle, exemple",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "modèle, exemple à suivre"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他是我们学习的楷模。",
+     "pinyin": "Tā shì wǒmen xuéxí de kǎimó.",
+     "fr": "Il est pour nous un exemple à suivre.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2350",
+   "genre": "mot",
+   "hanzi": "刊登",
+   "pinyin": "kāndēng",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "publier (dans un journal)",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "publier, faire paraître (dans la presse)"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他的文章刊登在今天的报纸上。",
+     "pinyin": "Tā de wénzhāng kāndēng zài jīntiān de bàozhǐ shang.",
+     "fr": "Son article est paru dans le journal d'aujourd'hui.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2351",
+   "genre": "mot",
+   "hanzi": "刊物",
+   "pinyin": "kānwù",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "périodique, revue",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "périodique, revue, publication"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "图书馆里有很多种刊物。",
+     "pinyin": "Túshūguǎn li yǒu hěn duō zhǒng kānwù.",
+     "fr": "La bibliothèque propose de nombreuses revues.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2352",
+   "genre": "mot",
+   "hanzi": "看护",
+   "pinyin": "kānhù",
+   "categories": [
+    "V",
+    "N"
+   ],
+   "sens": {
+    "glose": "soigner, garder ; garde-malade",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "soigner, garder (un malade)"
+     },
+     {
+      "categorie": "N",
+      "fr": "garde-malade, aide-soignant"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "她在医院看护生病的母亲。",
+     "pinyin": "Tā zài yīyuàn kānhù shēngbìng de mǔqīn.",
+     "fr": "Elle veille sur sa mère malade à l'hôpital.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "勘",
+   "genre": "caractere",
+   "hanzi": "勘",
+   "pinyin": "kān",
+   "sens": {
+    "glose": "examiner, prospecter",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "examiner, prospecter, relever"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他们去现场勘查了一下。",
+     "pinyin": "Tāmen qù xiànchǎng kānchá le yīxià.",
+     "fr": "Ils sont allés examiner les lieux.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2353",
+   "genre": "mot",
+   "hanzi": "勘探",
+   "pinyin": "kāntàn",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "prospecter, explorer",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "prospecter, explorer (le sous-sol)"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他们在沙漠里勘探石油。",
+     "pinyin": "Tāmen zài shāmò li kāntàn shíyóu.",
+     "fr": "Ils cherchent du pétrole dans le désert.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2354",
+   "genre": "mot",
+   "hanzi": "堪称",
+   "pinyin": "kānchēng",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "pouvoir être qualifié de",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "pouvoir être qualifié de, mériter le nom de"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这座桥堪称世界一流。",
+     "pinyin": "Zhè zuò qiáo kānchēng shìjiè yīliú.",
+     "fr": "Ce pont peut être qualifié de premier ordre mondial.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "侃",
+   "genre": "caractere",
+   "hanzi": "侃",
+   "pinyin": "kǎn",
+   "sens": {
+    "glose": "bavarder ; franc, droit",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "bavarder, causer à bâtons rompus"
+     },
+     {
+      "categorie": "Adj",
+      "fr": "franc, droit, assuré"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他在台上侃侃而谈。",
+     "pinyin": "Tā zài tái shang kǎnkǎn ér tán.",
+     "fr": "Sur l'estrade, il parle avec aisance.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2355",
+   "genre": "mot",
+   "hanzi": "侃大山",
+   "pinyin": "kǎn dàshān",
+   "sens": {
+    "glose": "tailler une bavette, papoter",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "tailler une bavette, bavarder longuement"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "晚上他们常常聚在一起侃大山。",
+     "pinyin": "Wǎnshang tāmen chángcháng jù zài yīqǐ kǎn dàshān.",
+     "fr": "Le soir, ils se retrouvent souvent pour bavarder.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "砍",
+   "genre": "caractere",
+   "hanzi": "砍",
+   "pinyin": "kǎn",
+   "mots": [
+    "L7-2356"
+   ],
+   "sens": {
+    "glose": "couper, abattre (à la hache)",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "couper, abattre (à la hache, au couteau)"
+     },
+     {
+      "categorie": "V",
+      "fr": "réduire, supprimer (budget, prix)"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他们砍了一棵树。",
+     "pinyin": "Tāmen kǎn le yī kē shù.",
+     "fr": "Ils ont abattu un arbre.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2357",
+   "genre": "mot",
+   "hanzi": "看得出",
+   "pinyin": "kàndechū",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "pouvoir voir, se rendre compte",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "pouvoir voir, se rendre compte que"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "看得出，他今天很高兴。",
+     "pinyin": "Kàndechū, tā jīntiān hěn gāoxìng.",
+     "fr": "On voit bien qu'il est content aujourd'hui.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2358",
+   "genre": "mot",
+   "hanzi": "看热闹",
+   "pinyin": "kàn rènao",
+   "sens": {
+    "glose": "regarder le spectacle, badauder",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "regarder le spectacle, faire le badaud"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "很多人围在路边看热闹。",
+     "pinyin": "Hěn duō rén wéi zài lù biān kàn rènao.",
+     "fr": "Une foule de curieux s'attroupe au bord de la route.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2359",
+   "genre": "mot",
+   "hanzi": "看似",
+   "pinyin": "kànsì",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "sembler, avoir l'air",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "sembler, avoir l'air, paraître"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这个问题看似简单，其实很难。",
+     "pinyin": "Zhège wèntí kànsì jiǎndān, qíshí hěn nán.",
+     "fr": "Ce problème paraît simple, mais il est en réalité difficile.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2360",
+   "genre": "mot",
+   "hanzi": "看台",
+   "pinyin": "kàntái",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "tribune, gradins",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "tribune, gradins"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "看台上坐满了球迷。",
+     "pinyin": "Kàntái shang zuò mǎn le qiúmí.",
+     "fr": "Les tribunes sont pleines de supporters.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2361",
+   "genre": "mot",
+   "hanzi": "看样子",
+   "pinyin": "kàn yàngzi",
+   "sens": {
+    "glose": "on dirait que, apparemment",
+    "acceptions": [
+     {
+      "categorie": "Adv",
+      "fr": "on dirait que, apparemment"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "看样子要下雨了。",
+     "pinyin": "Kàn yàngzi yào xià yǔ le.",
+     "fr": "On dirait qu'il va pleuvoir.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2362",
+   "genre": "mot",
+   "hanzi": "看中",
+   "pinyin": "kànzhòng",
+   "sens": {
+    "glose": "jeter son dévolu sur",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "jeter son dévolu sur, choisir, remarquer"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "她看中了一件红色的大衣。",
+     "pinyin": "Tā kànzhòng le yī jiàn hóngsè de dàyī.",
+     "fr": "Elle a eu le coup de cœur pour un manteau rouge.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2363",
+   "genre": "mot",
+   "hanzi": "看重",
+   "pinyin": "kànzhòng",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "attacher de l'importance à",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "attacher de l'importance à, estimer"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "老板很看重他的能力。",
+     "pinyin": "Lǎobǎn hěn kànzhòng tā de nénglì.",
+     "fr": "Le patron fait grand cas de ses compétences.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "慷",
+   "genre": "caractere",
+   "hanzi": "慷",
+   "pinyin": "kāng",
+   "sens": {
+    "glose": "généreux ; exalté",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "généreux ; exalté, ardent"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他慷慨地拿出了一万块钱。",
+     "pinyin": "Tā kāngkǎi de ná chū le yī wàn kuài qián.",
+     "fr": "Il a généreusement sorti dix mille yuans.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2364",
+   "genre": "mot",
+   "hanzi": "慷慨",
+   "pinyin": "kāngkǎi",
+   "categories": [
+    "Adj"
+   ],
+   "sens": {
+    "glose": "généreux ; exalté",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "généreux, libéral"
+     },
+     {
+      "categorie": "Adj",
+      "fr": "exalté, fervent"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他对朋友非常慷慨。",
+     "pinyin": "Tā duì péngyou fēicháng kāngkǎi.",
+     "fr": "Il est très large avec ses amis.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "扛",
+   "genre": "caractere",
+   "hanzi": "扛",
+   "pinyin": "káng",
+   "mots": [
+    "L7-2365"
+   ],
+   "sens": {
+    "glose": "porter sur l'épaule",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "porter sur l'épaule"
+     },
+     {
+      "categorie": "V",
+      "fr": "endosser, supporter (une charge)"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他扛着一袋米上了楼。",
+     "pinyin": "Tā káng zhe yī dài mǐ shàng le lóu.",
+     "fr": "Il a monté un sac de riz sur l'épaule.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2366",
+   "genre": "mot",
+   "hanzi": "抗衡",
+   "pinyin": "kànghéng",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "rivaliser, tenir tête",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "rivaliser, tenir tête, faire contrepoids"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "小公司很难和大公司抗衡。",
+     "pinyin": "Xiǎo gōngsī hěn nán hé dà gōngsī kànghéng.",
+     "fr": "Les petites entreprises ont du mal à tenir tête aux grandes.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2367",
+   "genre": "mot",
+   "hanzi": "抗拒",
+   "pinyin": "kàngjù",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "résister, s'opposer",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "résister, s'opposer, refuser"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他抗拒不了美食的诱惑。",
+     "pinyin": "Tā kàngjù bù liǎo měishí de yòuhuò.",
+     "fr": "Il ne résiste pas à la tentation de la bonne chère.",
+     "statut": "a_relire"
+    }
+   ]
+  }
+ ]
+}
