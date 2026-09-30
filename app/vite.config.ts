@@ -42,7 +42,12 @@ export default defineConfig({
       // précachés non plus : le pavé ne s'ouvre qu'avec Wenlu complet, jamais sur le web
       // (`droits.ts`), et le shell iOS les porte dans son paquet. Lus une fois, ils restent
       // (`CacheFirst`) : le pavé marche ensuite hors ligne.
+      //
+      // `trois-lignes.json` porte un texte par jour des deux chemins entiers (~2,9 Mo compact,
+      // glossaire commun écrit une fois) : il se lit hors ligne dès le premier jour, d'où la
+      // limite du précache portée à 4 Mio (2 Mio par défaut).
       workbox: {
+        maximumFileSizeToCacheInBytes: 4 * 1024 * 1024,
         globPatterns: ['**/*.{js,css,html,webmanifest,json,svg,png,woff2,mp3,md,txt,TXT}'],
         globIgnores: [
           '**/node_modules/**/*',
