@@ -19,20 +19,33 @@
  "roles": {
   "卤": "sens"
  },
- "mots": [],
+ "mots": [
+  {
+   "hanzi": "卤肉",
+   "pinyin": "lǔròu",
+   "fr": "viande braisée en sauce",
+   "en": "braised meat"
+  },
+  {
+   "hanzi": "卤蛋",
+   "pinyin": "lǔdàn",
+   "fr": "œuf mariné",
+   "en": "marinated egg"
+  }
+ ],
  "phrase": {
-  "zh": "",
-  "pinyin": "",
-  "fr": "",
-  "en": ""
+  "zh": "我中午吃了一碗卤肉饭。",
+  "pinyin": "Wǒ zhōngwǔ chī le yī wǎn lǔròu fàn.",
+  "fr": "À midi, j'ai mangé un bol de riz au porc braisé.",
+  "en": "At lunch I had a bowl of braised pork rice."
  },
  "generation": {
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:ac37832fd17134779e5725fc9c423aa04e30cb5dded859954720997048d74edf",
-  "essais": 1,
+  "empreinte_invite": "sha256:3779805605eec8624f7cd17d44c9dcb059d4839b5e96a87cf9e913ac8e6de68c",
+  "essais": 2,
   "refus": []
  },
- "statut": "relu"
+ "statut": "a_relire"
 }
