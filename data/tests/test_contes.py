@@ -47,8 +47,9 @@ from wenlu_data.contes import (
 
 LISTE = list("人大天口日月山水火木")
 
-#: Les jours du chemin des fables de première lecture (décision du 26 septembre 2026).
-CHEMIN = {"jour25", "jour44", "jour60"}
+#: Les jours du chemin des fables de première lecture (décision du 26 septembre 2026), un
+#: jour plus tard depuis le jour 13 inséré (décision du 30 septembre 2026).
+CHEMIN = {"jour26", "jour45", "jour61"}
 
 CONTE = Conte(
     id="conte-de-test",

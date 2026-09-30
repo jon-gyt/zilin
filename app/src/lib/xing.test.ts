@@ -58,9 +58,11 @@ describe('la porte de la rencontre', () => {
   });
 
   it('le jour où l’examen s’ouvre, la rencontre s’annonce avant toute autre porte', () => {
-    /* Jour 25 : les contes s'ouvrent aussi ; toutes les portes d'avant sont déjà montrées. */
-    const avant = retours(etatNeuf(), 24, XIAN.palier - 1, 25).etat;
-    const r = retourAuMenu(avant, CAL, mesure(25, XIAN.palier), JOUR);
+    /* Le jour des contes (26 depuis le jour 13 inséré le 30 septembre 2026) : ils s'ouvrent
+       aussi ; toutes les portes d'avant sont déjà montrées. */
+    const contes = CAL.find((p) => p.id === 'contes')?.seuil ?? 0;
+    const avant = retours(etatNeuf(), contes - 1, XIAN.palier - 1, 25).etat;
+    const r = retourAuMenu(avant, CAL, mesure(contes, XIAN.palier), JOUR);
     expect(Object.keys(r.etat.ouvertes)).toContain('contes');
     expect(r.annonce?.id).toBe(PORTE_XING);
     expect(rencontre(r.etat, CAL)).toBe(true);

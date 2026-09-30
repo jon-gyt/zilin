@@ -100,9 +100,9 @@ SEUILS: tuple[int, ...] = (255, 405, 505, 805, 1555)
 HSK: tuple[str, ...] = ("hsk1", "hsk2", "hsk3", "hsk4", "hsk5", "hsk6", "hsk7-9")
 
 #: Les niveaux du chemin (décision du propriétaire du 26 septembre 2026 : le premier conte
-#: s'ouvrait au jour 166, trop tard) : `jour25` autorise l'acquis des jours 1 à 25 du
+#: s'ouvrait au jour 166, trop tard) : `jour26` autorise l'acquis des jours 1 à 26 du
 #: parcours Lire, les caractères dont la fiche (`data/sources/fiches/*.json`) porte un
-#: `jour` de 1 à 25. Cumulatif comme un niveau HSK, et sous le seuil 255, que le parcours
+#: `jour` de 1 à 26 (jour25 avant le jour inséré du 30 septembre 2026, voir le catalogue). Cumulatif comme un niveau HSK, et sous le seuil 255, que le parcours
 #: Lire mène à son terme : de quoi écrire de courtes fables de première lecture, qui
 #: s'ouvrent le jour même où entre leur dernier caractère. Un jour du chemin reste sous 255.
 CHEMIN = re.compile(r"jour([1-9][0-9]{0,2})")

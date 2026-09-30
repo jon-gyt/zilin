@@ -107,10 +107,10 @@ def test_l_aventure_pas_l_argent(annonce: str, raison: str) -> None:
 
 def test_lire_s_ouvre_a_la_premiere_lettre_et_les_contes_a_la_premiere_fable() -> None:
     c = charger()
-    assert premiere_fable() == 25
-    assert fautes_contenu(c, premiere_lettre=7, premiere_fable=25) == []
-    assert any("première lettre" in f for f in fautes_contenu(avec("lire", seuil="9"), premiere_lettre=7, premiere_fable=25))
-    assert any("première fable" in f for f in fautes_contenu(avec("contes", seuil="30"), premiere_lettre=7, premiere_fable=25))
+    assert premiere_fable() == 26  # 学弈, jour26 depuis le jour 13 inséré (30 septembre 2026)
+    assert fautes_contenu(c, premiere_lettre=7, premiere_fable=26) == []
+    assert any("première lettre" in f for f in fautes_contenu(avec("lire", seuil="9"), premiere_lettre=7, premiere_fable=26))
+    assert any("première fable" in f for f in fautes_contenu(avec("contes", seuil="30"), premiere_lettre=7, premiere_fable=26))
 
 
 def test_xing_se_rencontre_a_la_porte_du_premier_examen() -> None:
@@ -119,14 +119,14 @@ def test_xing_se_rencontre_a_la_porte_du_premier_examen() -> None:
     xing = next(p for p in c.portes if p.porte == "xing")
     assert (xing.unite, xing.nombre, xing.parent) == ("lus", 50, "-")
     assert "杏" in xing.annonce and "县试" in xing.annonce
-    assert fautes_contenu(c, premiere_lettre=7, premiere_fable=25, premier_examen=50) == []
+    assert fautes_contenu(c, premiere_lettre=7, premiere_fable=26, premier_examen=50) == []
     assert any(
         "premier examen" in f
-        for f in fautes_contenu(avec("xing", seuil="40"), premiere_lettre=7, premiere_fable=25, premier_examen=50)
+        for f in fautes_contenu(avec("xing", seuil="40"), premiere_lettre=7, premiere_fable=26, premier_examen=50)
     )
     assert any(
         "premier examen" in f
-        for f in fautes_contenu(avec("xing", unite="jour"), premiere_lettre=7, premiere_fable=25, premier_examen=50)
+        for f in fautes_contenu(avec("xing", unite="jour"), premiere_lettre=7, premiere_fable=26, premier_examen=50)
     )
 
 
@@ -134,7 +134,7 @@ def test_la_rencontre_de_xing_s_annonce_avant_toute_autre_porte() -> None:
     c = charger()
     assert c.portes[0].porte == "xing"
     apres = replace(c, portes=(*c.portes[1:], c.portes[0]))
-    assert any("en tête" in f for f in fautes_contenu(apres, premiere_lettre=7, premiere_fable=25, premier_examen=50))
+    assert any("en tête" in f for f in fautes_contenu(apres, premiere_lettre=7, premiere_fable=26, premier_examen=50))
 
 
 # ----------------------------------------------------------------------------- export

@@ -261,7 +261,7 @@ def premier_examen() -> int | None:
 
 
 def premiere_fable() -> int | None:
-    """Le jour de la première fable du chemin, au catalogue des contes (`jour25`)."""
+    """Le jour de la première fable du chemin, au catalogue des contes (`jour26`)."""
     from .contes import charger_catalogue, est_chemin, jour_du_niveau
 
     jours = [jour_du_niveau(n) for conte in charger_catalogue() for n in conte.niveaux if est_chemin(n)]
