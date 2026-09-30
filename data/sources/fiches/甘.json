@@ -19,20 +19,33 @@
  "roles": {
   "甘": "sens"
  },
- "mots": [],
+ "mots": [
+  {
+   "hanzi": "甘心",
+   "pinyin": "gānxīn",
+   "fr": "se résigner, de plein gré",
+   "en": "to be reconciled to, willingly"
+  },
+  {
+   "hanzi": "甘愿",
+   "pinyin": "gānyuàn",
+   "fr": "consentir volontiers",
+   "en": "to be willing"
+  }
+ ],
  "phrase": {
-  "zh": "",
-  "pinyin": "",
-  "fr": "",
-  "en": ""
+  "zh": "他不甘心就这样走了。",
+  "pinyin": "Tā bù gānxīn jiù zhèyàng zǒu le.",
+  "fr": "Il ne se résigne pas à partir comme ça.",
+  "en": "He isn't willing to just leave like this."
  },
  "generation": {
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:d21078773bcd53c5faad93426af40c3263a2e261ce6bc2cc8e557774a1648914",
-  "essais": 1,
+  "empreinte_invite": "sha256:48ffac08fb516e683a00ee42097c216d389c83a22b74cc3bd603b438737b428e",
+  "essais": 2,
   "refus": []
  },
- "statut": "relu"
+ "statut": "a_relire"
 }

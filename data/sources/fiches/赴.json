@@ -23,20 +23,33 @@
   "龰": "sens",
   "卜": "forme"
  },
- "mots": [],
+ "mots": [
+  {
+   "hanzi": "赴约",
+   "pinyin": "fùyuē",
+   "fr": "se rendre à un rendez-vous",
+   "en": "to keep an appointment"
+  },
+  {
+   "hanzi": "奔赴",
+   "pinyin": "bēnfù",
+   "fr": "se rendre en hâte",
+   "en": "to hurry to"
+  }
+ ],
  "phrase": {
-  "zh": "",
-  "pinyin": "",
-  "fr": "",
-  "en": ""
+  "zh": "他准时赴约。",
+  "pinyin": "Tā zhǔnshí fùyuē.",
+  "fr": "Il est venu au rendez-vous à l'heure.",
+  "en": "He arrived on time for the appointment."
  },
  "generation": {
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:59df56cf77d0db0805414d9f490c01b02b5094e361369dac938cf9b68129f24e",
-  "essais": 1,
+  "empreinte_invite": "sha256:ed6544ee763c606ac9aa22b582951c8bb226fa6619d1e60189b8785ffcf968ab",
+  "essais": 2,
   "refus": []
  },
- "statut": "relu"
+ "statut": "a_relire"
 }

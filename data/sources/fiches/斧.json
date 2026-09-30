@@ -21,20 +21,33 @@
   "父": "son",
   "斤": "sens"
  },
- "mots": [],
+ "mots": [
+  {
+   "hanzi": "斧头",
+   "pinyin": "fǔtóu",
+   "fr": "hache",
+   "en": "axe"
+  },
+  {
+   "hanzi": "斧子",
+   "pinyin": "fǔzi",
+   "fr": "hache",
+   "en": "axe, hatchet"
+  }
+ ],
  "phrase": {
-  "zh": "",
-  "pinyin": "",
-  "fr": "",
-  "en": ""
+  "zh": "他拿起斧头走进了树林。",
+  "pinyin": "Tā ná qǐ fǔtóu zǒu jìn le shùlín.",
+  "fr": "Il a pris sa hache et il est entré dans le bois.",
+  "en": "He picked up the axe and walked into the woods."
  },
  "generation": {
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:5d141d6200bc17676887377bc72eeec7f9ad6db3bf81a0d11d580df8d9022538",
-  "essais": 1,
+  "empreinte_invite": "sha256:f46d241a78f50451f06680ccdc382a806f2792e941b4c4777703dee78624f617",
+  "essais": 2,
   "refus": []
  },
- "statut": "relu"
+ "statut": "a_relire"
 }
