@@ -1,0 +1,439 @@
+{
+ "examen": "yueke-305",
+ "parcours": "hsk",
+ "generation": {
+  "modele": "rédaction manuelle",
+  "api": "session Claude Code (sans API)",
+  "date": "2026-09-30"
+ },
+ "relecture": {
+  "statut": "relu",
+  "par": "le propriétaire",
+  "decision": "« Lance oui. Pas de relecture » (30 septembre 2026) : relecture considérée faite, sans relecture ligne à ligne",
+  "date": "2026-09-30"
+ },
+ "series": [
+  {
+   "serie": "A",
+   "statut": "relu",
+   "supports": [
+    {
+     "id": "s1",
+     "genre": "message",
+     "contexte": {
+      "fr": "Un message",
+      "en": "A message"
+     },
+     "lignes": [
+      {
+       "zh": "妈妈，我在商店。",
+       "pinyin": "mā ma wǒ zài shāng diàn",
+       "fr": "Maman, je suis au magasin.",
+       "en": "Mum, I'm at the shop."
+      },
+      {
+       "zh": "鸡很贵，还做鸡吗？",
+       "pinyin": "jī hěn guì hái zuò jī ma",
+       "fr": "Le poulet est très cher : on en fait quand même ?",
+       "en": "Chicken is very expensive. Shall we still cook chicken?"
+      }
+     ]
+    },
+    {
+     "id": "s2",
+     "genre": "pancarte",
+     "contexte": {
+      "fr": "Un écriteau",
+      "en": "A notice"
+     },
+     "lignes": [
+      {
+       "zh": "请别坐在桌子上。",
+       "pinyin": "qǐng bié zuò zài zhuō zi shàng",
+       "fr": "Prière de ne pas s'asseoir sur les tables.",
+       "en": "Please do not sit on the tables."
+      }
+     ]
+    }
+   ],
+   "questions": [
+    {
+     "type": "comprendre",
+     "support": "s1",
+     "consigne": {
+      "fr": "Où est la personne qui écrit ?",
+      "en": "Where is the person writing?"
+     },
+     "choix": [
+      {
+       "fr": "À la maison",
+       "en": "At home"
+      },
+      {
+       "fr": "Au restaurant",
+       "en": "At a restaurant"
+      },
+      {
+       "fr": "À l'école",
+       "en": "At school"
+      },
+      {
+       "fr": "Au magasin",
+       "en": "At the shop"
+      }
+     ],
+     "reponse": 3,
+     "porte": [
+      "商",
+      "店"
+     ]
+    },
+    {
+     "type": "vrai_faux",
+     "support": "s1",
+     "consigne": {
+      "fr": "Vrai ou faux ?",
+      "en": "True or false?"
+     },
+     "affirmation": {
+      "zh": "鸡不贵。",
+      "pinyin": "jī bù guì",
+      "fr": "Le poulet n'est pas cher.",
+      "en": "Chicken isn't expensive."
+     },
+     "reponse": false,
+     "porte": [
+      "贵"
+     ]
+    },
+    {
+     "type": "replique",
+     "support": "s1",
+     "consigne": {
+      "fr": "Que répond maman ?",
+      "en": "What does Mum reply?"
+     },
+     "choix": [
+      {
+       "zh": "我很喜欢鸟。",
+       "pinyin": "wǒ hěn xǐ huan niǎo",
+       "fr": "J'aime beaucoup les oiseaux.",
+       "en": "I really like birds."
+      },
+      {
+       "zh": "那我们做牛肉。",
+       "pinyin": "nà wǒ men zuò niú ròu",
+       "fr": "Alors, on fait du bœuf.",
+       "en": "Then we'll cook beef."
+      },
+      {
+       "zh": "请坐这里。",
+       "pinyin": "qǐng zuò zhè li",
+       "fr": "Asseyez-vous ici.",
+       "en": "Please sit here."
+      },
+      {
+       "zh": "我不认识他。",
+       "pinyin": "wǒ bù rèn shi tā",
+       "fr": "Je ne le connais pas.",
+       "en": "I don't know him."
+      }
+     ],
+     "reponse": 1,
+     "porte": [
+      "做"
+     ]
+    },
+    {
+     "type": "comprendre",
+     "support": "s2",
+     "consigne": {
+      "fr": "Que demande cet écriteau ?",
+      "en": "What does this notice ask?"
+     },
+     "choix": [
+      {
+       "fr": "Ne pas manger dans la salle",
+       "en": "Not to eat in the room"
+      },
+      {
+       "fr": "Parler doucement dans la salle",
+       "en": "To speak quietly in the room"
+      },
+      {
+       "fr": "Ne pas s'asseoir sur les tables",
+       "en": "Not to sit on the tables"
+      },
+      {
+       "fr": "Fermer la porte en sortant",
+       "en": "To close the door on the way out"
+      }
+     ],
+     "reponse": 2,
+     "porte": [
+      "请",
+      "坐",
+      "桌"
+     ]
+    },
+    {
+     "type": "caractere",
+     "consigne": {
+      "fr": "Quel caractère a ce sens ?",
+      "en": "Which character has this meaning?"
+     },
+     "objet": {
+      "zh": "最",
+      "pinyin": "zuì",
+      "fr": "le plus",
+      "en": "the most"
+     },
+     "choix": [
+      "是",
+      "最",
+      "早",
+      "星"
+     ],
+     "reponse": 1,
+     "porte": [
+      "最"
+     ]
+    }
+   ]
+  },
+  {
+   "serie": "B",
+   "statut": "relu",
+   "supports": [
+    {
+     "id": "s1",
+     "genre": "menu",
+     "contexte": {
+      "fr": "Un menu",
+      "en": "A menu"
+     },
+     "lignes": [
+      {
+       "zh": "鸡肉面：十八元",
+       "pinyin": "jī ròu miàn shí bā yuán",
+       "fr": "Nouilles au poulet : 18 yuans",
+       "en": "Chicken noodles: 18 yuan"
+      },
+      {
+       "zh": "羊肉面：二十二元",
+       "pinyin": "yáng ròu miàn èr shí èr yuán",
+       "fr": "Nouilles au mouton : 22 yuans",
+       "en": "Mutton noodles: 22 yuan"
+      },
+      {
+       "zh": "小菜：六元",
+       "pinyin": "xiǎo cài liù yuán",
+       "fr": "Petits plats froids : 6 yuans",
+       "en": "Side dishes: 6 yuan"
+      },
+      {
+       "zh": "汽水：五元",
+       "pinyin": "qì shuǐ wǔ yuán",
+       "fr": "Soda : 5 yuans",
+       "en": "Soda: 5 yuan"
+      }
+     ],
+     "glose": [
+      {
+       "zh": "十八元",
+       "pinyin": "shí bā yuán",
+       "fr": "18 yuans",
+       "en": "18 yuan"
+      },
+      {
+       "zh": "二十二元",
+       "pinyin": "èr shí èr yuán",
+       "fr": "22 yuans",
+       "en": "22 yuan"
+      },
+      {
+       "zh": "六元",
+       "pinyin": "liù yuán",
+       "fr": "6 yuans",
+       "en": "6 yuan"
+      },
+      {
+       "zh": "五元",
+       "pinyin": "wǔ yuán",
+       "fr": "5 yuans",
+       "en": "5 yuan"
+      }
+     ]
+    },
+    {
+     "id": "s2",
+     "genre": "message",
+     "contexte": {
+      "fr": "Un message",
+      "en": "A message"
+     },
+     "lignes": [
+      {
+       "zh": "妈妈，我坐火车回来，",
+       "pinyin": "mā ma wǒ zuò huǒ chē huí lái",
+       "fr": "Maman, je rentre en train :",
+       "en": "Mum, I'm coming back by train,"
+      },
+      {
+       "zh": "明天早上六点下火车。",
+       "pinyin": "míng tiān zǎo shang liù diǎn xià huǒ chē",
+       "fr": "j'arrive demain à six heures du matin.",
+       "en": "I get off the train at 6 tomorrow morning."
+      }
+     ]
+    }
+   ],
+   "questions": [
+    {
+     "type": "comprendre",
+     "support": "s1",
+     "consigne": {
+      "fr": "Combien coûtent les nouilles au poulet ?",
+      "en": "How much are the chicken noodles?"
+     },
+     "choix": [
+      {
+       "fr": "22 yuans",
+       "en": "22 yuan"
+      },
+      {
+       "fr": "18 yuans",
+       "en": "18 yuan"
+      },
+      {
+       "fr": "8 yuans",
+       "en": "8 yuan"
+      },
+      {
+       "fr": "12 yuans",
+       "en": "12 yuan"
+      }
+     ],
+     "reponse": 1,
+     "porte": [
+      "鸡",
+      "十",
+      "八"
+     ]
+    },
+    {
+     "type": "reperer",
+     "support": "s1",
+     "consigne": {
+      "fr": "Touche les petits plats froids.",
+      "en": "Tap the side dishes."
+     },
+     "choix": [
+      "鸡肉面",
+      "羊肉面",
+      "小菜",
+      "汽水"
+     ],
+     "reponse": 2,
+     "porte": [
+      "菜"
+     ]
+    },
+    {
+     "type": "vrai_faux",
+     "support": "s2",
+     "consigne": {
+      "fr": "Vrai ou faux ?",
+      "en": "True or false?"
+     },
+     "affirmation": {
+      "zh": "他坐飞机回来。",
+      "pinyin": "tā zuò fēi jī huí lái",
+      "fr": "Il rentre en avion.",
+      "en": "He is coming back by plane."
+     },
+     "reponse": false,
+     "porte": [
+      "坐",
+      "火",
+      "车"
+     ]
+    },
+    {
+     "type": "replique",
+     "support": "s2",
+     "consigne": {
+      "fr": "Que répond maman ?",
+      "en": "What does Mum reply?"
+     },
+     "choix": [
+      {
+       "zh": "昨天很冷。",
+       "pinyin": "zuó tiān hěn lěng",
+       "fr": "Hier, il faisait froid.",
+       "en": "It was cold yesterday."
+      },
+      {
+       "zh": "我不会做这个菜。",
+       "pinyin": "wǒ bù huì zuò zhè gè cài",
+       "fr": "Je ne sais pas faire ce plat.",
+       "en": "I can't cook this dish."
+      },
+      {
+       "zh": "好，我去车站找你。",
+       "pinyin": "hǎo wǒ qù chē zhàn zhǎo nǐ",
+       "fr": "D'accord, je viens te chercher à la gare.",
+       "en": "OK, I'll come and find you at the station."
+      },
+      {
+       "zh": "这是王老师。",
+       "pinyin": "zhè shì wáng lǎo shī",
+       "fr": "Voici M. Wang, le professeur.",
+       "en": "This is Mr Wang, the teacher."
+      }
+     ],
+     "reponse": 2,
+     "porte": [
+      "坐",
+      "回"
+     ]
+    },
+    {
+     "type": "sens",
+     "consigne": {
+      "fr": "Que veut dire ce caractère ?",
+      "en": "What does this character mean?"
+     },
+     "objet": {
+      "zh": "常",
+      "pinyin": "cháng",
+      "fr": "souvent",
+      "en": "often"
+     },
+     "choix": [
+      {
+       "fr": "jamais",
+       "en": "never"
+      },
+      {
+       "fr": "demain",
+       "en": "tomorrow"
+      },
+      {
+       "fr": "ensemble",
+       "en": "together"
+      },
+      {
+       "fr": "souvent",
+       "en": "often"
+      }
+     ],
+     "reponse": 3,
+     "porte": [
+      "常"
+     ]
+    }
+   ]
+  }
+ ]
+}

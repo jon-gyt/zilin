@@ -1,0 +1,794 @@
+{
+ "examen": "yuanshi",
+ "parcours": "lire",
+ "generation": {
+  "modele": "rédaction manuelle",
+  "api": "session Claude Code (sans API)",
+  "date": "2026-09-30"
+ },
+ "relecture": {
+  "statut": "relu",
+  "par": "le propriétaire",
+  "decision": "« Lance oui. Pas de relecture » (30 septembre 2026) : relecture considérée faite, sans relecture ligne à ligne",
+  "date": "2026-09-30"
+ },
+ "series": [
+  {
+   "serie": "A",
+   "statut": "relu",
+   "supports": [
+    {
+     "id": "s1",
+     "genre": "message",
+     "contexte": {
+      "fr": "Un message",
+      "en": "A message"
+     },
+     "lignes": [
+      {
+       "zh": "哥哥，今天我十岁了！",
+       "pinyin": "gē ge jīn tiān wǒ shí suì le",
+       "fr": "Grand frère, aujourd'hui j'ai dix ans !",
+       "en": "Big brother, I'm ten today!"
+      },
+      {
+       "zh": "你哪天回来？",
+       "pinyin": "nǐ nǎ tiān huí lái",
+       "fr": "Quel jour rentres-tu ?",
+       "en": "Which day are you coming back?"
+      }
+     ]
+    },
+    {
+     "id": "s2",
+     "genre": "note",
+     "contexte": {
+      "fr": "Une note",
+      "en": "A note"
+     },
+     "lignes": [
+      {
+       "zh": "小红：妈妈下午去北京了。",
+       "pinyin": "xiǎo hóng mā ma xià wǔ qù běi jīng le",
+       "fr": "Xiaohong : maman est partie à Pékin cet après-midi.",
+       "en": "Xiaohong: Mum left for Beijing this afternoon."
+      },
+      {
+       "zh": "你爸爸七时回来。",
+       "pinyin": "nǐ bà ba qī shí huí lái",
+       "fr": "Ton papa rentre à sept heures.",
+       "en": "Your dad is back at seven."
+      },
+      {
+       "zh": "你给爸爸打电话吧。",
+       "pinyin": "nǐ gěi bà ba dǎ diàn huà ba",
+       "fr": "Téléphone donc à papa.",
+       "en": "Give your dad a call."
+      }
+     ]
+    },
+    {
+     "id": "s3",
+     "genre": "affiche",
+     "contexte": {
+      "fr": "Une affiche",
+      "en": "A poster"
+     },
+     "lignes": [
+      {
+       "zh": "星期天：去西山玩",
+       "pinyin": "xīng qī tiān qù xī shān wán",
+       "fr": "Dimanche : sortie aux Collines de l'Ouest",
+       "en": "Sunday: outing to the Western Hills"
+      },
+      {
+       "zh": "上午八时，大学门口见。",
+       "pinyin": "shàng wǔ bā shí dà xué mén kǒu jiàn",
+       "fr": "Rendez-vous à huit heures, devant l'université.",
+       "en": "Meet at eight, outside the university."
+      },
+      {
+       "zh": "下雨不去。",
+       "pinyin": "xià yǔ bù qù",
+       "fr": "Annulé s'il pleut.",
+       "en": "Cancelled if it rains."
+      }
+     ]
+    },
+    {
+     "id": "s4",
+     "genre": "enseigne",
+     "contexte": {
+      "fr": "Une enseigne",
+      "en": "A shop sign"
+     },
+     "lignes": [
+      {
+       "zh": "老北京面",
+       "pinyin": "lǎo běi jīng miàn",
+       "fr": "Nouilles du vieux Pékin",
+       "en": "Old Beijing noodles"
+      }
+     ]
+    }
+   ],
+   "questions": [
+    {
+     "type": "sens",
+     "consigne": {
+      "fr": "Que veut dire ce caractère ?",
+      "en": "What does this character mean?"
+     },
+     "objet": {
+      "zh": "新",
+      "pinyin": "xīn",
+      "fr": "nouveau",
+      "en": "new"
+     },
+     "choix": [
+      {
+       "fr": "rouge",
+       "en": "red"
+      },
+      {
+       "fr": "beau",
+       "en": "beautiful"
+      },
+      {
+       "fr": "nouveau",
+       "en": "new"
+      },
+      {
+       "fr": "petit",
+       "en": "small"
+      }
+     ],
+     "reponse": 2,
+     "porte": [
+      "新"
+     ]
+    },
+    {
+     "type": "comprendre",
+     "support": "s1",
+     "consigne": {
+      "fr": "Quel anniversaire fête-t-on aujourd'hui ?",
+      "en": "Which birthday is it today?"
+     },
+     "choix": [
+      {
+       "fr": "Huit ans",
+       "en": "Eight"
+      },
+      {
+       "fr": "Neuf ans",
+       "en": "Nine"
+      },
+      {
+       "fr": "Six ans",
+       "en": "Six"
+      },
+      {
+       "fr": "Dix ans",
+       "en": "Ten"
+      }
+     ],
+     "reponse": 3,
+     "porte": [
+      "十",
+      "岁"
+     ]
+    },
+    {
+     "type": "replique",
+     "support": "s1",
+     "consigne": {
+      "fr": "Que réponds-tu ?",
+      "en": "What do you reply?"
+     },
+     "choix": [
+      {
+       "zh": "我是你哥哥。",
+       "pinyin": "wǒ shì nǐ gē ge",
+       "fr": "Je suis ton grand frère.",
+       "en": "I'm your big brother."
+      },
+      {
+       "zh": "我星期天回来！",
+       "pinyin": "wǒ xīng qī tiān huí lái",
+       "fr": "Je rentre dimanche !",
+       "en": "I'm back on Sunday!"
+      },
+      {
+       "zh": "北京下雨了。",
+       "pinyin": "běi jīng xià yǔ le",
+       "fr": "Il pleut à Pékin.",
+       "en": "It's raining in Beijing."
+      },
+      {
+       "zh": "我不认识她。",
+       "pinyin": "wǒ bù rèn shi tā",
+       "fr": "Je ne la connais pas.",
+       "en": "I don't know her."
+      }
+     ],
+     "reponse": 1,
+     "porte": [
+      "哪",
+      "天",
+      "回"
+     ]
+    },
+    {
+     "type": "vrai_faux",
+     "support": "s2",
+     "consigne": {
+      "fr": "Vrai ou faux ?",
+      "en": "True or false?"
+     },
+     "affirmation": {
+      "zh": "妈妈七时回来。",
+      "pinyin": "mā ma qī shí huí lái",
+      "fr": "Maman rentre à sept heures.",
+      "en": "Mum is back at seven."
+     },
+     "reponse": false,
+     "porte": [
+      "爸"
+     ]
+    },
+    {
+     "type": "reperer",
+     "support": "s2",
+     "consigne": {
+      "fr": "Touche l'endroit où est partie maman.",
+      "en": "Tap the place Mum has gone to."
+     },
+     "choix": [
+      "小红",
+      "下午",
+      "北京",
+      "七时"
+     ],
+     "reponse": 2,
+     "porte": [
+      "北",
+      "京"
+     ]
+    },
+    {
+     "type": "caractere",
+     "consigne": {
+      "fr": "Quel caractère a ce sens ?",
+      "en": "Which character has this meaning?"
+     },
+     "objet": {
+      "zh": "听",
+      "pinyin": "tīng",
+      "fr": "écouter",
+      "en": "to listen"
+     },
+     "choix": [
+      "说",
+      "问",
+      "话",
+      "听"
+     ],
+     "reponse": 3,
+     "porte": [
+      "听"
+     ]
+    },
+    {
+     "type": "comprendre",
+     "support": "s3",
+     "consigne": {
+      "fr": "Où se retrouve-t-on ?",
+      "en": "Where do people meet?"
+     },
+     "choix": [
+      {
+       "fr": "Devant la gare",
+       "en": "Outside the station"
+      },
+      {
+       "fr": "Devant l'université",
+       "en": "Outside the university"
+      },
+      {
+       "fr": "Au pied de la colline",
+       "en": "At the foot of the hill"
+      },
+      {
+       "fr": "Devant le cinéma",
+       "en": "Outside the cinema"
+      }
+     ],
+     "reponse": 1,
+     "porte": [
+      "大",
+      "学",
+      "门",
+      "口"
+     ]
+    },
+    {
+     "type": "vrai_faux",
+     "support": "s3",
+     "consigne": {
+      "fr": "Vrai ou faux ?",
+      "en": "True or false?"
+     },
+     "affirmation": {
+      "zh": "下雨了，他们不去西山。",
+      "pinyin": "xià yǔ le tā men bù qù xī shān",
+      "fr": "S'il pleut, ils ne vont pas aux Collines de l'Ouest.",
+      "en": "If it rains, they won't go to the Western Hills."
+     },
+     "reponse": true,
+     "porte": [
+      "下",
+      "雨",
+      "不",
+      "去"
+     ]
+    },
+    {
+     "type": "trou",
+     "consigne": {
+      "fr": "Quel caractère manque dans ce mot ?",
+      "en": "Which character is missing from this word?"
+     },
+     "objet": {
+      "zh": "可以",
+      "pinyin": "kě yǐ",
+      "fr": "pouvoir, avoir le droit",
+      "en": "can, may"
+     },
+     "trou": 1,
+     "choix": [
+      "从",
+      "以",
+      "只",
+      "比"
+     ],
+     "reponse": 1,
+     "porte": [
+      "以"
+     ]
+    },
+    {
+     "type": "comprendre",
+     "support": "s4",
+     "consigne": {
+      "fr": "Que sert-on ici ?",
+      "en": "What is served here?"
+     },
+     "choix": [
+      {
+       "fr": "Du riz",
+       "en": "Rice"
+      },
+      {
+       "fr": "Des fruits",
+       "en": "Fruit"
+      },
+      {
+       "fr": "Du thé",
+       "en": "Tea"
+      },
+      {
+       "fr": "Des nouilles",
+       "en": "Noodles"
+      }
+     ],
+     "reponse": 3,
+     "porte": [
+      "面"
+     ]
+    }
+   ]
+  },
+  {
+   "serie": "B",
+   "statut": "relu",
+   "supports": [
+    {
+     "id": "s1",
+     "genre": "lettre",
+     "contexte": {
+      "fr": "Une lettre",
+      "en": "A letter"
+     },
+     "lignes": [
+      {
+       "zh": "爸爸、妈妈：你们好！",
+       "pinyin": "bà ba mā ma nǐ men hǎo",
+       "fr": "Papa, maman, bonjour !",
+       "en": "Dear Mum and Dad, hello!"
+      },
+      {
+       "zh": "上海天气不好，天天下雨。",
+       "pinyin": "shàng hǎi tiān qì bù hǎo tiān tiān xià yǔ",
+       "fr": "À Shanghai, il fait mauvais : il pleut tous les jours.",
+       "en": "The weather in Shanghai is bad: it rains every day."
+      },
+      {
+       "zh": "我想你们了。",
+       "pinyin": "wǒ xiǎng nǐ men le",
+       "fr": "Vous me manquez.",
+       "en": "I miss you."
+      },
+      {
+       "zh": "大明",
+       "pinyin": "dà míng",
+       "fr": "Daming",
+       "en": "Daming"
+      }
+     ]
+    },
+    {
+     "id": "s2",
+     "genre": "billet",
+     "contexte": {
+      "fr": "Un billet",
+      "en": "A ticket"
+     },
+     "lignes": [
+      {
+       "zh": "火车",
+       "pinyin": "huǒ chē",
+       "fr": "Train",
+       "en": "Train"
+      },
+      {
+       "zh": "北京 — 汉口",
+       "pinyin": "běi jīng hàn kǒu",
+       "fr": "Pékin — Hankou",
+       "en": "Beijing — Hankou"
+      },
+      {
+       "zh": "十月八日下午三时",
+       "pinyin": "shí yuè bā rì xià wǔ sān shí",
+       "fr": "8 octobre, 15 heures",
+       "en": "8 October, 3 pm"
+      }
+     ],
+     "glose": [
+      {
+       "zh": "汉口",
+       "pinyin": "hàn kǒu",
+       "fr": "Hankou (ville)",
+       "en": "Hankou (city)"
+      }
+     ]
+    },
+    {
+     "id": "s3",
+     "genre": "pancarte",
+     "contexte": {
+      "fr": "Un écriteau",
+      "en": "A notice"
+     },
+     "lignes": [
+      {
+       "zh": "开门时间：上午九时",
+       "pinyin": "kāi mén shí jiān shàng wǔ jiǔ shí",
+       "fr": "Ouverture : neuf heures du matin",
+       "en": "Opens: 9 am"
+      },
+      {
+       "zh": "关门时间：下午五时",
+       "pinyin": "guān mén shí jiān xià wǔ wǔ shí",
+       "fr": "Fermeture : cinq heures de l'après-midi",
+       "en": "Closes: 5 pm"
+      },
+      {
+       "zh": "星期一不开门",
+       "pinyin": "xīng qī yī bù kāi mén",
+       "fr": "Fermé le lundi",
+       "en": "Closed on Mondays"
+      }
+     ],
+     "glose": [
+      {
+       "zh": "九时",
+       "pinyin": "jiǔ shí",
+       "fr": "neuf heures",
+       "en": "nine o'clock"
+      },
+      {
+       "zh": "五时",
+       "pinyin": "wǔ shí",
+       "fr": "cinq heures",
+       "en": "five o'clock"
+      }
+     ]
+    }
+   ],
+   "questions": [
+    {
+     "type": "comprendre",
+     "support": "s1",
+     "consigne": {
+      "fr": "Quel temps fait-il là où il est ?",
+      "en": "What is the weather like where he is?"
+     },
+     "choix": [
+      {
+       "fr": "Il fait très chaud",
+       "en": "It is very hot"
+      },
+      {
+       "fr": "Il pleut tous les jours",
+       "en": "It rains every day"
+      },
+      {
+       "fr": "Il neige",
+       "en": "It is snowing"
+      },
+      {
+       "fr": "Il y a du vent",
+       "en": "It is windy"
+      }
+     ],
+     "reponse": 1,
+     "porte": [
+      "天",
+      "下",
+      "雨"
+     ]
+    },
+    {
+     "type": "sens",
+     "consigne": {
+      "fr": "Que veut dire ce caractère ?",
+      "en": "What does this character mean?"
+     },
+     "objet": {
+      "zh": "谁",
+      "pinyin": "shéi",
+      "fr": "qui",
+      "en": "who"
+     },
+     "choix": [
+      {
+       "fr": "quoi",
+       "en": "what"
+      },
+      {
+       "fr": "où",
+       "en": "where"
+      },
+      {
+       "fr": "qui",
+       "en": "who"
+      },
+      {
+       "fr": "quand",
+       "en": "when"
+      }
+     ],
+     "reponse": 2,
+     "porte": [
+      "谁"
+     ]
+    },
+    {
+     "type": "replique",
+     "support": "s1",
+     "consigne": {
+      "fr": "Que répond sa maman ?",
+      "en": "What does his mother reply?"
+     },
+     "choix": [
+      {
+       "zh": "今天是星期一。",
+       "pinyin": "jīn tiān shì xīng qī yī",
+       "fr": "Aujourd'hui, c'est lundi.",
+       "en": "Today is Monday."
+      },
+      {
+       "zh": "我们不认识你。",
+       "pinyin": "wǒ men bù rèn shi nǐ",
+       "fr": "Nous ne te connaissons pas.",
+       "en": "We don't know you."
+      },
+      {
+       "zh": "我们也想你！",
+       "pinyin": "wǒ men yě xiǎng nǐ",
+       "fr": "Tu nous manques aussi !",
+       "en": "We miss you too!"
+      },
+      {
+       "zh": "北京比上海大。",
+       "pinyin": "běi jīng bǐ shàng hǎi dà",
+       "fr": "Pékin est plus grand que Shanghai.",
+       "en": "Beijing is bigger than Shanghai."
+      }
+     ],
+     "reponse": 2,
+     "porte": [
+      "想",
+      "你"
+     ]
+    },
+    {
+     "type": "reperer",
+     "support": "s2",
+     "consigne": {
+      "fr": "Touche la ville d'arrivée.",
+      "en": "Tap the destination."
+     },
+     "choix": [
+      "火车",
+      "北京",
+      "十月",
+      "汉口"
+     ],
+     "reponse": 3,
+     "porte": [
+      "汉",
+      "口"
+     ]
+    },
+    {
+     "type": "comprendre",
+     "support": "s2",
+     "consigne": {
+      "fr": "À quelle heure part ce train ?",
+      "en": "What time does this train leave?"
+     },
+     "choix": [
+      {
+       "fr": "À 8 heures",
+       "en": "At 8 am"
+      },
+      {
+       "fr": "À 15 heures",
+       "en": "At 3 pm"
+      },
+      {
+       "fr": "À 10 heures",
+       "en": "At 10 am"
+      },
+      {
+       "fr": "À 13 heures",
+       "en": "At 1 pm"
+      }
+     ],
+     "reponse": 1,
+     "porte": [
+      "下",
+      "午",
+      "三",
+      "时"
+     ]
+    },
+    {
+     "type": "vrai_faux",
+     "support": "s2",
+     "consigne": {
+      "fr": "Vrai ou faux ?",
+      "en": "True or false?"
+     },
+     "affirmation": {
+      "zh": "火车八月十日去汉口。",
+      "pinyin": "huǒ chē bā yuè shí rì qù hàn kǒu",
+      "fr": "Le train part pour Hankou le 10 août.",
+      "en": "The train leaves for Hankou on 10 August."
+     },
+     "reponse": false,
+     "porte": [
+      "十",
+      "月",
+      "八",
+      "日"
+     ]
+    },
+    {
+     "type": "caractere",
+     "consigne": {
+      "fr": "Quel caractère a ce sens ?",
+      "en": "Which character has this meaning?"
+     },
+     "objet": {
+      "zh": "红",
+      "pinyin": "hóng",
+      "fr": "rouge",
+      "en": "red"
+     },
+     "choix": [
+      "给",
+      "红",
+      "花",
+      "马"
+     ],
+     "reponse": 1,
+     "porte": [
+      "红"
+     ]
+    },
+    {
+     "type": "vrai_faux",
+     "support": "s3",
+     "consigne": {
+      "fr": "Vrai ou faux ?",
+      "en": "True or false?"
+     },
+     "affirmation": {
+      "zh": "星期天也开门。",
+      "pinyin": "xīng qī tiān yě kāi mén",
+      "fr": "C'est aussi ouvert le dimanche.",
+      "en": "It is open on Sundays too."
+     },
+     "reponse": true,
+     "porte": [
+      "星",
+      "期",
+      "一",
+      "不",
+      "开"
+     ]
+    },
+    {
+     "type": "comprendre",
+     "support": "s3",
+     "consigne": {
+      "fr": "Jusqu'à quelle heure peut-on entrer ?",
+      "en": "Until what time can you go in?"
+     },
+     "choix": [
+      {
+       "fr": "Jusqu'à 9 heures",
+       "en": "Until 9 am"
+      },
+      {
+       "fr": "Jusqu'à 12 heures",
+       "en": "Until noon"
+      },
+      {
+       "fr": "Jusqu'à 19 heures",
+       "en": "Until 7 pm"
+      },
+      {
+       "fr": "Jusqu'à 17 heures",
+       "en": "Until 5 pm"
+      }
+     ],
+     "reponse": 3,
+     "porte": [
+      "关",
+      "下",
+      "午",
+      "五",
+      "时"
+     ]
+    },
+    {
+     "type": "ton",
+     "consigne": {
+      "fr": "Quel est le ton de ce caractère ?",
+      "en": "Which tone does this character have?"
+     },
+     "objet": {
+      "zh": "岁",
+      "pinyin": "suì",
+      "fr": "an (d'âge)",
+      "en": "year (of age)"
+     },
+     "choix": [
+      "suī",
+      "suí",
+      "suǐ",
+      "suì"
+     ],
+     "reponse": 3,
+     "porte": [
+      "岁"
+     ]
+    }
+   ]
+  }
+ ]
+}

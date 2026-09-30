@@ -1,0 +1,419 @@
+{
+ "examen": "yueke-405",
+ "parcours": "hsk",
+ "generation": {
+  "modele": "rédaction manuelle",
+  "api": "session Claude Code (sans API)",
+  "date": "2026-09-30"
+ },
+ "relecture": {
+  "statut": "relu",
+  "par": "le propriétaire",
+  "decision": "« Lance oui. Pas de relecture » (30 septembre 2026) : relecture considérée faite, sans relecture ligne à ligne",
+  "date": "2026-09-30"
+ },
+ "series": [
+  {
+   "serie": "A",
+   "statut": "relu",
+   "supports": [
+    {
+     "id": "s1",
+     "genre": "message",
+     "contexte": {
+      "fr": "Un message",
+      "en": "A message"
+     },
+     "lignes": [
+      {
+       "zh": "奶奶，星期六我到您家吃饭，",
+       "pinyin": "nǎi nai xīng qī liù wǒ dào nín jiā chī fàn",
+       "fr": "Mamie, samedi je viens manger chez toi :",
+       "en": "Grandma, I'm coming to eat at yours on Saturday,"
+      },
+      {
+       "zh": "我想吃您做的鸡！",
+       "pinyin": "wǒ xiǎng chī nín zuò de jī",
+       "fr": "j'ai envie de ton poulet !",
+       "en": "I'd love some of your chicken!"
+      }
+     ]
+    },
+    {
+     "id": "s2",
+     "genre": "pancarte",
+     "contexte": {
+      "fr": "Un écriteau",
+      "en": "A notice"
+     },
+     "lignes": [
+      {
+       "zh": "这里不能打球。",
+       "pinyin": "zhè li bù néng dǎ qiú",
+       "fr": "Jeux de ballon interdits ici.",
+       "en": "No ball games here."
+      }
+     ]
+    }
+   ],
+   "questions": [
+    {
+     "type": "comprendre",
+     "support": "s1",
+     "consigne": {
+      "fr": "Qu'est-ce que la personne qui écrit a envie de manger ?",
+      "en": "What would the writer like to eat?"
+     },
+     "choix": [
+      {
+       "fr": "Du poisson",
+       "en": "Fish"
+      },
+      {
+       "fr": "Des nouilles",
+       "en": "Noodles"
+      },
+      {
+       "fr": "Du poulet",
+       "en": "Chicken"
+      },
+      {
+       "fr": "Du bœuf",
+       "en": "Beef"
+      }
+     ],
+     "reponse": 2,
+     "porte": [
+      "吃",
+      "做",
+      "的",
+      "鸡"
+     ]
+    },
+    {
+     "type": "reperer",
+     "support": "s1",
+     "consigne": {
+      "fr": "Touche le jour de la visite.",
+      "en": "Tap the day of the visit."
+     },
+     "choix": [
+      "奶奶",
+      "星期六",
+      "吃饭",
+      "鸡"
+     ],
+     "reponse": 1,
+     "porte": [
+      "星",
+      "期",
+      "六"
+     ]
+    },
+    {
+     "type": "replique",
+     "support": "s1",
+     "consigne": {
+      "fr": "Que répond sa grand-mère ?",
+      "en": "What does Grandma reply?"
+     },
+     "choix": [
+      {
+       "zh": "太好了，我等你！",
+       "pinyin": "tài hǎo le wǒ děng nǐ",
+       "fr": "Super, je t'attends !",
+       "en": "Great, I'll be waiting for you!"
+      },
+      {
+       "zh": "你的书在桌子上。",
+       "pinyin": "nǐ de shū zài zhuō zi shàng",
+       "fr": "Ton livre est sur la table.",
+       "en": "Your book is on the table."
+      },
+      {
+       "zh": "我妹妹很爱唱歌。",
+       "pinyin": "wǒ mèi mei hěn ài chàng gē",
+       "fr": "Ma petite sœur adore chanter.",
+       "en": "My little sister loves singing."
+      },
+      {
+       "zh": "今天很热。",
+       "pinyin": "jīn tiān hěn rè",
+       "fr": "Il fait chaud aujourd'hui.",
+       "en": "It's hot today."
+      }
+     ],
+     "reponse": 0,
+     "porte": [
+      "到",
+      "吃"
+     ]
+    },
+    {
+     "type": "comprendre",
+     "support": "s2",
+     "consigne": {
+      "fr": "Que dit cet écriteau ?",
+      "en": "What does this notice say?"
+     },
+     "choix": [
+      {
+       "fr": "Baignade interdite ici",
+       "en": "No swimming here"
+      },
+      {
+       "fr": "Chiens interdits ici",
+       "en": "No dogs here"
+      },
+      {
+       "fr": "Vélos interdits ici",
+       "en": "No bikes here"
+      },
+      {
+       "fr": "Jeux de ballon interdits ici",
+       "en": "No ball games here"
+      }
+     ],
+     "reponse": 3,
+     "porte": [
+      "打",
+      "球"
+     ]
+    },
+    {
+     "type": "sens",
+     "consigne": {
+      "fr": "Que veut dire ce caractère ?",
+      "en": "What does this character mean?"
+     },
+     "objet": {
+      "zh": "睡",
+      "pinyin": "shuì",
+      "fr": "dormir",
+      "en": "to sleep"
+     },
+     "choix": [
+      {
+       "fr": "manger",
+       "en": "to eat"
+      },
+      {
+       "fr": "dormir",
+       "en": "to sleep"
+      },
+      {
+       "fr": "chanter",
+       "en": "to sing"
+      },
+      {
+       "fr": "rire",
+       "en": "to laugh"
+      }
+     ],
+     "reponse": 1,
+     "porte": [
+      "睡"
+     ]
+    }
+   ]
+  },
+  {
+   "serie": "B",
+   "statut": "relu",
+   "supports": [
+    {
+     "id": "s1",
+     "genre": "affiche",
+     "contexte": {
+      "fr": "Une affiche",
+      "en": "A poster"
+     },
+     "lignes": [
+      {
+       "zh": "星期五晚上七点",
+       "pinyin": "xīng qī wǔ wǎn shang qī diǎn",
+       "fr": "Vendredi, sept heures du soir",
+       "en": "Friday, 7 pm"
+      },
+      {
+       "zh": "来学校唱歌！",
+       "pinyin": "lái xué xiào chàng gē",
+       "fr": "Venez chanter à l'école !",
+       "en": "Come and sing at school!"
+      },
+      {
+       "zh": "不要票",
+       "pinyin": "bù yào piào",
+       "fr": "Entrée libre",
+       "en": "Free entry"
+      }
+     ]
+    },
+    {
+     "id": "s2",
+     "genre": "message",
+     "contexte": {
+      "fr": "Un message",
+      "en": "A message"
+     },
+     "lignes": [
+      {
+       "zh": "妹妹，我在火车上，",
+       "pinyin": "mèi mei wǒ zài huǒ chē shàng",
+       "fr": "Petite sœur, je suis dans le train :",
+       "en": "Sis, I'm on the train,"
+      },
+      {
+       "zh": "晚上十点到家。",
+       "pinyin": "wǎn shang shí diǎn dào jiā",
+       "fr": "j'arrive à la maison à dix heures du soir.",
+       "en": "I'll be home at ten tonight."
+      },
+      {
+       "zh": "别等我吃饭！",
+       "pinyin": "bié děng wǒ chī fàn",
+       "fr": "Ne m'attendez pas pour dîner !",
+       "en": "Don't wait for me for dinner!"
+      }
+     ]
+    }
+   ],
+   "questions": [
+    {
+     "type": "comprendre",
+     "support": "s1",
+     "consigne": {
+      "fr": "Quand faut-il venir ?",
+      "en": "When should you come?"
+     },
+     "choix": [
+      {
+       "fr": "Vendredi matin",
+       "en": "Friday morning"
+      },
+      {
+       "fr": "Samedi soir",
+       "en": "Saturday evening"
+      },
+      {
+       "fr": "Vendredi soir",
+       "en": "Friday evening"
+      },
+      {
+       "fr": "Dimanche après-midi",
+       "en": "Sunday afternoon"
+      }
+     ],
+     "reponse": 2,
+     "porte": [
+      "期",
+      "五",
+      "晚"
+     ]
+    },
+    {
+     "type": "vrai_faux",
+     "support": "s1",
+     "consigne": {
+      "fr": "Vrai ou faux ?",
+      "en": "True or false?"
+     },
+     "affirmation": {
+      "zh": "进门要票。",
+      "pinyin": "jìn mén yào piào",
+      "fr": "Il faut un billet pour entrer.",
+      "en": "You need a ticket to get in."
+     },
+     "reponse": false,
+     "porte": [
+      "进",
+      "不",
+      "要",
+      "票"
+     ]
+    },
+    {
+     "type": "reperer",
+     "support": "s2",
+     "consigne": {
+      "fr": "Touche l'heure d'arrivée.",
+      "en": "Tap the arrival time."
+     },
+     "choix": [
+      "妹妹",
+      "火车上",
+      "十点",
+      "吃饭"
+     ],
+     "reponse": 2,
+     "porte": [
+      "十",
+      "点",
+      "到"
+     ]
+    },
+    {
+     "type": "replique",
+     "support": "s2",
+     "consigne": {
+      "fr": "Que répond sa petite sœur ?",
+      "en": "What does the younger sister reply?"
+     },
+     "choix": [
+      {
+       "zh": "这是我的球。",
+       "pinyin": "zhè shì wǒ de qiú",
+       "fr": "C'est mon ballon.",
+       "en": "This is my ball."
+      },
+      {
+       "zh": "我星期天去学校。",
+       "pinyin": "wǒ xīng qī tiān qù xué xiào",
+       "fr": "Dimanche, je vais à l'école.",
+       "en": "I'm going to school on Sunday."
+      },
+      {
+       "zh": "我奶奶很好。",
+       "pinyin": "wǒ nǎi nai hěn hǎo",
+       "fr": "Ma grand-mère va bien.",
+       "en": "My grandma is well."
+      },
+      {
+       "zh": "好，我们先吃了！",
+       "pinyin": "hǎo wǒ men xiān chī le",
+       "fr": "D'accord, on mange sans toi !",
+       "en": "OK, we'll eat without you!"
+      }
+     ],
+     "reponse": 3,
+     "porte": [
+      "吃"
+     ]
+    },
+    {
+     "type": "caractere",
+     "consigne": {
+      "fr": "Quel caractère a ce sens ?",
+      "en": "Which character has this meaning?"
+     },
+     "objet": {
+      "zh": "笑",
+      "pinyin": "xiào",
+      "fr": "rire, sourire",
+      "en": "to laugh, to smile"
+     },
+     "choix": [
+      "等",
+      "笑",
+      "答",
+      "第"
+     ],
+     "reponse": 1,
+     "porte": [
+      "笑"
+     ]
+    }
+   ]
+  }
+ ]
+}
