@@ -581,8 +581,9 @@ describe('le parcours de l’index', () => {
        au jour d'après, et le jour sauté reste dans la trace. */
     expect(j?.jour).toBe((premier?.jour ?? 0) + 1);
     expect(j?.sautes).toEqual([premier?.jour]);
-    /* Après la dernière fermeture, il n'y a plus rien. */
-    expect(jourDuParcours(index, 'lire', jours.length)).toBeNull();
+    /* Après le dernier jour, il n'y a plus rien (une fermeture l'était jusqu'à « Réconcilier
+       les 13 », 30 septembre 2026 : 俭 et 敛 y sont posés). */
+    expect(jourDuParcours(index, 'lire', (jours[jours.length - 1]?.jour ?? 0) + 1)).toBeNull();
     /* Un jour non réconcilié isolé est franchi, et son numéro reste dans la trace. */
     const bricole: Index = {
       ...index,
@@ -648,13 +649,15 @@ describe('le chemin ouvert : gratuit, puis Wenlu complet', () => {
   const p: IndexParcours = { liste: 'seuil-255', regle: '', gratuit: 4, jours: jours(8) };
 
   it("l'export porte les deux chemins jusqu'au HSK 7-9, et dit le bout du chemin gratuit", () => {
-    /* Décision du propriétaire du 30 septembre 2026 : le HSK 3.0 après le seuil 255 ou le HSK 1. */
-    expect(index.parcours.lire.gratuit).toBe(189);
-    expect(index.parcours.hsk.gratuit).toBe(219);
+    /* Décision du propriétaire du 30 septembre 2026 : le HSK 3.0 après le seuil 255 ou le HSK 1.
+     * Le bout du chemin gratuit est la fin de la première étape, que l'export écrit : le seuil
+     * 255 au jour 190 du chemin Lire, le HSK 1 au jour 220 du chemin HSK depuis que 冖 s'insère
+     * au jour 13 (décision du même jour, « Réconcilier les 13 ») ; 189 et 219 avant. */
+    expect(index.parcours.lire.etapes?.[0]).toEqual({ liste: 'seuil-255', fin: index.parcours.lire.gratuit });
+    expect(index.parcours.hsk.etapes?.[0]).toEqual({ liste: 'hsk-1', fin: index.parcours.hsk.gratuit });
     expect(index.parcours.lire.etapes?.map((e) => e.liste)).toEqual([
       'seuil-255', 'hsk-1', 'hsk-2', 'hsk-3', 'hsk-4', 'hsk-5', 'hsk-6', 'hsk-7-9'
     ]);
-    expect(index.parcours.hsk.etapes?.[0]).toEqual({ liste: 'hsk-1', fin: 219 });
     for (const nom of ['lire', 'hsk']) {
       const ps = index.parcours[nom];
       expect(ps.jours.length).toBeGreaterThan(1400);
@@ -665,19 +668,23 @@ describe('le chemin ouvert : gratuit, puis Wenlu complet', () => {
   it('sans Wenlu complet, le chemin s’arrête au bout du chemin gratuit', () => {
     expect(cheminOuvert(p, false, 2).jours.map((j) => j.jour)).toEqual([1, 2, 3, 4]);
     const vu = indexOuvert(index, false, 100);
-    expect(vu.parcours.lire.jours.slice(-1)[0]?.jour).toBe(189);
-    expect(vu.parcours.hsk.jours.slice(-1)[0]?.jour).toBe(219);
+    const { lire, hsk } = index.parcours;
+    expect(vu.parcours.lire.jours.slice(-1)[0]?.jour).toBe(lire.gratuit);
+    expect(vu.parcours.hsk.jours.slice(-1)[0]?.jour).toBe(hsk.gratuit);
     /* La leçon suivante n'est pas posée : la session s'arrête là, comme au bout de l'export. */
-    expect(jourDuParcours(vu, 'lire', 190)).toBeNull();
-    expect(jourDuParcours(vu, 'hsk', 220)).toBeNull();
+    expect(jourDuParcours(vu, 'lire', (lire.gratuit ?? 0) + 1)).toBeNull();
+    expect(jourDuParcours(vu, 'hsk', (hsk.gratuit ?? 0) + 1)).toBeNull();
   });
 
   it('avec Wenlu complet, la suite s’ouvre, jusqu’au HSK 7-9', () => {
     expect(cheminOuvert(p, true, 2)).toBe(p);
     const vu = indexOuvert(index, true, 100);
     expect(vu).toBe(index);
-    /* Le jour 190 du chemin Lire ferme le seuil 255 (兴, non réconcilié) : il est sauté. */
-    expect(jourDuParcours(vu, 'lire', 190)?.jour).toBe(191);
+    /* Un jour de fermeture, non réconcilié, est sauté : 敢 et 展 au jour 470 du chemin Lire
+     * (兴 au jour 190 avant « Réconcilier les 13 », 30 septembre 2026). */
+    const ferme = vu.parcours.lire.jours.find((j) => j.non_reconcilie);
+    if (!ferme) throw new Error('jour de fermeture attendu');
+    expect(jourDuParcours(vu, 'lire', ferme.jour)?.jour).toBe(ferme.jour + 1);
     expect(jourDuParcours(vu, 'lire', 250)?.jour).toBe(250);
   });
 
@@ -704,7 +711,7 @@ describe('le chemin ouvert : gratuit, puis Wenlu complet', () => {
     reglerChemin(wenluComplet(droitsVides(), { web: false, achat: true }, '2026-09-30'), 250);
     expect((await contenu()).parcours.lire.jours.length).toBe(index.parcours.lire.jours.length);
     reglerChemin(false, 0);
-    expect((await contenu()).parcours.lire.jours.slice(-1)[0]?.jour).toBe(189);
+    expect((await contenu()).parcours.lire.jours.slice(-1)[0]?.jour).toBe(index.parcours.lire.gratuit);
     vi.unstubAllGlobals();
   });
 });

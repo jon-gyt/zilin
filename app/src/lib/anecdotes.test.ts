@@ -35,6 +35,13 @@ function ouvrir(p: Progress, j: string) {
 
 const avecAnecdote = new Set(liste.map((a) => a.c));
 const briqueDuJour = (j: number): string | null => index.parcours.lire.jours[j - 1]?.brique ?? null;
+/** Le jour du parcours Lire qui pose `c` : lu dans l'export, pour que le test suive le chemin
+ *  quand il bouge (冖 inséré au jour 13, décision du propriétaire du 30 septembre 2026). */
+const jourDe = (c: string): number => {
+  const j = index.parcours.lire.jours.find((x) => x.brique === c || x.composes.includes(c));
+  if (!j) throw new Error(`${c} hors du parcours Lire`);
+  return j.jour;
+};
 
 describe('le fichier du pipeline', () => {
   it('porte plus de soixante anecdotes, sur des caractères du parcours Lire surtout', () => {
@@ -78,15 +85,17 @@ describe("les caractères que l'apprenant vient de rencontrer", () => {
 });
 
 describe("l'anecdote ordinaire du jour", () => {
-  it('parle de la brique du jour quand elle en a une (文 au jour 36)', () => {
-    expect(briqueDuJour(36)).toBe('文');
-    expect(ouvrir(auJour(36, jour(0)), jour(0)).r?.a.c).toBe('文');
+  it('parle de la brique du jour quand elle en a une (文 au jour 37)', () => {
+    const j = jourDe('文');
+    expect(briqueDuJour(j)).toBe('文');
+    expect(ouvrir(auJour(j, jour(0)), jour(0)).r?.a.c).toBe('文');
   });
 
-  it("sinon d'un caractère des derniers jours (工, jour 26, n'en a pas : 心, jour 24)", () => {
+  it("sinon d'un caractère des derniers jours (工, jour 27, n'en a pas : 心, jour 25)", () => {
     expect(avecAnecdote.has('工')).toBe(false);
     expect(avecAnecdote.has('今')).toBe(false);
-    expect(ouvrir(auJour(26, jour(0)), jour(0)).r?.a.c).toBe('心');
+    expect(jourDe('工') - jourDe('心')).toBe(2);
+    expect(ouvrir(auJour(jourDe('工'), jour(0)), jour(0)).r?.a.c).toBe('心');
   });
 
   it('sinon le tour de la liste, le même pour une même journée', () => {
@@ -175,7 +184,7 @@ describe("l'anecdote ordinaire du jour", () => {
   });
 
   it('la famille de son caractère vient du fichier : ses traits se lisent sans tout relire', () => {
-    const r = ouvrir(auJour(36, jour(0)), jour(0)).r;
+    const r = ouvrir(auJour(jourDe('文'), jour(0)), jour(0)).r;
     expect(r?.pistes).toEqual([liste.find((a) => a.c === '文')?.racine]);
   });
 });

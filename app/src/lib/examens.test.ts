@@ -134,7 +134,22 @@ describe('le contenu', () => {
       expect(yueke.series.A?.questions).toHaveLength(5);
       expect(yueke.series.B?.questions).toHaveLength(5);
     }
-    expect(DONNEES.parcours.lire[0].jour).toBe(25);
+    /* Le 县试 s'ouvre au jour où le chemin Lire pose son 50e caractère : 26 depuis que 冖
+       s'insère au jour 13 (décision du propriétaire du 30 septembre 2026), 25 avant. */
+    const index = JSON.parse(source('../../public/data/0.1.0/index.json')) as {
+      parcours: { lire: { jours: { jour: number; brique: string | null; composes: string[]; non_reconcilie?: boolean }[] } };
+    };
+    const vus = new Set<string>();
+    let cinquantieme = 0;
+    for (const j of index.parcours.lire.jours) {
+      if (j.non_reconcilie) continue;
+      for (const c of [j.brique, ...j.composes]) if (c) vus.add(c);
+      if (vus.size >= 50) {
+        cinquantieme = j.jour;
+        break;
+      }
+    }
+    expect(DONNEES.parcours.lire[0].jour).toBe(cinquantieme);
     expect(LISTE.map((e) => e.questions).slice(0, 2)).toEqual([10, 5]);
   });
 
