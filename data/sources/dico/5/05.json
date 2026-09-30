@@ -1,0 +1,1436 @@
+{
+ "niveau": "5",
+ "lot": "05",
+ "source": "rédigé pour l'app dans le pipeline wenlu, sans API ; faits lus : liste HSK 3.0 (forme, pinyin, niveau, catégorie), lectures d'Unihan et des surcharges, gloses relues des fiches",
+ "brouillon": "data/sources/dico-brouillons/5/05.json",
+ "generation": {
+  "modele": "rédaction manuelle",
+  "api": "session Claude Code (sans API)",
+  "date": "2026-09-30",
+  "empreinte_invite": "sha256:3dd40a2b48e3b7aa3f8bb41c43288b5c35e70e0dde34bf80716f42adf5b44fda",
+  "contexte": "wenlu dico contexte 5 05",
+  "essais": 1,
+  "refus": []
+ },
+ "entrees": [
+  {
+   "id": "L5-0169",
+   "genre": "mot",
+   "hanzi": "大于",
+   "pinyin": "dàyú",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "être supérieur à, plus grand que",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "être supérieur à, être plus grand que"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "今年的收入大于支出。",
+     "pinyin": "Jīnnián de shōurù dàyú zhīchū.",
+     "fr": "Cette année, les recettes dépassent les dépenses.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L5-0170",
+   "genre": "mot",
+   "hanzi": "大致",
+   "pinyin": "dàzhì",
+   "categories": [
+    "Adj",
+    "Adv"
+   ],
+   "sens": {
+    "glose": "général, approximatif ; à peu près",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "général, dans les grandes lignes"
+     },
+     {
+      "categorie": "Adv",
+      "fr": "à peu près, grosso modo"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "我大致了解了情况。",
+     "pinyin": "Wǒ dàzhì liǎojiě le qíngkuàng.",
+     "fr": "J'ai compris la situation dans l'ensemble.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "呆",
+   "genre": "caractere",
+   "hanzi": "呆",
+   "pinyin": "dāi",
+   "mots": [
+    "L5-0171"
+   ],
+   "sens": {
+    "glose": "hébété, figé ; rester",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "hébété, figé, stupide"
+     },
+     {
+      "categorie": "V",
+      "fr": "rester, séjourner (oral)"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他在家里呆了一天。",
+     "pinyin": "Tā zài jiā li dāi le yī tiān.",
+     "fr": "Il est resté toute la journée à la maison.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L5-0173",
+   "genre": "mot",
+   "hanzi": "代价",
+   "pinyin": "dàijià",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "prix à payer, coût",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "prix à payer, coût (pour obtenir quelque chose)"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他为成功付出了很大的代价。",
+     "pinyin": "Tā wèi chénggōng fùchū le hěn dà de dàijià.",
+     "fr": "Il a payé cher son succès.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L5-0174",
+   "genre": "mot",
+   "hanzi": "代理",
+   "pinyin": "dàilǐ",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "assurer l'intérim ; représenter",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "assurer l'intérim, remplacer"
+     },
+     {
+      "categorie": "V",
+      "fr": "représenter, être l'agent de"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "校长不在的时候，由他代理。",
+     "pinyin": "Xiàozhǎng bù zài de shíhou, yóu tā dàilǐ.",
+     "fr": "Quand le directeur est absent, c'est lui qui le remplace.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L5-0175",
+   "genre": "mot",
+   "hanzi": "带有",
+   "pinyin": "dàiyǒu",
+   "sens": {
+    "glose": "porter, comporter, avoir (un trait)",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "porter, comporter, présenter (un caractère)"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他说话带有南方口音。",
+     "pinyin": "Tā shuōhuà dàiyǒu nánfāng kǒuyīn.",
+     "fr": "Il parle avec un accent du sud.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "贷",
+   "genre": "caractere",
+   "hanzi": "贷",
+   "pinyin": "dài",
+   "sens": {
+    "glose": "prêt ; prêter, emprunter",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "prêt, crédit"
+     },
+     {
+      "categorie": "V",
+      "fr": "prêter, emprunter (de l'argent)"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他向银行贷了一笔钱。",
+     "pinyin": "Tā xiàng yínháng dài le yī bǐ qián.",
+     "fr": "Il a emprunté une somme à la banque.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L5-0176",
+   "genre": "mot",
+   "hanzi": "贷款",
+   "pinyin": "dàikuǎn",
+   "categories": [
+    "V",
+    "N"
+   ],
+   "sens": {
+    "glose": "emprunter ; prêt, crédit",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "emprunter (à une banque), accorder un prêt"
+     },
+     {
+      "categorie": "N",
+      "fr": "prêt, crédit"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他们贷款买了一套房子。",
+     "pinyin": "Tāmen dàikuǎn mǎi le yī tào fángzi.",
+     "fr": "Ils ont acheté un appartement à crédit.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L5-0177",
+   "genre": "mot",
+   "hanzi": "单一",
+   "pinyin": "dānyī",
+   "categories": [
+    "Adj"
+   ],
+   "sens": {
+    "glose": "unique, seul ; peu varié",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "unique, seul ; peu varié, uniforme"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这里的菜种类太单一了。",
+     "pinyin": "Zhèli de cài zhǒnglèi tài dānyī le.",
+     "fr": "Ici, les plats manquent vraiment de variété.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L5-0179",
+   "genre": "mot",
+   "hanzi": "胆小",
+   "pinyin": "dǎnxiǎo",
+   "categories": [
+    "Adj"
+   ],
+   "sens": {
+    "glose": "peureux, craintif",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "peureux, craintif, timoré"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "我妹妹很胆小，不敢看这种电影。",
+     "pinyin": "Wǒ mèimei hěn dǎnxiǎo, bù gǎn kàn zhè zhǒng diànyǐng.",
+     "fr": "Ma petite sœur a peur de tout, elle n'ose pas regarder ce genre de film.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "糕",
+   "genre": "caractere",
+   "hanzi": "糕",
+   "pinyin": "gāo",
+   "sens": {
+    "glose": "gâteau",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "gâteau"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "糟糕，下雨了！",
+     "pinyin": "Zāogāo, xià yǔ le!",
+     "fr": "Zut, il pleut !",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L5-0180",
+   "genre": "mot",
+   "hanzi": "蛋糕",
+   "pinyin": "dàngāo",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "gâteau",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "gâteau (génoise, gâteau d'anniversaire)"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "妈妈给我做了一个生日蛋糕。",
+     "pinyin": "Māma gěi wǒ zuò le yī ge shēngrì dàngāo.",
+     "fr": "Maman m'a préparé un gâteau d'anniversaire.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L5-0181",
+   "genre": "mot",
+   "hanzi": "当场",
+   "pinyin": "dāngchǎng",
+   "categories": [
+    "Adv"
+   ],
+   "sens": {
+    "glose": "sur-le-champ, sur place",
+    "acceptions": [
+     {
+      "categorie": "Adv",
+      "fr": "sur-le-champ, sur place, en flagrant délit"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "小偷被当场抓住了。",
+     "pinyin": "Xiǎotōu bèi dāngchǎng zhuāzhù le.",
+     "fr": "Le voleur a été pris la main dans le sac.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L5-0182",
+   "genre": "mot",
+   "hanzi": "当代",
+   "pinyin": "dāngdài",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "époque actuelle, contemporain",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "époque actuelle, temps présent"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他很喜欢当代艺术。",
+     "pinyin": "Tā hěn xǐhuan dāngdài yìshù.",
+     "fr": "Il aime beaucoup l'art d'aujourd'hui.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L5-0183",
+   "genre": "mot",
+   "hanzi": "当年",
+   "pinyin": "dāngnián",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "à l'époque, en ce temps-là",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "à l'époque, en ce temps-là, autrefois"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "当年他只有二十岁。",
+     "pinyin": "Dāngnián tā zhǐ yǒu èrshí suì.",
+     "fr": "À l'époque, il n'avait que vingt ans.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L5-0184",
+   "genre": "mot",
+   "hanzi": "当前",
+   "pinyin": "dāngqián",
+   "categories": [
+    "N",
+    "V"
+   ],
+   "sens": {
+    "glose": "actuel, présent ; imminent",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "le moment présent, l'heure actuelle"
+     },
+     {
+      "categorie": "V",
+      "fr": "être imminent, être devant soi"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "当前最重要的是找到工作。",
+     "pinyin": "Dāngqián zuì zhòngyào de shì zhǎodào gōngzuò.",
+     "fr": "Pour l'instant, le plus important est de trouver du travail.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L5-0185",
+   "genre": "mot",
+   "hanzi": "当选",
+   "pinyin": "dāngxuǎn",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "être élu",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "être élu, être choisi (par un vote)"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "她当选为班长。",
+     "pinyin": "Tā dāngxuǎn wéi bānzhǎng.",
+     "fr": "Elle a été élue déléguée de classe.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "挡",
+   "genre": "caractere",
+   "hanzi": "挡",
+   "pinyin": "dǎng",
+   "mots": [
+    "L5-0186"
+   ],
+   "sens": {
+    "glose": "bloquer, barrer ; protéger de",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "bloquer, barrer, faire obstacle"
+     },
+     {
+      "categorie": "V",
+      "fr": "protéger de, abriter de"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "前面的人挡住了我的视线。",
+     "pinyin": "Qiánmian de rén dǎngzhù le wǒ de shìxiàn.",
+     "fr": "La personne devant moi me cache la vue.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L5-0187",
+   "genre": "mot",
+   "hanzi": "到来",
+   "pinyin": "dàolái",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "arriver, venir ; arrivée",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "arriver, venir (un moment, une saison)"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "春天到来了，花都开了。",
+     "pinyin": "Chūntiān dàolái le, huā dōu kāi le.",
+     "fr": "Le printemps est là, toutes les fleurs sont écloses.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L5-0188",
+   "genre": "mot",
+   "hanzi": "倒是",
+   "pinyin": "dàoshì",
+   "categories": [
+    "Adv"
+   ],
+   "sens": {
+    "glose": "pourtant, par contre ; certes",
+    "acceptions": [
+     {
+      "categorie": "Adv",
+      "fr": "pourtant, en revanche (contre toute attente)"
+     },
+     {
+      "categorie": "Adv",
+      "fr": "certes, il est vrai (concession)"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这个房子不大，倒是很干净。",
+     "pinyin": "Zhège fángzi bù dà, dàoshì hěn gānjìng.",
+     "fr": "Cette maison n'est pas grande, mais elle est très propre.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "德",
+   "genre": "caractere",
+   "hanzi": "德",
+   "pinyin": "dé",
+   "mots": [
+    "L7-0800"
+   ],
+   "sens": {
+    "glose": "vertu, morale ; bienfait",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "vertu, morale, qualités morales"
+     },
+     {
+      "categorie": "N",
+      "fr": "Allemagne, dans Déguó"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他在德国学习。",
+     "pinyin": "Tā zài Déguó xuéxí.",
+     "fr": "Il fait ses études en Allemagne.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L5-0189",
+   "genre": "mot",
+   "hanzi": "道德",
+   "pinyin": "dàodé",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "morale, éthique",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "morale, éthique"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这种做法不道德。",
+     "pinyin": "Zhè zhǒng zuòfǎ bù dàodé.",
+     "fr": "Agir ainsi est immoral.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L5-0190",
+   "genre": "mot",
+   "hanzi": "得了",
+   "pinyin": "déle",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "ça suffit, laisse tomber ; bon",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "ça suffit, assez, laisse tomber"
+     },
+     {
+      "categorie": "V",
+      "fr": "bon, d'accord (pour conclure)"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "得了，别说了。",
+     "pinyin": "Déle, bié shuō le.",
+     "fr": "Arrête, n'en parle plus.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L5-0191",
+   "genre": "mot",
+   "hanzi": "得以",
+   "pinyin": "déyǐ",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "pouvoir, avoir la possibilité de",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "pouvoir, être en mesure de (grâce à quelque chose)"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "在大家的帮助下，问题得以解决。",
+     "pinyin": "Zài dàjiā de bāngzhù xià, wèntí déyǐ jiějué.",
+     "fr": "Grâce à l'aide de tous, le problème a pu être résolu.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L5-0192",
+   "genre": "mot",
+   "hanzi": "等候",
+   "pinyin": "děnghòu",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "attendre",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "attendre (langue soignée)"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "请在门口等候。",
+     "pinyin": "Qǐng zài ménkǒu děnghòu.",
+     "fr": "Veuillez patienter à l'entrée.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L5-0193",
+   "genre": "mot",
+   "hanzi": "等级",
+   "pinyin": "děngjí",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "rang, niveau, grade",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "rang, niveau, classe, grade"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这家酒店的等级很高。",
+     "pinyin": "Zhè jiā jiǔdiàn de děngjí hěn gāo.",
+     "fr": "Cet hôtel est de très haut standing.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L5-0194",
+   "genre": "mot",
+   "hanzi": "低于",
+   "pinyin": "dīyú",
+   "sens": {
+    "glose": "inférieur à, moins que",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "être inférieur à, en dessous de"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "今天的气温低于零度。",
+     "pinyin": "Jīntiān de qìwēn dīyú língdù.",
+     "fr": "Aujourd'hui, il fait moins de zéro degré.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L5-0195",
+   "genre": "mot",
+   "hanzi": "地带",
+   "pinyin": "dìdài",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "zone, région",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "zone, région, bande de territoire"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "河两岸是很好的农业地带。",
+     "pinyin": "Hé liǎng'àn shì hěn hǎo de nóngyè dìdài.",
+     "fr": "Les deux rives du fleuve forment une bonne région agricole.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L5-0196",
+   "genre": "mot",
+   "hanzi": "地形",
+   "pinyin": "dìxíng",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "relief, configuration du terrain",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "relief, configuration du terrain"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这里的地形很复杂。",
+     "pinyin": "Zhèli de dìxíng hěn fùzá.",
+     "fr": "Le relief est très accidenté ici.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "震",
+   "genre": "caractere",
+   "hanzi": "震",
+   "pinyin": "zhèn",
+   "mots": [
+    "L7-5310"
+   ],
+   "sens": {
+    "glose": "trembler, secouer ; choquer",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "trembler, secouer, ébranler"
+     },
+     {
+      "categorie": "V",
+      "fr": "choquer, bouleverser"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这个消息震动了全国。",
+     "pinyin": "Zhège xiāoxi zhèndòng le quánguó.",
+     "fr": "La nouvelle a secoué tout le pays.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L5-0197",
+   "genre": "mot",
+   "hanzi": "地震",
+   "pinyin": "dìzhèn",
+   "categories": [
+    "N",
+    "V"
+   ],
+   "sens": {
+    "glose": "tremblement de terre, séisme",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "tremblement de terre, séisme"
+     },
+     {
+      "categorie": "V",
+      "fr": "y avoir un séisme"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "昨天夜里这里地震了。",
+     "pinyin": "Zuótiān yèli zhèli dìzhèn le.",
+     "fr": "La terre a tremblé ici la nuit dernière.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L5-0199",
+   "genre": "mot",
+   "hanzi": "递给",
+   "pinyin": "dì gěi",
+   "sens": {
+    "glose": "tendre, passer (à quelqu'un)",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "tendre, passer (quelque chose à quelqu'un)"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "请把那本书递给我。",
+     "pinyin": "Qǐng bǎ nà běn shū dì gěi wǒ.",
+     "fr": "Passe-moi ce livre, s'il te plaît.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L5-0200",
+   "genre": "mot",
+   "hanzi": "典礼",
+   "pinyin": "diǎnlǐ",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "cérémonie",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "cérémonie (officielle)"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "明天是我们的毕业典礼。",
+     "pinyin": "Míngtiān shì wǒmen de bìyè diǎnlǐ.",
+     "fr": "Demain, c'est notre remise des diplômes.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L5-0201",
+   "genre": "mot",
+   "hanzi": "点燃",
+   "pinyin": "diǎnrán",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "allumer, enflammer",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "allumer, mettre le feu à"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他点燃了一支烟。",
+     "pinyin": "Tā diǎnrán le yī zhī yān.",
+     "fr": "Il a allumé une cigarette.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L5-0202",
+   "genre": "mot",
+   "hanzi": "电池",
+   "pinyin": "diànchí",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "pile, batterie",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "pile, batterie"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "手机的电池没电了。",
+     "pinyin": "Shǒujī de diànchí méi diàn le.",
+     "fr": "La batterie du portable est à plat.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "锅",
+   "genre": "caractere",
+   "hanzi": "锅",
+   "pinyin": "guō",
+   "mots": [
+    "L5-0307"
+   ],
+   "sens": {
+    "glose": "marmite, casserole, wok",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "marmite, casserole, wok"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "锅里的水开了。",
+     "pinyin": "Guō li de shuǐ kāi le.",
+     "fr": "L'eau bout dans la casserole.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L5-0203",
+   "genre": "mot",
+   "hanzi": "电饭锅",
+   "pinyin": "diànfànguō",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "cuiseur à riz",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "cuiseur à riz électrique"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "用电饭锅做饭很方便。",
+     "pinyin": "Yòng diànfànguō zuò fàn hěn fāngbiàn.",
+     "fr": "Faire le riz à l'autocuiseur, c'est très pratique.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L5-0204",
+   "genre": "mot",
+   "hanzi": "电子版",
+   "pinyin": "diànzǐbǎn",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "version électronique",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "version électronique, version numérique"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这本书有电子版吗？",
+     "pinyin": "Zhè běn shū yǒu diànzǐbǎn ma?",
+     "fr": "Ce livre existe-t-il en numérique ?",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L5-0205",
+   "genre": "mot",
+   "hanzi": "调动",
+   "pinyin": "diàodòng",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "muter, déplacer ; mobiliser",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "muter, déplacer (du personnel)"
+     },
+     {
+      "categorie": "V",
+      "fr": "mobiliser, stimuler (l'enthousiasme)"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他被调动到北京工作了。",
+     "pinyin": "Tā bèi diàodòng dào Běijīng gōngzuò le.",
+     "fr": "Il a été muté à Pékin.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "丢",
+   "genre": "caractere",
+   "hanzi": "丢",
+   "pinyin": "diū",
+   "mots": [
+    "L5-0206"
+   ],
+   "sens": {
+    "glose": "perdre ; jeter",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "perdre, égarer"
+     },
+     {
+      "categorie": "V",
+      "fr": "jeter, lancer"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "我的钱包丢了。",
+     "pinyin": "Wǒ de qiánbāo diū le.",
+     "fr": "J'ai perdu mon portefeuille.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L5-0207",
+   "genre": "mot",
+   "hanzi": "动机",
+   "pinyin": "dòngjī",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "motif, motivation, mobile",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "motif, motivation ; mobile (d'un acte)"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他这样做的动机是什么？",
+     "pinyin": "Tā zhèyàng zuò de dòngjī shì shénme?",
+     "fr": "Qu'est-ce qui l'a poussé à agir ainsi ?",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L5-0208",
+   "genre": "mot",
+   "hanzi": "动手",
+   "pinyin": "dòngshǒu",
+   "sens": {
+    "glose": "s'y mettre ; toucher ; frapper",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "se mettre au travail, commencer"
+     },
+     {
+      "categorie": "V",
+      "fr": "toucher (avec les mains)"
+     },
+     {
+      "categorie": "V",
+      "fr": "en venir aux mains, frapper"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "别说了，我们快动手吧。",
+     "pinyin": "Bié shuō le, wǒmen kuài dòngshǒu ba.",
+     "fr": "Assez parlé, mettons-nous vite au travail.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L5-0209",
+   "genre": "mot",
+   "hanzi": "动态",
+   "pinyin": "dòngtài",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "évolution, actualité ; dynamique",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "évolution, développements, actualité (d'un domaine)"
+     },
+     {
+      "categorie": "N",
+      "fr": "état dynamique, mouvement"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他每天关注市场动态。",
+     "pinyin": "Tā měi tiān guānzhù shìchǎng dòngtài.",
+     "fr": "Il suit chaque jour l'évolution du marché.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L5-0210",
+   "genre": "mot",
+   "hanzi": "动员",
+   "pinyin": "dòngyuán",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "mobiliser, inciter",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "mobiliser, inciter, pousser à agir"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "老师动员大家参加比赛。",
+     "pinyin": "Lǎoshī dòngyuán dàjiā cānjiā bǐsài.",
+     "fr": "Le professeur a encouragé tout le monde à participer au concours.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "冻",
+   "genre": "caractere",
+   "hanzi": "冻",
+   "pinyin": "dòng",
+   "mots": [
+    "L5-0211"
+   ],
+   "sens": {
+    "glose": "geler, congeler ; avoir froid",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "geler, congeler"
+     },
+     {
+      "categorie": "V",
+      "fr": "avoir très froid, être gelé"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "外面太冷了，我的手都冻红了。",
+     "pinyin": "Wàimian tài lěng le, wǒ de shǒu dōu dòng hóng le.",
+     "fr": "Il fait si froid dehors que j'ai les mains rouges.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "洞",
+   "genre": "caractere",
+   "hanzi": "洞",
+   "pinyin": "dòng",
+   "mots": [
+    "L5-0212"
+   ],
+   "sens": {
+    "glose": "trou, cavité ; grotte",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "trou, cavité"
+     },
+     {
+      "categorie": "N",
+      "fr": "grotte, caverne"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "我的袜子破了一个洞。",
+     "pinyin": "Wǒ de wàzi pò le yī ge dòng.",
+     "fr": "Ma chaussette est trouée.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L5-0213",
+   "genre": "mot",
+   "hanzi": "豆制品",
+   "pinyin": "dòuzhìpǐn",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "produits à base de soja",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "produit à base de soja (tofu, lait de soja…)"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "多吃豆制品对身体好。",
+     "pinyin": "Duō chī dòuzhìpǐn duì shēntǐ hǎo.",
+     "fr": "Manger du tofu et du lait de soja, c'est bon pour la santé.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "堆",
+   "genre": "caractere",
+   "hanzi": "堆",
+   "pinyin": "duī",
+   "mots": [
+    "L5-0215"
+   ],
+   "sens": {
+    "glose": "entasser ; tas ; un tas de",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "entasser, empiler"
+     },
+     {
+      "categorie": "N",
+      "fr": "tas, monceau"
+     },
+     {
+      "categorie": "M",
+      "fr": "classificateur : un tas de"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "桌子上堆着一堆书。",
+     "pinyin": "Zhuōzi shang duī zhe yī duī shū.",
+     "fr": "Des livres s'entassent sur la table.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L5-0216",
+   "genre": "mot",
+   "hanzi": "对立",
+   "pinyin": "duìlì",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "s'opposer, être opposés",
+    "acceptions": [],
+    "statut": "relu",
+    "provenance": {
+     "reprise": "data/sources/fiches/立.json",
+     "champ": "mots[].fr"
+    }
+   },
+   "exemples": [
+    {
+     "zh": "他们两个人的意见完全对立。",
+     "pinyin": "Tāmen liǎng ge rén de yìjiàn wánquán duìlì.",
+     "fr": "Leurs deux avis sont diamétralement opposés.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L5-0217",
+   "genre": "mot",
+   "hanzi": "对应",
+   "pinyin": "duìyìng",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "correspondre à",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "correspondre à, être l'équivalent de"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这个词在法语里没有对应的说法。",
+     "pinyin": "Zhège cí zài Fǎyǔ li méiyǒu duìyìng de shuōfǎ.",
+     "fr": "Ce mot n'a pas d'équivalent en français.",
+     "statut": "a_relire"
+    }
+   ]
+  }
+ ]
+}
