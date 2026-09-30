@@ -21,20 +21,33 @@
   "雨": "sens",
   "辰": "forme"
  },
- "mots": [],
+ "mots": [
+  {
+   "hanzi": "地震",
+   "pinyin": "dìzhèn",
+   "fr": "tremblement de terre",
+   "en": "earthquake"
+  },
+  {
+   "hanzi": "震惊",
+   "pinyin": "zhènjīng",
+   "fr": "choquer, stupéfier",
+   "en": "to shock, to astonish"
+  }
+ ],
  "phrase": {
-  "zh": "",
-  "pinyin": "",
-  "fr": "",
-  "en": ""
+  "zh": "昨天晚上这里发生了地震。",
+  "pinyin": "Zuótiān wǎnshang zhèli fāshēng le dìzhèn.",
+  "fr": "Hier soir, il y a eu un tremblement de terre ici.",
+  "en": "There was an earthquake here last night."
  },
  "generation": {
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:c91542dd9f4fa86fff4377c198b27f557b90f14c8a3ee6ae0dd8bed68b0e89f0",
-  "essais": 1,
+  "empreinte_invite": "sha256:08d21a9b9ac62ae516ca7d37f5c1a16f5a935c1e2188a54a34a75e7058c9d441",
+  "essais": 2,
   "refus": []
  },
- "statut": "relu"
+ "statut": "a_relire"
 }

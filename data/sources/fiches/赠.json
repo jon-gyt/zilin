@@ -27,20 +27,33 @@
   "丨": "forme",
   "日": "forme"
  },
- "mots": [],
+ "mots": [
+  {
+   "hanzi": "赠送",
+   "pinyin": "zèngsòng",
+   "fr": "offrir, faire cadeau de",
+   "en": "to give as a present"
+  },
+  {
+   "hanzi": "赠品",
+   "pinyin": "zèngpǐn",
+   "fr": "cadeau offert, article gratuit",
+   "en": "free gift"
+  }
+ ],
  "phrase": {
-  "zh": "",
-  "pinyin": "",
-  "fr": "",
-  "en": ""
+  "zh": "这本书是他赠给我的。",
+  "pinyin": "Zhè běn shū shì tā zèng gěi wǒ de.",
+  "fr": "C'est lui qui m'a offert ce livre.",
+  "en": "He gave me this book as a gift."
  },
  "generation": {
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:35b2a84209d6f59ec8c2313c4bcfd591229a868b5ac24b44e3d24b4d82e26d78",
-  "essais": 1,
+  "empreinte_invite": "sha256:84f3d52555b5fd2057a0ee24ff1a7b6c4c68000e44c0bd437784c1566ba72592",
+  "essais": 2,
   "refus": []
  },
- "statut": "relu"
+ "statut": "a_relire"
 }

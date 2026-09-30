@@ -19,20 +19,33 @@
  "roles": {
   "竹": "forme"
  },
- "mots": [],
+ "mots": [
+  {
+   "hanzi": "竹子",
+   "pinyin": "zhúzi",
+   "fr": "bambou",
+   "en": "bamboo"
+  },
+  {
+   "hanzi": "竹林",
+   "pinyin": "zhúlín",
+   "fr": "bambouseraie",
+   "en": "bamboo grove"
+  }
+ ],
  "phrase": {
-  "zh": "",
-  "pinyin": "",
-  "fr": "",
-  "en": ""
+  "zh": "这里的竹子很高。",
+  "pinyin": "Zhèli de zhúzi hěn gāo.",
+  "fr": "Les bambous d'ici sont très hauts.",
+  "en": "The bamboo here is very tall."
  },
  "generation": {
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:276b712ec213f8f874f7141c20d73164537fac29230af82b3ef3eb9edf01a582",
-  "essais": 1,
+  "empreinte_invite": "sha256:3a1b68651617e0b3ef92e74dcc2ca8f904d5f15845d659457b9f25bb099200ee",
+  "essais": 2,
   "refus": []
  },
- "statut": "relu"
+ "statut": "a_relire"
 }

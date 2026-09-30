@@ -23,20 +23,33 @@
   "人": "son",
   "彡": "son"
  },
- "mots": [],
+ "mots": [
+  {
+   "hanzi": "诊所",
+   "pinyin": "zhěnsuǒ",
+   "fr": "cabinet médical, clinique",
+   "en": "clinic"
+  },
+  {
+   "hanzi": "急诊",
+   "pinyin": "jízhěn",
+   "fr": "urgences (médicales)",
+   "en": "emergency treatment"
+  }
+ ],
  "phrase": {
-  "zh": "",
-  "pinyin": "",
-  "fr": "",
-  "en": ""
+  "zh": "医生诊断他得了感冒。",
+  "pinyin": "Yīshēng zhěnduàn tā dé le gǎnmào.",
+  "fr": "Le médecin a diagnostiqué un rhume.",
+  "en": "The doctor diagnosed him with a cold."
  },
  "generation": {
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:bdce49cd749b34de000aa628af0ca11da3d8f9dec23f43d2530771d6f64cfd91",
-  "essais": 1,
+  "empreinte_invite": "sha256:f79e1f93196aa8b4ec1b7b8cd46a7e678b935d6719a4d71d330d84e52e37e424",
+  "essais": 2,
   "refus": []
  },
- "statut": "relu"
+ "statut": "a_relire"
 }

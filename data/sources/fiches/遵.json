@@ -25,20 +25,33 @@
   "酉": "son",
   "寸": "son"
  },
- "mots": [],
+ "mots": [
+  {
+   "hanzi": "遵守",
+   "pinyin": "zūnshǒu",
+   "fr": "respecter, se conformer à",
+   "en": "to abide by"
+  },
+  {
+   "hanzi": "遵照",
+   "pinyin": "zūnzhào",
+   "fr": "suivre, conformément à",
+   "en": "to follow, in accordance with"
+  }
+ ],
  "phrase": {
-  "zh": "",
-  "pinyin": "",
-  "fr": "",
-  "en": ""
+  "zh": "大家都要遵守交通规则。",
+  "pinyin": "Dàjiā dōu yào zūnshǒu jiāotōng guīzé.",
+  "fr": "Tout le monde doit respecter le code de la route.",
+  "en": "Everyone must obey the traffic rules."
  },
  "generation": {
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:c1d472b787762742bb6dc9b0706ea1d5b05efa8f9d20442dc900eb3c8a96c962",
-  "essais": 1,
+  "empreinte_invite": "sha256:219b3096e82d387ba6b865fcebd9c926ac55c371d8f64130c0603857b888f629",
+  "essais": 2,
   "refus": []
  },
- "statut": "relu"
+ "statut": "a_relire"
 }
