@@ -1,0 +1,444 @@
+{
+ "examen": "yueke-605",
+ "parcours": "hsk",
+ "generation": {
+  "modele": "rédaction manuelle",
+  "api": "session Claude Code (sans API)",
+  "date": "2026-09-30"
+ },
+ "relecture": {
+  "statut": "a_relire",
+  "note": "rédigé le 30 septembre 2026, à relire par le propriétaire (`wenlu examens apercu`) ; une série passe à `relu` sur sa décision, citée ici"
+ },
+ "series": [
+  {
+   "serie": "A",
+   "statut": "a_relire",
+   "supports": [
+    {
+     "id": "s1",
+     "genre": "affiche",
+     "contexte": {
+      "fr": "Une affiche",
+      "en": "A poster"
+     },
+     "lignes": [
+      {
+       "zh": "小猫找新家",
+       "pinyin": "xiǎo māo zhǎo xīn jiā",
+       "fr": "Chatons cherchent une famille",
+       "en": "Kittens looking for a home"
+      },
+      {
+       "zh": "一个月大，很好看。",
+       "pinyin": "yī gè yuè dà hěn hǎo kàn",
+       "fr": "Âgés d'un mois, très mignons.",
+       "en": "One month old, very cute."
+      },
+      {
+       "zh": "不卖，送给爱猫的人。",
+       "pinyin": "bù mài sòng gěi ài māo de rén",
+       "fr": "Pas à vendre : donnés à qui aime les chats.",
+       "en": "Not for sale: free to cat lovers."
+      }
+     ]
+    },
+    {
+     "id": "s2",
+     "genre": "message",
+     "contexte": {
+      "fr": "Un message",
+      "en": "A message"
+     },
+     "lignes": [
+      {
+       "zh": "爸爸，我们到海边了！",
+       "pinyin": "bà ba wǒ men dào hǎi biān le",
+       "fr": "Papa, on est arrivés au bord de la mer !",
+       "en": "Dad, we've reached the seaside!"
+      },
+      {
+       "zh": "这里很凉快，",
+       "pinyin": "zhè li hěn liáng kuai",
+       "fr": "Il fait frais ici,",
+       "en": "It's nice and cool here,"
+      },
+      {
+       "zh": "我们明天下午回家。",
+       "pinyin": "wǒ men míng tiān xià wǔ huí jiā",
+       "fr": "on rentre demain après-midi.",
+       "en": "we'll be home tomorrow afternoon."
+      }
+     ]
+    }
+   ],
+   "questions": [
+    {
+     "type": "comprendre",
+     "support": "s1",
+     "consigne": {
+      "fr": "Quel âge ont les chatons ?",
+      "en": "How old are the kittens?"
+     },
+     "choix": [
+      {
+       "fr": "Une semaine",
+       "en": "One week"
+      },
+      {
+       "fr": "Un mois",
+       "en": "One month"
+      },
+      {
+       "fr": "Deux mois",
+       "en": "Two months"
+      },
+      {
+       "fr": "Un an",
+       "en": "One year"
+      }
+     ],
+     "reponse": 1,
+     "porte": [
+      "猫",
+      "一",
+      "月",
+      "大"
+     ]
+    },
+    {
+     "type": "vrai_faux",
+     "support": "s1",
+     "consigne": {
+      "fr": "Vrai ou faux ?",
+      "en": "True or false?"
+     },
+     "affirmation": {
+      "zh": "买小猫要钱。",
+      "pinyin": "mǎi xiǎo māo yào qián",
+      "fr": "Il faut payer pour avoir un chaton.",
+      "en": "You have to pay for a kitten."
+     },
+     "reponse": false,
+     "porte": [
+      "不",
+      "卖",
+      "送"
+     ]
+    },
+    {
+     "type": "reperer",
+     "support": "s2",
+     "consigne": {
+      "fr": "Touche l'endroit où ils sont.",
+      "en": "Tap the place where they are."
+     },
+     "choix": [
+      "爸爸",
+      "海边",
+      "这里",
+      "明天"
+     ],
+     "reponse": 1,
+     "porte": [
+      "海",
+      "边"
+     ]
+    },
+    {
+     "type": "replique",
+     "support": "s2",
+     "consigne": {
+      "fr": "Que répond papa ?",
+      "en": "What does Dad reply?"
+     },
+     "choix": [
+      {
+       "zh": "我喜欢绿色。",
+       "pinyin": "wǒ xǐ huan lǜ sè",
+       "fr": "J'aime le vert.",
+       "en": "I like green."
+      },
+      {
+       "zh": "这是我的筷子。",
+       "pinyin": "zhè shì wǒ de kuài zi",
+       "fr": "Ce sont mes baguettes.",
+       "en": "These are my chopsticks."
+      },
+      {
+       "zh": "我妈妈怕猫。",
+       "pinyin": "wǒ mā ma pà māo",
+       "fr": "Ma mère a peur des chats.",
+       "en": "My mum is afraid of cats."
+      },
+      {
+       "zh": "好，你们玩得开心！",
+       "pinyin": "hǎo nǐ men wán de kāi xīn",
+       "fr": "D'accord, amusez-vous bien !",
+       "en": "OK, have fun!"
+      }
+     ],
+     "reponse": 3,
+     "porte": [
+      "海",
+      "边",
+      "开",
+      "心"
+     ]
+    },
+    {
+     "type": "sens",
+     "consigne": {
+      "fr": "Que veut dire ce caractère ?",
+      "en": "What does this character mean?"
+     },
+     "objet": {
+      "zh": "满",
+      "pinyin": "mǎn",
+      "fr": "plein",
+      "en": "full"
+     },
+     "choix": [
+      {
+       "fr": "vide",
+       "en": "empty"
+      },
+      {
+       "fr": "lourd",
+       "en": "heavy"
+      },
+      {
+       "fr": "plein",
+       "en": "full"
+      },
+      {
+       "fr": "propre",
+       "en": "clean"
+      }
+     ],
+     "reponse": 2,
+     "porte": [
+      "满"
+     ]
+    }
+   ]
+  },
+  {
+   "serie": "B",
+   "statut": "a_relire",
+   "supports": [
+    {
+     "id": "s1",
+     "genre": "menu",
+     "contexte": {
+      "fr": "Un menu",
+      "en": "A menu"
+     },
+     "lignes": [
+      {
+       "zh": "凉面：十二块",
+       "pinyin": "liáng miàn shí èr kuài",
+       "fr": "Nouilles froides : 12 yuans",
+       "en": "Cold noodles: 12 yuan"
+      },
+      {
+       "zh": "红豆饭：九块",
+       "pinyin": "hóng dòu fàn jiǔ kuài",
+       "fr": "Riz aux haricots rouges : 9 yuans",
+       "en": "Red bean rice: 9 yuan"
+      },
+      {
+       "zh": "米酒：六块",
+       "pinyin": "mǐ jiǔ liù kuài",
+       "fr": "Vin de riz : 6 yuans",
+       "en": "Rice wine: 6 yuan"
+      },
+      {
+       "zh": "筷子请自己拿",
+       "pinyin": "kuài zi qǐng zì jǐ ná",
+       "fr": "Servez-vous en baguettes",
+       "en": "Please help yourself to chopsticks"
+      }
+     ]
+    },
+    {
+     "id": "s2",
+     "genre": "message",
+     "contexte": {
+      "fr": "Un message",
+      "en": "A message"
+     },
+     "lignes": [
+      {
+       "zh": "妈妈，火车离北京还有两个小时，",
+       "pinyin": "mā ma huǒ chē lí běi jīng hái yǒu liǎng gè xiǎo shí",
+       "fr": "Maman, le train est encore à deux heures de Pékin :",
+       "en": "Mum, the train is still two hours from Beijing:"
+      },
+      {
+       "zh": "我晚上九点到。",
+       "pinyin": "wǒ wǎn shang jiǔ diǎn dào",
+       "fr": "j'arrive à neuf heures du soir.",
+       "en": "I'll arrive at nine this evening."
+      },
+      {
+       "zh": "雨很大，你留在家里，",
+       "pinyin": "yǔ hěn dà nǐ liú zài jiā lǐ",
+       "fr": "Il pleut fort : reste à la maison,",
+       "en": "It's pouring: stay at home,"
+      },
+      {
+       "zh": "别来车站接我。",
+       "pinyin": "bié lái chē zhàn jiē wǒ",
+       "fr": "ne viens pas me chercher à la gare.",
+       "en": "don't come to pick me up at the station."
+      }
+     ]
+    }
+   ],
+   "questions": [
+    {
+     "type": "comprendre",
+     "support": "s1",
+     "consigne": {
+      "fr": "Combien coûte le vin de riz ?",
+      "en": "How much is the rice wine?"
+     },
+     "choix": [
+      {
+       "fr": "6 yuans",
+       "en": "6 yuan"
+      },
+      {
+       "fr": "9 yuans",
+       "en": "9 yuan"
+      },
+      {
+       "fr": "12 yuans",
+       "en": "12 yuan"
+      },
+      {
+       "fr": "16 yuans",
+       "en": "16 yuan"
+      }
+     ],
+     "reponse": 0,
+     "porte": [
+      "米",
+      "酒",
+      "六",
+      "块"
+     ]
+    },
+    {
+     "type": "reperer",
+     "support": "s1",
+     "consigne": {
+      "fr": "Touche ce qu'on prend soi-même.",
+      "en": "Tap what you help yourself to."
+     },
+     "choix": [
+      "凉面",
+      "红豆饭",
+      "米酒",
+      "筷子"
+     ],
+     "reponse": 3,
+     "porte": [
+      "筷",
+      "子",
+      "自",
+      "己",
+      "拿"
+     ]
+    },
+    {
+     "type": "vrai_faux",
+     "support": "s2",
+     "consigne": {
+      "fr": "Vrai ou faux ?",
+      "en": "True or false?"
+     },
+     "affirmation": {
+      "zh": "火车还没到北京。",
+      "pinyin": "huǒ chē hái méi dào běi jīng",
+      "fr": "Le train n'est pas encore arrivé à Pékin.",
+      "en": "The train hasn't reached Beijing yet."
+     },
+     "reponse": true,
+     "porte": [
+      "离",
+      "还",
+      "两",
+      "小",
+      "时"
+     ]
+    },
+    {
+     "type": "replique",
+     "support": "s2",
+     "consigne": {
+      "fr": "Que répond sa mère ?",
+      "en": "What does the mother reply?"
+     },
+     "choix": [
+      {
+       "zh": "这首歌很好听。",
+       "pinyin": "zhè shǒu gē hěn hǎo tīng",
+       "fr": "Cette chanson est belle.",
+       "en": "This song sounds nice."
+      },
+      {
+       "zh": "好，我在家等你。",
+       "pinyin": "hǎo wǒ zài jiā děng nǐ",
+       "fr": "D'accord, je t'attends à la maison.",
+       "en": "OK, I'll wait for you at home."
+      },
+      {
+       "zh": "我不怕猫。",
+       "pinyin": "wǒ bù pà māo",
+       "fr": "Je n'ai pas peur des chats.",
+       "en": "I'm not afraid of cats."
+      },
+      {
+       "zh": "这是我的词典。",
+       "pinyin": "zhè shì wǒ de cí diǎn",
+       "fr": "C'est mon dictionnaire.",
+       "en": "This is my dictionary."
+      }
+     ],
+     "reponse": 1,
+     "porte": [
+      "留",
+      "家",
+      "等"
+     ]
+    },
+    {
+     "type": "trou",
+     "consigne": {
+      "fr": "Quel caractère manque dans ce mot ?",
+      "en": "Which character is missing from this word?"
+     },
+     "objet": {
+      "zh": "努力",
+      "pinyin": "nǔ lì",
+      "fr": "faire des efforts",
+      "en": "to make an effort"
+     },
+     "trou": 0,
+     "choix": [
+      "好",
+      "努",
+      "妈",
+      "她"
+     ],
+     "reponse": 1,
+     "porte": [
+      "努"
+     ]
+    }
+   ]
+  }
+ ]
+}

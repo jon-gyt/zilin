@@ -1,0 +1,423 @@
+{
+ "examen": "yueke-605",
+ "parcours": "lire",
+ "generation": {
+  "modele": "rédaction manuelle",
+  "api": "session Claude Code (sans API)",
+  "date": "2026-09-30"
+ },
+ "relecture": {
+  "statut": "a_relire",
+  "note": "rédigé le 30 septembre 2026, à relire par le propriétaire (`wenlu examens apercu`) ; une série passe à `relu` sur sa décision, citée ici"
+ },
+ "series": [
+  {
+   "serie": "A",
+   "statut": "a_relire",
+   "supports": [
+    {
+     "id": "s1",
+     "genre": "message",
+     "contexte": {
+      "fr": "Un message",
+      "en": "A message"
+     },
+     "lignes": [
+      {
+       "zh": "哥哥，今天下午你忙吗？",
+       "pinyin": "gē ge jīn tiān xià wǔ nǐ máng ma",
+       "fr": "Grand frère, tu es occupé cet après-midi ?",
+       "en": "Big brother, are you busy this afternoon?"
+      },
+      {
+       "zh": "我们去打篮球吧！",
+       "pinyin": "wǒ men qù dǎ lán qiú ba",
+       "fr": "Allons jouer au basket !",
+       "en": "Let's go and play basketball!"
+      },
+      {
+       "zh": "四点在学校门口见。",
+       "pinyin": "sì diǎn zài xué xiào mén kǒu jiàn",
+       "fr": "Rendez-vous à quatre heures devant l'école.",
+       "en": "See you at four outside the school."
+      }
+     ]
+    },
+    {
+     "id": "s2",
+     "genre": "menu",
+     "contexte": {
+      "fr": "Un menu",
+      "en": "A menu"
+     },
+     "lignes": [
+      {
+       "zh": "凉面：十块",
+       "pinyin": "liáng miàn shí kuài",
+       "fr": "Nouilles froides : 10 yuans",
+       "en": "Cold noodles: 10 yuan"
+      },
+      {
+       "zh": "豆花：五块",
+       "pinyin": "dòu huā wǔ kuài",
+       "fr": "Tofu soyeux : 5 yuans",
+       "en": "Tofu pudding: 5 yuan"
+      },
+      {
+       "zh": "红豆饭：八块",
+       "pinyin": "hóng dòu fàn bā kuài",
+       "fr": "Riz aux haricots rouges : 8 yuans",
+       "en": "Red bean rice: 8 yuan"
+      },
+      {
+       "zh": "茶：不要钱",
+       "pinyin": "chá bù yào qián",
+       "fr": "Thé : gratuit",
+       "en": "Tea: free"
+      }
+     ]
+    }
+   ],
+   "questions": [
+    {
+     "type": "comprendre",
+     "support": "s1",
+     "consigne": {
+      "fr": "Que veut-il faire ?",
+      "en": "What does he want to do?"
+     },
+     "choix": [
+      {
+       "fr": "Jouer au basket",
+       "en": "Play basketball"
+      },
+      {
+       "fr": "Jouer au tennis",
+       "en": "Play tennis"
+      },
+      {
+       "fr": "Aller nager",
+       "en": "Go swimming"
+      },
+      {
+       "fr": "Aller au cinéma",
+       "en": "Go to the cinema"
+      }
+     ],
+     "reponse": 0,
+     "porte": [
+      "篮",
+      "球"
+     ]
+    },
+    {
+     "type": "replique",
+     "support": "s1",
+     "consigne": {
+      "fr": "Que répond son frère ?",
+      "en": "What does his brother reply?"
+     },
+     "choix": [
+      {
+       "zh": "石头很重。",
+       "pinyin": "shí tou hěn zhòng",
+       "fr": "Les pierres, c'est lourd.",
+       "en": "Stones are heavy."
+      },
+      {
+       "zh": "学校门口有一辆车。",
+       "pinyin": "xué xiào mén kǒu yǒu yī liàng chē",
+       "fr": "Il y a une voiture devant l'école.",
+       "en": "There's a car outside the school."
+      },
+      {
+       "zh": "好，我也喜欢打篮球！",
+       "pinyin": "hǎo wǒ yě xǐ huan dǎ lán qiú",
+       "fr": "D'accord, moi aussi j'aime le basket !",
+       "en": "OK, I like basketball too!"
+      },
+      {
+       "zh": "我的狗很小。",
+       "pinyin": "wǒ de gǒu hěn xiǎo",
+       "fr": "Mon chien est tout petit.",
+       "en": "My dog is very small."
+      }
+     ],
+     "reponse": 2,
+     "porte": [
+      "篮",
+      "球"
+     ]
+    },
+    {
+     "type": "reperer",
+     "support": "s2",
+     "consigne": {
+      "fr": "Touche le plat à cinq yuans.",
+      "en": "Tap the five-yuan dish."
+     },
+     "choix": [
+      "凉面",
+      "豆花",
+      "红豆饭",
+      "茶"
+     ],
+     "reponse": 1,
+     "porte": [
+      "豆",
+      "花",
+      "五"
+     ]
+    },
+    {
+     "type": "vrai_faux",
+     "support": "s2",
+     "consigne": {
+      "fr": "Vrai ou faux ?",
+      "en": "True or false?"
+     },
+     "affirmation": {
+      "zh": "凉面比红豆饭贵。",
+      "pinyin": "liáng miàn bǐ hóng dòu fàn guì",
+      "fr": "Les nouilles froides coûtent plus cher que le riz aux haricots rouges.",
+      "en": "The cold noodles cost more than the red bean rice."
+     },
+     "reponse": true,
+     "porte": [
+      "凉",
+      "面",
+      "十",
+      "豆",
+      "八"
+     ]
+    },
+    {
+     "type": "sens",
+     "consigne": {
+      "fr": "Que veut dire ce caractère ?",
+      "en": "What does this character mean?"
+     },
+     "objet": {
+      "zh": "短",
+      "pinyin": "duǎn",
+      "fr": "court",
+      "en": "short"
+     },
+     "choix": [
+      {
+       "fr": "long",
+       "en": "long"
+      },
+      {
+       "fr": "court",
+       "en": "short"
+      },
+      {
+       "fr": "haut",
+       "en": "tall"
+      },
+      {
+       "fr": "lourd",
+       "en": "heavy"
+      }
+     ],
+     "reponse": 1,
+     "porte": [
+      "短"
+     ]
+    }
+   ]
+  },
+  {
+   "serie": "B",
+   "statut": "a_relire",
+   "supports": [
+    {
+     "id": "s1",
+     "genre": "note",
+     "contexte": {
+      "fr": "Une page d'agenda",
+      "en": "A diary page"
+     },
+     "lignes": [
+      {
+       "zh": "星期六",
+       "pinyin": "xīng qī liù",
+       "fr": "Samedi",
+       "en": "Saturday"
+      },
+      {
+       "zh": "上午：练习写汉字",
+       "pinyin": "shàng wǔ liàn xí xiě hàn zì",
+       "fr": "Matin : s'exercer à écrire des caractères",
+       "en": "Morning: practise writing characters"
+      },
+      {
+       "zh": "晚上：看月亮",
+       "pinyin": "wǎn shang kàn yuè liang",
+       "fr": "Soir : regarder la lune",
+       "en": "Evening: look at the moon"
+      }
+     ]
+    },
+    {
+     "id": "s2",
+     "genre": "message",
+     "contexte": {
+      "fr": "Un message",
+      "en": "A message"
+     },
+     "lignes": [
+      {
+       "zh": "小明，明天是春节，",
+       "pinyin": "xiǎo míng míng tiān shì chūn jié",
+       "fr": "Xiaoming, demain c'est la fête du Printemps :",
+       "en": "Xiaoming, tomorrow is Spring Festival:"
+      },
+      {
+       "zh": "来我家吃饺子吧！",
+       "pinyin": "lái wǒ jiā chī jiǎo zi ba",
+       "fr": "viens manger des raviolis chez nous !",
+       "en": "come and have dumplings at our place!"
+      }
+     ]
+    }
+   ],
+   "questions": [
+    {
+     "type": "comprendre",
+     "support": "s1",
+     "consigne": {
+      "fr": "Que fera-t-il le soir ?",
+      "en": "What will he do in the evening?"
+     },
+     "choix": [
+      {
+       "fr": "Faire ses devoirs",
+       "en": "Do his homework"
+      },
+      {
+       "fr": "Regarder la lune",
+       "en": "Look at the moon"
+      },
+      {
+       "fr": "Regarder un film",
+       "en": "Watch a film"
+      },
+      {
+       "fr": "Jouer au basket",
+       "en": "Play basketball"
+      }
+     ],
+     "reponse": 1,
+     "porte": [
+      "看",
+      "月",
+      "亮"
+     ]
+    },
+    {
+     "type": "vrai_faux",
+     "support": "s1",
+     "consigne": {
+      "fr": "Vrai ou faux ?",
+      "en": "True or false?"
+     },
+     "affirmation": {
+      "zh": "星期六下午练习写汉字。",
+      "pinyin": "xīng qī liù xià wǔ liàn xí xiě hàn zì",
+      "fr": "Samedi après-midi, il s'exerce à écrire des caractères.",
+      "en": "On Saturday afternoon he practises writing characters."
+     },
+     "reponse": false,
+     "porte": [
+      "上",
+      "午",
+      "练"
+     ]
+    },
+    {
+     "type": "reperer",
+     "support": "s2",
+     "consigne": {
+      "fr": "Touche le nom de la fête.",
+      "en": "Tap the name of the festival."
+     },
+     "choix": [
+      "小明",
+      "明天",
+      "春节",
+      "饺子"
+     ],
+     "reponse": 2,
+     "porte": [
+      "春",
+      "节"
+     ]
+    },
+    {
+     "type": "replique",
+     "support": "s2",
+     "consigne": {
+      "fr": "Que répond Xiaoming ?",
+      "en": "What does Xiaoming reply?"
+     },
+     "choix": [
+      {
+       "zh": "这是我的蓝色大衣。",
+       "pinyin": "zhè shì wǒ de lán sè dà yī",
+       "fr": "C'est mon manteau bleu.",
+       "en": "This is my blue coat."
+      },
+      {
+       "zh": "他在门口喊我。",
+       "pinyin": "tā zài mén kǒu hǎn wǒ",
+       "fr": "Il m'appelle devant la porte.",
+       "en": "He's calling me at the door."
+      },
+      {
+       "zh": "妹妹哭了。",
+       "pinyin": "mèi mei kū le",
+       "fr": "Ma petite sœur a pleuré.",
+       "en": "My little sister cried."
+      },
+      {
+       "zh": "好，我一定来！",
+       "pinyin": "hǎo wǒ yī dìng lái",
+       "fr": "D'accord, je viendrai sans faute !",
+       "en": "OK, I'll definitely come!"
+      }
+     ],
+     "reponse": 3,
+     "porte": [
+      "节",
+      "来"
+     ]
+    },
+    {
+     "type": "caractere",
+     "consigne": {
+      "fr": "Quel caractère a ce sens ?",
+      "en": "Which character has this meaning?"
+     },
+     "objet": {
+      "zh": "草",
+      "pinyin": "cǎo",
+      "fr": "herbe",
+      "en": "grass"
+     },
+     "choix": [
+      "早",
+      "草",
+      "菜",
+      "花"
+     ],
+     "reponse": 1,
+     "porte": [
+      "草"
+     ]
+    }
+   ]
+  }
+ ]
+}
