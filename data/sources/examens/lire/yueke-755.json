@@ -1,0 +1,636 @@
+{
+ "examen": "yueke-755",
+ "parcours": "lire",
+ "generation": {
+  "modele": "rédaction manuelle",
+  "api": "session Claude Code (sans API)",
+  "date": "2026-09-30"
+ },
+ "relecture": {
+  "statut": "a_relire",
+  "note": "rédigé le 30 septembre 2026, à relire par le propriétaire (`wenlu examens apercu`) ; une série passe à `relu` sur sa décision, citée ici"
+ },
+ "series": [
+  {
+   "serie": "A",
+   "statut": "a_relire",
+   "supports": [
+    {
+     "id": "s1",
+     "genre": "affiche",
+     "contexte": {
+      "fr": "Une affiche",
+      "en": "A poster"
+     },
+     "lignes": [
+      {
+       "zh": "西山公园",
+       "pinyin": "xī shān gōng yuán",
+       "fr": "Parc de Xishan",
+       "en": "Xishan Park"
+      },
+      {
+       "zh": "欢迎您来！",
+       "pinyin": "huān yíng nín lái",
+       "fr": "Bienvenue !",
+       "en": "Welcome!"
+      },
+      {
+       "zh": "开园：早上六点到晚上十点",
+       "pinyin": "kāi yuán zǎo shang liù diǎn dào wǎn shang shí diǎn",
+       "fr": "Ouvert de 6 h à 22 h",
+       "en": "Open 6 am to 10 pm"
+      },
+      {
+       "zh": "园里不能骑车",
+       "pinyin": "yuán lǐ bù néng qí chē",
+       "fr": "Vélos interdits dans l'enceinte",
+       "en": "No cycling inside"
+      }
+     ],
+     "glose": [
+      {
+       "zh": "公园",
+       "pinyin": "gōng yuán",
+       "fr": "parc",
+       "en": "park"
+      },
+      {
+       "zh": "欢迎",
+       "pinyin": "huān yíng",
+       "fr": "bienvenue",
+       "en": "welcome"
+      },
+      {
+       "zh": "开园",
+       "pinyin": "kāi yuán",
+       "fr": "ouverture (du parc)",
+       "en": "opening hours"
+      },
+      {
+       "zh": "六点",
+       "pinyin": "liù diǎn",
+       "fr": "six heures",
+       "en": "six o'clock"
+      },
+      {
+       "zh": "园里",
+       "pinyin": "yuán lǐ",
+       "fr": "dans le parc",
+       "en": "inside the park"
+      },
+      {
+       "zh": "骑车",
+       "pinyin": "qí chē",
+       "fr": "aller à vélo",
+       "en": "to ride a bike"
+      },
+      {
+       "zh": "里",
+       "pinyin": "lǐ",
+       "fr": "dans",
+       "en": "inside"
+      }
+     ]
+    },
+    {
+     "id": "s2",
+     "genre": "message",
+     "contexte": {
+      "fr": "Un message",
+      "en": "A message"
+     },
+     "lignes": [
+      {
+       "zh": "这个周末咱们去看电影吧！",
+       "pinyin": "zhè ge zhōu mò zán men qù kàn diàn yǐng ba",
+       "fr": "Ce week-end, allons au cinéma !",
+       "en": "Let's go to the cinema this weekend!"
+      },
+      {
+       "zh": "咱们七点半在电影院门口见。",
+       "pinyin": "zán men qī diǎn bàn zài diàn yǐng yuàn mén kǒu jiàn",
+       "fr": "Rendez-vous à sept heures et demie devant le cinéma.",
+       "en": "Let's meet at half past seven outside the cinema."
+      },
+      {
+       "zh": "票我已经买好了。",
+       "pinyin": "piào wǒ yǐ jīng mǎi hǎo le",
+       "fr": "J'ai déjà pris les places.",
+       "en": "I've already got the tickets."
+      }
+     ],
+     "glose": [
+      {
+       "zh": "这个",
+       "pinyin": "zhè ge",
+       "fr": "ce, celui-ci",
+       "en": "this"
+      },
+      {
+       "zh": "周末",
+       "pinyin": "zhōu mò",
+       "fr": "week-end",
+       "en": "weekend"
+      },
+      {
+       "zh": "咱们",
+       "pinyin": "zán men",
+       "fr": "nous (toi et moi)",
+       "en": "we (you and I)"
+      },
+      {
+       "zh": "看电影",
+       "pinyin": "kàn diàn yǐng",
+       "fr": "aller au cinéma",
+       "en": "to see a film"
+      },
+      {
+       "zh": "七点半",
+       "pinyin": "qī diǎn bàn",
+       "fr": "sept heures et demie",
+       "en": "half past seven"
+      },
+      {
+       "zh": "电影院",
+       "pinyin": "diàn yǐng yuàn",
+       "fr": "cinéma",
+       "en": "cinema"
+      },
+      {
+       "zh": "已经",
+       "pinyin": "yǐ jīng",
+       "fr": "déjà",
+       "en": "already"
+      },
+      {
+       "zh": "买好了",
+       "pinyin": "mǎi hǎo le",
+       "fr": "avoir acheté",
+       "en": "to have bought"
+      }
+     ]
+    }
+   ],
+   "questions": [
+    {
+     "type": "comprendre",
+     "support": "s1",
+     "consigne": {
+      "fr": "À quelle heure ferme le parc ?",
+      "en": "What time does the park close?"
+     },
+     "choix": [
+      {
+       "fr": "À six heures du matin",
+       "en": "At 6 am"
+      },
+      {
+       "fr": "À dix heures du matin",
+       "en": "At 10 am"
+      },
+      {
+       "fr": "À six heures du soir",
+       "en": "At 6 pm"
+      },
+      {
+       "fr": "À dix heures du soir",
+       "en": "At 10 pm"
+      }
+     ],
+     "reponse": 3,
+     "porte": [
+      "园",
+      "晚",
+      "十",
+      "点"
+     ]
+    },
+    {
+     "type": "vrai_faux",
+     "support": "s1",
+     "consigne": {
+      "fr": "Vrai ou faux ?",
+      "en": "True or false?"
+     },
+     "affirmation": {
+      "zh": "公园里可以骑车。",
+      "pinyin": "gōng yuán lǐ kě yǐ qí chē",
+      "fr": "On peut faire du vélo dans le parc.",
+      "en": "You can cycle in the park."
+     },
+     "reponse": false,
+     "porte": [
+      "园",
+      "不",
+      "能",
+      "骑"
+     ]
+    },
+    {
+     "type": "reperer",
+     "support": "s2",
+     "consigne": {
+      "fr": "Touche le mot qui dit quand ils sortent.",
+      "en": "Tap the word that says when they're going out."
+     },
+     "choix": [
+      "电影院",
+      "咱们",
+      "周末",
+      "票"
+     ],
+     "reponse": 2,
+     "porte": [
+      "周",
+      "末"
+     ]
+    },
+    {
+     "type": "comprendre",
+     "support": "s2",
+     "consigne": {
+      "fr": "Où se retrouvent-ils ?",
+      "en": "Where are they meeting?"
+     },
+     "choix": [
+      {
+       "fr": "Devant la gare",
+       "en": "Outside the station"
+      },
+      {
+       "fr": "Devant le cinéma",
+       "en": "Outside the cinema"
+      },
+      {
+       "fr": "À l'entrée du parc",
+       "en": "At the park gate"
+      },
+      {
+       "fr": "Chez un ami",
+       "en": "At a friend's"
+      }
+     ],
+     "reponse": 1,
+     "porte": [
+      "咱",
+      "电",
+      "影",
+      "院",
+      "门",
+      "口"
+     ]
+    },
+    {
+     "type": "sens",
+     "consigne": {
+      "fr": "Que veut dire ce caractère ?",
+      "en": "What does this character mean?"
+     },
+     "objet": {
+      "zh": "药",
+      "pinyin": "yào",
+      "fr": "médicament",
+      "en": "medicine"
+     },
+     "choix": [
+      {
+       "fr": "fruit",
+       "en": "fruit"
+      },
+      {
+       "fr": "boisson",
+       "en": "drink"
+      },
+      {
+       "fr": "médicament",
+       "en": "medicine"
+      },
+      {
+       "fr": "journal",
+       "en": "newspaper"
+      }
+     ],
+     "reponse": 2,
+     "porte": [
+      "药"
+     ]
+    }
+   ]
+  },
+  {
+   "serie": "B",
+   "statut": "a_relire",
+   "supports": [
+    {
+     "id": "s1",
+     "genre": "message",
+     "contexte": {
+      "fr": "Un message",
+      "en": "A message"
+     },
+     "lignes": [
+      {
+       "zh": "外面下雪了，很冷。",
+       "pinyin": "wài mian xià xuě le hěn lěng",
+       "fr": "Dehors, il neige, il fait très froid.",
+       "en": "It's snowing outside, it's very cold."
+      },
+      {
+       "zh": "出门必须穿大衣。",
+       "pinyin": "chū mén bì xū chuān dà yī",
+       "fr": "Mets ton manteau pour sortir.",
+       "en": "You must wear your coat to go out."
+      },
+      {
+       "zh": "别忘了吃药！妈妈",
+       "pinyin": "bié wàng le chī yào mā ma",
+       "fr": "N'oublie pas ton médicament ! Maman",
+       "en": "Don't forget your medicine! Mum"
+      }
+     ],
+     "glose": [
+      {
+       "zh": "外面",
+       "pinyin": "wài mian",
+       "fr": "dehors",
+       "en": "outside"
+      },
+      {
+       "zh": "下雪",
+       "pinyin": "xià xuě",
+       "fr": "neiger",
+       "en": "to snow"
+      },
+      {
+       "zh": "必须",
+       "pinyin": "bì xū",
+       "fr": "il faut",
+       "en": "must"
+      },
+      {
+       "zh": "穿",
+       "pinyin": "chuān",
+       "fr": "porter, mettre (un vêtement)",
+       "en": "to wear"
+      },
+      {
+       "zh": "忘了",
+       "pinyin": "wàng le",
+       "fr": "oublier",
+       "en": "to forget"
+      },
+      {
+       "zh": "吃药",
+       "pinyin": "chī yào",
+       "fr": "prendre un médicament",
+       "en": "to take medicine"
+      },
+      {
+       "zh": "知道了",
+       "pinyin": "zhī dao le",
+       "fr": "compris, c'est noté",
+       "en": "got it"
+      },
+      {
+       "zh": "已经",
+       "pinyin": "yǐ jīng",
+       "fr": "déjà",
+       "en": "already"
+      },
+      {
+       "zh": "椅子",
+       "pinyin": "yǐ zi",
+       "fr": "chaise",
+       "en": "chair"
+      },
+      {
+       "zh": "新",
+       "pinyin": "xīn",
+       "fr": "neuf",
+       "en": "new"
+      },
+      {
+       "zh": "眼睛",
+       "pinyin": "yǎn jing",
+       "fr": "yeux",
+       "en": "eyes"
+      },
+      {
+       "zh": "那个",
+       "pinyin": "nà ge",
+       "fr": "ce, celui-là",
+       "en": "that"
+      },
+      {
+       "zh": "公园",
+       "pinyin": "gōng yuán",
+       "fr": "parc",
+       "en": "park"
+      },
+      {
+       "zh": "远",
+       "pinyin": "yuǎn",
+       "fr": "loin",
+       "en": "far"
+      }
+     ]
+    },
+    {
+     "id": "s2",
+     "genre": "calendrier",
+     "contexte": {
+      "fr": "Une page d'agenda",
+      "en": "A diary page"
+     },
+     "lignes": [
+      {
+       "zh": "十二月七日，星期六",
+       "pinyin": "shí èr yuè qī rì xīng qī liù",
+       "fr": "Samedi 7 décembre",
+       "en": "Saturday 7 December"
+      },
+      {
+       "zh": "上午：去银行",
+       "pinyin": "shàng wǔ qù yín háng",
+       "fr": "Matin : banque",
+       "en": "Morning: bank"
+      },
+      {
+       "zh": "下午：帮妈妈洗衣服",
+       "pinyin": "xià wǔ bāng mā ma xǐ yī fu",
+       "fr": "Après-midi : lessive avec maman",
+       "en": "Afternoon: help Mum with the washing"
+      },
+      {
+       "zh": "晚上：英语课",
+       "pinyin": "wǎn shang yīng yǔ kè",
+       "fr": "Soir : cours d'anglais",
+       "en": "Evening: English class"
+      }
+     ],
+     "glose": [
+      {
+       "zh": "七日",
+       "pinyin": "qī rì",
+       "fr": "le 7 (du mois)",
+       "en": "the 7th"
+      },
+      {
+       "zh": "银行",
+       "pinyin": "yín háng",
+       "fr": "banque",
+       "en": "bank"
+      },
+      {
+       "zh": "洗衣服",
+       "pinyin": "xǐ yī fu",
+       "fr": "laver le linge",
+       "en": "to do the washing"
+      },
+      {
+       "zh": "英语课",
+       "pinyin": "yīng yǔ kè",
+       "fr": "cours d'anglais",
+       "en": "English class"
+      }
+     ]
+    }
+   ],
+   "questions": [
+    {
+     "type": "comprendre",
+     "support": "s1",
+     "consigne": {
+      "fr": "Quel temps fait-il dehors ?",
+      "en": "What's the weather like outside?"
+     },
+     "choix": [
+      {
+       "fr": "Il pleut",
+       "en": "It's raining"
+      },
+      {
+       "fr": "Il neige",
+       "en": "It's snowing"
+      },
+      {
+       "fr": "Il fait beau",
+       "en": "It's sunny"
+      },
+      {
+       "fr": "Il y a du vent",
+       "en": "It's windy"
+      }
+     ],
+     "reponse": 1,
+     "porte": [
+      "下",
+      "雪"
+     ]
+    },
+    {
+     "type": "replique",
+     "support": "s1",
+     "consigne": {
+      "fr": "Que réponds-tu ?",
+      "en": "What do you reply?"
+     },
+     "choix": [
+      {
+       "zh": "这是新椅子。",
+       "pinyin": "zhè shì xīn yǐ zi",
+       "fr": "C'est une chaise neuve.",
+       "en": "It's a new chair."
+      },
+      {
+       "zh": "我的眼睛很大。",
+       "pinyin": "wǒ de yǎn jing hěn dà",
+       "fr": "J'ai de grands yeux.",
+       "en": "I have big eyes."
+      },
+      {
+       "zh": "知道了，我已经吃了。",
+       "pinyin": "zhī dao le wǒ yǐ jīng chī le",
+       "fr": "C'est noté, je l'ai déjà pris.",
+       "en": "Got it, I've already taken it."
+      },
+      {
+       "zh": "那个公园很远。",
+       "pinyin": "nà ge gōng yuán hěn yuǎn",
+       "fr": "Ce parc est loin.",
+       "en": "That park is far away."
+      }
+     ],
+     "reponse": 2,
+     "porte": [
+      "药",
+      "吃"
+     ]
+    },
+    {
+     "type": "reperer",
+     "support": "s2",
+     "consigne": {
+      "fr": "Touche l'endroit où il faut aller le matin.",
+      "en": "Tap the place to go to in the morning."
+     },
+     "choix": [
+      "星期六",
+      "银行",
+      "妈妈",
+      "英语课"
+     ],
+     "reponse": 1,
+     "porte": [
+      "银",
+      "行"
+     ]
+    },
+    {
+     "type": "vrai_faux",
+     "support": "s2",
+     "consigne": {
+      "fr": "Vrai ou faux ?",
+      "en": "True or false?"
+     },
+     "affirmation": {
+      "zh": "星期六下午有英语课。",
+      "pinyin": "xīng qī liù xià wǔ yǒu yīng yǔ kè",
+      "fr": "Il y a cours d'anglais samedi après-midi.",
+      "en": "There's an English class on Saturday afternoon."
+     },
+     "reponse": false,
+     "porte": [
+      "英",
+      "晚"
+     ]
+    },
+    {
+     "type": "trou",
+     "consigne": {
+      "fr": "Quel caractère manque dans ce mot ?",
+      "en": "Which character is missing from this word?"
+     },
+     "objet": {
+      "zh": "颜色",
+      "pinyin": "yán sè",
+      "fr": "couleur",
+      "en": "colour"
+     },
+     "trou": 0,
+     "choix": [
+      "须",
+      "颜",
+      "题",
+      "顾"
+     ],
+     "reponse": 1,
+     "porte": [
+      "颜"
+     ]
+    }
+   ]
+  }
+ ]
+}
