@@ -23,20 +23,33 @@
   "匕": "forme",
   "贝": "sens"
  },
- "mots": [],
+ "mots": [
+  {
+   "hanzi": "百货",
+   "pinyin": "bǎihuò",
+   "fr": "grand magasin, articles divers",
+   "en": "department store, general goods"
+  },
+  {
+   "hanzi": "发货",
+   "pinyin": "fāhuò",
+   "fr": "expédier la marchandise",
+   "en": "to ship goods"
+  }
+ ],
  "phrase": {
-  "zh": "",
-  "pinyin": "",
-  "fr": "",
-  "en": ""
+  "zh": "我们明天发货。",
+  "pinyin": "Wǒmen míngtiān fāhuò.",
+  "fr": "Nous expédions la marchandise demain.",
+  "en": "We ship the goods tomorrow."
  },
  "generation": {
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:dabcead3def295b92b0c66ebf55a94570ff554ea18ef3438bdcf056b2fd04d5c",
-  "essais": 1,
+  "empreinte_invite": "sha256:58e2283e640c497e808ca58e08a908743117dd9e4b968dc6d7fec03824d4d3ea",
+  "essais": 2,
   "refus": []
  },
- "statut": "relu"
+ "statut": "a_relire"
 }

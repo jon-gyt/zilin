@@ -23,20 +23,33 @@
   "勹": "forme",
   "亠": "forme"
  },
- "mots": [],
+ "mots": [
+  {
+   "hanzi": "平均",
+   "pinyin": "píngjūn",
+   "fr": "moyenne, en moyenne",
+   "en": "average, on average"
+  },
+  {
+   "hanzi": "人均",
+   "pinyin": "rénjūn",
+   "fr": "par habitant",
+   "en": "per capita"
+  }
+ ],
  "phrase": {
-  "zh": "",
-  "pinyin": "",
-  "fr": "",
-  "en": ""
+  "zh": "他们每天平均工作八小时。",
+  "pinyin": "Tāmen měi tiān píngjūn gōngzuò bā xiǎoshí.",
+  "fr": "Ils travaillent en moyenne huit heures par jour.",
+  "en": "They work eight hours a day on average."
  },
  "generation": {
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:c6b4de9f99c803686355dc15b66019fafdc7cbe438fd5fcd728df907700ed67c",
-  "essais": 1,
+  "empreinte_invite": "sha256:379f3923fd045d56f81cd497647cac8d404a091b10fdd2855022cdf1d8a93035",
+  "essais": 2,
   "refus": []
  },
- "statut": "relu"
+ "statut": "a_relire"
 }
