@@ -27,20 +27,33 @@
   "八": "forme",
   "水": "forme"
  },
- "mots": [],
+ "mots": [
+  {
+   "hanzi": "瀑布",
+   "pinyin": "pùbù",
+   "fr": "cascade, chute d'eau",
+   "en": "waterfall"
+  },
+  {
+   "hanzi": "飞瀑",
+   "pinyin": "fēipù",
+   "fr": "cascade jaillissante",
+   "en": "cascading waterfall"
+  }
+ ],
  "phrase": {
-  "zh": "",
-  "pinyin": "",
-  "fr": "",
-  "en": ""
+  "zh": "山里有一个很高的瀑布。",
+  "pinyin": "Shān li yǒu yī gè hěn gāo de pùbù.",
+  "fr": "Il y a une très haute cascade dans la montagne.",
+  "en": "There is a very tall waterfall in the mountains."
  },
  "generation": {
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:caca105e67ed4e501591dd5f84cf2ccd87de9a6b74f34de57c45062d9414accf",
-  "essais": 1,
+  "empreinte_invite": "sha256:cc8e22f50e1c9bf15eee3aa28c1bb1acd6763c94e5ba5b6cf02a8c388889a942",
+  "essais": 2,
   "refus": []
  },
- "statut": "relu"
+ "statut": "a_relire"
 }

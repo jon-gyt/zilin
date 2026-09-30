@@ -21,20 +21,33 @@
   "𠂉": "forme",
   "乙": "forme"
  },
- "mots": [],
+ "mots": [
+  {
+   "hanzi": "乞丐",
+   "pinyin": "qǐgài",
+   "fr": "mendiant",
+   "en": "beggar"
+  },
+  {
+   "hanzi": "乞求",
+   "pinyin": "qǐqiú",
+   "fr": "implorer, supplier",
+   "en": "to beg for, to plead"
+  }
+ ],
  "phrase": {
-  "zh": "",
-  "pinyin": "",
-  "fr": "",
-  "en": ""
+  "zh": "路边坐着一个乞丐。",
+  "pinyin": "Lù biān zuò zhe yī gè qǐgài.",
+  "fr": "Un mendiant est assis au bord de la route.",
+  "en": "A beggar is sitting by the roadside."
  },
  "generation": {
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:026fc47aab430dc2d5dbf628a25b1cd29539dacf0d1264de395b4e672947fdd3",
-  "essais": 1,
+  "empreinte_invite": "sha256:58f79958b3cac77008c4993d6b25ca3a193e341334ace553d25f180448a5401f",
+  "essais": 2,
   "refus": []
  },
- "statut": "relu"
+ "statut": "a_relire"
 }
