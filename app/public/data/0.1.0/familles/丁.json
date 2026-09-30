@@ -3,7 +3,7 @@
  "license": "propriétaire",
  "source": "décomposition GF 0014-2009 réconciliée par le pipeline wenlu ; pinyin d'Unihan (kMandarin) ; textes rédigés pour l'app",
  "source_url": "https://github.com/jon-gyt/zilin",
- "modified": "2026-09-28 : assemblé par `wenlu export`",
+ "modified": "2026-09-30 : assemblé par `wenlu export`",
  "norme": "GF 0014-2009",
  "racine": {
   "c": "丁",
@@ -51,7 +51,9 @@
     "en": "I can come tomorrow.",
     "audio": null
    },
-   "niveaux": {},
+   "niveaux": {
+    "hsk": 7
+   },
    "traits": [],
    "medianes": [],
    "audio": null,
@@ -110,7 +112,8 @@
     "audio": null
    },
    "niveaux": {
-    "seuil": 255
+    "seuil": 255,
+    "hsk": 2
    },
    "traits": [],
    "medianes": [],
@@ -196,10 +199,7 @@
     "口",
     "欠"
    ],
-   "nouveau": [
-    0,
-    2
-   ],
+   "nouveau": [],
    "sources": [
     "cjk-decomp",
     "surcharge"
@@ -215,6 +215,39 @@
    "phrase": null,
    "niveaux": {
     "hsk": 1
+   },
+   "traits": [],
+   "medianes": [],
+   "audio": null,
+   "statut": "sans_fiche"
+  },
+  {
+   "c": "顶",
+   "pinyin": "dǐng",
+   "lectures": [
+    "dǐng"
+   ],
+   "fr": "",
+   "en": "",
+   "parts": [
+    "丁",
+    "页"
+   ],
+   "nouveau": [],
+   "sources": [
+    "cjk-decomp"
+   ],
+   "role": null,
+   "roles": {},
+   "origine_fr": "",
+   "origine_en": "",
+   "etiquette": null,
+   "memo_fr": null,
+   "memo_en": null,
+   "mots": [],
+   "phrase": null,
+   "niveaux": {
+    "hsk": 4
    },
    "traits": [],
    "medianes": [],

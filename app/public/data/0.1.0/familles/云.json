@@ -3,7 +3,7 @@
  "license": "propriétaire",
  "source": "décomposition GF 0014-2009 réconciliée par le pipeline wenlu ; pinyin d'Unihan (kMandarin) ; textes rédigés pour l'app",
  "source_url": "https://github.com/jon-gyt/zilin",
- "modified": "2026-09-28 : assemblé par `wenlu export`",
+ "modified": "2026-09-30 : assemblé par `wenlu export`",
  "norme": "GF 0014-2009",
  "racine": {
   "c": "云",
@@ -57,7 +57,9 @@
     "en": "It's cloudy today.",
     "audio": null
    },
-   "niveaux": {},
+   "niveaux": {
+    "hsk": 2
+   },
    "traits": [],
    "medianes": [],
    "audio": null,
@@ -75,9 +77,7 @@
     "云",
     "力"
    ],
-   "nouveau": [
-    0
-   ],
+   "nouveau": [],
    "sources": [
     "cjk-decomp"
    ],
@@ -92,6 +92,39 @@
    "phrase": null,
    "niveaux": {
     "hsk": 1
+   },
+   "traits": [],
+   "medianes": [],
+   "audio": null,
+   "statut": "sans_fiche"
+  },
+  {
+   "c": "魂",
+   "pinyin": "hún",
+   "lectures": [
+    "hún"
+   ],
+   "fr": "",
+   "en": "",
+   "parts": [
+    "云",
+    "鬼"
+   ],
+   "nouveau": [],
+   "sources": [
+    "cjk-decomp"
+   ],
+   "role": null,
+   "roles": {},
+   "origine_fr": "",
+   "origine_en": "",
+   "etiquette": null,
+   "memo_fr": null,
+   "memo_en": null,
+   "mots": [],
+   "phrase": null,
+   "niveaux": {
+    "hsk": 7
    },
    "traits": [],
    "medianes": [],
