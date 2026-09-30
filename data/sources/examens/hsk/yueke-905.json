@@ -1,0 +1,476 @@
+{
+ "examen": "yueke-905",
+ "parcours": "hsk",
+ "generation": {
+  "modele": "rédaction manuelle",
+  "api": "session Claude Code (sans API)",
+  "date": "2026-09-30"
+ },
+ "relecture": {
+  "statut": "a_relire",
+  "note": "rédigé le 30 septembre 2026, à relire par le propriétaire (`wenlu examens apercu hsk yueke-905`) ; une série passe à `relu` sur sa décision, citée ici"
+ },
+ "series": [
+  {
+   "serie": "A",
+   "statut": "a_relire",
+   "supports": [
+    {
+     "id": "s1",
+     "genre": "message",
+     "contexte": {
+      "fr": "Un message",
+      "en": "A message"
+     },
+     "lignes": [
+      {
+       "zh": "李老师，这个星期六我结婚，",
+       "pinyin": "lǐ lǎo shī zhè gè xīng qī liù wǒ jié hūn",
+       "fr": "Monsieur Li, je me marie ce samedi :",
+       "en": "Mr Li, I'm getting married this Saturday:"
+      },
+      {
+       "zh": "想请您来吃饭。",
+       "pinyin": "xiǎng qǐng nín lái chī fàn",
+       "fr": "je voudrais vous inviter au repas.",
+       "en": "I'd like to invite you to the meal."
+      },
+      {
+       "zh": "地方在建国饭店。",
+       "pinyin": "dì fang zài jiàn guó fàn diàn",
+       "fr": "C'est au restaurant Jianguo.",
+       "en": "It's at the Jianguo restaurant."
+      }
+     ],
+     "glose": [
+      {
+       "zh": "建国饭店",
+       "pinyin": "jiàn guó fàn diàn",
+       "fr": "restaurant Jianguo",
+       "en": "Jianguo restaurant"
+      }
+     ]
+    },
+    {
+     "id": "s2",
+     "genre": "etal",
+     "contexte": {
+      "fr": "Un étal",
+      "en": "A stall"
+     },
+     "lignes": [
+      {
+       "zh": "裤子：一百二十元一条",
+       "pinyin": "kù zi yī bǎi èr shí yuán yī tiáo",
+       "fr": "Pantalons : 120 yuans pièce",
+       "en": "Trousers: 120 yuan each"
+      },
+      {
+       "zh": "毛衣：九十元一件",
+       "pinyin": "máo yī jiǔ shí yuán yī jiàn",
+       "fr": "Pulls : 90 yuans pièce",
+       "en": "Jumpers: 90 yuan each"
+      },
+      {
+       "zh": "买两件，少十元。",
+       "pinyin": "mǎi liǎng jiàn shǎo shí yuán",
+       "fr": "Pour deux achetés, 10 yuans de moins.",
+       "en": "Buy two, get 10 yuan off."
+      }
+     ],
+     "glose": [
+      {
+       "zh": "一百二十元",
+       "pinyin": "yī bǎi èr shí yuán",
+       "fr": "120 yuans",
+       "en": "120 yuan"
+      },
+      {
+       "zh": "九十元",
+       "pinyin": "jiǔ shí yuán",
+       "fr": "90 yuans",
+       "en": "90 yuan"
+      },
+      {
+       "zh": "十元",
+       "pinyin": "shí yuán",
+       "fr": "10 yuans",
+       "en": "10 yuan"
+      }
+     ]
+    }
+   ],
+   "questions": [
+    {
+     "type": "comprendre",
+     "support": "s1",
+     "consigne": {
+      "fr": "Pourquoi écrit-on à M. Li ?",
+      "en": "Why is someone writing to Mr Li?"
+     },
+     "choix": [
+      {
+       "fr": "Pour un voyage",
+       "en": "For a trip"
+      },
+      {
+       "fr": "Pour un mariage",
+       "en": "For a wedding"
+      },
+      {
+       "fr": "Pour un examen",
+       "en": "For an exam"
+      },
+      {
+       "fr": "Pour une maladie",
+       "en": "For an illness"
+      }
+     ],
+     "reponse": 1,
+     "porte": [
+      "结",
+      "婚"
+     ]
+    },
+    {
+     "type": "reperer",
+     "support": "s1",
+     "consigne": {
+      "fr": "Touche le lieu du repas.",
+      "en": "Tap the place of the meal."
+     },
+     "choix": [
+      "李老师",
+      "星期六",
+      "吃饭",
+      "建国饭店"
+     ],
+     "reponse": 3,
+     "porte": [
+      "建",
+      "国",
+      "饭",
+      "店"
+     ]
+    },
+    {
+     "type": "vrai_faux",
+     "support": "s1",
+     "consigne": {
+      "fr": "Vrai ou faux ?",
+      "en": "True or false?"
+     },
+     "affirmation": {
+      "zh": "他星期天结婚。",
+      "pinyin": "tā xīng qī tiān jié hūn",
+      "fr": "Il se marie dimanche.",
+      "en": "He's getting married on Sunday."
+     },
+     "reponse": false,
+     "porte": [
+      "星",
+      "期",
+      "六",
+      "婚"
+     ]
+    },
+    {
+     "type": "comprendre",
+     "support": "s2",
+     "consigne": {
+      "fr": "Combien coûte un pantalon ?",
+      "en": "How much is a pair of trousers?"
+     },
+     "choix": [
+      {
+       "fr": "90 yuans",
+       "en": "90 yuan"
+      },
+      {
+       "fr": "100 yuans",
+       "en": "100 yuan"
+      },
+      {
+       "fr": "12 yuans",
+       "en": "12 yuan"
+      },
+      {
+       "fr": "120 yuans",
+       "en": "120 yuan"
+      }
+     ],
+     "reponse": 3,
+     "porte": [
+      "裤",
+      "子",
+      "一",
+      "百",
+      "二",
+      "十",
+      "元"
+     ]
+    },
+    {
+     "type": "trou",
+     "consigne": {
+      "fr": "Quel caractère manque dans ce mot ?",
+      "en": "Which character is missing from this word?"
+     },
+     "objet": {
+      "zh": "情况",
+      "pinyin": "qíng kuàng",
+      "fr": "situation",
+      "en": "situation"
+     },
+     "trou": 1,
+     "choix": [
+      "冷",
+      "况",
+      "次",
+      "决"
+     ],
+     "reponse": 1,
+     "porte": [
+      "况"
+     ]
+    }
+   ]
+  },
+  {
+   "serie": "B",
+   "statut": "a_relire",
+   "supports": [
+    {
+     "id": "s1",
+     "genre": "note",
+     "contexte": {
+      "fr": "Une note",
+      "en": "A note"
+     },
+     "lignes": [
+      {
+       "zh": "小明，我太困了，",
+       "pinyin": "xiǎo míng wǒ tài kùn le",
+       "fr": "Xiaoming, j'ai trop sommeil :",
+       "en": "Xiaoming, I'm too sleepy:"
+      },
+      {
+       "zh": "先去睡了。",
+       "pinyin": "xiān qù shuì le",
+       "fr": "je vais me coucher.",
+       "en": "I'm off to bed."
+      },
+      {
+       "zh": "咖啡在桌子上，",
+       "pinyin": "kā fēi zài zhuō zi shàng",
+       "fr": "Le café est sur la table,",
+       "en": "The coffee is on the table,"
+      },
+      {
+       "zh": "别忘了喝。",
+       "pinyin": "bié wàng le hē",
+       "fr": "n'oublie pas de le boire.",
+       "en": "don't forget to drink it."
+      }
+     ]
+    },
+    {
+     "id": "s2",
+     "genre": "affiche",
+     "contexte": {
+      "fr": "Une affiche",
+      "en": "A poster"
+     },
+     "lignes": [
+      {
+       "zh": "今晚京剧",
+       "pinyin": "jīn wǎn jīng jù",
+       "fr": "Ce soir, opéra de Pékin",
+       "en": "Peking opera tonight"
+      },
+      {
+       "zh": "时间：七点半",
+       "pinyin": "shí jiān qī diǎn bàn",
+       "fr": "Heure : 19 h 30",
+       "en": "Time: 7.30 pm"
+      },
+      {
+       "zh": "地点：人民剧场",
+       "pinyin": "dì diǎn rén mín jù chǎng",
+       "fr": "Lieu : théâtre du Peuple",
+       "en": "Venue: People's Theatre"
+      },
+      {
+       "zh": "票价：五十元",
+       "pinyin": "piào jià wǔ shí yuán",
+       "fr": "Prix : 50 yuans",
+       "en": "Tickets: 50 yuan"
+      }
+     ],
+     "glose": [
+      {
+       "zh": "五十元",
+       "pinyin": "wǔ shí yuán",
+       "fr": "50 yuans",
+       "en": "50 yuan"
+      },
+      {
+       "zh": "人民剧场",
+       "pinyin": "rén mín jù chǎng",
+       "fr": "théâtre du Peuple",
+       "en": "People's Theatre"
+      }
+     ]
+    }
+   ],
+   "questions": [
+    {
+     "type": "comprendre",
+     "support": "s1",
+     "consigne": {
+      "fr": "Comment va l'auteur de la note ?",
+      "en": "How is the note's writer feeling?"
+     },
+     "choix": [
+      {
+       "fr": "Il a sommeil",
+       "en": "He is sleepy"
+      },
+      {
+       "fr": "Il a faim",
+       "en": "He is hungry"
+      },
+      {
+       "fr": "Il a froid",
+       "en": "He is cold"
+      },
+      {
+       "fr": "Il est malade",
+       "en": "He is ill"
+      }
+     ],
+     "reponse": 0,
+     "porte": [
+      "困",
+      "睡"
+     ]
+    },
+    {
+     "type": "vrai_faux",
+     "support": "s1",
+     "consigne": {
+      "fr": "Vrai ou faux ?",
+      "en": "True or false?"
+     },
+     "affirmation": {
+      "zh": "他让小明喝咖啡。",
+      "pinyin": "tā ràng xiǎo míng hē kā fēi",
+      "fr": "Il demande à Xiaoming de boire le café.",
+      "en": "He tells Xiaoming to drink the coffee."
+     },
+     "reponse": true,
+     "porte": [
+      "咖",
+      "啡",
+      "喝"
+     ]
+    },
+    {
+     "type": "replique",
+     "support": "s1",
+     "consigne": {
+      "fr": "Que répond Xiaoming ?",
+      "en": "What does Xiaoming reply?"
+     },
+     "choix": [
+      {
+       "zh": "我不喜欢这条裤子。",
+       "pinyin": "wǒ bù xǐ huan zhè tiáo kù zi",
+       "fr": "Je n'aime pas ce pantalon.",
+       "en": "I don't like these trousers."
+      },
+      {
+       "zh": "好的，你好好睡吧！",
+       "pinyin": "hǎo de nǐ hǎo hǎo shuì ba",
+       "fr": "D'accord, dors bien !",
+       "en": "OK, sleep well!"
+      },
+      {
+       "zh": "他是哪国人？",
+       "pinyin": "tā shì nǎ guó rén",
+       "fr": "De quel pays est-il ?",
+       "en": "Where is he from?"
+      },
+      {
+       "zh": "今天天气很好。",
+       "pinyin": "jīn tiān tiān qì hěn hǎo",
+       "fr": "Il fait beau aujourd'hui.",
+       "en": "The weather is nice today."
+      }
+     ],
+     "reponse": 1,
+     "porte": [
+      "困",
+      "睡"
+     ]
+    },
+    {
+     "type": "reperer",
+     "support": "s2",
+     "consigne": {
+      "fr": "Touche le lieu du spectacle.",
+      "en": "Tap the venue of the show."
+     },
+     "choix": [
+      "京剧",
+      "七点半",
+      "人民剧场",
+      "五十元"
+     ],
+     "reponse": 2,
+     "porte": [
+      "人",
+      "民",
+      "剧",
+      "场"
+     ]
+    },
+    {
+     "type": "sens",
+     "consigne": {
+      "fr": "Que veut dire ce caractère ?",
+      "en": "What does this character mean?"
+     },
+     "objet": {
+      "zh": "浪",
+      "pinyin": "làng",
+      "fr": "vague",
+      "en": "wave"
+     },
+     "choix": [
+      {
+       "fr": "pluie",
+       "en": "rain"
+      },
+      {
+       "fr": "neige",
+       "en": "snow"
+      },
+      {
+       "fr": "vent",
+       "en": "wind"
+      },
+      {
+       "fr": "vague",
+       "en": "wave"
+      }
+     ],
+     "reponse": 3,
+     "porte": [
+      "浪"
+     ]
+    }
+   ]
+  }
+ ]
+}
