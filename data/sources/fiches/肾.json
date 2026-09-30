@@ -23,20 +23,33 @@
   "又": "forme",
   "月": "sens"
  },
- "mots": [],
+ "mots": [
+  {
+   "hanzi": "肾脏",
+   "pinyin": "shènzàng",
+   "fr": "rein",
+   "en": "kidney"
+  },
+  {
+   "hanzi": "洗肾",
+   "pinyin": "xǐshèn",
+   "fr": "dialyse",
+   "en": "dialysis"
+  }
+ ],
  "phrase": {
-  "zh": "",
-  "pinyin": "",
-  "fr": "",
-  "en": ""
+  "zh": "医生说他的肾有问题。",
+  "pinyin": "Yīshēng shuō tā de shèn yǒu wèntí.",
+  "fr": "Le médecin dit qu'il a un problème aux reins.",
+  "en": "The doctor says he has a kidney problem."
  },
  "generation": {
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:c8ba9a8e84a3bd76972225729bc00b8ae4bbf997d62d3637ecf115874b81899f",
-  "essais": 1,
+  "empreinte_invite": "sha256:e75698fa15d420227664d5f2ec0518499af22a8b6930982ba7ee9aab1e3a407d",
+  "essais": 2,
   "refus": []
  },
- "statut": "relu"
+ "statut": "a_relire"
 }

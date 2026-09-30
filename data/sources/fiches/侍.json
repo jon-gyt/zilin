@@ -23,20 +23,33 @@
   "土": "forme",
   "寸": "forme"
  },
- "mots": [],
+ "mots": [
+  {
+   "hanzi": "服侍",
+   "pinyin": "fúshi",
+   "fr": "servir, prendre soin de",
+   "en": "to attend to, to wait on"
+  },
+  {
+   "hanzi": "侍者",
+   "pinyin": "shìzhě",
+   "fr": "serveur, domestique",
+   "en": "attendant, waiter"
+  }
+ ],
  "phrase": {
-  "zh": "",
-  "pinyin": "",
-  "fr": "",
-  "en": ""
+  "zh": "她每天服侍生病的母亲。",
+  "pinyin": "Tā měi tiān fúshi shēngbìng de mǔqīn.",
+  "fr": "Chaque jour, elle soigne sa mère malade.",
+  "en": "Every day she looks after her sick mother."
  },
  "generation": {
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:905a832c52a3c573687f26599883c7a630708403681f76b221a35646e1151250",
-  "essais": 1,
+  "empreinte_invite": "sha256:dab7b35f81ba46ece5b84675ceeed51e239d1c9b52bc46544a0edb431467a699",
+  "essais": 2,
   "refus": []
  },
- "statut": "relu"
+ "statut": "a_relire"
 }

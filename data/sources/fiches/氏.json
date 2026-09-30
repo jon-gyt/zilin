@@ -19,20 +19,33 @@
  "roles": {
   "氏": "forme"
  },
- "mots": [],
+ "mots": [
+  {
+   "hanzi": "姓氏",
+   "pinyin": "xìngshì",
+   "fr": "nom de famille",
+   "en": "surname"
+  },
+  {
+   "hanzi": "人氏",
+   "pinyin": "rénshì",
+   "fr": "natif de",
+   "en": "native of"
+  }
+ ],
  "phrase": {
-  "zh": "",
-  "pinyin": "",
-  "fr": "",
-  "en": ""
+  "zh": "我不知道他的姓氏。",
+  "pinyin": "Wǒ bù zhīdào tā de xìngshì.",
+  "fr": "Je ne connais pas son nom de famille.",
+  "en": "I don't know his surname."
  },
  "generation": {
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:1495fce32f4fe3b1d2c18d4f69f2e66ed2035a5449a4d22134ab36f13c085914",
-  "essais": 1,
+  "empreinte_invite": "sha256:bf4fb5d76d3780615d762f369010152f0a68b07b902286bca4dc4eaeb3edf6d6",
+  "essais": 2,
   "refus": []
  },
- "statut": "relu"
+ "statut": "a_relire"
 }

@@ -25,20 +25,33 @@
   "乛": "forme",
   "头": "forme"
  },
- "mots": [],
+ "mots": [
+  {
+   "hanzi": "赎回",
+   "pinyin": "shúhuí",
+   "fr": "racheter, récupérer",
+   "en": "to redeem, to buy back"
+  },
+  {
+   "hanzi": "赎罪",
+   "pinyin": "shúzuì",
+   "fr": "expier",
+   "en": "to atone"
+  }
+ ],
  "phrase": {
-  "zh": "",
-  "pinyin": "",
-  "fr": "",
-  "en": ""
+  "zh": "他花了很多钱赎回了那幅画。",
+  "pinyin": "Tā huā le hěn duō qián shúhuí le nà fú huà.",
+  "fr": "Il a dépensé beaucoup d'argent pour racheter ce tableau.",
+  "en": "He spent a lot of money buying that painting back."
  },
  "generation": {
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:7455377a844251237fe57e50763d3dcd60c7071f32c54e81997a695602a3bd44",
-  "essais": 1,
+  "empreinte_invite": "sha256:72206926d04a39fd6c70bf027801d76a3380aa393ec1ae67efd43828c4b1f568",
+  "essais": 2,
   "refus": []
  },
- "statut": "relu"
+ "statut": "a_relire"
 }
