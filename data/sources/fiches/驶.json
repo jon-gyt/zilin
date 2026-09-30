@@ -21,20 +21,33 @@
   "马": "sens",
   "史": "son"
  },
- "mots": [],
+ "mots": [
+  {
+   "hanzi": "驾驶",
+   "pinyin": "jiàshǐ",
+   "fr": "conduire, piloter",
+   "en": "to drive, to pilot"
+  },
+  {
+   "hanzi": "行驶",
+   "pinyin": "xíngshǐ",
+   "fr": "rouler, circuler",
+   "en": "to travel (of a vehicle)"
+  }
+ ],
  "phrase": {
-  "zh": "",
-  "pinyin": "",
-  "fr": "",
-  "en": ""
+  "zh": "火车慢慢驶进了车站。",
+  "pinyin": "Huǒchē mànmàn shǐ jìn le chēzhàn.",
+  "fr": "Le train est entré lentement en gare.",
+  "en": "The train slowly pulled into the station."
  },
  "generation": {
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:2211aa4a25d80e18673a02df18f56f506f714ee9e304b5cc16962d21ae8d8245",
-  "essais": 1,
+  "empreinte_invite": "sha256:da6c10bcc7a54823f1aacd7ed2ae3b202953261063dd2ff0ab131892f2046997",
+  "essais": 2,
   "refus": []
  },
- "statut": "relu"
+ "statut": "a_relire"
 }

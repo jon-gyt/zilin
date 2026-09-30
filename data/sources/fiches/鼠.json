@@ -19,20 +19,33 @@
  "roles": {
   "鼠": "forme"
  },
- "mots": [],
+ "mots": [
+  {
+   "hanzi": "老鼠",
+   "pinyin": "lǎoshǔ",
+   "fr": "souris, rat",
+   "en": "mouse, rat"
+  },
+  {
+   "hanzi": "鼠标",
+   "pinyin": "shǔbiāo",
+   "fr": "souris (d'ordinateur)",
+   "en": "computer mouse"
+  }
+ ],
  "phrase": {
-  "zh": "",
-  "pinyin": "",
-  "fr": "",
-  "en": ""
+  "zh": "猫在追一只老鼠。",
+  "pinyin": "Māo zài zhuī yī zhī lǎoshǔ.",
+  "fr": "Le chat poursuit une souris.",
+  "en": "The cat is chasing a mouse."
  },
  "generation": {
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:19b7e6b7096269b0ee29c2f57015205ee05bbe98c0ab1ca894b18f958bf868e3",
-  "essais": 1,
+  "empreinte_invite": "sha256:e2af91b74303fe85c3b46a4830af19ff824761294ac249351cf5dd7814b8b274",
+  "essais": 2,
   "refus": []
  },
- "statut": "relu"
+ "statut": "a_relire"
 }

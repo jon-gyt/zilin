@@ -23,20 +23,33 @@
   "冖": "forme",
   "糸": "sens"
  },
- "mots": [],
+ "mots": [
+  {
+   "hanzi": "搜索",
+   "pinyin": "sōusuǒ",
+   "fr": "rechercher",
+   "en": "to search"
+  },
+  {
+   "hanzi": "线索",
+   "pinyin": "xiànsuǒ",
+   "fr": "piste, indice",
+   "en": "clue, lead"
+  }
+ ],
  "phrase": {
-  "zh": "",
-  "pinyin": "",
-  "fr": "",
-  "en": ""
+  "zh": "警察找到了新的线索。",
+  "pinyin": "Jǐngchá zhǎodào le xīn de xiànsuǒ.",
+  "fr": "La police a trouvé une nouvelle piste.",
+  "en": "The police have found a new lead."
  },
  "generation": {
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:b9d55442d33f16a285c1d76b0745883cb4788497258f77cfb33eadbc576a53d4",
-  "essais": 1,
+  "empreinte_invite": "sha256:608db44a2c70a9f6180d61eba1fbc3d6a3bfc07cf203bcd75de9683c9c766d8f",
+  "essais": 2,
   "refus": []
  },
- "statut": "relu"
+ "statut": "a_relire"
 }

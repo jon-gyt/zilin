@@ -23,20 +23,33 @@
   "口": "forme",
   "贝": "forme"
  },
- "mots": [],
+ "mots": [
+  {
+   "hanzi": "损失",
+   "pinyin": "sǔnshī",
+   "fr": "perte, perdre",
+   "en": "loss, to lose"
+  },
+  {
+   "hanzi": "损坏",
+   "pinyin": "sǔnhuài",
+   "fr": "abîmer, endommager",
+   "en": "to damage"
+  }
+ ],
  "phrase": {
-  "zh": "",
-  "pinyin": "",
-  "fr": "",
-  "en": ""
+  "zh": "这次大雨损坏了很多房子。",
+  "pinyin": "Zhè cì dà yǔ sǔnhuài le hěn duō fángzi.",
+  "fr": "Cette grosse pluie a endommagé beaucoup de maisons.",
+  "en": "This heavy rain damaged many houses."
  },
  "generation": {
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:01f35a2bafbda3816775c065bec79ff59c86698b77b7dfa449a1a91d3feb262b",
-  "essais": 1,
+  "empreinte_invite": "sha256:7692a6ad95de53a154a8047fb9b62fe27dee3ac9806df47134c9f9244bd119f3",
+  "essais": 2,
   "refus": []
  },
- "statut": "relu"
+ "statut": "a_relire"
 }

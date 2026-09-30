@@ -21,20 +21,33 @@
   "户": "sens",
   "习": "forme"
  },
- "mots": [],
+ "mots": [
+  {
+   "hanzi": "扇子",
+   "pinyin": "shànzi",
+   "fr": "éventail",
+   "en": "fan"
+  },
+  {
+   "hanzi": "电扇",
+   "pinyin": "diànshàn",
+   "fr": "ventilateur",
+   "en": "electric fan"
+  }
+ ],
  "phrase": {
-  "zh": "",
-  "pinyin": "",
-  "fr": "",
-  "en": ""
+  "zh": "天太热了，快打开电扇。",
+  "pinyin": "Tiān tài rè le, kuài dǎkāi diànshàn.",
+  "fr": "Il fait trop chaud, allume vite le ventilateur.",
+  "en": "It's too hot, turn on the fan."
  },
  "generation": {
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:653b0cd5328a8276c8e10c014b55f46ba554aca55270cd109f38526cc2f44523",
-  "essais": 1,
+  "empreinte_invite": "sha256:ba9ecaadb99beb5801a36df6deef93db856fdfd679fe8bcebea17c017b1f293d",
+  "essais": 2,
   "refus": []
  },
- "statut": "relu"
+ "statut": "a_relire"
 }
