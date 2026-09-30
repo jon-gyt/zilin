@@ -25,20 +25,33 @@
   "一": "forme",
   "口": "forme"
  },
- "mots": [],
+ "mots": [
+  {
+   "hanzi": "恰好",
+   "pinyin": "qiàhǎo",
+   "fr": "juste à point, par chance",
+   "en": "as luck would have it, just right"
+  },
+  {
+   "hanzi": "恰巧",
+   "pinyin": "qiàqiǎo",
+   "fr": "par hasard, justement",
+   "en": "by chance, as it happens"
+  }
+ ],
  "phrase": {
-  "zh": "",
-  "pinyin": "",
-  "fr": "",
-  "en": ""
+  "zh": "我到车站的时候，车恰好来了。",
+  "pinyin": "Wǒ dào chēzhàn de shíhou, chē qiàhǎo lái le.",
+  "fr": "Quand je suis arrivé à l'arrêt, le bus arrivait justement.",
+  "en": "When I got to the stop, the bus was just arriving."
  },
  "generation": {
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:9c85343391081430d8f1d4fe182ff53d8df193572a1716d63f245765d3805d2d",
-  "essais": 1,
+  "empreinte_invite": "sha256:422ee4d99b348d724110faf8bc6f0d3c72f8c6133669fa630251aaa19f4f312c",
+  "essais": 2,
   "refus": []
  },
- "statut": "relu"
+ "statut": "a_relire"
 }
