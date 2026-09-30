@@ -7,7 +7,7 @@
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:4670b2ded9eec2659dfeb6ba11a856baa881a875bf6212f2e5836036669ea1e6",
+  "empreinte_invite": "sha256:366bc4b81e33f76e1b4c26f43ab3bd0446e9a576af5c26a24526a30a9d3ee567",
   "contexte": "wenlu dico contexte 3 03",
   "essais": 1,
   "refus": []
@@ -321,13 +321,18 @@
     "L5-0467"
    ],
    "sens": {
-    "glose": "se tenir debout, établir",
-    "acceptions": [],
-    "statut": "relu",
-    "provenance": {
-     "reprise": "data/sources/fiches/立.json",
-     "champ": "sens_fr"
-    }
+    "glose": "se tenir debout ; établir, fonder",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "se tenir debout ; dresser"
+     },
+     {
+      "categorie": "V",
+      "fr": "établir, fonder ; accomplir (un exploit)"
+     }
+    ],
+    "statut": "a_relire"
    },
    "exemples": [
     {

@@ -7,7 +7,7 @@
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:7d9bfc123c13fd100e9d88a60c294d2719a8e41531f3cb738208b4568d54baf4",
+  "empreinte_invite": "sha256:c53f1ff4b07dab197df569b50ad2f2df02de742d1cd9787ebb1d88bb373b7951",
   "contexte": "wenlu dico contexte 3 04",
   "essais": 1,
   "refus": []
@@ -554,12 +554,13 @@
    ],
    "sens": {
     "glose": "couteau",
-    "acceptions": [],
-    "statut": "relu",
-    "provenance": {
-     "reprise": "data/sources/fiches/刀.json",
-     "champ": "sens_fr"
-    }
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "couteau, lame"
+     }
+    ],
+    "statut": "a_relire"
    },
    "exemples": [
     {

@@ -7,7 +7,7 @@
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:0dde2d3fd97d33e05ec439fcb0f617f23325d57afed84caca19b475a137bfb7e",
+  "empreinte_invite": "sha256:b499a120ce412e2ef985e8670d1025de1c65e0f0c04bf8bf3a42d5d6b51133ca",
   "contexte": "wenlu dico contexte 3 02",
   "essais": 1,
   "refus": []
@@ -1195,13 +1195,18 @@
     "L3-0096"
    ],
    "sens": {
-    "glose": "ville, rempart",
-    "acceptions": [],
-    "statut": "relu",
-    "provenance": {
-     "reprise": "data/sources/fiches/城.json",
-     "champ": "sens_fr"
-    }
+    "glose": "ville ; rempart",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "ville"
+     },
+     {
+      "categorie": "N",
+      "fr": "rempart, muraille d'une ville"
+     }
+    ],
+    "statut": "a_relire"
    },
    "exemples": [
     {

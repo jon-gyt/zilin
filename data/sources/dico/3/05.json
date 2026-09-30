@@ -7,7 +7,7 @@
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:f669e5e484d46f873c92b0467dff7e455d4ef27668c636987483c42567d553d9",
+  "empreinte_invite": "sha256:8f7c61f75b618dcadb0270fc7a98ad798835ccb360ae0b3bb8c55f3d3d410ad2",
   "contexte": "wenlu dico contexte 3 05",
   "essais": 1,
   "refus": []
@@ -812,12 +812,13 @@
    ],
    "sens": {
     "glose": "arrêter, cesser",
-    "acceptions": [],
-    "statut": "relu",
-    "provenance": {
-     "reprise": "data/sources/fiches/止.json",
-     "champ": "sens_fr"
-    }
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "arrêter, cesser, s'arrêter"
+     }
+    ],
+    "statut": "a_relire"
    },
    "exemples": [
     {
