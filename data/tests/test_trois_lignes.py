@@ -186,6 +186,99 @@ def test_seuls_les_textes_relus_sexportent(tmp_path: Path) -> None:
     assert sorted(exporte["glose"]) == ["人", "从", "大", "天", "天天", "月"]
 
 
+# ------------------------------------------------------------------ les brouillons
+
+
+def _atelier(tmp_path: Path) -> dict[str, Path]:
+    """Un parcours construit, un fichier de textes, un glossaire et un dossier de brouillons."""
+    build = tmp_path / "build"
+    build.mkdir()
+    (build / "parcours-lire.json").write_text(json.dumps(PARCOURS, ensure_ascii=False), encoding="utf-8")
+    textes = tmp_path / "textes"
+    textes.mkdir()
+    _fichier(textes, [_brut(4)])
+    glossaire = tmp_path / "glossaire.tsv"
+    sans_ri = {zh: g for zh, g in GLOSSAIRE.items() if zh not in ("日", "明")}
+    glossaire.write_text(
+        "# glose\nzh\tpinyin\tfr\ten\n" + "".join(f"{zh}\t{g.pinyin}\t{g.fr}\t{g.en}\n" for zh, g in sans_ri.items()),
+        encoding="utf-8",
+    )
+    return {"build": build, "dossier": textes, "glossaire": glossaire, "brouillons": tmp_path / "brouillons"}
+
+
+def _brouillon(a: dict[str, Path], jour: int, lignes: list[tuple[str, str]], **plus: object) -> Path:
+    chemin = tl.chemin_brouillon("lire", jour, a["brouillons"])
+    chemin.parent.mkdir(parents=True, exist_ok=True)
+    document = {
+        "parcours": "lire",
+        "jour": jour,
+        "lignes": [{"zh": zh, "pinyin": py, "fr": "f", "en": "e"} for zh, py in lignes],
+        **plus,
+    }
+    chemin.write_text(json.dumps(document, ensure_ascii=False), encoding="utf-8")
+    return chemin
+
+
+JOUR_5 = [("日明。", "rì míng"), ("天明。", "tiān míng"), ("月明。", "yuè míng")]
+GLOSSAIRE_5 = [
+    {"zh": "日", "pinyin": "rì", "fr": "soleil", "en": "sun"},
+    {"zh": "明", "pinyin": "míng", "fr": "clair", "en": "bright"},
+]
+
+
+def _importer(a: dict[str, Path]) -> tl.Import:
+    return tl.importer("lire", dossier=a["dossier"], brouillons=a["brouillons"], glossaire=a["glossaire"], build=a["build"])
+
+
+def test_un_brouillon_juste_se_verse_a_relire_avec_son_glossaire(tmp_path: Path) -> None:
+    """Un fichier par jour : plusieurs rédacteurs en parallèle ; l'import les verse, à relire."""
+    a = _atelier(tmp_path)
+    _brouillon(a, 5, JOUR_5, glossaire=GLOSSAIRE_5)
+    r = _importer(a)
+    assert r.importes == [5] and r.refuses == {} and r.glossaire == ["日", "明"]
+    textes = {t.jour: t for t in tl.charger_textes("lire", a["dossier"]).textes}
+    assert textes[4].statut == RELU and textes[5].statut == A_RELIRE
+    assert "日" in tl.charger_glossaire(a["glossaire"])
+
+
+def test_un_brouillon_hors_de_l_acquis_est_refuse_et_rien_n_est_verse(tmp_path: Path) -> None:
+    a = _atelier(tmp_path)
+    森 = {"zh": "森", "pinyin": "sēn", "fr": "forêt", "en": "forest"}
+    _brouillon(a, 5, [("日明。", "rì míng"), ("森明。", "sēn míng"), ("月明。", "yuè míng")], glossaire=[*GLOSSAIRE_5, 森])
+    r = _importer(a)
+    assert r.importes == [] and any("hors de l'acquis du jour 5 : 森" in e for e in r.refuses[5])
+    assert "日" not in tl.charger_glossaire(a["glossaire"])
+    assert [t.jour for t in tl.charger_textes("lire", a["dossier"]).textes] == [4]
+
+
+def test_un_texte_relu_ne_se_remplace_pas(tmp_path: Path) -> None:
+    a = _atelier(tmp_path)
+    _brouillon(a, 4, [("天大。", "tiān dà"), ("人从人。", "rén cóng rén"), ("月大。", "yuè dà")])
+    r = _importer(a)
+    assert r.importes == [] and "relu ne se remplace pas" in r.refuses[4][0]
+
+
+def test_une_entree_du_glossaire_deja_glosee_autrement_est_un_conflit(tmp_path: Path) -> None:
+    a = _atelier(tmp_path)
+    autre = [{"zh": "天", "pinyin": "tiān", "fr": "jour", "en": "day"}, *GLOSSAIRE_5]
+    _brouillon(a, 5, JOUR_5, glossaire=autre)
+    r = _importer(a)
+    assert r.importes == [] and "天 déjà glosé autrement" in r.refuses[5][0]
+
+
+def test_les_lots_a_rediger_se_partagent_la_plage_sans_se_toucher(tmp_path: Path) -> None:
+    a = _atelier(tmp_path)
+    parcours = {"jours": [{"jour": j, "brique": f"b{j}", "composes": []} for j in range(1, 21)]}
+    (a["build"] / "parcours-lire.json").write_text(json.dumps(parcours), encoding="utf-8")
+    lots = [
+        tl.a_rediger("lire", de=4, a=20, lot=k, sur=3, dossier=a["dossier"], brouillons=a["brouillons"], build=a["build"])
+        for k in (1, 2, 3)
+    ]
+    tous = [j for lot in lots for j in lot]
+    assert sorted(tous) == list(range(5, 21)) and len(set(tous)) == len(tous)
+    assert 4 not in tous  # déjà écrit
+
+
 # ------------------------------------------------------------------ les textes versionnés
 
 
@@ -195,7 +288,9 @@ def test_les_textes_versionnes_sont_tracables_et_relus_par_decision() -> None:
         assert f.generation["api"] == API_SESSION
         assert f.generation["modele"] == MODELE_MANUEL
         assert "Considère que les relectures c'est bon" in str(f.relecture["decision"])
-        assert all(t.statut == RELU for t in f.textes)
+        # La couverture exigée est relue ; la suite du chemin arrive à relire, par les brouillons.
+        assert all(t.statut == RELU for t in f.textes if t.jour <= tl.COUVERTURE)
+        assert all(t.statut in (RELU, A_RELIRE) for t in f.textes)
 
 
 def test_les_textes_versionnes_couvrent_les_soixante_premiers_jours() -> None:

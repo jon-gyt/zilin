@@ -985,7 +985,20 @@ propriétaire qui les relit : « Considère que les relectures c'est bon », app
 permanente), puis `textes`, `{jour, statut, lignes, glose?}` ; `glose`, facultative,
 précise une entrée pour ce texte seul (好学 hǎo xué, « facile à apprendre ») et passe
 devant le glossaire. `uv run wenlu trois-lignes contexte <parcours> <jour>…` donne l'acquis
-et les caractères nouveaux d'un jour ; `uv run wenlu trois-lignes apercu <parcours>` relit.
+et les caractères nouveaux d'un jour, et les caractères de l'acquis que le glossaire ne glose
+pas encore ; `uv run wenlu trois-lignes apercu <parcours>` relit.
+
+Rédaction en parallèle (30 septembre 2026, pour la suite du chemin) : un brouillon par
+parcours et par jour, `data/sources/trois-lignes-brouillons/<parcours>/<jour sur 4
+chiffres>.json`, `{parcours, jour, lignes: [{zh, pinyin, fr, en}] × 3, glose?, glossaire?}`.
+`glose` : les entrées propres au texte ; `glossaire` : les entrées nouvelles qu'il apporte au
+glossaire partagé. `uv run wenlu trois-lignes a-rediger <parcours> --de N --a M --lot k --sur
+n` partage une plage de jours en `n` tranches contiguës et stables, sans les jours déjà écrits
+ni ceux qui ont un brouillon : chaque rédacteur prend son lot, et aucun fichier n'est écrit
+par deux. `uv run wenlu trois-lignes importer <parcours>` (un seul à la fois) verse chaque
+brouillon qui passe les contrôles bloquants dans `<parcours>.json`, au statut `a_relire`, et
+ajoute son `glossaire` à `glossaire.tsv` ; une entrée déjà glosée autrement est un conflit
+(elle va dans la `glose` du texte) ; un texte relu n'est jamais remplacé.
 
 Contrôles (`wenlu check`), bloquants : « sources » (lisibles, traçables, la décision de
 relecture citée), « périmètre » (les seuls caractères posés par le parcours du jour 1 au
