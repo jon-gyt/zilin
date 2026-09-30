@@ -1,0 +1,440 @@
+{
+ "examen": "yueke-1305",
+ "parcours": "hsk",
+ "generation": {
+  "modele": "rédaction manuelle",
+  "api": "session Claude Code (sans API)",
+  "date": "2026-09-30"
+ },
+ "relecture": {
+  "statut": "a_relire",
+  "note": "rédigé le 30 septembre 2026, à relire par le propriétaire (`wenlu examens apercu`) ; une série passe à `relu` sur sa décision, citée ici"
+ },
+ "series": [
+  {
+   "serie": "A",
+   "statut": "a_relire",
+   "supports": [
+    {
+     "id": "s1",
+     "genre": "billet",
+     "contexte": {
+      "fr": "Un billet",
+      "en": "A ticket"
+     },
+     "lignes": [
+      {
+       "zh": "长途汽车票",
+       "pinyin": "cháng tú qì chē piào",
+       "fr": "Autocar grandes lignes",
+       "en": "Long-distance coach"
+      },
+      {
+       "zh": "从北京到南京",
+       "pinyin": "cóng běi jīng dào nán jīng",
+       "fr": "De Pékin à Nankin",
+       "en": "Beijing to Nanjing"
+      },
+      {
+       "zh": "七月二十日　上午十点开",
+       "pinyin": "qī yuè èr shí rì shàng wǔ shí diǎn kāi",
+       "fr": "Départ le 20 juillet à 10 h",
+       "en": "Departs 20 July, 10 am"
+      },
+      {
+       "zh": "限当日当次有效",
+       "pinyin": "xiàn dāng rì dāng cì yǒu xiào",
+       "fr": "Valable seulement pour ce départ",
+       "en": "Valid for this departure only"
+      }
+     ],
+     "glose": [
+      {
+       "zh": "二十日",
+       "pinyin": "èr shí rì",
+       "fr": "le 20 (du mois)",
+       "en": "the 20th (of the month)"
+      },
+      {
+       "zh": "开",
+       "pinyin": "kāi",
+       "fr": "partir (un véhicule)",
+       "en": "to depart"
+      },
+      {
+       "zh": "当日",
+       "pinyin": "dāng rì",
+       "fr": "ce jour-là",
+       "en": "that day"
+      },
+      {
+       "zh": "当次",
+       "pinyin": "dāng cì",
+       "fr": "ce départ-là",
+       "en": "that departure"
+      }
+     ]
+    },
+    {
+     "id": "s2",
+     "genre": "message",
+     "contexte": {
+      "fr": "Un message",
+      "en": "A message"
+     },
+     "lignes": [
+      {
+       "zh": "六月一日是儿童节，",
+       "pinyin": "liù yuè yī rì shì ér tóng jié",
+       "fr": "Le 1er juin, c'est la fête des enfants :",
+       "en": "June 1st is Children's Day:"
+      },
+      {
+       "zh": "我想给孙子买个礼物，",
+       "pinyin": "wǒ xiǎng gěi sūn zi mǎi gè lǐ wù",
+       "fr": "je voudrais offrir un cadeau à mon petit-fils.",
+       "en": "I'd like to buy my grandson a present."
+      },
+      {
+       "zh": "你说买什么好？",
+       "pinyin": "nǐ shuō mǎi shén me hǎo",
+       "fr": "À ton avis, qu'est-ce que je lui achète ?",
+       "en": "What do you think I should get?"
+      }
+     ],
+     "glose": [
+      {
+       "zh": "一日",
+       "pinyin": "yī rì",
+       "fr": "le 1er (du mois)",
+       "en": "the 1st (of the month)"
+      }
+     ]
+    }
+   ],
+   "questions": [
+    {
+     "type": "comprendre",
+     "support": "s1",
+     "consigne": {
+      "fr": "Quand ce billet est-il valable ?",
+      "en": "When is this ticket valid?"
+     },
+     "choix": [
+      {
+       "fr": "Toute la semaine",
+       "en": "All week"
+      },
+      {
+       "fr": "Tout le mois de juillet",
+       "en": "All of July"
+      },
+      {
+       "fr": "Seulement pour ce départ",
+       "en": "Only for this departure"
+      },
+      {
+       "fr": "Pour un aller-retour",
+       "en": "For a return trip"
+      }
+     ],
+     "reponse": 2,
+     "porte": [
+      "限",
+      "当",
+      "日",
+      "次"
+     ]
+    },
+    {
+     "type": "vrai_faux",
+     "support": "s1",
+     "consigne": {
+      "fr": "Vrai ou faux ?",
+      "en": "True or false?"
+     },
+     "affirmation": {
+      "zh": "这是长途汽车的票。",
+      "pinyin": "zhè shì cháng tú qì chē de piào",
+      "fr": "C'est un billet de car.",
+      "en": "This is a coach ticket."
+     },
+     "reponse": true,
+     "porte": [
+      "途",
+      "汽",
+      "车"
+     ]
+    },
+    {
+     "type": "reperer",
+     "support": "s2",
+     "consigne": {
+      "fr": "Touche à qui est destiné le cadeau.",
+      "en": "Tap who the present is for."
+     },
+     "choix": [
+      "儿童节",
+      "孙子",
+      "礼物",
+      "什么"
+     ],
+     "reponse": 1,
+     "porte": [
+      "孙"
+     ]
+    },
+    {
+     "type": "replique",
+     "support": "s2",
+     "consigne": {
+      "fr": "Que réponds-tu ?",
+      "en": "What do you reply?"
+     },
+     "choix": [
+      {
+       "zh": "我的袜子破了。",
+       "pinyin": "wǒ de wà zi pò le",
+       "fr": "Ma chaussette est trouée.",
+       "en": "My sock has a hole in it."
+      },
+      {
+       "zh": "电梯在左边。",
+       "pinyin": "diàn tī zài zuǒ bian",
+       "fr": "L'ascenseur est à gauche.",
+       "en": "The lift is on the left."
+      },
+      {
+       "zh": "买一本有画的书吧！",
+       "pinyin": "mǎi yī běn yǒu huà de shū ba",
+       "fr": "Achète-lui un livre d'images !",
+       "en": "Get him a picture book!"
+      },
+      {
+       "zh": "我今天没睡醒。",
+       "pinyin": "wǒ jīn tiān méi shuì xǐng",
+       "fr": "Je ne suis pas bien réveillé aujourd'hui.",
+       "en": "I'm not quite awake today."
+      }
+     ],
+     "reponse": 2,
+     "porte": [
+      "孙",
+      "礼"
+     ]
+    },
+    {
+     "type": "trou",
+     "consigne": {
+      "fr": "Quel caractère manque dans ce mot ?",
+      "en": "Which character is missing from this word?"
+     },
+     "objet": {
+      "zh": "刷牙",
+      "pinyin": "shuā yá",
+      "fr": "se brosser les dents",
+      "en": "to brush one's teeth"
+     },
+     "trou": 0,
+     "choix": [
+      "刷",
+      "别",
+      "刚",
+      "到"
+     ],
+     "reponse": 0,
+     "porte": [
+      "刷"
+     ]
+    }
+   ]
+  },
+  {
+   "serie": "B",
+   "statut": "a_relire",
+   "supports": [
+    {
+     "id": "s1",
+     "genre": "pancarte",
+     "contexte": {
+      "fr": "Un panneau",
+      "en": "A sign"
+     },
+     "lignes": [
+      {
+       "zh": "请排队，",
+       "pinyin": "qǐng pái duì",
+       "fr": "Faites la queue",
+       "en": "Please queue"
+      },
+      {
+       "zh": "按顺序上车。",
+       "pinyin": "àn shùn xù shàng chē",
+       "fr": "et montez chacun à votre tour.",
+       "en": "and board in turn."
+      }
+     ]
+    },
+    {
+     "id": "s2",
+     "genre": "message",
+     "contexte": {
+      "fr": "Un message",
+      "en": "A message"
+     },
+     "lignes": [
+      {
+       "zh": "你感冒了，别躺着玩手机，",
+       "pinyin": "nǐ gǎn mào le bié tǎng zhe wán shǒu jī",
+       "fr": "Tu es enrhumé : ne reste pas allongé à jouer sur ton téléphone,",
+       "en": "You've got a cold: don't lie around playing on your phone,"
+      },
+      {
+       "zh": "早点睡觉，多喝水。",
+       "pinyin": "zǎo diǎn shuì jiào duō hē shuǐ",
+       "fr": "couche-toi tôt et bois beaucoup d'eau.",
+       "en": "go to bed early and drink plenty of water."
+      }
+     ]
+    }
+   ],
+   "questions": [
+    {
+     "type": "comprendre",
+     "support": "s1",
+     "consigne": {
+      "fr": "Que demande ce panneau ?",
+      "en": "What does this sign ask?"
+     },
+     "choix": [
+      {
+       "fr": "De payer en montant",
+       "en": "To pay when boarding"
+      },
+      {
+       "fr": "De monter chacun à son tour",
+       "en": "To board in turn"
+      },
+      {
+       "fr": "De ne pas manger à bord",
+       "en": "Not to eat on board"
+      },
+      {
+       "fr": "De céder sa place aux enfants",
+       "en": "To give your seat to children"
+      }
+     ],
+     "reponse": 1,
+     "porte": [
+      "顺",
+      "序"
+     ]
+    },
+    {
+     "type": "vrai_faux",
+     "support": "s2",
+     "consigne": {
+      "fr": "Vrai ou faux ?",
+      "en": "True or false?"
+     },
+     "affirmation": {
+      "zh": "可以躺着玩手机。",
+      "pinyin": "kě yǐ tǎng zhe wán shǒu jī",
+      "fr": "On peut jouer sur son téléphone allongé.",
+      "en": "It's fine to play on your phone lying down."
+     },
+     "reponse": false,
+     "porte": [
+      "躺",
+      "别"
+     ]
+    },
+    {
+     "type": "replique",
+     "support": "s2",
+     "consigne": {
+      "fr": "Que réponds-tu ?",
+      "en": "What do you reply?"
+     },
+     "choix": [
+      {
+       "zh": "好的，我这就去睡。",
+       "pinyin": "hǎo de wǒ zhè jiù qù shuì",
+       "fr": "D'accord, je vais me coucher tout de suite.",
+       "en": "OK, I'm going to bed right now."
+      },
+      {
+       "zh": "这个电梯很快。",
+       "pinyin": "zhè gè diàn tī hěn kuài",
+       "fr": "Cet ascenseur est très rapide.",
+       "en": "This lift is very fast."
+      },
+      {
+       "zh": "明天是儿童节。",
+       "pinyin": "míng tiān shì ér tóng jié",
+       "fr": "Demain, c'est la fête des enfants.",
+       "en": "Tomorrow is Children's Day."
+      },
+      {
+       "zh": "我们排队上车吧。",
+       "pinyin": "wǒ men pái duì shàng chē ba",
+       "fr": "Faisons la queue pour monter.",
+       "en": "Let's queue to get on."
+      }
+     ],
+     "reponse": 0,
+     "porte": [
+      "躺",
+      "睡"
+     ]
+    },
+    {
+     "type": "caractere",
+     "consigne": {
+      "fr": "Quel caractère a ce sens ?",
+      "en": "Which character has this meaning?"
+     },
+     "objet": {
+      "zh": "酸",
+      "pinyin": "suān",
+      "fr": "acide",
+      "en": "sour"
+     },
+     "choix": [
+      "醒",
+      "酒",
+      "配",
+      "酸"
+     ],
+     "reponse": 3,
+     "porte": [
+      "酸"
+     ]
+    },
+    {
+     "type": "ton",
+     "consigne": {
+      "fr": "Quel est le ton de ce caractère ?",
+      "en": "Which tone does this character have?"
+     },
+     "objet": {
+      "zh": "帅",
+      "pinyin": "shuài",
+      "fr": "beau (garçon)",
+      "en": "handsome"
+     },
+     "choix": [
+      "shuāi",
+      "shuái",
+      "shuǎi",
+      "shuài"
+     ],
+     "reponse": 3,
+     "porte": [
+      "帅"
+     ]
+    }
+   ]
+  }
+ ]
+}
