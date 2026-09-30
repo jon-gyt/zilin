@@ -25,20 +25,33 @@
   "丘": "son",
   "八": "son"
  },
- "mots": [],
+ "mots": [
+  {
+   "hanzi": "海滨",
+   "pinyin": "hǎibīn",
+   "fr": "bord de mer",
+   "en": "seaside"
+  },
+  {
+   "hanzi": "湖滨",
+   "pinyin": "húbīn",
+   "fr": "bord du lac",
+   "en": "lakeside"
+  }
+ ],
  "phrase": {
-  "zh": "",
-  "pinyin": "",
-  "fr": "",
-  "en": ""
+  "zh": "夏天我们去海滨城市玩。",
+  "pinyin": "Xiàtiān wǒmen qù hǎibīn chéngshì wán.",
+  "fr": "L'été, nous partons nous détendre dans une ville au bord de la mer.",
+  "en": "In summer we go to a seaside city for fun."
  },
  "generation": {
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:30ad36721efa1e1622e22f7d8f189106847c1384398668c54066688b9cc2a1b9",
-  "essais": 1,
+  "empreinte_invite": "sha256:00e9701b3a51f3ce0689f805f002285cf51e6ae0c064e73eb4f560d10bd79432",
+  "essais": 2,
   "refus": []
  },
- "statut": "relu"
+ "statut": "a_relire"
 }

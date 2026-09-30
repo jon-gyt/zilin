@@ -23,20 +23,33 @@
   "丿": "sens",
   "丶": "sens"
  },
- "mots": [],
+ "mots": [
+  {
+   "hanzi": "辨别",
+   "pinyin": "biànbié",
+   "fr": "distinguer",
+   "en": "to distinguish"
+  },
+  {
+   "hanzi": "辨认",
+   "pinyin": "biànrèn",
+   "fr": "reconnaître, identifier",
+   "en": "to identify, to recognize"
+  }
+ ],
  "phrase": {
-  "zh": "",
-  "pinyin": "",
-  "fr": "",
-  "en": ""
+  "zh": "我辨不出这两个字。",
+  "pinyin": "Wǒ biàn bù chū zhè liǎng gè zì.",
+  "fr": "Je n'arrive pas à distinguer ces deux caractères.",
+  "en": "I can't tell these two characters apart."
  },
  "generation": {
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:bb04a45887348a1949fda07ecfd9558db0700b21310781a8cc2785114eaa456e",
-  "essais": 1,
+  "empreinte_invite": "sha256:20f1ca07b606639eb6802f1af734d693a75355b4f83964ab9ea0cfb0160466f3",
+  "essais": 2,
   "refus": []
  },
- "statut": "relu"
+ "statut": "a_relire"
 }

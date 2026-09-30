@@ -25,20 +25,33 @@
   "小": "son",
   "刂": "sens"
  },
- "mots": [],
+ "mots": [
+  {
+   "hanzi": "刹车",
+   "pinyin": "shāchē",
+   "fr": "freiner, frein",
+   "en": "to brake, brake"
+  },
+  {
+   "hanzi": "手刹",
+   "pinyin": "shǒushā",
+   "fr": "frein à main",
+   "en": "handbrake"
+  }
+ ],
  "phrase": {
-  "zh": "",
-  "pinyin": "",
-  "fr": "",
-  "en": ""
+  "zh": "司机赶紧刹车。",
+  "pinyin": "Sījī gǎnjǐn shāchē.",
+  "fr": "Le chauffeur a freiné d'un coup.",
+  "en": "The driver slammed on the brakes."
  },
  "generation": {
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:06cc377e25c53f5797d98c7508f6715a14e20b193be98d924e349f590d3ddb11",
-  "essais": 1,
+  "empreinte_invite": "sha256:a14bd620c049931fcf57c7073cd828f840dcc3f7fb139992a9bf924b60f91398",
+  "essais": 2,
   "refus": []
  },
- "statut": "relu"
+ "statut": "a_relire"
 }

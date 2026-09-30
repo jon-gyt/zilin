@@ -21,20 +21,33 @@
   "钅": "sens",
   "少": "forme"
  },
- "mots": [],
+ "mots": [
+  {
+   "hanzi": "钞票",
+   "pinyin": "chāopiào",
+   "fr": "billet de banque",
+   "en": "banknote"
+  },
+  {
+   "hanzi": "假钞",
+   "pinyin": "jiǎchāo",
+   "fr": "faux billet",
+   "en": "counterfeit note"
+  }
+ ],
  "phrase": {
-  "zh": "",
-  "pinyin": "",
-  "fr": "",
-  "en": ""
+  "zh": "他从口袋里拿出一张钞票。",
+  "pinyin": "Tā cóng kǒudài li ná chū yī zhāng chāopiào.",
+  "fr": "Il a sorti un billet de sa poche.",
+  "en": "He took a banknote out of his pocket."
  },
  "generation": {
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:1a66d1aeeccfab98a59625ddc938dd8b768fb8c9822b2f3bf63a26dfc2a7f0ac",
-  "essais": 1,
+  "empreinte_invite": "sha256:f8bcc287c3cbafe8e6064d92cb9d820a38360488be5f0a81887dbae3133dd8b5",
+  "essais": 2,
   "refus": []
  },
- "statut": "relu"
+ "statut": "a_relire"
 }

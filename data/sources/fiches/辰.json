@@ -19,20 +19,33 @@
  "roles": {
   "辰": "forme"
  },
- "mots": [],
+ "mots": [
+  {
+   "hanzi": "星辰",
+   "pinyin": "xīngchén",
+   "fr": "étoiles",
+   "en": "stars"
+  },
+  {
+   "hanzi": "时辰",
+   "pinyin": "shíchen",
+   "fr": "heure double (ancienne)",
+   "en": "double-hour (traditional)"
+  }
+ ],
  "phrase": {
-  "zh": "",
-  "pinyin": "",
-  "fr": "",
-  "en": ""
+  "zh": "古时候一天有十二个时辰。",
+  "pinyin": "Gǔ shíhou yī tiān yǒu shí'èr gè shíchen.",
+  "fr": "Autrefois, la journée comptait douze heures doubles.",
+  "en": "In ancient times, a day had twelve double-hours."
  },
  "generation": {
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:c2e00d6850aa896847d0d43d14d833fbfc0d1dd03f26d5faedf49e1de0d891d5",
-  "essais": 1,
+  "empreinte_invite": "sha256:1cd271e7251d72fbd32efceb06278c78ac9226b7fde4e1441509dd9415b3c592",
+  "essais": 2,
   "refus": []
  },
- "statut": "relu"
+ "statut": "a_relire"
 }

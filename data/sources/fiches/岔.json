@@ -23,20 +23,33 @@
   "刀": "sens",
   "山": "sens"
  },
- "mots": [],
+ "mots": [
+  {
+   "hanzi": "岔路",
+   "pinyin": "chàlù",
+   "fr": "bifurcation",
+   "en": "fork in the road"
+  },
+  {
+   "hanzi": "打岔",
+   "pinyin": "dǎchà",
+   "fr": "interrompre",
+   "en": "to interrupt"
+  }
+ ],
  "phrase": {
-  "zh": "",
-  "pinyin": "",
-  "fr": "",
-  "en": ""
+  "zh": "到了岔路口，往左走。",
+  "pinyin": "Dào le chàlùkǒu, wǎng zuǒ zǒu.",
+  "fr": "Arrivé à la bifurcation, prends à gauche.",
+  "en": "When you reach the fork, go left."
  },
  "generation": {
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:75d9817935adfeff61c7c8434cc6828361682aba6a22fa989c18d5bc4eef5410",
-  "essais": 1,
+  "empreinte_invite": "sha256:2f4a430d1f8da147b42bc957ca973b75e6536b0cd58b4308d2295706f5c9843d",
+  "essais": 2,
   "refus": []
  },
- "statut": "relu"
+ "statut": "a_relire"
 }

@@ -21,20 +21,33 @@
   "木": "sens",
   "丙": "son"
  },
- "mots": [],
+ "mots": [
+  {
+   "hanzi": "把柄",
+   "pinyin": "bǎbǐng",
+   "fr": "prise, point faible",
+   "en": "handle, something to hold against someone"
+  },
+  {
+   "hanzi": "手柄",
+   "pinyin": "shǒubǐng",
+   "fr": "manche, manette",
+   "en": "handle, game controller"
+  }
+ ],
  "phrase": {
-  "zh": "",
-  "pinyin": "",
-  "fr": "",
-  "en": ""
+  "zh": "这把刀的柄是木头做的。",
+  "pinyin": "Zhè bǎ dāo de bǐng shì mùtou zuò de.",
+  "fr": "Le manche de ce couteau est en bois.",
+  "en": "The handle of this knife is made of wood."
  },
  "generation": {
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:a0cb9f18035d4d3955ba70f315f46e904af953e51c969dcd61d00208689f9316",
-  "essais": 1,
+  "empreinte_invite": "sha256:2567361cd4ea241587b03ef16e2faf0bc1f39ab250ea2f7bc944acb16444ae62",
+  "essais": 2,
   "refus": []
  },
- "statut": "relu"
+ "statut": "a_relire"
 }
