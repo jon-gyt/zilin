@@ -3,7 +3,7 @@
  "license": "propriétaire",
  "source": "décomposition GF 0014-2009 réconciliée par le pipeline wenlu ; pinyin d'Unihan (kMandarin) ; textes rédigés pour l'app",
  "source_url": "https://github.com/jon-gyt/zilin",
- "modified": "2026-09-28 : assemblé par `wenlu export`",
+ "modified": "2026-09-30 : assemblé par `wenlu export`",
  "norme": "GF 0014-2009",
  "racine": {
   "c": "白",
@@ -135,8 +135,8 @@
    "lectures": [
     "huáng"
    ],
-   "fr": "",
-   "en": "",
+   "fr": "empereur, impérial",
+   "en": "emperor, imperial",
    "parts": [
     "白",
     "王"
@@ -146,10 +146,13 @@
     "cjk-decomp"
    ],
    "role": null,
-   "roles": {},
-   "origine_fr": "",
-   "origine_en": "",
-   "etiquette": null,
+   "roles": {
+    "王": "sens",
+    "白": "forme"
+   },
+   "origine_fr": "Sur les bronzes, 皇 veut déjà dire « grand, auguste », mais ce que dessinait la forme reste discuté. Pour s'en souvenir : 白 en haut, comme une couronne qui brille, sur 王, le roi. Le roi couronné, au-dessus des rois : « l'empereur », 皇帝.",
+   "origine_en": "On bronzes, 皇 already means “great, august”, but what the form depicted is still debated. To remember it: 白 on top, like a shining crown, over 王, the king. The crowned king, above all kings: “emperor”, 皇帝.",
+   "etiquette": "mnemotechnique",
    "memo_fr": null,
    "memo_en": null,
    "mots": [],
@@ -158,7 +161,7 @@
    "traits": [],
    "medianes": [],
    "audio": null,
-   "statut": "sans_fiche"
+   "statut": "relu"
   }
  ]
 }

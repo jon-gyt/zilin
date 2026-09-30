@@ -3,15 +3,15 @@
  "license": "propriétaire",
  "source": "décomposition GF 0014-2009 réconciliée par le pipeline wenlu ; pinyin d'Unihan (kMandarin) ; textes rédigés pour l'app",
  "source_url": "https://github.com/jon-gyt/zilin",
- "modified": "2026-09-28 : assemblé par `wenlu export`",
+ "modified": "2026-09-30 : assemblé par `wenlu export`",
  "norme": "GF 0014-2009",
  "racine": {
   "c": "虫",
   "pinyin": "chóng",
-  "fr": "",
-  "en": "",
-  "origine": "",
-  "etiquette": null
+  "fr": "insecte, ver",
+  "en": "insect, worm",
+  "origine": "Sur les os oraculaires, 虫 dessine un serpent à grosse tête, et le Shuowen jiezi y voit une vipère lovée. Le mot « insecte, petite bête » s'écrivait 蟲, trois 虫 ensemble. La forme simplifiée a repris le seul 虫 pour ce sens, et il sert de clé à la plupart des noms d'insectes.",
+  "etiquette": "atteste"
  },
  "fiches": [
   {
@@ -20,25 +20,48 @@
    "lectures": [
     "chóng"
    ],
-   "fr": "",
-   "en": "",
+   "fr": "insecte, ver",
+   "en": "insect, worm",
    "parts": [],
    "nouveau": [],
    "sources": [],
    "role": null,
-   "roles": {},
-   "origine_fr": "",
-   "origine_en": "",
-   "etiquette": null,
+   "roles": {
+    "虫": "sens"
+   },
+   "origine_fr": "Sur les os oraculaires, 虫 dessine un serpent à grosse tête, et le Shuowen jiezi y voit une vipère lovée. Le mot « insecte, petite bête » s'écrivait 蟲, trois 虫 ensemble. La forme simplifiée a repris le seul 虫 pour ce sens, et il sert de clé à la plupart des noms d'insectes.",
+   "origine_en": "On oracle bones, 虫 draws a snake with a large head, and the Shuowen jiezi sees in it a coiled viper. The word “insect, small creature” was written 蟲, three 虫 together. The simplified form took the single 虫 for that meaning, and it is the radical of most insect names.",
+   "etiquette": "atteste",
    "memo_fr": null,
    "memo_en": null,
-   "mots": [],
-   "phrase": null,
+   "mots": [
+    {
+     "hanzi": "虫子",
+     "pinyin": "chóngzi",
+     "fr": "insecte, bestiole",
+     "en": "insect, bug",
+     "audio": null
+    },
+    {
+     "hanzi": "毛虫",
+     "pinyin": "máochóng",
+     "fr": "chenille",
+     "en": "caterpillar",
+     "audio": null
+    }
+   ],
+   "phrase": {
+    "hanzi": "桌子上有虫子。",
+    "pinyin": "Zhuōzi shàng yǒu chóngzi.",
+    "fr": "Il y a des insectes sur la table.",
+    "en": "There are bugs on the table.",
+    "audio": null
+   },
    "niveaux": {},
    "traits": [],
    "medianes": [],
    "audio": null,
-   "statut": "sans_fiche"
+   "statut": "relu"
   },
   {
    "c": "蛇",
@@ -47,8 +70,8 @@
     "shé",
     "yí"
    ],
-   "fr": "",
-   "en": "",
+   "fr": "serpent",
+   "en": "snake",
    "parts": [
     "虫",
     "宀",
@@ -59,10 +82,14 @@
     "cjk-decomp"
    ],
    "role": null,
-   "roles": {},
-   "origine_fr": "",
-   "origine_en": "",
-   "etiquette": null,
+   "roles": {
+    "匕": "forme",
+    "宀": "forme",
+    "虫": "sens"
+   },
+   "origine_fr": "Le Shuowen jiezi dessine le serpent avec 它, dressé, la queue pendante, et donne 蛇, qui ajoute 虫, comme autre forme. 它 est devenu un pronom, et 蛇 a gardé le serpent. On lit 虫 à gauche et 它, écrit 宀 sur 匕, à droite.",
+   "origine_en": "The Shuowen jiezi draws the snake as 它, reared up with its tail hanging, and gives 蛇, which adds 虫, as another form. 它 became a pronoun, and 蛇 kept the snake. You read 虫 on the left and 它, written 宀 over 匕, on the right.",
+   "etiquette": "atteste",
    "memo_fr": null,
    "memo_en": null,
    "mots": [],
@@ -71,7 +98,7 @@
    "traits": [],
    "medianes": [],
    "audio": null,
-   "statut": "sans_fiche"
+   "statut": "relu"
   },
   {
    "c": "蛙",

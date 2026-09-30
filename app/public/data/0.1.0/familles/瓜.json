@@ -3,15 +3,15 @@
  "license": "propriétaire",
  "source": "décomposition GF 0014-2009 réconciliée par le pipeline wenlu ; pinyin d'Unihan (kMandarin) ; textes rédigés pour l'app",
  "source_url": "https://github.com/jon-gyt/zilin",
- "modified": "2026-09-25 : assemblé par `wenlu export`",
+ "modified": "2026-09-30 : assemblé par `wenlu export`",
  "norme": "GF 0014-2009",
  "racine": {
   "c": "瓜",
   "pinyin": "guā",
-  "fr": "",
-  "en": "",
-  "origine": "",
-  "etiquette": null
+  "fr": "melon, courge",
+  "en": "melon, gourd",
+  "origine": "Le Shuowen jiezi classe 瓜 parmi les pictogrammes : le fruit qui pend entre les tiges d'une plante rampante. Sur les bronzes, on voit les deux tiges et, au milieu, le fruit. La forme actuelle garde ce fruit au centre, pris entre deux traits qui retombent.",
+  "etiquette": "atteste"
  },
  "fiches": [
   {
@@ -20,16 +20,18 @@
    "lectures": [
     "guā"
    ],
-   "fr": "",
-   "en": "",
+   "fr": "melon, courge",
+   "en": "melon, gourd",
    "parts": [],
    "nouveau": [],
    "sources": [],
    "role": null,
-   "roles": {},
-   "origine_fr": "",
-   "origine_en": "",
-   "etiquette": null,
+   "roles": {
+    "瓜": "sens"
+   },
+   "origine_fr": "Le Shuowen jiezi classe 瓜 parmi les pictogrammes : le fruit qui pend entre les tiges d'une plante rampante. Sur les bronzes, on voit les deux tiges et, au milieu, le fruit. La forme actuelle garde ce fruit au centre, pris entre deux traits qui retombent.",
+   "origine_en": "The Shuowen jiezi classes 瓜 among the pictograms: the fruit hanging between the stems of a creeping plant. On bronzes, one sees the two stems and the fruit in the middle. Today's form keeps that fruit in the centre, held between two falling strokes.",
+   "etiquette": "atteste",
    "memo_fr": null,
    "memo_en": null,
    "mots": [],
@@ -38,7 +40,7 @@
    "traits": [],
    "medianes": [],
    "audio": null,
-   "statut": "sans_fiche"
+   "statut": "relu"
   }
  ]
 }

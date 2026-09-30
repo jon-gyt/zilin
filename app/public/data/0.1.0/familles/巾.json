@@ -3,7 +3,7 @@
  "license": "propriétaire",
  "source": "décomposition GF 0014-2009 réconciliée par le pipeline wenlu ; pinyin d'Unihan (kMandarin) ; textes rédigés pour l'app",
  "source_url": "https://github.com/jon-gyt/zilin",
- "modified": "2026-09-28 : assemblé par `wenlu export`",
+ "modified": "2026-09-30 : assemblé par `wenlu export`",
  "norme": "GF 0014-2009",
  "racine": {
   "c": "巾",
@@ -69,8 +69,8 @@
    "lectures": [
     "bù"
    ],
-   "fr": "",
-   "en": "",
+   "fr": "tissu, toile, annoncer",
+   "en": "cloth, to announce",
    "parts": [
     "𠂇",
     "巾"
@@ -80,10 +80,13 @@
     "cjk-decomp"
    ],
    "role": null,
-   "roles": {},
-   "origine_fr": "",
-   "origine_en": "",
-   "etiquette": null,
+   "roles": {
+    "巾": "sens",
+    "𠂇": "forme"
+   },
+   "origine_fr": "Le Shuowen jiezi définit 布 comme une toile de chanvre : 巾, l'étoffe, et 父 pour le son. Le haut, 父, s'est réduit au tracé 𠂇 que l'on voit aujourd'hui. De la toile qu'on déploie vient aussi « étaler, annoncer ».",
+   "origine_en": "The Shuowen jiezi defines 布 as hemp cloth: 巾, fabric, with 父 for the sound. The top, 父, has shrunk to the shape 𠂇 seen today. From cloth being spread out also comes “to spread, to announce”.",
+   "etiquette": "atteste",
    "memo_fr": null,
    "memo_en": null,
    "mots": [],
@@ -92,7 +95,7 @@
    "traits": [],
    "medianes": [],
    "audio": null,
-   "statut": "sans_fiche"
+   "statut": "relu"
   },
   {
    "c": "帝",
@@ -100,8 +103,8 @@
    "lectures": [
     "dì"
    ],
-   "fr": "",
-   "en": "",
+   "fr": "empereur, dieu suprême",
+   "en": "emperor, supreme god",
    "parts": [
     "⿳亠丷冖",
     "巾"
@@ -111,10 +114,13 @@
     "surcharge"
    ],
    "role": null,
-   "roles": {},
-   "origine_fr": "",
-   "origine_en": "",
-   "etiquette": null,
+   "roles": {
+    "⿳亠丷冖": "forme",
+    "巾": "forme"
+   },
+   "origine_fr": "Sur les os oraculaires, 帝 nomme déjà le dieu suprême, mais ce que dessinait la forme reste discuté. Pour s'en souvenir : un toit de temple, écrit 亠, 丷 et 冖, au-dessus de 巾, une étoffe tendue comme sur un autel. Le dieu d'en haut est devenu le titre de l'empereur, 皇帝.",
+   "origine_en": "On oracle bones, 帝 already names the supreme god, but what the form depicted is still debated. To remember it: a temple roof, written 亠, 丷 and 冖, above 巾, a cloth draped as on an altar. The god on high became the emperor's title, 皇帝.",
+   "etiquette": "mnemotechnique",
    "memo_fr": null,
    "memo_en": null,
    "mots": [],
@@ -123,7 +129,7 @@
    "traits": [],
    "medianes": [],
    "audio": null,
-   "statut": "sans_fiche"
+   "statut": "relu"
   }
  ]
 }

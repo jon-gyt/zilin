@@ -3,15 +3,15 @@
  "license": "propriétaire",
  "source": "décomposition GF 0014-2009 réconciliée par le pipeline wenlu ; pinyin d'Unihan (kMandarin) ; textes rédigés pour l'app",
  "source_url": "https://github.com/jon-gyt/zilin",
- "modified": "2026-09-25 : assemblé par `wenlu export`",
+ "modified": "2026-09-30 : assemblé par `wenlu export`",
  "norme": "GF 0014-2009",
  "racine": {
   "c": "申",
   "pinyin": "shēn",
-  "fr": "",
-  "en": "",
-  "origine": "",
-  "etiquette": null
+  "fr": "exposer, déclarer",
+  "en": "to state, to express",
+  "origine": "Sur les os oraculaires, 申 dessine l'éclair, un trait qui se tord et se ramifie. Le caractère a servi de nom au neuvième des rameaux terrestres, et l'éclair s'est écrit 電, sous la pluie 雨. Il garde aujourd'hui le sens d'« exposer, déclarer ».",
+  "etiquette": "atteste"
  },
  "fiches": [
   {
@@ -20,16 +20,18 @@
    "lectures": [
     "shēn"
    ],
-   "fr": "",
-   "en": "",
+   "fr": "exposer, déclarer",
+   "en": "to state, to express",
    "parts": [],
    "nouveau": [],
    "sources": [],
    "role": null,
-   "roles": {},
-   "origine_fr": "",
-   "origine_en": "",
-   "etiquette": null,
+   "roles": {
+    "申": "forme"
+   },
+   "origine_fr": "Sur les os oraculaires, 申 dessine l'éclair, un trait qui se tord et se ramifie. Le caractère a servi de nom au neuvième des rameaux terrestres, et l'éclair s'est écrit 電, sous la pluie 雨. Il garde aujourd'hui le sens d'« exposer, déclarer ».",
+   "origine_en": "On oracle bones, 申 draws lightning, a line that twists and branches. The character became the name of the ninth earthly branch, and lightning was written 電, under rain 雨. Today it keeps the meaning “to state, to declare”.",
+   "etiquette": "atteste",
    "memo_fr": null,
    "memo_en": null,
    "mots": [],
@@ -38,7 +40,7 @@
    "traits": [],
    "medianes": [],
    "audio": null,
-   "statut": "sans_fiche"
+   "statut": "relu"
   }
  ]
 }
