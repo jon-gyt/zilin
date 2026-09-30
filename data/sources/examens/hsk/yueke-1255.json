@@ -1,0 +1,442 @@
+{
+ "examen": "yueke-1255",
+ "parcours": "hsk",
+ "generation": {
+  "modele": "rédaction manuelle",
+  "api": "session Claude Code (sans API)",
+  "date": "2026-09-30"
+ },
+ "relecture": {
+  "statut": "a_relire",
+  "note": "rédigé le 30 septembre 2026, à relire par le propriétaire (`wenlu examens apercu`) ; une série passe à `relu` sur sa décision, citée ici"
+ },
+ "series": [
+  {
+   "serie": "A",
+   "statut": "a_relire",
+   "supports": [
+    {
+     "id": "s1",
+     "genre": "etal",
+     "contexte": {
+      "fr": "Un étal",
+      "en": "A stall"
+     },
+     "lignes": [
+      {
+       "zh": "矿泉水：两元一瓶",
+       "pinyin": "kuàng quán shuǐ liǎng yuán yī píng",
+       "fr": "Eau minérale : 2 yuans la bouteille",
+       "en": "Mineral water: 2 yuan a bottle"
+      },
+      {
+       "zh": "帽子：三十元一顶",
+       "pinyin": "mào zi sān shí yuán yī dǐng",
+       "fr": "Chapeaux : 30 yuans pièce",
+       "en": "Hats: 30 yuan each"
+      },
+      {
+       "zh": "雨伞：二十五元一把",
+       "pinyin": "yǔ sǎn èr shí wǔ yuán yī bǎ",
+       "fr": "Parapluies : 25 yuans pièce",
+       "en": "Umbrellas: 25 yuan each"
+      }
+     ],
+     "glose": [
+      {
+       "zh": "两元",
+       "pinyin": "liǎng yuán",
+       "fr": "2 yuans",
+       "en": "2 yuan"
+      },
+      {
+       "zh": "三十元",
+       "pinyin": "sān shí yuán",
+       "fr": "30 yuans",
+       "en": "30 yuan"
+      },
+      {
+       "zh": "二十五元",
+       "pinyin": "èr shí wǔ yuán",
+       "fr": "25 yuans",
+       "en": "25 yuan"
+      },
+      {
+       "zh": "一瓶",
+       "pinyin": "yī píng",
+       "fr": "une bouteille",
+       "en": "a bottle"
+      },
+      {
+       "zh": "一把",
+       "pinyin": "yī bǎ",
+       "fr": "un (parapluie)",
+       "en": "one (umbrella)"
+      }
+     ]
+    },
+    {
+     "id": "s2",
+     "genre": "message",
+     "contexte": {
+      "fr": "Un message",
+      "en": "A message"
+     },
+     "lignes": [
+      {
+       "zh": "周末城里有灯会，",
+       "pinyin": "zhōu mò chéng lǐ yǒu dēng huì",
+       "fr": "Ce week-end, il y a une fête des lanternes en ville :",
+       "en": "There's a lantern festival in town this weekend:"
+      },
+      {
+       "zh": "晚上很热闹，",
+       "pinyin": "wǎn shang hěn rè nao",
+       "fr": "le soir, c'est très animé.",
+       "en": "it's very lively in the evening."
+      },
+      {
+       "zh": "我们一起去赏灯吧！",
+       "pinyin": "wǒ men yī qǐ qù shǎng dēng ba",
+       "fr": "Allons admirer les lanternes ensemble !",
+       "en": "Let's go and see the lanterns together!"
+      }
+     ]
+    }
+   ],
+   "questions": [
+    {
+     "type": "comprendre",
+     "support": "s1",
+     "consigne": {
+      "fr": "Qu'est-ce qui coûte le moins cher ?",
+      "en": "What's the cheapest?"
+     },
+     "choix": [
+      {
+       "fr": "Les chapeaux",
+       "en": "Hats"
+      },
+      {
+       "fr": "L'eau minérale",
+       "en": "Mineral water"
+      },
+      {
+       "fr": "Les parapluies",
+       "en": "Umbrellas"
+      },
+      {
+       "fr": "Les lunettes",
+       "en": "Glasses"
+      }
+     ],
+     "reponse": 1,
+     "porte": [
+      "矿",
+      "泉",
+      "两",
+      "元"
+     ]
+    },
+    {
+     "type": "reperer",
+     "support": "s1",
+     "consigne": {
+      "fr": "Touche le prix d'un chapeau.",
+      "en": "Tap the price of a hat."
+     },
+     "choix": [
+      "两元",
+      "一瓶",
+      "二十五元",
+      "三十元"
+     ],
+     "reponse": 3,
+     "porte": [
+      "帽",
+      "三",
+      "十",
+      "元"
+     ]
+    },
+    {
+     "type": "vrai_faux",
+     "support": "s2",
+     "consigne": {
+      "fr": "Vrai ou faux ?",
+      "en": "True or false?"
+     },
+     "affirmation": {
+      "zh": "晚上人不多，很安静。",
+      "pinyin": "wǎn shang rén bù duō hěn ān jìng",
+      "fr": "Le soir, il y a peu de monde, c'est calme.",
+      "en": "There aren't many people in the evening, it's quiet."
+     },
+     "reponse": false,
+     "porte": [
+      "热",
+      "闹"
+     ]
+    },
+    {
+     "type": "replique",
+     "support": "s2",
+     "consigne": {
+      "fr": "Que réponds-tu ?",
+      "en": "What do you reply?"
+     },
+     "choix": [
+      {
+       "zh": "好，星期六晚上见！",
+       "pinyin": "hǎo xīng qī liù wǎn shang jiàn",
+       "fr": "D'accord, à samedi soir !",
+       "en": "OK, see you Saturday evening!"
+      },
+      {
+       "zh": "我没有帽子。",
+       "pinyin": "wǒ méi yǒu mào zi",
+       "fr": "Je n'ai pas de chapeau.",
+       "en": "I don't have a hat."
+      },
+      {
+       "zh": "我家离公园很远。",
+       "pinyin": "wǒ jiā lí gōng yuán hěn yuǎn",
+       "fr": "J'habite loin du parc.",
+       "en": "I live far from the park."
+      },
+      {
+       "zh": "他的眼睛很大。",
+       "pinyin": "tā de yǎn jing hěn dà",
+       "fr": "Il a de grands yeux.",
+       "en": "He has big eyes."
+      }
+     ],
+     "reponse": 0,
+     "porte": [
+      "赏",
+      "灯"
+     ]
+    },
+    {
+     "type": "trou",
+     "consigne": {
+      "fr": "Quel caractère manque dans ce mot ?",
+      "en": "Which character is missing from this word?"
+     },
+     "objet": {
+      "zh": "森林",
+      "pinyin": "sēn lín",
+      "fr": "forêt",
+      "en": "forest"
+     },
+     "trou": 1,
+     "choix": [
+      "材",
+      "林",
+      "杯",
+      "树"
+     ],
+     "reponse": 1,
+     "porte": [
+      "林"
+     ]
+    }
+   ]
+  },
+  {
+   "serie": "B",
+   "statut": "a_relire",
+   "supports": [
+    {
+     "id": "s1",
+     "genre": "note",
+     "contexte": {
+      "fr": "Une note",
+      "en": "A note"
+     },
+     "lignes": [
+      {
+       "zh": "明天的中文课",
+       "pinyin": "míng tiān de zhōng wén kè",
+       "fr": "Le cours de chinois de demain",
+       "en": "Tomorrow's Chinese class"
+      },
+      {
+       "zh": "临时改到下午三点。",
+       "pinyin": "lín shí gǎi dào xià wǔ sān diǎn",
+       "fr": "est exceptionnellement déplacé à 15 h.",
+       "en": "has been moved to 3 pm this time."
+      }
+     ]
+    },
+    {
+     "id": "s2",
+     "genre": "message",
+     "contexte": {
+      "fr": "Un message",
+      "en": "A message"
+     },
+     "lignes": [
+      {
+       "zh": "王教授，您的新书我读了，",
+       "pinyin": "wáng jiào shòu nín de xīn shū wǒ dú le",
+       "fr": "Professeur Wang, j'ai lu votre nouveau livre :",
+       "en": "Professor Wang, I've read your new book:"
+      },
+      {
+       "zh": "里面的诗很美，",
+       "pinyin": "lǐ mian de shī hěn měi",
+       "fr": "les poèmes sont très beaux,",
+       "en": "the poems are beautiful,"
+      },
+      {
+       "zh": "有的地方我还不明白，",
+       "pinyin": "yǒu de dì fang wǒ hái bù míng bai",
+       "fr": "mais je ne comprends pas encore certains passages :",
+       "en": "but there are parts I still don't understand:"
+      },
+      {
+       "zh": "能请您给我解释一下吗？",
+       "pinyin": "néng qǐng nín gěi wǒ jiě shì yī xià ma",
+       "fr": "pourriez-vous me les expliquer ?",
+       "en": "could you explain them to me?"
+      }
+     ]
+    }
+   ],
+   "questions": [
+    {
+     "type": "vrai_faux",
+     "support": "s1",
+     "consigne": {
+      "fr": "Vrai ou faux ?",
+      "en": "True or false?"
+     },
+     "affirmation": {
+      "zh": "明天没有中文课了。",
+      "pinyin": "míng tiān méi yǒu zhōng wén kè le",
+      "fr": "Il n'y a plus de cours de chinois demain.",
+      "en": "There's no Chinese class tomorrow any more."
+     },
+     "reponse": false,
+     "porte": [
+      "临",
+      "时",
+      "改"
+     ]
+    },
+    {
+     "type": "comprendre",
+     "support": "s2",
+     "consigne": {
+      "fr": "Que demande la personne qui écrit ?",
+      "en": "What is the writer asking for?"
+     },
+     "choix": [
+      {
+       "fr": "Un autographe",
+       "en": "An autograph"
+      },
+      {
+       "fr": "Un autre livre",
+       "en": "Another book"
+      },
+      {
+       "fr": "Une explication",
+       "en": "An explanation"
+      },
+      {
+       "fr": "Un rendez-vous",
+       "en": "An appointment"
+      }
+     ],
+     "reponse": 2,
+     "porte": [
+      "解",
+      "释"
+     ]
+    },
+    {
+     "type": "reperer",
+     "support": "s2",
+     "consigne": {
+      "fr": "Touche ce qui est beau dans le livre.",
+      "en": "Tap what is beautiful in the book."
+     },
+     "choix": [
+      "诗",
+      "教授",
+      "新书",
+      "地方"
+     ],
+     "reponse": 0,
+     "porte": [
+      "诗"
+     ]
+    },
+    {
+     "type": "replique",
+     "support": "s2",
+     "consigne": {
+      "fr": "Que répond le professeur Wang ?",
+      "en": "What does Professor Wang reply?"
+     },
+     "choix": [
+      {
+       "zh": "这里的矿泉水很贵。",
+       "pinyin": "zhè li de kuàng quán shuǐ hěn guì",
+       "fr": "L'eau minérale est chère ici.",
+       "en": "Mineral water is expensive here."
+      },
+      {
+       "zh": "没问题，你明天来找我吧。",
+       "pinyin": "méi wèn tí nǐ míng tiān lái zhǎo wǒ ba",
+       "fr": "Pas de problème, viens me voir demain.",
+       "en": "No problem, come and see me tomorrow."
+      },
+      {
+       "zh": "我家楼下很热闹。",
+       "pinyin": "wǒ jiā lóu xià hěn rè nao",
+       "fr": "C'est très animé en bas de chez moi.",
+       "en": "It's very lively downstairs from me."
+      },
+      {
+       "zh": "我的帽子在哪儿？",
+       "pinyin": "wǒ de mào zi zài nǎ r",
+       "fr": "Où est mon chapeau ?",
+       "en": "Where's my hat?"
+      }
+     ],
+     "reponse": 1,
+     "porte": [
+      "解",
+      "释"
+     ]
+    },
+    {
+     "type": "ton",
+     "consigne": {
+      "fr": "Quel est le ton de ce caractère ?",
+      "en": "Which tone does this character have?"
+     },
+     "objet": {
+      "zh": "晒",
+      "pinyin": "shài",
+      "fr": "sécher au soleil",
+      "en": "to dry in the sun"
+     },
+     "choix": [
+      "shāi",
+      "shái",
+      "shǎi",
+      "shài"
+     ],
+     "reponse": 3,
+     "porte": [
+      "晒"
+     ]
+    }
+   ]
+  }
+ ]
+}
