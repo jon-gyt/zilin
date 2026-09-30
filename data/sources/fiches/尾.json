@@ -21,20 +21,33 @@
   "尸": "sens",
   "毛": "sens"
  },
- "mots": [],
+ "mots": [
+  {
+   "hanzi": "尾巴",
+   "pinyin": "wěiba",
+   "fr": "queue (d'animal)",
+   "en": "tail"
+  },
+  {
+   "hanzi": "结尾",
+   "pinyin": "jiéwěi",
+   "fr": "fin, conclusion",
+   "en": "ending, conclusion"
+  }
+ ],
  "phrase": {
-  "zh": "",
-  "pinyin": "",
-  "fr": "",
-  "en": ""
+  "zh": "小狗的尾巴很长。",
+  "pinyin": "Xiǎo gǒu de wěiba hěn cháng.",
+  "fr": "La queue du petit chien est très longue.",
+  "en": "The puppy's tail is very long."
  },
  "generation": {
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:739f6fa74c92002310f5001bbc11d8a5526b8363582f0eae531276d1c3ca1cd2",
-  "essais": 1,
+  "empreinte_invite": "sha256:9959b53dc807bda47857f6bd30f3e0631b218c609f65376dcf68f500ce748731",
+  "essais": 2,
   "refus": []
  },
- "statut": "relu"
+ "statut": "a_relire"
 }

@@ -21,20 +21,33 @@
   "辶": "sens",
   "术": "son"
  },
- "mots": [],
+ "mots": [
+  {
+   "hanzi": "描述",
+   "pinyin": "miáoshù",
+   "fr": "décrire, description",
+   "en": "to describe, description"
+  },
+  {
+   "hanzi": "讲述",
+   "pinyin": "jiǎngshù",
+   "fr": "raconter",
+   "en": "to tell, to narrate"
+  }
+ ],
  "phrase": {
-  "zh": "",
-  "pinyin": "",
-  "fr": "",
-  "en": ""
+  "zh": "请你描述一下那个人。",
+  "pinyin": "Qǐng nǐ miáoshù yīxià nàge rén.",
+  "fr": "Décris-moi cette personne, s'il te plaît.",
+  "en": "Please describe that person."
  },
  "generation": {
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:c4e2aa72ffbecd5aa9223fe2aecf34c06327bf2347f959ea9afec430d8dbe2cd",
-  "essais": 1,
+  "empreinte_invite": "sha256:28fce449a8a84a854166f3456bc505fcb5875f73ee93b6d33aec991c840e2b63",
+  "essais": 2,
   "refus": []
  },
- "statut": "relu"
+ "statut": "a_relire"
 }
