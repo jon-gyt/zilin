@@ -1,0 +1,411 @@
+{
+ "examen": "yueke-355",
+ "parcours": "hsk",
+ "generation": {
+  "modele": "rédaction manuelle",
+  "api": "session Claude Code (sans API)",
+  "date": "2026-09-30"
+ },
+ "relecture": {
+  "statut": "a_relire",
+  "note": "rédigé le 30 septembre 2026, à relire par le propriétaire (`wenlu examens apercu`) ; une série passe à `relu` sur sa décision, citée ici"
+ },
+ "series": [
+  {
+   "serie": "A",
+   "statut": "a_relire",
+   "supports": [
+    {
+     "id": "s1",
+     "genre": "message",
+     "contexte": {
+      "fr": "Un message",
+      "en": "A message"
+     },
+     "lignes": [
+      {
+       "zh": "姐姐，我饿了，",
+       "pinyin": "jiě jie wǒ è le",
+       "fr": "Grande sœur, j'ai faim,",
+       "en": "Sis, I'm hungry,"
+      },
+      {
+       "zh": "家里没有饭，",
+       "pinyin": "jiā lǐ méi yǒu fàn",
+       "fr": "il n'y a rien à manger à la maison :",
+       "en": "there's no food at home,"
+      },
+      {
+       "zh": "我们去饭馆吧！",
+       "pinyin": "wǒ men qù fàn guǎn ba",
+       "fr": "allons au restaurant !",
+       "en": "let's go to a restaurant!"
+      }
+     ]
+    },
+    {
+     "id": "s2",
+     "genre": "pancarte",
+     "contexte": {
+      "fr": "Un panneau",
+      "en": "A road sign"
+     },
+     "lignes": [
+      {
+       "zh": "学校门口，车要慢！",
+       "pinyin": "xué xiào mén kǒu chē yào màn",
+       "fr": "Devant l'école, les voitures ralentissent !",
+       "en": "School ahead: vehicles slow down!"
+      }
+     ]
+    }
+   ],
+   "questions": [
+    {
+     "type": "comprendre",
+     "support": "s1",
+     "consigne": {
+      "fr": "Que propose la personne qui écrit ?",
+      "en": "What does the person writing suggest?"
+     },
+     "choix": [
+      {
+       "fr": "D'aller au restaurant",
+       "en": "Going to a restaurant"
+      },
+      {
+       "fr": "De faire la cuisine",
+       "en": "Cooking"
+      },
+      {
+       "fr": "D'aller au cinéma",
+       "en": "Going to the cinema"
+      },
+      {
+       "fr": "D'aller dormir",
+       "en": "Going to bed"
+      }
+     ],
+     "reponse": 0,
+     "porte": [
+      "饭",
+      "馆"
+     ]
+    },
+    {
+     "type": "vrai_faux",
+     "support": "s1",
+     "consigne": {
+      "fr": "Vrai ou faux ?",
+      "en": "True or false?"
+     },
+     "affirmation": {
+      "zh": "家里有很多饭。",
+      "pinyin": "jiā lǐ yǒu hěn duō fàn",
+      "fr": "Il y a beaucoup à manger à la maison.",
+      "en": "There's plenty of food at home."
+     },
+     "reponse": false,
+     "porte": [
+      "没",
+      "饭"
+     ]
+    },
+    {
+     "type": "replique",
+     "support": "s1",
+     "consigne": {
+      "fr": "Que répond sa grande sœur ?",
+      "en": "What does the older sister reply?"
+     },
+     "choix": [
+      {
+       "zh": "我爸爸是医生。",
+       "pinyin": "wǒ bà ba shì yī shēng",
+       "fr": "Mon papa est médecin.",
+       "en": "My dad is a doctor."
+      },
+      {
+       "zh": "这衣服很好看。",
+       "pinyin": "zhè yī fu hěn hǎo kàn",
+       "fr": "Ces vêtements sont jolis.",
+       "en": "These clothes are pretty."
+      },
+      {
+       "zh": "好，你等我一下！",
+       "pinyin": "hǎo nǐ děng wǒ yī xià",
+       "fr": "D'accord, attends-moi un instant !",
+       "en": "OK, wait for me a moment!"
+      },
+      {
+       "zh": "我不认识他。",
+       "pinyin": "wǒ bù rèn shi tā",
+       "fr": "Je ne le connais pas.",
+       "en": "I don't know him."
+      }
+     ],
+     "reponse": 2,
+     "porte": [
+      "饿",
+      "饭",
+      "馆"
+     ]
+    },
+    {
+     "type": "comprendre",
+     "support": "s2",
+     "consigne": {
+      "fr": "Que doivent faire les voitures ?",
+      "en": "What must vehicles do?"
+     },
+     "choix": [
+      {
+       "fr": "S'arrêter",
+       "en": "Stop"
+      },
+      {
+       "fr": "Klaxonner",
+       "en": "Sound the horn"
+      },
+      {
+       "fr": "Tourner à droite",
+       "en": "Turn right"
+      },
+      {
+       "fr": "Ralentir",
+       "en": "Slow down"
+      }
+     ],
+     "reponse": 3,
+     "porte": [
+      "要",
+      "慢"
+     ]
+    },
+    {
+     "type": "caractere",
+     "consigne": {
+      "fr": "Quel caractère a ce sens ?",
+      "en": "Which character has this meaning?"
+     },
+     "objet": {
+      "zh": "忘",
+      "pinyin": "wàng",
+      "fr": "oublier",
+      "en": "to forget"
+     },
+     "choix": [
+      "忙",
+      "息",
+      "忘",
+      "快"
+     ],
+     "reponse": 2,
+     "porte": [
+      "忘"
+     ]
+    }
+   ]
+  },
+  {
+   "serie": "B",
+   "statut": "a_relire",
+   "supports": [
+    {
+     "id": "s1",
+     "genre": "note",
+     "contexte": {
+      "fr": "Une note",
+      "en": "A note"
+     },
+     "lignes": [
+      {
+       "zh": "我去医院看爷爷了，",
+       "pinyin": "wǒ qù yī yuàn kàn yé ye le",
+       "fr": "Je suis allé voir grand-père à l'hôpital,",
+       "en": "I've gone to see Grandpa at the hospital,"
+      },
+      {
+       "zh": "六点回来。",
+       "pinyin": "liù diǎn huí lái",
+       "fr": "je rentre à six heures.",
+       "en": "back at six."
+      },
+      {
+       "zh": "饭在桌子上。",
+       "pinyin": "fàn zài zhuō zi shàng",
+       "fr": "Le repas est sur la table.",
+       "en": "Dinner is on the table."
+      }
+     ]
+    },
+    {
+     "id": "s2",
+     "genre": "message",
+     "contexte": {
+      "fr": "Un message",
+      "en": "A message"
+     },
+     "lignes": [
+      {
+       "zh": "爸爸，你今天忙吗？",
+       "pinyin": "bà ba nǐ jīn tiān máng ma",
+       "fr": "Papa, tu es occupé aujourd'hui ?",
+       "en": "Dad, are you busy today?"
+      },
+      {
+       "zh": "能帮我找一下书吗？",
+       "pinyin": "néng bāng wǒ zhǎo yī xià shū ma",
+       "fr": "Tu peux m'aider à chercher un livre ?",
+       "en": "Can you help me look for a book?"
+      }
+     ]
+    }
+   ],
+   "questions": [
+    {
+     "type": "comprendre",
+     "support": "s1",
+     "consigne": {
+      "fr": "Où est parti celui qui a écrit ?",
+      "en": "Where has the writer gone?"
+     },
+     "choix": [
+      {
+       "fr": "À l'école",
+       "en": "To school"
+      },
+      {
+       "fr": "À l'hôpital",
+       "en": "To the hospital"
+      },
+      {
+       "fr": "Au magasin",
+       "en": "To the shop"
+      },
+      {
+       "fr": "À la gare",
+       "en": "To the station"
+      }
+     ],
+     "reponse": 1,
+     "porte": [
+      "医",
+      "院"
+     ]
+    },
+    {
+     "type": "vrai_faux",
+     "support": "s1",
+     "consigne": {
+      "fr": "Vrai ou faux ?",
+      "en": "True or false?"
+     },
+     "affirmation": {
+      "zh": "他去看爸爸了。",
+      "pinyin": "tā qù kàn bà ba le",
+      "fr": "Il est allé voir son papa.",
+      "en": "He has gone to see his dad."
+     },
+     "reponse": false,
+     "porte": [
+      "爷"
+     ]
+    },
+    {
+     "type": "reperer",
+     "support": "s1",
+     "consigne": {
+      "fr": "Touche l'endroit où est le repas.",
+      "en": "Tap where the meal is."
+     },
+     "choix": [
+      "医院",
+      "爷爷",
+      "六点",
+      "桌子"
+     ],
+     "reponse": 3,
+     "porte": [
+      "饭",
+      "桌"
+     ]
+    },
+    {
+     "type": "replique",
+     "support": "s2",
+     "consigne": {
+      "fr": "Que répond papa ?",
+      "en": "What does Dad reply?"
+     },
+     "choix": [
+      {
+       "zh": "你姐姐很高。",
+       "pinyin": "nǐ jiě jie hěn gāo",
+       "fr": "Ta grande sœur est grande.",
+       "en": "Your big sister is tall."
+      },
+      {
+       "zh": "我不要喝水。",
+       "pinyin": "wǒ bù yào hē shuǐ",
+       "fr": "Je ne veux pas d'eau.",
+       "en": "I don't want any water."
+      },
+      {
+       "zh": "今天很冷。",
+       "pinyin": "jīn tiān hěn lěng",
+       "fr": "Il fait froid aujourd'hui.",
+       "en": "It's cold today."
+      },
+      {
+       "zh": "不忙，我帮你找。",
+       "pinyin": "bù máng wǒ bāng nǐ zhǎo",
+       "fr": "Pas occupé : je t'aide à chercher.",
+       "en": "Not busy: I'll help you look."
+      }
+     ],
+     "reponse": 3,
+     "porte": [
+      "帮",
+      "忙"
+     ]
+    },
+    {
+     "type": "sens",
+     "consigne": {
+      "fr": "Que veut dire ce caractère ?",
+      "en": "What does this character mean?"
+     },
+     "objet": {
+      "zh": "慢",
+      "pinyin": "màn",
+      "fr": "lent",
+      "en": "slow"
+     },
+     "choix": [
+      {
+       "fr": "rapide",
+       "en": "fast"
+      },
+      {
+       "fr": "tard",
+       "en": "late"
+      },
+      {
+       "fr": "lent",
+       "en": "slow"
+      },
+      {
+       "fr": "loin",
+       "en": "far"
+      }
+     ],
+     "reponse": 2,
+     "porte": [
+      "慢"
+     ]
+    }
+   ]
+  }
+ ]
+}
