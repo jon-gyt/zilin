@@ -21,20 +21,33 @@
   "口": "sens",
   "木": "forme"
  },
- "mots": [],
+ "mots": [
+  {
+   "hanzi": "噪音",
+   "pinyin": "zàoyīn",
+   "fr": "bruit",
+   "en": "noise"
+  },
+  {
+   "hanzi": "降噪",
+   "pinyin": "jiàngzào",
+   "fr": "réduction de bruit",
+   "en": "noise reduction"
+  }
+ ],
  "phrase": {
-  "zh": "",
-  "pinyin": "",
-  "fr": "",
-  "en": ""
+  "zh": "窗外的噪音太大了。",
+  "pinyin": "Chuāng wài de zàoyīn tài dà le.",
+  "fr": "Le bruit dehors est vraiment trop fort.",
+  "en": "The noise outside the window is too loud."
  },
  "generation": {
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:cb0124a6e6f1edc70cc35220d5610964ef9021e55c8e0a2e59fef99280225ee8",
-  "essais": 1,
+  "empreinte_invite": "sha256:5b09f68cd2473ba78ca32297b480df6da340906e470c33fdef8244448ed0a82f",
+  "essais": 2,
   "refus": []
  },
- "statut": "relu"
+ "statut": "a_relire"
 }

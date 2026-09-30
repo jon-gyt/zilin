@@ -19,20 +19,33 @@
  "roles": {
   "兆": "sens"
  },
- "mots": [],
+ "mots": [
+  {
+   "hanzi": "前兆",
+   "pinyin": "qiánzhào",
+   "fr": "signe avant-coureur",
+   "en": "omen, warning sign"
+  },
+  {
+   "hanzi": "兆头",
+   "pinyin": "zhàotou",
+   "fr": "présage",
+   "en": "omen"
+  }
+ ],
  "phrase": {
-  "zh": "",
-  "pinyin": "",
-  "fr": "",
-  "en": ""
+  "zh": "这是一个好兆头。",
+  "pinyin": "Zhè shì yī gè hǎo zhàotou.",
+  "fr": "C'est un bon présage.",
+  "en": "This is a good omen."
  },
  "generation": {
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:f626e35278e4aa9db70e67dcadb78cf3f8544ad3cc7bd21467126792276b2d49",
-  "essais": 1,
+  "empreinte_invite": "sha256:d0892e48f0a5d4304110931d42233dbbcae4449e81fefc9f4a645911101f002c",
+  "essais": 2,
   "refus": []
  },
- "statut": "relu"
+ "statut": "a_relire"
 }

@@ -23,20 +23,33 @@
   "穴": "forme",
   "乍": "son"
  },
- "mots": [],
+ "mots": [
+  {
+   "hanzi": "榨汁",
+   "pinyin": "zhàzhī",
+   "fr": "presser un jus",
+   "en": "to juice"
+  },
+  {
+   "hanzi": "压榨",
+   "pinyin": "yāzhà",
+   "fr": "pressurer, exploiter",
+   "en": "to squeeze, to exploit"
+  }
+ ],
  "phrase": {
-  "zh": "",
-  "pinyin": "",
-  "fr": "",
-  "en": ""
+  "zh": "我用苹果榨了一杯汁。",
+  "pinyin": "Wǒ yòng píngguǒ zhà le yī bēi zhī.",
+  "fr": "J'ai pressé des pommes pour en faire un verre de jus.",
+  "en": "I squeezed a glass of juice from apples."
  },
  "generation": {
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:d803a18a073dab8e27fc8f2b2e3a5016368663801189ba57db73f56317aadb63",
-  "essais": 1,
+  "empreinte_invite": "sha256:601d337322b841d83a0114bc7b01065c5a64c23c1afef0eb25bf6cc6e67b01b0",
+  "essais": 2,
   "refus": []
  },
- "statut": "relu"
+ "statut": "a_relire"
 }

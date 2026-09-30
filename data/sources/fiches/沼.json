@@ -23,20 +23,33 @@
   "刀": "son",
   "口": "son"
  },
- "mots": [],
+ "mots": [
+  {
+   "hanzi": "沼泽",
+   "pinyin": "zhǎozé",
+   "fr": "marais",
+   "en": "swamp, marsh"
+  },
+  {
+   "hanzi": "沼气",
+   "pinyin": "zhǎoqì",
+   "fr": "biogaz",
+   "en": "biogas"
+  }
+ ],
  "phrase": {
-  "zh": "",
-  "pinyin": "",
-  "fr": "",
-  "en": ""
+  "zh": "这片沼泽里有很多鸟。",
+  "pinyin": "Zhè piàn zhǎozé lǐ yǒu hěn duō niǎo.",
+  "fr": "Il y a beaucoup d'oiseaux dans ce marais.",
+  "en": "There are many birds in this marsh."
  },
  "generation": {
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:0fa1f53e15596db826e93e0f56694271b5cfbd9137e3975ad043845ca8058285",
-  "essais": 1,
+  "empreinte_invite": "sha256:5bf562db60522340e1e4eb0283620192ce165da1ef321562d19a61f37ade4a86",
+  "essais": 2,
   "refus": []
  },
- "statut": "relu"
+ "statut": "a_relire"
 }

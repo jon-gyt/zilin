@@ -21,20 +21,33 @@
   "巾": "sens",
   "长": "son"
  },
- "mots": [],
+ "mots": [
+  {
+   "hanzi": "帐篷",
+   "pinyin": "zhàngpeng",
+   "fr": "tente",
+   "en": "tent"
+  },
+  {
+   "hanzi": "蚊帐",
+   "pinyin": "wénzhàng",
+   "fr": "moustiquaire",
+   "en": "mosquito net"
+  }
+ ],
  "phrase": {
-  "zh": "",
-  "pinyin": "",
-  "fr": "",
-  "en": ""
+  "zh": "我们在山上搭了一个帐篷。",
+  "pinyin": "Wǒmen zài shān shàng dā le yī gè zhàngpeng.",
+  "fr": "Nous avons monté une tente sur la montagne.",
+  "en": "We pitched a tent on the mountain."
  },
  "generation": {
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:f28a87bd5ee8f19cbd0b40e56da2688b122ee713a76f9e7b317deea63cb8dfa5",
-  "essais": 1,
+  "empreinte_invite": "sha256:b088ee41f3c2d4127d145058e9ac09350eaebe38dbc5d768161310d14fa8dae1",
+  "essais": 2,
   "refus": []
  },
- "statut": "relu"
+ "statut": "a_relire"
 }
