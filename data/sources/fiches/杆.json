@@ -21,20 +21,33 @@
   "木": "sens",
   "干": "son"
  },
- "mots": [],
+ "mots": [
+  {
+   "hanzi": "杆子",
+   "pinyin": "gānzi",
+   "fr": "perche, poteau",
+   "en": "pole"
+  },
+  {
+   "hanzi": "标杆",
+   "pinyin": "biāogān",
+   "fr": "jalon ; modèle de référence",
+   "en": "benchmark, model"
+  }
+ ],
  "phrase": {
-  "zh": "",
-  "pinyin": "",
-  "fr": "",
-  "en": ""
+  "zh": "门口立着一根木杆。",
+  "pinyin": "Ménkǒu lìzhe yī gēn mù gān.",
+  "fr": "Un poteau en bois se dresse devant la porte.",
+  "en": "A wooden pole stands by the door."
  },
  "generation": {
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:6cb6b46bee93ba768b7305c13ea2923e39f0afd43baad92726e72d01d493f1bf",
-  "essais": 1,
+  "empreinte_invite": "sha256:c8647b25a4737c292af48ae324569faac15aabf47b79cdb9fcde890d7c8ce8dc",
+  "essais": 2,
   "refus": []
  },
- "statut": "relu"
+ "statut": "a_relire"
 }

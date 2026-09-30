@@ -23,20 +23,33 @@
   "耂": "forme",
   "日": "forme"
  },
- "mots": [],
+ "mots": [
+  {
+   "hanzi": "打赌",
+   "pinyin": "dǎdǔ",
+   "fr": "parier",
+   "en": "to bet"
+  },
+  {
+   "hanzi": "赌博",
+   "pinyin": "dǔbó",
+   "fr": "jeux d'argent",
+   "en": "gambling"
+  }
+ ],
  "phrase": {
-  "zh": "",
-  "pinyin": "",
-  "fr": "",
-  "en": ""
+  "zh": "我跟你打赌，他今天不会来。",
+  "pinyin": "Wǒ gēn nǐ dǎdǔ, tā jīntiān bù huì lái.",
+  "fr": "Je te parie qu'il ne viendra pas aujourd'hui.",
+  "en": "I bet you he won't come today."
  },
  "generation": {
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:43db6366305768f07c41a65addad054736c1c7605ac4032afe67726326cad3c9",
-  "essais": 1,
+  "empreinte_invite": "sha256:37295c8bbcd3366a27745b6d75af71f3e08db81b4c29587441a43fb38e3c6d6f",
+  "essais": 2,
   "refus": []
  },
- "statut": "relu"
+ "statut": "a_relire"
 }
