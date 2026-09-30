@@ -1,0 +1,1327 @@
+{
+ "niveau": "7-9",
+ "lot": "83",
+ "source": "rédigé pour l'app dans le pipeline wenlu, sans API ; faits lus : liste HSK 3.0 (forme, pinyin, niveau, catégorie), lectures d'Unihan et des surcharges, gloses relues des fiches",
+ "brouillon": "data/sources/dico-brouillons/7-9/83.json",
+ "generation": {
+  "modele": "rédaction manuelle",
+  "api": "session Claude Code (sans API)",
+  "date": "2026-09-30",
+  "empreinte_invite": "sha256:dce20e0c04ee3fcb87868dd930a29023b37612e7e0bbe5777c0d956bf08cc822",
+  "contexte": "wenlu dico contexte 7-9 83",
+  "essais": 1,
+  "refus": []
+ },
+ "entrees": [
+  {
+   "id": "L7-3573",
+   "genre": "mot",
+   "hanzi": "上司",
+   "pinyin": "shàngsi",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "supérieur hiérarchique, chef",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "supérieur hiérarchique, chef"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他和上司的关系很好。",
+     "pinyin": "Tā hé shàngsi de guānxi hěn hǎo.",
+     "fr": "Il s'entend bien avec son patron.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-3574",
+   "genre": "mot",
+   "hanzi": "上诉",
+   "pinyin": "shàngsù",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "faire appel (justice)",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "faire appel, se pourvoir (justice)"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他不服判决，决定上诉。",
+     "pinyin": "Tā bù fú pànjué, juédìng shàngsù.",
+     "fr": "Contestant le jugement, il a décidé de saisir une juridiction supérieure.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-3575",
+   "genre": "mot",
+   "hanzi": "上调",
+   "pinyin": "shàngtiáo",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "relever, augmenter (prix, taux)",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "relever, augmenter (prix, taux, salaires)"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "油价又上调了。",
+     "pinyin": "Yóujià yòu shàngtiáo le.",
+     "fr": "Le carburant a encore augmenté.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-3576",
+   "genre": "mot",
+   "hanzi": "上头",
+   "pinyin": "shàngtou",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "dessus ; les supérieurs",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "dessus, en haut"
+     },
+     {
+      "categorie": "N",
+      "fr": "les supérieurs, la hiérarchie (oral)"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这是上头的决定。",
+     "pinyin": "Zhè shì shàngtou de juédìng.",
+     "fr": "C'est une décision venue d'en haut.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-3577",
+   "genre": "mot",
+   "hanzi": "上限",
+   "pinyin": "shàngxiàn",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "limite supérieure, plafond",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "limite supérieure, plafond, maximum"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "每人借书的上限是五本。",
+     "pinyin": "Měi rén jiè shū de shàngxiàn shì wǔ běn.",
+     "fr": "Chacun peut emprunter cinq livres au plus.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "旬",
+   "genre": "caractere",
+   "hanzi": "旬",
+   "pinyin": "xún",
+   "sens": {
+    "glose": "décade (dix jours)",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "décade, période de dix jours"
+     },
+     {
+      "categorie": "N",
+      "fr": "dizaine d'années (âge)"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": []
+  },
+  {
+   "id": "L7-3578",
+   "genre": "mot",
+   "hanzi": "上旬",
+   "pinyin": "shàngxún",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "première décade du mois",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "première décade du mois (du 1er au 10)"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "我们下个月上旬出发。",
+     "pinyin": "Wǒmen xià ge yuè shàngxún chūfā.",
+     "fr": "Nous partons au début du mois prochain.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-3579",
+   "genre": "mot",
+   "hanzi": "上瘾",
+   "pinyin": "shàngyǐn",
+   "sens": {
+    "glose": "devenir accro",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "devenir accro, devenir dépendant, prendre goût à"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "玩游戏很容易上瘾。",
+     "pinyin": "Wán yóuxì hěn róngyì shàngyǐn.",
+     "fr": "On a vite fait de ne plus pouvoir lâcher les jeux vidéo.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-3580",
+   "genre": "mot",
+   "hanzi": "上映",
+   "pinyin": "shàngyìng",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "sortir en salle, être à l'affiche",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "sortir en salle, être à l'affiche"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这部电影下周上映。",
+     "pinyin": "Zhè bù diànyǐng xià zhōu shàngyìng.",
+     "fr": "Ce film sort la semaine prochaine.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-3581",
+   "genre": "mot",
+   "hanzi": "上游",
+   "pinyin": "shàngyóu",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "amont ; premier rang",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "amont, cours supérieur (d'un fleuve)"
+     },
+     {
+      "categorie": "N",
+      "fr": "premier rang, avant-garde"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这条河的上游有一座水库。",
+     "pinyin": "Zhè tiáo hé de shàngyóu yǒu yī zuò shuǐkù.",
+     "fr": "Un réservoir a été construit en haut de cette rivière.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-3583",
+   "genre": "mot",
+   "hanzi": "尚未",
+   "pinyin": "shàngwèi",
+   "categories": [
+    "Adv"
+   ],
+   "sens": {
+    "glose": "pas encore",
+    "acceptions": [
+     {
+      "categorie": "Adv",
+      "fr": "pas encore, toujours pas (écrit)"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "问题尚未解决。",
+     "pinyin": "Wèntí shàngwèi jiějué.",
+     "fr": "Le problème n'est toujours pas réglé.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "捎",
+   "genre": "caractere",
+   "hanzi": "捎",
+   "pinyin": "shāo",
+   "mots": [
+    "L7-3584"
+   ],
+   "sens": {
+    "glose": "apporter en passant, transmettre",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "apporter en passant, transmettre (un message, un objet)"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "你去超市的时候，帮我捎瓶水。",
+     "pinyin": "Nǐ qù chāoshì de shíhou, bāng wǒ shāo píng shuǐ.",
+     "fr": "Quand tu vas au supermarché, rapporte-moi une bouteille d'eau.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-3585",
+   "genre": "mot",
+   "hanzi": "烧毁",
+   "pinyin": "shāohuǐ",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "détruire par le feu",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "détruire par le feu, incendier"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "大火烧毁了整座房子。",
+     "pinyin": "Dàhuǒ shāohuǐ le zhěng zuò fángzi.",
+     "fr": "L'incendie a ravagé toute la maison.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-3586",
+   "genre": "mot",
+   "hanzi": "烧烤",
+   "pinyin": "shāokǎo",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "barbecue, grillades",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "barbecue, grillades"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "周末我们去河边吃烧烤。",
+     "pinyin": "Zhōumò wǒmen qù hébiān chī shāokǎo.",
+     "fr": "Ce week-end, nous allons griller de la viande au bord de la rivière.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-3587",
+   "genre": "mot",
+   "hanzi": "稍后",
+   "pinyin": "shāohòu",
+   "categories": [
+    "Adv"
+   ],
+   "sens": {
+    "glose": "un peu plus tard",
+    "acceptions": [
+     {
+      "categorie": "Adv",
+      "fr": "un peu plus tard, tout à l'heure"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "我稍后给你打电话。",
+     "pinyin": "Wǒ shāohòu gěi nǐ dǎ diànhuà.",
+     "fr": "Je te rappelle dans un moment.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-3588",
+   "genre": "mot",
+   "hanzi": "稍候",
+   "pinyin": "shāohòu",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "patienter un instant",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "patienter un instant, attendre un peu"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "请稍候，经理马上就来。",
+     "pinyin": "Qǐng shāohòu, jīnglǐ mǎshàng jiù lái.",
+     "fr": "Un instant, s'il vous plaît, le directeur arrive.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-3589",
+   "genre": "mot",
+   "hanzi": "稍稍",
+   "pinyin": "shāoshāo",
+   "categories": [
+    "Adv"
+   ],
+   "sens": {
+    "glose": "un peu, légèrement",
+    "acceptions": [
+     {
+      "categorie": "Adv",
+      "fr": "un peu, légèrement"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他稍稍休息了一会儿。",
+     "pinyin": "Tā shāoshāo xiūxi le yīhuìr.",
+     "fr": "Il s'est reposé un petit moment.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-3590",
+   "genre": "mot",
+   "hanzi": "少不了",
+   "pinyin": "shǎobuliǎo",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "indispensable ; inévitable",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "être indispensable, ne pas pouvoir manquer"
+     },
+     {
+      "categorie": "V",
+      "fr": "être inévitable"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "过年少不了饺子。",
+     "pinyin": "Guònián shǎobuliǎo jiǎozi.",
+     "fr": "Pas de Nouvel An sans raviolis.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-3591",
+   "genre": "mot",
+   "hanzi": "少见",
+   "pinyin": "shǎojiàn",
+   "categories": [
+    "V",
+    "Adj"
+   ],
+   "sens": {
+    "glose": "rare, qu'on voit peu",
+    "acceptions": [],
+    "statut": "relu",
+    "provenance": {
+     "reprise": "data/sources/fiches/少.json",
+     "champ": "mots[].fr"
+    }
+   },
+   "exemples": [
+    {
+     "zh": "这么大的雪在这里很少见。",
+     "pinyin": "Zhème dà de xuě zài zhèli hěn shǎojiàn.",
+     "fr": "Une telle neige est exceptionnelle ici.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-3592",
+   "genre": "mot",
+   "hanzi": "少量",
+   "pinyin": "shǎoliàng",
+   "categories": [
+    "Adj"
+   ],
+   "sens": {
+    "glose": "une petite quantité de",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "une petite quantité de, un peu de"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "汤里加少量的盐。",
+     "pinyin": "Tāng li jiā shǎoliàng de yán.",
+     "fr": "Ajoute une pincée de sel dans la soupe.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-3593",
+   "genre": "mot",
+   "hanzi": "少有",
+   "pinyin": "shǎoyǒu",
+   "sens": {
+    "glose": "rare, peu commun",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "rare, peu commun, exceptionnel"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这是少有的好机会。",
+     "pinyin": "Zhè shì shǎoyǒu de hǎo jīhuì.",
+     "fr": "C'est une occasion comme on en voit peu.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-3594",
+   "genre": "mot",
+   "hanzi": "少林寺",
+   "pinyin": "Shàolín Sì",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "monastère Shaolin",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "monastère Shaolin (berceau du kung-fu)"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "很多人去少林寺学武术。",
+     "pinyin": "Hěn duō rén qù Shàolín Sì xué wǔshù.",
+     "fr": "Beaucoup de gens vont apprendre les arts martiaux à Shaolin.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-3595",
+   "genre": "mot",
+   "hanzi": "少女",
+   "pinyin": "shàonǚ",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "jeune fille",
+    "acceptions": [],
+    "statut": "relu",
+    "provenance": {
+     "reprise": "data/sources/fiches/少.json",
+     "champ": "mots[].fr"
+    }
+   },
+   "exemples": [
+    {
+     "zh": "她已经从小女孩长成了少女。",
+     "pinyin": "Tā yǐjīng cóng xiǎo nǚhái zhǎngchéng le shàonǚ.",
+     "fr": "La petite fille a bien grandi.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "奢",
+   "genre": "caractere",
+   "hanzi": "奢",
+   "pinyin": "shē",
+   "sens": {
+    "glose": "luxueux ; excessif",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "luxueux, dispendieux ; excessif"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": []
+  },
+  {
+   "id": "侈",
+   "genre": "caractere",
+   "hanzi": "侈",
+   "pinyin": "chǐ",
+   "sens": {
+    "glose": "prodigue, dépensier",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "prodigue, dépensier ; exagéré"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": []
+  },
+  {
+   "id": "L7-3596",
+   "genre": "mot",
+   "hanzi": "奢侈",
+   "pinyin": "shēchǐ",
+   "categories": [
+    "Adj"
+   ],
+   "sens": {
+    "glose": "luxueux, dispendieux",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "luxueux, somptueux, dispendieux"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他们过着奢侈的生活。",
+     "pinyin": "Tāmen guò zhe shēchǐ de shēnghuó.",
+     "fr": "Ils mènent grand train.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-3597",
+   "genre": "mot",
+   "hanzi": "奢望",
+   "pinyin": "shēwàng",
+   "categories": [
+    "V",
+    "N"
+   ],
+   "sens": {
+    "glose": "espoir démesuré ; rêver l'impossible",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "espoir démesuré, vœu irréaliste"
+     },
+     {
+      "categorie": "V",
+      "fr": "espérer l'impossible"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "我不敢有这样的奢望。",
+     "pinyin": "Wǒ bù gǎn yǒu zhèyàng de shēwàng.",
+     "fr": "Je n'ose pas en demander autant.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-3599",
+   "genre": "mot",
+   "hanzi": "设定",
+   "pinyin": "shèdìng",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "fixer, paramétrer",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "fixer, paramétrer, définir"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "我把闹钟设定在六点。",
+     "pinyin": "Wǒ bǎ nàozhōng shèdìng zài liù diǎn.",
+     "fr": "J'ai réglé le réveil sur six heures.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-3600",
+   "genre": "mot",
+   "hanzi": "设法",
+   "pinyin": "shèfǎ",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "trouver un moyen de",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "trouver un moyen de, s'efforcer de"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "我们会设法帮助你。",
+     "pinyin": "Wǒmen huì shèfǎ bāngzhù nǐ.",
+     "fr": "Nous ferons notre possible pour t'aider.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-3601",
+   "genre": "mot",
+   "hanzi": "社会主义",
+   "pinyin": "shèhuì zhǔyì",
+   "sens": {
+    "glose": "socialisme",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "socialisme"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "中国实行社会主义制度。",
+     "pinyin": "Zhōngguó shíxíng shèhuì zhǔyì zhìdù.",
+     "fr": "La Chine applique un régime socialiste.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-3602",
+   "genre": "mot",
+   "hanzi": "社交",
+   "pinyin": "shèjiāo",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "relations sociales, mondanités",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "relations sociales, vie mondaine"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他不太喜欢社交活动。",
+     "pinyin": "Tā bù tài xǐhuan shèjiāo huódòng.",
+     "fr": "Il n'aime pas trop les soirées et les réceptions.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-3603",
+   "genre": "mot",
+   "hanzi": "社论",
+   "pinyin": "shèlùn",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "éditorial",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "éditorial"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "今天的报纸发表了一篇社论。",
+     "pinyin": "Jīntiān de bàozhǐ fābiǎo le yī piān shèlùn.",
+     "fr": "Le journal d'aujourd'hui publie un article de la rédaction.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-3604",
+   "genre": "mot",
+   "hanzi": "社团",
+   "pinyin": "shètuán",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "association, club",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "association, club, société"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他参加了学校的音乐社团。",
+     "pinyin": "Tā cānjiā le xuéxiào de yīnyuè shètuán.",
+     "fr": "Il fait partie de l'orchestre des élèves.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-3605",
+   "genre": "mot",
+   "hanzi": "涉嫌",
+   "pinyin": "shèxián",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "être soupçonné de",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "être soupçonné de, être impliqué dans"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他涉嫌偷窃，被警察带走了。",
+     "pinyin": "Tā shèxián tōuqiè, bèi jǐngchá dàizǒu le.",
+     "fr": "Accusé de vol, il a été emmené par la police.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "氏",
+   "genre": "caractere",
+   "hanzi": "氏",
+   "pinyin": "shì",
+   "sens": {
+    "glose": "clan, lignée ; née",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "clan, lignée ; née (nom de jeune fille)"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": []
+  },
+  {
+   "id": "L7-3606",
+   "genre": "mot",
+   "hanzi": "摄氏度",
+   "pinyin": "shèshìdù",
+   "categories": [
+    "M"
+   ],
+   "sens": {
+    "glose": "degré Celsius",
+    "acceptions": [
+     {
+      "categorie": "M",
+      "fr": "degré Celsius"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "今天最高气温三十五摄氏度。",
+     "pinyin": "Jīntiān zuì gāo qìwēn sānshíwǔ shèshìdù.",
+     "fr": "Aujourd'hui, il fera jusqu'à trente-cinq degrés.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-3607",
+   "genre": "mot",
+   "hanzi": "谁知道",
+   "pinyin": "shéi zhīdào",
+   "sens": {
+    "glose": "qui sait ; qui aurait cru que",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "qui sait, allez savoir ; qui aurait cru que"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "谁知道他会不会来。",
+     "pinyin": "Shéi zhīdào tā huì bù huì lái.",
+     "fr": "Allez savoir s'il viendra.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-3608",
+   "genre": "mot",
+   "hanzi": "申办",
+   "pinyin": "shēnbàn",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "se porter candidat pour organiser",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "se porter candidat pour organiser ; demander (un permis)"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这个城市申办了奥运会。",
+     "pinyin": "Zhège chéngshì shēnbàn le Àoyùnhuì.",
+     "fr": "Cette ville a proposé d'accueillir les Jeux olympiques.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-3609",
+   "genre": "mot",
+   "hanzi": "申报",
+   "pinyin": "shēnbào",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "déclarer (aux autorités)",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "déclarer (aux autorités), soumettre"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "每年都要申报个人收入。",
+     "pinyin": "Měi nián dōu yào shēnbào gèrén shōurù.",
+     "fr": "Chaque année, il faut remplir sa déclaration de revenus.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-3610",
+   "genre": "mot",
+   "hanzi": "申领",
+   "pinyin": "shēnlǐng",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "demander (un document officiel)",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "demander à recevoir (un document officiel)"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他去警察局申领了新护照。",
+     "pinyin": "Tā qù jǐngchájú shēnlǐng le xīn hùzhào.",
+     "fr": "Il est allé au commissariat faire établir un nouveau passeport.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-3611",
+   "genre": "mot",
+   "hanzi": "伸手",
+   "pinyin": "shēnshǒu",
+   "sens": {
+    "glose": "tendre la main ; quémander",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "tendre la main"
+     },
+     {
+      "categorie": "V",
+      "fr": "quémander ; se mêler de"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他伸手去拿桌上的书。",
+     "pinyin": "Tā shēnshǒu qù ná zhuō shang de shū.",
+     "fr": "Il a avancé le bras pour prendre le livre sur la table.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-3612",
+   "genre": "mot",
+   "hanzi": "伸缩",
+   "pinyin": "shēnsuō",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "extensible ; souple",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "s'allonger et se rétracter, être extensible"
+     },
+     {
+      "categorie": "V",
+      "fr": "avoir de la souplesse, s'adapter"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这个桌子能伸缩。",
+     "pinyin": "Zhège zhuōzi néng shēnsuō.",
+     "fr": "On peut agrandir ou réduire cette table.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-3613",
+   "genre": "mot",
+   "hanzi": "伸张",
+   "pinyin": "shēnzhāng",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "faire triompher (la justice)",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "faire valoir, faire triompher (la justice)"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "我们要伸张正义。",
+     "pinyin": "Wǒmen yào shēnzhāng zhèngyì.",
+     "fr": "Nous devons faire en sorte que justice soit rendue.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-3614",
+   "genre": "mot",
+   "hanzi": "身不由己",
+   "pinyin": "shēnbùyóujǐ",
+   "sens": {
+    "glose": "malgré soi, sans avoir le choix",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "qui agit malgré soi, qui n'a pas le choix"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "工作太多，我也身不由己。",
+     "pinyin": "Gōngzuò tài duō, wǒ yě shēnbùyóujǐ.",
+     "fr": "Avec tout ce travail, je ne fais pas ce que je veux.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-3615",
+   "genre": "mot",
+   "hanzi": "身价",
+   "pinyin": "shēnjià",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "valeur, cote (d'une personne)",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "valeur, cote (d'une personne) ; statut social"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这位球星的身价很高。",
+     "pinyin": "Zhè wèi qiúxīng de shēnjià hěn gāo.",
+     "fr": "Ce footballeur vaut une fortune.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "躯",
+   "genre": "caractere",
+   "hanzi": "躯",
+   "pinyin": "qū",
+   "sens": {
+    "glose": "corps",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "corps, tronc"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": []
+  },
+  {
+   "id": "L7-3616",
+   "genre": "mot",
+   "hanzi": "身躯",
+   "pinyin": "shēnqū",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "corps, stature",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "corps, stature"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他高大的身躯站在门口。",
+     "pinyin": "Tā gāodà de shēnqū zhàn zài ménkǒu.",
+     "fr": "Sa haute silhouette se tenait sur le seuil.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-3617",
+   "genre": "mot",
+   "hanzi": "身心",
+   "pinyin": "shēnxīn",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "le corps et l'esprit",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "le corps et l'esprit"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "运动有益身心健康。",
+     "pinyin": "Yùndòng yǒuyì shēnxīn jiànkāng.",
+     "fr": "Le sport est bon pour la santé physique et mentale.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-3618",
+   "genre": "mot",
+   "hanzi": "身影",
+   "pinyin": "shēnyǐng",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "silhouette",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "silhouette, forme d'une personne"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "她的身影消失在人群中。",
+     "pinyin": "Tā de shēnyǐng xiāoshī zài rénqún zhōng.",
+     "fr": "Elle a disparu dans la foule.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-3619",
+   "genre": "mot",
+   "hanzi": "身子",
+   "pinyin": "shēnzi",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "corps ; santé",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "corps ; santé, constitution"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他身子不太好。",
+     "pinyin": "Tā shēnzi bù tài hǎo.",
+     "fr": "Il n'est pas très solide.",
+     "statut": "a_relire"
+    }
+   ]
+  }
+ ]
+}

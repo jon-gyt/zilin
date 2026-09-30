@@ -1,0 +1,1343 @@
+{
+ "niveau": "7-9",
+ "lot": "84",
+ "source": "rédigé pour l'app dans le pipeline wenlu, sans API ; faits lus : liste HSK 3.0 (forme, pinyin, niveau, catégorie), lectures d'Unihan et des surcharges, gloses relues des fiches",
+ "brouillon": "data/sources/dico-brouillons/7-9/84.json",
+ "generation": {
+  "modele": "rédaction manuelle",
+  "api": "session Claude Code (sans API)",
+  "date": "2026-09-30",
+  "empreinte_invite": "sha256:c8085154c7f4fdbe9411ef1a4a824a7942b565dd0b4fa6593514a0761eba78ca",
+  "contexte": "wenlu dico contexte 7-9 84",
+  "essais": 1,
+  "refus": []
+ },
+ "entrees": [
+  {
+   "id": "绅",
+   "genre": "caractere",
+   "hanzi": "绅",
+   "pinyin": "shēn",
+   "sens": {
+    "glose": "notable, gentilhomme",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "notable, gentilhomme"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": []
+  },
+  {
+   "id": "L7-3620",
+   "genre": "mot",
+   "hanzi": "绅士",
+   "pinyin": "shēnshì",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "gentleman, gentilhomme",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "gentleman, gentilhomme ; notable"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他是一个很有礼貌的绅士。",
+     "pinyin": "Tā shì yī ge hěn yǒu lǐmào de shēnshì.",
+     "fr": "C'est un homme très courtois.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-3621",
+   "genre": "mot",
+   "hanzi": "深奥",
+   "pinyin": "shēn'ào",
+   "categories": [
+    "Adj"
+   ],
+   "sens": {
+    "glose": "profond, abscons",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "profond, abscons, difficile à saisir"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这本书的内容太深奥了。",
+     "pinyin": "Zhè běn shū de nèiróng tài shēn'ào le.",
+     "fr": "Ce livre est trop difficile à comprendre.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-3622",
+   "genre": "mot",
+   "hanzi": "深切",
+   "pinyin": "shēnqiè",
+   "categories": [
+    "Adj"
+   ],
+   "sens": {
+    "glose": "profond, sincère",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "profond, sincère, vif"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "我深切地感到自己的不足。",
+     "pinyin": "Wǒ shēnqiè de gǎndào zìjǐ de bùzú.",
+     "fr": "J'ai vivement conscience de mes insuffisances.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-3623",
+   "genre": "mot",
+   "hanzi": "深情",
+   "pinyin": "shēnqíng",
+   "categories": [
+    "N",
+    "Adj"
+   ],
+   "sens": {
+    "glose": "affection profonde ; tendre",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "affection profonde, tendresse"
+     },
+     {
+      "categorie": "Adj",
+      "fr": "tendre, plein d'émotion"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "她深情地看着孩子。",
+     "pinyin": "Tā shēnqíng de kàn zhe háizi.",
+     "fr": "Elle couve son enfant du regard.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-3624",
+   "genre": "mot",
+   "hanzi": "深入人心",
+   "pinyin": "shēnrù-rénxīn",
+   "sens": {
+    "glose": "gagner les cœurs, ancré",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "gagner les cœurs, être profondément ancré"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这个观念已经深入人心。",
+     "pinyin": "Zhège guānniàn yǐjīng shēnrù-rénxīn.",
+     "fr": "Cette idée s'est imposée dans les esprits.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-3625",
+   "genre": "mot",
+   "hanzi": "深受",
+   "pinyin": "shēnshòu",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "être profondément (apprécié)",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "être profondément (apprécié, influencé), subir fortement"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这本书深受学生欢迎。",
+     "pinyin": "Zhè běn shū shēnshòu xuésheng huānyíng.",
+     "fr": "Les élèves adorent ce livre.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-3626",
+   "genre": "mot",
+   "hanzi": "深思",
+   "pinyin": "shēnsī",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "réfléchir profondément",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "réfléchir profondément, méditer"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这个问题值得深思。",
+     "pinyin": "Zhège wèntí zhíde shēnsī.",
+     "fr": "Cette question mérite qu'on s'y attarde.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-3627",
+   "genre": "mot",
+   "hanzi": "深信",
+   "pinyin": "shēnxìn",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "croire fermement",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "croire fermement, être convaincu"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "我深信我们会成功。",
+     "pinyin": "Wǒ shēnxìn wǒmen huì chénggōng.",
+     "fr": "Je suis persuadé que nous réussirons.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-3628",
+   "genre": "mot",
+   "hanzi": "深夜",
+   "pinyin": "shēnyè",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "tard dans la nuit",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "tard dans la nuit, en pleine nuit"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他常常工作到深夜。",
+     "pinyin": "Tā chángcháng gōngzuò dào shēnyè.",
+     "fr": "Il travaille souvent jusqu'à une heure avancée.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-3629",
+   "genre": "mot",
+   "hanzi": "深远",
+   "pinyin": "shēnyuǎn",
+   "categories": [
+    "Adj"
+   ],
+   "sens": {
+    "glose": "profond et durable",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "profond et durable (influence, portée)"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这件事对他产生了深远的影响。",
+     "pinyin": "Zhè jiàn shì duì tā chǎnshēng le shēnyuǎn de yǐngxiǎng.",
+     "fr": "Cet événement l'a marqué pour longtemps.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-3630",
+   "genre": "mot",
+   "hanzi": "神气",
+   "pinyin": "shénqi",
+   "categories": [
+    "N",
+    "Adj"
+   ],
+   "sens": {
+    "glose": "air, mine ; fier, prétentieux",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "air, expression, mine"
+     },
+     {
+      "categorie": "Adj",
+      "fr": "fier, plein d'allant ; prétentieux"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他穿上新衣服，显得很神气。",
+     "pinyin": "Tā chuān shang xīn yīfu, xiǎnde hěn shénqi.",
+     "fr": "Dans ses habits neufs, il a fière allure.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-3631",
+   "genre": "mot",
+   "hanzi": "神圣",
+   "pinyin": "shénshèng",
+   "categories": [
+    "Adj"
+   ],
+   "sens": {
+    "glose": "sacré, saint",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "sacré, saint, inviolable"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "保卫祖国是神圣的责任。",
+     "pinyin": "Bǎowèi zǔguó shì shénshèng de zérèn.",
+     "fr": "Défendre la patrie est un devoir suprême.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-3632",
+   "genre": "mot",
+   "hanzi": "神态",
+   "pinyin": "shéntài",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "expression, attitude, air",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "expression, attitude, air"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "她的神态很自然。",
+     "pinyin": "Tā de shéntài hěn zìrán.",
+     "fr": "Elle a l'air parfaitement à l'aise.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "仙",
+   "genre": "caractere",
+   "hanzi": "仙",
+   "pinyin": "xiān",
+   "sens": {
+    "glose": "immortel, fée",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "immortel, être céleste, fée"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": []
+  },
+  {
+   "id": "L7-3633",
+   "genre": "mot",
+   "hanzi": "神仙",
+   "pinyin": "shénxian",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "immortel, divinité",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "immortel, divinité, être céleste"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他过着神仙一样的日子。",
+     "pinyin": "Tā guò zhe shénxian yīyàng de rìzi.",
+     "fr": "Il mène une vie de rêve.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-3635",
+   "genre": "mot",
+   "hanzi": "审定",
+   "pinyin": "shěndìng",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "examiner et approuver",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "examiner et approuver, valider"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这本教材已经审定通过了。",
+     "pinyin": "Zhè běn jiàocái yǐjīng shěndìng tōngguò le.",
+     "fr": "Ce manuel a reçu l'agrément officiel.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-3636",
+   "genre": "mot",
+   "hanzi": "审核",
+   "pinyin": "shěnhé",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "vérifier, contrôler",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "vérifier, contrôler, examiner"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "你的申请正在审核中。",
+     "pinyin": "Nǐ de shēnqǐng zhèngzài shěnhé zhōng.",
+     "fr": "Votre demande est en cours de traitement.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-3637",
+   "genre": "mot",
+   "hanzi": "审美",
+   "pinyin": "shěnměi",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "apprécier le beau ; esthétique",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "apprécier le beau, juger esthétiquement"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "每个人的审美标准不一样。",
+     "pinyin": "Měi ge rén de shěnměi biāozhǔn bù yīyàng.",
+     "fr": "Chacun a ses propres critères de beauté.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-3638",
+   "genre": "mot",
+   "hanzi": "审判",
+   "pinyin": "shěnpàn",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "juger (un procès)",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "juger (une affaire, un accusé)"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "法院将在下个月审判这个案子。",
+     "pinyin": "Fǎyuàn jiāng zài xià ge yuè shěnpàn zhège ànzi.",
+     "fr": "L'affaire passera devant le tribunal le mois prochain.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-3639",
+   "genre": "mot",
+   "hanzi": "审批",
+   "pinyin": "shěnpī",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "examiner et approuver (une demande)",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "examiner et approuver (une demande, un projet)"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这个项目需要政府审批。",
+     "pinyin": "Zhège xiàngmù xūyào zhèngfǔ shěnpī.",
+     "fr": "Ce projet doit recevoir l'aval du gouvernement.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-3640",
+   "genre": "mot",
+   "hanzi": "审视",
+   "pinyin": "shěnshì",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "examiner attentivement, scruter",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "examiner attentivement, scruter"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "我们要重新审视这个问题。",
+     "pinyin": "Wǒmen yào chóngxīn shěnshì zhège wèntí.",
+     "fr": "Nous devons reconsidérer cette question.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "肾",
+   "genre": "caractere",
+   "hanzi": "肾",
+   "pinyin": "shèn",
+   "mots": [
+    "L7-3641"
+   ],
+   "sens": {
+    "glose": "rein",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "rein"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他的肾有点儿问题。",
+     "pinyin": "Tā de shèn yǒudiǎnr wèntí.",
+     "fr": "Il a un petit problème rénal.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-3642",
+   "genre": "mot",
+   "hanzi": "甚至于",
+   "pinyin": "shènzhìyú",
+   "categories": [
+    "Adv"
+   ],
+   "sens": {
+    "glose": "et même, voire",
+    "acceptions": [
+     {
+      "categorie": "Adv",
+      "fr": "et même, voire, jusqu'à"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他忙得甚至于忘了吃饭。",
+     "pinyin": "Tā máng de shènzhìyú wàng le chī fàn.",
+     "fr": "Il est tellement occupé qu'il en oublie de manger.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "渗",
+   "genre": "caractere",
+   "hanzi": "渗",
+   "pinyin": "shèn",
+   "mots": [
+    "L7-3643"
+   ],
+   "sens": {
+    "glose": "s'infiltrer, suinter",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "s'infiltrer, suinter, pénétrer"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "雨水渗进了墙里。",
+     "pinyin": "Yǔshuǐ shèn jìn le qiáng li.",
+     "fr": "La pluie a traversé le mur.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-3644",
+   "genre": "mot",
+   "hanzi": "渗透",
+   "pinyin": "shèntòu",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "s'infiltrer, imprégner",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "s'infiltrer, imprégner"
+     },
+     {
+      "categorie": "V",
+      "fr": "infiltrer (idées, agents)"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "水渗透到了地下。",
+     "pinyin": "Shuǐ shèntòu dào le dìxià.",
+     "fr": "L'eau a pénétré dans le sol.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-3645",
+   "genre": "mot",
+   "hanzi": "慎重",
+   "pinyin": "shènzhòng",
+   "categories": [
+    "Adj"
+   ],
+   "sens": {
+    "glose": "prudent, circonspect",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "prudent, circonspect, réfléchi"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这件事要慎重考虑。",
+     "pinyin": "Zhè jiàn shì yào shènzhòng kǎolǜ.",
+     "fr": "Il faut bien peser cette affaire.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-3646",
+   "genre": "mot",
+   "hanzi": "升温",
+   "pinyin": "shēngwēn",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "se réchauffer ; s'intensifier",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "monter (température), se réchauffer"
+     },
+     {
+      "categorie": "V",
+      "fr": "s'intensifier, s'animer"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "最近天气开始升温了。",
+     "pinyin": "Zuìjìn tiānqì kāishǐ shēngwēn le.",
+     "fr": "Ces jours-ci, les températures commencent à remonter.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-3647",
+   "genre": "mot",
+   "hanzi": "生机",
+   "pinyin": "shēngjī",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "vitalité ; chance de survie",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "vitalité, vie"
+     },
+     {
+      "categorie": "N",
+      "fr": "chance de survie, issue"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "春天的公园充满了生机。",
+     "pinyin": "Chūntiān de gōngyuán chōngmǎn le shēngjī.",
+     "fr": "Au printemps, le parc déborde de vie.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-3648",
+   "genre": "mot",
+   "hanzi": "生理",
+   "pinyin": "shēnglǐ",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "physiologie",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "physiologie, fonctions du corps"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "青春期孩子的生理变化很大。",
+     "pinyin": "Qīngchūnqī háizi de shēnglǐ biànhuà hěn dà.",
+     "fr": "À l'adolescence, le corps change beaucoup.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-3649",
+   "genre": "mot",
+   "hanzi": "生命线",
+   "pinyin": "shēngmìngxiàn",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "ligne de vie, élément vital",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "ligne de vie, élément vital"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这条公路是山区的生命线。",
+     "pinyin": "Zhè tiáo gōnglù shì shānqū de shēngmìngxiàn.",
+     "fr": "Cette route est vitale pour la région montagneuse.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-3650",
+   "genre": "mot",
+   "hanzi": "生怕",
+   "pinyin": "shēngpà",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "craindre, de peur que",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "craindre, de peur que"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他走得很慢，生怕摔倒。",
+     "pinyin": "Tā zǒu de hěn màn, shēngpà shuāidǎo.",
+     "fr": "Il marche lentement pour ne pas tomber.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-3651",
+   "genre": "mot",
+   "hanzi": "生平",
+   "pinyin": "shēngpíng",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "vie, biographie",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "vie, biographie ; de toute sa vie"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这本书介绍了作者的生平。",
+     "pinyin": "Zhè běn shū jièshào le zuòzhě de shēngpíng.",
+     "fr": "Ce livre retrace le parcours de l'auteur.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-3652",
+   "genre": "mot",
+   "hanzi": "生前",
+   "pinyin": "shēngqián",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "de son vivant",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "de son vivant, avant sa mort"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这是他生前最喜欢的书。",
+     "pinyin": "Zhè shì tā shēngqián zuì xǐhuan de shū.",
+     "fr": "C'était son livre préféré quand il était en vie.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-3653",
+   "genre": "mot",
+   "hanzi": "生死",
+   "pinyin": "shēngsǐ",
+   "categories": [
+    "N",
+    "Adj"
+   ],
+   "sens": {
+    "glose": "la vie et la mort ; vital",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "la vie et la mort"
+     },
+     {
+      "categorie": "Adj",
+      "fr": "à la vie à la mort, vital"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这是一个生死问题。",
+     "pinyin": "Zhè shì yī ge shēngsǐ wèntí.",
+     "fr": "C'est une question de vie ou de mort.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-3654",
+   "genre": "mot",
+   "hanzi": "生态",
+   "pinyin": "shēngtài",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "écologie, écosystème",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "écologie, écosystème, milieu naturel"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "我们要保护生态环境。",
+     "pinyin": "Wǒmen yào bǎohù shēngtài huánjìng.",
+     "fr": "Nous devons protéger la nature.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-3655",
+   "genre": "mot",
+   "hanzi": "生物",
+   "pinyin": "shēngwù",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "être vivant ; biologie",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "être vivant, organisme ; biologie"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他在大学学的是生物。",
+     "pinyin": "Tā zài dàxué xué de shì shēngwù.",
+     "fr": "À l'université, il a étudié les sciences de la vie.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-3656",
+   "genre": "mot",
+   "hanzi": "生效",
+   "pinyin": "shēngxiào",
+   "sens": {
+    "glose": "entrer en vigueur",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "entrer en vigueur, prendre effet"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "新规定从下个月起生效。",
+     "pinyin": "Xīn guīdìng cóng xià ge yuè qǐ shēngxiào.",
+     "fr": "Le nouveau règlement s'applique à partir du mois prochain.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "涯",
+   "genre": "caractere",
+   "hanzi": "涯",
+   "pinyin": "yá",
+   "sens": {
+    "glose": "rivage ; limite",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "rivage, bord ; limite"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": []
+  },
+  {
+   "id": "L7-3657",
+   "genre": "mot",
+   "hanzi": "生涯",
+   "pinyin": "shēngyá",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "carrière, vie (professionnelle)",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "carrière, vie (professionnelle)"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他的运动生涯很辉煌。",
+     "pinyin": "Tā de yùndòng shēngyá hěn huīhuáng.",
+     "fr": "Il a connu de grands succès comme sportif.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-3658",
+   "genre": "mot",
+   "hanzi": "生硬",
+   "pinyin": "shēngyìng",
+   "categories": [
+    "Adj"
+   ],
+   "sens": {
+    "glose": "raide, maladroit, rude",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "raide, maladroit, peu naturel ; rude"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他的中文说得有点儿生硬。",
+     "pinyin": "Tā de Zhōngwén shuō de yǒudiǎnr shēngyìng.",
+     "fr": "Son chinois manque un peu de fluidité.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-3659",
+   "genre": "mot",
+   "hanzi": "生育",
+   "pinyin": "shēngyù",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "donner naissance, avoir des enfants",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "donner naissance, avoir des enfants"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "她生育了三个孩子。",
+     "pinyin": "Tā shēngyù le sān ge háizi.",
+     "fr": "Elle a mis au monde trois enfants.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-3660",
+   "genre": "mot",
+   "hanzi": "声称",
+   "pinyin": "shēngchēng",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "affirmer, prétendre",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "affirmer, prétendre, déclarer"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他声称自己没有拿那笔钱。",
+     "pinyin": "Tā shēngchēng zìjǐ méiyou ná nà bǐ qián.",
+     "fr": "Il soutient ne pas avoir pris cet argent.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-3661",
+   "genre": "mot",
+   "hanzi": "声望",
+   "pinyin": "shēngwàng",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "prestige, renom",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "prestige, renom"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他在学术界很有声望。",
+     "pinyin": "Tā zài xuéshùjiè hěn yǒu shēngwàng.",
+     "fr": "Il est très respecté dans le monde universitaire.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-3662",
+   "genre": "mot",
+   "hanzi": "声誉",
+   "pinyin": "shēngyù",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "réputation, renommée",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "réputation, renommée"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这家公司的声誉很好。",
+     "pinyin": "Zhè jiā gōngsī de shēngyù hěn hǎo.",
+     "fr": "Cette entreprise a bonne presse.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "畜",
+   "genre": "caractere",
+   "hanzi": "畜",
+   "pinyin": "chù",
+   "sens": {
+    "glose": "bétail ; élever",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "animal domestique, bétail"
+     },
+     {
+      "categorie": "V",
+      "fr": "élever (des animaux)",
+      "pinyin": "xù"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": []
+  },
+  {
+   "id": "L7-3663",
+   "genre": "mot",
+   "hanzi": "牲畜",
+   "pinyin": "shēngchù",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "bétail, animaux d'élevage",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "bétail, animaux d'élevage"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "农民在山上放牧牲畜。",
+     "pinyin": "Nóngmín zài shān shang fàngmù shēngchù.",
+     "fr": "Les paysans font paître leurs bêtes dans la montagne.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "绳",
+   "genre": "caractere",
+   "hanzi": "绳",
+   "pinyin": "shéng",
+   "sens": {
+    "glose": "corde",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "corde, ficelle"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": []
+  },
+  {
+   "id": "L7-3664",
+   "genre": "mot",
+   "hanzi": "绳子",
+   "pinyin": "shéngzi",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "corde, ficelle",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "corde, ficelle"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这根绳子太短了。",
+     "pinyin": "Zhè gēn shéngzi tài duǎn le.",
+     "fr": "Ce lien n'est pas assez long.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-3665",
+   "genre": "mot",
+   "hanzi": "省略",
+   "pinyin": "shěnglüè",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "omettre, abréger",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "omettre, abréger, sauter"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这里省略了一个字。",
+     "pinyin": "Zhèli shěnglüè le yī ge zì.",
+     "fr": "Il manque un caractère ici.",
+     "statut": "a_relire"
+    }
+   ]
+  }
+ ]
+}
