@@ -1,0 +1,423 @@
+{
+ "examen": "yueke-1155",
+ "parcours": "hsk",
+ "generation": {
+  "modele": "rédaction manuelle",
+  "api": "session Claude Code (sans API)",
+  "date": "2026-09-30"
+ },
+ "relecture": {
+  "statut": "a_relire",
+  "note": "rédigé le 30 septembre 2026, à relire par le propriétaire (`wenlu examens apercu`) ; une série passe à `relu` sur sa décision, citée ici"
+ },
+ "series": [
+  {
+   "serie": "A",
+   "statut": "a_relire",
+   "supports": [
+    {
+     "id": "s1",
+     "genre": "note",
+     "contexte": {
+      "fr": "Une note",
+      "en": "A note"
+     },
+     "lignes": [
+      {
+       "zh": "今天下午三点，您的包裹到了。",
+       "pinyin": "jīn tiān xià wǔ sān diǎn nín de bāo guǒ dào le",
+       "fr": "Votre colis est arrivé aujourd'hui à 15 h.",
+       "en": "Your parcel arrived today at 3 pm."
+      },
+      {
+       "zh": "家里没有人，",
+       "pinyin": "jiā lǐ méi yǒu rén",
+       "fr": "Il n'y avait personne chez vous :",
+       "en": "Nobody was home,"
+      },
+      {
+       "zh": "我放在附近的小商店了。",
+       "pinyin": "wǒ fàng zài fù jìn de xiǎo shāng diàn le",
+       "fr": "je l'ai laissé à la petite boutique d'à côté.",
+       "en": "so I left it at the little shop nearby."
+      }
+     ]
+    },
+    {
+     "id": "s2",
+     "genre": "message",
+     "contexte": {
+      "fr": "Un message",
+      "en": "A message"
+     },
+     "lignes": [
+      {
+       "zh": "明天是星期六，",
+       "pinyin": "míng tiān shì xīng qī liù",
+       "fr": "Demain, c'est samedi :",
+       "en": "Tomorrow is Saturday,"
+      },
+      {
+       "zh": "我们一起去逛街吧！",
+       "pinyin": "wǒ men yī qǐ qù guàng jiē ba",
+       "fr": "allons faire les magasins ensemble !",
+       "en": "let's go shopping together!"
+      },
+      {
+       "zh": "听说新开的商场东西不贵。",
+       "pinyin": "tīng shuō xīn kāi de shāng chǎng dōng xi bù guì",
+       "fr": "Il paraît que tout est bon marché au nouveau centre commercial.",
+       "en": "I hear things aren't expensive at the new mall."
+      }
+     ]
+    }
+   ],
+   "questions": [
+    {
+     "type": "comprendre",
+     "support": "s1",
+     "consigne": {
+      "fr": "Où se trouve le colis ?",
+      "en": "Where is the parcel?"
+     },
+     "choix": [
+      {
+       "fr": "Devant la porte d'entrée",
+       "en": "At the front door"
+      },
+      {
+       "fr": "Chez le gardien de l'immeuble",
+       "en": "With the building caretaker"
+      },
+      {
+       "fr": "Au bureau de poste",
+       "en": "At the post office"
+      },
+      {
+       "fr": "Dans une boutique voisine",
+       "en": "In a nearby shop"
+      }
+     ],
+     "reponse": 3,
+     "porte": [
+      "附",
+      "近",
+      "商",
+      "店"
+     ]
+    },
+    {
+     "type": "vrai_faux",
+     "support": "s1",
+     "consigne": {
+      "fr": "Vrai ou faux ?",
+      "en": "True or false?"
+     },
+     "affirmation": {
+      "zh": "包裹是上午到的。",
+      "pinyin": "bāo guǒ shì shàng wǔ dào de",
+      "fr": "Le colis est arrivé le matin.",
+      "en": "The parcel came in the morning."
+     },
+     "reponse": false,
+     "porte": [
+      "裹",
+      "下",
+      "午"
+     ]
+    },
+    {
+     "type": "reperer",
+     "support": "s2",
+     "consigne": {
+      "fr": "Touche ce que ton ami propose de faire.",
+      "en": "Tap what your friend suggests doing."
+     },
+     "choix": [
+      "星期六",
+      "逛街",
+      "商场",
+      "东西"
+     ],
+     "reponse": 1,
+     "porte": [
+      "逛",
+      "街"
+     ]
+    },
+    {
+     "type": "replique",
+     "support": "s2",
+     "consigne": {
+      "fr": "Que réponds-tu ?",
+      "en": "What do you reply?"
+     },
+     "choix": [
+      {
+       "zh": "这个菜太肥了。",
+       "pinyin": "zhè gè cài tài féi le",
+       "fr": "Ce plat est trop gras.",
+       "en": "This dish is too fatty."
+      },
+      {
+       "zh": "好啊，几点见？",
+       "pinyin": "hǎo a jǐ diǎn jiàn",
+       "fr": "Avec plaisir, on se voit à quelle heure ?",
+       "en": "Sure, what time shall we meet?"
+      },
+      {
+       "zh": "我家的窗户坏了。",
+       "pinyin": "wǒ jiā de chuāng hu huài le",
+       "fr": "La fenêtre de chez moi est cassée.",
+       "en": "My window is broken."
+      },
+      {
+       "zh": "他去登山了。",
+       "pinyin": "tā qù dēng shān le",
+       "fr": "Il est parti en randonnée.",
+       "en": "He's gone hiking."
+      }
+     ],
+     "reponse": 1,
+     "porte": [
+      "逛"
+     ]
+    },
+    {
+     "type": "trou",
+     "consigne": {
+      "fr": "Quel caractère manque dans ce mot ?",
+      "en": "Which character is missing from this word?"
+     },
+     "objet": {
+      "zh": "寒假",
+      "pinyin": "hán jià",
+      "fr": "vacances d'hiver",
+      "en": "winter holidays"
+     },
+     "trou": 0,
+     "choix": [
+      "赛",
+      "害",
+      "寒",
+      "实"
+     ],
+     "reponse": 2,
+     "porte": [
+      "寒"
+     ]
+    }
+   ]
+  },
+  {
+   "serie": "B",
+   "statut": "a_relire",
+   "supports": [
+    {
+     "id": "s1",
+     "genre": "pancarte",
+     "contexte": {
+      "fr": "Un panneau",
+      "en": "A sign"
+     },
+     "lignes": [
+      {
+       "zh": "登山的人请注意：",
+       "pinyin": "dēng shān de rén qǐng zhù yì",
+       "fr": "Randonneurs, attention :",
+       "en": "Hikers, please note:"
+      },
+      {
+       "zh": "离山顶还有两公里，",
+       "pinyin": "lí shān dǐng hái yǒu liǎng gōng lǐ",
+       "fr": "le sommet est encore à deux kilomètres ;",
+       "en": "the summit is still two kilometres away;"
+      },
+      {
+       "zh": "天黑以前请下山。",
+       "pinyin": "tiān hēi yǐ qián qǐng xià shān",
+       "fr": "redescendez avant la nuit.",
+       "en": "come down before dark."
+      }
+     ]
+    },
+    {
+     "id": "s2",
+     "genre": "message",
+     "contexte": {
+      "fr": "Un message",
+      "en": "A message"
+     },
+     "lignes": [
+      {
+       "zh": "寒假我想去南方玩，",
+       "pinyin": "hán jià wǒ xiǎng qù nán fāng wán",
+       "fr": "Pendant les vacances d'hiver, j'aimerais aller dans le Sud :",
+       "en": "In the winter holidays I'd like to go south,"
+      },
+      {
+       "zh": "你想跟我一起去吗？",
+       "pinyin": "nǐ xiǎng gēn wǒ yī qǐ qù ma",
+       "fr": "tu veux venir avec moi ?",
+       "en": "do you want to come with me?"
+      },
+      {
+       "zh": "机票我来买。",
+       "pinyin": "jī piào wǒ lái mǎi",
+       "fr": "Je m'occupe des billets d'avion.",
+       "en": "I'll buy the plane tickets."
+      }
+     ]
+    }
+   ],
+   "questions": [
+    {
+     "type": "comprendre",
+     "support": "s1",
+     "consigne": {
+      "fr": "À qui s'adresse ce panneau ?",
+      "en": "Who is this sign for?"
+     },
+     "choix": [
+      {
+       "fr": "Aux randonneurs",
+       "en": "To hikers"
+      },
+      {
+       "fr": "Aux automobilistes",
+       "en": "To drivers"
+      },
+      {
+       "fr": "Aux pêcheurs",
+       "en": "To anglers"
+      },
+      {
+       "fr": "Aux cyclistes",
+       "en": "To cyclists"
+      }
+     ],
+     "reponse": 0,
+     "porte": [
+      "登",
+      "山",
+      "人"
+     ]
+    },
+    {
+     "type": "vrai_faux",
+     "support": "s1",
+     "consigne": {
+      "fr": "Vrai ou faux ?",
+      "en": "True or false?"
+     },
+     "affirmation": {
+      "zh": "到山顶还要走两公里。",
+      "pinyin": "dào shān dǐng hái yào zǒu liǎng gōng lǐ",
+      "fr": "Il reste deux kilomètres à marcher jusqu'au sommet.",
+      "en": "It's another two kilometres' walk to the summit."
+     },
+     "reponse": true,
+     "porte": [
+      "顶",
+      "两",
+      "公",
+      "里"
+     ]
+    },
+    {
+     "type": "comprendre",
+     "support": "s2",
+     "consigne": {
+      "fr": "Quand la personne qui écrit veut-elle partir ?",
+      "en": "When does the writer want to go?"
+     },
+     "choix": [
+      {
+       "fr": "Pendant les vacances d'été",
+       "en": "During the summer holidays"
+      },
+      {
+       "fr": "Pendant les vacances d'hiver",
+       "en": "During the winter holidays"
+      },
+      {
+       "fr": "Pendant la fête nationale",
+       "en": "During the National Day holiday"
+      },
+      {
+       "fr": "Pendant le Nouvel An",
+       "en": "During New Year"
+      }
+     ],
+     "reponse": 1,
+     "porte": [
+      "寒",
+      "假"
+     ]
+    },
+    {
+     "type": "replique",
+     "support": "s2",
+     "consigne": {
+      "fr": "Que réponds-tu ?",
+      "en": "What do you reply?"
+     },
+     "choix": [
+      {
+       "zh": "我昨天去购物了。",
+       "pinyin": "wǒ zuó tiān qù gòu wù le",
+       "fr": "Je suis allé faire des courses hier.",
+       "en": "I went shopping yesterday."
+      },
+      {
+       "zh": "你的肚子还疼吗？",
+       "pinyin": "nǐ de dù zi hái téng ma",
+       "fr": "Tu as encore mal au ventre ?",
+       "en": "Does your stomach still hurt?"
+      },
+      {
+       "zh": "这件衣服很厚。",
+       "pinyin": "zhè jiàn yī fu hěn hòu",
+       "fr": "Ce vêtement est épais.",
+       "en": "This piece of clothing is thick."
+      },
+      {
+       "zh": "太好了！我们去哪儿？",
+       "pinyin": "tài hǎo le wǒ men qù nǎ r",
+       "fr": "Génial ! On va où ?",
+       "en": "Great! Where are we going?"
+      }
+     ],
+     "reponse": 3,
+     "porte": [
+      "寒",
+      "玩"
+     ]
+    },
+    {
+     "type": "caractere",
+     "consigne": {
+      "fr": "Quel caractère a ce sens ?",
+      "en": "Which character has this meaning?"
+     },
+     "objet": {
+      "zh": "骨",
+      "pinyin": "gǔ",
+      "fr": "os",
+      "en": "bone"
+     },
+     "choix": [
+      "背",
+      "育",
+      "骨",
+      "胖"
+     ],
+     "reponse": 2,
+     "porte": [
+      "骨"
+     ]
+    }
+   ]
+  }
+ ]
+}

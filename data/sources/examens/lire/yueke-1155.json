@@ -1,0 +1,421 @@
+{
+ "examen": "yueke-1155",
+ "parcours": "lire",
+ "generation": {
+  "modele": "rédaction manuelle",
+  "api": "session Claude Code (sans API)",
+  "date": "2026-09-30"
+ },
+ "relecture": {
+  "statut": "a_relire",
+  "note": "rédigé le 30 septembre 2026, à relire par le propriétaire (`wenlu examens apercu`) ; une série passe à `relu` sur sa décision, citée ici"
+ },
+ "series": [
+  {
+   "serie": "A",
+   "statut": "a_relire",
+   "supports": [
+    {
+     "id": "s1",
+     "genre": "message",
+     "contexte": {
+      "fr": "Un message",
+      "en": "A message"
+     },
+     "lignes": [
+      {
+       "zh": "小李，今天路上很堵，",
+       "pinyin": "xiǎo lǐ jīn tiān lù shang hěn dǔ",
+       "fr": "Xiao Li, ça bouchonne beaucoup aujourd'hui :",
+       "en": "Xiao Li, the traffic is terrible today,"
+      },
+      {
+       "zh": "我要晚到半个小时。",
+       "pinyin": "wǒ yào wǎn dào bàn gè xiǎo shí",
+       "fr": "j'aurai une demi-heure de retard.",
+       "en": "I'll be half an hour late."
+      },
+      {
+       "zh": "你先在附近逛逛吧！",
+       "pinyin": "nǐ xiān zài fù jìn guàng guang ba",
+       "fr": "Fais d'abord un tour dans le coin !",
+       "en": "Have a look around the area first!"
+      }
+     ]
+    },
+    {
+     "id": "s2",
+     "genre": "pancarte",
+     "contexte": {
+      "fr": "Un panneau",
+      "en": "A sign"
+     },
+     "lignes": [
+      {
+       "zh": "山顶风大，天气寒冷，",
+       "pinyin": "shān dǐng fēng dà tiān qì hán lěng",
+       "fr": "Au sommet, le vent est fort et il fait froid :",
+       "en": "It's windy and cold at the summit:"
+      },
+      {
+       "zh": "请多穿厚衣服。",
+       "pinyin": "qǐng duō chuān hòu yī fu",
+       "fr": "couvrez-vous chaudement.",
+       "en": "please wear warm clothes."
+      }
+     ]
+    }
+   ],
+   "questions": [
+    {
+     "type": "comprendre",
+     "support": "s1",
+     "consigne": {
+      "fr": "Pourquoi la personne qui écrit sera-t-elle en retard ?",
+      "en": "Why will the writer be late?"
+     },
+     "choix": [
+      {
+       "fr": "À cause des bouchons",
+       "en": "Because of the traffic"
+      },
+      {
+       "fr": "À cause de la pluie",
+       "en": "Because of the rain"
+      },
+      {
+       "fr": "À cause d'une panne de voiture",
+       "en": "Because the car broke down"
+      },
+      {
+       "fr": "À cause de son travail",
+       "en": "Because of work"
+      }
+     ],
+     "reponse": 0,
+     "porte": [
+      "路",
+      "堵"
+     ]
+    },
+    {
+     "type": "replique",
+     "support": "s1",
+     "consigne": {
+      "fr": "Que répond Xiao Li ?",
+      "en": "What does Xiao Li reply?"
+     },
+     "choix": [
+      {
+       "zh": "这件衣服很好看。",
+       "pinyin": "zhè jiàn yī fu hěn hǎo kàn",
+       "fr": "Ce vêtement est très joli.",
+       "en": "This piece of clothing is lovely."
+      },
+      {
+       "zh": "他是我的老同学。",
+       "pinyin": "tā shì wǒ de lǎo tóng xué",
+       "fr": "C'est un vieux camarade de classe.",
+       "en": "He's an old classmate of mine."
+      },
+      {
+       "zh": "没关系，我在书店等你。",
+       "pinyin": "méi guān xi wǒ zài shū diàn děng nǐ",
+       "fr": "Pas de souci, je t'attends à la librairie.",
+       "en": "No problem, I'll wait for you at the bookshop."
+      },
+      {
+       "zh": "这里的冬天很冷。",
+       "pinyin": "zhè li de dōng tiān hěn lěng",
+       "fr": "L'hiver est froid, ici.",
+       "en": "Winters are cold here."
+      }
+     ],
+     "reponse": 2,
+     "porte": [
+      "晚",
+      "逛"
+     ]
+    },
+    {
+     "type": "reperer",
+     "support": "s2",
+     "consigne": {
+      "fr": "Touche ce qu'il faut mettre.",
+      "en": "Tap what you should wear."
+     },
+     "choix": [
+      "山顶",
+      "天气",
+      "寒冷",
+      "厚衣服"
+     ],
+     "reponse": 3,
+     "porte": [
+      "厚",
+      "衣",
+      "服"
+     ]
+    },
+    {
+     "type": "vrai_faux",
+     "support": "s2",
+     "consigne": {
+      "fr": "Vrai ou faux ?",
+      "en": "True or false?"
+     },
+     "affirmation": {
+      "zh": "山顶上风很小。",
+      "pinyin": "shān dǐng shàng fēng hěn xiǎo",
+      "fr": "Au sommet, il y a peu de vent.",
+      "en": "There's little wind at the summit."
+     },
+     "reponse": false,
+     "porte": [
+      "顶",
+      "风"
+     ]
+    },
+    {
+     "type": "caractere",
+     "consigne": {
+      "fr": "Quel caractère a ce sens ?",
+      "en": "Which character has this meaning?"
+     },
+     "objet": {
+      "zh": "肚",
+      "pinyin": "dù",
+      "fr": "ventre",
+      "en": "belly"
+     },
+     "choix": [
+      "肥",
+      "肚",
+      "胖",
+      "脏"
+     ],
+     "reponse": 1,
+     "porte": [
+      "肚"
+     ]
+    }
+   ]
+  },
+  {
+   "serie": "B",
+   "statut": "a_relire",
+   "supports": [
+    {
+     "id": "s1",
+     "genre": "billet",
+     "contexte": {
+      "fr": "Un billet",
+      "en": "A ticket"
+     },
+     "lignes": [
+      {
+       "zh": "登机牌",
+       "pinyin": "dēng jī pái",
+       "fr": "Carte d'embarquement",
+       "en": "Boarding pass"
+      },
+      {
+       "zh": "从北京到上海",
+       "pinyin": "cóng běi jīng dào shàng hǎi",
+       "fr": "De Pékin à Shanghai",
+       "en": "Beijing to Shanghai"
+      },
+      {
+       "zh": "登机口：十五号",
+       "pinyin": "dēng jī kǒu shí wǔ hào",
+       "fr": "Porte : 15",
+       "en": "Gate: 15"
+      },
+      {
+       "zh": "登机时间：上午九点",
+       "pinyin": "dēng jī shí jiān shàng wǔ jiǔ diǎn",
+       "fr": "Embarquement : 9 h",
+       "en": "Boarding time: 9 am"
+      }
+     ]
+    },
+    {
+     "id": "s2",
+     "genre": "message",
+     "contexte": {
+      "fr": "Un message",
+      "en": "A message"
+     },
+     "lignes": [
+      {
+       "zh": "妈妈，航班晚了两个小时，",
+       "pinyin": "mā ma háng bān wǎn le liǎng gè xiǎo shí",
+       "fr": "Maman, le vol a deux heures de retard,",
+       "en": "Mum, the flight is two hours late,"
+      },
+      {
+       "zh": "我肚子很饿，",
+       "pinyin": "wǒ dù zi hěn è",
+       "fr": "j'ai très faim :",
+       "en": "I'm starving,"
+      },
+      {
+       "zh": "你给我做点豆腐吧！",
+       "pinyin": "nǐ gěi wǒ zuò diǎn dòu fu ba",
+       "fr": "tu me fais un peu de tofu ?",
+       "en": "could you make me some tofu?"
+      }
+     ]
+    }
+   ],
+   "questions": [
+    {
+     "type": "reperer",
+     "support": "s1",
+     "consigne": {
+      "fr": "Touche l'heure où l'on monte à bord.",
+      "en": "Tap the time you board."
+     },
+     "choix": [
+      "北京",
+      "上海",
+      "十五号",
+      "九点"
+     ],
+     "reponse": 3,
+     "porte": [
+      "登",
+      "九",
+      "点"
+     ]
+    },
+    {
+     "type": "vrai_faux",
+     "support": "s1",
+     "consigne": {
+      "fr": "Vrai ou faux ?",
+      "en": "True or false?"
+     },
+     "affirmation": {
+      "zh": "这个航班去上海。",
+      "pinyin": "zhè gè háng bān qù shàng hǎi",
+      "fr": "Ce vol va à Shanghai.",
+      "en": "This flight goes to Shanghai."
+     },
+     "reponse": true,
+     "porte": [
+      "航",
+      "上",
+      "海"
+     ]
+    },
+    {
+     "type": "comprendre",
+     "support": "s2",
+     "consigne": {
+      "fr": "Que demande-t-on à maman ?",
+      "en": "What is Mum asked to do?"
+     },
+     "choix": [
+      {
+       "fr": "De préparer du tofu",
+       "en": "To make some tofu"
+      },
+      {
+       "fr": "D'acheter les billets",
+       "en": "To buy the tickets"
+      },
+      {
+       "fr": "D'aller à l'aéroport",
+       "en": "To go to the airport"
+      },
+      {
+       "fr": "De téléphoner au bureau",
+       "en": "To call the office"
+      }
+     ],
+     "reponse": 0,
+     "porte": [
+      "做",
+      "豆",
+      "腐"
+     ]
+    },
+    {
+     "type": "replique",
+     "support": "s2",
+     "consigne": {
+      "fr": "Que répond maman ?",
+      "en": "What does Mum reply?"
+     },
+     "choix": [
+      {
+       "zh": "我不喜欢逛街。",
+       "pinyin": "wǒ bù xǐ huan guàng jiē",
+       "fr": "Je n'aime pas faire les magasins.",
+       "en": "I don't like shopping."
+      },
+      {
+       "zh": "我家离这里很远。",
+       "pinyin": "wǒ jiā lí zhè li hěn yuǎn",
+       "fr": "J'habite loin d'ici.",
+       "en": "I live far from here."
+      },
+      {
+       "zh": "好，路上小心！",
+       "pinyin": "hǎo lù shang xiǎo xīn",
+       "fr": "D'accord, fais attention en route !",
+       "en": "OK, take care on the way!"
+      },
+      {
+       "zh": "这本书很厚。",
+       "pinyin": "zhè běn shū hěn hòu",
+       "fr": "Ce livre est épais.",
+       "en": "This book is thick."
+      }
+     ],
+     "reponse": 2,
+     "porte": [
+      "航",
+      "晚"
+     ]
+    },
+    {
+     "type": "sens",
+     "consigne": {
+      "fr": "Que veut dire ce caractère ?",
+      "en": "What does this character mean?"
+     },
+     "objet": {
+      "zh": "窗",
+      "pinyin": "chuāng",
+      "fr": "fenêtre",
+      "en": "window"
+     },
+     "choix": [
+      {
+       "fr": "porte",
+       "en": "door"
+      },
+      {
+       "fr": "fenêtre",
+       "en": "window"
+      },
+      {
+       "fr": "toit",
+       "en": "roof"
+      },
+      {
+       "fr": "mur",
+       "en": "wall"
+      }
+     ],
+     "reponse": 1,
+     "porte": [
+      "窗"
+     ]
+    }
+   ]
+  }
+ ]
+}
