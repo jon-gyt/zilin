@@ -251,8 +251,8 @@
    "lectures": [
     "bǎo"
    ],
-   "fr": "",
-   "en": "",
+   "fr": "rassasié, plein",
+   "en": "full, having eaten enough",
    "parts": [
     "饣",
     "勹",
@@ -264,10 +264,14 @@
     "surcharge"
    ],
    "role": null,
-   "roles": {},
-   "origine_fr": "",
-   "origine_en": "",
-   "etiquette": null,
+   "roles": {
+    "勹": "son",
+    "巳": "son",
+    "饣": "sens"
+   },
+   "origine_fr": "Le Shuowen jiezi écrit 飽 et le glose « repu » : la nourriture, 食, et 包 pour le son. 包, écrit 勹 autour de 巳, se lit bāo, la même syllabe que 饱, bǎo. Simplifié, 食 devient 饣 : la nourriture et le son de 包, c'est être rassasié.",
+   "origine_en": "The Shuowen jiezi writes 飽 and glosses it as “sated”: food, 食, and 包 for the sound. 包, written 勹 around 巳, is read bāo, the same syllable as 饱, bǎo. Simplified, 食 becomes 饣: food plus the sound of 包 means being full.",
+   "etiquette": "atteste",
    "memo_fr": null,
    "memo_en": null,
    "mots": [],
@@ -278,7 +282,7 @@
    "traits": [],
    "medianes": [],
    "audio": null,
-   "statut": "sans_fiche"
+   "statut": "relu"
   },
   {
    "c": "饲",
@@ -356,11 +360,13 @@
    "en": "",
    "parts": [
     "饣",
-    "尧"
+    "𭠍",
+    "兀"
    ],
    "nouveau": [],
    "sources": [
-    "cjk-decomp"
+    "cjk-decomp",
+    "surcharge"
    ],
    "role": null,
    "roles": {},
@@ -385,8 +391,8 @@
    "lectures": [
     "jiǎo"
    ],
-   "fr": "",
-   "en": "",
+   "fr": "ravioli",
+   "en": "dumpling",
    "parts": [
     "饣",
     "六",
@@ -397,10 +403,14 @@
     "cjk-decomp"
    ],
    "role": null,
-   "roles": {},
-   "origine_fr": "",
-   "origine_en": "",
-   "etiquette": null,
+   "roles": {
+    "乂": "son",
+    "六": "son",
+    "饣": "sens"
+   },
+   "origine_fr": "Pour s'en souvenir : à gauche, 饣, la nourriture. À droite, 交, écrit 六 sur 乂, qui se lit jiāo, la même syllabe que 饺, jiǎo. Une nourriture au son de 交 : le ravioli, 饺子.",
+   "origine_en": "As a memory aid: on the left, 饣, food. On the right, 交, written 六 over 乂, which is read jiāo, the same syllable as 饺, jiǎo. A food with the sound of 交: the dumpling, 饺子.",
+   "etiquette": "mnemotechnique",
    "memo_fr": null,
    "memo_en": null,
    "mots": [],
@@ -411,7 +421,7 @@
    "traits": [],
    "medianes": [],
    "audio": null,
-   "statut": "sans_fiche"
+   "statut": "relu"
   },
   {
    "c": "饼",
@@ -463,7 +473,7 @@
    "sources": [
     "cjk-decomp"
    ],
-   "role": "sens",
+   "role": null,
    "roles": {
     "我": "forme",
     "饣": "sens"

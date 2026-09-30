@@ -58,11 +58,11 @@
    "en": "",
    "parts": [
     "忄",
-    "㇠"
+    "乙"
    ],
    "nouveau": [],
    "sources": [
-    "cjk-decomp"
+    "surcharge"
    ],
    "role": null,
    "roles": {},
@@ -273,8 +273,8 @@
    "lectures": [
     "pà"
    ],
-   "fr": "",
-   "en": "",
+   "fr": "avoir peur, craindre",
+   "en": "to fear, to be afraid",
    "parts": [
     "忄",
     "白"
@@ -284,10 +284,13 @@
     "cjk-decomp"
    ],
    "role": null,
-   "roles": {},
-   "origine_fr": "",
-   "origine_en": "",
-   "etiquette": null,
+   "roles": {
+    "忄": "sens",
+    "白": "forme"
+   },
+   "origine_fr": "Le Shuowen jiezi glose 怕 par « impassible » : le cœur, 忄, et 白 pour le son. Le sens « avoir peur » est venu plus tard ; le cœur reste à gauche. 白 se lit bái : il ne donne plus le son de pà.",
+   "origine_en": "The Shuowen jiezi glosses 怕 as “unmoved”: the heart, 忄, and 白 for the sound. The meaning “to be afraid” came later; the heart stays on the left. 白 is read bái: it no longer gives the sound of pà.",
+   "etiquette": "atteste",
    "memo_fr": null,
    "memo_en": null,
    "mots": [],
@@ -298,7 +301,7 @@
    "traits": [],
    "medianes": [],
    "audio": null,
-   "statut": "sans_fiche"
+   "statut": "relu"
   },
   {
    "c": "怖",
@@ -924,8 +927,8 @@
    "lectures": [
     "qíng"
    ],
-   "fr": "",
-   "en": "",
+   "fr": "sentiment, situation",
+   "en": "feeling, situation",
    "parts": [
     "忄",
     "龶",
@@ -936,10 +939,14 @@
     "cjk-decomp"
    ],
    "role": null,
-   "roles": {},
-   "origine_fr": "",
-   "origine_en": "",
-   "etiquette": null,
+   "roles": {
+    "忄": "sens",
+    "月": "son",
+    "龶": "son"
+   },
+   "origine_fr": "Le Shuowen jiezi glose 情 par « le souffle de l'homme qui désire » : le cœur, 忄, et 青 pour le son. 青 se lit qīng, la même syllabe que 情, qíng. Ce qui naît du cœur : le sentiment, puis l'état des choses.",
+   "origine_en": "The Shuowen jiezi glosses 情 as “the breath of a person who desires”: the heart, 忄, and 青 for the sound. 青 is read qīng, the same syllable as 情, qíng. What arises from the heart: feeling, and then the state of things.",
+   "etiquette": "atteste",
    "memo_fr": null,
    "memo_en": null,
    "mots": [],
@@ -950,7 +957,7 @@
    "traits": [],
    "medianes": [],
    "audio": null,
-   "statut": "sans_fiche"
+   "statut": "relu"
   },
   {
    "c": "惊",
@@ -1231,8 +1238,8 @@
    "lectures": [
     "guàn"
    ],
-   "fr": "",
-   "en": "",
+   "fr": "habitué, gâter",
+   "en": "used to, to spoil",
    "parts": [
     "忄",
     "毌",
@@ -1244,11 +1251,15 @@
    "sources": [
     "cjk-decomp"
    ],
-   "role": null,
-   "roles": {},
-   "origine_fr": "",
-   "origine_en": "",
-   "etiquette": null,
+   "role": "son",
+   "roles": {
+    "忄": "sens",
+    "毌": "son",
+    "贝": "son"
+   },
+   "origine_fr": "Pour s'en souvenir : à gauche, 忄, le cœur. À droite, 贯, « enfiler », écrit 毌 sur 贝, qui se lit guàn comme 惯. Des pièces enfilées sur un même fil, jour après jour : le cœur s'y habitue.",
+   "origine_en": "As a memory aid: on the left, 忄, the heart. On the right, 贯, “to string together”, written 毌 over 贝, which is read guàn like 惯. Coins strung on the same cord, day after day: the heart grows used to it.",
+   "etiquette": "mnemotechnique",
    "memo_fr": null,
    "memo_en": null,
    "mots": [],
@@ -1259,7 +1270,7 @@
    "traits": [],
    "medianes": [],
    "audio": null,
-   "statut": "sans_fiche"
+   "statut": "relu"
   },
   {
    "c": "惰",
@@ -1560,7 +1571,7 @@
    "sources": [
     "cjk-decomp"
    ],
-   "role": "son",
+   "role": null,
    "roles": {
     "又": "son",
     "忄": "sens",

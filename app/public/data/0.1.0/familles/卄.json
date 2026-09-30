@@ -358,39 +358,6 @@
    "statut": "sans_fiche"
   },
   {
-   "c": "艺",
-   "pinyin": "yì",
-   "lectures": [
-    "yì"
-   ],
-   "fr": "",
-   "en": "",
-   "parts": [
-    "卄",
-    "㇠"
-   ],
-   "nouveau": [],
-   "sources": [
-    "cjk-decomp"
-   ],
-   "role": null,
-   "roles": {},
-   "origine_fr": "",
-   "origine_en": "",
-   "etiquette": null,
-   "memo_fr": null,
-   "memo_en": null,
-   "mots": [],
-   "phrase": null,
-   "niveaux": {
-    "hsk": 3
-   },
-   "traits": [],
-   "medianes": [],
-   "audio": null,
-   "statut": "sans_fiche"
-  },
-  {
    "c": "艾",
    "pinyin": "ài",
    "lectures": [
@@ -431,8 +398,8 @@
     "jié",
     "jiē"
    ],
-   "fr": "",
-   "en": "",
+   "fr": "fête, nœud, section, économiser",
+   "en": "festival, joint, section, to save",
    "parts": [
     "卄",
     "𠃌",
@@ -445,11 +412,15 @@
     "cjk-decomp",
     "surcharge"
    ],
-   "role": null,
-   "roles": {},
-   "origine_fr": "",
-   "origine_en": "",
-   "etiquette": null,
+   "role": "sens",
+   "roles": {
+    "丨": "forme",
+    "卄": "sens",
+    "𠃌": "forme"
+   },
+   "origine_fr": "Le Shuowen jiezi écrit 節 et le glose « nœud du bambou » : 竹, le bambou, et 即 pour le son. Des nœuds qui coupent la tige en sections est venu « la section, la fête qui marque l'année », et « se retenir ». La forme simplifiée écrit l'herbe en haut et, dessous, 卩, le bas de 即.",
+   "origine_en": "The Shuowen jiezi writes 節 and glosses it as “bamboo joint”: 竹, bamboo, and 即 for the sound. From joints dividing the stem into sections came “section, the festival that marks the year”, and “to hold back”. The simplified form writes grass on top and, below it, 卩, the lower part of 即.",
+   "etiquette": "atteste",
    "memo_fr": null,
    "memo_en": null,
    "mots": [],
@@ -460,7 +431,7 @@
    "traits": [],
    "medianes": [],
    "audio": null,
-   "statut": "sans_fiche"
+   "statut": "relu"
   },
   {
    "c": "芒",
@@ -907,8 +878,8 @@
    "lectures": [
     "yīng"
    ],
-   "fr": "",
-   "en": "",
+   "fr": "héros, élite, anglais",
+   "en": "hero, elite, English",
    "parts": [
     "卄",
     "央"
@@ -918,10 +889,13 @@
     "cjk-decomp"
    ],
    "role": null,
-   "roles": {},
-   "origine_fr": "",
-   "origine_en": "",
-   "etiquette": null,
+   "roles": {
+    "卄": "sens",
+    "央": "forme"
+   },
+   "origine_fr": "Le Shuowen jiezi glose 英 par « fleur qui ne donne pas de fruit » : l'herbe, et 央 pour le son. La fleur, ce qu'il y a de plus beau : de là « l'élite, le héros ». 央 se lit yāng : il ne donne pas le son de yīng ; 英 transcrit aussi « England ».",
+   "origine_en": "The Shuowen jiezi glosses 英 as “a flower that bears no fruit”: grass, and 央 for the sound. The flower, the finest part: hence “elite, hero”. 央 is read yāng: it does not give the sound of yīng; 英 also transcribes “England”.",
+   "etiquette": "atteste",
    "memo_fr": null,
    "memo_en": null,
    "mots": [],
@@ -932,7 +906,7 @@
    "traits": [],
    "medianes": [],
    "audio": null,
-   "statut": "sans_fiche"
+   "statut": "relu"
   },
   {
    "c": "苹",
@@ -1210,8 +1184,8 @@
    "lectures": [
     "cǎo"
    ],
-   "fr": "",
-   "en": "",
+   "fr": "herbe",
+   "en": "grass",
    "parts": [
     "卄",
     "日",
@@ -1223,11 +1197,15 @@
    "sources": [
     "cjk-decomp"
    ],
-   "role": null,
-   "roles": {},
-   "origine_fr": "",
-   "origine_en": "",
-   "etiquette": null,
+   "role": "sens",
+   "roles": {
+    "十": "forme",
+    "卄": "sens",
+    "日": "forme"
+   },
+   "origine_fr": "Le Shuowen jiezi écrit l'herbe 艸, deux pousses ; 草, avec 早 pour le son, y désigne la cupule du gland. L'usage a donné à 草 le sens de 艸, qui ne sert plus qu'en tête des noms de plantes. On lit l'herbe en haut et 早, écrit 日 sur 十, qui se lit zǎo et ne donne plus le son de cǎo.",
+   "origine_en": "The Shuowen jiezi writes grass as 艸, two sprouts; 草, with 早 for the sound, names the acorn cup. Usage gave 草 the meaning of 艸, which now only appears at the top of plant names. You read the grass on top and 早, written 日 over 十, which is read zǎo and no longer gives the sound of cǎo.",
+   "etiquette": "atteste",
    "memo_fr": null,
    "memo_en": null,
    "mots": [],
@@ -1238,7 +1216,7 @@
    "traits": [],
    "medianes": [],
    "audio": null,
-   "statut": "sans_fiche"
+   "statut": "relu"
   },
   {
    "c": "荐",
@@ -1454,8 +1432,8 @@
    "lectures": [
     "yào"
    ],
-   "fr": "",
-   "en": "",
+   "fr": "médicament",
+   "en": "medicine",
    "parts": [
     "卄",
     "纟",
@@ -1466,10 +1444,14 @@
     "cjk-decomp"
    ],
    "role": null,
-   "roles": {},
-   "origine_fr": "",
-   "origine_en": "",
-   "etiquette": null,
+   "roles": {
+    "勺": "forme",
+    "卄": "sens",
+    "纟": "forme"
+   },
+   "origine_fr": "Le Shuowen jiezi écrit 藥 et le glose « herbe qui soigne » : 艸, la plante, et 樂 pour le son. Les remèdes étaient d'abord des plantes : l'herbe reste en haut. La forme simplifiée remplace 樂 par 约, qui ne donne pas le son de yào.",
+   "origine_en": "The Shuowen jiezi writes 藥 and glosses it as “a healing plant”: 艸, plant, and 樂 for the sound. Remedies were first plants: the grass stays on top. The simplified form replaces 樂 with 约, which does not give the sound of yào.",
+   "etiquette": "atteste",
    "memo_fr": null,
    "memo_en": null,
    "mots": [],
@@ -1480,7 +1462,7 @@
    "traits": [],
    "medianes": [],
    "audio": null,
-   "statut": "sans_fiche"
+   "statut": "relu"
   },
   {
    "c": "荷",
@@ -2355,8 +2337,8 @@
     "lán",
     "la"
    ],
-   "fr": "",
-   "en": "",
+   "fr": "bleu",
+   "en": "blue",
    "parts": [
     "卄",
     "丨",
@@ -2371,10 +2353,16 @@
     "surcharge"
    ],
    "role": null,
-   "roles": {},
-   "origine_fr": "",
-   "origine_en": "",
-   "etiquette": null,
+   "roles": {
+    "丨": "forme",
+    "丶": "forme",
+    "卄": "sens",
+    "皿": "forme",
+    "𠂉": "forme"
+   },
+   "origine_fr": "Le Shuowen jiezi écrit 藍 et le glose « herbe qui teint en bleu » : 艸, la plante, et 監 pour le son. L'indigotier a donné sa couleur au caractère : le bleu. La forme simplifiée garde l'herbe en haut ; 监, lu jiān, ne donne plus le son de lán.",
+   "origine_en": "The Shuowen jiezi writes 藍 and glosses it as “a plant that dyes blue”: 艸, plant, and 監 for the sound. The indigo plant gave its colour to the character: blue. The simplified form keeps the grass on top; 监, read jiān, no longer gives the sound of lán.",
+   "etiquette": "atteste",
    "memo_fr": null,
    "memo_en": null,
    "mots": [],
@@ -2385,7 +2373,7 @@
    "traits": [],
    "medianes": [],
    "audio": null,
-   "statut": "sans_fiche"
+   "statut": "relu"
   },
   {
    "c": "蓬",

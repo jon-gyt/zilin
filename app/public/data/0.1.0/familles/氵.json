@@ -418,12 +418,13 @@
    "en": "",
    "parts": [
     "氵",
-    "二",
-    "㇉"
+    "一",
+    "丂"
    ],
    "nouveau": [],
    "sources": [
-    "cjk-decomp"
+    "cjk-decomp",
+    "surcharge"
    ],
    "role": null,
    "roles": {},
@@ -1070,8 +1071,8 @@
    "lectures": [
     "hé"
    ],
-   "fr": "",
-   "en": "",
+   "fr": "rivière, fleuve",
+   "en": "river",
    "parts": [
     "氵",
     "丁",
@@ -1083,10 +1084,14 @@
     "surcharge"
    ],
    "role": null,
-   "roles": {},
-   "origine_fr": "",
-   "origine_en": "",
-   "etiquette": null,
+   "roles": {
+    "丁": "forme",
+    "口": "forme",
+    "氵": "sens"
+   },
+   "origine_fr": "Le Shuowen jiezi fait de 河 le nom du fleuve Jaune : l'eau, 氵, et 可 pour le son. Le nom propre est devenu nom commun : toute rivière. 可, écrit 丁 et 口, se lit kě et ne donne plus le son de hé.",
+   "origine_en": "The Shuowen jiezi makes 河 the name of the Yellow River: water, 氵, and 可 for the sound. The proper name became a common noun: any river. 可, written 丁 and 口, is read kě and no longer gives the sound of hé.",
+   "etiquette": "atteste",
    "memo_fr": null,
    "memo_en": null,
    "mots": [],
@@ -1097,7 +1102,7 @@
    "traits": [],
    "medianes": [],
    "audio": null,
-   "statut": "sans_fiche"
+   "statut": "relu"
   },
   {
    "c": "沸",
@@ -1138,8 +1143,8 @@
    "lectures": [
     "yóu"
    ],
-   "fr": "",
-   "en": "",
+   "fr": "huile, essence",
+   "en": "oil, petrol",
    "parts": [
     "氵",
     "由"
@@ -1149,10 +1154,13 @@
     "cjk-decomp"
    ],
    "role": null,
-   "roles": {},
-   "origine_fr": "",
-   "origine_en": "",
-   "etiquette": null,
+   "roles": {
+    "氵": "sens",
+    "由": "son"
+   },
+   "origine_fr": "Le Shuowen jiezi en fait un nom de rivière : l'eau, 氵, et 由 pour le son. 由 se lit yóu, exactement comme 油. Le sens « huile », liquide qui coule, s'est imposé.",
+   "origine_en": "The Shuowen jiezi makes it the name of a river: water, 氵, and 由 for the sound. 由 is read yóu, exactly like 油. The meaning “oil”, a flowing liquid, took over.",
+   "etiquette": "atteste",
    "memo_fr": null,
    "memo_en": null,
    "mots": [],
@@ -1163,7 +1171,7 @@
    "traits": [],
    "medianes": [],
    "audio": null,
-   "statut": "sans_fiche"
+   "statut": "relu"
   },
   {
    "c": "治",
@@ -2267,13 +2275,48 @@
    "statut": "sans_fiche"
   },
   {
+   "c": "派",
+   "pinyin": "pài",
+   "lectures": [
+    "pài",
+    "pā"
+   ],
+   "fr": "",
+   "en": "",
+   "parts": [
+    "氵",
+    "𠂆",
+    "𧘇"
+   ],
+   "nouveau": [],
+   "sources": [
+    "surcharge"
+   ],
+   "role": null,
+   "roles": {},
+   "origine_fr": "",
+   "origine_en": "",
+   "etiquette": null,
+   "memo_fr": null,
+   "memo_en": null,
+   "mots": [],
+   "phrase": null,
+   "niveaux": {
+    "hsk": 3
+   },
+   "traits": [],
+   "medianes": [],
+   "audio": null,
+   "statut": "sans_fiche"
+  },
+  {
    "c": "流",
    "pinyin": "liú",
    "lectures": [
     "liú"
    ],
-   "fr": "",
-   "en": "",
+   "fr": "couler, s'écouler",
+   "en": "to flow",
    "parts": [
     "氵",
     "亠",
@@ -2287,10 +2330,16 @@
     "surcharge"
    ],
    "role": null,
-   "roles": {},
-   "origine_fr": "",
-   "origine_en": "",
-   "etiquette": null,
+   "roles": {
+    "丨": "forme",
+    "亠": "forme",
+    "儿": "forme",
+    "厶": "forme",
+    "氵": "sens"
+   },
+   "origine_fr": "Le Shuowen jiezi glose 流 par « l'eau qui va » et l'écrit avec l'eau et 㐬. On y voit un enfant emporté par le courant, tête en bas, les cheveux flottants. 氵 à gauche dit l'eau ; à droite, 亠, 厶 et le bas ne donnent pas le son de liú.",
+   "origine_en": "The Shuowen jiezi glosses 流 as “water moving along” and writes it with water and 㐬. In it one sees a child carried off by the current, upside down, hair floating. 氵 on the left stands for water; on the right, 亠, 厶 and the lower part do not give the sound of liú.",
+   "etiquette": "atteste",
    "memo_fr": null,
    "memo_en": null,
    "mots": [],
@@ -2301,7 +2350,7 @@
    "traits": [],
    "medianes": [],
    "audio": null,
-   "statut": "sans_fiche"
+   "statut": "relu"
   },
   {
    "c": "浅",
@@ -2347,11 +2396,13 @@
    "en": "",
    "parts": [
     "氵",
-    "尧"
+    "𭠍",
+    "兀"
    ],
    "nouveau": [],
    "sources": [
-    "cjk-decomp"
+    "cjk-decomp",
+    "surcharge"
    ],
    "role": null,
    "roles": {},
@@ -3363,6 +3414,41 @@
    "statut": "sans_fiche"
   },
   {
+   "c": "涵",
+   "pinyin": "hán",
+   "lectures": [
+    "hán"
+   ],
+   "fr": "",
+   "en": "",
+   "parts": [
+    "氵",
+    "了",
+    "⿰冫⿱丿丶",
+    "凵"
+   ],
+   "nouveau": [],
+   "sources": [
+    "surcharge"
+   ],
+   "role": null,
+   "roles": {},
+   "origine_fr": "",
+   "origine_en": "",
+   "etiquette": null,
+   "memo_fr": null,
+   "memo_en": null,
+   "mots": [],
+   "phrase": null,
+   "niveaux": {
+    "hsk": 7
+   },
+   "traits": [],
+   "medianes": [],
+   "audio": null,
+   "statut": "sans_fiche"
+  },
+  {
    "c": "淀",
    "pinyin": "diàn",
    "lectures": [
@@ -3749,8 +3835,8 @@
    "lectures": [
     "qīng"
    ],
-   "fr": "",
-   "en": "",
+   "fr": "clair, limpide",
+   "en": "clear, pure",
    "parts": [
     "氵",
     "龶",
@@ -3761,10 +3847,14 @@
     "cjk-decomp"
    ],
    "role": null,
-   "roles": {},
-   "origine_fr": "",
-   "origine_en": "",
-   "etiquette": null,
+   "roles": {
+    "月": "son",
+    "氵": "sens",
+    "龶": "son"
+   },
+   "origine_fr": "Le Shuowen jiezi glose 清 par « eau claire, limpide » : l'eau, 氵, et 青 pour le son. 青, écrit 龶 sur 月, se lit qīng, exactement comme 清. L'eau qui laisse voir le fond : claire, nette.",
+   "origine_en": "The Shuowen jiezi glosses 清 as “clear, limpid water”: water, 氵, and 青 for the sound. 青, written 龶 over 月, is read qīng, exactly like 清. Water you can see the bottom through: clear, clean.",
+   "etiquette": "atteste",
    "memo_fr": null,
    "memo_en": null,
    "mots": [],
@@ -3775,7 +3865,7 @@
    "traits": [],
    "medianes": [],
    "audio": null,
-   "statut": "sans_fiche"
+   "statut": "relu"
   },
   {
    "c": "渊",
@@ -4097,7 +4187,7 @@
    "traits": [],
    "medianes": [],
    "audio": null,
-   "statut": "sans_fiche"
+   "statut": "relu"
   },
   {
    "c": "港",
@@ -4132,7 +4222,7 @@
    "traits": [],
    "medianes": [],
    "audio": null,
-   "statut": "relu"
+   "statut": "sans_fiche"
   },
   {
    "c": "渴",
@@ -4154,7 +4244,7 @@
     "cjk-decomp",
     "surcharge"
    ],
-   "role": "forme",
+   "role": null,
    "roles": {
     "人": "forme",
     "勹": "forme",
@@ -4204,8 +4294,8 @@
    "lectures": [
     "yóu"
    ],
-   "fr": "",
-   "en": "",
+   "fr": "nager, se promener",
+   "en": "to swim, to tour",
    "parts": [
     "氵",
     "方",
@@ -4217,10 +4307,15 @@
     "cjk-decomp"
    ],
    "role": null,
-   "roles": {},
-   "origine_fr": "",
-   "origine_en": "",
-   "etiquette": null,
+   "roles": {
+    "子": "forme",
+    "方": "forme",
+    "氵": "sens",
+    "𠂉": "forme"
+   },
+   "origine_fr": "Le Shuowen jiezi glose 游 par « les rubans flottants d'un étendard » : 㫃, l'étendard, et 汓, nager, pour le son. Ce qui flotte au vent ou sur l'eau : nager, puis aller çà et là. On lit 氵 à gauche, l'étendard, 方 et 𠂉, et 子 dessous.",
+   "origine_en": "The Shuowen jiezi glosses 游 as “the floating streamers of a banner”: 㫃, the banner, and 汓, to swim, for the sound. What floats on the wind or on the water: to swim, then to wander. You read 氵 on the left, the banner, 方 and 𠂉, and 子 underneath.",
+   "etiquette": "atteste",
    "memo_fr": null,
    "memo_en": null,
    "mots": [],
@@ -4231,7 +4326,7 @@
    "traits": [],
    "medianes": [],
    "audio": null,
-   "statut": "sans_fiche"
+   "statut": "relu"
   },
   {
    "c": "渺",
@@ -4273,8 +4368,8 @@
    "lectures": [
     "hú"
    ],
-   "fr": "",
-   "en": "",
+   "fr": "lac",
+   "en": "lake",
    "parts": [
     "氵",
     "十",
@@ -4286,10 +4381,15 @@
     "cjk-decomp"
    ],
    "role": null,
-   "roles": {},
-   "origine_fr": "",
-   "origine_en": "",
-   "etiquette": null,
+   "roles": {
+    "十": "son",
+    "口": "son",
+    "月": "son",
+    "氵": "sens"
+   },
+   "origine_fr": "Le Shuowen jiezi glose 湖 par « grand étang » : l'eau, 氵, et 胡 pour le son. 胡, écrit 古 et 月, se lit hú, exactement comme 湖. L'eau et le son de 胡 : le lac.",
+   "origine_en": "The Shuowen jiezi glosses 湖 as “a large pond”: water, 氵, and 胡 for the sound. 胡, written 古 and 月, is read hú, exactly like 湖. Water plus the sound of 胡: a lake.",
+   "etiquette": "atteste",
    "memo_fr": null,
    "memo_en": null,
    "mots": [],
@@ -4300,7 +4400,7 @@
    "traits": [],
    "medianes": [],
    "audio": null,
-   "statut": "sans_fiche"
+   "statut": "relu"
   },
   {
    "c": "湾",
@@ -4899,7 +4999,7 @@
    "traits": [],
    "medianes": [],
    "audio": null,
-   "statut": "sans_fiche"
+   "statut": "relu"
   },
   {
    "c": "滤",
@@ -4984,11 +5084,13 @@
    "parts": [
     "氵",
     "宀",
-    "兵"
+    "丘",
+    "八"
    ],
    "nouveau": [],
    "sources": [
-    "cjk-decomp"
+    "cjk-decomp",
+    "surcharge"
    ],
    "role": null,
    "roles": {},
@@ -5085,8 +5187,8 @@
     "piāo",
     "piǎo"
    ],
-   "fr": "",
-   "en": "",
+   "fr": "flotter, beau",
+   "en": "to float, pretty",
    "parts": [
     "氵",
     "覀",
@@ -5097,10 +5199,14 @@
     "cjk-decomp"
    ],
    "role": null,
-   "roles": {},
-   "origine_fr": "",
-   "origine_en": "",
-   "etiquette": null,
+   "roles": {
+    "氵": "sens",
+    "示": "son",
+    "覀": "son"
+   },
+   "origine_fr": "Le Shuowen jiezi glose 漂 par « flotter » : l'eau, 氵, et 票 pour le son. 票, écrit 覀 sur 示, se lit piào, la même syllabe que 漂. Lu piāo, c'est flotter ; dans 漂亮, lu piào, c'est être beau.",
+   "origine_en": "The Shuowen jiezi glosses 漂 as “to float”: water, 氵, and 票 for the sound. 票, written 覀 over 示, is read piào, the same syllable as 漂. Read piāo, it means to float; in 漂亮, read piào, it means pretty.",
+   "etiquette": "atteste",
    "memo_fr": null,
    "memo_en": null,
    "mots": [],
@@ -5111,7 +5217,7 @@
    "traits": [],
    "medianes": [],
    "audio": null,
-   "statut": "sans_fiche"
+   "statut": "relu"
   },
   {
    "c": "漆",
@@ -5609,8 +5715,8 @@
    "lectures": [
     "zǎo"
    ],
-   "fr": "",
-   "en": "",
+   "fr": "bain",
+   "en": "bath",
    "parts": [
     "氵",
     "口",
@@ -5623,10 +5729,14 @@
     "cjk-decomp"
    ],
    "role": null,
-   "roles": {},
-   "origine_fr": "",
-   "origine_en": "",
-   "etiquette": null,
+   "roles": {
+    "口": "son",
+    "木": "son",
+    "氵": "sens"
+   },
+   "origine_fr": "Le Shuowen jiezi glose 澡 par « se laver les mains » : l'eau, 氵, et 喿 pour le son. 喿, trois bouches sur un arbre, 木, se lit zào, la même syllabe que 澡, zǎo. L'eau et le son de 喿 : se laver, prendre un bain, 洗澡.",
+   "origine_en": "The Shuowen jiezi glosses 澡 as “washing one's hands”: water, 氵, and 喿 for the sound. 喿, three mouths over a tree, 木, is read zào, the same syllable as 澡, zǎo. Water plus the sound of 喿: to wash, to take a bath, 洗澡.",
+   "etiquette": "atteste",
    "memo_fr": null,
    "memo_en": null,
    "mots": [],
@@ -5637,7 +5747,7 @@
    "traits": [],
    "medianes": [],
    "audio": null,
-   "statut": "sans_fiche"
+   "statut": "relu"
   },
   {
    "c": "澳",
@@ -5815,7 +5925,7 @@
    "traits": [],
    "medianes": [],
    "audio": null,
-   "statut": "relu"
+   "statut": "sans_fiche"
   },
   {
    "c": "酒",

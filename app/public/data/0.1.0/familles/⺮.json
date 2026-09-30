@@ -97,7 +97,7 @@
    "sources": [
     "cjk-decomp"
    ],
-   "role": "forme",
+   "role": null,
    "roles": {
     "⺮": "forme",
     "夭": "forme"
@@ -406,7 +406,7 @@
    "sources": [
     "cjk-decomp"
    ],
-   "role": "sens",
+   "role": null,
    "roles": {
     "⺮": "sens",
     "土": "sens",
@@ -607,7 +607,7 @@
     "cjk-decomp",
     "surcharge"
    ],
-   "role": "forme",
+   "role": null,
    "roles": {
     "⺮": "forme",
     "一": "forme",
@@ -918,8 +918,8 @@
    "lectures": [
     "suàn"
    ],
-   "fr": "",
-   "en": "",
+   "fr": "calculer, compter",
+   "en": "to calculate, to count",
    "parts": [
     "⺮",
     "目",
@@ -930,10 +930,14 @@
     "cjk-decomp"
    ],
    "role": null,
-   "roles": {},
-   "origine_fr": "",
-   "origine_en": "",
-   "etiquette": null,
+   "roles": {
+    "⺮": "sens",
+    "卄": "sens",
+    "目": "sens"
+   },
+   "origine_fr": "Le Shuowen jiezi glose 算 par « compter » et l'écrit avec 竹, le bambou, et 具, les instruments. On calculait avec des baguettes de bambou. On lit ⺮ en haut, puis 目 et 卄, qui écrivent 具.",
+   "origine_en": "The Shuowen jiezi glosses 算 as “to count” and writes it with 竹, bamboo, and 具, implements. People calculated with bamboo counting rods. You read ⺮ on top, then 目 and 卄, which write 具.",
+   "etiquette": "atteste",
    "memo_fr": null,
    "memo_en": null,
    "mots": [],
@@ -944,7 +948,7 @@
    "traits": [],
    "medianes": [],
    "audio": null,
-   "statut": "sans_fiche"
+   "statut": "relu"
   },
   {
    "c": "管",
@@ -1056,8 +1060,8 @@
    "lectures": [
     "piān"
    ],
-   "fr": "",
-   "en": "",
+   "fr": "texte, article (classificateur)",
+   "en": "piece of writing (measure word)",
    "parts": [
     "⺮",
     "户",
@@ -1068,10 +1072,14 @@
     "cjk-decomp"
    ],
    "role": null,
-   "roles": {},
-   "origine_fr": "",
-   "origine_en": "",
-   "etiquette": null,
+   "roles": {
+    "⺮": "sens",
+    "户": "forme",
+    "𠕁": "forme"
+   },
+   "origine_fr": "Le Shuowen jiezi glose 篇 par « écrit » : 竹, les lamelles de bambou, et 扁 pour le son. 扁, écrit 户 et 𠕁, se lit biǎn : il ne donne plus tout à fait le son de piān. Un ensemble de lamelles liées forme un texte : 篇 compte les articles.",
+   "origine_en": "The Shuowen jiezi glosses 篇 as “writing”: 竹, bamboo slips, and 扁 for the sound. 扁, written 户 and 𠕁, is read biǎn: it no longer quite gives the sound of piān. A bundle of bound slips makes a text: 篇 counts articles and essays.",
+   "etiquette": "atteste",
    "memo_fr": null,
    "memo_en": null,
    "mots": [],
@@ -1082,7 +1090,7 @@
    "traits": [],
    "medianes": [],
    "audio": null,
-   "statut": "sans_fiche"
+   "statut": "relu"
   },
   {
    "c": "篮",
@@ -1090,8 +1098,8 @@
    "lectures": [
     "lán"
    ],
-   "fr": "",
-   "en": "",
+   "fr": "panier",
+   "en": "basket",
    "parts": [
     "⺮",
     "丨",
@@ -1106,10 +1114,16 @@
     "surcharge"
    ],
    "role": null,
-   "roles": {},
-   "origine_fr": "",
-   "origine_en": "",
-   "etiquette": null,
+   "roles": {
+    "⺮": "sens",
+    "丨": "forme",
+    "丶": "forme",
+    "皿": "forme",
+    "𠂉": "forme"
+   },
+   "origine_fr": "Le Shuowen jiezi écrit 籃 et le glose « grande corbeille » : 竹, le bambou, et 監 pour le son. Le bambou tressé fait le panier ; ⺮ est en haut. Simplifié, 監 devient 监, lu jiān, qui ne donne plus le son de lán.",
+   "origine_en": "The Shuowen jiezi writes 籃 and glosses it as “a large basket”: 竹, bamboo, and 監 for the sound. Woven bamboo makes the basket; ⺮ is at the top. Simplified, 監 becomes 监, read jiān, which no longer gives the sound of lán.",
+   "etiquette": "atteste",
    "memo_fr": null,
    "memo_en": null,
    "mots": [],
@@ -1120,7 +1134,7 @@
    "traits": [],
    "medianes": [],
    "audio": null,
-   "statut": "sans_fiche"
+   "statut": "relu"
   },
   {
    "c": "篷",

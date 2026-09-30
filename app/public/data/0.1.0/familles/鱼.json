@@ -8,10 +8,10 @@
  "racine": {
   "c": "鱼",
   "pinyin": "yú",
-  "fr": "",
-  "en": "",
-  "origine": "",
-  "etiquette": null
+  "fr": "poisson",
+  "en": "fish",
+  "origine": "Sur les os oraculaires, 鱼 dessine un poisson : la tête, les écailles, la queue. Le Shuowen jiezi le glose « bête des eaux ». La queue du 魚 ancien, quatre points, est devenue un seul trait.",
+  "etiquette": "atteste"
  },
  "fiches": [
   {
@@ -20,16 +20,18 @@
    "lectures": [
     "yú"
    ],
-   "fr": "",
-   "en": "",
+   "fr": "poisson",
+   "en": "fish",
    "parts": [],
    "nouveau": [],
    "sources": [],
    "role": null,
-   "roles": {},
-   "origine_fr": "",
-   "origine_en": "",
-   "etiquette": null,
+   "roles": {
+    "鱼": "sens"
+   },
+   "origine_fr": "Sur les os oraculaires, 鱼 dessine un poisson : la tête, les écailles, la queue. Le Shuowen jiezi le glose « bête des eaux ». La queue du 魚 ancien, quatre points, est devenue un seul trait.",
+   "origine_en": "On oracle bones, 鱼 draws a fish: head, scales and tail. The Shuowen jiezi glosses it as “water creature”. The tail of the old 魚, four dots, has become a single stroke.",
+   "etiquette": "atteste",
    "memo_fr": null,
    "memo_en": null,
    "mots": [],
@@ -40,7 +42,7 @@
    "traits": [],
    "medianes": [],
    "audio": null,
-   "statut": "sans_fiche"
+   "statut": "relu"
   },
   {
    "c": "鲁",
@@ -121,12 +123,13 @@
     "鱼",
     "口",
     "口",
-    "二",
-    "㇉"
+    "一",
+    "丂"
    ],
    "nouveau": [],
    "sources": [
-    "cjk-decomp"
+    "cjk-decomp",
+    "surcharge"
    ],
    "role": null,
    "roles": {},

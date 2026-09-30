@@ -209,8 +209,8 @@
    "lectures": [
     "gǒu"
    ],
-   "fr": "",
-   "en": "",
+   "fr": "chien",
+   "en": "dog",
    "parts": [
     "犭",
     "勹",
@@ -222,11 +222,15 @@
    "sources": [
     "cjk-decomp"
    ],
-   "role": null,
-   "roles": {},
-   "origine_fr": "",
-   "origine_en": "",
-   "etiquette": null,
+   "role": "sens",
+   "roles": {
+    "勹": "forme",
+    "口": "forme",
+    "犭": "sens"
+   },
+   "origine_fr": "Le Shuowen jiezi écrit 狗 avec 犬, le chien, et 句 pour le son. Le chien, 犬, s'écrit 犭 à gauche. 句, écrit 勹 et 口, se lisait gōu ; on le lit aujourd'hui jù, et il ne donne plus le son de gǒu.",
+   "origine_en": "The Shuowen jiezi writes 狗 with 犬, the dog, and 句 for the sound. The dog, 犬, is written 犭 on the left. 句, written 勹 and 口, used to be read gōu; it is now read jù and no longer gives the sound of gǒu.",
+   "etiquette": "atteste",
    "memo_fr": null,
    "memo_en": null,
    "mots": [],
@@ -237,7 +241,7 @@
    "traits": [],
    "medianes": [],
    "audio": null,
-   "statut": "sans_fiche"
+   "statut": "relu"
   },
   {
    "c": "狠",
@@ -783,8 +787,8 @@
     "māo",
     "máo"
    ],
-   "fr": "",
-   "en": "",
+   "fr": "chat",
+   "en": "cat",
    "parts": [
     "犭",
     "艹",
@@ -796,10 +800,14 @@
     "surcharge"
    ],
    "role": null,
-   "roles": {},
-   "origine_fr": "",
-   "origine_en": "",
-   "etiquette": null,
+   "roles": {
+    "犭": "sens",
+    "田": "forme",
+    "艹": "forme"
+   },
+   "origine_fr": "Pour s'en souvenir : à gauche, 犭, la bête. À droite, 苗, les jeunes pousses du champ, qui se lit miáo. La bête qui guette dans les pousses, et dont le nom imite le miaulement : le chat.",
+   "origine_en": "As a memory aid: on the left, 犭, the animal. On the right, 苗, young shoots in the field, read miáo. The animal lurking in the shoots, whose name imitates its miaow: the cat.",
+   "etiquette": "mnemotechnique",
    "memo_fr": null,
    "memo_en": null,
    "mots": [],
@@ -810,7 +818,7 @@
    "traits": [],
    "medianes": [],
    "audio": null,
-   "statut": "sans_fiche"
+   "statut": "relu"
   },
   {
    "c": "猴",
@@ -822,11 +830,15 @@
    "en": "",
    "parts": [
     "犭",
-    "侯"
+    "亻",
+    "𠃍",
+    "一",
+    "矢"
    ],
    "nouveau": [],
    "sources": [
-    "cjk-decomp"
+    "cjk-decomp",
+    "surcharge"
    ],
    "role": null,
    "roles": {},

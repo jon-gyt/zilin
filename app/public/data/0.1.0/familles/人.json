@@ -467,8 +467,8 @@
    "lectures": [
     "quán"
    ],
-   "fr": "",
-   "en": "",
+   "fr": "entier, complet, tout",
+   "en": "whole, complete, all",
    "parts": [
     "人",
     "王"
@@ -478,10 +478,13 @@
     "cjk-decomp"
    ],
    "role": null,
-   "roles": {},
-   "origine_fr": "",
-   "origine_en": "",
-   "etiquette": null,
+   "roles": {
+    "人": "forme",
+    "王": "sens"
+   },
+   "origine_fr": "Le Shuowen jiezi rattache 全 au jade, 玉, et dit qu'un jade pur, sans défaut, s'appelle 全. Il écrit aussi 仝, avec 入 sur 工 : ce qui entre intact. On lit aujourd'hui 人 sur 王 : le jade entier, sans défaut.",
+   "origine_en": "The Shuowen jiezi links 全 to jade, 玉, and says that flawless pure jade is called 全. It also writes 仝, with 入 over 工: what goes in intact. Today you read 人 over 王: the whole, flawless jade.",
+   "etiquette": "atteste",
    "memo_fr": null,
    "memo_en": null,
    "mots": [],
@@ -492,7 +495,7 @@
    "traits": [],
    "medianes": [],
    "audio": null,
-   "statut": "sans_fiche"
+   "statut": "relu"
   },
   {
    "c": "创",
@@ -608,8 +611,8 @@
     "hé",
     "gě"
    ],
-   "fr": "",
-   "en": "",
+   "fr": "fermer, unir, convenir",
+   "en": "to close, to join, to suit",
    "parts": [
     "人",
     "一",
@@ -621,10 +624,14 @@
     "surcharge"
    ],
    "role": null,
-   "roles": {},
-   "origine_fr": "",
-   "origine_en": "",
-   "etiquette": null,
+   "roles": {
+    "一": "sens",
+    "人": "sens",
+    "口": "sens"
+   },
+   "origine_fr": "Sur les os oraculaires, 合 montre un couvercle posé sur un récipient. Le Shuowen jiezi le glose « bouches qui se rejoignent » : 亼, réunir, sur 口. On lit 人 et 一 en haut, 口 en bas : le couvercle et la bouche du pot, qui se ferment ensemble.",
+   "origine_en": "On oracle bones, 合 shows a lid set on a vessel. The Shuowen jiezi glosses it as “mouths meeting”: 亼, to gather, over 口. You read 人 and 一 on top and 口 below: the lid and the mouth of the pot closing together.",
+   "etiquette": "atteste",
    "memo_fr": null,
    "memo_en": null,
    "mots": [],
@@ -635,7 +642,7 @@
    "traits": [],
    "medianes": [],
    "audio": null,
-   "statut": "sans_fiche"
+   "statut": "relu"
   },
   {
    "c": "命",
@@ -788,7 +795,7 @@
     "cjk-decomp",
     "surcharge"
    ],
-   "role": "sens",
+   "role": null,
    "roles": {
     "一": "forme",
     "人": "forme",
@@ -1004,6 +1011,41 @@
    "statut": "sans_fiche"
   },
   {
+   "c": "脊",
+   "pinyin": "jǐ",
+   "lectures": [
+    "jǐ",
+    "jí"
+   ],
+   "fr": "",
+   "en": "",
+   "parts": [
+    "⿰冫⿱丿丶",
+    "人",
+    "月"
+   ],
+   "nouveau": [],
+   "sources": [
+    "surcharge"
+   ],
+   "role": null,
+   "roles": {},
+   "origine_fr": "",
+   "origine_en": "",
+   "etiquette": null,
+   "memo_fr": null,
+   "memo_en": null,
+   "mots": [],
+   "phrase": null,
+   "niveaux": {
+    "hsk": 7
+   },
+   "traits": [],
+   "medianes": [],
+   "audio": null,
+   "statut": "sans_fiche"
+  },
+  {
    "c": "舍",
    "pinyin": "shě",
    "lectures": [
@@ -1044,8 +1086,8 @@
    "lectures": [
     "shū"
    ],
-   "fr": "",
-   "en": "",
+   "fr": "déployer, à l'aise",
+   "en": "to stretch, at ease",
    "parts": [
     "人",
     "干",
@@ -1057,10 +1099,15 @@
     "cjk-decomp"
    ],
    "role": null,
-   "roles": {},
-   "origine_fr": "",
-   "origine_en": "",
-   "etiquette": null,
+   "roles": {
+    "予": "forme",
+    "人": "forme",
+    "口": "forme",
+    "干": "forme"
+   },
+   "origine_fr": "Le Shuowen jiezi glose 舒 par « déployer » : 舍, l'auberge, et 予, donner, qui donne aussi le son. On lit à gauche 舍, écrit 人, 干 et 口, et 予 à droite. 予 se lit yǔ : il ne donne plus le son de shū.",
+   "origine_en": "The Shuowen jiezi glosses 舒 as “to unfold”: 舍, the lodging, and 予, to give, which also gives the sound. You read 舍 on the left, written 人, 干 and 口, and 予 on the right. 予 is read yǔ: it no longer gives the sound of shū.",
+   "etiquette": "atteste",
    "memo_fr": null,
    "memo_en": null,
    "mots": [],
@@ -1071,7 +1118,7 @@
    "traits": [],
    "medianes": [],
    "audio": null,
-   "statut": "sans_fiche"
+   "statut": "relu"
   },
   {
    "c": "邻",

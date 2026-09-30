@@ -65,7 +65,7 @@
    "sources": [
     "surcharge"
    ],
-   "role": "sens",
+   "role": null,
    "roles": {
     "子": "sens",
     "攵": "sens",
@@ -191,7 +191,7 @@
    "sources": [
     "cjk-decomp"
    ],
-   "role": "son",
+   "role": null,
    "roles": {
     "丂": "son",
     "耂": "sens"
@@ -238,8 +238,8 @@
    "lectures": [
     "zhě"
    ],
-   "fr": "",
-   "en": "",
+   "fr": "celui qui",
+   "en": "one who",
    "parts": [
     "耂",
     "日"
@@ -249,10 +249,13 @@
     "cjk-decomp"
    ],
    "role": null,
-   "roles": {},
-   "origine_fr": "",
-   "origine_en": "",
-   "etiquette": null,
+   "roles": {
+    "日": "forme",
+    "耂": "forme"
+   },
+   "origine_fr": "Le Shuowen jiezi glose 者 par « mot qui distingue les choses » : c'est une particule. Placé après un mot, il désigne celui qui fait l'action : 作者, l'auteur. On lit 耂 sur 日, qui ne disent ni le sens ni le son.",
+   "origine_en": "The Shuowen jiezi glosses 者 as “a word that sets things apart”: it is a particle. Placed after a word, it names the one who acts: 作者, the author. You read 耂 over 日, which give neither meaning nor sound.",
+   "etiquette": "atteste",
    "memo_fr": null,
    "memo_en": null,
    "mots": [],
@@ -263,7 +266,7 @@
    "traits": [],
    "medianes": [],
    "audio": null,
-   "statut": "sans_fiche"
+   "statut": "relu"
   },
   {
    "c": "都",
