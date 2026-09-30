@@ -27,20 +27,33 @@
   "月": "son",
   "刂": "son"
  },
- "mots": [],
+ "mots": [
+  {
+   "hanzi": "比喻",
+   "pinyin": "bǐyù",
+   "fr": "métaphore, comparaison",
+   "en": "metaphor, analogy"
+  },
+  {
+   "hanzi": "隐喻",
+   "pinyin": "yǐnyù",
+   "fr": "métaphore",
+   "en": "metaphor"
+  }
+ ],
  "phrase": {
-  "zh": "",
-  "pinyin": "",
-  "fr": "",
-  "en": ""
+  "zh": "这个比喻很生动。",
+  "pinyin": "Zhège bǐyù hěn shēngdòng.",
+  "fr": "Cette comparaison est très parlante.",
+  "en": "This analogy is very vivid."
  },
  "generation": {
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:9de899ad00bb0a181f8f8e87e5fd401def24cd1bee05891cc44e2646be325d55",
-  "essais": 1,
+  "empreinte_invite": "sha256:d1b70b0052d5156332795dfa1a8206937ae2395fe11ef4780070efed3f73a969",
+  "essais": 2,
   "refus": []
  },
- "statut": "relu"
+ "statut": "a_relire"
 }

@@ -25,20 +25,33 @@
   "一": "forme",
   "八": "forme"
  },
- "mots": [],
+ "mots": [
+  {
+   "hanzi": "舆论",
+   "pinyin": "yúlùn",
+   "fr": "opinion publique",
+   "en": "public opinion"
+  },
+  {
+   "hanzi": "舆情",
+   "pinyin": "yúqíng",
+   "fr": "état de l'opinion",
+   "en": "public sentiment"
+  }
+ ],
  "phrase": {
-  "zh": "",
-  "pinyin": "",
-  "fr": "",
-  "en": ""
+  "zh": "这件事引起了舆论的关注。",
+  "pinyin": "Zhè jiàn shì yǐnqǐ le yúlùn de guānzhù.",
+  "fr": "Cette affaire a attiré l'attention de l'opinion.",
+  "en": "This matter has drawn public attention."
  },
  "generation": {
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:84e9ca6192aa10dc7f9746b7f6fa85b49e4cb324c6d7447a4db93ead9334d4fc",
-  "essais": 1,
+  "empreinte_invite": "sha256:de47705db872d2fee8dc9363c965ac6aec0d5325e5034978d3bd976300c89526",
+  "essais": 2,
   "refus": []
  },
- "statut": "relu"
+ "statut": "a_relire"
 }
