@@ -181,6 +181,27 @@ def parcours_figer(
     typer.echo("Relire le diff, puis relancer `wenlu build` : il lira ces ordres.")
 
 
+@_parcours.command("prolonger")
+def parcours_prolonger(
+    nom: list[str] = typer.Option([], help="Parcours à prolonger (lire, hsk) ; tous par défaut."),
+) -> None:
+    """Prolonge data/sources/parcours/ordre-<nom>.tsv jusqu'au bout de ses étapes (graphe.ETAPES), sans bouger un jour figé. Exige `build`. Relire le diff avant de versionner."""
+    from .graphe import NOMS_DE_LISTE, OrdreInvalide, ParcoursBloque, prolonger
+
+    try:
+        ecrits = prolonger(noms=nom or None)
+    except OSError as erreur:
+        typer.echo(f"{erreur} — lancer `wenlu build` d'abord.", err=True)
+        raise typer.Exit(code=1) from erreur
+    except (OrdreInvalide, ParcoursBloque) as erreur:
+        typer.echo(str(erreur), err=True)
+        raise typer.Exit(code=1) from erreur
+    for cle, p in ecrits.items():
+        etapes = ", ".join(f"{NOMS_DE_LISTE.get(e.liste, e.liste)} jusqu'au jour {e.fin}" for e in p.etapes)
+        typer.echo(f"{cle} : {len(p.jours)} jours ({etapes})")
+    typer.echo("Relire le diff, puis relancer `wenlu build` : il lira ces ordres.")
+
+
 app.add_typer(_parcours, name="parcours")
 
 

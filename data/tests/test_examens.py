@@ -310,8 +310,14 @@ def test_le_pinyin_sous_les_caracteres_s_exporte_par_chemin(tmp_path: Path) -> N
     doc = ex.document(en_tete={}, parcours={n: charger_parcours(n) for n in ex.PARCOURS}, racines={}, dossier=d)
     lignes = doc["parcours"]  # type: ignore[index]
     assert [x["examen"] for x in lignes["lire"] if x["pinyin"]] == ["xianshi", "yueke-75", "fushi", "yueke-150", "yuanshi", "xiangshi"]
-    assert [x["examen"] for x in lignes["lire"] if not x["pinyin"]] == ["yueke-305", "yueke-355"]
-    assert all(x["pinyin"] for x in lignes["hsk"]) and lignes["hsk"][-1]["examen"] == "yueke-405"
+    # Le chemin prolongé jusqu'au HSK 7-9 (30 septembre 2026) porte tous les examens, jusqu'au
+    # 月课 de 1 800 ; après la première étape, plus de pinyin.
+    sans = [x["examen"] for x in lignes["lire"] if not x["pinyin"]]
+    assert sans[:2] == ["yueke-305", "yueke-355"] and sans[-1] == "yueke-1800"
+    avec_hsk = [x["examen"] for x in lignes["hsk"] if x["pinyin"]]
+    assert avec_hsk[-1] == "yueke-405" and len(avec_hsk) == 9
+    assert [x["examen"] for x in lignes["hsk"]][: len(avec_hsk)] == avec_hsk
+    assert lignes["hsk"][-1]["examen"] == "yueke-1800"
 
 
 # --------------------------------------------------------------------------- l'acquis

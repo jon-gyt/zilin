@@ -10,8 +10,14 @@ Règle : l'app ne lit que ces fichiers. Aucune donnée de contenu dans le code.
 
 ## Périmètre d'une version
 
-Les caractères des listes cibles — `seuil-255` et `hsk-1` — et **leurs briques**
-(prérequis transitifs de la décomposition canonique), pas tout le dictionnaire.
+Les caractères que posent les deux chemins — le seuil 255 et le HSK 1 (le chemin
+gratuit), puis le HSK 2 à 7-9 (Wenlu complet, décision du 30 septembre 2026) — et
+**leurs briques** (prérequis transitifs de la décomposition canonique). Les jeux
+(devinettes, éclair, coquilles), les paires et les traits des familles, précachés, restent
+au chemin gratuit (`LISTES_CIBLES`, `per_gratuit` d'`export.assembler`) ; les traits
+des familles portent en plus ce que les lots du dictionnaire ne dessinent pas, et le
+reste de la suite se dessine depuis `traits/dico-<n>.json`, chargés à la demande
+(`content.traitsDe`). Export du 30 septembre 2026 : 482 familles, 3 185 caractères.
 Une famille n'est exportée qu'avec ses membres du périmètre ; la famille 口 en a
 18 ici, contre 525 dans le graphe complet. Les caractères que les fêtes
 dessinent depuis leurs traits (`data/sources/fetes/textes.tsv` : le caractère
@@ -85,7 +91,8 @@ Trois régimes de licence, trois familles de fichiers, jamais mêlés
  "compte": {"familles": 238, "caracteres": 485, "briques": 222, "muettes": 0, "decoupees": 13,
             "fiches_relues": 0, "contes": 0},
  "listes": {"seuil-255": ["…"], "hsk-1": ["…"]},
- "parcours": {"lire": {"liste": "seuil-255", "regle": "…",
+ "parcours": {"lire": {"liste": "seuil-255", "regle": "…", "gratuit": 189,
+                       "etapes": [{"liste": "seuil-255", "fin": 189}, {"liste": "hsk-1", "fin": 230}],
                        "jours": [{"jour": 1, "brique": "人", "composes": [],
                                   "non_reconcilie": false}]},
               "hsk": {"…": "…"}},
@@ -127,7 +134,9 @@ Trois régimes de licence, trois familles de fichiers, jamais mêlés
   commentaire aussi : on réexporte. Comme l'empreinte change, `date` avance, et
   avec elle le jour du champ `modified` de chaque fichier.
 - `parcours` reprend les jours de `parcours-<nom>.json` : une brique nouvelle par
-  session de 10 minutes, puis un ou deux composés.
+  session de 10 minutes, puis un ou deux composés ; `gratuit`, le dernier jour du chemin
+  gratuit (au-delà, les leçons sont de Wenlu complet, `app/src/lib/droits.ts`), et
+  `etapes`, `[{liste, fin}]`, le dernier jour de chaque liste.
 - `avancement_possible` est la part des caractères de la famille qui portent une
   fiche relue — le plafond de ce que l'app peut enseigner, pas la progression de
   l'apprenant, qui vient d'IndexedDB.
@@ -1459,21 +1468,32 @@ est bloquant.
 
 ### `parcours-lire.json`, `parcours-hsk.json`
 
-`{parcours, liste, regle, ordre, critere_frequence, depart[], cible[], compte, jours[], briques[],
-briques_muettes[], briques_decoupees[], non_reconcilies[], absents[]}`.
+`{parcours, liste, regle, ordre, critere_frequence, depart[], cible[], gratuit, etapes[], compte,
+jours[], briques[], briques_muettes[], briques_decoupees[], non_reconcilies[], absents[]}`.
 
 - `ordre` : d'où viennent les jours — `figé : data/sources/parcours/ordre-<nom>.tsv`
   (le cas du dépôt depuis le 28 septembre 2026) ou `calculé (aucun ordre figé)`.
 
-- `parcours` vaut `lire` (liste cible `seuil-255`, puis les seuils suivants) ou `hsk`
-  (liste cible `hsk-1`). Même graphe, seule la liste change.
-- `cible` : la liste cible dans l'ordre du référentiel ; le fichier se contrôle seul.
+- `parcours` vaut `lire` (le seuil 255, puis le HSK 3.0 du HSK 1 au HSK 7-9) ou `hsk`
+  (le HSK 1, puis le HSK 2 au HSK 7-9). Même graphe, seules les listes changent.
+  Décision du propriétaire du 30 septembre 2026 : les deux chemins suivent le HSK 3.0
+  (GF 0025-2021) jusqu'au bout ; les seuils 405 à 1555 du brief sont introuvables.
+- `etapes` : `[{liste, fin, cible[]}]`, les listes du parcours dans l'ordre (`ETAPES` de
+  `graphe.py`), chacune avec le dernier jour du chemin qui en pose un caractère. Une étape
+  n'apporte que ce que le chemin n'a pas encore posé, et se termine, ses jours de
+  fermeture compris, avant que la suivante commence. La première est le chemin gratuit
+  (brief §10), les suivantes sont de Wenlu complet.
+- `gratuit` : la fin de la première étape, le dernier jour du chemin gratuit (189 sur le
+  chemin Lire, 219 sur le chemin HSK).
+- `cible` : la liste du chemin gratuit, la première étape, dans l'ordre du référentiel
+  (le rang du dernier de ses caractères borne le pinyin des examens,
+  `examens.fin_premiere_etape`) ; toutes les listes sont dans `etapes`.
 - `compte` : `{cibles, jours, jours_reconcilies, briques, muettes, decoupees,
   non_reconcilies, absents}`.
 - `jours` : `[{jour, brique, composes[], non_reconcilie}]`. Un jour est une session de
   10 minutes : au plus une brique nouvelle, puis un ou deux composés qui deviennent
   lisibles avec elle. `brique` est nul les jours de consolidation, quand il ne reste que
-  des composés à poser. Les jours `non_reconcilie` ferment le parcours.
+  des composés à poser. Les jours `non_reconcilie` ferment chacun leur étape.
 - `depart` : ce que la première session enseigne (brief §6, story 2.7), `人 大 天`
   pour `lire` comme pour `hsk` (`DEPART` de `graphe.py`) : la première session est
   la même quel que soit le parcours choisi ensuite. Ces caractères ouvrent le
@@ -1484,17 +1504,27 @@ briques_muettes[], briques_decoupees[], non_reconcilies[], absents[]}`.
 - Ordre figé : les jours se lisent dans `data/sources/parcours/ordre-<nom>.tsv`,
   versionné, et ne se recalculent plus. `wenlu build` valide le fichier contre le graphe
   — départ imposé, une brique nouvelle au plus par jour, chaque composé après toutes ses
-  briques, toute la liste couverte, rien qui ne soit plus à apprendre, les non
-  réconciliés à la fin — et s'arrête sur `OrdreInvalide` s'il ne tient plus : un
+  briques, toutes les listes couvertes, rien qui ne soit plus à apprendre, les étapes
+  dans l'ordre (l'étape d'un jour ne redescend jamais ; un composant qu'une liste plus
+  tôt demande est de son étape), les non réconciliés et absents de chaque étape à sa
+  fin — et s'arrête sur `OrdreInvalide` s'il ne tient plus : un
   changement de source ou de décomposition ne déplace jamais un jour en silence. Le
   fichier : un en-tête `jour brique composes statut`, puis une ligne par jour, séparée
   par des tabulations ; `-` pour une case vide, `ferme` pour les jours de fermeture.
   `uv run wenlu parcours figer` le réécrit depuis le build (`--recalculer` : depuis le
   calcul ci-dessous) ; son diff se relit avant d'être versionné. Premier gel : l'ordre
   de la version 0.1.0, jour pour jour, au moment où la décomposition a quitté
-  `dictionary.txt` (`docs/sources-licences.md` §10).
-- Calcul, qui ne sert plus qu'à proposer un ordre : tri topologique — une brique avant tout ce qui la contient. Parmi les
-  candidats prêts, priorité aux caractères de la liste cible, puis à ce qui devient
+  `dictionary.txt` (`docs/sources-licences.md` §10). `uv run wenlu parcours prolonger`
+  (30 septembre 2026) garde ces jours, fermeture comprise, à l'identique et calcule la
+  suite, étape par étape ; l'en-tête du fichier dit alors les étapes, leurs règles, leur
+  source et le dernier jour de chacune, et une ligne `# — HSK 2 —` marque le début de
+  chaque étape dans la liste des jours. Prolongement du 30 septembre 2026 : Lire, 1 463
+  jours (seuil 255 jusqu'au jour 189, HSK 1 au 230, HSK 2 au 338, HSK 3 au 466, HSK 4 au
+  604, HSK 5 au 742, HSK 6 au 888, HSK 7-9 au 1 452, puis sa fermeture) ; HSK, 1 470 jours
+  (HSK 1 jusqu'au jour 219, HSK 2 au 341, HSK 3 au 473, HSK 4 au 611, HSK 5 au 749, HSK 6
+  au 895, HSK 7-9 au 1 459).
+- Calcul, qui ne sert plus qu'à proposer un ordre ou une suite : étape par étape, tri topologique — une brique avant tout ce qui la contient. Parmi les
+  candidats prêts, priorité aux caractères de la liste de l'étape, puis à ce qui devient
   lisible le jour même, puis à la fréquence, puis à l'ordre de la liste. Make Me a Hanzi
   ne fournit aucun rang de fréquence : le repli documenté (`critere_frequence`) est le
   nombre de caractères qui dépendent du candidat. Si l'ingestion vient à produire un
@@ -1505,11 +1535,11 @@ briques_muettes[], briques_decoupees[], non_reconcilies[], absents[]}`.
   liste. Dessinées, elles ne sont plus signalées ; elles restent acquises d'entrée,
   pour que le parcours — et l'acquis dont dépendent les phrases des fiches — ne
   bouge pas.
-- `non_reconcilies` et `absents` : caractères de la liste dont la décomposition n'est pas
-  réconciliée (1 pour le seuil 255 et 1 pour le HSK 1, 兴 ; voir
+- `non_reconcilies` et `absents` : caractères des listes dont la décomposition n'est pas
+  réconciliée (60 sur les 3 000 du HSK 3.0, dont 兴 au seuil 255 et au HSK 1 ; voir
   `data/sources/surcharges/decompositions-corrigees.md`) ou qui manquent au
   dictionnaire.
-  Ils ferment le parcours, marqués `non_reconcilie` : jamais oubliés.
+  Ils ferment leur étape, marqués `non_reconcilie` : jamais oubliés ; la session les saute.
 
 `uv run wenlu check` ajoute quatre contrôles : « cycles du graphe » (bloquant),
 « parcours figés » (bloquant : chaque parcours a son ordre versionné et le build le suit),
