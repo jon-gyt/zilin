@@ -1,0 +1,620 @@
+{
+ "examen": "yueke-1455",
+ "parcours": "hsk",
+ "generation": {
+  "modele": "rédaction manuelle",
+  "api": "session Claude Code (sans API)",
+  "date": "2026-09-30"
+ },
+ "relecture": {
+  "statut": "a_relire",
+  "note": "rédigé le 30 septembre 2026, à relire par le propriétaire (`wenlu examens apercu`) ; une série passe à `relu` sur sa décision, citée ici"
+ },
+ "series": [
+  {
+   "serie": "A",
+   "statut": "a_relire",
+   "supports": [
+    {
+     "id": "s1",
+     "genre": "etal",
+     "contexte": {
+      "fr": "Un étal",
+      "en": "A stall"
+     },
+     "lignes": [
+      {
+       "zh": "蛋糕：每个五元",
+       "pinyin": "dàn gāo měi gè wǔ yuán",
+       "fr": "Gâteaux : 5 yuans pièce",
+       "en": "Cakes: 5 yuan each"
+      },
+      {
+       "zh": "饭盒：每个三元",
+       "pinyin": "fàn hé měi gè sān yuán",
+       "fr": "Boîtes-repas : 3 yuans pièce",
+       "en": "Lunch boxes: 3 yuan each"
+      },
+      {
+       "zh": "花：每朵两元",
+       "pinyin": "huā měi duǒ liǎng yuán",
+       "fr": "Fleurs : 2 yuans la fleur",
+       "en": "Flowers: 2 yuan each"
+      }
+     ],
+     "glose": [
+      {
+       "zh": "蛋糕",
+       "pinyin": "dàn gāo",
+       "fr": "gâteau",
+       "en": "cake"
+      },
+      {
+       "zh": "饭盒",
+       "pinyin": "fàn hé",
+       "fr": "boîte-repas",
+       "en": "lunch box"
+      },
+      {
+       "zh": "花",
+       "pinyin": "huā",
+       "fr": "fleur",
+       "en": "flower"
+      },
+      {
+       "zh": "每朵",
+       "pinyin": "měi duǒ",
+       "fr": "chaque fleur",
+       "en": "each flower"
+      },
+      {
+       "zh": "两元",
+       "pinyin": "liǎng yuán",
+       "fr": "deux yuans",
+       "en": "two yuan"
+      },
+      {
+       "zh": "五元",
+       "pinyin": "wǔ yuán",
+       "fr": "cinq yuans",
+       "en": "five yuan"
+      }
+     ]
+    },
+    {
+     "id": "s2",
+     "genre": "message",
+     "contexte": {
+      "fr": "Un message",
+      "en": "A message"
+     },
+     "lignes": [
+      {
+       "zh": "李师傅，我家的锅坏了，",
+       "pinyin": "lǐ shī fu wǒ jiā de guō huài le",
+       "fr": "Maître Li, la marmite de chez moi est cassée,",
+       "en": "Master Li, my pot at home is broken,"
+      },
+      {
+       "zh": "您明天上午能来看看吗？",
+       "pinyin": "nín míng tiān shàng wǔ néng lái kàn kan ma",
+       "fr": "pourriez-vous venir la voir demain matin ?",
+       "en": "could you come and look at it tomorrow morning?"
+      },
+      {
+       "zh": "我下午不在家。",
+       "pinyin": "wǒ xià wǔ bù zài jiā",
+       "fr": "L'après-midi, je ne suis pas là.",
+       "en": "I'm not home in the afternoon."
+      }
+     ],
+     "glose": [
+      {
+       "zh": "李师傅",
+       "pinyin": "lǐ shī fu",
+       "fr": "maître Li (artisan)",
+       "en": "Master Li (craftsman)"
+      },
+      {
+       "zh": "锅",
+       "pinyin": "guō",
+       "fr": "marmite, casserole",
+       "en": "pot, pan"
+      },
+      {
+       "zh": "看看",
+       "pinyin": "kàn kan",
+       "fr": "jeter un œil",
+       "en": "to have a look"
+      },
+      {
+       "zh": "不在家",
+       "pinyin": "bù zài jiā",
+       "fr": "ne pas être à la maison",
+       "en": "not to be home"
+      },
+      {
+       "zh": "九点",
+       "pinyin": "jiǔ diǎn",
+       "fr": "neuf heures",
+       "en": "nine o'clock"
+      },
+      {
+       "zh": "猴子",
+       "pinyin": "hóu zi",
+       "fr": "singe",
+       "en": "monkey"
+      },
+      {
+       "zh": "可爱",
+       "pinyin": "kě ài",
+       "fr": "mignon",
+       "en": "cute"
+      },
+      {
+       "zh": "我的",
+       "pinyin": "wǒ de",
+       "fr": "mon, ma",
+       "en": "my"
+      },
+      {
+       "zh": "钢笔",
+       "pinyin": "gāng bǐ",
+       "fr": "stylo-plume",
+       "en": "fountain pen"
+      },
+      {
+       "zh": "丢",
+       "pinyin": "diū",
+       "fr": "perdre",
+       "en": "to lose"
+      },
+      {
+       "zh": "放假",
+       "pinyin": "fàng jià",
+       "fr": "être en vacances",
+       "en": "to be on holiday"
+      }
+     ]
+    }
+   ],
+   "questions": [
+    {
+     "type": "comprendre",
+     "support": "s1",
+     "consigne": {
+      "fr": "Combien coûte une fleur ?",
+      "en": "How much is one flower?"
+     },
+     "choix": [
+      {
+       "fr": "Cinq yuans",
+       "en": "Five yuan"
+      },
+      {
+       "fr": "Deux yuans",
+       "en": "Two yuan"
+      },
+      {
+       "fr": "Trois yuans",
+       "en": "Three yuan"
+      },
+      {
+       "fr": "Dix yuans",
+       "en": "Ten yuan"
+      }
+     ],
+     "reponse": 1,
+     "porte": [
+      "朵",
+      "两"
+     ]
+    },
+    {
+     "type": "reperer",
+     "support": "s1",
+     "consigne": {
+      "fr": "Touche ce dans quoi on emporte son déjeuner.",
+      "en": "Tap what you carry your lunch in."
+     },
+     "choix": [
+      "蛋糕",
+      "每朵",
+      "饭盒",
+      "花"
+     ],
+     "reponse": 2,
+     "porte": [
+      "饭",
+      "盒"
+     ]
+    },
+    {
+     "type": "vrai_faux",
+     "support": "s2",
+     "consigne": {
+      "fr": "Vrai ou faux ?",
+      "en": "True or false?"
+     },
+     "affirmation": {
+      "zh": "李师傅明天下午来。",
+      "pinyin": "lǐ shī fu míng tiān xià wǔ lái",
+      "fr": "Maître Li vient demain après-midi.",
+      "en": "Master Li is coming tomorrow afternoon."
+     },
+     "reponse": false,
+     "porte": [
+      "傅",
+      "上",
+      "午"
+     ]
+    },
+    {
+     "type": "replique",
+     "support": "s2",
+     "consigne": {
+      "fr": "Que répond maître Li ?",
+      "en": "What does Master Li reply?"
+     },
+     "choix": [
+      {
+       "zh": "猴子很可爱。",
+       "pinyin": "hóu zi hěn kě ài",
+       "fr": "Les singes sont mignons.",
+       "en": "Monkeys are cute."
+      },
+      {
+       "zh": "我的钢笔丢了。",
+       "pinyin": "wǒ de gāng bǐ diū le",
+       "fr": "J'ai perdu mon stylo-plume.",
+       "en": "I've lost my fountain pen."
+      },
+      {
+       "zh": "学校放假了。",
+       "pinyin": "xué xiào fàng jià le",
+       "fr": "L'école est en vacances.",
+       "en": "School is on holiday."
+      },
+      {
+       "zh": "好，我明天九点到。",
+       "pinyin": "hǎo wǒ míng tiān jiǔ diǎn dào",
+       "fr": "D'accord, j'arrive demain à neuf heures.",
+       "en": "OK, I'll be there at nine tomorrow."
+      }
+     ],
+     "reponse": 3,
+     "porte": [
+      "锅",
+      "上",
+      "午"
+     ]
+    },
+    {
+     "type": "trou",
+     "consigne": {
+      "fr": "Quel caractère manque dans ce mot ?",
+      "en": "Which character is missing from this word?"
+     },
+     "objet": {
+      "zh": "胆小",
+      "pinyin": "dǎn xiǎo",
+      "fr": "peureux",
+      "en": "timid, cowardly"
+     },
+     "trou": 0,
+     "choix": [
+      "但",
+      "胆",
+      "担",
+      "旦"
+     ],
+     "reponse": 1,
+     "porte": [
+      "胆",
+      "小"
+     ]
+    }
+   ]
+  },
+  {
+   "serie": "B",
+   "statut": "a_relire",
+   "supports": [
+    {
+     "id": "s1",
+     "genre": "affiche",
+     "contexte": {
+      "fr": "Une affiche",
+      "en": "A poster"
+     },
+     "lignes": [
+      {
+       "zh": "元旦晚会",
+       "pinyin": "yuán dàn wǎn huì",
+       "fr": "Soirée du Jour de l'An",
+       "en": "New Year's Day party"
+      },
+      {
+       "zh": "十二月三十一日晚上七点",
+       "pinyin": "shí èr yuè sān shí yī rì wǎn shang qī diǎn",
+       "fr": "31 décembre, sept heures du soir",
+       "en": "31 December, 7 pm"
+      },
+      {
+       "zh": "有唱歌、跳舞、打鼓",
+       "pinyin": "yǒu chàng gē tiào wǔ dǎ gǔ",
+       "fr": "Chant, danse et tambour",
+       "en": "Singing, dancing and drumming"
+      }
+     ],
+     "glose": [
+      {
+       "zh": "元旦",
+       "pinyin": "yuán dàn",
+       "fr": "Jour de l'An",
+       "en": "New Year's Day"
+      },
+      {
+       "zh": "晚会",
+       "pinyin": "wǎn huì",
+       "fr": "soirée",
+       "en": "evening party"
+      },
+      {
+       "zh": "跳舞",
+       "pinyin": "tiào wǔ",
+       "fr": "danser",
+       "en": "to dance"
+      },
+      {
+       "zh": "打鼓",
+       "pinyin": "dǎ gǔ",
+       "fr": "jouer du tambour",
+       "en": "to play the drum"
+      }
+     ]
+    },
+    {
+     "id": "s2",
+     "genre": "note",
+     "contexte": {
+      "fr": "Une note",
+      "en": "A note"
+     },
+     "lignes": [
+      {
+       "zh": "小马，外面很冷，",
+       "pinyin": "xiǎo mǎ wài mian hěn lěng",
+       "fr": "Xiao Ma, il fait très froid dehors,",
+       "en": "Xiao Ma, it's very cold outside,"
+      },
+      {
+       "zh": "我把你的大衣放进柜子里了。",
+       "pinyin": "wǒ bǎ nǐ de dà yī fàng jìn guì zi lǐ le",
+       "fr": "j'ai rangé ton manteau dans l'armoire.",
+       "en": "I've put your coat in the wardrobe."
+      },
+      {
+       "zh": "出门多穿点，别冻着！",
+       "pinyin": "chū mén duō chuān diǎn bié dòng zhe",
+       "fr": "Couvre-toi bien pour sortir, ne prends pas froid !",
+       "en": "Wrap up when you go out, don't catch cold!"
+      }
+     ],
+     "glose": [
+      {
+       "zh": "外面",
+       "pinyin": "wài mian",
+       "fr": "dehors",
+       "en": "outside"
+      },
+      {
+       "zh": "把",
+       "pinyin": "bǎ",
+       "fr": "(objet mis en avant)",
+       "en": "(object marker)"
+      },
+      {
+       "zh": "放进",
+       "pinyin": "fàng jìn",
+       "fr": "mettre dans",
+       "en": "to put into"
+      },
+      {
+       "zh": "柜子",
+       "pinyin": "guì zi",
+       "fr": "armoire, placard",
+       "en": "wardrobe, cupboard"
+      },
+      {
+       "zh": "里",
+       "pinyin": "lǐ",
+       "fr": "dans",
+       "en": "in"
+      },
+      {
+       "zh": "穿",
+       "pinyin": "chuān",
+       "fr": "porter (un vêtement)",
+       "en": "to wear"
+      },
+      {
+       "zh": "冻着",
+       "pinyin": "dòng zhe",
+       "fr": "prendre froid",
+       "en": "to catch cold"
+      },
+      {
+       "zh": "知道了",
+       "pinyin": "zhī dào le",
+       "fr": "compris",
+       "en": "got it"
+      },
+      {
+       "zh": "这个",
+       "pinyin": "zhè gè",
+       "fr": "ce, cette",
+       "en": "this"
+      },
+      {
+       "zh": "字",
+       "pinyin": "zì",
+       "fr": "caractère",
+       "en": "character"
+      },
+      {
+       "zh": "怎么",
+       "pinyin": "zěn me",
+       "fr": "comment",
+       "en": "how"
+      },
+      {
+       "zh": "念",
+       "pinyin": "niàn",
+       "fr": "lire à voix haute",
+       "en": "to read aloud"
+      },
+      {
+       "zh": "考试",
+       "pinyin": "kǎo shì",
+       "fr": "examen",
+       "en": "exam"
+      }
+     ]
+    }
+   ],
+   "questions": [
+    {
+     "type": "comprendre",
+     "support": "s1",
+     "consigne": {
+      "fr": "Qu'est-ce que la soirée fête ?",
+      "en": "What is the party celebrating?"
+     },
+     "choix": [
+      {
+       "fr": "La fête du Printemps",
+       "en": "Spring Festival"
+      },
+      {
+       "fr": "La fête de la Lune",
+       "en": "The Moon Festival"
+      },
+      {
+       "fr": "Le Jour de l'An",
+       "en": "New Year's Day"
+      },
+      {
+       "fr": "La fête nationale",
+       "en": "National Day"
+      }
+     ],
+     "reponse": 2,
+     "porte": [
+      "元",
+      "旦"
+     ]
+    },
+    {
+     "type": "reperer",
+     "support": "s1",
+     "consigne": {
+      "fr": "Touche l'activité où l'on frappe sur un instrument.",
+      "en": "Tap the activity where you beat an instrument."
+     },
+     "choix": [
+      "唱歌",
+      "跳舞",
+      "晚会",
+      "打鼓"
+     ],
+     "reponse": 3,
+     "porte": [
+      "打",
+      "鼓"
+     ]
+    },
+    {
+     "type": "vrai_faux",
+     "support": "s2",
+     "consigne": {
+      "fr": "Vrai ou faux ?",
+      "en": "True or false?"
+     },
+     "affirmation": {
+      "zh": "大衣在柜子里。",
+      "pinyin": "dà yī zài guì zi lǐ",
+      "fr": "Le manteau est dans l'armoire.",
+      "en": "The coat is in the wardrobe."
+     },
+     "reponse": true,
+     "porte": [
+      "衣",
+      "柜"
+     ]
+    },
+    {
+     "type": "replique",
+     "support": "s2",
+     "consigne": {
+      "fr": "Que répond Xiao Ma ?",
+      "en": "What does Xiao Ma reply?"
+     },
+     "choix": [
+      {
+       "zh": "谢谢，知道了！",
+       "pinyin": "xiè xie zhī dào le",
+       "fr": "Merci, compris !",
+       "en": "Thanks, got it!"
+      },
+      {
+       "zh": "这个字怎么念？",
+       "pinyin": "zhè gè zì zěn me niàn",
+       "fr": "Comment se lit ce caractère ?",
+       "en": "How do you read this character?"
+      },
+      {
+       "zh": "明天有考试。",
+       "pinyin": "míng tiān yǒu kǎo shì",
+       "fr": "Il y a un examen demain.",
+       "en": "There's an exam tomorrow."
+      },
+      {
+       "zh": "我很饿。",
+       "pinyin": "wǒ hěn è",
+       "fr": "J'ai très faim.",
+       "en": "I'm very hungry."
+      }
+     ],
+     "reponse": 0,
+     "porte": [
+      "冻"
+     ]
+    },
+    {
+     "type": "ton",
+     "consigne": {
+      "fr": "Quel est le ton de ce caractère ?",
+      "en": "Which tone does this character have?"
+     },
+     "objet": {
+      "zh": "滚",
+      "pinyin": "gǔn",
+      "fr": "rouler",
+      "en": "to roll"
+     },
+     "choix": [
+      "gūn",
+      "gún",
+      "gǔn",
+      "gùn"
+     ],
+     "reponse": 2,
+     "porte": [
+      "滚"
+     ]
+    }
+   ]
+  }
+ ]
+}

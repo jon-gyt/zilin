@@ -1,0 +1,600 @@
+{
+ "examen": "yueke-1455",
+ "parcours": "lire",
+ "generation": {
+  "modele": "rédaction manuelle",
+  "api": "session Claude Code (sans API)",
+  "date": "2026-09-30"
+ },
+ "relecture": {
+  "statut": "a_relire",
+  "note": "rédigé le 30 septembre 2026, à relire par le propriétaire (`wenlu examens apercu`) ; une série passe à `relu` sur sa décision, citée ici"
+ },
+ "series": [
+  {
+   "serie": "A",
+   "statut": "a_relire",
+   "supports": [
+    {
+     "id": "s1",
+     "genre": "calendrier",
+     "contexte": {
+      "fr": "Une page d'agenda",
+      "en": "A diary page"
+     },
+     "lignes": [
+      {
+       "zh": "元旦：去爷爷奶奶家",
+       "pinyin": "yuán dàn qù yé ye nǎi nai jiā",
+       "fr": "Jour de l'An : aller chez Papi et Mamie",
+       "en": "New Year's Day: go to Grandpa and Grandma's"
+      },
+      {
+       "zh": "一月三日：小李生日，买蛋糕",
+       "pinyin": "yī yuè sān rì xiǎo lǐ shēng rì mǎi dàn gāo",
+       "fr": "3 janvier : anniversaire de Xiao Li, acheter un gâteau",
+       "en": "3 January: Xiao Li's birthday, buy a cake"
+      },
+      {
+       "zh": "一月五日：去医院看牙",
+       "pinyin": "yī yuè wǔ rì qù yī yuàn kàn yá",
+       "fr": "5 janvier : dentiste à l'hôpital",
+       "en": "5 January: dentist at the hospital"
+      }
+     ],
+     "glose": [
+      {
+       "zh": "元旦",
+       "pinyin": "yuán dàn",
+       "fr": "Jour de l'An",
+       "en": "New Year's Day"
+      },
+      {
+       "zh": "三日",
+       "pinyin": "sān rì",
+       "fr": "le 3 (du mois)",
+       "en": "the 3rd"
+      },
+      {
+       "zh": "五日",
+       "pinyin": "wǔ rì",
+       "fr": "le 5 (du mois)",
+       "en": "the 5th"
+      },
+      {
+       "zh": "蛋糕",
+       "pinyin": "dàn gāo",
+       "fr": "gâteau",
+       "en": "cake"
+      },
+      {
+       "zh": "看牙",
+       "pinyin": "kàn yá",
+       "fr": "se faire soigner les dents",
+       "en": "to see the dentist"
+      }
+     ]
+    },
+    {
+     "id": "s2",
+     "genre": "message",
+     "contexte": {
+      "fr": "Un message",
+      "en": "A message"
+     },
+     "lignes": [
+      {
+       "zh": "妈妈，我的饭盒丢了，",
+       "pinyin": "mā ma wǒ de fàn hé diū le",
+       "fr": "Maman, j'ai perdu ma boîte-repas,",
+       "en": "Mum, I've lost my lunch box,"
+      },
+      {
+       "zh": "可能在学校的柜子里。",
+       "pinyin": "kě néng zài xué xiào de guì zi lǐ",
+       "fr": "elle est peut-être dans mon casier à l'école.",
+       "en": "it might be in my locker at school."
+      },
+      {
+       "zh": "明天我去找找。",
+       "pinyin": "míng tiān wǒ qù zhǎo zhǎo",
+       "fr": "Demain j'irai voir.",
+       "en": "I'll go and look tomorrow."
+      }
+     ],
+     "glose": [
+      {
+       "zh": "饭盒",
+       "pinyin": "fàn hé",
+       "fr": "boîte-repas",
+       "en": "lunch box"
+      },
+      {
+       "zh": "丢",
+       "pinyin": "diū",
+       "fr": "perdre",
+       "en": "to lose"
+      },
+      {
+       "zh": "可能",
+       "pinyin": "kě néng",
+       "fr": "peut-être",
+       "en": "maybe"
+      },
+      {
+       "zh": "柜子",
+       "pinyin": "guì zi",
+       "fr": "placard, casier",
+       "en": "cupboard, locker"
+      },
+      {
+       "zh": "里",
+       "pinyin": "lǐ",
+       "fr": "dans",
+       "en": "in"
+      },
+      {
+       "zh": "找找",
+       "pinyin": "zhǎo zhǎo",
+       "fr": "chercher un peu",
+       "en": "to have a look for"
+      },
+      {
+       "zh": "没关系",
+       "pinyin": "méi guān xi",
+       "fr": "ce n'est pas grave",
+       "en": "never mind"
+      },
+      {
+       "zh": "小鸟",
+       "pinyin": "xiǎo niǎo",
+       "fr": "oiseau",
+       "en": "little bird"
+      },
+      {
+       "zh": "树上",
+       "pinyin": "shù shàng",
+       "fr": "dans l'arbre",
+       "en": "in the tree"
+      }
+     ]
+    }
+   ],
+   "questions": [
+    {
+     "type": "reperer",
+     "support": "s1",
+     "consigne": {
+      "fr": "Touche ce qu'il faut acheter.",
+      "en": "Tap what needs buying."
+     },
+     "choix": [
+      "生日",
+      "蛋糕",
+      "医院",
+      "元旦"
+     ],
+     "reponse": 1,
+     "porte": [
+      "蛋",
+      "糕"
+     ]
+    },
+    {
+     "type": "vrai_faux",
+     "support": "s1",
+     "consigne": {
+      "fr": "Vrai ou faux ?",
+      "en": "True or false?"
+     },
+     "affirmation": {
+      "zh": "元旦去朋友家。",
+      "pinyin": "yuán dàn qù péng you jiā",
+      "fr": "Le jour de l'An, on va chez un ami.",
+      "en": "On New Year's Day, we go to a friend's."
+     },
+     "reponse": false,
+     "porte": [
+      "元",
+      "旦",
+      "爷",
+      "奶"
+     ]
+    },
+    {
+     "type": "comprendre",
+     "support": "s2",
+     "consigne": {
+      "fr": "Qu'est-ce que l'enfant a perdu ?",
+      "en": "What has the child lost?"
+     },
+     "choix": [
+      {
+       "fr": "Son stylo",
+       "en": "His pen"
+      },
+      {
+       "fr": "Son téléphone",
+       "en": "His phone"
+      },
+      {
+       "fr": "Son sac",
+       "en": "His bag"
+      },
+      {
+       "fr": "Sa boîte-repas",
+       "en": "His lunch box"
+      }
+     ],
+     "reponse": 3,
+     "porte": [
+      "饭",
+      "盒",
+      "丢"
+     ]
+    },
+    {
+     "type": "replique",
+     "support": "s2",
+     "consigne": {
+      "fr": "Que répond sa mère ?",
+      "en": "What does his mother reply?"
+     },
+     "choix": [
+      {
+       "zh": "小鸟在树上。",
+       "pinyin": "xiǎo niǎo zài shù shàng",
+       "fr": "L'oiseau est dans l'arbre.",
+       "en": "The bird is in the tree."
+      },
+      {
+       "zh": "没关系，明天再找吧。",
+       "pinyin": "méi guān xi míng tiān zài zhǎo ba",
+       "fr": "Ce n'est pas grave, cherche demain.",
+       "en": "Never mind, look for it tomorrow."
+      },
+      {
+       "zh": "今天是星期一。",
+       "pinyin": "jīn tiān shì xīng qī yī",
+       "fr": "Aujourd'hui, c'est lundi.",
+       "en": "Today is Monday."
+      },
+      {
+       "zh": "我喜欢喝茶。",
+       "pinyin": "wǒ xǐ huan hē chá",
+       "fr": "J'aime boire du thé.",
+       "en": "I like drinking tea."
+      }
+     ],
+     "reponse": 1,
+     "porte": [
+      "丢",
+      "柜",
+      "找"
+     ]
+    },
+    {
+     "type": "caractere",
+     "consigne": {
+      "fr": "Quel caractère a ce sens ?",
+      "en": "Which character has this meaning?"
+     },
+     "objet": {
+      "zh": "猴",
+      "pinyin": "hóu",
+      "fr": "singe",
+      "en": "monkey"
+     },
+     "choix": [
+      "候",
+      "狗",
+      "猴",
+      "猫"
+     ],
+     "reponse": 2,
+     "porte": [
+      "猴"
+     ]
+    }
+   ]
+  },
+  {
+   "serie": "B",
+   "statut": "a_relire",
+   "supports": [
+    {
+     "id": "s1",
+     "genre": "pancarte",
+     "contexte": {
+      "fr": "Un panneau",
+      "en": "A sign"
+     },
+     "lignes": [
+      {
+       "zh": "小心！",
+       "pinyin": "xiǎo xīn",
+       "fr": "Attention !",
+       "en": "Caution!"
+      },
+      {
+       "zh": "前面有深沟，",
+       "pinyin": "qián mian yǒu shēn gōu",
+       "fr": "Fossé profond devant,",
+       "en": "Deep ditch ahead,"
+      },
+      {
+       "zh": "请勿靠近",
+       "pinyin": "qǐng wù kào jìn",
+       "fr": "ne pas s'approcher",
+       "en": "keep away"
+      }
+     ],
+     "glose": [
+      {
+       "zh": "深",
+       "pinyin": "shēn",
+       "fr": "profond",
+       "en": "deep"
+      },
+      {
+       "zh": "沟",
+       "pinyin": "gōu",
+       "fr": "fossé",
+       "en": "ditch"
+      },
+      {
+       "zh": "请勿",
+       "pinyin": "qǐng wù",
+       "fr": "prière de ne pas",
+       "en": "please do not"
+      },
+      {
+       "zh": "靠近",
+       "pinyin": "kào jìn",
+       "fr": "s'approcher",
+       "en": "to approach"
+      }
+     ]
+    },
+    {
+     "id": "s2",
+     "genre": "note",
+     "contexte": {
+      "fr": "Une note",
+      "en": "A note"
+     },
+     "lignes": [
+      {
+       "zh": "小王：我从德国回来了，",
+       "pinyin": "xiǎo wáng wǒ cóng dé guó huí lái le",
+       "fr": "Xiao Wang : je suis rentré d'Allemagne,",
+       "en": "Xiao Wang: I'm back from Germany,"
+      },
+      {
+       "zh": "给你带了一盒巧克力，",
+       "pinyin": "gěi nǐ dài le yī hé qiǎo kè lì",
+       "fr": "je t'ai rapporté une boîte de chocolats,",
+       "en": "I brought you a box of chocolates,"
+      },
+      {
+       "zh": "放在你桌子上了。",
+       "pinyin": "fàng zài nǐ zhuō zi shàng le",
+       "fr": "je l'ai posée sur ton bureau.",
+       "en": "I've put it on your desk."
+      }
+     ],
+     "glose": [
+      {
+       "zh": "德国",
+       "pinyin": "dé guó",
+       "fr": "Allemagne",
+       "en": "Germany"
+      },
+      {
+       "zh": "带",
+       "pinyin": "dài",
+       "fr": "apporter",
+       "en": "to bring"
+      },
+      {
+       "zh": "一盒",
+       "pinyin": "yī hé",
+       "fr": "une boîte",
+       "en": "a box"
+      },
+      {
+       "zh": "巧克力",
+       "pinyin": "qiǎo kè lì",
+       "fr": "chocolat",
+       "en": "chocolate"
+      },
+      {
+       "zh": "放",
+       "pinyin": "fàng",
+       "fr": "poser",
+       "en": "to put"
+      },
+      {
+       "zh": "蛋糕",
+       "pinyin": "dàn gāo",
+       "fr": "gâteau",
+       "en": "cake"
+      },
+      {
+       "zh": "欢迎",
+       "pinyin": "huān yíng",
+       "fr": "bienvenue",
+       "en": "welcome"
+      },
+      {
+       "zh": "游泳",
+       "pinyin": "yóu yǒng",
+       "fr": "nager",
+       "en": "to swim"
+      },
+      {
+       "zh": "这本书",
+       "pinyin": "zhè běn shū",
+       "fr": "ce livre",
+       "en": "this book"
+      },
+      {
+       "zh": "外面",
+       "pinyin": "wài mian",
+       "fr": "dehors",
+       "en": "outside"
+      }
+     ]
+    }
+   ],
+   "questions": [
+    {
+     "type": "comprendre",
+     "support": "s1",
+     "consigne": {
+      "fr": "Que signale ce panneau ?",
+      "en": "What does this sign warn about?"
+     },
+     "choix": [
+      {
+       "fr": "Un chien méchant",
+       "en": "A fierce dog"
+      },
+      {
+       "fr": "Un fossé profond",
+       "en": "A deep ditch"
+      },
+      {
+       "fr": "Une route glissante",
+       "en": "A slippery road"
+      },
+      {
+       "fr": "Des chutes de pierres",
+       "en": "Falling rocks"
+      }
+     ],
+     "reponse": 1,
+     "porte": [
+      "深",
+      "沟"
+     ]
+    },
+    {
+     "type": "reperer",
+     "support": "s2",
+     "consigne": {
+      "fr": "Touche le pays d'où revient la personne qui écrit.",
+      "en": "Tap the country the writer has come back from."
+     },
+     "choix": [
+      "德国",
+      "巧克力",
+      "桌子",
+      "小王"
+     ],
+     "reponse": 0,
+     "porte": [
+      "德",
+      "国"
+     ]
+    },
+    {
+     "type": "vrai_faux",
+     "support": "s2",
+     "consigne": {
+      "fr": "Vrai ou faux ?",
+      "en": "True or false?"
+     },
+     "affirmation": {
+      "zh": "小王有一盒蛋糕。",
+      "pinyin": "xiǎo wáng yǒu yī hé dàn gāo",
+      "fr": "Xiao Wang a une boîte de gâteaux.",
+      "en": "Xiao Wang has a box of cakes."
+     },
+     "reponse": false,
+     "porte": [
+      "盒",
+      "巧",
+      "克",
+      "力"
+     ]
+    },
+    {
+     "type": "replique",
+     "support": "s2",
+     "consigne": {
+      "fr": "Que répond Xiao Wang ?",
+      "en": "What does Xiao Wang reply?"
+     },
+     "choix": [
+      {
+       "zh": "我们去游泳吧。",
+       "pinyin": "wǒ men qù yóu yǒng ba",
+       "fr": "Allons nager.",
+       "en": "Let's go swimming."
+      },
+      {
+       "zh": "这本书很好看。",
+       "pinyin": "zhè běn shū hěn hǎo kàn",
+       "fr": "Ce livre est très bien.",
+       "en": "This book is very good."
+      },
+      {
+       "zh": "外面下雨了。",
+       "pinyin": "wài mian xià yǔ le",
+       "fr": "Il pleut dehors.",
+       "en": "It's raining outside."
+      },
+      {
+       "zh": "谢谢！欢迎回来！",
+       "pinyin": "xiè xie huān yíng huí lái",
+       "fr": "Merci ! Bon retour !",
+       "en": "Thanks! Welcome back!"
+      }
+     ],
+     "reponse": 3,
+     "porte": [
+      "德",
+      "带",
+      "盒"
+     ]
+    },
+    {
+     "type": "sens",
+     "consigne": {
+      "fr": "Que veut dire ce caractère ?",
+      "en": "What does this character mean?"
+     },
+     "objet": {
+      "zh": "躲",
+      "pinyin": "duǒ",
+      "fr": "se cacher",
+      "en": "to hide"
+     },
+     "choix": [
+      {
+       "fr": "courir",
+       "en": "to run"
+      },
+      {
+       "fr": "se cacher",
+       "en": "to hide"
+      },
+      {
+       "fr": "crier",
+       "en": "to shout"
+      },
+      {
+       "fr": "dormir",
+       "en": "to sleep"
+      }
+     ],
+     "reponse": 1,
+     "porte": [
+      "躲"
+     ]
+    }
+   ]
+  }
+ ]
+}
