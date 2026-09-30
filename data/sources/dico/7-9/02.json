@@ -1,0 +1,1298 @@
+{
+ "niveau": "7-9",
+ "lot": "02",
+ "source": "rédigé pour l'app dans le pipeline wenlu, sans API ; faits lus : liste HSK 3.0 (forme, pinyin, niveau, catégorie), lectures d'Unihan et des surcharges, gloses relues des fiches",
+ "brouillon": "data/sources/dico-brouillons/7-9/02.json",
+ "generation": {
+  "modele": "rédaction manuelle",
+  "api": "session Claude Code (sans API)",
+  "date": "2026-09-30",
+  "empreinte_invite": "sha256:632c697eac9ec13e1e7b559ad001034693a9e03a1c5b98d456376467d856d401",
+  "contexte": "wenlu dico contexte 7-9 02",
+  "essais": 1,
+  "refus": []
+ },
+ "entrees": [
+  {
+   "id": "柄",
+   "genre": "caractere",
+   "hanzi": "柄",
+   "pinyin": "bǐng",
+   "sens": {
+    "glose": "manche, poignée ; prise",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "manche, poignée"
+     },
+     {
+      "categorie": "N",
+      "fr": "prise, motif de critique ou de moquerie"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": []
+  },
+  {
+   "id": "L7-0041",
+   "genre": "mot",
+   "hanzi": "把柄",
+   "pinyin": "bǎbǐng",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "point faible, moyen de pression",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "point faible dont on peut se servir contre quelqu'un"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他怕别人抓住他的把柄。",
+     "pinyin": "Tā pà biérén zhuāzhù tā de bǎbǐng.",
+     "fr": "Il a peur qu'on ait prise sur lui.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-0042",
+   "genre": "mot",
+   "hanzi": "把关",
+   "pinyin": "bǎguān",
+   "sens": {
+    "glose": "contrôler, vérifier la qualité",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "contrôler, vérifier, être le garant de"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "产品质量由他来把关。",
+     "pinyin": "Chǎnpǐn zhìliàng yóu tā lái bǎguān.",
+     "fr": "C'est lui qui répond de la qualité des produits.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-0043",
+   "genre": "mot",
+   "hanzi": "把手",
+   "pinyin": "bǎshou",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "poignée, manche",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "poignée, manche"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "门的把手坏了。",
+     "pinyin": "Mén de bǎshou huài le.",
+     "fr": "La poignée de la porte est cassée.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "靶",
+   "genre": "caractere",
+   "hanzi": "靶",
+   "pinyin": "bǎ",
+   "sens": {
+    "glose": "cible",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "cible de tir"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": []
+  },
+  {
+   "id": "L7-0044",
+   "genre": "mot",
+   "hanzi": "靶子",
+   "pinyin": "bǎzi",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "cible",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "cible de tir ; cible des critiques"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他一枪就打中了靶子。",
+     "pinyin": "Tā yī qiāng jiù dǎzhòng le bǎzi.",
+     "fr": "Il a fait mouche du premier coup.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "坝",
+   "genre": "caractere",
+   "hanzi": "坝",
+   "pinyin": "bà",
+   "mots": [
+    "L7-0045"
+   ],
+   "sens": {
+    "glose": "barrage, digue",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "barrage, digue"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "河上修了一座大坝。",
+     "pinyin": "Hé shang xiū le yī zuò dà bà.",
+     "fr": "On a construit un grand ouvrage sur le fleuve.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-0046",
+   "genre": "mot",
+   "hanzi": "罢免",
+   "pinyin": "bàmiǎn",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "destituer, révoquer",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "destituer, révoquer un élu ou un responsable"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "市长被罢免了。",
+     "pinyin": "Shìzhǎng bèi bàmiǎn le.",
+     "fr": "Le maire a été démis de ses fonctions.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-0047",
+   "genre": "mot",
+   "hanzi": "罢休",
+   "pinyin": "bàxiū",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "en rester là, renoncer",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "en rester là, renoncer : souvent à la négative"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "不找到答案，他是不会罢休的。",
+     "pinyin": "Bù zhǎodào dá'àn, tā shì bù huì bàxiū de.",
+     "fr": "Il ne lâchera pas tant qu'il n'aura pas trouvé la réponse.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "霸",
+   "genre": "caractere",
+   "hanzi": "霸",
+   "pinyin": "bà",
+   "sens": {
+    "glose": "tyran, despote ; dominer",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "tyran, despote, hégémon"
+     },
+     {
+      "categorie": "V",
+      "fr": "dominer, accaparer par la force"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": []
+  },
+  {
+   "id": "L7-0048",
+   "genre": "mot",
+   "hanzi": "霸占",
+   "pinyin": "bàzhàn",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "s'emparer de force",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "s'emparer de force, accaparer"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他霸占了别人的土地。",
+     "pinyin": "Tā bàzhàn le biérén de tǔdì.",
+     "fr": "Il s'est approprié la terre d'autrui.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "掰",
+   "genre": "caractere",
+   "hanzi": "掰",
+   "pinyin": "bāi",
+   "mots": [
+    "L7-0049"
+   ],
+   "sens": {
+    "glose": "rompre à la main, casser en deux",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "rompre avec les doigts, casser en deux"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他把面包掰成两半。",
+     "pinyin": "Tā bǎ miànbāo bāi chéng liǎng bàn.",
+     "fr": "Il a partagé le pain en deux morceaux.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-0050",
+   "genre": "mot",
+   "hanzi": "白白",
+   "pinyin": "báibái",
+   "categories": [
+    "Adv"
+   ],
+   "sens": {
+    "glose": "en vain, pour rien",
+    "acceptions": [
+     {
+      "categorie": "Adv",
+      "fr": "en vain, pour rien, inutilement"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "我白白等了他一个小时。",
+     "pinyin": "Wǒ báibái děng le tā yī gè xiǎoshí.",
+     "fr": "Je l'ai attendu une heure, et il n'est pas venu.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-0051",
+   "genre": "mot",
+   "hanzi": "百分比",
+   "pinyin": "bǎifēnbǐ",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "pourcentage",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "pourcentage"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "女生占的百分比很高。",
+     "pinyin": "Nǚshēng zhàn de bǎifēnbǐ hěn gāo.",
+     "fr": "La part des filles est très élevée.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-0052",
+   "genre": "mot",
+   "hanzi": "百合",
+   "pinyin": "bǎihé",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "lis",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "lis, la fleur"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "她买了一束百合。",
+     "pinyin": "Tā mǎi le yī shù bǎihé.",
+     "fr": "Elle a acheté un bouquet de lis blancs.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-0053",
+   "genre": "mot",
+   "hanzi": "百科全书",
+   "pinyin": "bǎikē quánshū",
+   "sens": {
+    "glose": "encyclopédie",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "encyclopédie"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他像一本活的百科全书。",
+     "pinyin": "Tā xiàng yī běn huó de bǎikē quánshū.",
+     "fr": "Il sait tout sur tout.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "柏",
+   "genre": "caractere",
+   "hanzi": "柏",
+   "pinyin": "bǎi",
+   "sens": {
+    "glose": "cyprès, thuya",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "cyprès, thuya"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": []
+  },
+  {
+   "id": "L7-0054",
+   "genre": "mot",
+   "hanzi": "柏树",
+   "pinyin": "bǎishù",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "cyprès",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "cyprès"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "山上种满了柏树。",
+     "pinyin": "Shān shang zhòng mǎn le bǎishù.",
+     "fr": "La montagne est couverte de cyprès.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-0055",
+   "genre": "mot",
+   "hanzi": "摆放",
+   "pinyin": "bǎifàng",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "disposer, placer",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "disposer, placer, ranger"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "桌子上摆放着几本书。",
+     "pinyin": "Zhuōzi shang bǎifàng zhe jǐ běn shū.",
+     "fr": "Quelques livres sont posés sur la table.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-0056",
+   "genre": "mot",
+   "hanzi": "摆平",
+   "pinyin": "bǎipíng",
+   "sens": {
+    "glose": "régler, arranger ; traiter également",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "régler, arranger une affaire"
+     },
+     {
+      "categorie": "V",
+      "fr": "traiter équitablement, mettre à égalité"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这件事我来摆平。",
+     "pinyin": "Zhè jiàn shì wǒ lái bǎipíng.",
+     "fr": "Je me charge d'arranger cette affaire.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-0057",
+   "genre": "mot",
+   "hanzi": "摆设",
+   "pinyin": "bǎishe",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "bibelot ; objet décoratif",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "bibelot, objet de décoration"
+     },
+     {
+      "categorie": "N",
+      "fr": "chose qui ne sert qu'à faire joli"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这台电脑只是个摆设。",
+     "pinyin": "Zhè tái diànnǎo zhǐ shì gè bǎishe.",
+     "fr": "Cet ordinateur ne sert qu'à faire joli.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-0058",
+   "genre": "mot",
+   "hanzi": "拜会",
+   "pinyin": "bàihuì",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "rendre une visite officielle",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "rendre une visite officielle, être reçu par"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "代表团拜会了当地政府。",
+     "pinyin": "Dàibiǎotuán bàihuì le dāngdì zhèngfǔ.",
+     "fr": "La délégation a été reçue par les autorités locales.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-0059",
+   "genre": "mot",
+   "hanzi": "拜见",
+   "pinyin": "bàijiàn",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "présenter ses respects à",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "présenter ses respects à, rendre visite à un aîné"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "我带朋友去拜见我的老师。",
+     "pinyin": "Wǒ dài péngyou qù bàijiàn wǒ de lǎoshī.",
+     "fr": "J'emmène un ami saluer mon professeur.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-0060",
+   "genre": "mot",
+   "hanzi": "拜年",
+   "pinyin": "bàinián",
+   "sens": {
+    "glose": "présenter ses vœux de Nouvel An",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "présenter ses vœux de Nouvel An"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "春节的时候，大家互相拜年。",
+     "pinyin": "Chūnjié de shíhou, dàjiā hùxiāng bàinián.",
+     "fr": "À la fête du Printemps, chacun se souhaite la bonne année.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-0061",
+   "genre": "mot",
+   "hanzi": "拜托",
+   "pinyin": "bàituō",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "prier de, confier un service",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "prier de, confier un service : formule polie"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这件事就拜托你了。",
+     "pinyin": "Zhè jiàn shì jiù bàituō nǐ le.",
+     "fr": "Je compte sur toi pour cette affaire.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "扳",
+   "genre": "caractere",
+   "hanzi": "扳",
+   "pinyin": "bān",
+   "mots": [
+    "L7-0062"
+   ],
+   "sens": {
+    "glose": "tirer, tourner ; renverser",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "tirer, tourner, plier vers soi"
+     },
+     {
+      "categorie": "V",
+      "fr": "renverser une situation, égaliser"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他扳着手指算日子。",
+     "pinyin": "Tā bān zhe shǒuzhǐ suàn rìzi.",
+     "fr": "Il compte les jours sur ses doigts.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "颁",
+   "genre": "caractere",
+   "hanzi": "颁",
+   "pinyin": "bān",
+   "sens": {
+    "glose": "promulguer ; décerner",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "promulguer, publier ; décerner"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": []
+  },
+  {
+   "id": "L7-0063",
+   "genre": "mot",
+   "hanzi": "颁布",
+   "pinyin": "bānbù",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "promulguer",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "promulguer, publier une loi, un règlement"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "国家颁布了新的法律。",
+     "pinyin": "Guójiā bānbù le xīn de fǎlǜ.",
+     "fr": "L'État a publié une nouvelle loi.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-0064",
+   "genre": "mot",
+   "hanzi": "颁发",
+   "pinyin": "bānfā",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "décerner, délivrer",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "décerner, délivrer : prix, diplôme, certificat"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "学校给他颁发了奖学金。",
+     "pinyin": "Xuéxiào gěi tā bānfā le jiǎngxuéjīn.",
+     "fr": "L'école lui a attribué une bourse.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-0065",
+   "genre": "mot",
+   "hanzi": "颁奖",
+   "pinyin": "bānjiǎng",
+   "sens": {
+    "glose": "remettre un prix",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "remettre un prix, une récompense"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "颁奖仪式明天举行。",
+     "pinyin": "Bānjiǎng yíshì míngtiān jǔxíng.",
+     "fr": "La cérémonie des récompenses a lieu demain.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "斑",
+   "genre": "caractere",
+   "hanzi": "斑",
+   "pinyin": "bān",
+   "sens": {
+    "glose": "tache, moucheture",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "tache, moucheture, marque"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": []
+  },
+  {
+   "id": "L7-0066",
+   "genre": "mot",
+   "hanzi": "斑点",
+   "pinyin": "bāndiǎn",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "tache, moucheture",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "tache, point, moucheture"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这只狗身上有黑色的斑点。",
+     "pinyin": "Zhè zhī gǒu shēnshang yǒu hēisè de bāndiǎn.",
+     "fr": "Ce chien a le pelage tacheté de noir.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-0067",
+   "genre": "mot",
+   "hanzi": "搬迁",
+   "pinyin": "bānqiān",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "déménager, être relogé",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "déménager, se réinstaller ailleurs"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "工厂已经搬迁到城外了。",
+     "pinyin": "Gōngchǎng yǐjīng bānqiān dào chéng wài le.",
+     "fr": "L'usine s'est installée hors de la ville.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-0068",
+   "genre": "mot",
+   "hanzi": "板块",
+   "pinyin": "bǎnkuài",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "plaque tectonique ; secteur",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "plaque tectonique"
+     },
+     {
+      "categorie": "N",
+      "fr": "secteur, bloc, rubrique"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这份报纸有体育和文化两个板块。",
+     "pinyin": "Zhè fèn bàozhǐ yǒu tǐyù hé wénhuà liǎng gè bǎnkuài.",
+     "fr": "Ce journal a deux rubriques : sport et culture.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-0069",
+   "genre": "mot",
+   "hanzi": "办不到",
+   "pinyin": "bàn bu dào",
+   "sens": {
+    "glose": "impossible à faire",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "ne pas pouvoir faire, pas faisable"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这件事我办不到。",
+     "pinyin": "Zhè jiàn shì wǒ bàn bu dào.",
+     "fr": "Ça, je n'en suis pas capable.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-0070",
+   "genre": "mot",
+   "hanzi": "半边天",
+   "pinyin": "bànbiāntiān",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "moitié du ciel : les femmes",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "la moitié du ciel ; les femmes"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "妇女能顶半边天。",
+     "pinyin": "Fùnǚ néng dǐng bànbiāntiān.",
+     "fr": "Les femmes portent la moitié du ciel sur leurs épaules.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-0071",
+   "genre": "mot",
+   "hanzi": "半场",
+   "pinyin": "bànchǎng",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "mi-temps ; moitié du terrain",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "mi-temps, période d'un match"
+     },
+     {
+      "categorie": "N",
+      "fr": "moitié du terrain"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "上半场我们踢得不好。",
+     "pinyin": "Shàng bànchǎng wǒmen tī de bù hǎo.",
+     "fr": "En première période, nous avons mal joué.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-0072",
+   "genre": "mot",
+   "hanzi": "半岛",
+   "pinyin": "bàndǎo",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "péninsule, presqu'île",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "péninsule, presqu'île"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这个城市在一个半岛上。",
+     "pinyin": "Zhège chéngshì zài yī gè bàndǎo shang.",
+     "fr": "Cette ville est entourée de mer sur trois côtés.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-0073",
+   "genre": "mot",
+   "hanzi": "半路",
+   "pinyin": "bànlù",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "à mi-chemin, en route",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "mi-chemin ; en cours de route"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "我们在半路遇到了大雨。",
+     "pinyin": "Wǒmen zài bànlù yùdào le dà yǔ.",
+     "fr": "Nous avons été pris par l'averse en chemin.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-0074",
+   "genre": "mot",
+   "hanzi": "半数",
+   "pinyin": "bànshù",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "la moitié",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "la moitié du nombre"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "半数以上的人同意这个计划。",
+     "pinyin": "Bànshù yǐshàng de rén tóngyì zhège jìhuà.",
+     "fr": "Plus de la moitié des gens approuvent ce projet.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-0075",
+   "genre": "mot",
+   "hanzi": "半途而废",
+   "pinyin": "bàntú'érfèi",
+   "sens": {
+    "glose": "abandonner à mi-chemin",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "abandonner à mi-chemin, ne pas aller au bout"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "学外语不能半途而废。",
+     "pinyin": "Xué wàiyǔ bù néng bàntú'érfèi.",
+     "fr": "Quand on apprend une langue, il ne faut pas lâcher en cours de route.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-0076",
+   "genre": "mot",
+   "hanzi": "半信半疑",
+   "pinyin": "bànxìn-bànyí",
+   "sens": {
+    "glose": "sceptique, entre doute et confiance",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "sceptique, partagé entre doute et confiance"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "听了他的话，我半信半疑。",
+     "pinyin": "Tīng le tā de huà, wǒ bànxìn-bànyí.",
+     "fr": "Après l'avoir entendu, je ne savais pas trop si je devais le croire.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-0077",
+   "genre": "mot",
+   "hanzi": "半真半假",
+   "pinyin": "bànzhēn-bànjiǎ",
+   "sens": {
+    "glose": "mi-vrai mi-faux",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "mi-vrai mi-faux, pas tout à fait sérieux"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他说的话半真半假。",
+     "pinyin": "Tā shuō de huà bànzhēn-bànjiǎ.",
+     "fr": "Dans ce qu'il dit, il y a du vrai et du faux.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "侣",
+   "genre": "caractere",
+   "hanzi": "侣",
+   "pinyin": "lǚ",
+   "sens": {
+    "glose": "compagnon, compagne",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "compagnon, compagne"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": []
+  },
+  {
+   "id": "L7-0080",
+   "genre": "mot",
+   "hanzi": "伴侣",
+   "pinyin": "bànlǚ",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "compagnon, partenaire de vie",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "compagnon, compagne, partenaire de vie"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "她找到了一生的伴侣。",
+     "pinyin": "Tā zhǎodào le yīshēng de bànlǚ.",
+     "fr": "Elle a trouvé l'homme de sa vie.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-0081",
+   "genre": "mot",
+   "hanzi": "伴随",
+   "pinyin": "bànsuí",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "accompagner, aller de pair avec",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "accompagner, aller de pair avec"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这首歌伴随我走过了中学时代。",
+     "pinyin": "Zhè shǒu gē bànsuí wǒ zǒuguò le zhōngxué shídài.",
+     "fr": "Cette chanson m'a suivi pendant toutes mes années de lycée.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-0082",
+   "genre": "mot",
+   "hanzi": "伴奏",
+   "pinyin": "bànzòu",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "accompagner en musique",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "accompagner en musique"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "她唱歌，我弹钢琴伴奏。",
+     "pinyin": "Tā chànggē, wǒ tán gāngqín bànzòu.",
+     "fr": "Elle chante et je joue du piano avec elle.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "拌",
+   "genre": "caractere",
+   "hanzi": "拌",
+   "pinyin": "bàn",
+   "mots": [
+    "L7-0083"
+   ],
+   "sens": {
+    "glose": "mélanger, remuer ; assaisonner",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "mélanger, remuer ; assaisonner en remuant"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "她把米饭和菜拌在一起吃。",
+     "pinyin": "Tā bǎ mǐfàn hé cài bàn zài yīqǐ chī.",
+     "fr": "Elle mélange le riz et les légumes avant de manger.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-0084",
+   "genre": "mot",
+   "hanzi": "帮手",
+   "pinyin": "bāngshou",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "aide, assistant",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "aide, assistant, bras droit"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他是我工作上的好帮手。",
+     "pinyin": "Tā shì wǒ gōngzuò shang de hǎo bāngshou.",
+     "fr": "C'est sur lui que je m'appuie au travail.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "绑",
+   "genre": "caractere",
+   "hanzi": "绑",
+   "pinyin": "bǎng",
+   "mots": [
+    "L7-0085"
+   ],
+   "sens": {
+    "glose": "attacher, ligoter",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "attacher, ligoter, ficeler"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他用绳子把箱子绑好了。",
+     "pinyin": "Tā yòng shéngzi bǎ xiāngzi bǎng hǎo le.",
+     "fr": "Il a solidement fermé la malle avec une corde.",
+     "statut": "a_relire"
+    }
+   ]
+  }
+ ]
+}

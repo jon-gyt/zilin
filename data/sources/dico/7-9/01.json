@@ -1,0 +1,1302 @@
+{
+ "niveau": "7-9",
+ "lot": "01",
+ "source": "rédigé pour l'app dans le pipeline wenlu, sans API ; faits lus : liste HSK 3.0 (forme, pinyin, niveau, catégorie), lectures d'Unihan et des surcharges, gloses relues des fiches",
+ "brouillon": "data/sources/dico-brouillons/7-9/01.json",
+ "generation": {
+  "modele": "rédaction manuelle",
+  "api": "session Claude Code (sans API)",
+  "date": "2026-09-30",
+  "empreinte_invite": "sha256:3c6dd331380cea7c490a953d34534e835e47c091ea183c92dabb678ebcc60b20",
+  "contexte": "wenlu dico contexte 7-9 01",
+  "essais": 1,
+  "refus": []
+ },
+ "entrees": [
+  {
+   "id": "伯",
+   "genre": "caractere",
+   "hanzi": "伯",
+   "pinyin": "bó",
+   "sens": {
+    "glose": "oncle paternel aîné ; comte",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "frère aîné du père, oncle"
+     },
+     {
+      "categorie": "N",
+      "fr": "comte, titre de noblesse"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": []
+  },
+  {
+   "id": "L7-0001",
+   "genre": "mot",
+   "hanzi": "阿拉伯语",
+   "pinyin": "Ālābóyǔ",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "arabe, la langue arabe",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "la langue arabe"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他在大学学过阿拉伯语。",
+     "pinyin": "Tā zài dàxué xué guo Ālābóyǔ.",
+     "fr": "Il a étudié l'arabe à l'université.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "哎",
+   "genre": "caractere",
+   "hanzi": "哎",
+   "pinyin": "āi",
+   "mots": [
+    "L7-0002"
+   ],
+   "sens": {
+    "glose": "tiens ; hé",
+    "acceptions": [
+     {
+      "categorie": "Intj",
+      "fr": "tiens, hé : surprise, appel, rappel à l'attention"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "哎，你怎么来了？",
+     "pinyin": "Āi, nǐ zěnme lái le?",
+     "fr": "Tiens, qu'est-ce que tu fais là ?",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-0003",
+   "genre": "mot",
+   "hanzi": "哎呀",
+   "pinyin": "āiyā",
+   "categories": [
+    "Intj"
+   ],
+   "sens": {
+    "glose": "oh là là ; aïe",
+    "acceptions": [
+     {
+      "categorie": "Intj",
+      "fr": "oh là là, aïe : surprise, contrariété, douleur"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "哎呀，我忘了带钥匙！",
+     "pinyin": "Āiyā, wǒ wàng le dài yàoshi!",
+     "fr": "Zut, j'ai oublié mes clés !",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "哀",
+   "genre": "caractere",
+   "hanzi": "哀",
+   "pinyin": "āi",
+   "sens": {
+    "glose": "triste, affligé ; deuil",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "triste, affligé"
+     },
+     {
+      "categorie": "V",
+      "fr": "pleurer un mort, compatir"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": []
+  },
+  {
+   "id": "L7-0004",
+   "genre": "mot",
+   "hanzi": "哀求",
+   "pinyin": "āiqiú",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "supplier, implorer",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "supplier, implorer"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他哀求医生救救他的孩子。",
+     "pinyin": "Tā āiqiú yīshēng jiùjiu tā de háizi.",
+     "fr": "Il a supplié le médecin de sauver son enfant.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-0005",
+   "genre": "mot",
+   "hanzi": "挨家挨户",
+   "pinyin": "āijiā-āihù",
+   "sens": {
+    "glose": "de porte en porte",
+    "acceptions": [
+     {
+      "categorie": "Adv",
+      "fr": "de porte en porte, dans chaque foyer"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他们挨家挨户地送水。",
+     "pinyin": "Tāmen āijiā-āihù de sòng shuǐ.",
+     "fr": "Ils livrent l'eau à chaque foyer.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "癌",
+   "genre": "caractere",
+   "hanzi": "癌",
+   "pinyin": "ái",
+   "mots": [
+    "L7-0006"
+   ],
+   "sens": {
+    "glose": "cancer",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "cancer, tumeur maligne"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这种癌发现得早，是可以治好的。",
+     "pinyin": "Zhè zhǒng ái fāxiàn de zǎo, shì kěyǐ zhìhǎo de.",
+     "fr": "Détecté tôt, ce type de cancer se soigne.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-0007",
+   "genre": "mot",
+   "hanzi": "癌症",
+   "pinyin": "áizhèng",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "cancer, la maladie",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "cancer, la maladie"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他的父亲死于癌症。",
+     "pinyin": "Tā de fùqīn sǐ yú áizhèng.",
+     "fr": "Son père est mort d'un cancer.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "艾",
+   "genre": "caractere",
+   "hanzi": "艾",
+   "pinyin": "ài",
+   "sens": {
+    "glose": "armoise",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "armoise, plante médicinale"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": []
+  },
+  {
+   "id": "滋",
+   "genre": "caractere",
+   "hanzi": "滋",
+   "pinyin": "zī",
+   "sens": {
+    "glose": "faire croître, nourrir ; saveur",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "faire croître, nourrir, humecter"
+     },
+     {
+      "categorie": "N",
+      "fr": "goût, saveur"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": []
+  },
+  {
+   "id": "L7-0008",
+   "genre": "mot",
+   "hanzi": "艾滋病",
+   "pinyin": "àizībìng",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "sida",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "sida"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "艾滋病是可以预防的。",
+     "pinyin": "Àizībìng shì kěyǐ yùfáng de.",
+     "fr": "On peut se protéger de cette maladie.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "唉",
+   "genre": "caractere",
+   "hanzi": "唉",
+   "pinyin": "āi",
+   "mots": [
+    "L7-0009"
+   ],
+   "sens": {
+    "glose": "hélas ; oui",
+    "acceptions": [
+     {
+      "categorie": "Intj",
+      "fr": "hélas : soupir de regret, de lassitude",
+      "pinyin": "ài"
+     },
+     {
+      "categorie": "Intj",
+      "fr": "oui, voilà : réponse à un appel"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "唉，又下雨了。",
+     "pinyin": "Ài, yòu xià yǔ le.",
+     "fr": "Pff, il pleut encore.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-0010",
+   "genre": "mot",
+   "hanzi": "爱不释手",
+   "pinyin": "àibùshìshǒu",
+   "sens": {
+    "glose": "ne plus pouvoir s'en séparer",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "aimer au point de ne plus pouvoir lâcher"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他对这本新书爱不释手。",
+     "pinyin": "Tā duì zhè běn xīn shū àibùshìshǒu.",
+     "fr": "Il ne lâche plus ce nouveau livre.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-0011",
+   "genre": "mot",
+   "hanzi": "爱理不理",
+   "pinyin": "àilǐ-bùlǐ",
+   "sens": {
+    "glose": "battre froid à quelqu'un",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "battre froid, répondre à peine, faire mine d'ignorer"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "她对我总是爱理不理的。",
+     "pinyin": "Tā duì wǒ zǒngshì àilǐ-bùlǐ de.",
+     "fr": "Elle me traite toujours avec froideur.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-0012",
+   "genre": "mot",
+   "hanzi": "爱面子",
+   "pinyin": "ài miànzi",
+   "sens": {
+    "glose": "tenir à sauver la face",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "tenir à sa réputation, craindre de perdre la face"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他很爱面子，不愿意向人借钱。",
+     "pinyin": "Tā hěn ài miànzi, bù yuànyì xiàng rén jiè qián.",
+     "fr": "Il est trop fier pour emprunter de l'argent.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-0013",
+   "genre": "mot",
+   "hanzi": "爱惜",
+   "pinyin": "àixī",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "prendre soin de, ménager",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "prendre soin de, ménager, ne pas gaspiller"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "我们要爱惜粮食。",
+     "pinyin": "Wǒmen yào àixī liángshi.",
+     "fr": "Il ne faut pas gaspiller la nourriture.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-0014",
+   "genre": "mot",
+   "hanzi": "碍事",
+   "pinyin": "àishì",
+   "sens": {
+    "glose": "gênant ; grave, à la négative",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "gênant, encombrant"
+     },
+     {
+      "categorie": "Adj",
+      "fr": "grave, sérieux : surtout à la négative"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这张桌子放在这儿太碍事了。",
+     "pinyin": "Zhè zhāng zhuōzi fàng zài zhèr tài àishì le.",
+     "fr": "Cette table est vraiment dans le passage.",
+     "statut": "a_relire"
+    },
+    {
+     "zh": "一点小伤，不碍事。",
+     "pinyin": "Yīdiǎn xiǎo shāng, bù àishì.",
+     "fr": "Une petite blessure, ce n'est rien.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-0015",
+   "genre": "mot",
+   "hanzi": "安定",
+   "pinyin": "āndìng",
+   "categories": [
+    "Adj",
+    "V"
+   ],
+   "sens": {
+    "glose": "stable, calme ; stabiliser",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "stable, calme : vie, situation, société"
+     },
+     {
+      "categorie": "V",
+      "fr": "stabiliser, apaiser"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他希望过上安定的生活。",
+     "pinyin": "Tā xīwàng guòshàng āndìng de shēnghuó.",
+     "fr": "Il espère mener une vie rangée.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "抚",
+   "genre": "caractere",
+   "hanzi": "抚",
+   "pinyin": "fǔ",
+   "sens": {
+    "glose": "caresser ; consoler ; élever",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "caresser de la main"
+     },
+     {
+      "categorie": "V",
+      "fr": "consoler, réconforter ; élever un enfant"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": []
+  },
+  {
+   "id": "L7-0016",
+   "genre": "mot",
+   "hanzi": "安抚",
+   "pinyin": "ānfǔ",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "apaiser, réconforter",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "apaiser, réconforter, calmer"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "妈妈轻轻地安抚哭着的孩子。",
+     "pinyin": "Māma qīngqīng de ānfǔ kū zhe de háizi.",
+     "fr": "Maman console doucement l'enfant qui pleure.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-0017",
+   "genre": "mot",
+   "hanzi": "安眠药",
+   "pinyin": "ānmiányào",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "somnifère",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "somnifère"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他晚上睡不着，只好吃安眠药。",
+     "pinyin": "Tā wǎnshang shuì bu zháo, zhǐhǎo chī ānmiányào.",
+     "fr": "Il n'arrive pas à dormir, alors il prend des cachets.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-0018",
+   "genre": "mot",
+   "hanzi": "安宁",
+   "pinyin": "ānníng",
+   "categories": [
+    "Adj"
+   ],
+   "sens": {
+    "glose": "paisible, tranquille",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "paisible, tranquille ; serein"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这个小村子很安宁。",
+     "pinyin": "Zhège xiǎo cūnzi hěn ānníng.",
+     "fr": "Il règne un grand calme dans ce petit village.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-0019",
+   "genre": "mot",
+   "hanzi": "安稳",
+   "pinyin": "ānwěn",
+   "categories": [
+    "Adj"
+   ],
+   "sens": {
+    "glose": "stable, sûr ; paisible",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "stable, sûr, sans heurts ; paisible"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "孩子睡得很安稳。",
+     "pinyin": "Háizi shuì de hěn ānwěn.",
+     "fr": "L'enfant dort d'un sommeil tranquille.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-0020",
+   "genre": "mot",
+   "hanzi": "安心",
+   "pinyin": "ānxīn",
+   "categories": [
+    "Adj"
+   ],
+   "sens": {
+    "glose": "avoir l'esprit tranquille",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "l'esprit tranquille, sans souci"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "你安心工作吧，家里的事我来管。",
+     "pinyin": "Nǐ ānxīn gōngzuò ba, jiā li de shì wǒ lái guǎn.",
+     "fr": "Travaille sans t'inquiéter, je m'occupe de la maison.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "逸",
+   "genre": "caractere",
+   "hanzi": "逸",
+   "pinyin": "yì",
+   "sens": {
+    "glose": "loisir, aisance ; s'échapper",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "oisif, à l'aise"
+     },
+     {
+      "categorie": "V",
+      "fr": "s'échapper, se perdre"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": []
+  },
+  {
+   "id": "L7-0021",
+   "genre": "mot",
+   "hanzi": "安逸",
+   "pinyin": "ānyì",
+   "categories": [
+    "Adj"
+   ],
+   "sens": {
+    "glose": "tranquille et confortable",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "tranquille et confortable, douillet"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他退休以后过着安逸的日子。",
+     "pinyin": "Tā tuìxiū yǐhòu guò zhe ānyì de rìzi.",
+     "fr": "Depuis sa retraite, il mène une vie douce.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-0022",
+   "genre": "mot",
+   "hanzi": "按键",
+   "pinyin": "ànjiàn",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "touche, bouton",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "touche, bouton d'un appareil"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "按一下这个按键，机器就开了。",
+     "pinyin": "Àn yīxià zhège ànjiàn, jīqì jiù kāi le.",
+     "fr": "Appuie ici et la machine démarre.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-0023",
+   "genre": "mot",
+   "hanzi": "按理说",
+   "pinyin": "ànlǐ shuō",
+   "sens": {
+    "glose": "normalement, en principe",
+    "acceptions": [
+     {
+      "categorie": "Adv",
+      "fr": "normalement, en toute logique"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "按理说他早该到了。",
+     "pinyin": "Ànlǐ shuō tā zǎo gāi dào le.",
+     "fr": "Il aurait dû arriver depuis longtemps.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-0024",
+   "genre": "mot",
+   "hanzi": "按说",
+   "pinyin": "ànshuō",
+   "categories": [
+    "Adv"
+   ],
+   "sens": {
+    "glose": "en principe, logiquement",
+    "acceptions": [
+     {
+      "categorie": "Adv",
+      "fr": "en principe, logiquement"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "按说这个时候天该热了。",
+     "pinyin": "Ànshuō zhège shíhou tiān gāi rè le.",
+     "fr": "À cette saison, il devrait déjà faire chaud.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-0025",
+   "genre": "mot",
+   "hanzi": "案件",
+   "pinyin": "ànjiàn",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "affaire judiciaire",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "affaire judiciaire, dossier criminel"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "警察正在调查这个案件。",
+     "pinyin": "Jǐngchá zhèngzài diàochá zhège ànjiàn.",
+     "fr": "La police enquête sur cette affaire.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-0026",
+   "genre": "mot",
+   "hanzi": "暗地里",
+   "pinyin": "àndìli",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "en cachette, dans le dos",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "en cachette, en secret, dans le dos"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他暗地里帮了我很多。",
+     "pinyin": "Tā àndìli bāng le wǒ hěn duō.",
+     "fr": "Il m'a beaucoup aidé sans rien dire.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-0027",
+   "genre": "mot",
+   "hanzi": "暗杀",
+   "pinyin": "ànshā",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "assassiner",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "assassiner, tuer par surprise"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这位总统是被暗杀的。",
+     "pinyin": "Zhè wèi zǒngtǒng shì bèi ànshā de.",
+     "fr": "Ce président est mort dans un attentat.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-0028",
+   "genre": "mot",
+   "hanzi": "暗中",
+   "pinyin": "ànzhōng",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "en secret, dans l'ombre",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "en secret, dans l'ombre"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "有人在暗中帮助他。",
+     "pinyin": "Yǒu rén zài ànzhōng bāngzhù tā.",
+     "fr": "Quelqu'un l'aide sans se montrer.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "昂",
+   "genre": "caractere",
+   "hanzi": "昂",
+   "pinyin": "áng",
+   "sens": {
+    "glose": "lever la tête ; élevé",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "lever, redresser la tête"
+     },
+     {
+      "categorie": "Adj",
+      "fr": "élevé, cher ; ardent"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": []
+  },
+  {
+   "id": "L7-0029",
+   "genre": "mot",
+   "hanzi": "昂贵",
+   "pinyin": "ángguì",
+   "categories": [
+    "Adj"
+   ],
+   "sens": {
+    "glose": "coûteux, très cher",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "coûteux, très cher"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这里的房子非常昂贵。",
+     "pinyin": "Zhèli de fángzi fēicháng ángguì.",
+     "fr": "Les logements ici coûtent une fortune.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "凹",
+   "genre": "caractere",
+   "hanzi": "凹",
+   "pinyin": "āo",
+   "mots": [
+    "L7-0030"
+   ],
+   "sens": {
+    "glose": "creux, concave",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "creux, concave, enfoncé"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这个盘子中间是凹的。",
+     "pinyin": "Zhège pánzi zhōngjiān shì āo de.",
+     "fr": "Cette assiette s'enfonce au milieu.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "熬",
+   "genre": "caractere",
+   "hanzi": "熬",
+   "pinyin": "áo",
+   "mots": [
+    "L7-0031"
+   ],
+   "sens": {
+    "glose": "faire mijoter ; endurer",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "faire mijoter, cuire longuement"
+     },
+     {
+      "categorie": "V",
+      "fr": "endurer, tenir bon"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "妈妈在厨房熬汤。",
+     "pinyin": "Māma zài chúfáng áo tāng.",
+     "fr": "Maman prépare une soupe à la cuisine.",
+     "statut": "a_relire"
+    },
+    {
+     "zh": "再熬几天就放假了。",
+     "pinyin": "Zài áo jǐ tiān jiù fàngjià le.",
+     "fr": "Encore quelques jours à tenir et ce sont les vacances.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-0032",
+   "genre": "mot",
+   "hanzi": "熬夜",
+   "pinyin": "áoyè",
+   "sens": {
+    "glose": "veiller tard, faire nuit blanche",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "veiller tard, passer une nuit blanche"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "别总是熬夜，对身体不好。",
+     "pinyin": "Bié zǒngshì áoyè, duì shēntǐ bù hǎo.",
+     "fr": "Ne te couche pas si tard tout le temps, c'est mauvais pour la santé.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-0034",
+   "genre": "mot",
+   "hanzi": "傲慢",
+   "pinyin": "àomàn",
+   "categories": [
+    "Adj"
+   ],
+   "sens": {
+    "glose": "arrogant, hautain",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "arrogant, hautain"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他说话的样子很傲慢。",
+     "pinyin": "Tā shuōhuà de yàngzi hěn àomàn.",
+     "fr": "Il parle avec beaucoup de morgue.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "奥",
+   "genre": "caractere",
+   "hanzi": "奥",
+   "pinyin": "ào",
+   "sens": {
+    "glose": "profond, mystérieux",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "profond, difficile à pénétrer"
+     },
+     {
+      "categorie": "N",
+      "fr": "abréviation d'olympique, des Jeux"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": []
+  },
+  {
+   "id": "L7-0035",
+   "genre": "mot",
+   "hanzi": "奥秘",
+   "pinyin": "àomì",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "mystère, secret profond",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "mystère, secret profond"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "科学家一直在研究宇宙的奥秘。",
+     "pinyin": "Kēxuéjiā yīzhí zài yánjiū yǔzhòu de àomì.",
+     "fr": "Les savants cherchent toujours à percer les secrets de l'univers.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-0036",
+   "genre": "mot",
+   "hanzi": "奥运会",
+   "pinyin": "Àoyùnhuì",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "Jeux olympiques",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "Jeux olympiques"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他参加过两次奥运会。",
+     "pinyin": "Tā cānjiā guo liǎng cì Àoyùnhuì.",
+     "fr": "Il a participé deux fois aux JO.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "卦",
+   "genre": "caractere",
+   "hanzi": "卦",
+   "pinyin": "guà",
+   "sens": {
+    "glose": "trigramme, signe divinatoire",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "trigramme, signe de divination"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": []
+  },
+  {
+   "id": "L7-0037",
+   "genre": "mot",
+   "hanzi": "八卦",
+   "pinyin": "bāguà",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "huit trigrammes ; potins",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "les huit trigrammes de la divination"
+     },
+     {
+      "categorie": "N",
+      "fr": "potins, ragots : familier"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "别听他们说八卦了。",
+     "pinyin": "Bié tīng tāmen shuō bāguà le.",
+     "fr": "N'écoute pas leurs commérages.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-0038",
+   "genre": "mot",
+   "hanzi": "巴不得",
+   "pinyin": "bābude",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "ne demander que, brûler de",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "ne demander que, brûler de, souhaiter vivement"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "我巴不得明天就放假。",
+     "pinyin": "Wǒ bābude míngtiān jiù fàngjià.",
+     "fr": "Je voudrais tant que les vacances commencent demain.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "扒",
+   "genre": "caractere",
+   "hanzi": "扒",
+   "pinyin": "bā",
+   "mots": [
+    "L7-0039"
+   ],
+   "sens": {
+    "glose": "s'agripper ; ôter, écarter",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "s'agripper, se cramponner à"
+     },
+     {
+      "categorie": "V",
+      "fr": "ôter, arracher, écarter"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他扒着窗户往里看。",
+     "pinyin": "Tā bā zhe chuānghu wǎng lǐ kàn.",
+     "fr": "Agrippé à la fenêtre, il regarde à l'intérieur.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "芭",
+   "genre": "caractere",
+   "hanzi": "芭",
+   "pinyin": "bā",
+   "sens": {
+    "glose": "en composé : ballet, bananier",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "en composé : ballet, bananier"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": []
+  },
+  {
+   "id": "蕾",
+   "genre": "caractere",
+   "hanzi": "蕾",
+   "pinyin": "lěi",
+   "sens": {
+    "glose": "bouton de fleur",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "bouton de fleur ; en composé : ballet"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": []
+  },
+  {
+   "id": "L7-0040",
+   "genre": "mot",
+   "hanzi": "芭蕾",
+   "pinyin": "bālěi",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "ballet, danse classique",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "ballet, danse classique"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "她从小学芭蕾。",
+     "pinyin": "Tā cóngxiǎo xué bālěi.",
+     "fr": "Elle fait de la danse depuis l'enfance.",
+     "statut": "a_relire"
+    }
+   ]
+  }
+ ]
+}

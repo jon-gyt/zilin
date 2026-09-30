@@ -1,0 +1,1293 @@
+{
+ "niveau": "7-9",
+ "lot": "03",
+ "source": "rédigé pour l'app dans le pipeline wenlu, sans API ; faits lus : liste HSK 3.0 (forme, pinyin, niveau, catégorie), lectures d'Unihan et des surcharges, gloses relues des fiches",
+ "brouillon": "data/sources/dico-brouillons/7-9/03.json",
+ "generation": {
+  "modele": "rédaction manuelle",
+  "api": "session Claude Code (sans API)",
+  "date": "2026-09-30",
+  "empreinte_invite": "sha256:dbbbf2eed0a3e27403565eabdf4931a3736b2047d2260e01f086d8b0592a0e57",
+  "contexte": "wenlu dico contexte 7-9 03",
+  "essais": 1,
+  "refus": []
+ },
+ "entrees": [
+  {
+   "id": "L7-0086",
+   "genre": "mot",
+   "hanzi": "绑架",
+   "pinyin": "bǎngjià",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "enlever, kidnapper",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "enlever, kidnapper, prendre en otage"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "那个孩子被人绑架了。",
+     "pinyin": "Nàge háizi bèi rén bǎngjià le.",
+     "fr": "Cet enfant a été enlevé.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-0087",
+   "genre": "mot",
+   "hanzi": "榜样",
+   "pinyin": "bǎngyàng",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "exemple, modèle",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "exemple, modèle à suivre"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "哥哥是我学习的榜样。",
+     "pinyin": "Gēge shì wǒ xuéxí de bǎngyàng.",
+     "fr": "Mon grand frère est celui que j'imite.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-0088",
+   "genre": "mot",
+   "hanzi": "棒球",
+   "pinyin": "bàngqiú",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "base-ball",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "base-ball"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他每个周末都打棒球。",
+     "pinyin": "Tā měi gè zhōumò dōu dǎ bàngqiú.",
+     "fr": "Il joue au base-ball tous les week-ends.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "磅",
+   "genre": "caractere",
+   "hanzi": "磅",
+   "pinyin": "bàng",
+   "mots": [
+    "L7-0089"
+   ],
+   "sens": {
+    "glose": "livre, unité de poids ; balance",
+    "acceptions": [
+     {
+      "categorie": "M",
+      "fr": "livre, unité de poids"
+     },
+     {
+      "categorie": "N",
+      "fr": "balance, bascule"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这个包有十磅重。",
+     "pinyin": "Zhège bāo yǒu shí bàng zhòng.",
+     "fr": "Ce sac pèse dix livres.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "袱",
+   "genre": "caractere",
+   "hanzi": "袱",
+   "pinyin": "fú",
+   "sens": {
+    "glose": "toile d'emballage",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "toile pour envelopper, baluchon"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": []
+  },
+  {
+   "id": "L7-0090",
+   "genre": "mot",
+   "hanzi": "包袱",
+   "pinyin": "bāofu",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "baluchon ; fardeau moral",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "baluchon, paquet enveloppé d'une toile"
+     },
+     {
+      "categorie": "N",
+      "fr": "fardeau, poids moral"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "别把这件事当成思想包袱。",
+     "pinyin": "Bié bǎ zhè jiàn shì dàngchéng sīxiǎng bāofu.",
+     "fr": "Ne te laisse pas peser par cette affaire.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-0091",
+   "genre": "mot",
+   "hanzi": "包容",
+   "pinyin": "bāoróng",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "tolérer, être indulgent",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "tolérer, être indulgent envers ; contenir"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "我们要学会包容别人的缺点。",
+     "pinyin": "Wǒmen yào xuéhuì bāoróng biérén de quēdiǎn.",
+     "fr": "Il faut apprendre à accepter les défauts des autres.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-0092",
+   "genre": "mot",
+   "hanzi": "包扎",
+   "pinyin": "bāozā",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "bander, panser ; emballer",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "bander, panser ; emballer"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "护士给他包扎了伤口。",
+     "pinyin": "Hùshi gěi tā bāozā le shāngkǒu.",
+     "fr": "L'infirmière a soigné sa blessure.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "剥",
+   "genre": "caractere",
+   "hanzi": "剥",
+   "pinyin": "bō",
+   "mots": [
+    "L7-0093"
+   ],
+   "sens": {
+    "glose": "éplucher, écorcer ; dépouiller",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "éplucher, écorcer, écaler",
+      "pinyin": "bāo"
+     },
+     {
+      "categorie": "V",
+      "fr": "dépouiller, priver : en composé"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他剥了一个鸡蛋。",
+     "pinyin": "Tā bāo le yī gè jīdàn.",
+     "fr": "Il a écalé un œuf.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "煲",
+   "genre": "caractere",
+   "hanzi": "煲",
+   "pinyin": "bāo",
+   "mots": [
+    "L7-0094"
+   ],
+   "sens": {
+    "glose": "marmite ; faire mijoter",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "marmite, pot à cuire"
+     },
+     {
+      "categorie": "V",
+      "fr": "cuire à petit feu, mijoter"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "妈妈煲了一锅鸡汤。",
+     "pinyin": "Māma bāo le yī guō jītāng.",
+     "fr": "Maman a préparé une marmite de bouillon de poulet.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-0095",
+   "genre": "mot",
+   "hanzi": "饱和",
+   "pinyin": "bǎohé",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "saturé, être saturé",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "saturer, arriver à saturation"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这个市场已经饱和了。",
+     "pinyin": "Zhège shìchǎng yǐjīng bǎohé le.",
+     "fr": "Ce marché n'a plus de place pour de nouveaux venus.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-0096",
+   "genre": "mot",
+   "hanzi": "饱满",
+   "pinyin": "bǎomǎn",
+   "categories": [
+    "Adj"
+   ],
+   "sens": {
+    "glose": "plein, rebondi ; plein d'énergie",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "plein, rebondi, dodu"
+     },
+     {
+      "categorie": "Adj",
+      "fr": "plein d'énergie, d'entrain"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他每天都精神饱满。",
+     "pinyin": "Tā měitiān dōu jīngshén bǎomǎn.",
+     "fr": "Il déborde d'énergie tous les jours.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-0097",
+   "genre": "mot",
+   "hanzi": "宝库",
+   "pinyin": "bǎokù",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "trésor, mine précieuse",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "trésor, mine précieuse de richesses ou de savoir"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "图书馆是知识的宝库。",
+     "pinyin": "Túshūguǎn shì zhīshi de bǎokù.",
+     "fr": "La bibliothèque est une mine de connaissances.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-0098",
+   "genre": "mot",
+   "hanzi": "宝藏",
+   "pinyin": "bǎozàng",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "trésor caché ; richesses",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "trésor caché ; richesses du sous-sol"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他们在山里发现了宝藏。",
+     "pinyin": "Tāmen zài shān li fāxiàn le bǎozàng.",
+     "fr": "Ils ont découvert des richesses dans la montagne.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-0099",
+   "genre": "mot",
+   "hanzi": "保管",
+   "pinyin": "bǎoguǎn",
+   "categories": [
+    "V",
+    "N"
+   ],
+   "sens": {
+    "glose": "garder, conserver ; magasinier",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "garder, conserver, avoir en dépôt"
+     },
+     {
+      "categorie": "N",
+      "fr": "magasinier, gardien"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这些文件请你帮我保管好。",
+     "pinyin": "Zhèxiē wénjiàn qǐng nǐ bāng wǒ bǎoguǎn hǎo.",
+     "fr": "Garde bien ces documents pour moi, s'il te plaît.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "姆",
+   "genre": "caractere",
+   "hanzi": "姆",
+   "pinyin": "mǔ",
+   "sens": {
+    "glose": "nourrice",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "nourrice ; sert à transcrire mu"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": []
+  },
+  {
+   "id": "L7-0100",
+   "genre": "mot",
+   "hanzi": "保姆",
+   "pinyin": "bǎomǔ",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "nounou, employée de maison",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "nounou, employée de maison"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他们请了一个保姆照顾孩子。",
+     "pinyin": "Tāmen qǐng le yī gè bǎomǔ zhàogù háizi.",
+     "fr": "Ils ont engagé quelqu'un pour garder les enfants.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-0101",
+   "genre": "mot",
+   "hanzi": "保暖",
+   "pinyin": "bǎonuǎn",
+   "sens": {
+    "glose": "garder la chaleur, tenir chaud",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "garder la chaleur, protéger du froid"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这件衣服很保暖。",
+     "pinyin": "Zhè jiàn yīfu hěn bǎonuǎn.",
+     "fr": "Avec ce vêtement, on n'a pas froid.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-0102",
+   "genre": "mot",
+   "hanzi": "保鲜",
+   "pinyin": "bǎoxiān",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "conserver frais",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "conserver frais, garder la fraîcheur"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "放在冰箱里可以保鲜。",
+     "pinyin": "Fàng zài bīngxiāng li kěyǐ bǎoxiān.",
+     "fr": "Au réfrigérateur, ça se garde plus longtemps.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-0103",
+   "genre": "mot",
+   "hanzi": "保修",
+   "pinyin": "bǎoxiū",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "garantir, sous garantie",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "garantir la réparation gratuite"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这台电视保修三年。",
+     "pinyin": "Zhè tái diànshì bǎoxiū sān nián.",
+     "fr": "Ce téléviseur est garanti trois ans.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "佑",
+   "genre": "caractere",
+   "hanzi": "佑",
+   "pinyin": "yòu",
+   "sens": {
+    "glose": "protéger, bénir",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "protéger, bénir"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": []
+  },
+  {
+   "id": "L7-0104",
+   "genre": "mot",
+   "hanzi": "保佑",
+   "pinyin": "bǎoyòu",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "protéger, bénir",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "protéger, bénir : une divinité, le Ciel"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "愿老天保佑你平安。",
+     "pinyin": "Yuàn lǎotiān bǎoyòu nǐ píng'ān.",
+     "fr": "Que le Ciel te garde.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-0105",
+   "genre": "mot",
+   "hanzi": "保障",
+   "pinyin": "bǎozhàng",
+   "categories": [
+    "V",
+    "N"
+   ],
+   "sens": {
+    "glose": "garantir ; garantie",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "garantir, assurer, protéger"
+     },
+     {
+      "categorie": "N",
+      "fr": "garantie, protection"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "法律保障公民的权利。",
+     "pinyin": "Fǎlǜ bǎozhàng gōngmín de quánlì.",
+     "fr": "La loi protège les droits des citoyens.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-0106",
+   "genre": "mot",
+   "hanzi": "保质期",
+   "pinyin": "bǎozhìqī",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "durée de conservation",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "durée de conservation, date limite"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这瓶牛奶已经过了保质期。",
+     "pinyin": "Zhè píng niúnǎi yǐjīng guò le bǎozhìqī.",
+     "fr": "Ce lait est périmé.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-0107",
+   "genre": "mot",
+   "hanzi": "保重",
+   "pinyin": "bǎozhòng",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "prendre soin de soi",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "prendre soin de soi, se ménager"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "路上多保重！",
+     "pinyin": "Lùshang duō bǎozhòng!",
+     "fr": "Fais bien attention à toi en route !",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "堡",
+   "genre": "caractere",
+   "hanzi": "堡",
+   "pinyin": "bǎo",
+   "sens": {
+    "glose": "fort, fortin",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "fort, fortin, château fort"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": []
+  },
+  {
+   "id": "垒",
+   "genre": "caractere",
+   "hanzi": "垒",
+   "pinyin": "lěi",
+   "sens": {
+    "glose": "empiler, maçonner ; rempart",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "empiler, maçonner"
+     },
+     {
+      "categorie": "N",
+      "fr": "rempart ; base, au base-ball"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": []
+  },
+  {
+   "id": "L7-0108",
+   "genre": "mot",
+   "hanzi": "堡垒",
+   "pinyin": "bǎolěi",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "forteresse, bastion",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "forteresse, bastion"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这座堡垒有几百年的历史。",
+     "pinyin": "Zhè zuò bǎolěi yǒu jǐ bǎi nián de lìshǐ.",
+     "fr": "Cet ouvrage fortifié a plusieurs siècles.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "仇",
+   "genre": "caractere",
+   "hanzi": "仇",
+   "pinyin": "chóu",
+   "mots": [
+    "L7-0513"
+   ],
+   "sens": {
+    "glose": "haine, rancune ; ennemi",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "haine, rancune ; ennemi"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他们两家有仇。",
+     "pinyin": "Tāmen liǎng jiā yǒu chóu.",
+     "fr": "Leurs deux familles sont brouillées à mort.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-0110",
+   "genre": "mot",
+   "hanzi": "报仇",
+   "pinyin": "bàochóu",
+   "sens": {
+    "glose": "se venger",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "se venger, venger quelqu'un"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他一心想为父亲报仇。",
+     "pinyin": "Tā yīxīn xiǎng wèi fùqīn bàochóu.",
+     "fr": "Il ne pense qu'à venger son père.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "酬",
+   "genre": "caractere",
+   "hanzi": "酬",
+   "pinyin": "chóu",
+   "sens": {
+    "glose": "rétribution, récompense",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "rétribution, récompense"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": []
+  },
+  {
+   "id": "L7-0111",
+   "genre": "mot",
+   "hanzi": "报酬",
+   "pinyin": "bàochou",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "rémunération, rétribution",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "rémunération, rétribution"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这份工作的报酬不高。",
+     "pinyin": "Zhè fèn gōngzuò de bàochou bù gāo.",
+     "fr": "Ce travail n'est pas bien payé.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-0112",
+   "genre": "mot",
+   "hanzi": "报废",
+   "pinyin": "bàofèi",
+   "sens": {
+    "glose": "mettre au rebut, réformer",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "mettre au rebut, réformer, être hors d'usage"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这辆旧车已经报废了。",
+     "pinyin": "Zhè liàng jiù chē yǐjīng bàofèi le.",
+     "fr": "Cette vieille voiture est bonne pour la casse.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-0113",
+   "genre": "mot",
+   "hanzi": "报复",
+   "pinyin": "bàofu",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "se venger, riposter",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "se venger, exercer des représailles"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他怕别人报复他。",
+     "pinyin": "Tā pà biérén bàofu tā.",
+     "fr": "Il craint qu'on lui rende la pareille.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-0114",
+   "genre": "mot",
+   "hanzi": "报社",
+   "pinyin": "bàoshè",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "rédaction d'un journal",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "rédaction d'un journal, entreprise de presse"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他在一家报社当记者。",
+     "pinyin": "Tā zài yī jiā bàoshè dāng jìzhě.",
+     "fr": "Il est journaliste dans un quotidien.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "亭",
+   "genre": "caractere",
+   "hanzi": "亭",
+   "pinyin": "tíng",
+   "sens": {
+    "glose": "pavillon, kiosque",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "pavillon, kiosque"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": []
+  },
+  {
+   "id": "L7-0115",
+   "genre": "mot",
+   "hanzi": "报亭",
+   "pinyin": "bàotíng",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "kiosque à journaux",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "kiosque à journaux"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "路口有一个报亭。",
+     "pinyin": "Lùkǒu yǒu yī gè bàotíng.",
+     "fr": "Au carrefour, il y a un marchand de journaux.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-0116",
+   "genre": "mot",
+   "hanzi": "报销",
+   "pinyin": "bàoxiāo",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "se faire rembourser des frais",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "se faire rembourser des frais, passer en note de frais"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "出差的车费可以报销。",
+     "pinyin": "Chūchāi de chēfèi kěyǐ bàoxiāo.",
+     "fr": "Les frais de transport des missions sont pris en charge.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-0117",
+   "genre": "mot",
+   "hanzi": "抱负",
+   "pinyin": "bàofù",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "ambition, aspiration",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "ambition, aspiration"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他是个有抱负的年轻人。",
+     "pinyin": "Tā shì gè yǒu bàofù de niánqīngrén.",
+     "fr": "C'est un jeune homme qui vise haut.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "豹",
+   "genre": "caractere",
+   "hanzi": "豹",
+   "pinyin": "bào",
+   "mots": [
+    "L7-0118"
+   ],
+   "sens": {
+    "glose": "léopard, panthère",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "léopard, panthère"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "豹跑得非常快。",
+     "pinyin": "Bào pǎo de fēicháng kuài.",
+     "fr": "Ce fauve court extrêmement vite.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "骤",
+   "genre": "caractere",
+   "hanzi": "骤",
+   "pinyin": "zhòu",
+   "sens": {
+    "glose": "soudain, brusquement",
+    "acceptions": [
+     {
+      "categorie": "Adv",
+      "fr": "soudain, brusquement"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": []
+  },
+  {
+   "id": "L7-0119",
+   "genre": "mot",
+   "hanzi": "暴风骤雨",
+   "pinyin": "bàofēng-zhòuyǔ",
+   "sens": {
+    "glose": "violente tempête ; tourmente",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "violente tempête ; tourmente, bouleversement"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "外面下着暴风骤雨。",
+     "pinyin": "Wàimian xià zhe bàofēng-zhòuyǔ.",
+     "fr": "Dehors, l'orage fait rage.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-0120",
+   "genre": "mot",
+   "hanzi": "暴利",
+   "pinyin": "bàolì",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "profits exorbitants",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "profits exorbitants"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他们卖假货，赚取暴利。",
+     "pinyin": "Tāmen mài jiǎhuò, zhuànqǔ bàolì.",
+     "fr": "Ils vendent des contrefaçons et s'enrichissent énormément.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "躁",
+   "genre": "caractere",
+   "hanzi": "躁",
+   "pinyin": "zào",
+   "sens": {
+    "glose": "agité, impatient",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "agité, impatient, irritable"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": []
+  },
+  {
+   "id": "L7-0121",
+   "genre": "mot",
+   "hanzi": "暴躁",
+   "pinyin": "bàozào",
+   "categories": [
+    "Adj"
+   ],
+   "sens": {
+    "glose": "irascible, emporté",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "irascible, emporté"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他的脾气很暴躁。",
+     "pinyin": "Tā de píqi hěn bàozào.",
+     "fr": "Il s'emporte pour un rien.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "曝",
+   "genre": "caractere",
+   "hanzi": "曝",
+   "pinyin": "pù",
+   "sens": {
+    "glose": "exposer au soleil ; révéler",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "exposer au soleil"
+     },
+     {
+      "categorie": "V",
+      "fr": "révéler au grand jour : en composé",
+      "pinyin": "bào"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": []
+  },
+  {
+   "id": "L7-0122",
+   "genre": "mot",
+   "hanzi": "曝光",
+   "pinyin": "bàoguāng",
+   "sens": {
+    "glose": "révéler au grand jour ; exposer",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "révéler au grand jour"
+     },
+     {
+      "categorie": "V",
+      "fr": "exposer une pellicule"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这件事被记者曝光了。",
+     "pinyin": "Zhè jiàn shì bèi jìzhě bàoguāng le.",
+     "fr": "Les journalistes ont rendu l'affaire publique.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-0123",
+   "genre": "mot",
+   "hanzi": "爆冷门",
+   "pinyin": "bào lěngmén",
+   "sens": {
+    "glose": "créer la surprise",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "créer la surprise, déjouer les pronostics"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这场比赛爆冷门了。",
+     "pinyin": "Zhè chǎng bǐsài bào lěngmén le.",
+     "fr": "Ce match a donné un résultat inattendu.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-0124",
+   "genre": "mot",
+   "hanzi": "爆满",
+   "pinyin": "bàomǎn",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "être bondé, afficher complet",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "être bondé, afficher complet"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "周末电影院里爆满。",
+     "pinyin": "Zhōumò diànyǐngyuàn li bàomǎn.",
+     "fr": "Le week-end, les cinémas sont pleins à craquer.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-0125",
+   "genre": "mot",
+   "hanzi": "爆竹",
+   "pinyin": "bàozhú",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "pétard",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "pétard"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "过年的时候，孩子们喜欢放爆竹。",
+     "pinyin": "Guònián de shíhou, háizimen xǐhuan fàng bàozhú.",
+     "fr": "Au Nouvel An, les enfants adorent faire éclater des pétards.",
+     "statut": "a_relire"
+    }
+   ]
+  }
+ ]
+}
