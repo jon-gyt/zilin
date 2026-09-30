@@ -1,0 +1,1370 @@
+{
+ "niveau": "6",
+ "lot": "03",
+ "source": "rédigé pour l'app dans le pipeline wenlu, sans API ; faits lus : liste HSK 3.0 (forme, pinyin, niveau, catégorie), lectures d'Unihan et des surcharges, gloses relues des fiches",
+ "brouillon": "data/sources/dico-brouillons/6/03.json",
+ "generation": {
+  "modele": "rédaction manuelle",
+  "api": "session Claude Code (sans API)",
+  "date": "2026-09-30",
+  "empreinte_invite": "sha256:783800af6a4598e5b7b5d3dd4c450a1eec2ca449d0d5c0de10d41b328b0f61a9",
+  "contexte": "wenlu dico contexte 6 03",
+  "essais": 1,
+  "refus": []
+ },
+ "entrees": [
+  {
+   "id": "L6-0088",
+   "genre": "mot",
+   "hanzi": "厕所",
+   "pinyin": "cèsuǒ",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "toilettes, cabinets",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "toilettes, cabinets"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "请问，厕所在哪儿？",
+     "pinyin": "Qǐngwèn, cèsuǒ zài nǎr?",
+     "fr": "Excusez-moi, où sont les toilettes ?",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "侧",
+   "genre": "caractere",
+   "hanzi": "侧",
+   "pinyin": "cè",
+   "mots": [
+    "L6-0089"
+   ],
+   "sens": {
+    "glose": "côté, flanc ; pencher de côté",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "côté, flanc"
+     },
+     {
+      "categorie": "V",
+      "fr": "pencher, tourner de côté"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他侧着身子走了进来。",
+     "pinyin": "Tā cè zhe shēnzi zǒu le jìnlai.",
+     "fr": "Il est entré en se faufilant de biais.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L6-0090",
+   "genre": "mot",
+   "hanzi": "测定",
+   "pinyin": "cèdìng",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "mesurer, déterminer",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "mesurer, déterminer par l'analyse"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "我们要测定水的温度。",
+     "pinyin": "Wǒmen yào cèdìng shuǐ de wēndù.",
+     "fr": "Nous devons relever la température de l'eau.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "策",
+   "genre": "caractere",
+   "hanzi": "策",
+   "pinyin": "cè",
+   "sens": {
+    "glose": "plan, stratégie",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "plan, stratagème ; politique"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": []
+  },
+  {
+   "id": "L6-0091",
+   "genre": "mot",
+   "hanzi": "策划",
+   "pinyin": "cèhuà",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "organiser, concevoir, planifier",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "organiser, concevoir, planifier"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这次活动是他策划的。",
+     "pinyin": "Zhè cì huódòng shì tā cèhuà de.",
+     "fr": "C'est lui qui a monté cet événement.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "略",
+   "genre": "caractere",
+   "hanzi": "略",
+   "pinyin": "lüè",
+   "mots": [
+    "L7-2740"
+   ],
+   "sens": {
+    "glose": "légèrement ; omettre ; stratégie",
+    "acceptions": [
+     {
+      "categorie": "Adv",
+      "fr": "légèrement, un peu"
+     },
+     {
+      "categorie": "V",
+      "fr": "omettre, abréger"
+     },
+     {
+      "categorie": "N",
+      "fr": "stratégie, plan"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他比我略高一点。",
+     "pinyin": "Tā bǐ wǒ lüè gāo yīdiǎn.",
+     "fr": "Il est un tout petit peu plus grand que moi.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L6-0092",
+   "genre": "mot",
+   "hanzi": "策略",
+   "pinyin": "cèlüè",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "stratégie, tactique",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "stratégie, tactique"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "我们需要换一个策略。",
+     "pinyin": "Wǒmen xūyào huàn yī ge cèlüè.",
+     "fr": "Il nous faut changer de méthode.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L6-0093",
+   "genre": "mot",
+   "hanzi": "层面",
+   "pinyin": "céngmiàn",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "niveau, plan, aspect",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "niveau, plan, aspect"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这个问题要从不同层面来看。",
+     "pinyin": "Zhège wèntí yào cóng bùtóng céngmiàn lái kàn.",
+     "fr": "Il faut regarder ce problème sous plusieurs angles.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "异",
+   "genre": "caractere",
+   "hanzi": "异",
+   "pinyin": "yì",
+   "sens": {
+    "glose": "différent ; étrange",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "différent, autre"
+     },
+     {
+      "categorie": "Adj",
+      "fr": "étrange, singulier"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": []
+  },
+  {
+   "id": "L6-0094",
+   "genre": "mot",
+   "hanzi": "差异",
+   "pinyin": "chāyì",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "différence, écart",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "différence, écart, disparité"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "两地的气候差异很大。",
+     "pinyin": "Liǎng dì de qìhòu chāyì hěn dà.",
+     "fr": "Le climat des deux régions n'a rien à voir.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L6-0095",
+   "genre": "mot",
+   "hanzi": "查出",
+   "pinyin": "cháchū",
+   "sens": {
+    "glose": "découvrir, détecter (en cherchant)",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "découvrir, détecter en cherchant"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "警察很快查出了原因。",
+     "pinyin": "Jǐngchá hěn kuài cháchū le yuányīn.",
+     "fr": "La police a vite trouvé la cause.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L6-0096",
+   "genre": "mot",
+   "hanzi": "查看",
+   "pinyin": "chákàn",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "examiner, consulter, vérifier",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "examiner, consulter, vérifier"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "请查看一下你的邮件。",
+     "pinyin": "Qǐng chákàn yīxià nǐ de yóujiàn.",
+     "fr": "Regarde tes courriels, s'il te plaît.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "迁",
+   "genre": "caractere",
+   "hanzi": "迁",
+   "pinyin": "qiān",
+   "mots": [
+    "L7-3241"
+   ],
+   "sens": {
+    "glose": "déménager, transférer",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "déménager, transférer ; changer"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他们家去年迁到了北京。",
+     "pinyin": "Tāmen jiā qùnián qiān dào le Běijīng.",
+     "fr": "Sa famille s'est installée à Pékin l'an dernier.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L6-0097",
+   "genre": "mot",
+   "hanzi": "拆迁",
+   "pinyin": "chāiqiān",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "démolir et reloger les habitants",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "démolir et reloger les habitants"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这里的老房子都要拆迁。",
+     "pinyin": "Zhèli de lǎo fángzi dōu yào chāiqiān.",
+     "fr": "Toutes les vieilles maisons d'ici vont être rasées.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L6-0098",
+   "genre": "mot",
+   "hanzi": "产量",
+   "pinyin": "chǎnliàng",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "production, rendement",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "production, volume produit, rendement"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "今年的粮食产量很高。",
+     "pinyin": "Jīnnián de liángshi chǎnliàng hěn gāo.",
+     "fr": "La récolte de céréales est très bonne cette année.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "昌",
+   "genre": "caractere",
+   "hanzi": "昌",
+   "pinyin": "chāng",
+   "sens": {
+    "glose": "prospère, florissant",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "prospère, florissant"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": []
+  },
+  {
+   "id": "盛",
+   "genre": "caractere",
+   "hanzi": "盛",
+   "pinyin": "shèng",
+   "mots": [
+    "L7-0464"
+   ],
+   "sens": {
+    "glose": "florissant, abondant ; servir (un bol)",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "florissant, abondant ; grandiose"
+     },
+     {
+      "categorie": "V",
+      "fr": "servir, remplir : un bol, un plat",
+      "pinyin": "chéng"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "请给我盛一碗饭。",
+     "pinyin": "Qǐng gěi wǒ chéng yī wǎn fàn.",
+     "fr": "Sers-moi un bol de riz, s'il te plaît.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L6-0099",
+   "genre": "mot",
+   "hanzi": "昌盛",
+   "pinyin": "chāngshèng",
+   "categories": [
+    "Adj"
+   ],
+   "sens": {
+    "glose": "prospère, florissant",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "prospère, florissant"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "国家越来越昌盛。",
+     "pinyin": "Guójiā yuèláiyuè chāngshèng.",
+     "fr": "Le pays est de plus en plus riche.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L6-0100",
+   "genre": "mot",
+   "hanzi": "长短",
+   "pinyin": "chángduǎn",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "longueur ; malheur ; défauts",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "longueur"
+     },
+     {
+      "categorie": "N",
+      "fr": "accident, malheur ; le pour et le contre"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这条裤子的长短正合适。",
+     "pinyin": "Zhè tiáo kùzi de chángduǎn zhèng héshì.",
+     "fr": "Ce pantalon est juste à la bonne taille.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L6-0101",
+   "genre": "mot",
+   "hanzi": "长假",
+   "pinyin": "chángjià",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "long congé",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "long congé, longues vacances"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "春节放长假，我要回家。",
+     "pinyin": "Chūnjié fàng chángjià, wǒ yào huí jiā.",
+     "fr": "Pour le Nouvel An, on a une longue coupure et je rentre chez moi.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L6-0102",
+   "genre": "mot",
+   "hanzi": "长久",
+   "pinyin": "chángjiǔ",
+   "categories": [
+    "Adj"
+   ],
+   "sens": {
+    "glose": "durable, de longue durée",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "durable, de longue durée"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这不是长久的办法。",
+     "pinyin": "Zhè bù shì chángjiǔ de bànfǎ.",
+     "fr": "Ce n'est pas une solution qui peut tenir.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L6-0103",
+   "genre": "mot",
+   "hanzi": "长跑",
+   "pinyin": "chángpǎo",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "course de fond",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "course de fond"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他每天早上都练长跑。",
+     "pinyin": "Tā měi tiān zǎoshang dōu liàn chángpǎo.",
+     "fr": "Il s'entraîne tous les matins à courir sur de longues distances.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L6-0104",
+   "genre": "mot",
+   "hanzi": "长远",
+   "pinyin": "chángyuǎn",
+   "categories": [
+    "Adj"
+   ],
+   "sens": {
+    "glose": "à long terme",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "à long terme, de longue portée"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "我们要有长远的打算。",
+     "pinyin": "Wǒmen yào yǒu chángyuǎn de dǎsuan.",
+     "fr": "Il faut voir loin.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L6-0105",
+   "genre": "mot",
+   "hanzi": "常规",
+   "pinyin": "chángguī",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "règle habituelle, routine",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "règle habituelle, routine ; convention"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这是常规检查，不用担心。",
+     "pinyin": "Zhè shì chángguī jiǎnchá, bùyòng dānxīn.",
+     "fr": "C'est un examen de routine, ne t'inquiète pas.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L6-0106",
+   "genre": "mot",
+   "hanzi": "常年",
+   "pinyin": "chángnián",
+   "categories": [
+    "Adv",
+    "N"
+   ],
+   "sens": {
+    "glose": "toute l'année ; années ordinaires",
+    "acceptions": [
+     {
+      "categorie": "Adv",
+      "fr": "toute l'année, en permanence"
+     },
+     {
+      "categorie": "N",
+      "fr": "année ordinaire"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "山上常年有雪。",
+     "pinyin": "Shān shang chángnián yǒu xuě.",
+     "fr": "Il y a de la neige sur la montagne en toute saison.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L6-0107",
+   "genre": "mot",
+   "hanzi": "厂商",
+   "pinyin": "chǎngshāng",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "fabricant, industriel",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "fabricant, industriel ; commerçant"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "很多厂商参加了这次车展。",
+     "pinyin": "Hěn duō chǎngshāng cānjiā le zhè cì chēzhǎn.",
+     "fr": "De nombreux constructeurs sont venus à ce salon auto.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L6-0108",
+   "genre": "mot",
+   "hanzi": "场地",
+   "pinyin": "chǎngdì",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "terrain, emplacement, lieu",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "terrain, emplacement, lieu"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "比赛的场地已经准备好了。",
+     "pinyin": "Bǐsài de chǎngdì yǐjīng zhǔnbèi hǎo le.",
+     "fr": "Le terrain de la compétition est prêt.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L6-0109",
+   "genre": "mot",
+   "hanzi": "场馆",
+   "pinyin": "chǎngguǎn",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "installations, stades et salles",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "installations : stades, salles, pavillons"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这些场馆是为运动会建的。",
+     "pinyin": "Zhèxiē chǎngguǎn shì wèi yùndònghuì jiàn de.",
+     "fr": "Ces équipements ont été construits pour les jeux.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L6-0110",
+   "genre": "mot",
+   "hanzi": "场景",
+   "pinyin": "chǎngjǐng",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "scène, décor",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "scène, décor, tableau"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "电影开头的场景很美。",
+     "pinyin": "Diànyǐng kāitóu de chǎngjǐng hěn měi.",
+     "fr": "Le début du film est magnifique.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "畅",
+   "genre": "caractere",
+   "hanzi": "畅",
+   "pinyin": "chàng",
+   "sens": {
+    "glose": "fluide ; libre, à cœur joie",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "fluide, sans obstacle"
+     },
+     {
+      "categorie": "Adj",
+      "fr": "libre, à cœur joie"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": []
+  },
+  {
+   "id": "L6-0111",
+   "genre": "mot",
+   "hanzi": "畅通",
+   "pinyin": "chàngtōng",
+   "categories": [
+    "Adj"
+   ],
+   "sens": {
+    "glose": "dégagé, fluide",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "dégagé, fluide : une route, une ligne"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "今天路上很畅通。",
+     "pinyin": "Jīntiān lù shang hěn chàngtōng.",
+     "fr": "Aujourd'hui, ça roule bien.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L6-0113",
+   "genre": "mot",
+   "hanzi": "超出",
+   "pinyin": "chāochū",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "dépasser, excéder",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "dépasser, excéder"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "费用超出了我们的计划。",
+     "pinyin": "Fèiyong chāochū le wǒmen de jìhuà.",
+     "fr": "Les frais sont allés au-delà de nos prévisions.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "炒",
+   "genre": "caractere",
+   "hanzi": "炒",
+   "pinyin": "chǎo",
+   "mots": [
+    "L6-0114"
+   ],
+   "sens": {
+    "glose": "faire sauter ; spéculer",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "faire sauter, faire revenir : cuisine"
+     },
+     {
+      "categorie": "V",
+      "fr": "spéculer sur ; faire du battage"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "妈妈在厨房炒菜。",
+     "pinyin": "Māma zài chúfáng chǎo cài.",
+     "fr": "Maman cuisine des légumes à la poêle.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "股",
+   "genre": "caractere",
+   "hanzi": "股",
+   "pinyin": "gǔ",
+   "mots": [
+    "L6-0335"
+   ],
+   "sens": {
+    "glose": "classif. des odeurs, courants ; action",
+    "acceptions": [
+     {
+      "categorie": "M",
+      "fr": "classificateur : odeur, courant, force"
+     },
+     {
+      "categorie": "N",
+      "fr": "action en bourse, part"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "屋里有一股香味。",
+     "pinyin": "Wū li yǒu yī gǔ xiāngwèi.",
+     "fr": "Ça sent bon dans la pièce.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L6-0115",
+   "genre": "mot",
+   "hanzi": "炒股",
+   "pinyin": "chǎogǔ",
+   "sens": {
+    "glose": "spéculer en bourse, boursicoter",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "spéculer en bourse, boursicoter"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他最近在炒股。",
+     "pinyin": "Tā zuìjìn zài chǎogǔ.",
+     "fr": "Ces temps-ci, il joue en bourse.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L6-0116",
+   "genre": "mot",
+   "hanzi": "炒作",
+   "pinyin": "chǎozuò",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "faire du battage, médiatiser",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "faire du battage, médiatiser à outrance"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这件事被媒体炒作得很厉害。",
+     "pinyin": "Zhè jiàn shì bèi méitǐ chǎozuò de hěn lìhai.",
+     "fr": "Les médias ont fait énormément de bruit autour de cette affaire.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L6-0117",
+   "genre": "mot",
+   "hanzi": "车号",
+   "pinyin": "chēhào",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "numéro de véhicule",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "numéro de véhicule, d'immatriculation"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "你记住那辆车的车号了吗？",
+     "pinyin": "Nǐ jìzhù nà liàng chē de chēhào le ma?",
+     "fr": "As-tu retenu le numéro de cette voiture ?",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L6-0118",
+   "genre": "mot",
+   "hanzi": "车牌",
+   "pinyin": "chēpái",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "plaque d'immatriculation",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "plaque d'immatriculation"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他的车牌是北京的。",
+     "pinyin": "Tā de chēpái shì Běijīng de.",
+     "fr": "Sa voiture est immatriculée à Pékin.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L6-0119",
+   "genre": "mot",
+   "hanzi": "车展",
+   "pinyin": "chēzhǎn",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "salon de l'automobile",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "salon de l'automobile"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "我们周末去看车展吧。",
+     "pinyin": "Wǒmen zhōumò qù kàn chēzhǎn ba.",
+     "fr": "Allons voir les voitures exposées ce week-end.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "撤",
+   "genre": "caractere",
+   "hanzi": "撤",
+   "pinyin": "chè",
+   "mots": [
+    "L7-0426"
+   ],
+   "sens": {
+    "glose": "retirer, enlever ; évacuer",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "retirer, enlever"
+     },
+     {
+      "categorie": "V",
+      "fr": "se retirer, évacuer"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "把桌上的东西撤了吧。",
+     "pinyin": "Bǎ zhuō shang de dōngxi chè le ba.",
+     "fr": "Débarrasse la table.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L6-0120",
+   "genre": "mot",
+   "hanzi": "撤离",
+   "pinyin": "chèlí",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "évacuer, se retirer",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "évacuer, se retirer, quitter"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "大家要马上撤离这座楼。",
+     "pinyin": "Dàjiā yào mǎshàng chèlí zhè zuò lóu.",
+     "fr": "Tout le monde doit sortir de l'immeuble immédiatement.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L6-0121",
+   "genre": "mot",
+   "hanzi": "撤销",
+   "pinyin": "chèxiāo",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "annuler, révoquer",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "annuler, révoquer, supprimer"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "法院撤销了这个决定。",
+     "pinyin": "Fǎyuàn chèxiāo le zhège juédìng.",
+     "fr": "Le tribunal a cassé cette décision.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "撑",
+   "genre": "caractere",
+   "hanzi": "撑",
+   "pinyin": "chēng",
+   "mots": [
+    "L6-0122"
+   ],
+   "sens": {
+    "glose": "soutenir ; ouvrir, déployer ; être gavé",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "soutenir, étayer ; tenir bon"
+     },
+     {
+      "categorie": "V",
+      "fr": "ouvrir, déployer : un parapluie, une voile"
+     },
+     {
+      "categorie": "V",
+      "fr": "être gavé, avoir trop mangé"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "我吃得太撑了。",
+     "pinyin": "Wǒ chī de tài chēng le.",
+     "fr": "J'ai trop mangé, je n'en peux plus.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L6-0124",
+   "genre": "mot",
+   "hanzi": "成分",
+   "pinyin": "chéngfèn",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "composant, composition",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "composant, élément ; composition"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这种药的成分是什么？",
+     "pinyin": "Zhè zhǒng yào de chéngfèn shì shénme?",
+     "fr": "Qu'y a-t-il dans ce médicament ?",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L6-0125",
+   "genre": "mot",
+   "hanzi": "成品",
+   "pinyin": "chéngpǐn",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "produit fini",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "produit fini"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这是成品，可以直接卖。",
+     "pinyin": "Zhè shì chéngpǐn, kěyǐ zhíjiē mài.",
+     "fr": "C'est prêt, on peut le vendre tel quel.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "诺",
+   "genre": "caractere",
+   "hanzi": "诺",
+   "pinyin": "nuò",
+   "sens": {
+    "glose": "promesse ; consentir",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "promesse"
+     },
+     {
+      "categorie": "V",
+      "fr": "consentir, promettre"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": []
+  },
+  {
+   "id": "L6-0126",
+   "genre": "mot",
+   "hanzi": "承诺",
+   "pinyin": "chéngnuò",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "promettre, s'engager ; promesse",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "promettre, s'engager à"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "公司承诺三天内送到。",
+     "pinyin": "Gōngsī chéngnuò sān tiān nèi sòngdào.",
+     "fr": "L'entreprise garantit une livraison en trois jours.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L6-0127",
+   "genre": "mot",
+   "hanzi": "城区",
+   "pinyin": "chéngqū",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "zone urbaine, quartiers de la ville",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "zone urbaine, quartiers de la ville"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他住在城区，上班很方便。",
+     "pinyin": "Tā zhù zài chéngqū, shàngbān hěn fāngbiàn.",
+     "fr": "Il habite en ville, c'est pratique pour aller au travail.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L6-0128",
+   "genre": "mot",
+   "hanzi": "城乡",
+   "pinyin": "chéng xiāng",
+   "sens": {
+    "glose": "villes et campagnes",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "villes et campagnes, urbain et rural"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "城乡差别越来越小了。",
+     "pinyin": "Chéng xiāng chābié yuèláiyuè xiǎo le.",
+     "fr": "L'écart entre la ville et la campagne se réduit.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "镇",
+   "genre": "caractere",
+   "hanzi": "镇",
+   "pinyin": "zhèn",
+   "mots": [
+    "L6-1055"
+   ],
+   "sens": {
+    "glose": "bourg ; calmer, réprimer",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "bourg, petite ville"
+     },
+     {
+      "categorie": "V",
+      "fr": "calmer, réprimer ; rafraîchir dans la glace"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他住在一个小镇上。",
+     "pinyin": "Tā zhù zài yī ge xiǎo zhèn shang.",
+     "fr": "Il habite dans une petite bourgade.",
+     "statut": "a_relire"
+    }
+   ]
+  }
+ ]
+}

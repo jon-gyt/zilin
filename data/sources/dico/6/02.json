@@ -1,0 +1,1341 @@
+{
+ "niveau": "6",
+ "lot": "02",
+ "source": "rédigé pour l'app dans le pipeline wenlu, sans API ; faits lus : liste HSK 3.0 (forme, pinyin, niveau, catégorie), lectures d'Unihan et des surcharges, gloses relues des fiches",
+ "brouillon": "data/sources/dico-brouillons/6/02.json",
+ "generation": {
+  "modele": "rédaction manuelle",
+  "api": "session Claude Code (sans API)",
+  "date": "2026-09-30",
+  "empreinte_invite": "sha256:728592b4de8bd6da115012d6f46ea7e645c3fa9d0f8e8bf4aa3d6cc8ddafb3db",
+  "contexte": "wenlu dico contexte 6 02",
+  "essais": 1,
+  "refus": []
+ },
+ "entrees": [
+  {
+   "id": "扁",
+   "genre": "caractere",
+   "hanzi": "扁",
+   "pinyin": "biǎn",
+   "mots": [
+    "L6-0043"
+   ],
+   "sens": {
+    "glose": "plat, aplati",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "plat, aplati"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "箱子被压扁了。",
+     "pinyin": "Xiāngzi bèi yā biǎn le.",
+     "fr": "La valise a été écrasée.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L6-0044",
+   "genre": "mot",
+   "hanzi": "变更",
+   "pinyin": "biàngēng",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "modifier, changer",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "modifier, changer : un plan, une date"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "我们变更了出发的时间。",
+     "pinyin": "Wǒmen biàngēng le chūfā de shíjiān.",
+     "fr": "Nous avons décalé l'heure du départ.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L6-0045",
+   "genre": "mot",
+   "hanzi": "变换",
+   "pinyin": "biànhuàn",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "varier, alterner, changer",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "varier, alterner, faire changer"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他不停地变换方向。",
+     "pinyin": "Tā bùtíng de biànhuàn fāngxiàng.",
+     "fr": "Il ne cesse de changer de direction.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L6-0046",
+   "genre": "mot",
+   "hanzi": "变形",
+   "pinyin": "biànxíng",
+   "sens": {
+    "glose": "se déformer",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "se déformer, perdre sa forme"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这双鞋穿久了，有点变形了。",
+     "pinyin": "Zhè shuāng xié chuān jiǔ le, yǒudiǎn biànxíng le.",
+     "fr": "À force d'être portées, ces chaussures sont un peu déformées.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L6-0048",
+   "genre": "mot",
+   "hanzi": "便是",
+   "pinyin": "biàn shì",
+   "sens": {
+    "glose": "c'est précisément, n'est autre que",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "c'est précisément, n'est autre que : langue écrite"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这便是我的家。",
+     "pinyin": "Zhè biàn shì wǒ de jiā.",
+     "fr": "Voici ma maison.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L6-0049",
+   "genre": "mot",
+   "hanzi": "遍地",
+   "pinyin": "biàndì",
+   "categories": [
+    "Adv"
+   ],
+   "sens": {
+    "glose": "partout, un peu partout",
+    "acceptions": [
+     {
+      "categorie": "Adv",
+      "fr": "partout, sur tout le sol"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "春天，公园里遍地是花。",
+     "pinyin": "Chūntiān, gōngyuán li biàndì shì huā.",
+     "fr": "Au printemps, le parc est couvert de fleurs.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L6-0050",
+   "genre": "mot",
+   "hanzi": "表面上",
+   "pinyin": "biǎomiàn shang",
+   "sens": {
+    "glose": "en apparence, à première vue",
+    "acceptions": [
+     {
+      "categorie": "Adv",
+      "fr": "en apparence, à première vue"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他表面上很平静。",
+     "pinyin": "Tā biǎomiàn shang hěn píngjìng.",
+     "fr": "Il a l'air calme.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L6-0051",
+   "genre": "mot",
+   "hanzi": "病房",
+   "pinyin": "bìngfáng",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "chambre d'hôpital",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "chambre d'hôpital, salle des malades"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他的病房在三楼。",
+     "pinyin": "Tā de bìngfáng zài sān lóu.",
+     "fr": "Sa chambre est au troisième étage de l'hôpital.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L6-0052",
+   "genre": "mot",
+   "hanzi": "病情",
+   "pinyin": "bìngqíng",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "état du malade",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "état du malade, évolution de la maladie"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他的病情好多了。",
+     "pinyin": "Tā de bìngqíng hǎo duō le.",
+     "fr": "Il va beaucoup mieux.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "拨",
+   "genre": "caractere",
+   "hanzi": "拨",
+   "pinyin": "bō",
+   "mots": [
+    "L7-0236"
+   ],
+   "sens": {
+    "glose": "tourner du doigt, composer ; allouer",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "pousser, tourner du doigt ; composer : un numéro"
+     },
+     {
+      "categorie": "V",
+      "fr": "allouer, attribuer : des fonds"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他拨了一个电话号码。",
+     "pinyin": "Tā bō le yī ge diànhuà hàomǎ.",
+     "fr": "Il a fait un numéro de téléphone.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L6-0053",
+   "genre": "mot",
+   "hanzi": "拨打",
+   "pinyin": "bōdǎ",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "composer (un numéro), appeler",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "composer un numéro, appeler"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "有事请拨打这个电话。",
+     "pinyin": "Yǒu shì qǐng bōdǎ zhège diànhuà.",
+     "fr": "En cas de besoin, appelez ce numéro.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "波",
+   "genre": "caractere",
+   "hanzi": "波",
+   "pinyin": "bō",
+   "sens": {
+    "glose": "vague, onde",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "vague, onde"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": []
+  },
+  {
+   "id": "L6-0054",
+   "genre": "mot",
+   "hanzi": "波动",
+   "pinyin": "bōdòng",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "fluctuer, varier",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "fluctuer, varier, être instable"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "最近油价波动很大。",
+     "pinyin": "Zuìjìn yóujià bōdòng hěn dà.",
+     "fr": "Ces derniers temps, le prix de l'essence change beaucoup.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L6-0055",
+   "genre": "mot",
+   "hanzi": "波浪",
+   "pinyin": "bōlàng",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "vague, lame",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "vague, lame, houle"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "海上的波浪很大。",
+     "pinyin": "Hǎi shang de bōlàng hěn dà.",
+     "fr": "La mer est très agitée.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L6-0057",
+   "genre": "mot",
+   "hanzi": "不便",
+   "pinyin": "bùbiàn",
+   "categories": [
+    "Adj",
+    "V"
+   ],
+   "sens": {
+    "glose": "incommode ; gêne",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "incommode, peu pratique ; gêne"
+     },
+     {
+      "categorie": "V",
+      "fr": "ne pas être en mesure de, ne pas convenir de"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "给您带来不便，非常抱歉。",
+     "pinyin": "Gěi nín dàilái bùbiàn, fēicháng bàoqiàn.",
+     "fr": "Veuillez nous excuser pour le dérangement.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L6-0058",
+   "genre": "mot",
+   "hanzi": "不见",
+   "pinyin": "bùjiàn",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "disparaître, être introuvable",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "disparaître, être introuvable ; ne pas voir"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "我的手机不见了。",
+     "pinyin": "Wǒ de shǒujī bùjiàn le.",
+     "fr": "Je ne retrouve plus mon portable.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L6-0059",
+   "genre": "mot",
+   "hanzi": "不料",
+   "pinyin": "bùliào",
+   "categories": [
+    "Conj"
+   ],
+   "sens": {
+    "glose": "contre toute attente",
+    "acceptions": [
+     {
+      "categorie": "Conj",
+      "fr": "contre toute attente, mais voilà que"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "我们正要出门，不料下雨了。",
+     "pinyin": "Wǒmen zhèng yào chūmén, bùliào xià yǔ le.",
+     "fr": "Nous allions sortir quand il s'est mis à pleuvoir.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L6-0060",
+   "genre": "mot",
+   "hanzi": "不再",
+   "pinyin": "bùzài",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "ne plus",
+    "acceptions": [],
+    "statut": "relu",
+    "provenance": {
+     "reprise": "data/sources/fiches/再.json",
+     "champ": "mots[].fr"
+    }
+   },
+   "exemples": [
+    {
+     "zh": "他不再抽烟了。",
+     "pinyin": "Tā bùzài chōuyān le.",
+     "fr": "Il a arrêté de fumer.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L6-0061",
+   "genre": "mot",
+   "hanzi": "不至于",
+   "pinyin": "bùzhìyú",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "ne pas aller jusqu'à",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "ne pas aller jusqu'à, ne pas en arriver à"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他不至于这么做吧。",
+     "pinyin": "Tā bùzhìyú zhème zuò ba.",
+     "fr": "Il n'irait quand même pas jusque-là.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L6-0062",
+   "genre": "mot",
+   "hanzi": "补考",
+   "pinyin": "bǔkǎo",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "repasser un examen, rattrapage",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "repasser un examen, passer le rattrapage"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他数学没通过，下个月要补考。",
+     "pinyin": "Tā shùxué méi tōngguò, xià ge yuè yào bǔkǎo.",
+     "fr": "Il a échoué en maths et repasse l'épreuve le mois prochain.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L6-0063",
+   "genre": "mot",
+   "hanzi": "补课",
+   "pinyin": "bǔkè",
+   "sens": {
+    "glose": "rattraper des cours",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "rattraper des cours, donner des cours de rattrapage"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "周末老师给我们补课。",
+     "pinyin": "Zhōumò lǎoshī gěi wǒmen bǔkè.",
+     "fr": "Le week-end, le professeur nous fait des cours en plus.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L6-0064",
+   "genre": "mot",
+   "hanzi": "补习",
+   "pinyin": "bǔxí",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "prendre des cours de soutien",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "prendre ou donner des cours de soutien"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "她晚上去补习英语。",
+     "pinyin": "Tā wǎnshang qù bǔxí Yīngyǔ.",
+     "fr": "Le soir, elle suit des cours d'anglais en plus.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L6-0065",
+   "genre": "mot",
+   "hanzi": "补助",
+   "pinyin": "bǔzhù",
+   "categories": [
+    "V",
+    "N"
+   ],
+   "sens": {
+    "glose": "aider financièrement ; allocation",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "aider financièrement, subventionner"
+     },
+     {
+      "categorie": "N",
+      "fr": "allocation, subvention"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他每个月有五百元补助。",
+     "pinyin": "Tā měi ge yuè yǒu wǔbǎi yuán bǔzhù.",
+     "fr": "Il touche une aide de cinq cents yuans par mois.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "捕",
+   "genre": "caractere",
+   "hanzi": "捕",
+   "pinyin": "bǔ",
+   "mots": [
+    "L6-0066"
+   ],
+   "sens": {
+    "glose": "attraper, capturer, arrêter",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "attraper, capturer ; arrêter"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他们在河里捕鱼。",
+     "pinyin": "Tāmen zài hé li bǔ yú.",
+     "fr": "Ils pêchent dans la rivière.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L6-0067",
+   "genre": "mot",
+   "hanzi": "不成",
+   "pinyin": "bùchéng",
+   "categories": [
+    "V",
+    "Adj"
+   ],
+   "sens": {
+    "glose": "ne pas aller, ne pas réussir",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "ne pas aboutir, ne pas réussir"
+     },
+     {
+      "categorie": "Adj",
+      "fr": "pas possible, qui ne va pas"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这样可不成。",
+     "pinyin": "Zhèyàng kě bùchéng.",
+     "fr": "Comme ça, ça ne va pas du tout.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L6-0068",
+   "genre": "mot",
+   "hanzi": "不禁",
+   "pinyin": "bùjīn",
+   "categories": [
+    "Adv"
+   ],
+   "sens": {
+    "glose": "ne pouvoir s'empêcher de",
+    "acceptions": [
+     {
+      "categorie": "Adv",
+      "fr": "ne pouvoir s'empêcher de, malgré soi"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "听到这个消息，她不禁哭了起来。",
+     "pinyin": "Tīngdào zhège xiāoxi, tā bùjīn kū le qǐlai.",
+     "fr": "En apprenant la nouvelle, elle s'est mise à pleurer.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L6-0069",
+   "genre": "mot",
+   "hanzi": "不仅仅",
+   "pinyin": "bù jǐnjǐn",
+   "sens": {
+    "glose": "pas seulement, pas uniquement",
+    "acceptions": [
+     {
+      "categorie": "Conj",
+      "fr": "pas seulement, pas uniquement"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这不仅仅是钱的问题。",
+     "pinyin": "Zhè bù jǐnjǐn shì qián de wèntí.",
+     "fr": "Ce n'est pas qu'une question d'argent.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L6-0070",
+   "genre": "mot",
+   "hanzi": "不通",
+   "pinyin": "bùtōng",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "bloqué ; qui ne tient pas",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "être bloqué, impraticable ; ne pas passer"
+     },
+     {
+      "categorie": "V",
+      "fr": "ne pas tenir debout : un texte, un raisonnement"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "前面的路不通。",
+     "pinyin": "Qiánmian de lù bùtōng.",
+     "fr": "La route est coupée plus loin.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L6-0071",
+   "genre": "mot",
+   "hanzi": "不怎么",
+   "pinyin": "bùzěnme",
+   "categories": [
+    "Adv"
+   ],
+   "sens": {
+    "glose": "pas très, pas tellement",
+    "acceptions": [
+     {
+      "categorie": "Adv",
+      "fr": "pas très, pas tellement"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "我不怎么喜欢吃辣的。",
+     "pinyin": "Wǒ bùzěnme xǐhuan chī là de.",
+     "fr": "Je n'aime pas trop manger épicé.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L6-0072",
+   "genre": "mot",
+   "hanzi": "不怎么样",
+   "pinyin": "bùzěnmeyàng",
+   "sens": {
+    "glose": "pas terrible, médiocre",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "pas terrible, médiocre"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这家饭馆的菜不怎么样。",
+     "pinyin": "Zhè jiā fànguǎn de cài bùzěnmeyàng.",
+     "fr": "La cuisine de ce restaurant ne vaut pas grand-chose.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L6-0073",
+   "genre": "mot",
+   "hanzi": "不值",
+   "pinyin": "bùzhí",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "ne pas valoir",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "ne pas valoir, ne pas mériter"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这件衣服不值这么多钱。",
+     "pinyin": "Zhè jiàn yīfu bùzhí zhème duō qián.",
+     "fr": "Ce vêtement ne vaut pas un tel prix.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L6-0074",
+   "genre": "mot",
+   "hanzi": "布满",
+   "pinyin": "bùmǎn",
+   "sens": {
+    "glose": "couvrir entièrement",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "couvrir entièrement, être parsemé de"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "天上布满了星星。",
+     "pinyin": "Tiān shang bùmǎn le xīngxing.",
+     "fr": "Le ciel est plein d'étoiles.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L6-0075",
+   "genre": "mot",
+   "hanzi": "部队",
+   "pinyin": "bùduì",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "troupes, armée",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "troupes, armée ; unité militaire"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他在部队当了五年兵。",
+     "pinyin": "Tā zài bùduì dāng le wǔ nián bīng.",
+     "fr": "Il a été soldat pendant cinq ans.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "纳",
+   "genre": "caractere",
+   "hanzi": "纳",
+   "pinyin": "nà",
+   "sens": {
+    "glose": "recevoir, accepter ; payer (un impôt)",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "recevoir, accepter"
+     },
+     {
+      "categorie": "V",
+      "fr": "payer, acquitter : un impôt"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": []
+  },
+  {
+   "id": "L6-0076",
+   "genre": "mot",
+   "hanzi": "采纳",
+   "pinyin": "cǎinà",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "adopter, retenir (une idée)",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "adopter, retenir : une idée, une proposition"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "经理采纳了我的建议。",
+     "pinyin": "Jīnglǐ cǎinà le wǒ de jiànyì.",
+     "fr": "Le directeur a suivi ma suggestion.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "踩",
+   "genre": "caractere",
+   "hanzi": "踩",
+   "pinyin": "cǎi",
+   "mots": [
+    "L6-0077"
+   ],
+   "sens": {
+    "glose": "marcher sur, poser le pied sur",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "marcher sur, poser le pied sur"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "对不起，我踩到你的脚了。",
+     "pinyin": "Duìbuqǐ, wǒ cǎi dào nǐ de jiǎo le.",
+     "fr": "Pardon, je t'ai marché sur le pied.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L6-0078",
+   "genre": "mot",
+   "hanzi": "参赛",
+   "pinyin": "cānsài",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "prendre part à une compétition",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "prendre part à une compétition"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这次有二十个国家参赛。",
+     "pinyin": "Zhè cì yǒu èrshí ge guójiā cānsài.",
+     "fr": "Vingt pays sont en lice cette fois-ci.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L6-0079",
+   "genre": "mot",
+   "hanzi": "参展",
+   "pinyin": "cānzhǎn",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "participer à une exposition",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "participer à une exposition, exposer"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "我们公司明年也要参展。",
+     "pinyin": "Wǒmen gōngsī míngnián yě yào cānzhǎn.",
+     "fr": "Notre entreprise aura aussi un stand l'an prochain.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "残",
+   "genre": "caractere",
+   "hanzi": "残",
+   "pinyin": "cán",
+   "mots": [
+    "L7-0334"
+   ],
+   "sens": {
+    "glose": "abîmé, incomplet ; mutiler",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "abîmé, incomplet ; restant"
+     },
+     {
+      "categorie": "V",
+      "fr": "mutiler, endommager"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这只小狗的腿残了。",
+     "pinyin": "Zhè zhī xiǎo gǒu de tuǐ cán le.",
+     "fr": "Ce petit chien a une patte estropiée.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "疾",
+   "genre": "caractere",
+   "hanzi": "疾",
+   "pinyin": "jí",
+   "sens": {
+    "glose": "maladie ; rapide",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "maladie, mal"
+     },
+     {
+      "categorie": "Adj",
+      "fr": "rapide, vif"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": []
+  },
+  {
+   "id": "L6-0081",
+   "genre": "mot",
+   "hanzi": "残疾",
+   "pinyin": "cánji",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "handicap, infirmité",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "handicap, infirmité"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他的腿有残疾。",
+     "pinyin": "Tā de tuǐ yǒu cánji.",
+     "fr": "Il est handicapé d'une jambe.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L6-0082",
+   "genre": "mot",
+   "hanzi": "残疾人",
+   "pinyin": "cánjirén",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "personne handicapée",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "personne handicapée"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "我们应该帮助残疾人。",
+     "pinyin": "Wǒmen yīnggāi bāngzhù cánjirén.",
+     "fr": "Nous devons aider les handicapés.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "酷",
+   "genre": "caractere",
+   "hanzi": "酷",
+   "pinyin": "kù",
+   "mots": [
+    "L6-0515"
+   ],
+   "sens": {
+    "glose": "cool ; cruel, extrême",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "cool, stylé : familier"
+     },
+     {
+      "categorie": "Adj",
+      "fr": "cruel ; extrême"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "你的新车真酷！",
+     "pinyin": "Nǐ de xīn chē zhēn kù!",
+     "fr": "Elle est géniale, ta nouvelle voiture !",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L6-0083",
+   "genre": "mot",
+   "hanzi": "残酷",
+   "pinyin": "cánkù",
+   "categories": [
+    "Adj"
+   ],
+   "sens": {
+    "glose": "cruel, impitoyable",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "cruel, impitoyable"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "战争是残酷的。",
+     "pinyin": "Zhànzhēng shì cánkù de.",
+     "fr": "La guerre est sans pitié.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "仓",
+   "genre": "caractere",
+   "hanzi": "仓",
+   "pinyin": "cāng",
+   "sens": {
+    "glose": "entrepôt, grenier",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "entrepôt, grenier"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": []
+  },
+  {
+   "id": "L6-0085",
+   "genre": "mot",
+   "hanzi": "仓库",
+   "pinyin": "cāngkù",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "entrepôt, magasin",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "entrepôt, magasin, dépôt"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这些东西先放在仓库里。",
+     "pinyin": "Zhèxiē dōngxi xiān fàng zài cāngkù li.",
+     "fr": "Mettez d'abord ces affaires dans la réserve.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "藏",
+   "genre": "caractere",
+   "hanzi": "藏",
+   "pinyin": "cáng",
+   "mots": [
+    "L6-0086"
+   ],
+   "sens": {
+    "glose": "cacher ; conserver ; Tibet",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "cacher, dissimuler"
+     },
+     {
+      "categorie": "V",
+      "fr": "conserver, collectionner"
+     },
+     {
+      "categorie": "N",
+      "fr": "Tibet ; trésor, canon bouddhique",
+      "pinyin": "zàng"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他把钱藏在床下。",
+     "pinyin": "Tā bǎ qián cáng zài chuáng xià.",
+     "fr": "Il a caché l'argent sous le lit.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "纵",
+   "genre": "caractere",
+   "hanzi": "纵",
+   "pinyin": "zòng",
+   "sens": {
+    "glose": "vertical ; laisser libre ; même si",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "vertical, dans le sens de la longueur"
+     },
+     {
+      "categorie": "V",
+      "fr": "lâcher, laisser faire"
+     },
+     {
+      "categorie": "Conj",
+      "fr": "même si : langue écrite"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": []
+  },
+  {
+   "id": "L6-0087",
+   "genre": "mot",
+   "hanzi": "操纵",
+   "pinyin": "cāozòng",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "manipuler, commander",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "manipuler, commander, contrôler"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这台机器用电脑操纵。",
+     "pinyin": "Zhè tái jīqì yòng diànnǎo cāozòng.",
+     "fr": "Cette machine est pilotée par ordinateur.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "厕",
+   "genre": "caractere",
+   "hanzi": "厕",
+   "pinyin": "cè",
+   "sens": {
+    "glose": "toilettes, latrines",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "toilettes, latrines"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": []
+  }
+ ]
+}
