@@ -6,6 +6,7 @@ import {
   SENS_ECLAIR,
   TAO_ECLAIR,
   TOURS_ECLAIR,
+  corpusDeManche,
   dictionnaire,
   ligneMotsDevines,
   lireEclair,
@@ -178,6 +179,14 @@ describe('les mots proposés', () => {
 
   it('écartent un mot déjà deviné', () => {
     expect(motsPossibles(corpus({ devines: ['火车'] })).map((m) => m.id)).toEqual(['火山', '大人']);
+  });
+
+  it('une nouvelle manche écarte les mots devinés depuis l’ouverture, et ceux déjà posés', () => {
+    const ids = (c: CorpusJeux) => motsPossibles(c).map((m) => m.id);
+    expect(ids(corpusDeManche(corpus(), ['火车'], []))).toEqual(['火山', '大人']);
+    expect(ids(corpusDeManche(corpus(), [], ['火车', '火山']))).toEqual(['大人']);
+    // Tout a été posé : on repose ce qui n'est pas deviné, plutôt que rien.
+    expect(ids(corpusDeManche(corpus(), ['火车'], ['火山', '大人']))).toEqual(['火山', '大人']);
   });
 
   it('ne montrent que ce qui se dessine depuis les traits', () => {

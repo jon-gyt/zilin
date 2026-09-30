@@ -50,7 +50,7 @@
   } from './content';
   import { glyph, type StrokeData } from './glyph';
   import { traitsContenus, traitsQuiDistinguent } from './ecarts';
-  import { eclairOnce, ligneMotsDevines, TAO_ECLAIR } from './eclair';
+  import { corpusDeManche, eclairOnce, ligneMotsDevines, TAO_ECLAIR } from './eclair';
   import { racinesDesCaracteres } from './foret';
   import { coquillesOnce } from './coquilles';
   import { lirePaires } from './questions';
@@ -250,6 +250,8 @@
   let n = $state(0);
   /* Non réactif : c'est un garde-fou de préparation, pas un état de l'écran. */
   let preparee = '';
+  /** Les mots de l'éclair déjà posés depuis l'ouverture de l'écran. Non réactif, comme `preparee`. */
+  let vusEclair: string[] = [];
   let m = $state<Manche | null>(null);
 
   /* l'état d'un tour : ce qui est pris, le chrono, le flash, la correction */
@@ -382,7 +384,12 @@
     const cle = id === 'devinette' ? `${p.day}/devinette/0` : `${p.day}/${id}/${n}`;
     if (preparee === cle) return;
     preparee = cle;
-    const manche = JEUX[id].preparer(corpus, cle);
+    /* L'éclair écarte les mots devinés depuis l'ouverture et ceux déjà posés. */
+    const source = id === 'eclair' ? corpusDeManche(corpus, p.motsDevines, vusEclair) : corpus;
+    const manche = JEUX[id].preparer(source, cle);
+    if (id === 'eclair') {
+      vusEclair = [...vusEclair, ...(manche?.tours ?? []).flatMap((t) => (t.mot ? [t.mot] : []))];
+    }
     m = manche;
     serie = 0;
     reaction = null;
