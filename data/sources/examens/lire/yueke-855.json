@@ -1,0 +1,680 @@
+{
+ "examen": "yueke-855",
+ "parcours": "lire",
+ "generation": {
+  "modele": "rédaction manuelle",
+  "api": "session Claude Code (sans API)",
+  "date": "2026-09-30"
+ },
+ "relecture": {
+  "statut": "a_relire",
+  "note": "rédigé le 30 septembre 2026, à relire par le propriétaire (`wenlu examens apercu`) ; une série passe à `relu` sur sa décision, citée ici"
+ },
+ "series": [
+  {
+   "serie": "A",
+   "statut": "a_relire",
+   "supports": [
+    {
+     "id": "s1",
+     "genre": "pancarte",
+     "contexte": {
+      "fr": "Un panneau",
+      "en": "A sign"
+     },
+     "lignes": [
+      {
+       "zh": "卫生间",
+       "pinyin": "wèi shēng jiān",
+       "fr": "Toilettes",
+       "en": "Toilets"
+      },
+      {
+       "zh": "在二楼，免费",
+       "pinyin": "zài èr lóu miǎn fèi",
+       "fr": "Au premier étage, gratuites",
+       "en": "First floor, free"
+      },
+      {
+       "zh": "请保持干净",
+       "pinyin": "qǐng bǎo chí gān jìng",
+       "fr": "Merci de laisser propre",
+       "en": "Please keep clean"
+      }
+     ],
+     "glose": [
+      {
+       "zh": "卫生间",
+       "pinyin": "wèi shēng jiān",
+       "fr": "toilettes",
+       "en": "toilets"
+      },
+      {
+       "zh": "二楼",
+       "pinyin": "èr lóu",
+       "fr": "le premier étage",
+       "en": "the first floor"
+      },
+      {
+       "zh": "免费",
+       "pinyin": "miǎn fèi",
+       "fr": "gratuit",
+       "en": "free"
+      },
+      {
+       "zh": "保持",
+       "pinyin": "bǎo chí",
+       "fr": "garder, maintenir",
+       "en": "to keep"
+      },
+      {
+       "zh": "干净",
+       "pinyin": "gān jìng",
+       "fr": "propre",
+       "en": "clean"
+      },
+      {
+       "zh": "一楼",
+       "pinyin": "yī lóu",
+       "fr": "le rez-de-chaussée",
+       "en": "the ground floor"
+      }
+     ]
+    },
+    {
+     "id": "s2",
+     "genre": "message",
+     "contexte": {
+      "fr": "Un message",
+      "en": "A message"
+     },
+     "lignes": [
+      {
+       "zh": "我姑姑下个星期从上海来，",
+       "pinyin": "wǒ gū gu xià gè xīng qī cóng shàng hǎi lái",
+       "fr": "Ma tante arrive de Shanghai la semaine prochaine :",
+       "en": "My aunt is coming from Shanghai next week:"
+      },
+      {
+       "zh": "她想去看长城。",
+       "pinyin": "tā xiǎng qù kàn cháng chéng",
+       "fr": "elle veut aller voir la Grande Muraille.",
+       "en": "she wants to see the Great Wall."
+      },
+      {
+       "zh": "你能帮我订两张火车票吗？",
+       "pinyin": "nǐ néng bāng wǒ dìng liǎng zhāng huǒ chē piào ma",
+       "fr": "Tu peux me réserver deux billets de train ?",
+       "en": "Can you book two train tickets for me?"
+      }
+     ],
+     "glose": [
+      {
+       "zh": "姑姑",
+       "pinyin": "gū gu",
+       "fr": "tante (sœur du père)",
+       "en": "aunt (father's sister)"
+      },
+      {
+       "zh": "下个星期",
+       "pinyin": "xià gè xīng qī",
+       "fr": "la semaine prochaine",
+       "en": "next week"
+      },
+      {
+       "zh": "长城",
+       "pinyin": "cháng chéng",
+       "fr": "la Grande Muraille",
+       "en": "the Great Wall"
+      },
+      {
+       "zh": "订",
+       "pinyin": "dìng",
+       "fr": "réserver",
+       "en": "to book"
+      },
+      {
+       "zh": "两张",
+       "pinyin": "liǎng zhāng",
+       "fr": "deux (billets)",
+       "en": "two (tickets)"
+      },
+      {
+       "zh": "火车票",
+       "pinyin": "huǒ chē piào",
+       "fr": "billet de train",
+       "en": "train ticket"
+      },
+      {
+       "zh": "哪天",
+       "pinyin": "nǎ tiān",
+       "fr": "quel jour",
+       "en": "which day"
+      },
+      {
+       "zh": "好吃",
+       "pinyin": "hǎo chī",
+       "fr": "bon (à manger)",
+       "en": "tasty"
+      },
+      {
+       "zh": "外面",
+       "pinyin": "wài mian",
+       "fr": "dehors",
+       "en": "outside"
+      },
+      {
+       "zh": "下雪",
+       "pinyin": "xià xuě",
+       "fr": "neiger",
+       "en": "to snow"
+      }
+     ]
+    }
+   ],
+   "questions": [
+    {
+     "type": "comprendre",
+     "support": "s1",
+     "consigne": {
+      "fr": "Combien faut-il payer ?",
+      "en": "How much do you have to pay?"
+     },
+     "choix": [
+      {
+       "fr": "1 yuan",
+       "en": "1 yuan"
+      },
+      {
+       "fr": "C'est gratuit",
+       "en": "Nothing, it's free"
+      },
+      {
+       "fr": "2 yuans",
+       "en": "2 yuan"
+      },
+      {
+       "fr": "5 yuans",
+       "en": "5 yuan"
+      }
+     ],
+     "reponse": 1,
+     "porte": [
+      "免",
+      "费"
+     ]
+    },
+    {
+     "type": "vrai_faux",
+     "support": "s1",
+     "consigne": {
+      "fr": "Vrai ou faux ?",
+      "en": "True or false?"
+     },
+     "affirmation": {
+      "zh": "卫生间在一楼。",
+      "pinyin": "wèi shēng jiān zài yī lóu",
+      "fr": "Les toilettes sont au rez-de-chaussée.",
+      "en": "The toilets are on the ground floor."
+     },
+     "reponse": false,
+     "porte": [
+      "卫",
+      "二",
+      "楼"
+     ]
+    },
+    {
+     "type": "comprendre",
+     "support": "s2",
+     "consigne": {
+      "fr": "Qui va venir de Shanghai ?",
+      "en": "Who is coming from Shanghai?"
+     },
+     "choix": [
+      {
+       "fr": "Sa tante",
+       "en": "Their aunt"
+      },
+      {
+       "fr": "Sa grand-mère",
+       "en": "Their grandmother"
+      },
+      {
+       "fr": "Son oncle",
+       "en": "Their uncle"
+      },
+      {
+       "fr": "Sa sœur",
+       "en": "Their sister"
+      }
+     ],
+     "reponse": 0,
+     "porte": [
+      "姑"
+     ]
+    },
+    {
+     "type": "replique",
+     "support": "s2",
+     "consigne": {
+      "fr": "Que réponds-tu ?",
+      "en": "What do you reply?"
+     },
+     "choix": [
+      {
+       "zh": "今天的饭很好吃。",
+       "pinyin": "jīn tiān de fàn hěn hǎo chī",
+       "fr": "Le repas est très bon aujourd'hui.",
+       "en": "The food is great today."
+      },
+      {
+       "zh": "我爸爸是医生。",
+       "pinyin": "wǒ bà ba shì yī shēng",
+       "fr": "Mon père est médecin.",
+       "en": "My dad is a doctor."
+      },
+      {
+       "zh": "没问题，你要哪天的？",
+       "pinyin": "méi wèn tí nǐ yào nǎ tiān de",
+       "fr": "Pas de problème : pour quel jour ?",
+       "en": "No problem: for which day?"
+      },
+      {
+       "zh": "外面下雪了。",
+       "pinyin": "wài mian xià xuě le",
+       "fr": "Il neige dehors.",
+       "en": "It's snowing outside."
+      }
+     ],
+     "reponse": 2,
+     "porte": [
+      "订",
+      "票"
+     ]
+    },
+    {
+     "type": "sens",
+     "consigne": {
+      "fr": "Que veut dire ce caractère ?",
+      "en": "What does this character mean?"
+     },
+     "objet": {
+      "zh": "挂",
+      "pinyin": "guà",
+      "fr": "accrocher",
+      "en": "to hang"
+     },
+     "choix": [
+      {
+       "fr": "couper",
+       "en": "to cut"
+      },
+      {
+       "fr": "accrocher",
+       "en": "to hang"
+      },
+      {
+       "fr": "porter",
+       "en": "to carry"
+      },
+      {
+       "fr": "ouvrir",
+       "en": "to open"
+      }
+     ],
+     "reponse": 1,
+     "porte": [
+      "挂"
+     ]
+    }
+   ]
+  },
+  {
+   "serie": "B",
+   "statut": "a_relire",
+   "supports": [
+    {
+     "id": "s1",
+     "genre": "note",
+     "contexte": {
+      "fr": "Une note",
+      "en": "A note"
+     },
+     "lignes": [
+      {
+       "zh": "我赶火车去了，",
+       "pinyin": "wǒ gǎn huǒ chē qù le",
+       "fr": "Je suis partie attraper mon train,",
+       "en": "I've gone to catch my train,"
+      },
+      {
+       "zh": "晚饭在桌子上，",
+       "pinyin": "wǎn fàn zài zhuō zi shàng",
+       "fr": "le dîner est sur la table,",
+       "en": "dinner's on the table,"
+      },
+      {
+       "zh": "别忘了付电费！妈妈",
+       "pinyin": "bié wàng le fù diàn fèi mā ma",
+       "fr": "n'oublie pas de payer l'électricité ! Maman",
+       "en": "don't forget to pay the electricity bill! Mum"
+      }
+     ],
+     "glose": [
+      {
+       "zh": "赶火车",
+       "pinyin": "gǎn huǒ chē",
+       "fr": "attraper un train",
+       "en": "to catch a train"
+      },
+      {
+       "zh": "去了",
+       "pinyin": "qù le",
+       "fr": "être parti",
+       "en": "to have gone"
+      },
+      {
+       "zh": "晚饭",
+       "pinyin": "wǎn fàn",
+       "fr": "dîner",
+       "en": "dinner"
+      },
+      {
+       "zh": "忘了",
+       "pinyin": "wàng le",
+       "fr": "oublier",
+       "en": "to forget"
+      },
+      {
+       "zh": "付",
+       "pinyin": "fù",
+       "fr": "payer",
+       "en": "to pay"
+      },
+      {
+       "zh": "电费",
+       "pinyin": "diàn fèi",
+       "fr": "facture d'électricité",
+       "en": "electricity bill"
+      },
+      {
+       "zh": "知道了",
+       "pinyin": "zhī dao le",
+       "fr": "compris, c'est noté",
+       "en": "got it"
+      },
+      {
+       "zh": "路上",
+       "pinyin": "lù shang",
+       "fr": "en route",
+       "en": "on the way"
+      },
+      {
+       "zh": "哪里",
+       "pinyin": "nǎ li",
+       "fr": "où",
+       "en": "where"
+      },
+      {
+       "zh": "这个",
+       "pinyin": "zhè ge",
+       "fr": "ce, celui-ci",
+       "en": "this"
+      }
+     ]
+    },
+    {
+     "id": "s2",
+     "genre": "affiche",
+     "contexte": {
+      "fr": "Une affiche",
+      "en": "A poster"
+     },
+     "lignes": [
+      {
+       "zh": "各位同学：",
+       "pinyin": "gè wèi tóng xué",
+       "fr": "Chers élèves,",
+       "en": "Dear pupils,"
+      },
+      {
+       "zh": "明天下午两点，一位作家来学校访问，",
+       "pinyin": "míng tiān xià wǔ liǎng diǎn yī wèi zuò jiā lái xué xiào fǎng wèn",
+       "fr": "demain à 14 heures, un écrivain vient à l'école ;",
+       "en": "tomorrow at 2 pm, a writer is visiting the school;"
+      },
+      {
+       "zh": "地点：大礼堂",
+       "pinyin": "dì diǎn dà lǐ táng",
+       "fr": "lieu : la grande salle",
+       "en": "venue: the main hall"
+      },
+      {
+       "zh": "欢迎大家来听！",
+       "pinyin": "huān yíng dà jiā lái tīng",
+       "fr": "Venez nombreux l'écouter !",
+       "en": "All welcome to come and listen!"
+      }
+     ],
+     "glose": [
+      {
+       "zh": "各位",
+       "pinyin": "gè wèi",
+       "fr": "chers, mesdames et messieurs",
+       "en": "dear (all)"
+      },
+      {
+       "zh": "同学",
+       "pinyin": "tóng xué",
+       "fr": "élève, camarade",
+       "en": "pupil, classmate"
+      },
+      {
+       "zh": "两点",
+       "pinyin": "liǎng diǎn",
+       "fr": "deux heures",
+       "en": "two o'clock"
+      },
+      {
+       "zh": "一位",
+       "pinyin": "yī wèi",
+       "fr": "un (poli)",
+       "en": "a (polite)"
+      },
+      {
+       "zh": "作家",
+       "pinyin": "zuò jiā",
+       "fr": "écrivain",
+       "en": "writer"
+      },
+      {
+       "zh": "访问",
+       "pinyin": "fǎng wèn",
+       "fr": "rendre visite",
+       "en": "to visit"
+      },
+      {
+       "zh": "地点",
+       "pinyin": "dì diǎn",
+       "fr": "lieu",
+       "en": "venue"
+      },
+      {
+       "zh": "大礼堂",
+       "pinyin": "dà lǐ táng",
+       "fr": "grande salle",
+       "en": "main hall"
+      },
+      {
+       "zh": "欢迎",
+       "pinyin": "huān yíng",
+       "fr": "bienvenue",
+       "en": "welcome"
+      },
+      {
+       "zh": "大家",
+       "pinyin": "dà jiā",
+       "fr": "tout le monde",
+       "en": "everyone"
+      },
+      {
+       "zh": "听",
+       "pinyin": "tīng",
+       "fr": "écouter",
+       "en": "to listen"
+      }
+     ]
+    }
+   ],
+   "questions": [
+    {
+     "type": "comprendre",
+     "support": "s1",
+     "consigne": {
+      "fr": "Pourquoi maman est-elle partie ?",
+      "en": "Why has Mum gone out?"
+     },
+     "choix": [
+      {
+       "fr": "Pour prendre un train",
+       "en": "To catch a train"
+      },
+      {
+       "fr": "Pour aller travailler",
+       "en": "To go to work"
+      },
+      {
+       "fr": "Pour voir un médecin",
+       "en": "To see a doctor"
+      },
+      {
+       "fr": "Pour faire des courses",
+       "en": "To go shopping"
+      }
+     ],
+     "reponse": 0,
+     "porte": [
+      "赶",
+      "火",
+      "车"
+     ]
+    },
+    {
+     "type": "replique",
+     "support": "s1",
+     "consigne": {
+      "fr": "Que réponds-tu ?",
+      "en": "What do you reply?"
+     },
+     "choix": [
+      {
+       "zh": "我的书在哪里？",
+       "pinyin": "wǒ de shū zài nǎ li",
+       "fr": "Où est mon livre ?",
+       "en": "Where's my book?"
+      },
+      {
+       "zh": "这个星期天是我的生日。",
+       "pinyin": "zhè ge xīng qī tiān shì wǒ de shēng rì",
+       "fr": "Ce dimanche, c'est mon anniversaire.",
+       "en": "This Sunday is my birthday."
+      },
+      {
+       "zh": "我不喜欢喝茶。",
+       "pinyin": "wǒ bù xǐ huan hē chá",
+       "fr": "Je n'aime pas le thé.",
+       "en": "I don't like tea."
+      },
+      {
+       "zh": "知道了，路上小心！",
+       "pinyin": "zhī dao le lù shang xiǎo xīn",
+       "fr": "Compris, fais attention en route !",
+       "en": "Got it, take care on the way!"
+      }
+     ],
+     "reponse": 3,
+     "porte": [
+      "赶"
+     ]
+    },
+    {
+     "type": "comprendre",
+     "support": "s2",
+     "consigne": {
+      "fr": "Qui vient à l'école demain ?",
+      "en": "Who is coming to the school tomorrow?"
+     },
+     "choix": [
+      {
+       "fr": "Un médecin",
+       "en": "A doctor"
+      },
+      {
+       "fr": "Un écrivain",
+       "en": "A writer"
+      },
+      {
+       "fr": "Un chanteur",
+       "en": "A singer"
+      },
+      {
+       "fr": "Un sportif",
+       "en": "An athlete"
+      }
+     ],
+     "reponse": 1,
+     "porte": [
+      "作",
+      "家",
+      "访"
+     ]
+    },
+    {
+     "type": "vrai_faux",
+     "support": "s2",
+     "consigne": {
+      "fr": "Vrai ou faux ?",
+      "en": "True or false?"
+     },
+     "affirmation": {
+      "zh": "作家明天上午来。",
+      "pinyin": "zuò jiā míng tiān shàng wǔ lái",
+      "fr": "L'écrivain vient demain matin.",
+      "en": "The writer is coming tomorrow morning."
+     },
+     "reponse": false,
+     "porte": [
+      "下",
+      "午",
+      "访"
+     ]
+    },
+    {
+     "type": "trou",
+     "consigne": {
+      "fr": "Quel caractère manque dans ce mot ?",
+      "en": "Which character is missing from this word?"
+     },
+     "objet": {
+      "zh": "功课",
+      "pinyin": "gōng kè",
+      "fr": "devoirs",
+      "en": "homework"
+     },
+     "trou": 0,
+     "choix": [
+      "工",
+      "公",
+      "功",
+      "红"
+     ],
+     "reponse": 2,
+     "porte": [
+      "功"
+     ]
+    }
+   ]
+  }
+ ]
+}
