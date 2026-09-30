@@ -68,7 +68,14 @@
   import { ACCES_WEB, prochaineBrique, wenluComplet, type Acces } from './droits';
   import { ecransOnce, remplir, SANS_ECRANS, type TextesChemin, type TextesRoute } from './ecrans';
   import { joursDuChemin, lireMotif, ouvertures } from './etageres';
-  import { examenOuvert, examensOnce, SANS_EXAMENS, type ExamensDonnees } from './examens';
+  import {
+    cheminDesExamens,
+    examenOuvert,
+    examensOnce,
+    examensPassables,
+    SANS_EXAMENS,
+    type ExamensDonnees
+  } from './examens';
   import {
     caracteresLus,
     famillesOuvertes,
@@ -226,14 +233,20 @@
   const seuils = $derived(tropheesLire(lus, p.tropheesAcquis).map((t) => ({ n: t.cible, obtenu: t.obtenu })));
 
   const nombre = (n: number): string => n.toLocaleString('fr-FR');
+  /*
+   * Les examens qu'on peut passer sur ce chemin, ceux dont les séries sont écrites
+   * (`examens.examensPassables`), comme au menu : au-delà, un examen sans ses séries ne
+   * s'ouvre pas et ne s'annonce pas sur la route.
+   */
+  const passables = $derived(examensPassables(examens, cheminDesExamens(p.parcours)));
   const aVenir = $derived<ExamenAVenir[]>(
-    examens.examens
+    passables
       .filter((e) => p.examens.reussis[e.id] === undefined)
       .map((e) => ({ id: e.id, hz: e.hz, palier: e.palier, titre: remplir(tr.examen, { examen: e.hz, n: nombre(e.palier) }), ligne: e.fr }))
   );
   /** L'examen à passer : sa porte s'ouvre sur la route, il ne se compte plus. */
   const ouvert = $derived.by(() => {
-    const e = examenOuvert(examens.examens, p.examens, lus);
+    const e = examenOuvert(passables, p.examens, lus);
     return e === null ? null : (aVenir.find((x) => x.id === e.id) ?? null);
   });
   const apres = $derived(ouvert === null ? null : tr.apres);

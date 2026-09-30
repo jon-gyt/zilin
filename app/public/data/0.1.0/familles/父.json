@@ -20,8 +20,8 @@
    "lectures": [
     "fǔ"
    ],
-   "fr": "",
-   "en": "",
+   "fr": "hache",
+   "en": "axe",
    "parts": [
     "父",
     "斤"
@@ -31,19 +31,24 @@
     "cjk-decomp"
    ],
    "role": null,
-   "roles": {},
-   "origine_fr": "",
-   "origine_en": "",
-   "etiquette": null,
+   "roles": {
+    "斤": "sens",
+    "父": "son"
+   },
+   "origine_fr": "Le Shuowen jiezi glose 斧 par « tailler » : 斤, la hache, et 父 pour le son. On lit 父 en haut et 斤 dessous. 父 se lit fù, la même syllabe que fǔ, la hache.",
+   "origine_en": "The Shuowen jiezi glosses 斧 as “to hew”: 斤, the axe, and 父 for the sound. You read 父 on top and 斤 below. 父 is read fù, the same syllable as fǔ, the axe.",
+   "etiquette": "atteste",
    "memo_fr": null,
    "memo_en": null,
    "mots": [],
    "phrase": null,
-   "niveaux": {},
+   "niveaux": {
+    "hsk": 7
+   },
    "traits": [],
    "medianes": [],
    "audio": null,
-   "statut": "sans_fiche"
+   "statut": "relu"
   },
   {
    "c": "父",
@@ -90,7 +95,8 @@
     "audio": null
    },
    "niveaux": {
-    "seuil": 255
+    "seuil": 255,
+    "hsk": 3
    },
    "traits": [],
    "medianes": [],
@@ -109,13 +115,11 @@
     "父",
     "卩"
    ],
-   "nouveau": [
-    0
-   ],
+   "nouveau": [],
    "sources": [
     "surcharge"
    ],
-   "role": "sens",
+   "role": null,
    "roles": {
     "卩": "forme",
     "父": "sens"
@@ -210,6 +214,43 @@
    "niveaux": {
     "seuil": 255,
     "hsk": 1
+   },
+   "traits": [],
+   "medianes": [],
+   "audio": null,
+   "statut": "relu"
+  },
+  {
+   "c": "爹",
+   "pinyin": "diē",
+   "lectures": [
+    "diē"
+   ],
+   "fr": "papa, père",
+   "en": "dad, father",
+   "parts": [
+    "父",
+    "夕",
+    "夕"
+   ],
+   "nouveau": [],
+   "sources": [
+    "cjk-decomp"
+   ],
+   "role": null,
+   "roles": {
+    "夕": "forme",
+    "父": "sens"
+   },
+   "origine_fr": "On voit 父, le père, en haut, et 多, beaucoup, deux 夕, dessous. Pour s'en souvenir : le père qui fait beaucoup pour les siens. 爹 dit papa, dans la langue familière.",
+   "origine_en": "You see 父, father, on top, and 多, many, two 夕, below. As a memory aid: the father who does a great deal for his family. 爹 means dad, in everyday speech.",
+   "etiquette": "mnemotechnique",
+   "memo_fr": null,
+   "memo_en": null,
+   "mots": [],
+   "phrase": null,
+   "niveaux": {
+    "hsk": 7
    },
    "traits": [],
    "medianes": [],

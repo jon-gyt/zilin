@@ -3,15 +3,15 @@
  "license": "propriétaire",
  "source": "décomposition GF 0014-2009 réconciliée par le pipeline wenlu ; pinyin d'Unihan (kMandarin) ; textes rédigés pour l'app",
  "source_url": "https://github.com/jon-gyt/zilin",
- "modified": "2026-09-25 : assemblé par `wenlu export`",
+ "modified": "2026-09-30 : assemblé par `wenlu export`",
  "norme": "GF 0014-2009",
  "racine": {
   "c": "曰",
   "pinyin": "yuē",
-  "fr": "",
-  "en": "",
-  "origine": "",
-  "etiquette": null
+  "fr": "dire (chinois classique)",
+  "en": "to say (classical)",
+  "origine": "Le Shuowen jiezi glose 曰 par « parole » : 口, la bouche, avec un trait au-dessus, le souffle qui sort quand on parle. Sur les os oraculaires, déjà, un petit trait surmonte la bouche. C'est « dire » en chinois classique, comme dans 子曰, « le Maître dit ».",
+  "etiquette": "atteste"
  },
  "fiches": [
   {
@@ -20,25 +20,43 @@
    "lectures": [
     "yuē"
    ],
-   "fr": "",
-   "en": "",
+   "fr": "dire (chinois classique)",
+   "en": "to say (classical)",
    "parts": [],
    "nouveau": [],
    "sources": [],
    "role": null,
-   "roles": {},
-   "origine_fr": "",
-   "origine_en": "",
-   "etiquette": null,
+   "roles": {
+    "曰": "sens"
+   },
+   "origine_fr": "Le Shuowen jiezi glose 曰 par « parole » : 口, la bouche, avec un trait au-dessus, le souffle qui sort quand on parle. Sur les os oraculaires, déjà, un petit trait surmonte la bouche. C'est « dire » en chinois classique, comme dans 子曰, « le Maître dit ».",
+   "origine_en": "The Shuowen jiezi glosses 曰 as “speech”: 口, the mouth, with a stroke above it, the breath that comes out as one speaks. On oracle bones, a small stroke already sits above the mouth. It is “to say” in classical Chinese, as in 子曰, “the Master said”.",
+   "etiquette": "atteste",
    "memo_fr": null,
    "memo_en": null,
-   "mots": [],
-   "phrase": null,
-   "niveaux": {},
+   "mots": [
+    {
+     "hanzi": "子曰",
+     "pinyin": "zǐyuē",
+     "fr": "le Maître dit (Confucius)",
+     "en": "the Master said (Confucius)",
+     "audio": null
+    }
+   ],
+   "phrase": {
+    "hanzi": "「子曰」就是「老师说」。",
+    "pinyin": "“Zǐ yuē” jiù shì “lǎoshī shuō”.",
+    "fr": "« Zi yue », c'est « le Maître dit ».",
+    "en": "“Zi yue” means “the Master said”.",
+    "audio": null
+   },
+   "niveaux": {
+    "hsk": 7
+   },
    "traits": [],
    "medianes": [],
    "audio": null,
-   "statut": "sans_fiche"
+   "statut": "relu"
   }
  ]
 }

@@ -51,7 +51,9 @@
     "en": "I can come tomorrow.",
     "audio": null
    },
-   "niveaux": {},
+   "niveaux": {
+    "hsk": 7
+   },
    "traits": [],
    "medianes": [],
    "audio": null,
@@ -110,7 +112,8 @@
     "audio": null
    },
    "niveaux": {
-    "seuil": 255
+    "seuil": 255,
+    "hsk": 2
    },
    "traits": [],
    "medianes": [],
@@ -196,15 +199,12 @@
     "口",
     "欠"
    ],
-   "nouveau": [
-    0,
-    2
-   ],
+   "nouveau": [],
    "sources": [
     "cjk-decomp",
     "surcharge"
    ],
-   "role": "son",
+   "role": null,
    "roles": {
     "丁": "son",
     "口": "son",
@@ -240,6 +240,42 @@
    },
    "niveaux": {
     "hsk": 1
+   },
+   "traits": [],
+   "medianes": [],
+   "audio": null,
+   "statut": "relu"
+  },
+  {
+   "c": "顶",
+   "pinyin": "dǐng",
+   "lectures": [
+    "dǐng"
+   ],
+   "fr": "sommet, porter sur la tête",
+   "en": "top, to carry on the head",
+   "parts": [
+    "丁",
+    "页"
+   ],
+   "nouveau": [],
+   "sources": [
+    "cjk-decomp"
+   ],
+   "role": null,
+   "roles": {
+    "丁": "son",
+    "页": "sens"
+   },
+   "origine_fr": "Le Shuowen jiezi glose 頂, la forme traditionnelle, par « le haut du crâne » : 頁, la tête, et 丁 pour le son. 丁 se lit dīng et donne toujours le son de dǐng. Le haut de la tête : le sommet, puis porter sur la tête.",
+   "origine_en": "The Shuowen jiezi glosses 頂, the traditional form, as “the crown of the head”: 頁, the head, and 丁 for the sound. 丁 is read dīng and still gives the sound of dǐng. The top of the head: the summit, then to carry on one's head.",
+   "etiquette": "atteste",
+   "memo_fr": null,
+   "memo_en": null,
+   "mots": [],
+   "phrase": null,
+   "niveaux": {
+    "hsk": 4
    },
    "traits": [],
    "medianes": [],

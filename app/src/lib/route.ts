@@ -103,8 +103,9 @@ export function pierreSuivante(
 
 /**
  * Ce que dit la dernière pierre quand la route s'y arrête : « fin du chemin gratuit » sans
- * Wenlu complet (l'export est le chemin gratuit, le seuil 255 et le HSK 1), « fin du
- * parcours » sinon ; rien tant que la route continue dans la brume.
+ * Wenlu complet (le chemin ouvert s'arrête au bout du seuil 255 ou du HSK 1,
+ * `content.cheminOuvert`), « fin du parcours » sinon, au bout du HSK 7-9 ; rien tant que la
+ * route continue dans la brume.
  */
 export function boutDuChemin(r: Route, complet: boolean): 'gratuit' | 'parcours' | null {
   if (!r.bout || r.pierres.length === 0) return null;

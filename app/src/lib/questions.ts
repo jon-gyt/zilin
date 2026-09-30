@@ -689,16 +689,6 @@ export function typesPossibles(f: Fiche, corpus: Corpus): TypeQuestion[] {
  * parenthèses ne coupe pas (« devoir (de l'argent), bâiller » donne « devoir (de l'argent) »).
  * Rien n'est rédigé : on garde le début du texte relu.
  */
-/** Les deux premiers sens d'une glose, séparés comme dans la glose, parenthèses respectées. */
-export function deuxSens(fr: string): string {
-  const un = premierSens(fr);
-  const reste = fr.slice(fr.indexOf(un) + un.length).replace(/^\s*[,;]\s*/, '');
-  const deux = premierSens(reste);
-  if (deux === '') return un;
-  const sep = fr.slice(fr.indexOf(un) + un.length).trimStart().startsWith(';') ? ' ; ' : ', ';
-  return `${un}${sep}${deux}`;
-}
-
 export function premierSens(fr: string): string {
   let prof = 0;
   let fin = fr.length;
@@ -764,8 +754,9 @@ export function expliquer(f: Fiche, corpus: Corpus): Explication {
   });
   /* Sans fiche relue, il n'y a ni sens ni origine : l'explication se tait plutôt que
      d'afficher une virgule vide. Elle garde la décomposition, qui, elle, est établie. */
-  /* La correction courte ne garde que les deux premiers sens, pour se lire avant de partir. */
-  const tete = f.fr === '' ? `${f.c} ${f.pinyin}.` : `${f.c} ${f.pinyin}, ${deuxSens(f.fr)}.`;
+  /* La correction courte ne garde que le premier sens, pour se lire avant de partir ;
+     l'explication complète, au toucher, les garde tous. */
+  const tete = f.fr === '' ? `${f.c} ${f.pinyin}.` : `${f.c} ${f.pinyin}, ${premierSens(f.fr)}.`;
   /* Chaque brique avec son premier sens, une fois : 网 = 冂 cadre + 乂 couper l'herbe + 乂. */
   const glosees = new Set<string>();
   const lignes = briques.map((b) => {

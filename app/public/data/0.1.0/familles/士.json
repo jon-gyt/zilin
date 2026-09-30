@@ -3,7 +3,7 @@
  "license": "propriétaire",
  "source": "décomposition GF 0014-2009 réconciliée par le pipeline wenlu ; pinyin d'Unihan (kMandarin) ; textes rédigés pour l'app",
  "source_url": "https://github.com/jon-gyt/zilin",
- "modified": "2026-09-28 : assemblé par `wenlu export`",
+ "modified": "2026-09-30 : assemblé par `wenlu export`",
  "norme": "GF 0014-2009",
  "racine": {
   "c": "士",
@@ -14,6 +14,42 @@
   "etiquette": "atteste"
  },
  "fiches": [
+  {
+   "c": "吉",
+   "pinyin": "jí",
+   "lectures": [
+    "jí"
+   ],
+   "fr": "faste, de bon augure",
+   "en": "lucky, auspicious",
+   "parts": [
+    "士",
+    "口"
+   ],
+   "nouveau": [],
+   "sources": [
+    "cjk-decomp"
+   ],
+   "role": null,
+   "roles": {
+    "口": "sens",
+    "士": "sens"
+   },
+   "origine_fr": "Le Shuowen jiezi glose 吉 par « bon » et l'explique par 士, le lettré, au-dessus de 口, la bouche. Sur les os oraculaires, il sert déjà à dire qu'un présage est favorable. Le sens a tenu : « faste, de bon augure », comme dans 吉利.",
+   "origine_en": "The Shuowen jiezi glosses 吉 as “good” and explains it as 士, a scholar, above 口, a mouth. On oracle bones it already marks an omen as favourable. The meaning has held: “lucky, auspicious”, as in 吉利.",
+   "etiquette": "atteste",
+   "memo_fr": null,
+   "memo_en": null,
+   "mots": [],
+   "phrase": null,
+   "niveaux": {
+    "hsk": 6
+   },
+   "traits": [],
+   "medianes": [],
+   "audio": null,
+   "statut": "relu"
+  },
   {
    "c": "喜",
    "pinyin": "xǐ",
@@ -78,6 +114,47 @@
    "statut": "relu"
   },
   {
+   "c": "嘉",
+   "pinyin": "jiā",
+   "lectures": [
+    "jiā"
+   ],
+   "fr": "beau, excellent, louer",
+   "en": "fine, excellent, to praise",
+   "parts": [
+    "士",
+    "口",
+    "䒑",
+    "力",
+    "口"
+   ],
+   "nouveau": [],
+   "sources": [
+    "cjk-decomp"
+   ],
+   "role": null,
+   "roles": {
+    "䒑": "sens",
+    "力": "son",
+    "口": "son",
+    "士": "sens"
+   },
+   "origine_fr": "Le Shuowen jiezi glose 嘉 par « beau » : 壴, le tambour, écrit 士, 口 et 䒑, et 加 pour le son. 加, écrit 力 et 口, se lit jiā, exactement comme 嘉. Le sens a tenu : « beau, excellent », et « louer », comme dans 嘉奖.",
+   "origine_en": "The Shuowen jiezi glosses 嘉 as “fine”: 壴, the drum, written 士, 口 and 䒑, and 加 for the sound. 加, written 力 and 口, is read jiā, exactly like 嘉. The meaning has held: “fine, excellent”, and “to praise”, as in 嘉奖.",
+   "etiquette": "atteste",
+   "memo_fr": null,
+   "memo_en": null,
+   "mots": [],
+   "phrase": null,
+   "niveaux": {
+    "hsk": 6
+   },
+   "traits": [],
+   "medianes": [],
+   "audio": null,
+   "statut": "relu"
+  },
+  {
    "c": "士",
    "pinyin": "shì",
    "lectures": [
@@ -120,7 +197,281 @@
     "en": "Ladies and gentlemen, good day!",
     "audio": null
    },
-   "niveaux": {},
+   "niveaux": {
+    "hsk": 4
+   },
+   "traits": [],
+   "medianes": [],
+   "audio": null,
+   "statut": "relu"
+  },
+  {
+   "c": "声",
+   "pinyin": "shēng",
+   "lectures": [
+    "shēng"
+   ],
+   "fr": "son, voix",
+   "en": "sound, voice",
+   "parts": [
+    "士",
+    "𠃜"
+   ],
+   "nouveau": [],
+   "sources": [
+    "cjk-decomp"
+   ],
+   "role": null,
+   "roles": {
+    "士": "forme",
+    "𠃜": "forme"
+   },
+   "origine_fr": "Le Shuowen jiezi écrit 聲 et le glose « son » : 耳, l'oreille, et 殸, la pierre musicale, pour le son. Le son de la pierre qu'on frappe, reçu par l'oreille. La forme simplifiée ne garde que le haut, 士 sur 𠃜.",
+   "origine_en": "The Shuowen jiezi writes 聲 and glosses it as “sound”: 耳, the ear, and 殸, the musical stone, for the sound. The sound of a struck stone, received by the ear. The simplified form keeps only the top, 士 over 𠃜.",
+   "etiquette": "atteste",
+   "memo_fr": null,
+   "memo_en": null,
+   "mots": [],
+   "phrase": null,
+   "niveaux": {
+    "hsk": 2
+   },
+   "traits": [],
+   "medianes": [],
+   "audio": null,
+   "statut": "relu"
+  },
+  {
+   "c": "壳",
+   "pinyin": "ké",
+   "lectures": [
+    "ké",
+    "qiào"
+   ],
+   "fr": "coquille, carapace, écorce",
+   "en": "shell, husk",
+   "parts": [
+    "士",
+    "冖",
+    "几"
+   ],
+   "nouveau": [],
+   "sources": [
+    "cjk-decomp"
+   ],
+   "role": null,
+   "roles": {
+    "冖": "forme",
+    "几": "forme",
+    "士": "forme"
+   },
+   "origine_fr": "Pour s'en souvenir : en haut, 士 ; au milieu, 冖, un couvercle ; en bas, 几. Un couvercle dur qui enferme ce qui est dedans : la coquille, 蛋壳, la carapace. Aucun élément ne donne le son de ké.",
+   "origine_en": "As a memory aid: on top, 士; in the middle, 冖, a lid; at the bottom, 几. A hard lid enclosing what is inside: a shell, 蛋壳, a carapace. No part gives the sound of ké.",
+   "etiquette": "mnemotechnique",
+   "memo_fr": null,
+   "memo_en": null,
+   "mots": [],
+   "phrase": null,
+   "niveaux": {
+    "hsk": 7
+   },
+   "traits": [],
+   "medianes": [],
+   "audio": null,
+   "statut": "relu"
+  },
+  {
+   "c": "壶",
+   "pinyin": "hú",
+   "lectures": [
+    "hú"
+   ],
+   "fr": "bouilloire, théière, pot",
+   "en": "kettle, teapot, pot",
+   "parts": [
+    "士",
+    "冖",
+    "业"
+   ],
+   "nouveau": [],
+   "sources": [
+    "cjk-decomp"
+   ],
+   "role": null,
+   "roles": {
+    "业": "forme",
+    "冖": "forme",
+    "士": "forme"
+   },
+   "origine_fr": "Le Shuowen jiezi écrit 壺 et le décrit comme un vase rond, dessiné tel quel, avec son couvercle, sa panse et son pied. La forme simplifiée l'écrit 士, 冖 et 业, qui ne veulent plus rien dire ici. Le sens a tenu : « pot, théière, bouilloire ».",
+   "origine_en": "The Shuowen jiezi writes 壺 and describes it as a round vessel, drawn as it is, with lid, belly and base. The simplified form writes it with 士, 冖 and 业, which no longer mean anything here. The meaning has held: “pot, teapot, kettle”.",
+   "etiquette": "atteste",
+   "memo_fr": null,
+   "memo_en": null,
+   "mots": [],
+   "phrase": null,
+   "niveaux": {
+    "hsk": 6
+   },
+   "traits": [],
+   "medianes": [],
+   "audio": null,
+   "statut": "relu"
+  },
+  {
+   "c": "志",
+   "pinyin": "zhì",
+   "lectures": [
+    "zhì"
+   ],
+   "fr": "volonté, aspiration, annales",
+   "en": "will, aspiration, records",
+   "parts": [
+    "士",
+    "心"
+   ],
+   "nouveau": [],
+   "sources": [
+    "cjk-decomp"
+   ],
+   "role": null,
+   "roles": {
+    "士": "forme",
+    "心": "sens"
+   },
+   "origine_fr": "Pour s'en souvenir : en haut, 士, le lettré. En bas, 心, le cœur. Le cœur du lettré, tendu vers son but : la volonté, l'aspiration.",
+   "origine_en": "As a memory aid: at the top is 士, the scholar. At the bottom is 心, the heart. A scholar's heart set on its goal: will, aspiration.",
+   "etiquette": "mnemotechnique",
+   "memo_fr": null,
+   "memo_en": null,
+   "mots": [],
+   "phrase": null,
+   "niveaux": {
+    "hsk": 3
+   },
+   "traits": [],
+   "medianes": [],
+   "audio": null,
+   "statut": "relu"
+  },
+  {
+   "c": "款",
+   "pinyin": "kuǎn",
+   "lectures": [
+    "kuǎn"
+   ],
+   "fr": "somme d'argent, modèle, article",
+   "en": "sum of money, style, clause",
+   "parts": [
+    "士",
+    "示",
+    "欠"
+   ],
+   "nouveau": [],
+   "sources": [
+    "cjk-decomp"
+   ],
+   "role": null,
+   "roles": {
+    "士": "forme",
+    "欠": "forme",
+    "示": "forme"
+   },
+   "origine_fr": "Pour s'en souvenir : à gauche, 士 sur 示 ; à droite, 欠, « devoir, manquer ». Ce qu'on doit, c'est une somme d'argent. On compte aussi par 款 les modèles et les articles d'un texte.",
+   "origine_en": "As a memory aid: on the left, 士 over 示; on the right, 欠, “to owe, to lack”. What you owe is a sum of money. 款 also counts models and the clauses of a text.",
+   "etiquette": "mnemotechnique",
+   "memo_fr": null,
+   "memo_en": null,
+   "mots": [],
+   "phrase": null,
+   "niveaux": {
+    "hsk": 5
+   },
+   "traits": [],
+   "medianes": [],
+   "audio": null,
+   "statut": "relu"
+  },
+  {
+   "c": "馨",
+   "pinyin": "xīn",
+   "lectures": [
+    "xīn"
+   ],
+   "fr": "parfum, senteur",
+   "en": "fragrance, scent",
+   "parts": [
+    "士",
+    "殳",
+    "𠃜",
+    "禾",
+    "日"
+   ],
+   "nouveau": [],
+   "sources": [
+    "cjk-decomp"
+   ],
+   "role": null,
+   "roles": {
+    "士": "forme",
+    "日": "sens",
+    "殳": "forme",
+    "禾": "sens",
+    "𠃜": "forme"
+   },
+   "origine_fr": "Le Shuowen jiezi glose 馨 par « parfum qu'on sent de loin » : 香, le parfum, et 殸 pour le son. 殸, le lithophone frappé, écrit 士, 殳 et 𠃜, se lit qìng et ne donne plus le son xīn. En bas, 禾 sur 日 forment 香, le parfum du grain qui cuit.",
+   "origine_en": "The Shuowen jiezi glosses 馨 as “a fragrance smelt from afar”: 香, fragrance, and 殸 for the sound. 殸, the struck stone chime, written 士, 殳 and 𠃜, is read qìng and no longer gives the sound xīn. Below, 禾 over 日 make 香, the scent of cooking grain.",
+   "etiquette": "atteste",
+   "memo_fr": null,
+   "memo_en": null,
+   "mots": [],
+   "phrase": null,
+   "niveaux": {
+    "hsk": 7
+   },
+   "traits": [],
+   "medianes": [],
+   "audio": null,
+   "statut": "relu"
+  },
+  {
+   "c": "鼓",
+   "pinyin": "gǔ",
+   "lectures": [
+    "gǔ"
+   ],
+   "fr": "tambour, gonfler, encourager",
+   "en": "drum, to swell, to rouse",
+   "parts": [
+    "士",
+    "口",
+    "䒑",
+    "十",
+    "又"
+   ],
+   "nouveau": [],
+   "sources": [
+    "cjk-decomp",
+    "surcharge"
+   ],
+   "role": null,
+   "roles": {
+    "䒑": "sens",
+    "十": "sens",
+    "又": "sens",
+    "口": "sens",
+    "士": "sens"
+   },
+   "origine_fr": "Sur les os oraculaires, 鼓 montre un tambour sur son pied, 壴, et une main qui le frappe avec une baguette. On lit encore 壴 à gauche, fait de 士, 口 et 䒑, et à droite 支, la main 又 qui tient la baguette 十. Du tambour viennent « battre », « gonfler » et « encourager ».",
+   "origine_en": "On the oracle bones, 鼓 shows a drum on its stand, 壴, and a hand striking it with a stick. You still read 壴 on the left, made of 士, 口 and 䒑, and on the right 支, the hand 又 holding the stick 十. From the drum come “to beat”, “to swell” and “to rouse”.",
+   "etiquette": "atteste",
+   "memo_fr": null,
+   "memo_en": null,
+   "mots": [],
+   "phrase": null,
+   "niveaux": {
+    "hsk": 5
+   },
    "traits": [],
    "medianes": [],
    "audio": null,

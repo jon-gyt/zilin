@@ -3,15 +3,15 @@
  "license": "propriétaire",
  "source": "décomposition GF 0014-2009 réconciliée par le pipeline wenlu ; pinyin d'Unihan (kMandarin) ; textes rédigés pour l'app",
  "source_url": "https://github.com/jon-gyt/zilin",
- "modified": "2026-09-25 : assemblé par `wenlu export`",
+ "modified": "2026-09-30 : assemblé par `wenlu export`",
  "norme": "GF 0014-2009",
  "racine": {
   "c": "乃",
   "pinyin": "nǎi",
-  "fr": "",
-  "en": "",
-  "origine": "",
-  "etiquette": null
+  "fr": "c'est, être (écrit), alors",
+  "en": "to be (literary), then",
+  "origine": "L'origine de 乃 est discutée, et cette fiche n'en retient aucune. Pour s'en souvenir : un trait se replie deux fois, comme un ruban, et un trait oblique le traverse. On le retrouve à droite de 奶, où il donne le son nǎi.",
+  "etiquette": "mnemotechnique"
  },
  "fiches": [
   {
@@ -20,25 +20,124 @@
    "lectures": [
     "nǎi"
    ],
-   "fr": "",
-   "en": "",
+   "fr": "c'est, être (écrit), alors",
+   "en": "to be (literary), then",
    "parts": [],
    "nouveau": [],
    "sources": [],
    "role": null,
-   "roles": {},
-   "origine_fr": "",
-   "origine_en": "",
-   "etiquette": null,
+   "roles": {
+    "乃": "forme"
+   },
+   "origine_fr": "L'origine de 乃 est discutée, et cette fiche n'en retient aucune. Pour s'en souvenir : un trait se replie deux fois, comme un ruban, et un trait oblique le traverse. On le retrouve à droite de 奶, où il donne le son nǎi.",
+   "origine_en": "The origin of 乃 is disputed, and this card does not pick one. As a memory aid: one stroke folds twice, like a ribbon, and a slanting stroke crosses it. It appears on the right of 奶, where it gives the sound nǎi.",
+   "etiquette": "mnemotechnique",
+   "memo_fr": null,
+   "memo_en": null,
+   "mots": [
+    {
+     "hanzi": "乃至",
+     "pinyin": "nǎizhì",
+     "fr": "et même, voire",
+     "en": "and even",
+     "audio": null
+    },
+    {
+     "hanzi": "乃是",
+     "pinyin": "nǎishì",
+     "fr": "être, c'est en fait",
+     "en": "to be, is in fact",
+     "audio": null
+    }
+   ],
+   "phrase": {
+    "hanzi": "这家店，北京人乃至外国人都喜欢。",
+    "pinyin": "Zhè jiā diàn, Běijīngrén nǎizhì wàiguórén dōu xǐhuan.",
+    "fr": "Les Pékinois, et même les étrangers, aiment cette boutique.",
+    "en": "People from Beijing, and even foreigners, like this shop.",
+    "audio": null
+   },
+   "niveaux": {
+    "hsk": 7
+   },
+   "traits": [],
+   "medianes": [],
+   "audio": null,
+   "statut": "relu"
+  },
+  {
+   "c": "孕",
+   "pinyin": "yùn",
+   "lectures": [
+    "yùn"
+   ],
+   "fr": "grossesse, être enceinte",
+   "en": "pregnancy, pregnant",
+   "parts": [
+    "乃",
+    "子"
+   ],
+   "nouveau": [],
+   "sources": [
+    "cjk-decomp"
+   ],
+   "role": null,
+   "roles": {
+    "乃": "forme",
+    "子": "sens"
+   },
+   "origine_fr": "Le Shuowen jiezi glose 孕 par « porter l'enfant en soi » : 子, l'enfant, sous une forme qui l'enveloppe. On lit aujourd'hui 乃 au-dessus de 子, comme un ventre arrondi sur l'enfant. Être enceinte, la grossesse, comme dans 怀孕.",
+   "origine_en": "The Shuowen jiezi glosses 孕 as “carrying a child within”: 子, the child, under a shape that wraps around it. Today you read 乃 above 子, like a rounded belly over the child. To be pregnant, pregnancy, as in 怀孕.",
+   "etiquette": "atteste",
    "memo_fr": null,
    "memo_en": null,
    "mots": [],
    "phrase": null,
-   "niveaux": {},
+   "niveaux": {
+    "hsk": 7
+   },
    "traits": [],
    "medianes": [],
    "audio": null,
-   "statut": "sans_fiche"
+   "statut": "relu"
+  },
+  {
+   "c": "盈",
+   "pinyin": "yíng",
+   "lectures": [
+    "yíng"
+   ],
+   "fr": "plein, excédent",
+   "en": "full, surplus",
+   "parts": [
+    "乃",
+    "又",
+    "皿"
+   ],
+   "nouveau": [],
+   "sources": [
+    "cjk-decomp"
+   ],
+   "role": null,
+   "roles": {
+    "乃": "forme",
+    "又": "forme",
+    "皿": "sens"
+   },
+   "origine_fr": "Le Shuowen jiezi glose 盈 par « récipient plein » : 皿, le récipient, sous 夃, qui marque le surplus. On lit aujourd'hui 乃 et 又 au-dessus de 皿. Plein jusqu'au bord, et ce qui déborde : l'excédent, le bénéfice, comme dans 盈利.",
+   "origine_en": "The Shuowen jiezi glosses 盈 as “a full vessel”: 皿, the vessel, under 夃, which marks the surplus. Today you read 乃 and 又 above 皿. Full to the brim, and what spills over: the surplus, the profit, as in 盈利.",
+   "etiquette": "atteste",
+   "memo_fr": null,
+   "memo_en": null,
+   "mots": [],
+   "phrase": null,
+   "niveaux": {
+    "hsk": 7
+   },
+   "traits": [],
+   "medianes": [],
+   "audio": null,
+   "statut": "relu"
   }
  ]
 }

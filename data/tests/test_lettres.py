@@ -333,3 +333,16 @@ def test_la_commande_apercu_montre_les_lettres(monkeypatch: pytest.MonkeyPatch) 
     resultat = CliRunner().invoke(cli, ["lettres", "apercu"])
     assert resultat.exit_code == 0, resultat.output
     assert "12 lettres." in resultat.output and "好朋友" in resultat.output
+
+
+def test_un_jour_de_fermeture_ne_pose_rien() -> None:
+    """兴 ferme le seuil 255 au jour 190 : la session le saute, l'acquis ne le compte pas."""
+    parcours = {
+        "jours": [
+            {"jour": 1, "brique": "人", "composes": [], "non_reconcilie": False},
+            {"jour": 2, "brique": None, "composes": ["兴"], "non_reconcilie": True},
+            {"jour": 3, "brique": "月", "composes": ["朋"], "non_reconcilie": False},
+        ]
+    }
+    assert lettres_mod.poses_par_jour(parcours) == [(1, "人"), (3, "月"), (3, "朋")]
+    assert "兴" not in lettres_mod.acquis_au_jour(3, parcours)

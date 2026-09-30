@@ -3,7 +3,7 @@
  "license": "propriétaire",
  "source": "décomposition GF 0014-2009 réconciliée par le pipeline wenlu ; pinyin d'Unihan (kMandarin) ; textes rédigés pour l'app",
  "source_url": "https://github.com/jon-gyt/zilin",
- "modified": "2026-09-28 : assemblé par `wenlu export`",
+ "modified": "2026-09-30 : assemblé par `wenlu export`",
  "norme": "GF 0014-2009",
  "racine": {
   "c": "米",
@@ -14,6 +14,123 @@
   "etiquette": "atteste"
  },
  "fiches": [
+  {
+   "c": "数",
+   "pinyin": "shù",
+   "lectures": [
+    "shù",
+    "shǔ",
+    "shuò"
+   ],
+   "fr": "compter, nombre",
+   "en": "to count, number",
+   "parts": [
+    "米",
+    "女",
+    "𠂉",
+    "乂"
+   ],
+   "nouveau": [],
+   "sources": [
+    "cjk-decomp"
+   ],
+   "role": null,
+   "roles": {
+    "乂": "sens",
+    "女": "forme",
+    "米": "forme",
+    "𠂉": "sens"
+   },
+   "origine_fr": "Le Shuowen jiezi écrit 數 et le glose « compter » : 攴, la main qui agit, et 婁 pour le son. Simplifié, 婁 devient 娄, écrit 米 sur 女, qui se lit lóu et ne donne plus le son de shù. Lu shǔ, c'est compter ; lu shù, le nombre.",
+   "origine_en": "The Shuowen jiezi writes 數 and glosses it as “to count”: 攴, the acting hand, and 婁 for the sound. Simplified, 婁 becomes 娄, written 米 over 女, which is read lóu and no longer gives the sound of shù. Read shǔ, it means to count; read shù, number.",
+   "etiquette": "atteste",
+   "memo_fr": null,
+   "memo_en": null,
+   "mots": [],
+   "phrase": null,
+   "niveaux": {
+    "hsk": 2
+   },
+   "traits": [],
+   "medianes": [],
+   "audio": null,
+   "statut": "relu"
+  },
+  {
+   "c": "料",
+   "pinyin": "liào",
+   "lectures": [
+    "liào"
+   ],
+   "fr": "matière, prévoir",
+   "en": "material, to expect",
+   "parts": [
+    "米",
+    "斗"
+   ],
+   "nouveau": [],
+   "sources": [
+    "cjk-decomp"
+   ],
+   "role": null,
+   "roles": {
+    "斗": "sens",
+    "米": "sens"
+   },
+   "origine_fr": "Le Shuowen jiezi glose 料 par « mesurer » et y voit du grain, 米, dans la mesure, 斗. Mesurer le grain, c'est estimer : prévoir. Ce que l'on mesure et prépare : la matière, 材料.",
+   "origine_en": "The Shuowen jiezi glosses 料 as “to measure” and sees in it grain, 米, in the measure, 斗. Measuring grain means estimating: to expect. What one measures out and prepares: material, 材料.",
+   "etiquette": "atteste",
+   "memo_fr": null,
+   "memo_en": null,
+   "mots": [],
+   "phrase": null,
+   "niveaux": {
+    "hsk": 4
+   },
+   "traits": [],
+   "medianes": [],
+   "audio": null,
+   "statut": "relu"
+  },
+  {
+   "c": "断",
+   "pinyin": "duàn",
+   "lectures": [
+    "duàn"
+   ],
+   "fr": "casser, rompre, couper",
+   "en": "to break, to cut off",
+   "parts": [
+    "𠃊",
+    "米",
+    "斤"
+   ],
+   "nouveau": [],
+   "sources": [
+    "cjk-decomp",
+    "surcharge"
+   ],
+   "role": null,
+   "roles": {
+    "斤": "sens",
+    "米": "forme",
+    "𠃊": "forme"
+   },
+   "origine_fr": "Le Shuowen jiezi définit 斷 comme « trancher » : 斤, la hache, et des fils de soie coupés. Le simplifié 断 ne garde qu'un fil, écrit 米 dans l'angle 𠃊, à côté de 斤. La hache qui coupe les fils : casser, rompre.",
+   "origine_en": "The Shuowen jiezi defines 斷 as “to sever”: 斤, an axe, and cut silk threads. The simplified 断 keeps a single thread, written 米 inside the angle 𠃊, next to 斤. An axe cutting threads: to break, to cut off.",
+   "etiquette": "atteste",
+   "memo_fr": null,
+   "memo_en": null,
+   "mots": [],
+   "phrase": null,
+   "niveaux": {
+    "hsk": 3
+   },
+   "traits": [],
+   "medianes": [],
+   "audio": null,
+   "statut": "relu"
+  },
   {
    "c": "米",
    "pinyin": "mǐ",
@@ -67,13 +184,316 @@
    "statut": "relu"
   },
   {
+   "c": "类",
+   "pinyin": "lèi",
+   "lectures": [
+    "lèi"
+   ],
+   "fr": "catégorie, espèce, sorte",
+   "en": "kind, category, type",
+   "parts": [
+    "米",
+    "大"
+   ],
+   "nouveau": [],
+   "sources": [
+    "cjk-decomp"
+   ],
+   "role": null,
+   "roles": {
+    "大": "forme",
+    "米": "forme"
+   },
+   "origine_fr": "Le Shuowen jiezi définit 類 comme « se ressembler », et note que le chien, 犬, est l'animal le plus semblable à ses pareils. Le simplifié 类 garde 米 en haut et écrit 大 pour 犬. Ce qui se ressemble : la catégorie, l'espèce.",
+   "origine_en": "The Shuowen jiezi defines 類 as “to be alike”, noting that the dog, 犬, is the animal most like its own kind. The simplified 类 keeps 米 at the top and writes 大 for 犬. Things that are alike: a kind, a category.",
+   "etiquette": "atteste",
+   "memo_fr": null,
+   "memo_en": null,
+   "mots": [],
+   "phrase": null,
+   "niveaux": {
+    "hsk": 3
+   },
+   "traits": [],
+   "medianes": [],
+   "audio": null,
+   "statut": "relu"
+  },
+  {
+   "c": "粉",
+   "pinyin": "fěn",
+   "lectures": [
+    "fěn"
+   ],
+   "fr": "poudre, farine, rose",
+   "en": "powder, flour, pink",
+   "parts": [
+    "米",
+    "八",
+    "刀"
+   ],
+   "nouveau": [],
+   "sources": [
+    "cjk-decomp"
+   ],
+   "role": null,
+   "roles": {
+    "八": "son",
+    "刀": "son",
+    "米": "sens"
+   },
+   "origine_fr": "Le Shuowen jiezi glose 粉 par « ce qu'on met sur le visage » : le grain, 米, et 分 pour le son. 分, écrit 八 sur 刀, se lit fēn, la syllabe de fěn. De la poudre de riz viennent « poudre, farine », et la couleur du fard, « rose ».",
+   "origine_en": "The Shuowen jiezi glosses 粉 as “what is applied to the face”: grain, 米, and 分 for the sound. 分, written 八 over 刀, is read fēn, the same syllable as fěn. From rice powder come “powder, flour”, and the colour of face powder, “pink”.",
+   "etiquette": "atteste",
+   "memo_fr": null,
+   "memo_en": null,
+   "mots": [],
+   "phrase": null,
+   "niveaux": {
+    "hsk": 6
+   },
+   "traits": [],
+   "medianes": [],
+   "audio": null,
+   "statut": "relu"
+  },
+  {
+   "c": "粒",
+   "pinyin": "lì",
+   "lectures": [
+    "lì"
+   ],
+   "fr": "grain, classificateur des petits objets",
+   "en": "grain, measure word for small things",
+   "parts": [
+    "米",
+    "立"
+   ],
+   "nouveau": [],
+   "sources": [
+    "cjk-decomp"
+   ],
+   "role": null,
+   "roles": {
+    "立": "son",
+    "米": "sens"
+   },
+   "origine_fr": "Le Shuowen jiezi glose 粒 « grain de riz » : 米, le riz, et 立 pour le son. 立 se lit lì, exactement comme 粒. Du grain de riz vient le compte des petites choses rondes : 一粒米, 一粒药.",
+   "origine_en": "The Shuowen jiezi glosses 粒 as “a grain of rice”: 米, rice, and 立 for the sound. 立 is read lì, exactly like 粒. From the grain of rice comes the count of small round things: 一粒米, 一粒药.",
+   "etiquette": "atteste",
+   "memo_fr": null,
+   "memo_en": null,
+   "mots": [],
+   "phrase": null,
+   "niveaux": {
+    "hsk": 7
+   },
+   "traits": [],
+   "medianes": [],
+   "audio": null,
+   "statut": "relu"
+  },
+  {
+   "c": "粗",
+   "pinyin": "cū",
+   "lectures": [
+    "cū"
+   ],
+   "fr": "gros, épais, grossier",
+   "en": "thick, coarse, rough",
+   "parts": [
+    "米",
+    "且"
+   ],
+   "nouveau": [],
+   "sources": [
+    "cjk-decomp"
+   ],
+   "role": null,
+   "roles": {
+    "且": "forme",
+    "米": "sens"
+   },
+   "origine_fr": "Le Shuowen jiezi glose 粗 par « grossier », dit du grain mal décortiqué : 米, le grain, et 且 pour le son. 且 se lit qiě : il ne donne plus le son de cū. Le grain grossier : gros, épais, grossier.",
+   "origine_en": "The Shuowen jiezi glosses 粗 as “coarse”, said of badly husked grain: 米, grain, and 且 for the sound. 且 is read qiě: it no longer gives the sound of cū. Coarse grain: thick, rough, crude.",
+   "etiquette": "atteste",
+   "memo_fr": null,
+   "memo_en": null,
+   "mots": [],
+   "phrase": null,
+   "niveaux": {
+    "hsk": 4
+   },
+   "traits": [],
+   "medianes": [],
+   "audio": null,
+   "statut": "relu"
+  },
+  {
+   "c": "粘",
+   "pinyin": "zhān",
+   "lectures": [
+    "zhān",
+    "nián"
+   ],
+   "fr": "coller, collant",
+   "en": "to stick, sticky",
+   "parts": [
+    "米",
+    "⺊",
+    "口"
+   ],
+   "nouveau": [],
+   "sources": [
+    "cjk-decomp"
+   ],
+   "role": null,
+   "roles": {
+    "⺊": "son",
+    "口": "son",
+    "米": "sens"
+   },
+   "origine_fr": "Pour s'en souvenir : à gauche, 米, le riz. À droite, 占, écrit ⺊ sur 口, qui se lit zhān, exactement comme 粘. Le riz gluant qui colle aux doigts : coller, et collant, où il se lit aussi nián.",
+   "origine_en": "As a memory aid: on the left, 米, rice. On the right, 占, written ⺊ over 口, read zhān, exactly like 粘. Sticky rice clinging to the fingers: to stick, and sticky, where it is also read nián.",
+   "etiquette": "mnemotechnique",
+   "memo_fr": null,
+   "memo_en": null,
+   "mots": [],
+   "phrase": null,
+   "niveaux": {
+    "hsk": 7
+   },
+   "traits": [],
+   "medianes": [],
+   "audio": null,
+   "statut": "relu"
+  },
+  {
+   "c": "粪",
+   "pinyin": "fèn",
+   "lectures": [
+    "fèn"
+   ],
+   "fr": "excrément, fumier",
+   "en": "dung, manure",
+   "parts": [
+    "米",
+    "龷",
+    "八"
+   ],
+   "nouveau": [],
+   "sources": [
+    "cjk-decomp"
+   ],
+   "role": null,
+   "roles": {
+    "八": "forme",
+    "米": "forme",
+    "龷": "forme"
+   },
+   "origine_fr": "Le Shuowen jiezi glose 糞 par « balayer et jeter » : deux mains qui poussent une pelle chargée de déchets. La forme simplifiée écrit 米 sur 共. Des balayures jetées vient « excrément, fumier ».",
+   "origine_en": "The Shuowen jiezi glosses 糞 as “to sweep out and throw away”: two hands pushing a scoop full of rubbish. The simplified form writes 米 over 共. From swept-out refuse comes “dung, manure”.",
+   "etiquette": "atteste",
+   "memo_fr": null,
+   "memo_en": null,
+   "mots": [],
+   "phrase": null,
+   "niveaux": {
+    "hsk": 7
+   },
+   "traits": [],
+   "medianes": [],
+   "audio": null,
+   "statut": "relu"
+  },
+  {
+   "c": "粮",
+   "pinyin": "liáng",
+   "lectures": [
+    "liáng"
+   ],
+   "fr": "céréales, vivres",
+   "en": "grain, provisions",
+   "parts": [
+    "米",
+    "艮",
+    "丶"
+   ],
+   "nouveau": [],
+   "sources": [
+    "cjk-decomp",
+    "surcharge"
+   ],
+   "role": null,
+   "roles": {
+    "丶": "son",
+    "米": "sens",
+    "艮": "son"
+   },
+   "origine_fr": "Le Shuowen jiezi glose 糧, la forme traditionnelle, par « grain » : 米, le grain, et 量 pour le son. La forme simplifiée remplace 量 par 良, 艮 sous un point, qui se lit liáng et donne toujours le son. Le grain qu'on garde : les vivres.",
+   "origine_en": "The Shuowen jiezi glosses 糧, the traditional form, as “grain”: 米, grain, and 量 for the sound. The simplified form replaces 量 with 良, 艮 under a dot, read liáng, which still gives the sound. Grain put by: provisions.",
+   "etiquette": "atteste",
+   "memo_fr": null,
+   "memo_en": null,
+   "mots": [],
+   "phrase": null,
+   "niveaux": {
+    "hsk": 4
+   },
+   "traits": [],
+   "medianes": [],
+   "audio": null,
+   "statut": "relu"
+  },
+  {
+   "c": "粹",
+   "pinyin": "cuì",
+   "lectures": [
+    "cuì"
+   ],
+   "fr": "pur, quintessence",
+   "en": "pure, essence",
+   "parts": [
+    "米",
+    "亠",
+    "人",
+    "人",
+    "十"
+   ],
+   "nouveau": [],
+   "sources": [
+    "cjk-decomp"
+   ],
+   "role": null,
+   "roles": {
+    "亠": "forme",
+    "人": "forme",
+    "十": "forme",
+    "米": "sens"
+   },
+   "origine_fr": "Le Shuowen jiezi glose 粹 par « sans mélange » : 米, le riz, et 卒 pour le son. On lit 米 à gauche et 卒, écrit 亠 sur deux 人 et 十, à droite. 卒 se lit zú : il ne donne plus le son de cuì, « pur ».",
+   "origine_en": "The Shuowen jiezi glosses 粹 as “unmixed”: 米, rice, and 卒 for the sound. You read 米 on the left and 卒, written 亠 over two 人 and 十, on the right. 卒 is read zú: it no longer gives the sound of cuì, “pure”.",
+   "etiquette": "atteste",
+   "memo_fr": null,
+   "memo_en": null,
+   "mots": [],
+   "phrase": null,
+   "niveaux": {
+    "hsk": 7
+   },
+   "traits": [],
+   "medianes": [],
+   "audio": null,
+   "statut": "relu"
+  },
+  {
    "c": "粽",
    "pinyin": "zòng",
    "lectures": [
     "zòng"
    ],
-   "fr": "",
-   "en": "",
+   "fr": "zongzi (riz gluant en feuilles)",
+   "en": "zongzi (rice dumpling)",
    "parts": [
     "米",
     "宀",
@@ -84,19 +504,265 @@
     "cjk-decomp"
    ],
    "role": null,
-   "roles": {},
-   "origine_fr": "",
-   "origine_en": "",
-   "etiquette": null,
+   "roles": {
+    "宀": "son",
+    "示": "son",
+    "米": "sens"
+   },
+   "origine_fr": "Pour s'en souvenir : à gauche, 米, le riz. À droite, 宗, écrit 宀 sur 示, qui se lit zōng, sur la même syllabe que 粽. Le riz gluant enveloppé dans des feuilles, qu'on mange à la fête du Double Cinq, 端午 : 粽子.",
+   "origine_en": "As a memory aid: on the left, 米, rice. On the right, 宗, written 宀 over 示, read zōng, on the same syllable as 粽. Sticky rice wrapped in leaves, eaten at the Double Fifth festival, 端午: 粽子.",
+   "etiquette": "mnemotechnique",
    "memo_fr": null,
    "memo_en": null,
    "mots": [],
    "phrase": null,
-   "niveaux": {},
+   "niveaux": {
+    "hsk": 7
+   },
    "traits": [],
    "medianes": [],
    "audio": null,
-   "statut": "sans_fiche"
+   "statut": "relu"
+  },
+  {
+   "c": "精",
+   "pinyin": "jīng",
+   "lectures": [
+    "jīng"
+   ],
+   "fr": "fin, raffiné, essence, malin",
+   "en": "refined, essence, clever",
+   "parts": [
+    "米",
+    "龶",
+    "月"
+   ],
+   "nouveau": [],
+   "sources": [
+    "cjk-decomp"
+   ],
+   "role": null,
+   "roles": {
+    "月": "forme",
+    "米": "sens",
+    "龶": "forme"
+   },
+   "origine_fr": "Le Shuowen jiezi définit 精 comme le riz trié : 米, le riz, et 青 pour le son. 青, écrit 龶 sur 月, se lit qīng et ne donne plus le son de jīng. Le grain choisi, le meilleur : fin, raffiné, l'essence.",
+   "origine_en": "The Shuowen jiezi defines 精 as sorted rice: 米, rice, with 青 for the sound. 青, written 龶 over 月, is read qīng and no longer gives the sound of jīng. The chosen grain, the best: refined, the essence.",
+   "etiquette": "atteste",
+   "memo_fr": null,
+   "memo_en": null,
+   "mots": [],
+   "phrase": null,
+   "niveaux": {
+    "hsk": 3
+   },
+   "traits": [],
+   "medianes": [],
+   "audio": null,
+   "statut": "relu"
+  },
+  {
+   "c": "糊",
+   "pinyin": "hú",
+   "lectures": [
+    "hú",
+    "hū",
+    "hù"
+   ],
+   "fr": "coller, bouillie, brûlé",
+   "en": "paste, to glue, porridge",
+   "parts": [
+    "米",
+    "十",
+    "口",
+    "月"
+   ],
+   "nouveau": [],
+   "sources": [
+    "cjk-decomp"
+   ],
+   "role": null,
+   "roles": {
+    "十": "son",
+    "口": "son",
+    "月": "son",
+    "米": "sens"
+   },
+   "origine_fr": "Pour s'en souvenir : à gauche, 米, le riz ; à droite, 胡, fait de 十, 口 et 月, qui donne le son hú. Du riz cuit longtemps devient pâte et colle. De là « coller », « bouillie », et le riz brûlé au fond de la marmite.",
+   "origine_en": "As a memory aid: on the left, 米, rice; on the right, 胡, made of 十, 口 and 月, which gives the sound hú. Rice cooked for a long time turns into paste and glue. Hence “to glue”, “porridge”, and rice burnt at the bottom of the pot.",
+   "etiquette": "mnemotechnique",
+   "memo_fr": null,
+   "memo_en": null,
+   "mots": [],
+   "phrase": null,
+   "niveaux": {
+    "hsk": 5
+   },
+   "traits": [],
+   "medianes": [],
+   "audio": null,
+   "statut": "relu"
+  },
+  {
+   "c": "糕",
+   "pinyin": "gāo",
+   "lectures": [
+    "gāo"
+   ],
+   "fr": "gâteau",
+   "en": "cake",
+   "parts": [
+    "米",
+    "羊",
+    "灬"
+   ],
+   "nouveau": [],
+   "sources": [
+    "cjk-decomp"
+   ],
+   "role": null,
+   "roles": {
+    "灬": "son",
+    "米": "sens",
+    "羊": "son"
+   },
+   "origine_fr": "Pour s'en souvenir : à gauche, 米, le riz ; à droite, 羔, l'agneau, fait de 羊 sur 灬, qui donne le son gāo. Le riz qu'on pétrit et qu'on cuit devient gâteau. L'agneau n'est là que pour le son.",
+   "origine_en": "As a memory aid: on the left, 米, rice; on the right, 羔, the lamb, made of 羊 over 灬, which gives the sound gāo. Rice that is kneaded and cooked becomes cake. The lamb is there only for the sound.",
+   "etiquette": "mnemotechnique",
+   "memo_fr": null,
+   "memo_en": null,
+   "mots": [],
+   "phrase": null,
+   "niveaux": {
+    "hsk": 5
+   },
+   "traits": [],
+   "medianes": [],
+   "audio": null,
+   "statut": "relu"
+  },
+  {
+   "c": "糖",
+   "pinyin": "táng",
+   "lectures": [
+    "táng"
+   ],
+   "fr": "sucre, bonbon",
+   "en": "sugar, sweets, candy",
+   "parts": [
+    "米",
+    "广",
+    "肀",
+    "口"
+   ],
+   "nouveau": [],
+   "sources": [
+    "cjk-decomp",
+    "surcharge"
+   ],
+   "role": null,
+   "roles": {
+    "口": "son",
+    "广": "son",
+    "米": "sens",
+    "肀": "son"
+   },
+   "origine_fr": "Pour s'en souvenir : à gauche, 米, le riz, le grain. À droite, 唐, écrit 广, 肀 et 口, qui se lit táng comme 糖. Le grain cuit jusqu'à donner du sucre : 糖 veut dire « sucre, bonbon ».",
+   "origine_en": "As a memory aid: on the left is 米, rice, grain. On the right is 唐, written 广, 肀 and 口, read táng like 糖. Grain cooked down into sugar: 糖 means “sugar, sweets”.",
+   "etiquette": "mnemotechnique",
+   "memo_fr": null,
+   "memo_en": null,
+   "mots": [],
+   "phrase": null,
+   "niveaux": {
+    "hsk": 3
+   },
+   "traits": [],
+   "medianes": [],
+   "audio": null,
+   "statut": "relu"
+  },
+  {
+   "c": "糙",
+   "pinyin": "cāo",
+   "lectures": [
+    "cāo"
+   ],
+   "fr": "grossier, rugueux",
+   "en": "coarse, rough",
+   "parts": [
+    "米",
+    "辶",
+    "𠂒",
+    "口"
+   ],
+   "nouveau": [],
+   "sources": [
+    "cjk-decomp",
+    "surcharge"
+   ],
+   "role": null,
+   "roles": {
+    "口": "forme",
+    "米": "sens",
+    "辶": "forme",
+    "𠂒": "forme"
+   },
+   "origine_fr": "On voit 米, le riz, à gauche, et 造, fabriquer, à droite. Pour s'en souvenir : du riz vite fabriqué, mal décortiqué et rugueux. 造 se lit zào et ne donne pas le son de cāo.",
+   "origine_en": "You see 米, rice, on the left, and 造, to make, on the right. As a memory aid: rice made in a hurry, badly husked and rough. 造 is read zào and does not give the sound of cāo.",
+   "etiquette": "mnemotechnique",
+   "memo_fr": null,
+   "memo_en": null,
+   "mots": [],
+   "phrase": null,
+   "niveaux": {
+    "hsk": 7
+   },
+   "traits": [],
+   "medianes": [],
+   "audio": null,
+   "statut": "relu"
+  },
+  {
+   "c": "糟",
+   "pinyin": "zāo",
+   "lectures": [
+    "zāo"
+   ],
+   "fr": "mauvais, raté, drêche",
+   "en": "bad, botched, dregs",
+   "parts": [
+    "米",
+    "艹",
+    "曲",
+    "日"
+   ],
+   "nouveau": [],
+   "sources": [
+    "cjk-decomp"
+   ],
+   "role": null,
+   "roles": {
+    "日": "forme",
+    "曲": "forme",
+    "米": "sens",
+    "艹": "forme"
+   },
+   "origine_fr": "Le Shuowen jiezi glose 糟 « résidu du vin » : 米, le grain, et 曹 pour le son. Du résidu sont venus « drêche », puis « mauvais, raté ». 曹, écrit l'herbe sur 曲 et 日, se lit cáo et ne donne pas le son de zāo.",
+   "origine_en": "The Shuowen jiezi glosses 糟 as “wine residue”: 米, grain, with 曹 for the sound. The residue gave “dregs”, then “bad, botched”. 曹, written as grass over 曲 and 日, is read cáo and does not give the sound of zāo.",
+   "etiquette": "atteste",
+   "memo_fr": null,
+   "memo_en": null,
+   "mots": [],
+   "phrase": null,
+   "niveaux": {
+    "hsk": 5
+   },
+   "traits": [],
+   "medianes": [],
+   "audio": null,
+   "statut": "relu"
   }
  ]
 }

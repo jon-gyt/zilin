@@ -3,7 +3,7 @@
  "license": "propriétaire",
  "source": "décomposition GF 0014-2009 réconciliée par le pipeline wenlu ; pinyin d'Unihan (kMandarin) ; textes rédigés pour l'app",
  "source_url": "https://github.com/jon-gyt/zilin",
- "modified": "2026-09-28 : assemblé par `wenlu export`",
+ "modified": "2026-09-30 : assemblé par `wenlu export`",
  "norme": "GF 0014-2009",
  "racine": {
   "c": "我",
@@ -72,8 +72,8 @@
    "lectures": [
     "é"
    ],
-   "fr": "",
-   "en": "",
+   "fr": "oie",
+   "en": "goose",
    "parts": [
     "我",
     "鸟"
@@ -83,19 +83,24 @@
     "cjk-decomp"
    ],
    "role": null,
-   "roles": {},
-   "origine_fr": "",
-   "origine_en": "",
-   "etiquette": null,
+   "roles": {
+    "我": "forme",
+    "鸟": "sens"
+   },
+   "origine_fr": "Le Shuowen jiezi range 鵝 parmi les oiseaux : 鳥, l'oiseau, et 我 pour le son. On lit 我 à gauche et 鸟 à droite. 我 se lit wǒ : il ne donne plus le son de é, l'oie.",
+   "origine_en": "The Shuowen jiezi lists 鵝 among the birds: 鳥, bird, and 我 for the sound. You read 我 on the left and 鸟 on the right. 我 is read wǒ: it no longer gives the sound of é, the goose.",
+   "etiquette": "atteste",
    "memo_fr": null,
    "memo_en": null,
    "mots": [],
    "phrase": null,
-   "niveaux": {},
+   "niveaux": {
+    "hsk": 7
+   },
    "traits": [],
    "medianes": [],
    "audio": null,
-   "statut": "sans_fiche"
+   "statut": "relu"
   }
  ]
 }

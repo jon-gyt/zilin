@@ -3,7 +3,7 @@
  "license": "propriétaire",
  "source": "décomposition GF 0014-2009 réconciliée par le pipeline wenlu ; pinyin d'Unihan (kMandarin) ; textes rédigés pour l'app",
  "source_url": "https://github.com/jon-gyt/zilin",
- "modified": "2026-09-25 : assemblé par `wenlu export`",
+ "modified": "2026-09-30 : assemblé par `wenlu export`",
  "norme": "GF 0014-2009",
  "racine": {
   "c": "巳",
@@ -14,6 +14,42 @@
   "etiquette": null
  },
  "fiches": [
+  {
+   "c": "导",
+   "pinyin": "dǎo",
+   "lectures": [
+    "dǎo"
+   ],
+   "fr": "guider, conduire",
+   "en": "to guide, to lead",
+   "parts": [
+    "巳",
+    "寸"
+   ],
+   "nouveau": [],
+   "sources": [
+    "cjk-decomp"
+   ],
+   "role": null,
+   "roles": {
+    "寸": "sens",
+    "巳": "forme"
+   },
+   "origine_fr": "Le Shuowen jiezi analyse 導 comme 寸, la main, et 道, la route, pour le son. Le simplifié 导 remplace 道 par 巳 et garde 寸 en bas. La main qui montre la route : guider, conduire.",
+   "origine_en": "The Shuowen jiezi analyses 導 as 寸, hand, with 道, the road, for the sound. The simplified 导 replaces 道 with 巳 and keeps 寸 at the bottom. A hand showing the way: to guide, to lead.",
+   "etiquette": "atteste",
+   "memo_fr": null,
+   "memo_en": null,
+   "mots": [],
+   "phrase": null,
+   "niveaux": {
+    "hsk": 3
+   },
+   "traits": [],
+   "medianes": [],
+   "audio": null,
+   "statut": "relu"
+  },
   {
    "c": "巳",
    "pinyin": "sì",
@@ -39,6 +75,80 @@
    "medianes": [],
    "audio": null,
    "statut": "sans_fiche"
+  },
+  {
+   "c": "异",
+   "pinyin": "yì",
+   "lectures": [
+    "yì"
+   ],
+   "fr": "différent, étrange",
+   "en": "different, strange",
+   "parts": [
+    "巳",
+    "卄"
+   ],
+   "nouveau": [],
+   "sources": [
+    "cjk-decomp"
+   ],
+   "role": null,
+   "roles": {
+    "卄": "forme",
+    "巳": "forme"
+   },
+   "origine_fr": "Le Shuowen jiezi a deux caractères : 異, « séparer, différent », et 异, lever à deux mains. La forme simplifiée reprend 异 pour dire 異 : différent, étrange. On voit en haut 巳 et en bas 廾, les deux mains, écrit ici comme 卄.",
+   "origine_en": "The Shuowen jiezi has two characters: 異, “to separate, different”, and 异, to lift with both hands. The simplified form takes 异 to write 異: different, strange. You see 巳 on top and 廾 below, the two hands, written here like 卄.",
+   "etiquette": "atteste",
+   "memo_fr": null,
+   "memo_en": null,
+   "mots": [],
+   "phrase": null,
+   "niveaux": {
+    "hsk": 6
+   },
+   "traits": [],
+   "medianes": [],
+   "audio": null,
+   "statut": "relu"
+  },
+  {
+   "c": "熙",
+   "pinyin": "xī",
+   "lectures": [
+    "xī"
+   ],
+   "fr": "lumineux, prospère, animé",
+   "en": "bright, prosperous, lively",
+   "parts": [
+    "𦣞",
+    "巳",
+    "灬"
+   ],
+   "nouveau": [],
+   "sources": [
+    "cjk-decomp"
+   ],
+   "role": null,
+   "roles": {
+    "巳": "forme",
+    "灬": "sens",
+    "𦣞": "forme"
+   },
+   "origine_fr": "Le Shuowen jiezi glose 熙 par « sec, séché au feu » : 灬, le feu, et 巸 pour le son. 巸, écrit 𦣞 et 巳, se lit yí et ne donne plus le son xī. De la chaleur du feu vient le sens de « lumineux », puis « prospère, animé ».",
+   "origine_en": "The Shuowen jiezi glosses 熙 as “dry, dried by fire”: 灬, fire, and 巸 for the sound. 巸, written 𦣞 and 巳, is read yí and no longer gives the sound xī. From the fire's warmth came the sense “bright”, then “prosperous, bustling”.",
+   "etiquette": "atteste",
+   "memo_fr": null,
+   "memo_en": null,
+   "mots": [],
+   "phrase": null,
+   "niveaux": {
+    "hsk": 7
+   },
+   "traits": [],
+   "medianes": [],
+   "audio": null,
+   "statut": "relu"
   }
  ]
 }

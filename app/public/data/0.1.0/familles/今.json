@@ -3,7 +3,7 @@
  "license": "propriétaire",
  "source": "décomposition GF 0014-2009 réconciliée par le pipeline wenlu ; pinyin d'Unihan (kMandarin) ; textes rédigés pour l'app",
  "source_url": "https://github.com/jon-gyt/zilin",
- "modified": "2026-09-28 : assemblé par `wenlu export`",
+ "modified": "2026-09-30 : assemblé par `wenlu export`",
  "norme": "GF 0014-2009",
  "racine": {
   "c": "今",
@@ -67,6 +67,42 @@
    "statut": "relu"
   },
   {
+   "c": "含",
+   "pinyin": "hán",
+   "lectures": [
+    "hán"
+   ],
+   "fr": "garder en bouche, contenir",
+   "en": "to hold in the mouth, to contain",
+   "parts": [
+    "今",
+    "口"
+   ],
+   "nouveau": [],
+   "sources": [
+    "cjk-decomp"
+   ],
+   "role": null,
+   "roles": {
+    "今": "forme",
+    "口": "sens"
+   },
+   "origine_fr": "Le Shuowen jiezi glose 含 par « tenir dans la bouche » : 口, la bouche, et 今 pour le son. 今 se lit jīn : il ne donne plus le son de hán. Garder en bouche sans avaler : contenir.",
+   "origine_en": "The Shuowen jiezi glosses 含 as “to hold in the mouth”: 口, the mouth, and 今 for the sound. 今 is read jīn: it no longer gives the sound of hán. Keeping something in the mouth without swallowing: to contain.",
+   "etiquette": "atteste",
+   "memo_fr": null,
+   "memo_en": null,
+   "mots": [],
+   "phrase": null,
+   "niveaux": {
+    "hsk": 4
+   },
+   "traits": [],
+   "medianes": [],
+   "audio": null,
+   "statut": "relu"
+  },
+  {
    "c": "念",
    "pinyin": "niàn",
    "lectures": [
@@ -103,7 +139,44 @@
     "audio": null
    },
    "niveaux": {
-    "seuil": 255
+    "seuil": 255,
+    "hsk": 3
+   },
+   "traits": [],
+   "medianes": [],
+   "audio": null,
+   "statut": "relu"
+  },
+  {
+   "c": "贪",
+   "pinyin": "tān",
+   "lectures": [
+    "tān"
+   ],
+   "fr": "convoiter, avide, corrompu",
+   "en": "to covet, greedy, corrupt",
+   "parts": [
+    "今",
+    "贝"
+   ],
+   "nouveau": [],
+   "sources": [
+    "cjk-decomp"
+   ],
+   "role": null,
+   "roles": {
+    "今": "forme",
+    "贝": "sens"
+   },
+   "origine_fr": "Le Shuowen jiezi écrit 貪 et le glose « désirer les choses » : 貝, la monnaie, pour le sens, et 今 pour le son. 今 se lit jīn, loin de tān : c'est une forme. Vouloir toujours plus d'argent : avide, 贪心, et corrompu, 贪污.",
+   "origine_en": "The Shuowen jiezi writes 貪 and glosses it as “to desire things”: 貝, money, for the meaning, and 今 for the sound. 今 is read jīn, far from tān: it is a shape. Always wanting more money: greedy, 贪心, and corrupt, 贪污.",
+   "etiquette": "atteste",
+   "memo_fr": null,
+   "memo_en": null,
+   "mots": [],
+   "phrase": null,
+   "niveaux": {
+    "hsk": 7
    },
    "traits": [],
    "medianes": [],

@@ -95,7 +95,9 @@
    "memo_en": null,
    "mots": [],
    "phrase": null,
-   "niveaux": {},
+   "niveaux": {
+    "hsk": 2
+   },
    "traits": [],
    "medianes": [],
    "audio": null,
@@ -115,14 +117,12 @@
     "丶",
     "龴"
    ],
-   "nouveau": [
-    2
-   ],
+   "nouveau": [],
    "sources": [
     "cjk-decomp",
     "surcharge"
    ],
-   "role": "son",
+   "role": null,
    "roles": {
     "丶": "son",
     "人": "son",
@@ -193,7 +193,193 @@
    "memo_en": null,
    "mots": [],
    "phrase": null,
-   "niveaux": {},
+   "niveaux": {
+    "hsk": 4
+   },
+   "traits": [],
+   "medianes": [],
+   "audio": null,
+   "statut": "relu"
+  },
+  {
+   "c": "雾",
+   "pinyin": "wù",
+   "lectures": [
+    "wù"
+   ],
+   "fr": "brouillard, brume",
+   "en": "fog, mist",
+   "parts": [
+    "雨",
+    "夂",
+    "力"
+   ],
+   "nouveau": [],
+   "sources": [
+    "cjk-decomp"
+   ],
+   "role": null,
+   "roles": {
+    "力": "son",
+    "夂": "son",
+    "雨": "sens"
+   },
+   "origine_fr": "Le Shuowen jiezi décrit le brouillard comme la vapeur que la terre exhale sans que le ciel y réponde : 雨, la pluie, et 敄 pour le son. La forme simplifiée écrit 务, 夂 sur 力, qui se lit wù comme 雾. Sous la pluie, l'humidité qui monte et voile tout : le brouillard.",
+   "origine_en": "The Shuowen jiezi describes fog as vapour breathed out by the earth to which the sky gives no answer: 雨, rain, and 敄 for the sound. The simplified form writes 务, 夂 over 力, read wù like 雾. Under the rain, damp rising and veiling everything: fog.",
+   "etiquette": "atteste",
+   "memo_fr": null,
+   "memo_en": null,
+   "mots": [],
+   "phrase": null,
+   "niveaux": {
+    "hsk": 7
+   },
+   "traits": [],
+   "medianes": [],
+   "audio": null,
+   "statut": "relu"
+  },
+  {
+   "c": "需",
+   "pinyin": "xū",
+   "lectures": [
+    "xū"
+   ],
+   "fr": "avoir besoin de, besoin",
+   "en": "to need, need",
+   "parts": [
+    "雨",
+    "而"
+   ],
+   "nouveau": [],
+   "sources": [
+    "cjk-decomp"
+   ],
+   "role": null,
+   "roles": {
+    "而": "forme",
+    "雨": "sens"
+   },
+   "origine_fr": "Le Shuowen jiezi glose 需 par « attendre » : 雨, la pluie, et 而 pour le son. Il explique que, surpris par la pluie, on s'arrête et on attend. 而 se lit ér et ne donne plus le son de xū ; aujourd'hui, 需 veut dire « avoir besoin de ».",
+   "origine_en": "The Shuowen jiezi glosses 需 as “to wait”: 雨, rain, with 而 for the sound. It explains that, caught in the rain, one stops and waits. 而 is read ér and no longer gives the sound xū; today 需 means “to need”.",
+   "etiquette": "atteste",
+   "memo_fr": null,
+   "memo_en": null,
+   "mots": [],
+   "phrase": null,
+   "niveaux": {
+    "hsk": 3
+   },
+   "traits": [],
+   "medianes": [],
+   "audio": null,
+   "statut": "relu"
+  },
+  {
+   "c": "震",
+   "pinyin": "zhèn",
+   "lectures": [
+    "zhèn"
+   ],
+   "fr": "trembler, secouer, choquer",
+   "en": "to quake, to shake, to shock",
+   "parts": [
+    "雨",
+    "辰"
+   ],
+   "nouveau": [],
+   "sources": [
+    "cjk-decomp"
+   ],
+   "role": null,
+   "roles": {
+    "辰": "forme",
+    "雨": "sens"
+   },
+   "origine_fr": "Le Shuowen jiezi glose 震 « la foudre qui ébranle les choses » : 雨, la pluie d'orage, et 辰 pour le son. De la foudre sont venus « trembler, secouer », puis « choquer ». 辰 se lit chén et ne donne pas le son de zhèn.",
+   "origine_en": "The Shuowen jiezi glosses 震 as “the thunderbolt that shakes things”: 雨, storm rain, with 辰 for the sound. The thunderbolt gave “to quake, to shake”, then “to shock”. 辰 is read chén and does not give the sound of zhèn.",
+   "etiquette": "atteste",
+   "memo_fr": null,
+   "memo_en": null,
+   "mots": [],
+   "phrase": null,
+   "niveaux": {
+    "hsk": 5
+   },
+   "traits": [],
+   "medianes": [],
+   "audio": null,
+   "statut": "relu"
+  },
+  {
+   "c": "霉",
+   "pinyin": "méi",
+   "lectures": [
+    "méi"
+   ],
+   "fr": "moisissure, moisir, malchance",
+   "en": "mould, to go mouldy, bad luck",
+   "parts": [
+    "雨",
+    "𠂉",
+    "母"
+   ],
+   "nouveau": [],
+   "sources": [
+    "cjk-decomp"
+   ],
+   "role": null,
+   "roles": {
+    "母": "son",
+    "雨": "sens",
+    "𠂉": "son"
+   },
+   "origine_fr": "Pour s'en souvenir : en haut, 雨, la pluie ; en bas, 每, chaque, qui se lit měi, sur la même syllabe que méi. Chaque jour de pluie, et tout moisit : la moisissure, 发霉. De là 倒霉, avoir la poisse.",
+   "origine_en": "As a memory aid: on top, 雨, rain; below, 每, each, read měi, the same syllable as méi. Rain every day, and everything goes mouldy: mould, 发霉. Hence 倒霉, to be out of luck.",
+   "etiquette": "mnemotechnique",
+   "memo_fr": null,
+   "memo_en": null,
+   "mots": [],
+   "phrase": null,
+   "niveaux": {
+    "hsk": 7
+   },
+   "traits": [],
+   "medianes": [],
+   "audio": null,
+   "statut": "relu"
+  },
+  {
+   "c": "霍",
+   "pinyin": "huò",
+   "lectures": [
+    "huò"
+   ],
+   "fr": "soudain, rapidement",
+   "en": "suddenly, swiftly",
+   "parts": [
+    "雨",
+    "隹"
+   ],
+   "nouveau": [],
+   "sources": [
+    "cjk-decomp"
+   ],
+   "role": null,
+   "roles": {
+    "隹": "sens",
+    "雨": "sens"
+   },
+   "origine_fr": "Le Shuowen jiezi écrit 靃, deux oiseaux 隹 sous la pluie 雨, et le rattache au bruit d'ailes d'oiseaux qui s'envolent sous l'averse. La forme d'aujourd'hui ne garde qu'un seul 隹. Ce vol brusque a donné « soudain », comme dans 霍然.",
+   "origine_en": "The Shuowen jiezi writes 靃, two birds 隹 under the rain 雨, and links it to the whirr of birds taking off in a downpour. Today's form keeps only one 隹. That sudden flight gave “suddenly”, as in 霍然.",
+   "etiquette": "atteste",
+   "memo_fr": null,
+   "memo_en": null,
+   "mots": [],
+   "phrase": null,
+   "niveaux": {
+    "hsk": 7
+   },
    "traits": [],
    "medianes": [],
    "audio": null,
@@ -205,8 +391,8 @@
    "lectures": [
     "shuāng"
    ],
-   "fr": "",
-   "en": "",
+   "fr": "givre, gelée blanche",
+   "en": "frost, hoarfrost",
    "parts": [
     "雨",
     "木",
@@ -217,19 +403,61 @@
     "cjk-decomp"
    ],
    "role": null,
-   "roles": {},
-   "origine_fr": "",
-   "origine_en": "",
-   "etiquette": null,
+   "roles": {
+    "木": "forme",
+    "目": "forme",
+    "雨": "sens"
+   },
+   "origine_fr": "Le Shuowen jiezi écrit 霜 avec 雨, la pluie, pour le sens, et 相 pour le son. 相 se lit xiāng, qui n'a pas la syllabe de shuāng : ses 木 et 目 sont des formes. Ce qui tombe du ciel et gèle au sol : le givre, 霜降.",
+   "origine_en": "The Shuowen jiezi writes 霜 with 雨, rain, for the meaning, and 相 for the sound. 相 is read xiāng, which does not have the syllable of shuāng: its 木 and 目 are shapes. What falls from the sky and freezes on the ground: frost, 霜降.",
+   "etiquette": "atteste",
    "memo_fr": null,
    "memo_en": null,
    "mots": [],
    "phrase": null,
-   "niveaux": {},
+   "niveaux": {
+    "hsk": 7
+   },
    "traits": [],
    "medianes": [],
    "audio": null,
-   "statut": "sans_fiche"
+   "statut": "relu"
+  },
+  {
+   "c": "霞",
+   "pinyin": "xiá",
+   "lectures": [
+    "xiá"
+   ],
+   "fr": "nuages colorés, rougeoiement",
+   "en": "rosy clouds, glow",
+   "parts": [
+    "雨",
+    "叚"
+   ],
+   "nouveau": [],
+   "sources": [
+    "cjk-decomp"
+   ],
+   "role": null,
+   "roles": {
+    "叚": "son",
+    "雨": "sens"
+   },
+   "origine_fr": "Pour s'en souvenir : en haut, 雨, la pluie, le ciel humide. En dessous, 叚, qui se lit jiǎ ou xiá, la même syllabe que 霞. Les nuages teintés de rouge au lever ou au coucher du soleil : 晚霞, les nuages du soir.",
+   "origine_en": "As a memory aid: at the top, 雨, rain, the damp sky. Below, 叚, read jiǎ or xiá, the same syllable as 霞. Clouds tinted red at sunrise or sunset: 晚霞, the evening glow.",
+   "etiquette": "mnemotechnique",
+   "memo_fr": null,
+   "memo_en": null,
+   "mots": [],
+   "phrase": null,
+   "niveaux": {
+    "hsk": 7
+   },
+   "traits": [],
+   "medianes": [],
+   "audio": null,
+   "statut": "relu"
   },
   {
    "c": "露",
@@ -266,7 +494,47 @@
    "memo_en": null,
    "mots": [],
    "phrase": null,
-   "niveaux": {},
+   "niveaux": {
+    "hsk": 6
+   },
+   "traits": [],
+   "medianes": [],
+   "audio": null,
+   "statut": "relu"
+  },
+  {
+   "c": "霸",
+   "pinyin": "bà",
+   "lectures": [
+    "bà"
+   ],
+   "fr": "tyran, dominer",
+   "en": "tyrant, to dominate",
+   "parts": [
+    "雨",
+    "革",
+    "月"
+   ],
+   "nouveau": [],
+   "sources": [
+    "cjk-decomp"
+   ],
+   "role": null,
+   "roles": {
+    "月": "forme",
+    "雨": "forme",
+    "革": "forme"
+   },
+   "origine_fr": "Le Shuowen jiezi glose 霸 par la première lueur de la lune nouvelle : 月, la lune, et 雨 sur 革 pour le son. On lit 雨 en haut, puis 革 et 月 côte à côte. Emprunté pour 伯, le chef des seigneurs, le caractère a pris le sens de « tyran, dominer ».",
+   "origine_en": "The Shuowen jiezi glosses 霸 as the first glimmer of the new moon: 月, the moon, and 雨 over 革 for the sound. You read 雨 on top, then 革 and 月 side by side. Borrowed for 伯, the chief of the lords, the character came to mean “tyrant, to dominate”.",
+   "etiquette": "atteste",
+   "memo_fr": null,
+   "memo_en": null,
+   "mots": [],
+   "phrase": null,
+   "niveaux": {
+    "hsk": 7
+   },
    "traits": [],
    "medianes": [],
    "audio": null,

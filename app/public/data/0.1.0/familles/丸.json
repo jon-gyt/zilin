@@ -3,15 +3,15 @@
  "license": "propriétaire",
  "source": "décomposition GF 0014-2009 réconciliée par le pipeline wenlu ; pinyin d'Unihan (kMandarin) ; textes rédigés pour l'app",
  "source_url": "https://github.com/jon-gyt/zilin",
- "modified": "2026-09-25 : assemblé par `wenlu export`",
+ "modified": "2026-09-30 : assemblé par `wenlu export`",
  "norme": "GF 0014-2009",
  "racine": {
   "c": "丸",
   "pinyin": "wán",
-  "fr": "",
-  "en": "",
-  "origine": "",
-  "etiquette": null
+  "fr": "boulette, pilule",
+  "en": "ball, pill",
+  "origine": "Pour s'en souvenir : 丸 ressemble à 九, neuf, avec un point de plus, comme une petite boule tenue dans la main. On roule la pâte en boulettes, 丸子, et le remède en pilules, 药丸. Le point dit la petite boule, le reste la main qui la roule.",
+  "etiquette": "mnemotechnique"
  },
  "fiches": [
   {
@@ -20,25 +20,50 @@
    "lectures": [
     "wán"
    ],
-   "fr": "",
-   "en": "",
+   "fr": "boulette, pilule",
+   "en": "ball, pill",
    "parts": [],
    "nouveau": [],
    "sources": [],
    "role": null,
-   "roles": {},
-   "origine_fr": "",
-   "origine_en": "",
-   "etiquette": null,
+   "roles": {
+    "丸": "forme"
+   },
+   "origine_fr": "Pour s'en souvenir : 丸 ressemble à 九, neuf, avec un point de plus, comme une petite boule tenue dans la main. On roule la pâte en boulettes, 丸子, et le remède en pilules, 药丸. Le point dit la petite boule, le reste la main qui la roule.",
+   "origine_en": "As a memory aid: 丸 looks like 九, nine, with an extra dot, like a small ball held in the hand. Dough is rolled into balls, 丸子, and medicine into pills, 药丸. The dot is the little ball, the rest the hand that rolls it.",
+   "etiquette": "mnemotechnique",
    "memo_fr": null,
    "memo_en": null,
-   "mots": [],
-   "phrase": null,
-   "niveaux": {},
+   "mots": [
+    {
+     "hanzi": "丸子",
+     "pinyin": "wánzi",
+     "fr": "boulette",
+     "en": "ball, dumpling",
+     "audio": null
+    },
+    {
+     "hanzi": "肉丸",
+     "pinyin": "ròuwán",
+     "fr": "boulette de viande",
+     "en": "meatball",
+     "audio": null
+    }
+   ],
+   "phrase": {
+    "hanzi": "今天妈妈做了肉丸。",
+    "pinyin": "Jīntiān māma zuòle ròuwán.",
+    "fr": "Aujourd'hui, maman a fait des boulettes de viande.",
+    "en": "Mum made meatballs today.",
+    "audio": null
+   },
+   "niveaux": {
+    "hsk": 7
+   },
    "traits": [],
    "medianes": [],
    "audio": null,
-   "statut": "sans_fiche"
+   "statut": "relu"
   }
  ]
 }

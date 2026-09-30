@@ -50,8 +50,9 @@ describe('les lignes du rythme gratuit (`rythme.json`)', () => {
 
   it('la suite du chemin selon le parcours', () => {
     expect(suiteDuChemin(EXPORT, 'hsk')).toMatch(/HSK 2/);
-    expect(suiteDuChemin(EXPORT, 'lire')).toMatch(/405/);
-    expect(suiteDuChemin(EXPORT, null)).toMatch(/405/);
+    /* Décision du propriétaire du 30 septembre 2026 : après le seuil 255, le HSK 3.0. */
+    expect(suiteDuChemin(EXPORT, 'lire')).toMatch(/HSK 1, puis le HSK 2/);
+    expect(suiteDuChemin(EXPORT, null)).toMatch(/HSK 1, puis le HSK 2/);
   });
 
   it('un export sans `rythme.json` se tait : rien n’est écrit dans le code', () => {

@@ -33,11 +33,21 @@ brique, la première feuille du dictionnaire, puis la première feuille tout
 court, puis le caractère lui-même. Une famille est une racine et tout ce
 qu'elle engendre.
 
-Parcours : « lire » suit le seuil 255 (puis, plus tard, les seuils suivants),
-« hsk » suit le HSK 1. Le même graphe sert aux deux ; seule la liste cible
-change. L'ordre respecte le tri topologique — une brique avant tout ce qui la
-contient — et, parmi les candidats prêts, donne la priorité aux caractères de la
-liste cible, puis à la fréquence.
+Parcours : « lire » suit le seuil 255, « hsk » le HSK 1 ; puis, sur les deux, le
+HSK 3.0 niveau par niveau (HSK 2, 3, 4, 5, 6, 7-9), à partir de ce que le chemin n'a
+pas encore posé (décision du propriétaire du 30 septembre 2026 : les seuils 405 à
+1555 sont introuvables, les contes suivent déjà le HSK 3.0). Chaque liste est une
+étape (`ETAPES`) : le chemin la termine avant de passer à la suivante, et la
+première est le chemin gratuit (brief §10) ; les autres sont de Wenlu complet. Le
+même graphe sert aux deux parcours ; seules les listes changent. L'ordre respecte
+le tri topologique — une brique avant tout ce qui la contient — et, parmi les
+candidats prêts, donne la priorité aux caractères de la liste de l'étape, puis à ce
+qui devient lisible le jour même, puis à la fréquence.
+
+Prolonger : `wenlu parcours prolonger` garde, jour pour jour, les jours déjà figés
+d'un ordre, fermeture comprise, et calcule la suite, étape par étape, avec les mêmes
+règles. Chaque étape se ferme par ses propres non réconciliés et absents : le 兴 du
+seuil 255 garde son jour 190, celui du HSK 1 son jour 220.
 
 Fréquence : Make Me a Hanzi ne fournit aucun rang de fréquence (`dictionary.txt`
 n'a que `character`, `definition`, `pinyin`, `decomposition`, `radical`,
@@ -94,8 +104,20 @@ SANS_FICHE: tuple[str, ...] = (MUETTE, DECOUPEE)
 # Une session de 10 minutes : une brique nouvelle, puis un ou deux composés.
 COMPOSES_PAR_JOUR = 2
 
-# Parcours livrés en version 1 : nom du parcours -> nom de la liste cible.
-PARCOURS: dict[str, str] = {"lire": "seuil-255", "hsk": "hsk-1"}
+#: Les niveaux du HSK 3.0 (GF 0025-2021), dans l'ordre. Chaque fichier ne porte que les
+#: caractères nouveaux de son niveau : le niveau se lit en cumul.
+LISTES_HSK: tuple[str, ...] = ("hsk-1", "hsk-2", "hsk-3", "hsk-4", "hsk-5", "hsk-6", "hsk-7-9")
+
+#: Les étapes de chaque parcours : ses listes, dans l'ordre où le chemin les pose. Une
+#: étape se termine avant que la suivante commence ; une liste n'y apporte que ce que le
+#: chemin n'a pas encore posé. La première est le chemin gratuit (brief §10 : le seuil 255
+#: sur le chemin Lire, le HSK 1 sur le chemin HSK) ; la suite est de Wenlu complet.
+#: Décision du propriétaire du 30 septembre 2026 : les deux chemins suivent le HSK 3.0
+#: jusqu'au bout du HSK 7-9, le chemin Lire après son seuil 255.
+ETAPES: dict[str, tuple[str, ...]] = {"lire": ("seuil-255", *LISTES_HSK), "hsk": LISTES_HSK}
+
+#: La liste du chemin gratuit de chaque parcours, la première de ses étapes.
+PARCOURS: dict[str, str] = {nom: listes[0] for nom, listes in ETAPES.items()}
 
 #: Ce que la première session enseigne, dans l'ordre (brief §6, story 2.7), et donc
 #: le début imposé de chaque parcours : un jour par caractère, sans composé. La
@@ -395,8 +417,25 @@ class Jour:
 
 
 @dataclass(frozen=True)
+class Etape:
+    """Une étape d'un parcours : une liste, et le dernier jour du chemin qui en pose un caractère.
+
+    `fin` vaut 0 tant que le chemin n'en a rien posé ; une étape que les précédentes ont
+    déjà couverte garde la fin de la précédente.
+    """
+
+    liste: str
+    cible: tuple[str, ...]
+    fin: int
+
+
+@dataclass(frozen=True)
 class Parcours:
-    """L'ordre d'apprentissage d'une liste cible, jour par jour."""
+    """L'ordre d'apprentissage des listes d'un parcours, jour par jour.
+
+    `liste` est la première liste, celle du chemin gratuit ; `cible`, toutes les listes des
+    étapes, dans l'ordre, sans doublon ; `etapes`, la fin de chacune.
+    """
 
     nom: str
     liste: str
@@ -408,6 +447,12 @@ class Parcours:
     absents: tuple[str, ...] = ()
     cible: tuple[str, ...] = ()
     depart: tuple[str, ...] = ()
+    etapes: tuple[Etape, ...] = ()
+
+    @property
+    def gratuit(self) -> int:
+        """Le dernier jour du chemin gratuit : la fin de la première étape (0 sans étape)."""
+        return self.etapes[0].fin if self.etapes else 0
 
     @property
     def cibles(self) -> int:
@@ -470,6 +515,49 @@ def _cle_priorite(
     return cle
 
 
+def cible_des_etapes(etapes: Sequence[tuple[str, Sequence[str]]]) -> tuple[str, ...]:
+    """Toutes les listes des étapes, dans l'ordre, sans doublon : la cible du parcours."""
+    return tuple(dict.fromkeys(c for _, cs in etapes for c in cs))
+
+
+def fermetures_des_etapes(
+    graphe: Graphe, etapes: Sequence[tuple[str, Sequence[str]]]
+) -> list[tuple[str, ...]]:
+    """Ce qui ferme chaque étape : ses caractères absents du graphe, puis ses non réconciliés,
+    dans l'ordre de sa liste. Un caractère n'appartient qu'à la première liste qui le porte."""
+    vus: set[str] = set()
+    out: list[tuple[str, ...]] = []
+    for _, cs in etapes:
+        propres = [c for c in dict.fromkeys(cs) if c not in vus]
+        vus.update(propres)
+        absents = [c for c in propres if c not in graphe]
+        non_reconcilies = [c for c in propres if c in graphe and not graphe[c].reconcilie]
+        out.append(tuple(absents + non_reconcilies))
+    return out
+
+
+def fins_des_etapes(
+    etapes: Sequence[tuple[str, Sequence[str]]], jours: Sequence[Jour]
+) -> tuple[Etape, ...]:
+    """La fin de chaque étape : le dernier jour qui pose un caractère de sa liste.
+
+    Les jours de fermeture n'y comptent pas : ils ne s'enseignent pas. Une étape dont le
+    chemin n'a rien posé de plus garde la fin de la précédente : les fins ne reculent pas.
+    """
+    jour_de: dict[str, int] = {}
+    for j in jours:
+        if j.non_reconcilie:
+            continue
+        for c in j.caracteres:
+            jour_de.setdefault(c, j.jour)
+    out: list[Etape] = []
+    fin = 0
+    for liste, cs in etapes:
+        fin = max([fin, *(jour_de[c] for c in cs if c in jour_de)])
+        out.append(Etape(liste=liste, cible=tuple(cs), fin=fin))
+    return tuple(out)
+
+
 def parcours(
     graphe: Graphe,
     cible: Sequence[str],
@@ -479,118 +567,156 @@ def parcours(
     rangs: Mapping[str, int] | None = None,
     composes_par_jour: int = COMPOSES_PAR_JOUR,
     depart: Sequence[str] = (),
+    etapes: Sequence[tuple[str, Sequence[str]]] | None = None,
+    prefixe: Sequence[Jour] = (),
 ) -> Parcours:
     """Ordre d'apprentissage de `cible` : une brique nouvelle par jour.
 
     Les briques muettes et découpées sont acquises d'entrée, faute de fiche à poser. Les
     caractères absents du graphe ou non réconciliés ferment le parcours.
 
-    `depart` impose les premiers jours : un caractère par jour, dans l'ordre donné,
-    sans composé — c'est ce que la première session enseigne, rien de plus. Une
-    brique y reste seule de son jour ; un caractère composé n'y entre que si ses
-    briques sont déjà posées. Sinon, `DepartImpossible`.
+    `etapes` : les listes du parcours, dans l'ordre, `(nom, caractères)` ; par défaut une
+    seule, `(liste, cible)`. Chaque étape se termine avant que la suivante commence : ses
+    caractères pas encore posés, et leurs briques, avec les règles de toujours ; la
+    priorité suit l'ordre de sa liste. La cible du parcours est alors toutes les listes.
+
+    `prefixe` : des jours déjà figés, gardés tels quels, jours de fermeture compris ; le
+    calcul reprend après eux. C'est ainsi qu'un ordre figé se prolonge sans qu'aucun de ses
+    jours ne bouge (`prolonger`). Chaque étape se ferme par ses propres non réconciliés et
+    absents (`fermetures_des_etapes`), avant la suivante.
+
+    `depart` impose les premiers jours, quand il n'y a pas de préfixe : un caractère par
+    jour, dans l'ordre donné, sans composé — c'est ce que la première session enseigne,
+    rien de plus. Une brique y reste seule de son jour ; un caractère composé n'y entre
+    que si ses briques sont déjà posées. Sinon, `DepartImpossible`.
     """
     rangs = rangs or {}
-    positions = {c: i for i, c in enumerate(cible)}
+    etapes = [(liste, tuple(cible))] if etapes is None else [(l, tuple(cs)) for l, cs in etapes]
+    cible = cible_des_etapes(etapes)
     absents = tuple(c for c in cible if c not in graphe)
     non_reconcilies = tuple(c for c in cible if c in graphe and not graphe[c].reconcilie)
     cibles_ok = [c for c in cible if c in graphe and graphe[c].reconcilie]
 
-    besoin: dict[str, int] = {}
     muettes: set[str] = set()
     decoupees: set[str] = set()
-    a_apprendre: set[str] = set(cibles_ok)
+    a_apprendre_tout: set[str] = set(cibles_ok)
     for c in cibles_ok:
         for p in graphe.prerequis_transitifs(c):
-            besoin[p] = besoin.get(p, 0) + 1
             if graphe[p].genre == MUETTE:
                 muettes.add(p)
             elif graphe[p].genre == DECOUPEE:
                 decoupees.add(p)
             else:
-                a_apprendre.add(p)
+                a_apprendre_tout.add(p)
 
     acquis: set[str] = muettes | decoupees
-    restant = set(cibles_ok)
     jours: list[Jour] = []
     briques: list[str] = []
+
+    fermes: set[str] = set()
+    for j in prefixe:
+        jours.append(
+            Jour(jour=len(jours) + 1, brique=j.brique, composes=tuple(j.composes), non_reconcilie=j.non_reconcilie)
+        )
+        if j.non_reconcilie:
+            fermes.update(j.composes)
+            continue
+        acquis.update(j.caracteres)
+        if j.brique:
+            briques.append(j.brique)
 
     def pret(c: str) -> bool:
         return all(p in acquis for p in graphe[c].prerequis)
 
-    def debloque() -> dict[str, int]:
-        """Pour chaque candidat, les cibles restantes qui n'attendent plus que lui."""
-        compte: dict[str, int] = {}
+    if not jours:
+        for c in depart:
+            if c not in a_apprendre_tout or c in acquis:
+                raise DepartImpossible(f"{nom} : {c} n'est pas à apprendre dans {liste}, ou deux fois")
+            if not pret(c):
+                manque = " ".join(p for p in graphe[c].prerequis if p not in acquis)
+                raise DepartImpossible(f"{nom} : {c} n'est pas lisible au départ (il manque {manque})")
+            acquis.add(c)
+            if graphe[c].genre == BRIQUE:
+                briques.append(c)
+                jours.append(Jour(jour=len(jours) + 1, brique=c))
+            else:
+                jours.append(Jour(jour=len(jours) + 1, brique=None, composes=(c,)))
+
+    reconcilies = set(cibles_ok)
+    fermes_de = fermetures_des_etapes(graphe, etapes)
+    for k_etape, (nom_liste, cs) in enumerate(etapes):
+        positions = {c: i for i, c in enumerate(cs)}
+        restant = {c for c in cs if c in reconcilies and c not in acquis}
+        besoin: dict[str, int] = {}
+        a_apprendre: set[str] = set(restant)
         for c in restant:
-            manquants = [p for p in graphe[c].prerequis if p not in acquis]
-            if len(manquants) == 1:
-                compte[manquants[0]] = compte.get(manquants[0], 0) + 1
-        return compte
-
-    def poser(c: str) -> None:
-        acquis.add(c)
-        if c in restant:
-            restant.discard(c)
             for p in graphe.prerequis_transitifs(c):
-                besoin[p] = besoin.get(p, 1) - 1
+                besoin[p] = besoin.get(p, 0) + 1
+                if p not in acquis and graphe[p].genre not in SANS_FICHE:
+                    a_apprendre.add(p)
 
-    for c in depart:
-        if c not in a_apprendre or c in acquis:
-            raise DepartImpossible(f"{nom} : {c} n'est pas à apprendre dans {liste}, ou deux fois")
-        if not pret(c):
-            manque = " ".join(p for p in graphe[c].prerequis if p not in acquis)
-            raise DepartImpossible(f"{nom} : {c} n'est pas lisible au départ (il manque {manque})")
-        poser(c)
-        if graphe[c].genre == BRIQUE:
-            briques.append(c)
-            jours.append(Jour(jour=len(jours) + 1, brique=c))
-        else:
-            jours.append(Jour(jour=len(jours) + 1, brique=None, composes=(c,)))
+        def debloque() -> dict[str, int]:
+            """Pour chaque candidat, les cibles restantes qui n'attendent plus que lui."""
+            compte: dict[str, int] = {}
+            for c in restant:
+                manquants = [p for p in graphe[c].prerequis if p not in acquis]
+                if len(manquants) == 1:
+                    compte[manquants[0]] = compte.get(manquants[0], 0) + 1
+            return compte
 
-    while restant:
-        cle = _cle_priorite(graphe, positions, rangs, debloque())
-        candidates = [
-            c
-            for c in a_apprendre - acquis
-            if graphe[c].genre == BRIQUE and pret(c) and (c in restant or besoin.get(c, 0) > 0)
-        ]
-        brique = min(candidates, key=cle) if candidates else None
-        if brique is not None:
-            poser(brique)
-            briques.append(brique)
-        composes: list[str] = []
-        while len(composes) < composes_par_jour:
-            prets = [
+        def poser(c: str) -> None:
+            acquis.add(c)
+            if c in restant:
+                restant.discard(c)
+                for p in graphe.prerequis_transitifs(c):
+                    besoin[p] = besoin.get(p, 1) - 1
+
+        while restant:
+            cle = _cle_priorite(graphe, positions, rangs, debloque())
+            candidates = [
                 c
                 for c in a_apprendre - acquis
-                if graphe[c].genre != BRIQUE and pret(c) and (c in restant or besoin.get(c, 0) > 0)
+                if graphe[c].genre == BRIQUE and pret(c) and (c in restant or besoin.get(c, 0) > 0)
             ]
-            if not prets:
-                break
-            suivant = min(prets, key=_cle_priorite(graphe, positions, rangs, debloque()))
-            poser(suivant)
-            composes.append(suivant)
-        if brique is None and not composes:
-            raise ParcoursBloque(
-                f"{nom} : {len(restant)} caractères jamais prêts"
-                f" ({' '.join(sorted(restant)[:10])})"
-            )
-        jours.append(Jour(jour=len(jours) + 1, brique=brique, composes=tuple(composes)))
+            brique = min(candidates, key=cle) if candidates else None
+            if brique is not None:
+                poser(brique)
+                briques.append(brique)
+            composes: list[str] = []
+            while len(composes) < composes_par_jour:
+                prets = [
+                    c
+                    for c in a_apprendre - acquis
+                    if graphe[c].genre != BRIQUE and pret(c) and (c in restant or besoin.get(c, 0) > 0)
+                ]
+                if not prets:
+                    break
+                suivant = min(prets, key=_cle_priorite(graphe, positions, rangs, debloque()))
+                poser(suivant)
+                composes.append(suivant)
+            if brique is None and not composes:
+                raise ParcoursBloque(
+                    f"{nom} : {len(restant)} caractères de {nom_liste} jamais prêts"
+                    f" ({' '.join(sorted(restant)[:10])})"
+                )
+            jours.append(Jour(jour=len(jours) + 1, brique=brique, composes=tuple(composes)))
 
-    reste = absents + non_reconcilies
-    for debut in range(0, len(reste), composes_par_jour):
-        jours.append(
-            Jour(
-                jour=len(jours) + 1,
-                brique=None,
-                composes=tuple(reste[debut : debut + composes_par_jour]),
-                non_reconcilie=True,
+        # Les caractères de l'étape non réconciliés ou absents la ferment.
+        reste = [c for c in fermes_de[k_etape] if c not in fermes]
+        fermes.update(reste)
+        for debut in range(0, len(reste), composes_par_jour):
+            jours.append(
+                Jour(
+                    jour=len(jours) + 1,
+                    brique=None,
+                    composes=tuple(reste[debut : debut + composes_par_jour]),
+                    non_reconcilie=True,
+                )
             )
-        )
 
     return Parcours(
         nom=nom,
-        liste=liste,
+        liste=etapes[0][0] if etapes else liste,
         jours=tuple(jours),
         briques=tuple(briques),
         muettes=tuple(sorted(muettes)),
@@ -599,6 +725,7 @@ def parcours(
         absents=absents,
         cible=tuple(cible),
         depart=tuple(depart),
+        etapes=fins_des_etapes(etapes, jours),
     )
 
 
@@ -610,24 +737,73 @@ def chemin_ordre(nom: str, dossier: Path | None = None) -> Path:
     return (dossier or ORDRES) / f"ordre-{nom}.tsv"
 
 
+#: Le nom d'une liste tel que l'en-tête d'un ordre le dit.
+NOMS_DE_LISTE: dict[str, str] = {
+    "seuil-255": "seuil 255",
+    **{nom: nom.replace("hsk-", "HSK ") for nom in LISTES_HSK},
+}
+
+
 def ecrire_ordre(p: Parcours) -> str:
-    """Le fichier d'ordre figé d'un parcours : un jour par ligne, en TSV."""
+    """Le fichier d'ordre figé d'un parcours : un jour par ligne, en TSV.
+
+    Avec plusieurs étapes, l'en-tête les dit, avec leurs règles et leur source, et une
+    ligne de commentaire marque le début de chacune dans la liste des jours.
+    """
+    listes = [e.liste for e in p.etapes] or [p.liste]
     lignes = [
-        f"# Ordre figé du parcours « {p.nom} » (liste {p.liste}), un jour par ligne.",
+        f"# Ordre figé du parcours « {p.nom} » (listes {', '.join(listes)}), un jour par ligne.",
         "#",
-        "# Écrit par `uv run wenlu parcours figer`, relu, puis versionné : `wenlu build` le lit",
-        "# au lieu de recalculer l'ordre, et le refuse s'il ne tient plus contre le graphe",
-        "# (brique posée deux fois, composé posé avant ses briques, caractère de la liste",
-        "# oublié, caractère qui n'est plus à apprendre). Un jour qui bouge est donc toujours",
-        "# une décision explicite, visible dans l'historique de ce fichier.",
+        "# Écrit par `uv run wenlu parcours figer` (ou prolongé par `uv run wenlu parcours",
+        "# prolonger`), relu, puis versionné : `wenlu build` le lit au lieu de recalculer",
+        "# l'ordre, et le refuse s'il ne tient plus contre le graphe (brique posée deux fois,",
+        "# composé posé avant ses briques, caractère de la liste oublié, caractère qui n'est",
+        "# plus à apprendre, étape commencée avant la fin de la précédente). Un jour qui bouge",
+        "# est donc toujours une décision explicite, visible dans l'historique de ce fichier.",
         "# Voir `data/src/wenlu_data/graphe.py` et `docs/sources-licences.md` §10.",
         "#",
+    ]
+    if len(listes) > 1:
+        lignes += [
+            "# Étapes, dans l'ordre (graphe.ETAPES) : chaque liste n'apporte que ce que le chemin",
+            "# n'a pas encore posé, et se termine avant la suivante. La première est le chemin",
+            "# gratuit (brief §10) ; la suite est de Wenlu complet. Décision du propriétaire du",
+            "# 30 septembre 2026 : après le seuil 255 ou le HSK 1, les deux chemins suivent le",
+            "# HSK 3.0 (GF 0025-2021, data/sources/listes/hsk-*.txt) jusqu'au bout du HSK 7-9 ;",
+            "# les seuils 405 à 1555 sont introuvables.",
+            "# Règles de la suite, celles du calcul (`graphe.parcours`) : une brique nouvelle au",
+            "# plus par jour, puis un ou deux composés qu'elle rend lisibles ; un composé",
+            "# seulement quand toutes ses briques GF 0014-2009 sont posées ; parmi les",
+            "# candidats, les caractères de la liste de l'étape d'abord, puis ce qui devient",
+            "# lisible le jour même, puis le nombre de caractères qui dépendent du candidat",
+            "# (aucun rang de fréquence n'est ingéré), puis l'ordre de la liste. Les caractères",
+            "# non réconciliés ou absents de chaque liste ferment son étape ; la session les saute.",
+        ]
+        for e in p.etapes:
+            lignes.append(f"#   {NOMS_DE_LISTE.get(e.liste, e.liste)} : jusqu'au jour {e.fin}")
+        lignes.append("#")
+    lignes += [
         "# Colonnes, séparées par une tabulation : jour ; brique nouvelle (`-` : aucune) ;",
         f"# composés, séparés par une espace (`-` : aucun) ; `{FERME}` pour les jours qui",
         "# ferment le parcours (caractères non réconciliés ou absents), `-` sinon.",
         "jour\tbrique\tcomposes\tstatut",
     ]
+    # Avec plusieurs étapes, une ligne de commentaire marque le début de chacune (le premier
+    # jour ordinaire après la fin de la précédente) et chaque bloc de jours de fermeture.
+    marquer = len(listes) > 1
+    k = 0
+    precedent_ferme = False
     for j in p.jours:
+        if marquer and j.non_reconcilie and not precedent_ferme:
+            lignes.append("# — fermeture : non réconciliés et absents de l'étape —")
+        if marquer and not j.non_reconcilie:
+            suivante = k
+            while suivante + 1 < len(p.etapes) and j.jour > p.etapes[suivante].fin:
+                suivante += 1
+            if suivante != k or j.jour == 1:
+                k = suivante
+                lignes.append(f"# — {NOMS_DE_LISTE.get(p.etapes[k].liste, p.etapes[k].liste)} —")
+        precedent_ferme = j.non_reconcilie
         lignes.append(
             "\t".join(
                 (
@@ -681,6 +857,7 @@ def parcours_fige(
     nom: str = "lire",
     liste: str = "seuil-255",
     depart: Sequence[str] = (),
+    etapes: Sequence[tuple[str, Sequence[str]]] | None = None,
 ) -> Parcours:
     """Le parcours d'un ordre figé, validé contre le graphe.
 
@@ -689,8 +866,14 @@ def parcours_fige(
     posées (les feuilles muettes et découpées sont acquises d'entrée), toute la liste
     cible couverte, et les caractères non réconciliés ou absents en fin de parcours.
     En plus : rien n'y est posé qui ne soit à apprendre pour la liste, pour qu'une
-    décomposition changée se voie. Au moindre écart, `OrdreInvalide` les nomme tous.
+    décomposition changée se voie, et les étapes se suivent : aucun caractère d'une
+    liste n'est posé avant la fin de l'étape précédente, sauf comme brique d'une liste
+    plus tôt. Au moindre écart, `OrdreInvalide` les nomme tous.
+
+    `etapes` : les listes du parcours, dans l'ordre ; par défaut une seule, `(liste, cible)`.
     """
+    etapes = [(liste, tuple(cible))] if etapes is None else [(l, tuple(cs)) for l, cs in etapes]
+    cible = cible_des_etapes(etapes)
     fautes: list[str] = []
     absents = tuple(c for c in cible if c not in graphe)
     non_reconcilies = tuple(c for c in cible if c in graphe and not graphe[c].reconcilie)
@@ -722,8 +905,6 @@ def parcours_fige(
                 fautes.append(f"jour {j.jour} : un jour de fermeture ne pose pas de brique")
             fermeture.extend(j.composes)
             continue
-        if fermeture:
-            fautes.append(f"jour {j.jour} : un jour ordinaire après les jours de fermeture")
         if not j.brique and not j.composes:
             fautes.append(f"jour {j.jour} : ni brique ni composé")
         if i < len(depart):
@@ -756,12 +937,15 @@ def parcours_fige(
     manquants = sorted(a_apprendre - poses)
     if manquants and not oublies:
         fautes.append(f"à apprendre mais jamais posés : {' '.join(manquants)}")
-    if fermeture != list(absents + non_reconcilies):
+    attendue = [c for fermes in fermetures_des_etapes(graphe, etapes) for c in fermes]
+    if fermeture != attendue:
         fautes.append(
-            "les jours de fermeture doivent porter, dans l'ordre de la liste, les absents puis"
-            f" les non réconciliés : {' '.join(absents + non_reconcilies) or 'aucun'}"
+            "les jours de fermeture doivent porter, étape par étape et dans l'ordre de sa liste,"
+            f" les absents puis les non réconciliés : {' '.join(attendue) or 'aucun'}"
             f" (lu : {' '.join(fermeture) or 'aucun'})"
         )
+    fins = fins_des_etapes(etapes, jours)
+    fautes += fautes_d_etapes(graphe, fins, jours, cibles_ok)
     if fautes:
         raise OrdreInvalide(
             f"{nom} : l'ordre figé ({chemin_ordre(nom).name}) ne tient plus contre le graphe —"
@@ -779,7 +963,51 @@ def parcours_fige(
         absents=absents,
         cible=tuple(cible),
         depart=tuple(depart),
+        etapes=fins,
     )
+
+
+def fautes_d_etapes(
+    graphe: Graphe, fins: Sequence[Etape], jours: Sequence[Jour], cibles_ok: Iterable[str]
+) -> list[str]:
+    """Les étapes se suivent, et chacune se ferme avant la suivante.
+
+    L'étape d'un caractère posé est la première dont la liste le porte, ou, plus tôt,
+    la première qui le demande comme composant (青 du HSK 2 posé pour 请 du HSK 1 est de
+    l'étape du HSK 1) ; celle d'un jour, la plus haute de ses caractères ; celle d'un jour
+    de fermeture, celle de ses caractères. D'un jour au suivant, l'étape ne redescend
+    jamais, et aucun jour ordinaire d'une étape ne suit un de ses jours de fermeture.
+    """
+    reconcilies = set(cibles_ok)
+    etape_de: dict[str, int] = {}
+    for k, e in enumerate(fins):
+        for c in e.cible:
+            etape_de.setdefault(c, k)
+    cumul: set[str] = set()
+    for k, e in enumerate(fins):
+        for c in e.cible:
+            if c in reconcilies:
+                cumul |= graphe.prerequis_transitifs(c)
+        for c in cumul:
+            if etape_de.get(c, k + 1) > k:
+                etape_de[c] = k
+    fautes: list[str] = []
+    courante = 0
+    fermee = -1
+    for j in jours:
+        etapes_du_jour = [etape_de[c] for c in j.caracteres if c in etape_de]
+        if not etapes_du_jour:
+            continue
+        k = max(etapes_du_jour)
+        nom_etape = fins[k].liste
+        if k < courante:
+            fautes.append(f"jour {j.jour} : {nom_etape} revient après {fins[courante].liste}")
+        if not j.non_reconcilie and k <= fermee:
+            fautes.append(f"jour {j.jour} : {nom_etape} continue après ses jours de fermeture")
+        if j.non_reconcilie:
+            fermee = max(fermee, k)
+        courante = max(courante, k)
+    return fautes
 
 
 # --------------------------------------------------------------------------- écriture
@@ -832,7 +1060,13 @@ def document_parcours(p: Parcours, ordre: str = ORDRE_CALCULE) -> dict[str, obje
         "ordre": ordre,
         "critere_frequence": CRITERE_FREQUENCE,
         "depart": list(p.depart),
-        "cible": list(p.cible),
+        # `cible` : la liste du chemin gratuit, la première étape (le rang du dernier de ses
+        # caractères borne le pinyin des examens, `examens.fin_premiere_etape`) ; toutes les
+        # listes sont dans `etapes`, chacune avec le dernier jour du chemin qui en pose un
+        # caractère ; `gratuit` est la fin de la première, le bout du chemin gratuit.
+        "cible": list(p.etapes[0].cible) if p.etapes else list(p.cible),
+        "gratuit": p.gratuit,
+        "etapes": [{"liste": e.liste, "fin": e.fin, "cible": list(e.cible)} for e in p.etapes],
         "compte": {
             "cibles": p.cibles,
             "jours": len(p.jours),
@@ -921,6 +1155,37 @@ def ajouter_muettes_aux_ecarts(chemin: Path, section: str) -> Path:
     return chemin
 
 
+def etapes_du_parcours(nom: str, listes: Mapping[str, Sequence[str]]) -> list[tuple[str, tuple[str, ...]]]:
+    """Les étapes d'un parcours, `(liste, caractères)`, telles que l'ingestion porte les listes.
+
+    Une liste absente de l'ingestion est sautée ; sans la première, le parcours n'a pas
+    d'étape : il n'est pas écrit.
+    """
+    noms = ETAPES.get(nom, (PARCOURS.get(nom, ""),))
+    if not noms or not listes.get(noms[0]):
+        return []
+    return [(liste, tuple(listes[liste])) for liste in noms if listes.get(liste)]
+
+
+def _charger(
+    sortie: Path, ingest: Path
+) -> tuple[Graphe, dict[str, list[str]], dict[str, int]]:
+    """Le graphe du build, les listes et les rangs de fréquence de l'ingestion."""
+    from .decoupes import composants_decoupes
+
+    document = json.loads((sortie / "decompositions.json").read_text(encoding="utf-8"))
+    graphe = construire(document["caracteres"], composants_decoupes(sortie))
+    fichier_listes = ingest / "listes.json"
+    listes = json.loads(fichier_listes.read_text(encoding="utf-8")) if fichier_listes.exists() else {}
+    fichier_caracteres = ingest / "caracteres.json"
+    rangs = (
+        rangs_frequence(json.loads(fichier_caracteres.read_text(encoding="utf-8")))
+        if fichier_caracteres.exists()
+        else {}
+    )
+    return graphe, listes, rangs
+
+
 def calculer(
     sortie: Path | None = None,
     ingest: Path | None = None,
@@ -930,25 +1195,80 @@ def calculer(
 
     Lit `decompositions.json` et `decoupes.json` de `sortie`, comme `build`.
     """
-    from .decoupes import composants_decoupes
-
     sortie = sortie or BUILD
     ingest = ingest or INGEST
     depart = DEPART if depart is None else depart
-    document = json.loads((sortie / "decompositions.json").read_text(encoding="utf-8"))
-    graphe = construire(document["caracteres"], composants_decoupes(sortie))
-    listes = json.loads((ingest / "listes.json").read_text(encoding="utf-8"))
-    fichier_caracteres = ingest / "caracteres.json"
-    rangs = (
-        rangs_frequence(json.loads(fichier_caracteres.read_text(encoding="utf-8")))
-        if fichier_caracteres.exists()
-        else {}
+    graphe, listes, rangs = _charger(sortie, ingest)
+    out: dict[str, Parcours] = {}
+    for nom, liste in PARCOURS.items():
+        etapes = etapes_du_parcours(nom, listes)
+        if etapes:
+            out[nom] = parcours(
+                graphe, (), nom=nom, liste=liste, rangs=rangs, depart=depart.get(nom, ()), etapes=etapes
+            )
+    return out
+
+
+def prolonger(
+    sortie: Path | None = None,
+    ingest: Path | None = None,
+    dossier: Path | None = None,
+    *,
+    noms: Sequence[str] | None = None,
+    depart: Mapping[str, Sequence[str]] | None = None,
+    jusqua: Mapping[str, int] | None = None,
+) -> dict[str, Parcours]:
+    """Prolonge chaque ordre figé jusqu'au bout de ses étapes, et l'écrit ; rend les parcours.
+
+    Les jours déjà figés restent tels quels, jour pour jour (les phrases des fiches, les
+    trois lignes, les lettres et les examens écrits avec l'acquis d'un jour restent justes),
+    jours de fermeture compris. La suite se calcule étape par étape,
+    avec les règles de `parcours`. Sans ordre figé, tout se calcule depuis le départ. Le
+    résultat est validé comme au build (`parcours_fige`) avant d'être écrit.
+
+    `jusqua` : pour un parcours, le dernier jour figé qu'on garde ; la suite se recalcule.
+    Quand une décomposition est réconciliée, un caractère quitte les jours de fermeture et
+    doit prendre place dans son étape : on garde les jours qui ont déjà leurs textes, et
+    l'on recalcule après eux.
+    """
+    sortie = sortie or BUILD
+    ingest = ingest or INGEST
+    dossier = dossier or ORDRES
+    depart = DEPART if depart is None else depart
+    graphe, listes, rangs = _charger(sortie, ingest)
+    dossier.mkdir(parents=True, exist_ok=True)
+    ecrits: dict[str, Parcours] = {}
+    for nom, liste in PARCOURS.items():
+        if noms and nom not in noms:
+            continue
+        etapes = etapes_du_parcours(nom, listes)
+        if not etapes:
+            continue
+        fige = charger_ordre(nom, dossier) or []
+        if jusqua and nom in jusqua:
+            fige = [j for j in fige if j.jour <= jusqua[nom]]
+        calcule = parcours(
+            graphe, (), nom=nom, liste=liste, rangs=rangs, depart=depart.get(nom, ()), etapes=etapes, prefixe=fige
+        )
+        p = parcours_fige(
+            graphe, (), calcule.jours, nom=nom, liste=liste, depart=depart.get(nom, ()), etapes=etapes
+        )
+        chemin_ordre(nom, dossier).write_text(ecrire_ordre(p), encoding="utf-8")
+        ecrits[nom] = p
+    return ecrits
+
+
+def parcours_du_document(nom: str, document: Mapping[str, object]) -> Parcours:
+    """Le parcours que porte `parcours-<nom>.json` : ses jours et ses étapes."""
+    return Parcours(
+        nom=nom,
+        liste=str(document.get("liste") or PARCOURS.get(nom, "")),
+        jours=jours_du_document(document),
+        etapes=tuple(
+            Etape(liste=str(e["liste"]), cible=tuple(e.get("cible") or ()), fin=int(e["fin"]))
+            for e in document.get("etapes") or ()  # type: ignore[union-attr]
+        ),
     )
-    return {
-        nom: parcours(graphe, listes[liste], nom=nom, liste=liste, rangs=rangs, depart=depart.get(nom, ()))
-        for nom, liste in PARCOURS.items()
-        if listes.get(liste)
-    }
 
 
 def figer(
@@ -971,7 +1291,7 @@ def figer(
     dossier.mkdir(parents=True, exist_ok=True)
     calcules = calculer(sortie, ingest) if recalculer else {}
     ecrits: dict[str, str] = {}
-    for nom, liste in PARCOURS.items():
+    for nom in PARCOURS:
         if noms and nom not in noms:
             continue
         if recalculer:
@@ -982,8 +1302,7 @@ def figer(
             chemin = sortie / f"parcours-{nom}.json"
             if not chemin.exists():
                 continue
-            document = json.loads(chemin.read_text(encoding="utf-8"))
-            p = Parcours(nom=nom, liste=liste, jours=jours_du_document(document))
+            p = parcours_du_document(nom, json.loads(chemin.read_text(encoding="utf-8")))
         cible = chemin_ordre(nom, dossier)
         cible.write_text(ecrire_ordre(p), encoding="utf-8")
         ecrits[nom] = str(cible)
@@ -1016,26 +1335,15 @@ def build(
 
     L'ordre d'un parcours est lu dans son fichier figé (`ORDRES`) s'il existe, et
     validé contre le graphe (`OrdreInvalide` sinon) ; il n'est calculé qu'à défaut.
+    Ses listes sont ses étapes (`ETAPES`), celles que l'ingestion porte.
     """
-    from .decoupes import composants_decoupes
-
     sortie = sortie or BUILD
     ingest = ingest or INGEST
     depart = DEPART if depart is None else depart
 
-    document = json.loads((sortie / "decompositions.json").read_text(encoding="utf-8"))
-    graphe = construire(document["caracteres"], composants_decoupes(sortie))
+    graphe, listes, rangs = _charger(sortie, ingest)
     boucles = cycles(graphe)
     ecrire_json(sortie / "graphe.json", document_graphe(graphe, boucles))
-
-    fichier_listes = ingest / "listes.json"
-    listes = json.loads(fichier_listes.read_text(encoding="utf-8")) if fichier_listes.exists() else {}
-    fichier_caracteres = ingest / "caracteres.json"
-    rangs = (
-        rangs_frequence(json.loads(fichier_caracteres.read_text(encoding="utf-8")))
-        if fichier_caracteres.exists()
-        else {}
-    )
 
     familles = graphe.familles()
     rapport: dict[str, object] = {
@@ -1051,23 +1359,26 @@ def build(
     }
     ecrits: list[Parcours] = []
     for nom, liste in PARCOURS.items():
-        cible = listes.get(liste)
-        if not cible:
+        etapes = etapes_du_parcours(nom, listes)
+        if not etapes:
             rapport[f"parcours_{nom}"] = f"liste {liste} absente : parcours non écrit"
             continue
         fige = charger_ordre(nom)
         if fige is None:
-            p = parcours(graphe, cible, nom=nom, liste=liste, rangs=rangs, depart=depart.get(nom, ()))
+            p = parcours(
+                graphe, (), nom=nom, liste=liste, rangs=rangs, depart=depart.get(nom, ()), etapes=etapes
+            )
             ordre = ORDRE_CALCULE
         else:
-            p = parcours_fige(graphe, cible, fige, nom=nom, liste=liste, depart=depart.get(nom, ()))
+            p = parcours_fige(graphe, (), fige, nom=nom, liste=liste, depart=depart.get(nom, ()), etapes=etapes)
             ordre = ORDRE_FIGE.format(nom=nom)
         ecrits.append(p)
         ecrire_json(sortie / f"parcours-{nom}.json", document_parcours(p, ordre))
         rapport[f"parcours_{nom}"] = (
             f"{len(p.jours)} jours pour {p.cibles} caractères, ordre {ordre}"
             f" ({len(p.briques)} briques, {len(p.non_reconcilies)} non réconciliés,"
-            f" {len(p.muettes)} briques muettes, {len(p.decoupees)} découpées)"
+            f" {len(p.muettes)} briques muettes, {len(p.decoupees)} découpées ;"
+            f" étapes : {', '.join(f'{e.liste} au jour {e.fin}' for e in p.etapes)})"
         )
     ajouter_muettes_aux_ecarts(sortie / "ecarts.md", rapport_muettes(graphe, ecrits))
     return rapport
@@ -1119,7 +1430,8 @@ def controles(sortie: Path | None = None) -> list[Controle]:
         elif list(jours_du_document(p)) != fige:
             non_figes.append(f"{nom} : le build ne suit pas l'ordre figé, relancer `wenlu build`")
         vus = {c for j in p["jours"] for c in ([j["brique"]] if j["brique"] else []) + j["composes"]}
-        absents = [c for c in p["cible"] if c not in vus]
+        cibles = [c for e in p.get("etapes") or () for c in e.get("cible") or ()] or p["cible"]
+        absents = [c for c in dict.fromkeys(cibles) if c not in vus]
         manquants += [f"{nom} : {' '.join(absents)}"] if absents else []
         muettes += [f"{nom} : {' '.join(p['briques_muettes'])}"] if p["briques_muettes"] else []
         decoupees.update(p.get("briques_decoupees") or ())

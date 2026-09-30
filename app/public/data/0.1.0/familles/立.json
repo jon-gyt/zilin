@@ -69,7 +69,87 @@
     "audio": null
    },
    "niveaux": {
-    "seuil": 255
+    "seuil": 255,
+    "hsk": 3
+   },
+   "traits": [],
+   "medianes": [],
+   "audio": null,
+   "statut": "relu"
+  },
+  {
+   "c": "剖",
+   "pinyin": "pōu",
+   "lectures": [
+    "pōu",
+    "pǒ"
+   ],
+   "fr": "ouvrir, fendre, analyser",
+   "en": "to cut open, to dissect, to analyse",
+   "parts": [
+    "立",
+    "口",
+    "刂"
+   ],
+   "nouveau": [],
+   "sources": [
+    "cjk-decomp"
+   ],
+   "role": null,
+   "roles": {
+    "刂": "sens",
+    "口": "son",
+    "立": "son"
+   },
+   "origine_fr": "Le Shuowen jiezi glose 剖 « trancher en deux » et l'écrit avec 刀, le couteau, pour le sens, et 咅 pour le son. 咅, écrit 立 sur 口, se lit pǒu, la même syllabe que pōu. La lame ouvre pour voir dedans : disséquer, 解剖, et analyser, 剖析.",
+   "origine_en": "The Shuowen jiezi glosses 剖 as “to cut in two” and writes it with 刀, the knife, for the meaning, and 咅 for the sound. 咅, written 立 over 口, is read pǒu, the same syllable as pōu. The blade opens to see inside: to dissect, 解剖, and to analyse, 剖析.",
+   "etiquette": "atteste",
+   "memo_fr": null,
+   "memo_en": null,
+   "mots": [],
+   "phrase": null,
+   "niveaux": {
+    "hsk": 7
+   },
+   "traits": [],
+   "medianes": [],
+   "audio": null,
+   "statut": "relu"
+  },
+  {
+   "c": "彰",
+   "pinyin": "zhāng",
+   "lectures": [
+    "zhāng"
+   ],
+   "fr": "manifeste, mettre en évidence",
+   "en": "evident, to display",
+   "parts": [
+    "立",
+    "日",
+    "十",
+    "彡"
+   ],
+   "nouveau": [],
+   "sources": [
+    "cjk-decomp"
+   ],
+   "role": null,
+   "roles": {
+    "十": "son",
+    "彡": "sens",
+    "日": "son",
+    "立": "son"
+   },
+   "origine_fr": "Le Shuowen jiezi glose 彰 par « motifs éclatants » : 彡, les traits de couleur, et 章, qui donne aussi le son. 章, écrit 立 sur 日 et 十, se lit zhāng, exactement comme 彰. Ce qui se voit clairement : manifeste, mettre en évidence, comme dans 表彰, honorer.",
+   "origine_en": "The Shuowen jiezi glosses 彰 as “brilliant patterns”: 彡, strokes of colour, and 章, which also gives the sound. 章, written 立 over 日 and 十, is read zhāng, exactly like 彰. What can be clearly seen: evident, to make known, as in 表彰, to commend.",
+   "etiquette": "atteste",
+   "memo_fr": null,
+   "memo_en": null,
+   "mots": [],
+   "phrase": null,
+   "niveaux": {
+    "hsk": 7
    },
    "traits": [],
    "medianes": [],
@@ -128,7 +208,8 @@
     "audio": null
    },
    "niveaux": {
-    "seuil": 255
+    "seuil": 255,
+    "hsk": 2
    },
    "traits": [],
    "medianes": [],
@@ -199,6 +280,44 @@
    "statut": "relu"
   },
   {
+   "c": "毅",
+   "pinyin": "yì",
+   "lectures": [
+    "yì"
+   ],
+   "fr": "ferme, résolu",
+   "en": "firm, resolute",
+   "parts": [
+    "立",
+    "𧰨",
+    "殳"
+   ],
+   "nouveau": [],
+   "sources": [
+    "cjk-decomp"
+   ],
+   "role": null,
+   "roles": {
+    "殳": "sens",
+    "立": "son",
+    "𧰨": "son"
+   },
+   "origine_fr": "Le Shuowen jiezi glose 毅 par « colère emportée », ou « avoir de la décision » : 殳, l'arme à manche, et 豙 pour le son. 豙, écrit 立 sur 𧰨, se lit yì, exactement comme 毅. Le second sens l'a emporté : ferme, résolu, comme dans 毅力, la persévérance.",
+   "origine_en": "The Shuowen jiezi glosses 毅 as “unbridled anger”, or “being decisive”: 殳, the hafted weapon, and 豙 for the sound. 豙, written 立 over 𧰨, is read yì, exactly like 毅. The second sense prevailed: firm, resolute, as in 毅力, perseverance.",
+   "etiquette": "atteste",
+   "memo_fr": null,
+   "memo_en": null,
+   "mots": [],
+   "phrase": null,
+   "niveaux": {
+    "hsk": 7
+   },
+   "traits": [],
+   "medianes": [],
+   "audio": null,
+   "statut": "relu"
+  },
+  {
    "c": "立",
    "pinyin": "lì",
    "lectures": [
@@ -241,7 +360,9 @@
     "en": "Her mother is eighty.",
     "audio": null
    },
-   "niveaux": {},
+   "niveaux": {
+    "hsk": 3
+   },
    "traits": [],
    "medianes": [],
    "audio": null,
@@ -260,13 +381,11 @@
     "⺊",
     "口"
    ],
-   "nouveau": [
-    1
-   ],
+   "nouveau": [],
    "sources": [
     "cjk-decomp"
    ],
-   "role": "son",
+   "role": null,
    "roles": {
     "⺊": "son",
     "口": "son",
@@ -309,6 +428,160 @@
    "statut": "relu"
   },
   {
+   "c": "竞",
+   "pinyin": "jìng",
+   "lectures": [
+    "jìng"
+   ],
+   "fr": "rivaliser, concourir",
+   "en": "to compete",
+   "parts": [
+    "立",
+    "口",
+    "儿"
+   ],
+   "nouveau": [],
+   "sources": [
+    "cjk-decomp"
+   ],
+   "role": null,
+   "roles": {
+    "儿": "forme",
+    "口": "forme",
+    "立": "forme"
+   },
+   "origine_fr": "Le Shuowen jiezi écrit 競 : deux hommes côte à côte, chacun sous une parole, qui rivalisent. La forme simplifiée n'en garde qu'un, fait de 立, 口 et 儿. Rivaliser de paroles, puis concourir.",
+   "origine_en": "The Shuowen jiezi writes 競: two men side by side, each under a word, competing. The simplified form keeps only one of them, made of 立, 口 and 儿. Competing in words, then competing in general.",
+   "etiquette": "atteste",
+   "memo_fr": null,
+   "memo_en": null,
+   "mots": [],
+   "phrase": null,
+   "niveaux": {
+    "hsk": 5
+   },
+   "traits": [],
+   "medianes": [],
+   "audio": null,
+   "statut": "relu"
+  },
+  {
+   "c": "竟",
+   "pinyin": "jìng",
+   "lectures": [
+    "jìng"
+   ],
+   "fr": "contre toute attente",
+   "en": "unexpectedly, after all",
+   "parts": [
+    "立",
+    "日",
+    "儿"
+   ],
+   "nouveau": [],
+   "sources": [
+    "cjk-decomp"
+   ],
+   "role": null,
+   "roles": {
+    "儿": "forme",
+    "日": "forme",
+    "立": "forme"
+   },
+   "origine_fr": "Le Shuowen jiezi explique 竟 par la fin d'un morceau de musique : 音, le son, au-dessus de 儿, l'homme. 音 s'écrit ici 立 sur 日. Aller jusqu'au bout, et de là, aujourd'hui, « contre toute attente », comme dans 竟然.",
+   "origine_en": "The Shuowen jiezi explains 竟 as the end of a piece of music: 音, sound, above 儿, a person. 音 is written here as 立 over 日. To go to the end, and from there, today, “against all expectation”, as in 竟然.",
+   "etiquette": "atteste",
+   "memo_fr": null,
+   "memo_en": null,
+   "mots": [],
+   "phrase": null,
+   "niveaux": {
+    "hsk": 4
+   },
+   "traits": [],
+   "medianes": [],
+   "audio": null,
+   "statut": "relu"
+  },
+  {
+   "c": "章",
+   "pinyin": "zhāng",
+   "lectures": [
+    "zhāng"
+   ],
+   "fr": "chapitre, sceau, tampon",
+   "en": "chapter, seal, stamp",
+   "parts": [
+    "立",
+    "日",
+    "十"
+   ],
+   "nouveau": [],
+   "sources": [
+    "cjk-decomp"
+   ],
+   "role": null,
+   "roles": {
+    "十": "sens",
+    "日": "sens",
+    "立": "sens"
+   },
+   "origine_fr": "Le Shuowen jiezi glose 章 par « la fin d'un morceau de musique, une section » : 音, le son, et 十, dix, qu'il dit le terme des nombres. On lit 立 et 日, qui écrivent 音, puis 十 en bas. De la section musicale vient le chapitre ; 章 veut aussi dire « sceau, tampon ».",
+   "origine_en": "The Shuowen jiezi glosses 章 as “the end of a piece of music, a section”: 音, sound, and 十, ten, which it calls the end of the numbers. You read 立 and 日, which write 音, then 十 at the bottom. From a musical section comes the chapter; 章 also means “seal, stamp”.",
+   "etiquette": "atteste",
+   "memo_fr": null,
+   "memo_en": null,
+   "mots": [],
+   "phrase": null,
+   "niveaux": {
+    "hsk": 3
+   },
+   "traits": [],
+   "medianes": [],
+   "audio": null,
+   "statut": "relu"
+  },
+  {
+   "c": "竣",
+   "pinyin": "jùn",
+   "lectures": [
+    "jùn"
+   ],
+   "fr": "achever, terminer",
+   "en": "to complete, to finish",
+   "parts": [
+    "立",
+    "厶",
+    "八",
+    "夂"
+   ],
+   "nouveau": [],
+   "sources": [
+    "cjk-decomp"
+   ],
+   "role": null,
+   "roles": {
+    "八": "forme",
+    "厶": "forme",
+    "夂": "forme",
+    "立": "sens"
+   },
+   "origine_fr": "Pour s'en souvenir : à gauche, 立, se tenir debout ; à droite, 夋, qu'on retrouve dans 俊 et 骏. Se redresser, debout, une fois l'ouvrage fini : achever, 竣工. 夋 se lit qūn : il ne donne pas le son de jùn.",
+   "origine_en": "As a memory aid: on the left, 立, to stand; on the right, 夋, also found in 俊 and 骏. Standing up straight once the work is done: to complete, 竣工. 夋 is read qūn: it does not give the sound of jùn.",
+   "etiquette": "mnemotechnique",
+   "memo_fr": null,
+   "memo_en": null,
+   "mots": [],
+   "phrase": null,
+   "niveaux": {
+    "hsk": 7
+   },
+   "traits": [],
+   "medianes": [],
+   "audio": null,
+   "statut": "relu"
+  },
+  {
    "c": "童",
    "pinyin": "tóng",
    "lectures": [
@@ -336,7 +609,204 @@
    "memo_en": null,
    "mots": [],
    "phrase": null,
-   "niveaux": {},
+   "niveaux": {
+    "hsk": 4
+   },
+   "traits": [],
+   "medianes": [],
+   "audio": null,
+   "statut": "relu"
+  },
+  {
+   "c": "竭",
+   "pinyin": "jié",
+   "lectures": [
+    "jié"
+   ],
+   "fr": "épuiser, de toutes ses forces",
+   "en": "to exhaust, with all one's might",
+   "parts": [
+    "立",
+    "日",
+    "勹",
+    "人",
+    "𠃊"
+   ],
+   "nouveau": [],
+   "sources": [
+    "cjk-decomp",
+    "surcharge"
+   ],
+   "role": null,
+   "roles": {
+    "人": "forme",
+    "勹": "forme",
+    "日": "forme",
+    "立": "sens",
+    "𠃊": "forme"
+   },
+   "origine_fr": "Le Shuowen jiezi glose 竭 « porter à bout de bras » : 立, se tenir debout, et 曷 pour le son. 曷 se lit hé : il ne donne plus le son de jié, seulement la rime. Porter jusqu'au bout de ses forces : épuiser, 竭尽全力.",
+   "origine_en": "The Shuowen jiezi glosses 竭 as “to lift and carry”: 立, standing, and 曷 for the sound. 曷 is read hé: it no longer gives the sound of jié, only its rhyme. Carrying to the end of one's strength: to exhaust, 竭尽全力.",
+   "etiquette": "atteste",
+   "memo_fr": null,
+   "memo_en": null,
+   "mots": [],
+   "phrase": null,
+   "niveaux": {
+    "hsk": 7
+   },
+   "traits": [],
+   "medianes": [],
+   "audio": null,
+   "statut": "relu"
+  },
+  {
+   "c": "端",
+   "pinyin": "duān",
+   "lectures": [
+    "duān"
+   ],
+   "fr": "bout, extrémité, porter à plat",
+   "en": "end, tip, to carry level",
+   "parts": [
+    "立",
+    "山",
+    "而"
+   ],
+   "nouveau": [],
+   "sources": [
+    "cjk-decomp"
+   ],
+   "role": null,
+   "roles": {
+    "山": "son",
+    "立": "sens",
+    "而": "son"
+   },
+   "origine_fr": "Le Shuowen jiezi glose 端 par « droit » : 立, se tenir debout, et 耑 pour le son. 耑, écrit 山 sur 而, se lit duān, exactement comme 端. Il veut dire aujourd'hui « porter à plat » et « le bout, l'extrémité ».",
+   "origine_en": "The Shuowen jiezi glosses 端 as “upright”: 立, to stand, and 耑 for the sound. 耑, written 山 over 而, is read duān, exactly like 端. Today it means “to carry level” and “end, tip”.",
+   "etiquette": "atteste",
+   "memo_fr": null,
+   "memo_en": null,
+   "mots": [],
+   "phrase": null,
+   "niveaux": {
+    "hsk": 6
+   },
+   "traits": [],
+   "medianes": [],
+   "audio": null,
+   "statut": "relu"
+  },
+  {
+   "c": "部",
+   "pinyin": "bù",
+   "lectures": [
+    "bù"
+   ],
+   "fr": "partie, ministère, section",
+   "en": "part, ministry, section",
+   "parts": [
+    "立",
+    "口",
+    "阝"
+   ],
+   "nouveau": [],
+   "sources": [
+    "cjk-decomp"
+   ],
+   "role": null,
+   "roles": {
+    "口": "forme",
+    "立": "forme",
+    "阝": "sens"
+   },
+   "origine_fr": "Le Shuowen jiezi en fait un nom de lieu : 邑, la ville, qui s'écrit 阝 à droite, et 咅 pour le son. 咅, écrit 立 sur 口, se lit pǒu et ne donne plus le son de bù. Du territoire est venu « la partie, la section », puis le ministère.",
+   "origine_en": "The Shuowen jiezi makes it a place name: 邑, the town, written 阝 on the right, and 咅 for the sound. 咅, written 立 over 口, is read pǒu and no longer gives the sound of bù. From the territory came “part, section”, and then the ministry.",
+   "etiquette": "atteste",
+   "memo_fr": null,
+   "memo_en": null,
+   "mots": [],
+   "phrase": null,
+   "niveaux": {
+    "hsk": 2
+   },
+   "traits": [],
+   "medianes": [],
+   "audio": null,
+   "statut": "relu"
+  },
+  {
+   "c": "音",
+   "pinyin": "yīn",
+   "lectures": [
+    "yīn"
+   ],
+   "fr": "son, note, prononciation",
+   "en": "sound, note, pronunciation",
+   "parts": [
+    "立",
+    "日"
+   ],
+   "nouveau": [],
+   "sources": [
+    "cjk-decomp"
+   ],
+   "role": null,
+   "roles": {
+    "日": "forme",
+    "立": "forme"
+   },
+   "origine_fr": "Le Shuowen jiezi glose 音 par « son » et le tire de 言, la parole, avec un trait dans la bouche. Le son que la bouche tient et module : la musique, la note. On lit aujourd'hui 立 sur 日, qui ne disent plus le son.",
+   "origine_en": "The Shuowen jiezi glosses 音 as “sound” and derives it from 言, speech, with a stroke inside the mouth. The sound the mouth holds and shapes: music, a note. Today you read 立 over 日, which no longer tell you about sound.",
+   "etiquette": "atteste",
+   "memo_fr": null,
+   "memo_en": null,
+   "mots": [],
+   "phrase": null,
+   "niveaux": {
+    "hsk": 2
+   },
+   "traits": [],
+   "medianes": [],
+   "audio": null,
+   "statut": "relu"
+  },
+  {
+   "c": "韵",
+   "pinyin": "yùn",
+   "lectures": [
+    "yùn"
+   ],
+   "fr": "rime, charme",
+   "en": "rhyme, charm",
+   "parts": [
+    "立",
+    "日",
+    "勹",
+    "亠"
+   ],
+   "nouveau": [],
+   "sources": [
+    "cjk-decomp"
+   ],
+   "role": null,
+   "roles": {
+    "亠": "son",
+    "勹": "son",
+    "日": "sens",
+    "立": "sens"
+   },
+   "origine_fr": "Pour s'en souvenir : à gauche, 音, le son, écrit 立 sur 日. À droite, 匀, « égal, régulier », qui se lit yún, sur la même syllabe que 韵. Des sons qui reviennent réguliers : la rime, et le charme d'une œuvre, comme dans 韵味.",
+   "origine_en": "As a memory aid: on the left, 音, sound, written 立 over 日. On the right, 匀, “even, regular”, read yún, on the same syllable as 韵. Sounds that come back regularly: rhyme, and the charm of a work, as in 韵味.",
+   "etiquette": "mnemotechnique",
+   "memo_fr": null,
+   "memo_en": null,
+   "mots": [],
+   "phrase": null,
+   "niveaux": {
+    "hsk": 7
+   },
    "traits": [],
    "medianes": [],
    "audio": null,
