@@ -1,0 +1,1411 @@
+{
+ "niveau": "3",
+ "lot": "15",
+ "source": "rédigé pour l'app dans le pipeline wenlu, sans API ; faits lus : liste HSK 3.0 (forme, pinyin, niveau, catégorie), lectures d'Unihan et des surcharges, gloses relues des fiches",
+ "brouillon": "data/sources/dico-brouillons/3/15.json",
+ "generation": {
+  "modele": "rédaction manuelle",
+  "api": "session Claude Code (sans API)",
+  "date": "2026-09-30",
+  "empreinte_invite": "sha256:86cc49a72457effb30541c500f5ad1140ffde881f0fae6c921a453878ca06550",
+  "contexte": "wenlu dico contexte 3 15",
+  "essais": 1,
+  "refus": []
+ },
+ "entrees": [
+  {
+   "id": "L3-0579",
+   "genre": "mot",
+   "hanzi": "缺少",
+   "pinyin": "quēshǎo",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "manquer de",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "manquer de, être à court de"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这里缺少老师。",
+     "pinyin": "Zhèli quēshǎo lǎoshī.",
+     "fr": "On manque d'enseignants ici.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L3-0580",
+   "genre": "mot",
+   "hanzi": "确保",
+   "pinyin": "quèbǎo",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "garantir, assurer",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "garantir, assurer, veiller à"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "我们要确保大家的安全。",
+     "pinyin": "Wǒmen yào quèbǎo dàjiā de ānquán.",
+     "fr": "Nous devons veiller à la sécurité de tous.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L3-0581",
+   "genre": "mot",
+   "hanzi": "确定",
+   "pinyin": "quèdìng",
+   "categories": [
+    "Adj",
+    "V"
+   ],
+   "sens": {
+    "glose": "fixer, déterminer ; certain, sûr",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "fixer, déterminer, confirmer"
+     },
+     {
+      "categorie": "Adj",
+      "fr": "certain, sûr, arrêté"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "时间还没确定。",
+     "pinyin": "Shíjiān hái méi quèdìng.",
+     "fr": "L'heure n'est pas encore fixée.",
+     "statut": "a_relire"
+    },
+    {
+     "zh": "你确定吗？",
+     "pinyin": "Nǐ quèdìng ma?",
+     "fr": "Tu en es sûr ?",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L3-0582",
+   "genre": "mot",
+   "hanzi": "确实",
+   "pinyin": "quèshí",
+   "categories": [
+    "Adj",
+    "Adv"
+   ],
+   "sens": {
+    "glose": "vraiment, en effet ; vrai, sûr",
+    "acceptions": [
+     {
+      "categorie": "Adv",
+      "fr": "vraiment, en effet"
+     },
+     {
+      "categorie": "Adj",
+      "fr": "vrai, sûr, fiable"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这个菜确实很好吃。",
+     "pinyin": "Zhège cài quèshí hěn hǎochī.",
+     "fr": "Ce plat est vraiment bon.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "裙",
+   "genre": "caractere",
+   "hanzi": "裙",
+   "pinyin": "qún",
+   "sens": {
+    "glose": "jupe, robe",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "jupe, robe"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": []
+  },
+  {
+   "id": "L3-0583",
+   "genre": "mot",
+   "hanzi": "裙子",
+   "pinyin": "qúnzi",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "jupe, robe",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "jupe, robe"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "她穿了一条红裙子。",
+     "pinyin": "Tā chuān le yī tiáo hóng qúnzi.",
+     "fr": "Elle porte une jupe rouge.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "群",
+   "genre": "caractere",
+   "hanzi": "群",
+   "pinyin": "qún",
+   "mots": [
+    "L3-0584"
+   ],
+   "sens": {
+    "glose": "groupe, troupeau ; foule",
+    "acceptions": [
+     {
+      "categorie": "M",
+      "fr": "classificateur des groupes : troupeau, bande"
+     },
+     {
+      "categorie": "N",
+      "fr": "groupe, foule"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "山上有一群羊。",
+     "pinyin": "Shān shang yǒu yī qún yáng.",
+     "fr": "Il y a un troupeau de moutons sur la montagne.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L3-0585",
+   "genre": "mot",
+   "hanzi": "热爱",
+   "pinyin": "rè'ài",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "aimer passionnément",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "aimer passionnément, être très attaché à"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他热爱自己的工作。",
+     "pinyin": "Tā rè'ài zìjǐ de gōngzuò.",
+     "fr": "Il adore son travail.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L3-0586",
+   "genre": "mot",
+   "hanzi": "热烈",
+   "pinyin": "rèliè",
+   "categories": [
+    "Adj"
+   ],
+   "sens": {
+    "glose": "chaleureux, enthousiaste, animé",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "chaleureux, enthousiaste, animé"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "大家热烈欢迎新同学。",
+     "pinyin": "Dàjiā rèliè huānyíng xīn tóngxué.",
+     "fr": "Tout le monde a réservé un accueil enthousiaste aux nouveaux élèves.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L3-0587",
+   "genre": "mot",
+   "hanzi": "人才",
+   "pinyin": "réncái",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "talent, personne compétente",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "talent, personne compétente"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "公司需要更多的人才。",
+     "pinyin": "Gōngsī xūyào gèng duō de réncái.",
+     "fr": "L'entreprise a besoin de plus de gens qualifiés.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L3-0588",
+   "genre": "mot",
+   "hanzi": "人工",
+   "pinyin": "réngōng",
+   "categories": [
+    "N",
+    "Adj"
+   ],
+   "sens": {
+    "glose": "artificiel ; main-d'œuvre",
+    "acceptions": [],
+    "statut": "relu",
+    "provenance": {
+     "reprise": "data/sources/fiches/工.json",
+     "champ": "mots[].fr"
+    }
+   },
+   "exemples": [
+    {
+     "zh": "这是一个人工湖。",
+     "pinyin": "Zhè shì yī ge réngōng hú.",
+     "fr": "Ce lac a été creusé par l'homme.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L3-0589",
+   "genre": "mot",
+   "hanzi": "人类",
+   "pinyin": "rénlèi",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "humanité, genre humain",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "humanité, genre humain"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "水对人类很重要。",
+     "pinyin": "Shuǐ duì rénlèi hěn zhòngyào.",
+     "fr": "L'eau est essentielle à l'homme.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L3-0590",
+   "genre": "mot",
+   "hanzi": "人民",
+   "pinyin": "rénmín",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "peuple",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "peuple, population"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "人民的生活越来越好。",
+     "pinyin": "Rénmín de shēnghuó yuèláiyuè hǎo.",
+     "fr": "La vie des gens s'améliore sans cesse.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "币",
+   "genre": "caractere",
+   "hanzi": "币",
+   "pinyin": "bì",
+   "sens": {
+    "glose": "monnaie",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "monnaie, devise"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": []
+  },
+  {
+   "id": "L3-0591",
+   "genre": "mot",
+   "hanzi": "人民币",
+   "pinyin": "rénmínbì",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "yuan, monnaie chinoise",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "yuan, renminbi : monnaie chinoise"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这个一共一百块人民币。",
+     "pinyin": "Zhège yīgòng yībǎi kuài rénmínbì.",
+     "fr": "Ça fait cent yuans en tout.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L3-0592",
+   "genre": "mot",
+   "hanzi": "人群",
+   "pinyin": "rénqún",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "foule",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "foule, multitude"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他很快就在人群中不见了。",
+     "pinyin": "Tā hěn kuài jiù zài rénqún zhōng bùjiàn le.",
+     "fr": "Il a vite disparu dans la foule.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L3-0593",
+   "genre": "mot",
+   "hanzi": "人生",
+   "pinyin": "rénshēng",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "la vie, l'existence",
+    "acceptions": [],
+    "statut": "relu",
+    "provenance": {
+     "reprise": "data/sources/fiches/生.json",
+     "champ": "mots[].fr"
+    }
+   },
+   "exemples": [
+    {
+     "zh": "人生不能没有朋友。",
+     "pinyin": "Rénshēng bù néng méiyǒu péngyou.",
+     "fr": "On ne peut pas vivre sans amis.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L3-0594",
+   "genre": "mot",
+   "hanzi": "人员",
+   "pinyin": "rényuán",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "personnel, employés",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "personnel, employés, agents"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "工作人员都很热情。",
+     "pinyin": "Gōngzuò rényuán dōu hěn rèqíng.",
+     "fr": "Le personnel est très aimable.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L3-0595",
+   "genre": "mot",
+   "hanzi": "认出",
+   "pinyin": "rènchū",
+   "sens": {
+    "glose": "reconnaître (qqn, qqch.)",
+    "acceptions": [],
+    "statut": "relu",
+    "provenance": {
+     "reprise": "data/sources/fiches/认.json",
+     "champ": "mots[].fr"
+    }
+   },
+   "exemples": [
+    {
+     "zh": "我一下就认出了他。",
+     "pinyin": "Wǒ yīxià jiù rènchū le tā.",
+     "fr": "Je l'ai reconnu tout de suite.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L3-0596",
+   "genre": "mot",
+   "hanzi": "认得",
+   "pinyin": "rènde",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "connaître, reconnaître",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "connaître, reconnaître"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "你还认得我吗？",
+     "pinyin": "Nǐ hái rènde wǒ ma?",
+     "fr": "Tu te souviens encore de moi ?",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L3-0597",
+   "genre": "mot",
+   "hanzi": "认可",
+   "pinyin": "rènkě",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "approuver, reconnaître",
+    "acceptions": [],
+    "statut": "relu",
+    "provenance": {
+     "reprise": "data/sources/fiches/可.json",
+     "champ": "mots[].fr"
+    }
+   },
+   "exemples": [
+    {
+     "zh": "他的能力得到了大家的认可。",
+     "pinyin": "Tā de nénglì dédào le dàjiā de rènkě.",
+     "fr": "Tout le monde reconnaît ses compétences.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "任",
+   "genre": "caractere",
+   "hanzi": "任",
+   "pinyin": "rèn",
+   "mots": [
+    "L3-0598",
+    "L3-0599"
+   ],
+   "sens": {
+    "glose": "nommer, occuper ; quel que soit",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "nommer, occuper (une fonction) ; laisser libre"
+     },
+     {
+      "categorie": "Conj",
+      "fr": "quel que soit, peu importe"
+     },
+     {
+      "categorie": "N",
+      "fr": "Ren : nom de famille",
+      "pinyin": "rén"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他任校长三年了。",
+     "pinyin": "Tā rèn xiàozhǎng sān nián le.",
+     "fr": "Il est directeur depuis trois ans.",
+     "statut": "a_relire"
+    },
+    {
+     "zh": "任你怎么说，他都不听。",
+     "pinyin": "Rèn nǐ zěnme shuō, tā dōu bù tīng.",
+     "fr": "Quoi que tu dises, il n'écoute pas.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "何",
+   "genre": "caractere",
+   "hanzi": "何",
+   "pinyin": "hé",
+   "sens": {
+    "glose": "quoi, quel, comment (écrit)",
+    "acceptions": [
+     {
+      "categorie": "Pron",
+      "fr": "quoi, quel, comment : langue écrite"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": []
+  },
+  {
+   "id": "L3-0600",
+   "genre": "mot",
+   "hanzi": "任何",
+   "pinyin": "rènhé",
+   "categories": [
+    "Pron"
+   ],
+   "sens": {
+    "glose": "n'importe quel, aucun",
+    "acceptions": [
+     {
+      "categorie": "Pron",
+      "fr": "n'importe quel ; aucun (avec une négation)"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "任何人都可以参加。",
+     "pinyin": "Rènhé rén dōu kěyǐ cānjiā.",
+     "fr": "Tout le monde peut participer.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L3-0601",
+   "genre": "mot",
+   "hanzi": "任务",
+   "pinyin": "rènwu",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "tâche, mission",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "tâche, mission"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "今天的任务完成了。",
+     "pinyin": "Jīntiān de rènwu wánchéng le.",
+     "fr": "Le travail du jour est fait.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "仍",
+   "genre": "caractere",
+   "hanzi": "仍",
+   "pinyin": "réng",
+   "mots": [
+    "L3-0602"
+   ],
+   "sens": {
+    "glose": "toujours, encore",
+    "acceptions": [
+     {
+      "categorie": "Adv",
+      "fr": "toujours, encore, malgré tout"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他仍在那里工作。",
+     "pinyin": "Tā réng zài nàli gōngzuò.",
+     "fr": "Il y travaille encore.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L3-0603",
+   "genre": "mot",
+   "hanzi": "仍然",
+   "pinyin": "réngrán",
+   "categories": [
+    "Adv"
+   ],
+   "sens": {
+    "glose": "toujours, encore, malgré tout",
+    "acceptions": [
+     {
+      "categorie": "Adv",
+      "fr": "toujours, encore, malgré tout"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "下雨了，他仍然去跑步。",
+     "pinyin": "Xià yǔ le, tā réngrán qù pǎobù.",
+     "fr": "Il pleut, mais il va courir quand même.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L3-0604",
+   "genre": "mot",
+   "hanzi": "日常",
+   "pinyin": "rìcháng",
+   "categories": [
+    "Adj"
+   ],
+   "sens": {
+    "glose": "quotidien, courant",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "quotidien, courant, de tous les jours"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这些都是日常用语。",
+     "pinyin": "Zhèxiē dōu shì rìcháng yòngyǔ.",
+     "fr": "Ce sont des expressions qu'on emploie tout le temps.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L3-0605",
+   "genre": "mot",
+   "hanzi": "容易",
+   "pinyin": "róngyì",
+   "categories": [
+    "Adj"
+   ],
+   "sens": {
+    "glose": "facile ; enclin à",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "facile"
+     },
+     {
+      "categorie": "Adj",
+      "fr": "enclin à, susceptible de"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这个问题很容易。",
+     "pinyin": "Zhège wèntí hěn róngyì.",
+     "fr": "Cette question est simple.",
+     "statut": "a_relire"
+    },
+    {
+     "zh": "冬天容易感冒。",
+     "pinyin": "Dōngtiān róngyì gǎnmào.",
+     "fr": "En hiver, on attrape vite froid.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L3-0606",
+   "genre": "mot",
+   "hanzi": "如何",
+   "pinyin": "rúhé",
+   "categories": [
+    "Pron"
+   ],
+   "sens": {
+    "glose": "comment ; quel",
+    "acceptions": [
+     {
+      "categorie": "Pron",
+      "fr": "comment ; quel, de quelle façon"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "你觉得如何？",
+     "pinyin": "Nǐ juéde rúhé?",
+     "fr": "Qu'en penses-tu ?",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "散",
+   "genre": "caractere",
+   "hanzi": "散",
+   "pinyin": "sàn",
+   "mots": [
+    "L4-0608",
+    "L5-0637"
+   ],
+   "sens": {
+    "glose": "se disperser ; épars, défait",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "se disperser, se séparer ; répandre"
+     },
+     {
+      "categorie": "Adj",
+      "fr": "épars, détaché, défait",
+      "pinyin": "sǎn"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "会议散了。",
+     "pinyin": "Huìyì sàn le.",
+     "fr": "La réunion est levée.",
+     "statut": "a_relire"
+    },
+    {
+     "zh": "我的鞋带散了。",
+     "pinyin": "Wǒ de xiédài sǎn le.",
+     "fr": "Mon lacet s'est défait.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L3-0607",
+   "genre": "mot",
+   "hanzi": "散步",
+   "pinyin": "sànbù",
+   "sens": {
+    "glose": "se promener, faire un tour",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "se promener, faire un tour"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "晚饭后我们去散步吧。",
+     "pinyin": "Wǎnfàn hòu wǒmen qù sànbù ba.",
+     "fr": "Allons marcher un peu après le dîner.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "沙",
+   "genre": "caractere",
+   "hanzi": "沙",
+   "pinyin": "shā",
+   "sens": {
+    "glose": "sable",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "sable, gravier"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": []
+  },
+  {
+   "id": "L3-0608",
+   "genre": "mot",
+   "hanzi": "沙发",
+   "pinyin": "shāfā",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "canapé, sofa",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "canapé, sofa"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他坐在沙发上看电视。",
+     "pinyin": "Tā zuò zài shāfā shang kàn diànshì.",
+     "fr": "Il regarde la télé assis sur le canapé.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L3-0609",
+   "genre": "mot",
+   "hanzi": "沙子",
+   "pinyin": "shāzi",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "sable",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "sable"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "我的鞋里有沙子。",
+     "pinyin": "Wǒ de xié li yǒu shāzi.",
+     "fr": "J'ai du sable dans mes chaussures.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "伤",
+   "genre": "caractere",
+   "hanzi": "伤",
+   "pinyin": "shāng",
+   "mots": [
+    "L3-0610"
+   ],
+   "sens": {
+    "glose": "blesser ; blessure",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "blesser, se blesser ; nuire à"
+     },
+     {
+      "categorie": "N",
+      "fr": "blessure"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他的腿受伤了。",
+     "pinyin": "Tā de tuǐ shòushāng le.",
+     "fr": "Il s'est fait mal à la jambe.",
+     "statut": "a_relire"
+    },
+    {
+     "zh": "他的伤不重。",
+     "pinyin": "Tā de shāng bù zhòng.",
+     "fr": "Il n'est pas gravement touché.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L3-0611",
+   "genre": "mot",
+   "hanzi": "伤心",
+   "pinyin": "shāngxīn",
+   "sens": {
+    "glose": "triste, peiné",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "triste, peiné, affligé"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "别伤心了。",
+     "pinyin": "Bié shāngxīn le.",
+     "fr": "Allons, ne pleure plus.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "品",
+   "genre": "caractere",
+   "hanzi": "品",
+   "pinyin": "pǐn",
+   "mots": [
+    "L5-0558",
+    "L5-0559"
+   ],
+   "sens": {
+    "glose": "goûter, apprécier ; article, produit",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "goûter, déguster, apprécier"
+     },
+     {
+      "categorie": "Suffix",
+      "fr": "suffixe d'objet : article, produit (artisanat)"
+     },
+     {
+      "categorie": "N",
+      "fr": "qualité, caractère"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这些工艺品很漂亮。",
+     "pinyin": "Zhèxiē gōngyìpǐn hěn piàoliang.",
+     "fr": "Ces objets d'artisanat sont très beaux.",
+     "statut": "a_relire"
+    },
+    {
+     "zh": "你品一下这个茶。",
+     "pinyin": "Nǐ pǐn yīxià zhège chá.",
+     "fr": "Goûte donc ce thé.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L3-0612",
+   "genre": "mot",
+   "hanzi": "商品",
+   "pinyin": "shāngpǐn",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "marchandise, produit",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "marchandise, produit, article"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这家店的商品很便宜。",
+     "pinyin": "Zhè jiā diàn de shāngpǐn hěn piányi.",
+     "fr": "Tout est bon marché dans ce magasin.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L3-0613",
+   "genre": "mot",
+   "hanzi": "商业",
+   "pinyin": "shāngyè",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "commerce",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "commerce, affaires"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这里是城市的商业中心。",
+     "pinyin": "Zhèli shì chéngshì de shāngyè zhōngxīn.",
+     "fr": "Ici, c'est le quartier commerçant de la ville.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L3-0614",
+   "genre": "mot",
+   "hanzi": "上来",
+   "pinyin": "shànglai",
+   "sens": {
+    "glose": "monter (vers ici)",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "monter (vers le locuteur)"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "你快上来吧。",
+     "pinyin": "Nǐ kuài shànglai ba.",
+     "fr": "Monte vite !",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L3-0615",
+   "genre": "mot",
+   "hanzi": "上面",
+   "pinyin": "shàngmian",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "dessus, au-dessus ; ci-dessus",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "dessus, au-dessus, sur"
+     },
+     {
+      "categorie": "N",
+      "fr": "ci-dessus ; les supérieurs"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "桌子上面有一本书。",
+     "pinyin": "Zhuōzi shàngmian yǒu yī běn shū.",
+     "fr": "Il y a un livre sur la table.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L3-0616",
+   "genre": "mot",
+   "hanzi": "上去",
+   "pinyin": "shàngqu",
+   "sens": {
+    "glose": "monter (en s'éloignant)",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "monter (en s'éloignant du locuteur)"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "你先上去，我马上来。",
+     "pinyin": "Nǐ xiān shàngqu, wǒ mǎshàng lái.",
+     "fr": "Monte d'abord, j'arrive tout de suite.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "升",
+   "genre": "caractere",
+   "hanzi": "升",
+   "pinyin": "shēng",
+   "mots": [
+    "L3-0627"
+   ],
+   "sens": {
+    "glose": "monter, s'élever ; litre",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "monter, s'élever ; être promu"
+     },
+     {
+      "categorie": "M",
+      "fr": "litre"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "太阳升起来了。",
+     "pinyin": "Tàiyáng shēng qilai le.",
+     "fr": "Le soleil s'est levé.",
+     "statut": "a_relire"
+    },
+    {
+     "zh": "我买了两升水。",
+     "pinyin": "Wǒ mǎi le liǎng shēng shuǐ.",
+     "fr": "J'ai acheté deux litres d'eau.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L3-0617",
+   "genre": "mot",
+   "hanzi": "上升",
+   "pinyin": "shàngshēng",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "monter, augmenter",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "monter, augmenter, s'élever"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "今天的气温上升了。",
+     "pinyin": "Jīntiān de qìwēn shàngshēng le.",
+     "fr": "Les températures ont grimpé aujourd'hui.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L3-0618",
+   "genre": "mot",
+   "hanzi": "上衣",
+   "pinyin": "shàngyī",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "veste, haut (vêtement)",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "veste, haut (vêtement du haut)"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这件上衣很好看。",
+     "pinyin": "Zhè jiàn shàngyī hěn hǎokàn.",
+     "fr": "Ce haut est très joli.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L3-0619",
+   "genre": "mot",
+   "hanzi": "设备",
+   "pinyin": "shèbèi",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "équipement, installations",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "équipement, installations, matériel"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这个医院的设备很新。",
+     "pinyin": "Zhège yīyuàn de shèbèi hěn xīn.",
+     "fr": "Le matériel de cet hôpital est tout neuf.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L3-0620",
+   "genre": "mot",
+   "hanzi": "设计",
+   "pinyin": "shèjì",
+   "categories": [
+    "V",
+    "N"
+   ],
+   "sens": {
+    "glose": "concevoir, dessiner ; conception",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "concevoir, dessiner, créer"
+     },
+     {
+      "categorie": "N",
+      "fr": "conception, design, plan"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这件衣服是她自己设计的。",
+     "pinyin": "Zhè jiàn yīfu shì tā zìjǐ shèjì de.",
+     "fr": "Elle a imaginé ce vêtement elle-même.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L3-0621",
+   "genre": "mot",
+   "hanzi": "设立",
+   "pinyin": "shèlì",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "créer, établir, instituer",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "créer, établir, instituer"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "学校设立了一个新的中心。",
+     "pinyin": "Xuéxiào shèlì le yī ge xīn de zhōngxīn.",
+     "fr": "L'école a ouvert un nouveau centre.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L3-0622",
+   "genre": "mot",
+   "hanzi": "社会",
+   "pinyin": "shèhuì",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "société",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "société"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他想为社会做点儿事。",
+     "pinyin": "Tā xiǎng wèi shèhuì zuò diǎnr shì.",
+     "fr": "Il veut faire quelque chose pour les autres.",
+     "statut": "a_relire"
+    }
+   ]
+  }
+ ]
+}
