@@ -19,20 +19,33 @@
  "roles": {
   "卵": "sens"
  },
- "mots": [],
+ "mots": [
+  {
+   "hanzi": "产卵",
+   "pinyin": "chǎnluǎn",
+   "fr": "pondre, frayer",
+   "en": "to lay eggs, to spawn"
+  },
+  {
+   "hanzi": "卵石",
+   "pinyin": "luǎnshí",
+   "fr": "galet",
+   "en": "pebble"
+  }
+ ],
  "phrase": {
-  "zh": "",
-  "pinyin": "",
-  "fr": "",
-  "en": ""
+  "zh": "鱼在河里产卵。",
+  "pinyin": "Yú zài hé lǐ chǎnluǎn.",
+  "fr": "Les poissons fraient dans la rivière.",
+  "en": "The fish spawn in the river."
  },
  "generation": {
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:2f23f637f961f3b4e3952079296dcf3e660df683b250afd6c6ceebe128627384",
-  "essais": 1,
+  "empreinte_invite": "sha256:7dfa5610d11880259f30b2a1e8dceb0851d739c9940c4a044d141dc8d884eceb",
+  "essais": 2,
   "refus": []
  },
- "statut": "relu"
+ "statut": "a_relire"
 }

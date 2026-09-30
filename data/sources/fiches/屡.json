@@ -23,20 +23,33 @@
   "米": "forme",
   "女": "forme"
  },
- "mots": [],
+ "mots": [
+  {
+   "hanzi": "屡次",
+   "pinyin": "lǚcì",
+   "fr": "à plusieurs reprises",
+   "en": "repeatedly"
+  },
+  {
+   "hanzi": "屡屡",
+   "pinyin": "lǚlǚ",
+   "fr": "maintes fois",
+   "en": "time and again"
+  }
+ ],
  "phrase": {
-  "zh": "",
-  "pinyin": "",
-  "fr": "",
-  "en": ""
+  "zh": "他屡次迟到，老师很生气。",
+  "pinyin": "Tā lǚcì chídào, lǎoshī hěn shēngqì.",
+  "fr": "Il est arrivé en retard plusieurs fois, le professeur est fâché.",
+  "en": "He has been late repeatedly, and the teacher is angry."
  },
  "generation": {
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:1801984857c5ca081f0cb658a32500c9782fb2ff53dad33bb117dd566245097f",
-  "essais": 1,
+  "empreinte_invite": "sha256:ba9e17412edc7eeabd0be7c4953f8be87dd3a488f0e5dfd6c66f2babc470b059",
+  "essais": 2,
   "refus": []
  },
- "statut": "relu"
+ "statut": "a_relire"
 }
