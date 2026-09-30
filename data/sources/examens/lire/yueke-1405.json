@@ -1,0 +1,637 @@
+{
+ "examen": "yueke-1405",
+ "parcours": "lire",
+ "generation": {
+  "modele": "rédaction manuelle",
+  "api": "session Claude Code (sans API)",
+  "date": "2026-09-30"
+ },
+ "relecture": {
+  "statut": "a_relire",
+  "note": "rédigé le 30 septembre 2026, à relire par le propriétaire (`wenlu examens apercu`) ; une série passe à `relu` sur sa décision, citée ici"
+ },
+ "series": [
+  {
+   "serie": "A",
+   "statut": "a_relire",
+   "supports": [
+    {
+     "id": "s1",
+     "genre": "message",
+     "contexte": {
+      "fr": "Un message",
+      "en": "A message"
+     },
+     "lignes": [
+      {
+       "zh": "小明，我在厨房做了一些饼，",
+       "pinyin": "xiǎo míng wǒ zài chú fáng zuò le yī xiē bǐng",
+       "fr": "Xiaoming, j'ai fait quelques galettes à la cuisine,",
+       "en": "Xiaoming, I made some flatbreads in the kitchen,"
+      },
+      {
+       "zh": "放在桌子上了。你先尝尝，",
+       "pinyin": "fàng zài zhuō zi shàng le nǐ xiān cháng cháng",
+       "fr": "elles sont sur la table. Goûte-les d'abord,",
+       "en": "they're on the table. Have a taste first,"
+      },
+      {
+       "zh": "可是别给小猫吃！",
+       "pinyin": "kě shì bié gěi xiǎo māo chī",
+       "fr": "mais n'en donne pas au chat !",
+       "en": "but don't give any to the cat!"
+      }
+     ],
+     "glose": [
+      {
+       "zh": "厨房",
+       "pinyin": "chú fáng",
+       "fr": "cuisine (pièce)",
+       "en": "kitchen"
+      },
+      {
+       "zh": "一些",
+       "pinyin": "yī xiē",
+       "fr": "quelques",
+       "en": "some"
+      },
+      {
+       "zh": "饼",
+       "pinyin": "bǐng",
+       "fr": "galette",
+       "en": "flatbread"
+      },
+      {
+       "zh": "放",
+       "pinyin": "fàng",
+       "fr": "poser",
+       "en": "to put"
+      },
+      {
+       "zh": "尝尝",
+       "pinyin": "cháng cháng",
+       "fr": "goûter un peu",
+       "en": "to have a taste"
+      },
+      {
+       "zh": "可是",
+       "pinyin": "kě shì",
+       "fr": "mais",
+       "en": "but"
+      },
+      {
+       "zh": "小猫",
+       "pinyin": "xiǎo māo",
+       "fr": "chaton, chat",
+       "en": "kitty, cat"
+      },
+      {
+       "zh": "红色",
+       "pinyin": "hóng sè",
+       "fr": "rouge",
+       "en": "red"
+      },
+      {
+       "zh": "花",
+       "pinyin": "huā",
+       "fr": "fleur",
+       "en": "flower"
+      },
+      {
+       "zh": "这就",
+       "pinyin": "zhè jiù",
+       "fr": "tout de suite",
+       "en": "right away"
+      },
+      {
+       "zh": "尝",
+       "pinyin": "cháng",
+       "fr": "goûter",
+       "en": "to taste"
+      },
+      {
+       "zh": "博物馆",
+       "pinyin": "bó wù guǎn",
+       "fr": "musée",
+       "en": "museum"
+      },
+      {
+       "zh": "外",
+       "pinyin": "wài",
+       "fr": "dehors, à l'extérieur",
+       "en": "outside"
+      }
+     ]
+    },
+    {
+     "id": "s2",
+     "genre": "pancarte",
+     "contexte": {
+      "fr": "Un écriteau",
+      "en": "A notice"
+     },
+     "lignes": [
+      {
+       "zh": "博物馆",
+       "pinyin": "bó wù guǎn",
+       "fr": "Musée",
+       "en": "Museum"
+      },
+      {
+       "zh": "请勿触摸",
+       "pinyin": "qǐng wù chù mō",
+       "fr": "Prière de ne pas toucher",
+       "en": "Please do not touch"
+      },
+      {
+       "zh": "请勿拍照",
+       "pinyin": "qǐng wù pāi zhào",
+       "fr": "Photos interdites",
+       "en": "No photos"
+      },
+      {
+       "zh": "请勿大声说话",
+       "pinyin": "qǐng wù dà shēng shuō huà",
+       "fr": "Prière de ne pas parler fort",
+       "en": "Please do not speak loudly"
+      }
+     ],
+     "glose": [
+      {
+       "zh": "博物馆",
+       "pinyin": "bó wù guǎn",
+       "fr": "musée",
+       "en": "museum"
+      },
+      {
+       "zh": "请勿",
+       "pinyin": "qǐng wù",
+       "fr": "prière de ne pas",
+       "en": "please do not"
+      },
+      {
+       "zh": "触摸",
+       "pinyin": "chù mō",
+       "fr": "toucher",
+       "en": "to touch"
+      },
+      {
+       "zh": "拍照",
+       "pinyin": "pāi zhào",
+       "fr": "prendre une photo",
+       "en": "to take a photo"
+      },
+      {
+       "zh": "大声",
+       "pinyin": "dà shēng",
+       "fr": "à voix haute, fort",
+       "en": "loudly"
+      },
+      {
+       "zh": "说话",
+       "pinyin": "shuō huà",
+       "fr": "parler",
+       "en": "to speak"
+      }
+     ]
+    }
+   ],
+   "questions": [
+    {
+     "type": "comprendre",
+     "support": "s1",
+     "consigne": {
+      "fr": "Qu'est-ce que la mère a préparé ?",
+      "en": "What has the mother made?"
+     },
+     "choix": [
+      {
+       "fr": "Des galettes",
+       "en": "Flatbreads"
+      },
+      {
+       "fr": "Des raviolis",
+       "en": "Dumplings"
+      },
+      {
+       "fr": "Une soupe",
+       "en": "A soup"
+      },
+      {
+       "fr": "Du riz sauté",
+       "en": "Fried rice"
+      }
+     ],
+     "reponse": 0,
+     "porte": [
+      "饼"
+     ]
+    },
+    {
+     "type": "reperer",
+     "support": "s1",
+     "consigne": {
+      "fr": "Touche la pièce où elle a cuisiné.",
+      "en": "Tap the room where she cooked."
+     },
+     "choix": [
+      "桌子",
+      "小猫",
+      "厨房",
+      "小明"
+     ],
+     "reponse": 2,
+     "porte": [
+      "厨",
+      "房"
+     ]
+    },
+    {
+     "type": "replique",
+     "support": "s1",
+     "consigne": {
+      "fr": "Que répond Xiaoming ?",
+      "en": "What does Xiaoming reply?"
+     },
+     "choix": [
+      {
+       "zh": "我喜欢看红色的花。",
+       "pinyin": "wǒ xǐ huan kàn hóng sè de huā",
+       "fr": "J'aime regarder les fleurs rouges.",
+       "en": "I like looking at red flowers."
+      },
+      {
+       "zh": "好，我这就去尝一个！",
+       "pinyin": "hǎo wǒ zhè jiù qù cháng yī gè",
+       "fr": "D'accord, je vais tout de suite en goûter une !",
+       "en": "OK, I'll go and taste one right now!"
+      },
+      {
+       "zh": "那个博物馆很大。",
+       "pinyin": "nà gè bó wù guǎn hěn dà",
+       "fr": "Ce musée est très grand.",
+       "en": "That museum is very big."
+      },
+      {
+       "zh": "我的车在门外。",
+       "pinyin": "wǒ de chē zài mén wài",
+       "fr": "Ma voiture est devant la porte.",
+       "en": "My car is outside the door."
+      }
+     ],
+     "reponse": 1,
+     "porte": [
+      "尝"
+     ]
+    },
+    {
+     "type": "vrai_faux",
+     "support": "s2",
+     "consigne": {
+      "fr": "Vrai ou faux ?",
+      "en": "True or false?"
+     },
+     "affirmation": {
+      "zh": "在这里可以触摸东西。",
+      "pinyin": "zài zhè li kě yǐ chù mō dōng xi",
+      "fr": "Ici, on peut toucher les objets.",
+      "en": "Here you may touch things."
+     },
+     "reponse": false,
+     "porte": [
+      "请",
+      "勿",
+      "触",
+      "摸"
+     ]
+    },
+    {
+     "type": "sens",
+     "consigne": {
+      "fr": "Que veut dire ce caractère ?",
+      "en": "What does this character mean?"
+     },
+     "objet": {
+      "zh": "鼻",
+      "pinyin": "bí",
+      "fr": "nez",
+      "en": "nose"
+     },
+     "choix": [
+      {
+       "fr": "oreille",
+       "en": "ear"
+      },
+      {
+       "fr": "bouche",
+       "en": "mouth"
+      },
+      {
+       "fr": "œil",
+       "en": "eye"
+      },
+      {
+       "fr": "nez",
+       "en": "nose"
+      }
+     ],
+     "reponse": 3,
+     "porte": [
+      "鼻"
+     ]
+    }
+   ]
+  },
+  {
+   "serie": "B",
+   "statut": "a_relire",
+   "supports": [
+    {
+     "id": "s1",
+     "genre": "menu",
+     "contexte": {
+      "fr": "Un menu",
+      "en": "A menu"
+     },
+     "lignes": [
+      {
+       "zh": "小吃",
+       "pinyin": "xiǎo chī",
+       "fr": "En-cas",
+       "en": "Snacks"
+      },
+      {
+       "zh": "叉烧饭：十八元",
+       "pinyin": "chā shāo fàn shí bā yuán",
+       "fr": "Riz au porc laqué : 18 yuans",
+       "en": "Rice with barbecued pork: 18 yuan"
+      },
+      {
+       "zh": "香肠面：十二元",
+       "pinyin": "xiāng cháng miàn shí èr yuán",
+       "fr": "Nouilles à la saucisse : 12 yuans",
+       "en": "Noodles with sausage: 12 yuan"
+      },
+      {
+       "zh": "臭豆腐：十元",
+       "pinyin": "chòu dòu fu shí yuán",
+       "fr": "Tofu fermenté : 10 yuans",
+       "en": "Stinky tofu: 10 yuan"
+      }
+     ],
+     "glose": [
+      {
+       "zh": "小吃",
+       "pinyin": "xiǎo chī",
+       "fr": "en-cas",
+       "en": "snack"
+      },
+      {
+       "zh": "叉烧",
+       "pinyin": "chā shāo",
+       "fr": "porc laqué",
+       "en": "barbecued pork"
+      },
+      {
+       "zh": "十八元",
+       "pinyin": "shí bā yuán",
+       "fr": "dix-huit yuans",
+       "en": "eighteen yuan"
+      },
+      {
+       "zh": "香肠",
+       "pinyin": "xiāng cháng",
+       "fr": "saucisse",
+       "en": "sausage"
+      },
+      {
+       "zh": "十二元",
+       "pinyin": "shí èr yuán",
+       "fr": "douze yuans",
+       "en": "twelve yuan"
+      },
+      {
+       "zh": "臭豆腐",
+       "pinyin": "chòu dòu fu",
+       "fr": "tofu fermenté",
+       "en": "stinky tofu"
+      },
+      {
+       "zh": "十元",
+       "pinyin": "shí yuán",
+       "fr": "dix yuans",
+       "en": "ten yuan"
+      }
+     ]
+    },
+    {
+     "id": "s2",
+     "genre": "message",
+     "contexte": {
+      "fr": "Un message",
+      "en": "A message"
+     },
+     "lignes": [
+      {
+       "zh": "王老师，我们已经到宾馆了。",
+       "pinyin": "wáng lǎo shī wǒ men yǐ jīng dào bīn guǎn le",
+       "fr": "Monsieur Wang, nous sommes arrivés à l'hôtel.",
+       "en": "Mr Wang, we've arrived at the hotel."
+      },
+      {
+       "zh": "火车上乘客很多，",
+       "pinyin": "huǒ chē shàng chéng kè hěn duō",
+       "fr": "Il y avait beaucoup de voyageurs dans le train,",
+       "en": "There were lots of passengers on the train,"
+      },
+      {
+       "zh": "我们站了三个小时，",
+       "pinyin": "wǒ men zhàn le sān gè xiǎo shí",
+       "fr": "nous sommes restés debout trois heures,",
+       "en": "we stood for three hours,"
+      },
+      {
+       "zh": "现在很累，明天再给您打电话。",
+       "pinyin": "xiàn zài hěn lèi míng tiān zài gěi nín dǎ diàn huà",
+       "fr": "maintenant nous sommes fatigués ; je vous appelle demain.",
+       "en": "we're tired now; I'll call you tomorrow."
+      }
+     ],
+     "glose": [
+      {
+       "zh": "已经",
+       "pinyin": "yǐ jīng",
+       "fr": "déjà",
+       "en": "already"
+      },
+      {
+       "zh": "宾馆",
+       "pinyin": "bīn guǎn",
+       "fr": "hôtel",
+       "en": "hotel"
+      },
+      {
+       "zh": "乘客",
+       "pinyin": "chéng kè",
+       "fr": "voyageur, passager",
+       "en": "passenger"
+      },
+      {
+       "zh": "不少",
+       "pinyin": "bù shǎo",
+       "fr": "pas mal de, beaucoup",
+       "en": "quite a few"
+      },
+      {
+       "zh": "站",
+       "pinyin": "zhàn",
+       "fr": "être debout",
+       "en": "to stand"
+      },
+      {
+       "zh": "三个小时",
+       "pinyin": "sān gè xiǎo shí",
+       "fr": "trois heures (durée)",
+       "en": "three hours"
+      },
+      {
+       "zh": "累",
+       "pinyin": "lèi",
+       "fr": "fatigué",
+       "en": "tired"
+      }
+     ]
+    }
+   ],
+   "questions": [
+    {
+     "type": "reperer",
+     "support": "s1",
+     "consigne": {
+      "fr": "Touche le plat au porc laqué.",
+      "en": "Tap the barbecued pork dish."
+     },
+     "choix": [
+      "小吃",
+      "叉烧",
+      "香肠",
+      "臭豆腐"
+     ],
+     "reponse": 1,
+     "porte": [
+      "叉",
+      "烧"
+     ]
+    },
+    {
+     "type": "comprendre",
+     "support": "s1",
+     "consigne": {
+      "fr": "Combien coûte le plat le moins cher ?",
+      "en": "How much is the cheapest dish?"
+     },
+     "choix": [
+      {
+       "fr": "Douze yuans",
+       "en": "Twelve yuan"
+      },
+      {
+       "fr": "Dix-huit yuans",
+       "en": "Eighteen yuan"
+      },
+      {
+       "fr": "Huit yuans",
+       "en": "Eight yuan"
+      },
+      {
+       "fr": "Dix yuans",
+       "en": "Ten yuan"
+      }
+     ],
+     "reponse": 3,
+     "porte": [
+      "臭",
+      "十"
+     ]
+    },
+    {
+     "type": "vrai_faux",
+     "support": "s2",
+     "consigne": {
+      "fr": "Vrai ou faux ?",
+      "en": "True or false?"
+     },
+     "affirmation": {
+      "zh": "火车上乘客不少。",
+      "pinyin": "huǒ chē shàng chéng kè bù shǎo",
+      "fr": "Il y avait pas mal de voyageurs dans le train.",
+      "en": "There were quite a few passengers on the train."
+     },
+     "reponse": true,
+     "porte": [
+      "乘",
+      "客",
+      "很",
+      "多"
+     ]
+    },
+    {
+     "type": "comprendre",
+     "support": "s2",
+     "consigne": {
+      "fr": "Où sont-ils maintenant ?",
+      "en": "Where are they now?"
+     },
+     "choix": [
+      {
+       "fr": "Dans le train",
+       "en": "On the train"
+      },
+      {
+       "fr": "À l'hôtel",
+       "en": "At the hotel"
+      },
+      {
+       "fr": "À l'école",
+       "en": "At school"
+      },
+      {
+       "fr": "À la gare",
+       "en": "At the station"
+      }
+     ],
+     "reponse": 1,
+     "porte": [
+      "宾",
+      "馆"
+     ]
+    },
+    {
+     "type": "trou",
+     "consigne": {
+      "fr": "Quel caractère manque dans ce mot ?",
+      "en": "Which character is missing from this word?"
+     },
+     "objet": {
+      "zh": "聪明",
+      "pinyin": "cōng míng",
+      "fr": "intelligent",
+      "en": "clever"
+     },
+     "trou": 0,
+     "choix": [
+      "总",
+      "聪",
+      "忽",
+      "感"
+     ],
+     "reponse": 1,
+     "porte": [
+      "聪",
+      "明"
+     ]
+    }
+   ]
+  }
+ ]
+}
