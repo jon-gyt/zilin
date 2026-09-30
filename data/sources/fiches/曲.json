@@ -3,7 +3,8 @@
  "parcours": "lire",
  "jour": 278,
  "pinyin": [
-  "qū"
+  "qū",
+  "qǔ"
  ],
  "sens_fr": "courbe, tordu, air, mélodie",
  "sens_en": "bent, crooked, tune, melody",
@@ -19,20 +20,33 @@
  "roles": {
   "曲": "forme"
  },
- "mots": [],
+ "mots": [
+  {
+   "hanzi": "歌曲",
+   "pinyin": "gēqǔ",
+   "fr": "chanson",
+   "en": "song"
+  },
+  {
+   "hanzi": "曲子",
+   "pinyin": "qǔzi",
+   "fr": "air, morceau de musique",
+   "en": "tune, piece of music"
+  }
+ ],
  "phrase": {
-  "zh": "",
-  "pinyin": "",
-  "fr": "",
-  "en": ""
+  "zh": "这首曲子很好听。",
+  "pinyin": "Zhè shǒu qǔzi hěn hǎotīng.",
+  "fr": "Cet air est très joli.",
+  "en": "This tune is lovely to listen to."
  },
  "generation": {
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:eea2a677217d35fd284180508acde2c1593f8ad898417c414f821c69fc0ceff7",
-  "essais": 1,
+  "empreinte_invite": "sha256:c97c9c9c0d9fb7d2d3e8dffa5066b106934f82720fe9167a030f75b269d08451",
+  "essais": 2,
   "refus": []
  },
- "statut": "relu"
+ "statut": "a_relire"
 }

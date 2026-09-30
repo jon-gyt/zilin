@@ -3,7 +3,9 @@
  "parcours": "lire",
  "jour": 605,
  "pinyin": [
-  "zhe"
+  "zhù",
+  "zhe",
+  "zhuó"
  ],
  "sens_fr": "écrire (un ouvrage), remarquable",
  "sens_en": "to write (a book), notable",
@@ -23,20 +25,33 @@
   "耂": "forme",
   "日": "forme"
  },
- "mots": [],
+ "mots": [
+  {
+   "hanzi": "著名",
+   "pinyin": "zhùmíng",
+   "fr": "célèbre, renommé",
+   "en": "famous, well-known"
+  },
+  {
+   "hanzi": "名著",
+   "pinyin": "míngzhù",
+   "fr": "grand classique, chef-d'œuvre littéraire",
+   "en": "classic, literary masterpiece"
+  }
+ ],
  "phrase": {
-  "zh": "",
-  "pinyin": "",
-  "fr": "",
-  "en": ""
+  "zh": "他是一位著名的作家。",
+  "pinyin": "Tā shì yī wèi zhùmíng de zuòjiā.",
+  "fr": "C'est un écrivain célèbre.",
+  "en": "He is a famous writer."
  },
  "generation": {
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:332a43c96fe95325fe2fe74ac1c199ecf70d4badffa3e1275c32758aa894d8d8",
-  "essais": 1,
+  "empreinte_invite": "sha256:e9778d5d06e352ba459be98069293aec0796e63f6efbf2b9f21954557d022c02",
+  "essais": 2,
   "refus": []
  },
- "statut": "relu"
+ "statut": "a_relire"
 }
