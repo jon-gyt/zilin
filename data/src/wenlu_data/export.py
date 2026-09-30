@@ -2143,7 +2143,8 @@ def assembler(
         )
     )
     # Les trois lignes du pas Utiliser (`trois_lignes.py`) : l'app lit ce fichier à chemin fixe.
-    textes[trois_lignes_mod.FICHIER] = _json(
+    # Compact : plus de deux mille textes indentés dépasseraient ce que l'app garde hors ligne.
+    textes[trois_lignes_mod.FICHIER] = _json_compact(
         trois_lignes_mod.document(
             en_tete={
                 "version": version,
