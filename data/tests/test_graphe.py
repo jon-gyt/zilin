@@ -600,3 +600,15 @@ def test_les_treize_au_xue_zi_tou_n_ont_plus_de_jour_ferme(nom: str) -> None:
     poses = {c for j in jours if not j.non_reconcilie for c in j.caracteres}
     assert treize <= poses
     assert all(j.brique is None for j in jours if set(j.composes) & treize)
+
+
+@pytest.mark.parametrize("nom", sorted(PARCOURS))
+@pytest.mark.parametrize("mot", ["咖啡", "垃圾", "玻璃", "葡萄"])
+def test_les_paires_sont_posees_le_meme_jour(nom: str, mot: str) -> None:
+    """Décision du propriétaire du 30 septembre 2026 (« Poser les paires ensemble ») : deux
+    caractères qui ne se lisent qu'ensemble entrent le même jour, dans l'ordre du mot."""
+    jour = {c: j for j in _jours_reels(nom) for c in j.caracteres}
+    premier, second = mot
+    assert jour[premier] is jour[second]
+    composes = jour[premier].composes
+    assert composes.index(premier) + 1 == composes.index(second)
