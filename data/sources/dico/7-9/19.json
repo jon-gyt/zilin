@@ -1,0 +1,1284 @@
+{
+ "niveau": "7-9",
+ "lot": "19",
+ "source": "rédigé pour l'app dans le pipeline wenlu, sans API ; faits lus : liste HSK 3.0 (forme, pinyin, niveau, catégorie), lectures d'Unihan et des surcharges, gloses relues des fiches",
+ "brouillon": "data/sources/dico-brouillons/7-9/19.json",
+ "generation": {
+  "modele": "rédaction manuelle",
+  "api": "session Claude Code (sans API)",
+  "date": "2026-09-30",
+  "empreinte_invite": "sha256:6e6162111dce0fda0bc666a7451b21353739f733cd73652d02f63b194a27e58b",
+  "contexte": "wenlu dico contexte 7-9 19",
+  "essais": 1,
+  "refus": []
+ },
+ "entrees": [
+  {
+   "id": "辰",
+   "genre": "caractere",
+   "hanzi": "辰",
+   "pinyin": "chén",
+   "sens": {
+    "glose": "cinquième rameau terrestre ; moment",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "cinquième des rameaux terrestres"
+     },
+     {
+      "categorie": "N",
+      "fr": "moment, jour"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": []
+  },
+  {
+   "id": "L7-0750",
+   "genre": "mot",
+   "hanzi": "诞辰",
+   "pinyin": "dànchén",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "anniversaire de naissance",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "anniversaire de naissance d'une personne illustre"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "今年是这位作家诞辰一百周年。",
+     "pinyin": "Jīnnián shì zhè wèi zuòjiā dànchén yībǎi zhōunián.",
+     "fr": "Cette année, on célèbre les cent ans de la naissance de cet écrivain.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-0751",
+   "genre": "mot",
+   "hanzi": "淡化",
+   "pinyin": "dànhuà",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "atténuer, minimiser ; dessaler",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "atténuer, minimiser, estomper"
+     },
+     {
+      "categorie": "V",
+      "fr": "dessaler : eau de mer"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "时间会淡化一切。",
+     "pinyin": "Shíjiān huì dànhuà yīqiè.",
+     "fr": "Le temps efface tout.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-0752",
+   "genre": "mot",
+   "hanzi": "淡季",
+   "pinyin": "dànjì",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "basse saison, morte-saison",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "basse saison, morte-saison"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "旅游淡季机票比较便宜。",
+     "pinyin": "Lǚyóu dànjì jīpiào bǐjiào piányi.",
+     "fr": "Hors saison, les billets d'avion sont moins chers.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-0753",
+   "genre": "mot",
+   "hanzi": "蛋白质",
+   "pinyin": "dànbáizhì",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "protéine",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "protéine"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "鸡蛋里有很多蛋白质。",
+     "pinyin": "Jīdàn li yǒu hěn duō dànbáizhì.",
+     "fr": "Les œufs sont nourrissants.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-0754",
+   "genre": "mot",
+   "hanzi": "当即",
+   "pinyin": "dāngjí",
+   "categories": [
+    "Adv"
+   ],
+   "sens": {
+    "glose": "sur-le-champ, aussitôt",
+    "acceptions": [
+     {
+      "categorie": "Adv",
+      "fr": "sur-le-champ, aussitôt"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他当即表示同意。",
+     "pinyin": "Tā dāngjí biǎoshì tóngyì.",
+     "fr": "Il a donné son accord immédiatement.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-0755",
+   "genre": "mot",
+   "hanzi": "当今",
+   "pinyin": "dāngjīn",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "de nos jours, à l'heure actuelle",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "de nos jours, l'époque actuelle"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "当今社会，手机已经离不开了。",
+     "pinyin": "Dāngjīn shèhuì, shǒujī yǐjīng lí bu kāi le.",
+     "fr": "Aujourd'hui, on ne peut plus se passer du téléphone portable.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-0756",
+   "genre": "mot",
+   "hanzi": "当面",
+   "pinyin": "dāngmiàn",
+   "sens": {
+    "glose": "face à face, en personne",
+    "acceptions": [
+     {
+      "categorie": "Adv",
+      "fr": "face à face, en personne"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这件事我想当面跟你谈。",
+     "pinyin": "Zhè jiàn shì wǒ xiǎng dāngmiàn gēn nǐ tán.",
+     "fr": "Je voudrais te parler de cette affaire de vive voix.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-0757",
+   "genre": "mot",
+   "hanzi": "当日",
+   "pinyin": "dāngrì",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "ce jour-là, le jour même",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "ce jour-là, le jour même"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "车票当日有效。",
+     "pinyin": "Chēpiào dāngrì yǒuxiào.",
+     "fr": "Le billet n'est valable que pour la date indiquée.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-0758",
+   "genre": "mot",
+   "hanzi": "当事人",
+   "pinyin": "dāngshìrén",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "partie concernée, intéressé",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "partie concernée, intéressé"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "我们要听听当事人怎么说。",
+     "pinyin": "Wǒmen yào tīngting dāngshìrén zěnme shuō.",
+     "fr": "Il faut entendre ce qu'en disent les personnes en cause.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-0759",
+   "genre": "mot",
+   "hanzi": "当务之急",
+   "pinyin": "dāngwùzhījí",
+   "sens": {
+    "glose": "priorité, urgence du moment",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "priorité, urgence du moment"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "当务之急是找到住的地方。",
+     "pinyin": "Dāngwùzhījí shì zhǎodào zhù de dìfang.",
+     "fr": "Le plus urgent, c'est de trouver un logement.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-0760",
+   "genre": "mot",
+   "hanzi": "当下",
+   "pinyin": "dāngxià",
+   "categories": [
+    "Adv"
+   ],
+   "sens": {
+    "glose": "aussitôt ; à présent",
+    "acceptions": [
+     {
+      "categorie": "Adv",
+      "fr": "aussitôt ; à présent"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他当下就答应了。",
+     "pinyin": "Tā dāngxià jiù dāying le.",
+     "fr": "Il a accepté sur-le-champ.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-0761",
+   "genre": "mot",
+   "hanzi": "当心",
+   "pinyin": "dāngxīn",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "faire attention, prendre garde",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "faire attention, prendre garde"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "路上很滑，当心摔倒。",
+     "pinyin": "Lùshang hěn huá, dāngxīn shuāidǎo.",
+     "fr": "La route glisse, attention à ne pas tomber.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-0762",
+   "genre": "mot",
+   "hanzi": "当着",
+   "pinyin": "dāngzhe",
+   "sens": {
+    "glose": "devant, en présence de",
+    "acceptions": [
+     {
+      "categorie": "Prep",
+      "fr": "devant, en présence de"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他当着大家的面向她道歉。",
+     "pinyin": "Tā dāngzhe dàjiā de miàn xiàng tā dàoqiàn.",
+     "fr": "Il lui a présenté ses excuses devant tout le monde.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-0763",
+   "genre": "mot",
+   "hanzi": "当之无愧",
+   "pinyin": "dāngzhīwúkuì",
+   "sens": {
+    "glose": "mériter pleinement",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "mériter pleinement, être digne de"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这个奖他当之无愧。",
+     "pinyin": "Zhège jiǎng tā dāngzhīwúkuì.",
+     "fr": "Ce prix, il l'a amplement gagné.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-0764",
+   "genre": "mot",
+   "hanzi": "当众",
+   "pinyin": "dāngzhòng",
+   "categories": [
+    "Adv"
+   ],
+   "sens": {
+    "glose": "en public",
+    "acceptions": [
+     {
+      "categorie": "Adv",
+      "fr": "en public, devant tout le monde"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他当众唱了一首歌。",
+     "pinyin": "Tā dāngzhòng chàng le yī shǒu gē.",
+     "fr": "Il a chanté une chanson devant l'assemblée.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-0765",
+   "genre": "mot",
+   "hanzi": "当晚",
+   "pinyin": "dàngwǎn",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "le soir même",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "le soir même, ce soir-là"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他当晚就回家了。",
+     "pinyin": "Tā dàngwǎn jiù huíjiā le.",
+     "fr": "Il est rentré chez lui dès le soir.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-0766",
+   "genre": "mot",
+   "hanzi": "当真",
+   "pinyin": "dàngzhēn",
+   "categories": [
+    "V",
+    "Adv"
+   ],
+   "sens": {
+    "glose": "prendre au sérieux ; vraiment",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "prendre au sérieux, croire"
+     },
+     {
+      "categorie": "Adv",
+      "fr": "vraiment, réellement"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "我只是开玩笑，你别当真。",
+     "pinyin": "Wǒ zhǐshì kāi wánxiào, nǐ bié dàngzhēn.",
+     "fr": "Je blaguais, ne t'en fais pas.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "荡",
+   "genre": "caractere",
+   "hanzi": "荡",
+   "pinyin": "dàng",
+   "sens": {
+    "glose": "osciller, se balancer ; balayer",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "osciller, se balancer"
+     },
+     {
+      "categorie": "V",
+      "fr": "balayer, nettoyer"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": []
+  },
+  {
+   "id": "漾",
+   "genre": "caractere",
+   "hanzi": "漾",
+   "pinyin": "yàng",
+   "sens": {
+    "glose": "onduler, déborder",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "onduler, déborder"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": []
+  },
+  {
+   "id": "L7-0767",
+   "genre": "mot",
+   "hanzi": "荡漾",
+   "pinyin": "dàngyàng",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "onduler, ondoyer",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "onduler, ondoyer"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "微风吹过，湖水轻轻荡漾。",
+     "pinyin": "Wēifēng chuīguò, húshuǐ qīngqīng dàngyàng.",
+     "fr": "Sous la brise, l'eau du lac frémit doucement.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-0768",
+   "genre": "mot",
+   "hanzi": "档次",
+   "pinyin": "dàngcì",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "niveau, gamme, catégorie",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "niveau, gamme, catégorie"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这家酒店档次很高。",
+     "pinyin": "Zhè jiā jiǔdiàn dàngcì hěn gāo.",
+     "fr": "C'est un hôtel haut de gamme.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-0769",
+   "genre": "mot",
+   "hanzi": "导弹",
+   "pinyin": "dǎodàn",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "missile",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "missile"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他们在研究新型导弹。",
+     "pinyin": "Tāmen zài yánjiū xīnxíng dǎodàn.",
+     "fr": "Ils développent une nouvelle arme.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-0770",
+   "genre": "mot",
+   "hanzi": "导航",
+   "pinyin": "dǎoháng",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "guider, GPS",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "guider la navigation, servir de GPS"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "开车的时候我用手机导航。",
+     "pinyin": "Kāichē de shíhou wǒ yòng shǒujī dǎoháng.",
+     "fr": "En voiture, je me sers du GPS de mon téléphone.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-0771",
+   "genre": "mot",
+   "hanzi": "导火索",
+   "pinyin": "dǎohuǒsuǒ",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "mèche ; élément déclencheur",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "mèche ; élément déclencheur"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这件小事成了战争的导火索。",
+     "pinyin": "Zhè jiàn xiǎoshì chéng le zhànzhēng de dǎohuǒsuǒ.",
+     "fr": "Cet incident a mis le feu aux poudres.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-0772",
+   "genre": "mot",
+   "hanzi": "导师",
+   "pinyin": "dǎoshī",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "directeur de recherche, mentor",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "directeur de recherche, mentor"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "我的导师对我很严格。",
+     "pinyin": "Wǒ de dǎoshī duì wǒ hěn yángé.",
+     "fr": "Celui qui dirige ma thèse est très exigeant avec moi.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-0773",
+   "genre": "mot",
+   "hanzi": "导向",
+   "pinyin": "dǎoxiàng",
+   "categories": [
+    "V",
+    "N"
+   ],
+   "sens": {
+    "glose": "orientation ; orienter",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "orientation, direction"
+     },
+     {
+      "categorie": "V",
+      "fr": "orienter, conduire à"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "学校应该有正确的价值导向。",
+     "pinyin": "Xuéxiào yīnggāi yǒu zhèngquè de jiàzhí dǎoxiàng.",
+     "fr": "L'école doit transmettre de bonnes valeurs.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "屿",
+   "genre": "caractere",
+   "hanzi": "屿",
+   "pinyin": "yǔ",
+   "sens": {
+    "glose": "îlot",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "îlot"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": []
+  },
+  {
+   "id": "L7-0774",
+   "genre": "mot",
+   "hanzi": "岛屿",
+   "pinyin": "dǎoyǔ",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "îles, archipel",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "îles, archipel"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这片海上有很多岛屿。",
+     "pinyin": "Zhè piàn hǎi shang yǒu hěn duō dǎoyǔ.",
+     "fr": "Cette mer est parsemée de terres.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "捣",
+   "genre": "caractere",
+   "hanzi": "捣",
+   "pinyin": "dǎo",
+   "sens": {
+    "glose": "piler, battre ; déranger",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "piler, battre ; déranger"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": []
+  },
+  {
+   "id": "L7-0775",
+   "genre": "mot",
+   "hanzi": "捣乱",
+   "pinyin": "dǎoluàn",
+   "sens": {
+    "glose": "semer le désordre",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "semer le désordre, faire des bêtises"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "孩子们在教室里捣乱。",
+     "pinyin": "Háizimen zài jiàoshì li dǎoluàn.",
+     "fr": "Les enfants font les quatre cents coups dans la classe.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-0776",
+   "genre": "mot",
+   "hanzi": "倒卖",
+   "pinyin": "dǎomài",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "revendre au marché noir",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "revendre en spéculant, faire du marché noir"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他靠倒卖门票赚钱。",
+     "pinyin": "Tā kào dǎomài ménpiào zhuàn qián.",
+     "fr": "Il gagne sa vie en revendant des billets sous le manteau.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "霉",
+   "genre": "caractere",
+   "hanzi": "霉",
+   "pinyin": "méi",
+   "sens": {
+    "glose": "moisissure ; moisir",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "moisissure"
+     },
+     {
+      "categorie": "V",
+      "fr": "moisir"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": []
+  },
+  {
+   "id": "L7-0777",
+   "genre": "mot",
+   "hanzi": "倒霉",
+   "pinyin": "dǎoméi",
+   "sens": {
+    "glose": "pas de chance, malchanceux",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "pas de chance, malchanceux"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "真倒霉，出门就下雨了。",
+     "pinyin": "Zhēn dǎoméi, chūmén jiù xià yǔ le.",
+     "fr": "Manque de pot, il s'est mis à pleuvoir dès que je suis sorti.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "塌",
+   "genre": "caractere",
+   "hanzi": "塌",
+   "pinyin": "tā",
+   "mots": [
+    "L7-3982"
+   ],
+   "sens": {
+    "glose": "s'effondrer, s'écrouler",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "s'effondrer, s'écrouler"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "大雨把墙冲塌了。",
+     "pinyin": "Dà yǔ bǎ qiáng chōng tā le.",
+     "fr": "La pluie a fait tomber le mur.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-0778",
+   "genre": "mot",
+   "hanzi": "倒塌",
+   "pinyin": "dǎotā",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "s'effondrer",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "s'effondrer, crouler"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "地震时很多房子倒塌了。",
+     "pinyin": "Dìzhèn shí hěn duō fángzi dǎotā le.",
+     "fr": "Lors du séisme, de nombreuses maisons se sont écroulées.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-0779",
+   "genre": "mot",
+   "hanzi": "倒下",
+   "pinyin": "dǎoxia",
+   "sens": {
+    "glose": "tomber, s'écrouler",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "tomber, s'écrouler"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他累得倒下就睡着了。",
+     "pinyin": "Tā lèi de dǎoxia jiù shuìzháo le.",
+     "fr": "Épuisé, il s'est effondré et s'est endormi aussitôt.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-0780",
+   "genre": "mot",
+   "hanzi": "到头来",
+   "pinyin": "dàotóulái",
+   "categories": [
+    "Adv"
+   ],
+   "sens": {
+    "glose": "finalement, au bout du compte",
+    "acceptions": [
+     {
+      "categorie": "Adv",
+      "fr": "finalement, au bout du compte"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他忙了半天，到头来什么也没做成。",
+     "pinyin": "Tā máng le bàntiān, dàotóulái shénme yě méi zuòchéng.",
+     "fr": "Il s'est démené longtemps, et au final rien n'a abouti.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-0781",
+   "genre": "mot",
+   "hanzi": "到位",
+   "pinyin": "dàowèi",
+   "sens": {
+    "glose": "en place ; impeccable",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "arriver à sa place, être en place"
+     },
+     {
+      "categorie": "Adj",
+      "fr": "impeccable, bien fait"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他的服务很到位。",
+     "pinyin": "Tā de fúwù hěn dàowèi.",
+     "fr": "Son service ne laisse rien à désirer.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-0782",
+   "genre": "mot",
+   "hanzi": "倒计时",
+   "pinyin": "dàojìshí",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "faire un compte à rebours",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "faire un compte à rebours"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "离比赛开始还有十天，大家开始倒计时。",
+     "pinyin": "Lí bǐsài kāishǐ hái yǒu shí tiān, dàjiā kāishǐ dàojìshí.",
+     "fr": "À dix jours du match, tout le monde compte les jours.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-0783",
+   "genre": "mot",
+   "hanzi": "倒数",
+   "pinyin": "dàoshǔ",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "compter à rebours ; en partant de la fin",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "compter à rebours ; compter en partant de la fin"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他考试考了倒数第一。",
+     "pinyin": "Tā kǎoshì kǎo le dàoshǔ dì yī.",
+     "fr": "Il est arrivé dernier à l'examen.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "窃",
+   "genre": "caractere",
+   "hanzi": "窃",
+   "pinyin": "qiè",
+   "sens": {
+    "glose": "voler ; en cachette",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "voler, dérober"
+     },
+     {
+      "categorie": "Adv",
+      "fr": "en cachette"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": []
+  },
+  {
+   "id": "L7-0785",
+   "genre": "mot",
+   "hanzi": "盗窃",
+   "pinyin": "dàoqiè",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "voler, cambrioler",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "voler, cambrioler"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他因为盗窃被判了三年。",
+     "pinyin": "Tā yīnwèi dàoqiè bèi pàn le sān nián.",
+     "fr": "Il a été condamné à trois ans pour vol.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "悼",
+   "genre": "caractere",
+   "hanzi": "悼",
+   "pinyin": "dào",
+   "sens": {
+    "glose": "pleurer un mort",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "pleurer un mort, être en deuil"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": []
+  },
+  {
+   "id": "L7-0786",
+   "genre": "mot",
+   "hanzi": "悼念",
+   "pinyin": "dàoniàn",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "honorer la mémoire de",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "honorer la mémoire de, pleurer un défunt"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "人们来这里悼念死去的英雄。",
+     "pinyin": "Rénmen lái zhèli dàoniàn sǐqù de yīngxióng.",
+     "fr": "Les gens viennent ici rendre hommage aux héros disparus.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-0787",
+   "genre": "mot",
+   "hanzi": "道具",
+   "pinyin": "dàojù",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "accessoire de scène",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "accessoire de scène, de tournage"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这些道具是演员们自己做的。",
+     "pinyin": "Zhèxiē dàojù shì yǎnyuánmen zìjǐ zuò de.",
+     "fr": "Les acteurs ont fabriqué eux-mêmes ces objets.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "稻",
+   "genre": "caractere",
+   "hanzi": "稻",
+   "pinyin": "dào",
+   "sens": {
+    "glose": "riz, la plante",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "riz, la plante"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": []
+  },
+  {
+   "id": "L7-0788",
+   "genre": "mot",
+   "hanzi": "稻草",
+   "pinyin": "dàocǎo",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "paille de riz",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "paille de riz"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "农民用稻草盖房顶。",
+     "pinyin": "Nóngmín yòng dàocǎo gài fángdǐng.",
+     "fr": "Les paysans couvrent les toits de chaume.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-0789",
+   "genre": "mot",
+   "hanzi": "得不偿失",
+   "pinyin": "débùchángshī",
+   "sens": {
+    "glose": "n'en valoir pas la peine",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "coûter plus que ce qu'on y gagne"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "为了省钱而生病，真是得不偿失。",
+     "pinyin": "Wèile shěng qián ér shēngbìng, zhēn shì débùchángshī.",
+     "fr": "Tomber malade pour économiser, le jeu n'en vaut pas la chandelle.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-0790",
+   "genre": "mot",
+   "hanzi": "得当",
+   "pinyin": "dédàng",
+   "categories": [
+    "Adj"
+   ],
+   "sens": {
+    "glose": "approprié, judicieux",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "approprié, judicieux"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他处理问题很得当。",
+     "pinyin": "Tā chǔlǐ wèntí hěn dédàng.",
+     "fr": "Il règle les problèmes avec doigté.",
+     "statut": "a_relire"
+    }
+   ]
+  }
+ ]
+}
