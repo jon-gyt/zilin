@@ -23,20 +23,33 @@
   "宀": "forme",
   "一": "forme"
  },
- "mots": [],
+ "mots": [
+  {
+   "hanzi": "贮存",
+   "pinyin": "zhùcún",
+   "fr": "stocker, conserver",
+   "en": "to store"
+  },
+  {
+   "hanzi": "贮藏",
+   "pinyin": "zhùcáng",
+   "fr": "conserver, emmagasiner",
+   "en": "to store up"
+  }
+ ],
  "phrase": {
-  "zh": "",
-  "pinyin": "",
-  "fr": "",
-  "en": ""
+  "zh": "粮食要贮存在干燥的地方。",
+  "pinyin": "Liángshi yào zhùcún zài gānzào de dìfang.",
+  "fr": "Les céréales doivent être stockées dans un endroit sec.",
+  "en": "Grain must be stored in a dry place."
  },
  "generation": {
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:03af30c8a1581258de4ac4ab149080910fc979620edfd609cc249d4e7f93c5ce",
-  "essais": 1,
+  "empreinte_invite": "sha256:2bb5d4e9ebf2cf3181287038a1b2f48c723c66692305d15d38a2a498bd4e2f43",
+  "essais": 2,
   "refus": []
  },
- "statut": "relu"
+ "statut": "a_relire"
 }

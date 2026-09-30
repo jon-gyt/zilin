@@ -21,20 +21,33 @@
   "⺮": "sens",
   "争": "son"
  },
- "mots": [],
+ "mots": [
+  {
+   "hanzi": "风筝",
+   "pinyin": "fēngzheng",
+   "fr": "cerf-volant",
+   "en": "kite"
+  },
+  {
+   "hanzi": "古筝",
+   "pinyin": "gǔzhēng",
+   "fr": "cithare guzheng",
+   "en": "guzheng zither"
+  }
+ ],
  "phrase": {
-  "zh": "",
-  "pinyin": "",
-  "fr": "",
-  "en": ""
+  "zh": "孩子们在公园里放风筝。",
+  "pinyin": "Háizimen zài gōngyuán lǐ fàng fēngzheng.",
+  "fr": "Les enfants font voler des cerfs-volants dans le parc.",
+  "en": "The children are flying kites in the park."
  },
  "generation": {
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:bf34739d6702f13f97e5d70270a01834b425580bb7d6da0c4feb404825ef9fe6",
-  "essais": 1,
+  "empreinte_invite": "sha256:f36ea44d3cec3f5bd29d449baf072257b509cb3d71b10f2bdb6b16edd89aae68",
+  "essais": 2,
   "refus": []
  },
- "statut": "relu"
+ "statut": "a_relire"
 }

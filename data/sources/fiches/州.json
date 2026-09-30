@@ -19,20 +19,33 @@
  "roles": {
   "州": "sens"
  },
- "mots": [],
+ "mots": [
+  {
+   "hanzi": "州立",
+   "pinyin": "zhōulì",
+   "fr": "d'État (fédéré)",
+   "en": "state-run"
+  },
+  {
+   "hanzi": "州长",
+   "pinyin": "zhōuzhǎng",
+   "fr": "gouverneur (d'un État)",
+   "en": "state governor"
+  }
+ ],
  "phrase": {
-  "zh": "",
-  "pinyin": "",
-  "fr": "",
-  "en": ""
+  "zh": "他在一所州立大学读书。",
+  "pinyin": "Tā zài yī suǒ zhōulì dàxué dúshū.",
+  "fr": "Il étudie dans une université d'État.",
+  "en": "He studies at a state university."
  },
  "generation": {
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:9f15c3d7a7eaf0d38c803269981eb40be6be11a4e99fa9fce7e6cb768fc9234a",
-  "essais": 1,
+  "empreinte_invite": "sha256:f767099ab2855591e2e412eba733e6560a403de5361d387ca9e4420c3a77961b",
+  "essais": 2,
   "refus": []
  },
- "statut": "relu"
+ "statut": "a_relire"
 }
