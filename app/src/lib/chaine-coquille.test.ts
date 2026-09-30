@@ -318,15 +318,16 @@ describe('la chaîne, sur le parcours Lire', () => {
   });
 
   it('ne traverse que l’export : un caractère acquis hors de l’export n’y entre pas', () => {
+    /* 吞 est exporté depuis la suite du chemin (HSK 7-9) : l'intrus est sa variante 呑. */
     expect(corpus.exportes?.length).toBeGreaterThan(0);
     const avecIntrus: CorpusJeux = {
       ...corpus,
-      acquis: [...corpus.acquis, '吞'],
-      decompositions: { ...corpus.decompositions, 吞: ['天', '口'] },
-      traits: [...corpus.traits, '吞']
+      acquis: [...corpus.acquis, '呑'],
+      decompositions: { ...corpus.decompositions, 呑: ['天', '口'] },
+      traits: [...corpus.traits, '呑']
     };
-    expect(maillonsPossibles(avecIntrus)).not.toContain('吞');
-    for (const t of JEUX.chaine.preparer(avecIntrus, 'g')?.tours ?? []) expect(t.choix).not.toContain('吞');
+    expect(maillonsPossibles(avecIntrus)).not.toContain('呑');
+    for (const t of JEUX.chaine.preparer(avecIntrus, 'g')?.tours ?? []) expect(t.choix).not.toContain('呑');
   });
 
   it('note chaque choix comme une question, par grade, et dit le leurre pris', () => {

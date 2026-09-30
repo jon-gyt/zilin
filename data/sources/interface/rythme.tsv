@@ -31,7 +31,8 @@
 # - `route_carte_demain`, `route_carte` : la carte de l'étape suivante ; {n} ;
 # - `route_fin` : au bout du chemin gratuit, sur la dernière pierre ;
 # - `route_suite_lire`, `route_suite_hsk` : la suite, en une ligne, sans insistance, sur
-#   le parcours Lire (le seuil 405) et sur le parcours HSK (le HSK 2).
+#   le parcours Lire (la fin du HSK 1, puis le HSK 2 : décision du propriétaire du 30 septembre
+#   2026, les deux chemins suivent le HSK 3.0) et sur le parcours HSK (le HSK 2).
 cle	fr	source
 menu_demain	Demain	brief §6, mot pour mot
 menu_dans	Dans {n} j	brief §6, mot pour mot
@@ -48,5 +49,5 @@ route_pierre	prochaine brique dans {n} j	brief §8, mot pour mot
 route_carte_demain	Prochaine brique demain	rédigé pour l'app, d'après le brief §8
 route_carte	Prochaine brique dans {n} jours	brief §8, mot pour mot
 route_fin	fin du chemin gratuit	brief §8, mot pour mot
-route_suite_lire	La suite du chemin : le seuil 405.	rédigé pour l'app, d'après le brief §8
+route_suite_lire	La suite du chemin : la fin du HSK 1, puis le HSK 2.	rédigé pour l'app, d'après le brief §8 et la décision du 30 septembre 2026
 route_suite_hsk	La suite du chemin : le HSK 2.	rédigé pour l'app, d'après le brief §8

@@ -223,8 +223,12 @@ describe("sur l'export versionné", () => {
   });
 
   it('trouve 好 et 号 pour hao, 好 seul pour hao3, 木 en tête pour 木', () => {
+    /* Depuis la suite du chemin (HSK 2 à 7-9), 毫 et 豪 háo sont aussi exportés : le
+       deuxième ton passe avant le troisième, et 好 hǎo avant 号 hào. */
     const hao = cs('hao', tout);
-    expect(hao.slice(0, 2)).toEqual(['好', '号']);
+    expect(hao.indexOf('好')).toBeGreaterThanOrEqual(0);
+    expect(hao.indexOf('好')).toBeLessThan(hao.indexOf('号'));
+    expect(hao.slice(hao.indexOf('好'), hao.indexOf('好') + 2)).toEqual(['好', '号']);
     expect(cs('hao3', tout)).toEqual(['好']);
     expect(cs('木', tout)[0]).toBe('木');
   });
