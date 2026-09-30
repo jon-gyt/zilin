@@ -1,0 +1,1346 @@
+{
+ "niveau": "6",
+ "lot": "17",
+ "source": "rédigé pour l'app dans le pipeline wenlu, sans API ; faits lus : liste HSK 3.0 (forme, pinyin, niveau, catégorie), lectures d'Unihan et des surcharges, gloses relues des fiches",
+ "brouillon": "data/sources/dico-brouillons/6/17.json",
+ "generation": {
+  "modele": "rédaction manuelle",
+  "api": "session Claude Code (sans API)",
+  "date": "2026-09-30",
+  "empreinte_invite": "sha256:b0c7f7570dcead9f372a6f0ebb142155eff01e2e07f13691d53582ae5641983e",
+  "contexte": "wenlu dico contexte 6 17",
+  "essais": 1,
+  "refus": []
+ },
+ "entrees": [
+  {
+   "id": "L6-0726",
+   "genre": "mot",
+   "hanzi": "升级",
+   "pinyin": "shēngjí",
+   "sens": {
+    "glose": "monter d'un niveau ; mettre à jour",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "monter d'un niveau, passer en catégorie supérieure"
+     },
+     {
+      "categorie": "V",
+      "fr": "mettre à jour : un logiciel ; s'aggraver"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "我的电脑需要升级。",
+     "pinyin": "Wǒ de diànnǎo xūyào shēngjí.",
+     "fr": "Mon ordinateur a besoin d'une mise à jour.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L6-0727",
+   "genre": "mot",
+   "hanzi": "升学",
+   "pinyin": "shēngxué",
+   "sens": {
+    "glose": "passer dans l'école supérieure",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "passer dans l'établissement supérieur"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他们都在为升学做准备。",
+     "pinyin": "Tāmen dōu zài wèi shēngxué zuò zhǔnbèi.",
+     "fr": "Ils se préparent tous à entrer au lycée ou à l'université.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L6-0728",
+   "genre": "mot",
+   "hanzi": "升值",
+   "pinyin": "shēngzhí",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "prendre de la valeur",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "prendre de la valeur, s'apprécier"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这几年房子升值了很多。",
+     "pinyin": "Zhè jǐ nián fángzi shēngzhí le hěn duō.",
+     "fr": "Ces dernières années, les maisons valent beaucoup plus cher.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L6-0729",
+   "genre": "mot",
+   "hanzi": "生活费",
+   "pinyin": "shēnghuófèi",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "frais de subsistance",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "frais de subsistance, argent pour vivre"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "父母每个月给他寄生活费。",
+     "pinyin": "Fùmǔ měi ge yuè gěi tā jì shēnghuófèi.",
+     "fr": "Ses parents lui envoient de quoi vivre chaque mois.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L6-0730",
+   "genre": "mot",
+   "hanzi": "省钱",
+   "pinyin": "shěngqián",
+   "sens": {
+    "glose": "économiser de l'argent",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "économiser de l'argent, dépenser moins"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "骑自行车上班又健康又省钱。",
+     "pinyin": "Qí zìxíngchē shàngbān yòu jiànkāng yòu shěngqián.",
+     "fr": "Aller au travail à vélo, c'est bon pour la santé et pour le porte-monnaie.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "圣",
+   "genre": "caractere",
+   "hanzi": "圣",
+   "pinyin": "shèng",
+   "sens": {
+    "glose": "saint, sacré ; sage",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "saint, sacré"
+     },
+     {
+      "categorie": "N",
+      "fr": "sage, saint"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": []
+  },
+  {
+   "id": "L6-0731",
+   "genre": "mot",
+   "hanzi": "圣诞节",
+   "pinyin": "Shèngdàn Jié",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "Noël",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "Noël"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "圣诞节快到了。",
+     "pinyin": "Shèngdàn Jié kuài dào le.",
+     "fr": "Les fêtes de fin d'année approchent.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L6-0732",
+   "genre": "mot",
+   "hanzi": "盛行",
+   "pinyin": "shèngxíng",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "être en vogue, prévaloir",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "être en vogue, se répandre, prévaloir"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这种说法在年轻人中很盛行。",
+     "pinyin": "Zhè zhǒng shuōfǎ zài niánqīngrén zhōng hěn shèngxíng.",
+     "fr": "Cette expression est très répandue chez les jeunes.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L6-0733",
+   "genre": "mot",
+   "hanzi": "师父",
+   "pinyin": "shīfu",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "maître (artisan, arts martiaux)",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "maître : artisan, arts martiaux, moine"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他跟师父学了三年功夫。",
+     "pinyin": "Tā gēn shīfu xué le sān nián gōngfu.",
+     "fr": "Il a appris le kung-fu pendant trois ans auprès de son maître.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L6-0734",
+   "genre": "mot",
+   "hanzi": "师生",
+   "pinyin": "shīshēng",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "professeurs et élèves",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "professeurs et élèves"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "全校师生都参加了运动会。",
+     "pinyin": "Quán xiào shīshēng dōu cānjiā le yùndònghuì.",
+     "fr": "Toute l'école a participé à la fête du sport.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L6-0735",
+   "genre": "mot",
+   "hanzi": "时而",
+   "pinyin": "shí'ér",
+   "categories": [
+    "Adv"
+   ],
+   "sens": {
+    "glose": "de temps en temps ; tantôt… tantôt",
+    "acceptions": [
+     {
+      "categorie": "Adv",
+      "fr": "de temps en temps ; tantôt… tantôt"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "天气时而晴，时而雨。",
+     "pinyin": "Tiānqì shí'ér qíng, shí'ér yǔ.",
+     "fr": "Il fait tantôt beau, tantôt il pleut.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L6-0736",
+   "genre": "mot",
+   "hanzi": "时节",
+   "pinyin": "shíjié",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "saison, période",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "saison, période de l'année"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "现在正是吃西瓜的时节。",
+     "pinyin": "Xiànzài zhèng shì chī xīguā de shíjié.",
+     "fr": "C'est la pleine saison des pastèques.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L6-0737",
+   "genre": "mot",
+   "hanzi": "时期",
+   "pinyin": "shíqī",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "période, époque",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "période, époque"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "那是他人生中最困难的时期。",
+     "pinyin": "Nà shì tā rénshēng zhōng zuì kùnnan de shíqī.",
+     "fr": "Ce fut le moment le plus dur de sa vie.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L6-0738",
+   "genre": "mot",
+   "hanzi": "时时",
+   "pinyin": "shíshí",
+   "categories": [
+    "Adv"
+   ],
+   "sens": {
+    "glose": "constamment, à tout moment",
+    "acceptions": [
+     {
+      "categorie": "Adv",
+      "fr": "constamment, à tout moment"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "妈妈时时关心着我的学习。",
+     "pinyin": "Māma shíshí guānxīn zhe wǒ de xuéxí.",
+     "fr": "Maman suit sans cesse mes études.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L6-0739",
+   "genre": "mot",
+   "hanzi": "时装",
+   "pinyin": "shízhuāng",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "vêtements de mode",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "vêtements de mode, mode"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "她很喜欢看时装表演。",
+     "pinyin": "Tā hěn xǐhuan kàn shízhuāng biǎoyǎn.",
+     "fr": "Elle adore les défilés.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L6-0741",
+   "genre": "mot",
+   "hanzi": "识字",
+   "pinyin": "shízì",
+   "sens": {
+    "glose": "savoir lire, apprendre à lire",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "savoir lire, apprendre à lire"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "奶奶小时候没机会识字。",
+     "pinyin": "Nǎinai xiǎoshíhou méi jīhuì shízì.",
+     "fr": "Enfant, grand-mère n'a pas eu la chance d'apprendre à lire.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "践",
+   "genre": "caractere",
+   "hanzi": "践",
+   "pinyin": "jiàn",
+   "sens": {
+    "glose": "fouler ; mettre en pratique",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "fouler, marcher sur"
+     },
+     {
+      "categorie": "V",
+      "fr": "mettre en pratique, tenir : une promesse"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": []
+  },
+  {
+   "id": "L6-0742",
+   "genre": "mot",
+   "hanzi": "实践",
+   "pinyin": "shíjiàn",
+   "categories": [
+    "V",
+    "N"
+   ],
+   "sens": {
+    "glose": "mettre en pratique ; pratique",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "mettre en pratique, appliquer"
+     },
+     {
+      "categorie": "N",
+      "fr": "pratique, expérience concrète"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "理论要和实践结合。",
+     "pinyin": "Lǐlùn yào hé shíjiàn jiéhé.",
+     "fr": "La théorie doit aller de pair avec le terrain.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "欲",
+   "genre": "caractere",
+   "hanzi": "欲",
+   "pinyin": "yù",
+   "sens": {
+    "glose": "désir ; vouloir",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "désir, envie"
+     },
+     {
+      "categorie": "V",
+      "fr": "vouloir, être sur le point de"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": []
+  },
+  {
+   "id": "L6-0743",
+   "genre": "mot",
+   "hanzi": "食欲",
+   "pinyin": "shíyù",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "appétit",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "appétit"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他这几天没有食欲。",
+     "pinyin": "Tā zhè jǐ tiān méiyǒu shíyù.",
+     "fr": "Ces jours-ci, il n'a pas envie de manger.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L6-0744",
+   "genre": "mot",
+   "hanzi": "市民",
+   "pinyin": "shìmín",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "citadin, habitant de la ville",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "citadin, habitant de la ville"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "市民可以免费参观博物馆。",
+     "pinyin": "Shìmín kěyǐ miǎnfèi cānguān bówùguǎn.",
+     "fr": "Les habitants de la ville visitent le musée gratuitement.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L6-0745",
+   "genre": "mot",
+   "hanzi": "事后",
+   "pinyin": "shìhòu",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "après coup",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "après coup, après les faits"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "事后他才觉得后悔。",
+     "pinyin": "Shìhòu tā cái juéde hòuhuǐ.",
+     "fr": "Ce n'est qu'ensuite qu'il a eu des regrets.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L6-0746",
+   "genre": "mot",
+   "hanzi": "试点",
+   "pinyin": "shìdiǎn",
+   "categories": [
+    "V",
+    "N"
+   ],
+   "sens": {
+    "glose": "expérimenter ; site pilote",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "expérimenter à titre pilote"
+     },
+     {
+      "categorie": "N",
+      "fr": "site pilote, expérience pilote"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这个城市是新政策的试点。",
+     "pinyin": "Zhège chéngshì shì xīn zhèngcè de shìdiǎn.",
+     "fr": "Cette ville sert de laboratoire à la nouvelle politique.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L6-0747",
+   "genre": "mot",
+   "hanzi": "适当",
+   "pinyin": "shìdàng",
+   "categories": [
+    "Adj"
+   ],
+   "sens": {
+    "glose": "approprié, convenable",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "approprié, convenable, modéré"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "适当运动对身体有好处。",
+     "pinyin": "Shìdàng yùndòng duì shēntǐ yǒu hǎochù.",
+     "fr": "Un peu de sport, sans excès, fait du bien.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L6-0748",
+   "genre": "mot",
+   "hanzi": "收藏",
+   "pinyin": "shōucáng",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "collectionner, conserver",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "collectionner, conserver ; mettre en favori"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他喜欢收藏老邮票。",
+     "pinyin": "Tā xǐhuan shōucáng lǎo yóupiào.",
+     "fr": "Il aime rassembler de vieux timbres.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L6-0749",
+   "genre": "mot",
+   "hanzi": "收取",
+   "pinyin": "shōuqǔ",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "percevoir, encaisser",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "percevoir, encaisser : des frais"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "银行收取了十元手续费。",
+     "pinyin": "Yínháng shōuqǔ le shí yuán shǒuxùfèi.",
+     "fr": "La banque a prélevé dix yuans de frais.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L6-0750",
+   "genre": "mot",
+   "hanzi": "收养",
+   "pinyin": "shōuyǎng",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "adopter (un enfant)",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "adopter : un enfant, un animal"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他们收养了一个孤儿。",
+     "pinyin": "Tāmen shōuyǎng le yī ge gū'ér.",
+     "fr": "Ils ont recueilli un orphelin.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L6-0751",
+   "genre": "mot",
+   "hanzi": "手续费",
+   "pinyin": "shǒuxùfèi",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "frais de dossier, commission",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "frais de dossier, commission"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "取款要付手续费吗？",
+     "pinyin": "Qǔkuǎn yào fù shǒuxùfèi ma?",
+     "fr": "Y a-t-il des frais pour retirer de l'argent ?",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L6-0753",
+   "genre": "mot",
+   "hanzi": "首次",
+   "pinyin": "shǒucì",
+   "sens": {
+    "glose": "pour la première fois",
+    "acceptions": [
+     {
+      "categorie": "Adv",
+      "fr": "pour la première fois"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这是他首次出国。",
+     "pinyin": "Zhè shì tā shǒucì chūguó.",
+     "fr": "C'est son tout premier voyage à l'étranger.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L6-0754",
+   "genre": "mot",
+   "hanzi": "首脑",
+   "pinyin": "shǒunǎo",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "chef, dirigeant",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "chef d'État, dirigeant"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "两国首脑举行了会谈。",
+     "pinyin": "Liǎng guó shǒunǎo jǔxíng le huìtán.",
+     "fr": "Les chefs des deux pays se sont entretenus.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L6-0755",
+   "genre": "mot",
+   "hanzi": "首席",
+   "pinyin": "shǒuxí",
+   "categories": [
+    "N",
+    "Adj"
+   ],
+   "sens": {
+    "glose": "place d'honneur ; principal, en chef",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "place d'honneur"
+     },
+     {
+      "categorie": "Adj",
+      "fr": "principal, en chef"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他是公司的首席设计师。",
+     "pinyin": "Tā shì gōngsī de shǒuxí shèjìshī.",
+     "fr": "Il est le chef designer de l'entreprise.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L6-0756",
+   "genre": "mot",
+   "hanzi": "首相",
+   "pinyin": "shǒuxiàng",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "Premier ministre",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "Premier ministre"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "日本首相访问了中国。",
+     "pinyin": "Rìběn shǒuxiàng fǎngwèn le Zhōngguó.",
+     "fr": "Le chef du gouvernement japonais s'est rendu en Chine.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L6-0757",
+   "genre": "mot",
+   "hanzi": "书房",
+   "pinyin": "shūfáng",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "bureau (pièce)",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "bureau, cabinet de travail"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "爸爸在书房里看书。",
+     "pinyin": "Bàba zài shūfáng li kàn shū.",
+     "fr": "Papa lit dans son bureau.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "薯",
+   "genre": "caractere",
+   "hanzi": "薯",
+   "pinyin": "shǔ",
+   "sens": {
+    "glose": "tubercule, patate",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "tubercule : patate douce, pomme de terre"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": []
+  },
+  {
+   "id": "L6-0758",
+   "genre": "mot",
+   "hanzi": "薯片",
+   "pinyin": "shǔpiàn",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "chips",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "chips"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "孩子们很爱吃薯片。",
+     "pinyin": "Háizimen hěn ài chī shǔpiàn.",
+     "fr": "Les enfants adorent grignoter des chips.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L6-0759",
+   "genre": "mot",
+   "hanzi": "薯条",
+   "pinyin": "shǔtiáo",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "frites",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "frites"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "我要一份薯条。",
+     "pinyin": "Wǒ yào yī fèn shǔtiáo.",
+     "fr": "Je voudrais une portion de frites.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L6-0760",
+   "genre": "mot",
+   "hanzi": "双打",
+   "pinyin": "shuāngdǎ",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "double (au tennis)",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "double : au tennis, au badminton, au ping-pong"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他们俩一起参加双打比赛。",
+     "pinyin": "Tāmen liǎ yīqǐ cānjiā shuāngdǎ bǐsài.",
+     "fr": "Ils jouent ensemble en double.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "爽",
+   "genre": "caractere",
+   "hanzi": "爽",
+   "pinyin": "shuǎng",
+   "mots": [
+    "L6-0761"
+   ],
+   "sens": {
+    "glose": "frais, agréable ; franc",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "frais, agréable, qui fait du bien"
+     },
+     {
+      "categorie": "Adj",
+      "fr": "franc, direct"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "秋天的天气很爽。",
+     "pinyin": "Qiūtiān de tiānqì hěn shuǎng.",
+     "fr": "En automne, le temps est très agréable.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L6-0762",
+   "genre": "mot",
+   "hanzi": "水泥",
+   "pinyin": "shuǐní",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "ciment",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "ciment, béton"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这条路是用水泥修的。",
+     "pinyin": "Zhè tiáo lù shì yòng shuǐní xiū de.",
+     "fr": "Cette route est bétonnée.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "税",
+   "genre": "caractere",
+   "hanzi": "税",
+   "pinyin": "shuì",
+   "mots": [
+    "L6-0763"
+   ],
+   "sens": {
+    "glose": "impôt, taxe",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "impôt, taxe"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "买房子要交税。",
+     "pinyin": "Mǎi fángzi yào jiāo shuì.",
+     "fr": "Quand on achète une maison, il faut payer des taxes.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L6-0765",
+   "genre": "mot",
+   "hanzi": "说明书",
+   "pinyin": "shuōmíngshū",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "mode d'emploi, notice",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "mode d'emploi, notice"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "用之前请先看说明书。",
+     "pinyin": "Yòng zhīqián qǐng xiān kàn shuōmíngshū.",
+     "fr": "Lisez les instructions avant utilisation.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L6-0766",
+   "genre": "mot",
+   "hanzi": "说实话",
+   "pinyin": "shuō shíhuà",
+   "sens": {
+    "glose": "à vrai dire, franchement",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "à vrai dire, franchement"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "说实话，我不太喜欢这个电影。",
+     "pinyin": "Shuō shíhuà, wǒ bù tài xǐhuan zhège diànyǐng.",
+     "fr": "Pour être honnête, ce film ne me plaît pas trop.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L6-0767",
+   "genre": "mot",
+   "hanzi": "司长",
+   "pinyin": "sīzhǎng",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "directeur de département",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "directeur de département ministériel"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "司长明天要来检查工作。",
+     "pinyin": "Sīzhǎng míngtiān yào lái jiǎnchá gōngzuò.",
+     "fr": "Le directeur vient contrôler notre travail demain.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L6-0768",
+   "genre": "mot",
+   "hanzi": "死亡",
+   "pinyin": "sǐwáng",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "mourir, décéder ; mort",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "mourir, décéder"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这次事故造成三人死亡。",
+     "pinyin": "Zhè cì shìgù zàochéng sān rén sǐwáng.",
+     "fr": "L'accident a fait trois morts.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L6-0769",
+   "genre": "mot",
+   "hanzi": "四处",
+   "pinyin": "sìchù",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "partout, de tous côtés",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "partout, de tous côtés"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他四处找工作。",
+     "pinyin": "Tā sìchù zhǎo gōngzuò.",
+     "fr": "Il cherche du travail un peu partout.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "寺",
+   "genre": "caractere",
+   "hanzi": "寺",
+   "pinyin": "sì",
+   "mots": [
+    "L6-0770"
+   ],
+   "sens": {
+    "glose": "temple (bouddhiste)",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "temple bouddhiste, monastère"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "我们去山上的寺里看看。",
+     "pinyin": "Wǒmen qù shān shang de sì li kànkan.",
+     "fr": "Allons jeter un œil au monastère sur la montagne.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L6-0771",
+   "genre": "mot",
+   "hanzi": "送礼",
+   "pinyin": "sònglǐ",
+   "sens": {
+    "glose": "offrir des cadeaux",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "offrir des cadeaux"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "过年的时候，大家互相送礼。",
+     "pinyin": "Guònián de shíhou, dàjiā hùxiāng sònglǐ.",
+     "fr": "Au Nouvel An, on s'échange des présents.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L6-0772",
+   "genre": "mot",
+   "hanzi": "送行",
+   "pinyin": "sòngxíng",
+   "sens": {
+    "glose": "accompagner au départ",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "accompagner au départ, dire au revoir"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "朋友们都来机场给他送行。",
+     "pinyin": "Péngyoumen dōu lái jīchǎng gěi tā sòngxíng.",
+     "fr": "Ses amis sont tous venus à l'aéroport lui dire au revoir.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "素",
+   "genre": "caractere",
+   "hanzi": "素",
+   "pinyin": "sù",
+   "mots": [
+    "L7-3946"
+   ],
+   "sens": {
+    "glose": "simple, sobre ; végétarien ; élément",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "simple, sobre, uni"
+     },
+     {
+      "categorie": "N",
+      "fr": "plat végétarien, maigre"
+     },
+     {
+      "categorie": "N",
+      "fr": "élément, facteur"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "我今天想吃素。",
+     "pinyin": "Wǒ jīntiān xiǎng chī sù.",
+     "fr": "Aujourd'hui, j'ai envie de manger sans viande.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L6-0773",
+   "genre": "mot",
+   "hanzi": "素质",
+   "pinyin": "sùzhì",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "qualités, niveau (d'une personne)",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "qualités, niveau d'une personne, aptitude"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这个工作需要很高的素质。",
+     "pinyin": "Zhège gōngzuò xūyào hěn gāo de sùzhì.",
+     "fr": "Ce poste exige de solides compétences.",
+     "statut": "a_relire"
+    }
+   ]
+  }
+ ]
+}
