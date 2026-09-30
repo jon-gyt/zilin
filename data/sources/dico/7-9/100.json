@@ -1,0 +1,1344 @@
+{
+ "niveau": "7-9",
+ "lot": "100",
+ "source": "rédigé pour l'app dans le pipeline wenlu, sans API ; faits lus : liste HSK 3.0 (forme, pinyin, niveau, catégorie), lectures d'Unihan et des surcharges, gloses relues des fiches",
+ "brouillon": "data/sources/dico-brouillons/7-9/100.json",
+ "generation": {
+  "modele": "rédaction manuelle",
+  "api": "session Claude Code (sans API)",
+  "date": "2026-09-30",
+  "empreinte_invite": "sha256:298d67d4a4397996f6d7b861d209ecc5aa5ff9ed6e12d7c6dc7703c654d98bce",
+  "contexte": "wenlu dico contexte 7-9 100",
+  "essais": 1,
+  "refus": []
+ },
+ "entrees": [
+  {
+   "id": "L7-4374",
+   "genre": "mot",
+   "hanzi": "无能",
+   "pinyin": "wúnéng",
+   "categories": [
+    "Adj"
+   ],
+   "sens": {
+    "glose": "incapable, incompétent",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "incapable, incompétent, bon à rien"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他觉得自己很无能。",
+     "pinyin": "Tā juéde zìjǐ hěn wúnéng.",
+     "fr": "Il se trouve nul.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-4375",
+   "genre": "mot",
+   "hanzi": "无能为力",
+   "pinyin": "wúnéngwéilì",
+   "sens": {
+    "glose": "impuissant, ne rien pouvoir y faire",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "être impuissant, ne rien pouvoir y faire"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "对这件事，我也无能为力。",
+     "pinyin": "Duì zhè jiàn shì, wǒ yě wúnéngwéilì.",
+     "fr": "Pour cette affaire, je ne peux rien non plus.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-4376",
+   "genre": "mot",
+   "hanzi": "无情",
+   "pinyin": "wúqíng",
+   "categories": [
+    "Adj"
+   ],
+   "sens": {
+    "glose": "impitoyable, sans cœur",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "impitoyable, sans cœur, cruel"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "时间是无情的。",
+     "pinyin": "Shíjiān shì wúqíng de.",
+     "fr": "Le temps ne fait de cadeau à personne.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-4377",
+   "genre": "mot",
+   "hanzi": "无情无义",
+   "pinyin": "wúqíng-wúyì",
+   "sens": {
+    "glose": "sans cœur ni loyauté",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "sans cœur ni loyauté, ingrat"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他是个无情无义的人。",
+     "pinyin": "Tā shì ge wúqíng-wúyì de rén.",
+     "fr": "C'est un homme qui n'a aucun sentiment pour personne.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-4378",
+   "genre": "mot",
+   "hanzi": "无穷",
+   "pinyin": "wúqióng",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "infini, inépuisable",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "être infini, inépuisable, sans fin"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "知识的力量是无穷的。",
+     "pinyin": "Zhīshi de lìliang shì wúqióng de.",
+     "fr": "Le savoir a un pouvoir sans limites.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-4379",
+   "genre": "mot",
+   "hanzi": "无私",
+   "pinyin": "wúsī",
+   "categories": [
+    "Adj"
+   ],
+   "sens": {
+    "glose": "désintéressé, altruiste",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "désintéressé, altruiste, impartial"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "母亲的爱是无私的。",
+     "pinyin": "Mǔqīn de ài shì wúsī de.",
+     "fr": "L'amour d'une mère ne demande rien en retour.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-4380",
+   "genre": "mot",
+   "hanzi": "无所事事",
+   "pinyin": "wúsuǒshìshì",
+   "sens": {
+    "glose": "désœuvré, ne rien faire",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "être désœuvré, passer son temps à ne rien faire"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他整天无所事事。",
+     "pinyin": "Tā zhěngtiān wúsuǒshìshì.",
+     "fr": "Il traîne toute la journée sans rien faire.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-4381",
+   "genre": "mot",
+   "hanzi": "无所作为",
+   "pinyin": "wúsuǒzuòwéi",
+   "sens": {
+    "glose": "ne rien accomplir",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "ne rien accomplir, rester passif"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "我们不能无所作为。",
+     "pinyin": "Wǒmen bù néng wúsuǒzuòwéi.",
+     "fr": "Nous ne pouvons pas rester les bras croisés.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-4382",
+   "genre": "mot",
+   "hanzi": "无条件",
+   "pinyin": "wútiáojiàn",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "sans condition",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "être sans condition, inconditionnel"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "我无条件支持你。",
+     "pinyin": "Wǒ wútiáojiàn zhīchí nǐ.",
+     "fr": "Je te soutiens quoi qu'il arrive.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-4383",
+   "genre": "mot",
+   "hanzi": "无微不至",
+   "pinyin": "wúwēi-bùzhì",
+   "sens": {
+    "glose": "attentionné en toute chose",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "attentionné jusque dans les moindres détails"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "妈妈对我照顾得无微不至。",
+     "pinyin": "Māma duì wǒ zhàogù de wúwēi-bùzhì.",
+     "fr": "Maman prend soin de moi dans les moindres détails.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-4384",
+   "genre": "mot",
+   "hanzi": "无线",
+   "pinyin": "wúxiàn",
+   "categories": [
+    "Adj"
+   ],
+   "sens": {
+    "glose": "sans fil",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "sans fil, radio"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这里有无线网络吗？",
+     "pinyin": "Zhèli yǒu wúxiàn wǎngluò ma?",
+     "fr": "Il y a du wifi ici ?",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-4385",
+   "genre": "mot",
+   "hanzi": "无线电",
+   "pinyin": "wúxiàndiàn",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "radio, TSF",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "radio, radiotélégraphie, TSF"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "飞机和地面靠无线电联系。",
+     "pinyin": "Fēijī hé dìmiàn kào wúxiàndiàn liánxì.",
+     "fr": "L'avion communique avec le sol par ondes radio.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-4386",
+   "genre": "mot",
+   "hanzi": "无形",
+   "pinyin": "wúxíng",
+   "categories": [
+    "Adj"
+   ],
+   "sens": {
+    "glose": "invisible, intangible",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "invisible, intangible, qui ne se voit pas"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他感到一种无形的压力。",
+     "pinyin": "Tā gǎndào yī zhǒng wúxíng de yālì.",
+     "fr": "Il sent peser sur lui une pression diffuse.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-4387",
+   "genre": "mot",
+   "hanzi": "无形中",
+   "pinyin": "wúxíngzhōng",
+   "categories": [
+    "Adv"
+   ],
+   "sens": {
+    "glose": "insensiblement, sans s'en rendre compte",
+    "acceptions": [
+     {
+      "categorie": "Adv",
+      "fr": "insensiblement, sans s'en rendre compte"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这样做无形中增加了我们的负担。",
+     "pinyin": "Zhèyàng zuò wúxíngzhōng zēngjiā le wǒmen de fùdān.",
+     "fr": "Cette façon de faire alourdit notre charge sans qu'on le voie.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-4388",
+   "genre": "mot",
+   "hanzi": "无须",
+   "pinyin": "wúxū",
+   "categories": [
+    "Adv"
+   ],
+   "sens": {
+    "glose": "inutile de, pas besoin de",
+    "acceptions": [
+     {
+      "categorie": "Adv",
+      "fr": "inutile de, pas besoin de"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这件事你无须担心。",
+     "pinyin": "Zhè jiàn shì nǐ wúxū dānxīn.",
+     "fr": "Ne t'en fais pas pour ça.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-4389",
+   "genre": "mot",
+   "hanzi": "无意",
+   "pinyin": "wúyì",
+   "categories": [
+    "V",
+    "Adv"
+   ],
+   "sens": {
+    "glose": "sans intention ; involontairement",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "n'avoir aucune intention de"
+     },
+     {
+      "categorie": "Adv",
+      "fr": "involontairement, par hasard"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "我无意伤害你。",
+     "pinyin": "Wǒ wúyì shānghài nǐ.",
+     "fr": "Je ne voulais pas te faire de mal.",
+     "statut": "a_relire"
+    },
+    {
+     "zh": "他无意说出了这个秘密。",
+     "pinyin": "Tā wúyì shuōchū le zhège mìmì.",
+     "fr": "Il a laissé échapper le secret sans le vouloir.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-4390",
+   "genre": "mot",
+   "hanzi": "无忧无虑",
+   "pinyin": "wúyōu-wúlǜ",
+   "sens": {
+    "glose": "insouciant, sans souci",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "insouciant, sans souci"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "孩子们过着无忧无虑的生活。",
+     "pinyin": "Háizimen guò zhe wúyōu-wúlǜ de shēnghuó.",
+     "fr": "Les enfants mènent une vie légère.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-4391",
+   "genre": "mot",
+   "hanzi": "无缘",
+   "pinyin": "wúyuán",
+   "categories": [
+    "V",
+    "Adv"
+   ],
+   "sens": {
+    "glose": "ne pas avoir la chance de",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "ne pas avoir la chance de, être privé de"
+     },
+     {
+      "categorie": "Adv",
+      "fr": "sans avoir l'occasion de"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他与冠军无缘。",
+     "pinyin": "Tā yǔ guànjūn wúyuán.",
+     "fr": "Le titre de champion lui échappe toujours.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-4392",
+   "genre": "mot",
+   "hanzi": "无知",
+   "pinyin": "wúzhī",
+   "categories": [
+    "Adj"
+   ],
+   "sens": {
+    "glose": "ignorant",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "ignorant, inculte"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "我为自己的无知感到难过。",
+     "pinyin": "Wǒ wèi zìjǐ de wúzhī gǎndào nánguò.",
+     "fr": "J'ai honte de mon ignorance.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-4393",
+   "genre": "mot",
+   "hanzi": "无足轻重",
+   "pinyin": "wúzú-qīngzhòng",
+   "sens": {
+    "glose": "insignifiant, sans poids",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "insignifiant, sans poids, négligeable"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这是一件无足轻重的小事。",
+     "pinyin": "Zhè shì yī jiàn wúzú-qīngzhòng de xiǎoshì.",
+     "fr": "C'est un détail sans conséquence.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-4394",
+   "genre": "mot",
+   "hanzi": "五花八门",
+   "pinyin": "wǔhuā-bāmén",
+   "sens": {
+    "glose": "très varié, hétéroclite",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "très varié, hétéroclite, de toutes sortes"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "商店里的东西五花八门。",
+     "pinyin": "Shāngdiàn li de dōngxi wǔhuā-bāmén.",
+     "fr": "Le magasin vend un peu de tout.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-4395",
+   "genre": "mot",
+   "hanzi": "五星级",
+   "pinyin": "wǔxīngjí",
+   "categories": [
+    "Adj"
+   ],
+   "sens": {
+    "glose": "cinq étoiles",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "cinq étoiles, de première catégorie"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "我们住在一家五星级酒店。",
+     "pinyin": "Wǒmen zhù zài yī jiā wǔxīngjí jiǔdiàn.",
+     "fr": "Nous logeons dans un hôtel de luxe.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-4396",
+   "genre": "mot",
+   "hanzi": "武力",
+   "pinyin": "wǔlì",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "force armée, force",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "force armée, force, violence"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "不能用武力解决问题。",
+     "pinyin": "Bù néng yòng wǔlì jiějué wèntí.",
+     "fr": "On ne règle pas les problèmes par les armes.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-4397",
+   "genre": "mot",
+   "hanzi": "武装",
+   "pinyin": "wǔzhuāng",
+   "categories": [
+    "N",
+    "V"
+   ],
+   "sens": {
+    "glose": "forces armées ; armer, équiper",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "forces armées, armement"
+     },
+     {
+      "categorie": "V",
+      "fr": "armer, équiper"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "知识可以武装我们的头脑。",
+     "pinyin": "Zhīshi kěyǐ wǔzhuāng wǒmen de tóunǎo.",
+     "fr": "Le savoir arme notre esprit.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "侮",
+   "genre": "caractere",
+   "hanzi": "侮",
+   "pinyin": "wǔ",
+   "sens": {
+    "glose": "insulter, humilier",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "insulter, humilier, outrager"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": []
+  },
+  {
+   "id": "L7-4398",
+   "genre": "mot",
+   "hanzi": "侮辱",
+   "pinyin": "wǔrǔ",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "insulter, humilier",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "insulter, humilier, outrager"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "你不能这样侮辱别人。",
+     "pinyin": "Nǐ bù néng zhèyàng wǔrǔ biérén.",
+     "fr": "Tu ne peux pas traiter les gens de cette façon.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "捂",
+   "genre": "caractere",
+   "hanzi": "捂",
+   "pinyin": "wǔ",
+   "mots": [
+    "L7-4399"
+   ],
+   "sens": {
+    "glose": "couvrir, boucher (de la main)",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "couvrir, boucher (de la main), tenir au chaud"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他用手捂住了嘴。",
+     "pinyin": "Tā yòng shǒu wǔ zhù le zuǐ.",
+     "fr": "Il a mis la main sur sa bouche.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-4400",
+   "genre": "mot",
+   "hanzi": "舞厅",
+   "pinyin": "wǔtīng",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "salle de danse, dancing",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "salle de danse, dancing"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "周末他们常去舞厅跳舞。",
+     "pinyin": "Zhōumò tāmen cháng qù wǔtīng tiàowǔ.",
+     "fr": "Le week-end, ils vont souvent danser au dancing.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "勿",
+   "genre": "caractere",
+   "hanzi": "勿",
+   "pinyin": "wù",
+   "mots": [
+    "L7-4401"
+   ],
+   "sens": {
+    "glose": "ne pas (interdiction)",
+    "acceptions": [
+     {
+      "categorie": "Adv",
+      "fr": "ne pas, ne ... point (interdiction, style écrit)"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "请勿吸烟。",
+     "pinyin": "Qǐng wù xīyān.",
+     "fr": "Prière de ne pas fumer.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-4402",
+   "genre": "mot",
+   "hanzi": "务必",
+   "pinyin": "wùbì",
+   "categories": [
+    "Adv"
+   ],
+   "sens": {
+    "glose": "absolument, sans faute",
+    "acceptions": [
+     {
+      "categorie": "Adv",
+      "fr": "absolument, sans faute, à tout prix"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "明天你务必早点儿来。",
+     "pinyin": "Míngtiān nǐ wùbì zǎo diǎnr lái.",
+     "fr": "Demain, viens un peu plus tôt, surtout.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-4403",
+   "genre": "mot",
+   "hanzi": "务实",
+   "pinyin": "wùshí",
+   "categories": [
+    "Adj"
+   ],
+   "sens": {
+    "glose": "pragmatique, concret",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "pragmatique, concret, terre à terre"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他是一个很务实的人。",
+     "pinyin": "Tā shì yī ge hěn wùshí de rén.",
+     "fr": "C'est quelqu'un qui a les pieds sur terre.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-4404",
+   "genre": "mot",
+   "hanzi": "物流",
+   "pinyin": "wùliú",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "logistique",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "logistique, transport de marchandises"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他在一家物流公司上班。",
+     "pinyin": "Tā zài yī jiā wùliú gōngsī shàngbān.",
+     "fr": "Il travaille dans une société de livraison.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-4405",
+   "genre": "mot",
+   "hanzi": "物体",
+   "pinyin": "wùtǐ",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "objet, corps (physique)",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "objet, corps (physique)"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "物体从高处落下。",
+     "pinyin": "Wùtǐ cóng gāochù luòxià.",
+     "fr": "Le corps tombe de haut.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-4406",
+   "genre": "mot",
+   "hanzi": "物证",
+   "pinyin": "wùzhèng",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "preuve matérielle",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "preuve matérielle, pièce à conviction"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "警察在现场找到了物证。",
+     "pinyin": "Jǐngchá zài xiànchǎng zhǎodào le wùzhèng.",
+     "fr": "La police a trouvé des indices sur les lieux.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-4407",
+   "genre": "mot",
+   "hanzi": "物资",
+   "pinyin": "wùzī",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "matériel, fournitures",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "matériel, fournitures, ressources matérielles"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他们给灾区送去了很多物资。",
+     "pinyin": "Tāmen gěi zāiqū sòngqù le hěn duō wùzī.",
+     "fr": "Ils ont envoyé beaucoup de secours à la zone sinistrée.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-4408",
+   "genre": "mot",
+   "hanzi": "误差",
+   "pinyin": "wùchā",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "marge d'erreur, écart",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "marge d'erreur, écart (de mesure)"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这次测量的误差很小。",
+     "pinyin": "Zhè cì cèliáng de wùchā hěn xiǎo.",
+     "fr": "Cette mesure est très précise.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-4409",
+   "genre": "mot",
+   "hanzi": "误导",
+   "pinyin": "wùdǎo",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "induire en erreur",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "induire en erreur, tromper"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这个广告误导了很多人。",
+     "pinyin": "Zhège guǎnggào wùdǎo le hěn duō rén.",
+     "fr": "Cette publicité a trompé beaucoup de gens.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-4410",
+   "genre": "mot",
+   "hanzi": "误区",
+   "pinyin": "wùqū",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "idée fausse, erreur courante",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "idée fausse, erreur courante, piège"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这是一个常见的误区。",
+     "pinyin": "Zhè shì yī ge chángjiàn de wùqū.",
+     "fr": "C'est une erreur que l'on fait souvent.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "雾",
+   "genre": "caractere",
+   "hanzi": "雾",
+   "pinyin": "wù",
+   "mots": [
+    "L7-4411"
+   ],
+   "sens": {
+    "glose": "brouillard, brume",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "brouillard, brume"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "今天早上雾很大。",
+     "pinyin": "Jīntiān zǎoshang wù hěn dà.",
+     "fr": "Ce matin, on n'y voit rien.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-4412",
+   "genre": "mot",
+   "hanzi": "吸纳",
+   "pinyin": "xīnà",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "absorber, accueillir",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "absorber, accueillir, attirer (personnes, capitaux)"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这个城市每年吸纳大量人才。",
+     "pinyin": "Zhège chéngshì měi nián xīnà dàliàng réncái.",
+     "fr": "Chaque année, cette ville attire beaucoup de talents.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-4413",
+   "genre": "mot",
+   "hanzi": "吸取",
+   "pinyin": "xīqǔ",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "tirer (une leçon), retenir",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "tirer (une leçon), retenir, assimiler"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "我们要吸取这次的教训。",
+     "pinyin": "Wǒmen yào xīqǔ zhè cì de jiàoxun.",
+     "fr": "Il faut apprendre de cet échec.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "昔",
+   "genre": "caractere",
+   "hanzi": "昔",
+   "pinyin": "xī",
+   "sens": {
+    "glose": "autrefois, jadis",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "autrefois, jadis, le passé"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": []
+  },
+  {
+   "id": "L7-4414",
+   "genre": "mot",
+   "hanzi": "昔日",
+   "pinyin": "xīrì",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "jadis, autrefois",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "jadis, autrefois, les jours passés"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这里已经没有昔日的热闹了。",
+     "pinyin": "Zhèli yǐjīng méiyǒu xīrì de rènao le.",
+     "fr": "L'animation d'antan a disparu d'ici.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-4415",
+   "genre": "mot",
+   "hanzi": "息息相关",
+   "pinyin": "xīxī-xiāngguān",
+   "sens": {
+    "glose": "étroitement lié",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "être étroitement lié, intimement dépendant"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "环境和我们的生活息息相关。",
+     "pinyin": "Huánjìng hé wǒmen de shēnghuó xīxī-xiāngguān.",
+     "fr": "L'environnement touche de près notre vie.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "稀",
+   "genre": "caractere",
+   "hanzi": "稀",
+   "pinyin": "xī",
+   "mots": [
+    "L7-4416"
+   ],
+   "sens": {
+    "glose": "clairsemé, rare ; clair, dilué",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "clairsemé, rare, espacé"
+     },
+     {
+      "categorie": "Adj",
+      "fr": "clair, dilué, liquide"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他的头发越来越稀了。",
+     "pinyin": "Tā de tóufa yuè lái yuè xī le.",
+     "fr": "Ses cheveux se font de plus en plus rares.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-4417",
+   "genre": "mot",
+   "hanzi": "稀罕",
+   "pinyin": "xīhan",
+   "categories": [
+    "Adj",
+    "V"
+   ],
+   "sens": {
+    "glose": "rare ; tenir à, faire cas de",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "rare, peu commun"
+     },
+     {
+      "categorie": "V",
+      "fr": "tenir à, faire cas de, convoiter"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "谁稀罕你的钱！",
+     "pinyin": "Shéi xīhan nǐ de qián!",
+     "fr": "Qui en veut, de ton argent !",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-4418",
+   "genre": "mot",
+   "hanzi": "稀奇",
+   "pinyin": "xīqí",
+   "categories": [
+    "Adj"
+   ],
+   "sens": {
+    "glose": "rare, curieux, étrange",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "rare, curieux, étrange"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这没什么稀奇的。",
+     "pinyin": "Zhè méi shénme xīqí de.",
+     "fr": "Il n'y a rien d'extraordinaire à ça.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-4419",
+   "genre": "mot",
+   "hanzi": "稀少",
+   "pinyin": "xīshǎo",
+   "categories": [
+    "Adj"
+   ],
+   "sens": {
+    "glose": "rare, peu nombreux",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "rare, peu nombreux, clairsemé"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这里人口稀少。",
+     "pinyin": "Zhèli rénkǒu xīshǎo.",
+     "fr": "La région est peu peuplée.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "锡",
+   "genre": "caractere",
+   "hanzi": "锡",
+   "pinyin": "xī",
+   "mots": [
+    "L7-4420"
+   ],
+   "sens": {
+    "glose": "étain",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "étain"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这个杯子是用锡做的。",
+     "pinyin": "Zhège bēizi shì yòng xī zuò de.",
+     "fr": "Ce gobelet est en étain.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "熙",
+   "genre": "caractere",
+   "hanzi": "熙",
+   "pinyin": "xī",
+   "sens": {
+    "glose": "lumineux ; prospère, animé",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "lumineux, radieux"
+     },
+     {
+      "categorie": "Adj",
+      "fr": "prospère, animé"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": []
+  }
+ ]
+}
