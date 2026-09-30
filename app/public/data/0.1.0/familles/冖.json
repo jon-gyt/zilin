@@ -10,7 +10,7 @@
   "pinyin": "mì",
   "fr": "couvercle (clé)",
   "en": "cover (radical)",
-  "origine": "冖 dessine une étoffe qui couvre : le Shuowen jiezi le définit comme « couvrir » et y voit un trait d'où tombent deux pans. Il se lit mì ; c'est un 宀 sans le point du haut, d'où son nom, 秃宝盖, « couvercle chauve », qui est aussi celui de la norme. Il coiffe 写 ou 军, et on le retrouve au milieu de 爱.",
+  "origine": "冖 dessine une étoffe qui couvre : le Shuowen jiezi le définit comme « couvrir » et y voit un trait d'où tombent deux pans. Il se lit mì ; c'est un 宀 sans le point du haut, d'où son nom, 秃宝盖, « couvercle chauve », qui est aussi celui de la norme. Il coiffe 写 ou 军, se glisse sous 𭕄 dans 学 et 觉, et se retrouve au milieu de 爱.",
   "etiquette": "atteste"
  },
  "fiches": [
@@ -29,17 +29,17 @@
    "roles": {
     "冖": "sens"
    },
-   "origine_fr": "冖 dessine une étoffe qui couvre : le Shuowen jiezi le définit comme « couvrir » et y voit un trait d'où tombent deux pans. Il se lit mì ; c'est un 宀 sans le point du haut, d'où son nom, 秃宝盖, « couvercle chauve », qui est aussi celui de la norme. Il coiffe 写 ou 军, et on le retrouve au milieu de 爱.",
-   "origine_en": "冖 draws a cloth laid over something: the Shuowen jiezi defines it as “to cover” and sees a stroke with two flaps hanging from it. It is read mì; it is a 宀 without the top dot, hence its name, 秃宝盖, “bald lid”, which is also the standard's. It caps 写 or 军, and turns up in the middle of 爱.",
+   "origine_fr": "冖 dessine une étoffe qui couvre : le Shuowen jiezi le définit comme « couvrir » et y voit un trait d'où tombent deux pans. Il se lit mì ; c'est un 宀 sans le point du haut, d'où son nom, 秃宝盖, « couvercle chauve », qui est aussi celui de la norme. Il coiffe 写 ou 军, se glisse sous 𭕄 dans 学 et 觉, et se retrouve au milieu de 爱.",
+   "origine_en": "冖 draws a cloth laid over something: the Shuowen jiezi defines it as “to cover” and sees a stroke with two flaps hanging from it. It is read mì; it is a 宀 without the top dot, hence its name, 秃宝盖, “bald lid”, which is also the standard's. It caps 写 or 军, sits under 𭕄 in 学 and 觉, and turns up in the middle of 爱.",
    "etiquette": "atteste",
    "memo_fr": null,
    "memo_en": null,
    "mots": [],
    "phrase": {
-    "hanzi": "妈妈爱我们。",
-    "pinyin": "Māma ài wǒmen.",
-    "fr": "Maman nous aime.",
-    "en": "Mum loves us.",
+    "hanzi": "门口有人。",
+    "pinyin": "Ménkǒu yǒu rén.",
+    "fr": "Il y a quelqu'un à la porte.",
+    "en": "There's someone at the door.",
     "audio": null
    },
    "niveaux": {},
@@ -346,6 +346,68 @@
    "statut": "relu"
   },
   {
+   "c": "学",
+   "pinyin": "xué",
+   "lectures": [
+    "xué"
+   ],
+   "fr": "apprendre, étudier, école",
+   "en": "to learn, to study, school",
+   "parts": [
+    "𭕄",
+    "冖",
+    "子"
+   ],
+   "nouveau": [
+    2
+   ],
+   "sources": [
+    "surcharge"
+   ],
+   "role": "sens",
+   "roles": {
+    "冖": "sens",
+    "子": "sens",
+    "𭕄": "sens"
+   },
+   "origine_fr": "Sur les os oraculaires, 學, forme traditionnelle de 学, montre deux mains autour de 爻, des traits croisés, au-dessus d'un toit ; les bronzes ajoutent l'enfant 子 dessous. Le Shuowen jiezi le rattache à l'enseignement et à l'éveil de l'esprit. La forme simplifiée réduit les mains et 爻 aux trois traits de 𭕄, garde le toit en 冖 et l'enfant 子 dessous.",
+   "origine_en": "On oracle bones, 學, the traditional form of 学, shows two hands around 爻, crossed lines, above a roof; bronzes add a child, 子, underneath. The Shuowen jiezi links it to teaching and to the awakening of the mind. The simplified form reduces the hands and 爻 to the three strokes of 𭕄, keeps the roof as 冖, and the child 子 underneath.",
+   "etiquette": "atteste",
+   "memo_fr": null,
+   "memo_en": null,
+   "mots": [
+    {
+     "hanzi": "大学",
+     "pinyin": "dàxué",
+     "fr": "université",
+     "en": "university",
+     "audio": null
+    },
+    {
+     "hanzi": "学好",
+     "pinyin": "xuéhǎo",
+     "fr": "bien apprendre, maîtriser",
+     "en": "to learn well, to master",
+     "audio": null
+    }
+   ],
+   "phrase": {
+    "hanzi": "好好学！",
+    "pinyin": "Hǎohǎo xué!",
+    "fr": "Étudie bien !",
+    "en": "Study hard!",
+    "audio": null
+   },
+   "niveaux": {
+    "seuil": 255,
+    "hsk": 1
+   },
+   "traits": [],
+   "medianes": [],
+   "audio": null,
+   "statut": "relu"
+  },
+  {
    "c": "罕",
    "pinyin": "hǎn",
    "lectures": [
@@ -398,6 +460,62 @@
    },
    "niveaux": {
     "hsk": 7
+   },
+   "traits": [],
+   "medianes": [],
+   "audio": null,
+   "statut": "relu"
+  },
+  {
+   "c": "觉",
+   "pinyin": "jué",
+   "lectures": [
+    "jué",
+    "jiào"
+   ],
+   "fr": "sentir, s'apercevoir, s'éveiller",
+   "en": "to feel, to notice, to wake up",
+   "parts": [
+    "𭕄",
+    "冖",
+    "见"
+   ],
+   "nouveau": [
+    2
+   ],
+   "sources": [
+    "surcharge"
+   ],
+   "role": "sens",
+   "roles": {
+    "冖": "forme",
+    "见": "sens",
+    "𭕄": "forme"
+   },
+   "origine_fr": "Le Shuowen jiezi analyse 覺, forme traditionnelle de 觉, par 見, voir, pour le sens, et une forme abrégée de 學 pour le son. Il le définit par le réveil : ouvrir les yeux, prendre conscience. Dans la forme simplifiée, le haut, 𭕄 et 冖, est ce qui reste de 学 xué, qui rime avec jué sans en avoir l'initiale, et 见 garde le sens.",
+   "origine_en": "The Shuowen jiezi analyses 覺, the traditional form of 觉, as 見, to see, for the meaning, plus a shortened 學 for the sound. It defines it as waking up: opening one's eyes, becoming aware. In the simplified form, the top, 𭕄 and 冖, is what is left of 学 xué, which rhymes with jué but has a different initial, while 见 keeps the meaning.",
+   "etiquette": "atteste",
+   "memo_fr": "Deux lectures : jué, sentir, dans 觉得 ; jiào, le sommeil, dans 午觉.",
+   "memo_en": "Two readings: jué, to feel, in 觉得; jiào, sleep, in 午觉.",
+   "mots": [
+    {
+     "hanzi": "先觉",
+     "pinyin": "xiānjué",
+     "fr": "esprit en avance, précurseur",
+     "en": "forerunner, someone ahead of their time",
+     "audio": null
+    }
+   ],
+   "phrase": {
+    "hanzi": "只有大人先觉。",
+    "pinyin": "Zhǐyǒu dàren xiān jué.",
+    "fr": "Seuls les adultes s'en aperçurent d'abord.",
+    "en": "Only the grown-ups noticed it first.",
+    "audio": null
+   },
+   "niveaux": {
+    "seuil": 255,
+    "hsk": 1
    },
    "traits": [],
    "medianes": [],

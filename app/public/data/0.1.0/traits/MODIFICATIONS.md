@@ -8,8 +8,8 @@ Licence : Arphic Public License, texte intégral et inaltéré dans `ARPHICPL.TX
 ## Modifications apportées
 
 - Conversion de format : les lignes JSON de `graphics.txt` deviennent un fichier par famille, `{"<caractère>": {"s": [tracés], "m": [médianes]}}`.
-- Sous-ensemble : 602 caractères seulement — le seuil 255, le HSK 1, les caractères dessinés des fêtes, des termes solaires et des mots expliqués des contes, et leurs briques.
-- Dictionnaire : 3165 caractères — les 3 000 du HSK 3.0 et les composants de leurs décompositions — copiés à part, par lots de `dico-<n>.json` rangés dans l'ordre du pinyin, pour la loupe Chercher.
+- Sous-ensemble : 601 caractères seulement — le seuil 255, le HSK 1, les caractères dessinés des fêtes, des termes solaires et des mots expliqués des contes, et leurs briques.
+- Dictionnaire : 3166 caractères — les 3 000 du HSK 3.0 et les composants de leurs décompositions — copiés à part, par lots de `dico-<n>.json` rangés dans l'ordre du pinyin, pour la loupe Chercher.
 - Les tracés et les médianes ne sont pas retouchés — ni arrondi, ni simplification, ni renommage —, hors les composants découpés décrits ci-dessous.
 
 ## Composants découpés dans un caractère hôte
@@ -30,7 +30,7 @@ Licence : Arphic Public License, texte intégral et inaltéré dans `ARPHICPL.TX
 | 𠃊 | 喝 | 11 (sur 12) | 1,9289 | −550,8 | −29,6 |
 | 𡗗 | 春 | 0, 1, 2, 3, 4 (sur 9) | 0,8444 | 53,5 | −40,5 |
 | 𭃂 | 那 | 0, 1, 2, 3 (sur 6) | 1,1603 | 163,9 | −139,4 |
-| 𭕄 | 学 | 0, 1, 2, 3, 4 (sur 8) | 0,9806 | 5,5 | −193 |
+| 𭕄 | 学 | 0, 1, 2 (sur 8) | 1,58 | −321,5 | −744,9 |
 | ⿳亠丷冖 | 帝 | 0, 1, 2, 3, 4, 5 (sur 9) | 0,908 | 29,4 | −135,9 |
 | 𢎨 | 第 | 6, 7, 8, 9, 10 (sur 11) | 1,0585 | −26,8 | 106,4 |
 | 𠃍 | 候 | 3 (sur 10) | 2 | −767 | −1017 |
