@@ -1,0 +1,419 @@
+{
+ "examen": "yueke-1355",
+ "parcours": "lire",
+ "generation": {
+  "modele": "rédaction manuelle",
+  "api": "session Claude Code (sans API)",
+  "date": "2026-09-30"
+ },
+ "relecture": {
+  "statut": "a_relire",
+  "note": "rédigé le 30 septembre 2026, à relire par le propriétaire (`wenlu examens apercu`) ; une série passe à `relu` sur sa décision, citée ici"
+ },
+ "series": [
+  {
+   "serie": "A",
+   "statut": "a_relire",
+   "supports": [
+    {
+     "id": "s1",
+     "genre": "affiche",
+     "contexte": {
+      "fr": "Une affiche",
+      "en": "A poster"
+     },
+     "lignes": [
+      {
+       "zh": "新年打折",
+       "pinyin": "xīn nián dǎ zhé",
+       "fr": "Soldes du Nouvel An",
+       "en": "New Year sale"
+      },
+      {
+       "zh": "全店衣服八折",
+       "pinyin": "quán diàn yī fu bā zhé",
+       "fr": "Tous les vêtements à -20 %",
+       "en": "20% off all clothes"
+      }
+     ]
+    },
+    {
+     "id": "s2",
+     "genre": "message",
+     "contexte": {
+      "fr": "Un message",
+      "en": "A message"
+     },
+     "lignes": [
+      {
+       "zh": "阿姨，今天我加班，",
+       "pinyin": "ā yí jīn tiān wǒ jiā bān",
+       "fr": "Tata, je travaille tard aujourd'hui :",
+       "en": "Auntie, I'm working late today:"
+      },
+      {
+       "zh": "请您五点去幼儿园",
+       "pinyin": "qǐng nín wǔ diǎn qù yòu ér yuán",
+       "fr": "pourriez-vous aller à l'école maternelle à 17 h",
+       "en": "could you go to the nursery school at 5"
+      },
+      {
+       "zh": "接一下小明？谢谢！",
+       "pinyin": "jiē yī xià xiǎo míng xiè xie",
+       "fr": "chercher Xiaoming ? Merci !",
+       "en": "and pick up Xiaoming? Thanks!"
+      }
+     ]
+    }
+   ],
+   "questions": [
+    {
+     "type": "comprendre",
+     "support": "s1",
+     "consigne": {
+      "fr": "Quelle remise fait-on sur les vêtements ?",
+      "en": "What discount is there on clothes?"
+     },
+     "choix": [
+      {
+       "fr": "Moins 80 %",
+       "en": "80% off"
+      },
+      {
+       "fr": "Moins 20 %",
+       "en": "20% off"
+      },
+      {
+       "fr": "Moins 50 %",
+       "en": "50% off"
+      },
+      {
+       "fr": "Moins 8 %",
+       "en": "8% off"
+      }
+     ],
+     "reponse": 1,
+     "porte": [
+      "八",
+      "折"
+     ]
+    },
+    {
+     "type": "reperer",
+     "support": "s2",
+     "consigne": {
+      "fr": "Touche l'endroit où il faut aller.",
+      "en": "Tap where you need to go."
+     },
+     "choix": [
+      "阿姨",
+      "加班",
+      "幼儿园",
+      "小明"
+     ],
+     "reponse": 2,
+     "porte": [
+      "幼",
+      "儿",
+      "园"
+     ]
+    },
+    {
+     "type": "vrai_faux",
+     "support": "s2",
+     "consigne": {
+      "fr": "Vrai ou faux ?",
+      "en": "True or false?"
+     },
+     "affirmation": {
+      "zh": "阿姨要六点去接小明。",
+      "pinyin": "ā yí yào liù diǎn qù jiē xiǎo míng",
+      "fr": "Tata doit aller chercher Xiaoming à 18 h.",
+      "en": "Auntie has to pick up Xiaoming at 6."
+     },
+     "reponse": false,
+     "porte": [
+      "姨",
+      "五",
+      "点"
+     ]
+    },
+    {
+     "type": "replique",
+     "support": "s2",
+     "consigne": {
+      "fr": "Que répond Tata ?",
+      "en": "What does Auntie reply?"
+     },
+     "choix": [
+      {
+       "zh": "我喜欢吃咸的。",
+       "pinyin": "wǒ xǐ huan chī xián de",
+       "fr": "J'aime le salé.",
+       "en": "I like salty food."
+      },
+      {
+       "zh": "好，放心吧！",
+       "pinyin": "hǎo fàng xīn ba",
+       "fr": "D'accord, ne t'en fais pas !",
+       "en": "OK, don't worry!"
+      },
+      {
+       "zh": "今天的月亮很圆。",
+       "pinyin": "jīn tiān de yuè liang hěn yuán",
+       "fr": "La lune est bien ronde ce soir.",
+       "en": "The moon is very round tonight."
+      },
+      {
+       "zh": "我不会翻译。",
+       "pinyin": "wǒ bù huì fān yì",
+       "fr": "Je ne sais pas traduire.",
+       "en": "I can't translate."
+      }
+     ],
+     "reponse": 1,
+     "porte": [
+      "姨",
+      "接"
+     ]
+    },
+    {
+     "type": "sens",
+     "consigne": {
+      "fr": "Que veut dire ce caractère ?",
+      "en": "What does this character mean?"
+     },
+     "objet": {
+      "zh": "盐",
+      "pinyin": "yán",
+      "fr": "sel",
+      "en": "salt"
+     },
+     "choix": [
+      {
+       "fr": "sucre",
+       "en": "sugar"
+      },
+      {
+       "fr": "huile",
+       "en": "oil"
+      },
+      {
+       "fr": "sel",
+       "en": "salt"
+      },
+      {
+       "fr": "farine",
+       "en": "flour"
+      }
+     ],
+     "reponse": 2,
+     "porte": [
+      "盐"
+     ]
+    }
+   ]
+  },
+  {
+   "serie": "B",
+   "statut": "a_relire",
+   "supports": [
+    {
+     "id": "s1",
+     "genre": "note",
+     "contexte": {
+      "fr": "Une note",
+      "en": "A note"
+     },
+     "lignes": [
+      {
+       "zh": "我的新地址：",
+       "pinyin": "wǒ de xīn dì zhǐ",
+       "fr": "Ma nouvelle adresse :",
+       "en": "My new address:"
+      },
+      {
+       "zh": "城东中山路八号",
+       "pinyin": "chéng dōng zhōng shān lù bā hào",
+       "fr": "8, rue Zhongshan, Dongcheng",
+       "en": "8 Zhongshan Road, Dongcheng"
+      },
+      {
+       "zh": "三楼右边",
+       "pinyin": "sān lóu yòu bian",
+       "fr": "deuxième étage, à droite",
+       "en": "third floor, on the right"
+      }
+     ]
+    },
+    {
+     "id": "s2",
+     "genre": "message",
+     "contexte": {
+      "fr": "Un message",
+      "en": "A message"
+     },
+     "lignes": [
+      {
+       "zh": "小李，我这里有一篇文章，",
+       "pinyin": "xiǎo lǐ wǒ zhè li yǒu yī piān wén zhāng",
+       "fr": "Xiao Li, j'ai un article ici :",
+       "en": "Xiao Li, I've got an article here:"
+      },
+      {
+       "zh": "你能帮我翻译成中文吗？",
+       "pinyin": "nǐ néng bāng wǒ fān yì chéng zhōng wén ma",
+       "fr": "tu pourrais m'aider à le traduire en chinois ?",
+       "en": "could you help me translate it into Chinese?"
+      }
+     ]
+    }
+   ],
+   "questions": [
+    {
+     "type": "comprendre",
+     "support": "s1",
+     "consigne": {
+      "fr": "Que donne cette note ?",
+      "en": "What does this note give?"
+     },
+     "choix": [
+      {
+       "fr": "Une nouvelle adresse",
+       "en": "A new address"
+      },
+      {
+       "fr": "Un numéro de téléphone",
+       "en": "A phone number"
+      },
+      {
+       "fr": "Des horaires d'ouverture",
+       "en": "Opening hours"
+      },
+      {
+       "fr": "Une liste de courses",
+       "en": "A shopping list"
+      }
+     ],
+     "reponse": 0,
+     "porte": [
+      "地",
+      "址"
+     ]
+    },
+    {
+     "type": "comprendre",
+     "support": "s2",
+     "consigne": {
+      "fr": "Que demande-t-on à Xiao Li ?",
+      "en": "What is Xiao Li asked to do?"
+     },
+     "choix": [
+      {
+       "fr": "D'écrire un article",
+       "en": "To write an article"
+      },
+      {
+       "fr": "De lire un article à voix haute",
+       "en": "To read an article aloud"
+      },
+      {
+       "fr": "D'acheter un journal",
+       "en": "To buy a newspaper"
+      },
+      {
+       "fr": "De traduire un article",
+       "en": "To translate an article"
+      }
+     ],
+     "reponse": 3,
+     "porte": [
+      "翻",
+      "译"
+     ]
+    },
+    {
+     "type": "vrai_faux",
+     "support": "s2",
+     "consigne": {
+      "fr": "Vrai ou faux ?",
+      "en": "True or false?"
+     },
+     "affirmation": {
+      "zh": "小李要把文章翻译成英文。",
+      "pinyin": "xiǎo lǐ yào bǎ wén zhāng fān yì chéng yīng wén",
+      "fr": "Xiao Li doit traduire l'article en anglais.",
+      "en": "Xiao Li has to translate the article into English."
+     },
+     "reponse": false,
+     "porte": [
+      "译",
+      "中",
+      "文"
+     ]
+    },
+    {
+     "type": "replique",
+     "support": "s2",
+     "consigne": {
+      "fr": "Que répond Xiao Li ?",
+      "en": "What does Xiao Li reply?"
+     },
+     "choix": [
+      {
+       "zh": "我住在三楼。",
+       "pinyin": "wǒ zhù zài sān lóu",
+       "fr": "J'habite au deuxième étage.",
+       "en": "I live on the third floor."
+      },
+      {
+       "zh": "没问题，明天给你！",
+       "pinyin": "méi wèn tí míng tiān gěi nǐ",
+       "fr": "Pas de problème, tu l'auras demain !",
+       "en": "No problem, you'll have it tomorrow!"
+      },
+      {
+       "zh": "今天是星期三。",
+       "pinyin": "jīn tiān shì xīng qī sān",
+       "fr": "On est mercredi.",
+       "en": "It's Wednesday today."
+      },
+      {
+       "zh": "这里的菜很咸。",
+       "pinyin": "zhè li de cài hěn xián",
+       "fr": "Les plats sont très salés, ici.",
+       "en": "The food here is very salty."
+      }
+     ],
+     "reponse": 1,
+     "porte": [
+      "译"
+     ]
+    },
+    {
+     "type": "caractere",
+     "consigne": {
+      "fr": "Quel caractère a ce sens ?",
+      "en": "Which character has this meaning?"
+     },
+     "objet": {
+      "zh": "腰",
+      "pinyin": "yāo",
+      "fr": "taille (du corps)",
+      "en": "waist"
+     },
+     "choix": [
+      "脚",
+      "腰",
+      "脑",
+      "腿"
+     ],
+     "reponse": 1,
+     "porte": [
+      "腰"
+     ]
+    }
+   ]
+  }
+ ]
+}
