@@ -1,0 +1,1396 @@
+{
+ "niveau": "3",
+ "lot": "20",
+ "source": "rédigé pour l'app dans le pipeline wenlu, sans API ; faits lus : liste HSK 3.0 (forme, pinyin, niveau, catégorie), lectures d'Unihan et des surcharges, gloses relues des fiches",
+ "brouillon": "data/sources/dico-brouillons/3/20.json",
+ "generation": {
+  "modele": "rédaction manuelle",
+  "api": "session Claude Code (sans API)",
+  "date": "2026-09-30",
+  "empreinte_invite": "sha256:92f7198cacda59ee2c92f4fb74e675dea6238707cc928ea171ea134f5593717e",
+  "contexte": "wenlu dico contexte 3 20",
+  "essais": 1,
+  "refus": []
+ },
+ "entrees": [
+  {
+   "id": "训",
+   "genre": "caractere",
+   "hanzi": "训",
+   "pinyin": "xùn",
+   "mots": [
+    "L7-4748"
+   ],
+   "sens": {
+    "glose": "sermonner ; entraîner, former",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "sermonner, faire la leçon à"
+     },
+     {
+      "categorie": "V",
+      "fr": "entraîner, former"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他被爸爸训了一顿。",
+     "pinyin": "Tā bèi bàba xùn le yī dùn.",
+     "fr": "Il s'est fait sermonner par son père.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L3-0821",
+   "genre": "mot",
+   "hanzi": "训练",
+   "pinyin": "xùnliàn",
+   "categories": [
+    "V",
+    "N"
+   ],
+   "sens": {
+    "glose": "entraîner ; entraînement",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "entraîner, s'entraîner"
+     },
+     {
+      "categorie": "N",
+      "fr": "entraînement"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他们每天训练三个小时。",
+     "pinyin": "Tāmen měitiān xùnliàn sān ge xiǎoshí.",
+     "fr": "Ils s'exercent trois heures par jour.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "压",
+   "genre": "caractere",
+   "hanzi": "压",
+   "pinyin": "yā",
+   "mots": [
+    "L3-0822"
+   ],
+   "sens": {
+    "glose": "presser, appuyer ; réprimer",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "presser, appuyer, écraser"
+     },
+     {
+      "categorie": "V",
+      "fr": "réprimer, contenir ; opprimer"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他的腿被压伤了。",
+     "pinyin": "Tā de tuǐ bèi yā shāng le.",
+     "fr": "Il a eu la jambe écrasée.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L3-0823",
+   "genre": "mot",
+   "hanzi": "压力",
+   "pinyin": "yālì",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "pression, stress",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "pression, stress"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "我最近工作压力很大。",
+     "pinyin": "Wǒ zuìjìn gōngzuò yālì hěn dà.",
+     "fr": "Je suis très stressé par le travail ces temps-ci.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "烟",
+   "genre": "caractere",
+   "hanzi": "烟",
+   "pinyin": "yān",
+   "mots": [
+    "L3-0824"
+   ],
+   "sens": {
+    "glose": "fumée ; cigarette, tabac",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "fumée"
+     },
+     {
+      "categorie": "N",
+      "fr": "cigarette, tabac"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "房间里有很多烟。",
+     "pinyin": "Fángjiān li yǒu hěn duō yān.",
+     "fr": "La pièce est enfumée.",
+     "statut": "a_relire"
+    },
+    {
+     "zh": "你有烟吗？",
+     "pinyin": "Nǐ yǒu yān ma?",
+     "fr": "Tu as une cigarette ?",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L3-0825",
+   "genre": "mot",
+   "hanzi": "眼前",
+   "pinyin": "yǎnqián",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "devant soi ; pour l'instant",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "devant les yeux, devant soi"
+     },
+     {
+      "categorie": "N",
+      "fr": "pour l'instant, le moment présent"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他就站在我眼前。",
+     "pinyin": "Tā jiù zhàn zài wǒ yǎnqián.",
+     "fr": "Il se tenait juste devant moi.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L3-0827",
+   "genre": "mot",
+   "hanzi": "演唱",
+   "pinyin": "yǎnchàng",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "chanter (sur scène)",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "chanter (sur scène), interpréter"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "她在晚会上演唱了一首歌。",
+     "pinyin": "Tā zài wǎnhuì shang yǎnchàng le yī shǒu gē.",
+     "fr": "Elle a interprété une chanson à la soirée.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L3-0828",
+   "genre": "mot",
+   "hanzi": "演唱会",
+   "pinyin": "yǎnchànghuì",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "concert (de chanteur)",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "concert (de chanteur)"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "我们去听演唱会吧。",
+     "pinyin": "Wǒmen qù tīng yǎnchànghuì ba.",
+     "fr": "Allons au concert !",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L3-0829",
+   "genre": "mot",
+   "hanzi": "演出",
+   "pinyin": "yǎnchū",
+   "categories": [
+    "V",
+    "N"
+   ],
+   "sens": {
+    "glose": "se produire ; spectacle",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "se produire, jouer (sur scène)"
+     },
+     {
+      "categorie": "N",
+      "fr": "spectacle, représentation"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "今天晚上的演出八点开始。",
+     "pinyin": "Jīntiān wǎnshang de yǎnchū bā diǎn kāishǐ.",
+     "fr": "La représentation de ce soir commence à huit heures.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L3-0830",
+   "genre": "mot",
+   "hanzi": "演员",
+   "pinyin": "yǎnyuán",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "acteur, actrice",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "acteur, actrice, artiste de scène"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "她是一个有名的演员。",
+     "pinyin": "Tā shì yī ge yǒumíng de yǎnyuán.",
+     "fr": "C'est une comédienne célèbre.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "羊",
+   "genre": "caractere",
+   "hanzi": "羊",
+   "pinyin": "yáng",
+   "mots": [
+    "L3-0831"
+   ],
+   "sens": {
+    "glose": "mouton, chèvre",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "mouton, chèvre"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他家有很多羊。",
+     "pinyin": "Tā jiā yǒu hěn duō yáng.",
+     "fr": "Sa famille élève beaucoup de moutons.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L3-0832",
+   "genre": "mot",
+   "hanzi": "阳光",
+   "pinyin": "yángguāng",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "soleil, lumière du soleil",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "soleil, lumière du soleil"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "今天阳光很好。",
+     "pinyin": "Jīntiān yángguāng hěn hǎo.",
+     "fr": "Il fait grand soleil aujourd'hui.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L3-0833",
+   "genre": "mot",
+   "hanzi": "要是",
+   "pinyin": "yàoshi",
+   "categories": [
+    "Conj"
+   ],
+   "sens": {
+    "glose": "si (hypothèse)",
+    "acceptions": [
+     {
+      "categorie": "Conj",
+      "fr": "si, au cas où"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "要是明天下雨，我们就不去了。",
+     "pinyin": "Yàoshi míngtiān xià yǔ, wǒmen jiù bù qù le.",
+     "fr": "S'il pleut demain, on n'ira pas.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L3-0834",
+   "genre": "mot",
+   "hanzi": "衣架",
+   "pinyin": "yījià",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "cintre ; portemanteau",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "cintre ; portemanteau"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "请把衣服挂在衣架上。",
+     "pinyin": "Qǐng bǎ yīfu guà zài yījià shang.",
+     "fr": "Accroche tes vêtements, s'il te plaît.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L3-0835",
+   "genre": "mot",
+   "hanzi": "一切",
+   "pinyin": "yīqiè",
+   "categories": [
+    "Pron"
+   ],
+   "sens": {
+    "glose": "tout, toutes choses",
+    "acceptions": [
+     {
+      "categorie": "Pron",
+      "fr": "tout, toutes choses"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "一切都会好的。",
+     "pinyin": "Yīqiè dōu huì hǎo de.",
+     "fr": "Ça va s'arranger.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L3-0837",
+   "genre": "mot",
+   "hanzi": "以来",
+   "pinyin": "yǐlái",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "depuis",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "depuis (un moment passé jusqu'à maintenant)"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "来中国以来，我认识了很多朋友。",
+     "pinyin": "Lái Zhōngguó yǐlái, wǒ rènshi le hěn duō péngyou.",
+     "fr": "Je me suis fait beaucoup d'amis depuis mon arrivée en Chine.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L3-0838",
+   "genre": "mot",
+   "hanzi": "一方面",
+   "pinyin": "yīfāngmiàn",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "d'une part ; un aspect",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "d'une part ; un aspect, un côté"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "一方面我想去，一方面又没时间。",
+     "pinyin": "Yīfāngmiàn wǒ xiǎng qù, yīfāngmiàn yòu méi shíjiān.",
+     "fr": "D'un côté j'ai envie d'y aller, de l'autre je n'ai pas le temps.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "艺",
+   "genre": "caractere",
+   "hanzi": "艺",
+   "pinyin": "yì",
+   "sens": {
+    "glose": "art, habileté",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "art, habileté, technique"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": []
+  },
+  {
+   "id": "L3-0839",
+   "genre": "mot",
+   "hanzi": "艺术",
+   "pinyin": "yìshù",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "art",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "art"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这些画都是艺术品。",
+     "pinyin": "Zhèxiē huà dōu shì yìshùpǐn.",
+     "fr": "Ces tableaux sont de véritables œuvres.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L3-0840",
+   "genre": "mot",
+   "hanzi": "意外",
+   "pinyin": "yìwài",
+   "categories": [
+    "Adj",
+    "N"
+   ],
+   "sens": {
+    "glose": "inattendu, imprévu ; accident",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "inattendu, imprévu, surprenant"
+     },
+     {
+      "categorie": "N",
+      "fr": "accident, imprévu"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "听到这个消息，我很意外。",
+     "pinyin": "Tīng dào zhège xiāoxi, wǒ hěn yìwài.",
+     "fr": "Cette nouvelle m'a beaucoup surpris.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "义",
+   "genre": "caractere",
+   "hanzi": "义",
+   "pinyin": "yì",
+   "sens": {
+    "glose": "justice, droiture ; sens",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "justice, droiture"
+     },
+     {
+      "categorie": "N",
+      "fr": "sens, signification"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": []
+  },
+  {
+   "id": "L3-0841",
+   "genre": "mot",
+   "hanzi": "意义",
+   "pinyin": "yìyì",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "sens, signification ; importance",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "sens, signification"
+     },
+     {
+      "categorie": "N",
+      "fr": "importance, portée"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这个词有两个意义。",
+     "pinyin": "Zhège cí yǒu liǎng ge yìyì.",
+     "fr": "Ce mot a deux sens.",
+     "statut": "a_relire"
+    },
+    {
+     "zh": "这次旅行对我很有意义。",
+     "pinyin": "Zhè cì lǚxíng duì wǒ hěn yǒu yìyì.",
+     "fr": "Ce voyage compte beaucoup pour moi.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "此",
+   "genre": "caractere",
+   "hanzi": "此",
+   "pinyin": "cǐ",
+   "mots": [
+    "L4-0122"
+   ],
+   "sens": {
+    "glose": "ce, ceci ; ici",
+    "acceptions": [
+     {
+      "categorie": "Pron",
+      "fr": "ce, ceci ; ici, maintenant : langue écrite"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "从此以后，他再也没来过。",
+     "pinyin": "Cóngcǐ yǐhòu, tā zài yě méi lái guo.",
+     "fr": "Depuis ce jour, il n'est jamais revenu.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L3-0842",
+   "genre": "mot",
+   "hanzi": "因此",
+   "pinyin": "yīncǐ",
+   "categories": [
+    "Conj"
+   ],
+   "sens": {
+    "glose": "donc, c'est pourquoi",
+    "acceptions": [
+     {
+      "categorie": "Conj",
+      "fr": "donc, c'est pourquoi, par conséquent"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他病了，因此没来上课。",
+     "pinyin": "Tā bìng le, yīncǐ méi lái shàngkè.",
+     "fr": "Il était malade, voilà pourquoi il n'est pas venu en cours.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L3-0844",
+   "genre": "mot",
+   "hanzi": "银牌",
+   "pinyin": "yínpái",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "médaille d'argent",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "médaille d'argent"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "她得了一块银牌。",
+     "pinyin": "Tā dé le yī kuài yínpái.",
+     "fr": "Elle a décroché l'argent.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L3-0845",
+   "genre": "mot",
+   "hanzi": "印象",
+   "pinyin": "yìnxiàng",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "impression",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "impression, souvenir laissé"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "你对北京的印象怎么样？",
+     "pinyin": "Nǐ duì Běijīng de yìnxiàng zěnmeyàng?",
+     "fr": "Qu'as-tu pensé de Pékin ?",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L3-0846",
+   "genre": "mot",
+   "hanzi": "应当",
+   "pinyin": "yīngdāng",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "devoir, falloir",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "devoir, falloir"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "你应当早点儿告诉我。",
+     "pinyin": "Nǐ yīngdāng zǎo diǎnr gàosu wǒ.",
+     "fr": "Tu aurais dû me le dire plus tôt.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L3-0847",
+   "genre": "mot",
+   "hanzi": "迎接",
+   "pinyin": "yíngjiē",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "accueillir, aller au-devant de",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "accueillir, aller au-devant de"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "我们去机场迎接客人。",
+     "pinyin": "Wǒmen qù jīchǎng yíngjiē kèrén.",
+     "fr": "Nous allons chercher nos invités à l'aéroport.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L3-0848",
+   "genre": "mot",
+   "hanzi": "营养",
+   "pinyin": "yíngyǎng",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "nutrition, éléments nutritifs",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "nutrition, éléments nutritifs"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "牛奶很有营养。",
+     "pinyin": "Niúnǎi hěn yǒu yíngyǎng.",
+     "fr": "Le lait est très nourrissant.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "赢",
+   "genre": "caractere",
+   "hanzi": "赢",
+   "pinyin": "yíng",
+   "mots": [
+    "L3-0849"
+   ],
+   "sens": {
+    "glose": "gagner, remporter",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "gagner, remporter"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "我们赢了这场比赛。",
+     "pinyin": "Wǒmen yíng le zhè chǎng bǐsài.",
+     "fr": "Nous avons remporté ce match.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L3-0850",
+   "genre": "mot",
+   "hanzi": "影视",
+   "pinyin": "yǐngshì",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "cinéma et télévision",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "cinéma et télévision, audiovisuel"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他在一家影视公司工作。",
+     "pinyin": "Tā zài yī jiā yǐngshì gōngsī gōngzuò.",
+     "fr": "Il travaille dans une société de production audiovisuelle.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L3-0851",
+   "genre": "mot",
+   "hanzi": "应用",
+   "pinyin": "yìngyòng",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "appliquer, utiliser",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "appliquer, utiliser, mettre en pratique"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这个方法可以应用到生活中。",
+     "pinyin": "Zhège fāngfǎ kěyǐ yìngyòng dào shēnghuó zhōng.",
+     "fr": "Cette méthode peut servir au quotidien.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "优",
+   "genre": "caractere",
+   "hanzi": "优",
+   "pinyin": "yōu",
+   "mots": [
+    "L7-5045"
+   ],
+   "sens": {
+    "glose": "excellent, supérieur",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "excellent, supérieur, de qualité"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他的成绩是优。",
+     "pinyin": "Tā de chéngjì shì yōu.",
+     "fr": "Il a eu la mention excellent.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L3-0852",
+   "genre": "mot",
+   "hanzi": "优点",
+   "pinyin": "yōudiǎn",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "qualité, point fort",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "qualité, point fort, mérite"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他的优点是很认真。",
+     "pinyin": "Tā de yōudiǎn shì hěn rènzhēn.",
+     "fr": "Ce qu'il y a de bien chez lui, c'est son sérieux.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "势",
+   "genre": "caractere",
+   "hanzi": "势",
+   "pinyin": "shì",
+   "sens": {
+    "glose": "force, puissance ; tendance",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "force, puissance ; tendance, situation"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": []
+  },
+  {
+   "id": "L3-0853",
+   "genre": "mot",
+   "hanzi": "优势",
+   "pinyin": "yōushì",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "avantage, supériorité",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "avantage, supériorité, point fort"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "我们队的优势很明显。",
+     "pinyin": "Wǒmen duì de yōushì hěn míngxiǎn.",
+     "fr": "Notre équipe domine nettement.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L3-0855",
+   "genre": "mot",
+   "hanzi": "由于",
+   "pinyin": "yóuyú",
+   "categories": [
+    "Prep",
+    "Conj"
+   ],
+   "sens": {
+    "glose": "en raison de ; parce que",
+    "acceptions": [
+     {
+      "categorie": "Prep",
+      "fr": "en raison de, à cause de"
+     },
+     {
+      "categorie": "Conj",
+      "fr": "parce que, étant donné que"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "由于天气不好，飞机晚了。",
+     "pinyin": "Yóuyú tiānqì bù hǎo, fēijī wǎn le.",
+     "fr": "Avec le mauvais temps, l'avion a eu du retard.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L3-0856",
+   "genre": "mot",
+   "hanzi": "邮件",
+   "pinyin": "yóujiàn",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "courrier ; courriel",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "courrier, envoi postal"
+     },
+     {
+      "categorie": "N",
+      "fr": "courriel, e-mail"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "我每天早上看邮件。",
+     "pinyin": "Wǒ měitiān zǎoshang kàn yóujiàn.",
+     "fr": "Je lis mes mails tous les matins.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L3-0857",
+   "genre": "mot",
+   "hanzi": "邮票",
+   "pinyin": "yóupiào",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "timbre",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "timbre (poste)"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "我爷爷喜欢集邮票。",
+     "pinyin": "Wǒ yéye xǐhuan jí yóupiào.",
+     "fr": "Mon grand-père est philatéliste.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "箱",
+   "genre": "caractere",
+   "hanzi": "箱",
+   "pinyin": "xiāng",
+   "mots": [
+    "L4-0799"
+   ],
+   "sens": {
+    "glose": "caisse, malle ; classif. des caisses",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "caisse, malle, boîte"
+     },
+     {
+      "categorie": "M",
+      "fr": "classificateur des caisses, des cartons"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "我买了一箱水。",
+     "pinyin": "Wǒ mǎi le yī xiāng shuǐ.",
+     "fr": "J'ai acheté un pack d'eau.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L3-0858",
+   "genre": "mot",
+   "hanzi": "邮箱",
+   "pinyin": "yóuxiāng",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "boîte aux lettres ; boîte mail",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "boîte aux lettres"
+     },
+     {
+      "categorie": "N",
+      "fr": "boîte mail, adresse électronique"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "你的邮箱是多少？",
+     "pinyin": "Nǐ de yóuxiāng shì duōshao?",
+     "fr": "C'est quoi, ton adresse mail ?",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "戏",
+   "genre": "caractere",
+   "hanzi": "戏",
+   "pinyin": "xì",
+   "mots": [
+    "L5-0811"
+   ],
+   "sens": {
+    "glose": "pièce, spectacle, opéra ; jeu",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "pièce, spectacle, opéra"
+     },
+     {
+      "categorie": "N",
+      "fr": "jeu, amusement"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "爷爷喜欢听戏。",
+     "pinyin": "Yéye xǐhuan tīng xì.",
+     "fr": "Grand-père aime écouter l'opéra.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L3-0860",
+   "genre": "mot",
+   "hanzi": "游戏",
+   "pinyin": "yóuxì",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "jeu",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "jeu"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "我们来玩一个游戏吧。",
+     "pinyin": "Wǒmen lái wán yī ge yóuxì ba.",
+     "fr": "On joue à quelque chose ?",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "泳",
+   "genre": "caractere",
+   "hanzi": "泳",
+   "pinyin": "yǒng",
+   "sens": {
+    "glose": "nager",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "nager"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": []
+  },
+  {
+   "id": "L3-0861",
+   "genre": "mot",
+   "hanzi": "游泳",
+   "pinyin": "yóuyǒng",
+   "categories": [
+    "N",
+    "V"
+   ],
+   "sens": {
+    "glose": "nager ; natation",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "nager"
+     },
+     {
+      "categorie": "N",
+      "fr": "natation"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "你会游泳吗？",
+     "pinyin": "Nǐ huì yóuyǒng ma?",
+     "fr": "Tu sais nager ?",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L3-0862",
+   "genre": "mot",
+   "hanzi": "有的是",
+   "pinyin": "yǒudeshì",
+   "sens": {
+    "glose": "il y en a plein, à revendre",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "il y en a plein, avoir à revendre"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "别急，我们有的是时间。",
+     "pinyin": "Bié jí, wǒmen yǒudeshì shíjiān.",
+     "fr": "Pas de panique, on a tout notre temps.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L3-0863",
+   "genre": "mot",
+   "hanzi": "有利",
+   "pinyin": "yǒulì",
+   "categories": [
+    "Adj"
+   ],
+   "sens": {
+    "glose": "favorable, avantageux",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "favorable, avantageux, bénéfique"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "多运动对身体有利。",
+     "pinyin": "Duō yùndòng duì shēntǐ yǒulì.",
+     "fr": "Faire du sport est bon pour la santé.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L3-0864",
+   "genre": "mot",
+   "hanzi": "有效",
+   "pinyin": "yǒuxiào",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "être valable ; être efficace",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "être valable, en vigueur ; être efficace"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这张票三天内有效。",
+     "pinyin": "Zhè zhāng piào sān tiān nèi yǒuxiào.",
+     "fr": "Ce billet est valable trois jours.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "预",
+   "genre": "caractere",
+   "hanzi": "预",
+   "pinyin": "yù",
+   "sens": {
+    "glose": "à l'avance, d'avance",
+    "acceptions": [
+     {
+      "categorie": "Adv",
+      "fr": "à l'avance, d'avance"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": []
+  },
+  {
+   "id": "L3-0865",
+   "genre": "mot",
+   "hanzi": "预报",
+   "pinyin": "yùbào",
+   "categories": [
+    "V",
+    "N"
+   ],
+   "sens": {
+    "glose": "prévoir, annoncer ; prévisions",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "prévoir, annoncer à l'avance"
+     },
+     {
+      "categorie": "N",
+      "fr": "prévisions (météo)"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "天气预报说明天有雨。",
+     "pinyin": "Tiānqì yùbào shuō míngtiān yǒu yǔ.",
+     "fr": "La météo annonce de la pluie pour demain.",
+     "statut": "a_relire"
+    }
+   ]
+  }
+ ]
+}
