@@ -1,0 +1,1309 @@
+{
+ "niveau": "7-9",
+ "lot": "124",
+ "source": "rédigé pour l'app dans le pipeline wenlu, sans API ; faits lus : liste HSK 3.0 (forme, pinyin, niveau, catégorie), lectures d'Unihan et des surcharges, gloses relues des fiches",
+ "brouillon": "data/sources/dico-brouillons/7-9/124.json",
+ "generation": {
+  "modele": "rédaction manuelle",
+  "api": "session Claude Code (sans API)",
+  "date": "2026-09-30",
+  "empreinte_invite": "sha256:7ce36cb34ab39b0d54a6ebd967e3002abf155c0e2dd57638d610e740ee991eea",
+  "contexte": "wenlu dico contexte 7-9 124",
+  "essais": 1,
+  "refus": []
+ },
+ "entrees": [
+  {
+   "id": "L7-5496",
+   "genre": "mot",
+   "hanzi": "转载",
+   "pinyin": "zhuǎnzǎi",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "reproduire (un article)",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "reproduire, reprendre (un article publié ailleurs)"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这篇文章被很多网站转载。",
+     "pinyin": "Zhè piān wénzhāng bèi hěn duō wǎngzhàn zhuǎnzǎi.",
+     "fr": "De nombreux sites ont repris cet article.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-5497",
+   "genre": "mot",
+   "hanzi": "转折",
+   "pinyin": "zhuǎnzhé",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "prendre un tournant",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "prendre un tournant, changer de direction"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "故事在这里发生了转折。",
+     "pinyin": "Gùshi zài zhèli fāshēng le zhuǎnzhé.",
+     "fr": "C'est là que l'histoire bascule.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-5498",
+   "genre": "mot",
+   "hanzi": "转折点",
+   "pinyin": "zhuǎnzhédiǎn",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "tournant, moment décisif",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "tournant, moment décisif"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这次考试是他人生的转折点。",
+     "pinyin": "Zhè cì kǎoshì shì tā rénshēng de zhuǎnzhédiǎn.",
+     "fr": "Cet examen a changé le cours de sa vie.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-5500",
+   "genre": "mot",
+   "hanzi": "传记",
+   "pinyin": "zhuànjì",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "biographie",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "biographie"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "我在读一本名人传记。",
+     "pinyin": "Wǒ zài dú yī běn míngrén zhuànjì.",
+     "fr": "Je lis la vie d'un homme célèbre.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-5501",
+   "genre": "mot",
+   "hanzi": "转悠",
+   "pinyin": "zhuànyou",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "flâner, tourner en rond",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "flâner, se balader, tourner en rond"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他在公园里转悠了一下午。",
+     "pinyin": "Tā zài gōngyuán li zhuànyou le yī xiàwǔ.",
+     "fr": "Il a traîné tout l'après-midi dans le parc.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "撰",
+   "genre": "caractere",
+   "hanzi": "撰",
+   "pinyin": "zhuàn",
+   "sens": {
+    "glose": "écrire, composer",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "écrire, composer, rédiger"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": []
+  },
+  {
+   "id": "L7-5502",
+   "genre": "mot",
+   "hanzi": "撰写",
+   "pinyin": "zhuànxiě",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "rédiger, écrire",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "rédiger, écrire (un ouvrage, un article)"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他正在撰写一本书。",
+     "pinyin": "Tā zhèngzài zhuànxiě yī běn shū.",
+     "fr": "Il est en train d'écrire un livre.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "稼",
+   "genre": "caractere",
+   "hanzi": "稼",
+   "pinyin": "jià",
+   "sens": {
+    "glose": "céréales ; semer",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "céréales, cultures"
+     },
+     {
+      "categorie": "V",
+      "fr": "semer, cultiver"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": []
+  },
+  {
+   "id": "L7-5503",
+   "genre": "mot",
+   "hanzi": "庄稼",
+   "pinyin": "zhuāngjia",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "récoltes, cultures",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "récoltes, cultures sur pied"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "今年的庄稼长得很好。",
+     "pinyin": "Jīnnián de zhuāngjia zhǎng de hěn hǎo.",
+     "fr": "Cette année, les champs sont magnifiques.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-5504",
+   "genre": "mot",
+   "hanzi": "庄严",
+   "pinyin": "zhuāngyán",
+   "categories": [
+    "Adj"
+   ],
+   "sens": {
+    "glose": "solennel, majestueux",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "solennel, majestueux, grave"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "会场气氛很庄严。",
+     "pinyin": "Huìchǎng qìfēn hěn zhuāngyán.",
+     "fr": "L'atmosphère de la salle est empreinte de gravité.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-5505",
+   "genre": "mot",
+   "hanzi": "庄园",
+   "pinyin": "zhuāngyuán",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "domaine, manoir",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "domaine, manoir, propriété"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他在乡下有一座庄园。",
+     "pinyin": "Tā zài xiāngxia yǒu yī zuò zhuāngyuán.",
+     "fr": "Il possède une grande propriété à la campagne.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "桩",
+   "genre": "caractere",
+   "hanzi": "桩",
+   "pinyin": "zhuāng",
+   "mots": [
+    "L7-5506"
+   ],
+   "sens": {
+    "glose": "pieu ; classificateur (affaires)",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "pieu, poteau"
+     },
+     {
+      "categorie": "M",
+      "fr": "classificateur des affaires, des événements"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这是一桩好事。",
+     "pinyin": "Zhè shì yī zhuāng hǎoshì.",
+     "fr": "Voilà une bonne affaire.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-5507",
+   "genre": "mot",
+   "hanzi": "装扮",
+   "pinyin": "zhuāngbàn",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "parer, décorer ; se déguiser",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "parer, décorer"
+     },
+     {
+      "categorie": "V",
+      "fr": "se déguiser, se faire passer pour"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "她把自己装扮成公主。",
+     "pinyin": "Tā bǎ zìjǐ zhuāngbàn chéng gōngzhǔ.",
+     "fr": "Elle s'est déguisée en princesse.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-5509",
+   "genre": "mot",
+   "hanzi": "壮大",
+   "pinyin": "zhuàngdà",
+   "categories": [
+    "V",
+    "Adj"
+   ],
+   "sens": {
+    "glose": "se développer, se renforcer",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "se développer, se renforcer, grandir"
+     },
+     {
+      "categorie": "Adj",
+      "fr": "fort, puissant"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "我们的队伍越来越壮大。",
+     "pinyin": "Wǒmen de duìwu yuè lái yuè zhuàngdà.",
+     "fr": "Nos rangs ne cessent de grossir.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-5510",
+   "genre": "mot",
+   "hanzi": "壮胆",
+   "pinyin": "zhuàngdǎn",
+   "sens": {
+    "glose": "se donner du courage",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "se donner du courage, s'enhardir"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他唱歌给自己壮胆。",
+     "pinyin": "Tā chànggē gěi zìjǐ zhuàngdǎn.",
+     "fr": "Il chante pour se rassurer.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-5511",
+   "genre": "mot",
+   "hanzi": "壮丽",
+   "pinyin": "zhuànglì",
+   "categories": [
+    "Adj"
+   ],
+   "sens": {
+    "glose": "grandiose, magnifique",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "grandiose, magnifique, majestueux"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这里的山河非常壮丽。",
+     "pinyin": "Zhèli de shānhé fēicháng zhuànglì.",
+     "fr": "Les montagnes et les fleuves d'ici sont superbes.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-5512",
+   "genre": "mot",
+   "hanzi": "壮实",
+   "pinyin": "zhuàngshi",
+   "categories": [
+    "Adj"
+   ],
+   "sens": {
+    "glose": "robuste, costaud",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "robuste, costaud, vigoureux"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这孩子长得很壮实。",
+     "pinyin": "Zhè háizi zhǎng de hěn zhuàngshi.",
+     "fr": "Cet enfant est bien bâti.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-5513",
+   "genre": "mot",
+   "hanzi": "状元",
+   "pinyin": "zhuàngyuan",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "premier lauréat (concours)",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "premier lauréat (concours impérial, examen d'entrée)"
+     },
+     {
+      "categorie": "N",
+      "fr": "meilleur dans son domaine"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他是今年的高考状元。",
+     "pinyin": "Tā shì jīnnián de gāokǎo zhuàngyuan.",
+     "fr": "Il est sorti premier du concours d'entrée à l'université cette année.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-5514",
+   "genre": "mot",
+   "hanzi": "撞击",
+   "pinyin": "zhuàngjī",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "heurter, percuter",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "heurter, percuter, entrer en collision"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "两辆车发生了撞击。",
+     "pinyin": "Liǎng liàng chē fāshēng le zhuàngjī.",
+     "fr": "Deux voitures sont entrées en collision.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "幢",
+   "genre": "caractere",
+   "hanzi": "幢",
+   "pinyin": "chuáng",
+   "mots": [
+    "L7-5515"
+   ],
+   "sens": {
+    "glose": "classificateur des bâtiments",
+    "acceptions": [
+     {
+      "categorie": "M",
+      "fr": "classificateur des bâtiments",
+      "pinyin": "zhuàng"
+     },
+     {
+      "categorie": "N",
+      "fr": "bannière (bouddhisme)"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这里有几幢高楼。",
+     "pinyin": "Zhèli yǒu jǐ zhuàng gāolóu.",
+     "fr": "Il y a quelques tours ici.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-5516",
+   "genre": "mot",
+   "hanzi": "追悼会",
+   "pinyin": "zhuīdàohuì",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "cérémonie funèbre",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "cérémonie funèbre, hommage au défunt"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "很多人参加了他的追悼会。",
+     "pinyin": "Hěn duō rén cānjiā le tā de zhuīdàohuì.",
+     "fr": "Beaucoup de gens sont venus lui rendre un dernier hommage.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-5517",
+   "genre": "mot",
+   "hanzi": "追赶",
+   "pinyin": "zhuīgǎn",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "poursuivre, rattraper",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "poursuivre, rattraper, courir après"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "警察在后面追赶小偷。",
+     "pinyin": "Jǐngchá zài hòumian zhuīgǎn xiǎotōu.",
+     "fr": "La police court derrière le voleur.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "溯",
+   "genre": "caractere",
+   "hanzi": "溯",
+   "pinyin": "sù",
+   "sens": {
+    "glose": "remonter (le courant)",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "remonter (le courant, aux origines)"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": []
+  },
+  {
+   "id": "L7-5518",
+   "genre": "mot",
+   "hanzi": "追溯",
+   "pinyin": "zhuīsù",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "remonter à (l'origine)",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "remonter à (l'origine), retracer"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这个传统可以追溯到一千年前。",
+     "pinyin": "Zhège chuántǒng kěyǐ zhuīsù dào yīqiān nián qián.",
+     "fr": "Cette tradition date d'il y a mille ans.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-5519",
+   "genre": "mot",
+   "hanzi": "追随",
+   "pinyin": "zhuīsuí",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "suivre, être le disciple de",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "suivre, être le disciple de"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他一生追随老师的脚步。",
+     "pinyin": "Tā yīshēng zhuīsuí lǎoshī de jiǎobù.",
+     "fr": "Toute sa vie, il a marché sur les traces de son maître.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-5520",
+   "genre": "mot",
+   "hanzi": "追尾",
+   "pinyin": "zhuīwěi",
+   "sens": {
+    "glose": "emboutir par l'arrière",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "emboutir par l'arrière (accident de la route)"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "前面发生了一起追尾事故。",
+     "pinyin": "Qiánmian fāshēng le yī qǐ zhuīwěi shìgù.",
+     "fr": "Il y a eu un carambolage devant.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-5521",
+   "genre": "mot",
+   "hanzi": "追问",
+   "pinyin": "zhuīwèn",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "questionner avec insistance",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "questionner avec insistance, presser de questions"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "记者一直追问这件事。",
+     "pinyin": "Jìzhě yīzhí zhuīwèn zhè jiàn shì.",
+     "fr": "Le journaliste n'arrête pas de revenir sur cette affaire.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-5522",
+   "genre": "mot",
+   "hanzi": "追逐",
+   "pinyin": "zhuīzhú",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "poursuivre, courir après",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "poursuivre, courir après, rechercher"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "孩子们在草地上追逐。",
+     "pinyin": "Háizimen zài cǎodì shang zhuīzhú.",
+     "fr": "Les enfants se courent après sur la pelouse.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-5523",
+   "genre": "mot",
+   "hanzi": "追踪",
+   "pinyin": "zhuīzōng",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "pister, suivre la trace",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "pister, suivre la trace, traquer"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "警察正在追踪这个嫌疑人。",
+     "pinyin": "Jǐngchá zhèngzài zhuīzōng zhège xiányírén.",
+     "fr": "La police traque le suspect.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-5525",
+   "genre": "mot",
+   "hanzi": "准许",
+   "pinyin": "zhǔnxǔ",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "autoriser, permettre",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "autoriser, permettre, accorder"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "老师准许我们提前回家。",
+     "pinyin": "Lǎoshī zhǔnxǔ wǒmen tíqián huíjiā.",
+     "fr": "Le professeur nous a laissés rentrer plus tôt.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-5526",
+   "genre": "mot",
+   "hanzi": "准则",
+   "pinyin": "zhǔnzé",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "règle, norme",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "règle, norme, principe de conduite"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这是我们的行为准则。",
+     "pinyin": "Zhè shì wǒmen de xíngwéi zhǔnzé.",
+     "fr": "Voici notre code de conduite.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "拙",
+   "genre": "caractere",
+   "hanzi": "拙",
+   "pinyin": "zhuō",
+   "sens": {
+    "glose": "maladroit, gauche",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "maladroit, gauche ; (mon) humble"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": []
+  },
+  {
+   "id": "L7-5527",
+   "genre": "mot",
+   "hanzi": "拙劣",
+   "pinyin": "zhuōliè",
+   "categories": [
+    "Adj"
+   ],
+   "sens": {
+    "glose": "médiocre, maladroit",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "médiocre, maladroit, de piètre qualité"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他的表演很拙劣。",
+     "pinyin": "Tā de biǎoyǎn hěn zhuōliè.",
+     "fr": "Sa prestation est bien pauvre.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-5528",
+   "genre": "mot",
+   "hanzi": "捉迷藏",
+   "pinyin": "zhuōmícáng",
+   "sens": {
+    "glose": "cache-cache",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "cache-cache, colin-maillard"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "孩子们在玩捉迷藏。",
+     "pinyin": "Háizimen zài wán zhuōmícáng.",
+     "fr": "Les enfants jouent à se cacher.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "灼",
+   "genre": "caractere",
+   "hanzi": "灼",
+   "pinyin": "zhuó",
+   "sens": {
+    "glose": "brûler ; éclatant",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "brûler"
+     },
+     {
+      "categorie": "Adj",
+      "fr": "éclatant, lumineux"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": []
+  },
+  {
+   "id": "L7-5529",
+   "genre": "mot",
+   "hanzi": "灼热",
+   "pinyin": "zhuórè",
+   "categories": [
+    "Adj"
+   ],
+   "sens": {
+    "glose": "brûlant, ardent",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "brûlant, ardent, torride"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "沙漠里的阳光很灼热。",
+     "pinyin": "Shāmò li de yángguāng hěn zhuórè.",
+     "fr": "Dans le désert, le soleil brûle.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "卓",
+   "genre": "caractere",
+   "hanzi": "卓",
+   "pinyin": "zhuó",
+   "sens": {
+    "glose": "éminent, remarquable",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "éminent, remarquable, supérieur"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": []
+  },
+  {
+   "id": "L7-5530",
+   "genre": "mot",
+   "hanzi": "卓越",
+   "pinyin": "zhuóyuè",
+   "categories": [
+    "Adj"
+   ],
+   "sens": {
+    "glose": "remarquable, éminent",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "remarquable, éminent, exceptionnel"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他为国家做出了卓越的贡献。",
+     "pinyin": "Tā wèi guójiā zuòchū le zhuóyuè de gòngxiàn.",
+     "fr": "Il a apporté une contribution exceptionnelle à son pays.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "酌",
+   "genre": "caractere",
+   "hanzi": "酌",
+   "pinyin": "zhuó",
+   "sens": {
+    "glose": "verser à boire ; peser",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "verser à boire, boire"
+     },
+     {
+      "categorie": "V",
+      "fr": "peser, considérer"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": []
+  },
+  {
+   "id": "L7-5531",
+   "genre": "mot",
+   "hanzi": "酌情",
+   "pinyin": "zhuóqíng",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "selon les circonstances",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "tenir compte des circonstances, agir selon le cas"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "我们会酌情处理。",
+     "pinyin": "Wǒmen huì zhuóqíng chǔlǐ.",
+     "fr": "Nous verrons au cas par cas.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-5532",
+   "genre": "mot",
+   "hanzi": "着力",
+   "pinyin": "zhuólì",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "porter ses efforts sur",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "porter ses efforts sur, s'attacher à"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "政府着力解决就业问题。",
+     "pinyin": "Zhèngfǔ zhuólì jiějué jiùyè wèntí.",
+     "fr": "Le gouvernement s'emploie à résoudre le chômage.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-5533",
+   "genre": "mot",
+   "hanzi": "着落",
+   "pinyin": "zhuóluò",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "où l'on en est, garantie",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "résultat assuré, solution garantie, où l'on en est"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这笔钱还没有着落。",
+     "pinyin": "Zhè bǐ qián hái méiyǒu zhuóluò.",
+     "fr": "On ne sait pas encore d'où viendra cet argent.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-5534",
+   "genre": "mot",
+   "hanzi": "着实",
+   "pinyin": "zhuóshí",
+   "categories": [
+    "Adv"
+   ],
+   "sens": {
+    "glose": "vraiment, réellement",
+    "acceptions": [
+     {
+      "categorie": "Adv",
+      "fr": "vraiment, réellement, bel et bien"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这件事着实让人高兴。",
+     "pinyin": "Zhè jiàn shì zhuóshí ràng rén gāoxìng.",
+     "fr": "C'est vraiment une bonne nouvelle.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-5535",
+   "genre": "mot",
+   "hanzi": "着手",
+   "pinyin": "zhuóshǒu",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "se mettre à, entreprendre",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "se mettre à, entreprendre, commencer"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "我们下个月着手准备。",
+     "pinyin": "Wǒmen xià ge yuè zhuóshǒu zhǔnbèi.",
+     "fr": "Nous commencerons les préparatifs le mois prochain.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-5536",
+   "genre": "mot",
+   "hanzi": "着想",
+   "pinyin": "zhuóxiǎng",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "penser à (l'intérêt de)",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "penser à (l'intérêt de), considérer"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "你要为孩子着想。",
+     "pinyin": "Nǐ yào wèi háizi zhuóxiǎng.",
+     "fr": "Pense d'abord à ton enfant.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-5537",
+   "genre": "mot",
+   "hanzi": "着眼",
+   "pinyin": "zhuóyǎn",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "viser, considérer",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "viser, avoir en vue, considérer"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "我们要着眼长远。",
+     "pinyin": "Wǒmen yào zhuóyǎn chángyuǎn.",
+     "fr": "Il faut voir loin.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-5538",
+   "genre": "mot",
+   "hanzi": "着眼于",
+   "pinyin": "zhuóyǎn yú",
+   "sens": {
+    "glose": "se focaliser sur",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "se focaliser sur, avoir pour horizon"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这个计划着眼于未来。",
+     "pinyin": "Zhège jìhuà zhuóyǎn yú wèilái.",
+     "fr": "Ce plan est tourné vers l'avenir.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-5539",
+   "genre": "mot",
+   "hanzi": "着重",
+   "pinyin": "zhuózhòng",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "mettre l'accent sur",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "mettre l'accent sur, souligner"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "老师着重讲了这个问题。",
+     "pinyin": "Lǎoshī zhuózhòng jiǎng le zhège wèntí.",
+     "fr": "Le professeur a insisté sur ce point.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "姿",
+   "genre": "caractere",
+   "hanzi": "姿",
+   "pinyin": "zī",
+   "sens": {
+    "glose": "allure, attitude",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "allure, attitude, maintien"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": []
+  },
+  {
+   "id": "L7-5540",
+   "genre": "mot",
+   "hanzi": "姿势",
+   "pinyin": "zīshì",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "posture, position",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "posture, position, pose"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "你坐的姿势不对。",
+     "pinyin": "Nǐ zuò de zīshì bù duì.",
+     "fr": "Tu te tiens mal sur ta chaise.",
+     "statut": "a_relire"
+    }
+   ]
+  }
+ ]
+}

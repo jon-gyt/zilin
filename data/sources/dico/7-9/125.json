@@ -1,0 +1,1356 @@
+{
+ "niveau": "7-9",
+ "lot": "125",
+ "source": "rédigé pour l'app dans le pipeline wenlu, sans API ; faits lus : liste HSK 3.0 (forme, pinyin, niveau, catégorie), lectures d'Unihan et des surcharges, gloses relues des fiches",
+ "brouillon": "data/sources/dico-brouillons/7-9/125.json",
+ "generation": {
+  "modele": "rédaction manuelle",
+  "api": "session Claude Code (sans API)",
+  "date": "2026-09-30",
+  "empreinte_invite": "sha256:864e0ab71f00993517f13a2f9c5c745feea4eb0035e0fd9cf6261ae0f97f8e3c",
+  "contexte": "wenlu dico contexte 7-9 125",
+  "essais": 1,
+  "refus": []
+ },
+ "entrees": [
+  {
+   "id": "L7-5541",
+   "genre": "mot",
+   "hanzi": "姿态",
+   "pinyin": "zītài",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "posture, allure ; attitude",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "posture, allure"
+     },
+     {
+      "categorie": "N",
+      "fr": "attitude, position adoptée"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "她跳舞的姿态很美。",
+     "pinyin": "Tā tiàowǔ de zītài hěn měi.",
+     "fr": "Elle a beaucoup de grâce quand elle danse.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "兹",
+   "genre": "caractere",
+   "hanzi": "兹",
+   "pinyin": "zī",
+   "mots": [
+    "L7-5542"
+   ],
+   "sens": {
+    "glose": "ceci ; par la présente",
+    "acceptions": [
+     {
+      "categorie": "Pron",
+      "fr": "ceci ; par la présente (style administratif)"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "兹定于明天上午开会。",
+     "pinyin": "Zī dìng yú míngtiān shàngwǔ kāihuì.",
+     "fr": "La réunion est fixée à demain matin.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-5543",
+   "genre": "mot",
+   "hanzi": "资本主义",
+   "pinyin": "zīběn zhǔyì",
+   "sens": {
+    "glose": "capitalisme",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "capitalisme"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这本书讲的是资本主义的历史。",
+     "pinyin": "Zhè běn shū jiǎng de shì zīběn zhǔyì de lìshǐ.",
+     "fr": "Ce livre retrace l'histoire du capitalisme.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-5544",
+   "genre": "mot",
+   "hanzi": "资历",
+   "pinyin": "zīlì",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "ancienneté, expérience",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "ancienneté, expérience, parcours"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他的资历很深。",
+     "pinyin": "Tā de zīlì hěn shēn.",
+     "fr": "Il a une longue carrière derrière lui.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-5545",
+   "genre": "mot",
+   "hanzi": "资深",
+   "pinyin": "zīshēn",
+   "categories": [
+    "Adj"
+   ],
+   "sens": {
+    "glose": "chevronné, expérimenté",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "chevronné, expérimenté, senior"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他是一位资深记者。",
+     "pinyin": "Tā shì yī wèi zīshēn jìzhě.",
+     "fr": "C'est un journaliste de longue date.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-5546",
+   "genre": "mot",
+   "hanzi": "资讯",
+   "pinyin": "zīxùn",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "informations, actualités",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "informations, actualités, données"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "我每天在网上看新闻资讯。",
+     "pinyin": "Wǒ měitiān zài wǎng shang kàn xīnwén zīxùn.",
+     "fr": "Je suis l'actualité en ligne tous les jours.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-5547",
+   "genre": "mot",
+   "hanzi": "滋润",
+   "pinyin": "zīrùn",
+   "categories": [
+    "Adj",
+    "V"
+   ],
+   "sens": {
+    "glose": "hydrater, nourrir ; humide",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "humidifier, hydrater, nourrir"
+     },
+     {
+      "categorie": "Adj",
+      "fr": "humide, moelleux ; confortable (vie)"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "春雨滋润着大地。",
+     "pinyin": "Chūnyǔ zīrùn zhe dàdì.",
+     "fr": "La pluie de printemps abreuve la terre.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-5548",
+   "genre": "mot",
+   "hanzi": "滋味",
+   "pinyin": "zīwèi",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "saveur ; sentiment",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "saveur, goût"
+     },
+     {
+      "categorie": "N",
+      "fr": "sentiment, impression (souvent amère)"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这道菜的滋味很好。",
+     "pinyin": "Zhè dào cài de zīwèi hěn hǎo.",
+     "fr": "Ce plat a très bon goût.",
+     "statut": "a_relire"
+    },
+    {
+     "zh": "听了这话，他心里很不是滋味。",
+     "pinyin": "Tīng le zhè huà, tā xīnli hěn bù shì zīwèi.",
+     "fr": "Ces mots lui ont laissé un goût amer.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-5549",
+   "genre": "mot",
+   "hanzi": "子弟",
+   "pinyin": "zǐdì",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "jeunes, fils (d'un milieu)",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "jeunes, fils, enfants (d'une famille, d'un milieu)"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他是农民子弟。",
+     "pinyin": "Tā shì nóngmín zǐdì.",
+     "fr": "Il est fils de paysans.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-5550",
+   "genre": "mot",
+   "hanzi": "子孙",
+   "pinyin": "zǐsūn",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "descendants, postérité",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "descendants, postérité"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "我们要为子孙后代着想。",
+     "pinyin": "Wǒmen yào wèi zǐsūn hòudài zhuóxiǎng.",
+     "fr": "Pensons aux générations futures.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-5551",
+   "genre": "mot",
+   "hanzi": "自卑",
+   "pinyin": "zìbēi",
+   "categories": [
+    "Adj"
+   ],
+   "sens": {
+    "glose": "complexé, qui manque d'assurance",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "complexé, qui manque d'assurance"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他因为个子矮而很自卑。",
+     "pinyin": "Tā yīnwèi gèzi ǎi ér hěn zìbēi.",
+     "fr": "Il souffre d'être petit.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-5552",
+   "genre": "mot",
+   "hanzi": "自称",
+   "pinyin": "zìchēng",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "se dire, se prétendre",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "se dire, se prétendre, se présenter comme"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他自称是医生。",
+     "pinyin": "Tā zìchēng shì yīshēng.",
+     "fr": "Il se fait passer pour médecin.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-5553",
+   "genre": "mot",
+   "hanzi": "自发",
+   "pinyin": "zìfā",
+   "categories": [
+    "Adj"
+   ],
+   "sens": {
+    "glose": "spontané",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "spontané, de sa propre initiative"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这是群众自发组织的活动。",
+     "pinyin": "Zhè shì qúnzhòng zìfā zǔzhī de huódòng.",
+     "fr": "Cette manifestation a été organisée par les habitants eux-mêmes.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-5554",
+   "genre": "mot",
+   "hanzi": "自费",
+   "pinyin": "zìfèi",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "à ses propres frais",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "payer soi-même, à ses propres frais"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他自费去国外留学。",
+     "pinyin": "Tā zìfèi qù guówài liúxué.",
+     "fr": "Il fait ses études à l'étranger en payant tout lui-même.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-5555",
+   "genre": "mot",
+   "hanzi": "自负",
+   "pinyin": "zìfù",
+   "categories": [
+    "Adj",
+    "V"
+   ],
+   "sens": {
+    "glose": "prétentieux ; assumer soi-même",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "prétentieux, suffisant"
+     },
+     {
+      "categorie": "V",
+      "fr": "assumer soi-même (responsabilité, pertes)"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他太自负了。",
+     "pinyin": "Tā tài zìfù le.",
+     "fr": "Il est trop sûr de lui.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-5556",
+   "genre": "mot",
+   "hanzi": "自理",
+   "pinyin": "zìlǐ",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "se prendre en charge ; à sa charge",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "se prendre en charge, se débrouiller seul"
+     },
+     {
+      "categorie": "V",
+      "fr": "être à sa charge, payer soi-même"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "爷爷生活已经不能自理了。",
+     "pinyin": "Yéye shēnghuó yǐjīng bù néng zìlǐ le.",
+     "fr": "Grand-père n'est plus autonome au quotidien.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-5557",
+   "genre": "mot",
+   "hanzi": "自力更生",
+   "pinyin": "zìlì-gēngshēng",
+   "sens": {
+    "glose": "compter sur ses propres forces",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "compter sur ses propres forces, être autosuffisant"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "我们要自力更生。",
+     "pinyin": "Wǒmen yào zìlì-gēngshēng.",
+     "fr": "Nous devons nous en sortir par nous-mêmes.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-5558",
+   "genre": "mot",
+   "hanzi": "自立",
+   "pinyin": "zìlì",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "être autonome, voler de ses ailes",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "être autonome, voler de ses propres ailes"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "孩子长大了，要学会自立。",
+     "pinyin": "Háizi zhǎngdà le, yào xuéhuì zìlì.",
+     "fr": "En grandissant, un enfant doit apprendre à se débrouiller.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-5559",
+   "genre": "mot",
+   "hanzi": "自强不息",
+   "pinyin": "zìqiáng-bùxī",
+   "sens": {
+    "glose": "s'efforcer sans relâche",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "s'efforcer sans relâche de s'améliorer"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他自强不息，终于成功了。",
+     "pinyin": "Tā zìqiáng-bùxī, zhōngyú chénggōng le.",
+     "fr": "À force de persévérance, il a fini par réussir.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-5560",
+   "genre": "mot",
+   "hanzi": "自然而然",
+   "pinyin": "zìrán'érrán",
+   "sens": {
+    "glose": "naturellement, tout naturellement",
+    "acceptions": [
+     {
+      "categorie": "Adv",
+      "fr": "naturellement, tout naturellement, de soi-même"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "时间长了，自然而然就习惯了。",
+     "pinyin": "Shíjiān cháng le, zìrán'érrán jiù xíguàn le.",
+     "fr": "Avec le temps, on s'y fait sans effort.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-5561",
+   "genre": "mot",
+   "hanzi": "自然界",
+   "pinyin": "zìránjiè",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "la nature, le monde naturel",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "la nature, le monde naturel"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "自然界有很多奇妙的现象。",
+     "pinyin": "Zìránjiè yǒu hěn duō qímiào de xiànxiàng.",
+     "fr": "La nature regorge de phénomènes étonnants.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-5562",
+   "genre": "mot",
+   "hanzi": "自如",
+   "pinyin": "zìrú",
+   "categories": [
+    "Adj"
+   ],
+   "sens": {
+    "glose": "avec aisance, à l'aise",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "aisé, à l'aise, avec aisance"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他能自如地用汉语交流。",
+     "pinyin": "Tā néng zìrú de yòng Hànyǔ jiāoliú.",
+     "fr": "Il parle chinois avec facilité.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-5563",
+   "genre": "mot",
+   "hanzi": "自始至终",
+   "pinyin": "zìshǐ-zhìzhōng",
+   "sens": {
+    "glose": "du début à la fin",
+    "acceptions": [
+     {
+      "categorie": "Adv",
+      "fr": "du début à la fin, d'un bout à l'autre"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他自始至终都没说话。",
+     "pinyin": "Tā zìshǐ-zhìzhōng dōu méi shuōhuà.",
+     "fr": "Il n'a pas dit un mot de toute la séance.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-5564",
+   "genre": "mot",
+   "hanzi": "自私",
+   "pinyin": "zìsī",
+   "categories": [
+    "Adj"
+   ],
+   "sens": {
+    "glose": "égoïste",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "égoïste"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "你太自私了。",
+     "pinyin": "Nǐ tài zìsī le.",
+     "fr": "Tu ne penses qu'à toi.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-5565",
+   "genre": "mot",
+   "hanzi": "自私自利",
+   "pinyin": "zìsī-zìlì",
+   "sens": {
+    "glose": "égoïste, intéressé",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "égoïste, qui ne pense qu'à son intérêt"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他是个自私自利的人。",
+     "pinyin": "Tā shì ge zìsī-zìlì de rén.",
+     "fr": "C'est quelqu'un qui ne pense qu'à lui.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-5566",
+   "genre": "mot",
+   "hanzi": "自卫",
+   "pinyin": "zìwèi",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "se défendre, légitime défense",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "se défendre, être en légitime défense"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他是为了自卫才动手的。",
+     "pinyin": "Tā shì wèile zìwèi cái dòngshǒu de.",
+     "fr": "Il n'a frappé que pour se protéger.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-5567",
+   "genre": "mot",
+   "hanzi": "自相矛盾",
+   "pinyin": "zìxiāng-máodùn",
+   "sens": {
+    "glose": "se contredire",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "se contredire, être contradictoire"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他说的话自相矛盾。",
+     "pinyin": "Tā shuō de huà zìxiāng-máodùn.",
+     "fr": "Ses propos sont incohérents.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-5568",
+   "genre": "mot",
+   "hanzi": "自信心",
+   "pinyin": "zìxìnxīn",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "confiance en soi",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "confiance en soi, assurance"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这次成功增强了他的自信心。",
+     "pinyin": "Zhè cì chénggōng zēngqiáng le tā de zìxìnxīn.",
+     "fr": "Ce succès lui a donné de l'assurance.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-5569",
+   "genre": "mot",
+   "hanzi": "自行",
+   "pinyin": "zìxíng",
+   "categories": [
+    "Adv"
+   ],
+   "sens": {
+    "glose": "par soi-même, de soi-même",
+    "acceptions": [
+     {
+      "categorie": "Adv",
+      "fr": "par soi-même, de soi-même"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "请大家自行解决午饭。",
+     "pinyin": "Qǐng dàjiā zìxíng jiějué wǔfàn.",
+     "fr": "Le déjeuner est libre, chacun s'organise.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-5570",
+   "genre": "mot",
+   "hanzi": "自以为是",
+   "pinyin": "zìyǐwéishì",
+   "sens": {
+    "glose": "suffisant, sûr d'avoir raison",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "suffisant, toujours sûr d'avoir raison"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他总是自以为是，不听别人的意见。",
+     "pinyin": "Tā zǒngshì zìyǐwéishì, bù tīng biérén de yìjiàn.",
+     "fr": "Il croit toujours tout savoir et n'écoute personne.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-5571",
+   "genre": "mot",
+   "hanzi": "自由自在",
+   "pinyin": "zìyóu-zìzài",
+   "sens": {
+    "glose": "libre et insouciant",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "libre et insouciant, sans contrainte"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "鸟儿在天上自由自在地飞。",
+     "pinyin": "Niǎor zài tiān shang zìyóu-zìzài de fēi.",
+     "fr": "Les oiseaux volent en toute liberté dans le ciel.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-5572",
+   "genre": "mot",
+   "hanzi": "自责",
+   "pinyin": "zìzé",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "se reprocher, s'en vouloir",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "se reprocher, s'en vouloir"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这不是你的错，不要自责。",
+     "pinyin": "Zhè bù shì nǐ de cuò, bùyào zìzé.",
+     "fr": "Tu n'y es pour rien, ne culpabilise pas.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-5573",
+   "genre": "mot",
+   "hanzi": "自助",
+   "pinyin": "zìzhù",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "se servir soi-même ; libre-service",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "se servir soi-même ; libre-service, buffet"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这家餐厅是自助的。",
+     "pinyin": "Zhè jiā cāntīng shì zìzhù de.",
+     "fr": "Ce restaurant est un buffet.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-5574",
+   "genre": "mot",
+   "hanzi": "自尊",
+   "pinyin": "zìzūn",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "respect de soi, amour-propre",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "se respecter, avoir de l'amour-propre"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "你这样说伤了他的自尊。",
+     "pinyin": "Nǐ zhèyàng shuō shāng le tā de zìzūn.",
+     "fr": "En parlant ainsi, tu l'as blessé dans sa fierté.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-5575",
+   "genre": "mot",
+   "hanzi": "自尊心",
+   "pinyin": "zìzūnxīn",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "amour-propre, fierté",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "amour-propre, fierté"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他的自尊心很强。",
+     "pinyin": "Tā de zìzūnxīn hěn qiáng.",
+     "fr": "Il est très susceptible.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-5576",
+   "genre": "mot",
+   "hanzi": "字迹",
+   "pinyin": "zìjì",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "écriture (manuscrite)",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "écriture (manuscrite), traces écrites"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他的字迹很清楚。",
+     "pinyin": "Tā de zìjì hěn qīngchu.",
+     "fr": "Il écrit très lisiblement.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-5577",
+   "genre": "mot",
+   "hanzi": "字幕",
+   "pinyin": "zìmù",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "sous-titres",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "sous-titres, légendes à l'écran"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这部电影有中文字幕。",
+     "pinyin": "Zhè bù diànyǐng yǒu Zhōngwén zìmù.",
+     "fr": "Ce film est sous-titré en chinois.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-5578",
+   "genre": "mot",
+   "hanzi": "字体",
+   "pinyin": "zìtǐ",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "police de caractères, style",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "police de caractères, style d'écriture"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这种字体很好看。",
+     "pinyin": "Zhè zhǒng zìtǐ hěn hǎokàn.",
+     "fr": "Cette police est très jolie.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-5579",
+   "genre": "mot",
+   "hanzi": "字眼",
+   "pinyin": "zìyǎn",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "mot, terme employé",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "mot, terme employé, expression"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他用了一个很难听的字眼。",
+     "pinyin": "Tā yòng le yī ge hěn nántīng de zìyǎn.",
+     "fr": "Il a employé un terme très grossier.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-5581",
+   "genre": "mot",
+   "hanzi": "宗旨",
+   "pinyin": "zōngzhǐ",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "objectif, raison d'être",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "objectif, raison d'être, principe directeur"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "我们公司的宗旨是客户第一。",
+     "pinyin": "Wǒmen gōngsī de zōngzhǐ shì kèhù dì-yī.",
+     "fr": "Notre entreprise place le client avant tout.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-5582",
+   "genre": "mot",
+   "hanzi": "综上所述",
+   "pinyin": "zōngshàng-suǒshù",
+   "sens": {
+    "glose": "en résumé, pour conclure",
+    "acceptions": [
+     {
+      "categorie": "Conj",
+      "fr": "en résumé, pour conclure"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "综上所述，这个计划是可行的。",
+     "pinyin": "Zōngshàng-suǒshù, zhège jìhuà shì kěxíng de.",
+     "fr": "Tout bien considéré, ce projet est réalisable.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-5583",
+   "genre": "mot",
+   "hanzi": "总的来说",
+   "pinyin": "zǒngde lái shuō",
+   "sens": {
+    "glose": "dans l'ensemble, en gros",
+    "acceptions": [
+     {
+      "categorie": "Conj",
+      "fr": "dans l'ensemble, en gros, globalement"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "总的来说，这次旅行很愉快。",
+     "pinyin": "Zǒngde lái shuō, zhè cì lǚxíng hěn yúkuài.",
+     "fr": "Globalement, ce voyage a été très agréable.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-5584",
+   "genre": "mot",
+   "hanzi": "总额",
+   "pinyin": "zǒng'é",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "montant total",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "montant total, somme globale"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "今年的销售总额超过了一亿元。",
+     "pinyin": "Jīnnián de xiāoshòu zǒng'é chāoguò le yī yì yuán.",
+     "fr": "Cette année, les ventes ont dépassé cent millions de yuans.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-5585",
+   "genre": "mot",
+   "hanzi": "总而言之",
+   "pinyin": "zǒng'éryánzhī",
+   "sens": {
+    "glose": "bref, en un mot",
+    "acceptions": [
+     {
+      "categorie": "Conj",
+      "fr": "bref, en un mot, en somme"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "总而言之，我们必须努力。",
+     "pinyin": "Zǒng'éryánzhī, wǒmen bìxū nǔlì.",
+     "fr": "Pour faire court : il faut travailler dur.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-5586",
+   "genre": "mot",
+   "hanzi": "总计",
+   "pinyin": "zǒngjì",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "totaliser, s'élever au total à",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "totaliser, s'élever au total à"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这次活动总计花了五万元。",
+     "pinyin": "Zhè cì huódòng zǒngjì huā le wǔwàn yuán.",
+     "fr": "Cet événement a coûté cinquante mille yuans en tout.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-5587",
+   "genre": "mot",
+   "hanzi": "纵观",
+   "pinyin": "zòngguān",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "embrasser du regard, passer en revue",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "embrasser du regard, passer en revue"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "纵观历史，我们可以发现很多规律。",
+     "pinyin": "Zòngguān lìshǐ, wǒmen kěyǐ fāxiàn hěn duō guīlǜ.",
+     "fr": "En parcourant l'histoire, on découvre bien des constantes.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-5588",
+   "genre": "mot",
+   "hanzi": "纵横交错",
+   "pinyin": "zònghéng-jiāocuò",
+   "sens": {
+    "glose": "entrecroisé, en réseau serré",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "entrecroisé, en réseau serré"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "城市里的道路纵横交错。",
+     "pinyin": "Chéngshì li de dàolù zònghéng-jiāocuò.",
+     "fr": "Les rues de la ville s'entrecroisent en tous sens.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-5589",
+   "genre": "mot",
+   "hanzi": "纵然",
+   "pinyin": "zòngrán",
+   "categories": [
+    "Conj"
+   ],
+   "sens": {
+    "glose": "même si, quand bien même",
+    "acceptions": [
+     {
+      "categorie": "Conj",
+      "fr": "même si, quand bien même"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "纵然有困难，我们也不会放弃。",
+     "pinyin": "Zòngrán yǒu kùnnan, wǒmen yě bù huì fàngqì.",
+     "fr": "Malgré les obstacles, nous ne renoncerons pas.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-5590",
+   "genre": "mot",
+   "hanzi": "纵容",
+   "pinyin": "zòngróng",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "se montrer complaisant envers",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "se montrer complaisant envers, laisser faire"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "父母不能纵容孩子的坏习惯。",
+     "pinyin": "Fùmǔ bù néng zòngróng háizi de huài xíguàn.",
+     "fr": "Les parents ne doivent pas fermer les yeux sur les mauvaises habitudes de leurs enfants.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-5591",
+   "genre": "mot",
+   "hanzi": "纵深",
+   "pinyin": "zòngshēn",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "profondeur",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "profondeur (d'un territoire, d'une réforme)"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "改革正在向纵深发展。",
+     "pinyin": "Gǎigé zhèngzài xiàng zòngshēn fāzhǎn.",
+     "fr": "La réforme entre dans une phase plus poussée.",
+     "statut": "a_relire"
+    }
+   ]
+  }
+ ]
+}

@@ -1,0 +1,1270 @@
+{
+ "niveau": "7-9",
+ "lot": "126",
+ "source": "rédigé pour l'app dans le pipeline wenlu, sans API ; faits lus : liste HSK 3.0 (forme, pinyin, niveau, catégorie), lectures d'Unihan et des surcharges, gloses relues des fiches",
+ "brouillon": "data/sources/dico-brouillons/7-9/126.json",
+ "generation": {
+  "modele": "rédaction manuelle",
+  "api": "session Claude Code (sans API)",
+  "date": "2026-09-30",
+  "empreinte_invite": "sha256:82956186568847f3db0c25744579220a076e52388c68ba3e3c871b5943b1c3ba",
+  "contexte": "wenlu dico contexte 7-9 126",
+  "essais": 1,
+  "refus": []
+ },
+ "entrees": [
+  {
+   "id": "粽",
+   "genre": "caractere",
+   "hanzi": "粽",
+   "pinyin": "zòng",
+   "sens": {
+    "glose": "zongzi (riz gluant en feuilles)",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "zongzi, riz gluant enveloppé de feuilles"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": []
+  },
+  {
+   "id": "L7-5592",
+   "genre": "mot",
+   "hanzi": "粽子",
+   "pinyin": "zòngzi",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "zongzi (riz gluant en feuilles)",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "zongzi, pyramide de riz gluant enveloppée de feuilles"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "端午节要吃粽子。",
+     "pinyin": "Duānwǔ Jié yào chī zòngzi.",
+     "fr": "À la fête du Double Cinq, on mange des gâteaux de riz.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-5593",
+   "genre": "mot",
+   "hanzi": "走过场",
+   "pinyin": "zǒu guòchǎng",
+   "sens": {
+    "glose": "faire pour la forme",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "faire pour la forme, bâcler"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这次检查只是走过场。",
+     "pinyin": "Zhè cì jiǎnchá zhǐshì zǒu guòchǎng.",
+     "fr": "Cette inspection n'était qu'une formalité.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-5594",
+   "genre": "mot",
+   "hanzi": "走后门",
+   "pinyin": "zǒu hòumén",
+   "sens": {
+    "glose": "passer par la petite porte, piston",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "passer par la petite porte, user de relations"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他是靠走后门进的公司。",
+     "pinyin": "Tā shì kào zǒu hòumén jìn de gōngsī.",
+     "fr": "Il est entré dans l'entreprise grâce au piston.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-5595",
+   "genre": "mot",
+   "hanzi": "走近",
+   "pinyin": "zǒujìn",
+   "sens": {
+    "glose": "s'approcher de",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "s'approcher de, aller vers"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他走近我，小声说了一句话。",
+     "pinyin": "Tā zǒujìn wǒ, xiǎoshēng shuō le yī jù huà.",
+     "fr": "Il est venu près de moi et m'a glissé quelques mots.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "廊",
+   "genre": "caractere",
+   "hanzi": "廊",
+   "pinyin": "láng",
+   "sens": {
+    "glose": "galerie, véranda",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "galerie, véranda, couloir"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": []
+  },
+  {
+   "id": "L7-5596",
+   "genre": "mot",
+   "hanzi": "走廊",
+   "pinyin": "zǒuláng",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "couloir, corridor",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "couloir, corridor, galerie"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "请不要在走廊里跑。",
+     "pinyin": "Qǐng bùyào zài zǒuláng li pǎo.",
+     "fr": "Merci de ne pas courir dans les couloirs.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-5597",
+   "genre": "mot",
+   "hanzi": "走投无路",
+   "pinyin": "zǒutóu-wúlù",
+   "sens": {
+    "glose": "être acculé, sans issue",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "être acculé, n'avoir plus d'issue"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他已经走投无路了。",
+     "pinyin": "Tā yǐjīng zǒutóu-wúlù le.",
+     "fr": "Il est au pied du mur.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-5598",
+   "genre": "mot",
+   "hanzi": "走弯路",
+   "pinyin": "zǒu wānlù",
+   "sens": {
+    "glose": "faire un détour ; tâtonner",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "faire un détour ; perdre du temps en tâtonnant"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "听老人的话可以少走弯路。",
+     "pinyin": "Tīng lǎorén de huà kěyǐ shǎo zǒu wānlù.",
+     "fr": "Écouter les anciens évite bien des erreurs.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-5599",
+   "genre": "mot",
+   "hanzi": "奏效",
+   "pinyin": "zòuxiào",
+   "sens": {
+    "glose": "être efficace, porter ses fruits",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "être efficace, porter ses fruits"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这个办法很快就奏效了。",
+     "pinyin": "Zhège bànfǎ hěn kuài jiù zòuxiào le.",
+     "fr": "La méthode a vite donné des résultats.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "揍",
+   "genre": "caractere",
+   "hanzi": "揍",
+   "pinyin": "zòu",
+   "mots": [
+    "L7-5600"
+   ],
+   "sens": {
+    "glose": "frapper, rosser",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "frapper, rosser, casser la figure (familier)"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他被人揍了一顿。",
+     "pinyin": "Tā bèi rén zòu le yī dùn.",
+     "fr": "Il s'est fait tabasser.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "赁",
+   "genre": "caractere",
+   "hanzi": "赁",
+   "pinyin": "lìn",
+   "sens": {
+    "glose": "louer",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "louer, prendre en location"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": []
+  },
+  {
+   "id": "L7-5601",
+   "genre": "mot",
+   "hanzi": "租赁",
+   "pinyin": "zūlìn",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "louer, location",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "louer, donner ou prendre en location"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这家公司提供汽车租赁服务。",
+     "pinyin": "Zhè jiā gōngsī tígōng qìchē zūlìn fúwù.",
+     "fr": "Cette entreprise loue des voitures.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-5602",
+   "genre": "mot",
+   "hanzi": "足迹",
+   "pinyin": "zújì",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "empreintes de pas, traces",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "empreintes de pas, traces, passage"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他的足迹遍布世界各地。",
+     "pinyin": "Tā de zújì biànbù shìjiè gèdì.",
+     "fr": "Il a voyagé aux quatre coins du monde.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-5603",
+   "genre": "mot",
+   "hanzi": "足智多谋",
+   "pinyin": "zúzhì-duōmóu",
+   "sens": {
+    "glose": "plein de ressources, ingénieux",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "plein de ressources, ingénieux et avisé"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他是个足智多谋的人。",
+     "pinyin": "Tā shì ge zúzhì-duōmóu de rén.",
+     "fr": "Il a toujours une idée pour s'en sortir.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-5604",
+   "genre": "mot",
+   "hanzi": "阻挡",
+   "pinyin": "zǔdǎng",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "barrer, arrêter",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "barrer, arrêter, faire obstacle à"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "什么也阻挡不了我们前进。",
+     "pinyin": "Shénme yě zǔdǎng bu liǎo wǒmen qiánjìn.",
+     "fr": "Rien ne peut nous empêcher d'avancer.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-5605",
+   "genre": "mot",
+   "hanzi": "阻拦",
+   "pinyin": "zǔlán",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "retenir, empêcher",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "retenir, empêcher, arrêter (quelqu'un)"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他要走，谁也阻拦不了。",
+     "pinyin": "Tā yào zǒu, shéi yě zǔlán bu liǎo.",
+     "fr": "S'il veut partir, personne ne pourra le retenir.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-5606",
+   "genre": "mot",
+   "hanzi": "阻力",
+   "pinyin": "zǔlì",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "résistance, obstacle",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "résistance, obstacle, frein"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "改革遇到了很大的阻力。",
+     "pinyin": "Gǎigé yùdào le hěn dà de zǔlì.",
+     "fr": "La réforme se heurte à une forte opposition.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-5607",
+   "genre": "mot",
+   "hanzi": "阻挠",
+   "pinyin": "zǔnáo",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "entraver, faire obstruction",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "entraver, faire obstruction à"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他们千方百计地阻挠这个计划。",
+     "pinyin": "Tāmen qiānfāng-bǎijì de zǔnáo zhège jìhuà.",
+     "fr": "Ils font tout pour bloquer ce projet.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-5608",
+   "genre": "mot",
+   "hanzi": "组建",
+   "pinyin": "zǔjiàn",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "constituer, former",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "constituer, former, mettre sur pied"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "学校组建了一支足球队。",
+     "pinyin": "Xuéxiào zǔjiàn le yī zhī zúqiúduì.",
+     "fr": "L'école a monté une équipe de foot.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-5609",
+   "genre": "mot",
+   "hanzi": "组装",
+   "pinyin": "zǔzhuāng",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "assembler, monter",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "assembler, monter (des pièces)"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他自己组装了一台电脑。",
+     "pinyin": "Tā zìjǐ zǔzhuāng le yī tái diànnǎo.",
+     "fr": "Il a monté son ordinateur lui-même.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-5610",
+   "genre": "mot",
+   "hanzi": "祖传",
+   "pinyin": "zǔchuán",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "transmis par les ancêtres",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "être transmis par les ancêtres, hérité"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这是他家祖传的秘方。",
+     "pinyin": "Zhè shì tā jiā zǔchuán de mìfāng.",
+     "fr": "C'est une recette secrète de famille.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-5611",
+   "genre": "mot",
+   "hanzi": "祖籍",
+   "pinyin": "zǔjí",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "terre d'origine des ancêtres",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "terre d'origine des ancêtres, lieu d'origine familial"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他的祖籍是广东。",
+     "pinyin": "Tā de zǔjí shì Guǎngdōng.",
+     "fr": "Sa famille est originaire du Guangdong.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-5612",
+   "genre": "mot",
+   "hanzi": "祖先",
+   "pinyin": "zǔxiān",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "ancêtres, aïeux",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "ancêtres, aïeux"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "我们的祖先很早就住在这里。",
+     "pinyin": "Wǒmen de zǔxiān hěn zǎo jiù zhù zài zhèli.",
+     "fr": "Nos aïeux vivaient ici depuis longtemps.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-5613",
+   "genre": "mot",
+   "hanzi": "祖宗",
+   "pinyin": "zǔzong",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "ancêtres, aïeux",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "ancêtres, aïeux (d'une famille)"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这是祖宗留下来的规矩。",
+     "pinyin": "Zhè shì zǔzong liú xialai de guīju.",
+     "fr": "C'est une règle que nous ont laissée nos aïeux.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-5614",
+   "genre": "mot",
+   "hanzi": "钻空子",
+   "pinyin": "zuān kòngzi",
+   "sens": {
+    "glose": "profiter d'une faille",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "profiter d'une faille, exploiter une lacune"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他总想钻空子。",
+     "pinyin": "Tā zǒng xiǎng zuān kòngzi.",
+     "fr": "Il cherche toujours la faille.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-5615",
+   "genre": "mot",
+   "hanzi": "钻研",
+   "pinyin": "zuānyán",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "étudier à fond, approfondir",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "étudier à fond, approfondir, se plonger dans"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他一直在钻研这个问题。",
+     "pinyin": "Tā yīzhí zài zuānyán zhège wèntí.",
+     "fr": "Il creuse cette question depuis longtemps.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-5616",
+   "genre": "mot",
+   "hanzi": "钻石",
+   "pinyin": "zuànshí",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "diamant",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "diamant"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这颗钻石非常贵。",
+     "pinyin": "Zhè kē zuànshí fēicháng guì.",
+     "fr": "Cette pierre vaut une fortune.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "唇",
+   "genre": "caractere",
+   "hanzi": "唇",
+   "pinyin": "chún",
+   "sens": {
+    "glose": "lèvre",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "lèvre"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": []
+  },
+  {
+   "id": "L7-5617",
+   "genre": "mot",
+   "hanzi": "嘴唇",
+   "pinyin": "zuǐchún",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "lèvres",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "lèvres"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "天太冷，他的嘴唇都冻紫了。",
+     "pinyin": "Tiān tài lěng, tā de zuǐchún dōu dòng zǐ le.",
+     "fr": "Il fait si froid qu'il a la bouche violette.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-5618",
+   "genre": "mot",
+   "hanzi": "罪犯",
+   "pinyin": "zuìfàn",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "criminel, délinquant",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "criminel, délinquant, coupable"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "警察抓住了罪犯。",
+     "pinyin": "Jǐngchá zhuāzhù le zuìfàn.",
+     "fr": "La police a arrêté le coupable.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-5619",
+   "genre": "mot",
+   "hanzi": "罪魁祸首",
+   "pinyin": "zuìkuí-huòshǒu",
+   "sens": {
+    "glose": "principal coupable, cause première",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "principal coupable, cause première"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "吸烟是很多疾病的罪魁祸首。",
+     "pinyin": "Xīyān shì hěn duō jíbìng de zuìkuí-huòshǒu.",
+     "fr": "Le tabac est la première cause de nombreuses maladies.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-5620",
+   "genre": "mot",
+   "hanzi": "尊贵",
+   "pinyin": "zūnguì",
+   "categories": [
+    "Adj"
+   ],
+   "sens": {
+    "glose": "noble, honorable",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "noble, honorable, distingué"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "欢迎各位尊贵的客人。",
+     "pinyin": "Huānyíng gèwèi zūnguì de kèrén.",
+     "fr": "Bienvenue à nos invités de marque.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-5621",
+   "genre": "mot",
+   "hanzi": "尊严",
+   "pinyin": "zūnyán",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "dignité",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "dignité, honneur"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "每个人都有自己的尊严。",
+     "pinyin": "Měi ge rén dōu yǒu zìjǐ de zūnyán.",
+     "fr": "Tout être humain mérite le respect.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-5622",
+   "genre": "mot",
+   "hanzi": "遵循",
+   "pinyin": "zūnxún",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "suivre, se conformer à",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "suivre, se conformer à, respecter"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "我们要遵循自然规律。",
+     "pinyin": "Wǒmen yào zūnxún zìrán guīlǜ.",
+     "fr": "Il faut respecter les lois de la nature.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-5623",
+   "genre": "mot",
+   "hanzi": "遵照",
+   "pinyin": "zūnzhào",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "se conformer à, suivre",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "se conformer à, suivre (des instructions)"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "请遵照医生的嘱咐吃药。",
+     "pinyin": "Qǐng zūnzhào yīshēng de zhǔfu chī yào.",
+     "fr": "Prenez vos médicaments selon les consignes du médecin.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "琢",
+   "genre": "caractere",
+   "hanzi": "琢",
+   "pinyin": "zuó",
+   "sens": {
+    "glose": "ciseler (le jade) ; réfléchir",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "ciseler, polir (le jade)",
+      "pinyin": "zhuó"
+     },
+     {
+      "categorie": "V",
+      "fr": "réfléchir, ruminer (dans zuómo)"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": []
+  },
+  {
+   "id": "L7-5624",
+   "genre": "mot",
+   "hanzi": "琢磨",
+   "pinyin": "zuómo",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "réfléchir, ruminer",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "réfléchir, ruminer, retourner dans sa tête"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "我琢磨了半天也没想明白。",
+     "pinyin": "Wǒ zuómo le bàntiān yě méi xiǎng míngbai.",
+     "fr": "J'ai eu beau y penser, je n'ai pas compris.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-5625",
+   "genre": "mot",
+   "hanzi": "左顾右盼",
+   "pinyin": "zuǒgù-yòupàn",
+   "sens": {
+    "glose": "regarder de tous côtés",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "regarder de tous côtés, jeter des regards à droite et à gauche"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他站在门口左顾右盼。",
+     "pinyin": "Tā zhàn zài ménkǒu zuǒgù-yòupàn.",
+     "fr": "Debout à la porte, il regarde partout autour de lui.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "佐",
+   "genre": "caractere",
+   "hanzi": "佐",
+   "pinyin": "zuǒ",
+   "sens": {
+    "glose": "assister, seconder",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "assister, seconder"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": []
+  },
+  {
+   "id": "L7-5626",
+   "genre": "mot",
+   "hanzi": "佐料",
+   "pinyin": "zuǒliào",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "condiments, assaisonnement",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "condiments, assaisonnement"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "做这道菜需要很多佐料。",
+     "pinyin": "Zuò zhè dào cài xūyào hěn duō zuǒliào.",
+     "fr": "Ce plat demande beaucoup d'épices et de sauces.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-5627",
+   "genre": "mot",
+   "hanzi": "作弊",
+   "pinyin": "zuòbì",
+   "sens": {
+    "glose": "tricher (examen)",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "tricher (à un examen), frauder"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "考试作弊是不对的。",
+     "pinyin": "Kǎoshì zuòbì shì bù duì de.",
+     "fr": "Frauder à un examen, c'est mal.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-5628",
+   "genre": "mot",
+   "hanzi": "作对",
+   "pinyin": "zuòduì",
+   "sens": {
+    "glose": "s'opposer à, contrarier",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "s'opposer à, contrarier, faire obstacle à"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "你为什么总跟我作对？",
+     "pinyin": "Nǐ wèishénme zǒng gēn wǒ zuòduì?",
+     "fr": "Pourquoi tu me mets toujours des bâtons dans les roues ?",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-5629",
+   "genre": "mot",
+   "hanzi": "作风",
+   "pinyin": "zuòfēng",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "style, manière d'agir",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "style, manière d'agir, conduite"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他的工作作风很踏实。",
+     "pinyin": "Tā de gōngzuò zuòfēng hěn tāshi.",
+     "fr": "Il travaille de façon sérieuse et fiable.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-5630",
+   "genre": "mot",
+   "hanzi": "作客",
+   "pinyin": "zuòkè",
+   "sens": {
+    "glose": "être invité chez quelqu'un",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "être invité chez quelqu'un, rendre visite"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "周末我去朋友家作客。",
+     "pinyin": "Zhōumò wǒ qù péngyou jiā zuòkè.",
+     "fr": "Ce week-end, je suis reçu chez un ami.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-5631",
+   "genre": "mot",
+   "hanzi": "作物",
+   "pinyin": "zuòwù",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "cultures, plantes cultivées",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "cultures, plantes cultivées"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这里主要的农作物是小麦。",
+     "pinyin": "Zhèli zhǔyào de nóngzuòwù shì xiǎomài.",
+     "fr": "Ici, on cultive surtout le blé.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-5632",
+   "genre": "mot",
+   "hanzi": "坐落",
+   "pinyin": "zuòluò",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "être situé",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "être situé, se trouver (bâtiment)"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "学校坐落在山脚下。",
+     "pinyin": "Xuéxiào zuòluò zài shānjiǎo xià.",
+     "fr": "L'école se dresse au pied de la montagne.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-5633",
+   "genre": "mot",
+   "hanzi": "座谈",
+   "pinyin": "zuòtán",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "discuter, table ronde",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "discuter, tenir une table ronde"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "老师和学生座谈了一个小时。",
+     "pinyin": "Lǎoshī hé xuésheng zuòtán le yī ge xiǎoshí.",
+     "fr": "Professeurs et élèves ont échangé pendant une heure.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-5634",
+   "genre": "mot",
+   "hanzi": "座右铭",
+   "pinyin": "zuòyòumíng",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "devise, maxime",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "devise, maxime personnelle"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "活到老学到老是他的座右铭。",
+     "pinyin": "Huó dào lǎo xué dào lǎo shì tā de zuòyòumíng.",
+     "fr": "« On apprend à tout âge » : voilà sa ligne de vie.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-5635",
+   "genre": "mot",
+   "hanzi": "做生意",
+   "pinyin": "zuò shēngyi",
+   "sens": {
+    "glose": "faire du commerce",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "faire du commerce, faire des affaires"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他在北京做生意。",
+     "pinyin": "Tā zài Běijīng zuò shēngyi.",
+     "fr": "Il est dans les affaires à Pékin.",
+     "statut": "a_relire"
+    }
+   ]
+  }
+ ]
+}
