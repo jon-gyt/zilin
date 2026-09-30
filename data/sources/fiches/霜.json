@@ -23,20 +23,33 @@
   "木": "forme",
   "目": "forme"
  },
- "mots": [],
+ "mots": [
+  {
+   "hanzi": "霜冻",
+   "pinyin": "shuāngdòng",
+   "fr": "gelée",
+   "en": "frost"
+  },
+  {
+   "hanzi": "面霜",
+   "pinyin": "miànshuāng",
+   "fr": "crème pour le visage",
+   "en": "face cream"
+  }
+ ],
  "phrase": {
-  "zh": "",
-  "pinyin": "",
-  "fr": "",
-  "en": ""
+  "zh": "早上，地上结了一层白霜。",
+  "pinyin": "Zǎoshang, dì shang jié le yī céng bái shuāng.",
+  "fr": "Ce matin, une couche de givre blanc couvre le sol.",
+  "en": "This morning, a layer of white frost has formed on the ground."
  },
  "generation": {
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:75ad7a60584b72a009b80d1969da7bc6a1fd840dfdcb23c32024dd6ef6c79094",
-  "essais": 1,
+  "empreinte_invite": "sha256:be430869ee1de4ae5eabbbeb5ca4ccafc0a956200d107d0d7a41e3f487b7e898",
+  "essais": 2,
   "refus": []
  },
- "statut": "relu"
+ "statut": "a_relire"
 }
