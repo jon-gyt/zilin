@@ -21,20 +21,33 @@
   "火": "sens",
   "户": "forme"
  },
- "mots": [],
+ "mots": [
+  {
+   "hanzi": "火炉",
+   "pinyin": "huǒlú",
+   "fr": "poêle, fourneau",
+   "en": "stove"
+  },
+  {
+   "hanzi": "锅炉",
+   "pinyin": "guōlú",
+   "fr": "chaudière",
+   "en": "boiler"
+  }
+ ],
  "phrase": {
-  "zh": "",
-  "pinyin": "",
-  "fr": "",
-  "en": ""
+  "zh": "冬天我们围着火炉聊天。",
+  "pinyin": "Dōngtiān wǒmen wéizhe huǒlú liáotiān.",
+  "fr": "En hiver, on bavarde autour du poêle.",
+  "en": "In winter we chat around the stove."
  },
  "generation": {
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:3309920c57660e756088db272e271cf3a74dd824679fc9367fbe600d32bc426a",
-  "essais": 1,
+  "empreinte_invite": "sha256:f0458f8a04a31107312d59e1c86906c06104dfcc715e27f79238c97729ba96cb",
+  "essais": 2,
   "refus": []
  },
- "statut": "relu"
+ "statut": "a_relire"
 }
