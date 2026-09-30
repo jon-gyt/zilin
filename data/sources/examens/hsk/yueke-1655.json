@@ -1,0 +1,429 @@
+{
+ "examen": "yueke-1655",
+ "parcours": "hsk",
+ "generation": {
+  "modele": "rédaction manuelle",
+  "api": "session Claude Code (sans API)",
+  "date": "2026-09-30"
+ },
+ "relecture": {
+  "statut": "a_relire",
+  "note": "rédigé le 30 septembre 2026, à relire par le propriétaire (`wenlu examens apercu`) ; une série passe à `relu` sur sa décision, citée ici"
+ },
+ "series": [
+  {
+   "serie": "A",
+   "statut": "a_relire",
+   "supports": [
+    {
+     "id": "s1",
+     "genre": "message",
+     "contexte": {
+      "fr": "Un message",
+      "en": "A message"
+     },
+     "lignes": [
+      {
+       "zh": "张老师，好久不见！",
+       "pinyin": "zhāng lǎo shī hǎo jiǔ bù jiàn",
+       "fr": "Professeur Zhang, ça fait longtemps !",
+       "en": "Professor Zhang, long time no see!"
+      },
+      {
+       "zh": "我常常回忆起您给我们上课的样子。",
+       "pinyin": "wǒ cháng cháng huí yì qǐ nín gěi wǒ men shàng kè de yàng zi",
+       "fr": "Je repense souvent à vos cours, quand vous nous faisiez la classe.",
+       "en": "I often think back to the way you taught us."
+      },
+      {
+       "zh": "下个月我回国，想邀请您一起吃个饭。",
+       "pinyin": "xià gè yuè wǒ huí guó xiǎng yāo qǐng nín yī qǐ chī gè fàn",
+       "fr": "Le mois prochain, je rentre au pays : j'aimerais vous inviter à dîner.",
+       "en": "I'm coming home next month and would love to take you out for a meal."
+      }
+     ]
+    },
+    {
+     "id": "s2",
+     "genre": "pancarte",
+     "contexte": {
+      "fr": "Un panneau",
+      "en": "A sign"
+     },
+     "lignes": [
+      {
+       "zh": "请遵守公园规定：",
+       "pinyin": "qǐng zūn shǒu gōng yuán guī dìng",
+       "fr": "Merci de respecter le règlement du parc :",
+       "en": "Please follow the park rules:"
+      },
+      {
+       "zh": "不要摘花，不要给熊猫喂东西。",
+       "pinyin": "bù yào zhāi huā bù yào gěi xióng māo wèi dōng xi",
+       "fr": "ne cueillez pas les fleurs, ne nourrissez pas les pandas.",
+       "en": "do not pick the flowers, do not feed the pandas."
+      }
+     ]
+    }
+   ],
+   "questions": [
+    {
+     "type": "comprendre",
+     "support": "s1",
+     "consigne": {
+      "fr": "Qui a écrit ce message ?",
+      "en": "Who wrote this message?"
+     },
+     "choix": [
+      {
+       "fr": "Un collègue",
+       "en": "A colleague"
+      },
+      {
+       "fr": "Un voisin",
+       "en": "A neighbour"
+      },
+      {
+       "fr": "Un ancien élève",
+       "en": "A former student"
+      },
+      {
+       "fr": "Un cousin",
+       "en": "A cousin"
+      }
+     ],
+     "reponse": 2,
+     "porte": [
+      "回",
+      "忆",
+      "上",
+      "课"
+     ]
+    },
+    {
+     "type": "replique",
+     "support": "s1",
+     "consigne": {
+      "fr": "Que répond le professeur Zhang ?",
+      "en": "What does Professor Zhang reply?"
+     },
+     "choix": [
+      {
+       "zh": "好啊，回来了给我打电话！",
+       "pinyin": "hǎo a huí lái le gěi wǒ dǎ diàn huà",
+       "fr": "Avec plaisir, appelle-moi quand tu seras rentré !",
+       "en": "Sure, call me when you're back!"
+      },
+      {
+       "zh": "这双新鞋太硬了。",
+       "pinyin": "zhè shuāng xīn xié tài yìng le",
+       "fr": "Ces chaussures neuves sont trop dures.",
+       "en": "These new shoes are too stiff."
+      },
+      {
+       "zh": "我妹妹不会游泳。",
+       "pinyin": "wǒ mèi mei bù huì yóu yǒng",
+       "fr": "Ma petite sœur ne sait pas nager.",
+       "en": "My little sister can't swim."
+      },
+      {
+       "zh": "今天饭馆的菜太咸了。",
+       "pinyin": "jīn tiān fàn guǎn de cài tài xián le",
+       "fr": "Au restaurant, aujourd'hui, c'était trop salé.",
+       "en": "The restaurant food was too salty today."
+      }
+     ],
+     "reponse": 0,
+     "porte": [
+      "邀",
+      "请"
+     ]
+    },
+    {
+     "type": "comprendre",
+     "support": "s2",
+     "consigne": {
+      "fr": "Qu'est-ce qui est interdit ici ?",
+      "en": "What is forbidden here?"
+     },
+     "choix": [
+      {
+       "fr": "Prendre des photos",
+       "en": "Taking photos"
+      },
+      {
+       "fr": "Courir dans les allées",
+       "en": "Running on the paths"
+      },
+      {
+       "fr": "Nourrir les pandas",
+       "en": "Feeding the pandas"
+      },
+      {
+       "fr": "Parler fort",
+       "en": "Talking loudly"
+      }
+     ],
+     "reponse": 2,
+     "porte": [
+      "熊",
+      "猫",
+      "喂"
+     ]
+    },
+    {
+     "type": "vrai_faux",
+     "support": "s2",
+     "consigne": {
+      "fr": "Vrai ou faux ?",
+      "en": "True or false?"
+     },
+     "affirmation": {
+      "zh": "在公园里可以摘花。",
+      "pinyin": "zài gōng yuán lǐ kě yǐ zhāi huā",
+      "fr": "Dans le parc, on a le droit de cueillir les fleurs.",
+      "en": "You may pick flowers in the park."
+     },
+     "reponse": false,
+     "porte": [
+      "不",
+      "要",
+      "摘",
+      "花"
+     ]
+    },
+    {
+     "type": "trou",
+     "consigne": {
+      "fr": "Quel caractère manque dans ce mot ?",
+      "en": "Which character is missing from this word?"
+     },
+     "objet": {
+      "zh": "拥抱",
+      "pinyin": "yōng bào",
+      "fr": "serrer dans ses bras",
+      "en": "to hug"
+     },
+     "trou": 0,
+     "choix": [
+      "用",
+      "拥",
+      "永",
+      "勇"
+     ],
+     "reponse": 1,
+     "porte": [
+      "拥"
+     ]
+    }
+   ]
+  },
+  {
+   "serie": "B",
+   "statut": "a_relire",
+   "supports": [
+    {
+     "id": "s1",
+     "genre": "message",
+     "contexte": {
+      "fr": "Un message",
+      "en": "A message"
+     },
+     "lignes": [
+      {
+       "zh": "我在网上买了一件紫色的毛衣，",
+       "pinyin": "wǒ zài wǎng shàng mǎi le yī jiàn zǐ sè de máo yī",
+       "fr": "J'ai acheté un pull violet en ligne,",
+       "en": "I bought a purple jumper online,"
+      },
+      {
+       "zh": "可是颜色太艳了，我想换一件。",
+       "pinyin": "kě shì yán sè tài yàn le wǒ xiǎng huàn yī jiàn",
+       "fr": "mais la couleur est trop vive : je veux l'échanger.",
+       "en": "but the colour is too loud, I want to exchange it."
+      }
+     ]
+    },
+    {
+     "id": "s2",
+     "genre": "pancarte",
+     "contexte": {
+      "fr": "Un écriteau",
+      "en": "A notice"
+     },
+     "lignes": [
+      {
+       "zh": "因为原料涨价，",
+       "pinyin": "yīn wèi yuán liào zhǎng jià",
+       "fr": "Le prix des matières premières ayant augmenté,",
+       "en": "As the cost of ingredients has gone up,"
+      },
+      {
+       "zh": "从下月起，饮料每杯涨一元，",
+       "pinyin": "cóng xià yuè qǐ yǐn liào měi bēi zhǎng yī yuán",
+       "fr": "à partir du mois prochain, les boissons augmentent d'un yuan le verre ;",
+       "en": "from next month, drinks will cost one yuan more per cup;"
+      },
+      {
+       "zh": "面包的价格不变。",
+       "pinyin": "miàn bāo de jià gé bù biàn",
+       "fr": "le prix du pain ne change pas.",
+       "en": "the price of bread stays the same."
+      }
+     ]
+    }
+   ],
+   "questions": [
+    {
+     "type": "comprendre",
+     "support": "s1",
+     "consigne": {
+      "fr": "Qu'est-ce qui ne va pas avec le pull ?",
+      "en": "What's wrong with the jumper?"
+     },
+     "choix": [
+      {
+       "fr": "Il est trop petit",
+       "en": "It's too small"
+      },
+      {
+       "fr": "Il est trop cher",
+       "en": "It's too expensive"
+      },
+      {
+       "fr": "Sa couleur est trop vive",
+       "en": "Its colour is too bright"
+      },
+      {
+       "fr": "Il est arrivé abîmé",
+       "en": "It arrived damaged"
+      }
+     ],
+     "reponse": 2,
+     "porte": [
+      "颜",
+      "色",
+      "太",
+      "艳"
+     ]
+    },
+    {
+     "type": "replique",
+     "support": "s1",
+     "consigne": {
+      "fr": "Que lui répond son amie ?",
+      "en": "What does her friend reply?"
+     },
+     "choix": [
+      {
+       "zh": "我们几点去学校？",
+       "pinyin": "wǒ men jǐ diǎn qù xué xiào",
+       "fr": "À quelle heure allons-nous à l'école ?",
+       "en": "What time are we going to school?"
+      },
+      {
+       "zh": "别换了，我觉得挺好看的！",
+       "pinyin": "bié huàn le wǒ jué de tǐng hǎo kàn de",
+       "fr": "Ne l'échange pas, je le trouve plutôt joli !",
+       "en": "Don't exchange it, I think it looks nice!"
+      },
+      {
+       "zh": "今天的西瓜很甜。",
+       "pinyin": "jīn tiān de xī guā hěn tián",
+       "fr": "La pastèque est très sucrée aujourd'hui.",
+       "en": "The watermelon is very sweet today."
+      },
+      {
+       "zh": "他的手机坏了。",
+       "pinyin": "tā de shǒu jī huài le",
+       "fr": "Son téléphone est en panne.",
+       "en": "His phone is broken."
+      }
+     ],
+     "reponse": 1,
+     "porte": [
+      "艳",
+      "换"
+     ]
+    },
+    {
+     "type": "comprendre",
+     "support": "s2",
+     "consigne": {
+      "fr": "Qu'est-ce qui change pour une boisson ?",
+      "en": "What changes for a drink?"
+     },
+     "choix": [
+      {
+       "fr": "Un yuan de plus",
+       "en": "One yuan more"
+      },
+      {
+       "fr": "Deux yuans de plus",
+       "en": "Two yuan more"
+      },
+      {
+       "fr": "Un yuan de moins",
+       "en": "One yuan less"
+      },
+      {
+       "fr": "Rien ne change",
+       "en": "Nothing changes"
+      }
+     ],
+     "reponse": 0,
+     "porte": [
+      "涨",
+      "一",
+      "元"
+     ]
+    },
+    {
+     "type": "vrai_faux",
+     "support": "s2",
+     "consigne": {
+      "fr": "Vrai ou faux ?",
+      "en": "True or false?"
+     },
+     "affirmation": {
+      "zh": "面包不涨价。",
+      "pinyin": "miàn bāo bù zhǎng jià",
+      "fr": "Le pain n'augmente pas.",
+      "en": "Bread isn't going up."
+     },
+     "reponse": true,
+     "porte": [
+      "面",
+      "包",
+      "价",
+      "变",
+      "涨"
+     ]
+    },
+    {
+     "type": "ton",
+     "consigne": {
+      "fr": "Quel est le ton de ce caractère ?",
+      "en": "Which tone does this character have?"
+     },
+     "objet": {
+      "zh": "硬",
+      "pinyin": "yìng",
+      "fr": "dur",
+      "en": "hard"
+     },
+     "choix": [
+      "yīng",
+      "yíng",
+      "yǐng",
+      "yìng"
+     ],
+     "reponse": 3,
+     "porte": [
+      "硬"
+     ]
+    }
+   ]
+  }
+ ]
+}

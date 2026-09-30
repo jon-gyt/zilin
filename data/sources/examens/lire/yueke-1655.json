@@ -1,0 +1,419 @@
+{
+ "examen": "yueke-1655",
+ "parcours": "lire",
+ "generation": {
+  "modele": "rédaction manuelle",
+  "api": "session Claude Code (sans API)",
+  "date": "2026-09-30"
+ },
+ "relecture": {
+  "statut": "a_relire",
+  "note": "rédigé le 30 septembre 2026, à relire par le propriétaire (`wenlu examens apercu`) ; une série passe à `relu` sur sa décision, citée ici"
+ },
+ "series": [
+  {
+   "serie": "A",
+   "statut": "a_relire",
+   "supports": [
+    {
+     "id": "s1",
+     "genre": "message",
+     "contexte": {
+      "fr": "Un message",
+      "en": "A message"
+     },
+     "lignes": [
+      {
+       "zh": "小林，星期六是我的生日，",
+       "pinyin": "xiǎo lín xīng qī liù shì wǒ de shēng rì",
+       "fr": "Xiao Lin, samedi, c'est mon anniversaire :",
+       "en": "Xiao Lin, Saturday is my birthday,"
+      },
+      {
+       "zh": "我想邀请你来我家吃烤鸭。",
+       "pinyin": "wǒ xiǎng yāo qǐng nǐ lái wǒ jiā chī kǎo yā",
+       "fr": "je voudrais t'inviter chez moi à manger du canard laqué.",
+       "en": "I'd like to invite you to my place for roast duck."
+      },
+      {
+       "zh": "饮料我已经买好了，你什么都不用带！",
+       "pinyin": "yǐn liào wǒ yǐ jīng mǎi hǎo le nǐ shén me dōu bù yòng dài",
+       "fr": "J'ai déjà acheté les boissons, n'apporte rien !",
+       "en": "I've already bought the drinks, don't bring anything!"
+      }
+     ]
+    },
+    {
+     "id": "s2",
+     "genre": "pancarte",
+     "contexte": {
+      "fr": "Un panneau",
+      "en": "A sign"
+     },
+     "lignes": [
+      {
+       "zh": "因为地震，本馆暂停开放。",
+       "pinyin": "yīn wèi dì zhèn běn guǎn zàn tíng kāi fàng",
+       "fr": "En raison du tremblement de terre, l'établissement est fermé pour le moment.",
+       "en": "Due to the earthquake, this building is temporarily closed."
+      },
+      {
+       "zh": "有问题请打电话询问。",
+       "pinyin": "yǒu wèn tí qǐng dǎ diàn huà xún wèn",
+       "fr": "Pour toute question, renseignez-vous par téléphone.",
+       "en": "For any questions, please enquire by phone."
+      }
+     ]
+    }
+   ],
+   "questions": [
+    {
+     "type": "reperer",
+     "support": "s1",
+     "consigne": {
+      "fr": "Touche ce qui est déjà acheté.",
+      "en": "Tap what has already been bought."
+     },
+     "choix": [
+      "生日",
+      "烤鸭",
+      "饮料",
+      "星期六"
+     ],
+     "reponse": 2,
+     "porte": [
+      "饮",
+      "料"
+     ]
+    },
+    {
+     "type": "comprendre",
+     "support": "s1",
+     "consigne": {
+      "fr": "Que mangera-t-on ?",
+      "en": "What will be on the menu?"
+     },
+     "choix": [
+      {
+       "fr": "Des raviolis",
+       "en": "Dumplings"
+      },
+      {
+       "fr": "Du canard laqué",
+       "en": "Roast duck"
+      },
+      {
+       "fr": "Du poisson",
+       "en": "Fish"
+      },
+      {
+       "fr": "Des brochettes",
+       "en": "Skewers"
+      }
+     ],
+     "reponse": 1,
+     "porte": [
+      "吃",
+      "烤",
+      "鸭"
+     ]
+    },
+    {
+     "type": "replique",
+     "support": "s1",
+     "consigne": {
+      "fr": "Que répond Xiao Lin ?",
+      "en": "What does Xiao Lin reply?"
+     },
+     "choix": [
+      {
+       "zh": "我昨天去医院了。",
+       "pinyin": "wǒ zuó tiān qù yī yuàn le",
+       "fr": "Hier, je suis allé à l'hôpital.",
+       "en": "I went to the hospital yesterday."
+      },
+      {
+       "zh": "外面下雨了。",
+       "pinyin": "wài mian xià yǔ le",
+       "fr": "Il pleut dehors.",
+       "en": "It's raining outside."
+      },
+      {
+       "zh": "好啊，我一定去！",
+       "pinyin": "hǎo a wǒ yī dìng qù",
+       "fr": "Avec plaisir, je viendrai sans faute !",
+       "en": "Sure, I'll definitely come!"
+      },
+      {
+       "zh": "他的汉语说得很好。",
+       "pinyin": "tā de hàn yǔ shuō de hěn hǎo",
+       "fr": "Il parle très bien chinois.",
+       "en": "He speaks Chinese very well."
+      }
+     ],
+     "reponse": 2,
+     "porte": [
+      "邀",
+      "请"
+     ]
+    },
+    {
+     "type": "vrai_faux",
+     "support": "s2",
+     "consigne": {
+      "fr": "Vrai ou faux ?",
+      "en": "True or false?"
+     },
+     "affirmation": {
+      "zh": "现在可以进去参观。",
+      "pinyin": "xiàn zài kě yǐ jìn qù cān guān",
+      "fr": "On peut entrer visiter en ce moment.",
+      "en": "You can go in and visit right now."
+     },
+     "reponse": false,
+     "porte": [
+      "暂",
+      "停",
+      "开",
+      "放"
+     ]
+    },
+    {
+     "type": "sens",
+     "consigne": {
+      "fr": "Que veut dire ce caractère ?",
+      "en": "What does this character mean?"
+     },
+     "objet": {
+      "zh": "醉",
+      "pinyin": "zuì",
+      "fr": "ivre",
+      "en": "drunk"
+     },
+     "choix": [
+      {
+       "fr": "fatigué",
+       "en": "tired"
+      },
+      {
+       "fr": "affamé",
+       "en": "hungry"
+      },
+      {
+       "fr": "en colère",
+       "en": "angry"
+      },
+      {
+       "fr": "ivre",
+       "en": "drunk"
+      }
+     ],
+     "reponse": 3,
+     "porte": [
+      "醉"
+     ]
+    }
+   ]
+  },
+  {
+   "serie": "B",
+   "statut": "a_relire",
+   "supports": [
+    {
+     "id": "s1",
+     "genre": "message",
+     "contexte": {
+      "fr": "Un message",
+      "en": "A message"
+     },
+     "lignes": [
+      {
+       "zh": "王经理，我今天牙疼得厉害，",
+       "pinyin": "wáng jīng lǐ wǒ jīn tiān yá téng de lì hai",
+       "fr": "Monsieur Wang, j'ai très mal aux dents aujourd'hui :",
+       "en": "Mr Wang, I have a bad toothache today,"
+      },
+      {
+       "zh": "上午要去诊所看医生，",
+       "pinyin": "shàng wǔ yào qù zhěn suǒ kàn yī shēng",
+       "fr": "ce matin, je dois aller chez le médecin,",
+       "en": "I have to see the doctor at the clinic this morning,"
+      },
+      {
+       "zh": "下午再来上班。",
+       "pinyin": "xià wǔ zài lái shàng bān",
+       "fr": "je viendrai travailler cet après-midi.",
+       "en": "I'll come in to work in the afternoon."
+      }
+     ]
+    },
+    {
+     "id": "s2",
+     "genre": "etal",
+     "contexte": {
+      "fr": "Un étal",
+      "en": "A stall"
+     },
+     "lignes": [
+      {
+       "zh": "羊肉串：五元一串",
+       "pinyin": "yáng ròu chuàn wǔ yuán yī chuàn",
+       "fr": "Brochettes de mouton : 5 yuans la brochette",
+       "en": "Lamb skewers: 5 yuan each"
+      },
+      {
+       "zh": "鸡蛋饼：八元一个",
+       "pinyin": "jī dàn bǐng bā yuán yī gè",
+       "fr": "Crêpes à l'œuf : 8 yuans la crêpe",
+       "en": "Egg pancakes: 8 yuan each"
+      },
+      {
+       "zh": "冷饮：三元一杯",
+       "pinyin": "lěng yǐn sān yuán yī bēi",
+       "fr": "Boissons fraîches : 3 yuans le verre",
+       "en": "Cold drinks: 3 yuan a cup"
+      }
+     ]
+    }
+   ],
+   "questions": [
+    {
+     "type": "comprendre",
+     "support": "s1",
+     "consigne": {
+      "fr": "Que fait la personne qui écrit, ce matin ?",
+      "en": "What is the writer doing this morning?"
+     },
+     "choix": [
+      {
+       "fr": "Elle va chez le médecin",
+       "en": "Seeing a doctor"
+      },
+      {
+       "fr": "Elle prend le train",
+       "en": "Taking the train"
+      },
+      {
+       "fr": "Elle garde son enfant",
+       "en": "Looking after a child"
+      },
+      {
+       "fr": "Elle déménage",
+       "en": "Moving house"
+      }
+     ],
+     "reponse": 0,
+     "porte": [
+      "诊",
+      "所",
+      "看",
+      "医",
+      "生"
+     ]
+    },
+    {
+     "type": "replique",
+     "support": "s1",
+     "consigne": {
+      "fr": "Que répond M. Wang ?",
+      "en": "What does Mr Wang reply?"
+     },
+     "choix": [
+      {
+       "zh": "这本书是我朋友送的。",
+       "pinyin": "zhè běn shū shì wǒ péng you sòng de",
+       "fr": "Ce livre, un ami me l'a offert.",
+       "en": "A friend gave me this book."
+      },
+      {
+       "zh": "我们明天去看电影吧。",
+       "pinyin": "wǒ men míng tiān qù kàn diàn yǐng ba",
+       "fr": "Allons voir un film demain.",
+       "en": "Let's go and see a film tomorrow."
+      },
+      {
+       "zh": "这家饭馆的菜很好吃。",
+       "pinyin": "zhè jiā fàn guǎn de cài hěn hǎo chī",
+       "fr": "Ce restaurant est délicieux.",
+       "en": "This restaurant's food is delicious."
+      },
+      {
+       "zh": "好的，你先好好休息。",
+       "pinyin": "hǎo de nǐ xiān hǎo hǎo xiū xi",
+       "fr": "D'accord, repose-toi bien d'abord.",
+       "en": "OK, get some rest first."
+      }
+     ],
+     "reponse": 3,
+     "porte": [
+      "诊",
+      "疼"
+     ]
+    },
+    {
+     "type": "reperer",
+     "support": "s2",
+     "consigne": {
+      "fr": "Touche ce qui coûte le moins cher.",
+      "en": "Tap the cheapest item."
+     },
+     "choix": [
+      "鸡蛋饼",
+      "冷饮",
+      "羊肉串",
+      "一个"
+     ],
+     "reponse": 1,
+     "porte": [
+      "冷",
+      "饮",
+      "三"
+     ]
+    },
+    {
+     "type": "vrai_faux",
+     "support": "s2",
+     "consigne": {
+      "fr": "Vrai ou faux ?",
+      "en": "True or false?"
+     },
+     "affirmation": {
+      "zh": "鸡蛋饼比羊肉串贵。",
+      "pinyin": "jī dàn bǐng bǐ yáng ròu chuàn guì",
+      "fr": "Les crêpes coûtent plus cher que les brochettes.",
+      "en": "Pancakes cost more than skewers."
+     },
+     "reponse": true,
+     "porte": [
+      "串",
+      "五",
+      "八"
+     ]
+    },
+    {
+     "type": "caractere",
+     "consigne": {
+      "fr": "Quel caractère a ce sens ?",
+      "en": "Which character has this meaning?"
+     },
+     "objet": {
+      "zh": "咬",
+      "pinyin": "yǎo",
+      "fr": "mordre",
+      "en": "to bite"
+     },
+     "choix": [
+      "吹",
+      "喊",
+      "咬",
+      "吵"
+     ],
+     "reponse": 2,
+     "porte": [
+      "咬"
+     ]
+    }
+   ]
+  }
+ ]
+}
