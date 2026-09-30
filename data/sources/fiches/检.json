@@ -25,20 +25,33 @@
   "一": "forme",
   "⺍": "forme"
  },
- "mots": [],
+ "mots": [
+  {
+   "hanzi": "检查",
+   "pinyin": "jiǎnchá",
+   "fr": "contrôler, examiner",
+   "en": "to check"
+  },
+  {
+   "hanzi": "体检",
+   "pinyin": "tǐjiǎn",
+   "fr": "bilan de santé",
+   "en": "medical check-up"
+  }
+ ],
  "phrase": {
-  "zh": "",
-  "pinyin": "",
-  "fr": "",
-  "en": ""
+  "zh": "医生给我检查了身体。",
+  "pinyin": "Yīshēng gěi wǒ jiǎnchá le shēntǐ.",
+  "fr": "Le médecin m'a examiné.",
+  "en": "The doctor gave me a check-up."
  },
  "generation": {
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:18a2267a6658f832ed33e230df227a679e4e6ce798d8da3fed349c7632fe983b",
-  "essais": 1,
+  "empreinte_invite": "sha256:97bffc31408e552ca96b5a1b3c7c7fe981cdfe36667b4e7d3db65100ca037f47",
+  "essais": 2,
   "refus": []
  },
- "statut": "relu"
+ "statut": "a_relire"
 }

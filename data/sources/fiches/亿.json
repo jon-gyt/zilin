@@ -21,20 +21,33 @@
   "亻": "forme",
   "乙": "son"
  },
- "mots": [],
+ "mots": [
+  {
+   "hanzi": "十亿",
+   "pinyin": "shíyì",
+   "fr": "un milliard",
+   "en": "a billion"
+  },
+  {
+   "hanzi": "亿万",
+   "pinyin": "yìwàn",
+   "fr": "des centaines de millions",
+   "en": "hundreds of millions"
+  }
+ ],
  "phrase": {
-  "zh": "",
-  "pinyin": "",
-  "fr": "",
-  "en": ""
+  "zh": "中国有十四亿人。",
+  "pinyin": "Zhōngguó yǒu shísì yì rén.",
+  "fr": "La Chine compte un milliard quatre cents millions d'habitants.",
+  "en": "China has 1.4 billion people."
  },
  "generation": {
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:d3610035423e1a314c0c807a8870636c0506b8afc111287583c9e44aab6f8043",
-  "essais": 1,
+  "empreinte_invite": "sha256:a0b742c117405a17357dad6d5d3d8541b72dabfa3eccd158795dbdff4818e434",
+  "essais": 2,
   "refus": []
  },
- "statut": "relu"
+ "statut": "a_relire"
 }
