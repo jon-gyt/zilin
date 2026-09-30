@@ -8,10 +8,10 @@
  "racine": {
   "c": "鬼",
   "pinyin": "guǐ",
-  "fr": "",
-  "en": "",
-  "origine": "",
-  "etiquette": null
+  "fr": "fantôme, esprit, diable",
+  "en": "ghost, spirit, devil",
+  "origine": "Sur les os oraculaires, 鬼 dessine un être humain à la tête énorme et étrange. Le Shuowen jiezi dit que l'homme, à sa mort, « retourne » et devient 鬼, rapprochant le mot de 歸, revenir. On voit encore la grande tête en haut, posée sur les jambes 儿.",
+  "etiquette": "atteste"
  },
  "fiches": [
   {
@@ -20,16 +20,18 @@
    "lectures": [
     "guǐ"
    ],
-   "fr": "",
-   "en": "",
+   "fr": "fantôme, esprit, diable",
+   "en": "ghost, spirit, devil",
    "parts": [],
    "nouveau": [],
    "sources": [],
    "role": null,
-   "roles": {},
-   "origine_fr": "",
-   "origine_en": "",
-   "etiquette": null,
+   "roles": {
+    "鬼": "sens"
+   },
+   "origine_fr": "Sur les os oraculaires, 鬼 dessine un être humain à la tête énorme et étrange. Le Shuowen jiezi dit que l'homme, à sa mort, « retourne » et devient 鬼, rapprochant le mot de 歸, revenir. On voit encore la grande tête en haut, posée sur les jambes 儿.",
+   "origine_en": "On the oracle bones, 鬼 is a human being with a huge, strange head. The Shuowen jiezi says that at death a person “returns” and becomes 鬼, linking the word to 歸, to go back. You can still see the big head at the top, set on the legs 儿.",
+   "etiquette": "atteste",
    "memo_fr": null,
    "memo_en": null,
    "mots": [],
@@ -40,7 +42,7 @@
    "traits": [],
    "medianes": [],
    "audio": null,
-   "statut": "sans_fiche"
+   "statut": "relu"
   },
   {
    "c": "魁",
@@ -48,8 +50,8 @@
    "lectures": [
     "kuí"
    ],
-   "fr": "",
-   "en": "",
+   "fr": "chef, premier, robuste",
+   "en": "chief, leader, sturdy",
    "parts": [
     "鬼",
     "斗"
@@ -59,10 +61,13 @@
     "cjk-decomp"
    ],
    "role": null,
-   "roles": {},
-   "origine_fr": "",
-   "origine_en": "",
-   "etiquette": null,
+   "roles": {
+    "斗": "sens",
+    "鬼": "forme"
+   },
+   "origine_fr": "Le Shuowen jiezi glose 魁 « louche à soupe » : 斗, la louche, et 鬼 pour le son. 鬼 se lit guǐ : il ne donne plus le son de kuí. La grande louche, puis la tête d'une constellation, ont donné le premier, le chef, 魁首, et 魁梧, robuste.",
+   "origine_en": "The Shuowen jiezi glosses 魁 as “a soup ladle”: 斗, the ladle, and 鬼 for the sound. 鬼 is read guǐ: it no longer gives the sound of kuí. The big ladle, then the head of a constellation, gave the first, the chief, 魁首, and 魁梧, sturdy.",
+   "etiquette": "atteste",
    "memo_fr": null,
    "memo_en": null,
    "mots": [],
@@ -73,7 +78,7 @@
    "traits": [],
    "medianes": [],
    "audio": null,
-   "statut": "sans_fiche"
+   "statut": "relu"
   },
   {
    "c": "魅",
@@ -81,8 +86,8 @@
    "lectures": [
     "mèi"
    ],
-   "fr": "",
-   "en": "",
+   "fr": "démon, charme",
+   "en": "demon, charm",
    "parts": [
     "鬼",
     "未"
@@ -92,10 +97,13 @@
     "cjk-decomp"
    ],
    "role": null,
-   "roles": {},
-   "origine_fr": "",
-   "origine_en": "",
-   "etiquette": null,
+   "roles": {
+    "未": "forme",
+    "鬼": "sens"
+   },
+   "origine_fr": "Pour s'en souvenir : à gauche, 鬼, l'esprit ; à droite, 未, qu'on retrouve dans 味, le goût. Un esprit qui attire sans qu'on sache pourquoi : le charme, 魅力. 未 se lit wèi : il ne donne pas le son de mèi, seulement la rime.",
+   "origine_en": "As a memory aid: on the left, 鬼, the spirit; on the right, 未, also found in 味, taste. A spirit that attracts without one knowing why: charm, 魅力. 未 is read wèi: it does not give the sound of mèi, only its rhyme.",
+   "etiquette": "mnemotechnique",
    "memo_fr": null,
    "memo_en": null,
    "mots": [],
@@ -106,7 +114,7 @@
    "traits": [],
    "medianes": [],
    "audio": null,
-   "statut": "sans_fiche"
+   "statut": "relu"
   }
  ]
 }

@@ -8,10 +8,10 @@
  "racine": {
   "c": "石",
   "pinyin": "shí",
-  "fr": "",
-  "en": "",
-  "origine": "",
-  "etiquette": null
+  "fr": "pierre",
+  "en": "stone",
+  "origine": "Le Shuowen jiezi glose 石 par « pierre de montagne » : 厂, la falaise, et 口, un bloc de pierre à son pied. Sur les os oraculaires déjà, un rocher se tient sous l'angle d'une falaise. 石 est la pierre, et la clé des minéraux.",
+  "etiquette": "atteste"
  },
  "fiches": [
   {
@@ -21,16 +21,18 @@
     "shí",
     "dàn"
    ],
-   "fr": "",
-   "en": "",
+   "fr": "pierre",
+   "en": "stone",
    "parts": [],
    "nouveau": [],
    "sources": [],
    "role": null,
-   "roles": {},
-   "origine_fr": "",
-   "origine_en": "",
-   "etiquette": null,
+   "roles": {
+    "石": "forme"
+   },
+   "origine_fr": "Le Shuowen jiezi glose 石 par « pierre de montagne » : 厂, la falaise, et 口, un bloc de pierre à son pied. Sur les os oraculaires déjà, un rocher se tient sous l'angle d'une falaise. 石 est la pierre, et la clé des minéraux.",
+   "origine_en": "The Shuowen jiezi glosses 石 as “mountain stone”: 厂, the cliff, and 口, a block of stone at its foot. Already on oracle bones, a rock sits under the angle of a cliff. 石 is stone, and the radical of minerals.",
+   "etiquette": "atteste",
    "memo_fr": null,
    "memo_en": null,
    "mots": [],
@@ -41,7 +43,7 @@
    "traits": [],
    "medianes": [],
    "audio": null,
-   "statut": "sans_fiche"
+   "statut": "relu"
   },
   {
    "c": "矿",
@@ -49,8 +51,8 @@
    "lectures": [
     "kuàng"
    ],
-   "fr": "",
-   "en": "",
+   "fr": "mine, minerai",
+   "en": "mine, ore",
    "parts": [
     "石",
     "广"
@@ -60,10 +62,13 @@
     "cjk-decomp"
    ],
    "role": null,
-   "roles": {},
-   "origine_fr": "",
-   "origine_en": "",
-   "etiquette": null,
+   "roles": {
+    "广": "forme",
+    "石": "sens"
+   },
+   "origine_fr": "Pour s'en souvenir : à gauche 石, la pierre. À droite 广, un vaste abri, qui se lit guǎng et rime avec kuàng sans en donner le son. La pierre qu'on tire d'une vaste galerie : la mine, le minerai.",
+   "origine_en": "As a memory aid: on the left is 石, stone. On the right is 广, a wide shelter, read guǎng, which rhymes with kuàng without giving its sound. Stone dug out of a wide gallery: a mine, ore.",
+   "etiquette": "mnemotechnique",
    "memo_fr": null,
    "memo_en": null,
    "mots": [],
@@ -74,7 +79,7 @@
    "traits": [],
    "medianes": [],
    "audio": null,
-   "statut": "sans_fiche"
+   "statut": "relu"
   },
   {
    "c": "码",
@@ -82,8 +87,8 @@
    "lectures": [
     "mǎ"
    ],
-   "fr": "",
-   "en": "",
+   "fr": "code, numéro, taille, empiler",
+   "en": "code, number, size, to stack",
    "parts": [
     "石",
     "马"
@@ -93,10 +98,13 @@
     "cjk-decomp"
    ],
    "role": null,
-   "roles": {},
-   "origine_fr": "",
-   "origine_en": "",
-   "etiquette": null,
+   "roles": {
+    "石": "forme",
+    "马": "son"
+   },
+   "origine_fr": "Pour s'en souvenir : à gauche 石, la pierre. À droite 马, le cheval, qui se lit mǎ et donne le son. Des pierres qu'on empile et qu'on compte : empiler, puis le numéro, le code, la taille.",
+   "origine_en": "As a memory aid: on the left is 石, stone. On the right is 马, the horse, read mǎ, which gives the sound. Stones one stacks and counts: to stack, then a number, a code, a size.",
+   "etiquette": "mnemotechnique",
    "memo_fr": null,
    "memo_en": null,
    "mots": [],
@@ -107,7 +115,7 @@
    "traits": [],
    "medianes": [],
    "audio": null,
-   "statut": "sans_fiche"
+   "statut": "relu"
   },
   {
    "c": "砂",
@@ -115,8 +123,8 @@
    "lectures": [
     "shā"
    ],
-   "fr": "",
-   "en": "",
+   "fr": "sable, gravier",
+   "en": "sand, grit",
    "parts": [
     "石",
     "少"
@@ -126,10 +134,13 @@
     "cjk-decomp"
    ],
    "role": null,
-   "roles": {},
-   "origine_fr": "",
-   "origine_en": "",
-   "etiquette": null,
+   "roles": {
+    "少": "sens",
+    "石": "sens"
+   },
+   "origine_fr": "砂 est une autre forme de 沙, le sable. Pour s'en souvenir : à gauche, 石, la pierre ; à droite, 少, peu, petit. De toutes petites pierres : le sable, le gravier, 砂石.",
+   "origine_en": "砂 is another form of 沙, sand. As a memory aid: on the left, 石, stone; on the right, 少, little, small. Very small stones: sand, grit, 砂石.",
+   "etiquette": "mnemotechnique",
    "memo_fr": null,
    "memo_en": null,
    "mots": [],
@@ -140,7 +151,7 @@
    "traits": [],
    "medianes": [],
    "audio": null,
-   "statut": "sans_fiche"
+   "statut": "relu"
   },
   {
    "c": "砌",
@@ -149,8 +160,8 @@
     "qì",
     "qiè"
    ],
-   "fr": "",
-   "en": "",
+   "fr": "maçonner, bâtir, marche",
+   "en": "to lay bricks, to build, step",
    "parts": [
     "石",
     "七",
@@ -161,10 +172,14 @@
     "cjk-decomp"
    ],
    "role": null,
-   "roles": {},
-   "origine_fr": "",
-   "origine_en": "",
-   "etiquette": null,
+   "roles": {
+    "七": "son",
+    "刀": "forme",
+    "石": "sens"
+   },
+   "origine_fr": "Pour s'en souvenir : à gauche, 石, la pierre ; à droite, 切, couper, fait de 七 et de 刀. 七 se lit qī, la même syllabe que qì : il donne le son. On taille les pierres, puis on les pose en rangs : maçonner, 砌墙.",
+   "origine_en": "As a memory aid: on the left, 石, stone; on the right, 切, to cut, made of 七 and 刀. 七 is read qī, the same syllable as qì: it gives the sound. You cut the stones, then lay them in rows: to build a wall, 砌墙.",
+   "etiquette": "mnemotechnique",
    "memo_fr": null,
    "memo_en": null,
    "mots": [],
@@ -175,7 +190,7 @@
    "traits": [],
    "medianes": [],
    "audio": null,
-   "statut": "sans_fiche"
+   "statut": "relu"
   },
   {
    "c": "砍",
@@ -183,8 +198,8 @@
    "lectures": [
     "kǎn"
    ],
-   "fr": "",
-   "en": "",
+   "fr": "couper, abattre (à la hache)",
+   "en": "to chop, to hack",
    "parts": [
     "石",
     "欠"
@@ -194,10 +209,13 @@
     "cjk-decomp"
    ],
    "role": null,
-   "roles": {},
-   "origine_fr": "",
-   "origine_en": "",
-   "etiquette": null,
+   "roles": {
+    "欠": "forme",
+    "石": "sens"
+   },
+   "origine_fr": "Pour s'en souvenir : à gauche, 石, la pierre ; à droite, 欠, une personne qui ouvre la bouche. Une hache de pierre qui s'abat avec un « han » d'effort : couper, 砍树. 欠 se lit qiàn : il ne donne pas le son de kǎn.",
+   "origine_en": "As a memory aid: on the left, 石, stone; on the right, 欠, a person with mouth open. A stone axe coming down with a grunt of effort: to chop, 砍树. 欠 is read qiàn: it does not give the sound of kǎn.",
+   "etiquette": "mnemotechnique",
    "memo_fr": null,
    "memo_en": null,
    "mots": [],
@@ -208,7 +226,7 @@
    "traits": [],
    "medianes": [],
    "audio": null,
-   "statut": "sans_fiche"
+   "statut": "relu"
   },
   {
    "c": "研",
@@ -217,8 +235,8 @@
     "yán",
     "yàn"
    ],
-   "fr": "",
-   "en": "",
+   "fr": "broyer, étudier à fond",
+   "en": "to grind, to research",
    "parts": [
     "石",
     "开"
@@ -228,10 +246,13 @@
     "cjk-decomp"
    ],
    "role": null,
-   "roles": {},
-   "origine_fr": "",
-   "origine_en": "",
-   "etiquette": null,
+   "roles": {
+    "开": "forme",
+    "石": "sens"
+   },
+   "origine_fr": "Le Shuowen jiezi glose 研 par « broyer » : 石, la pierre, et 幵 pour le son. 幵 s'écrit aujourd'hui 开, qui se lit kāi et ne donne pas le son de yán. Broyer finement, c'est aller au fond des choses : étudier, 研究.",
+   "origine_en": "The Shuowen jiezi glosses 研 as “to grind”: 石, stone, and 幵 for the sound. 幵 is now written 开, which is read kāi and does not give the sound of yán. To grind finely is to get to the bottom of things: to study, 研究.",
+   "etiquette": "atteste",
    "memo_fr": null,
    "memo_en": null,
    "mots": [],
@@ -242,7 +263,7 @@
    "traits": [],
    "medianes": [],
    "audio": null,
-   "statut": "sans_fiche"
+   "statut": "relu"
   },
   {
    "c": "砖",
@@ -250,8 +271,8 @@
    "lectures": [
     "zhuān"
    ],
-   "fr": "",
-   "en": "",
+   "fr": "brique",
+   "en": "brick",
    "parts": [
     "石",
     "专"
@@ -261,10 +282,13 @@
     "cjk-decomp"
    ],
    "role": null,
-   "roles": {},
-   "origine_fr": "",
-   "origine_en": "",
-   "etiquette": null,
+   "roles": {
+    "专": "son",
+    "石": "sens"
+   },
+   "origine_fr": "Pour s'en souvenir : à gauche, 石, la pierre. À droite, 专, qui se lit zhuān, exactement comme 砖. Une pierre au son de zhuān, moulée et cuite : la brique.",
+   "origine_en": "As a memory aid: on the left, 石, stone. On the right, 专, read zhuān, exactly like 砖. A stone with the sound zhuān, moulded and fired: the brick.",
+   "etiquette": "mnemotechnique",
    "memo_fr": null,
    "memo_en": null,
    "mots": [],
@@ -275,7 +299,7 @@
    "traits": [],
    "medianes": [],
    "audio": null,
-   "statut": "sans_fiche"
+   "statut": "relu"
   },
   {
    "c": "破",
@@ -283,8 +307,8 @@
    "lectures": [
     "pò"
    ],
-   "fr": "",
-   "en": "",
+   "fr": "casser, cassé, abîmé",
+   "en": "to break, broken, worn out",
    "parts": [
     "石",
     "皮"
@@ -294,10 +318,13 @@
     "cjk-decomp"
    ],
    "role": null,
-   "roles": {},
-   "origine_fr": "",
-   "origine_en": "",
-   "etiquette": null,
+   "roles": {
+    "皮": "forme",
+    "石": "sens"
+   },
+   "origine_fr": "Le Shuowen jiezi glose 破 par « pierre brisée » : 石, la pierre, et 皮 pour le son. 皮 se lit pí et ne donne plus le son de pò. De la pierre qui éclate viennent « casser » et « cassé, abîmé ».",
+   "origine_en": "The Shuowen jiezi glosses 破 as “a broken stone”: 石, stone, with 皮 for the sound. 皮 is read pí and no longer gives the sound pò. From a stone that shatters come “to break” and “broken, worn out”.",
+   "etiquette": "atteste",
    "memo_fr": null,
    "memo_en": null,
    "mots": [],
@@ -308,7 +335,7 @@
    "traits": [],
    "medianes": [],
    "audio": null,
-   "statut": "sans_fiche"
+   "statut": "relu"
   },
   {
    "c": "砸",
@@ -316,8 +343,8 @@
    "lectures": [
     "zá"
    ],
-   "fr": "",
-   "en": "",
+   "fr": "écraser, casser, rater",
+   "en": "to smash, to break, to botch",
    "parts": [
     "石",
     "匚",
@@ -328,10 +355,14 @@
     "cjk-decomp"
    ],
    "role": null,
-   "roles": {},
-   "origine_fr": "",
-   "origine_en": "",
-   "etiquette": null,
+   "roles": {
+    "匚": "son",
+    "巾": "son",
+    "石": "sens"
+   },
+   "origine_fr": "Pour s'en souvenir : à gauche, 石, la pierre. À droite, 匝, écrit 匚 autour de 巾, qui se lit zā, sur la même syllabe que 砸. Une pierre qui s'abat : écraser, casser, et rater son coup, 搞砸了.",
+   "origine_en": "As a memory aid: on the left, 石, stone. On the right, 匝, written 匚 around 巾, read zā, on the same syllable as 砸. A stone crashing down: to smash, to break, and to botch something, 搞砸了.",
+   "etiquette": "mnemotechnique",
    "memo_fr": null,
    "memo_en": null,
    "mots": [],
@@ -342,7 +373,7 @@
    "traits": [],
    "medianes": [],
    "audio": null,
-   "statut": "sans_fiche"
+   "statut": "relu"
   },
   {
    "c": "础",
@@ -350,8 +381,8 @@
    "lectures": [
     "chǔ"
    ],
-   "fr": "",
-   "en": "",
+   "fr": "base, socle",
+   "en": "foundation, plinth",
    "parts": [
     "石",
     "出"
@@ -361,10 +392,13 @@
     "cjk-decomp"
    ],
    "role": null,
-   "roles": {},
-   "origine_fr": "",
-   "origine_en": "",
-   "etiquette": null,
+   "roles": {
+    "出": "son",
+    "石": "sens"
+   },
+   "origine_fr": "Pour s'en souvenir : à gauche, 石, la pierre. À droite, 出, qui se lit chū, la même syllabe que 础, chǔ. La pierre posée sous la colonne, d'où tout part : la base.",
+   "origine_en": "As a memory aid: on the left, 石, stone. On the right, 出, read chū, the same syllable as 础, chǔ. The stone set under a pillar, where everything starts: the base.",
+   "etiquette": "mnemotechnique",
    "memo_fr": null,
    "memo_en": null,
    "mots": [],
@@ -375,7 +409,7 @@
    "traits": [],
    "medianes": [],
    "audio": null,
-   "statut": "sans_fiche"
+   "statut": "relu"
   },
   {
    "c": "硕",
@@ -383,8 +417,8 @@
    "lectures": [
     "shuò"
    ],
-   "fr": "",
-   "en": "",
+   "fr": "grand, gros",
+   "en": "large, big",
    "parts": [
     "石",
     "页"
@@ -394,10 +428,13 @@
     "cjk-decomp"
    ],
    "role": null,
-   "roles": {},
-   "origine_fr": "",
-   "origine_en": "",
-   "etiquette": null,
+   "roles": {
+    "石": "forme",
+    "页": "forme"
+   },
+   "origine_fr": "Le Shuowen jiezi écrit 碩 et le glose « tête grosse » : 页, la tête, et 石 pour le son. De la grosse tête est venu « grand, gros », comme dans 硕士, le master. 石 se lit shí et ne donne pas le son de shuò.",
+   "origine_en": "The Shuowen jiezi writes 碩 and glosses it as “a big head”: 页, head, with 石 for the sound. The big head gave “large, big”, as in 硕士, a master's degree. 石 is read shí and does not give the sound of shuò.",
+   "etiquette": "atteste",
    "memo_fr": null,
    "memo_en": null,
    "mots": [],
@@ -408,7 +445,7 @@
    "traits": [],
    "medianes": [],
    "audio": null,
-   "statut": "sans_fiche"
+   "statut": "relu"
   },
   {
    "c": "硬",
@@ -416,8 +453,8 @@
    "lectures": [
     "yìng"
    ],
-   "fr": "",
-   "en": "",
+   "fr": "dur, rigide, de force",
+   "en": "hard, stiff, by force",
    "parts": [
     "石",
     "更"
@@ -427,10 +464,13 @@
     "cjk-decomp"
    ],
    "role": null,
-   "roles": {},
-   "origine_fr": "",
-   "origine_en": "",
-   "etiquette": null,
+   "roles": {
+    "更": "forme",
+    "石": "sens"
+   },
+   "origine_fr": "Pour s'en souvenir : à gauche, 石, la pierre. À droite, 更, qui se lit gèng. Dur comme la pierre : 硬 veut dire « dur, rigide », et « de force ».",
+   "origine_en": "As a memory aid: on the left, 石, stone. On the right, 更, which is read gèng. Hard as stone: 硬 means “hard, stiff”, and “by force”.",
+   "etiquette": "mnemotechnique",
    "memo_fr": null,
    "memo_en": null,
    "mots": [],
@@ -441,7 +481,7 @@
    "traits": [],
    "medianes": [],
    "audio": null,
-   "statut": "sans_fiche"
+   "statut": "relu"
   },
   {
    "c": "确",
@@ -486,8 +526,8 @@
     "lù",
     "liù"
    ],
-   "fr": "",
-   "en": "",
+   "fr": "affairé, occupé, médiocre",
+   "en": "busy, occupied, mediocre",
    "parts": [
     "石",
     "彐",
@@ -498,10 +538,14 @@
     "cjk-decomp"
    ],
    "role": null,
-   "roles": {},
-   "origine_fr": "",
-   "origine_en": "",
-   "etiquette": null,
+   "roles": {
+    "彐": "son",
+    "氺": "son",
+    "石": "sens"
+   },
+   "origine_fr": "Pour s'en souvenir : à gauche, 石, la pierre ; à droite, 录, noter, qui se lit lù comme 碌. Une pierre qui roule sans cesse : 忙碌, affairé, sans repos. 录 donne le son, la pierre donne l'image.",
+   "origine_en": "As a memory aid: on the left, 石, stone; on the right, 录, to record, read lù like 碌. A stone rolling on and on: 忙碌, busy, without rest. 录 gives the sound and the stone the picture.",
+   "etiquette": "mnemotechnique",
    "memo_fr": null,
    "memo_en": null,
    "mots": [],
@@ -512,7 +556,7 @@
    "traits": [],
    "medianes": [],
    "audio": null,
-   "statut": "sans_fiche"
+   "statut": "relu"
   },
   {
    "c": "碍",
@@ -520,8 +564,8 @@
    "lectures": [
     "ài"
    ],
-   "fr": "",
-   "en": "",
+   "fr": "gêner, entraver",
+   "en": "to hinder, to obstruct",
    "parts": [
     "石",
     "日",
@@ -534,10 +578,15 @@
     "surcharge"
    ],
    "role": null,
-   "roles": {},
-   "origine_fr": "",
-   "origine_en": "",
-   "etiquette": null,
+   "roles": {
+    "一": "forme",
+    "寸": "forme",
+    "日": "forme",
+    "石": "sens"
+   },
+   "origine_fr": "Le Shuowen jiezi écrit 礙 et le glose « arrêter » : 石, la pierre, et 疑 pour le son. Une pierre sur le chemin arrête la marche : de là « gêner, faire obstacle ». La forme simplifiée garde 石 et reprend une vieille variante qui écrit à droite 㝵, où l'on voit 日, 一 et 寸.",
+   "origine_en": "The Shuowen jiezi writes 礙 and glosses it as “to stop”: 石, stone, with 疑 for the sound. A stone in the path stops you from going on: hence “to hinder, to obstruct”. The simplified form keeps 石 and takes up an old variant with 㝵 on the right, in which you see 日, 一 and 寸.",
+   "etiquette": "atteste",
    "memo_fr": null,
    "memo_en": null,
    "mots": [],
@@ -548,7 +597,7 @@
    "traits": [],
    "medianes": [],
    "audio": null,
-   "statut": "sans_fiche"
+   "statut": "relu"
   },
   {
    "c": "碎",
@@ -556,8 +605,8 @@
    "lectures": [
     "suì"
    ],
-   "fr": "",
-   "en": "",
+   "fr": "cassé, en morceaux, menu",
+   "en": "broken, in pieces, fragmentary",
    "parts": [
     "石",
     "亠",
@@ -570,10 +619,15 @@
     "cjk-decomp"
    ],
    "role": null,
-   "roles": {},
-   "origine_fr": "",
-   "origine_en": "",
-   "etiquette": null,
+   "roles": {
+    "亠": "forme",
+    "人": "forme",
+    "十": "forme",
+    "石": "sens"
+   },
+   "origine_fr": "Le Shuowen jiezi glose 碎 « broyer » : 石, la pierre, et 卒 pour le son. De la pierre broyée sont venus « cassé, en morceaux » et « menu ». 卒, écrit 亠, deux 人 et 十, se lit zú et ne donne pas le son de suì.",
+   "origine_en": "The Shuowen jiezi glosses 碎 as “to grind”: 石, stone, with 卒 for the sound. Ground stone gave “broken, in pieces” and “fragmentary”. 卒, written 亠, two 人 and 十, is read zú and does not give the sound of suì.",
+   "etiquette": "atteste",
    "memo_fr": null,
    "memo_en": null,
    "mots": [],
@@ -584,7 +638,7 @@
    "traits": [],
    "medianes": [],
    "audio": null,
-   "statut": "sans_fiche"
+   "statut": "relu"
   },
   {
    "c": "碑",
@@ -592,8 +646,8 @@
    "lectures": [
     "bēi"
    ],
-   "fr": "",
-   "en": "",
+   "fr": "stèle",
+   "en": "stele, stone tablet",
    "parts": [
     "石",
     "卑"
@@ -603,10 +657,13 @@
     "cjk-decomp"
    ],
    "role": null,
-   "roles": {},
-   "origine_fr": "",
-   "origine_en": "",
-   "etiquette": null,
+   "roles": {
+    "卑": "son",
+    "石": "sens"
+   },
+   "origine_fr": "Le Shuowen jiezi glose 碑 par « pierre dressée » : 石, la pierre, et 卑 pour le son. On lit 石 à gauche et 卑 à droite, qui se lit bēi comme 碑. La pierre dressée est devenue la stèle qui porte un texte gravé.",
+   "origine_en": "The Shuowen jiezi glosses 碑 as “upright stone”: 石, stone, and 卑 for the sound. You read 石 on the left and 卑 on the right, read bēi like 碑. The standing stone became the stele that carries a carved text.",
+   "etiquette": "atteste",
    "memo_fr": null,
    "memo_en": null,
    "mots": [],
@@ -617,7 +674,7 @@
    "traits": [],
    "medianes": [],
    "audio": null,
-   "statut": "sans_fiche"
+   "statut": "relu"
   },
   {
    "c": "碗",
@@ -665,8 +722,8 @@
    "lectures": [
     "dié"
    ],
-   "fr": "",
-   "en": "",
+   "fr": "soucoupe, disque",
+   "en": "saucer, disc",
    "parts": [
     "石",
     "世",
@@ -677,10 +734,14 @@
     "cjk-decomp"
    ],
    "role": null,
-   "roles": {},
-   "origine_fr": "",
-   "origine_en": "",
-   "etiquette": null,
+   "roles": {
+    "世": "forme",
+    "木": "forme",
+    "石": "sens"
+   },
+   "origine_fr": "On voit 石, la pierre, à gauche, et 枼, écrit 世 sur 木, à droite. Pour s'en souvenir : une pierre plate et mince comme une feuille. 碟 nomme la soucoupe, et le disque.",
+   "origine_en": "You see 石, stone, on the left, and 枼, written 世 over 木, on the right. As a memory aid: a stone as flat and thin as a leaf. 碟 names a saucer, and a disc.",
+   "etiquette": "mnemotechnique",
    "memo_fr": null,
    "memo_en": null,
    "mots": [],
@@ -691,7 +752,7 @@
    "traits": [],
    "medianes": [],
    "audio": null,
-   "statut": "sans_fiche"
+   "statut": "relu"
   },
   {
    "c": "碰",
@@ -737,8 +798,8 @@
    "lectures": [
     "tàn"
    ],
-   "fr": "",
-   "en": "",
+   "fr": "carbone",
+   "en": "carbon",
    "parts": [
     "石",
     "山",
@@ -750,10 +811,15 @@
     "cjk-decomp"
    ],
    "role": null,
-   "roles": {},
-   "origine_fr": "",
-   "origine_en": "",
-   "etiquette": null,
+   "roles": {
+    "山": "son",
+    "火": "son",
+    "石": "sens",
+    "𠂇": "son"
+   },
+   "origine_fr": "碳 est un caractère moderne, créé pour l'élément chimique. Pour s'en souvenir : à gauche, 石, le minéral ; à droite, 炭, le charbon, qui se lit tàn, exactement comme 碳. Ce que le charbon a en lui : le carbone, 二氧化碳.",
+   "origine_en": "碳 is a modern character, created for the chemical element. As a memory aid: on the left, 石, mineral; on the right, 炭, charcoal, read tàn, exactly like 碳. What charcoal is made of: carbon, 二氧化碳.",
+   "etiquette": "mnemotechnique",
    "memo_fr": null,
    "memo_en": null,
    "mots": [],
@@ -764,7 +830,7 @@
    "traits": [],
    "medianes": [],
    "audio": null,
-   "statut": "sans_fiche"
+   "statut": "relu"
   },
   {
    "c": "磁",
@@ -772,8 +838,8 @@
    "lectures": [
     "cí"
    ],
-   "fr": "",
-   "en": "",
+   "fr": "magnétisme, porcelaine",
+   "en": "magnetism, porcelain",
    "parts": [
     "石",
     "䒑",
@@ -785,10 +851,14 @@
     "cjk-decomp"
    ],
    "role": null,
-   "roles": {},
-   "origine_fr": "",
-   "origine_en": "",
-   "etiquette": null,
+   "roles": {
+    "䒑": "forme",
+    "幺": "forme",
+    "石": "sens"
+   },
+   "origine_fr": "On voit 石, la pierre, à gauche, et 兹, écrit 䒑 sur deux 幺, à droite. Pour s'en souvenir : une pierre qui attire le fer, comme deux fils qui se lient. 磁 dit le magnétisme, et la porcelaine ; 兹 se lit zī et ne donne pas le son de cí.",
+   "origine_en": "You see 石, stone, on the left, and 兹, written 䒑 over two 幺, on the right. As a memory aid: a stone that draws iron, like two threads tying together. 磁 means magnetism, and porcelain; 兹 is read zī and does not give the sound of cí.",
+   "etiquette": "mnemotechnique",
    "memo_fr": null,
    "memo_en": null,
    "mots": [],
@@ -799,7 +869,7 @@
    "traits": [],
    "medianes": [],
    "audio": null,
-   "statut": "sans_fiche"
+   "statut": "relu"
   },
   {
    "c": "磅",
@@ -808,8 +878,8 @@
     "bàng",
     "páng"
    ],
-   "fr": "",
-   "en": "",
+   "fr": "livre (poids), balance",
+   "en": "pound (weight), scale",
    "parts": [
     "石",
     "⿳亠丷冖",
@@ -821,10 +891,14 @@
     "surcharge"
    ],
    "role": null,
-   "roles": {},
-   "origine_fr": "",
-   "origine_en": "",
-   "etiquette": null,
+   "roles": {
+    "⿳亠丷冖": "forme",
+    "方": "forme",
+    "石": "sens"
+   },
+   "origine_fr": "On voit 石, la pierre, à gauche, et 旁, à côté, qui se lit páng. Pour s'en souvenir : on pose une pierre à côté de la marchandise pour la peser. 磅 nomme la livre, unité de poids, et la balance.",
+   "origine_en": "You see 石, stone, on the left, and 旁, beside, read páng. As a memory aid: a stone is set beside the goods to weigh them. 磅 names the pound, a unit of weight, and the scale.",
+   "etiquette": "mnemotechnique",
    "memo_fr": null,
    "memo_en": null,
    "mots": [],
@@ -835,7 +909,7 @@
    "traits": [],
    "medianes": [],
    "audio": null,
-   "statut": "sans_fiche"
+   "statut": "relu"
   },
   {
    "c": "磊",
@@ -843,8 +917,8 @@
    "lectures": [
     "lěi"
    ],
-   "fr": "",
-   "en": "",
+   "fr": "amas de pierres, franc",
+   "en": "heap of stones, frank",
    "parts": [
     "石",
     "石",
@@ -855,10 +929,12 @@
     "cjk-decomp"
    ],
    "role": null,
-   "roles": {},
-   "origine_fr": "",
-   "origine_en": "",
-   "etiquette": null,
+   "roles": {
+    "石": "sens"
+   },
+   "origine_fr": "Le Shuowen jiezi glose 磊 « amas de pierres » et le compose de trois 石. Trois pierres empilées : la masse, le solide. Au figuré, 光明磊落, droit et franc.",
+   "origine_en": "The Shuowen jiezi glosses 磊 as “a heap of stones” and builds it from three 石. Three stones stacked: bulk and solidity. Figuratively, 光明磊落, upright and open.",
+   "etiquette": "atteste",
    "memo_fr": null,
    "memo_en": null,
    "mots": [],
@@ -869,7 +945,7 @@
    "traits": [],
    "medianes": [],
    "audio": null,
-   "statut": "sans_fiche"
+   "statut": "relu"
   },
   {
    "c": "磋",
@@ -877,8 +953,8 @@
    "lectures": [
     "cuō"
    ],
-   "fr": "",
-   "en": "",
+   "fr": "polir, se concerter",
+   "en": "to polish, to consult",
    "parts": [
     "石",
     "羊",
@@ -889,10 +965,14 @@
     "cjk-decomp"
    ],
    "role": null,
-   "roles": {},
-   "origine_fr": "",
-   "origine_en": "",
-   "etiquette": null,
+   "roles": {
+    "工": "forme",
+    "石": "sens",
+    "羊": "forme"
+   },
+   "origine_fr": "On voit 石, la pierre, à gauche, et 差, écrit 羊 sur 工, à droite. Pour s'en souvenir : on polit la pierre en la frottant jusqu'à effacer l'écart. 磋 dit polir, et se concerter, dans 磋商.",
+   "origine_en": "You see 石, stone, on the left, and 差, written 羊 over 工, on the right. As a memory aid: you polish the stone by rubbing until the gap disappears. 磋 means to polish, and to consult, in 磋商.",
+   "etiquette": "mnemotechnique",
    "memo_fr": null,
    "memo_en": null,
    "mots": [],
@@ -903,7 +983,7 @@
    "traits": [],
    "medianes": [],
    "audio": null,
-   "statut": "sans_fiche"
+   "statut": "relu"
   },
   {
    "c": "磕",
@@ -911,8 +991,8 @@
    "lectures": [
     "kē"
    ],
-   "fr": "",
-   "en": "",
+   "fr": "cogner, heurter",
+   "en": "to knock, to bump",
    "parts": [
     "石",
     "去",
@@ -923,10 +1003,14 @@
     "cjk-decomp"
    ],
    "role": null,
-   "roles": {},
-   "origine_fr": "",
-   "origine_en": "",
-   "etiquette": null,
+   "roles": {
+    "去": "forme",
+    "皿": "forme",
+    "石": "sens"
+   },
+   "origine_fr": "Le Shuowen jiezi glose 磕 « bruit de pierre » : 石, la pierre, et 盍 pour le son. 盍, écrit 去 sur 皿, se lit hé : il ne donne plus le son de kē. Le bruit sec d'un choc : cogner, 磕头, frapper le sol du front.",
+   "origine_en": "The Shuowen jiezi glosses 磕 as “the sound of stone”: 石, stone, and 盍 for the sound. 盍, written 去 over 皿, is read hé: it no longer gives the sound of kē. The sharp sound of a blow: to knock, 磕头, to touch the ground with one's forehead.",
+   "etiquette": "atteste",
    "memo_fr": null,
    "memo_en": null,
    "mots": [],
@@ -937,7 +1021,7 @@
    "traits": [],
    "medianes": [],
    "audio": null,
-   "statut": "sans_fiche"
+   "statut": "relu"
   },
   {
    "c": "礁",
@@ -945,8 +1029,8 @@
    "lectures": [
     "jiāo"
    ],
-   "fr": "",
-   "en": "",
+   "fr": "récif, écueil",
+   "en": "reef, rock",
    "parts": [
     "石",
     "隹",
@@ -957,10 +1041,14 @@
     "cjk-decomp"
    ],
    "role": null,
-   "roles": {},
-   "origine_fr": "",
-   "origine_en": "",
-   "etiquette": null,
+   "roles": {
+    "灬": "son",
+    "石": "sens",
+    "隹": "son"
+   },
+   "origine_fr": "Pour s'en souvenir : à gauche, 石, la pierre ; à droite, 焦, qui se lit jiāo comme 礁. Une pierre noircie, comme brûlée, qui affleure dans la mer : le récif. 焦 s'écrit 隹 sur 灬.",
+   "origine_en": "As a memory aid: on the left, 石, stone; on the right, 焦, read jiāo like 礁. A blackened stone, as if scorched, breaking the surface of the sea: a reef. 焦 is written 隹 over 灬.",
+   "etiquette": "mnemotechnique",
    "memo_fr": null,
    "memo_en": null,
    "mots": [],
@@ -971,7 +1059,7 @@
    "traits": [],
    "medianes": [],
    "audio": null,
-   "statut": "sans_fiche"
+   "statut": "relu"
   }
  ]
 }

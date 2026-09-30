@@ -8,10 +8,10 @@
  "racine": {
   "c": "舟",
   "pinyin": "zhōu",
-  "fr": "",
-  "en": "",
-  "origine": "",
-  "etiquette": null
+  "fr": "bateau, barque",
+  "en": "boat",
+  "origine": "Sur les os oraculaires, 舟 dessine une barque vue de haut, avec ses bords et ses planches de travers. Le Shuowen jiezi le glose par « bateau » et y voit un dessin. Le mot est littéraire aujourd'hui, et 舟 reste la clé des bateaux, comme dans 船 et 航.",
+  "etiquette": "atteste"
  },
  "fiches": [
   {
@@ -20,8 +20,8 @@
    "lectures": [
     "pán"
    ],
-   "fr": "",
-   "en": "",
+   "fr": "assiette, plat, enrouler",
+   "en": "plate, dish, to coil",
    "parts": [
     "舟",
     "皿"
@@ -31,10 +31,13 @@
     "cjk-decomp"
    ],
    "role": null,
-   "roles": {},
-   "origine_fr": "",
-   "origine_en": "",
-   "etiquette": null,
+   "roles": {
+    "皿": "sens",
+    "舟": "forme"
+   },
+   "origine_fr": "Le Shuowen jiezi écrit 槃, le plateau, avec 木, le bois, et 般 pour le son, et donne aussi 盤, avec 皿, le récipient. La forme simplifiée réduit 般 à 舟, la barque, qui se lit zhōu et ne donne pas le son de pán. Le récipient 皿 reste en bas.",
+   "origine_en": "The Shuowen jiezi writes 槃, the tray, with 木, wood, and 般 for the sound, and also gives 盤, with 皿, vessel. The simplified form reduces 般 to 舟, boat, which is read zhōu and does not give the sound of pán. The vessel 皿 stays at the bottom.",
+   "etiquette": "atteste",
    "memo_fr": null,
    "memo_en": null,
    "mots": [],
@@ -45,7 +48,7 @@
    "traits": [],
    "medianes": [],
    "audio": null,
-   "statut": "sans_fiche"
+   "statut": "relu"
   },
   {
    "c": "舟",
@@ -53,16 +56,18 @@
    "lectures": [
     "zhōu"
    ],
-   "fr": "",
-   "en": "",
+   "fr": "bateau, barque",
+   "en": "boat",
    "parts": [],
    "nouveau": [],
    "sources": [],
    "role": null,
-   "roles": {},
-   "origine_fr": "",
-   "origine_en": "",
-   "etiquette": null,
+   "roles": {
+    "舟": "sens"
+   },
+   "origine_fr": "Sur les os oraculaires, 舟 dessine une barque vue de haut, avec ses bords et ses planches de travers. Le Shuowen jiezi le glose par « bateau » et y voit un dessin. Le mot est littéraire aujourd'hui, et 舟 reste la clé des bateaux, comme dans 船 et 航.",
+   "origine_en": "On oracle bones, 舟 draws a boat seen from above, with its sides and crosswise planks. The Shuowen jiezi glosses it as “boat” and sees a drawing in it. The word is literary today, and 舟 remains the radical of boats, as in 船 and 航.",
+   "etiquette": "atteste",
    "memo_fr": null,
    "memo_en": null,
    "mots": [],
@@ -73,7 +78,7 @@
    "traits": [],
    "medianes": [],
    "audio": null,
-   "statut": "sans_fiche"
+   "statut": "relu"
   },
   {
    "c": "航",
@@ -81,8 +86,8 @@
    "lectures": [
     "háng"
    ],
-   "fr": "",
-   "en": "",
+   "fr": "naviguer, voler",
+   "en": "to sail, to fly",
    "parts": [
     "舟",
     "亠",
@@ -93,10 +98,14 @@
     "cjk-decomp"
    ],
    "role": null,
-   "roles": {},
-   "origine_fr": "",
-   "origine_en": "",
-   "etiquette": null,
+   "roles": {
+    "亠": "forme",
+    "几": "forme",
+    "舟": "sens"
+   },
+   "origine_fr": "Pour s'en souvenir : à gauche 舟, la barque. À droite 亢, écrit 亠 sur 几, qui se lit kàng et rime avec háng sans en donner le son. La barque qui file sur l'eau : naviguer, puis voler en avion, 航班.",
+   "origine_en": "As a memory aid: on the left is 舟, the boat. On the right is 亢, written 亠 over 几, read kàng, which rhymes with háng without giving its sound. The boat speeding over the water: to sail, then to fly, 航班.",
+   "etiquette": "mnemotechnique",
    "memo_fr": null,
    "memo_en": null,
    "mots": [],
@@ -107,7 +116,7 @@
    "traits": [],
    "medianes": [],
    "audio": null,
-   "statut": "sans_fiche"
+   "statut": "relu"
   },
   {
    "c": "般",
@@ -155,8 +164,8 @@
    "lectures": [
     "jiàn"
    ],
-   "fr": "",
-   "en": "",
+   "fr": "navire de guerre",
+   "en": "warship",
    "parts": [
     "舟",
     "见"
@@ -166,10 +175,13 @@
     "cjk-decomp"
    ],
    "role": null,
-   "roles": {},
-   "origine_fr": "",
-   "origine_en": "",
-   "etiquette": null,
+   "roles": {
+    "舟": "sens",
+    "见": "son"
+   },
+   "origine_fr": "Pour s'en souvenir : le bateau, 舟, et 见, « voir », qui se lit jiàn, exactement comme 舰. Un grand bateau qu'on voit venir de loin : « le navire de guerre ». On le retrouve dans 军舰.",
+   "origine_en": "As a memory aid: the boat, 舟, and 见, “to see”, which is read jiàn, exactly like 舰. A large ship you see coming from afar: “warship”. It appears in 军舰.",
+   "etiquette": "mnemotechnique",
    "memo_fr": null,
    "memo_en": null,
    "mots": [],
@@ -180,7 +192,7 @@
    "traits": [],
    "medianes": [],
    "audio": null,
-   "statut": "sans_fiche"
+   "statut": "relu"
   },
   {
    "c": "舱",
@@ -188,8 +200,8 @@
    "lectures": [
     "cāng"
    ],
-   "fr": "",
-   "en": "",
+   "fr": "cabine, soute",
+   "en": "cabin, hold",
    "parts": [
     "舟",
     "人",
@@ -200,10 +212,14 @@
     "cjk-decomp"
    ],
    "role": null,
-   "roles": {},
-   "origine_fr": "",
-   "origine_en": "",
-   "etiquette": null,
+   "roles": {
+    "㔾": "son",
+    "人": "son",
+    "舟": "sens"
+   },
+   "origine_fr": "On voit 舟, le bateau, à gauche, et 仓, le grenier, à droite, qui se lit cāng comme 舱. Pour s'en souvenir : le grenier du bateau, là où l'on range et où l'on voyage. 舱 nomme la cabine et la soute.",
+   "origine_en": "You see 舟, boat, on the left, and 仓, the granary, on the right, read cāng like 舱. As a memory aid: the ship's granary, where goods are stored and people travel. 舱 names the cabin and the hold.",
+   "etiquette": "mnemotechnique",
    "memo_fr": null,
    "memo_en": null,
    "mots": [],
@@ -214,7 +230,7 @@
    "traits": [],
    "medianes": [],
    "audio": null,
-   "statut": "sans_fiche"
+   "statut": "relu"
   },
   {
    "c": "舵",
@@ -222,8 +238,8 @@
    "lectures": [
     "duò"
    ],
-   "fr": "",
-   "en": "",
+   "fr": "gouvernail",
+   "en": "rudder, helm",
    "parts": [
     "舟",
     "宀",
@@ -234,10 +250,14 @@
     "cjk-decomp"
    ],
    "role": null,
-   "roles": {},
-   "origine_fr": "",
-   "origine_en": "",
-   "etiquette": null,
+   "roles": {
+    "匕": "forme",
+    "宀": "forme",
+    "舟": "sens"
+   },
+   "origine_fr": "On voit 舟, le bateau, à gauche, et 它, écrit 宀 sur 匕, à droite. Pour s'en souvenir : la pièce qui dit au bateau où aller. 舵 nomme le gouvernail ; 它 se lit tā et ne donne pas le son de duò.",
+   "origine_en": "You see 舟, boat, on the left, and 它, written 宀 over 匕, on the right. As a memory aid: the part that tells the boat where to go. 舵 names the rudder; 它 is read tā and does not give the sound of duò.",
+   "etiquette": "mnemotechnique",
    "memo_fr": null,
    "memo_en": null,
    "mots": [],
@@ -248,7 +268,7 @@
    "traits": [],
    "medianes": [],
    "audio": null,
-   "statut": "sans_fiche"
+   "statut": "relu"
   },
   {
    "c": "舶",
@@ -256,8 +276,8 @@
    "lectures": [
     "bó"
    ],
-   "fr": "",
-   "en": "",
+   "fr": "grand navire",
+   "en": "ocean-going ship",
    "parts": [
     "舟",
     "白"
@@ -267,10 +287,13 @@
     "cjk-decomp"
    ],
    "role": null,
-   "roles": {},
-   "origine_fr": "",
-   "origine_en": "",
-   "etiquette": null,
+   "roles": {
+    "白": "forme",
+    "舟": "sens"
+   },
+   "origine_fr": "On voit 舟, le bateau, à gauche, et 白, blanc, à droite. Pour s'en souvenir : un grand navire aux voiles blanches, venu de loin. 白 se lit bái et ne donne pas le son de bó.",
+   "origine_en": "You see 舟, boat, on the left, and 白, white, on the right. As a memory aid: a great ship with white sails, come from afar. 白 is read bái and does not give the sound of bó.",
+   "etiquette": "mnemotechnique",
    "memo_fr": null,
    "memo_en": null,
    "mots": [],
@@ -281,7 +304,7 @@
    "traits": [],
    "medianes": [],
    "audio": null,
-   "statut": "sans_fiche"
+   "statut": "relu"
   },
   {
    "c": "船",
@@ -329,8 +352,8 @@
    "lectures": [
     "tǐng"
    ],
-   "fr": "",
-   "en": "",
+   "fr": "canot, embarcation légère",
+   "en": "light boat, launch",
    "parts": [
     "舟",
     "廴",
@@ -341,10 +364,14 @@
     "cjk-decomp"
    ],
    "role": null,
-   "roles": {},
-   "origine_fr": "",
-   "origine_en": "",
-   "etiquette": null,
+   "roles": {
+    "壬": "son",
+    "廴": "son",
+    "舟": "sens"
+   },
+   "origine_fr": "Pour s'en souvenir : à gauche, 舟, la barque ; à droite, 廷, la cour. 廷 se lit tíng, la même syllabe que tǐng : il donne le son. Une petite barque, légère et rapide : 游艇, le yacht, 潜艇, le sous-marin.",
+   "origine_en": "As a memory aid: on the left, 舟, the boat; on the right, 廷, the court. 廷 is read tíng, the same syllable as tǐng: it gives the sound. A small boat, light and fast: 游艇, the yacht, 潜艇, the submarine.",
+   "etiquette": "mnemotechnique",
    "memo_fr": null,
    "memo_en": null,
    "mots": [],
@@ -355,7 +382,7 @@
    "traits": [],
    "medianes": [],
    "audio": null,
-   "statut": "sans_fiche"
+   "statut": "relu"
   },
   {
    "c": "艘",
@@ -363,8 +390,8 @@
    "lectures": [
     "sōu"
    ],
-   "fr": "",
-   "en": "",
+   "fr": "classificateur des bateaux",
+   "en": "measure word for ships",
    "parts": [
     "舟",
     "臼",
@@ -377,10 +404,15 @@
     "surcharge"
    ],
    "role": null,
-   "roles": {},
-   "origine_fr": "",
-   "origine_en": "",
-   "etiquette": null,
+   "roles": {
+    "丨": "son",
+    "又": "son",
+    "臼": "son",
+    "舟": "sens"
+   },
+   "origine_fr": "Pour s'en souvenir : à gauche, 舟, la barque ; à droite, 叟, le vieillard. 叟 se lit sǒu, la même syllabe que sōu : il donne le son. On compte les bateaux comme un vieux batelier : 一艘船.",
+   "origine_en": "As a memory aid: on the left, 舟, the boat; on the right, 叟, the old man. 叟 is read sǒu, the same syllable as sōu: it gives the sound. Boats are counted as an old boatman would: 一艘船.",
+   "etiquette": "mnemotechnique",
    "memo_fr": null,
    "memo_en": null,
    "mots": [],
@@ -391,7 +423,7 @@
    "traits": [],
    "medianes": [],
    "audio": null,
-   "statut": "sans_fiche"
+   "statut": "relu"
   }
  ]
 }

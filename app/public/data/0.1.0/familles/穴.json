@@ -8,10 +8,10 @@
  "racine": {
   "c": "穴",
   "pinyin": "xué",
-  "fr": "",
-  "en": "",
-  "origine": "",
-  "etiquette": null
+  "fr": "caverne, trou, point vital",
+  "en": "cave, hole, acupoint",
+  "origine": "Le Shuowen jiezi glose 穴 par « maison de terre » : 宀, le toit, et 八 pour le son. On y voit l'entrée d'une habitation creusée dans la terre, comme les grottes du plateau de lœss. Du logis creusé viennent la caverne, le trou, et les points vitaux de l'acupuncture.",
+  "etiquette": "atteste"
  },
  "fiches": [
   {
@@ -20,8 +20,8 @@
    "lectures": [
     "lián"
    ],
-   "fr": "",
-   "en": "",
+   "fr": "rideau, store",
+   "en": "curtain, blind",
    "parts": [
     "穴",
     "巾"
@@ -31,10 +31,13 @@
     "cjk-decomp"
    ],
    "role": null,
-   "roles": {},
-   "origine_fr": "",
-   "origine_en": "",
-   "etiquette": null,
+   "roles": {
+    "巾": "sens",
+    "穴": "forme"
+   },
+   "origine_fr": "Pour s'en souvenir : en haut, 穴, l'ouverture ; en bas, 巾, l'étoffe. Une étoffe pendue devant une ouverture, c'est le rideau, le store. Ni 穴 ni 巾 ne donnent le son de lián.",
+   "origine_en": "As a memory aid: on top, 穴, an opening; below, 巾, cloth. A cloth hung in front of an opening is a curtain, a blind. Neither 穴 nor 巾 gives the sound of lián.",
+   "etiquette": "mnemotechnique",
    "memo_fr": null,
    "memo_en": null,
    "mots": [],
@@ -45,7 +48,7 @@
    "traits": [],
    "medianes": [],
    "audio": null,
-   "statut": "sans_fiche"
+   "statut": "relu"
   },
   {
    "c": "穴",
@@ -53,27 +56,50 @@
    "lectures": [
     "xué"
    ],
-   "fr": "",
-   "en": "",
+   "fr": "caverne, trou, point vital",
+   "en": "cave, hole, acupoint",
    "parts": [],
    "nouveau": [],
    "sources": [],
    "role": null,
-   "roles": {},
-   "origine_fr": "",
-   "origine_en": "",
-   "etiquette": null,
+   "roles": {
+    "穴": "sens"
+   },
+   "origine_fr": "Le Shuowen jiezi glose 穴 par « maison de terre » : 宀, le toit, et 八 pour le son. On y voit l'entrée d'une habitation creusée dans la terre, comme les grottes du plateau de lœss. Du logis creusé viennent la caverne, le trou, et les points vitaux de l'acupuncture.",
+   "origine_en": "The Shuowen jiezi glosses 穴 as “an earthen dwelling”: 宀, the roof, and 八 for the sound. You can see the entrance of a home dug into the ground, like the cave dwellings of the loess plateau. From the dug-out home come the cave, the hole, and the vital points of acupuncture.",
+   "etiquette": "atteste",
    "memo_fr": null,
    "memo_en": null,
-   "mots": [],
-   "phrase": null,
+   "mots": [
+    {
+     "hanzi": "地穴",
+     "pinyin": "dìxué",
+     "fr": "cave souterraine, terrier",
+     "en": "underground cave, burrow",
+     "audio": null
+    },
+    {
+     "hanzi": "穴道",
+     "pinyin": "xuédào",
+     "fr": "point d'acupuncture",
+     "en": "acupuncture point",
+     "audio": null
+    }
+   ],
+   "phrase": {
+    "hanzi": "山里有一个地穴。",
+    "pinyin": "Shān lǐ yǒu yī gè dìxué.",
+    "fr": "Il y a une cave souterraine dans la montagne.",
+    "en": "There is an underground cave in the mountain.",
+    "audio": null
+   },
    "niveaux": {
     "hsk": 7
    },
    "traits": [],
    "medianes": [],
    "audio": null,
-   "statut": "sans_fiche"
+   "statut": "relu"
   },
   {
    "c": "究",
@@ -81,8 +107,8 @@
    "lectures": [
     "jiū"
    ],
-   "fr": "",
-   "en": "",
+   "fr": "étudier à fond, au fond",
+   "en": "to study closely, after all",
    "parts": [
     "穴",
     "九"
@@ -92,10 +118,13 @@
     "cjk-decomp"
    ],
    "role": null,
-   "roles": {},
-   "origine_fr": "",
-   "origine_en": "",
-   "etiquette": null,
+   "roles": {
+    "九": "son",
+    "穴": "sens"
+   },
+   "origine_fr": "Le Shuowen jiezi glose 究 par « aller jusqu'au bout » : 穴, la grotte, et 九 pour le son. 九 se lit jiǔ et donne toujours le son de jiū. Aller au fond de la grotte : étudier à fond, 研究.",
+   "origine_en": "The Shuowen jiezi glosses 究 as “to go to the very end”: 穴, the cave, and 九 for the sound. 九 is read jiǔ and still gives the sound of jiū. Going to the back of the cave: to study thoroughly, 研究.",
+   "etiquette": "atteste",
    "memo_fr": null,
    "memo_en": null,
    "mots": [],
@@ -106,7 +135,7 @@
    "traits": [],
    "medianes": [],
    "audio": null,
-   "statut": "sans_fiche"
+   "statut": "relu"
   },
   {
    "c": "穷",
@@ -114,8 +143,8 @@
    "lectures": [
     "qióng"
    ],
-   "fr": "",
-   "en": "",
+   "fr": "pauvre",
+   "en": "poor",
    "parts": [
     "穴",
     "力"
@@ -125,10 +154,13 @@
     "cjk-decomp"
    ],
    "role": null,
-   "roles": {},
-   "origine_fr": "",
-   "origine_en": "",
-   "etiquette": null,
+   "roles": {
+    "力": "forme",
+    "穴": "sens"
+   },
+   "origine_fr": "Le Shuowen jiezi écrit 窮 et le glose « aller jusqu'au bout » : 穴, la grotte, et 躬 pour le son. Qui est au bout de ses ressources est pauvre : c'est le sens courant. La forme simplifiée remplace 躬 par 力, la force, qui ne donne pas le son de qióng.",
+   "origine_en": "The Shuowen jiezi writes 窮 and glosses it as “to reach the end”: 穴, cave, and 躬 for the sound. Someone at the end of their means is poor: that is the everyday meaning. The simplified form replaces 躬 with 力, strength, which does not give the sound of qióng.",
+   "etiquette": "atteste",
    "memo_fr": null,
    "memo_en": null,
    "mots": [],
@@ -139,7 +171,7 @@
    "traits": [],
    "medianes": [],
    "audio": null,
-   "statut": "sans_fiche"
+   "statut": "relu"
   },
   {
    "c": "空",
@@ -243,8 +275,8 @@
    "lectures": [
     "tū"
    ],
-   "fr": "",
-   "en": "",
+   "fr": "soudain, saillant",
+   "en": "sudden, protruding",
    "parts": [
     "穴",
     "犬"
@@ -254,10 +286,13 @@
     "cjk-decomp"
    ],
    "role": null,
-   "roles": {},
-   "origine_fr": "",
-   "origine_en": "",
-   "etiquette": null,
+   "roles": {
+    "犬": "sens",
+    "穴": "sens"
+   },
+   "origine_fr": "Le Shuowen jiezi glose 突 par « le chien qui jaillit soudain de son trou » : 犬, le chien, sous 穴, la cavité. On lit toujours 穴 en haut et 犬 en bas. De là « soudain », et « saillant ».",
+   "origine_en": "The Shuowen jiezi glosses 突 as “a dog suddenly bursting out of its hole”: 犬, the dog, under 穴, the cave. You still read 穴 on top and 犬 below. Hence “sudden”, and “jutting out”.",
+   "etiquette": "atteste",
    "memo_fr": null,
    "memo_en": null,
    "mots": [],
@@ -268,7 +303,7 @@
    "traits": [],
    "medianes": [],
    "audio": null,
-   "statut": "sans_fiche"
+   "statut": "relu"
   },
   {
    "c": "窃",
@@ -276,8 +311,8 @@
    "lectures": [
     "qiè"
    ],
-   "fr": "",
-   "en": "",
+   "fr": "voler, en cachette",
+   "en": "to steal, secretly",
    "parts": [
     "穴",
     "七",
@@ -288,10 +323,14 @@
     "cjk-decomp"
    ],
    "role": null,
-   "roles": {},
-   "origine_fr": "",
-   "origine_en": "",
-   "etiquette": null,
+   "roles": {
+    "七": "son",
+    "刀": "son",
+    "穴": "sens"
+   },
+   "origine_fr": "Le Shuowen jiezi écrit 竊 et le définit : voler ce qui sort de l'intérieur, avec 穴, le trou, et 米, le grain. La forme simplifiée garde 穴 et met dessous 切, qui se lit qiè, exactement comme 窃. Le voleur passe par le trou : voler, 盗窃, et faire en cachette, 窃听.",
+   "origine_en": "The Shuowen jiezi writes 竊 and defines it: stealing what comes out from inside, with 穴, the hole, and 米, grain. The simplified form keeps 穴 and puts 切 underneath, read qiè, exactly like 窃. The thief comes through the hole: to steal, 盗窃, and to do in secret, 窃听.",
+   "etiquette": "atteste",
    "memo_fr": null,
    "memo_en": null,
    "mots": [],
@@ -302,7 +341,7 @@
    "traits": [],
    "medianes": [],
    "audio": null,
-   "statut": "sans_fiche"
+   "statut": "relu"
   },
   {
    "c": "窄",
@@ -310,8 +349,8 @@
    "lectures": [
     "zhǎi"
    ],
-   "fr": "",
-   "en": "",
+   "fr": "étroit",
+   "en": "narrow",
    "parts": [
     "穴",
     "乍"
@@ -321,10 +360,13 @@
     "cjk-decomp"
    ],
    "role": null,
-   "roles": {},
-   "origine_fr": "",
-   "origine_en": "",
-   "etiquette": null,
+   "roles": {
+    "乍": "forme",
+    "穴": "sens"
+   },
+   "origine_fr": "Pour s'en souvenir : en haut, 穴, le trou, la grotte. En dessous, 乍, qui se lit zhà et ne donne pas tout à fait le son zhǎi. Un trou où l'on se glisse à peine : étroit.",
+   "origine_en": "As a memory aid: at the top, 穴, the hole, the cave. Below, 乍, read zhà, which does not quite give the sound zhǎi. A hole you can barely squeeze into: narrow.",
+   "etiquette": "mnemotechnique",
    "memo_fr": null,
    "memo_en": null,
    "mots": [],
@@ -335,7 +377,7 @@
    "traits": [],
    "medianes": [],
    "audio": null,
-   "statut": "sans_fiche"
+   "statut": "relu"
   },
   {
    "c": "窍",
@@ -343,8 +385,8 @@
    "lectures": [
     "qiào"
    ],
-   "fr": "",
-   "en": "",
+   "fr": "orifice, astuce, clé",
+   "en": "aperture, knack, key",
    "parts": [
     "穴",
     "工",
@@ -355,10 +397,14 @@
     "cjk-decomp"
    ],
    "role": null,
-   "roles": {},
-   "origine_fr": "",
-   "origine_en": "",
-   "etiquette": null,
+   "roles": {
+    "丂": "son",
+    "工": "son",
+    "穴": "sens"
+   },
+   "origine_fr": "Le Shuowen jiezi écrit 竅 et le glose « creux » : 穴, le trou, pour le sens, et 敫 pour le son. La forme simplifiée remplace 敫 par 巧, qui se lit qiǎo, la même syllabe que qiào. Les orifices du corps, puis le petit trou par où tout passe, l'astuce, 窍门.",
+   "origine_en": "The Shuowen jiezi writes 竅 and glosses it as “hollow”: 穴, the hole, for the meaning, and 敫 for the sound. The simplified form replaces 敫 with 巧, read qiǎo, the same syllable as qiào. The openings of the body, then the small opening everything goes through, the knack, 窍门.",
+   "etiquette": "atteste",
    "memo_fr": null,
    "memo_en": null,
    "mots": [],
@@ -369,7 +415,7 @@
    "traits": [],
    "medianes": [],
    "audio": null,
-   "statut": "sans_fiche"
+   "statut": "relu"
   },
   {
    "c": "窑",
@@ -377,8 +423,8 @@
    "lectures": [
     "yáo"
    ],
-   "fr": "",
-   "en": "",
+   "fr": "four, habitation troglodyte",
+   "en": "kiln, cave dwelling",
    "parts": [
     "穴",
     "缶"
@@ -388,10 +434,13 @@
     "cjk-decomp"
    ],
    "role": null,
-   "roles": {},
-   "origine_fr": "",
-   "origine_en": "",
-   "etiquette": null,
+   "roles": {
+    "穴": "sens",
+    "缶": "sens"
+   },
+   "origine_fr": "Le Shuowen jiezi glose 窯 par « four où l'on cuit les tuiles » : 穴, la cavité, et 羔 pour le son. La forme d'aujourd'hui remplace 羔 par 缶, la jarre de terre, qui se lit fǒu. Un four creusé où cuisent les poteries, et aussi l'habitation creusée dans le lœss, 窑洞.",
+   "origine_en": "The Shuowen jiezi glosses 窯 as “a kiln for firing tiles”: 穴, the cavity, and 羔 for the sound. Today's form replaces 羔 with 缶, the earthenware jar, read fǒu. A hollowed-out oven where pottery is fired, and also the home dug into the loess, 窑洞.",
+   "etiquette": "atteste",
    "memo_fr": null,
    "memo_en": null,
    "mots": [],
@@ -402,7 +451,7 @@
    "traits": [],
    "medianes": [],
    "audio": null,
-   "statut": "sans_fiche"
+   "statut": "relu"
   },
   {
    "c": "窒",
@@ -410,8 +459,8 @@
    "lectures": [
     "zhì"
    ],
-   "fr": "",
-   "en": "",
+   "fr": "obstruer, boucher",
+   "en": "to obstruct, to block",
    "parts": [
     "穴",
     "至"
@@ -421,10 +470,13 @@
     "cjk-decomp"
    ],
    "role": null,
-   "roles": {},
-   "origine_fr": "",
-   "origine_en": "",
-   "etiquette": null,
+   "roles": {
+    "穴": "sens",
+    "至": "son"
+   },
+   "origine_fr": "Le Shuowen jiezi glose 窒 par « boucher » : 穴, le trou, et 至 pour le son. 至 se lit zhì, exactement comme 窒. Un trou bouché où l'air ne passe plus : obstruer, étouffer, comme dans 窒息.",
+   "origine_en": "The Shuowen jiezi glosses 窒 as “to stop up”: 穴, the hole, and 至 for the sound. 至 is read zhì, exactly like 窒. A blocked hole where air no longer passes: to obstruct, to suffocate, as in 窒息.",
+   "etiquette": "atteste",
    "memo_fr": null,
    "memo_en": null,
    "mots": [],
@@ -435,7 +487,7 @@
    "traits": [],
    "medianes": [],
    "audio": null,
-   "statut": "sans_fiche"
+   "statut": "relu"
   },
   {
    "c": "窗",
@@ -443,8 +495,8 @@
    "lectures": [
     "chuāng"
    ],
-   "fr": "",
-   "en": "",
+   "fr": "fenêtre",
+   "en": "window",
    "parts": [
     "穴",
     "囱"
@@ -455,11 +507,14 @@
    "sources": [
     "cjk-decomp"
    ],
-   "role": null,
-   "roles": {},
-   "origine_fr": "",
-   "origine_en": "",
-   "etiquette": null,
+   "role": "sens",
+   "roles": {
+    "囱": "sens",
+    "穴": "sens"
+   },
+   "origine_fr": "Le Shuowen jiezi dessine dans 囱 l'ouverture percée dans le toit, et donne 窗 comme une autre forme du même mot, avec 穴 par-dessus. 穴, le trou, dit l'ouverture ; 囱 en garde le dessin. 囱 se lit aujourd'hui cōng, veut dire « cheminée », et ne donne pas le son de chuāng.",
+   "origine_en": "The Shuowen jiezi sees in 囱 the opening cut in a roof, and gives 窗 as another form of the same word, with 穴 on top. 穴, the hole, says it is an opening; 囱 keeps its drawing. 囱 is read cōng today, means “chimney”, and does not give the sound of chuāng.",
+   "etiquette": "atteste",
    "memo_fr": null,
    "memo_en": null,
    "mots": [],
@@ -470,7 +525,7 @@
    "traits": [],
    "medianes": [],
    "audio": null,
-   "statut": "sans_fiche"
+   "statut": "relu"
   },
   {
    "c": "窘",
@@ -478,8 +533,8 @@
    "lectures": [
     "jiǒng"
    ],
-   "fr": "",
-   "en": "",
+   "fr": "embarrassé, dans la gêne",
+   "en": "embarrassed, hard up",
    "parts": [
     "穴",
     "尹",
@@ -490,10 +545,14 @@
     "cjk-decomp"
    ],
    "role": null,
-   "roles": {},
-   "origine_fr": "",
-   "origine_en": "",
-   "etiquette": null,
+   "roles": {
+    "口": "forme",
+    "尹": "forme",
+    "穴": "sens"
+   },
+   "origine_fr": "Le Shuowen jiezi glose 窘 « serré, acculé » : 穴, la caverne, et 君 pour le son. 君 se lit jūn : il ne donne plus le son de jiǒng. Coincé au fond d'un trou : dans la gêne, 窘迫, ou embarrassé, 窘.",
+   "origine_en": "The Shuowen jiezi glosses 窘 as “hard-pressed, cornered”: 穴, the cave, and 君 for the sound. 君 is read jūn: it no longer gives the sound of jiǒng. Stuck at the bottom of a hole: hard up, 窘迫, or embarrassed.",
+   "etiquette": "atteste",
    "memo_fr": null,
    "memo_en": null,
    "mots": [],
@@ -504,7 +563,7 @@
    "traits": [],
    "medianes": [],
    "audio": null,
-   "statut": "sans_fiche"
+   "statut": "relu"
   },
   {
    "c": "窜",
@@ -512,8 +571,8 @@
    "lectures": [
     "cuàn"
    ],
-   "fr": "",
-   "en": "",
+   "fr": "s'enfuir, filer, se répandre",
+   "en": "to flee, to scurry, to spread",
    "parts": [
     "穴",
     "串"
@@ -523,10 +582,13 @@
     "cjk-decomp"
    ],
    "role": null,
-   "roles": {},
-   "origine_fr": "",
-   "origine_en": "",
-   "etiquette": null,
+   "roles": {
+    "串": "forme",
+    "穴": "sens"
+   },
+   "origine_fr": "Le Shuowen jiezi explique 竄 par 鼠, le rat, caché dans 穴, le trou. La forme simplifiée garde 穴 en haut et met 串 dessous à la place du rat. 串 se lit chuàn : il ne donne pas le son de cuàn, « s'enfuir, filer ».",
+   "origine_en": "The Shuowen jiezi explains 竄 as 鼠, a rat, hiding in 穴, a hole. The simplified form keeps 穴 on top and puts 串 below in place of the rat. 串 is read chuàn: it does not give the sound of cuàn, “to flee, to scurry”.",
+   "etiquette": "atteste",
    "memo_fr": null,
    "memo_en": null,
    "mots": [],
@@ -537,7 +599,7 @@
    "traits": [],
    "medianes": [],
    "audio": null,
-   "statut": "sans_fiche"
+   "statut": "relu"
   },
   {
    "c": "窝",
@@ -545,8 +607,8 @@
    "lectures": [
     "wō"
    ],
-   "fr": "",
-   "en": "",
+   "fr": "nid, terrier, repaire",
+   "en": "nest, den, lair",
    "parts": [
     "穴",
     "口",
@@ -557,10 +619,14 @@
     "cjk-decomp"
    ],
    "role": null,
-   "roles": {},
-   "origine_fr": "",
-   "origine_en": "",
-   "etiquette": null,
+   "roles": {
+    "内": "forme",
+    "口": "forme",
+    "穴": "sens"
+   },
+   "origine_fr": "Pour s'en souvenir : en haut, 穴, le trou, la grotte. En dessous, 呙, écrit 口 sur 内, un creux où l'on entre. Un abri creusé où l'on se blottit : le nid, le terrier.",
+   "origine_en": "As a memory aid: at the top, 穴, the hole or cave. Below, 呙, written 口 over 内, a hollow you step into. A dug-out shelter to curl up in: the nest, the burrow.",
+   "etiquette": "mnemotechnique",
    "memo_fr": null,
    "memo_en": null,
    "mots": [],
@@ -571,7 +637,7 @@
    "traits": [],
    "medianes": [],
    "audio": null,
-   "statut": "sans_fiche"
+   "statut": "relu"
   },
   {
    "c": "窟",
@@ -579,8 +645,8 @@
    "lectures": [
     "kū"
    ],
-   "fr": "",
-   "en": "",
+   "fr": "grotte, caverne, repaire",
+   "en": "cave, grotto, den",
    "parts": [
     "穴",
     "尸",
@@ -591,10 +657,14 @@
     "cjk-decomp"
    ],
    "role": null,
-   "roles": {},
-   "origine_fr": "",
-   "origine_en": "",
-   "etiquette": null,
+   "roles": {
+    "出": "forme",
+    "尸": "forme",
+    "穴": "sens"
+   },
+   "origine_fr": "Pour s'en souvenir : en haut, 穴, la caverne ; en bas, 屈, se courber, écrit 尸 et 出. Un trou où l'on entre courbé : la grotte, 石窟, le repaire. 屈 se lit qū : il ne donne pas le son de kū, seulement la rime.",
+   "origine_en": "As a memory aid: on top, 穴, the cave; below, 屈, to bend, written 尸 and 出. A hole one enters stooping: a grotto, 石窟, a den. 屈 is read qū: it does not give the sound of kū, only its rhyme.",
+   "etiquette": "mnemotechnique",
    "memo_fr": null,
    "memo_en": null,
    "mots": [],
@@ -605,7 +675,7 @@
    "traits": [],
    "medianes": [],
    "audio": null,
-   "statut": "sans_fiche"
+   "statut": "relu"
   },
   {
    "c": "窥",
@@ -613,8 +683,8 @@
    "lectures": [
     "kuī"
    ],
-   "fr": "",
-   "en": "",
+   "fr": "épier, guetter",
+   "en": "to peep, to spy",
    "parts": [
     "穴",
     "夫",
@@ -625,10 +695,14 @@
     "cjk-decomp"
    ],
    "role": null,
-   "roles": {},
-   "origine_fr": "",
-   "origine_en": "",
-   "etiquette": null,
+   "roles": {
+    "夫": "forme",
+    "穴": "sens",
+    "见": "forme"
+   },
+   "origine_fr": "Le Shuowen jiezi écrit 窺 et le glose « regarder à la dérobée » : 穴, le trou, et 規 pour le son. 规 se lit guī : il ne donne plus le son de kuī, seulement la rime. Regarder par un trou : épier, 窥视.",
+   "origine_en": "The Shuowen jiezi writes 窺 and glosses it “to look furtively”: 穴, the hole, and 規 for the sound. 规 is read guī: it no longer gives the sound of kuī, only its rhyme. Looking through a hole: to peep, 窥视.",
+   "etiquette": "atteste",
    "memo_fr": null,
    "memo_en": null,
    "mots": [],
@@ -639,7 +713,7 @@
    "traits": [],
    "medianes": [],
    "audio": null,
-   "statut": "sans_fiche"
+   "statut": "relu"
   },
   {
    "c": "窿",
@@ -647,8 +721,8 @@
    "lectures": [
     "lóng"
    ],
-   "fr": "",
-   "en": "",
+   "fr": "trou, cavité",
+   "en": "hole, cavity",
    "parts": [
     "穴",
     "阝",
@@ -662,10 +736,16 @@
     "surcharge"
    ],
    "role": null,
-   "roles": {},
-   "origine_fr": "",
-   "origine_en": "",
-   "etiquette": null,
+   "roles": {
+    "一": "son",
+    "夂": "son",
+    "生": "son",
+    "穴": "sens",
+    "阝": "son"
+   },
+   "origine_fr": "Pour s'en souvenir : en haut, 穴, le trou ; en bas, 隆, qui se lit lóng comme 窿. Un trou profond et arrondi comme une voûte : 窟窿, le trou. 隆 donne le son, 穴 le sens.",
+   "origine_en": "As a memory aid: on top, 穴, the hole; below, 隆, read lóng like 窿. A hole deep and rounded like a vault: 窟窿, a hole. 隆 gives the sound and 穴 the meaning.",
+   "etiquette": "mnemotechnique",
    "memo_fr": null,
    "memo_en": null,
    "mots": [],
@@ -676,7 +756,7 @@
    "traits": [],
    "medianes": [],
    "audio": null,
-   "statut": "sans_fiche"
+   "statut": "relu"
   }
  ]
 }
