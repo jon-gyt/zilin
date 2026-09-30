@@ -10,7 +10,10 @@
   "statut": "relu",
   "par": "le propriétaire",
   "decision": "« Go » (30 septembre 2026) : tout affiché sans relecture ligne à ligne",
-  "date": "2026-09-30"
+  "date": "2026-09-30",
+  "corrections": [
+   "le 30 septembre 2026, acquis des paliers déplacé par les décisions du propriétaire « Réconcilier les 13 » et « Poser les paires ensemble » ; réparé sur « Aller au bout », au plus court, séries laissées relues (décision « Go ») : 昏 entre au tronçon suivant : B s1, 头昏 → 犯困 (犯, du tronçon), Q2 suit. Même réponse."
+  ]
  },
  "series": [
   {
@@ -224,16 +227,24 @@
        "en": "Three times a day, two tablets each time, after meals."
       },
       {
-       "zh": "吃药后可能会头昏，请不要开车。",
-       "pinyin": "chī yào hòu kě néng huì tóu hūn qǐng bù yào kāi chē",
-       "fr": "On peut avoir la tête qui tourne ensuite : ne conduisez pas.",
-       "en": "It may make you dizzy: do not drive."
+       "zh": "吃药后可能会犯困，请不要开车。",
+       "pinyin": "chī yào hòu kě néng huì fàn kùn qǐng bù yào kāi chē",
+       "fr": "On peut avoir sommeil ensuite : ne conduisez pas.",
+       "en": "You may feel drowsy afterwards: do not drive."
       },
       {
        "zh": "肝不好的患者请先问医生。",
        "pinyin": "gān bù hǎo de huàn zhě qǐng xiān wèn yī shēng",
        "fr": "Les patients qui ont le foie fragile demandent d'abord à leur médecin.",
        "en": "Patients with liver problems should ask their doctor first."
+      }
+     ],
+     "glose": [
+      {
+       "zh": "犯困",
+       "pinyin": "fàn kùn",
+       "fr": "avoir sommeil",
+       "en": "to feel drowsy"
       }
      ]
     },
@@ -314,9 +325,8 @@
      },
      "reponse": false,
      "porte": [
-      "昏",
-      "不",
-      "要",
+      "犯",
+      "困",
       "开",
       "车"
      ]

@@ -10,7 +10,10 @@
   "statut": "relu",
   "par": "le propriétaire",
   "decision": "« Go » (30 septembre 2026) : tout affiché sans relecture ligne à ligne",
-  "date": "2026-09-30"
+  "date": "2026-09-30",
+  "corrections": [
+   "le 30 septembre 2026, acquis des paliers déplacé par les décisions du propriétaire « Réconcilier les 13 » et « Poser les paires ensemble » ; réparé sur « Aller au bout », au plus court, séries laissées relues (décision « Go ») : 村 et 农 entrent après le palier. A s1 et s3, 村里 → 乡下 et 农民市场 → 菜市场 ; B Q10, le trou de 农民 devient celui de 结束 (束, du tronçon ; leurres 来 米 未, de même forme)."
+  ]
  },
  "series": [
   {
@@ -32,10 +35,10 @@
        "en": "Dear Xiaoming,"
       },
       {
-       "zh": "我们在村里都很好，",
-       "pinyin": "wǒ men zài cūn lǐ dōu hěn hǎo",
-       "fr": "au village, nous allons tous bien.",
-       "en": "we're all well in the village."
+       "zh": "我们在乡下都很好，",
+       "pinyin": "wǒ men zài xiāng xià dōu hěn hǎo",
+       "fr": "à la campagne, nous allons tous bien.",
+       "en": "in the countryside, we are all well."
       },
       {
        "zh": "今年秋天，家里的米卖得不错。",
@@ -57,12 +60,6 @@
       }
      ],
      "glose": [
-      {
-       "zh": "村里",
-       "pinyin": "cūn lǐ",
-       "fr": "au village",
-       "en": "in the village"
-      },
       {
        "zh": "今年",
        "pinyin": "jīn nián",
@@ -152,6 +149,12 @@
        "pinyin": "dōng tiān",
        "fr": "l'hiver",
        "en": "winter"
+      },
+      {
+       "zh": "乡下",
+       "pinyin": "xiāng xià",
+       "fr": "campagne",
+       "en": "countryside"
       }
      ]
     },
@@ -242,10 +245,10 @@
      },
      "lignes": [
       {
-       "zh": "周末农民市场",
-       "pinyin": "zhōu mò nóng mín shì chǎng",
-       "fr": "Marché paysan du week-end",
-       "en": "Weekend farmers' market"
+       "zh": "周末菜市场",
+       "pinyin": "zhōu mò cài shì chǎng",
+       "fr": "Marché du week-end",
+       "en": "Weekend market"
       },
       {
        "zh": "星期六、星期天上午",
@@ -254,10 +257,10 @@
        "en": "Saturday and Sunday mornings"
       },
       {
-       "zh": "有村里的鸡蛋、青菜和米",
-       "pinyin": "yǒu cūn lǐ de jī dàn qīng cài hé mǐ",
-       "fr": "Œufs, légumes verts et riz du village",
-       "en": "Eggs, greens and rice from the village"
+       "zh": "有乡下的鸡蛋、青菜和米",
+       "pinyin": "yǒu xiāng xià de jī dàn qīng cài hé mǐ",
+       "fr": "Œufs, légumes verts et riz de la campagne",
+       "en": "Eggs, greens and rice from the countryside"
       },
       {
        "zh": "在人民公园东门",
@@ -274,22 +277,10 @@
        "en": "weekend"
       },
       {
-       "zh": "农民",
-       "pinyin": "nóng mín",
-       "fr": "paysan",
-       "en": "farmer"
-      },
-      {
        "zh": "市场",
        "pinyin": "shì chǎng",
        "fr": "marché",
        "en": "market"
-      },
-      {
-       "zh": "村里",
-       "pinyin": "cūn lǐ",
-       "fr": "au village",
-       "en": "in the village"
       },
       {
        "zh": "鸡蛋",
@@ -332,6 +323,18 @@
        "pinyin": "yě",
        "fr": "aussi",
        "en": "also"
+      },
+      {
+       "zh": "乡下",
+       "pinyin": "xiāng xià",
+       "fr": "campagne",
+       "en": "countryside"
+      },
+      {
+       "zh": "菜市场",
+       "pinyin": "cài shì chǎng",
+       "fr": "marché",
+       "en": "market"
       }
      ]
     }
@@ -1166,21 +1169,21 @@
       "en": "Which character is missing from this word?"
      },
      "objet": {
-      "zh": "农民",
-      "pinyin": "nóng mín",
-      "fr": "paysan",
-      "en": "farmer"
+      "zh": "结束",
+      "pinyin": "jié shù",
+      "fr": "finir, se terminer",
+      "en": "to end"
      },
-     "trou": 0,
+     "trou": 1,
      "choix": [
-      "衣",
-      "表",
-      "农",
-      "长"
+      "来",
+      "米",
+      "束",
+      "未"
      ],
      "reponse": 2,
      "porte": [
-      "农"
+      "束"
      ]
     }
    ]

@@ -10,7 +10,10 @@
   "statut": "relu",
   "par": "le propriétaire",
   "decision": "« Go » (30 septembre 2026) : tout affiché sans relecture ligne à ligne",
-  "date": "2026-09-30"
+  "date": "2026-09-30",
+  "corrections": [
+   "le 30 septembre 2026, acquis des paliers déplacé par les décisions du propriétaire « Réconcilier les 13 » et « Poser les paires ensemble » ; réparé sur « Aller au bout », au plus court, séries laissées relues (décision « Go ») : 费 et 挂 entrent au tronçon suivant. A s1, 免费 → 不用付钱 (付, du tronçon ; Q1 suit) ; A Q5, le sens de 挂 devient celui de 补 (du tronçon, mêmes leurres) ; B s1, « 付电费 » → « 关门 ». Mêmes réponses."
+  ]
  },
  "series": [
   {
@@ -32,8 +35,8 @@
        "en": "Toilets"
       },
       {
-       "zh": "在二楼，免费",
-       "pinyin": "zài èr lóu miǎn fèi",
+       "zh": "在二楼，不用付钱",
+       "pinyin": "zài èr lóu bù yòng fù qián",
        "fr": "Au premier étage, gratuites",
        "en": "First floor, free"
       },
@@ -58,12 +61,6 @@
        "en": "the first floor"
       },
       {
-       "zh": "免费",
-       "pinyin": "miǎn fèi",
-       "fr": "gratuit",
-       "en": "free"
-      },
-      {
        "zh": "保持",
        "pinyin": "bǎo chí",
        "fr": "garder, maintenir",
@@ -80,6 +77,12 @@
        "pinyin": "yī lóu",
        "fr": "le rez-de-chaussée",
        "en": "the ground floor"
+      },
+      {
+       "zh": "付钱",
+       "pinyin": "fù qián",
+       "fr": "payer",
+       "en": "to pay"
       }
      ]
     },
@@ -202,8 +205,10 @@
      ],
      "reponse": 1,
      "porte": [
-      "免",
-      "费"
+      "不",
+      "用",
+      "付",
+      "钱"
      ]
     },
     {
@@ -302,10 +307,10 @@
       "en": "What does this character mean?"
      },
      "objet": {
-      "zh": "挂",
-      "pinyin": "guà",
-      "fr": "accrocher",
-      "en": "to hang"
+      "zh": "补",
+      "pinyin": "bǔ",
+      "fr": "réparer",
+      "en": "to mend"
      },
      "choix": [
       {
@@ -313,8 +318,8 @@
        "en": "to cut"
       },
       {
-       "fr": "accrocher",
-       "en": "to hang"
+       "fr": "réparer",
+       "en": "to mend"
       },
       {
        "fr": "porter",
@@ -327,7 +332,7 @@
      ],
      "reponse": 1,
      "porte": [
-      "挂"
+      "补"
      ]
     }
    ]
@@ -357,10 +362,10 @@
        "en": "dinner's on the table,"
       },
       {
-       "zh": "别忘了付电费！妈妈",
-       "pinyin": "bié wàng le fù diàn fèi mā ma",
-       "fr": "n'oublie pas de payer l'électricité ! Maman",
-       "en": "don't forget to pay the electricity bill! Mum"
+       "zh": "别忘了关门！妈妈",
+       "pinyin": "bié wàng le guān mén mā ma",
+       "fr": "n'oublie pas de fermer la porte ! Maman",
+       "en": "don't forget to close the door! Mum"
       }
      ],
      "glose": [
@@ -387,18 +392,6 @@
        "pinyin": "wàng le",
        "fr": "oublier",
        "en": "to forget"
-      },
-      {
-       "zh": "付",
-       "pinyin": "fù",
-       "fr": "payer",
-       "en": "to pay"
-      },
-      {
-       "zh": "电费",
-       "pinyin": "diàn fèi",
-       "fr": "facture d'électricité",
-       "en": "electricity bill"
       },
       {
        "zh": "知道了",

@@ -10,7 +10,10 @@
   "statut": "relu",
   "par": "le propriétaire",
   "decision": "« Go » (30 septembre 2026) : tout affiché sans relecture ligne à ligne",
-  "date": "2026-09-30"
+  "date": "2026-09-30",
+  "corrections": [
+   "le 30 septembre 2026, acquis des paliers déplacé par les décisions du propriétaire « Réconcilier les 13 » et « Poser les paires ensemble » ; réparé sur « Aller au bout », au plus court, séries laissées relues (décision « Go ») : 串 entre au tronçon suivant : B s2, les brochettes de mouton deviennent la soupe au sang de canard (鸭, du tronçon), Q3 et Q4 suivent. Mêmes réponses."
+  ]
  },
  "series": [
   {
@@ -258,10 +261,10 @@
      },
      "lignes": [
       {
-       "zh": "羊肉串：五元一串",
-       "pinyin": "yáng ròu chuàn wǔ yuán yī chuàn",
-       "fr": "Brochettes de mouton : 5 yuans la brochette",
-       "en": "Lamb skewers: 5 yuan each"
+       "zh": "鸭血汤：五元一碗",
+       "pinyin": "yā xuè tāng wǔ yuán yī wǎn",
+       "fr": "Soupe au sang de canard : 5 yuans le bol",
+       "en": "Duck blood soup: 5 yuan a bowl"
       },
       {
        "zh": "鸡蛋饼：八元一个",
@@ -274,6 +277,20 @@
        "pinyin": "lěng yǐn sān yuán yī bēi",
        "fr": "Boissons fraîches : 3 yuans le verre",
        "en": "Cold drinks: 3 yuan a cup"
+      }
+     ],
+     "glose": [
+      {
+       "zh": "鸭血汤",
+       "pinyin": "yā xuè tāng",
+       "fr": "soupe au sang de canard",
+       "en": "duck blood soup"
+      },
+      {
+       "zh": "碗",
+       "pinyin": "wǎn",
+       "fr": "bol",
+       "en": "bowl"
       }
      ]
     }
@@ -362,7 +379,7 @@
      "choix": [
       "鸡蛋饼",
       "冷饮",
-      "羊肉串",
+      "鸭血汤",
       "一个"
      ],
      "reponse": 1,
@@ -380,14 +397,15 @@
       "en": "True or false?"
      },
      "affirmation": {
-      "zh": "鸡蛋饼比羊肉串贵。",
-      "pinyin": "jī dàn bǐng bǐ yáng ròu chuàn guì",
-      "fr": "Les crêpes coûtent plus cher que les brochettes.",
-      "en": "Pancakes cost more than skewers."
+      "zh": "鸡蛋饼比鸭血汤贵。",
+      "pinyin": "jī dàn bǐng bǐ yā xuè tāng guì",
+      "fr": "Les crêpes coûtent plus cher que la soupe au sang de canard.",
+      "en": "The egg pancakes cost more than the duck blood soup."
      },
      "reponse": true,
      "porte": [
-      "串",
+      "饼",
+      "鸭",
       "五",
       "八"
      ]

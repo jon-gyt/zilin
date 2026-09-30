@@ -10,7 +10,10 @@
   "statut": "relu",
   "par": "le propriétaire",
   "decision": "« Go » (30 septembre 2026) : tout affiché sans relecture ligne à ligne",
-  "date": "2026-09-30"
+  "date": "2026-09-30",
+  "corrections": [
+   "le 30 septembre 2026, acquis des paliers déplacé par les décisions du propriétaire « Réconcilier les 13 » et « Poser les paires ensemble » ; réparé sur « Aller au bout », au plus court, séries laissées relues (décision « Go ») : 赛 et 散 entrent au tronçon suivant. A s1, le match (比赛) devient la fête (联欢会, 联 du tronçon), Q2 suit ; A s2, 散步 → 跑步. Mêmes réponses."
+  ]
  },
  "series": [
   {
@@ -32,16 +35,24 @@
        "en": "Xiao Wang, I've caught a cold:"
       },
       {
-       "zh": "明天的比赛不能去了。",
-       "pinyin": "míng tiān de bǐ sài bù néng qù le",
-       "fr": "je ne pourrai pas aller au match de demain.",
-       "en": "I can't go to tomorrow's match."
+       "zh": "明天的联欢会不能去了。",
+       "pinyin": "míng tiān de lián huān huì bù néng qù le",
+       "fr": "je ne pourrai pas aller à la fête de demain.",
+       "en": "I can't go to tomorrow's party."
       },
       {
        "zh": "麻烦你跟老师说一下。",
        "pinyin": "má fan nǐ gēn lǎo shī shuō yī xià",
        "fr": "Tu veux bien prévenir le professeur ?",
        "en": "Could you please tell the teacher?"
+      }
+     ],
+     "glose": [
+      {
+       "zh": "联欢会",
+       "pinyin": "lián huān huì",
+       "fr": "fête (de classe)",
+       "en": "party"
       }
      ]
     },
@@ -54,10 +65,10 @@
      },
      "lignes": [
       {
-       "zh": "星期天早上一起散步！",
-       "pinyin": "xīng qī tiān zǎo shang yī qǐ sàn bù",
-       "fr": "Dimanche matin, promenade ensemble !",
-       "en": "Sunday morning, let's go for a walk together!"
+       "zh": "星期天早上一起跑步！",
+       "pinyin": "xīng qī tiān zǎo shang yī qǐ pǎo bù",
+       "fr": "Dimanche matin, footing ensemble !",
+       "en": "Sunday morning, let's go running together!"
       },
       {
        "zh": "七点在桥下见面，",
@@ -117,12 +128,13 @@
       "小王",
       "感冒",
       "老师",
-      "比赛"
+      "联欢会"
      ],
      "reponse": 3,
      "porte": [
-      "比",
-      "赛"
+      "联",
+      "欢",
+      "会"
      ]
     },
     {

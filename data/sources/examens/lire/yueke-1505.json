@@ -10,7 +10,10 @@
   "statut": "relu",
   "par": "le propriétaire",
   "decision": "« Go » (30 septembre 2026) : tout affiché sans relecture ligne à ligne",
-  "date": "2026-09-30"
+  "date": "2026-09-30",
+  "corrections": [
+   "le 30 septembre 2026, acquis des paliers déplacé par les décisions du propriétaire « Réconcilier les 13 » et « Poser les paires ensemble » ; réparé sur « Aller au bout », au plus court, séries laissées relues (décision « Go ») : 邻 et 漏 entrent au tronçon suivant. A s2, 邻居 → 楼上的, et le tuyau « fuit » → « est cassé », Xiao Lin « affolée » (慌, du tronçon) ; Q3 et Q4 suivent. Mêmes réponses."
+  ]
  },
  "series": [
   {
@@ -116,16 +119,16 @@
      },
      "lignes": [
       {
-       "zh": "王奶奶，您好！我是您的邻居小林。",
-       "pinyin": "wáng nǎi nai nín hǎo wǒ shì nín de lín jū xiǎo lín",
-       "fr": "Madame Wang, bonjour ! C'est Xiao Lin, votre voisine.",
-       "en": "Hello Mrs Wang! It's Xiao Lin, your neighbour."
+       "zh": "王奶奶，您好！我是您楼上的小林。",
+       "pinyin": "wáng nǎi nai nín hǎo wǒ shì nín lóu shàng de xiǎo lín",
+       "fr": "Madame Wang, bonjour ! C'est Xiao Lin, du dessus.",
+       "en": "Mrs Wang, hello! It's Xiao Lin from upstairs."
       },
       {
-       "zh": "我家厨房的水管漏水了，",
-       "pinyin": "wǒ jiā chú fáng de shuǐ guǎn lòu shuǐ le",
-       "fr": "Le tuyau de ma cuisine fuit,",
-       "en": "The pipe in my kitchen is leaking,"
+       "zh": "我家厨房的水管坏了，我很慌，",
+       "pinyin": "wǒ jiā chú fáng de shuǐ guǎn huài le wǒ hěn huāng",
+       "fr": "Le tuyau de ma cuisine est cassé, je suis affolée :",
+       "en": "The pipe in my kitchen is broken, I'm in a panic:"
       },
       {
        "zh": "水可能会流到您家，真对不起！",
@@ -154,12 +157,6 @@
        "en": "hello"
       },
       {
-       "zh": "邻居",
-       "pinyin": "lín jū",
-       "fr": "voisin",
-       "en": "neighbour"
-      },
-      {
        "zh": "小林",
        "pinyin": "xiǎo lín",
        "fr": "Xiao Lin (nom)",
@@ -176,12 +173,6 @@
        "pinyin": "shuǐ guǎn",
        "fr": "tuyau d'eau",
        "en": "water pipe"
-      },
-      {
-       "zh": "漏水",
-       "pinyin": "lòu shuǐ",
-       "fr": "fuir (eau)",
-       "en": "to leak"
       },
       {
        "zh": "可能",
@@ -242,6 +233,12 @@
        "pinyin": "wǒ de",
        "fr": "mon, ma",
        "en": "my"
+      },
+      {
+       "zh": "慌",
+       "pinyin": "huāng",
+       "fr": "affolé",
+       "en": "panicked"
       }
      ]
     }
@@ -305,15 +302,15 @@
       "en": "True or false?"
      },
      "affirmation": {
-      "zh": "小林家的水管漏水了。",
-      "pinyin": "xiǎo lín jiā de shuǐ guǎn lòu shuǐ le",
-      "fr": "Le tuyau de chez Xiao Lin fuit.",
-      "en": "The pipe at Xiao Lin's is leaking."
+      "zh": "小林家的水管坏了，她很慌。",
+      "pinyin": "xiǎo lín jiā de shuǐ guǎn huài le tā hěn huāng",
+      "fr": "Le tuyau de chez Xiao Lin est cassé et elle est affolée.",
+      "en": "Xiao Lin's pipe is broken and she is panicking."
      },
      "reponse": true,
      "porte": [
-      "漏",
-      "水"
+      "坏",
+      "慌"
      ]
     },
     {
@@ -351,8 +348,7 @@
      ],
      "reponse": 3,
      "porte": [
-      "漏",
-      "邻"
+      "慌"
      ]
     },
     {

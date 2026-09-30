@@ -10,7 +10,10 @@
   "statut": "relu",
   "par": "le propriétaire",
   "decision": "« Go » (30 septembre 2026) : tout affiché sans relecture ligne à ligne",
-  "date": "2026-09-30"
+  "date": "2026-09-30",
+  "corrections": [
+   "le 30 septembre 2026, acquis des paliers déplacé par les décisions du propriétaire « Réconcilier les 13 » et « Poser les paires ensemble » ; réparé sur « Aller au bout », au plus court, séries laissées relues (décision « Go ») : 鼻 et 聪 entrent au tronçon suivant. A Q5, le sens de 鼻 devient celui de 肠 (du tronçon) ; B Q5, le trou de 聪明 devient celui de 饼干 (饼, du tronçon ; leurres 饭 饺 并)."
+  ]
  },
  "series": [
   {
@@ -314,10 +317,10 @@
       "en": "What does this character mean?"
      },
      "objet": {
-      "zh": "鼻",
-      "pinyin": "bí",
-      "fr": "nez",
-      "en": "nose"
+      "zh": "肠",
+      "pinyin": "cháng",
+      "fr": "intestin",
+      "en": "intestine"
      },
      "choix": [
       {
@@ -333,13 +336,13 @@
        "en": "eye"
       },
       {
-       "fr": "nez",
-       "en": "nose"
+       "fr": "intestin",
+       "en": "intestine"
       }
      ],
      "reponse": 3,
      "porte": [
-      "鼻"
+      "肠"
      ]
     }
    ]
@@ -615,22 +618,21 @@
       "en": "Which character is missing from this word?"
      },
      "objet": {
-      "zh": "聪明",
-      "pinyin": "cōng míng",
-      "fr": "intelligent",
-      "en": "clever"
+      "zh": "饼干",
+      "pinyin": "bǐng gān",
+      "fr": "biscuit",
+      "en": "biscuit"
      },
      "trou": 0,
      "choix": [
-      "总",
-      "聪",
-      "忽",
-      "感"
+      "饭",
+      "饼",
+      "饺",
+      "并"
      ],
      "reponse": 1,
      "porte": [
-      "聪",
-      "明"
+      "饼"
      ]
     }
    ]

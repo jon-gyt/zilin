@@ -10,7 +10,10 @@
   "statut": "relu",
   "par": "le propriétaire",
   "decision": "« Go » (30 septembre 2026) : tout affiché sans relecture ligne à ligne",
-  "date": "2026-09-30"
+  "date": "2026-09-30",
+  "corrections": [
+   "le 30 septembre 2026, acquis des paliers déplacé par les décisions du propriétaire « Réconcilier les 13 » et « Poser les paires ensemble » ; réparé sur « Aller au bout », au plus court, séries laissées relues (décision « Go ») : 馒 麦 盲 sont hors du chemin à ce palier. A s2, 馒头 → 包子 et 麦茶 → 菌汤 (菌, du tronçon), Q3 et Q4 suivent ; B Q5, le caractère de 盲 devient celui de 裂 (du tronçon ; leurres 列 烈 例). Mêmes réponses."
+  ]
  },
  "series": [
   {
@@ -54,9 +57,9 @@
      },
      "lignes": [
       {
-       "zh": "馒头：一元一个",
-       "pinyin": "mán tou yī yuán yī gè",
-       "fr": "Pain vapeur : 1 yuan pièce",
+       "zh": "包子：一元一个",
+       "pinyin": "bāo zi yī yuán yī gè",
+       "fr": "Brioche farcie : 1 yuan pièce",
        "en": "Steamed bun: 1 yuan each"
       },
       {
@@ -66,10 +69,24 @@
        "en": "Soy-braised beef: 35 yuan"
       },
       {
-       "zh": "麦茶：免费",
-       "pinyin": "mài chá miǎn fèi",
-       "fr": "Thé d'orge : gratuit",
-       "en": "Barley tea: free"
+       "zh": "菌汤：免费",
+       "pinyin": "jùn tāng miǎn fèi",
+       "fr": "Soupe aux champignons : gratuite",
+       "en": "Mushroom soup: free"
+      }
+     ],
+     "glose": [
+      {
+       "zh": "包子",
+       "pinyin": "bāo zi",
+       "fr": "brioche farcie",
+       "en": "steamed bun"
+      },
+      {
+       "zh": "菌汤",
+       "pinyin": "jùn tāng",
+       "fr": "soupe aux champignons",
+       "en": "mushroom soup"
       }
      ]
     }
@@ -154,15 +171,15 @@
       "en": "Tap what is free."
      },
      "choix": [
-      "馒头",
+      "包子",
       "酱牛肉",
-      "麦茶",
+      "菌汤",
       "一个"
      ],
      "reponse": 2,
      "porte": [
-      "麦",
-      "茶",
+      "菌",
+      "汤",
       "免",
       "费"
      ]
@@ -175,15 +192,15 @@
       "en": "True or false?"
      },
      "affirmation": {
-      "zh": "馒头比酱牛肉贵。",
-      "pinyin": "mán tou bǐ jiàng niú ròu guì",
-      "fr": "Le pain vapeur coûte plus cher que le bœuf braisé.",
+      "zh": "包子比酱牛肉贵。",
+      "pinyin": "bāo zi bǐ jiàng niú ròu guì",
+      "fr": "La brioche farcie coûte plus cher que le bœuf braisé.",
       "en": "The steamed bun costs more than the braised beef."
      },
      "reponse": false,
      "porte": [
-      "馒",
-      "头",
+      "包",
+      "子",
       "酱",
       "牛",
       "肉"
@@ -396,20 +413,20 @@
       "en": "Which character has this meaning?"
      },
      "objet": {
-      "zh": "盲",
-      "pinyin": "máng",
-      "fr": "aveugle",
-      "en": "blind"
+      "zh": "裂",
+      "pinyin": "liè",
+      "fr": "se fendre",
+      "en": "to crack"
      },
      "choix": [
-      "忙",
-      "忘",
-      "盲",
-      "亡"
+      "列",
+      "烈",
+      "裂",
+      "例"
      ],
      "reponse": 2,
      "porte": [
-      "盲"
+      "裂"
      ]
     }
    ]
