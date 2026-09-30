@@ -21,20 +21,33 @@
   "弓": "forme",
   "米": "sens"
  },
- "mots": [],
+ "mots": [
+  {
+   "hanzi": "白粥",
+   "pinyin": "báizhōu",
+   "fr": "bouillie de riz nature",
+   "en": "plain congee"
+  },
+  {
+   "hanzi": "米粥",
+   "pinyin": "mǐzhōu",
+   "fr": "bouillie de riz",
+   "en": "rice porridge"
+  }
+ ],
  "phrase": {
-  "zh": "",
-  "pinyin": "",
-  "fr": "",
-  "en": ""
+  "zh": "早上我喝了一碗粥。",
+  "pinyin": "Zǎoshang wǒ hē le yī wǎn zhōu.",
+  "fr": "Ce matin, j'ai mangé un bol de bouillie de riz.",
+  "en": "This morning I had a bowl of congee."
  },
  "generation": {
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:4b11a920906d6839af05a060b1307394d5ff379a71b5f5214b4c8dc117e835ed",
-  "essais": 1,
+  "empreinte_invite": "sha256:1fe9e669f0cbf391bf551c66237285c3e7311b1a6bf494470cade82e57e38152",
+  "essais": 2,
   "refus": []
  },
- "statut": "relu"
+ "statut": "a_relire"
 }

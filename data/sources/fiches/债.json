@@ -23,20 +23,33 @@
   "龶": "forme",
   "贝": "sens"
  },
- "mots": [],
+ "mots": [
+  {
+   "hanzi": "债务",
+   "pinyin": "zhàiwù",
+   "fr": "dette",
+   "en": "debt"
+  },
+  {
+   "hanzi": "还债",
+   "pinyin": "huánzhài",
+   "fr": "rembourser une dette",
+   "en": "to repay a debt"
+  }
+ ],
  "phrase": {
-  "zh": "",
-  "pinyin": "",
-  "fr": "",
-  "en": ""
+  "zh": "他终于还清了所有的债。",
+  "pinyin": "Tā zhōngyú huánqīng le suǒyǒu de zhài.",
+  "fr": "Il a enfin remboursé toutes ses dettes.",
+  "en": "He finally paid off all his debts."
  },
  "generation": {
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:9462b3bc2a22c0761c09c41579cc055da31d00c9b57851a2f586727593525991",
-  "essais": 1,
+  "empreinte_invite": "sha256:ae6850d90b7331e7d7a1403c7e25134858cc1742ae10e4d0ae6502eb9dfb4e40",
+  "essais": 2,
   "refus": []
  },
- "statut": "relu"
+ "statut": "a_relire"
 }

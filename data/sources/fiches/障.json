@@ -25,20 +25,33 @@
   "日": "son",
   "十": "son"
  },
- "mots": [],
+ "mots": [
+  {
+   "hanzi": "故障",
+   "pinyin": "gùzhàng",
+   "fr": "panne",
+   "en": "breakdown, fault"
+  },
+  {
+   "hanzi": "保障",
+   "pinyin": "bǎozhàng",
+   "fr": "garantir, garantie",
+   "en": "to guarantee, safeguard"
+  }
+ ],
  "phrase": {
-  "zh": "",
-  "pinyin": "",
-  "fr": "",
-  "en": ""
+  "zh": "电梯出了故障。",
+  "pinyin": "Diàntī chū le gùzhàng.",
+  "fr": "L'ascenseur est en panne.",
+  "en": "The elevator has broken down."
  },
  "generation": {
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:7040b8f90ffcb1451a3b7c92d0cae3d5d2045cad9eb6a7485e92a4befdb3f209",
-  "essais": 1,
+  "empreinte_invite": "sha256:35129b12f046c56ee426e7bac7c7fe5c58222d15fb6a4bb07aa8caf57f31f600",
+  "essais": 2,
   "refus": []
  },
- "statut": "relu"
+ "statut": "a_relire"
 }
