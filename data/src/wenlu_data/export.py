@@ -122,7 +122,7 @@ from . import unihan as unihan_mod
 from . import cjkdecomp
 from . import wechat as wechat_mod
 from .gf0014 import Controle
-from .graphe import BRIQUE, DECOUPEE, MUETTE, PARCOURS
+from .graphe import BRIQUE, DECOUPEE, LISTES_HSK, MUETTE, PARCOURS
 from .models import Brique, Famille, Fiche, Mot
 from .ingest import est_sinogramme
 from .outils import empreinte_fichier
@@ -134,23 +134,35 @@ VERSION = "0.1.0"
 #: Version du format écrit par ce module. À incrémenter à chaque changement de
 #: ce que l'export produit à entrées égales (clé ajoutée, ordre, règle de
 #: sélection) : elle entre dans l'empreinte, et l'export versionné devient périmé.
-FORMAT_EXPORT = 22
+FORMAT_EXPORT = 23
 
 #: Le code de l'exporteur, lui aussi dans l'empreinte : un changement de ce
 #: fichier où l'on aurait oublié `FORMAT_EXPORT` rend quand même l'export périmé.
 EXPORTEUR = Path(__file__).resolve()
 
-#: Listes cibles de la version 0.1.0 : le périmètre en découle.
+#: Listes du chemin gratuit (brief §10) : le périmètre des jeux, des traits des familles et
+#: de la police en découle.
 LISTES_CIBLES: tuple[str, ...] = ("seuil-255", "hsk-1")
 
-#: Niveau porté par un caractère de chaque liste, dans `Fiche.niveaux`.
-NIVEAUX: dict[str, tuple[str, int]] = {"seuil-255": ("seuil", 255), "hsk-1": ("hsk", 1)}
+#: Toutes les listes que les chemins posent (`graphe.ETAPES`) : le chemin gratuit, puis le
+#: HSK 2 à 7-9 de Wenlu complet (décision du propriétaire du 30 septembre 2026).
+LISTES_DU_CHEMIN: tuple[str, ...] = ("seuil-255", *LISTES_HSK)
+
+#: Niveau porté par un caractère de chaque liste, dans `Fiche.niveaux` ; le HSK 7-9 dit 7,
+#: comme le dictionnaire (`dico/index.json`, `niveaux`).
+NIVEAUX: dict[str, tuple[str, int]] = {
+    "seuil-255": ("seuil", 255),
+    **{nom: ("hsk", int(nom.split("-")[1])) for nom in LISTES_HSK},
+}
 
 PERIMETRE = (
-    "seuil 255 et HSK 1 : les caractères des deux listes et leurs briques ;"
+    "les caractères que posent les deux chemins, du seuil 255 et du HSK 1 (le chemin gratuit)"
+    " au HSK 7-9 (Wenlu complet), et leurs briques ;"
     " les caractères dessinés des fêtes, des termes solaires, des rangs du personnage"
     " et des mots expliqués des contes,"
-    " et leurs briques"
+    " et leurs briques. Les traits des familles ne portent que le chemin gratuit et ces"
+    " caractères dessinés : le reste se dessine depuis les lots du dictionnaire"
+    " (`traits/dico-*.json`), chargés à la demande"
 )
 
 #: Sources versionnées de l'export, hors `data/work/`.
@@ -569,6 +581,15 @@ def charger_paires(chemin: Path | None = None) -> list[list[str]]:
 # ------------------------------------------------------------------------- documents
 
 
+def _jours_poses(parcours: Mapping[str, Mapping[str, object]]) -> list[list[str]]:
+    """Les caractères de chaque jour des parcours, brique d'abord, jours de fermeture compris."""
+    return [
+        ([str(j["brique"])] if j.get("brique") else []) + [str(c) for c in j.get("composes") or ()]
+        for nom in sorted(parcours)
+        for j in parcours[nom].get("jours") or ()  # type: ignore[union-attr]
+    ]
+
+
 def _jours_par_caractere(parcours: Mapping[str, Mapping[str, object]]) -> dict[str, tuple[str, int, str | None]]:
     """Pour chaque caractère posé : son parcours de référence, son jour, la brique du jour.
 
@@ -619,7 +640,7 @@ def fiche_exportee(
 
     niveaux = {
         NIVEAUX[nom][0]: NIVEAUX[nom][1]
-        for nom in LISTES_CIBLES
+        for nom in LISTES_DU_CHEMIN
         if nom in NIVEAUX and c in set(listes.get(nom) or ())
     }
 
@@ -1512,6 +1533,13 @@ def document_index(
             nom: {
                 "liste": str(document.get("liste", "")),
                 "regle": str(document.get("regle", "")),
+                # Le bout du chemin gratuit (brief §10) : au-delà, les jours sont de Wenlu
+                # complet. Les étapes : chaque liste et le dernier jour qui en pose un caractère.
+                "gratuit": int(document.get("gratuit") or 0),  # type: ignore[call-overload]
+                "etapes": [
+                    {"liste": str(e["liste"]), "fin": int(e["fin"])}
+                    for e in document.get("etapes") or ()  # type: ignore[union-attr]
+                ],
                 "jours": [
                     {
                         "jour": int(j["jour"]),
@@ -1990,13 +2018,40 @@ def assembler(
     cibles += caracteres_expliques_des_contes(contes)
     # Les noms des examens 科举 et du 月课, dessinés sur la route et à l'examen : même règle.
     cibles += caracteres_examens()
+    # Le périmètre du chemin gratuit : les jeux, les traits des familles (précachés) et les
+    # paires en restent là, comme avant la suite du chemin.
+    per_gratuit = perimetre(noeuds, cibles)
+    dans_le_gratuit = set(per_gratuit.caracteres)
+    # La suite des deux chemins (HSK 2 à 7-9, Wenlu complet) : chaque caractère posé a sa
+    # fiche dans sa famille, relue ou non ; ses traits sont ceux des lots du dictionnaire.
+    cibles += [c for nom in LISTES_DU_CHEMIN for c in listes.get(nom, ())]
+    cibles += [c for jour in _jours_poses(documents_parcours) for c in jour]
     per = perimetre(noeuds, cibles)
     pinyin = charger_pinyin(ingest, per.caracteres)
     lectures = charger_lectures(ingest, per.caracteres)
-    dans_le_perimetre = set(per.caracteres)
+    dans_le_perimetre = dans_le_gratuit
+    # Le dictionnaire de la loupe Chercher (`dictionnaire.py`) : les 3 000 caractères et les
+    # 11 092 mots du HSK 3.0, par lots, et leurs traits à part.
+    dico_textes, dico_traits, dico_decoupes = assembler_dictionnaire(
+        version,
+        build=build,
+        ingest=ingest,
+        listes=listes,
+        noeuds=noeuds,
+        decompositions=decompositions,
+        parcours=documents_parcours,
+    )
+    # Ce que les lots du dictionnaire dessinent déjà. Les traits des familles (précachés)
+    # portent le chemin gratuit, et, au-delà, ce que le dictionnaire ne dessine pas : le
+    # reste de la suite se dessine depuis les lots, chargés à la demande (`content.traitsDe`).
+    du_dico: set[str] = set()
+    for relatif, texte in dico_textes.items():
+        if relatif.startswith("traits/"):
+            du_dico |= set(json.loads(texte)["traits"])
+    dessines_familles = [c for c in per.caracteres if c in dans_le_gratuit or c not in du_dico]
     # Les composants découpés dans un hôte : leurs traits rejoignent ceux de la source.
-    decoupes =[d for d in decoupes_mod.charger(build) if str(d["c"]) in dans_le_perimetre]
-    graphies = charger_graphies(ingest, per.caracteres, decoupes_mod.traits(build))
+    decoupes =[d for d in decoupes_mod.charger(build) if str(d["c"]) in set(dessines_familles)]
+    graphies = charger_graphies(ingest, dessines_familles, decoupes_mod.traits(build))
     decoupes_exportes = [str(d["c"]) for d in decoupes]
     relues = charger_fiches_relues(fiches)
     versions_contes = charger_contes_relus(contes)
@@ -2041,7 +2096,7 @@ def assembler(
     textes["fetes.json"] = _json(document_fetes(version, noeuds, pinyin))
     textes["saisons.json"] = _json(document_saisons(version, noeuds, pinyin))
     textes["devinettes.json"] = _json(
-        document_devinettes(version, per, noeuds, decompositions, listes, pinyin, graphies, groupes)
+        document_devinettes(version, per_gratuit, noeuds, decompositions, listes, pinyin, graphies, groupes)
     )
     apercu = assembler_apercu(
         version,
@@ -2055,8 +2110,8 @@ def assembler(
         contes=contes,
     )
     textes.update(apercu)
-    textes["eclair.json"] = _json(document_eclair(version, per, noeuds, graphies))
-    textes["coquilles.json"] = _json(document_coquilles(version, per, noeuds, graphies, groupes))
+    textes["eclair.json"] = _json(document_eclair(version, per_gratuit, noeuds, graphies))
+    textes["coquilles.json"] = _json(document_coquilles(version, per_gratuit, noeuds, graphies, groupes))
     textes["cuisine.json"] = _json(document_cuisine(version, per, noeuds, documents_parcours))
     textes["lettres.json"] = _json(
         lettres_mod.document(lettres_mod.lettres(statut=lettres_mod.RELU), en_tete=en_tete_lettres(version))
@@ -2121,17 +2176,6 @@ def assembler(
                 "modified": f"{JETON_JOUR} : copié par `wenlu export`, poids inchangés",
             }
         )
-    )
-    # Le dictionnaire de la loupe Chercher (`dictionnaire.py`) : les 3 000 caractères et les
-    # 11 092 mots du HSK 3.0, par lots, et leurs traits à part.
-    dico_textes, dico_traits, dico_decoupes = assembler_dictionnaire(
-        version,
-        build=build,
-        ingest=ingest,
-        listes=listes,
-        noeuds=noeuds,
-        decompositions=decompositions,
-        parcours=documents_parcours,
     )
     textes.update(dico_textes)
     # Les découpes des familles et du dictionnaire, dans l'ordre de la table des découpes.
