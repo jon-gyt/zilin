@@ -281,12 +281,104 @@ export interface Analyse {
   syllabes: AnalyseSyllabe[];
   /** Renseigné quand on redemande sans analyser. */
   probleme: Probleme | null;
+  /**
+   * Le verdict de l'énoncé : reconnu si chaque syllabe l'est ; un autre ton si l'app est sûre
+   * d'en entendre un sur l'une d'elles ; sinon on redemande.
+   */
+  etat: Etat;
+}
+
+/**
+ * Les mots de deux syllabes (story 9.1, mesure du 30 septembre 2026 dans
+ * `data/sources/tons/PROVENANCE.md`). Le modèle a appris des syllabes isolées ; dans un mot,
+ * la voix va plus vite et descend au fil du mot. Sans réentraîner, l'app en tient compte :
+ *
+ * - `duree` : la durée d'une syllabe de mot est lue comme si elle durait `0,35 / duree` fois
+ *   plus (une syllabe de mot dure environ 0,2 s, une syllabe isolée 0,35 s) : sans cela, une
+ *   syllabe brève passe pour un ton neutre ;
+ * - `declinaison` : la référence de la voix est abaissée de tant de demi-tons pour chaque
+ *   syllabe (la seconde est dite plus bas : sans cela, un ton 4 final passe pour un ton 3) ;
+ * - `neutre` : le ton neutre ne commence jamais un mot, et il est rare en seconde syllabe :
+ *   sa probabilité y est multipliée par ce poids ;
+ * - `seuils` : pour dire « j'entends un autre ton » sur un mot, l'app doit en être plus sûre
+ *   que sur un caractère (0,98 au lieu de 0,9, et le ton attendu sous 1 % au lieu de 5 %).
+ *
+ * Réglé sur la moitié « dev » des mots de Yue Tan, mesuré sur l'autre moitié.
+ */
+export const REGLAGES_MOTS = {
+  duree: 0.2,
+  declinaison: [1, 4] as readonly number[],
+  neutre: 0.5,
+  seuils: { autre: 0.98, attenduMax: 0.01 },
+};
+
+/**
+ * Les probabilités d'une syllabe `k` d'un énoncé de `n` syllabes. Un caractère isolé
+ * (`n` = 1) : le modèle tel quel. Un mot : les réglages de `REGLAGES_MOTS`.
+ */
+export function probabilitesSyllabe(
+  contour: Contour,
+  k: number,
+  n: number,
+  modele: Modele | undefined,
+  refLocuteur?: number,
+  r = REGLAGES_MOTS,
+): { entrees: number[]; regle: Ton; probas: number[] } {
+  const mot = n > 1;
+  const ref = refLocuteur !== undefined && refLocuteur > 0 && mot ? refLocuteur * Math.pow(2, -(r.declinaison[k] ?? 0) / 12) : refLocuteur;
+  const c = mot ? { ...contour, duree: (contour.duree * DUREE_REF) / r.duree } : contour;
+  const entrees = caracteristiques(c, ref);
+  const regle = regles(entrees);
+  let probas = modele ? probabilites(modele, entrees) : CLASSES.map((t) => (t === regle ? 1 : 0));
+  if (mot) {
+    const classes = modele?.classes ?? CLASSES;
+    const q = probas.map((v, i) => (classes[i] === 5 ? (k === 0 ? 0 : v * r.neutre) : v));
+    const z = q.reduce((a, b) => a + b, 0);
+    if (z > 0) probas = q.map((v) => v / z);
+  }
+  return { entrees, regle, probas };
+}
+
+/** Le verdict d'un énoncé à partir de celui de ses syllabes (`Analyse.etat`). */
+export function etatEnonce(verdicts: readonly Verdict[], probleme: Probleme | null): Etat {
+  if (probleme !== null || verdicts.length === 0) return 'redemander';
+  if (verdicts.every((v) => v.etat === 'juste')) return 'juste';
+  return verdicts.some((v) => v.etat === 'autre') ? 'autre' : 'redemander';
+}
+
+/**
+ * Analyse des trames déjà suivies (`suivreHauteur`) : découpe en autant de syllabes que de
+ * tons `attendus`, puis le verdict de chacune. `crete` : la crête du signal (le son sature
+ * au-dessus de 0,999). `liees` : pour un mot, les frontières sans silence (`segmenter`).
+ */
+export function analyserTrames(
+  trames: Trame[],
+  crete: number,
+  attendus: Ton[],
+  modele?: Modele,
+  refLocuteur?: number,
+  liees: readonly boolean[] | null = null,
+): Analyse {
+  const n = attendus.length;
+  const segs = segmenter(trames, n, 0.12, {}, liees);
+  const court = segs.length !== n || segs.some((s) => s.duree < SEUILS_JUGEMENT.dureeMin || s.voisement < SEUILS_JUGEMENT.voisementMin);
+  const probleme: Probleme | null = segs.length === 0 ? 'silence' : court ? 'court' : crete > 0.999 ? 'sature' : null;
+  const seuils = n > 1 ? { ...SEUILS_JUGEMENT, ...REGLAGES_MOTS.seuils } : SEUILS_JUGEMENT;
+  const syllabes = segs.map((segment, k) => {
+    const contour = contourDe(segment);
+    const { entrees, regle, probas } = probabilitesSyllabe(contour, k, n, modele, refLocuteur);
+    const verdict: Verdict = probleme
+      ? { etat: 'redemander', attendu: attendus[k], entendu: null, confiance: 0, probabilites: probas }
+      : juger(attendus[k], probas, modele?.classes ?? CLASSES, seuils);
+    return { segment, contour, entrees, verdict, regle };
+  });
+  return { trames, syllabes, probleme, etat: etatEnonce(syllabes.map((s) => s.verdict), probleme) };
 }
 
 /**
  * Analyse un enregistrement mono (16 kHz conseillé) dont on attend les tons `attendus`, un
- * par syllabe. Sans modèle, la base à règles décide seule (probabilité 1 au ton trouvé :
- * elle ne sait pas douter).
+ * par syllabe (un caractère, ou les tons de surface d'un mot, `dire.ts`). Sans modèle, la
+ * base à règles décide seule (probabilité 1 au ton trouvé : elle ne sait pas douter).
  */
 export function analyser(
   x: Float32Array,
@@ -295,22 +387,10 @@ export function analyser(
   modele?: Modele,
   refLocuteur?: number,
   optsHauteur: OptionsHauteur = {},
+  liees: readonly boolean[] | null = null,
 ): Analyse {
   const trames = suivreHauteur(x, { ...optsHauteur, sr });
   let crete = 0;
   for (let i = 0; i < x.length; i++) crete = Math.max(crete, Math.abs(x[i]));
-  const segs = segmenter(trames, attendus.length);
-  const court = segs.length !== attendus.length || segs.some((s) => s.duree < SEUILS_JUGEMENT.dureeMin || s.voisement < SEUILS_JUGEMENT.voisementMin);
-  const probleme: Probleme | null = segs.length === 0 ? 'silence' : court ? 'court' : crete > 0.999 ? 'sature' : null;
-  const syllabes = segs.map((segment, k) => {
-    const contour = contourDe(segment);
-    const entrees = caracteristiques(contour, refLocuteur);
-    const regle = regles(entrees);
-    const probas = modele ? probabilites(modele, entrees) : CLASSES.map((c) => (c === regle ? 1 : 0));
-    const verdict: Verdict = probleme
-      ? { etat: 'redemander', attendu: attendus[k], entendu: null, confiance: 0, probabilites: probas }
-      : juger(attendus[k], probas, modele?.classes ?? CLASSES);
-    return { segment, contour, entrees, verdict, regle };
-  });
-  return { trames, syllabes, probleme };
+  return analyserTrames(trames, crete, attendus, modele, refLocuteur, liees);
 }
