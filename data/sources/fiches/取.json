@@ -21,20 +21,33 @@
   "耳": "sens",
   "又": "sens"
  },
- "mots": [],
+ "mots": [
+  {
+   "hanzi": "取钱",
+   "pinyin": "qǔqián",
+   "fr": "retirer de l'argent",
+   "en": "to withdraw money"
+  },
+  {
+   "hanzi": "取得",
+   "pinyin": "qǔdé",
+   "fr": "obtenir",
+   "en": "to obtain"
+  }
+ ],
  "phrase": {
-  "zh": "",
-  "pinyin": "",
-  "fr": "",
-  "en": ""
+  "zh": "我明天去取票。",
+  "pinyin": "Wǒ míngtiān qù qǔ piào.",
+  "fr": "Demain, je vais retirer les billets.",
+  "en": "I'll pick up the tickets tomorrow."
  },
  "generation": {
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:c191d0d61b9ccd7ad5d15f00bdabe73d34ceac4513e08313d72ea79859cd3a31",
-  "essais": 1,
+  "empreinte_invite": "sha256:7f999663aea63201b2ea48e9dda3feddd8c45e05d6106428bd607a9c069b82a9",
+  "essais": 2,
   "refus": []
  },
- "statut": "relu"
+ "statut": "a_relire"
 }
