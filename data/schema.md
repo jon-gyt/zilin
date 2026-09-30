@@ -231,7 +231,7 @@ recherche par syllabe (`hao`) tombe donc dans un ou deux lots de caractères.
  "license_files": ["MIT-hsk30.txt", "UNICODE-LICENSE.txt", "MIT-cjk-decomp.txt"],
  "source": "liste HSK 3.0 (GF 0025-2021) : …", "source_url": "…", "modified": "…",
  "liste": "HSK 3.0 (GF 0025-2021), niveaux 1 à 9",
- "compte": {"caracteres": 3000, "mots": 11092, "sens_relus": 0,
+ "compte": {"caracteres": 3000, "mots": 11092, "sens_relus": 0, "origines_relues": 0,
             "lots_caracteres": 60, "lots_mots": 56, "lots_traits": 64},
  "niveaux": {"7": "7-9"},
  "fichiers": {"caracteres": "dico/caracteres/{lot}.json", "mots": "dico/mots/{lot}.json",
@@ -275,7 +275,7 @@ qui n'est pas un des 3 000 (亻, 氵, 亠…), pour dessiner les briques d'une f
  "decomposition": {"norme": "GF 0014-2009", "parts": ["女", "子"], "sources": ["cjk-decomp"]},
  "mots": ["L1-0002", "L1-0138", "…"],
  "chemin": {"hsk": 14, "lire": 13},
- "sens": null, "exemples": []}
+ "sens": null, "exemples": [], "origine": null}
 ```
 
 - `pinyin`, `lectures` : comme les fiches des familles (Unihan et surcharges, la
@@ -290,6 +290,14 @@ qui n'est pas un des 3 000 (亻, 氵, 亠…), pour dessiner les briques d'une f
   vide pour un caractère qu'aucun parcours ne pose encore. Le statut de l'apprenant (lu,
   dans N jours) se calcule dans l'app, sur sa progression.
 - `sens`, `exemples` : les emplacements prévus, vides (ci-dessous).
+- `origine` (story 10.11) : l'origine de la fiche **relue** du caractère (fiche de chemin ou
+  fiche d'origine, `data/sources/fiches/`), `{"statut": "relu", "etiquette": "atteste" |
+  "mnemotechnique", "fr": "…", "en": "…", "roles": {"女": "sens", "子": "sens"}}` ; `null`
+  sans fiche relue, et l'app dit « origine à venir », jamais inventée. Jamais d'étiquette
+  sans texte. `roles` n'est rempli que si la fiche décompose comme `decomposition.parts`, un
+  rôle par brique ; `{}` sinon (et pour un caractère non réconcilié). « dico : sens relus
+  seulement » refuse une origine qui n'est pas relue ou sans étiquette ; `compte.origines_relues`
+  de l'index les compte.
 
 ### `dico/mots/<n>.json`
 
@@ -1701,8 +1709,9 @@ versionné, un fichier par caractère, nommé d'après lui.
 }
 ```
 
-- Obligatoires : `c`, `origine_fr`, `origine_en`, `etiquette`, `roles`, `mots`,
-  `phrase`. Facultatifs : `memo_fr`, `memo_en` (texte ou `null`), `sens_fr`,
+- Obligatoires : `c`, `origine_fr`, `origine_en`, `etiquette`, `roles`, et, pour un
+  caractère qu'un chemin pose, `mots` et `phrase`, qui vont ensemble (tous deux ou aucun ;
+  voir « Fiche d'origine » ci-dessous). Facultatifs : `memo_fr`, `memo_en` (texte ou `null`), `sens_fr`,
   `sens_en` (texte ; vides s'ils manquent, mais exigés avant la relecture, voir
   « Le sens »). Toute autre clé est refusée : une faute de frappe ne passe pas en
   silence.
@@ -1757,6 +1766,48 @@ décomposition) met à jour `parcours`, `jour`, `pinyin`, `composants` et `struc
 sans toucher au texte ni à `generation` ; l'import le dit (« contexte mis à jour »).
 Le jour seul ne défait pas une relecture ; un pinyin ou une décomposition changés
 remettent une fiche relue à `a_relire`.
+
+### Fiche d'origine : un caractère du dictionnaire hors chemin (story 10.11)
+
+Le dictionnaire montre l'origine relue de chacun des 3 000 caractères du HSK, qu'un chemin
+le pose ou non. Un caractère qu'aucun chemin ne pose encore n'a pas de jour, donc ni acquis
+ni mots candidats : sa fiche est une **fiche d'origine**, dans le même circuit, au même
+format, avec la même traçabilité et le même `valider()`.
+
+- Le brouillon, `data/sources/fiches-brouillons/<c>.json`, n'a ni `mots` ni `phrase` :
+  `c`, `sens_fr`, `sens_en`, `origine_fr`, `origine_en`, `etiquette`, `memo_fr`,
+  `memo_en`, `roles`.
+- La fiche écrite garde toutes les clés d'une fiche : `"parcours": ""`, `"jour": 0`,
+  `"mots": []`, une `phrase` aux quatre champs vides. Elle ne dépend d'aucun jour.
+- `valider()` : les mêmes refus pour l'origine (trois phrases FR et EN), l'étiquette et le
+  sens, les mêmes écarts pour les rôles. Hors chemin, des mots ou une phrase sont refusés
+  (aucun jour ne dit ce qui est lisible). Sur un chemin, une fiche d'origine n'est pas
+  refusée : « fiche d'origine : mots et phrase à écrire pour le jour N du parcours P » est
+  un écart, et `a-rediger` redemande le caractère.
+- Le jour où un chemin pose le caractère, réimporter le brouillon inchangé met à jour
+  `parcours` et `jour` sans défaire la relecture ; le rédacteur y ajoute ensuite les mots et
+  la phrase, contre l'acquis de ce jour-là (`wenlu fiches contexte`), et la fiche repart à
+  relire.
+- Les commandes trouvent seules le contexte (`--parcours auto`, le défaut) : le parcours de
+  la fiche déjà écrite s'il pose le caractère, sinon `lire`, sinon `hsk`, sinon hors chemin
+  si le caractère est dans une liste `hsk-*.txt` (`fiches.Corpora`). `--parcours lire` ou
+  `hsk` en impose un.
+- Export : une fiche relue, de chemin ou d'origine, donne l'`origine` de l'entrée du
+  dictionnaire (ci-dessous) ; dans une famille, une fiche d'origine s'exporte avec
+  `mots: []` et `phrase: null`.
+
+Rédiger par niveau HSK, un fichier par caractère, plusieurs rédacteurs en parallèle :
+
+- `uv run wenlu fiches a-rediger --niveau 3 --lot 2 --sur 8` liste les caractères du lot 2
+  sur 8 de `hsk-3.txt` (`1` à `6`, `7-9`) sans fiche conforme. Les lots suivent l'ordre de
+  la liste, jamais celui des chemins : ils ne bougent pas quand un chemin s'allonge, et deux
+  copies du dépôt tombent sur les mêmes lots ;
+- `uv run wenlu fiches contexte 敢 派` donne, pour chaque caractère, sa décomposition, le
+  type d'étymologie et l'indice de Make Me a Hanzi, la glose relue du dictionnaire, et le
+  squelette du brouillon (sans mots ni phrase hors chemin ; avec l'acquis et les mots
+  candidats sur un chemin) ;
+- `uv run wenlu fiches importer --niveau 3 --lot 2 --sur 8` n'importe que les brouillons
+  présents de ce lot : chaque rédacteur n'écrit et n'importe que ses fichiers.
 
 ### Relecture
 
