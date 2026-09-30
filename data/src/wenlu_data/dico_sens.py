@@ -897,7 +897,10 @@ def decrire_contexte(niveau: str, lot: str, ref: Referentiel, *, dossier: Path |
                 + " ; ".join(f"{v.forme.hanzi} {v.forme.pinyin} (HSK {v.niveau}{', ' + ecrites[v.id][0] if v.id in ecrites else ''})" for v in voisins)
             )
         reprise = glose_reprise(p, ref)
-        if reprise:
+        if reprise and ecarts_glose(reprise[0]):
+            # Trop longue, ou avec un sinogramme : `valider()` la refuserait, on ne la propose pas.
+            lignes.append(f"glose relue d'une fiche, à ne pas reprendre (`valider()` la refuserait) : « {reprise[0]} » — en écrire une")
+        elif reprise:
             lignes.append(f"glose relue à reprendre si elle convient (\"reprise\": true) : « {reprise[0]} » ({reprise[1]})")
         lignes.append("")
     return lignes

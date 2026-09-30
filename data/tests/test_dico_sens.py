@@ -413,3 +413,10 @@ def test_un_texte_relu_dit_qui_l_a_relu(tmp_path: Path, ref_petite: d.Referentie
     chemin.write_text(json.dumps(lot, ensure_ascii=False), encoding="utf-8")
     faux = {c.nom: c for c in d.controles(tmp_path / "dico", ref=ref_petite, destination=tmp_path / "export", brouillons=tmp_path / "brouillons")}
     assert not faux["dico sens : lots"].ok and "sans dire qui" in faux["dico sens : lots"].detail
+
+
+def test_le_contexte_ne_propose_pas_une_glose_reprise_trop_longue(ref: d.Referentiel) -> None:
+    longue = "a" * (d.GLOSE_MAX + 1)
+    ref.fiches_caracteres["知"] = (longue, "data/sources/fiches/知.json")
+    lignes = "\n".join(d.decrire_contexte("1", "01", ref))
+    assert "à ne pas reprendre" in lignes and '"reprise": true) : « ' + longue not in lignes
