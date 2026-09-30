@@ -118,3 +118,13 @@ def test_les_brouillons_du_depot_suivent_les_conventions(monkeypatch: pytest.Mon
         if b.phrase.zh and pinyin.aligner(b.phrase.zh, b.phrase.pinyin, lectures) is None:
             fautes.append(f"{b.c} : phrase « {b.phrase.zh} » lue « {b.phrase.pinyin} »")
     assert fautes == []
+
+
+def test_le_corpus_des_fiches_ajoute_les_lectures_des_dictionnaires_d_unihan() -> None:
+    """kXHC1983 dit toutes les lectures d'un polyphone : elles s'ajoutent, la principale reste en tête."""
+    try:
+        corpus = charger_corpus()
+    except CorpusAbsent:
+        pytest.skip("pas de build : lancer `uv run wenlu build`")
+    assert corpus.caracteres["调"]["pinyin"][0] == "diào" and "tiáo" in corpus.caracteres["调"]["pinyin"]
+    assert "shè" in corpus.caracteres["舍"]["pinyin"]
