@@ -1,0 +1,1382 @@
+{
+ "niveau": "6",
+ "lot": "12",
+ "source": "rédigé pour l'app dans le pipeline wenlu, sans API ; faits lus : liste HSK 3.0 (forme, pinyin, niveau, catégorie), lectures d'Unihan et des surcharges, gloses relues des fiches",
+ "brouillon": "data/sources/dico-brouillons/6/12.json",
+ "generation": {
+  "modele": "rédaction manuelle",
+  "api": "session Claude Code (sans API)",
+  "date": "2026-09-30",
+  "empreinte_invite": "sha256:ce727d8d9b8f9e7a62227a011d6ed66a1d4a30088a8dc6fa0366a5c2ac2ef8b5",
+  "contexte": "wenlu dico contexte 6 12",
+  "essais": 1,
+  "refus": []
+ },
+ "entrees": [
+  {
+   "id": "L6-0486",
+   "genre": "mot",
+   "hanzi": "决策",
+   "pinyin": "juécè",
+   "categories": [
+    "V",
+    "N"
+   ],
+   "sens": {
+    "glose": "décider ; décision stratégique",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "décider, arrêter une stratégie"
+     },
+     {
+      "categorie": "N",
+      "fr": "décision stratégique"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这个决策是经理做的。",
+     "pinyin": "Zhège juécè shì jīnglǐ zuò de.",
+     "fr": "C'est le directeur qui a tranché.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "悟",
+   "genre": "caractere",
+   "hanzi": "悟",
+   "pinyin": "wù",
+   "sens": {
+    "glose": "comprendre, s'éveiller à",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "comprendre, s'éveiller à"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": []
+  },
+  {
+   "id": "L6-0487",
+   "genre": "mot",
+   "hanzi": "觉悟",
+   "pinyin": "juéwù",
+   "categories": [
+    "V",
+    "N"
+   ],
+   "sens": {
+    "glose": "prendre conscience ; conscience",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "prendre conscience, s'éveiller"
+     },
+     {
+      "categorie": "N",
+      "fr": "conscience, degré de lucidité"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他终于觉悟了。",
+     "pinyin": "Tā zhōngyú juéwù le.",
+     "fr": "Il a enfin ouvert les yeux.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L6-0489",
+   "genre": "mot",
+   "hanzi": "绝大多数",
+   "pinyin": "jué dàduōshù",
+   "sens": {
+    "glose": "la grande majorité",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "la grande majorité, l'immense majorité"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "绝大多数人同意这个办法。",
+     "pinyin": "Jué dàduōshù rén tóngyì zhège bànfǎ.",
+     "fr": "Presque tout le monde est d'accord avec cette solution.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L6-0490",
+   "genre": "mot",
+   "hanzi": "军队",
+   "pinyin": "jūnduì",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "armée, troupes",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "armée, troupes"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他在军队里生活了五年。",
+     "pinyin": "Tā zài jūnduì li shēnghuó le wǔ nián.",
+     "fr": "Il a passé cinq ans sous les drapeaux.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "舰",
+   "genre": "caractere",
+   "hanzi": "舰",
+   "pinyin": "jiàn",
+   "sens": {
+    "glose": "navire de guerre",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "navire de guerre"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": []
+  },
+  {
+   "id": "L6-0491",
+   "genre": "mot",
+   "hanzi": "军舰",
+   "pinyin": "jūnjiàn",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "navire de guerre",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "navire de guerre, bâtiment de la marine"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他哥哥在军舰上工作。",
+     "pinyin": "Tā gēge zài jūnjiàn shang gōngzuò.",
+     "fr": "Son frère sert à bord d'un bâtiment de la marine.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L6-0492",
+   "genre": "mot",
+   "hanzi": "军事",
+   "pinyin": "jūnshì",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "affaires militaires",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "affaires militaires, domaine militaire"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他对军事很感兴趣。",
+     "pinyin": "Tā duì jūnshì hěn gǎn xìngqù.",
+     "fr": "Il s'intéresse beaucoup à l'armée.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L6-0493",
+   "genre": "mot",
+   "hanzi": "开创",
+   "pinyin": "kāichuàng",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "fonder, ouvrir, inaugurer",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "fonder, ouvrir, inaugurer : une ère, une voie"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他们开创了一个新时代。",
+     "pinyin": "Tāmen kāichuàng le yī ge xīn shídài.",
+     "fr": "Ils ont ouvert une ère nouvelle.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L6-0494",
+   "genre": "mot",
+   "hanzi": "开关",
+   "pinyin": "kāiguān",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "interrupteur",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "interrupteur, commutateur"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "灯的开关在门边。",
+     "pinyin": "Dēng de kāiguān zài mén biān.",
+     "fr": "Pour allumer la lumière, c'est près de la porte.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L6-0495",
+   "genre": "mot",
+   "hanzi": "开设",
+   "pinyin": "kāishè",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "ouvrir, créer (un cours, un service)",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "ouvrir, créer : un cours, un service, un compte"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "学校开设了汉语课。",
+     "pinyin": "Xuéxiào kāishè le Hànyǔ kè.",
+     "fr": "L'école propose désormais des cours de chinois.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L6-0496",
+   "genre": "mot",
+   "hanzi": "开通",
+   "pinyin": "kāitōng",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "ouvrir, mettre en service",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "ouvrir, mettre en service"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这条地铁线下个月开通。",
+     "pinyin": "Zhè tiáo dìtiě xiàn xià ge yuè kāitōng.",
+     "fr": "Cette ligne de métro sera inaugurée le mois prochain.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L6-0497",
+   "genre": "mot",
+   "hanzi": "开头",
+   "pinyin": "kāitóu",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "début, commencement",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "début, commencement"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这个故事的开头很有意思。",
+     "pinyin": "Zhège gùshi de kāitóu hěn yǒu yìsi.",
+     "fr": "Cette histoire commence de façon passionnante.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L6-0498",
+   "genre": "mot",
+   "hanzi": "开夜车",
+   "pinyin": "kāi yèchē",
+   "sens": {
+    "glose": "travailler tard dans la nuit",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "travailler tard dans la nuit, veiller pour finir"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "为了准备考试，他昨天开夜车了。",
+     "pinyin": "Wèile zhǔnbèi kǎoshì, tā zuótiān kāi yèchē le.",
+     "fr": "Pour préparer l'examen, il a passé la nuit à réviser.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L6-0500",
+   "genre": "mot",
+   "hanzi": "看管",
+   "pinyin": "kānguǎn",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "garder, surveiller",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "garder, surveiller"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "请帮我看管一下行李。",
+     "pinyin": "Qǐng bāng wǒ kānguǎn yīxià xíngli.",
+     "fr": "Pourrais-tu garder mes bagages un instant ?",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L6-0501",
+   "genre": "mot",
+   "hanzi": "看得见",
+   "pinyin": "kàndejiàn",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "pouvoir voir, être visible",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "pouvoir voir, être visible"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "从这里看得见大海。",
+     "pinyin": "Cóng zhèli kàndejiàn dàhǎi.",
+     "fr": "D'ici, on voit la mer.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L6-0502",
+   "genre": "mot",
+   "hanzi": "看得起",
+   "pinyin": "kàndeqǐ",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "estimer, faire cas de",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "estimer, respecter, faire cas de"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "谢谢你看得起我。",
+     "pinyin": "Xièxie nǐ kàndeqǐ wǒ.",
+     "fr": "Merci de me faire confiance.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L6-0503",
+   "genre": "mot",
+   "hanzi": "看好",
+   "pinyin": "kànhǎo",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "croire en, parier sur",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "croire au succès de, parier sur"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "大家都看好这支球队。",
+     "pinyin": "Dàjiā dōu kànhǎo zhè zhī qiúduì.",
+     "fr": "Tout le monde donne cette équipe gagnante.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L6-0504",
+   "genre": "mot",
+   "hanzi": "看作",
+   "pinyin": "kànzuò",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "considérer comme",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "considérer comme, regarder comme"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他把老师看作自己的父亲。",
+     "pinyin": "Tā bǎ lǎoshī kànzuò zìjǐ de fùqin.",
+     "fr": "Il voit en son professeur un second père.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L6-0505",
+   "genre": "mot",
+   "hanzi": "康复",
+   "pinyin": "kāngfù",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "se rétablir, guérir",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "se rétablir, guérir"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "祝你早日康复！",
+     "pinyin": "Zhù nǐ zǎorì kāngfù!",
+     "fr": "Bon rétablissement !",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L6-0506",
+   "genre": "mot",
+   "hanzi": "抗议",
+   "pinyin": "kàngyì",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "protester",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "protester, élever une protestation"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "工人们在工厂门口抗议。",
+     "pinyin": "Gōngrénmen zài gōngchǎng ménkǒu kàngyì.",
+     "fr": "Les ouvriers manifestent devant l'usine.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L6-0507",
+   "genre": "mot",
+   "hanzi": "考场",
+   "pinyin": "kǎochǎng",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "salle d'examen",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "salle d'examen, centre d'examen"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "考试前半小时可以进考场。",
+     "pinyin": "Kǎoshì qián bàn xiǎoshí kěyǐ jìn kǎochǎng.",
+     "fr": "On peut entrer dans la salle une demi-heure avant l'épreuve.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L6-0508",
+   "genre": "mot",
+   "hanzi": "考题",
+   "pinyin": "kǎotí",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "sujet d'examen",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "sujet d'examen, question d'examen"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "今年的考题不太难。",
+     "pinyin": "Jīnnián de kǎotí bù tài nán.",
+     "fr": "L'épreuve de cette année n'était pas très difficile.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L6-0509",
+   "genre": "mot",
+   "hanzi": "科研",
+   "pinyin": "kēyán",
+   "categories": [
+    "V",
+    "N"
+   ],
+   "sens": {
+    "glose": "recherche scientifique",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "recherche scientifique"
+     },
+     {
+      "categorie": "V",
+      "fr": "faire de la recherche"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他在大学里做科研。",
+     "pinyin": "Tā zài dàxué li zuò kēyán.",
+     "fr": "Il est chercheur à l'université.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L6-0510",
+   "genre": "mot",
+   "hanzi": "客车",
+   "pinyin": "kèchē",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "autocar ; voiture de voyageurs",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "autocar ; voiture de voyageurs"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "我们坐客车去那个小镇。",
+     "pinyin": "Wǒmen zuò kèchē qù nàge xiǎo zhèn.",
+     "fr": "Nous allons dans cette petite ville en car.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L6-0512",
+   "genre": "mot",
+   "hanzi": "空军",
+   "pinyin": "kōngjūn",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "armée de l'air",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "armée de l'air"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他的理想是当空军。",
+     "pinyin": "Tā de lǐxiǎng shì dāng kōngjūn.",
+     "fr": "Il rêve de servir dans l'aviation.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L6-0513",
+   "genre": "mot",
+   "hanzi": "口试",
+   "pinyin": "kǒushì",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "passer l'oral ; examen oral",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "passer un examen oral ; épreuve orale"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "口试的时候他有点紧张。",
+     "pinyin": "Kǒushì de shíhou tā yǒudiǎn jǐnzhāng.",
+     "fr": "Pendant l'oral, il était un peu nerveux.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "扣",
+   "genre": "caractere",
+   "hanzi": "扣",
+   "pinyin": "kòu",
+   "mots": [
+    "L6-0514"
+   ],
+   "sens": {
+    "glose": "boutonner ; déduire ; retenir",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "boutonner, agrafer"
+     },
+     {
+      "categorie": "V",
+      "fr": "déduire, retenir : une somme"
+     },
+     {
+      "categorie": "V",
+      "fr": "retenir, confisquer, détenir"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他迟到了，被扣了工资。",
+     "pinyin": "Tā chídào le, bèi kòu le gōngzī.",
+     "fr": "Il est arrivé en retard et on lui a retiré une partie de son salaire.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "跨",
+   "genre": "caractere",
+   "hanzi": "跨",
+   "pinyin": "kuà",
+   "mots": [
+    "L6-0516"
+   ],
+   "sens": {
+    "glose": "enjamber, franchir ; dépasser",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "enjamber, franchir"
+     },
+     {
+      "categorie": "V",
+      "fr": "chevaucher ; dépasser les limites de"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他一步跨过了小河。",
+     "pinyin": "Tā yī bù kuà guo le xiǎo hé.",
+     "fr": "D'une enjambée, il a passé le ruisseau.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L6-0517",
+   "genre": "mot",
+   "hanzi": "快车",
+   "pinyin": "kuàichē",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "express, train rapide",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "express : train, car"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "坐快车只要两个小时。",
+     "pinyin": "Zuò kuàichē zhǐ yào liǎng ge xiǎoshí.",
+     "fr": "Avec le direct, il ne faut que deux heures.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L6-0518",
+   "genre": "mot",
+   "hanzi": "宽阔",
+   "pinyin": "kuānkuò",
+   "categories": [
+    "Adj"
+   ],
+   "sens": {
+    "glose": "large, vaste",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "large, vaste, spacieux"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这条马路很宽阔。",
+     "pinyin": "Zhè tiáo mǎlù hěn kuānkuò.",
+     "fr": "Cette avenue est très large.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "啦",
+   "genre": "caractere",
+   "hanzi": "啦",
+   "pinyin": "la",
+   "mots": [
+    "L6-0521"
+   ],
+   "sens": {
+    "glose": "particule d'exclamation",
+    "acceptions": [
+     {
+      "categorie": "Aux",
+      "fr": "particule finale : exclamation, changement accompli"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "我们到家啦！",
+     "pinyin": "Wǒmen dào jiā la!",
+     "fr": "Nous voilà à la maison !",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L6-0522",
+   "genre": "mot",
+   "hanzi": "来往",
+   "pinyin": "láiwǎng",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "aller et venir ; fréquenter",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "aller et venir ; fréquenter, être en relation"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "我跟他很少来往。",
+     "pinyin": "Wǒ gēn tā hěn shǎo láiwǎng.",
+     "fr": "Je ne le vois presque jamais.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "赖",
+   "genre": "caractere",
+   "hanzi": "赖",
+   "pinyin": "lài",
+   "mots": [
+    "L6-0523"
+   ],
+   "sens": {
+    "glose": "compter sur ; nier ; s'incruster",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "compter sur ; s'incruster, refuser de partir"
+     },
+     {
+      "categorie": "V",
+      "fr": "nier sa faute ; rejeter sur autrui"
+     },
+     {
+      "categorie": "Adj",
+      "fr": "mauvais, pas terrible"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "孩子赖在床上不起来。",
+     "pinyin": "Háizi lài zài chuáng shang bù qǐlai.",
+     "fr": "L'enfant traîne au lit et refuse de se lever.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "栏",
+   "genre": "caractere",
+   "hanzi": "栏",
+   "pinyin": "lán",
+   "mots": [
+    "L7-2512"
+   ],
+   "sens": {
+    "glose": "barrière, balustrade ; rubrique",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "barrière, balustrade ; enclos"
+     },
+     {
+      "categorie": "N",
+      "fr": "rubrique, colonne"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "请在这一栏写上你的名字。",
+     "pinyin": "Qǐng zài zhè yī lán xiě shang nǐ de míngzi.",
+     "fr": "Inscrivez votre nom dans cette case.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L6-0524",
+   "genre": "mot",
+   "hanzi": "栏目",
+   "pinyin": "lánmù",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "rubrique, émission",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "rubrique, émission régulière"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这是我最喜欢的电视栏目。",
+     "pinyin": "Zhè shì wǒ zuì xǐhuan de diànshì lánmù.",
+     "fr": "C'est mon programme télé préféré.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L6-0525",
+   "genre": "mot",
+   "hanzi": "蓝领",
+   "pinyin": "lánlǐng",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "col bleu, ouvrier",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "col bleu, ouvrier"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他是一名蓝领工人。",
+     "pinyin": "Tā shì yī míng lánlǐng gōngrén.",
+     "fr": "Il travaille en usine.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L6-0526",
+   "genre": "mot",
+   "hanzi": "蓝天",
+   "pinyin": "lán tiān",
+   "sens": {
+    "glose": "ciel bleu",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "ciel bleu"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "今天是蓝天白云。",
+     "pinyin": "Jīntiān shì lán tiān bái yún.",
+     "fr": "Aujourd'hui, il fait beau avec quelques nuages blancs.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "懒",
+   "genre": "caractere",
+   "hanzi": "懒",
+   "pinyin": "lǎn",
+   "mots": [
+    "L6-0527"
+   ],
+   "sens": {
+    "glose": "paresseux",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "paresseux ; mou, sans énergie"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他太懒了，什么都不想做。",
+     "pinyin": "Tā tài lǎn le, shénme dōu bù xiǎng zuò.",
+     "fr": "Il a trop la flemme, il ne veut rien faire.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "牢",
+   "genre": "caractere",
+   "hanzi": "牢",
+   "pinyin": "láo",
+   "mots": [
+    "L6-0528"
+   ],
+   "sens": {
+    "glose": "solide, ferme ; prison",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "solide, ferme"
+     },
+     {
+      "categorie": "N",
+      "fr": "prison ; enclos"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "你要把这些生词记牢。",
+     "pinyin": "Nǐ yào bǎ zhèxiē shēngcí jì láo.",
+     "fr": "Retiens bien ces nouveaux mots.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L6-0529",
+   "genre": "mot",
+   "hanzi": "老乡",
+   "pinyin": "lǎoxiāng",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "compatriote, pays",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "compatriote, pays, personne de la même région"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "我们是老乡，都是北京人。",
+     "pinyin": "Wǒmen shì lǎoxiāng, dōu shì Běijīng rén.",
+     "fr": "Nous venons tous les deux de Pékin.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L6-0530",
+   "genre": "mot",
+   "hanzi": "冷气",
+   "pinyin": "lěngqì",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "climatisation, air froid",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "climatisation, air froid"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "屋里开着冷气。",
+     "pinyin": "Wū li kāi zhe lěngqì.",
+     "fr": "La clim est allumée dans la pièce.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L6-0531",
+   "genre": "mot",
+   "hanzi": "冷水",
+   "pinyin": "lěngshuǐ",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "eau froide",
+    "acceptions": [],
+    "statut": "relu",
+    "provenance": {
+     "reprise": "data/sources/fiches/冷.json",
+     "champ": "mots[].fr"
+    }
+   },
+   "exemples": [
+    {
+     "zh": "他每天早上用冷水洗脸。",
+     "pinyin": "Tā měi tiān zǎoshang yòng lěngshuǐ xǐ liǎn.",
+     "fr": "Chaque matin, il se lave le visage à l'eau fraîche.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L6-0532",
+   "genre": "mot",
+   "hanzi": "礼堂",
+   "pinyin": "lǐtáng",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "salle de réunion, auditorium",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "salle de réunion, auditorium"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "大会在学校礼堂举行。",
+     "pinyin": "Dàhuì zài xuéxiào lǐtáng jǔxíng.",
+     "fr": "L'assemblée se tient dans la grande salle de l'école.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L6-0534",
+   "genre": "mot",
+   "hanzi": "理财",
+   "pinyin": "lǐcái",
+   "sens": {
+    "glose": "gérer ses finances",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "gérer ses finances, placer son argent"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "年轻人也要学会理财。",
+     "pinyin": "Niánqīngrén yě yào xuéhuì lǐcái.",
+     "fr": "Les jeunes aussi doivent apprendre à gérer leur argent.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L6-0535",
+   "genre": "mot",
+   "hanzi": "理智",
+   "pinyin": "lǐzhì",
+   "categories": [
+    "N",
+    "Adj"
+   ],
+   "sens": {
+    "glose": "raison ; raisonnable",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "raison, sang-froid"
+     },
+     {
+      "categorie": "Adj",
+      "fr": "raisonnable, lucide"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "遇到问题要保持理智。",
+     "pinyin": "Yùdào wèntí yào bǎochí lǐzhì.",
+     "fr": "Face aux problèmes, il faut garder la tête froide.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L6-0538",
+   "genre": "mot",
+   "hanzi": "联盟",
+   "pinyin": "liánméng",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "alliance, ligue, union",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "alliance, ligue, union"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这几个国家组成了一个联盟。",
+     "pinyin": "Zhè jǐ ge guójiā zǔchéng le yī ge liánméng.",
+     "fr": "Ces pays se sont alliés.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L6-0539",
+   "genre": "mot",
+   "hanzi": "联赛",
+   "pinyin": "liánsài",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "championnat, ligue",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "championnat, ligue"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他们队赢得了今年的联赛。",
+     "pinyin": "Tāmen duì yíngdé le jīnnián de liánsài.",
+     "fr": "Leur équipe a remporté la saison.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L6-0540",
+   "genre": "mot",
+   "hanzi": "联手",
+   "pinyin": "liánshǒu",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "unir ses forces, s'allier",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "unir ses forces, s'allier"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "两家公司联手开发新产品。",
+     "pinyin": "Liǎng jiā gōngsī liánshǒu kāifā xīn chǎnpǐn.",
+     "fr": "Les deux entreprises s'associent pour créer de nouveaux produits.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L6-0541",
+   "genre": "mot",
+   "hanzi": "凉鞋",
+   "pinyin": "liángxié",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "sandales",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "sandales"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "夏天我喜欢穿凉鞋。",
+     "pinyin": "Xiàtiān wǒ xǐhuan chuān liángxié.",
+     "fr": "L'été, j'aime avoir les pieds à l'air.",
+     "statut": "a_relire"
+    }
+   ]
+  }
+ ]
+}
