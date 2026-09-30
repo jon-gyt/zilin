@@ -23,20 +23,33 @@
   "必": "forme",
   "山": "sens"
  },
- "mots": [],
+ "mots": [
+  {
+   "hanzi": "保密",
+   "pinyin": "bǎomì",
+   "fr": "garder le secret",
+   "en": "to keep something secret"
+  },
+  {
+   "hanzi": "密码",
+   "pinyin": "mìmǎ",
+   "fr": "mot de passe, code",
+   "en": "password, code"
+  }
+ ],
  "phrase": {
-  "zh": "",
-  "pinyin": "",
-  "fr": "",
-  "en": ""
+  "zh": "这是秘密，请你保密。",
+  "pinyin": "Zhè shì mìmì, qǐng nǐ bǎomì.",
+  "fr": "C'est un secret, garde-le pour toi.",
+  "en": "It's a secret, please keep it to yourself."
  },
  "generation": {
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:84791126437df79dafa931890d275eabcc5eaab76aa8c1ffc088abb6e176762d",
-  "essais": 1,
+  "empreinte_invite": "sha256:d9ad4e2accc90ccb45659f1b83234c222cdaf3532239fc48a41c1fae7ce1e068",
+  "essais": 2,
   "refus": []
  },
- "statut": "relu"
+ "statut": "a_relire"
 }

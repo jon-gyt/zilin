@@ -21,20 +21,33 @@
   "扌": "sens",
   "彐": "sens"
  },
- "mots": [],
+ "mots": [
+  {
+   "hanzi": "打扫",
+   "pinyin": "dǎsǎo",
+   "fr": "faire le ménage, nettoyer",
+   "en": "to clean, to sweep"
+  },
+  {
+   "hanzi": "扫地",
+   "pinyin": "sǎodì",
+   "fr": "balayer le sol",
+   "en": "to sweep the floor"
+  }
+ ],
  "phrase": {
-  "zh": "",
-  "pinyin": "",
-  "fr": "",
-  "en": ""
+  "zh": "我们每天打扫房间。",
+  "pinyin": "Wǒmen měi tiān dǎsǎo fángjiān.",
+  "fr": "Nous faisons le ménage de la chambre chaque jour.",
+  "en": "We clean the room every day."
  },
  "generation": {
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:af49831cd55aeaf789170d5fb7b8ebee68d7e180bc2cc5114ee9eac0d16da766",
-  "essais": 1,
+  "empreinte_invite": "sha256:3a88dad3273723c88852031ce030aef74f852c65caa0f3068787e27f6274556f",
+  "essais": 2,
   "refus": []
  },
- "statut": "relu"
+ "statut": "a_relire"
 }

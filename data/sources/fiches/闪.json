@@ -21,20 +21,33 @@
   "门": "sens",
   "人": "sens"
  },
- "mots": [],
+ "mots": [
+  {
+   "hanzi": "闪电",
+   "pinyin": "shǎndiàn",
+   "fr": "éclair",
+   "en": "lightning"
+  },
+  {
+   "hanzi": "闪光",
+   "pinyin": "shǎnguāng",
+   "fr": "éclat de lumière, flash",
+   "en": "flash of light"
+  }
+ ],
  "phrase": {
-  "zh": "",
-  "pinyin": "",
-  "fr": "",
-  "en": ""
+  "zh": "天上的星星一闪一闪。",
+  "pinyin": "Tiān shang de xīngxing yī shǎn yī shǎn.",
+  "fr": "Les étoiles scintillent dans le ciel.",
+  "en": "The stars twinkle in the sky."
  },
  "generation": {
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:a5944276bcdcf814f1f7332a9584047e402c4a518cedb457b7c7a6c8d3d2f1fb",
-  "essais": 1,
+  "empreinte_invite": "sha256:a46bae4d7507065de52e634b4168d82adce7bc4610a2e56b68de277de8dca1a1",
+  "essais": 2,
   "refus": []
  },
- "statut": "relu"
+ "statut": "a_relire"
 }

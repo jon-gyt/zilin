@@ -21,20 +21,33 @@
   "禾": "forme",
   "必": "forme"
  },
- "mots": [],
+ "mots": [
+  {
+   "hanzi": "秘书",
+   "pinyin": "mìshū",
+   "fr": "secrétaire",
+   "en": "secretary"
+  },
+  {
+   "hanzi": "神秘",
+   "pinyin": "shénmì",
+   "fr": "mystérieux",
+   "en": "mysterious"
+  }
+ ],
  "phrase": {
-  "zh": "",
-  "pinyin": "",
-  "fr": "",
-  "en": ""
+  "zh": "她是公司的秘书。",
+  "pinyin": "Tā shì gōngsī de mìshū.",
+  "fr": "Elle est secrétaire dans l'entreprise.",
+  "en": "She is a secretary at the company."
  },
  "generation": {
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:78bb40819c4b1249747198d938e3129681cfa6b091c6d7e8460f7b0fea20e852",
-  "essais": 1,
+  "empreinte_invite": "sha256:c3bf813ebe08dfe99cc5a304e0a077050b174bd333d016b8798a760895d05d31",
+  "essais": 2,
   "refus": []
  },
- "statut": "relu"
+ "statut": "a_relire"
 }

@@ -19,20 +19,33 @@
  "roles": {
   "申": "forme"
  },
- "mots": [],
+ "mots": [
+  {
+   "hanzi": "申请",
+   "pinyin": "shēnqǐng",
+   "fr": "demander, postuler",
+   "en": "to apply for"
+  },
+  {
+   "hanzi": "申明",
+   "pinyin": "shēnmíng",
+   "fr": "déclarer, affirmer",
+   "en": "to declare, to state"
+  }
+ ],
  "phrase": {
-  "zh": "",
-  "pinyin": "",
-  "fr": "",
-  "en": ""
+  "zh": "我想申请这个工作。",
+  "pinyin": "Wǒ xiǎng shēnqǐng zhège gōngzuò.",
+  "fr": "Je voudrais postuler à cet emploi.",
+  "en": "I'd like to apply for this job."
  },
  "generation": {
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:47c2070914d8040c64a6f64eeb8e4fa899231686cf894e0853181ddd1ca5d6db",
-  "essais": 1,
+  "empreinte_invite": "sha256:a37187d1882f8809b70623e6dbcfb48d1690c4d6a7dbd3c875b91ad3633ef604",
+  "essais": 2,
   "refus": []
  },
- "statut": "relu"
+ "statut": "a_relire"
 }

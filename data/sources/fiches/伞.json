@@ -19,20 +19,33 @@
  "roles": {
   "伞": "forme"
  },
- "mots": [],
+ "mots": [
+  {
+   "hanzi": "雨伞",
+   "pinyin": "yǔsǎn",
+   "fr": "parapluie",
+   "en": "umbrella"
+  },
+  {
+   "hanzi": "打伞",
+   "pinyin": "dǎsǎn",
+   "fr": "ouvrir un parapluie",
+   "en": "to hold up an umbrella"
+  }
+ ],
  "phrase": {
-  "zh": "",
-  "pinyin": "",
-  "fr": "",
-  "en": ""
+  "zh": "下雨了，别忘了带伞。",
+  "pinyin": "Xià yǔ le, bié wàng le dài sǎn.",
+  "fr": "Il pleut, n'oublie pas ton parapluie.",
+  "en": "It's raining, don't forget your umbrella."
  },
  "generation": {
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:cb3fc198fe5c7dea581133cf206468f38e0357c66f32386c94531495cd2abce8",
-  "essais": 1,
+  "empreinte_invite": "sha256:e6a232d396b00eb0a8f24d22a563936f90176f76740b204e67c6023def1c8a27",
+  "essais": 2,
   "refus": []
  },
- "statut": "relu"
+ "statut": "a_relire"
 }
