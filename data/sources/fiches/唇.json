@@ -21,20 +21,33 @@
   "辰": "forme",
   "口": "sens"
  },
- "mots": [],
+ "mots": [
+  {
+   "hanzi": "嘴唇",
+   "pinyin": "zuǐchún",
+   "fr": "lèvres",
+   "en": "lips"
+  },
+  {
+   "hanzi": "唇舌",
+   "pinyin": "chúnshé",
+   "fr": "paroles, salive",
+   "en": "words, arguing"
+  }
+ ],
  "phrase": {
-  "zh": "",
-  "pinyin": "",
-  "fr": "",
-  "en": ""
+  "zh": "天太冷，他的嘴唇都干了。",
+  "pinyin": "Tiān tài lěng, tā de zuǐchún dōu gān le.",
+  "fr": "Il fait si froid que ses lèvres sont toutes sèches.",
+  "en": "It's so cold that his lips are all dry."
  },
  "generation": {
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:67a188980e71a4d998890ddea66a653e61a76e04969283bc1e88301fbeaec079",
-  "essais": 1,
+  "empreinte_invite": "sha256:e6789cce1721a461fb0fe51fc78bdc8d7b292c0a38674a1366056b54c5f12c61",
+  "essais": 2,
   "refus": []
  },
- "statut": "relu"
+ "statut": "a_relire"
 }

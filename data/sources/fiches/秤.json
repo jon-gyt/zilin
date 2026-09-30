@@ -21,20 +21,33 @@
   "禾": "sens",
   "平": "sens"
  },
- "mots": [],
+ "mots": [
+  {
+   "hanzi": "磅秤",
+   "pinyin": "bàngchèng",
+   "fr": "bascule",
+   "en": "platform scale"
+  },
+  {
+   "hanzi": "台秤",
+   "pinyin": "táichèng",
+   "fr": "balance de table",
+   "en": "counter scale"
+  }
+ ],
  "phrase": {
-  "zh": "",
-  "pinyin": "",
-  "fr": "",
-  "en": ""
+  "zh": "把这袋米放到秤上称一下。",
+  "pinyin": "Bǎ zhè dài mǐ fàng dào chèng shang chēng yīxià.",
+  "fr": "Pose ce sac de riz sur la balance pour le peser.",
+  "en": "Put this bag of rice on the scale and weigh it."
  },
  "generation": {
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:1ff401030cbee0838c61043d39e9a56bcab515814839e627521fa20b56e7aacf",
-  "essais": 1,
+  "empreinte_invite": "sha256:c085f489e3f977f7c6eba7340cf05147aaf698a96a94e8e06af707d7460b8ead",
+  "essais": 2,
   "refus": []
  },
- "statut": "relu"
+ "statut": "a_relire"
 }

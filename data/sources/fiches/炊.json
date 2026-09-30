@@ -21,20 +21,33 @@
   "火": "sens",
   "欠": "forme"
  },
- "mots": [],
+ "mots": [
+  {
+   "hanzi": "炊烟",
+   "pinyin": "chuīyān",
+   "fr": "fumée des cuisines",
+   "en": "cooking smoke"
+  },
+  {
+   "hanzi": "野炊",
+   "pinyin": "yěchuī",
+   "fr": "cuisiner en plein air",
+   "en": "to cook outdoors"
+  }
+ ],
  "phrase": {
-  "zh": "",
-  "pinyin": "",
-  "fr": "",
-  "en": ""
+  "zh": "村子里升起了炊烟。",
+  "pinyin": "Cūnzi li shēng qǐ le chuīyān.",
+  "fr": "Des fumées de cuisine s'élèvent au-dessus du village.",
+  "en": "Smoke from the kitchens rises over the village."
  },
  "generation": {
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:c39e07a4aaba3f43918b3ae0c711f5fb9bcccbf3a06319227594ff3f1c40e0f3",
-  "essais": 1,
+  "empreinte_invite": "sha256:111d76b67b7d61ac28f73ad4b77a094b17405ccd00864ecfafecdd92b90f8127",
+  "essais": 2,
   "refus": []
  },
- "statut": "relu"
+ "statut": "a_relire"
 }

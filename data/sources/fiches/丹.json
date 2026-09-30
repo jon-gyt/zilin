@@ -19,20 +19,33 @@
  "roles": {
   "丹": "sens"
  },
- "mots": [],
+ "mots": [
+  {
+   "hanzi": "丹青",
+   "pinyin": "dānqīng",
+   "fr": "peinture (art)",
+   "en": "painting (art)"
+  },
+  {
+   "hanzi": "丹田",
+   "pinyin": "dāntián",
+   "fr": "bas-ventre, centre d'énergie",
+   "en": "lower abdomen, energy centre"
+  }
+ ],
  "phrase": {
-  "zh": "",
-  "pinyin": "",
-  "fr": "",
-  "en": ""
+  "zh": "这位老画家的丹青很有名。",
+  "pinyin": "Zhè wèi lǎo huàjiā de dānqīng hěn yǒumíng.",
+  "fr": "Les peintures de ce vieux maître sont très célèbres.",
+  "en": "This old painter's works are very famous."
  },
  "generation": {
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:07b74f9b365532faac4b4315d5722f9d3e014a488d9aa0026b931de3ab994f77",
-  "essais": 1,
+  "empreinte_invite": "sha256:0d6b0bb37a03c4a29bd4d44cbd885fe4c8606868ec1d128dd77c748dd5731366",
+  "essais": 2,
   "refus": []
  },
- "statut": "relu"
+ "statut": "a_relire"
 }

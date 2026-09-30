@@ -19,20 +19,33 @@
  "roles": {
   "歹": "sens"
  },
- "mots": [],
+ "mots": [
+  {
+   "hanzi": "好歹",
+   "pinyin": "hǎodǎi",
+   "fr": "le bien et le mal ; de toute façon",
+   "en": "good and bad; in any case"
+  },
+  {
+   "hanzi": "歹人",
+   "pinyin": "dǎirén",
+   "fr": "malfaiteur",
+   "en": "villain"
+  }
+ ],
  "phrase": {
-  "zh": "",
-  "pinyin": "",
-  "fr": "",
-  "en": ""
+  "zh": "他不知好歹。",
+  "pinyin": "Tā bù zhī hǎodǎi.",
+  "fr": "Il ne sait pas reconnaître ce qu'on fait pour lui.",
+  "en": "He doesn't know what's good for him."
  },
  "generation": {
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:89e72c55a6a84da1667705579a30500b24c11734d363eb403794ab095b275541",
-  "essais": 1,
+  "empreinte_invite": "sha256:340c2350d248b3fe18e01bc653befa1d3742853661f64465810df9a4ca80bd0d",
+  "essais": 2,
   "refus": []
  },
- "statut": "relu"
+ "statut": "a_relire"
 }

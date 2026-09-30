@@ -23,20 +23,33 @@
   "丰": "forme",
   "寸": "forme"
  },
- "mots": [],
+ "mots": [
+  {
+   "hanzi": "筹备",
+   "pinyin": "chóubèi",
+   "fr": "préparer, organiser",
+   "en": "to prepare, to arrange"
+  },
+  {
+   "hanzi": "筹款",
+   "pinyin": "chóukuǎn",
+   "fr": "collecter des fonds",
+   "en": "to raise funds"
+  }
+ ],
  "phrase": {
-  "zh": "",
-  "pinyin": "",
-  "fr": "",
-  "en": ""
+  "zh": "他们正在筹备明年的会议。",
+  "pinyin": "Tāmen zhèngzài chóubèi míngnián de huìyì.",
+  "fr": "Ils préparent la conférence de l'an prochain.",
+  "en": "They are preparing next year's conference."
  },
  "generation": {
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:6df33a9c245daee02282080a6123094e73b62755a0e37a54546eabd154cc2733",
-  "essais": 1,
+  "empreinte_invite": "sha256:c341c6342b15a32a29ceef445d164c63f8b4d185615b4d4acfde854cfd1c2d8c",
+  "essais": 2,
   "refus": []
  },
- "statut": "relu"
+ "statut": "a_relire"
 }

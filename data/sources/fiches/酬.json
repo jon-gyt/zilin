@@ -21,20 +21,33 @@
   "酉": "sens",
   "州": "forme"
  },
- "mots": [],
+ "mots": [
+  {
+   "hanzi": "报酬",
+   "pinyin": "bàochou",
+   "fr": "rémunération",
+   "en": "pay, remuneration"
+  },
+  {
+   "hanzi": "酬谢",
+   "pinyin": "chóuxiè",
+   "fr": "remercier par un présent",
+   "en": "to reward, to thank with a gift"
+  }
+ ],
  "phrase": {
-  "zh": "",
-  "pinyin": "",
-  "fr": "",
-  "en": ""
+  "zh": "这份工作的报酬不错。",
+  "pinyin": "Zhè fèn gōngzuò de bàochou bùcuò.",
+  "fr": "Ce travail est bien payé.",
+  "en": "This job pays well."
  },
  "generation": {
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:cfbe1c3091308569e2ee575986f086a0ff949a2725260ec80d7abbcce02c2979",
-  "essais": 1,
+  "empreinte_invite": "sha256:49a091a23f2231698b1a714de7cf08dc9cf7b18299add7b89a788a829badff69",
+  "essais": 2,
   "refus": []
  },
- "statut": "relu"
+ "statut": "a_relire"
 }
