@@ -27,20 +27,33 @@
   "小": "son",
   "斤": "son"
  },
- "mots": [],
+ "mots": [
+  {
+   "hanzi": "薪水",
+   "pinyin": "xīnshuǐ",
+   "fr": "salaire",
+   "en": "salary"
+  },
+  {
+   "hanzi": "加薪",
+   "pinyin": "jiāxīn",
+   "fr": "augmentation de salaire",
+   "en": "pay raise"
+  }
+ ],
  "phrase": {
-  "zh": "",
-  "pinyin": "",
-  "fr": "",
-  "en": ""
+  "zh": "这个月公司给我加薪了。",
+  "pinyin": "Zhège yuè gōngsī gěi wǒ jiā xīn le.",
+  "fr": "Ce mois-ci, l'entreprise m'a augmenté.",
+  "en": "This month the company gave me a raise."
  },
  "generation": {
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:09047500a336b1748f12b6fbefb752acbcca8a662aab4122efcbfdd7193e1c89",
-  "essais": 1,
+  "empreinte_invite": "sha256:6c2e14fa1faeab450d0c7010a8f8dfbceb1bc33d68edf88c910bf3ff8afbee1d",
+  "essais": 2,
   "refus": []
  },
- "statut": "relu"
+ "statut": "a_relire"
 }

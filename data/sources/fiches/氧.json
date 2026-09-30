@@ -21,20 +21,33 @@
   "气": "sens",
   "羊": "son"
  },
- "mots": [],
+ "mots": [
+  {
+   "hanzi": "氧气",
+   "pinyin": "yǎngqì",
+   "fr": "oxygène",
+   "en": "oxygen"
+  },
+  {
+   "hanzi": "缺氧",
+   "pinyin": "quēyǎng",
+   "fr": "manquer d'oxygène",
+   "en": "lack of oxygen"
+  }
+ ],
  "phrase": {
-  "zh": "",
-  "pinyin": "",
-  "fr": "",
-  "en": ""
+  "zh": "山上的氧气很少。",
+  "pinyin": "Shān shang de yǎngqì hěn shǎo.",
+  "fr": "En haute montagne, il y a peu d'oxygène.",
+  "en": "There is little oxygen up in the mountains."
  },
  "generation": {
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:647ea5449e209a570008f968181184e049225886b8fec3036ca230a7cb24a176",
-  "essais": 1,
+  "empreinte_invite": "sha256:d845fdb5735a4a0ec2433fd7de2cb112078c7cd797ae315d12f71915c818e9ad",
+  "essais": 2,
   "refus": []
  },
- "statut": "relu"
+ "statut": "a_relire"
 }

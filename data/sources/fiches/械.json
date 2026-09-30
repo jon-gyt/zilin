@@ -23,20 +23,33 @@
   "戈": "forme",
   "卄": "forme"
  },
- "mots": [],
+ "mots": [
+  {
+   "hanzi": "机械",
+   "pinyin": "jīxiè",
+   "fr": "machine, mécanique",
+   "en": "machinery, mechanical"
+  },
+  {
+   "hanzi": "器械",
+   "pinyin": "qìxiè",
+   "fr": "appareil, instrument",
+   "en": "apparatus, equipment"
+  }
+ ],
  "phrase": {
-  "zh": "",
-  "pinyin": "",
-  "fr": "",
-  "en": ""
+  "zh": "他在工厂修机械。",
+  "pinyin": "Tā zài gōngchǎng xiū jīxiè.",
+  "fr": "Il répare des machines à l'usine.",
+  "en": "He repairs machines at the factory."
  },
  "generation": {
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:c826263e505bfa1039121a682914d8d83c71923f3847800399edad535c19b122",
-  "essais": 1,
+  "empreinte_invite": "sha256:c543d42864c27c95738f5a90361109c3b71b3e086bd9c25da27247e8f4728f12",
+  "essais": 2,
   "refus": []
  },
- "statut": "relu"
+ "statut": "a_relire"
 }

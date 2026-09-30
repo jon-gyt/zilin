@@ -21,20 +21,33 @@
   "月": "sens",
   "办": "forme"
  },
- "mots": [],
+ "mots": [
+  {
+   "hanzi": "威胁",
+   "pinyin": "wēixié",
+   "fr": "menacer, menace",
+   "en": "to threaten, threat"
+  },
+  {
+   "hanzi": "胁迫",
+   "pinyin": "xiépò",
+   "fr": "contraindre par la force",
+   "en": "to coerce"
+  }
+ ],
  "phrase": {
-  "zh": "",
-  "pinyin": "",
-  "fr": "",
-  "en": ""
+  "zh": "大风威胁着这些老房子。",
+  "pinyin": "Dà fēng wēixié zhe zhèxiē lǎo fángzi.",
+  "fr": "Le vent violent menace ces vieilles maisons.",
+  "en": "The strong wind threatens these old houses."
  },
  "generation": {
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:83cbbbc295a25b458d1aec895d8c8ee7a1f4c2f277961643e9d75fb45561a4a2",
-  "essais": 1,
+  "empreinte_invite": "sha256:b2fc13c817e8393edecd9f14f625e922b45fe9703162d3f9e56e49b692533d66",
+  "essais": 2,
   "refus": []
  },
- "statut": "relu"
+ "statut": "a_relire"
 }
