@@ -1,0 +1,1350 @@
+{
+ "niveau": "7-9",
+ "lot": "93",
+ "source": "rédigé pour l'app dans le pipeline wenlu, sans API ; faits lus : liste HSK 3.0 (forme, pinyin, niveau, catégorie), lectures d'Unihan et des surcharges, gloses relues des fiches",
+ "brouillon": "data/sources/dico-brouillons/7-9/93.json",
+ "generation": {
+  "modele": "rédaction manuelle",
+  "api": "session Claude Code (sans API)",
+  "date": "2026-09-30",
+  "empreinte_invite": "sha256:5f84368fe0c376928442b1912705585902040738e9faff3f9ce688ce71968195",
+  "contexte": "wenlu dico contexte 7-9 93",
+  "essais": 1,
+  "refus": []
+ },
+ "entrees": [
+  {
+   "id": "L7-4045",
+   "genre": "mot",
+   "hanzi": "特邀",
+   "pinyin": "tèyāo",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "inviter spécialement",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "inviter spécialement, faire venir comme invité d'honneur"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "我们特邀了一位专家来讲课。",
+     "pinyin": "Wǒmen tèyāo le yī wèi zhuānjiā lái jiǎngkè.",
+     "fr": "Nous avons fait venir un expert pour donner une conférence.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-4046",
+   "genre": "mot",
+   "hanzi": "特制",
+   "pinyin": "tèzhì",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "fabriquer spécialement",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "fabriquer spécialement, faire sur mesure"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这是为孩子特制的饼干。",
+     "pinyin": "Zhè shì wèi háizi tèzhì de bǐnggān.",
+     "fr": "Ces biscuits sont conçus exprès pour les enfants.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-4047",
+   "genre": "mot",
+   "hanzi": "特质",
+   "pinyin": "tèzhì",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "trait distinctif, qualité propre",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "trait distinctif, qualité propre"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "勇敢是他最大的特质。",
+     "pinyin": "Yǒnggǎn shì tā zuì dà de tèzhì.",
+     "fr": "Le courage est ce qui le caractérise le plus.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "藤",
+   "genre": "caractere",
+   "hanzi": "藤",
+   "pinyin": "téng",
+   "sens": {
+    "glose": "rotin, liane",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "rotin, liane, tige grimpante"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": []
+  },
+  {
+   "id": "L7-4049",
+   "genre": "mot",
+   "hanzi": "藤椅",
+   "pinyin": "téngyǐ",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "chaise en rotin",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "chaise en rotin, fauteuil en osier"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "爷爷坐在藤椅上看报。",
+     "pinyin": "Yéye zuò zài téngyǐ shang kàn bào.",
+     "fr": "Grand-père lit le journal dans son fauteuil.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "剔",
+   "genre": "caractere",
+   "hanzi": "剔",
+   "pinyin": "tī",
+   "sens": {
+    "glose": "enlever, curer ; écarter",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "enlever, curer (os, dents) ; écarter"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": []
+  },
+  {
+   "id": "L7-4050",
+   "genre": "mot",
+   "hanzi": "剔除",
+   "pinyin": "tīchú",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "éliminer, écarter",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "éliminer, écarter, trier"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "把坏的苹果剔除出去。",
+     "pinyin": "Bǎ huài de píngguǒ tīchú chūqu.",
+     "fr": "Retire les pommes abîmées.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-4051",
+   "genre": "mot",
+   "hanzi": "梯子",
+   "pinyin": "tīzi",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "échelle",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "échelle"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他爬上梯子修屋顶。",
+     "pinyin": "Tā pá shang tīzi xiū wūdǐng.",
+     "fr": "Il est monté réparer le toit.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-4052",
+   "genre": "mot",
+   "hanzi": "提拔",
+   "pinyin": "tíbá",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "promouvoir",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "promouvoir, faire monter en grade"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他被提拔为部门经理。",
+     "pinyin": "Tā bèi tíbá wéi bùmén jīnglǐ.",
+     "fr": "Il est devenu chef de service.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-4053",
+   "genre": "mot",
+   "hanzi": "提炼",
+   "pinyin": "tíliàn",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "extraire, raffiner ; condenser",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "extraire, raffiner"
+     },
+     {
+      "categorie": "V",
+      "fr": "condenser, dégager l'essentiel"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "从石油中可以提炼出很多东西。",
+     "pinyin": "Cóng shíyóu zhōng kěyǐ tíliàn chū hěn duō dōngxi.",
+     "fr": "On tire beaucoup de produits du pétrole.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-4054",
+   "genre": "mot",
+   "hanzi": "提名",
+   "pinyin": "tímíng",
+   "sens": {
+    "glose": "nommer, désigner comme candidat",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "nommer, désigner comme candidat"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他被提名为最佳男演员。",
+     "pinyin": "Tā bèi tímíng wéi zuì jiā nán yǎnyuán.",
+     "fr": "Il est en lice pour le prix du meilleur acteur.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-4055",
+   "genre": "mot",
+   "hanzi": "提速",
+   "pinyin": "tísù",
+   "sens": {
+    "glose": "accélérer",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "accélérer, augmenter la vitesse"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这条铁路今年又提速了。",
+     "pinyin": "Zhè tiáo tiělù jīnnián yòu tísù le.",
+     "fr": "Les trains de cette ligne roulent encore plus vite cette année.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-4056",
+   "genre": "mot",
+   "hanzi": "提心吊胆",
+   "pinyin": "tíxīn-diàodǎn",
+   "sens": {
+    "glose": "être sur des charbons ardents",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "anxieux, sur des charbons ardents"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "孩子还没回家，妈妈提心吊胆的。",
+     "pinyin": "Háizi hái méi huí jiā, māma tíxīn-diàodǎn de.",
+     "fr": "L'enfant n'est pas encore rentré, sa mère se fait un sang d'encre.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-4057",
+   "genre": "mot",
+   "hanzi": "提议",
+   "pinyin": "tíyì",
+   "categories": [
+    "V",
+    "N"
+   ],
+   "sens": {
+    "glose": "proposer ; proposition",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "proposer, suggérer"
+     },
+     {
+      "categorie": "N",
+      "fr": "proposition, suggestion"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "我提议大家休息一会儿。",
+     "pinyin": "Wǒ tíyì dàjiā xiūxi yīhuìr.",
+     "fr": "Et si on faisait une petite pause ?",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-4058",
+   "genre": "mot",
+   "hanzi": "提早",
+   "pinyin": "tízǎo",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "avancer (une date), faire plus tôt",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "avancer (une date), faire plus tôt"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "我们提早出发吧。",
+     "pinyin": "Wǒmen tízǎo chūfā ba.",
+     "fr": "Partons un peu avant l'heure prévue.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-4059",
+   "genre": "mot",
+   "hanzi": "体谅",
+   "pinyin": "tǐliàng",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "comprendre, se mettre à la place de",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "comprendre, se mettre à la place de, être indulgent"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "请体谅一下我的难处。",
+     "pinyin": "Qǐng tǐliàng yīxià wǒ de nánchù.",
+     "fr": "Essaie de voir les choses de mon côté.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-4060",
+   "genre": "mot",
+   "hanzi": "体面",
+   "pinyin": "tǐmiàn",
+   "categories": [
+    "N",
+    "Adj"
+   ],
+   "sens": {
+    "glose": "dignité ; honorable, présentable",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "dignité, face, honneur"
+     },
+     {
+      "categorie": "Adj",
+      "fr": "honorable, décent ; présentable"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他找了一份体面的工作。",
+     "pinyin": "Tā zhǎo le yī fèn tǐmiàn de gōngzuò.",
+     "fr": "Il a trouvé un emploi respectable.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-4061",
+   "genre": "mot",
+   "hanzi": "体能",
+   "pinyin": "tǐnéng",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "condition physique",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "condition physique, capacités physiques"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "运动员每天都要进行体能训练。",
+     "pinyin": "Yùndòngyuán měi tiān dōu yào jìnxíng tǐnéng xùnliàn.",
+     "fr": "Les athlètes font de la préparation physique chaque jour.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-4062",
+   "genre": "mot",
+   "hanzi": "体贴",
+   "pinyin": "tǐtiē",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "être attentionné, prévenant",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "être attentionné, prévenant envers"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他对妻子很体贴。",
+     "pinyin": "Tā duì qīzi hěn tǐtiē.",
+     "fr": "Il est aux petits soins pour sa femme.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-4063",
+   "genre": "mot",
+   "hanzi": "体温",
+   "pinyin": "tǐwēn",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "température du corps",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "température du corps"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "护士给病人量体温。",
+     "pinyin": "Hùshi gěi bìngrén liáng tǐwēn.",
+     "fr": "L'infirmière vérifie si le patient a de la fièvre.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-4064",
+   "genre": "mot",
+   "hanzi": "体系",
+   "pinyin": "tǐxì",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "système",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "système, ensemble organisé"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "我们要建立完整的教育体系。",
+     "pinyin": "Wǒmen yào jiànlì wánzhěng de jiàoyù tǐxì.",
+     "fr": "Nous devons mettre en place une éducation complète et cohérente.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-4065",
+   "genre": "mot",
+   "hanzi": "体制",
+   "pinyin": "tǐzhì",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "système, régime (institutions)",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "système, régime, structure institutionnelle"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这个国家正在进行经济体制改革。",
+     "pinyin": "Zhège guójiā zhèngzài jìnxíng jīngjì tǐzhì gǎigé.",
+     "fr": "Ce pays réforme en profondeur son organisation économique.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-4066",
+   "genre": "mot",
+   "hanzi": "体质",
+   "pinyin": "tǐzhì",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "constitution physique",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "constitution physique, santé de fond"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他的体质很弱，经常生病。",
+     "pinyin": "Tā de tǐzhì hěn ruò, jīngcháng shēngbìng.",
+     "fr": "Il est de santé fragile et souvent malade.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "剃",
+   "genre": "caractere",
+   "hanzi": "剃",
+   "pinyin": "tì",
+   "mots": [
+    "L7-4067"
+   ],
+   "sens": {
+    "glose": "raser",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "raser (barbe, cheveux)"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他每天早上剃胡子。",
+     "pinyin": "Tā měi tiān zǎoshang tì húzi.",
+     "fr": "Il se fait la barbe tous les matins.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-4068",
+   "genre": "mot",
+   "hanzi": "替换",
+   "pinyin": "tìhuàn",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "remplacer, changer",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "remplacer, changer, substituer"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "教练用新队员替换了他。",
+     "pinyin": "Jiàoliàn yòng xīn duìyuán tìhuàn le tā.",
+     "fr": "L'entraîneur l'a fait sortir au profit d'un nouveau joueur.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-4069",
+   "genre": "mot",
+   "hanzi": "替身",
+   "pinyin": "tìshēn",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "doublure, remplaçant",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "doublure, remplaçant ; bouc émissaire"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这个危险的镜头是替身演的。",
+     "pinyin": "Zhège wēixiǎn de jìngtóu shì tìshēn yǎn de.",
+     "fr": "Ce n'est pas l'acteur lui-même qui a tourné cette scène dangereuse.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-4070",
+   "genre": "mot",
+   "hanzi": "天长地久",
+   "pinyin": "tiāncháng-dìjiǔ",
+   "sens": {
+    "glose": "éternel, pour toujours",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "éternel, qui dure toujours"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "祝你们的爱情天长地久。",
+     "pinyin": "Zhù nǐmen de àiqíng tiāncháng-dìjiǔ.",
+     "fr": "Que votre amour ne finisse jamais.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-4071",
+   "genre": "mot",
+   "hanzi": "天地",
+   "pinyin": "tiāndì",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "le ciel et la terre, le monde",
+    "acceptions": [],
+    "statut": "relu",
+    "provenance": {
+     "reprise": "data/sources/fiches/地.json",
+     "champ": "mots[].fr"
+    }
+   },
+   "exemples": [
+    {
+     "zh": "外面的天地很广阔。",
+     "pinyin": "Wàimian de tiāndì hěn guǎngkuò.",
+     "fr": "Le monde extérieur est vaste.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-4072",
+   "genre": "mot",
+   "hanzi": "天鹅",
+   "pinyin": "tiān'é",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "cygne",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "cygne"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "湖上有几只白天鹅。",
+     "pinyin": "Hú shang yǒu jǐ zhī bái tiān'é.",
+     "fr": "Quelques grands oiseaux blancs glissent sur le lac.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-4073",
+   "genre": "mot",
+   "hanzi": "天分",
+   "pinyin": "tiānfèn",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "don, talent inné",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "don, talent inné"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "她很有音乐天分。",
+     "pinyin": "Tā hěn yǒu yīnyuè tiānfèn.",
+     "fr": "Elle est très douée pour la musique.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-4074",
+   "genre": "mot",
+   "hanzi": "天赋",
+   "pinyin": "tiānfù",
+   "categories": [
+    "V",
+    "N"
+   ],
+   "sens": {
+    "glose": "don naturel ; conférer par nature",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "don naturel, talent inné"
+     },
+     {
+      "categorie": "V",
+      "fr": "conférer par nature"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这孩子有画画的天赋。",
+     "pinyin": "Zhè háizi yǒu huà huà de tiānfù.",
+     "fr": "Cet enfant est né pour dessiner.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-4075",
+   "genre": "mot",
+   "hanzi": "天经地义",
+   "pinyin": "tiānjīng-dìyì",
+   "sens": {
+    "glose": "évident, qui va de soi",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "évident, qui va de soi, incontestable"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "孩子孝敬父母是天经地义的。",
+     "pinyin": "Háizi xiàojìng fùmǔ shì tiānjīng-dìyì de.",
+     "fr": "Que les enfants honorent leurs parents, personne ne le conteste.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-4076",
+   "genre": "mot",
+   "hanzi": "天平",
+   "pinyin": "tiānpíng",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "balance",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "balance (de précision)"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他用天平称了一下药。",
+     "pinyin": "Tā yòng tiānpíng chēng le yīxià yào.",
+     "fr": "Il a pesé le médicament.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-4077",
+   "genre": "mot",
+   "hanzi": "天桥",
+   "pinyin": "tiānqiáo",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "passerelle piétonne",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "passerelle piétonne, pont au-dessus de la rue"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "过马路请走天桥。",
+     "pinyin": "Guò mǎlù qǐng zǒu tiānqiáo.",
+     "fr": "Pour traverser, passez par le haut.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-4078",
+   "genre": "mot",
+   "hanzi": "天生",
+   "pinyin": "tiānshēng",
+   "categories": [
+    "Adj"
+   ],
+   "sens": {
+    "glose": "inné, naturel ; de naissance",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "inné, naturel ; de naissance"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他天生就是一个好老师。",
+     "pinyin": "Tā tiānshēng jiù shì yī ge hǎo lǎoshī.",
+     "fr": "C'est un enseignant-né.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-4079",
+   "genre": "mot",
+   "hanzi": "天使",
+   "pinyin": "tiānshǐ",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "ange",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "ange"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "她像天使一样善良。",
+     "pinyin": "Tā xiàng tiānshǐ yīyàng shànliáng.",
+     "fr": "Elle est d'une bonté céleste.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-4080",
+   "genre": "mot",
+   "hanzi": "天线",
+   "pinyin": "tiānxiàn",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "antenne",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "antenne"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "屋顶上有一根天线。",
+     "pinyin": "Wūdǐng shang yǒu yī gēn tiānxiàn.",
+     "fr": "Il y a une antenne sur le toit.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-4081",
+   "genre": "mot",
+   "hanzi": "天性",
+   "pinyin": "tiānxìng",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "nature, naturel",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "nature, naturel, tempérament"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "孩子的天性是爱玩。",
+     "pinyin": "Háizi de tiānxìng shì ài wán.",
+     "fr": "Les enfants aiment jouer, c'est plus fort qu'eux.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-4082",
+   "genre": "mot",
+   "hanzi": "天主教",
+   "pinyin": "Tiānzhǔjiào",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "catholicisme",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "catholicisme, Église catholique"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "她信天主教。",
+     "pinyin": "Tā xìn Tiānzhǔjiào.",
+     "fr": "Elle est catholique.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-4083",
+   "genre": "mot",
+   "hanzi": "添加",
+   "pinyin": "tiānjiā",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "ajouter",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "ajouter, rajouter"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这种食品没有添加糖。",
+     "pinyin": "Zhè zhǒng shípǐn méiyou tiānjiā táng.",
+     "fr": "Ce produit est sans sucre ajouté.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-4084",
+   "genre": "mot",
+   "hanzi": "甜美",
+   "pinyin": "tiánměi",
+   "categories": [
+    "Adj"
+   ],
+   "sens": {
+    "glose": "doux, suave, délicieux",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "doux, suave, délicieux"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "她的声音很甜美。",
+     "pinyin": "Tā de shēngyīn hěn tiánměi.",
+     "fr": "Elle a une voix charmante.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-4085",
+   "genre": "mot",
+   "hanzi": "甜蜜",
+   "pinyin": "tiánmì",
+   "categories": [
+    "Adj"
+   ],
+   "sens": {
+    "glose": "doux, heureux (sentiment)",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "doux, heureux, tendre (sentiment)"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他们过着甜蜜的生活。",
+     "pinyin": "Tāmen guò zhe tiánmì de shēnghuó.",
+     "fr": "Ils filent le parfait amour.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-4086",
+   "genre": "mot",
+   "hanzi": "甜头",
+   "pinyin": "tiántou",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "avantage, bénéfice",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "avantage, bénéfice ; goût sucré"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "尝到甜头以后，他更努力了。",
+     "pinyin": "Chángdào tiántou yǐhòu, tā gèng nǔlì le.",
+     "fr": "Ayant goûté au succès, il redouble d'efforts.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-4087",
+   "genre": "mot",
+   "hanzi": "填补",
+   "pinyin": "tiánbǔ",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "combler, remplir (un vide)",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "combler, remplir (un vide, un manque)"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这项研究填补了国内的空白。",
+     "pinyin": "Zhè xiàng yánjiū tiánbǔ le guónèi de kòngbái.",
+     "fr": "Cette étude est la première du genre dans le pays.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-4088",
+   "genre": "mot",
+   "hanzi": "填充",
+   "pinyin": "tiánchōng",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "remplir, bourrer",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "remplir, bourrer, rembourrer"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "枕头里填充的是棉花。",
+     "pinyin": "Zhěntou li tiánchōng de shì miánhua.",
+     "fr": "L'oreiller est garni de coton.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-4089",
+   "genre": "mot",
+   "hanzi": "填写",
+   "pinyin": "tiánxiě",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "remplir (un formulaire)",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "remplir (un formulaire)"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "请填写这张表。",
+     "pinyin": "Qǐng tiánxiě zhè zhāng biǎo.",
+     "fr": "Complétez ce formulaire, s'il vous plaît.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "舔",
+   "genre": "caractere",
+   "hanzi": "舔",
+   "pinyin": "tiǎn",
+   "mots": [
+    "L7-4090"
+   ],
+   "sens": {
+    "glose": "lécher",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "lécher"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "小狗在舔我的手。",
+     "pinyin": "Xiǎo gǒu zài tiǎn wǒ de shǒu.",
+     "fr": "Le chiot me fait des léchouilles sur la main.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-4091",
+   "genre": "mot",
+   "hanzi": "挑剔",
+   "pinyin": "tiāoti",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "difficile, pointilleux",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "être difficile, pointilleux, trouver à redire"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他吃东西很挑剔。",
+     "pinyin": "Tā chī dōngxi hěn tiāoti.",
+     "fr": "Il fait le difficile à table.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-4092",
+   "genre": "mot",
+   "hanzi": "条款",
+   "pinyin": "tiáokuǎn",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "clause, article",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "clause, article (de contrat, de loi)"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "合同里有一个重要条款。",
+     "pinyin": "Hétong li yǒu yī ge zhòngyào tiáokuǎn.",
+     "fr": "Le contrat contient une disposition importante.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-4093",
+   "genre": "mot",
+   "hanzi": "条例",
+   "pinyin": "tiáolì",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "règlement, ordonnance",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "règlement, ordonnance"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "我们要遵守交通条例。",
+     "pinyin": "Wǒmen yào zūnshǒu jiāotōng tiáolì.",
+     "fr": "Nous devons respecter le code de la route.",
+     "statut": "a_relire"
+    }
+   ]
+  }
+ ]
+}
