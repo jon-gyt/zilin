@@ -1,0 +1,802 @@
+{
+ "examen": "huishi",
+ "parcours": "lire",
+ "generation": {
+  "modele": "rédaction manuelle",
+  "api": "session Claude Code (sans API)",
+  "date": "2026-09-30"
+ },
+ "relecture": {
+  "statut": "a_relire",
+  "note": "rédigé le 30 septembre 2026, à relire par le propriétaire (`wenlu examens apercu`) ; une série passe à `relu` sur sa décision, citée ici"
+ },
+ "series": [
+  {
+   "serie": "A",
+   "statut": "a_relire",
+   "supports": [
+    {
+     "id": "s1",
+     "genre": "billet",
+     "contexte": {
+      "fr": "Un billet",
+      "en": "A ticket"
+     },
+     "lignes": [
+      {
+       "zh": "火车票",
+       "pinyin": "huǒ chē piào",
+       "fr": "Ticket de train",
+       "en": "Train ticket"
+      },
+      {
+       "zh": "北京站到上海",
+       "pinyin": "běi jīng zhàn dào shàng hǎi",
+       "fr": "De la gare de Pékin à Shanghai",
+       "en": "Beijing Station to Shanghai"
+      },
+      {
+       "zh": "十二月八日早上七点十分",
+       "pinyin": "shí èr yuè bā rì zǎo shang qī diǎn shí fēn",
+       "fr": "8 décembre, 7 h 10 du matin",
+       "en": "8 December, 7:10 am"
+      },
+      {
+       "zh": "三百五十块",
+       "pinyin": "sān bǎi wǔ shí kuài",
+       "fr": "350 yuans",
+       "en": "350 yuan"
+      }
+     ]
+    },
+    {
+     "id": "s2",
+     "genre": "message",
+     "contexte": {
+      "fr": "Un message",
+      "en": "A message"
+     },
+     "lignes": [
+      {
+       "zh": "小王，我在医院，",
+       "pinyin": "xiǎo wáng wǒ zài yī yuàn",
+       "fr": "Xiao Wang, je suis à l'hôpital :",
+       "en": "Xiao Wang, I'm at the hospital:"
+      },
+      {
+       "zh": "我爸爸病了。",
+       "pinyin": "wǒ bà ba bìng le",
+       "fr": "mon père est malade.",
+       "en": "my father is ill."
+      },
+      {
+       "zh": "你能帮我跟老师说一下吗？",
+       "pinyin": "nǐ néng bāng wǒ gēn lǎo shī shuō yī xià ma",
+       "fr": "Tu peux prévenir le professeur pour moi ?",
+       "en": "Could you tell the teacher for me?"
+      }
+     ]
+    },
+    {
+     "id": "s3",
+     "genre": "affiche",
+     "contexte": {
+      "fr": "Une affiche",
+      "en": "A poster"
+     },
+     "lignes": [
+      {
+       "zh": "我的黑书包不见了！",
+       "pinyin": "wǒ de hēi shū bāo bù jiàn le",
+       "fr": "J'ai perdu mon cartable noir !",
+       "en": "I've lost my black schoolbag!"
+      },
+      {
+       "zh": "里面有三本书和一个手机。",
+       "pinyin": "lǐ mian yǒu sān běn shū hé yī gè shǒu jī",
+       "fr": "Dedans, il y a trois livres et un téléphone.",
+       "en": "Inside there are three books and a phone."
+      },
+      {
+       "zh": "找到的人，请到三班找小明。",
+       "pinyin": "zhǎo dào de rén qǐng dào sān bān zhǎo xiǎo míng",
+       "fr": "Si vous l'avez trouvé, venez voir Xiaoming, en classe 3.",
+       "en": "If you found it, please see Xiaoming in class 3."
+      }
+     ]
+    },
+    {
+     "id": "s4",
+     "genre": "pancarte",
+     "contexte": {
+      "fr": "Un panneau",
+      "en": "A sign"
+     },
+     "lignes": [
+      {
+       "zh": "前面三百米：火车站",
+       "pinyin": "qián mian sān bǎi mǐ huǒ chē zhàn",
+       "fr": "À 300 mètres : la gare",
+       "en": "300 metres ahead: the station"
+      },
+      {
+       "zh": "左边：医院",
+       "pinyin": "zuǒ bian yī yuàn",
+       "fr": "À gauche : l'hôpital",
+       "en": "On the left: the hospital"
+      }
+     ]
+    }
+   ],
+   "questions": [
+    {
+     "type": "comprendre",
+     "support": "s1",
+     "consigne": {
+      "fr": "Où va ce train ?",
+      "en": "Where is this train going?"
+     },
+     "choix": [
+      {
+       "fr": "À Pékin",
+       "en": "To Beijing"
+      },
+      {
+       "fr": "À Shanghai",
+       "en": "To Shanghai"
+      },
+      {
+       "fr": "À Nankin",
+       "en": "To Nanjing"
+      },
+      {
+       "fr": "À Canton",
+       "en": "To Guangzhou"
+      }
+     ],
+     "reponse": 1,
+     "porte": [
+      "到",
+      "上",
+      "海"
+     ]
+    },
+    {
+     "type": "reperer",
+     "support": "s1",
+     "consigne": {
+      "fr": "Touche l'heure du départ.",
+      "en": "Tap the departure time."
+     },
+     "choix": [
+      "北京站",
+      "上海",
+      "十二月",
+      "七点十分"
+     ],
+     "reponse": 3,
+     "porte": [
+      "七",
+      "点",
+      "十",
+      "分"
+     ]
+    },
+    {
+     "type": "sens",
+     "consigne": {
+      "fr": "Que veut dire ce caractère ?",
+      "en": "What does this character mean?"
+     },
+     "objet": {
+      "zh": "最",
+      "pinyin": "zuì",
+      "fr": "le plus",
+      "en": "the most"
+     },
+     "choix": [
+      {
+       "fr": "très",
+       "en": "very"
+      },
+      {
+       "fr": "le plus",
+       "en": "the most"
+      },
+      {
+       "fr": "encore",
+       "en": "again"
+      },
+      {
+       "fr": "aussi",
+       "en": "also"
+      }
+     ],
+     "reponse": 1,
+     "porte": [
+      "最"
+     ]
+    },
+    {
+     "type": "vrai_faux",
+     "support": "s2",
+     "consigne": {
+      "fr": "Vrai ou faux ?",
+      "en": "True or false?"
+     },
+     "affirmation": {
+      "zh": "小王的爸爸病了。",
+      "pinyin": "xiǎo wáng de bà ba bìng le",
+      "fr": "Le père de Xiao Wang est malade.",
+      "en": "Xiao Wang's father is ill."
+     },
+     "reponse": false,
+     "porte": [
+      "我",
+      "爸",
+      "病"
+     ]
+    },
+    {
+     "type": "replique",
+     "support": "s2",
+     "consigne": {
+      "fr": "Que répond Xiao Wang ?",
+      "en": "What does Xiao Wang reply?"
+     },
+     "choix": [
+      {
+       "zh": "我不喜欢吃鱼。",
+       "pinyin": "wǒ bù xǐ huan chī yú",
+       "fr": "Je n'aime pas le poisson.",
+       "en": "I don't like fish."
+      },
+      {
+       "zh": "这是我的桌子。",
+       "pinyin": "zhè shì wǒ de zhuō zi",
+       "fr": "C'est ma table.",
+       "en": "This is my table."
+      },
+      {
+       "zh": "好，我去跟老师说。",
+       "pinyin": "hǎo wǒ qù gēn lǎo shī shuō",
+       "fr": "D'accord, je vais prévenir le professeur.",
+       "en": "OK, I'll tell the teacher."
+      },
+      {
+       "zh": "火车站在左边。",
+       "pinyin": "huǒ chē zhàn zài zuǒ bian",
+       "fr": "La gare est à gauche.",
+       "en": "The station is on the left."
+      }
+     ],
+     "reponse": 2,
+     "porte": [
+      "帮",
+      "跟",
+      "老",
+      "师",
+      "说"
+     ]
+    },
+    {
+     "type": "caractere",
+     "consigne": {
+      "fr": "Quel caractère a ce sens ?",
+      "en": "Which character has this meaning?"
+     },
+     "objet": {
+      "zh": "灯",
+      "pinyin": "dēng",
+      "fr": "lampe",
+      "en": "lamp"
+     },
+     "choix": [
+      "灯",
+      "火",
+      "对",
+      "打"
+     ],
+     "reponse": 0,
+     "porte": [
+      "灯"
+     ]
+    },
+    {
+     "type": "comprendre",
+     "support": "s3",
+     "consigne": {
+      "fr": "Qu'a perdu Xiaoming ?",
+      "en": "What has Xiaoming lost?"
+     },
+     "choix": [
+      {
+       "fr": "Un manteau noir",
+       "en": "A black coat"
+      },
+      {
+       "fr": "Un cartable noir",
+       "en": "A black schoolbag"
+      },
+      {
+       "fr": "Un cartable rouge",
+       "en": "A red schoolbag"
+      },
+      {
+       "fr": "Un livre noir",
+       "en": "A black book"
+      }
+     ],
+     "reponse": 1,
+     "porte": [
+      "黑",
+      "书",
+      "包"
+     ]
+    },
+    {
+     "type": "vrai_faux",
+     "support": "s3",
+     "consigne": {
+      "fr": "Vrai ou faux ?",
+      "en": "True or false?"
+     },
+     "affirmation": {
+      "zh": "书包里有手机。",
+      "pinyin": "shū bāo lǐ yǒu shǒu jī",
+      "fr": "Il y a un téléphone dans le cartable.",
+      "en": "There is a phone in the schoolbag."
+     },
+     "reponse": true,
+     "porte": [
+      "里",
+      "面",
+      "手",
+      "机"
+     ]
+    },
+    {
+     "type": "comprendre",
+     "support": "s4",
+     "consigne": {
+      "fr": "À quelle distance est la gare ?",
+      "en": "How far away is the station?"
+     },
+     "choix": [
+      {
+       "fr": "À 30 mètres",
+       "en": "30 metres"
+      },
+      {
+       "fr": "À 100 mètres",
+       "en": "100 metres"
+      },
+      {
+       "fr": "À 300 mètres",
+       "en": "300 metres"
+      },
+      {
+       "fr": "À 3 kilomètres",
+       "en": "3 kilometres"
+      }
+     ],
+     "reponse": 2,
+     "porte": [
+      "三",
+      "百",
+      "米"
+     ]
+    },
+    {
+     "type": "ton",
+     "consigne": {
+      "fr": "Quel est le ton de ce caractère ?",
+      "en": "Which tone does this character have?"
+     },
+     "objet": {
+      "zh": "春",
+      "pinyin": "chūn",
+      "fr": "printemps",
+      "en": "spring"
+     },
+     "choix": [
+      "chūn",
+      "chún",
+      "chǔn",
+      "chùn"
+     ],
+     "reponse": 0,
+     "porte": [
+      "春"
+     ]
+    }
+   ]
+  },
+  {
+   "serie": "B",
+   "statut": "a_relire",
+   "supports": [
+    {
+     "id": "s1",
+     "genre": "message",
+     "contexte": {
+      "fr": "Un message",
+      "en": "A message"
+     },
+     "lignes": [
+      {
+       "zh": "明明，明天早上八点，",
+       "pinyin": "míng míng míng tiān zǎo shang bā diǎn",
+       "fr": "Mingming, demain à huit heures du matin,",
+       "en": "Mingming, tomorrow at eight in the morning,"
+      },
+      {
+       "zh": "我们在火车站东口见。",
+       "pinyin": "wǒ men zài huǒ chē zhàn dōng kǒu jiàn",
+       "fr": "on se retrouve à la sortie est de la gare.",
+       "en": "let's meet at the east exit of the station."
+      },
+      {
+       "zh": "别忘了穿大衣，山里很冷！",
+       "pinyin": "bié wàng le chuān dà yī shān lǐ hěn lěng",
+       "fr": "N'oublie pas ton manteau, il fait froid dans la montagne !",
+       "en": "Don't forget your coat, it's cold in the mountains!"
+      }
+     ]
+    },
+    {
+     "id": "s2",
+     "genre": "calendrier",
+     "contexte": {
+      "fr": "Une page de calendrier",
+      "en": "A calendar page"
+     },
+     "lignes": [
+      {
+       "zh": "三月二十日",
+       "pinyin": "sān yuè èr shí rì",
+       "fr": "20 mars",
+       "en": "20 March"
+      },
+      {
+       "zh": "星期四",
+       "pinyin": "xīng qī sì",
+       "fr": "jeudi",
+       "en": "Thursday"
+      },
+      {
+       "zh": "春天来了！",
+       "pinyin": "chūn tiān lái le",
+       "fr": "Le printemps est là !",
+       "en": "Spring is here!"
+      }
+     ]
+    },
+    {
+     "id": "s3",
+     "genre": "note",
+     "contexte": {
+      "fr": "Un mot sur une porte",
+      "en": "A note on a door"
+     },
+     "lignes": [
+      {
+       "zh": "请不要开灯，",
+       "pinyin": "qǐng bù yào kāi dēng",
+       "fr": "Merci de ne pas allumer la lumière :",
+       "en": "Please don't switch on the light:"
+      },
+      {
+       "zh": "爷爷在睡觉。",
+       "pinyin": "yé ye zài shuì jiào",
+       "fr": "grand-père dort.",
+       "en": "Grandpa is sleeping."
+      }
+     ]
+    },
+    {
+     "id": "s4",
+     "genre": "message",
+     "contexte": {
+      "fr": "Un message",
+      "en": "A message"
+     },
+     "lignes": [
+      {
+       "zh": "老师，这个词我不懂，",
+       "pinyin": "lǎo shī zhè gè cí wǒ bù dǒng",
+       "fr": "Professeur, je ne comprends pas ce mot :",
+       "en": "Sir, I don't understand this word:"
+      },
+      {
+       "zh": "您能再说一遍吗？",
+       "pinyin": "nín néng zài shuō yī biàn ma",
+       "fr": "pouvez-vous le redire ?",
+       "en": "could you say it again?"
+      }
+     ]
+    }
+   ],
+   "questions": [
+    {
+     "type": "comprendre",
+     "support": "s1",
+     "consigne": {
+      "fr": "Où se retrouvent-ils ?",
+      "en": "Where are they meeting?"
+     },
+     "choix": [
+      {
+       "fr": "À la sortie est de la gare",
+       "en": "At the east exit of the station"
+      },
+      {
+       "fr": "À la sortie ouest de la gare",
+       "en": "At the west exit of the station"
+      },
+      {
+       "fr": "Devant l'école",
+       "en": "Outside the school"
+      },
+      {
+       "fr": "À l'hôpital",
+       "en": "At the hospital"
+      }
+     ],
+     "reponse": 0,
+     "porte": [
+      "火",
+      "车",
+      "站",
+      "东",
+      "口"
+     ]
+    },
+    {
+     "type": "reperer",
+     "support": "s1",
+     "consigne": {
+      "fr": "Touche ce qu'il faut mettre.",
+      "en": "Tap what must be worn."
+     },
+     "choix": [
+      "火车站",
+      "东口",
+      "大衣",
+      "山里"
+     ],
+     "reponse": 2,
+     "porte": [
+      "穿",
+      "大",
+      "衣"
+     ]
+    },
+    {
+     "type": "sens",
+     "consigne": {
+      "fr": "Que veut dire ce caractère ?",
+      "en": "What does this character mean?"
+     },
+     "objet": {
+      "zh": "黑",
+      "pinyin": "hēi",
+      "fr": "noir",
+      "en": "black"
+     },
+     "choix": [
+      {
+       "fr": "blanc",
+       "en": "white"
+      },
+      {
+       "fr": "rouge",
+       "en": "red"
+      },
+      {
+       "fr": "noir",
+       "en": "black"
+      },
+      {
+       "fr": "jaune",
+       "en": "yellow"
+      }
+     ],
+     "reponse": 2,
+     "porte": [
+      "黑"
+     ]
+    },
+    {
+     "type": "comprendre",
+     "support": "s2",
+     "consigne": {
+      "fr": "Quelle saison commence ?",
+      "en": "Which season is beginning?"
+     },
+     "choix": [
+      {
+       "fr": "L'été",
+       "en": "Summer"
+      },
+      {
+       "fr": "L'automne",
+       "en": "Autumn"
+      },
+      {
+       "fr": "L'hiver",
+       "en": "Winter"
+      },
+      {
+       "fr": "Le printemps",
+       "en": "Spring"
+      }
+     ],
+     "reponse": 3,
+     "porte": [
+      "春",
+      "天"
+     ]
+    },
+    {
+     "type": "vrai_faux",
+     "support": "s2",
+     "consigne": {
+      "fr": "Vrai ou faux ?",
+      "en": "True or false?"
+     },
+     "affirmation": {
+      "zh": "这天是星期四。",
+      "pinyin": "zhè tiān shì xīng qī sì",
+      "fr": "Ce jour-là, c'est jeudi.",
+      "en": "That day is a Thursday."
+     },
+     "reponse": true,
+     "porte": [
+      "星",
+      "期",
+      "四"
+     ]
+    },
+    {
+     "type": "caractere",
+     "consigne": {
+      "fr": "Quel caractère a ce sens ?",
+      "en": "Which character has this meaning?"
+     },
+     "objet": {
+      "zh": "找",
+      "pinyin": "zhǎo",
+      "fr": "chercher",
+      "en": "to look for"
+     },
+     "choix": [
+      "我",
+      "找",
+      "打",
+      "长"
+     ],
+     "reponse": 1,
+     "porte": [
+      "找"
+     ]
+    },
+    {
+     "type": "comprendre",
+     "support": "s3",
+     "consigne": {
+      "fr": "Pourquoi faut-il rester dans le noir ?",
+      "en": "Why must the room stay dark?"
+     },
+     "choix": [
+      {
+       "fr": "La lampe est cassée",
+       "en": "The lamp is broken"
+      },
+      {
+       "fr": "Grand-père dort",
+       "en": "Grandpa is asleep"
+      },
+      {
+       "fr": "Il fait encore jour",
+       "en": "It's still daylight"
+      },
+      {
+       "fr": "On regarde un film",
+       "en": "A film is on"
+      }
+     ],
+     "reponse": 1,
+     "porte": [
+      "爷",
+      "睡",
+      "觉"
+     ]
+    },
+    {
+     "type": "vrai_faux",
+     "support": "s4",
+     "consigne": {
+      "fr": "Vrai ou faux ?",
+      "en": "True or false?"
+     },
+     "affirmation": {
+      "zh": "学生懂这个词。",
+      "pinyin": "xué sheng dǒng zhè gè cí",
+      "fr": "L'élève comprend ce mot.",
+      "en": "The student understands this word."
+     },
+     "reponse": false,
+     "porte": [
+      "不",
+      "懂",
+      "词"
+     ]
+    },
+    {
+     "type": "replique",
+     "support": "s4",
+     "consigne": {
+      "fr": "Que répond le professeur ?",
+      "en": "What does the teacher reply?"
+     },
+     "choix": [
+      {
+       "zh": "我的车在楼下。",
+       "pinyin": "wǒ de chē zài lóu xià",
+       "fr": "Ma voiture est en bas.",
+       "en": "My car is downstairs."
+      },
+      {
+       "zh": "我爷爷是医生。",
+       "pinyin": "wǒ yé ye shì yī shēng",
+       "fr": "Mon grand-père est médecin.",
+       "en": "My grandpa is a doctor."
+      },
+      {
+       "zh": "他的大衣是黑的。",
+       "pinyin": "tā de dà yī shì hēi de",
+       "fr": "Son manteau est noir.",
+       "en": "His coat is black."
+      },
+      {
+       "zh": "好，你看，我再写一遍。",
+       "pinyin": "hǎo nǐ kàn wǒ zài xiě yī biàn",
+       "fr": "D'accord, regarde, je l'écris encore une fois.",
+       "en": "OK, look, I'll write it once more."
+      }
+     ],
+     "reponse": 3,
+     "porte": [
+      "再",
+      "遍"
+     ]
+    },
+    {
+     "type": "trou",
+     "consigne": {
+      "fr": "Quel caractère manque dans ce mot ?",
+      "en": "Which character is missing from this word?"
+     },
+     "objet": {
+      "zh": "桌子",
+      "pinyin": "zhuō zi",
+      "fr": "table",
+      "en": "table"
+     },
+     "trou": 0,
+     "choix": [
+      "真",
+      "早",
+      "桌",
+      "果"
+     ],
+     "reponse": 2,
+     "porte": [
+      "桌"
+     ]
+    }
+   ]
+  }
+ ]
+}
