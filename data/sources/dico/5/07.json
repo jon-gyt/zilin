@@ -1,0 +1,1398 @@
+{
+ "niveau": "5",
+ "lot": "07",
+ "source": "rédigé pour l'app dans le pipeline wenlu, sans API ; faits lus : liste HSK 3.0 (forme, pinyin, niveau, catégorie), lectures d'Unihan et des surcharges, gloses relues des fiches",
+ "brouillon": "data/sources/dico-brouillons/5/07.json",
+ "generation": {
+  "modele": "rédaction manuelle",
+  "api": "session Claude Code (sans API)",
+  "date": "2026-09-30",
+  "empreinte_invite": "sha256:0319560bf0093834ba9d9a7151dca4ed058057c794311d030dae96caa0e4c565",
+  "contexte": "wenlu dico contexte 5 07",
+  "essais": 1,
+  "refus": []
+ },
+ "entrees": [
+  {
+   "id": "L5-0260",
+   "genre": "mot",
+   "hanzi": "干预",
+   "pinyin": "gānyù",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "intervenir, s'ingérer",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "intervenir, s'ingérer, se mêler de"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这是他们家的事，我们不好干预。",
+     "pinyin": "Zhè shì tāmen jiā de shì, wǒmen bù hǎo gānyù.",
+     "fr": "C'est une affaire de famille, mieux vaut ne pas s'en mêler.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L5-0261",
+   "genre": "mot",
+   "hanzi": "感想",
+   "pinyin": "gǎnxiǎng",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "impressions, réflexions",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "impressions, réflexions, ce qu'on a ressenti"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "看完这本书，你有什么感想？",
+     "pinyin": "Kànwán zhè běn shū, nǐ yǒu shénme gǎnxiǎng?",
+     "fr": "Qu'as-tu pensé de ce livre ?",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "钢",
+   "genre": "caractere",
+   "hanzi": "钢",
+   "pinyin": "gāng",
+   "mots": [
+    "L7-1271"
+   ],
+   "sens": {
+    "glose": "acier",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "acier"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这座桥是用钢做的。",
+     "pinyin": "Zhè zuò qiáo shì yòng gāng zuò de.",
+     "fr": "Ce pont est en acier.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L5-0262",
+   "genre": "mot",
+   "hanzi": "钢笔",
+   "pinyin": "gāngbǐ",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "stylo-plume",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "stylo-plume, stylo à encre"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "爷爷还在用钢笔写信。",
+     "pinyin": "Yéye hái zài yòng gāngbǐ xiě xìn.",
+     "fr": "Grand-père écrit encore ses lettres à la plume.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "琴",
+   "genre": "caractere",
+   "hanzi": "琴",
+   "pinyin": "qín",
+   "mots": [
+    "L5-0598"
+   ],
+   "sens": {
+    "glose": "instrument à cordes ; piano",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "instrument à cordes (cithare, violon) ; piano"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "她每天练两个小时琴。",
+     "pinyin": "Tā měi tiān liàn liǎng ge xiǎoshí qín.",
+     "fr": "Elle travaille son instrument deux heures par jour.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L5-0263",
+   "genre": "mot",
+   "hanzi": "钢琴",
+   "pinyin": "gāngqín",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "piano",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "piano"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "她从五岁开始学钢琴。",
+     "pinyin": "Tā cóng wǔ suì kāishǐ xué gāngqín.",
+     "fr": "Elle joue du piano depuis l'âge de cinq ans.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L5-0264",
+   "genre": "mot",
+   "hanzi": "高大",
+   "pinyin": "gāodà",
+   "categories": [
+    "Adj"
+   ],
+   "sens": {
+    "glose": "grand, de haute taille",
+    "acceptions": [],
+    "statut": "relu",
+    "provenance": {
+     "reprise": "data/sources/fiches/高.json",
+     "champ": "mots[].fr"
+    }
+   },
+   "exemples": [
+    {
+     "zh": "他长得很高大。",
+     "pinyin": "Tā zhǎng de hěn gāodà.",
+     "fr": "Il est grand et costaud.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L5-0265",
+   "genre": "mot",
+   "hanzi": "高度",
+   "pinyin": "gāodù",
+   "categories": [
+    "N",
+    "Adj"
+   ],
+   "sens": {
+    "glose": "hauteur, altitude ; très élevé",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "hauteur, altitude ; niveau"
+     },
+     {
+      "categorie": "Adj",
+      "fr": "élevé, très grand (en degré)"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这座山的高度是三千米。",
+     "pinyin": "Zhè zuò shān de gāodù shì sānqiān mǐ.",
+     "fr": "Cette montagne culmine à trois mille mètres.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L5-0266",
+   "genre": "mot",
+   "hanzi": "高跟鞋",
+   "pinyin": "gāogēnxié",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "chaussures à talons",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "chaussures à talons hauts"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "穿高跟鞋走路很累。",
+     "pinyin": "Chuān gāogēnxié zǒulù hěn lèi.",
+     "fr": "Marcher en talons, c'est fatigant.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L5-0267",
+   "genre": "mot",
+   "hanzi": "高温",
+   "pinyin": "gāowēn",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "haute température, forte chaleur",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "haute température ; forte chaleur"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这几天高温，大家要多喝水。",
+     "pinyin": "Zhè jǐ tiān gāowēn, dàjiā yào duō hē shuǐ.",
+     "fr": "Il fait très chaud ces jours-ci, buvez beaucoup d'eau.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L5-0268",
+   "genre": "mot",
+   "hanzi": "高于",
+   "pinyin": "gāoyú",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "supérieur à, plus haut que",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "être supérieur à, plus élevé que"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "今年的温度高于往年。",
+     "pinyin": "Jīnnián de wēndù gāoyú wǎngnián.",
+     "fr": "Cette année, il fait plus chaud que les années précédentes.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L5-0269",
+   "genre": "mot",
+   "hanzi": "高原",
+   "pinyin": "gāoyuán",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "plateau (géographie)",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "plateau, haut plateau"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他第一次去高原，有点儿不舒服。",
+     "pinyin": "Tā dì-yī cì qù gāoyuán, yǒudiǎnr bù shūfu.",
+     "fr": "C'était sa première fois en altitude, il ne se sentait pas très bien.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "搞",
+   "genre": "caractere",
+   "hanzi": "搞",
+   "pinyin": "gǎo",
+   "mots": [
+    "L5-0270"
+   ],
+   "sens": {
+    "glose": "faire, s'occuper de ; se procurer",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "faire, s'occuper de (oral)"
+     },
+     {
+      "categorie": "V",
+      "fr": "se procurer, obtenir"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "你在搞什么？",
+     "pinyin": "Nǐ zài gǎo shénme?",
+     "fr": "Qu'est-ce que tu fabriques ?",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L5-0271",
+   "genre": "mot",
+   "hanzi": "搞好",
+   "pinyin": "gǎohǎo",
+   "sens": {
+    "glose": "bien faire, réussir",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "bien faire, réussir, améliorer"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "我们一定要搞好这次活动。",
+     "pinyin": "Wǒmen yīdìng yào gǎohǎo zhè cì huódòng.",
+     "fr": "Nous devons absolument réussir cet événement.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "曲",
+   "genre": "caractere",
+   "hanzi": "曲",
+   "pinyin": "qū",
+   "mots": [
+    "L7-3375"
+   ],
+   "sens": {
+    "glose": "courbe, tordu ; air, mélodie",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "courbe, tordu, sinueux"
+     },
+     {
+      "categorie": "N",
+      "fr": "air, mélodie, morceau de musique",
+      "pinyin": "qǔ"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这首曲子很好听。",
+     "pinyin": "Zhè shǒu qǔzi hěn hǎotīng.",
+     "fr": "Ce morceau est très beau.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L5-0272",
+   "genre": "mot",
+   "hanzi": "歌曲",
+   "pinyin": "gēqǔ",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "chanson",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "chanson, chant"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这首歌曲大家都会唱。",
+     "pinyin": "Zhè shǒu gēqǔ dàjiā dōu huì chàng.",
+     "fr": "Tout le monde sait chanter cet air.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "壁",
+   "genre": "caractere",
+   "hanzi": "壁",
+   "pinyin": "bì",
+   "sens": {
+    "glose": "mur, paroi",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "mur, paroi, falaise"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "墙壁上挂着很多照片。",
+     "pinyin": "Qiángbì shang guà zhe hěn duō zhàopiàn.",
+     "fr": "Il y a beaucoup de photos accrochées au mur.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L5-0273",
+   "genre": "mot",
+   "hanzi": "隔壁",
+   "pinyin": "gébì",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "d'à côté, voisin",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "maison voisine, pièce d'à côté ; voisin"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "隔壁的小孩每天都在练琴。",
+     "pinyin": "Gébì de xiǎohái měi tiān dōu zài liàn qín.",
+     "fr": "Le petit d'à côté fait ses gammes tous les jours.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L5-0274",
+   "genre": "mot",
+   "hanzi": "个儿",
+   "pinyin": "gèr",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "taille, stature",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "taille, stature ; grosseur"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他个儿不高，但是跑得很快。",
+     "pinyin": "Tā gèr bù gāo, dànshì pǎo de hěn kuài.",
+     "fr": "Il n'est pas grand, mais il court très vite.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L5-0275",
+   "genre": "mot",
+   "hanzi": "跟前",
+   "pinyin": "gēnqián",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "devant, tout près",
+    "acceptions": [],
+    "statut": "relu",
+    "provenance": {
+     "reprise": "data/sources/fiches/跟.json",
+     "champ": "mots[].fr"
+    }
+   },
+   "exemples": [
+    {
+     "zh": "他走到我跟前，说了声谢谢。",
+     "pinyin": "Tā zǒu dào wǒ gēnqián, shuō le shēng xièxie.",
+     "fr": "Il s'est approché de moi et m'a dit merci.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L5-0276",
+   "genre": "mot",
+   "hanzi": "跟随",
+   "pinyin": "gēnsuí",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "suivre, accompagner",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "suivre, accompagner"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "小狗一直跟随着他。",
+     "pinyin": "Xiǎo gǒu yīzhí gēnsuí zhe tā.",
+     "fr": "Le petit chien le suit partout.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L5-0277",
+   "genre": "mot",
+   "hanzi": "更换",
+   "pinyin": "gēnghuàn",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "changer, remplacer",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "changer, remplacer (une pièce, un équipement)"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "我的手机该更换了。",
+     "pinyin": "Wǒ de shǒujī gāi gēnghuàn le.",
+     "fr": "Il est temps de remplacer mon téléphone.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L5-0278",
+   "genre": "mot",
+   "hanzi": "更新",
+   "pinyin": "gēngxīn",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "renouveler ; mettre à jour",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "renouveler, remplacer par du neuf"
+     },
+     {
+      "categorie": "V",
+      "fr": "mettre à jour (un logiciel, un site)"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这个软件需要更新了。",
+     "pinyin": "Zhège ruǎnjiàn xūyào gēngxīn le.",
+     "fr": "Ce logiciel a besoin d'une mise à jour.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L5-0279",
+   "genre": "mot",
+   "hanzi": "工艺",
+   "pinyin": "gōngyì",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "artisanat ; procédé de fabrication",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "artisanat, art artisanal"
+     },
+     {
+      "categorie": "N",
+      "fr": "technique, procédé de fabrication"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这是一件很漂亮的工艺品。",
+     "pinyin": "Zhè shì yī jiàn hěn piàoliang de gōngyìpǐn.",
+     "fr": "C'est un très bel objet d'artisanat.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L5-0280",
+   "genre": "mot",
+   "hanzi": "工作日",
+   "pinyin": "gōngzuòrì",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "jour ouvrable",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "jour ouvrable, jour de travail"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这个银行工作日才开门。",
+     "pinyin": "Zhège yínháng gōngzuòrì cái kāi mén.",
+     "fr": "Cette banque n'ouvre qu'en semaine.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L5-0281",
+   "genre": "mot",
+   "hanzi": "公告",
+   "pinyin": "gōnggào",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "annonce, avis officiel",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "annonce, avis officiel, communiqué"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "学校在网上发了一个公告。",
+     "pinyin": "Xuéxiào zài wǎngshang fā le yī ge gōnggào.",
+     "fr": "L'école a publié un avis sur son site.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L5-0282",
+   "genre": "mot",
+   "hanzi": "公认",
+   "pinyin": "gōngrèn",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "reconnu de tous",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "reconnaître unanimement, être reconnu de tous"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他是大家公认的好老师。",
+     "pinyin": "Tā shì dàjiā gōngrèn de hǎo lǎoshī.",
+     "fr": "Tout le monde s'accorde à dire que c'est un bon professeur.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L5-0283",
+   "genre": "mot",
+   "hanzi": "公式",
+   "pinyin": "gōngshì",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "formule",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "formule (mathématique, chimique)"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这个数学公式很难记。",
+     "pinyin": "Zhège shùxué gōngshì hěn nán jì.",
+     "fr": "Cette formule de maths est difficile à retenir.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L5-0284",
+   "genre": "mot",
+   "hanzi": "公正",
+   "pinyin": "gōngzhèng",
+   "categories": [
+    "Adj"
+   ],
+   "sens": {
+    "glose": "juste, impartial, équitable",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "juste, impartial, équitable"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "裁判的决定很公正。",
+     "pinyin": "Cáipàn de juédìng hěn gōngzhèng.",
+     "fr": "La décision de l'arbitre est juste.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L5-0285",
+   "genre": "mot",
+   "hanzi": "共计",
+   "pinyin": "gòngjì",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "totaliser, s'élever à",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "totaliser, s'élever au total à"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这次活动共计有三百人参加。",
+     "pinyin": "Zhè cì huódòng gòngjì yǒu sānbǎi rén cānjiā.",
+     "fr": "Au total, trois cents personnes ont participé à l'événement.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L5-0286",
+   "genre": "mot",
+   "hanzi": "共享",
+   "pinyin": "gòngxiǎng",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "partager, mettre en commun",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "partager, mettre en commun, utiliser ensemble"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "街上有很多共享单车。",
+     "pinyin": "Jiē shang yǒu hěn duō gòngxiǎng dānchē.",
+     "fr": "Il y a beaucoup de vélos en libre-service dans la rue.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "沟",
+   "genre": "caractere",
+   "hanzi": "沟",
+   "pinyin": "gōu",
+   "mots": [
+    "L5-0287"
+   ],
+   "sens": {
+    "glose": "fossé, rigole, ravin",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "fossé, rigole ; ravin"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "路边有一条小沟。",
+     "pinyin": "Lù biān yǒu yī tiáo xiǎo gōu.",
+     "fr": "Il y a un petit fossé au bord de la route.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L5-0288",
+   "genre": "mot",
+   "hanzi": "沟通",
+   "pinyin": "gōutōng",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "communiquer, échanger",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "communiquer, échanger, faire le lien"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "父母要多和孩子沟通。",
+     "pinyin": "Fùmǔ yào duō hé háizi gōutōng.",
+     "fr": "Les parents devraient parler davantage avec leurs enfants.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "估",
+   "genre": "caractere",
+   "hanzi": "估",
+   "pinyin": "gū",
+   "sens": {
+    "glose": "estimer, évaluer",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "estimer, évaluer"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "我们低估了这个问题。",
+     "pinyin": "Wǒmen dīgū le zhège wèntí.",
+     "fr": "Nous avons sous-estimé ce problème.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L5-0289",
+   "genre": "mot",
+   "hanzi": "估计",
+   "pinyin": "gūjì",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "estimer, supposer, prévoir",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "estimer, supposer, penser que"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "我估计他今天不会来了。",
+     "pinyin": "Wǒ gūjì tā jīntiān bù huì lái le.",
+     "fr": "À mon avis, il ne viendra pas aujourd'hui.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L5-0290",
+   "genre": "mot",
+   "hanzi": "古老",
+   "pinyin": "gǔlǎo",
+   "categories": [
+    "Adj"
+   ],
+   "sens": {
+    "glose": "ancien, antique",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "ancien, antique, très vieux"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这是一座古老的城市。",
+     "pinyin": "Zhè shì yī zuò gǔlǎo de chéngshì.",
+     "fr": "C'est une ville chargée d'histoire.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "鼓",
+   "genre": "caractere",
+   "hanzi": "鼓",
+   "pinyin": "gǔ",
+   "mots": [
+    "L5-0291"
+   ],
+   "sens": {
+    "glose": "tambour ; gonfler ; encourager",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "tambour"
+     },
+     {
+      "categorie": "V",
+      "fr": "gonfler, bomber"
+     },
+     {
+      "categorie": "V",
+      "fr": "encourager, stimuler"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他在学打鼓。",
+     "pinyin": "Tā zài xué dǎ gǔ.",
+     "fr": "Il apprend à jouer du tambour.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "励",
+   "genre": "caractere",
+   "hanzi": "励",
+   "pinyin": "lì",
+   "sens": {
+    "glose": "encourager, exhorter",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "encourager, exhorter, motiver"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "公司奖励了这个月表现最好的员工。",
+     "pinyin": "Gōngsī jiǎnglì le zhège yuè biǎoxiàn zuì hǎo de yuángōng.",
+     "fr": "L'entreprise a récompensé l'employé le plus méritant du mois.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L5-0292",
+   "genre": "mot",
+   "hanzi": "鼓励",
+   "pinyin": "gǔlì",
+   "categories": [
+    "V",
+    "N"
+   ],
+   "sens": {
+    "glose": "encourager ; encouragement",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "encourager, stimuler"
+     },
+     {
+      "categorie": "N",
+      "fr": "encouragement"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "老师常常鼓励我们多说汉语。",
+     "pinyin": "Lǎoshī chángcháng gǔlì wǒmen duō shuō Hànyǔ.",
+     "fr": "Le professeur nous pousse souvent à parler chinois.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "掌",
+   "genre": "caractere",
+   "hanzi": "掌",
+   "pinyin": "zhǎng",
+   "sens": {
+    "glose": "paume ; tenir, contrôler",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "paume de la main"
+     },
+     {
+      "categorie": "V",
+      "fr": "tenir en main, contrôler, diriger"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他掌握了三门外语。",
+     "pinyin": "Tā zhǎngwò le sān mén wàiyǔ.",
+     "fr": "Il maîtrise trois langues étrangères.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L5-0293",
+   "genre": "mot",
+   "hanzi": "鼓掌",
+   "pinyin": "gǔzhǎng",
+   "sens": {
+    "glose": "applaudir",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "applaudir"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "演出结束后，大家都鼓掌了。",
+     "pinyin": "Yǎnchū jiéshù hòu, dàjiā dōu gǔzhǎng le.",
+     "fr": "À la fin du spectacle, toute la salle a applaudi.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L5-0294",
+   "genre": "mot",
+   "hanzi": "顾问",
+   "pinyin": "gùwèn",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "conseiller, consultant",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "conseiller, consultant"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他是这家公司的法律顾问。",
+     "pinyin": "Tā shì zhè jiā gōngsī de fǎlǜ gùwèn.",
+     "fr": "C'est le conseiller juridique de cette entreprise.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L5-0296",
+   "genre": "mot",
+   "hanzi": "关怀",
+   "pinyin": "guānhuái",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "prendre soin de, se soucier de",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "prendre soin de, se soucier de, témoigner de la sollicitude"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "谢谢大家对我的关怀。",
+     "pinyin": "Xièxie dàjiā duì wǒ de guānhuái.",
+     "fr": "Merci à tous pour votre sollicitude.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "键",
+   "genre": "caractere",
+   "hanzi": "键",
+   "pinyin": "jiàn",
+   "mots": [
+    "L5-0387"
+   ],
+   "sens": {
+    "glose": "touche ; clé, point essentiel",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "touche (d'un clavier, d'un piano)"
+     },
+     {
+      "categorie": "N",
+      "fr": "clé, point essentiel"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "请按这个键。",
+     "pinyin": "Qǐng àn zhège jiàn.",
+     "fr": "Appuyez sur cette touche, s'il vous plaît.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L5-0297",
+   "genre": "mot",
+   "hanzi": "关键",
+   "pinyin": "guānjiàn",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "clé, point crucial",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "clé, point crucial, élément décisif"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "学好语言的关键是多练习。",
+     "pinyin": "Xuéhǎo yǔyán de guānjiàn shì duō liànxí.",
+     "fr": "Pour bien apprendre une langue, l'essentiel est de beaucoup pratiquer.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "冠",
+   "genre": "caractere",
+   "hanzi": "冠",
+   "pinyin": "guān",
+   "sens": {
+    "glose": "chapeau, couronne ; être le premier",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "chapeau, couronne ; crête"
+     },
+     {
+      "categorie": "V",
+      "fr": "être le premier, remporter la première place",
+      "pinyin": "guàn"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他们队又夺冠了。",
+     "pinyin": "Tāmen duì yòu duóguàn le.",
+     "fr": "Leur équipe a encore remporté le titre.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "军",
+   "genre": "caractere",
+   "hanzi": "军",
+   "pinyin": "jūn",
+   "sens": {
+    "glose": "armée, troupes ; militaire",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "armée, troupes"
+     },
+     {
+      "categorie": "Adj",
+      "fr": "militaire"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他的爸爸是军人。",
+     "pinyin": "Tā de bàba shì jūnrén.",
+     "fr": "Son père est dans l'armée.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L5-0298",
+   "genre": "mot",
+   "hanzi": "冠军",
+   "pinyin": "guànjūn",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "champion, première place",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "champion, vainqueur ; première place"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "她得了游泳比赛的冠军。",
+     "pinyin": "Tā dé le yóuyǒng bǐsài de guànjūn.",
+     "fr": "Elle a gagné la compétition de natation.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L5-0299",
+   "genre": "mot",
+   "hanzi": "光荣",
+   "pinyin": "guāngróng",
+   "categories": [
+    "Adj",
+    "N"
+   ],
+   "sens": {
+    "glose": "glorieux, honorable ; gloire",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "glorieux, honorable"
+     },
+     {
+      "categorie": "N",
+      "fr": "gloire, honneur"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "能为国家比赛是一件光荣的事。",
+     "pinyin": "Néng wèi guójiā bǐsài shì yī jiàn guāngróng de shì.",
+     "fr": "C'est un honneur de concourir pour son pays.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L5-0300",
+   "genre": "mot",
+   "hanzi": "光线",
+   "pinyin": "guāngxiàn",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "lumière, éclairage",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "lumière, éclairage, rayons lumineux"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这个房间光线不好。",
+     "pinyin": "Zhège fángjiān guāngxiàn bù hǎo.",
+     "fr": "Cette pièce est mal éclairée.",
+     "statut": "a_relire"
+    }
+   ]
+  }
+ ]
+}
