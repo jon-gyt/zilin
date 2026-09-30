@@ -1,0 +1,1383 @@
+{
+ "niveau": "7-9",
+ "lot": "48",
+ "source": "rédigé pour l'app dans le pipeline wenlu, sans API ; faits lus : liste HSK 3.0 (forme, pinyin, niveau, catégorie), lectures d'Unihan et des surcharges, gloses relues des fiches",
+ "brouillon": "data/sources/dico-brouillons/7-9/48.json",
+ "generation": {
+  "modele": "rédaction manuelle",
+  "api": "session Claude Code (sans API)",
+  "date": "2026-09-30",
+  "empreinte_invite": "sha256:6bedef423d4868f365f09385d20ee34e2731397de2a7aedff0b08b65fbfd923f",
+  "contexte": "wenlu dico contexte 7-9 48",
+  "essais": 1,
+  "refus": []
+ },
+ "entrees": [
+  {
+   "id": "L7-2008",
+   "genre": "mot",
+   "hanzi": "见效",
+   "pinyin": "jiànxiào",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "faire effet, être efficace",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "faire effet, produire des résultats"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这种药吃了很快就见效。",
+     "pinyin": "Zhè zhǒng yào chī le hěn kuài jiù jiànxiào.",
+     "fr": "Ce médicament agit très rapidement.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2009",
+   "genre": "mot",
+   "hanzi": "见义勇为",
+   "pinyin": "jiànyì-yǒngwéi",
+   "sens": {
+    "glose": "agir courageusement pour une juste cause",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "intervenir avec courage pour défendre le juste"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他见义勇为，救了一个落水的孩子。",
+     "pinyin": "Tā jiànyì-yǒngwéi, jiù le yī ge luò shuǐ de háizi.",
+     "fr": "Il a eu le courage de sauver un enfant tombé à l'eau.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2010",
+   "genre": "mot",
+   "hanzi": "见证",
+   "pinyin": "jiànzhèng",
+   "categories": [
+    "V",
+    "N"
+   ],
+   "sens": {
+    "glose": "être témoin ; témoignage",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "être témoin de, témoigner"
+     },
+     {
+      "categorie": "N",
+      "fr": "témoignage, preuve"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这棵老树见证了村子的历史。",
+     "pinyin": "Zhè kē lǎo shù jiànzhèng le cūnzi de lìshǐ.",
+     "fr": "Ce vieil arbre a vu passer toute l'histoire du village.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "谍",
+   "genre": "caractere",
+   "hanzi": "谍",
+   "pinyin": "dié",
+   "sens": {
+    "glose": "espion ; espionnage",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "espion ; espionnage"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这部电影讲的是一个谍战故事。",
+     "pinyin": "Zhè bù diànyǐng jiǎng de shì yī ge diézhàn gùshi.",
+     "fr": "Ce film raconte une histoire d'agents secrets.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2011",
+   "genre": "mot",
+   "hanzi": "间谍",
+   "pinyin": "jiàndié",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "espion",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "espion, agent secret"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他被怀疑是外国间谍。",
+     "pinyin": "Tā bèi huáiyí shì wàiguó jiàndié.",
+     "fr": "On le soupçonne de travailler pour un pays étranger.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2012",
+   "genre": "mot",
+   "hanzi": "间断",
+   "pinyin": "jiànduàn",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "s'interrompre",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "s'interrompre, cesser momentanément"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他每天练字，从来没有间断过。",
+     "pinyin": "Tā měi tiān liàn zì, cónglái méiyǒu jiànduàn guo.",
+     "fr": "Il s'exerce à la calligraphie tous les jours, sans jamais s'arrêter.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2013",
+   "genre": "mot",
+   "hanzi": "间隔",
+   "pinyin": "jiàngé",
+   "categories": [
+    "V",
+    "N"
+   ],
+   "sens": {
+    "glose": "intervalle ; espacer",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "intervalle, espace"
+     },
+     {
+      "categorie": "V",
+      "fr": "espacer, séparer"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "两次吃药要间隔四个小时。",
+     "pinyin": "Liǎng cì chī yào yào jiàngé sì ge xiǎoshí.",
+     "fr": "Il faut attendre quatre heures entre deux prises.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "隙",
+   "genre": "caractere",
+   "hanzi": "隙",
+   "pinyin": "xì",
+   "sens": {
+    "glose": "fente, fissure ; intervalle",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "fente, fissure ; intervalle"
+     },
+     {
+      "categorie": "N",
+      "fr": "brouille, désaccord"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "阳光从门缝的空隙照进来。",
+     "pinyin": "Yángguāng cóng mén fèng de kòngxì zhào jìnlai.",
+     "fr": "Le soleil entre par l'interstice de la porte.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2014",
+   "genre": "mot",
+   "hanzi": "间隙",
+   "pinyin": "jiànxì",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "intervalle, interstice",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "intervalle (de temps), interstice"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他利用工作的间隙看了几页书。",
+     "pinyin": "Tā lìyòng gōngzuò de jiànxì kàn le jǐ yè shū.",
+     "fr": "Il a profité d'une pause au travail pour lire quelques pages.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2015",
+   "genre": "mot",
+   "hanzi": "建交",
+   "pinyin": "jiànjiāo",
+   "sens": {
+    "glose": "établir des relations diplomatiques",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "établir des relations diplomatiques"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "两国建交已经五十年了。",
+     "pinyin": "Liǎng guó jiànjiāo yǐjīng wǔshí nián le.",
+     "fr": "Les deux pays entretiennent des relations diplomatiques depuis cinquante ans.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2016",
+   "genre": "mot",
+   "hanzi": "建树",
+   "pinyin": "jiànshù",
+   "categories": [
+    "V",
+    "N"
+   ],
+   "sens": {
+    "glose": "contribuer ; contribution, réalisation",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "contribuer, apporter (une réalisation)"
+     },
+     {
+      "categorie": "N",
+      "fr": "contribution, réalisation"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他在物理学上很有建树。",
+     "pinyin": "Tā zài wùlǐxué shang hěn yǒu jiànshù.",
+     "fr": "Il a beaucoup apporté à la physique.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2017",
+   "genre": "mot",
+   "hanzi": "建筑师",
+   "pinyin": "jiànzhùshī",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "architecte",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "architecte"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这座大楼是一位法国建筑师设计的。",
+     "pinyin": "Zhè zuò dàlóu shì yī wèi Fǎguó jiànzhùshī shèjì de.",
+     "fr": "Cet immeuble a été conçu par un architecte français.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2018",
+   "genre": "mot",
+   "hanzi": "建筑物",
+   "pinyin": "jiànzhùwù",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "bâtiment, édifice",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "bâtiment, édifice, construction"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这是城里最高的建筑物。",
+     "pinyin": "Zhè shì chéng li zuì gāo de jiànzhùwù.",
+     "fr": "C'est la plus haute construction de la ville.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "贱",
+   "genre": "caractere",
+   "hanzi": "贱",
+   "pinyin": "jiàn",
+   "mots": [
+    "L7-2019"
+   ],
+   "sens": {
+    "glose": "bon marché ; vil, méprisable",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "bon marché, à bas prix"
+     },
+     {
+      "categorie": "Adj",
+      "fr": "vil, bas, méprisable"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "今年菜卖得很贱。",
+     "pinyin": "Jīnnián cài mài de hěn jiàn.",
+     "fr": "Cette année, les légumes se vendent à vil prix.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2020",
+   "genre": "mot",
+   "hanzi": "健美",
+   "pinyin": "jiànměi",
+   "categories": [
+    "N",
+    "Adj"
+   ],
+   "sens": {
+    "glose": "culturisme ; beau et athlétique",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "culturisme, gymnastique d'entretien"
+     },
+     {
+      "categorie": "Adj",
+      "fr": "beau et bien bâti"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他每天去健身房练健美。",
+     "pinyin": "Tā měi tiān qù jiànshēnfáng liàn jiànměi.",
+     "fr": "Il va à la salle de sport tous les jours pour faire de la musculation.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2021",
+   "genre": "mot",
+   "hanzi": "健壮",
+   "pinyin": "jiànzhuàng",
+   "categories": [
+    "Adj"
+   ],
+   "sens": {
+    "glose": "robuste, vigoureux",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "robuste, vigoureux"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这匹马长得很健壮。",
+     "pinyin": "Zhè pǐ mǎ zhǎng de hěn jiànzhuàng.",
+     "fr": "Ce cheval est très vigoureux.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "溅",
+   "genre": "caractere",
+   "hanzi": "溅",
+   "pinyin": "jiàn",
+   "mots": [
+    "L7-2022"
+   ],
+   "sens": {
+    "glose": "éclabousser, gicler",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "éclabousser, gicler, jaillir"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "汽车开过去，水溅了我一身。",
+     "pinyin": "Qìchē kāi guòqu, shuǐ jiàn le wǒ yī shēn.",
+     "fr": "Une voiture est passée et m'a complètement arrosé.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2023",
+   "genre": "mot",
+   "hanzi": "鉴别",
+   "pinyin": "jiànbié",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "distinguer, authentifier",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "distinguer, identifier, authentifier"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "专家帮我们鉴别这幅画的真假。",
+     "pinyin": "Zhuānjiā bāng wǒmen jiànbié zhè fú huà de zhēn jiǎ.",
+     "fr": "Un expert nous aide à savoir si ce tableau est authentique.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2024",
+   "genre": "mot",
+   "hanzi": "鉴赏",
+   "pinyin": "jiànshǎng",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "apprécier (en connaisseur)",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "apprécier, goûter (une œuvre d'art)"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他很会鉴赏古代书法。",
+     "pinyin": "Tā hěn huì jiànshǎng gǔdài shūfǎ.",
+     "fr": "C'est un fin connaisseur de la calligraphie ancienne.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2025",
+   "genre": "mot",
+   "hanzi": "鉴于",
+   "pinyin": "jiànyú",
+   "categories": [
+    "Prep"
+   ],
+   "sens": {
+    "glose": "vu que, compte tenu de",
+    "acceptions": [
+     {
+      "categorie": "Prep",
+      "fr": "vu que, compte tenu de, étant donné"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "鉴于天气原因，航班取消了。",
+     "pinyin": "Jiànyú tiānqì yuányīn, hángbān qǔxiāo le.",
+     "fr": "En raison de la météo, le vol a été annulé.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "姜",
+   "genre": "caractere",
+   "hanzi": "姜",
+   "pinyin": "jiāng",
+   "mots": [
+    "L7-2026"
+   ],
+   "sens": {
+    "glose": "gingembre",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "gingembre"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "感冒的时候喝点儿姜汤。",
+     "pinyin": "Gǎnmào de shíhou hē diǎnr jiāngtāng.",
+     "fr": "Quand on a un rhume, on boit une infusion de gingembre.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "僵",
+   "genre": "caractere",
+   "hanzi": "僵",
+   "pinyin": "jiāng",
+   "mots": [
+    "L7-2027"
+   ],
+   "sens": {
+    "glose": "raide, engourdi ; bloqué",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "raide, engourdi, figé"
+     },
+     {
+      "categorie": "Adj",
+      "fr": "bloqué, dans l'impasse"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "天太冷了，我的手都冻僵了。",
+     "pinyin": "Tiān tài lěng le, wǒ de shǒu dōu dòng jiāng le.",
+     "fr": "Il fait si froid que j'ai les mains engourdies.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2028",
+   "genre": "mot",
+   "hanzi": "僵化",
+   "pinyin": "jiānghuà",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "se figer, se scléroser",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "se figer, se scléroser, se rigidifier"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "思想不能僵化。",
+     "pinyin": "Sīxiǎng bù néng jiānghuà.",
+     "fr": "Il ne faut pas laisser sa pensée se figer.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2029",
+   "genre": "mot",
+   "hanzi": "僵局",
+   "pinyin": "jiāngjú",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "impasse",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "impasse, blocage"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "谈判陷入了僵局。",
+     "pinyin": "Tánpàn xiànrù le jiāngjú.",
+     "fr": "Les négociations sont au point mort.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2030",
+   "genre": "mot",
+   "hanzi": "讲解",
+   "pinyin": "jiǎngjiě",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "expliquer, commenter",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "expliquer, commenter"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "导游给我们讲解这座寺庙的历史。",
+     "pinyin": "Dǎoyóu gěi wǒmen jiǎngjiě zhè zuò sìmiào de lìshǐ.",
+     "fr": "Le guide nous présente l'histoire de ce temple.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2031",
+   "genre": "mot",
+   "hanzi": "讲述",
+   "pinyin": "jiǎngshù",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "raconter, relater",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "raconter, relater"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这本书讲述了一个感人的故事。",
+     "pinyin": "Zhè běn shū jiǎngshù le yī ge gǎnrén de gùshi.",
+     "fr": "Ce livre relate une histoire touchante.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2032",
+   "genre": "mot",
+   "hanzi": "讲学",
+   "pinyin": "jiǎngxué",
+   "sens": {
+    "glose": "donner des conférences, enseigner",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "donner des conférences, enseigner (en invité)"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "那位教授来我们学校讲学。",
+     "pinyin": "Nà wèi jiàoshòu lái wǒmen xuéxiào jiǎngxué.",
+     "fr": "Ce professeur est venu donner des conférences dans notre université.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2033",
+   "genre": "mot",
+   "hanzi": "奖杯",
+   "pinyin": "jiǎngbēi",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "coupe, trophée",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "coupe, trophée"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "队长高高地举起了奖杯。",
+     "pinyin": "Duìzhǎng gāogāo de jǔ qǐ le jiǎngbēi.",
+     "fr": "Le capitaine a brandi la coupe bien haut.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2034",
+   "genre": "mot",
+   "hanzi": "奖牌",
+   "pinyin": "jiǎngpái",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "médaille",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "médaille"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "她在比赛中得了三块奖牌。",
+     "pinyin": "Tā zài bǐsài zhōng dé le sān kuài jiǎngpái.",
+     "fr": "Elle a remporté trois médailles pendant la compétition.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2035",
+   "genre": "mot",
+   "hanzi": "奖品",
+   "pinyin": "jiǎngpǐn",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "prix, lot (objet)",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "prix, lot, récompense (objet)"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "每个参加的孩子都有奖品。",
+     "pinyin": "Měi ge cānjiā de háizi dōu yǒu jiǎngpǐn.",
+     "fr": "Chaque enfant participant reçoit un cadeau.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2036",
+   "genre": "mot",
+   "hanzi": "奖项",
+   "pinyin": "jiǎngxiàng",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "prix, distinction (catégorie)",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "prix, catégorie de récompense"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这部电影获得了三个奖项。",
+     "pinyin": "Zhè bù diànyǐng huòdé le sān ge jiǎngxiàng.",
+     "fr": "Ce film a remporté trois récompenses.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2037",
+   "genre": "mot",
+   "hanzi": "降临",
+   "pinyin": "jiànglín",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "arriver, survenir",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "arriver, descendre, survenir"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "夜幕降临，城市亮起了灯。",
+     "pinyin": "Yèmù jiànglín, chéngshì liàng qǐ le dēng.",
+     "fr": "La nuit tombe et la ville s'illumine.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2038",
+   "genre": "mot",
+   "hanzi": "交叉",
+   "pinyin": "jiāochā",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "se croiser ; alterner",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "se croiser, se couper ; alterner, se chevaucher"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "两条路在这里交叉。",
+     "pinyin": "Liǎng tiáo lù zài zhèli jiāochā.",
+     "fr": "Les deux routes se croisent ici.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2039",
+   "genre": "mot",
+   "hanzi": "交锋",
+   "pinyin": "jiāofēng",
+   "sens": {
+    "glose": "s'affronter, croiser le fer",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "s'affronter, en venir aux mains, se mesurer"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "两支球队今晚再次交锋。",
+     "pinyin": "Liǎng zhī qiúduì jīn wǎn zàicì jiāofēng.",
+     "fr": "Les deux équipes se retrouvent ce soir.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2040",
+   "genre": "mot",
+   "hanzi": "交付",
+   "pinyin": "jiāofù",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "remettre, livrer ; payer",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "remettre, livrer ; payer"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "新房子下个月交付使用。",
+     "pinyin": "Xīn fángzi xià ge yuè jiāofù shǐyòng.",
+     "fr": "Les nouveaux logements seront livrés le mois prochain.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2041",
+   "genre": "mot",
+   "hanzi": "交集",
+   "pinyin": "jiāojí",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "se mêler (sentiments) ; intersection",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "se mêler, s'entremêler (sentiments) ; avoir en commun"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "看到女儿回来，她悲喜交集。",
+     "pinyin": "Kàndào nǚ'ér huílai, tā bēixǐ jiāojí.",
+     "fr": "En voyant sa fille revenir, elle était partagée entre tristesse et joie.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2042",
+   "genre": "mot",
+   "hanzi": "交接",
+   "pinyin": "jiāojiē",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "passer le relais ; se rejoindre",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "passer le relais, transmettre (un poste)"
+     },
+     {
+      "categorie": "V",
+      "fr": "se rejoindre, se raccorder"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "两个人正在交接工作。",
+     "pinyin": "Liǎng ge rén zhèngzài jiāojiē gōngzuò.",
+     "fr": "Les deux collègues sont en train de faire la passation.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2043",
+   "genre": "mot",
+   "hanzi": "交界",
+   "pinyin": "jiāojiè",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "être limitrophe",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "être limitrophe, avoir une frontière commune"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这个省和三个国家交界。",
+     "pinyin": "Zhège shěng hé sān ge guójiā jiāojiè.",
+     "fr": "Cette province touche trois pays.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2044",
+   "genre": "mot",
+   "hanzi": "交纳",
+   "pinyin": "jiāonà",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "payer, verser (frais, impôts)",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "payer, verser, acquitter (frais, impôts)"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "请在月底前交纳房租。",
+     "pinyin": "Qǐng zài yuè dǐ qián jiāonà fángzū.",
+     "fr": "Merci de régler le loyer avant la fin du mois.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2045",
+   "genre": "mot",
+   "hanzi": "交情",
+   "pinyin": "jiāoqing",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "amitié, relations",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "amitié, liens d'amitié"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "我们俩是多年的交情。",
+     "pinyin": "Wǒmen liǎ shì duō nián de jiāoqing.",
+     "fr": "Nous deux, c'est une amitié de longue date.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2046",
+   "genre": "mot",
+   "hanzi": "交涉",
+   "pinyin": "jiāoshè",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "négocier, intervenir",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "négocier, intervenir, faire des démarches"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他去跟对方公司交涉这件事。",
+     "pinyin": "Tā qù gēn duìfāng gōngsī jiāoshè zhè jiàn shì.",
+     "fr": "Il est allé régler cette affaire avec l'autre entreprise.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2047",
+   "genre": "mot",
+   "hanzi": "交谈",
+   "pinyin": "jiāotán",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "converser, s'entretenir",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "converser, s'entretenir, discuter"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他们用中文交谈。",
+     "pinyin": "Tāmen yòng Zhōngwén jiāotán.",
+     "fr": "Ils discutent en chinois.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2048",
+   "genre": "mot",
+   "hanzi": "交替",
+   "pinyin": "jiāotì",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "alterner, se succéder",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "alterner, se succéder, se relayer"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这里冬夏交替很快。",
+     "pinyin": "Zhèli dōng xià jiāotì hěn kuài.",
+     "fr": "Ici, l'hiver fait vite place à l'été.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2049",
+   "genre": "mot",
+   "hanzi": "交头接耳",
+   "pinyin": "jiāotóu-jiē'ěr",
+   "sens": {
+    "glose": "se parler à l'oreille",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "chuchoter, se parler à l'oreille"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "上课的时候不要交头接耳。",
+     "pinyin": "Shàngkè de shíhou bù yào jiāotóu-jiē'ěr.",
+     "fr": "Pas de messes basses pendant le cours.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2050",
+   "genre": "mot",
+   "hanzi": "交响乐",
+   "pinyin": "jiāoxiǎngyuè",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "symphonie, musique symphonique",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "symphonie, musique symphonique"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "周末我们去听了一场交响乐。",
+     "pinyin": "Zhōumò wǒmen qù tīng le yī chǎng jiāoxiǎngyuè.",
+     "fr": "Ce week-end, nous sommes allés écouter un concert symphonique.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2051",
+   "genre": "mot",
+   "hanzi": "郊外",
+   "pinyin": "jiāowài",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "banlieue, campagne environnante",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "environs, campagne autour de la ville"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "周末我们去郊外走走吧。",
+     "pinyin": "Zhōumò wǒmen qù jiāowài zǒuzou ba.",
+     "fr": "Ce week-end, allons nous promener hors de la ville.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2052",
+   "genre": "mot",
+   "hanzi": "郊游",
+   "pinyin": "jiāoyóu",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "excursion, sortie à la campagne",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "faire une excursion, pique-niquer"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "春天学校组织学生去郊游。",
+     "pinyin": "Chūntiān xuéxiào zǔzhī xuésheng qù jiāoyóu.",
+     "fr": "Au printemps, l'école emmène les élèves en sortie à la campagne.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "浇",
+   "genre": "caractere",
+   "hanzi": "浇",
+   "pinyin": "jiāo",
+   "mots": [
+    "L7-2053"
+   ],
+   "sens": {
+    "glose": "arroser, verser",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "arroser, verser (un liquide)"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "她每天早上给花浇水。",
+     "pinyin": "Tā měi tiān zǎoshang gěi huā jiāo shuǐ.",
+     "fr": "Chaque matin, elle arrose les fleurs.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "娇",
+   "genre": "caractere",
+   "hanzi": "娇",
+   "pinyin": "jiāo",
+   "sens": {
+    "glose": "délicat, charmant ; gâté",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "délicat, charmant, gracieux"
+     },
+     {
+      "categorie": "Adj",
+      "fr": "gâté, douillet"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这朵花很娇嫩。",
+     "pinyin": "Zhè duǒ huā hěn jiāonèn.",
+     "fr": "Cette fleur est très fragile.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2054",
+   "genre": "mot",
+   "hanzi": "娇惯",
+   "pinyin": "jiāoguàn",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "gâter, trop choyer",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "gâter, trop choyer (un enfant)"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "父母太娇惯孩子了。",
+     "pinyin": "Fùmǔ tài jiāoguàn háizi le.",
+     "fr": "Les parents passent tout à leur enfant.",
+     "statut": "a_relire"
+    }
+   ]
+  }
+ ]
+}
