@@ -1,0 +1,1318 @@
+{
+ "niveau": "7-9",
+ "lot": "78",
+ "source": "rédigé pour l'app dans le pipeline wenlu, sans API ; faits lus : liste HSK 3.0 (forme, pinyin, niveau, catégorie), lectures d'Unihan et des surcharges, gloses relues des fiches",
+ "brouillon": "data/sources/dico-brouillons/7-9/78.json",
+ "generation": {
+  "modele": "rédaction manuelle",
+  "api": "session Claude Code (sans API)",
+  "date": "2026-09-30",
+  "empreinte_invite": "sha256:97b1a34818d3485f5fbfbb94023dfed5aff6feb5b7eb7e5907183ae7908948fd",
+  "contexte": "wenlu dico contexte 7-9 78",
+  "essais": 1,
+  "refus": []
+ },
+ "entrees": [
+  {
+   "id": "L7-3349",
+   "genre": "mot",
+   "hanzi": "情调",
+   "pinyin": "qíngdiào",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "ambiance, charme",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "ambiance, atmosphère, charme"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这家咖啡馆很有情调。",
+     "pinyin": "Zhè jiā kāfēiguǎn hěn yǒu qíngdiào.",
+     "fr": "Ce café a beaucoup de cachet.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-3350",
+   "genre": "mot",
+   "hanzi": "情怀",
+   "pinyin": "qínghuái",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "sentiments, état d'âme",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "sentiments, état d'âme, attachement"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这首诗表达了诗人的爱国情怀。",
+     "pinyin": "Zhè shǒu shī biǎodá le shīrén de àiguó qínghuái.",
+     "fr": "Ce poème exprime l'amour du poète pour sa patrie.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-3351",
+   "genre": "mot",
+   "hanzi": "情结",
+   "pinyin": "qíngjié",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "attachement profond ; complexe",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "attachement profond ; complexe (psychologie)"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他有很深的家乡情结。",
+     "pinyin": "Tā yǒu hěn shēn de jiāxiāng qíngjié.",
+     "fr": "Il reste viscéralement lié à sa terre natale.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-3352",
+   "genre": "mot",
+   "hanzi": "情侣",
+   "pinyin": "qínglǚ",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "couple d'amoureux",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "couple d'amoureux ; amoureux"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "公园里有很多情侣在散步。",
+     "pinyin": "Gōngyuán li yǒu hěn duō qínglǚ zài sànbù.",
+     "fr": "Beaucoup de jeunes couples se promènent dans le parc.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-3353",
+   "genre": "mot",
+   "hanzi": "情人",
+   "pinyin": "qíngrén",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "amoureux, amant",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "amoureux, bien-aimé ; amant, maîtresse"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "二月十四日是情人节。",
+     "pinyin": "Èryuè shísì rì shì Qíngrénjié.",
+     "fr": "Le 14 février, c'est la Saint-Valentin.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-3354",
+   "genre": "mot",
+   "hanzi": "情谊",
+   "pinyin": "qíngyì",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "amitié, affection",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "amitié, affection, attachement"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "我们之间的情谊很深。",
+     "pinyin": "Wǒmen zhījiān de qíngyì hěn shēn.",
+     "fr": "Un lien très fort nous unit.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-3355",
+   "genre": "mot",
+   "hanzi": "情愿",
+   "pinyin": "qíngyuàn",
+   "categories": [
+    "V",
+    "Adv"
+   ],
+   "sens": {
+    "glose": "consentir ; plutôt",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "consentir, vouloir bien"
+     },
+     {
+      "categorie": "Adv",
+      "fr": "plutôt, de préférence"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他不情愿地答应了。",
+     "pinyin": "Tā bù qíngyuàn de dāying le.",
+     "fr": "Il a accepté à contrecœur.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "柬",
+   "genre": "caractere",
+   "hanzi": "柬",
+   "pinyin": "jiǎn",
+   "sens": {
+    "glose": "carte, lettre",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "carte, lettre, billet"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": []
+  },
+  {
+   "id": "L7-3356",
+   "genre": "mot",
+   "hanzi": "请柬",
+   "pinyin": "qǐngjiǎn",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "carton d'invitation",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "carton d'invitation, faire-part"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "我们收到了他们的结婚请柬。",
+     "pinyin": "Wǒmen shōudào le tāmen de jiéhūn qǐngjiǎn.",
+     "fr": "Nous avons été invités à leur mariage.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "帖",
+   "genre": "caractere",
+   "hanzi": "帖",
+   "pinyin": "tiē",
+   "sens": {
+    "glose": "docile ; carte ; modèle d'écriture",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "docile, soumis ; approprié"
+     },
+     {
+      "categorie": "N",
+      "fr": "carte, invitation",
+      "pinyin": "tiě"
+     },
+     {
+      "categorie": "N",
+      "fr": "modèle de calligraphie",
+      "pinyin": "tiè"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": []
+  },
+  {
+   "id": "L7-3357",
+   "genre": "mot",
+   "hanzi": "请帖",
+   "pinyin": "qǐngtiě",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "carte d'invitation",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "carte d'invitation"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他给每位客人都发了请帖。",
+     "pinyin": "Tā gěi měi wèi kèrén dōu fā le qǐngtiě.",
+     "fr": "Il a envoyé une carte à chaque convive.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-3358",
+   "genre": "mot",
+   "hanzi": "庆典",
+   "pinyin": "qìngdiǎn",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "cérémonie, célébration",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "cérémonie, célébration, festivités"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "学校举行了百年庆典。",
+     "pinyin": "Xuéxiào jǔxíng le bǎi nián qìngdiǎn.",
+     "fr": "L'école a fêté son centenaire.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-3359",
+   "genre": "mot",
+   "hanzi": "庆贺",
+   "pinyin": "qìnghè",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "célébrer, féliciter",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "célébrer, féliciter"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "大家都来庆贺他的生日。",
+     "pinyin": "Dàjiā dōu lái qìnghè tā de shēngrì.",
+     "fr": "Tout le monde est venu fêter son anniversaire.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-3360",
+   "genre": "mot",
+   "hanzi": "庆幸",
+   "pinyin": "qìngxìng",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "se réjouir de sa chance",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "se réjouir de sa chance, s'estimer heureux"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "我很庆幸没有坐那班飞机。",
+     "pinyin": "Wǒ hěn qìngxìng méiyou zuò nà bān fēijī.",
+     "fr": "Heureusement que je n'ai pas pris ce vol.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "丘",
+   "genre": "caractere",
+   "hanzi": "丘",
+   "pinyin": "qiū",
+   "sens": {
+    "glose": "colline, tertre",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "colline, butte, tertre"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": []
+  },
+  {
+   "id": "陵",
+   "genre": "caractere",
+   "hanzi": "陵",
+   "pinyin": "líng",
+   "sens": {
+    "glose": "colline ; tombeau impérial",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "colline"
+     },
+     {
+      "categorie": "N",
+      "fr": "tombeau impérial, mausolée"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": []
+  },
+  {
+   "id": "L7-3361",
+   "genre": "mot",
+   "hanzi": "丘陵",
+   "pinyin": "qiūlíng",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "collines, région vallonnée",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "collines, région vallonnée"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这个地区大部分是丘陵。",
+     "pinyin": "Zhège dìqū dà bùfen shì qiūlíng.",
+     "fr": "Cette région est en grande partie accidentée.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "囚",
+   "genre": "caractere",
+   "hanzi": "囚",
+   "pinyin": "qiú",
+   "sens": {
+    "glose": "prisonnier ; emprisonner",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "prisonnier"
+     },
+     {
+      "categorie": "V",
+      "fr": "emprisonner"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": []
+  },
+  {
+   "id": "L7-3362",
+   "genre": "mot",
+   "hanzi": "囚犯",
+   "pinyin": "qiúfàn",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "prisonnier, détenu",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "prisonnier, détenu"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "两个囚犯从监狱里逃走了。",
+     "pinyin": "Liǎng ge qiúfàn cóng jiānyù li táozǒu le.",
+     "fr": "Deux hommes se sont évadés de la prison.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-3363",
+   "genre": "mot",
+   "hanzi": "求婚",
+   "pinyin": "qiúhūn",
+   "sens": {
+    "glose": "demander en mariage",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "demander en mariage"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他在海边向她求婚了。",
+     "pinyin": "Tā zài hǎibiān xiàng tā qiúhūn le.",
+     "fr": "Il lui a fait sa demande au bord de la mer.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-3364",
+   "genre": "mot",
+   "hanzi": "求救",
+   "pinyin": "qiújiù",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "appeler au secours",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "appeler au secours, demander de l'aide"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他大声喊着求救。",
+     "pinyin": "Tā dàshēng hǎn zhe qiújiù.",
+     "fr": "Il criait à l'aide de toutes ses forces.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-3365",
+   "genre": "mot",
+   "hanzi": "求学",
+   "pinyin": "qiúxué",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "faire des études",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "faire des études, aller étudier"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他十八岁去北京求学。",
+     "pinyin": "Tā shíbā suì qù Běijīng qiúxué.",
+     "fr": "À dix-huit ans, il est parti étudier à Pékin.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-3366",
+   "genre": "mot",
+   "hanzi": "求医",
+   "pinyin": "qiúyī",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "chercher à se faire soigner",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "chercher à se faire soigner, consulter"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他到处求医，病还是没好。",
+     "pinyin": "Tā dàochù qiúyī, bìng háishi méi hǎo.",
+     "fr": "Il a vu médecin sur médecin, mais n'est toujours pas guéri.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-3367",
+   "genre": "mot",
+   "hanzi": "求证",
+   "pinyin": "qiúzhèng",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "chercher à vérifier",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "chercher à vérifier, demander confirmation"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这个消息还需要求证。",
+     "pinyin": "Zhège xiāoxi hái xūyào qiúzhèng.",
+     "fr": "Cette nouvelle n'est pas encore confirmée.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-3368",
+   "genre": "mot",
+   "hanzi": "求助",
+   "pinyin": "qiúzhù",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "demander de l'aide",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "demander de l'aide, recourir à"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "遇到困难可以向老师求助。",
+     "pinyin": "Yùdào kùnnan kěyǐ xiàng lǎoshī qiúzhù.",
+     "fr": "En cas de difficulté, tu peux t'adresser au professeur.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-3369",
+   "genre": "mot",
+   "hanzi": "曲线",
+   "pinyin": "qūxiàn",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "courbe",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "courbe, ligne courbe"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这张图的曲线表示温度的变化。",
+     "pinyin": "Zhè zhāng tú de qūxiàn biǎoshì wēndù de biànhuà.",
+     "fr": "Sur ce graphique, la ligne montre l'évolution de la température.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-3370",
+   "genre": "mot",
+   "hanzi": "曲折",
+   "pinyin": "qūzhé",
+   "categories": [
+    "Adj"
+   ],
+   "sens": {
+    "glose": "sinueux ; plein de rebondissements",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "sinueux, tortueux"
+     },
+     {
+      "categorie": "Adj",
+      "fr": "compliqué, plein de rebondissements"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这个故事情节很曲折。",
+     "pinyin": "Zhège gùshi qíngjié hěn qūzhé.",
+     "fr": "L'intrigue de cette histoire est riche en péripéties.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "驱",
+   "genre": "caractere",
+   "hanzi": "驱",
+   "pinyin": "qū",
+   "sens": {
+    "glose": "conduire ; chasser",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "conduire (un attelage) ; chasser, expulser"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": []
+  },
+  {
+   "id": "L7-3371",
+   "genre": "mot",
+   "hanzi": "驱动",
+   "pinyin": "qūdòng",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "entraîner, actionner ; pousser",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "entraîner, actionner (machine)"
+     },
+     {
+      "categorie": "V",
+      "fr": "pousser, motiver"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这辆车是电力驱动的。",
+     "pinyin": "Zhè liàng chē shì diànlì qūdòng de.",
+     "fr": "Cette voiture roule à l'électricité.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-3372",
+   "genre": "mot",
+   "hanzi": "驱逐",
+   "pinyin": "qūzhú",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "expulser, chasser",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "expulser, chasser, bannir"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他被驱逐出境了。",
+     "pinyin": "Tā bèi qūzhú chūjìng le.",
+     "fr": "Il a été reconduit à la frontière.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "屈",
+   "genre": "caractere",
+   "hanzi": "屈",
+   "pinyin": "qū",
+   "sens": {
+    "glose": "plier ; céder ; injustice",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "plier, courber ; céder"
+     },
+     {
+      "categorie": "N",
+      "fr": "injustice, tort"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": []
+  },
+  {
+   "id": "L7-3373",
+   "genre": "mot",
+   "hanzi": "屈服",
+   "pinyin": "qūfú",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "céder, se soumettre",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "céder, se soumettre, capituler"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他从不向困难屈服。",
+     "pinyin": "Tā cóng bù xiàng kùnnan qūfú.",
+     "fr": "Il ne s'est jamais laissé abattre par les difficultés.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-3374",
+   "genre": "mot",
+   "hanzi": "趋于",
+   "pinyin": "qūyú",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "tendre vers",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "tendre vers, évoluer vers"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "局势趋于稳定。",
+     "pinyin": "Júshì qūyú wěndìng.",
+     "fr": "La situation se stabilise.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-3376",
+   "genre": "mot",
+   "hanzi": "取代",
+   "pinyin": "qǔdài",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "remplacer, se substituer à",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "remplacer, se substituer à, supplanter"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "电脑不能完全取代人。",
+     "pinyin": "Diànnǎo bù néng wánquán qǔdài rén.",
+     "fr": "L'ordinateur ne peut pas tout faire à la place de l'homme.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "缔",
+   "genre": "caractere",
+   "hanzi": "缔",
+   "pinyin": "dì",
+   "sens": {
+    "glose": "conclure, nouer",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "conclure, nouer (un pacte, une alliance)"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": []
+  },
+  {
+   "id": "L7-3377",
+   "genre": "mot",
+   "hanzi": "取缔",
+   "pinyin": "qǔdì",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "interdire, supprimer (par la loi)",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "interdire, supprimer par voie légale"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "政府取缔了一批非法小店。",
+     "pinyin": "Zhèngfǔ qǔdì le yī pī fēifǎ xiǎo diàn.",
+     "fr": "Les autorités ont fait fermer une série de petits commerces illégaux.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-3378",
+   "genre": "mot",
+   "hanzi": "取而代之",
+   "pinyin": "qǔ'érdàizhī",
+   "sens": {
+    "glose": "prendre la place de",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "prendre la place de, supplanter"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "旧的方法被淘汰了，新技术取而代之。",
+     "pinyin": "Jiù de fāngfǎ bèi táotài le, xīn jìshù qǔ'érdàizhī.",
+     "fr": "Les anciennes méthodes ont disparu, les techniques nouvelles ont pris le relais.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-3379",
+   "genre": "mot",
+   "hanzi": "取经",
+   "pinyin": "qǔjīng",
+   "sens": {
+    "glose": "s'inspirer de l'expérience d'autrui",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "aller chercher les écritures bouddhiques (légende)"
+     },
+     {
+      "categorie": "V",
+      "fr": "apprendre de l'expérience d'autrui"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "我们去别的学校取经。",
+     "pinyin": "Wǒmen qù bié de xuéxiào qǔjīng.",
+     "fr": "Nous allons voir comment font d'autres écoles.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-3380",
+   "genre": "mot",
+   "hanzi": "取决于",
+   "pinyin": "qǔjué yú",
+   "sens": {
+    "glose": "dépendre de",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "dépendre de, être déterminé par"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "成功取决于努力。",
+     "pinyin": "Chénggōng qǔjué yú nǔlì.",
+     "fr": "Le succès est une question d'efforts.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-3381",
+   "genre": "mot",
+   "hanzi": "取暖",
+   "pinyin": "qǔnuǎn",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "se chauffer",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "se chauffer, se réchauffer"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "大家围在火边取暖。",
+     "pinyin": "Dàjiā wéi zài huǒ biān qǔnuǎn.",
+     "fr": "Tout le monde s'est rassemblé autour du feu contre le froid.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-3382",
+   "genre": "mot",
+   "hanzi": "取胜",
+   "pinyin": "qǔshèng",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "remporter la victoire",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "remporter la victoire, l'emporter"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "我们队最后以二比一取胜。",
+     "pinyin": "Wǒmen duì zuìhòu yǐ èr bǐ yī qǔshèng.",
+     "fr": "Notre équipe a fini par gagner deux à un.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-3383",
+   "genre": "mot",
+   "hanzi": "取笑",
+   "pinyin": "qǔxiào",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "se moquer de, railler",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "se moquer de, railler, taquiner"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "别取笑他了。",
+     "pinyin": "Bié qǔxiào tā le.",
+     "fr": "Laisse-le tranquille, arrête de rire de lui.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "娶",
+   "genre": "caractere",
+   "hanzi": "娶",
+   "pinyin": "qǔ",
+   "mots": [
+    "L7-3384"
+   ],
+   "sens": {
+    "glose": "épouser (une femme)",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "épouser (une femme), prendre pour femme"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他娶了一个北京姑娘。",
+     "pinyin": "Tā qǔ le yī ge Běijīng gūniang.",
+     "fr": "Il s'est marié avec une fille de Pékin.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-3385",
+   "genre": "mot",
+   "hanzi": "去除",
+   "pinyin": "qùchú",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "enlever, éliminer",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "enlever, éliminer, supprimer"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这种方法能去除水里的杂质。",
+     "pinyin": "Zhè zhǒng fāngfǎ néng qùchú shuǐ li de zázhì.",
+     "fr": "Cette méthode débarrasse l'eau de ses impuretés.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-3386",
+   "genre": "mot",
+   "hanzi": "去处",
+   "pinyin": "qùchù",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "endroit où aller, lieu",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "endroit où aller, lieu ; destination"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这个公园是夏天纳凉的好去处。",
+     "pinyin": "Zhège gōngyuán shì xiàtiān nàliáng de hǎo qùchù.",
+     "fr": "Ce parc est idéal pour prendre le frais en été.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-3387",
+   "genre": "mot",
+   "hanzi": "去向",
+   "pinyin": "qùxiàng",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "destination, lieu où l'on est allé",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "destination, lieu où quelqu'un est allé"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "没有人知道他的去向。",
+     "pinyin": "Méiyou rén zhīdào tā de qùxiàng.",
+     "fr": "Personne ne sait où il est parti.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-3388",
+   "genre": "mot",
+   "hanzi": "趣味",
+   "pinyin": "qùwèi",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "intérêt, attrait ; goût",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "intérêt, attrait, agrément ; goût"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这本书很有趣味。",
+     "pinyin": "Zhè běn shū hěn yǒu qùwèi.",
+     "fr": "Ce livre est passionnant.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-3389",
+   "genre": "mot",
+   "hanzi": "圈套",
+   "pinyin": "quāntào",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "piège, traquenard",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "piège, traquenard"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他不小心落入了圈套。",
+     "pinyin": "Tā bù xiǎoxīn luòrù le quāntào.",
+     "fr": "Il est tombé dans le panneau.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-3390",
+   "genre": "mot",
+   "hanzi": "圈子",
+   "pinyin": "quānzi",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "cercle ; milieu",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "cercle, rond"
+     },
+     {
+      "categorie": "N",
+      "fr": "milieu, cercle de relations"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他的朋友圈子很小。",
+     "pinyin": "Tā de péngyou quānzi hěn xiǎo.",
+     "fr": "Il fréquente peu de monde.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-3391",
+   "genre": "mot",
+   "hanzi": "权衡",
+   "pinyin": "quánhéng",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "peser le pour et le contre",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "peser, soupeser, peser le pour et le contre"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他权衡了很久才做决定。",
+     "pinyin": "Tā quánhéng le hěn jiǔ cái zuò juédìng.",
+     "fr": "Il a longuement réfléchi avant de décider.",
+     "statut": "a_relire"
+    }
+   ]
+  }
+ ]
+}

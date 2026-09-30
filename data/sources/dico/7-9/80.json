@@ -1,0 +1,1322 @@
+{
+ "niveau": "7-9",
+ "lot": "80",
+ "source": "rédigé pour l'app dans le pipeline wenlu, sans API ; faits lus : liste HSK 3.0 (forme, pinyin, niveau, catégorie), lectures d'Unihan et des surcharges, gloses relues des fiches",
+ "brouillon": "data/sources/dico-brouillons/7-9/80.json",
+ "generation": {
+  "modele": "rédaction manuelle",
+  "api": "session Claude Code (sans API)",
+  "date": "2026-09-30",
+  "empreinte_invite": "sha256:70652b2131e0ca787041c752e5bc7244df9c4a9884df102a23c8d68913898596",
+  "contexte": "wenlu dico contexte 7-9 80",
+  "essais": 1,
+  "refus": []
+ },
+ "entrees": [
+  {
+   "id": "L7-3441",
+   "genre": "mot",
+   "hanzi": "人体",
+   "pinyin": "réntǐ",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "corps humain",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "corps humain, organisme"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "水对人体非常重要。",
+     "pinyin": "Shuǐ duì réntǐ fēicháng zhòngyào.",
+     "fr": "L'eau est essentielle à notre santé.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-3442",
+   "genre": "mot",
+   "hanzi": "人为",
+   "pinyin": "rénwéi",
+   "categories": [
+    "Adj"
+   ],
+   "sens": {
+    "glose": "artificiel, dû à l'homme",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "artificiel, dû à l'homme, provoqué"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这次事故是人为造成的。",
+     "pinyin": "Zhè cì shìgù shì rénwéi zàochéng de.",
+     "fr": "Cet accident est dû à une erreur humaine.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-3443",
+   "genre": "mot",
+   "hanzi": "人文",
+   "pinyin": "rénwén",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "culture humaine, humanités",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "culture humaine, humanités, sciences humaines"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这里的人文景观很丰富。",
+     "pinyin": "Zhèli de rénwén jǐngguān hěn fēngfù.",
+     "fr": "Le patrimoine historique d'ici est très riche.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-3444",
+   "genre": "mot",
+   "hanzi": "人行道",
+   "pinyin": "rénxíngdào",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "trottoir",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "trottoir"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "请走人行道。",
+     "pinyin": "Qǐng zǒu rénxíngdào.",
+     "fr": "Ne marchez pas sur la chaussée, s'il vous plaît.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-3445",
+   "genre": "mot",
+   "hanzi": "人性",
+   "pinyin": "rénxìng",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "nature humaine, humanité",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "nature humaine, humanité"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这部小说写出了复杂的人性。",
+     "pinyin": "Zhè bù xiǎoshuō xiě chū le fùzá de rénxìng.",
+     "fr": "Ce roman dépeint la complexité de l'âme humaine.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-3446",
+   "genre": "mot",
+   "hanzi": "人选",
+   "pinyin": "rénxuǎn",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "candidat retenu, personne choisie",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "candidat retenu, personne choisie"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他是经理的最佳人选。",
+     "pinyin": "Tā shì jīnglǐ de zuì jiā rénxuǎn.",
+     "fr": "C'est lui le mieux placé pour le poste de directeur.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-3447",
+   "genre": "mot",
+   "hanzi": "人缘儿",
+   "pinyin": "rényuánr",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "popularité auprès des autres",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "popularité, rapports avec les autres"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "她人缘儿很好，大家都喜欢她。",
+     "pinyin": "Tā rényuánr hěn hǎo, dàjiā dōu xǐhuan tā.",
+     "fr": "Elle s'entend bien avec tout le monde, on l'aime beaucoup.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-3448",
+   "genre": "mot",
+   "hanzi": "人造",
+   "pinyin": "rénzào",
+   "categories": [
+    "Adj"
+   ],
+   "sens": {
+    "glose": "artificiel, synthétique",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "artificiel, synthétique, fabriqué par l'homme"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这是人造的湖。",
+     "pinyin": "Zhè shì rénzào de hú.",
+     "fr": "Ce lac a été creusé de main d'homme.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-3449",
+   "genre": "mot",
+   "hanzi": "人质",
+   "pinyin": "rénzhì",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "otage",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "otage"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "警察救出了所有人质。",
+     "pinyin": "Jǐngchá jiù chū le suǒyǒu rénzhì.",
+     "fr": "La police a libéré tous les otages.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-3450",
+   "genre": "mot",
+   "hanzi": "仁慈",
+   "pinyin": "réncí",
+   "categories": [
+    "Adj"
+   ],
+   "sens": {
+    "glose": "bon, bienveillant",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "bon, bienveillant, miséricordieux"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他是一位仁慈的老人。",
+     "pinyin": "Tā shì yī wèi réncí de lǎorén.",
+     "fr": "C'est un vieil homme plein de bonté.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-3451",
+   "genre": "mot",
+   "hanzi": "忍饥挨饿",
+   "pinyin": "rěnjī-ái'è",
+   "sens": {
+    "glose": "souffrir de la faim",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "souffrir de la faim, endurer la faim"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "那时候很多人忍饥挨饿。",
+     "pinyin": "Nà shíhou hěn duō rén rěnjī-ái'è.",
+     "fr": "À l'époque, beaucoup de gens n'avaient pas de quoi manger.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-3452",
+   "genre": "mot",
+   "hanzi": "忍耐",
+   "pinyin": "rěnnài",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "patienter, endurer",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "patienter, endurer, se contenir"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "再忍耐一下，马上就到了。",
+     "pinyin": "Zài rěnnài yīxià, mǎshàng jiù dào le.",
+     "fr": "Tiens bon encore un peu, on arrive bientôt.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-3453",
+   "genre": "mot",
+   "hanzi": "忍心",
+   "pinyin": "rěnxīn",
+   "sens": {
+    "glose": "avoir le cœur de",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "avoir le cœur de, se résoudre à"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "我不忍心拒绝他。",
+     "pinyin": "Wǒ bù rěnxīn jùjué tā.",
+     "fr": "Je n'ai pas eu le courage de lui dire non.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-3454",
+   "genre": "mot",
+   "hanzi": "认错",
+   "pinyin": "rèncuò",
+   "sens": {
+    "glose": "reconnaître son erreur",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "reconnaître son erreur, s'excuser"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他终于向老师认错了。",
+     "pinyin": "Tā zhōngyú xiàng lǎoshī rèncuò le.",
+     "fr": "Il a fini par présenter ses excuses au professeur.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-3455",
+   "genre": "mot",
+   "hanzi": "认证",
+   "pinyin": "rènzhèng",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "certifier, authentifier",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "certifier, authentifier, homologuer"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这个产品通过了国际认证。",
+     "pinyin": "Zhège chǎnpǐn tōngguò le guójì rènzhèng.",
+     "fr": "Ce produit répond aux normes internationales.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-3456",
+   "genre": "mot",
+   "hanzi": "认知",
+   "pinyin": "rènzhī",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "connaître, percevoir ; cognition",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "connaître, percevoir ; cognition"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "孩子的认知能力发展很快。",
+     "pinyin": "Háizi de rènzhī nénglì fāzhǎn hěn kuài.",
+     "fr": "Les capacités cognitives de l'enfant se développent vite.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-3457",
+   "genre": "mot",
+   "hanzi": "任命",
+   "pinyin": "rènmìng",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "nommer (à un poste)",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "nommer, désigner (à un poste)"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他被任命为校长。",
+     "pinyin": "Tā bèi rènmìng wéi xiàozhǎng.",
+     "fr": "Il a été placé à la tête de l'école.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-3458",
+   "genre": "mot",
+   "hanzi": "任期",
+   "pinyin": "rènqī",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "mandat, durée des fonctions",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "mandat, durée des fonctions"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "总统的任期是四年。",
+     "pinyin": "Zǒngtǒng de rènqī shì sì nián.",
+     "fr": "Le président est élu pour quatre ans.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "宰",
+   "genre": "caractere",
+   "hanzi": "宰",
+   "pinyin": "zǎi",
+   "mots": [
+    "L7-5186"
+   ],
+   "sens": {
+    "glose": "abattre ; arnaquer ; gouverner",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "abattre, égorger (un animal)"
+     },
+     {
+      "categorie": "V",
+      "fr": "arnaquer, écorcher (un client, oral)"
+     },
+     {
+      "categorie": "V",
+      "fr": "diriger, gouverner (écrit)"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "我在那家店被宰了。",
+     "pinyin": "Wǒ zài nà jiā diàn bèi zǎi le.",
+     "fr": "Dans cette boutique, on m'a fait payer bien trop cher.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-3459",
+   "genre": "mot",
+   "hanzi": "任人宰割",
+   "pinyin": "rènrén-zǎigē",
+   "sens": {
+    "glose": "être à la merci d'autrui",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "être à la merci d'autrui, se laisser dépecer"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "我们不能任人宰割。",
+     "pinyin": "Wǒmen bù néng rènrén-zǎigē.",
+     "fr": "Nous ne pouvons pas nous laisser faire sans réagir.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-3460",
+   "genre": "mot",
+   "hanzi": "任意",
+   "pinyin": "rènyì",
+   "categories": [
+    "Adv"
+   ],
+   "sens": {
+    "glose": "à volonté ; arbitrairement",
+    "acceptions": [
+     {
+      "categorie": "Adv",
+      "fr": "à volonté, librement ; arbitrairement"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "你可以任意选择一个。",
+     "pinyin": "Nǐ kěyǐ rènyì xuǎnzé yī ge.",
+     "fr": "Tu peux en choisir un, n'importe lequel.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-3461",
+   "genre": "mot",
+   "hanzi": "任职",
+   "pinyin": "rènzhí",
+   "sens": {
+    "glose": "occuper un poste",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "occuper un poste, exercer des fonctions"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他在一家银行任职。",
+     "pinyin": "Tā zài yī jiā yínháng rènzhí.",
+     "fr": "Il travaille dans une banque.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-3462",
+   "genre": "mot",
+   "hanzi": "韧性",
+   "pinyin": "rènxìng",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "ténacité, résilience",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "ténacité, résilience ; résistance (d'un matériau)"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "做事要有韧性。",
+     "pinyin": "Zuò shì yào yǒu rènxìng.",
+     "fr": "Il faut savoir persévérer.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-3463",
+   "genre": "mot",
+   "hanzi": "日程",
+   "pinyin": "rìchéng",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "programme, emploi du temps",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "programme, emploi du temps, calendrier"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "我们的日程安排得很满。",
+     "pinyin": "Wǒmen de rìchéng ānpái de hěn mǎn.",
+     "fr": "Nous avons un agenda très chargé.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-3464",
+   "genre": "mot",
+   "hanzi": "日复一日",
+   "pinyin": "rìfùyīrì",
+   "sens": {
+    "glose": "jour après jour",
+    "acceptions": [
+     {
+      "categorie": "Adv",
+      "fr": "jour après jour, sans relâche"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他日复一日地坚持锻炼。",
+     "pinyin": "Tā rìfùyīrì de jiānchí duànliàn.",
+     "fr": "Il s'entraîne avec régularité, sans jamais s'arrêter.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-3465",
+   "genre": "mot",
+   "hanzi": "日后",
+   "pinyin": "rìhòu",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "plus tard, à l'avenir",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "plus tard, à l'avenir, un jour"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这些经验对你日后有用。",
+     "pinyin": "Zhèxiē jīngyàn duì nǐ rìhòu yǒuyòng.",
+     "fr": "Cette expérience te servira.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-3466",
+   "genre": "mot",
+   "hanzi": "日前",
+   "pinyin": "rìqián",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "récemment, il y a quelques jours",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "récemment, il y a quelques jours"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "日前，这家公司发布了新手机。",
+     "pinyin": "Rìqián, zhè jiā gōngsī fābù le xīn shǒujī.",
+     "fr": "Cette entreprise vient de lancer un nouveau téléphone.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-3467",
+   "genre": "mot",
+   "hanzi": "日趋",
+   "pinyin": "rìqū",
+   "categories": [
+    "Adv"
+   ],
+   "sens": {
+    "glose": "de jour en jour",
+    "acceptions": [
+     {
+      "categorie": "Adv",
+      "fr": "de jour en jour, de plus en plus"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "两国关系日趋紧张。",
+     "pinyin": "Liǎng guó guānxi rìqū jǐnzhāng.",
+     "fr": "Les relations entre les deux pays se tendent sans cesse.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-3468",
+   "genre": "mot",
+   "hanzi": "日新月异",
+   "pinyin": "rìxīn-yuèyì",
+   "sens": {
+    "glose": "changer à vue d'œil",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "qui change à vue d'œil, en progrès constant"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "科技发展日新月异。",
+     "pinyin": "Kējì fāzhǎn rìxīn-yuèyì.",
+     "fr": "La technologie évolue à une vitesse fulgurante.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-3469",
+   "genre": "mot",
+   "hanzi": "日益",
+   "pinyin": "rìyì",
+   "categories": [
+    "Adv"
+   ],
+   "sens": {
+    "glose": "de plus en plus, chaque jour",
+    "acceptions": [
+     {
+      "categorie": "Adv",
+      "fr": "de plus en plus, chaque jour davantage"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "人们的生活水平日益提高。",
+     "pinyin": "Rénmen de shēnghuó shuǐpíng rìyì tígāo.",
+     "fr": "Le niveau de vie ne cesse de s'améliorer.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-3470",
+   "genre": "mot",
+   "hanzi": "荣获",
+   "pinyin": "rónghuò",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "remporter (un prix, un honneur)",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "remporter, recevoir (un prix, un honneur)"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他荣获了第一名。",
+     "pinyin": "Tā rónghuò le dì-yī míng.",
+     "fr": "Il a décroché la première place.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-3471",
+   "genre": "mot",
+   "hanzi": "荣幸",
+   "pinyin": "róngxìng",
+   "categories": [
+    "Adj"
+   ],
+   "sens": {
+    "glose": "honoré",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "honoré, flatté"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "能认识您，我感到很荣幸。",
+     "pinyin": "Néng rènshi nín, wǒ gǎndào hěn róngxìng.",
+     "fr": "C'est un honneur de faire votre connaissance.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-3472",
+   "genre": "mot",
+   "hanzi": "荣誉",
+   "pinyin": "róngyù",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "honneur, gloire",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "honneur, gloire, distinction"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这是全班的荣誉。",
+     "pinyin": "Zhè shì quán bān de róngyù.",
+     "fr": "Toute la classe peut en être fière.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-3473",
+   "genre": "mot",
+   "hanzi": "容光焕发",
+   "pinyin": "róngguāng-huànfā",
+   "sens": {
+    "glose": "rayonnant, radieux",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "rayonnant, radieux, resplendissant de santé"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "度假回来，她容光焕发。",
+     "pinyin": "Dùjià huílai, tā róngguāng-huànfā.",
+     "fr": "De retour de vacances, elle a une mine superbe.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-3474",
+   "genre": "mot",
+   "hanzi": "容量",
+   "pinyin": "róngliàng",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "capacité, contenance",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "capacité, contenance, volume"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这个硬盘的容量很大。",
+     "pinyin": "Zhège yìngpán de róngliàng hěn dà.",
+     "fr": "Ce disque dur peut stocker énormément de données.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-3475",
+   "genre": "mot",
+   "hanzi": "容纳",
+   "pinyin": "róngnà",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "contenir, accueillir",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "contenir, accueillir, recevoir"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这个体育馆能容纳一万人。",
+     "pinyin": "Zhège tǐyùguǎn néng róngnà yī wàn rén.",
+     "fr": "Ce stade a dix mille places.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-3476",
+   "genre": "mot",
+   "hanzi": "容忍",
+   "pinyin": "róngrěn",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "tolérer, supporter",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "tolérer, supporter"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "我不能容忍这种行为。",
+     "pinyin": "Wǒ bù néng róngrěn zhè zhǒng xíngwéi.",
+     "fr": "Je n'accepte pas ce genre de comportement.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-3477",
+   "genre": "mot",
+   "hanzi": "容许",
+   "pinyin": "róngxǔ",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "permettre, admettre",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "permettre, admettre"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "情况不容许我们再等了。",
+     "pinyin": "Qíngkuàng bù róngxǔ wǒmen zài děng le.",
+     "fr": "Nous ne pouvons plus attendre, vu la situation.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-3478",
+   "genre": "mot",
+   "hanzi": "容颜",
+   "pinyin": "róngyán",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "visage, traits (écrit)",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "visage, traits, apparence (écrit)"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "岁月改变了她的容颜。",
+     "pinyin": "Suìyuè gǎibiàn le tā de róngyán.",
+     "fr": "Les années ont changé ses traits.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "溶",
+   "genre": "caractere",
+   "hanzi": "溶",
+   "pinyin": "róng",
+   "sens": {
+    "glose": "dissoudre",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "dissoudre, se dissoudre"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": []
+  },
+  {
+   "id": "L7-3479",
+   "genre": "mot",
+   "hanzi": "溶解",
+   "pinyin": "róngjiě",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "dissoudre, se dissoudre",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "dissoudre, se dissoudre"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "糖在热水里溶解得很快。",
+     "pinyin": "Táng zài rèshuǐ li róngjiě de hěn kuài.",
+     "fr": "Le sucre fond vite dans l'eau chaude.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-3481",
+   "genre": "mot",
+   "hanzi": "融化",
+   "pinyin": "rónghuà",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "fondre (neige, glace)",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "fondre (neige, glace)"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "春天来了，雪开始融化。",
+     "pinyin": "Chūntiān lái le, xuě kāishǐ rónghuà.",
+     "fr": "Le printemps arrive, la neige commence à disparaître.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-3482",
+   "genre": "mot",
+   "hanzi": "融洽",
+   "pinyin": "róngqià",
+   "categories": [
+    "Adj"
+   ],
+   "sens": {
+    "glose": "harmonieux, cordial",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "harmonieux, cordial, en bonne entente"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "同事之间的关系很融洽。",
+     "pinyin": "Tóngshì zhījiān de guānxi hěn róngqià.",
+     "fr": "Les collègues s'entendent très bien.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "冗",
+   "genre": "caractere",
+   "hanzi": "冗",
+   "pinyin": "rǒng",
+   "sens": {
+    "glose": "superflu, redondant",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "superflu, redondant"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": []
+  },
+  {
+   "id": "L7-3483",
+   "genre": "mot",
+   "hanzi": "冗长",
+   "pinyin": "rǒngcháng",
+   "categories": [
+    "Adj"
+   ],
+   "sens": {
+    "glose": "interminable, prolixe",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "interminable, prolixe, verbeux"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这篇报告太冗长了。",
+     "pinyin": "Zhè piān bàogào tài rǒngcháng le.",
+     "fr": "Ce rapport est bien trop long.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "柔",
+   "genre": "caractere",
+   "hanzi": "柔",
+   "pinyin": "róu",
+   "sens": {
+    "glose": "doux, souple",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "doux, souple, tendre"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": []
+  },
+  {
+   "id": "L7-3484",
+   "genre": "mot",
+   "hanzi": "柔和",
+   "pinyin": "róuhé",
+   "categories": [
+    "Adj"
+   ],
+   "sens": {
+    "glose": "doux (lumière, voix)",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "doux, tamisé (lumière, voix, couleur)"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "房间里的灯光很柔和。",
+     "pinyin": "Fángjiān li de dēngguāng hěn róuhé.",
+     "fr": "La lumière de la pièce n'agresse pas les yeux.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-3485",
+   "genre": "mot",
+   "hanzi": "柔软",
+   "pinyin": "róuruǎn",
+   "categories": [
+    "Adj"
+   ],
+   "sens": {
+    "glose": "doux, souple, moelleux",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "doux, souple, moelleux"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这种布料非常柔软。",
+     "pinyin": "Zhè zhǒng bùliào fēicháng róuruǎn.",
+     "fr": "Ce tissu est très agréable au toucher.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "揉",
+   "genre": "caractere",
+   "hanzi": "揉",
+   "pinyin": "róu",
+   "mots": [
+    "L7-3486"
+   ],
+   "sens": {
+    "glose": "frotter, masser ; pétrir",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "frotter, masser"
+     },
+     {
+      "categorie": "V",
+      "fr": "pétrir, malaxer"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "别用手揉眼睛。",
+     "pinyin": "Bié yòng shǒu róu yǎnjing.",
+     "fr": "Ne te frotte pas les yeux avec les mains.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-3487",
+   "genre": "mot",
+   "hanzi": "如果说",
+   "pinyin": "rúguǒ shuō",
+   "sens": {
+    "glose": "s'il est vrai que",
+    "acceptions": [
+     {
+      "categorie": "Conj",
+      "fr": "si l'on peut dire que, s'il est vrai que"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "如果说他有错，那我也有错。",
+     "pinyin": "Rúguǒ shuō tā yǒu cuò, nà wǒ yě yǒu cuò.",
+     "fr": "S'il a tort, alors moi aussi.",
+     "statut": "a_relire"
+    }
+   ]
+  }
+ ]
+}
