@@ -19,20 +19,33 @@
  "roles": {
   "日": "sens"
  },
- "mots": [],
+ "mots": [
+  {
+   "hanzi": "水晶",
+   "pinyin": "shuǐjīng",
+   "fr": "cristal de roche",
+   "en": "crystal"
+  },
+  {
+   "hanzi": "结晶",
+   "pinyin": "jiéjīng",
+   "fr": "cristalliser ; fruit (d'un travail)",
+   "en": "to crystallize; fruit (of labour)"
+  }
+ ],
  "phrase": {
-  "zh": "",
-  "pinyin": "",
-  "fr": "",
-  "en": ""
+  "zh": "这本书是他多年研究的结晶。",
+  "pinyin": "Zhè běn shū shì tā duō nián yánjiū de jiéjīng.",
+  "fr": "Ce livre est le fruit de longues années de recherche.",
+  "en": "This book is the fruit of many years of research."
  },
  "generation": {
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:0d4d01e10acd3fcf73f64adb01fbfb1a795816f77fd615d59bc4528483cb393f",
-  "essais": 1,
+  "empreinte_invite": "sha256:88ead2a5480d2ee132eb46745f96169ca2f16aeb111fd27ea298644850217513",
+  "essais": 2,
   "refus": []
  },
- "statut": "relu"
+ "statut": "a_relire"
 }
