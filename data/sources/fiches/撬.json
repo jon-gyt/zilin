@@ -21,20 +21,33 @@
   "扌": "sens",
   "毛": "forme"
  },
- "mots": [],
+ "mots": [
+  {
+   "hanzi": "撬开",
+   "pinyin": "qiàokāi",
+   "fr": "forcer, ouvrir avec un levier",
+   "en": "to pry open"
+  },
+  {
+   "hanzi": "撬锁",
+   "pinyin": "qiàosuǒ",
+   "fr": "forcer une serrure",
+   "en": "to pick a lock"
+  }
+ ],
  "phrase": {
-  "zh": "",
-  "pinyin": "",
-  "fr": "",
-  "en": ""
+  "zh": "小偷撬开了门。",
+  "pinyin": "Xiǎotōu qiàokāi le mén.",
+  "fr": "Le voleur a forcé la porte.",
+  "en": "The thief pried the door open."
  },
  "generation": {
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:987c43a67d4d539049d236d5e31c60cce8ae47df6c6245d6d83a4d0e88f24a3e",
-  "essais": 1,
+  "empreinte_invite": "sha256:52537644b69994a3054c0a4d0610e065a9ba01de19ded849d4a30ef28cdb6a8e",
+  "essais": 2,
   "refus": []
  },
- "statut": "relu"
+ "statut": "a_relire"
 }

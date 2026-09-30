@@ -21,20 +21,33 @@
   "辰": "sens",
   "寸": "sens"
  },
- "mots": [],
+ "mots": [
+  {
+   "hanzi": "耻辱",
+   "pinyin": "chǐrǔ",
+   "fr": "honte, déshonneur",
+   "en": "shame, disgrace"
+  },
+  {
+   "hanzi": "辱骂",
+   "pinyin": "rǔmà",
+   "fr": "insulter, injurier",
+   "en": "to insult, to abuse"
+  }
+ ],
  "phrase": {
-  "zh": "",
-  "pinyin": "",
-  "fr": "",
-  "en": ""
+  "zh": "他当众辱骂了我。",
+  "pinyin": "Tā dāngzhòng rǔmà le wǒ.",
+  "fr": "Il m'a insulté en public.",
+  "en": "He insulted me in public."
  },
  "generation": {
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:052c6fb015c95a3e8d6210af3180d7a5600e8f70fa7f30a72b2e2687c0913d18",
-  "essais": 1,
+  "empreinte_invite": "sha256:7206b49f6afe338da14ffa5891ea03b23c5b27f2cd08f79b4712e25f53eeb27d",
+  "essais": 2,
   "refus": []
  },
- "statut": "relu"
+ "statut": "a_relire"
 }

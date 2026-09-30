@@ -21,20 +21,33 @@
   "匕": "sens",
   "页": "sens"
  },
- "mots": [],
+ "mots": [
+  {
+   "hanzi": "公顷",
+   "pinyin": "gōngqǐng",
+   "fr": "hectare",
+   "en": "hectare"
+  },
+  {
+   "hanzi": "顷刻",
+   "pinyin": "qǐngkè",
+   "fr": "en un instant",
+   "en": "in an instant"
+  }
+ ],
  "phrase": {
-  "zh": "",
-  "pinyin": "",
-  "fr": "",
-  "en": ""
+  "zh": "这片森林有一千公顷。",
+  "pinyin": "Zhè piàn sēnlín yǒu yīqiān gōngqǐng.",
+  "fr": "Cette forêt s'étend sur mille hectares.",
+  "en": "This forest covers a thousand hectares."
  },
  "generation": {
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:7bc3aa08f803bb72918d41b86f04bd2a7aa905075b6077c4012a25101a34bebe",
-  "essais": 1,
+  "empreinte_invite": "sha256:e463f872c2ecf1559d0b05fa8cf8442b680bcd6461f7cb5e49d4291a8b3a1abd",
+  "essais": 2,
   "refus": []
  },
- "statut": "relu"
+ "statut": "a_relire"
 }
