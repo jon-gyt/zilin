@@ -1,0 +1,1337 @@
+{
+ "niveau": "7-9",
+ "lot": "116",
+ "source": "rédigé pour l'app dans le pipeline wenlu, sans API ; faits lus : liste HSK 3.0 (forme, pinyin, niveau, catégorie), lectures d'Unihan et des surcharges, gloses relues des fiches",
+ "brouillon": "data/sources/dico-brouillons/7-9/116.json",
+ "generation": {
+  "modele": "rédaction manuelle",
+  "api": "session Claude Code (sans API)",
+  "date": "2026-09-30",
+  "empreinte_invite": "sha256:371c6da110ad0a69ecc7170e8ea0444d4e76dd0847b82fcb50984b2eed60f9c3",
+  "contexte": "wenlu dico contexte 7-9 116",
+  "essais": 1,
+  "refus": []
+ },
+ "entrees": [
+  {
+   "id": "L7-5116",
+   "genre": "mot",
+   "hanzi": "预示",
+   "pinyin": "yùshì",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "présager, annoncer",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "présager, annoncer, laisser prévoir"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "乌云预示着大雨要来了。",
+     "pinyin": "Wūyún yùshì zhe dàyǔ yào lái le.",
+     "fr": "Les nuages noirs annoncent une grosse pluie.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-5117",
+   "genre": "mot",
+   "hanzi": "预售",
+   "pinyin": "yùshòu",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "prévente, vendre à l'avance",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "vendre à l'avance, mettre en prévente"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "电影票已经开始预售了。",
+     "pinyin": "Diànyǐngpiào yǐjīng kāishǐ yùshòu le.",
+     "fr": "On peut déjà acheter ses places de cinéma.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-5118",
+   "genre": "mot",
+   "hanzi": "预算",
+   "pinyin": "yùsuàn",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "budget",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "budget, prévisions de dépenses"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这次旅行的预算是五千元。",
+     "pinyin": "Zhè cì lǚxíng de yùsuàn shì wǔqiān yuán.",
+     "fr": "Nous prévoyons cinq mille yuans pour ce voyage.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-5119",
+   "genre": "mot",
+   "hanzi": "预先",
+   "pinyin": "yùxiān",
+   "categories": [
+    "Adv"
+   ],
+   "sens": {
+    "glose": "à l'avance, au préalable",
+    "acceptions": [
+     {
+      "categorie": "Adv",
+      "fr": "à l'avance, au préalable"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "请预先准备好材料。",
+     "pinyin": "Qǐng yùxiān zhǔnbèi hǎo cáiliào.",
+     "fr": "Préparez les documents avant.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-5120",
+   "genre": "mot",
+   "hanzi": "预言",
+   "pinyin": "yùyán",
+   "categories": [
+    "V",
+    "N"
+   ],
+   "sens": {
+    "glose": "prédire ; prophétie",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "prédire"
+     },
+     {
+      "categorie": "N",
+      "fr": "prophétie, prédiction"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他的预言成真了。",
+     "pinyin": "Tā de yùyán chéng zhēn le.",
+     "fr": "Ce qu'il avait annoncé s'est réalisé.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "兆",
+   "genre": "caractere",
+   "hanzi": "兆",
+   "pinyin": "zhào",
+   "sens": {
+    "glose": "présage ; million",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "présage, signe"
+     },
+     {
+      "categorie": "Num",
+      "fr": "million ; méga-"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": []
+  },
+  {
+   "id": "L7-5121",
+   "genre": "mot",
+   "hanzi": "预兆",
+   "pinyin": "yùzhào",
+   "categories": [
+    "N",
+    "V"
+   ],
+   "sens": {
+    "glose": "présage, signe avant-coureur",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "présage, signe avant-coureur"
+     },
+     {
+      "categorie": "V",
+      "fr": "présager"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这是一个好的预兆。",
+     "pinyin": "Zhè shì yī ge hǎo de yùzhào.",
+     "fr": "C'est bon signe.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-5122",
+   "genre": "mot",
+   "hanzi": "欲望",
+   "pinyin": "yùwàng",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "désir, envie",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "désir, envie, convoitise"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他对金钱的欲望很强。",
+     "pinyin": "Tā duì jīnqián de yùwàng hěn qiáng.",
+     "fr": "Il a une grande soif d'argent.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-5123",
+   "genre": "mot",
+   "hanzi": "遇难",
+   "pinyin": "yùnàn",
+   "sens": {
+    "glose": "périr dans un accident",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "périr dans un accident, une catastrophe"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这次事故中有三人遇难。",
+     "pinyin": "Zhè cì shìgù zhōng yǒu sān rén yùnàn.",
+     "fr": "L'accident a fait trois morts.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-5124",
+   "genre": "mot",
+   "hanzi": "遇上",
+   "pinyin": "yùshang",
+   "sens": {
+    "glose": "rencontrer, tomber sur",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "rencontrer, tomber sur, être confronté à"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "在路上我遇上了一个老朋友。",
+     "pinyin": "Zài lù shang wǒ yùshang le yī ge lǎo péngyou.",
+     "fr": "En chemin, je suis tombé sur un vieil ami.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-5125",
+   "genre": "mot",
+   "hanzi": "遇险",
+   "pinyin": "yùxiǎn",
+   "sens": {
+    "glose": "être en danger, en détresse",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "être en danger, en détresse"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "一艘船在海上遇险。",
+     "pinyin": "Yī sōu chuán zài hǎi shang yùxiǎn.",
+     "fr": "Un navire est en détresse en mer.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-5126",
+   "genre": "mot",
+   "hanzi": "寓言",
+   "pinyin": "yùyán",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "fable, apologue",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "fable, apologue"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这是一个有名的寓言故事。",
+     "pinyin": "Zhè shì yī ge yǒumíng de yùyán gùshi.",
+     "fr": "C'est un conte moral célèbre.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-5127",
+   "genre": "mot",
+   "hanzi": "寓意",
+   "pinyin": "yùyì",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "sens caché, morale",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "sens caché, morale, signification implicite"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这个故事的寓意很深。",
+     "pinyin": "Zhège gùshi de yùyì hěn shēn.",
+     "fr": "Cette histoire a une portée profonde.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "愈",
+   "genre": "caractere",
+   "hanzi": "愈",
+   "pinyin": "yù",
+   "sens": {
+    "glose": "guérir ; de plus en plus",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "guérir, se rétablir"
+     },
+     {
+      "categorie": "Adv",
+      "fr": "de plus en plus, d'autant plus"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": []
+  },
+  {
+   "id": "L7-5128",
+   "genre": "mot",
+   "hanzi": "愈合",
+   "pinyin": "yùhé",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "se cicatriser, guérir",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "se cicatriser, se refermer, guérir"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "伤口已经愈合了。",
+     "pinyin": "Shāngkǒu yǐjīng yùhé le.",
+     "fr": "La plaie s'est refermée.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-5129",
+   "genre": "mot",
+   "hanzi": "愈来愈",
+   "pinyin": "yù lái yù",
+   "sens": {
+    "glose": "de plus en plus",
+    "acceptions": [
+     {
+      "categorie": "Adv",
+      "fr": "de plus en plus (style écrit)"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "天气愈来愈冷了。",
+     "pinyin": "Tiānqì yù lái yù lěng le.",
+     "fr": "Il fait toujours plus froid.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-5130",
+   "genre": "mot",
+   "hanzi": "愈演愈烈",
+   "pinyin": "yùyǎn-yùliè",
+   "sens": {
+    "glose": "s'intensifier, s'envenimer",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "s'intensifier, s'envenimer, empirer"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "两国的矛盾愈演愈烈。",
+     "pinyin": "Liǎng guó de máodùn yùyǎn-yùliè.",
+     "fr": "Le conflit entre les deux pays s'aggrave.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "冤",
+   "genre": "caractere",
+   "hanzi": "冤",
+   "pinyin": "yuān",
+   "mots": [
+    "L7-5131"
+   ],
+   "sens": {
+    "glose": "injustice ; lésé ; en pure perte",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "injustice, tort subi"
+     },
+     {
+      "categorie": "Adj",
+      "fr": "injustement traité ; en pure perte"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这钱花得真冤。",
+     "pinyin": "Zhè qián huā de zhēn yuān.",
+     "fr": "Cet argent a été dépensé pour rien.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "枉",
+   "genre": "caractere",
+   "hanzi": "枉",
+   "pinyin": "wǎng",
+   "sens": {
+    "glose": "en vain ; léser",
+    "acceptions": [
+     {
+      "categorie": "Adv",
+      "fr": "en vain, pour rien"
+     },
+     {
+      "categorie": "V",
+      "fr": "léser, faire du tort à"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": []
+  },
+  {
+   "id": "L7-5132",
+   "genre": "mot",
+   "hanzi": "冤枉",
+   "pinyin": "yuānwang",
+   "categories": [
+    "V",
+    "Adj"
+   ],
+   "sens": {
+    "glose": "accuser à tort ; injuste",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "accuser à tort, faire un procès injuste à"
+     },
+     {
+      "categorie": "Adj",
+      "fr": "injustement traité ; qui n'en vaut pas la peine"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "你冤枉他了，不是他干的。",
+     "pinyin": "Nǐ yuānwang tā le, bù shì tā gàn de.",
+     "fr": "Tu l'accuses à tort, ce n'est pas lui.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "渊",
+   "genre": "caractere",
+   "hanzi": "渊",
+   "pinyin": "yuān",
+   "sens": {
+    "glose": "gouffre, abîme",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "gouffre, abîme, eaux profondes"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": []
+  },
+  {
+   "id": "L7-5133",
+   "genre": "mot",
+   "hanzi": "渊源",
+   "pinyin": "yuānyuán",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "origine, source profonde",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "origine, source profonde, liens anciens"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这两个家族有很深的渊源。",
+     "pinyin": "Zhè liǎng ge jiāzú yǒu hěn shēn de yuānyuán.",
+     "fr": "Ces deux familles sont liées depuis longtemps.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-5134",
+   "genre": "mot",
+   "hanzi": "元老",
+   "pinyin": "yuánlǎo",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "vétéran, doyen",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "vétéran, doyen, pilier (d'une organisation)"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他是公司的元老。",
+     "pinyin": "Tā shì gōngsī de yuánlǎo.",
+     "fr": "C'est l'un des fondateurs de la société.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-5135",
+   "genre": "mot",
+   "hanzi": "元首",
+   "pinyin": "yuánshǒu",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "chef d'État",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "chef d'État"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "两国元首举行了会谈。",
+     "pinyin": "Liǎng guó yuánshǒu jǔxíng le huìtán.",
+     "fr": "Les présidents des deux pays se sont entretenus.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-5136",
+   "genre": "mot",
+   "hanzi": "元宵节",
+   "pinyin": "Yuánxiāo Jié",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "fête des Lanternes",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "fête des Lanternes (15e jour du 1er mois lunaire)"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "元宵节要吃汤圆。",
+     "pinyin": "Yuánxiāo Jié yào chī tāngyuán.",
+     "fr": "Ce jour-là, on mange des boulettes de riz gluant.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-5137",
+   "genre": "mot",
+   "hanzi": "原本",
+   "pinyin": "yuánběn",
+   "categories": [
+    "Adv"
+   ],
+   "sens": {
+    "glose": "à l'origine, au départ",
+    "acceptions": [
+     {
+      "categorie": "Adv",
+      "fr": "à l'origine, au départ, initialement"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "我原本想今天去，后来改了主意。",
+     "pinyin": "Wǒ yuánběn xiǎng jīntiān qù, hòulái gǎi le zhǔyi.",
+     "fr": "Je comptais y aller aujourd'hui, puis j'ai changé d'avis.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-5138",
+   "genre": "mot",
+   "hanzi": "原材料",
+   "pinyin": "yuáncáiliào",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "matières premières",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "matières premières"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "原材料的价格上涨了。",
+     "pinyin": "Yuáncáiliào de jiàgé shàngzhǎng le.",
+     "fr": "Le coût des matériaux de base a augmenté.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-5139",
+   "genre": "mot",
+   "hanzi": "原创",
+   "pinyin": "yuánchuàng",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "créer (une œuvre originale)",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "créer (une œuvre originale), être l'auteur de"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这首歌是他原创的。",
+     "pinyin": "Zhè shǒu gē shì tā yuánchuàng de.",
+     "fr": "C'est lui qui a écrit et composé cette chanson.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-5140",
+   "genre": "mot",
+   "hanzi": "原地",
+   "pinyin": "yuándì",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "sur place",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "sur place, au même endroit"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "请在原地等我。",
+     "pinyin": "Qǐng zài yuándì děng wǒ.",
+     "fr": "Attends-moi là où tu es.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-5141",
+   "genre": "mot",
+   "hanzi": "原型",
+   "pinyin": "yuánxíng",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "prototype, modèle réel",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "prototype, modèle réel (d'un personnage)"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这个人物的原型是作者的父亲。",
+     "pinyin": "Zhège rénwù de yuánxíng shì zuòzhě de fùqīn.",
+     "fr": "Ce personnage est inspiré du père de l'auteur.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-5142",
+   "genre": "mot",
+   "hanzi": "原汁原味",
+   "pinyin": "yuánzhī-yuánwèi",
+   "sens": {
+    "glose": "authentique, au goût d'origine",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "authentique, au goût d'origine, sans altération"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这家饭店的菜原汁原味。",
+     "pinyin": "Zhè jiā fàndiàn de cài yuánzhī-yuánwèi.",
+     "fr": "Ce restaurant sert une cuisine fidèle à la tradition.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-5143",
+   "genre": "mot",
+   "hanzi": "原装",
+   "pinyin": "yuánzhuāng",
+   "categories": [
+    "Adj"
+   ],
+   "sens": {
+    "glose": "d'origine, d'usine",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "d'origine, d'usine, importé tel quel"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这是原装的电池。",
+     "pinyin": "Zhè shì yuánzhuāng de diànchí.",
+     "fr": "C'est la batterie fournie avec l'appareil.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-5144",
+   "genre": "mot",
+   "hanzi": "圆形",
+   "pinyin": "yuánxíng",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "cercle, forme ronde",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "cercle, forme ronde"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这张桌子是圆形的。",
+     "pinyin": "Zhè zhāng zhuōzi shì yuánxíng de.",
+     "fr": "Cette table est ronde.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-5145",
+   "genre": "mot",
+   "hanzi": "缘分",
+   "pinyin": "yuánfen",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "affinité, destin qui unit",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "affinité, destin qui unit deux personnes"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "我们能认识真是缘分。",
+     "pinyin": "Wǒmen néng rènshi zhēn shì yuánfen.",
+     "fr": "Le destin a voulu que nous nous rencontrions.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-5146",
+   "genre": "mot",
+   "hanzi": "源泉",
+   "pinyin": "yuánquán",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "source (au figuré)",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "source (au figuré), origine"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "生活是艺术的源泉。",
+     "pinyin": "Shēnghuó shì yìshù de yuánquán.",
+     "fr": "La vie nourrit l'art.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-5147",
+   "genre": "mot",
+   "hanzi": "源头",
+   "pinyin": "yuántóu",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "source (d'un cours d'eau)",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "source (d'un cours d'eau), origine"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这条河的源头在山里。",
+     "pinyin": "Zhè tiáo hé de yuántóu zài shān li.",
+     "fr": "Cette rivière prend naissance dans la montagne.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-5148",
+   "genre": "mot",
+   "hanzi": "源于",
+   "pinyin": "yuányú",
+   "sens": {
+    "glose": "provenir de, avoir pour origine",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "provenir de, avoir pour origine"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这个节日源于一个古老的传说。",
+     "pinyin": "Zhège jiérì yuányú yī ge gǔlǎo de chuánshuō.",
+     "fr": "Cette fête trouve son origine dans une vieille légende.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-5149",
+   "genre": "mot",
+   "hanzi": "源源不断",
+   "pinyin": "yuányuán-bùduàn",
+   "sens": {
+    "glose": "sans interruption, à flot continu",
+    "acceptions": [
+     {
+      "categorie": "Adv",
+      "fr": "sans interruption, à flot continu"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "游客源源不断地来到这里。",
+     "pinyin": "Yóukè yuányuán-bùduàn de lái dào zhèli.",
+     "fr": "Les touristes affluent sans cesse.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-5150",
+   "genre": "mot",
+   "hanzi": "远程",
+   "pinyin": "yuǎnchéng",
+   "categories": [
+    "Adj"
+   ],
+   "sens": {
+    "glose": "à distance ; longue portée",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "à distance ; longue portée, long-courrier"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "我在家远程上课。",
+     "pinyin": "Wǒ zài jiā yuǎnchéng shàngkè.",
+     "fr": "Je suis les cours en ligne depuis chez moi.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-5151",
+   "genre": "mot",
+   "hanzi": "远见",
+   "pinyin": "yuǎnjiàn",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "clairvoyance, vision à long terme",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "clairvoyance, vision à long terme"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他是一个很有远见的人。",
+     "pinyin": "Tā shì yī ge hěn yǒu yuǎnjiàn de rén.",
+     "fr": "C'est quelqu'un qui voit loin.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-5152",
+   "genre": "mot",
+   "hanzi": "远近闻名",
+   "pinyin": "yuǎnjìn-wénmíng",
+   "sens": {
+    "glose": "réputé partout",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "réputé partout, connu à la ronde"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这家店的包子远近闻名。",
+     "pinyin": "Zhè jiā diàn de bāozi yuǎnjìn-wénmíng.",
+     "fr": "Les brioches de cette boutique sont connues de tous.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-5153",
+   "genre": "mot",
+   "hanzi": "怨恨",
+   "pinyin": "yuànhèn",
+   "categories": [
+    "V",
+    "N"
+   ],
+   "sens": {
+    "glose": "rancune ; en vouloir à",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "rancune, rancœur"
+     },
+     {
+      "categorie": "V",
+      "fr": "en vouloir à, haïr"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他心里对父亲有怨恨。",
+     "pinyin": "Tā xīnli duì fùqīn yǒu yuànhèn.",
+     "fr": "Il garde de la rancœur envers son père.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-5154",
+   "genre": "mot",
+   "hanzi": "怨气",
+   "pinyin": "yuànqì",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "ressentiment, mauvaise humeur",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "ressentiment, mauvaise humeur, grief"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他把怨气都发在了家人身上。",
+     "pinyin": "Tā bǎ yuànqì dōu fā zài le jiārén shēn shang.",
+     "fr": "Il passe ses nerfs sur sa famille.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-5155",
+   "genre": "mot",
+   "hanzi": "怨言",
+   "pinyin": "yuànyán",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "plainte, récrimination",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "plainte, récrimination"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他工作很辛苦，但从来没有怨言。",
+     "pinyin": "Tā gōngzuò hěn xīnkǔ, dàn cónglái méiyǒu yuànyán.",
+     "fr": "Son travail est dur, mais il ne se plaint jamais.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-5156",
+   "genre": "mot",
+   "hanzi": "院士",
+   "pinyin": "yuànshì",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "académicien",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "académicien, membre d'une académie"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他是中国科学院院士。",
+     "pinyin": "Tā shì Zhōngguó Kēxuéyuàn yuànshì.",
+     "fr": "Il est membre de l'Académie chinoise des sciences.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "曰",
+   "genre": "caractere",
+   "hanzi": "曰",
+   "pinyin": "yuē",
+   "mots": [
+    "L7-5157"
+   ],
+   "sens": {
+    "glose": "dire (chinois classique)",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "dire (chinois classique)"
+     },
+     {
+      "categorie": "V",
+      "fr": "s'appeler, se nommer (classique)"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "古人曰：活到老，学到老。",
+     "pinyin": "Gǔrén yuē: huó dào lǎo, xué dào lǎo.",
+     "fr": "Les Anciens disaient : on apprend à tout âge.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-5158",
+   "genre": "mot",
+   "hanzi": "约定俗成",
+   "pinyin": "yuēdìng-súchéng",
+   "sens": {
+    "glose": "consacré par l'usage",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "consacré par l'usage, établi par la coutume"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "很多语言规则是约定俗成的。",
+     "pinyin": "Hěn duō yǔyán guīzé shì yuēdìng-súchéng de.",
+     "fr": "Beaucoup de règles de langue viennent simplement de l'usage.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-5159",
+   "genre": "mot",
+   "hanzi": "月初",
+   "pinyin": "yuèchū",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "début du mois",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "début du mois"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "我们月初发工资。",
+     "pinyin": "Wǒmen yuèchū fā gōngzī.",
+     "fr": "Nous sommes payés au commencement de chaque mois.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-5160",
+   "genre": "mot",
+   "hanzi": "月票",
+   "pinyin": "yuèpiào",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "abonnement mensuel",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "abonnement mensuel, carte mensuelle"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "我买了一张地铁月票。",
+     "pinyin": "Wǒ mǎi le yī zhāng dìtiě yuèpiào.",
+     "fr": "J'ai pris un passe mensuel pour le métro.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-5161",
+   "genre": "mot",
+   "hanzi": "乐器",
+   "pinyin": "yuèqì",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "instrument de musique",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "instrument de musique"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "你会演奏什么乐器？",
+     "pinyin": "Nǐ huì yǎnzòu shénme yuèqì?",
+     "fr": "De quoi sais-tu jouer ?",
+     "statut": "a_relire"
+    }
+   ]
+  }
+ ]
+}

@@ -1,0 +1,1323 @@
+{
+ "niveau": "7-9",
+ "lot": "112",
+ "source": "rédigé pour l'app dans le pipeline wenlu, sans API ; faits lus : liste HSK 3.0 (forme, pinyin, niveau, catégorie), lectures d'Unihan et des surcharges, gloses relues des fiches",
+ "brouillon": "data/sources/dico-brouillons/7-9/112.json",
+ "generation": {
+  "modele": "rédaction manuelle",
+  "api": "session Claude Code (sans API)",
+  "date": "2026-09-30",
+  "empreinte_invite": "sha256:356c5383500437c3e694182dd2ee20fd8d15d3e8cc890ca9c2c6245e63ba7bd1",
+  "contexte": "wenlu dico contexte 7-9 112",
+  "essais": 1,
+  "refus": []
+ },
+ "entrees": [
+  {
+   "id": "L7-4926",
+   "genre": "mot",
+   "hanzi": "一经",
+   "pinyin": "yījīng",
+   "categories": [
+    "Adv"
+   ],
+   "sens": {
+    "glose": "dès que, une fois que",
+    "acceptions": [
+     {
+      "categorie": "Adv",
+      "fr": "dès que, une fois que"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "商品一经售出，不能退换。",
+     "pinyin": "Shāngpǐn yījīng shòuchū, bù néng tuìhuàn.",
+     "fr": "Les articles vendus ne sont ni repris ni échangés.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-4927",
+   "genre": "mot",
+   "hanzi": "一举",
+   "pinyin": "yījǔ",
+   "categories": [
+    "N",
+    "Adv"
+   ],
+   "sens": {
+    "glose": "d'un seul coup ; une action",
+    "acceptions": [
+     {
+      "categorie": "Adv",
+      "fr": "d'un seul coup, d'emblée"
+     },
+     {
+      "categorie": "N",
+      "fr": "une action, un seul acte"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他一举拿下了冠军。",
+     "pinyin": "Tā yījǔ ná xià le guànjūn.",
+     "fr": "Il a remporté le titre du premier coup.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-4928",
+   "genre": "mot",
+   "hanzi": "一举一动",
+   "pinyin": "yījǔ-yīdòng",
+   "sens": {
+    "glose": "chaque geste, chaque mouvement",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "chaque geste, chaque mouvement, le comportement"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他的一举一动都很有礼貌。",
+     "pinyin": "Tā de yījǔ-yīdòng dōu hěn yǒu lǐmào.",
+     "fr": "Il se conduit toujours avec politesse.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-4929",
+   "genre": "mot",
+   "hanzi": "一卡通",
+   "pinyin": "yīkǎtōng",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "carte multiservice (transports)",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "carte multiservice (transports, paiements)"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "我用一卡通坐地铁。",
+     "pinyin": "Wǒ yòng yīkǎtōng zuò dìtiě.",
+     "fr": "Je prends le métro avec ma carte de transport.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-4930",
+   "genre": "mot",
+   "hanzi": "一揽子",
+   "pinyin": "yīlǎnzi",
+   "categories": [
+    "Adj"
+   ],
+   "sens": {
+    "glose": "global, en bloc",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "global, en bloc, d'ensemble"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "政府提出了一揽子计划。",
+     "pinyin": "Zhèngfǔ tíchū le yīlǎnzi jìhuà.",
+     "fr": "Le gouvernement a présenté un plan d'ensemble.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-4931",
+   "genre": "mot",
+   "hanzi": "一连",
+   "pinyin": "yīlián",
+   "categories": [
+    "Adv"
+   ],
+   "sens": {
+    "glose": "d'affilée, de suite",
+    "acceptions": [
+     {
+      "categorie": "Adv",
+      "fr": "d'affilée, de suite, coup sur coup"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "一连下了三天雨。",
+     "pinyin": "Yīlián xià le sān tiān yǔ.",
+     "fr": "Il a plu trois jours sans interruption.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-4932",
+   "genre": "mot",
+   "hanzi": "一连串",
+   "pinyin": "yīliánchuàn",
+   "categories": [
+    "Adj"
+   ],
+   "sens": {
+    "glose": "une série de, une suite de",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "une série de, une suite de"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他问了一连串的问题。",
+     "pinyin": "Tā wèn le yīliánchuàn de wèntí.",
+     "fr": "Il a posé question sur question.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-4933",
+   "genre": "mot",
+   "hanzi": "一毛不拔",
+   "pinyin": "yīmáo-bùbá",
+   "sens": {
+    "glose": "radin, pingre",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "radin, pingre (ne pas donner un poil)"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他是个一毛不拔的人。",
+     "pinyin": "Tā shì ge yīmáo-bùbá de rén.",
+     "fr": "C'est un vrai grippe-sou.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-4934",
+   "genre": "mot",
+   "hanzi": "一年到头",
+   "pinyin": "yīnián-dàotóu",
+   "sens": {
+    "glose": "toute l'année",
+    "acceptions": [
+     {
+      "categorie": "Adv",
+      "fr": "toute l'année, d'un bout de l'année à l'autre"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他一年到头都在外面工作。",
+     "pinyin": "Tā yīnián-dàotóu dōu zài wàimian gōngzuò.",
+     "fr": "Il travaille loin de chez lui douze mois sur douze.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-4935",
+   "genre": "mot",
+   "hanzi": "一旁",
+   "pinyin": "yīpáng",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "à côté, à l'écart",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "à côté, à l'écart"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他站在一旁不说话。",
+     "pinyin": "Tā zhàn zài yīpáng bù shuōhuà.",
+     "fr": "Il se tient à l'écart sans rien dire.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-4936",
+   "genre": "mot",
+   "hanzi": "一如既往",
+   "pinyin": "yīrú-jìwǎng",
+   "sens": {
+    "glose": "comme toujours, comme par le passé",
+    "acceptions": [
+     {
+      "categorie": "Adv",
+      "fr": "comme toujours, comme par le passé"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "我们会一如既往地支持你。",
+     "pinyin": "Wǒmen huì yīrú-jìwǎng de zhīchí nǐ.",
+     "fr": "Nous continuerons à te soutenir.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "吭",
+   "genre": "caractere",
+   "hanzi": "吭",
+   "pinyin": "kēng",
+   "sens": {
+    "glose": "émettre un son ; gorge",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "émettre un son, dire un mot"
+     },
+     {
+      "categorie": "N",
+      "fr": "gorge",
+      "pinyin": "háng"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": []
+  },
+  {
+   "id": "L7-4937",
+   "genre": "mot",
+   "hanzi": "一声不吭",
+   "pinyin": "yīshēng-bùkēng",
+   "sens": {
+    "glose": "ne pas dire un mot",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "ne pas dire un mot, ne pas pousser un son"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他一声不吭地走了。",
+     "pinyin": "Tā yīshēng-bùkēng de zǒu le.",
+     "fr": "Il est parti sans un mot.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-4938",
+   "genre": "mot",
+   "hanzi": "一手",
+   "pinyin": "yīshǒu",
+   "categories": [
+    "N",
+    "Adv"
+   ],
+   "sens": {
+    "glose": "savoir-faire ; à soi seul",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "savoir-faire, talent"
+     },
+     {
+      "categorie": "Adv",
+      "fr": "à soi seul, de bout en bout"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他做菜有一手。",
+     "pinyin": "Tā zuò cài yǒu yīshǒu.",
+     "fr": "Il se débrouille bien en cuisine.",
+     "statut": "a_relire"
+    },
+    {
+     "zh": "这家公司是他一手创办的。",
+     "pinyin": "Zhè jiā gōngsī shì tā yīshǒu chuàngbàn de.",
+     "fr": "C'est lui qui a fondé cette entreprise, tout seul.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-4939",
+   "genre": "mot",
+   "hanzi": "一塌糊涂",
+   "pinyin": "yītāhútú",
+   "sens": {
+    "glose": "en pagaille ; lamentable",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "en pagaille, en désordre complet ; lamentable"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他的房间乱得一塌糊涂。",
+     "pinyin": "Tā de fángjiān luàn de yītāhútú.",
+     "fr": "Sa chambre est un vrai capharnaüm.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-4940",
+   "genre": "mot",
+   "hanzi": "一体",
+   "pinyin": "yītǐ",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "un tout, un ensemble",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "un tout, un ensemble uni"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "我们要把两个部门合为一体。",
+     "pinyin": "Wǒmen yào bǎ liǎng ge bùmén hé wéi yītǐ.",
+     "fr": "Nous allons fusionner les deux services.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-4941",
+   "genre": "mot",
+   "hanzi": "一天到晚",
+   "pinyin": "yītiān-dàowǎn",
+   "sens": {
+    "glose": "du matin au soir",
+    "acceptions": [
+     {
+      "categorie": "Adv",
+      "fr": "du matin au soir, toute la journée"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他一天到晚玩手机。",
+     "pinyin": "Tā yītiān-dàowǎn wán shǒujī.",
+     "fr": "Il passe ses journées sur son téléphone.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-4942",
+   "genre": "mot",
+   "hanzi": "一头",
+   "pinyin": "yītóu",
+   "categories": [
+    "Adv",
+    "N"
+   ],
+   "sens": {
+    "glose": "tête baissée ; un bout",
+    "acceptions": [
+     {
+      "categorie": "Adv",
+      "fr": "tout droit, tête baissée, brusquement"
+     },
+     {
+      "categorie": "N",
+      "fr": "un bout, une extrémité"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他一头撞在了门上。",
+     "pinyin": "Tā yītóu zhuàng zài le mén shang.",
+     "fr": "Il s'est cogné la tête contre la porte.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-4943",
+   "genre": "mot",
+   "hanzi": "一无所有",
+   "pinyin": "yīwúsuǒyǒu",
+   "sens": {
+    "glose": "ne rien posséder",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "ne rien posséder, n'avoir rien du tout"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他刚来时一无所有。",
+     "pinyin": "Tā gāng lái shí yīwúsuǒyǒu.",
+     "fr": "À son arrivée, il n'avait pas un sou.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-4944",
+   "genre": "mot",
+   "hanzi": "一无所知",
+   "pinyin": "yīwúsuǒzhī",
+   "sens": {
+    "glose": "ne rien savoir",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "ne rien savoir, tout ignorer"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "我对这件事一无所知。",
+     "pinyin": "Wǒ duì zhè jiàn shì yīwúsuǒzhī.",
+     "fr": "Je n'étais au courant de rien.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-4945",
+   "genre": "mot",
+   "hanzi": "一心",
+   "pinyin": "yīxīn",
+   "categories": [
+    "Adv"
+   ],
+   "sens": {
+    "glose": "de tout son cœur ; d'un même cœur",
+    "acceptions": [],
+    "statut": "relu",
+    "provenance": {
+     "reprise": "data/sources/fiches/心.json",
+     "champ": "mots[].fr"
+    }
+   },
+   "exemples": [
+    {
+     "zh": "他一心想当医生。",
+     "pinyin": "Tā yīxīn xiǎng dāng yīshēng.",
+     "fr": "Il n'a qu'un rêve : devenir médecin.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-4946",
+   "genre": "mot",
+   "hanzi": "一心一意",
+   "pinyin": "yīxīn-yīyì",
+   "sens": {
+    "glose": "de tout son cœur, entièrement",
+    "acceptions": [
+     {
+      "categorie": "Adv",
+      "fr": "de tout son cœur, entièrement, sans se disperser"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他一心一意地做研究。",
+     "pinyin": "Tā yīxīn-yīyì de zuò yánjiū.",
+     "fr": "Il se consacre corps et âme à ses recherches.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-4947",
+   "genre": "mot",
+   "hanzi": "一言不发",
+   "pinyin": "yīyán-bùfā",
+   "sens": {
+    "glose": "sans dire un mot",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "ne pas dire un mot, rester muet"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "开会时他一言不发。",
+     "pinyin": "Kāihuì shí tā yīyán-bùfā.",
+     "fr": "Pendant la réunion, il est resté silencieux.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-4948",
+   "genre": "mot",
+   "hanzi": "一言一行",
+   "pinyin": "yīyán-yīxíng",
+   "sens": {
+    "glose": "chaque parole, chaque acte",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "chaque parole et chaque acte, la conduite"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "孩子会学父母的一言一行。",
+     "pinyin": "Háizi huì xué fùmǔ de yīyán-yīxíng.",
+     "fr": "Les enfants imitent tout ce que disent et font leurs parents.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-4949",
+   "genre": "mot",
+   "hanzi": "一眼",
+   "pinyin": "yīyǎn",
+   "sens": {
+    "glose": "un coup d'œil ; au premier regard",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "un coup d'œil ; au premier regard"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "我一眼就认出了他。",
+     "pinyin": "Wǒ yīyǎn jiù rènchū le tā.",
+     "fr": "Je l'ai reconnu tout de suite.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-4950",
+   "genre": "mot",
+   "hanzi": "一应俱全",
+   "pinyin": "yīyīng-jùquán",
+   "sens": {
+    "glose": "où rien ne manque",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "complet, où rien ne manque"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这家商店里生活用品一应俱全。",
+     "pinyin": "Zhè jiā shāngdiàn li shēnghuó yòngpǐn yīyīng-jùquán.",
+     "fr": "Dans ce magasin, on trouve tout pour la maison.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-4951",
+   "genre": "mot",
+   "hanzi": "一早",
+   "pinyin": "yīzǎo",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "tôt le matin",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "tôt le matin, à la première heure"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "我明天一早就走。",
+     "pinyin": "Wǒ míngtiān yīzǎo jiù zǒu.",
+     "fr": "Je pars demain à la première heure.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-4952",
+   "genre": "mot",
+   "hanzi": "义工",
+   "pinyin": "yìgōng",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "bénévole",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "bénévole, travail bénévole"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "她周末在医院当义工。",
+     "pinyin": "Tā zhōumò zài yīyuàn dāng yìgōng.",
+     "fr": "Le week-end, elle donne de son temps à l'hôpital.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-4954",
+   "genre": "mot",
+   "hanzi": "议程",
+   "pinyin": "yìchéng",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "ordre du jour",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "ordre du jour, programme d'une réunion"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这个问题已经列入会议议程。",
+     "pinyin": "Zhège wèntí yǐjīng lièrù huìyì yìchéng.",
+     "fr": "Cette question a été inscrite au programme de la réunion.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-4955",
+   "genre": "mot",
+   "hanzi": "议会",
+   "pinyin": "yìhuì",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "parlement, assemblée",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "parlement, assemblée"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "议会通过了这项法律。",
+     "pinyin": "Yìhuì tōngguò le zhè xiàng fǎlǜ.",
+     "fr": "Les députés ont voté cette loi.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-4956",
+   "genre": "mot",
+   "hanzi": "议员",
+   "pinyin": "yìyuán",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "parlementaire, député",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "parlementaire, député, élu"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他被选为议员。",
+     "pinyin": "Tā bèi xuǎn wéi yìyuán.",
+     "fr": "Il a été élu au parlement.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "屹",
+   "genre": "caractere",
+   "hanzi": "屹",
+   "pinyin": "yì",
+   "sens": {
+    "glose": "se dresser",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "se dresser, se tenir droit"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": []
+  },
+  {
+   "id": "L7-4957",
+   "genre": "mot",
+   "hanzi": "屹立",
+   "pinyin": "yìlì",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "se dresser, se tenir debout",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "se dresser, se tenir debout, rester inébranlable"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这座古塔在山上屹立了一千年。",
+     "pinyin": "Zhè zuò gǔtǎ zài shān shang yìlì le yīqiān nián.",
+     "fr": "Cette pagode domine la montagne depuis mille ans.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-4959",
+   "genre": "mot",
+   "hanzi": "异口同声",
+   "pinyin": "yìkǒu-tóngshēng",
+   "sens": {
+    "glose": "d'une seule voix",
+    "acceptions": [
+     {
+      "categorie": "Adv",
+      "fr": "d'une seule voix, à l'unanimité"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "大家异口同声地回答了老师。",
+     "pinyin": "Dàjiā yìkǒu-tóngshēng de huídá le lǎoshī.",
+     "fr": "Les élèves ont répondu au professeur tous en chœur.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-4960",
+   "genre": "mot",
+   "hanzi": "异想天开",
+   "pinyin": "yìxiǎng-tiānkāi",
+   "sens": {
+    "glose": "fantaisiste, farfelu",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "fantaisiste, farfelu, chimérique"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "你这个想法太异想天开了。",
+     "pinyin": "Nǐ zhège xiǎngfǎ tài yìxiǎng-tiānkāi le.",
+     "fr": "Ton idée est complètement irréaliste.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-4961",
+   "genre": "mot",
+   "hanzi": "异性",
+   "pinyin": "yìxìng",
+   "categories": [
+    "Adj",
+    "N"
+   ],
+   "sens": {
+    "glose": "sexe opposé ; de nature différente",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "personne du sexe opposé"
+     },
+     {
+      "categorie": "Adj",
+      "fr": "de nature différente, de sexe opposé"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他在异性面前很害羞。",
+     "pinyin": "Tā zài yìxìng miànqián hěn hàixiū.",
+     "fr": "Il est très timide avec les filles.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-4962",
+   "genre": "mot",
+   "hanzi": "异议",
+   "pinyin": "yìyì",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "objection, désaccord",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "objection, désaccord"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "对这个决定，大家没有异议。",
+     "pinyin": "Duì zhège juédìng, dàjiā méiyǒu yìyì.",
+     "fr": "Personne n'a contesté cette décision.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-4963",
+   "genre": "mot",
+   "hanzi": "抑扬顿挫",
+   "pinyin": "yìyáng-dùncuò",
+   "sens": {
+    "glose": "cadencé, bien modulé",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "cadencé, bien modulé (voix, lecture)"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他读课文抑扬顿挫，很好听。",
+     "pinyin": "Tā dú kèwén yìyáng-dùncuò, hěn hǎotīng.",
+     "fr": "Il lit le texte avec un beau rythme, c'est agréable à écouter.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-4964",
+   "genre": "mot",
+   "hanzi": "抑郁",
+   "pinyin": "yìyù",
+   "categories": [
+    "Adj"
+   ],
+   "sens": {
+    "glose": "déprimé, morose",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "déprimé, morose, abattu"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他最近心情很抑郁。",
+     "pinyin": "Tā zuìjìn xīnqíng hěn yìyù.",
+     "fr": "Il a le moral à zéro ces temps-ci.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-4965",
+   "genre": "mot",
+   "hanzi": "抑郁症",
+   "pinyin": "yìyùzhèng",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "dépression (maladie)",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "dépression (maladie)"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "抑郁症是一种常见的病。",
+     "pinyin": "Yìyùzhèng shì yī zhǒng chángjiàn de bìng.",
+     "fr": "C'est une maladie fréquente.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-4966",
+   "genre": "mot",
+   "hanzi": "抑制",
+   "pinyin": "yìzhì",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "réprimer, contenir",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "réprimer, contenir, freiner"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他抑制不住激动的心情。",
+     "pinyin": "Tā yìzhì bu zhù jīdòng de xīnqíng.",
+     "fr": "Il ne parvient pas à cacher son émotion.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-4968",
+   "genre": "mot",
+   "hanzi": "易拉罐",
+   "pinyin": "yìlāguàn",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "canette",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "canette (à ouverture facile)"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "易拉罐可以回收。",
+     "pinyin": "Yìlāguàn kěyǐ huíshōu.",
+     "fr": "Les canettes se recyclent.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-4969",
+   "genre": "mot",
+   "hanzi": "疫苗",
+   "pinyin": "yìmiáo",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "vaccin",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "vaccin"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "孩子要按时打疫苗。",
+     "pinyin": "Háizi yào ànshí dǎ yìmiáo.",
+     "fr": "Les enfants doivent être vaccinés à temps.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-4970",
+   "genre": "mot",
+   "hanzi": "益处",
+   "pinyin": "yìchù",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "bienfait, avantage",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "bienfait, avantage, profit"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "多运动对身体有很多益处。",
+     "pinyin": "Duō yùndòng duì shēntǐ yǒu hěn duō yìchù.",
+     "fr": "Faire du sport est très bon pour la santé.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-4971",
+   "genre": "mot",
+   "hanzi": "意料",
+   "pinyin": "yìliào",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "prévoir, s'attendre à",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "prévoir, s'attendre à"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "结果和我们意料的一样。",
+     "pinyin": "Jiéguǒ hé wǒmen yìliào de yīyàng.",
+     "fr": "Le résultat est conforme à nos prévisions.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-4972",
+   "genre": "mot",
+   "hanzi": "意料之外",
+   "pinyin": "yìliào zhī wài",
+   "sens": {
+    "glose": "inattendu, imprévu",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "inattendu, imprévu, hors de toute prévision"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这个结果完全在意料之外。",
+     "pinyin": "Zhège jiéguǒ wánquán zài yìliào zhī wài.",
+     "fr": "Personne ne s'attendait à ce résultat.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-4973",
+   "genre": "mot",
+   "hanzi": "意图",
+   "pinyin": "yìtú",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "intention, dessein",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "intention, dessein, but"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "我不明白他的意图。",
+     "pinyin": "Wǒ bù míngbai tā de yìtú.",
+     "fr": "Je ne vois pas où il veut en venir.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-4974",
+   "genre": "mot",
+   "hanzi": "意向",
+   "pinyin": "yìxiàng",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "intention, orientation",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "intention, orientation, disposition"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "双方签订了合作意向书。",
+     "pinyin": "Shuāngfāng qiāndìng le hézuò yìxiàngshū.",
+     "fr": "Les deux parties ont signé une lettre d'intention de coopération.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-4976",
+   "genre": "mot",
+   "hanzi": "毅力",
+   "pinyin": "yìlì",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "persévérance, volonté",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "persévérance, volonté, ténacité"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "学好一门外语需要毅力。",
+     "pinyin": "Xuéhǎo yī mén wàiyǔ xūyào yìlì.",
+     "fr": "Il faut de la ténacité pour bien apprendre une langue.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-4977",
+   "genre": "mot",
+   "hanzi": "毅然",
+   "pinyin": "yìrán",
+   "categories": [
+    "Adv"
+   ],
+   "sens": {
+    "glose": "résolument, sans hésiter",
+    "acceptions": [
+     {
+      "categorie": "Adv",
+      "fr": "résolument, sans hésiter"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他毅然离开了家乡。",
+     "pinyin": "Tā yìrán líkāi le jiāxiāng.",
+     "fr": "Il a quitté son pays natal sans se retourner.",
+     "statut": "a_relire"
+    }
+   ]
+  }
+ ]
+}
