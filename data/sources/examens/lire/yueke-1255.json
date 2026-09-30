@@ -10,7 +10,10 @@
   "statut": "relu",
   "par": "le propriétaire",
   "decision": "« Go » (30 septembre 2026) : tout affiché sans relecture ligne à ligne",
-  "date": "2026-09-30"
+  "date": "2026-09-30",
+  "corrections": [
+   "le 30 septembre 2026, acquis des paliers déplacé par les décisions du propriétaire « Réconcilier les 13 » et « Poser les paires ensemble » ; réparé sur « Aller au bout », au plus court, séries laissées relues (décision « Go ») : 售 et 湿 entrent au tronçon suivant. A s1, le guichet (售票处) devient l'entrée des sources chaudes (温泉门票, 泉 du tronçon) et 售完 → 卖完, Q1 et Q2 suivent ; A Q5, le sens de 湿 devient celui de 弱 (du tronçon) ; B Q2, « 天气很湿 » → « 林中很潮 » (林, du tronçon). Mêmes réponses."
+  ]
  },
  "series": [
   {
@@ -26,14 +29,14 @@
      },
      "lignes": [
       {
-       "zh": "售票处",
-       "pinyin": "shòu piào chù",
-       "fr": "Guichet",
-       "en": "Ticket office"
+       "zh": "温泉门票",
+       "pinyin": "wēn quán mén piào",
+       "fr": "Sources chaudes : billets",
+       "en": "Hot springs: tickets"
       },
       {
-       "zh": "今天的票已经售完，",
-       "pinyin": "jīn tiān de piào yǐ jīng shòu wán",
+       "zh": "今天的票已经卖完，",
+       "pinyin": "jīn tiān de piào yǐ jīng mài wán",
        "fr": "Plus de billets pour aujourd'hui :",
        "en": "Today's tickets are sold out;"
       },
@@ -42,6 +45,26 @@
        "pinyin": "míng tiān zǎo shang bā diǎn zài lái",
        "fr": "revenez demain à 8 h.",
        "en": "come back tomorrow at 8 am."
+      }
+     ],
+     "glose": [
+      {
+       "zh": "温泉",
+       "pinyin": "wēn quán",
+       "fr": "sources chaudes",
+       "en": "hot springs"
+      },
+      {
+       "zh": "门票",
+       "pinyin": "mén piào",
+       "fr": "billet d'entrée",
+       "en": "entrance ticket"
+      },
+      {
+       "zh": "卖完",
+       "pinyin": "mài wán",
+       "fr": "tout vendu",
+       "en": "sold out"
       }
      ]
     },
@@ -102,7 +125,9 @@
      ],
      "reponse": 0,
      "porte": [
-      "售",
+      "泉",
+      "票",
+      "卖",
       "完"
      ]
     },
@@ -114,14 +139,14 @@
       "en": "True or false?"
      },
      "affirmation": {
-      "zh": "售票处明天不开门。",
-      "pinyin": "shòu piào chù míng tiān bù kāi mén",
-      "fr": "Le guichet est fermé demain.",
-      "en": "The ticket office is closed tomorrow."
+      "zh": "温泉明天不开门。",
+      "pinyin": "wēn quán míng tiān bù kāi mén",
+      "fr": "Les sources chaudes sont fermées demain.",
+      "en": "The hot springs are closed tomorrow."
      },
      "reponse": false,
      "porte": [
-      "售",
+      "泉",
       "明",
       "天",
       "再",
@@ -194,32 +219,32 @@
       "en": "What does this character mean?"
      },
      "objet": {
-      "zh": "湿",
-      "pinyin": "shī",
-      "fr": "mouillé",
-      "en": "wet"
+      "zh": "弱",
+      "pinyin": "ruò",
+      "fr": "faible",
+      "en": "weak"
      },
      "choix": [
       {
-       "fr": "sec",
-       "en": "dry"
+       "fr": "fort",
+       "en": "strong"
       },
       {
-       "fr": "sale",
-       "en": "dirty"
+       "fr": "lent",
+       "en": "slow"
       },
       {
-       "fr": "mouillé",
-       "en": "wet"
+       "fr": "faible",
+       "en": "weak"
       },
       {
-       "fr": "chaud",
-       "en": "hot"
+       "fr": "lourd",
+       "en": "heavy"
       }
      ],
      "reponse": 2,
      "porte": [
-      "湿"
+      "弱"
      ]
     }
    ]
@@ -253,6 +278,14 @@
        "pinyin": "lín zhōng bù néng shāo huǒ",
        "fr": "interdiction de faire du feu dans les bois.",
        "en": "no fires in the woods."
+      }
+     ],
+     "glose": [
+      {
+       "zh": "潮",
+       "pinyin": "cháo",
+       "fr": "humide",
+       "en": "damp"
       }
      ]
     },
@@ -325,14 +358,15 @@
       "en": "True or false?"
      },
      "affirmation": {
-      "zh": "今天天气很湿。",
-      "pinyin": "jīn tiān tiān qì hěn shī",
-      "fr": "Il fait très humide aujourd'hui.",
-      "en": "It's very humid today."
+      "zh": "今天林中很潮。",
+      "pinyin": "jīn tiān lín zhōng hěn cháo",
+      "fr": "Il fait très humide dans les bois aujourd'hui.",
+      "en": "It is very damp in the woods today."
      },
      "reponse": false,
      "porte": [
-      "湿",
+      "林",
+      "潮",
       "干"
      ]
     },

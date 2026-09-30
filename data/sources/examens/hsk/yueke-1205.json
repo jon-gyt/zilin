@@ -10,7 +10,10 @@
   "statut": "relu",
   "par": "le propriétaire",
   "decision": "« Go » (30 septembre 2026) : tout affiché sans relecture ligne à ligne",
-  "date": "2026-09-30"
+  "date": "2026-09-30",
+  "corrections": [
+   "le 30 septembre 2026, décisions du propriétaire « Réconcilier les 13 », « Poser les paires ensemble » et « Aller au bout » : l'acquis et le tronçon du palier ont bougé avec les treize caractères et le glissement d'un jour ; le texte suit, au plus près, sans changer de statut (décision « Go ») : 俩 et 列 passent au tronçon suivant : série A, un leurre de Q4 refait ; série B, le panneau annonce un vol (« 飞往上海的航班 », 航 du tronçon), Q1 et Q2 suivent, « 我们好久没见了， », Q3 fait toucher ce que l'ami propose (聚聚)."
+  ]
  },
  "series": [
   {
@@ -153,8 +156,8 @@
      },
      "choix": [
       {
-       "zh": "他们俩是好朋友。",
-       "pinyin": "tā men liǎ shì hǎo péng you",
+       "zh": "他们两个是好朋友。",
+       "pinyin": "tā men liǎng gè shì hǎo péng you",
        "fr": "Ces deux-là sont de bons amis.",
        "en": "Those two are good friends."
       },
@@ -221,10 +224,10 @@
      },
      "lignes": [
       {
-       "zh": "开往上海的列车",
-       "pinyin": "kāi wǎng shàng hǎi de liè chē",
-       "fr": "Le train à destination de Shanghai",
-       "en": "The train to Shanghai"
+       "zh": "飞往上海的航班",
+       "pinyin": "fēi wǎng shàng hǎi de háng bān",
+       "fr": "Le vol à destination de Shanghai",
+       "en": "The flight to Shanghai"
       },
       {
        "zh": "晚点四十分钟",
@@ -243,10 +246,10 @@
      },
      "lignes": [
       {
-       "zh": "我们俩好久没见了，",
-       "pinyin": "wǒ men liǎ hǎo jiǔ méi jiàn le",
-       "fr": "Ça fait longtemps qu'on ne s'est pas vus, tous les deux :",
-       "en": "We two haven't seen each other for ages:"
+       "zh": "我们好久没见了，",
+       "pinyin": "wǒ men hǎo jiǔ méi jiàn le",
+       "fr": "Ça fait longtemps qu'on ne s'est pas vus :",
+       "en": "We haven't seen each other for ages:"
       },
       {
        "zh": "周末来我家聚聚吧！",
@@ -267,25 +270,25 @@
      },
      "choix": [
       {
-       "fr": "Le train est en retard",
-       "en": "The train is late"
+       "fr": "Le vol est en retard",
+       "en": "The flight is late"
       },
       {
-       "fr": "Le train est annulé",
-       "en": "The train is cancelled"
+       "fr": "Le vol est annulé",
+       "en": "The flight is cancelled"
       },
       {
-       "fr": "Le train est complet",
-       "en": "The train is full"
+       "fr": "Le vol est complet",
+       "en": "The flight is full"
       },
       {
-       "fr": "Le train part en avance",
-       "en": "The train leaves early"
+       "fr": "Le vol part en avance",
+       "en": "The flight leaves early"
       }
      ],
      "reponse": 0,
      "porte": [
-      "列",
+      "航",
       "晚",
       "点"
      ]
@@ -298,14 +301,14 @@
       "en": "True or false?"
      },
      "affirmation": {
-      "zh": "列车开往南京。",
-      "pinyin": "liè chē kāi wǎng nán jīng",
-      "fr": "Le train va à Nankin.",
-      "en": "The train goes to Nanjing."
+      "zh": "航班飞往南京。",
+      "pinyin": "háng bān fēi wǎng nán jīng",
+      "fr": "Le vol va à Nankin.",
+      "en": "The flight goes to Nanjing."
      },
      "reponse": false,
      "porte": [
-      "列",
+      "航",
       "往",
       "上",
       "海"
@@ -315,20 +318,18 @@
      "type": "reperer",
      "support": "s2",
      "consigne": {
-      "fr": "Touche qui ne s'est pas vu depuis longtemps.",
-      "en": "Tap who hasn't met for a long time."
+      "fr": "Touche ce que ton ami propose.",
+      "en": "Tap what your friend suggests."
      },
      "choix": [
       "好久",
       "周末",
-      "我们俩",
+      "我们",
       "聚聚"
      ],
-     "reponse": 2,
+     "reponse": 3,
      "porte": [
-      "我",
-      "们",
-      "俩"
+      "聚"
      ]
     },
     {

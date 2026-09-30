@@ -10,7 +10,10 @@
   "statut": "relu",
   "par": "le propriétaire",
   "decision": "« Go » (30 septembre 2026) : tout affiché sans relecture ligne à ligne",
-  "date": "2026-09-30"
+  "date": "2026-09-30",
+  "corrections": [
+   "le 30 septembre 2026, acquis des paliers déplacé par les décisions du propriétaire « Réconcilier les 13 » et « Poser les paires ensemble » ; réparé sur « Aller au bout », au plus court, séries laissées relues (décision « Go ») : 咖 et 啡 rejoignent 萄 (« Poser les paires ensemble »), 裤 et 苦 le tronçon suivant. A Q3, leurre « 这条裤子 » → « 这件衣服 » ; A s2, le café devient une maison de thé (红茶, 奶茶), Q4 compare le prix (价, du tronçon) du thé au lait et du thé au jasmin ; A Q5, le caractère de 苦 devient celui de 救 (du tronçon ; leurres 求 教 球). Mêmes réponses."
+  ]
  },
  "series": [
   {
@@ -62,22 +65,22 @@
      },
      "lignes": [
       {
-       "zh": "光明咖啡馆",
-       "pinyin": "guāng míng kā fēi guǎn",
-       "fr": "Café Guangming",
-       "en": "Guangming Café"
+       "zh": "光明茶馆",
+       "pinyin": "guāng míng chá guǎn",
+       "fr": "Maison de thé Guangming",
+       "en": "Guangming Teahouse"
       },
       {
-       "zh": "咖啡：二十元",
-       "pinyin": "kā fēi èr shí yuán",
-       "fr": "Café : 20 yuans",
-       "en": "Coffee: 20 yuan"
+       "zh": "红茶：二十元",
+       "pinyin": "hóng chá èr shí yuán",
+       "fr": "Thé noir : 20 yuans",
+       "en": "Black tea: 20 yuan"
       },
       {
-       "zh": "牛奶咖啡：二十五元",
-       "pinyin": "niú nǎi kā fēi èr shí wǔ yuán",
-       "fr": "Café au lait : 25 yuans",
-       "en": "White coffee: 25 yuan"
+       "zh": "奶茶：二十五元",
+       "pinyin": "nǎi chá èr shí wǔ yuán",
+       "fr": "Thé au lait : 25 yuans",
+       "en": "Milk tea: 25 yuan"
       },
       {
        "zh": "花茶：十五元",
@@ -88,10 +91,28 @@
      ],
      "glose": [
       {
-       "zh": "光明咖啡馆",
-       "pinyin": "guāng míng kā fēi guǎn",
-       "fr": "café Guangming",
-       "en": "Guangming Café"
+       "zh": "茶馆",
+       "pinyin": "chá guǎn",
+       "fr": "maison de thé",
+       "en": "teahouse"
+      },
+      {
+       "zh": "红茶",
+       "pinyin": "hóng chá",
+       "fr": "thé noir",
+       "en": "black tea"
+      },
+      {
+       "zh": "奶茶",
+       "pinyin": "nǎi chá",
+       "fr": "thé au lait",
+       "en": "milk tea"
+      },
+      {
+       "zh": "光明",
+       "pinyin": "guāng míng",
+       "fr": "Guangming (nom d'une maison de thé)",
+       "en": "Guangming (a teahouse's name)"
       }
      ]
     }
@@ -158,10 +179,10 @@
      },
      "choix": [
       {
-       "zh": "这条裤子太长了。",
-       "pinyin": "zhè tiáo kù zi tài cháng le",
-       "fr": "Ce pantalon est trop long.",
-       "en": "These trousers are too long."
+       "zh": "这件衣服太长了。",
+       "pinyin": "zhè jiàn yī fu tài cháng le",
+       "fr": "Ce vêtement est trop long.",
+       "en": "This garment is too long."
       },
       {
        "zh": "我不会做饭。",
@@ -196,18 +217,18 @@
       "en": "True or false?"
      },
      "affirmation": {
-      "zh": "牛奶咖啡比花茶贵。",
-      "pinyin": "niú nǎi kā fēi bǐ huā chá guì",
-      "fr": "Le café au lait coûte plus cher que le thé au jasmin.",
-      "en": "White coffee costs more than jasmine tea."
+      "zh": "奶茶的价格比花茶高。",
+      "pinyin": "nǎi chá de jià gé bǐ huā chá gāo",
+      "fr": "Le thé au lait coûte plus cher que le thé au jasmin.",
+      "en": "Milk tea costs more than jasmine tea."
      },
      "reponse": true,
      "porte": [
-      "咖",
-      "啡",
+      "奶",
+      "价",
       "花",
       "茶",
-      "贵"
+      "高"
      ]
     },
     {
@@ -217,20 +238,20 @@
       "en": "Which character has this meaning?"
      },
      "objet": {
-      "zh": "苦",
-      "pinyin": "kǔ",
-      "fr": "amer",
-      "en": "bitter"
+      "zh": "救",
+      "pinyin": "jiù",
+      "fr": "sauver",
+      "en": "to save"
      },
      "choix": [
-      "草",
-      "古",
-      "苦",
-      "茶"
+      "求",
+      "教",
+      "救",
+      "球"
      ],
      "reponse": 2,
      "porte": [
-      "苦"
+      "救"
      ]
     }
    ]

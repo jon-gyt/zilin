@@ -10,7 +10,10 @@
   "statut": "relu",
   "par": "le propriétaire",
   "decision": "« Go » (30 septembre 2026) : tout affiché sans relecture ligne à ligne",
-  "date": "2026-09-30"
+  "date": "2026-09-30",
+  "corrections": [
+   "le 30 septembre 2026, acquis des paliers déplacé par les décisions du propriétaire « Réconcilier les 13 » et « Poser les paires ensemble » ; réparé sur « Aller au bout », au plus court, séries laissées relues (décision « Go ») : 延 et 兄 entrent après le palier. B s2, l'élève est « encore couché » (躺, du tronçon) et demande de « déplacer » (改到) son examen de poésie (诗, du tronçon), Q3 et Q4 suivent ; leurre 兄弟 → 弟弟. Mêmes réponses."
+  ]
  },
  "series": [
   {
@@ -250,16 +253,24 @@
      },
      "lignes": [
       {
-       "zh": "王老师，我发烧了，",
-       "pinyin": "wáng lǎo shī wǒ fā shāo le",
-       "fr": "Monsieur Wang, j'ai de la fièvre :",
-       "en": "Mr Wang, I have a fever:"
+       "zh": "王老师，我发烧了，还在床上躺着，",
+       "pinyin": "wáng lǎo shī wǒ fā shāo le hái zài chuáng shang tǎng zhe",
+       "fr": "Monsieur Wang, j'ai de la fièvre, je suis encore couché :",
+       "en": "Mr Wang, I have a fever and I'm still in bed:"
       },
       {
-       "zh": "明天的考试能延到下星期吗？",
-       "pinyin": "míng tiān de kǎo shì néng yán dào xià xīng qī ma",
-       "fr": "l'examen de demain peut-il être repoussé à la semaine prochaine ?",
-       "en": "could tomorrow's exam be postponed to next week?"
+       "zh": "明天的诗歌考试能改到下星期吗？",
+       "pinyin": "míng tiān de shī gē kǎo shì néng gǎi dào xià xīng qī ma",
+       "fr": "l'examen de poésie de demain peut-il être repoussé à la semaine prochaine ?",
+       "en": "can tomorrow's poetry exam be moved to next week?"
+      }
+     ],
+     "glose": [
+      {
+       "zh": "诗歌",
+       "pinyin": "shī gē",
+       "fr": "poésie",
+       "en": "poetry"
       }
      ]
     }
@@ -343,7 +354,9 @@
      ],
      "reponse": 1,
      "porte": [
-      "延"
+      "诗",
+      "考",
+      "改"
      ]
     },
     {
@@ -361,10 +374,10 @@
        "en": "All right, get plenty of rest."
       },
       {
-       "zh": "我有两个兄弟。",
-       "pinyin": "wǒ yǒu liǎng gè xiōng dì",
-       "fr": "J'ai deux frères.",
-       "en": "I have two brothers."
+       "zh": "我有两个弟弟。",
+       "pinyin": "wǒ yǒu liǎng gè dì di",
+       "fr": "J'ai deux petits frères.",
+       "en": "I have two younger brothers."
       },
       {
        "zh": "电梯在那边。",
@@ -382,7 +395,7 @@
      "reponse": 0,
      "porte": [
       "烧",
-      "延"
+      "躺"
      ]
     },
     {

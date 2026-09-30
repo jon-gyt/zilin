@@ -10,7 +10,10 @@
   "statut": "relu",
   "par": "le propriétaire",
   "decision": "« Go » (30 septembre 2026) : tout affiché sans relecture ligne à ligne",
-  "date": "2026-09-30"
+  "date": "2026-09-30",
+  "corrections": [
+   "le 30 septembre 2026, décisions du propriétaire « Réconcilier les 13 », « Poser les paires ensemble » et « Aller au bout » : l'acquis et le tronçon du palier ont bougé avec les treize caractères et le glissement d'un jour ; le texte suit, au plus près, sans changer de statut (décision « Go ») : série B : 授 诗 释 passent au tronçon suivant ; le message va au « 王老师 », « 里面的故事很有趣， » (趣, du tronçon), « 能找个时间跟您聊聊吗？ » (聊, du tronçon) ; Q2, Q3 et Q4 suivent."
+  ]
  },
  "series": [
   {
@@ -280,16 +283,16 @@
      },
      "lignes": [
       {
-       "zh": "王教授，您的新书我读了，",
-       "pinyin": "wáng jiào shòu nín de xīn shū wǒ dú le",
+       "zh": "王老师，您的新书我读了，",
+       "pinyin": "wáng lǎo shī nín de xīn shū wǒ dú le",
        "fr": "Professeur Wang, j'ai lu votre nouveau livre :",
        "en": "Professor Wang, I've read your new book:"
       },
       {
-       "zh": "里面的诗很美，",
-       "pinyin": "lǐ mian de shī hěn měi",
-       "fr": "les poèmes sont très beaux,",
-       "en": "the poems are beautiful,"
+       "zh": "里面的故事很有趣，",
+       "pinyin": "lǐ mian de gù shi hěn yǒu qù",
+       "fr": "les histoires sont passionnantes,",
+       "en": "the stories are fascinating,"
       },
       {
        "zh": "有的地方我还不明白，",
@@ -298,10 +301,30 @@
        "en": "but there are parts I still don't understand:"
       },
       {
-       "zh": "能请您给我解释一下吗？",
-       "pinyin": "néng qǐng nín gěi wǒ jiě shì yī xià ma",
-       "fr": "pourriez-vous me les expliquer ?",
-       "en": "could you explain them to me?"
+       "zh": "能找个时间跟您聊聊吗？",
+       "pinyin": "néng zhǎo gè shí jiān gēn nín liáo liao ma",
+       "fr": "pourrions-nous en parler un moment ?",
+       "en": "could we find a time to talk about it?"
+      }
+     ],
+     "glose": [
+      {
+       "zh": "故事",
+       "pinyin": "gù shi",
+       "fr": "histoire, récit",
+       "en": "story"
+      },
+      {
+       "zh": "有趣",
+       "pinyin": "yǒu qù",
+       "fr": "intéressant, passionnant",
+       "en": "interesting, fascinating"
+      },
+      {
+       "zh": "聊聊",
+       "pinyin": "liáo liao",
+       "fr": "bavarder un peu",
+       "en": "to have a chat"
       }
      ]
     }
@@ -344,36 +367,39 @@
        "en": "Another book"
       },
       {
-       "fr": "Une explication",
-       "en": "An explanation"
+       "fr": "Une discussion",
+       "en": "A talk"
       },
       {
-       "fr": "Un rendez-vous",
-       "en": "An appointment"
+       "fr": "De l'argent",
+       "en": "Money"
       }
      ],
      "reponse": 2,
      "porte": [
-      "解",
-      "释"
+      "时",
+      "间",
+      "聊"
      ]
     },
     {
      "type": "reperer",
      "support": "s2",
      "consigne": {
-      "fr": "Touche ce qui est beau dans le livre.",
-      "en": "Tap what is beautiful in the book."
+      "fr": "Touche ce qui est passionnant dans le livre.",
+      "en": "Tap what is fascinating in the book."
      },
      "choix": [
-      "诗",
-      "教授",
+      "故事",
+      "王老师",
       "新书",
       "地方"
      ],
      "reponse": 0,
      "porte": [
-      "诗"
+      "故",
+      "事",
+      "趣"
      ]
     },
     {
@@ -411,8 +437,7 @@
      ],
      "reponse": 1,
      "porte": [
-      "解",
-      "释"
+      "聊"
      ]
     },
     {

@@ -558,7 +558,7 @@ def test_l_index_porte_le_catalogue_sans_texte(atelier: Path) -> None:
     assert par_id["mu-lan-cong-jun"]["chapitres"] == 4
     assert par_id["ye-gong-hao-long"]["motif"] == "rouleau"
     assert par_id["mei-hou-wang"]["niveaux"] == ["hsk5", "hsk6", "hsk7-9"]
-    assert par_id["xue-yi"]["niveaux"] == ["jour25"] and par_id["xue-yi"]["motif"] == "goban"
+    assert par_id["xue-yi"]["niveaux"] == ["jour26"] and par_id["xue-yi"]["motif"] == "goban"
     assert all("resume_fr" not in c for c in catalogue)  # type: ignore[union-attr]
 
 

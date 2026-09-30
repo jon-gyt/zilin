@@ -10,7 +10,10 @@
   "statut": "relu",
   "par": "le propriétaire",
   "decision": "« Go » (30 septembre 2026) : tout affiché sans relecture ligne à ligne",
-  "date": "2026-09-30"
+  "date": "2026-09-30",
+  "corrections": [
+   "le 30 septembre 2026, acquis des paliers déplacé par les décisions du propriétaire « Réconcilier les 13 » et « Poser les paires ensemble » ; réparé sur « Aller au bout », au plus court, séries laissées relues (décision « Go ») : 寒 厚 航 entrent au tronçon suivant. A s2, 寒冷 → 很冷, et « 多穿厚衣服 » → « 戴手套 » (戴, du tronçon ; Q3 suit) ; B s2, 航班 → 登机 (登, du tronçon), Q2 dit la carte d'embarquement pour Shanghai, Q4 garde sa réponse, leurre « 这本书很厚 » → « 这本书很好看 »."
+  ]
  },
  "series": [
   {
@@ -54,16 +57,30 @@
      },
      "lignes": [
       {
-       "zh": "山顶风大，天气寒冷，",
-       "pinyin": "shān dǐng fēng dà tiān qì hán lěng",
+       "zh": "山顶风大，天气很冷，",
+       "pinyin": "shān dǐng fēng dà tiān qì hěn lěng",
        "fr": "Au sommet, le vent est fort et il fait froid :",
        "en": "It's windy and cold at the summit:"
       },
       {
-       "zh": "请多穿厚衣服。",
-       "pinyin": "qǐng duō chuān hòu yī fu",
-       "fr": "couvrez-vous chaudement.",
-       "en": "please wear warm clothes."
+       "zh": "请戴手套。",
+       "pinyin": "qǐng dài shǒu tào",
+       "fr": "mettez des gants.",
+       "en": "please wear gloves."
+      }
+     ],
+     "glose": [
+      {
+       "zh": "戴",
+       "pinyin": "dài",
+       "fr": "porter (sur soi)",
+       "en": "to wear"
+      },
+      {
+       "zh": "手套",
+       "pinyin": "shǒu tào",
+       "fr": "gants",
+       "en": "gloves"
       }
      ]
     }
@@ -149,14 +166,14 @@
      "choix": [
       "山顶",
       "天气",
-      "寒冷",
-      "厚衣服"
+      "风",
+      "手套"
      ],
      "reponse": 3,
      "porte": [
-      "厚",
-      "衣",
-      "服"
+      "戴",
+      "手",
+      "套"
      ]
     },
     {
@@ -250,10 +267,10 @@
      },
      "lignes": [
       {
-       "zh": "妈妈，航班晚了两个小时，",
-       "pinyin": "mā ma háng bān wǎn le liǎng gè xiǎo shí",
-       "fr": "Maman, le vol a deux heures de retard,",
-       "en": "Mum, the flight is two hours late,"
+       "zh": "妈妈，登机晚了两个小时，",
+       "pinyin": "mā ma dēng jī wǎn le liǎng gè xiǎo shí",
+       "fr": "Maman, l'embarquement a deux heures de retard,",
+       "en": "Mum, boarding is two hours late,"
       },
       {
        "zh": "我肚子很饿，",
@@ -299,14 +316,15 @@
       "en": "True or false?"
      },
      "affirmation": {
-      "zh": "这个航班去上海。",
-      "pinyin": "zhè gè háng bān qù shàng hǎi",
-      "fr": "Ce vol va à Shanghai.",
-      "en": "This flight goes to Shanghai."
+      "zh": "这是去上海的登机牌。",
+      "pinyin": "zhè shì qù shàng hǎi de dēng jī pái",
+      "fr": "C'est une carte d'embarquement pour Shanghai.",
+      "en": "This is a boarding pass to Shanghai."
      },
      "reponse": true,
      "porte": [
-      "航",
+      "登",
+      "到",
       "上",
       "海"
      ]
@@ -370,15 +388,15 @@
        "en": "OK, take care on the way!"
       },
       {
-       "zh": "这本书很厚。",
-       "pinyin": "zhè běn shū hěn hòu",
-       "fr": "Ce livre est épais.",
-       "en": "This book is thick."
+       "zh": "这本书很好看。",
+       "pinyin": "zhè běn shū hěn hǎo kàn",
+       "fr": "Ce livre est très bien.",
+       "en": "This book is very good."
       }
      ],
      "reponse": 2,
      "porte": [
-      "航",
+      "登",
       "晚"
      ]
     },

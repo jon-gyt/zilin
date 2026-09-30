@@ -10,7 +10,10 @@
   "statut": "relu",
   "par": "le propriétaire",
   "decision": "« Go » (30 septembre 2026) : tout affiché sans relecture ligne à ligne",
-  "date": "2026-09-30"
+  "date": "2026-09-30",
+  "corrections": [
+   "le 30 septembre 2026, décisions du propriétaire « Réconcilier les 13 », « Poser les paires ensemble » et « Aller au bout » : l'acquis et le tronçon du palier ont bougé avec les treize caractères et le glissement d'un jour ; le texte suit, au plus près, sans changer de statut (décision « Go ») : série A : 鞋 sort de l'acquis ; l'affiche est celle d'un magasin de vêtements (« 东方商店 », « 夏天的新衣服到了！ ») et Q4 demande la saison (夏, du tronçon)."
+  ]
  },
  "series": [
   {
@@ -116,16 +119,16 @@
      },
      "lignes": [
       {
-       "zh": "东方鞋店",
-       "pinyin": "dōng fāng xié diàn",
-       "fr": "Chaussures Dongfang",
-       "en": "Dongfang Shoes"
+       "zh": "东方商店",
+       "pinyin": "dōng fāng shāng diàn",
+       "fr": "Magasin Dongfang",
+       "en": "Dongfang Store"
       },
       {
-       "zh": "夏天的新鞋到了！",
-       "pinyin": "xià tiān de xīn xié dào le",
+       "zh": "夏天的新衣服到了！",
+       "pinyin": "xià tiān de xīn yī fu dào le",
        "fr": "La collection d'été est arrivée !",
-       "en": "The summer range is in!"
+       "en": "The summer collection is in!"
       },
       {
        "zh": "全都八十块",
@@ -136,22 +139,10 @@
      ],
      "glose": [
       {
-       "zh": "鞋店",
-       "pinyin": "xié diàn",
-       "fr": "magasin de chaussures",
-       "en": "shoe shop"
-      },
-      {
        "zh": "夏天",
        "pinyin": "xià tiān",
        "fr": "l'été",
        "en": "summer"
-      },
-      {
-       "zh": "新鞋",
-       "pinyin": "xīn xié",
-       "fr": "chaussures neuves",
-       "en": "new shoes"
       },
       {
        "zh": "到了",
@@ -269,30 +260,30 @@
      "type": "comprendre",
      "support": "s2",
      "consigne": {
-      "fr": "Que vend ce magasin ?",
-      "en": "What does this shop sell?"
+      "fr": "Quelle collection vient d'arriver ?",
+      "en": "Which collection has just arrived?"
      },
      "choix": [
       {
-       "fr": "Des vêtements",
-       "en": "Clothes"
+       "fr": "Celle de printemps",
+       "en": "The spring one"
       },
       {
-       "fr": "Des livres",
-       "en": "Books"
+       "fr": "Celle d'automne",
+       "en": "The autumn one"
       },
       {
-       "fr": "Des fruits",
-       "en": "Fruit"
+       "fr": "Celle d'hiver",
+       "en": "The winter one"
       },
       {
-       "fr": "Des chaussures",
-       "en": "Shoes"
+       "fr": "Celle d'été",
+       "en": "The summer one"
       }
      ],
      "reponse": 3,
      "porte": [
-      "鞋"
+      "夏"
      ]
     },
     {

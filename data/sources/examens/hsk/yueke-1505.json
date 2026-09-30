@@ -10,7 +10,10 @@
   "statut": "relu",
   "par": "le propriétaire",
   "decision": "« Go » (30 septembre 2026) : tout affiché sans relecture ligne à ligne",
-  "date": "2026-09-30"
+  "date": "2026-09-30",
+  "corrections": [
+   "le 30 septembre 2026, décisions du propriétaire « Réconcilier les 13 », « Poser les paires ensemble » et « Aller au bout » : l'acquis et le tronçon du palier ont bougé avec les treize caractères et le glissement d'un jour ; le texte suit, au plus près, sans changer de statut (décision « Go ») : série A : 邻 passe au tronçon suivant ; le voisin se nomme, « 我是住在您楼上的小胡 » (胡, du tronçon), Q3 et Q4 suivent."
+  ]
  },
  "series": [
   {
@@ -92,10 +95,10 @@
      },
      "lignes": [
       {
-       "zh": "李先生，我是住在您楼上的邻居。",
-       "pinyin": "lǐ xiān sheng wǒ shì zhù zài nín lóu shàng de lín jū",
-       "fr": "Monsieur Li, je suis votre voisin du dessus.",
-       "en": "Mr Li, I'm your upstairs neighbour."
+       "zh": "李先生，我是住在您楼上的小胡。",
+       "pinyin": "lǐ xiān sheng wǒ shì zhù zài nín lóu shàng de xiǎo hú",
+       "fr": "Monsieur Li, c'est Xiao Hu, votre voisin du dessus.",
+       "en": "Mr Li, this is Xiao Hu, your upstairs neighbour."
       },
       {
        "zh": "我家下星期要装修，",
@@ -116,12 +119,6 @@
        "pinyin": "lǐ xiān sheng",
        "fr": "M. Li",
        "en": "Mr Li"
-      },
-      {
-       "zh": "邻居",
-       "pinyin": "lín jū",
-       "fr": "voisin",
-       "en": "neighbour"
       },
       {
        "zh": "下星期",
@@ -160,24 +157,6 @@
        "en": "sorry"
       },
       {
-       "zh": "写",
-       "pinyin": "xiě",
-       "fr": "écrire",
-       "en": "to write"
-      },
-      {
-       "zh": "信",
-       "pinyin": "xìn",
-       "fr": "lettre, message",
-       "en": "letter, message"
-      },
-      {
-       "zh": "的人",
-       "pinyin": "de rén",
-       "fr": "celui qui",
-       "en": "the person who"
-      },
-      {
        "zh": "没关系",
        "pinyin": "méi guān xi",
        "fr": "ce n'est pas grave",
@@ -200,6 +179,12 @@
        "pinyin": "jiàn",
        "fr": "(pour les vêtements)",
        "en": "(measure word for clothes)"
+      },
+      {
+       "zh": "小胡",
+       "pinyin": "xiǎo hú",
+       "fr": "Xiao Hu (nom)",
+       "en": "Xiao Hu (a name)"
       }
      ]
     }
@@ -265,14 +250,14 @@
       "en": "True or false?"
      },
      "affirmation": {
-      "zh": "写信的人住在李先生楼下。",
-      "pinyin": "xiě xìn de rén zhù zài lǐ xiān sheng lóu xià",
-      "fr": "La personne qui écrit habite sous chez M. Li.",
-      "en": "The writer lives below Mr Li."
+      "zh": "小胡住在李先生楼下。",
+      "pinyin": "xiǎo hú zhù zài lǐ xiān sheng lóu xià",
+      "fr": "Xiao Hu habite sous chez M. Li.",
+      "en": "Xiao Hu lives below Mr Li."
      },
      "reponse": false,
      "porte": [
-      "邻",
+      "胡",
       "楼",
       "上"
      ]
@@ -292,10 +277,10 @@
        "en": "Let's go swimming together."
       },
       {
-       "zh": "没关系，谢谢你告诉我。",
-       "pinyin": "méi guān xi xiè xie nǐ gào sù wǒ",
-       "fr": "Pas de souci, merci de me prévenir.",
-       "en": "No problem, thanks for letting me know."
+       "zh": "没关系，小胡，谢谢你告诉我。",
+       "pinyin": "méi guān xi xiǎo hú xiè xie nǐ gào sù wǒ",
+       "fr": "Pas de souci, Xiao Hu, merci de me prévenir.",
+       "en": "No problem, Xiao Hu, thanks for letting me know."
       },
       {
        "zh": "他是医生。",
@@ -312,7 +297,7 @@
      ],
      "reponse": 1,
      "porte": [
-      "邻",
+      "胡",
       "吵"
      ]
     },

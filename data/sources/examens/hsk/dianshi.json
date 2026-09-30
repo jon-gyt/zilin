@@ -10,7 +10,10 @@
   "statut": "relu",
   "par": "le propriétaire",
   "decision": "« Go » (30 septembre 2026) : tout affiché sans relecture ligne à ligne",
-  "date": "2026-09-30"
+  "date": "2026-09-30",
+  "corrections": [
+   "le 30 septembre 2026, décisions du propriétaire « Réconcilier les 13 », « Poser les paires ensemble » et « Aller au bout » : l'acquis et le tronçon du palier ont bougé avec les treize caractères et le glissement d'un jour ; le texte suit, au plus près, sans changer de statut (décision « Go ») : série A : 订 sort de l'acquis ; les billets sont achetés (买) et les chambres trouvées (找), Q2 « 他们还没有买飞机票。 », faux."
+  ]
  },
  "series": [
   {
@@ -32,10 +35,10 @@
        "en": "Next month we're going on a trip to Yunnan."
       },
       {
-       "zh": "我已经订好了飞机票和房间。",
-       "pinyin": "wǒ yǐ jīng dìng hǎo le fēi jī piào hé fáng jiān",
-       "fr": "J'ai déjà réservé l'avion et les chambres.",
-       "en": "I've already booked the flights and rooms."
+       "zh": "我已经买好了飞机票，也找好了房间。",
+       "pinyin": "wǒ yǐ jīng mǎi hǎo le fēi jī piào yě zhǎo hǎo le fáng jiān",
+       "fr": "J'ai déjà acheté les billets d'avion et trouvé les chambres.",
+       "en": "I've already bought the plane tickets and found the rooms."
       },
       {
        "zh": "一共七天，你也一起来吧！",
@@ -70,22 +73,10 @@
        "en": "already"
       },
       {
-       "zh": "订好了",
-       "pinyin": "dìng hǎo le",
-       "fr": "avoir réservé",
-       "en": "to have booked"
-      },
-      {
        "zh": "飞机票",
        "pinyin": "fēi jī piào",
        "fr": "billet d'avion",
        "en": "plane ticket"
-      },
-      {
-       "zh": "和",
-       "pinyin": "hé",
-       "fr": "et",
-       "en": "and"
       },
       {
        "zh": "房间",
@@ -104,12 +95,6 @@
        "pinyin": "qī tiān",
        "fr": "sept jours",
        "en": "seven days"
-      },
-      {
-       "zh": "订",
-       "pinyin": "dìng",
-       "fr": "réserver",
-       "en": "to book"
       },
       {
        "zh": "好啊",
@@ -324,16 +309,16 @@
       "en": "True or false?"
      },
      "affirmation": {
-      "zh": "他们还没有订飞机票。",
-      "pinyin": "tā men hái méi yǒu dìng fēi jī piào",
-      "fr": "Ils n'ont pas encore réservé l'avion.",
-      "en": "They haven't booked the flights yet."
+      "zh": "他们还没有买飞机票。",
+      "pinyin": "tā men hái méi yǒu mǎi fēi jī piào",
+      "fr": "Ils n'ont pas encore acheté les billets d'avion.",
+      "en": "They haven't bought the plane tickets yet."
      },
      "reponse": false,
      "porte": [
       "已",
       "经",
-      "订"
+      "买"
      ]
     },
     {

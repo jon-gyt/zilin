@@ -10,7 +10,10 @@
   "statut": "relu",
   "par": "le propriétaire",
   "decision": "« Go » (30 septembre 2026) : tout affiché sans relecture ligne à ligne",
-  "date": "2026-09-30"
+  "date": "2026-09-30",
+  "corrections": [
+   "le 30 septembre 2026, acquis des paliers déplacé par les décisions du propriétaire « Réconcilier les 13 » et « Poser les paires ensemble » ; réparé sur « Aller au bout », au plus court, séries laissées relues (décision « Go ») : 盒 et 猴 entrent au tronçon suivant. A s2, l'enfant a perdu son chapeau (帽子) et non sa boîte-repas (Q3 suit, même place) ; A Q5, le caractère de 猴 devient celui de 洞 (du tronçon ; leurres 同 河 洗) ; B s2 et Q3, 一盒 → 一包. Mêmes réponses."
+  ]
  },
  "series": [
   {
@@ -86,15 +89,15 @@
      },
      "lignes": [
       {
-       "zh": "妈妈，我的饭盒丢了，",
-       "pinyin": "mā ma wǒ de fàn hé diū le",
-       "fr": "Maman, j'ai perdu ma boîte-repas,",
-       "en": "Mum, I've lost my lunch box,"
+       "zh": "妈妈，我的帽子丢了，",
+       "pinyin": "mā ma wǒ de mào zi diū le",
+       "fr": "Maman, j'ai perdu mon chapeau,",
+       "en": "Mum, I've lost my hat,"
       },
       {
        "zh": "可能在学校的柜子里。",
        "pinyin": "kě néng zài xué xiào de guì zi lǐ",
-       "fr": "elle est peut-être dans mon casier à l'école.",
+       "fr": "il est peut-être dans mon casier à l'école.",
        "en": "it might be in my locker at school."
       },
       {
@@ -105,12 +108,6 @@
       }
      ],
      "glose": [
-      {
-       "zh": "饭盒",
-       "pinyin": "fàn hé",
-       "fr": "boîte-repas",
-       "en": "lunch box"
-      },
       {
        "zh": "丢",
        "pinyin": "diū",
@@ -224,14 +221,13 @@
        "en": "His bag"
       },
       {
-       "fr": "Sa boîte-repas",
-       "en": "His lunch box"
+       "fr": "Son chapeau",
+       "en": "His hat"
       }
      ],
      "reponse": 3,
      "porte": [
-      "饭",
-      "盒",
+      "帽",
       "丢"
      ]
     },
@@ -282,20 +278,20 @@
       "en": "Which character has this meaning?"
      },
      "objet": {
-      "zh": "猴",
-      "pinyin": "hóu",
-      "fr": "singe",
-      "en": "monkey"
+      "zh": "洞",
+      "pinyin": "dòng",
+      "fr": "trou",
+      "en": "hole"
      },
      "choix": [
-      "候",
-      "狗",
-      "猴",
-      "猫"
+      "同",
+      "河",
+      "洞",
+      "洗"
      ],
      "reponse": 2,
      "porte": [
-      "猴"
+      "洞"
      ]
     }
    ]
@@ -373,10 +369,10 @@
        "en": "Xiao Wang: I'm back from Germany,"
       },
       {
-       "zh": "给你带了一盒巧克力，",
-       "pinyin": "gěi nǐ dài le yī hé qiǎo kè lì",
-       "fr": "je t'ai rapporté une boîte de chocolats,",
-       "en": "I brought you a box of chocolates,"
+       "zh": "给你带了一包巧克力，",
+       "pinyin": "gěi nǐ dài le yī bāo qiǎo kè lì",
+       "fr": "je t'ai rapporté un paquet de chocolats,",
+       "en": "I brought you a packet of chocolates,"
       },
       {
        "zh": "放在你桌子上了。",
@@ -399,10 +395,10 @@
        "en": "to bring"
       },
       {
-       "zh": "一盒",
-       "pinyin": "yī hé",
-       "fr": "une boîte",
-       "en": "a box"
+       "zh": "一包",
+       "pinyin": "yī bāo",
+       "fr": "un paquet",
+       "en": "a packet"
       },
       {
        "zh": "巧克力",
@@ -508,17 +504,17 @@
       "en": "True or false?"
      },
      "affirmation": {
-      "zh": "小王有一盒蛋糕。",
-      "pinyin": "xiǎo wáng yǒu yī hé dàn gāo",
-      "fr": "Xiao Wang a une boîte de gâteaux.",
-      "en": "Xiao Wang has a box of cakes."
+      "zh": "小王有一包蛋糕。",
+      "pinyin": "xiǎo wáng yǒu yī bāo dàn gāo",
+      "fr": "Xiao Wang a un paquet de gâteaux.",
+      "en": "Xiao Wang has a packet of cakes."
      },
      "reponse": false,
      "porte": [
-      "盒",
       "巧",
       "克",
-      "力"
+      "力",
+      "糕"
      ]
     },
     {
@@ -557,8 +553,7 @@
      "reponse": 3,
      "porte": [
       "德",
-      "带",
-      "盒"
+      "带"
      ]
     },
     {

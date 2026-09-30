@@ -13,9 +13,11 @@ import {
   libelleNiveau,
   lireNiveau,
   lireNiveaux,
+  niveauRenomme,
   nomNiveau,
   plusHaut,
-  rangNiveau
+  rangNiveau,
+  tropheeRenomme
 } from './niveaux';
 
 describe('les niveaux des contes', () => {
@@ -70,5 +72,14 @@ describe('les niveaux des contes', () => {
     expect(nomNiveau('jour25')).toBe('jour 25 du chemin');
     expect(auNiveau('jour25')).toBe('au jour 25 du chemin');
     expect(duNiveau('jour25')).toBe('du jour 25 du chemin');
+  });
+
+  it('les fables du chemin glissées d’un jour gardent ce qu’une progression en a noté', () => {
+    /* Décision du propriétaire du 30 septembre 2026 : 冖 s'insère au jour 13 du chemin Lire. */
+    expect(['jour25', 'jour44', 'jour60'].map(niveauRenomme)).toEqual(['jour26', 'jour45', 'jour61']);
+    for (const n of ['jour26', 'jour7', '255', 'hsk7-9']) expect(niveauRenomme(n)).toBe(n);
+    expect(tropheeRenomme('conte-xue-yi-jour25')).toBe('conte-xue-yi-jour26');
+    expect(tropheeRenomme('conte-lievre-hsk7-9')).toBe('conte-lievre-hsk7-9');
+    expect(tropheeRenomme('lire-25')).toBe('lire-25');
   });
 });

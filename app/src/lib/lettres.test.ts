@@ -62,7 +62,11 @@ function avecCartes(p: Progress, caracteres: Iterable<string>): Progress {
 describe("l'export des lettres", () => {
   it('les douze lettres sont servies, relues ou à relire, dans l\'ordre du feuilleton', () => {
     expect(TOUTES.map((l) => l.n)).toEqual([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]);
-    expect(TOUTES.map((l) => l.jour)).toEqual(TOUTES.map((l) => 7 * l.n));
+    /* La lettre n suit l'acquis du jour 7n ; depuis que 冖 s'insère seul au jour 13 (décision
+       du propriétaire du 30 septembre 2026), 7n + 1 dès la lettre 2. */
+    const index = lire('index.json') as { parcours: { lire: { jours: { brique: string | null }[] } } };
+    const insere = index.parcours.lire.jours[12]?.brique === '冖';
+    expect(TOUTES.map((l) => l.jour)).toEqual(TOUTES.map((l) => (insere && l.n > 1 ? 7 * l.n + 1 : 7 * l.n)));
     /* Une lettre à relire ne vient que de l'aperçu, et y porte sa marque. */
     for (const l of TOUTES) {
       expect(l.statut === 'a_relire').toBe(!SERVIES.some((x) => x.n === l.n));

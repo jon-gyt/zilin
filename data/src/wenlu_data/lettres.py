@@ -1,9 +1,9 @@
 """Les lettres de Que (story 4b.8) : un feuilleton hebdomadaire écrit avec l'acquis.
 
 Que 雀, le moineau ami de Tao, écrit à l'apprenant une lettre par semaine, douze en tout.
-La lettre n n'emploie que les caractères que le parcours Lire a posés au jour 7n : la
-lettre 1 se lit avec les quatorze caractères de la première semaine, la lettre 12 avec
-les 109 du jour 84. Chaque lettre est courte (40 à 120 sinogrammes), suit le voyage de
+La lettre n n'emploie que les caractères que le parcours Lire a posés au jour 7n, un jour
+plus tard à partir de la lettre 2 (`jour_de_lettre`) : la lettre 1 se lit avec les
+quatorze caractères de la première semaine, la lettre 12 avec les 110 du jour 85. Chaque lettre est courte (40 à 120 sinogrammes), suit le voyage de
 Que et finit par une question à laquelle on répond d'un mot.
 
 Le circuit est celui des contes (`contes.py`), sans API :
@@ -11,7 +11,7 @@ Le circuit est celui des contes (`contes.py`), sans API :
 - le fil, `data/sources/lettres/feuilleton.tsv` : une ligne par lettre, son titre
   français et anglais et ce qui s'y passe ;
 - un rédacteur (un agent Claude Code dans sa session, sans clé ni réseau) lit
-  `wenlu lettres contexte <n>` — les caractères du jour 7n, les lettres d'avant, les
+  `wenlu lettres contexte <n>` — les caractères du jour de la lettre, les lettres d'avant, les
   contraintes —, écrit `data/sources/lettres-brouillons/<nn>.json` : `lettre`,
   `phrases` `[{zh, pinyin, fr, en}]`, `glose` `[{zh, pinyin, fr, en}]` ;
 - `wenlu lettres importer` le valide et écrit `data/sources/lettres-versions/<nn>.json`,
@@ -25,7 +25,7 @@ Le circuit est celui des contes (`contes.py`), sans API :
 - `wenlu export` n'écrit dans `lettres.json` que les lettres relues ; celles à relire
   vont dans `apercu/lettres.json`, que l'app ne lit qu'en mode relecture.
 
-Validation (`valider`) : un caractère hors de l'acquis du jour 7n est un rejet. Le reste
+Validation (`valider`) : un caractère hors de l'acquis du jour de la lettre est un rejet. Le reste
 est vérifié par `wenlu check`, bloquant : le pinyin (une syllabe par sinogramme, tons du
 dictionnaire sans sandhi, chaque syllabe une lecture du caractère selon Unihan, Make Me a
 Hanzi et les surcharges), la glose (chaque sinogramme couvert tel que le lecteur découpe,
@@ -86,8 +86,13 @@ RELECTURE = WORK / "relecture-lettres.json"
 
 #: Le parcours dont les lettres suivent l'acquis.
 PARCOURS = "lire"
-#: Une lettre par semaine : la lettre n suit l'acquis du jour `SEMAINE * n`.
+#: Une lettre par semaine : la lettre n suit l'acquis du jour `SEMAINE * n`, décalé par
+#: `JOUR_INSERE`.
 SEMAINE = 7
+#: Le jour inséré dans le chemin Lire : 冖, posé seul avant 学 (décision du propriétaire du
+#: 30 septembre 2026, « Réconcilier les 13 »). Les jours 13 à 131 d'avant ont glissé d'un
+#: jour, et chaque lettre qui les suivait avec eux : elle garde son acquis, pas son numéro.
+JOUR_INSERE = 13
 #: Douze lettres pour le seuil 255 (backlog 4b.8).
 NOMBRE = 12
 #: Longueur d'une lettre, en sinogrammes, ponctuation non comprise (`docs/jeux.md`).
@@ -144,8 +149,12 @@ class Episode:
 
 
 def jour_de_lettre(n: int) -> int:
-    """Le jour du parcours dont la lettre n suit l'acquis : 7, 14… 84."""
-    return SEMAINE * n
+    """Le jour du parcours dont la lettre n suit l'acquis : 7, puis 15, 22… 85.
+
+    La lettre n suivait l'acquis du jour 7n ; depuis le jour inséré (`JOUR_INSERE`), ce qui
+    était posé au jour 7n l'est au jour 7n + 1 dès que 7n atteint ce jour-là."""
+    jour = SEMAINE * n
+    return jour + 1 if jour >= JOUR_INSERE else jour
 
 
 def nom_de_lettre(n: int) -> str:
@@ -201,8 +210,8 @@ def poses_par_jour(parcours: Mapping[str, object]) -> list[tuple[int, str]]:
     """Les caractères qu'un parcours pose, avec leur jour, dans l'ordre : brique puis composés.
 
     Un jour de fermeture (`non_reconcilie`) ne pose rien : la session le saute. Depuis que
-    chaque étape du chemin se ferme par ses non réconciliés (30 septembre 2026), 兴 au jour
-    190 du chemin Lire, ces jours tombent au milieu du chemin, et rien ne doit les lire.
+    chaque étape du chemin se ferme par ses non réconciliés (30 septembre 2026), 敢 et 展 au
+    jour 470 du chemin Lire, ces jours tombent au milieu du chemin, et rien ne doit les lire.
     """
     out: list[tuple[int, str]] = []
     vus: set[str] = set()
@@ -587,7 +596,8 @@ def contraintes() -> str:
     """Ce que `wenlu lettres importer` et `wenlu check` vérifient."""
     return f"""Contraintes.
 Rejet, à l'import :
-- chaque phrases[].zh : les seuls caractères posés par le parcours {PARCOURS} au jour 7n, \
+- chaque phrases[].zh : les seuls caractères posés par le parcours {PARCOURS} au jour de \
+la lettre (7n, 7n + 1 dès la lettre 2), \
 et la ponctuation {PONCTUATION_CHINOISE} (paroles entre 「」) ; ni chiffre, ni lettre, \
 aucun autre caractère, même dans un nom propre.
 Écarts, bloquants dans `wenlu check` :
@@ -773,7 +783,7 @@ def controles(
     """Contrôles des lettres, pour `wenlu check`. Bloquants, sauf la relecture et le HSK.
 
     « acquis du jour » : aucune lettre n'emploie un caractère que le parcours Lire n'a pas
-    posé au jour 7n. « feuilleton » : douze lettres, chacune dans le fil, chaque brouillon
+    posé au jour de la lettre (`jour_de_lettre`). « feuilleton » : douze lettres, chacune dans le fil, chaque brouillon
     importé tel qu'il est écrit. « pinyin », « glose », « forme » : voir `valider`.
     « export » : `lettres.json` porte exactement les lettres relues, `apercu/lettres.json`
     exactement celles à relire, marquées. « relecture » compte ce qui reste à relire.
@@ -888,7 +898,7 @@ def controles(
         Controle(
             "lettres : acquis du jour",
             not f_acq,
-            detail(f_acq, f"chaque lettre n'emploie que l'acquis du parcours {PARCOURS} au jour 7n")
+            detail(f_acq, f"chaque lettre n'emploie que l'acquis du parcours {PARCOURS} au jour de la lettre")
             if parcours is not None
             else "aucun parcours construit : lancer `wenlu build`",
             bloquant=True,
@@ -957,14 +967,14 @@ def _parcours_ou_sortie() -> dict[str, object]:
 
 @app.command("contexte")
 def commande_contexte(n: list[int] = typer.Argument(..., help="Numéro de la lettre, 1 à 12.")) -> None:
-    """Affiche l'acquis du jour 7n, les lettres d'avant, les contraintes et le squelette du brouillon."""
+    """Affiche l'acquis du jour de la lettre, les lettres d'avant, les contraintes et le squelette du brouillon."""
     parcours = _parcours_ou_sortie()
     fil = charger_feuilleton()
     ecrites = lettres()
     for numero in n:
         ep = episode(numero, fil)
         autorises = acquis_au_jour(ep.jour, parcours)
-        avant = set(acquis_au_jour(ep.jour - SEMAINE, parcours))
+        avant = set(acquis_au_jour(jour_de_lettre(ep.n - 1), parcours))
         for ligne in decrire_contexte(
             ep,
             autorises,

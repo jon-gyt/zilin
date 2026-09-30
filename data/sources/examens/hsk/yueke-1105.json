@@ -10,7 +10,10 @@
   "statut": "relu",
   "par": "le propriétaire",
   "decision": "« Go » (30 septembre 2026) : tout affiché sans relecture ligne à ligne",
-  "date": "2026-09-30"
+  "date": "2026-09-30",
+  "corrections": [
+   "le 30 septembre 2026, décisions du propriétaire « Réconcilier les 13 », « Poser les paires ensemble » et « Aller au bout » : l'acquis et le tronçon du palier ont bougé avec les treize caractères et le glissement d'un jour ; le texte suit, au plus près, sans changer de statut (décision « Go ») : 担 薄 袋 淡 passent au tronçon suivant : série A, Q2 « 没关系，你好好照顾她吧。 » et un leurre refait, Q5 porte sur 粗 ; série B, un leurre de Q3 refait, Q5 porte sur 抱."
+  ]
  },
  "series": [
   {
@@ -42,6 +45,20 @@
        "pinyin": "bù néng qù shàng bān le",
        "fr": "et je ne peux pas venir au travail.",
        "en": "so I can't come to work."
+      }
+     ],
+     "glose": [
+      {
+       "zh": "个子",
+       "pinyin": "gè zi",
+       "fr": "taille (d'une personne)",
+       "en": "height (of a person)"
+      },
+      {
+       "zh": "矮",
+       "pinyin": "ǎi",
+       "fr": "petit (de taille)",
+       "en": "short"
       }
      ]
     },
@@ -136,16 +153,16 @@
        "en": "The sports ground is behind the school."
       },
       {
-       "zh": "我的口袋里没有钱。",
-       "pinyin": "wǒ de kǒu dài lǐ méi yǒu qián",
-       "fr": "Je n'ai pas d'argent dans ma poche.",
-       "en": "I've no money in my pocket."
+       "zh": "他的个子很矮。",
+       "pinyin": "tā de gè zi hěn ǎi",
+       "fr": "Il est petit de taille.",
+       "en": "He's short."
       },
       {
-       "zh": "没关系，你别担心工作。",
-       "pinyin": "méi guān xi nǐ bié dān xīn gōng zuò",
-       "fr": "Pas de souci, ne t'inquiète pas pour le travail.",
-       "en": "That's fine, don't worry about work."
+       "zh": "没关系，你好好照顾她吧。",
+       "pinyin": "méi guān xi nǐ hǎo hǎo zhào gù tā ba",
+       "fr": "Pas de souci, occupe-toi bien d'elle.",
+       "en": "No problem, take good care of her."
       },
       {
        "zh": "西瓜很甜。",
@@ -206,15 +223,15 @@
       "en": "What does this character mean?"
      },
      "objet": {
-      "zh": "薄",
-      "pinyin": "báo",
-      "fr": "mince",
-      "en": "thin"
+      "zh": "粗",
+      "pinyin": "cū",
+      "fr": "épais",
+      "en": "thick"
      },
      "choix": [
       {
-       "fr": "épais",
-       "en": "thick"
+       "fr": "mince",
+       "en": "thin"
       },
       {
        "fr": "lourd",
@@ -225,13 +242,13 @@
        "en": "hot"
       },
       {
-       "fr": "mince",
-       "en": "thin"
+       "fr": "épais",
+       "en": "thick"
       }
      ],
      "reponse": 3,
      "porte": [
-      "薄"
+      "粗"
      ]
     }
    ]
@@ -363,10 +380,10 @@
        "en": "Her husband is very tall."
       },
       {
-       "zh": "这个口袋太小了。",
-       "pinyin": "zhè gè kǒu dài tài xiǎo le",
-       "fr": "Cette poche est trop petite.",
-       "en": "This pocket is too small."
+       "zh": "这个包太小了。",
+       "pinyin": "zhè gè bāo tài xiǎo le",
+       "fr": "Ce sac est trop petit.",
+       "en": "This bag is too small."
       },
       {
        "zh": "我喜欢学历史。",
@@ -413,20 +430,20 @@
       "en": "Which character has this meaning?"
      },
      "objet": {
-      "zh": "淡",
-      "pinyin": "dàn",
-      "fr": "fade, peu salé",
-      "en": "bland"
+      "zh": "抱",
+      "pinyin": "bào",
+      "fr": "prendre dans ses bras",
+      "en": "to hug"
      },
      "choix": [
-      "谈",
-      "没",
-      "淡",
-      "法"
+      "跑",
+      "包",
+      "抱",
+      "饱"
      ],
      "reponse": 2,
      "porte": [
-      "淡"
+      "抱"
      ]
     }
    ]

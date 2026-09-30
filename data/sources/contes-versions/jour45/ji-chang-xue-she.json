@@ -1,8 +1,14 @@
 {
  "conte": "ji-chang-xue-she",
- "seuil": "jour44",
- "ouvrage": "《列子·汤问》",
- "titre": {"zh": "见小如大", "pinyin": "jiàn xiǎo rú dà"},
+ "seuil": "jour45",
+ "titre": "见小如大",
+ "titre_pinyin": "jiàn xiǎo rú dà",
+ "titre_fr": "Ji Chang apprend le tir à l'arc",
+ "titre_en": "Ji Chang Learns Archery",
+ "source": {
+  "ouvrage": "《列子·汤问》",
+  "resume_fr": "Pour apprendre le tir à l'arc, Ji Chang s'exerce d'abord à voir le petit comme le grand, fixe un pou jusqu'à le voir grand comme une roue de char, puis le transperce d'une flèche en plein cœur."
+ },
  "phrases": [
   {
    "zh": "古有一人，学弓箭。",
@@ -47,33 +53,133 @@
    "en": "He drew his bow, and the arrow struck the louse right through the heart."
   }
  ],
- "glose": [
-  {"zh": "见", "pinyin": "jiàn", "fr": "voir", "en": "see"},
-  {"zh": "小", "pinyin": "xiǎo", "fr": "petit", "en": "small"},
-  {"zh": "如", "pinyin": "rú", "fr": "comme", "en": "like"},
-  {"zh": "大", "pinyin": "dà", "fr": "grand", "en": "big"},
-  {"zh": "古", "pinyin": "gǔ", "fr": "autrefois", "en": "long ago"},
-  {"zh": "有", "pinyin": "yǒu", "fr": "il y a", "en": "there is"},
-  {"zh": "一", "pinyin": "yī", "fr": "un", "en": "one"},
-  {"zh": "人", "pinyin": "rén", "fr": "homme", "en": "man"},
-  {"zh": "学", "pinyin": "xué", "fr": "apprendre", "en": "learn"},
-  {"zh": "弓箭", "pinyin": "gōng jiàn", "fr": "arc et flèches", "en": "bow and arrows"},
-  {"zh": "先", "pinyin": "xiān", "fr": "d'abord", "en": "first"},
-  {"zh": "其人", "pinyin": "qí rén", "fr": "cet homme", "en": "the man"},
-  {"zh": "每日", "pinyin": "měi rì", "fr": "chaque jour", "en": "every day"},
-  {"zh": "虱子", "pinyin": "shī zi", "fr": "pou", "en": "louse"},
-  {"zh": "十日", "pinyin": "shí rì", "fr": "dix jours", "en": "ten days"},
-  {"zh": "米", "pinyin": "mǐ", "fr": "grain de riz", "en": "grain of rice"},
-  {"zh": "又", "pinyin": "yòu", "fr": "encore", "en": "again"},
-  {"zh": "几十日", "pinyin": "jǐ shí rì", "fr": "des dizaines de jours", "en": "dozens of days"},
-  {"zh": "车", "pinyin": "chē", "fr": "char", "en": "cart"},
-  {"zh": "山", "pinyin": "shān", "fr": "montagne", "en": "mountain"},
-  {"zh": "开弓", "pinyin": "kāi gōng", "fr": "bander l'arc", "en": "draw the bow"},
-  {"zh": "箭", "pinyin": "jiàn", "fr": "flèche", "en": "arrow"},
-  {"zh": "中", "pinyin": "zhòng", "fr": "atteindre", "en": "hit"},
-  {"zh": "其", "pinyin": "qí", "fr": "son", "en": "its"},
-  {"zh": "心", "pinyin": "xīn", "fr": "cœur", "en": "heart"}
- ],
+ "glose": {
+  "见": {
+   "pinyin": "jiàn",
+   "fr": "voir",
+   "en": "see"
+  },
+  "小": {
+   "pinyin": "xiǎo",
+   "fr": "petit",
+   "en": "small"
+  },
+  "如": {
+   "pinyin": "rú",
+   "fr": "comme",
+   "en": "like"
+  },
+  "大": {
+   "pinyin": "dà",
+   "fr": "grand",
+   "en": "big"
+  },
+  "古": {
+   "pinyin": "gǔ",
+   "fr": "autrefois",
+   "en": "long ago"
+  },
+  "有": {
+   "pinyin": "yǒu",
+   "fr": "il y a",
+   "en": "there is"
+  },
+  "一": {
+   "pinyin": "yī",
+   "fr": "un",
+   "en": "one"
+  },
+  "人": {
+   "pinyin": "rén",
+   "fr": "homme",
+   "en": "man"
+  },
+  "学": {
+   "pinyin": "xué",
+   "fr": "apprendre",
+   "en": "learn"
+  },
+  "弓箭": {
+   "pinyin": "gōng jiàn",
+   "fr": "arc et flèches",
+   "en": "bow and arrows"
+  },
+  "先": {
+   "pinyin": "xiān",
+   "fr": "d'abord",
+   "en": "first"
+  },
+  "其人": {
+   "pinyin": "qí rén",
+   "fr": "cet homme",
+   "en": "the man"
+  },
+  "每日": {
+   "pinyin": "měi rì",
+   "fr": "chaque jour",
+   "en": "every day"
+  },
+  "虱子": {
+   "pinyin": "shī zi",
+   "fr": "pou",
+   "en": "louse"
+  },
+  "十日": {
+   "pinyin": "shí rì",
+   "fr": "dix jours",
+   "en": "ten days"
+  },
+  "米": {
+   "pinyin": "mǐ",
+   "fr": "grain de riz",
+   "en": "grain of rice"
+  },
+  "又": {
+   "pinyin": "yòu",
+   "fr": "encore",
+   "en": "again"
+  },
+  "几十日": {
+   "pinyin": "jǐ shí rì",
+   "fr": "des dizaines de jours",
+   "en": "dozens of days"
+  },
+  "车": {
+   "pinyin": "chē",
+   "fr": "char",
+   "en": "cart"
+  },
+  "山": {
+   "pinyin": "shān",
+   "fr": "montagne",
+   "en": "mountain"
+  },
+  "开弓": {
+   "pinyin": "kāi gōng",
+   "fr": "bander l'arc",
+   "en": "draw the bow"
+  },
+  "箭": {
+   "pinyin": "jiàn",
+   "fr": "flèche",
+   "en": "arrow"
+  },
+  "中": {
+   "pinyin": "zhòng",
+   "fr": "atteindre",
+   "en": "hit"
+  },
+  "其": {
+   "pinyin": "qí",
+   "fr": "son",
+   "en": "its"
+  },
+  "心": {
+   "pinyin": "xīn",
+   "fr": "cœur",
+   "en": "heart"
+  }
+ },
  "expliques": [
   {
    "zh": "弓",
@@ -99,5 +205,14 @@
    "explication_fr": "Un pou, l'insecte minuscule que l'élève fixe du regard jour après jour, jusqu'à le voir immense.",
    "explication_en": "A louse, the tiny insect the student stares at day after day, until it looks huge."
   }
- ]
+ ],
+ "generation": {
+  "modele": "rédaction manuelle",
+  "api": "session Claude Code (sans API)",
+  "date": "2026-09-26",
+  "empreinte_invite": "sha256:3fc86a9fd32560da3036ea934b2ff284ff58baa235fcd89a3ed69bd2769c4cdf",
+  "essais": 1,
+  "intrus": []
+ },
+ "statut": "relu"
 }

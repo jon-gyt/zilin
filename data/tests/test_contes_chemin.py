@@ -26,7 +26,7 @@ from wenlu_data.contes import (
 from test_contes import CONTE, generation_de_test, ligne_catalogue, reponse
 
 #: Les jours du chemin des fables de première lecture du dépôt.
-CHEMIN = {"jour25", "jour44", "jour60"}
+CHEMIN = {"jour26", "jour45", "jour61"}
 
 JOURS = {"人": 1, "大": 2, "天": 3, "山": 3, "水": 4, "日": 5, "月": 5}
 
@@ -127,8 +127,9 @@ def test_le_critere_d_une_fable_du_chemin() -> None:
 
 def test_les_fables_du_chemin_du_depot_s_ouvrent_tot() -> None:
     """L'une s'ouvre avant le jour 28 (de 30 à 50 caractères), les autres entre les jours 30
-    et 60 (de 40 à 60) ; trois caractères expliqués au plus, relues, sans écart ; chacune
-    s'ouvre au jour de son niveau."""
+    et 60 (de 40 à 60), un jour plus tard depuis que 冖 s'insère au jour 13 (décision du
+    propriétaire du 30 septembre 2026) ; trois caractères expliqués au plus, relues, sans
+    écart ; chacune s'ouvre au jour de son niveau."""
     jours = contes.jours_du_chemin()
     par_id = {c.id: c for c in charger_catalogue()}
     versions = {
@@ -145,5 +146,8 @@ def test_les_fables_du_chemin_du_depot_s_ouvrent_tot() -> None:
         assert 1 <= len(rapport.expliques) <= contes.MAX_EXPLIQUES
         assert contes.ecarts_de_jour(version, jours) == []
         ouvertures[identifiant] = (contes.jour_du_niveau(version.seuil), contes.longueur(version.phrases))
-    assert ouvertures == {"xue-yi": (25, 46), "ji-chang-xue-she": (44, 56), "yi-lin-dao-fu": (60, 58)}
+    assert ouvertures == {"xue-yi": (26, 46), "ji-chang-xue-she": (45, 56), "yi-lin-dao-fu": (61, 58)}
+    # Les anciens noms, que l'app relit dans une progression d'avant sous les nouveaux
+    # (`app/src/lib/niveaux.ts`, `niveauRenomme`), ne reviennent jamais au catalogue.
+    assert not {"jour25", "jour44", "jour60"} & {n for c in par_id.values() for n in c.niveaux}
     assert contes.controle_critere(list(par_id.values()), versions=list(versions.values())).ok

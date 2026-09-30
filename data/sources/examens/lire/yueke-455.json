@@ -10,7 +10,10 @@
   "statut": "relu",
   "par": "le propriétaire",
   "decision": "« Go » (30 septembre 2026) : tout affiché sans relecture ligne à ligne",
-  "date": "2026-09-30"
+  "date": "2026-09-30",
+  "corrections": [
+   "le 30 septembre 2026, acquis des paliers déplacé par les décisions du propriétaire « Réconcilier les 13 » et « Poser les paires ensemble » ; réparé sur « Aller au bout », au plus court, séries laissées relues (décision « Go ») : 唱 et 元 entrent après le palier, et 元 ne porte plus le tronçon. A Q3, leurre 唱歌 → 睡觉 ; B s1, « 一百元 » → « 一百块，送一个球 », Q2 dit aussi la balle offerte (送, du tronçon) ; B s2, la petite sœur ne chante plus, elle court partout (跑来跑去, 跑 du tronçon), Q3 et Q4 suivent. Mêmes questions, mêmes réponses."
+  ]
  },
  "series": [
   {
@@ -127,10 +130,10 @@
      },
      "choix": [
       {
-       "zh": "我妹妹喜欢唱歌。",
-       "pinyin": "wǒ mèi mei xǐ huan chàng gē",
-       "fr": "Ma petite sœur aime chanter.",
-       "en": "My little sister likes singing."
+       "zh": "我妹妹喜欢睡觉。",
+       "pinyin": "wǒ mèi mei xǐ huan shuì jiào",
+       "fr": "Ma petite sœur aime dormir.",
+       "en": "My little sister likes sleeping."
       },
       {
        "zh": "我姐姐在学校。",
@@ -228,10 +231,10 @@
        "en": "Every Wednesday at 4 pm"
       },
       {
-       "zh": "一个月一百元",
-       "pinyin": "yī gè yuè yī bǎi yuán",
-       "fr": "100 yuans par mois",
-       "en": "100 yuan a month"
+       "zh": "一个月一百块，送一个球",
+       "pinyin": "yī gè yuè yī bǎi kuài sòng yī gè qiú",
+       "fr": "100 yuans par mois, une balle offerte",
+       "en": "100 yuan a month, a free ball"
       }
      ]
     },
@@ -256,10 +259,24 @@
        "en": "so no TV for me tonight."
       },
       {
-       "zh": "你别唱歌，好吗？",
-       "pinyin": "nǐ bié chàng gē hǎo ma",
-       "fr": "Tu veux bien ne pas chanter ?",
-       "en": "Could you not sing, please?"
+       "zh": "你别跑来跑去，好吗？",
+       "pinyin": "nǐ bié pǎo lái pǎo qù hǎo ma",
+       "fr": "Tu veux bien ne pas courir partout ?",
+       "en": "Could you please not run around?"
+      }
+     ],
+     "glose": [
+      {
+       "zh": "跑来跑去",
+       "pinyin": "pǎo lái pǎo qù",
+       "fr": "courir partout",
+       "en": "to run around"
+      },
+      {
+       "zh": "跑",
+       "pinyin": "pǎo",
+       "fr": "courir",
+       "en": "to run"
       }
      ]
     }
@@ -304,15 +321,16 @@
       "en": "True or false?"
      },
      "affirmation": {
-      "zh": "一个月一百块钱。",
-      "pinyin": "yī gè yuè yī bǎi kuài qián",
-      "fr": "C'est cent yuans par mois.",
-      "en": "It's a hundred yuan a month."
+      "zh": "一个月一百块钱，还送一个球。",
+      "pinyin": "yī gè yuè yī bǎi kuài qián hái sòng yī gè qiú",
+      "fr": "C'est cent yuans par mois, avec une balle offerte.",
+      "en": "It's a hundred yuan a month, with a free ball."
      },
      "reponse": true,
      "porte": [
       "百",
-      "元"
+      "块",
+      "送"
      ]
     },
     {
@@ -326,7 +344,7 @@
       "妹妹",
       "考试",
       "电视",
-      "唱歌"
+      "跑来跑去"
      ],
      "reponse": 1,
      "porte": [
@@ -349,10 +367,10 @@
        "en": "My grandpa is eighty."
       },
       {
-       "zh": "好，我不唱了。",
-       "pinyin": "hǎo wǒ bù chàng le",
-       "fr": "D'accord, je ne chante plus.",
-       "en": "OK, I'll stop singing."
+       "zh": "好，我不跑了。",
+       "pinyin": "hǎo wǒ bù pǎo le",
+       "fr": "D'accord, je ne cours plus.",
+       "en": "OK, I'll stop running."
       },
       {
        "zh": "我的球在哪里？",
@@ -369,7 +387,7 @@
      ],
      "reponse": 1,
      "porte": [
-      "唱"
+      "跑"
      ]
     },
     {

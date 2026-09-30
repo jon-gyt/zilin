@@ -13,7 +13,8 @@
   "date": "2026-09-28",
   "reduction": "le 29 septembre 2026, décision du propriétaire « 10 et 5 » : chaque série ramenée à 10 questions (examen à titre) ou 5 (月课), prises parmi les questions relues, sans texte nouveau",
   "corrections": [
-   "le 29 septembre 2026, surtitres ramenés au genre du support, sur le signalement du propriétaire (« tu donnes les réponses dans les intitulés ») : le surtitre se lit avant la question et ne dit plus son contenu ; seul le surtitre change, les questions relues restent telles quelles et les séries gardent leur statut : A s1 « M. Ma écrit à Xiaobai » → « Un message » ; A s2 « Le menu d'une petite cantine » → « Un menu » ; A s3 « Au-dessus d'un portail » → « Une enseigne » ; B s1 « Un billet de train » → « Un billet » ; B s2 « Maman écrit à son fils » → « Un message » ; B s3 « Un écriteau sur une porte » → « Un écriteau » ; B s4 « Une note sur la famille Ma » → « Une note »"
+   "le 29 septembre 2026, surtitres ramenés au genre du support, sur le signalement du propriétaire (« tu donnes les réponses dans les intitulés ») : le surtitre se lit avant la question et ne dit plus son contenu ; seul le surtitre change, les questions relues restent telles quelles et les séries gardent leur statut : A s1 « M. Ma écrit à Xiaobai » → « Un message » ; A s2 « Le menu d'une petite cantine » → « Un menu » ; A s3 « Au-dessus d'un portail » → « Une enseigne » ; B s1 « Un billet de train » → « Un billet » ; B s2 « Maman écrit à son fils » → « Un message » ; B s3 « Un écriteau sur une porte » → « Un écriteau » ; B s4 « Une note sur la famille Ma » → « Une note »",
+   "le 30 septembre 2026, décisions du propriétaire « Réconcilier les 13 », « Poser les paires ensemble » et « Aller au bout » : l'acquis et le tronçon du palier ont bougé avec les treize caractères et le glissement d'un jour ; le texte suit, au plus près, sans changer de statut (décision « Go ») : 不 sort de l'acquis : série A, « 小白：今天大雨，明天去山里，好吗？ », Q2 « 今天去山里。 », faux, et deux leurres de Q1 refaits ; série B, l'écriteau dit « 九月一日开门。 » et Q3 suit, un leurre de Q2 refait."
   ]
  },
  "series": [
@@ -30,16 +31,30 @@
      },
      "lignes": [
       {
-       "zh": "小白：今天大雨，不去山里。",
-       "pinyin": "xiǎo bái jīn tiān dà yǔ bù qù shān lǐ",
-       "fr": "Xiaobai : il pleut fort aujourd'hui, on ne va pas à la montagne.",
-       "en": "Xiaobai: heavy rain today, we're not going to the mountains."
+       "zh": "小白：今天大雨，",
+       "pinyin": "xiǎo bái jīn tiān dà yǔ",
+       "fr": "Xiaobai : il pleut fort aujourd'hui,",
+       "en": "Xiaobai: heavy rain today,"
       },
       {
-       "zh": "明天去，好吗？",
-       "pinyin": "míng tiān qù hǎo ma",
-       "fr": "On y va demain, d'accord ?",
-       "en": "Shall we go tomorrow?"
+       "zh": "明天去山里，好吗？",
+       "pinyin": "míng tiān qù shān lǐ hǎo ma",
+       "fr": "on va à la montagne demain, d'accord ?",
+       "en": "shall we go to the mountains tomorrow?"
+      }
+     ],
+     "glose": [
+      {
+       "zh": "牛",
+       "pinyin": "niú",
+       "fr": "vache, bœuf",
+       "en": "cow, ox"
+      },
+      {
+       "zh": "白马",
+       "pinyin": "bái mǎ",
+       "fr": "cheval blanc",
+       "en": "white horse"
       }
      ]
     },
@@ -138,16 +153,16 @@
        "en": "12 yuan."
       },
       {
-       "zh": "今天不是大雨。",
-       "pinyin": "jīn tiān bù shì dà yǔ",
-       "fr": "Il ne pleut pas fort aujourd'hui.",
-       "en": "It isn't raining hard today."
+       "zh": "山里有牛。",
+       "pinyin": "shān lǐ yǒu niú",
+       "fr": "Il y a des vaches dans la montagne.",
+       "en": "There are cows in the mountains."
       },
       {
-       "zh": "小马不去。",
-       "pinyin": "xiǎo mǎ bù qù",
-       "fr": "Le poney n'y va pas.",
-       "en": "The pony isn't going."
+       "zh": "小马是白马。",
+       "pinyin": "xiǎo mǎ shì bái mǎ",
+       "fr": "Le poney est un cheval blanc.",
+       "en": "The pony is a white horse."
       }
      ],
      "reponse": 0,
@@ -165,15 +180,14 @@
       "en": "True or false?"
      },
      "affirmation": {
-      "zh": "明天不去山里。",
-      "pinyin": "míng tiān bù qù shān lǐ",
-      "fr": "Demain, ils ne vont pas à la montagne.",
-      "en": "Tomorrow they aren't going to the mountains."
+      "zh": "今天去山里。",
+      "pinyin": "jīn tiān qù shān lǐ",
+      "fr": "Aujourd'hui, ils vont à la montagne.",
+      "en": "Today they're going to the mountains."
      },
      "reponse": false,
      "porte": [
-      "明",
-      "不",
+      "今",
       "去"
      ]
     },
@@ -329,10 +343,10 @@
      },
      "lignes": [
       {
-       "zh": "今天不开门。",
-       "pinyin": "jīn tiān bù kāi mén",
-       "fr": "Fermé aujourd'hui.",
-       "en": "Closed today."
+       "zh": "九月一日开门。",
+       "pinyin": "jiǔ yuè yī rì kāi mén",
+       "fr": "Ouverture le 1er septembre.",
+       "en": "Opening on 1 September."
       }
      ]
     },
@@ -407,10 +421,10 @@
        "en": "OK, Mum!"
       },
       {
-       "zh": "妈妈不去。",
-       "pinyin": "mā ma bù qù",
-       "fr": "Maman n'y va pas.",
-       "en": "Mum isn't going."
+       "zh": "她是中学生。",
+       "pinyin": "tā shì zhōng xué sheng",
+       "fr": "C'est une collégienne.",
+       "en": "She's at secondary school."
       }
      ],
      "reponse": 2,
@@ -432,23 +446,24 @@
        "en": "Open every day"
       },
       {
-       "fr": "Ouvert demain matin",
-       "en": "Open tomorrow morning"
+       "fr": "Ouverture le 9 janvier",
+       "en": "Opening on 9 January"
       },
       {
        "fr": "Entrée à gauche",
        "en": "Entrance on the left"
       },
       {
-       "fr": "Fermé aujourd'hui",
-       "en": "Closed today"
+       "fr": "Ouverture le 1er septembre",
+       "en": "Opening on 1 September"
       }
      ],
      "reponse": 3,
      "porte": [
-      "不",
-      "开",
-      "门"
+      "九",
+      "月",
+      "一",
+      "开"
      ]
     },
     {

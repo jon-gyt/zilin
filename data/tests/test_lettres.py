@@ -1,7 +1,7 @@
 """Les lettres de Que (story 4b.8) : fil, validation, import, relecture, export, contrôles.
 
 Un test par règle. Aucun réseau. Les règles : douze lettres, une par semaine, la lettre n
-écrite avec les seuls caractères que le parcours Lire a posés au jour 7n (sinon rejet) ;
+écrite avec les seuls caractères que le parcours Lire a posés au jour de la lettre (sinon rejet) ;
 40 à 120 sinogrammes ; une question pour finir ; pinyin aux tons du dictionnaire, sans
 sandhi, chaque syllabe une lecture du caractère ; glose complète ; traçabilité « session
 Claude Code (sans API) » ; statut `a_relire` à l'import ; seules les lettres relues
@@ -117,7 +117,7 @@ def ecrire_brouillon(dossier: Path, document: dict[str, object], n: int = 1) -> 
 def test_le_feuilleton_compte_douze_lettres_dans_l_ordre() -> None:
     fil = charger_feuilleton()
     assert [e.n for e in fil] == list(range(1, 13))
-    assert [e.jour for e in fil] == [7 * n for n in range(1, 13)]
+    assert [e.jour for e in fil] == [7] + [7 * n + 1 for n in range(2, 13)]
     assert all(e.titre_fr and e.titre_en and e.resume_fr for e in fil)
 
 
@@ -314,10 +314,17 @@ construit = pytest.mark.skipif(
 
 
 @construit
-def test_chaque_lettre_n_emploie_que_l_acquis_du_jour_7n() -> None:
+def test_chaque_lettre_n_emploie_que_l_acquis_de_son_jour() -> None:
     parcours = lettres_mod.charger_parcours()
     for l in lettres(REELLES):
-        assert valider(l, acquis_au_jour(7 * l.n, parcours)).intrus == [], l.n
+        assert valider(l, acquis_au_jour(l.jour, parcours)).intrus == [], l.n
+
+
+def test_les_lettres_suivent_le_jour_insere() -> None:
+    """冖 s'insère au jour 13 (décision du propriétaire du 30 septembre 2026) : la lettre 1
+    reste au jour 7, les suivantes glissent d'un jour avec l'acquis qu'elles suivaient."""
+    assert lettres_mod.JOUR_INSERE == 13
+    assert [lettres_mod.jour_de_lettre(n) for n in (1, 2, 12)] == [7, 15, 85]
 
 
 @construit
@@ -336,13 +343,13 @@ def test_la_commande_apercu_montre_les_lettres(monkeypatch: pytest.MonkeyPatch) 
 
 
 def test_un_jour_de_fermeture_ne_pose_rien() -> None:
-    """兴 ferme le seuil 255 au jour 190 : la session le saute, l'acquis ne le compte pas."""
+    """Un jour de fermeture (敢 et 展, jour 470) : la session le saute, l'acquis ne le compte pas."""
     parcours = {
         "jours": [
             {"jour": 1, "brique": "人", "composes": [], "non_reconcilie": False},
-            {"jour": 2, "brique": None, "composes": ["兴"], "non_reconcilie": True},
+            {"jour": 2, "brique": None, "composes": ["敢"], "non_reconcilie": True},
             {"jour": 3, "brique": "月", "composes": ["朋"], "non_reconcilie": False},
         ]
     }
     assert lettres_mod.poses_par_jour(parcours) == [(1, "人"), (3, "月"), (3, "朋")]
-    assert "兴" not in lettres_mod.acquis_au_jour(3, parcours)
+    assert "敢" not in lettres_mod.acquis_au_jour(3, parcours)

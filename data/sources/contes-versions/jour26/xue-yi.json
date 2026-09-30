@@ -1,8 +1,14 @@
 {
  "conte": "xue-yi",
- "seuil": "jour25",
- "ouvrage": "《孟子·告子上》",
- "titre": {"zh": "学弈", "pinyin": "xué yì"},
+ "seuil": "jour26",
+ "titre": "学弈",
+ "titre_pinyin": "xué yì",
+ "titre_fr": "Deux élèves apprennent le go",
+ "titre_en": "Two Students Learn Weiqi",
+ "source": {
+  "ouvrage": "《孟子·告子上》",
+  "resume_fr": "Deux élèves apprennent le go auprès de Yi Qiu, le meilleur joueur du pays : l'un s'y applique de tout son cœur, l'autre rêve aux cygnes qu'il voudrait tirer, et seul le premier apprend."
+ },
  "phrases": [
   {
    "zh": "古有弈秋，是弈王。",
@@ -41,27 +47,103 @@
    "en": "To learn go, first learn to give it your whole heart."
   }
  ],
- "glose": [
-  {"zh": "学", "pinyin": "xué", "fr": "apprendre", "en": "learn"},
-  {"zh": "弈", "pinyin": "yì", "fr": "le go", "en": "go"},
-  {"zh": "古", "pinyin": "gǔ", "fr": "autrefois", "en": "long ago"},
-  {"zh": "有", "pinyin": "yǒu", "fr": "il y a", "en": "there is"},
-  {"zh": "弈秋", "pinyin": "yì qiū", "fr": "Yi Qiu", "en": "Yi Qiu"},
-  {"zh": "是", "pinyin": "shì", "fr": "être", "en": "be"},
-  {"zh": "王", "pinyin": "wáng", "fr": "roi", "en": "king"},
-  {"zh": "二", "pinyin": "èr", "fr": "deux", "en": "two"},
-  {"zh": "人", "pinyin": "rén", "fr": "personne", "en": "person"},
-  {"zh": "从", "pinyin": "cóng", "fr": "auprès de", "en": "from"},
-  {"zh": "一", "pinyin": "yī", "fr": "un", "en": "one"},
-  {"zh": "一心", "pinyin": "yī xīn", "fr": "de tout cœur", "en": "wholeheartedly"},
-  {"zh": "也", "pinyin": "yě", "fr": "aussi", "en": "also"},
-  {"zh": "只是", "pinyin": "zhǐ shì", "fr": "mais", "en": "but"},
-  {"zh": "念", "pinyin": "niàn", "fr": "penser à", "en": "think of"},
-  {"zh": "天鹅", "pinyin": "tiān é", "fr": "cygne", "en": "swan"},
-  {"zh": "只", "pinyin": "zhǐ", "fr": "seulement", "en": "only"},
-  {"zh": "好", "pinyin": "hǎo", "fr": "bien", "en": "well"},
-  {"zh": "先", "pinyin": "xiān", "fr": "d'abord", "en": "first"}
- ],
+ "glose": {
+  "学": {
+   "pinyin": "xué",
+   "fr": "apprendre",
+   "en": "learn"
+  },
+  "弈": {
+   "pinyin": "yì",
+   "fr": "le go",
+   "en": "go"
+  },
+  "古": {
+   "pinyin": "gǔ",
+   "fr": "autrefois",
+   "en": "long ago"
+  },
+  "有": {
+   "pinyin": "yǒu",
+   "fr": "il y a",
+   "en": "there is"
+  },
+  "弈秋": {
+   "pinyin": "yì qiū",
+   "fr": "Yi Qiu",
+   "en": "Yi Qiu"
+  },
+  "是": {
+   "pinyin": "shì",
+   "fr": "être",
+   "en": "be"
+  },
+  "王": {
+   "pinyin": "wáng",
+   "fr": "roi",
+   "en": "king"
+  },
+  "二": {
+   "pinyin": "èr",
+   "fr": "deux",
+   "en": "two"
+  },
+  "人": {
+   "pinyin": "rén",
+   "fr": "personne",
+   "en": "person"
+  },
+  "从": {
+   "pinyin": "cóng",
+   "fr": "auprès de",
+   "en": "from"
+  },
+  "一": {
+   "pinyin": "yī",
+   "fr": "un",
+   "en": "one"
+  },
+  "一心": {
+   "pinyin": "yī xīn",
+   "fr": "de tout cœur",
+   "en": "wholeheartedly"
+  },
+  "也": {
+   "pinyin": "yě",
+   "fr": "aussi",
+   "en": "also"
+  },
+  "只是": {
+   "pinyin": "zhǐ shì",
+   "fr": "mais",
+   "en": "but"
+  },
+  "念": {
+   "pinyin": "niàn",
+   "fr": "penser à",
+   "en": "think of"
+  },
+  "天鹅": {
+   "pinyin": "tiān é",
+   "fr": "cygne",
+   "en": "swan"
+  },
+  "只": {
+   "pinyin": "zhǐ",
+   "fr": "seulement",
+   "en": "only"
+  },
+  "好": {
+   "pinyin": "hǎo",
+   "fr": "bien",
+   "en": "well"
+  },
+  "先": {
+   "pinyin": "xiān",
+   "fr": "d'abord",
+   "en": "first"
+  }
+ },
  "expliques": [
   {
    "zh": "弈",
@@ -87,5 +169,14 @@
    "explication_fr": "Le grand oiseau blanc auquel rêve l'élève distrait : il s'imagine qu'un cygne va passer et qu'il le tirera à l'arc.",
    "explication_en": "The great white bird the distracted student dreams of: he imagines a swan flying past and himself shooting it with a bow."
   }
- ]
+ ],
+ "generation": {
+  "modele": "rédaction manuelle",
+  "api": "session Claude Code (sans API)",
+  "date": "2026-09-26",
+  "empreinte_invite": "sha256:0a7c4f9ddcd87b176160a0481e92dc7262660fd96476cd3edad0562e1b170ed5",
+  "essais": 1,
+  "intrus": []
+ },
+ "statut": "relu"
 }

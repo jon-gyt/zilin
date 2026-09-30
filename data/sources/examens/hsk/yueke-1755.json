@@ -10,7 +10,10 @@
   "statut": "relu",
   "par": "le propriétaire",
   "decision": "« Go » (30 septembre 2026) : tout affiché sans relecture ligne à ligne",
-  "date": "2026-09-30"
+  "date": "2026-09-30",
+  "corrections": [
+   "le 30 septembre 2026, décisions du propriétaire « Réconcilier les 13 », « Poser les paires ensemble » et « Aller au bout » : l'acquis et le tronçon du palier ont bougé avec les treize caractères et le glissement d'un jour ; le texte suit, au plus près, sans changer de statut (décision « Go ») : série A : 皇 et 绘 passent au tronçon suivant ; « 帝王 », « 儿童画画比赛 »."
+  ]
  },
  "series": [
   {
@@ -32,16 +35,24 @@
        "en": "This weekend I'll take you to the Forbidden City:"
       },
       {
-       "zh": "那里以前是皇帝住的地方。",
-       "pinyin": "nà li yǐ qián shì huáng dì zhù de dì fang",
-       "fr": "c'était autrefois la demeure de l'empereur.",
-       "en": "the emperor used to live there."
+       "zh": "那里以前是帝王住的地方。",
+       "pinyin": "nà li yǐ qián shì dì wáng zhù de dì fang",
+       "fr": "c'était autrefois la demeure des empereurs.",
+       "en": "it used to be where the emperors lived."
       },
       {
        "zh": "听说明天要刮大风，多穿点衣服。",
        "pinyin": "tīng shuō míng tiān yào guā dà fēng duō chuān diǎn yī fu",
        "fr": "Il paraît que demain il y aura beaucoup de vent : couvre-toi bien.",
        "en": "They say it'll be very windy tomorrow, so wrap up warm."
+      }
+     ],
+     "glose": [
+      {
+       "zh": "帝王",
+       "pinyin": "dì wáng",
+       "fr": "empereur, monarque",
+       "en": "emperor, monarch"
       }
      ]
     },
@@ -54,8 +65,8 @@
      },
      "lignes": [
       {
-       "zh": "儿童绘画比赛",
-       "pinyin": "ér tóng huì huà bǐ sài",
+       "zh": "儿童画画比赛",
+       "pinyin": "ér tóng huà huà bǐ sài",
        "fr": "Concours de dessin pour enfants",
        "en": "Children's drawing competition"
       },
@@ -102,8 +113,8 @@
      ],
      "reponse": 3,
      "porte": [
-      "皇",
-      "帝"
+      "帝",
+      "王"
      ]
     },
     {
@@ -192,8 +203,8 @@
      ],
      "reponse": 2,
      "porte": [
-      "绘",
-      "画"
+      "画",
+      "稿"
      ]
     },
     {

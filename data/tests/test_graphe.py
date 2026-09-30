@@ -562,3 +562,53 @@ def test_le_document_du_parcours_dit_ses_etapes_et_le_bout_du_gratuit(tmp_path: 
     assert [e["liste"] for e in hsk["etapes"]] == ["hsk-1", "hsk-2"]
     absents = next(c for c in controles(sortie=build_dir) if c.nom == "caractères de liste absents du parcours")
     assert absents.ok
+
+
+# ------------------------------------------------------------------ les ordres figés du dépôt
+
+
+def _jours_reels(nom: str) -> list[Jour]:
+    from wenlu_data.graphe import ORDRES_REELS
+
+    jours = charger_ordre(nom, ORDRES_REELS)
+    assert jours is not None, nom
+    return jours
+
+
+@pytest.mark.parametrize("nom", sorted(PARCOURS))
+def test_mi_est_pose_avant_xue_sur_les_deux_chemins(nom: str) -> None:
+    """Décision du propriétaire du 30 septembre 2026 : 学 = 𭕄 冖 子, 觉 = 𭕄 冖 见.
+
+    冖 est la brique d'un jour inséré juste avant celui de 学 ; 爱, que posait l'ancien
+    jour de 冖, garde son jour, où 爫, dont il est de la famille, l'a rejoint.
+    """
+    jours = _jours_reels(nom)
+    jour_de = {c: j.jour for j in jours for c in j.caracteres}
+    brique_mi = next(j for j in jours if j.brique == "冖")
+    assert brique_mi.jour + 1 == jour_de["学"] < jour_de["觉"]
+    assert brique_mi.composes == ()
+    assert jour_de["爱"] == jour_de["爫"]
+
+
+@pytest.mark.parametrize("nom", sorted(PARCOURS))
+def test_les_treize_au_xue_zi_tou_n_ont_plus_de_jour_ferme(nom: str) -> None:
+    """« Réconcilier les 13 » : seuls 敢, 展 et 丧, non réconciliés, gardent un jour `ferme`."""
+    treize = set("兴举检脸应险验签捡剑誉俭敛")
+    jours = _jours_reels(nom)
+    fermes = [c for j in jours if j.non_reconcilie for c in j.composes]
+    assert sorted(fermes) == sorted("敢展丧")
+    poses = {c for j in jours if not j.non_reconcilie for c in j.caracteres}
+    assert treize <= poses
+    assert all(j.brique is None for j in jours if set(j.composes) & treize)
+
+
+@pytest.mark.parametrize("nom", sorted(PARCOURS))
+@pytest.mark.parametrize("mot", ["咖啡", "垃圾", "玻璃", "葡萄"])
+def test_les_paires_sont_posees_le_meme_jour(nom: str, mot: str) -> None:
+    """Décision du propriétaire du 30 septembre 2026 (« Poser les paires ensemble ») : deux
+    caractères qui ne se lisent qu'ensemble entrent le même jour, dans l'ordre du mot."""
+    jour = {c: j for j in _jours_reels(nom) for c in j.caracteres}
+    premier, second = mot
+    assert jour[premier] is jour[second]
+    composes = jour[premier].composes
+    assert composes.index(premier) + 1 == composes.index(second)

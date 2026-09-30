@@ -98,6 +98,35 @@ def test_la_phonetique_de_make_me_a_hanzi_passe_devant() -> None:
     assert "月" not in trouver("有", ["𠂇"], "⿸𠂇月", DECOMPOSITIONS, phonetique_mmah="月")
 
 
+def test_la_phonetique_au_composant_repete_se_retrouve() -> None:
+    """签 : 人, 一 et 𭕄 écrivent 佥 qiān, que la norme découpe en 人, 一, 𭕄 et 一 ; le 一 répété compte une fois.
+
+    Réconciliation du 30 septembre 2026 : 佥 nomme 𭕄, plus ⺍. Aucune ligne de
+    `phonetiques.tsv` n'est nécessaire, la structure ⿱⿱人一⿱𭕄一 se lit dans celle de 签.
+    """
+    decompositions = {"佥": {"composants": ["人", "一", "𭕄", "一"], "structure": "⿱⿱人一⿱𭕄一"}}
+    assert trouver("签", ["人", "一", "𭕄"], "⿱⺮⿱⿱人一⿱𭕄一", decompositions) == ("佥",)
+    ecarts, _ = ecarts_son(
+        [("签", {"⺮": "sens", "人": "son", "一": "son", "𭕄": "son"}, "⿱⺮⿱⿱人一⿱𭕄一")],
+        {"签": ("qiān",), "佥": ("qiān",)},
+        decompositions,
+        phonetiques_mmah={"签": "佥"},
+    )
+    assert ecarts == []
+
+
+def test_la_phonetique_de_make_me_a_hanzi_decoupee_par_la_norme() -> None:
+    """搅 jiǎo : 𭕄, 冖 et 见 écrivent 觉, lu jiào ; les trois `son`, et non 𭕄 et 见 seuls."""
+    decompositions = {"觉": {"composants": ["𭕄", "冖", "见"], "structure": "⿳𭕄冖见"}}
+    lectures = {"搅": ("jiǎo",), "觉": ("jué", "jiào")}
+    fiche = ("搅", {"扌": "sens", "𭕄": "son", "冖": "son", "见": "son"}, "⿰扌⿳𭕄冖见")
+    ecarts, _ = ecarts_son([fiche], lectures, decompositions, phonetiques_mmah={"搅": "觉"})
+    assert ecarts == []
+    sans_couvercle = ("搅", {"扌": "sens", "𭕄": "son", "见": "son"}, "⿰扌⿳𭕄冖见")
+    ecarts, _ = ecarts_son([sans_couvercle], lectures, decompositions, phonetiques_mmah={"搅": "觉"})
+    assert [str(e) for e in ecarts] == ["搅 jiǎo : phonétique de 𭕄见 introuvable"]
+
+
 def test_un_composant_seul_est_sa_propre_phonetique() -> None:
     assert trouver("妈", ["马"], "⿰女马", DECOMPOSITIONS) == ("马",)
 
