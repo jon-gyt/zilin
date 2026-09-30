@@ -4,7 +4,7 @@ Un test par règle. Aucun réseau. Les règles : trois lignes par jour du chemin
 les seuls caractères que le parcours a posés ce jour-là, dont au moins un caractère
 nouveau du jour (le cinabre de l'app) ; pinyin aux tons du dictionnaire, une syllabe par
 sinogramme ; chaque sinogramme glosé tel que le lecteur découpe ; chaque jour de 4 à 120
-écrit sur les deux parcours ; seuls les textes relus s'exportent ; la rédaction est
+écrit sur les deux parcours, sauf ceux qui ne posent qu'un composant (冖, jour 13) ; seuls les textes relus s'exportent ; la rédaction est
 traçable (« session Claude Code (sans API) ») et la relecture cite sa décision.
 """
 from __future__ import annotations
@@ -284,12 +284,39 @@ def test_les_lots_a_rediger_se_partagent_la_plage_sans_se_toucher(tmp_path: Path
     parcours = {"jours": [{"jour": j, "brique": f"b{j}", "composes": []} for j in range(1, 21)]}
     (a["build"] / "parcours-lire.json").write_text(json.dumps(parcours), encoding="utf-8")
     lots = [
-        tl.a_rediger("lire", de=4, a=20, lot=k, sur=3, dossier=a["dossier"], brouillons=a["brouillons"], build=a["build"])
+        tl.a_rediger(
+            "lire", de=4, a=20, lot=k, sur=3, dossier=a["dossier"], brouillons=a["brouillons"], build=a["build"],
+            ingest=a["build"],
+        )
         for k in (1, 2, 3)
     ]
     tous = [j for lot in lots for j in lot]
     assert sorted(tous) == list(range(5, 21)) and len(set(tous)) == len(tous)
     assert 4 not in tous  # déjà écrit
+
+
+def test_un_jour_qui_ne_pose_qu_un_composant_n_attend_pas_de_texte(tmp_path: Path) -> None:
+    """冖 au jour 13 (décision du propriétaire du 30 septembre 2026), comme 丶 ou 灬 plus loin
+    sur le chemin Lire : un composant seul, hors des listes et sans composé, ne s'écrit pas
+    seul ; aucun texte ne peut l'employer, la couverture et la rédaction ne l'attendent pas."""
+    parcours = {
+        "jours": [
+            *PARCOURS["jours"],
+            {"jour": 6, "brique": "冖", "composes": []},
+            {"jour": 7, "brique": "子", "composes": ["学"]},
+            {"jour": 8, "brique": "火", "composes": []},
+        ]
+    }
+    listes = set("人大天月从日明子学火")
+    assert tl.jours_sans_texte(parcours, listes) == {6}
+    ecrits = [texte(j) for j in (4, 5, 7)]
+    assert tl.couverture(ecrits, 8) == [6, 8]
+    assert tl.couverture(ecrits, 8, tl.jours_sans_texte(parcours, listes)) == [8]
+    a = _atelier(tmp_path)
+    (a["build"] / "parcours-lire.json").write_text(json.dumps(parcours, ensure_ascii=False), encoding="utf-8")
+    (a["build"] / "listes.json").write_text(json.dumps({"seuil-255": sorted(listes)}), encoding="utf-8")
+    jours = tl.a_rediger("lire", de=4, a=8, dossier=a["dossier"], brouillons=a["brouillons"], build=a["build"], ingest=a["build"])
+    assert jours == [5, 7, 8]
 
 
 def test_les_lectures_d_un_polyphone_viennent_aussi_des_dictionnaires() -> None:
@@ -315,9 +342,15 @@ def test_les_textes_versionnes_sont_tracables_et_relus_par_decision() -> None:
         assert all(t.statut in (RELU, A_RELIRE) for t in f.textes)
 
 
-def test_les_textes_versionnes_couvrent_les_soixante_premiers_jours() -> None:
+def test_les_textes_versionnes_couvrent_les_premiers_jours() -> None:
+    """Chaque jour jusqu'à `COUVERTURE`, sauf ceux qui ne posent qu'un composant (冖, jour 13)."""
+    listes = tl.caracteres_des_listes()
+    if listes is None or not (BUILD / "parcours-lire.json").exists():
+        pytest.skip("parcours pas construit (`wenlu ingest`, `wenlu build`)")
     for nom in tl.PARCOURS:
-        assert tl.couverture(tl.charger_textes(nom).textes) == []
+        sans = tl.jours_sans_texte(tl.charger_parcours(nom), listes)
+        assert 13 in sans
+        assert tl.couverture(tl.charger_textes(nom).textes, sans=sans) == []
 
 
 def test_les_textes_versionnes_ont_leur_glose_et_leur_forme() -> None:

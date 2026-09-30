@@ -31,7 +31,8 @@ jour, au moins un caractère nouveau du jour), « pinyin » (une syllabe par sin
 du dictionnaire sans sandhi, chacune une lecture du caractère), « glose » (chaque
 sinogramme couvert tel que le lecteur découpe, au pinyin des lignes, fr et en), « forme »
 (trois lignes traduites, longueur), « couverture » (chaque jour de `PREMIER_JOUR` à
-`COUVERTURE`, sur les deux parcours) et « export ». Signalés : la relecture, et les jours
+`COUVERTURE`, sur les deux parcours, sauf ceux qui ne posent qu'un composant qui ne s'écrit
+pas seul, `jours_sans_texte`, comme 冖 au jour 13) et « export ». Signalés : la relecture, et les jours
 du chemin au-delà qui n'ont pas encore de texte.
 
 Licences : rien n'est tiré de CC-CEDICT ni de Make Me a Hanzi comme texte ; lignes,
@@ -390,10 +391,35 @@ def ecarts_glossaire(glossaire: Mapping[str, Glose], lectures: Mapping[str, Sequ
     return out
 
 
-def couverture(textes: Iterable[Texte], jusqua: int = COUVERTURE) -> list[int]:
-    """Les jours de `PREMIER_JOUR` à `jusqua` qui n'ont pas de texte."""
-    ecrits = {t.jour for t in textes}
+def couverture(textes: Iterable[Texte], jusqua: int = COUVERTURE, sans: Iterable[int] = ()) -> list[int]:
+    """Les jours de `PREMIER_JOUR` à `jusqua` qui n'ont pas de texte, hors des jours `sans`
+    (`jours_sans_texte` : ceux qui ne posent qu'un composant qui ne s'écrit pas seul)."""
+    ecrits = {t.jour for t in textes} | set(sans)
     return [j for j in range(PREMIER_JOUR, jusqua + 1) if j not in ecrits]
+
+
+def jours_sans_texte(parcours: Mapping[str, object], listes: Iterable[str]) -> set[int]:
+    """Les jours dont aucun caractère nouveau n'est dans les listes : ils ne posent qu'un
+    composant, sans composé, qui ne s'écrit pas seul (冖 au jour 13 des deux chemins,
+    décision du propriétaire du 30 septembre 2026 ; 丶, 灬, 钅… plus loin sur le chemin
+    Lire). Aucun texte ne peut employer un caractère nouveau de ces jours : ils n'ont pas de
+    trois lignes, et ni la couverture ni la rédaction ne les attendent."""
+    dans = set(listes)
+    nouveaux: dict[int, list[str]] = {}
+    for j, c in poses_par_jour(parcours):
+        nouveaux.setdefault(j, []).append(c)
+    return {j for j, cs in nouveaux.items() if not any(c in dans for c in cs)}
+
+
+def caracteres_des_listes(ingest: Path | None = None) -> set[str] | None:
+    """Les caractères des listes (seuil 255, HSK), ceux qu'un texte écrit ; `None` sans
+    `wenlu ingest`."""
+    from .paths import INGEST
+
+    chemin = (ingest or INGEST) / "listes.json"
+    if not chemin.exists():
+        return None
+    return {c for cs in json.loads(chemin.read_text(encoding="utf-8")).values() for c in cs}
 
 
 # --------------------------------------------------------------------------- export
@@ -493,6 +519,7 @@ def controles(
             f_src.append(f"{nom} : des textes relus sans la décision qui les relit")
 
     lectures = charger_lectures(ingest)
+    des_listes = caracteres_des_listes(ingest)
     f_glossaire = ecarts_glossaire(lexique, lectures)
     f_per: list[str] = []
     f_pin: list[str] = []
@@ -500,6 +527,7 @@ def controles(
     f_for: list[str] = []
     f_cou: list[str] = []
     suite: list[str] = []
+    exemptes_par: list[str] = []
     construits = True
     for nom, f in fichiers.items():
         chemin = build / f"parcours-{nom}.json"
@@ -512,13 +540,18 @@ def controles(
             f_pin += [f"{nom} jour {t.jour} : {e}" for e in ecarts_pinyin(t, lectures)]
             f_glo += [f"{nom} jour {t.jour} : {e}" for e in ecarts_glose(t, lexique)]
             f_for += [f"{nom} jour {t.jour} : {e}" for e in ecarts_forme(t)]
-        manquants = couverture(f.textes, jusqua)
+        sans = jours_sans_texte(parcours, des_listes) if des_listes is not None else set()
+        exemptes_par.append(f"{nom} " + " ".join(str(j) for j in sorted(sans) if PREMIER_JOUR <= j <= jusqua))
+        manquants = couverture(f.textes, jusqua, sans)
         if manquants:
             f_cou.append(f"{nom} : jours sans texte {manquants}")
         dernier = max((int(j["jour"]) for j in parcours.get("jours") or ()), default=0)  # type: ignore[union-attr]
-        au_dela = [j for j in range(jusqua + 1, dernier + 1) if j not in {t.jour for t in f.textes}]
-        suite.append(f"{nom} : {dernier - len(au_dela) - PREMIER_JOUR + 1} jours écrits sur {dernier - PREMIER_JOUR + 1}")
+        poses = {j for j, _ in poses_par_jour(parcours)}
+        a_ecrire = [j for j in range(PREMIER_JOUR, dernier + 1) if j in poses and j not in sans]
+        au_dela = [j for j in a_ecrire if j > jusqua and j not in {t.jour for t in f.textes}]
+        suite.append(f"{nom} : {len(a_ecrire) - len(au_dela)} jours écrits sur {len(a_ecrire)}")
     f_glo = f_glossaire + f_glo
+    exemptes = " ; ".join(e for e in exemptes_par if e.split(" ", 1)[1:] != [""])
 
     relus = {nom: sorted(t.jour for t in f.textes if t.statut == RELU) for nom, f in fichiers.items()}
     a_relire = sum(1 for f in fichiers.values() for t in f.textes if t.statut == A_RELIRE)
@@ -571,7 +604,11 @@ def controles(
         Controle(
             "trois lignes : couverture",
             not f_cou,
-            detail(f_cou, f"chaque jour de {PREMIER_JOUR} à {jusqua}, sur les deux parcours"),
+            detail(
+                f_cou,
+                f"chaque jour de {PREMIER_JOUR} à {jusqua}, sur les deux parcours"
+                + (f", sauf ceux d'un composant seul ({exemptes})" if exemptes else ""),
+            ),
             bloquant=True,
         ),
         Controle(
@@ -774,10 +811,12 @@ def a_rediger(
     dossier: Path | None = None,
     brouillons: Path | None = None,
     build: Path | None = None,
+    ingest: Path | None = None,
 ) -> list[int]:
     """Les jours du lot `lot` sur `sur`, de `de` à `a`, qui n'ont ni texte ni brouillon.
 
-    Les jours sans texte à écrire (première session, fermeture, rien de posé) n'en sont pas.
+    Les jours sans texte à écrire (première session, fermeture, rien de posé, un composant
+    qui ne s'écrit pas seul, `jours_sans_texte`) n'en sont pas.
     Les lots sont des tranches contiguës et stables : `sur` rédacteurs se partagent la plage
     sans jamais écrire le même jour, et leurs brouillons ne se touchent pas.
     """
@@ -787,6 +826,9 @@ def a_rediger(
         int(p.stem) for p in ((brouillons or BROUILLONS) / parcours).glob("*.json") if p.stem.isdigit()
     }
     avec = {j for j, _ in poses_par_jour(doc)}
+    des_listes = caracteres_des_listes(ingest)
+    if des_listes is not None:
+        avec -= jours_sans_texte(doc, des_listes)
     plage = [j for j in range(max(de, PREMIER_JOUR), a + 1) if j in avec]
     taille = -(-len(plage) // max(1, sur))
     tranche = plage[(lot - 1) * taille : lot * taille]

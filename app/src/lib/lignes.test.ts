@@ -24,7 +24,10 @@ const exporte = lireTroisLignes(
 /** L'acquis d'un parcours au jour `jour`, relu dans l'index exporté. */
 const index = JSON.parse(
   readFileSync(new URL('../../public/data/0.1.0/index.json', import.meta.url), 'utf8')
-) as { parcours: Record<string, { jours: { jour: number; brique: string | null; composes: string[] }[] }> };
+) as {
+  listes: Record<string, string[]>;
+  parcours: Record<string, { jours: { jour: number; brique: string | null; composes: string[] }[] }>;
+};
 
 function acquis(parcours: string, jour: number): Set<string> {
   const out = new Set<string>();
@@ -121,11 +124,17 @@ describe('les trois lignes du jour', () => {
 });
 
 describe('les trois lignes exportées', () => {
-  it('couvrent chaque jour de 4 à 120, sur les deux parcours', () => {
+  it('couvrent chaque jour de 4 à 120, sur les deux parcours, sauf ceux d’un composant seul', () => {
     expect(exporte.premierJour).toBe(4);
+    /* Un jour qui ne pose qu'un composant hors des listes, sans composé (冖 au jour 13, décision
+       du propriétaire du 30 septembre 2026), n'a pas de texte : aucun ne peut l'employer. */
+    const listes = new Set(Object.values(index.listes).flat());
     for (const nom of ['lire', 'hsk']) {
       const jours = exporte.parcours[nom].map((t) => t.jour);
-      for (let j = 4; j <= 120; j++) expect(jours).toContain(j);
+      for (let j = 4; j <= 120; j++) {
+        if (!nouveaux(nom, j).some((c) => listes.has(c))) continue;
+        expect(jours).toContain(j);
+      }
     }
   });
 
