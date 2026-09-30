@@ -132,13 +132,45 @@ def test_zai_suit_la_forme_et_non_la_phonetique() -> None:
     [
         ("那", "⿰⿹？？阝", ("𭃂", "阝")),
         ("是", "⿱日疋", ("日", "一", "龰")),
-        ("学", "⿱⿱⺍冖子", ("𭕄", "子")),
-        ("觉", "⿳⺍冖见", ("𭕄", "见")),
+        ("学", "⿱⿱⺍冖子", ("𭕄", "冖", "子")),
+        ("觉", "⿳⺍冖见", ("𭕄", "冖", "见")),
     ],
 )
 def test_composants_propres_de_la_norme(c: str, mmah: str, attendu: tuple[str, ...]) -> None:
     d = _decomposer({c: mmah})[c]
     assert d.composants == attendu and d.reconcilie
+
+
+def test_xue_ecrit_le_xue_zi_tou_de_trois_traits_puis_mi() -> None:
+    """Décision du propriétaire du 30 septembre 2026 : 𭕄 (413) a trois traits, sans 冖.
+
+    学 et 觉 écrivent 冖 à part ; 𭕄 se découpe dans les trois premiers traits de 学.
+    """
+    assert _decomposer({"学": "⿱⿱⺍冖子"})["学"].composants == ("𭕄", "冖", "子")
+    assert _decomposer({"觉": "⿳⺍冖见"})["觉"].composants == ("𭕄", "冖", "见")
+    from wenlu_data import decoupes
+
+    xue = [d for d in decoupes.charger_decoupes(reelles("DECOUPES")) if d.composant == "𭕄"]
+    assert [(d.hote, d.indices) for d in xue] == [("学", (0, 1, 2))]
+
+
+@pytest.mark.parametrize(
+    ("c", "cjk", "autres", "attendu"),
+    [
+        ("兴", "⿱⿱？一八", {}, ("𭕄", "一", "八")),
+        ("举", "⿱兴？", {"兴": "⿱⿱？一八"}, ("𭕄", "一", "八", "𰀁")),
+        ("誉", "⿱兴言", {"兴": "⿱⿱？一八"}, ("𭕄", "一", "八", "言")),
+        ("应", "⿸广？", {}, ("广", "𭕄", "一")),
+        ("检", "⿰木佥", {"佥": "⿱亼？"}, ("木", "人", "一", "𭕄", "一")),
+        ("敛", "⿰佥攵", {"佥": "⿱亼？"}, ("人", "一", "𭕄", "一", "攵")),
+    ],
+)
+def test_les_treize_au_xue_zi_tou_se_reconcilient(
+    c: str, cjk: str, autres: dict[str, str], attendu: tuple[str, ...]
+) -> None:
+    """Décision du propriétaire du 30 septembre 2026 (« Réconcilier les 13 ») : leur ⺍ est 𭕄."""
+    d = _decomposer({c: cjk}, autres)[c]
+    assert d.reconcilie and d.composants == attendu
 
 
 def test_trait_du_bloc_des_traits_ramene_a_la_norme() -> None:
@@ -197,11 +229,11 @@ def test_les_surcharges_du_depot_se_lisent() -> None:
         assert pinyin[c] == lectures
     ids = surcharges.charger_ids(reelles("IDS"))
     table = charger_table(equivalences=surcharges.charger_equivalences(reelles("EQUIVALENCES")))
-    # Chaque cible nommée par une surcharge est un composant de la norme, hormis ⺍ que
-    # 兴 et 举 gardent, non réconciliés (decompositions-corrigees.md).
+    # Chaque cible nommée par une surcharge est un composant de la norme ; ⺍, que 兴 et 举
+    # gardaient, est devenu 𭕄 le 30 septembre 2026 (decompositions-corrigees.md).
     for c, texte in ids.items():
         feuilles = [f for f in _feuilles(analyser_ids(texte))]
-        assert all(f in table or f in ids or (f == "⺍" and c in "兴举") for f in feuilles), (c, texte)
+        assert all(f in table or f in ids for f in feuilles), (c, texte)
 
 
 def _feuilles(noeud: object) -> list[str]:

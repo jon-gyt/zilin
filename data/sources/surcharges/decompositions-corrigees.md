@@ -85,17 +85,65 @@ Les textes écrits pour un jour (mots et phrases des fiches, lettres, WeChat, p�
 des contes, fables `jourN`) restent dans l'acquis : `wenlu check` le vérifie. Seule la
 phrase de 冂 a dû changer. La fiche de 凡 reste versionnée, hors parcours.
 
-## À reprendre : 学字头 (𭕄) compte trois traits
+## Repris le 30 septembre 2026 : 学字头 (𭕄) compte trois traits
 
 Relevé le 28 septembre 2026, en vérifiant 举. Le fac-similé dessine 学字头 (413) en
 trois traits, 丶 丶 丿, sans 冖, et le cite dans 学, 应, 敛 et 检, qui n'ont pas de 冖 ;
-Unihan donne 3 traits à 𭕄 (U+2D544, `kTotalStrokes`). Or `ids.tsv` écrit 学 = 𭕄 子 et
-觉 = 𭕄 见, et `decoupes.tsv` découpe 𭕄 dans les cinq premiers traits de 学, 冖 compris.
-La lecture de la norme serait 学 = 𭕄 冖 子, 觉 = 𭕄 冖 见, 𭕄 découpé dans 学 0-2 ; 兴
-(𭕄 一 八) et 举 (𭕄 一 八 𰀁) se réconcilieraient du même coup. Mais 冖, posé aujourd'hui
-au jour 132 (lire) et 149 (HSK), devrait l'être avant le jour 13 (学), et 兴 quitterait
-les jours de fermeture : tous les jours de 13 à la fin se décaleraient, avec l'acquis des
-textes. Décision de contenu, laissée au propriétaire ; en attendant, 兴 et 举 gardent ⺍.
+Unihan donne 3 traits à 𭕄 (U+2D544, `kTotalStrokes`). `ids.tsv` écrivait 学 = 𭕄 子 et
+觉 = 𭕄 见, et `decoupes.tsv` découpait 𭕄 dans les cinq premiers traits de 学, 冖 compris.
+
+Décision du propriétaire, le 30 septembre 2026 : « Réconcilier les 13 ». Ce qui est fait :
+
+- **Découpe** : 𭕄 se découpe dans les trois premiers traits de 学 (0-2), 点 点 撇.
+- **学** = 𭕄 冖 子 (3 + 2 + 3 = 8 traits), **觉** = 𭕄 冖 见 (3 + 2 + 4 = 9), trois
+  étages (`⿳`). 搅, que cjk-decomp écrit 扌 + 觉, suit : 扌 𭕄 冖 见.
+- **Les treize** (兴, 举, 检, 脸, 应, 险, 验, 签, 捡, 剑, 誉, 俭, 敛) sont réconciliés
+  par les lectures du tableau plus bas (section « Les 60 non réconciliés »).
+- **Fiches** : 学, 觉, 搅 et les treize ont leurs nouveaux composants et leur nouvelle
+  structure, et repassent `a_relire` : leurs rôles nomment encore ⺍ (les treize), ou
+  n'ont rien pour 冖 (学, 觉, 搅) ; le texte d'origine de certaines nomme ⺍.
+
+### Jours changés
+
+冖 doit être posé avant 学. Sur chaque chemin, un jour est inséré juste avant celui de
+学 : 冖 y est la brique, sans composé (aucun caractère ne devient lisible avec 冖 seul
+ce jour-là). Les jours suivants glissent d'un jour jusqu'à l'ancien jour de 冖, qui garde
+son numéro et 爱 : il reçoit la brique et les composés du jour d'avant, 爫, dont 爱 est
+de la famille. Rien ne bouge après lui.
+
+| Parcours | Jour | Avant | Après |
+|---|---|---|---|
+| lire | 13 | 子 : 好 学 | 冖 : — (inséré) |
+| lire | 14 à 131 | les jours 13 à 130 | les mêmes, un jour plus tard |
+| lire | 132 | 冖 : 爱 | 爫 : 菜 作 爱 (l'ancien jour 131 et 爱) |
+| hsk | 13 | 子 : 学 | 冖 : — (inséré) |
+| hsk | 14 à 148 | les jours 13 à 147 | les mêmes, un jour plus tard |
+| hsk | 149 | 冖 : 爱 | 爫 : 菜 爱 (l'ancien jour 148 et 爱) |
+
+Les jours de fermeture des treize deviennent de vrais jours, au même numéro ; 敢, 展 et
+丧, encore non réconciliés, gardent un jour `ferme`, à la fin de leur étape. Là où un jour
+mêlait les deux, le réconcilié rejoint le jour réconcilié voisin, pour que la
+numérotation ne bouge pas :
+
+| Parcours | Jour | Avant (ferme) | Après |
+|---|---|---|---|
+| lire | 190 | 兴 | — : 兴 |
+| lire | 341, 342 | 检 举 ; 脸 应 | les mêmes, jours ordinaires |
+| lire | 469, 470 | 敢 险 ; 验 展 | — : 险 验 ; 敢 展 (ferme) |
+| lire | 747 | 签 | — : 签 |
+| lire | 891, 892 | 捡 剑 ; 丧 誉 | — : 捡 剑 誉 ; 丧 (ferme) |
+| lire | 1463 | 俭 敛 | — : 俭 敛 |
+| hsk | 220 | 兴 | — : 兴 |
+| hsk | 344, 345 | 检 举 ; 脸 应 | les mêmes, jours ordinaires |
+| hsk | 476, 477 | 敢 险 ; 验 展 | — : 险 验 ; 敢 展 (ferme) |
+| hsk | 754 | 签 | — : 签 |
+| hsk | 898, 899 | 捡 剑 ; 丧 誉 | — : 捡 剑 誉 ; 丧 (ferme) |
+| hsk | 1470 | 俭 敛 | — : 俭 敛 |
+
+Les deux chemins gardent leur longueur, 1 463 et 1 470 jours ; les fins d'étape comptent
+désormais ces jours : lire, seuil 255 au jour 190, HSK 2 au 342, HSK 3 au 469, HSK 5 au
+747, HSK 6 au 891, HSK 7-9 au 1 463 ; hsk, HSK 1 au 220, HSK 2 au 345, HSK 3 au 476,
+HSK 5 au 754, HSK 6 au 898, HSK 7-9 au 1 470.
 
 ## Phonétiques éclatées : la norme ne les compte pas
 
@@ -122,12 +170,9 @@ Les rôles de ces sous-composants suivent la convention des lots (tous « son »
 la phonétique est découpée) ; la convention elle-même attend la décision du
 propriétaire.
 
-## Non réconciliés : 兴 et 举
+## 兴 et 举, réconciliés le 30 septembre 2026
 
-- **兴** : ⺍ + 一 + 八, comme en 0.1.0. ⺍ n'est pas un point de code de la table ; sa
-  forme est celle du 学字头 (413, 𭕄), à reprendre d'abord dans 学 et 觉 (plus haut).
-  兴 reste non réconcilié et ferme le parcours, dans les deux listes.
-- **举** : ⺍ + 一 + 八 + 𰀁, hors des parcours ; même raison.
+Réconciliés le 30 septembre 2026 (plus haut) : 兴 = 𭕄 一 八, 举 = 𭕄 一 八 𰀁.
 
 ## Les 60 non réconciliés des 3 000 (story 10.9, 30 septembre 2026)
 
@@ -145,16 +190,17 @@ Deux lectures sont à vérifier sur le fac-similé avant relecture :
 - **派** : 氵 + 𠂆 (反字框) + 𧘇 (衣省). Le côté droit, 𠂢, n'est pas dans la table ; ses
   six traits se lisent 撇 et 竖撇 (le haut de 反), puis 撇, 竖提, 撇, 捺 (le bas de 表).
 
-Restent 16 non réconciliés, sans décomposition dans le dictionnaire :
+Restaient 16 non réconciliés, sans décomposition dans le dictionnaire. Les treize au
+学字头 le sont depuis le 30 septembre 2026 ; restent 敢, 展 et 丧.
 
-- **Les treize au 学字头** : 兴, 举, 检, 脸, 应, 险, 验, 签, 捡, 剑, 誉, 俭, 敛. Leur ⺍
+- **Les treize au 学字头** (réconciliés le 30 septembre 2026, décision du propriétaire,
+  « Réconcilier les 13 ») : 兴, 举, 检, 脸, 应, 险, 验, 签, 捡, 剑, 誉, 俭, 敛. Leur ⺍
   est le 学字头 de la norme (413, 𭕄, trois traits, 丶 丶 丿 ; le fac-similé cite 学, 应,
-  敛 et 检). Tant que `decoupes.tsv` découpe 𭕄 dans les cinq premiers traits de 学, 冖
-  compris (section « À reprendre » plus haut), une surcharge qui les nommerait les
-  dessinerait avec un 冖 qu'ils n'ont pas. Une fois 学 et 觉 repris (décision du
-  propriétaire), les lectures sont prêtes, 佥 s'écrivant 人 一 𭕄 一 :
+  敛 et 检). 𭕄 se découpe désormais dans les trois premiers traits de 学, et 学 et 觉
+  écrivent 冖 à part (plus haut) ; les lectures, 佥 s'écrivant 人 一 𭕄 一, sont dans
+  `ids.tsv` :
 
-  | Caractère | IDS proposé | Traits |
+  | Caractère | IDS | Traits |
   |---|---|---|
   | 兴 | `⿳𭕄一八` | 3 + 1 + 2 = 6 |
   | 举 | `⿱⿳𭕄一八𰀁` | 3 + 1 + 2 + 3 = 9 |
@@ -162,7 +208,7 @@ Restent 16 non réconciliés, sans décomposition dans le dictionnaire :
   | 应 | `⿸广⿱𭕄一` | 3 + 3 + 1 = 7 |
   | 检, 脸, 险, 验, 签, 捡, 剑, 俭, 敛 | 佥 `⿱⿱人一⿱𭕄一`, que cjk-decomp traverse | 佥 : 2 + 1 + 3 + 1 = 7 |
 
-  兴 est au HSK 1 et ferme les deux parcours : le réconcilier change leur fin.
+  兴 est au HSK 1 : il quitte les jours de fermeture des deux chemins (plus haut).
 - **敢** : 横撇 (㇇) sur 耳 (90), puis 攵 (95) ; le 横撇 seul n'est pas un composant de la
   table (乛, 140, est le 横钩). La lecture de la norme n'est pas sûre d'ici.
 - **展** et **丧** : 尸 + 卄 + 一 et 丧字头 (304, ⿻土丷) se lisent, mais leur bas, 竖提,
@@ -191,7 +237,7 @@ dans un caractère hôte (`decoupes.tsv`), et reste acquis d'entrée, sans fiche
 | 𠂒 | 告字头 | 先 |
 | 𠃊 | 竖折 | 喝 |
 | 𭃂 | 那字旁 | 那 |
-| 𭕄 | 学字头 | 学 (à reprendre, plus haut) |
+| 𭕄 | 学字头 | 学, ses trois premiers traits (repris le 30 septembre 2026, plus haut) |
 | 龰, 龴, 𠀎, 𠂇, 𠂉, 𡗗 | — | 足, 令, 寒, 左, 乞, 春 |
 | ⿳亠丷冖, 𢎨, 𠃍, 龷, ⿴夂丶, 丆, 𠃓, 𰀁, リ | — | 帝, 第, 候, 错, 夜, 夏, 场, 举, 师 (28 septembre 2026) |
 | ⿷⿻𠂆一二, 𠂆, ⿳𠂉卌一, ⿱⿻十日⿰一丶, 鸟省, ⿻口一, ⿰冫⿱丿丶, 𧘇, 𰀠, 𰀂, 𭠍, 㐄 | — | 段, 派, 舞, 惠, 岛, 衰, 率, 表, 畏, 虐, 尧, 降 (30 septembre 2026) |

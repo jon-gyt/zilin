@@ -626,7 +626,7 @@ def test_seules_les_series_relues_s_exportent(tmp_path: Path) -> None:
     d = _dossier(tmp_path, statut="a_relire")
     doc = ex.document(en_tete={}, parcours={"lire": charger_parcours("lire")}, racines={}, dossier=d)
     ligne = next(x for x in doc["parcours"]["lire"] if x["examen"] == "xianshi")  # type: ignore[index]
-    assert list(ligne["series"]) == ["A"] and ligne["jour"] == 25
+    assert list(ligne["series"]) == ["A"] and ligne["jour"] == 26
     assert ligne["noms"] == ["王大明", "古天生", "王子如", "明心", "山今", "王友生"]
     assert [e["reussite"] for e in doc["examens"][:2]] == [8, 4]  # type: ignore[index]
     yueke = next(x for x in doc["parcours"]["lire"] if x["examen"] == "yueke-75")  # type: ignore[index]
