@@ -21,20 +21,33 @@
   "尸": "sens",
   "云": "forme"
  },
- "mots": [],
+ "mots": [
+  {
+   "hanzi": "楼层",
+   "pinyin": "lóucéng",
+   "fr": "étage",
+   "en": "floor"
+  },
+  {
+   "hanzi": "高层",
+   "pinyin": "gāocéng",
+   "fr": "immeuble de grande hauteur",
+   "en": "high-rise"
+  }
+ ],
  "phrase": {
-  "zh": "",
-  "pinyin": "",
-  "fr": "",
-  "en": ""
+  "zh": "这个楼有十层。",
+  "pinyin": "Zhège lóu yǒu shí céng.",
+  "fr": "Cet immeuble a dix niveaux.",
+  "en": "This building has ten floors."
  },
  "generation": {
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:b4840580c4ea73415b4b25d2b75207434e8b67e2285ebf4ac08cc00eec01c3e4",
-  "essais": 1,
+  "empreinte_invite": "sha256:14c1c138bc14fddb75f26a946817c71f9f0ac82f3ffd7ef204c38d7f2cd494b5",
+  "essais": 2,
   "refus": []
  },
- "statut": "relu"
+ "statut": "a_relire"
 }

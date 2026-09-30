@@ -19,20 +19,33 @@
  "roles": {
   "业": "forme"
  },
- "mots": [],
+ "mots": [
+  {
+   "hanzi": "作业",
+   "pinyin": "zuòyè",
+   "fr": "devoirs",
+   "en": "homework"
+  },
+  {
+   "hanzi": "工业",
+   "pinyin": "gōngyè",
+   "fr": "industrie",
+   "en": "industry"
+  }
+ ],
  "phrase": {
-  "zh": "",
-  "pinyin": "",
-  "fr": "",
-  "en": ""
+  "zh": "我今天的作业很多。",
+  "pinyin": "Wǒ jīntiān de zuòyè hěn duō.",
+  "fr": "J'ai beaucoup de devoirs aujourd'hui.",
+  "en": "I have a lot of homework today."
  },
  "generation": {
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:3a871c7c3c6576a9659dbdd103f289fb08bde9af8bf7af6f23682057d47b2155",
-  "essais": 1,
+  "empreinte_invite": "sha256:94f706fc62f4c80cf1def4f1f1f4adefacf11eb7fe190cd344736e2e6707016a",
+  "essais": 2,
   "refus": []
  },
- "statut": "relu"
+ "statut": "a_relire"
 }
