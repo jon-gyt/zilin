@@ -23,20 +23,33 @@
   "五": "son",
   "口": "son"
  },
- "mots": [],
+ "mots": [
+  {
+   "hanzi": "会晤",
+   "pinyin": "huìwù",
+   "fr": "rencontre officielle",
+   "en": "official meeting"
+  },
+  {
+   "hanzi": "晤谈",
+   "pinyin": "wùtán",
+   "fr": "s'entretenir",
+   "en": "to have a talk"
+  }
+ ],
  "phrase": {
-  "zh": "",
-  "pinyin": "",
-  "fr": "",
-  "en": ""
+  "zh": "两国领导人在北京会晤。",
+  "pinyin": "Liǎng guó lǐngdǎorén zài Běijīng huìwù.",
+  "fr": "Les dirigeants des deux pays se rencontrent à Pékin.",
+  "en": "The leaders of the two countries meet in Beijing."
  },
  "generation": {
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:7a6c566c69b15a87afe5e8dd005f17310430d0cccd5d39923321b6b4f4594486",
-  "essais": 1,
+  "empreinte_invite": "sha256:f22457919b6976a2c3ec596c56100f6b093cfa4738c72323da1ffbc738d64aea",
+  "essais": 2,
   "refus": []
  },
- "statut": "relu"
+ "statut": "a_relire"
 }

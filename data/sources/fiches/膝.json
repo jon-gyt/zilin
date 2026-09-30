@@ -25,20 +25,33 @@
   "人": "forme",
   "氺": "forme"
  },
- "mots": [],
+ "mots": [
+  {
+   "hanzi": "膝盖",
+   "pinyin": "xīgài",
+   "fr": "genou",
+   "en": "knee"
+  },
+  {
+   "hanzi": "护膝",
+   "pinyin": "hùxī",
+   "fr": "genouillère",
+   "en": "knee pad"
+  }
+ ],
  "phrase": {
-  "zh": "",
-  "pinyin": "",
-  "fr": "",
-  "en": ""
+  "zh": "他跑步时伤了膝盖。",
+  "pinyin": "Tā pǎobù shí shāng le xīgài.",
+  "fr": "Il s'est blessé au genou en courant.",
+  "en": "He hurt his knee while running."
  },
  "generation": {
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:21072478babdc4b5b6287536bd779f437a8e9f02dc1d4a81a5a2da3ccf2943f3",
-  "essais": 1,
+  "empreinte_invite": "sha256:db8f56e2f9b0386429c22269812c835552e652469d664f789d4ec35df03ac999",
+  "essais": 2,
   "refus": []
  },
- "statut": "relu"
+ "statut": "a_relire"
 }
