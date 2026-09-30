@@ -1,0 +1,1262 @@
+{
+ "niveau": "7-9",
+ "lot": "72",
+ "source": "rédigé pour l'app dans le pipeline wenlu, sans API ; faits lus : liste HSK 3.0 (forme, pinyin, niveau, catégorie), lectures d'Unihan et des surcharges, gloses relues des fiches",
+ "brouillon": "data/sources/dico-brouillons/7-9/72.json",
+ "generation": {
+  "modele": "rédaction manuelle",
+  "api": "session Claude Code (sans API)",
+  "date": "2026-09-30",
+  "empreinte_invite": "sha256:09395e22be538baf55b7c26f06a258e8d663cd35a076e23240994c6bfda4aae7",
+  "contexte": "wenlu dico contexte 7-9 72",
+  "essais": 1,
+  "refus": []
+ },
+ "entrees": [
+  {
+   "id": "L7-3078",
+   "genre": "mot",
+   "hanzi": "配件",
+   "pinyin": "pèijiàn",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "pièce détachée, accessoire",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "pièce détachée, accessoire"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这种手机的配件很难买。",
+     "pinyin": "Zhè zhǒng shǒujī de pèijiàn hěn nán mǎi.",
+     "fr": "Pour ce téléphone, les accessoires sont difficiles à trouver.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-3079",
+   "genre": "mot",
+   "hanzi": "配偶",
+   "pinyin": "pèi'ǒu",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "conjoint, époux",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "conjoint, époux, épouse"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "请填写配偶的姓名。",
+     "pinyin": "Qǐng tiánxiě pèi'ǒu de xìngmíng.",
+     "fr": "Veuillez indiquer le nom de votre mari ou de votre femme.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-3080",
+   "genre": "mot",
+   "hanzi": "配送",
+   "pinyin": "pèisòng",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "livrer, distribuer",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "livrer, distribuer (marchandises)"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "网上买的东西第二天就配送到家。",
+     "pinyin": "Wǎng shang mǎi de dōngxi dì-èr tiān jiù pèisòng dào jiā.",
+     "fr": "Ce qu'on achète en ligne arrive à domicile dès le lendemain.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-3081",
+   "genre": "mot",
+   "hanzi": "配音",
+   "pinyin": "pèiyīn",
+   "sens": {
+    "glose": "doubler (un film)",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "doubler un film, faire le doublage"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这部电影是中文配音的。",
+     "pinyin": "Zhè bù diànyǐng shì Zhōngwén pèiyīn de.",
+     "fr": "Ce film est en version chinoise.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-3082",
+   "genre": "mot",
+   "hanzi": "喷泉",
+   "pinyin": "pēnquán",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "fontaine, jet d'eau",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "fontaine, jet d'eau"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "广场中间有一个喷泉。",
+     "pinyin": "Guǎngchǎng zhōngjiān yǒu yī ge pēnquán.",
+     "fr": "Il y a un bassin avec un jet d'eau au centre de la place.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "抨",
+   "genre": "caractere",
+   "hanzi": "抨",
+   "pinyin": "pēng",
+   "sens": {
+    "glose": "attaquer, critiquer",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "attaquer, critiquer (en paroles)"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": []
+  },
+  {
+   "id": "L7-3083",
+   "genre": "mot",
+   "hanzi": "抨击",
+   "pinyin": "pēngjī",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "attaquer, critiquer violemment",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "attaquer, critiquer violemment"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他在文章里抨击了这种现象。",
+     "pinyin": "Tā zài wénzhāng li pēngjī le zhè zhǒng xiànxiàng.",
+     "fr": "Dans son article, il s'en prend à ce phénomène.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "烹",
+   "genre": "caractere",
+   "hanzi": "烹",
+   "pinyin": "pēng",
+   "sens": {
+    "glose": "cuire, cuisiner",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "cuire, cuisiner"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": []
+  },
+  {
+   "id": "L7-3084",
+   "genre": "mot",
+   "hanzi": "烹调",
+   "pinyin": "pēngtiáo",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "cuisiner, préparer des plats",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "cuisiner, préparer des plats"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "她很会烹调中国菜。",
+     "pinyin": "Tā hěn huì pēngtiáo Zhōngguó cài.",
+     "fr": "Elle est très douée pour la cuisine chinoise.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "蓬",
+   "genre": "caractere",
+   "hanzi": "蓬",
+   "pinyin": "péng",
+   "sens": {
+    "glose": "hirsute, touffu",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "hirsute, ébouriffé ; touffu"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": []
+  },
+  {
+   "id": "勃",
+   "genre": "caractere",
+   "hanzi": "勃",
+   "pinyin": "bó",
+   "sens": {
+    "glose": "vigoureux, florissant",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "vigoureux, florissant ; soudain"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": []
+  },
+  {
+   "id": "L7-3085",
+   "genre": "mot",
+   "hanzi": "蓬勃",
+   "pinyin": "péngbó",
+   "categories": [
+    "Adj"
+   ],
+   "sens": {
+    "glose": "florissant, en plein essor",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "florissant, vigoureux, en plein essor"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这个城市的经济正在蓬勃发展。",
+     "pinyin": "Zhège chéngshì de jīngjì zhèngzài péngbó fāzhǎn.",
+     "fr": "L'économie de cette ville se développe à vive allure.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "鹏",
+   "genre": "caractere",
+   "hanzi": "鹏",
+   "pinyin": "péng",
+   "sens": {
+    "glose": "roc (oiseau fabuleux)",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "roc, oiseau fabuleux géant"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": []
+  },
+  {
+   "id": "L7-3086",
+   "genre": "mot",
+   "hanzi": "鹏程万里",
+   "pinyin": "péngchéng-wànlǐ",
+   "sens": {
+    "glose": "avoir un avenir brillant",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "avoir un avenir brillant (formule de vœux)"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "祝你鹏程万里！",
+     "pinyin": "Zhù nǐ péngchéng-wànlǐ!",
+     "fr": "Je te souhaite une belle carrière !",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "膨",
+   "genre": "caractere",
+   "hanzi": "膨",
+   "pinyin": "péng",
+   "sens": {
+    "glose": "gonfler, enfler",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "gonfler, enfler"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": []
+  },
+  {
+   "id": "胀",
+   "genre": "caractere",
+   "hanzi": "胀",
+   "pinyin": "zhàng",
+   "mots": [
+    "L7-5258"
+   ],
+   "sens": {
+    "glose": "se dilater, enfler ; ballonné",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "se dilater, enfler"
+     },
+     {
+      "categorie": "Adj",
+      "fr": "ballonné, gonflé"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "吃得太多，肚子有点儿胀。",
+     "pinyin": "Chī de tài duō, dùzi yǒudiǎnr zhàng.",
+     "fr": "J'ai trop mangé, j'ai le ventre un peu lourd.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-3087",
+   "genre": "mot",
+   "hanzi": "膨胀",
+   "pinyin": "péngzhàng",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "se dilater, gonfler",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "se dilater, gonfler, s'enfler"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "物体受热会膨胀。",
+     "pinyin": "Wùtǐ shòu rè huì péngzhàng.",
+     "fr": "Les corps augmentent de volume sous l'effet de la chaleur.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-3089",
+   "genre": "mot",
+   "hanzi": "捧场",
+   "pinyin": "pěngchǎng",
+   "sens": {
+    "glose": "venir soutenir, applaudir",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "venir soutenir, applaudir ; flatter"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "谢谢大家来捧场！",
+     "pinyin": "Xièxie dàjiā lái pěngchǎng!",
+     "fr": "Merci à tous d'être venus nous encourager !",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-3090",
+   "genre": "mot",
+   "hanzi": "碰钉子",
+   "pinyin": "pèng dīngzi",
+   "sens": {
+    "glose": "essuyer un refus",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "essuyer un refus, se casser le nez"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "我去借钱又碰钉子了。",
+     "pinyin": "Wǒ qù jiè qián yòu pèng dīngzi le.",
+     "fr": "Je suis allé emprunter de l'argent et on m'a encore envoyé promener.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-3091",
+   "genre": "mot",
+   "hanzi": "碰巧",
+   "pinyin": "pèngqiǎo",
+   "categories": [
+    "Adv"
+   ],
+   "sens": {
+    "glose": "par hasard, justement",
+    "acceptions": [
+     {
+      "categorie": "Adv",
+      "fr": "par hasard, justement, comme par chance"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "我碰巧也在那儿。",
+     "pinyin": "Wǒ pèngqiǎo yě zài nàr.",
+     "fr": "Il se trouve que j'étais là aussi.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-3092",
+   "genre": "mot",
+   "hanzi": "碰上",
+   "pinyin": "pèngshang",
+   "sens": {
+    "glose": "tomber sur, rencontrer par hasard",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "tomber sur, rencontrer par hasard"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "我在超市碰上了老同学。",
+     "pinyin": "Wǒ zài chāoshì pèngshang le lǎo tóngxué.",
+     "fr": "Au supermarché, j'ai croisé un ancien camarade de classe.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-3093",
+   "genre": "mot",
+   "hanzi": "碰撞",
+   "pinyin": "pèngzhuàng",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "heurter, entrer en collision",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "heurter, entrer en collision ; s'affronter (idées)"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "两辆车在路口发生了碰撞。",
+     "pinyin": "Liǎng liàng chē zài lùkǒu fāshēng le pèngzhuàng.",
+     "fr": "Deux voitures se sont percutées au carrefour.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-3094",
+   "genre": "mot",
+   "hanzi": "批发",
+   "pinyin": "pīfā",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "vendre en gros",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "vendre en gros, acheter en gros"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这些衣服是从工厂批发来的。",
+     "pinyin": "Zhèxiē yīfu shì cóng gōngchǎng pīfā lái de.",
+     "fr": "Ces vêtements viennent directement de l'usine, par grandes quantités.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-3095",
+   "genre": "mot",
+   "hanzi": "批判",
+   "pinyin": "pīpàn",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "critiquer, dénoncer",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "critiquer, dénoncer, condamner"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这篇文章批判了社会上的不良风气。",
+     "pinyin": "Zhè piān wénzhāng pīpàn le shèhuì shang de bùliáng fēngqì.",
+     "fr": "Cet article s'attaque aux mauvaises mœurs de la société.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-3096",
+   "genre": "mot",
+   "hanzi": "披露",
+   "pinyin": "pīlù",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "divulguer, révéler",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "divulguer, révéler, rendre public"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "报纸披露了这件事的真相。",
+     "pinyin": "Bàozhǐ pīlù le zhè jiàn shì de zhēnxiàng.",
+     "fr": "Le journal a dévoilé la vérité sur cette affaire.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "劈",
+   "genre": "caractere",
+   "hanzi": "劈",
+   "pinyin": "pī",
+   "mots": [
+    "L7-3097"
+   ],
+   "sens": {
+    "glose": "fendre ; frapper (foudre)",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "fendre, couper en deux"
+     },
+     {
+      "categorie": "V",
+      "fr": "frapper (la foudre)"
+     },
+     {
+      "categorie": "V",
+      "fr": "séparer, diviser",
+      "pinyin": "pǐ"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他用刀把木头劈开了。",
+     "pinyin": "Tā yòng dāo bǎ mùtou pīkāi le.",
+     "fr": "Il a fendu le bois avec un coutelas.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-3098",
+   "genre": "mot",
+   "hanzi": "皮带",
+   "pinyin": "pídài",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "ceinture ; courroie",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "ceinture (en cuir) ; courroie"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他系了一条黑皮带。",
+     "pinyin": "Tā jì le yī tiáo hēi pídài.",
+     "fr": "Il a mis une ceinture noire.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "惫",
+   "genre": "caractere",
+   "hanzi": "惫",
+   "pinyin": "bèi",
+   "sens": {
+    "glose": "épuisé",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "épuisé, exténué"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": []
+  },
+  {
+   "id": "L7-3099",
+   "genre": "mot",
+   "hanzi": "疲惫",
+   "pinyin": "píbèi",
+   "categories": [
+    "Adj"
+   ],
+   "sens": {
+    "glose": "épuisé, exténué",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "épuisé, exténué"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "下班回家，他看起来很疲惫。",
+     "pinyin": "Xiàbān huí jiā, tā kàn qǐlai hěn píbèi.",
+     "fr": "En rentrant du travail, il avait l'air vidé.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-3100",
+   "genre": "mot",
+   "hanzi": "疲惫不堪",
+   "pinyin": "píbèi-bùkān",
+   "sens": {
+    "glose": "à bout de forces",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "à bout de forces, recru de fatigue"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "爬完山，大家都疲惫不堪。",
+     "pinyin": "Pá wán shān, dàjiā dōu píbèi-bùkān.",
+     "fr": "Après l'ascension, tout le monde n'en pouvait plus.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "倦",
+   "genre": "caractere",
+   "hanzi": "倦",
+   "pinyin": "juàn",
+   "sens": {
+    "glose": "fatigué, las",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "fatigué, las"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": []
+  },
+  {
+   "id": "L7-3101",
+   "genre": "mot",
+   "hanzi": "疲倦",
+   "pinyin": "píjuàn",
+   "categories": [
+    "Adj"
+   ],
+   "sens": {
+    "glose": "fatigué, las",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "fatigué, las"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "工作了一整天，他感到很疲倦。",
+     "pinyin": "Gōngzuò le yī zhěng tiān, tā gǎndào hěn píjuàn.",
+     "fr": "Après toute une journée de travail, il est à plat.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-3102",
+   "genre": "mot",
+   "hanzi": "疲劳",
+   "pinyin": "píláo",
+   "categories": [
+    "Adj"
+   ],
+   "sens": {
+    "glose": "fatigué ; fatigue",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "fatigué, surmené"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "开车太久容易疲劳。",
+     "pinyin": "Kāi chē tài jiǔ róngyì píláo.",
+     "fr": "Conduire trop longtemps épuise vite.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-3104",
+   "genre": "mot",
+   "hanzi": "匹配",
+   "pinyin": "pǐpèi",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "correspondre, être assorti",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "correspondre, être assorti, s'accorder"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "密码和用户名不匹配。",
+     "pinyin": "Mìmǎ hé yònghùmíng bù pǐpèi.",
+     "fr": "Le mot de passe ne va pas avec cet identifiant.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "媲",
+   "genre": "caractere",
+   "hanzi": "媲",
+   "pinyin": "pì",
+   "sens": {
+    "glose": "égaler",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "égaler, rivaliser avec"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": []
+  },
+  {
+   "id": "L7-3105",
+   "genre": "mot",
+   "hanzi": "媲美",
+   "pinyin": "pìměi",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "rivaliser avec, égaler",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "rivaliser avec, égaler, soutenir la comparaison"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这家小店的菜可以和大饭店媲美。",
+     "pinyin": "Zhè jiā xiǎo diàn de cài kěyǐ hé dà fàndiàn pìměi.",
+     "fr": "La cuisine de ce petit restaurant vaut celle des grands hôtels.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "僻",
+   "genre": "caractere",
+   "hanzi": "僻",
+   "pinyin": "pì",
+   "sens": {
+    "glose": "retiré, écarté ; rare",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "retiré, écarté ; peu courant"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": []
+  },
+  {
+   "id": "L7-3106",
+   "genre": "mot",
+   "hanzi": "僻静",
+   "pinyin": "pìjìng",
+   "categories": [
+    "Adj"
+   ],
+   "sens": {
+    "glose": "retiré et calme",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "retiré et calme, isolé"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他住在一个僻静的小村子里。",
+     "pinyin": "Tā zhù zài yī ge pìjìng de xiǎo cūnzi li.",
+     "fr": "Il vit dans un petit village à l'écart.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "譬",
+   "genre": "caractere",
+   "hanzi": "譬",
+   "pinyin": "pì",
+   "sens": {
+    "glose": "comparer ; exemple",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "comparer ; donner pour exemple"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": []
+  },
+  {
+   "id": "L7-3107",
+   "genre": "mot",
+   "hanzi": "譬如",
+   "pinyin": "pìrú",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "par exemple",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "par exemple, prenons le cas de"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "我喜欢运动，譬如游泳和跑步。",
+     "pinyin": "Wǒ xǐhuan yùndòng, pìrú yóuyǒng hé pǎobù.",
+     "fr": "J'aime le sport, la natation ou la course notamment.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-3108",
+   "genre": "mot",
+   "hanzi": "譬如说",
+   "pinyin": "pìrú shuō",
+   "sens": {
+    "glose": "par exemple, disons",
+    "acceptions": [
+     {
+      "categorie": "Conj",
+      "fr": "par exemple, disons"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "有些水果，譬如说苹果，一年四季都有。",
+     "pinyin": "Yǒuxiē shuǐguǒ, pìrú shuō píngguǒ, yī nián sìjì dōu yǒu.",
+     "fr": "Certains fruits, comme les pommes, se trouvent en toute saison.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-3109",
+   "genre": "mot",
+   "hanzi": "片子",
+   "pinyin": "piānzi",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "film ; radiographie",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "film, bobine"
+     },
+     {
+      "categorie": "N",
+      "fr": "radiographie, cliché"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这部片子很好看。",
+     "pinyin": "Zhè bù piānzi hěn hǎokàn.",
+     "fr": "Ce film vaut le coup.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-3110",
+   "genre": "mot",
+   "hanzi": "偏差",
+   "pinyin": "piānchā",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "écart, déviation ; erreur",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "écart, déviation ; erreur"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "我们的理解出现了偏差。",
+     "pinyin": "Wǒmen de lǐjiě chūxiàn le piānchā.",
+     "fr": "Nous ne nous sommes pas tout à fait compris.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-3111",
+   "genre": "mot",
+   "hanzi": "偏方",
+   "pinyin": "piānfāng",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "remède populaire",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "remède populaire, recette de grand-mère"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "奶奶有很多治感冒的偏方。",
+     "pinyin": "Nǎinai yǒu hěn duō zhì gǎnmào de piānfāng.",
+     "fr": "Grand-mère connaît plein de remèdes maison contre le rhume.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-3112",
+   "genre": "mot",
+   "hanzi": "偏见",
+   "pinyin": "piānjiàn",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "préjugé, parti pris",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "préjugé, parti pris"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "我们不应该对他有偏见。",
+     "pinyin": "Wǒmen bù yīnggāi duì tā yǒu piānjiàn.",
+     "fr": "Nous ne devrions pas le juger d'avance.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-3113",
+   "genre": "mot",
+   "hanzi": "偏僻",
+   "pinyin": "piānpì",
+   "categories": [
+    "Adj"
+   ],
+   "sens": {
+    "glose": "isolé, reculé",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "isolé, reculé, écarté"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他在一个偏僻的山村当老师。",
+     "pinyin": "Tā zài yī ge piānpì de shāncūn dāng lǎoshī.",
+     "fr": "Il est instituteur dans un village de montagne perdu.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-3114",
+   "genre": "mot",
+   "hanzi": "偏偏",
+   "pinyin": "piānpiān",
+   "categories": [
+    "Adv"
+   ],
+   "sens": {
+    "glose": "justement ; obstinément",
+    "acceptions": [
+     {
+      "categorie": "Adv",
+      "fr": "justement, comme par un fait exprès"
+     },
+     {
+      "categorie": "Adv",
+      "fr": "obstinément, coûte que coûte"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "我要出门，偏偏下起了雨。",
+     "pinyin": "Wǒ yào chū mén, piānpiān xià qǐ le yǔ.",
+     "fr": "Au moment de sortir, voilà qu'il se met à pleuvoir.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-3115",
+   "genre": "mot",
+   "hanzi": "偏向",
+   "pinyin": "piānxiàng",
+   "categories": [
+    "V",
+    "N"
+   ],
+   "sens": {
+    "glose": "favoriser ; tendance",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "favoriser, prendre le parti de"
+     },
+     {
+      "categorie": "N",
+      "fr": "tendance, déviation"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "妈妈总是偏向弟弟。",
+     "pinyin": "Māma zǒngshì piānxiàng dìdi.",
+     "fr": "Maman prend toujours la défense de mon petit frère.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-3116",
+   "genre": "mot",
+   "hanzi": "偏远",
+   "pinyin": "piānyuǎn",
+   "categories": [
+    "Adj"
+   ],
+   "sens": {
+    "glose": "reculé, éloigné",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "reculé, éloigné, isolé"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "偏远地区的交通很不方便。",
+     "pinyin": "Piānyuǎn dìqū de jiāotōng hěn bù fāngbiàn.",
+     "fr": "Dans les régions perdues, se déplacer est compliqué.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-3117",
+   "genre": "mot",
+   "hanzi": "篇幅",
+   "pinyin": "piānfu",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "longueur (d'un texte), place",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "longueur d'un texte, place occupée"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这篇文章篇幅太长了。",
+     "pinyin": "Zhè piān wénzhāng piānfu tài cháng le.",
+     "fr": "Cet article est beaucoup trop long.",
+     "statut": "a_relire"
+    }
+   ]
+  }
+ ]
+}
