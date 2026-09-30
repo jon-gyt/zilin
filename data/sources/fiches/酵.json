@@ -23,20 +23,33 @@
   "耂": "forme",
   "子": "forme"
  },
- "mots": [],
+ "mots": [
+  {
+   "hanzi": "发酵",
+   "pinyin": "fājiào",
+   "fr": "fermenter",
+   "en": "to ferment"
+  },
+  {
+   "hanzi": "酵母",
+   "pinyin": "jiàomǔ",
+   "fr": "levure",
+   "en": "yeast"
+  }
+ ],
  "phrase": {
-  "zh": "",
-  "pinyin": "",
-  "fr": "",
-  "en": ""
+  "zh": "做面包要先发酵。",
+  "pinyin": "Zuò miànbāo yào xiān fājiào.",
+  "fr": "Pour faire du pain, il faut d'abord laisser lever la pâte.",
+  "en": "To make bread, you first have to let the dough rise."
  },
  "generation": {
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:741e0560b9237dee7650dad0ac1337928e0572d6a7ff640cd129eb3385f87d39",
-  "essais": 1,
+  "empreinte_invite": "sha256:97a55cdd82596926589eacd2ca3020242dbe17ba695fd92bb2d1d3c34436ca37",
+  "essais": 2,
   "refus": []
  },
- "statut": "relu"
+ "statut": "a_relire"
 }
