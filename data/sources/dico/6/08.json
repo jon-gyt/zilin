@@ -1,0 +1,1346 @@
+{
+ "niveau": "6",
+ "lot": "08",
+ "source": "rédigé pour l'app dans le pipeline wenlu, sans API ; faits lus : liste HSK 3.0 (forme, pinyin, niveau, catégorie), lectures d'Unihan et des surcharges, gloses relues des fiches",
+ "brouillon": "data/sources/dico-brouillons/6/08.json",
+ "generation": {
+  "modele": "rédaction manuelle",
+  "api": "session Claude Code (sans API)",
+  "date": "2026-09-30",
+  "empreinte_invite": "sha256:bb5813c275049847cc14bed2e93b399c1a1ea11e846cc1147394bd30daefbe70",
+  "contexte": "wenlu dico contexte 6 08",
+  "essais": 1,
+  "refus": []
+ },
+ "entrees": [
+  {
+   "id": "L6-0310",
+   "genre": "mot",
+   "hanzi": "高考",
+   "pinyin": "gāokǎo",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "concours d'entrée à l'université",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "concours national d'entrée à l'université, gaokao"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他今年参加高考。",
+     "pinyin": "Tā jīnnián cānjiā gāokǎo.",
+     "fr": "Il passe l'examen d'entrée à l'université cette année.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L6-0311",
+   "genre": "mot",
+   "hanzi": "高科技",
+   "pinyin": "gāokējì",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "haute technologie",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "haute technologie"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这家公司是做高科技的。",
+     "pinyin": "Zhè jiā gōngsī shì zuò gāokējì de.",
+     "fr": "Cette entreprise travaille dans les technologies de pointe.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L6-0312",
+   "genre": "mot",
+   "hanzi": "高手",
+   "pinyin": "gāoshǒu",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "expert, as, maître",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "expert, as, maître en son art"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他是打网球的高手。",
+     "pinyin": "Tā shì dǎ wǎngqiú de gāoshǒu.",
+     "fr": "Au tennis, c'est un champion.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "稿",
+   "genre": "caractere",
+   "hanzi": "稿",
+   "pinyin": "gǎo",
+   "sens": {
+    "glose": "brouillon, manuscrit",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "brouillon, manuscrit ; texte"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": []
+  },
+  {
+   "id": "L6-0313",
+   "genre": "mot",
+   "hanzi": "稿子",
+   "pinyin": "gǎozi",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "manuscrit, texte rédigé",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "manuscrit, texte rédigé : discours, article"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他的稿子写完了吗？",
+     "pinyin": "Tā de gǎozi xiě wán le ma?",
+     "fr": "Il a fini de rédiger son texte ?",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L6-0314",
+   "genre": "mot",
+   "hanzi": "歌唱",
+   "pinyin": "gēchàng",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "chanter, célébrer par le chant",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "chanter, célébrer par le chant"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "我们歌唱美好的生活。",
+     "pinyin": "Wǒmen gēchàng měihǎo de shēnghuó.",
+     "fr": "Nous chantons la belle vie.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L6-0315",
+   "genre": "mot",
+   "hanzi": "歌词",
+   "pinyin": "gēcí",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "paroles (d'une chanson)",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "paroles d'une chanson"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这首歌的歌词很美。",
+     "pinyin": "Zhè shǒu gē de gēcí hěn měi.",
+     "fr": "Le texte de cette chanson est très beau.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L6-0316",
+   "genre": "mot",
+   "hanzi": "歌星",
+   "pinyin": "gēxīng",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "vedette de la chanson",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "vedette de la chanson"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "她是一位有名的歌星。",
+     "pinyin": "Tā shì yī wèi yǒumíng de gēxīng.",
+     "fr": "C'est une chanteuse célèbre.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L6-0317",
+   "genre": "mot",
+   "hanzi": "革新",
+   "pinyin": "géxīn",
+   "categories": [
+    "V",
+    "N"
+   ],
+   "sens": {
+    "glose": "innover, réformer ; innovation",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "innover, réformer, rénover"
+     },
+     {
+      "categorie": "N",
+      "fr": "innovation"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "我们要不断革新技术。",
+     "pinyin": "Wǒmen yào bùduàn géxīn jìshù.",
+     "fr": "Il faut sans cesse moderniser nos techniques.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L6-0318",
+   "genre": "mot",
+   "hanzi": "更是",
+   "pinyin": "gèng shì",
+   "sens": {
+    "glose": "encore plus, d'autant plus",
+    "acceptions": [
+     {
+      "categorie": "Adv",
+      "fr": "encore plus, d'autant plus"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他平时很忙，周末更是忙。",
+     "pinyin": "Tā píngshí hěn máng, zhōumò gèng shì máng.",
+     "fr": "Il est très occupé en semaine, et plus encore le week-end.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L6-0319",
+   "genre": "mot",
+   "hanzi": "工商",
+   "pinyin": "gōngshāng",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "industrie et commerce",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "industrie et commerce"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这里的工商业很发达。",
+     "pinyin": "Zhèli de gōngshāngyè hěn fādá.",
+     "fr": "Les affaires sont très florissantes ici.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L6-0321",
+   "genre": "mot",
+   "hanzi": "公安",
+   "pinyin": "gōng'ān",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "sécurité publique, police",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "sécurité publique, police"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他在公安局工作。",
+     "pinyin": "Tā zài gōng'ānjú gōngzuò.",
+     "fr": "Il travaille au commissariat.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L6-0322",
+   "genre": "mot",
+   "hanzi": "公鸡",
+   "pinyin": "gōngjī",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "coq",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "coq"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "公鸡每天早上叫。",
+     "pinyin": "Gōngjī měi tiān zǎoshang jiào.",
+     "fr": "Le coq chante tous les matins.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L6-0323",
+   "genre": "mot",
+   "hanzi": "公众",
+   "pinyin": "gōngzhòng",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "public, grand public",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "public, grand public"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这个公园对公众开放。",
+     "pinyin": "Zhège gōngyuán duì gōngzhòng kāifàng.",
+     "fr": "Ce parc est ouvert à tous.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L6-0324",
+   "genre": "mot",
+   "hanzi": "公主",
+   "pinyin": "gōngzhǔ",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "princesse",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "princesse"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "小女孩想当公主。",
+     "pinyin": "Xiǎo nǚhái xiǎng dāng gōngzhǔ.",
+     "fr": "La petite fille rêve d'être la fille d'un roi.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "攻",
+   "genre": "caractere",
+   "hanzi": "攻",
+   "pinyin": "gōng",
+   "mots": [
+    "L7-1375"
+   ],
+   "sens": {
+    "glose": "attaquer ; étudier à fond",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "attaquer, assaillir"
+     },
+     {
+      "categorie": "V",
+      "fr": "étudier à fond, se spécialiser dans"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他们决定明天攻城。",
+     "pinyin": "Tāmen juédìng míngtiān gōng chéng.",
+     "fr": "Ils ont décidé de donner l'assaut à la ville demain.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L6-0325",
+   "genre": "mot",
+   "hanzi": "攻击",
+   "pinyin": "gōngjī",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "attaquer ; dénigrer",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "attaquer, assaillir ; dénigrer"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "你不应该攻击别人。",
+     "pinyin": "Nǐ bù yīnggāi gōngjī biérén.",
+     "fr": "Tu ne devrais pas t'en prendre aux autres.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L6-0326",
+   "genre": "mot",
+   "hanzi": "供给",
+   "pinyin": "gōngjǐ",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "fournir, approvisionner",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "fournir, approvisionner"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这里的水由那个水库供给。",
+     "pinyin": "Zhèli de shuǐ yóu nàge shuǐkù gōngjǐ.",
+     "fr": "L'eau d'ici vient de ce réservoir.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "宫",
+   "genre": "caractere",
+   "hanzi": "宫",
+   "pinyin": "gōng",
+   "mots": [
+    "L6-0327"
+   ],
+   "sens": {
+    "glose": "palais",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "palais ; temple"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "皇帝住在宫里。",
+     "pinyin": "Huángdì zhù zài gōng li.",
+     "fr": "L'empereur vit au palais.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "巩",
+   "genre": "caractere",
+   "hanzi": "巩",
+   "pinyin": "gǒng",
+   "sens": {
+    "glose": "consolider",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "consolider, affermir"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": []
+  },
+  {
+   "id": "L6-0328",
+   "genre": "mot",
+   "hanzi": "巩固",
+   "pinyin": "gǒnggù",
+   "categories": [
+    "Adj",
+    "V"
+   ],
+   "sens": {
+    "glose": "solide ; consolider",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "solide, stable"
+     },
+     {
+      "categorie": "V",
+      "fr": "consolider, renforcer"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "学过的生词要经常巩固。",
+     "pinyin": "Xué guo de shēngcí yào jīngcháng gǒnggù.",
+     "fr": "Il faut revoir souvent le vocabulaire appris.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "贡",
+   "genre": "caractere",
+   "hanzi": "贡",
+   "pinyin": "gòng",
+   "sens": {
+    "glose": "tribut, offrande",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "tribut, offrande"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": []
+  },
+  {
+   "id": "L6-0329",
+   "genre": "mot",
+   "hanzi": "贡献",
+   "pinyin": "gòngxiàn",
+   "categories": [
+    "V",
+    "N"
+   ],
+   "sens": {
+    "glose": "contribuer ; contribution",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "contribuer, apporter"
+     },
+     {
+      "categorie": "N",
+      "fr": "contribution, apport"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他为国家做出了很大贡献。",
+     "pinyin": "Tā wèi guójiā zuòchū le hěn dà gòngxiàn.",
+     "fr": "Il a beaucoup fait pour son pays.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L6-0330",
+   "genre": "mot",
+   "hanzi": "构建",
+   "pinyin": "gòujiàn",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "construire, bâtir (un système)",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "construire, bâtir : un système, un cadre"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他们正在构建新的网络。",
+     "pinyin": "Tāmen zhèngzài gòujiàn xīn de wǎngluò.",
+     "fr": "Ils sont en train de mettre en place un nouveau réseau.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "孤",
+   "genre": "caractere",
+   "hanzi": "孤",
+   "pinyin": "gū",
+   "sens": {
+    "glose": "seul, isolé ; orphelin",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "seul, isolé"
+     },
+     {
+      "categorie": "N",
+      "fr": "orphelin"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": []
+  },
+  {
+   "id": "L6-0331",
+   "genre": "mot",
+   "hanzi": "孤独",
+   "pinyin": "gūdú",
+   "categories": [
+    "Adj"
+   ],
+   "sens": {
+    "glose": "seul, solitaire",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "seul, solitaire, isolé"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他一个人住，常常感到孤独。",
+     "pinyin": "Tā yī ge rén zhù, chángcháng gǎndào gūdú.",
+     "fr": "Il vit seul et se sent souvent délaissé.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L6-0332",
+   "genre": "mot",
+   "hanzi": "孤儿",
+   "pinyin": "gū'ér",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "orphelin",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "orphelin, orpheline"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "她从小就是孤儿。",
+     "pinyin": "Tā cóngxiǎo jiù shì gū'ér.",
+     "fr": "Elle a perdu ses parents toute petite.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L6-0333",
+   "genre": "mot",
+   "hanzi": "姑姑",
+   "pinyin": "gūgu",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "tante (sœur du père)",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "tante, sœur du père"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "我姑姑住在上海。",
+     "pinyin": "Wǒ gūgu zhù zài Shànghǎi.",
+     "fr": "La sœur de mon père habite à Shanghai.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L6-0334",
+   "genre": "mot",
+   "hanzi": "古典",
+   "pinyin": "gǔdiǎn",
+   "categories": [
+    "Adj"
+   ],
+   "sens": {
+    "glose": "classique",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "classique"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "我喜欢听古典音乐。",
+     "pinyin": "Wǒ xǐhuan tīng gǔdiǎn yīnyuè.",
+     "fr": "J'aime écouter de la grande musique.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L6-0336",
+   "genre": "mot",
+   "hanzi": "股东",
+   "pinyin": "gǔdōng",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "actionnaire",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "actionnaire"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他是这家公司的股东。",
+     "pinyin": "Tā shì zhè jiā gōngsī de gǔdōng.",
+     "fr": "Il détient des parts de cette entreprise.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L6-0337",
+   "genre": "mot",
+   "hanzi": "股票",
+   "pinyin": "gǔpiào",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "action (en bourse)",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "action en bourse, titre"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他买了很多股票。",
+     "pinyin": "Tā mǎi le hěn duō gǔpiào.",
+     "fr": "Il a acheté beaucoup de titres.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "障",
+   "genre": "caractere",
+   "hanzi": "障",
+   "pinyin": "zhàng",
+   "sens": {
+    "glose": "obstacle, barrière",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "obstacle, barrière"
+     },
+     {
+      "categorie": "V",
+      "fr": "faire obstacle, protéger"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": []
+  },
+  {
+   "id": "L6-0338",
+   "genre": "mot",
+   "hanzi": "故障",
+   "pinyin": "gùzhàng",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "panne, défaillance",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "panne, défaillance"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "电梯出故障了。",
+     "pinyin": "Diàntī chū gùzhàng le.",
+     "fr": "L'ascenseur est en panne.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "刮",
+   "genre": "caractere",
+   "hanzi": "刮",
+   "pinyin": "guā",
+   "mots": [
+    "L6-0340"
+   ],
+   "sens": {
+    "glose": "souffler (vent) ; gratter, raser",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "souffler : le vent"
+     },
+     {
+      "categorie": "V",
+      "fr": "gratter, racler ; raser"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "外面刮大风了。",
+     "pinyin": "Wàimian guā dà fēng le.",
+     "fr": "Dehors, le vent souffle fort.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "拐",
+   "genre": "caractere",
+   "hanzi": "拐",
+   "pinyin": "guǎi",
+   "mots": [
+    "L6-0341"
+   ],
+   "sens": {
+    "glose": "tourner ; enlever, kidnapper",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "tourner, prendre un virage"
+     },
+     {
+      "categorie": "V",
+      "fr": "enlever, kidnapper ; escroquer"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "到路口向左拐。",
+     "pinyin": "Dào lùkǒu xiàng zuǒ guǎi.",
+     "fr": "Au carrefour, prenez à gauche.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L6-0342",
+   "genre": "mot",
+   "hanzi": "关爱",
+   "pinyin": "guān'ài",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "prendre soin de, choyer",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "prendre soin de, entourer d'affection"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "我们要关爱老人。",
+     "pinyin": "Wǒmen yào guān'ài lǎorén.",
+     "fr": "Nous devons veiller sur les personnes âgées.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L6-0343",
+   "genre": "mot",
+   "hanzi": "关联",
+   "pinyin": "guānlián",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "être lié, être en rapport",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "être lié, être en rapport"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这两件事互相关联。",
+     "pinyin": "Zhè liǎng jiàn shì hùxiāng guānlián.",
+     "fr": "Ces deux affaires sont liées entre elles.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L6-0344",
+   "genre": "mot",
+   "hanzi": "观光",
+   "pinyin": "guānguāng",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "faire du tourisme, visiter",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "faire du tourisme, visiter"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "很多外国人来这里观光。",
+     "pinyin": "Hěn duō wàiguó rén lái zhèli guānguāng.",
+     "fr": "Beaucoup d'étrangers viennent visiter la région.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L6-0345",
+   "genre": "mot",
+   "hanzi": "官司",
+   "pinyin": "guānsi",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "procès, litige",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "procès, litige"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他们的官司还没结束。",
+     "pinyin": "Tāmen de guānsi hái méi jiéshù.",
+     "fr": "Leur affaire n'est pas encore jugée.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L6-0346",
+   "genre": "mot",
+   "hanzi": "管道",
+   "pinyin": "guǎndào",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "tuyau, canalisation",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "tuyau, canalisation ; canal, filière"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "地下的管道坏了。",
+     "pinyin": "Dìxià de guǎndào huài le.",
+     "fr": "La conduite souterraine est cassée.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "辉",
+   "genre": "caractere",
+   "hanzi": "辉",
+   "pinyin": "huī",
+   "sens": {
+    "glose": "éclat, splendeur",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "éclat, lumière, splendeur"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": []
+  },
+  {
+   "id": "L6-0347",
+   "genre": "mot",
+   "hanzi": "光辉",
+   "pinyin": "guānghuī",
+   "categories": [
+    "N",
+    "Adj"
+   ],
+   "sens": {
+    "glose": "éclat, splendeur ; glorieux",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "éclat, splendeur"
+     },
+     {
+      "categorie": "Adj",
+      "fr": "glorieux, brillant"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "太阳的光辉照着大地。",
+     "pinyin": "Tàiyáng de guānghuī zhào zhe dàdì.",
+     "fr": "Le soleil éclaire la terre de ses rayons.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "阔",
+   "genre": "caractere",
+   "hanzi": "阔",
+   "pinyin": "kuò",
+   "mots": [
+    "L6-0520"
+   ],
+   "sens": {
+    "glose": "large, vaste ; riche",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "large, vaste"
+     },
+     {
+      "categorie": "Adj",
+      "fr": "riche, fortuné"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他现在阔了。",
+     "pinyin": "Tā xiànzài kuò le.",
+     "fr": "Maintenant, il a fait fortune.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L6-0348",
+   "genre": "mot",
+   "hanzi": "广阔",
+   "pinyin": "guǎngkuò",
+   "categories": [
+    "Adj"
+   ],
+   "sens": {
+    "glose": "vaste, immense",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "vaste, immense, étendu"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这里有广阔的草原。",
+     "pinyin": "Zhèli yǒu guǎngkuò de cǎoyuán.",
+     "fr": "Ici s'étendent d'immenses prairies.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "轨",
+   "genre": "caractere",
+   "hanzi": "轨",
+   "pinyin": "guǐ",
+   "sens": {
+    "glose": "rail, voie ; règle",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "rail, voie ; ornière"
+     },
+     {
+      "categorie": "N",
+      "fr": "règle, norme"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": []
+  },
+  {
+   "id": "L6-0349",
+   "genre": "mot",
+   "hanzi": "轨道",
+   "pinyin": "guǐdào",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "voie ferrée, rails ; orbite",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "voie ferrée, rails ; orbite"
+     },
+     {
+      "categorie": "N",
+      "fr": "voie, bonne marche"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "卫星进入了轨道。",
+     "pinyin": "Wèixīng jìnrù le guǐdào.",
+     "fr": "Le satellite est en orbite.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "跪",
+   "genre": "caractere",
+   "hanzi": "跪",
+   "pinyin": "guì",
+   "mots": [
+    "L6-0350"
+   ],
+   "sens": {
+    "glose": "s'agenouiller",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "s'agenouiller, être à genoux"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他跪在地上求她原谅。",
+     "pinyin": "Tā guì zài dì shang qiú tā yuánliàng.",
+     "fr": "À genoux, il l'a suppliée de lui pardonner.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L6-0351",
+   "genre": "mot",
+   "hanzi": "国产",
+   "pinyin": "guóchǎn",
+   "categories": [
+    "Adj"
+   ],
+   "sens": {
+    "glose": "fabriqué dans le pays, national",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "fabriqué dans le pays, national"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这是国产车。",
+     "pinyin": "Zhè shì guóchǎn chē.",
+     "fr": "Cette voiture est de fabrication chinoise.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L6-0352",
+   "genre": "mot",
+   "hanzi": "国歌",
+   "pinyin": "guógē",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "hymne national",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "hymne national"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "大家站起来唱国歌。",
+     "pinyin": "Dàjiā zhàn qǐlai chàng guógē.",
+     "fr": "Tout le monde s'est levé pour chanter l'hymne.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L6-0353",
+   "genre": "mot",
+   "hanzi": "国会",
+   "pinyin": "guóhuì",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "parlement, congrès",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "parlement, congrès"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "国会通过了这个法律。",
+     "pinyin": "Guóhuì tōngguò le zhège fǎlǜ.",
+     "fr": "Le parlement a voté cette loi.",
+     "statut": "a_relire"
+    }
+   ]
+  }
+ ]
+}
