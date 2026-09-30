@@ -198,10 +198,17 @@ def charger_parcours(nom: str = PARCOURS, build: Path | None = None) -> dict[str
 
 
 def poses_par_jour(parcours: Mapping[str, object]) -> list[tuple[int, str]]:
-    """Les caractères qu'un parcours pose, avec leur jour, dans l'ordre : brique puis composés."""
+    """Les caractères qu'un parcours pose, avec leur jour, dans l'ordre : brique puis composés.
+
+    Un jour de fermeture (`non_reconcilie`) ne pose rien : la session le saute. Depuis que
+    chaque étape du chemin se ferme par ses non réconciliés (30 septembre 2026), 兴 au jour
+    190 du chemin Lire, ces jours tombent au milieu du chemin, et rien ne doit les lire.
+    """
     out: list[tuple[int, str]] = []
     vus: set[str] = set()
     for jour in parcours.get("jours") or ():  # type: ignore[union-attr]
+        if jour.get("non_reconcilie"):
+            continue
         for c in ([jour["brique"]] if jour.get("brique") else []) + list(jour.get("composes") or ()):
             if c and c not in vus:
                 vus.add(str(c))
