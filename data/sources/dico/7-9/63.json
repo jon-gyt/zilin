@@ -1,0 +1,1374 @@
+{
+ "niveau": "7-9",
+ "lot": "63",
+ "source": "rédigé pour l'app dans le pipeline wenlu, sans API ; faits lus : liste HSK 3.0 (forme, pinyin, niveau, catégorie), lectures d'Unihan et des surcharges, gloses relues des fiches",
+ "brouillon": "data/sources/dico-brouillons/7-9/63.json",
+ "generation": {
+  "modele": "rédaction manuelle",
+  "api": "session Claude Code (sans API)",
+  "date": "2026-09-30",
+  "empreinte_invite": "sha256:0486438ffd90356d445c978bc20dbd52f90d50c056b2d39c8958e0582395f3da",
+  "contexte": "wenlu dico contexte 7-9 63",
+  "essais": 1,
+  "refus": []
+ },
+ "entrees": [
+  {
+   "id": "L7-2685",
+   "genre": "mot",
+   "hanzi": "流浪",
+   "pinyin": "liúlàng",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "errer, vagabonder",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "errer, vagabonder, mener une vie d'errance"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "街上有一只流浪的小狗。",
+     "pinyin": "Jiē shang yǒu yī zhī liúlàng de xiǎo gǒu.",
+     "fr": "Il y a un petit chien errant dans la rue.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2686",
+   "genre": "mot",
+   "hanzi": "流泪",
+   "pinyin": "liúlèi",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "verser des larmes",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "verser des larmes, pleurer"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "看到这个电影，很多人都流泪了。",
+     "pinyin": "Kàndào zhège diànyǐng, hěn duō rén dōu liúlèi le.",
+     "fr": "Beaucoup de spectateurs ont pleuré devant ce film.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2687",
+   "genre": "mot",
+   "hanzi": "流量",
+   "pinyin": "liúliàng",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "débit, flux ; données (mobile)",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "débit, flux, trafic"
+     },
+     {
+      "categorie": "N",
+      "fr": "volume de données (téléphone mobile)"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "我这个月的手机流量用完了。",
+     "pinyin": "Wǒ zhège yuè de shǒujī liúliàng yòng wán le.",
+     "fr": "J'ai épuisé mon forfait de données ce mois-ci.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2688",
+   "genre": "mot",
+   "hanzi": "流露",
+   "pinyin": "liúlù",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "laisser paraître, trahir",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "laisser paraître, trahir (un sentiment)"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "她的眼里流露出失望。",
+     "pinyin": "Tā de yǎn li liúlù chū shīwàng.",
+     "fr": "La déception se lit dans ses yeux.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "氓",
+   "genre": "caractere",
+   "hanzi": "氓",
+   "pinyin": "máng",
+   "sens": {
+    "glose": "voyou (en composé) ; peuple",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "voyou (en composé)"
+     },
+     {
+      "categorie": "N",
+      "fr": "peuple, gens du commun",
+      "pinyin": "méng"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "那个流氓被警察抓走了。",
+     "pinyin": "Nàge liúmáng bèi jǐngchá zhuā zǒu le.",
+     "fr": "Ce voyou a été emmené par la police.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2689",
+   "genre": "mot",
+   "hanzi": "流氓",
+   "pinyin": "liúmáng",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "voyou, vaurien",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "voyou, vaurien ; comportement indécent"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "几个流氓在街上打架。",
+     "pinyin": "Jǐ ge liúmáng zài jiē shang dǎjià.",
+     "fr": "Quelques voyous se battent dans la rue.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2690",
+   "genre": "mot",
+   "hanzi": "流入",
+   "pinyin": "liúrù",
+   "sens": {
+    "glose": "affluer, se déverser dans",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "affluer, se déverser dans"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这条河最后流入大海。",
+     "pinyin": "Zhè tiáo hé zuìhòu liúrù dàhǎi.",
+     "fr": "Cette rivière finit par se jeter dans la mer.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2691",
+   "genre": "mot",
+   "hanzi": "流失",
+   "pinyin": "liúshī",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "s'écouler, se perdre ; fuite",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "s'écouler, se perdre (eau, sol) ; partir, fuir (talents)"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "公司的人才流失很严重。",
+     "pinyin": "Gōngsī de réncái liúshī hěn yánzhòng.",
+     "fr": "L'entreprise perd beaucoup de ses talents.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2692",
+   "genre": "mot",
+   "hanzi": "流水",
+   "pinyin": "liúshuǐ",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "eau courante ; chaîne (de production)",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "eau courante"
+     },
+     {
+      "categorie": "N",
+      "fr": "chaîne de production ; chiffre d'affaires"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "窗外能听到流水的声音。",
+     "pinyin": "Chuāng wài néng tīngdào liúshuǐ de shēngyīn.",
+     "fr": "De la fenêtre, on entend le murmure de l'eau.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "淌",
+   "genre": "caractere",
+   "hanzi": "淌",
+   "pinyin": "tǎng",
+   "mots": [
+    "L7-4024"
+   ],
+   "sens": {
+    "glose": "couler, dégoutter",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "couler, dégoutter, ruisseler"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他热得满头淌汗。",
+     "pinyin": "Tā rè de mǎn tóu tǎng hàn.",
+     "fr": "Il a si chaud que la sueur ruisselle sur son front.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2693",
+   "genre": "mot",
+   "hanzi": "流淌",
+   "pinyin": "liútǎng",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "couler, s'écouler",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "couler, s'écouler (doucement)"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "小河从村子旁边流淌过去。",
+     "pinyin": "Xiǎo hé cóng cūnzi pángbiān liútǎng guòqu.",
+     "fr": "Un ruisseau coule à côté du village.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2694",
+   "genre": "mot",
+   "hanzi": "流向",
+   "pinyin": "liúxiàng",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "direction du courant, orientation",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "direction du courant ; orientation, destination"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "我们要关注资金的流向。",
+     "pinyin": "Wǒmen yào guānzhù zījīn de liúxiàng.",
+     "fr": "Nous devons surveiller où va l'argent.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2695",
+   "genre": "mot",
+   "hanzi": "流血",
+   "pinyin": "liúxuè",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "saigner",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "saigner, verser le sang"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他的手指流血了。",
+     "pinyin": "Tā de shǒuzhǐ liúxuè le.",
+     "fr": "Son doigt saigne.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2696",
+   "genre": "mot",
+   "hanzi": "流域",
+   "pinyin": "liúyù",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "bassin (d'un fleuve)",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "bassin (d'un fleuve)"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "长江流域人口很多。",
+     "pinyin": "Cháng Jiāng liúyù rénkǒu hěn duō.",
+     "fr": "Le bassin du Yangtsé est très peuplé.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2697",
+   "genre": "mot",
+   "hanzi": "流转",
+   "pinyin": "liúzhuǎn",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "circuler, se transmettre",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "circuler, se transmettre, passer de main en main"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这幅画在民间流转了几百年。",
+     "pinyin": "Zhè fú huà zài mínjiān liúzhuǎn le jǐ bǎi nián.",
+     "fr": "Ce tableau a circulé de main en main pendant des siècles.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "柳",
+   "genre": "caractere",
+   "hanzi": "柳",
+   "pinyin": "liǔ",
+   "sens": {
+    "glose": "saule",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "saule"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "河边的柳枝随风摆动。",
+     "pinyin": "Hé biān de liǔzhī suí fēng bǎidòng.",
+     "fr": "Au bord de la rivière, les branches de saule ondulent au vent.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2698",
+   "genre": "mot",
+   "hanzi": "柳树",
+   "pinyin": "liǔshù",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "saule",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "saule"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "春天，柳树发出了新芽。",
+     "pinyin": "Chūntiān, liǔshù fā chū le xīn yá.",
+     "fr": "Au printemps, les saules bourgeonnent.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "遛",
+   "genre": "caractere",
+   "hanzi": "遛",
+   "pinyin": "liù",
+   "mots": [
+    "L7-2699"
+   ],
+   "sens": {
+    "glose": "promener (un animal) ; flâner",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "promener (un animal)"
+     },
+     {
+      "categorie": "V",
+      "fr": "flâner, faire un tour"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他每天晚上出去遛狗。",
+     "pinyin": "Tā měi tiān wǎnshang chūqu liù gǒu.",
+     "fr": "Il sort promener le chien tous les soirs.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2700",
+   "genre": "mot",
+   "hanzi": "龙舟",
+   "pinyin": "lóngzhōu",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "bateau-dragon",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "bateau-dragon"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "端午节的时候，人们赛龙舟。",
+     "pinyin": "Duānwǔ Jié de shíhou, rénmen sài lóngzhōu.",
+     "fr": "À la fête des bateaux-dragons, on fait des courses de bateaux.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "聋",
+   "genre": "caractere",
+   "hanzi": "聋",
+   "pinyin": "lóng",
+   "mots": [
+    "L7-2701"
+   ],
+   "sens": {
+    "glose": "sourd",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "sourd"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "爷爷的耳朵有点儿聋了。",
+     "pinyin": "Yéye de ěrduo yǒudiǎnr lóng le.",
+     "fr": "Grand-père est devenu un peu dur d'oreille.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2702",
+   "genre": "mot",
+   "hanzi": "聋人",
+   "pinyin": "lóngrén",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "personne sourde",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "personne sourde, malentendant"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "她在学校里教聋人学手语。",
+     "pinyin": "Tā zài xuéxiào li jiāo lóngrén xué shǒuyǔ.",
+     "fr": "À l'école, elle enseigne la langue des signes aux sourds.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2703",
+   "genre": "mot",
+   "hanzi": "笼子",
+   "pinyin": "lóngzi",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "cage",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "cage"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他把小鸟放进了笼子里。",
+     "pinyin": "Tā bǎ xiǎo niǎo fàng jìn le lóngzi li.",
+     "fr": "Il a mis l'oisillon dans la cage.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2704",
+   "genre": "mot",
+   "hanzi": "隆重",
+   "pinyin": "lóngzhòng",
+   "categories": [
+    "Adj"
+   ],
+   "sens": {
+    "glose": "solennel, en grande pompe",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "solennel, grandiose, en grande pompe"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "学校为毕业生举行了隆重的典礼。",
+     "pinyin": "Xuéxiào wèi bìyèshēng jǔxíng le lóngzhòng de diǎnlǐ.",
+     "fr": "L'école a organisé une cérémonie solennelle pour les diplômés.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "垄",
+   "genre": "caractere",
+   "hanzi": "垄",
+   "pinyin": "lǒng",
+   "sens": {
+    "glose": "billon, sillon ; monopole",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "billon, crête de sillon"
+     },
+     {
+      "categorie": "V",
+      "fr": "monopoliser (en composé)"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "农民在田里起垄种菜。",
+     "pinyin": "Nóngmín zài tián li qǐ lǒng zhòng cài.",
+     "fr": "Les paysans tracent des sillons dans le champ pour planter des légumes.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2705",
+   "genre": "mot",
+   "hanzi": "垄断",
+   "pinyin": "lǒngduàn",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "monopoliser ; monopole",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "monopoliser, accaparer"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "几家大公司垄断了这个市场。",
+     "pinyin": "Jǐ jiā dà gōngsī lǒngduàn le zhège shìchǎng.",
+     "fr": "Quelques grands groupes monopolisent ce marché.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2706",
+   "genre": "mot",
+   "hanzi": "笼统",
+   "pinyin": "lǒngtǒng",
+   "categories": [
+    "Adj"
+   ],
+   "sens": {
+    "glose": "vague, général",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "vague, général, imprécis"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "你的回答太笼统了。",
+     "pinyin": "Nǐ de huídá tài lǒngtǒng le.",
+     "fr": "Ta réponse est trop vague.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2707",
+   "genre": "mot",
+   "hanzi": "笼罩",
+   "pinyin": "lǒngzhào",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "envelopper, recouvrir",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "envelopper, recouvrir, planer sur"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "大雾笼罩着整个城市。",
+     "pinyin": "Dà wù lǒngzhào zhe zhěnggè chéngshì.",
+     "fr": "Un épais brouillard enveloppe toute la ville.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "搂",
+   "genre": "caractere",
+   "hanzi": "搂",
+   "pinyin": "lǒu",
+   "mots": [
+    "L7-2708"
+   ],
+   "sens": {
+    "glose": "serrer dans ses bras, enlacer",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "serrer dans ses bras, enlacer"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "妈妈把孩子搂在怀里。",
+     "pinyin": "Māma bǎ háizi lǒu zài huái li.",
+     "fr": "La maman serre son enfant contre elle.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2709",
+   "genre": "mot",
+   "hanzi": "露面",
+   "pinyin": "lòumiàn",
+   "sens": {
+    "glose": "se montrer, paraître en public",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "se montrer, paraître en public"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他已经很久没有露面了。",
+     "pinyin": "Tā yǐjīng hěn jiǔ méiyǒu lòumiàn le.",
+     "fr": "Cela fait longtemps qu'on ne l'a pas vu.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "芦",
+   "genre": "caractere",
+   "hanzi": "芦",
+   "pinyin": "lú",
+   "sens": {
+    "glose": "roseau",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "roseau"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "风吹过，芦花像雪一样飞起来。",
+     "pinyin": "Fēng chuī guò, lúhuā xiàng xuě yīyàng fēi qǐlai.",
+     "fr": "Au passage du vent, les plumets de roseau s'envolent comme de la neige.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2710",
+   "genre": "mot",
+   "hanzi": "芦花",
+   "pinyin": "lúhuā",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "fleur de roseau",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "fleur de roseau, plumet de roseau"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "秋天河边的芦花白了。",
+     "pinyin": "Qiūtiān hé biān de lúhuā bái le.",
+     "fr": "En automne, les plumets des roseaux blanchissent au bord de la rivière.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "灶",
+   "genre": "caractere",
+   "hanzi": "灶",
+   "pinyin": "zào",
+   "sens": {
+    "glose": "fourneau, foyer ; cuisine",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "fourneau, foyer (de cuisine) ; cuisine"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "奶奶在灶上做饭。",
+     "pinyin": "Nǎinai zài zào shang zuòfàn.",
+     "fr": "Grand-mère cuisine sur le fourneau.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2711",
+   "genre": "mot",
+   "hanzi": "炉灶",
+   "pinyin": "lúzào",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "fourneau, cuisinière",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "fourneau, cuisinière"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "厨房里的炉灶是新的。",
+     "pinyin": "Chúfáng li de lúzào shì xīn de.",
+     "fr": "La cuisinière est neuve.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2712",
+   "genre": "mot",
+   "hanzi": "炉子",
+   "pinyin": "lúzi",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "poêle, fourneau",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "poêle, fourneau (de chauffage ou de cuisine)"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "冬天屋里生着炉子，很暖和。",
+     "pinyin": "Dōngtiān wū li shēng zhe lúzi, hěn nuǎnhuo.",
+     "fr": "L'hiver, on allume le poêle et il fait bon dans la maison.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "卤",
+   "genre": "caractere",
+   "hanzi": "卤",
+   "pinyin": "lǔ",
+   "sens": {
+    "glose": "saumure ; mijoter en sauce",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "saumure ; sauce épaisse"
+     },
+     {
+      "categorie": "V",
+      "fr": "mijoter dans une sauce épicée"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他们家的卤肉很有名。",
+     "pinyin": "Tāmen jiā de lǔròu hěn yǒumíng.",
+     "fr": "Leur viande mijotée en sauce est réputée.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2713",
+   "genre": "mot",
+   "hanzi": "卤味",
+   "pinyin": "lǔwèi",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "plats braisés en sauce (froids)",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "mets braisés dans une sauce épicée, charcuterie chinoise"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这家店卖各种卤味。",
+     "pinyin": "Zhè jiā diàn mài gè zhǒng lǔwèi.",
+     "fr": "Cette boutique vend toutes sortes de mets braisés.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "莽",
+   "genre": "caractere",
+   "hanzi": "莽",
+   "pinyin": "mǎng",
+   "sens": {
+    "glose": "fourré ; téméraire",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "fourré, broussailles"
+     },
+     {
+      "categorie": "Adj",
+      "fr": "téméraire, irréfléchi"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他做事太莽撞了。",
+     "pinyin": "Tā zuòshì tài mǎngzhuàng le.",
+     "fr": "Il agit de façon trop irréfléchie.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2714",
+   "genre": "mot",
+   "hanzi": "鲁莽",
+   "pinyin": "lǔmǎng",
+   "categories": [
+    "Adj"
+   ],
+   "sens": {
+    "glose": "irréfléchi, impulsif",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "irréfléchi, impulsif, brusque"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "你这样做太鲁莽了。",
+     "pinyin": "Nǐ zhèyàng zuò tài lǔmǎng le.",
+     "fr": "Agir ainsi est bien trop imprudent.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2715",
+   "genre": "mot",
+   "hanzi": "录制",
+   "pinyin": "lùzhì",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "enregistrer",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "enregistrer, filmer (une émission)"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这个节目是昨天录制的。",
+     "pinyin": "Zhège jiémù shì zuótiān lùzhì de.",
+     "fr": "Cette émission a été enregistrée hier.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "鹿",
+   "genre": "caractere",
+   "hanzi": "鹿",
+   "pinyin": "lù",
+   "mots": [
+    "L7-2716"
+   ],
+   "sens": {
+    "glose": "cerf, daim",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "cerf, daim, biche"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "森林里有一只小鹿。",
+     "pinyin": "Sēnlín li yǒu yī zhī xiǎo lù.",
+     "fr": "Il y a un faon dans la forêt.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2717",
+   "genre": "mot",
+   "hanzi": "路程",
+   "pinyin": "lùchéng",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "distance à parcourir, trajet",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "distance à parcourir, trajet"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "从这里到学校有五公里的路程。",
+     "pinyin": "Cóng zhèli dào xuéxiào yǒu wǔ gōnglǐ de lùchéng.",
+     "fr": "D'ici à l'école, il y a cinq kilomètres de trajet.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2718",
+   "genre": "mot",
+   "hanzi": "路灯",
+   "pinyin": "lùdēng",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "réverbère, lampadaire",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "réverbère, lampadaire"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "天黑了，路灯都亮了。",
+     "pinyin": "Tiān hēi le, lùdēng dōu liàng le.",
+     "fr": "La nuit est tombée, les lampadaires se sont allumés.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2719",
+   "genre": "mot",
+   "hanzi": "路段",
+   "pinyin": "lùduàn",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "tronçon de route",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "tronçon de route, portion de route"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这个路段经常堵车。",
+     "pinyin": "Zhège lùduàn jīngcháng dǔchē.",
+     "fr": "Ce tronçon est souvent embouteillé.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2720",
+   "genre": "mot",
+   "hanzi": "路况",
+   "pinyin": "lùkuàng",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "état de la route, circulation",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "état de la route, conditions de circulation"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "早上的路况不太好。",
+     "pinyin": "Zǎoshang de lùkuàng bù tài hǎo.",
+     "fr": "Le matin, la circulation est difficile.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2721",
+   "genre": "mot",
+   "hanzi": "路面",
+   "pinyin": "lùmiàn",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "chaussée, revêtement",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "chaussée, surface de la route"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "下雪以后路面很滑。",
+     "pinyin": "Xià xuě yǐhòu lùmiàn hěn huá.",
+     "fr": "Après la neige, la chaussée est glissante.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2722",
+   "genre": "mot",
+   "hanzi": "路人",
+   "pinyin": "lùrén",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "passant ; inconnu",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "passant ; étranger, inconnu"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "一个路人帮我叫了救护车。",
+     "pinyin": "Yī ge lùrén bāng wǒ jiào le jiùhùchē.",
+     "fr": "Un passant a appelé une ambulance pour moi.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2723",
+   "genre": "mot",
+   "hanzi": "路途",
+   "pinyin": "lùtú",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "route, chemin, trajet",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "route, chemin, trajet"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "路途很远，你们要注意安全。",
+     "pinyin": "Lùtú hěn yuǎn, nǐmen yào zhùyì ānquán.",
+     "fr": "Le voyage est long, soyez prudents.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2724",
+   "genre": "mot",
+   "hanzi": "路子",
+   "pinyin": "lùzi",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "moyen, filière ; relations",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "moyen, méthode, filière ; relations"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他找到了一个赚钱的新路子。",
+     "pinyin": "Tā zhǎodào le yī ge zhuànqián de xīn lùzi.",
+     "fr": "Il a trouvé un nouveau filon pour gagner de l'argent.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2725",
+   "genre": "mot",
+   "hanzi": "露天",
+   "pinyin": "lùtiān",
+   "categories": [
+    "N",
+    "Adj"
+   ],
+   "sens": {
+    "glose": "plein air ; à ciel ouvert",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "plein air"
+     },
+     {
+      "categorie": "Adj",
+      "fr": "à ciel ouvert, en plein air"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "晚上我们去看露天电影。",
+     "pinyin": "Wǎnshang wǒmen qù kàn lùtiān diànyǐng.",
+     "fr": "Ce soir, nous allons au cinéma en plein air.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2726",
+   "genre": "mot",
+   "hanzi": "旅程",
+   "pinyin": "lǚchéng",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "voyage, parcours",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "voyage, parcours, itinéraire"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "祝你旅程愉快！",
+     "pinyin": "Zhù nǐ lǚchéng yúkuài!",
+     "fr": "Bon voyage !",
+     "statut": "a_relire"
+    }
+   ]
+  }
+ ]
+}

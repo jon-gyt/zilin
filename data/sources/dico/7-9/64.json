@@ -1,0 +1,1384 @@
+{
+ "niveau": "7-9",
+ "lot": "64",
+ "source": "rédigé pour l'app dans le pipeline wenlu, sans API ; faits lus : liste HSK 3.0 (forme, pinyin, niveau, catégorie), lectures d'Unihan et des surcharges, gloses relues des fiches",
+ "brouillon": "data/sources/dico-brouillons/7-9/64.json",
+ "generation": {
+  "modele": "rédaction manuelle",
+  "api": "session Claude Code (sans API)",
+  "date": "2026-09-30",
+  "empreinte_invite": "sha256:272f268ae4d492ec8f8930002afdea6c5152a00e1cb6422e4a9f0eb0140b30e1",
+  "contexte": "wenlu dico contexte 7-9 64",
+  "essais": 1,
+  "refus": []
+ },
+ "entrees": [
+  {
+   "id": "L7-2727",
+   "genre": "mot",
+   "hanzi": "旅途",
+   "pinyin": "lǚtú",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "voyage, trajet",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "voyage, trajet, route"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "旅途中他认识了很多朋友。",
+     "pinyin": "Lǚtú zhōng tā rènshi le hěn duō péngyou.",
+     "fr": "En chemin, il s'est fait beaucoup d'amis.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "铝",
+   "genre": "caractere",
+   "hanzi": "铝",
+   "pinyin": "lǚ",
+   "mots": [
+    "L7-2728"
+   ],
+   "sens": {
+    "glose": "aluminium",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "aluminium"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这个锅是铝做的，很轻。",
+     "pinyin": "Zhège guō shì lǚ zuò de, hěn qīng.",
+     "fr": "Cette casserole est en aluminium, elle est très légère.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "屡",
+   "genre": "caractere",
+   "hanzi": "屡",
+   "pinyin": "lǚ",
+   "mots": [
+    "L7-2729"
+   ],
+   "sens": {
+    "glose": "à plusieurs reprises, souvent",
+    "acceptions": [
+     {
+      "categorie": "Adv",
+      "fr": "à plusieurs reprises, maintes fois"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他屡教不改。",
+     "pinyin": "Tā lǚ jiào bù gǎi.",
+     "fr": "On a beau le reprendre, il ne se corrige jamais.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2730",
+   "genre": "mot",
+   "hanzi": "屡次",
+   "pinyin": "lǚcì",
+   "categories": [
+    "Adv"
+   ],
+   "sens": {
+    "glose": "à plusieurs reprises",
+    "acceptions": [
+     {
+      "categorie": "Adv",
+      "fr": "à plusieurs reprises, maintes fois"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他屡次迟到，被老板批评了。",
+     "pinyin": "Tā lǚcì chídào, bèi lǎobǎn pīpíng le.",
+     "fr": "Arrivé en retard plusieurs fois, il s'est fait réprimander par son patron.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "缕",
+   "genre": "caractere",
+   "hanzi": "缕",
+   "pinyin": "lǚ",
+   "mots": [
+    "L7-2731"
+   ],
+   "sens": {
+    "glose": "fil ; brin, filet (de fumée)",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "fil, brin"
+     },
+     {
+      "categorie": "M",
+      "fr": "brin de, filet de (fumée, cheveux, lumière)"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "一缕阳光照进了房间。",
+     "pinyin": "Yī lǚ yángguāng zhào jìn le fángjiān.",
+     "fr": "Un rayon de soleil entre dans la pièce.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "履",
+   "genre": "caractere",
+   "hanzi": "履",
+   "pinyin": "lǚ",
+   "sens": {
+    "glose": "chaussure ; accomplir",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "chaussure"
+     },
+     {
+      "categorie": "V",
+      "fr": "marcher sur ; accomplir, exécuter"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "请把你的履历表交给我。",
+     "pinyin": "Qǐng bǎ nǐ de lǚlìbiǎo jiāo gěi wǒ.",
+     "fr": "Remettez-moi votre curriculum vitae, s'il vous plaît.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2732",
+   "genre": "mot",
+   "hanzi": "履行",
+   "pinyin": "lǚxíng",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "remplir, s'acquitter de",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "remplir, s'acquitter de, honorer (un engagement)"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "双方都应该履行合同。",
+     "pinyin": "Shuāngfāng dōu yīnggāi lǚxíng hétong.",
+     "fr": "Les deux parties doivent respecter le contrat.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2734",
+   "genre": "mot",
+   "hanzi": "绿灯",
+   "pinyin": "lǜdēng",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "feu vert",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "feu vert ; autorisation"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "绿灯亮了，我们可以过马路了。",
+     "pinyin": "Lǜdēng liàng le, wǒmen kěyǐ guò mǎlù le.",
+     "fr": "Le feu est passé au vert, nous pouvons traverser.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2735",
+   "genre": "mot",
+   "hanzi": "绿地",
+   "pinyin": "lǜdì",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "espace vert",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "espace vert, pelouse"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "城市里的绿地越来越多了。",
+     "pinyin": "Chéngshì li de lǜdì yuè lái yuè duō le.",
+     "fr": "Il y a de plus en plus de verdure en ville.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "孪",
+   "genre": "caractere",
+   "hanzi": "孪",
+   "pinyin": "luán",
+   "sens": {
+    "glose": "jumeau",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "jumeau (en composé)"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "她们是一对孪生姐妹。",
+     "pinyin": "Tāmen shì yī duì luánshēng jiěmèi.",
+     "fr": "Ce sont des sœurs jumelles.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2736",
+   "genre": "mot",
+   "hanzi": "孪生",
+   "pinyin": "luánshēng",
+   "categories": [
+    "Adj"
+   ],
+   "sens": {
+    "glose": "jumeau",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "jumeau"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这对孪生兄弟长得一模一样。",
+     "pinyin": "Zhè duì luánshēng xiōngdì zhǎng de yīmú-yīyàng.",
+     "fr": "Ces deux frères jumeaux se ressemblent comme deux gouttes d'eau.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "卵",
+   "genre": "caractere",
+   "hanzi": "卵",
+   "pinyin": "luǎn",
+   "mots": [
+    "L7-2737"
+   ],
+   "sens": {
+    "glose": "œuf, ovule",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "œuf (d'animal), ovule"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "鱼在河里产卵。",
+     "pinyin": "Yú zài hé li chǎn luǎn.",
+     "fr": "Les poissons pondent dans la rivière.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2738",
+   "genre": "mot",
+   "hanzi": "乱七八糟",
+   "pinyin": "luànqībāzāo",
+   "categories": [
+    "Adj"
+   ],
+   "sens": {
+    "glose": "sens dessus dessous, en pagaille",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "en désordre, en pagaille, sens dessus dessous"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他的房间乱七八糟的。",
+     "pinyin": "Tā de fángjiān luànqībāzāo de.",
+     "fr": "Sa chambre est un vrai capharnaüm.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "掠",
+   "genre": "caractere",
+   "hanzi": "掠",
+   "pinyin": "lüè",
+   "sens": {
+    "glose": "piller ; effleurer",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "piller, rafler"
+     },
+     {
+      "categorie": "V",
+      "fr": "effleurer, frôler, passer rapidement"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "一只鸟从水面上掠过。",
+     "pinyin": "Yī zhī niǎo cóng shuǐmiàn shang lüè guò.",
+     "fr": "Un oiseau frôle la surface de l'eau.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2739",
+   "genre": "mot",
+   "hanzi": "掠夺",
+   "pinyin": "lüèduó",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "piller, spolier",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "piller, spolier, s'emparer de"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他们掠夺了这个国家的资源。",
+     "pinyin": "Tāmen lüèduó le zhège guójiā de zīyuán.",
+     "fr": "Ils ont pillé les ressources de ce pays.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2741",
+   "genre": "mot",
+   "hanzi": "略微",
+   "pinyin": "lüèwēi",
+   "categories": [
+    "Adv"
+   ],
+   "sens": {
+    "glose": "légèrement, un peu",
+    "acceptions": [
+     {
+      "categorie": "Adv",
+      "fr": "légèrement, un peu, quelque peu"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他略微想了想，就同意了。",
+     "pinyin": "Tā lüèwēi xiǎng le xiǎng, jiù tóngyì le.",
+     "fr": "Après un bref instant de réflexion, il a accepté.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "抡",
+   "genre": "caractere",
+   "hanzi": "抡",
+   "pinyin": "lūn",
+   "mots": [
+    "L7-2742"
+   ],
+   "sens": {
+    "glose": "brandir, faire tournoyer",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "brandir, faire tournoyer (un bras, un outil)"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他抡起斧头砍树。",
+     "pinyin": "Tā lūn qǐ fǔtóu kǎn shù.",
+     "fr": "Il brandit sa hache et s'attaque à l'arbre.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "伦",
+   "genre": "caractere",
+   "hanzi": "伦",
+   "pinyin": "lún",
+   "sens": {
+    "glose": "relations humaines ; ordre",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "relations humaines, ordre moral"
+     },
+     {
+      "categorie": "N",
+      "fr": "pair, égal"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这幅画美得无与伦比。",
+     "pinyin": "Zhè fú huà měi de wúyǔlúnbǐ.",
+     "fr": "Ce tableau est d'une beauté incomparable.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2743",
+   "genre": "mot",
+   "hanzi": "伦理",
+   "pinyin": "lúnlǐ",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "éthique, morale",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "éthique, morale"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这个问题涉及到医学伦理。",
+     "pinyin": "Zhège wèntí shèjí dào yīxué lúnlǐ.",
+     "fr": "Cette question touche à l'éthique médicale.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2744",
+   "genre": "mot",
+   "hanzi": "轮换",
+   "pinyin": "lúnhuàn",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "alterner, faire une rotation",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "alterner, faire une rotation, se relayer"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "我们每天轮换着做饭。",
+     "pinyin": "Wǒmen měi tiān lúnhuàn zhe zuòfàn.",
+     "fr": "Nous faisons la cuisine à tour de rôle.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "廓",
+   "genre": "caractere",
+   "hanzi": "廓",
+   "pinyin": "kuò",
+   "sens": {
+    "glose": "contour ; vaste",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "contour, silhouette"
+     },
+     {
+      "categorie": "Adj",
+      "fr": "vaste, spacieux"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "远处的山只看得见轮廓。",
+     "pinyin": "Yuǎn chù de shān zhǐ kàn de jiàn lúnkuò.",
+     "fr": "Au loin, on ne distingue que la silhouette des montagnes.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2745",
+   "genre": "mot",
+   "hanzi": "轮廓",
+   "pinyin": "lúnkuò",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "contour, silhouette ; grandes lignes",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "contour, silhouette"
+     },
+     {
+      "categorie": "N",
+      "fr": "grandes lignes, aperçu général"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他简单介绍了计划的轮廓。",
+     "pinyin": "Tā jiǎndān jièshào le jìhuà de lúnkuò.",
+     "fr": "Il a présenté les grandes lignes du projet.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2746",
+   "genre": "mot",
+   "hanzi": "轮流",
+   "pinyin": "lúnliú",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "à tour de rôle",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "faire à tour de rôle, se relayer"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "晚上我们轮流照顾病人。",
+     "pinyin": "Wǎnshang wǒmen lúnliú zhàogù bìngrén.",
+     "fr": "La nuit, nous nous relayons auprès du malade.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "胎",
+   "genre": "caractere",
+   "hanzi": "胎",
+   "pinyin": "tāi",
+   "mots": [
+    "L7-3984"
+   ],
+   "sens": {
+    "glose": "fœtus, embryon ; pneu",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "fœtus, embryon ; portée"
+     },
+     {
+      "categorie": "N",
+      "fr": "pneu"
+     },
+     {
+      "categorie": "M",
+      "fr": "grossesse, portée (classificateur)"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "她怀的是双胞胎。",
+     "pinyin": "Tā huái de shì shuāngbāotāi.",
+     "fr": "Elle attend des jumeaux.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2747",
+   "genre": "mot",
+   "hanzi": "轮胎",
+   "pinyin": "lúntāi",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "pneu",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "pneu"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "车轮胎没气了。",
+     "pinyin": "Chē lúntāi méi qì le.",
+     "fr": "Le pneu de la voiture est à plat.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2748",
+   "genre": "mot",
+   "hanzi": "论述",
+   "pinyin": "lùnshù",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "exposer, développer (par écrit)",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "exposer, développer, traiter (un sujet)"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这篇文章论述了教育的重要性。",
+     "pinyin": "Zhè piān wénzhāng lùnshù le jiàoyù de zhòngyàoxìng.",
+     "fr": "Cet article traite de l'importance de l'éducation.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "坛",
+   "genre": "caractere",
+   "hanzi": "坛",
+   "pinyin": "tán",
+   "mots": [
+    "L7-3998"
+   ],
+   "sens": {
+    "glose": "jarre ; autel ; milieu",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "jarre, pot en terre"
+     },
+     {
+      "categorie": "N",
+      "fr": "autel ; tribune ; milieu (littéraire, sportif)"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他在文坛很有名。",
+     "pinyin": "Tā zài wéntán hěn yǒumíng.",
+     "fr": "Il est très connu dans le monde littéraire.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2749",
+   "genre": "mot",
+   "hanzi": "论坛",
+   "pinyin": "lùntán",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "forum",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "forum (colloque, site de discussion)"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他在网上论坛发了一篇文章。",
+     "pinyin": "Tā zài wǎngshang lùntán fā le yī piān wénzhāng.",
+     "fr": "Il a publié un article sur un forum en ligne.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2750",
+   "genre": "mot",
+   "hanzi": "论证",
+   "pinyin": "lùnzhèng",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "démontrer, argumenter",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "démontrer, argumenter, justifier"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他用大量数据论证了自己的观点。",
+     "pinyin": "Tā yòng dàliàng shùjù lùnzhèng le zìjǐ de guāndiǎn.",
+     "fr": "Il a étayé sa thèse par une masse de données.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "罗",
+   "genre": "caractere",
+   "hanzi": "罗",
+   "pinyin": "luó",
+   "mots": [
+    "L7-2751"
+   ],
+   "sens": {
+    "glose": "filet ; rassembler ; étaler",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "filet (pour oiseaux) ; gaze"
+     },
+     {
+      "categorie": "V",
+      "fr": "rassembler, recruter ; étaler, disposer"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "天罗地网，他跑不了了。",
+     "pinyin": "Tiānluó-dìwǎng, tā pǎo bù liǎo le.",
+     "fr": "Tout est quadrillé, il ne pourra pas s'échapper.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "萝",
+   "genre": "caractere",
+   "hanzi": "萝",
+   "pinyin": "luó",
+   "sens": {
+    "glose": "plante grimpante ; radis",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "plante grimpante ; radis (en composé)"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "兔子喜欢吃胡萝卜。",
+     "pinyin": "Tùzi xǐhuan chī húluóbo.",
+     "fr": "Les lapins aiment les carottes.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "卜",
+   "genre": "caractere",
+   "hanzi": "卜",
+   "pinyin": "bo",
+   "sens": {
+    "glose": "divination, prédire",
+    "acceptions": [],
+    "statut": "relu",
+    "provenance": {
+     "reprise": "data/sources/fiches/卜.json",
+     "champ": "sens_fr"
+    }
+   },
+   "exemples": [
+    {
+     "zh": "古人用卜来预测未来。",
+     "pinyin": "Gǔrén yòng bǔ lái yùcè wèilái.",
+     "fr": "Les anciens recouraient à la divination pour connaître l'avenir.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2752",
+   "genre": "mot",
+   "hanzi": "萝卜",
+   "pinyin": "luóbo",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "radis, navet",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "radis, navet"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "冬天多吃萝卜对身体好。",
+     "pinyin": "Dōngtiān duō chī luóbo duì shēntǐ hǎo.",
+     "fr": "En hiver, manger des radis est bon pour la santé.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "螺",
+   "genre": "caractere",
+   "hanzi": "螺",
+   "pinyin": "luó",
+   "sens": {
+    "glose": "escargot, coquillage spiralé",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "escargot, bigorneau ; spirale"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "海边有很多小海螺。",
+     "pinyin": "Hǎi biān yǒu hěn duō xiǎo hǎiluó.",
+     "fr": "Il y a beaucoup de petits coquillages sur la plage.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2753",
+   "genre": "mot",
+   "hanzi": "螺丝",
+   "pinyin": "luósī",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "vis",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "vis"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这颗螺丝松了。",
+     "pinyin": "Zhè kē luósī sōng le.",
+     "fr": "Cette vis s'est desserrée.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "裸",
+   "genre": "caractere",
+   "hanzi": "裸",
+   "pinyin": "luǒ",
+   "mots": [
+    "L7-2754"
+   ],
+   "sens": {
+    "glose": "nu, à découvert",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "dénuder, mettre à nu"
+     },
+     {
+      "categorie": "Adj",
+      "fr": "nu, à découvert"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他裸着上身在院子里干活。",
+     "pinyin": "Tā luǒ zhe shàngshēn zài yuànzi li gàn huó.",
+     "fr": "Il travaille dans la cour torse nu.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2755",
+   "genre": "mot",
+   "hanzi": "裸露",
+   "pinyin": "luǒlù",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "être à nu, exposé",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "être à nu, être exposé, à découvert"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "河床裸露在外面。",
+     "pinyin": "Héchuáng luǒlù zài wàimian.",
+     "fr": "Le lit de la rivière est à sec.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "绎",
+   "genre": "caractere",
+   "hanzi": "绎",
+   "pinyin": "yì",
+   "sens": {
+    "glose": "dévider ; déduire",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "dévider, dérouler ; déduire, développer"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他演绎了一个很感人的角色。",
+     "pinyin": "Tā yǎnyì le yī ge hěn gǎnrén de juésè.",
+     "fr": "Il a incarné un personnage très émouvant.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2756",
+   "genre": "mot",
+   "hanzi": "络绎不绝",
+   "pinyin": "luòyì-bùjué",
+   "sens": {
+    "glose": "en flot ininterrompu",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "en flot ininterrompu, sans discontinuer"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "来参观的人络绎不绝。",
+     "pinyin": "Lái cānguān de rén luòyì-bùjué.",
+     "fr": "Les visiteurs se succèdent sans interruption.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2757",
+   "genre": "mot",
+   "hanzi": "落差",
+   "pinyin": "luòchā",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "dénivellation ; écart",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "dénivellation, différence de niveau ; écart"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "理想和现实之间有很大的落差。",
+     "pinyin": "Lǐxiǎng hé xiànshí zhī jiān yǒu hěn dà de luòchā.",
+     "fr": "Il y a un grand écart entre le rêve et la réalité.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2758",
+   "genre": "mot",
+   "hanzi": "落地",
+   "pinyin": "luòdì",
+   "sens": {
+    "glose": "atterrir ; se concrétiser",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "toucher le sol, atterrir"
+     },
+     {
+      "categorie": "V",
+      "fr": "se concrétiser, être mis en œuvre"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "飞机安全落地了。",
+     "pinyin": "Fēijī ānquán luòdì le.",
+     "fr": "L'avion s'est posé sans encombre.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2759",
+   "genre": "mot",
+   "hanzi": "落户",
+   "pinyin": "luòhù",
+   "sens": {
+    "glose": "s'établir, se domicilier",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "s'établir, se fixer, se domicilier"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他们一家在上海落户了。",
+     "pinyin": "Tāmen yī jiā zài Shànghǎi luòhù le.",
+     "fr": "Toute sa famille s'est installée à Shanghai.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2760",
+   "genre": "mot",
+   "hanzi": "落下",
+   "pinyin": "luòxia",
+   "sens": {
+    "glose": "tomber, descendre",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "tomber, descendre, s'abaisser"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "太阳慢慢落下去了。",
+     "pinyin": "Tàiyáng mànmàn luòxia qù le.",
+     "fr": "Le soleil se couche lentement.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "痹",
+   "genre": "caractere",
+   "hanzi": "痹",
+   "pinyin": "bì",
+   "sens": {
+    "glose": "paralysie, engourdissement",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "paralysie, engourdissement"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他小时候得过小儿麻痹症。",
+     "pinyin": "Tā xiǎoshíhou dé guo xiǎo'ér mábìzhèng.",
+     "fr": "Enfant, il a eu la poliomyélite.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2763",
+   "genre": "mot",
+   "hanzi": "麻痹",
+   "pinyin": "mábì",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "paralyser ; relâcher sa vigilance",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "paralyser, engourdir"
+     },
+     {
+      "categorie": "V",
+      "fr": "endormir la vigilance, se relâcher"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "我们不能有麻痹思想。",
+     "pinyin": "Wǒmen bù néng yǒu mábì sīxiǎng.",
+     "fr": "Nous ne devons pas relâcher notre vigilance.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2764",
+   "genre": "mot",
+   "hanzi": "麻将",
+   "pinyin": "májiàng",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "mah-jong",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "mah-jong"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "周末他们常常一起打麻将。",
+     "pinyin": "Zhōumò tāmen chángcháng yīqǐ dǎ májiàng.",
+     "fr": "Le week-end, ils jouent souvent ensemble au mah-jong.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2765",
+   "genre": "mot",
+   "hanzi": "麻辣",
+   "pinyin": "málà",
+   "categories": [
+    "Adj"
+   ],
+   "sens": {
+    "glose": "épicé et engourdissant",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "épicé et engourdissant (poivre du Sichuan et piment)"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "我最喜欢吃麻辣火锅。",
+     "pinyin": "Wǒ zuì xǐhuan chī málà huǒguō.",
+     "fr": "Ce que je préfère, c'est la fondue sichuanaise bien relevée.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2766",
+   "genre": "mot",
+   "hanzi": "麻木",
+   "pinyin": "mámù",
+   "categories": [
+    "Adj"
+   ],
+   "sens": {
+    "glose": "engourdi ; insensible",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "engourdi, sans sensation"
+     },
+     {
+      "categorie": "Adj",
+      "fr": "insensible, apathique"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "天太冷了，手脚都冻得麻木了。",
+     "pinyin": "Tiān tài lěng le, shǒu jiǎo dōu dòng de mámù le.",
+     "fr": "Il fait si froid que j'ai les mains et les pieds gourds.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2767",
+   "genre": "mot",
+   "hanzi": "麻醉",
+   "pinyin": "mázuì",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "anesthésier ; engourdir",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "anesthésier"
+     },
+     {
+      "categorie": "V",
+      "fr": "engourdir, endormir (l'esprit)"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "手术前医生给他做了麻醉。",
+     "pinyin": "Shǒushù qián yīshēng gěi tā zuò le mázuì.",
+     "fr": "Avant l'opération, le médecin l'a anesthésié.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2768",
+   "genre": "mot",
+   "hanzi": "马后炮",
+   "pinyin": "mǎhòupào",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "conseil après coup",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "conseil tardif, action qui vient trop tard"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "事情都结束了，你现在说这些是马后炮。",
+     "pinyin": "Shìqing dōu jiéshù le, nǐ xiànzài shuō zhèxiē shì mǎhòupào.",
+     "fr": "Tout est fini, dire ça maintenant ne sert plus à rien.",
+     "statut": "a_relire"
+    }
+   ]
+  }
+ ]
+}
