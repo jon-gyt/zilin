@@ -809,8 +809,8 @@
    "lectures": [
     "chūn"
    ],
-   "fr": "",
-   "en": "",
+   "fr": "printemps",
+   "en": "spring",
    "parts": [
     "𡗗",
     "日"
@@ -820,10 +820,13 @@
     "cjk-decomp"
    ],
    "role": null,
-   "roles": {},
-   "origine_fr": "",
-   "origine_en": "",
-   "etiquette": null,
+   "roles": {
+    "日": "sens",
+    "𡗗": "forme"
+   },
+   "origine_fr": "Le Shuowen jiezi écrit 萅 : l'herbe, 艸, et le soleil, 日, car les plantes naissent au printemps, avec 屯 pour le son. La forme moderne a fondu l'herbe et 屯 en 𡗗, que la norme nomme 春字头 d'après lui. Sous 𡗗, 日 reste : le soleil qui revient.",
+   "origine_en": "The Shuowen jiezi writes 萅: grass, 艸, and the sun, 日, for plants are born in spring, with 屯 for the sound. The modern form has merged the grass and 屯 into 𡗗, which the standard calls 春字头 after it. Under 𡗗, 日 remains: the returning sun.",
+   "etiquette": "atteste",
    "memo_fr": null,
    "memo_en": null,
    "mots": [],
@@ -867,7 +870,7 @@
    "traits": [],
    "medianes": [],
    "audio": null,
-   "statut": "sans_fiche"
+   "statut": "relu"
   },
   {
    "c": "昨",
@@ -1625,8 +1628,8 @@
    "lectures": [
     "zuì"
    ],
-   "fr": "",
-   "en": "",
+   "fr": "le plus",
+   "en": "most",
    "parts": [
     "日",
     "耳",
@@ -1636,22 +1639,47 @@
    "sources": [
     "cjk-decomp"
    ],
-   "role": null,
-   "roles": {},
-   "origine_fr": "",
-   "origine_en": "",
-   "etiquette": null,
+   "role": "sens",
+   "roles": {
+    "又": "sens",
+    "日": "forme",
+    "耳": "sens"
+   },
+   "origine_fr": "Le Shuowen jiezi glose 最 par « s'emparer en passant outre » : 冃, un couvercle, sur 取, prendre. Le couvercle s'écrit aujourd'hui 日 ; 取 garde 耳, l'oreille, et 又, la main. De ce qu'on prend avant tout est venu « le plus ».",
+   "origine_en": "The Shuowen jiezi glosses 最 as “seizing in defiance”: 冃, a cover, over 取, to take. The cover is now written 日; 取 keeps 耳, the ear, and 又, the hand. From what is taken before anything else came “the most”.",
+   "etiquette": "atteste",
    "memo_fr": null,
    "memo_en": null,
-   "mots": [],
-   "phrase": null,
+   "mots": [
+    {
+     "hanzi": "最好",
+     "pinyin": "zuìhǎo",
+     "fr": "le mieux ; il vaut mieux",
+     "en": "best; had better",
+     "audio": null
+    },
+    {
+     "hanzi": "最后",
+     "pinyin": "zuìhòu",
+     "fr": "en dernier, enfin",
+     "en": "last, finally",
+     "audio": null
+    }
+   ],
+   "phrase": {
+    "hanzi": "你最好早点来。",
+    "pinyin": "Nǐ zuìhǎo zǎo diǎn lái.",
+    "fr": "Tu ferais mieux de venir un peu plus tôt.",
+    "en": "You'd better come a bit earlier.",
+    "audio": null
+   },
    "niveaux": {
     "hsk": 1
    },
    "traits": [],
    "medianes": [],
    "audio": null,
-   "statut": "sans_fiche"
+   "statut": "relu"
   },
   {
    "c": "歇",

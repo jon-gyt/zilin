@@ -1979,8 +1979,8 @@
     "xǐ",
     "xiǎn"
    ],
-   "fr": "",
-   "en": "",
+   "fr": "laver",
+   "en": "to wash",
    "parts": [
     "氵",
     "𠂒",
@@ -1992,21 +1992,46 @@
     "surcharge"
    ],
    "role": null,
-   "roles": {},
-   "origine_fr": "",
-   "origine_en": "",
-   "etiquette": null,
+   "roles": {
+    "儿": "forme",
+    "氵": "sens",
+    "𠂒": "forme"
+   },
+   "origine_fr": "Le Shuowen jiezi glose 洗 par « se laver les pieds » : l'eau, 氵, et 先 pour le son. 先 s'écrit 𠂒 sur 儿 ; il se lit xiān et ne donne plus le son de xǐ. De laver les pieds, le sens s'est étendu à tout laver.",
+   "origine_en": "The Shuowen jiezi glosses 洗 as “washing one's feet”: water, 氵, and 先 for the sound. 先 is written 𠂒 over 儿; it is read xiān and no longer gives the sound of xǐ. From washing feet, the meaning spread to washing anything.",
+   "etiquette": "atteste",
    "memo_fr": null,
    "memo_en": null,
-   "mots": [],
-   "phrase": null,
+   "mots": [
+    {
+     "hanzi": "洗手",
+     "pinyin": "xǐshǒu",
+     "fr": "se laver les mains",
+     "en": "to wash one's hands",
+     "audio": null
+    },
+    {
+     "hanzi": "洗衣",
+     "pinyin": "xǐyī",
+     "fr": "faire la lessive",
+     "en": "to do the laundry",
+     "audio": null
+    }
+   ],
+   "phrase": {
+    "hanzi": "先洗手。",
+    "pinyin": "Xiān xǐshǒu.",
+    "fr": "Lave-toi d'abord les mains.",
+    "en": "Wash your hands first.",
+    "audio": null
+   },
    "niveaux": {
     "hsk": 1
    },
    "traits": [],
    "medianes": [],
    "audio": null,
-   "statut": "sans_fiche"
+   "statut": "relu"
   },
   {
    "c": "洞",
@@ -4042,8 +4067,8 @@
    "lectures": [
     "wēn"
    ],
-   "fr": "",
-   "en": "",
+   "fr": "tiède, température",
+   "en": "warm, temperature",
    "parts": [
     "氵",
     "日",
@@ -4054,10 +4079,14 @@
     "cjk-decomp"
    ],
    "role": null,
-   "roles": {},
-   "origine_fr": "",
-   "origine_en": "",
-   "etiquette": null,
+   "roles": {
+    "日": "son",
+    "氵": "sens",
+    "皿": "son"
+   },
+   "origine_fr": "Le Shuowen jiezi en fait un nom de rivière : l'eau, 氵, et 昷 pour le son. 昷, écrit 日 sur 皿, se lit wēn, exactement comme 温. Le sens « tiède, doux » s'est imposé ; l'eau reste à gauche.",
+   "origine_en": "The Shuowen jiezi makes it the name of a river: water, 氵, and 昷 for the sound. 昷, written 日 over 皿, is read wēn, exactly like 温. The meaning “warm, mild” took over; the water stays on the left.",
+   "etiquette": "atteste",
    "memo_fr": null,
    "memo_en": null,
    "mots": [],
@@ -4103,7 +4132,7 @@
    "traits": [],
    "medianes": [],
    "audio": null,
-   "statut": "sans_fiche"
+   "statut": "relu"
   },
   {
    "c": "渴",
@@ -4111,8 +4140,8 @@
    "lectures": [
     "kě"
    ],
-   "fr": "",
-   "en": "",
+   "fr": "avoir soif",
+   "en": "thirsty",
    "parts": [
     "氵",
     "日",
@@ -4125,22 +4154,49 @@
     "cjk-decomp",
     "surcharge"
    ],
-   "role": null,
-   "roles": {},
-   "origine_fr": "",
-   "origine_en": "",
-   "etiquette": null,
+   "role": "forme",
+   "roles": {
+    "人": "forme",
+    "勹": "forme",
+    "日": "forme",
+    "氵": "sens",
+    "𠃊": "forme"
+   },
+   "origine_fr": "Le Shuowen jiezi glose 渴 par « tari » : l'eau, 氵, et 曷 pour le son. Une eau qui s'épuise, c'est la soif ; 曷, lu hé, ne donne plus le son de kě. À droite, la norme découpe 曷 en 日, 勹, 人 et 𠃊.",
+   "origine_en": "The Shuowen jiezi glosses 渴 as “dried up”: water, 氵, and 曷 for the sound. Water running out means thirst; 曷, read hé, no longer gives the sound of kě. On the right, the standard splits 曷 into 日, 勹, 人 and 𠃊.",
+   "etiquette": "atteste",
    "memo_fr": null,
    "memo_en": null,
-   "mots": [],
-   "phrase": null,
+   "mots": [
+    {
+     "hanzi": "口渴",
+     "pinyin": "kǒukě",
+     "fr": "avoir soif",
+     "en": "thirsty",
+     "audio": null
+    },
+    {
+     "hanzi": "干渴",
+     "pinyin": "gānkě",
+     "fr": "desséché, assoiffé",
+     "en": "parched",
+     "audio": null
+    }
+   ],
+   "phrase": {
+    "hanzi": "我渴了，喝水。",
+    "pinyin": "Wǒ kě le, hē shuǐ.",
+    "fr": "J'ai soif, je bois de l'eau.",
+    "en": "I'm thirsty, I'll drink some water.",
+    "audio": null
+   },
    "niveaux": {
     "hsk": 1
    },
    "traits": [],
    "medianes": [],
    "audio": null,
-   "statut": "sans_fiche"
+   "statut": "relu"
   },
   {
    "c": "游",
@@ -4813,8 +4869,8 @@
    "lectures": [
     "mǎn"
    ],
-   "fr": "",
-   "en": "",
+   "fr": "plein, satisfait",
+   "en": "full, satisfied",
    "parts": [
     "氵",
     "艹",
@@ -4825,10 +4881,14 @@
     "surcharge"
    ],
    "role": null,
-   "roles": {},
-   "origine_fr": "",
-   "origine_en": "",
-   "etiquette": null,
+   "roles": {
+    "两": "forme",
+    "氵": "sens",
+    "艹": "forme"
+   },
+   "origine_fr": "Le Shuowen jiezi écrit 滿 et le glose « déborder » : l'eau, 水, et 㒼 pour le son. L'eau qui remplit tout : plein, entier, puis satisfait. À droite, 㒼 s'écrit aujourd'hui l'herbe sur 两, qui ne donnent plus le son de mǎn.",
+   "origine_en": "The Shuowen jiezi writes 滿 and glosses it as “brimming over”: water, 水, and 㒼 for the sound. Water filling everything: full, whole, then satisfied. On the right, 㒼 is now written as grass over 两, which no longer give the sound of mǎn.",
+   "etiquette": "atteste",
    "memo_fr": null,
    "memo_en": null,
    "mots": [],
@@ -5755,7 +5815,7 @@
    "traits": [],
    "medianes": [],
    "audio": null,
-   "statut": "sans_fiche"
+   "statut": "relu"
   },
   {
    "c": "酒",

@@ -15,39 +15,6 @@
  },
  "fiches": [
   {
-   "c": "帘",
-   "pinyin": "lián",
-   "lectures": [
-    "lián"
-   ],
-   "fr": "",
-   "en": "",
-   "parts": [
-    "穴",
-    "巾"
-   ],
-   "nouveau": [],
-   "sources": [
-    "cjk-decomp"
-   ],
-   "role": null,
-   "roles": {},
-   "origine_fr": "",
-   "origine_en": "",
-   "etiquette": null,
-   "memo_fr": null,
-   "memo_en": null,
-   "mots": [],
-   "phrase": null,
-   "niveaux": {
-    "hsk": 5
-   },
-   "traits": [],
-   "medianes": [],
-   "audio": null,
-   "statut": "sans_fiche"
-  },
-  {
    "c": "穴",
    "pinyin": "xué",
    "lectures": [
@@ -67,75 +34,7 @@
    "memo_en": null,
    "mots": [],
    "phrase": null,
-   "niveaux": {
-    "hsk": 7
-   },
-   "traits": [],
-   "medianes": [],
-   "audio": null,
-   "statut": "sans_fiche"
-  },
-  {
-   "c": "究",
-   "pinyin": "jiū",
-   "lectures": [
-    "jiū"
-   ],
-   "fr": "",
-   "en": "",
-   "parts": [
-    "穴",
-    "九"
-   ],
-   "nouveau": [],
-   "sources": [
-    "cjk-decomp"
-   ],
-   "role": null,
-   "roles": {},
-   "origine_fr": "",
-   "origine_en": "",
-   "etiquette": null,
-   "memo_fr": null,
-   "memo_en": null,
-   "mots": [],
-   "phrase": null,
-   "niveaux": {
-    "hsk": 4
-   },
-   "traits": [],
-   "medianes": [],
-   "audio": null,
-   "statut": "sans_fiche"
-  },
-  {
-   "c": "穷",
-   "pinyin": "qióng",
-   "lectures": [
-    "qióng"
-   ],
-   "fr": "",
-   "en": "",
-   "parts": [
-    "穴",
-    "力"
-   ],
-   "nouveau": [],
-   "sources": [
-    "cjk-decomp"
-   ],
-   "role": null,
-   "roles": {},
-   "origine_fr": "",
-   "origine_en": "",
-   "etiquette": null,
-   "memo_fr": null,
-   "memo_en": null,
-   "mots": [],
-   "phrase": null,
-   "niveaux": {
-    "hsk": 4
-   },
+   "niveaux": {},
    "traits": [],
    "medianes": [],
    "audio": null,
@@ -148,8 +47,8 @@
     "kōng",
     "kòng"
    ],
-   "fr": "",
-   "en": "",
+   "fr": "vide, ciel, temps libre",
+   "en": "empty, sky, free time",
    "parts": [
     "穴",
     "工"
@@ -159,21 +58,22 @@
     "cjk-decomp"
    ],
    "role": null,
-   "roles": {},
-   "origine_fr": "",
-   "origine_en": "",
-   "etiquette": null,
+   "roles": {
+    "工": "forme",
+    "穴": "sens"
+   },
+   "origine_fr": "Le Shuowen jiezi glose 空 par « trou, cavité » : 穴, la grotte, et 工 pour le son. Ce qui est creux est vide : de là « vide, en vain », puis le ciel, le grand vide. 工 se lit gōng : il rime avec 空, kōng, sans lui donner son initiale.",
+   "origine_en": "The Shuowen jiezi glosses 空 as “hole, cavity”: 穴, the cave, and 工 for the sound. What is hollow is empty: hence “empty, in vain”, and the sky, the great void. 工 is read gōng: it rhymes with 空, kōng, without giving its initial.",
+   "etiquette": "atteste",
    "memo_fr": null,
    "memo_en": null,
    "mots": [],
    "phrase": null,
-   "niveaux": {
-    "hsk": 2
-   },
+   "niveaux": {},
    "traits": [],
    "medianes": [],
    "audio": null,
-   "statut": "sans_fiche"
+   "statut": "relu"
   },
   {
    "c": "穿",
@@ -181,8 +81,8 @@
    "lectures": [
     "chuān"
    ],
-   "fr": "",
-   "en": "",
+   "fr": "porter, mettre, traverser",
+   "en": "to wear, to put on, to pierce",
    "parts": [
     "穴",
     "牙"
@@ -193,463 +93,46 @@
    "sources": [
     "cjk-decomp"
    ],
-   "role": null,
-   "roles": {},
-   "origine_fr": "",
-   "origine_en": "",
-   "etiquette": null,
+   "role": "sens",
+   "roles": {
+    "牙": "sens",
+    "穴": "sens"
+   },
+   "origine_fr": "Le Shuowen jiezi glose 穿 par « percer de part en part » et le décrit comme des dents, 牙, dans un trou, 穴. On lit toujours 穴 en haut et 牙 en bas. De percer un passage, on est passé à y glisser le corps : 穿 veut dire aussi « enfiler un vêtement ».",
+   "origine_en": "The Shuowen jiezi glosses 穿 as “to pierce through” and describes it as teeth, 牙, in a hole, 穴. You still read 穴 at the top and 牙 at the bottom. From boring a passage, the meaning moved to slipping one's body through: 穿 also means “to put on clothes”.",
+   "etiquette": "atteste",
    "memo_fr": null,
    "memo_en": null,
-   "mots": [],
-   "phrase": null,
+   "mots": [
+    {
+     "hanzi": "穿衣",
+     "pinyin": "chuānyī",
+     "fr": "s'habiller",
+     "en": "to get dressed",
+     "audio": null
+    },
+    {
+     "hanzi": "穿过",
+     "pinyin": "chuānguò",
+     "fr": "traverser",
+     "en": "to go through, to cross",
+     "audio": null
+    }
+   ],
+   "phrase": {
+    "hanzi": "今天很冷，多穿点衣服。",
+    "pinyin": "Jīntiān hěn lěng, duō chuān diǎn yīfu.",
+    "fr": "Il fait très froid aujourd'hui, habille-toi chaudement.",
+    "en": "It is very cold today, put on more clothes.",
+    "audio": null
+   },
    "niveaux": {
     "hsk": 1
    },
    "traits": [],
    "medianes": [],
    "audio": null,
-   "statut": "sans_fiche"
-  },
-  {
-   "c": "突",
-   "pinyin": "tū",
-   "lectures": [
-    "tū"
-   ],
-   "fr": "",
-   "en": "",
-   "parts": [
-    "穴",
-    "犬"
-   ],
-   "nouveau": [],
-   "sources": [
-    "cjk-decomp"
-   ],
-   "role": null,
-   "roles": {},
-   "origine_fr": "",
-   "origine_en": "",
-   "etiquette": null,
-   "memo_fr": null,
-   "memo_en": null,
-   "mots": [],
-   "phrase": null,
-   "niveaux": {
-    "hsk": 3
-   },
-   "traits": [],
-   "medianes": [],
-   "audio": null,
-   "statut": "sans_fiche"
-  },
-  {
-   "c": "窃",
-   "pinyin": "qiè",
-   "lectures": [
-    "qiè"
-   ],
-   "fr": "",
-   "en": "",
-   "parts": [
-    "穴",
-    "七",
-    "刀"
-   ],
-   "nouveau": [],
-   "sources": [
-    "cjk-decomp"
-   ],
-   "role": null,
-   "roles": {},
-   "origine_fr": "",
-   "origine_en": "",
-   "etiquette": null,
-   "memo_fr": null,
-   "memo_en": null,
-   "mots": [],
-   "phrase": null,
-   "niveaux": {
-    "hsk": 7
-   },
-   "traits": [],
-   "medianes": [],
-   "audio": null,
-   "statut": "sans_fiche"
-  },
-  {
-   "c": "窄",
-   "pinyin": "zhǎi",
-   "lectures": [
-    "zhǎi"
-   ],
-   "fr": "",
-   "en": "",
-   "parts": [
-    "穴",
-    "乍"
-   ],
-   "nouveau": [],
-   "sources": [
-    "cjk-decomp"
-   ],
-   "role": null,
-   "roles": {},
-   "origine_fr": "",
-   "origine_en": "",
-   "etiquette": null,
-   "memo_fr": null,
-   "memo_en": null,
-   "mots": [],
-   "phrase": null,
-   "niveaux": {
-    "hsk": 7
-   },
-   "traits": [],
-   "medianes": [],
-   "audio": null,
-   "statut": "sans_fiche"
-  },
-  {
-   "c": "窍",
-   "pinyin": "qiào",
-   "lectures": [
-    "qiào"
-   ],
-   "fr": "",
-   "en": "",
-   "parts": [
-    "穴",
-    "工",
-    "丂"
-   ],
-   "nouveau": [],
-   "sources": [
-    "cjk-decomp"
-   ],
-   "role": null,
-   "roles": {},
-   "origine_fr": "",
-   "origine_en": "",
-   "etiquette": null,
-   "memo_fr": null,
-   "memo_en": null,
-   "mots": [],
-   "phrase": null,
-   "niveaux": {
-    "hsk": 7
-   },
-   "traits": [],
-   "medianes": [],
-   "audio": null,
-   "statut": "sans_fiche"
-  },
-  {
-   "c": "窑",
-   "pinyin": "yáo",
-   "lectures": [
-    "yáo"
-   ],
-   "fr": "",
-   "en": "",
-   "parts": [
-    "穴",
-    "缶"
-   ],
-   "nouveau": [],
-   "sources": [
-    "cjk-decomp"
-   ],
-   "role": null,
-   "roles": {},
-   "origine_fr": "",
-   "origine_en": "",
-   "etiquette": null,
-   "memo_fr": null,
-   "memo_en": null,
-   "mots": [],
-   "phrase": null,
-   "niveaux": {
-    "hsk": 7
-   },
-   "traits": [],
-   "medianes": [],
-   "audio": null,
-   "statut": "sans_fiche"
-  },
-  {
-   "c": "窒",
-   "pinyin": "zhì",
-   "lectures": [
-    "zhì"
-   ],
-   "fr": "",
-   "en": "",
-   "parts": [
-    "穴",
-    "至"
-   ],
-   "nouveau": [],
-   "sources": [
-    "cjk-decomp"
-   ],
-   "role": null,
-   "roles": {},
-   "origine_fr": "",
-   "origine_en": "",
-   "etiquette": null,
-   "memo_fr": null,
-   "memo_en": null,
-   "mots": [],
-   "phrase": null,
-   "niveaux": {
-    "hsk": 7
-   },
-   "traits": [],
-   "medianes": [],
-   "audio": null,
-   "statut": "sans_fiche"
-  },
-  {
-   "c": "窗",
-   "pinyin": "chuāng",
-   "lectures": [
-    "chuāng"
-   ],
-   "fr": "",
-   "en": "",
-   "parts": [
-    "穴",
-    "囱"
-   ],
-   "nouveau": [
-    1
-   ],
-   "sources": [
-    "cjk-decomp"
-   ],
-   "role": null,
-   "roles": {},
-   "origine_fr": "",
-   "origine_en": "",
-   "etiquette": null,
-   "memo_fr": null,
-   "memo_en": null,
-   "mots": [],
-   "phrase": null,
-   "niveaux": {
-    "hsk": 4
-   },
-   "traits": [],
-   "medianes": [],
-   "audio": null,
-   "statut": "sans_fiche"
-  },
-  {
-   "c": "窘",
-   "pinyin": "jiǒng",
-   "lectures": [
-    "jiǒng"
-   ],
-   "fr": "",
-   "en": "",
-   "parts": [
-    "穴",
-    "尹",
-    "口"
-   ],
-   "nouveau": [],
-   "sources": [
-    "cjk-decomp"
-   ],
-   "role": null,
-   "roles": {},
-   "origine_fr": "",
-   "origine_en": "",
-   "etiquette": null,
-   "memo_fr": null,
-   "memo_en": null,
-   "mots": [],
-   "phrase": null,
-   "niveaux": {
-    "hsk": 7
-   },
-   "traits": [],
-   "medianes": [],
-   "audio": null,
-   "statut": "sans_fiche"
-  },
-  {
-   "c": "窜",
-   "pinyin": "cuàn",
-   "lectures": [
-    "cuàn"
-   ],
-   "fr": "",
-   "en": "",
-   "parts": [
-    "穴",
-    "串"
-   ],
-   "nouveau": [],
-   "sources": [
-    "cjk-decomp"
-   ],
-   "role": null,
-   "roles": {},
-   "origine_fr": "",
-   "origine_en": "",
-   "etiquette": null,
-   "memo_fr": null,
-   "memo_en": null,
-   "mots": [],
-   "phrase": null,
-   "niveaux": {
-    "hsk": 7
-   },
-   "traits": [],
-   "medianes": [],
-   "audio": null,
-   "statut": "sans_fiche"
-  },
-  {
-   "c": "窝",
-   "pinyin": "wō",
-   "lectures": [
-    "wō"
-   ],
-   "fr": "",
-   "en": "",
-   "parts": [
-    "穴",
-    "口",
-    "内"
-   ],
-   "nouveau": [],
-   "sources": [
-    "cjk-decomp"
-   ],
-   "role": null,
-   "roles": {},
-   "origine_fr": "",
-   "origine_en": "",
-   "etiquette": null,
-   "memo_fr": null,
-   "memo_en": null,
-   "mots": [],
-   "phrase": null,
-   "niveaux": {
-    "hsk": 7
-   },
-   "traits": [],
-   "medianes": [],
-   "audio": null,
-   "statut": "sans_fiche"
-  },
-  {
-   "c": "窟",
-   "pinyin": "kū",
-   "lectures": [
-    "kū"
-   ],
-   "fr": "",
-   "en": "",
-   "parts": [
-    "穴",
-    "尸",
-    "出"
-   ],
-   "nouveau": [],
-   "sources": [
-    "cjk-decomp"
-   ],
-   "role": null,
-   "roles": {},
-   "origine_fr": "",
-   "origine_en": "",
-   "etiquette": null,
-   "memo_fr": null,
-   "memo_en": null,
-   "mots": [],
-   "phrase": null,
-   "niveaux": {
-    "hsk": 7
-   },
-   "traits": [],
-   "medianes": [],
-   "audio": null,
-   "statut": "sans_fiche"
-  },
-  {
-   "c": "窥",
-   "pinyin": "kuī",
-   "lectures": [
-    "kuī"
-   ],
-   "fr": "",
-   "en": "",
-   "parts": [
-    "穴",
-    "夫",
-    "见"
-   ],
-   "nouveau": [],
-   "sources": [
-    "cjk-decomp"
-   ],
-   "role": null,
-   "roles": {},
-   "origine_fr": "",
-   "origine_en": "",
-   "etiquette": null,
-   "memo_fr": null,
-   "memo_en": null,
-   "mots": [],
-   "phrase": null,
-   "niveaux": {
-    "hsk": 7
-   },
-   "traits": [],
-   "medianes": [],
-   "audio": null,
-   "statut": "sans_fiche"
-  },
-  {
-   "c": "窿",
-   "pinyin": "lóng",
-   "lectures": [
-    "lóng"
-   ],
-   "fr": "",
-   "en": "",
-   "parts": [
-    "穴",
-    "阝",
-    "夂",
-    "一",
-    "生"
-   ],
-   "nouveau": [],
-   "sources": [
-    "cjk-decomp",
-    "surcharge"
-   ],
-   "role": null,
-   "roles": {},
-   "origine_fr": "",
-   "origine_en": "",
-   "etiquette": null,
-   "memo_fr": null,
-   "memo_en": null,
-   "mots": [],
-   "phrase": null,
-   "niveaux": {
-    "hsk": 7
-   },
-   "traits": [],
-   "medianes": [],
-   "audio": null,
-   "statut": "sans_fiche"
+   "statut": "relu"
   }
  ]
 }

@@ -192,3 +192,65 @@ def test_les_controles_relisent_l_export(tmp_path: Path) -> None:
     lots, _, sens, _ = dico.fautes(tmp_path, caracteres_attendus=4, mots_attendus=4)
     assert any("好" in x for x in sens)
     assert any("99.json" in x for x in lots)
+
+
+# --------------------------------------------------------------------------- l'origine (10.11)
+
+
+def _fiche(statut: str = "relu", **autres: object) -> dict[str, object]:
+    fiche: dict[str, object] = {
+        "statut": statut,
+        "etiquette": "atteste",
+        "origine_fr": "Une. Deux. Trois.",
+        "origine_en": "One. Two. Three.",
+        "roles": {"女": "sens", "子": "sens"},
+        "composants": ["女", "子"],
+    }
+    fiche.update(autres)
+    return fiche
+
+
+def test_l_origine_d_une_fiche_relue_arrive_dans_l_entree_etiquetee() -> None:
+    e = _entree(_documents(origines={"好": _fiche()}), "caracteres", "好")
+    assert e["origine"] == {
+        "statut": "relu",
+        "etiquette": "atteste",
+        "fr": "Une. Deux. Trois.",
+        "en": "One. Two. Three.",
+        "roles": {"女": "sens", "子": "sens"},
+    }
+    assert _index(_documents(origines={"好": _fiche()}))["compte"]["origines_relues"] == 1
+
+
+def test_sans_fiche_relue_l_origine_est_a_venir() -> None:
+    """Une fiche à relire, sans texte ou sans étiquette ne donne rien : jamais une origine inventée."""
+    for fiche in (_fiche("a_relire"), _fiche(origine_fr=""), _fiche(etiquette=None), _fiche(etiquette="peut-etre")):
+        assert _entree(_documents(origines={"好": fiche}), "caracteres", "好")["origine"] is None
+    assert _entree(_documents(), "caracteres", "好")["origine"] is None
+
+
+def test_les_roles_ne_passent_que_sur_la_decomposition_du_dictionnaire() -> None:
+    """Une fiche qui décompose autrement, ou un caractère non réconcilié : l'origine, sans rôles."""
+    autre = _fiche(composants=["女", "了", "一"], roles={"女": "sens", "了": "forme", "一": "forme"})
+    assert _entree(_documents(origines={"好": autre}), "caracteres", "好")["origine"]["roles"] == {}
+    incomplete = _fiche(roles={"女": "sens"})
+    assert _entree(_documents(origines={"好": incomplete}), "caracteres", "好")["origine"]["roles"] == {}
+    non_reconcilie = _fiche(composants=["亠", "口", "冖", "豕"])
+    assert _entree(_documents(origines={"豪": non_reconcilie}), "caracteres", "豪")["origine"]["roles"] == {}
+
+
+def test_les_controles_refusent_une_origine_non_relue(tmp_path: Path) -> None:
+    textes = _documents(origines={"好": _fiche()})
+    for relatif, texte in textes.items():
+        (tmp_path / relatif).parent.mkdir(parents=True, exist_ok=True)
+        (tmp_path / relatif).write_text(texte, encoding="utf-8")
+    _, _, sens, compte = dico.fautes(tmp_path, caracteres_attendus=4, mots_attendus=4)
+    assert sens == [] and compte["origines"] == 1
+    lot = {r[0]: r for r in _index(textes)["caracteres"]}["好"][-2]
+    chemin = tmp_path / dico.MODELE_CARACTERES.format(lot=lot)
+    doc = json.loads(chemin.read_text(encoding="utf-8"))
+    doc["entrees"]["好"]["origine"] = {"statut": "a_relire", "etiquette": "atteste", "fr": "x", "en": "x", "roles": {}}
+    doc["entrees"]["女"]["origine"] = {"statut": "relu", "etiquette": None, "fr": "x", "en": "x", "roles": {}}
+    chemin.write_text(json.dumps(doc, ensure_ascii=False), encoding="utf-8")
+    _, _, sens, _ = dico.fautes(tmp_path, caracteres_attendus=4, mots_attendus=4)
+    assert any(x.startswith("好 : origine") for x in sens) and any(x.startswith("女 : origine") for x in sens)

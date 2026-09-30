@@ -51,9 +51,7 @@
     "en": "I can come tomorrow.",
     "audio": null
    },
-   "niveaux": {
-    "hsk": 7
-   },
+   "niveaux": {},
    "traits": [],
    "medianes": [],
    "audio": null,
@@ -112,8 +110,7 @@
     "audio": null
    },
    "niveaux": {
-    "seuil": 255,
-    "hsk": 2
+    "seuil": 255
    },
    "traits": [],
    "medianes": [],
@@ -190,8 +187,8 @@
    "lectures": [
     "gē"
    ],
-   "fr": "",
-   "en": "",
+   "fr": "chanson, chanter",
+   "en": "song, to sing",
    "parts": [
     "丁",
     "口",
@@ -199,60 +196,55 @@
     "口",
     "欠"
    ],
-   "nouveau": [],
+   "nouveau": [
+    0,
+    2
+   ],
    "sources": [
     "cjk-decomp",
     "surcharge"
    ],
-   "role": null,
-   "roles": {},
-   "origine_fr": "",
-   "origine_en": "",
-   "etiquette": null,
+   "role": "son",
+   "roles": {
+    "丁": "son",
+    "口": "son",
+    "欠": "sens"
+   },
+   "origine_fr": "Le Shuowen jiezi analyse 歌 en 欠, la bouche ouverte, pour le sens, et 哥 pour le son. 哥, écrit deux fois 可, se lit gē, la même syllabe que 歌. La bouche qui s'ouvre et le son de 哥 : c'est chanter, puis la chanson.",
+   "origine_en": "The Shuowen jiezi analyses 歌 as 欠, the open mouth, for the meaning, and 哥 for the sound. 哥, written as two 可, is read gē, the same syllable as 歌. An open mouth and the sound of 哥: singing, and then a song.",
+   "etiquette": "atteste",
    "memo_fr": null,
    "memo_en": null,
-   "mots": [],
-   "phrase": null,
+   "mots": [
+    {
+     "hanzi": "歌手",
+     "pinyin": "gēshǒu",
+     "fr": "chanteur",
+     "en": "singer",
+     "audio": null
+    },
+    {
+     "hanzi": "儿歌",
+     "pinyin": "érgē",
+     "fr": "comptine",
+     "en": "nursery rhyme",
+     "audio": null
+    }
+   ],
+   "phrase": {
+    "hanzi": "她是歌手。",
+    "pinyin": "Tā shì gēshǒu.",
+    "fr": "Elle est chanteuse.",
+    "en": "She is a singer.",
+    "audio": null
+   },
    "niveaux": {
     "hsk": 1
    },
    "traits": [],
    "medianes": [],
    "audio": null,
-   "statut": "sans_fiche"
-  },
-  {
-   "c": "顶",
-   "pinyin": "dǐng",
-   "lectures": [
-    "dǐng"
-   ],
-   "fr": "",
-   "en": "",
-   "parts": [
-    "丁",
-    "页"
-   ],
-   "nouveau": [],
-   "sources": [
-    "cjk-decomp"
-   ],
-   "role": null,
-   "roles": {},
-   "origine_fr": "",
-   "origine_en": "",
-   "etiquette": null,
-   "memo_fr": null,
-   "memo_en": null,
-   "mots": [],
-   "phrase": null,
-   "niveaux": {
-    "hsk": 4
-   },
-   "traits": [],
-   "medianes": [],
-   "audio": null,
-   "statut": "sans_fiche"
+   "statut": "relu"
   }
  ]
 }

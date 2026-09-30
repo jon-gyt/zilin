@@ -30,7 +30,7 @@ import {
   statutMot,
   type ContexteStatut
 } from './dico-ecran';
-import { chercherDico, lireIndexDico, lireLectures } from './dictionnaire';
+import { chercherDico, lireIndexDico, lireLectures, type OrigineDico } from './dictionnaire';
 import { lireEcrans } from './ecrans';
 import { MAX_RECENTES, lireRecentes, noterRecente } from './recentes';
 import { emptyProgress, fromJSON, toJSON } from './session';
@@ -242,6 +242,24 @@ describe('l’origine, attestée ou mnémotechnique, jamais l’une pour l’aut
     expect(rolesDesBriques(fiche({}), ['女', '子'])).toEqual({ 女: 'sens', 子: 'sens' });
     expect(rolesDesBriques(fiche({}), ['女', '子', '一'])).toBeNull();
     expect(rolesDesBriques(fiche({ source: 'demonstration' }), ['女', '子'])).toBeNull();
+  });
+
+  it('hors des familles, l’origine relue que porte l’entrée du dictionnaire, avec son étiquette', () => {
+    const dico: OrigineDico = {
+      statut: 'relu',
+      etiquette: 'mnemotechnique',
+      fr: 'Un texte du dictionnaire.',
+      en: 'A dictionary text.',
+      roles: { 女: 'sens', 子: 'forme' }
+    };
+    expect(origineDeFiche(null, null, dico)).toEqual({ texte: dico.fr, etiquette: 'mnemotechnique' });
+    /* la fiche relue des familles passe devant, avec son étiquette à elle */
+    expect(origineDeFiche(fiche({}), null, dico)?.etiquette).toBe('atteste');
+    /* ni étiquette sans texte, ni texte sans étiquette */
+    expect(origineDeFiche(null, null, { ...dico, fr: ' ' })).toBeNull();
+    expect(rolesDesBriques(null, ['女', '子'], dico)).toEqual({ 女: 'sens', 子: 'forme' });
+    expect(rolesDesBriques(null, ['女', '子', '一'], dico)).toBeNull();
+    expect(rolesDesBriques(null, ['女', '子'], { ...dico, roles: {} })).toBeNull();
   });
 
   it('« origine à venir » ne dit ni attesté ni mnémotechnique', () => {

@@ -3,15 +3,15 @@
  "license": "propriétaire",
  "source": "décomposition GF 0014-2009 réconciliée par le pipeline wenlu ; pinyin d'Unihan (kMandarin) ; textes rédigés pour l'app",
  "source_url": "https://github.com/jon-gyt/zilin",
- "modified": "2026-09-25 : assemblé par `wenlu export`",
+ "modified": "2026-09-30 : assemblé par `wenlu export`",
  "norme": "GF 0014-2009",
  "racine": {
   "c": "风",
   "pinyin": "fēng",
-  "fr": "",
-  "en": "",
-  "origine": "",
-  "etiquette": null
+  "fr": "vent",
+  "en": "wind",
+  "origine": "Les os oraculaires écrivent le vent avec l'oiseau 鳳, le phénix, emprunté pour le son. Le Shuowen jiezi écrit 風 : 虫, la bête, pour le sens, et 凡 pour le son. La forme simplifiée garde le cadre 几 et y met 乂 à la place de 虫.",
+  "etiquette": "atteste"
  },
  "fiches": [
   {
@@ -20,27 +20,50 @@
    "lectures": [
     "fēng"
    ],
-   "fr": "",
-   "en": "",
+   "fr": "vent",
+   "en": "wind",
    "parts": [],
    "nouveau": [],
    "sources": [],
    "role": null,
-   "roles": {},
-   "origine_fr": "",
-   "origine_en": "",
-   "etiquette": null,
+   "roles": {
+    "风": "sens"
+   },
+   "origine_fr": "Les os oraculaires écrivent le vent avec l'oiseau 鳳, le phénix, emprunté pour le son. Le Shuowen jiezi écrit 風 : 虫, la bête, pour le sens, et 凡 pour le son. La forme simplifiée garde le cadre 几 et y met 乂 à la place de 虫.",
+   "origine_en": "Oracle bones write the wind with the bird 鳳, the phoenix, borrowed for its sound. The Shuowen jiezi writes 風: 虫, the creature, for the meaning, and 凡 for the sound. The simplified form keeps the frame 几 and puts 乂 inside instead of 虫.",
+   "etiquette": "atteste",
    "memo_fr": null,
    "memo_en": null,
-   "mots": [],
-   "phrase": null,
+   "mots": [
+    {
+     "hanzi": "大风",
+     "pinyin": "dàfēng",
+     "fr": "grand vent",
+     "en": "strong wind",
+     "audio": null
+    },
+    {
+     "hanzi": "风雨",
+     "pinyin": "fēngyǔ",
+     "fr": "le vent et la pluie, épreuves",
+     "en": "wind and rain, hardships",
+     "audio": null
+    }
+   ],
+   "phrase": {
+    "hanzi": "明天有大风。",
+    "pinyin": "Míngtiān yǒu dàfēng.",
+    "fr": "Demain, il y aura du vent fort.",
+    "en": "There will be strong winds tomorrow.",
+    "audio": null
+   },
    "niveaux": {
     "hsk": 1
    },
    "traits": [],
    "medianes": [],
    "audio": null,
-   "statut": "sans_fiche"
+   "statut": "relu"
   }
  ]
 }

@@ -134,7 +134,7 @@ VERSION = "0.1.0"
 #: Version du format écrit par ce module. À incrémenter à chaque changement de
 #: ce que l'export produit à entrées égales (clé ajoutée, ordre, règle de
 #: sélection) : elle entre dans l'empreinte, et l'export versionné devient périmé.
-FORMAT_EXPORT = 23
+FORMAT_EXPORT = 24
 
 #: Le code de l'exporteur, lui aussi dans l'empreinte : un changement de ce
 #: fichier où l'on aurait oublié `FORMAT_EXPORT` rend quand même l'export périmé.
@@ -690,12 +690,15 @@ def fiche_exportee(
         memo_fr=relue.memo_fr,
         memo_en=relue.memo_en,
         mots=[_mot(m) for m in relue.mots],
+        # Une fiche d'origine n'a pas de phrase : rien plutôt qu'une phrase vide.
         phrase=Mot(
             hanzi=relue.phrase.zh,
             pinyin=relue.phrase.pinyin,
             fr=relue.phrase.fr,
             en=relue.phrase.en,
-        ),
+        )
+        if relue.phrase.zh.strip()
+        else None,
         niveaux=niveaux,
         statut="relu",
     )
@@ -2032,6 +2035,7 @@ def assembler(
     dans_le_perimetre = dans_le_gratuit
     # Le dictionnaire de la loupe Chercher (`dictionnaire.py`) : les 3 000 caractères et les
     # 11 092 mots du HSK 3.0, par lots, et leurs traits à part.
+    relues = charger_fiches_relues(fiches)
     dico_textes, dico_traits, dico_decoupes = assembler_dictionnaire(
         version,
         build=build,
@@ -2040,6 +2044,7 @@ def assembler(
         noeuds=noeuds,
         decompositions=decompositions,
         parcours=documents_parcours,
+        relues=relues,
     )
     # Ce que les lots du dictionnaire dessinent déjà. Les traits des familles (précachés)
     # portent le chemin gratuit, et, au-delà, ce que le dictionnaire ne dessine pas : le
@@ -2053,7 +2058,6 @@ def assembler(
     decoupes =[d for d in decoupes_mod.charger(build) if str(d["c"]) in set(dessines_familles)]
     graphies = charger_graphies(ingest, dessines_familles, decoupes_mod.traits(build))
     decoupes_exportes = [str(d["c"]) for d in decoupes]
-    relues = charger_fiches_relues(fiches)
     versions_contes = charger_contes_relus(contes)
     # Un groupe ne sert qu'aux caractères que l'app sait dessiner : on le réduit
     # au périmètre, et il tombe s'il n'y reste pas au moins deux formes à confondre.
@@ -2229,10 +2233,13 @@ def assembler_dictionnaire(
     noeuds: Mapping[str, Noeud],
     decompositions: Mapping[str, Mapping[str, object]],
     parcours: Mapping[str, Mapping[str, object]],
+    relues: Mapping[str, fiches_mod.Fiche] | None = None,
 ) -> tuple[dict[str, str], int, list[Mapping[str, object]]]:
     """Les fichiers du dictionnaire, le nombre de caractères de ses traits et ses découpes.
 
     Rien quand les listes ne portent aucun niveau HSK et qu'aucun mot n'est versionné.
+    L'origine d'un caractère vient de sa fiche relue (`relues`), fiche de chemin ou fiche
+    d'origine : les autres n'existent pas ici.
     """
     mots = mots_hsk_mod.charger()
     caracteres = [c for nom in dictionnaire_mod.LISTES_HSK for c in listes.get(nom, ())]
@@ -2266,6 +2273,17 @@ def assembler_dictionnaire(
         decoupes=set(traits_decoupes),
         sens=sens,
         exemples=exemples,
+        origines={
+            c: {
+                "statut": f.statut,
+                "etiquette": f.etiquette,
+                "origine_fr": f.origine_fr,
+                "origine_en": f.origine_en,
+                "roles": dict(f.roles),
+                "composants": list(f.composants),
+            }
+            for c, f in (relues or {}).items()
+        },
         modified=f"{JETON_JOUR} : assemblé par `wenlu export`",
         source_url=URL_PIPELINE,
     )
