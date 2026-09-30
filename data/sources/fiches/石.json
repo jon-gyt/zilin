@@ -19,20 +19,33 @@
  "roles": {
   "石": "forme"
  },
- "mots": [],
+ "mots": [
+  {
+   "hanzi": "石头",
+   "pinyin": "shítou",
+   "fr": "pierre",
+   "en": "stone, rock"
+  },
+  {
+   "hanzi": "石子",
+   "pinyin": "shízǐ",
+   "fr": "caillou",
+   "en": "pebble"
+  }
+ ],
  "phrase": {
-  "zh": "",
-  "pinyin": "",
-  "fr": "",
-  "en": ""
+  "zh": "河里有很多石头。",
+  "pinyin": "Hé li yǒu hěn duō shítou.",
+  "fr": "Il y a beaucoup de pierres dans la rivière.",
+  "en": "There are lots of stones in the river."
  },
  "generation": {
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:a69a3f67c38dc4a039d62b7bd762cf47b8ba908f012cd6b62586e24ff1804a66",
-  "essais": 1,
+  "empreinte_invite": "sha256:f274d299583482b0d8a3265ce5ab9b4b03a2ad33092100598f56c65d5848e4dd",
+  "essais": 2,
   "refus": []
  },
- "statut": "relu"
+ "statut": "a_relire"
 }

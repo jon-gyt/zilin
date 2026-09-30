@@ -19,20 +19,33 @@
  "roles": {
   "术": "forme"
  },
- "mots": [],
+ "mots": [
+  {
+   "hanzi": "美术",
+   "pinyin": "měishù",
+   "fr": "beaux-arts, dessin",
+   "en": "fine arts, art"
+  },
+  {
+   "hanzi": "手术",
+   "pinyin": "shǒushù",
+   "fr": "opération chirurgicale",
+   "en": "surgery, operation"
+  }
+ ],
  "phrase": {
-  "zh": "",
-  "pinyin": "",
-  "fr": "",
-  "en": ""
+  "zh": "她明天要做手术。",
+  "pinyin": "Tā míngtiān yào zuò shǒushù.",
+  "fr": "Elle doit se faire opérer demain.",
+  "en": "She's having surgery tomorrow."
  },
  "generation": {
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:d019f9d019aca0140e6fbe8a65acd5fc35ce834901de1b04267e5b17af723f6e",
-  "essais": 1,
+  "empreinte_invite": "sha256:8a58728e1bbb51713df0647d3a54b10c49d24693dc8c8cc20682e266f0701646",
+  "essais": 2,
   "refus": []
  },
- "statut": "relu"
+ "statut": "a_relire"
 }

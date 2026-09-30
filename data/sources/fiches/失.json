@@ -19,20 +19,33 @@
  "roles": {
   "失": "forme"
  },
- "mots": [],
+ "mots": [
+  {
+   "hanzi": "失去",
+   "pinyin": "shīqù",
+   "fr": "perdre",
+   "en": "to lose"
+  },
+  {
+   "hanzi": "失业",
+   "pinyin": "shīyè",
+   "fr": "perdre son emploi, chômage",
+   "en": "to lose one's job, unemployment"
+  }
+ ],
  "phrase": {
-  "zh": "",
-  "pinyin": "",
-  "fr": "",
-  "en": ""
+  "zh": "他失去了工作。",
+  "pinyin": "Tā shīqù le gōngzuò.",
+  "fr": "Il a perdu son travail.",
+  "en": "He lost his job."
  },
  "generation": {
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:9973d2b721fb87d86453d63e551dfb401f4789467cf2ce8cde0ba1fa24b1cd7e",
-  "essais": 1,
+  "empreinte_invite": "sha256:4311d2e10a32e44b154d8f35a3913be69ad82d46a565be49e017f445028ffaf7",
+  "essais": 2,
   "refus": []
  },
- "statut": "relu"
+ "statut": "a_relire"
 }
