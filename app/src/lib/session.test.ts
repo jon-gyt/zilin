@@ -1264,6 +1264,34 @@ describe('le suivi des trophées dans la progression', () => {
     /* Une progression d'avant les niveaux HSK notait des nombres : ils se relisent en chaîne. */
     expect(relu.contesLus).toEqual({ lievre: ['255', '405', 'hsk3'] });
   });
+
+  it('relit sous leur nouveau nom les fables du chemin glissées d’un jour (30 septembre 2026)', () => {
+    /* 冖 s'insère au jour 13 : jour25, jour44 et jour60 deviennent jour26, jour45 et jour61. */
+    const ancienne = JSON.stringify({
+      ...neuf(),
+      contesLus: { 'xue-yi': ['jour25'], 'ji-chang-xue-she': ['jour44', 'jour45'], lievre: ['255'] },
+      chapitres: { 'jour60/yi-lin-dao-fu': { lus: [1], reprise: 1 }, '255/lievre': { lus: [], reprise: 1 } },
+      tropheesAcquis: {
+        'conte-xue-yi-jour25': '2026-09-20',
+        'conte-ji-chang-xue-she-jour44': '2026-09-25',
+        'conte-ji-chang-xue-she-jour45': '2026-09-22',
+        'conte-lievre-hsk7-9': JOUR,
+        'lire-10': JOUR
+      }
+    });
+    const relu = fromJSON(ancienne, JOUR);
+    expect(relu.contesLus).toEqual({ 'xue-yi': ['jour26'], 'ji-chang-xue-she': ['jour45'], lievre: ['255'] });
+    expect(Object.keys(relu.chapitres).sort()).toEqual(['255/lievre', 'jour61/yi-lin-dao-fu']);
+    expect(relu.tropheesAcquis).toEqual({
+      'conte-xue-yi-jour26': '2026-09-20',
+      'conte-ji-chang-xue-she-jour45': '2026-09-22',
+      'conte-lievre-hsk7-9': JOUR,
+      'lire-10': JOUR
+    });
+    /* Relue deux fois, rien ne glisse plus : les nouveaux noms restent. */
+    expect(fromJSON(toJSON(relu), JOUR).contesLus).toEqual(relu.contesLus);
+    expect(fromJSON(toJSON(relu), JOUR).tropheesAcquis).toEqual(relu.tropheesAcquis);
+  });
 });
 
 describe('les examens dans la progression (story 8.2)', () => {

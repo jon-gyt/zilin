@@ -58,7 +58,14 @@ import {
 } from './droits';
 import { lireLettresNotees, type LettreNotee } from './lettres';
 import { cleLecture, lireChapitre, type LectureChapitres } from './lecture';
-import { lireNiveau, lireNiveaux, trierNiveaux, type Niveau } from './niveaux';
+import {
+  lireNiveau,
+  lireNiveaux,
+  niveauRenomme,
+  tropheeRenomme,
+  trierNiveaux,
+  type Niveau
+} from './niveaux';
 import {
   ajouterPoint,
   artsVides,
@@ -1966,9 +1973,19 @@ function listeDeCaracteres(v: unknown): string[] {
   return [...new Set(v.filter((c): c is string => typeof c === 'string' && c !== ''))];
 }
 
-/** Relit les trophées obtenus : un identifiant, une journée. Une entrée aberrante est écartée. */
+/**
+ * Relit les trophées obtenus : un identifiant, une journée. Une entrée aberrante est écartée.
+ * Le trophée d'un conte noté sous un niveau du chemin renommé (« jour25 », décision du
+ * propriétaire du 30 septembre 2026) se relit sous son nouveau nom, à la première journée.
+ */
 function lireTropheesAcquis(v: unknown): Record<string, string> {
-  return lireJournees(v);
+  const out: Record<string, string> = {};
+  for (const [id, jour] of Object.entries(lireJournees(v))) {
+    const actuel = tropheeRenomme(id);
+    const deja = out[actuel];
+    out[actuel] = deja !== undefined && deja < jour ? deja : jour;
+  }
+  return out;
 }
 
 /**
@@ -2001,20 +2018,25 @@ function lireContesLus(v: unknown): Record<string, Niveau[]> {
   const out: Record<string, Niveau[]> = {};
   for (const [conte, seuils] of Object.entries(v as Record<string, unknown>)) {
     if (conte === '' || !Array.isArray(seuils)) continue;
-    /* Un seuil noté en nombre, avant les niveaux HSK, se relit en chaîne : 255 → « 255 ». */
-    const lus = lireNiveaux(seuils);
+    /* Un seuil noté en nombre, avant les niveaux HSK, se relit en chaîne : 255 → « 255 ». Un
+     * niveau du chemin renommé (« jour25 ») se relit sous son nouveau nom (« jour26 »). */
+    const lus = trierNiveaux(lireNiveaux(seuils).map(niveauRenomme));
     if (lus.length > 0) out[conte] = lus;
   }
   return out;
 }
 
-/** Relit les récits longs en cours. Absents ou aberrants : aucun. */
+/**
+ * Relit les récits longs en cours. Absents ou aberrants : aucun. Une clé sous un niveau du
+ * chemin renommé (« jour25/… ») se relit sous son nouveau nom.
+ */
 function lireLecturesChapitres(v: unknown): Record<string, LectureChapitres> {
   if (typeof v !== 'object' || v === null || Array.isArray(v)) return {};
   const out: Record<string, LectureChapitres> = {};
-  for (const [cle, x] of Object.entries(v as Record<string, unknown>)) {
-    const niveau = cle.slice(0, Math.max(0, cle.indexOf('/')));
-    if (lireNiveau(niveau) !== niveau || cle.length <= niveau.length + 1) continue;
+  for (const [brute, x] of Object.entries(v as Record<string, unknown>)) {
+    const ancien = brute.slice(0, Math.max(0, brute.indexOf('/')));
+    if (lireNiveau(ancien) !== ancien || brute.length <= ancien.length + 1) continue;
+    const cle = `${niveauRenomme(ancien)}${brute.slice(ancien.length)}`;
     if (typeof x !== 'object' || x === null) continue;
     const o = x as Record<string, unknown>;
     const lus = Array.isArray(o.lus)

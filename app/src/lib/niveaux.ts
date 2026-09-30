@@ -60,6 +60,38 @@ export function estChemin(n: Niveau): boolean {
   return CHEMIN.test(n);
 }
 
+/**
+ * Les niveaux du chemin renommés, ancien nom → nouveau. Décision du propriétaire du
+ * 30 septembre 2026 (« Réconcilier les 13 ») : 冖 s'insère au jour 13 du chemin Lire, les
+ * jours 13 à 131 glissent d'un jour, et les trois fables du chemin avec eux. Une progression
+ * d'avant nomme l'ancien niveau (contes lus, récits en cours, trophées) : elle se relit sous
+ * le nouveau (`session.fromJSON`), et rien de lu ne se perd. Le catalogue des contes ne
+ * reprend jamais un ancien nom.
+ */
+const NIVEAUX_RENOMMES: ReadonlyMap<string, Niveau> = new Map([
+  ['jour25', 'jour26'],
+  ['jour44', 'jour45'],
+  ['jour60', 'jour61']
+]);
+
+/** Le nom actuel d'un niveau qu'une progression d'avant a noté : « jour25 » → « jour26 ». */
+export function niveauRenomme(n: Niveau): Niveau {
+  return NIVEAUX_RENOMMES.get(n) ?? n;
+}
+
+/**
+ * L'identifiant actuel d'un trophée de conte qu'une progression d'avant a noté :
+ * « conte-xue-yi-jour25 » → « conte-xue-yi-jour26 » (`trophees.tropheesContes`). Tout
+ * autre identifiant reste tel quel.
+ */
+export function tropheeRenomme(id: string): string {
+  if (!id.startsWith('conte-')) return id;
+  const tiret = id.lastIndexOf('-');
+  const niveau = id.slice(tiret + 1);
+  const nouveau = niveauRenomme(niveau);
+  return nouveau === niveau ? id : `${id.slice(0, tiret + 1)}${nouveau}`;
+}
+
 /** Le jour d'un niveau du chemin (« jour25 » → 25), `null` pour un autre niveau. */
 export function jourDuNiveau(n: Niveau): number | null {
   const m = CHEMIN.exec(n);
