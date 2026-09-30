@@ -1,0 +1,1342 @@
+{
+ "niveau": "7-9",
+ "lot": "104",
+ "source": "rédigé pour l'app dans le pipeline wenlu, sans API ; faits lus : liste HSK 3.0 (forme, pinyin, niveau, catégorie), lectures d'Unihan et des surcharges, gloses relues des fiches",
+ "brouillon": "data/sources/dico-brouillons/7-9/104.json",
+ "generation": {
+  "modele": "rédaction manuelle",
+  "api": "session Claude Code (sans API)",
+  "date": "2026-09-30",
+  "empreinte_invite": "sha256:82ff116cdc88bd2f6410084e42506527fb2d1c5b8a58a9c4c59a5b88f6ebed4d",
+  "contexte": "wenlu dico contexte 7-9 104",
+  "essais": 1,
+  "refus": []
+ },
+ "entrees": [
+  {
+   "id": "L7-4557",
+   "genre": "mot",
+   "hanzi": "销毁",
+   "pinyin": "xiāohuǐ",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "détruire, anéantir",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "détruire, anéantir (documents, marchandises)"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这些文件必须全部销毁。",
+     "pinyin": "Zhèxiē wénjiàn bìxū quánbù xiāohuǐ.",
+     "fr": "Tous ces documents doivent être détruits.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-4558",
+   "genre": "mot",
+   "hanzi": "销量",
+   "pinyin": "xiāoliàng",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "volume des ventes",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "volume des ventes, chiffre de vente"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这款手机销量很好。",
+     "pinyin": "Zhè kuǎn shǒujī xiāoliàng hěn hǎo.",
+     "fr": "Ce modèle de téléphone se vend très bien.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "潇",
+   "genre": "caractere",
+   "hanzi": "潇",
+   "pinyin": "xiāo",
+   "sens": {
+    "glose": "limpide et profond (eau)",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "limpide et profond (eau)"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": []
+  },
+  {
+   "id": "L7-4559",
+   "genre": "mot",
+   "hanzi": "潇洒",
+   "pinyin": "xiāosǎ",
+   "categories": [
+    "Adj"
+   ],
+   "sens": {
+    "glose": "élégant et désinvolte",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "élégant et désinvolte, plein d'aisance"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他穿上西装显得很潇洒。",
+     "pinyin": "Tā chuānshang xīzhuāng xiǎnde hěn xiāosǎ.",
+     "fr": "En costume, il a beaucoup d'allure.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-4560",
+   "genre": "mot",
+   "hanzi": "小丑",
+   "pinyin": "xiǎochǒu",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "clown ; bouffon",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "clown, bouffon"
+     },
+     {
+      "categorie": "N",
+      "fr": "pitre, personnage ridicule"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "马戏团里的小丑很好笑。",
+     "pinyin": "Mǎxìtuán li de xiǎochǒu hěn hǎoxiào.",
+     "fr": "Le clown du cirque est très drôle.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-4561",
+   "genre": "mot",
+   "hanzi": "小贩",
+   "pinyin": "xiǎofàn",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "marchand ambulant",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "marchand ambulant, colporteur"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "街上有很多卖水果的小贩。",
+     "pinyin": "Jiē shang yǒu hěn duō mài shuǐguǒ de xiǎofàn.",
+     "fr": "Dans la rue, beaucoup de vendeurs proposent des fruits.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-4562",
+   "genre": "mot",
+   "hanzi": "小看",
+   "pinyin": "xiǎokàn",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "sous-estimer, mépriser",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "sous-estimer, mépriser, prendre de haut"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "你别小看他。",
+     "pinyin": "Nǐ bié xiǎokàn tā.",
+     "fr": "Ne le prends pas à la légère.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-4563",
+   "genre": "mot",
+   "hanzi": "小康",
+   "pinyin": "xiǎokāng",
+   "categories": [
+    "Adj"
+   ],
+   "sens": {
+    "glose": "modestement aisé",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "modestement aisé, qui vit dans une aisance moyenne"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他家过上了小康生活。",
+     "pinyin": "Tā jiā guòshang le xiǎokāng shēnghuó.",
+     "fr": "Sa famille vit désormais sans soucis d'argent.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-4564",
+   "genre": "mot",
+   "hanzi": "小路",
+   "pinyin": "xiǎolù",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "sentier, petit chemin",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "sentier, petit chemin"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "我们沿着小路走到了河边。",
+     "pinyin": "Wǒmen yánzhe xiǎolù zǒu dào le hébiān.",
+     "fr": "Nous avons suivi le sentier jusqu'à la rivière.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-4565",
+   "genre": "mot",
+   "hanzi": "小品",
+   "pinyin": "xiǎopǐn",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "sketch ; courte pièce",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "sketch, saynète"
+     },
+     {
+      "categorie": "N",
+      "fr": "court essai, petite pièce"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "春节晚会上的小品很好笑。",
+     "pinyin": "Chūnjié wǎnhuì shang de xiǎopǐn hěn hǎoxiào.",
+     "fr": "Les saynètes du gala de la fête du Printemps sont très drôles.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-4566",
+   "genre": "mot",
+   "hanzi": "小气",
+   "pinyin": "xiǎoqi",
+   "categories": [
+    "Adj"
+   ],
+   "sens": {
+    "glose": "avare, mesquin",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "avare, radin"
+     },
+     {
+      "categorie": "Adj",
+      "fr": "mesquin, étroit d'esprit"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他这个人很小气。",
+     "pinyin": "Tā zhège rén hěn xiǎoqi.",
+     "fr": "Il est très pingre.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-4567",
+   "genre": "mot",
+   "hanzi": "小区",
+   "pinyin": "xiǎoqū",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "résidence, quartier résidentiel",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "résidence, ensemble d'habitations, quartier résidentiel"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "我们小区环境很好。",
+     "pinyin": "Wǒmen xiǎoqū huánjìng hěn hǎo.",
+     "fr": "Notre résidence est très agréable.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-4568",
+   "genre": "mot",
+   "hanzi": "小曲",
+   "pinyin": "xiǎoqǔ",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "chansonnette, air populaire",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "chansonnette, air populaire"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他一边走一边唱着小曲。",
+     "pinyin": "Tā yībiān zǒu yībiān chàng zhe xiǎoqǔ.",
+     "fr": "Il fredonne un air en marchant.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-4569",
+   "genre": "mot",
+   "hanzi": "小人",
+   "pinyin": "xiǎorén",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "homme vil, personne mesquine",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "homme vil, personne mesquine, intrigant"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他是个小人，你要小心。",
+     "pinyin": "Tā shì ge xiǎorén, nǐ yào xiǎoxīn.",
+     "fr": "Méfie-toi de lui, il est sournois.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-4570",
+   "genre": "mot",
+   "hanzi": "小提琴",
+   "pinyin": "xiǎotíqín",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "violon",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "violon"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "她从五岁开始学小提琴。",
+     "pinyin": "Tā cóng wǔ suì kāishǐ xué xiǎotíqín.",
+     "fr": "Elle joue du violon depuis l'âge de cinq ans.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "溪",
+   "genre": "caractere",
+   "hanzi": "溪",
+   "pinyin": "xī",
+   "sens": {
+    "glose": "ruisseau",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "ruisseau, torrent"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": []
+  },
+  {
+   "id": "L7-4571",
+   "genre": "mot",
+   "hanzi": "小溪",
+   "pinyin": "xiǎoxī",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "ruisseau",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "ruisseau, petit cours d'eau"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "小溪从村子旁边流过。",
+     "pinyin": "Xiǎoxī cóng cūnzi pángbiān liúguò.",
+     "fr": "Un ruisseau coule au bord du village.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-4572",
+   "genre": "mot",
+   "hanzi": "小心翼翼",
+   "pinyin": "xiǎoxīn-yìyì",
+   "sens": {
+    "glose": "avec mille précautions",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "prudent, précautionneux ; avec mille précautions"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他小心翼翼地打开了盒子。",
+     "pinyin": "Tā xiǎoxīn-yìyì de dǎkāi le hézi.",
+     "fr": "Il a ouvert la boîte tout doucement.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "卒",
+   "genre": "caractere",
+   "hanzi": "卒",
+   "pinyin": "zú",
+   "sens": {
+    "glose": "soldat ; mourir",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "soldat, fantassin"
+     },
+     {
+      "categorie": "V",
+      "fr": "mourir, décéder"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": []
+  },
+  {
+   "id": "L7-4573",
+   "genre": "mot",
+   "hanzi": "小卒",
+   "pinyin": "xiǎozú",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "simple soldat ; menu fretin",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "simple soldat"
+     },
+     {
+      "categorie": "N",
+      "fr": "sous-fifre, personne sans importance"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "我只是一个小卒，说了不算。",
+     "pinyin": "Wǒ zhǐshì yī ge xiǎozú, shuō le bù suàn.",
+     "fr": "Je ne suis qu'un pion, je n'ai pas mon mot à dire.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "孝",
+   "genre": "caractere",
+   "hanzi": "孝",
+   "pinyin": "xiào",
+   "sens": {
+    "glose": "piété filiale ; deuil",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "piété filiale"
+     },
+     {
+      "categorie": "N",
+      "fr": "deuil, habits de deuil"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": []
+  },
+  {
+   "id": "L7-4574",
+   "genre": "mot",
+   "hanzi": "孝敬",
+   "pinyin": "xiàojìng",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "honorer (ses aînés), offrir à",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "honorer ses parents, ses aînés ; leur offrir quelque chose"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他常买东西孝敬父母。",
+     "pinyin": "Tā cháng mǎi dōngxi xiàojìng fùmǔ.",
+     "fr": "Il offre souvent des cadeaux à ses parents.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-4575",
+   "genre": "mot",
+   "hanzi": "孝顺",
+   "pinyin": "xiàoshun",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "respectueux de ses parents",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "respecter et servir ses parents, faire preuve de piété filiale"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "她很孝顺父母。",
+     "pinyin": "Tā hěn xiàoshun fùmǔ.",
+     "fr": "Elle est aux petits soins pour ses parents.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "肖",
+   "genre": "caractere",
+   "hanzi": "肖",
+   "pinyin": "xiào",
+   "sens": {
+    "glose": "ressembler à",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "ressembler à"
+     },
+     {
+      "categorie": "N",
+      "fr": "nom de famille",
+      "pinyin": "xiāo"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": []
+  },
+  {
+   "id": "L7-4576",
+   "genre": "mot",
+   "hanzi": "肖像",
+   "pinyin": "xiàoxiàng",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "portrait",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "portrait (peint, photographié)"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "墙上挂着一幅肖像。",
+     "pinyin": "Qiáng shang guà zhe yī fú xiàoxiàng.",
+     "fr": "Un portrait est accroché au mur.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-4577",
+   "genre": "mot",
+   "hanzi": "效仿",
+   "pinyin": "xiàofǎng",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "imiter, prendre exemple sur",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "imiter, prendre exemple sur"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "大家都效仿他的做法。",
+     "pinyin": "Dàjiā dōu xiàofǎng tā de zuòfǎ.",
+     "fr": "Tout le monde fait comme lui.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-4578",
+   "genre": "mot",
+   "hanzi": "效力",
+   "pinyin": "xiàolì",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "effet, efficacité ; validité",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "effet, efficacité"
+     },
+     {
+      "categorie": "N",
+      "fr": "validité, force (juridique)"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这种药的效力很强。",
+     "pinyin": "Zhè zhǒng yào de xiàolì hěn qiáng.",
+     "fr": "Ce médicament agit fort.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-4579",
+   "genre": "mot",
+   "hanzi": "效益",
+   "pinyin": "xiàoyì",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "rendement, bénéfices",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "rendement, bénéfices, retombées"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "今年公司的经济效益很好。",
+     "pinyin": "Jīnnián gōngsī de jīngjì xiàoyì hěn hǎo.",
+     "fr": "Cette année, l'entreprise est très rentable.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-4580",
+   "genre": "mot",
+   "hanzi": "效应",
+   "pinyin": "xiàoyìng",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "effet (phénomène)",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "effet (phénomène), réaction"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "温室效应让地球越来越热。",
+     "pinyin": "Wēnshì xiàoyìng ràng dìqiú yuè lái yuè rè.",
+     "fr": "L'effet de serre réchauffe la planète.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-4581",
+   "genre": "mot",
+   "hanzi": "协定",
+   "pinyin": "xiédìng",
+   "categories": [
+    "N",
+    "V"
+   ],
+   "sens": {
+    "glose": "accord ; convenir de",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "accord, convention"
+     },
+     {
+      "categorie": "V",
+      "fr": "convenir de, arrêter d'un commun accord"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "两国签订了贸易协定。",
+     "pinyin": "Liǎng guó qiāndìng le màoyì xiédìng.",
+     "fr": "Les deux pays ont signé un traité commercial.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-4582",
+   "genre": "mot",
+   "hanzi": "协同",
+   "pinyin": "xiétóng",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "coopérer, agir de concert",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "coopérer, agir de concert"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "各部门要协同工作。",
+     "pinyin": "Gè bùmén yào xiétóng gōngzuò.",
+     "fr": "Tous les services doivent travailler ensemble.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-4583",
+   "genre": "mot",
+   "hanzi": "协作",
+   "pinyin": "xiézuò",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "collaborer, coopérer",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "collaborer, coopérer"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这个项目需要大家协作完成。",
+     "pinyin": "Zhège xiàngmù xūyào dàjiā xiézuò wánchéng.",
+     "fr": "Ce projet ne se fera qu'en travaillant tous ensemble.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-4585",
+   "genre": "mot",
+   "hanzi": "邪恶",
+   "pinyin": "xié'è",
+   "categories": [
+    "Adj"
+   ],
+   "sens": {
+    "glose": "maléfique, mauvais",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "maléfique, mauvais, pervers"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "故事里的巫婆很邪恶。",
+     "pinyin": "Gùshi li de wūpó hěn xié'è.",
+     "fr": "La sorcière du conte est méchante.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "挟",
+   "genre": "caractere",
+   "hanzi": "挟",
+   "pinyin": "xié",
+   "sens": {
+    "glose": "tenir sous le bras ; contraindre",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "tenir sous le bras"
+     },
+     {
+      "categorie": "V",
+      "fr": "contraindre, faire pression sur"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": []
+  },
+  {
+   "id": "L7-4586",
+   "genre": "mot",
+   "hanzi": "挟持",
+   "pinyin": "xiéchí",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "prendre en otage, séquestrer",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "prendre en otage, séquestrer, tenir sous la menace"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "坏人挟持了一名乘客。",
+     "pinyin": "Huàirén xiéchí le yī míng chéngkè.",
+     "fr": "Le malfaiteur a pris un passager en otage.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "携",
+   "genre": "caractere",
+   "hanzi": "携",
+   "pinyin": "xié",
+   "sens": {
+    "glose": "porter ; tenir par la main",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "porter, emporter"
+     },
+     {
+      "categorie": "V",
+      "fr": "tenir par la main"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": []
+  },
+  {
+   "id": "L7-4587",
+   "genre": "mot",
+   "hanzi": "携带",
+   "pinyin": "xiédài",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "porter sur soi, emporter",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "porter sur soi, emporter, transporter"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "乘客不能携带危险物品。",
+     "pinyin": "Chéngkè bù néng xiédài wēixiǎn wùpǐn.",
+     "fr": "Les passagers ne peuvent pas avoir d'objets dangereux avec eux.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-4588",
+   "genre": "mot",
+   "hanzi": "携手",
+   "pinyin": "xiéshǒu",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "main dans la main ; unir ses forces",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "se donner la main, aller main dans la main"
+     },
+     {
+      "categorie": "V",
+      "fr": "unir ses forces, coopérer"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "我们携手走过了很多年。",
+     "pinyin": "Wǒmen xiéshǒu zǒuguò le hěn duō nián.",
+     "fr": "Nous avons fait ensemble un long chemin.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-4589",
+   "genre": "mot",
+   "hanzi": "写照",
+   "pinyin": "xiězhào",
+   "categories": [
+    "V",
+    "N"
+   ],
+   "sens": {
+    "glose": "dépeindre ; portrait fidèle",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "dépeindre, faire le portrait de"
+     },
+     {
+      "categorie": "N",
+      "fr": "portrait fidèle, reflet"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这部小说是当时社会的写照。",
+     "pinyin": "Zhè bù xiǎoshuō shì dāngshí shèhuì de xiězhào.",
+     "fr": "Ce roman reflète la société de l'époque.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-4591",
+   "genre": "mot",
+   "hanzi": "泄漏",
+   "pinyin": "xièlòu",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "fuir (gaz, liquide) ; divulguer",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "fuir, s'échapper (gaz, liquide)"
+     },
+     {
+      "categorie": "V",
+      "fr": "divulguer, laisser filtrer"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "厨房里煤气泄漏了。",
+     "pinyin": "Chúfáng li méiqì xièlòu le.",
+     "fr": "Il y a une fuite de gaz dans la cuisine.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-4592",
+   "genre": "mot",
+   "hanzi": "泄露",
+   "pinyin": "xièlòu",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "divulguer, laisser filtrer",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "divulguer, révéler, laisser filtrer"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他把公司的秘密泄露了出去。",
+     "pinyin": "Tā bǎ gōngsī de mìmì xièlòu le chuqu.",
+     "fr": "Il a trahi les secrets de l'entreprise.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-4593",
+   "genre": "mot",
+   "hanzi": "泄密",
+   "pinyin": "xièmì",
+   "sens": {
+    "glose": "divulguer un secret",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "divulguer un secret, trahir une confidence"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这件事千万不能泄密。",
+     "pinyin": "Zhè jiàn shì qiānwàn bù néng xièmì.",
+     "fr": "Surtout, que rien de cette affaire ne s'ébruite.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-4594",
+   "genre": "mot",
+   "hanzi": "泄气",
+   "pinyin": "xièqì",
+   "sens": {
+    "glose": "se décourager, perdre courage",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "se décourager, perdre courage"
+     },
+     {
+      "categorie": "V",
+      "fr": "se dégonfler (ballon, pneu)"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "失败一次不要泄气。",
+     "pinyin": "Shībài yī cì bùyào xièqì.",
+     "fr": "Un échec, ce n'est pas une raison pour baisser les bras.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-4597",
+   "genre": "mot",
+   "hanzi": "心爱",
+   "pinyin": "xīn'ài",
+   "categories": [
+    "Adj"
+   ],
+   "sens": {
+    "glose": "chéri, bien-aimé",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "chéri, bien-aimé, préféré"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这是我最心爱的书。",
+     "pinyin": "Zhè shì wǒ zuì xīn'ài de shū.",
+     "fr": "C'est le livre auquel je tiens le plus.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-4598",
+   "genre": "mot",
+   "hanzi": "心安理得",
+   "pinyin": "xīn'ān-lǐdé",
+   "sens": {
+    "glose": "avoir la conscience tranquille",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "avoir la conscience tranquille, ne rien se reprocher"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他拿了别人的钱，还心安理得。",
+     "pinyin": "Tā ná le biérén de qián, hái xīn'ān-lǐdé.",
+     "fr": "Il a pris l'argent des autres et n'en éprouve aucun remords.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-4599",
+   "genre": "mot",
+   "hanzi": "心病",
+   "pinyin": "xīnbìng",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "souci secret, poids sur le cœur",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "souci secret, poids sur le cœur"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这件事成了她的心病。",
+     "pinyin": "Zhè jiàn shì chéng le tā de xīnbìng.",
+     "fr": "Cette affaire la ronge.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-4600",
+   "genre": "mot",
+   "hanzi": "心肠",
+   "pinyin": "xīncháng",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "cœur, nature (d'une personne)",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "cœur, nature, disposition (d'une personne)"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "她是个好心肠的人。",
+     "pinyin": "Tā shì ge hǎo xīncháng de rén.",
+     "fr": "Elle a bon cœur.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-4601",
+   "genre": "mot",
+   "hanzi": "心得",
+   "pinyin": "xīndé",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "enseignements tirés, impressions",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "enseignements tirés, impressions, ce qu'on a appris"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "请谈谈你学习汉语的心得。",
+     "pinyin": "Qǐng tántan nǐ xuéxí Hànyǔ de xīndé.",
+     "fr": "Parle-nous de ton expérience de l'apprentissage du chinois.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-4602",
+   "genre": "mot",
+   "hanzi": "心慌",
+   "pinyin": "xīnhuāng",
+   "sens": {
+    "glose": "être troublé, paniquer",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "être troublé, paniquer, avoir le cœur qui s'emballe"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "我一上台就心慌。",
+     "pinyin": "Wǒ yī shàngtái jiù xīnhuāng.",
+     "fr": "Dès que je monte sur scène, j'ai le trac.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-4603",
+   "genre": "mot",
+   "hanzi": "心急如焚",
+   "pinyin": "xīnjí-rúfén",
+   "sens": {
+    "glose": "dévoré d'inquiétude",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "dévoré d'inquiétude, fou d'angoisse"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "孩子不见了，妈妈心急如焚。",
+     "pinyin": "Háizi bù jiàn le, māma xīnjí-rúfén.",
+     "fr": "L'enfant a disparu, sa mère est morte d'angoisse.",
+     "statut": "a_relire"
+    }
+   ]
+  }
+ ]
+}

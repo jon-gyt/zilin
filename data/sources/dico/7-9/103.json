@@ -1,0 +1,1318 @@
+{
+ "niveau": "7-9",
+ "lot": "103",
+ "source": "rédigé pour l'app dans le pipeline wenlu, sans API ; faits lus : liste HSK 3.0 (forme, pinyin, niveau, catégorie), lectures d'Unihan et des surcharges, gloses relues des fiches",
+ "brouillon": "data/sources/dico-brouillons/7-9/103.json",
+ "generation": {
+  "modele": "rédaction manuelle",
+  "api": "session Claude Code (sans API)",
+  "date": "2026-09-30",
+  "empreinte_invite": "sha256:9aa83654f5013cc29c9d7202433f079a0eabbead44e2fd3801c4811db8ed8c5a",
+  "contexte": "wenlu dico contexte 7-9 103",
+  "essais": 1,
+  "refus": []
+ },
+ "entrees": [
+  {
+   "id": "慕",
+   "genre": "caractere",
+   "hanzi": "慕",
+   "pinyin": "mù",
+   "sens": {
+    "glose": "admirer, aspirer à",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "admirer, aspirer à, désirer"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": []
+  },
+  {
+   "id": "L7-4507",
+   "genre": "mot",
+   "hanzi": "羡慕",
+   "pinyin": "xiànmù",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "envier, admirer",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "envier, admirer, souhaiter être à la place de"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "我很羡慕你有这么多朋友。",
+     "pinyin": "Wǒ hěn xiànmù nǐ yǒu zhème duō péngyou.",
+     "fr": "J'aimerais bien avoir autant d'amis que toi.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-4508",
+   "genre": "mot",
+   "hanzi": "献血",
+   "pinyin": "xiànxiě",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "donner son sang",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "donner son sang"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他每年都去献血。",
+     "pinyin": "Tā měi nián dōu qù xiànxiě.",
+     "fr": "Chaque année, il fait un don du sang.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "腺",
+   "genre": "caractere",
+   "hanzi": "腺",
+   "pinyin": "xiàn",
+   "mots": [
+    "L7-4509"
+   ],
+   "sens": {
+    "glose": "glande",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "glande"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "医生说他的甲状腺有点儿问题。",
+     "pinyin": "Yīshēng shuō tā de jiǎzhuàngxiàn yǒudiǎnr wèntí.",
+     "fr": "Le médecin dit qu'il a un petit souci de thyroïde.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-4510",
+   "genre": "mot",
+   "hanzi": "乡亲",
+   "pinyin": "xiāngqīn",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "gens du pays, compatriotes",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "gens du pays, compatriotes du même village"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他回到老家，看望乡亲们。",
+     "pinyin": "Tā huídào lǎojiā, kànwàng xiāngqīnmen.",
+     "fr": "Il est rentré au village rendre visite aux siens.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-4511",
+   "genre": "mot",
+   "hanzi": "乡下",
+   "pinyin": "xiāngxia",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "campagne",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "campagne, village"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "我奶奶住在乡下。",
+     "pinyin": "Wǒ nǎinai zhù zài xiāngxia.",
+     "fr": "Ma grand-mère vit à la campagne.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-4512",
+   "genre": "mot",
+   "hanzi": "相伴",
+   "pinyin": "xiāngbàn",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "accompagner, être ensemble",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "accompagner, être ensemble, tenir compagnie"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这本书一直与我相伴。",
+     "pinyin": "Zhè běn shū yīzhí yǔ wǒ xiāngbàn.",
+     "fr": "Ce livre ne m'a jamais quitté.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-4513",
+   "genre": "mot",
+   "hanzi": "相比之下",
+   "pinyin": "xiāngbǐ zhī xià",
+   "sens": {
+    "glose": "en comparaison",
+    "acceptions": [
+     {
+      "categorie": "Adv",
+      "fr": "en comparaison, par comparaison"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "相比之下，这个办法更好。",
+     "pinyin": "Xiāngbǐ zhī xià, zhège bànfǎ gèng hǎo.",
+     "fr": "À côté, cette méthode-ci vaut mieux.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-4514",
+   "genre": "mot",
+   "hanzi": "相差",
+   "pinyin": "xiāngchà",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "différer, avoir un écart de",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "différer, avoir un écart de"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "我们俩年龄相差五岁。",
+     "pinyin": "Wǒmen liǎ niánlíng xiāngchà wǔ suì.",
+     "fr": "Nous avons cinq ans d'écart.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-4515",
+   "genre": "mot",
+   "hanzi": "相传",
+   "pinyin": "xiāngchuán",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "selon la légende ; se transmettre",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "selon la tradition, on raconte que"
+     },
+     {
+      "categorie": "V",
+      "fr": "se transmettre (de génération en génération)"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "相传这座山上住过神仙。",
+     "pinyin": "Xiāngchuán zhè zuò shān shang zhù guo shénxiān.",
+     "fr": "On raconte que des immortels ont vécu sur cette montagne.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-4516",
+   "genre": "mot",
+   "hanzi": "相当于",
+   "pinyin": "xiāngdāngyú",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "équivaloir à",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "équivaloir à, correspondre à"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "一公里相当于一千米。",
+     "pinyin": "Yī gōnglǐ xiāngdāngyú yīqiān mǐ.",
+     "fr": "Un kilomètre, c'est mille mètres.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-4517",
+   "genre": "mot",
+   "hanzi": "相对",
+   "pinyin": "xiāngduì",
+   "categories": [
+    "V",
+    "Adj"
+   ],
+   "sens": {
+    "glose": "se faire face ; relatif",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "se faire face, s'opposer"
+     },
+     {
+      "categorie": "Adj",
+      "fr": "relatif ; relativement"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这里的房价相对便宜。",
+     "pinyin": "Zhèli de fángjià xiāngduì piányi.",
+     "fr": "Ici, les logements sont plutôt bon marché.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-4518",
+   "genre": "mot",
+   "hanzi": "相对而言",
+   "pinyin": "xiāngduì-éryán",
+   "sens": {
+    "glose": "relativement parlant",
+    "acceptions": [
+     {
+      "categorie": "Adv",
+      "fr": "relativement parlant, toutes proportions gardées"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "相对而言，这里的生活比较安静。",
+     "pinyin": "Xiāngduì-éryán, zhèli de shēnghuó bǐjiào ānjìng.",
+     "fr": "Comparée à ailleurs, la vie ici est plutôt calme.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-4519",
+   "genre": "mot",
+   "hanzi": "相辅相成",
+   "pinyin": "xiāngfǔ-xiāngchéng",
+   "sens": {
+    "glose": "se compléter mutuellement",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "se compléter mutuellement, se renforcer l'un l'autre"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "理论和实践是相辅相成的。",
+     "pinyin": "Lǐlùn hé shíjiàn shì xiāngfǔ-xiāngchéng de.",
+     "fr": "La théorie et la pratique vont de pair.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-4520",
+   "genre": "mot",
+   "hanzi": "相继",
+   "pinyin": "xiāngjì",
+   "categories": [
+    "Adv"
+   ],
+   "sens": {
+    "glose": "successivement, l'un après l'autre",
+    "acceptions": [
+     {
+      "categorie": "Adv",
+      "fr": "successivement, l'un après l'autre"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "客人们相继到了。",
+     "pinyin": "Kèrénmen xiāngjì dào le.",
+     "fr": "Les invités sont arrivés les uns après les autres.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-4521",
+   "genre": "mot",
+   "hanzi": "相连",
+   "pinyin": "xiānglián",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "être relié, attenant",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "être relié, attenant, communiquer"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这两个房间是相连的。",
+     "pinyin": "Zhè liǎng ge fángjiān shì xiānglián de.",
+     "fr": "Ces deux pièces donnent l'une sur l'autre.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-4522",
+   "genre": "mot",
+   "hanzi": "相识",
+   "pinyin": "xiāngshí",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "faire connaissance, se connaître",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "faire connaissance, se connaître"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "我们是在大学相识的。",
+     "pinyin": "Wǒmen shì zài dàxué xiāngshí de.",
+     "fr": "Nous nous sommes rencontrés à l'université.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-4523",
+   "genre": "mot",
+   "hanzi": "相提并论",
+   "pinyin": "xiāngtí-bìnglùn",
+   "sens": {
+    "glose": "mettre sur le même plan",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "mettre sur le même plan, comparer (souvent nié)"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这两件事不能相提并论。",
+     "pinyin": "Zhè liǎng jiàn shì bù néng xiāngtí-bìnglùn.",
+     "fr": "On ne peut pas comparer ces deux affaires.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-4524",
+   "genre": "mot",
+   "hanzi": "相通",
+   "pinyin": "xiāngtōng",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "communiquer ; se rejoindre",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "communiquer, être relié"
+     },
+     {
+      "categorie": "V",
+      "fr": "se rejoindre, être en accord"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "我们的想法是相通的。",
+     "pinyin": "Wǒmen de xiǎngfǎ shì xiāngtōng de.",
+     "fr": "Nous pensons de la même façon.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-4525",
+   "genre": "mot",
+   "hanzi": "相依为命",
+   "pinyin": "xiāngyī-wéimìng",
+   "sens": {
+    "glose": "ne vivre que l'un pour l'autre",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "dépendre l'un de l'autre pour vivre, n'avoir que l'autre"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "母女二人相依为命。",
+     "pinyin": "Mǔnǚ èr rén xiāngyī-wéimìng.",
+     "fr": "La mère et la fille n'ont plus qu'elles deux au monde.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-4526",
+   "genre": "mot",
+   "hanzi": "相遇",
+   "pinyin": "xiāngyù",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "se rencontrer, se croiser",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "se rencontrer, se croiser"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "我们在车站偶然相遇。",
+     "pinyin": "Wǒmen zài chēzhàn ǒurán xiāngyù.",
+     "fr": "Nous sommes tombés l'un sur l'autre à la gare.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-4527",
+   "genre": "mot",
+   "hanzi": "相约",
+   "pinyin": "xiāngyuē",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "se donner rendez-vous",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "se donner rendez-vous, convenir ensemble"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "我们相约明年再见。",
+     "pinyin": "Wǒmen xiāngyuē míngnián zài jiàn.",
+     "fr": "Nous avons promis de nous revoir l'an prochain.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-4528",
+   "genre": "mot",
+   "hanzi": "香料",
+   "pinyin": "xiāngliào",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "épices, aromates",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "épices, aromates ; parfums (matière)"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "做这道菜要放很多香料。",
+     "pinyin": "Zuò zhè dào cài yào fàng hěn duō xiāngliào.",
+     "fr": "Ce plat demande beaucoup d'épices.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-4529",
+   "genre": "mot",
+   "hanzi": "香水",
+   "pinyin": "xiāngshuǐ",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "parfum",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "parfum, eau de toilette"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "她身上有一股香水味。",
+     "pinyin": "Tā shēn shang yǒu yī gǔ xiāngshuǐ wèi.",
+     "fr": "Elle sent le parfum.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-4530",
+   "genre": "mot",
+   "hanzi": "香味",
+   "pinyin": "xiāngwèi",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "bonne odeur, arôme",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "bonne odeur, arôme, parfum"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "厨房里传来一阵香味。",
+     "pinyin": "Chúfáng li chuánlái yī zhèn xiāngwèi.",
+     "fr": "Une odeur délicieuse vient de la cuisine.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-4531",
+   "genre": "mot",
+   "hanzi": "香烟",
+   "pinyin": "xiāngyān",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "cigarette",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "cigarette"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他每天抽一包香烟。",
+     "pinyin": "Tā měitiān chōu yī bāo xiāngyān.",
+     "fr": "Il fume un paquet par jour.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-4532",
+   "genre": "mot",
+   "hanzi": "香油",
+   "pinyin": "xiāngyóu",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "huile de sésame",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "huile de sésame"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "最后放一点儿香油。",
+     "pinyin": "Zuìhòu fàng yīdiǎnr xiāngyóu.",
+     "fr": "À la fin, on ajoute un filet d'huile de sésame.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "镶",
+   "genre": "caractere",
+   "hanzi": "镶",
+   "pinyin": "xiāng",
+   "mots": [
+    "L7-4533"
+   ],
+   "sens": {
+    "glose": "incruster, sertir",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "incruster, sertir, border"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这扇门上镶着玻璃。",
+     "pinyin": "Zhè shàn mén shang xiāng zhe bōli.",
+     "fr": "Cette porte a un panneau vitré.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "嵌",
+   "genre": "caractere",
+   "hanzi": "嵌",
+   "pinyin": "qiàn",
+   "sens": {
+    "glose": "incruster, enchâsser",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "incruster, enchâsser"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": []
+  },
+  {
+   "id": "L7-4534",
+   "genre": "mot",
+   "hanzi": "镶嵌",
+   "pinyin": "xiāngqiàn",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "incruster, marqueter",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "incruster, marqueter, sertir"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "墙上镶嵌着很多彩色的石头。",
+     "pinyin": "Qiáng shang xiāngqiàn zhe hěn duō cǎisè de shítou.",
+     "fr": "Le mur est orné de nombreuses pierres de couleur.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-4535",
+   "genre": "mot",
+   "hanzi": "详尽",
+   "pinyin": "xiángjìn",
+   "categories": [
+    "Adj"
+   ],
+   "sens": {
+    "glose": "détaillé, exhaustif",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "détaillé, exhaustif, minutieux"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他写了一份详尽的报告。",
+     "pinyin": "Tā xiě le yī fèn xiángjìn de bàogào.",
+     "fr": "Il a rédigé un rapport très complet.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-4536",
+   "genre": "mot",
+   "hanzi": "祥和",
+   "pinyin": "xiánghé",
+   "categories": [
+    "Adj"
+   ],
+   "sens": {
+    "glose": "paisible, serein",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "paisible, serein, harmonieux"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "节日里，到处一片祥和。",
+     "pinyin": "Jiérì li, dàochù yī piàn xiánghé.",
+     "fr": "Les jours de fête, la paix règne partout.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-4538",
+   "genre": "mot",
+   "hanzi": "享有",
+   "pinyin": "xiǎngyǒu",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "jouir de, bénéficier de",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "jouir de, bénéficier de (droit, réputation)"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "每个公民都享有这个权利。",
+     "pinyin": "Měi ge gōngmín dōu xiǎngyǒu zhège quánlì.",
+     "fr": "Tout citoyen a ce droit.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-4539",
+   "genre": "mot",
+   "hanzi": "响亮",
+   "pinyin": "xiǎngliàng",
+   "categories": [
+    "Adj"
+   ],
+   "sens": {
+    "glose": "sonore, retentissant",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "sonore, retentissant, clair"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他的声音很响亮。",
+     "pinyin": "Tā de shēngyīn hěn xiǎngliàng.",
+     "fr": "Il a une voix qui porte.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-4540",
+   "genre": "mot",
+   "hanzi": "响起",
+   "pinyin": "xiǎngqǐ",
+   "sens": {
+    "glose": "retentir, se faire entendre",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "retentir, se faire entendre"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "门外响起了敲门声。",
+     "pinyin": "Ménwài xiǎngqǐ le qiāo mén shēng.",
+     "fr": "On a frappé à la porte.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-4541",
+   "genre": "mot",
+   "hanzi": "响应",
+   "pinyin": "xiǎngyìng",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "répondre à (un appel)",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "répondre à (un appel), soutenir"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "大家积极响应学校的号召。",
+     "pinyin": "Dàjiā jījí xiǎngyìng xuéxiào de hàozhào.",
+     "fr": "Tout le monde a répondu avec enthousiasme à l'appel de l'école.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-4542",
+   "genre": "mot",
+   "hanzi": "想方设法",
+   "pinyin": "xiǎngfāng-shèfǎ",
+   "sens": {
+    "glose": "tout mettre en œuvre",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "tout mettre en œuvre, chercher tous les moyens"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他想方设法帮助我。",
+     "pinyin": "Tā xiǎngfāng-shèfǎ bāngzhù wǒ.",
+     "fr": "Il a tout essayé pour m'aider.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-4543",
+   "genre": "mot",
+   "hanzi": "向来",
+   "pinyin": "xiànglái",
+   "categories": [
+    "Adv"
+   ],
+   "sens": {
+    "glose": "toujours, de tout temps",
+    "acceptions": [
+     {
+      "categorie": "Adv",
+      "fr": "toujours, de tout temps, depuis toujours"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他向来很准时。",
+     "pinyin": "Tā xiànglái hěn zhǔnshí.",
+     "fr": "Il a toujours été ponctuel.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-4544",
+   "genre": "mot",
+   "hanzi": "向往",
+   "pinyin": "xiàngwǎng",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "aspirer à, rêver de",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "aspirer à, rêver de, désirer ardemment"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "我一直向往大城市的生活。",
+     "pinyin": "Wǒ yīzhí xiàngwǎng dà chéngshì de shēnghuó.",
+     "fr": "J'ai toujours rêvé de vivre dans une grande ville.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-4545",
+   "genre": "mot",
+   "hanzi": "向着",
+   "pinyin": "xiàngzhe",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "faire face à ; prendre le parti de",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "faire face à, se tourner vers"
+     },
+     {
+      "categorie": "V",
+      "fr": "prendre le parti de, favoriser"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "妈妈总是向着弟弟。",
+     "pinyin": "Māma zǒngshì xiàngzhe dìdi.",
+     "fr": "Maman donne toujours raison à mon petit frère.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "链",
+   "genre": "caractere",
+   "hanzi": "链",
+   "pinyin": "liàn",
+   "sens": {
+    "glose": "chaîne",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "chaîne (maillons)"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": []
+  },
+  {
+   "id": "L7-4546",
+   "genre": "mot",
+   "hanzi": "项链",
+   "pinyin": "xiàngliàn",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "collier",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "collier, chaîne de cou"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这条项链很漂亮。",
+     "pinyin": "Zhè tiáo xiàngliàn hěn piàoliang.",
+     "fr": "Ce bijou est très joli.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-4548",
+   "genre": "mot",
+   "hanzi": "像样",
+   "pinyin": "xiàngyàng",
+   "sens": {
+    "glose": "convenable, présentable",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "convenable, présentable, digne de ce nom"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他连一件像样的衣服都没有。",
+     "pinyin": "Tā lián yī jiàn xiàngyàng de yīfu dōu méiyǒu.",
+     "fr": "Il n'a même pas un vêtement correct.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "橡",
+   "genre": "caractere",
+   "hanzi": "橡",
+   "pinyin": "xiàng",
+   "sens": {
+    "glose": "chêne ; hévéa",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "chêne ; hévéa (arbre à caoutchouc)"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": []
+  },
+  {
+   "id": "L7-4549",
+   "genre": "mot",
+   "hanzi": "橡胶",
+   "pinyin": "xiàngjiāo",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "caoutchouc",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "caoutchouc"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这种鞋底是橡胶做的。",
+     "pinyin": "Zhè zhǒng xiédǐ shì xiàngjiāo zuò de.",
+     "fr": "Ces semelles sont en gomme.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-4550",
+   "genre": "mot",
+   "hanzi": "橡皮",
+   "pinyin": "xiàngpí",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "gomme ; caoutchouc",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "gomme (à effacer)"
+     },
+     {
+      "categorie": "N",
+      "fr": "caoutchouc"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "我可以用一下你的橡皮吗？",
+     "pinyin": "Wǒ kěyǐ yòng yīxià nǐ de xiàngpí ma?",
+     "fr": "Je peux t'emprunter ta gomme ?",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-4553",
+   "genre": "mot",
+   "hanzi": "消沉",
+   "pinyin": "xiāochén",
+   "categories": [
+    "Adj"
+   ],
+   "sens": {
+    "glose": "abattu, démoralisé",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "abattu, démoralisé, sans ressort"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "失败以后，他一直很消沉。",
+     "pinyin": "Shībài yǐhòu, tā yīzhí hěn xiāochén.",
+     "fr": "Depuis son échec, il n'a plus le moral.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-4554",
+   "genre": "mot",
+   "hanzi": "消遣",
+   "pinyin": "xiāoqiǎn",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "se distraire, passer le temps",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "se distraire, passer le temps"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "周末我看看书，消遣一下。",
+     "pinyin": "Zhōumò wǒ kànkan shū, xiāoqiǎn yīxià.",
+     "fr": "Le week-end, je lis un peu pour me détendre.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "萧",
+   "genre": "caractere",
+   "hanzi": "萧",
+   "pinyin": "xiāo",
+   "sens": {
+    "glose": "morne, désolé",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "morne, désolé, lugubre"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": []
+  },
+  {
+   "id": "L7-4555",
+   "genre": "mot",
+   "hanzi": "萧条",
+   "pinyin": "xiāotiáo",
+   "categories": [
+    "Adj"
+   ],
+   "sens": {
+    "glose": "marasme, récession ; désolé",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "en crise, en récession (économie)"
+     },
+     {
+      "categorie": "Adj",
+      "fr": "désolé, morne (paysage)"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "经济萧条，很多人失业了。",
+     "pinyin": "Jīngjì xiāotiáo, hěn duō rén shīyè le.",
+     "fr": "L'économie va mal, beaucoup de gens ont perdu leur emploi.",
+     "statut": "a_relire"
+    }
+   ]
+  }
+ ]
+}

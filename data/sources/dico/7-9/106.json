@@ -1,0 +1,1307 @@
+{
+ "niveau": "7-9",
+ "lot": "106",
+ "source": "rédigé pour l'app dans le pipeline wenlu, sans API ; faits lus : liste HSK 3.0 (forme, pinyin, niveau, catégorie), lectures d'Unihan et des surcharges, gloses relues des fiches",
+ "brouillon": "data/sources/dico-brouillons/7-9/106.json",
+ "generation": {
+  "modele": "rédaction manuelle",
+  "api": "session Claude Code (sans API)",
+  "date": "2026-09-30",
+  "empreinte_invite": "sha256:b7616e6e338a2395ed6ef3bd9420472bc3478a36dc0576b420523f0ad23a9c44",
+  "contexte": "wenlu dico contexte 7-9 106",
+  "essais": 1,
+  "refus": []
+ },
+ "entrees": [
+  {
+   "id": "L7-4651",
+   "genre": "mot",
+   "hanzi": "兴致",
+   "pinyin": "xìngzhì",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "entrain, envie",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "entrain, envie, intérêt"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "大家兴致很高。",
+     "pinyin": "Dàjiā xìngzhì hěn gāo.",
+     "fr": "Tout le monde est de très bonne humeur.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-4652",
+   "genre": "mot",
+   "hanzi": "幸存",
+   "pinyin": "xìngcún",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "survivre",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "survivre, réchapper"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这次事故中只有他幸存了下来。",
+     "pinyin": "Zhè cì shìgù zhōng zhǐyǒu tā xìngcún le xialai.",
+     "fr": "Il est le seul à avoir survécu à l'accident.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-4653",
+   "genre": "mot",
+   "hanzi": "幸好",
+   "pinyin": "xìnghǎo",
+   "categories": [
+    "Adv"
+   ],
+   "sens": {
+    "glose": "heureusement",
+    "acceptions": [
+     {
+      "categorie": "Adv",
+      "fr": "heureusement, par chance"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "幸好我带了伞。",
+     "pinyin": "Xìnghǎo wǒ dài le sǎn.",
+     "fr": "Encore heureux que j'aie pris un parapluie.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-4654",
+   "genre": "mot",
+   "hanzi": "幸亏",
+   "pinyin": "xìngkuī",
+   "categories": [
+    "Adv"
+   ],
+   "sens": {
+    "glose": "heureusement que, grâce à",
+    "acceptions": [
+     {
+      "categorie": "Adv",
+      "fr": "heureusement que, grâce à"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "幸亏你提醒我，不然我就忘了。",
+     "pinyin": "Xìngkuī nǐ tíxǐng wǒ, bùrán wǒ jiù wàng le.",
+     "fr": "Sans ton rappel, j'aurais oublié.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-4655",
+   "genre": "mot",
+   "hanzi": "幸免",
+   "pinyin": "xìngmiǎn",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "échapper par chance",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "échapper par chance, être épargné"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "大火中，只有这座房子幸免。",
+     "pinyin": "Dàhuǒ zhōng, zhǐyǒu zhè zuò fángzi xìngmiǎn.",
+     "fr": "Dans l'incendie, seule cette maison a été épargnée.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-4656",
+   "genre": "mot",
+   "hanzi": "性价比",
+   "pinyin": "xìngjiàbǐ",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "rapport qualité-prix",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "rapport qualité-prix"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这款电脑性价比很高。",
+     "pinyin": "Zhè kuǎn diànnǎo xìngjiàbǐ hěn gāo.",
+     "fr": "Cet ordinateur vaut largement son prix.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-4657",
+   "genre": "mot",
+   "hanzi": "性命",
+   "pinyin": "xìngmìng",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "vie (d'un être)",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "vie (d'un être vivant)"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他救了我的性命。",
+     "pinyin": "Tā jiù le wǒ de xìngmìng.",
+     "fr": "Il m'a sauvé la vie.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-4658",
+   "genre": "mot",
+   "hanzi": "性情",
+   "pinyin": "xìngqíng",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "tempérament, caractère",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "tempérament, caractère, naturel"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "她性情温和。",
+     "pinyin": "Tā xìngqíng wēnhé.",
+     "fr": "Elle est d'un naturel doux.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-4659",
+   "genre": "mot",
+   "hanzi": "姓氏",
+   "pinyin": "xìngshì",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "nom de famille, patronyme",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "nom de famille, patronyme"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "王是中国常见的姓氏。",
+     "pinyin": "Wáng shì Zhōngguó chángjiàn de xìngshì.",
+     "fr": "Wang est un nom très répandu en Chine.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-4660",
+   "genre": "mot",
+   "hanzi": "凶残",
+   "pinyin": "xiōngcán",
+   "categories": [
+    "Adj"
+   ],
+   "sens": {
+    "glose": "cruel, féroce",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "cruel, féroce, sanguinaire"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这种动物很凶残。",
+     "pinyin": "Zhè zhǒng dòngwù hěn xiōngcán.",
+     "fr": "Cet animal est redoutable.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-4661",
+   "genre": "mot",
+   "hanzi": "凶恶",
+   "pinyin": "xiōng'è",
+   "categories": [
+    "Adj"
+   ],
+   "sens": {
+    "glose": "méchant, à l'air féroce",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "méchant, à l'air féroce, menaçant"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "那个人样子很凶恶。",
+     "pinyin": "Nàge rén yàngzi hěn xiōng'è.",
+     "fr": "Cet homme a une tête inquiétante.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-4662",
+   "genre": "mot",
+   "hanzi": "凶狠",
+   "pinyin": "xiōnghěn",
+   "categories": [
+    "Adj"
+   ],
+   "sens": {
+    "glose": "féroce, brutal",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "féroce, brutal, impitoyable"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他凶狠地看了我一眼。",
+     "pinyin": "Tā xiōnghěn de kàn le wǒ yī yǎn.",
+     "fr": "Il m'a lancé un regard noir.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-4663",
+   "genre": "mot",
+   "hanzi": "凶猛",
+   "pinyin": "xiōngměng",
+   "categories": [
+    "Adj"
+   ],
+   "sens": {
+    "glose": "violent, féroce",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "violent, féroce, impétueux"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "老虎是一种凶猛的动物。",
+     "pinyin": "Lǎohǔ shì yī zhǒng xiōngměng de dòngwù.",
+     "fr": "Le tigre est un fauve redoutable.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "汹",
+   "genre": "caractere",
+   "hanzi": "汹",
+   "pinyin": "xiōng",
+   "sens": {
+    "glose": "déchaîné (flots)",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "déchaîné, tumultueux (flots)"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": []
+  },
+  {
+   "id": "涌",
+   "genre": "caractere",
+   "hanzi": "涌",
+   "pinyin": "yǒng",
+   "mots": [
+    "L7-5036"
+   ],
+   "sens": {
+    "glose": "jaillir, affluer",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "jaillir, affluer, surgir en masse"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "人群涌进了商店。",
+     "pinyin": "Rénqún yǒng jìn le shāngdiàn.",
+     "fr": "La foule s'est ruée dans le magasin.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-4664",
+   "genre": "mot",
+   "hanzi": "汹涌",
+   "pinyin": "xiōngyǒng",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "déferler, se déchaîner",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "déferler, se déchaîner (eaux)"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "大雨过后，河水变得十分汹涌。",
+     "pinyin": "Dàyǔ guòhòu, héshuǐ biàn de shífēn xiōngyǒng.",
+     "fr": "Après la pluie, la rivière est devenue furieuse.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "膛",
+   "genre": "caractere",
+   "hanzi": "膛",
+   "pinyin": "táng",
+   "sens": {
+    "glose": "poitrine ; cavité",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "poitrine ; cavité, chambre (d'une arme)"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": []
+  },
+  {
+   "id": "L7-4665",
+   "genre": "mot",
+   "hanzi": "胸膛",
+   "pinyin": "xiōngtáng",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "poitrine, torse",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "poitrine, torse"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他挺起了胸膛。",
+     "pinyin": "Tā tǐngqǐ le xiōngtáng.",
+     "fr": "Il a bombé le torse.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-4666",
+   "genre": "mot",
+   "hanzi": "胸有成竹",
+   "pinyin": "xiōngyǒuchéngzhú",
+   "sens": {
+    "glose": "sûr de soi, avoir un plan",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "sûr de soi, qui a son plan bien arrêté"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "对这次考试，他胸有成竹。",
+     "pinyin": "Duì zhè cì kǎoshì, tā xiōngyǒuchéngzhú.",
+     "fr": "Il aborde cet examen en toute confiance.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-4667",
+   "genre": "mot",
+   "hanzi": "雄厚",
+   "pinyin": "xiónghòu",
+   "categories": [
+    "Adj"
+   ],
+   "sens": {
+    "glose": "solide, abondant (ressources)",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "solide, abondant, considérable (ressources, capital)"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这家公司资金雄厚。",
+     "pinyin": "Zhè jiā gōngsī zījīn xiónghòu.",
+     "fr": "Cette entreprise dispose de gros moyens.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-4668",
+   "genre": "mot",
+   "hanzi": "休克",
+   "pinyin": "xiūkè",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "être en état de choc",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "être en état de choc, perdre connaissance"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "病人突然休克了。",
+     "pinyin": "Bìngrén tūrán xiūkè le.",
+     "fr": "Le patient a brusquement fait un malaise grave.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-4669",
+   "genre": "mot",
+   "hanzi": "休眠",
+   "pinyin": "xiūmián",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "être en sommeil, hiberner",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "être en sommeil, en dormance, hiberner"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这座火山正在休眠。",
+     "pinyin": "Zhè zuò huǒshān zhèngzài xiūmián.",
+     "fr": "Ce volcan est endormi.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-4670",
+   "genre": "mot",
+   "hanzi": "休想",
+   "pinyin": "xiūxiǎng",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "n'y compte pas, ne rêve pas de",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "n'y compte pas, ne rêve pas de"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "你休想骗我！",
+     "pinyin": "Nǐ xiūxiǎng piàn wǒ!",
+     "fr": "Tu ne me tromperas pas !",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-4671",
+   "genre": "mot",
+   "hanzi": "休养",
+   "pinyin": "xiūyǎng",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "se reposer, être en convalescence",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "se reposer, être en convalescence"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他出院后在家休养。",
+     "pinyin": "Tā chūyuàn hòu zài jiā xiūyǎng.",
+     "fr": "Sorti de l'hôpital, il se remet chez lui.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-4672",
+   "genre": "mot",
+   "hanzi": "修补",
+   "pinyin": "xiūbǔ",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "réparer, raccommoder",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "réparer, raccommoder, rapiécer"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他在修补旧衣服。",
+     "pinyin": "Tā zài xiūbǔ jiù yīfu.",
+     "fr": "Il reprise de vieux habits.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-4673",
+   "genre": "mot",
+   "hanzi": "修长",
+   "pinyin": "xiūcháng",
+   "categories": [
+    "Adj"
+   ],
+   "sens": {
+    "glose": "élancé, svelte",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "élancé, svelte, long et fin"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "她身材修长。",
+     "pinyin": "Tā shēncái xiūcháng.",
+     "fr": "Elle a une silhouette fine et longue.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-4674",
+   "genre": "mot",
+   "hanzi": "修订",
+   "pinyin": "xiūdìng",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "réviser, remanier (un texte)",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "réviser, remanier (un texte, un plan)"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这本词典修订了三次。",
+     "pinyin": "Zhè běn cídiǎn xiūdìng le sān cì.",
+     "fr": "Ce dictionnaire en est à sa troisième révision.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-4675",
+   "genre": "mot",
+   "hanzi": "修路",
+   "pinyin": "xiūlù",
+   "sens": {
+    "glose": "faire des travaux sur une route",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "construire ou réparer une route"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "前面在修路，车过不去。",
+     "pinyin": "Qiánmian zài xiūlù, chē guò bu qù.",
+     "fr": "Il y a des travaux devant, les voitures ne passent pas.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-4676",
+   "genre": "mot",
+   "hanzi": "修正",
+   "pinyin": "xiūzhèng",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "corriger, amender",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "corriger, amender, rectifier"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "我们要修正错误。",
+     "pinyin": "Wǒmen yào xiūzhèng cuòwù.",
+     "fr": "Nous devons rectifier nos erreurs.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-4677",
+   "genre": "mot",
+   "hanzi": "羞愧",
+   "pinyin": "xiūkuì",
+   "categories": [
+    "Adj"
+   ],
+   "sens": {
+    "glose": "honteux, confus",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "honteux, confus"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他感到非常羞愧。",
+     "pinyin": "Tā gǎndào fēicháng xiūkuì.",
+     "fr": "Il avait vraiment honte.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-4678",
+   "genre": "mot",
+   "hanzi": "秀丽",
+   "pinyin": "xiùlì",
+   "categories": [
+    "Adj"
+   ],
+   "sens": {
+    "glose": "beau, gracieux (paysage)",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "beau, gracieux, charmant (paysage, visage)"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这里山水秀丽。",
+     "pinyin": "Zhèli shānshuǐ xiùlì.",
+     "fr": "Les paysages ici sont magnifiques.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-4679",
+   "genre": "mot",
+   "hanzi": "秀美",
+   "pinyin": "xiùměi",
+   "categories": [
+    "Adj"
+   ],
+   "sens": {
+    "glose": "beau, élégant",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "beau, élégant, fin"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "她的字写得很秀美。",
+     "pinyin": "Tā de zì xiě de hěn xiùměi.",
+     "fr": "Elle a une très jolie écriture.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-4680",
+   "genre": "mot",
+   "hanzi": "袖手旁观",
+   "pinyin": "xiùshǒu-pángguān",
+   "sens": {
+    "glose": "rester les bras croisés",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "rester les bras croisés, regarder sans intervenir"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "朋友有困难，我们不能袖手旁观。",
+     "pinyin": "Péngyou yǒu kùnnan, wǒmen bù néng xiùshǒu-pángguān.",
+     "fr": "Quand un ami est en difficulté, on ne peut pas ne rien faire.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "锈",
+   "genre": "caractere",
+   "hanzi": "锈",
+   "pinyin": "xiù",
+   "mots": [
+    "L7-4682"
+   ],
+   "sens": {
+    "glose": "rouille ; rouiller",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "rouille"
+     },
+     {
+      "categorie": "V",
+      "fr": "rouiller"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这把刀生锈了。",
+     "pinyin": "Zhè bǎ dāo shēng xiù le.",
+     "fr": "Ce couteau est rouillé.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "嗅",
+   "genre": "caractere",
+   "hanzi": "嗅",
+   "pinyin": "xiù",
+   "sens": {
+    "glose": "flairer, sentir",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "flairer, sentir, renifler"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": []
+  },
+  {
+   "id": "L7-4683",
+   "genre": "mot",
+   "hanzi": "嗅觉",
+   "pinyin": "xiùjué",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "odorat",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "odorat, flair"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "狗的嗅觉非常灵敏。",
+     "pinyin": "Gǒu de xiùjué fēicháng língmǐn.",
+     "fr": "Les chiens ont un nez très fin.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-4686",
+   "genre": "mot",
+   "hanzi": "虚构",
+   "pinyin": "xūgòu",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "inventer, imaginer (fiction)",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "inventer, imaginer, créer de toutes pièces"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这个故事是虚构的。",
+     "pinyin": "Zhège gùshi shì xūgòu de.",
+     "fr": "Cette histoire est une fiction.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-4687",
+   "genre": "mot",
+   "hanzi": "虚幻",
+   "pinyin": "xūhuàn",
+   "categories": [
+    "Adj"
+   ],
+   "sens": {
+    "glose": "illusoire, irréel",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "illusoire, irréel, chimérique"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "梦里的世界是虚幻的。",
+     "pinyin": "Mèng li de shìjiè shì xūhuàn de.",
+     "fr": "Le monde des rêves n'existe pas vraiment.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-4688",
+   "genre": "mot",
+   "hanzi": "虚假",
+   "pinyin": "xūjiǎ",
+   "categories": [
+    "Adj"
+   ],
+   "sens": {
+    "glose": "faux, mensonger",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "faux, mensonger, trompeur"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这是一条虚假广告。",
+     "pinyin": "Zhè shì yī tiáo xūjiǎ guǎnggào.",
+     "fr": "C'est de la publicité trompeuse.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-4689",
+   "genre": "mot",
+   "hanzi": "虚拟",
+   "pinyin": "xūnǐ",
+   "categories": [
+    "V",
+    "Adj"
+   ],
+   "sens": {
+    "glose": "virtuel ; imaginer",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "virtuel, fictif"
+     },
+     {
+      "categorie": "V",
+      "fr": "imaginer, supposer"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这是一个虚拟的世界。",
+     "pinyin": "Zhè shì yī ge xūnǐ de shìjiè.",
+     "fr": "C'est un monde numérique.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-4690",
+   "genre": "mot",
+   "hanzi": "虚弱",
+   "pinyin": "xūruò",
+   "categories": [
+    "Adj"
+   ],
+   "sens": {
+    "glose": "faible, affaibli",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "faible, affaibli, sans forces"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "病后他身体很虚弱。",
+     "pinyin": "Bìng hòu tā shēntǐ hěn xūruò.",
+     "fr": "Après sa maladie, il n'avait plus de forces.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-4691",
+   "genre": "mot",
+   "hanzi": "虚伪",
+   "pinyin": "xūwěi",
+   "categories": [
+    "Adj"
+   ],
+   "sens": {
+    "glose": "hypocrite, faux",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "hypocrite, faux, qui manque de sincérité"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "我不喜欢虚伪的人。",
+     "pinyin": "Wǒ bù xǐhuan xūwěi de rén.",
+     "fr": "Je n'aime pas les gens qui jouent la comédie.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "徐",
+   "genre": "caractere",
+   "hanzi": "徐",
+   "pinyin": "xú",
+   "sens": {
+    "glose": "lentement, doucement",
+    "acceptions": [
+     {
+      "categorie": "Adv",
+      "fr": "lentement, doucement"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": []
+  },
+  {
+   "id": "L7-4693",
+   "genre": "mot",
+   "hanzi": "徐徐",
+   "pinyin": "xúxú",
+   "categories": [
+    "Adj"
+   ],
+   "sens": {
+    "glose": "lentement, doucement",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "lent, doux, progressif"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "火车徐徐开进了车站。",
+     "pinyin": "Huǒchē xúxú kāijìn le chēzhàn.",
+     "fr": "Le train est entré en gare au ralenti.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-4695",
+   "genre": "mot",
+   "hanzi": "许可证",
+   "pinyin": "xǔkězhèng",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "permis, licence",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "permis, licence, autorisation écrite"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "开饭店需要许可证。",
+     "pinyin": "Kāi fàndiàn xūyào xǔkězhèng.",
+     "fr": "Pour ouvrir un restaurant, il faut une autorisation.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "旭",
+   "genre": "caractere",
+   "hanzi": "旭",
+   "pinyin": "xù",
+   "sens": {
+    "glose": "soleil levant",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "soleil levant, lumière de l'aube"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": []
+  },
+  {
+   "id": "L7-4696",
+   "genre": "mot",
+   "hanzi": "旭日",
+   "pinyin": "xùrì",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "soleil levant",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "soleil levant"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "旭日从东方升起。",
+     "pinyin": "Xùrì cóng dōngfāng shēngqǐ.",
+     "fr": "Le soleil se lève à l'est.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-4698",
+   "genre": "mot",
+   "hanzi": "序幕",
+   "pinyin": "xùmù",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "prologue ; lever de rideau",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "prologue, lever de rideau, début"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "比赛拉开了序幕。",
+     "pinyin": "Bǐsài lākāi le xùmù.",
+     "fr": "La compétition a commencé.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "叙",
+   "genre": "caractere",
+   "hanzi": "叙",
+   "pinyin": "xù",
+   "sens": {
+    "glose": "raconter, relater",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "raconter, relater ; converser"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": []
+  },
+  {
+   "id": "L7-4699",
+   "genre": "mot",
+   "hanzi": "叙述",
+   "pinyin": "xùshù",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "raconter, relater",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "raconter, relater, exposer"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "请你叙述一下事情的经过。",
+     "pinyin": "Qǐng nǐ xùshù yīxià shìqing de jīngguò.",
+     "fr": "Racontez-nous comment les choses se sont passées.",
+     "statut": "a_relire"
+    }
+   ]
+  }
+ ]
+}

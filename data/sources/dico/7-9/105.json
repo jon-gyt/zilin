@@ -1,0 +1,1361 @@
+{
+ "niveau": "7-9",
+ "lot": "105",
+ "source": "rédigé pour l'app dans le pipeline wenlu, sans API ; faits lus : liste HSK 3.0 (forme, pinyin, niveau, catégorie), lectures d'Unihan et des surcharges, gloses relues des fiches",
+ "brouillon": "data/sources/dico-brouillons/7-9/105.json",
+ "generation": {
+  "modele": "rédaction manuelle",
+  "api": "session Claude Code (sans API)",
+  "date": "2026-09-30",
+  "empreinte_invite": "sha256:811f0a6977eb5aa7f107b07fdde188434cfd91bccfc127702316f88b3a433f49",
+  "contexte": "wenlu dico contexte 7-9 105",
+  "essais": 1,
+  "refus": []
+ },
+ "entrees": [
+  {
+   "id": "L7-4604",
+   "genre": "mot",
+   "hanzi": "心里话",
+   "pinyin": "xīnlǐhuà",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "confidence, ce qu'on a sur le cœur",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "confidence, ce qu'on a sur le cœur"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "我想跟你说几句心里话。",
+     "pinyin": "Wǒ xiǎng gēn nǐ shuō jǐ jù xīnlǐhuà.",
+     "fr": "J'ai envie de te parler à cœur ouvert.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-4605",
+   "genre": "mot",
+   "hanzi": "心灵手巧",
+   "pinyin": "xīnlíng-shǒuqiǎo",
+   "sens": {
+    "glose": "habile et ingénieux",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "habile et ingénieux, adroit de ses mains"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "她心灵手巧，会做很多东西。",
+     "pinyin": "Tā xīnlíng-shǒuqiǎo, huì zuò hěn duō dōngxi.",
+     "fr": "Elle est adroite et sait fabriquer plein de choses.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-4606",
+   "genre": "mot",
+   "hanzi": "心目",
+   "pinyin": "xīnmù",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "esprit, regard intérieur",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "esprit, regard intérieur (dans l'expression « à ses yeux »)"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "在我心目中，他是最好的老师。",
+     "pinyin": "Zài wǒ xīnmù zhōng, tā shì zuì hǎo de lǎoshī.",
+     "fr": "Pour moi, c'est le meilleur des professeurs.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-4607",
+   "genre": "mot",
+   "hanzi": "心声",
+   "pinyin": "xīnshēng",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "voix du cœur, aspirations",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "voix du cœur, aspirations profondes"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这首歌唱出了年轻人的心声。",
+     "pinyin": "Zhè shǒu gē chàngchū le niánqīngrén de xīnshēng.",
+     "fr": "Cette chanson dit ce que ressentent les jeunes.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-4608",
+   "genre": "mot",
+   "hanzi": "心事",
+   "pinyin": "xīnshì",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "souci, préoccupation",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "souci, préoccupation, chose qui pèse"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "你好像有心事。",
+     "pinyin": "Nǐ hǎoxiàng yǒu xīnshì.",
+     "fr": "On dirait que quelque chose te tracasse.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-4609",
+   "genre": "mot",
+   "hanzi": "心思",
+   "pinyin": "xīnsi",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "pensée, intention ; envie",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "pensée, idée, intention"
+     },
+     {
+      "categorie": "N",
+      "fr": "envie, humeur (de faire)"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "我没有心思看电视。",
+     "pinyin": "Wǒ méiyǒu xīnsi kàn diànshì.",
+     "fr": "Je n'ai pas la tête à regarder la télé.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-4610",
+   "genre": "mot",
+   "hanzi": "心酸",
+   "pinyin": "xīnsuān",
+   "sens": {
+    "glose": "avoir le cœur serré",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "qui a le cœur serré, peiné"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "听了他的故事，我很心酸。",
+     "pinyin": "Tīng le tā de gùshi, wǒ hěn xīnsuān.",
+     "fr": "Son histoire m'a fendu le cœur.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-4611",
+   "genre": "mot",
+   "hanzi": "心想事成",
+   "pinyin": "xīnxiǎng-shìchéng",
+   "sens": {
+    "glose": "que vos vœux se réalisent",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "voir ses vœux se réaliser (formule de souhait)"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "祝你新年快乐，心想事成！",
+     "pinyin": "Zhù nǐ xīnnián kuàilè, xīnxiǎng-shìchéng!",
+     "fr": "Bonne année, et que tous tes souhaits deviennent réalité !",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-4612",
+   "genre": "mot",
+   "hanzi": "心胸",
+   "pinyin": "xīnxiōng",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "largeur d'esprit, cœur",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "largeur d'esprit, cœur, magnanimité"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他心胸很宽。",
+     "pinyin": "Tā xīnxiōng hěn kuān.",
+     "fr": "Il a l'esprit ouvert.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-4613",
+   "genre": "mot",
+   "hanzi": "心血",
+   "pinyin": "xīnxuè",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "efforts, peine, labeur",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "efforts, peine, labeur (ce qu'on a donné de soi)"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这本书花了他很多心血。",
+     "pinyin": "Zhè běn shū huā le tā hěn duō xīnxuè.",
+     "fr": "Il a mis toute son énergie dans ce livre.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-4614",
+   "genre": "mot",
+   "hanzi": "心眼儿",
+   "pinyin": "xīnyǎnr",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "cœur, intentions ; esprit",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "cœur, intentions (bon ou mauvais fond)"
+     },
+     {
+      "categorie": "N",
+      "fr": "esprit, largeur d'esprit (souvent étroit)"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他心眼儿好。",
+     "pinyin": "Tā xīnyǎnr hǎo.",
+     "fr": "Il a bon fond.",
+     "statut": "a_relire"
+    },
+    {
+     "zh": "这个人心眼儿很小。",
+     "pinyin": "Zhège rén xīnyǎnr hěn xiǎo.",
+     "fr": "Cet homme est très susceptible.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-4615",
+   "genre": "mot",
+   "hanzi": "心意",
+   "pinyin": "xīnyì",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "attention, geste ; intention",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "attention, geste (d'amitié)"
+     },
+     {
+      "categorie": "N",
+      "fr": "intention, sentiment"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这是我的一点儿心意，请收下。",
+     "pinyin": "Zhè shì wǒ de yīdiǎnr xīnyì, qǐng shōuxià.",
+     "fr": "C'est un petit quelque chose de ma part, accepte-le.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "芯",
+   "genre": "caractere",
+   "hanzi": "芯",
+   "pinyin": "xīn",
+   "sens": {
+    "glose": "mèche ; cœur, noyau",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "mèche (de lampe, de bougie)"
+     },
+     {
+      "categorie": "N",
+      "fr": "cœur, noyau, âme (d'un objet)"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": []
+  },
+  {
+   "id": "L7-4616",
+   "genre": "mot",
+   "hanzi": "芯片",
+   "pinyin": "xīnpiàn",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "puce électronique",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "puce électronique, circuit intégré"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "手机里有很多芯片。",
+     "pinyin": "Shǒujī li yǒu hěn duō xīnpiàn.",
+     "fr": "Un téléphone contient beaucoup de composants.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-4617",
+   "genre": "mot",
+   "hanzi": "辛勤",
+   "pinyin": "xīnqín",
+   "categories": [
+    "Adj"
+   ],
+   "sens": {
+    "glose": "laborieux, assidu",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "laborieux, assidu, infatigable"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "感谢老师们的辛勤工作。",
+     "pinyin": "Gǎnxiè lǎoshīmen de xīnqín gōngzuò.",
+     "fr": "Merci aux enseignants pour tout leur travail.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-4618",
+   "genre": "mot",
+   "hanzi": "辛酸",
+   "pinyin": "xīnsuān",
+   "categories": [
+    "Adj"
+   ],
+   "sens": {
+    "glose": "amer, douloureux",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "amer, douloureux, plein de peine"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他讲起了自己辛酸的过去。",
+     "pinyin": "Tā jiǎngqǐ le zìjǐ xīnsuān de guòqù.",
+     "fr": "Il s'est mis à raconter son passé difficile.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-4619",
+   "genre": "mot",
+   "hanzi": "欣慰",
+   "pinyin": "xīnwèi",
+   "categories": [
+    "Adj"
+   ],
+   "sens": {
+    "glose": "soulagé, heureux et rassuré",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "soulagé, heureux et rassuré"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "看到孩子长大了，父母很欣慰。",
+     "pinyin": "Kàndào háizi zhǎngdà le, fùmǔ hěn xīnwèi.",
+     "fr": "Les parents sont heureux de voir leur enfant grandir.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-4620",
+   "genre": "mot",
+   "hanzi": "欣喜",
+   "pinyin": "xīnxǐ",
+   "categories": [
+    "Adj"
+   ],
+   "sens": {
+    "glose": "joyeux, ravi",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "joyeux, ravi, réjoui"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他欣喜地发现自己考上了大学。",
+     "pinyin": "Tā xīnxǐ de fāxiàn zìjǐ kǎoshang le dàxué.",
+     "fr": "Il a découvert avec joie qu'il était admis à l'université.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-4621",
+   "genre": "mot",
+   "hanzi": "欣欣向荣",
+   "pinyin": "xīnxīn-xiàngróng",
+   "sens": {
+    "glose": "prospère, florissant",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "prospère, florissant, en plein essor"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这个城市欣欣向荣。",
+     "pinyin": "Zhège chéngshì xīnxīn-xiàngróng.",
+     "fr": "Cette ville est en plein essor.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-4622",
+   "genre": "mot",
+   "hanzi": "新潮",
+   "pinyin": "xīncháo",
+   "categories": [
+    "N",
+    "Adj"
+   ],
+   "sens": {
+    "glose": "nouvelle tendance ; à la mode",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "nouvelle tendance, mode"
+     },
+     {
+      "categorie": "Adj",
+      "fr": "à la mode, dans le vent"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "她的衣服很新潮。",
+     "pinyin": "Tā de yīfu hěn xīncháo.",
+     "fr": "Elle s'habille très tendance.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-4623",
+   "genre": "mot",
+   "hanzi": "新陈代谢",
+   "pinyin": "xīnchén-dàixiè",
+   "sens": {
+    "glose": "métabolisme ; renouvellement",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "métabolisme"
+     },
+     {
+      "categorie": "N",
+      "fr": "renouvellement, remplacement de l'ancien par le nouveau"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "运动可以加快新陈代谢。",
+     "pinyin": "Yùndòng kěyǐ jiākuài xīnchén-dàixiè.",
+     "fr": "Le sport accélère le métabolisme.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-4624",
+   "genre": "mot",
+   "hanzi": "新房",
+   "pinyin": "xīnfáng",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "logement neuf ; chambre nuptiale",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "logement neuf"
+     },
+     {
+      "categorie": "N",
+      "fr": "chambre nuptiale"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他们刚买了新房。",
+     "pinyin": "Tāmen gāng mǎi le xīnfáng.",
+     "fr": "Ils viennent d'acheter un appartement neuf.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-4625",
+   "genre": "mot",
+   "hanzi": "新款",
+   "pinyin": "xīnkuǎn",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "nouveau modèle",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "nouveau modèle, nouvelle collection"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这是今年的新款。",
+     "pinyin": "Zhè shì jīnnián de xīnkuǎn.",
+     "fr": "C'est le modèle de cette année.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-4626",
+   "genre": "mot",
+   "hanzi": "新奇",
+   "pinyin": "xīnqí",
+   "categories": [
+    "Adj"
+   ],
+   "sens": {
+    "glose": "insolite, nouveau et curieux",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "insolite, nouveau et curieux"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "孩子对什么都觉得很新奇。",
+     "pinyin": "Háizi duì shénme dōu juéde hěn xīnqí.",
+     "fr": "Pour un enfant, tout est découverte.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-4627",
+   "genre": "mot",
+   "hanzi": "新生",
+   "pinyin": "xīnshēng",
+   "categories": [
+    "Adj",
+    "N"
+   ],
+   "sens": {
+    "glose": "nouvel élève ; naissant ; renaissance",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "nouvel élève, nouvel étudiant"
+     },
+     {
+      "categorie": "Adj",
+      "fr": "naissant, nouveau"
+     },
+     {
+      "categorie": "N",
+      "fr": "nouvelle vie, renaissance"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "新生下周报到。",
+     "pinyin": "Xīnshēng xià zhōu bàodào.",
+     "fr": "Les étudiants de première année font leur rentrée la semaine prochaine.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-4628",
+   "genre": "mot",
+   "hanzi": "新式",
+   "pinyin": "xīnshì",
+   "categories": [
+    "Adj"
+   ],
+   "sens": {
+    "glose": "de style nouveau, moderne",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "de style nouveau, moderne"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这是一种新式的汽车。",
+     "pinyin": "Zhè shì yī zhǒng xīnshì de qìchē.",
+     "fr": "C'est un type de voiture récent.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-4629",
+   "genre": "mot",
+   "hanzi": "新手",
+   "pinyin": "xīnshǒu",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "débutant, novice",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "débutant, novice"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "我开车还是个新手。",
+     "pinyin": "Wǒ kāichē hái shì ge xīnshǒu.",
+     "fr": "Je viens d'avoir mon permis.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-4630",
+   "genre": "mot",
+   "hanzi": "新颖",
+   "pinyin": "xīnyǐng",
+   "categories": [
+    "Adj"
+   ],
+   "sens": {
+    "glose": "original, innovant",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "original, innovant, inédit"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他的想法很新颖。",
+     "pinyin": "Tā de xiǎngfǎ hěn xīnyǐng.",
+     "fr": "Il a des idées neuves.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-4631",
+   "genre": "mot",
+   "hanzi": "信贷",
+   "pinyin": "xìndài",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "crédit (bancaire)",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "crédit (bancaire), prêt"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "银行放宽了信贷。",
+     "pinyin": "Yínháng fàngkuān le xìndài.",
+     "fr": "Les banques prêtent plus facilement.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-4632",
+   "genre": "mot",
+   "hanzi": "信件",
+   "pinyin": "xìnjiàn",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "lettres, courrier",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "lettres, courrier, correspondance"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他每天都要处理很多信件。",
+     "pinyin": "Tā měitiān dōu yào chǔlǐ hěn duō xìnjiàn.",
+     "fr": "Chaque jour, il a beaucoup de correspondance à traiter.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-4633",
+   "genre": "mot",
+   "hanzi": "信赖",
+   "pinyin": "xìnlài",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "faire confiance, se fier à",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "faire confiance, se fier à"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他是一个值得信赖的人。",
+     "pinyin": "Tā shì yī ge zhíde xìnlài de rén.",
+     "fr": "C'est quelqu'un de fiable.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-4634",
+   "genre": "mot",
+   "hanzi": "信誉",
+   "pinyin": "xìnyù",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "crédit, réputation",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "crédit, réputation, fiabilité"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这家公司的信誉很好。",
+     "pinyin": "Zhè jiā gōngsī de xìnyù hěn hǎo.",
+     "fr": "Cette entreprise a très bonne réputation.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-4635",
+   "genre": "mot",
+   "hanzi": "兴奋剂",
+   "pinyin": "xīngfènjì",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "stimulant, produit dopant",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "stimulant, produit dopant"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这名运动员服用了兴奋剂。",
+     "pinyin": "Zhè míng yùndòngyuán fúyòng le xīngfènjì.",
+     "fr": "Cet athlète s'est dopé.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-4636",
+   "genre": "mot",
+   "hanzi": "兴建",
+   "pinyin": "xīngjiàn",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "construire, édifier",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "construire, édifier (grands ouvrages)"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这里正在兴建一座新机场。",
+     "pinyin": "Zhèli zhèngzài xīngjiàn yī zuò xīn jīchǎng.",
+     "fr": "On bâtit un nouvel aéroport ici.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-4637",
+   "genre": "mot",
+   "hanzi": "兴起",
+   "pinyin": "xīngqǐ",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "surgir, prendre son essor",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "surgir, naître, prendre son essor"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "最近兴起了一股学汉语的热潮。",
+     "pinyin": "Zuìjìn xīngqǐ le yī gǔ xué Hànyǔ de rècháo.",
+     "fr": "Ces derniers temps, apprendre le chinois est devenu à la mode.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-4638",
+   "genre": "mot",
+   "hanzi": "星座",
+   "pinyin": "xīngzuò",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "constellation ; signe astrologique",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "constellation"
+     },
+     {
+      "categorie": "N",
+      "fr": "signe astrologique"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "你是什么星座？",
+     "pinyin": "Nǐ shì shénme xīngzuò?",
+     "fr": "Tu es de quel signe ?",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "猩",
+   "genre": "caractere",
+   "hanzi": "猩",
+   "pinyin": "xīng",
+   "sens": {
+    "glose": "grand singe, orang-outan",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "grand singe, orang-outan"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": []
+  },
+  {
+   "id": "L7-4639",
+   "genre": "mot",
+   "hanzi": "猩猩",
+   "pinyin": "xīngxing",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "orang-outan, grand singe",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "orang-outan, grand singe"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "动物园里有两只猩猩。",
+     "pinyin": "Dòngwùyuán li yǒu liǎng zhī xīngxing.",
+     "fr": "Il y a deux orangs-outans au zoo.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "腥",
+   "genre": "caractere",
+   "hanzi": "腥",
+   "pinyin": "xīng",
+   "mots": [
+    "L7-4640"
+   ],
+   "sens": {
+    "glose": "qui sent le poisson cru",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "qui sent le poisson cru, la viande crue"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这条鱼有点儿腥。",
+     "pinyin": "Zhè tiáo yú yǒudiǎnr xīng.",
+     "fr": "Ce poisson a une odeur un peu forte.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "刑",
+   "genre": "caractere",
+   "hanzi": "刑",
+   "pinyin": "xíng",
+   "sens": {
+    "glose": "peine, châtiment",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "peine, châtiment ; torture"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": []
+  },
+  {
+   "id": "L7-4641",
+   "genre": "mot",
+   "hanzi": "刑法",
+   "pinyin": "xíngfǎ",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "droit pénal, code pénal",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "droit pénal, code pénal"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他在大学学刑法。",
+     "pinyin": "Tā zài dàxué xué xíngfǎ.",
+     "fr": "Il étudie le droit criminel à l'université.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-4642",
+   "genre": "mot",
+   "hanzi": "行使",
+   "pinyin": "xíngshǐ",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "exercer (un droit, un pouvoir)",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "exercer (un droit, un pouvoir)"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "公民有权行使自己的权利。",
+     "pinyin": "Gōngmín yǒu quán xíngshǐ zìjǐ de quánlì.",
+     "fr": "Les citoyens peuvent faire valoir leurs droits.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-4643",
+   "genre": "mot",
+   "hanzi": "行政",
+   "pinyin": "xíngzhèng",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "administration",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "administration, gestion administrative"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他在学校做行政工作。",
+     "pinyin": "Tā zài xuéxiào zuò xíngzhèng gōngzuò.",
+     "fr": "Il travaille dans les services administratifs de l'école.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-4644",
+   "genre": "mot",
+   "hanzi": "行走",
+   "pinyin": "xíngzǒu",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "marcher",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "marcher, se déplacer à pied"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他受伤后行走很困难。",
+     "pinyin": "Tā shòushāng hòu xíngzǒu hěn kùnnan.",
+     "fr": "Depuis sa blessure, il a du mal à se déplacer.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-4645",
+   "genre": "mot",
+   "hanzi": "形形色色",
+   "pinyin": "xíngxíngsèsè",
+   "categories": [
+    "Adj"
+   ],
+   "sens": {
+    "glose": "de toutes sortes, varié",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "de toutes sortes, varié, divers"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "街上有形形色色的人。",
+     "pinyin": "Jiē shang yǒu xíngxíngsèsè de rén.",
+     "fr": "Dans la rue, on croise toutes sortes de gens.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-4646",
+   "genre": "mot",
+   "hanzi": "形影不离",
+   "pinyin": "xíngyǐng-bùlí",
+   "sens": {
+    "glose": "inséparables",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "être inséparables, ne jamais se quitter"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "她们俩从小形影不离。",
+     "pinyin": "Tāmen liǎ cóngxiǎo xíngyǐng-bùlí.",
+     "fr": "Depuis l'enfance, elles sont toujours ensemble.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-4647",
+   "genre": "mot",
+   "hanzi": "醒来",
+   "pinyin": "xǐnglai",
+   "sens": {
+    "glose": "se réveiller",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "se réveiller, sortir du sommeil"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "我醒来的时候天已经亮了。",
+     "pinyin": "Wǒ xǐnglai de shíhou tiān yǐjīng liàng le.",
+     "fr": "Quand j'ai ouvert les yeux, il faisait déjà jour.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-4648",
+   "genre": "mot",
+   "hanzi": "醒目",
+   "pinyin": "xǐngmù",
+   "categories": [
+    "Adj"
+   ],
+   "sens": {
+    "glose": "frappant, voyant",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "frappant, voyant, qui accroche le regard"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这个标题很醒目。",
+     "pinyin": "Zhège biāotí hěn xǐngmù.",
+     "fr": "Ce titre saute aux yeux.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-4649",
+   "genre": "mot",
+   "hanzi": "醒悟",
+   "pinyin": "xǐngwù",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "prendre conscience, se ressaisir",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "prendre conscience, ouvrir les yeux, se ressaisir"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他终于醒悟了。",
+     "pinyin": "Tā zhōngyú xǐngwù le.",
+     "fr": "Il a fini par comprendre son erreur.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-4650",
+   "genre": "mot",
+   "hanzi": "兴高采烈",
+   "pinyin": "xìnggāo-cǎiliè",
+   "sens": {
+    "glose": "enthousiaste, fou de joie",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "enthousiaste, fou de joie, exultant"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "孩子们兴高采烈地去公园玩儿。",
+     "pinyin": "Háizimen xìnggāo-cǎiliè de qù gōngyuán wánr.",
+     "fr": "Les enfants partent jouer au parc, tout contents.",
+     "statut": "a_relire"
+    }
+   ]
+  }
+ ]
+}
