@@ -21,20 +21,33 @@
   "丬": "forme",
   "女": "sens"
  },
- "mots": [],
+ "mots": [
+  {
+   "hanzi": "化妆",
+   "pinyin": "huàzhuāng",
+   "fr": "se maquiller",
+   "en": "to put on make-up"
+  },
+  {
+   "hanzi": "卸妆",
+   "pinyin": "xièzhuāng",
+   "fr": "se démaquiller",
+   "en": "to remove make-up"
+  }
+ ],
  "phrase": {
-  "zh": "",
-  "pinyin": "",
-  "fr": "",
-  "en": ""
+  "zh": "她每天早上都要化妆。",
+  "pinyin": "Tā měitiān zǎoshang dōu yào huàzhuāng.",
+  "fr": "Elle se maquille tous les matins.",
+  "en": "She puts on make-up every morning."
  },
  "generation": {
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:3fec0f5bdbb32311f3dc67a8a75687c37ac3363de089568dccb5546528561402",
-  "essais": 1,
+  "empreinte_invite": "sha256:b7f8c44682fdb08eff225bcdd3dbe145a286967306c107e71b855f3e8e440808",
+  "essais": 2,
   "refus": []
  },
- "statut": "relu"
+ "statut": "a_relire"
 }
