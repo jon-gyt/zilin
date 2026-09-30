@@ -19,20 +19,33 @@
  "roles": {
   "皮": "forme"
  },
- "mots": [],
+ "mots": [
+  {
+   "hanzi": "皮包",
+   "pinyin": "píbāo",
+   "fr": "sac en cuir",
+   "en": "leather bag"
+  },
+  {
+   "hanzi": "果皮",
+   "pinyin": "guǒpí",
+   "fr": "peau d'un fruit, pelure",
+   "en": "fruit peel"
+  }
+ ],
  "phrase": {
-  "zh": "",
-  "pinyin": "",
-  "fr": "",
-  "en": ""
+  "zh": "这个皮包很贵。",
+  "pinyin": "Zhège píbāo hěn guì.",
+  "fr": "Ce sac en cuir coûte cher.",
+  "en": "This leather bag is expensive."
  },
  "generation": {
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:37a77af54457128cf94a9a71b3a0d7accef81068f02b7fd00165aea50fa59b02",
-  "essais": 1,
+  "empreinte_invite": "sha256:43fef1b330e3bb1d32ecec90ae563554366d929312022a244e0e42fc4e496eb5",
+  "essais": 2,
   "refus": []
  },
- "statut": "relu"
+ "statut": "a_relire"
 }

@@ -19,20 +19,33 @@
  "roles": {
   "农": "forme"
  },
- "mots": [],
+ "mots": [
+  {
+   "hanzi": "农民",
+   "pinyin": "nóngmín",
+   "fr": "paysan, agriculteur",
+   "en": "farmer"
+  },
+  {
+   "hanzi": "农村",
+   "pinyin": "nóngcūn",
+   "fr": "campagne, village rural",
+   "en": "countryside, rural area"
+  }
+ ],
  "phrase": {
-  "zh": "",
-  "pinyin": "",
-  "fr": "",
-  "en": ""
+  "zh": "我爷爷是农民。",
+  "pinyin": "Wǒ yéye shì nóngmín.",
+  "fr": "Mon grand-père est paysan.",
+  "en": "My grandfather is a farmer."
  },
  "generation": {
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:4bc71740fc0fddb054b0739f0dd28a254f21605cd65bcaa365bf46e469409593",
-  "essais": 1,
+  "empreinte_invite": "sha256:4162c7974794c9f7194979a6e607e5fc3c78974ac556b2a4bf431f5fa0e00d93",
+  "essais": 2,
   "refus": []
  },
- "statut": "relu"
+ "statut": "a_relire"
 }
