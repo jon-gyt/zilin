@@ -27,20 +27,33 @@
   "丨": "forme",
   "日": "forme"
  },
- "mots": [],
+ "mots": [
+  {
+   "hanzi": "增加",
+   "pinyin": "zēngjiā",
+   "fr": "augmenter",
+   "en": "to increase"
+  },
+  {
+   "hanzi": "增长",
+   "pinyin": "zēngzhǎng",
+   "fr": "croissance, croître",
+   "en": "growth, to grow"
+  }
+ ],
  "phrase": {
-  "zh": "",
-  "pinyin": "",
-  "fr": "",
-  "en": ""
+  "zh": "学生的人数增加了。",
+  "pinyin": "Xuésheng de rénshù zēngjiā le.",
+  "fr": "Le nombre d'élèves a augmenté.",
+  "en": "The number of students has gone up."
  },
  "generation": {
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:d5287c408a8afe2e1ea1a542293de0142e2fd7cdafce59896752d0f10cdfbff5",
-  "essais": 1,
+  "empreinte_invite": "sha256:d77efc2015a4ea9df6f9ec1c69800368f98b459f1fd517f83698d0e9d1836d67",
+  "essais": 2,
   "refus": []
  },
- "statut": "relu"
+ "statut": "a_relire"
 }

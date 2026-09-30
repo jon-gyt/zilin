@@ -21,20 +21,33 @@
   "氵": "sens",
   "主": "son"
  },
- "mots": [],
+ "mots": [
+  {
+   "hanzi": "注意",
+   "pinyin": "zhùyì",
+   "fr": "faire attention",
+   "en": "to pay attention"
+  },
+  {
+   "hanzi": "关注",
+   "pinyin": "guānzhù",
+   "fr": "suivre, s'intéresser à",
+   "en": "to follow, to pay close attention to"
+  }
+ ],
  "phrase": {
-  "zh": "",
-  "pinyin": "",
-  "fr": "",
-  "en": ""
+  "zh": "过马路要注意车。",
+  "pinyin": "Guò mǎlù yào zhùyì chē.",
+  "fr": "En traversant la rue, fais attention aux voitures.",
+  "en": "Watch out for cars when crossing the road."
  },
  "generation": {
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:efd3bc88fef33fd90d76abb2ee015ce369793b6b815d9dfb71f6067341ec64c8",
-  "essais": 1,
+  "empreinte_invite": "sha256:e2e331cb22db9fe5c98ce49eeacc84a101c4fe92356fb17a47216ef7fa068977",
+  "essais": 2,
   "refus": []
  },
- "statut": "relu"
+ "statut": "a_relire"
 }

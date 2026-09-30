@@ -19,20 +19,33 @@
  "roles": {
   "人": "sens"
  },
- "mots": [],
+ "mots": [
+  {
+   "hanzi": "观众",
+   "pinyin": "guānzhòng",
+   "fr": "public, spectateurs",
+   "en": "audience, viewers"
+  },
+  {
+   "hanzi": "大众",
+   "pinyin": "dàzhòng",
+   "fr": "grand public",
+   "en": "the general public"
+  }
+ ],
  "phrase": {
-  "zh": "",
-  "pinyin": "",
-  "fr": "",
-  "en": ""
+  "zh": "观众都笑了。",
+  "pinyin": "Guānzhòng dōu xiào le.",
+  "fr": "Tout le public a ri.",
+  "en": "The whole audience laughed."
  },
  "generation": {
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:cbe160b9a732eab09160e31139036eb688fea9f01014a52d8d0e2964bea2aa8c",
-  "essais": 1,
+  "empreinte_invite": "sha256:a38d6049bdc74a8add61b69ae58f9f2f2bd9fe2fae4c0d4ab61301f4cbde5a8a",
+  "essais": 2,
   "refus": []
  },
- "statut": "relu"
+ "statut": "a_relire"
 }

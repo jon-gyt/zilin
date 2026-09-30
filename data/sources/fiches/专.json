@@ -19,20 +19,33 @@
  "roles": {
   "专": "forme"
  },
- "mots": [],
+ "mots": [
+  {
+   "hanzi": "专业",
+   "pinyin": "zhuānyè",
+   "fr": "spécialité (études), professionnel",
+   "en": "major, professional"
+  },
+  {
+   "hanzi": "专门",
+   "pinyin": "zhuānmén",
+   "fr": "spécialement, exprès",
+   "en": "specially, specifically"
+  }
+ ],
  "phrase": {
-  "zh": "",
-  "pinyin": "",
-  "fr": "",
-  "en": ""
+  "zh": "你学什么专业？",
+  "pinyin": "Nǐ xué shénme zhuānyè?",
+  "fr": "Quelle est ta spécialité ?",
+  "en": "What's your major?"
  },
  "generation": {
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:fca51e44ccc57392d33a29b1afe2fa012950d68cfa6de1f317dfa7daab6cae1d",
-  "essais": 1,
+  "empreinte_invite": "sha256:b178262a462d14598a87309e80800681475c933968ea6f1cd2c7fcf96f5b3b74",
+  "essais": 2,
   "refus": []
  },
- "statut": "relu"
+ "statut": "a_relire"
 }
