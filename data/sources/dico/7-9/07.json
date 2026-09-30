@@ -1,0 +1,1770 @@
+{
+ "niveau": "7-9",
+ "lot": "07",
+ "source": "rédigé pour l'app dans le pipeline wenlu, sans API ; faits lus : liste HSK 3.0 (forme, pinyin, niveau, catégorie), lectures d'Unihan et des surcharges, gloses relues des fiches",
+ "brouillon": "data/sources/dico-brouillons/7-9/07.json",
+ "generation": {
+  "modele": "rédaction manuelle",
+  "api": "session Claude Code (sans API)",
+  "date": "2026-09-30",
+  "empreinte_invite": "sha256:668cea8b1927b227227ada8bb3f05b452e8930b08d3f6db3b4e301d6d0a04170",
+  "contexte": "wenlu dico contexte 7-9 07",
+  "essais": 1,
+  "refus": []
+ },
+ "entrees": [
+  {
+   "id": "驳",
+   "genre": "caractere",
+   "hanzi": "驳",
+   "pinyin": "bó",
+   "sens": {
+    "glose": "réfuter, rejeter",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "réfuter, rejeter"
+     }
+    ],
+    "statut": "relu",
+    "relecture": {
+     "date": "2026-09-30",
+     "par": "décision du propriétaire",
+     "mode": "sans relecture ligne à ligne",
+     "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+    }
+   },
+   "exemples": []
+  },
+  {
+   "id": "L7-0248",
+   "genre": "mot",
+   "hanzi": "驳回",
+   "pinyin": "bóhuí",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "rejeter, débouter",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "rejeter, débouter : demande, recours"
+     }
+    ],
+    "statut": "relu",
+    "relecture": {
+     "date": "2026-09-30",
+     "par": "décision du propriétaire",
+     "mode": "sans relecture ligne à ligne",
+     "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+    }
+   },
+   "exemples": [
+    {
+     "zh": "法院驳回了他的请求。",
+     "pinyin": "Fǎyuàn bóhuí le tā de qǐngqiú.",
+     "fr": "Le tribunal n'a pas fait droit à sa demande.",
+     "statut": "relu",
+     "relecture": {
+      "date": "2026-09-30",
+      "par": "décision du propriétaire",
+      "mode": "sans relecture ligne à ligne",
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+     }
+    }
+   ]
+  },
+  {
+   "id": "脖",
+   "genre": "caractere",
+   "hanzi": "脖",
+   "pinyin": "bó",
+   "sens": {
+    "glose": "cou",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "cou"
+     }
+    ],
+    "statut": "relu",
+    "relecture": {
+     "date": "2026-09-30",
+     "par": "décision du propriétaire",
+     "mode": "sans relecture ligne à ligne",
+     "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+    }
+   },
+   "exemples": []
+  },
+  {
+   "id": "L7-0249",
+   "genre": "mot",
+   "hanzi": "脖子",
+   "pinyin": "bózi",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "cou",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "cou"
+     }
+    ],
+    "statut": "relu",
+    "relecture": {
+     "date": "2026-09-30",
+     "par": "décision du propriétaire",
+     "mode": "sans relecture ligne à ligne",
+     "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+    }
+   },
+   "exemples": [
+    {
+     "zh": "我的脖子有点儿疼。",
+     "pinyin": "Wǒ de bózi yǒudiǎnr téng.",
+     "fr": "J'ai un peu mal à la nuque.",
+     "statut": "relu",
+     "relecture": {
+      "date": "2026-09-30",
+      "par": "décision du propriétaire",
+      "mode": "sans relecture ligne à ligne",
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+     }
+    }
+   ]
+  },
+  {
+   "id": "搏",
+   "genre": "caractere",
+   "hanzi": "搏",
+   "pinyin": "bó",
+   "sens": {
+    "glose": "lutter, se battre ; battre",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "lutter, se battre"
+     },
+     {
+      "categorie": "V",
+      "fr": "battre : cœur, pouls"
+     }
+    ],
+    "statut": "relu",
+    "relecture": {
+     "date": "2026-09-30",
+     "par": "décision du propriétaire",
+     "mode": "sans relecture ligne à ligne",
+     "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+    }
+   },
+   "exemples": []
+  },
+  {
+   "id": "L7-0250",
+   "genre": "mot",
+   "hanzi": "搏斗",
+   "pinyin": "bódòu",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "lutter, se battre corps à corps",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "lutter, se battre corps à corps"
+     }
+    ],
+    "statut": "relu",
+    "relecture": {
+     "date": "2026-09-30",
+     "par": "décision du propriétaire",
+     "mode": "sans relecture ligne à ligne",
+     "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+    }
+   },
+   "exemples": [
+    {
+     "zh": "他和小偷搏斗了半天。",
+     "pinyin": "Tā hé xiǎotōu bódòu le bàntiān.",
+     "fr": "Il s'est longtemps battu avec le voleur.",
+     "statut": "relu",
+     "relecture": {
+      "date": "2026-09-30",
+      "par": "décision du propriétaire",
+      "mode": "sans relecture ligne à ligne",
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+     }
+    }
+   ]
+  },
+  {
+   "id": "L7-0251",
+   "genre": "mot",
+   "hanzi": "不定",
+   "pinyin": "bùdìng",
+   "categories": [
+    "Adj",
+    "Adv"
+   ],
+   "sens": {
+    "glose": "incertain ; on ne sait pas si",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "incertain, instable"
+     },
+     {
+      "categorie": "Adv",
+      "fr": "on ne sait pas si, peut-être"
+     }
+    ],
+    "statut": "relu",
+    "relecture": {
+     "date": "2026-09-30",
+     "par": "décision du propriétaire",
+     "mode": "sans relecture ligne à ligne",
+     "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+    }
+   },
+   "exemples": [
+    {
+     "zh": "他明天来不来还不定呢。",
+     "pinyin": "Tā míngtiān lái bu lái hái bùdìng ne.",
+     "fr": "On ne sait pas encore s'il viendra demain.",
+     "statut": "relu",
+     "relecture": {
+      "date": "2026-09-30",
+      "par": "décision du propriétaire",
+      "mode": "sans relecture ligne à ligne",
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+     }
+    }
+   ]
+  },
+  {
+   "id": "L7-0252",
+   "genre": "mot",
+   "hanzi": "不见得",
+   "pinyin": "bùjiànde",
+   "categories": [
+    "Adv"
+   ],
+   "sens": {
+    "glose": "pas forcément",
+    "acceptions": [
+     {
+      "categorie": "Adv",
+      "fr": "pas forcément, pas nécessairement"
+     }
+    ],
+    "statut": "relu",
+    "relecture": {
+     "date": "2026-09-30",
+     "par": "décision du propriétaire",
+     "mode": "sans relecture ligne à ligne",
+     "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+    }
+   },
+   "exemples": [
+    {
+     "zh": "贵的东西不见得就好。",
+     "pinyin": "Guì de dōngxi bùjiànde jiù hǎo.",
+     "fr": "Ce qui est cher n'est pas toujours bon.",
+     "statut": "relu",
+     "relecture": {
+      "date": "2026-09-30",
+      "par": "décision du propriétaire",
+      "mode": "sans relecture ligne à ligne",
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+     }
+    }
+   ]
+  },
+  {
+   "id": "L7-0253",
+   "genre": "mot",
+   "hanzi": "不利于",
+   "pinyin": "bùlì yú",
+   "sens": {
+    "glose": "défavorable à, nuire à",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "être défavorable à, nuire à"
+     }
+    ],
+    "statut": "relu",
+    "relecture": {
+     "date": "2026-09-30",
+     "par": "décision du propriétaire",
+     "mode": "sans relecture ligne à ligne",
+     "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+    }
+   },
+   "exemples": [
+    {
+     "zh": "熬夜不利于身体健康。",
+     "pinyin": "Áoyè bùlì yú shēntǐ jiànkāng.",
+     "fr": "Veiller tard est mauvais pour la santé.",
+     "statut": "relu",
+     "relecture": {
+      "date": "2026-09-30",
+      "par": "décision du propriétaire",
+      "mode": "sans relecture ligne à ligne",
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+     }
+    }
+   ]
+  },
+  {
+   "id": "慎",
+   "genre": "caractere",
+   "hanzi": "慎",
+   "pinyin": "shèn",
+   "sens": {
+    "glose": "prudent, circonspect",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "prudent, circonspect"
+     }
+    ],
+    "statut": "relu",
+    "relecture": {
+     "date": "2026-09-30",
+     "par": "décision du propriétaire",
+     "mode": "sans relecture ligne à ligne",
+     "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+    }
+   },
+   "exemples": []
+  },
+  {
+   "id": "L7-0254",
+   "genre": "mot",
+   "hanzi": "不慎",
+   "pinyin": "bùshèn",
+   "categories": [
+    "Adj"
+   ],
+   "sens": {
+    "glose": "par imprudence, par mégarde",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "imprudent ; par mégarde"
+     }
+    ],
+    "statut": "relu",
+    "relecture": {
+     "date": "2026-09-30",
+     "par": "décision du propriétaire",
+     "mode": "sans relecture ligne à ligne",
+     "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+    }
+   },
+   "exemples": [
+    {
+     "zh": "他不慎摔倒了。",
+     "pinyin": "Tā bùshèn shuāidǎo le.",
+     "fr": "Il a fait une chute par inattention.",
+     "statut": "relu",
+     "relecture": {
+      "date": "2026-09-30",
+      "par": "décision du propriétaire",
+      "mode": "sans relecture ligne à ligne",
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+     }
+    }
+   ]
+  },
+  {
+   "id": "L7-0255",
+   "genre": "mot",
+   "hanzi": "不适",
+   "pinyin": "bùshì",
+   "categories": [
+    "Adj"
+   ],
+   "sens": {
+    "glose": "indisposé, mal à l'aise",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "indisposé, mal à l'aise"
+     }
+    ],
+    "statut": "relu",
+    "relecture": {
+     "date": "2026-09-30",
+     "par": "décision du propriétaire",
+     "mode": "sans relecture ligne à ligne",
+     "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+    }
+   },
+   "exemples": [
+    {
+     "zh": "我今天身体不适，不能来上班。",
+     "pinyin": "Wǒ jīntiān shēntǐ bùshì, bù néng lái shàngbān.",
+     "fr": "Je ne me sens pas bien aujourd'hui, je ne peux pas venir travailler.",
+     "statut": "relu",
+     "relecture": {
+      "date": "2026-09-30",
+      "par": "décision du propriétaire",
+      "mode": "sans relecture ligne à ligne",
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+     }
+    }
+   ]
+  },
+  {
+   "id": "L7-0256",
+   "genre": "mot",
+   "hanzi": "不算",
+   "pinyin": "bù suàn",
+   "sens": {
+    "glose": "ne pas compter comme",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "ne pas compter comme, ne pas être vraiment"
+     }
+    ],
+    "statut": "relu",
+    "relecture": {
+     "date": "2026-09-30",
+     "par": "décision du propriétaire",
+     "mode": "sans relecture ligne à ligne",
+     "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+    }
+   },
+   "exemples": [
+    {
+     "zh": "这点儿困难不算什么。",
+     "pinyin": "Zhè diǎnr kùnnan bù suàn shénme.",
+     "fr": "Cette petite difficulté n'est rien.",
+     "statut": "relu",
+     "relecture": {
+      "date": "2026-09-30",
+      "par": "décision du propriétaire",
+      "mode": "sans relecture ligne à ligne",
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+     }
+    }
+   ]
+  },
+  {
+   "id": "L7-0257",
+   "genre": "mot",
+   "hanzi": "不像话",
+   "pinyin": "bùxiànghuà",
+   "categories": [
+    "Adj"
+   ],
+   "sens": {
+    "glose": "inadmissible, scandaleux",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "inadmissible, scandaleux"
+     }
+    ],
+    "statut": "relu",
+    "relecture": {
+     "date": "2026-09-30",
+     "par": "décision du propriétaire",
+     "mode": "sans relecture ligne à ligne",
+     "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+    }
+   },
+   "exemples": [
+    {
+     "zh": "你这样对父母，太不像话了！",
+     "pinyin": "Nǐ zhèyàng duì fùmǔ, tài bùxiànghuà le!",
+     "fr": "Traiter tes parents comme ça, c'est honteux !",
+     "statut": "relu",
+     "relecture": {
+      "date": "2026-09-30",
+      "par": "décision du propriétaire",
+      "mode": "sans relecture ligne à ligne",
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+     }
+    }
+   ]
+  },
+  {
+   "id": "屑",
+   "genre": "caractere",
+   "hanzi": "屑",
+   "pinyin": "xiè",
+   "sens": {
+    "glose": "miettes, débris ; daigner",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "miettes, débris"
+     },
+     {
+      "categorie": "V",
+      "fr": "daigner : surtout à la négative"
+     }
+    ],
+    "statut": "relu",
+    "relecture": {
+     "date": "2026-09-30",
+     "par": "décision du propriétaire",
+     "mode": "sans relecture ligne à ligne",
+     "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+    }
+   },
+   "exemples": []
+  },
+  {
+   "id": "L7-0258",
+   "genre": "mot",
+   "hanzi": "不屑",
+   "pinyin": "bùxiè",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "dédaigner, ne pas daigner",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "dédaigner, ne pas daigner"
+     }
+    ],
+    "statut": "relu",
+    "relecture": {
+     "date": "2026-09-30",
+     "par": "décision du propriétaire",
+     "mode": "sans relecture ligne à ligne",
+     "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+    }
+   },
+   "exemples": [
+    {
+     "zh": "他不屑回答这个问题。",
+     "pinyin": "Tā bùxiè huídá zhège wèntí.",
+     "fr": "Il a jugé la question indigne d'une réponse.",
+     "statut": "relu",
+     "relecture": {
+      "date": "2026-09-30",
+      "par": "décision du propriétaire",
+      "mode": "sans relecture ligne à ligne",
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+     }
+    }
+   ]
+  },
+  {
+   "id": "懈",
+   "genre": "caractere",
+   "hanzi": "懈",
+   "pinyin": "xiè",
+   "sens": {
+    "glose": "relâché, négligent",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "relâché, négligent"
+     }
+    ],
+    "statut": "relu",
+    "relecture": {
+     "date": "2026-09-30",
+     "par": "décision du propriétaire",
+     "mode": "sans relecture ligne à ligne",
+     "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+    }
+   },
+   "exemples": []
+  },
+  {
+   "id": "L7-0259",
+   "genre": "mot",
+   "hanzi": "不懈",
+   "pinyin": "bùxiè",
+   "categories": [
+    "Adj"
+   ],
+   "sens": {
+    "glose": "inlassable, sans relâche",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "inlassable, sans relâche"
+     }
+    ],
+    "statut": "relu",
+    "relecture": {
+     "date": "2026-09-30",
+     "par": "décision du propriétaire",
+     "mode": "sans relecture ligne à ligne",
+     "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+    }
+   },
+   "exemples": [
+    {
+     "zh": "经过不懈的努力，他终于成功了。",
+     "pinyin": "Jīngguò bùxiè de nǔlì, tā zhōngyú chénggōng le.",
+     "fr": "À force d'efforts acharnés, il a fini par réussir.",
+     "statut": "relu",
+     "relecture": {
+      "date": "2026-09-30",
+      "par": "décision du propriétaire",
+      "mode": "sans relecture ligne à ligne",
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+     }
+    }
+   ]
+  },
+  {
+   "id": "L7-0260",
+   "genre": "mot",
+   "hanzi": "不亚于",
+   "pinyin": "bùyàyú",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "ne pas être inférieur à",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "ne pas être inférieur à, valoir"
+     }
+    ],
+    "statut": "relu",
+    "relecture": {
+     "date": "2026-09-30",
+     "par": "décision du propriétaire",
+     "mode": "sans relecture ligne à ligne",
+     "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+    }
+   },
+   "exemples": [
+    {
+     "zh": "她的中文水平不亚于中国人。",
+     "pinyin": "Tā de Zhōngwén shuǐpíng bùyàyú Zhōngguórén.",
+     "fr": "Son chinois vaut celui d'un natif.",
+     "statut": "relu",
+     "relecture": {
+      "date": "2026-09-30",
+      "par": "décision du propriétaire",
+      "mode": "sans relecture ligne à ligne",
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+     }
+    }
+   ]
+  },
+  {
+   "id": "亦",
+   "genre": "caractere",
+   "hanzi": "亦",
+   "pinyin": "yì",
+   "mots": [
+    "L7-4958"
+   ],
+   "sens": {
+    "glose": "aussi, également",
+    "acceptions": [
+     {
+      "categorie": "Adv",
+      "fr": "aussi, également : langue écrite"
+     }
+    ],
+    "statut": "relu",
+    "relecture": {
+     "date": "2026-09-30",
+     "par": "décision du propriétaire",
+     "mode": "sans relecture ligne à ligne",
+     "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+    }
+   },
+   "exemples": [
+    {
+     "zh": "他是我的老师，亦是我的朋友。",
+     "pinyin": "Tā shì wǒ de lǎoshī, yì shì wǒ de péngyou.",
+     "fr": "C'est mon professeur, et c'est en même temps mon ami.",
+     "statut": "relu",
+     "relecture": {
+      "date": "2026-09-30",
+      "par": "décision du propriétaire",
+      "mode": "sans relecture ligne à ligne",
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+     }
+    }
+   ]
+  },
+  {
+   "id": "L7-0261",
+   "genre": "mot",
+   "hanzi": "不亦乐乎",
+   "pinyin": "bùyìlèhū",
+   "sens": {
+    "glose": "au plus haut point",
+    "acceptions": [
+     {
+      "categorie": "Adv",
+      "fr": "au plus haut point, à n'en plus pouvoir"
+     }
+    ],
+    "statut": "relu",
+    "relecture": {
+     "date": "2026-09-30",
+     "par": "décision du propriétaire",
+     "mode": "sans relecture ligne à ligne",
+     "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+    }
+   },
+   "exemples": [
+    {
+     "zh": "最近他忙得不亦乐乎。",
+     "pinyin": "Zuìjìn tā máng de bùyìlèhū.",
+     "fr": "Ces temps-ci, il est débordé.",
+     "statut": "relu",
+     "relecture": {
+      "date": "2026-09-30",
+      "par": "décision du propriétaire",
+      "mode": "sans relecture ligne à ligne",
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+     }
+    }
+   ]
+  },
+  {
+   "id": "翼",
+   "genre": "caractere",
+   "hanzi": "翼",
+   "pinyin": "yì",
+   "sens": {
+    "glose": "aile",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "aile ; flanc"
+     }
+    ],
+    "statut": "relu",
+    "relecture": {
+     "date": "2026-09-30",
+     "par": "décision du propriétaire",
+     "mode": "sans relecture ligne à ligne",
+     "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+    }
+   },
+   "exemples": []
+  },
+  {
+   "id": "L7-0262",
+   "genre": "mot",
+   "hanzi": "不翼而飞",
+   "pinyin": "bùyì'érfēi",
+   "sens": {
+    "glose": "disparaître mystérieusement",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "disparaître mystérieusement, se volatiliser"
+     }
+    ],
+    "statut": "relu",
+    "relecture": {
+     "date": "2026-09-30",
+     "par": "décision du propriétaire",
+     "mode": "sans relecture ligne à ligne",
+     "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+    }
+   },
+   "exemples": [
+    {
+     "zh": "我放在桌上的钱不翼而飞了。",
+     "pinyin": "Wǒ fàng zài zhuō shang de qián bùyì'érfēi le.",
+     "fr": "L'argent que j'avais laissé sur la table s'est envolé.",
+     "statut": "relu",
+     "relecture": {
+      "date": "2026-09-30",
+      "par": "décision du propriétaire",
+      "mode": "sans relecture ligne à ligne",
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+     }
+    }
+   ]
+  },
+  {
+   "id": "L7-0263",
+   "genre": "mot",
+   "hanzi": "不用说",
+   "pinyin": "bùyòngshuō",
+   "sens": {
+    "glose": "il va sans dire, bien entendu",
+    "acceptions": [
+     {
+      "categorie": "Adv",
+      "fr": "il va sans dire, bien entendu"
+     }
+    ],
+    "statut": "relu",
+    "relecture": {
+     "date": "2026-09-30",
+     "par": "décision du propriétaire",
+     "mode": "sans relecture ligne à ligne",
+     "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+    }
+   },
+   "exemples": [
+    {
+     "zh": "不用说，他又迟到了。",
+     "pinyin": "Bùyòngshuō, tā yòu chídào le.",
+     "fr": "Évidemment, il est encore en retard.",
+     "statut": "relu",
+     "relecture": {
+      "date": "2026-09-30",
+      "par": "décision du propriétaire",
+      "mode": "sans relecture ligne à ligne",
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+     }
+    }
+   ]
+  },
+  {
+   "id": "L7-0264",
+   "genre": "mot",
+   "hanzi": "不正之风",
+   "pinyin": "bùzhèngzhīfēng",
+   "sens": {
+    "glose": "pratiques malsaines",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "pratiques malsaines, mœurs corrompues"
+     }
+    ],
+    "statut": "relu",
+    "relecture": {
+     "date": "2026-09-30",
+     "par": "décision du propriétaire",
+     "mode": "sans relecture ligne à ligne",
+     "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+    }
+   },
+   "exemples": [
+    {
+     "zh": "我们要坚决反对不正之风。",
+     "pinyin": "Wǒmen yào jiānjué fǎnduì bùzhèngzhīfēng.",
+     "fr": "Nous devons combattre fermement la corruption.",
+     "statut": "relu",
+     "relecture": {
+      "date": "2026-09-30",
+      "par": "décision du propriétaire",
+      "mode": "sans relecture ligne à ligne",
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+     }
+    }
+   ]
+  },
+  {
+   "id": "L7-0265",
+   "genre": "mot",
+   "hanzi": "补给",
+   "pinyin": "bǔjǐ",
+   "categories": [
+    "V",
+    "N"
+   ],
+   "sens": {
+    "glose": "ravitailler ; ravitaillement",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "ravitailler, approvisionner"
+     },
+     {
+      "categorie": "N",
+      "fr": "ravitaillement"
+     }
+    ],
+    "statut": "relu",
+    "relecture": {
+     "date": "2026-09-30",
+     "par": "décision du propriétaire",
+     "mode": "sans relecture ligne à ligne",
+     "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+    }
+   },
+   "exemples": [
+    {
+     "zh": "船在这里补给淡水。",
+     "pinyin": "Chuán zài zhèli bǔjǐ dànshuǐ.",
+     "fr": "Le navire fait ici le plein d'eau douce.",
+     "statut": "relu",
+     "relecture": {
+      "date": "2026-09-30",
+      "par": "décision du propriétaire",
+      "mode": "sans relecture ligne à ligne",
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+     }
+    }
+   ]
+  },
+  {
+   "id": "L7-0266",
+   "genre": "mot",
+   "hanzi": "补救",
+   "pinyin": "bǔjiù",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "remédier, réparer",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "remédier, réparer, rattraper"
+     }
+    ],
+    "statut": "relu",
+    "relecture": {
+     "date": "2026-09-30",
+     "par": "décision du propriétaire",
+     "mode": "sans relecture ligne à ligne",
+     "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+    }
+   },
+   "exemples": [
+    {
+     "zh": "现在补救还来得及。",
+     "pinyin": "Xiànzài bǔjiù hái láidejí.",
+     "fr": "Il est encore temps d'arranger les choses.",
+     "statut": "relu",
+     "relecture": {
+      "date": "2026-09-30",
+      "par": "décision du propriétaire",
+      "mode": "sans relecture ligne à ligne",
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+     }
+    }
+   ]
+  },
+  {
+   "id": "L7-0267",
+   "genre": "mot",
+   "hanzi": "捕捉",
+   "pinyin": "bǔzhuō",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "attraper, capturer ; saisir",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "attraper, capturer ; saisir : occasion, image"
+     }
+    ],
+    "statut": "relu",
+    "relecture": {
+     "date": "2026-09-30",
+     "par": "décision du propriétaire",
+     "mode": "sans relecture ligne à ligne",
+     "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+    }
+   },
+   "exemples": [
+    {
+     "zh": "猫在捕捉老鼠。",
+     "pinyin": "Māo zài bǔzhuō lǎoshǔ.",
+     "fr": "Le chat chasse une souris.",
+     "statut": "relu",
+     "relecture": {
+      "date": "2026-09-30",
+      "par": "décision du propriétaire",
+      "mode": "sans relecture ligne à ligne",
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+     }
+    }
+   ]
+  },
+  {
+   "id": "哺",
+   "genre": "caractere",
+   "hanzi": "哺",
+   "pinyin": "bǔ",
+   "sens": {
+    "glose": "nourrir, allaiter",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "nourrir à la becquée, allaiter"
+     }
+    ],
+    "statut": "relu",
+    "relecture": {
+     "date": "2026-09-30",
+     "par": "décision du propriétaire",
+     "mode": "sans relecture ligne à ligne",
+     "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+    }
+   },
+   "exemples": []
+  },
+  {
+   "id": "L7-0268",
+   "genre": "mot",
+   "hanzi": "哺育",
+   "pinyin": "bǔyù",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "nourrir, élever",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "nourrir, élever"
+     }
+    ],
+    "statut": "relu",
+    "relecture": {
+     "date": "2026-09-30",
+     "par": "décision du propriétaire",
+     "mode": "sans relecture ligne à ligne",
+     "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+    }
+   },
+   "exemples": [
+    {
+     "zh": "大地哺育了一代又一代人。",
+     "pinyin": "Dàdì bǔyù le yī dài yòu yī dài rén.",
+     "fr": "La terre a nourri des générations entières.",
+     "statut": "relu",
+     "relecture": {
+      "date": "2026-09-30",
+      "par": "décision du propriétaire",
+      "mode": "sans relecture ligne à ligne",
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+     }
+    }
+   ]
+  },
+  {
+   "id": "耻",
+   "genre": "caractere",
+   "hanzi": "耻",
+   "pinyin": "chǐ",
+   "sens": {
+    "glose": "honte ; avoir honte",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "honte, déshonneur"
+     },
+     {
+      "categorie": "V",
+      "fr": "avoir honte de"
+     }
+    ],
+    "statut": "relu",
+    "relecture": {
+     "date": "2026-09-30",
+     "par": "décision du propriétaire",
+     "mode": "sans relecture ligne à ligne",
+     "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+    }
+   },
+   "exemples": []
+  },
+  {
+   "id": "L7-0269",
+   "genre": "mot",
+   "hanzi": "不耻下问",
+   "pinyin": "bùchǐ-xiàwèn",
+   "sens": {
+    "glose": "ne pas craindre d'interroger",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "ne pas avoir honte de questionner moins savant que soi"
+     }
+    ],
+    "statut": "relu",
+    "relecture": {
+     "date": "2026-09-30",
+     "par": "décision du propriétaire",
+     "mode": "sans relecture ligne à ligne",
+     "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+    }
+   },
+   "exemples": [
+    {
+     "zh": "学习要不耻下问。",
+     "pinyin": "Xuéxí yào bùchǐ-xiàwèn.",
+     "fr": "Pour apprendre, il ne faut pas avoir peur de poser des questions.",
+     "statut": "relu",
+     "relecture": {
+      "date": "2026-09-30",
+      "par": "décision du propriétaire",
+      "mode": "sans relecture ligne à ligne",
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+     }
+    }
+   ]
+  },
+  {
+   "id": "L7-0270",
+   "genre": "mot",
+   "hanzi": "不辞而别",
+   "pinyin": "bùcí'érbié",
+   "sens": {
+    "glose": "partir sans prendre congé",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "partir sans prendre congé"
+     }
+    ],
+    "statut": "relu",
+    "relecture": {
+     "date": "2026-09-30",
+     "par": "décision du propriétaire",
+     "mode": "sans relecture ligne à ligne",
+     "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+    }
+   },
+   "exemples": [
+    {
+     "zh": "他不辞而别，谁也不知道他去哪儿了。",
+     "pinyin": "Tā bùcí'érbié, shéi yě bù zhīdào tā qù nǎr le.",
+     "fr": "Il est parti sans un mot, personne ne sait où.",
+     "statut": "relu",
+     "relecture": {
+      "date": "2026-09-30",
+      "par": "décision du propriétaire",
+      "mode": "sans relecture ligne à ligne",
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+     }
+    }
+   ]
+  },
+  {
+   "id": "L7-0271",
+   "genre": "mot",
+   "hanzi": "不得而知",
+   "pinyin": "bùdé'érzhī",
+   "sens": {
+    "glose": "on l'ignore, impossible à savoir",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "on l'ignore, impossible à savoir"
+     }
+    ],
+    "statut": "relu",
+    "relecture": {
+     "date": "2026-09-30",
+     "par": "décision du propriétaire",
+     "mode": "sans relecture ligne à ligne",
+     "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+    }
+   },
+   "exemples": [
+    {
+     "zh": "他为什么离开，我们不得而知。",
+     "pinyin": "Tā wèishénme líkāi, wǒmen bùdé'érzhī.",
+     "fr": "Pourquoi il est parti, nous n'en savons rien.",
+     "statut": "relu",
+     "relecture": {
+      "date": "2026-09-30",
+      "par": "décision du propriétaire",
+      "mode": "sans relecture ligne à ligne",
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+     }
+    }
+   ]
+  },
+  {
+   "id": "L7-0272",
+   "genre": "mot",
+   "hanzi": "不得已",
+   "pinyin": "bùdéyǐ",
+   "categories": [
+    "Adj"
+   ],
+   "sens": {
+    "glose": "contraint, faute de mieux",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "contraint, faute de mieux"
+     }
+    ],
+    "statut": "relu",
+    "relecture": {
+     "date": "2026-09-30",
+     "par": "décision du propriétaire",
+     "mode": "sans relecture ligne à ligne",
+     "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+    }
+   },
+   "exemples": [
+    {
+     "zh": "我这样做也是不得已。",
+     "pinyin": "Wǒ zhèyàng zuò yě shì bùdéyǐ.",
+     "fr": "Si j'ai agi ainsi, c'est que je n'avais pas le choix.",
+     "statut": "relu",
+     "relecture": {
+      "date": "2026-09-30",
+      "par": "décision du propriétaire",
+      "mode": "sans relecture ligne à ligne",
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+     }
+    }
+   ]
+  },
+  {
+   "id": "妨",
+   "genre": "caractere",
+   "hanzi": "妨",
+   "pinyin": "fáng",
+   "sens": {
+    "glose": "gêner, entraver",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "gêner, entraver, nuire"
+     }
+    ],
+    "statut": "relu",
+    "relecture": {
+     "date": "2026-09-30",
+     "par": "décision du propriétaire",
+     "mode": "sans relecture ligne à ligne",
+     "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+    }
+   },
+   "exemples": []
+  },
+  {
+   "id": "L7-0273",
+   "genre": "mot",
+   "hanzi": "不妨",
+   "pinyin": "bùfáng",
+   "categories": [
+    "Adv"
+   ],
+   "sens": {
+    "glose": "rien n'empêche de",
+    "acceptions": [
+     {
+      "categorie": "Adv",
+      "fr": "rien n'empêche de, on peut toujours"
+     }
+    ],
+    "statut": "relu",
+    "relecture": {
+     "date": "2026-09-30",
+     "par": "décision du propriétaire",
+     "mode": "sans relecture ligne à ligne",
+     "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+    }
+   },
+   "exemples": [
+    {
+     "zh": "你不妨试一试。",
+     "pinyin": "Nǐ bùfáng shì yī shì.",
+     "fr": "Pourquoi ne pas essayer ?",
+     "statut": "relu",
+     "relecture": {
+      "date": "2026-09-30",
+      "par": "décision du propriétaire",
+      "mode": "sans relecture ligne à ligne",
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+     }
+    }
+   ]
+  },
+  {
+   "id": "L7-0274",
+   "genre": "mot",
+   "hanzi": "不服",
+   "pinyin": "bùfú",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "ne pas accepter, contester",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "ne pas accepter, contester"
+     }
+    ],
+    "statut": "relu",
+    "relecture": {
+     "date": "2026-09-30",
+     "par": "décision du propriétaire",
+     "mode": "sans relecture ligne à ligne",
+     "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+    }
+   },
+   "exemples": [
+    {
+     "zh": "输了比赛，他还是不服。",
+     "pinyin": "Shū le bǐsài, tā háishi bùfú.",
+     "fr": "Il a perdu le match, mais il refuse de l'admettre.",
+     "statut": "relu",
+     "relecture": {
+      "date": "2026-09-30",
+      "par": "décision du propriétaire",
+      "mode": "sans relecture ligne à ligne",
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+     }
+    }
+   ]
+  },
+  {
+   "id": "L7-0275",
+   "genre": "mot",
+   "hanzi": "不服气",
+   "pinyin": "bù fúqì",
+   "sens": {
+    "glose": "ne pas s'avouer vaincu",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "ne pas s'avouer vaincu, ne pas digérer"
+     }
+    ],
+    "statut": "relu",
+    "relecture": {
+     "date": "2026-09-30",
+     "par": "décision du propriétaire",
+     "mode": "sans relecture ligne à ligne",
+     "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+    }
+   },
+   "exemples": [
+    {
+     "zh": "他嘴上不说，心里很不服气。",
+     "pinyin": "Tā zuǐ shang bù shuō, xīn li hěn bù fúqì.",
+     "fr": "Il ne dit rien, mais au fond il ne l'accepte pas.",
+     "statut": "relu",
+     "relecture": {
+      "date": "2026-09-30",
+      "par": "décision du propriétaire",
+      "mode": "sans relecture ligne à ligne",
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+     }
+    }
+   ]
+  },
+  {
+   "id": "L7-0276",
+   "genre": "mot",
+   "hanzi": "不假思索",
+   "pinyin": "bùjiǎ-sīsuǒ",
+   "sens": {
+    "glose": "sans réfléchir, spontanément",
+    "acceptions": [
+     {
+      "categorie": "Adv",
+      "fr": "sans réfléchir, spontanément"
+     }
+    ],
+    "statut": "relu",
+    "relecture": {
+     "date": "2026-09-30",
+     "par": "décision du propriétaire",
+     "mode": "sans relecture ligne à ligne",
+     "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+    }
+   },
+   "exemples": [
+    {
+     "zh": "他不假思索地回答了。",
+     "pinyin": "Tā bùjiǎ-sīsuǒ de huídá le.",
+     "fr": "Il a répondu du tac au tac.",
+     "statut": "relu",
+     "relecture": {
+      "date": "2026-09-30",
+      "par": "décision du propriétaire",
+      "mode": "sans relecture ligne à ligne",
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+     }
+    }
+   ]
+  },
+  {
+   "id": "L7-0277",
+   "genre": "mot",
+   "hanzi": "不解",
+   "pinyin": "bùjiě",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "ne pas comprendre, perplexe",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "ne pas comprendre, être perplexe"
+     }
+    ],
+    "statut": "relu",
+    "relecture": {
+     "date": "2026-09-30",
+     "par": "décision du propriétaire",
+     "mode": "sans relecture ligne à ligne",
+     "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+    }
+   },
+   "exemples": [
+    {
+     "zh": "他的话让人不解。",
+     "pinyin": "Tā de huà ràng rén bùjiě.",
+     "fr": "On ne voit pas bien ce qu'il veut dire.",
+     "statut": "relu",
+     "relecture": {
+      "date": "2026-09-30",
+      "par": "décision du propriétaire",
+      "mode": "sans relecture ligne à ligne",
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+     }
+    }
+   ]
+  },
+  {
+   "id": "L7-0278",
+   "genre": "mot",
+   "hanzi": "不经意",
+   "pinyin": "bùjīngyì",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "par inadvertance, sans y penser",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "par inadvertance, sans y prêter attention"
+     }
+    ],
+    "statut": "relu",
+    "relecture": {
+     "date": "2026-09-30",
+     "par": "décision du propriétaire",
+     "mode": "sans relecture ligne à ligne",
+     "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+    }
+   },
+   "exemples": [
+    {
+     "zh": "他不经意地看了我一眼。",
+     "pinyin": "Tā bùjīngyì de kàn le wǒ yī yǎn.",
+     "fr": "Il m'a jeté un coup d'œil distrait.",
+     "statut": "relu",
+     "relecture": {
+      "date": "2026-09-30",
+      "par": "décision du propriétaire",
+      "mode": "sans relecture ligne à ligne",
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+     }
+    }
+   ]
+  },
+  {
+   "id": "L7-0279",
+   "genre": "mot",
+   "hanzi": "不景气",
+   "pinyin": "bùjǐngqì",
+   "categories": [
+    "Adj"
+   ],
+   "sens": {
+    "glose": "en récession, morose",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "en récession, morose"
+     }
+    ],
+    "statut": "relu",
+    "relecture": {
+     "date": "2026-09-30",
+     "par": "décision du propriétaire",
+     "mode": "sans relecture ligne à ligne",
+     "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+    }
+   },
+   "exemples": [
+    {
+     "zh": "这几年经济不景气。",
+     "pinyin": "Zhè jǐ nián jīngjì bùjǐngqì.",
+     "fr": "Ces dernières années, l'économie va mal.",
+     "statut": "relu",
+     "relecture": {
+      "date": "2026-09-30",
+      "par": "décision du propriétaire",
+      "mode": "sans relecture ligne à ligne",
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+     }
+    }
+   ]
+  },
+  {
+   "id": "堪",
+   "genre": "caractere",
+   "hanzi": "堪",
+   "pinyin": "kān",
+   "sens": {
+    "glose": "pouvoir supporter ; digne de",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "pouvoir supporter ; être digne de"
+     }
+    ],
+    "statut": "relu",
+    "relecture": {
+     "date": "2026-09-30",
+     "par": "décision du propriétaire",
+     "mode": "sans relecture ligne à ligne",
+     "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+    }
+   },
+   "exemples": []
+  },
+  {
+   "id": "L7-0280",
+   "genre": "mot",
+   "hanzi": "不堪",
+   "pinyin": "bùkān",
+   "categories": [
+    "V",
+    "Adj"
+   ],
+   "sens": {
+    "glose": "insupportable ; extrêmement",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "ne pas pouvoir supporter"
+     },
+     {
+      "categorie": "Adj",
+      "fr": "au dernier degré, lamentable : après un mot négatif"
+     }
+    ],
+    "statut": "relu",
+    "relecture": {
+     "date": "2026-09-30",
+     "par": "décision du propriétaire",
+     "mode": "sans relecture ligne à ligne",
+     "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+    }
+   },
+   "exemples": [
+    {
+     "zh": "这些旧衣服已经破烂不堪了。",
+     "pinyin": "Zhèxiē jiù yīfu yǐjīng pòlàn bùkān le.",
+     "fr": "Ces vieux vêtements sont complètement en lambeaux.",
+     "statut": "relu",
+     "relecture": {
+      "date": "2026-09-30",
+      "par": "décision du propriétaire",
+      "mode": "sans relecture ligne à ligne",
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+     }
+    }
+   ]
+  },
+  {
+   "id": "L7-0281",
+   "genre": "mot",
+   "hanzi": "不可避免",
+   "pinyin": "bùkě-bìmiǎn",
+   "sens": {
+    "glose": "inévitable",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "inévitable"
+     }
+    ],
+    "statut": "relu",
+    "relecture": {
+     "date": "2026-09-30",
+     "par": "décision du propriétaire",
+     "mode": "sans relecture ligne à ligne",
+     "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+    }
+   },
+   "exemples": [
+    {
+     "zh": "工作中出点儿错是不可避免的。",
+     "pinyin": "Gōngzuò zhōng chū diǎnr cuò shì bùkě-bìmiǎn de.",
+     "fr": "Au travail, on finit toujours par faire quelques erreurs.",
+     "statut": "relu",
+     "relecture": {
+      "date": "2026-09-30",
+      "par": "décision du propriétaire",
+      "mode": "sans relecture ligne à ligne",
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+     }
+    }
+   ]
+  },
+  {
+   "id": "L7-0282",
+   "genre": "mot",
+   "hanzi": "不可思议",
+   "pinyin": "bùkě-sīyì",
+   "sens": {
+    "glose": "incroyable, inconcevable",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "incroyable, inconcevable"
+     }
+    ],
+    "statut": "relu",
+    "relecture": {
+     "date": "2026-09-30",
+     "par": "décision du propriétaire",
+     "mode": "sans relecture ligne à ligne",
+     "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+    }
+   },
+   "exemples": [
+    {
+     "zh": "这件事真是不可思议。",
+     "pinyin": "Zhè jiàn shì zhēn shì bùkě-sīyì.",
+     "fr": "C'est vraiment à n'y pas croire.",
+     "statut": "relu",
+     "relecture": {
+      "date": "2026-09-30",
+      "par": "décision du propriétaire",
+      "mode": "sans relecture ligne à ligne",
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+     }
+    }
+   ]
+  },
+  {
+   "id": "L7-0283",
+   "genre": "mot",
+   "hanzi": "不肯",
+   "pinyin": "bù kěn",
+   "sens": {
+    "glose": "refuser de",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "refuser de, ne pas vouloir"
+     }
+    ],
+    "statut": "relu",
+    "relecture": {
+     "date": "2026-09-30",
+     "par": "décision du propriétaire",
+     "mode": "sans relecture ligne à ligne",
+     "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+    }
+   },
+   "exemples": [
+    {
+     "zh": "孩子不肯睡觉。",
+     "pinyin": "Háizi bù kěn shuìjiào.",
+     "fr": "L'enfant ne veut pas aller se coucher.",
+     "statut": "relu",
+     "relecture": {
+      "date": "2026-09-30",
+      "par": "décision du propriétaire",
+      "mode": "sans relecture ligne à ligne",
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+     }
+    }
+   ]
+  },
+  {
+   "id": "L7-0284",
+   "genre": "mot",
+   "hanzi": "不理",
+   "pinyin": "bù lǐ",
+   "sens": {
+    "glose": "ignorer, ne pas prêter attention",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "ignorer, ne pas prêter attention à"
+     }
+    ],
+    "statut": "relu",
+    "relecture": {
+     "date": "2026-09-30",
+     "par": "décision du propriétaire",
+     "mode": "sans relecture ligne à ligne",
+     "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+    }
+   },
+   "exemples": [
+    {
+     "zh": "他生气了，谁都不理。",
+     "pinyin": "Tā shēngqì le, shéi dōu bù lǐ.",
+     "fr": "Il est fâché et ne parle à personne.",
+     "statut": "relu",
+     "relecture": {
+      "date": "2026-09-30",
+      "par": "décision du propriétaire",
+      "mode": "sans relecture ligne à ligne",
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+     }
+    }
+   ]
+  },
+  {
+   "id": "L7-0285",
+   "genre": "mot",
+   "hanzi": "不了了之",
+   "pinyin": "bùliǎo-liǎozhī",
+   "sens": {
+    "glose": "en rester là sans solution",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "en rester là sans solution, être enterré"
+     }
+    ],
+    "statut": "relu",
+    "relecture": {
+     "date": "2026-09-30",
+     "par": "décision du propriétaire",
+     "mode": "sans relecture ligne à ligne",
+     "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+    }
+   },
+   "exemples": [
+    {
+     "zh": "这件事最后不了了之。",
+     "pinyin": "Zhè jiàn shì zuìhòu bùliǎo-liǎozhī.",
+     "fr": "L'affaire a fini par tomber dans l'oubli.",
+     "statut": "relu",
+     "relecture": {
+      "date": "2026-09-30",
+      "par": "décision du propriétaire",
+      "mode": "sans relecture ligne à ligne",
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+     }
+    }
+   ]
+  }
+ ]
+}

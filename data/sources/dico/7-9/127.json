@@ -1,0 +1,788 @@
+{
+ "niveau": "7-9",
+ "lot": "127",
+ "source": "rédigé pour l'app dans le pipeline wenlu, sans API ; faits lus : liste HSK 3.0 (forme, pinyin, niveau, catégorie), lectures d'Unihan et des surcharges, gloses relues des fiches",
+ "brouillon": "data/sources/dico-brouillons/7-9/127.json",
+ "generation": {
+  "modele": "rédaction manuelle",
+  "api": "session Claude Code (sans API)",
+  "date": "2026-09-30",
+  "empreinte_invite": "sha256:5648feec933ea4be477db4333ad28de84a235398591e5a89d6d9590ee122f68e",
+  "contexte": "wenlu dico contexte 7-9 127",
+  "essais": 1,
+  "refus": []
+ },
+ "entrees": [
+  {
+   "id": "L7-5636",
+   "genre": "mot",
+   "hanzi": "做证",
+   "pinyin": "zuòzhèng",
+   "sens": {
+    "glose": "témoigner",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "témoigner, porter témoignage"
+     }
+    ],
+    "statut": "relu",
+    "relecture": {
+     "date": "2026-09-30",
+     "par": "décision du propriétaire",
+     "mode": "sans relecture ligne à ligne",
+     "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+    }
+   },
+   "exemples": [
+    {
+     "zh": "他愿意为我做证。",
+     "pinyin": "Tā yuànyì wèi wǒ zuòzhèng.",
+     "fr": "Il est prêt à témoigner en ma faveur.",
+     "statut": "relu",
+     "relecture": {
+      "date": "2026-09-30",
+      "par": "décision du propriétaire",
+      "mode": "sans relecture ligne à ligne",
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+     }
+    }
+   ]
+  },
+  {
+   "id": "澳",
+   "genre": "caractere",
+   "hanzi": "澳",
+   "pinyin": "ào",
+   "sens": {
+    "glose": "baie ; Macao ; Australie",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "baie, anse"
+     },
+     {
+      "categorie": "N",
+      "fr": "Macao ; Australie (abréviation)"
+     }
+    ],
+    "statut": "relu",
+    "relecture": {
+     "date": "2026-09-30",
+     "par": "décision du propriétaire",
+     "mode": "sans relecture ligne à ligne",
+     "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+    }
+   },
+   "exemples": []
+  },
+  {
+   "id": "曹",
+   "genre": "caractere",
+   "hanzi": "曹",
+   "pinyin": "cáo",
+   "sens": {
+    "glose": "nom de famille ; office (ancien)",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "nom de famille"
+     },
+     {
+      "categorie": "N",
+      "fr": "office, département (ancien)"
+     }
+    ],
+    "statut": "relu",
+    "relecture": {
+     "date": "2026-09-30",
+     "par": "décision du propriétaire",
+     "mode": "sans relecture ligne à ligne",
+     "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+    }
+   },
+   "exemples": []
+  },
+  {
+   "id": "邓",
+   "genre": "caractere",
+   "hanzi": "邓",
+   "pinyin": "dèng",
+   "sens": {
+    "glose": "nom de famille",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "nom de famille"
+     }
+    ],
+    "statut": "relu",
+    "relecture": {
+     "date": "2026-09-30",
+     "par": "décision du propriétaire",
+     "mode": "sans relecture ligne à ligne",
+     "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+    }
+   },
+   "exemples": []
+  },
+  {
+   "id": "冯",
+   "genre": "caractere",
+   "hanzi": "冯",
+   "pinyin": "féng",
+   "sens": {
+    "glose": "nom de famille",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "nom de famille"
+     }
+    ],
+    "statut": "relu",
+    "relecture": {
+     "date": "2026-09-30",
+     "par": "décision du propriétaire",
+     "mode": "sans relecture ligne à ligne",
+     "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+    }
+   },
+   "exemples": []
+  },
+  {
+   "id": "郭",
+   "genre": "caractere",
+   "hanzi": "郭",
+   "pinyin": "guō",
+   "sens": {
+    "glose": "rempart extérieur ; nom de famille",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "rempart extérieur d'une ville (ancien)"
+     },
+     {
+      "categorie": "N",
+      "fr": "nom de famille"
+     }
+    ],
+    "statut": "relu",
+    "relecture": {
+     "date": "2026-09-30",
+     "par": "décision du propriétaire",
+     "mode": "sans relecture ligne à ligne",
+     "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+    }
+   },
+   "exemples": []
+  },
+  {
+   "id": "韩",
+   "genre": "caractere",
+   "hanzi": "韩",
+   "pinyin": "hán",
+   "sens": {
+    "glose": "Corée ; nom de famille",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "Corée (abréviation)"
+     },
+     {
+      "categorie": "N",
+      "fr": "nom de famille ; État de Han (ancien)"
+     }
+    ],
+    "statut": "relu",
+    "relecture": {
+     "date": "2026-09-30",
+     "par": "décision du propriétaire",
+     "mode": "sans relecture ligne à ligne",
+     "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+    }
+   },
+   "exemples": []
+  },
+  {
+   "id": "杭",
+   "genre": "caractere",
+   "hanzi": "杭",
+   "pinyin": "háng",
+   "sens": {
+    "glose": "Hangzhou (abréviation)",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "Hangzhou (abréviation)"
+     }
+    ],
+    "statut": "relu",
+    "relecture": {
+     "date": "2026-09-30",
+     "par": "décision du propriétaire",
+     "mode": "sans relecture ligne à ligne",
+     "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+    }
+   },
+   "exemples": []
+  },
+  {
+   "id": "沪",
+   "genre": "caractere",
+   "hanzi": "沪",
+   "pinyin": "hù",
+   "sens": {
+    "glose": "Shanghai (abréviation)",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "Shanghai (abréviation)"
+     }
+    ],
+    "statut": "relu",
+    "relecture": {
+     "date": "2026-09-30",
+     "par": "décision du propriétaire",
+     "mode": "sans relecture ligne à ligne",
+     "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+    }
+   },
+   "exemples": []
+  },
+  {
+   "id": "淮",
+   "genre": "caractere",
+   "hanzi": "淮",
+   "pinyin": "huái",
+   "sens": {
+    "glose": "la Huai (rivière)",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "la Huai (rivière de Chine centrale)"
+     }
+    ],
+    "statut": "relu",
+    "relecture": {
+     "date": "2026-09-30",
+     "par": "décision du propriétaire",
+     "mode": "sans relecture ligne à ligne",
+     "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+    }
+   },
+   "exemples": []
+  },
+  {
+   "id": "孔",
+   "genre": "caractere",
+   "hanzi": "孔",
+   "pinyin": "kǒng",
+   "sens": {
+    "glose": "trou, orifice ; nom de famille",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "trou, orifice"
+     },
+     {
+      "categorie": "N",
+      "fr": "nom de famille (celui de Confucius)"
+     }
+    ],
+    "statut": "relu",
+    "relecture": {
+     "date": "2026-09-30",
+     "par": "décision du propriétaire",
+     "mode": "sans relecture ligne à ligne",
+     "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+    }
+   },
+   "exemples": []
+  },
+  {
+   "id": "刘",
+   "genre": "caractere",
+   "hanzi": "刘",
+   "pinyin": "liú",
+   "sens": {
+    "glose": "nom de famille",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "nom de famille"
+     }
+    ],
+    "statut": "relu",
+    "relecture": {
+     "date": "2026-09-30",
+     "par": "décision du propriétaire",
+     "mode": "sans relecture ligne à ligne",
+     "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+    }
+   },
+   "exemples": []
+  },
+  {
+   "id": "吕",
+   "genre": "caractere",
+   "hanzi": "吕",
+   "pinyin": "lǚ",
+   "sens": {
+    "glose": "nom de famille",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "nom de famille"
+     }
+    ],
+    "statut": "relu",
+    "relecture": {
+     "date": "2026-09-30",
+     "par": "décision du propriétaire",
+     "mode": "sans relecture ligne à ligne",
+     "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+    }
+   },
+   "exemples": []
+  },
+  {
+   "id": "孟",
+   "genre": "caractere",
+   "hanzi": "孟",
+   "pinyin": "mèng",
+   "sens": {
+    "glose": "nom de famille ; aîné",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "nom de famille (celui de Mencius)"
+     },
+     {
+      "categorie": "Adj",
+      "fr": "aîné ; premier mois d'une saison (ancien)"
+     }
+    ],
+    "statut": "relu",
+    "relecture": {
+     "date": "2026-09-30",
+     "par": "décision du propriétaire",
+     "mode": "sans relecture ligne à ligne",
+     "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+    }
+   },
+   "exemples": []
+  },
+  {
+   "id": "欧",
+   "genre": "caractere",
+   "hanzi": "欧",
+   "pinyin": "ōu",
+   "sens": {
+    "glose": "Europe (abréviation)",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "Europe (abréviation)"
+     },
+     {
+      "categorie": "N",
+      "fr": "nom de famille"
+     }
+    ],
+    "statut": "relu",
+    "relecture": {
+     "date": "2026-09-30",
+     "par": "décision du propriétaire",
+     "mode": "sans relecture ligne à ligne",
+     "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+    }
+   },
+   "exemples": []
+  },
+  {
+   "id": "潘",
+   "genre": "caractere",
+   "hanzi": "潘",
+   "pinyin": "pān",
+   "sens": {
+    "glose": "nom de famille",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "nom de famille"
+     }
+    ],
+    "statut": "relu",
+    "relecture": {
+     "date": "2026-09-30",
+     "par": "décision du propriétaire",
+     "mode": "sans relecture ligne à ligne",
+     "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+    }
+   },
+   "exemples": []
+  },
+  {
+   "id": "浦",
+   "genre": "caractere",
+   "hanzi": "浦",
+   "pinyin": "pǔ",
+   "sens": {
+    "glose": "rive, bord de l'eau",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "rive, bord de l'eau, embouchure"
+     }
+    ],
+    "statut": "relu",
+    "relecture": {
+     "date": "2026-09-30",
+     "par": "décision du propriétaire",
+     "mode": "sans relecture ligne à ligne",
+     "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+    }
+   },
+   "exemples": []
+  },
+  {
+   "id": "秦",
+   "genre": "caractere",
+   "hanzi": "秦",
+   "pinyin": "qín",
+   "sens": {
+    "glose": "Qin (dynastie) ; Shaanxi",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "Qin (dynastie, État ancien)"
+     },
+     {
+      "categorie": "N",
+      "fr": "Shaanxi (abréviation) ; nom de famille"
+     }
+    ],
+    "statut": "relu",
+    "relecture": {
+     "date": "2026-09-30",
+     "par": "décision du propriétaire",
+     "mode": "sans relecture ligne à ligne",
+     "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+    }
+   },
+   "exemples": []
+  },
+  {
+   "id": "蜀",
+   "genre": "caractere",
+   "hanzi": "蜀",
+   "pinyin": "shǔ",
+   "sens": {
+    "glose": "Sichuan (abréviation) ; Shu",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "Sichuan (abréviation)"
+     },
+     {
+      "categorie": "N",
+      "fr": "Shu (royaume ancien)"
+     }
+    ],
+    "statut": "relu",
+    "relecture": {
+     "date": "2026-09-30",
+     "par": "décision du propriétaire",
+     "mode": "sans relecture ligne à ligne",
+     "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+    }
+   },
+   "exemples": []
+  },
+  {
+   "id": "宋",
+   "genre": "caractere",
+   "hanzi": "宋",
+   "pinyin": "sòng",
+   "sens": {
+    "glose": "Song (dynastie) ; nom de famille",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "Song (dynastie)"
+     },
+     {
+      "categorie": "N",
+      "fr": "nom de famille"
+     }
+    ],
+    "statut": "relu",
+    "relecture": {
+     "date": "2026-09-30",
+     "par": "décision du propriétaire",
+     "mode": "sans relecture ligne à ligne",
+     "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+    }
+   },
+   "exemples": []
+  },
+  {
+   "id": "唐",
+   "genre": "caractere",
+   "hanzi": "唐",
+   "pinyin": "táng",
+   "sens": {
+    "glose": "Tang (dynastie) ; nom de famille",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "Tang (dynastie)"
+     },
+     {
+      "categorie": "N",
+      "fr": "nom de famille"
+     }
+    ],
+    "statut": "relu",
+    "relecture": {
+     "date": "2026-09-30",
+     "par": "décision du propriétaire",
+     "mode": "sans relecture ligne à ligne",
+     "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+    }
+   },
+   "exemples": []
+  },
+  {
+   "id": "魏",
+   "genre": "caractere",
+   "hanzi": "魏",
+   "pinyin": "wèi",
+   "sens": {
+    "glose": "Wei (royaume) ; nom de famille",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "Wei (royaume ancien)"
+     },
+     {
+      "categorie": "N",
+      "fr": "nom de famille"
+     }
+    ],
+    "statut": "relu",
+    "relecture": {
+     "date": "2026-09-30",
+     "par": "décision du propriétaire",
+     "mode": "sans relecture ligne à ligne",
+     "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+    }
+   },
+   "exemples": []
+  },
+  {
+   "id": "吴",
+   "genre": "caractere",
+   "hanzi": "吴",
+   "pinyin": "wú",
+   "sens": {
+    "glose": "Wu (royaume) ; nom de famille",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "Wu (royaume ancien, région de Suzhou)"
+     },
+     {
+      "categorie": "N",
+      "fr": "nom de famille"
+     }
+    ],
+    "statut": "relu",
+    "relecture": {
+     "date": "2026-09-30",
+     "par": "décision du propriétaire",
+     "mode": "sans relecture ligne à ligne",
+     "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+    }
+   },
+   "exemples": []
+  },
+  {
+   "id": "渝",
+   "genre": "caractere",
+   "hanzi": "渝",
+   "pinyin": "yú",
+   "sens": {
+    "glose": "Chongqing (abréviation) ; changer",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "Chongqing (abréviation)"
+     },
+     {
+      "categorie": "V",
+      "fr": "changer (d'attitude, de sentiment)"
+     }
+    ],
+    "statut": "relu",
+    "relecture": {
+     "date": "2026-09-30",
+     "par": "décision du propriétaire",
+     "mode": "sans relecture ligne à ligne",
+     "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+    }
+   },
+   "exemples": []
+  },
+  {
+   "id": "袁",
+   "genre": "caractere",
+   "hanzi": "袁",
+   "pinyin": "yuán",
+   "sens": {
+    "glose": "nom de famille",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "nom de famille"
+     }
+    ],
+    "statut": "relu",
+    "relecture": {
+     "date": "2026-09-30",
+     "par": "décision du propriétaire",
+     "mode": "sans relecture ligne à ligne",
+     "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+    }
+   },
+   "exemples": []
+  },
+  {
+   "id": "粤",
+   "genre": "caractere",
+   "hanzi": "粤",
+   "pinyin": "yuè",
+   "sens": {
+    "glose": "Guangdong (abréviation) ; cantonais",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "Guangdong (abréviation) ; cantonais"
+     }
+    ],
+    "statut": "relu",
+    "relecture": {
+     "date": "2026-09-30",
+     "par": "décision du propriétaire",
+     "mode": "sans relecture ligne à ligne",
+     "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+    }
+   },
+   "exemples": []
+  },
+  {
+   "id": "赵",
+   "genre": "caractere",
+   "hanzi": "赵",
+   "pinyin": "zhào",
+   "sens": {
+    "glose": "nom de famille ; Zhao (État)",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "nom de famille"
+     },
+     {
+      "categorie": "N",
+      "fr": "Zhao (État ancien)"
+     }
+    ],
+    "statut": "relu",
+    "relecture": {
+     "date": "2026-09-30",
+     "par": "décision du propriétaire",
+     "mode": "sans relecture ligne à ligne",
+     "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+    }
+   },
+   "exemples": []
+  },
+  {
+   "id": "浙",
+   "genre": "caractere",
+   "hanzi": "浙",
+   "pinyin": "zhè",
+   "sens": {
+    "glose": "Zhejiang (abréviation)",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "Zhejiang (abréviation)"
+     }
+    ],
+    "statut": "relu",
+    "relecture": {
+     "date": "2026-09-30",
+     "par": "décision du propriétaire",
+     "mode": "sans relecture ligne à ligne",
+     "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+    }
+   },
+   "exemples": []
+  },
+  {
+   "id": "州",
+   "genre": "caractere",
+   "hanzi": "州",
+   "pinyin": "zhōu",
+   "sens": {
+    "glose": "préfecture ; État (fédéral)",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "préfecture, circonscription (ancien)"
+     },
+     {
+      "categorie": "N",
+      "fr": "État (d'une fédération)"
+     }
+    ],
+    "statut": "relu",
+    "relecture": {
+     "date": "2026-09-30",
+     "par": "décision du propriétaire",
+     "mode": "sans relecture ligne à ligne",
+     "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+    }
+   },
+   "exemples": []
+  },
+  {
+   "id": "洲",
+   "genre": "caractere",
+   "hanzi": "洲",
+   "pinyin": "zhōu",
+   "sens": {
+    "glose": "continent ; îlot",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "continent"
+     },
+     {
+      "categorie": "N",
+      "fr": "îlot, banc de sable"
+     }
+    ],
+    "statut": "relu",
+    "relecture": {
+     "date": "2026-09-30",
+     "par": "décision du propriétaire",
+     "mode": "sans relecture ligne à ligne",
+     "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+    }
+   },
+   "exemples": []
+  }
+ ]
+}
