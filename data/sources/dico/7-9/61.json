@@ -1,0 +1,1358 @@
+{
+ "niveau": "7-9",
+ "lot": "61",
+ "source": "rédigé pour l'app dans le pipeline wenlu, sans API ; faits lus : liste HSK 3.0 (forme, pinyin, niveau, catégorie), lectures d'Unihan et des surcharges, gloses relues des fiches",
+ "brouillon": "data/sources/dico-brouillons/7-9/61.json",
+ "generation": {
+  "modele": "rédaction manuelle",
+  "api": "session Claude Code (sans API)",
+  "date": "2026-09-30",
+  "empreinte_invite": "sha256:9033b09ac7720248984c9327efe82b890bbe7a3caff050ec1cb420c1bc2b3e8b",
+  "contexte": "wenlu dico contexte 7-9 61",
+  "essais": 1,
+  "refus": []
+ },
+ "entrees": [
+  {
+   "id": "L7-2592",
+   "genre": "mot",
+   "hanzi": "立足",
+   "pinyin": "lìzú",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "prendre pied, s'établir ; se fonder sur",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "prendre pied, s'établir"
+     },
+     {
+      "categorie": "V",
+      "fr": "se fonder sur, partir de"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他终于在这个城市立足了。",
+     "pinyin": "Tā zhōngyú zài zhège chéngshì lìzú le.",
+     "fr": "Il a enfin réussi à s'installer dans cette ville.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2593",
+   "genre": "mot",
+   "hanzi": "励志",
+   "pinyin": "lìzhì",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "motiver, inspirer",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "motiver, encourager à se dépasser"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这是一部很励志的电影。",
+     "pinyin": "Zhè shì yī bù hěn lìzhì de diànyǐng.",
+     "fr": "C'est un film très inspirant.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2594",
+   "genre": "mot",
+   "hanzi": "利害",
+   "pinyin": "lìhài",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "intérêts, enjeux",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "intérêts, enjeux, avantages et inconvénients"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这件事关系到大家的利害。",
+     "pinyin": "Zhè jiàn shì guānxi dào dàjiā de lìhài.",
+     "fr": "Cette affaire touche aux intérêts de tous.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2595",
+   "genre": "mot",
+   "hanzi": "利率",
+   "pinyin": "lìlǜ",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "taux d'intérêt",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "taux d'intérêt"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "银行提高了存款利率。",
+     "pinyin": "Yínháng tígāo le cúnkuǎn lìlǜ.",
+     "fr": "La banque a relevé la rémunération de l'épargne.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2596",
+   "genre": "mot",
+   "hanzi": "利索",
+   "pinyin": "lìsuo",
+   "categories": [
+    "Adj"
+   ],
+   "sens": {
+    "glose": "agile, efficace ; net, en ordre",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "agile, vif, efficace"
+     },
+     {
+      "categorie": "Adj",
+      "fr": "net, soigné, bien rangé"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "她做事又快又利索。",
+     "pinyin": "Tā zuòshì yòu kuài yòu lìsuo.",
+     "fr": "Elle travaille vite et bien.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "粒",
+   "genre": "caractere",
+   "hanzi": "粒",
+   "pinyin": "lì",
+   "mots": [
+    "L7-2597"
+   ],
+   "sens": {
+    "glose": "grain ; classificateur des petits objets",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "grain, granule"
+     },
+     {
+      "categorie": "M",
+      "fr": "classificateur des petits objets ronds (grain, comprimé)"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他每天吃两粒药。",
+     "pinyin": "Tā měi tiān chī liǎng lì yào.",
+     "fr": "Il prend deux comprimés par jour.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2598",
+   "genre": "mot",
+   "hanzi": "连滚带爬",
+   "pinyin": "liángǔn-dàipá",
+   "sens": {
+    "glose": "en rampant et roulant, en toute hâte",
+    "acceptions": [
+     {
+      "categorie": "Adv",
+      "fr": "en roulant et rampant, précipitamment (dans la panique)"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "看到狗追过来，他连滚带爬地跑了。",
+     "pinyin": "Kàndào gǒu zhuī guòlai, tā liángǔn-dàipá de pǎo le.",
+     "fr": "En voyant le chien le poursuivre, il a détalé à toutes jambes.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2599",
+   "genre": "mot",
+   "hanzi": "连绵",
+   "pinyin": "liánmián",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "s'étendre sans interruption",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "s'étendre sans interruption, se succéder"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这里群山连绵，风景很美。",
+     "pinyin": "Zhèli qúnshān liánmián, fēngjǐng hěn měi.",
+     "fr": "Ici, les montagnes se succèdent à perte de vue ; le paysage est superbe.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2600",
+   "genre": "mot",
+   "hanzi": "连任",
+   "pinyin": "liánrèn",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "être réélu",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "être réélu, rester en fonction pour un nouveau mandat"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他连任了两届市长。",
+     "pinyin": "Tā liánrèn le liǎng jiè shìzhǎng.",
+     "fr": "Il a été maire deux mandats de suite.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2601",
+   "genre": "mot",
+   "hanzi": "连锁",
+   "pinyin": "liánsuǒ",
+   "categories": [
+    "Adj"
+   ],
+   "sens": {
+    "glose": "en chaîne ; en réseau (magasins)",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "en chaîne, en série ; en réseau (magasins)"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这件事引起了一系列连锁反应。",
+     "pinyin": "Zhè jiàn shì yǐnqǐ le yī xìliè liánsuǒ fǎnyìng.",
+     "fr": "Cette affaire a déclenché une série de réactions en chaîne.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2602",
+   "genre": "mot",
+   "hanzi": "连锁店",
+   "pinyin": "liánsuǒdiàn",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "magasin d'une chaîne",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "magasin d'une chaîne, franchise"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这家咖啡店在全国有三百家连锁店。",
+     "pinyin": "Zhè jiā kāfēidiàn zài quánguó yǒu sānbǎi jiā liánsuǒdiàn.",
+     "fr": "Cette enseigne de cafés compte trois cents points de vente dans le pays.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2603",
+   "genre": "mot",
+   "hanzi": "连夜",
+   "pinyin": "liányè",
+   "categories": [
+    "Adv"
+   ],
+   "sens": {
+    "glose": "la nuit même, pendant la nuit",
+    "acceptions": [
+     {
+      "categorie": "Adv",
+      "fr": "la nuit même, toute la nuit"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "接到电话，他连夜赶回了家。",
+     "pinyin": "Jiēdào diànhuà, tā liányè gǎn huí le jiā.",
+     "fr": "Dès l'appel reçu, il est rentré chez lui dans la nuit.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2604",
+   "genre": "mot",
+   "hanzi": "怜惜",
+   "pinyin": "liánxī",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "avoir pitié, chérir",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "avoir pitié de, chérir, prendre soin de"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "老人很怜惜这个没有父母的孩子。",
+     "pinyin": "Lǎorén hěn liánxī zhège méiyǒu fùmǔ de háizi.",
+     "fr": "Le vieil homme éprouve beaucoup de tendresse pour cet orphelin.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2605",
+   "genre": "mot",
+   "hanzi": "帘子",
+   "pinyin": "liánzi",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "rideau, store",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "rideau, store"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "她拉开帘子，阳光照了进来。",
+     "pinyin": "Tā lā kāi liánzi, yángguāng zhào le jìnlai.",
+     "fr": "Elle a tiré le rideau et le soleil est entré.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "莲",
+   "genre": "caractere",
+   "hanzi": "莲",
+   "pinyin": "lián",
+   "sens": {
+    "glose": "lotus",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "lotus"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "湖里开满了莲花。",
+     "pinyin": "Hú li kāi mǎn le liánhuā.",
+     "fr": "Le lac est couvert de lotus en fleur.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2606",
+   "genre": "mot",
+   "hanzi": "莲子",
+   "pinyin": "liánzǐ",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "graine de lotus",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "graine de lotus"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "她用莲子做了一碗甜汤。",
+     "pinyin": "Tā yòng liánzǐ zuò le yī wǎn tiántāng.",
+     "fr": "Elle a préparé une soupe sucrée aux graines de lotus.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "邦",
+   "genre": "caractere",
+   "hanzi": "邦",
+   "pinyin": "bāng",
+   "sens": {
+    "glose": "pays, État",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "pays, État, nation"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "两国是友好邻邦。",
+     "pinyin": "Liǎng guó shì yǒuhǎo línbāng.",
+     "fr": "Les deux pays sont des voisins amis.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2607",
+   "genre": "mot",
+   "hanzi": "联邦",
+   "pinyin": "liánbāng",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "fédération",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "fédération, État fédéral"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "德国是一个联邦国家。",
+     "pinyin": "Déguó shì yī ge liánbāng guójiā.",
+     "fr": "L'Allemagne est un État fédéral.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2608",
+   "genre": "mot",
+   "hanzi": "联欢",
+   "pinyin": "liánhuān",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "fêter ensemble",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "fêter ensemble, organiser une soirée festive"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "新年前，公司举行了联欢晚会。",
+     "pinyin": "Xīnnián qián, gōngsī jǔxíng le liánhuān wǎnhuì.",
+     "fr": "Avant le Nouvel An, l'entreprise a organisé une fête.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2609",
+   "genre": "mot",
+   "hanzi": "联网",
+   "pinyin": "liánwǎng",
+   "sens": {
+    "glose": "mettre en réseau, se connecter",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "mettre en réseau, se connecter"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这台电脑还没联网。",
+     "pinyin": "Zhè tái diànnǎo hái méi liánwǎng.",
+     "fr": "Cet ordinateur n'est pas encore connecté.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "廉",
+   "genre": "caractere",
+   "hanzi": "廉",
+   "pinyin": "lián",
+   "sens": {
+    "glose": "honnête, intègre ; bon marché",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "honnête, intègre"
+     },
+     {
+      "categorie": "Adj",
+      "fr": "bon marché, peu coûteux"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这家店的东西物美价廉。",
+     "pinyin": "Zhè jiā diàn de dōngxi wùměi-jiàlián.",
+     "fr": "Dans cette boutique, les articles sont bons et pas chers.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2610",
+   "genre": "mot",
+   "hanzi": "廉价",
+   "pinyin": "liánjià",
+   "categories": [
+    "Adj"
+   ],
+   "sens": {
+    "glose": "bon marché, à bas prix",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "bon marché, à bas prix"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这些都是廉价商品。",
+     "pinyin": "Zhèxiē dōu shì liánjià shāngpǐn.",
+     "fr": "Ce sont tous des articles à petit prix.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2611",
+   "genre": "mot",
+   "hanzi": "廉洁",
+   "pinyin": "liánjié",
+   "categories": [
+    "Adj"
+   ],
+   "sens": {
+    "glose": "intègre, incorruptible",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "intègre, incorruptible"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他是一位廉洁的官员。",
+     "pinyin": "Tā shì yī wèi liánjié de guānyuán.",
+     "fr": "C'est un fonctionnaire incorruptible.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2612",
+   "genre": "mot",
+   "hanzi": "廉正",
+   "pinyin": "liánzhèng",
+   "categories": [
+    "Adj"
+   ],
+   "sens": {
+    "glose": "intègre et droit",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "intègre et droit"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这位法官一生廉正。",
+     "pinyin": "Zhè wèi fǎguān yīshēng liánzhèng.",
+     "fr": "Ce juge a été intègre toute sa vie.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2613",
+   "genre": "mot",
+   "hanzi": "廉政",
+   "pinyin": "liánzhèng",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "gouverner avec intégrité",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "gouverner avec intégrité, lutter contre la corruption"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "政府要加强廉政建设。",
+     "pinyin": "Zhèngfǔ yào jiāqiáng liánzhèng jiànshè.",
+     "fr": "Le gouvernement doit renforcer la probité de l'administration.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "颊",
+   "genre": "caractere",
+   "hanzi": "颊",
+   "pinyin": "jiá",
+   "sens": {
+    "glose": "joue",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "joue"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "泪水流过她的面颊。",
+     "pinyin": "Lèishuǐ liú guò tā de miànjiá.",
+     "fr": "Les larmes coulent sur ses joues.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2614",
+   "genre": "mot",
+   "hanzi": "脸颊",
+   "pinyin": "liǎnjiá",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "joue",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "joue"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "小女孩的脸颊红红的。",
+     "pinyin": "Xiǎo nǚhái de liǎnjiá hónghóng de.",
+     "fr": "La fillette a les pommettes toutes rouges.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2616",
+   "genre": "mot",
+   "hanzi": "恋恋不舍",
+   "pinyin": "liànliàn-bùshě",
+   "sens": {
+    "glose": "ne pas pouvoir se résoudre à partir",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "qui a du mal à se séparer, plein de regrets au départ"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "离开家乡时，他恋恋不舍。",
+     "pinyin": "Líkāi jiāxiāng shí, tā liànliàn-bùshě.",
+     "fr": "En quittant son village natal, il avait le cœur gros.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2618",
+   "genre": "mot",
+   "hanzi": "良心",
+   "pinyin": "liángxīn",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "conscience (morale)",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "conscience (morale)"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "做这种事，你的良心不会不安吗？",
+     "pinyin": "Zuò zhè zhǒng shì, nǐ de liángxīn bù huì bù'ān ma?",
+     "fr": "Faire une chose pareille, ça ne te pèse pas sur la conscience ?",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2619",
+   "genre": "mot",
+   "hanzi": "良性",
+   "pinyin": "liángxìng",
+   "categories": [
+    "Adj"
+   ],
+   "sens": {
+    "glose": "bénin ; vertueux",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "bénin (tumeur)"
+     },
+     {
+      "categorie": "Adj",
+      "fr": "vertueux, favorable (cercle)"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "医生说那是一个良性肿瘤。",
+     "pinyin": "Yīshēng shuō nà shì yī ge liángxìng zhǒngliú.",
+     "fr": "Le médecin a dit que la tumeur était bénigne.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2620",
+   "genre": "mot",
+   "hanzi": "凉爽",
+   "pinyin": "liángshuǎng",
+   "categories": [
+    "Adj"
+   ],
+   "sens": {
+    "glose": "frais et agréable",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "frais et agréable"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "秋天的天气很凉爽。",
+     "pinyin": "Qiūtiān de tiānqì hěn liángshuǎng.",
+     "fr": "En automne, il fait bon et frais.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2621",
+   "genre": "mot",
+   "hanzi": "两口子",
+   "pinyin": "liǎngkǒuzi",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "le couple, mari et femme",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "le couple, mari et femme"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他们两口子感情很好。",
+     "pinyin": "Tāmen liǎngkǒuzi gǎnqíng hěn hǎo.",
+     "fr": "Ce couple s'entend très bien.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "栖",
+   "genre": "caractere",
+   "hanzi": "栖",
+   "pinyin": "qī",
+   "sens": {
+    "glose": "percher ; demeurer",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "percher, se poser (oiseau) ; demeurer"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "树上栖息着很多鸟。",
+     "pinyin": "Shù shang qīxī zhe hěn duō niǎo.",
+     "fr": "Beaucoup d'oiseaux se sont perchés dans l'arbre.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2622",
+   "genre": "mot",
+   "hanzi": "两栖",
+   "pinyin": "liǎngqī",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "amphibie ; double activité",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "être amphibie ; mener deux activités de front"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "青蛙是两栖动物。",
+     "pinyin": "Qīngwā shì liǎngqī dòngwù.",
+     "fr": "La grenouille est un amphibien.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2623",
+   "genre": "mot",
+   "hanzi": "亮点",
+   "pinyin": "liàngdiǎn",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "point fort, temps fort",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "point fort, temps fort, attrait principal"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这场演出的亮点是最后一个节目。",
+     "pinyin": "Zhè chǎng yǎnchū de liàngdiǎn shì zuìhòu yī ge jiémù.",
+     "fr": "Le clou du spectacle, c'est le dernier numéro.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2624",
+   "genre": "mot",
+   "hanzi": "亮丽",
+   "pinyin": "liànglì",
+   "categories": [
+    "Adj"
+   ],
+   "sens": {
+    "glose": "lumineux et beau, éclatant",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "lumineux et beau, éclatant"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "城市的夜景十分亮丽。",
+     "pinyin": "Chéngshì de yèjǐng shífēn liànglì.",
+     "fr": "La ville est splendide la nuit.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2625",
+   "genre": "mot",
+   "hanzi": "亮相",
+   "pinyin": "liàngxiàng",
+   "sens": {
+    "glose": "se montrer, faire son apparition",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "faire son apparition, se montrer en public ; présenter"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这款新车下个月正式亮相。",
+     "pinyin": "Zhè kuǎn xīn chē xià ge yuè zhèngshì liàngxiàng.",
+     "fr": "Ce nouveau modèle de voiture sera dévoilé le mois prochain.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2626",
+   "genre": "mot",
+   "hanzi": "谅解",
+   "pinyin": "liàngjiě",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "comprendre, pardonner",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "comprendre, pardonner, faire preuve d'indulgence"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "我迟到了，请你谅解。",
+     "pinyin": "Wǒ chídào le, qǐng nǐ liàngjiě.",
+     "fr": "Je suis en retard, j'espère que tu ne m'en voudras pas.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "辽",
+   "genre": "caractere",
+   "hanzi": "辽",
+   "pinyin": "liáo",
+   "sens": {
+    "glose": "lointain, vaste",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "lointain, vaste"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "辽宁省在中国的东北。",
+     "pinyin": "Liáoníng Shěng zài Zhōngguó de dōngběi.",
+     "fr": "La province du Liaoning se trouve dans le nord-est de la Chine.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2627",
+   "genre": "mot",
+   "hanzi": "辽阔",
+   "pinyin": "liáokuò",
+   "categories": [
+    "Adj"
+   ],
+   "sens": {
+    "glose": "vaste, immense",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "vaste, immense, étendu"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "中国的土地辽阔。",
+     "pinyin": "Zhōngguó de tǔdì liáokuò.",
+     "fr": "La Chine s'étend sur un immense territoire.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2628",
+   "genre": "mot",
+   "hanzi": "疗法",
+   "pinyin": "liáofǎ",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "thérapie, traitement",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "thérapie, méthode de traitement"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "医生给他试了一种新疗法。",
+     "pinyin": "Yīshēng gěi tā shì le yī zhǒng xīn liáofǎ.",
+     "fr": "Le médecin lui a fait essayer un nouveau traitement.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2629",
+   "genre": "mot",
+   "hanzi": "疗效",
+   "pinyin": "liáoxiào",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "effet thérapeutique",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "effet thérapeutique, efficacité d'un traitement"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这种药的疗效很好。",
+     "pinyin": "Zhè zhǒng yào de liáoxiào hěn hǎo.",
+     "fr": "Ce médicament soigne très bien.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "寥",
+   "genre": "caractere",
+   "hanzi": "寥",
+   "pinyin": "liáo",
+   "sens": {
+    "glose": "rare, clairsemé ; silencieux",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "rare, clairsemé, peu nombreux"
+     },
+     {
+      "categorie": "Adj",
+      "fr": "vide, silencieux"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他寥寥几句话就说清楚了。",
+     "pinyin": "Tā liáoliáo jǐ jù huà jiù shuō qīngchu le.",
+     "fr": "En quelques mots à peine, il a tout expliqué.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2630",
+   "genre": "mot",
+   "hanzi": "寥寥无几",
+   "pinyin": "liáoliáo-wújǐ",
+   "sens": {
+    "glose": "très peu, presque rien",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "très peu nombreux, qui se compte sur les doigts"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "晚上街上的人寥寥无几。",
+     "pinyin": "Wǎnshang jiē shang de rén liáoliáo-wújǐ.",
+     "fr": "Le soir, on ne croise presque personne dans la rue.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "潦",
+   "genre": "caractere",
+   "hanzi": "潦",
+   "pinyin": "liáo",
+   "sens": {
+    "glose": "négligé, bâclé ; déchu",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "négligé, bâclé (écriture)"
+     },
+     {
+      "categorie": "Adj",
+      "fr": "déchu, misérable (en composé)"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他晚年穷困潦倒。",
+     "pinyin": "Tā wǎnnián qióngkùn liáodǎo.",
+     "fr": "Il a fini ses jours dans la misère.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2631",
+   "genre": "mot",
+   "hanzi": "潦草",
+   "pinyin": "liáocǎo",
+   "categories": [
+    "Adj"
+   ],
+   "sens": {
+    "glose": "griffonné, bâclé",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "griffonné, bâclé, illisible (écriture)"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他的字写得太潦草了，我看不懂。",
+     "pinyin": "Tā de zì xiě de tài liáocǎo le, wǒ kàn bù dǒng.",
+     "fr": "Il écrit de manière si brouillonne que je n'arrive pas à le lire.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2632",
+   "genre": "mot",
+   "hanzi": "了结",
+   "pinyin": "liǎojié",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "régler, en finir avec",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "régler, clore, en finir avec"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这件事终于了结了。",
+     "pinyin": "Zhè jiàn shì zhōngyú liǎojié le.",
+     "fr": "Cette affaire est enfin réglée.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2633",
+   "genre": "mot",
+   "hanzi": "了却",
+   "pinyin": "liǎoquè",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "réaliser (un souhait), en finir",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "réaliser (un souhait), régler, se débarrasser de"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他终于了却了多年的心愿。",
+     "pinyin": "Tā zhōngyú liǎoquè le duō nián de xīnyuàn.",
+     "fr": "Il a enfin réalisé un rêve de longue date.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2634",
+   "genre": "mot",
+   "hanzi": "料到",
+   "pinyin": "liàodào",
+   "sens": {
+    "glose": "prévoir, s'attendre à",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "prévoir, s'attendre à"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "我没料到他会来。",
+     "pinyin": "Wǒ méi liàodào tā huì lái.",
+     "fr": "Je ne m'attendais pas à ce qu'il vienne.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2635",
+   "genre": "mot",
+   "hanzi": "料理",
+   "pinyin": "liàolǐ",
+   "categories": [
+    "V",
+    "N"
+   ],
+   "sens": {
+    "glose": "s'occuper de ; cuisine (japonaise)",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "s'occuper de, gérer, prendre en charge"
+     },
+     {
+      "categorie": "N",
+      "fr": "cuisine, plats (en particulier japonais)"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "我们去吃日本料理吧。",
+     "pinyin": "Wǒmen qù chī Rìběn liàolǐ ba.",
+     "fr": "Allons manger japonais.",
+     "statut": "a_relire"
+    }
+   ]
+  }
+ ]
+}

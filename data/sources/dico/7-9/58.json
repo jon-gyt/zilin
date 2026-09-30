@@ -1,0 +1,1382 @@
+{
+ "niveau": "7-9",
+ "lot": "58",
+ "source": "rédigé pour l'app dans le pipeline wenlu, sans API ; faits lus : liste HSK 3.0 (forme, pinyin, niveau, catégorie), lectures d'Unihan et des surcharges, gloses relues des fiches",
+ "brouillon": "data/sources/dico-brouillons/7-9/58.json",
+ "generation": {
+  "modele": "rédaction manuelle",
+  "api": "session Claude Code (sans API)",
+  "date": "2026-09-30",
+  "empreinte_invite": "sha256:5d7345213438a19bb013f5ebbc7da5df7b2560405e30e91216ac4853b4b24876",
+  "contexte": "wenlu dico contexte 7-9 58",
+  "essais": 1,
+  "refus": []
+ },
+ "entrees": [
+  {
+   "id": "L7-2455",
+   "genre": "mot",
+   "hanzi": "夸奖",
+   "pinyin": "kuājiǎng",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "louer, féliciter",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "louer, féliciter, faire l'éloge de"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "老师夸奖他进步很快。",
+     "pinyin": "Lǎoshī kuājiǎng tā jìnbù hěn kuài.",
+     "fr": "Le professeur l'a félicité pour ses progrès rapides.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2456",
+   "genre": "mot",
+   "hanzi": "夸夸其谈",
+   "pinyin": "kuākuā-qítán",
+   "sens": {
+    "glose": "parler pour ne rien dire, pérorer",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "pérorer, faire de grands discours creux"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他只会夸夸其谈，从来不做实事。",
+     "pinyin": "Tā zhǐ huì kuākuā-qítán, cónglái bù zuò shíshì.",
+     "fr": "Il ne sait que faire de beaux discours, jamais rien de concret.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2457",
+   "genre": "mot",
+   "hanzi": "夸耀",
+   "pinyin": "kuāyào",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "se vanter, faire étalage de",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "se vanter de, faire étalage de"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他总是向别人夸耀自己的成绩。",
+     "pinyin": "Tā zǒngshì xiàng biérén kuāyào zìjǐ de chéngjì.",
+     "fr": "Il ne cesse de se vanter de ses résultats.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2458",
+   "genre": "mot",
+   "hanzi": "夸张",
+   "pinyin": "kuāzhāng",
+   "categories": [
+    "Adj",
+    "N"
+   ],
+   "sens": {
+    "glose": "exagéré, outré ; hyperbole",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "exagéré, outré, excessif"
+     },
+     {
+      "categorie": "N",
+      "fr": "hyperbole, exagération (figure de style)"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他说话太夸张了。",
+     "pinyin": "Tā shuōhuà tài kuāzhāng le.",
+     "fr": "Il exagère toujours quand il parle.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "垮",
+   "genre": "caractere",
+   "hanzi": "垮",
+   "pinyin": "kuǎ",
+   "mots": [
+    "L7-2459"
+   ],
+   "sens": {
+    "glose": "s'effondrer, s'écrouler",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "s'effondrer, s'écrouler ; être à bout"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "大雨把旧房子冲垮了。",
+     "pinyin": "Dàyǔ bǎ jiù fángzi chōng kuǎ le.",
+     "fr": "La pluie torrentielle a fait s'effondrer la vieille maison.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "挎",
+   "genre": "caractere",
+   "hanzi": "挎",
+   "pinyin": "kuà",
+   "mots": [
+    "L7-2460"
+   ],
+   "sens": {
+    "glose": "porter au bras, en bandoulière",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "porter au bras, à l'épaule, en bandoulière"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "她挎着一个包去上班。",
+     "pinyin": "Tā kuà zhe yī ge bāo qù shàngbān.",
+     "fr": "Elle part au travail, un sac à l'épaule.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2461",
+   "genre": "mot",
+   "hanzi": "跨国",
+   "pinyin": "kuàguó",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "transnational",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "dépasser les frontières, être transnational"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他在一家跨国公司工作。",
+     "pinyin": "Tā zài yī jiā kuàguó gōngsī gōngzuò.",
+     "fr": "Il travaille dans une multinationale.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2462",
+   "genre": "mot",
+   "hanzi": "跨越",
+   "pinyin": "kuàyuè",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "franchir, enjamber",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "franchir, enjamber, traverser"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这座大桥跨越了长江。",
+     "pinyin": "Zhè zuò dà qiáo kuàyuè le Cháng Jiāng.",
+     "fr": "Ce grand pont franchit le Yangtsé.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2463",
+   "genre": "mot",
+   "hanzi": "快捷",
+   "pinyin": "kuàijié",
+   "categories": [
+    "Adj"
+   ],
+   "sens": {
+    "glose": "rapide et commode",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "rapide et commode"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "网上购物很快捷。",
+     "pinyin": "Wǎngshang gòuwù hěn kuàijié.",
+     "fr": "Faire ses achats en ligne est rapide et pratique.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2464",
+   "genre": "mot",
+   "hanzi": "宽敞",
+   "pinyin": "kuānchang",
+   "categories": [
+    "Adj"
+   ],
+   "sens": {
+    "glose": "spacieux",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "spacieux, vaste"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他们的新家又明亮又宽敞。",
+     "pinyin": "Tāmen de xīn jiā yòu míngliàng yòu kuānchang.",
+     "fr": "Leur nouveau logement est lumineux et spacieux.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2465",
+   "genre": "mot",
+   "hanzi": "宽泛",
+   "pinyin": "kuānfàn",
+   "categories": [
+    "Adj"
+   ],
+   "sens": {
+    "glose": "large, vague (sens)",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "large, vague, étendu (sens, sujet)"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这个题目太宽泛了。",
+     "pinyin": "Zhège tímù tài kuānfàn le.",
+     "fr": "Ce sujet est trop vaste.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2466",
+   "genre": "mot",
+   "hanzi": "宽厚",
+   "pinyin": "kuānhòu",
+   "categories": [
+    "Adj"
+   ],
+   "sens": {
+    "glose": "bienveillant, indulgent",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "bienveillant, indulgent, généreux"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "爷爷待人很宽厚。",
+     "pinyin": "Yéye dài rén hěn kuānhòu.",
+     "fr": "Grand-père est très bienveillant envers les autres.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2467",
+   "genre": "mot",
+   "hanzi": "宽容",
+   "pinyin": "kuānróng",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "être tolérant, indulgent",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "être tolérant, être indulgent envers"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "我们要学会宽容别人的错误。",
+     "pinyin": "Wǒmen yào xuéhuì kuānróng biérén de cuòwù.",
+     "fr": "Il faut apprendre à pardonner les erreurs des autres.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "恕",
+   "genre": "caractere",
+   "hanzi": "恕",
+   "pinyin": "shù",
+   "sens": {
+    "glose": "pardonner, excuser",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "pardonner, excuser"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "恕我直言，你这样做不对。",
+     "pinyin": "Shù wǒ zhíyán, nǐ zhèyàng zuò bù duì.",
+     "fr": "Pardonne ma franchise, mais tu as tort d'agir ainsi.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2468",
+   "genre": "mot",
+   "hanzi": "宽恕",
+   "pinyin": "kuānshù",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "pardonner",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "pardonner, absoudre"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "请你宽恕我的过错。",
+     "pinyin": "Qǐng nǐ kuānshù wǒ de guòcuò.",
+     "fr": "Je te prie de me pardonner ma faute.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2469",
+   "genre": "mot",
+   "hanzi": "宽松",
+   "pinyin": "kuānsong",
+   "categories": [
+    "Adj"
+   ],
+   "sens": {
+    "glose": "ample, lâche ; détendu ; aisé",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "ample, lâche (vêtement) ; peu contraignant"
+     },
+     {
+      "categorie": "Adj",
+      "fr": "aisé (financièrement)"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "我喜欢穿宽松的衣服。",
+     "pinyin": "Wǒ xǐhuan chuān kuānsong de yīfu.",
+     "fr": "J'aime porter des vêtements amples.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2470",
+   "genre": "mot",
+   "hanzi": "款式",
+   "pinyin": "kuǎnshì",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "modèle, style",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "modèle, style, design"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这件衣服的款式很新。",
+     "pinyin": "Zhè jiàn yīfu de kuǎnshì hěn xīn.",
+     "fr": "Ce vêtement est d'une coupe très moderne.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2471",
+   "genre": "mot",
+   "hanzi": "款项",
+   "pinyin": "kuǎnxiàng",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "somme, fonds",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "somme d'argent, fonds"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这笔款项已经打到你的账户上了。",
+     "pinyin": "Zhè bǐ kuǎnxiàng yǐjīng dǎ dào nǐ de zhànghù shang le.",
+     "fr": "Cette somme a déjà été virée sur ton compte.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "筐",
+   "genre": "caractere",
+   "hanzi": "筐",
+   "pinyin": "kuāng",
+   "mots": [
+    "L7-2472"
+   ],
+   "sens": {
+    "glose": "panier, corbeille",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "panier, corbeille"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "她提着一筐鸡蛋去市场。",
+     "pinyin": "Tā tí zhe yī kuāng jīdàn qù shìchǎng.",
+     "fr": "Elle va au marché avec un panier d'œufs.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2473",
+   "genre": "mot",
+   "hanzi": "狂欢",
+   "pinyin": "kuánghuān",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "faire la fête, festoyer",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "faire la fête, festoyer, célébrer dans la liesse"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "人们在广场上狂欢到深夜。",
+     "pinyin": "Rénmen zài guǎngchǎng shang kuánghuān dào shēnyè.",
+     "fr": "Les gens ont fait la fête sur la place jusque tard dans la nuit.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2474",
+   "genre": "mot",
+   "hanzi": "狂欢节",
+   "pinyin": "kuánghuānjié",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "carnaval",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "carnaval"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "很多游客来这里参加狂欢节。",
+     "pinyin": "Hěn duō yóukè lái zhèli cānjiā kuánghuānjié.",
+     "fr": "Beaucoup de touristes viennent ici pour le carnaval.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2475",
+   "genre": "mot",
+   "hanzi": "狂热",
+   "pinyin": "kuángrè",
+   "categories": [
+    "Adj"
+   ],
+   "sens": {
+    "glose": "fanatique, passionné",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "fanatique, passionné, fervent"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他是一个狂热的球迷。",
+     "pinyin": "Tā shì yī ge kuángrè de qiúmí.",
+     "fr": "C'est un supporter fanatique.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "旷",
+   "genre": "caractere",
+   "hanzi": "旷",
+   "pinyin": "kuàng",
+   "sens": {
+    "glose": "vaste, dégagé ; manquer (à)",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "vaste, dégagé, désert"
+     },
+     {
+      "categorie": "V",
+      "fr": "manquer (à), négliger"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这里的田野很空旷。",
+     "pinyin": "Zhèli de tiányě hěn kōngkuàng.",
+     "fr": "Ici, la campagne est vaste et dégagée.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2476",
+   "genre": "mot",
+   "hanzi": "旷课",
+   "pinyin": "kuàngkè",
+   "sens": {
+    "glose": "sécher un cours",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "sécher un cours, manquer la classe"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他因为旷课被老师批评了。",
+     "pinyin": "Tā yīnwèi kuàngkè bèi lǎoshī pīpíng le.",
+     "fr": "Il s'est fait réprimander pour avoir séché les cours.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2477",
+   "genre": "mot",
+   "hanzi": "况且",
+   "pinyin": "kuàngqiě",
+   "categories": [
+    "Conj"
+   ],
+   "sens": {
+    "glose": "de plus, d'ailleurs",
+    "acceptions": [
+     {
+      "categorie": "Conj",
+      "fr": "de plus, d'ailleurs, en outre"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "太晚了，况且外面还在下雨。",
+     "pinyin": "Tài wǎn le, kuàngqiě wàimian hái zài xià yǔ.",
+     "fr": "Il est trop tard, et puis il pleut encore dehors.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2478",
+   "genre": "mot",
+   "hanzi": "矿藏",
+   "pinyin": "kuàngcáng",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "ressources minérales, gisements",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "ressources minérales, gisements"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这个地区矿藏很丰富。",
+     "pinyin": "Zhège dìqū kuàngcáng hěn fēngfù.",
+     "fr": "Le sous-sol de cette région est très riche.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "框",
+   "genre": "caractere",
+   "hanzi": "框",
+   "pinyin": "kuàng",
+   "mots": [
+    "L7-2479"
+   ],
+   "sens": {
+    "glose": "cadre ; encadrer, entourer",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "cadre, châssis, encadrement"
+     },
+     {
+      "categorie": "V",
+      "fr": "encadrer, entourer ; limiter"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "请把正确答案用框框起来。",
+     "pinyin": "Qǐng bǎ zhèngquè dá'àn yòng kuàng kuàng qǐlai.",
+     "fr": "Encadrez la bonne réponse.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2480",
+   "genre": "mot",
+   "hanzi": "框架",
+   "pinyin": "kuàngjià",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "charpente, cadre, structure",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "charpente, cadre, structure"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这座楼的框架已经建好了。",
+     "pinyin": "Zhè zuò lóu de kuàngjià yǐjīng jiàn hǎo le.",
+     "fr": "La structure de ce bâtiment est déjà montée.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2481",
+   "genre": "mot",
+   "hanzi": "亏本",
+   "pinyin": "kuīběn",
+   "sens": {
+    "glose": "vendre à perte",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "perdre de l'argent, vendre à perte"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这笔生意他亏本了。",
+     "pinyin": "Zhè bǐ shēngyi tā kuīběn le.",
+     "fr": "Il a perdu de l'argent dans cette affaire.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2482",
+   "genre": "mot",
+   "hanzi": "亏损",
+   "pinyin": "kuīsǔn",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "être en déficit ; pertes",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "être en déficit, subir des pertes"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "公司去年亏损了很多钱。",
+     "pinyin": "Gōngsī qùnián kuīsǔn le hěn duō qián.",
+     "fr": "L'an dernier, l'entreprise a enregistré de lourdes pertes.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "昆",
+   "genre": "caractere",
+   "hanzi": "昆",
+   "pinyin": "kūn",
+   "sens": {
+    "glose": "insecte (en composé) ; noms de lieux",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "insecte (en composé)"
+     },
+     {
+      "categorie": "N",
+      "fr": "élément de noms propres (Kunming, Kunlun)"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这些昆虫很小。",
+     "pinyin": "Zhèxiē kūnchóng hěn xiǎo.",
+     "fr": "Ces insectes sont minuscules.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2483",
+   "genre": "mot",
+   "hanzi": "昆虫",
+   "pinyin": "kūnchóng",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "insecte",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "insecte"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他从小就喜欢研究昆虫。",
+     "pinyin": "Tā cóngxiǎo jiù xǐhuan yánjiū kūnchóng.",
+     "fr": "Depuis tout petit, il se passionne pour les insectes.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "捆",
+   "genre": "caractere",
+   "hanzi": "捆",
+   "pinyin": "kǔn",
+   "mots": [
+    "L7-2484"
+   ],
+   "sens": {
+    "glose": "lier, attacher ; botte, fagot",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "lier, attacher, ficeler"
+     },
+     {
+      "categorie": "M",
+      "fr": "botte, fagot, liasse"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他把旧报纸捆起来了。",
+     "pinyin": "Tā bǎ jiù bàozhǐ kǔn qǐlai le.",
+     "fr": "Il a ficelé les vieux journaux.",
+     "statut": "a_relire"
+    },
+    {
+     "zh": "地上放着一捆书。",
+     "pinyin": "Dì shang fàng zhe yī kǔn shū.",
+     "fr": "Il y a une pile de livres ficelés par terre.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "惑",
+   "genre": "caractere",
+   "hanzi": "惑",
+   "pinyin": "huò",
+   "sens": {
+    "glose": "doute, perplexité ; tromper",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "doute, perplexité"
+     },
+     {
+      "categorie": "V",
+      "fr": "tromper, égarer"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这件事让我很疑惑。",
+     "pinyin": "Zhè jiàn shì ràng wǒ hěn yíhuò.",
+     "fr": "Cette affaire me laisse perplexe.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2485",
+   "genre": "mot",
+   "hanzi": "困惑",
+   "pinyin": "kùnhuò",
+   "categories": [
+    "Adj",
+    "V"
+   ],
+   "sens": {
+    "glose": "perplexe ; déconcerter",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "perplexe, désorienté"
+     },
+     {
+      "categorie": "V",
+      "fr": "déconcerter, rendre perplexe"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他的回答让我很困惑。",
+     "pinyin": "Tā de huídá ràng wǒ hěn kùnhuò.",
+     "fr": "Sa réponse m'a laissé perplexe.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2486",
+   "genre": "mot",
+   "hanzi": "困境",
+   "pinyin": "kùnjìng",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "situation difficile, impasse",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "situation difficile, impasse, mauvaise passe"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "公司现在处于困境之中。",
+     "pinyin": "Gōngsī xiànzài chǔyú kùnjìng zhī zhōng.",
+     "fr": "L'entreprise traverse une mauvaise passe.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2488",
+   "genre": "mot",
+   "hanzi": "扩建",
+   "pinyin": "kuòjiàn",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "agrandir (un bâtiment)",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "agrandir, étendre (un bâtiment, une installation)"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "学校正在扩建图书馆。",
+     "pinyin": "Xuéxiào zhèngzài kuòjiàn túshūguǎn.",
+     "fr": "L'école agrandit sa bibliothèque.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2489",
+   "genre": "mot",
+   "hanzi": "扩散",
+   "pinyin": "kuòsàn",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "se propager, diffuser",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "se propager, se diffuser, s'étendre"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "病毒扩散得很快。",
+     "pinyin": "Bìngdú kuòsàn de hěn kuài.",
+     "fr": "Le virus se propage très vite.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2490",
+   "genre": "mot",
+   "hanzi": "扩张",
+   "pinyin": "kuòzhāng",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "étendre, s'agrandir",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "étendre, agrandir, se développer (territoire, pouvoir)"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这家公司正在向国外扩张。",
+     "pinyin": "Zhè jiā gōngsī zhèngzài xiàng guówài kuòzhāng.",
+     "fr": "Cette entreprise se développe à l'international.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "弧",
+   "genre": "caractere",
+   "hanzi": "弧",
+   "pinyin": "hú",
+   "sens": {
+    "glose": "arc (de cercle)",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "arc (de cercle), courbe"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "球在空中划出一道弧线。",
+     "pinyin": "Qiú zài kōngzhōng huá chū yī dào húxiàn.",
+     "fr": "Le ballon décrit une courbe dans les airs.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2491",
+   "genre": "mot",
+   "hanzi": "括弧",
+   "pinyin": "kuòhú",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "parenthèse",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "parenthèse"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "括弧里的字不用读。",
+     "pinyin": "Kuòhú li de zì bù yòng dú.",
+     "fr": "Les mots entre parenthèses ne se lisent pas.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2492",
+   "genre": "mot",
+   "hanzi": "阔绰",
+   "pinyin": "kuòchuò",
+   "categories": [
+    "Adj"
+   ],
+   "sens": {
+    "glose": "fastueux, dépensier",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "fastueux, qui dépense sans compter"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他花钱很阔绰。",
+     "pinyin": "Tā huā qián hěn kuòchuò.",
+     "fr": "Il dépense sans compter.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2493",
+   "genre": "mot",
+   "hanzi": "拉动",
+   "pinyin": "lādòng",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "stimuler, tirer (la croissance)",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "stimuler, tirer (la croissance, la consommation)"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "旅游业拉动了当地的经济。",
+     "pinyin": "Lǚyóuyè lādòng le dāngdì de jīngjì.",
+     "fr": "Le tourisme a dynamisé l'économie locale.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2494",
+   "genre": "mot",
+   "hanzi": "拉拢",
+   "pinyin": "lālong",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "rallier, s'attirer (les bonnes grâces)",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "rallier, gagner à sa cause, s'attirer les faveurs de"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他请客送礼，想拉拢领导。",
+     "pinyin": "Tā qǐngkè sònglǐ, xiǎng lālong lǐngdǎo.",
+     "fr": "Il multiplie invitations et cadeaux pour s'attirer les faveurs des chefs.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2495",
+   "genre": "mot",
+   "hanzi": "拉锁",
+   "pinyin": "lāsuǒ",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "fermeture éclair",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "fermeture éclair, zip"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "我的书包拉锁坏了。",
+     "pinyin": "Wǒ de shūbāo lāsuǒ huài le.",
+     "fr": "La fermeture éclair de mon cartable est cassée.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2496",
+   "genre": "mot",
+   "hanzi": "啦啦队",
+   "pinyin": "lālāduì",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "pom-pom girls, supporters",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "groupe de supporters, pom-pom girls"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "啦啦队在场边为球员加油。",
+     "pinyin": "Lālāduì zài chǎng biān wèi qiúyuán jiāyóu.",
+     "fr": "Au bord du terrain, les supporters encouragent les joueurs.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "喇",
+   "genre": "caractere",
+   "hanzi": "喇",
+   "pinyin": "lǎ",
+   "sens": {
+    "glose": "trompette (en composé)",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "trompette, klaxon (en composé)"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "汽车喇叭响个不停。",
+     "pinyin": "Qìchē lǎba xiǎng ge bù tíng.",
+     "fr": "Les klaxons des voitures n'arrêtent pas de retentir.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "叭",
+   "genre": "caractere",
+   "hanzi": "叭",
+   "pinyin": "bā",
+   "sens": {
+    "glose": "trompette ; onomatopée (bruit sec)",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "trompette (en composé)"
+     },
+     {
+      "categorie": "Phonetic",
+      "fr": "pan, clac (bruit sec)"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他按了一下喇叭。",
+     "pinyin": "Tā àn le yīxià lǎba.",
+     "fr": "Il a donné un coup de klaxon.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2497",
+   "genre": "mot",
+   "hanzi": "喇叭",
+   "pinyin": "lǎba",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "trompette ; haut-parleur ; klaxon",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "trompette ; haut-parleur ; klaxon"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "广场上的喇叭正在播放音乐。",
+     "pinyin": "Guǎngchǎng shang de lǎba zhèngzài bōfàng yīnyuè.",
+     "fr": "Les haut-parleurs de la place diffusent de la musique.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "腊",
+   "genre": "caractere",
+   "hanzi": "腊",
+   "pinyin": "là",
+   "sens": {
+    "glose": "douzième mois lunaire ; salaison",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "douzième mois du calendrier lunaire"
+     },
+     {
+      "categorie": "Adj",
+      "fr": "salé et séché (viande)"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "过年的时候家家都做腊肉。",
+     "pinyin": "Guònián de shíhou jiājiā dōu zuò làròu.",
+     "fr": "Pour le Nouvel An, chaque famille prépare de la viande salée.",
+     "statut": "a_relire"
+    }
+   ]
+  }
+ ]
+}

@@ -1,0 +1,1369 @@
+{
+ "niveau": "7-9",
+ "lot": "59",
+ "source": "rédigé pour l'app dans le pipeline wenlu, sans API ; faits lus : liste HSK 3.0 (forme, pinyin, niveau, catégorie), lectures d'Unihan et des surcharges, gloses relues des fiches",
+ "brouillon": "data/sources/dico-brouillons/7-9/59.json",
+ "generation": {
+  "modele": "rédaction manuelle",
+  "api": "session Claude Code (sans API)",
+  "date": "2026-09-30",
+  "empreinte_invite": "sha256:0ff0079079d31afb292a10e65798bc358f4a2145d20d7a0b73b0fa80f1151d16",
+  "contexte": "wenlu dico contexte 7-9 59",
+  "essais": 1,
+  "refus": []
+ },
+ "entrees": [
+  {
+   "id": "L7-2498",
+   "genre": "mot",
+   "hanzi": "腊月",
+   "pinyin": "làyuè",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "douzième mois lunaire",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "douzième mois du calendrier lunaire"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "腊月一到，大家就开始准备过年。",
+     "pinyin": "Làyuè yī dào, dàjiā jiù kāishǐ zhǔnbèi guònián.",
+     "fr": "Dès le douzième mois, tout le monde commence à préparer le Nouvel An.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "蜡",
+   "genre": "caractere",
+   "hanzi": "蜡",
+   "pinyin": "là",
+   "mots": [
+    "L7-2499"
+   ],
+   "sens": {
+    "glose": "cire ; bougie",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "cire"
+     },
+     {
+      "categorie": "N",
+      "fr": "bougie, chandelle"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "停电了，我们点了一支蜡。",
+     "pinyin": "Tíngdiàn le, wǒmen diǎn le yī zhī là.",
+     "fr": "Il y a eu une coupure de courant, nous avons allumé une chandelle.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "烛",
+   "genre": "caractere",
+   "hanzi": "烛",
+   "pinyin": "zhú",
+   "sens": {
+    "glose": "bougie, chandelle ; éclairer",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "bougie, chandelle"
+     },
+     {
+      "categorie": "V",
+      "fr": "éclairer"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "房间里点着烛光。",
+     "pinyin": "Fángjiān li diǎn zhe zhúguāng.",
+     "fr": "La pièce est éclairée à la bougie.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2500",
+   "genre": "mot",
+   "hanzi": "蜡烛",
+   "pinyin": "làzhú",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "bougie, chandelle",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "bougie, chandelle"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "她吹灭了生日蛋糕上的蜡烛。",
+     "pinyin": "Tā chuī miè le shēngrì dàngāo shang de làzhú.",
+     "fr": "Elle a soufflé les bougies de son gâteau d'anniversaire.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "椒",
+   "genre": "caractere",
+   "hanzi": "椒",
+   "pinyin": "jiāo",
+   "sens": {
+    "glose": "piment, poivre",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "piment, poivre (en composé)"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这道菜放了很多花椒。",
+     "pinyin": "Zhè dào cài fàng le hěn duō huājiāo.",
+     "fr": "Ce plat contient beaucoup de poivre du Sichuan.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2501",
+   "genre": "mot",
+   "hanzi": "辣椒",
+   "pinyin": "làjiāo",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "piment",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "piment"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "四川人做菜喜欢放辣椒。",
+     "pinyin": "Sìchuān rén zuò cài xǐhuan fàng làjiāo.",
+     "fr": "Au Sichuan, on aime mettre du piment dans les plats.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2502",
+   "genre": "mot",
+   "hanzi": "来宾",
+   "pinyin": "láibīn",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "invité, hôte",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "invité, hôte, visiteur (d'une cérémonie)"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "欢迎各位来宾！",
+     "pinyin": "Huānyíng gè wèi láibīn!",
+     "fr": "Bienvenue à tous nos invités !",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2503",
+   "genre": "mot",
+   "hanzi": "来电",
+   "pinyin": "láidiàn",
+   "categories": [
+    "V",
+    "N"
+   ],
+   "sens": {
+    "glose": "appeler ; appel reçu",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "appeler, téléphoner (à quelqu'un)"
+     },
+     {
+      "categorie": "N",
+      "fr": "appel reçu ; télégramme reçu"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "手机上有三个未接来电。",
+     "pinyin": "Shǒujī shang yǒu sān ge wèi jiē láidiàn.",
+     "fr": "Il y a trois appels manqués sur le téléphone.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2504",
+   "genre": "mot",
+   "hanzi": "来访",
+   "pinyin": "láifǎng",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "venir en visite",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "venir en visite, rendre visite"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "欢迎你们来访。",
+     "pinyin": "Huānyíng nǐmen láifǎng.",
+     "fr": "Nous sommes heureux de votre visite.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2505",
+   "genre": "mot",
+   "hanzi": "来回",
+   "pinyin": "láihuí",
+   "categories": [
+    "Adv",
+    "N"
+   ],
+   "sens": {
+    "glose": "aller-retour ; de long en large",
+    "acceptions": [
+     {
+      "categorie": "Adv",
+      "fr": "de long en large, en allant et venant"
+     },
+     {
+      "categorie": "N",
+      "fr": "aller-retour"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "从这里到机场来回要两个小时。",
+     "pinyin": "Cóng zhèli dào jīchǎng láihuí yào liǎng ge xiǎoshí.",
+     "fr": "D'ici à l'aéroport, il faut deux heures aller-retour.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2506",
+   "genre": "mot",
+   "hanzi": "来历",
+   "pinyin": "láilì",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "origine, provenance, passé",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "origine, provenance, antécédents"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这个人来历不明。",
+     "pinyin": "Zhège rén láilì bù míng.",
+     "fr": "On ignore d'où vient cet homme.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2507",
+   "genre": "mot",
+   "hanzi": "来临",
+   "pinyin": "láilín",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "arriver, approcher",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "arriver, approcher, venir (saison, moment)"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "冬天就要来临了。",
+     "pinyin": "Dōngtiān jiù yào láilín le.",
+     "fr": "L'hiver approche.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2508",
+   "genre": "mot",
+   "hanzi": "来龙去脉",
+   "pinyin": "láilóng-qùmài",
+   "sens": {
+    "glose": "les tenants et les aboutissants",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "les tenants et les aboutissants, toute l'histoire"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他把事情的来龙去脉讲清楚了。",
+     "pinyin": "Tā bǎ shìqing de láilóng-qùmài jiǎng qīngchu le.",
+     "fr": "Il a expliqué toute l'affaire du début à la fin.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2509",
+   "genre": "mot",
+   "hanzi": "来年",
+   "pinyin": "láinián",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "l'année prochaine",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "l'année prochaine, l'an à venir"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "希望来年大家都身体健康。",
+     "pinyin": "Xīwàng láinián dàjiā dōu shēntǐ jiànkāng.",
+     "fr": "Que l'année qui vient vous apporte à tous la santé.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2510",
+   "genre": "mot",
+   "hanzi": "来源于",
+   "pinyin": "láiyuán yú",
+   "sens": {
+    "glose": "provenir de, venir de",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "provenir de, avoir sa source dans"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这个故事来源于真实的生活。",
+     "pinyin": "Zhège gùshi láiyuán yú zhēnshí de shēnghuó.",
+     "fr": "Cette histoire est tirée de la vie réelle.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "拦",
+   "genre": "caractere",
+   "hanzi": "拦",
+   "pinyin": "lán",
+   "mots": [
+    "L7-2511"
+   ],
+   "sens": {
+    "glose": "barrer, arrêter",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "barrer, arrêter, empêcher de passer"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他想走，我拦住了他。",
+     "pinyin": "Tā xiǎng zǒu, wǒ lán zhù le tā.",
+     "fr": "Il voulait partir, je l'ai retenu.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2513",
+   "genre": "mot",
+   "hanzi": "栏杆",
+   "pinyin": "lángān",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "balustrade, rambarde",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "balustrade, rambarde, garde-fou"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "请不要靠在栏杆上。",
+     "pinyin": "Qǐng bù yào kào zài lángān shang.",
+     "fr": "Ne vous appuyez pas sur la rambarde.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2514",
+   "genre": "mot",
+   "hanzi": "蓝图",
+   "pinyin": "lántú",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "plan, projet (d'avenir)",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "plan, projet (d'avenir), schéma directeur"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他为公司画出了未来的蓝图。",
+     "pinyin": "Tā wèi gōngsī huà chū le wèilái de lántú.",
+     "fr": "Il a esquissé l'avenir de l'entreprise.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2516",
+   "genre": "mot",
+   "hanzi": "缆车",
+   "pinyin": "lǎnchē",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "téléphérique",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "téléphérique, téléférique"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "我们坐缆车上山吧。",
+     "pinyin": "Wǒmen zuò lǎnchē shàng shān ba.",
+     "fr": "Montons en téléphérique.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2517",
+   "genre": "mot",
+   "hanzi": "懒得",
+   "pinyin": "lǎnde",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "avoir la flemme de",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "avoir la flemme de, ne pas avoir envie de"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "天太冷了，我懒得出门。",
+     "pinyin": "Tiān tài lěng le, wǒ lǎnde chūmén.",
+     "fr": "Il fait trop froid, je n'ai pas envie de sortir.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "惰",
+   "genre": "caractere",
+   "hanzi": "惰",
+   "pinyin": "duò",
+   "sens": {
+    "glose": "paresseux, indolent",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "paresseux, indolent"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "惰性是成功的敌人。",
+     "pinyin": "Duòxìng shì chénggōng de dírén.",
+     "fr": "L'inertie est l'ennemie de la réussite.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2518",
+   "genre": "mot",
+   "hanzi": "懒惰",
+   "pinyin": "lǎnduò",
+   "categories": [
+    "Adj"
+   ],
+   "sens": {
+    "glose": "paresseux",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "paresseux, fainéant"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他太懒惰了，什么都不想干。",
+     "pinyin": "Tā tài lǎnduò le, shénme dōu bù xiǎng gàn.",
+     "fr": "Il est trop fainéant, il ne veut rien faire.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2519",
+   "genre": "mot",
+   "hanzi": "滥用",
+   "pinyin": "lànyòng",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "abuser de",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "abuser de, faire un usage excessif de"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "不要滥用抗生素。",
+     "pinyin": "Bù yào lànyòng kàngshēngsù.",
+     "fr": "Il ne faut pas abuser des antibiotiques.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "狼",
+   "genre": "caractere",
+   "hanzi": "狼",
+   "pinyin": "láng",
+   "mots": [
+    "L7-2520"
+   ],
+   "sens": {
+    "glose": "loup",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "loup"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "山里有狼，晚上不要一个人出去。",
+     "pinyin": "Shān li yǒu láng, wǎnshang bù yào yī ge rén chūqu.",
+     "fr": "Il y a des loups dans la montagne, ne sors pas seul la nuit.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "狈",
+   "genre": "caractere",
+   "hanzi": "狈",
+   "pinyin": "bèi",
+   "sens": {
+    "glose": "animal légendaire (en composé)",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "animal légendaire, compagnon du loup (en composé)"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他们俩狼狈为奸。",
+     "pinyin": "Tāmen liǎ lángbèi-wéijiān.",
+     "fr": "Ces deux-là sont de mèche pour faire le mal.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2521",
+   "genre": "mot",
+   "hanzi": "狼狈",
+   "pinyin": "lángbèi",
+   "categories": [
+    "Adj"
+   ],
+   "sens": {
+    "glose": "en piteux état, dans l'embarras",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "en piteux état, dans l'embarras, penaud"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他被雨淋得很狼狈。",
+     "pinyin": "Tā bèi yǔ lín de hěn lángbèi.",
+     "fr": "Trempé par la pluie, il faisait peine à voir.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2522",
+   "genre": "mot",
+   "hanzi": "朗诵",
+   "pinyin": "lǎngsòng",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "réciter, déclamer",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "réciter, déclamer (un poème)"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "她在晚会上朗诵了一首诗。",
+     "pinyin": "Tā zài wǎnhuì shang lǎngsòng le yī shǒu shī.",
+     "fr": "À la soirée, elle a récité un poème.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2525",
+   "genre": "mot",
+   "hanzi": "劳动力",
+   "pinyin": "láodònglì",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "main-d'œuvre, force de travail",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "main-d'œuvre, force de travail"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这个地区缺少劳动力。",
+     "pinyin": "Zhège dìqū quēshǎo láodònglì.",
+     "fr": "Cette région manque de bras.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2526",
+   "genre": "mot",
+   "hanzi": "劳累",
+   "pinyin": "láolèi",
+   "categories": [
+    "Adj"
+   ],
+   "sens": {
+    "glose": "fatigué, épuisé (par le travail)",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "fatigué, épuisé (par le travail)"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "连续加班让他十分劳累。",
+     "pinyin": "Liánxù jiābān ràng tā shífēn láolèi.",
+     "fr": "Les heures supplémentaires à répétition l'ont épuisé.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2527",
+   "genre": "mot",
+   "hanzi": "劳务",
+   "pinyin": "láowù",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "services, prestation de main-d'œuvre",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "services, prestation de travail"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他们公司提供劳务服务。",
+     "pinyin": "Tāmen gōngsī tígōng láowù fúwù.",
+     "fr": "Leur société fournit de la main-d'œuvre.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2528",
+   "genre": "mot",
+   "hanzi": "牢固",
+   "pinyin": "láogù",
+   "categories": [
+    "Adj"
+   ],
+   "sens": {
+    "glose": "solide, ferme",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "solide, ferme, bien ancré"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这座房子建得很牢固。",
+     "pinyin": "Zhè zuò fángzi jiàn de hěn láogù.",
+     "fr": "Cette maison est solidement bâtie.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2529",
+   "genre": "mot",
+   "hanzi": "牢记",
+   "pinyin": "láojì",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "retenir fermement, graver en mémoire",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "retenir fermement, graver dans sa mémoire"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "我会牢记您的话。",
+     "pinyin": "Wǒ huì láojì nín de huà.",
+     "fr": "Je n'oublierai jamais vos paroles.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2530",
+   "genre": "mot",
+   "hanzi": "牢牢",
+   "pinyin": "láoláo",
+   "sens": {
+    "glose": "fermement, solidement",
+    "acceptions": [
+     {
+      "categorie": "Adv",
+      "fr": "fermement, solidement"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他牢牢地抓住了绳子。",
+     "pinyin": "Tā láoláo de zhuā zhù le shéngzi.",
+     "fr": "Il a saisi la corde avec force.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "唠",
+   "genre": "caractere",
+   "hanzi": "唠",
+   "pinyin": "láo",
+   "sens": {
+    "glose": "bavarder, papoter",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "bavarder, papoter",
+      "pinyin": "lào"
+     },
+     {
+      "categorie": "V",
+      "fr": "radoter, rabâcher (en composé)"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "两个老人坐在门口唠家常。",
+     "pinyin": "Liǎng ge lǎorén zuò zài ménkǒu lào jiācháng.",
+     "fr": "Deux vieillards bavardent de tout et de rien devant la porte.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "叨",
+   "genre": "caractere",
+   "hanzi": "叨",
+   "pinyin": "dāo",
+   "sens": {
+    "glose": "radoter ; bénéficier de",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "radoter, rabâcher (en composé)"
+     },
+     {
+      "categorie": "V",
+      "fr": "bénéficier de (formule polie)",
+      "pinyin": "tāo"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "妈妈又在唠叨了。",
+     "pinyin": "Māma yòu zài láodao le.",
+     "fr": "Maman recommence à ronchonner.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2531",
+   "genre": "mot",
+   "hanzi": "唠叨",
+   "pinyin": "láodao",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "radoter, rabâcher",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "radoter, rabâcher, ronchonner"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "奶奶总是唠叨让我多穿衣服。",
+     "pinyin": "Nǎinai zǒngshì láodao ràng wǒ duō chuān yīfu.",
+     "fr": "Grand-mère ne cesse de me répéter de me couvrir.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2532",
+   "genre": "mot",
+   "hanzi": "老伴儿",
+   "pinyin": "lǎobànr",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "conjoint (âgé), vieux compagnon",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "conjoint (d'un couple âgé)"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "爷爷和他的老伴儿每天一起散步。",
+     "pinyin": "Yéye hé tā de lǎobànr měi tiān yīqǐ sànbù.",
+     "fr": "Grand-père et sa vieille compagne se promènent ensemble tous les jours.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2533",
+   "genre": "mot",
+   "hanzi": "老大",
+   "pinyin": "lǎodà",
+   "categories": [
+    "N",
+    "Adv"
+   ],
+   "sens": {
+    "glose": "aîné ; chef ; très",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "l'aîné (des enfants) ; chef, patron"
+     },
+     {
+      "categorie": "Adv",
+      "fr": "très, fortement"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他是家里的老大。",
+     "pinyin": "Tā shì jiā li de lǎodà.",
+     "fr": "C'est l'aîné de la famille.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2534",
+   "genre": "mot",
+   "hanzi": "老汉",
+   "pinyin": "lǎohàn",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "vieil homme",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "vieil homme, vieillard"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "一个老汉坐在树下抽烟。",
+     "pinyin": "Yī ge lǎohàn zuò zài shù xià chōuyān.",
+     "fr": "Un vieil homme fume assis sous un arbre.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2535",
+   "genre": "mot",
+   "hanzi": "老化",
+   "pinyin": "lǎohuà",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "vieillir, se dégrader",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "vieillir, se dégrader (matériaux, population)"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这些电线已经老化了。",
+     "pinyin": "Zhèxiē diànxiàn yǐjīng lǎohuà le.",
+     "fr": "Ces fils électriques sont usés.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2536",
+   "genre": "mot",
+   "hanzi": "老人家",
+   "pinyin": "lǎorenjia",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "personne âgée (respectueux)",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "personne âgée (terme respectueux)"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "您老人家身体还好吗？",
+     "pinyin": "Nín lǎorenjia shēntǐ hái hǎo ma?",
+     "fr": "Comment va votre santé, cher aîné ?",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2537",
+   "genre": "mot",
+   "hanzi": "老实说",
+   "pinyin": "lǎoshishuō",
+   "sens": {
+    "glose": "à vrai dire, franchement",
+    "acceptions": [
+     {
+      "categorie": "Adv",
+      "fr": "à vrai dire, franchement"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "老实说，我不太喜欢这部电影。",
+     "pinyin": "Lǎoshishuō, wǒ bù tài xǐhuan zhè bù diànyǐng.",
+     "fr": "Pour être honnête, je n'aime pas trop ce film.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2538",
+   "genre": "mot",
+   "hanzi": "老远",
+   "pinyin": "lǎo yuǎn",
+   "sens": {
+    "glose": "très loin",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "très loin, de loin"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "老远就听到他的声音了。",
+     "pinyin": "Lǎo yuǎn jiù tīngdào tā de shēngyīn le.",
+     "fr": "On entend sa voix de très loin.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2539",
+   "genre": "mot",
+   "hanzi": "老字号",
+   "pinyin": "lǎozìhao",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "maison de renom (ancienne)",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "maison de renom, enseigne ancienne"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这家店是一个百年老字号。",
+     "pinyin": "Zhè jiā diàn shì yī ge bǎi nián lǎozìhao.",
+     "fr": "Cette boutique est une enseigne centenaire.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "姥",
+   "genre": "caractere",
+   "hanzi": "姥",
+   "pinyin": "lǎo",
+   "sens": {
+    "glose": "grand-mère maternelle",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "grand-mère maternelle (en composé)"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "我姥爷今年八十岁了。",
+     "pinyin": "Wǒ lǎoye jīnnián bāshí suì le.",
+     "fr": "Mon grand-père maternel a quatre-vingts ans cette année.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2540",
+   "genre": "mot",
+   "hanzi": "姥姥",
+   "pinyin": "lǎolao",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "grand-mère maternelle",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "grand-mère maternelle, mamie"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "放假的时候我去姥姥家。",
+     "pinyin": "Fàngjià de shíhou wǒ qù lǎolao jiā.",
+     "fr": "Pendant les vacances, je vais chez ma grand-mère.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2541",
+   "genre": "mot",
+   "hanzi": "姥爷",
+   "pinyin": "lǎoye",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "grand-père maternel",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "grand-père maternel, papi"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "姥爷每天早上去公园打太极拳。",
+     "pinyin": "Lǎoye měi tiān zǎoshang qù gōngyuán dǎ tàijíquán.",
+     "fr": "Chaque matin, mon grand-père va au parc faire du taï-chi.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "涝",
+   "genre": "caractere",
+   "hanzi": "涝",
+   "pinyin": "lào",
+   "mots": [
+    "L7-2542"
+   ],
+   "sens": {
+    "glose": "inondé, noyé (champs)",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "inondé, noyé (par excès de pluie)"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "今年雨水太多，庄稼都涝了。",
+     "pinyin": "Jīnnián yǔshuǐ tài duō, zhuāngjia dōu lào le.",
+     "fr": "Il a trop plu cette année, les cultures sont noyées.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2543",
+   "genre": "mot",
+   "hanzi": "乐意",
+   "pinyin": "lèyì",
+   "categories": [
+    "V",
+    "Adj"
+   ],
+   "sens": {
+    "glose": "être heureux de, volontiers",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "être disposé à, faire volontiers"
+     },
+     {
+      "categorie": "Adj",
+      "fr": "content, satisfait"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "我很乐意帮助你。",
+     "pinyin": "Wǒ hěn lèyì bāngzhù nǐ.",
+     "fr": "Je t'aiderai avec plaisir.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2544",
+   "genre": "mot",
+   "hanzi": "乐园",
+   "pinyin": "lèyuán",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "paradis, parc d'attractions",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "paradis ; parc d'attractions"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这个公园是孩子们的乐园。",
+     "pinyin": "Zhège gōngyuán shì háizimen de lèyuán.",
+     "fr": "Ce parc est le paradis des enfants.",
+     "statut": "a_relire"
+    }
+   ]
+  }
+ ]
+}
