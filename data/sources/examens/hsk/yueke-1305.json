@@ -10,7 +10,10 @@
   "statut": "relu",
   "par": "le propriétaire",
   "decision": "« Go » (30 septembre 2026) : tout affiché sans relecture ligne à ligne",
-  "date": "2026-09-30"
+  "date": "2026-09-30",
+  "corrections": [
+   "le 30 septembre 2026, décisions du propriétaire « Réconcilier les 13 », « Poser les paires ensemble » et « Aller au bout » : l'acquis et le tronçon du palier ont bougé avec les treize caractères et le glissement d'un jour ; le texte suit, au plus près, sans changer de statut (décision « Go ») : série B : 序 passe au tronçon suivant ; le panneau dit « 上车请投币。 » (投, du tronçon), Q1 suit."
+  ]
  },
  "series": [
   {
@@ -270,10 +273,18 @@
        "en": "Please queue"
       },
       {
-       "zh": "按顺序上车。",
-       "pinyin": "àn shùn xù shàng chē",
-       "fr": "et montez chacun à votre tour.",
-       "en": "and board in turn."
+       "zh": "上车请投币。",
+       "pinyin": "shàng chē qǐng tóu bì",
+       "fr": "et payez en montant.",
+       "en": "and pay as you board."
+      }
+     ],
+     "glose": [
+      {
+       "zh": "投币",
+       "pinyin": "tóu bì",
+       "fr": "mettre des pièces",
+       "en": "to insert coins"
       }
      ]
     },
@@ -310,12 +321,12 @@
      },
      "choix": [
       {
-       "fr": "De payer en montant",
-       "en": "To pay when boarding"
+       "fr": "De monter par l'arrière",
+       "en": "To board at the back"
       },
       {
-       "fr": "De monter chacun à son tour",
-       "en": "To board in turn"
+       "fr": "De payer en montant",
+       "en": "To pay as you board"
       },
       {
        "fr": "De ne pas manger à bord",
@@ -328,8 +339,8 @@
      ],
      "reponse": 1,
      "porte": [
-      "顺",
-      "序"
+      "投",
+      "币"
      ]
     },
     {

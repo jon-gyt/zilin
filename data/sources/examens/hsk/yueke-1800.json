@@ -10,7 +10,10 @@
   "statut": "relu",
   "par": "le propriétaire",
   "decision": "« Go » (30 septembre 2026) : tout affiché sans relecture ligne à ligne",
-  "date": "2026-09-30"
+  "date": "2026-09-30",
+  "corrections": [
+   "le 30 septembre 2026, décisions du propriétaire « Réconcilier les 13 », « Poser les paires ensemble » et « Aller au bout » : l'acquis et le tronçon du palier ont bougé avec les treize caractères et le glissement d'un jour ; le texte suit, au plus près, sans changer de statut (décision « Go ») : série B : 梅 et 馒 sont au-delà du chemin ; le message annonce un « 嘉年华 » (嘉, du tronçon) et le pique-nique porte « 面包和果酱 » (酱, du tronçon), Q1, Q2 et Q3 suivent."
+  ]
  },
  "series": [
   {
@@ -218,22 +221,36 @@
      },
      "lignes": [
       {
-       "zh": "公园里的梅花开了，",
-       "pinyin": "gōng yuán lǐ de méi huā kāi le",
-       "fr": "Les pruniers du parc sont en fleurs :",
-       "en": "The plum blossoms in the park are out:"
+       "zh": "这个周末公园里有嘉年华，",
+       "pinyin": "zhè gè zhōu mò gōng yuán lǐ yǒu jiā nián huá",
+       "fr": "Ce week-end, il y a une fête foraine au parc :",
+       "en": "This weekend there's a carnival in the park:"
       },
       {
        "zh": "星期六我们去看吧！",
        "pinyin": "xīng qī liù wǒ men qù kàn ba",
-       "fr": "allons les voir samedi !",
-       "en": "let's go and see them on Saturday!"
+       "fr": "allons-y samedi !",
+       "en": "let's go and have a look on Saturday!"
       },
       {
-       "zh": "我带馒头，你带水果，怎么样？",
-       "pinyin": "wǒ dài mán tou nǐ dài shuǐ guǒ zěn me yàng",
-       "fr": "J'apporte des petits pains, toi des fruits : ça te va ?",
-       "en": "I'll bring steamed buns, you bring fruit. OK?"
+       "zh": "我带面包和果酱，你带水果，怎么样？",
+       "pinyin": "wǒ dài miàn bāo hé guǒ jiàng nǐ dài shuǐ guǒ zěn me yàng",
+       "fr": "J'apporte du pain et de la confiture, toi des fruits : ça te va ?",
+       "en": "I'll bring bread and jam, you bring fruit: how's that?"
+      }
+     ],
+     "glose": [
+      {
+       "zh": "嘉年华",
+       "pinyin": "jiā nián huá",
+       "fr": "fête foraine",
+       "en": "carnival"
+      },
+      {
+       "zh": "果酱",
+       "pinyin": "guǒ jiàng",
+       "fr": "confiture",
+       "en": "jam"
       }
      ]
     },
@@ -284,8 +301,8 @@
        "en": "An exhibition"
       },
       {
-       "fr": "Des pruniers en fleurs",
-       "en": "Plum blossoms"
+       "fr": "Une fête foraine",
+       "en": "A carnival"
       },
       {
        "fr": "Un film",
@@ -294,8 +311,9 @@
      ],
      "reponse": 2,
      "porte": [
-      "梅",
-      "花"
+      "嘉",
+      "年",
+      "华"
      ]
     },
     {
@@ -306,17 +324,15 @@
       "en": "True or false?"
      },
      "affirmation": {
-      "zh": "发消息的人带馒头。",
-      "pinyin": "fā xiāo xi de rén dài mán tou",
-      "fr": "La personne qui écrit apporte les petits pains.",
-      "en": "The writer is bringing the buns."
+      "zh": "发消息的人带果酱。",
+      "pinyin": "fā xiāo xi de rén dài guǒ jiàng",
+      "fr": "La personne qui écrit apporte la confiture.",
+      "en": "The person writing is bringing the jam."
      },
      "reponse": true,
      "porte": [
-      "我",
       "带",
-      "馒",
-      "头"
+      "酱"
      ]
     },
     {
@@ -328,10 +344,10 @@
      },
      "choix": [
       {
-       "zh": "没问题，我去买苹果。",
-       "pinyin": "méi wèn tí wǒ qù mǎi píng guǒ",
-       "fr": "Pas de problème, je vais acheter des pommes.",
-       "en": "No problem, I'll buy some apples."
+       "zh": "好，我带苹果，你别忘了果酱！",
+       "pinyin": "hǎo wǒ dài píng guǒ nǐ bié wàng le guǒ jiàng",
+       "fr": "D'accord, j'apporte des pommes, n'oublie pas la confiture !",
+       "en": "OK, I'll bring apples, don't forget the jam!"
       },
       {
        "zh": "这条裙子太长了。",
@@ -354,9 +370,9 @@
      ],
      "reponse": 0,
      "porte": [
-      "馒",
       "带",
-      "果"
+      "果",
+      "酱"
      ]
     },
     {

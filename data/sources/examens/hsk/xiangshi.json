@@ -10,7 +10,10 @@
   "statut": "relu",
   "par": "le propriétaire",
   "decision": "« Lance oui. Pas de relecture » (30 septembre 2026) : relecture considérée faite, sans relecture ligne à ligne",
-  "date": "2026-09-30"
+  "date": "2026-09-30",
+  "corrections": [
+   "le 30 septembre 2026, décisions du propriétaire « Réconcilier les 13 », « Poser les paires ensemble » et « Aller au bout » : l'acquis et le tronçon du palier ont bougé avec les treize caractères et le glissement d'un jour ; le texte suit, au plus près, sans changer de statut (décision « Go ») : 点 sort de l'acquis : série A, « 火车今天下午开。 » ; série B, le rendez-vous se donne « 下午 », l'affiche et l'avis de la boutique disent l'heure en 时, comme un écrit (« 下午六时 », « 早上十时 »), et le ton porte sur 起."
+  ]
  },
  "series": [
   {
@@ -32,10 +35,10 @@
        "en": "Big brother, I'm at the station."
       },
       {
-       "zh": "火车下午三点开。",
-       "pinyin": "huǒ chē xià wǔ sān diǎn kāi",
-       "fr": "Le train part à trois heures de l'après-midi.",
-       "en": "The train leaves at 3 pm."
+       "zh": "火车今天下午开。",
+       "pinyin": "huǒ chē jīn tiān xià wǔ kāi",
+       "fr": "Le train part cet après-midi.",
+       "en": "The train leaves this afternoon."
       },
       {
        "zh": "你能来送我吗？",
@@ -402,10 +405,10 @@
      },
      "lignes": [
       {
-       "zh": "小白，下午四点在学校门口见，",
-       "pinyin": "xiǎo bái xià wǔ sì diǎn zài xué xiào mén kǒu jiàn",
-       "fr": "Xiaobai, rendez-vous à seize heures devant l'école,",
-       "en": "Xiaobai, meet me at 4 pm outside the school,"
+       "zh": "小白，下午在学校门口见，",
+       "pinyin": "xiǎo bái xià wǔ zài xué xiào mén kǒu jiàn",
+       "fr": "Xiaobai, rendez-vous cet après-midi devant l'école,",
+       "en": "Xiaobai, let's meet this afternoon at the school gate,"
       },
       {
        "zh": "我们一起去书店。",
@@ -430,8 +433,8 @@
        "en": "New Year singing party"
       },
       {
-       "zh": "十二月三十一日下午六点",
-       "pinyin": "shí èr yuè sān shí yī rì xià wǔ liù diǎn",
+       "zh": "十二月三十一日下午六时",
+       "pinyin": "shí èr yuè sān shí yī rì xià wǔ liù shí",
        "fr": "31 décembre, dix-huit heures",
        "en": "31 December, 6 pm"
       },
@@ -452,14 +455,14 @@
      },
      "lignes": [
       {
-       "zh": "本店早上十点开门，",
-       "pinyin": "běn diàn zǎo shang shí diǎn kāi mén",
+       "zh": "本店早上十时开门，",
+       "pinyin": "běn diàn zǎo shang shí shí kāi mén",
        "fr": "La boutique ouvre à dix heures du matin",
        "en": "The shop opens at 10 am"
       },
       {
-       "zh": "下午六点关门。",
-       "pinyin": "xià wǔ liù diǎn guān mén",
+       "zh": "下午六时关门。",
+       "pinyin": "xià wǔ liù shí guān mén",
        "fr": "et ferme à six heures de l'après-midi.",
        "en": "and closes at 6 pm."
       }
@@ -570,9 +573,7 @@
      "reponse": true,
      "porte": [
       "下",
-      "午",
-      "四",
-      "点"
+      "午"
      ]
     },
     {
@@ -640,7 +641,7 @@
       "下",
       "午",
       "六",
-      "点"
+      "时"
      ]
     },
     {
@@ -694,8 +695,8 @@
       "en": "True or false?"
      },
      "affirmation": {
-      "zh": "本店下午六点开门。",
-      "pinyin": "běn diàn xià wǔ liù diǎn kāi mén",
+      "zh": "本店下午六时开门。",
+      "pinyin": "běn diàn xià wǔ liù shí kāi mén",
       "fr": "La boutique ouvre à six heures de l'après-midi.",
       "en": "The shop opens at 6 pm."
      },
@@ -712,20 +713,20 @@
       "en": "Which tone does this character have?"
      },
      "objet": {
-      "zh": "点",
-      "pinyin": "diǎn",
-      "fr": "heure ; point",
-      "en": "o'clock; dot"
+      "zh": "起",
+      "pinyin": "qǐ",
+      "fr": "se lever",
+      "en": "to get up"
      },
      "choix": [
-      "diān",
-      "dián",
-      "diǎn",
-      "diàn"
+      "qī",
+      "qí",
+      "qǐ",
+      "qì"
      ],
      "reponse": 2,
      "porte": [
-      "点"
+      "起"
      ]
     },
     {

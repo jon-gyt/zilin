@@ -10,7 +10,10 @@
   "statut": "relu",
   "par": "le propriétaire",
   "decision": "« Go » (30 septembre 2026) : tout affiché sans relecture ligne à ligne",
-  "date": "2026-09-30"
+  "date": "2026-09-30",
+  "corrections": [
+   "le 30 septembre 2026, décisions du propriétaire « Réconcilier les 13 », « Poser les paires ensemble » et « Aller au bout » : l'acquis et le tronçon du palier ont bougé avec les treize caractères et le glissement d'un jour ; le texte suit, au plus près, sans changer de statut (décision « Go ») : 裹 寒 厚 passent au tronçon suivant : série A, le colis est un « 快递 » (递, du tronçon), Q5 porte sur 购物 ; série B, « 放假了，我想去南方逛逛， » (逛, du tronçon), Q3 demande ce que veut faire la personne qui écrit, un leurre de Q4 refait."
+  ]
  },
  "series": [
   {
@@ -26,8 +29,8 @@
      },
      "lignes": [
       {
-       "zh": "今天下午三点，您的包裹到了。",
-       "pinyin": "jīn tiān xià wǔ sān diǎn nín de bāo guǒ dào le",
+       "zh": "今天下午三点，您的快递到了。",
+       "pinyin": "jīn tiān xià wǔ sān diǎn nín de kuài dì dào le",
        "fr": "Votre colis est arrivé aujourd'hui à 15 h.",
        "en": "Your parcel arrived today at 3 pm."
       },
@@ -42,6 +45,14 @@
        "pinyin": "wǒ fàng zài fù jìn de xiǎo shāng diàn le",
        "fr": "je l'ai laissé à la petite boutique d'à côté.",
        "en": "so I left it at the little shop nearby."
+      }
+     ],
+     "glose": [
+      {
+       "zh": "快递",
+       "pinyin": "kuài dì",
+       "fr": "colis (livré)",
+       "en": "parcel (delivery)"
       }
      ]
     },
@@ -116,14 +127,14 @@
       "en": "True or false?"
      },
      "affirmation": {
-      "zh": "包裹是上午到的。",
-      "pinyin": "bāo guǒ shì shàng wǔ dào de",
+      "zh": "快递是上午到的。",
+      "pinyin": "kuài dì shì shàng wǔ dào de",
       "fr": "Le colis est arrivé le matin.",
-      "en": "The parcel came in the morning."
+      "en": "The parcel arrived in the morning."
      },
      "reponse": false,
      "porte": [
-      "裹",
+      "递",
       "下",
       "午"
      ]
@@ -192,21 +203,21 @@
       "en": "Which character is missing from this word?"
      },
      "objet": {
-      "zh": "寒假",
-      "pinyin": "hán jià",
-      "fr": "vacances d'hiver",
-      "en": "winter holidays"
+      "zh": "购物",
+      "pinyin": "gòu wù",
+      "fr": "faire des achats",
+      "en": "to go shopping"
      },
      "trou": 0,
      "choix": [
-      "赛",
-      "害",
-      "寒",
-      "实"
+      "构",
+      "够",
+      "购",
+      "句"
      ],
      "reponse": 2,
      "porte": [
-      "寒"
+      "购"
      ]
     }
    ]
@@ -252,10 +263,10 @@
      },
      "lignes": [
       {
-       "zh": "寒假我想去南方玩，",
-       "pinyin": "hán jià wǒ xiǎng qù nán fāng wán",
-       "fr": "Pendant les vacances d'hiver, j'aimerais aller dans le Sud :",
-       "en": "In the winter holidays I'd like to go south,"
+       "zh": "放假了，我想去南方逛逛，",
+       "pinyin": "fàng jià le wǒ xiǎng qù nán fāng guàng guang",
+       "fr": "C'est les vacances : j'aimerais aller me balader dans le Sud,",
+       "en": "The holidays are here: I'd like to go and wander around the South,"
       },
       {
        "zh": "你想跟我一起去吗？",
@@ -268,6 +279,14 @@
        "pinyin": "jī piào wǒ lái mǎi",
        "fr": "Je m'occupe des billets d'avion.",
        "en": "I'll buy the plane tickets."
+      }
+     ],
+     "glose": [
+      {
+       "zh": "放假",
+       "pinyin": "fàng jià",
+       "fr": "être en vacances",
+       "en": "to be on holiday"
       }
      ]
     }
@@ -330,31 +349,31 @@
      "type": "comprendre",
      "support": "s2",
      "consigne": {
-      "fr": "Quand la personne qui écrit veut-elle partir ?",
-      "en": "When does the writer want to go?"
+      "fr": "Que veut faire la personne qui écrit ?",
+      "en": "What does the writer want to do?"
      },
      "choix": [
       {
-       "fr": "Pendant les vacances d'été",
-       "en": "During the summer holidays"
+       "fr": "Rester à la maison",
+       "en": "Stay at home"
       },
       {
-       "fr": "Pendant les vacances d'hiver",
-       "en": "During the winter holidays"
+       "fr": "Se balader dans le Sud",
+       "en": "Wander around the South"
       },
       {
-       "fr": "Pendant la fête nationale",
-       "en": "During the National Day holiday"
+       "fr": "Travailler à la campagne",
+       "en": "Work in the countryside"
       },
       {
-       "fr": "Pendant le Nouvel An",
-       "en": "During New Year"
+       "fr": "Faire du sport",
+       "en": "Do some sport"
       }
      ],
      "reponse": 1,
      "porte": [
-      "寒",
-      "假"
+      "逛",
+      "南"
      ]
     },
     {
@@ -378,10 +397,10 @@
        "en": "Does your stomach still hurt?"
       },
       {
-       "zh": "这件衣服很厚。",
-       "pinyin": "zhè jiàn yī fu hěn hòu",
-       "fr": "Ce vêtement est épais.",
-       "en": "This piece of clothing is thick."
+       "zh": "这件衣服太肥了。",
+       "pinyin": "zhè jiàn yī fu tài féi le",
+       "fr": "Ce vêtement est trop large.",
+       "en": "This garment is too baggy."
       },
       {
        "zh": "太好了！我们去哪儿？",
@@ -392,8 +411,7 @@
      ],
      "reponse": 3,
      "porte": [
-      "寒",
-      "玩"
+      "逛"
      ]
     },
     {

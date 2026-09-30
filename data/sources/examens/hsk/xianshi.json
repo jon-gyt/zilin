@@ -14,7 +14,8 @@
   "reduction": "le 29 septembre 2026, décision du propriétaire « 10 et 5 » : chaque série ramenée à 10 questions (examen à titre) ou 5 (月课), prises parmi les questions relues, sans texte nouveau",
   "corrections": [
    "le 29 septembre 2026, surtitres ramenés au genre du support, sur le signalement du propriétaire (« tu donnes les réponses dans les intitulés ») : le surtitre se lit avant la question et ne dit plus son contenu ; seul le surtitre change, les questions relues restent telles quelles et les séries gardent leur statut : A s1 « L'étal d'un marchand de riz » → « Un étal » ; A s2 « Maman écrit à son fils » → « Un message » ; A s3 « Un billet de train » → « Un billet » ; A s4 « Au-dessus d'un portail » → « Une enseigne » ; B s1 « M. Ma écrit à Xiaobai » → « Un message » ; B s2 « Les tarifs d'un parc » → « Une affiche » ; B s3 « Une note sur Xiaobai » → « Une note » ; B s4 « Une enseigne de boutique » → « Une enseigne » ; B s5 « Un billet de train » → « Un billet »",
-   "le 29 septembre 2026, fuites relevées après le passage des surtitres au genre du support (signalement du propriétaire « tu donnes les réponses dans les intitulés ») ; correction couverte par la décision permanente du 28 septembre (« Considère que les relectures c'est bon ») : A Q7, le vrai ou faux redisait la réponse de Q6 (le 12 août) : il porte sur le prix, « 火车二十八元。 », vrai ; B Q1, « vache, bœuf » seul choix à deux sens : « vache »."
+   "le 29 septembre 2026, fuites relevées après le passage des surtitres au genre du support (signalement du propriétaire « tu donnes les réponses dans les intitulés ») ; correction couverte par la décision permanente du 28 septembre (« Considère que les relectures c'est bon ») : A Q7, le vrai ou faux redisait la réponse de Q6 (le 12 août) : il porte sur le prix, « 火车二十八元。 », vrai ; B Q1, « vache, bœuf » seul choix à deux sens : « vache ».",
+   "le 30 septembre 2026, décisions du propriétaire « Réconcilier les 13 », « Poser les paires ensemble » et « Aller au bout » : l'acquis et le tronçon du palier ont bougé avec les treize caractères et le glissement d'un jour ; le texte suit, au plus près, sans changer de statut (décision « Go ») : 火车 et 马车 sortent de l'acquis (车) : série A, le message demande au fils s'il verra sa mère (« 明天白天见妈妈吗？ », Q4 « 见，明天一早见妈妈。 »), le billet perd sa ligne « 火车 », Q6 « Pour quel jour est ce billet ? », Q7 « 天山 — 马山：二十八元。 », vrai ; série B, « 马车 » devient « 大马 », Q3 sur le grand cheval."
   ]
  },
  "series": [
@@ -85,10 +86,10 @@
        "en": "Son, tomorrow is Mum's birthday."
       },
       {
-       "zh": "明天白天有火车吗？",
-       "pinyin": "míng tiān bái tiān yǒu huǒ chē ma",
-       "fr": "Demain, dans la journée, il y a un train ?",
-       "en": "Is there a train tomorrow during the day?"
+       "zh": "明天白天见妈妈吗？",
+       "pinyin": "míng tiān bái tiān jiàn mā ma ma",
+       "fr": "Demain, dans la journée, tu vois maman ?",
+       "en": "Will you see Mum tomorrow during the day?"
       }
      ]
     },
@@ -100,12 +101,6 @@
       "en": "A ticket"
      },
      "lignes": [
-      {
-       "zh": "火车",
-       "pinyin": "huǒ chē",
-       "fr": "Train",
-       "en": "Train"
-      },
       {
        "zh": "天山 — 马山",
        "pinyin": "tiān shān mǎ shān",
@@ -295,10 +290,10 @@
        "en": "She's a primary-school pupil."
       },
       {
-       "zh": "有，明天一早有火车。",
-       "pinyin": "yǒu míng tiān yī zǎo yǒu huǒ chē",
-       "fr": "Oui, il y a un train demain à la première heure.",
-       "en": "Yes, there's a train first thing tomorrow."
+       "zh": "见，明天一早见妈妈。",
+       "pinyin": "jiàn míng tiān yī zǎo jiàn mā ma",
+       "fr": "Oui, je vois maman demain à la première heure.",
+       "en": "Yes, I'll see Mum first thing tomorrow."
       },
       {
        "zh": "明天是八月十日。",
@@ -309,8 +304,7 @@
      ],
      "reponse": 2,
      "porte": [
-      "火",
-      "车",
+      "见",
       "吗"
      ]
     },
@@ -341,8 +335,8 @@
      "type": "comprendre",
      "support": "s3",
      "consigne": {
-      "fr": "Quel jour part ce train ?",
-      "en": "What day does this train leave?"
+      "fr": "Pour quel jour est ce billet ?",
+      "en": "What date is this ticket for?"
      },
      "choix": [
       {
@@ -378,10 +372,10 @@
       "en": "True or false?"
      },
      "affirmation": {
-      "zh": "火车二十八元。",
-      "pinyin": "huǒ chē èr shí bā yuán",
-      "fr": "Le train coûte 28 yuans.",
-      "en": "The train costs 28 yuan."
+      "zh": "天山 — 马山：二十八元。",
+      "pinyin": "tiān shān mǎ shān èr shí bā yuán",
+      "fr": "Tianshan → Mashan : 28 yuans.",
+      "en": "Tianshan → Mashan: 28 yuan."
      },
      "reponse": true,
      "porte": [
@@ -496,10 +490,10 @@
      },
      "lignes": [
       {
-       "zh": "马车：一人二十元",
-       "pinyin": "mǎ chē yī rén èr shí yuán",
-       "fr": "Calèche : 20 yuans par personne",
-       "en": "Horse carriage: 20 yuan per person"
+       "zh": "大马：一人二十元",
+       "pinyin": "dà mǎ yī rén èr shí yuán",
+       "fr": "Grand cheval : 20 yuans par personne",
+       "en": "Big horse: 20 yuan per person"
       },
       {
        "zh": "小马：一人十元",
@@ -716,8 +710,8 @@
      "type": "comprendre",
      "support": "s2",
      "consigne": {
-      "fr": "Combien coûte la calèche pour une personne ?",
-      "en": "How much is the horse carriage per person?"
+      "fr": "Combien coûte le grand cheval pour une personne ?",
+      "en": "How much is the big horse per person?"
      },
      "choix": [
       {
@@ -739,8 +733,8 @@
      ],
      "reponse": 3,
      "porte": [
+      "大",
       "马",
-      "车",
       "二",
       "十"
      ]

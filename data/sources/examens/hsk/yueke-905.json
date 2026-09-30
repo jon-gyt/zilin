@@ -10,7 +10,10 @@
   "statut": "relu",
   "par": "le propriétaire",
   "decision": "« Go » (30 septembre 2026) : tout affiché sans relecture ligne à ligne",
-  "date": "2026-09-30"
+  "date": "2026-09-30",
+  "corrections": [
+   "le 30 septembre 2026, décisions du propriétaire « Réconcilier les 13 », « Poser les paires ensemble » et « Aller au bout » : l'acquis et le tronçon du palier ont bougé avec les treize caractères et le glissement d'un jour ; le texte suit, au plus près, sans changer de statut (décision « Go ») : 李 et 浪 sortent de l'acquis : série A, M. Li devient M. Wang ; série B, Q5 porte sur 苦 (du tronçon)."
+  ]
  },
  "series": [
   {
@@ -26,10 +29,10 @@
      },
      "lignes": [
       {
-       "zh": "李老师，这个星期六我结婚，",
-       "pinyin": "lǐ lǎo shī zhè gè xīng qī liù wǒ jié hūn",
-       "fr": "Monsieur Li, je me marie ce samedi :",
-       "en": "Mr Li, I'm getting married this Saturday:"
+       "zh": "王老师，这个星期六我结婚，",
+       "pinyin": "wáng lǎo shī zhè gè xīng qī liù wǒ jié hūn",
+       "fr": "Monsieur Wang, je me marie ce samedi :",
+       "en": "Mr Wang, I'm getting married this Saturday:"
       },
       {
        "zh": "想请您来吃饭。",
@@ -107,8 +110,8 @@
      "type": "comprendre",
      "support": "s1",
      "consigne": {
-      "fr": "Pourquoi écrit-on à M. Li ?",
-      "en": "Why is someone writing to Mr Li?"
+      "fr": "Pourquoi écrit-on à M. Wang ?",
+      "en": "Why is someone writing to Mr Wang?"
      },
      "choix": [
       {
@@ -142,7 +145,7 @@
       "en": "Tap the place of the meal."
      },
      "choix": [
-      "李老师",
+      "王老师",
       "星期六",
       "吃饭",
       "建国饭店"
@@ -444,32 +447,32 @@
       "en": "What does this character mean?"
      },
      "objet": {
-      "zh": "浪",
-      "pinyin": "làng",
-      "fr": "vague",
-      "en": "wave"
+      "zh": "苦",
+      "pinyin": "kǔ",
+      "fr": "amer",
+      "en": "bitter"
      },
      "choix": [
       {
-       "fr": "pluie",
-       "en": "rain"
+       "fr": "sucré",
+       "en": "sweet"
       },
       {
-       "fr": "neige",
-       "en": "snow"
+       "fr": "salé",
+       "en": "salty"
       },
       {
-       "fr": "vent",
-       "en": "wind"
+       "fr": "acide",
+       "en": "sour"
       },
       {
-       "fr": "vague",
-       "en": "wave"
+       "fr": "amer",
+       "en": "bitter"
       }
      ],
      "reponse": 3,
      "porte": [
-      "浪"
+      "苦"
      ]
     }
    ]

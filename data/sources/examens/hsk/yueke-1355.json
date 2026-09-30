@@ -10,7 +10,10 @@
   "statut": "relu",
   "par": "le propriétaire",
   "decision": "« Go » (30 septembre 2026) : tout affiché sans relecture ligne à ligne",
-  "date": "2026-09-30"
+  "date": "2026-09-30",
+  "corrections": [
+   "le 30 septembre 2026, décisions du propriétaire « Réconcilier les 13 », « Poser les paires ensemble » et « Aller au bout » : l'acquis et le tronçon du palier ont bougé avec les treize caractères et le glissement d'un jour ; le texte suit, au plus près, sans changer de statut (décision « Go ») : série B : 拜 et 岸 passent au tronçon suivant ; le calendrier dit « 去姨妈家吃饺子 » (姨, du tronçon), Q1 suit, Q4 porte sur 叶."
+  ]
  },
  "series": [
   {
@@ -243,10 +246,18 @@
        "en": "Spring Festival"
       },
       {
-       "zh": "去奶奶家拜年",
-       "pinyin": "qù nǎi nai jiā bài nián",
-       "fr": "Vœux du Nouvel An chez Mamie",
-       "en": "New Year visit to Grandma's"
+       "zh": "去姨妈家吃饺子",
+       "pinyin": "qù yí mā jiā chī jiǎo zi",
+       "fr": "Raviolis chez Tata",
+       "en": "Dumplings at Auntie's"
+      }
+     ],
+     "glose": [
+      {
+       "zh": "姨妈",
+       "pinyin": "yí mā",
+       "fr": "tante",
+       "en": "aunt"
       }
      ]
     },
@@ -283,26 +294,26 @@
      },
      "choix": [
       {
-       "fr": "Aller au cinéma avec Mamie",
-       "en": "Going to the cinema with Grandma"
+       "fr": "Aller au cinéma avec Tata",
+       "en": "Go to the cinema with Auntie"
       },
       {
-       "fr": "Faire le ménage chez Mamie",
-       "en": "Cleaning at Grandma's"
+       "fr": "Faire le ménage chez Tata",
+       "en": "Clean Auntie's house"
       },
       {
-       "fr": "Présenter ses vœux à Mamie",
-       "en": "Wishing Grandma a happy New Year"
+       "fr": "Manger des raviolis chez Tata",
+       "en": "Eat dumplings at Auntie's"
       },
       {
-       "fr": "Partir en voyage avec Mamie",
-       "en": "Going on a trip with Grandma"
+       "fr": "Partir en voyage avec Tata",
+       "en": "Go travelling with Auntie"
       }
      ],
      "reponse": 2,
      "porte": [
-      "拜",
-      "年"
+      "姨",
+      "饺"
      ]
     },
     {
@@ -369,32 +380,32 @@
       "en": "What does this character mean?"
      },
      "objet": {
-      "zh": "岸",
-      "pinyin": "àn",
-      "fr": "rive",
-      "en": "bank (of a river)"
+      "zh": "叶",
+      "pinyin": "yè",
+      "fr": "feuille",
+      "en": "leaf"
      },
      "choix": [
       {
-       "fr": "pont",
-       "en": "bridge"
+       "fr": "fleur",
+       "en": "flower"
       },
       {
-       "fr": "rive",
-       "en": "bank"
+       "fr": "feuille",
+       "en": "leaf"
       },
       {
-       "fr": "bateau",
-       "en": "boat"
+       "fr": "branche",
+       "en": "branch"
       },
       {
-       "fr": "vague",
-       "en": "wave"
+       "fr": "racine",
+       "en": "root"
       }
      ],
      "reponse": 1,
      "porte": [
-      "岸"
+      "叶"
      ]
     },
     {

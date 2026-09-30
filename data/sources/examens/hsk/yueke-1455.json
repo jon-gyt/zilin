@@ -10,7 +10,10 @@
   "statut": "relu",
   "par": "le propriétaire",
   "decision": "« Go » (30 septembre 2026) : tout affiché sans relecture ligne à ligne",
-  "date": "2026-09-30"
+  "date": "2026-09-30",
+  "corrections": [
+   "le 30 septembre 2026, décisions du propriétaire « Réconcilier les 13 », « Poser les paires ensemble » et « Aller au bout » : l'acquis et le tronçon du palier ont bougé avec les treize caractères et le glissement d'un jour ; le texte suit, au plus près, sans changer de statut (décision « Go ») : série A : 盒 et 猴 passent au tronçon suivant ; l'étal vend des « 钢笔 » (钢, du tronçon), Q2 suit, deux leurres de Q4 refaits."
+  ]
  },
  "series": [
   {
@@ -32,10 +35,10 @@
        "en": "Cakes: 5 yuan each"
       },
       {
-       "zh": "饭盒：每个三元",
-       "pinyin": "fàn hé měi gè sān yuán",
-       "fr": "Boîtes-repas : 3 yuans pièce",
-       "en": "Lunch boxes: 3 yuan each"
+       "zh": "钢笔：每支三元",
+       "pinyin": "gāng bǐ měi zhī sān yuán",
+       "fr": "Stylos-plumes : 3 yuans pièce",
+       "en": "Fountain pens: 3 yuan each"
       },
       {
        "zh": "花：每朵两元",
@@ -50,12 +53,6 @@
        "pinyin": "dàn gāo",
        "fr": "gâteau",
        "en": "cake"
-      },
-      {
-       "zh": "饭盒",
-       "pinyin": "fàn hé",
-       "fr": "boîte-repas",
-       "en": "lunch box"
       },
       {
        "zh": "花",
@@ -80,6 +77,18 @@
        "pinyin": "wǔ yuán",
        "fr": "cinq yuans",
        "en": "five yuan"
+      },
+      {
+       "zh": "钢笔",
+       "pinyin": "gāng bǐ",
+       "fr": "stylo-plume",
+       "en": "fountain pen"
+      },
+      {
+       "zh": "每支",
+       "pinyin": "měi zhī",
+       "fr": "chacun (objet long)",
+       "en": "each (long object)"
       }
      ]
     },
@@ -142,28 +151,10 @@
        "en": "nine o'clock"
       },
       {
-       "zh": "猴子",
-       "pinyin": "hóu zi",
-       "fr": "singe",
-       "en": "monkey"
-      },
-      {
-       "zh": "可爱",
-       "pinyin": "kě ài",
-       "fr": "mignon",
-       "en": "cute"
-      },
-      {
        "zh": "我的",
        "pinyin": "wǒ de",
        "fr": "mon, ma",
        "en": "my"
-      },
-      {
-       "zh": "钢笔",
-       "pinyin": "gāng bǐ",
-       "fr": "stylo-plume",
-       "en": "fountain pen"
       },
       {
        "zh": "丢",
@@ -176,6 +167,18 @@
        "pinyin": "fàng jià",
        "fr": "être en vacances",
        "en": "to be on holiday"
+      },
+      {
+       "zh": "洞",
+       "pinyin": "dòng",
+       "fr": "trou",
+       "en": "hole"
+      },
+      {
+       "zh": "深",
+       "pinyin": "shēn",
+       "fr": "profond",
+       "en": "deep"
       }
      ]
     }
@@ -216,19 +219,19 @@
      "type": "reperer",
      "support": "s1",
      "consigne": {
-      "fr": "Touche ce dans quoi on emporte son déjeuner.",
-      "en": "Tap what you carry your lunch in."
+      "fr": "Touche ce avec quoi on écrit.",
+      "en": "Tap what you write with."
      },
      "choix": [
       "蛋糕",
       "每朵",
-      "饭盒",
+      "钢笔",
       "花"
      ],
      "reponse": 2,
      "porte": [
-      "饭",
-      "盒"
+      "钢",
+      "笔"
      ]
     },
     {
@@ -260,16 +263,16 @@
      },
      "choix": [
       {
-       "zh": "猴子很可爱。",
-       "pinyin": "hóu zi hěn kě ài",
-       "fr": "Les singes sont mignons.",
-       "en": "Monkeys are cute."
+       "zh": "这个洞很深。",
+       "pinyin": "zhè gè dòng hěn shēn",
+       "fr": "Ce trou est profond.",
+       "en": "This hole is deep."
       },
       {
-       "zh": "我的钢笔丢了。",
-       "pinyin": "wǒ de gāng bǐ diū le",
-       "fr": "J'ai perdu mon stylo-plume.",
-       "en": "I've lost my fountain pen."
+       "zh": "我的书包丢了。",
+       "pinyin": "wǒ de shū bāo diū le",
+       "fr": "J'ai perdu mon cartable.",
+       "en": "I've lost my schoolbag."
       },
       {
        "zh": "学校放假了。",
