@@ -1,0 +1,1342 @@
+{
+ "niveau": "7-9",
+ "lot": "120",
+ "source": "rédigé pour l'app dans le pipeline wenlu, sans API ; faits lus : liste HSK 3.0 (forme, pinyin, niveau, catégorie), lectures d'Unihan et des surcharges, gloses relues des fiches",
+ "brouillon": "data/sources/dico-brouillons/7-9/120.json",
+ "generation": {
+  "modele": "rédaction manuelle",
+  "api": "session Claude Code (sans API)",
+  "date": "2026-09-30",
+  "empreinte_invite": "sha256:cbcbe56770876affe62ff21b54c0637e24ecebb53e17870fe841ff705f2f285e",
+  "contexte": "wenlu dico contexte 7-9 120",
+  "essais": 1,
+  "refus": []
+ },
+ "entrees": [
+  {
+   "id": "L7-5304",
+   "genre": "mot",
+   "hanzi": "枕头",
+   "pinyin": "zhěntou",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "oreiller",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "oreiller"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这个枕头太高了。",
+     "pinyin": "Zhège zhěntou tài gāo le.",
+     "fr": "Ce coussin est trop épais pour dormir.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-5305",
+   "genre": "mot",
+   "hanzi": "阵容",
+   "pinyin": "zhènróng",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "formation, composition d'équipe",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "formation, composition (d'une équipe, d'une distribution)"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这支球队阵容很强。",
+     "pinyin": "Zhè zhī qiúduì zhènróng hěn qiáng.",
+     "fr": "Cette équipe aligne de très bons joueurs.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-5306",
+   "genre": "mot",
+   "hanzi": "阵营",
+   "pinyin": "zhènyíng",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "camp",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "camp, bloc (politique, militaire)"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他们属于不同的阵营。",
+     "pinyin": "Tāmen shǔyú bù tóng de zhènyíng.",
+     "fr": "Ils ne sont pas du même bord.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-5307",
+   "genre": "mot",
+   "hanzi": "振奋",
+   "pinyin": "zhènfèn",
+   "categories": [
+    "Adj",
+    "V"
+   ],
+   "sens": {
+    "glose": "exaltant ; stimuler",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "exaltant, enthousiasmant"
+     },
+     {
+      "categorie": "V",
+      "fr": "stimuler, galvaniser"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这个消息让人很振奋。",
+     "pinyin": "Zhège xiāoxi ràng rén hěn zhènfèn.",
+     "fr": "Cette nouvelle redonne du courage à tous.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-5308",
+   "genre": "mot",
+   "hanzi": "振兴",
+   "pinyin": "zhènxīng",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "revitaliser, relancer",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "revitaliser, relancer, redresser"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "我们要振兴经济。",
+     "pinyin": "Wǒmen yào zhènxīng jīngjì.",
+     "fr": "Nous devons relancer l'économie.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-5309",
+   "genre": "mot",
+   "hanzi": "振作",
+   "pinyin": "zhènzuò",
+   "categories": [
+    "Adj",
+    "V"
+   ],
+   "sens": {
+    "glose": "se ressaisir, reprendre courage",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "se ressaisir, reprendre courage"
+     },
+     {
+      "categorie": "Adj",
+      "fr": "plein d'allant, en forme"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "别难过了，振作起来！",
+     "pinyin": "Bié nánguò le, zhènzuò qilai!",
+     "fr": "Ne sois pas triste, courage !",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-5311",
+   "genre": "mot",
+   "hanzi": "震动",
+   "pinyin": "zhèndòng",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "trembler, ébranler",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "trembler, vibrer, ébranler"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "地震时，整个房子都在震动。",
+     "pinyin": "Dìzhèn shí, zhěnggè fángzi dōu zài zhèndòng.",
+     "fr": "Pendant le séisme, toute la maison tremblait.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "撼",
+   "genre": "caractere",
+   "hanzi": "撼",
+   "pinyin": "hàn",
+   "sens": {
+    "glose": "secouer, ébranler",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "secouer, ébranler"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": []
+  },
+  {
+   "id": "L7-5312",
+   "genre": "mot",
+   "hanzi": "震撼",
+   "pinyin": "zhènhàn",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "bouleverser, ébranler",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "bouleverser, ébranler, impressionner fortement"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这部电影让我很震撼。",
+     "pinyin": "Zhè bù diànyǐng ràng wǒ hěn zhènhàn.",
+     "fr": "Ce film m'a profondément marqué.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-5313",
+   "genre": "mot",
+   "hanzi": "镇定",
+   "pinyin": "zhèndìng",
+   "categories": [
+    "Adj",
+    "V"
+   ],
+   "sens": {
+    "glose": "calme, maître de soi",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "calme, maître de soi"
+     },
+     {
+      "categorie": "V",
+      "fr": "se calmer, garder son sang-froid"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "遇到危险要保持镇定。",
+     "pinyin": "Yùdào wēixiǎn yào bǎochí zhèndìng.",
+     "fr": "Face au danger, il faut garder son sang-froid.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-5314",
+   "genre": "mot",
+   "hanzi": "争吵",
+   "pinyin": "zhēngchǎo",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "se disputer, se quereller",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "se disputer, se quereller"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他们经常为小事争吵。",
+     "pinyin": "Tāmen jīngcháng wèi xiǎoshì zhēngchǎo.",
+     "fr": "Ils se chamaillent souvent pour des riens.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-5315",
+   "genre": "mot",
+   "hanzi": "争端",
+   "pinyin": "zhēngduān",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "différend, conflit",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "différend, conflit, litige"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "两国通过谈判解决了争端。",
+     "pinyin": "Liǎng guó tōngguò tánpàn jiějué le zhēngduān.",
+     "fr": "Les deux pays ont réglé leur litige par la négociation.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-5316",
+   "genre": "mot",
+   "hanzi": "争分夺秒",
+   "pinyin": "zhēngfēn-duómiǎo",
+   "sens": {
+    "glose": "ne pas perdre une seconde",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "ne pas perdre une seconde, lutter contre la montre"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "医生们争分夺秒地抢救病人。",
+     "pinyin": "Yīshēngmen zhēngfēn-duómiǎo de qiǎngjiù bìngrén.",
+     "fr": "Les médecins luttent contre la montre pour sauver le patient.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-5317",
+   "genre": "mot",
+   "hanzi": "争光",
+   "pinyin": "zhēngguāng",
+   "sens": {
+    "glose": "faire honneur à, être la fierté de",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "faire honneur à, être la fierté de"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他在比赛中为学校争光。",
+     "pinyin": "Tā zài bǐsài zhōng wèi xuéxiào zhēngguāng.",
+     "fr": "Il a fait la fierté de son école pendant la compétition.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-5318",
+   "genre": "mot",
+   "hanzi": "争气",
+   "pinyin": "zhēngqì",
+   "sens": {
+    "glose": "ne pas décevoir, se montrer digne",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "ne pas décevoir, se montrer à la hauteur"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这孩子真争气，考上了好大学。",
+     "pinyin": "Zhè háizi zhēn zhēngqì, kǎoshang le hǎo dàxué.",
+     "fr": "Cet enfant n'a pas déçu : il est entré dans une bonne université.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-5319",
+   "genre": "mot",
+   "hanzi": "争先恐后",
+   "pinyin": "zhēngxiān-kǒnghòu",
+   "sens": {
+    "glose": "se bousculer pour passer en premier",
+    "acceptions": [
+     {
+      "categorie": "Adv",
+      "fr": "à qui mieux mieux, en se bousculant pour être le premier"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "孩子们争先恐后地回答问题。",
+     "pinyin": "Háizimen zhēngxiān-kǒnghòu de huídá wèntí.",
+     "fr": "Les enfants lèvent tous la main pour répondre.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-5320",
+   "genre": "mot",
+   "hanzi": "争执",
+   "pinyin": "zhēngzhí",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "se disputer, s'opposer",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "se disputer, s'opposer, ne pas céder"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他们为这件事争执了很久。",
+     "pinyin": "Tāmen wèi zhè jiàn shì zhēngzhí le hěn jiǔ.",
+     "fr": "Ils se sont longtemps opposés sur ce point.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-5322",
+   "genre": "mot",
+   "hanzi": "征集",
+   "pinyin": "zhēngjí",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "recueillir, collecter",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "recueillir, collecter, solliciter"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "学校正在征集意见。",
+     "pinyin": "Xuéxiào zhèngzài zhēngjí yìjiàn.",
+     "fr": "L'école sollicite des suggestions.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-5323",
+   "genre": "mot",
+   "hanzi": "征收",
+   "pinyin": "zhēngshōu",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "percevoir (un impôt)",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "percevoir, lever (un impôt, une taxe)"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "政府向企业征收税款。",
+     "pinyin": "Zhèngfǔ xiàng qǐyè zhēngshōu shuìkuǎn.",
+     "fr": "L'État prélève des taxes sur les entreprises.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-5324",
+   "genre": "mot",
+   "hanzi": "挣扎",
+   "pinyin": "zhēngzhá",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "se débattre, lutter",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "se débattre, lutter"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他在水里拼命挣扎。",
+     "pinyin": "Tā zài shuǐ li pīnmìng zhēngzhá.",
+     "fr": "Il se débattait désespérément dans l'eau.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-5325",
+   "genre": "mot",
+   "hanzi": "症结",
+   "pinyin": "zhēngjié",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "nœud du problème",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "nœud du problème, point crucial"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这才是问题的症结所在。",
+     "pinyin": "Zhè cái shì wèntí de zhēngjié suǒzài.",
+     "fr": "Voilà où le bât blesse.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "睁",
+   "genre": "caractere",
+   "hanzi": "睁",
+   "pinyin": "zhēng",
+   "mots": [
+    "L7-5326"
+   ],
+   "sens": {
+    "glose": "ouvrir (les yeux)",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "ouvrir (les yeux)"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他睁开眼睛看了看我。",
+     "pinyin": "Tā zhēngkāi yǎnjing kàn le kàn wǒ.",
+     "fr": "Il a ouvert les yeux et m'a regardé.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "蒸",
+   "genre": "caractere",
+   "hanzi": "蒸",
+   "pinyin": "zhēng",
+   "mots": [
+    "L7-5327"
+   ],
+   "sens": {
+    "glose": "cuire à la vapeur",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "cuire à la vapeur"
+     },
+     {
+      "categorie": "V",
+      "fr": "s'évaporer"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "妈妈蒸了一锅馒头。",
+     "pinyin": "Māma zhēng le yī guō mántou.",
+     "fr": "Maman a préparé une fournée de petits pains vapeur.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "拯",
+   "genre": "caractere",
+   "hanzi": "拯",
+   "pinyin": "zhěng",
+   "sens": {
+    "glose": "sauver, secourir",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "sauver, secourir"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": []
+  },
+  {
+   "id": "L7-5328",
+   "genre": "mot",
+   "hanzi": "拯救",
+   "pinyin": "zhěngjiù",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "sauver, délivrer",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "sauver, délivrer, secourir"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他拯救了很多人的生命。",
+     "pinyin": "Tā zhěngjiù le hěn duō rén de shēngmìng.",
+     "fr": "Il a sauvé beaucoup de vies.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-5329",
+   "genre": "mot",
+   "hanzi": "整合",
+   "pinyin": "zhěnghé",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "intégrer, regrouper",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "intégrer, regrouper, fusionner"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "公司整合了各种资源。",
+     "pinyin": "Gōngsī zhěnghé le gè zhǒng zīyuán.",
+     "fr": "L'entreprise a mis en commun toutes ses ressources.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-5330",
+   "genre": "mot",
+   "hanzi": "整洁",
+   "pinyin": "zhěngjié",
+   "categories": [
+    "Adj"
+   ],
+   "sens": {
+    "glose": "propre et net, bien rangé",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "propre et net, bien rangé"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他的房间总是很整洁。",
+     "pinyin": "Tā de fángjiān zǒngshì hěn zhěngjié.",
+     "fr": "Sa chambre est toujours impeccable.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-5331",
+   "genre": "mot",
+   "hanzi": "整数",
+   "pinyin": "zhěngshù",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "nombre entier ; somme ronde",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "nombre entier"
+     },
+     {
+      "categorie": "N",
+      "fr": "somme ronde, chiffre rond"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "请给我一个整数。",
+     "pinyin": "Qǐng gěi wǒ yī ge zhěngshù.",
+     "fr": "Donne-moi un chiffre rond.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-5332",
+   "genre": "mot",
+   "hanzi": "正面",
+   "pinyin": "zhèngmiàn",
+   "categories": [
+    "N",
+    "Adj"
+   ],
+   "sens": {
+    "glose": "face, devant ; positif, direct",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "face, façade, devant"
+     },
+     {
+      "categorie": "Adj",
+      "fr": "positif ; direct, de front"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这是房子的正面。",
+     "pinyin": "Zhè shì fángzi de zhèngmiàn.",
+     "fr": "Voici la façade de la maison.",
+     "statut": "a_relire"
+    },
+    {
+     "zh": "我们要正面回答这个问题。",
+     "pinyin": "Wǒmen yào zhèngmiàn huídá zhège wèntí.",
+     "fr": "Nous devons répondre sans détour à cette question.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-5333",
+   "genre": "mot",
+   "hanzi": "正能量",
+   "pinyin": "zhèngnéngliàng",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "énergie positive",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "énergie positive, optimisme"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这个故事充满了正能量。",
+     "pinyin": "Zhège gùshi chōngmǎn le zhèngnéngliàng.",
+     "fr": "Cette histoire fait du bien au moral.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-5334",
+   "genre": "mot",
+   "hanzi": "正视",
+   "pinyin": "zhèngshì",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "regarder en face, affronter",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "regarder en face, affronter"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "我们要正视自己的缺点。",
+     "pinyin": "Wǒmen yào zhèngshì zìjǐ de quēdiǎn.",
+     "fr": "Il faut savoir reconnaître ses défauts.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-5335",
+   "genre": "mot",
+   "hanzi": "正直",
+   "pinyin": "zhèngzhí",
+   "categories": [
+    "Adj"
+   ],
+   "sens": {
+    "glose": "droit, intègre",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "droit, intègre, honnête"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他是一个正直的人。",
+     "pinyin": "Tā shì yī ge zhèngzhí de rén.",
+     "fr": "C'est un homme honnête.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-5336",
+   "genre": "mot",
+   "hanzi": "正宗",
+   "pinyin": "zhèngzōng",
+   "categories": [
+    "N",
+    "Adj"
+   ],
+   "sens": {
+    "glose": "authentique ; école orthodoxe",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "authentique, véritable"
+     },
+     {
+      "categorie": "N",
+      "fr": "école orthodoxe, tradition officielle"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这是正宗的北京烤鸭。",
+     "pinyin": "Zhè shì zhèngzōng de Běijīng kǎoyā.",
+     "fr": "C'est du vrai canard laqué de Pékin.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-5337",
+   "genre": "mot",
+   "hanzi": "证人",
+   "pinyin": "zhèngren",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "témoin",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "témoin (en justice)"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他是这个案子的证人。",
+     "pinyin": "Tā shì zhège ànzi de zhèngren.",
+     "fr": "Il témoigne dans cette affaire.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "郑",
+   "genre": "caractere",
+   "hanzi": "郑",
+   "pinyin": "zhèng",
+   "sens": {
+    "glose": "nom de famille ; sérieux",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "nom de famille"
+     },
+     {
+      "categorie": "Adj",
+      "fr": "sérieux, solennel"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": []
+  },
+  {
+   "id": "L7-5338",
+   "genre": "mot",
+   "hanzi": "郑重",
+   "pinyin": "zhèngzhòng",
+   "categories": [
+    "Adj"
+   ],
+   "sens": {
+    "glose": "solennel, sérieux",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "solennel, sérieux, grave"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他郑重地向大家道歉。",
+     "pinyin": "Tā zhèngzhòng de xiàng dàjiā dàoqiàn.",
+     "fr": "Il a présenté des excuses officielles à tous.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-5341",
+   "genre": "mot",
+   "hanzi": "之所以",
+   "pinyin": "zhīsuǒyǐ",
+   "categories": [
+    "Conj"
+   ],
+   "sens": {
+    "glose": "si ... c'est parce que",
+    "acceptions": [
+     {
+      "categorie": "Conj",
+      "fr": "si ... c'est parce que (cause mise en relief)"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "我之所以来，是因为想见你。",
+     "pinyin": "Wǒ zhīsuǒyǐ lái, shì yīnwèi xiǎng jiàn nǐ.",
+     "fr": "Si je suis venu, c'est que je voulais te voir.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-5342",
+   "genre": "mot",
+   "hanzi": "支票",
+   "pinyin": "zhīpiào",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "chèque",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "chèque"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他开了一张支票。",
+     "pinyin": "Tā kāi le yī zhāng zhīpiào.",
+     "fr": "Il a fait un chèque.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-5343",
+   "genre": "mot",
+   "hanzi": "支柱",
+   "pinyin": "zhīzhù",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "pilier, soutien",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "pilier, soutien, colonne"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他是家里的经济支柱。",
+     "pinyin": "Tā shì jiā li de jīngjì zhīzhù.",
+     "fr": "C'est lui qui fait vivre la famille.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "芝",
+   "genre": "caractere",
+   "hanzi": "芝",
+   "pinyin": "zhī",
+   "sens": {
+    "glose": "champignon lingzhi ; sésame",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "champignon lingzhi"
+     },
+     {
+      "categorie": "N",
+      "fr": "sésame (dans le mot zhīma)"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": []
+  },
+  {
+   "id": "L7-5345",
+   "genre": "mot",
+   "hanzi": "芝麻",
+   "pinyin": "zhīma",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "sésame",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "sésame (graines)"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这种饼上有很多芝麻。",
+     "pinyin": "Zhè zhǒng bǐng shang yǒu hěn duō zhīma.",
+     "fr": "Cette galette est couverte de graines.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-5346",
+   "genre": "mot",
+   "hanzi": "芝士",
+   "pinyin": "zhīshì",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "fromage",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "fromage"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "我喜欢吃芝士蛋糕。",
+     "pinyin": "Wǒ xǐhuan chī zhīshì dàngāo.",
+     "fr": "J'adore le cheesecake.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-5347",
+   "genre": "mot",
+   "hanzi": "知己",
+   "pinyin": "zhījǐ",
+   "categories": [
+    "Adj",
+    "N"
+   ],
+   "sens": {
+    "glose": "ami intime ; intime",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "ami intime, confident"
+     },
+     {
+      "categorie": "Adj",
+      "fr": "intime, qui vous comprend"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他是我的知己。",
+     "pinyin": "Tā shì wǒ de zhījǐ.",
+     "fr": "C'est mon meilleur ami.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-5348",
+   "genre": "mot",
+   "hanzi": "知觉",
+   "pinyin": "zhījué",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "perception ; connaissance",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "perception, sensation"
+     },
+     {
+      "categorie": "N",
+      "fr": "connaissance, conscience"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他失去了知觉。",
+     "pinyin": "Tā shīqù le zhījué.",
+     "fr": "Il a perdu connaissance.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-5349",
+   "genre": "mot",
+   "hanzi": "知识分子",
+   "pinyin": "zhīshi fènzǐ",
+   "sens": {
+    "glose": "intellectuel",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "intellectuel, lettré"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他父母都是知识分子。",
+     "pinyin": "Tā fùmǔ dōu shì zhīshi fènzǐ.",
+     "fr": "Ses parents sont tous deux des intellectuels.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-5350",
+   "genre": "mot",
+   "hanzi": "知足",
+   "pinyin": "zhīzú",
+   "categories": [
+    "Adj"
+   ],
+   "sens": {
+    "glose": "content de son sort",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "content de son sort, qui se contente de peu"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "人要知足。",
+     "pinyin": "Rén yào zhīzú.",
+     "fr": "Il faut savoir se contenter de ce qu'on a.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "肢",
+   "genre": "caractere",
+   "hanzi": "肢",
+   "pinyin": "zhī",
+   "sens": {
+    "glose": "membre (du corps)",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "membre (du corps)"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": []
+  },
+  {
+   "id": "L7-5351",
+   "genre": "mot",
+   "hanzi": "肢体",
+   "pinyin": "zhītǐ",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "membres, corps",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "membres, corps"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他用肢体语言表达自己。",
+     "pinyin": "Tā yòng zhītǐ yǔyán biǎodá zìjǐ.",
+     "fr": "Il s'exprime par gestes.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "脂",
+   "genre": "caractere",
+   "hanzi": "脂",
+   "pinyin": "zhī",
+   "sens": {
+    "glose": "graisse ; fard",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "graisse, gras"
+     },
+     {
+      "categorie": "N",
+      "fr": "fard, rouge"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": []
+  },
+  {
+   "id": "肪",
+   "genre": "caractere",
+   "hanzi": "肪",
+   "pinyin": "fáng",
+   "sens": {
+    "glose": "graisse",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "graisse (animale)"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": []
+  }
+ ]
+}
