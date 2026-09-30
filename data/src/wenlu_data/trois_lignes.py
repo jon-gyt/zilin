@@ -286,6 +286,29 @@ def ecarts_perimetre(texte: Texte, parcours: Mapping[str, object]) -> list[str]:
     return ecarts
 
 
+def lectures_admises(ingest: Path | None = None) -> dict[str, tuple[str, ...]] | None:
+    """Les lectures qu'un texte peut donner à un caractère : celles de `cuisine.lectures`
+    (Make Me a Hanzi, `kMandarin`, surcharges) et celles des dictionnaires d'Unihan
+    (`kTGHZ2013`, `kXHC1983`), qui disent toutes celles d'un polyphone : 便宜 pián yi,
+    音乐 yīn yuè. `None` sans `wenlu ingest`.
+    """
+    from .cuisine import lectures as de_la_cuisine
+    from .paths import INGEST
+
+    table = de_la_cuisine(ingest)
+    if table is None:
+        return None
+    chemin = (ingest or INGEST) / "unihan.json"
+    if not chemin.exists():
+        return table
+    etendue = {c: set(v) for c, v in table.items()}
+    for e in json.loads(chemin.read_text(encoding="utf-8"))["caracteres"]:
+        dico = [str(x) for x in e.get("lectures_dico") or ()]
+        if dico:
+            etendue.setdefault(str(e["c"]), set()).update(dico)
+    return {c: tuple(sorted(v)) for c, v in etendue.items()}
+
+
 def ecarts_pinyin(texte: Texte, lectures: Mapping[str, Sequence[str]] | None = None) -> list[str]:
     """Une syllabe par sinogramme, tons du dictionnaire sans sandhi, chacune une lecture."""
     from .pinyin import aligner
@@ -425,7 +448,7 @@ def controles(
 ) -> list[Controle]:
     """Contrôles des trois lignes, pour `wenlu check`. Bloquants, sauf la relecture et la suite."""
     from . import export as export_mod
-    from .cuisine import lectures as charger_lectures
+    charger_lectures = lectures_admises
 
     build = build or BUILD
 
@@ -646,6 +669,7 @@ def importer(
     build: Path | None = None,
     ingest: Path | None = None,
     jours: Sequence[int] = (),
+    essai: bool = False,
 ) -> Import:
     """Verse les brouillons d'un parcours dans `<parcours>.json`, au statut `a_relire`.
 
@@ -655,9 +679,10 @@ def importer(
     à l'identique, est simplement retrouvée ; autrement, c'est un conflit : l'entrée passe
     dans la `glose` propre du texte, à la main. Un texte relu n'est jamais remplacé ; un texte
     à relire l'est par un brouillon du même jour. Les statuts restent ceux du fichier : la
-    relecture est une décision à part.
+    relecture est une décision à part. `essai` contrôle sans rien écrire : un rédacteur
+    vérifie ses brouillons avant de les rendre.
     """
-    from .cuisine import lectures as charger_lectures
+    charger_lectures = lectures_admises
 
     doc = charger_parcours(parcours, build)
     chemin_glossaire = glossaire or GLOSSAIRE
@@ -698,7 +723,7 @@ def importer(
         ajoutes.update(nouveaux)
         textes[t.jour] = t
         resultat.importes.append(t.jour)
-    if resultat.importes:
+    if resultat.importes and not essai:
         generation = dict(fichier.generation) or {"modele": MODELE_MANUEL, "api": API_SESSION}
         generation.setdefault("modele", MODELE_MANUEL)
         generation.setdefault("api", API_SESSION)
@@ -711,13 +736,13 @@ def importer(
         chemin_textes(parcours, dossier).write_text(
             json.dumps(document, ensure_ascii=False, indent=1) + "\n", encoding="utf-8"
         )
-    if ajoutes:
+    if ajoutes and not essai:
         lignes = "".join(f"{zh}\t{g.pinyin}\t{g.fr}\t{g.en}\n" for zh, g in ajoutes.items())
         texte_glossaire = chemin_glossaire.read_text(encoding="utf-8")
         if not texte_glossaire.endswith("\n"):
             texte_glossaire += "\n"
         chemin_glossaire.write_text(texte_glossaire + lignes, encoding="utf-8")
-        resultat.glossaire = list(ajoutes)
+    resultat.glossaire = list(ajoutes)
     return resultat
 
 
@@ -772,10 +797,12 @@ def commande_a_rediger(
 def commande_importer(
     parcours: str = typer.Argument(..., help="lire ou hsk"),
     jour: list[int] = typer.Option([], help="Jours à verser ; tous les brouillons par défaut."),
+    essai: bool = typer.Option(False, help="Contrôler les brouillons sans rien écrire."),
 ) -> None:
     """Verse les brouillons (`trois-lignes-brouillons/<parcours>/<jour>.json`), au statut à relire."""
-    resultat = importer(parcours, jours=jour)
-    typer.echo(f"importés : {len(resultat.importes)} ({' '.join(map(str, resultat.importes)) or '—'})")
+    resultat = importer(parcours, jours=jour, essai=essai)
+    verbe = "prêts" if essai else "importés"
+    typer.echo(f"{verbe} : {len(resultat.importes)} ({' '.join(map(str, resultat.importes)) or '—'})")
     if resultat.glossaire:
         typer.echo(f"glossaire : {len(resultat.glossaire)} entrées ajoutées ({' '.join(resultat.glossaire)})")
     for j, fautes in sorted(resultat.refuses.items()):

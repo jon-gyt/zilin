@@ -279,6 +279,15 @@ def test_les_lots_a_rediger_se_partagent_la_plage_sans_se_toucher(tmp_path: Path
     assert 4 not in tous  # déjà écrit
 
 
+def test_les_lectures_d_un_polyphone_viennent_aussi_des_dictionnaires() -> None:
+    """便宜 pián yi, 音乐 yīn yuè : les lectures de kTGHZ2013 et kXHC1983 sont admises."""
+    lectures = tl.lectures_admises()
+    if lectures is None:
+        pytest.skip("aucune ingestion : `wenlu ingest`")
+    t = texte(4, ("便宜。", "pián yi"), ("音乐。", "yīn yuè"), ("天天。", "tiān tiān"))
+    assert [e for e in tl.ecarts_pinyin(t, lectures) if "ne se lit pas" in e] == []
+
+
 # ------------------------------------------------------------------ les textes versionnés
 
 
