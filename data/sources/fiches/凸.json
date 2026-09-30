@@ -19,20 +19,33 @@
  "roles": {
   "凸": "forme"
  },
- "mots": [],
+ "mots": [
+  {
+   "hanzi": "凹凸",
+   "pinyin": "āotū",
+   "fr": "bosselé, inégal",
+   "en": "uneven, bumpy"
+  },
+  {
+   "hanzi": "凸显",
+   "pinyin": "tūxiǎn",
+   "fr": "mettre en relief, faire ressortir",
+   "en": "to highlight, to stand out"
+  }
+ ],
  "phrase": {
-  "zh": "",
-  "pinyin": "",
-  "fr": "",
-  "en": ""
+  "zh": "这条路凹凸不平。",
+  "pinyin": "Zhè tiáo lù āotū bù píng.",
+  "fr": "Cette route est pleine de bosses et de creux.",
+  "en": "This road is bumpy and uneven."
  },
  "generation": {
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:d36f5d196cacc13746a0d10b20e4515e90c1c4c5ab1579596bf36371d8c517a6",
-  "essais": 1,
+  "empreinte_invite": "sha256:01b4949d8247fbe7aae7d7cb89ee706091cf916e0e6819282673d71e163d0c6b",
+  "essais": 2,
   "refus": []
  },
- "statut": "relu"
+ "statut": "a_relire"
 }
