@@ -3,15 +3,15 @@
  "license": "propriétaire",
  "source": "décomposition GF 0014-2009 réconciliée par le pipeline wenlu ; pinyin d'Unihan (kMandarin) ; textes rédigés pour l'app",
  "source_url": "https://github.com/jon-gyt/zilin",
- "modified": "2026-09-25 : assemblé par `wenlu export`",
+ "modified": "2026-09-30 : assemblé par `wenlu export`",
  "norme": "GF 0014-2009",
  "racine": {
   "c": "争",
   "pinyin": "zhēng",
-  "fr": "",
-  "en": "",
-  "origine": "",
-  "etiquette": null
+  "fr": "se disputer, rivaliser, débattre",
+  "en": "to fight over, to compete, to argue",
+  "origine": "Le Shuowen jiezi écrit 爭 et le glose « tirer » : deux mains qui tirent chacune de son côté. Sur les os oraculaires, deux mains se disputent un objet. La forme simplifiée 争 garde ce dessin : se disputer, rivaliser, débattre.",
+  "etiquette": "atteste"
  },
  "fiches": [
   {
@@ -20,25 +20,48 @@
    "lectures": [
     "zhēng"
    ],
-   "fr": "",
-   "en": "",
+   "fr": "se disputer, rivaliser, débattre",
+   "en": "to fight over, to compete, to argue",
    "parts": [],
    "nouveau": [],
    "sources": [],
    "role": null,
-   "roles": {},
-   "origine_fr": "",
-   "origine_en": "",
-   "etiquette": null,
+   "roles": {
+    "争": "forme"
+   },
+   "origine_fr": "Le Shuowen jiezi écrit 爭 et le glose « tirer » : deux mains qui tirent chacune de son côté. Sur les os oraculaires, deux mains se disputent un objet. La forme simplifiée 争 garde ce dessin : se disputer, rivaliser, débattre.",
+   "origine_en": "The Shuowen jiezi writes 爭 and glosses it as “to pull”: two hands, each pulling its own way. On oracle bones, two hands fight over an object. The simplified form 争 keeps this drawing: to fight over, to compete, to argue.",
+   "etiquette": "atteste",
    "memo_fr": null,
    "memo_en": null,
-   "mots": [],
-   "phrase": null,
+   "mots": [
+    {
+     "hanzi": "争先",
+     "pinyin": "zhēngxiān",
+     "fr": "vouloir passer le premier",
+     "en": "to strive to be first",
+     "audio": null
+    },
+    {
+     "hanzi": "争气",
+     "pinyin": "zhēngqì",
+     "fr": "faire honneur, ne pas décevoir",
+     "en": "to live up to expectations",
+     "audio": null
+    }
+   ],
+   "phrase": {
+    "hanzi": "学生们都争着第一个到学校。",
+    "pinyin": "Xuéshengmen dōu zhēngzhe dì yī gè dào xuéxiào.",
+    "fr": "Les élèves veulent tous arriver les premiers à l'école.",
+    "en": "The pupils all race to be the first to reach school.",
+    "audio": null
+   },
    "niveaux": {},
    "traits": [],
    "medianes": [],
    "audio": null,
-   "statut": "sans_fiche"
+   "statut": "relu"
   }
  ]
 }

@@ -3,7 +3,7 @@
  "license": "propriétaire",
  "source": "décomposition GF 0014-2009 réconciliée par le pipeline wenlu ; pinyin d'Unihan (kMandarin) ; textes rédigés pour l'app",
  "source_url": "https://github.com/jon-gyt/zilin",
- "modified": "2026-09-28 : assemblé par `wenlu export`",
+ "modified": "2026-09-30 : assemblé par `wenlu export`",
  "norme": "GF 0014-2009",
  "racine": {
   "c": "囗",
@@ -295,8 +295,8 @@
     "juān",
     "juàn"
    ],
-   "fr": "",
-   "en": "",
+   "fr": "cercle, rond, tour, entourer",
+   "en": "circle, ring, lap, to enclose",
    "parts": [
     "囗",
     "龹",
@@ -307,10 +307,14 @@
     "cjk-decomp"
    ],
    "role": null,
-   "roles": {},
-   "origine_fr": "",
-   "origine_en": "",
-   "etiquette": null,
+   "roles": {
+    "㔾": "forme",
+    "囗": "sens",
+    "龹": "forme"
+   },
+   "origine_fr": "Le Shuowen jiezi glose 圈 par « enclos pour le bétail » : 囗, l'enceinte, et 卷 pour le son. 卷 se lit juǎn et ne donne pas le son de quān. De l'enclos est venu le cercle, et l'enclos se lit encore juàn.",
+   "origine_en": "The Shuowen jiezi glosses 圈 as “a pen for livestock”: 囗, enclosure, and 卷 for the sound. 卷 is read juǎn and does not give the sound of quān. From the pen came the circle, and the pen is still read juàn.",
+   "etiquette": "atteste",
    "memo_fr": null,
    "memo_en": null,
    "mots": [],
@@ -319,7 +323,7 @@
    "traits": [],
    "medianes": [],
    "audio": null,
-   "statut": "sans_fiche"
+   "statut": "relu"
   }
  ]
 }

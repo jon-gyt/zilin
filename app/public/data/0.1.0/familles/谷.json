@@ -3,15 +3,15 @@
  "license": "propriétaire",
  "source": "décomposition GF 0014-2009 réconciliée par le pipeline wenlu ; pinyin d'Unihan (kMandarin) ; textes rédigés pour l'app",
  "source_url": "https://github.com/jon-gyt/zilin",
- "modified": "2026-09-25 : assemblé par `wenlu export`",
+ "modified": "2026-09-30 : assemblé par `wenlu export`",
  "norme": "GF 0014-2009",
  "racine": {
   "c": "谷",
   "pinyin": "gǔ",
-  "fr": "",
-  "en": "",
-  "origine": "",
-  "etiquette": null
+  "fr": "vallée, céréales",
+  "en": "valley, grain",
+  "origine": "Le Shuowen jiezi glose 谷 par « source qui débouche sur une rivière » : de l'eau à demi visible, 八 et 人, qui sort d'une ouverture, 口. Le sens premier est « la vallée », comme dans 山谷. Depuis la simplification, 谷 écrit aussi 穀, « les céréales ».",
+  "etiquette": "atteste"
  },
  "fiches": [
   {
@@ -21,16 +21,18 @@
     "gǔ",
     "yù"
    ],
-   "fr": "",
-   "en": "",
+   "fr": "vallée, céréales",
+   "en": "valley, grain",
    "parts": [],
    "nouveau": [],
    "sources": [],
    "role": null,
-   "roles": {},
-   "origine_fr": "",
-   "origine_en": "",
-   "etiquette": null,
+   "roles": {
+    "谷": "sens"
+   },
+   "origine_fr": "Le Shuowen jiezi glose 谷 par « source qui débouche sur une rivière » : de l'eau à demi visible, 八 et 人, qui sort d'une ouverture, 口. Le sens premier est « la vallée », comme dans 山谷. Depuis la simplification, 谷 écrit aussi 穀, « les céréales ».",
+   "origine_en": "The Shuowen jiezi glosses 谷 as “a spring that opens onto a river”: half-visible water, 八 and 人, coming out of an opening, 口. The first meaning is “valley”, as in 山谷. Since simplification, 谷 also writes 穀, “grain”.",
+   "etiquette": "atteste",
    "memo_fr": null,
    "memo_en": null,
    "mots": [],
@@ -39,7 +41,7 @@
    "traits": [],
    "medianes": [],
    "audio": null,
-   "statut": "sans_fiche"
+   "statut": "relu"
   }
  ]
 }

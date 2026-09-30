@@ -3,15 +3,15 @@
  "license": "propriétaire",
  "source": "décomposition GF 0014-2009 réconciliée par le pipeline wenlu ; pinyin d'Unihan (kMandarin) ; textes rédigés pour l'app",
  "source_url": "https://github.com/jon-gyt/zilin",
- "modified": "2026-09-28 : assemblé par `wenlu export`",
+ "modified": "2026-09-30 : assemblé par `wenlu export`",
  "norme": "GF 0014-2009",
  "racine": {
   "c": "乡",
   "pinyin": "xiāng",
-  "fr": "",
-  "en": "",
-  "origine": "",
-  "etiquette": null
+  "fr": "campagne, village, pays natal",
+  "en": "countryside, village, hometown",
+  "origine": "Sur les os oraculaires, 鄉 montre deux personnes agenouillées face à face autour d'un plat : le repas partagé. Le même dessin a donné 卿 et 饗, le festin. Réduit à 乡 par la simplification, il désigne le village, la campagne, le pays natal.",
+  "etiquette": "atteste"
  },
  "fiches": [
   {
@@ -20,16 +20,18 @@
    "lectures": [
     "xiāng"
    ],
-   "fr": "",
-   "en": "",
+   "fr": "campagne, village, pays natal",
+   "en": "countryside, village, hometown",
    "parts": [],
    "nouveau": [],
    "sources": [],
    "role": null,
-   "roles": {},
-   "origine_fr": "",
-   "origine_en": "",
-   "etiquette": null,
+   "roles": {
+    "乡": "forme"
+   },
+   "origine_fr": "Sur les os oraculaires, 鄉 montre deux personnes agenouillées face à face autour d'un plat : le repas partagé. Le même dessin a donné 卿 et 饗, le festin. Réduit à 乡 par la simplification, il désigne le village, la campagne, le pays natal.",
+   "origine_en": "On oracle bones, 鄉 shows two people kneeling face to face over a dish: a shared meal. The same drawing gave 卿 and 饗, the feast. Reduced to 乡 by simplification, it names the village, the countryside, one's home town.",
+   "etiquette": "atteste",
    "memo_fr": null,
    "memo_en": null,
    "mots": [],
@@ -38,7 +40,7 @@
    "traits": [],
    "medianes": [],
    "audio": null,
-   "statut": "sans_fiche"
+   "statut": "relu"
   }
  ]
 }

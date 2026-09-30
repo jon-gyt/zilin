@@ -3,7 +3,7 @@
  "license": "propriétaire",
  "source": "décomposition GF 0014-2009 réconciliée par le pipeline wenlu ; pinyin d'Unihan (kMandarin) ; textes rédigés pour l'app",
  "source_url": "https://github.com/jon-gyt/zilin",
- "modified": "2026-09-28 : assemblé par `wenlu export`",
+ "modified": "2026-09-30 : assemblé par `wenlu export`",
  "norme": "GF 0014-2009",
  "racine": {
   "c": "子",
@@ -72,8 +72,8 @@
    "lectures": [
     "sūn"
    ],
-   "fr": "",
-   "en": "",
+   "fr": "petit-enfant",
+   "en": "grandchild",
    "parts": [
     "子",
     "小"
@@ -83,10 +83,13 @@
     "cjk-decomp"
    ],
    "role": null,
-   "roles": {},
-   "origine_fr": "",
-   "origine_en": "",
-   "etiquette": null,
+   "roles": {
+    "子": "sens",
+    "小": "sens"
+   },
+   "origine_fr": "Le Shuowen jiezi glose 孫 par « le fils du fils » : 子, l'enfant, et 系, le fil qui continue la lignée. La forme simplifiée remplace 系 par 小, petit. On lit donc un petit enfant : le petit-enfant.",
+   "origine_en": "The Shuowen jiezi glosses 孫 as “the son's son”: 子, child, and 系, the thread that carries the line on. The simplified form replaces 系 with 小, small. So you read a small child: the grandchild.",
+   "etiquette": "atteste",
    "memo_fr": null,
    "memo_en": null,
    "mots": [],
@@ -95,7 +98,7 @@
    "traits": [],
    "medianes": [],
    "audio": null,
-   "statut": "sans_fiche"
+   "statut": "relu"
   },
   {
    "c": "学",

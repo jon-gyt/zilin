@@ -3,15 +3,15 @@
  "license": "propriétaire",
  "source": "décomposition GF 0014-2009 réconciliée par le pipeline wenlu ; pinyin d'Unihan (kMandarin) ; textes rédigés pour l'app",
  "source_url": "https://github.com/jon-gyt/zilin",
- "modified": "2026-09-25 : assemblé par `wenlu export`",
+ "modified": "2026-09-30 : assemblé par `wenlu export`",
  "norme": "GF 0014-2009",
  "racine": {
   "c": "耳",
   "pinyin": "ěr",
-  "fr": "",
-  "en": "",
-  "origine": "",
-  "etiquette": null
+  "fr": "oreille",
+  "en": "ear",
+  "origine": "Sur les os oraculaires, 耳 dessine une oreille, le pavillon et son creux. Le Shuowen jiezi le glose « ce qui préside à l'ouïe » et le classe parmi les pictogrammes. La forme actuelle a redressé le dessin en traits droits, mais on y voit encore le contour de l'oreille.",
+  "etiquette": "atteste"
  },
  "fiches": [
   {
@@ -20,25 +20,48 @@
    "lectures": [
     "ěr"
    ],
-   "fr": "",
-   "en": "",
+   "fr": "oreille",
+   "en": "ear",
    "parts": [],
    "nouveau": [],
    "sources": [],
    "role": null,
-   "roles": {},
-   "origine_fr": "",
-   "origine_en": "",
-   "etiquette": null,
+   "roles": {
+    "耳": "sens"
+   },
+   "origine_fr": "Sur les os oraculaires, 耳 dessine une oreille, le pavillon et son creux. Le Shuowen jiezi le glose « ce qui préside à l'ouïe » et le classe parmi les pictogrammes. La forme actuelle a redressé le dessin en traits droits, mais on y voit encore le contour de l'oreille.",
+   "origine_en": "On oracle bones, 耳 draws an ear, the outer ear and its hollow. The Shuowen jiezi glosses it as “what governs hearing” and classes it among the pictograms. Today's form has straightened the drawing into square strokes, but the outline of the ear can still be seen.",
+   "etiquette": "atteste",
    "memo_fr": null,
    "memo_en": null,
-   "mots": [],
-   "phrase": null,
+   "mots": [
+    {
+     "hanzi": "耳机",
+     "pinyin": "ěrjī",
+     "fr": "écouteurs, casque",
+     "en": "earphones, headphones",
+     "audio": null
+    },
+    {
+     "hanzi": "木耳",
+     "pinyin": "mù'ěr",
+     "fr": "oreille-de-Judas (champignon noir)",
+     "en": "wood ear mushroom",
+     "audio": null
+    }
+   ],
+   "phrase": {
+    "hanzi": "你有耳机吗？",
+    "pinyin": "Nǐ yǒu ěrjī ma?",
+    "fr": "Tu as des écouteurs ?",
+    "en": "Do you have earphones?",
+    "audio": null
+   },
    "niveaux": {},
    "traits": [],
    "medianes": [],
    "audio": null,
-   "statut": "sans_fiche"
+   "statut": "relu"
   }
  ]
 }
