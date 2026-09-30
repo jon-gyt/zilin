@@ -17,7 +17,7 @@ gratuit), puis le HSK 2 à 7-9 (Wenlu complet, décision du 30 septembre 2026) �
 au chemin gratuit (`LISTES_CIBLES`, `per_gratuit` d'`export.assembler`) ; les traits
 des familles portent en plus ce que les lots du dictionnaire ne dessinent pas, et le
 reste de la suite se dessine depuis `traits/dico-<n>.json`, chargés à la demande
-(`content.traitsDe`). Export du 30 septembre 2026 : 482 familles, 3 185 caractères.
+(`content.traitsDe`). Export du 30 septembre 2026 : 476 familles, 3 190 caractères.
 Une famille n'est exportée qu'avec ses membres du périmètre ; la famille 口 en a
 18 ici, contre 525 dans le graphe complet. Les caractères que les fêtes
 dessinent depuis leurs traits (`data/sources/fetes/textes.tsv` : le caractère
@@ -1539,11 +1539,15 @@ jours[], briques[], briques_muettes[], briques_decoupees[], non_reconcilies[], a
   (30 septembre 2026) garde ces jours, fermeture comprise, à l'identique et calcule la
   suite, étape par étape ; l'en-tête du fichier dit alors les étapes, leurs règles, leur
   source et le dernier jour de chacune, et une ligne `# — HSK 2 —` marque le début de
-  chaque étape dans la liste des jours. Prolongement du 30 septembre 2026 : Lire, 1 463
-  jours (seuil 255 jusqu'au jour 189, HSK 1 au 230, HSK 2 au 338, HSK 3 au 466, HSK 4 au
-  604, HSK 5 au 742, HSK 6 au 888, HSK 7-9 au 1 452, puis sa fermeture) ; HSK, 1 470 jours
-  (HSK 1 jusqu'au jour 219, HSK 2 au 341, HSK 3 au 473, HSK 4 au 611, HSK 5 au 749, HSK 6
-  au 895, HSK 7-9 au 1 459).
+  chaque étape dans la liste des jours. `--nom lire --jusqua N` garde en plus les jours
+  prolongés jusqu'au jour N et recalcule le reste : c'est ainsi qu'une réconciliation de
+  décompositions se pose sans bouger les jours déjà rédigés. Prolongement du 30 septembre
+  2026, repris après la réconciliation de 44 décompositions (jours gardés : 338 sur le
+  chemin Lire, 220 sur le chemin HSK) : Lire, 1 463 jours (seuil 255 jusqu'au jour 189,
+  HSK 1 au 230, HSK 2 au 340, HSK 3 au 468, HSK 4 au 606, HSK 5 au 746, HSK 6 au 890,
+  HSK 7-9 au 1 462) ; HSK, 1 470 jours (HSK 1 jusqu'au jour 219, HSK 2 au 343, HSK 3 au
+  475, HSK 4 au 613, HSK 5 au 753, HSK 6 au 897, HSK 7-9 au 1 469). Chaque étape se ferme
+  par ses propres non réconciliés (16 en tout, sur neuf jours de fermeture).
 - Calcul, qui ne sert plus qu'à proposer un ordre ou une suite : étape par étape, tri topologique — une brique avant tout ce qui la contient. Parmi les
   candidats prêts, priorité aux caractères de la liste de l'étape, puis à ce qui devient
   lisible le jour même, puis à la fréquence, puis à l'ordre de la liste. Make Me a Hanzi
