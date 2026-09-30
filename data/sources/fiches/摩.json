@@ -23,20 +23,33 @@
   "木": "forme",
   "手": "sens"
  },
- "mots": [],
+ "mots": [
+  {
+   "hanzi": "按摩",
+   "pinyin": "ànmó",
+   "fr": "masser, massage",
+   "en": "to massage, massage"
+  },
+  {
+   "hanzi": "摩擦",
+   "pinyin": "mócā",
+   "fr": "frotter, friction",
+   "en": "to rub, friction"
+  }
+ ],
  "phrase": {
-  "zh": "",
-  "pinyin": "",
-  "fr": "",
-  "en": ""
+  "zh": "请帮我按摩一下。",
+  "pinyin": "Qǐng bāng wǒ ànmó yīxià.",
+  "fr": "Masse-moi un peu, s'il te plaît.",
+  "en": "Please give me a quick massage."
  },
  "generation": {
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:0693e81cd8074eea0a4a4c8bce7166d359c2bd02518d065169f3296c0e0dc688",
-  "essais": 1,
+  "empreinte_invite": "sha256:5f07300583478ba18252ea4dbc252a2d077ab5ba8ee68f472c0637d9895622e9",
+  "essais": 2,
   "refus": []
  },
- "statut": "relu"
+ "statut": "a_relire"
 }
