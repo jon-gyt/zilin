@@ -21,20 +21,33 @@
   "隺": "son",
   "鸟": "sens"
  },
- "mots": [],
+ "mots": [
+  {
+   "hanzi": "白鹤",
+   "pinyin": "báihè",
+   "fr": "grue blanche",
+   "en": "white crane"
+  },
+  {
+   "hanzi": "纸鹤",
+   "pinyin": "zhǐhè",
+   "fr": "grue en papier",
+   "en": "paper crane"
+  }
+ ],
  "phrase": {
-  "zh": "",
-  "pinyin": "",
-  "fr": "",
-  "en": ""
+  "zh": "她用红纸叠了一只纸鹤。",
+  "pinyin": "Tā yòng hóng zhǐ dié le yī zhī zhǐhè.",
+  "fr": "Elle a plié une grue en papier rouge.",
+  "en": "She folded a paper crane from red paper."
  },
  "generation": {
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:e0108315ff92d6b2c158b1672a26140951a6737e8e6a5b826b6f53053ae62edd",
-  "essais": 1,
+  "empreinte_invite": "sha256:b2e4687b73aaff41a88ddfa689c992b93958192e5b9571898696243eb0ba5438",
+  "essais": 2,
   "refus": []
  },
- "statut": "relu"
+ "statut": "a_relire"
 }
