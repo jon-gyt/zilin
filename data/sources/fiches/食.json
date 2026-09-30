@@ -19,20 +19,33 @@
  "roles": {
   "食": "sens"
  },
- "mots": [],
+ "mots": [
+  {
+   "hanzi": "美食",
+   "pinyin": "měishí",
+   "fr": "bonne cuisine",
+   "en": "good food"
+  },
+  {
+   "hanzi": "零食",
+   "pinyin": "língshí",
+   "fr": "en-cas",
+   "en": "snacks"
+  }
+ ],
  "phrase": {
-  "zh": "",
-  "pinyin": "",
-  "fr": "",
-  "en": ""
+  "zh": "北京有很多美食。",
+  "pinyin": "Běijīng yǒu hěn duō měishí.",
+  "fr": "On mange très bien à Pékin.",
+  "en": "Beijing has lots of great food."
  },
  "generation": {
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:10818a0bab2ef71ea68a9c57be531dcb4a0ddf75b386bea6e121196a63124476",
-  "essais": 1,
+  "empreinte_invite": "sha256:ba6a9af80012778774797039a7d86ade33bb906a36c05c527ad9e1cb939610b1",
+  "essais": 2,
   "refus": []
  },
- "statut": "relu"
+ "statut": "a_relire"
 }

@@ -19,20 +19,33 @@
  "roles": {
   "入": "sens"
  },
- "mots": [],
+ "mots": [
+  {
+   "hanzi": "入口",
+   "pinyin": "rùkǒu",
+   "fr": "entrée",
+   "en": "entrance"
+  },
+  {
+   "hanzi": "进入",
+   "pinyin": "jìnrù",
+   "fr": "entrer",
+   "en": "to enter"
+  }
+ ],
  "phrase": {
-  "zh": "",
-  "pinyin": "",
-  "fr": "",
-  "en": ""
+  "zh": "入口在前面。",
+  "pinyin": "Rùkǒu zài qiánmian.",
+  "fr": "L'entrée est devant.",
+  "en": "The entrance is up ahead."
  },
  "generation": {
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:47568c3027f1dc0991db13f7539aa8eb8d56315344e01785e279fa72b416f80d",
-  "essais": 1,
+  "empreinte_invite": "sha256:874566568cbd81be2883296b3acedad36fb2691f0576fc637c6e64bcaea6c1ea",
+  "essais": 2,
   "refus": []
  },
- "statut": "relu"
+ "statut": "a_relire"
 }

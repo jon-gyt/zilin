@@ -19,20 +19,33 @@
  "roles": {
   "末": "sens"
  },
- "mots": [],
+ "mots": [
+  {
+   "hanzi": "年末",
+   "pinyin": "niánmò",
+   "fr": "fin d'année",
+   "en": "end of the year"
+  },
+  {
+   "hanzi": "期末",
+   "pinyin": "qīmò",
+   "fr": "fin de semestre",
+   "en": "end of term"
+  }
+ ],
  "phrase": {
-  "zh": "",
-  "pinyin": "",
-  "fr": "",
-  "en": ""
+  "zh": "年末大家都很忙。",
+  "pinyin": "Niánmò dàjiā dōu hěn máng.",
+  "fr": "En fin d'année, tout le monde est très occupé.",
+  "en": "Everyone is very busy at the end of the year."
  },
  "generation": {
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:6c1b8e3bde276108f71b758a21fe044108fa70214f0518190e9033647d3ea600",
-  "essais": 1,
+  "empreinte_invite": "sha256:5b00d65cc10a76df6078e354d20b6fac4a26c89303be5aab6c960ab07f72eb45",
+  "essais": 2,
   "refus": []
  },
- "statut": "relu"
+ "statut": "a_relire"
 }

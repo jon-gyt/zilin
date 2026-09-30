@@ -25,20 +25,33 @@
   "丁": "sens",
   "土": "forme"
  },
- "mots": [],
+ "mots": [
+  {
+   "hanzi": "大街",
+   "pinyin": "dàjiē",
+   "fr": "grande rue",
+   "en": "main street"
+  },
+  {
+   "hanzi": "上街",
+   "pinyin": "shàngjiē",
+   "fr": "aller en ville",
+   "en": "to go into town"
+  }
+ ],
  "phrase": {
-  "zh": "",
-  "pinyin": "",
-  "fr": "",
-  "en": ""
+  "zh": "这条街上有很多饭店。",
+  "pinyin": "Zhè tiáo jiē shang yǒu hěn duō fàndiàn.",
+  "fr": "Il y a beaucoup de restaurants dans cette rue.",
+  "en": "There are many restaurants on this street."
  },
  "generation": {
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:cb37a608fa6064ba8d983716ba73d6578475141bbba989df5819d936de7d2034",
-  "essais": 1,
+  "empreinte_invite": "sha256:40a48ad7fa7bcabf5cb34a40633cea0c9d3d2e209824942e60124b639dbb54a9",
+  "essais": 2,
   "refus": []
  },
- "statut": "relu"
+ "statut": "a_relire"
 }

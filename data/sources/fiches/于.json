@@ -19,20 +19,33 @@
  "roles": {
   "于": "forme"
  },
- "mots": [],
+ "mots": [
+  {
+   "hanzi": "关于",
+   "pinyin": "guānyú",
+   "fr": "au sujet de",
+   "en": "about"
+  },
+  {
+   "hanzi": "由于",
+   "pinyin": "yóuyú",
+   "fr": "en raison de",
+   "en": "because of"
+  }
+ ],
  "phrase": {
-  "zh": "",
-  "pinyin": "",
-  "fr": "",
-  "en": ""
+  "zh": "这是一本关于中国的书。",
+  "pinyin": "Zhè shì yī běn guānyú Zhōngguó de shū.",
+  "fr": "C'est un livre sur la Chine.",
+  "en": "This is a book about China."
  },
  "generation": {
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:b674f6ea4fd3c371331bc0187bb5b1b80b215c02542184443ecd61f60d3e42fd",
-  "essais": 1,
+  "empreinte_invite": "sha256:0143c9da4ab63d1a30e34d783a5125c77e62e0da1be9f21aa34e2118ef06783b",
+  "essais": 2,
   "refus": []
  },
- "statut": "relu"
+ "statut": "a_relire"
 }

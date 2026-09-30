@@ -19,20 +19,33 @@
  "roles": {
   "发": "forme"
  },
- "mots": [],
+ "mots": [
+  {
+   "hanzi": "发现",
+   "pinyin": "fāxiàn",
+   "fr": "découvrir",
+   "en": "to discover"
+  },
+  {
+   "hanzi": "出发",
+   "pinyin": "chūfā",
+   "fr": "partir",
+   "en": "to set off"
+  }
+ ],
  "phrase": {
-  "zh": "",
-  "pinyin": "",
-  "fr": "",
-  "en": ""
+  "zh": "我们明天早上出发。",
+  "pinyin": "Wǒmen míngtiān zǎoshang chūfā.",
+  "fr": "Nous partons demain matin.",
+  "en": "We set off tomorrow morning."
  },
  "generation": {
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:4ef7bda000cf689442e4c840bcb4aeb435beb46dd7d8bcade8897f67bdd0446c",
-  "essais": 1,
+  "empreinte_invite": "sha256:051efa2cd2d729cc4cd98387d48111742ea7aed1e794a373509889c51943cb2f",
+  "essais": 2,
   "refus": []
  },
- "statut": "relu"
+ "statut": "a_relire"
 }

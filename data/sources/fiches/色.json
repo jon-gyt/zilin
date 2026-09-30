@@ -19,20 +19,33 @@
  "roles": {
   "色": "forme"
  },
- "mots": [],
+ "mots": [
+  {
+   "hanzi": "红色",
+   "pinyin": "hóngsè",
+   "fr": "rouge",
+   "en": "red"
+  },
+  {
+   "hanzi": "出色",
+   "pinyin": "chūsè",
+   "fr": "remarquable",
+   "en": "outstanding"
+  }
+ ],
  "phrase": {
-  "zh": "",
-  "pinyin": "",
-  "fr": "",
-  "en": ""
+  "zh": "她穿了一件红色的衣服。",
+  "pinyin": "Tā chuān le yī jiàn hóngsè de yīfu.",
+  "fr": "Elle portait un vêtement rouge.",
+  "en": "She was wearing red."
  },
  "generation": {
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:0241620284b5df2ce53a6ed23f43334e71219f2e32a235d22dadf11fa806d83c",
-  "essais": 1,
+  "empreinte_invite": "sha256:b64130234a914b4d359bd32ddedcb70f59ca7b83deadd3a2a1c27f51ad799bb2",
+  "essais": 2,
   "refus": []
  },
- "statut": "relu"
+ "statut": "a_relire"
 }

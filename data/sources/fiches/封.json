@@ -21,20 +21,33 @@
   "土": "sens",
   "寸": "sens"
  },
- "mots": [],
+ "mots": [
+  {
+   "hanzi": "信封",
+   "pinyin": "xìnfēng",
+   "fr": "enveloppe",
+   "en": "envelope"
+  },
+  {
+   "hanzi": "封面",
+   "pinyin": "fēngmiàn",
+   "fr": "couverture",
+   "en": "cover"
+  }
+ ],
  "phrase": {
-  "zh": "",
-  "pinyin": "",
-  "fr": "",
-  "en": ""
+  "zh": "我给妈妈写了一封信。",
+  "pinyin": "Wǒ gěi māma xiě le yī fēng xìn.",
+  "fr": "J'ai écrit une lettre à ma mère.",
+  "en": "I wrote a letter to my mother."
  },
  "generation": {
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:e53f161adf731a8f459d99e22b198c120d68a7475b90377d2be3168a1813c405",
-  "essais": 1,
+  "empreinte_invite": "sha256:381d2af4ddd3a9f53558252f81266cbe5dd73b5837c41d563c37f705509b323a",
+  "essais": 2,
   "refus": []
  },
- "statut": "relu"
+ "statut": "a_relire"
 }

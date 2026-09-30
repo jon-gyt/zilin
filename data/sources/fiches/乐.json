@@ -19,20 +19,33 @@
  "roles": {
   "乐": "forme"
  },
- "mots": [],
+ "mots": [
+  {
+   "hanzi": "快乐",
+   "pinyin": "kuàilè",
+   "fr": "heureux, joyeux",
+   "en": "happy"
+  },
+  {
+   "hanzi": "可乐",
+   "pinyin": "kělè",
+   "fr": "cola",
+   "en": "cola"
+  }
+ ],
  "phrase": {
-  "zh": "",
-  "pinyin": "",
-  "fr": "",
-  "en": ""
+  "zh": "他每天都很快乐。",
+  "pinyin": "Tā měitiān dōu hěn kuàilè.",
+  "fr": "Il est heureux tous les jours.",
+  "en": "He's happy every day."
  },
  "generation": {
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:e44a9b9ce4e6a837934c7eb8ca2b748db523cab5182c3ce0d9861dada0452beb",
-  "essais": 1,
+  "empreinte_invite": "sha256:04294d8fdebe92f4d89c05982cbd7e6594167ceb1512e658316d457f22f8e9c8",
+  "essais": 2,
   "refus": []
  },
- "statut": "relu"
+ "statut": "a_relire"
 }
