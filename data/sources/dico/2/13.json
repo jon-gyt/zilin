@@ -1,0 +1,1993 @@
+{
+ "niveau": "2",
+ "lot": "13",
+ "source": "rédigé pour l'app dans le pipeline wenlu, sans API ; faits lus : liste HSK 3.0 (forme, pinyin, niveau, catégorie), lectures d'Unihan et des surcharges, gloses relues des fiches",
+ "brouillon": "data/sources/dico-brouillons/2/13.json",
+ "generation": {
+  "modele": "rédaction manuelle",
+  "api": "session Claude Code (sans API)",
+  "date": "2026-09-29",
+  "empreinte_invite": "sha256:ed0ac3f17b966983c42264b651389a55957921b61706677d8ca0c6457cc27daa",
+  "contexte": "wenlu dico contexte 2 13",
+  "essais": 1,
+  "refus": []
+ },
+ "entrees": [
+  {
+   "id": "L2-0511",
+   "genre": "mot",
+   "hanzi": "随便",
+   "pinyin": "suíbiàn",
+   "categories": [
+    "Adj"
+   ],
+   "sens": {
+    "glose": "comme on veut ; désinvolte",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "comme on veut, au choix"
+     },
+     {
+      "categorie": "Adj",
+      "fr": "désinvolte, négligent"
+     }
+    ],
+    "statut": "relu",
+    "relecture": {
+     "date": "2026-09-30",
+     "par": "décision du propriétaire",
+     "mode": "sans relecture ligne à ligne",
+     "decision": "« Considère que relecture faite », puis « Oui, affiche-les » (29 et 30 septembre 2026)"
+    }
+   },
+   "exemples": [
+    {
+     "zh": "随便坐吧。",
+     "pinyin": "Suíbiàn zuò ba.",
+     "fr": "Assieds-toi où tu veux.",
+     "statut": "relu",
+     "relecture": {
+      "date": "2026-09-30",
+      "par": "décision du propriétaire",
+      "mode": "sans relecture ligne à ligne",
+      "decision": "« Considère que relecture faite », puis « Oui, affiche-les » (29 et 30 septembre 2026)"
+     }
+    },
+    {
+     "zh": "他做事很随便。",
+     "pinyin": "Tā zuò shì hěn suíbiàn.",
+     "fr": "Il fait les choses à la légère.",
+     "statut": "relu",
+     "relecture": {
+      "date": "2026-09-30",
+      "par": "décision du propriétaire",
+      "mode": "sans relecture ligne à ligne",
+      "decision": "« Considère que relecture faite », puis « Oui, affiche-les » (29 et 30 septembre 2026)"
+     }
+    }
+   ]
+  },
+  {
+   "id": "L2-0512",
+   "genre": "mot",
+   "hanzi": "随时",
+   "pinyin": "suíshí",
+   "categories": [
+    "Adv"
+   ],
+   "sens": {
+    "glose": "à tout moment",
+    "acceptions": [
+     {
+      "categorie": "Adv",
+      "fr": "à tout moment, n'importe quand"
+     }
+    ],
+    "statut": "relu",
+    "relecture": {
+     "date": "2026-09-30",
+     "par": "décision du propriétaire",
+     "mode": "sans relecture ligne à ligne",
+     "decision": "« Considère que relecture faite », puis « Oui, affiche-les » (29 et 30 septembre 2026)"
+    }
+   },
+   "exemples": [
+    {
+     "zh": "有问题随时问我。",
+     "pinyin": "Yǒu wèntí suíshí wèn wǒ.",
+     "fr": "Si tu as une question, n'hésite pas à me la poser.",
+     "statut": "relu",
+     "relecture": {
+      "date": "2026-09-30",
+      "par": "décision du propriétaire",
+      "mode": "sans relecture ligne à ligne",
+      "decision": "« Considère que relecture faite », puis « Oui, affiche-les » (29 et 30 septembre 2026)"
+     }
+    }
+   ]
+  },
+  {
+   "id": "所",
+   "genre": "caractere",
+   "hanzi": "所",
+   "pinyin": "suǒ",
+   "mots": [
+    "L3-0691",
+    "L6-0778"
+   ],
+   "sens": {
+    "glose": "lieu ; classif. des bâtiments ; ce que",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "lieu, endroit ; institut"
+     },
+     {
+      "categorie": "M",
+      "fr": "classificateur des bâtiments : école, maison"
+     },
+     {
+      "categorie": "Aux",
+      "fr": "particule : ce que, langue écrite"
+     }
+    ],
+    "statut": "relu",
+    "relecture": {
+     "date": "2026-09-30",
+     "par": "décision du propriétaire",
+     "mode": "sans relecture ligne à ligne",
+     "decision": "« Considère que relecture faite », puis « Oui, affiche-les » (29 et 30 septembre 2026)"
+    }
+   },
+   "exemples": [
+    {
+     "zh": "这是一所很好的学校。",
+     "pinyin": "Zhè shì yī suǒ hěn hǎo de xuéxiào.",
+     "fr": "C'est une très bonne école.",
+     "statut": "relu",
+     "relecture": {
+      "date": "2026-09-30",
+      "par": "décision du propriétaire",
+      "mode": "sans relecture ligne à ligne",
+      "decision": "« Considère que relecture faite », puis « Oui, affiche-les » (29 et 30 septembre 2026)"
+     }
+    }
+   ]
+  },
+  {
+   "id": "L2-0513",
+   "genre": "mot",
+   "hanzi": "所以",
+   "pinyin": "suǒyǐ",
+   "categories": [
+    "Conj"
+   ],
+   "sens": {
+    "glose": "donc, c'est pourquoi",
+    "acceptions": [
+     {
+      "categorie": "Conj",
+      "fr": "donc, c'est pourquoi, par conséquent"
+     }
+    ],
+    "statut": "relu",
+    "relecture": {
+     "date": "2026-09-30",
+     "par": "décision du propriétaire",
+     "mode": "sans relecture ligne à ligne",
+     "decision": "« Considère que relecture faite », puis « Oui, affiche-les » (29 et 30 septembre 2026)"
+    }
+   },
+   "exemples": [
+    {
+     "zh": "今天下雨，所以我不出去了。",
+     "pinyin": "Jīntiān xià yǔ, suǒyǐ wǒ bù chūqu le.",
+     "fr": "Il pleut aujourd'hui, alors je ne sors pas.",
+     "statut": "relu",
+     "relecture": {
+      "date": "2026-09-30",
+      "par": "décision du propriétaire",
+      "mode": "sans relecture ligne à ligne",
+      "decision": "« Considère que relecture faite », puis « Oui, affiche-les » (29 et 30 septembre 2026)"
+     }
+    }
+   ]
+  },
+  {
+   "id": "L2-0514",
+   "genre": "mot",
+   "hanzi": "所有",
+   "pinyin": "suǒyǒu",
+   "categories": [
+    "Adj"
+   ],
+   "sens": {
+    "glose": "tout, tous les",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "tout, tous les, l'ensemble de"
+     }
+    ],
+    "statut": "relu",
+    "relecture": {
+     "date": "2026-09-30",
+     "par": "décision du propriétaire",
+     "mode": "sans relecture ligne à ligne",
+     "decision": "« Considère que relecture faite », puis « Oui, affiche-les » (29 et 30 septembre 2026)"
+    }
+   },
+   "exemples": [
+    {
+     "zh": "所有的人都来了。",
+     "pinyin": "Suǒyǒu de rén dōu lái le.",
+     "fr": "Tout le monde est venu.",
+     "statut": "relu",
+     "relecture": {
+      "date": "2026-09-30",
+      "par": "décision du propriétaire",
+      "mode": "sans relecture ligne à ligne",
+      "decision": "« Considère que relecture faite », puis « Oui, affiche-les » (29 et 30 septembre 2026)"
+     }
+    }
+   ]
+  },
+  {
+   "id": "它",
+   "genre": "caractere",
+   "hanzi": "它",
+   "pinyin": "tā",
+   "mots": [
+    "L2-0515"
+   ],
+   "sens": {
+    "glose": "il, elle (chose, animal)",
+    "acceptions": [],
+    "statut": "relu",
+    "provenance": {
+     "reprise": "data/sources/fiches/它.json",
+     "champ": "sens_fr"
+    }
+   },
+   "exemples": [
+    {
+     "zh": "我有一只猫，它很可爱。",
+     "pinyin": "Wǒ yǒu yī zhī māo, tā hěn kě'ài.",
+     "fr": "J'ai un chat, il est adorable.",
+     "statut": "relu",
+     "relecture": {
+      "date": "2026-09-30",
+      "par": "décision du propriétaire",
+      "mode": "sans relecture ligne à ligne",
+      "decision": "« Considère que relecture faite », puis « Oui, affiche-les » (29 et 30 septembre 2026)"
+     }
+    }
+   ]
+  },
+  {
+   "id": "L2-0516",
+   "genre": "mot",
+   "hanzi": "它们",
+   "pinyin": "tāmen",
+   "categories": [
+    "Pron"
+   ],
+   "sens": {
+    "glose": "ils, elles (choses, animaux)",
+    "acceptions": [],
+    "statut": "relu",
+    "provenance": {
+     "reprise": "data/sources/fiches/它.json",
+     "champ": "mots[].fr"
+    }
+   },
+   "exemples": [
+    {
+     "zh": "我家有两只狗，它们都很大。",
+     "pinyin": "Wǒ jiā yǒu liǎng zhī gǒu, tāmen dōu hěn dà.",
+     "fr": "Nous avons deux chiens, tous les deux très grands.",
+     "statut": "relu",
+     "relecture": {
+      "date": "2026-09-30",
+      "par": "décision du propriétaire",
+      "mode": "sans relecture ligne à ligne",
+      "decision": "« Considère que relecture faite », puis « Oui, affiche-les » (29 et 30 septembre 2026)"
+     }
+    }
+   ]
+  },
+  {
+   "id": "L2-0517",
+   "genre": "mot",
+   "hanzi": "太太",
+   "pinyin": "tàitai",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "madame ; épouse",
+    "acceptions": [],
+    "statut": "relu",
+    "provenance": {
+     "reprise": "data/sources/fiches/太.json",
+     "champ": "mots[].fr"
+    }
+   },
+   "exemples": [
+    {
+     "zh": "王太太是我们的老师。",
+     "pinyin": "Wáng tàitai shì wǒmen de lǎoshī.",
+     "fr": "Mme Wang est notre professeure.",
+     "statut": "relu",
+     "relecture": {
+      "date": "2026-09-30",
+      "par": "décision du propriétaire",
+      "mode": "sans relecture ligne à ligne",
+      "decision": "« Considère que relecture faite », puis « Oui, affiche-les » (29 et 30 septembre 2026)"
+     }
+    }
+   ]
+  },
+  {
+   "id": "阳",
+   "genre": "caractere",
+   "hanzi": "阳",
+   "pinyin": "yáng",
+   "sens": {
+    "glose": "soleil ; yang",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "soleil ; principe yang"
+     }
+    ],
+    "statut": "relu",
+    "relecture": {
+     "date": "2026-09-30",
+     "par": "décision du propriétaire",
+     "mode": "sans relecture ligne à ligne",
+     "decision": "« Considère que relecture faite », puis « Oui, affiche-les » (29 et 30 septembre 2026)"
+    }
+   },
+   "exemples": []
+  },
+  {
+   "id": "L2-0518",
+   "genre": "mot",
+   "hanzi": "太阳",
+   "pinyin": "tàiyang",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "soleil",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "soleil"
+     }
+    ],
+    "statut": "relu",
+    "relecture": {
+     "date": "2026-09-30",
+     "par": "décision du propriétaire",
+     "mode": "sans relecture ligne à ligne",
+     "decision": "« Considère que relecture faite », puis « Oui, affiche-les » (29 et 30 septembre 2026)"
+    }
+   },
+   "exemples": [
+    {
+     "zh": "今天太阳很大。",
+     "pinyin": "Jīntiān tàiyang hěn dà.",
+     "fr": "Ça tape fort aujourd'hui.",
+     "statut": "relu",
+     "relecture": {
+      "date": "2026-09-30",
+      "par": "décision du propriétaire",
+      "mode": "sans relecture ligne à ligne",
+      "decision": "« Considère que relecture faite », puis « Oui, affiche-les » (29 et 30 septembre 2026)"
+     }
+    }
+   ]
+  },
+  {
+   "id": "态",
+   "genre": "caractere",
+   "hanzi": "态",
+   "pinyin": "tài",
+   "sens": {
+    "glose": "attitude, état",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "attitude, état, forme"
+     }
+    ],
+    "statut": "relu",
+    "relecture": {
+     "date": "2026-09-30",
+     "par": "décision du propriétaire",
+     "mode": "sans relecture ligne à ligne",
+     "decision": "« Considère que relecture faite », puis « Oui, affiche-les » (29 et 30 septembre 2026)"
+    }
+   },
+   "exemples": []
+  },
+  {
+   "id": "L2-0519",
+   "genre": "mot",
+   "hanzi": "态度",
+   "pinyin": "tàidu",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "attitude, comportement",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "attitude, comportement"
+     }
+    ],
+    "statut": "relu",
+    "relecture": {
+     "date": "2026-09-30",
+     "par": "décision du propriétaire",
+     "mode": "sans relecture ligne à ligne",
+     "decision": "« Considère que relecture faite », puis « Oui, affiche-les » (29 et 30 septembre 2026)"
+    }
+   },
+   "exemples": [
+    {
+     "zh": "他的学习态度很好。",
+     "pinyin": "Tā de xuéxí tàidu hěn hǎo.",
+     "fr": "Il aborde ses études avec sérieux.",
+     "statut": "relu",
+     "relecture": {
+      "date": "2026-09-30",
+      "par": "décision du propriétaire",
+      "mode": "sans relecture ligne à ligne",
+      "decision": "« Considère que relecture faite », puis « Oui, affiche-les » (29 et 30 septembre 2026)"
+     }
+    }
+   ]
+  },
+  {
+   "id": "讨",
+   "genre": "caractere",
+   "hanzi": "讨",
+   "pinyin": "tǎo",
+   "mots": [
+    "L7-4037"
+   ],
+   "sens": {
+    "glose": "réclamer ; s'attirer",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "demander, réclamer"
+     },
+     {
+      "categorie": "V",
+      "fr": "provoquer, s'attirer"
+     }
+    ],
+    "statut": "relu",
+    "relecture": {
+     "date": "2026-09-30",
+     "par": "décision du propriétaire",
+     "mode": "sans relecture ligne à ligne",
+     "decision": "« Considère que relecture faite », puis « Oui, affiche-les » (29 et 30 septembre 2026)"
+    }
+   },
+   "exemples": [
+    {
+     "zh": "这孩子很讨人喜欢。",
+     "pinyin": "Zhè háizi hěn tǎo rén xǐhuan.",
+     "fr": "Cet enfant se fait aimer de tous.",
+     "statut": "relu",
+     "relecture": {
+      "date": "2026-09-30",
+      "par": "décision du propriétaire",
+      "mode": "sans relecture ligne à ligne",
+      "decision": "« Considère que relecture faite », puis « Oui, affiche-les » (29 et 30 septembre 2026)"
+     }
+    }
+   ]
+  },
+  {
+   "id": "论",
+   "genre": "caractere",
+   "hanzi": "论",
+   "pinyin": "lùn",
+   "sens": {
+    "glose": "discuter ; théorie",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "discuter, débattre"
+     },
+     {
+      "categorie": "N",
+      "fr": "théorie, thèse"
+     }
+    ],
+    "statut": "relu",
+    "relecture": {
+     "date": "2026-09-30",
+     "par": "décision du propriétaire",
+     "mode": "sans relecture ligne à ligne",
+     "decision": "« Considère que relecture faite », puis « Oui, affiche-les » (29 et 30 septembre 2026)"
+    }
+   },
+   "exemples": []
+  },
+  {
+   "id": "L2-0520",
+   "genre": "mot",
+   "hanzi": "讨论",
+   "pinyin": "tǎolùn",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "discuter, débattre",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "discuter, débattre"
+     }
+    ],
+    "statut": "relu",
+    "relecture": {
+     "date": "2026-09-30",
+     "par": "décision du propriétaire",
+     "mode": "sans relecture ligne à ligne",
+     "decision": "« Considère que relecture faite », puis « Oui, affiche-les » (29 et 30 septembre 2026)"
+    }
+   },
+   "exemples": [
+    {
+     "zh": "我们来讨论一下这个问题。",
+     "pinyin": "Wǒmen lái tǎolùn yīxià zhège wèntí.",
+     "fr": "Réfléchissons ensemble à cette question.",
+     "statut": "relu",
+     "relecture": {
+      "date": "2026-09-30",
+      "par": "décision du propriétaire",
+      "mode": "sans relecture ligne à ligne",
+      "decision": "« Considère que relecture faite », puis « Oui, affiche-les » (29 et 30 septembre 2026)"
+     }
+    }
+   ]
+  },
+  {
+   "id": "套",
+   "genre": "caractere",
+   "hanzi": "套",
+   "pinyin": "tào",
+   "mots": [
+    "L2-0521"
+   ],
+   "sens": {
+    "glose": "ensemble, jeu ; appartement",
+    "acceptions": [
+     {
+      "categorie": "M",
+      "fr": "classificateur : un ensemble, un jeu, un appartement"
+     }
+    ],
+    "statut": "relu",
+    "relecture": {
+     "date": "2026-09-30",
+     "par": "décision du propriétaire",
+     "mode": "sans relecture ligne à ligne",
+     "decision": "« Considère que relecture faite », puis « Oui, affiche-les » (29 et 30 septembre 2026)"
+    }
+   },
+   "exemples": [
+    {
+     "zh": "他买了一套新房子。",
+     "pinyin": "Tā mǎi le yī tào xīn fángzi.",
+     "fr": "Il a acheté un nouvel appartement.",
+     "statut": "relu",
+     "relecture": {
+      "date": "2026-09-30",
+      "par": "décision du propriétaire",
+      "mode": "sans relecture ligne à ligne",
+      "decision": "« Considère que relecture faite », puis « Oui, affiche-les » (29 et 30 septembre 2026)"
+     }
+    }
+   ]
+  },
+  {
+   "id": "特",
+   "genre": "caractere",
+   "hanzi": "特",
+   "pinyin": "tè",
+   "mots": [
+    "L6-0789"
+   ],
+   "sens": {
+    "glose": "particulièrement ; spécial",
+    "acceptions": [
+     {
+      "categorie": "Adv",
+      "fr": "particulièrement, spécialement"
+     },
+     {
+      "categorie": "Adj",
+      "fr": "spécial, particulier"
+     }
+    ],
+    "statut": "relu",
+    "relecture": {
+     "date": "2026-09-30",
+     "par": "décision du propriétaire",
+     "mode": "sans relecture ligne à ligne",
+     "decision": "« Considère que relecture faite », puis « Oui, affiche-les » (29 et 30 septembre 2026)"
+    }
+   },
+   "exemples": [
+    {
+     "zh": "今天特冷。",
+     "pinyin": "Jīntiān tè lěng.",
+     "fr": "Il fait un froid de canard aujourd'hui.",
+     "statut": "relu",
+     "relecture": {
+      "date": "2026-09-30",
+      "par": "décision du propriétaire",
+      "mode": "sans relecture ligne à ligne",
+      "decision": "« Considère que relecture faite », puis « Oui, affiche-les » (29 et 30 septembre 2026)"
+     }
+    }
+   ]
+  },
+  {
+   "id": "L2-0522",
+   "genre": "mot",
+   "hanzi": "特别",
+   "pinyin": "tèbié",
+   "categories": [
+    "Adj",
+    "Adv"
+   ],
+   "sens": {
+    "glose": "spécial ; particulièrement",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "spécial, particulier"
+     },
+     {
+      "categorie": "Adv",
+      "fr": "particulièrement, surtout"
+     }
+    ],
+    "statut": "relu",
+    "relecture": {
+     "date": "2026-09-30",
+     "par": "décision du propriétaire",
+     "mode": "sans relecture ligne à ligne",
+     "decision": "« Considère que relecture faite », puis « Oui, affiche-les » (29 et 30 septembre 2026)"
+    }
+   },
+   "exemples": [
+    {
+     "zh": "这个菜特别好吃。",
+     "pinyin": "Zhège cài tèbié hǎochī.",
+     "fr": "Ce plat est vraiment excellent.",
+     "statut": "relu",
+     "relecture": {
+      "date": "2026-09-30",
+      "par": "décision du propriétaire",
+      "mode": "sans relecture ligne à ligne",
+      "decision": "« Considère que relecture faite », puis « Oui, affiche-les » (29 et 30 septembre 2026)"
+     }
+    }
+   ]
+  },
+  {
+   "id": "L2-0523",
+   "genre": "mot",
+   "hanzi": "特点",
+   "pinyin": "tèdiǎn",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "caractéristique, trait",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "caractéristique, trait distinctif"
+     }
+    ],
+    "statut": "relu",
+    "relecture": {
+     "date": "2026-09-30",
+     "par": "décision du propriétaire",
+     "mode": "sans relecture ligne à ligne",
+     "decision": "« Considère que relecture faite », puis « Oui, affiche-les » (29 et 30 septembre 2026)"
+    }
+   },
+   "exemples": [
+    {
+     "zh": "这个地方有什么特点？",
+     "pinyin": "Zhège dìfang yǒu shénme tèdiǎn?",
+     "fr": "Qu'est-ce qui distingue cet endroit ?",
+     "statut": "relu",
+     "relecture": {
+      "date": "2026-09-30",
+      "par": "décision du propriétaire",
+      "mode": "sans relecture ligne à ligne",
+      "decision": "« Considère que relecture faite », puis « Oui, affiche-les » (29 et 30 septembre 2026)"
+     }
+    }
+   ]
+  },
+  {
+   "id": "疼",
+   "genre": "caractere",
+   "hanzi": "疼",
+   "pinyin": "téng",
+   "mots": [
+    "L2-0524"
+   ],
+   "sens": {
+    "glose": "avoir mal ; chérir",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "avoir mal, faire mal"
+     },
+     {
+      "categorie": "V",
+      "fr": "chérir, aimer tendrement"
+     }
+    ],
+    "statut": "relu",
+    "relecture": {
+     "date": "2026-09-30",
+     "par": "décision du propriétaire",
+     "mode": "sans relecture ligne à ligne",
+     "decision": "« Considère que relecture faite », puis « Oui, affiche-les » (29 et 30 septembre 2026)"
+    }
+   },
+   "exemples": [
+    {
+     "zh": "我的腿很疼。",
+     "pinyin": "Wǒ de tuǐ hěn téng.",
+     "fr": "J'ai très mal à la jambe.",
+     "statut": "relu",
+     "relecture": {
+      "date": "2026-09-30",
+      "par": "décision du propriétaire",
+      "mode": "sans relecture ligne à ligne",
+      "decision": "« Considère que relecture faite », puis « Oui, affiche-les » (29 et 30 septembre 2026)"
+     }
+    },
+    {
+     "zh": "奶奶最疼我。",
+     "pinyin": "Nǎinai zuì téng wǒ.",
+     "fr": "C'est moi que grand-mère chérit le plus.",
+     "statut": "relu",
+     "relecture": {
+      "date": "2026-09-30",
+      "par": "décision du propriétaire",
+      "mode": "sans relecture ligne à ligne",
+      "decision": "« Considère que relecture faite », puis « Oui, affiche-les » (29 et 30 septembre 2026)"
+     }
+    }
+   ]
+  },
+  {
+   "id": "提",
+   "genre": "caractere",
+   "hanzi": "提",
+   "pinyin": "tí",
+   "mots": [
+    "L2-0525"
+   ],
+   "sens": {
+    "glose": "porter à la main ; mentionner",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "porter à la main, soulever"
+     },
+     {
+      "categorie": "V",
+      "fr": "mentionner, soulever une question"
+     }
+    ],
+    "statut": "relu",
+    "relecture": {
+     "date": "2026-09-30",
+     "par": "décision du propriétaire",
+     "mode": "sans relecture ligne à ligne",
+     "decision": "« Considère que relecture faite », puis « Oui, affiche-les » (29 et 30 septembre 2026)"
+    }
+   },
+   "exemples": [
+    {
+     "zh": "他提着一个包。",
+     "pinyin": "Tā tí zhe yī ge bāo.",
+     "fr": "Il porte un sac à la main.",
+     "statut": "relu",
+     "relecture": {
+      "date": "2026-09-30",
+      "par": "décision du propriétaire",
+      "mode": "sans relecture ligne à ligne",
+      "decision": "« Considère que relecture faite », puis « Oui, affiche-les » (29 et 30 septembre 2026)"
+     }
+    }
+   ]
+  },
+  {
+   "id": "L2-0526",
+   "genre": "mot",
+   "hanzi": "提出",
+   "pinyin": "tíchū",
+   "sens": {
+    "glose": "proposer, soulever",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "proposer, présenter, soulever une question"
+     }
+    ],
+    "statut": "relu",
+    "relecture": {
+     "date": "2026-09-30",
+     "par": "décision du propriétaire",
+     "mode": "sans relecture ligne à ligne",
+     "decision": "« Considère que relecture faite », puis « Oui, affiche-les » (29 et 30 septembre 2026)"
+    }
+   },
+   "exemples": [
+    {
+     "zh": "他提出了一个好办法。",
+     "pinyin": "Tā tíchū le yī ge hǎo bànfǎ.",
+     "fr": "Il a eu une bonne idée.",
+     "statut": "relu",
+     "relecture": {
+      "date": "2026-09-30",
+      "par": "décision du propriétaire",
+      "mode": "sans relecture ligne à ligne",
+      "decision": "« Considère que relecture faite », puis « Oui, affiche-les » (29 et 30 septembre 2026)"
+     }
+    }
+   ]
+  },
+  {
+   "id": "L2-0527",
+   "genre": "mot",
+   "hanzi": "提到",
+   "pinyin": "tídào",
+   "sens": {
+    "glose": "mentionner, évoquer",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "mentionner, évoquer"
+     }
+    ],
+    "statut": "relu",
+    "relecture": {
+     "date": "2026-09-30",
+     "par": "décision du propriétaire",
+     "mode": "sans relecture ligne à ligne",
+     "decision": "« Considère que relecture faite », puis « Oui, affiche-les » (29 et 30 septembre 2026)"
+    }
+   },
+   "exemples": [
+    {
+     "zh": "他在信里提到了你。",
+     "pinyin": "Tā zài xìn li tídào le nǐ.",
+     "fr": "Il a parlé de toi dans sa lettre.",
+     "statut": "relu",
+     "relecture": {
+      "date": "2026-09-30",
+      "par": "décision du propriétaire",
+      "mode": "sans relecture ligne à ligne",
+      "decision": "« Considère que relecture faite », puis « Oui, affiche-les » (29 et 30 septembre 2026)"
+     }
+    }
+   ]
+  },
+  {
+   "id": "L2-0528",
+   "genre": "mot",
+   "hanzi": "提高",
+   "pinyin": "tígāo",
+   "sens": {
+    "glose": "améliorer, élever",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "améliorer, élever, augmenter"
+     }
+    ],
+    "statut": "relu",
+    "relecture": {
+     "date": "2026-09-30",
+     "par": "décision du propriétaire",
+     "mode": "sans relecture ligne à ligne",
+     "decision": "« Considère que relecture faite », puis « Oui, affiche-les » (29 et 30 septembre 2026)"
+    }
+   },
+   "exemples": [
+    {
+     "zh": "我想提高我的汉语水平。",
+     "pinyin": "Wǒ xiǎng tígāo wǒ de Hànyǔ shuǐpíng.",
+     "fr": "Je voudrais progresser en chinois.",
+     "statut": "relu",
+     "relecture": {
+      "date": "2026-09-30",
+      "par": "décision du propriétaire",
+      "mode": "sans relecture ligne à ligne",
+      "decision": "« Considère que relecture faite », puis « Oui, affiche-les » (29 et 30 septembre 2026)"
+     }
+    }
+   ]
+  },
+  {
+   "id": "L2-0530",
+   "genre": "mot",
+   "hanzi": "体育",
+   "pinyin": "tǐyù",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "sport, éducation physique",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "sport, éducation physique"
+     }
+    ],
+    "statut": "relu",
+    "relecture": {
+     "date": "2026-09-30",
+     "par": "décision du propriétaire",
+     "mode": "sans relecture ligne à ligne",
+     "decision": "« Considère que relecture faite », puis « Oui, affiche-les » (29 et 30 septembre 2026)"
+    }
+   },
+   "exemples": [
+    {
+     "zh": "他很喜欢体育。",
+     "pinyin": "Tā hěn xǐhuan tǐyù.",
+     "fr": "Il adore le sport.",
+     "statut": "relu",
+     "relecture": {
+      "date": "2026-09-30",
+      "par": "décision du propriétaire",
+      "mode": "sans relecture ligne à ligne",
+      "decision": "« Considère que relecture faite », puis « Oui, affiche-les » (29 et 30 septembre 2026)"
+     }
+    }
+   ]
+  },
+  {
+   "id": "L2-0531",
+   "genre": "mot",
+   "hanzi": "体育场",
+   "pinyin": "tǐyùchǎng",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "stade",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "stade"
+     }
+    ],
+    "statut": "relu",
+    "relecture": {
+     "date": "2026-09-30",
+     "par": "décision du propriétaire",
+     "mode": "sans relecture ligne à ligne",
+     "decision": "« Considère que relecture faite », puis « Oui, affiche-les » (29 et 30 septembre 2026)"
+    }
+   },
+   "exemples": [
+    {
+     "zh": "体育场里有很多人。",
+     "pinyin": "Tǐyùchǎng li yǒu hěn duō rén.",
+     "fr": "Il y a beaucoup de monde dans les tribunes.",
+     "statut": "relu",
+     "relecture": {
+      "date": "2026-09-30",
+      "par": "décision du propriétaire",
+      "mode": "sans relecture ligne à ligne",
+      "decision": "« Considère que relecture faite », puis « Oui, affiche-les » (29 et 30 septembre 2026)"
+     }
+    }
+   ]
+  },
+  {
+   "id": "L2-0532",
+   "genre": "mot",
+   "hanzi": "体育馆",
+   "pinyin": "tǐyùguǎn",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "gymnase, salle de sport",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "gymnase, salle omnisports"
+     }
+    ],
+    "statut": "relu",
+    "relecture": {
+     "date": "2026-09-30",
+     "par": "décision du propriétaire",
+     "mode": "sans relecture ligne à ligne",
+     "decision": "« Considère que relecture faite », puis « Oui, affiche-les » (29 et 30 septembre 2026)"
+    }
+   },
+   "exemples": [
+    {
+     "zh": "我们在体育馆打篮球。",
+     "pinyin": "Wǒmen zài tǐyùguǎn dǎ lánqiú.",
+     "fr": "Nous jouons au basket en salle.",
+     "statut": "relu",
+     "relecture": {
+      "date": "2026-09-30",
+      "par": "décision du propriétaire",
+      "mode": "sans relecture ligne à ligne",
+      "decision": "« Considère que relecture faite », puis « Oui, affiche-les » (29 et 30 septembre 2026)"
+     }
+    }
+   ]
+  },
+  {
+   "id": "L2-0533",
+   "genre": "mot",
+   "hanzi": "天上",
+   "pinyin": "tiānshàng",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "dans le ciel",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "dans le ciel, au ciel"
+     }
+    ],
+    "statut": "relu",
+    "relecture": {
+     "date": "2026-09-30",
+     "par": "décision du propriétaire",
+     "mode": "sans relecture ligne à ligne",
+     "decision": "« Considère que relecture faite », puis « Oui, affiche-les » (29 et 30 septembre 2026)"
+    }
+   },
+   "exemples": [
+    {
+     "zh": "天上有很多星星。",
+     "pinyin": "Tiānshàng yǒu hěn duō xīngxing.",
+     "fr": "Il y a plein d'étoiles cette nuit.",
+     "statut": "relu",
+     "relecture": {
+      "date": "2026-09-30",
+      "par": "décision du propriétaire",
+      "mode": "sans relecture ligne à ligne",
+      "decision": "« Considère que relecture faite », puis « Oui, affiche-les » (29 et 30 septembre 2026)"
+     }
+    }
+   ]
+  },
+  {
+   "id": "L2-0535",
+   "genre": "mot",
+   "hanzi": "条件",
+   "pinyin": "tiáojiàn",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "condition",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "condition ; conditions de vie, de travail"
+     }
+    ],
+    "statut": "relu",
+    "relecture": {
+     "date": "2026-09-30",
+     "par": "décision du propriétaire",
+     "mode": "sans relecture ligne à ligne",
+     "decision": "« Considère que relecture faite », puis « Oui, affiche-les » (29 et 30 septembre 2026)"
+    }
+   },
+   "exemples": [
+    {
+     "zh": "这里的生活条件很好。",
+     "pinyin": "Zhèli de shēnghuó tiáojiàn hěn hǎo.",
+     "fr": "On vit très bien ici.",
+     "statut": "relu",
+     "relecture": {
+      "date": "2026-09-30",
+      "par": "décision du propriétaire",
+      "mode": "sans relecture ligne à ligne",
+      "decision": "« Considère que relecture faite », puis « Oui, affiche-les » (29 et 30 septembre 2026)"
+     }
+    }
+   ]
+  },
+  {
+   "id": "L2-0536",
+   "genre": "mot",
+   "hanzi": "听讲",
+   "pinyin": "tīngjiǎng",
+   "sens": {
+    "glose": "écouter (un cours)",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "écouter un cours, une conférence"
+     }
+    ],
+    "statut": "relu",
+    "relecture": {
+     "date": "2026-09-30",
+     "par": "décision du propriétaire",
+     "mode": "sans relecture ligne à ligne",
+     "decision": "« Considère que relecture faite », puis « Oui, affiche-les » (29 et 30 septembre 2026)"
+    }
+   },
+   "exemples": [
+    {
+     "zh": "上课要认真听讲。",
+     "pinyin": "Shàngkè yào rènzhēn tīngjiǎng.",
+     "fr": "En classe, il faut être attentif.",
+     "statut": "relu",
+     "relecture": {
+      "date": "2026-09-30",
+      "par": "décision du propriétaire",
+      "mode": "sans relecture ligne à ligne",
+      "decision": "« Considère que relecture faite », puis « Oui, affiche-les » (29 et 30 septembre 2026)"
+     }
+    }
+   ]
+  },
+  {
+   "id": "L2-0537",
+   "genre": "mot",
+   "hanzi": "听说",
+   "pinyin": "tīngshuō",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "entendre dire",
+    "acceptions": [],
+    "statut": "relu",
+    "provenance": {
+     "reprise": "data/sources/fiches/听.json",
+     "champ": "mots[].fr"
+    }
+   },
+   "exemples": [
+    {
+     "zh": "听说他病了。",
+     "pinyin": "Tīngshuō tā bìng le.",
+     "fr": "Il paraît qu'il est malade.",
+     "statut": "relu",
+     "relecture": {
+      "date": "2026-09-30",
+      "par": "décision du propriétaire",
+      "mode": "sans relecture ligne à ligne",
+      "decision": "« Considère que relecture faite », puis « Oui, affiche-les » (29 et 30 septembre 2026)"
+     }
+    }
+   ]
+  },
+  {
+   "id": "停",
+   "genre": "caractere",
+   "hanzi": "停",
+   "pinyin": "tíng",
+   "mots": [
+    "L2-0538"
+   ],
+   "sens": {
+    "glose": "arrêter, s'arrêter ; stationner",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "arrêter, s'arrêter, cesser"
+     },
+     {
+      "categorie": "V",
+      "fr": "stationner, garer"
+     }
+    ],
+    "statut": "relu",
+    "relecture": {
+     "date": "2026-09-30",
+     "par": "décision du propriétaire",
+     "mode": "sans relecture ligne à ligne",
+     "decision": "« Considère que relecture faite », puis « Oui, affiche-les » (29 et 30 septembre 2026)"
+    }
+   },
+   "exemples": [
+    {
+     "zh": "雨停了。",
+     "pinyin": "Yǔ tíng le.",
+     "fr": "La pluie a cessé.",
+     "statut": "relu",
+     "relecture": {
+      "date": "2026-09-30",
+      "par": "décision du propriétaire",
+      "mode": "sans relecture ligne à ligne",
+      "decision": "« Considère que relecture faite », puis « Oui, affiche-les » (29 et 30 septembre 2026)"
+     }
+    }
+   ]
+  },
+  {
+   "id": "L2-0539",
+   "genre": "mot",
+   "hanzi": "停车",
+   "pinyin": "tíngchē",
+   "sens": {
+    "glose": "se garer, stationner",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "garer, stationner ; s'arrêter : véhicule"
+     }
+    ],
+    "statut": "relu",
+    "relecture": {
+     "date": "2026-09-30",
+     "par": "décision du propriétaire",
+     "mode": "sans relecture ligne à ligne",
+     "decision": "« Considère que relecture faite », puis « Oui, affiche-les » (29 et 30 septembre 2026)"
+    }
+   },
+   "exemples": [
+    {
+     "zh": "这里不能停车。",
+     "pinyin": "Zhèli bù néng tíngchē.",
+     "fr": "Le stationnement est interdit ici.",
+     "statut": "relu",
+     "relecture": {
+      "date": "2026-09-30",
+      "par": "décision du propriétaire",
+      "mode": "sans relecture ligne à ligne",
+      "decision": "« Considère que relecture faite », puis « Oui, affiche-les » (29 et 30 septembre 2026)"
+     }
+    }
+   ]
+  },
+  {
+   "id": "L2-0540",
+   "genre": "mot",
+   "hanzi": "停车场",
+   "pinyin": "tíngchēchǎng",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "parking",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "parking, parc de stationnement"
+     }
+    ],
+    "statut": "relu",
+    "relecture": {
+     "date": "2026-09-30",
+     "par": "décision du propriétaire",
+     "mode": "sans relecture ligne à ligne",
+     "decision": "« Considère que relecture faite », puis « Oui, affiche-les » (29 et 30 septembre 2026)"
+    }
+   },
+   "exemples": [
+    {
+     "zh": "停车场在楼下。",
+     "pinyin": "Tíngchēchǎng zài lóu xià.",
+     "fr": "Les voitures se garent en bas de l'immeuble.",
+     "statut": "relu",
+     "relecture": {
+      "date": "2026-09-30",
+      "par": "décision du propriétaire",
+      "mode": "sans relecture ligne à ligne",
+      "decision": "« Considère que relecture faite », puis « Oui, affiche-les » (29 et 30 septembre 2026)"
+     }
+    }
+   ]
+  },
+  {
+   "id": "挺",
+   "genre": "caractere",
+   "hanzi": "挺",
+   "pinyin": "tǐng",
+   "mots": [
+    "L2-0541",
+    "L4-0718"
+   ],
+   "sens": {
+    "glose": "assez, plutôt ; redresser",
+    "acceptions": [
+     {
+      "categorie": "Adv",
+      "fr": "assez, plutôt, très"
+     },
+     {
+      "categorie": "V",
+      "fr": "redresser, tendre ; tenir bon"
+     }
+    ],
+    "statut": "relu",
+    "relecture": {
+     "date": "2026-09-30",
+     "par": "décision du propriétaire",
+     "mode": "sans relecture ligne à ligne",
+     "decision": "« Considère que relecture faite », puis « Oui, affiche-les » (29 et 30 septembre 2026)"
+    }
+   },
+   "exemples": [
+    {
+     "zh": "这个电影挺好看的。",
+     "pinyin": "Zhège diànyǐng tǐng hǎokàn de.",
+     "fr": "Ce film est plutôt réussi.",
+     "statut": "relu",
+     "relecture": {
+      "date": "2026-09-30",
+      "par": "décision du propriétaire",
+      "mode": "sans relecture ligne à ligne",
+      "decision": "« Considère que relecture faite », puis « Oui, affiche-les » (29 et 30 septembre 2026)"
+     }
+    }
+   ]
+  },
+  {
+   "id": "L2-0542",
+   "genre": "mot",
+   "hanzi": "挺好",
+   "pinyin": "tǐng hǎo",
+   "sens": {
+    "glose": "plutôt bien, pas mal du tout",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "plutôt bien, très bien"
+     }
+    ],
+    "statut": "relu",
+    "relecture": {
+     "date": "2026-09-30",
+     "par": "décision du propriétaire",
+     "mode": "sans relecture ligne à ligne",
+     "decision": "« Considère que relecture faite », puis « Oui, affiche-les » (29 et 30 septembre 2026)"
+    }
+   },
+   "exemples": [
+    {
+     "zh": "我最近挺好的。",
+     "pinyin": "Wǒ zuìjìn tǐng hǎo de.",
+     "fr": "Ces temps-ci, ça va pour moi.",
+     "statut": "relu",
+     "relecture": {
+      "date": "2026-09-30",
+      "par": "décision du propriétaire",
+      "mode": "sans relecture ligne à ligne",
+      "decision": "« Considère que relecture faite », puis « Oui, affiche-les » (29 et 30 septembre 2026)"
+     }
+    }
+   ]
+  },
+  {
+   "id": "L2-0544",
+   "genre": "mot",
+   "hanzi": "通过",
+   "pinyin": "tōngguò",
+   "categories": [
+    "Prep",
+    "V"
+   ],
+   "sens": {
+    "glose": "par, au moyen de ; réussir",
+    "acceptions": [
+     {
+      "categorie": "Prep",
+      "fr": "par, au moyen de"
+     },
+     {
+      "categorie": "V",
+      "fr": "passer, traverser ; réussir, être adopté"
+     }
+    ],
+    "statut": "relu",
+    "relecture": {
+     "date": "2026-09-30",
+     "par": "décision du propriétaire",
+     "mode": "sans relecture ligne à ligne",
+     "decision": "« Considère que relecture faite », puis « Oui, affiche-les » (29 et 30 septembre 2026)"
+    }
+   },
+   "exemples": [
+    {
+     "zh": "我通过朋友认识了他。",
+     "pinyin": "Wǒ tōngguò péngyou rènshi le tā.",
+     "fr": "Je l'ai connu par un ami.",
+     "statut": "relu",
+     "relecture": {
+      "date": "2026-09-30",
+      "par": "décision du propriétaire",
+      "mode": "sans relecture ligne à ligne",
+      "decision": "« Considère que relecture faite », puis « Oui, affiche-les » (29 et 30 septembre 2026)"
+     }
+    },
+    {
+     "zh": "他通过了考试。",
+     "pinyin": "Tā tōngguò le kǎoshì.",
+     "fr": "Il a été reçu à l'examen.",
+     "statut": "relu",
+     "relecture": {
+      "date": "2026-09-30",
+      "par": "décision du propriétaire",
+      "mode": "sans relecture ligne à ligne",
+      "decision": "« Considère que relecture faite », puis « Oui, affiche-les » (29 et 30 septembre 2026)"
+     }
+    }
+   ]
+  },
+  {
+   "id": "L2-0545",
+   "genre": "mot",
+   "hanzi": "通知",
+   "pinyin": "tōngzhī",
+   "categories": [
+    "V",
+    "N"
+   ],
+   "sens": {
+    "glose": "informer, prévenir ; avis",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "informer, prévenir"
+     },
+     {
+      "categorie": "N",
+      "fr": "avis, notification"
+     }
+    ],
+    "statut": "relu",
+    "relecture": {
+     "date": "2026-09-30",
+     "par": "décision du propriétaire",
+     "mode": "sans relecture ligne à ligne",
+     "decision": "« Considère que relecture faite », puis « Oui, affiche-les » (29 et 30 septembre 2026)"
+    }
+   },
+   "exemples": [
+    {
+     "zh": "请通知大家明天开会。",
+     "pinyin": "Qǐng tōngzhī dàjiā míngtiān kāihuì.",
+     "fr": "Dites à tout le monde qu'il y a une réunion demain.",
+     "statut": "relu",
+     "relecture": {
+      "date": "2026-09-30",
+      "par": "décision du propriétaire",
+      "mode": "sans relecture ligne à ligne",
+      "decision": "« Considère que relecture faite », puis « Oui, affiche-les » (29 et 30 septembre 2026)"
+     }
+    }
+   ]
+  },
+  {
+   "id": "L2-0546",
+   "genre": "mot",
+   "hanzi": "同时",
+   "pinyin": "tóngshí",
+   "categories": [
+    "Conj",
+    "N"
+   ],
+   "sens": {
+    "glose": "en même temps",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "en même temps, simultanément"
+     },
+     {
+      "categorie": "Conj",
+      "fr": "en même temps, de plus"
+     }
+    ],
+    "statut": "relu",
+    "relecture": {
+     "date": "2026-09-30",
+     "par": "décision du propriétaire",
+     "mode": "sans relecture ligne à ligne",
+     "decision": "« Considère que relecture faite », puis « Oui, affiche-les » (29 et 30 septembre 2026)"
+    }
+   },
+   "exemples": [
+    {
+     "zh": "我们同时到了。",
+     "pinyin": "Wǒmen tóngshí dào le.",
+     "fr": "Nous sommes arrivés ensemble.",
+     "statut": "relu",
+     "relecture": {
+      "date": "2026-09-30",
+      "par": "décision du propriétaire",
+      "mode": "sans relecture ligne à ligne",
+      "decision": "« Considère que relecture faite », puis « Oui, affiche-les » (29 et 30 septembre 2026)"
+     }
+    }
+   ]
+  },
+  {
+   "id": "L2-0547",
+   "genre": "mot",
+   "hanzi": "同事",
+   "pinyin": "tóngshì",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "collègue",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "collègue"
+     }
+    ],
+    "statut": "relu",
+    "relecture": {
+     "date": "2026-09-30",
+     "par": "décision du propriétaire",
+     "mode": "sans relecture ligne à ligne",
+     "decision": "« Considère que relecture faite », puis « Oui, affiche-les » (29 et 30 septembre 2026)"
+    }
+   },
+   "exemples": [
+    {
+     "zh": "他是我的同事。",
+     "pinyin": "Tā shì wǒ de tóngshì.",
+     "fr": "C'est mon collègue.",
+     "statut": "relu",
+     "relecture": {
+      "date": "2026-09-30",
+      "par": "décision du propriétaire",
+      "mode": "sans relecture ligne à ligne",
+      "decision": "« Considère que relecture faite », puis « Oui, affiche-les » (29 et 30 septembre 2026)"
+     }
+    }
+   ]
+  },
+  {
+   "id": "L2-0548",
+   "genre": "mot",
+   "hanzi": "同样",
+   "pinyin": "tóngyàng",
+   "categories": [
+    "Adj",
+    "Conj"
+   ],
+   "sens": {
+    "glose": "pareil ; de même",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "pareil, identique"
+     },
+     {
+      "categorie": "Conj",
+      "fr": "de même, pareillement"
+     }
+    ],
+    "statut": "relu",
+    "relecture": {
+     "date": "2026-09-30",
+     "par": "décision du propriétaire",
+     "mode": "sans relecture ligne à ligne",
+     "decision": "« Considère que relecture faite », puis « Oui, affiche-les » (29 et 30 septembre 2026)"
+    }
+   },
+   "exemples": [
+    {
+     "zh": "我们买了同样的衣服。",
+     "pinyin": "Wǒmen mǎi le tóngyàng de yīfu.",
+     "fr": "Nous avons acheté les mêmes vêtements.",
+     "statut": "relu",
+     "relecture": {
+      "date": "2026-09-30",
+      "par": "décision du propriétaire",
+      "mode": "sans relecture ligne à ligne",
+      "decision": "« Considère que relecture faite », puis « Oui, affiche-les » (29 et 30 septembre 2026)"
+     }
+    }
+   ]
+  },
+  {
+   "id": "L2-0551",
+   "genre": "mot",
+   "hanzi": "头发",
+   "pinyin": "tóufa",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "cheveux",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "cheveux, chevelure"
+     }
+    ],
+    "statut": "relu",
+    "relecture": {
+     "date": "2026-09-30",
+     "par": "décision du propriétaire",
+     "mode": "sans relecture ligne à ligne",
+     "decision": "« Considère que relecture faite », puis « Oui, affiche-les » (29 et 30 septembre 2026)"
+    }
+   },
+   "exemples": [
+    {
+     "zh": "他的头发白了。",
+     "pinyin": "Tā de tóufa bái le.",
+     "fr": "Il a blanchi.",
+     "statut": "relu",
+     "relecture": {
+      "date": "2026-09-30",
+      "par": "décision du propriétaire",
+      "mode": "sans relecture ligne à ligne",
+      "decision": "« Considère que relecture faite », puis « Oui, affiche-les » (29 et 30 septembre 2026)"
+     }
+    }
+   ]
+  },
+  {
+   "id": "L2-0552",
+   "genre": "mot",
+   "hanzi": "图片",
+   "pinyin": "túpiàn",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "image, photo, illustration",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "image, photo, illustration"
+     }
+    ],
+    "statut": "relu",
+    "relecture": {
+     "date": "2026-09-30",
+     "par": "décision du propriétaire",
+     "mode": "sans relecture ligne à ligne",
+     "decision": "« Considère que relecture faite », puis « Oui, affiche-les » (29 et 30 septembre 2026)"
+    }
+   },
+   "exemples": [
+    {
+     "zh": "这本书里有很多图片。",
+     "pinyin": "Zhè běn shū li yǒu hěn duō túpiàn.",
+     "fr": "Ce livre est très illustré.",
+     "statut": "relu",
+     "relecture": {
+      "date": "2026-09-30",
+      "par": "décision du propriétaire",
+      "mode": "sans relecture ligne à ligne",
+      "decision": "« Considère que relecture faite », puis « Oui, affiche-les » (29 et 30 septembre 2026)"
+     }
+    }
+   ]
+  },
+  {
+   "id": "推",
+   "genre": "caractere",
+   "hanzi": "推",
+   "pinyin": "tuī",
+   "mots": [
+    "L2-0553"
+   ],
+   "sens": {
+    "glose": "pousser ; reporter",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "pousser"
+     },
+     {
+      "categorie": "V",
+      "fr": "repousser, reporter"
+     }
+    ],
+    "statut": "relu",
+    "relecture": {
+     "date": "2026-09-30",
+     "par": "décision du propriétaire",
+     "mode": "sans relecture ligne à ligne",
+     "decision": "« Considère que relecture faite », puis « Oui, affiche-les » (29 et 30 septembre 2026)"
+    }
+   },
+   "exemples": [
+    {
+     "zh": "请推门。",
+     "pinyin": "Qǐng tuī mén.",
+     "fr": "Poussez la porte, s'il vous plaît.",
+     "statut": "relu",
+     "relecture": {
+      "date": "2026-09-30",
+      "par": "décision du propriétaire",
+      "mode": "sans relecture ligne à ligne",
+      "decision": "« Considère que relecture faite », puis « Oui, affiche-les » (29 et 30 septembre 2026)"
+     }
+    },
+    {
+     "zh": "考试推到下星期了。",
+     "pinyin": "Kǎoshì tuī dào xià xīngqī le.",
+     "fr": "L'examen a été repoussé à la semaine prochaine.",
+     "statut": "relu",
+     "relecture": {
+      "date": "2026-09-30",
+      "par": "décision du propriétaire",
+      "mode": "sans relecture ligne à ligne",
+      "decision": "« Considère que relecture faite », puis « Oui, affiche-les » (29 et 30 septembre 2026)"
+     }
+    }
+   ]
+  },
+  {
+   "id": "腿",
+   "genre": "caractere",
+   "hanzi": "腿",
+   "pinyin": "tuǐ",
+   "mots": [
+    "L2-0554"
+   ],
+   "sens": {
+    "glose": "jambe",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "jambe ; pied d'un meuble"
+     }
+    ],
+    "statut": "relu",
+    "relecture": {
+     "date": "2026-09-30",
+     "par": "décision du propriétaire",
+     "mode": "sans relecture ligne à ligne",
+     "decision": "« Considère que relecture faite », puis « Oui, affiche-les » (29 et 30 septembre 2026)"
+    }
+   },
+   "exemples": [
+    {
+     "zh": "他的腿很长。",
+     "pinyin": "Tā de tuǐ hěn cháng.",
+     "fr": "Il a de longues jambes.",
+     "statut": "relu",
+     "relecture": {
+      "date": "2026-09-30",
+      "par": "décision du propriétaire",
+      "mode": "sans relecture ligne à ligne",
+      "decision": "« Considère que relecture faite », puis « Oui, affiche-les » (29 et 30 septembre 2026)"
+     }
+    }
+   ]
+  },
+  {
+   "id": "L2-0555",
+   "genre": "mot",
+   "hanzi": "外地",
+   "pinyin": "wàidì",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "autre région ; d'ailleurs",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "autre région, province ; d'ailleurs"
+     }
+    ],
+    "statut": "relu",
+    "relecture": {
+     "date": "2026-09-30",
+     "par": "décision du propriétaire",
+     "mode": "sans relecture ligne à ligne",
+     "decision": "« Considère que relecture faite », puis « Oui, affiche-les » (29 et 30 septembre 2026)"
+    }
+   },
+   "exemples": [
+    {
+     "zh": "他是外地人。",
+     "pinyin": "Tā shì wàidì rén.",
+     "fr": "Il n'est pas d'ici.",
+     "statut": "relu",
+     "relecture": {
+      "date": "2026-09-30",
+      "par": "décision du propriétaire",
+      "mode": "sans relecture ligne à ligne",
+      "decision": "« Considère que relecture faite », puis « Oui, affiche-les » (29 et 30 septembre 2026)"
+     }
+    }
+   ]
+  },
+  {
+   "id": "L2-0556",
+   "genre": "mot",
+   "hanzi": "外卖",
+   "pinyin": "wàimài",
+   "categories": [
+    "N",
+    "V"
+   ],
+   "sens": {
+    "glose": "plat à emporter ou livré",
+    "acceptions": [],
+    "statut": "relu",
+    "provenance": {
+     "reprise": "data/sources/fiches/卖.json",
+     "champ": "mots[].fr"
+    }
+   },
+   "exemples": [
+    {
+     "zh": "今天我们叫外卖吧。",
+     "pinyin": "Jīntiān wǒmen jiào wàimài ba.",
+     "fr": "Aujourd'hui, faisons-nous livrer.",
+     "statut": "relu",
+     "relecture": {
+      "date": "2026-09-30",
+      "par": "décision du propriétaire",
+      "mode": "sans relecture ligne à ligne",
+      "decision": "« Considère que relecture faite », puis « Oui, affiche-les » (29 et 30 septembre 2026)"
+     }
+    }
+   ]
+  },
+  {
+   "id": "完",
+   "genre": "caractere",
+   "hanzi": "完",
+   "pinyin": "wán",
+   "mots": [
+    "L2-0557"
+   ],
+   "sens": {
+    "glose": "finir, achevé, entier",
+    "acceptions": [],
+    "statut": "relu",
+    "provenance": {
+     "reprise": "data/sources/fiches/完.json",
+     "champ": "sens_fr"
+    }
+   },
+   "exemples": [
+    {
+     "zh": "我吃完了。",
+     "pinyin": "Wǒ chī wán le.",
+     "fr": "J'ai fini de manger.",
+     "statut": "relu",
+     "relecture": {
+      "date": "2026-09-30",
+      "par": "décision du propriétaire",
+      "mode": "sans relecture ligne à ligne",
+      "decision": "« Considère que relecture faite », puis « Oui, affiche-les » (29 et 30 septembre 2026)"
+     }
+    },
+    {
+     "zh": "作业做完了吗？",
+     "pinyin": "Zuòyè zuò wán le ma?",
+     "fr": "Tu as terminé tes devoirs ?",
+     "statut": "relu",
+     "relecture": {
+      "date": "2026-09-30",
+      "par": "décision du propriétaire",
+      "mode": "sans relecture ligne à ligne",
+      "decision": "« Considère que relecture faite », puis « Oui, affiche-les » (29 et 30 septembre 2026)"
+     }
+    }
+   ]
+  },
+  {
+   "id": "L2-0558",
+   "genre": "mot",
+   "hanzi": "完成",
+   "pinyin": "wánchéng",
+   "sens": {
+    "glose": "achever, accomplir",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "achever, accomplir, terminer"
+     }
+    ],
+    "statut": "relu",
+    "relecture": {
+     "date": "2026-09-30",
+     "par": "décision du propriétaire",
+     "mode": "sans relecture ligne à ligne",
+     "decision": "« Considère que relecture faite », puis « Oui, affiche-les » (29 et 30 septembre 2026)"
+    }
+   },
+   "exemples": [
+    {
+     "zh": "我已经完成了今天的工作。",
+     "pinyin": "Wǒ yǐjīng wánchéng le jīntiān de gōngzuò.",
+     "fr": "J'ai déjà bouclé le travail de la journée.",
+     "statut": "relu",
+     "relecture": {
+      "date": "2026-09-30",
+      "par": "décision du propriétaire",
+      "mode": "sans relecture ligne à ligne",
+      "decision": "« Considère que relecture faite », puis « Oui, affiche-les » (29 et 30 septembre 2026)"
+     }
+    }
+   ]
+  },
+  {
+   "id": "L2-0559",
+   "genre": "mot",
+   "hanzi": "完全",
+   "pinyin": "wánquán",
+   "categories": [
+    "Adj",
+    "Adv"
+   ],
+   "sens": {
+    "glose": "complet ; complètement",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "complet, entier"
+     },
+     {
+      "categorie": "Adv",
+      "fr": "complètement, tout à fait"
+     }
+    ],
+    "statut": "relu",
+    "relecture": {
+     "date": "2026-09-30",
+     "par": "décision du propriétaire",
+     "mode": "sans relecture ligne à ligne",
+     "decision": "« Considère que relecture faite », puis « Oui, affiche-les » (29 et 30 septembre 2026)"
+    }
+   },
+   "exemples": [
+    {
+     "zh": "我完全同意。",
+     "pinyin": "Wǒ wánquán tóngyì.",
+     "fr": "Je suis entièrement d'accord.",
+     "statut": "relu",
+     "relecture": {
+      "date": "2026-09-30",
+      "par": "décision du propriétaire",
+      "mode": "sans relecture ligne à ligne",
+      "decision": "« Considère que relecture faite », puis « Oui, affiche-les » (29 et 30 septembre 2026)"
+     }
+    }
+   ]
+  }
+ ]
+}

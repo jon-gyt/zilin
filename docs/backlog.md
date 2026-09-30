@@ -110,8 +110,8 @@ Décisions du propriétaire du 29 septembre 2026, maquette `maquettes/dictionnai
 - 10.3 Les traits des 3 000 caractères et des composants de leurs décompositions, par lots (`traits/dico-<n>.json`, en-tête de l'Arphic Public License, `MODIFICATIONS.md`), au format que l'app lit déjà ; `content.traitsDe` les prend après la famille, avant `strokes-demo.json`. **Faite le 29 septembre.**
 - 10.4 La recherche, `app/src/lib/dictionnaire.ts`, pure et testée (un test par règle) : par caractère ; par pinyin avec ou sans tons, découpé par la table des syllabes, la dernière en début ; par français sur les seules gloses relues ; le classement de l'étude ; le chargement paresseux des lots. **Faite le 29 septembre.**
 - 10.5 Le cache hors ligne : l'index précaché, les lots mis en cache à la première lecture (`CacheFirst`, URL marquée de l'empreinte de l'export) ; budget mesuré. **Faite le 29 septembre**, sauf « Garder le dictionnaire hors ligne » dans Réglages (tous les lots d'un coup, 3,8 Mio transférés), à décider.
-- 10.6 Les sens français, par le pipeline : contexte (hanzi, pinyin officiel, catégorie, niveau, sens relus des caractères qui composent le mot, mots voisins), rédaction par lots (sans API ou par l'API), `valider()` (glose de 40 caractères au plus, sans sinogramme ni point final, une à trois acceptions, catégorie de la liste), traçabilité (`generation`), statut `a_relire`, aperçu, relecture ; contrôle anti-CC-CEDICT ; export dans l'emplacement `sens` (10.2) des seuls sens `relu`. HSK 1 à 3 d'abord (≈ 2 850 entrées). **Relecture humaine** de chaque sens.
-- 10.7 Les phrases d'exemple, par le pipeline, avec les seuls caractères du HSK, leur pinyin et leur traduction, tracées et relues, dans l'emplacement `exemples` (10.2). **Relecture humaine.**
+- 10.6 Les sens français, par le pipeline : contexte (hanzi, pinyin officiel, catégorie, niveau, sens relus des caractères qui composent le mot, mots voisins), rédaction par lots (sans API ou par l'API), `valider()` (glose de 40 caractères au plus, sans sinogramme ni point final, une à trois acceptions, catégorie de la liste), traçabilité (`generation`), statut `a_relire`, aperçu, relecture ; contrôle anti-CC-CEDICT ; export dans l'emplacement `sens` (10.2) des seuls sens `relu`. HSK 1 à 3 d'abord (≈ 2 850 entrées). **Relecture humaine** de chaque sens. **HSK 1 et 2 rédigés le 29 septembre, approuvés le 30 sur décision du propriétaire, sans relecture ligne à ligne** (`wenlu dico approuver`, `data/sources/dico/`) ; un mot d'un seul caractère n'a pas de sens à lui, ses emplois sont des acceptions du caractère (question de 10.8).
+- 10.7 Les phrases d'exemple, par le pipeline, avec les seuls caractères du HSK, leur pinyin et leur traduction, tracées et relues, dans l'emplacement `exemples` (10.2). **Relecture humaine.** **HSK 1 et 2 écrites le 29 septembre, approuvées le 30 sur décision du propriétaire, sans relecture ligne à ligne.**
 - 10.8 L'écran : Chercher devient le dictionnaire d'après la maquette (onglets « Dictionnaire » et « Lire le monde », champ, recherches récentes gardées sur l'appareil et effaçables, résultats avec le statut de Mon chemin, fiche de caractère, fiche de mot, caractère hors du chemin, « origine à venir »), Tao puis Xing dans leur posture. Après l'intégration de Xing dans `Chercher.svelte`. **Décidé par la story** : un mot d'un seul caractère (好 adjectif, 号 nom), entrée à part dans la liste HSK, se range sous la fiche du caractère (« Comme mot » : lecture, catégorie, niveau, sens relu), jamais en ligne à part dans les résultats ; trouvé seul, il fait paraître son caractère. **Faite le 29 septembre** (`dico-ecran.ts`, `recentes.ts`, `FicheCaractere`, `FicheMot`, `OrdreTraits`, `LigneDico`, `DicoGlyph`, textes `data/sources/ecrans/dictionnaire.tsv`), captures à 393 × 852. Écarts : le caractère du jour (celui du terme solaire) au lieu d'un mot du jour ; « hao » ne trouve que des caractères, le classement de `dictionnaire.ts` n'apparie pas une syllabe aux mots de plusieurs syllabes ; le sens montré est celui du dictionnaire relu, sinon celui d'une fiche relue des familles ; « Comment il se forme » (la phrase de Xing sur un mot) attend un texte du pipeline. Reste : brancher `PaveEcriture.svelte` (10.10) par la prop `Pave` de Chercher ; le lien « Découvrir Wenlu complet », sans écran d'achat à ce jour.
 - 10.9 Les 60 décompositions non réconciliées des 3 000 (兴, 段, 检, 举, 亏…) : surcharges rédigées d'après GF 0014-2009 et relues ; d'ici là, leur fiche n'a pas de décomposition. **Relecture humaine.**
 - 10.10 L'écriture au doigt : gabarits dérivés des médianes (APL), appariement sur l'appareil en TypeScript, dans un Web Worker, huit candidats ; jeu de test réel dans `data/`, précision mesurée par `wenlu check` ; droits dans `droits.ts` (Wenlu complet, abonnement et achat à vie) ; sans achat, une ligne et un lien. Étude du 29 septembre : prototype top-5 ≥ 99 % sur tracés synthétiques.
@@ -926,7 +926,22 @@ Les stories sans relecture humaine, 10.1 à 10.5, d'après l'étude des sources 
   vrai index (moins de 50 ms par saisie). 你好 n'est pas un mot de la liste HSK 3.0 : `nihao` ne
   trouve rien, `你好` trouve 你 et 好.
 - **Hors ligne** (10.5) : précache +846 Kio (index, police, code) ; les lots à la demande.
-- **Reste** : 10.6 à 10.11 ; « Garder le dictionnaire hors ligne » ; le programme de novembre
+- **Les sens et les phrases** (10.6, 10.7, rédaction du 29 septembre) : `dico_sens.py`,
+  `wenlu dico` (plan, contexte, importer, apercu, appliquer-relecture), le circuit des fiches
+  sans API. Lots de 50 entrées par niveau, `data/sources/dico/<niveau>/<lot>.json`, brouillons
+  dans `data/sources/dico-brouillons/`, bloc `generation`, statut `a_relire`. HSK 1 : 591
+  entrées en 12 lots (300 caractères, 291 mots), 712 phrases ; HSK 2 : 873 entrées en 18 lots
+  (300 caractères, 573 mots), 908 phrases. 439 gloses reprises telles quelles des fiches
+  relues (324 au HSK 1, 115 au HSK 2), `relu`, avec leur provenance et sans acception : elles
+  seules s'affichent (glose de l'index +7 Kio, +7 Kio en gzip). Un mot d'un seul caractère (408
+  entrées aux HSK 1 et 2) n'a pas de sens propre : ses emplois sont des acceptions du caractère,
+  catégorie et lecture comprises (好 hào) ; `data/schema.md`, « Le dictionnaire ». Contrôles
+  bloquants dans `wenlu check` (sans sinogramme, longueurs, catégories, caractères HSK, pinyin
+  par mot et ton neutre de la liste, fuites, export, sans CC-CEDICT), 33 tests pytest. Page de
+  relecture autonome : `wenlu dico apercu`. Toutes les phrases des mots du HSK 1 n'emploient que
+  des caractères du HSK 1, sauf trois dont le mot est lui-même d'un niveau plus haut.
+- **Reste** : la relecture humaine des 1 025 sens et des 1 620 phrases ; le HSK 3 et au-delà
+  (`wenlu dico plan --niveau 3`, 22 lots) ; 10.9 à 10.11 ; « Garder le dictionnaire hors ligne » ; le programme de novembre
   2025 (考试大纲, brief §2) n'est pas étiqueté : les niveaux affichés sont ceux de GF 0025-2021 ;
   le PDF officiel reste à relever depuis le workflow `donnees` (ordre des tables, caractères à
   écrire).
@@ -934,5 +949,5 @@ Les stories sans relecture humaine, 10.1 à 10.5, d'après l'étude des sources 
 ### Non commencées
 
 2c.1, 2c.2, 6.2, 6.4, et dans 6.3 iCloud et le widget ; dans l'épic 7, 7.3 et 7.4. Dans
-l'épic 8, les séries au-delà du 月课 de 150. Dans l'épic 9, 9.2 à 9.6. Dans l'épic 10, 10.6,
-10.7 et 10.9 à 10.11.
+l'épic 8, les séries au-delà du 月课 de 150. Dans l'épic 9, 9.2 à 9.6. Dans l'épic 10, 10.9 à
+10.11, et 10.6 et 10.7 au-delà du HSK 2.

@@ -134,6 +134,23 @@ dans le doute, `mnémotechnique`. Les fiches de 人, 大 et 天 servent d'exempl
 Brouillons et fiches sont versionnés ; la relecture reste humaine et seule une fiche
 relue s'exporte. Après un import, l'empreinte de l'export change : `wenlu export`.
 
+### Rédiger les sens et les phrases du dictionnaire
+
+Même circuit, par lots de 50 entrées et par niveau HSK (un niveau n'attend aucun autre) :
+
+```bash
+cd data
+uv run wenlu dico plan --niveau 3                  # les lots du niveau et leur état
+uv run wenlu dico contexte 3 01 --squelette        # les faits du lot, et le squelette du brouillon
+# écrire data/sources/dico-brouillons/3/01.json (format dans data/schema.md, « Le dictionnaire »)
+uv run wenlu dico importer --niveau 3              # valider(), écriture a_relire dans data/sources/dico/3/
+uv run wenlu dico apercu --niveau 3 --sortie relecture.html   # la page de relecture autonome
+uv run wenlu dico appliquer-relecture retours.json # les retours copiés depuis la page
+```
+
+Rien n'y vient de CC-CEDICT ni de `kDefinition` ; les phrases n'emploient que les
+caractères du HSK. Seul un texte relu s'exporte.
+
 ### Rédiger des contes sans API
 
 Les contes aussi (story 1.7) : un agent Claude Code les rédige dans sa session, sans

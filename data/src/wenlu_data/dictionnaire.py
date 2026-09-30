@@ -93,6 +93,7 @@ def sens_exporte(sens: Mapping[str, object] | None) -> dict[str, object] | None:
         raise DicoInvalide(f"glose relue vide ou de plus de {GLOSE_MAX} caractères : {glose!r}")
     acceptions = [
         {"categorie": str(a.get("categorie") or ""), "fr": str(a.get("fr") or "")}
+        | ({"pinyin": str(a["pinyin"])} if a.get("pinyin") else {})
         for a in sens.get("acceptions") or ()  # type: ignore[union-attr]
         if isinstance(a, Mapping) and a.get("fr")
     ]

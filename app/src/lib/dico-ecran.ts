@@ -18,7 +18,7 @@
  * - le compagnon : Tao avant la rencontre de Xing au 县试, Xing après (`xing.ts`).
  */
 import type { Brique, Etiquette, Famille, FicheLue, Role } from './content';
-import type { EntreeDico, IndexDico, ResultatDico, Sens, Syllabe } from './dictionnaire';
+import type { Acception, EntreeDico, IndexDico, ResultatDico, Sens, Syllabe } from './dictionnaire';
 import type { TextesDictionnaire } from './ecrans';
 import { remplir } from './ecrans';
 import { marquerTon } from './questions';
@@ -267,7 +267,7 @@ export function gloseDeLigne(e: Pick<EntreeDico, 'glose' | 'formes'>, relues: Re
 }
 
 /** Le sens d'une fiche : acceptions ou glose. */
-export type SensAffiche = { glose: string; acceptions: { categorie: string; fr: string }[] };
+export type SensAffiche = { glose: string; acceptions: Acception[] };
 
 /**
  * Le sens qu'une fiche montre : celui du dictionnaire, relu (`sensAffichable` n'en laisse
