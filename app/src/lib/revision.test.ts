@@ -475,6 +475,6 @@ describe("avance automatique : la correction se lit avant de partir", () => {
     /* 0,9 sur l'export du chemin gratuit ; depuis que l'export porte la suite du chemin (30
        septembre 2026), bien des briques de plus ont leur fiche, et leur sens entre dans la
        correction courte : 0,88. À resserrer par les sens des fiches, pas par l'écran. */
-    expect(partent((e) => e.court)).toBeGreaterThan(0.85);
+    expect(partent((e) => e.court)).toBeGreaterThan(0.9);
   });
 });
