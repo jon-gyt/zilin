@@ -215,6 +215,18 @@ def test_les_textes_de_dis_le_ne_font_jamais_de_reproche() -> None:
     assert any("fait un reproche" in f for f in fautes_sources(replace(e, textes=textes)))
 
 
+def test_les_textes_des_mots_de_dis_le_sont_la_avec_leurs_jetons() -> None:
+    e = charger()
+    dire = {t.cle: t.fr for t in e.textes["dire"]}
+    for cle in ("enonce-mot", "juste-mot", "autre-mot", "rang-1", "rang-2", "puis", "conseil-5",
+                "sandhi-33", "sandhi-bu", "neutre", "legende-modele-mot"):
+        assert dire[cle], cle
+    assert "{noms}" in dire["juste-mot"]
+    assert all(j in dire["autre-mot"] for j in ("{rang}", "{attendu}", "{allure}", "{entendu}"))
+    # le sandhi se dit sans reproche : le ton que la voix fait, c'est lui qu'on attend
+    assert "ton 2" in dire["sandhi-33"] and "ton 2" in dire["sandhi-bu"]
+
+
 def test_xing_ne_gronde_jamais() -> None:
     assert any("fait un reproche" in f for f in fautes_sources(avec("xing", "accueil", "Encore une erreur.")))
 
