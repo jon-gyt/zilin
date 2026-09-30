@@ -968,6 +968,22 @@ class Rapport:
         return not self.refus
 
 
+def contexte_de_fiche(fiche: Fiche, corpus: Corpus | Corpora) -> Contexte | None:
+    """Le contexte contre lequel revalider une fiche écrite ; `None` s'il n'y en a pas.
+
+    Pas de contexte pour un caractère inconnu du corpus, ni pour une fiche de chemin que
+    son parcours ne pose plus (凡, sorti du parcours lire le 28 septembre 2026) : ses mots
+    et sa phrase ont été validés contre un jour qui n'existe plus, et aucun autre ne les
+    relit. Elle reste telle quelle, non revalidée, comme avant les fiches d'origine.
+    """
+    if not corpus.connait(fiche.c):
+        return None
+    contexte = corpus.contexte(fiche.c, prefere=fiche.parcours)
+    if contexte.hors_chemin and fiche.parcours in PARCOURS and not origine_seule(fiche):
+        return None
+    return contexte
+
+
 def origine_seule(fiche: Fiche) -> bool:
     """Vrai pour une fiche d'origine : ni mots ni phrase, rien que l'origine, l'étiquette et les rôles."""
     return not fiche.mots and not any(
@@ -1589,6 +1605,18 @@ def importer_brouillon(
     chemin = chemin_fiche(brouillon.c, dossier)
     precedente = lire_fiche(chemin) if chemin.exists() else None
     contexte = corpus.contexte(brouillon.c, prefere=precedente.parcours if precedente else None)
+    if (
+        contexte.hors_chemin
+        and precedente is not None
+        and precedente.parcours in PARCOURS
+        and (brouillon.mots or brouillon.phrase.zh.strip())
+    ):
+        # Une fiche de chemin que son parcours ne pose plus : rien ne relit ses mots ni
+        # sa phrase, elle reste telle quelle (voir `contexte_de_fiche`).
+        raise CaractereHorsParcours(
+            f"{brouillon.c} n'est plus posé par le parcours {precedente.parcours} :"
+            " sa fiche de chemin reste telle quelle"
+        )
     manuelle = precedente is not None and precedente.generation.api == API_SESSION
     fiche = fiche_depuis_brouillon(
         brouillon,
@@ -1821,10 +1849,12 @@ def lot_de_la_liste(
 
 def _fiche_conforme(c: str, corpus: Corpus | Corpora, dossier: Path | None) -> bool:
     chemin = chemin_fiche(c, dossier)
-    if not chemin.exists() or not corpus.connait(c):
+    if not chemin.exists():
         return False
     fiche = lire_fiche(chemin)
-    contexte = corpus.contexte(c, prefere=fiche.parcours)
+    contexte = contexte_de_fiche(fiche, corpus)
+    if contexte is None:
+        return False
     if not contexte.hors_chemin and origine_seule(fiche):
         return False
     return fiche.statut != REJETE and valider(fiche, contexte).conforme
@@ -1845,8 +1875,9 @@ def exporter_relecture(
     entrees: list[dict[str, object]] = []
     for fiche in a_relire:
         entree = fiche.en_json()
-        if corpus is not None and corpus.connait(fiche.c):
-            entree["ecarts"] = valider(fiche, corpus.contexte(fiche.c, prefere=fiche.parcours)).ecarts
+        contexte = contexte_de_fiche(fiche, corpus) if corpus is not None else None
+        if contexte is not None:
+            entree["ecarts"] = valider(fiche, contexte).ecarts
         entrees.append(entree)
     document = {
         "date": horloge(),
@@ -1940,10 +1971,10 @@ def controles(
     for chemin in fichiers:
         fiche = lire_fiche(chemin)
         fiches.append(fiche)
-        if corpus is None or not corpus.connait(fiche.c):
+        contexte = contexte_de_fiche(fiche, corpus) if corpus is not None else None
+        if contexte is None:
             non_revalidees += 1
             continue
-        contexte = corpus.contexte(fiche.c, prefere=fiche.parcours)
         rapport = valider(fiche, contexte)
         if not rapport.conforme:
             fautifs.append(f"{fiche.c} : {' ; '.join(rapport.refus)}")
@@ -2138,10 +2169,11 @@ def commande_valider(
     invalides = 0
     for chemin in fichiers:
         fiche = lire_fiche(chemin)
-        if not corpus.connait(fiche.c):
+        contexte = contexte_de_fiche(fiche, corpus)
+        if contexte is None:
             typer.echo(f"hors  {fiche.c} [{fiche.statut}] : hors du parcours {parcours}")
             continue
-        rapport = valider(fiche, corpus.contexte(fiche.c, prefere=fiche.parcours))
+        rapport = valider(fiche, contexte)
         typer.echo(f"{'ok   ' if rapport.conforme else 'rejet'} {fiche.c} [{fiche.statut}]")
         if not rapport.conforme:
             invalides += 1

@@ -609,6 +609,22 @@ def test_contexte_hors_chemin_donne_un_squelette_sans_mots_ni_phrase(table, depo
     assert '"mots"' not in squelette and '"phrase"' not in squelette and '"roles"' in squelette
 
 
+def test_une_fiche_de_chemin_sortie_du_parcours_reste_telle_quelle(table, corpus: Corpus, tmp_path: Path) -> None:
+    """凡 a quitté le parcours : ni revalidée hors chemin, ni réécrite, ni rejetée."""
+    phrase = {"zh": "鸟人。", "pinyin": "Niǎo rén.", "fr": "…", "en": "…"}
+    chemin = ecrire_brouillon(tmp_path / "brouillons", origine(mots=[], phrase=phrase))
+    importer_brouillon(lire_brouillon(chemin), corpus, dossier=tmp_path / "fiches")
+    fiches.relire("鸟", RELU, tmp_path / "fiches")
+    sans = _corpus_sans_鸟(table)
+    assert fiches.contexte_de_fiche(lire_fiche(tmp_path / "fiches" / "鸟.json"), sans) is None
+    with pytest.raises(fiches.CaractereHorsParcours, match="n'est plus posé"):
+        importer_brouillon(lire_brouillon(chemin), sans, dossier=tmp_path / "fiches")
+    assert lire_fiche(tmp_path / "fiches" / "鸟.json").statut == RELU
+    (tmp_path / "seuil-255.txt").write_text("# test\n人\n", encoding="utf-8")
+    validation = next(x for x in fiches.controles(tmp_path / "fiches", corpus=sans, listes=tmp_path) if x.nom == "fiches : validation")
+    assert validation.ok and "1 hors parcours ou sans corpus, non revalidées" in validation.detail
+
+
 def test_check_revalide_une_fiche_d_origine(table, tmp_path: Path) -> None:
     chemin = ecrire_brouillon(tmp_path / "brouillons", origine())
     importer_brouillon(lire_brouillon(chemin), _corpus_sans_鸟(table), dossier=tmp_path / "fiches")
