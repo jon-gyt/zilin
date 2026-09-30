@@ -1,0 +1,764 @@
+{
+ "examen": "xiangshi",
+ "parcours": "hsk",
+ "generation": {
+  "modele": "rédaction manuelle",
+  "api": "session Claude Code (sans API)",
+  "date": "2026-09-30"
+ },
+ "relecture": {
+  "statut": "relu",
+  "par": "le propriétaire",
+  "decision": "« Lance oui. Pas de relecture » (30 septembre 2026) : relecture considérée faite, sans relecture ligne à ligne",
+  "date": "2026-09-30"
+ },
+ "series": [
+  {
+   "serie": "A",
+   "statut": "relu",
+   "supports": [
+    {
+     "id": "s1",
+     "genre": "message",
+     "contexte": {
+      "fr": "Un message",
+      "en": "A message"
+     },
+     "lignes": [
+      {
+       "zh": "哥哥，我在火车站。",
+       "pinyin": "gē ge wǒ zài huǒ chē zhàn",
+       "fr": "Grand frère, je suis à la gare.",
+       "en": "Big brother, I'm at the station."
+      },
+      {
+       "zh": "火车下午三点开。",
+       "pinyin": "huǒ chē xià wǔ sān diǎn kāi",
+       "fr": "Le train part à trois heures de l'après-midi.",
+       "en": "The train leaves at 3 pm."
+      },
+      {
+       "zh": "你能来送我吗？",
+       "pinyin": "nǐ néng lái sòng wǒ ma",
+       "fr": "Tu peux venir me dire au revoir ?",
+       "en": "Can you come and see me off?"
+      }
+     ]
+    },
+    {
+     "id": "s2",
+     "genre": "pancarte",
+     "contexte": {
+      "fr": "Un panneau",
+      "en": "A sign"
+     },
+     "lignes": [
+      {
+       "zh": "东口：中山路",
+       "pinyin": "dōng kǒu zhōng shān lù",
+       "fr": "Sortie est : rue Zhongshan",
+       "en": "East exit: Zhongshan Road"
+      },
+      {
+       "zh": "西口：书店",
+       "pinyin": "xī kǒu shū diàn",
+       "fr": "Sortie ouest : librairie",
+       "en": "West exit: bookshop"
+      },
+      {
+       "zh": "北口：学校",
+       "pinyin": "běi kǒu xué xiào",
+       "fr": "Sortie nord : école",
+       "en": "North exit: school"
+      }
+     ]
+    },
+    {
+     "id": "s3",
+     "genre": "note",
+     "contexte": {
+      "fr": "Un mot sur une porte",
+      "en": "A note on a door"
+     },
+     "lignes": [
+      {
+       "zh": "我在楼上。",
+       "pinyin": "wǒ zài lóu shàng",
+       "fr": "Je suis à l'étage.",
+       "en": "I'm upstairs."
+      },
+      {
+       "zh": "有事，打我手机。",
+       "pinyin": "yǒu shì dǎ wǒ shǒu jī",
+       "fr": "En cas de besoin, appelez mon portable.",
+       "en": "If you need anything, call my mobile."
+      }
+     ]
+    },
+    {
+     "id": "s4",
+     "genre": "enseigne",
+     "contexte": {
+      "fr": "Une enseigne",
+      "en": "A shop sign"
+     },
+     "lignes": [
+      {
+       "zh": "东北冷面",
+       "pinyin": "dōng běi lěng miàn",
+       "fr": "Nouilles froides du Nord-Est",
+       "en": "Northeastern cold noodles"
+      }
+     ]
+    }
+   ],
+   "questions": [
+    {
+     "type": "comprendre",
+     "support": "s1",
+     "consigne": {
+      "fr": "Où se trouve la personne qui écrit ?",
+      "en": "Where is the person writing?"
+     },
+     "choix": [
+      {
+       "fr": "À l'hôpital",
+       "en": "At the hospital"
+      },
+      {
+       "fr": "À la gare",
+       "en": "At the station"
+      },
+      {
+       "fr": "À l'école",
+       "en": "At school"
+      },
+      {
+       "fr": "À la librairie",
+       "en": "At the bookshop"
+      }
+     ],
+     "reponse": 1,
+     "porte": [
+      "火",
+      "车",
+      "站"
+     ]
+    },
+    {
+     "type": "vrai_faux",
+     "support": "s1",
+     "consigne": {
+      "fr": "Vrai ou faux ?",
+      "en": "True or false?"
+     },
+     "affirmation": {
+      "zh": "火车下午开。",
+      "pinyin": "huǒ chē xià wǔ kāi",
+      "fr": "Le train part l'après-midi.",
+      "en": "The train leaves in the afternoon."
+     },
+     "reponse": true,
+     "porte": [
+      "下",
+      "午"
+     ]
+    },
+    {
+     "type": "replique",
+     "support": "s1",
+     "consigne": {
+      "fr": "Que réponds-tu ?",
+      "en": "What do you reply?"
+     },
+     "choix": [
+      {
+       "zh": "今天很冷。",
+       "pinyin": "jīn tiān hěn lěng",
+       "fr": "Il fait froid aujourd'hui.",
+       "en": "It's cold today."
+      },
+      {
+       "zh": "北京很大。",
+       "pinyin": "běi jīng hěn dà",
+       "fr": "Pékin est très grand.",
+       "en": "Beijing is very big."
+      },
+      {
+       "zh": "好，我现在去！",
+       "pinyin": "hǎo wǒ xiàn zài qù",
+       "fr": "D'accord, j'y vais tout de suite !",
+       "en": "OK, I'm on my way!"
+      },
+      {
+       "zh": "我不认识他。",
+       "pinyin": "wǒ bù rèn shi tā",
+       "fr": "Je ne le connais pas.",
+       "en": "I don't know him."
+      }
+     ],
+     "reponse": 2,
+     "porte": [
+      "能",
+      "来",
+      "送"
+     ]
+    },
+    {
+     "type": "sens",
+     "consigne": {
+      "fr": "Que veut dire ce caractère ?",
+      "en": "What does this character mean?"
+     },
+     "objet": {
+      "zh": "床",
+      "pinyin": "chuáng",
+      "fr": "lit",
+      "en": "bed"
+     },
+     "choix": [
+      {
+       "fr": "table",
+       "en": "table"
+      },
+      {
+       "fr": "chaise",
+       "en": "chair"
+      },
+      {
+       "fr": "porte",
+       "en": "door"
+      },
+      {
+       "fr": "lit",
+       "en": "bed"
+      }
+     ],
+     "reponse": 3,
+     "porte": [
+      "床"
+     ]
+    },
+    {
+     "type": "reperer",
+     "support": "s2",
+     "consigne": {
+      "fr": "Touche la sortie qui mène à la librairie.",
+      "en": "Tap the exit for the bookshop."
+     },
+     "choix": [
+      "东口",
+      "中山路",
+      "西口",
+      "北口"
+     ],
+     "reponse": 2,
+     "porte": [
+      "西",
+      "口"
+     ]
+    },
+    {
+     "type": "caractere",
+     "consigne": {
+      "fr": "Quel caractère a ce sens ?",
+      "en": "Which character has this meaning?"
+     },
+     "objet": {
+      "zh": "歌",
+      "pinyin": "gē",
+      "fr": "chanson",
+      "en": "song"
+     },
+     "choix": [
+      "哥",
+      "歌",
+      "欢",
+      "次"
+     ],
+     "reponse": 1,
+     "porte": [
+      "歌"
+     ]
+    },
+    {
+     "type": "vrai_faux",
+     "support": "s3",
+     "consigne": {
+      "fr": "Vrai ou faux ?",
+      "en": "True or false?"
+     },
+     "affirmation": {
+      "zh": "他在楼下。",
+      "pinyin": "tā zài lóu xià",
+      "fr": "Il est en bas.",
+      "en": "He is downstairs."
+     },
+     "reponse": false,
+     "porte": [
+      "楼",
+      "上"
+     ]
+    },
+    {
+     "type": "comprendre",
+     "support": "s3",
+     "consigne": {
+      "fr": "Que faut-il faire si on a besoin de lui ?",
+      "en": "What should you do if you need him?"
+     },
+     "choix": [
+      {
+       "fr": "Frapper à la porte",
+       "en": "Knock on the door"
+      },
+      {
+       "fr": "Revenir demain",
+       "en": "Come back tomorrow"
+      },
+      {
+       "fr": "Appeler son portable",
+       "en": "Call his mobile"
+      },
+      {
+       "fr": "Attendre en bas",
+       "en": "Wait downstairs"
+      }
+     ],
+     "reponse": 2,
+     "porte": [
+      "打",
+      "手",
+      "机"
+     ]
+    },
+    {
+     "type": "trou",
+     "consigne": {
+      "fr": "Quel caractère manque dans ce mot ?",
+      "en": "Which character is missing from this word?"
+     },
+     "objet": {
+      "zh": "学校",
+      "pinyin": "xué xiào",
+      "fr": "école",
+      "en": "school"
+     },
+     "trou": 1,
+     "choix": [
+      "样",
+      "楼",
+      "杯",
+      "校"
+     ],
+     "reponse": 3,
+     "porte": [
+      "校"
+     ]
+    },
+    {
+     "type": "comprendre",
+     "support": "s4",
+     "consigne": {
+      "fr": "Que mange-t-on ici ?",
+      "en": "What do people eat here?"
+     },
+     "choix": [
+      {
+       "fr": "Des nouilles chaudes",
+       "en": "Hot noodles"
+      },
+      {
+       "fr": "Des nouilles froides",
+       "en": "Cold noodles"
+      },
+      {
+       "fr": "Du riz",
+       "en": "Rice"
+      },
+      {
+       "fr": "Des fruits",
+       "en": "Fruit"
+      }
+     ],
+     "reponse": 1,
+     "porte": [
+      "冷",
+      "面"
+     ]
+    }
+   ]
+  },
+  {
+   "serie": "B",
+   "statut": "relu",
+   "supports": [
+    {
+     "id": "s1",
+     "genre": "message",
+     "contexte": {
+      "fr": "Un message",
+      "en": "A message"
+     },
+     "lignes": [
+      {
+       "zh": "小白，下午四点在学校门口见，",
+       "pinyin": "xiǎo bái xià wǔ sì diǎn zài xué xiào mén kǒu jiàn",
+       "fr": "Xiaobai, rendez-vous à seize heures devant l'école,",
+       "en": "Xiaobai, meet me at 4 pm outside the school,"
+      },
+      {
+       "zh": "我们一起去书店。",
+       "pinyin": "wǒ men yī qǐ qù shū diàn",
+       "fr": "on ira ensemble à la librairie.",
+       "en": "and we'll go to the bookshop together."
+      }
+     ]
+    },
+    {
+     "id": "s2",
+     "genre": "affiche",
+     "contexte": {
+      "fr": "Une affiche",
+      "en": "A poster"
+     },
+     "lignes": [
+      {
+       "zh": "新年歌会",
+       "pinyin": "xīn nián gē huì",
+       "fr": "Concert du Nouvel An",
+       "en": "New Year singing party"
+      },
+      {
+       "zh": "十二月三十一日下午六点",
+       "pinyin": "shí èr yuè sān shí yī rì xià wǔ liù diǎn",
+       "fr": "31 décembre, dix-huit heures",
+       "en": "31 December, 6 pm"
+      },
+      {
+       "zh": "学校三号楼",
+       "pinyin": "xué xiào sān hào lóu",
+       "fr": "École, bâtiment 3",
+       "en": "School, building 3"
+      }
+     ]
+    },
+    {
+     "id": "s3",
+     "genre": "note",
+     "contexte": {
+      "fr": "Un mot sur une porte",
+      "en": "A note on a door"
+     },
+     "lignes": [
+      {
+       "zh": "本店早上十点开门，",
+       "pinyin": "běn diàn zǎo shang shí diǎn kāi mén",
+       "fr": "La boutique ouvre à dix heures du matin",
+       "en": "The shop opens at 10 am"
+      },
+      {
+       "zh": "下午六点关门。",
+       "pinyin": "xià wǔ liù diǎn guān mén",
+       "fr": "et ferme à six heures de l'après-midi.",
+       "en": "and closes at 6 pm."
+      }
+     ]
+    },
+    {
+     "id": "s4",
+     "genre": "enseigne",
+     "contexte": {
+      "fr": "Une enseigne",
+      "en": "A shop sign"
+     },
+     "lignes": [
+      {
+       "zh": "东方床店",
+       "pinyin": "dōng fāng chuáng diàn",
+       "fr": "Lits d'Orient",
+       "en": "Orient Beds"
+      }
+     ]
+    }
+   ],
+   "questions": [
+    {
+     "type": "comprendre",
+     "support": "s1",
+     "consigne": {
+      "fr": "Où vont-ils ensemble ?",
+      "en": "Where are they going together?"
+     },
+     "choix": [
+      {
+       "fr": "À la gare",
+       "en": "To the station"
+      },
+      {
+       "fr": "Au cinéma",
+       "en": "To the cinema"
+      },
+      {
+       "fr": "À la librairie",
+       "en": "To the bookshop"
+      },
+      {
+       "fr": "Au restaurant",
+       "en": "To a restaurant"
+      }
+     ],
+     "reponse": 2,
+     "porte": [
+      "书",
+      "店"
+     ]
+    },
+    {
+     "type": "replique",
+     "support": "s1",
+     "consigne": {
+      "fr": "Que répond Xiaobai ?",
+      "en": "What does Xiaobai reply?"
+     },
+     "choix": [
+      {
+       "zh": "好，下午见！",
+       "pinyin": "hǎo xià wǔ jiàn",
+       "fr": "D'accord, à cet après-midi !",
+       "en": "OK, see you this afternoon!"
+      },
+      {
+       "zh": "我不认识你。",
+       "pinyin": "wǒ bù rèn shi nǐ",
+       "fr": "Je ne te connais pas.",
+       "en": "I don't know you."
+      },
+      {
+       "zh": "这是我哥哥。",
+       "pinyin": "zhè shì wǒ gē ge",
+       "fr": "C'est mon grand frère.",
+       "en": "This is my big brother."
+      },
+      {
+       "zh": "我也是学生。",
+       "pinyin": "wǒ yě shì xué sheng",
+       "fr": "Moi aussi, je suis élève.",
+       "en": "I'm a student too."
+      }
+     ],
+     "reponse": 0,
+     "porte": [
+      "一",
+      "起",
+      "去"
+     ]
+    },
+    {
+     "type": "vrai_faux",
+     "support": "s1",
+     "consigne": {
+      "fr": "Vrai ou faux ?",
+      "en": "True or false?"
+     },
+     "affirmation": {
+      "zh": "他们下午去书店。",
+      "pinyin": "tā men xià wǔ qù shū diàn",
+      "fr": "Ils vont à la librairie l'après-midi.",
+      "en": "They are going to the bookshop in the afternoon."
+     },
+     "reponse": true,
+     "porte": [
+      "下",
+      "午",
+      "四",
+      "点"
+     ]
+    },
+    {
+     "type": "sens",
+     "consigne": {
+      "fr": "Que veut dire ce caractère ?",
+      "en": "What does this character mean?"
+     },
+     "objet": {
+      "zh": "远",
+      "pinyin": "yuǎn",
+      "fr": "loin",
+      "en": "far"
+     },
+     "choix": [
+      {
+       "fr": "près",
+       "en": "near"
+      },
+      {
+       "fr": "loin",
+       "en": "far"
+      },
+      {
+       "fr": "vite",
+       "en": "fast"
+      },
+      {
+       "fr": "grand",
+       "en": "big"
+      }
+     ],
+     "reponse": 1,
+     "porte": [
+      "远"
+     ]
+    },
+    {
+     "type": "comprendre",
+     "support": "s2",
+     "consigne": {
+      "fr": "À quelle heure est-ce ?",
+      "en": "What time is it at?"
+     },
+     "choix": [
+      {
+       "fr": "À 16 heures",
+       "en": "At 4 pm"
+      },
+      {
+       "fr": "À 6 heures",
+       "en": "At 6 am"
+      },
+      {
+       "fr": "À 13 heures",
+       "en": "At 1 pm"
+      },
+      {
+       "fr": "À 18 heures",
+       "en": "At 6 pm"
+      }
+     ],
+     "reponse": 3,
+     "porte": [
+      "下",
+      "午",
+      "六",
+      "点"
+     ]
+    },
+    {
+     "type": "reperer",
+     "support": "s2",
+     "consigne": {
+      "fr": "Touche le numéro du bâtiment.",
+      "en": "Tap the building number."
+     },
+     "choix": [
+      "新年",
+      "三号楼",
+      "十二月",
+      "学校"
+     ],
+     "reponse": 1,
+     "porte": [
+      "三",
+      "号",
+      "楼"
+     ]
+    },
+    {
+     "type": "caractere",
+     "consigne": {
+      "fr": "Quel caractère a ce sens ?",
+      "en": "Which character has this meaning?"
+     },
+     "objet": {
+      "zh": "很",
+      "pinyin": "hěn",
+      "fr": "très",
+      "en": "very"
+     },
+     "choix": [
+      "跟",
+      "行",
+      "很",
+      "得"
+     ],
+     "reponse": 2,
+     "porte": [
+      "很"
+     ]
+    },
+    {
+     "type": "vrai_faux",
+     "support": "s3",
+     "consigne": {
+      "fr": "Vrai ou faux ?",
+      "en": "True or false?"
+     },
+     "affirmation": {
+      "zh": "本店下午六点开门。",
+      "pinyin": "běn diàn xià wǔ liù diǎn kāi mén",
+      "fr": "La boutique ouvre à six heures de l'après-midi.",
+      "en": "The shop opens at 6 pm."
+     },
+     "reponse": false,
+     "porte": [
+      "关",
+      "门"
+     ]
+    },
+    {
+     "type": "ton",
+     "consigne": {
+      "fr": "Quel est le ton de ce caractère ?",
+      "en": "Which tone does this character have?"
+     },
+     "objet": {
+      "zh": "点",
+      "pinyin": "diǎn",
+      "fr": "heure ; point",
+      "en": "o'clock; dot"
+     },
+     "choix": [
+      "diān",
+      "dián",
+      "diǎn",
+      "diàn"
+     ],
+     "reponse": 2,
+     "porte": [
+      "点"
+     ]
+    },
+    {
+     "type": "comprendre",
+     "support": "s4",
+     "consigne": {
+      "fr": "Que vend cette boutique ?",
+      "en": "What does this shop sell?"
+     },
+     "choix": [
+      {
+       "fr": "Des livres",
+       "en": "Books"
+      },
+      {
+       "fr": "Des vêtements",
+       "en": "Clothes"
+      },
+      {
+       "fr": "Des fleurs",
+       "en": "Flowers"
+      },
+      {
+       "fr": "Des lits",
+       "en": "Beds"
+      }
+     ],
+     "reponse": 3,
+     "porte": [
+      "床"
+     ]
+    }
+   ]
+  }
+ ]
+}

@@ -1,0 +1,438 @@
+{
+ "examen": "yueke-305",
+ "parcours": "lire",
+ "generation": {
+  "modele": "rédaction manuelle",
+  "api": "session Claude Code (sans API)",
+  "date": "2026-09-30"
+ },
+ "relecture": {
+  "statut": "relu",
+  "par": "le propriétaire",
+  "decision": "« Lance oui. Pas de relecture » (30 septembre 2026) : relecture considérée faite, sans relecture ligne à ligne",
+  "date": "2026-09-30"
+ },
+ "series": [
+  {
+   "serie": "A",
+   "statut": "relu",
+   "supports": [
+    {
+     "id": "s1",
+     "genre": "message",
+     "contexte": {
+      "fr": "Un message",
+      "en": "A message"
+     },
+     "lignes": [
+      {
+       "zh": "小张，今天我很忙，",
+       "pinyin": "xiǎo zhāng jīn tiān wǒ hěn máng",
+       "fr": "Xiao Zhang, aujourd'hui je suis très occupé :",
+       "en": "Xiao Zhang, I'm very busy today,"
+      },
+      {
+       "zh": "不能跟你去饭馆了。",
+       "pinyin": "bù néng gēn nǐ qù fàn guǎn le",
+       "fr": "je ne peux plus aller au restaurant avec toi.",
+       "en": "so I can't go to the restaurant with you."
+      },
+      {
+       "zh": "明天去，好不好？",
+       "pinyin": "míng tiān qù hǎo bu hǎo",
+       "fr": "On y va demain, d'accord ?",
+       "en": "Shall we go tomorrow?"
+      }
+     ]
+    },
+    {
+     "id": "s2",
+     "genre": "billet",
+     "contexte": {
+      "fr": "Un billet",
+      "en": "A ticket"
+     },
+     "lignes": [
+      {
+       "zh": "电影票",
+       "pinyin": "diàn yǐng piào",
+       "fr": "Ticket de cinéma",
+       "en": "Cinema ticket"
+      },
+      {
+       "zh": "《回家》",
+       "pinyin": "huí jiā",
+       "fr": "« Le retour »",
+       "en": "\"Going Home\""
+      },
+      {
+       "zh": "十月五日下午三时",
+       "pinyin": "shí yuè wǔ rì xià wǔ sān shí",
+       "fr": "5 octobre, quinze heures",
+       "en": "5 October, 3 pm"
+      },
+      {
+       "zh": "二十块",
+       "pinyin": "èr shí kuài",
+       "fr": "20 yuans",
+       "en": "20 yuan"
+      }
+     ],
+     "glose": [
+      {
+       "zh": "五日",
+       "pinyin": "wǔ rì",
+       "fr": "le 5 (du mois)",
+       "en": "the 5th (of the month)"
+      },
+      {
+       "zh": "二十块",
+       "pinyin": "èr shí kuài",
+       "fr": "20 yuans",
+       "en": "20 yuan"
+      }
+     ]
+    }
+   ],
+   "questions": [
+    {
+     "type": "comprendre",
+     "support": "s1",
+     "consigne": {
+      "fr": "Qu'est-ce qui ne se fait pas aujourd'hui ?",
+      "en": "What isn't happening today?"
+     },
+     "choix": [
+      {
+       "fr": "Aller au cinéma ensemble",
+       "en": "Going to the cinema together"
+      },
+      {
+       "fr": "Aller au restaurant ensemble",
+       "en": "Going to the restaurant together"
+      },
+      {
+       "fr": "Aller à la gare ensemble",
+       "en": "Going to the station together"
+      },
+      {
+       "fr": "Aller au musée ensemble",
+       "en": "Going to the museum together"
+      }
+     ],
+     "reponse": 1,
+     "porte": [
+      "饭",
+      "馆"
+     ]
+    },
+    {
+     "type": "replique",
+     "support": "s1",
+     "consigne": {
+      "fr": "Que réponds-tu ?",
+      "en": "What do you reply?"
+     },
+     "choix": [
+      {
+       "zh": "我家有三个人。",
+       "pinyin": "wǒ jiā yǒu sān gè rén",
+       "fr": "Nous sommes trois dans ma famille.",
+       "en": "There are three of us in my family."
+      },
+      {
+       "zh": "我去过中国。",
+       "pinyin": "wǒ qù guo zhōng guó",
+       "fr": "Je suis déjà allé en Chine.",
+       "en": "I've been to China."
+      },
+      {
+       "zh": "他是张老师。",
+       "pinyin": "tā shì zhāng lǎo shī",
+       "fr": "C'est M. Zhang, le professeur.",
+       "en": "He's Mr Zhang, the teacher."
+      },
+      {
+       "zh": "没问题，明天去！",
+       "pinyin": "méi wèn tí míng tiān qù",
+       "fr": "Pas de problème, on y va demain !",
+       "en": "No problem, let's go tomorrow!"
+      }
+     ],
+     "reponse": 3,
+     "porte": [
+      "没",
+      "问",
+      "题"
+     ]
+    },
+    {
+     "type": "reperer",
+     "support": "s2",
+     "consigne": {
+      "fr": "Touche le titre du film.",
+      "en": "Tap the film's title."
+     },
+     "choix": [
+      "电影票",
+      "回家",
+      "十月",
+      "二十块"
+     ],
+     "reponse": 1,
+     "porte": [
+      "回",
+      "家"
+     ]
+    },
+    {
+     "type": "vrai_faux",
+     "support": "s2",
+     "consigne": {
+      "fr": "Vrai ou faux ?",
+      "en": "True or false?"
+     },
+     "affirmation": {
+      "zh": "电影票三十块。",
+      "pinyin": "diàn yǐng piào sān shí kuài",
+      "fr": "Le billet coûte trente yuans.",
+      "en": "The ticket costs thirty yuan."
+     },
+     "reponse": false,
+     "porte": [
+      "票",
+      "二",
+      "十",
+      "块"
+     ]
+    },
+    {
+     "type": "caractere",
+     "consigne": {
+      "fr": "Quel caractère a ce sens ?",
+      "en": "Which character has this meaning?"
+     },
+     "objet": {
+      "zh": "酒",
+      "pinyin": "jiǔ",
+      "fr": "alcool, vin",
+      "en": "alcohol, wine"
+     },
+     "choix": [
+      "海",
+      "酒",
+      "法",
+      "汉"
+     ],
+     "reponse": 1,
+     "porte": [
+      "酒"
+     ]
+    }
+   ]
+  },
+  {
+   "serie": "B",
+   "statut": "relu",
+   "supports": [
+    {
+     "id": "s1",
+     "genre": "affiche",
+     "contexte": {
+      "fr": "Une affiche",
+      "en": "A poster"
+     },
+     "lignes": [
+      {
+       "zh": "中国画",
+       "pinyin": "zhōng guó huà",
+       "fr": "Peinture chinoise",
+       "en": "Chinese painting"
+      },
+      {
+       "zh": "十月一日到七日",
+       "pinyin": "shí yuè yī rì dào qī rì",
+       "fr": "Du 1er au 7 octobre",
+       "en": "1 to 7 October"
+      },
+      {
+       "zh": "东城画馆",
+       "pinyin": "dōng chéng huà guǎn",
+       "fr": "Galerie de Dongcheng",
+       "en": "Dongcheng Gallery"
+      }
+     ],
+     "glose": [
+      {
+       "zh": "七日",
+       "pinyin": "qī rì",
+       "fr": "le 7 (du mois)",
+       "en": "the 7th (of the month)"
+      },
+      {
+       "zh": "一日",
+       "pinyin": "yī rì",
+       "fr": "le 1er (du mois)",
+       "en": "the 1st (of the month)"
+      }
+     ]
+    },
+    {
+     "id": "s2",
+     "genre": "message",
+     "contexte": {
+      "fr": "Un message",
+      "en": "A message"
+     },
+     "lignes": [
+      {
+       "zh": "爸爸，饭好了！",
+       "pinyin": "bà ba fàn hǎo le",
+       "fr": "Papa, le repas est prêt !",
+       "en": "Dad, dinner's ready!"
+      },
+      {
+       "zh": "你什么时候到家？",
+       "pinyin": "nǐ shén me shí hou dào jiā",
+       "fr": "Quand est-ce que tu arrives ?",
+       "en": "When will you get home?"
+      }
+     ]
+    }
+   ],
+   "questions": [
+    {
+     "type": "comprendre",
+     "support": "s1",
+     "consigne": {
+      "fr": "Que peut-on voir ?",
+      "en": "What can you see there?"
+     },
+     "choix": [
+      {
+       "fr": "Des films chinois",
+       "en": "Chinese films"
+      },
+      {
+       "fr": "Des livres anciens",
+       "en": "Old books"
+      },
+      {
+       "fr": "Des peintures chinoises",
+       "en": "Chinese paintings"
+      },
+      {
+       "fr": "Des vêtements chinois",
+       "en": "Chinese clothes"
+      }
+     ],
+     "reponse": 2,
+     "porte": [
+      "画"
+     ]
+    },
+    {
+     "type": "vrai_faux",
+     "support": "s1",
+     "consigne": {
+      "fr": "Vrai ou faux ?",
+      "en": "True or false?"
+     },
+     "affirmation": {
+      "zh": "十月八日也可以去。",
+      "pinyin": "shí yuè bā rì yě kě yǐ qù",
+      "fr": "On peut aussi y aller le 8 octobre.",
+      "en": "You can also go on 8 October."
+     },
+     "reponse": false,
+     "porte": [
+      "到",
+      "七",
+      "日"
+     ]
+    },
+    {
+     "type": "reperer",
+     "support": "s2",
+     "consigne": {
+      "fr": "Touche ce qui est prêt.",
+      "en": "Tap what is ready."
+     },
+     "choix": [
+      "爸爸",
+      "饭",
+      "什么时候",
+      "到家"
+     ],
+     "reponse": 1,
+     "porte": [
+      "饭"
+     ]
+    },
+    {
+     "type": "replique",
+     "support": "s2",
+     "consigne": {
+      "fr": "Que répond papa ?",
+      "en": "What does Dad reply?"
+     },
+     "choix": [
+      {
+       "zh": "我很喜欢画画。",
+       "pinyin": "wǒ hěn xǐ huan huà huà",
+       "fr": "J'aime beaucoup peindre.",
+       "en": "I love painting."
+      },
+      {
+       "zh": "你是哪国人？",
+       "pinyin": "nǐ shì nǎ guó rén",
+       "fr": "De quel pays es-tu ?",
+       "en": "Where are you from?"
+      },
+      {
+       "zh": "我快到家了！",
+       "pinyin": "wǒ kuài dào jiā le",
+       "fr": "J'arrive bientôt à la maison !",
+       "en": "I'm almost home!"
+      },
+      {
+       "zh": "我们都是中国人。",
+       "pinyin": "wǒ men dōu shì zhōng guó rén",
+       "fr": "Nous sommes tous chinois.",
+       "en": "We're all Chinese."
+      }
+     ],
+     "reponse": 2,
+     "porte": [
+      "到",
+      "家"
+     ]
+    },
+    {
+     "type": "trou",
+     "consigne": {
+      "fr": "Quel caractère manque dans ce mot ?",
+      "en": "Which character is missing from this word?"
+     },
+     "objet": {
+      "zh": "同学",
+      "pinyin": "tóng xué",
+      "fr": "camarade de classe",
+      "en": "classmate"
+     },
+     "trou": 0,
+     "choix": [
+      "回",
+      "问",
+      "同",
+      "门"
+     ],
+     "reponse": 2,
+     "porte": [
+      "同"
+     ]
+    }
+   ]
+  }
+ ]
+}

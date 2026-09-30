@@ -1,0 +1,435 @@
+{
+ "examen": "yueke-355",
+ "parcours": "lire",
+ "generation": {
+  "modele": "rédaction manuelle",
+  "api": "session Claude Code (sans API)",
+  "date": "2026-09-30"
+ },
+ "relecture": {
+  "statut": "relu",
+  "par": "le propriétaire",
+  "decision": "« Lance oui. Pas de relecture » (30 septembre 2026) : relecture considérée faite, sans relecture ligne à ligne",
+  "date": "2026-09-30"
+ },
+ "series": [
+  {
+   "serie": "A",
+   "statut": "relu",
+   "supports": [
+    {
+     "id": "s1",
+     "genre": "note",
+     "contexte": {
+      "fr": "Une note",
+      "en": "A note"
+     },
+     "lignes": [
+      {
+       "zh": "小明：我去商店买东西了。",
+       "pinyin": "xiǎo míng wǒ qù shāng diàn mǎi dōng xi le",
+       "fr": "Xiaoming : je suis partie faire des courses.",
+       "en": "Xiaoming: I've gone shopping."
+      },
+      {
+       "zh": "你先吃点水果，",
+       "pinyin": "nǐ xiān chī diǎn shuǐ guǒ",
+       "fr": "Mange d'abord un peu de fruits,",
+       "en": "Have some fruit first,"
+      },
+      {
+       "zh": "我六点回来。",
+       "pinyin": "wǒ liù diǎn huí lái",
+       "fr": "je rentre à six heures.",
+       "en": "I'll be back at six."
+      }
+     ]
+    },
+    {
+     "id": "s2",
+     "genre": "pancarte",
+     "contexte": {
+      "fr": "Un panneau",
+      "en": "A sign"
+     },
+     "lignes": [
+      {
+       "zh": "图书馆",
+       "pinyin": "tú shū guǎn",
+       "fr": "Bibliothèque",
+       "en": "Library"
+      },
+      {
+       "zh": "早上八点开门",
+       "pinyin": "zǎo shang bā diǎn kāi mén",
+       "fr": "Ouvert à huit heures du matin",
+       "en": "Opens at 8 am"
+      },
+      {
+       "zh": "晚上十点关门",
+       "pinyin": "wǎn shang shí diǎn guān mén",
+       "fr": "Fermé à dix heures du soir",
+       "en": "Closes at 10 pm"
+      }
+     ]
+    }
+   ],
+   "questions": [
+    {
+     "type": "comprendre",
+     "support": "s1",
+     "consigne": {
+      "fr": "Que doit faire Xiaoming en attendant ?",
+      "en": "What should Xiaoming do in the meantime?"
+     },
+     "choix": [
+      {
+       "fr": "Faire ses devoirs",
+       "en": "Do his homework"
+      },
+      {
+       "fr": "Préparer le riz",
+       "en": "Cook the rice"
+      },
+      {
+       "fr": "Manger un peu de fruits",
+       "en": "Eat some fruit"
+      },
+      {
+       "fr": "Appeler son père",
+       "en": "Call his father"
+      }
+     ],
+     "reponse": 2,
+     "porte": [
+      "吃",
+      "点"
+     ]
+    },
+    {
+     "type": "reperer",
+     "support": "s1",
+     "consigne": {
+      "fr": "Touche le mot qui dit l'heure du retour.",
+      "en": "Tap the word that gives the time of return."
+     },
+     "choix": [
+      "小明",
+      "商店",
+      "水果",
+      "六点"
+     ],
+     "reponse": 3,
+     "porte": [
+      "六",
+      "点"
+     ]
+    },
+    {
+     "type": "comprendre",
+     "support": "s2",
+     "consigne": {
+      "fr": "Quel est ce lieu ?",
+      "en": "What is this place?"
+     },
+     "choix": [
+      {
+       "fr": "Une librairie",
+       "en": "A bookshop"
+      },
+      {
+       "fr": "Une bibliothèque",
+       "en": "A library"
+      },
+      {
+       "fr": "Une école",
+       "en": "A school"
+      },
+      {
+       "fr": "Un musée",
+       "en": "A museum"
+      }
+     ],
+     "reponse": 1,
+     "porte": [
+      "图",
+      "书",
+      "馆"
+     ]
+    },
+    {
+     "type": "vrai_faux",
+     "support": "s2",
+     "consigne": {
+      "fr": "Vrai ou faux ?",
+      "en": "True or false?"
+     },
+     "affirmation": {
+      "zh": "图书馆晚上八点关门。",
+      "pinyin": "tú shū guǎn wǎn shang bā diǎn guān mén",
+      "fr": "La bibliothèque ferme à huit heures du soir.",
+      "en": "The library closes at 8 pm."
+     },
+     "reponse": false,
+     "porte": [
+      "晚",
+      "十",
+      "点"
+     ]
+    },
+    {
+     "type": "sens",
+     "consigne": {
+      "fr": "Que veut dire ce caractère ?",
+      "en": "What does this character mean?"
+     },
+     "objet": {
+      "zh": "冷",
+      "pinyin": "lěng",
+      "fr": "froid",
+      "en": "cold"
+     },
+     "choix": [
+      {
+       "fr": "chaud",
+       "en": "hot"
+      },
+      {
+       "fr": "froid",
+       "en": "cold"
+      },
+      {
+       "fr": "loin",
+       "en": "far"
+      },
+      {
+       "fr": "cher",
+       "en": "expensive"
+      }
+     ],
+     "reponse": 1,
+     "porte": [
+      "冷"
+     ]
+    }
+   ]
+  },
+  {
+   "serie": "B",
+   "statut": "relu",
+   "supports": [
+    {
+     "id": "s1",
+     "genre": "message",
+     "contexte": {
+      "fr": "Un message",
+      "en": "A message"
+     },
+     "lignes": [
+      {
+       "zh": "王老师，我病了，",
+       "pinyin": "wáng lǎo shī wǒ bìng le",
+       "fr": "Monsieur Wang, je suis malade :",
+       "en": "Mr Wang, I'm ill,"
+      },
+      {
+       "zh": "今天不能上课了。",
+       "pinyin": "jīn tiān bù néng shàng kè le",
+       "fr": "je ne peux pas venir en cours aujourd'hui.",
+       "en": "so I can't come to class today."
+      },
+      {
+       "zh": "谢谢您！",
+       "pinyin": "xiè xie nín",
+       "fr": "Merci !",
+       "en": "Thank you!"
+      }
+     ]
+    },
+    {
+     "id": "s2",
+     "genre": "etal",
+     "contexte": {
+      "fr": "Un étal",
+      "en": "A stall"
+     },
+     "lignes": [
+      {
+       "zh": "书：十块钱一本",
+       "pinyin": "shū shí kuài qián yī běn",
+       "fr": "Livres : 10 yuans l'un",
+       "en": "Books: 10 yuan each"
+      },
+      {
+       "zh": "画：三十块钱一张",
+       "pinyin": "huà sān shí kuài qián yī zhāng",
+       "fr": "Peintures : 30 yuans l'une",
+       "en": "Paintings: 30 yuan each"
+      },
+      {
+       "zh": "笔：五块钱一个",
+       "pinyin": "bǐ wǔ kuài qián yī gè",
+       "fr": "Pinceaux : 5 yuans l'un",
+       "en": "Brushes: 5 yuan each"
+      }
+     ],
+     "glose": [
+      {
+       "zh": "十块钱",
+       "pinyin": "shí kuài qián",
+       "fr": "10 yuans",
+       "en": "10 yuan"
+      },
+      {
+       "zh": "三十块钱",
+       "pinyin": "sān shí kuài qián",
+       "fr": "30 yuans",
+       "en": "30 yuan"
+      },
+      {
+       "zh": "五块钱",
+       "pinyin": "wǔ kuài qián",
+       "fr": "5 yuans",
+       "en": "5 yuan"
+      }
+     ]
+    }
+   ],
+   "questions": [
+    {
+     "type": "comprendre",
+     "support": "s1",
+     "consigne": {
+      "fr": "Pourquoi l'élève ne vient-il pas ?",
+      "en": "Why isn't the student coming?"
+     },
+     "choix": [
+      {
+       "fr": "Il est en voyage",
+       "en": "He is travelling"
+      },
+      {
+       "fr": "Il a raté le car",
+       "en": "He missed the bus"
+      },
+      {
+       "fr": "Il doit aider sa mère",
+       "en": "He must help his mother"
+      },
+      {
+       "fr": "Il est malade",
+       "en": "He is ill"
+      }
+     ],
+     "reponse": 3,
+     "porte": [
+      "病"
+     ]
+    },
+    {
+     "type": "replique",
+     "support": "s1",
+     "consigne": {
+      "fr": "Que répond le professeur ?",
+      "en": "What does the teacher reply?"
+     },
+     "choix": [
+      {
+       "zh": "我是你的老师。",
+       "pinyin": "wǒ shì nǐ de lǎo shī",
+       "fr": "Je suis ton professeur.",
+       "en": "I'm your teacher."
+      },
+      {
+       "zh": "好，你先看病吧。",
+       "pinyin": "hǎo nǐ xiān kàn bìng ba",
+       "fr": "D'accord, va d'abord voir le médecin.",
+       "en": "OK, go and see a doctor first."
+      },
+      {
+       "zh": "今天不冷。",
+       "pinyin": "jīn tiān bù lěng",
+       "fr": "Il ne fait pas froid aujourd'hui.",
+       "en": "It isn't cold today."
+      },
+      {
+       "zh": "我家住在城东。",
+       "pinyin": "wǒ jiā zhù zài chéng dōng",
+       "fr": "J'habite à l'est de la ville.",
+       "en": "I live in the east of town."
+      }
+     ],
+     "reponse": 1,
+     "porte": [
+      "病"
+     ]
+    },
+    {
+     "type": "reperer",
+     "support": "s2",
+     "consigne": {
+      "fr": "Touche le prix d'un livre.",
+      "en": "Tap the price of a book."
+     },
+     "choix": [
+      "三十块钱",
+      "五块钱",
+      "十块钱",
+      "一本"
+     ],
+     "reponse": 2,
+     "porte": [
+      "十",
+      "块",
+      "钱"
+     ]
+    },
+    {
+     "type": "vrai_faux",
+     "support": "s2",
+     "consigne": {
+      "fr": "Vrai ou faux ?",
+      "en": "True or false?"
+     },
+     "affirmation": {
+      "zh": "画比书贵。",
+      "pinyin": "huà bǐ shū guì",
+      "fr": "Une peinture coûte plus cher qu'un livre.",
+      "en": "A painting costs more than a book."
+     },
+     "reponse": true,
+     "porte": [
+      "十",
+      "块",
+      "钱",
+      "三"
+     ]
+    },
+    {
+     "type": "trou",
+     "consigne": {
+      "fr": "Quel caractère manque dans ce mot ?",
+      "en": "Which character is missing from this word?"
+     },
+     "objet": {
+      "zh": "晚上",
+      "pinyin": "wǎn shang",
+      "fr": "le soir",
+      "en": "evening"
+     },
+     "trou": 0,
+     "choix": [
+      "免",
+      "远",
+      "晚",
+      "冬"
+     ],
+     "reponse": 2,
+     "porte": [
+      "晚"
+     ]
+    }
+   ]
+  }
+ ]
+}
