@@ -1,0 +1,1301 @@
+{
+ "niveau": "7-9",
+ "lot": "21",
+ "source": "rédigé pour l'app dans le pipeline wenlu, sans API ; faits lus : liste HSK 3.0 (forme, pinyin, niveau, catégorie), lectures d'Unihan et des surcharges, gloses relues des fiches",
+ "brouillon": "data/sources/dico-brouillons/7-9/21.json",
+ "generation": {
+  "modele": "rédaction manuelle",
+  "api": "session Claude Code (sans API)",
+  "date": "2026-09-30",
+  "empreinte_invite": "sha256:d813c32bd64677599f4b74fe586995c5d92a18d9e71cff7ae1c2bd70a0a581c1",
+  "contexte": "wenlu dico contexte 7-9 21",
+  "essais": 1,
+  "refus": []
+ },
+ "entrees": [
+  {
+   "id": "L7-0835",
+   "genre": "mot",
+   "hanzi": "地下水",
+   "pinyin": "dìxiàshuǐ",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "eau souterraine, nappe phréatique",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "eau souterraine, nappe phréatique"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这里的人喝的是地下水。",
+     "pinyin": "Zhèli de rén hē de shì dìxiàshuǐ.",
+     "fr": "Ici, les gens boivent l'eau puisée sous terre.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "狱",
+   "genre": "caractere",
+   "hanzi": "狱",
+   "pinyin": "yù",
+   "sens": {
+    "glose": "prison ; procès",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "prison ; procès, affaire judiciaire"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": []
+  },
+  {
+   "id": "L7-0836",
+   "genre": "mot",
+   "hanzi": "地狱",
+   "pinyin": "dìyù",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "enfer",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "enfer"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "那段日子对他来说就像地狱。",
+     "pinyin": "Nà duàn rìzi duì tā lái shuō jiù xiàng dìyù.",
+     "fr": "Cette période a été un cauchemar pour lui.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-0837",
+   "genre": "mot",
+   "hanzi": "地域",
+   "pinyin": "dìyù",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "région, territoire",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "région, territoire"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "中国地域广大，各地风俗不同。",
+     "pinyin": "Zhōngguó dìyù guǎngdà, gè dì fēngsú bù tóng.",
+     "fr": "La Chine est immense et chaque région a ses coutumes.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-0838",
+   "genre": "mot",
+   "hanzi": "地质",
+   "pinyin": "dìzhì",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "géologie",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "géologie, nature du sol"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他是一名地质学家。",
+     "pinyin": "Tā shì yī míng dìzhì xuéjiā.",
+     "fr": "Il étudie les roches et les sols.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-0839",
+   "genre": "mot",
+   "hanzi": "弟子",
+   "pinyin": "dìzǐ",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "disciple, élève",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "disciple, élève"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "孔子有很多弟子。",
+     "pinyin": "Kǒngzǐ yǒu hěn duō dìzǐ.",
+     "fr": "Confucius avait de nombreux disciples.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-0840",
+   "genre": "mot",
+   "hanzi": "帝国",
+   "pinyin": "dìguó",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "empire",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "empire"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这个帝国后来灭亡了。",
+     "pinyin": "Zhège dìguó hòulái mièwáng le.",
+     "fr": "Cet empire a fini par disparaître.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-0841",
+   "genre": "mot",
+   "hanzi": "帝国主义",
+   "pinyin": "dìguó zhǔyì",
+   "sens": {
+    "glose": "impérialisme",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "impérialisme"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他们反对帝国主义。",
+     "pinyin": "Tāmen fǎnduì dìguó zhǔyì.",
+     "fr": "Ils luttent contre la domination des grandes puissances.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-0842",
+   "genre": "mot",
+   "hanzi": "递交",
+   "pinyin": "dìjiāo",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "remettre, soumettre",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "remettre, soumettre : document, demande"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "请在月底前递交申请。",
+     "pinyin": "Qǐng zài yuèdǐ qián dìjiāo shēnqǐng.",
+     "fr": "Déposez votre candidature avant la fin du mois.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-0843",
+   "genre": "mot",
+   "hanzi": "第一手",
+   "pinyin": "dìyīshǒu",
+   "categories": [
+    "Adj"
+   ],
+   "sens": {
+    "glose": "de première main",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "de première main"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "记者拿到了第一手资料。",
+     "pinyin": "Jìzhě ná dào le dìyīshǒu zīliào.",
+     "fr": "Le journaliste a obtenu des informations directes.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-0844",
+   "genre": "mot",
+   "hanzi": "第一线",
+   "pinyin": "dìyīxiàn",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "première ligne, front",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "première ligne, front ; terrain"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "医生们一直在第一线工作。",
+     "pinyin": "Yīshēngmen yīzhí zài dìyīxiàn gōngzuò.",
+     "fr": "Les médecins sont toujours sur le terrain.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "颠",
+   "genre": "caractere",
+   "hanzi": "颠",
+   "pinyin": "diān",
+   "sens": {
+    "glose": "cahoter ; basculer",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "cahoter, secouer ; basculer"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": []
+  },
+  {
+   "id": "L7-0845",
+   "genre": "mot",
+   "hanzi": "颠倒",
+   "pinyin": "diāndǎo",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "inverser, mettre sens dessus dessous",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "inverser, mettre sens dessus dessous"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "你把顺序颠倒了。",
+     "pinyin": "Nǐ bǎ shùnxù diāndǎo le.",
+     "fr": "Tu as mis les choses dans le mauvais ordre.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "覆",
+   "genre": "caractere",
+   "hanzi": "覆",
+   "pinyin": "fù",
+   "sens": {
+    "glose": "couvrir ; renverser",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "couvrir ; renverser"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": []
+  },
+  {
+   "id": "L7-0846",
+   "genre": "mot",
+   "hanzi": "颠覆",
+   "pinyin": "diānfù",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "renverser, bouleverser",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "renverser, bouleverser, subvertir"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这项发明颠覆了人们的生活方式。",
+     "pinyin": "Zhè xiàng fāmíng diānfù le rénmen de shēnghuó fāngshì.",
+     "fr": "Cette invention a transformé notre mode de vie.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "巅",
+   "genre": "caractere",
+   "hanzi": "巅",
+   "pinyin": "diān",
+   "sens": {
+    "glose": "sommet",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "sommet, cime"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": []
+  },
+  {
+   "id": "L7-0847",
+   "genre": "mot",
+   "hanzi": "巅峰",
+   "pinyin": "diānfēng",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "sommet, apogée",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "sommet, apogée"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他正处在事业的巅峰。",
+     "pinyin": "Tā zhèng chǔ zài shìyè de diānfēng.",
+     "fr": "Il est au faîte de sa carrière.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-0848",
+   "genre": "mot",
+   "hanzi": "典范",
+   "pinyin": "diǎnfàn",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "modèle, exemple parfait",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "modèle, exemple parfait"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这座建筑是古代建筑的典范。",
+     "pinyin": "Zhè zuò jiànzhù shì gǔdài jiànzhù de diǎnfàn.",
+     "fr": "Ce bâtiment incarne le meilleur de l'architecture ancienne.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-0849",
+   "genre": "mot",
+   "hanzi": "点火",
+   "pinyin": "diǎnhuǒ",
+   "sens": {
+    "glose": "allumer ; attiser",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "allumer un feu, un moteur"
+     },
+     {
+      "categorie": "V",
+      "fr": "attiser, provoquer"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他点火做饭。",
+     "pinyin": "Tā diǎnhuǒ zuòfàn.",
+     "fr": "Il allume le feu pour cuisiner.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-0850",
+   "genre": "mot",
+   "hanzi": "点击率",
+   "pinyin": "diǎnjīlǜ",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "taux de clics, nombre de vues",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "taux de clics, nombre de vues"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这个视频的点击率很高。",
+     "pinyin": "Zhège shìpín de diǎnjīlǜ hěn gāo.",
+     "fr": "Cette vidéo a été beaucoup regardée.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-0851",
+   "genre": "mot",
+   "hanzi": "点评",
+   "pinyin": "diǎnpíng",
+   "categories": [
+    "V",
+    "N"
+   ],
+   "sens": {
+    "glose": "commenter ; commentaire",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "commenter, critiquer"
+     },
+     {
+      "categorie": "N",
+      "fr": "commentaire, critique"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "老师对每个学生的作文都做了点评。",
+     "pinyin": "Lǎoshī duì měi gè xuésheng de zuòwén dōu zuò le diǎnpíng.",
+     "fr": "Le professeur a annoté chaque rédaction.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-0852",
+   "genre": "mot",
+   "hanzi": "点心",
+   "pinyin": "diǎnxin",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "pâtisserie, en-cas",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "pâtisserie, gâteau, en-cas"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "下午我们吃了一些点心。",
+     "pinyin": "Xiàwǔ wǒmen chī le yīxiē diǎnxin.",
+     "fr": "L'après-midi, nous avons grignoté quelques douceurs.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "缀",
+   "genre": "caractere",
+   "hanzi": "缀",
+   "pinyin": "zhuì",
+   "sens": {
+    "glose": "coudre ; orner",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "coudre ; orner"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": []
+  },
+  {
+   "id": "L7-0853",
+   "genre": "mot",
+   "hanzi": "点缀",
+   "pinyin": "diǎnzhuì",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "orner, agrémenter",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "orner, agrémenter"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "几朵小花点缀着草地。",
+     "pinyin": "Jǐ duǒ xiǎo huā diǎnzhuì zhe cǎodì.",
+     "fr": "Quelques fleurs égaient la pelouse.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-0854",
+   "genre": "mot",
+   "hanzi": "点子",
+   "pinyin": "diǎnzi",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "idée ; point, goutte",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "idée, astuce"
+     },
+     {
+      "categorie": "N",
+      "fr": "point, goutte"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他总是有很多好点子。",
+     "pinyin": "Tā zǒngshì yǒu hěn duō hǎo diǎnzi.",
+     "fr": "Il a toujours plein de bonnes trouvailles.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-0855",
+   "genre": "mot",
+   "hanzi": "电报",
+   "pinyin": "diànbào",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "télégramme",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "télégramme"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "以前人们用电报传递急事。",
+     "pinyin": "Yǐqián rénmen yòng diànbào chuándì jíshì.",
+     "fr": "Autrefois, on annonçait les urgences par télégraphe.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-0856",
+   "genre": "mot",
+   "hanzi": "电铃",
+   "pinyin": "diànlíng",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "sonnerie électrique",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "sonnerie électrique"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "上课的电铃响了。",
+     "pinyin": "Shàngkè de diànlíng xiǎng le.",
+     "fr": "Ça a sonné, le cours commence.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-0857",
+   "genre": "mot",
+   "hanzi": "电网",
+   "pinyin": "diànwǎng",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "réseau électrique ; clôture électrifiée",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "réseau électrique ; clôture électrifiée"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "大风破坏了当地的电网。",
+     "pinyin": "Dàfēng pòhuài le dāngdì de diànwǎng.",
+     "fr": "La tempête a privé la région de courant.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-0858",
+   "genre": "mot",
+   "hanzi": "电线",
+   "pinyin": "diànxiàn",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "fil électrique",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "fil électrique"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "小心，别碰那根电线。",
+     "pinyin": "Xiǎoxīn, bié pèng nà gēn diànxiàn.",
+     "fr": "Attention, ne touche pas à ce câble.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-0859",
+   "genre": "mot",
+   "hanzi": "电信",
+   "pinyin": "diànxìn",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "télécommunications",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "télécommunications"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他在电信公司工作。",
+     "pinyin": "Tā zài diànxìn gōngsī gōngzuò.",
+     "fr": "Il travaille chez un opérateur téléphonique.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-0860",
+   "genre": "mot",
+   "hanzi": "电讯",
+   "pinyin": "diànxùn",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "dépêche ; télécommunication",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "dépêche ; télécommunication"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这是一条来自北京的电讯。",
+     "pinyin": "Zhè shì yī tiáo láizì Běijīng de diànxùn.",
+     "fr": "C'est une nouvelle transmise depuis Pékin.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "垫",
+   "genre": "caractere",
+   "hanzi": "垫",
+   "pinyin": "diàn",
+   "mots": [
+    "L7-0861"
+   ],
+   "sens": {
+    "glose": "caler ; avancer de l'argent ; coussin",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "caler, mettre dessous"
+     },
+     {
+      "categorie": "V",
+      "fr": "avancer de l'argent"
+     },
+     {
+      "categorie": "N",
+      "fr": "coussin, tapis"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "我先帮你垫上饭钱。",
+     "pinyin": "Wǒ xiān bāng nǐ diàn shang fàn qián.",
+     "fr": "Je t'avance l'argent du repas.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-0862",
+   "genre": "mot",
+   "hanzi": "垫底",
+   "pinyin": "diàndǐ",
+   "sens": {
+    "glose": "être dernier ; mettre au fond",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "être dernier du classement"
+     },
+     {
+      "categorie": "V",
+      "fr": "mettre au fond, caler"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这次考试他在班上垫底。",
+     "pinyin": "Zhè cì kǎoshì tā zài bān shang diàndǐ.",
+     "fr": "À cet examen, il est arrivé dernier de la classe.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-0863",
+   "genre": "mot",
+   "hanzi": "垫子",
+   "pinyin": "diànzi",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "coussin, tapis, matelas",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "coussin, tapis, matelas"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "椅子上放着一个垫子。",
+     "pinyin": "Yǐzi shang fàng zhe yī gè diànzi.",
+     "fr": "Il y a de quoi s'asseoir confortablement sur cette chaise.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-0864",
+   "genre": "mot",
+   "hanzi": "淀粉",
+   "pinyin": "diànfěn",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "amidon, fécule",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "amidon, fécule"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "土豆里有很多淀粉。",
+     "pinyin": "Tǔdòu li yǒu hěn duō diànfěn.",
+     "fr": "La pomme de terre est riche en amidon.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "惦",
+   "genre": "caractere",
+   "hanzi": "惦",
+   "pinyin": "diàn",
+   "sens": {
+    "glose": "penser à, se soucier de",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "penser à, se soucier de"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": []
+  },
+  {
+   "id": "L7-0865",
+   "genre": "mot",
+   "hanzi": "惦记",
+   "pinyin": "diànji",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "penser à, se soucier de",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "penser à, se faire du souci pour"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "妈妈一直惦记着在外地的儿子。",
+     "pinyin": "Māma yīzhí diànji zhe zài wàidì de érzi.",
+     "fr": "Maman pense sans cesse à son fils parti loin.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "奠",
+   "genre": "caractere",
+   "hanzi": "奠",
+   "pinyin": "diàn",
+   "sens": {
+    "glose": "fonder ; offrir en sacrifice",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "fonder, établir"
+     },
+     {
+      "categorie": "V",
+      "fr": "offrir en sacrifice aux morts"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": []
+  },
+  {
+   "id": "L7-0866",
+   "genre": "mot",
+   "hanzi": "奠定",
+   "pinyin": "diàndìng",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "poser les bases, établir",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "poser les bases, établir"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这次胜利奠定了他的地位。",
+     "pinyin": "Zhè cì shènglì diàndìng le tā de dìwèi.",
+     "fr": "Cette victoire a assis sa position.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "殿",
+   "genre": "caractere",
+   "hanzi": "殿",
+   "pinyin": "diàn",
+   "sens": {
+    "glose": "palais, salle de temple",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "palais, salle de temple"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": []
+  },
+  {
+   "id": "L7-0867",
+   "genre": "mot",
+   "hanzi": "殿堂",
+   "pinyin": "diàntáng",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "palais, temple, sanctuaire",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "palais, temple, sanctuaire"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这里是艺术的殿堂。",
+     "pinyin": "Zhèli shì yìshù de diàntáng.",
+     "fr": "C'est un haut lieu de l'art.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "刁",
+   "genre": "caractere",
+   "hanzi": "刁",
+   "pinyin": "diāo",
+   "sens": {
+    "glose": "rusé, retors",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "rusé, retors"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": []
+  },
+  {
+   "id": "L7-0868",
+   "genre": "mot",
+   "hanzi": "刁难",
+   "pinyin": "diāonàn",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "créer des difficultés",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "créer des difficultés, chercher des noises"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他故意刁难新来的同事。",
+     "pinyin": "Tā gùyì diāonàn xīn lái de tóngshì.",
+     "fr": "Il met exprès des bâtons dans les roues au nouveau collègue.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "叼",
+   "genre": "caractere",
+   "hanzi": "叼",
+   "pinyin": "diāo",
+   "mots": [
+    "L7-0869"
+   ],
+   "sens": {
+    "glose": "tenir entre les dents",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "tenir entre les dents, dans le bec"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他嘴里叼着一支烟。",
+     "pinyin": "Tā zuǐ li diāo zhe yī zhī yān.",
+     "fr": "Il a une cigarette au coin des lèvres.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "雕",
+   "genre": "caractere",
+   "hanzi": "雕",
+   "pinyin": "diāo",
+   "mots": [
+    "L7-0870"
+   ],
+   "sens": {
+    "glose": "sculpter, graver ; aigle",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "sculpter, graver"
+     },
+     {
+      "categorie": "N",
+      "fr": "aigle"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他在木头上雕了一只鸟。",
+     "pinyin": "Tā zài mùtou shang diāo le yī zhī niǎo.",
+     "fr": "Il a taillé un oiseau dans le bois.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-0871",
+   "genre": "mot",
+   "hanzi": "雕刻",
+   "pinyin": "diāokè",
+   "categories": [
+    "V",
+    "N"
+   ],
+   "sens": {
+    "glose": "sculpter ; sculpture",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "sculpter, graver"
+     },
+     {
+      "categorie": "N",
+      "fr": "sculpture, gravure"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这座门上的雕刻非常精美。",
+     "pinyin": "Zhè zuò mén shang de diāokè fēicháng jīngměi.",
+     "fr": "Les motifs de cette porte sont magnifiques.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-0872",
+   "genre": "mot",
+   "hanzi": "雕塑",
+   "pinyin": "diāosù",
+   "categories": [
+    "V",
+    "N"
+   ],
+   "sens": {
+    "glose": "sculpture, statue ; sculpter",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "sculpture, statue"
+     },
+     {
+      "categorie": "V",
+      "fr": "sculpter"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "广场中间有一座雕塑。",
+     "pinyin": "Guǎngchǎng zhōngjiān yǒu yī zuò diāosù.",
+     "fr": "Il y a une œuvre d'art au milieu de la place.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-0873",
+   "genre": "mot",
+   "hanzi": "吊销",
+   "pinyin": "diàoxiāo",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "retirer, révoquer",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "retirer, révoquer : permis, licence"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他的驾照被吊销了。",
+     "pinyin": "Tā de jiàzhào bèi diàoxiāo le.",
+     "fr": "On lui a pris son permis de conduire.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "钓",
+   "genre": "caractere",
+   "hanzi": "钓",
+   "pinyin": "diào",
+   "sens": {
+    "glose": "pêcher à la ligne",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "pêcher à la ligne"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": []
+  },
+  {
+   "id": "L7-0874",
+   "genre": "mot",
+   "hanzi": "钓鱼",
+   "pinyin": "diàoyú",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "pêcher à la ligne",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "pêcher à la ligne"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "周末爷爷喜欢去湖边钓鱼。",
+     "pinyin": "Zhōumò yéye xǐhuan qù hú biān diàoyú.",
+     "fr": "Le week-end, grand-père aime aller au bord du lac avec sa canne.",
+     "statut": "a_relire"
+    }
+   ]
+  }
+ ]
+}

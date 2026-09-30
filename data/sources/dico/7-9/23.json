@@ -1,0 +1,1337 @@
+{
+ "niveau": "7-9",
+ "lot": "23",
+ "source": "rédigé pour l'app dans le pipeline wenlu, sans API ; faits lus : liste HSK 3.0 (forme, pinyin, niveau, catégorie), lectures d'Unihan et des surcharges, gloses relues des fiches",
+ "brouillon": "data/sources/dico-brouillons/7-9/23.json",
+ "generation": {
+  "modele": "rédaction manuelle",
+  "api": "session Claude Code (sans API)",
+  "date": "2026-09-30",
+  "empreinte_invite": "sha256:d8df53f443a24dbcfef363c389a6993089d47fb5e980e37d9a97a99b1ca382b9",
+  "contexte": "wenlu dico contexte 7-9 23",
+  "essais": 1,
+  "refus": []
+ },
+ "entrees": [
+  {
+   "id": "L7-0920",
+   "genre": "mot",
+   "hanzi": "动弹",
+   "pinyin": "dòngtan",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "bouger, remuer",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "bouger, remuer"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他累得动弹不了。",
+     "pinyin": "Tā lèi de dòngtan bu liǎo.",
+     "fr": "Il est si fatigué qu'il ne peut plus faire un geste.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-0921",
+   "genre": "mot",
+   "hanzi": "动听",
+   "pinyin": "dòngtīng",
+   "categories": [
+    "Adj"
+   ],
+   "sens": {
+    "glose": "mélodieux, agréable à entendre",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "mélodieux, agréable à entendre"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "她的歌声很动听。",
+     "pinyin": "Tā de gēshēng hěn dòngtīng.",
+     "fr": "Elle a une voix charmante.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-0922",
+   "genre": "mot",
+   "hanzi": "动向",
+   "pinyin": "dòngxiàng",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "tendance, évolution",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "tendance, évolution, mouvements"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "我们要注意市场的动向。",
+     "pinyin": "Wǒmen yào zhùyì shìchǎng de dòngxiàng.",
+     "fr": "Il faut suivre de près le marché.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-0923",
+   "genre": "mot",
+   "hanzi": "动用",
+   "pinyin": "dòngyòng",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "employer, mobiliser",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "employer, mobiliser : fonds, moyens"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "政府动用了大量资金救灾。",
+     "pinyin": "Zhèngfǔ dòngyòng le dàliàng zījīn jiù zāi.",
+     "fr": "L'État a débloqué des fonds importants pour les secours.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-0924",
+   "genre": "mot",
+   "hanzi": "冻结",
+   "pinyin": "dòngjié",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "geler, bloquer",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "geler, bloquer : avoirs, prix, relations"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他的银行账户被冻结了。",
+     "pinyin": "Tā de yínháng zhànghù bèi dòngjié le.",
+     "fr": "Il n'a plus accès à son compte bancaire.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "栋",
+   "genre": "caractere",
+   "hanzi": "栋",
+   "pinyin": "dòng",
+   "mots": [
+    "L7-0925"
+   ],
+   "sens": {
+    "glose": "classificateur des bâtiments",
+    "acceptions": [
+     {
+      "categorie": "M",
+      "fr": "classificateur des bâtiments"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这条街上有几栋新楼。",
+     "pinyin": "Zhè tiáo jiē shang yǒu jǐ dòng xīn lóu.",
+     "fr": "Il y a quelques immeubles neufs dans cette rue.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-0926",
+   "genre": "mot",
+   "hanzi": "栋梁",
+   "pinyin": "dòngliáng",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "poutre maîtresse ; pilier",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "poutre maîtresse ; pilier d'un pays, d'une organisation"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "年轻人是国家的栋梁。",
+     "pinyin": "Niánqīngrén shì guójiā de dòngliáng.",
+     "fr": "L'avenir du pays repose sur les jeunes.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "兜",
+   "genre": "caractere",
+   "hanzi": "兜",
+   "pinyin": "dōu",
+   "mots": [
+    "L7-0927"
+   ],
+   "sens": {
+    "glose": "envelopper ; faire un tour ; poche",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "envelopper, porter dans un pan de vêtement"
+     },
+     {
+      "categorie": "V",
+      "fr": "tourner, faire un tour"
+     },
+     {
+      "categorie": "N",
+      "fr": "poche"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "我们开车在城里兜了一圈。",
+     "pinyin": "Wǒmen kāichē zài chéng li dōu le yī quān.",
+     "fr": "Nous avons fait un tour en voiture dans la ville.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-0928",
+   "genre": "mot",
+   "hanzi": "兜儿",
+   "pinyin": "dōur",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "poche",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "poche"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他把手放在兜儿里。",
+     "pinyin": "Tā bǎ shǒu fàng zài dōur li.",
+     "fr": "Il a les mains dans les poches.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-0929",
+   "genre": "mot",
+   "hanzi": "兜售",
+   "pinyin": "dōushòu",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "colporter, vendre à la sauvette",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "colporter, vendre à la sauvette"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "有人在车站兜售假票。",
+     "pinyin": "Yǒu rén zài chēzhàn dōushòu jiǎ piào.",
+     "fr": "Quelqu'un vend de faux billets à la gare.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "陡",
+   "genre": "caractere",
+   "hanzi": "陡",
+   "pinyin": "dǒu",
+   "mots": [
+    "L7-0931"
+   ],
+   "sens": {
+    "glose": "raide, abrupt",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "raide, abrupt"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这座山很陡。",
+     "pinyin": "Zhè zuò shān hěn dǒu.",
+     "fr": "Cette montagne est très escarpée.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-0933",
+   "genre": "mot",
+   "hanzi": "斗志",
+   "pinyin": "dòuzhì",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "combativité",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "combativité, ardeur au combat"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "输了一场，队员们的斗志更强了。",
+     "pinyin": "Shū le yī chǎng, duìyuánmen de dòuzhì gèng qiáng le.",
+     "fr": "Après cette défaite, les joueurs sont encore plus motivés.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "浆",
+   "genre": "caractere",
+   "hanzi": "浆",
+   "pinyin": "jiāng",
+   "sens": {
+    "glose": "liquide épais, pulpe",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "liquide épais, pulpe ; empois"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": []
+  },
+  {
+   "id": "L7-0934",
+   "genre": "mot",
+   "hanzi": "豆浆",
+   "pinyin": "dòujiāng",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "lait de soja",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "lait de soja"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "我早上喝一杯豆浆。",
+     "pinyin": "Wǒ zǎoshang hē yī bēi dòujiāng.",
+     "fr": "Le matin, je bois un bol de boisson au soja.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-0935",
+   "genre": "mot",
+   "hanzi": "豆子",
+   "pinyin": "dòuzi",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "haricot, graine",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "haricot, graine de légumineuse"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "她在厨房里挑豆子。",
+     "pinyin": "Tā zài chúfáng li tiāo dòuzi.",
+     "fr": "Elle trie les légumes secs dans la cuisine.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "逗",
+   "genre": "caractere",
+   "hanzi": "逗",
+   "pinyin": "dòu",
+   "mots": [
+    "L7-0936"
+   ],
+   "sens": {
+    "glose": "taquiner, amuser ; drôle",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "taquiner, amuser"
+     },
+     {
+      "categorie": "Adj",
+      "fr": "drôle, amusant"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他很会逗孩子笑。",
+     "pinyin": "Tā hěn huì dòu háizi xiào.",
+     "fr": "Il sait faire rire les enfants.",
+     "statut": "a_relire"
+    },
+    {
+     "zh": "这个人真逗。",
+     "pinyin": "Zhège rén zhēn dòu.",
+     "fr": "Ce type est vraiment marrant.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-0937",
+   "genre": "mot",
+   "hanzi": "都会",
+   "pinyin": "dūhuì",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "grande ville, métropole",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "grande ville, métropole"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "上海是一座国际大都会。",
+     "pinyin": "Shànghǎi shì yī zuò guójì dà dūhuì.",
+     "fr": "Shanghai est une grande ville internationale.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-0938",
+   "genre": "mot",
+   "hanzi": "督促",
+   "pinyin": "dūcù",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "presser, veiller à",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "presser, veiller à, encourager"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "父母要督促孩子学习。",
+     "pinyin": "Fùmǔ yào dūcù háizi xuéxí.",
+     "fr": "Les parents doivent s'assurer que leurs enfants étudient.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-0940",
+   "genre": "mot",
+   "hanzi": "独唱",
+   "pinyin": "dúchàng",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "chanter en solo",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "chanter en solo"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "她在晚会上独唱了一首歌。",
+     "pinyin": "Tā zài wǎnhuì shang dúchàng le yī shǒu gē.",
+     "fr": "Elle a chanté seule à la soirée.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-0941",
+   "genre": "mot",
+   "hanzi": "独家",
+   "pinyin": "dújiā",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "exclusivité",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "exclusivité"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这是我们报纸的独家新闻。",
+     "pinyin": "Zhè shì wǒmen bàozhǐ de dújiā xīnwén.",
+     "fr": "C'est un scoop de notre journal.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-0942",
+   "genre": "mot",
+   "hanzi": "独立自主",
+   "pinyin": "dúlì-zìzhǔ",
+   "sens": {
+    "glose": "indépendant, autonome",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "indépendant et souverain, autonome"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "孩子长大了要学会独立自主。",
+     "pinyin": "Háizi zhǎngdà le yào xuéhuì dúlì-zìzhǔ.",
+     "fr": "En grandissant, les enfants doivent apprendre à se débrouiller seuls.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-0943",
+   "genre": "mot",
+   "hanzi": "独身",
+   "pinyin": "dúshēn",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "vivre seul, rester célibataire",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "vivre seul, rester célibataire"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他一直独身，没有结婚。",
+     "pinyin": "Tā yīzhí dúshēn, méiyǒu jiéhūn.",
+     "fr": "Il ne s'est jamais marié.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-0944",
+   "genre": "mot",
+   "hanzi": "独一无二",
+   "pinyin": "dúyī-wú'èr",
+   "sens": {
+    "glose": "unique, sans pareil",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "unique, sans pareil"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "每个人都是独一无二的。",
+     "pinyin": "Měi gè rén dōu shì dúyī-wú'èr de.",
+     "fr": "Chacun a sa singularité.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-0945",
+   "genre": "mot",
+   "hanzi": "堵塞",
+   "pinyin": "dǔsè",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "boucher, obstruer, embouteiller",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "boucher, obstruer, embouteiller"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "事故造成了交通堵塞。",
+     "pinyin": "Shìgù zàochéng le jiāotōng dǔsè.",
+     "fr": "L'accident a provoqué un embouteillage.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "杜",
+   "genre": "caractere",
+   "hanzi": "杜",
+   "pinyin": "dù",
+   "sens": {
+    "glose": "empêcher ; nom de famille",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "empêcher, bloquer"
+     },
+     {
+      "categorie": "N",
+      "fr": "nom de famille Du"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": []
+  },
+  {
+   "id": "L7-0946",
+   "genre": "mot",
+   "hanzi": "杜绝",
+   "pinyin": "dùjué",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "éliminer, en finir avec",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "éliminer, supprimer complètement"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "我们要杜绝浪费。",
+     "pinyin": "Wǒmen yào dùjué làngfèi.",
+     "fr": "Il faut en finir avec le gaspillage.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "妒",
+   "genre": "caractere",
+   "hanzi": "妒",
+   "pinyin": "dù",
+   "sens": {
+    "glose": "envier, jalouser",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "envier, jalouser"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": []
+  },
+  {
+   "id": "忌",
+   "genre": "caractere",
+   "hanzi": "忌",
+   "pinyin": "jì",
+   "mots": [
+    "L7-1916"
+   ],
+   "sens": {
+    "glose": "éviter, s'abstenir de ; craindre",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "éviter, s'abstenir de"
+     },
+     {
+      "categorie": "V",
+      "fr": "craindre, redouter ; envier"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他生病了，要忌酒。",
+     "pinyin": "Tā shēngbìng le, yào jì jiǔ.",
+     "fr": "Il est malade, il doit arrêter l'alcool.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-0947",
+   "genre": "mot",
+   "hanzi": "妒忌",
+   "pinyin": "dùjì",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "jalouser, envier",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "jalouser, envier"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他妒忌别人的成功。",
+     "pinyin": "Tā dùjì biérén de chénggōng.",
+     "fr": "Le succès des autres le rend jaloux.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-0949",
+   "genre": "mot",
+   "hanzi": "度假",
+   "pinyin": "dùjià",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "passer ses vacances",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "passer ses vacances"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "我们打算去海边度假。",
+     "pinyin": "Wǒmen dǎsuàn qù hǎibiān dùjià.",
+     "fr": "Nous comptons partir à la mer cet été.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-0950",
+   "genre": "mot",
+   "hanzi": "渡过",
+   "pinyin": "dùguò",
+   "sens": {
+    "glose": "traverser ; surmonter",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "traverser ; surmonter une période difficile"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "我们一起渡过了最困难的时期。",
+     "pinyin": "Wǒmen yīqǐ dùguò le zuì kùnnan de shíqī.",
+     "fr": "Nous avons tenu bon ensemble dans les pires moments.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-0951",
+   "genre": "mot",
+   "hanzi": "端正",
+   "pinyin": "duānzhèng",
+   "categories": [
+    "Adj",
+    "V"
+   ],
+   "sens": {
+    "glose": "droit, correct ; corriger",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "droit, régulier ; correct"
+     },
+     {
+      "categorie": "V",
+      "fr": "corriger, redresser"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "你要端正学习态度。",
+     "pinyin": "Nǐ yào duānzhèng xuéxí tàidu.",
+     "fr": "Tu dois revoir ta façon d'étudier.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-0952",
+   "genre": "mot",
+   "hanzi": "短缺",
+   "pinyin": "duǎnquē",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "manquer, faire défaut",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "manquer, faire défaut"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这个地区水资源短缺。",
+     "pinyin": "Zhège dìqū shuǐ zīyuán duǎnquē.",
+     "fr": "Cette région manque d'eau.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-0953",
+   "genre": "mot",
+   "hanzi": "短暂",
+   "pinyin": "duǎnzàn",
+   "categories": [
+    "Adj"
+   ],
+   "sens": {
+    "glose": "bref, passager",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "bref, passager, éphémère"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "人生很短暂。",
+     "pinyin": "Rénshēng hěn duǎnzàn.",
+     "fr": "La vie passe vite.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-0954",
+   "genre": "mot",
+   "hanzi": "段落",
+   "pinyin": "duànluò",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "paragraphe ; étape",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "paragraphe ; étape"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这篇文章分为三个段落。",
+     "pinyin": "Zhè piān wénzhāng fēnwéi sān gè duànluò.",
+     "fr": "Ce texte se divise en trois parties.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-0955",
+   "genre": "mot",
+   "hanzi": "断定",
+   "pinyin": "duàndìng",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "conclure, affirmer",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "conclure, affirmer, établir"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "医生断定他得的是感冒。",
+     "pinyin": "Yīshēng duàndìng tā dé de shì gǎnmào.",
+     "fr": "Le médecin a diagnostiqué un rhume.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-0956",
+   "genre": "mot",
+   "hanzi": "断断续续",
+   "pinyin": "duànduànxùxù",
+   "categories": [
+    "Adj"
+   ],
+   "sens": {
+    "glose": "par intermittence",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "par intermittence, décousu"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "雨断断续续地下了一天。",
+     "pinyin": "Yǔ duànduànxùxù de xià le yī tiān.",
+     "fr": "Il a plu par moments toute la journée.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-0957",
+   "genre": "mot",
+   "hanzi": "断裂",
+   "pinyin": "duànliè",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "se rompre, se fracturer",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "se rompre, se fracturer"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "大桥的一根钢梁断裂了。",
+     "pinyin": "Dàqiáo de yī gēn gāngliáng duànliè le.",
+     "fr": "Une poutre d'acier du pont a cédé.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "砌",
+   "genre": "caractere",
+   "hanzi": "砌",
+   "pinyin": "qì",
+   "sens": {
+    "glose": "maçonner, bâtir",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "maçonner, bâtir en briques"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": []
+  },
+  {
+   "id": "L7-0958",
+   "genre": "mot",
+   "hanzi": "堆砌",
+   "pinyin": "duīqì",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "empiler ; accumuler",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "empiler, maçonner"
+     },
+     {
+      "categorie": "V",
+      "fr": "accumuler des mots creux"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这篇文章堆砌了很多华丽的词语。",
+     "pinyin": "Zhè piān wénzhāng duīqì le hěn duō huálì de cíyǔ.",
+     "fr": "Ce texte aligne les mots pompeux.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-0959",
+   "genre": "mot",
+   "hanzi": "队形",
+   "pinyin": "duìxíng",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "formation, disposition",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "formation, disposition d'un groupe"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "队员们排成了整齐的队形。",
+     "pinyin": "Duìyuánmen pái chéng le zhěngqí de duìxíng.",
+     "fr": "Les membres de l'équipe se sont alignés en bon ordre.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-0960",
+   "genre": "mot",
+   "hanzi": "对白",
+   "pinyin": "duìbái",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "dialogue d'un film",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "dialogue d'un film, d'une pièce"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这部电影的对白很有意思。",
+     "pinyin": "Zhè bù diànyǐng de duìbái hěn yǒu yìsi.",
+     "fr": "Les répliques de ce film sont très réussies.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-0961",
+   "genre": "mot",
+   "hanzi": "对策",
+   "pinyin": "duìcè",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "contre-mesure, parade",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "contre-mesure, parade"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "我们要想出对策。",
+     "pinyin": "Wǒmen yào xiǎng chū duìcè.",
+     "fr": "Il faut trouver une solution.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-0962",
+   "genre": "mot",
+   "hanzi": "对称",
+   "pinyin": "duìchèn",
+   "categories": [
+    "Adj"
+   ],
+   "sens": {
+    "glose": "symétrique",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "symétrique"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这座建筑左右对称。",
+     "pinyin": "Zhè zuò jiànzhù zuǒyòu duìchèn.",
+     "fr": "Les deux côtés de ce bâtiment sont identiques.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-0963",
+   "genre": "mot",
+   "hanzi": "对得起",
+   "pinyin": "duìdeqǐ",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "être digne de, ne pas décevoir",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "être digne de, ne pas décevoir"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "我这样做对得起自己的良心。",
+     "pinyin": "Wǒ zhèyàng zuò duìdeqǐ zìjǐ de liángxīn.",
+     "fr": "En agissant ainsi, j'ai la conscience tranquille.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-0964",
+   "genre": "mot",
+   "hanzi": "对联",
+   "pinyin": "duìlián",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "sentences parallèles",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "sentences parallèles, inscriptions de porte"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "春节时家家户户贴对联。",
+     "pinyin": "Chūnjié shí jiājiāhùhù tiē duìlián.",
+     "fr": "À la fête du Printemps, chaque foyer colle des vers de bon augure sur sa porte.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "弈",
+   "genre": "caractere",
+   "hanzi": "弈",
+   "pinyin": "yì",
+   "sens": {
+    "glose": "jeu de go, d'échecs",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "jeu de go, d'échecs"
+     },
+     {
+      "categorie": "V",
+      "fr": "jouer au go, aux échecs"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": []
+  },
+  {
+   "id": "L7-0965",
+   "genre": "mot",
+   "hanzi": "对弈",
+   "pinyin": "duìyì",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "disputer une partie de go",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "disputer une partie de go ou d'échecs"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "两位老人在公园里对弈。",
+     "pinyin": "Liǎng wèi lǎorén zài gōngyuán li duìyì.",
+     "fr": "Deux vieillards jouent une partie au parc.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-0966",
+   "genre": "mot",
+   "hanzi": "对照",
+   "pinyin": "duìzhào",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "comparer, confronter",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "comparer, confronter"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "请对照原文修改翻译。",
+     "pinyin": "Qǐng duìzhào yuánwén xiūgǎi fānyì.",
+     "fr": "Corrigez la traduction en la mettant en regard de l'original.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "峙",
+   "genre": "caractere",
+   "hanzi": "峙",
+   "pinyin": "zhì",
+   "sens": {
+    "glose": "se dresser, se faire face",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "se dresser, se faire face"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": []
+  }
+ ]
+}

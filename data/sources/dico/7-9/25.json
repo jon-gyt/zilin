@@ -1,0 +1,1280 @@
+{
+ "niveau": "7-9",
+ "lot": "25",
+ "source": "rédigé pour l'app dans le pipeline wenlu, sans API ; faits lus : liste HSK 3.0 (forme, pinyin, niveau, catégorie), lectures d'Unihan et des surcharges, gloses relues des fiches",
+ "brouillon": "data/sources/dico-brouillons/7-9/25.json",
+ "generation": {
+  "modele": "rédaction manuelle",
+  "api": "session Claude Code (sans API)",
+  "date": "2026-09-30",
+  "empreinte_invite": "sha256:26e8f4bfadac4239090b279ad14ff5dac13a5de7acec1c7718fb8565262512c6",
+  "contexte": "wenlu dico contexte 7-9 25",
+  "essais": 1,
+  "refus": []
+ },
+ "entrees": [
+  {
+   "id": "L7-1004",
+   "genre": "mot",
+   "hanzi": "恩情",
+   "pinyin": "ēnqíng",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "bienfait, bonté reçue",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "bienfait, bonté reçue, dette de reconnaissance"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "父母的恩情我们永远报答不完。",
+     "pinyin": "Fùmǔ de ēnqíng wǒmen yǒngyuǎn bàodá bu wán.",
+     "fr": "Nous ne pourrons jamais rendre tout ce que nos parents nous ont donné.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-1005",
+   "genre": "mot",
+   "hanzi": "恩怨",
+   "pinyin": "ēnyuàn",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "rancunes, griefs mutuels",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "rancunes, griefs mutuels"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他们之间的恩怨已经过去了。",
+     "pinyin": "Tāmen zhījiān de ēnyuàn yǐjīng guòqù le.",
+     "fr": "Leurs vieilles querelles sont oubliées.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-1006",
+   "genre": "mot",
+   "hanzi": "而已",
+   "pinyin": "éryǐ",
+   "categories": [
+    "Aux"
+   ],
+   "sens": {
+    "glose": "seulement, rien de plus",
+    "acceptions": [
+     {
+      "categorie": "Aux",
+      "fr": "seulement, rien de plus : en fin de phrase"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "我只是随便问问而已。",
+     "pinyin": "Wǒ zhǐshì suíbiàn wènwen éryǐ.",
+     "fr": "Je demandais juste comme ça.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-1007",
+   "genre": "mot",
+   "hanzi": "耳光",
+   "pinyin": "ěrguāng",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "gifle",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "gifle"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "她气得打了他一个耳光。",
+     "pinyin": "Tā qì de dǎ le tā yī gè ěrguāng.",
+     "fr": "Furieuse, elle l'a giflé.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-1008",
+   "genre": "mot",
+   "hanzi": "耳目一新",
+   "pinyin": "ěrmù-yīxīn",
+   "sens": {
+    "glose": "tout nouveau, rafraîchissant",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "tout nouveau, rafraîchissant"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这部电影让人耳目一新。",
+     "pinyin": "Zhè bù diànyǐng ràng rén ěrmù-yīxīn.",
+     "fr": "Ce film apporte un vrai souffle nouveau.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-1009",
+   "genre": "mot",
+   "hanzi": "耳熟能详",
+   "pinyin": "ěrshú-néngxiáng",
+   "sens": {
+    "glose": "familier, connu par cœur",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "familier, connu par cœur"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这个故事大家都耳熟能详。",
+     "pinyin": "Zhège gùshi dàjiā dōu ěrshú-néngxiáng.",
+     "fr": "Tout le monde connaît cette histoire sur le bout des doigts.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "睹",
+   "genre": "caractere",
+   "hanzi": "睹",
+   "pinyin": "dǔ",
+   "sens": {
+    "glose": "voir, observer",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "voir, observer"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": []
+  },
+  {
+   "id": "L7-1010",
+   "genre": "mot",
+   "hanzi": "耳闻目睹",
+   "pinyin": "ěrwén-mùdǔ",
+   "sens": {
+    "glose": "voir et entendre soi-même",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "voir et entendre soi-même, être témoin"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这是我耳闻目睹的真事。",
+     "pinyin": "Zhè shì wǒ ěrwén-mùdǔ de zhēnshì.",
+     "fr": "C'est une histoire vraie : j'y étais.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-1011",
+   "genre": "mot",
+   "hanzi": "二手车",
+   "pinyin": "èrshǒuchē",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "voiture d'occasion",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "voiture d'occasion"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他买了一辆二手车。",
+     "pinyin": "Tā mǎi le yī liàng èrshǒuchē.",
+     "fr": "Il s'est acheté une voiture qui avait déjà servi.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-1012",
+   "genre": "mot",
+   "hanzi": "二氧化碳",
+   "pinyin": "èryǎnghuàtàn",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "dioxyde de carbone",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "dioxyde de carbone"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "汽车排出大量二氧化碳。",
+     "pinyin": "Qìchē páichū dàliàng èryǎnghuàtàn.",
+     "fr": "Les voitures rejettent beaucoup de CO2.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-1013",
+   "genre": "mot",
+   "hanzi": "发布会",
+   "pinyin": "fābùhuì",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "conférence de presse, lancement",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "conférence de presse, lancement"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "公司明天开新产品发布会。",
+     "pinyin": "Gōngsī míngtiān kāi xīn chǎnpǐn fābùhuì.",
+     "fr": "L'entreprise présente son nouveau produit demain.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-1014",
+   "genre": "mot",
+   "hanzi": "发财",
+   "pinyin": "fācái",
+   "sens": {
+    "glose": "faire fortune",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "faire fortune, s'enrichir"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "祝你新年发财！",
+     "pinyin": "Zhù nǐ xīnnián fācái!",
+     "fr": "Prospérité pour la nouvelle année !",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-1015",
+   "genre": "mot",
+   "hanzi": "发愁",
+   "pinyin": "fāchóu",
+   "sens": {
+    "glose": "se faire du souci",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "se faire du souci, se tracasser"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他正为找工作发愁。",
+     "pinyin": "Tā zhèng wèi zhǎo gōngzuò fāchóu.",
+     "fr": "Il s'inquiète de ne pas trouver de travail.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-1016",
+   "genre": "mot",
+   "hanzi": "发电机",
+   "pinyin": "fādiànjī",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "générateur, groupe électrogène",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "générateur, groupe électrogène, dynamo"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "停电的时候，医院用发电机供电。",
+     "pinyin": "Tíngdiàn de shíhou, yīyuàn yòng fādiànjī gōngdiàn.",
+     "fr": "Pendant les coupures, l'hôpital produit son propre courant.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-1017",
+   "genre": "mot",
+   "hanzi": "发抖",
+   "pinyin": "fādǒu",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "trembler, frissonner",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "trembler, frissonner"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "她害怕得全身发抖。",
+     "pinyin": "Tā hàipà de quánshēn fādǒu.",
+     "fr": "Elle a tellement peur qu'elle en tremble de tout son corps.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-1018",
+   "genre": "mot",
+   "hanzi": "发愤图强",
+   "pinyin": "fāfèn-túqiáng",
+   "sens": {
+    "glose": "redoubler d'efforts",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "redoubler d'efforts pour réussir"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他发愤图强，终于考上了大学。",
+     "pinyin": "Tā fāfèn-túqiáng, zhōngyú kǎoshàng le dàxué.",
+     "fr": "À force de travail acharné, il a fini par entrer à l'université.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-1019",
+   "genre": "mot",
+   "hanzi": "发光",
+   "pinyin": "fāguāng",
+   "sens": {
+    "glose": "briller, émettre de la lumière",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "briller, émettre de la lumière"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "月亮本身不会发光。",
+     "pinyin": "Yuèliang běnshēn bù huì fāguāng.",
+     "fr": "La Lune ne produit pas sa propre lumière.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-1020",
+   "genre": "mot",
+   "hanzi": "发火",
+   "pinyin": "fāhuǒ",
+   "sens": {
+    "glose": "se mettre en colère",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "se mettre en colère, s'emporter"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他一听就发火了。",
+     "pinyin": "Tā yī tīng jiù fāhuǒ le.",
+     "fr": "Dès qu'il a entendu ça, il a vu rouge.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "酵",
+   "genre": "caractere",
+   "hanzi": "酵",
+   "pinyin": "jiào",
+   "sens": {
+    "glose": "levain, ferment",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "levain, ferment"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": []
+  },
+  {
+   "id": "L7-1021",
+   "genre": "mot",
+   "hanzi": "发酵",
+   "pinyin": "fājiào",
+   "sens": {
+    "glose": "fermenter, lever",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "fermenter, lever"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "面团需要发酵两个小时。",
+     "pinyin": "Miàntuán xūyào fājiào liǎng gè xiǎoshí.",
+     "fr": "La pâte doit reposer deux heures.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "掘",
+   "genre": "caractere",
+   "hanzi": "掘",
+   "pinyin": "jué",
+   "sens": {
+    "glose": "creuser",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "creuser, déterrer"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": []
+  },
+  {
+   "id": "L7-1022",
+   "genre": "mot",
+   "hanzi": "发掘",
+   "pinyin": "fājué",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "fouiller, exhumer ; découvrir",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "fouiller, exhumer"
+     },
+     {
+      "categorie": "V",
+      "fr": "découvrir, repérer : talent, potentiel"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "公司要善于发掘人才。",
+     "pinyin": "Gōngsī yào shànyú fājué réncái.",
+     "fr": "Une entreprise doit savoir repérer les talents.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "愣",
+   "genre": "caractere",
+   "hanzi": "愣",
+   "pinyin": "lèng",
+   "mots": [
+    "L7-2560"
+   ],
+   "sens": {
+    "glose": "rester interdit ; téméraire",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "rester interdit, figé"
+     },
+     {
+      "categorie": "Adj",
+      "fr": "téméraire, brusque"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "听到这句话，他愣了一下。",
+     "pinyin": "Tīngdào zhè jù huà, tā lèng le yīxià.",
+     "fr": "En entendant ça, il a marqué un temps d'arrêt.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-1023",
+   "genre": "mot",
+   "hanzi": "发愣",
+   "pinyin": "fālèng",
+   "sens": {
+    "glose": "rester hébété, rêvasser",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "rester hébété, rêvasser"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他坐在那儿发愣。",
+     "pinyin": "Tā zuò zài nàr fālèng.",
+     "fr": "Il est assis là, le regard dans le vide.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-1024",
+   "genre": "mot",
+   "hanzi": "发脾气",
+   "pinyin": "fā píqi",
+   "sens": {
+    "glose": "se mettre en colère",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "se mettre en colère, piquer une crise"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他一不高兴就发脾气。",
+     "pinyin": "Tā yī bù gāoxìng jiù fā píqi.",
+     "fr": "Dès que quelque chose lui déplaît, il s'emporte.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-1025",
+   "genre": "mot",
+   "hanzi": "发起人",
+   "pinyin": "fāqǐrén",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "initiateur, promoteur",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "initiateur, promoteur"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他是这次活动的发起人。",
+     "pinyin": "Tā shì zhè cì huódòng de fāqǐrén.",
+     "fr": "C'est lui qui a lancé cette action.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-1026",
+   "genre": "mot",
+   "hanzi": "发热",
+   "pinyin": "fārè",
+   "sens": {
+    "glose": "avoir de la fièvre ; chauffer",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "avoir de la fièvre ; chauffer"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "孩子发热了，快去医院。",
+     "pinyin": "Háizi fārè le, kuài qù yīyuàn.",
+     "fr": "L'enfant a de la température, vite à l'hôpital.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "誓",
+   "genre": "caractere",
+   "hanzi": "誓",
+   "pinyin": "shì",
+   "sens": {
+    "glose": "serment ; jurer",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "serment"
+     },
+     {
+      "categorie": "V",
+      "fr": "jurer"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": []
+  },
+  {
+   "id": "L7-1027",
+   "genre": "mot",
+   "hanzi": "发誓",
+   "pinyin": "fāshì",
+   "sens": {
+    "glose": "jurer, faire le serment",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "jurer, faire le serment"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他发誓再也不喝酒了。",
+     "pinyin": "Tā fāshì zài yě bù hē jiǔ le.",
+     "fr": "Il a promis solennellement de ne plus jamais boire.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "泄",
+   "genre": "caractere",
+   "hanzi": "泄",
+   "pinyin": "xiè",
+   "mots": [
+    "L7-4590"
+   ],
+   "sens": {
+    "glose": "fuir, laisser échapper ; divulguer",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "fuir, laisser échapper ; divulguer"
+     },
+     {
+      "categorie": "V",
+      "fr": "épancher, décharger : colère"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这个秘密不能泄出去。",
+     "pinyin": "Zhège mìmì bù néng xiè chuqu.",
+     "fr": "Ce secret ne doit pas s'ébruiter.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-1028",
+   "genre": "mot",
+   "hanzi": "发泄",
+   "pinyin": "fāxiè",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "épancher, décharger",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "épancher, décharger : colère, émotion"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "你不能把气发泄在孩子身上。",
+     "pinyin": "Nǐ bù néng bǎ qì fāxiè zài háizi shēnshang.",
+     "fr": "Tu ne dois pas passer ta colère sur les enfants.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-1029",
+   "genre": "mot",
+   "hanzi": "发扬",
+   "pinyin": "fāyáng",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "développer, faire vivre",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "développer, faire vivre : tradition, qualité"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "我们要发扬勤俭的传统。",
+     "pinyin": "Wǒmen yào fāyáng qínjiǎn de chuántǒng.",
+     "fr": "Il faut perpétuer la tradition du travail et de l'économie.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-1030",
+   "genre": "mot",
+   "hanzi": "发扬光大",
+   "pinyin": "fāyáng-guāngdà",
+   "sens": {
+    "glose": "faire fructifier, porter plus haut",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "faire fructifier, porter plus haut"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "我们要把这种精神发扬光大。",
+     "pinyin": "Wǒmen yào bǎ zhè zhǒng jīngshén fāyáng-guāngdà.",
+     "fr": "Il faut faire rayonner cet esprit.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-1031",
+   "genre": "mot",
+   "hanzi": "发育",
+   "pinyin": "fāyù",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "se développer, grandir",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "se développer, grandir : organisme"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这孩子发育得很好。",
+     "pinyin": "Zhè háizi fāyù de hěn hǎo.",
+     "fr": "Cet enfant grandit bien.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-1032",
+   "genre": "mot",
+   "hanzi": "发源地",
+   "pinyin": "fāyuándì",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "source, berceau",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "source, berceau"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "黄河流域是中华文明的发源地。",
+     "pinyin": "Huánghé liúyù shì Zhōnghuá wénmíng de fāyuándì.",
+     "fr": "La civilisation chinoise est née dans le bassin du fleuve Jaune.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-1033",
+   "genre": "mot",
+   "hanzi": "发作",
+   "pinyin": "fāzuò",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "se déclarer ; s'emporter",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "se déclarer, éclater : maladie, effet"
+     },
+     {
+      "categorie": "V",
+      "fr": "s'emporter"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他的心脏病又发作了。",
+     "pinyin": "Tā de xīnzàngbìng yòu fāzuò le.",
+     "fr": "Il a refait une crise cardiaque.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "阀",
+   "genre": "caractere",
+   "hanzi": "阀",
+   "pinyin": "fá",
+   "sens": {
+    "glose": "valve ; clan puissant",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "valve, vanne"
+     },
+     {
+      "categorie": "N",
+      "fr": "clan puissant, magnat"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": []
+  },
+  {
+   "id": "L7-1034",
+   "genre": "mot",
+   "hanzi": "阀门",
+   "pinyin": "fámén",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "vanne, valve",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "vanne, valve"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "请把水管的阀门关上。",
+     "pinyin": "Qǐng bǎ shuǐguǎn de fámén guān shang.",
+     "fr": "Ferme le robinet d'arrivée d'eau, s'il te plaît.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-1035",
+   "genre": "mot",
+   "hanzi": "发型",
+   "pinyin": "fàxíng",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "coiffure",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "coiffure, coupe de cheveux"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "你换了个新发型？",
+     "pinyin": "Nǐ huàn le gè xīn fàxíng?",
+     "fr": "Tu es passé chez le coiffeur ?",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "帆",
+   "genre": "caractere",
+   "hanzi": "帆",
+   "pinyin": "fān",
+   "mots": [
+    "L7-1036"
+   ],
+   "sens": {
+    "glose": "voile de bateau",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "voile de bateau"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "船上挂着白色的帆。",
+     "pinyin": "Chuán shang guà zhe báisè de fān.",
+     "fr": "Le bateau porte une toile blanche.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-1037",
+   "genre": "mot",
+   "hanzi": "帆船",
+   "pinyin": "fānchuán",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "voilier",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "voilier"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "海上有几只帆船。",
+     "pinyin": "Hǎi shang yǒu jǐ zhī fānchuán.",
+     "fr": "Quelques bateaux à voile naviguent au large.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-1038",
+   "genre": "mot",
+   "hanzi": "翻番",
+   "pinyin": "fānfān",
+   "sens": {
+    "glose": "doubler",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "doubler, être multiplié par deux"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "五年内产量要翻番。",
+     "pinyin": "Wǔ nián nèi chǎnliàng yào fānfān.",
+     "fr": "La production doit être multipliée par deux en cinq ans.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-1039",
+   "genre": "mot",
+   "hanzi": "翻来覆去",
+   "pinyin": "fānlái-fùqù",
+   "sens": {
+    "glose": "se tourner et se retourner",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "se tourner et se retourner ; encore et encore"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他翻来覆去睡不着。",
+     "pinyin": "Tā fānlái-fùqù shuì bu zháo.",
+     "fr": "Il s'agite dans son lit sans trouver le sommeil.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-1040",
+   "genre": "mot",
+   "hanzi": "翻天覆地",
+   "pinyin": "fāntiān-fùdì",
+   "sens": {
+    "glose": "bouleversant, radical",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "bouleversant, radical"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这座城市发生了翻天覆地的变化。",
+     "pinyin": "Zhè zuò chéngshì fāshēng le fāntiān-fùdì de biànhuà.",
+     "fr": "Cette ville a complètement changé de visage.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-1042",
+   "genre": "mot",
+   "hanzi": "烦闷",
+   "pinyin": "fánmèn",
+   "categories": [
+    "Adj"
+   ],
+   "sens": {
+    "glose": "morose, cafardeux",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "morose, cafardeux"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "下雨天让人心里烦闷。",
+     "pinyin": "Xià yǔ tiān ràng rén xīn li fánmèn.",
+     "fr": "Les jours de pluie donnent le cafard.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "恼",
+   "genre": "caractere",
+   "hanzi": "恼",
+   "pinyin": "nǎo",
+   "sens": {
+    "glose": "s'irriter, se fâcher",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "s'irriter, se fâcher"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": []
+  },
+  {
+   "id": "L7-1043",
+   "genre": "mot",
+   "hanzi": "烦恼",
+   "pinyin": "fánnǎo",
+   "categories": [
+    "Adj"
+   ],
+   "sens": {
+    "glose": "tracassé ; soucis",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "tracassé, soucieux ; soucis"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "别为这点小事烦恼。",
+     "pinyin": "Bié wèi zhè diǎn xiǎoshì fánnǎo.",
+     "fr": "Ne te mets pas martel en tête pour si peu.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-1044",
+   "genre": "mot",
+   "hanzi": "烦躁",
+   "pinyin": "fánzào",
+   "categories": [
+    "Adj"
+   ],
+   "sens": {
+    "glose": "irrité, agité, nerveux",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "irrité, agité, nerveux"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "天太热，让人烦躁。",
+     "pinyin": "Tiān tài rè, ràng rén fánzào.",
+     "fr": "Cette chaleur met les nerfs à vif.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-1045",
+   "genre": "mot",
+   "hanzi": "繁华",
+   "pinyin": "fánhuá",
+   "categories": [
+    "Adj"
+   ],
+   "sens": {
+    "glose": "animé, prospère",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "animé, prospère"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这是城里最繁华的街道。",
+     "pinyin": "Zhè shì chéng li zuì fánhuá de jiēdào.",
+     "fr": "C'est la rue la plus vivante de la ville.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-1046",
+   "genre": "mot",
+   "hanzi": "繁忙",
+   "pinyin": "fánmáng",
+   "categories": [
+    "Adj"
+   ],
+   "sens": {
+    "glose": "très occupé, chargé",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "très occupé, chargé"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "年底工作很繁忙。",
+     "pinyin": "Niándǐ gōngzuò hěn fánmáng.",
+     "fr": "En fin d'année, le travail ne manque pas.",
+     "statut": "a_relire"
+    }
+   ]
+  }
+ ]
+}
