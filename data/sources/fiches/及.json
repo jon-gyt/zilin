@@ -19,20 +19,33 @@
  "roles": {
   "及": "sens"
  },
- "mots": [],
+ "mots": [
+  {
+   "hanzi": "及时",
+   "pinyin": "jíshí",
+   "fr": "à temps",
+   "en": "in time, promptly"
+  },
+  {
+   "hanzi": "以及",
+   "pinyin": "yǐjí",
+   "fr": "ainsi que, et",
+   "en": "as well as, and"
+  }
+ ],
  "phrase": {
-  "zh": "",
-  "pinyin": "",
-  "fr": "",
-  "en": ""
+  "zh": "他及时到了。",
+  "pinyin": "Tā jíshí dào le.",
+  "fr": "Il est arrivé à temps.",
+  "en": "He arrived in time."
  },
  "generation": {
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:79d00e74a0cb186d0b90d24e265705be5e0b858649f1a3ab62de7d455312a52f",
-  "essais": 1,
+  "empreinte_invite": "sha256:a31a336a898e1adbefa47757626aaa3e8b943f8e00d3ccdff8f19d6823386cda",
+  "essais": 2,
   "refus": []
  },
- "statut": "relu"
+ "statut": "a_relire"
 }

@@ -19,20 +19,33 @@
  "roles": {
   "民": "forme"
  },
- "mots": [],
+ "mots": [
+  {
+   "hanzi": "人民",
+   "pinyin": "rénmín",
+   "fr": "peuple",
+   "en": "the people"
+  },
+  {
+   "hanzi": "民歌",
+   "pinyin": "míngē",
+   "fr": "chanson populaire",
+   "en": "folk song"
+  }
+ ],
  "phrase": {
-  "zh": "",
-  "pinyin": "",
-  "fr": "",
-  "en": ""
+  "zh": "中国有很多民歌。",
+  "pinyin": "Zhōngguó yǒu hěn duō míngē.",
+  "fr": "La Chine a beaucoup de chansons populaires.",
+  "en": "China has many folk songs."
  },
  "generation": {
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:df781372fd670183969ff3037f15830577b07d21a98106ceb49def0de512ceb6",
-  "essais": 1,
+  "empreinte_invite": "sha256:09931683ef01b7c6d1e4751e75c07118404566adbb1f886b5559c5246b984682",
+  "essais": 2,
   "refus": []
  },
- "statut": "relu"
+ "statut": "a_relire"
 }

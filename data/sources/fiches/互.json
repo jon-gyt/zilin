@@ -19,20 +19,33 @@
  "roles": {
   "互": "sens"
  },
- "mots": [],
+ "mots": [
+  {
+   "hanzi": "互相",
+   "pinyin": "hùxiāng",
+   "fr": "mutuellement, l'un l'autre",
+   "en": "each other"
+  },
+  {
+   "hanzi": "互动",
+   "pinyin": "hùdòng",
+   "fr": "interagir",
+   "en": "to interact"
+  }
+ ],
  "phrase": {
-  "zh": "",
-  "pinyin": "",
-  "fr": "",
-  "en": ""
+  "zh": "我们要互相帮助。",
+  "pinyin": "Wǒmen yào hùxiāng bāngzhù.",
+  "fr": "Nous devons nous entraider.",
+  "en": "We should help each other."
  },
  "generation": {
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:7a0aac8debaaf4ebb8fb70adce89bcb41bc83447de24a2e03a5440063f862b78",
-  "essais": 1,
+  "empreinte_invite": "sha256:42f380503cd90f0595e07a3148aeb19d5342f5537ad643c26943481539406cc3",
+  "essais": 2,
   "refus": []
  },
- "statut": "relu"
+ "statut": "a_relire"
 }

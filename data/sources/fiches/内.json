@@ -19,20 +19,33 @@
  "roles": {
   "内": "sens"
  },
- "mots": [],
+ "mots": [
+  {
+   "hanzi": "以内",
+   "pinyin": "yǐnèi",
+   "fr": "en deçà de, dans la limite de",
+   "en": "within"
+  },
+  {
+   "hanzi": "内心",
+   "pinyin": "nèixīn",
+   "fr": "for intérieur, cœur",
+   "en": "inner self, heart"
+  }
+ ],
  "phrase": {
-  "zh": "",
-  "pinyin": "",
-  "fr": "",
-  "en": ""
+  "zh": "请在十分钟以内回来。",
+  "pinyin": "Qǐng zài shí fēnzhōng yǐnèi huílai.",
+  "fr": "Revenez d'ici dix minutes, s'il vous plaît.",
+  "en": "Please be back within ten minutes."
  },
  "generation": {
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:b47f780bca705a0e99308cc5db6a67163e8751d68072f23b8cc5cc7ebe65f8df",
-  "essais": 1,
+  "empreinte_invite": "sha256:0ae9e58cc13e6968000b6dd41c7c3db7e90b7fb391317141bf5ecc5e73b51f17",
+  "essais": 2,
   "refus": []
  },
- "statut": "relu"
+ "statut": "a_relire"
 }

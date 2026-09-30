@@ -21,20 +21,33 @@
   "木": "sens",
   "才": "son"
  },
- "mots": [],
+ "mots": [
+  {
+   "hanzi": "教材",
+   "pinyin": "jiàocái",
+   "fr": "manuel scolaire",
+   "en": "textbook"
+  },
+  {
+   "hanzi": "身材",
+   "pinyin": "shēncái",
+   "fr": "silhouette, carrure",
+   "en": "figure, build"
+  }
+ ],
  "phrase": {
-  "zh": "",
-  "pinyin": "",
-  "fr": "",
-  "en": ""
+  "zh": "这是我们的新教材。",
+  "pinyin": "Zhè shì wǒmen de xīn jiàocái.",
+  "fr": "Voici notre nouveau manuel.",
+  "en": "This is our new textbook."
  },
  "generation": {
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:753d8f4f062b3fbc5c1bf2390d793635712694a3ba4028a66cb17760dbeaeccc",
-  "essais": 1,
+  "empreinte_invite": "sha256:1dda88bf6df016554c500366fcc4d208604973a8d4a02d09ef53b32a2074af94",
+  "essais": 2,
   "refus": []
  },
- "statut": "relu"
+ "statut": "a_relire"
 }
