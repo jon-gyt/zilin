@@ -1,0 +1,1380 @@
+{
+ "niveau": "4",
+ "lot": "01",
+ "source": "rédigé pour l'app dans le pipeline wenlu, sans API ; faits lus : liste HSK 3.0 (forme, pinyin, niveau, catégorie), lectures d'Unihan et des surcharges, gloses relues des fiches",
+ "brouillon": "data/sources/dico-brouillons/4/01.json",
+ "generation": {
+  "modele": "rédaction manuelle",
+  "api": "session Claude Code (sans API)",
+  "date": "2026-09-30",
+  "empreinte_invite": "sha256:e397f6d18505607ab2100ce2580023863c7bf6edb8b74efb9081e9f6feeb5e92",
+  "contexte": "wenlu dico contexte 4 01",
+  "essais": 1,
+  "refus": []
+ },
+ "entrees": [
+  {
+   "id": "阿",
+   "genre": "caractere",
+   "hanzi": "阿",
+   "pinyin": "ā",
+   "sens": {
+    "glose": "préfixe familier (noms, parenté)",
+    "acceptions": [
+     {
+      "categorie": "Prefix",
+      "fr": "préfixe familier devant un prénom ou un terme de parenté"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "我们都叫他阿明。",
+     "pinyin": "Wǒmen dōu jiào tā Ā Míng.",
+     "fr": "Nous l'appelons tous A-Ming.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "姨",
+   "genre": "caractere",
+   "hanzi": "姨",
+   "pinyin": "yí",
+   "mots": [
+    "L7-4896"
+   ],
+   "sens": {
+    "glose": "tante maternelle",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "tante : sœur de la mère"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "我小姨在医院工作。",
+     "pinyin": "Wǒ xiǎoyí zài yīyuàn gōngzuò.",
+     "fr": "La petite sœur de ma mère travaille à l'hôpital.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L4-0001",
+   "genre": "mot",
+   "hanzi": "阿姨",
+   "pinyin": "āyí",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "tante ; madame ; nourrice",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "tante, madame : pour une femme de l'âge des parents"
+     },
+     {
+      "categorie": "N",
+      "fr": "nourrice, employée de maison"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "阿姨，请问这是哪儿？",
+     "pinyin": "Āyí, qǐngwèn zhè shì nǎr?",
+     "fr": "Excusez-moi, madame, où sommes-nous ?",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "矮",
+   "genre": "caractere",
+   "hanzi": "矮",
+   "pinyin": "ǎi",
+   "mots": [
+    "L4-0003"
+   ],
+   "sens": {
+    "glose": "petit (de taille) ; bas",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "petit de taille ; bas"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他比我矮一点儿。",
+     "pinyin": "Tā bǐ wǒ ǎi yīdiǎnr.",
+     "fr": "Il est un peu moins grand que moi.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L4-0004",
+   "genre": "mot",
+   "hanzi": "矮小",
+   "pinyin": "ǎixiǎo",
+   "categories": [
+    "Adj"
+   ],
+   "sens": {
+    "glose": "petit et chétif ; bas et exigu",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "de petite taille, chétif ; bas et étroit"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他长得很矮小。",
+     "pinyin": "Tā zhǎng de hěn ǎixiǎo.",
+     "fr": "Il est tout petit et menu.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L4-0005",
+   "genre": "mot",
+   "hanzi": "爱国",
+   "pinyin": "àiguó",
+   "sens": {
+    "glose": "patriote ; aimer son pays",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "aimer sa patrie"
+     },
+     {
+      "categorie": "Adj",
+      "fr": "patriotique, patriote"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他是一个很爱国的人。",
+     "pinyin": "Tā shì yī ge hěn àiguó de rén.",
+     "fr": "C'est un grand patriote.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L4-0006",
+   "genre": "mot",
+   "hanzi": "爱护",
+   "pinyin": "àihù",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "prendre soin de, protéger",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "prendre soin de, ménager, protéger"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "我们要爱护公园里的花草。",
+     "pinyin": "Wǒmen yào àihù gōngyuán li de huācǎo.",
+     "fr": "Il faut respecter les fleurs et les plantes du parc.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "置",
+   "genre": "caractere",
+   "hanzi": "置",
+   "pinyin": "zhì",
+   "mots": [
+    "L7-5407"
+   ],
+   "sens": {
+    "glose": "placer, mettre ; acquérir",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "placer, mettre, installer"
+     },
+     {
+      "categorie": "V",
+      "fr": "acheter, acquérir : biens durables"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这个位置很好。",
+     "pinyin": "Zhège wèizhi hěn hǎo.",
+     "fr": "Cette place est très bien.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L4-0008",
+   "genre": "mot",
+   "hanzi": "安置",
+   "pinyin": "ānzhì",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "installer, reloger, caser",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "installer, trouver un logement ou un emploi à quelqu'un"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "政府安置了这些老人。",
+     "pinyin": "Zhèngfǔ ānzhì le zhèxiē lǎorén.",
+     "fr": "Le gouvernement a relogé ces personnes âgées.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L4-0009",
+   "genre": "mot",
+   "hanzi": "按时",
+   "pinyin": "ànshí",
+   "categories": [
+    "Adv"
+   ],
+   "sens": {
+    "glose": "à l'heure, dans les délais",
+    "acceptions": [
+     {
+      "categorie": "Adv",
+      "fr": "à l'heure, dans les délais"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "你要按时吃药。",
+     "pinyin": "Nǐ yào ànshí chī yào.",
+     "fr": "Prends tes médicaments aux heures prévues.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "暗",
+   "genre": "caractere",
+   "hanzi": "暗",
+   "pinyin": "àn",
+   "mots": [
+    "L4-0010"
+   ],
+   "sens": {
+    "glose": "sombre, obscur ; en secret",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "sombre, obscur"
+     },
+     {
+      "categorie": "Adv",
+      "fr": "en secret, en cachette"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "房间里太暗了，开灯吧。",
+     "pinyin": "Fángjiān li tài àn le, kāi dēng ba.",
+     "fr": "Il fait trop noir dans la pièce, allume la lumière.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L4-0011",
+   "genre": "mot",
+   "hanzi": "暗示",
+   "pinyin": "ànshì",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "suggérer, laisser entendre",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "suggérer, faire comprendre à demi-mot"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他暗示我不要说话。",
+     "pinyin": "Tā ànshì wǒ bùyào shuōhuà.",
+     "fr": "Il m'a fait signe de me taire.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "巴",
+   "genre": "caractere",
+   "hanzi": "巴",
+   "pinyin": "bā",
+   "sens": {
+    "glose": "pays de Ba, bus, espérer vivement",
+    "acceptions": [],
+    "statut": "relu",
+    "provenance": {
+     "reprise": "data/sources/fiches/巴.json",
+     "champ": "sens_fr"
+    }
+   },
+   "exemples": []
+  },
+  {
+   "id": "士",
+   "genre": "caractere",
+   "hanzi": "士",
+   "pinyin": "shì",
+   "sens": {
+    "glose": "lettré, soldat, titre de respect",
+    "acceptions": [],
+    "statut": "relu",
+    "provenance": {
+     "reprise": "data/sources/fiches/士.json",
+     "champ": "sens_fr"
+    }
+   },
+   "exemples": []
+  },
+  {
+   "id": "L4-0012",
+   "genre": "mot",
+   "hanzi": "巴士",
+   "pinyin": "bāshì",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "bus, autocar",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "bus, autocar"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "我们坐巴士去机场。",
+     "pinyin": "Wǒmen zuò bāshì qù jīchǎng.",
+     "fr": "On va à l'aéroport en navette.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "货",
+   "genre": "caractere",
+   "hanzi": "货",
+   "pinyin": "huò",
+   "mots": [
+    "L4-0344"
+   ],
+   "sens": {
+    "glose": "marchandise, article",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "marchandise, article, produit"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这家店的货很好。",
+     "pinyin": "Zhè jiā diàn de huò hěn hǎo.",
+     "fr": "Ce magasin vend de bons produits.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L4-0013",
+   "genre": "mot",
+   "hanzi": "百货",
+   "pinyin": "bǎihuò",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "articles divers ; grand magasin",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "marchandises de toutes sortes, articles courants"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "她在百货商店买了一件衣服。",
+     "pinyin": "Tā zài bǎihuò shāngdiàn mǎi le yī jiàn yīfu.",
+     "fr": "Elle a acheté un vêtement au grand magasin.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "摆",
+   "genre": "caractere",
+   "hanzi": "摆",
+   "pinyin": "bǎi",
+   "mots": [
+    "L4-0014"
+   ],
+   "sens": {
+    "glose": "disposer, poser ; balancer",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "disposer, placer, étaler"
+     },
+     {
+      "categorie": "V",
+      "fr": "agiter, balancer"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "桌子上摆着很多水果。",
+     "pinyin": "Zhuōzi shang bǎi zhe hěn duō shuǐguǒ.",
+     "fr": "Il y a plein de fruits disposés sur la table.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L4-0015",
+   "genre": "mot",
+   "hanzi": "摆动",
+   "pinyin": "bǎidòng",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "osciller, se balancer",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "osciller, se balancer, agiter"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "树叶在风中摆动。",
+     "pinyin": "Shùyè zài fēng zhōng bǎidòng.",
+     "fr": "Les feuilles bougent dans le vent.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "脱",
+   "genre": "caractere",
+   "hanzi": "脱",
+   "pinyin": "tuō",
+   "mots": [
+    "L4-0737"
+   ],
+   "sens": {
+    "glose": "ôter, enlever ; se détacher",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "ôter, enlever : un vêtement, des chaussures"
+     },
+     {
+      "categorie": "V",
+      "fr": "se détacher, tomber ; échapper à"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "进门请脱鞋。",
+     "pinyin": "Jìn mén qǐng tuō xié.",
+     "fr": "Merci de vous déchausser en entrant.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L4-0016",
+   "genre": "mot",
+   "hanzi": "摆脱",
+   "pinyin": "bǎituō",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "se débarrasser de, sortir de",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "se libérer de, se débarrasser de, échapper à"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他终于摆脱了困难。",
+     "pinyin": "Tā zhōngyú bǎituō le kùnnan.",
+     "fr": "Il s'est enfin sorti de ses difficultés.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "败",
+   "genre": "caractere",
+   "hanzi": "败",
+   "pinyin": "bài",
+   "mots": [
+    "L4-0017"
+   ],
+   "sens": {
+    "glose": "perdre, être battu ; échouer",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "perdre, être battu"
+     },
+     {
+      "categorie": "V",
+      "fr": "échouer ; se gâter, se faner"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "我们队败给了他们。",
+     "pinyin": "Wǒmen duì bài gěi le tāmen.",
+     "fr": "Notre équipe s'est inclinée devant eux.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L4-0018",
+   "genre": "mot",
+   "hanzi": "办事",
+   "pinyin": "bànshì",
+   "sens": {
+    "glose": "régler une affaire, faire une démarche",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "régler une affaire, faire des démarches ; travailler"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "我去银行办事。",
+     "pinyin": "Wǒ qù yínháng bànshì.",
+     "fr": "Je passe à la banque pour une formalité.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "裹",
+   "genre": "caractere",
+   "hanzi": "裹",
+   "pinyin": "guǒ",
+   "mots": [
+    "L7-1524"
+   ],
+   "sens": {
+    "glose": "envelopper, entourer",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "envelopper, emmailloter, bander"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "她用毛巾把孩子裹起来。",
+     "pinyin": "Tā yòng máojīn bǎ háizi guǒ qǐlai.",
+     "fr": "Elle a enroulé l'enfant dans une serviette.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L4-0019",
+   "genre": "mot",
+   "hanzi": "包裹",
+   "pinyin": "bāoguǒ",
+   "categories": [
+    "N",
+    "V"
+   ],
+   "sens": {
+    "glose": "colis, paquet ; envelopper",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "colis, paquet"
+     },
+     {
+      "categorie": "V",
+      "fr": "envelopper, emballer"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "我去邮局寄包裹。",
+     "pinyin": "Wǒ qù yóujú jì bāoguǒ.",
+     "fr": "Je vais à la poste envoyer un colis.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "含",
+   "genre": "caractere",
+   "hanzi": "含",
+   "pinyin": "hán",
+   "mots": [
+    "L4-0304"
+   ],
+   "sens": {
+    "glose": "garder en bouche ; contenir",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "garder dans la bouche"
+     },
+     {
+      "categorie": "V",
+      "fr": "contenir, renfermer"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这种水果含很多糖。",
+     "pinyin": "Zhè zhǒng shuǐguǒ hán hěn duō táng.",
+     "fr": "Ce fruit est très sucré.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L4-0020",
+   "genre": "mot",
+   "hanzi": "包含",
+   "pinyin": "bāohán",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "contenir, comprendre, inclure",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "contenir, comprendre, renfermer"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这句话包含两个意思。",
+     "pinyin": "Zhè jù huà bāohán liǎng ge yìsi.",
+     "fr": "Cette phrase a deux sens.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "括",
+   "genre": "caractere",
+   "hanzi": "括",
+   "pinyin": "kuò",
+   "sens": {
+    "glose": "englober ; mettre entre parenthèses",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "englober, inclure ; mettre entre parenthèses"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": []
+  },
+  {
+   "id": "L4-0021",
+   "genre": "mot",
+   "hanzi": "包括",
+   "pinyin": "bāokuò",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "comprendre, inclure",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "comprendre, inclure, y compris"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "房费包括早饭。",
+     "pinyin": "Fángfèi bāokuò zǎofàn.",
+     "fr": "Le petit-déjeuner est compris dans le prix de la chambre.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "薄",
+   "genre": "caractere",
+   "hanzi": "薄",
+   "pinyin": "báo",
+   "mots": [
+    "L4-0022"
+   ],
+   "sens": {
+    "glose": "mince, fin ; faible",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "mince, fin, peu épais"
+     },
+     {
+      "categorie": "Adj",
+      "fr": "faible, léger ; peu cordial",
+      "pinyin": "bó"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这件衣服太薄了。",
+     "pinyin": "Zhè jiàn yīfu tài báo le.",
+     "fr": "Ce vêtement est trop léger.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "宝",
+   "genre": "caractere",
+   "hanzi": "宝",
+   "pinyin": "bǎo",
+   "mots": [
+    "L4-0023"
+   ],
+   "sens": {
+    "glose": "trésor, objet précieux",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "trésor, objet précieux"
+     },
+     {
+      "categorie": "Adj",
+      "fr": "précieux"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "孩子是妈妈的宝。",
+     "pinyin": "Háizi shì māma de bǎo.",
+     "fr": "L'enfant est le trésor de sa mère.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L4-0024",
+   "genre": "mot",
+   "hanzi": "宝宝",
+   "pinyin": "bǎobao",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "bébé ; mon chéri (à un enfant)",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "bébé, petit enfant ; mot tendre pour un enfant"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "宝宝睡着了。",
+     "pinyin": "Bǎobao shuìzháo le.",
+     "fr": "Le petit s'est endormi.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "贝",
+   "genre": "caractere",
+   "hanzi": "贝",
+   "pinyin": "bèi",
+   "sens": {
+    "glose": "coquillage, cauri",
+    "acceptions": [],
+    "statut": "relu",
+    "provenance": {
+     "reprise": "data/sources/fiches/贝.json",
+     "champ": "sens_fr"
+    }
+   },
+   "exemples": []
+  },
+  {
+   "id": "L4-0025",
+   "genre": "mot",
+   "hanzi": "宝贝",
+   "pinyin": "bǎobei",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "trésor ; chéri, mon trésor",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "objet précieux, trésor"
+     },
+     {
+      "categorie": "N",
+      "fr": "chéri, trésor : à un enfant, un être aimé"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "宝贝，快来吃饭！",
+     "pinyin": "Bǎobei, kuài lái chīfàn!",
+     "fr": "Mon chéri, viens vite manger !",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L4-0026",
+   "genre": "mot",
+   "hanzi": "宝贵",
+   "pinyin": "bǎoguì",
+   "categories": [
+    "Adj"
+   ],
+   "sens": {
+    "glose": "précieux, de grande valeur",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "précieux, de grande valeur"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "时间很宝贵。",
+     "pinyin": "Shíjiān hěn bǎoguì.",
+     "fr": "Le temps n'a pas de prix.",
+     "statut": "a_relire"
+    },
+    {
+     "zh": "谢谢你的宝贵意见。",
+     "pinyin": "Xièxie nǐ de bǎoguì yìjiàn.",
+     "fr": "Merci pour tes précieux conseils.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L4-0027",
+   "genre": "mot",
+   "hanzi": "宝石",
+   "pinyin": "bǎoshí",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "pierre précieuse",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "pierre précieuse, gemme"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这块宝石很贵。",
+     "pinyin": "Zhè kuài bǎoshí hěn guì.",
+     "fr": "Cette pierre coûte très cher.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "密",
+   "genre": "caractere",
+   "hanzi": "密",
+   "pinyin": "mì",
+   "mots": [
+    "L4-0514"
+   ],
+   "sens": {
+    "glose": "dense, serré ; secret",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "dense, serré, rapproché"
+     },
+     {
+      "categorie": "Adj",
+      "fr": "secret, confidentiel ; intime"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这里的树很密。",
+     "pinyin": "Zhèli de shù hěn mì.",
+     "fr": "Ici, les arbres sont très rapprochés.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L4-0028",
+   "genre": "mot",
+   "hanzi": "保密",
+   "pinyin": "bǎomì",
+   "sens": {
+    "glose": "garder le secret",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "garder le secret, tenir confidentiel"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这件事请你保密。",
+     "pinyin": "Zhè jiàn shì qǐng nǐ bǎomì.",
+     "fr": "N'en parle à personne, s'il te plaît.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "守",
+   "genre": "caractere",
+   "hanzi": "守",
+   "pinyin": "shǒu",
+   "mots": [
+    "L4-0659"
+   ],
+   "sens": {
+    "glose": "garder, défendre ; respecter",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "garder, défendre, surveiller"
+     },
+     {
+      "categorie": "V",
+      "fr": "respecter, observer : une règle, une promesse"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他在门口守了一夜。",
+     "pinyin": "Tā zài ménkǒu shǒu le yī yè.",
+     "fr": "Il a monté la garde devant la porte toute la nuit.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L4-0029",
+   "genre": "mot",
+   "hanzi": "保守",
+   "pinyin": "bǎoshǒu",
+   "categories": [
+    "V",
+    "Adj"
+   ],
+   "sens": {
+    "glose": "garder ; conservateur, prudent",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "garder : un secret ; conserver"
+     },
+     {
+      "categorie": "Adj",
+      "fr": "conservateur, prudent, traditionnel"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他的想法很保守。",
+     "pinyin": "Tā de xiǎngfǎ hěn bǎoshǒu.",
+     "fr": "Il a des idées très traditionnelles.",
+     "statut": "a_relire"
+    },
+    {
+     "zh": "你能保守秘密吗？",
+     "pinyin": "Nǐ néng bǎoshǒu mìmì ma?",
+     "fr": "Tu sais tenir ta langue ?",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "抱",
+   "genre": "caractere",
+   "hanzi": "抱",
+   "pinyin": "bào",
+   "mots": [
+    "L4-0030"
+   ],
+   "sens": {
+    "glose": "prendre dans ses bras, étreindre",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "porter dans ses bras, étreindre"
+     },
+     {
+      "categorie": "V",
+      "fr": "nourrir : un espoir, une idée"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "妈妈抱着孩子。",
+     "pinyin": "Māma bào zhe háizi.",
+     "fr": "La maman tient son enfant contre elle.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L4-0031",
+   "genre": "mot",
+   "hanzi": "背景",
+   "pinyin": "bèijǐng",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "arrière-plan, fond ; contexte",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "arrière-plan, fond, décor"
+     },
+     {
+      "categorie": "N",
+      "fr": "contexte ; milieu, relations"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这张照片的背景是长城。",
+     "pinyin": "Zhè zhāng zhàopiàn de bèijǐng shì Chángchéng.",
+     "fr": "Derrière, sur cette photo, on voit la Grande Muraille.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "倍",
+   "genre": "caractere",
+   "hanzi": "倍",
+   "pinyin": "bèi",
+   "mots": [
+    "L4-0032"
+   ],
+   "sens": {
+    "glose": "fois (multiplication)",
+    "acceptions": [
+     {
+      "categorie": "M",
+      "fr": "fois : pour multiplier une quantité"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他的钱是我的两倍。",
+     "pinyin": "Tā de qián shì wǒ de liǎng bèi.",
+     "fr": "Il a deux fois plus d'argent que moi.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "迫",
+   "genre": "caractere",
+   "hanzi": "迫",
+   "pinyin": "pò",
+   "sens": {
+    "glose": "forcer, contraindre ; pressant",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "forcer, contraindre"
+     },
+     {
+      "categorie": "Adj",
+      "fr": "urgent, pressant"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": []
+  },
+  {
+   "id": "L4-0033",
+   "genre": "mot",
+   "hanzi": "被迫",
+   "pinyin": "bèipò",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "être forcé de, être contraint de",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "être forcé, être obligé de"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "因为下雨，比赛被迫停了。",
+     "pinyin": "Yīnwèi xià yǔ, bǐsài bèipò tíng le.",
+     "fr": "À cause de la pluie, le match a dû être interrompu.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L4-0034",
+   "genre": "mot",
+   "hanzi": "本科",
+   "pinyin": "běnkē",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "premier cycle universitaire, licence",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "études de licence, premier cycle universitaire"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "我哥哥本科学的是法律。",
+     "pinyin": "Wǒ gēge běnkē xué de shì fǎlǜ.",
+     "fr": "Mon frère a fait une licence de droit.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "笨",
+   "genre": "caractere",
+   "hanzi": "笨",
+   "pinyin": "bèn",
+   "mots": [
+    "L4-0035"
+   ],
+   "sens": {
+    "glose": "bête, lent ; maladroit",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "bête, lent d'esprit"
+     },
+     {
+      "categorie": "Adj",
+      "fr": "maladroit, gauche"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "我太笨了，又说错了。",
+     "pinyin": "Wǒ tài bèn le, yòu shuō cuò le.",
+     "fr": "Que je suis bête, je me suis encore trompé.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L4-0036",
+   "genre": "mot",
+   "hanzi": "比分",
+   "pinyin": "bǐfēn",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "score",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "score d'un match"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "现在比分是二比一。",
+     "pinyin": "Xiànzài bǐfēn shì èr bǐ yī.",
+     "fr": "Pour l'instant, c'est deux à un.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "毕",
+   "genre": "caractere",
+   "hanzi": "毕",
+   "pinyin": "bì",
+   "sens": {
+    "glose": "finir, achever",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "finir, achever, terminer"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": []
+  },
+  {
+   "id": "L4-0037",
+   "genre": "mot",
+   "hanzi": "毕业",
+   "pinyin": "bìyè",
+   "sens": {
+    "glose": "finir ses études, être diplômé",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "terminer ses études, obtenir son diplôme"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "她去年大学毕业了。",
+     "pinyin": "Tā qùnián dàxué bìyè le.",
+     "fr": "Elle est sortie de l'université l'an dernier.",
+     "statut": "a_relire"
+    }
+   ]
+  }
+ ]
+}
