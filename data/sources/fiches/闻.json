@@ -21,20 +21,33 @@
   "门": "forme",
   "耳": "sens"
  },
- "mots": [],
+ "mots": [
+  {
+   "hanzi": "新闻",
+   "pinyin": "xīnwén",
+   "fr": "informations",
+   "en": "news"
+  },
+  {
+   "hanzi": "闻到",
+   "pinyin": "wéndào",
+   "fr": "sentir",
+   "en": "to smell"
+  }
+ ],
  "phrase": {
-  "zh": "",
-  "pinyin": "",
-  "fr": "",
-  "en": ""
+  "zh": "我每天晚上看新闻。",
+  "pinyin": "Wǒ měitiān wǎnshang kàn xīnwén.",
+  "fr": "Je regarde les informations tous les soirs.",
+  "en": "I watch the news every evening."
  },
  "generation": {
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:3f1d0eac35beb4a6ddbef3a50553a7d44b4d712afa8f1e5106a9d1c9d570bf09",
-  "essais": 1,
+  "empreinte_invite": "sha256:4450cb506b8f1bc0d05aa4cab254e622b41fa5540d1267e38787e52390bfafe5",
+  "essais": 2,
   "refus": []
  },
- "statut": "relu"
+ "statut": "a_relire"
 }
