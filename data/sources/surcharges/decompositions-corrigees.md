@@ -129,6 +129,47 @@ propriétaire.
   兴 reste non réconcilié et ferme le parcours, dans les deux listes.
 - **举** : ⺍ + 一 + 八 + 𰀁, hors des parcours ; même raison.
 
+## Les 60 non réconciliés des 3 000 (story 10.9, 30 septembre 2026)
+
+Sur les 60 caractères du dictionnaire dont la décomposition n'était pas réconciliée, 44
+le sont par la section 6 d'`ids.tsv` : 23 lignes, dont dix sur un caractère intermédiaire
+que cjk-decomp traverse (尧 pour 烧 绕 晓 浇 挠 翘 饶, 兵 pour 宾 滨 缤, 侯 pour 猴 喉, 亏
+pour 污 夸 垮 挎 鳄, 唐 pour 糖 塘, 畏 pour 喂, 段 pour 锻, 率 pour 摔, 岛 pour 捣, 函 pour
+涵). Chaque lecture est comptée trait par trait contre `graphics.txt` ; douze composants
+sans tracé propre se découpent dans leur hôte (`decoupes.tsv`, tableau plus bas).
+
+Deux lectures sont à vérifier sur le fac-similé avant relecture :
+
+- **所** : 户 + 斤. La table n'a que 户 ; dans 所, le premier trait est un 撇, écrit avant
+  le 竖撇 (`graphics.txt`), là où 户 commence par un 点. La brique dessinée est 户.
+- **派** : 氵 + 𠂆 (反字框) + 𧘇 (衣省). Le côté droit, 𠂢, n'est pas dans la table ; ses
+  six traits se lisent 撇 et 竖撇 (le haut de 反), puis 撇, 竖提, 撇, 捺 (le bas de 表).
+
+Restent 16 non réconciliés, sans décomposition dans le dictionnaire :
+
+- **Les treize au 学字头** : 兴, 举, 检, 脸, 应, 险, 验, 签, 捡, 剑, 誉, 俭, 敛. Leur ⺍
+  est le 学字头 de la norme (413, 𭕄, trois traits, 丶 丶 丿 ; le fac-similé cite 学, 应,
+  敛 et 检). Tant que `decoupes.tsv` découpe 𭕄 dans les cinq premiers traits de 学, 冖
+  compris (section « À reprendre » plus haut), une surcharge qui les nommerait les
+  dessinerait avec un 冖 qu'ils n'ont pas. Une fois 学 et 觉 repris (décision du
+  propriétaire), les lectures sont prêtes, 佥 s'écrivant 人 一 𭕄 一 :
+
+  | Caractère | IDS proposé | Traits |
+  |---|---|---|
+  | 兴 | `⿳𭕄一八` | 3 + 1 + 2 = 6 |
+  | 举 | `⿱⿳𭕄一八𰀁` | 3 + 1 + 2 + 3 = 9 |
+  | 誉 | à travers 兴 (`⿱兴言`, cjk-decomp) | 6 + 7 = 13 |
+  | 应 | `⿸广⿱𭕄一` | 3 + 3 + 1 = 7 |
+  | 检, 脸, 险, 验, 签, 捡, 剑, 俭, 敛 | 佥 `⿱⿱人一⿱𭕄一`, que cjk-decomp traverse | 佥 : 2 + 1 + 3 + 1 = 7 |
+
+  兴 est au HSK 1 et ferme les deux parcours : le réconcilier change leur fin.
+- **敢** : 横撇 (㇇) sur 耳 (90), puis 攵 (95) ; le 横撇 seul n'est pas un composant de la
+  table (乛, 140, est le 横钩). La lecture de la norme n'est pas sûre d'ici.
+- **展** et **丧** : 尸 + 卄 + 一 et 丧字头 (304, ⿻土丷) se lisent, mais leur bas, 竖提,
+  撇, 捺, a trois traits, là où 𧘇 (衣省) en a quatre (表, 袁, 衰) : la brique dessinée
+  aurait un trait de trop. À trancher sur le fac-similé (colonne des exemples de 226 et
+  441).
+
 ## Corrigé par une notation, à vérifier sur la forme
 
 - **蛋** (HSK 1) : cjk-decomp écrit 疋 en ㇖ + 龰 ; la notation ㇖ → 乛 le réconcilie en
@@ -153,6 +194,7 @@ dans un caractère hôte (`decoupes.tsv`), et reste acquis d'entrée, sans fiche
 | 𭕄 | 学字头 | 学 (à reprendre, plus haut) |
 | 龰, 龴, 𠀎, 𠂇, 𠂉, 𡗗 | — | 足, 令, 寒, 左, 乞, 春 |
 | ⿳亠丷冖, 𢎨, 𠃍, 龷, ⿴夂丶, 丆, 𠃓, 𰀁, リ | — | 帝, 第, 候, 错, 夜, 夏, 场, 举, 师 (28 septembre 2026) |
+| ⿷⿻𠂆一二, 𠂆, ⿳𠂉卌一, ⿱⿻十日⿰一丶, 鸟省, ⿻口一, ⿰冫⿱丿丶, 𧘇, 𰀠, 𰀂, 𭠍, 㐄 | — | 段, 派, 舞, 惠, 岛, 衰, 率, 表, 畏, 虐, 尧, 降 (30 septembre 2026) |
 
 Pour 竹头, la forme de la source, ⺮, porte des tracés : `equivalences.tsv` la garde
 et lui donne le nom de la norme, plutôt que de la renommer en 𥫗, qui n'en a pas.

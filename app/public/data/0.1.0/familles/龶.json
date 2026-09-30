@@ -3,7 +3,7 @@
  "license": "propriétaire",
  "source": "décomposition GF 0014-2009 réconciliée par le pipeline wenlu ; pinyin d'Unihan (kMandarin) ; textes rédigés pour l'app",
  "source_url": "https://github.com/jon-gyt/zilin",
- "modified": "2026-09-28 : assemblé par `wenlu export`",
+ "modified": "2026-09-30 : assemblé par `wenlu export`",
  "norme": "GF 0014-2009",
  "racine": {
   "c": "龶",
@@ -20,8 +20,8 @@
    "lectures": [
     "qīng"
    ],
-   "fr": "",
-   "en": "",
+   "fr": "bleu-vert, jeune",
+   "en": "blue-green, young",
    "parts": [
     "龶",
     "月"
@@ -31,10 +31,13 @@
     "cjk-decomp"
    ],
    "role": null,
-   "roles": {},
-   "origine_fr": "",
-   "origine_en": "",
-   "etiquette": null,
+   "roles": {
+    "月": "forme",
+    "龶": "forme"
+   },
+   "origine_fr": "Le Shuowen jiezi glose 青 par « la couleur de l'est » et l'écrit avec 生, pousser, et 丹, le minerai rouge. La couleur des jeunes pousses : vert, bleu-vert, et la jeunesse. En haut, 生 s'écrit 龶 ; en bas, 丹 est devenu 月.",
+   "origine_en": "The Shuowen jiezi glosses 青 as “the colour of the east” and writes it with 生, to grow, and 丹, red ore. The colour of young shoots: green, blue-green, and youth. At the top, 生 is written 龶; at the bottom, 丹 has become 月.",
+   "etiquette": "atteste",
    "memo_fr": null,
    "memo_en": null,
    "mots": [],
@@ -43,7 +46,7 @@
    "traits": [],
    "medianes": [],
    "audio": null,
-   "statut": "sans_fiche"
+   "statut": "relu"
   },
   {
    "c": "麦",

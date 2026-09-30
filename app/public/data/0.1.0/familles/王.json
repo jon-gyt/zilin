@@ -3,7 +3,7 @@
  "license": "propriétaire",
  "source": "décomposition GF 0014-2009 réconciliée par le pipeline wenlu ; pinyin d'Unihan (kMandarin) ; textes rédigés pour l'app",
  "source_url": "https://github.com/jon-gyt/zilin",
- "modified": "2026-09-28 : assemblé par `wenlu export`",
+ "modified": "2026-09-30 : assemblé par `wenlu export`",
  "norme": "GF 0014-2009",
  "racine": {
   "c": "王",
@@ -187,8 +187,8 @@
    "lectures": [
     "bān"
    ],
-   "fr": "",
-   "en": "",
+   "fr": "classe, équipe, service",
+   "en": "class, team, shift",
    "parts": [
     "王",
     "刂",
@@ -200,22 +200,46 @@
    "sources": [
     "surcharge"
    ],
-   "role": null,
-   "roles": {},
-   "origine_fr": "",
-   "origine_en": "",
-   "etiquette": null,
+   "role": "sens",
+   "roles": {
+    "刂": "sens",
+    "王": "sens"
+   },
+   "origine_fr": "Le Shuowen jiezi explique 班 par « partager les tablettes de jade » : un couteau, 刀, entre deux jades, 玨. On le voit encore aujourd'hui : 刂, le couteau debout, au milieu de deux 王, qui sont ici des jades. De la part qu'on sépare, le sens est passé au groupe qu'on forme, la classe ou l'équipe.",
+   "origine_en": "The Shuowen jiezi explains 班 as “dividing jade tallies”: a knife, 刀, between two pieces of jade, 玨. It is still visible today: 刂, the upright knife, stands between two 王, which here are jades. From the share that is split off, the meaning moved to the group one belongs to, a class or a team.",
+   "etiquette": "atteste",
    "memo_fr": null,
    "memo_en": null,
-   "mots": [],
-   "phrase": null,
+   "mots": [
+    {
+     "hanzi": "上班",
+     "pinyin": "shàngbān",
+     "fr": "aller au travail, être de service",
+     "en": "to go to work, to be on duty",
+     "audio": null
+    },
+    {
+     "hanzi": "下班",
+     "pinyin": "xiàbān",
+     "fr": "quitter le travail",
+     "en": "to finish work",
+     "audio": null
+    }
+   ],
+   "phrase": {
+    "hanzi": "我们早上上班。",
+    "pinyin": "Wǒmen zǎoshang shàngbān.",
+    "fr": "Nous allons au travail le matin.",
+    "en": "We go to work in the morning.",
+    "audio": null
+   },
    "niveaux": {
     "hsk": 1
    },
    "traits": [],
    "medianes": [],
    "audio": null,
-   "statut": "sans_fiche"
+   "statut": "relu"
   },
   {
    "c": "球",
@@ -223,8 +247,8 @@
    "lectures": [
     "qiú"
    ],
-   "fr": "",
-   "en": "",
+   "fr": "balle, ballon, globe",
+   "en": "ball, globe",
    "parts": [
     "王",
     "求"
@@ -235,22 +259,46 @@
    "sources": [
     "cjk-decomp"
    ],
-   "role": null,
-   "roles": {},
-   "origine_fr": "",
-   "origine_en": "",
-   "etiquette": null,
+   "role": "son",
+   "roles": {
+    "求": "son",
+    "王": "sens"
+   },
+   "origine_fr": "Le Shuowen jiezi glose 球 par « le son du jade » : le jade, 玉, et 求 pour le son. À gauche, 玉 s'écrit 王, comme dans beaucoup de noms de pierres ; 求 se lit qiú comme 球. Le sens « boule, balle » est venu ensuite ; 求 donne toujours le son.",
+   "origine_en": "The Shuowen jiezi glosses 球 as “the sound of jade”: jade, 玉, and 求 for the sound. On the left, 玉 is written 王, as in many names of stones; 求 is read qiú like 球. The meaning “ball, sphere” came later; 求 still gives the sound.",
+   "etiquette": "atteste",
    "memo_fr": null,
    "memo_en": null,
-   "mots": [],
-   "phrase": null,
+   "mots": [
+    {
+     "hanzi": "打球",
+     "pinyin": "dǎqiú",
+     "fr": "jouer au ballon",
+     "en": "to play ball",
+     "audio": null
+    },
+    {
+     "hanzi": "地球",
+     "pinyin": "dìqiú",
+     "fr": "la Terre",
+     "en": "the Earth",
+     "audio": null
+    }
+   ],
+   "phrase": {
+    "hanzi": "我们下午去打球。",
+    "pinyin": "Wǒmen xiàwǔ qù dǎqiú.",
+    "fr": "Nous allons jouer au ballon cet après-midi.",
+    "en": "We are going to play ball this afternoon.",
+    "audio": null
+   },
    "niveaux": {
     "hsk": 1
    },
    "traits": [],
    "medianes": [],
    "audio": null,
-   "statut": "sans_fiche"
+   "statut": "relu"
   }
  ]
 }

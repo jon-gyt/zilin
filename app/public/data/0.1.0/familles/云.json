@@ -3,7 +3,7 @@
  "license": "propriétaire",
  "source": "décomposition GF 0014-2009 réconciliée par le pipeline wenlu ; pinyin d'Unihan (kMandarin) ; textes rédigés pour l'app",
  "source_url": "https://github.com/jon-gyt/zilin",
- "modified": "2026-09-28 : assemblé par `wenlu export`",
+ "modified": "2026-09-30 : assemblé par `wenlu export`",
  "norme": "GF 0014-2009",
  "racine": {
   "c": "云",
@@ -69,8 +69,8 @@
    "lectures": [
     "dòng"
    ],
-   "fr": "",
-   "en": "",
+   "fr": "bouger, remuer, toucher à",
+   "en": "to move, to touch",
    "parts": [
     "云",
     "力"
@@ -81,22 +81,46 @@
    "sources": [
     "cjk-decomp"
    ],
-   "role": null,
-   "roles": {},
-   "origine_fr": "",
-   "origine_en": "",
-   "etiquette": null,
+   "role": "forme",
+   "roles": {
+    "云": "forme",
+    "力": "sens"
+   },
+   "origine_fr": "Le Shuowen jiezi écrit 動 : la force, 力, pour le sens, et 重 pour le son. Il le glose « agir » : mettre de la force en mouvement. La forme simplifiée remplace 重 par 云, simple signe, et garde 力 à droite.",
+   "origine_en": "The Shuowen jiezi writes 動: strength, 力, for the meaning, and 重 for the sound. It glosses it as “to act”: putting strength into motion. The simplified form replaces 重 with 云, a mere sign, and keeps 力 on the right.",
+   "etiquette": "atteste",
    "memo_fr": null,
    "memo_en": null,
-   "mots": [],
-   "phrase": null,
+   "mots": [
+    {
+     "hanzi": "不动",
+     "pinyin": "bùdòng",
+     "fr": "immobile",
+     "en": "motionless",
+     "audio": null
+    },
+    {
+     "hanzi": "动手",
+     "pinyin": "dòngshǒu",
+     "fr": "s'y mettre ; en venir aux mains",
+     "en": "to start work; to come to blows",
+     "audio": null
+    }
+   ],
+   "phrase": {
+    "hanzi": "别动！",
+    "pinyin": "Bié dòng!",
+    "fr": "Ne bouge pas !",
+    "en": "Don't move!",
+    "audio": null
+   },
    "niveaux": {
     "hsk": 1
    },
    "traits": [],
    "medianes": [],
    "audio": null,
-   "statut": "sans_fiche"
+   "statut": "relu"
   }
  ]
 }

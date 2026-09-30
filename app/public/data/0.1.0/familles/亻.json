@@ -3,7 +3,7 @@
  "license": "propriétaire",
  "source": "décomposition GF 0014-2009 réconciliée par le pipeline wenlu ; pinyin d'Unihan (kMandarin) ; textes rédigés pour l'app",
  "source_url": "https://github.com/jon-gyt/zilin",
- "modified": "2026-09-29 : assemblé par `wenlu export`",
+ "modified": "2026-09-30 : assemblé par `wenlu export`",
  "norme": "GF 0014-2009",
  "racine": {
   "c": "亻",
@@ -254,8 +254,8 @@
    "lectures": [
     "xiū"
    ],
-   "fr": "",
-   "en": "",
+   "fr": "se reposer, cesser",
+   "en": "to rest, to stop",
    "parts": [
     "亻",
     "木"
@@ -265,21 +265,45 @@
     "cjk-decomp"
    ],
    "role": null,
-   "roles": {},
-   "origine_fr": "",
-   "origine_en": "",
-   "etiquette": null,
+   "roles": {
+    "亻": "sens",
+    "木": "sens"
+   },
+   "origine_fr": "Le Shuowen jiezi glose 休 par « se reposer » et le décrit comme un homme adossé à un arbre. On le voit tel quel : 亻 à gauche, 木 à droite. L'homme s'arrête à l'ombre : c'est se reposer, cesser.",
+   "origine_en": "The Shuowen jiezi glosses 休 as “to rest” and describes it as a man leaning against a tree. You can see it as it is: 亻 on the left, 木 on the right. The man stops in the shade: to rest, to cease.",
+   "etiquette": "atteste",
    "memo_fr": null,
    "memo_en": null,
-   "mots": [],
-   "phrase": null,
+   "mots": [
+    {
+     "hanzi": "午休",
+     "pinyin": "wǔxiū",
+     "fr": "pause de midi, sieste",
+     "en": "midday rest",
+     "audio": null
+    },
+    {
+     "hanzi": "休学",
+     "pinyin": "xiūxué",
+     "fr": "interrompre ses études",
+     "en": "to suspend one's studies",
+     "audio": null
+    }
+   ],
+   "phrase": {
+    "hanzi": "中午我们午休。",
+    "pinyin": "Zhōngwǔ wǒmen wǔxiū.",
+    "fr": "À midi, nous faisons la sieste.",
+    "en": "At noon we take a rest.",
+    "audio": null
+   },
    "niveaux": {
     "hsk": 1
    },
    "traits": [],
    "medianes": [],
    "audio": null,
-   "statut": "sans_fiche"
+   "statut": "relu"
   },
   {
    "c": "住",
@@ -348,8 +372,8 @@
     "tǐ",
     "tī"
    ],
-   "fr": "",
-   "en": "",
+   "fr": "corps, forme, style",
+   "en": "body, form, style",
    "parts": [
     "亻",
     "本"
@@ -359,21 +383,45 @@
     "cjk-decomp"
    ],
    "role": null,
-   "roles": {},
-   "origine_fr": "",
-   "origine_en": "",
-   "etiquette": null,
+   "roles": {
+    "亻": "sens",
+    "本": "forme"
+   },
+   "origine_fr": "Le Shuowen jiezi écrit 體 et le glose « l'ensemble des douze parties » du corps : l'os, 骨, et 豊 pour le son. La forme 体, courante depuis longtemps dans l'écriture usuelle, a été retenue par la simplification. Elle n'en garde rien : un homme, 亻, et 本, qui ne donne pas le son de tǐ.",
+   "origine_en": "The Shuowen jiezi writes 體 and glosses it as “the sum of the twelve parts” of the body: bone, 骨, and 豊 for the sound. The form 体, long common in everyday handwriting, was adopted by the simplification. It keeps nothing of 體: a person, 亻, and 本, which does not give the sound of tǐ.",
+   "etiquette": "atteste",
    "memo_fr": null,
    "memo_en": null,
-   "mots": [],
-   "phrase": null,
+   "mots": [
+    {
+     "hanzi": "身体",
+     "pinyin": "shēntǐ",
+     "fr": "corps, santé",
+     "en": "body, health",
+     "audio": null
+    },
+    {
+     "hanzi": "体重",
+     "pinyin": "tǐzhòng",
+     "fr": "poids du corps",
+     "en": "body weight",
+     "audio": null
+    }
+   ],
+   "phrase": {
+    "hanzi": "他身体好。",
+    "pinyin": "Tā shēntǐ hǎo.",
+    "fr": "Il est en bonne santé.",
+    "en": "He is in good health.",
+    "audio": null
+   },
    "niveaux": {
     "hsk": 1
    },
    "traits": [],
    "medianes": [],
    "audio": null,
-   "statut": "sans_fiche"
+   "statut": "relu"
   },
   {
    "c": "作",
@@ -627,8 +675,8 @@
     "jiǎ",
     "jià"
    ],
-   "fr": "",
-   "en": "",
+   "fr": "faux, congé",
+   "en": "false, holiday",
    "parts": [
     "亻",
     "叚"
@@ -639,22 +687,46 @@
    "sources": [
     "cjk-decomp"
    ],
-   "role": null,
-   "roles": {},
-   "origine_fr": "",
-   "origine_en": "",
-   "etiquette": null,
+   "role": "son",
+   "roles": {
+    "亻": "sens",
+    "叚": "son"
+   },
+   "origine_fr": "Le Shuowen jiezi glose 假 par « pas vrai » : l'homme, 亻, et 叚 pour le son. 叚 se lit jiǎ, la même syllabe que 假. Du faux-semblant on est passé à l'emprunt, puis au temps emprunté au travail : le congé, lu jià.",
+   "origine_en": "The Shuowen jiezi glosses 假 as “not real”: a person, 亻, and 叚 for the sound. 叚 is read jiǎ, the same syllable as 假. From pretence the meaning moved to borrowing, then to time borrowed from work: a holiday, read jià.",
+   "etiquette": "atteste",
    "memo_fr": null,
    "memo_en": null,
-   "mots": [],
-   "phrase": null,
+   "mots": [
+    {
+     "hanzi": "放假",
+     "pinyin": "fàngjià",
+     "fr": "être en vacances",
+     "en": "to have a holiday",
+     "audio": null
+    },
+    {
+     "hanzi": "请假",
+     "pinyin": "qǐngjià",
+     "fr": "demander un congé",
+     "en": "to ask for leave",
+     "audio": null
+    }
+   ],
+   "phrase": {
+    "hanzi": "我们明天放假。",
+    "pinyin": "Wǒmen míngtiān fàngjià.",
+    "fr": "Nous sommes en congé demain.",
+    "en": "We have a day off tomorrow.",
+    "audio": null
+   },
    "niveaux": {
     "hsk": 1
    },
    "traits": [],
    "medianes": [],
    "audio": null,
-   "statut": "sans_fiche"
+   "statut": "relu"
   },
   {
    "c": "做",
@@ -662,8 +734,8 @@
    "lectures": [
     "zuò"
    ],
-   "fr": "",
-   "en": "",
+   "fr": "faire, fabriquer, servir de",
+   "en": "to do, to make, to act as",
    "parts": [
     "亻",
     "十",
@@ -675,21 +747,47 @@
     "surcharge"
    ],
    "role": null,
-   "roles": {},
-   "origine_fr": "",
-   "origine_en": "",
-   "etiquette": null,
+   "roles": {
+    "亻": "sens",
+    "十": "forme",
+    "口": "forme",
+    "攵": "forme"
+   },
+   "origine_fr": "Pour s'en souvenir : à gauche, 亻, la personne. À droite, 故, écrit 十, 口 et 攵 : une affaire qu'on mène à la main. La personne qui s'occupe de l'affaire : 做 veut dire « faire ».",
+   "origine_en": "As a memory aid: on the left, 亻, the person. On the right, 故, written 十, 口 and 攵: a matter handled by hand. The person who sees to the matter: 做 means “to do”.",
+   "etiquette": "mnemotechnique",
    "memo_fr": null,
    "memo_en": null,
-   "mots": [],
-   "phrase": null,
+   "mots": [
+    {
+     "hanzi": "做事",
+     "pinyin": "zuòshì",
+     "fr": "travailler, agir",
+     "en": "to work, to act",
+     "audio": null
+    },
+    {
+     "hanzi": "做客",
+     "pinyin": "zuòkè",
+     "fr": "être en visite",
+     "en": "to be a guest",
+     "audio": null
+    }
+   ],
+   "phrase": {
+    "hanzi": "你在做什么？",
+    "pinyin": "Nǐ zài zuò shénme?",
+    "fr": "Qu'est-ce que tu fais ?",
+    "en": "What are you doing?",
+    "audio": null
+   },
    "niveaux": {
     "hsk": 1
    },
    "traits": [],
    "medianes": [],
    "audio": null,
-   "statut": "sans_fiche"
+   "statut": "relu"
   },
   {
    "c": "偷",

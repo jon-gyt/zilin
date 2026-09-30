@@ -3,7 +3,7 @@
  "license": "propriétaire",
  "source": "décomposition GF 0014-2009 réconciliée par le pipeline wenlu ; pinyin d'Unihan (kMandarin) ; textes rédigés pour l'app",
  "source_url": "https://github.com/jon-gyt/zilin",
- "modified": "2026-09-28 : assemblé par `wenlu export`",
+ "modified": "2026-09-30 : assemblé par `wenlu export`",
  "norme": "GF 0014-2009",
  "racine": {
   "c": "阝",
@@ -120,8 +120,8 @@
    "lectures": [
     "yuàn"
    ],
-   "fr": "",
-   "en": "",
+   "fr": "cour, établissement",
+   "en": "courtyard, institution",
    "parts": [
     "阝",
     "宀",
@@ -133,21 +133,47 @@
     "cjk-decomp"
    ],
    "role": null,
-   "roles": {},
-   "origine_fr": "",
-   "origine_en": "",
-   "etiquette": null,
+   "roles": {
+    "二": "forme",
+    "儿": "forme",
+    "宀": "forme",
+    "阝": "sens"
+   },
+   "origine_fr": "Pour s'en souvenir : à gauche, 阝, le talus ou le mur de terre. À droite, 完, « entier », écrit 宀 sur 元 : un toit sur une maison complète. La maison close par son mur, c'est la cour, puis l'établissement : 医院, l'hôpital.",
+   "origine_en": "As a memory aid: on the left, 阝, the bank or earthen wall. On the right, 完, “whole”, written 宀 over 元: a roof over a complete house. The house enclosed by its wall is the courtyard, then the institution: 医院, the hospital.",
+   "etiquette": "mnemotechnique",
    "memo_fr": null,
    "memo_en": null,
-   "mots": [],
-   "phrase": null,
+   "mots": [
+    {
+     "hanzi": "学院",
+     "pinyin": "xuéyuàn",
+     "fr": "institut, faculté",
+     "en": "college, institute",
+     "audio": null
+    },
+    {
+     "hanzi": "院子",
+     "pinyin": "yuànzi",
+     "fr": "cour",
+     "en": "courtyard",
+     "audio": null
+    }
+   ],
+   "phrase": {
+    "hanzi": "院子里有树。",
+    "pinyin": "Yuànzi lǐ yǒu shù.",
+    "fr": "Il y a des arbres dans la cour.",
+    "en": "There are trees in the courtyard.",
+    "audio": null
+   },
    "niveaux": {
     "hsk": 1
    },
    "traits": [],
    "medianes": [],
    "audio": null,
-   "statut": "sans_fiche"
+   "statut": "relu"
   }
  ]
 }

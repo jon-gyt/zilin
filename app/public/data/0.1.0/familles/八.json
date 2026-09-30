@@ -3,7 +3,7 @@
  "license": "propriétaire",
  "source": "décomposition GF 0014-2009 réconciliée par le pipeline wenlu ; pinyin d'Unihan (kMandarin) ; textes rédigés pour l'app",
  "source_url": "https://github.com/jon-gyt/zilin",
- "modified": "2026-09-28 : assemblé par `wenlu export`",
+ "modified": "2026-09-30 : assemblé par `wenlu export`",
  "norme": "GF 0014-2009",
  "racine": {
   "c": "八",
@@ -73,8 +73,8 @@
    "lectures": [
     "gōng"
    ],
-   "fr": "",
-   "en": "",
+   "fr": "public, commun, mâle",
+   "en": "public, common, male",
    "parts": [
     "八",
     "厶"
@@ -84,10 +84,13 @@
     "cjk-decomp"
    ],
    "role": null,
-   "roles": {},
-   "origine_fr": "",
-   "origine_en": "",
-   "etiquette": null,
+   "roles": {
+    "八": "sens",
+    "厶": "sens"
+   },
+   "origine_fr": "Le Shuowen jiezi glose 公 par « partager équitablement » : 八, séparer, au-dessus de 厶, le privé. Il cite Han Fei : tourner le dos au privé, c'est le public. On lit toujours 八 en haut et 厶 en bas.",
+   "origine_en": "The Shuowen jiezi glosses 公 as “to share fairly”: 八, to separate, above 厶, the private. It quotes Han Fei: turning one's back on the private is the public. You still read 八 on top and 厶 below.",
+   "etiquette": "atteste",
    "memo_fr": null,
    "memo_en": null,
    "mots": [],
@@ -96,7 +99,7 @@
    "traits": [],
    "medianes": [],
    "audio": null,
-   "statut": "sans_fiche"
+   "statut": "relu"
   },
   {
    "c": "分",

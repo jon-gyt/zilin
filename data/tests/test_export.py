@@ -429,6 +429,31 @@ def test_une_fiche_relue_porte_ses_textes_et_ses_mots(atelier: Path) -> None:
     assert famille["avancement_possible"] == 0.5
 
 
+def test_l_origine_d_une_fiche_relue_arrive_dans_le_dictionnaire(atelier: Path) -> None:
+    """Fiche de chemin ou fiche d'origine, relue : le dictionnaire porte son origine, étiquetée."""
+    from dataclasses import replace
+
+    d_origine = replace(
+        fiche_generee("古", statut=fiches_mod.RELU),
+        parcours="",
+        jour=0,
+        roles={"十": "forme", "口": "sens"},
+        mots=[],
+        phrase=fiches_mod.PHRASE_VIDE,
+    )
+    fiches_mod.ecrire_fiche(d_origine)
+    rapport = export("0.1.0")
+    index = lire(rapport.dossier, "dico/index.json")
+    lot = {r[0]: r for r in index["caracteres"]}["古"][3]  # type: ignore[index, union-attr]
+    entree = lire(rapport.dossier, f"dico/caracteres/{lot}.json")["entrees"]["古"]  # type: ignore[index]
+    assert entree["origine"]["etiquette"] == "atteste"  # type: ignore[index]
+    assert entree["origine"]["fr"].startswith("Une personne")  # type: ignore[index]
+    assert index["compte"]["origines_relues"] == 1  # type: ignore[index]
+    # Dans sa famille, une fiche d'origine n'a ni mots ni phrase : rien plutôt qu'une phrase vide.
+    古 = fiche_de(rapport.dossier, "十", "古")
+    assert 古["statut"] == "relu" and 古["mots"] == [] and 古["phrase"] is None
+
+
 def test_un_conte_non_relu_n_entre_pas_dans_l_export(atelier: Path) -> None:
     generation = contes_mod.Generation(
         modele="claude-opus-5", api="messages", date="2026-09-21T10:00:00Z",

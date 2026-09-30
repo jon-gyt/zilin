@@ -13,12 +13,13 @@
  * - le sens ne se montre que relu : celui du dictionnaire, ou celui d'une fiche relue des
  *   familles ; sinon, rien, et la fiche dit que le sens est en relecture ;
  * - l'origine vient de la fiche relue avec son étiquette, attestée ou mnémotechnique, jamais
- *   l'une pour l'autre ; sinon « origine à venir » ;
+ *   l'une pour l'autre : celle des familles, ou, pour un caractère hors des familles, celle
+ *   que l'entrée du dictionnaire porte (story 10.11) ; sinon « origine à venir » ;
  * - les pastilles de ton, pour une syllabe tapée sans ton qui répond à plusieurs tons ;
  * - le compagnon : Tao avant la rencontre de Xing au 县试, Xing après (`xing.ts`).
  */
 import type { Brique, Etiquette, Famille, FicheLue, Role } from './content';
-import type { Acception, EntreeDico, IndexDico, ResultatDico, Sens, Syllabe } from './dictionnaire';
+import type { Acception, EntreeDico, IndexDico, OrigineDico, ResultatDico, Sens, Syllabe } from './dictionnaire';
 import type { TextesDictionnaire } from './ecrans';
 import { remplir } from './ecrans';
 import { marquerTon } from './questions';
@@ -286,13 +287,21 @@ export type OrigineAffichee = { texte: string; etiquette: Etiquette };
 
 /**
  * L'origine d'une fiche : le texte d'une fiche relue de l'export et son étiquette à elle,
- * ou celui de la brique racine d'une famille, relu. Jamais d'étiquette sans texte, jamais le
+ * sinon celui que l'entrée du dictionnaire porte (une fiche relue, hors des familles), ou
+ * celui de la brique racine d'une famille, relu. Jamais d'étiquette sans texte, jamais le
  * texte de l'une avec l'étiquette de l'autre, jamais une démonstration ni un aperçu à
  * relire : `null`, et la fiche dit « origine à venir ».
  */
-export function origineDeFiche(f: FicheLue | null, racine: Brique | null): OrigineAffichee | null {
+export function origineDeFiche(
+  f: FicheLue | null,
+  racine: Brique | null,
+  dico: OrigineDico | null = null
+): OrigineAffichee | null {
   if (f && f.source === 'export' && f.statut === 'relu' && f.origine_fr.trim() !== '' && f.etiquette) {
     return { texte: f.origine_fr.trim(), etiquette: f.etiquette };
+  }
+  if (dico && dico.statut === 'relu' && dico.fr.trim() !== '' && dico.etiquette) {
+    return { texte: dico.fr.trim(), etiquette: dico.etiquette };
   }
   if (racine && racine.origine.trim() !== '' && racine.etiquette) {
     return { texte: racine.origine.trim(), etiquette: racine.etiquette };
@@ -302,12 +311,22 @@ export function origineDeFiche(f: FicheLue | null, racine: Brique | null): Origi
 
 /**
  * Le rôle de chaque brique, lu dans la fiche relue, et seulement si elle décompose comme le
- * dictionnaire (GF 0014-2009) ; `null` sinon : les rôles viendront avec la fiche relue.
+ * dictionnaire (GF 0014-2009) ; sinon dans l'origine relue de l'entrée du dictionnaire, qui
+ * ne porte des rôles que sur sa décomposition ; `null` sinon : les rôles viendront avec la
+ * fiche relue.
  */
-export function rolesDesBriques(f: FicheLue | null, parts: readonly string[]): Record<string, Role> | null {
-  if (!f || f.source !== 'export' || f.statut !== 'relu' || !f.roles) return null;
-  if (f.parts.length !== parts.length || !f.parts.every((p, i) => p === parts[i])) return null;
-  return parts.every((p) => p in (f.roles ?? {})) ? f.roles : null;
+export function rolesDesBriques(
+  f: FicheLue | null,
+  parts: readonly string[],
+  dico: OrigineDico | null = null
+): Record<string, Role> | null {
+  const complets = (roles: Record<string, Role>): boolean => parts.every((p) => p in roles);
+  if (f && f.source === 'export' && f.statut === 'relu' && f.roles) {
+    const memes = f.parts.length === parts.length && f.parts.every((p, i) => p === parts[i]);
+    if (memes && complets(f.roles)) return f.roles;
+  }
+  if (dico && dico.statut === 'relu' && complets(dico.roles)) return dico.roles;
+  return null;
 }
 
 /* ---------- le compagnon ---------- */

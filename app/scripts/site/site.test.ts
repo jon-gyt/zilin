@@ -159,16 +159,16 @@ describe('site public', () => {
     const cible = fuite.familles.flatMap((f) => f.fiches).find((x) => x.c === '休')!;
     Object.assign(cible, {
       statut: 'sans_fiche',
-      fr: 'se reposer',
-      en: 'to rest; to stop',
+      fr: 'SENS-FR-TEST',
+      en: 'SENS-EN-TEST',
       origine_fr: 'ORIGINE-FR',
       origine_en: 'ORIGIN-EN',
       etiquette: 'atteste',
-      mots: [{ hanzi: '休息', pinyin: 'xiūxi', fr: 'repos', en: 'rest' }]
+      mots: [{ hanzi: 'MOT-TEST', pinyin: 'xiūxi', fr: 'repos', en: 'rest' }]
     });
     const muet = genererSite(fuite, { base: BASE, origine: ORIGINE, tokensCss });
     const texte = (fs: Fichier[]) => fs.map((f) => f.contenu).join('\n');
-    for (const mot of ['to rest', 'se reposer', 'ORIGINE-FR', 'ORIGIN-EN', '休息']) expect(texte(muet)).not.toContain(mot);
+    for (const mot of ['SENS-EN-TEST', 'SENS-FR-TEST', 'ORIGINE-FR', 'ORIGIN-EN', 'MOT-TEST']) expect(texte(muet)).not.toContain(mot);
     // Relue, la même fiche parle, chaque langue dans la sienne, avec son étiquette.
     cible.statut = 'relu';
     const relu = genererSite(fuite, { base: BASE, origine: ORIGINE, tokensCss });
@@ -177,7 +177,7 @@ describe('site public', () => {
     expect(fr).toContain('ORIGINE-FR');
     expect(fr).toContain('attesté');
     expect(fr).not.toContain('ORIGIN-EN');
-    expect(en).toContain('to rest; to stop');
+    expect(en).toContain('SENS-EN-TEST');
     expect(fr).toContain('CC BY-SA 4.0');
   });
 
@@ -187,7 +187,7 @@ describe('site public', () => {
     const abs = (l: 'fr' | 'en') => `${ORIGINE}${BASE}${cheminPage(l, 'caractere', '休')}`;
     expect(fr).toMatch(/<title>休 xiū : caractère chinois/);
     expect(en).toMatch(/<title>休 xiū: Chinese character/);
-    expect(fr).toMatch(/<meta name="description" content="休 \(xiū\) : [^"]*亻 \+ 木/);
+    expect(fr).toMatch(/<meta name="description" content="休 \(xiū\)[^:"]* : [^"]*亻 \+ 木/);
     expect(fr).toContain(`<link rel="canonical" href="${abs('fr')}">`);
     expect(en).toContain(`<link rel="canonical" href="${abs('en')}">`);
     for (const h of [fr, en]) {

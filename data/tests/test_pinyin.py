@@ -114,6 +114,7 @@ def test_les_brouillons_du_depot_suivent_les_conventions(monkeypatch: pytest.Mon
                 fautes.append(f"{b.c} : mot {m.hanzi} « {m.pinyin} »")
             if m.hanzi in corpus.exclus:
                 fautes.append(f"{b.c} : mot exclu {m.hanzi}")
-        if pinyin.aligner(b.phrase.zh, b.phrase.pinyin, lectures) is None:
+        # Une fiche d'origine, hors chemin, n'a pas de phrase.
+        if b.phrase.zh and pinyin.aligner(b.phrase.zh, b.phrase.pinyin, lectures) is None:
             fautes.append(f"{b.c} : phrase « {b.phrase.zh} » lue « {b.phrase.pinyin} »")
     assert fautes == []

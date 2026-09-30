@@ -140,9 +140,9 @@
         : []
   );
   const parts = $derived(decompose ?? []);
-  const roles = $derived(rolesDesBriques(relue, parts));
+  const roles = $derived(rolesDesBriques(relue, parts, entree?.origine ?? null));
   const lues = $derived(parts.filter((p) => statutCaractere(p, env.ctx).k === 'lu').length);
-  const origine = $derived(origineDeFiche(relue, racine));
+  const origine = $derived(origineDeFiche(relue, racine, entree?.origine ?? null));
   const mots = $derived(entree ? motsQuiContiennent(entree.mots, index) : []);
   const montres = $derived(tous ? mots : mots.slice(0, MOTS_D_ABORD));
 

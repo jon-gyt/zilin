@@ -448,3 +448,187 @@ def test_chaque_fiche_redigee_porte_lempreinte_de_son_brouillon() -> None:
         assert lire_brouillon(source).empreinte == fiche.generation.empreinte_invite, (
             f"{fiche.c} : brouillon modifié depuis l'import, relancer `wenlu fiches importer`"
         )
+
+
+# --------------------------------------------------------------------------- fiches d'origine (10.11)
+
+
+def _corpus_sans_鸟(table, *, parcours: str = "lire") -> Corpus:
+    """Le corpus de test sans le jour 6 : 鸟 n'est posé par aucun jour, mais il est dans le dictionnaire."""
+    from test_fiches import DECOMPOSITIONS, JOURS, MOTS, NOEUDS
+
+    return Corpus(
+        parcours=parcours,
+        jours=JOURS[:5],
+        decompositions=DECOMPOSITIONS,
+        noeuds=NOEUDS,
+        caracteres=CARACTERES,
+        mots=MOTS,
+        table=table,
+        dictionnaire={"鸟", "住"},
+    )
+
+
+def origine(c: str = "鸟", **champs: object) -> dict[str, object]:
+    """Un brouillon de fiche d'origine : ni mots ni phrase."""
+    document: dict[str, object] = {
+        "c": c,
+        "sens_fr": "oiseau",
+        "sens_en": "bird",
+        "origine_fr": "Une première. Une deuxième. Une troisième.",
+        "origine_en": "One first. One second. One third.",
+        "etiquette": "attesté",
+        "memo_fr": None,
+        "memo_en": None,
+        "roles": {"鸟": "sens"},
+    }
+    document.update(champs)
+    return document
+
+
+def test_fiche_d_origine_s_ecrit_pour_un_caractere_du_dictionnaire_hors_chemin(table, tmp_path: Path) -> None:
+    """Hors de tout chemin, le circuit écrit la fiche : origine, étiquette, rôles, sens ; ni jour ni mots."""
+    chemin = ecrire_brouillon(tmp_path / "brouillons", origine())
+    resultat = importer_brouillon(lire_brouillon(chemin), _corpus_sans_鸟(table), dossier=tmp_path, horloge=aujourdhui)
+
+    assert resultat.rapport.conforme, resultat.rapport.refus
+    fiche = lire_fiche(tmp_path / "鸟.json")
+    assert (fiche.parcours, fiche.jour, fiche.statut) == ("", 0, A_RELIRE)
+    assert fiche.mots == [] and fiche.phrase.zh == ""
+    assert (fiche.etiquette, fiche.roles, fiche.sens_fr) == ("atteste", {"鸟": "sens"}, "oiseau")
+    assert fiche.composants == ("鸟",)
+    # Même traçabilité qu'une fiche de chemin.
+    assert fiche.generation.api == API_SESSION and fiche.generation.modele == MODELE_MANUEL
+    assert fiche.generation.empreinte_invite == "sha256:" + hashlib.sha256(chemin.read_bytes()).hexdigest()
+    # Même format : les clés d'une fiche de chemin, les mots vides, la phrase vide.
+    document = json.loads((tmp_path / "鸟.json").read_text(encoding="utf-8"))
+    assert document["mots"] == [] and document["phrase"] == {"zh": "", "pinyin": "", "fr": "", "en": ""}
+
+
+def test_fiche_d_origine_suit_le_meme_valider(table, tmp_path: Path) -> None:
+    """Trois phrases, étiquette, sens : les refus d'une fiche de chemin valent hors chemin."""
+    chemin = ecrire_brouillon(
+        tmp_path / "brouillons", origine(origine_fr="Une seule.", etiquette="peut-être", sens_fr="un oiseau.")
+    )
+    resultat = importer_brouillon(lire_brouillon(chemin), _corpus_sans_鸟(table), dossier=tmp_path, horloge=aujourdhui)
+    refus = " ; ".join(resultat.rapport.refus)
+    assert "origine_fr fait 1 phrase(s)" in refus and "étiquette" in refus and "sens_fr finit par un point" in refus
+    assert lire_fiche(tmp_path / "鸟.json").statut == REJETE
+
+
+def test_fiche_d_origine_hors_chemin_refuse_mots_et_phrase(table, tmp_path: Path) -> None:
+    """Aucun jour ne dit ce qui est lisible : des mots ou une phrase hors chemin sont refusés."""
+    phrase = {"zh": "鸟。", "pinyin": "Niǎo.", "fr": "Un oiseau.", "en": "A bird."}
+    chemin = ecrire_brouillon(tmp_path / "brouillons", origine(mots=[], phrase=phrase))
+    resultat = importer_brouillon(lire_brouillon(chemin), _corpus_sans_鸟(table), dossier=tmp_path, horloge=aujourdhui)
+    assert not resultat.rapport.conforme
+    assert resultat.rapport.refus[0].startswith("mots ou phrase hors chemin")
+
+
+def test_brouillon_aux_mots_sans_phrase_est_illisible() -> None:
+    """Les mots et la phrase vont ensemble : tous deux, ou aucun."""
+    with pytest.raises(BrouillonInvalide, match="champ manquant : phrase"):
+        brouillon_depuis_json(origine(mots=[]), empreinte="sha256:0", nom="鸟")
+
+
+def test_caractere_ni_pose_ni_dans_le_dictionnaire_n_a_pas_de_contexte(table) -> None:
+    with pytest.raises(fiches.CaractereHorsParcours, match="ni dans les caractères du dictionnaire"):
+        _corpus_sans_鸟(table).contexte("龍")
+
+
+def test_sur_un_chemin_une_fiche_d_origine_est_un_ecart_a_completer(corpus: Corpus, tmp_path: Path) -> None:
+    """Le jour existe : la fiche d'origine n'est pas refusée, ses mots et sa phrase sont à écrire."""
+    chemin = ecrire_brouillon(tmp_path / "brouillons", origine(c="住", roles={"亻": "sens", "主": "son"}))
+    resultat = importer_brouillon(lire_brouillon(chemin), corpus, dossier=tmp_path, horloge=aujourdhui)
+    assert resultat.rapport.conforme
+    assert "fiche d'origine : mots et phrase à écrire pour le jour 5 du parcours lire" in resultat.rapport.ecarts
+    fiche = lire_fiche(tmp_path / "住.json")
+    assert (fiche.parcours, fiche.jour) == ("lire", 5)
+
+
+def test_un_chemin_qui_pose_le_caractere_garde_la_fiche_relue_et_la_relist(table, corpus: Corpus, depot: Path) -> None:
+    """Le chemin s'allonge : la fiche prend son jour sans perdre sa relecture, et `a-rediger` la redemande."""
+    chemin = ecrire_brouillon(depot / "brouillons", origine())
+    importer_brouillon(lire_brouillon(chemin), _corpus_sans_鸟(table), dossier=depot / "fiches")
+    fiches.relire("鸟", RELU, depot / "fiches")
+    (depot / "listes" / "hsk-2.txt").write_text("# test\n鸟\n", encoding="utf-8")
+    options = {"dossier": depot / "fiches", "listes": depot / "listes", "niveau": "2"}
+    assert a_rediger(None, _corpus_sans_鸟(table), **options) == []
+
+    resultat = importer_brouillon(lire_brouillon(chemin), corpus, dossier=depot / "fiches")
+    assert resultat.contexte_change and resultat.rapport.conforme
+    fiche = lire_fiche(depot / "fiches" / "鸟.json")
+    assert (fiche.parcours, fiche.jour, fiche.statut) == ("lire", 6, RELU)
+    assert a_rediger(None, corpus, **options) == ["鸟"]
+
+
+def test_corpora_prend_le_parcours_de_la_fiche_puis_lire_puis_hsk(table, corpus: Corpus) -> None:
+    hsk = _corpus_sans_鸟(table, parcours="hsk")
+    lire = _corpus_sans_鸟(table)
+    deux = fiches.Corpora([lire, hsk])
+    assert deux.contexte("住").parcours == "lire"
+    assert deux.contexte("住", prefere="hsk").parcours == "hsk"
+    assert deux.contexte("鸟").hors_chemin
+    assert fiches.Corpora([lire, corpus]).contexte("鸟").jour == 6  # un seul parcours le pose
+    assert deux.connait("鸟") and "鸟" not in deux
+
+
+def test_a_rediger_par_niveau_suit_l_ordre_de_la_liste(corpus: Corpus, depot: Path) -> None:
+    """`--niveau` : la liste du niveau, dans son ordre, jamais celui des chemins, qui bouge."""
+    (depot / "listes" / "hsk-3.txt").write_text("# test\n住\n鸟\n人\n问\n", encoding="utf-8")
+    options = {"dossier": depot / "fiches", "listes": depot / "listes", "niveau": "3"}
+    assert a_rediger(None, corpus, **options) == ["住", "鸟", "人", "问"]
+    assert a_rediger(None, corpus, lot=1, sur=2, **options) == ["住", "鸟"]
+    with pytest.raises(ValueError, match="niveau"):
+        a_rediger(None, corpus, listes=depot / "listes", niveau="10")
+
+    resultat = CliRunner().invoke(cli, ["fiches", "a-rediger", "--niveau", "3", "--lot", "2", "--sur", "2"])
+    assert resultat.exit_code == 0, resultat.output
+    assert "HSK 3" in resultat.output and resultat.output.strip().endswith("人 问")
+
+
+def test_importer_par_niveau_n_importe_que_son_lot(table, depot: Path, monkeypatch: pytest.MonkeyPatch) -> None:
+    """Des rédacteurs en parallèle : chacun importe les brouillons de son lot, et eux seuls."""
+    monkeypatch.setattr(fiches, "charger_corpus", lambda *a, **k: _corpus_sans_鸟(table))
+    (depot / "listes" / "hsk-2.txt").write_text("# test\n住\n鸟\n", encoding="utf-8")
+    ecrire_brouillon(depot / "brouillons", brouillon())
+    ecrire_brouillon(depot / "brouillons", origine())
+    resultat = CliRunner().invoke(cli, ["fiches", "importer", "--niveau", "2", "--lot", "2", "--sur", "2"])
+    assert resultat.exit_code == 0, resultat.output
+    assert "鸟 : à relire, hors chemin" in resultat.output
+    assert not (depot / "fiches" / "住.json").exists()
+
+
+def test_contexte_hors_chemin_donne_un_squelette_sans_mots_ni_phrase(table, depot: Path, monkeypatch) -> None:
+    monkeypatch.setattr(fiches, "charger_corpus", lambda *a, **k: _corpus_sans_鸟(table))
+    resultat = CliRunner().invoke(cli, ["fiches", "contexte", "鸟"])
+    assert resultat.exit_code == 0, resultat.output
+    assert "== 鸟 (niǎo) — hors chemin" in resultat.output
+    assert "Fiche d'origine" in resultat.output
+    squelette = resultat.output[resultat.output.rindex("Brouillon à écrire"):]
+    assert '"mots"' not in squelette and '"phrase"' not in squelette and '"roles"' in squelette
+
+
+def test_une_fiche_de_chemin_sortie_du_parcours_reste_telle_quelle(table, corpus: Corpus, tmp_path: Path) -> None:
+    """凡 a quitté le parcours : ni revalidée hors chemin, ni réécrite, ni rejetée."""
+    phrase = {"zh": "鸟人。", "pinyin": "Niǎo rén.", "fr": "…", "en": "…"}
+    chemin = ecrire_brouillon(tmp_path / "brouillons", origine(mots=[], phrase=phrase))
+    importer_brouillon(lire_brouillon(chemin), corpus, dossier=tmp_path / "fiches")
+    fiches.relire("鸟", RELU, tmp_path / "fiches")
+    sans = _corpus_sans_鸟(table)
+    assert fiches.contexte_de_fiche(lire_fiche(tmp_path / "fiches" / "鸟.json"), sans) is None
+    with pytest.raises(fiches.CaractereHorsParcours, match="n'est plus posé"):
+        importer_brouillon(lire_brouillon(chemin), sans, dossier=tmp_path / "fiches")
+    assert lire_fiche(tmp_path / "fiches" / "鸟.json").statut == RELU
+    (tmp_path / "seuil-255.txt").write_text("# test\n人\n", encoding="utf-8")
+    validation = next(x for x in fiches.controles(tmp_path / "fiches", corpus=sans, listes=tmp_path) if x.nom == "fiches : validation")
+    assert validation.ok and "1 hors parcours ou sans corpus, non revalidées" in validation.detail
+
+
+def test_check_revalide_une_fiche_d_origine(table, tmp_path: Path) -> None:
+    chemin = ecrire_brouillon(tmp_path / "brouillons", origine())
+    importer_brouillon(lire_brouillon(chemin), _corpus_sans_鸟(table), dossier=tmp_path / "fiches")
+    (tmp_path / "seuil-255.txt").write_text("# test\n人\n", encoding="utf-8")
+    controles = fiches.controles(tmp_path / "fiches", corpus=_corpus_sans_鸟(table), listes=tmp_path)
+    validation = next(x for x in controles if x.nom == "fiches : validation")
+    assert validation.ok and "1 fiches d'origine" in validation.detail

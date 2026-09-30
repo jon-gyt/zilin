@@ -3,7 +3,7 @@
  "license": "propriétaire",
  "source": "décomposition GF 0014-2009 réconciliée par le pipeline wenlu ; pinyin d'Unihan (kMandarin) ; textes rédigés pour l'app",
  "source_url": "https://github.com/jon-gyt/zilin",
- "modified": "2026-09-28 : assemblé par `wenlu export`",
+ "modified": "2026-09-30 : assemblé par `wenlu export`",
  "norme": "GF 0014-2009",
  "racine": {
   "c": "雨",
@@ -73,8 +73,8 @@
    "lectures": [
     "xuě"
    ],
-   "fr": "",
-   "en": "",
+   "fr": "neige",
+   "en": "snow",
    "parts": [
     "雨",
     "彐"
@@ -84,10 +84,13 @@
     "cjk-decomp"
    ],
    "role": null,
-   "roles": {},
-   "origine_fr": "",
-   "origine_en": "",
-   "etiquette": null,
+   "roles": {
+    "彐": "forme",
+    "雨": "sens"
+   },
+   "origine_fr": "Le Shuowen jiezi glose 雪 par « pluie figée » : 雨, la pluie, et 彗, le balai, pour le son. Du balai ne reste que la main du bas, 彐. La pluie en haut, 彐 en bas : la neige qu'on balaie.",
+   "origine_en": "The Shuowen jiezi glosses 雪 as “frozen rain”: 雨, rain, and 彗, the broom, for the sound. Of the broom only the hand at the bottom, 彐, remains. Rain on top, 彐 below: snow that one sweeps away.",
+   "etiquette": "atteste",
    "memo_fr": null,
    "memo_en": null,
    "mots": [],
@@ -96,7 +99,7 @@
    "traits": [],
    "medianes": [],
    "audio": null,
-   "statut": "sans_fiche"
+   "statut": "relu"
   },
   {
    "c": "零",
@@ -104,8 +107,8 @@
    "lectures": [
     "líng"
    ],
-   "fr": "",
-   "en": "",
+   "fr": "zéro, reste, fragment",
+   "en": "zero, remainder, fraction",
    "parts": [
     "雨",
     "人",
@@ -119,22 +122,48 @@
     "cjk-decomp",
     "surcharge"
    ],
-   "role": null,
-   "roles": {},
-   "origine_fr": "",
-   "origine_en": "",
-   "etiquette": null,
+   "role": "son",
+   "roles": {
+    "丶": "son",
+    "人": "son",
+    "雨": "sens",
+    "龴": "son"
+   },
+   "origine_fr": "Le Shuowen jiezi glose 零 par « la pluie qui reste », les dernières gouttes : 雨 pour le sens, 令 pour le son. 令, écrit 人, 丶 et 龴, se lit lìng, la même syllabe que 零, líng. Des gouttes éparses est venu « le reste, le petit appoint », puis « zéro ».",
+   "origine_en": "The Shuowen jiezi glosses 零 as “leftover rain”, the last drops: 雨 for the meaning, 令 for the sound. 令, written 人, 丶 and 龴, is read lìng, the same syllable as 零, líng. From scattered drops came “the remainder, small change”, and then “zero”.",
+   "etiquette": "atteste",
    "memo_fr": null,
    "memo_en": null,
-   "mots": [],
-   "phrase": null,
+   "mots": [
+    {
+     "hanzi": "零下",
+     "pinyin": "língxià",
+     "fr": "au-dessous de zéro",
+     "en": "below zero",
+     "audio": null
+    },
+    {
+     "hanzi": "零用",
+     "pinyin": "língyòng",
+     "fr": "argent de poche ; menues dépenses",
+     "en": "pocket money; petty expenses",
+     "audio": null
+    }
+   ],
+   "phrase": {
+    "hanzi": "我有一百零五元。",
+    "pinyin": "Wǒ yǒu yībǎi líng wǔ yuán.",
+    "fr": "J'ai cent cinq yuans.",
+    "en": "I have one hundred and five yuan.",
+    "audio": null
+   },
    "niveaux": {
     "hsk": 1
    },
    "traits": [],
    "medianes": [],
    "audio": null,
-   "statut": "sans_fiche"
+   "statut": "relu"
   },
   {
    "c": "雷",

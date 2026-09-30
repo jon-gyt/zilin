@@ -3,15 +3,15 @@
  "license": "propriétaire",
  "source": "décomposition GF 0014-2009 réconciliée par le pipeline wenlu ; pinyin d'Unihan (kMandarin) ; textes rédigés pour l'app",
  "source_url": "https://github.com/jon-gyt/zilin",
- "modified": "2026-09-28 : assemblé par `wenlu export`",
+ "modified": "2026-09-30 : assemblé par `wenlu export`",
  "norme": "GF 0014-2009",
  "racine": {
   "c": "牛",
   "pinyin": "niú",
-  "fr": "",
-  "en": "",
-  "origine": "",
-  "etiquette": null
+  "fr": "bœuf, vache",
+  "en": "ox, cow",
+  "origine": "Sur les os oraculaires, 牛 est une tête de bœuf vue de face, avec ses deux cornes. Le Shuowen jiezi y voit les cornes, la tête, la bosse et la queue du grand animal de sacrifice. Les cornes se sont redressées en un trait et un 撇, et la tête est devenue la croix du bas.",
+  "etiquette": "atteste"
  },
  "fiches": [
   {
@@ -20,27 +20,43 @@
    "lectures": [
     "niú"
    ],
-   "fr": "",
-   "en": "",
+   "fr": "bœuf, vache",
+   "en": "ox, cow",
    "parts": [],
    "nouveau": [],
    "sources": [],
    "role": null,
-   "roles": {},
-   "origine_fr": "",
-   "origine_en": "",
-   "etiquette": null,
+   "roles": {
+    "牛": "sens"
+   },
+   "origine_fr": "Sur les os oraculaires, 牛 est une tête de bœuf vue de face, avec ses deux cornes. Le Shuowen jiezi y voit les cornes, la tête, la bosse et la queue du grand animal de sacrifice. Les cornes se sont redressées en un trait et un 撇, et la tête est devenue la croix du bas.",
+   "origine_en": "On oracle bones, 牛 is an ox's head seen from the front, with its two horns. The Shuowen jiezi sees in it the horns, head, hump and tail of the great sacrificial animal. The horns have straightened into a stroke and a falling stroke, and the head has become the cross below.",
+   "etiquette": "atteste",
    "memo_fr": null,
    "memo_en": null,
-   "mots": [],
-   "phrase": null,
+   "mots": [
+    {
+     "hanzi": "牛马",
+     "pinyin": "niúmǎ",
+     "fr": "bêtes de somme",
+     "en": "beasts of burden",
+     "audio": null
+    }
+   ],
+   "phrase": {
+    "hanzi": "牛好大！",
+    "pinyin": "Niú hǎo dà!",
+    "fr": "Que ce bœuf est grand !",
+    "en": "What a big ox!",
+    "audio": null
+   },
    "niveaux": {
     "hsk": 1
    },
    "traits": [],
    "medianes": [],
    "audio": null,
-   "statut": "sans_fiche"
+   "statut": "relu"
   }
  ]
 }

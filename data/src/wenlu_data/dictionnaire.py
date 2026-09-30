@@ -100,6 +100,40 @@ def sens_exporte(sens: Mapping[str, object] | None) -> dict[str, object] | None:
     return {"statut": RELU, "glose": glose, "acceptions": acceptions}
 
 
+#: Les deux étiquettes d'une origine : jamais l'une pour l'autre, jamais une étiquette sans texte.
+ETIQUETTES = ("atteste", "mnemotechnique")
+ROLES = ("son", "sens", "forme")
+
+
+def origine_exportee(
+    origine: Mapping[str, object] | None, parts: Sequence[str] | None
+) -> dict[str, object] | None:
+    """L'origine d'un caractère telle qu'elle s'exporte : celle d'une fiche relue, ou rien.
+
+    Forme (`data/schema.md`, « Le dictionnaire ») : `{statut, etiquette, fr, en, roles}`.
+    `origine` porte les champs de la fiche (`statut`, `etiquette`, `origine_fr`,
+    `origine_en`, `roles`, `composants`). Une fiche qui n'est pas relue, sans texte ou
+    sans étiquette ne donne rien : la fiche dit « origine à venir ». Les rôles ne passent
+    que si la fiche décompose comme le dictionnaire (`parts`), un rôle par brique ;
+    sinon `{}`.
+    """
+    if not origine or origine.get("statut") != RELU:
+        return None
+    fr = str(origine.get("origine_fr") or "").strip()
+    en = str(origine.get("origine_en") or "").strip()
+    etiquette = str(origine.get("etiquette") or "")
+    if not fr or etiquette not in ETIQUETTES:
+        return None
+    roles_bruts = origine.get("roles") or {}
+    composants = [str(x) for x in (origine.get("composants") or ())]  # type: ignore[union-attr]
+    roles: dict[str, str] = {}
+    if parts and composants == list(parts) and isinstance(roles_bruts, Mapping):
+        roles = {str(p): str(roles_bruts[p]) for p in parts if roles_bruts.get(p) in ROLES}
+        if len(roles) != len(set(parts)):
+            roles = {}
+    return {"statut": RELU, "etiquette": etiquette, "fr": fr, "en": en, "roles": roles}
+
+
 def exemples_exportes(exemples: Iterable[Mapping[str, object]] | None) -> list[dict[str, object]]:
     """Les phrases d'exemple relues d'une entrée : `{zh, pinyin, fr, statut}`, rien d'autre."""
     return [
@@ -204,14 +238,17 @@ def entree_caractere(
     jours: Mapping[str, Mapping[str, int]],
     sens: Mapping[str, object] | None,
     exemples: Sequence[Mapping[str, object]] | None,
+    origine: Mapping[str, object] | None = None,
 ) -> dict[str, object]:
     decomposition: dict[str, object] | None = None
+    parts: list[str] | None = None
     if c.c in reconcilies and c.c in decompositions:
         d = decompositions[c.c]
         composants = [str(x) for x in (d.get("composants") or [])]
+        parts = [] if composants in ([], [c.c]) else composants
         decomposition = {
             "norme": "GF 0014-2009",
-            "parts": [] if composants in ([], [c.c]) else composants,
+            "parts": parts,
             "sources": [str(s) for s in (d.get("sources") or [])],
         }
     return {
@@ -224,6 +261,7 @@ def entree_caractere(
         "chemin": dict(sorted(jours.get(c.c, {}).items())),
         "sens": sens_exporte(sens),  # type: ignore[arg-type]
         "exemples": exemples_exportes(exemples),
+        "origine": origine_exportee(origine, parts),
     }
 
 
@@ -290,15 +328,18 @@ def documents(
     sens: Mapping[str, Mapping[str, object]] | None = None,
     exemples: Mapping[str, Sequence[Mapping[str, object]]] | None = None,
     decoupes: Iterable[str] = (),
+    origines: Mapping[str, Mapping[str, object]] | None = None,
 ) -> dict[str, str]:
     """Les fichiers du dictionnaire, par chemin relatif au dossier de version.
 
     `sens` et `exemples` : par identifiant d'entrée (le caractère, ou l'`id` du mot) ; vides
     tant que la story des sens ne les écrit pas. `traits_en_tete` : l'en-tête APL des
-    fichiers de traits, sans la clé `traits`.
+    fichiers de traits, sans la clé `traits`. `origines` : les fiches du circuit des
+    fiches (`data/sources/fiches/`), par caractère ; seules les relues s'exportent.
     """
     sens = sens or {}
     exemples = exemples or {}
+    origines = origines or {}
     decoupes = set(decoupes)
 
     def traits(table: Mapping[str, object]) -> str:
@@ -321,6 +362,7 @@ def documents(
 
     lots_c = lotir(caracteres, TAILLE_LOT_CARACTERES)
     lot_de_c: dict[str, int] = {}
+    origines_relues = 0
     for n, lot in lots_c.items():
         entrees = {}
         for c in lot:
@@ -334,7 +376,10 @@ def documents(
                 jours=jours,
                 sens=sens.get(c.c),
                 exemples=exemples.get(c.c),
+                origine=origines.get(c.c),
             )
+            if entrees[c.c]["origine"] is not None:
+                origines_relues += 1
         textes[MODELE_CARACTERES.format(lot=n)] = _compact({**tete, "lot": n, "entrees": entrees})
         textes[MODELE_TRAITS.format(lot=n)] = traits(
             {c.c: graphies[c.c] for c in lot if isinstance(c, Caractere) and c.c in graphies}
@@ -381,6 +426,7 @@ def documents(
             "caracteres": len(caracteres),
             "mots": len(mots),
             "sens_relus": sum(1 for x in [*(c.c for c in caracteres), *(m.id for m in mots)] if glose(x)),
+            "origines_relues": origines_relues,
             "lots_caracteres": len(lots_c),
             "lots_mots": len(lots_m),
             "lots_traits": len(lots_c) + len(set(traits_hors.values())),
@@ -411,6 +457,7 @@ def fautes(dossier: Path, *, caracteres_attendus: int, mots_attendus: int) -> tu
     lots: list[str] = []
     traits: list[str] = []
     sens: list[str] = []
+    origines = 0
     rows_c = index.get("caracteres") or []
     rows_m = index.get("mots") or []
     if len(rows_c) != caracteres_attendus:
@@ -444,6 +491,13 @@ def fautes(dossier: Path, *, caracteres_attendus: int, mots_attendus: int) -> tu
                 sens.append(f"{ident} : glose de l'index {g!r} sans sens relu identique")
             if any(e.get("statut") != RELU for e in entree.get("exemples") or ()):
                 sens.append(f"{ident} : exemple non relu")
+            o = entree.get("origine")
+            if o is not None:
+                origines += 1
+                if o.get("statut") != RELU or not str(o.get("fr") or "").strip():
+                    sens.append(f"{ident} : origine {o.get('statut')!r}")
+                if o.get("etiquette") not in ETIQUETTES:
+                    sens.append(f"{ident} : origine d'étiquette {o.get('etiquette')!r}")
             if genre == "caracteres":
                 t = str(fichiers.get("traits", "")).format(lot=lot)
                 attendus.add(t)
@@ -458,7 +512,12 @@ def fautes(dossier: Path, *, caracteres_attendus: int, mots_attendus: int) -> tu
     presents |= {str(f.relative_to(dossier)) for f in (dossier / "traits").glob("dico-*.json")}
     lots += [f"{r} : hors de l'index" for r in sorted(presents - attendus)]
     lots += [f"{r} : absent, l'index y renvoie" for r in sorted(attendus - presents)]
-    compte = {"caracteres": len(rows_c), "mots": len(rows_m), "sens": sum(1 for r in [*rows_c, *rows_m] if r[-1])}
+    compte = {
+        "caracteres": len(rows_c),
+        "mots": len(rows_m),
+        "sens": sum(1 for r in [*rows_c, *rows_m] if r[-1]),
+        "origines": origines,
+    }
     return lots, traits, sens, compte
 
 
@@ -503,7 +562,8 @@ def controles(destination: Path | None = None, *, listes: Path | None = None) ->
         Controle(
             "dico : sens relus seulement",
             not f_sens,
-            f"{c['sens']} gloses relues dans l'index ; aucun sens ni exemple non relu"
+            f"{c['sens']} gloses relues dans l'index, {c['origines']} origines relues ;"
+            " aucun sens, exemple ni origine non relus"
             if not f_sens
             else f"{len(f_sens)} écarts — " + " ; ".join(f_sens[:5]),
             bloquant=True,

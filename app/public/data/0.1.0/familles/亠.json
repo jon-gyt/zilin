@@ -3,7 +3,7 @@
  "license": "propriétaire",
  "source": "décomposition GF 0014-2009 réconciliée par le pipeline wenlu ; pinyin d'Unihan (kMandarin) ; textes rédigés pour l'app",
  "source_url": "https://github.com/jon-gyt/zilin",
- "modified": "2026-09-28 : assemblé par `wenlu export`",
+ "modified": "2026-09-30 : assemblé par `wenlu export`",
  "norme": "GF 0014-2009",
  "racine": {
   "c": "亠",
@@ -118,8 +118,8 @@
    "lectures": [
     "yè"
    ],
-   "fr": "",
-   "en": "",
+   "fr": "nuit",
+   "en": "night",
    "parts": [
     "亠",
     "亻",
@@ -130,10 +130,14 @@
     "surcharge"
    ],
    "role": null,
-   "roles": {},
-   "origine_fr": "",
-   "origine_en": "",
-   "etiquette": null,
+   "roles": {
+    "⿴夂丶": "sens",
+    "亠": "forme",
+    "亻": "forme"
+   },
+   "origine_fr": "Le Shuowen jiezi glose 夜 par « le repos de tous » : 夕, le soir, et 亦 abrégé pour le son. On lit 亠 et 亻, le haut de 亦, puis le bas, que la norme appelle 夜下角. Quand tout le monde se repose, c'est la nuit.",
+   "origine_en": "The Shuowen jiezi glosses 夜 as “when all rest”: 夕, evening, and a shortened 亦 for the sound. You read 亠 and 亻, the top of 亦, then the lower part, which the standard calls 夜下角. When everyone rests, it is night.",
+   "etiquette": "atteste",
    "memo_fr": null,
    "memo_en": null,
    "mots": [],
@@ -142,7 +146,7 @@
    "traits": [],
    "medianes": [],
    "audio": null,
-   "statut": "sans_fiche"
+   "statut": "relu"
   }
  ]
 }

@@ -3,7 +3,7 @@
  "license": "propriétaire",
  "source": "décomposition GF 0014-2009 réconciliée par le pipeline wenlu ; pinyin d'Unihan (kMandarin) ; textes rédigés pour l'app",
  "source_url": "https://github.com/jon-gyt/zilin",
- "modified": "2026-09-28 : assemblé par `wenlu export`",
+ "modified": "2026-09-30 : assemblé par `wenlu export`",
  "norme": "GF 0014-2009",
  "racine": {
   "c": "丁",
@@ -187,8 +187,8 @@
    "lectures": [
     "gē"
    ],
-   "fr": "",
-   "en": "",
+   "fr": "chanson, chanter",
+   "en": "song, to sing",
    "parts": [
     "丁",
     "口",
@@ -204,22 +204,47 @@
     "cjk-decomp",
     "surcharge"
    ],
-   "role": null,
-   "roles": {},
-   "origine_fr": "",
-   "origine_en": "",
-   "etiquette": null,
+   "role": "son",
+   "roles": {
+    "丁": "son",
+    "口": "son",
+    "欠": "sens"
+   },
+   "origine_fr": "Le Shuowen jiezi analyse 歌 en 欠, la bouche ouverte, pour le sens, et 哥 pour le son. 哥, écrit deux fois 可, se lit gē, la même syllabe que 歌. La bouche qui s'ouvre et le son de 哥 : c'est chanter, puis la chanson.",
+   "origine_en": "The Shuowen jiezi analyses 歌 as 欠, the open mouth, for the meaning, and 哥 for the sound. 哥, written as two 可, is read gē, the same syllable as 歌. An open mouth and the sound of 哥: singing, and then a song.",
+   "etiquette": "atteste",
    "memo_fr": null,
    "memo_en": null,
-   "mots": [],
-   "phrase": null,
+   "mots": [
+    {
+     "hanzi": "歌手",
+     "pinyin": "gēshǒu",
+     "fr": "chanteur",
+     "en": "singer",
+     "audio": null
+    },
+    {
+     "hanzi": "儿歌",
+     "pinyin": "érgē",
+     "fr": "comptine",
+     "en": "nursery rhyme",
+     "audio": null
+    }
+   ],
+   "phrase": {
+    "hanzi": "她是歌手。",
+    "pinyin": "Tā shì gēshǒu.",
+    "fr": "Elle est chanteuse.",
+    "en": "She is a singer.",
+    "audio": null
+   },
    "niveaux": {
     "hsk": 1
    },
    "traits": [],
    "medianes": [],
    "audio": null,
-   "statut": "sans_fiche"
+   "statut": "relu"
   }
  ]
 }

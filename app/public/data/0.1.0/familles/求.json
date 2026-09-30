@@ -3,15 +3,15 @@
  "license": "propriétaire",
  "source": "décomposition GF 0014-2009 réconciliée par le pipeline wenlu ; pinyin d'Unihan (kMandarin) ; textes rédigés pour l'app",
  "source_url": "https://github.com/jon-gyt/zilin",
- "modified": "2026-09-25 : assemblé par `wenlu export`",
+ "modified": "2026-09-30 : assemblé par `wenlu export`",
  "norme": "GF 0014-2009",
  "racine": {
   "c": "求",
   "pinyin": "qiú",
-  "fr": "",
-  "en": "",
-  "origine": "",
-  "etiquette": null
+  "fr": "demander, rechercher",
+  "en": "to ask for, to seek",
+  "origine": "Le Shuowen jiezi donne 求 comme l'ancienne forme de 裘 : un manteau de fourrure, poils dehors. Emprunté pour « demander, chercher », il a laissé la fourrure à 裘, qui ajoute 衣. Il donne encore son son à 球, qiú.",
+  "etiquette": "atteste"
  },
  "fiches": [
   {
@@ -20,25 +20,48 @@
    "lectures": [
     "qiú"
    ],
-   "fr": "",
-   "en": "",
+   "fr": "demander, rechercher",
+   "en": "to ask for, to seek",
    "parts": [],
    "nouveau": [],
    "sources": [],
    "role": null,
-   "roles": {},
-   "origine_fr": "",
-   "origine_en": "",
-   "etiquette": null,
+   "roles": {
+    "求": "forme"
+   },
+   "origine_fr": "Le Shuowen jiezi donne 求 comme l'ancienne forme de 裘 : un manteau de fourrure, poils dehors. Emprunté pour « demander, chercher », il a laissé la fourrure à 裘, qui ajoute 衣. Il donne encore son son à 球, qiú.",
+   "origine_en": "The Shuowen jiezi gives 求 as the old form of 裘: a fur coat, fur side out. Borrowed for “to ask, to seek”, it left the fur to 裘, which adds 衣. It still lends its sound to 球, qiú.",
+   "etiquette": "atteste",
    "memo_fr": null,
    "memo_en": null,
-   "mots": [],
-   "phrase": null,
+   "mots": [
+    {
+     "hanzi": "请求",
+     "pinyin": "qǐngqiú",
+     "fr": "demander ; requête",
+     "en": "to request; request",
+     "audio": null
+    },
+    {
+     "hanzi": "求学",
+     "pinyin": "qiúxué",
+     "fr": "faire des études",
+     "en": "to pursue one's studies",
+     "audio": null
+    }
+   ],
+   "phrase": {
+    "hanzi": "我求你帮我。",
+    "pinyin": "Wǒ qiú nǐ bāng wǒ.",
+    "fr": "Je te prie de m'aider.",
+    "en": "I beg you to help me.",
+    "audio": null
+   },
    "niveaux": {},
    "traits": [],
    "medianes": [],
    "audio": null,
-   "statut": "sans_fiche"
+   "statut": "relu"
   }
  ]
 }

@@ -42,6 +42,15 @@ celle du brouillon.
 
 Sortie : `data/sources/fiches/<c>.json`, versionné (format dans `data/schema.md`) ;
 journal des lots, état de travail hors dépôt, dans `data/work/fiches/lots/<lot>.json`.
+
+Fiche d'origine (stories 10.11 et 1.4) : un caractère des 3 000 du HSK qu'aucun chemin ne
+pose encore n'a pas de jour, donc ni acquis ni mots candidats. Sa fiche, au même format et
+dans le même circuit, ne porte que ce que le dictionnaire lit : l'origine, l'étiquette, les
+rôles et le sens ; ni mots ni phrase (`parcours` vide, `jour` 0). Le jour où un chemin pose
+le caractère, la même fiche se complète : `valider()` signale alors les mots et la phrase à
+écrire pour ce jour-là (un écart, pas un rejet), et `a-rediger` la relist. Les commandes
+de rédaction trouvent seules le contexte d'un caractère : son jour sur le parcours de sa
+fiche, sinon sur `lire`, sinon sur `hsk`, sinon hors chemin (`Corpora`).
 """
 from __future__ import annotations
 
@@ -101,6 +110,15 @@ LOTS_WORK = WORK / "fiches" / "lots"
 SEUIL_RELECTURE = 255
 
 PARCOURS = ("lire", "hsk")
+
+#: Le parcours d'une fiche d'origine : aucun chemin ne pose encore le caractère.
+HORS_CHEMIN = ""
+
+#: `--parcours auto` : le parcours de la fiche déjà écrite, sinon lire, sinon hsk, sinon hors chemin.
+AUTO = "auto"
+
+#: Les listes du dictionnaire, dont chaque caractère peut avoir sa fiche d'origine.
+LISTES_DICTIONNAIRE = ("hsk-1", "hsk-2", "hsk-3", "hsk-4", "hsk-5", "hsk-6", "hsk-7-9")
 
 ROLES = ("son", "sens", "forme")
 ETIQUETTES = ("atteste", "mnemotechnique")
@@ -177,6 +195,11 @@ class Contexte:
     def formes(self) -> tuple[str, ...]:
         return tuple(e.forme for e in self.elements)
 
+    @property
+    def hors_chemin(self) -> bool:
+        """Aucun chemin ne pose le caractère : ni jour, ni acquis, ni mots candidats."""
+        return self.parcours == HORS_CHEMIN
+
 
 def _pinyin_de_nom_propre(pinyin: str) -> bool:
     """Vrai si le pinyin CC-CEDICT est capitalisé : nom propre, patronyme, toponyme.
@@ -206,10 +229,14 @@ class Corpus:
         max_candidats: int = MAX_CANDIDATS,
         exclus: Collection[str] = (),
         depart: Sequence[str] = (),
+        dictionnaire: Collection[str] = (),
     ) -> None:
         if parcours not in PARCOURS:
             raise ParcoursInconnu(f"parcours {parcours!r} inconnu : {', '.join(PARCOURS)}")
         self.parcours = parcours
+        #: Les caractères du dictionnaire (les 3 000 du HSK) : hors du chemin, leur fiche
+        #: d'origine s'écrit quand même (`contexte_hors_chemin`).
+        self.dictionnaire = frozenset(dictionnaire)
         self.decompositions = decompositions
         self.noeuds = noeuds
         self.caracteres = caracteres
@@ -248,7 +275,12 @@ class Corpus:
         ]
 
     def __contains__(self, c: object) -> bool:
+        """Vrai si le parcours pose `c` : il a un jour, un acquis, des mots candidats."""
         return c in self._jour
+
+    def connait(self, c: str) -> bool:
+        """Vrai si `c` a un contexte : posé par le parcours, ou dans le dictionnaire."""
+        return c in self._jour or c in self.dictionnaire
 
     def jour(self, c: str) -> int:
         try:
@@ -256,6 +288,7 @@ class Corpus:
         except KeyError as erreur:
             raise CaractereHorsParcours(
                 f"{c} n'est pas posé par le parcours {self.parcours}"
+                + (" ni dans les caractères du dictionnaire" if self.dictionnaire else "")
             ) from erreur
 
     def acquis(self, c: str) -> tuple[str, ...]:
@@ -299,9 +332,29 @@ class Corpus:
             elements.append(Element(forme=forme, nom=nom, role_probable=role))
         return tuple(elements)
 
-    def contexte(self, c: str) -> Contexte:
-        """Assemble le contexte factuel d'une fiche."""
-        jour = self.jour(c)
+    def contexte(self, c: str, *, prefere: str | None = None) -> Contexte:
+        """Assemble le contexte factuel d'une fiche : son jour, ou hors chemin.
+
+        Un caractère que le parcours ne pose pas, mais qui est dans le dictionnaire, a le
+        contexte d'une fiche d'origine (`contexte_hors_chemin`). `prefere` sert à
+        `Corpora` ; un seul parcours n'a rien à choisir.
+        """
+        if c not in self._jour and c in self.dictionnaire:
+            return self.contexte_hors_chemin(c)
+        return self._contexte(c, self.parcours, self.jour(c), self.acquis(c), self.candidats(c))
+
+    def contexte_hors_chemin(self, c: str) -> Contexte:
+        """Le contexte d'une fiche d'origine : les faits du caractère, sans jour ni acquis."""
+        return self._contexte(c, HORS_CHEMIN, 0, (), ())
+
+    def _contexte(
+        self,
+        c: str,
+        parcours: str,
+        jour: int,
+        acquis: tuple[str, ...],
+        candidats: tuple[MotCandidat, ...],
+    ) -> Contexte:
         decomposition = self.decompositions.get(c) or {}
         noeud = self.noeuds.get(c) or {}
         caractere = self.caracteres.get(c) or {}
@@ -311,7 +364,7 @@ class Corpus:
         indice = etymologie.get("hint")
         return Contexte(
             c=c,
-            parcours=self.parcours,
+            parcours=parcours,
             jour=jour,
             pinyin=tuple(str(p) for p in (caractere.get("pinyin") or ())),
             structure=str(decomposition.get("structure") or c),
@@ -321,9 +374,61 @@ class Corpus:
             elements=self.elements(c),
             type_etymologie=str(etymologie.get("type")) if etymologie.get("type") else None,
             indice_en=str(indice) if indice else None,
-            acquis=self.acquis(c),
-            candidats=self.candidats(c),
+            acquis=acquis,
+            candidats=candidats,
         )
+
+
+class Corpora:
+    """Les deux parcours ensemble : chaque caractère prend le contexte qui lui revient.
+
+    Dans cet ordre : le parcours préféré (celui de la fiche déjà écrite) s'il pose le
+    caractère ; sinon le premier parcours qui le pose (lire, puis hsk) ; sinon, s'il est
+    dans le dictionnaire, le contexte d'une fiche d'origine, hors chemin. Même interface
+    que `Corpus` pour ce que la rédaction en lit.
+    """
+
+    parcours = AUTO
+
+    def __init__(self, corpora: Sequence[Corpus]) -> None:
+        if not corpora:
+            raise ParcoursInconnu("aucun parcours")
+        self.corpora = tuple(corpora)
+
+    def __contains__(self, c: object) -> bool:
+        return any(c in k for k in self.corpora)
+
+    def connait(self, c: str) -> bool:
+        return any(k.connait(c) for k in self.corpora)
+
+    @property
+    def ordre(self) -> tuple[str, ...]:
+        """Les caractères des parcours, dans l'ordre du premier, puis ceux que seul un autre pose."""
+        return tuple(dict.fromkeys(c for k in self.corpora for c in k.ordre))
+
+    @property
+    def caracteres(self) -> Mapping[str, Mapping[str, object]]:
+        return self.corpora[0].caracteres
+
+    @property
+    def exclus(self) -> frozenset[str]:
+        return self.corpora[0].exclus
+
+    def contexte(self, c: str, *, prefere: str | None = None) -> Contexte:
+        ordre = sorted(self.corpora, key=lambda k: k.parcours != prefere)
+        for k in ordre:
+            if c in k:
+                return k.contexte(c)
+        for k in ordre:
+            if k.connait(c):
+                return k.contexte_hors_chemin(c)
+        noms = " ni ".join(dict.fromkeys(k.parcours for k in self.corpora))
+        raise CaractereHorsParcours(
+            f"{c} n'est pas posé par le parcours {noms} ni dans les caractères du dictionnaire"
+        )
+
+    def acquis(self, c: str) -> tuple[str, ...]:
+        return self.contexte(c).acquis
 
 
 def _lire_json(chemin: Path) -> object:
@@ -346,12 +451,14 @@ def charger_corpus(
     build: Path | None = None,
     ingest: Path | None = None,
     table: TableGF0014 | None = None,
+    listes: Path | None = None,
 ) -> Corpus:
     """Charge le corpus depuis `data/work/build/` et `data/work/ingest/`.
 
     Deux surcharges versionnées s'y appliquent : le pinyin de
     `data/sources/surcharges/pinyin.tsv` remplace celui de Make Me a Hanzi, et les
-    mots de `data/sources/mots-exclus.tsv` ne sont jamais candidats.
+    mots de `data/sources/mots-exclus.tsv` ne sont jamais candidats. Les caractères du
+    dictionnaire sont ceux des listes `hsk-*.txt` (`data/sources/listes/`).
     """
     if parcours not in PARCOURS:
         raise ParcoursInconnu(f"parcours {parcours!r} inconnu : {', '.join(PARCOURS)}")
@@ -377,7 +484,24 @@ def charger_corpus(
         table=table or charger_table(),
         exclus=charger_mots_exclus(),
         depart=[str(c) for c in (chemin_parcours.get("depart") or [])],
+        dictionnaire=caracteres_du_dictionnaire(listes),
     )
+
+
+def caracteres_du_dictionnaire(listes: Path | None = None) -> list[str]:
+    """Les caractères des listes `hsk-*.txt`, niveau par niveau ; une liste absente n'en donne aucun."""
+    dossier = listes or LISTES
+    out: list[str] = []
+    for nom in LISTES_DICTIONNAIRE:
+        chemin = dossier / f"{nom}.txt"
+        if chemin.exists():
+            out.extend(charger_liste(chemin))
+    return list(dict.fromkeys(out))
+
+
+def charger_corpora(**options: object) -> Corpora:
+    """Les deux parcours (lire, puis hsk), pour les commandes qui trouvent seules le contexte."""
+    return Corpora([charger_corpus(p, **options) for p in PARCOURS])  # type: ignore[arg-type]
 
 
 # --------------------------------------------------------------------------- invite
@@ -566,6 +690,10 @@ class Phrase:
     pinyin: str
     fr: str
     en: str
+
+
+#: La phrase d'une fiche d'origine : aucune.
+PHRASE_VIDE = Phrase(zh="", pinyin="", fr="", en="")
 
 
 @dataclass(frozen=True)
@@ -840,6 +968,29 @@ class Rapport:
         return not self.refus
 
 
+def contexte_de_fiche(fiche: Fiche, corpus: Corpus | Corpora) -> Contexte | None:
+    """Le contexte contre lequel revalider une fiche écrite ; `None` s'il n'y en a pas.
+
+    Pas de contexte pour un caractère inconnu du corpus, ni pour une fiche de chemin que
+    son parcours ne pose plus (凡, sorti du parcours lire le 28 septembre 2026) : ses mots
+    et sa phrase ont été validés contre un jour qui n'existe plus, et aucun autre ne les
+    relit. Elle reste telle quelle, non revalidée, comme avant les fiches d'origine.
+    """
+    if not corpus.connait(fiche.c):
+        return None
+    contexte = corpus.contexte(fiche.c, prefere=fiche.parcours)
+    if contexte.hors_chemin and fiche.parcours in PARCOURS and not origine_seule(fiche):
+        return None
+    return contexte
+
+
+def origine_seule(fiche: Fiche) -> bool:
+    """Vrai pour une fiche d'origine : ni mots ni phrase, rien que l'origine, l'étiquette et les rôles."""
+    return not fiche.mots and not any(
+        x.strip() for x in (fiche.phrase.zh, fiche.phrase.pinyin, fiche.phrase.fr, fiche.phrase.en)
+    )
+
+
 def valider(fiche: Fiche, contexte: Contexte) -> Rapport:
     """Contrôle strict : trois phrases, étiquette, sens court, mots candidats, phrase sans intrus.
 
@@ -847,9 +998,16 @@ def valider(fiche: Fiche, contexte: Contexte) -> Rapport:
     des écarts signalés à la relecture, pas des rejets. Une fiche peut prendre
     moins de mots qu'il n'y a de candidats : un mot rare ou douteux ne s'impose
     jamais faute de mieux ; le manque se voit à la relecture.
+
+    Hors chemin (`contexte.hors_chemin`), la fiche est une fiche d'origine : des mots ou
+    une phrase la font refuser, puisqu'aucun jour ne dit ce qui est lisible. Sur un
+    chemin, une fiche d'origine n'est pas refusée : ses mots et sa phrase, à écrire pour
+    ce jour-là, sont un écart.
     """
     refus: list[str] = []
     ecarts: list[str] = []
+    intrus: list[str] = []
+    hors: list[str] = []
 
     for nom, texte in (("origine_fr", fiche.origine_fr), ("origine_en", fiche.origine_en)):
         compte = compter_phrases(texte)
@@ -864,6 +1022,42 @@ def valider(fiche: Fiche, contexte: Contexte) -> Rapport:
     if absents:
         ecarts.append(f"sens absent : {', '.join(absents)}")
 
+    if contexte.hors_chemin:
+        if not origine_seule(fiche):
+            refus.append(
+                "mots ou phrase hors chemin : aucun jour ne pose encore ce caractère ;"
+                " ils s'écriront pour le jour où un chemin le posera"
+            )
+    elif origine_seule(fiche):
+        ecarts.append(
+            f"fiche d'origine : mots et phrase à écrire pour le jour {contexte.jour}"
+            f" du parcours {contexte.parcours}"
+        )
+    else:
+        hors, intrus = _valider_mots_et_phrase(fiche, contexte, refus, ecarts)
+
+    ecarts.extend(_ecarts_de_roles(fiche, contexte))
+    return Rapport(refus=refus, intrus=intrus, mots_hors_candidats=hors, ecarts=ecarts)
+
+
+def _ecarts_de_roles(fiche: Fiche, contexte: Contexte) -> list[str]:
+    ecarts: list[str] = []
+    manquants = [f for f in contexte.formes if f not in fiche.roles]
+    if manquants:
+        ecarts.append(f"rôle absent pour {' '.join(manquants)}")
+    superflus = [f for f in fiche.roles if f not in set(contexte.formes)]
+    if superflus:
+        ecarts.append(f"rôle sur des composants hors décomposition : {' '.join(superflus)}")
+    inconnus = sorted({r for r in fiche.roles.values() if r not in ROLES})
+    if inconnus:
+        ecarts.append(f"rôles inconnus : {' '.join(inconnus)}")
+    return ecarts
+
+
+def _valider_mots_et_phrase(
+    fiche: Fiche, contexte: Contexte, refus: list[str], ecarts: list[str]
+) -> tuple[list[str], list[str]]:
+    """Les mots et la phrase d'une fiche de chemin, contre l'acquis de son jour : (hors candidats, intrus)."""
     candidats = {m.hanzi for m in contexte.candidats}
     hors = [m.hanzi for m in fiche.mots if m.hanzi not in candidats]
     if hors:
@@ -889,15 +1083,6 @@ def valider(fiche: Fiche, contexte: Contexte) -> Rapport:
     if not any(est_sinogramme(c) for c in fiche.phrase.zh):
         refus.append("phrase vide")
 
-    manquants = [f for f in contexte.formes if f not in fiche.roles]
-    if manquants:
-        ecarts.append(f"rôle absent pour {' '.join(manquants)}")
-    superflus = [f for f in fiche.roles if f not in set(contexte.formes)]
-    if superflus:
-        ecarts.append(f"rôle sur des composants hors décomposition : {' '.join(superflus)}")
-    inconnus = sorted({r for r in fiche.roles.values() if r not in ROLES})
-    if inconnus:
-        ecarts.append(f"rôles inconnus : {' '.join(inconnus)}")
     if contexte.c not in fiche.phrase.zh:
         ecarts.append("la phrase n'emploie pas le caractère du jour")
     vides = [
@@ -908,8 +1093,7 @@ def valider(fiche: Fiche, contexte: Contexte) -> Rapport:
     vides += [f"mot {m.hanzi}" for m in fiche.mots if not m.fr.strip() or not m.en.strip()]
     if vides:
         ecarts.append(f"traduction vide : {', '.join(vides)}")
-
-    return Rapport(refus=refus, intrus=intrus, mots_hors_candidats=hors, ecarts=ecarts)
+    return hors, intrus
 
 
 # --------------------------------------------------------------------------- client
@@ -1166,7 +1350,10 @@ MODELE_MANUEL = "rédaction manuelle"
 #: Fiches à relire, rassemblées pour une page de relecture. Hors dépôt.
 RELECTURE = WORK / "relecture.json"
 
-CHAMPS_OBLIGATOIRES = ("c", "origine_fr", "origine_en", "etiquette", "roles", "mots", "phrase")
+CHAMPS_OBLIGATOIRES = ("c", "origine_fr", "origine_en", "etiquette", "roles")
+#: Les mots et la phrase : ceux d'un jour de chemin. Une fiche d'origine, hors chemin, n'en a
+#: pas ; absents, ils valent `[]` et une phrase vide (`origine_seule`).
+CHAMPS_DU_CHEMIN = ("mots", "phrase")
 CHAMPS_FACULTATIFS = ("memo_fr", "memo_en")
 #: Le sens : un texte, facultatif dans un brouillon (vide s'il manque), exigé d'une
 #: fiche relue (`relire`, `controles`).
@@ -1256,9 +1443,14 @@ def brouillon_depuis_json(document: object, *, empreinte: str, nom: str | None =
     c = str(document.get("c") or c)
     problemes: list[str] = []
     manquants = [k for k in CHAMPS_OBLIGATOIRES if k not in document]
+    # Les mots et la phrase vont ensemble : tous deux (fiche de chemin), ou aucun (fiche d'origine).
+    if any(k in document for k in CHAMPS_DU_CHEMIN):
+        manquants += [k for k in CHAMPS_DU_CHEMIN if k not in document]
     if manquants:
         problemes.append(f"champ manquant : {', '.join(manquants)}")
-    inconnus = [k for k in document if k not in CHAMPS_OBLIGATOIRES + CHAMPS_FACULTATIFS + CHAMPS_SENS]
+    inconnus = [
+        k for k in document if k not in CHAMPS_OBLIGATOIRES + CHAMPS_DU_CHEMIN + CHAMPS_FACULTATIFS + CHAMPS_SENS
+    ]
     if inconnus:
         problemes.append(f"champ inconnu : {', '.join(inconnus)}")
     if nom is not None and "c" in document and document["c"] != nom:
@@ -1292,11 +1484,10 @@ def brouillon_depuis_json(document: object, *, empreinte: str, nom: str | None =
                 if lu is not None:
                     mots.append(Mot(**lu))
 
-    phrase: Phrase | None = None
+    phrase: Phrase | None = PHRASE_VIDE
     if "phrase" in document:
         lu = _textes(document["phrase"], ("zh", "pinyin", "fr", "en"), "phrase", problemes)
-        if lu is not None:
-            phrase = Phrase(**lu)
+        phrase = Phrase(**lu) if lu is not None else None
 
     if problemes or phrase is None:
         raise BrouillonInvalide(c, problemes or ["phrase illisible"])
@@ -1395,7 +1586,7 @@ def _faits(fiche: Fiche) -> tuple[object, ...]:
 
 def importer_brouillon(
     brouillon: Brouillon,
-    corpus: Corpus,
+    corpus: Corpus | Corpora,
     *,
     dossier: Path | None = None,
     horloge: Callable[[], str] = _aujourdhui,
@@ -1411,9 +1602,21 @@ def importer_brouillon(
     ni à sa traçabilité. Le jour seul ne défait pas une relecture ; un pinyin ou une
     décomposition changés, si : ce que la relecture a validé n'est plus le même.
     """
-    contexte = corpus.contexte(brouillon.c)
     chemin = chemin_fiche(brouillon.c, dossier)
     precedente = lire_fiche(chemin) if chemin.exists() else None
+    contexte = corpus.contexte(brouillon.c, prefere=precedente.parcours if precedente else None)
+    if (
+        contexte.hors_chemin
+        and precedente is not None
+        and precedente.parcours in PARCOURS
+        and (brouillon.mots or brouillon.phrase.zh.strip())
+    ):
+        # Une fiche de chemin que son parcours ne pose plus : rien ne relit ses mots ni
+        # sa phrase, elle reste telle quelle (voir `contexte_de_fiche`).
+        raise CaractereHorsParcours(
+            f"{brouillon.c} n'est plus posé par le parcours {precedente.parcours} :"
+            " sa fiche de chemin reste telle quelle"
+        )
     manuelle = precedente is not None and precedente.generation.api == API_SESSION
     fiche = fiche_depuis_brouillon(
         brouillon,
@@ -1490,13 +1693,20 @@ faute de mieux ;
 - la phrase emploie le caractère du jour ;
 - traductions fr et en non vides.
 memo_fr et memo_en sont facultatifs (null) : une phrase courte, quand elle ajoute à \
-l'origine. Des constats, pas des félicitations ; ni emoji ni dragon."""
+l'origine. Des constats, pas des félicitations ; ni emoji ni dragon.
+Fiche d'origine, pour un caractère qu'aucun chemin ne pose encore (« hors chemin ») : \
+origine, étiquette, rôles et sens seulement, sans mots ni phrase (clés absentes) ; des \
+mots ou une phrase la font rejeter. Le jour où un chemin posera le caractère, le même \
+brouillon se complète de ses mots et de sa phrase, contre l'acquis de ce jour-là."""
 
 
 def squelette(contexte: Contexte) -> dict[str, object]:
-    """Un brouillon vide pour ce caractère : les rôles pré-remplis du rôle probable."""
+    """Un brouillon vide pour ce caractère : les rôles pré-remplis du rôle probable.
+
+    Hors chemin, un brouillon de fiche d'origine : ni mots ni phrase.
+    """
     vide_mot = {"hanzi": "", "pinyin": "", "fr": "", "en": ""}
-    return {
+    document: dict[str, object] = {
         "c": contexte.c,
         "sens_fr": "",
         "sens_en": "",
@@ -1506,20 +1716,31 @@ def squelette(contexte: Contexte) -> dict[str, object]:
         "memo_fr": None,
         "memo_en": None,
         "roles": {e.forme: e.role_probable or "" for e in contexte.elements},
-        "mots": [dict(vide_mot) for _ in range(min(MOTS_PAR_FICHE, len(contexte.candidats)))],
-        "phrase": {"zh": "", "pinyin": "", "fr": "", "en": ""},
     }
+    if contexte.hors_chemin:
+        return document
+    document["mots"] = [dict(vide_mot) for _ in range(min(MOTS_PAR_FICHE, len(contexte.candidats)))]
+    document["phrase"] = {"zh": "", "pinyin": "", "fr": "", "en": ""}
+    return document
 
 
-def decrire_contexte(contexte: Contexte, *, brouillons: Path | None = None) -> list[str]:
+def decrire_contexte(
+    contexte: Contexte, *, brouillons: Path | None = None, glose: str = ""
+) -> list[str]:
     """Ce qu'un rédacteur doit savoir d'un caractère, en lignes à afficher.
 
     Les mêmes faits que l'invite des fiches générées. Des mots candidats, le mot et
     son pinyin seulement : aucune définition de CC-CEDICT (`docs/sources-licences.md` §4.2).
+    `glose` : le sens relu du dictionnaire (`dico_sens`), pour que la fiche le suive.
     """
+    ou = (
+        "hors chemin : aucun parcours ne le pose encore"
+        if contexte.hors_chemin
+        else f"parcours {contexte.parcours}, jour {contexte.jour}"
+    )
     lignes = [
-        f"== {contexte.c} ({', '.join(contexte.pinyin) or 'pinyin inconnu'}) — parcours "
-        f"{contexte.parcours}, jour {contexte.jour}, famille {contexte.famille} ==",
+        f"== {contexte.c} ({', '.join(contexte.pinyin) or 'pinyin inconnu'}) — {ou}, "
+        f"famille {contexte.famille} ==",
         f"Décomposition GF 0014-2009 : {contexte.structure}"
         + ("" if contexte.reconcilie else " (non réconciliée, à traiter avec prudence)"),
         "Composants, dans l'ordre d'écriture :",
@@ -1538,16 +1759,25 @@ def decrire_contexte(contexte: Contexte, *, brouillons: Path | None = None) -> l
         )
     if contexte.indice_en:
         lignes.append(f"{MARQUE_INDICE} : « {contexte.indice_en} »")
-    lignes += [
-        "",
-        f"Caractères acquis au jour {contexte.jour} ({len(contexte.acquis)}), "
-        "seuls autorisés dans les mots et la phrase :",
-        "".join(contexte.acquis),
-        "",
-        f"Mots candidats ({len(contexte.candidats)}), déjà lisibles ce jour-là — "
-        f"en choisir au plus {min(MOTS_PAR_FICHE, len(contexte.candidats))} :",
-    ]
-    lignes += [f"- {m.hanzi} ({m.pinyin})" for m in contexte.candidats] or ["- aucun"]
+    if glose:
+        lignes.append(f"Sens relu du dictionnaire (glose) : « {glose} »")
+    if contexte.hors_chemin:
+        lignes += [
+            "",
+            "Fiche d'origine : origine, étiquette, rôles et sens ; ni mots ni phrase, qui"
+            " s'écriront pour le jour où un chemin posera le caractère.",
+        ]
+    else:
+        lignes += [
+            "",
+            f"Caractères acquis au jour {contexte.jour} ({len(contexte.acquis)}), "
+            "seuls autorisés dans les mots et la phrase :",
+            "".join(contexte.acquis),
+            "",
+            f"Mots candidats ({len(contexte.candidats)}), déjà lisibles ce jour-là — "
+            f"en choisir au plus {min(MOTS_PAR_FICHE, len(contexte.candidats))} :",
+        ]
+        lignes += [f"- {m.hanzi} ({m.pinyin})" for m in contexte.candidats] or ["- aucun"]
     chemin = (brouillons or BROUILLONS) / f"{contexte.c}.json"
     lignes += [
         "",
@@ -1557,44 +1787,82 @@ def decrire_contexte(contexte: Contexte, *, brouillons: Path | None = None) -> l
     return lignes
 
 
+#: Les niveaux HSK que `a-rediger --niveau` accepte, et leur liste.
+NIVEAUX_HSK = {"1": "hsk-1", "2": "hsk-2", "3": "hsk-3", "4": "hsk-4", "5": "hsk-5", "6": "hsk-6", "7-9": "hsk-7-9"}
+
+
 def a_rediger(
-    seuil: int,
-    corpus: Corpus,
+    seuil: int | None,
+    corpus: Corpus | Corpora,
     *,
     lot: int = 1,
     sur: int = 1,
     dossier: Path | None = None,
     listes: Path | None = None,
+    niveau: str | None = None,
 ) -> list[str]:
-    """Caractères du seuil sans fiche conforme, dans l'ordre du parcours, lot `lot` sur `sur`.
+    """Caractères de la liste sans fiche conforme, lot `lot` sur `sur`.
 
-    Les lots découpent le seuil entier, pas ce qui reste : un caractère garde son lot
-    quand les autres avancent, et des rédacteurs en parallèle ne se marchent pas dessus.
-    Une fiche manque, est rejetée (aux contrôles ou à la relecture), ou ne passe plus
-    `valider()` : le caractère est à rédiger.
+    La liste est celle du seuil (`seuil-<N>.txt`), dans l'ordre du parcours, ou, avec
+    `niveau`, celle d'un niveau du HSK (`hsk-<niveau>.txt`, « 7-9 » compris), dans l'ordre
+    de la liste. Les lots découpent la liste entière, pas
+    ce qui reste : un caractère garde son lot quand les autres avancent, et des
+    rédacteurs en parallèle ne se marchent pas dessus. Une fiche manque, est rejetée (aux
+    contrôles ou à la relecture), ne passe plus `valider()`, ou n'est qu'une fiche
+    d'origine alors qu'un chemin pose désormais le caractère : il est à rédiger.
     """
-    if sur < 1 or not 1 <= lot <= sur:
-        raise ValueError(f"lot {lot} sur {sur} : attendu 1 ≤ lot ≤ sur")
-    liste = charger_liste((listes or LISTES) / f"seuil-{seuil}.txt")
-    rang = {c: i for i, c in enumerate(corpus.ordre)}
-    ordonnee = sorted(liste, key=lambda c: (rang.get(c, len(rang)), liste.index(c)))
-    taille, reste = divmod(len(ordonnee), sur)
-    debut = (lot - 1) * taille + min(lot - 1, reste)
-    part = ordonnee[debut : debut + taille + (1 if lot - 1 < reste else 0)]
+    part = lot_de_la_liste(seuil, corpus, lot=lot, sur=sur, listes=listes, niveau=niveau)
     return [c for c in part if not _fiche_conforme(c, corpus, dossier)]
 
 
-def _fiche_conforme(c: str, corpus: Corpus, dossier: Path | None) -> bool:
+def lot_de_la_liste(
+    seuil: int | None,
+    corpus: Corpus | Corpora,
+    *,
+    lot: int = 1,
+    sur: int = 1,
+    listes: Path | None = None,
+    niveau: str | None = None,
+) -> list[str]:
+    """Tous les caractères du lot `lot` sur `sur` de la liste, faits ou non (voir `a_rediger`)."""
+    if sur < 1 or not 1 <= lot <= sur:
+        raise ValueError(f"lot {lot} sur {sur} : attendu 1 ≤ lot ≤ sur")
+    if niveau is not None:
+        if niveau not in NIVEAUX_HSK:
+            raise ValueError(f"niveau {niveau!r} inconnu : {', '.join(NIVEAUX_HSK)}")
+        nom = NIVEAUX_HSK[niveau]
+    else:
+        nom = f"seuil-{seuil}"
+    liste = charger_liste((listes or LISTES) / f"{nom}.txt")
+    if niveau is not None:
+        # L'ordre de la liste, jamais celui des chemins : il ne bouge pas quand un chemin
+        # s'allonge, et deux rédacteurs sur deux copies du dépôt tombent sur les mêmes lots.
+        ordonnee = list(liste)
+    else:
+        rang = {c: i for i, c in enumerate(corpus.ordre)}
+        place = {c: i for i, c in enumerate(liste)}
+        ordonnee = sorted(liste, key=lambda c: (rang.get(c, len(rang)), place[c]))
+    taille, reste = divmod(len(ordonnee), sur)
+    debut = (lot - 1) * taille + min(lot - 1, reste)
+    return ordonnee[debut : debut + taille + (1 if lot - 1 < reste else 0)]
+
+
+def _fiche_conforme(c: str, corpus: Corpus | Corpora, dossier: Path | None) -> bool:
     chemin = chemin_fiche(c, dossier)
-    if not chemin.exists() or c not in corpus:
+    if not chemin.exists():
         return False
     fiche = lire_fiche(chemin)
-    return fiche.statut != REJETE and valider(fiche, corpus.contexte(c)).conforme
+    contexte = contexte_de_fiche(fiche, corpus)
+    if contexte is None:
+        return False
+    if not contexte.hors_chemin and origine_seule(fiche):
+        return False
+    return fiche.statut != REJETE and valider(fiche, contexte).conforme
 
 
 def exporter_relecture(
     *,
-    corpus: Corpus | None = None,
+    corpus: Corpus | Corpora | None = None,
     dossier: Path | None = None,
     sortie: Path | None = None,
     horloge: Callable[[], str] = _maintenant,
@@ -1607,8 +1875,9 @@ def exporter_relecture(
     entrees: list[dict[str, object]] = []
     for fiche in a_relire:
         entree = fiche.en_json()
-        if corpus is not None and fiche.c in corpus:
-            entree["ecarts"] = valider(fiche, corpus.contexte(fiche.c)).ecarts
+        contexte = contexte_de_fiche(fiche, corpus) if corpus is not None else None
+        if contexte is not None:
+            entree["ecarts"] = valider(fiche, contexte).ecarts
         entrees.append(entree)
     document = {
         "date": horloge(),
@@ -1690,26 +1959,40 @@ def controles(
 
     if corpus is None:
         try:
-            corpus = charger_corpus()
+            corpus = charger_corpora()
         except (CorpusAbsent, ParcoursInconnu):
             corpus = None
 
     fautifs: list[str] = []
     non_revalidees = 0
+    d_origine = 0
+    a_completer: list[str] = []
     fiches: list[Fiche] = []
     for chemin in fichiers:
         fiche = lire_fiche(chemin)
         fiches.append(fiche)
-        if corpus is None or fiche.c not in corpus:
+        contexte = contexte_de_fiche(fiche, corpus) if corpus is not None else None
+        if contexte is None:
             non_revalidees += 1
             continue
-        rapport = valider(fiche, corpus.contexte(fiche.c))
+        rapport = valider(fiche, contexte)
         if not rapport.conforme:
             fautifs.append(f"{fiche.c} : {' ; '.join(rapport.refus)}")
+        elif origine_seule(fiche):
+            d_origine += 1
+            if not contexte.hors_chemin:
+                a_completer.append(fiche.c)
 
     sens = controle_sens(fiches)
 
     detail = f"{len(fichiers)} fiches contrôlées"
+    if d_origine:
+        detail += f", dont {d_origine} fiches d'origine"
+        if a_completer:
+            detail += (
+                f" ({len(a_completer)} posées par un chemin, mots et phrase à écrire : "
+                f"{' '.join(a_completer[:20])})"
+            )
     if fautifs:
         detail = f"{len(fautifs)} fiches invalides — " + " ; ".join(fautifs[:5])
     elif non_revalidees:
@@ -1785,6 +2068,40 @@ def _corpus(parcours: str) -> Corpus:
         raise typer.Exit(code=1) from erreur
 
 
+def _corpus_ou_auto(parcours: str) -> Corpus | Corpora:
+    """`auto` : les deux parcours, chaque caractère prend le sien (`Corpora`) ; sinon un seul."""
+    if parcours != AUTO:
+        return _corpus(parcours)
+    try:
+        return charger_corpora()
+    except (CorpusAbsent, ParcoursInconnu) as erreur:
+        typer.echo(str(erreur), err=True)
+        raise typer.Exit(code=1) from erreur
+
+
+#: L'aide de `--parcours` des commandes de rédaction.
+AIDE_PARCOURS = (
+    "auto (défaut) : le parcours de la fiche déjà écrite, sinon lire, sinon hsk, sinon hors"
+    " chemin (fiche d'origine) ; ou lire, ou hsk."
+)
+
+
+def _glose_du_dictionnaire() -> Callable[[str], str]:
+    """Le sens relu d'un caractère dans le dictionnaire (`dico_sens`), ou rien s'il n'y en a pas."""
+    try:
+        from .dico_sens import pour_export
+
+        sens, _ = pour_export()
+    except Exception:  # noqa: BLE001 — une aide au rédacteur, jamais une cause d'échec
+        return lambda c: ""
+
+    def glose(c: str) -> str:
+        s = sens.get(c) or {}
+        return str(s.get("glose") or "") if s.get("statut") == RELU else ""
+
+    return glose
+
+
 @app.command("generer")
 def commande_generer(
     parcours: str = typer.Option("lire", "--parcours", help="lire ou hsk."),
@@ -1841,21 +2158,22 @@ def commande_recuperer(
 
 @app.command("valider")
 def commande_valider(
-    parcours: str = typer.Option("lire", "--parcours", help="lire ou hsk."),
+    parcours: str = typer.Option(AUTO, "--parcours", help=AIDE_PARCOURS),
 ) -> None:
     """Revalide les fiches déjà écrites contre le contexte de leur caractère."""
     fichiers = fiches_ecrites()
     if not fichiers:
         typer.echo("Aucune fiche à valider.")
         return
-    corpus = _corpus(parcours)
+    corpus = _corpus_ou_auto(parcours)
     invalides = 0
     for chemin in fichiers:
         fiche = lire_fiche(chemin)
-        if fiche.c not in corpus:
+        contexte = contexte_de_fiche(fiche, corpus)
+        if contexte is None:
             typer.echo(f"hors  {fiche.c} [{fiche.statut}] : hors du parcours {parcours}")
             continue
-        rapport = valider(fiche, corpus.contexte(fiche.c))
+        rapport = valider(fiche, contexte)
         typer.echo(f"{'ok   ' if rapport.conforme else 'rejet'} {fiche.c} [{fiche.statut}]")
         if not rapport.conforme:
             invalides += 1
@@ -1890,11 +2208,29 @@ def commande_importer(
     caracteres: Optional[list[str]] = typer.Argument(
         None, help="Les caractères à importer (défaut : tous les brouillons)."
     ),
-    parcours: str = typer.Option("lire", "--parcours", help="lire ou hsk."),
+    parcours: str = typer.Option(AUTO, "--parcours", help=AIDE_PARCOURS),
+    niveau: Optional[str] = typer.Option(
+        None, "--niveau", help="Les seuls brouillons d'un lot d'un niveau HSK (1 à 6, 7-9), avec --lot et --sur."
+    ),
+    lot: int = typer.Option(1, "--lot", help="Avec --niveau : numéro du lot, de 1 à --sur."),
+    sur: int = typer.Option(1, "--sur", help="Avec --niveau : nombre de lots du niveau."),
 ) -> None:
-    """Importe les brouillons rédigés sans API : mêmes contrôles que les fiches générées."""
+    """Importe les brouillons rédigés sans API : mêmes contrôles que les fiches générées.
+
+    Tous les brouillons, ceux des caractères nommés, ou, avec `--niveau`, les brouillons
+    présents d'un lot : des rédacteurs en parallèle n'importent chacun que les leurs.
+    """
     chemins = brouillons_ecrits()
     absents: list[str] = []
+    corpus = _corpus_ou_auto(parcours) if niveau is not None else None
+    if niveau is not None:
+        assert corpus is not None
+        try:
+            du_lot = set(lot_de_la_liste(None, corpus, lot=lot, sur=sur, niveau=niveau))
+        except (OSError, ValueError) as erreur:
+            typer.echo(str(erreur), err=True)
+            raise typer.Exit(code=1) from erreur
+        chemins = [p for p in chemins if p.stem in du_lot]
     if caracteres:
         voulus = {c for arg in caracteres for c in arg}
         chemins = [p for p in chemins if p.stem in voulus]
@@ -1906,7 +2242,7 @@ def commande_importer(
         if absents:
             raise typer.Exit(code=1)
         return
-    corpus = _corpus(parcours)
+    corpus = corpus or _corpus_ou_auto(parcours)
     rejetes = 0
     erreurs = len(absents)
     conformes = 0
@@ -1933,15 +2269,17 @@ def commande_importer(
         else:
             etat = "rejetée"
         remplace = f", remplace une fiche {resultat.remplace}" if resultat.remplace else ""
+        ou = "hors chemin" if fiche.parcours == HORS_CHEMIN else f"jour {fiche.jour} du parcours {fiche.parcours}"
         typer.echo(
             f"{'ok   ' if rapport.conforme else 'rejet'} {fiche.c} : {etat}, "
-            f"jour {fiche.jour} → {_relatif(resultat.chemin)}{remplace}"
+            f"{ou} → {_relatif(resultat.chemin)}{remplace}"
         )
         for motif in rapport.refus:
             typer.echo(f"  refus : {motif}")
         if rapport.intrus:
+            acquis = corpus.contexte(fiche.c, prefere=fiche.parcours).acquis
             typer.echo(
-                f"  acquis au jour {fiche.jour} : {''.join(corpus.acquis(fiche.c))} "
+                f"  acquis au jour {fiche.jour} : {''.join(acquis)} "
                 f"(voir `wenlu fiches contexte {fiche.c}`)"
             )
         for ecart in rapport.ecarts:
@@ -1959,24 +2297,27 @@ def commande_importer(
 @app.command("contexte")
 def commande_contexte(
     caracteres: list[str] = typer.Argument(..., help="Un ou plusieurs caractères : 人 大 天, ou 人大天."),
-    parcours: str = typer.Option("lire", "--parcours", help="lire ou hsk."),
+    parcours: str = typer.Option(AUTO, "--parcours", help=AIDE_PARCOURS),
 ) -> None:
     """Ce qu'un rédacteur doit savoir d'un caractère avant d'écrire son brouillon."""
-    corpus = _corpus(parcours)
+    corpus = _corpus_ou_auto(parcours)
     voulus: list[str] = []
     for arg in caracteres:
-        voulus.extend([arg] if arg in corpus or len(arg) == 1 else list(arg))
+        voulus.extend([arg] if corpus.connait(arg) or len(arg) == 1 else list(arg))
     typer.echo(CONTRAINTES)
+    glose = _glose_du_dictionnaire()
     hors = 0
     for c in dict.fromkeys(voulus):
         typer.echo("")
+        chemin = chemin_fiche(c)
+        prefere = lire_fiche(chemin).parcours if chemin.exists() else None
         try:
-            contexte = corpus.contexte(c)
+            contexte = corpus.contexte(c, prefere=prefere)
         except CaractereHorsParcours as erreur:
             hors += 1
             typer.echo(f"== {c} == {erreur.args[0]}")
             continue
-        for ligne in decrire_contexte(contexte):
+        for ligne in decrire_contexte(contexte, glose=glose(c)):
             typer.echo(ligne)
     if hors:
         raise typer.Exit(code=1)
@@ -1985,19 +2326,23 @@ def commande_contexte(
 @app.command("a-rediger")
 def commande_a_rediger(
     seuil: int = typer.Option(SEUIL_RELECTURE, "--seuil", help="Liste `seuil-<N>.txt`."),
+    niveau: Optional[str] = typer.Option(
+        None, "--niveau", help="À la place du seuil : la liste d'un niveau HSK, `hsk-<niveau>.txt` (1 à 6, 7-9)."
+    ),
     lot: int = typer.Option(1, "--lot", help="Numéro du lot, de 1 à --sur."),
-    sur: int = typer.Option(1, "--sur", help="Nombre de lots entre lesquels découper le seuil."),
-    parcours: str = typer.Option("lire", "--parcours", help="lire ou hsk."),
+    sur: int = typer.Option(1, "--sur", help="Nombre de lots entre lesquels découper la liste."),
+    parcours: str = typer.Option(AUTO, "--parcours", help=AIDE_PARCOURS),
 ) -> None:
-    """Liste les caractères du seuil sans fiche conforme, dans l'ordre du parcours."""
-    corpus = _corpus(parcours)
+    """Liste les caractères du seuil, ou d'un niveau HSK, sans fiche conforme."""
+    corpus = _corpus_ou_auto(parcours)
     try:
-        restants = a_rediger(seuil, corpus, lot=lot, sur=sur)
+        restants = a_rediger(seuil, corpus, lot=lot, sur=sur, niveau=niveau)
     except (OSError, ValueError) as erreur:
         typer.echo(str(erreur), err=True)
         raise typer.Exit(code=1) from erreur
     lot_dit = f", lot {lot} sur {sur}" if sur > 1 else ""
-    typer.echo(f"Seuil {seuil}, parcours {parcours}{lot_dit} : {len(restants)} caractères à rédiger.")
+    liste = f"HSK {niveau}" if niveau is not None else f"Seuil {seuil}"
+    typer.echo(f"{liste}, parcours {parcours}{lot_dit} : {len(restants)} caractères à rédiger.")
     if restants:
         typer.echo(" ".join(restants))
 
@@ -2007,11 +2352,11 @@ def commande_exporter_relecture(
     sortie: Optional[Path] = typer.Option(
         None, "--sortie", help="Fichier JSON écrit (défaut : data/work/relecture.json)."
     ),
-    parcours: str = typer.Option("lire", "--parcours", help="lire ou hsk, pour les écarts."),
+    parcours: str = typer.Option(AUTO, "--parcours", help="Pour les écarts. " + AIDE_PARCOURS),
 ) -> None:
     """Rassemble les fiches à relire en un seul JSON, pour une page de relecture."""
     try:
-        corpus: Corpus | None = charger_corpus(parcours)
+        corpus: Corpus | Corpora | None = charger_corpora() if parcours == AUTO else charger_corpus(parcours)
     except (CorpusAbsent, ParcoursInconnu):
         corpus = None
     chemin, nombre = exporter_relecture(corpus=corpus, sortie=sortie)

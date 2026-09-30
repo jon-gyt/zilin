@@ -3,7 +3,7 @@
  "license": "propriétaire",
  "source": "décomposition GF 0014-2009 réconciliée par le pipeline wenlu ; pinyin d'Unihan (kMandarin) ; textes rédigés pour l'app",
  "source_url": "https://github.com/jon-gyt/zilin",
- "modified": "2026-09-28 : assemblé par `wenlu export`",
+ "modified": "2026-09-30 : assemblé par `wenlu export`",
  "norme": "GF 0014-2009",
  "racine": {
   "c": "忄",
@@ -206,8 +206,8 @@
    "lectures": [
     "màn"
    ],
-   "fr": "",
-   "en": "",
+   "fr": "lent, lentement",
+   "en": "slow, slowly",
    "parts": [
     "忄",
     "日",
@@ -220,22 +220,48 @@
    "sources": [
     "cjk-decomp"
    ],
-   "role": null,
-   "roles": {},
-   "origine_fr": "",
-   "origine_en": "",
-   "etiquette": null,
+   "role": "son",
+   "roles": {
+    "又": "son",
+    "忄": "sens",
+    "日": "son",
+    "罒": "son"
+   },
+   "origine_fr": "Le Shuowen jiezi glose 慢 par « nonchalant » : le cœur, 忄, et 曼 pour le son. 曼, écrit 日, 罒 et 又, se lit màn, exactement comme 慢. Un cœur sans hâte : de la nonchalance est venu « lent ».",
+   "origine_en": "The Shuowen jiezi glosses 慢 as “sluggish”: the heart, 忄, and 曼 for the sound. 曼, written 日, 罒 and 又, is read màn, exactly like 慢. A heart in no hurry: from sluggishness came “slow”.",
+   "etiquette": "atteste",
    "memo_fr": null,
    "memo_en": null,
-   "mots": [],
-   "phrase": null,
+   "mots": [
+    {
+     "hanzi": "慢慢",
+     "pinyin": "mànmàn",
+     "fr": "lentement, peu à peu",
+     "en": "slowly, gradually",
+     "audio": null
+    },
+    {
+     "hanzi": "慢走",
+     "pinyin": "mànzǒu",
+     "fr": "au revoir (à un visiteur)",
+     "en": "take care (to a departing guest)",
+     "audio": null
+    }
+   ],
+   "phrase": {
+    "hanzi": "请慢慢说。",
+    "pinyin": "Qǐng mànmàn shuō.",
+    "fr": "Parle lentement, s'il te plaît.",
+    "en": "Please speak slowly.",
+    "audio": null
+   },
    "niveaux": {
     "hsk": 1
    },
    "traits": [],
    "medianes": [],
    "audio": null,
-   "statut": "sans_fiche"
+   "statut": "relu"
   },
   {
    "c": "懂",
