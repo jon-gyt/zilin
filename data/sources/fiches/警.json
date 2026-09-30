@@ -29,20 +29,33 @@
   "乂": "son",
   "言": "sens"
  },
- "mots": [],
+ "mots": [
+  {
+   "hanzi": "警察",
+   "pinyin": "jǐngchá",
+   "fr": "policier, police",
+   "en": "police officer, police"
+  },
+  {
+   "hanzi": "报警",
+   "pinyin": "bàojǐng",
+   "fr": "appeler la police",
+   "en": "to call the police"
+  }
+ ],
  "phrase": {
-  "zh": "",
-  "pinyin": "",
-  "fr": "",
-  "en": ""
+  "zh": "快打电话报警！",
+  "pinyin": "Kuài dǎ diànhuà bàojǐng!",
+  "fr": "Vite, appelle la police !",
+  "en": "Quick, call the police!"
  },
  "generation": {
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:a39b29ef9fa60a5306ad842f8b638124b140864e4b1a43232030681fe5783cb0",
-  "essais": 1,
+  "empreinte_invite": "sha256:27ac076a4c4e451eeb0e064075d3160bd0b7f64ab84a964c62730e1d6913dbc0",
+  "essais": 2,
   "refus": []
  },
- "statut": "relu"
+ "statut": "a_relire"
 }
