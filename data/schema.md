@@ -384,6 +384,14 @@ Le circuit des fiches et des lettres, sans API (`wenlu dico`) :
    ôtée sans remplaçante allant dans `retirees` (elle ne revient pas du brouillon) ;
    « a_refaire » passe à `rejete`. Chaque texte relu porte `relecture` : `date`, `decision`,
    `par`, `note`. Réimporter le brouillon d'origine ne défait pas une correction.
+7. `wenlu dico approuver --niveau <n> --decision "<citée>"` passe à `relu`, **sur décision du
+   propriétaire et sans relecture ligne à ligne**, ce qui reste à relire aux niveaux donnés,
+   après un dernier passage par `valider()`, tout ou rien. La trace le dit : `relecture` =
+   `{date, par: "décision du propriétaire", mode: "sans relecture ligne à ligne", decision}`,
+   pour qu'une vraie relecture puisse rattraper ces textes plus tard (chercher `mode`).
+   HSK 1 et 2 approuvés ainsi le 30 septembre 2026 (« Considère que relecture faite », puis
+   « Oui, affiche-les »). « dico sens : lots » refuse un texte `relu` qui ne dit pas qui l'a
+   relu (fiche d'où la glose est reprise, page de relecture ou décision).
 
 Contrôles (`wenlu check`), bloquants sauf les deux derniers : « dico sens : lots » (entrées
 du plan, `generation` complète, statuts, glose reprise égale à celle de la fiche), « sans

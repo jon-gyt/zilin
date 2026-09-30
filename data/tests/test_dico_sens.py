@@ -379,3 +379,37 @@ def test_controles_bloquants_sur_les_lots(tmp_path: Path, ref_petite: d.Referent
     faux = {c.nom: c for c in d.controles(tmp_path / "dico", ref=ref_petite, destination=tmp_path / "export", brouillons=tmp_path / "brouillons")}
     assert not faux["dico sens : sans sinogramme"].ok and faux["dico sens : sans sinogramme"].bloquant
     assert not faux["dico phrases : caractères HSK"].ok
+
+
+def test_approuver_par_decision_trace_sans_relecture_ligne_a_ligne(tmp_path: Path, ref_petite: d.Referentiel) -> None:
+    _importer(tmp_path, ref_petite)
+    compte = d.approuver_par_decision(["1"], "« Tout est ok »", ref_petite, dossier=tmp_path / "dico", horloge=lambda: "2026-09-30")
+    assert compte["sens"] > 0 and compte["exemples"] > 0
+    entrees = {e["id"]: e for e in d.lire_lot(d.chemin_lot("1", "01", tmp_path / "dico"))["entrees"]}
+    trace = entrees["L1-0002"]["sens"]["relecture"]
+    assert entrees["L1-0002"]["sens"]["statut"] == d.RELU
+    assert trace == {"date": "2026-09-30", "par": d.PAR_DECISION, "mode": d.SANS_LIGNE_A_LIGNE, "decision": "« Tout est ok »"}
+    assert entrees["L1-0002"]["exemples"][0]["relecture"]["mode"] == d.SANS_LIGNE_A_LIGNE
+    # La glose reprise d'une fiche garde sa provenance, sans trace de décision.
+    assert "relecture" not in entrees["爱"]["sens"]
+
+
+def test_approuver_par_decision_exige_la_decision_et_ne_touche_pas_aux_autres_niveaux(tmp_path: Path, ref_petite: d.Referentiel) -> None:
+    _importer(tmp_path, ref_petite)
+    with pytest.raises(d.DicoSensInvalide):
+        d.approuver_par_decision(["1"], "  ", ref_petite, dossier=tmp_path / "dico")
+    assert d.approuver_par_decision(["2"], "« Tout est ok »", ref_petite, dossier=tmp_path / "dico") == {"sens": 0, "exemples": 0}
+    entrees = {e["id"]: e for e in d.lire_lot(d.chemin_lot("1", "01", tmp_path / "dico"))["entrees"]}
+    assert entrees["L1-0002"]["sens"]["statut"] == d.A_RELIRE
+
+
+def test_un_texte_relu_dit_qui_l_a_relu(tmp_path: Path, ref_petite: d.Referentiel) -> None:
+    _importer(tmp_path, ref_petite)
+    chemin = d.chemin_lot("1", "01", tmp_path / "dico")
+    lot = json.loads(chemin.read_text(encoding="utf-8"))
+    for e in lot["entrees"]:
+        if e["id"] == "L1-0002":
+            e["sens"]["statut"] = d.RELU
+    chemin.write_text(json.dumps(lot, ensure_ascii=False), encoding="utf-8")
+    faux = {c.nom: c for c in d.controles(tmp_path / "dico", ref=ref_petite, destination=tmp_path / "export", brouillons=tmp_path / "brouillons")}
+    assert not faux["dico sens : lots"].ok and "sans dire qui" in faux["dico sens : lots"].detail

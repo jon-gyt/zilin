@@ -1201,6 +1201,11 @@ def bilan(ref: Referentiel, dossier: Path | None = None) -> Bilan:
             for x in [s, *exemples_bruts]:
                 if x and x.get("statut") not in STATUTS:
                     b.statuts.append(f"{ident} : statut {x.get('statut')!r}")
+            # Un texte relu dit qui l'a relu : la fiche d'où la glose est reprise, la page de
+            # relecture, ou la décision du propriétaire (sans relecture ligne à ligne).
+            for x in [s, *exemples_bruts]:
+                if x and x.get("statut") == RELU and not (x is s and reprise) and not (x.get("relecture") or {}).get("par"):
+                    b.statuts.append(f"{ident} : texte relu sans dire qui l'a relu")
             if s:
                 compte["sens"] += 1
                 compte["sens_relus"] += s.get("statut") == RELU
@@ -1344,6 +1349,77 @@ def controles(
     ]
 
 
+#: Qui relit quand le propriétaire approuve sans relire : la trace le dit, pour qu'une vraie
+#: relecture puisse rattraper ces textes plus tard (`mode`).
+PAR_DECISION = "décision du propriétaire"
+SANS_LIGNE_A_LIGNE = "sans relecture ligne à ligne"
+
+
+def approuver_par_decision(
+    niveaux: Iterable[str],
+    decision: str,
+    ref: Referentiel,
+    *,
+    dossier: Path | None = None,
+    horloge: Callable[[], str] = _aujourdhui,
+) -> dict[str, int]:
+    """Passe à `relu` ce qui reste à relire aux niveaux donnés, sur décision du propriétaire.
+
+    Rien n'est relu ligne à ligne, et la trace le dit : `par`, `mode`, la décision citée,
+    la date. Chaque entrée repasse d'abord par `valider()` : tout ou rien.
+    """
+    decision = _nfc(decision)
+    if not decision:
+        raise DicoSensInvalide(["la décision du propriétaire est à citer"])
+    date = horloge()
+    voulus = set(niveaux)
+    places = {p.id: p for _, _, p in places_par_id(ref).values()}
+    trace: dict[str, object] = {"date": date, "par": PAR_DECISION, "mode": SANS_LIGNE_A_LIGNE, "decision": decision}
+    problemes: list[str] = []
+    fichiers: dict[Path, dict[str, object]] = {}
+    compte = {"sens": 0, "exemples": 0}
+    for chemin in lots_ecrits(dossier):
+        doc = lire_lot(chemin)
+        if str(doc.get("niveau")) not in voulus:
+            continue
+        change = False
+        for e in doc.get("entrees") or ():  # type: ignore[union-attr]
+            ident = str(e["id"])
+            s = e.get("sens") or {}
+            ex = list(e.get("exemples") or ())
+            if not (s.get("statut") == A_RELIRE or any(x.get("statut") == A_RELIRE for x in ex)):
+                continue
+            loc: list[str] = []
+            acceptions = [a for a in (acception_depuis(x, ident, loc) for x in s.get("acceptions") or ()) if a]
+            exemples = [x for x in (exemple_depuis(y, ident, loc) for y in ex) if x]
+            reprise = bool((s.get("provenance") or {}).get("reprise"))
+            if ident in places:
+                loc += valider(Redaction(ident, str(s.get("glose") or ""), acceptions, exemples, reprise), places[ident], ref, redaction=False)
+            else:
+                loc.append(f"{ident} : aucune place dans la liste")
+            if loc:
+                problemes += loc
+                continue
+            if s.get("statut") == A_RELIRE:
+                s["statut"] = RELU
+                s["relecture"] = dict(trace)
+                compte["sens"] += 1
+                change = True
+            for x in ex:
+                if x.get("statut") == A_RELIRE:
+                    x["statut"] = RELU
+                    x["relecture"] = dict(trace)
+                    compte["exemples"] += 1
+                    change = True
+        if change:
+            fichiers[chemin] = doc
+    if problemes:
+        raise DicoSensInvalide(problemes)
+    for chemin, doc in fichiers.items():
+        ecrire_json(chemin, doc)
+    return compte
+
+
 # ------------------------------------------------------------------------ commandes
 
 app = typer.Typer(help="Sens français et phrases d'exemple du dictionnaire (stories 10.6 et 10.7), sans API.")
@@ -1436,3 +1512,20 @@ def commande_appliquer_relecture(fichier: Path = typer.Argument(..., help="Le JS
         typer.echo(f"Relecture refusée, rien n'est changé : {erreur}", err=True)
         raise typer.Exit(code=1) from erreur
     typer.echo(f"{compte[BON]} bons, {compte[CORRIGE]} corrigés, {compte[A_REFAIRE]} à refaire. Relancer `wenlu export`.")
+
+
+@app.command("approuver")
+def commande_approuver(
+    decision: str = typer.Option(..., help="La décision du propriétaire, citée telle quelle."),
+    niveau: list[str] = typer.Option(["1", "2"], help="Niveaux à approuver."),
+) -> None:
+    """Passe à `relu`, sur décision du propriétaire et sans relecture ligne à ligne, ce qui reste à relire."""
+    ref = _ref_ou_sortie()
+    try:
+        compte = approuver_par_decision(niveau, decision, ref)
+    except DicoSensInvalide as erreur:
+        typer.echo("Rien n'est approuvé :", err=True)
+        for p in erreur.problemes:
+            typer.echo(f"  {p}", err=True)
+        raise typer.Exit(code=1) from erreur
+    typer.echo(f"Approuvés sur décision du propriétaire : {compte['sens']} sens, {compte['exemples']} phrases.")
