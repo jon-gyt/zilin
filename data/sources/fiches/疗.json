@@ -21,20 +21,33 @@
   "疒": "sens",
   "了": "forme"
  },
- "mots": [],
+ "mots": [
+  {
+   "hanzi": "医疗",
+   "pinyin": "yīliáo",
+   "fr": "soins médicaux",
+   "en": "medical care"
+  },
+  {
+   "hanzi": "疗效",
+   "pinyin": "liáoxiào",
+   "fr": "efficacité d'un traitement",
+   "en": "curative effect"
+  }
+ ],
  "phrase": {
-  "zh": "",
-  "pinyin": "",
-  "fr": "",
-  "en": ""
+  "zh": "这种药的疗效很好。",
+  "pinyin": "Zhè zhǒng yào de liáoxiào hěn hǎo.",
+  "fr": "Ce médicament est très efficace.",
+  "en": "This medicine works very well."
  },
  "generation": {
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:b84f0b591c399da00e2edf9076c254d0f65c4c0f093a7fa248004b776593de63",
-  "essais": 2,
+  "empreinte_invite": "sha256:827426e161195036284a74a7fa1a83484fc7df0d5d62c095a2e2f1e53bf7310a",
+  "essais": 3,
   "refus": []
  },
- "statut": "relu"
+ "statut": "a_relire"
 }
