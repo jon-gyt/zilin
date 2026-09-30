@@ -424,6 +424,9 @@ def fautes_sources(cuisine: Cuisine) -> list[str]:
 def lectures(ingest: Path | None = None) -> dict[str, tuple[str, ...]] | None:
     """Les lectures admises de chaque caractère : Make Me a Hanzi, Unihan, puis les surcharges.
 
+    D'Unihan, `kMandarin` et les lectures des dictionnaires (`lectures_dico`, kXHC1983
+    et kTGHZ2013) : sans elles, 便宜 ou 夺冠 ne se liraient pas (便 pián, 冠 guàn).
+
     `None` sans `wenlu ingest` (la CI n'en a pas) : on ne devine pas une lecture.
     """
     from .surcharges import charger_pinyin
@@ -439,7 +442,8 @@ def lectures(ingest: Path | None = None) -> dict[str, tuple[str, ...]] | None:
     chemin = ingest / "unihan.json"
     if chemin.exists():
         for e in json.loads(chemin.read_text(encoding="utf-8"))["caracteres"]:
-            table.setdefault(str(e["c"]), set()).update(str(x) for x in e.get("lectures") or ())
+            lues = [*(e.get("lectures") or ()), *(e.get("lectures_dico") or ())]
+            table.setdefault(str(e["c"]), set()).update(str(x) for x in lues)
     for c, lues in charger_pinyin().items():
         table.setdefault(c, set()).update(lues)
     return {c: tuple(sorted(v)) for c, v in table.items()}
