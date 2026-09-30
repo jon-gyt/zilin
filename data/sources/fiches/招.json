@@ -23,19 +23,32 @@
   "刀": "son",
   "口": "son"
  },
- "mots": [],
+ "mots": [
+  {
+   "hanzi": "招呼",
+   "pinyin": "zhāohu",
+   "fr": "saluer, interpeller",
+   "en": "to greet, to call to"
+  },
+  {
+   "hanzi": "招手",
+   "pinyin": "zhāoshǒu",
+   "fr": "faire signe de la main",
+   "en": "to wave, to beckon"
+  }
+ ],
  "phrase": {
-  "zh": "",
-  "pinyin": "",
-  "fr": "",
-  "en": ""
+  "zh": "他向我招手。",
+  "pinyin": "Tā xiàng wǒ zhāoshǒu.",
+  "fr": "Il me fait signe de la main.",
+  "en": "He waves at me."
  },
  "generation": {
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:db442b1a82645086f80c7d2d7932c89e65a0ceb96089822f42558072c3fb85d2",
-  "essais": 1,
+  "empreinte_invite": "sha256:ef618b61914b8d50289673e7541cef95478b30e8f148ec6d0a41394b53405b22",
+  "essais": 2,
   "refus": []
  },
  "statut": "relu"

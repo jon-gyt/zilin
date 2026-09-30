@@ -19,19 +19,32 @@
  "roles": {
   "义": "forme"
  },
- "mots": [],
+ "mots": [
+  {
+   "hanzi": "意义",
+   "pinyin": "yìyì",
+   "fr": "sens, portée",
+   "en": "meaning, significance"
+  },
+  {
+   "hanzi": "正义",
+   "pinyin": "zhèngyì",
+   "fr": "justice",
+   "en": "justice"
+  }
+ ],
  "phrase": {
-  "zh": "",
-  "pinyin": "",
-  "fr": "",
-  "en": ""
+  "zh": "这件事很有意义。",
+  "pinyin": "Zhè jiàn shì hěn yǒu yìyì.",
+  "fr": "Cela a beaucoup de sens.",
+  "en": "This really matters."
  },
  "generation": {
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:684dd35997f5e4751746a2e7b3750482f3e83e9146f1555a80d0ef71807eb2cf",
-  "essais": 1,
+  "empreinte_invite": "sha256:c665b158eb5d3406b8d458337bd90cc68b91d24d59e66a760f5353142600f99d",
+  "essais": 2,
   "refus": []
  },
  "statut": "relu"

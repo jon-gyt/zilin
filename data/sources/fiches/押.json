@@ -21,19 +21,32 @@
   "扌": "sens",
   "甲": "forme"
  },
- "mots": [],
+ "mots": [
+  {
+   "hanzi": "押金",
+   "pinyin": "yājīn",
+   "fr": "caution, dépôt de garantie",
+   "en": "deposit"
+  },
+  {
+   "hanzi": "关押",
+   "pinyin": "guānyā",
+   "fr": "détenir, emprisonner",
+   "en": "to lock up"
+  }
+ ],
  "phrase": {
-  "zh": "",
-  "pinyin": "",
-  "fr": "",
-  "en": ""
+  "zh": "租房要先付押金。",
+  "pinyin": "Zū fáng yào xiān fù yājīn.",
+  "fr": "Pour louer un logement, il faut d'abord verser une caution.",
+  "en": "To rent a flat you have to pay a deposit first."
  },
  "generation": {
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:8ca088851648b425e7d40b8b385b77fa409042d8cec525527e3df092192dd1cd",
-  "essais": 1,
+  "empreinte_invite": "sha256:3d705bb78a1b66cefa3020deb93c9f13ee203b492e69261c810ec2a34e1587bb",
+  "essais": 2,
   "refus": []
  },
  "statut": "relu"

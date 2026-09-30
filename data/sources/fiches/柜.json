@@ -21,19 +21,32 @@
   "木": "sens",
   "巨": "forme"
  },
- "mots": [],
+ "mots": [
+  {
+   "hanzi": "柜子",
+   "pinyin": "guìzi",
+   "fr": "armoire, placard",
+   "en": "cupboard, cabinet"
+  },
+  {
+   "hanzi": "衣柜",
+   "pinyin": "yīguì",
+   "fr": "armoire à vêtements",
+   "en": "wardrobe"
+  }
+ ],
  "phrase": {
-  "zh": "",
-  "pinyin": "",
-  "fr": "",
-  "en": ""
+  "zh": "衣服都在柜子里。",
+  "pinyin": "Yīfu dōu zài guìzi li.",
+  "fr": "Les vêtements sont tous dans l'armoire.",
+  "en": "The clothes are all in the cupboard."
  },
  "generation": {
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:8eee00e385a0c73c272fb41a695c0c397e5b9b42bf8b957889bdb60744fe57c8",
-  "essais": 1,
+  "empreinte_invite": "sha256:6c3aa202f5e0ca276e703341cd0811326eab99b5ded61f17b91e61aa0d1f1735",
+  "essais": 2,
   "refus": []
  },
  "statut": "relu"

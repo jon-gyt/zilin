@@ -1,0 +1,426 @@
+{
+ "examen": "yueke-1355",
+ "parcours": "hsk",
+ "generation": {
+  "modele": "rédaction manuelle",
+  "api": "session Claude Code (sans API)",
+  "date": "2026-09-30"
+ },
+ "relecture": {
+  "statut": "relu",
+  "par": "le propriétaire",
+  "decision": "« Go » (30 septembre 2026) : tout affiché sans relecture ligne à ligne",
+  "date": "2026-09-30"
+ },
+ "series": [
+  {
+   "serie": "A",
+   "statut": "relu",
+   "supports": [
+    {
+     "id": "s1",
+     "genre": "affiche",
+     "contexte": {
+      "fr": "Une affiche",
+      "en": "A poster"
+     },
+     "lignes": [
+      {
+       "zh": "今晚放映",
+       "pinyin": "jīn wǎn fàng yìng",
+       "fr": "Projection ce soir",
+       "en": "Showing tonight"
+      },
+      {
+       "zh": "《遇见》",
+       "pinyin": "yù jiàn",
+       "fr": "« La Rencontre »",
+       "en": "“The Encounter”"
+      },
+      {
+       "zh": "晚上七点半",
+       "pinyin": "wǎn shang qī diǎn bàn",
+       "fr": "à 19 h 30",
+       "en": "at 7.30 pm"
+      },
+      {
+       "zh": "票价：三十元",
+       "pinyin": "piào jià sān shí yuán",
+       "fr": "Entrée : 30 yuans",
+       "en": "Tickets: 30 yuan"
+      }
+     ],
+     "glose": [
+      {
+       "zh": "三十元",
+       "pinyin": "sān shí yuán",
+       "fr": "30 yuans",
+       "en": "30 yuan"
+      }
+     ]
+    },
+    {
+     "id": "s2",
+     "genre": "message",
+     "contexte": {
+      "fr": "Un message",
+      "en": "A message"
+     },
+     "lignes": [
+      {
+       "zh": "妈妈，我不想去医院打针，",
+       "pinyin": "mā ma wǒ bù xiǎng qù yī yuàn dǎ zhēn",
+       "fr": "Maman, je ne veux pas aller me faire piquer à l'hôpital :",
+       "en": "Mum, I don't want to go to the hospital for an injection,"
+      },
+      {
+       "zh": "我怕疼！",
+       "pinyin": "wǒ pà téng",
+       "fr": "j'ai peur d'avoir mal !",
+       "en": "I'm scared it'll hurt!"
+      }
+     ]
+    }
+   ],
+   "questions": [
+    {
+     "type": "reperer",
+     "support": "s1",
+     "consigne": {
+      "fr": "Touche le titre du film.",
+      "en": "Tap the title of the film."
+     },
+     "choix": [
+      "今晚",
+      "放映",
+      "遇见",
+      "票价"
+     ],
+     "reponse": 2,
+     "porte": [
+      "遇",
+      "见"
+     ]
+    },
+    {
+     "type": "vrai_faux",
+     "support": "s1",
+     "consigne": {
+      "fr": "Vrai ou faux ?",
+      "en": "True or false?"
+     },
+     "affirmation": {
+      "zh": "电影明天晚上放映。",
+      "pinyin": "diàn yǐng míng tiān wǎn shang fàng yìng",
+      "fr": "Le film passe demain soir.",
+      "en": "The film is showing tomorrow evening."
+     },
+     "reponse": false,
+     "porte": [
+      "今",
+      "晚",
+      "映"
+     ]
+    },
+    {
+     "type": "comprendre",
+     "support": "s2",
+     "consigne": {
+      "fr": "Que doit-on faire à l'enfant à l'hôpital ?",
+      "en": "What will be done to the child at the hospital?"
+     },
+     "choix": [
+      {
+       "fr": "Une radio",
+       "en": "An X-ray"
+      },
+      {
+       "fr": "Une piqûre",
+       "en": "An injection"
+      },
+      {
+       "fr": "Une opération",
+       "en": "An operation"
+      },
+      {
+       "fr": "Un plâtre",
+       "en": "A plaster cast"
+      }
+     ],
+     "reponse": 1,
+     "porte": [
+      "打",
+      "针"
+     ]
+    },
+    {
+     "type": "replique",
+     "support": "s2",
+     "consigne": {
+      "fr": "Que répond maman ?",
+      "en": "What does Mum reply?"
+     },
+     "choix": [
+      {
+       "zh": "别怕，一下就好了。",
+       "pinyin": "bié pà yī xià jiù hǎo le",
+       "fr": "N'aie pas peur, ce sera vite fini.",
+       "en": "Don't be scared, it'll be over in a second."
+      },
+      {
+       "zh": "电影七点半开始。",
+       "pinyin": "diàn yǐng qī diǎn bàn kāi shǐ",
+       "fr": "Le film commence à 19 h 30.",
+       "en": "The film starts at 7.30."
+      },
+      {
+       "zh": "我们去公园吧。",
+       "pinyin": "wǒ men qù gōng yuán ba",
+       "fr": "Allons au parc.",
+       "en": "Let's go to the park."
+      },
+      {
+       "zh": "我的腿很长。",
+       "pinyin": "wǒ de tuǐ hěn cháng",
+       "fr": "J'ai de longues jambes.",
+       "en": "I have long legs."
+      }
+     ],
+     "reponse": 0,
+     "porte": [
+      "针",
+      "怕"
+     ]
+    },
+    {
+     "type": "trou",
+     "consigne": {
+      "fr": "Quel caractère manque dans ce mot ?",
+      "en": "Which character is missing from this word?"
+     },
+     "objet": {
+      "zh": "地址",
+      "pinyin": "dì zhǐ",
+      "fr": "adresse",
+      "en": "address"
+     },
+     "trou": 1,
+     "choix": [
+      "止",
+      "只",
+      "址",
+      "纸"
+     ],
+     "reponse": 2,
+     "porte": [
+      "址"
+     ]
+    }
+   ]
+  },
+  {
+   "serie": "B",
+   "statut": "relu",
+   "supports": [
+    {
+     "id": "s1",
+     "genre": "calendrier",
+     "contexte": {
+      "fr": "Un calendrier",
+      "en": "A calendar"
+     },
+     "lignes": [
+      {
+       "zh": "大年初一",
+       "pinyin": "dà nián chū yī",
+       "fr": "1er jour de l'an lunaire",
+       "en": "Lunar New Year's Day"
+      },
+      {
+       "zh": "春节",
+       "pinyin": "chūn jié",
+       "fr": "Fête du Printemps",
+       "en": "Spring Festival"
+      },
+      {
+       "zh": "去奶奶家拜年",
+       "pinyin": "qù nǎi nai jiā bài nián",
+       "fr": "Vœux du Nouvel An chez Mamie",
+       "en": "New Year visit to Grandma's"
+      }
+     ]
+    },
+    {
+     "id": "s2",
+     "genre": "message",
+     "contexte": {
+      "fr": "Un message",
+      "en": "A message"
+     },
+     "lignes": [
+      {
+       "zh": "妈妈，今天老师表扬我了！",
+       "pinyin": "mā ma jīn tiān lǎo shī biǎo yáng wǒ le",
+       "fr": "Maman, aujourd'hui la maîtresse m'a félicité !",
+       "en": "Mum, the teacher praised me today!"
+      },
+      {
+       "zh": "她说我的中文进步很大。",
+       "pinyin": "tā shuō wǒ de zhōng wén jìn bù hěn dà",
+       "fr": "Elle dit que j'ai fait de gros progrès en chinois.",
+       "en": "She says my Chinese has improved a lot."
+      }
+     ]
+    }
+   ],
+   "questions": [
+    {
+     "type": "comprendre",
+     "support": "s1",
+     "consigne": {
+      "fr": "Que prévoit-on ce jour-là ?",
+      "en": "What is planned for that day?"
+     },
+     "choix": [
+      {
+       "fr": "Aller au cinéma avec Mamie",
+       "en": "Going to the cinema with Grandma"
+      },
+      {
+       "fr": "Faire le ménage chez Mamie",
+       "en": "Cleaning at Grandma's"
+      },
+      {
+       "fr": "Présenter ses vœux à Mamie",
+       "en": "Wishing Grandma a happy New Year"
+      },
+      {
+       "fr": "Partir en voyage avec Mamie",
+       "en": "Going on a trip with Grandma"
+      }
+     ],
+     "reponse": 2,
+     "porte": [
+      "拜",
+      "年"
+     ]
+    },
+    {
+     "type": "reperer",
+     "support": "s2",
+     "consigne": {
+      "fr": "Touche ce que la maîtresse a fait.",
+      "en": "Tap what the teacher did."
+     },
+     "choix": [
+      "妈妈",
+      "今天",
+      "老师",
+      "表扬"
+     ],
+     "reponse": 3,
+     "porte": [
+      "表",
+      "扬"
+     ]
+    },
+    {
+     "type": "replique",
+     "support": "s2",
+     "consigne": {
+      "fr": "Que répond maman ?",
+      "en": "What does Mum reply?"
+     },
+     "choix": [
+      {
+       "zh": "太好了，继续努力！",
+       "pinyin": "tài hǎo le jì xù nǔ lì",
+       "fr": "Bravo, continue comme ça !",
+       "en": "Great, keep it up!"
+      },
+      {
+       "zh": "我的腰很疼。",
+       "pinyin": "wǒ de yāo hěn téng",
+       "fr": "J'ai mal aux reins.",
+       "en": "My back hurts."
+      },
+      {
+       "zh": "盐在桌子上。",
+       "pinyin": "yán zài zhuō zi shàng",
+       "fr": "Le sel est sur la table.",
+       "en": "The salt is on the table."
+      },
+      {
+       "zh": "今天是春节。",
+       "pinyin": "jīn tiān shì chūn jié",
+       "fr": "C'est la fête du Printemps aujourd'hui.",
+       "en": "It's the Spring Festival today."
+      }
+     ],
+     "reponse": 0,
+     "porte": [
+      "扬"
+     ]
+    },
+    {
+     "type": "sens",
+     "consigne": {
+      "fr": "Que veut dire ce caractère ?",
+      "en": "What does this character mean?"
+     },
+     "objet": {
+      "zh": "岸",
+      "pinyin": "àn",
+      "fr": "rive",
+      "en": "bank (of a river)"
+     },
+     "choix": [
+      {
+       "fr": "pont",
+       "en": "bridge"
+      },
+      {
+       "fr": "rive",
+       "en": "bank"
+      },
+      {
+       "fr": "bateau",
+       "en": "boat"
+      },
+      {
+       "fr": "vague",
+       "en": "wave"
+      }
+     ],
+     "reponse": 1,
+     "porte": [
+      "岸"
+     ]
+    },
+    {
+     "type": "ton",
+     "consigne": {
+      "fr": "Quel est le ton de ce caractère ?",
+      "en": "Which tone does this character have?"
+     },
+     "objet": {
+      "zh": "摇",
+      "pinyin": "yáo",
+      "fr": "secouer, agiter",
+      "en": "to shake"
+     },
+     "choix": [
+      "yāo",
+      "yáo",
+      "yǎo",
+      "yào"
+     ],
+     "reponse": 1,
+     "porte": [
+      "摇"
+     ]
+    }
+   ]
+  }
+ ]
+}

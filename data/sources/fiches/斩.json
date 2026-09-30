@@ -21,19 +21,32 @@
   "车": "sens",
   "斤": "sens"
  },
- "mots": [],
+ "mots": [
+  {
+   "hanzi": "斩断",
+   "pinyin": "zhǎnduàn",
+   "fr": "trancher",
+   "en": "to cut off"
+  },
+  {
+   "hanzi": "斩首",
+   "pinyin": "zhǎnshǒu",
+   "fr": "décapiter",
+   "en": "to behead"
+  }
+ ],
  "phrase": {
-  "zh": "",
-  "pinyin": "",
-  "fr": "",
-  "en": ""
+  "zh": "他一刀斩断了绳子。",
+  "pinyin": "Tā yī dāo zhǎnduàn le shéngzi.",
+  "fr": "D'un coup de couteau, il a tranché la corde.",
+  "en": "He cut the rope with one stroke."
  },
  "generation": {
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:86a686eff87a943797894c931b79f495c1c875b97fa8cf2bf7b427bda020e736",
-  "essais": 1,
+  "empreinte_invite": "sha256:8eabf07917d4b99ac4f29f8d258888aad503388ec031e6d9f33895d7e2958764",
+  "essais": 2,
   "refus": []
  },
  "statut": "relu"

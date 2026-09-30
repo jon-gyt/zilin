@@ -21,19 +21,32 @@
   "工": "forme",
   "页": "sens"
  },
- "mots": [],
+ "mots": [
+  {
+   "hanzi": "项目",
+   "pinyin": "xiàngmù",
+   "fr": "projet, épreuve",
+   "en": "project, item"
+  },
+  {
+   "hanzi": "事项",
+   "pinyin": "shìxiàng",
+   "fr": "point, question à traiter",
+   "en": "matter, item"
+  }
+ ],
  "phrase": {
-  "zh": "",
-  "pinyin": "",
-  "fr": "",
-  "en": ""
+  "zh": "这个项目很重要。",
+  "pinyin": "Zhège xiàngmù hěn zhòngyào.",
+  "fr": "Ce projet est très important.",
+  "en": "This project is very important."
  },
  "generation": {
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:391b08c29dff712a3d02cf2b89252c4d520679ac9028f48cdd31037e3d458ba7",
-  "essais": 1,
+  "empreinte_invite": "sha256:6fb676dda3bbd20ba63c64de34bebedc886ce0f00fa966256475708d0fd612cb",
+  "essais": 2,
   "refus": []
  },
  "statut": "relu"

@@ -21,19 +21,32 @@
   "饣": "son",
   "虫": "sens"
  },
- "mots": [],
+ "mots": [
+  {
+   "hanzi": "腐蚀",
+   "pinyin": "fǔshí",
+   "fr": "corroder, ronger",
+   "en": "to corrode"
+  },
+  {
+   "hanzi": "侵蚀",
+   "pinyin": "qīnshí",
+   "fr": "éroder, ronger",
+   "en": "to erode"
+  }
+ ],
  "phrase": {
-  "zh": "",
-  "pinyin": "",
-  "fr": "",
-  "en": ""
+  "zh": "海水慢慢侵蚀了这块石头。",
+  "pinyin": "Hǎishuǐ mànmàn qīnshí le zhè kuài shítou.",
+  "fr": "La mer a lentement rongé ce rocher.",
+  "en": "The sea has slowly eroded this rock."
  },
  "generation": {
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:50485495ac797b9244af433bc0708cbe8cc126f314dee0256668601b49aa0137",
-  "essais": 1,
+  "empreinte_invite": "sha256:131ab5b02896178645c1988e1f3dcbade79d8df9458964620aa77217017fd6f8",
+  "essais": 2,
   "refus": []
  },
  "statut": "relu"

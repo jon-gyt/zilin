@@ -21,19 +21,32 @@
   "钅": "sens",
   "失": "forme"
  },
- "mots": [],
+ "mots": [
+  {
+   "hanzi": "地铁",
+   "pinyin": "dìtiě",
+   "fr": "métro",
+   "en": "subway"
+  },
+  {
+   "hanzi": "高铁",
+   "pinyin": "gāotiě",
+   "fr": "train à grande vitesse",
+   "en": "high-speed rail"
+  }
+ ],
  "phrase": {
-  "zh": "",
-  "pinyin": "",
-  "fr": "",
-  "en": ""
+  "zh": "我每天坐地铁上班。",
+  "pinyin": "Wǒ měitiān zuò dìtiě shàngbān.",
+  "fr": "Je prends le métro pour aller au travail tous les jours.",
+  "en": "I take the subway to work every day."
  },
  "generation": {
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:c158f6eb255b62cc7ed8bd232efd6f6ad98f584dfd468a71fcce9174bfcc67cb",
-  "essais": 1,
+  "empreinte_invite": "sha256:bc9a6c13fe20558add635f967848dcaa651fbc1d54a106703c5f6f4d1c11e48a",
+  "essais": 2,
   "refus": []
  },
  "statut": "relu"

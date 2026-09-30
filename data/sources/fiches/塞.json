@@ -25,19 +25,32 @@
   "八": "forme",
   "土": "sens"
  },
- "mots": [],
+ "mots": [
+  {
+   "hanzi": "塞车",
+   "pinyin": "sāichē",
+   "fr": "embouteillage",
+   "en": "traffic jam"
+  },
+  {
+   "hanzi": "塞满",
+   "pinyin": "sāimǎn",
+   "fr": "remplir à ras bord",
+   "en": "to stuff full"
+  }
+ ],
  "phrase": {
-  "zh": "",
-  "pinyin": "",
-  "fr": "",
-  "en": ""
+  "zh": "下班的时候路上常常塞车。",
+  "pinyin": "Xiàbān de shíhou lù shang chángcháng sāichē.",
+  "fr": "À la sortie du travail, il y a souvent des bouchons.",
+  "en": "There are often traffic jams after work."
  },
  "generation": {
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:bd5d769de36fa483a135837a9952fea8d23cf71b03e06c62067680a5d1e98afc",
-  "essais": 1,
+  "empreinte_invite": "sha256:bbced6a0d2d41204c6161852fdea1e20364f1378c2713b820c2ae9a62babc8bf",
+  "essais": 2,
   "refus": []
  },
  "statut": "relu"

@@ -3,7 +3,8 @@
  "parcours": "lire",
  "jour": 1050,
  "pinyin": [
-  "huā"
+  "huā",
+  "huá"
  ],
  "sens_fr": "vacarme, tumulte, bruit d'eau",
  "sens_en": "uproar, clamour, splash",
@@ -25,19 +26,32 @@
   "匕": "son",
   "十": "son"
  },
- "mots": [],
+ "mots": [
+  {
+   "hanzi": "哗哗",
+   "pinyin": "huāhuā",
+   "fr": "(bruit d'eau qui coule)",
+   "en": "(sound of rushing water)"
+  },
+  {
+   "hanzi": "哗然",
+   "pinyin": "huárán",
+   "fr": "en émoi, tollé",
+   "en": "in an uproar"
+  }
+ ],
  "phrase": {
-  "zh": "",
-  "pinyin": "",
-  "fr": "",
-  "en": ""
+  "zh": "外面的雨哗哗地下。",
+  "pinyin": "Wàimian de yǔ huāhuā de xià.",
+  "fr": "Dehors, la pluie tombe à verse.",
+  "en": "Outside, the rain is pouring down."
  },
  "generation": {
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:096f631382f72e457f82c8132b82940f1e2d46e1d539369e3b84e8f10fccbe98",
-  "essais": 1,
+  "empreinte_invite": "sha256:ea28aeb939045bf213bbf3ddf77a706d2ac595b1e6af5549b35910ec71240a10",
+  "essais": 3,
   "refus": []
  },
  "statut": "relu"

@@ -19,19 +19,32 @@
  "roles": {
   "才": "sens"
  },
- "mots": [],
+ "mots": [
+  {
+   "hanzi": "刚才",
+   "pinyin": "gāngcái",
+   "fr": "tout à l'heure",
+   "en": "just now"
+  },
+  {
+   "hanzi": "天才",
+   "pinyin": "tiāncái",
+   "fr": "génie",
+   "en": "genius"
+  }
+ ],
  "phrase": {
-  "zh": "",
-  "pinyin": "",
-  "fr": "",
-  "en": ""
+  "zh": "他十点才起床。",
+  "pinyin": "Tā shí diǎn cái qǐchuáng.",
+  "fr": "Il ne s'est levé qu'à dix heures.",
+  "en": "He didn't get up until ten."
  },
  "generation": {
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:b9f96b80b5f93e7c3750ac766049eef12f832aaac7968d7deb42ecd2372feda3",
-  "essais": 1,
+  "empreinte_invite": "sha256:efe46ce43477a12e0cb26e6061cc3e32665346cdb526a8f3bf627f3152378dbc",
+  "essais": 2,
   "refus": []
  },
  "statut": "relu"

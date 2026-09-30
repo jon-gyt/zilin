@@ -21,19 +21,32 @@
   "纟": "sens",
   "韦": "son"
  },
- "mots": [],
+ "mots": [
+  {
+   "hanzi": "纬度",
+   "pinyin": "wěidù",
+   "fr": "latitude",
+   "en": "latitude"
+  },
+  {
+   "hanzi": "北纬",
+   "pinyin": "běiwěi",
+   "fr": "latitude nord",
+   "en": "north latitude"
+  }
+ ],
  "phrase": {
-  "zh": "",
-  "pinyin": "",
-  "fr": "",
-  "en": ""
+  "zh": "这座城市在北纬三十度。",
+  "pinyin": "Zhè zuò chéngshì zài běiwěi sānshí dù.",
+  "fr": "Cette ville se trouve par trente degrés de latitude nord.",
+  "en": "This city lies at thirty degrees north."
  },
  "generation": {
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:12502125889809c8434f394082144d23d8a00bf5ed41761505c3b01860dfc24b",
-  "essais": 1,
+  "empreinte_invite": "sha256:0def96fa12c11e564b1d8a0ee76e4273a82c2a9c9ecf13cc3805c672771854b4",
+  "essais": 2,
   "refus": []
  },
  "statut": "relu"

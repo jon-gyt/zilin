@@ -21,19 +21,32 @@
   "讠": "sens",
   "正": "son"
  },
- "mots": [],
+ "mots": [
+  {
+   "hanzi": "证件",
+   "pinyin": "zhèngjiàn",
+   "fr": "papiers d'identité",
+   "en": "ID papers"
+  },
+  {
+   "hanzi": "保证",
+   "pinyin": "bǎozhèng",
+   "fr": "garantir, promettre",
+   "en": "to guarantee, to promise"
+  }
+ ],
  "phrase": {
-  "zh": "",
-  "pinyin": "",
-  "fr": "",
-  "en": ""
+  "zh": "请给我看一下你的证件。",
+  "pinyin": "Qǐng gěi wǒ kàn yī xià nǐ de zhèngjiàn.",
+  "fr": "Montrez-moi vos papiers, s'il vous plaît.",
+  "en": "Please show me your ID."
  },
  "generation": {
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:d656b29e68aef91fed2297592c016289f405b62b524a17795e1d92f12f4549f5",
-  "essais": 1,
+  "empreinte_invite": "sha256:8abf1d20466d1543b0c78483d2c40ec86808d2adc5188db071e84e7698b11a60",
+  "essais": 2,
   "refus": []
  },
  "statut": "relu"

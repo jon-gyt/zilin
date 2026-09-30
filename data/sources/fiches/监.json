@@ -25,19 +25,32 @@
   "丶": "forme",
   "皿": "sens"
  },
- "mots": [],
+ "mots": [
+  {
+   "hanzi": "监督",
+   "pinyin": "jiāndū",
+   "fr": "superviser, contrôler",
+   "en": "to supervise, to oversee"
+  },
+  {
+   "hanzi": "监控",
+   "pinyin": "jiānkòng",
+   "fr": "surveillance, caméras",
+   "en": "monitoring, surveillance"
+  }
+ ],
  "phrase": {
-  "zh": "",
-  "pinyin": "",
-  "fr": "",
-  "en": ""
+  "zh": "这里有监控，别乱停车。",
+  "pinyin": "Zhèli yǒu jiānkòng, bié luàn tíng chē.",
+  "fr": "Il y a des caméras ici, ne te gare pas n'importe où.",
+  "en": "There are cameras here; don't park just anywhere."
  },
  "generation": {
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:b7aca3a6a24b608c876edf010743f41bf5c12f9f5d7661a558a89f62ea8185f3",
-  "essais": 1,
+  "empreinte_invite": "sha256:4f1fc3f50cf237e2431b9f297097af05126cea4690186b41e8a72b4b13519145",
+  "essais": 2,
   "refus": []
  },
  "statut": "relu"

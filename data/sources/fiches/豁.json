@@ -3,7 +3,9 @@
  "parcours": "lire",
  "jour": 1060,
  "pinyin": [
-  "huō"
+  "huō",
+  "huò",
+  "huá"
  ],
  "sens_fr": "fente, ouvert, tout risquer",
  "sens_en": "crack, open, to risk everything",
@@ -25,19 +27,32 @@
   "口": "forme",
   "谷": "sens"
  },
- "mots": [],
+ "mots": [
+  {
+   "hanzi": "豁达",
+   "pinyin": "huòdá",
+   "fr": "large d'esprit",
+   "en": "open-minded"
+  },
+  {
+   "hanzi": "豁然",
+   "pinyin": "huòrán",
+   "fr": "soudain clair, dégagé",
+   "en": "suddenly clear, open"
+  }
+ ],
  "phrase": {
-  "zh": "",
-  "pinyin": "",
-  "fr": "",
-  "en": ""
+  "zh": "他豁出去了。",
+  "pinyin": "Tā huō chūqu le.",
+  "fr": "Il a décidé de tout risquer.",
+  "en": "He decided to go all out."
  },
  "generation": {
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:25d3e0cf6e9f82d48cc86ac5c686b5231eafe2b5e3529a5a8b7aeee9e5e2eedf",
-  "essais": 1,
+  "empreinte_invite": "sha256:24fe32210329c8d2d62fe65831cb25a5ae08e082ea75059a946430e4e335143c",
+  "essais": 3,
   "refus": []
  },
  "statut": "relu"

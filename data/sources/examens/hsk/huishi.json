@@ -1,0 +1,801 @@
+{
+ "examen": "huishi",
+ "parcours": "hsk",
+ "generation": {
+  "modele": "rédaction manuelle",
+  "api": "session Claude Code (sans API)",
+  "date": "2026-09-30"
+ },
+ "relecture": {
+  "statut": "relu",
+  "par": "le propriétaire",
+  "decision": "« Go » (30 septembre 2026) : tout affiché sans relecture ligne à ligne",
+  "date": "2026-09-30"
+ },
+ "series": [
+  {
+   "serie": "A",
+   "statut": "relu",
+   "supports": [
+    {
+     "id": "s1",
+     "genre": "affiche",
+     "contexte": {
+      "fr": "Une affiche",
+      "en": "A poster"
+     },
+     "lignes": [
+      {
+       "zh": "春天到了！",
+       "pinyin": "chūn tiān dào le",
+       "fr": "Le printemps est arrivé !",
+       "en": "Spring has come!"
+      },
+      {
+       "zh": "星期天上午九点，",
+       "pinyin": "xīng qī tiān shàng wǔ jiǔ diǎn",
+       "fr": "Dimanche, à neuf heures du matin,",
+       "en": "Sunday at nine in the morning,"
+      },
+      {
+       "zh": "我们去湖边画画。",
+       "pinyin": "wǒ men qù hú biān huà huà",
+       "fr": "on va peindre au bord du lac.",
+       "en": "we're going to paint by the lake."
+      },
+      {
+       "zh": "黄老师画画班",
+       "pinyin": "huáng lǎo shī huà huà bān",
+       "fr": "L'atelier de peinture de Mme Huang",
+       "en": "Ms Huang's painting class"
+      }
+     ]
+    },
+    {
+     "id": "s2",
+     "genre": "message",
+     "contexte": {
+      "fr": "Un message",
+      "en": "A message"
+     },
+     "lignes": [
+      {
+       "zh": "黄明，我们的火车十点开，",
+       "pinyin": "huáng míng wǒ men de huǒ chē shí diǎn kāi",
+       "fr": "Huang Ming, notre train part à dix heures :",
+       "en": "Huang Ming, our train leaves at ten:"
+      },
+      {
+       "zh": "你到了没有？",
+       "pinyin": "nǐ dào le méi yǒu",
+       "fr": "tu es arrivé ?",
+       "en": "are you here yet?"
+      },
+      {
+       "zh": "我在车站东口等你。",
+       "pinyin": "wǒ zài chē zhàn dōng kǒu děng nǐ",
+       "fr": "Je t'attends à la sortie est de la gare.",
+       "en": "I'm waiting for you at the station's east exit."
+      }
+     ]
+    },
+    {
+     "id": "s3",
+     "genre": "pancarte",
+     "contexte": {
+      "fr": "Un panneau",
+      "en": "A sign"
+     },
+     "lignes": [
+      {
+       "zh": "公共汽车站",
+       "pinyin": "gōng gòng qì chē zhàn",
+       "fr": "Arrêt de bus",
+       "en": "Bus stop"
+      },
+      {
+       "zh": "八路：到火车站",
+       "pinyin": "bā lù dào huǒ chē zhàn",
+       "fr": "Ligne 8 : vers la gare",
+       "en": "Line 8: to the railway station"
+      },
+      {
+       "zh": "十二路：到医院",
+       "pinyin": "shí èr lù dào yī yuàn",
+       "fr": "Ligne 12 : vers l'hôpital",
+       "en": "Line 12: to the hospital"
+      },
+      {
+       "zh": "早上六点到晚上十点",
+       "pinyin": "zǎo shang liù diǎn dào wǎn shang shí diǎn",
+       "fr": "De six heures du matin à dix heures du soir",
+       "en": "From 6 am to 10 pm"
+      }
+     ]
+    },
+    {
+     "id": "s4",
+     "genre": "enseigne",
+     "contexte": {
+      "fr": "Une enseigne",
+      "en": "A sign"
+     },
+     "lignes": [
+      {
+       "zh": "红星画店",
+       "pinyin": "hóng xīng huà diàn",
+       "fr": "L'Étoile rouge, marchand de tableaux",
+       "en": "Red Star Picture Shop"
+      }
+     ]
+    }
+   ],
+   "questions": [
+    {
+     "type": "comprendre",
+     "support": "s1",
+     "consigne": {
+      "fr": "Où va-t-on peindre ?",
+      "en": "Where will they paint?"
+     },
+     "choix": [
+      {
+       "fr": "Au bord du lac",
+       "en": "By the lake"
+      },
+      {
+       "fr": "Au bord de la rivière",
+       "en": "By the river"
+      },
+      {
+       "fr": "Dans la montagne",
+       "en": "In the mountains"
+      },
+      {
+       "fr": "Dans la cour de l'école",
+       "en": "In the school yard"
+      }
+     ],
+     "reponse": 0,
+     "porte": [
+      "湖",
+      "边"
+     ]
+    },
+    {
+     "type": "vrai_faux",
+     "support": "s1",
+     "consigne": {
+      "fr": "Vrai ou faux ?",
+      "en": "True or false?"
+     },
+     "affirmation": {
+      "zh": "星期天上午去画画。",
+      "pinyin": "xīng qī tiān shàng wǔ qù huà huà",
+      "fr": "On va peindre dimanche matin.",
+      "en": "They're painting on Sunday morning."
+     },
+     "reponse": true,
+     "porte": [
+      "星",
+      "期",
+      "天",
+      "上",
+      "午"
+     ]
+    },
+    {
+     "type": "sens",
+     "consigne": {
+      "fr": "Que veut dire ce caractère ?",
+      "en": "What does this character mean?"
+     },
+     "objet": {
+      "zh": "懂",
+      "pinyin": "dǒng",
+      "fr": "comprendre",
+      "en": "to understand"
+     },
+     "choix": [
+      {
+       "fr": "oublier",
+       "en": "to forget"
+      },
+      {
+       "fr": "comprendre",
+       "en": "to understand"
+      },
+      {
+       "fr": "chercher",
+       "en": "to look for"
+      },
+      {
+       "fr": "attendre",
+       "en": "to wait"
+      }
+     ],
+     "reponse": 1,
+     "porte": [
+      "懂"
+     ]
+    },
+    {
+     "type": "reperer",
+     "support": "s2",
+     "consigne": {
+      "fr": "Touche l'heure du départ du train.",
+      "en": "Tap the time the train leaves."
+     },
+     "choix": [
+      "黄明",
+      "火车",
+      "十点",
+      "东口"
+     ],
+     "reponse": 2,
+     "porte": [
+      "十",
+      "点",
+      "开"
+     ]
+    },
+    {
+     "type": "replique",
+     "support": "s2",
+     "consigne": {
+      "fr": "Que répond Huang Ming ?",
+      "en": "What does Huang Ming reply?"
+     },
+     "choix": [
+      {
+       "zh": "我喜欢冬天。",
+       "pinyin": "wǒ xǐ huan dōng tiān",
+       "fr": "J'aime l'hiver.",
+       "en": "I like winter."
+      },
+      {
+       "zh": "这是我的画。",
+       "pinyin": "zhè shì wǒ de huà",
+       "fr": "C'est mon tableau.",
+       "en": "This is my painting."
+      },
+      {
+       "zh": "我爸爸是医生。",
+       "pinyin": "wǒ bà ba shì yī shēng",
+       "fr": "Mon père est médecin.",
+       "en": "My father is a doctor."
+      },
+      {
+       "zh": "我刚到，马上来！",
+       "pinyin": "wǒ gāng dào mǎ shàng lái",
+       "fr": "Je viens d'arriver, j'arrive tout de suite !",
+       "en": "I've just got here, I'm coming!"
+      }
+     ],
+     "reponse": 3,
+     "porte": [
+      "到",
+      "等",
+      "刚"
+     ]
+    },
+    {
+     "type": "caractere",
+     "consigne": {
+      "fr": "Quel caractère a ce sens ?",
+      "en": "Which character has this meaning?"
+     },
+     "objet": {
+      "zh": "黑",
+      "pinyin": "hēi",
+      "fr": "noir",
+      "en": "black"
+     },
+     "choix": [
+      "里",
+      "黄",
+      "点",
+      "黑"
+     ],
+     "reponse": 3,
+     "porte": [
+      "黑"
+     ]
+    },
+    {
+     "type": "comprendre",
+     "support": "s3",
+     "consigne": {
+      "fr": "Quelle ligne va à l'hôpital ?",
+      "en": "Which line goes to the hospital?"
+     },
+     "choix": [
+      {
+       "fr": "La ligne 8",
+       "en": "Line 8"
+      },
+      {
+       "fr": "La ligne 12",
+       "en": "Line 12"
+      },
+      {
+       "fr": "La ligne 2",
+       "en": "Line 2"
+      },
+      {
+       "fr": "La ligne 10",
+       "en": "Line 10"
+      }
+     ],
+     "reponse": 1,
+     "porte": [
+      "十",
+      "二",
+      "路",
+      "医",
+      "院"
+     ]
+    },
+    {
+     "type": "vrai_faux",
+     "support": "s3",
+     "consigne": {
+      "fr": "Vrai ou faux ?",
+      "en": "True or false?"
+     },
+     "affirmation": {
+      "zh": "晚上十一点还有车。",
+      "pinyin": "wǎn shang shí yī diǎn hái yǒu chē",
+      "fr": "Il y a encore des bus à onze heures du soir.",
+      "en": "There are still buses at 11 pm."
+     },
+     "reponse": false,
+     "porte": [
+      "晚",
+      "上",
+      "十",
+      "点"
+     ]
+    },
+    {
+     "type": "comprendre",
+     "support": "s4",
+     "consigne": {
+      "fr": "Que vend cette boutique ?",
+      "en": "What does this shop sell?"
+     },
+     "choix": [
+      {
+       "fr": "Des livres",
+       "en": "Books"
+      },
+      {
+       "fr": "Des vêtements",
+       "en": "Clothes"
+      },
+      {
+       "fr": "Des tableaux",
+       "en": "Pictures"
+      },
+      {
+       "fr": "Des fruits",
+       "en": "Fruit"
+      }
+     ],
+     "reponse": 2,
+     "porte": [
+      "画",
+      "店"
+     ]
+    },
+    {
+     "type": "trou",
+     "consigne": {
+      "fr": "Quel caractère manque dans ce mot ?",
+      "en": "Which character is missing from this word?"
+     },
+     "objet": {
+      "zh": "生活",
+      "pinyin": "shēng huó",
+      "fr": "la vie",
+      "en": "life"
+     },
+     "trou": 1,
+     "choix": [
+      "话",
+      "舌",
+      "法",
+      "活"
+     ],
+     "reponse": 3,
+     "porte": [
+      "活"
+     ]
+    }
+   ]
+  },
+  {
+   "serie": "B",
+   "statut": "relu",
+   "supports": [
+    {
+     "id": "s1",
+     "genre": "message",
+     "contexte": {
+      "fr": "Un message",
+      "en": "A message"
+     },
+     "lignes": [
+      {
+       "zh": "爸爸，今天是妈妈的生日，",
+       "pinyin": "bà ba jīn tiān shì mā ma de shēng rì",
+       "fr": "Papa, c'est l'anniversaire de maman aujourd'hui :",
+       "en": "Dad, it's Mum's birthday today:"
+      },
+      {
+       "zh": "我们晚上一起去饭馆吃饭吧！",
+       "pinyin": "wǒ men wǎn shang yī qǐ qù fàn guǎn chī fàn ba",
+       "fr": "allons dîner au restaurant tous ensemble ce soir !",
+       "en": "let's all go out to a restaurant tonight!"
+      },
+      {
+       "zh": "我定好了七点。",
+       "pinyin": "wǒ dìng hǎo le qī diǎn",
+       "fr": "J'ai réservé pour sept heures.",
+       "en": "I've booked for seven."
+      }
+     ]
+    },
+    {
+     "id": "s2",
+     "genre": "billet",
+     "contexte": {
+      "fr": "Un billet",
+      "en": "A ticket"
+     },
+     "lignes": [
+      {
+       "zh": "黄河电影院",
+       "pinyin": "huáng hé diàn yǐng yuàn",
+       "fr": "Cinéma du Fleuve Jaune",
+       "en": "Yellow River Cinema"
+      },
+      {
+       "zh": "《冬天的湖》",
+       "pinyin": "dōng tiān de hú",
+       "fr": "« Le Lac en hiver »",
+       "en": "“The Lake in Winter”"
+      },
+      {
+       "zh": "二月十四日晚上七点半",
+       "pinyin": "èr yuè shí sì rì wǎn shang qī diǎn bàn",
+       "fr": "14 février, 19 h 30",
+       "en": "14 February, 7:30 pm"
+      },
+      {
+       "zh": "四十五块",
+       "pinyin": "sì shí wǔ kuài",
+       "fr": "45 yuans",
+       "en": "45 yuan"
+      }
+     ]
+    },
+    {
+     "id": "s3",
+     "genre": "affiche",
+     "contexte": {
+      "fr": "Une affiche",
+      "en": "A poster"
+     },
+     "lignes": [
+      {
+       "zh": "学校网球队找人！",
+       "pinyin": "xué xiào wǎng qiú duì zhǎo rén",
+       "fr": "L'équipe de tennis de l'école recrute !",
+       "en": "The school tennis team is recruiting!"
+      },
+      {
+       "zh": "星期二下午五点",
+       "pinyin": "xīng qī èr xià wǔ wǔ diǎn",
+       "fr": "Le mardi, à cinq heures de l'après-midi",
+       "en": "Tuesdays at 5 pm"
+      },
+      {
+       "zh": "会打不会打都来吧！",
+       "pinyin": "huì dǎ bù huì dǎ dōu lái ba",
+       "fr": "Que vous sachiez jouer ou non, venez !",
+       "en": "Whether you can play or not, come along!"
+      }
+     ]
+    }
+   ],
+   "questions": [
+    {
+     "type": "comprendre",
+     "support": "s1",
+     "consigne": {
+      "fr": "Que fête-t-on ce soir ?",
+      "en": "What is being celebrated tonight?"
+     },
+     "choix": [
+      {
+       "fr": "Le Nouvel An",
+       "en": "New Year"
+      },
+      {
+       "fr": "L'anniversaire de maman",
+       "en": "Mum's birthday"
+      },
+      {
+       "fr": "L'anniversaire de papa",
+       "en": "Dad's birthday"
+      },
+      {
+       "fr": "La fête des mères",
+       "en": "Mother's Day"
+      }
+     ],
+     "reponse": 1,
+     "porte": [
+      "妈",
+      "生",
+      "日"
+     ]
+    },
+    {
+     "type": "reperer",
+     "support": "s1",
+     "consigne": {
+      "fr": "Touche l'heure réservée.",
+      "en": "Tap the time booked."
+     },
+     "choix": [
+      "爸爸",
+      "生日",
+      "饭馆",
+      "七点"
+     ],
+     "reponse": 3,
+     "porte": [
+      "定",
+      "七",
+      "点"
+     ]
+    },
+    {
+     "type": "replique",
+     "support": "s1",
+     "consigne": {
+      "fr": "Que répond papa ?",
+      "en": "What does Dad reply?"
+     },
+     "choix": [
+      {
+       "zh": "好，我早点回家！",
+       "pinyin": "hǎo wǒ zǎo diǎn huí jiā",
+       "fr": "D'accord, je rentrerai tôt !",
+       "en": "OK, I'll be home early!"
+      },
+      {
+       "zh": "我不会画画。",
+       "pinyin": "wǒ bù huì huà huà",
+       "fr": "Je ne sais pas dessiner.",
+       "en": "I can't draw."
+      },
+      {
+       "zh": "河里有很多鱼。",
+       "pinyin": "hé lǐ yǒu hěn duō yú",
+       "fr": "Il y a beaucoup de poissons dans la rivière.",
+       "en": "There are lots of fish in the river."
+      },
+      {
+       "zh": "冬天很冷。",
+       "pinyin": "dōng tiān hěn lěng",
+       "fr": "L'hiver est froid.",
+       "en": "Winter is cold."
+      }
+     ],
+     "reponse": 0,
+     "porte": [
+      "晚",
+      "上",
+      "饭",
+      "馆"
+     ]
+    },
+    {
+     "type": "sens",
+     "consigne": {
+      "fr": "Que veut dire ce caractère ?",
+      "en": "What does this character mean?"
+     },
+     "objet": {
+      "zh": "久",
+      "pinyin": "jiǔ",
+      "fr": "longtemps",
+      "en": "a long time"
+     },
+     "choix": [
+      {
+       "fr": "vite",
+       "en": "fast"
+      },
+      {
+       "fr": "longtemps",
+       "en": "a long time"
+      },
+      {
+       "fr": "souvent",
+       "en": "often"
+      },
+      {
+       "fr": "bientôt",
+       "en": "soon"
+      }
+     ],
+     "reponse": 1,
+     "porte": [
+      "久"
+     ]
+    },
+    {
+     "type": "comprendre",
+     "support": "s2",
+     "consigne": {
+      "fr": "Quel film va-t-on voir ?",
+      "en": "Which film is it for?"
+     },
+     "choix": [
+      {
+       "fr": "« La Rivière en hiver »",
+       "en": "“The River in Winter”"
+      },
+      {
+       "fr": "« Le Lac au printemps »",
+       "en": "“The Lake in Spring”"
+      },
+      {
+       "fr": "« Le Lac en hiver »",
+       "en": "“The Lake in Winter”"
+      },
+      {
+       "fr": "« La Montagne en hiver »",
+       "en": "“The Mountain in Winter”"
+      }
+     ],
+     "reponse": 2,
+     "porte": [
+      "冬",
+      "天",
+      "湖"
+     ]
+    },
+    {
+     "type": "vrai_faux",
+     "support": "s2",
+     "consigne": {
+      "fr": "Vrai ou faux ?",
+      "en": "True or false?"
+     },
+     "affirmation": {
+      "zh": "电影票四十块。",
+      "pinyin": "diàn yǐng piào sì shí kuài",
+      "fr": "La place de cinéma coûte 40 yuans.",
+      "en": "The cinema ticket costs 40 yuan."
+     },
+     "reponse": false,
+     "porte": [
+      "四",
+      "十",
+      "五",
+      "块"
+     ]
+    },
+    {
+     "type": "caractere",
+     "consigne": {
+      "fr": "Quel caractère a ce sens ?",
+      "en": "Which character has this meaning?"
+     },
+     "objet": {
+      "zh": "河",
+      "pinyin": "hé",
+      "fr": "rivière, fleuve",
+      "en": "river"
+     },
+     "choix": [
+      "湖",
+      "河",
+      "法",
+      "活"
+     ],
+     "reponse": 1,
+     "porte": [
+      "河"
+     ]
+    },
+    {
+     "type": "comprendre",
+     "support": "s3",
+     "consigne": {
+      "fr": "Quand faut-il venir ?",
+      "en": "When should you come?"
+     },
+     "choix": [
+      {
+       "fr": "Le mardi à 17 h",
+       "en": "Tuesdays at 5 pm"
+      },
+      {
+       "fr": "Le jeudi à 17 h",
+       "en": "Thursdays at 5 pm"
+      },
+      {
+       "fr": "Le mardi à 15 h",
+       "en": "Tuesdays at 3 pm"
+      },
+      {
+       "fr": "Le samedi à 17 h",
+       "en": "Saturdays at 5 pm"
+      }
+     ],
+     "reponse": 0,
+     "porte": [
+      "星",
+      "期",
+      "二",
+      "下",
+      "午",
+      "五",
+      "点"
+     ]
+    },
+    {
+     "type": "vrai_faux",
+     "support": "s3",
+     "consigne": {
+      "fr": "Vrai ou faux ?",
+      "en": "True or false?"
+     },
+     "affirmation": {
+      "zh": "不会打的人也能来。",
+      "pinyin": "bù huì dǎ de rén yě néng lái",
+      "fr": "Ceux qui ne savent pas jouer peuvent venir aussi.",
+      "en": "Those who can't play can come too."
+     },
+     "reponse": true,
+     "porte": [
+      "不",
+      "会",
+      "打",
+      "都",
+      "来"
+     ]
+    },
+    {
+     "type": "ton",
+     "consigne": {
+      "fr": "Quel est le ton de ce caractère ?",
+      "en": "Which tone does this character have?"
+     },
+     "objet": {
+      "zh": "画",
+      "pinyin": "huà",
+      "fr": "peinture, tableau",
+      "en": "painting"
+     },
+     "choix": [
+      "huā",
+      "huá",
+      "huǎ",
+      "huà"
+     ],
+     "reponse": 3,
+     "porte": [
+      "画"
+     ]
+    }
+   ]
+  }
+ ]
+}

@@ -19,19 +19,32 @@
  "roles": {
   "谷": "sens"
  },
- "mots": [],
+ "mots": [
+  {
+   "hanzi": "山谷",
+   "pinyin": "shāngǔ",
+   "fr": "vallée",
+   "en": "valley"
+  },
+  {
+   "hanzi": "谷物",
+   "pinyin": "gǔwù",
+   "fr": "céréales",
+   "en": "grain, cereals"
+  }
+ ],
  "phrase": {
-  "zh": "",
-  "pinyin": "",
-  "fr": "",
-  "en": ""
+  "zh": "山谷里有一条河。",
+  "pinyin": "Shāngǔ li yǒu yī tiáo hé.",
+  "fr": "Une rivière coule dans la vallée.",
+  "en": "There's a river in the valley."
  },
  "generation": {
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:2d38a38aa6263d89e41b540cf3051a5ca70f6525139f27f0e1f7e8a92f08d0a9",
-  "essais": 1,
+  "empreinte_invite": "sha256:48f20854a6d59149d9e94d90162a9cd6d5e58502e08e91dec12f9f9e1ff8720a",
+  "essais": 2,
   "refus": []
  },
  "statut": "relu"

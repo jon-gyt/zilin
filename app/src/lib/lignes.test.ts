@@ -188,3 +188,31 @@ describe('le chargeur', () => {
     await expect(loadTroisLignes(FICHIER_TROIS_LIGNES, faux)).rejects.toThrow('introuvables');
   });
 });
+
+describe('le glossaire commun', () => {
+  const doc = lireTroisLignes({
+    premier_jour: 4,
+    glossaire: {
+      天: { pinyin: 'tiān', fr: 'ciel', en: 'sky' },
+      大: { pinyin: 'dà', fr: 'grand', en: 'big' }
+    },
+    parcours: {
+      lire: [
+        {
+          jour: 4,
+          nouveaux: [],
+          lignes: [{ zh: '天大。', pinyin: 'tiān dà', fr: 'f', en: 'e' }],
+          mots: ['天', '大', '无'],
+          glose: { 大: { pinyin: 'dà', fr: 'grande', en: 'large' } }
+        }
+      ]
+    }
+  });
+
+  it('rend à chaque texte les entrées qu’il nomme, sa glose propre devant', () => {
+    const g = doc.parcours.lire[0].glose;
+    expect(g['天']).toEqual({ pinyin: 'tiān', fr: 'ciel', en: 'sky' });
+    expect(g['大'].fr).toBe('grande');
+    expect(g['无']).toBeUndefined();
+  });
+});

@@ -23,19 +23,32 @@
   "木": "son",
   "目": "son"
  },
- "mots": [],
+ "mots": [
+  {
+   "hanzi": "车厢",
+   "pinyin": "chēxiāng",
+   "fr": "voiture (de train), compartiment",
+   "en": "railway carriage"
+  },
+  {
+   "hanzi": "包厢",
+   "pinyin": "bāoxiāng",
+   "fr": "loge, salon privé",
+   "en": "private box, private room"
+  }
+ ],
  "phrase": {
-  "zh": "",
-  "pinyin": "",
-  "fr": "",
-  "en": ""
+  "zh": "我们坐在第三节车厢。",
+  "pinyin": "Wǒmen zuò zài dì sān jié chēxiāng.",
+  "fr": "Nous sommes dans la troisième voiture.",
+  "en": "We're sitting in the third carriage."
  },
  "generation": {
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:685385edc059f320f34cb96a59481637c490c2220d4595df665f6804eb6511bc",
-  "essais": 1,
+  "empreinte_invite": "sha256:ab19649d4c0e8ceccac0eba49f24c5223ad5e3bf12af8efbee24d1ec7ab8545a",
+  "essais": 2,
   "refus": []
  },
  "statut": "relu"

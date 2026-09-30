@@ -19,19 +19,32 @@
  "roles": {
   "而": "forme"
  },
- "mots": [],
+ "mots": [
+  {
+   "hanzi": "而且",
+   "pinyin": "érqiě",
+   "fr": "de plus",
+   "en": "moreover"
+  },
+  {
+   "hanzi": "而是",
+   "pinyin": "érshì",
+   "fr": "mais plutôt",
+   "en": "but rather"
+  }
+ ],
  "phrase": {
-  "zh": "",
-  "pinyin": "",
-  "fr": "",
-  "en": ""
+  "zh": "这个菜好吃，而且不贵。",
+  "pinyin": "Zhège cài hǎochī, érqiě bù guì.",
+  "fr": "Ce plat est bon, et en plus il n'est pas cher.",
+  "en": "This dish is tasty, and it isn't expensive either."
  },
  "generation": {
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:84f65c8a76f4f442a80938e097936c73d04a0919c0dd51b714183f4127db2687",
-  "essais": 1,
+  "empreinte_invite": "sha256:2d5e4e5a0eaa4e719a808353004c7f6e664d5cbc92020c189adc980869e99752",
+  "essais": 2,
   "refus": []
  },
  "statut": "relu"

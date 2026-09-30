@@ -19,19 +19,32 @@
  "roles": {
   "卫": "forme"
  },
- "mots": [],
+ "mots": [
+  {
+   "hanzi": "卫生",
+   "pinyin": "wèishēng",
+   "fr": "hygiène, propre",
+   "en": "hygiene, clean"
+  },
+  {
+   "hanzi": "卫星",
+   "pinyin": "wèixīng",
+   "fr": "satellite",
+   "en": "satellite"
+  }
+ ],
  "phrase": {
-  "zh": "",
-  "pinyin": "",
-  "fr": "",
-  "en": ""
+  "zh": "卫生间在哪儿？",
+  "pinyin": "Wèishēngjiān zài nǎr?",
+  "fr": "Où sont les toilettes ?",
+  "en": "Where's the restroom?"
  },
  "generation": {
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:669e3ad42eda08f2dfd5baf8396826c4fb7ee3c934fabc04ec3676fe26cc4434",
-  "essais": 1,
+  "empreinte_invite": "sha256:94e08392bcd2786b0ec1257d98dba9c7c130de67e54bc4c9927483ad65d1f872",
+  "essais": 2,
   "refus": []
  },
  "statut": "relu"

@@ -21,19 +21,32 @@
   "阝": "sens",
   "艮": "forme"
  },
- "mots": [],
+ "mots": [
+  {
+   "hanzi": "限制",
+   "pinyin": "xiànzhì",
+   "fr": "limiter, restriction",
+   "en": "to restrict, restriction"
+  },
+  {
+   "hanzi": "有限",
+   "pinyin": "yǒuxiàn",
+   "fr": "limité",
+   "en": "limited"
+  }
+ ],
  "phrase": {
-  "zh": "",
-  "pinyin": "",
-  "fr": "",
-  "en": ""
+  "zh": "我们的时间有限。",
+  "pinyin": "Wǒmen de shíjiān yǒuxiàn.",
+  "fr": "Notre temps est limité.",
+  "en": "Our time is limited."
  },
  "generation": {
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:012b5aac0c7059c0fecf6b1c822b9d3f5ec5ebcaf735969ec803c64c993b4946",
-  "essais": 1,
+  "empreinte_invite": "sha256:ce89653f9a91dadabc422ac83f78667ebe228b47940058f595b5ecb19ca01bbe",
+  "essais": 2,
   "refus": []
  },
  "statut": "relu"

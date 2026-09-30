@@ -23,19 +23,32 @@
   "匕": "son",
   "日": "son"
  },
- "mots": [],
+ "mots": [
+  {
+   "hanzi": "脂肪",
+   "pinyin": "zhīfáng",
+   "fr": "graisse",
+   "en": "fat"
+  },
+  {
+   "hanzi": "油脂",
+   "pinyin": "yóuzhī",
+   "fr": "huiles et graisses",
+   "en": "oils and fats"
+  }
+ ],
  "phrase": {
-  "zh": "",
-  "pinyin": "",
-  "fr": "",
-  "en": ""
+  "zh": "这种牛奶不含脂肪。",
+  "pinyin": "Zhè zhǒng niúnǎi bù hán zhīfáng.",
+  "fr": "Ce lait ne contient pas de matières grasses.",
+  "en": "This milk contains no fat."
  },
  "generation": {
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:3bd4821674bbd0c886f663043d5e7a010ba7b1203b3e10853ce44c80b355c24c",
-  "essais": 1,
+  "empreinte_invite": "sha256:f7a00d1d4d375e0eb9e825f1fe2e2c369296b7b9bd564a1f5c7c01d2f901ec55",
+  "essais": 2,
   "refus": []
  },
  "statut": "relu"

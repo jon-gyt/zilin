@@ -23,19 +23,32 @@
   "十": "forme",
   "小": "forme"
  },
- "mots": [],
+ "mots": [
+  {
+   "hanzi": "杀人",
+   "pinyin": "shārén",
+   "fr": "tuer quelqu'un, meurtre",
+   "en": "to kill, murder"
+  },
+  {
+   "hanzi": "杀毒",
+   "pinyin": "shādú",
+   "fr": "désinfecter ; antivirus",
+   "en": "to disinfect; antivirus"
+  }
+ ],
  "phrase": {
-  "zh": "",
-  "pinyin": "",
-  "fr": "",
-  "en": ""
+  "zh": "这种药可以杀虫。",
+  "pinyin": "Zhè zhǒng yào kěyǐ shā chóng.",
+  "fr": "Ce produit tue les insectes.",
+  "en": "This product kills insects."
  },
  "generation": {
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:50ecf918692acc2af92395c0860a9b4cc91a71f6074349642b40e58865d8a686",
-  "essais": 1,
+  "empreinte_invite": "sha256:05e8d1dd38a48672b3e96d79a1ad59e79ca0ab0240b5e51d874fa0f898c1c7de",
+  "essais": 2,
   "refus": []
  },
  "statut": "relu"

@@ -19,19 +19,32 @@
  "roles": {
   "单": "forme"
  },
- "mots": [],
+ "mots": [
+  {
+   "hanzi": "单词",
+   "pinyin": "dāncí",
+   "fr": "mot",
+   "en": "word"
+  },
+  {
+   "hanzi": "名单",
+   "pinyin": "míngdān",
+   "fr": "liste de noms",
+   "en": "list of names"
+  }
+ ],
  "phrase": {
-  "zh": "",
-  "pinyin": "",
-  "fr": "",
-  "en": ""
+  "zh": "我每天学十个单词。",
+  "pinyin": "Wǒ měitiān xué shí gè dāncí.",
+  "fr": "J'apprends dix mots par jour.",
+  "en": "I learn ten words a day."
  },
  "generation": {
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:3a36d4a0c39f39e06f956b79b094c0419591c8347b71964d39924cca578fe108",
-  "essais": 1,
+  "empreinte_invite": "sha256:0033b6521f5125016ac4d362ae710b8fb465ff86d7ec2392fdf25450a000bec5",
+  "essais": 2,
   "refus": []
  },
  "statut": "relu"

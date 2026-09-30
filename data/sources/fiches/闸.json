@@ -21,19 +21,32 @@
   "门": "sens",
   "甲": "forme"
  },
- "mots": [],
+ "mots": [
+  {
+   "hanzi": "水闸",
+   "pinyin": "shuǐzhá",
+   "fr": "écluse, vanne",
+   "en": "sluice gate"
+  },
+  {
+   "hanzi": "闸门",
+   "pinyin": "zhámén",
+   "fr": "vanne, porte d'écluse",
+   "en": "floodgate"
+  }
+ ],
  "phrase": {
-  "zh": "",
-  "pinyin": "",
-  "fr": "",
-  "en": ""
+  "zh": "工人打开了水闸。",
+  "pinyin": "Gōngrén dǎkāi le shuǐzhá.",
+  "fr": "Les ouvriers ont ouvert la vanne.",
+  "en": "The workers opened the sluice gate."
  },
  "generation": {
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:a211c8109877bb2ba64b1b165faa76af2802ec394e08bbf9dd3f56858c2bec82",
-  "essais": 1,
+  "empreinte_invite": "sha256:d2491cf90f00e580280444a12a408c93a44176f708d0426a543983409cb6ea11",
+  "essais": 2,
   "refus": []
  },
  "statut": "relu"

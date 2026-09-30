@@ -23,19 +23,32 @@
   "厂": "sens",
   "㔾": "sens"
  },
- "mots": [],
+ "mots": [
+  {
+   "hanzi": "危机",
+   "pinyin": "wēijī",
+   "fr": "crise",
+   "en": "crisis"
+  },
+  {
+   "hanzi": "危害",
+   "pinyin": "wēihài",
+   "fr": "nuire, dommage",
+   "en": "to harm, harm"
+  }
+ ],
  "phrase": {
-  "zh": "",
-  "pinyin": "",
-  "fr": "",
-  "en": ""
+  "zh": "病人的情况很危急。",
+  "pinyin": "Bìngrén de qíngkuàng hěn wēijí.",
+  "fr": "L'état du malade est critique.",
+  "en": "The patient's condition is critical."
  },
  "generation": {
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:45b3944825994dc4b4464b659a87800861f5952e8c0cf6afa5bf81cc593a0105",
-  "essais": 1,
+  "empreinte_invite": "sha256:868446b53677d8e371fab6e26743c905b46cc10eabc6760ff2d6568d5cd652a1",
+  "essais": 2,
   "refus": []
  },
  "statut": "relu"

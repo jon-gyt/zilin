@@ -471,15 +471,37 @@ def charger_corpus(
     assert isinstance(chemin_parcours, dict) and isinstance(decompositions, dict)
     assert isinstance(graphe, dict) and isinstance(caracteres, list)
     lectures = charger_pinyin()
+    # Unihan donne la lecture principale (kMandarin), comme à l'export, et ses dictionnaires
+    # (kXHC1983, kTGHZ2013) toutes les lectures d'un polyphone (空调 kōngtiáo, 宿舍 sùshè).
+    # Ordre : la surcharge, sinon kMandarin, puis Make Me a Hanzi, puis les dictionnaires.
+    # Make Me a Hanzi se trompe parfois de lecture principale (卓 zhuō, 似 shì, 甚 shén).
+    unihan_lu: dict[str, list[str]] = {}
+    unihan = ingest / "unihan.json"
+    if unihan.exists():
+        for e in json.loads(unihan.read_text(encoding="utf-8"))["caracteres"]:
+            vues = [str(e.get("pinyin") or ""), *(e.get("lectures") or ()), *(e.get("lectures_dico") or ())]
+            unihan_lu[str(e["c"])] = [str(x) for x in vues if x]
+
+    def _etendre(c: dict[str, object]) -> dict[str, object]:
+        k = str(c["c"])
+        ordre = [
+            *(lectures.get(k) or ()),
+            *(unihan_lu.get(k, [])[:1]),
+            *(c.get("pinyin") or ()),  # type: ignore[misc]
+            *unihan_lu.get(k, []),
+        ]
+        vues: list[str] = []
+        for x in ordre:
+            if x and x not in vues:
+                vues.append(str(x))
+        return {**c, "pinyin": vues} if vues != list(c.get("pinyin") or ()) else c  # type: ignore[arg-type]
+
     return Corpus(
         parcours=parcours,
         jours=chemin_parcours["jours"],
         decompositions={str(d["c"]): d for d in decompositions["caracteres"]},
         noeuds={str(n["c"]): n for n in graphe["noeuds"]},
-        caracteres={
-            str(c["c"]): ({**c, "pinyin": list(lectures[str(c["c"])])} if str(c["c"]) in lectures else c)
-            for c in caracteres
-        },
+        caracteres={str(c["c"]): _etendre(c) for c in caracteres},
         mots=charger_mots(ingest / "mots.json"),
         table=table or charger_table(),
         exclus=charger_mots_exclus(),

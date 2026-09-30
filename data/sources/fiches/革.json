@@ -19,19 +19,32 @@
  "roles": {
   "革": "sens"
  },
- "mots": [],
+ "mots": [
+  {
+   "hanzi": "改革",
+   "pinyin": "gǎigé",
+   "fr": "réforme, réformer",
+   "en": "reform, to reform"
+  },
+  {
+   "hanzi": "革新",
+   "pinyin": "géxīn",
+   "fr": "innover, innovation",
+   "en": "to innovate, innovation"
+  }
+ ],
  "phrase": {
-  "zh": "",
-  "pinyin": "",
-  "fr": "",
-  "en": ""
+  "zh": "这是一次大改革。",
+  "pinyin": "Zhè shì yī cì dà gǎigé.",
+  "fr": "C'est une grande réforme.",
+  "en": "This is a major reform."
  },
  "generation": {
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:9d85331eb86b265ffb44e38ec3af63a4fa3d6b5050ead1c0e52766c3f249cd80",
-  "essais": 1,
+  "empreinte_invite": "sha256:19c5163cb8822df94c71687c2066cfe6f042622ea7a7f3806619095a0a213147",
+  "essais": 2,
   "refus": []
  },
  "statut": "relu"

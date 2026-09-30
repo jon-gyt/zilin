@@ -1,0 +1,429 @@
+{
+ "examen": "yueke-1755",
+ "parcours": "hsk",
+ "generation": {
+  "modele": "rédaction manuelle",
+  "api": "session Claude Code (sans API)",
+  "date": "2026-09-30"
+ },
+ "relecture": {
+  "statut": "relu",
+  "par": "le propriétaire",
+  "decision": "« Go » (30 septembre 2026) : tout affiché sans relecture ligne à ligne",
+  "date": "2026-09-30"
+ },
+ "series": [
+  {
+   "serie": "A",
+   "statut": "relu",
+   "supports": [
+    {
+     "id": "s1",
+     "genre": "message",
+     "contexte": {
+      "fr": "Un message",
+      "en": "A message"
+     },
+     "lignes": [
+      {
+       "zh": "这周末我带你去故宫，",
+       "pinyin": "zhè zhōu mò wǒ dài nǐ qù gù gōng",
+       "fr": "Ce week-end, je t'emmène à la Cité interdite :",
+       "en": "This weekend I'll take you to the Forbidden City:"
+      },
+      {
+       "zh": "那里以前是皇帝住的地方。",
+       "pinyin": "nà li yǐ qián shì huáng dì zhù de dì fang",
+       "fr": "c'était autrefois la demeure de l'empereur.",
+       "en": "the emperor used to live there."
+      },
+      {
+       "zh": "听说明天要刮大风，多穿点衣服。",
+       "pinyin": "tīng shuō míng tiān yào guā dà fēng duō chuān diǎn yī fu",
+       "fr": "Il paraît que demain il y aura beaucoup de vent : couvre-toi bien.",
+       "en": "They say it'll be very windy tomorrow, so wrap up warm."
+      }
+     ]
+    },
+    {
+     "id": "s2",
+     "genre": "affiche",
+     "contexte": {
+      "fr": "Une affiche",
+      "en": "A poster"
+     },
+     "lignes": [
+      {
+       "zh": "儿童绘画比赛",
+       "pinyin": "ér tóng huì huà bǐ sài",
+       "fr": "Concours de dessin pour enfants",
+       "en": "Children's drawing competition"
+      },
+      {
+       "zh": "请在十一月一日前投稿",
+       "pinyin": "qǐng zài shí yī yuè yī rì qián tóu gǎo",
+       "fr": "Envoyez vos œuvres avant le 1er novembre",
+       "en": "Send in your entries before 1 November"
+      },
+      {
+       "zh": "一等奖：一套画笔",
+       "pinyin": "yī děng jiǎng yī tào huà bǐ",
+       "fr": "Premier prix : un coffret de pinceaux",
+       "en": "First prize: a set of brushes"
+      }
+     ]
+    }
+   ],
+   "questions": [
+    {
+     "type": "comprendre",
+     "support": "s1",
+     "consigne": {
+      "fr": "Qui vivait autrefois à cet endroit ?",
+      "en": "Who used to live in this place?"
+     },
+     "choix": [
+      {
+       "fr": "Un grand poète",
+       "en": "A great poet"
+      },
+      {
+       "fr": "Un riche marchand",
+       "en": "A rich merchant"
+      },
+      {
+       "fr": "Un moine",
+       "en": "A monk"
+      },
+      {
+       "fr": "L'empereur",
+       "en": "The emperor"
+      }
+     ],
+     "reponse": 3,
+     "porte": [
+      "皇",
+      "帝"
+     ]
+    },
+    {
+     "type": "vrai_faux",
+     "support": "s1",
+     "consigne": {
+      "fr": "Vrai ou faux ?",
+      "en": "True or false?"
+     },
+     "affirmation": {
+      "zh": "明天天气很好，没有风。",
+      "pinyin": "míng tiān tiān qì hěn hǎo méi yǒu fēng",
+      "fr": "Demain, il fera beau, sans vent.",
+      "en": "Tomorrow will be fine, with no wind."
+     },
+     "reponse": false,
+     "porte": [
+      "刮",
+      "大",
+      "风"
+     ]
+    },
+    {
+     "type": "replique",
+     "support": "s1",
+     "consigne": {
+      "fr": "Que lui répond-on ?",
+      "en": "What is the reply?"
+     },
+     "choix": [
+      {
+       "zh": "我不喜欢吃米饭。",
+       "pinyin": "wǒ bù xǐ huan chī mǐ fàn",
+       "fr": "Je n'aime pas le riz.",
+       "en": "I don't like rice."
+      },
+      {
+       "zh": "好啊，我早就想去看看了！",
+       "pinyin": "hǎo a wǒ zǎo jiù xiǎng qù kàn kan le",
+       "fr": "Avec plaisir, ça fait longtemps que j'en ai envie !",
+       "en": "Great, I've wanted to go for ages!"
+      },
+      {
+       "zh": "我的电脑又坏了。",
+       "pinyin": "wǒ de diàn nǎo yòu huài le",
+       "fr": "Mon ordinateur est encore en panne.",
+       "en": "My computer's broken again."
+      },
+      {
+       "zh": "他们家有三个孩子。",
+       "pinyin": "tā men jiā yǒu sān gè hái zi",
+       "fr": "Chez eux, il y a trois enfants.",
+       "en": "They have three children."
+      }
+     ],
+     "reponse": 1,
+     "porte": [
+      "故",
+      "宫"
+     ]
+    },
+    {
+     "type": "comprendre",
+     "support": "s2",
+     "consigne": {
+      "fr": "De quel concours s'agit-il ?",
+      "en": "What kind of competition is it?"
+     },
+     "choix": [
+      {
+       "fr": "De chant",
+       "en": "Singing"
+      },
+      {
+       "fr": "De danse",
+       "en": "Dancing"
+      },
+      {
+       "fr": "De dessin",
+       "en": "Drawing"
+      },
+      {
+       "fr": "De cuisine",
+       "en": "Cooking"
+      }
+     ],
+     "reponse": 2,
+     "porte": [
+      "绘",
+      "画"
+     ]
+    },
+    {
+     "type": "ton",
+     "consigne": {
+      "fr": "Quel est le ton de ce caractère ?",
+      "en": "Which tone does this character have?"
+     },
+     "objet": {
+      "zh": "洪",
+      "pinyin": "hóng",
+      "fr": "crue",
+      "en": "flood"
+     },
+     "choix": [
+      "hōng",
+      "hóng",
+      "hǒng",
+      "hòng"
+     ],
+     "reponse": 1,
+     "porte": [
+      "洪"
+     ]
+    }
+   ]
+  },
+  {
+   "serie": "B",
+   "statut": "relu",
+   "supports": [
+    {
+     "id": "s1",
+     "genre": "message",
+     "contexte": {
+      "fr": "Un message",
+      "en": "A message"
+     },
+     "lignes": [
+      {
+       "zh": "下个月我要出差，",
+       "pinyin": "xià gè yuè wǒ yào chū chāi",
+       "fr": "Le mois prochain, je pars en déplacement :",
+       "en": "I'm away on a work trip next month:"
+      },
+      {
+       "zh": "可惜只能住三天，没时间去玩。",
+       "pinyin": "kě xī zhǐ néng zhù sān tiān méi shí jiān qù wán",
+       "fr": "dommage, je ne reste que trois jours, pas le temps de visiter.",
+       "en": "sadly only for three days, no time to go sightseeing."
+      },
+      {
+       "zh": "要我从香港给你带点什么吗？",
+       "pinyin": "yào wǒ cóng xiāng gǎng gěi nǐ dài diǎn shén me ma",
+       "fr": "Veux-tu que je te rapporte quelque chose de Hong Kong ?",
+       "en": "Would you like me to bring you something back from Hong Kong?"
+      }
+     ]
+    },
+    {
+     "id": "s2",
+     "genre": "pancarte",
+     "contexte": {
+      "fr": "Un panneau",
+      "en": "A sign"
+     },
+     "lignes": [
+      {
+       "zh": "雨季小心洪水",
+       "pinyin": "yǔ jì xiǎo xīn hóng shuǐ",
+       "fr": "Saison des pluies : attention aux crues",
+       "en": "Rainy season: beware of floods"
+      },
+      {
+       "zh": "禁止下河游泳",
+       "pinyin": "jìn zhǐ xià hé yóu yǒng",
+       "fr": "Baignade interdite dans la rivière",
+       "en": "No swimming in the river"
+      }
+     ]
+    }
+   ],
+   "questions": [
+    {
+     "type": "comprendre",
+     "support": "s1",
+     "consigne": {
+      "fr": "Où va la personne qui écrit ?",
+      "en": "Where is the writer going?"
+     },
+     "choix": [
+      {
+       "fr": "À Shanghai",
+       "en": "To Shanghai"
+      },
+      {
+       "fr": "À Macao",
+       "en": "To Macau"
+      },
+      {
+       "fr": "À Hong Kong",
+       "en": "To Hong Kong"
+      },
+      {
+       "fr": "À Canton",
+       "en": "To Guangzhou"
+      }
+     ],
+     "reponse": 2,
+     "porte": [
+      "香",
+      "港"
+     ]
+    },
+    {
+     "type": "vrai_faux",
+     "support": "s1",
+     "consigne": {
+      "fr": "Vrai ou faux ?",
+      "en": "True or false?"
+     },
+     "affirmation": {
+      "zh": "他在香港只住三天。",
+      "pinyin": "tā zài xiāng gǎng zhǐ zhù sān tiān",
+      "fr": "Il ne reste que trois jours à Hong Kong.",
+      "en": "He's only staying three days in Hong Kong."
+     },
+     "reponse": true,
+     "porte": [
+      "港",
+      "住",
+      "三",
+      "天"
+     ]
+    },
+    {
+     "type": "replique",
+     "support": "s1",
+     "consigne": {
+      "fr": "Que lui répond-on ?",
+      "en": "What is the reply?"
+     },
+     "choix": [
+      {
+       "zh": "好啊，帮我带一盒点心吧！",
+       "pinyin": "hǎo a bāng wǒ dài yī hé diǎn xin ba",
+       "fr": "Oui, rapporte-moi une boîte de gâteaux !",
+       "en": "Yes, bring me back a box of pastries!"
+      },
+      {
+       "zh": "我今天肚子不舒服。",
+       "pinyin": "wǒ jīn tiān dù zi bù shū fu",
+       "fr": "J'ai mal au ventre aujourd'hui.",
+       "en": "My stomach is upset today."
+      },
+      {
+       "zh": "我们班有三十个学生。",
+       "pinyin": "wǒ men bān yǒu sān shí gè xué sheng",
+       "fr": "Notre classe compte trente élèves.",
+       "en": "There are thirty students in our class."
+      },
+      {
+       "zh": "他的车是红色的。",
+       "pinyin": "tā de chē shì hóng sè de",
+       "fr": "Sa voiture est rouge.",
+       "en": "His car is red."
+      }
+     ],
+     "reponse": 0,
+     "porte": [
+      "港",
+      "带"
+     ]
+    },
+    {
+     "type": "comprendre",
+     "support": "s2",
+     "consigne": {
+      "fr": "De quel danger ce panneau avertit-il ?",
+      "en": "What danger does this sign warn of?"
+     },
+     "choix": [
+      {
+       "fr": "Les chutes de pierres",
+       "en": "Falling rocks"
+      },
+      {
+       "fr": "Les serpents",
+       "en": "Snakes"
+      },
+      {
+       "fr": "Le verglas",
+       "en": "Black ice"
+      },
+      {
+       "fr": "Les crues",
+       "en": "Floods"
+      }
+     ],
+     "reponse": 3,
+     "porte": [
+      "洪",
+      "水"
+     ]
+    },
+    {
+     "type": "trou",
+     "consigne": {
+      "fr": "Quel caractère manque dans ce mot ?",
+      "en": "Which character is missing from this word?"
+     },
+     "objet": {
+      "zh": "遗憾",
+      "pinyin": "yí hàn",
+      "fr": "regret",
+      "en": "regret"
+     },
+     "trou": 1,
+     "choix": [
+      "感",
+      "憾",
+      "喊",
+      "汉"
+     ],
+     "reponse": 1,
+     "porte": [
+      "憾"
+     ]
+    }
+   ]
+  }
+ ]
+}

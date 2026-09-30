@@ -19,19 +19,32 @@
  "roles": {
   "秉": "sens"
  },
- "mots": [],
+ "mots": [
+  {
+   "hanzi": "秉公",
+   "pinyin": "bǐnggōng",
+   "fr": "avec impartialité",
+   "en": "impartially"
+  },
+  {
+   "hanzi": "秉性",
+   "pinyin": "bǐngxìng",
+   "fr": "naturel, tempérament",
+   "en": "nature, disposition"
+  }
+ ],
  "phrase": {
-  "zh": "",
-  "pinyin": "",
-  "fr": "",
-  "en": ""
+  "zh": "这位法官一向秉公办事。",
+  "pinyin": "Zhè wèi fǎguān yīxiàng bǐnggōng bàn shì.",
+  "fr": "Ce juge agit toujours avec impartialité.",
+  "en": "This judge always acts impartially."
  },
  "generation": {
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:34e7f5f3bcb17a52c32d20cbec02ed49f5c1c86ed3c03a786d82d50506d3eeb6",
-  "essais": 1,
+  "empreinte_invite": "sha256:2cbf20bb4f49e76801c9034daead442964d3c4a112e401bf0ea0dbe4bf82fc0a",
+  "essais": 2,
   "refus": []
  },
  "statut": "relu"

@@ -23,19 +23,32 @@
   "匕": "forme",
   "刂": "forme"
  },
- "mots": [],
+ "mots": [
+  {
+   "hanzi": "剩下",
+   "pinyin": "shèngxià",
+   "fr": "rester, le reste",
+   "en": "to be left over"
+  },
+  {
+   "hanzi": "剩菜",
+   "pinyin": "shèngcài",
+   "fr": "restes (de repas)",
+   "en": "leftovers"
+  }
+ ],
  "phrase": {
-  "zh": "",
-  "pinyin": "",
-  "fr": "",
-  "en": ""
+  "zh": "只剩下十分钟了。",
+  "pinyin": "Zhǐ shèngxià shí fēnzhōng le.",
+  "fr": "Il ne reste que dix minutes.",
+  "en": "There are only ten minutes left."
  },
  "generation": {
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:26801aea72bdf70d2db67cac53d720ab8c82cbb70aca715b9a1d137dee36bf70",
-  "essais": 1,
+  "empreinte_invite": "sha256:5c6bd8bd31e741a95cb67afba0dbda81bd4112bc04bee668f0e7200e24dae399",
+  "essais": 2,
   "refus": []
  },
  "statut": "relu"

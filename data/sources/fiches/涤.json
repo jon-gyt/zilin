@@ -23,19 +23,32 @@
   "夂": "forme",
   "木": "forme"
  },
- "mots": [],
+ "mots": [
+  {
+   "hanzi": "洗涤",
+   "pinyin": "xǐdí",
+   "fr": "laver",
+   "en": "to wash"
+  },
+  {
+   "hanzi": "涤荡",
+   "pinyin": "dídàng",
+   "fr": "purifier, balayer",
+   "en": "to cleanse, to sweep away"
+  }
+ ],
  "phrase": {
-  "zh": "",
-  "pinyin": "",
-  "fr": "",
-  "en": ""
+  "zh": "这些衣服要用冷水洗涤。",
+  "pinyin": "Zhèxiē yīfu yào yòng lěngshuǐ xǐdí.",
+  "fr": "Ces vêtements se lavent à l'eau froide.",
+  "en": "These clothes should be washed in cold water."
  },
  "generation": {
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:46888b192d8c5def6c4b76b93ad8558193b410a1dc007c0b2e23f0deec721075",
-  "essais": 1,
+  "empreinte_invite": "sha256:eb5bc1ceda1a2099961a646388b0b588aef9db866eaf13c66330f726acb1823b",
+  "essais": 2,
   "refus": []
  },
  "statut": "relu"

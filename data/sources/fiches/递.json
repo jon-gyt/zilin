@@ -21,19 +21,32 @@
   "辶": "sens",
   "弟": "son"
  },
- "mots": [],
+ "mots": [
+  {
+   "hanzi": "快递",
+   "pinyin": "kuàidì",
+   "fr": "livraison express, colis",
+   "en": "express delivery, parcel"
+  },
+  {
+   "hanzi": "传递",
+   "pinyin": "chuándì",
+   "fr": "transmettre",
+   "en": "to pass on, to transmit"
+  }
+ ],
  "phrase": {
-  "zh": "",
-  "pinyin": "",
-  "fr": "",
-  "en": ""
+  "zh": "请把书递给我。",
+  "pinyin": "Qǐng bǎ shū dì gěi wǒ.",
+  "fr": "Passe-moi le livre, s'il te plaît.",
+  "en": "Please pass me the book."
  },
  "generation": {
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:5dc219daaadf64310cfa261bf01ae66e84876ec6c7871bd9fb2c3ea533791c32",
-  "essais": 1,
+  "empreinte_invite": "sha256:9a22c440de5f63991e8f10945de5b216a36af9d3a2e1b607be6da92c4a30810e",
+  "essais": 2,
   "refus": []
  },
  "statut": "relu"

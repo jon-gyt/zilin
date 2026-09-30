@@ -3,6 +3,7 @@
  "parcours": "lire",
  "jour": 1318,
  "pinyin": [
+  "wěi",
   "wēi"
  ],
  "sens_fr": "se faner, se flétrir",
@@ -23,19 +24,32 @@
   "禾": "son",
   "女": "son"
  },
- "mots": [],
+ "mots": [
+  {
+   "hanzi": "枯萎",
+   "pinyin": "kūwěi",
+   "fr": "se faner, flétri",
+   "en": "withered"
+  },
+  {
+   "hanzi": "萎缩",
+   "pinyin": "wěisuō",
+   "fr": "s'atrophier, se rétrécir",
+   "en": "to shrink, to atrophy"
+  }
+ ],
  "phrase": {
-  "zh": "",
-  "pinyin": "",
-  "fr": "",
-  "en": ""
+  "zh": "花没有水就会枯萎。",
+  "pinyin": "Huā méiyǒu shuǐ jiù huì kūwěi.",
+  "fr": "Sans eau, les fleurs se fanent.",
+  "en": "Without water, flowers wither."
  },
  "generation": {
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:c3bc6a6f5d2f0f9a806af71ddf33777dcb4eba03b97ddf7c8493ec5d59a13417",
-  "essais": 1,
+  "empreinte_invite": "sha256:20d47115d422691414df5cc6764ba6c3cea94c9f1496aba143a583a3afa9d9e0",
+  "essais": 2,
   "refus": []
  },
  "statut": "relu"

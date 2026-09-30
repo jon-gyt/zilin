@@ -19,19 +19,32 @@
  "roles": {
   "血": "forme"
  },
- "mots": [],
+ "mots": [
+  {
+   "hanzi": "流血",
+   "pinyin": "liúxuè",
+   "fr": "saigner",
+   "en": "to bleed"
+  },
+  {
+   "hanzi": "出血",
+   "pinyin": "chūxuè",
+   "fr": "saigner, hémorragie",
+   "en": "to bleed, bleeding"
+  }
+ ],
  "phrase": {
-  "zh": "",
-  "pinyin": "",
-  "fr": "",
-  "en": ""
+  "zh": "他的手流血了。",
+  "pinyin": "Tā de shǒu liúxuè le.",
+  "fr": "Sa main saigne.",
+  "en": "His hand is bleeding."
  },
  "generation": {
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:98b38f3962da9192d36187db9648ab5c3652717461cb39f6d71a727ffe6829c4",
-  "essais": 1,
+  "empreinte_invite": "sha256:a8fd72fcd78ea0fe5c65c00a435bded2857dd52e5a2d1ea2f39ee2a5c053d529",
+  "essais": 2,
   "refus": []
  },
  "statut": "relu"

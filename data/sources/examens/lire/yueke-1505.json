@@ -1,0 +1,731 @@
+{
+ "examen": "yueke-1505",
+ "parcours": "lire",
+ "generation": {
+  "modele": "rédaction manuelle",
+  "api": "session Claude Code (sans API)",
+  "date": "2026-09-30"
+ },
+ "relecture": {
+  "statut": "relu",
+  "par": "le propriétaire",
+  "decision": "« Go » (30 septembre 2026) : tout affiché sans relecture ligne à ligne",
+  "date": "2026-09-30"
+ },
+ "series": [
+  {
+   "serie": "A",
+   "statut": "relu",
+   "supports": [
+    {
+     "id": "s1",
+     "genre": "affiche",
+     "contexte": {
+      "fr": "Une affiche",
+      "en": "A poster"
+     },
+     "lignes": [
+      {
+       "zh": "超市优惠",
+       "pinyin": "chāo shì yōu huì",
+       "fr": "Promotions au supermarché",
+       "en": "Supermarket deals"
+      },
+      {
+       "zh": "梨：每斤五元",
+       "pinyin": "lí měi jīn wǔ yuán",
+       "fr": "Poires : 5 yuans la livre",
+       "en": "Pears: 5 yuan per jin"
+      },
+      {
+       "zh": "苹果：每斤六元",
+       "pinyin": "píng guǒ měi jīn liù yuán",
+       "fr": "Pommes : 6 yuans la livre",
+       "en": "Apples: 6 yuan per jin"
+      },
+      {
+       "zh": "星期六、星期日两天",
+       "pinyin": "xīng qī liù xīng qī rì liǎng tiān",
+       "fr": "Samedi et dimanche seulement",
+       "en": "Saturday and Sunday only"
+      }
+     ],
+     "glose": [
+      {
+       "zh": "超市",
+       "pinyin": "chāo shì",
+       "fr": "supermarché",
+       "en": "supermarket"
+      },
+      {
+       "zh": "优惠",
+       "pinyin": "yōu huì",
+       "fr": "promotion, prix réduit",
+       "en": "special offer"
+      },
+      {
+       "zh": "梨",
+       "pinyin": "lí",
+       "fr": "poire",
+       "en": "pear"
+      },
+      {
+       "zh": "每斤",
+       "pinyin": "měi jīn",
+       "fr": "la livre (le jin)",
+       "en": "per jin"
+      },
+      {
+       "zh": "五元",
+       "pinyin": "wǔ yuán",
+       "fr": "cinq yuans",
+       "en": "five yuan"
+      },
+      {
+       "zh": "苹果",
+       "pinyin": "píng guǒ",
+       "fr": "pomme",
+       "en": "apple"
+      },
+      {
+       "zh": "六元",
+       "pinyin": "liù yuán",
+       "fr": "six yuans",
+       "en": "six yuan"
+      },
+      {
+       "zh": "星期日",
+       "pinyin": "xīng qī rì",
+       "fr": "dimanche",
+       "en": "Sunday"
+      },
+      {
+       "zh": "两天",
+       "pinyin": "liǎng tiān",
+       "fr": "deux jours",
+       "en": "two days"
+      }
+     ]
+    },
+    {
+     "id": "s2",
+     "genre": "message",
+     "contexte": {
+      "fr": "Un message",
+      "en": "A message"
+     },
+     "lignes": [
+      {
+       "zh": "王奶奶，您好！我是您的邻居小林。",
+       "pinyin": "wáng nǎi nai nín hǎo wǒ shì nín de lín jū xiǎo lín",
+       "fr": "Madame Wang, bonjour ! C'est Xiao Lin, votre voisine.",
+       "en": "Hello Mrs Wang! It's Xiao Lin, your neighbour."
+      },
+      {
+       "zh": "我家厨房的水管漏水了，",
+       "pinyin": "wǒ jiā chú fáng de shuǐ guǎn lòu shuǐ le",
+       "fr": "Le tuyau de ma cuisine fuit,",
+       "en": "The pipe in my kitchen is leaking,"
+      },
+      {
+       "zh": "水可能会流到您家，真对不起！",
+       "pinyin": "shuǐ kě néng huì liú dào nín jiā zhēn duì bu qǐ",
+       "fr": "l'eau risque de couler chez vous, je suis vraiment désolée !",
+       "en": "water might run into your flat, I'm so sorry!"
+      },
+      {
+       "zh": "我已经请了师傅，下午就来。",
+       "pinyin": "wǒ yǐ jīng qǐng le shī fu xià wǔ jiù lái",
+       "fr": "J'ai déjà appelé un artisan, il vient cet après-midi.",
+       "en": "I've called a repairman, he's coming this afternoon."
+      }
+     ],
+     "glose": [
+      {
+       "zh": "王奶奶",
+       "pinyin": "wáng nǎi nai",
+       "fr": "Mme Wang (une dame âgée)",
+       "en": "Mrs Wang (an elderly lady)"
+      },
+      {
+       "zh": "您好",
+       "pinyin": "nín hǎo",
+       "fr": "bonjour",
+       "en": "hello"
+      },
+      {
+       "zh": "邻居",
+       "pinyin": "lín jū",
+       "fr": "voisin",
+       "en": "neighbour"
+      },
+      {
+       "zh": "小林",
+       "pinyin": "xiǎo lín",
+       "fr": "Xiao Lin (nom)",
+       "en": "Xiao Lin (name)"
+      },
+      {
+       "zh": "厨房",
+       "pinyin": "chú fáng",
+       "fr": "cuisine (pièce)",
+       "en": "kitchen"
+      },
+      {
+       "zh": "水管",
+       "pinyin": "shuǐ guǎn",
+       "fr": "tuyau d'eau",
+       "en": "water pipe"
+      },
+      {
+       "zh": "漏水",
+       "pinyin": "lòu shuǐ",
+       "fr": "fuir (eau)",
+       "en": "to leak"
+      },
+      {
+       "zh": "可能",
+       "pinyin": "kě néng",
+       "fr": "peut-être",
+       "en": "maybe"
+      },
+      {
+       "zh": "流",
+       "pinyin": "liú",
+       "fr": "couler",
+       "en": "to flow"
+      },
+      {
+       "zh": "真",
+       "pinyin": "zhēn",
+       "fr": "vraiment",
+       "en": "really"
+      },
+      {
+       "zh": "对不起",
+       "pinyin": "duì bu qǐ",
+       "fr": "pardon, désolé",
+       "en": "sorry"
+      },
+      {
+       "zh": "已经",
+       "pinyin": "yǐ jīng",
+       "fr": "déjà",
+       "en": "already"
+      },
+      {
+       "zh": "师傅",
+       "pinyin": "shī fu",
+       "fr": "artisan",
+       "en": "repairman"
+      },
+      {
+       "zh": "就",
+       "pinyin": "jiù",
+       "fr": "dès, aussitôt",
+       "en": "right, then"
+      },
+      {
+       "zh": "没关系",
+       "pinyin": "méi guān xi",
+       "fr": "ce n'est pas grave",
+       "en": "never mind"
+      },
+      {
+       "zh": "着急",
+       "pinyin": "zháo jí",
+       "fr": "s'inquiéter, s'affoler",
+       "en": "to worry, to panic"
+      },
+      {
+       "zh": "我的",
+       "pinyin": "wǒ de",
+       "fr": "mon, ma",
+       "en": "my"
+      }
+     ]
+    }
+   ],
+   "questions": [
+    {
+     "type": "comprendre",
+     "support": "s1",
+     "consigne": {
+      "fr": "Combien coûte une livre de poires ?",
+      "en": "How much is a jin of pears?"
+     },
+     "choix": [
+      {
+       "fr": "Six yuans",
+       "en": "Six yuan"
+      },
+      {
+       "fr": "Quatre yuans",
+       "en": "Four yuan"
+      },
+      {
+       "fr": "Cinq yuans",
+       "en": "Five yuan"
+      },
+      {
+       "fr": "Deux yuans",
+       "en": "Two yuan"
+      }
+     ],
+     "reponse": 2,
+     "porte": [
+      "梨",
+      "五"
+     ]
+    },
+    {
+     "type": "reperer",
+     "support": "s1",
+     "consigne": {
+      "fr": "Touche le mot qui dit que les prix sont réduits.",
+      "en": "Tap the word saying prices are cut."
+     },
+     "choix": [
+      "超市",
+      "优惠",
+      "苹果",
+      "两天"
+     ],
+     "reponse": 1,
+     "porte": [
+      "优",
+      "惠"
+     ]
+    },
+    {
+     "type": "vrai_faux",
+     "support": "s2",
+     "consigne": {
+      "fr": "Vrai ou faux ?",
+      "en": "True or false?"
+     },
+     "affirmation": {
+      "zh": "小林家的水管漏水了。",
+      "pinyin": "xiǎo lín jiā de shuǐ guǎn lòu shuǐ le",
+      "fr": "Le tuyau de chez Xiao Lin fuit.",
+      "en": "The pipe at Xiao Lin's is leaking."
+     },
+     "reponse": true,
+     "porte": [
+      "漏",
+      "水"
+     ]
+    },
+    {
+     "type": "replique",
+     "support": "s2",
+     "consigne": {
+      "fr": "Que répond Mme Wang ?",
+      "en": "What does Mrs Wang reply?"
+     },
+     "choix": [
+      {
+       "zh": "我明天去北京。",
+       "pinyin": "wǒ míng tiān qù běi jīng",
+       "fr": "Demain, je vais à Pékin.",
+       "en": "I'm going to Beijing tomorrow."
+      },
+      {
+       "zh": "这是我的新书。",
+       "pinyin": "zhè shì wǒ de xīn shū",
+       "fr": "C'est mon nouveau livre.",
+       "en": "This is my new book."
+      },
+      {
+       "zh": "今天很热。",
+       "pinyin": "jīn tiān hěn rè",
+       "fr": "Il fait chaud aujourd'hui.",
+       "en": "It's hot today."
+      },
+      {
+       "zh": "没关系，别着急！",
+       "pinyin": "méi guān xi bié zháo jí",
+       "fr": "Ce n'est pas grave, ne t'affole pas !",
+       "en": "Never mind, don't panic!"
+      }
+     ],
+     "reponse": 3,
+     "porte": [
+      "漏",
+      "邻"
+     ]
+    },
+    {
+     "type": "sens",
+     "consigne": {
+      "fr": "Que veut dire ce caractère ?",
+      "en": "What does this character mean?"
+     },
+     "objet": {
+      "zh": "虎",
+      "pinyin": "hǔ",
+      "fr": "tigre",
+      "en": "tiger"
+     },
+     "choix": [
+      {
+       "fr": "tigre",
+       "en": "tiger"
+      },
+      {
+       "fr": "singe",
+       "en": "monkey"
+      },
+      {
+       "fr": "cheval",
+       "en": "horse"
+      },
+      {
+       "fr": "chien",
+       "en": "dog"
+      }
+     ],
+     "reponse": 0,
+     "porte": [
+      "虎"
+     ]
+    }
+   ]
+  },
+  {
+   "serie": "B",
+   "statut": "relu",
+   "supports": [
+    {
+     "id": "s1",
+     "genre": "billet",
+     "contexte": {
+      "fr": "Un billet",
+      "en": "A ticket"
+     },
+     "lignes": [
+      {
+       "zh": "城东滑冰场",
+       "pinyin": "chéng dōng huá bīng chǎng",
+       "fr": "Patinoire de l'est de la ville",
+       "en": "East Town Ice Rink"
+      },
+      {
+       "zh": "门票：四十元",
+       "pinyin": "mén piào sì shí yuán",
+       "fr": "Entrée : 40 yuans",
+       "en": "Admission: 40 yuan"
+      },
+      {
+       "zh": "开门：上午九点到晚上九点",
+       "pinyin": "kāi mén shàng wǔ jiǔ diǎn dào wǎn shang jiǔ diǎn",
+       "fr": "Ouvert de 9 h à 21 h",
+       "en": "Open 9 am to 9 pm"
+      }
+     ],
+     "glose": [
+      {
+       "zh": "滑冰",
+       "pinyin": "huá bīng",
+       "fr": "patiner",
+       "en": "to skate"
+      },
+      {
+       "zh": "场",
+       "pinyin": "chǎng",
+       "fr": "terrain, lieu",
+       "en": "ground, venue"
+      },
+      {
+       "zh": "门票",
+       "pinyin": "mén piào",
+       "fr": "billet d'entrée",
+       "en": "admission ticket"
+      },
+      {
+       "zh": "四十元",
+       "pinyin": "sì shí yuán",
+       "fr": "quarante yuans",
+       "en": "forty yuan"
+      },
+      {
+       "zh": "九点",
+       "pinyin": "jiǔ diǎn",
+       "fr": "neuf heures",
+       "en": "nine o'clock"
+      }
+     ]
+    },
+    {
+     "id": "s2",
+     "genre": "message",
+     "contexte": {
+      "fr": "Un message",
+      "en": "A message"
+     },
+     "lignes": [
+      {
+       "zh": "我昨天去剪头发了，",
+       "pinyin": "wǒ zuó tiān qù jiǎn tóu fa le",
+       "fr": "Hier, je suis allée me faire couper les cheveux,",
+       "en": "Yesterday I went for a haircut,"
+      },
+      {
+       "zh": "可是剪得太短了，我很后悔！",
+       "pinyin": "kě shì jiǎn de tài duǎn le wǒ hěn hòu huǐ",
+       "fr": "mais c'est coupé trop court, je regrette beaucoup !",
+       "en": "but it's cut too short, I really regret it!"
+      }
+     ],
+     "glose": [
+      {
+       "zh": "剪头发",
+       "pinyin": "jiǎn tóu fa",
+       "fr": "se faire couper les cheveux",
+       "en": "to get a haircut"
+      },
+      {
+       "zh": "可是",
+       "pinyin": "kě shì",
+       "fr": "mais",
+       "en": "but"
+      },
+      {
+       "zh": "剪",
+       "pinyin": "jiǎn",
+       "fr": "couper (aux ciseaux)",
+       "en": "to cut (with scissors)"
+      },
+      {
+       "zh": "得",
+       "pinyin": "de",
+       "fr": "(complément de manière)",
+       "en": "(complement particle)"
+      },
+      {
+       "zh": "短",
+       "pinyin": "duǎn",
+       "fr": "court",
+       "en": "short"
+      },
+      {
+       "zh": "后悔",
+       "pinyin": "hòu huǐ",
+       "fr": "regretter",
+       "en": "to regret"
+      },
+      {
+       "zh": "没关系",
+       "pinyin": "méi guān xi",
+       "fr": "ce n'est pas grave",
+       "en": "never mind"
+      },
+      {
+       "zh": "头发",
+       "pinyin": "tóu fa",
+       "fr": "cheveux",
+       "en": "hair"
+      },
+      {
+       "zh": "很快",
+       "pinyin": "hěn kuài",
+       "fr": "vite",
+       "en": "quickly"
+      },
+      {
+       "zh": "就",
+       "pinyin": "jiù",
+       "fr": "aussitôt",
+       "en": "then"
+      },
+      {
+       "zh": "长",
+       "pinyin": "zhǎng",
+       "fr": "pousser",
+       "en": "to grow"
+      },
+      {
+       "zh": "我的",
+       "pinyin": "wǒ de",
+       "fr": "mon, ma",
+       "en": "my"
+      },
+      {
+       "zh": "猫",
+       "pinyin": "māo",
+       "fr": "chat",
+       "en": "cat"
+      },
+      {
+       "zh": "鱼",
+       "pinyin": "yú",
+       "fr": "poisson",
+       "en": "fish"
+      },
+      {
+       "zh": "这个",
+       "pinyin": "zhè gè",
+       "fr": "ce, cette",
+       "en": "this"
+      },
+      {
+       "zh": "咸",
+       "pinyin": "xián",
+       "fr": "salé",
+       "en": "salty"
+      }
+     ]
+    }
+   ],
+   "questions": [
+    {
+     "type": "comprendre",
+     "support": "s1",
+     "consigne": {
+      "fr": "Que vient-on faire ici ?",
+      "en": "What do people come here to do?"
+     },
+     "choix": [
+      {
+       "fr": "Nager",
+       "en": "Swim"
+      },
+      {
+       "fr": "Patiner",
+       "en": "Skate"
+      },
+      {
+       "fr": "Voir un film",
+       "en": "See a film"
+      },
+      {
+       "fr": "Jouer au tennis",
+       "en": "Play tennis"
+      }
+     ],
+     "reponse": 1,
+     "porte": [
+      "滑",
+      "冰"
+     ]
+    },
+    {
+     "type": "vrai_faux",
+     "support": "s1",
+     "consigne": {
+      "fr": "Vrai ou faux ?",
+      "en": "True or false?"
+     },
+     "affirmation": {
+      "zh": "晚上滑冰场不开门。",
+      "pinyin": "wǎn shang huá bīng chǎng bù kāi mén",
+      "fr": "Le soir, la patinoire est fermée.",
+      "en": "The rink is closed in the evening."
+     },
+     "reponse": false,
+     "porte": [
+      "滑",
+      "晚",
+      "上",
+      "九",
+      "点"
+     ]
+    },
+    {
+     "type": "comprendre",
+     "support": "s2",
+     "consigne": {
+      "fr": "Que regrette la personne qui écrit ?",
+      "en": "What does the writer regret?"
+     },
+     "choix": [
+      {
+       "fr": "Un pull trop cher",
+       "en": "A jumper that was too dear"
+      },
+      {
+       "fr": "Un film trop long",
+       "en": "A film that was too long"
+      },
+      {
+       "fr": "Une coupe trop courte",
+       "en": "A haircut that is too short"
+      },
+      {
+       "fr": "Un plat trop salé",
+       "en": "A dish that was too salty"
+      }
+     ],
+     "reponse": 2,
+     "porte": [
+      "剪",
+      "短",
+      "悔"
+     ]
+    },
+    {
+     "type": "replique",
+     "support": "s2",
+     "consigne": {
+      "fr": "Que répond son amie ?",
+      "en": "What does her friend reply?"
+     },
+     "choix": [
+      {
+       "zh": "我们坐火车去吧。",
+       "pinyin": "wǒ men zuò huǒ chē qù ba",
+       "fr": "Allons-y en train.",
+       "en": "Let's take the train."
+      },
+      {
+       "zh": "没关系，头发很快就长了！",
+       "pinyin": "méi guān xi tóu fa hěn kuài jiù zhǎng le",
+       "fr": "Ce n'est pas grave, ça repousse vite !",
+       "en": "Never mind, hair grows back fast!"
+      },
+      {
+       "zh": "我的猫喜欢吃鱼。",
+       "pinyin": "wǒ de māo xǐ huan chī yú",
+       "fr": "Mon chat aime le poisson.",
+       "en": "My cat likes fish."
+      },
+      {
+       "zh": "这个菜太咸了。",
+       "pinyin": "zhè gè cài tài xián le",
+       "fr": "Ce plat est trop salé.",
+       "en": "This dish is too salty."
+      }
+     ],
+     "reponse": 1,
+     "porte": [
+      "剪",
+      "短"
+     ]
+    },
+    {
+     "type": "caractere",
+     "consigne": {
+      "fr": "Quel caractère a ce sens ?",
+      "en": "Which character has this meaning?"
+     },
+     "objet": {
+      "zh": "肩",
+      "pinyin": "jiān",
+      "fr": "épaule",
+      "en": "shoulder"
+     },
+     "choix": [
+      "房",
+      "屋",
+      "肩",
+      "局"
+     ],
+     "reponse": 2,
+     "porte": [
+      "肩"
+     ]
+    }
+   ]
+  }
+ ]
+}

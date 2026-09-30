@@ -1,0 +1,426 @@
+{
+ "examen": "yueke-455",
+ "parcours": "hsk",
+ "generation": {
+  "modele": "rédaction manuelle",
+  "api": "session Claude Code (sans API)",
+  "date": "2026-09-30"
+ },
+ "relecture": {
+  "statut": "relu",
+  "par": "le propriétaire",
+  "decision": "« Go » (30 septembre 2026) : tout affiché sans relecture ligne à ligne",
+  "date": "2026-09-30"
+ },
+ "series": [
+  {
+   "serie": "A",
+   "statut": "relu",
+   "supports": [
+    {
+     "id": "s1",
+     "genre": "message",
+     "contexte": {
+      "fr": "Un message",
+      "en": "A message"
+     },
+     "lignes": [
+      {
+       "zh": "同学们，今天的作业：",
+       "pinyin": "tóng xué men jīn tiān de zuò yè",
+       "fr": "Chers élèves, les devoirs d'aujourd'hui :",
+       "en": "Dear pupils, today's homework:"
+      },
+      {
+       "zh": "读课文三遍，",
+       "pinyin": "dú kè wén sān biàn",
+       "fr": "lire le texte trois fois,",
+       "en": "read the text three times,"
+      },
+      {
+       "zh": "写十个汉字。",
+       "pinyin": "xiě shí gè hàn zì",
+       "fr": "écrire dix caractères.",
+       "en": "write ten characters."
+      },
+      {
+       "zh": "王老师",
+       "pinyin": "wáng lǎo shī",
+       "fr": "M. Wang, votre professeur",
+       "en": "Mr Wang, your teacher"
+      }
+     ]
+    },
+    {
+     "id": "s2",
+     "genre": "pancarte",
+     "contexte": {
+      "fr": "Un panneau",
+      "en": "A sign"
+     },
+     "lignes": [
+      {
+       "zh": "一层：书店",
+       "pinyin": "yī céng shū diàn",
+       "fr": "Rez-de-chaussée : librairie",
+       "en": "Ground floor: bookshop"
+      },
+      {
+       "zh": "二层：饭馆",
+       "pinyin": "èr céng fàn guǎn",
+       "fr": "Premier étage : restaurant",
+       "en": "First floor: restaurant"
+      },
+      {
+       "zh": "三层：衣服店",
+       "pinyin": "sān céng yī fu diàn",
+       "fr": "Deuxième étage : vêtements",
+       "en": "Second floor: clothes shop"
+      }
+     ]
+    }
+   ],
+   "questions": [
+    {
+     "type": "comprendre",
+     "support": "s1",
+     "consigne": {
+      "fr": "Combien de fois faut-il lire le texte ?",
+      "en": "How many times must the text be read?"
+     },
+     "choix": [
+      {
+       "fr": "Une fois",
+       "en": "Once"
+      },
+      {
+       "fr": "Deux fois",
+       "en": "Twice"
+      },
+      {
+       "fr": "Trois fois",
+       "en": "Three times"
+      },
+      {
+       "fr": "Dix fois",
+       "en": "Ten times"
+      }
+     ],
+     "reponse": 2,
+     "porte": [
+      "读",
+      "三",
+      "遍"
+     ]
+    },
+    {
+     "type": "reperer",
+     "support": "s1",
+     "consigne": {
+      "fr": "Touche ce qu'il faut écrire.",
+      "en": "Tap what must be written."
+     },
+     "choix": [
+      "同学们",
+      "作业",
+      "课文",
+      "汉字"
+     ],
+     "reponse": 3,
+     "porte": [
+      "写",
+      "汉",
+      "字"
+     ]
+    },
+    {
+     "type": "comprendre",
+     "support": "s2",
+     "consigne": {
+      "fr": "Où peut-on manger ?",
+      "en": "Where can you eat?"
+     },
+     "choix": [
+      {
+       "fr": "Au rez-de-chaussée",
+       "en": "On the ground floor"
+      },
+      {
+       "fr": "Au premier étage",
+       "en": "On the first floor"
+      },
+      {
+       "fr": "Au deuxième étage",
+       "en": "On the second floor"
+      },
+      {
+       "fr": "Au sous-sol",
+       "en": "In the basement"
+      }
+     ],
+     "reponse": 1,
+     "porte": [
+      "二",
+      "层",
+      "饭",
+      "馆"
+     ]
+    },
+    {
+     "type": "vrai_faux",
+     "support": "s2",
+     "consigne": {
+      "fr": "Vrai ou faux ?",
+      "en": "True or false?"
+     },
+     "affirmation": {
+      "zh": "书店在三层。",
+      "pinyin": "shū diàn zài sān céng",
+      "fr": "La librairie est au deuxième étage.",
+      "en": "The bookshop is on the second floor."
+     },
+     "reponse": false,
+     "porte": [
+      "一",
+      "层",
+      "书",
+      "店"
+     ]
+    },
+    {
+     "type": "sens",
+     "consigne": {
+      "fr": "Que veut dire ce caractère ?",
+      "en": "What does this character mean?"
+     },
+     "objet": {
+      "zh": "饱",
+      "pinyin": "bǎo",
+      "fr": "rassasié",
+      "en": "full (after eating)"
+     },
+     "choix": [
+      {
+       "fr": "affamé",
+       "en": "hungry"
+      },
+      {
+       "fr": "rassasié",
+       "en": "full"
+      },
+      {
+       "fr": "assoiffé",
+       "en": "thirsty"
+      },
+      {
+       "fr": "malade",
+       "en": "ill"
+      }
+     ],
+     "reponse": 1,
+     "porte": [
+      "饱"
+     ]
+    }
+   ]
+  },
+  {
+   "serie": "B",
+   "statut": "relu",
+   "supports": [
+    {
+     "id": "s1",
+     "genre": "message",
+     "contexte": {
+      "fr": "Un message",
+      "en": "A message"
+     },
+     "lignes": [
+      {
+       "zh": "小明，你回家的时候，",
+       "pinyin": "xiǎo míng nǐ huí jiā de shí hou",
+       "fr": "Xiaoming, en rentrant à la maison,",
+       "en": "Xiaoming, on your way home,"
+      },
+      {
+       "zh": "去商店买一条鱼。",
+       "pinyin": "qù shāng diàn mǎi yī tiáo yú",
+       "fr": "passe au magasin acheter un poisson.",
+       "en": "stop at the shop and buy a fish."
+      },
+      {
+       "zh": "钱在桌子上。",
+       "pinyin": "qián zài zhuō zi shàng",
+       "fr": "L'argent est sur la table.",
+       "en": "The money is on the table."
+      }
+     ]
+    },
+    {
+     "id": "s2",
+     "genre": "note",
+     "contexte": {
+      "fr": "Une page d'agenda",
+      "en": "A diary page"
+     },
+     "lignes": [
+      {
+       "zh": "星期六",
+       "pinyin": "xīng qī liù",
+       "fr": "Samedi",
+       "en": "Saturday"
+      },
+      {
+       "zh": "上午：看牙医",
+       "pinyin": "shàng wǔ kàn yá yī",
+       "fr": "Matin : dentiste",
+       "en": "Morning: dentist"
+      },
+      {
+       "zh": "下午：跟姐姐去买衣服",
+       "pinyin": "xià wǔ gēn jiě jie qù mǎi yī fu",
+       "fr": "Après-midi : acheter des vêtements avec grande sœur",
+       "en": "Afternoon: buy clothes with big sister"
+      }
+     ]
+    }
+   ],
+   "questions": [
+    {
+     "type": "comprendre",
+     "support": "s1",
+     "consigne": {
+      "fr": "Que faut-il acheter ?",
+      "en": "What must be bought?"
+     },
+     "choix": [
+      {
+       "fr": "Du poisson",
+       "en": "Fish"
+      },
+      {
+       "fr": "Du poulet",
+       "en": "Chicken"
+      },
+      {
+       "fr": "Des fruits",
+       "en": "Fruit"
+      },
+      {
+       "fr": "Du thé",
+       "en": "Tea"
+      }
+     ],
+     "reponse": 0,
+     "porte": [
+      "买",
+      "鱼"
+     ]
+    },
+    {
+     "type": "reperer",
+     "support": "s1",
+     "consigne": {
+      "fr": "Touche l'endroit où se trouve l'argent.",
+      "en": "Tap the place where the money is."
+     },
+     "choix": [
+      "小明",
+      "商店",
+      "鱼",
+      "桌子"
+     ],
+     "reponse": 3,
+     "porte": [
+      "钱",
+      "桌",
+      "子"
+     ]
+    },
+    {
+     "type": "replique",
+     "support": "s1",
+     "consigne": {
+      "fr": "Que répond Xiaoming ?",
+      "en": "What does Xiaoming reply?"
+     },
+     "choix": [
+      {
+       "zh": "我的笔在书包里。",
+       "pinyin": "wǒ de bǐ zài shū bāo lǐ",
+       "fr": "Mon stylo est dans mon cartable.",
+       "en": "My pen is in my schoolbag."
+      },
+      {
+       "zh": "我哥哥很高。",
+       "pinyin": "wǒ gē ge hěn gāo",
+       "fr": "Mon grand frère est grand.",
+       "en": "My big brother is tall."
+      },
+      {
+       "zh": "好，我知道了。",
+       "pinyin": "hǎo wǒ zhī dào le",
+       "fr": "D'accord, c'est noté.",
+       "en": "OK, got it."
+      },
+      {
+       "zh": "外面在下雨。",
+       "pinyin": "wài mian zài xià yǔ",
+       "fr": "Il pleut dehors.",
+       "en": "It's raining outside."
+      }
+     ],
+     "reponse": 2,
+     "porte": [
+      "买",
+      "鱼",
+      "道"
+     ]
+    },
+    {
+     "type": "vrai_faux",
+     "support": "s2",
+     "consigne": {
+      "fr": "Vrai ou faux ?",
+      "en": "True or false?"
+     },
+     "affirmation": {
+      "zh": "星期六下午去买衣服。",
+      "pinyin": "xīng qī liù xià wǔ qù mǎi yī fu",
+      "fr": "Samedi après-midi, on va acheter des vêtements.",
+      "en": "On Saturday afternoon, it's clothes shopping."
+     },
+     "reponse": true,
+     "porte": [
+      "下",
+      "午",
+      "买"
+     ]
+    },
+    {
+     "type": "caractere",
+     "consigne": {
+      "fr": "Quel caractère a ce sens ?",
+      "en": "Which character has this meaning?"
+     },
+     "objet": {
+      "zh": "头",
+      "pinyin": "tóu",
+      "fr": "tête",
+      "en": "head"
+     },
+     "choix": [
+      "买",
+      "头",
+      "关",
+      "来"
+     ],
+     "reponse": 1,
+     "porte": [
+      "头"
+     ]
+    }
+   ]
+  }
+ ]
+}

@@ -21,19 +21,32 @@
   "扌": "sens",
   "非": "forme"
  },
- "mots": [],
+ "mots": [
+  {
+   "hanzi": "安排",
+   "pinyin": "ānpái",
+   "fr": "organiser",
+   "en": "to arrange"
+  },
+  {
+   "hanzi": "排队",
+   "pinyin": "páiduì",
+   "fr": "faire la queue",
+   "en": "to queue"
+  }
+ ],
  "phrase": {
-  "zh": "",
-  "pinyin": "",
-  "fr": "",
-  "en": ""
+  "zh": "大家在排队买票。",
+  "pinyin": "Dàjiā zài páiduì mǎi piào.",
+  "fr": "Tout le monde fait la queue pour acheter des billets.",
+  "en": "Everyone is queuing for tickets."
  },
  "generation": {
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:0d32a5cad49c1d76f67ad26a9f915a96d557d136bec89f38e2014d3c56fd6680",
-  "essais": 1,
+  "empreinte_invite": "sha256:feddde6bcc180462a2a35589167d46a7e118701fb84f12677826f00170237656",
+  "essais": 2,
   "refus": []
  },
  "statut": "relu"

@@ -19,19 +19,32 @@
  "roles": {
   "川": "sens"
  },
- "mots": [],
+ "mots": [
+  {
+   "hanzi": "山川",
+   "pinyin": "shānchuān",
+   "fr": "monts et rivières",
+   "en": "mountains and rivers"
+  },
+  {
+   "hanzi": "河川",
+   "pinyin": "héchuān",
+   "fr": "cours d'eau",
+   "en": "rivers"
+  }
+ ],
  "phrase": {
-  "zh": "",
-  "pinyin": "",
-  "fr": "",
-  "en": ""
+  "zh": "我去过四川。",
+  "pinyin": "Wǒ qù guo Sìchuān.",
+  "fr": "Je suis déjà allé au Sichuan.",
+  "en": "I've been to Sichuan."
  },
  "generation": {
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:894869e1e208e4ef2a56ac053a6584d0a01eb5eb49e8e05211ec2cad8bd4e0bb",
-  "essais": 1,
+  "empreinte_invite": "sha256:64f3156f8c3846f2d06f2ea5441ef14715c8b2efde78ed8edad718bdf594139b",
+  "essais": 2,
   "refus": []
  },
  "statut": "relu"

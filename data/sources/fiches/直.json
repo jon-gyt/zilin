@@ -19,19 +19,32 @@
  "roles": {
   "直": "sens"
  },
- "mots": [],
+ "mots": [
+  {
+   "hanzi": "一直",
+   "pinyin": "yīzhí",
+   "fr": "tout droit, sans cesse",
+   "en": "straight on, all along"
+  },
+  {
+   "hanzi": "直到",
+   "pinyin": "zhídào",
+   "fr": "jusqu'à",
+   "en": "until"
+  }
+ ],
  "phrase": {
-  "zh": "",
-  "pinyin": "",
-  "fr": "",
-  "en": ""
+  "zh": "你一直走，就能看到。",
+  "pinyin": "Nǐ yīzhí zǒu, jiù néng kàndào.",
+  "fr": "Va tout droit et tu le verras.",
+  "en": "Go straight on and you'll see it."
  },
  "generation": {
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:ac57f3e8340eb82948d52acc64a4f79bbbab99e1e10e0bf86ea64ed10ae2936f",
-  "essais": 1,
+  "empreinte_invite": "sha256:c469868ccd7ae5c80b0ab47d19b9a8672e174cac146ac2e89bdc0d60c4295567",
+  "essais": 2,
   "refus": []
  },
  "statut": "relu"

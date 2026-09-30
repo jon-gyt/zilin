@@ -21,19 +21,32 @@
   "讠": "sens",
   "丁": "son"
  },
- "mots": [],
+ "mots": [
+  {
+   "hanzi": "订票",
+   "pinyin": "dìngpiào",
+   "fr": "réserver un billet",
+   "en": "to book a ticket"
+  },
+  {
+   "hanzi": "订单",
+   "pinyin": "dìngdān",
+   "fr": "commande",
+   "en": "order (purchase)"
+  }
+ ],
  "phrase": {
-  "zh": "",
-  "pinyin": "",
-  "fr": "",
-  "en": ""
+  "zh": "我已经订好了火车票。",
+  "pinyin": "Wǒ yǐjīng dìnghǎo le huǒchēpiào.",
+  "fr": "J'ai déjà réservé les billets de train.",
+  "en": "I've already booked the train tickets."
  },
  "generation": {
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:353cdc6ace43658d55c54cb9dae2a9f1fc8f72bf000f7025a578c562ed2aa212",
-  "essais": 1,
+  "empreinte_invite": "sha256:3b374b88874581c865977f159b688be8ec7fe242f5342c581a45b4068a119fb7",
+  "essais": 2,
   "refus": []
  },
  "statut": "relu"

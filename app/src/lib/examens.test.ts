@@ -145,9 +145,17 @@ describe('le contenu', () => {
   });
 
   it('ne passe que les examens dont les deux séries sont écrites, dans l’ordre', () => {
-    const jusqua355 = ['xianshi', 'yueke-75', 'fushi', 'yueke-150', 'yuanshi', 'xiangshi', 'yueke-305', 'yueke-355'];
-    expect(examensPassables(DONNEES, 'lire').map((e) => e.id)).toEqual(jusqua355);
-    expect(examensPassables(DONNEES, 'hsk').map((e) => e.id)).toEqual([...jusqua355, 'yueke-405']);
+    const yueke = (de: number, a: number) => Array.from({ length: (a - de) / 50 + 1 }, (_, i) => `yueke-${de + 50 * i}`);
+    const tous = [
+      ...['xianshi', 'yueke-75', 'fushi', 'yueke-150', 'yuanshi', 'xiangshi', 'yueke-305', 'yueke-355', 'yueke-405', 'yueke-455'],
+      'huishi',
+      ...yueke(555, 755),
+      'dianshi',
+      ...yueke(855, 1755),
+      'yueke-1800'
+    ];
+    expect(examensPassables(DONNEES, 'lire').map((e) => e.id)).toEqual(tous);
+    expect(examensPassables(DONNEES, 'hsk').map((e) => e.id)).toEqual(tous);
     const sansB = { ...DONNEES, parcours: { ...DONNEES.parcours, lire: DONNEES.parcours.lire.map((x) => (x.examen === 'xianshi' ? { ...x, series: { A: x.series.A } } : x)) } };
     expect(examensPassables(sansB, 'lire')).toEqual([]);
   });

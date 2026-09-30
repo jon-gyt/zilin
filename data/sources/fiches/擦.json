@@ -27,19 +27,32 @@
   "卩": "forme",
   "示": "forme"
  },
- "mots": [],
+ "mots": [
+  {
+   "hanzi": "擦干",
+   "pinyin": "cāgān",
+   "fr": "essuyer, sécher",
+   "en": "to wipe dry"
+  },
+  {
+   "hanzi": "擦伤",
+   "pinyin": "cāshāng",
+   "fr": "éraflure, s'érafler",
+   "en": "graze, to scrape"
+  }
+ ],
  "phrase": {
-  "zh": "",
-  "pinyin": "",
-  "fr": "",
-  "en": ""
+  "zh": "请把桌子擦干净。",
+  "pinyin": "Qǐng bǎ zhuōzi cā gānjìng.",
+  "fr": "Essuie bien la table, s'il te plaît.",
+  "en": "Please wipe the table clean."
  },
  "generation": {
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:d5c9df55e4dd2729eabd9be2217771406c3ad62e7f162ebe204fda6e9510f4f3",
-  "essais": 1,
+  "empreinte_invite": "sha256:33e00a7e124bc94ca694a49742dec77d1dfc1361692a2aa3722ae60bdfff86f3",
+  "essais": 2,
   "refus": []
  },
  "statut": "relu"

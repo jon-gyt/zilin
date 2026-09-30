@@ -21,19 +21,32 @@
   "扌": "sens",
   "匕": "forme"
  },
- "mots": [],
+ "mots": [
+  {
+   "hanzi": "批准",
+   "pinyin": "pīzhǔn",
+   "fr": "approuver, autoriser",
+   "en": "to approve, to authorize"
+  },
+  {
+   "hanzi": "批发",
+   "pinyin": "pīfā",
+   "fr": "vente en gros",
+   "en": "wholesale"
+  }
+ ],
  "phrase": {
-  "zh": "",
-  "pinyin": "",
-  "fr": "",
-  "en": ""
+  "zh": "经理批准了我的计划。",
+  "pinyin": "Jīnglǐ pīzhǔn le wǒ de jìhuà.",
+  "fr": "Le directeur a approuvé mon projet.",
+  "en": "The manager approved my plan."
  },
  "generation": {
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:ea1de3c4180bcb48630ee9c446010f9b3d5c0b969aca85390bdabe9ee07fc204",
-  "essais": 1,
+  "empreinte_invite": "sha256:449fc81218c9c8d9f240917f03f785caaeea283d56064b6af30ee05661a3b503",
+  "essais": 2,
   "refus": []
  },
  "statut": "relu"

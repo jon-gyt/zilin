@@ -19,19 +19,32 @@
  "roles": {
   "庸": "sens"
  },
- "mots": [],
+ "mots": [
+  {
+   "hanzi": "平庸",
+   "pinyin": "píngyōng",
+   "fr": "médiocre",
+   "en": "mediocre"
+  },
+  {
+   "hanzi": "中庸",
+   "pinyin": "zhōngyōng",
+   "fr": "juste milieu",
+   "en": "the golden mean"
+  }
+ ],
  "phrase": {
-  "zh": "",
-  "pinyin": "",
-  "fr": "",
-  "en": ""
+  "zh": "他不是一个平庸的人。",
+  "pinyin": "Tā bù shì yī gè píngyōng de rén.",
+  "fr": "Ce n'est pas un homme ordinaire.",
+  "en": "He is no mediocre man."
  },
  "generation": {
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:99834eae5db5f17049adc1003d835bd84c150dbc17bc5f31b98c14165e401b23",
-  "essais": 1,
+  "empreinte_invite": "sha256:e8b55eca3ba46eee0a17da24164f9e49a326e8abdf224fca0e5ba76a29f49115",
+  "essais": 2,
   "refus": []
  },
  "statut": "relu"

@@ -3,7 +3,8 @@
  "parcours": "lire",
  "jour": 922,
  "pinyin": [
-  "pō"
+  "pō",
+  "bó"
  ],
  "sens_fr": "lac, mouiller, s'arrêter",
  "sens_en": "lake, to moor, to stop",
@@ -21,19 +22,32 @@
   "氵": "sens",
   "白": "forme"
  },
- "mots": [],
+ "mots": [
+  {
+   "hanzi": "湖泊",
+   "pinyin": "húpō",
+   "fr": "lac",
+   "en": "lake"
+  },
+  {
+   "hanzi": "停泊",
+   "pinyin": "tíngbó",
+   "fr": "mouiller, être à quai",
+   "en": "to anchor, to berth"
+  }
+ ],
  "phrase": {
-  "zh": "",
-  "pinyin": "",
-  "fr": "",
-  "en": ""
+  "zh": "这里有很多湖泊。",
+  "pinyin": "Zhèli yǒu hěn duō húpō.",
+  "fr": "Il y a beaucoup de lacs par ici.",
+  "en": "There are many lakes around here."
  },
  "generation": {
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:a89e7dcc678eb498292e3d7a833666d7413661e6ebbe65cb66ae36238346dead",
-  "essais": 1,
+  "empreinte_invite": "sha256:f22920045fe4a60afcab6d39a9aa60c92f82d1dab8f6617285b7a1d57c4c432c",
+  "essais": 3,
   "refus": []
  },
  "statut": "relu"

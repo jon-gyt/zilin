@@ -21,19 +21,32 @@
   "舟": "forme",
   "皿": "sens"
  },
- "mots": [],
+ "mots": [
+  {
+   "hanzi": "盘子",
+   "pinyin": "pánzi",
+   "fr": "assiette",
+   "en": "plate"
+  },
+  {
+   "hanzi": "光盘",
+   "pinyin": "guāngpán",
+   "fr": "disque optique, CD",
+   "en": "optical disc, CD"
+  }
+ ],
  "phrase": {
-  "zh": "",
-  "pinyin": "",
-  "fr": "",
-  "en": ""
+  "zh": "桌子上有一个盘子。",
+  "pinyin": "Zhuōzi shang yǒu yī gè pánzi.",
+  "fr": "Il y a une assiette sur la table.",
+  "en": "There is a plate on the table."
  },
  "generation": {
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:6e563bdf30dd89d52a0de4b79f6753186f04583886bf0b248a207457a9d9f3c6",
-  "essais": 1,
+  "empreinte_invite": "sha256:87aadada678ce1c897cacec2577379fb31db6c513e10bfdadeb78a337ad53b84",
+  "essais": 2,
   "refus": []
  },
  "statut": "relu"

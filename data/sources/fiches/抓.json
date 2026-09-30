@@ -21,19 +21,32 @@
   "扌": "sens",
   "爪": "sens"
  },
- "mots": [],
+ "mots": [
+  {
+   "hanzi": "抓住",
+   "pinyin": "zhuāzhù",
+   "fr": "saisir, attraper",
+   "en": "to grab, to catch"
+  },
+  {
+   "hanzi": "抓紧",
+   "pinyin": "zhuājǐn",
+   "fr": "ne pas perdre de temps",
+   "en": "to make the most of, to hurry"
+  }
+ ],
  "phrase": {
-  "zh": "",
-  "pinyin": "",
-  "fr": "",
-  "en": ""
+  "zh": "猫抓住了一只鸟。",
+  "pinyin": "Māo zhuāzhù le yī zhī niǎo.",
+  "fr": "Le chat a attrapé un oiseau.",
+  "en": "The cat caught a bird."
  },
  "generation": {
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:53ff39ff68d75e3d72e3a81813d7f856fdab388acb47cc77df3bbb7c8e85cb16",
-  "essais": 1,
+  "empreinte_invite": "sha256:6ee45c01d0f824463d0b86a497da89fa1ac942095c3470fce7b1295ffa75ceda",
+  "essais": 2,
   "refus": []
  },
  "statut": "relu"

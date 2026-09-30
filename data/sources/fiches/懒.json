@@ -25,19 +25,32 @@
   "⺈": "sens",
   "贝": "sens"
  },
- "mots": [],
+ "mots": [
+  {
+   "hanzi": "懒得",
+   "pinyin": "lǎnde",
+   "fr": "ne pas avoir envie de",
+   "en": "can't be bothered to"
+  },
+  {
+   "hanzi": "偷懒",
+   "pinyin": "tōulǎn",
+   "fr": "paresser, tirer au flanc",
+   "en": "to slack off"
+  }
+ ],
  "phrase": {
-  "zh": "",
-  "pinyin": "",
-  "fr": "",
-  "en": ""
+  "zh": "周末我懒得出门。",
+  "pinyin": "Zhōumò wǒ lǎnde chūmén.",
+  "fr": "Le week-end, je n'ai pas envie de sortir.",
+  "en": "At weekends I can't be bothered to go out."
  },
  "generation": {
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:4f5d150cae91b94edcfc07ff5077ebd3488a1c1e09527a87b20e622eb06fecd5",
-  "essais": 1,
+  "empreinte_invite": "sha256:80bc8f1c5bb172ef16b7649d6ce71d17fca4b62fd444f00cdec1ece9d53237e4",
+  "essais": 2,
   "refus": []
  },
  "statut": "relu"

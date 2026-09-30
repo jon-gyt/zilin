@@ -19,19 +19,32 @@
  "roles": {
   "司": "forme"
  },
- "mots": [],
+ "mots": [
+  {
+   "hanzi": "司机",
+   "pinyin": "sījī",
+   "fr": "chauffeur",
+   "en": "driver"
+  },
+  {
+   "hanzi": "上司",
+   "pinyin": "shàngsi",
+   "fr": "supérieur",
+   "en": "boss"
+  }
+ ],
  "phrase": {
-  "zh": "",
-  "pinyin": "",
-  "fr": "",
-  "en": ""
+  "zh": "司机，请开慢一点。",
+  "pinyin": "Sījī, qǐng kāi màn yīdiǎn.",
+  "fr": "Chauffeur, roulez un peu moins vite, s'il vous plaît.",
+  "en": "Driver, please drive a little slower."
  },
  "generation": {
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:249ffe7829277dc0440becdc27e1bc029d4e03be27b8b0f54075caa995ce7d9f",
-  "essais": 1,
+  "empreinte_invite": "sha256:e2ef8df8fe66c881a21236a0bb45eb438c8cdf66a5ec51d5d6f1008f1dee4cec",
+  "essais": 2,
   "refus": []
  },
  "statut": "relu"

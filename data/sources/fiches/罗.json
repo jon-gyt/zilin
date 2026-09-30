@@ -3,6 +3,7 @@
  "parcours": "lire",
  "jour": 1159,
  "pinyin": [
+  "luó",
   "luō"
  ],
  "sens_fr": "filet, rassembler, étaler",
@@ -21,19 +22,32 @@
   "罒": "sens",
   "夕": "forme"
  },
- "mots": [],
+ "mots": [
+  {
+   "hanzi": "张罗",
+   "pinyin": "zhāngluo",
+   "fr": "s'occuper de, organiser",
+   "en": "to see to, to arrange"
+  },
+  {
+   "hanzi": "罗列",
+   "pinyin": "luóliè",
+   "fr": "énumérer, étaler",
+   "en": "to list, to set out"
+  }
+ ],
  "phrase": {
-  "zh": "",
-  "pinyin": "",
-  "fr": "",
-  "en": ""
+  "zh": "妈妈正在张罗晚饭。",
+  "pinyin": "Māma zhèngzài zhāngluo wǎnfàn.",
+  "fr": "Maman s'occupe du dîner.",
+  "en": "Mum is busy getting dinner ready."
  },
  "generation": {
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:0567149192a08254dfda3301e82ae5a9796b6f0f260c9065d03f276ece5a448d",
-  "essais": 1,
+  "empreinte_invite": "sha256:379b0cdf46fa1504254fdcf5bb8c2610ee26a68803f5c6ac723e38445ad67e3b",
+  "essais": 3,
   "refus": []
  },
  "statut": "relu"

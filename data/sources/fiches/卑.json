@@ -19,19 +19,32 @@
  "roles": {
   "卑": "sens"
  },
- "mots": [],
+ "mots": [
+  {
+   "hanzi": "自卑",
+   "pinyin": "zìbēi",
+   "fr": "se sentir inférieur",
+   "en": "to feel inferior"
+  },
+  {
+   "hanzi": "卑下",
+   "pinyin": "bēixià",
+   "fr": "bas, vil",
+   "en": "lowly, base"
+  }
+ ],
  "phrase": {
-  "zh": "",
-  "pinyin": "",
-  "fr": "",
-  "en": ""
+  "zh": "他有点自卑。",
+  "pinyin": "Tā yǒudiǎn zìbēi.",
+  "fr": "Il manque un peu de confiance en lui.",
+  "en": "He feels a bit inferior."
  },
  "generation": {
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:3589c46013d6a87573e8347b1cdd49a38d239044b7eced6a287e68f51c46a403",
-  "essais": 1,
+  "empreinte_invite": "sha256:1e2f2534cc58c15eab6110760d440057458f4acf708c2589a757bb63818ed41f",
+  "essais": 3,
   "refus": []
  },
  "statut": "relu"

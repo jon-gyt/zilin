@@ -21,19 +21,32 @@
   "车": "sens",
   "专": "son"
  },
- "mots": [],
+ "mots": [
+  {
+   "hanzi": "转告",
+   "pinyin": "zhuǎngào",
+   "fr": "transmettre (un message)",
+   "en": "to pass on (a message)"
+  },
+  {
+   "hanzi": "好转",
+   "pinyin": "hǎozhuǎn",
+   "fr": "s'améliorer",
+   "en": "to get better"
+  }
+ ],
  "phrase": {
-  "zh": "",
-  "pinyin": "",
-  "fr": "",
-  "en": ""
+  "zh": "在前面的路口右转。",
+  "pinyin": "Zài qiánmian de lùkǒu yòu zhuǎn.",
+  "fr": "Tourne à droite au prochain carrefour.",
+  "en": "Turn right at the next intersection."
  },
  "generation": {
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:23968df4455f0de9a562c0a969a82d6ddff0ca8f6c6020a4aaa3ee9c664528a9",
-  "essais": 1,
+  "empreinte_invite": "sha256:4e534135dd6df52adb8549fa6106ad2a8a8fb94b483b5825ac91e827555bdda6",
+  "essais": 2,
   "refus": []
  },
  "statut": "relu"

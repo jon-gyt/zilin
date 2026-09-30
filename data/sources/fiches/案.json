@@ -23,19 +23,32 @@
   "女": "son",
   "木": "sens"
  },
- "mots": [],
+ "mots": [
+  {
+   "hanzi": "方案",
+   "pinyin": "fāng'àn",
+   "fr": "plan, projet",
+   "en": "plan, scheme"
+  },
+  {
+   "hanzi": "案子",
+   "pinyin": "ànzi",
+   "fr": "affaire (judiciaire)",
+   "en": "case (legal)"
+  }
+ ],
  "phrase": {
-  "zh": "",
-  "pinyin": "",
-  "fr": "",
-  "en": ""
+  "zh": "这个案子很难。",
+  "pinyin": "Zhège ànzi hěn nán.",
+  "fr": "Cette affaire est difficile.",
+  "en": "This case is a hard one."
  },
  "generation": {
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:ed8ca411c7e8a2daf5b08cd95c5ebf72918fd49b3359e4244a172fe9e69bea93",
-  "essais": 1,
+  "empreinte_invite": "sha256:8bf822b97112756c62df48037f94a71e42cd9d94e5560ce4aad349226bc25926",
+  "essais": 2,
   "refus": []
  },
  "statut": "relu"

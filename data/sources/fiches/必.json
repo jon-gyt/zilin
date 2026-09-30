@@ -19,19 +19,32 @@
  "roles": {
   "必": "forme"
  },
- "mots": [],
+ "mots": [
+  {
+   "hanzi": "必要",
+   "pinyin": "bìyào",
+   "fr": "nécessaire",
+   "en": "necessary"
+  },
+  {
+   "hanzi": "不必",
+   "pinyin": "bùbì",
+   "fr": "inutile de",
+   "en": "needn't"
+  }
+ ],
  "phrase": {
-  "zh": "",
-  "pinyin": "",
-  "fr": "",
-  "en": ""
+  "zh": "明天你不必来。",
+  "pinyin": "Míngtiān nǐ bùbì lái.",
+  "fr": "Tu n'as pas besoin de venir demain.",
+  "en": "You don't need to come tomorrow."
  },
  "generation": {
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:958d3bf36ce4a06ff800cf11317d36729f8550e3e85a34e494babc1f9885d6dd",
-  "essais": 1,
+  "empreinte_invite": "sha256:d2ac315f13b434ad26675e0789eba58892172d682762402da93128ed6f050b77",
+  "essais": 2,
   "refus": []
  },
  "statut": "relu"

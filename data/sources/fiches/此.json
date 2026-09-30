@@ -21,19 +21,32 @@
   "止": "sens",
   "匕": "sens"
  },
- "mots": [],
+ "mots": [
+  {
+   "hanzi": "因此",
+   "pinyin": "yīncǐ",
+   "fr": "c'est pourquoi, donc",
+   "en": "therefore"
+  },
+  {
+   "hanzi": "从此",
+   "pinyin": "cóngcǐ",
+   "fr": "depuis lors",
+   "en": "from then on"
+  }
+ ],
  "phrase": {
-  "zh": "",
-  "pinyin": "",
-  "fr": "",
-  "en": ""
+  "zh": "下雨了，因此我们没有出去。",
+  "pinyin": "Xià yǔ le, yīncǐ wǒmen méiyǒu chūqu.",
+  "fr": "Il pleuvait, nous ne sommes donc pas sortis.",
+  "en": "It was raining, so we didn't go out."
  },
  "generation": {
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:f27676f7a64eca4b0da5798cfa1c5b8b004236c41cd1a141d6d51862ddc61819",
-  "essais": 1,
+  "empreinte_invite": "sha256:91948589c07f2d5ee9e9be6f4e99d43cba649bda4c518ca1997b82439b5ac977",
+  "essais": 2,
   "refus": []
  },
  "statut": "relu"

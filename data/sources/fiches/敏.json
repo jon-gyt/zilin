@@ -23,19 +23,32 @@
   "母": "forme",
   "乂": "forme"
  },
- "mots": [],
+ "mots": [
+  {
+   "hanzi": "敏感",
+   "pinyin": "mǐngǎn",
+   "fr": "sensible",
+   "en": "sensitive"
+  },
+  {
+   "hanzi": "过敏",
+   "pinyin": "guòmǐn",
+   "fr": "allergie, être allergique",
+   "en": "allergy, to be allergic"
+  }
+ ],
  "phrase": {
-  "zh": "",
-  "pinyin": "",
-  "fr": "",
-  "en": ""
+  "zh": "我对花过敏。",
+  "pinyin": "Wǒ duì huā guòmǐn.",
+  "fr": "Je suis allergique aux fleurs.",
+  "en": "I'm allergic to flowers."
  },
  "generation": {
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:d0bc3405acc7715011576560d839e3becc83560a32939db4bf16158bfc83c244",
-  "essais": 1,
+  "empreinte_invite": "sha256:f0a7f5c304d2390443543d5cb4aeba51f331cfa8abb0eb466703f6b23fba5107",
+  "essais": 2,
   "refus": []
  },
  "statut": "relu"

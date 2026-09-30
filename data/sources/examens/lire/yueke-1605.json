@@ -1,0 +1,626 @@
+{
+ "examen": "yueke-1605",
+ "parcours": "lire",
+ "generation": {
+  "modele": "rédaction manuelle",
+  "api": "session Claude Code (sans API)",
+  "date": "2026-09-30"
+ },
+ "relecture": {
+  "statut": "relu",
+  "par": "le propriétaire",
+  "decision": "« Go » (30 septembre 2026) : tout affiché sans relecture ligne à ligne",
+  "date": "2026-09-30"
+ },
+ "series": [
+  {
+   "serie": "A",
+   "statut": "relu",
+   "supports": [
+    {
+     "id": "s1",
+     "genre": "etal",
+     "contexte": {
+      "fr": "Un étal",
+      "en": "A stall"
+     },
+     "lignes": [
+      {
+       "zh": "桃子：每斤八元",
+       "pinyin": "táo zi měi jīn bā yuán",
+       "fr": "Pêches : 8 yuans la livre",
+       "en": "Peaches: 8 yuan per jin"
+      },
+      {
+       "zh": "葡萄：每斤十元",
+       "pinyin": "pú táo měi jīn shí yuán",
+       "fr": "Raisin : 10 yuans la livre",
+       "en": "Grapes: 10 yuan per jin"
+      },
+      {
+       "zh": "柿子：每斤四元",
+       "pinyin": "shì zi měi jīn sì yuán",
+       "fr": "Kakis : 4 yuans la livre",
+       "en": "Persimmons: 4 yuan per jin"
+      }
+     ],
+     "glose": [
+      {
+       "zh": "桃子",
+       "pinyin": "táo zi",
+       "fr": "pêche",
+       "en": "peach"
+      },
+      {
+       "zh": "每斤",
+       "pinyin": "měi jīn",
+       "fr": "la livre (le jin)",
+       "en": "per jin"
+      },
+      {
+       "zh": "八元",
+       "pinyin": "bā yuán",
+       "fr": "huit yuans",
+       "en": "eight yuan"
+      },
+      {
+       "zh": "葡萄",
+       "pinyin": "pú táo",
+       "fr": "raisin",
+       "en": "grapes"
+      },
+      {
+       "zh": "十元",
+       "pinyin": "shí yuán",
+       "fr": "dix yuans",
+       "en": "ten yuan"
+      },
+      {
+       "zh": "柿子",
+       "pinyin": "shì zi",
+       "fr": "kaki",
+       "en": "persimmon"
+      },
+      {
+       "zh": "四元",
+       "pinyin": "sì yuán",
+       "fr": "quatre yuans",
+       "en": "four yuan"
+      }
+     ]
+    },
+    {
+     "id": "s2",
+     "genre": "message",
+     "contexte": {
+      "fr": "Un message",
+      "en": "A message"
+     },
+     "lignes": [
+      {
+       "zh": "小张，宿舍的门锁坏了，",
+       "pinyin": "xiǎo zhāng sù shè de mén suǒ huài le",
+       "fr": "Xiao Zhang, la serrure de la chambre est cassée,",
+       "en": "Xiao Zhang, the lock on our dorm room is broken,"
+      },
+      {
+       "zh": "我已经告诉老师了。",
+       "pinyin": "wǒ yǐ jīng gào sù lǎo shī le",
+       "fr": "j'ai déjà prévenu le professeur.",
+       "en": "I've already told the teacher."
+      },
+      {
+       "zh": "你今天晚上早点回来。",
+       "pinyin": "nǐ jīn tiān wǎn shang zǎo diǎn huí lái",
+       "fr": "Ce soir, rentre un peu plus tôt.",
+       "en": "Come back a bit early tonight."
+      }
+     ],
+     "glose": [
+      {
+       "zh": "宿舍",
+       "pinyin": "sù shè",
+       "fr": "chambre d'internat, dortoir",
+       "en": "dormitory"
+      },
+      {
+       "zh": "门锁",
+       "pinyin": "mén suǒ",
+       "fr": "serrure",
+       "en": "door lock"
+      },
+      {
+       "zh": "已经",
+       "pinyin": "yǐ jīng",
+       "fr": "déjà",
+       "en": "already"
+      },
+      {
+       "zh": "告诉",
+       "pinyin": "gào sù",
+       "fr": "dire, prévenir",
+       "en": "to tell"
+      },
+      {
+       "zh": "早点",
+       "pinyin": "zǎo diǎn",
+       "fr": "un peu plus tôt",
+       "en": "a bit earlier"
+      },
+      {
+       "zh": "窗户",
+       "pinyin": "chuāng hu",
+       "fr": "fenêtre",
+       "en": "window"
+      },
+      {
+       "zh": "谁",
+       "pinyin": "shuí",
+       "fr": "qui",
+       "en": "who"
+      },
+      {
+       "zh": "外面",
+       "pinyin": "wài mian",
+       "fr": "dehors",
+       "en": "outside"
+      }
+     ]
+    }
+   ],
+   "questions": [
+    {
+     "type": "comprendre",
+     "support": "s1",
+     "consigne": {
+      "fr": "Combien coûte une livre de raisin ?",
+      "en": "How much is a jin of grapes?"
+     },
+     "choix": [
+      {
+       "fr": "Huit yuans",
+       "en": "Eight yuan"
+      },
+      {
+       "fr": "Quatre yuans",
+       "en": "Four yuan"
+      },
+      {
+       "fr": "Six yuans",
+       "en": "Six yuan"
+      },
+      {
+       "fr": "Dix yuans",
+       "en": "Ten yuan"
+      }
+     ],
+     "reponse": 3,
+     "porte": [
+      "萄",
+      "十"
+     ]
+    },
+    {
+     "type": "reperer",
+     "support": "s1",
+     "consigne": {
+      "fr": "Touche le fruit le moins cher.",
+      "en": "Tap the cheapest fruit."
+     },
+     "choix": [
+      "桃子",
+      "柿子",
+      "葡萄",
+      "每斤"
+     ],
+     "reponse": 1,
+     "porte": [
+      "柿",
+      "子"
+     ]
+    },
+    {
+     "type": "vrai_faux",
+     "support": "s2",
+     "consigne": {
+      "fr": "Vrai ou faux ?",
+      "en": "True or false?"
+     },
+     "affirmation": {
+      "zh": "宿舍的窗户坏了。",
+      "pinyin": "sù shè de chuāng hu huài le",
+      "fr": "La fenêtre de la chambre est cassée.",
+      "en": "The dorm room window is broken."
+     },
+     "reponse": false,
+     "porte": [
+      "宿",
+      "舍",
+      "锁"
+     ]
+    },
+    {
+     "type": "replique",
+     "support": "s2",
+     "consigne": {
+      "fr": "Que répond Xiao Zhang ?",
+      "en": "What does Xiao Zhang reply?"
+     },
+     "choix": [
+      {
+       "zh": "这是谁的书？",
+       "pinyin": "zhè shì shuí de shū",
+       "fr": "À qui est ce livre ?",
+       "en": "Whose book is this?"
+      },
+      {
+       "zh": "好，我早点回来。",
+       "pinyin": "hǎo wǒ zǎo diǎn huí lái",
+       "fr": "D'accord, je rentrerai tôt.",
+       "en": "OK, I'll come back early."
+      },
+      {
+       "zh": "他喜欢画画。",
+       "pinyin": "tā xǐ huan huà huà",
+       "fr": "Il aime dessiner.",
+       "en": "He likes drawing."
+      },
+      {
+       "zh": "外面很热。",
+       "pinyin": "wài mian hěn rè",
+       "fr": "Il fait chaud dehors.",
+       "en": "It's hot outside."
+      }
+     ],
+     "reponse": 1,
+     "porte": [
+      "锁",
+      "早"
+     ]
+    },
+    {
+     "type": "sens",
+     "consigne": {
+      "fr": "Que veut dire ce caractère ?",
+      "en": "What does this character mean?"
+     },
+     "objet": {
+      "zh": "蛇",
+      "pinyin": "shé",
+      "fr": "serpent",
+      "en": "snake"
+     },
+     "choix": [
+      {
+       "fr": "lapin",
+       "en": "rabbit"
+      },
+      {
+       "fr": "tigre",
+       "en": "tiger"
+      },
+      {
+       "fr": "serpent",
+       "en": "snake"
+      },
+      {
+       "fr": "oiseau",
+       "en": "bird"
+      }
+     ],
+     "reponse": 2,
+     "porte": [
+      "蛇"
+     ]
+    }
+   ]
+  },
+  {
+   "serie": "B",
+   "statut": "relu",
+   "supports": [
+    {
+     "id": "s1",
+     "genre": "pancarte",
+     "contexte": {
+      "fr": "Un écriteau",
+      "en": "A notice"
+     },
+     "lignes": [
+      {
+       "zh": "小心小偷，",
+       "pinyin": "xiǎo xīn xiǎo tōu",
+       "fr": "Attention aux voleurs,",
+       "en": "Beware of thieves,"
+      },
+      {
+       "zh": "请看好自己的东西。",
+       "pinyin": "qǐng kàn hǎo zì jǐ de dōng xi",
+       "fr": "surveillez vos affaires.",
+       "en": "keep an eye on your belongings."
+      }
+     ],
+     "glose": [
+      {
+       "zh": "小偷",
+       "pinyin": "xiǎo tōu",
+       "fr": "voleur",
+       "en": "thief"
+      },
+      {
+       "zh": "看好",
+       "pinyin": "kàn hǎo",
+       "fr": "surveiller",
+       "en": "to keep an eye on"
+      },
+      {
+       "zh": "自己",
+       "pinyin": "zì jǐ",
+       "fr": "soi-même",
+       "en": "oneself"
+      }
+     ]
+    },
+    {
+     "id": "s2",
+     "genre": "note",
+     "contexte": {
+      "fr": "Une note",
+      "en": "A note"
+     },
+     "lignes": [
+      {
+       "zh": "冰箱里还剩一些蔬菜和两个桃子，",
+       "pinyin": "bīng xiāng lǐ hái shèng yī xiē shū cài hé liǎng gè táo zi",
+       "fr": "Il reste des légumes et deux pêches dans le frigo,",
+       "en": "There are some vegetables and two peaches left in the fridge,"
+      },
+      {
+       "zh": "你晚上自己做饭吧。",
+       "pinyin": "nǐ wǎn shang zì jǐ zuò fàn ba",
+       "fr": "fais-toi à manger ce soir.",
+       "en": "cook for yourself tonight."
+      },
+      {
+       "zh": "我明天中午回来。",
+       "pinyin": "wǒ míng tiān zhōng wǔ huí lái",
+       "fr": "Je rentre demain midi.",
+       "en": "I'll be back tomorrow at noon."
+      }
+     ],
+     "glose": [
+      {
+       "zh": "冰箱",
+       "pinyin": "bīng xiāng",
+       "fr": "réfrigérateur",
+       "en": "fridge"
+      },
+      {
+       "zh": "里",
+       "pinyin": "lǐ",
+       "fr": "dans",
+       "en": "in"
+      },
+      {
+       "zh": "剩",
+       "pinyin": "shèng",
+       "fr": "rester (en reste)",
+       "en": "to be left over"
+      },
+      {
+       "zh": "一些",
+       "pinyin": "yī xiē",
+       "fr": "quelques",
+       "en": "some"
+      },
+      {
+       "zh": "蔬菜",
+       "pinyin": "shū cài",
+       "fr": "légumes",
+       "en": "vegetables"
+      },
+      {
+       "zh": "和",
+       "pinyin": "hé",
+       "fr": "et",
+       "en": "and"
+      },
+      {
+       "zh": "桃子",
+       "pinyin": "táo zi",
+       "fr": "pêche",
+       "en": "peach"
+      },
+      {
+       "zh": "自己",
+       "pinyin": "zì jǐ",
+       "fr": "soi-même",
+       "en": "oneself"
+      },
+      {
+       "zh": "做饭",
+       "pinyin": "zuò fàn",
+       "fr": "faire à manger",
+       "en": "to cook"
+      },
+      {
+       "zh": "什么都",
+       "pinyin": "shén me dōu",
+       "fr": "rien, tout",
+       "en": "anything, everything"
+      },
+      {
+       "zh": "没有了",
+       "pinyin": "méi yǒu le",
+       "fr": "il n'y a plus",
+       "en": "there's none left"
+      },
+      {
+       "zh": "做个",
+       "pinyin": "zuò gè",
+       "fr": "faire un",
+       "en": "to make a"
+      },
+      {
+       "zh": "汤",
+       "pinyin": "tāng",
+       "fr": "soupe",
+       "en": "soup"
+      },
+      {
+       "zh": "我的",
+       "pinyin": "wǒ de",
+       "fr": "mon, ma",
+       "en": "my"
+      },
+      {
+       "zh": "钢笔",
+       "pinyin": "gāng bǐ",
+       "fr": "stylo-plume",
+       "en": "fountain pen"
+      },
+      {
+       "zh": "呢",
+       "pinyin": "né",
+       "fr": "(et… ?)",
+       "en": "(question particle)"
+      }
+     ]
+    }
+   ],
+   "questions": [
+    {
+     "type": "comprendre",
+     "support": "s1",
+     "consigne": {
+      "fr": "De quoi faut-il se méfier ?",
+      "en": "What should you beware of?"
+     },
+     "choix": [
+      {
+       "fr": "Des chiens",
+       "en": "Dogs"
+      },
+      {
+       "fr": "Des voleurs",
+       "en": "Thieves"
+      },
+      {
+       "fr": "Des voitures",
+       "en": "Cars"
+      },
+      {
+       "fr": "Des marches",
+       "en": "Steps"
+      }
+     ],
+     "reponse": 1,
+     "porte": [
+      "偷"
+     ]
+    },
+    {
+     "type": "reperer",
+     "support": "s2",
+     "consigne": {
+      "fr": "Touche ce qui reste, à part les fruits.",
+      "en": "Tap what is left apart from the fruit."
+     },
+     "choix": [
+      "冰箱",
+      "蔬菜",
+      "桃子",
+      "中午"
+     ],
+     "reponse": 1,
+     "porte": [
+      "蔬",
+      "菜"
+     ]
+    },
+    {
+     "type": "vrai_faux",
+     "support": "s2",
+     "consigne": {
+      "fr": "Vrai ou faux ?",
+      "en": "True or false?"
+     },
+     "affirmation": {
+      "zh": "冰箱里什么都没有了。",
+      "pinyin": "bīng xiāng lǐ shén me dōu méi yǒu le",
+      "fr": "Il n'y a plus rien dans le frigo.",
+      "en": "There's nothing left in the fridge."
+     },
+     "reponse": false,
+     "porte": [
+      "剩"
+     ]
+    },
+    {
+     "type": "replique",
+     "support": "s2",
+     "consigne": {
+      "fr": "Que répond l'enfant ?",
+      "en": "What does the child reply?"
+     },
+     "choix": [
+      {
+       "zh": "我的钢笔呢？",
+       "pinyin": "wǒ de gāng bǐ né",
+       "fr": "Où est mon stylo ?",
+       "en": "Where's my pen?"
+      },
+      {
+       "zh": "你会说汉语吗？",
+       "pinyin": "nǐ huì shuō hàn yǔ ma",
+       "fr": "Tu parles chinois ?",
+       "en": "Do you speak Chinese?"
+      },
+      {
+       "zh": "明天星期几？",
+       "pinyin": "míng tiān xīng qī jǐ",
+       "fr": "Quel jour sommes-nous demain ?",
+       "en": "What day is it tomorrow?"
+      },
+      {
+       "zh": "好，我做个蔬菜汤！",
+       "pinyin": "hǎo wǒ zuò gè shū cài tāng",
+       "fr": "D'accord, je fais une soupe de légumes !",
+       "en": "OK, I'll make a vegetable soup!"
+      }
+     ],
+     "reponse": 3,
+     "porte": [
+      "剩",
+      "蔬"
+     ]
+    },
+    {
+     "type": "trou",
+     "consigne": {
+      "fr": "Quel caractère manque dans ce mot ?",
+      "en": "Which character is missing from this word?"
+     },
+     "objet": {
+      "zh": "可惜",
+      "pinyin": "kě xī",
+      "fr": "dommage",
+      "en": "a pity"
+     },
+     "trou": 1,
+     "choix": [
+      "借",
+      "错",
+      "惜",
+      "情"
+     ],
+     "reponse": 2,
+     "porte": [
+      "可",
+      "惜"
+     ]
+    }
+   ]
+  }
+ ]
+}

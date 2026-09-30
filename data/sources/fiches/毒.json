@@ -21,19 +21,32 @@
   "龶": "sens",
   "母": "forme"
  },
- "mots": [],
+ "mots": [
+  {
+   "hanzi": "有毒",
+   "pinyin": "yǒudú",
+   "fr": "toxique, vénéneux",
+   "en": "poisonous"
+  },
+  {
+   "hanzi": "消毒",
+   "pinyin": "xiāodú",
+   "fr": "désinfecter",
+   "en": "to disinfect"
+  }
+ ],
  "phrase": {
-  "zh": "",
-  "pinyin": "",
-  "fr": "",
-  "en": ""
+  "zh": "这种花有毒，别用手碰。",
+  "pinyin": "Zhè zhǒng huā yǒu dú, bié yòng shǒu pèng.",
+  "fr": "Cette fleur est toxique, ne la touche pas.",
+  "en": "This flower is poisonous, don't touch it."
  },
  "generation": {
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:3e0330feea4d321d6eeaa0230b18c994a8c3d226eba25d8e555600fe4538081a",
-  "essais": 1,
+  "empreinte_invite": "sha256:64e3eb0c8682a11050dc350c744578bda846abbfa3f5d3fca0dbf71853a3312f",
+  "essais": 2,
   "refus": []
  },
  "statut": "relu"

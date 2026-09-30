@@ -21,19 +21,32 @@
   "火": "sens",
   "虫": "forme"
  },
- "mots": [],
+ "mots": [
+  {
+   "hanzi": "蜡烛",
+   "pinyin": "làzhú",
+   "fr": "bougie",
+   "en": "candle"
+  },
+  {
+   "hanzi": "烛光",
+   "pinyin": "zhúguāng",
+   "fr": "lumière de bougie",
+   "en": "candlelight"
+  }
+ ],
  "phrase": {
-  "zh": "",
-  "pinyin": "",
-  "fr": "",
-  "en": ""
+  "zh": "停电了，我们点了一支蜡烛。",
+  "pinyin": "Tíngdiàn le, wǒmen diǎn le yī zhī làzhú.",
+  "fr": "Il y a eu une coupure de courant, nous avons allumé une bougie.",
+  "en": "The power went out, so we lit a candle."
  },
  "generation": {
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:e9179fe8915b5cefd8b2c61645e964831a59d17dbf62f7754a9d96412990b029",
-  "essais": 1,
+  "empreinte_invite": "sha256:71d1ea6a059eb798d59102cee4035008c3fa1133377d1dd5d0227628e4b20c7f",
+  "essais": 2,
   "refus": []
  },
  "statut": "relu"

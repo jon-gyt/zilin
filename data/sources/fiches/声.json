@@ -21,19 +21,32 @@
   "士": "forme",
   "𠃜": "forme"
  },
- "mots": [],
+ "mots": [
+  {
+   "hanzi": "大声",
+   "pinyin": "dàshēng",
+   "fr": "à voix haute",
+   "en": "loudly"
+  },
+  {
+   "hanzi": "小声",
+   "pinyin": "xiǎoshēng",
+   "fr": "à voix basse",
+   "en": "quietly"
+  }
+ ],
  "phrase": {
-  "zh": "",
-  "pinyin": "",
-  "fr": "",
-  "en": ""
+  "zh": "请你大声一点。",
+  "pinyin": "Qǐng nǐ dàshēng yīdiǎn.",
+  "fr": "Parle un peu plus fort, s'il te plaît.",
+  "en": "Please speak up a little."
  },
  "generation": {
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:84d4d202d1647a70221ace1c07d56708135315c981129921908f8696aceb2e9e",
-  "essais": 1,
+  "empreinte_invite": "sha256:50cae90d77040e6315bb1f4b1b27d0c3d4f582f926b9dde2ee9d045f7e1228dd",
+  "essais": 2,
   "refus": []
  },
  "statut": "relu"

@@ -25,19 +25,32 @@
   "龷": "forme",
   "八": "forme"
  },
- "mots": [],
+ "mots": [
+  {
+   "hanzi": "撰写",
+   "pinyin": "zhuànxiě",
+   "fr": "rédiger, écrire",
+   "en": "to write, to compose"
+  },
+  {
+   "hanzi": "杜撰",
+   "pinyin": "dùzhuàn",
+   "fr": "inventer de toutes pièces",
+   "en": "to fabricate"
+  }
+ ],
  "phrase": {
-  "zh": "",
-  "pinyin": "",
-  "fr": "",
-  "en": ""
+  "zh": "他正在撰写一本新书。",
+  "pinyin": "Tā zhèngzài zhuànxiě yī běn xīn shū.",
+  "fr": "Il est en train d'écrire un nouveau livre.",
+  "en": "He is writing a new book."
  },
  "generation": {
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:8a85dac596aa93d247e8bf7b0f003daa039dfefa690bcb40a50fef059248ee81",
-  "essais": 1,
+  "empreinte_invite": "sha256:f87357a34100d409aea30450a49b0088149eb6dfa0014264a81972fa850122ad",
+  "essais": 2,
   "refus": []
  },
  "statut": "relu"

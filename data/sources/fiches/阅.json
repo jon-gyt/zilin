@@ -25,19 +25,32 @@
   "口": "forme",
   "儿": "forme"
  },
- "mots": [],
+ "mots": [
+  {
+   "hanzi": "阅读",
+   "pinyin": "yuèdú",
+   "fr": "lire, lecture",
+   "en": "to read, reading"
+  },
+  {
+   "hanzi": "查阅",
+   "pinyin": "cháyuè",
+   "fr": "consulter",
+   "en": "to look up, to consult"
+  }
+ ],
  "phrase": {
-  "zh": "",
-  "pinyin": "",
-  "fr": "",
-  "en": ""
+  "zh": "我每天晚上阅读半个小时。",
+  "pinyin": "Wǒ měi tiān wǎnshang yuèdú bàn gè xiǎoshí.",
+  "fr": "Chaque soir, je lis une demi-heure.",
+  "en": "I read for half an hour every evening."
  },
  "generation": {
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:5ef64e67e57585d177f14377f4b2a9cd36de1f405597460734a03b7538938036",
-  "essais": 1,
+  "empreinte_invite": "sha256:cf89478cdbfcd5ff942d9a778b793b04388c19094fe6a14caed81d7ccb887014",
+  "essais": 2,
   "refus": []
  },
  "statut": "relu"

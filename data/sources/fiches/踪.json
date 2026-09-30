@@ -25,19 +25,32 @@
   "宀": "son",
   "示": "son"
  },
- "mots": [],
+ "mots": [
+  {
+   "hanzi": "失踪",
+   "pinyin": "shīzōng",
+   "fr": "disparaître",
+   "en": "to go missing"
+  },
+  {
+   "hanzi": "跟踪",
+   "pinyin": "gēnzōng",
+   "fr": "suivre, filer",
+   "en": "to follow, to track"
+  }
+ ],
  "phrase": {
-  "zh": "",
-  "pinyin": "",
-  "fr": "",
-  "en": ""
+  "zh": "那只猫失踪了三天。",
+  "pinyin": "Nà zhī māo shīzōng le sān tiān.",
+  "fr": "Ce chat a disparu pendant trois jours.",
+  "en": "That cat went missing for three days."
  },
  "generation": {
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:c890dcc042f18194b35b4defa9a318f152c71bc807e3aef1d3c0e7d33b142215",
-  "essais": 1,
+  "empreinte_invite": "sha256:ea61142e62b241addae8b19b838078c490effda161f4496fe1f59e8093759314",
+  "essais": 2,
   "refus": []
  },
  "statut": "relu"

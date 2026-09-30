@@ -21,19 +21,32 @@
   "刀": "forme",
   "口": "sens"
  },
- "mots": [],
+ "mots": [
+  {
+   "hanzi": "召开",
+   "pinyin": "zhàokāi",
+   "fr": "convoquer, tenir (une réunion)",
+   "en": "to convene, to hold (a meeting)"
+  },
+  {
+   "hanzi": "号召",
+   "pinyin": "hàozhào",
+   "fr": "appeler à, appel",
+   "en": "to call on, a call"
+  }
+ ],
  "phrase": {
-  "zh": "",
-  "pinyin": "",
-  "fr": "",
-  "en": ""
+  "zh": "学校明天召开会议。",
+  "pinyin": "Xuéxiào míngtiān zhàokāi huìyì.",
+  "fr": "L'école tient une réunion demain.",
+  "en": "The school is holding a meeting tomorrow."
  },
  "generation": {
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:820583135bfe92f36361d584a84fe6df35860654f660cb11f0bfed57477c0864",
-  "essais": 1,
+  "empreinte_invite": "sha256:88625168cb2a21cbbdb6b006413770109b673a47160cb0105dc2a222fc9a8352",
+  "essais": 2,
   "refus": []
  },
  "statut": "relu"

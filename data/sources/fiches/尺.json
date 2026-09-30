@@ -19,19 +19,32 @@
  "roles": {
   "尺": "forme"
  },
- "mots": [],
+ "mots": [
+  {
+   "hanzi": "尺子",
+   "pinyin": "chǐzi",
+   "fr": "règle (à mesurer)",
+   "en": "ruler"
+  },
+  {
+   "hanzi": "尺寸",
+   "pinyin": "chǐcun",
+   "fr": "dimensions, taille",
+   "en": "size, measurements"
+  }
+ ],
  "phrase": {
-  "zh": "",
-  "pinyin": "",
-  "fr": "",
-  "en": ""
+  "zh": "你有尺子吗？",
+  "pinyin": "Nǐ yǒu chǐzi ma?",
+  "fr": "Tu as une règle ?",
+  "en": "Do you have a ruler?"
  },
  "generation": {
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:bc499ef89552d4a86080bfddc86e1e060a494f3567e4c9e7456864f28628f83d",
-  "essais": 1,
+  "empreinte_invite": "sha256:85c8aa2bc715a12a35719c9cbc8c4e5894b623b9926d87c0a5cc442141596432",
+  "essais": 2,
   "refus": []
  },
  "statut": "relu"

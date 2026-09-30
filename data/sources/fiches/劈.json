@@ -25,19 +25,32 @@
   "辛": "son",
   "刀": "sens"
  },
- "mots": [],
+ "mots": [
+  {
+   "hanzi": "劈开",
+   "pinyin": "pīkāi",
+   "fr": "fendre",
+   "en": "to split, to cleave"
+  },
+  {
+   "hanzi": "劈柴",
+   "pinyin": "pīchái",
+   "fr": "bois fendu ; fendre du bois",
+   "en": "firewood; to chop wood"
+  }
+ ],
  "phrase": {
-  "zh": "",
-  "pinyin": "",
-  "fr": "",
-  "en": ""
+  "zh": "他用刀把木头劈开了。",
+  "pinyin": "Tā yòng dāo bǎ mùtou pīkāi le.",
+  "fr": "Il a fendu le bois avec un couteau.",
+  "en": "He split the wood with a knife."
  },
  "generation": {
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:8f6fa2d0b82bd83a357ad6a086aff72e4fa88897a102796cb994520bb8bb8a6f",
-  "essais": 1,
+  "empreinte_invite": "sha256:d258626a281f1e60d507b3fcf2386bc975dfadc8fe394997d7a3b5b7a14883b1",
+  "essais": 2,
   "refus": []
  },
  "statut": "relu"

@@ -21,19 +21,32 @@
   "王": "forme",
   "文": "sens"
  },
- "mots": [],
+ "mots": [
+  {
+   "hanzi": "斑马",
+   "pinyin": "bānmǎ",
+   "fr": "zèbre",
+   "en": "zebra"
+  },
+  {
+   "hanzi": "斑点",
+   "pinyin": "bāndiǎn",
+   "fr": "tache, moucheture",
+   "en": "spot, speck"
+  }
+ ],
  "phrase": {
-  "zh": "",
-  "pinyin": "",
-  "fr": "",
-  "en": ""
+  "zh": "这条狗身上有黑色的斑点。",
+  "pinyin": "Zhè tiáo gǒu shēn shang yǒu hēisè de bāndiǎn.",
+  "fr": "Ce chien a des taches noires sur le corps.",
+  "en": "This dog has black spots on its body."
  },
  "generation": {
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:63271e2398e9dbbfe83c9721b3a0c6cb2d7da07e7a659edfead6611b885dc8ff",
-  "essais": 1,
+  "empreinte_invite": "sha256:0dd99baf937caf49a7ae9d79834209d7b1c56759da3c389b7a2af4242705e191",
+  "essais": 2,
   "refus": []
  },
  "statut": "relu"

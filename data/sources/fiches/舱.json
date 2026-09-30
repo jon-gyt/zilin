@@ -23,19 +23,32 @@
   "人": "son",
   "㔾": "son"
  },
- "mots": [],
+ "mots": [
+  {
+   "hanzi": "船舱",
+   "pinyin": "chuáncāng",
+   "fr": "cabine, cale de navire",
+   "en": "ship's cabin, hold"
+  },
+  {
+   "hanzi": "客舱",
+   "pinyin": "kècāng",
+   "fr": "cabine des passagers",
+   "en": "passenger cabin"
+  }
+ ],
  "phrase": {
-  "zh": "",
-  "pinyin": "",
-  "fr": "",
-  "en": ""
+  "zh": "旅客们都回到了船舱里。",
+  "pinyin": "Lǚkèmen dōu huí dào le chuáncāng li.",
+  "fr": "Les passagers sont tous retournés dans leurs cabines.",
+  "en": "The passengers all went back to their cabins."
  },
  "generation": {
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:fe1b432306f3e663a13e87f78dbebdf0233e7acb04ce5b8c34c47a41da037626",
-  "essais": 1,
+  "empreinte_invite": "sha256:c22ae06e5c9e705f178f8c444512d049d1853a34fc53ac14701f0e88c436a50a",
+  "essais": 2,
   "refus": []
  },
  "statut": "relu"

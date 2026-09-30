@@ -25,19 +25,32 @@
   "口": "son",
   "月": "son"
  },
- "mots": [],
+ "mots": [
+  {
+   "hanzi": "模糊",
+   "pinyin": "móhu",
+   "fr": "flou, vague",
+   "en": "blurry, vague"
+  },
+  {
+   "hanzi": "迷糊",
+   "pinyin": "míhu",
+   "fr": "embrouillé, somnolent",
+   "en": "confused, drowsy"
+  }
+ ],
  "phrase": {
-  "zh": "",
-  "pinyin": "",
-  "fr": "",
-  "en": ""
+  "zh": "我看不清楚，字太模糊了。",
+  "pinyin": "Wǒ kàn bu qīngchu, zì tài móhu le.",
+  "fr": "Je ne vois pas bien, les caractères sont trop flous.",
+  "en": "I can't see clearly, the writing is too blurry."
  },
  "generation": {
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:9dee34a1e6edc84ecd45b955cc63beaa38e29294455781fa5494370399701747",
-  "essais": 1,
+  "empreinte_invite": "sha256:fd5325eba4990c628c7b3d4eeab425bfe43e18c7fb70d9654c6f6b3c4476c723",
+  "essais": 2,
   "refus": []
  },
  "statut": "relu"

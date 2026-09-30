@@ -3,7 +3,8 @@
  "parcours": "lire",
  "jour": 1233,
  "pinyin": [
-  "qiāng"
+  "qiāng",
+  "qiàng"
  ],
  "sens_fr": "s'étrangler, avaler de travers, âcre",
  "sens_en": "to choke, pungent",
@@ -23,19 +24,32 @@
   "人": "forme",
   "㔾": "forme"
  },
- "mots": [],
+ "mots": [
+  {
+   "hanzi": "呛到",
+   "pinyin": "qiāngdào",
+   "fr": "s'étrangler, avaler de travers",
+   "en": "to choke on"
+  },
+  {
+   "hanzi": "够呛",
+   "pinyin": "gòuqiàng",
+   "fr": "terrible, dur à supporter",
+   "en": "unbearable, tough"
+  }
+ ],
  "phrase": {
-  "zh": "",
-  "pinyin": "",
-  "fr": "",
-  "en": ""
+  "zh": "他喝水喝得太快，呛到了。",
+  "pinyin": "Tā hē shuǐ hē de tài kuài, qiāngdào le.",
+  "fr": "Il a bu trop vite et a avalé de travers.",
+  "en": "He drank too fast and choked."
  },
  "generation": {
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:18361c62cb965919f91fc045dc1aadca02a51ef58904b0533ff1c384ff4f7e2d",
-  "essais": 1,
+  "empreinte_invite": "sha256:f55b66257cb4dc3493dadd95c5bac4b1280080c02820b596a8a989e3781cb573",
+  "essais": 3,
   "refus": []
  },
  "statut": "relu"

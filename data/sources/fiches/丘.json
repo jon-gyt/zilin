@@ -19,19 +19,32 @@
  "roles": {
   "丘": "sens"
  },
- "mots": [],
+ "mots": [
+  {
+   "hanzi": "山丘",
+   "pinyin": "shānqiū",
+   "fr": "colline",
+   "en": "hill"
+  },
+  {
+   "hanzi": "沙丘",
+   "pinyin": "shāqiū",
+   "fr": "dune",
+   "en": "sand dune"
+  }
+ ],
  "phrase": {
-  "zh": "",
-  "pinyin": "",
-  "fr": "",
-  "en": ""
+  "zh": "山丘上有很多羊。",
+  "pinyin": "Shānqiū shang yǒu hěn duō yáng.",
+  "fr": "Il y a beaucoup de moutons sur la colline.",
+  "en": "There are lots of sheep on the hill."
  },
  "generation": {
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:e004f4fcff899f01748b7de0f98eef522e3052af1a4fecfa5b4a9409c3e9328d",
-  "essais": 1,
+  "empreinte_invite": "sha256:3e655ddd046e579fc97ca965c20ce7d674e9a3454922f25694ddfa142ef10db2",
+  "essais": 2,
   "refus": []
  },
  "statut": "relu"

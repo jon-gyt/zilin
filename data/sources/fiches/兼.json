@@ -19,19 +19,32 @@
  "roles": {
   "兼": "sens"
  },
- "mots": [],
+ "mots": [
+  {
+   "hanzi": "兼职",
+   "pinyin": "jiānzhí",
+   "fr": "travail à côté, cumuler un emploi",
+   "en": "part-time job, to moonlight"
+  },
+  {
+   "hanzi": "兼顾",
+   "pinyin": "jiāngù",
+   "fr": "concilier, mener de front",
+   "en": "to balance, to attend to both"
+  }
+ ],
  "phrase": {
-  "zh": "",
-  "pinyin": "",
-  "fr": "",
-  "en": ""
+  "zh": "他在一家饭店兼职。",
+  "pinyin": "Tā zài yī jiā fàndiàn jiānzhí.",
+  "fr": "Il a un petit boulot dans un restaurant.",
+  "en": "He has a part-time job at a restaurant."
  },
  "generation": {
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:28bc844ae1d39e59e62a36d8f8fea57394e663268f819bbb60d7d8cac2b9fd87",
-  "essais": 1,
+  "empreinte_invite": "sha256:27eac5a5948987d04d64116cb5f324effd3a76c851556b92ec07cde1da5d42a8",
+  "essais": 2,
   "refus": []
  },
  "statut": "relu"

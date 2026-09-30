@@ -98,6 +98,15 @@ def test_la_glose_propre_au_texte_passe_devant_le_glossaire() -> None:
     assert tl.ecarts_glose(t, GLOSSAIRE) == []
 
 
+def test_l_export_garde_a_part_la_glose_propre_au_texte() -> None:
+    """La glose propre voyage avec son texte ; le reste est nommé, écrit une fois."""
+    propre = {"大": Glose("grande", "dà", "large")}
+    exporte = tl.texte_exporte(texte(glose=propre), PARCOURS, GLOSSAIRE)
+    assert exporte["glose"] == {"大": propre["大"].en_json()}
+    assert "大" not in exporte["mots"]  # type: ignore[operator]
+    assert sorted(exporte["mots"]) == ["人", "从", "天", "天天", "月"]  # type: ignore[arg-type]
+
+
 def test_une_glose_propre_jamais_touchee_est_un_ecart() -> None:
     t = texte(glose={"日": Glose("soleil", "rì", "sun")})
     assert "glose propre au texte jamais touchée : 日" in tl.ecarts_glose(t, GLOSSAIRE)
@@ -182,8 +191,12 @@ def test_seuls_les_textes_relus_sexportent(tmp_path: Path) -> None:
     exporte = doc["parcours"]["lire"][0]  # type: ignore[index]
     # Le cinabre de l'app : les caractères nouveaux du jour que le texte emploie.
     assert exporte["nouveaux"] == ["月", "从"]
-    # La glose ne porte que ce que le lecteur touchera.
-    assert sorted(exporte["glose"]) == ["人", "从", "大", "天", "天天", "月"]
+    # La glose ne porte que ce que le lecteur touchera : les entrées communes, nommées par le
+    # texte et écrites une fois dans le document, et la glose propre au texte.
+    assert sorted(exporte["mots"]) == ["人", "从", "大", "天", "天天", "月"]
+    assert exporte["glose"] == {}
+    assert sorted(doc["glossaire"]) == ["人", "从", "大", "天", "天天", "月"]  # type: ignore[arg-type]
+    assert doc["glossaire"]["天"] == GLOSSAIRE["天"].en_json()  # type: ignore[index]
 
 
 # ------------------------------------------------------------------ les brouillons

@@ -19,19 +19,32 @@
  "roles": {
   "鹿": "sens"
  },
- "mots": [],
+ "mots": [
+  {
+   "hanzi": "鹿角",
+   "pinyin": "lùjiǎo",
+   "fr": "bois de cerf",
+   "en": "antler"
+  },
+  {
+   "hanzi": "鹿肉",
+   "pinyin": "lùròu",
+   "fr": "viande de cerf",
+   "en": "venison"
+  }
+ ],
  "phrase": {
-  "zh": "",
-  "pinyin": "",
-  "fr": "",
-  "en": ""
+  "zh": "公园里有几只鹿。",
+  "pinyin": "Gōngyuán lǐ yǒu jǐ zhī lù.",
+  "fr": "Il y a quelques cerfs dans le parc.",
+  "en": "There are a few deer in the park."
  },
  "generation": {
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:d3e78fbf2da898fd3b6b8a1201061fbbadf86f64cff758dc0168ebb0101b2067",
-  "essais": 1,
+  "empreinte_invite": "sha256:959b4106fdbde1e528ff0ea8668b969400b348f66694539703cd5791c7157ae6",
+  "essais": 2,
   "refus": []
  },
  "statut": "relu"

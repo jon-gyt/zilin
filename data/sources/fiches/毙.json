@@ -21,19 +21,32 @@
   "匕": "son",
   "歹": "sens"
  },
- "mots": [],
+ "mots": [
+  {
+   "hanzi": "击毙",
+   "pinyin": "jībì",
+   "fr": "abattre",
+   "en": "to shoot dead"
+  },
+  {
+   "hanzi": "枪毙",
+   "pinyin": "qiāngbì",
+   "fr": "fusiller",
+   "en": "to execute by shooting"
+  }
+ ],
  "phrase": {
-  "zh": "",
-  "pinyin": "",
-  "fr": "",
-  "en": ""
+  "zh": "那个坏人被警察击毙了。",
+  "pinyin": "Nà ge huàirén bèi jǐngchá jībì le.",
+  "fr": "Le malfaiteur a été abattu par la police.",
+  "en": "The criminal was shot dead by the police."
  },
  "generation": {
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:3c258bb766770c72d1cc0bfb11963d83d4a090ce59aaa9a6bd4d8b87a31a70a9",
-  "essais": 1,
+  "empreinte_invite": "sha256:485cd9dd9af6392640acdc96ca324cd79a03fdf93bf7b1c810d9fb548cf78f3c",
+  "essais": 2,
   "refus": []
  },
  "statut": "relu"

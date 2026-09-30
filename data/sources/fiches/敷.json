@@ -25,19 +25,32 @@
   "𠂉": "forme",
   "乂": "forme"
  },
- "mots": [],
+ "mots": [
+  {
+   "hanzi": "冷敷",
+   "pinyin": "lěngfū",
+   "fr": "compresse froide",
+   "en": "cold compress"
+  },
+  {
+   "hanzi": "热敷",
+   "pinyin": "rèfū",
+   "fr": "compresse chaude",
+   "en": "hot compress"
+  }
+ ],
  "phrase": {
-  "zh": "",
-  "pinyin": "",
-  "fr": "",
-  "en": ""
+  "zh": "你的脚受伤了，先冷敷一下。",
+  "pinyin": "Nǐ de jiǎo shòushāng le, xiān lěngfū yīxià.",
+  "fr": "Tu t'es blessé au pied, mets d'abord une compresse froide.",
+  "en": "You've hurt your foot; put a cold compress on it first."
  },
  "generation": {
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:ad635c130c5457593d5f78e2fb0cb407f38368edf5500370a923b463f2d29cdf",
-  "essais": 1,
+  "empreinte_invite": "sha256:2b69eed4a68a8251180ee1d21dd4142052601021e5ab6f617e7df782b1f766a0",
+  "essais": 2,
   "refus": []
  },
  "statut": "relu"

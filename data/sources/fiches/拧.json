@@ -3,7 +3,9 @@
  "parcours": "lire",
  "jour": 1196,
  "pinyin": [
-  "níng"
+  "níng",
+  "nǐng",
+  "nìng"
  ],
  "sens_fr": "tordre, essorer, visser, têtu",
  "sens_en": "to twist, to wring, to screw, stubborn",
@@ -23,19 +25,26 @@
   "宀": "son",
   "丁": "son"
  },
- "mots": [],
+ "mots": [
+  {
+   "hanzi": "拧开",
+   "pinyin": "nǐngkāi",
+   "fr": "ouvrir en tournant, dévisser",
+   "en": "to twist open, to unscrew"
+  }
+ ],
  "phrase": {
-  "zh": "",
-  "pinyin": "",
-  "fr": "",
-  "en": ""
+  "zh": "她把毛巾拧干了。",
+  "pinyin": "Tā bǎ máojīn nínggān le.",
+  "fr": "Elle a essoré la serviette.",
+  "en": "She wrung the towel dry."
  },
  "generation": {
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:a2bf1c2abe2b01695c22572b80719140a58439ff94fd60262a5996ba0668ed54",
-  "essais": 1,
+  "empreinte_invite": "sha256:76916a75a4cfbcb128b2b833699a391a4eb0194c077029e3dc1e6e4b60264872",
+  "essais": 3,
   "refus": []
  },
  "statut": "relu"

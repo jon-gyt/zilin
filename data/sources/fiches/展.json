@@ -19,19 +19,32 @@
  "roles": {
   "展": "forme"
  },
- "mots": [],
+ "mots": [
+  {
+   "hanzi": "发展",
+   "pinyin": "fāzhǎn",
+   "fr": "développer, développement",
+   "en": "to develop, development"
+  },
+  {
+   "hanzi": "画展",
+   "pinyin": "huàzhǎn",
+   "fr": "exposition de peinture",
+   "en": "art exhibition"
+  }
+ ],
  "phrase": {
-  "zh": "",
-  "pinyin": "",
-  "fr": "",
-  "en": ""
+  "zh": "这个城市发展得很快。",
+  "pinyin": "Zhège chéngshì fāzhǎn de hěn kuài.",
+  "fr": "Cette ville se développe vite.",
+  "en": "This city is developing fast."
  },
  "generation": {
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:777c7c606862aaaa9780c9805c7006054f6cc8d659b16b2c8c7b76a911bd266a",
-  "essais": 1,
+  "empreinte_invite": "sha256:208c64db3d00ebe28efe7ef6a1c7f75dda0bdd28a9b7f1af2d46a5775e3b9668",
+  "essais": 2,
   "refus": []
  },
  "statut": "relu"

@@ -21,19 +21,32 @@
   "隹": "forme",
   "口": "sens"
  },
- "mots": [],
+ "mots": [
+  {
+   "hanzi": "出售",
+   "pinyin": "chūshòu",
+   "fr": "mettre en vente, vendre",
+   "en": "to put up for sale"
+  },
+  {
+   "hanzi": "售票",
+   "pinyin": "shòupiào",
+   "fr": "vendre des billets",
+   "en": "to sell tickets"
+  }
+ ],
  "phrase": {
-  "zh": "",
-  "pinyin": "",
-  "fr": "",
-  "en": ""
+  "zh": "这里出售火车票。",
+  "pinyin": "Zhèli chūshòu huǒchēpiào.",
+  "fr": "Ici, on vend des billets de train.",
+  "en": "Train tickets are sold here."
  },
  "generation": {
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:efe971c3b7c8ab7f14128bb2bff9115f5a7738dc8d9b191c929bd90f8b720f3f",
-  "essais": 1,
+  "empreinte_invite": "sha256:d15e5dd5c6f2517c3eab75d3e9ea2e4ff346f2d049210ea7003be71d75012d99",
+  "essais": 2,
   "refus": []
  },
  "statut": "relu"

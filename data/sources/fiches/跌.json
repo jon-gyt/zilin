@@ -23,19 +23,32 @@
   "止": "sens",
   "失": "forme"
  },
- "mots": [],
+ "mots": [
+  {
+   "hanzi": "下跌",
+   "pinyin": "xiàdiē",
+   "fr": "baisser, chuter",
+   "en": "to drop, to fall"
+  },
+  {
+   "hanzi": "暴跌",
+   "pinyin": "bàodiē",
+   "fr": "s'effondrer (prix, cours)",
+   "en": "to plummet"
+  }
+ ],
  "phrase": {
-  "zh": "",
-  "pinyin": "",
-  "fr": "",
-  "en": ""
+  "zh": "房价下跌了。",
+  "pinyin": "Fángjià xiàdiē le.",
+  "fr": "Les prix de l'immobilier ont baissé.",
+  "en": "House prices have fallen."
  },
  "generation": {
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:d92926989e3a2a583d3e945bab2c26312516626db334ea2e5a0fbf7f40352e28",
-  "essais": 1,
+  "empreinte_invite": "sha256:f5c7c0257eea3917ede23c6b99041c1fb8e6fccd9ed81cbf7ba74ee738057e95",
+  "essais": 2,
   "refus": []
  },
  "statut": "relu"

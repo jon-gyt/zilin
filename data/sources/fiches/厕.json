@@ -23,19 +23,32 @@
   "贝": "forme",
   "刂": "forme"
  },
- "mots": [],
+ "mots": [
+  {
+   "hanzi": "厕所",
+   "pinyin": "cèsuǒ",
+   "fr": "toilettes",
+   "en": "toilet"
+  },
+  {
+   "hanzi": "公厕",
+   "pinyin": "gōngcè",
+   "fr": "toilettes publiques",
+   "en": "public toilet"
+  }
+ ],
  "phrase": {
-  "zh": "",
-  "pinyin": "",
-  "fr": "",
-  "en": ""
+  "zh": "请问，厕所在哪儿？",
+  "pinyin": "Qǐngwèn, cèsuǒ zài nǎr?",
+  "fr": "Pardon, où sont les toilettes ?",
+  "en": "Excuse me, where's the toilet?"
  },
  "generation": {
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:c46c16810002a240c0e12d074cf653dd4f09b01e3e7eaa2706303232dc8c88d1",
-  "essais": 1,
+  "empreinte_invite": "sha256:ed42e38869d4fa48d1a2fb002d662be1cd6c5e91549a4bd6424843386a74f3ff",
+  "essais": 2,
   "refus": []
  },
  "statut": "relu"

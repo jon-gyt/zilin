@@ -3,6 +3,7 @@
  "parcours": "lire",
  "jour": 662,
  "pinyin": [
+  "ké",
   "hāi"
  ],
  "sens_fr": "tousser, ah, hélas",
@@ -19,21 +20,34 @@
  "memo_en": null,
  "roles": {
   "口": "sens",
-  "亥": "son"
+  "亥": "forme"
  },
- "mots": [],
+ "mots": [
+  {
+   "hanzi": "止咳",
+   "pinyin": "zhǐké",
+   "fr": "calmer la toux",
+   "en": "to relieve a cough"
+  },
+  {
+   "hanzi": "干咳",
+   "pinyin": "gānké",
+   "fr": "toux sèche",
+   "en": "dry cough"
+  }
+ ],
  "phrase": {
-  "zh": "",
-  "pinyin": "",
-  "fr": "",
-  "en": ""
+  "zh": "咳，我忘了！",
+  "pinyin": "Hāi, wǒ wàng le!",
+  "fr": "Ah zut, j'ai oublié !",
+  "en": "Oh dear, I forgot!"
  },
  "generation": {
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:a745d963d083c33427a7789adc4eddf359897361df96d9d99e836d4751c232bd",
-  "essais": 1,
+  "empreinte_invite": "sha256:773404ce606748f048bd8c621a02ef375aebc8b5ba586895e6ff56741a10515d",
+  "essais": 4,
   "refus": []
  },
  "statut": "relu"

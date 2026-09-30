@@ -3,7 +3,8 @@
  "parcours": "lire",
  "jour": 742,
  "pinyin": [
-  "zhēng"
+  "zhēng",
+  "zhèng"
  ],
  "sens_fr": "gagner (de l'argent), se débattre",
  "sens_en": "to earn (money), to struggle",
@@ -21,19 +22,32 @@
   "扌": "sens",
   "争": "son"
  },
- "mots": [],
+ "mots": [
+  {
+   "hanzi": "挣钱",
+   "pinyin": "zhèngqián",
+   "fr": "gagner de l'argent",
+   "en": "to earn money"
+  },
+  {
+   "hanzi": "挣脱",
+   "pinyin": "zhèngtuō",
+   "fr": "se dégager, s'arracher à",
+   "en": "to break free, to struggle free"
+  }
+ ],
  "phrase": {
-  "zh": "",
-  "pinyin": "",
-  "fr": "",
-  "en": ""
+  "zh": "他一个月能挣很多钱。",
+  "pinyin": "Tā yī gè yuè néng zhèng hěn duō qián.",
+  "fr": "Il peut gagner beaucoup d'argent en un mois.",
+  "en": "He can earn a lot of money in a month."
  },
  "generation": {
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:c61119d58f5ead88a14334886c6d51f0338967beb23a7c0f12ad26019f84979e",
-  "essais": 1,
+  "empreinte_invite": "sha256:883b8aa885e5fb449ca1f3a116333b7391fd6775f23305f6b35d30ddb3a6d125",
+  "essais": 2,
   "refus": []
  },
  "statut": "relu"

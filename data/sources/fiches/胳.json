@@ -3,7 +3,9 @@
  "parcours": "lire",
  "jour": 1021,
  "pinyin": [
-  "gē"
+  "gē",
+  "gé",
+  "gā"
  ],
  "sens_fr": "bras",
  "sens_en": "arm",
@@ -23,19 +25,32 @@
   "夂": "son",
   "口": "son"
  },
- "mots": [],
+ "mots": [
+  {
+   "hanzi": "胳膊",
+   "pinyin": "gēbo",
+   "fr": "bras",
+   "en": "arm"
+  },
+  {
+   "hanzi": "胳臂",
+   "pinyin": "gēbei",
+   "fr": "bras",
+   "en": "arm"
+  }
+ ],
  "phrase": {
-  "zh": "",
-  "pinyin": "",
-  "fr": "",
-  "en": ""
+  "zh": "他的胳膊受伤了。",
+  "pinyin": "Tā de gēbo shòushāng le.",
+  "fr": "Il s'est blessé au bras.",
+  "en": "He has hurt his arm."
  },
  "generation": {
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:0d89ba80e7bcc64aa3e2a8dc3184642c4fb9f3a2112f7630f896502abc90e3f3",
-  "essais": 2,
+  "empreinte_invite": "sha256:de484c08565cd484ed5c986a73fccec066f2e28df69d597624840b637e92d15d",
+  "essais": 4,
   "refus": []
  },
  "statut": "relu"

@@ -1,0 +1,605 @@
+{
+ "examen": "yueke-655",
+ "parcours": "lire",
+ "generation": {
+  "modele": "rédaction manuelle",
+  "api": "session Claude Code (sans API)",
+  "date": "2026-09-30"
+ },
+ "relecture": {
+  "statut": "relu",
+  "par": "le propriétaire",
+  "decision": "« Go » (30 septembre 2026) : tout affiché sans relecture ligne à ligne",
+  "date": "2026-09-30"
+ },
+ "series": [
+  {
+   "serie": "A",
+   "statut": "relu",
+   "supports": [
+    {
+     "id": "s1",
+     "genre": "affiche",
+     "contexte": {
+      "fr": "Une affiche",
+      "en": "A poster"
+     },
+     "lignes": [
+      {
+       "zh": "明天：晴",
+       "pinyin": "míng tiān qíng",
+       "fr": "Demain : beau temps",
+       "en": "Tomorrow: clear skies"
+      },
+      {
+       "zh": "白天二十二度，晚上十二度",
+       "pinyin": "bái tiān èr shí èr dù wǎn shang shí èr dù",
+       "fr": "Journée : 22 degrés ; soir : 12 degrés",
+       "en": "Daytime: 22 degrees; evening: 12 degrees"
+      },
+      {
+       "zh": "秋天到了，早晚冷，出门多穿衣服。",
+       "pinyin": "qiū tiān dào le zǎo wǎn lěng chū mén duō chuān yī fu",
+       "fr": "L'automne est là : il fait froid matin et soir, couvrez-vous en sortant.",
+       "en": "Autumn is here: mornings and evenings are cold, wrap up when you go out."
+      }
+     ],
+     "glose": [
+      {
+       "zh": "晴",
+       "pinyin": "qíng",
+       "fr": "dégagé, beau (temps)",
+       "en": "clear, sunny"
+      },
+      {
+       "zh": "二十二度",
+       "pinyin": "èr shí èr dù",
+       "fr": "22 degrés",
+       "en": "22 degrees"
+      },
+      {
+       "zh": "十二度",
+       "pinyin": "shí èr dù",
+       "fr": "12 degrés",
+       "en": "12 degrees"
+      },
+      {
+       "zh": "秋天",
+       "pinyin": "qiū tiān",
+       "fr": "l'automne",
+       "en": "autumn"
+      },
+      {
+       "zh": "到了",
+       "pinyin": "dào le",
+       "fr": "est arrivé",
+       "en": "has come"
+      },
+      {
+       "zh": "早晚",
+       "pinyin": "zǎo wǎn",
+       "fr": "matin et soir",
+       "en": "morning and evening"
+      },
+      {
+       "zh": "穿",
+       "pinyin": "chuān",
+       "fr": "porter, mettre (un vêtement)",
+       "en": "to wear, to put on"
+      }
+     ]
+    },
+    {
+     "id": "s2",
+     "genre": "message",
+     "contexte": {
+      "fr": "Un message",
+      "en": "A message"
+     },
+     "lignes": [
+      {
+       "zh": "小青，我们在车站排队买票，",
+       "pinyin": "xiǎo qīng wǒ men zài chē zhàn pái duì mǎi piào",
+       "fr": "Xiaoqing, on fait la queue à la gare pour acheter les billets,",
+       "en": "Xiaoqing, we're queuing at the station for tickets,"
+      },
+      {
+       "zh": "人很多。火车八点开，",
+       "pinyin": "rén hěn duō huǒ chē bā diǎn kāi",
+       "fr": "il y a du monde. Le train part à huit heures :",
+       "en": "it's crowded. The train leaves at eight:"
+      },
+      {
+       "zh": "你快来，还来得及！",
+       "pinyin": "nǐ kuài lái hái lái de jí",
+       "fr": "viens vite, tu as encore le temps !",
+       "en": "come quickly, you can still make it!"
+      }
+     ],
+     "glose": [
+      {
+       "zh": "小青",
+       "pinyin": "xiǎo qīng",
+       "fr": "Xiaoqing (prénom)",
+       "en": "Xiaoqing (first name)"
+      },
+      {
+       "zh": "排队",
+       "pinyin": "pái duì",
+       "fr": "faire la queue",
+       "en": "to queue"
+      },
+      {
+       "zh": "来得及",
+       "pinyin": "lái de jí",
+       "fr": "avoir encore le temps",
+       "en": "to still have time"
+      }
+     ]
+    }
+   ],
+   "questions": [
+    {
+     "type": "comprendre",
+     "support": "s1",
+     "consigne": {
+      "fr": "Quel temps fera-t-il demain ?",
+      "en": "What will the weather be like tomorrow?"
+     },
+     "choix": [
+      {
+       "fr": "De la pluie",
+       "en": "Rain"
+      },
+      {
+       "fr": "De la neige",
+       "en": "Snow"
+      },
+      {
+       "fr": "Du soleil",
+       "en": "Sunshine"
+      },
+      {
+       "fr": "Du vent",
+       "en": "Wind"
+      }
+     ],
+     "reponse": 2,
+     "porte": [
+      "晴"
+     ]
+    },
+    {
+     "type": "vrai_faux",
+     "support": "s1",
+     "consigne": {
+      "fr": "Vrai ou faux ?",
+      "en": "True or false?"
+     },
+     "affirmation": {
+      "zh": "明天晚上二十二度。",
+      "pinyin": "míng tiān wǎn shang èr shí èr dù",
+      "fr": "Demain soir, il fera vingt-deux degrés.",
+      "en": "Tomorrow evening it will be 22 degrees."
+     },
+     "reponse": false,
+     "porte": [
+      "晚",
+      "度"
+     ]
+    },
+    {
+     "type": "reperer",
+     "support": "s2",
+     "consigne": {
+      "fr": "Touche ce qu'ils sont en train de faire.",
+      "en": "Tap what they are doing right now."
+     },
+     "choix": [
+      "车站",
+      "排队",
+      "八点",
+      "火车"
+     ],
+     "reponse": 1,
+     "porte": [
+      "排",
+      "队"
+     ]
+    },
+    {
+     "type": "comprendre",
+     "support": "s2",
+     "consigne": {
+      "fr": "Que dit la personne qui écrit ?",
+      "en": "What does the writer say?"
+     },
+     "choix": [
+      {
+       "fr": "Le train est déjà parti",
+       "en": "The train has already left"
+      },
+      {
+       "fr": "Il n'y a plus de billets",
+       "en": "The tickets are sold out"
+      },
+      {
+       "fr": "Le train a du retard",
+       "en": "The train is late"
+      },
+      {
+       "fr": "Tu as encore le temps",
+       "en": "You still have time"
+      }
+     ],
+     "reponse": 3,
+     "porte": [
+      "来",
+      "得",
+      "及"
+     ]
+    },
+    {
+     "type": "sens",
+     "consigne": {
+      "fr": "Que veut dire ce caractère ?",
+      "en": "What does this character mean?"
+     },
+     "objet": {
+      "zh": "猫",
+      "pinyin": "māo",
+      "fr": "chat",
+      "en": "cat"
+     },
+     "choix": [
+      {
+       "fr": "chien",
+       "en": "dog"
+      },
+      {
+       "fr": "chat",
+       "en": "cat"
+      },
+      {
+       "fr": "oiseau",
+       "en": "bird"
+      },
+      {
+       "fr": "poisson",
+       "en": "fish"
+      }
+     ],
+     "reponse": 1,
+     "porte": [
+      "猫"
+     ]
+    }
+   ]
+  },
+  {
+   "serie": "B",
+   "statut": "relu",
+   "supports": [
+    {
+     "id": "s1",
+     "genre": "note",
+     "contexte": {
+      "fr": "Une note",
+      "en": "A note"
+     },
+     "lignes": [
+      {
+       "zh": "妈妈，我和同学骑车去河边了，",
+       "pinyin": "mā ma wǒ hé tóng xué qí chē qù hé biān le",
+       "fr": "Maman, je suis parti au bord de la rivière avec un camarade, à vélo,",
+       "en": "Mum, I've gone down to the river by bike with a classmate,"
+      },
+      {
+       "zh": "六点前回来。",
+       "pinyin": "liù diǎn qián huí lái",
+       "fr": "je rentre avant six heures.",
+       "en": "I'll be back before six."
+      },
+      {
+       "zh": "别怕，我会骑得很慢。",
+       "pinyin": "bié pà wǒ huì qí de hěn màn",
+       "fr": "N'aie pas peur, je roulerai tout doucement.",
+       "en": "Don't worry, I'll ride really slowly."
+      }
+     ],
+     "glose": [
+      {
+       "zh": "和",
+       "pinyin": "hé",
+       "fr": "et, avec",
+       "en": "and, with"
+      },
+      {
+       "zh": "同学",
+       "pinyin": "tóng xué",
+       "fr": "camarade de classe",
+       "en": "classmate"
+      },
+      {
+       "zh": "骑车",
+       "pinyin": "qí chē",
+       "fr": "aller à vélo",
+       "en": "to ride a bike"
+      },
+      {
+       "zh": "河边",
+       "pinyin": "hé biān",
+       "fr": "le bord de la rivière",
+       "en": "the riverside"
+      },
+      {
+       "zh": "六点",
+       "pinyin": "liù diǎn",
+       "fr": "six heures",
+       "en": "six o'clock"
+      },
+      {
+       "zh": "前",
+       "pinyin": "qián",
+       "fr": "avant",
+       "en": "before"
+      },
+      {
+       "zh": "怕",
+       "pinyin": "pà",
+       "fr": "avoir peur",
+       "en": "to be afraid"
+      },
+      {
+       "zh": "骑",
+       "pinyin": "qí",
+       "fr": "rouler (à vélo), monter",
+       "en": "to ride"
+      },
+      {
+       "zh": "得",
+       "pinyin": "de",
+       "fr": "(introduit la manière)",
+       "en": "(introduces manner)"
+      },
+      {
+       "zh": "瓶",
+       "pinyin": "píng",
+       "fr": "bouteille",
+       "en": "bottle"
+      },
+      {
+       "zh": "绿茶",
+       "pinyin": "lǜ chá",
+       "fr": "thé vert",
+       "en": "green tea"
+      },
+      {
+       "zh": "晴天",
+       "pinyin": "qíng tiān",
+       "fr": "beau temps",
+       "en": "clear day"
+      },
+      {
+       "zh": "路上",
+       "pinyin": "lù shang",
+       "fr": "en route",
+       "en": "on the way"
+      }
+     ]
+    },
+    {
+     "id": "s2",
+     "genre": "pancarte",
+     "contexte": {
+      "fr": "Un écriteau",
+      "en": "A notice"
+     },
+     "lignes": [
+      {
+       "zh": "图书馆",
+       "pinyin": "tú shū guǎn",
+       "fr": "Bibliothèque",
+       "en": "Library"
+      },
+      {
+       "zh": "请排队借书",
+       "pinyin": "qǐng pái duì jiè shū",
+       "fr": "Faites la queue pour emprunter",
+       "en": "Please queue to borrow books"
+      },
+      {
+       "zh": "说话请轻一点",
+       "pinyin": "shuō huà qǐng qīng yī diǎn",
+       "fr": "Parlez doucement",
+       "en": "Please speak softly"
+      },
+      {
+       "zh": "不能吃东西",
+       "pinyin": "bù néng chī dōng xi",
+       "fr": "Nourriture interdite",
+       "en": "No food"
+      }
+     ],
+     "glose": [
+      {
+       "zh": "排队",
+       "pinyin": "pái duì",
+       "fr": "faire la queue",
+       "en": "to queue"
+      },
+      {
+       "zh": "借书",
+       "pinyin": "jiè shū",
+       "fr": "emprunter des livres",
+       "en": "to borrow books"
+      },
+      {
+       "zh": "说话",
+       "pinyin": "shuō huà",
+       "fr": "parler",
+       "en": "to speak"
+      },
+      {
+       "zh": "轻",
+       "pinyin": "qīng",
+       "fr": "léger ; doucement",
+       "en": "light; softly"
+      },
+      {
+       "zh": "一点",
+       "pinyin": "yī diǎn",
+       "fr": "un peu",
+       "en": "a little"
+      }
+     ]
+    }
+   ],
+   "questions": [
+    {
+     "type": "comprendre",
+     "support": "s1",
+     "consigne": {
+      "fr": "Comment est-il parti ?",
+      "en": "How did he go?"
+     },
+     "choix": [
+      {
+       "fr": "À pied",
+       "en": "On foot"
+      },
+      {
+       "fr": "En bus",
+       "en": "By bus"
+      },
+      {
+       "fr": "À vélo",
+       "en": "By bike"
+      },
+      {
+       "fr": "En voiture",
+       "en": "By car"
+      }
+     ],
+     "reponse": 2,
+     "porte": [
+      "骑",
+      "车"
+     ]
+    },
+    {
+     "type": "vrai_faux",
+     "support": "s1",
+     "consigne": {
+      "fr": "Vrai ou faux ?",
+      "en": "True or false?"
+     },
+     "affirmation": {
+      "zh": "他会骑得很快。",
+      "pinyin": "tā huì qí de hěn kuài",
+      "fr": "Il va rouler très vite.",
+      "en": "He's going to ride very fast."
+     },
+     "reponse": false,
+     "porte": [
+      "骑",
+      "慢"
+     ]
+    },
+    {
+     "type": "replique",
+     "support": "s1",
+     "consigne": {
+      "fr": "Que répond maman ?",
+      "en": "What does Mum reply?"
+     },
+     "choix": [
+      {
+       "zh": "这瓶水是你的吗？",
+       "pinyin": "zhè píng shuǐ shì nǐ de ma",
+       "fr": "Cette bouteille d'eau est à toi ?",
+       "en": "Is this bottle of water yours?"
+      },
+      {
+       "zh": "我不喜欢喝绿茶。",
+       "pinyin": "wǒ bù xǐ huan hē lǜ chá",
+       "fr": "Je n'aime pas le thé vert.",
+       "en": "I don't like green tea."
+      },
+      {
+       "zh": "今天是晴天。",
+       "pinyin": "jīn tiān shì qíng tiān",
+       "fr": "Aujourd'hui, il fait beau.",
+       "en": "It's a clear day today."
+      },
+      {
+       "zh": "好，路上小心！",
+       "pinyin": "hǎo lù shang xiǎo xīn",
+       "fr": "D'accord, sois prudent en route !",
+       "en": "OK, be careful on the way!"
+      }
+     ],
+     "reponse": 3,
+     "porte": [
+      "骑",
+      "怕"
+     ]
+    },
+    {
+     "type": "comprendre",
+     "support": "s2",
+     "consigne": {
+      "fr": "Comment faut-il parler ici ?",
+      "en": "How should you speak here?"
+     },
+     "choix": [
+      {
+       "fr": "À voix haute",
+       "en": "Loudly"
+      },
+      {
+       "fr": "À voix basse",
+       "en": "Quietly"
+      },
+      {
+       "fr": "En chinois",
+       "en": "In Chinese"
+      },
+      {
+       "fr": "En anglais",
+       "en": "In English"
+      }
+     ],
+     "reponse": 1,
+     "porte": [
+      "轻"
+     ]
+    },
+    {
+     "type": "trou",
+     "consigne": {
+      "fr": "Quel caractère manque dans ce mot ?",
+      "en": "Which character is missing from this word?"
+     },
+     "objet": {
+      "zh": "漂亮",
+      "pinyin": "piào liang",
+      "fr": "joli",
+      "en": "pretty"
+     },
+     "trou": 0,
+     "choix": [
+      "票",
+      "漂",
+      "清",
+      "满"
+     ],
+     "reponse": 1,
+     "porte": [
+      "漂"
+     ]
+    }
+   ]
+  }
+ ]
+}

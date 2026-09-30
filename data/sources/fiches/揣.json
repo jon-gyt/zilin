@@ -3,7 +3,9 @@
  "parcours": "lire",
  "jour": 953,
  "pinyin": [
-  "chuāi"
+  "chuāi",
+  "chuǎi",
+  "chuài"
  ],
  "sens_fr": "glisser sous ses habits, supputer",
  "sens_en": "to tuck into clothes, to guess",
@@ -23,19 +25,32 @@
   "山": "forme",
   "而": "forme"
  },
- "mots": [],
+ "mots": [
+  {
+   "hanzi": "揣摩",
+   "pinyin": "chuǎimó",
+   "fr": "chercher à deviner",
+   "en": "to try to figure out"
+  },
+  {
+   "hanzi": "揣测",
+   "pinyin": "chuǎicè",
+   "fr": "conjecturer, supposer",
+   "en": "to conjecture, to guess"
+  }
+ ],
  "phrase": {
-  "zh": "",
-  "pinyin": "",
-  "fr": "",
-  "en": ""
+  "zh": "他把手机揣在怀里。",
+  "pinyin": "Tā bǎ shǒujī chuāi zài huái li.",
+  "fr": "Il a glissé son téléphone sous sa veste.",
+  "en": "He tucked his phone inside his coat."
  },
  "generation": {
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:8fa66e49daf941af172c593a32a7fc3c88ce604fd1ca0fdee2f9b5c105d69c68",
-  "essais": 1,
+  "empreinte_invite": "sha256:816545260975d3fbcee25bf92a9a27af88994d0fbbe4eaca3ad2ba14f40fd0d1",
+  "essais": 3,
   "refus": []
  },
  "statut": "relu"

@@ -21,19 +21,32 @@
   "舌": "forme",
   "辛": "forme"
  },
- "mots": [],
+ "mots": [
+  {
+   "hanzi": "辞职",
+   "pinyin": "cízhí",
+   "fr": "démissionner",
+   "en": "to resign"
+  },
+  {
+   "hanzi": "告辞",
+   "pinyin": "gàocí",
+   "fr": "prendre congé",
+   "en": "to take one's leave"
+  }
+ ],
  "phrase": {
-  "zh": "",
-  "pinyin": "",
-  "fr": "",
-  "en": ""
+  "zh": "她上个月辞职了。",
+  "pinyin": "Tā shàng ge yuè cízhí le.",
+  "fr": "Elle a démissionné le mois dernier.",
+  "en": "She resigned last month."
  },
  "generation": {
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:d0abf41d2e9952371c3d85997027021f378fed822c9e94954e34f61fa88e705b",
-  "essais": 1,
+  "empreinte_invite": "sha256:50720d6f2cbde06ec38deca61dd3ad798620b146a6c40a7f51e411cb60ad2533",
+  "essais": 2,
   "refus": []
  },
  "statut": "relu"

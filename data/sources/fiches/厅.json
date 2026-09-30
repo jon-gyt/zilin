@@ -21,19 +21,32 @@
   "厂": "sens",
   "丁": "forme"
  },
- "mots": [],
+ "mots": [
+  {
+   "hanzi": "客厅",
+   "pinyin": "kètīng",
+   "fr": "salon, salle de séjour",
+   "en": "living room"
+  },
+  {
+   "hanzi": "餐厅",
+   "pinyin": "cāntīng",
+   "fr": "restaurant, salle à manger",
+   "en": "restaurant, dining room"
+  }
+ ],
  "phrase": {
-  "zh": "",
-  "pinyin": "",
-  "fr": "",
-  "en": ""
+  "zh": "我们在客厅里看电视。",
+  "pinyin": "Wǒmen zài kètīng li kàn diànshì.",
+  "fr": "Nous regardons la télévision dans le salon.",
+  "en": "We watch TV in the living room."
  },
  "generation": {
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:658b5f8c9930b88320484b6b9cfa69c1a115c468d04ebda123a7fc798d103f64",
-  "essais": 1,
+  "empreinte_invite": "sha256:eab705d56d583439f90758035952d2b1ba7bb95a56d8d50ef1690073a0917f52",
+  "essais": 2,
   "refus": []
  },
  "statut": "relu"

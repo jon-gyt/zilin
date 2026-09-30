@@ -25,19 +25,32 @@
   "冖": "son",
   "云": "son"
  },
- "mots": [],
+ "mots": [
+  {
+   "hanzi": "补偿",
+   "pinyin": "bǔcháng",
+   "fr": "compenser, dédommager",
+   "en": "to compensate"
+  },
+  {
+   "hanzi": "无偿",
+   "pinyin": "wúcháng",
+   "fr": "gratuit, bénévole",
+   "en": "free of charge, unpaid"
+  }
+ ],
  "phrase": {
-  "zh": "",
-  "pinyin": "",
-  "fr": "",
-  "en": ""
+  "zh": "他们无偿帮助了我们。",
+  "pinyin": "Tāmen wúcháng bāngzhù le wǒmen.",
+  "fr": "Ils nous ont aidés sans rien demander.",
+  "en": "They helped us free of charge."
  },
  "generation": {
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:a465b65fde949587f9aca561946dfffb8e4ce479d70aab3298f7644efb9539c7",
-  "essais": 1,
+  "empreinte_invite": "sha256:e6d1ec5bedece0dc929a9e08d06bd5889515e7d265359374da3ede2227201ce3",
+  "essais": 2,
   "refus": []
  },
  "statut": "relu"

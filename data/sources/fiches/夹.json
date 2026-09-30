@@ -19,19 +19,32 @@
  "roles": {
   "夹": "sens"
  },
- "mots": [],
+ "mots": [
+  {
+   "hanzi": "夹子",
+   "pinyin": "jiāzi",
+   "fr": "pince",
+   "en": "clip"
+  },
+  {
+   "hanzi": "夹克",
+   "pinyin": "jiākè",
+   "fr": "blouson",
+   "en": "jacket"
+  }
+ ],
  "phrase": {
-  "zh": "",
-  "pinyin": "",
-  "fr": "",
-  "en": ""
+  "zh": "他用筷子夹菜。",
+  "pinyin": "Tā yòng kuàizi jiā cài.",
+  "fr": "Il prend les plats avec ses baguettes.",
+  "en": "He picks up food with his chopsticks."
  },
  "generation": {
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:fb2bfbcef1bd690540da32f38f1544880270dc04dc6760b7fec95f86c6cb9c72",
-  "essais": 1,
+  "empreinte_invite": "sha256:08c5de7734973782390cae542a7b111b687e27b1063553035a6b66d4d53d6b24",
+  "essais": 2,
   "refus": []
  },
  "statut": "relu"

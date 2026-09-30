@@ -1,0 +1,643 @@
+{
+ "examen": "yueke-855",
+ "parcours": "hsk",
+ "generation": {
+  "modele": "rédaction manuelle",
+  "api": "session Claude Code (sans API)",
+  "date": "2026-09-30"
+ },
+ "relecture": {
+  "statut": "relu",
+  "par": "le propriétaire",
+  "decision": "« Go » (30 septembre 2026) : tout affiché sans relecture ligne à ligne",
+  "date": "2026-09-30"
+ },
+ "series": [
+  {
+   "serie": "A",
+   "statut": "relu",
+   "supports": [
+    {
+     "id": "s1",
+     "genre": "message",
+     "contexte": {
+      "fr": "Un message",
+      "en": "A message"
+     },
+     "lignes": [
+      {
+       "zh": "哈哈，我今天考了一百分！",
+       "pinyin": "hā hā wǒ jīn tiān kǎo le yī bǎi fēn",
+       "fr": "Ha ha, aujourd'hui j'ai eu cent sur cent à l'examen !",
+       "en": "Ha ha, I got full marks in the test today!"
+      },
+      {
+       "zh": "老师说我是全班第一。",
+       "pinyin": "lǎo shī shuō wǒ shì quán bān dì yī",
+       "fr": "Le professeur dit que je suis premier de la classe.",
+       "en": "The teacher says I'm top of the class."
+      },
+      {
+       "zh": "晚上咱们一起吃顿饭吧！",
+       "pinyin": "wǎn shang zán men yī qǐ chī dùn fàn ba",
+       "fr": "Ce soir, on dîne ensemble ?",
+       "en": "Shall we have dinner together tonight?"
+      }
+     ],
+     "glose": [
+      {
+       "zh": "哈哈",
+       "pinyin": "hā hā",
+       "fr": "ha ha",
+       "en": "ha ha"
+      },
+      {
+       "zh": "考了",
+       "pinyin": "kǎo le",
+       "fr": "avoir eu (à un examen)",
+       "en": "to have scored"
+      },
+      {
+       "zh": "一百分",
+       "pinyin": "yī bǎi fēn",
+       "fr": "cent points",
+       "en": "a hundred points"
+      },
+      {
+       "zh": "全班",
+       "pinyin": "quán bān",
+       "fr": "toute la classe",
+       "en": "the whole class"
+      },
+      {
+       "zh": "第一",
+       "pinyin": "dì yī",
+       "fr": "premier",
+       "en": "first"
+      },
+      {
+       "zh": "咱们",
+       "pinyin": "zán men",
+       "fr": "nous (toi et moi)",
+       "en": "we (you and I)"
+      },
+      {
+       "zh": "吃顿饭",
+       "pinyin": "chī dùn fàn",
+       "fr": "prendre un repas",
+       "en": "to have a meal"
+      },
+      {
+       "zh": "请客",
+       "pinyin": "qǐng kè",
+       "fr": "inviter, payer pour tous",
+       "en": "to treat"
+      },
+      {
+       "zh": "这只",
+       "pinyin": "zhè zhī",
+       "fr": "ce (animal)",
+       "en": "this (animal)"
+      },
+      {
+       "zh": "鸟",
+       "pinyin": "niǎo",
+       "fr": "oiseau",
+       "en": "bird"
+      },
+      {
+       "zh": "手机",
+       "pinyin": "shǒu jī",
+       "fr": "téléphone portable",
+       "en": "mobile phone"
+      },
+      {
+       "zh": "哪里",
+       "pinyin": "nǎ li",
+       "fr": "où",
+       "en": "where"
+      }
+     ]
+    },
+    {
+     "id": "s2",
+     "genre": "pancarte",
+     "contexte": {
+      "fr": "Un écriteau",
+      "en": "A notice"
+     },
+     "lignes": [
+      {
+       "zh": "人多的地方，",
+       "pinyin": "rén duō de dì fang",
+       "fr": "Là où il y a du monde,",
+       "en": "In crowded places,"
+      },
+      {
+       "zh": "请保管好自己的东西。",
+       "pinyin": "qǐng bǎo guǎn hǎo zì jǐ de dōng xi",
+       "fr": "surveillez vos affaires.",
+       "en": "please keep an eye on your belongings."
+      }
+     ],
+     "glose": [
+      {
+       "zh": "人多",
+       "pinyin": "rén duō",
+       "fr": "il y a du monde",
+       "en": "crowded"
+      },
+      {
+       "zh": "地方",
+       "pinyin": "dì fang",
+       "fr": "endroit",
+       "en": "place"
+      },
+      {
+       "zh": "保管好",
+       "pinyin": "bǎo guǎn hǎo",
+       "fr": "bien garder",
+       "en": "to look after"
+      },
+      {
+       "zh": "自己",
+       "pinyin": "zì jǐ",
+       "fr": "soi-même",
+       "en": "oneself"
+      }
+     ]
+    }
+   ],
+   "questions": [
+    {
+     "type": "comprendre",
+     "support": "s1",
+     "consigne": {
+      "fr": "Pourquoi la personne qui écrit est-elle contente ?",
+      "en": "Why is the writer happy?"
+     },
+     "choix": [
+      {
+       "fr": "Elle a trouvé du travail",
+       "en": "They found a job"
+      },
+      {
+       "fr": "Elle a gagné un match",
+       "en": "They won a match"
+      },
+      {
+       "fr": "C'est son anniversaire",
+       "en": "It's their birthday"
+      },
+      {
+       "fr": "Elle a eu 100 à un examen",
+       "en": "They got 100 in a test"
+      }
+     ],
+     "reponse": 3,
+     "porte": [
+      "哈",
+      "考",
+      "一",
+      "百",
+      "分"
+     ]
+    },
+    {
+     "type": "vrai_faux",
+     "support": "s1",
+     "consigne": {
+      "fr": "Vrai ou faux ?",
+      "en": "True or false?"
+     },
+     "affirmation": {
+      "zh": "他们明天中午一起吃饭。",
+      "pinyin": "tā men míng tiān zhōng wǔ yī qǐ chī fàn",
+      "fr": "Ils déjeunent ensemble demain midi.",
+      "en": "They're having lunch together tomorrow."
+     },
+     "reponse": false,
+     "porte": [
+      "晚",
+      "顿"
+     ]
+    },
+    {
+     "type": "replique",
+     "support": "s1",
+     "consigne": {
+      "fr": "Que réponds-tu ?",
+      "en": "What do you reply?"
+     },
+     "choix": [
+      {
+       "zh": "我的手机在哪里？",
+       "pinyin": "wǒ de shǒu jī zài nǎ li",
+       "fr": "Où est mon téléphone ?",
+       "en": "Where's my phone?"
+      },
+      {
+       "zh": "太好了！今天我请客。",
+       "pinyin": "tài hǎo le jīn tiān wǒ qǐng kè",
+       "fr": "Bravo ! Ce soir, c'est moi qui invite.",
+       "en": "Well done! Tonight's on me."
+      },
+      {
+       "zh": "这只鸟很小。",
+       "pinyin": "zhè zhī niǎo hěn xiǎo",
+       "fr": "Cet oiseau est tout petit.",
+       "en": "This bird is tiny."
+      },
+      {
+       "zh": "我不会做饭。",
+       "pinyin": "wǒ bù huì zuò fàn",
+       "fr": "Je ne sais pas cuisiner.",
+       "en": "I can't cook."
+      }
+     ],
+     "reponse": 1,
+     "porte": [
+      "哈",
+      "顿"
+     ]
+    },
+    {
+     "type": "comprendre",
+     "support": "s2",
+     "consigne": {
+      "fr": "Que conseille cet écriteau ?",
+      "en": "What does this notice advise?"
+     },
+     "choix": [
+      {
+       "fr": "Faire la queue",
+       "en": "To queue"
+      },
+      {
+       "fr": "Parler doucement",
+       "en": "To speak quietly"
+      },
+      {
+       "fr": "Surveiller ses affaires",
+       "en": "To watch your belongings"
+      },
+      {
+       "fr": "Garder son billet",
+       "en": "To keep your ticket"
+      }
+     ],
+     "reponse": 2,
+     "porte": [
+      "保",
+      "管",
+      "东",
+      "西"
+     ]
+    },
+    {
+     "type": "sens",
+     "consigne": {
+      "fr": "Que veut dire ce caractère ?",
+      "en": "What does this character mean?"
+     },
+     "objet": {
+      "zh": "光",
+      "pinyin": "guāng",
+      "fr": "lumière",
+      "en": "light"
+     },
+     "choix": [
+      {
+       "fr": "lumière",
+       "en": "light"
+      },
+      {
+       "fr": "fumée",
+       "en": "smoke"
+      },
+      {
+       "fr": "ombre",
+       "en": "shadow"
+      },
+      {
+       "fr": "bruit",
+       "en": "noise"
+      }
+     ],
+     "reponse": 0,
+     "porte": [
+      "光"
+     ]
+    }
+   ]
+  },
+  {
+   "serie": "B",
+   "statut": "relu",
+   "supports": [
+    {
+     "id": "s1",
+     "genre": "message",
+     "contexte": {
+      "fr": "Un message",
+      "en": "A message"
+     },
+     "lignes": [
+      {
+       "zh": "对不起，今天的会我赶不上了，",
+       "pinyin": "duì bu qǐ jīn tiān de huì wǒ gǎn bu shàng le",
+       "fr": "Désolé, je n'arriverai pas à temps pour la réunion :",
+       "en": "Sorry, I won't make it to today's meeting:"
+      },
+      {
+       "zh": "路上车太多了。",
+       "pinyin": "lù shang chē tài duō le",
+       "fr": "il y a trop de voitures sur la route.",
+       "en": "there's too much traffic."
+      },
+      {
+       "zh": "会上说了什么，请告诉我。",
+       "pinyin": "huì shang shuō le shén me qǐng gào su wǒ",
+       "fr": "Dis-moi ce qui s'y est dit.",
+       "en": "Tell me what was said."
+      }
+     ],
+     "glose": [
+      {
+       "zh": "对不起",
+       "pinyin": "duì bu qǐ",
+       "fr": "pardon, désolé",
+       "en": "sorry"
+      },
+      {
+       "zh": "会",
+       "pinyin": "huì",
+       "fr": "réunion",
+       "en": "meeting"
+      },
+      {
+       "zh": "赶不上",
+       "pinyin": "gǎn bu shàng",
+       "fr": "ne pas arriver à temps",
+       "en": "can't make it in time"
+      },
+      {
+       "zh": "路上",
+       "pinyin": "lù shang",
+       "fr": "sur la route",
+       "en": "on the road"
+      },
+      {
+       "zh": "会上",
+       "pinyin": "huì shang",
+       "fr": "à la réunion",
+       "en": "at the meeting"
+      },
+      {
+       "zh": "告诉",
+       "pinyin": "gào su",
+       "fr": "dire, informer",
+       "en": "to tell"
+      },
+      {
+       "zh": "没关系",
+       "pinyin": "méi guān xi",
+       "fr": "ce n'est rien",
+       "en": "no worries"
+      },
+      {
+       "zh": "打电话",
+       "pinyin": "dǎ diàn huà",
+       "fr": "téléphoner",
+       "en": "to phone"
+      }
+     ]
+    },
+    {
+     "id": "s2",
+     "genre": "affiche",
+     "contexte": {
+      "fr": "Une affiche",
+      "en": "A poster"
+     },
+     "lignes": [
+      {
+       "zh": "新年晚会",
+       "pinyin": "xīn nián wǎn huì",
+       "fr": "Soirée du Nouvel An",
+       "en": "New Year's party"
+      },
+      {
+       "zh": "十二月三十一日晚上八点",
+       "pinyin": "shí èr yuè sān shí yī rì wǎn shang bā diǎn",
+       "fr": "31 décembre, 20 h",
+       "en": "31 December, 8 pm"
+      },
+      {
+       "zh": "学生免费",
+       "pinyin": "xué sheng miǎn fèi",
+       "fr": "Gratuit pour les étudiants",
+       "en": "Free for students"
+      },
+      {
+       "zh": "别的人二十元",
+       "pinyin": "bié de rén èr shí yuán",
+       "fr": "Autres : 20 yuans",
+       "en": "Others: 20 yuan"
+      }
+     ],
+     "glose": [
+      {
+       "zh": "晚会",
+       "pinyin": "wǎn huì",
+       "fr": "soirée",
+       "en": "evening party"
+      },
+      {
+       "zh": "免费",
+       "pinyin": "miǎn fèi",
+       "fr": "gratuit",
+       "en": "free"
+      },
+      {
+       "zh": "别的人",
+       "pinyin": "bié de rén",
+       "fr": "les autres",
+       "en": "others"
+      },
+      {
+       "zh": "二十元",
+       "pinyin": "èr shí yuán",
+       "fr": "20 yuans",
+       "en": "20 yuan"
+      },
+      {
+       "zh": "不用",
+       "pinyin": "bù yòng",
+       "fr": "ne pas avoir besoin de",
+       "en": "not need to"
+      },
+      {
+       "zh": "买票",
+       "pinyin": "mǎi piào",
+       "fr": "acheter un billet",
+       "en": "to buy a ticket"
+      }
+     ]
+    }
+   ],
+   "questions": [
+    {
+     "type": "comprendre",
+     "support": "s1",
+     "consigne": {
+      "fr": "Pourquoi manque-t-il la réunion ?",
+      "en": "Why is he missing the meeting?"
+     },
+     "choix": [
+      {
+       "fr": "Il est malade",
+       "en": "He's ill"
+      },
+      {
+       "fr": "Il a oublié",
+       "en": "He forgot"
+      },
+      {
+       "fr": "Il y a trop de voitures",
+       "en": "Too much traffic"
+      },
+      {
+       "fr": "Il est en voyage",
+       "en": "He's away"
+      }
+     ],
+     "reponse": 2,
+     "porte": [
+      "赶",
+      "车",
+      "多"
+     ]
+    },
+    {
+     "type": "replique",
+     "support": "s1",
+     "consigne": {
+      "fr": "Que réponds-tu ?",
+      "en": "What do you reply?"
+     },
+     "choix": [
+      {
+       "zh": "没关系，我晚上打电话告诉你。",
+       "pinyin": "méi guān xi wǒ wǎn shang dǎ diàn huà gào su nǐ",
+       "fr": "Ce n'est rien, je t'appelle ce soir pour te raconter.",
+       "en": "No worries, I'll call you tonight and tell you."
+      },
+      {
+       "zh": "我家有三个人。",
+       "pinyin": "wǒ jiā yǒu sān gè rén",
+       "fr": "Nous sommes trois à la maison.",
+       "en": "There are three of us at home."
+      },
+      {
+       "zh": "这是我的新书包。",
+       "pinyin": "zhè shì wǒ de xīn shū bāo",
+       "fr": "C'est mon nouveau cartable.",
+       "en": "This is my new schoolbag."
+      },
+      {
+       "zh": "今天是星期几？",
+       "pinyin": "jīn tiān shì xīng qī jǐ",
+       "fr": "On est quel jour aujourd'hui ?",
+       "en": "What day is it today?"
+      }
+     ],
+     "reponse": 0,
+     "porte": [
+      "赶",
+      "告",
+      "诉"
+     ]
+    },
+    {
+     "type": "comprendre",
+     "support": "s2",
+     "consigne": {
+      "fr": "Combien paient les étudiants ?",
+      "en": "How much do students pay?"
+     },
+     "choix": [
+      {
+       "fr": "10 yuans",
+       "en": "10 yuan"
+      },
+      {
+       "fr": "20 yuans",
+       "en": "20 yuan"
+      },
+      {
+       "fr": "8 yuans",
+       "en": "8 yuan"
+      },
+      {
+       "fr": "Rien",
+       "en": "Nothing"
+      }
+     ],
+     "reponse": 3,
+     "porte": [
+      "学",
+      "生",
+      "免",
+      "费"
+     ]
+    },
+    {
+     "type": "vrai_faux",
+     "support": "s2",
+     "consigne": {
+      "fr": "Vrai ou faux ?",
+      "en": "True or false?"
+     },
+     "affirmation": {
+      "zh": "别的人也不用买票。",
+      "pinyin": "bié de rén yě bù yòng mǎi piào",
+      "fr": "Les autres n'ont pas besoin de billet non plus.",
+      "en": "Others don't need a ticket either."
+     },
+     "reponse": false,
+     "porte": [
+      "免",
+      "费",
+      "二",
+      "十",
+      "元"
+     ]
+    },
+    {
+     "type": "ton",
+     "consigne": {
+      "fr": "Quel est le ton de ce caractère ?",
+      "en": "What is the tone of this character?"
+     },
+     "objet": {
+      "zh": "挂",
+      "pinyin": "guà",
+      "fr": "accrocher",
+      "en": "to hang"
+     },
+     "choix": [
+      "guā",
+      "guá",
+      "guǎ",
+      "guà"
+     ],
+     "reponse": 3,
+     "porte": [
+      "挂"
+     ]
+    }
+   ]
+  }
+ ]
+}

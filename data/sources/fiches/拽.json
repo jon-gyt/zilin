@@ -3,7 +3,9 @@
  "parcours": "lire",
  "jour": 1451,
  "pinyin": [
-  "zhuāi"
+  "zhuài",
+  "zhuāi",
+  "yè"
  ],
  "sens_fr": "tirer, traîner",
  "sens_en": "to pull, to drag",
@@ -21,19 +23,26 @@
   "扌": "sens",
   "曳": "sens"
  },
- "mots": [],
+ "mots": [
+  {
+   "hanzi": "拖拽",
+   "pinyin": "tuōzhuài",
+   "fr": "tirer, faire glisser",
+   "en": "to drag"
+  }
+ ],
  "phrase": {
-  "zh": "",
-  "pinyin": "",
-  "fr": "",
-  "en": ""
+  "zh": "他拽着我的手不放。",
+  "pinyin": "Tā zhuài zhe wǒ de shǒu bù fàng.",
+  "fr": "Il me tirait par la main sans la lâcher.",
+  "en": "He kept pulling me by the hand and would not let go."
  },
  "generation": {
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:6c95134ce30b19ef79b20d0841fe68a7dc9e5d4c663103e83dbb9026b4149c1f",
-  "essais": 1,
+  "empreinte_invite": "sha256:66db5319f1d684d0600f76393ccda6063a854b1c63dd5c360728dcc656c2b542",
+  "essais": 2,
   "refus": []
  },
  "statut": "relu"

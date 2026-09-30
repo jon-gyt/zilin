@@ -23,19 +23,32 @@
   "十": "forme",
   "具": "forme"
  },
- "mots": [],
+ "mots": [
+  {
+   "hanzi": "填写",
+   "pinyin": "tiánxiě",
+   "fr": "remplir (un formulaire)",
+   "en": "to fill in (a form)"
+  },
+  {
+   "hanzi": "填补",
+   "pinyin": "tiánbǔ",
+   "fr": "combler (un manque)",
+   "en": "to fill (a gap)"
+  }
+ ],
  "phrase": {
-  "zh": "",
-  "pinyin": "",
-  "fr": "",
-  "en": ""
+  "zh": "请填写这张表。",
+  "pinyin": "Qǐng tiánxiě zhè zhāng biǎo.",
+  "fr": "Veuillez remplir ce formulaire.",
+  "en": "Please fill in this form."
  },
  "generation": {
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:8448c0f4a024687ea9698b647dc52d5535cb393a0907d41a19c408cfdc2153d0",
-  "essais": 1,
+  "empreinte_invite": "sha256:a13d193f76bf2afa94d992f31b89bd8a01a285bae6634ffd349c46c1432c384b",
+  "essais": 2,
   "refus": []
  },
  "statut": "relu"

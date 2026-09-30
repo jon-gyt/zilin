@@ -21,19 +21,32 @@
   "口": "sens",
   "又": "forme"
  },
- "mots": [],
+ "mots": [
+  {
+   "hanzi": "叹气",
+   "pinyin": "tànqì",
+   "fr": "soupirer",
+   "en": "to sigh"
+  },
+  {
+   "hanzi": "感叹",
+   "pinyin": "gǎntàn",
+   "fr": "s'exclamer, soupirer d'émotion",
+   "en": "to exclaim, to sigh with feeling"
+  }
+ ],
  "phrase": {
-  "zh": "",
-  "pinyin": "",
-  "fr": "",
-  "en": ""
+  "zh": "他看着窗外，叹了一口气。",
+  "pinyin": "Tā kàn zhe chuāng wài, tàn le yī kǒu qì.",
+  "fr": "Il regarde par la fenêtre et pousse un soupir.",
+  "en": "He looks out of the window and sighs."
  },
  "generation": {
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:8d8e684e750a358ae338a5eaa2c0ad7b24353a91200e3b4cfd44b445db31d441",
-  "essais": 1,
+  "empreinte_invite": "sha256:e7546a97ffe83a947e5fc4d865a47f536f3ba806d3ba2ec6db4a00939e0b6917",
+  "essais": 2,
   "refus": []
  },
  "statut": "relu"

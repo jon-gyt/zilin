@@ -23,19 +23,32 @@
   "亻": "sens",
   "匕": "sens"
  },
- "mots": [],
+ "mots": [
+  {
+   "hanzi": "讹传",
+   "pinyin": "échuán",
+   "fr": "rumeur infondée",
+   "en": "false rumour"
+  },
+  {
+   "hanzi": "讹人",
+   "pinyin": "érén",
+   "fr": "extorquer, escroquer",
+   "en": "to extort"
+  }
+ ],
  "phrase": {
-  "zh": "",
-  "pinyin": "",
-  "fr": "",
-  "en": ""
+  "zh": "这只是一个讹传。",
+  "pinyin": "Zhè zhǐ shì yī gè échuán.",
+  "fr": "Ce n'est qu'une rumeur sans fondement.",
+  "en": "This is just a false rumour."
  },
  "generation": {
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:00ab84464bc7313134c66c65016bd0c9f4ea312f7a7fc674100334a0a8bd70ac",
-  "essais": 1,
+  "empreinte_invite": "sha256:f6eaca543442133d3a62cdbbe9cbcbf27970286ea61a2d64e154e21002b5bac1",
+  "essais": 2,
   "refus": []
  },
  "statut": "relu"

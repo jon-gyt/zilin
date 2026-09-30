@@ -1,0 +1,420 @@
+{
+ "examen": "yueke-555",
+ "parcours": "lire",
+ "generation": {
+  "modele": "rédaction manuelle",
+  "api": "session Claude Code (sans API)",
+  "date": "2026-09-30"
+ },
+ "relecture": {
+  "statut": "relu",
+  "par": "le propriétaire",
+  "decision": "« Go » (30 septembre 2026) : tout affiché sans relecture ligne à ligne",
+  "date": "2026-09-30"
+ },
+ "series": [
+  {
+   "serie": "A",
+   "statut": "relu",
+   "supports": [
+    {
+     "id": "s1",
+     "genre": "message",
+     "contexte": {
+      "fr": "Un message",
+      "en": "A message"
+     },
+     "lignes": [
+      {
+       "zh": "妈妈，我已经到学校了，",
+       "pinyin": "mā ma wǒ yǐ jīng dào xué xiào le",
+       "fr": "Maman, je suis déjà arrivé à l'école ;",
+       "en": "Mum, I've already got to school;"
+      },
+      {
+       "zh": "晚上在同学家吃饺子，",
+       "pinyin": "wǎn shang zài tóng xué jiā chī jiǎo zi",
+       "fr": "ce soir, je mange des raviolis chez un camarade,",
+       "en": "tonight I'm having dumplings at a classmate's,"
+      },
+      {
+       "zh": "九点回来。",
+       "pinyin": "jiǔ diǎn huí lái",
+       "fr": "je rentre à neuf heures.",
+       "en": "I'll be back at nine."
+      }
+     ]
+    },
+    {
+     "id": "s2",
+     "genre": "affiche",
+     "contexte": {
+      "fr": "Une affiche",
+      "en": "A poster"
+     },
+     "lignes": [
+      {
+       "zh": "星期五下午三点",
+       "pinyin": "xīng qī wǔ xià wǔ sān diǎn",
+       "fr": "Vendredi, à trois heures de l'après-midi",
+       "en": "Friday at 3 pm"
+      },
+      {
+       "zh": "黄老师讲中国画",
+       "pinyin": "huáng lǎo shī jiǎng zhōng guó huà",
+       "fr": "M. Huang parle de la peinture chinoise",
+       "en": "Mr Huang talks about Chinese painting"
+      },
+      {
+       "zh": "在图书馆二楼",
+       "pinyin": "zài tú shū guǎn èr lóu",
+       "fr": "Au premier étage de la bibliothèque",
+       "en": "On the first floor of the library"
+      }
+     ]
+    }
+   ],
+   "questions": [
+    {
+     "type": "comprendre",
+     "support": "s1",
+     "consigne": {
+      "fr": "Que va-t-il manger ce soir ?",
+      "en": "What will he eat tonight?"
+     },
+     "choix": [
+      {
+       "fr": "Du riz",
+       "en": "Rice"
+      },
+      {
+       "fr": "Des nouilles",
+       "en": "Noodles"
+      },
+      {
+       "fr": "Du poisson",
+       "en": "Fish"
+      },
+      {
+       "fr": "Des raviolis",
+       "en": "Dumplings"
+      }
+     ],
+     "reponse": 3,
+     "porte": [
+      "饺",
+      "子"
+     ]
+    },
+    {
+     "type": "replique",
+     "support": "s1",
+     "consigne": {
+      "fr": "Que répond sa mère ?",
+      "en": "What does his mother reply?"
+     },
+     "choix": [
+      {
+       "zh": "我的脚很大。",
+       "pinyin": "wǒ de jiǎo hěn dà",
+       "fr": "J'ai de grands pieds.",
+       "en": "I have big feet."
+      },
+      {
+       "zh": "好，九点我去接你。",
+       "pinyin": "hǎo jiǔ diǎn wǒ qù jiē nǐ",
+       "fr": "D'accord, je viens te chercher à neuf heures.",
+       "en": "OK, I'll pick you up at nine."
+      },
+      {
+       "zh": "河里有鱼。",
+       "pinyin": "hé lǐ yǒu yú",
+       "fr": "Il y a des poissons dans la rivière.",
+       "en": "There are fish in the river."
+      },
+      {
+       "zh": "这件衣服是黄的。",
+       "pinyin": "zhè jiàn yī fu shì huáng de",
+       "fr": "Ce vêtement est jaune.",
+       "en": "This piece of clothing is yellow."
+      }
+     ],
+     "reponse": 1,
+     "porte": [
+      "九",
+      "点",
+      "回",
+      "接"
+     ]
+    },
+    {
+     "type": "reperer",
+     "support": "s2",
+     "consigne": {
+      "fr": "Touche le nom de celui qui parle.",
+      "en": "Tap the name of the speaker."
+     },
+     "choix": [
+      "星期五",
+      "黄老师",
+      "中国画",
+      "图书馆"
+     ],
+     "reponse": 1,
+     "porte": [
+      "黄",
+      "讲"
+     ]
+    },
+    {
+     "type": "vrai_faux",
+     "support": "s2",
+     "consigne": {
+      "fr": "Vrai ou faux ?",
+      "en": "True or false?"
+     },
+     "affirmation": {
+      "zh": "星期五上午讲中国画。",
+      "pinyin": "xīng qī wǔ shàng wǔ jiǎng zhōng guó huà",
+      "fr": "La causerie sur la peinture chinoise a lieu vendredi matin.",
+      "en": "The talk on Chinese painting is on Friday morning."
+     },
+     "reponse": false,
+     "porte": [
+      "下",
+      "午",
+      "讲"
+     ]
+    },
+    {
+     "type": "sens",
+     "consigne": {
+      "fr": "Que veut dire ce caractère ?",
+      "en": "What does this character mean?"
+     },
+     "objet": {
+      "zh": "借",
+      "pinyin": "jiè",
+      "fr": "emprunter, prêter",
+      "en": "to borrow, to lend"
+     },
+     "choix": [
+      {
+       "fr": "acheter",
+       "en": "to buy"
+      },
+      {
+       "fr": "rendre visite",
+       "en": "to visit"
+      },
+      {
+       "fr": "emprunter",
+       "en": "to borrow"
+      },
+      {
+       "fr": "oublier",
+       "en": "to forget"
+      }
+     ],
+     "reponse": 2,
+     "porte": [
+      "借"
+     ]
+    }
+   ]
+  },
+  {
+   "serie": "B",
+   "statut": "relu",
+   "supports": [
+    {
+     "id": "s1",
+     "genre": "pancarte",
+     "contexte": {
+      "fr": "Un écriteau",
+      "en": "A notice"
+     },
+     "lignes": [
+      {
+       "zh": "借书请到二楼，",
+       "pinyin": "jiè shū qǐng dào èr lóu",
+       "fr": "Pour emprunter un livre, montez au premier étage ;",
+       "en": "To borrow books, go to the first floor;"
+      },
+      {
+       "zh": "还书请到一楼。",
+       "pinyin": "huán shū qǐng dào yī lóu",
+       "fr": "pour le rendre, restez au rez-de-chaussée.",
+       "en": "to return them, stay on the ground floor."
+      },
+      {
+       "zh": "一次能借五本书。",
+       "pinyin": "yī cì néng jiè wǔ běn shū",
+       "fr": "On peut emprunter cinq livres à la fois.",
+       "en": "You can borrow five books at a time."
+      }
+     ]
+    },
+    {
+     "id": "s2",
+     "genre": "message",
+     "contexte": {
+      "fr": "Un message",
+      "en": "A message"
+     },
+     "lignes": [
+      {
+       "zh": "王老师，我的作业才写了一半，",
+       "pinyin": "wáng lǎo shī wǒ de zuò yè cái xiě le yī bàn",
+       "fr": "Monsieur Wang, je n'ai fait que la moitié de mes devoirs :",
+       "en": "Mr Wang, I've only done half my homework:"
+      },
+      {
+       "zh": "明天交，可以吗？",
+       "pinyin": "míng tiān jiāo kě yǐ ma",
+       "fr": "je peux les rendre demain ?",
+       "en": "may I hand it in tomorrow?"
+      }
+     ]
+    }
+   ],
+   "questions": [
+    {
+     "type": "comprendre",
+     "support": "s1",
+     "consigne": {
+      "fr": "Où faut-il aller pour rendre un livre ?",
+      "en": "Where do you go to return a book?"
+     },
+     "choix": [
+      {
+       "fr": "Au rez-de-chaussée",
+       "en": "To the ground floor"
+      },
+      {
+       "fr": "Au premier étage",
+       "en": "To the first floor"
+      },
+      {
+       "fr": "Au deuxième étage",
+       "en": "To the second floor"
+      },
+      {
+       "fr": "Au sous-sol",
+       "en": "To the basement"
+      }
+     ],
+     "reponse": 0,
+     "porte": [
+      "借",
+      "还",
+      "一",
+      "楼"
+     ]
+    },
+    {
+     "type": "vrai_faux",
+     "support": "s1",
+     "consigne": {
+      "fr": "Vrai ou faux ?",
+      "en": "True or false?"
+     },
+     "affirmation": {
+      "zh": "借书要去二楼。",
+      "pinyin": "jiè shū yào qù èr lóu",
+      "fr": "Pour emprunter, il faut aller au premier étage.",
+      "en": "To borrow, you go to the first floor."
+     },
+     "reponse": true,
+     "porte": [
+      "借",
+      "二",
+      "楼"
+     ]
+    },
+    {
+     "type": "reperer",
+     "support": "s2",
+     "consigne": {
+      "fr": "Touche le jour où l'élève veut rendre ses devoirs.",
+      "en": "Tap the day the pupil wants to hand in the homework."
+     },
+     "choix": [
+      "王老师",
+      "作业",
+      "一半",
+      "明天"
+     ],
+     "reponse": 3,
+     "porte": [
+      "明",
+      "天",
+      "交"
+     ]
+    },
+    {
+     "type": "replique",
+     "support": "s2",
+     "consigne": {
+      "fr": "Que répond le professeur ?",
+      "en": "What does the teacher reply?"
+     },
+     "choix": [
+      {
+       "zh": "我喜欢黄色。",
+       "pinyin": "wǒ xǐ huan huáng sè",
+       "fr": "J'aime le jaune.",
+       "en": "I like yellow."
+      },
+      {
+       "zh": "我们一起去湖边吧。",
+       "pinyin": "wǒ men yī qǐ qù hú biān ba",
+       "fr": "Allons au bord du lac ensemble.",
+       "en": "Let's go to the lake together."
+      },
+      {
+       "zh": "你的球在床下。",
+       "pinyin": "nǐ de qiú zài chuáng xià",
+       "fr": "Ton ballon est sous le lit.",
+       "en": "Your ball is under the bed."
+      },
+      {
+       "zh": "好，明天一定要交。",
+       "pinyin": "hǎo míng tiān yī dìng yào jiāo",
+       "fr": "D'accord, mais rends-les demain sans faute.",
+       "en": "OK, but hand it in tomorrow without fail."
+      }
+     ],
+     "reponse": 3,
+     "porte": [
+      "交",
+      "定"
+     ]
+    },
+    {
+     "type": "caractere",
+     "consigne": {
+      "fr": "Quel caractère a ce sens ?",
+      "en": "Which character has this meaning?"
+     },
+     "objet": {
+      "zh": "街",
+      "pinyin": "jiē",
+      "fr": "rue",
+      "en": "street"
+     },
+     "choix": [
+      "行",
+      "街",
+      "很",
+      "得"
+     ],
+     "reponse": 1,
+     "porte": [
+      "街"
+     ]
+    }
+   ]
+  }
+ ]
+}

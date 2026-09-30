@@ -25,19 +25,32 @@
   "木": "son",
   "石": "son"
  },
- "mots": [],
+ "mots": [
+  {
+   "hanzi": "蘑菇",
+   "pinyin": "mógu",
+   "fr": "champignon",
+   "en": "mushroom"
+  },
+  {
+   "hanzi": "口蘑",
+   "pinyin": "kǒumó",
+   "fr": "champignon de Paris",
+   "en": "button mushroom"
+  }
+ ],
  "phrase": {
-  "zh": "",
-  "pinyin": "",
-  "fr": "",
-  "en": ""
+  "zh": "雨后，山上长出了很多蘑菇。",
+  "pinyin": "Yǔ hòu, shān shang zhǎngchū le hěn duō mógu.",
+  "fr": "Après la pluie, beaucoup de champignons ont poussé sur la montagne.",
+  "en": "After the rain, lots of mushrooms came up on the mountain."
  },
  "generation": {
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:e566fba4663bd0cae564e41a45583bca659a328240880af1b7e82bcb713e957c",
-  "essais": 1,
+  "empreinte_invite": "sha256:7726ee7d078136080abdc7c3091e06657afd4bbe51e9df218d381375f60b6f6e",
+  "essais": 3,
   "refus": []
  },
  "statut": "relu"

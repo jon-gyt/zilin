@@ -19,19 +19,32 @@
  "roles": {
   "木": "sens"
  },
- "mots": [],
+ "mots": [
+  {
+   "hanzi": "森林",
+   "pinyin": "sēnlín",
+   "fr": "forêt",
+   "en": "forest"
+  },
+  {
+   "hanzi": "阴森",
+   "pinyin": "yīnsēn",
+   "fr": "sinistre, lugubre",
+   "en": "gloomy, eerie"
+  }
+ ],
  "phrase": {
-  "zh": "",
-  "pinyin": "",
-  "fr": "",
-  "en": ""
+  "zh": "森林里有很多动物。",
+  "pinyin": "Sēnlín li yǒu hěn duō dòngwù.",
+  "fr": "Il y a beaucoup d'animaux dans la forêt.",
+  "en": "There are many animals in the forest."
  },
  "generation": {
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:fb202e171544f994e92eb65235abd7dad993e5f3a3d877dd4c3f7825ee529e77",
-  "essais": 1,
+  "empreinte_invite": "sha256:9c71b4eb61c11fe762084fa5086f889d37b9dfabf6fe3d4535a20a4a21ba4751",
+  "essais": 2,
   "refus": []
  },
  "statut": "relu"

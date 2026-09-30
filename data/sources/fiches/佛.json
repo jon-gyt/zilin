@@ -3,6 +3,7 @@
  "parcours": "lire",
  "jour": 778,
  "pinyin": [
+  "fó",
   "fú"
  ],
  "sens_fr": "Bouddha, comme si",
@@ -19,21 +20,34 @@
  "memo_en": null,
  "roles": {
   "亻": "sens",
-  "弗": "son"
+  "弗": "forme"
  },
- "mots": [],
+ "mots": [
+  {
+   "hanzi": "仿佛",
+   "pinyin": "fǎngfú",
+   "fr": "comme si, on dirait",
+   "en": "as if, seemingly"
+  },
+  {
+   "hanzi": "佛像",
+   "pinyin": "fóxiàng",
+   "fr": "statue de Bouddha",
+   "en": "Buddha statue"
+  }
+ ],
  "phrase": {
-  "zh": "",
-  "pinyin": "",
-  "fr": "",
-  "en": ""
+  "zh": "他仿佛没听见。",
+  "pinyin": "Tā fǎngfú méi tīngjiàn.",
+  "fr": "On dirait qu'il n'a pas entendu.",
+  "en": "He seemed not to have heard."
  },
  "generation": {
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:93ea037ab3d3f1ba86196a05b42818bd5e93ffa28f9e9051f6219c90b93184c3",
-  "essais": 1,
+  "empreinte_invite": "sha256:d07a0a20de6693413b38f80e1b08bdf77acaa028f6717daf8958597baad02add",
+  "essais": 4,
   "refus": []
  },
  "statut": "relu"

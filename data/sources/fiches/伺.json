@@ -3,7 +3,8 @@
  "parcours": "lire",
  "jour": 1280,
  "pinyin": [
-  "cì"
+  "cì",
+  "sì"
  ],
  "sens_fr": "servir, épier, guetter",
  "sens_en": "to serve, to watch for",
@@ -21,19 +22,32 @@
   "亻": "sens",
   "司": "forme"
  },
- "mots": [],
+ "mots": [
+  {
+   "hanzi": "伺候",
+   "pinyin": "cìhou",
+   "fr": "servir, s'occuper de",
+   "en": "to wait on, to look after"
+  },
+  {
+   "hanzi": "伺机",
+   "pinyin": "sìjī",
+   "fr": "guetter l'occasion",
+   "en": "to wait for an opportunity"
+  }
+ ],
  "phrase": {
-  "zh": "",
-  "pinyin": "",
-  "fr": "",
-  "en": ""
+  "zh": "他在家伺候生病的父亲。",
+  "pinyin": "Tā zài jiā cìhou shēngbìng de fùqīn.",
+  "fr": "Il reste à la maison pour s'occuper de son père malade.",
+  "en": "He stays at home looking after his sick father."
  },
  "generation": {
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:c48936234c5d279a68353af50d6cf79f6d0d396a6dd8168c0e94ea2f2e5d95c8",
-  "essais": 1,
+  "empreinte_invite": "sha256:664676845bb8da7f4bd3611dcc3e89a59f94f8df536c135677db9093bf8ebfee",
+  "essais": 3,
   "refus": []
  },
  "statut": "relu"

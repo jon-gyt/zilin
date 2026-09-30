@@ -25,19 +25,32 @@
   "亻": "forme",
   "子": "forme"
  },
- "mots": [],
+ "mots": [
+  {
+   "hanzi": "推荐",
+   "pinyin": "tuījiàn",
+   "fr": "recommander",
+   "en": "to recommend"
+  },
+  {
+   "hanzi": "引荐",
+   "pinyin": "yǐnjiàn",
+   "fr": "présenter, recommander (quelqu'un)",
+   "en": "to introduce, to recommend (someone)"
+  }
+ ],
  "phrase": {
-  "zh": "",
-  "pinyin": "",
-  "fr": "",
-  "en": ""
+  "zh": "你能给我推荐一本书吗？",
+  "pinyin": "Nǐ néng gěi wǒ tuījiàn yī běn shū ma?",
+  "fr": "Tu peux me recommander un livre ?",
+  "en": "Can you recommend a book to me?"
  },
  "generation": {
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:f03bc83e0aa0793ce786b3262128c757605e6d85d84032904ed7a60177e431f2",
-  "essais": 1,
+  "empreinte_invite": "sha256:91a700db5966abf4a56180b2a56043e9b413f95470c243c982aa7da235800d2d",
+  "essais": 2,
   "refus": []
  },
  "statut": "relu"

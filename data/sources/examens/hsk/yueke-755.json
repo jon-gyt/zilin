@@ -1,0 +1,603 @@
+{
+ "examen": "yueke-755",
+ "parcours": "hsk",
+ "generation": {
+  "modele": "rédaction manuelle",
+  "api": "session Claude Code (sans API)",
+  "date": "2026-09-30"
+ },
+ "relecture": {
+  "statut": "relu",
+  "par": "le propriétaire",
+  "decision": "« Go » (30 septembre 2026) : tout affiché sans relecture ligne à ligne",
+  "date": "2026-09-30"
+ },
+ "series": [
+  {
+   "serie": "A",
+   "statut": "relu",
+   "supports": [
+    {
+     "id": "s1",
+     "genre": "affiche",
+     "contexte": {
+      "fr": "Une affiche",
+      "en": "A poster"
+     },
+     "lignes": [
+      {
+       "zh": "房子出租",
+       "pinyin": "fáng zi chū zū",
+       "fr": "Logement à louer",
+       "en": "Flat to let"
+      },
+      {
+       "zh": "离地铁站只有五分钟",
+       "pinyin": "lí dì tiě zhàn zhǐ yǒu wǔ fēn zhōng",
+       "fr": "À cinq minutes du métro",
+       "en": "Five minutes from the metro"
+      },
+      {
+       "zh": "一个月两千块",
+       "pinyin": "yī gè yuè liǎng qiān kuài",
+       "fr": "2 000 yuans par mois",
+       "en": "2,000 yuan a month"
+      },
+      {
+       "zh": "请给王先生打电话",
+       "pinyin": "qǐng gěi wáng xiān sheng dǎ diàn huà",
+       "fr": "Appelez M. Wang",
+       "en": "Call Mr Wang"
+      }
+     ],
+     "glose": [
+      {
+       "zh": "房子",
+       "pinyin": "fáng zi",
+       "fr": "logement, maison",
+       "en": "house, flat"
+      },
+      {
+       "zh": "出租",
+       "pinyin": "chū zū",
+       "fr": "à louer",
+       "en": "for rent"
+      },
+      {
+       "zh": "离",
+       "pinyin": "lí",
+       "fr": "à (distance de)",
+       "en": "away from"
+      },
+      {
+       "zh": "地铁站",
+       "pinyin": "dì tiě zhàn",
+       "fr": "station de métro",
+       "en": "metro station"
+      },
+      {
+       "zh": "只有",
+       "pinyin": "zhǐ yǒu",
+       "fr": "seulement",
+       "en": "only"
+      },
+      {
+       "zh": "五分钟",
+       "pinyin": "wǔ fēn zhōng",
+       "fr": "cinq minutes",
+       "en": "five minutes"
+      },
+      {
+       "zh": "一个月",
+       "pinyin": "yī gè yuè",
+       "fr": "par mois",
+       "en": "a month"
+      },
+      {
+       "zh": "两千块",
+       "pinyin": "liǎng qiān kuài",
+       "fr": "2 000 yuans",
+       "en": "2,000 yuan"
+      },
+      {
+       "zh": "远",
+       "pinyin": "yuǎn",
+       "fr": "loin",
+       "en": "far"
+      }
+     ]
+    },
+    {
+     "id": "s2",
+     "genre": "message",
+     "contexte": {
+      "fr": "Un message",
+      "en": "A message"
+     },
+     "lignes": [
+      {
+       "zh": "咱们明天早上去公园运动吧！",
+       "pinyin": "zán men míng tiān zǎo shang qù gōng yuán yùn dòng ba",
+       "fr": "Demain matin, on va faire du sport au parc ?",
+       "en": "Shall we go and exercise in the park tomorrow morning?"
+      },
+      {
+       "zh": "八点在公园门口见。",
+       "pinyin": "bā diǎn zài gōng yuán mén kǒu jiàn",
+       "fr": "Rendez-vous à huit heures à l'entrée du parc.",
+       "en": "See you at eight at the park gate."
+      }
+     ],
+     "glose": [
+      {
+       "zh": "咱们",
+       "pinyin": "zán men",
+       "fr": "nous (toi et moi)",
+       "en": "we (you and I)"
+      },
+      {
+       "zh": "公园",
+       "pinyin": "gōng yuán",
+       "fr": "parc",
+       "en": "park"
+      },
+      {
+       "zh": "运动",
+       "pinyin": "yùn dòng",
+       "fr": "faire du sport",
+       "en": "to exercise"
+      },
+      {
+       "zh": "好啊",
+       "pinyin": "hǎo a",
+       "fr": "d'accord !",
+       "en": "sure!"
+      },
+      {
+       "zh": "一把",
+       "pinyin": "yī bǎ",
+       "fr": "un (objet qu'on tient, chaise)",
+       "en": "a (chair)"
+      },
+      {
+       "zh": "椅子",
+       "pinyin": "yǐ zi",
+       "fr": "chaise",
+       "en": "chair"
+      },
+      {
+       "zh": "照片",
+       "pinyin": "zhào piàn",
+       "fr": "photo",
+       "en": "photo"
+      },
+      {
+       "zh": "银行",
+       "pinyin": "yín háng",
+       "fr": "banque",
+       "en": "bank"
+      },
+      {
+       "zh": "几点",
+       "pinyin": "jǐ diǎn",
+       "fr": "à quelle heure",
+       "en": "what time"
+      }
+     ]
+    }
+   ],
+   "questions": [
+    {
+     "type": "comprendre",
+     "support": "s1",
+     "consigne": {
+      "fr": "Que propose cette affiche ?",
+      "en": "What is this poster offering?"
+     },
+     "choix": [
+      {
+       "fr": "Un vélo à vendre",
+       "en": "A bike for sale"
+      },
+      {
+       "fr": "Un logement à louer",
+       "en": "A flat to rent"
+      },
+      {
+       "fr": "Des cours d'anglais",
+       "en": "English lessons"
+      },
+      {
+       "fr": "Un emploi de serveur",
+       "en": "A waiter's job"
+      }
+     ],
+     "reponse": 1,
+     "porte": [
+      "房",
+      "出",
+      "租"
+     ]
+    },
+    {
+     "type": "vrai_faux",
+     "support": "s1",
+     "consigne": {
+      "fr": "Vrai ou faux ?",
+      "en": "True or false?"
+     },
+     "affirmation": {
+      "zh": "房子离地铁站很远。",
+      "pinyin": "fáng zi lí dì tiě zhàn hěn yuǎn",
+      "fr": "Le logement est loin du métro.",
+      "en": "The flat is far from the metro."
+     },
+     "reponse": false,
+     "porte": [
+      "离",
+      "只",
+      "分",
+      "钟"
+     ]
+    },
+    {
+     "type": "replique",
+     "support": "s2",
+     "consigne": {
+      "fr": "Que réponds-tu ?",
+      "en": "What do you reply?"
+     },
+     "choix": [
+      {
+       "zh": "我想买一把椅子。",
+       "pinyin": "wǒ xiǎng mǎi yī bǎ yǐ zi",
+       "fr": "Je voudrais acheter une chaise.",
+       "en": "I'd like to buy a chair."
+      },
+      {
+       "zh": "这是我的照片。",
+       "pinyin": "zhè shì wǒ de zhào piàn",
+       "fr": "C'est ma photo.",
+       "en": "This is my photo."
+      },
+      {
+       "zh": "好啊，明天见！",
+       "pinyin": "hǎo a míng tiān jiàn",
+       "fr": "D'accord, à demain !",
+       "en": "Sure, see you tomorrow!"
+      },
+      {
+       "zh": "银行几点关门？",
+       "pinyin": "yín háng jǐ diǎn guān mén",
+       "fr": "La banque ferme à quelle heure ?",
+       "en": "What time does the bank close?"
+      }
+     ],
+     "reponse": 2,
+     "porte": [
+      "咱",
+      "明",
+      "早"
+     ]
+    },
+    {
+     "type": "reperer",
+     "support": "s2",
+     "consigne": {
+      "fr": "Touche l'activité proposée.",
+      "en": "Tap the activity suggested."
+     },
+     "choix": [
+      "咱们",
+      "公园",
+      "运动",
+      "早上"
+     ],
+     "reponse": 2,
+     "porte": [
+      "运",
+      "动"
+     ]
+    },
+    {
+     "type": "caractere",
+     "consigne": {
+      "fr": "Quel caractère a ce sens ?",
+      "en": "Which character has this meaning?"
+     },
+     "objet": {
+      "zh": "眼",
+      "pinyin": "yǎn",
+      "fr": "œil",
+      "en": "eye"
+     },
+     "choix": [
+      "眼",
+      "银",
+      "跟",
+      "很"
+     ],
+     "reponse": 0,
+     "porte": [
+      "眼"
+     ]
+    }
+   ]
+  },
+  {
+   "serie": "B",
+   "statut": "relu",
+   "supports": [
+    {
+     "id": "s1",
+     "genre": "billet",
+     "contexte": {
+      "fr": "Un billet",
+      "en": "A ticket"
+     },
+     "lignes": [
+      {
+       "zh": "英国电影周",
+       "pinyin": "yīng guó diàn yǐng zhōu",
+       "fr": "Semaine du cinéma britannique",
+       "en": "British Film Week"
+      },
+      {
+       "zh": "十二月三十一日，晚上七点半",
+       "pinyin": "shí èr yuè sān shí yī rì wǎn shang qī diǎn bàn",
+       "fr": "31 décembre, 19 h 30",
+       "en": "31 December, 7.30 pm"
+      },
+      {
+       "zh": "三楼八排十二座",
+       "pinyin": "sān lóu bā pái shí èr zuò",
+       "fr": "2e étage, rang 8, place 12",
+       "en": "Third floor, row 8, seat 12"
+      },
+      {
+       "zh": "八十块",
+       "pinyin": "bā shí kuài",
+       "fr": "80 yuans",
+       "en": "80 yuan"
+      }
+     ],
+     "glose": [
+      {
+       "zh": "英国",
+       "pinyin": "yīng guó",
+       "fr": "Royaume-Uni, Angleterre",
+       "en": "Britain"
+      },
+      {
+       "zh": "电影周",
+       "pinyin": "diàn yǐng zhōu",
+       "fr": "semaine du cinéma",
+       "en": "film week"
+      },
+      {
+       "zh": "七点半",
+       "pinyin": "qī diǎn bàn",
+       "fr": "sept heures et demie",
+       "en": "half past seven"
+      },
+      {
+       "zh": "三楼",
+       "pinyin": "sān lóu",
+       "fr": "au 2e étage",
+       "en": "third floor"
+      },
+      {
+       "zh": "八排",
+       "pinyin": "bā pái",
+       "fr": "rang 8",
+       "en": "row 8"
+      },
+      {
+       "zh": "十二座",
+       "pinyin": "shí èr zuò",
+       "fr": "place 12",
+       "en": "seat 12"
+      },
+      {
+       "zh": "八十块",
+       "pinyin": "bā shí kuài",
+       "fr": "80 yuans",
+       "en": "80 yuan"
+      }
+     ]
+    },
+    {
+     "id": "s2",
+     "genre": "message",
+     "contexte": {
+      "fr": "Un message",
+      "en": "A message"
+     },
+     "lignes": [
+      {
+       "zh": "我的手机坏了，",
+       "pinyin": "wǒ de shǒu jī huài le",
+       "fr": "Mon téléphone est en panne :",
+       "en": "My phone's broken:"
+      },
+      {
+       "zh": "你能把你的手机借我用一下吗？",
+       "pinyin": "nǐ néng bǎ nǐ de shǒu jī jiè wǒ yòng yī xià ma",
+       "fr": "tu peux me passer le tien un instant ?",
+       "en": "can you lend me yours for a moment?"
+      },
+      {
+       "zh": "我只打一个电话。",
+       "pinyin": "wǒ zhǐ dǎ yī gè diàn huà",
+       "fr": "Juste un appel.",
+       "en": "Just one call."
+      }
+     ],
+     "glose": [
+      {
+       "zh": "把",
+       "pinyin": "bǎ",
+       "fr": "(introduit l'objet)",
+       "en": "(introduces the object)"
+      },
+      {
+       "zh": "借",
+       "pinyin": "jiè",
+       "fr": "prêter",
+       "en": "to lend"
+      },
+      {
+       "zh": "用",
+       "pinyin": "yòng",
+       "fr": "utiliser",
+       "en": "to use"
+      },
+      {
+       "zh": "只",
+       "pinyin": "zhǐ",
+       "fr": "seulement",
+       "en": "only"
+      },
+      {
+       "zh": "电话",
+       "pinyin": "diàn huà",
+       "fr": "appel, téléphone",
+       "en": "phone call"
+      },
+      {
+       "zh": "两个",
+       "pinyin": "liǎng gè",
+       "fr": "deux",
+       "en": "two"
+      }
+     ]
+    }
+   ],
+   "questions": [
+    {
+     "type": "comprendre",
+     "support": "s1",
+     "consigne": {
+      "fr": "De quel pays viennent les films ?",
+      "en": "Which country are the films from?"
+     },
+     "choix": [
+      {
+       "fr": "D'Angleterre",
+       "en": "Britain"
+      },
+      {
+       "fr": "De France",
+       "en": "France"
+      },
+      {
+       "fr": "Des États-Unis",
+       "en": "The United States"
+      },
+      {
+       "fr": "Du Japon",
+       "en": "Japan"
+      }
+     ],
+     "reponse": 0,
+     "porte": [
+      "英",
+      "国"
+     ]
+    },
+    {
+     "type": "reperer",
+     "support": "s1",
+     "consigne": {
+      "fr": "Touche le numéro du siège.",
+      "en": "Tap the seat number."
+     },
+     "choix": [
+      "电影周",
+      "七点半",
+      "八排",
+      "十二座"
+     ],
+     "reponse": 3,
+     "porte": [
+      "座"
+     ]
+    },
+    {
+     "type": "comprendre",
+     "support": "s2",
+     "consigne": {
+      "fr": "Que demande la personne qui écrit ?",
+      "en": "What is the writer asking for?"
+     },
+     "choix": [
+      {
+       "fr": "Qu'on l'appelle",
+       "en": "A call back"
+      },
+      {
+       "fr": "Qu'on lui prête un téléphone",
+       "en": "To borrow a phone"
+      },
+      {
+       "fr": "Qu'on répare son téléphone",
+       "en": "To have the phone repaired"
+      },
+      {
+       "fr": "Qu'on lui achète un téléphone",
+       "en": "To be bought a phone"
+      }
+     ],
+     "reponse": 1,
+     "porte": [
+      "把",
+      "借",
+      "用"
+     ]
+    },
+    {
+     "type": "vrai_faux",
+     "support": "s2",
+     "consigne": {
+      "fr": "Vrai ou faux ?",
+      "en": "True or false?"
+     },
+     "affirmation": {
+      "zh": "他想打两个电话。",
+      "pinyin": "tā xiǎng dǎ liǎng gè diàn huà",
+      "fr": "Il veut passer deux appels.",
+      "en": "He wants to make two calls."
+     },
+     "reponse": false,
+     "porte": [
+      "只",
+      "一"
+     ]
+    },
+    {
+     "type": "ton",
+     "consigne": {
+      "fr": "Quel est le ton de ce caractère ?",
+      "en": "What is the tone of this character?"
+     },
+     "objet": {
+      "zh": "澡",
+      "pinyin": "zǎo",
+      "fr": "bain",
+      "en": "bath"
+     },
+     "choix": [
+      "zāo",
+      "záo",
+      "zǎo",
+      "zào"
+     ],
+     "reponse": 2,
+     "porte": [
+      "澡"
+     ]
+    }
+   ]
+  }
+ ]
+}

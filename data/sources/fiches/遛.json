@@ -3,6 +3,7 @@
  "parcours": "lire",
  "jour": 1145,
  "pinyin": [
+  "liù",
   "liú"
  ],
  "sens_fr": "promener (un animal), flâner",
@@ -23,19 +24,32 @@
   "卯": "son",
   "田": "son"
  },
- "mots": [],
+ "mots": [
+  {
+   "hanzi": "遛狗",
+   "pinyin": "liùgǒu",
+   "fr": "promener le chien",
+   "en": "to walk the dog"
+  },
+  {
+   "hanzi": "遛弯",
+   "pinyin": "liùwān",
+   "fr": "faire un tour",
+   "en": "to take a stroll"
+  }
+ ],
  "phrase": {
-  "zh": "",
-  "pinyin": "",
-  "fr": "",
-  "en": ""
+  "zh": "爷爷每天早上出去遛狗。",
+  "pinyin": "Yéye měi tiān zǎoshang chūqù liùgǒu.",
+  "fr": "Tous les matins, grand-père sort promener le chien.",
+  "en": "Every morning, Grandpa goes out to walk the dog."
  },
  "generation": {
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:b1f739172dfa84ef594ec25a93922d2f7e638cf50c989c7612adc3fc9e72f578",
-  "essais": 1,
+  "empreinte_invite": "sha256:992876f0a3c2191dfa9548e6d9605c2fb62efa5086808f37396eba2a48f995e4",
+  "essais": 2,
   "refus": []
  },
  "statut": "relu"

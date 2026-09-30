@@ -25,19 +25,32 @@
   "八": "forme",
   "木": "forme"
  },
- "mots": [],
+ "mots": [
+  {
+   "hanzi": "探索",
+   "pinyin": "tànsuǒ",
+   "fr": "explorer",
+   "en": "to explore"
+  },
+  {
+   "hanzi": "探望",
+   "pinyin": "tànwàng",
+   "fr": "rendre visite (à un malade, un proche)",
+   "en": "to visit (someone)"
+  }
+ ],
  "phrase": {
-  "zh": "",
-  "pinyin": "",
-  "fr": "",
-  "en": ""
+  "zh": "周末我去医院探望奶奶。",
+  "pinyin": "Zhōumò wǒ qù yīyuàn tànwàng nǎinai.",
+  "fr": "Ce week-end, je vais voir grand-mère à l'hôpital.",
+  "en": "This weekend I'm visiting grandma in hospital."
  },
  "generation": {
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:c3476a527cff8e73235b6347dd295fd648407ace256208146a563a9c3fdf61c1",
-  "essais": 1,
+  "empreinte_invite": "sha256:7bbb1e9388e1e5567a78a96aaf66501319bd1abd9714778a8c5558b33c19c4ff",
+  "essais": 2,
   "refus": []
  },
  "statut": "relu"

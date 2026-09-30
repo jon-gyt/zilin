@@ -21,19 +21,32 @@
   "卄": "sens",
   "心": "son"
  },
- "mots": [],
+ "mots": [
+  {
+   "hanzi": "芯片",
+   "pinyin": "xīnpiàn",
+   "fr": "puce électronique",
+   "en": "microchip"
+  },
+  {
+   "hanzi": "笔芯",
+   "pinyin": "bǐxīn",
+   "fr": "mine, recharge de stylo",
+   "en": "pen refill"
+  }
+ ],
  "phrase": {
-  "zh": "",
-  "pinyin": "",
-  "fr": "",
-  "en": ""
+  "zh": "这支笔没有笔芯了。",
+  "pinyin": "Zhè zhī bǐ méiyǒu bǐxīn le.",
+  "fr": "Ce stylo n'a plus de recharge.",
+  "en": "This pen has run out of refill."
  },
  "generation": {
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:ffe9f21e7de08049acc9358f1825a3004cf7002f03c3c23a9d556c4bf026d67f",
-  "essais": 1,
+  "empreinte_invite": "sha256:487b64c6b545a3e2496ce3a0873c83b82e45fcdd7c52dccef3e852dc9837cdfb",
+  "essais": 2,
   "refus": []
  },
  "statut": "relu"

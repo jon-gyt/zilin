@@ -21,19 +21,32 @@
   "矢": "sens",
   "豆": "forme"
  },
- "mots": [],
+ "mots": [
+  {
+   "hanzi": "短信",
+   "pinyin": "duǎnxìn",
+   "fr": "SMS",
+   "en": "text message"
+  },
+  {
+   "hanzi": "长短",
+   "pinyin": "chángduǎn",
+   "fr": "longueur",
+   "en": "length"
+  }
+ ],
  "phrase": {
-  "zh": "",
-  "pinyin": "",
-  "fr": "",
-  "en": ""
+  "zh": "我给你发了一个短信。",
+  "pinyin": "Wǒ gěi nǐ fā le yī gè duǎnxìn.",
+  "fr": "Je t'ai envoyé un SMS.",
+  "en": "I sent you a text."
  },
  "generation": {
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:e3d6edfc3daf076c671bab16a022299fa4670b8d45422e697e1885e5b258fa02",
-  "essais": 1,
+  "empreinte_invite": "sha256:3a3930752a714c941f713da583eb5b38745993dd4e2fd63c85d5946da9331c23",
+  "essais": 2,
   "refus": []
  },
  "statut": "relu"

@@ -19,19 +19,32 @@
  "roles": {
   "鱼": "sens"
  },
- "mots": [],
+ "mots": [
+  {
+   "hanzi": "鱼肉",
+   "pinyin": "yúròu",
+   "fr": "chair de poisson",
+   "en": "fish meat"
+  },
+  {
+   "hanzi": "鱼丸",
+   "pinyin": "yúwán",
+   "fr": "boulette de poisson",
+   "en": "fish ball"
+  }
+ ],
  "phrase": {
-  "zh": "",
-  "pinyin": "",
-  "fr": "",
-  "en": ""
+  "zh": "我们晚上吃鱼吧。",
+  "pinyin": "Wǒmen wǎnshang chī yú ba.",
+  "fr": "Mangeons du poisson ce soir.",
+  "en": "Let's have fish tonight."
  },
  "generation": {
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:3da98c2566127d369fa1c6cfb44d971ca122391769586db75a0027128ef36d01",
-  "essais": 1,
+  "empreinte_invite": "sha256:d65637336feee1d70de7155d31eea0ffec1398220baf2ac8c5c100a927d17c3d",
+  "essais": 2,
   "refus": []
  },
  "statut": "relu"

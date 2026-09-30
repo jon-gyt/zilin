@@ -25,19 +25,32 @@
   "口": "forme",
   "土": "sens"
  },
- "mots": [],
+ "mots": [
+  {
+   "hanzi": "食堂",
+   "pinyin": "shítáng",
+   "fr": "cantine",
+   "en": "canteen"
+  },
+  {
+   "hanzi": "课堂",
+   "pinyin": "kètáng",
+   "fr": "cours, salle de cours",
+   "en": "classroom"
+  }
+ ],
  "phrase": {
-  "zh": "",
-  "pinyin": "",
-  "fr": "",
-  "en": ""
+  "zh": "我们中午在食堂吃饭。",
+  "pinyin": "Wǒmen zhōngwǔ zài shítáng chīfàn.",
+  "fr": "À midi, nous mangeons à la cantine.",
+  "en": "We eat in the canteen at lunchtime."
  },
  "generation": {
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:1fed934bfbf714b0a4dfe2639d4d115d4a09f8d69d2ca53e988497094f5ebfbb",
-  "essais": 1,
+  "empreinte_invite": "sha256:db78f3dfc23f6985175703a16946f0849cfd6be33844352ce7560da8b7aa27f1",
+  "essais": 2,
   "refus": []
  },
  "statut": "relu"

@@ -1,0 +1,694 @@
+{
+ "examen": "yueke-1405",
+ "parcours": "hsk",
+ "generation": {
+  "modele": "rédaction manuelle",
+  "api": "session Claude Code (sans API)",
+  "date": "2026-09-30"
+ },
+ "relecture": {
+  "statut": "relu",
+  "par": "le propriétaire",
+  "decision": "« Go » (30 septembre 2026) : tout affiché sans relecture ligne à ligne",
+  "date": "2026-09-30"
+ },
+ "series": [
+  {
+   "serie": "A",
+   "statut": "relu",
+   "supports": [
+    {
+     "id": "s1",
+     "genre": "affiche",
+     "contexte": {
+      "fr": "Une affiche",
+      "en": "A poster"
+     },
+     "lignes": [
+      {
+       "zh": "学校棒球比赛",
+       "pinyin": "xué xiào bàng qiú bǐ sài",
+       "fr": "Match de baseball de l'école",
+       "en": "School baseball game"
+      },
+      {
+       "zh": "星期六下午三点",
+       "pinyin": "xīng qī liù xià wǔ sān diǎn",
+       "fr": "Samedi, trois heures de l'après-midi",
+       "en": "Saturday, 3 pm"
+      },
+      {
+       "zh": "欢迎大家来加油！",
+       "pinyin": "huān yíng dà jiā lái jiā yóu",
+       "fr": "Venez nombreux encourager les joueurs !",
+       "en": "Everyone's welcome to come and cheer!"
+      }
+     ],
+     "glose": [
+      {
+       "zh": "棒球",
+       "pinyin": "bàng qiú",
+       "fr": "baseball",
+       "en": "baseball"
+      },
+      {
+       "zh": "比赛",
+       "pinyin": "bǐ sài",
+       "fr": "match, compétition",
+       "en": "match, competition"
+      },
+      {
+       "zh": "欢迎",
+       "pinyin": "huān yíng",
+       "fr": "bienvenue ; accueillir",
+       "en": "welcome"
+      },
+      {
+       "zh": "大家",
+       "pinyin": "dà jiā",
+       "fr": "tout le monde",
+       "en": "everyone"
+      },
+      {
+       "zh": "加油",
+       "pinyin": "jiā yóu",
+       "fr": "encourager ; allez !",
+       "en": "to cheer on; come on!"
+      }
+     ]
+    },
+    {
+     "id": "s2",
+     "genre": "note",
+     "contexte": {
+      "fr": "Une note",
+      "en": "A note"
+     },
+     "lignes": [
+      {
+       "zh": "小张：我的手机没电了，",
+       "pinyin": "xiǎo zhāng wǒ de shǒu jī méi diàn le",
+       "fr": "Xiao Zhang : mon téléphone n'a plus de batterie,",
+       "en": "Xiao Zhang: my phone is out of power,"
+      },
+      {
+       "zh": "电池也坏了。",
+       "pinyin": "diàn chí yě huài le",
+       "fr": "et la batterie est morte aussi.",
+       "en": "and the battery is dead too."
+      },
+      {
+       "zh": "我去商店买个新的，",
+       "pinyin": "wǒ qù shāng diàn mǎi gè xīn de",
+       "fr": "je vais au magasin en acheter une neuve,",
+       "en": "I'm going to the shop to buy a new one,"
+      },
+      {
+       "zh": "一个小时以后回来。",
+       "pinyin": "yī gè xiǎo shí yǐ hòu huí lái",
+       "fr": "je reviens dans une heure.",
+       "en": "I'll be back in an hour."
+      }
+     ],
+     "glose": [
+      {
+       "zh": "没电",
+       "pinyin": "méi diàn",
+       "fr": "sans batterie, déchargé",
+       "en": "out of power"
+      },
+      {
+       "zh": "电池",
+       "pinyin": "diàn chí",
+       "fr": "pile, batterie",
+       "en": "battery"
+      },
+      {
+       "zh": "新",
+       "pinyin": "xīn",
+       "fr": "neuf, nouveau",
+       "en": "new"
+      },
+      {
+       "zh": "一个小时",
+       "pinyin": "yī gè xiǎo shí",
+       "fr": "une heure (durée)",
+       "en": "one hour"
+      },
+      {
+       "zh": "以后",
+       "pinyin": "yǐ hòu",
+       "fr": "après, plus tard",
+       "en": "after, later"
+      },
+      {
+       "zh": "路上",
+       "pinyin": "lù shang",
+       "fr": "en chemin",
+       "en": "on the way"
+      }
+     ]
+    }
+   ],
+   "questions": [
+    {
+     "type": "comprendre",
+     "support": "s1",
+     "consigne": {
+      "fr": "À quoi joue-t-on ?",
+      "en": "What is being played?"
+     },
+     "choix": [
+      {
+       "fr": "Au basket",
+       "en": "Basketball"
+      },
+      {
+       "fr": "Au football",
+       "en": "Football"
+      },
+      {
+       "fr": "Au tennis",
+       "en": "Tennis"
+      },
+      {
+       "fr": "Au baseball",
+       "en": "Baseball"
+      }
+     ],
+     "reponse": 3,
+     "porte": [
+      "棒",
+      "球"
+     ]
+    },
+    {
+     "type": "vrai_faux",
+     "support": "s1",
+     "consigne": {
+      "fr": "Vrai ou faux ?",
+      "en": "True or false?"
+     },
+     "affirmation": {
+      "zh": "棒球比赛在星期六上午。",
+      "pinyin": "bàng qiú bǐ sài zài xīng qī liù shàng wǔ",
+      "fr": "Le match de baseball a lieu samedi matin.",
+      "en": "The baseball game is on Saturday morning."
+     },
+     "reponse": false,
+     "porte": [
+      "棒",
+      "下",
+      "午"
+     ]
+    },
+    {
+     "type": "reperer",
+     "support": "s2",
+     "consigne": {
+      "fr": "Touche ce qui est tombé en panne aussi.",
+      "en": "Tap what has broken down too."
+     },
+     "choix": [
+      "手机",
+      "电池",
+      "商店",
+      "小张"
+     ],
+     "reponse": 1,
+     "porte": [
+      "电",
+      "池"
+     ]
+    },
+    {
+     "type": "replique",
+     "support": "s2",
+     "consigne": {
+      "fr": "Que répond Xiao Zhang ?",
+      "en": "What does Xiao Zhang reply?"
+     },
+     "choix": [
+      {
+       "zh": "好的，路上小心！",
+       "pinyin": "hǎo de lù shang xiǎo xīn",
+       "fr": "D'accord, fais attention en chemin !",
+       "en": "OK, be careful on the way!"
+      },
+      {
+       "zh": "我是学生。",
+       "pinyin": "wǒ shì xué sheng",
+       "fr": "Je suis étudiant.",
+       "en": "I'm a student."
+      },
+      {
+       "zh": "今天天气很冷。",
+       "pinyin": "jīn tiān tiān qì hěn lěng",
+       "fr": "Il fait froid aujourd'hui.",
+       "en": "It's cold today."
+      },
+      {
+       "zh": "我喜欢唱歌。",
+       "pinyin": "wǒ xǐ huan chàng gē",
+       "fr": "J'aime chanter.",
+       "en": "I like singing."
+      }
+     ],
+     "reponse": 0,
+     "porte": [
+      "池",
+      "坏",
+      "买"
+     ]
+    },
+    {
+     "type": "ton",
+     "consigne": {
+      "fr": "Quel est le ton de ce caractère ?",
+      "en": "Which tone does this character have?"
+     },
+     "objet": {
+      "zh": "柴",
+      "pinyin": "chái",
+      "fr": "bois de chauffage",
+      "en": "firewood"
+     },
+     "choix": [
+      "chāi",
+      "chái",
+      "chǎi",
+      "chài"
+     ],
+     "reponse": 1,
+     "porte": [
+      "柴"
+     ]
+    }
+   ]
+  },
+  {
+   "serie": "B",
+   "statut": "relu",
+   "supports": [
+    {
+     "id": "s1",
+     "genre": "pancarte",
+     "contexte": {
+      "fr": "Un panneau",
+      "en": "A sign"
+     },
+     "lignes": [
+      {
+       "zh": "红灯停，绿灯行",
+       "pinyin": "hóng dēng tíng lǜ dēng xíng",
+       "fr": "Au rouge on s'arrête, au vert on passe",
+       "en": "Stop on red, go on green"
+      },
+      {
+       "zh": "请勿闯红灯",
+       "pinyin": "qǐng wù chuǎng hóng dēng",
+       "fr": "Ne passez pas au feu rouge",
+       "en": "Do not run the red light"
+      }
+     ],
+     "glose": [
+      {
+       "zh": "红灯",
+       "pinyin": "hóng dēng",
+       "fr": "feu rouge",
+       "en": "red light"
+      },
+      {
+       "zh": "停",
+       "pinyin": "tíng",
+       "fr": "s'arrêter",
+       "en": "to stop"
+      },
+      {
+       "zh": "绿灯",
+       "pinyin": "lǜ dēng",
+       "fr": "feu vert",
+       "en": "green light"
+      },
+      {
+       "zh": "行",
+       "pinyin": "xíng",
+       "fr": "aller, passer",
+       "en": "to go"
+      },
+      {
+       "zh": "请勿",
+       "pinyin": "qǐng wù",
+       "fr": "prière de ne pas",
+       "en": "please do not"
+      },
+      {
+       "zh": "闯红灯",
+       "pinyin": "chuǎng hóng dēng",
+       "fr": "passer au rouge",
+       "en": "to run a red light"
+      }
+     ]
+    },
+    {
+     "id": "s2",
+     "genre": "lettre",
+     "contexte": {
+      "fr": "Une lettre",
+      "en": "A letter"
+     },
+     "lignes": [
+      {
+       "zh": "小文，你好吗？",
+       "pinyin": "xiǎo wén nǐ hǎo ma",
+       "fr": "Xiaowen, comment vas-tu ?",
+       "en": "Xiaowen, how are you?"
+      },
+      {
+       "zh": "院子里的竹子长高了，",
+       "pinyin": "yuàn zi lǐ de zhú zi zhǎng gāo le",
+       "fr": "les bambous de la cour ont grandi,",
+       "en": "the bamboo in the yard has grown tall,"
+      },
+      {
+       "zh": "小狗也胖了，可是它还是很怕老鼠。",
+       "pinyin": "xiǎo gǒu yě pàng le kě shì tā hái shi hěn pà lǎo shǔ",
+       "fr": "le petit chien a grossi aussi, mais il a toujours très peur des souris.",
+       "en": "the puppy has got fat too, but it's still very scared of mice."
+      },
+      {
+       "zh": "春节你回家吗？",
+       "pinyin": "chūn jié nǐ huí jiā ma",
+       "fr": "Tu rentres à la maison pour la fête du Printemps ?",
+       "en": "Are you coming home for Spring Festival?"
+      },
+      {
+       "zh": "你猜猜奶奶给你做什么好吃的？",
+       "pinyin": "nǐ cāi cāi nǎi nai gěi nǐ zuò shén me hǎo chī de",
+       "fr": "Devine ce que Mamie va te préparer de bon ?",
+       "en": "Guess what yummy thing Grandma will make you?"
+      }
+     ],
+     "glose": [
+      {
+       "zh": "小文",
+       "pinyin": "xiǎo wén",
+       "fr": "Xiaowen (prénom)",
+       "en": "Xiaowen (given name)"
+      },
+      {
+       "zh": "你好",
+       "pinyin": "nǐ hǎo",
+       "fr": "bonjour",
+       "en": "hello"
+      },
+      {
+       "zh": "院子",
+       "pinyin": "yuàn zi",
+       "fr": "cour",
+       "en": "yard"
+      },
+      {
+       "zh": "里",
+       "pinyin": "lǐ",
+       "fr": "dans",
+       "en": "in"
+      },
+      {
+       "zh": "竹子",
+       "pinyin": "zhú zi",
+       "fr": "bambou",
+       "en": "bamboo"
+      },
+      {
+       "zh": "长高",
+       "pinyin": "zhǎng gāo",
+       "fr": "grandir, pousser",
+       "en": "to grow tall"
+      },
+      {
+       "zh": "还没有",
+       "pinyin": "hái méi yǒu",
+       "fr": "pas encore",
+       "en": "not yet"
+      },
+      {
+       "zh": "小狗",
+       "pinyin": "xiǎo gǒu",
+       "fr": "chiot, petit chien",
+       "en": "puppy"
+      },
+      {
+       "zh": "胖",
+       "pinyin": "pàng",
+       "fr": "gros",
+       "en": "fat"
+      },
+      {
+       "zh": "可是",
+       "pinyin": "kě shì",
+       "fr": "mais",
+       "en": "but"
+      },
+      {
+       "zh": "它",
+       "pinyin": "tā",
+       "fr": "il, elle (animal, chose)",
+       "en": "it"
+      },
+      {
+       "zh": "还是",
+       "pinyin": "hái shi",
+       "fr": "toujours, encore",
+       "en": "still"
+      },
+      {
+       "zh": "怕",
+       "pinyin": "pà",
+       "fr": "avoir peur de",
+       "en": "to be afraid of"
+      },
+      {
+       "zh": "老鼠",
+       "pinyin": "lǎo shǔ",
+       "fr": "souris, rat",
+       "en": "mouse, rat"
+      },
+      {
+       "zh": "春节",
+       "pinyin": "chūn jié",
+       "fr": "fête du Printemps",
+       "en": "Spring Festival"
+      },
+      {
+       "zh": "猜猜",
+       "pinyin": "cāi cāi",
+       "fr": "deviner un peu",
+       "en": "to have a guess"
+      },
+      {
+       "zh": "好吃",
+       "pinyin": "hǎo chī",
+       "fr": "bon (à manger)",
+       "en": "tasty"
+      },
+      {
+       "zh": "猜",
+       "pinyin": "cāi",
+       "fr": "deviner",
+       "en": "to guess"
+      },
+      {
+       "zh": "饺子",
+       "pinyin": "jiǎo zi",
+       "fr": "raviolis",
+       "en": "dumplings"
+      },
+      {
+       "zh": "聪明",
+       "pinyin": "cōng ming",
+       "fr": "intelligent",
+       "en": "clever"
+      },
+      {
+       "zh": "那本书",
+       "pinyin": "nà běn shū",
+       "fr": "ce livre",
+       "en": "that book"
+      },
+      {
+       "zh": "桌子上",
+       "pinyin": "zhuō zi shàng",
+       "fr": "sur la table",
+       "en": "on the table"
+      },
+      {
+       "zh": "比赛",
+       "pinyin": "bǐ sài",
+       "fr": "match",
+       "en": "match"
+      }
+     ]
+    }
+   ],
+   "questions": [
+    {
+     "type": "comprendre",
+     "support": "s1",
+     "consigne": {
+      "fr": "Que demande ce panneau ?",
+      "en": "What does this sign ask?"
+     },
+     "choix": [
+      {
+       "fr": "De ne pas se garer",
+       "en": "Not to park"
+      },
+      {
+       "fr": "De ne pas passer au rouge",
+       "en": "Not to go through on red"
+      },
+      {
+       "fr": "De ne pas courir",
+       "en": "Not to run"
+      },
+      {
+       "fr": "De ne pas klaxonner",
+       "en": "Not to honk"
+      }
+     ],
+     "reponse": 1,
+     "porte": [
+      "闯",
+      "红",
+      "灯"
+     ]
+    },
+    {
+     "type": "vrai_faux",
+     "support": "s2",
+     "consigne": {
+      "fr": "Vrai ou faux ?",
+      "en": "True or false?"
+     },
+     "affirmation": {
+      "zh": "竹子还没有长高。",
+      "pinyin": "zhú zi hái méi yǒu zhǎng gāo",
+      "fr": "Les bambous n'ont pas encore grandi.",
+      "en": "The bamboo hasn't grown yet."
+     },
+     "reponse": false,
+     "porte": [
+      "竹",
+      "长",
+      "高"
+     ]
+    },
+    {
+     "type": "comprendre",
+     "support": "s2",
+     "consigne": {
+      "fr": "De quoi le petit chien a-t-il peur ?",
+      "en": "What is the puppy afraid of?"
+     },
+     "choix": [
+      {
+       "fr": "Des chats",
+       "en": "Cats"
+      },
+      {
+       "fr": "Des oiseaux",
+       "en": "Birds"
+      },
+      {
+       "fr": "Des souris",
+       "en": "Mice"
+      },
+      {
+       "fr": "De l'orage",
+       "en": "Thunderstorms"
+      }
+     ],
+     "reponse": 2,
+     "porte": [
+      "怕",
+      "鼠"
+     ]
+    },
+    {
+     "type": "replique",
+     "support": "s2",
+     "consigne": {
+      "fr": "Que répond Xiaowen ?",
+      "en": "What does Xiaowen reply?"
+     },
+     "choix": [
+      {
+       "zh": "我的朋友很聪明。",
+       "pinyin": "wǒ de péng you hěn cōng ming",
+       "fr": "Mon ami est très intelligent.",
+       "en": "My friend is very clever."
+      },
+      {
+       "zh": "那本书在桌子上。",
+       "pinyin": "nà běn shū zài zhuō zi shàng",
+       "fr": "Ce livre est sur la table.",
+       "en": "That book is on the table."
+      },
+      {
+       "zh": "今天的比赛很好看。",
+       "pinyin": "jīn tiān de bǐ sài hěn hǎo kàn",
+       "fr": "Le match d'aujourd'hui était beau.",
+       "en": "Today's match was great to watch."
+      },
+      {
+       "zh": "我猜是饺子！",
+       "pinyin": "wǒ cāi shì jiǎo zi",
+       "fr": "Je devine : des raviolis !",
+       "en": "My guess is dumplings!"
+      }
+     ],
+     "reponse": 3,
+     "porte": [
+      "猜"
+     ]
+    },
+    {
+     "type": "sens",
+     "consigne": {
+      "fr": "Que veut dire ce caractère ?",
+      "en": "What does this character mean?"
+     },
+     "objet": {
+      "zh": "悲",
+      "pinyin": "bēi",
+      "fr": "triste",
+      "en": "sad"
+     },
+     "choix": [
+      {
+       "fr": "triste",
+       "en": "sad"
+      },
+      {
+       "fr": "joyeux",
+       "en": "happy"
+      },
+      {
+       "fr": "fatigué",
+       "en": "tired"
+      },
+      {
+       "fr": "pressé",
+       "en": "in a hurry"
+      }
+     ],
+     "reponse": 0,
+     "porte": [
+      "悲"
+     ]
+    }
+   ]
+  }
+ ]
+}

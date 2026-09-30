@@ -21,19 +21,32 @@
   "册": "sens",
   "刂": "sens"
  },
- "mots": [],
+ "mots": [
+  {
+   "hanzi": "删除",
+   "pinyin": "shānchú",
+   "fr": "supprimer, effacer",
+   "en": "to delete"
+  },
+  {
+   "hanzi": "删改",
+   "pinyin": "shāngǎi",
+   "fr": "remanier, retoucher",
+   "en": "to revise, to edit"
+  }
+ ],
  "phrase": {
-  "zh": "",
-  "pinyin": "",
-  "fr": "",
-  "en": ""
+  "zh": "我不小心删除了那张照片。",
+  "pinyin": "Wǒ bù xiǎoxīn shānchú le nà zhāng zhàopiàn.",
+  "fr": "J'ai effacé cette photo par mégarde.",
+  "en": "I accidentally deleted that photo."
  },
  "generation": {
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:d055990db1ccc95dcfc4f86582317ffc7d793e6997c59fb4e81bbc7f057fb406",
-  "essais": 1,
+  "empreinte_invite": "sha256:66c7e4ff6334e9795222ca10315c447d6d0fd0b88a1dc08f881883a2b4317794",
+  "essais": 2,
   "refus": []
  },
  "statut": "relu"

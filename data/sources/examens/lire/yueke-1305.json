@@ -1,0 +1,414 @@
+{
+ "examen": "yueke-1305",
+ "parcours": "lire",
+ "generation": {
+  "modele": "rédaction manuelle",
+  "api": "session Claude Code (sans API)",
+  "date": "2026-09-30"
+ },
+ "relecture": {
+  "statut": "relu",
+  "par": "le propriétaire",
+  "decision": "« Go » (30 septembre 2026) : tout affiché sans relecture ligne à ligne",
+  "date": "2026-09-30"
+ },
+ "series": [
+  {
+   "serie": "A",
+   "statut": "relu",
+   "supports": [
+    {
+     "id": "s1",
+     "genre": "pancarte",
+     "contexte": {
+      "fr": "Un écriteau",
+      "en": "A notice"
+     },
+     "lignes": [
+      {
+       "zh": "电梯坏了，请走楼梯。",
+       "pinyin": "diàn tī huài le qǐng zǒu lóu tī",
+       "fr": "L'ascenseur est en panne, prenez l'escalier.",
+       "en": "The lift is out of order, please use the stairs."
+      },
+      {
+       "zh": "楼内禁止吸烟。",
+       "pinyin": "lóu nèi jìn zhǐ xī yān",
+       "fr": "Il est interdit de fumer dans le bâtiment.",
+       "en": "No smoking in the building."
+      }
+     ]
+    },
+    {
+     "id": "s2",
+     "genre": "message",
+     "contexte": {
+      "fr": "Un message",
+      "en": "A message"
+     },
+     "lignes": [
+      {
+       "zh": "哥，我的新袜子找不到了，",
+       "pinyin": "gē wǒ de xīn wà zi zhǎo bu dào le",
+       "fr": "Grand frère, je ne trouve plus mes chaussettes neuves :",
+       "en": "Bro, I can't find my new socks,"
+      },
+      {
+       "zh": "你看见了吗？",
+       "pinyin": "nǐ kàn jiàn le ma",
+       "fr": "tu les as vues ?",
+       "en": "have you seen them?"
+      }
+     ]
+    }
+   ],
+   "questions": [
+    {
+     "type": "comprendre",
+     "support": "s1",
+     "consigne": {
+      "fr": "Que faut-il faire pour monter ?",
+      "en": "What should you do to go up?"
+     },
+     "choix": [
+      {
+       "fr": "Attendre l'ascenseur",
+       "en": "Wait for the lift"
+      },
+      {
+       "fr": "Prendre l'escalier",
+       "en": "Take the stairs"
+      },
+      {
+       "fr": "Appeler le gardien",
+       "en": "Call the caretaker"
+      },
+      {
+       "fr": "Revenir demain",
+       "en": "Come back tomorrow"
+      }
+     ],
+     "reponse": 1,
+     "porte": [
+      "楼",
+      "梯"
+     ]
+    },
+    {
+     "type": "vrai_faux",
+     "support": "s1",
+     "consigne": {
+      "fr": "Vrai ou faux ?",
+      "en": "True or false?"
+     },
+     "affirmation": {
+      "zh": "楼里不能吸烟。",
+      "pinyin": "lóu lǐ bù néng xī yān",
+      "fr": "On ne peut pas fumer dans le bâtiment.",
+      "en": "You can't smoke in the building."
+     },
+     "reponse": true,
+     "porte": [
+      "禁",
+      "止",
+      "吸",
+      "烟"
+     ]
+    },
+    {
+     "type": "reperer",
+     "support": "s2",
+     "consigne": {
+      "fr": "Touche ce qui a disparu.",
+      "en": "Tap what has gone missing."
+     },
+     "choix": [
+      "哥",
+      "新",
+      "袜子",
+      "看见"
+     ],
+     "reponse": 2,
+     "porte": [
+      "袜"
+     ]
+    },
+    {
+     "type": "replique",
+     "support": "s2",
+     "consigne": {
+      "fr": "Que répond le grand frère ?",
+      "en": "What does the big brother reply?"
+     },
+     "choix": [
+      {
+       "zh": "我今天很累。",
+       "pinyin": "wǒ jīn tiān hěn lèi",
+       "fr": "Je suis très fatigué aujourd'hui.",
+       "en": "I'm very tired today."
+      },
+      {
+       "zh": "今天是暑假第一天。",
+       "pinyin": "jīn tiān shì shǔ jià dì yī tiān",
+       "fr": "C'est le premier jour des vacances d'été.",
+       "en": "It's the first day of the summer holidays."
+      },
+      {
+       "zh": "我们去游泳吧。",
+       "pinyin": "wǒ men qù yóu yǒng ba",
+       "fr": "Allons nager.",
+       "en": "Let's go swimming."
+      },
+      {
+       "zh": "在你的床下面呢。",
+       "pinyin": "zài nǐ de chuáng xià mian ne",
+       "fr": "Elles sont sous ton lit.",
+       "en": "They're under your bed."
+      }
+     ],
+     "reponse": 3,
+     "porte": [
+      "袜",
+      "看"
+     ]
+    },
+    {
+     "type": "sens",
+     "consigne": {
+      "fr": "Que veut dire ce caractère ?",
+      "en": "What does this character mean?"
+     },
+     "objet": {
+      "zh": "咸",
+      "pinyin": "xián",
+      "fr": "salé",
+      "en": "salty"
+     },
+     "choix": [
+      {
+       "fr": "sucré",
+       "en": "sweet"
+      },
+      {
+       "fr": "salé",
+       "en": "salty"
+      },
+      {
+       "fr": "acide",
+       "en": "sour"
+      },
+      {
+       "fr": "amer",
+       "en": "bitter"
+      }
+     ],
+     "reponse": 1,
+     "porte": [
+      "咸"
+     ]
+    }
+   ]
+  },
+  {
+   "serie": "B",
+   "statut": "relu",
+   "supports": [
+    {
+     "id": "s1",
+     "genre": "affiche",
+     "contexte": {
+      "fr": "Une affiche",
+      "en": "A poster"
+     },
+     "lignes": [
+      {
+       "zh": "新鲜水果",
+       "pinyin": "xīn xiān shuǐ guǒ",
+       "fr": "Fruits frais",
+       "en": "Fresh fruit"
+      },
+      {
+       "zh": "今天买一斤送半斤，",
+       "pinyin": "jīn tiān mǎi yī jīn sòng bàn jīn",
+       "fr": "Aujourd'hui, une livre achetée, une demi-livre offerte ;",
+       "en": "Today, buy one jin, get half a jin free;"
+      },
+      {
+       "zh": "每人限买五斤。",
+       "pinyin": "měi rén xiàn mǎi wǔ jīn",
+       "fr": "cinq livres au plus par personne.",
+       "en": "maximum five jin per person."
+      }
+     ]
+    },
+    {
+     "id": "s2",
+     "genre": "message",
+     "contexte": {
+      "fr": "Un message",
+      "en": "A message"
+     },
+     "lignes": [
+      {
+       "zh": "王老师，我发烧了，",
+       "pinyin": "wáng lǎo shī wǒ fā shāo le",
+       "fr": "Monsieur Wang, j'ai de la fièvre :",
+       "en": "Mr Wang, I have a fever:"
+      },
+      {
+       "zh": "明天的考试能延到下星期吗？",
+       "pinyin": "míng tiān de kǎo shì néng yán dào xià xīng qī ma",
+       "fr": "l'examen de demain peut-il être repoussé à la semaine prochaine ?",
+       "en": "could tomorrow's exam be postponed to next week?"
+      }
+     ]
+    }
+   ],
+   "questions": [
+    {
+     "type": "comprendre",
+     "support": "s1",
+     "consigne": {
+      "fr": "Combien peut-on acheter au plus ?",
+      "en": "What's the most you can buy?"
+     },
+     "choix": [
+      {
+       "fr": "Une livre",
+       "en": "One jin"
+      },
+      {
+       "fr": "Une demi-livre",
+       "en": "Half a jin"
+      },
+      {
+       "fr": "Dix livres",
+       "en": "Ten jin"
+      },
+      {
+       "fr": "Cinq livres",
+       "en": "Five jin"
+      }
+     ],
+     "reponse": 3,
+     "porte": [
+      "限",
+      "五",
+      "斤"
+     ]
+    },
+    {
+     "type": "vrai_faux",
+     "support": "s1",
+     "consigne": {
+      "fr": "Vrai ou faux ?",
+      "en": "True or false?"
+     },
+     "affirmation": {
+      "zh": "这些水果不新鲜。",
+      "pinyin": "zhè xiē shuǐ guǒ bù xīn xiān",
+      "fr": "Ces fruits ne sont pas frais.",
+      "en": "This fruit isn't fresh."
+     },
+     "reponse": false,
+     "porte": [
+      "新",
+      "鲜"
+     ]
+    },
+    {
+     "type": "comprendre",
+     "support": "s2",
+     "consigne": {
+      "fr": "Que demande l'élève ?",
+      "en": "What is the student asking?"
+     },
+     "choix": [
+      {
+       "fr": "De changer de classe",
+       "en": "To change class"
+      },
+      {
+       "fr": "De repousser l'examen",
+       "en": "To postpone the exam"
+      },
+      {
+       "fr": "D'avoir un autre livre",
+       "en": "To get another book"
+      },
+      {
+       "fr": "De partir plus tôt",
+       "en": "To leave early"
+      }
+     ],
+     "reponse": 1,
+     "porte": [
+      "延"
+     ]
+    },
+    {
+     "type": "replique",
+     "support": "s2",
+     "consigne": {
+      "fr": "Que répond le professeur ?",
+      "en": "What does the teacher reply?"
+     },
+     "choix": [
+      {
+       "zh": "可以，你好好休息吧。",
+       "pinyin": "kě yǐ nǐ hǎo hǎo xiū xi ba",
+       "fr": "D'accord, repose-toi bien.",
+       "en": "All right, get plenty of rest."
+      },
+      {
+       "zh": "我有两个兄弟。",
+       "pinyin": "wǒ yǒu liǎng gè xiōng dì",
+       "fr": "J'ai deux frères.",
+       "en": "I have two brothers."
+      },
+      {
+       "zh": "电梯在那边。",
+       "pinyin": "diàn tī zài nà biān",
+       "fr": "L'ascenseur est par là.",
+       "en": "The lift is over there."
+      },
+      {
+       "zh": "我们明天去买水果。",
+       "pinyin": "wǒ men míng tiān qù mǎi shuǐ guǒ",
+       "fr": "Demain, on va acheter des fruits.",
+       "en": "We're going to buy fruit tomorrow."
+      }
+     ],
+     "reponse": 0,
+     "porte": [
+      "烧",
+      "延"
+     ]
+    },
+    {
+     "type": "caractere",
+     "consigne": {
+      "fr": "Quel caractère a ce sens ?",
+      "en": "Which character has this meaning?"
+     },
+     "objet": {
+      "zh": "袜",
+      "pinyin": "wà",
+      "fr": "chaussette",
+      "en": "sock"
+     },
+     "choix": [
+      "被",
+      "补",
+      "袜",
+      "衬"
+     ],
+     "reponse": 2,
+     "porte": [
+      "袜"
+     ]
+    }
+   ]
+  }
+ ]
+}

@@ -3,6 +3,7 @@
  "parcours": "lire",
  "jour": 1118,
  "pinyin": [
+  "kuàng",
   "kuāng"
  ],
  "sens_fr": "cadre, encadrer",
@@ -23,19 +24,32 @@
   "匚": "son",
   "王": "son"
  },
- "mots": [],
+ "mots": [
+  {
+   "hanzi": "框架",
+   "pinyin": "kuàngjià",
+   "fr": "cadre, structure",
+   "en": "framework"
+  },
+  {
+   "hanzi": "相框",
+   "pinyin": "xiàngkuàng",
+   "fr": "cadre photo",
+   "en": "photo frame"
+  }
+ ],
  "phrase": {
-  "zh": "",
-  "pinyin": "",
-  "fr": "",
-  "en": ""
+  "zh": "她把照片放进了相框。",
+  "pinyin": "Tā bǎ zhàopiàn fàngjìn le xiàngkuàng.",
+  "fr": "Elle a mis la photo dans le cadre.",
+  "en": "She put the photo in the frame."
  },
  "generation": {
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:aa680d4d9a73184041a9e52a4c1d03d9cc80189b27d6675a8e602324172f204c",
-  "essais": 1,
+  "empreinte_invite": "sha256:4c3496c96050277531dcb3610afb19a6478f9037c57e0c12b7e436eabcd294a0",
+  "essais": 2,
   "refus": []
  },
  "statut": "relu"

@@ -3,7 +3,8 @@
  "parcours": "lire",
  "jour": 1255,
  "pinyin": [
-  "sāo"
+  "sāo",
+  "sào"
  ],
  "sens_fr": "odeur d'urine, honte",
  "sens_en": "foul smell, shame",
@@ -23,19 +24,32 @@
   "口": "forme",
   "木": "forme"
  },
- "mots": [],
+ "mots": [
+  {
+   "hanzi": "臊气",
+   "pinyin": "sāoqì",
+   "fr": "odeur d'urine, relent",
+   "en": "stench of urine"
+  },
+  {
+   "hanzi": "害臊",
+   "pinyin": "hàisào",
+   "fr": "avoir honte, être timide",
+   "en": "to feel ashamed, to be shy"
+  }
+ ],
  "phrase": {
-  "zh": "",
-  "pinyin": "",
-  "fr": "",
-  "en": ""
+  "zh": "这里有一股臊气。",
+  "pinyin": "Zhèli yǒu yī gǔ sāoqì.",
+  "fr": "Ça sent l'urine ici.",
+  "en": "It smells of urine in here."
  },
  "generation": {
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:1031c1105c4a9fac805779c87db4d18b768499ffe371856e2f23df814718d331",
-  "essais": 1,
+  "empreinte_invite": "sha256:8216d3ce0c46ca61137a5259d28c94b8d572dc116759e1f88786d3a7ba27af33",
+  "essais": 3,
   "refus": []
  },
  "statut": "relu"

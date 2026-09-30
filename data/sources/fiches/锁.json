@@ -23,19 +23,32 @@
   "⺌": "forme",
   "贝": "forme"
  },
- "mots": [],
+ "mots": [
+  {
+   "hanzi": "锁门",
+   "pinyin": "suǒmén",
+   "fr": "fermer la porte à clé",
+   "en": "to lock the door"
+  },
+  {
+   "hanzi": "门锁",
+   "pinyin": "ménsuǒ",
+   "fr": "serrure de porte",
+   "en": "door lock"
+  }
+ ],
  "phrase": {
-  "zh": "",
-  "pinyin": "",
-  "fr": "",
-  "en": ""
+  "zh": "出门别忘了锁门。",
+  "pinyin": "Chūmén bié wàng le suǒ mén.",
+  "fr": "N'oublie pas de fermer à clé en sortant.",
+  "en": "Don't forget to lock the door when you go out."
  },
  "generation": {
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:d91ceaf10b4ce1fad92570ed1bc502a72f8dea5f4b7e9c0798591458971b3983",
-  "essais": 1,
+  "empreinte_invite": "sha256:49b7a9c59844cd8ebf4c92c804a31444cacb53329ca2045a0ed17045b6177d6a",
+  "essais": 2,
   "refus": []
  },
  "statut": "relu"

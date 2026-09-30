@@ -3,7 +3,9 @@
  "parcours": "lire",
  "jour": 1305,
  "pinyin": [
-  "tiē"
+  "tiē",
+  "tiě",
+  "tiè"
  ],
  "sens_fr": "docile, invitation, modèle d'écriture",
  "sens_en": "submissive, invitation, copybook",
@@ -23,19 +25,32 @@
   "⺊": "forme",
   "口": "forme"
  },
- "mots": [],
+ "mots": [
+  {
+   "hanzi": "服帖",
+   "pinyin": "fútiē",
+   "fr": "docile, soumis",
+   "en": "docile, obedient"
+  },
+  {
+   "hanzi": "帖子",
+   "pinyin": "tiězi",
+   "fr": "message (forum) ; carte",
+   "en": "post (online); card"
+  }
+ ],
  "phrase": {
-  "zh": "",
-  "pinyin": "",
-  "fr": "",
-  "en": ""
+  "zh": "这只猫被他管得服服帖帖。",
+  "pinyin": "Zhè zhī māo bèi tā guǎn de fúfútiētiē.",
+  "fr": "Il a rendu ce chat parfaitement docile.",
+  "en": "He has got this cat completely under control."
  },
  "generation": {
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:0d3d61d94fd2c494d63ce27f52133d81e39ffbc632e7f1b6998c92e753149dfe",
-  "essais": 1,
+  "empreinte_invite": "sha256:85a1def5d723ab51181540e013dcaa646aa0b0cb45e50c6ad5c676f11007c545",
+  "essais": 3,
   "refus": []
  },
  "statut": "relu"

@@ -23,19 +23,32 @@
   "户": "son",
   "习": "son"
  },
- "mots": [],
+ "mots": [
+  {
+   "hanzi": "煽情",
+   "pinyin": "shānqíng",
+   "fr": "larmoyant, qui joue sur l'émotion",
+   "en": "sentimental, tear-jerking"
+  },
+  {
+   "hanzi": "煽动",
+   "pinyin": "shāndòng",
+   "fr": "inciter, attiser",
+   "en": "to incite, to stir up"
+  }
+ ],
  "phrase": {
-  "zh": "",
-  "pinyin": "",
-  "fr": "",
-  "en": ""
+  "zh": "这部电影太煽情了。",
+  "pinyin": "Zhè bù diànyǐng tài shānqíng le.",
+  "fr": "Ce film en fait trop dans l'émotion.",
+  "en": "This film is far too sentimental."
  },
  "generation": {
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:6c2db2ff44d65d8c399c63ec48fb70b41a86b1daa504c3adec089825efa58c11",
-  "essais": 1,
+  "empreinte_invite": "sha256:67cd7423e398372c63376d17636d347df4ea67e50b8b47aadb358f3cd15eafb4",
+  "essais": 2,
   "refus": []
  },
  "statut": "relu"

@@ -25,19 +25,32 @@
   "日": "forme",
   "十": "forme"
  },
- "mots": [],
+ "mots": [
+  {
+   "hanzi": "口罩",
+   "pinyin": "kǒuzhào",
+   "fr": "masque (buccal)",
+   "en": "face mask"
+  },
+  {
+   "hanzi": "灯罩",
+   "pinyin": "dēngzhào",
+   "fr": "abat-jour",
+   "en": "lampshade"
+  }
+ ],
  "phrase": {
-  "zh": "",
-  "pinyin": "",
-  "fr": "",
-  "en": ""
+  "zh": "感冒了要戴口罩。",
+  "pinyin": "Gǎnmào le yào dài kǒuzhào.",
+  "fr": "Quand on est enrhumé, il faut porter un masque.",
+  "en": "Wear a mask when you have a cold."
  },
  "generation": {
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:bf3d0be8a156f4869a94785b297823f84601346f2fe15326d4de37008ac8a91f",
-  "essais": 1,
+  "empreinte_invite": "sha256:ed4c8cd9a5cbdc78ad129f9e740fd40f53275054c2da9ce86a368c92d9a89fb2",
+  "essais": 2,
   "refus": []
  },
  "statut": "relu"

@@ -1,0 +1,448 @@
+{
+ "examen": "yueke-905",
+ "parcours": "lire",
+ "generation": {
+  "modele": "rédaction manuelle",
+  "api": "session Claude Code (sans API)",
+  "date": "2026-09-30"
+ },
+ "relecture": {
+  "statut": "relu",
+  "par": "le propriétaire",
+  "decision": "« Go » (30 septembre 2026) : tout affiché sans relecture ligne à ligne",
+  "date": "2026-09-30"
+ },
+ "series": [
+  {
+   "serie": "A",
+   "statut": "relu",
+   "supports": [
+    {
+     "id": "s1",
+     "genre": "message",
+     "contexte": {
+      "fr": "Un message",
+      "en": "A message"
+     },
+     "lignes": [
+      {
+       "zh": "王姐，我和小李下个月结婚，",
+       "pinyin": "wáng jiě wǒ hé xiǎo lǐ xià gè yuè jié hūn",
+       "fr": "Wang Jie, Xiao Li et moi nous marions le mois prochain :",
+       "en": "Wang Jie, Xiao Li and I are getting married next month:"
+      },
+      {
+       "zh": "请您来喝喜酒！",
+       "pinyin": "qǐng nín lái hē xǐ jiǔ",
+       "fr": "venez au banquet de noces !",
+       "en": "please come to the wedding banquet!"
+      },
+      {
+       "zh": "地方在中华饭店。",
+       "pinyin": "dì fang zài zhōng huá fàn diàn",
+       "fr": "C'est au restaurant Zhonghua.",
+       "en": "It's at the Zhonghua restaurant."
+      }
+     ],
+     "glose": [
+      {
+       "zh": "中华饭店",
+       "pinyin": "zhōng huá fàn diàn",
+       "fr": "restaurant Zhonghua",
+       "en": "Zhonghua restaurant"
+      }
+     ]
+    },
+    {
+     "id": "s2",
+     "genre": "menu",
+     "contexte": {
+      "fr": "Un menu",
+      "en": "A menu"
+     },
+     "lignes": [
+      {
+       "zh": "光明咖啡馆",
+       "pinyin": "guāng míng kā fēi guǎn",
+       "fr": "Café Guangming",
+       "en": "Guangming Café"
+      },
+      {
+       "zh": "咖啡：二十元",
+       "pinyin": "kā fēi èr shí yuán",
+       "fr": "Café : 20 yuans",
+       "en": "Coffee: 20 yuan"
+      },
+      {
+       "zh": "牛奶咖啡：二十五元",
+       "pinyin": "niú nǎi kā fēi èr shí wǔ yuán",
+       "fr": "Café au lait : 25 yuans",
+       "en": "White coffee: 25 yuan"
+      },
+      {
+       "zh": "花茶：十五元",
+       "pinyin": "huā chá shí wǔ yuán",
+       "fr": "Thé au jasmin : 15 yuans",
+       "en": "Jasmine tea: 15 yuan"
+      }
+     ],
+     "glose": [
+      {
+       "zh": "光明咖啡馆",
+       "pinyin": "guāng míng kā fēi guǎn",
+       "fr": "café Guangming",
+       "en": "Guangming Café"
+      }
+     ]
+    }
+   ],
+   "questions": [
+    {
+     "type": "comprendre",
+     "support": "s1",
+     "consigne": {
+      "fr": "Qu'annonce ce message ?",
+      "en": "What does this message announce?"
+     },
+     "choix": [
+      {
+       "fr": "Un déménagement",
+       "en": "A house move"
+      },
+      {
+       "fr": "Une naissance",
+       "en": "A birth"
+      },
+      {
+       "fr": "Un mariage",
+       "en": "A wedding"
+      },
+      {
+       "fr": "Un anniversaire",
+       "en": "A birthday"
+      }
+     ],
+     "reponse": 2,
+     "porte": [
+      "结",
+      "婚"
+     ]
+    },
+    {
+     "type": "reperer",
+     "support": "s1",
+     "consigne": {
+      "fr": "Touche le lieu du repas.",
+      "en": "Tap the place of the meal."
+     },
+     "choix": [
+      "中华饭店",
+      "小李",
+      "下个月",
+      "喜酒"
+     ],
+     "reponse": 0,
+     "porte": [
+      "中",
+      "华",
+      "饭",
+      "店"
+     ]
+    },
+    {
+     "type": "replique",
+     "support": "s1",
+     "consigne": {
+      "fr": "Que répond Wang Jie ?",
+      "en": "What does Wang Jie reply?"
+     },
+     "choix": [
+      {
+       "zh": "这条裤子太长了。",
+       "pinyin": "zhè tiáo kù zi tài cháng le",
+       "fr": "Ce pantalon est trop long.",
+       "en": "These trousers are too long."
+      },
+      {
+       "zh": "我不会做饭。",
+       "pinyin": "wǒ bù huì zuò fàn",
+       "fr": "Je ne sais pas cuisiner.",
+       "en": "I can't cook."
+      },
+      {
+       "zh": "我的手机坏了。",
+       "pinyin": "wǒ de shǒu jī huài le",
+       "fr": "Mon téléphone est en panne.",
+       "en": "My phone is broken."
+      },
+      {
+       "zh": "太好了，我一定去！",
+       "pinyin": "tài hǎo le wǒ yī dìng qù",
+       "fr": "Super, je viendrai sans faute !",
+       "en": "Great, I'll be there for sure!"
+      }
+     ],
+     "reponse": 3,
+     "porte": [
+      "婚",
+      "请"
+     ]
+    },
+    {
+     "type": "vrai_faux",
+     "support": "s2",
+     "consigne": {
+      "fr": "Vrai ou faux ?",
+      "en": "True or false?"
+     },
+     "affirmation": {
+      "zh": "牛奶咖啡比花茶贵。",
+      "pinyin": "niú nǎi kā fēi bǐ huā chá guì",
+      "fr": "Le café au lait coûte plus cher que le thé au jasmin.",
+      "en": "White coffee costs more than jasmine tea."
+     },
+     "reponse": true,
+     "porte": [
+      "咖",
+      "啡",
+      "花",
+      "茶",
+      "贵"
+     ]
+    },
+    {
+     "type": "caractere",
+     "consigne": {
+      "fr": "Quel caractère a ce sens ?",
+      "en": "Which character has this meaning?"
+     },
+     "objet": {
+      "zh": "苦",
+      "pinyin": "kǔ",
+      "fr": "amer",
+      "en": "bitter"
+     },
+     "choix": [
+      "草",
+      "古",
+      "苦",
+      "茶"
+     ],
+     "reponse": 2,
+     "porte": [
+      "苦"
+     ]
+    }
+   ]
+  },
+  {
+   "serie": "B",
+   "statut": "relu",
+   "supports": [
+    {
+     "id": "s1",
+     "genre": "pancarte",
+     "contexte": {
+      "fr": "Un panneau",
+      "en": "A sign"
+     },
+     "lignes": [
+      {
+       "zh": "公园规定",
+       "pinyin": "gōng yuán guī dìng",
+       "fr": "Règlement du parc",
+       "en": "Park rules"
+      },
+      {
+       "zh": "请保护环境，",
+       "pinyin": "qǐng bǎo hù huán jìng",
+       "fr": "Respectez l'environnement,",
+       "en": "Please protect the environment,"
+      },
+      {
+       "zh": "不要在草地上骑车。",
+       "pinyin": "bù yào zài cǎo dì shàng qí chē",
+       "fr": "pas de vélo sur la pelouse.",
+       "en": "no cycling on the grass."
+      },
+      {
+       "zh": "有事请找警察。",
+       "pinyin": "yǒu shì qǐng zhǎo jǐng chá",
+       "fr": "En cas de besoin, adressez-vous à la police.",
+       "en": "If you need help, ask the police."
+      }
+     ]
+    },
+    {
+     "id": "s2",
+     "genre": "note",
+     "contexte": {
+      "fr": "Une note",
+      "en": "A note"
+     },
+     "lignes": [
+      {
+       "zh": "明天上午的考试很简单，",
+       "pinyin": "míng tiān shàng wǔ de kǎo shì hěn jiǎn dān",
+       "fr": "L'examen de demain matin est simple :",
+       "en": "Tomorrow morning's test is easy:"
+      },
+      {
+       "zh": "只考第三课和第四课。",
+       "pinyin": "zhǐ kǎo dì sān kè hé dì sì kè",
+       "fr": "il ne porte que sur les leçons 3 et 4.",
+       "en": "it only covers lessons 3 and 4."
+      },
+      {
+       "zh": "请带尺和笔。",
+       "pinyin": "qǐng dài chǐ hé bǐ",
+       "fr": "Apportez une règle et un stylo.",
+       "en": "Bring a ruler and a pen."
+      }
+     ]
+    }
+   ],
+   "questions": [
+    {
+     "type": "comprendre",
+     "support": "s1",
+     "consigne": {
+      "fr": "Que demande le panneau aux visiteurs ?",
+      "en": "What does the sign ask visitors to do?"
+     },
+     "choix": [
+      {
+       "fr": "De parler doucement",
+       "en": "To speak quietly"
+      },
+      {
+       "fr": "De protéger l'environnement",
+       "en": "To protect the environment"
+      },
+      {
+       "fr": "De garder son ticket",
+       "en": "To keep one's ticket"
+      },
+      {
+       "fr": "De fermer les portes",
+       "en": "To close the doors"
+      }
+     ],
+     "reponse": 1,
+     "porte": [
+      "保",
+      "护",
+      "环",
+      "境"
+     ]
+    },
+    {
+     "type": "reperer",
+     "support": "s1",
+     "consigne": {
+      "fr": "Touche le mot qui dit à qui s'adresser.",
+      "en": "Tap the word that says whom to ask."
+     },
+     "choix": [
+      "公园",
+      "草地",
+      "有事",
+      "警察"
+     ],
+     "reponse": 3,
+     "porte": [
+      "警",
+      "察"
+     ]
+    },
+    {
+     "type": "vrai_faux",
+     "support": "s2",
+     "consigne": {
+      "fr": "Vrai ou faux ?",
+      "en": "True or false?"
+     },
+     "affirmation": {
+      "zh": "考试比较难。",
+      "pinyin": "kǎo shì bǐ jiào nán",
+      "fr": "Le test est plutôt difficile.",
+      "en": "The test is rather hard."
+     },
+     "reponse": false,
+     "porte": [
+      "简",
+      "单",
+      "较"
+     ]
+    },
+    {
+     "type": "comprendre",
+     "support": "s2",
+     "consigne": {
+      "fr": "Que faut-il apporter ?",
+      "en": "What should you bring?"
+     },
+     "choix": [
+      {
+       "fr": "Un dictionnaire et un cahier",
+       "en": "A dictionary and a notebook"
+      },
+      {
+       "fr": "Une gourde et un livre",
+       "en": "A water bottle and a book"
+      },
+      {
+       "fr": "Une calculette et un crayon",
+       "en": "A calculator and a pencil"
+      },
+      {
+       "fr": "Une règle et un stylo",
+       "en": "A ruler and a pen"
+      }
+     ],
+     "reponse": 3,
+     "porte": [
+      "带",
+      "尺",
+      "笔"
+     ]
+    },
+    {
+     "type": "sens",
+     "consigne": {
+      "fr": "Que veut dire ce caractère ?",
+      "en": "What does this character mean?"
+     },
+     "objet": {
+      "zh": "旧",
+      "pinyin": "jiù",
+      "fr": "vieux",
+      "en": "old"
+     },
+     "choix": [
+      {
+       "fr": "vieux",
+       "en": "old"
+      },
+      {
+       "fr": "neuf",
+       "en": "new"
+      },
+      {
+       "fr": "propre",
+       "en": "clean"
+      },
+      {
+       "fr": "cher",
+       "en": "expensive"
+      }
+     ],
+     "reponse": 0,
+     "porte": [
+      "旧"
+     ]
+    }
+   ]
+  }
+ ]
+}

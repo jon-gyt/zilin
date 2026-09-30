@@ -3,6 +3,7 @@
  "parcours": "lire",
  "jour": 555,
  "pinyin": [
+  "shèn",
   "shén"
  ],
  "sens_fr": "très, extrêmement",
@@ -23,19 +24,26 @@
   "匚": "sens",
   "儿": "sens"
  },
- "mots": [],
+ "mots": [
+  {
+   "hanzi": "甚至",
+   "pinyin": "shènzhì",
+   "fr": "même, jusqu'à",
+   "en": "even, to the point of"
+  }
+ ],
  "phrase": {
-  "zh": "",
-  "pinyin": "",
-  "fr": "",
-  "en": ""
+  "zh": "他忙得甚至没有时间吃饭。",
+  "pinyin": "Tā máng de shènzhì méiyǒu shíjiān chīfàn.",
+  "fr": "Il est si occupé qu'il n'a même pas le temps de manger.",
+  "en": "He is so busy he doesn't even have time to eat."
  },
  "generation": {
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:a01649a93908db21ed750a88fb4aab65bff24e4bd4a06a3aa9ba2d78ba9fe24c",
-  "essais": 1,
+  "empreinte_invite": "sha256:06b914997b7ebb2746cd48806c1d6c0009d7ac5b6ff14a9ea816c9a629d54878",
+  "essais": 2,
   "refus": []
  },
  "statut": "relu"

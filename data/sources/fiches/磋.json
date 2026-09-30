@@ -23,19 +23,32 @@
   "羊": "forme",
   "工": "forme"
  },
- "mots": [],
+ "mots": [
+  {
+   "hanzi": "磋商",
+   "pinyin": "cuōshāng",
+   "fr": "négocier",
+   "en": "to negotiate"
+  },
+  {
+   "hanzi": "切磋",
+   "pinyin": "qiēcuō",
+   "fr": "échanger pour progresser",
+   "en": "to learn from each other"
+  }
+ ],
  "phrase": {
-  "zh": "",
-  "pinyin": "",
-  "fr": "",
-  "en": ""
+  "zh": "两国正在磋商这个问题。",
+  "pinyin": "Liǎng guó zhèngzài cuōshāng zhè ge wèntí.",
+  "fr": "Les deux pays négocient sur cette question.",
+  "en": "The two countries are negotiating this issue."
  },
  "generation": {
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:898484e2ba53165af6803bf89dc4c0168dbcb0717d5c5a1db89a43c1b2eee78f",
-  "essais": 1,
+  "empreinte_invite": "sha256:ab96289d3ad3e215b41bafdd89830b08b0ab43b4ce617226bc04a81be0df8f24",
+  "essais": 3,
   "refus": []
  },
  "statut": "relu"

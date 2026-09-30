@@ -21,19 +21,32 @@
   "去": "sens",
   "力": "sens"
  },
- "mots": [],
+ "mots": [
+  {
+   "hanzi": "抢劫",
+   "pinyin": "qiǎngjié",
+   "fr": "braquer, voler",
+   "en": "to rob"
+  },
+  {
+   "hanzi": "打劫",
+   "pinyin": "dǎjié",
+   "fr": "dévaliser",
+   "en": "to loot, to rob"
+  }
+ ],
  "phrase": {
-  "zh": "",
-  "pinyin": "",
-  "fr": "",
-  "en": ""
+  "zh": "昨天晚上，这家银行被抢劫了。",
+  "pinyin": "Zuótiān wǎnshang, zhè jiā yínháng bèi qiǎngjié le.",
+  "fr": "Hier soir, cette banque a été braquée.",
+  "en": "Last night this bank was robbed."
  },
  "generation": {
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:b9798e6e345a49e6a48bf747f93d575348391790ed176e191475be4af2634683",
-  "essais": 1,
+  "empreinte_invite": "sha256:fc7041fc336531dd49c237f70245fe8671215364087c95d93f10de30cae2aa4e",
+  "essais": 2,
   "refus": []
  },
  "statut": "relu"

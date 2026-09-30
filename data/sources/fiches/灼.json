@@ -21,19 +21,32 @@
   "火": "sens",
   "勺": "forme"
  },
- "mots": [],
+ "mots": [
+  {
+   "hanzi": "灼热",
+   "pinyin": "zhuórè",
+   "fr": "brûlant",
+   "en": "scorching"
+  },
+  {
+   "hanzi": "灼伤",
+   "pinyin": "zhuóshāng",
+   "fr": "brûlure, brûler",
+   "en": "burn; to scald"
+  }
+ ],
  "phrase": {
-  "zh": "",
-  "pinyin": "",
-  "fr": "",
-  "en": ""
+  "zh": "中午的阳光很灼热。",
+  "pinyin": "Zhōngwǔ de yángguāng hěn zhuórè.",
+  "fr": "Le soleil de midi est brûlant.",
+  "en": "The midday sun is scorching."
  },
  "generation": {
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:45bff47c1defd29df54bef260550bd01ba47e8abe5f16275f1664003e81c18d3",
-  "essais": 1,
+  "empreinte_invite": "sha256:3f3fc09ca4841041b4964443bdb578f96e4e721271c3ef48ebb5e6b41815f50e",
+  "essais": 2,
   "refus": []
  },
  "statut": "relu"

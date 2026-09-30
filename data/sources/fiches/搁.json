@@ -25,19 +25,32 @@
   "夂": "son",
   "口": "son"
  },
- "mots": [],
+ "mots": [
+  {
+   "hanzi": "耽搁",
+   "pinyin": "dānge",
+   "fr": "retarder, s'attarder",
+   "en": "to delay, to be held up"
+  },
+  {
+   "hanzi": "搁置",
+   "pinyin": "gēzhì",
+   "fr": "mettre de côté",
+   "en": "to shelve, to put aside"
+  }
+ ],
  "phrase": {
-  "zh": "",
-  "pinyin": "",
-  "fr": "",
-  "en": ""
+  "zh": "路上耽搁了一会儿，我来晚了。",
+  "pinyin": "Lù shang dānge le yīhuìr, wǒ lái wǎn le.",
+  "fr": "J'ai été retenu en chemin, je suis en retard.",
+  "en": "I was held up on the way, so I'm late."
  },
  "generation": {
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:67d7ee1cd3d2496c926ad62876d451b4ecf95231977925afcb11e03caa2b5378",
-  "essais": 1,
+  "empreinte_invite": "sha256:320be53dcc14973667e9796bee7b4c916fce43bafe200ab83b94ab6e5fa08b7e",
+  "essais": 2,
   "refus": []
  },
  "statut": "relu"

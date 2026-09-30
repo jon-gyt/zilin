@@ -25,19 +25,32 @@
   "六": "son",
   "乂": "son"
  },
- "mots": [],
+ "mots": [
+  {
+   "hanzi": "摔跤",
+   "pinyin": "shuāijiāo",
+   "fr": "tomber ; lutte",
+   "en": "to fall over; wrestling"
+  },
+  {
+   "hanzi": "跌跤",
+   "pinyin": "diējiāo",
+   "fr": "faire une chute",
+   "en": "to trip and fall"
+  }
+ ],
  "phrase": {
-  "zh": "",
-  "pinyin": "",
-  "fr": "",
-  "en": ""
+  "zh": "路上有冰，小心别摔跤。",
+  "pinyin": "Lùshang yǒu bīng, xiǎoxīn bié shuāijiāo.",
+  "fr": "Il y a du verglas sur la route, attention à ne pas tomber.",
+  "en": "There's ice on the road, be careful not to fall."
  },
  "generation": {
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:697426e591cabd20bcaf988d5eb2cd397d62af38b6c378bb95aaf2b56865b56a",
-  "essais": 1,
+  "empreinte_invite": "sha256:cb0730ed7a9593d0c13568c09e39fe1172a31c4ca20a190b75b3473cd04af5f4",
+  "essais": 2,
   "refus": []
  },
  "statut": "relu"

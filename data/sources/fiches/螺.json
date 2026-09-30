@@ -23,19 +23,32 @@
   "田": "forme",
   "糸": "forme"
  },
- "mots": [],
+ "mots": [
+  {
+   "hanzi": "螺丝",
+   "pinyin": "luósī",
+   "fr": "vis",
+   "en": "screw"
+  },
+  {
+   "hanzi": "田螺",
+   "pinyin": "tiánluó",
+   "fr": "escargot d'eau douce",
+   "en": "river snail"
+  }
+ ],
  "phrase": {
-  "zh": "",
-  "pinyin": "",
-  "fr": "",
-  "en": ""
+  "zh": "这个螺丝松了。",
+  "pinyin": "Zhège luósī sōng le.",
+  "fr": "Cette vis s'est desserrée.",
+  "en": "This screw has come loose."
  },
  "generation": {
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:746d1f456ce83d4dc132c5c910bcd22fb39f7715f7a7d24788189671048b781a",
-  "essais": 1,
+  "empreinte_invite": "sha256:a38eed1fac07b10f493c39018897671bb9cb61932c4a977b66bcff966c20dc8b",
+  "essais": 2,
   "refus": []
  },
  "statut": "relu"

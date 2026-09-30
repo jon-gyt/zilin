@@ -21,19 +21,32 @@
   "木": "sens",
   "弟": "forme"
  },
- "mots": [],
+ "mots": [
+  {
+   "hanzi": "电梯",
+   "pinyin": "diàntī",
+   "fr": "ascenseur",
+   "en": "lift, elevator"
+  },
+  {
+   "hanzi": "楼梯",
+   "pinyin": "lóutī",
+   "fr": "escalier",
+   "en": "stairs"
+  }
+ ],
  "phrase": {
-  "zh": "",
-  "pinyin": "",
-  "fr": "",
-  "en": ""
+  "zh": "我们坐电梯上楼吧。",
+  "pinyin": "Wǒmen zuò diàntī shàng lóu ba.",
+  "fr": "Prenons l'ascenseur pour monter.",
+  "en": "Let's take the lift upstairs."
  },
  "generation": {
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:3cca7640c0d78fa8eda1bfeef8a5dc57c38ad0c72c40f461015fac73cefee805",
-  "essais": 1,
+  "empreinte_invite": "sha256:6cc65008791792369ad3d01be2aba1e27ce9838009fa1cb209bc0a03fc49a289",
+  "essais": 2,
   "refus": []
  },
  "statut": "relu"

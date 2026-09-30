@@ -3,7 +3,8 @@
  "parcours": "lire",
  "jour": 1425,
  "pinyin": [
-  "zhān"
+  "zhān",
+  "nián"
  ],
  "sens_fr": "coller, collant",
  "sens_en": "to stick, sticky",
@@ -23,19 +24,32 @@
   "⺊": "son",
   "口": "son"
  },
- "mots": [],
+ "mots": [
+  {
+   "hanzi": "粘贴",
+   "pinyin": "zhāntiē",
+   "fr": "coller",
+   "en": "to paste, to stick"
+  },
+  {
+   "hanzi": "粘稠",
+   "pinyin": "niánchóu",
+   "fr": "visqueux, épais",
+   "en": "viscous, thick"
+  }
+ ],
  "phrase": {
-  "zh": "",
-  "pinyin": "",
-  "fr": "",
-  "en": ""
+  "zh": "把这张照片粘在本子上。",
+  "pinyin": "Bǎ zhè zhāng zhàopiàn zhān zài běnzi shàng.",
+  "fr": "Colle cette photo dans le cahier.",
+  "en": "Stick this photo in the notebook."
  },
  "generation": {
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:7cd9fb3b6747e0b3ecfeb90d47d344b1bcdc6b802b10597268d6663b0204ce65",
-  "essais": 1,
+  "empreinte_invite": "sha256:f3e530e569d38d02e0378025031fee03b320bfb671b4663cb600ec7e564d26c0",
+  "essais": 3,
   "refus": []
  },
  "statut": "relu"

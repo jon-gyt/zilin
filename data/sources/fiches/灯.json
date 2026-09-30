@@ -21,19 +21,32 @@
   "火": "sens",
   "丁": "forme"
  },
- "mots": [],
+ "mots": [
+  {
+   "hanzi": "电灯",
+   "pinyin": "diàndēng",
+   "fr": "lampe électrique",
+   "en": "electric light"
+  },
+  {
+   "hanzi": "红灯",
+   "pinyin": "hóngdēng",
+   "fr": "feu rouge",
+   "en": "red light"
+  }
+ ],
  "phrase": {
-  "zh": "",
-  "pinyin": "",
-  "fr": "",
-  "en": ""
+  "zh": "天黑了，请开灯。",
+  "pinyin": "Tiān hēi le, qǐng kāi dēng.",
+  "fr": "Il fait nuit, allume la lumière, s'il te plaît.",
+  "en": "It's dark, please turn on the light."
  },
  "generation": {
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:74bde9ec43a273cf9945c438b17c7c947c72215d31d6a878ef6e11ebb6b8cadf",
-  "essais": 1,
+  "empreinte_invite": "sha256:59a6fc01dab330d36c62882352639fbb30081638566a6ffe2ea53f0584cd29ed",
+  "essais": 2,
   "refus": []
  },
  "statut": "relu"

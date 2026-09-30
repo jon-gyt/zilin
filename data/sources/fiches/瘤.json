@@ -23,19 +23,32 @@
   "卯": "son",
   "田": "son"
  },
- "mots": [],
+ "mots": [
+  {
+   "hanzi": "肿瘤",
+   "pinyin": "zhǒngliú",
+   "fr": "tumeur",
+   "en": "tumour"
+  },
+  {
+   "hanzi": "瘤子",
+   "pinyin": "liúzi",
+   "fr": "grosseur, tumeur",
+   "en": "lump, growth"
+  }
+ ],
  "phrase": {
-  "zh": "",
-  "pinyin": "",
-  "fr": "",
-  "en": ""
+  "zh": "医生在他身上发现了一个肿瘤。",
+  "pinyin": "Yīshēng zài tā shēnshang fāxiàn le yī gè zhǒngliú.",
+  "fr": "Le médecin lui a trouvé une tumeur.",
+  "en": "The doctor found a tumour on him."
  },
  "generation": {
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:4173daed8f8f639dd957d4a0db1c522674a31a81e3284a07ef4a6fca54a6c5df",
-  "essais": 1,
+  "empreinte_invite": "sha256:dad29510617b38439f121003c60ddd9695b626a01d6cd9652614aac1ed51edfb",
+  "essais": 2,
   "refus": []
  },
  "statut": "relu"

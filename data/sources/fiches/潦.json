@@ -3,7 +3,9 @@
  "parcours": "lire",
  "jour": 1138,
  "pinyin": [
-  "lǎo"
+  "liáo",
+  "lǎo",
+  "liǎo"
  ],
  "sens_fr": "négligé, bâclé, déchu",
  "sens_en": "careless, sloppy, down and out",
@@ -25,19 +27,32 @@
   "日": "son",
   "小": "son"
  },
- "mots": [],
+ "mots": [
+  {
+   "hanzi": "潦草",
+   "pinyin": "liáocǎo",
+   "fr": "bâclé, griffonné",
+   "en": "sloppy, scrawled"
+  },
+  {
+   "hanzi": "潦倒",
+   "pinyin": "liáodǎo",
+   "fr": "déchu, dans la misère",
+   "en": "down and out"
+  }
+ ],
  "phrase": {
-  "zh": "",
-  "pinyin": "",
-  "fr": "",
-  "en": ""
+  "zh": "他的字写得很潦草。",
+  "pinyin": "Tā de zì xiě de hěn liáocǎo.",
+  "fr": "Son écriture est un vrai griffonnage.",
+  "en": "His handwriting is a scrawl."
  },
  "generation": {
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:94322dda7c3db6e5bdc60e4c73170d6efd5df24d11e205bd2fe033cdf63db417",
-  "essais": 1,
+  "empreinte_invite": "sha256:b9c3d98e0cf78a75fd7d5fff52f4499d085a96c80d4d83d5c5032de7d634df3b",
+  "essais": 2,
   "refus": []
  },
  "statut": "relu"

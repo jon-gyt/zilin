@@ -23,19 +23,32 @@
   "户": "son",
   "𠕁": "son"
  },
- "mots": [],
+ "mots": [
+  {
+   "hanzi": "编写",
+   "pinyin": "biānxiě",
+   "fr": "rédiger, écrire",
+   "en": "to write, to compile"
+  },
+  {
+   "hanzi": "编号",
+   "pinyin": "biānhào",
+   "fr": "numéro, numéroter",
+   "en": "serial number, to number"
+  }
+ ],
  "phrase": {
-  "zh": "",
-  "pinyin": "",
-  "fr": "",
-  "en": ""
+  "zh": "她在编一本新书。",
+  "pinyin": "Tā zài biān yī běn xīn shū.",
+  "fr": "Elle prépare un nouveau livre.",
+  "en": "She is editing a new book."
  },
  "generation": {
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:38d77606e967912800e5aac14a80cebef941508228c4b342f785a75fe3c6a02b",
-  "essais": 1,
+  "empreinte_invite": "sha256:ba42f680ebcee508f712d4ad3682b8d5f9daa672f6beb00cf74b6b7146978cf0",
+  "essais": 2,
   "refus": []
  },
  "statut": "relu"

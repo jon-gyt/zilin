@@ -393,11 +393,16 @@ function couperMot(lettres: readonly string[], tete = true): string[] | null {
 /**
  * Le pinyin d'une phrase, syllabe par syllabe. Les espaces, apostrophes, tirets et la
  * ponctuation séparent les mots. `null` si un mot ne se coupe pas en syllabes connues.
+ * Un « r » seul est le 儿 de l'érhua (一会儿 yī huì r) : il compte pour son caractère.
  */
 export function syllabes(pinyin: string): string[] | null {
   const mots = pinyin.normalize('NFC').match(/[\p{L}\p{M}]+/gu) ?? [];
   const out: string[] = [];
   for (const m of mots) {
+    if (m === 'r') {
+      out.push(m);
+      continue;
+    }
     const s = couperMot(Array.from(m));
     if (s === null) return null;
     out.push(...s);

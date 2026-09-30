@@ -23,19 +23,32 @@
   "耂": "forme",
   "日": "forme"
  },
- "mots": [],
+ "mots": [
+  {
+   "hanzi": "签署",
+   "pinyin": "qiānshǔ",
+   "fr": "signer (un accord)",
+   "en": "to sign (an agreement)"
+  },
+  {
+   "hanzi": "部署",
+   "pinyin": "bùshǔ",
+   "fr": "déployer, disposer",
+   "en": "to deploy, to arrange"
+  }
+ ],
  "phrase": {
-  "zh": "",
-  "pinyin": "",
-  "fr": "",
-  "en": ""
+  "zh": "两国签署了新的协议。",
+  "pinyin": "Liǎng guó qiānshǔ le xīn de xiéyì.",
+  "fr": "Les deux pays ont signé un nouvel accord.",
+  "en": "The two countries signed a new agreement."
  },
  "generation": {
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:70ed2b9fee3b365bc6268bc59f1f71500ec8298e60426b7f88ac59332ecc8ef2",
-  "essais": 1,
+  "empreinte_invite": "sha256:dbbbc08c37b28a5dc71e10e2750801f07850ba678a68cc4232d61f2e7afb26fb",
+  "essais": 2,
   "refus": []
  },
  "statut": "relu"

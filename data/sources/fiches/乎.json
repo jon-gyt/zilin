@@ -19,19 +19,32 @@
  "roles": {
   "乎": "forme"
  },
- "mots": [],
+ "mots": [
+  {
+   "hanzi": "在乎",
+   "pinyin": "zàihu",
+   "fr": "se soucier de, tenir à",
+   "en": "to care about"
+  },
+  {
+   "hanzi": "合乎",
+   "pinyin": "héhū",
+   "fr": "être conforme à",
+   "en": "to conform to"
+  }
+ ],
  "phrase": {
-  "zh": "",
-  "pinyin": "",
-  "fr": "",
-  "en": ""
+  "zh": "我不在乎。",
+  "pinyin": "Wǒ bù zàihu.",
+  "fr": "Ça m'est égal.",
+  "en": "I don't care."
  },
  "generation": {
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:1b59d53561841d6c3f29f5a67596b6a9532cfdbc8a53a8ed276374903c331600",
-  "essais": 1,
+  "empreinte_invite": "sha256:295952bb53266cb685e790a507779121c83ff7444e3edaa6647c068a8cc53bb7",
+  "essais": 2,
   "refus": []
  },
  "statut": "relu"

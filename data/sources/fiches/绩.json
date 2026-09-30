@@ -3,6 +3,7 @@
  "parcours": "lire",
  "jour": 253,
  "pinyin": [
+  "jì",
   "jī"
  ],
  "sens_fr": "résultat, exploit",
@@ -23,19 +24,32 @@
   "龶": "forme",
   "贝": "forme"
  },
- "mots": [],
+ "mots": [
+  {
+   "hanzi": "成绩",
+   "pinyin": "chéngjì",
+   "fr": "résultat, note",
+   "en": "result, grade"
+  },
+  {
+   "hanzi": "业绩",
+   "pinyin": "yèjì",
+   "fr": "bilan, résultats obtenus",
+   "en": "track record, achievements"
+  }
+ ],
  "phrase": {
-  "zh": "",
-  "pinyin": "",
-  "fr": "",
-  "en": ""
+  "zh": "她的学习成绩很好。",
+  "pinyin": "Tā de xuéxí chéngjì hěn hǎo.",
+  "fr": "Elle a de très bons résultats scolaires.",
+  "en": "Her school grades are very good."
  },
  "generation": {
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:54a5f52d790cf097e8d3670a87d15cb6b6dd9cb30b8f52da31d9d8b7f30be641",
-  "essais": 1,
+  "empreinte_invite": "sha256:1651cf05e82ef2cb6e0e7e85c01b639f1e0993c53936b60501757a480004e21b",
+  "essais": 2,
   "refus": []
  },
  "statut": "relu"

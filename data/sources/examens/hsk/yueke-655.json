@@ -1,0 +1,638 @@
+{
+ "examen": "yueke-655",
+ "parcours": "hsk",
+ "generation": {
+  "modele": "rédaction manuelle",
+  "api": "session Claude Code (sans API)",
+  "date": "2026-09-30"
+ },
+ "relecture": {
+  "statut": "relu",
+  "par": "le propriétaire",
+  "decision": "« Go » (30 septembre 2026) : tout affiché sans relecture ligne à ligne",
+  "date": "2026-09-30"
+ },
+ "series": [
+  {
+   "serie": "A",
+   "statut": "relu",
+   "supports": [
+    {
+     "id": "s1",
+     "genre": "message",
+     "contexte": {
+      "fr": "Un message",
+      "en": "A message"
+     },
+     "lignes": [
+      {
+       "zh": "十月一日我们全家去四川爬山。",
+       "pinyin": "shí yuè yī rì wǒ men quán jiā qù sì chuān pá shān",
+       "fr": "Le 1er octobre, toute la famille part randonner en montagne au Sichuan.",
+       "en": "On October 1st the whole family is going hiking in Sichuan."
+      },
+      {
+       "zh": "我已经在网上买了票，",
+       "pinyin": "wǒ yǐ jīng zài wǎng shàng mǎi le piào",
+       "fr": "J'ai déjà acheté les billets en ligne :",
+       "en": "I've already bought the tickets online:"
+      },
+      {
+       "zh": "到了车站，先去取票。",
+       "pinyin": "dào le chē zhàn xiān qù qǔ piào",
+       "fr": "à la gare, on va d'abord les retirer.",
+       "en": "at the station, we'll collect them first."
+      }
+     ],
+     "glose": [
+      {
+       "zh": "十月一日",
+       "pinyin": "shí yuè yī rì",
+       "fr": "le 1er octobre",
+       "en": "October 1st"
+      },
+      {
+       "zh": "全家",
+       "pinyin": "quán jiā",
+       "fr": "toute la famille",
+       "en": "the whole family"
+      },
+      {
+       "zh": "四川",
+       "pinyin": "sì chuān",
+       "fr": "le Sichuan",
+       "en": "Sichuan"
+      },
+      {
+       "zh": "爬山",
+       "pinyin": "pá shān",
+       "fr": "randonner en montagne",
+       "en": "to hike, to climb a mountain"
+      },
+      {
+       "zh": "已经",
+       "pinyin": "yǐ jīng",
+       "fr": "déjà",
+       "en": "already"
+      },
+      {
+       "zh": "网上",
+       "pinyin": "wǎng shàng",
+       "fr": "en ligne",
+       "en": "online"
+      },
+      {
+       "zh": "到了",
+       "pinyin": "dào le",
+       "fr": "une fois arrivé à",
+       "en": "once at"
+      },
+      {
+       "zh": "取票",
+       "pinyin": "qǔ piào",
+       "fr": "retirer ses billets",
+       "en": "to collect tickets"
+      },
+      {
+       "zh": "新",
+       "pinyin": "xīn",
+       "fr": "nouveau",
+       "en": "new"
+      },
+      {
+       "zh": "的时候",
+       "pinyin": "de shí hou",
+       "fr": "quand, au moment de",
+       "en": "when"
+      },
+      {
+       "zh": "晚饭",
+       "pinyin": "wǎn fàn",
+       "fr": "dîner",
+       "en": "dinner"
+      },
+      {
+       "zh": "鱼",
+       "pinyin": "yú",
+       "fr": "poisson",
+       "en": "fish"
+      }
+     ]
+    },
+    {
+     "id": "s2",
+     "genre": "pancarte",
+     "contexte": {
+      "fr": "Un écriteau",
+      "en": "A notice"
+     },
+     "lignes": [
+      {
+       "zh": "请排队上车",
+       "pinyin": "qǐng pái duì shàng chē",
+       "fr": "Faites la queue pour monter",
+       "en": "Please queue to board"
+      },
+      {
+       "zh": "先下后上",
+       "pinyin": "xiān xià hòu shàng",
+       "fr": "Laissez descendre avant de monter",
+       "en": "Let passengers off first"
+      },
+      {
+       "zh": "请让老人先上",
+       "pinyin": "qǐng ràng lǎo rén xiān shàng",
+       "fr": "Laissez monter d'abord les personnes âgées",
+       "en": "Let elderly people board first"
+      }
+     ],
+     "glose": [
+      {
+       "zh": "排队",
+       "pinyin": "pái duì",
+       "fr": "faire la queue",
+       "en": "to queue"
+      },
+      {
+       "zh": "上车",
+       "pinyin": "shàng chē",
+       "fr": "monter (dans un véhicule)",
+       "en": "to board"
+      },
+      {
+       "zh": "后",
+       "pinyin": "hòu",
+       "fr": "après",
+       "en": "after"
+      },
+      {
+       "zh": "让",
+       "pinyin": "ràng",
+       "fr": "laisser, céder",
+       "en": "to let, to give way"
+      }
+     ]
+    }
+   ],
+   "questions": [
+    {
+     "type": "comprendre",
+     "support": "s1",
+     "consigne": {
+      "fr": "Que va faire la famille ?",
+      "en": "What is the family going to do?"
+     },
+     "choix": [
+      {
+       "fr": "Nager à la mer",
+       "en": "Swim in the sea"
+      },
+      {
+       "fr": "Voir un film",
+       "en": "See a film"
+      },
+      {
+       "fr": "Faire les courses",
+       "en": "Go shopping"
+      },
+      {
+       "fr": "Gravir des montagnes",
+       "en": "Climb mountains"
+      }
+     ],
+     "reponse": 3,
+     "porte": [
+      "爬",
+      "山"
+     ]
+    },
+    {
+     "type": "vrai_faux",
+     "support": "s1",
+     "consigne": {
+      "fr": "Vrai ou faux ?",
+      "en": "True or false?"
+     },
+     "affirmation": {
+      "zh": "他们到了车站再买票。",
+      "pinyin": "tā men dào le chē zhàn zài mǎi piào",
+      "fr": "Ils achèteront les billets une fois à la gare.",
+      "en": "They'll buy the tickets once at the station."
+     },
+     "reponse": false,
+     "porte": [
+      "已",
+      "经",
+      "买",
+      "取"
+     ]
+    },
+    {
+     "type": "replique",
+     "support": "s1",
+     "consigne": {
+      "fr": "Que réponds-tu ?",
+      "en": "What do you reply?"
+     },
+     "choix": [
+      {
+       "zh": "这是我的新手机。",
+       "pinyin": "zhè shì wǒ de xīn shǒu jī",
+       "fr": "C'est mon nouveau téléphone.",
+       "en": "This is my new phone."
+      },
+      {
+       "zh": "我爸爸在医院上班。",
+       "pinyin": "wǒ bà ba zài yī yuàn shàng bān",
+       "fr": "Mon père travaille à l'hôpital.",
+       "en": "My dad works at the hospital."
+      },
+      {
+       "zh": "太好了，爬山的时候小心！",
+       "pinyin": "tài hǎo le pá shān de shí hou xiǎo xīn",
+       "fr": "Super ! Soyez prudents en montagne !",
+       "en": "Great! Be careful on the mountain!"
+      },
+      {
+       "zh": "晚饭我想吃鱼。",
+       "pinyin": "wǎn fàn wǒ xiǎng chī yú",
+       "fr": "Ce soir, j'ai envie de poisson.",
+       "en": "I'd like fish for dinner."
+      }
+     ],
+     "reponse": 2,
+     "porte": [
+      "爬",
+      "山"
+     ]
+    },
+    {
+     "type": "comprendre",
+     "support": "s2",
+     "consigne": {
+      "fr": "Qui monte en premier ?",
+      "en": "Who boards first?"
+     },
+     "choix": [
+      {
+       "fr": "Les personnes âgées",
+       "en": "Elderly people"
+      },
+      {
+       "fr": "Les enfants",
+       "en": "Children"
+      },
+      {
+       "fr": "Les étudiants",
+       "en": "Students"
+      },
+      {
+       "fr": "Les chauffeurs",
+       "en": "Drivers"
+      }
+     ],
+     "reponse": 0,
+     "porte": [
+      "让",
+      "老",
+      "人"
+     ]
+    },
+    {
+     "type": "caractere",
+     "consigne": {
+      "fr": "Quel caractère a ce sens ?",
+      "en": "Which character has this meaning?"
+     },
+     "objet": {
+      "zh": "晴",
+      "pinyin": "qíng",
+      "fr": "dégagé, beau (temps)",
+      "en": "clear, sunny"
+     },
+     "choix": [
+      "情",
+      "晴",
+      "睛",
+      "清"
+     ],
+     "reponse": 1,
+     "porte": [
+      "晴"
+     ]
+    }
+   ]
+  },
+  {
+   "serie": "B",
+   "statut": "relu",
+   "supports": [
+    {
+     "id": "s1",
+     "genre": "menu",
+     "contexte": {
+      "fr": "Un menu",
+      "en": "A menu"
+     },
+     "lignes": [
+      {
+       "zh": "早餐",
+       "pinyin": "zǎo cān",
+       "fr": "Petit-déjeuner",
+       "en": "Breakfast"
+      },
+      {
+       "zh": "鸡蛋：一个两块",
+       "pinyin": "jī dàn yī gè liǎng kuài",
+       "fr": "Œuf : 2 yuans pièce",
+       "en": "Egg: 2 yuan each"
+      },
+      {
+       "zh": "青菜面：八块",
+       "pinyin": "qīng cài miàn bā kuài",
+       "fr": "Nouilles aux légumes verts : 8 yuans",
+       "en": "Green vegetable noodles: 8 yuan"
+      },
+      {
+       "zh": "牛奶：一瓶四块",
+       "pinyin": "niú nǎi yī píng sì kuài",
+       "fr": "Lait : 4 yuans la bouteille",
+       "en": "Milk: 4 yuan a bottle"
+      }
+     ],
+     "glose": [
+      {
+       "zh": "早餐",
+       "pinyin": "zǎo cān",
+       "fr": "petit-déjeuner",
+       "en": "breakfast"
+      },
+      {
+       "zh": "鸡蛋",
+       "pinyin": "jī dàn",
+       "fr": "œuf",
+       "en": "egg"
+      },
+      {
+       "zh": "两块",
+       "pinyin": "liǎng kuài",
+       "fr": "2 yuans",
+       "en": "2 yuan"
+      },
+      {
+       "zh": "青菜面",
+       "pinyin": "qīng cài miàn",
+       "fr": "nouilles aux légumes verts",
+       "en": "green vegetable noodles"
+      },
+      {
+       "zh": "八块",
+       "pinyin": "bā kuài",
+       "fr": "8 yuans",
+       "en": "8 yuan"
+      },
+      {
+       "zh": "牛奶",
+       "pinyin": "niú nǎi",
+       "fr": "lait",
+       "en": "milk"
+      },
+      {
+       "zh": "一瓶",
+       "pinyin": "yī píng",
+       "fr": "une bouteille",
+       "en": "a bottle"
+      },
+      {
+       "zh": "四块",
+       "pinyin": "sì kuài",
+       "fr": "4 yuans",
+       "en": "4 yuan"
+      }
+     ]
+    },
+    {
+     "id": "s2",
+     "genre": "message",
+     "contexte": {
+      "fr": "Un message",
+      "en": "A message"
+     },
+     "lignes": [
+      {
+       "zh": "妈妈，我到北京一个月了。",
+       "pinyin": "mā ma wǒ dào běi jīng yī gè yuè le",
+       "fr": "Maman, ça fait un mois que je suis à Pékin.",
+       "en": "Mum, I've been in Beijing for a month."
+      },
+      {
+       "zh": "这里的菜很好吃，",
+       "pinyin": "zhè li de cài hěn hǎo chī",
+       "fr": "La cuisine d'ici est très bonne,",
+       "en": "The food here is delicious,"
+      },
+      {
+       "zh": "可是天气我还不习惯，太干了。",
+       "pinyin": "kě shì tiān qì wǒ hái bù xí guàn tài gān le",
+       "fr": "mais je ne me fais pas encore au climat : c'est trop sec.",
+       "en": "but I'm still not used to the weather: it's too dry."
+      }
+     ],
+     "glose": [
+      {
+       "zh": "一个月",
+       "pinyin": "yī gè yuè",
+       "fr": "un mois",
+       "en": "a month"
+      },
+      {
+       "zh": "好吃",
+       "pinyin": "hǎo chī",
+       "fr": "bon (à manger)",
+       "en": "tasty"
+      },
+      {
+       "zh": "可是",
+       "pinyin": "kě shì",
+       "fr": "mais",
+       "en": "but"
+      },
+      {
+       "zh": "习惯",
+       "pinyin": "xí guàn",
+       "fr": "s'habituer ; habitude",
+       "en": "to get used to; habit"
+      },
+      {
+       "zh": "干",
+       "pinyin": "gān",
+       "fr": "sec",
+       "en": "dry"
+      },
+      {
+       "zh": "超市",
+       "pinyin": "chāo shì",
+       "fr": "supermarché",
+       "en": "supermarket"
+      },
+      {
+       "zh": "鸡蛋",
+       "pinyin": "jī dàn",
+       "fr": "œuf",
+       "en": "egg"
+      },
+      {
+       "zh": "就",
+       "pinyin": "jiù",
+       "fr": "(alors, dès lors)",
+       "en": "(then)"
+      },
+      {
+       "zh": "哪里",
+       "pinyin": "nǎ li",
+       "fr": "où",
+       "en": "where"
+      }
+     ]
+    }
+   ],
+   "questions": [
+    {
+     "type": "reperer",
+     "support": "s1",
+     "consigne": {
+      "fr": "Touche ce qui coûte huit yuans.",
+      "en": "Tap what costs eight yuan."
+     },
+     "choix": [
+      "早餐",
+      "鸡蛋",
+      "青菜面",
+      "牛奶"
+     ],
+     "reponse": 2,
+     "porte": [
+      "青",
+      "菜",
+      "面"
+     ]
+    },
+    {
+     "type": "vrai_faux",
+     "support": "s1",
+     "consigne": {
+      "fr": "Vrai ou faux ?",
+      "en": "True or false?"
+     },
+     "affirmation": {
+      "zh": "牛奶一瓶两块。",
+      "pinyin": "niú nǎi yī píng liǎng kuài",
+      "fr": "Le lait coûte deux yuans la bouteille.",
+      "en": "Milk costs two yuan a bottle."
+     },
+     "reponse": false,
+     "porte": [
+      "瓶",
+      "四"
+     ]
+    },
+    {
+     "type": "comprendre",
+     "support": "s2",
+     "consigne": {
+      "fr": "Qu'est-ce qui lui pose encore problème ?",
+      "en": "What is still hard for the writer?"
+     },
+     "choix": [
+      {
+       "fr": "Le climat",
+       "en": "The weather"
+      },
+      {
+       "fr": "La cuisine",
+       "en": "The food"
+      },
+      {
+       "fr": "Le travail",
+       "en": "Work"
+      },
+      {
+       "fr": "Les transports",
+       "en": "Getting around"
+      }
+     ],
+     "reponse": 0,
+     "porte": [
+      "习",
+      "惯",
+      "天",
+      "气"
+     ]
+    },
+    {
+     "type": "replique",
+     "support": "s2",
+     "consigne": {
+      "fr": "Que répond sa maman ?",
+      "en": "What does her mum reply?"
+     },
+     "choix": [
+      {
+       "zh": "我今天去超市买了鸡蛋。",
+       "pinyin": "wǒ jīn tiān qù chāo shì mǎi le jī dàn",
+       "fr": "Aujourd'hui, j'ai acheté des œufs au supermarché.",
+       "en": "I bought eggs at the supermarket today."
+      },
+      {
+       "zh": "多喝水，慢慢就习惯了。",
+       "pinyin": "duō hē shuǐ màn màn jiù xí guàn le",
+       "fr": "Bois beaucoup d'eau, tu t'y feras peu à peu.",
+       "en": "Drink lots of water, you'll get used to it."
+      },
+      {
+       "zh": "你的桌子在哪里？",
+       "pinyin": "nǐ de zhuō zi zài nǎ li",
+       "fr": "Où est ta table ?",
+       "en": "Where is your table?"
+      },
+      {
+       "zh": "明天是星期几？",
+       "pinyin": "míng tiān shì xīng qī jǐ",
+       "fr": "Demain, c'est quel jour ?",
+       "en": "What day is it tomorrow?"
+      }
+     ],
+     "reponse": 1,
+     "porte": [
+      "习",
+      "惯",
+      "干"
+     ]
+    },
+    {
+     "type": "ton",
+     "consigne": {
+      "fr": "Quel est le ton de ce caractère ?",
+      "en": "What is the tone of this character?"
+     },
+     "objet": {
+      "zh": "爬",
+      "pinyin": "pá",
+      "fr": "grimper",
+      "en": "to climb"
+     },
+     "choix": [
+      "pā",
+      "pá",
+      "pǎ",
+      "pà"
+     ],
+     "reponse": 1,
+     "porte": [
+      "爬"
+     ]
+    }
+   ]
+  }
+ ]
+}

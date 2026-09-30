@@ -23,19 +23,32 @@
   "耂": "forme",
   "日": "forme"
  },
- "mots": [],
+ "mots": [
+  {
+   "hanzi": "堵车",
+   "pinyin": "dǔchē",
+   "fr": "embouteillage",
+   "en": "traffic jam"
+  },
+  {
+   "hanzi": "堵住",
+   "pinyin": "dǔzhù",
+   "fr": "boucher, bloquer",
+   "en": "to block up"
+  }
+ ],
  "phrase": {
-  "zh": "",
-  "pinyin": "",
-  "fr": "",
-  "en": ""
+  "zh": "路上堵车了，我晚点到。",
+  "pinyin": "Lù shang dǔchē le, wǒ wǎn diǎn dào.",
+  "fr": "Ça bouchonne, j'arriverai un peu en retard.",
+  "en": "There's traffic, I'll be a little late."
  },
  "generation": {
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:9a87b934770461e9d17e4631d36f3e92150f1bb3a5f2e96dd9905597995dc9cd",
-  "essais": 1,
+  "empreinte_invite": "sha256:eb037a30e465b304f3c3141bd936291a83e09ec06e6a873da9f1e2636cdb580a",
+  "essais": 2,
   "refus": []
  },
  "statut": "relu"

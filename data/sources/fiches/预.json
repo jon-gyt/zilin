@@ -21,19 +21,32 @@
   "予": "son",
   "页": "sens"
  },
- "mots": [],
+ "mots": [
+  {
+   "hanzi": "预报",
+   "pinyin": "yùbào",
+   "fr": "prévision",
+   "en": "forecast"
+  },
+  {
+   "hanzi": "预习",
+   "pinyin": "yùxí",
+   "fr": "préparer une leçon",
+   "en": "to prepare a lesson"
+  }
+ ],
  "phrase": {
-  "zh": "",
-  "pinyin": "",
-  "fr": "",
-  "en": ""
+  "zh": "天气预报说明天有雨。",
+  "pinyin": "Tiānqì yùbào shuō míngtiān yǒu yǔ.",
+  "fr": "La météo annonce de la pluie pour demain.",
+  "en": "The forecast says it will rain tomorrow."
  },
  "generation": {
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:7c02f2478ebfca403cd9df5cae07330c87da7a19c787d6de4a7af30fb4b0365e",
-  "essais": 1,
+  "empreinte_invite": "sha256:3896f74838f7f1c07edd4f946650c8a403a705213549ae37c5c6117a52d45a51",
+  "essais": 2,
   "refus": []
  },
  "statut": "relu"

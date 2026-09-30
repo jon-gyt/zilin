@@ -21,19 +21,32 @@
   "月": "sens",
   "土": "forme"
  },
- "mots": [],
+ "mots": [
+  {
+   "hanzi": "肚子",
+   "pinyin": "dùzi",
+   "fr": "ventre",
+   "en": "belly, stomach"
+  },
+  {
+   "hanzi": "肚皮",
+   "pinyin": "dùpí",
+   "fr": "peau du ventre, ventre",
+   "en": "belly"
+  }
+ ],
  "phrase": {
-  "zh": "",
-  "pinyin": "",
-  "fr": "",
-  "en": ""
+  "zh": "我肚子疼。",
+  "pinyin": "Wǒ dùzi téng.",
+  "fr": "J'ai mal au ventre.",
+  "en": "My stomach hurts."
  },
  "generation": {
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:6d6a30991b74b7c4871a787323675b57dacefe76704e8acb5204b0a29b290b38",
-  "essais": 1,
+  "empreinte_invite": "sha256:64ba9bbf6db6256abb2b1f0e187824b2128e185dd9a45787a5e16e9407e05b38",
+  "essais": 2,
   "refus": []
  },
  "statut": "relu"

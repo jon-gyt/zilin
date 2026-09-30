@@ -21,19 +21,32 @@
   "羊": "forme",
   "习": "sens"
  },
- "mots": [],
+ "mots": [
+  {
+   "hanzi": "飞翔",
+   "pinyin": "fēixiáng",
+   "fr": "voler, planer",
+   "en": "to fly, to soar"
+  },
+  {
+   "hanzi": "滑翔",
+   "pinyin": "huáxiáng",
+   "fr": "planer, vol plané",
+   "en": "to glide"
+  }
+ ],
  "phrase": {
-  "zh": "",
-  "pinyin": "",
-  "fr": "",
-  "en": ""
+  "zh": "一只鸟在天上飞翔。",
+  "pinyin": "Yī zhī niǎo zài tiān shàng fēixiáng.",
+  "fr": "Un oiseau plane dans le ciel.",
+  "en": "A bird is soaring in the sky."
  },
  "generation": {
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:0920c81518787d0de215293e2b170ce1ef7ad8f58f0b9cb33a71baf315353e1f",
-  "essais": 1,
+  "empreinte_invite": "sha256:ae3f7aff26b8fe14b5019d67f3f622b69dc44fc4822a2ed6a6ce1471a98b2550",
+  "essais": 2,
   "refus": []
  },
  "statut": "relu"

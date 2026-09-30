@@ -19,19 +19,32 @@
  "roles": {
   "刁": "forme"
  },
- "mots": [],
+ "mots": [
+  {
+   "hanzi": "刁钻",
+   "pinyin": "diāozuān",
+   "fr": "retors, alambiqué",
+   "en": "crafty, tricky"
+  },
+  {
+   "hanzi": "刁难",
+   "pinyin": "diāonàn",
+   "fr": "chercher des ennuis à",
+   "en": "to make things difficult for"
+  }
+ ],
  "phrase": {
-  "zh": "",
-  "pinyin": "",
-  "fr": "",
-  "en": ""
+  "zh": "这个问题问得很刁钻。",
+  "pinyin": "Zhè ge wèntí wèn de hěn diāozuān.",
+  "fr": "Cette question est vraiment retorse.",
+  "en": "That question is really tricky."
  },
  "generation": {
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:60781b8a0140032a554698ea61b9a08765e54e9fa53766faa9c3850de8280f65",
-  "essais": 1,
+  "empreinte_invite": "sha256:4d309e692c793c009ba883dfd342f85926151140447b6d9984077a4d3f1c2d73",
+  "essais": 3,
   "refus": []
  },
  "statut": "relu"

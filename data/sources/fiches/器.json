@@ -21,19 +21,32 @@
   "口": "sens",
   "犬": "sens"
  },
- "mots": [],
+ "mots": [
+  {
+   "hanzi": "机器",
+   "pinyin": "jīqì",
+   "fr": "machine",
+   "en": "machine"
+  },
+  {
+   "hanzi": "电器",
+   "pinyin": "diànqì",
+   "fr": "appareil électrique",
+   "en": "electrical appliance"
+  }
+ ],
  "phrase": {
-  "zh": "",
-  "pinyin": "",
-  "fr": "",
-  "en": ""
+  "zh": "这个机器不能用了。",
+  "pinyin": "Zhège jīqì bù néng yòng le.",
+  "fr": "Cette machine ne marche plus.",
+  "en": "This machine doesn't work anymore."
  },
  "generation": {
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:ee7b47dda031938e909b009211f1f73bd2683384eade97768feb6c9a30b80eb2",
-  "essais": 1,
+  "empreinte_invite": "sha256:086794fc4eeaa1dd7af871e28c0f06565018f597a3eb7d2dfa921055151d0b0a",
+  "essais": 2,
   "refus": []
  },
  "statut": "relu"

@@ -23,19 +23,32 @@
   "口": "son",
   "马": "sens"
  },
- "mots": [],
+ "mots": [
+  {
+   "hanzi": "驾照",
+   "pinyin": "jiàzhào",
+   "fr": "permis de conduire",
+   "en": "driving licence"
+  },
+  {
+   "hanzi": "酒驾",
+   "pinyin": "jiǔjià",
+   "fr": "conduite en état d'ivresse",
+   "en": "drink-driving"
+  }
+ ],
  "phrase": {
-  "zh": "",
-  "pinyin": "",
-  "fr": "",
-  "en": ""
+  "zh": "他去年拿到了驾照。",
+  "pinyin": "Tā qùnián ná dào le jiàzhào.",
+  "fr": "Il a eu son permis de conduire l'an dernier.",
+  "en": "He got his driving licence last year."
  },
  "generation": {
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:eb8efdf1a38c48e87c3bc8b6367cb4d236e0adc4047eab67815de0ee208e34b6",
-  "essais": 1,
+  "empreinte_invite": "sha256:aba0e51fc6ce92675aecd114b8aaa985924f3f548724fa885d25d675df6a2f7d",
+  "essais": 2,
   "refus": []
  },
  "statut": "relu"

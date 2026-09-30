@@ -19,19 +19,32 @@
  "roles": {
   "予": "sens"
  },
- "mots": [],
+ "mots": [
+  {
+   "hanzi": "予以",
+   "pinyin": "yǔyǐ",
+   "fr": "accorder, apporter",
+   "en": "to give, to grant"
+  },
+  {
+   "hanzi": "不予",
+   "pinyin": "bùyǔ",
+   "fr": "refuser d'accorder",
+   "en": "to withhold, to refuse"
+  }
+ ],
  "phrase": {
-  "zh": "",
-  "pinyin": "",
-  "fr": "",
-  "en": ""
+  "zh": "老师对这个问题不予回答。",
+  "pinyin": "Lǎoshī duì zhège wèntí bù yǔ huídá.",
+  "fr": "Le professeur refuse de répondre à cette question.",
+  "en": "The teacher declines to answer this question."
  },
  "generation": {
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:01c0a095efdf9102ad87917136812e4090cc897d1b187a87a3f856b3bf5733d1",
-  "essais": 1,
+  "empreinte_invite": "sha256:f68030299938e882cd5938b6c8d39a042fb800df04879d927c9097aa65ca1bfe",
+  "essais": 2,
   "refus": []
  },
  "statut": "relu"

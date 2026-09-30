@@ -118,3 +118,23 @@ def test_les_brouillons_du_depot_suivent_les_conventions(monkeypatch: pytest.Mon
         if b.phrase.zh and pinyin.aligner(b.phrase.zh, b.phrase.pinyin, lectures) is None:
             fautes.append(f"{b.c} : phrase « {b.phrase.zh} » lue « {b.phrase.pinyin} »")
     assert fautes == []
+
+
+def test_le_corpus_des_fiches_ajoute_les_lectures_des_dictionnaires_d_unihan() -> None:
+    """kXHC1983 dit toutes les lectures d'un polyphone : elles s'ajoutent, la principale reste en tête."""
+    try:
+        corpus = charger_corpus()
+    except CorpusAbsent:
+        pytest.skip("pas de build : lancer `uv run wenlu build`")
+    assert corpus.caracteres["调"]["pinyin"][0] == "diào" and "tiáo" in corpus.caracteres["调"]["pinyin"]
+    assert "shè" in corpus.caracteres["舍"]["pinyin"]
+
+
+def test_les_textes_admettent_les_lectures_des_dictionnaires_d_unihan() -> None:
+    """Examens, lettres, cuisine : 便宜 et 夺冠 se lisent (便 pián, 冠 guàn, kXHC1983)."""
+    from wenlu_data.cuisine import lectures
+
+    lues = lectures()
+    if lues is None:
+        pytest.skip("pas d'ingestion : lancer `uv run wenlu ingest`")
+    assert "pián" in lues["便"] and "guàn" in lues["冠"] and "dāi" in lues["待"]

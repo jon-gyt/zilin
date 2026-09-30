@@ -21,19 +21,32 @@
   "车": "sens",
   "由": "forme"
  },
- "mots": [],
+ "mots": [
+  {
+   "hanzi": "车轴",
+   "pinyin": "chēzhóu",
+   "fr": "essieu",
+   "en": "axle"
+  },
+  {
+   "hanzi": "轴心",
+   "pinyin": "zhóuxīn",
+   "fr": "axe, pivot",
+   "en": "axis, pivot"
+  }
+ ],
  "phrase": {
-  "zh": "",
-  "pinyin": "",
-  "fr": "",
-  "en": ""
+  "zh": "这辆车的车轴断了。",
+  "pinyin": "Zhè liàng chē de chēzhóu duàn le.",
+  "fr": "L'essieu de cette voiture est cassé.",
+  "en": "This vehicle's axle is broken."
  },
  "generation": {
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:cc2cbc6ed81cea563b1166bf693210a63948d2468c96002c553fb3127b6b644c",
-  "essais": 1,
+  "empreinte_invite": "sha256:878109ffe23f8749968bc598ca9733aff0c3b5fe3950683324f40aa69342c4fb",
+  "essais": 2,
   "refus": []
  },
  "statut": "relu"

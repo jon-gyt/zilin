@@ -21,19 +21,32 @@
   "火": "sens",
   "乍": "son"
  },
- "mots": [],
+ "mots": [
+  {
+   "hanzi": "爆炸",
+   "pinyin": "bàozhà",
+   "fr": "exploser, explosion",
+   "en": "to explode, explosion"
+  },
+  {
+   "hanzi": "炸弹",
+   "pinyin": "zhàdàn",
+   "fr": "bombe",
+   "en": "bomb"
+  }
+ ],
  "phrase": {
-  "zh": "",
-  "pinyin": "",
-  "fr": "",
-  "en": ""
+  "zh": "他听到了一声爆炸。",
+  "pinyin": "Tā tīng dào le yī shēng bàozhà.",
+  "fr": "Il a entendu une explosion.",
+  "en": "He heard an explosion."
  },
  "generation": {
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:558933de91c132e7520cba369a13a9f8f5f1c178b200aa4729e14a771b89543e",
-  "essais": 1,
+  "empreinte_invite": "sha256:5eb3cf6af263d02c0d701cb931a6d51abf42e41021e0b2c7e50b5f476d66ae4e",
+  "essais": 2,
   "refus": []
  },
  "statut": "relu"

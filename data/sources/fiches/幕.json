@@ -25,19 +25,32 @@
   "大": "forme",
   "巾": "sens"
  },
- "mots": [],
+ "mots": [
+  {
+   "hanzi": "字幕",
+   "pinyin": "zìmù",
+   "fr": "sous-titres",
+   "en": "subtitles"
+  },
+  {
+   "hanzi": "开幕",
+   "pinyin": "kāimù",
+   "fr": "ouverture, lever de rideau",
+   "en": "opening, curtain rising"
+  }
+ ],
  "phrase": {
-  "zh": "",
-  "pinyin": "",
-  "fr": "",
-  "en": ""
+  "zh": "这个电影有中文字幕。",
+  "pinyin": "Zhège diànyǐng yǒu Zhōngwén zìmù.",
+  "fr": "Ce film a des sous-titres en chinois.",
+  "en": "This film has Chinese subtitles."
  },
  "generation": {
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:707981c0114d64dffe4931ef8b93aa0cbb331d708647d834957e2dabe5f3a1f0",
-  "essais": 1,
+  "empreinte_invite": "sha256:d528f904e0b1088d57408b9327af6cb956bbc2e45f47f0e743e12a6ab237fac0",
+  "essais": 2,
   "refus": []
  },
  "statut": "relu"

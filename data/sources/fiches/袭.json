@@ -21,19 +21,32 @@
   "龙": "forme",
   "衣": "sens"
  },
- "mots": [],
+ "mots": [
+  {
+   "hanzi": "袭击",
+   "pinyin": "xíjī",
+   "fr": "attaquer par surprise",
+   "en": "to attack, to raid"
+  },
+  {
+   "hanzi": "空袭",
+   "pinyin": "kōngxí",
+   "fr": "raid aérien",
+   "en": "air raid"
+  }
+ ],
  "phrase": {
-  "zh": "",
-  "pinyin": "",
-  "fr": "",
-  "en": ""
+  "zh": "那天夜里，敌人突然袭击了城市。",
+  "pinyin": "Nà tiān yèlǐ, dírén tūrán xíjī le chéngshì.",
+  "fr": "Cette nuit-là, l'ennemi a soudain attaqué la ville.",
+  "en": "That night, the enemy suddenly attacked the city."
  },
  "generation": {
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:6a9fc42c61f1cb2aa82496a8e34dfcf2c43ff9c7bbfe5ee79fc8956e1f9d4c53",
-  "essais": 1,
+  "empreinte_invite": "sha256:5780cb17dcf1f522a7e7aafe4c0e32902cf0582ac147cb3af6db19bb45c0a570",
+  "essais": 2,
   "refus": []
  },
  "statut": "relu"

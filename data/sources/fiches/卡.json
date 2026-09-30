@@ -19,19 +19,32 @@
  "roles": {
   "卡": "forme"
  },
- "mots": [],
+ "mots": [
+  {
+   "hanzi": "卡车",
+   "pinyin": "kǎchē",
+   "fr": "camion",
+   "en": "truck"
+  },
+  {
+   "hanzi": "打卡",
+   "pinyin": "dǎkǎ",
+   "fr": "pointer",
+   "en": "to clock in"
+  }
+ ],
  "phrase": {
-  "zh": "",
-  "pinyin": "",
-  "fr": "",
-  "en": ""
+  "zh": "他爸爸是开卡车的。",
+  "pinyin": "Tā bàba shì kāi kǎchē de.",
+  "fr": "Son père est chauffeur de camion.",
+  "en": "His father drives a truck."
  },
  "generation": {
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:f937acc548957746553a8be1d17c891e73aaff32f27699c0f05aa7030547613a",
-  "essais": 1,
+  "empreinte_invite": "sha256:da980318940bd80a147a0f0537a6854c0179e410a4d8fbbbfd61c42c01dd3855",
+  "essais": 2,
   "refus": []
  },
  "statut": "relu"

@@ -21,19 +21,32 @@
   "穴": "sens",
   "串": "forme"
  },
- "mots": [],
+ "mots": [
+  {
+   "hanzi": "逃窜",
+   "pinyin": "táocuàn",
+   "fr": "s'enfuir",
+   "en": "to flee"
+  },
+  {
+   "hanzi": "乱窜",
+   "pinyin": "luàncuàn",
+   "fr": "courir en tous sens",
+   "en": "to scurry about"
+  }
+ ],
  "phrase": {
-  "zh": "",
-  "pinyin": "",
-  "fr": "",
-  "en": ""
+  "zh": "老鼠在厨房里乱窜。",
+  "pinyin": "Lǎoshǔ zài chúfáng li luàn cuàn.",
+  "fr": "Une souris court en tous sens dans la cuisine.",
+  "en": "A mouse is scurrying about the kitchen."
  },
  "generation": {
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:c57fde09451436a17484fbb72a9dcb85b02d364bccc8ba4210e3d76161a7cf5c",
-  "essais": 1,
+  "empreinte_invite": "sha256:bf8ae6cb084eb641bc023fc297215ca45faee47a390f4a90b90a425c4164f274",
+  "essais": 2,
   "refus": []
  },
  "statut": "relu"

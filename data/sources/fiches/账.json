@@ -21,19 +21,32 @@
   "贝": "sens",
   "长": "son"
  },
- "mots": [],
+ "mots": [
+  {
+   "hanzi": "账单",
+   "pinyin": "zhàngdān",
+   "fr": "facture, addition",
+   "en": "bill"
+  },
+  {
+   "hanzi": "结账",
+   "pinyin": "jiézhàng",
+   "fr": "régler la note",
+   "en": "to pay the bill"
+  }
+ ],
  "phrase": {
-  "zh": "",
-  "pinyin": "",
-  "fr": "",
-  "en": ""
+  "zh": "服务员，我们要结账。",
+  "pinyin": "Fúwùyuán, wǒmen yào jiézhàng.",
+  "fr": "Monsieur, l'addition s'il vous plaît.",
+  "en": "Waiter, we'd like the bill."
  },
  "generation": {
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:cf79f66ec344e77cfd1855ae74a2cb10bddedec0dad9285a169e6421d9d61e55",
-  "essais": 1,
+  "empreinte_invite": "sha256:c4556e91795fe910d66317b4554baf97bad9661f9841ca54f18189700bb89c4f",
+  "essais": 2,
   "refus": []
  },
  "statut": "relu"

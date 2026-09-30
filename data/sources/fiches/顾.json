@@ -23,19 +23,32 @@
   "㔾": "forme",
   "页": "sens"
  },
- "mots": [],
+ "mots": [
+  {
+   "hanzi": "顾客",
+   "pinyin": "gùkè",
+   "fr": "client",
+   "en": "customer"
+  },
+  {
+   "hanzi": "回顾",
+   "pinyin": "huígù",
+   "fr": "revenir sur",
+   "en": "to look back on"
+  }
+ ],
  "phrase": {
-  "zh": "",
-  "pinyin": "",
-  "fr": "",
-  "en": ""
+  "zh": "店里有很多顾客。",
+  "pinyin": "Diàn li yǒu hěn duō gùkè.",
+  "fr": "Il y a beaucoup de clients dans la boutique.",
+  "en": "There are lots of customers in the shop."
  },
  "generation": {
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:12914e977a29728eabc1c63562cdf576172c29308fde9414d49a11afbb788430",
-  "essais": 1,
+  "empreinte_invite": "sha256:45baf8ff837e1d2f708a6081ebe8daf61296a16c532bad5e42d98116450ee65a",
+  "essais": 2,
   "refus": []
  },
  "statut": "relu"

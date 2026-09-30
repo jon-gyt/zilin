@@ -21,19 +21,32 @@
   "丨": "forme",
   "彐": "forme"
  },
- "mots": [],
+ "mots": [
+  {
+   "hanzi": "回归",
+   "pinyin": "huíguī",
+   "fr": "retour, revenir",
+   "en": "return, to return"
+  },
+  {
+   "hanzi": "归还",
+   "pinyin": "guīhuán",
+   "fr": "rendre, restituer",
+   "en": "to give back"
+  }
+ ],
  "phrase": {
-  "zh": "",
-  "pinyin": "",
-  "fr": "",
-  "en": ""
+  "zh": "请按时归还图书。",
+  "pinyin": "Qǐng ànshí guīhuán túshū.",
+  "fr": "Merci de rendre les livres à temps.",
+  "en": "Please return the books on time."
  },
  "generation": {
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:fa0488deac68d5a714892b82794f69cf9ccb4b2078468b93bddcfd1b6051a47b",
-  "essais": 1,
+  "empreinte_invite": "sha256:acbbf7e6df981c2db489b12a577bf8d8b0160e02f055f166b2506dbe702cc2b4",
+  "essais": 2,
   "refus": []
  },
  "statut": "relu"

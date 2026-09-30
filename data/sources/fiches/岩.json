@@ -21,19 +21,32 @@
   "山": "sens",
   "石": "sens"
  },
- "mots": [],
+ "mots": [
+  {
+   "hanzi": "岩石",
+   "pinyin": "yánshí",
+   "fr": "roche, rocher",
+   "en": "rock"
+  },
+  {
+   "hanzi": "攀岩",
+   "pinyin": "pānyán",
+   "fr": "escalade",
+   "en": "rock climbing"
+  }
+ ],
  "phrase": {
-  "zh": "",
-  "pinyin": "",
-  "fr": "",
-  "en": ""
+  "zh": "山上都是岩石。",
+  "pinyin": "Shān shàng dōu shì yánshí.",
+  "fr": "La montagne n'est que rochers.",
+  "en": "The mountain is all rock."
  },
  "generation": {
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:970f4183695b200332f03037dca9fbe2cd3cd9979359a91fa5b875b55fcc15f5",
-  "essais": 1,
+  "empreinte_invite": "sha256:061b814e772e556a37babeee8a54165cda4a75258a7788f38f852bb98c11c263",
+  "essais": 2,
   "refus": []
  },
  "statut": "relu"

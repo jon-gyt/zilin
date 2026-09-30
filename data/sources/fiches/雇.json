@@ -21,19 +21,32 @@
   "户": "forme",
   "隹": "forme"
  },
- "mots": [],
+ "mots": [
+  {
+   "hanzi": "解雇",
+   "pinyin": "jiěgù",
+   "fr": "licencier",
+   "en": "to dismiss, to fire"
+  },
+  {
+   "hanzi": "雇主",
+   "pinyin": "gùzhǔ",
+   "fr": "employeur",
+   "en": "employer"
+  }
+ ],
  "phrase": {
-  "zh": "",
-  "pinyin": "",
-  "fr": "",
-  "en": ""
+  "zh": "公司解雇了十个员工。",
+  "pinyin": "Gōngsī jiěgù le shí gè yuángōng.",
+  "fr": "L'entreprise a licencié dix employés.",
+  "en": "The company laid off ten employees."
  },
  "generation": {
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:b0cf37b06fffcafd846b0ee68e4eed20ac193d248f64d98893eb331334a915b5",
-  "essais": 1,
+  "empreinte_invite": "sha256:02de1a811b3cc5e2de1a9664a5b5663fa694aaa9b4b84aa6011ed53c1ce2072b",
+  "essais": 2,
   "refus": []
  },
  "statut": "relu"

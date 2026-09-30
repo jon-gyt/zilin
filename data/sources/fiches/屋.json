@@ -21,19 +21,32 @@
   "尸": "sens",
   "至": "sens"
  },
- "mots": [],
+ "mots": [
+  {
+   "hanzi": "屋子",
+   "pinyin": "wūzi",
+   "fr": "pièce, chambre",
+   "en": "room"
+  },
+  {
+   "hanzi": "房屋",
+   "pinyin": "fángwū",
+   "fr": "maison, bâtiment",
+   "en": "house, building"
+  }
+ ],
  "phrase": {
-  "zh": "",
-  "pinyin": "",
-  "fr": "",
-  "en": ""
+  "zh": "屋里很暖。",
+  "pinyin": "Wū li hěn nuǎn.",
+  "fr": "Il fait bon dans la maison.",
+  "en": "It's warm inside."
  },
  "generation": {
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:debc41d93449008e324a8824a982010d986f3cd1c5da98c2bddfde2ef684a60c",
-  "essais": 1,
+  "empreinte_invite": "sha256:f4b8249c1cd2dd5a4a495cd531d3626afe28f5c3a05111e7261a864b7683e5c6",
+  "essais": 2,
   "refus": []
  },
  "statut": "relu"

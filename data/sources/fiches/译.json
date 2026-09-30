@@ -25,19 +25,32 @@
   "二": "forme",
   "丨": "forme"
  },
- "mots": [],
+ "mots": [
+  {
+   "hanzi": "翻译",
+   "pinyin": "fānyì",
+   "fr": "traduire, traducteur",
+   "en": "to translate, translator"
+  },
+  {
+   "hanzi": "口译",
+   "pinyin": "kǒuyì",
+   "fr": "interprétation (orale)",
+   "en": "interpreting"
+  }
+ ],
  "phrase": {
-  "zh": "",
-  "pinyin": "",
-  "fr": "",
-  "en": ""
+  "zh": "请把这句话翻译成中文。",
+  "pinyin": "Qǐng bǎ zhè jù huà fānyì chéng Zhōngwén.",
+  "fr": "Traduis cette phrase en chinois, s'il te plaît.",
+  "en": "Please translate this sentence into Chinese."
  },
  "generation": {
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:90efa435ae1b95ffd14912b36047f778ecbd7c665790a11371d1f7ac5d5c8178",
-  "essais": 1,
+  "empreinte_invite": "sha256:31bdb0c6a031399941107d59c9057e1793ed015e22db9aa0ef92afd09e64907a",
+  "essais": 2,
   "refus": []
  },
  "statut": "relu"

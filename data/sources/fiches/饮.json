@@ -21,19 +21,32 @@
   "饣": "sens",
   "欠": "sens"
  },
- "mots": [],
+ "mots": [
+  {
+   "hanzi": "饮料",
+   "pinyin": "yǐnliào",
+   "fr": "boisson",
+   "en": "drink, beverage"
+  },
+  {
+   "hanzi": "饮食",
+   "pinyin": "yǐnshí",
+   "fr": "alimentation",
+   "en": "food and drink, diet"
+  }
+ ],
  "phrase": {
-  "zh": "",
-  "pinyin": "",
-  "fr": "",
-  "en": ""
+  "zh": "你想喝什么饮料？",
+  "pinyin": "Nǐ xiǎng hē shénme yǐnliào?",
+  "fr": "Quelle boisson veux-tu ?",
+  "en": "What would you like to drink?"
  },
  "generation": {
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:a46e63d921a199d5a16c64e6583cafcb68db674015a975285c8de353deffaf9a",
-  "essais": 1,
+  "empreinte_invite": "sha256:6d505a214d55edc6b63c85924ce5935bc1701c36f764f433dc707b434a09de93",
+  "essais": 2,
   "refus": []
  },
  "statut": "relu"

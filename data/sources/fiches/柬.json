@@ -19,19 +19,26 @@
  "roles": {
   "柬": "sens"
  },
- "mots": [],
+ "mots": [
+  {
+   "hanzi": "请柬",
+   "pinyin": "qǐngjiǎn",
+   "fr": "carton d'invitation",
+   "en": "invitation card"
+  }
+ ],
  "phrase": {
-  "zh": "",
-  "pinyin": "",
-  "fr": "",
-  "en": ""
+  "zh": "我收到了他们婚礼的请柬。",
+  "pinyin": "Wǒ shōudào le tāmen hūnlǐ de qǐngjiǎn.",
+  "fr": "J'ai reçu le faire-part de leur mariage.",
+  "en": "I received the invitation to their wedding."
  },
  "generation": {
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:89a23821be63aecd3c01ff54fb4ab601d623ab56e2b86dcc417adee62070f1ff",
-  "essais": 1,
+  "empreinte_invite": "sha256:511b4a0cc25971237ef4cfb57664850c36a87b6552dbb893942fabf515add330",
+  "essais": 2,
   "refus": []
  },
  "statut": "relu"

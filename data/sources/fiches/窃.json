@@ -23,19 +23,32 @@
   "七": "son",
   "刀": "son"
  },
- "mots": [],
+ "mots": [
+  {
+   "hanzi": "偷窃",
+   "pinyin": "tōuqiè",
+   "fr": "voler, vol",
+   "en": "to steal, theft"
+  },
+  {
+   "hanzi": "窃听",
+   "pinyin": "qiètīng",
+   "fr": "écouter en cachette",
+   "en": "to eavesdrop, to bug"
+  }
+ ],
  "phrase": {
-  "zh": "",
-  "pinyin": "",
-  "fr": "",
-  "en": ""
+  "zh": "他的钱包被窃了。",
+  "pinyin": "Tā de qiánbāo bèi qiè le.",
+  "fr": "On lui a volé son portefeuille.",
+  "en": "His wallet was stolen."
  },
  "generation": {
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:815869dfb51cc82a251b68ce1592b964ccbd205fffe07ee3a4060156e6e063ed",
-  "essais": 1,
+  "empreinte_invite": "sha256:1b62fcdb7914fe9374d73bbc391bce34462a3bea9bb019d7c63aa4869b4eaacd",
+  "essais": 2,
   "refus": []
  },
  "statut": "relu"

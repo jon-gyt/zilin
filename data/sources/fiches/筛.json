@@ -25,19 +25,32 @@
   "一": "forme",
   "巾": "forme"
  },
- "mots": [],
+ "mots": [
+  {
+   "hanzi": "筛选",
+   "pinyin": "shāixuǎn",
+   "fr": "trier, sélectionner",
+   "en": "to screen, to select"
+  },
+  {
+   "hanzi": "筛子",
+   "pinyin": "shāizi",
+   "fr": "tamis, crible",
+   "en": "sieve"
+  }
+ ],
  "phrase": {
-  "zh": "",
-  "pinyin": "",
-  "fr": "",
-  "en": ""
+  "zh": "我们从一百人里筛选出十个人。",
+  "pinyin": "Wǒmen cóng yībǎi rén li shāixuǎn chū shí gè rén.",
+  "fr": "Sur cent personnes, nous en avons retenu dix.",
+  "en": "We picked out ten people from a hundred."
  },
  "generation": {
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:f78ea40217ce77ce108746a6a79a81aa667857e3141bbb9e863988cfda98c0f4",
-  "essais": 1,
+  "empreinte_invite": "sha256:dacbe33ca7f1ea8f694eb214fe9b83e806b12900506992d8a1b5bec92fc38f14",
+  "essais": 2,
   "refus": []
  },
  "statut": "relu"

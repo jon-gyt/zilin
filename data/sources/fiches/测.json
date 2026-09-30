@@ -23,19 +23,32 @@
   "贝": "forme",
   "刂": "forme"
  },
- "mots": [],
+ "mots": [
+  {
+   "hanzi": "测试",
+   "pinyin": "cèshì",
+   "fr": "test, tester",
+   "en": "test, to test"
+  },
+  {
+   "hanzi": "预测",
+   "pinyin": "yùcè",
+   "fr": "prévoir, prévision",
+   "en": "to forecast, forecast"
+  }
+ ],
  "phrase": {
-  "zh": "",
-  "pinyin": "",
-  "fr": "",
-  "en": ""
+  "zh": "明天有一个测试。",
+  "pinyin": "Míngtiān yǒu yī gè cèshì.",
+  "fr": "Il y a un test demain.",
+  "en": "There's a test tomorrow."
  },
  "generation": {
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:39ba9e55290a58dbdd9700249c4b50cfc208d582ece7e97cf2d97c4ecfdb0026",
-  "essais": 1,
+  "empreinte_invite": "sha256:0ae09ec9f3446d540bcbbca6688fde8e3517eddf3add2d7f272d0311aab549ac",
+  "essais": 2,
   "refus": []
  },
  "statut": "relu"

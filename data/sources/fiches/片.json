@@ -19,19 +19,32 @@
  "roles": {
   "片": "sens"
  },
- "mots": [],
+ "mots": [
+  {
+   "hanzi": "图片",
+   "pinyin": "túpiàn",
+   "fr": "image",
+   "en": "picture"
+  },
+  {
+   "hanzi": "名片",
+   "pinyin": "míngpiàn",
+   "fr": "carte de visite",
+   "en": "business card"
+  }
+ ],
  "phrase": {
-  "zh": "",
-  "pinyin": "",
-  "fr": "",
-  "en": ""
+  "zh": "他给了我一张名片。",
+  "pinyin": "Tā gěi le wǒ yī zhāng míngpiàn.",
+  "fr": "Il m'a donné sa carte de visite.",
+  "en": "He gave me his business card."
  },
  "generation": {
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:9d4fa091f61fb979bc44f2c327a78f42de4c90e2a403b8d3280eab4e260877c7",
-  "essais": 1,
+  "empreinte_invite": "sha256:08ece9b274a97f60ba04144f0db73fe57e74d0803539a410e00339bb393356e3",
+  "essais": 2,
   "refus": []
  },
  "statut": "relu"

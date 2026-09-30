@@ -1,0 +1,407 @@
+{
+ "examen": "yueke-1755",
+ "parcours": "lire",
+ "generation": {
+  "modele": "rédaction manuelle",
+  "api": "session Claude Code (sans API)",
+  "date": "2026-09-30"
+ },
+ "relecture": {
+  "statut": "relu",
+  "par": "le propriétaire",
+  "decision": "« Go » (30 septembre 2026) : tout affiché sans relecture ligne à ligne",
+  "date": "2026-09-30"
+ },
+ "series": [
+  {
+   "serie": "A",
+   "statut": "relu",
+   "supports": [
+    {
+     "id": "s1",
+     "genre": "message",
+     "contexte": {
+      "fr": "Un message",
+      "en": "A message"
+     },
+     "lignes": [
+      {
+       "zh": "昨天晚上我们学校的篮球队夺得了第一名！",
+       "pinyin": "zuó tiān wǎn shang wǒ men xué xiào de lán qiú duì duó dé le dì yī míng",
+       "fr": "Hier soir, l'équipe de basket de notre école a remporté la première place !",
+       "en": "Last night our school basketball team took first place!"
+      },
+      {
+       "zh": "现场气氛特别好，",
+       "pinyin": "xiàn chǎng qì fēn tè bié hǎo",
+       "fr": "Sur place, l'atmosphère était formidable :",
+       "en": "The atmosphere there was amazing,"
+      },
+      {
+       "zh": "可惜你没来看。",
+       "pinyin": "kě xī nǐ méi lái kàn",
+       "fr": "dommage que tu ne sois pas venu voir.",
+       "en": "shame you didn't come and watch."
+      }
+     ]
+    },
+    {
+     "id": "s2",
+     "genre": "pancarte",
+     "contexte": {
+      "fr": "Un panneau",
+      "en": "A sign"
+     },
+     "lignes": [
+      {
+       "zh": "地铁站：前方路口左拐",
+       "pinyin": "dì tiě zhàn qián fāng lù kǒu zuǒ guǎi",
+       "fr": "Station de métro : au prochain carrefour, à gauche",
+       "en": "Underground station: turn left at the next junction"
+      },
+      {
+       "zh": "步行五分钟",
+       "pinyin": "bù xíng wǔ fēn zhōng",
+       "fr": "À cinq minutes à pied",
+       "en": "Five minutes on foot"
+      }
+     ]
+    }
+   ],
+   "questions": [
+    {
+     "type": "comprendre",
+     "support": "s1",
+     "consigne": {
+      "fr": "Que s'est-il passé hier soir ?",
+      "en": "What happened last night?"
+     },
+     "choix": [
+      {
+       "fr": "Le match a été annulé",
+       "en": "The match was cancelled"
+      },
+      {
+       "fr": "Un joueur s'est blessé",
+       "en": "A player got hurt"
+      },
+      {
+       "fr": "L'équipe de l'école a gagné",
+       "en": "The school team won"
+      },
+      {
+       "fr": "L'équipe de l'école a perdu",
+       "en": "The school team lost"
+      }
+     ],
+     "reponse": 2,
+     "porte": [
+      "夺",
+      "得",
+      "第",
+      "一"
+     ]
+    },
+    {
+     "type": "reperer",
+     "support": "s1",
+     "consigne": {
+      "fr": "Touche le mot qui dit l'atmosphère.",
+      "en": "Tap the word for the atmosphere."
+     },
+     "choix": [
+      "篮球队",
+      "现场",
+      "气氛",
+      "可惜"
+     ],
+     "reponse": 2,
+     "porte": [
+      "气",
+      "氛"
+     ]
+    },
+    {
+     "type": "replique",
+     "support": "s1",
+     "consigne": {
+      "fr": "Que répond son ami ?",
+      "en": "What does the friend reply?"
+     },
+     "choix": [
+      {
+       "zh": "我家的电视坏了。",
+       "pinyin": "wǒ jiā de diàn shì huài le",
+       "fr": "Notre télévision est en panne.",
+       "en": "Our TV is broken."
+      },
+      {
+       "zh": "真遗憾，下次叫上我！",
+       "pinyin": "zhēn yí hàn xià cì jiào shàng wǒ",
+       "fr": "Quel dommage ! La prochaine fois, appelle-moi !",
+       "en": "What a shame! Call me next time!"
+      },
+      {
+       "zh": "他每天坐地铁上班。",
+       "pinyin": "tā měi tiān zuò dì tiě shàng bān",
+       "fr": "Il va au travail en métro tous les jours.",
+       "en": "He takes the underground to work every day."
+      },
+      {
+       "zh": "明天要刮大风。",
+       "pinyin": "míng tiān yào guā dà fēng",
+       "fr": "Demain, il va y avoir beaucoup de vent.",
+       "en": "It's going to be very windy tomorrow."
+      }
+     ],
+     "reponse": 1,
+     "porte": [
+      "夺",
+      "得",
+      "惜"
+     ]
+    },
+    {
+     "type": "vrai_faux",
+     "support": "s2",
+     "consigne": {
+      "fr": "Vrai ou faux ?",
+      "en": "True or false?"
+     },
+     "affirmation": {
+      "zh": "去地铁站要往左拐。",
+      "pinyin": "qù dì tiě zhàn yào wǎng zuǒ guǎi",
+      "fr": "Pour le métro, il faut tourner à gauche.",
+      "en": "For the underground, you turn left."
+     },
+     "reponse": true,
+     "porte": [
+      "左",
+      "拐"
+     ]
+    },
+    {
+     "type": "caractere",
+     "consigne": {
+      "fr": "Quel caractère a ce sens ?",
+      "en": "Which character has this meaning?"
+     },
+     "objet": {
+      "zh": "跪",
+      "pinyin": "guì",
+      "fr": "s'agenouiller",
+      "en": "to kneel"
+     },
+     "choix": [
+      "跑",
+      "路",
+      "跳",
+      "跪"
+     ],
+     "reponse": 3,
+     "porte": [
+      "跪"
+     ]
+    }
+   ]
+  },
+  {
+   "serie": "B",
+   "statut": "relu",
+   "supports": [
+    {
+     "id": "s1",
+     "genre": "note",
+     "contexte": {
+      "fr": "Une note",
+      "en": "A note"
+     },
+     "lignes": [
+      {
+       "zh": "每天三次，每次两片，饭后吃。",
+       "pinyin": "měi tiān sān cì měi cì liǎng piàn fàn hòu chī",
+       "fr": "Trois fois par jour, deux comprimés à chaque fois, après les repas.",
+       "en": "Three times a day, two tablets each time, after meals."
+      },
+      {
+       "zh": "吃药后可能会头昏，请不要开车。",
+       "pinyin": "chī yào hòu kě néng huì tóu hūn qǐng bù yào kāi chē",
+       "fr": "On peut avoir la tête qui tourne ensuite : ne conduisez pas.",
+       "en": "It may make you dizzy: do not drive."
+      },
+      {
+       "zh": "肝不好的患者请先问医生。",
+       "pinyin": "gān bù hǎo de huàn zhě qǐng xiān wèn yī shēng",
+       "fr": "Les patients qui ont le foie fragile demandent d'abord à leur médecin.",
+       "en": "Patients with liver problems should ask their doctor first."
+      }
+     ]
+    },
+    {
+     "id": "s2",
+     "genre": "etal",
+     "contexte": {
+      "fr": "Un étal",
+      "en": "A stall"
+     },
+     "lignes": [
+      {
+       "zh": "茶壶：八十元一个",
+       "pinyin": "chá hú bā shí yuán yī gè",
+       "fr": "Théière : 80 yuans pièce",
+       "en": "Teapot: 80 yuan each"
+      },
+      {
+       "zh": "粉色茶杯：二十元一个",
+       "pinyin": "fěn sè chá bēi èr shí yuán yī gè",
+       "fr": "Tasse rose : 20 yuans pièce",
+       "en": "Pink cup: 20 yuan each"
+      },
+      {
+       "zh": "买一个茶壶，送两个茶杯",
+       "pinyin": "mǎi yī gè chá hú sòng liǎng gè chá bēi",
+       "fr": "Pour une théière achetée, deux tasses offertes",
+       "en": "Buy a teapot, get two cups free"
+      }
+     ]
+    }
+   ],
+   "questions": [
+    {
+     "type": "comprendre",
+     "support": "s1",
+     "consigne": {
+      "fr": "Qui doit d'abord consulter son médecin ?",
+      "en": "Who should see their doctor first?"
+     },
+     "choix": [
+      {
+       "fr": "Les enfants",
+       "en": "Children"
+      },
+      {
+       "fr": "Les malades du foie",
+       "en": "People with liver trouble"
+      },
+      {
+       "fr": "Les personnes âgées",
+       "en": "Elderly people"
+      },
+      {
+       "fr": "Les femmes enceintes",
+       "en": "Pregnant women"
+      }
+     ],
+     "reponse": 1,
+     "porte": [
+      "肝",
+      "患",
+      "者"
+     ]
+    },
+    {
+     "type": "vrai_faux",
+     "support": "s1",
+     "consigne": {
+      "fr": "Vrai ou faux ?",
+      "en": "True or false?"
+     },
+     "affirmation": {
+      "zh": "吃了这药可以开车。",
+      "pinyin": "chī le zhè yào kě yǐ kāi chē",
+      "fr": "Avec ce médicament, on peut conduire.",
+      "en": "You can drive after taking this medicine."
+     },
+     "reponse": false,
+     "porte": [
+      "昏",
+      "不",
+      "要",
+      "开",
+      "车"
+     ]
+    },
+    {
+     "type": "reperer",
+     "support": "s2",
+     "consigne": {
+      "fr": "Touche ce qui coûte quatre-vingts yuans.",
+      "en": "Tap the item that costs eighty yuan."
+     },
+     "choix": [
+      "粉色",
+      "茶杯",
+      "茶壶",
+      "一个"
+     ],
+     "reponse": 2,
+     "porte": [
+      "茶",
+      "壶",
+      "八",
+      "十"
+     ]
+    },
+    {
+     "type": "comprendre",
+     "support": "s2",
+     "consigne": {
+      "fr": "Que reçoit-on en plus avec une théière ?",
+      "en": "What do you get free with a teapot?"
+     },
+     "choix": [
+      {
+       "fr": "Deux tasses",
+       "en": "Two cups"
+      },
+      {
+       "fr": "Une tasse",
+       "en": "One cup"
+      },
+      {
+       "fr": "Du thé",
+       "en": "Some tea"
+      },
+      {
+       "fr": "Rien de plus",
+       "en": "Nothing else"
+      }
+     ],
+     "reponse": 0,
+     "porte": [
+      "送",
+      "两",
+      "个",
+      "茶",
+      "杯",
+      "壶"
+     ]
+    },
+    {
+     "type": "trou",
+     "consigne": {
+      "fr": "Quel caractère manque dans ce mot ?",
+      "en": "Which character is missing from this word?"
+     },
+     "objet": {
+      "zh": "平衡",
+      "pinyin": "píng héng",
+      "fr": "équilibre",
+      "en": "balance"
+     },
+     "trou": 1,
+     "choix": [
+      "横",
+      "衡",
+      "行",
+      "很"
+     ],
+     "reponse": 1,
+     "porte": [
+      "衡"
+     ]
+    }
+   ]
+  }
+ ]
+}

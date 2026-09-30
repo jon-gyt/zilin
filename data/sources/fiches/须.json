@@ -21,19 +21,32 @@
   "彡": "sens",
   "页": "sens"
  },
- "mots": [],
+ "mots": [
+  {
+   "hanzi": "必须",
+   "pinyin": "bìxū",
+   "fr": "devoir absolument",
+   "en": "must"
+  },
+  {
+   "hanzi": "须知",
+   "pinyin": "xūzhī",
+   "fr": "consignes",
+   "en": "notice"
+  }
+ ],
  "phrase": {
-  "zh": "",
-  "pinyin": "",
-  "fr": "",
-  "en": ""
+  "zh": "你必须早点睡觉。",
+  "pinyin": "Nǐ bìxū zǎo diǎn shuìjiào.",
+  "fr": "Tu dois te coucher plus tôt.",
+  "en": "You must go to bed earlier."
  },
  "generation": {
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:87f6c81c6feecd57303391d1f50601c338f70a5ff3592da68422553f5c934a97",
-  "essais": 1,
+  "empreinte_invite": "sha256:1ce62b7ff7fda3d2e9741995264ec1c7b64583d43deb5478fdf51a358e86d6ff",
+  "essais": 2,
   "refus": []
  },
  "statut": "relu"

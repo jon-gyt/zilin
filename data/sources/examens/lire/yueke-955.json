@@ -1,0 +1,422 @@
+{
+ "examen": "yueke-955",
+ "parcours": "lire",
+ "generation": {
+  "modele": "rédaction manuelle",
+  "api": "session Claude Code (sans API)",
+  "date": "2026-09-30"
+ },
+ "relecture": {
+  "statut": "relu",
+  "par": "le propriétaire",
+  "decision": "« Go » (30 septembre 2026) : tout affiché sans relecture ligne à ligne",
+  "date": "2026-09-30"
+ },
+ "series": [
+  {
+   "serie": "A",
+   "statut": "relu",
+   "supports": [
+    {
+     "id": "s1",
+     "genre": "message",
+     "contexte": {
+      "fr": "Un message",
+      "en": "A message"
+     },
+     "lignes": [
+      {
+       "zh": "小王，我感冒了，",
+       "pinyin": "xiǎo wáng wǒ gǎn mào le",
+       "fr": "Xiao Wang, j'ai attrapé un rhume :",
+       "en": "Xiao Wang, I've caught a cold:"
+      },
+      {
+       "zh": "明天的比赛不能去了。",
+       "pinyin": "míng tiān de bǐ sài bù néng qù le",
+       "fr": "je ne pourrai pas aller au match de demain.",
+       "en": "I can't go to tomorrow's match."
+      },
+      {
+       "zh": "麻烦你跟老师说一下。",
+       "pinyin": "má fan nǐ gēn lǎo shī shuō yī xià",
+       "fr": "Tu veux bien prévenir le professeur ?",
+       "en": "Could you please tell the teacher?"
+      }
+     ]
+    },
+    {
+     "id": "s2",
+     "genre": "affiche",
+     "contexte": {
+      "fr": "Une affiche",
+      "en": "A poster"
+     },
+     "lignes": [
+      {
+       "zh": "星期天早上一起散步！",
+       "pinyin": "xīng qī tiān zǎo shang yī qǐ sàn bù",
+       "fr": "Dimanche matin, promenade ensemble !",
+       "en": "Sunday morning, let's go for a walk together!"
+      },
+      {
+       "zh": "七点在桥下见面，",
+       "pinyin": "qī diǎn zài qiáo xià jiàn miàn",
+       "fr": "Rendez-vous à 7 heures sous le pont ;",
+       "en": "Meet at 7 under the bridge;"
+      },
+      {
+       "zh": "下雨就不去了。",
+       "pinyin": "xià yǔ jiù bù qù le",
+       "fr": "s'il pleut, on n'y va pas.",
+       "en": "if it rains, we won't go."
+      }
+     ]
+    }
+   ],
+   "questions": [
+    {
+     "type": "comprendre",
+     "support": "s1",
+     "consigne": {
+      "fr": "Qu'est-il arrivé à l'auteur du message ?",
+      "en": "What has happened to the writer?"
+     },
+     "choix": [
+      {
+       "fr": "Il part en voyage",
+       "en": "He is going on a trip"
+      },
+      {
+       "fr": "Il a attrapé un rhume",
+       "en": "He has caught a cold"
+      },
+      {
+       "fr": "Il a perdu son sac",
+       "en": "He has lost his bag"
+      },
+      {
+       "fr": "Il change d'école",
+       "en": "He is changing schools"
+      }
+     ],
+     "reponse": 1,
+     "porte": [
+      "感",
+      "冒"
+     ]
+    },
+    {
+     "type": "reperer",
+     "support": "s1",
+     "consigne": {
+      "fr": "Touche ce que l'auteur va manquer.",
+      "en": "Tap what the writer is going to miss."
+     },
+     "choix": [
+      "小王",
+      "感冒",
+      "老师",
+      "比赛"
+     ],
+     "reponse": 3,
+     "porte": [
+      "比",
+      "赛"
+     ]
+    },
+    {
+     "type": "replique",
+     "support": "s1",
+     "consigne": {
+      "fr": "Que répond Xiao Wang ?",
+      "en": "What does Xiao Wang reply?"
+     },
+     "choix": [
+      {
+       "zh": "我喜欢吃苹果。",
+       "pinyin": "wǒ xǐ huan chī píng guǒ",
+       "fr": "J'aime les pommes.",
+       "en": "I like apples."
+      },
+      {
+       "zh": "好的，你好好休息！",
+       "pinyin": "hǎo de nǐ hǎo hǎo xiū xi",
+       "fr": "D'accord, repose-toi bien !",
+       "en": "OK, get some good rest!"
+      },
+      {
+       "zh": "这条裙子很漂亮。",
+       "pinyin": "zhè tiáo qún zi hěn piào liang",
+       "fr": "Cette jupe est très jolie.",
+       "en": "This skirt is very pretty."
+      },
+      {
+       "zh": "桥在河的东边。",
+       "pinyin": "qiáo zài hé de dōng bian",
+       "fr": "Le pont est à l'est de la rivière.",
+       "en": "The bridge is east of the river."
+      }
+     ],
+     "reponse": 1,
+     "porte": [
+      "冒",
+      "麻",
+      "烦"
+     ]
+    },
+    {
+     "type": "vrai_faux",
+     "support": "s2",
+     "consigne": {
+      "fr": "Vrai ou faux ?",
+      "en": "True or false?"
+     },
+     "affirmation": {
+      "zh": "他们早上在桥下见面。",
+      "pinyin": "tā men zǎo shang zài qiáo xià jiàn miàn",
+      "fr": "Ils se retrouvent le matin sous le pont.",
+      "en": "They meet under the bridge in the morning."
+     },
+     "reponse": true,
+     "porte": [
+      "早",
+      "上",
+      "桥",
+      "下"
+     ]
+    },
+    {
+     "type": "sens",
+     "consigne": {
+      "fr": "Que veut dire ce caractère ?",
+      "en": "What does this character mean?"
+     },
+     "objet": {
+      "zh": "胖",
+      "pinyin": "pàng",
+      "fr": "gros",
+      "en": "fat"
+     },
+     "choix": [
+      {
+       "fr": "maigre",
+       "en": "thin"
+      },
+      {
+       "fr": "sale",
+       "en": "dirty"
+      },
+      {
+       "fr": "gros",
+       "en": "fat"
+      },
+      {
+       "fr": "petit",
+       "en": "small"
+      }
+     ],
+     "reponse": 2,
+     "porte": [
+      "胖"
+     ]
+    }
+   ]
+  },
+  {
+   "serie": "B",
+   "statut": "relu",
+   "supports": [
+    {
+     "id": "s1",
+     "genre": "note",
+     "contexte": {
+      "fr": "Une note",
+      "en": "A note"
+     },
+     "lignes": [
+      {
+       "zh": "外面很冷，",
+       "pinyin": "wài mian hěn lěng",
+       "fr": "Il fait froid dehors :",
+       "en": "It's cold outside:"
+      },
+      {
+       "zh": "出门穿得暖一点，",
+       "pinyin": "chū mén chuān de nuǎn yī diǎn",
+       "fr": "couvre-toi bien en sortant,",
+       "en": "wrap up warm when you go out,"
+      },
+      {
+       "zh": "别穿裙子了。",
+       "pinyin": "bié chuān qún zi le",
+       "fr": "et pas de jupe.",
+       "en": "and no skirt."
+      },
+      {
+       "zh": "妈妈",
+       "pinyin": "mā ma",
+       "fr": "Maman",
+       "en": "Mum"
+      }
+     ]
+    },
+    {
+     "id": "s2",
+     "genre": "pancarte",
+     "contexte": {
+      "fr": "Un panneau",
+      "en": "A sign"
+     },
+     "lignes": [
+      {
+       "zh": "湖边风景好，",
+       "pinyin": "hú biān fēng jǐng hǎo",
+       "fr": "Belle vue au bord du lac :",
+       "en": "Lovely views by the lake:"
+      },
+      {
+       "zh": "欢迎拍照。",
+       "pinyin": "huān yíng pāi zhào",
+       "fr": "les photos sont bienvenues.",
+       "en": "photos are welcome."
+      },
+      {
+       "zh": "请不要乱放东西。",
+       "pinyin": "qǐng bù yào luàn fàng dōng xi",
+       "fr": "Ne laissez rien traîner.",
+       "en": "Please don't leave things lying around."
+      }
+     ]
+    }
+   ],
+   "questions": [
+    {
+     "type": "comprendre",
+     "support": "s1",
+     "consigne": {
+      "fr": "Que ne faut-il pas mettre ?",
+      "en": "What shouldn't she wear?"
+     },
+     "choix": [
+      {
+       "fr": "Un manteau",
+       "en": "A coat"
+      },
+      {
+       "fr": "Un pull",
+       "en": "A jumper"
+      },
+      {
+       "fr": "Des bottes",
+       "en": "Boots"
+      },
+      {
+       "fr": "Une jupe",
+       "en": "A skirt"
+      }
+     ],
+     "reponse": 3,
+     "porte": [
+      "别",
+      "裙",
+      "子"
+     ]
+    },
+    {
+     "type": "vrai_faux",
+     "support": "s1",
+     "consigne": {
+      "fr": "Vrai ou faux ?",
+      "en": "True or false?"
+     },
+     "affirmation": {
+      "zh": "妈妈让她穿得暖一点。",
+      "pinyin": "mā ma ràng tā chuān de nuǎn yī diǎn",
+      "fr": "Sa mère lui demande de se couvrir.",
+      "en": "Her mother tells her to dress warmly."
+     },
+     "reponse": true,
+     "porte": [
+      "暖",
+      "穿"
+     ]
+    },
+    {
+     "type": "reperer",
+     "support": "s2",
+     "consigne": {
+      "fr": "Touche ce que le panneau invite à faire.",
+      "en": "Tap what the sign invites you to do."
+     },
+     "choix": [
+      "湖边",
+      "风景",
+      "拍照",
+      "东西"
+     ],
+     "reponse": 2,
+     "porte": [
+      "拍",
+      "照"
+     ]
+    },
+    {
+     "type": "comprendre",
+     "support": "s2",
+     "consigne": {
+      "fr": "Que demande le panneau ?",
+      "en": "What does the sign ask?"
+     },
+     "choix": [
+      {
+       "fr": "De parler doucement",
+       "en": "To speak quietly"
+      },
+      {
+       "fr": "De ne rien laisser traîner",
+       "en": "Not to leave things lying around"
+      },
+      {
+       "fr": "De rester sur le chemin",
+       "en": "To stay on the path"
+      },
+      {
+       "fr": "De tenir les chiens",
+       "en": "To keep dogs on a lead"
+      }
+     ],
+     "reponse": 1,
+     "porte": [
+      "乱",
+      "放"
+     ]
+    },
+    {
+     "type": "trou",
+     "consigne": {
+      "fr": "Quel caractère manque dans ce mot ?",
+      "en": "Which character is missing from this word?"
+     },
+     "objet": {
+      "zh": "苹果",
+      "pinyin": "píng guǒ",
+      "fr": "pomme",
+      "en": "apple"
+     },
+     "trou": 0,
+     "choix": [
+      "英",
+      "药",
+      "苹",
+      "菜"
+     ],
+     "reponse": 2,
+     "porte": [
+      "苹"
+     ]
+    }
+   ]
+  }
+ ]
+}

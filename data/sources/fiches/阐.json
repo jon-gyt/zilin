@@ -21,19 +21,32 @@
   "门": "sens",
   "单": "forme"
  },
- "mots": [],
+ "mots": [
+  {
+   "hanzi": "阐明",
+   "pinyin": "chǎnmíng",
+   "fr": "clarifier, exposer",
+   "en": "to clarify"
+  },
+  {
+   "hanzi": "阐述",
+   "pinyin": "chǎnshù",
+   "fr": "exposer, développer",
+   "en": "to expound"
+  }
+ ],
  "phrase": {
-  "zh": "",
-  "pinyin": "",
-  "fr": "",
-  "en": ""
+  "zh": "他在会上阐明了自己的看法。",
+  "pinyin": "Tā zài huì shang chǎnmíng le zìjǐ de kànfǎ.",
+  "fr": "Il a exposé clairement son point de vue à la réunion.",
+  "en": "He set out his views clearly at the meeting."
  },
  "generation": {
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:6e68db6f682b2b59296522e2db737cc93544b90a66b2db35592bacb92b0c1f6b",
-  "essais": 1,
+  "empreinte_invite": "sha256:0b2a0d1e9d8078974e820e868891da767a6959b36737357806278f582ad03939",
+  "essais": 2,
   "refus": []
  },
  "statut": "relu"

@@ -19,19 +19,32 @@
  "roles": {
   "串": "sens"
  },
- "mots": [],
+ "mots": [
+  {
+   "hanzi": "串门",
+   "pinyin": "chuànmén",
+   "fr": "passer chez quelqu'un",
+   "en": "to drop in on someone"
+  },
+  {
+   "hanzi": "烤串",
+   "pinyin": "kǎochuàn",
+   "fr": "brochette grillée",
+   "en": "grilled skewer"
+  }
+ ],
  "phrase": {
-  "zh": "",
-  "pinyin": "",
-  "fr": "",
-  "en": ""
+  "zh": "周末我去朋友家串门。",
+  "pinyin": "Zhōumò wǒ qù péngyou jiā chuànmén.",
+  "fr": "Le week-end, je passe chez des amis.",
+  "en": "At the weekend I drop in on friends."
  },
  "generation": {
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:9834f716f3d7f24fd68e44af490d12e414bb82df10cc40d6445a67ae8581626b",
-  "essais": 1,
+  "empreinte_invite": "sha256:01f08d6a01a319d99285adf799db944e0b76be21b10f035495200bebb7674bb7",
+  "essais": 2,
   "refus": []
  },
  "statut": "relu"

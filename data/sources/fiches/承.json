@@ -19,19 +19,32 @@
  "roles": {
   "承": "forme"
  },
- "mots": [],
+ "mots": [
+  {
+   "hanzi": "承认",
+   "pinyin": "chéngrèn",
+   "fr": "reconnaître, admettre",
+   "en": "to admit, to acknowledge"
+  },
+  {
+   "hanzi": "继承",
+   "pinyin": "jìchéng",
+   "fr": "hériter, succéder",
+   "en": "to inherit, to carry on"
+  }
+ ],
  "phrase": {
-  "zh": "",
-  "pinyin": "",
-  "fr": "",
-  "en": ""
+  "zh": "他承认自己错了。",
+  "pinyin": "Tā chéngrèn zìjǐ cuò le.",
+  "fr": "Il reconnaît qu'il a eu tort.",
+  "en": "He admits he was wrong."
  },
  "generation": {
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:89856281dc6475464a48252dd643e5519bba2e71865053bf4715c1c7e0c7b69f",
-  "essais": 1,
+  "empreinte_invite": "sha256:6c3970a6ccb650451608cb2f0115b2c4430524f22bd383a217f8c44e80912002",
+  "essais": 2,
   "refus": []
  },
  "statut": "relu"

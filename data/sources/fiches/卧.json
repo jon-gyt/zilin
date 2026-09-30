@@ -21,19 +21,32 @@
   "臣": "forme",
   "卜": "forme"
  },
- "mots": [],
+ "mots": [
+  {
+   "hanzi": "卧室",
+   "pinyin": "wòshì",
+   "fr": "chambre à coucher",
+   "en": "bedroom"
+  },
+  {
+   "hanzi": "软卧",
+   "pinyin": "ruǎnwò",
+   "fr": "couchette molle (train)",
+   "en": "soft sleeper (train)"
+  }
+ ],
  "phrase": {
-  "zh": "",
-  "pinyin": "",
-  "fr": "",
-  "en": ""
+  "zh": "他在卧室里睡觉。",
+  "pinyin": "Tā zài wòshì li shuìjiào.",
+  "fr": "Il dort dans la chambre.",
+  "en": "He is sleeping in the bedroom."
  },
  "generation": {
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:0953337f67aa4a949974b4ae6aaef167b595c1f42569277d82a8978c3e7896b6",
-  "essais": 1,
+  "empreinte_invite": "sha256:09738ac84c8a1227ae5a6cd952aed422e44d8c31f59730676ac754ac15f3b4e7",
+  "essais": 2,
   "refus": []
  },
  "statut": "relu"

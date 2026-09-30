@@ -19,19 +19,32 @@
  "roles": {
   "妻": "forme"
  },
- "mots": [],
+ "mots": [
+  {
+   "hanzi": "妻子",
+   "pinyin": "qīzi",
+   "fr": "épouse",
+   "en": "wife"
+  },
+  {
+   "hanzi": "夫妻",
+   "pinyin": "fūqī",
+   "fr": "mari et femme, couple",
+   "en": "husband and wife"
+  }
+ ],
  "phrase": {
-  "zh": "",
-  "pinyin": "",
-  "fr": "",
-  "en": ""
+  "zh": "他的妻子是老师。",
+  "pinyin": "Tā de qīzi shì lǎoshī.",
+  "fr": "Sa femme est professeure.",
+  "en": "His wife is a teacher."
  },
  "generation": {
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:8dbd2f2a04aabf8988eb49ab64277aa83223c8f5cee2b842a2a3d5a4c2a62ecd",
-  "essais": 1,
+  "empreinte_invite": "sha256:91092b2d5978e269cdc5a4033b0fa43a6757ef7144d8ee586dc62e961fe69a09",
+  "essais": 2,
   "refus": []
  },
  "statut": "relu"

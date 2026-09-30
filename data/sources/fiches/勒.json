@@ -3,7 +3,8 @@
  "parcours": "lire",
  "jour": 1131,
  "pinyin": [
-  "lēi"
+  "lēi",
+  "lè"
  ],
  "sens_fr": "serrer, ligoter, brider, contraindre",
  "sens_en": "to tighten, to rein in, to force",
@@ -21,19 +22,32 @@
   "革": "sens",
   "力": "forme"
  },
- "mots": [],
+ "mots": [
+  {
+   "hanzi": "勒紧",
+   "pinyin": "lēijǐn",
+   "fr": "serrer fort",
+   "en": "to tighten"
+  },
+  {
+   "hanzi": "勒索",
+   "pinyin": "lèsuǒ",
+   "fr": "extorquer, racketter",
+   "en": "to extort"
+  }
+ ],
  "phrase": {
-  "zh": "",
-  "pinyin": "",
-  "fr": "",
-  "en": ""
+  "zh": "他勒紧了腰带。",
+  "pinyin": "Tā lēijǐn le yāodài.",
+  "fr": "Il a serré sa ceinture.",
+  "en": "He tightened his belt."
  },
  "generation": {
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:31c8548ed139d4ec7a93a37db46968efee7bc608dbff5d49b0209f76c6a0dcb2",
-  "essais": 1,
+  "empreinte_invite": "sha256:040adbb1e649af0baca435abe4bdff0cdd5e76857d2bd3249d3e63cc50363aee",
+  "essais": 3,
   "refus": []
  },
  "statut": "relu"

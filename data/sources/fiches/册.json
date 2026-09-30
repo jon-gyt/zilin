@@ -19,19 +19,32 @@
  "roles": {
   "册": "sens"
  },
- "mots": [],
+ "mots": [
+  {
+   "hanzi": "手册",
+   "pinyin": "shǒucè",
+   "fr": "manuel, guide",
+   "en": "handbook, manual"
+  },
+  {
+   "hanzi": "注册",
+   "pinyin": "zhùcè",
+   "fr": "s'inscrire, enregistrer",
+   "en": "to register"
+  }
+ ],
  "phrase": {
-  "zh": "",
-  "pinyin": "",
-  "fr": "",
-  "en": ""
+  "zh": "请先在这里注册。",
+  "pinyin": "Qǐng xiān zài zhèli zhùcè.",
+  "fr": "Inscrivez-vous d'abord ici, s'il vous plaît.",
+  "en": "Please register here first."
  },
  "generation": {
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:97d28b6bf28fc84dc7fc308fac504e1f0971acb68a68e1ddff76900e0cfbdd36",
-  "essais": 1,
+  "empreinte_invite": "sha256:ae0516157b1815d4fa06238f02cdfe64ff915766e3db63162b7b768049c28b06",
+  "essais": 2,
   "refus": []
  },
  "statut": "relu"

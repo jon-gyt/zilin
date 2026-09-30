@@ -19,19 +19,26 @@
  "roles": {
   "隶": "sens"
  },
- "mots": [],
+ "mots": [
+  {
+   "hanzi": "隶书",
+   "pinyin": "lìshū",
+   "fr": "écriture des scribes (lishu)",
+   "en": "clerical script"
+  }
+ ],
  "phrase": {
-  "zh": "",
-  "pinyin": "",
-  "fr": "",
-  "en": ""
+  "zh": "这几个字是用隶书写的。",
+  "pinyin": "Zhè jǐ gè zì shì yòng lìshū xiě de.",
+  "fr": "Ces quelques caractères sont écrits en style des scribes.",
+  "en": "These few characters are written in clerical script."
  },
  "generation": {
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:69dd13a5bec104497dda930dd6d0a5f9662e2b0cd80f8dbfd6bc194cf5aadf32",
-  "essais": 1,
+  "empreinte_invite": "sha256:943e6f6b87e85f4f0a1c11bb6ba0376444ffa90f7f17a8f0deab886dcc1d48e6",
+  "essais": 2,
   "refus": []
  },
  "statut": "relu"

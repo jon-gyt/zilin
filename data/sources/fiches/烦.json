@@ -21,19 +21,32 @@
   "火": "sens",
   "页": "sens"
  },
- "mots": [],
+ "mots": [
+  {
+   "hanzi": "心烦",
+   "pinyin": "xīnfán",
+   "fr": "contrarié, agacé",
+   "en": "upset, irritated"
+  },
+  {
+   "hanzi": "烦人",
+   "pinyin": "fánrén",
+   "fr": "agaçant",
+   "en": "annoying"
+  }
+ ],
  "phrase": {
-  "zh": "",
-  "pinyin": "",
-  "fr": "",
-  "en": ""
+  "zh": "这件事真烦人。",
+  "pinyin": "Zhè jiàn shì zhēn fánrén.",
+  "fr": "Cette affaire est vraiment agaçante.",
+  "en": "This business is really annoying."
  },
  "generation": {
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:20b214cf3f3ad3ae36500770d0f3294bdfe19dd741503a5283b969ef229fa726",
-  "essais": 1,
+  "empreinte_invite": "sha256:4d294f9b5b0b697700e4f99a7bfe2088d7190494fde7c1715ee9aa772b1dafbb",
+  "essais": 2,
   "refus": []
  },
  "statut": "relu"

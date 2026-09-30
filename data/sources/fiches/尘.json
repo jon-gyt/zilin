@@ -21,19 +21,32 @@
   "小": "sens",
   "土": "sens"
  },
- "mots": [],
+ "mots": [
+  {
+   "hanzi": "灰尘",
+   "pinyin": "huīchén",
+   "fr": "poussière",
+   "en": "dust"
+  },
+  {
+   "hanzi": "尘土",
+   "pinyin": "chéntǔ",
+   "fr": "poussière, terre",
+   "en": "dust, dirt"
+  }
+ ],
  "phrase": {
-  "zh": "",
-  "pinyin": "",
-  "fr": "",
-  "en": ""
+  "zh": "桌子上有一层灰尘。",
+  "pinyin": "Zhuōzi shang yǒu yī céng huīchén.",
+  "fr": "Il y a une couche de poussière sur la table.",
+  "en": "There's a layer of dust on the table."
  },
  "generation": {
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:daeca49b2a02ca59a55476ad4b4da134bdcc048ea88f9997ee13cbc352a30860",
-  "essais": 1,
+  "empreinte_invite": "sha256:0f1ac31d39cf10c2840ba3dbc10965e295ef90a0184022ef01f8632f8f28b15b",
+  "essais": 2,
   "refus": []
  },
  "statut": "relu"

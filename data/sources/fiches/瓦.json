@@ -19,19 +19,32 @@
  "roles": {
   "瓦": "sens"
  },
- "mots": [],
+ "mots": [
+  {
+   "hanzi": "瓦房",
+   "pinyin": "wǎfáng",
+   "fr": "maison au toit de tuiles",
+   "en": "tile-roofed house"
+  },
+  {
+   "hanzi": "千瓦",
+   "pinyin": "qiānwǎ",
+   "fr": "kilowatt",
+   "en": "kilowatt"
+  }
+ ],
  "phrase": {
-  "zh": "",
-  "pinyin": "",
-  "fr": "",
-  "en": ""
+  "zh": "这里有很多瓦房。",
+  "pinyin": "Zhèli yǒu hěn duō wǎfáng.",
+  "fr": "Ici, il y a beaucoup de maisons aux toits de tuiles.",
+  "en": "There are many tile-roofed houses here."
  },
  "generation": {
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:d2202a0364a88313405e86106e1e2ceedf9017ecfea7bbbd46ab54914913f3fb",
-  "essais": 1,
+  "empreinte_invite": "sha256:011c42cbc63f8b9319234e5b30adb2d3e5c86592894502bcc073ce2d49bf3327",
+  "essais": 2,
   "refus": []
  },
  "statut": "relu"

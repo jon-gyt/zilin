@@ -21,19 +21,32 @@
   "钅": "sens",
   "中": "son"
  },
- "mots": [],
+ "mots": [
+  {
+   "hanzi": "分钟",
+   "pinyin": "fēnzhōng",
+   "fr": "minute",
+   "en": "minute"
+  },
+  {
+   "hanzi": "钟头",
+   "pinyin": "zhōngtóu",
+   "fr": "heure",
+   "en": "hour"
+  }
+ ],
  "phrase": {
-  "zh": "",
-  "pinyin": "",
-  "fr": "",
-  "en": ""
+  "zh": "请等我五分钟。",
+  "pinyin": "Qǐng děng wǒ wǔ fēnzhōng.",
+  "fr": "Attends-moi cinq minutes, s'il te plaît.",
+  "en": "Please wait five minutes for me."
  },
  "generation": {
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:96a171997e4540029ef8b999b0a2b693761eb70e422c248532c312782320d8e1",
-  "essais": 1,
+  "empreinte_invite": "sha256:59f728b2638353ca901fe30547581668a35b3eade8575a1707b5b68fde30649d",
+  "essais": 2,
   "refus": []
  },
  "statut": "relu"

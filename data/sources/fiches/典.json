@@ -21,19 +21,32 @@
   "曲": "sens",
   "八": "sens"
  },
- "mots": [],
+ "mots": [
+  {
+   "hanzi": "词典",
+   "pinyin": "cídiǎn",
+   "fr": "dictionnaire",
+   "en": "dictionary"
+  },
+  {
+   "hanzi": "字典",
+   "pinyin": "zìdiǎn",
+   "fr": "dictionnaire de caractères",
+   "en": "character dictionary"
+  }
+ ],
  "phrase": {
-  "zh": "",
-  "pinyin": "",
-  "fr": "",
-  "en": ""
+  "zh": "这个字我要查词典。",
+  "pinyin": "Zhège zì wǒ yào chá cídiǎn.",
+  "fr": "Pour ce caractère, je dois consulter le dictionnaire.",
+  "en": "I need to look this character up in the dictionary."
  },
  "generation": {
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:2e8730b308a770ca02f89bd2428f7c53645b2d7361bece98e7e33dac2fef36e3",
-  "essais": 1,
+  "empreinte_invite": "sha256:f8c0faad1fba16ceba92a7c1854a5e727fba63a2c93e699d723e6c2ca1db7854",
+  "essais": 2,
   "refus": []
  },
  "statut": "relu"

@@ -23,19 +23,32 @@
   "立": "forme",
   "口": "forme"
  },
- "mots": [],
+ "mots": [
+  {
+   "hanzi": "赔偿",
+   "pinyin": "péicháng",
+   "fr": "dédommager, indemnité",
+   "en": "to compensate, compensation"
+  },
+  {
+   "hanzi": "赔钱",
+   "pinyin": "péiqián",
+   "fr": "perdre de l'argent ; rembourser",
+   "en": "to lose money; to pay for damage"
+  }
+ ],
  "phrase": {
-  "zh": "",
-  "pinyin": "",
-  "fr": "",
-  "en": ""
+  "zh": "我把他的杯子打破了，要赔他一个。",
+  "pinyin": "Wǒ bǎ tā de bēizi dǎpò le, yào péi tā yī gè.",
+  "fr": "J'ai cassé sa tasse, je dois lui en rendre une.",
+  "en": "I broke his cup, so I have to replace it."
  },
  "generation": {
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:feca5f30dac54a9cb7be19d3964b286b85f9a5578f850f9f54a7adb0ca833304",
-  "essais": 1,
+  "empreinte_invite": "sha256:11b6a59763acc89dbcc6d62d0bd966a6012206c2caea98e5b5486ddf1fe8f4d0",
+  "essais": 2,
   "refus": []
  },
  "statut": "relu"

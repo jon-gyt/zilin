@@ -1,0 +1,425 @@
+{
+ "examen": "yueke-1205",
+ "parcours": "lire",
+ "generation": {
+  "modele": "rédaction manuelle",
+  "api": "session Claude Code (sans API)",
+  "date": "2026-09-30"
+ },
+ "relecture": {
+  "statut": "relu",
+  "par": "le propriétaire",
+  "decision": "« Go » (30 septembre 2026) : tout affiché sans relecture ligne à ligne",
+  "date": "2026-09-30"
+ },
+ "series": [
+  {
+   "serie": "A",
+   "statut": "relu",
+   "supports": [
+    {
+     "id": "s1",
+     "genre": "pancarte",
+     "contexte": {
+      "fr": "Un panneau",
+      "en": "A sign"
+     },
+     "lignes": [
+      {
+       "zh": "门口禁止停车",
+       "pinyin": "mén kǒu jìn zhǐ tíng chē",
+       "fr": "Stationnement interdit devant l'entrée",
+       "en": "No parking in front of the entrance"
+      },
+      {
+       "zh": "车请停在楼后",
+       "pinyin": "chē qǐng tíng zài lóu hòu",
+       "fr": "Garez-vous derrière le bâtiment",
+       "en": "Please park behind the building"
+      }
+     ]
+    },
+    {
+     "id": "s2",
+     "genre": "message",
+     "contexte": {
+      "fr": "Un message",
+      "en": "A message"
+     },
+     "lignes": [
+      {
+       "zh": "爸爸，我在邮局，",
+       "pinyin": "bà ba wǒ zài yóu jú",
+       "fr": "Papa, je suis à la poste :",
+       "en": "Dad, I'm at the post office:"
+      },
+      {
+       "zh": "给奶奶寄了一个包裹，",
+       "pinyin": "gěi nǎi nai jì le yī gè bāo guǒ",
+       "fr": "j'ai envoyé un colis à Mamie,",
+       "en": "I've sent Grandma a parcel"
+      },
+      {
+       "zh": "里面有两本书和一件毛衣。",
+       "pinyin": "lǐ mian yǒu liǎng běn shū hé yī jiàn máo yī",
+       "fr": "avec deux livres et un pull dedans.",
+       "en": "with two books and a sweater inside."
+      }
+     ]
+    }
+   ],
+   "questions": [
+    {
+     "type": "comprendre",
+     "support": "s1",
+     "consigne": {
+      "fr": "Que dit ce panneau ?",
+      "en": "What does this sign say?"
+     },
+     "choix": [
+      {
+       "fr": "On ne se gare pas devant l'entrée",
+       "en": "No parking in front of the entrance"
+      },
+      {
+       "fr": "On ne fume pas devant l'entrée",
+       "en": "No smoking in front of the entrance"
+      },
+      {
+       "fr": "On ne joue pas au ballon devant l'entrée",
+       "en": "No ball games in front of the entrance"
+      },
+      {
+       "fr": "On ne vend rien devant l'entrée",
+       "en": "No selling in front of the entrance"
+      }
+     ],
+     "reponse": 0,
+     "porte": [
+      "禁",
+      "止",
+      "停",
+      "车"
+     ]
+    },
+    {
+     "type": "reperer",
+     "support": "s2",
+     "consigne": {
+      "fr": "Touche le lieu où se trouve la personne qui écrit.",
+      "en": "Tap where the writer is."
+     },
+     "choix": [
+      "爸爸",
+      "邮局",
+      "奶奶",
+      "包裹"
+     ],
+     "reponse": 1,
+     "porte": [
+      "邮",
+      "局"
+     ]
+    },
+    {
+     "type": "vrai_faux",
+     "support": "s2",
+     "consigne": {
+      "fr": "Vrai ou faux ?",
+      "en": "True or false?"
+     },
+     "affirmation": {
+      "zh": "包裹是寄给爷爷的。",
+      "pinyin": "bāo guǒ shì jì gěi yé ye de",
+      "fr": "Le colis est pour Papi.",
+      "en": "The parcel is for Grandpa."
+     },
+     "reponse": false,
+     "porte": [
+      "寄",
+      "奶"
+     ]
+    },
+    {
+     "type": "sens",
+     "consigne": {
+      "fr": "Que veut dire ce caractère ?",
+      "en": "What does this character mean?"
+     },
+     "objet": {
+      "zh": "辣",
+      "pinyin": "là",
+      "fr": "piquant",
+      "en": "spicy"
+     },
+     "choix": [
+      {
+       "fr": "sucré",
+       "en": "sweet"
+      },
+      {
+       "fr": "amer",
+       "en": "bitter"
+      },
+      {
+       "fr": "salé",
+       "en": "salty"
+      },
+      {
+       "fr": "piquant",
+       "en": "spicy"
+      }
+     ],
+     "reponse": 3,
+     "porte": [
+      "辣"
+     ]
+    },
+    {
+     "type": "trou",
+     "consigne": {
+      "fr": "Quel caractère manque dans ce mot ?",
+      "en": "Which character is missing from this word?"
+     },
+     "objet": {
+      "zh": "眼镜",
+      "pinyin": "yǎn jìng",
+      "fr": "lunettes",
+      "en": "glasses"
+     },
+     "trou": 1,
+     "choix": [
+      "境",
+      "竟",
+      "镜",
+      "静"
+     ],
+     "reponse": 2,
+     "porte": [
+      "镜"
+     ]
+    }
+   ]
+  },
+  {
+   "serie": "B",
+   "statut": "relu",
+   "supports": [
+    {
+     "id": "s1",
+     "genre": "menu",
+     "contexte": {
+      "fr": "Un menu",
+      "en": "A menu"
+     },
+     "lignes": [
+      {
+       "zh": "辣子鸡：三十五元",
+       "pinyin": "là zi jī sān shí wǔ yuán",
+       "fr": "Poulet pimenté : 35 yuans",
+       "en": "Spicy chicken: 35 yuan"
+      },
+      {
+       "zh": "麻辣豆腐：十八元",
+       "pinyin": "má là dòu fu shí bā yuán",
+       "fr": "Tofu épicé : 18 yuans",
+       "en": "Spicy tofu: 18 yuan"
+      },
+      {
+       "zh": "米饭：两元",
+       "pinyin": "mǐ fàn liǎng yuán",
+       "fr": "Riz : 2 yuans",
+       "en": "Rice: 2 yuan"
+      }
+     ],
+     "glose": [
+      {
+       "zh": "三十五元",
+       "pinyin": "sān shí wǔ yuán",
+       "fr": "35 yuans",
+       "en": "35 yuan"
+      },
+      {
+       "zh": "十八元",
+       "pinyin": "shí bā yuán",
+       "fr": "18 yuans",
+       "en": "18 yuan"
+      },
+      {
+       "zh": "两元",
+       "pinyin": "liǎng yuán",
+       "fr": "2 yuans",
+       "en": "2 yuan"
+      }
+     ]
+    },
+    {
+     "id": "s2",
+     "genre": "message",
+     "contexte": {
+      "fr": "Un message",
+      "en": "A message"
+     },
+     "lignes": [
+      {
+       "zh": "小王，星期天晚上我们聚会，",
+       "pinyin": "xiǎo wáng xīng qī tiān wǎn shang wǒ men jù huì",
+       "fr": "Xiao Wang, dimanche soir on se retrouve :",
+       "en": "Xiao Wang, we're getting together on Sunday evening,"
+      },
+      {
+       "zh": "在我家吃饭聊天，",
+       "pinyin": "zài wǒ jiā chī fàn liáo tiān",
+       "fr": "on mange et on bavarde chez moi.",
+       "en": "eating and chatting at my place."
+      },
+      {
+       "zh": "你能来吗？",
+       "pinyin": "nǐ néng lái ma",
+       "fr": "Tu peux venir ?",
+       "en": "Can you come?"
+      }
+     ]
+    }
+   ],
+   "questions": [
+    {
+     "type": "comprendre",
+     "support": "s1",
+     "consigne": {
+      "fr": "Quel est le plat le plus cher ?",
+      "en": "Which dish is the most expensive?"
+     },
+     "choix": [
+      {
+       "fr": "Le tofu épicé",
+       "en": "The spicy tofu"
+      },
+      {
+       "fr": "Le poulet pimenté",
+       "en": "The spicy chicken"
+      },
+      {
+       "fr": "Le riz",
+       "en": "The rice"
+      },
+      {
+       "fr": "La soupe aux œufs",
+       "en": "The egg soup"
+      }
+     ],
+     "reponse": 1,
+     "porte": [
+      "辣",
+      "子",
+      "鸡",
+      "三",
+      "十",
+      "五"
+     ]
+    },
+    {
+     "type": "vrai_faux",
+     "support": "s1",
+     "consigne": {
+      "fr": "Vrai ou faux ?",
+      "en": "True or false?"
+     },
+     "affirmation": {
+      "zh": "麻辣豆腐十八元。",
+      "pinyin": "má là dòu fu shí bā yuán",
+      "fr": "Le tofu épicé coûte 18 yuans.",
+      "en": "The spicy tofu costs 18 yuan."
+     },
+     "reponse": true,
+     "porte": [
+      "辣",
+      "十",
+      "八"
+     ]
+    },
+    {
+     "type": "reperer",
+     "support": "s2",
+     "consigne": {
+      "fr": "Touche ce qu'on fera en plus de manger.",
+      "en": "Tap what you'll do besides eating."
+     },
+     "choix": [
+      "星期天",
+      "聚会",
+      "吃饭",
+      "聊天"
+     ],
+     "reponse": 3,
+     "porte": [
+      "聊",
+      "天"
+     ]
+    },
+    {
+     "type": "replique",
+     "support": "s2",
+     "consigne": {
+      "fr": "Que répond Xiao Wang ?",
+      "en": "What does Xiao Wang reply?"
+     },
+     "choix": [
+      {
+       "zh": "我的手机坏了。",
+       "pinyin": "wǒ de shǒu jī huài le",
+       "fr": "Mon téléphone est cassé.",
+       "en": "My phone is broken."
+      },
+      {
+       "zh": "能，我一定去！",
+       "pinyin": "néng wǒ yī dìng qù",
+       "fr": "Oui, je viendrai sans faute !",
+       "en": "Yes, I'll definitely come!"
+      },
+      {
+       "zh": "这棵树很高。",
+       "pinyin": "zhè kē shù hěn gāo",
+       "fr": "Cet arbre est très haut.",
+       "en": "This tree is very tall."
+      },
+      {
+       "zh": "我们班有四十个人。",
+       "pinyin": "wǒ men bān yǒu sì shí gè rén",
+       "fr": "Notre classe compte quarante élèves.",
+       "en": "There are forty people in our class."
+      }
+     ],
+     "reponse": 1,
+     "porte": [
+      "聚",
+      "能"
+     ]
+    },
+    {
+     "type": "caractere",
+     "consigne": {
+      "fr": "Quel caractère a ce sens ?",
+      "en": "Which character has this meaning?"
+     },
+     "objet": {
+      "zh": "泪",
+      "pinyin": "lèi",
+      "fr": "larme",
+      "en": "tear"
+     },
+     "choix": [
+      "汁",
+      "油",
+      "泪",
+      "沙"
+     ],
+     "reponse": 2,
+     "porte": [
+      "泪"
+     ]
+    }
+   ]
+  }
+ ]
+}

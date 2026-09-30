@@ -21,19 +21,32 @@
   "月": "sens",
   "长": "son"
  },
- "mots": [],
+ "mots": [
+  {
+   "hanzi": "膨胀",
+   "pinyin": "péngzhàng",
+   "fr": "se dilater, gonfler",
+   "en": "to expand, to swell"
+  },
+  {
+   "hanzi": "肿胀",
+   "pinyin": "zhǒngzhàng",
+   "fr": "enflé",
+   "en": "swollen"
+  }
+ ],
  "phrase": {
-  "zh": "",
-  "pinyin": "",
-  "fr": "",
-  "en": ""
+  "zh": "我吃得太多，肚子很胀。",
+  "pinyin": "Wǒ chī de tài duō, dùzi hěn zhàng.",
+  "fr": "J'ai trop mangé, j'ai le ventre gonflé.",
+  "en": "I ate too much and feel bloated."
  },
  "generation": {
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:3bc9b97dffa93366d93f2f2aa73f4edadf8fcc0dfb43ced3c7b649d44221ce61",
-  "essais": 1,
+  "empreinte_invite": "sha256:c30d2beddf965d7263a2a283ccf95f0f5b67f1b821f290f9fa9fa53f91123f8e",
+  "essais": 2,
   "refus": []
  },
  "statut": "relu"

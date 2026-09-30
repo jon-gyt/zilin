@@ -21,19 +21,32 @@
   "尸": "sens",
   "出": "forme"
  },
- "mots": [],
+ "mots": [
+  {
+   "hanzi": "委屈",
+   "pinyin": "wěiqu",
+   "fr": "lésé, peiné d'une injustice",
+   "en": "wronged, aggrieved"
+  },
+  {
+   "hanzi": "屈服",
+   "pinyin": "qūfú",
+   "fr": "céder, se soumettre",
+   "en": "to yield, to submit"
+  }
+ ],
  "phrase": {
-  "zh": "",
-  "pinyin": "",
-  "fr": "",
-  "en": ""
+  "zh": "她觉得很委屈，哭了。",
+  "pinyin": "Tā juéde hěn wěiqu, kū le.",
+  "fr": "Elle s'est sentie injustement traitée et s'est mise à pleurer.",
+  "en": "She felt hard done by and burst into tears."
  },
  "generation": {
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:f690f4f970a7de5e3a23cd604a714a740aba9d5f5d58d56362522def159d026f",
-  "essais": 1,
+  "empreinte_invite": "sha256:f7d1c7afc997e6eac41bf680542014aa048c4c29116806efa9de97b155805df4",
+  "essais": 2,
   "refus": []
  },
  "statut": "relu"

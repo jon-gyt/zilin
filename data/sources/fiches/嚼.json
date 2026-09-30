@@ -3,7 +3,9 @@
  "parcours": "lire",
  "jour": 1080,
  "pinyin": [
-  "jué"
+  "jiáo",
+  "jué",
+  "jiào"
  ],
  "sens_fr": "mâcher, mastiquer",
  "sens_en": "to chew",
@@ -25,27 +27,40 @@
  "memo_en": null,
  "roles": {
   "口": "sens",
-  "爫": "son",
-  "罒": "son",
-  "丨": "son",
-  "彐": "son",
-  "乚": "son",
-  "丶": "son",
-  "寸": "son"
+  "爫": "forme",
+  "罒": "forme",
+  "丨": "forme",
+  "彐": "forme",
+  "乚": "forme",
+  "丶": "forme",
+  "寸": "forme"
  },
- "mots": [],
+ "mots": [
+  {
+   "hanzi": "嚼劲",
+   "pinyin": "jiáojìn",
+   "fr": "fermeté sous la dent, mâche",
+   "en": "chewiness"
+  },
+  {
+   "hanzi": "嚼舌",
+   "pinyin": "jiáoshé",
+   "fr": "jaser, médire",
+   "en": "to gossip, to wag one's tongue"
+  }
+ ],
  "phrase": {
-  "zh": "",
-  "pinyin": "",
-  "fr": "",
-  "en": ""
+  "zh": "吃饭要慢慢嚼。",
+  "pinyin": "Chī fàn yào mànmàn jiáo.",
+  "fr": "Il faut bien mâcher en mangeant.",
+  "en": "You should chew slowly when you eat."
  },
  "generation": {
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:2b5183262d4a8cd9ac88b3668eeae9db02d443a23dde54b3aa6830e988fe3ba4",
-  "essais": 1,
+  "empreinte_invite": "sha256:941a22e36fbd6c327d3da7cb854bc9f68308879696dd6fec38f389a2608e5c58",
+  "essais": 3,
   "refus": []
  },
  "statut": "relu"

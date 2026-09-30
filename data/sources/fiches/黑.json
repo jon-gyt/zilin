@@ -19,19 +19,32 @@
  "roles": {
   "黑": "sens"
  },
- "mots": [],
+ "mots": [
+  {
+   "hanzi": "天黑",
+   "pinyin": "tiānhēi",
+   "fr": "la nuit tombe",
+   "en": "to get dark"
+  },
+  {
+   "hanzi": "黑板",
+   "pinyin": "hēibǎn",
+   "fr": "tableau noir",
+   "en": "blackboard"
+  }
+ ],
  "phrase": {
-  "zh": "",
-  "pinyin": "",
-  "fr": "",
-  "en": ""
+  "zh": "天黑了，我们回家吧。",
+  "pinyin": "Tiān hēi le, wǒmen huí jiā ba.",
+  "fr": "Il fait nuit, rentrons.",
+  "en": "It's dark, let's go home."
  },
  "generation": {
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:c66d763487cd92db3003f238e6266f0b736927e0d89ed969a4ac448a0fc7c648",
-  "essais": 1,
+  "empreinte_invite": "sha256:1064f2b40bad7786cbde703e5e487dcf57a510761f47c3dc6c81ef47185a7487",
+  "essais": 2,
   "refus": []
  },
  "statut": "relu"

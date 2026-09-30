@@ -1,0 +1,437 @@
+{
+ "examen": "yueke-555",
+ "parcours": "hsk",
+ "generation": {
+  "modele": "rédaction manuelle",
+  "api": "session Claude Code (sans API)",
+  "date": "2026-09-30"
+ },
+ "relecture": {
+  "statut": "relu",
+  "par": "le propriétaire",
+  "decision": "« Go » (30 septembre 2026) : tout affiché sans relecture ligne à ligne",
+  "date": "2026-09-30"
+ },
+ "series": [
+  {
+   "serie": "A",
+   "statut": "relu",
+   "supports": [
+    {
+     "id": "s1",
+     "genre": "message",
+     "contexte": {
+      "fr": "Un message",
+      "en": "A message"
+     },
+     "lignes": [
+      {
+       "zh": "小王，我的狗不见了！",
+       "pinyin": "xiǎo wáng wǒ de gǒu bù jiàn le",
+       "fr": "Xiao Wang, mon chien a disparu !",
+       "en": "Xiao Wang, my dog has gone missing!"
+      },
+      {
+       "zh": "我的狗是黑色的，很小。",
+       "pinyin": "wǒ de gǒu shì hēi sè de hěn xiǎo",
+       "fr": "Il est noir, tout petit.",
+       "en": "He's black and very small."
+      },
+      {
+       "zh": "你看见了，请给我打电话。",
+       "pinyin": "nǐ kàn jiàn le qǐng gěi wǒ dǎ diàn huà",
+       "fr": "Si tu le vois, appelle-moi.",
+       "en": "If you see him, please call me."
+      }
+     ]
+    },
+    {
+     "id": "s2",
+     "genre": "pancarte",
+     "contexte": {
+      "fr": "Un écriteau",
+      "en": "A notice"
+     },
+     "lignes": [
+      {
+       "zh": "小草在睡觉，",
+       "pinyin": "xiǎo cǎo zài shuì jiào",
+       "fr": "Les petites herbes dorment :",
+       "en": "The little grass is sleeping:"
+      },
+      {
+       "zh": "请不要在草地上走。",
+       "pinyin": "qǐng bù yào zài cǎo dì shàng zǒu",
+       "fr": "ne marchez pas sur la pelouse.",
+       "en": "please keep off the lawn."
+      }
+     ]
+    }
+   ],
+   "questions": [
+    {
+     "type": "comprendre",
+     "support": "s1",
+     "consigne": {
+      "fr": "Qu'est-ce qui a disparu ?",
+      "en": "What has gone missing?"
+     },
+     "choix": [
+      {
+       "fr": "Son chat",
+       "en": "His cat"
+      },
+      {
+       "fr": "Son chien",
+       "en": "His dog"
+      },
+      {
+       "fr": "Son vélo",
+       "en": "His bike"
+      },
+      {
+       "fr": "Son téléphone",
+       "en": "His phone"
+      }
+     ],
+     "reponse": 1,
+     "porte": [
+      "狗"
+     ]
+    },
+    {
+     "type": "vrai_faux",
+     "support": "s1",
+     "consigne": {
+      "fr": "Vrai ou faux ?",
+      "en": "True or false?"
+     },
+     "affirmation": {
+      "zh": "狗是白色的。",
+      "pinyin": "gǒu shì bái sè de",
+      "fr": "Le chien est blanc.",
+      "en": "The dog is white."
+     },
+     "reponse": false,
+     "porte": [
+      "黑",
+      "色"
+     ]
+    },
+    {
+     "type": "replique",
+     "support": "s1",
+     "consigne": {
+      "fr": "Que répond Xiao Wang ?",
+      "en": "What does Xiao Wang reply?"
+     },
+     "choix": [
+      {
+       "zh": "这个句子我不懂。",
+       "pinyin": "zhè gè jù zi wǒ bù dǒng",
+       "fr": "Je ne comprends pas cette phrase.",
+       "en": "I don't understand this sentence."
+      },
+      {
+       "zh": "我坐船去。",
+       "pinyin": "wǒ zuò chuán qù",
+       "fr": "J'y vais en bateau.",
+       "en": "I'm going by boat."
+      },
+      {
+       "zh": "别急，我帮你找！",
+       "pinyin": "bié jí wǒ bāng nǐ zhǎo",
+       "fr": "Pas de panique, je t'aide à le chercher !",
+       "en": "Don't worry, I'll help you look!"
+      },
+      {
+       "zh": "今天是星期天。",
+       "pinyin": "jīn tiān shì xīng qī tiān",
+       "fr": "Aujourd'hui, c'est dimanche.",
+       "en": "Today is Sunday."
+      }
+     ],
+     "reponse": 2,
+     "porte": [
+      "狗",
+      "急",
+      "帮",
+      "找"
+     ]
+    },
+    {
+     "type": "comprendre",
+     "support": "s2",
+     "consigne": {
+      "fr": "Que demande cet écriteau ?",
+      "en": "What does this notice ask?"
+     },
+     "choix": [
+      {
+       "fr": "De ne pas marcher sur la pelouse",
+       "en": "Not to walk on the grass"
+      },
+      {
+       "fr": "De ne pas faire de bruit",
+       "en": "Not to make noise"
+      },
+      {
+       "fr": "De ne pas cueillir les fleurs",
+       "en": "Not to pick the flowers"
+      },
+      {
+       "fr": "De ne pas nourrir les oiseaux",
+       "en": "Not to feed the birds"
+      }
+     ],
+     "reponse": 0,
+     "porte": [
+      "草",
+      "地",
+      "走"
+     ]
+    },
+    {
+     "type": "sens",
+     "consigne": {
+      "fr": "Que veut dire ce caractère ?",
+      "en": "What does this character mean?"
+     },
+     "objet": {
+      "zh": "近",
+      "pinyin": "jìn",
+      "fr": "proche",
+      "en": "near"
+     },
+     "choix": [
+      {
+       "fr": "loin",
+       "en": "far"
+      },
+      {
+       "fr": "haut",
+       "en": "high"
+      },
+      {
+       "fr": "lent",
+       "en": "slow"
+      },
+      {
+       "fr": "proche",
+       "en": "near"
+      }
+     ],
+     "reponse": 3,
+     "porte": [
+      "近"
+     ]
+    }
+   ]
+  },
+  {
+   "serie": "B",
+   "statut": "relu",
+   "supports": [
+    {
+     "id": "s1",
+     "genre": "billet",
+     "contexte": {
+      "fr": "Un billet",
+      "en": "A ticket"
+     },
+     "lignes": [
+      {
+       "zh": "船票",
+       "pinyin": "chuán piào",
+       "fr": "Ticket de bateau",
+       "en": "Boat ticket"
+      },
+      {
+       "zh": "南京到北京",
+       "pinyin": "nán jīng dào běi jīng",
+       "fr": "De Nankin à Pékin",
+       "en": "Nanjing to Beijing"
+      },
+      {
+       "zh": "八月十日上午十点",
+       "pinyin": "bā yuè shí rì shàng wǔ shí diǎn",
+       "fr": "10 août, dix heures du matin",
+       "en": "10 August, 10 am"
+      },
+      {
+       "zh": "三号船",
+       "pinyin": "sān hào chuán",
+       "fr": "Bateau n° 3",
+       "en": "Boat no. 3"
+      }
+     ]
+    },
+    {
+     "id": "s2",
+     "genre": "message",
+     "contexte": {
+      "fr": "Un message",
+      "en": "A message"
+     },
+     "lignes": [
+      {
+       "zh": "高老师，我是小红的爸爸。",
+       "pinyin": "gāo lǎo shī wǒ shì xiǎo hóng de bà ba",
+       "fr": "Madame Gao, je suis le père de Xiaohong.",
+       "en": "Ms Gao, I'm Xiaohong's father."
+      },
+      {
+       "zh": "今天下午我来学校接小红，",
+       "pinyin": "jīn tiān xià wǔ wǒ lái xué xiào jiē xiǎo hóng",
+       "fr": "Cet après-midi, je viens chercher Xiaohong à l'école :",
+       "en": "This afternoon I'm coming to pick Xiaohong up from school:"
+      },
+      {
+       "zh": "她要去看牙医。",
+       "pinyin": "tā yào qù kàn yá yī",
+       "fr": "elle a rendez-vous chez le dentiste.",
+       "en": "she has to see the dentist."
+      }
+     ]
+    }
+   ],
+   "questions": [
+    {
+     "type": "comprendre",
+     "support": "s1",
+     "consigne": {
+      "fr": "Pour quel moyen de transport est ce ticket ?",
+      "en": "What kind of transport is this ticket for?"
+     },
+     "choix": [
+      {
+       "fr": "Un train",
+       "en": "A train"
+      },
+      {
+       "fr": "Un avion",
+       "en": "A plane"
+      },
+      {
+       "fr": "Un bateau",
+       "en": "A boat"
+      },
+      {
+       "fr": "Un bus",
+       "en": "A bus"
+      }
+     ],
+     "reponse": 2,
+     "porte": [
+      "船",
+      "票"
+     ]
+    },
+    {
+     "type": "reperer",
+     "support": "s1",
+     "consigne": {
+      "fr": "Touche le numéro du bateau.",
+      "en": "Tap the boat number."
+     },
+     "choix": [
+      "船票",
+      "北京",
+      "八月",
+      "三号船"
+     ],
+     "reponse": 3,
+     "porte": [
+      "三",
+      "号",
+      "船"
+     ]
+    },
+    {
+     "type": "vrai_faux",
+     "support": "s2",
+     "consigne": {
+      "fr": "Vrai ou faux ?",
+      "en": "True or false?"
+     },
+     "affirmation": {
+      "zh": "爸爸下午来接小红。",
+      "pinyin": "bà ba xià wǔ lái jiē xiǎo hóng",
+      "fr": "Son père vient chercher Xiaohong l'après-midi.",
+      "en": "Her father picks Xiaohong up in the afternoon."
+     },
+     "reponse": true,
+     "porte": [
+      "爸",
+      "下",
+      "午",
+      "接"
+     ]
+    },
+    {
+     "type": "replique",
+     "support": "s2",
+     "consigne": {
+      "fr": "Que répond le professeur ?",
+      "en": "What does the teacher reply?"
+     },
+     "choix": [
+      {
+       "zh": "我喜欢坐船。",
+       "pinyin": "wǒ xǐ huan zuò chuán",
+       "fr": "J'aime prendre le bateau.",
+       "en": "I like going by boat."
+      },
+      {
+       "zh": "好，我告诉她。",
+       "pinyin": "hǎo wǒ gào su tā",
+       "fr": "D'accord, je la préviens.",
+       "en": "OK, I'll let her know."
+      },
+      {
+       "zh": "这个字我会写。",
+       "pinyin": "zhè gè zì wǒ huì xiě",
+       "fr": "Ce caractère, je sais l'écrire.",
+       "en": "I can write this character."
+      },
+      {
+       "zh": "她是我的妹妹。",
+       "pinyin": "tā shì wǒ de mèi mei",
+       "fr": "C'est ma petite sœur.",
+       "en": "She's my little sister."
+      }
+     ],
+     "reponse": 1,
+     "porte": [
+      "接",
+      "告",
+      "诉"
+     ]
+    },
+    {
+     "type": "caractere",
+     "consigne": {
+      "fr": "Quel caractère a ce sens ?",
+      "en": "Which character has this meaning?"
+     },
+     "objet": {
+      "zh": "哭",
+      "pinyin": "kū",
+      "fr": "pleurer",
+      "en": "to cry"
+     },
+     "choix": [
+      "笑",
+      "叫",
+      "吃",
+      "哭"
+     ],
+     "reponse": 3,
+     "porte": [
+      "哭"
+     ]
+    }
+   ]
+  }
+ ]
+}

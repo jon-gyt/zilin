@@ -21,19 +21,32 @@
   "马": "sens",
   "主": "son"
  },
- "mots": [],
+ "mots": [
+  {
+   "hanzi": "驻足",
+   "pinyin": "zhùzú",
+   "fr": "s'arrêter, faire halte",
+   "en": "to stop, to halt"
+  },
+  {
+   "hanzi": "常驻",
+   "pinyin": "chángzhù",
+   "fr": "en poste permanent",
+   "en": "resident, permanently stationed"
+  }
+ ],
  "phrase": {
-  "zh": "",
-  "pinyin": "",
-  "fr": "",
-  "en": ""
+  "zh": "他是公司驻北京的代表。",
+  "pinyin": "Tā shì gōngsī zhù Běijīng de dàibiǎo.",
+  "fr": "Il est le représentant de l'entreprise à Pékin.",
+  "en": "He is the company's representative in Beijing."
  },
  "generation": {
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:cbd7816879accffc543ce3d3a062101c114c8f0e56c84144769dffbdd2a1e84b",
-  "essais": 1,
+  "empreinte_invite": "sha256:ac3bf84e5f2b24d147e20fe3c1b1a24c4cd073e8a6ee18223786915a9ab164f1",
+  "essais": 2,
   "refus": []
  },
  "statut": "relu"

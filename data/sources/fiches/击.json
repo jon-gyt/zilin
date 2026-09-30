@@ -19,19 +19,32 @@
  "roles": {
   "击": "forme"
  },
- "mots": [],
+ "mots": [
+  {
+   "hanzi": "打击",
+   "pinyin": "dǎjī",
+   "fr": "frapper, coup dur",
+   "en": "to strike, blow"
+  },
+  {
+   "hanzi": "点击",
+   "pinyin": "diǎnjī",
+   "fr": "cliquer",
+   "en": "to click"
+  }
+ ],
  "phrase": {
-  "zh": "",
-  "pinyin": "",
-  "fr": "",
-  "en": ""
+  "zh": "请点击这里。",
+  "pinyin": "Qǐng diǎnjī zhèli.",
+  "fr": "Cliquez ici, s'il vous plaît.",
+  "en": "Please click here."
  },
  "generation": {
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:da18061166050d8c220d444f4aa84f9033ebb67dc0e7263424c44e0d63dedfda",
-  "essais": 1,
+  "empreinte_invite": "sha256:db1fdb7c9d4244c3a0b3d62032ffcbae763e16b95f91fffb21a29bfe8a84b527",
+  "essais": 2,
   "refus": []
  },
  "statut": "relu"

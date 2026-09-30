@@ -19,19 +19,32 @@
  "roles": {
   "斗": "forme"
  },
- "mots": [],
+ "mots": [
+  {
+   "hanzi": "斗争",
+   "pinyin": "dòuzhēng",
+   "fr": "lutte, lutter",
+   "en": "struggle, to fight"
+  },
+  {
+   "hanzi": "打斗",
+   "pinyin": "dǎdòu",
+   "fr": "bagarre, se battre",
+   "en": "fight, to scuffle"
+  }
+ ],
  "phrase": {
-  "zh": "",
-  "pinyin": "",
-  "fr": "",
-  "en": ""
+  "zh": "他们两个人又斗起来了。",
+  "pinyin": "Tāmen liǎng gè rén yòu dòu qǐlái le.",
+  "fr": "Ces deux-là se sont encore mis à se battre.",
+  "en": "Those two have started fighting again."
  },
  "generation": {
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:166f4df53bd3b06ae326a37df12fa50c41803dd0f7c4617f2fc4c4759d201587",
-  "essais": 1,
+  "empreinte_invite": "sha256:5f628077ad0bfb313ba659541472495e53f9f4ee230a89ad8fae000d45d4df13",
+  "essais": 2,
   "refus": []
  },
  "statut": "relu"

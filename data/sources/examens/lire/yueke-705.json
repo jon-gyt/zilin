@@ -1,0 +1,693 @@
+{
+ "examen": "yueke-705",
+ "parcours": "lire",
+ "generation": {
+  "modele": "rédaction manuelle",
+  "api": "session Claude Code (sans API)",
+  "date": "2026-09-30"
+ },
+ "relecture": {
+  "statut": "relu",
+  "par": "le propriétaire",
+  "decision": "« Go » (30 septembre 2026) : tout affiché sans relecture ligne à ligne",
+  "date": "2026-09-30"
+ },
+ "series": [
+  {
+   "serie": "A",
+   "statut": "relu",
+   "supports": [
+    {
+     "id": "s1",
+     "genre": "affiche",
+     "contexte": {
+      "fr": "Une affiche",
+      "en": "A poster"
+     },
+     "lignes": [
+      {
+       "zh": "通知",
+       "pinyin": "tōng zhī",
+       "fr": "Avis",
+       "en": "Notice"
+      },
+      {
+       "zh": "明天下午三点，在三号教室讨论数学考试。",
+       "pinyin": "míng tiān xià wǔ sān diǎn zài sān hào jiào shì tǎo lùn shù xué kǎo shì",
+       "fr": "Demain à 15 heures, salle 3 : on parle de l'examen de maths.",
+       "en": "Tomorrow at 3 pm, room 3: discussion of the maths exam."
+      },
+      {
+       "zh": "请带好本子和笔。",
+       "pinyin": "qǐng dài hǎo běn zi hé bǐ",
+       "fr": "Apportez cahier et stylo.",
+       "en": "Bring a notebook and a pen."
+      }
+     ],
+     "glose": [
+      {
+       "zh": "通知",
+       "pinyin": "tōng zhī",
+       "fr": "avis, annonce",
+       "en": "notice"
+      },
+      {
+       "zh": "三号",
+       "pinyin": "sān hào",
+       "fr": "numéro 3",
+       "en": "number 3"
+      },
+      {
+       "zh": "教室",
+       "pinyin": "jiào shì",
+       "fr": "salle de classe",
+       "en": "classroom"
+      },
+      {
+       "zh": "讨论",
+       "pinyin": "tǎo lùn",
+       "fr": "discuter",
+       "en": "to discuss"
+      },
+      {
+       "zh": "数学",
+       "pinyin": "shù xué",
+       "fr": "mathématiques",
+       "en": "maths"
+      },
+      {
+       "zh": "考试",
+       "pinyin": "kǎo shì",
+       "fr": "examen",
+       "en": "exam"
+      },
+      {
+       "zh": "带好",
+       "pinyin": "dài hǎo",
+       "fr": "bien apporter",
+       "en": "to be sure to bring"
+      },
+      {
+       "zh": "和",
+       "pinyin": "hé",
+       "fr": "et",
+       "en": "and"
+      }
+     ]
+    },
+    {
+     "id": "s2",
+     "genre": "message",
+     "contexte": {
+      "fr": "Un message",
+      "en": "A message"
+     },
+     "lignes": [
+      {
+       "zh": "老师，我今天头疼，",
+       "pinyin": "lǎo shī wǒ jīn tiān tóu téng",
+       "fr": "Monsieur, aujourd'hui j'ai mal à la tête,",
+       "en": "Sir, I have a headache today,"
+      },
+      {
+       "zh": "身体很不舒服，",
+       "pinyin": "shēn tǐ hěn bù shū fu",
+       "fr": "je ne me sens pas bien du tout :",
+       "en": "I feel really unwell:"
+      },
+      {
+       "zh": "不能去上课了。对不起！小平",
+       "pinyin": "bù néng qù shàng kè le duì bu qǐ xiǎo píng",
+       "fr": "je ne pourrai pas venir en cours. Désolé ! Xiaoping",
+       "en": "I can't come to class. Sorry! Xiaoping"
+      }
+     ],
+     "glose": [
+      {
+       "zh": "头疼",
+       "pinyin": "tóu téng",
+       "fr": "avoir mal à la tête",
+       "en": "to have a headache"
+      },
+      {
+       "zh": "舒服",
+       "pinyin": "shū fu",
+       "fr": "bien, à l'aise",
+       "en": "comfortable, well"
+      },
+      {
+       "zh": "对不起",
+       "pinyin": "duì bu qǐ",
+       "fr": "pardon, désolé",
+       "en": "sorry"
+      },
+      {
+       "zh": "小平",
+       "pinyin": "xiǎo píng",
+       "fr": "Xiaoping (prénom)",
+       "en": "Xiaoping (first name)"
+      },
+      {
+       "zh": "好好",
+       "pinyin": "hǎo hǎo",
+       "fr": "bien, comme il faut",
+       "en": "properly"
+      },
+      {
+       "zh": "休息",
+       "pinyin": "xiū xi",
+       "fr": "se reposer",
+       "en": "to rest"
+      },
+      {
+       "zh": "最",
+       "pinyin": "zuì",
+       "fr": "le plus",
+       "en": "most"
+      },
+      {
+       "zh": "重要",
+       "pinyin": "zhòng yào",
+       "fr": "important",
+       "en": "important"
+      },
+      {
+       "zh": "爬山",
+       "pinyin": "pá shān",
+       "fr": "randonner en montagne",
+       "en": "to hike"
+      },
+      {
+       "zh": "星期天",
+       "pinyin": "xīng qī tiān",
+       "fr": "dimanche",
+       "en": "Sunday"
+      },
+      {
+       "zh": "这个",
+       "pinyin": "zhè ge",
+       "fr": "ce, celui-ci",
+       "en": "this"
+      },
+      {
+       "zh": "好吃",
+       "pinyin": "hǎo chī",
+       "fr": "bon (à manger)",
+       "en": "tasty"
+      },
+      {
+       "zh": "几点",
+       "pinyin": "jǐ diǎn",
+       "fr": "à quelle heure",
+       "en": "what time"
+      }
+     ]
+    }
+   ],
+   "questions": [
+    {
+     "type": "comprendre",
+     "support": "s1",
+     "consigne": {
+      "fr": "Où faut-il être demain à trois heures ?",
+      "en": "Where do you need to be tomorrow at three?"
+     },
+     "choix": [
+      {
+       "fr": "Dans la salle 3",
+       "en": "In room 3"
+      },
+      {
+       "fr": "À la bibliothèque",
+       "en": "At the library"
+      },
+      {
+       "fr": "Au bureau du directeur",
+       "en": "At the head's office"
+      },
+      {
+       "fr": "Sur le terrain de sport",
+       "en": "On the sports field"
+      }
+     ],
+     "reponse": 0,
+     "porte": [
+      "三",
+      "号",
+      "教",
+      "室"
+     ]
+    },
+    {
+     "type": "reperer",
+     "support": "s1",
+     "consigne": {
+      "fr": "Touche la matière dont on va parler.",
+      "en": "Tap the subject that will be discussed."
+     },
+     "choix": [
+      "通知",
+      "教室",
+      "数学",
+      "本子"
+     ],
+     "reponse": 2,
+     "porte": [
+      "数",
+      "学"
+     ]
+    },
+    {
+     "type": "comprendre",
+     "support": "s2",
+     "consigne": {
+      "fr": "Pourquoi l'élève ne vient-il pas ?",
+      "en": "Why isn't the pupil coming?"
+     },
+     "choix": [
+      {
+       "fr": "Il a raté le bus",
+       "en": "He missed the bus"
+      },
+      {
+       "fr": "Il a mal à la tête",
+       "en": "He has a headache"
+      },
+      {
+       "fr": "Il est en voyage",
+       "en": "He's away on a trip"
+      },
+      {
+       "fr": "Il a mal au ventre",
+       "en": "He has a stomach ache"
+      }
+     ],
+     "reponse": 1,
+     "porte": [
+      "头",
+      "疼"
+     ]
+    },
+    {
+     "type": "replique",
+     "support": "s2",
+     "consigne": {
+      "fr": "Que répond le professeur ?",
+      "en": "What does the teacher reply?"
+     },
+     "choix": [
+      {
+       "zh": "这个星期天我们去爬山吧。",
+       "pinyin": "zhè ge xīng qī tiān wǒ men qù pá shān ba",
+       "fr": "Ce dimanche, allons randonner en montagne.",
+       "en": "Let's go hiking this Sunday."
+      },
+      {
+       "zh": "这个菜很好吃。",
+       "pinyin": "zhè ge cài hěn hǎo chī",
+       "fr": "Ce plat est très bon.",
+       "en": "This dish is delicious."
+      },
+      {
+       "zh": "明天几点上课？",
+       "pinyin": "míng tiān jǐ diǎn shàng kè",
+       "fr": "Le cours est à quelle heure demain ?",
+       "en": "What time is class tomorrow?"
+      },
+      {
+       "zh": "好好休息，身体最重要！",
+       "pinyin": "hǎo hǎo xiū xi shēn tǐ zuì zhòng yào",
+       "fr": "Repose-toi bien, la santé avant tout !",
+       "en": "Get some proper rest, health comes first!"
+      }
+     ],
+     "reponse": 3,
+     "porte": [
+      "疼",
+      "舒",
+      "服"
+     ]
+    },
+    {
+     "type": "sens",
+     "consigne": {
+      "fr": "Que veut dire ce caractère ?",
+      "en": "What does this character mean?"
+     },
+     "objet": {
+      "zh": "铁",
+      "pinyin": "tiě",
+      "fr": "fer",
+      "en": "iron"
+     },
+     "choix": [
+      {
+       "fr": "fer",
+       "en": "iron"
+      },
+      {
+       "fr": "or",
+       "en": "gold"
+      },
+      {
+       "fr": "bois",
+       "en": "wood"
+      },
+      {
+       "fr": "pierre",
+       "en": "stone"
+      }
+     ],
+     "reponse": 0,
+     "porte": [
+      "铁"
+     ]
+    }
+   ]
+  },
+  {
+   "serie": "B",
+   "statut": "relu",
+   "supports": [
+    {
+     "id": "s1",
+     "genre": "pancarte",
+     "contexte": {
+      "fr": "Un panneau",
+      "en": "A sign"
+     },
+     "lignes": [
+      {
+       "zh": "地铁站",
+       "pinyin": "dì tiě zhàn",
+       "fr": "Station de métro",
+       "en": "Metro station"
+      },
+      {
+       "zh": "前面一百米",
+       "pinyin": "qián mian yī bǎi mǐ",
+       "fr": "À cent mètres",
+       "en": "100 metres ahead"
+      },
+      {
+       "zh": "这里不能停车",
+       "pinyin": "zhè li bù néng tíng chē",
+       "fr": "Stationnement interdit",
+       "en": "No parking here"
+      }
+     ],
+     "glose": [
+      {
+       "zh": "地铁站",
+       "pinyin": "dì tiě zhàn",
+       "fr": "station de métro",
+       "en": "metro station"
+      },
+      {
+       "zh": "一百米",
+       "pinyin": "yī bǎi mǐ",
+       "fr": "cent mètres",
+       "en": "a hundred metres"
+      },
+      {
+       "zh": "停车",
+       "pinyin": "tíng chē",
+       "fr": "se garer",
+       "en": "to park"
+      }
+     ]
+    },
+    {
+     "id": "s2",
+     "genre": "message",
+     "contexte": {
+      "fr": "Un message",
+      "en": "A message"
+     },
+     "lignes": [
+      {
+       "zh": "小李，你的信我收到了。",
+       "pinyin": "xiǎo lǐ nǐ de xìn wǒ shōu dào le",
+       "fr": "Xiao Li, j'ai bien reçu ta lettre.",
+       "en": "Xiao Li, I got your letter."
+      },
+      {
+       "zh": "我在北京挺好的，",
+       "pinyin": "wǒ zài běi jīng tǐng hǎo de",
+       "fr": "À Pékin, je vais plutôt bien :",
+       "en": "I'm doing quite well in Beijing:"
+      },
+      {
+       "zh": "虽然工作很忙，",
+       "pinyin": "suī rán gōng zuò hěn máng",
+       "fr": "le travail ne manque pas,",
+       "en": "work is busy,"
+      },
+      {
+       "zh": "可是每天都很快乐。",
+       "pinyin": "kě shì měi tiān dōu hěn kuài lè",
+       "fr": "mais chaque jour est joyeux.",
+       "en": "but every day is a happy one."
+      }
+     ],
+     "glose": [
+      {
+       "zh": "信",
+       "pinyin": "xìn",
+       "fr": "lettre",
+       "en": "letter"
+      },
+      {
+       "zh": "收到",
+       "pinyin": "shōu dào",
+       "fr": "recevoir",
+       "en": "to receive"
+      },
+      {
+       "zh": "挺",
+       "pinyin": "tǐng",
+       "fr": "assez, plutôt",
+       "en": "quite"
+      },
+      {
+       "zh": "的",
+       "pinyin": "de",
+       "fr": "(affirmation)",
+       "en": "(assertion)"
+      },
+      {
+       "zh": "虽然",
+       "pinyin": "suī rán",
+       "fr": "bien que",
+       "en": "although"
+      },
+      {
+       "zh": "工作",
+       "pinyin": "gōng zuò",
+       "fr": "travail",
+       "en": "work"
+      },
+      {
+       "zh": "可是",
+       "pinyin": "kě shì",
+       "fr": "mais",
+       "en": "but"
+      },
+      {
+       "zh": "每天",
+       "pinyin": "měi tiān",
+       "fr": "chaque jour",
+       "en": "every day"
+      },
+      {
+       "zh": "快乐",
+       "pinyin": "kuài lè",
+       "fr": "joyeux, heureux",
+       "en": "happy"
+      },
+      {
+       "zh": "累",
+       "pinyin": "lèi",
+       "fr": "fatigué",
+       "en": "tired"
+      },
+      {
+       "zh": "地铁站",
+       "pinyin": "dì tiě zhàn",
+       "fr": "station de métro",
+       "en": "metro station"
+      },
+      {
+       "zh": "会",
+       "pinyin": "huì",
+       "fr": "savoir (faire)",
+       "en": "can, know how to"
+      },
+      {
+       "zh": "数学题",
+       "pinyin": "shù xué tí",
+       "fr": "exercice de maths",
+       "en": "maths problem"
+      },
+      {
+       "zh": "坏了",
+       "pinyin": "huài le",
+       "fr": "en panne",
+       "en": "broken down"
+      }
+     ]
+    }
+   ],
+   "questions": [
+    {
+     "type": "comprendre",
+     "support": "s1",
+     "consigne": {
+      "fr": "Qu'y a-t-il à cent mètres ?",
+      "en": "What is a hundred metres ahead?"
+     },
+     "choix": [
+      {
+       "fr": "Une station de métro",
+       "en": "A metro station"
+      },
+      {
+       "fr": "Une gare",
+       "en": "A railway station"
+      },
+      {
+       "fr": "Un hôpital",
+       "en": "A hospital"
+      },
+      {
+       "fr": "Un supermarché",
+       "en": "A supermarket"
+      }
+     ],
+     "reponse": 0,
+     "porte": [
+      "地",
+      "铁",
+      "站"
+     ]
+    },
+    {
+     "type": "vrai_faux",
+     "support": "s1",
+     "consigne": {
+      "fr": "Vrai ou faux ?",
+      "en": "True or false?"
+     },
+     "affirmation": {
+      "zh": "这里可以停车。",
+      "pinyin": "zhè li kě yǐ tíng chē",
+      "fr": "On peut se garer ici.",
+      "en": "You can park here."
+     },
+     "reponse": false,
+     "porte": [
+      "不",
+      "能",
+      "停"
+     ]
+    },
+    {
+     "type": "comprendre",
+     "support": "s2",
+     "consigne": {
+      "fr": "Comment se sent la personne qui écrit ?",
+      "en": "How does the writer feel?"
+     },
+     "choix": [
+      {
+       "fr": "Fatiguée",
+       "en": "Tired"
+      },
+      {
+       "fr": "Malade",
+       "en": "Ill"
+      },
+      {
+       "fr": "Heureuse",
+       "en": "Happy"
+      },
+      {
+       "fr": "Triste",
+       "en": "Sad"
+      }
+     ],
+     "reponse": 2,
+     "porte": [
+      "挺",
+      "快",
+      "乐"
+     ]
+    },
+    {
+     "type": "replique",
+     "support": "s2",
+     "consigne": {
+      "fr": "Que répond Xiao Li ?",
+      "en": "What does Xiao Li reply?"
+     },
+     "choix": [
+      {
+       "zh": "地铁站在前面。",
+       "pinyin": "dì tiě zhàn zài qián mian",
+       "fr": "La station de métro est plus loin.",
+       "en": "The metro station is up ahead."
+      },
+      {
+       "zh": "我不会做数学题。",
+       "pinyin": "wǒ bù huì zuò shù xué tí",
+       "fr": "Je ne sais pas faire les exercices de maths.",
+       "en": "I can't do maths problems."
+      },
+      {
+       "zh": "我的车坏了。",
+       "pinyin": "wǒ de chē huài le",
+       "fr": "Ma voiture est en panne.",
+       "en": "My car has broken down."
+      },
+      {
+       "zh": "太好了，别太累了！",
+       "pinyin": "tài hǎo le bié tài lèi le",
+       "fr": "Tant mieux, ne te fatigue pas trop !",
+       "en": "Great, don't wear yourself out!"
+      }
+     ],
+     "reponse": 3,
+     "porte": [
+      "虽",
+      "然",
+      "忙"
+     ]
+    },
+    {
+     "type": "trou",
+     "consigne": {
+      "fr": "Quel caractère manque dans ce mot ?",
+      "en": "Which character is missing from this word?"
+     },
+     "objet": {
+      "zh": "健康",
+      "pinyin": "jiàn kāng",
+      "fr": "santé",
+      "en": "health"
+     },
+     "trou": 1,
+     "choix": [
+      "床",
+      "康",
+      "店",
+      "庭"
+     ],
+     "reponse": 1,
+     "porte": [
+      "康"
+     ]
+    }
+   ]
+  }
+ ]
+}

@@ -19,19 +19,32 @@
  "roles": {
   "瓜": "sens"
  },
- "mots": [],
+ "mots": [
+  {
+   "hanzi": "西瓜",
+   "pinyin": "xīguā",
+   "fr": "pastèque",
+   "en": "watermelon"
+  },
+  {
+   "hanzi": "黄瓜",
+   "pinyin": "huángguā",
+   "fr": "concombre",
+   "en": "cucumber"
+  }
+ ],
  "phrase": {
-  "zh": "",
-  "pinyin": "",
-  "fr": "",
-  "en": ""
+  "zh": "夏天我喜欢吃西瓜。",
+  "pinyin": "Xiàtiān wǒ xǐhuan chī xīguā.",
+  "fr": "En été, j'aime manger de la pastèque.",
+  "en": "In summer I like eating watermelon."
  },
  "generation": {
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:b7e6342b0d5c1d1abe2962be415130ee178c643ac9b50d83c747e25e84c1462e",
-  "essais": 1,
+  "empreinte_invite": "sha256:ce66385a30906bd168315f0ca1746675466535a088dda47a16a280a8e07652c9",
+  "essais": 2,
   "refus": []
  },
  "statut": "relu"

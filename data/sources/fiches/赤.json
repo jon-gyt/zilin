@@ -19,19 +19,32 @@
  "roles": {
   "赤": "sens"
  },
- "mots": [],
+ "mots": [
+  {
+   "hanzi": "赤道",
+   "pinyin": "chìdào",
+   "fr": "équateur",
+   "en": "equator"
+  },
+  {
+   "hanzi": "赤脚",
+   "pinyin": "chìjiǎo",
+   "fr": "pieds nus",
+   "en": "barefoot"
+  }
+ ],
  "phrase": {
-  "zh": "",
-  "pinyin": "",
-  "fr": "",
-  "en": ""
+  "zh": "孩子们赤着脚在河边玩。",
+  "pinyin": "Háizimen chì zhe jiǎo zài hébiān wán.",
+  "fr": "Les enfants jouent pieds nus au bord de la rivière.",
+  "en": "The children are playing barefoot by the river."
  },
  "generation": {
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:a34a94fa3999ecab9314c517637212675de5bf9f4094c941587862772d81fbd7",
-  "essais": 1,
+  "empreinte_invite": "sha256:c6649a29945561ea454068a62bd6c60ee0f92b376721fd8d9d6bea30e8454098",
+  "essais": 2,
   "refus": []
  },
  "statut": "relu"

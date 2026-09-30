@@ -19,19 +19,32 @@
  "roles": {
   "舟": "sens"
  },
- "mots": [],
+ "mots": [
+  {
+   "hanzi": "方舟",
+   "pinyin": "fāngzhōu",
+   "fr": "arche",
+   "en": "ark"
+  },
+  {
+   "hanzi": "舟船",
+   "pinyin": "zhōuchuán",
+   "fr": "bateaux, embarcations",
+   "en": "boats and ships"
+  }
+ ],
  "phrase": {
-  "zh": "",
-  "pinyin": "",
-  "fr": "",
-  "en": ""
+  "zh": "河上有一只小舟。",
+  "pinyin": "Hé shàng yǒu yī zhī xiǎozhōu.",
+  "fr": "Il y a une petite barque sur la rivière.",
+  "en": "There's a small boat on the river."
  },
  "generation": {
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:db2dc1e6a105c2ba1d161d96bdd04a3b7d1477aced75d9e4c08ac50c469dd6d0",
-  "essais": 1,
+  "empreinte_invite": "sha256:a4966aba91f97d4fa349db72752329725eb4926a1d10be3a192acdc445988072",
+  "essais": 2,
   "refus": []
  },
  "statut": "relu"

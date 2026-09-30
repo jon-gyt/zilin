@@ -21,19 +21,32 @@
   "亡": "forme",
   "目": "sens"
  },
- "mots": [],
+ "mots": [
+  {
+   "hanzi": "盲人",
+   "pinyin": "mángrén",
+   "fr": "aveugle",
+   "en": "blind person"
+  },
+  {
+   "hanzi": "文盲",
+   "pinyin": "wénmáng",
+   "fr": "illettré",
+   "en": "illiterate"
+  }
+ ],
  "phrase": {
-  "zh": "",
-  "pinyin": "",
-  "fr": "",
-  "en": ""
+  "zh": "他帮一位盲人过马路。",
+  "pinyin": "Tā bāng yī wèi mángrén guò mǎlù.",
+  "fr": "Il aide un aveugle à traverser la rue.",
+  "en": "He helps a blind man cross the road."
  },
  "generation": {
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:8f63b3240588e33d8899685822c9e4c18c31abb2a267ea632d1501bd1b85cea0",
-  "essais": 1,
+  "empreinte_invite": "sha256:8342ef4dd97f297a8f74a5103a7f7449314ec85b6fdee9638b7a90e9ecfb2769",
+  "essais": 2,
   "refus": []
  },
  "statut": "relu"

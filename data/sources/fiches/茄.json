@@ -3,6 +3,7 @@
  "parcours": "lire",
  "jour": 836,
  "pinyin": [
+  "qié",
   "jiā"
  ],
  "sens_fr": "aubergine, tomate (dans fānqié)",
@@ -20,22 +21,35 @@
  "memo_en": null,
  "roles": {
   "卄": "sens",
-  "力": "son",
-  "口": "son"
+  "力": "forme",
+  "口": "forme"
  },
- "mots": [],
+ "mots": [
+  {
+   "hanzi": "雪茄",
+   "pinyin": "xuějiā",
+   "fr": "cigare",
+   "en": "cigar"
+  },
+  {
+   "hanzi": "茄子",
+   "pinyin": "qiézi",
+   "fr": "aubergine",
+   "en": "eggplant, aubergine"
+  }
+ ],
  "phrase": {
-  "zh": "",
-  "pinyin": "",
-  "fr": "",
-  "en": ""
+  "zh": "他不抽雪茄。",
+  "pinyin": "Tā bù chōu xuějiā.",
+  "fr": "Il ne fume pas le cigare.",
+  "en": "He doesn't smoke cigars."
  },
  "generation": {
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:815120e1bdd26872cf1b95adbcb445d16b55ce711587e2e539cab5cfae38fbc9",
-  "essais": 1,
+  "empreinte_invite": "sha256:69b92d197f45d30c2aff9891cdfb8df286ac668725c10cfc040fde8a3f63e18d",
+  "essais": 4,
   "refus": []
  },
  "statut": "relu"

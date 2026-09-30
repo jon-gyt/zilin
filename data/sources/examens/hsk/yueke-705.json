@@ -1,0 +1,655 @@
+{
+ "examen": "yueke-705",
+ "parcours": "hsk",
+ "generation": {
+  "modele": "rédaction manuelle",
+  "api": "session Claude Code (sans API)",
+  "date": "2026-09-30"
+ },
+ "relecture": {
+  "statut": "relu",
+  "par": "le propriétaire",
+  "decision": "« Go » (30 septembre 2026) : tout affiché sans relecture ligne à ligne",
+  "date": "2026-09-30"
+ },
+ "series": [
+  {
+   "serie": "A",
+   "statut": "relu",
+   "supports": [
+    {
+     "id": "s1",
+     "genre": "message",
+     "contexte": {
+      "fr": "Un message",
+      "en": "A message"
+     },
+     "lignes": [
+      {
+       "zh": "妈妈，今天打完球，我的腿很疼，",
+       "pinyin": "mā ma jīn tiān dǎ wán qiú wǒ de tuǐ hěn téng",
+       "fr": "Maman, après le match aujourd'hui, j'ai très mal à la jambe :",
+       "en": "Mum, after playing ball today my leg really hurts:"
+      },
+      {
+       "zh": "明天不能去上学了。",
+       "pinyin": "míng tiān bù néng qù shàng xué le",
+       "fr": "demain, je ne pourrai pas aller à l'école.",
+       "en": "I won't be able to go to school tomorrow."
+      },
+      {
+       "zh": "你能带我去医院看看吗？",
+       "pinyin": "nǐ néng dài wǒ qù yī yuàn kàn kan ma",
+       "fr": "Tu peux m'emmener à l'hôpital ?",
+       "en": "Can you take me to the hospital?"
+      }
+     ],
+     "glose": [
+      {
+       "zh": "打完球",
+       "pinyin": "dǎ wán qiú",
+       "fr": "après avoir joué au ballon",
+       "en": "after playing ball"
+      },
+      {
+       "zh": "腿",
+       "pinyin": "tuǐ",
+       "fr": "jambe",
+       "en": "leg"
+      },
+      {
+       "zh": "疼",
+       "pinyin": "téng",
+       "fr": "avoir mal",
+       "en": "to hurt"
+      },
+      {
+       "zh": "带",
+       "pinyin": "dài",
+       "fr": "emmener",
+       "en": "to take (someone)"
+      },
+      {
+       "zh": "看看",
+       "pinyin": "kàn kan",
+       "fr": "jeter un œil",
+       "en": "to have a look"
+      },
+      {
+       "zh": "怕",
+       "pinyin": "pà",
+       "fr": "avoir peur",
+       "en": "to be afraid"
+      },
+      {
+       "zh": "下班",
+       "pinyin": "xià bān",
+       "fr": "sortir du travail",
+       "en": "to finish work"
+      },
+      {
+       "zh": "就",
+       "pinyin": "jiù",
+       "fr": "aussitôt",
+       "en": "right away"
+      },
+      {
+       "zh": "好吃",
+       "pinyin": "hǎo chī",
+       "fr": "bon (à manger)",
+       "en": "tasty"
+      },
+      {
+       "zh": "大学生",
+       "pinyin": "dà xué sheng",
+       "fr": "étudiant",
+       "en": "university student"
+      }
+     ]
+    },
+    {
+     "id": "s2",
+     "genre": "affiche",
+     "contexte": {
+      "fr": "Une affiche",
+      "en": "A poster"
+     },
+     "lignes": [
+      {
+       "zh": "东方鞋店",
+       "pinyin": "dōng fāng xié diàn",
+       "fr": "Chaussures Dongfang",
+       "en": "Dongfang Shoes"
+      },
+      {
+       "zh": "夏天的新鞋到了！",
+       "pinyin": "xià tiān de xīn xié dào le",
+       "fr": "La collection d'été est arrivée !",
+       "en": "The summer range is in!"
+      },
+      {
+       "zh": "全都八十块",
+       "pinyin": "quán dōu bā shí kuài",
+       "fr": "Tout à 80 yuans",
+       "en": "Everything 80 yuan"
+      }
+     ],
+     "glose": [
+      {
+       "zh": "鞋店",
+       "pinyin": "xié diàn",
+       "fr": "magasin de chaussures",
+       "en": "shoe shop"
+      },
+      {
+       "zh": "夏天",
+       "pinyin": "xià tiān",
+       "fr": "l'été",
+       "en": "summer"
+      },
+      {
+       "zh": "新鞋",
+       "pinyin": "xīn xié",
+       "fr": "chaussures neuves",
+       "en": "new shoes"
+      },
+      {
+       "zh": "到了",
+       "pinyin": "dào le",
+       "fr": "est arrivé",
+       "en": "has arrived"
+      },
+      {
+       "zh": "全都",
+       "pinyin": "quán dōu",
+       "fr": "tout, sans exception",
+       "en": "all of it"
+      },
+      {
+       "zh": "八十块",
+       "pinyin": "bā shí kuài",
+       "fr": "80 yuans",
+       "en": "80 yuan"
+      }
+     ]
+    }
+   ],
+   "questions": [
+    {
+     "type": "comprendre",
+     "support": "s1",
+     "consigne": {
+      "fr": "Qu'est-ce qui ne va pas ?",
+      "en": "What's wrong?"
+     },
+     "choix": [
+      {
+       "fr": "Il a mal au dos",
+       "en": "His back hurts"
+      },
+      {
+       "fr": "Il a mal à la tête",
+       "en": "He has a headache"
+      },
+      {
+       "fr": "Il a mal à la jambe",
+       "en": "His leg hurts"
+      },
+      {
+       "fr": "Il a mal au ventre",
+       "en": "He has a stomach ache"
+      }
+     ],
+     "reponse": 2,
+     "porte": [
+      "腿",
+      "疼"
+     ]
+    },
+    {
+     "type": "vrai_faux",
+     "support": "s1",
+     "consigne": {
+      "fr": "Vrai ou faux ?",
+      "en": "True or false?"
+     },
+     "affirmation": {
+      "zh": "他想去医院。",
+      "pinyin": "tā xiǎng qù yī yuàn",
+      "fr": "Il veut aller à l'hôpital.",
+      "en": "He wants to go to the hospital."
+     },
+     "reponse": true,
+     "porte": [
+      "带",
+      "医",
+      "院"
+     ]
+    },
+    {
+     "type": "replique",
+     "support": "s1",
+     "consigne": {
+      "fr": "Que répond sa maman ?",
+      "en": "What does his mum reply?"
+     },
+     "choix": [
+      {
+       "zh": "牛肉面很好吃。",
+       "pinyin": "niú ròu miàn hěn hǎo chī",
+       "fr": "Les nouilles au bœuf sont très bonnes.",
+       "en": "The beef noodles are delicious."
+      },
+      {
+       "zh": "别怕，我下班就带你去。",
+       "pinyin": "bié pà wǒ xià bān jiù dài nǐ qù",
+       "fr": "N'aie pas peur, je t'emmène en sortant du travail.",
+       "en": "Don't worry, I'll take you as soon as I finish work."
+      },
+      {
+       "zh": "他们都是大学生。",
+       "pinyin": "tā men dōu shì dà xué sheng",
+       "fr": "Ce sont tous des étudiants.",
+       "en": "They're all university students."
+      },
+      {
+       "zh": "我的书在桌子上。",
+       "pinyin": "wǒ de shū zài zhuō zi shàng",
+       "fr": "Mon livre est sur la table.",
+       "en": "My book is on the table."
+      }
+     ],
+     "reponse": 1,
+     "porte": [
+      "带",
+      "疼"
+     ]
+    },
+    {
+     "type": "comprendre",
+     "support": "s2",
+     "consigne": {
+      "fr": "Que vend ce magasin ?",
+      "en": "What does this shop sell?"
+     },
+     "choix": [
+      {
+       "fr": "Des vêtements",
+       "en": "Clothes"
+      },
+      {
+       "fr": "Des livres",
+       "en": "Books"
+      },
+      {
+       "fr": "Des fruits",
+       "en": "Fruit"
+      },
+      {
+       "fr": "Des chaussures",
+       "en": "Shoes"
+      }
+     ],
+     "reponse": 3,
+     "porte": [
+      "鞋"
+     ]
+    },
+    {
+     "type": "sens",
+     "consigne": {
+      "fr": "Que veut dire ce caractère ?",
+      "en": "What does this character mean?"
+     },
+     "objet": {
+      "zh": "碗",
+      "pinyin": "wǎn",
+      "fr": "bol",
+      "en": "bowl"
+     },
+     "choix": [
+      {
+       "fr": "assiette",
+       "en": "plate"
+      },
+      {
+       "fr": "bol",
+       "en": "bowl"
+      },
+      {
+       "fr": "verre",
+       "en": "glass"
+      },
+      {
+       "fr": "cuillère",
+       "en": "spoon"
+      }
+     ],
+     "reponse": 1,
+     "porte": [
+      "碗"
+     ]
+    }
+   ]
+  },
+  {
+   "serie": "B",
+   "statut": "relu",
+   "supports": [
+    {
+     "id": "s1",
+     "genre": "note",
+     "contexte": {
+      "fr": "Une note",
+      "en": "A note"
+     },
+     "lignes": [
+      {
+       "zh": "同学们：",
+       "pinyin": "tóng xué men",
+       "fr": "Chers élèves,",
+       "en": "Dear pupils,"
+      },
+      {
+       "zh": "明天的数学课不在这里上，",
+       "pinyin": "míng tiān de shù xué kè bù zài zhè li shàng",
+       "fr": "demain, le cours de maths n'aura pas lieu ici :",
+       "en": "tomorrow's maths class won't be held here:"
+      },
+      {
+       "zh": "在三号楼的大教室。",
+       "pinyin": "zài sān hào lóu de dà jiào shì",
+       "fr": "il se fera dans la grande salle du bâtiment 3.",
+       "en": "it will be in the big room in building 3."
+      },
+      {
+       "zh": "请带好书和本子。",
+       "pinyin": "qǐng dài hǎo shū hé běn zi",
+       "fr": "Pensez à apporter livres et cahiers.",
+       "en": "Remember your books and notebooks."
+      }
+     ],
+     "glose": [
+      {
+       "zh": "同学们",
+       "pinyin": "tóng xué men",
+       "fr": "chers élèves",
+       "en": "dear pupils"
+      },
+      {
+       "zh": "数学",
+       "pinyin": "shù xué",
+       "fr": "mathématiques",
+       "en": "maths"
+      },
+      {
+       "zh": "三号楼",
+       "pinyin": "sān hào lóu",
+       "fr": "bâtiment n° 3",
+       "en": "building no. 3"
+      },
+      {
+       "zh": "教室",
+       "pinyin": "jiào shì",
+       "fr": "salle de classe",
+       "en": "classroom"
+      },
+      {
+       "zh": "带好",
+       "pinyin": "dài hǎo",
+       "fr": "bien apporter",
+       "en": "to be sure to bring"
+      },
+      {
+       "zh": "和",
+       "pinyin": "hé",
+       "fr": "et",
+       "en": "and"
+      }
+     ]
+    },
+    {
+     "id": "s2",
+     "genre": "message",
+     "contexte": {
+      "fr": "Un message",
+      "en": "A message"
+     },
+     "lignes": [
+      {
+       "zh": "明天是奶奶的生日，",
+       "pinyin": "míng tiān shì nǎi nai de shēng rì",
+       "fr": "Demain, c'est l'anniversaire de grand-mère,",
+       "en": "Tomorrow is Grandma's birthday,"
+      },
+      {
+       "zh": "我想送她一个礼物。",
+       "pinyin": "wǒ xiǎng sòng tā yī gè lǐ wù",
+       "fr": "je voudrais lui offrir un cadeau.",
+       "en": "I'd like to give her a present."
+      },
+      {
+       "zh": "你觉得送什么好？",
+       "pinyin": "nǐ jué de sòng shén me hǎo",
+       "fr": "À ton avis, quoi lui offrir ?",
+       "en": "What do you think I should give her?"
+      }
+     ],
+     "glose": [
+      {
+       "zh": "礼物",
+       "pinyin": "lǐ wù",
+       "fr": "cadeau",
+       "en": "present"
+      },
+      {
+       "zh": "觉得",
+       "pinyin": "jué de",
+       "fr": "trouver, penser",
+       "en": "to think"
+      },
+      {
+       "zh": "已经",
+       "pinyin": "yǐ jīng",
+       "fr": "déjà",
+       "en": "already"
+      },
+      {
+       "zh": "买好了",
+       "pinyin": "mǎi hǎo le",
+       "fr": "avoir acheté",
+       "en": "to have bought"
+      },
+      {
+       "zh": "这个",
+       "pinyin": "zhè ge",
+       "fr": "ce, celui-ci",
+       "en": "this"
+      },
+      {
+       "zh": "题",
+       "pinyin": "tí",
+       "fr": "exercice, question",
+       "en": "problem, question"
+      },
+      {
+       "zh": "会",
+       "pinyin": "huì",
+       "fr": "savoir (faire)",
+       "en": "can, know how to"
+      },
+      {
+       "zh": "一件",
+       "pinyin": "yī jiàn",
+       "fr": "un (vêtement)",
+       "en": "a (garment)"
+      },
+      {
+       "zh": "毛衣",
+       "pinyin": "máo yī",
+       "fr": "pull",
+       "en": "sweater"
+      },
+      {
+       "zh": "教室",
+       "pinyin": "jiào shì",
+       "fr": "salle de classe",
+       "en": "classroom"
+      },
+      {
+       "zh": "三号楼",
+       "pinyin": "sān hào lóu",
+       "fr": "bâtiment n° 3",
+       "en": "building no. 3"
+      },
+      {
+       "zh": "地铁",
+       "pinyin": "dì tiě",
+       "fr": "métro",
+       "en": "metro"
+      }
+     ]
+    }
+   ],
+   "questions": [
+    {
+     "type": "comprendre",
+     "support": "s1",
+     "consigne": {
+      "fr": "Où aura lieu le cours de demain ?",
+      "en": "Where will tomorrow's class be?"
+     },
+     "choix": [
+      {
+       "fr": "Au bâtiment 2",
+       "en": "In building 2"
+      },
+      {
+       "fr": "Au bâtiment 3",
+       "en": "In building 3"
+      },
+      {
+       "fr": "Dans cette salle",
+       "en": "In this room"
+      },
+      {
+       "fr": "À la bibliothèque",
+       "en": "At the library"
+      }
+     ],
+     "reponse": 1,
+     "porte": [
+      "三",
+      "号",
+      "楼",
+      "教",
+      "室"
+     ]
+    },
+    {
+     "type": "reperer",
+     "support": "s1",
+     "consigne": {
+      "fr": "Touche la matière du cours.",
+      "en": "Tap the subject of the class."
+     },
+     "choix": [
+      "同学们",
+      "明天",
+      "数学",
+      "本子"
+     ],
+     "reponse": 2,
+     "porte": [
+      "数",
+      "学"
+     ]
+    },
+    {
+     "type": "vrai_faux",
+     "support": "s2",
+     "consigne": {
+      "fr": "Vrai ou faux ?",
+      "en": "True or false?"
+     },
+     "affirmation": {
+      "zh": "他已经买好了礼物。",
+      "pinyin": "tā yǐ jīng mǎi hǎo le lǐ wù",
+      "fr": "Il a déjà acheté le cadeau.",
+      "en": "He has already bought the present."
+     },
+     "reponse": false,
+     "porte": [
+      "想",
+      "送",
+      "礼",
+      "物"
+     ]
+    },
+    {
+     "type": "replique",
+     "support": "s2",
+     "consigne": {
+      "fr": "Que réponds-tu ?",
+      "en": "What do you reply?"
+     },
+     "choix": [
+      {
+       "zh": "这个题我不会做。",
+       "pinyin": "zhè ge tí wǒ bù huì zuò",
+       "fr": "Je ne sais pas faire cet exercice.",
+       "en": "I can't do this problem."
+      },
+      {
+       "zh": "教室在三号楼。",
+       "pinyin": "jiào shì zài sān hào lóu",
+       "fr": "La salle est au bâtiment 3.",
+       "en": "The classroom is in building 3."
+      },
+      {
+       "zh": "送她一件毛衣吧！",
+       "pinyin": "sòng tā yī jiàn máo yī ba",
+       "fr": "Offre-lui un pull !",
+       "en": "Give her a sweater!"
+      },
+      {
+       "zh": "我们坐地铁去吧。",
+       "pinyin": "wǒ men zuò dì tiě qù ba",
+       "fr": "Allons-y en métro.",
+       "en": "Let's take the metro."
+      }
+     ],
+     "reponse": 2,
+     "porte": [
+      "礼",
+      "物",
+      "送"
+     ]
+    },
+    {
+     "type": "ton",
+     "consigne": {
+      "fr": "Quel est le ton de ce caractère ?",
+      "en": "What is the tone of this character?"
+     },
+     "objet": {
+      "zh": "腿",
+      "pinyin": "tuǐ",
+      "fr": "jambe",
+      "en": "leg"
+     },
+     "choix": [
+      "tuī",
+      "tuí",
+      "tuǐ",
+      "tuì"
+     ],
+     "reponse": 2,
+     "porte": [
+      "腿"
+     ]
+    }
+   ]
+  }
+ ]
+}

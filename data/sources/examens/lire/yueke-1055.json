@@ -1,0 +1,415 @@
+{
+ "examen": "yueke-1055",
+ "parcours": "lire",
+ "generation": {
+  "modele": "rédaction manuelle",
+  "api": "session Claude Code (sans API)",
+  "date": "2026-09-30"
+ },
+ "relecture": {
+  "statut": "relu",
+  "par": "le propriétaire",
+  "decision": "« Go » (30 septembre 2026) : tout affiché sans relecture ligne à ligne",
+  "date": "2026-09-30"
+ },
+ "series": [
+  {
+   "serie": "A",
+   "statut": "relu",
+   "supports": [
+    {
+     "id": "s1",
+     "genre": "message",
+     "contexte": {
+      "fr": "Un message",
+      "en": "A message"
+     },
+     "lignes": [
+      {
+       "zh": "明天下午我们去游泳，",
+       "pinyin": "míng tiān xià wǔ wǒ men qù yóu yǒng",
+       "fr": "Demain après-midi, on va nager :",
+       "en": "Tomorrow afternoon we're going swimming:"
+      },
+      {
+       "zh": "三点在学校门口见。",
+       "pinyin": "sān diǎn zài xué xiào mén kǒu jiàn",
+       "fr": "rendez-vous à 3 heures devant l'école.",
+       "en": "meet at 3 in front of the school."
+      },
+      {
+       "zh": "你也来吧！",
+       "pinyin": "nǐ yě lái ba",
+       "fr": "Viens aussi !",
+       "en": "Come along too!"
+      }
+     ]
+    },
+    {
+     "id": "s2",
+     "genre": "affiche",
+     "contexte": {
+      "fr": "Une affiche",
+      "en": "A poster"
+     },
+     "lignes": [
+      {
+       "zh": "足球比赛",
+       "pinyin": "zú qiú bǐ sài",
+       "fr": "Match de football",
+       "en": "Football match"
+      },
+      {
+       "zh": "中国队对日本队",
+       "pinyin": "zhōng guó duì duì rì běn duì",
+       "fr": "Chine contre Japon",
+       "en": "China v. Japan"
+      },
+      {
+       "zh": "星期六晚上八点",
+       "pinyin": "xīng qī liù wǎn shang bā diǎn",
+       "fr": "Samedi, 20 heures",
+       "en": "Saturday, 8 pm"
+      }
+     ]
+    }
+   ],
+   "questions": [
+    {
+     "type": "comprendre",
+     "support": "s1",
+     "consigne": {
+      "fr": "Que propose le message ?",
+      "en": "What does the message suggest?"
+     },
+     "choix": [
+      {
+       "fr": "D'aller au cinéma",
+       "en": "Going to the cinema"
+      },
+      {
+       "fr": "D'aller nager",
+       "en": "Going swimming"
+      },
+      {
+       "fr": "De faire du vélo",
+       "en": "Going cycling"
+      },
+      {
+       "fr": "De réviser ensemble",
+       "en": "Studying together"
+      }
+     ],
+     "reponse": 1,
+     "porte": [
+      "游",
+      "泳"
+     ]
+    },
+    {
+     "type": "replique",
+     "support": "s1",
+     "consigne": {
+      "fr": "Que répond son ami ?",
+      "en": "What does the friend reply?"
+     },
+     "choix": [
+      {
+       "zh": "这是我的新裙子。",
+       "pinyin": "zhè shì wǒ de xīn qún zi",
+       "fr": "Voici ma nouvelle jupe.",
+       "en": "This is my new skirt."
+      },
+      {
+       "zh": "我不会做饭。",
+       "pinyin": "wǒ bù huì zuò fàn",
+       "fr": "Je ne sais pas cuisiner.",
+       "en": "I can't cook."
+      },
+      {
+       "zh": "那本杂志很贵。",
+       "pinyin": "nà běn zá zhì hěn guì",
+       "fr": "Ce magazine est très cher.",
+       "en": "That magazine is very expensive."
+      },
+      {
+       "zh": "好，我三点到。",
+       "pinyin": "hǎo wǒ sān diǎn dào",
+       "fr": "D'accord, j'y serai à 3 heures.",
+       "en": "OK, I'll be there at 3."
+      }
+     ],
+     "reponse": 3,
+     "porte": [
+      "泳",
+      "见"
+     ]
+    },
+    {
+     "type": "reperer",
+     "support": "s2",
+     "consigne": {
+      "fr": "Touche le nom du sport.",
+      "en": "Tap the name of the sport."
+     },
+     "choix": [
+      "足球",
+      "比赛",
+      "中国",
+      "晚上"
+     ],
+     "reponse": 0,
+     "porte": [
+      "足",
+      "球"
+     ]
+    },
+    {
+     "type": "vrai_faux",
+     "support": "s2",
+     "consigne": {
+      "fr": "Vrai ou faux ?",
+      "en": "True or false?"
+     },
+     "affirmation": {
+      "zh": "足球比赛在晚上。",
+      "pinyin": "zú qiú bǐ sài zài wǎn shang",
+      "fr": "Le match a lieu le soir.",
+      "en": "The match is in the evening."
+     },
+     "reponse": true,
+     "porte": [
+      "足",
+      "晚"
+     ]
+    },
+    {
+     "type": "caractere",
+     "consigne": {
+      "fr": "Quel caractère a ce sens ?",
+      "en": "Which character has this meaning?"
+     },
+     "objet": {
+      "zh": "矮",
+      "pinyin": "ǎi",
+      "fr": "petit (de taille)",
+      "en": "short (in height)"
+     },
+     "choix": [
+      "知",
+      "医",
+      "矮",
+      "候"
+     ],
+     "reponse": 2,
+     "porte": [
+      "矮"
+     ]
+    }
+   ]
+  },
+  {
+   "serie": "B",
+   "statut": "relu",
+   "supports": [
+    {
+     "id": "s1",
+     "genre": "note",
+     "contexte": {
+      "fr": "Une note",
+      "en": "A note"
+     },
+     "lignes": [
+      {
+       "zh": "桌上有猪肉和果汁，",
+       "pinyin": "zhuō shàng yǒu zhū ròu hé guǒ zhī",
+       "fr": "Il y a du porc et du jus de fruits sur la table :",
+       "en": "There's pork and fruit juice on the table:"
+      },
+      {
+       "zh": "你饿了就先吃。",
+       "pinyin": "nǐ è le jiù xiān chī",
+       "fr": "si tu as faim, mange sans m'attendre.",
+       "en": "if you're hungry, eat without me."
+      },
+      {
+       "zh": "注意，别喝太多果汁！",
+       "pinyin": "zhù yì bié hē tài duō guǒ zhī",
+       "fr": "Attention, pas trop de jus !",
+       "en": "Careful, not too much juice!"
+      }
+     ]
+    },
+    {
+     "id": "s2",
+     "genre": "message",
+     "contexte": {
+      "fr": "Un message",
+      "en": "A message"
+     },
+     "lignes": [
+      {
+       "zh": "听说你考上大学了，",
+       "pinyin": "tīng shuō nǐ kǎo shàng dà xué le",
+       "fr": "J'ai appris que tu es reçu à l'université :",
+       "en": "I hear you got into university:"
+      },
+      {
+       "zh": "祝你大学生活快乐！",
+       "pinyin": "zhù nǐ dà xué shēng huó kuài lè",
+       "fr": "je te souhaite une heureuse vie d'étudiant !",
+       "en": "I wish you a happy student life!"
+      }
+     ]
+    }
+   ],
+   "questions": [
+    {
+     "type": "comprendre",
+     "support": "s1",
+     "consigne": {
+      "fr": "Qu'y a-t-il à manger ?",
+      "en": "What is there to eat?"
+     },
+     "choix": [
+      {
+       "fr": "Du poulet",
+       "en": "Chicken"
+      },
+      {
+       "fr": "Du poisson",
+       "en": "Fish"
+      },
+      {
+       "fr": "Du porc",
+       "en": "Pork"
+      },
+      {
+       "fr": "Du bœuf",
+       "en": "Beef"
+      }
+     ],
+     "reponse": 2,
+     "porte": [
+      "猪",
+      "肉"
+     ]
+    },
+    {
+     "type": "vrai_faux",
+     "support": "s1",
+     "consigne": {
+      "fr": "Vrai ou faux ?",
+      "en": "True or false?"
+     },
+     "affirmation": {
+      "zh": "可以喝很多果汁。",
+      "pinyin": "kě yǐ hē hěn duō guǒ zhī",
+      "fr": "On peut boire beaucoup de jus.",
+      "en": "You can drink a lot of juice."
+     },
+     "reponse": false,
+     "porte": [
+      "注",
+      "意",
+      "汁"
+     ]
+    },
+    {
+     "type": "comprendre",
+     "support": "s2",
+     "consigne": {
+      "fr": "Pourquoi écrit-on ce message ?",
+      "en": "Why is this message being written?"
+     },
+     "choix": [
+      {
+       "fr": "Le destinataire se marie",
+       "en": "The recipient is getting married"
+      },
+      {
+       "fr": "Le destinataire est reçu à l'université",
+       "en": "The recipient got into university"
+      },
+      {
+       "fr": "Le destinataire a trouvé du travail",
+       "en": "The recipient has found a job"
+      },
+      {
+       "fr": "Le destinataire part à l'étranger",
+       "en": "The recipient is going abroad"
+      }
+     ],
+     "reponse": 1,
+     "porte": [
+      "考",
+      "上",
+      "祝"
+     ]
+    },
+    {
+     "type": "replique",
+     "support": "s2",
+     "consigne": {
+      "fr": "Que répond le destinataire ?",
+      "en": "What does the recipient reply?"
+     },
+     "choix": [
+      {
+       "zh": "谢谢你！",
+       "pinyin": "xiè xie nǐ",
+       "fr": "Merci !",
+       "en": "Thank you!"
+      },
+      {
+       "zh": "我不吃猪肉。",
+       "pinyin": "wǒ bù chī zhū ròu",
+       "fr": "Je ne mange pas de porc.",
+       "en": "I don't eat pork."
+      },
+      {
+       "zh": "他是日本人。",
+       "pinyin": "tā shì rì běn rén",
+       "fr": "Il est japonais.",
+       "en": "He's Japanese."
+      },
+      {
+       "zh": "我在游泳馆。",
+       "pinyin": "wǒ zài yóu yǒng guǎn",
+       "fr": "Je suis à la piscine.",
+       "en": "I'm at the swimming pool."
+      }
+     ],
+     "reponse": 0,
+     "porte": [
+      "祝"
+     ]
+    },
+    {
+     "type": "trou",
+     "consigne": {
+      "fr": "Quel caractère manque dans ce mot ?",
+      "en": "Which character is missing from this word?"
+     },
+     "objet": {
+      "zh": "杂志",
+      "pinyin": "zá zhì",
+      "fr": "magazine",
+      "en": "magazine"
+     },
+     "trou": 1,
+     "choix": [
+      "忘",
+      "志",
+      "态",
+      "息"
+     ],
+     "reponse": 1,
+     "porte": [
+      "志"
+     ]
+    }
+   ]
+  }
+ ]
+}

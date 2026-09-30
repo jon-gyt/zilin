@@ -3,7 +3,9 @@
  "parcours": "lire",
  "jour": 285,
  "pinyin": [
-  "piào"
+  "piào",
+  "piāo",
+  "piǎo"
  ],
  "sens_fr": "flotter, beau",
  "sens_en": "to float, pretty",
@@ -23,19 +25,32 @@
   "覀": "son",
   "示": "son"
  },
- "mots": [],
+ "mots": [
+  {
+   "hanzi": "漂亮",
+   "pinyin": "piàoliang",
+   "fr": "joli",
+   "en": "pretty"
+  },
+  {
+   "hanzi": "漂流",
+   "pinyin": "piāoliú",
+   "fr": "dériver ; descente en eau vive",
+   "en": "to drift; rafting"
+  }
+ ],
  "phrase": {
-  "zh": "",
-  "pinyin": "",
-  "fr": "",
-  "en": ""
+  "zh": "你的妹妹很漂亮。",
+  "pinyin": "Nǐ de mèimei hěn piàoliang.",
+  "fr": "Ta petite sœur est très jolie.",
+  "en": "Your little sister is very pretty."
  },
  "generation": {
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:341219be9a50c5cc37fad2c54339aa53959790961513081fa9e60f540f29e93f",
-  "essais": 1,
+  "empreinte_invite": "sha256:5cb806f2f109667cd06404dbd904e368bcd06b34c0cccdc4ccead06ad2e37e60",
+  "essais": 3,
   "refus": []
  },
  "statut": "relu"

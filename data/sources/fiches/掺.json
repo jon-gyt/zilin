@@ -3,7 +3,9 @@
  "parcours": "lire",
  "jour": 933,
  "pinyin": [
-  "càn"
+  "chān",
+  "càn",
+  "shǎn"
  ],
  "sens_fr": "mélanger, mêler",
  "sens_en": "to mix, to blend",
@@ -25,19 +27,32 @@
   "大": "forme",
   "彡": "forme"
  },
- "mots": [],
+ "mots": [
+  {
+   "hanzi": "掺水",
+   "pinyin": "chānshuǐ",
+   "fr": "couper d'eau, diluer",
+   "en": "to water down"
+  },
+  {
+   "hanzi": "掺假",
+   "pinyin": "chānjiǎ",
+   "fr": "frelater, falsifier",
+   "en": "to adulterate"
+  }
+ ],
  "phrase": {
-  "zh": "",
-  "pinyin": "",
-  "fr": "",
-  "en": ""
+  "zh": "这酒里掺了水。",
+  "pinyin": "Zhè jiǔ lǐ chān le shuǐ.",
+  "fr": "Ce vin a été coupé d'eau.",
+  "en": "This wine has been watered down."
  },
  "generation": {
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:a815249aa078b28a5af3400ab38d4baad62771d99f8ec6437461e098a2b9d3d0",
-  "essais": 1,
+  "empreinte_invite": "sha256:5f7358826ab15ed1b9be8e1cdf1191307dfccd9761f5c86897148378bbe82378",
+  "essais": 2,
   "refus": []
  },
  "statut": "relu"

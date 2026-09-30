@@ -25,19 +25,32 @@
   "八": "forme",
   "贝": "sens"
  },
- "mots": [],
+ "mots": [
+  {
+   "hanzi": "比赛",
+   "pinyin": "bǐsài",
+   "fr": "match, compétition",
+   "en": "match, competition"
+  },
+  {
+   "hanzi": "球赛",
+   "pinyin": "qiúsài",
+   "fr": "match de ballon",
+   "en": "ball game"
+  }
+ ],
  "phrase": {
-  "zh": "",
-  "pinyin": "",
-  "fr": "",
-  "en": ""
+  "zh": "明天有一场球赛。",
+  "pinyin": "Míngtiān yǒu yī chǎng qiúsài.",
+  "fr": "Il y a un match demain.",
+  "en": "There's a match tomorrow."
  },
  "generation": {
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:fa26e4a16a1885e5061f2bdf8755e998bc2bc7ebc3eb9d153069b8a94f5f4c0e",
-  "essais": 1,
+  "empreinte_invite": "sha256:4aad41efd1f7de5b289b3afcd687128e1f6366773a80ad9f800d22074fd90ca0",
+  "essais": 2,
   "refus": []
  },
  "statut": "relu"

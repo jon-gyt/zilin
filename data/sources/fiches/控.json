@@ -23,19 +23,32 @@
   "穴": "son",
   "工": "son"
  },
- "mots": [],
+ "mots": [
+  {
+   "hanzi": "控制",
+   "pinyin": "kòngzhì",
+   "fr": "contrôler, maîtriser",
+   "en": "to control"
+  },
+  {
+   "hanzi": "失控",
+   "pinyin": "shīkòng",
+   "fr": "perdre le contrôle",
+   "en": "to get out of control"
+  }
+ ],
  "phrase": {
-  "zh": "",
-  "pinyin": "",
-  "fr": "",
-  "en": ""
+  "zh": "司机没控制好车速。",
+  "pinyin": "Sījī méi kòngzhì hǎo chēsù.",
+  "fr": "Le chauffeur n'a pas maîtrisé sa vitesse.",
+  "en": "The driver didn't keep his speed under control."
  },
  "generation": {
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:d165fc8327f0fce0cdc59f5ce3ecc6925139932270426e896011da0a1fa8038a",
-  "essais": 1,
+  "empreinte_invite": "sha256:361f2411ebecf20f2ce667a143b96b936c126ded69554fc74555edef6d2236e9",
+  "essais": 2,
   "refus": []
  },
  "statut": "relu"

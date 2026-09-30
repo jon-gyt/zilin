@@ -46,7 +46,22 @@ function chaine(v: unknown): string {
   return typeof v === 'string' ? v : '';
 }
 
-function lireTexte(x: unknown): TexteDuJour | null {
+function lireGlose(brut: unknown): Record<string, Glose> {
+  const glose: Record<string, Glose> = {};
+  if (brut === null || typeof brut !== 'object') return glose;
+  for (const [k, g] of Object.entries(brut as Record<string, unknown>)) {
+    if (k === '' || g === null || typeof g !== 'object') continue;
+    const r = g as Record<string, unknown>;
+    glose[k] = { pinyin: chaine(r.pinyin), fr: chaine(r.fr), en: chaine(r.en) };
+  }
+  return glose;
+}
+
+/**
+ * Un texte, sa glose rassemblée : les entrées communes qu'il nomme (`mots`, écrites une
+ * fois dans `glossaire`), puis sa glose propre, qui passe devant.
+ */
+function lireTexte(x: unknown, communs: Record<string, Glose>): TexteDuJour | null {
   if (x === null || typeof x !== 'object') return null;
   const o = x as Record<string, unknown>;
   const jour = typeof o.jour === 'number' && Number.isInteger(o.jour) && o.jour > 0 ? o.jour : 0;
@@ -60,13 +75,10 @@ function lireTexte(x: unknown): TexteDuJour | null {
   }
   if (lignes.length === 0) return null;
   const glose: Record<string, Glose> = {};
-  if (o.glose !== null && typeof o.glose === 'object') {
-    for (const [k, g] of Object.entries(o.glose as Record<string, unknown>)) {
-      if (k === '' || g === null || typeof g !== 'object') continue;
-      const r = g as Record<string, unknown>;
-      glose[k] = { pinyin: chaine(r.pinyin), fr: chaine(r.fr), en: chaine(r.en) };
-    }
+  if (Array.isArray(o.mots)) {
+    for (const k of o.mots) if (typeof k === 'string' && communs[k]) glose[k] = communs[k];
   }
+  Object.assign(glose, lireGlose(o.glose));
   const nouveaux = Array.isArray(o.nouveaux) ? o.nouveaux.filter((c): c is string => typeof c === 'string') : [];
   return { jour, nouveaux, lignes, glose };
 }
@@ -77,13 +89,14 @@ export function lireTroisLignes(brut: unknown): TroisLignes {
   if (brut === null || typeof brut !== 'object') return vide;
   const o = brut as Record<string, unknown>;
   const premierJour = typeof o.premier_jour === 'number' ? o.premier_jour : 1;
+  const communs = lireGlose(o.glossaire);
   const parcours: Record<string, TexteDuJour[]> = {};
   if (o.parcours !== null && typeof o.parcours === 'object') {
     for (const [nom, liste] of Object.entries(o.parcours as Record<string, unknown>)) {
       if (!Array.isArray(liste)) continue;
       const textes: TexteDuJour[] = [];
       for (const x of liste) {
-        const t = lireTexte(x);
+        const t = lireTexte(x, communs);
         if (t !== null && !textes.some((y) => y.jour === t.jour)) textes.push(t);
       }
       parcours[nom] = textes.sort((a, b) => a.jour - b.jour);

@@ -25,19 +25,32 @@
   "丷": "son",
   "豕": "son"
  },
- "mots": [],
+ "mots": [
+  {
+   "hanzi": "隧道",
+   "pinyin": "suìdào",
+   "fr": "tunnel",
+   "en": "tunnel"
+  },
+  {
+   "hanzi": "隧洞",
+   "pinyin": "suìdòng",
+   "fr": "tunnel, galerie",
+   "en": "tunnel, bore"
+  }
+ ],
  "phrase": {
-  "zh": "",
-  "pinyin": "",
-  "fr": "",
-  "en": ""
+  "zh": "火车开进了隧道。",
+  "pinyin": "Huǒchē kāi jìn le suìdào.",
+  "fr": "Le train est entré dans le tunnel.",
+  "en": "The train went into the tunnel."
  },
  "generation": {
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:9606fd50ca6c2d92da4e48e41f7a40ee57860c850fe7521ebf5eb5d5ea3b8ad8",
-  "essais": 1,
+  "empreinte_invite": "sha256:8b9b1bed3c55d7ecb5e1942e137765ede9d428ce3fc8a46e7cb181477677b132",
+  "essais": 2,
   "refus": []
  },
  "statut": "relu"

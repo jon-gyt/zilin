@@ -21,19 +21,32 @@
   "串": "forme",
   "心": "sens"
  },
- "mots": [],
+ "mots": [
+  {
+   "hanzi": "患者",
+   "pinyin": "huànzhě",
+   "fr": "patient, malade",
+   "en": "patient"
+  },
+  {
+   "hanzi": "患病",
+   "pinyin": "huànbìng",
+   "fr": "tomber malade",
+   "en": "to fall ill"
+  }
+ ],
  "phrase": {
-  "zh": "",
-  "pinyin": "",
-  "fr": "",
-  "en": ""
+  "zh": "医生每天要看很多患者。",
+  "pinyin": "Yīshēng měitiān yào kàn hěn duō huànzhě.",
+  "fr": "Le médecin voit beaucoup de patients chaque jour.",
+  "en": "The doctor sees many patients every day."
  },
  "generation": {
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:55bbcd55d33b729519e99ecaf446304b38cc37651f40d9fb9f1920ede0794684",
-  "essais": 1,
+  "empreinte_invite": "sha256:370d33b4fda334351ab6fd2af7e34aaaf61d5616593fb7d43903db13f78ee30e",
+  "essais": 2,
   "refus": []
  },
  "statut": "relu"

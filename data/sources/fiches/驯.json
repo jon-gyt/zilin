@@ -3,6 +3,7 @@
  "parcours": "lire",
  "jour": 1367,
  "pinyin": [
+  "xùn",
   "xún"
  ],
  "sens_fr": "dresser, dompter, docile",
@@ -21,19 +22,32 @@
   "马": "sens",
   "川": "forme"
  },
- "mots": [],
+ "mots": [
+  {
+   "hanzi": "驯服",
+   "pinyin": "xùnfú",
+   "fr": "dompter ; docile",
+   "en": "to tame; docile"
+  },
+  {
+   "hanzi": "驯养",
+   "pinyin": "xùnyǎng",
+   "fr": "domestiquer, élever",
+   "en": "to domesticate, to raise"
+  }
+ ],
  "phrase": {
-  "zh": "",
-  "pinyin": "",
-  "fr": "",
-  "en": ""
+  "zh": "他花了三年驯服这匹马。",
+  "pinyin": "Tā huā le sān nián xùnfú zhè pǐ mǎ.",
+  "fr": "Il a mis trois ans à dompter ce cheval.",
+  "en": "It took him three years to tame this horse."
  },
  "generation": {
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:3842ad5caa179c38f14b640b5a9db8e186992ee9dbe31fedf6000df225e4d82f",
-  "essais": 1,
+  "empreinte_invite": "sha256:f8d9749fd332cc3122a127692f9acaf3a1356eb32b6045305831608bd6c4e51a",
+  "essais": 2,
   "refus": []
  },
  "statut": "relu"

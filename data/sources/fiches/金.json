@@ -19,19 +19,32 @@
  "roles": {
   "金": "sens"
  },
- "mots": [],
+ "mots": [
+  {
+   "hanzi": "现金",
+   "pinyin": "xiànjīn",
+   "fr": "argent liquide",
+   "en": "cash"
+  },
+  {
+   "hanzi": "金子",
+   "pinyin": "jīnzi",
+   "fr": "or",
+   "en": "gold"
+  }
+ ],
  "phrase": {
-  "zh": "",
-  "pinyin": "",
-  "fr": "",
-  "en": ""
+  "zh": "你带现金了吗？",
+  "pinyin": "Nǐ dài xiànjīn le ma?",
+  "fr": "Tu as pris de l'argent liquide ?",
+  "en": "Did you bring cash?"
  },
  "generation": {
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:b2fa97037a1294e8cff7c6c95e5a1772b0086684d819ac27d6ceeecde09e4f21",
-  "essais": 1,
+  "empreinte_invite": "sha256:66fc645cd943d61e115e2a7f2528de90f597c579e583d04fbb0a7ac49028e73b",
+  "essais": 2,
   "refus": []
  },
  "statut": "relu"

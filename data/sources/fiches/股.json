@@ -21,19 +21,32 @@
   "月": "sens",
   "殳": "forme"
  },
- "mots": [],
+ "mots": [
+  {
+   "hanzi": "股票",
+   "pinyin": "gǔpiào",
+   "fr": "action (en bourse)",
+   "en": "share, stock"
+  },
+  {
+   "hanzi": "股东",
+   "pinyin": "gǔdōng",
+   "fr": "actionnaire",
+   "en": "shareholder"
+  }
+ ],
  "phrase": {
-  "zh": "",
-  "pinyin": "",
-  "fr": "",
-  "en": ""
+  "zh": "他买了很多股票。",
+  "pinyin": "Tā mǎi le hěn duō gǔpiào.",
+  "fr": "Il a acheté beaucoup d'actions.",
+  "en": "He bought a lot of shares."
  },
  "generation": {
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:155936a1ba77af3aa262f1edc11ddeb35c4f01e681ae9d622c9abded2bfc8ab2",
-  "essais": 1,
+  "empreinte_invite": "sha256:d3e4765a94c448b7cb1b4a464413908f89e9044c6449c6c42a0f2dcc639b68a8",
+  "essais": 2,
   "refus": []
  },
  "statut": "relu"

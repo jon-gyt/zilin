@@ -21,19 +21,32 @@
   "广": "sens",
   "车": "sens"
  },
- "mots": [],
+ "mots": [
+  {
+   "hanzi": "车库",
+   "pinyin": "chēkù",
+   "fr": "garage",
+   "en": "garage"
+  },
+  {
+   "hanzi": "库存",
+   "pinyin": "kùcún",
+   "fr": "stock",
+   "en": "stock, inventory"
+  }
+ ],
  "phrase": {
-  "zh": "",
-  "pinyin": "",
-  "fr": "",
-  "en": ""
+  "zh": "他把车停在车库里。",
+  "pinyin": "Tā bǎ chē tíng zài chēkù li.",
+  "fr": "Il gare la voiture dans le garage.",
+  "en": "He parks the car in the garage."
  },
  "generation": {
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:357ca87dbc397ff1a8fc2937129ea3f96824b55aa55b7d6a29e74ad9ae73bd77",
-  "essais": 1,
+  "empreinte_invite": "sha256:865ed0cc2d0dbec18605517d369c7717c5d080b480406a83bc039dfda3b60a63",
+  "essais": 2,
   "refus": []
  },
  "statut": "relu"

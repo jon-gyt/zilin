@@ -3,6 +3,7 @@
  "parcours": "lire",
  "jour": 1066,
  "pinyin": [
+  "jǐ",
   "jí"
  ],
  "sens_fr": "dos, colonne vertébrale, faîte",
@@ -23,19 +24,32 @@
   "人": "forme",
   "月": "sens"
  },
- "mots": [],
+ "mots": [
+  {
+   "hanzi": "脊背",
+   "pinyin": "jǐbèi",
+   "fr": "dos",
+   "en": "back"
+  },
+  {
+   "hanzi": "屋脊",
+   "pinyin": "wūjǐ",
+   "fr": "faîte du toit",
+   "en": "ridge of a roof"
+  }
+ ],
  "phrase": {
-  "zh": "",
-  "pinyin": "",
-  "fr": "",
-  "en": ""
+  "zh": "猫站在屋脊上。",
+  "pinyin": "Māo zhàn zài wūjǐ shàng.",
+  "fr": "Le chat se tient sur le faîte du toit.",
+  "en": "The cat is standing on the ridge of the roof."
  },
  "generation": {
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:04ada4faf87d1396dd294d00040f64b7ec1d31c3c418e5078a7ad417b83d06d1",
-  "essais": 1,
+  "empreinte_invite": "sha256:44904d5cfc045c5cf017d7c12cc915021ffbd8fdeca1864cd679a8c3ec08fc90",
+  "essais": 2,
   "refus": []
  },
  "statut": "relu"

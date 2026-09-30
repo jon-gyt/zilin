@@ -19,19 +19,32 @@
  "roles": {
   "又": "sens"
  },
- "mots": [],
+ "mots": [
+  {
+   "hanzi": "双方",
+   "pinyin": "shuāngfāng",
+   "fr": "les deux parties",
+   "en": "both sides"
+  },
+  {
+   "hanzi": "双手",
+   "pinyin": "shuāngshǒu",
+   "fr": "les deux mains",
+   "en": "both hands"
+  }
+ ],
  "phrase": {
-  "zh": "",
-  "pinyin": "",
-  "fr": "",
-  "en": ""
+  "zh": "我买了一双新鞋。",
+  "pinyin": "Wǒ mǎi le yī shuāng xīn xié.",
+  "fr": "J'ai acheté une nouvelle paire de chaussures.",
+  "en": "I bought a new pair of shoes."
  },
  "generation": {
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:addbf1c9f46c899d8e65a21bd382b567d3ab8ec15b93acc1d2994799222b11b4",
-  "essais": 1,
+  "empreinte_invite": "sha256:60669c27f9497b72a8ebb06702389a812d64bce8cc347e623b3420998a3f83d0",
+  "essais": 2,
   "refus": []
  },
  "statut": "relu"

@@ -21,19 +21,32 @@
   "马": "sens",
   "亥": "son"
  },
- "mots": [],
+ "mots": [
+  {
+   "hanzi": "骇人",
+   "pinyin": "hàirén",
+   "fr": "effrayant, choquant",
+   "en": "frightening, shocking"
+  },
+  {
+   "hanzi": "惊骇",
+   "pinyin": "jīnghài",
+   "fr": "épouvanté",
+   "en": "terrified"
+  }
+ ],
  "phrase": {
-  "zh": "",
-  "pinyin": "",
-  "fr": "",
-  "en": ""
+  "zh": "这个消息太骇人了。",
+  "pinyin": "Zhège xiāoxi tài hàirén le.",
+  "fr": "Cette nouvelle est effrayante.",
+  "en": "This news is shocking."
  },
  "generation": {
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:bdeeb151ef555400347990c1154b16018e851080ae3bd08fd80d6fe895f6b8e5",
-  "essais": 1,
+  "empreinte_invite": "sha256:b6b6dc6266ad2c64b5bf29c3c1de12c534482108d6edb490e88b6efcfd576c3b",
+  "essais": 2,
   "refus": []
  },
  "statut": "relu"

@@ -23,19 +23,32 @@
   "口": "forme",
   "电": "forme"
  },
- "mots": [],
+ "mots": [
+  {
+   "hanzi": "苍蝇",
+   "pinyin": "cāngying",
+   "fr": "mouche",
+   "en": "fly"
+  },
+  {
+   "hanzi": "果蝇",
+   "pinyin": "guǒyíng",
+   "fr": "drosophile, mouche du vinaigre",
+   "en": "fruit fly"
+  }
+ ],
  "phrase": {
-  "zh": "",
-  "pinyin": "",
-  "fr": "",
-  "en": ""
+  "zh": "厨房里有一只苍蝇。",
+  "pinyin": "Chúfáng lǐ yǒu yī zhī cāngying.",
+  "fr": "Il y a une mouche dans la cuisine.",
+  "en": "There's a fly in the kitchen."
  },
  "generation": {
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:0611b9cd5dab635f5a9cb867f03d7abf4acf94107f078629e2449e99da803ca3",
-  "essais": 1,
+  "empreinte_invite": "sha256:e1d86a1284850b606884a8e8e29687bc0f927d480ad227aa9914a1c25dd3c9de",
+  "essais": 2,
   "refus": []
  },
  "statut": "relu"

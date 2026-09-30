@@ -21,19 +21,32 @@
   "人": "sens",
   "止": "sens"
  },
- "mots": [],
+ "mots": [
+  {
+   "hanzi": "企业",
+   "pinyin": "qǐyè",
+   "fr": "entreprise",
+   "en": "enterprise, company"
+  },
+  {
+   "hanzi": "企图",
+   "pinyin": "qǐtú",
+   "fr": "tenter, tentative",
+   "en": "to attempt, an attempt"
+  }
+ ],
  "phrase": {
-  "zh": "",
-  "pinyin": "",
-  "fr": "",
-  "en": ""
+  "zh": "他在一家大企业工作。",
+  "pinyin": "Tā zài yī jiā dà qǐyè gōngzuò.",
+  "fr": "Il travaille dans une grande entreprise.",
+  "en": "He works for a large company."
  },
  "generation": {
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:89657e0f547d0e63c53484b76278468df5add1759ee3e9abbbd2d5dab9702527",
-  "essais": 1,
+  "empreinte_invite": "sha256:eab3424824aca8aa914313f8fb263d7df204bf6f65ef4f47a6ef0c60eca74a7e",
+  "essais": 2,
   "refus": []
  },
  "statut": "relu"

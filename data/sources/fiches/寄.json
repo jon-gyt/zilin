@@ -25,19 +25,32 @@
   "丁": "forme",
   "口": "forme"
  },
- "mots": [],
+ "mots": [
+  {
+   "hanzi": "邮寄",
+   "pinyin": "yóujì",
+   "fr": "envoyer par la poste",
+   "en": "to mail"
+  },
+  {
+   "hanzi": "寄存",
+   "pinyin": "jìcún",
+   "fr": "mettre en consigne",
+   "en": "to leave in storage"
+  }
+ ],
  "phrase": {
-  "zh": "",
-  "pinyin": "",
-  "fr": "",
-  "en": ""
+  "zh": "我给朋友寄了一封信。",
+  "pinyin": "Wǒ gěi péngyou jì le yī fēng xìn.",
+  "fr": "J'ai envoyé une lettre à un ami.",
+  "en": "I sent a letter to a friend."
  },
  "generation": {
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:bf417cf246bc5215775ab7e93095305d594764aa3742ac95f84895739ed9e137",
-  "essais": 2,
+  "empreinte_invite": "sha256:96c55953914f700b6c3faefb2fbe6fa209333f635210a16eee0088985ef669c5",
+  "essais": 3,
   "refus": []
  },
  "statut": "relu"

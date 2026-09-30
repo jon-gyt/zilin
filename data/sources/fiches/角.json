@@ -19,19 +19,32 @@
  "roles": {
   "角": "sens"
  },
- "mots": [],
+ "mots": [
+  {
+   "hanzi": "三角",
+   "pinyin": "sānjiǎo",
+   "fr": "triangle",
+   "en": "triangle"
+  },
+  {
+   "hanzi": "八角",
+   "pinyin": "bājiǎo",
+   "fr": "anis étoilé",
+   "en": "star anise"
+  }
+ ],
  "phrase": {
-  "zh": "",
-  "pinyin": "",
-  "fr": "",
-  "en": ""
+  "zh": "这个桌子有四个角。",
+  "pinyin": "Zhège zhuōzi yǒu sì gè jiǎo.",
+  "fr": "Cette table a quatre coins.",
+  "en": "This table has four corners."
  },
  "generation": {
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:522724d39955ea3f1c9a064fe96e8c101c33a09035c8930e3956e3cb79370c9b",
-  "essais": 1,
+  "empreinte_invite": "sha256:1ac0eb1bafdb19cb9d06d9bc1e7dc408e61c99439c3207b77b1337a332acdbac",
+  "essais": 2,
   "refus": []
  },
  "statut": "relu"

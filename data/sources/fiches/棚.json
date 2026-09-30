@@ -21,19 +21,32 @@
   "木": "sens",
   "月": "son"
  },
- "mots": [],
+ "mots": [
+  {
+   "hanzi": "棚子",
+   "pinyin": "péngzi",
+   "fr": "abri, cabane",
+   "en": "shed, shack"
+  },
+  {
+   "hanzi": "大棚",
+   "pinyin": "dàpéng",
+   "fr": "serre",
+   "en": "greenhouse"
+  }
+ ],
  "phrase": {
-  "zh": "",
-  "pinyin": "",
-  "fr": "",
-  "en": ""
+  "zh": "下雨了，我们到棚子里去。",
+  "pinyin": "Xià yǔ le, wǒmen dào péngzi li qù.",
+  "fr": "Il pleut, allons sous l'abri.",
+  "en": "It's raining, let's go into the shed."
  },
  "generation": {
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:2711be2b47fccd36a80507381ca25e8b4dfb4d897cf6d4da7178b9a99e7fe452",
-  "essais": 1,
+  "empreinte_invite": "sha256:0c7b23ebc8d74eaeeb1665f99f3cd3070f4df1c3a2c618ed8ac360fd1da77fda",
+  "essais": 2,
   "refus": []
  },
  "statut": "relu"

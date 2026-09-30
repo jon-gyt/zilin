@@ -21,19 +21,32 @@
   "由": "son",
   "阝": "sens"
  },
- "mots": [],
+ "mots": [
+  {
+   "hanzi": "邮票",
+   "pinyin": "yóupiào",
+   "fr": "timbre",
+   "en": "postage stamp"
+  },
+  {
+   "hanzi": "邮件",
+   "pinyin": "yóujiàn",
+   "fr": "courrier, e-mail",
+   "en": "mail, email"
+  }
+ ],
  "phrase": {
-  "zh": "",
-  "pinyin": "",
-  "fr": "",
-  "en": ""
+  "zh": "我给你发了一封邮件。",
+  "pinyin": "Wǒ gěi nǐ fā le yī fēng yóujiàn.",
+  "fr": "Je t'ai envoyé un e-mail.",
+  "en": "I sent you an email."
  },
  "generation": {
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:0e079b5527f0929c29dbf52d5f26b46df891e6424eb6cb0d77b3a79960309f1e",
-  "essais": 1,
+  "empreinte_invite": "sha256:0eb29121f99961a15bab651e5a205cad83218f2cb6f2b7a62b676c71e87fe330",
+  "essais": 2,
   "refus": []
  },
  "statut": "relu"

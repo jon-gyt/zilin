@@ -23,19 +23,32 @@
   "尸": "son",
   "雨": "son"
  },
- "mots": [],
+ "mots": [
+  {
+   "hanzi": "漏水",
+   "pinyin": "lòushuǐ",
+   "fr": "fuir (eau)",
+   "en": "to leak water"
+  },
+  {
+   "hanzi": "漏洞",
+   "pinyin": "lòudòng",
+   "fr": "faille, trou",
+   "en": "loophole, leak"
+  }
+ ],
  "phrase": {
-  "zh": "",
-  "pinyin": "",
-  "fr": "",
-  "en": ""
+  "zh": "屋顶漏水了。",
+  "pinyin": "Wūdǐng lòu shuǐ le.",
+  "fr": "Le toit fuit.",
+  "en": "The roof is leaking."
  },
  "generation": {
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:8d3c2dcdd1431601ddd28526363488d55d914dc01dcd35f1cd0149ad9b2fd309",
-  "essais": 1,
+  "empreinte_invite": "sha256:05a50c42db9e96e00907d14d37c1263285a5e5ad677373b893c4b2ac8cb5177e",
+  "essais": 2,
   "refus": []
  },
  "statut": "relu"

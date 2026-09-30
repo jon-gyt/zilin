@@ -23,19 +23,32 @@
   "夂": "sens",
   "㐄": "sens"
  },
- "mots": [],
+ "mots": [
+  {
+   "hanzi": "下降",
+   "pinyin": "xiàjiàng",
+   "fr": "baisser, descendre",
+   "en": "to fall, to decline"
+  },
+  {
+   "hanzi": "降低",
+   "pinyin": "jiàngdī",
+   "fr": "abaisser, réduire",
+   "en": "to lower, to reduce"
+  }
+ ],
  "phrase": {
-  "zh": "",
-  "pinyin": "",
-  "fr": "",
-  "en": ""
+  "zh": "明天气温会下降。",
+  "pinyin": "Míngtiān qìwēn huì xiàjiàng.",
+  "fr": "Demain, les températures vont baisser.",
+  "en": "Temperatures will drop tomorrow."
  },
  "generation": {
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:17c2fed0a0f851360befabde03f3f26fe50f54f8c47afbaf3e1f0a761ac9458c",
-  "essais": 1,
+  "empreinte_invite": "sha256:55ca34234ceb5acfb2c171ae2fdc01b45162b59d057714846fb3695be8901b36",
+  "essais": 2,
   "refus": []
  },
  "statut": "relu"

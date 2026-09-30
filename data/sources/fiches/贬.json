@@ -23,19 +23,32 @@
   "丿": "sens",
   "之": "sens"
  },
- "mots": [],
+ "mots": [
+  {
+   "hanzi": "贬值",
+   "pinyin": "biǎnzhí",
+   "fr": "se déprécier",
+   "en": "to depreciate"
+  },
+  {
+   "hanzi": "贬低",
+   "pinyin": "biǎndī",
+   "fr": "dénigrer, rabaisser",
+   "en": "to belittle"
+  }
+ ],
  "phrase": {
-  "zh": "",
-  "pinyin": "",
-  "fr": "",
-  "en": ""
+  "zh": "这个国家的钱贬值了。",
+  "pinyin": "Zhè ge guójiā de qián biǎnzhí le.",
+  "fr": "La monnaie de ce pays s'est dépréciée.",
+  "en": "This country's currency has lost value."
  },
  "generation": {
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:5ae24a04bd09953717d8ddc66954a9cdcd88335f5c13cd39c6a68f7c183ad388",
-  "essais": 1,
+  "empreinte_invite": "sha256:f716cd52589baeec6a479578ec84ef337f847453728c1f94ed1af6e2349d5b8b",
+  "essais": 2,
   "refus": []
  },
  "statut": "relu"

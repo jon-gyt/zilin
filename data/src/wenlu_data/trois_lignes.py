@@ -400,12 +400,20 @@ def couverture(textes: Iterable[Texte], jusqua: int = COUVERTURE) -> list[int]:
 
 
 def texte_exporte(texte: Texte, parcours: Mapping[str, object], glossaire: Mapping[str, Glose]) -> dict[str, object]:
-    """Un texte tel que l'app le lit : le jour, ses caractères nouveaux, les lignes, la glose."""
+    """Un texte tel que l'app le lit : le jour, ses caractères nouveaux, les lignes, la glose.
+
+    La glose touchée se partage en deux : `mots`, les entrées du glossaire commun, que le
+    document écrit une seule fois (`glossaire`), et `glose`, la glose propre au texte. Sans
+    ce partage, chaque texte recopiait ses entrées, et le fichier dépassait ce que l'app
+    garde hors ligne.
+    """
+    touchees = glose_du_texte(texte, glossaire)
     return {
         "jour": texte.jour,
         "nouveaux": [c for c in nouveaux_du_jour(texte.jour, parcours) if c in texte.zh],
         "lignes": [{"zh": l.zh, "pinyin": l.pinyin, "fr": l.fr, "en": l.en} for l in texte.lignes],
-        "glose": {zh: g.en_json() for zh, g in glose_du_texte(texte, glossaire).items()},
+        "mots": [zh for zh in touchees if zh not in texte.glose],
+        "glose": {zh: g.en_json() for zh, g in touchees.items() if zh in texte.glose},
     }
 
 
@@ -416,7 +424,11 @@ def document(
     dossier: Path | None = None,
     glossaire: Path | None = None,
 ) -> dict[str, object]:
-    """Le JSON écrit dans `trois-lignes.json` : les textes relus, par parcours et par jour."""
+    """Le JSON écrit dans `trois-lignes.json` : les textes relus, par parcours et par jour.
+
+    `glossaire` : les entrées communes que les textes touchent, une fois chacune ; un texte
+    les nomme dans `mots`.
+    """
     lexique = charger_glossaire(glossaire)
     par_parcours: dict[str, list[dict[str, object]]] = {}
     for nom in PARCOURS:
@@ -424,7 +436,13 @@ def document(
         par_parcours[nom] = [
             texte_exporte(t, documents, lexique) for t in charger_textes(nom, dossier).textes if t.statut == RELU
         ]
-    return {**en_tete, "premier_jour": PREMIER_JOUR, "parcours": par_parcours}
+    communs = sorted({zh for textes in par_parcours.values() for t in textes for zh in t["mots"]})  # type: ignore[attr-defined]
+    return {
+        **en_tete,
+        "premier_jour": PREMIER_JOUR,
+        "glossaire": {zh: lexique[zh].en_json() for zh in communs},
+        "parcours": par_parcours,
+    }
 
 
 def sources() -> list[tuple[str, Path]]:

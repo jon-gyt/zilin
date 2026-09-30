@@ -23,19 +23,32 @@
   "刀": "sens",
   "大": "sens"
  },
- "mots": [],
+ "mots": [
+  {
+   "hanzi": "默契",
+   "pinyin": "mòqì",
+   "fr": "entente tacite, complicité",
+   "en": "tacit understanding, rapport"
+  },
+  {
+   "hanzi": "契约",
+   "pinyin": "qìyuē",
+   "fr": "contrat",
+   "en": "contract"
+  }
+ ],
  "phrase": {
-  "zh": "",
-  "pinyin": "",
-  "fr": "",
-  "en": ""
+  "zh": "他们两个配合得很有默契。",
+  "pinyin": "Tāmen liǎng gè pèihé de hěn yǒu mòqì.",
+  "fr": "Ces deux-là travaillent ensemble avec une grande complicité.",
+  "en": "The two of them work together in perfect sync."
  },
  "generation": {
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:6399d61a6b7d5e911f99b1efaa1f78bb2039793d0069e200411b43b2dcec5e7e",
-  "essais": 1,
+  "empreinte_invite": "sha256:6f416aa6a28552275d4a6cf6a57e6d6112bfb0aa009029df2d8accd0e5f4841f",
+  "essais": 2,
   "refus": []
  },
  "statut": "relu"

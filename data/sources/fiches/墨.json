@@ -21,19 +21,32 @@
   "黑": "sens",
   "土": "sens"
  },
- "mots": [],
+ "mots": [
+  {
+   "hanzi": "墨水",
+   "pinyin": "mòshuǐ",
+   "fr": "encre",
+   "en": "ink"
+  },
+  {
+   "hanzi": "墨镜",
+   "pinyin": "mòjìng",
+   "fr": "lunettes de soleil",
+   "en": "sunglasses"
+  }
+ ],
  "phrase": {
-  "zh": "",
-  "pinyin": "",
-  "fr": "",
-  "en": ""
+  "zh": "他的笔没有墨水了。",
+  "pinyin": "Tā de bǐ méiyǒu mòshuǐ le.",
+  "fr": "Son stylo n'a plus d'encre.",
+  "en": "His pen has run out of ink."
  },
  "generation": {
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:b9ea1dd30d64a4692c70988c6bed44f2d5fc8d2807e761c52ba7ea97c70bb354",
-  "essais": 1,
+  "empreinte_invite": "sha256:5056edca3cc334814e01918790d2840ce5b04c00cdae74e278f17fc99cab5a21",
+  "essais": 2,
   "refus": []
  },
  "statut": "relu"

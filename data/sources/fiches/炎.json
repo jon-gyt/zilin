@@ -19,19 +19,32 @@
  "roles": {
   "火": "sens"
  },
- "mots": [],
+ "mots": [
+  {
+   "hanzi": "炎热",
+   "pinyin": "yánrè",
+   "fr": "torride, brûlant",
+   "en": "scorching hot"
+  },
+  {
+   "hanzi": "发炎",
+   "pinyin": "fāyán",
+   "fr": "s'enflammer (en médecine)",
+   "en": "to become inflamed"
+  }
+ ],
  "phrase": {
-  "zh": "",
-  "pinyin": "",
-  "fr": "",
-  "en": ""
+  "zh": "夏天这里非常炎热。",
+  "pinyin": "Xiàtiān zhèli fēicháng yánrè.",
+  "fr": "L'été, il fait une chaleur torride ici.",
+  "en": "Summers here are scorching hot."
  },
  "generation": {
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:d52a34d35e255ff8cf3fd21df56f07a5c54b41bb77e3aaf9ae54e5c1c77db896",
-  "essais": 1,
+  "empreinte_invite": "sha256:4b51b0d2b0a0347f23fc82e78e12eb249c975b92a1d11eea590f1175a1cbd578",
+  "essais": 2,
   "refus": []
  },
  "statut": "relu"

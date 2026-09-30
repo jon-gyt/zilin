@@ -21,19 +21,32 @@
   "禾": "sens",
   "且": "forme"
  },
- "mots": [],
+ "mots": [
+  {
+   "hanzi": "出租",
+   "pinyin": "chūzū",
+   "fr": "louer",
+   "en": "to rent out"
+  },
+  {
+   "hanzi": "房租",
+   "pinyin": "fángzū",
+   "fr": "loyer",
+   "en": "rent"
+  }
+ ],
  "phrase": {
-  "zh": "",
-  "pinyin": "",
-  "fr": "",
-  "en": ""
+  "zh": "我们坐出租车去吧。",
+  "pinyin": "Wǒmen zuò chūzūchē qù ba.",
+  "fr": "Prenons un taxi.",
+  "en": "Let's take a taxi."
  },
  "generation": {
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:ea95d5b7012430530ac0b8f576a83f85340ca5a5f85b68bb43d8a529d3133a34",
-  "essais": 1,
+  "empreinte_invite": "sha256:0bc8389fa5b6501949281e3c2404d8ae4d0bb70ade86fd055ef916126302e9c1",
+  "essais": 2,
   "refus": []
  },
  "statut": "relu"

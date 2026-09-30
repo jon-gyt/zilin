@@ -1,0 +1,422 @@
+{
+ "examen": "yueke-1255",
+ "parcours": "lire",
+ "generation": {
+  "modele": "rédaction manuelle",
+  "api": "session Claude Code (sans API)",
+  "date": "2026-09-30"
+ },
+ "relecture": {
+  "statut": "relu",
+  "par": "le propriétaire",
+  "decision": "« Go » (30 septembre 2026) : tout affiché sans relecture ligne à ligne",
+  "date": "2026-09-30"
+ },
+ "series": [
+  {
+   "serie": "A",
+   "statut": "relu",
+   "supports": [
+    {
+     "id": "s1",
+     "genre": "pancarte",
+     "contexte": {
+      "fr": "Un écriteau",
+      "en": "A notice"
+     },
+     "lignes": [
+      {
+       "zh": "售票处",
+       "pinyin": "shòu piào chù",
+       "fr": "Guichet",
+       "en": "Ticket office"
+      },
+      {
+       "zh": "今天的票已经售完，",
+       "pinyin": "jīn tiān de piào yǐ jīng shòu wán",
+       "fr": "Plus de billets pour aujourd'hui :",
+       "en": "Today's tickets are sold out;"
+      },
+      {
+       "zh": "明天早上八点再来。",
+       "pinyin": "míng tiān zǎo shang bā diǎn zài lái",
+       "fr": "revenez demain à 8 h.",
+       "en": "come back tomorrow at 8 am."
+      }
+     ]
+    },
+    {
+     "id": "s2",
+     "genre": "note",
+     "contexte": {
+      "fr": "Une note",
+      "en": "A note"
+     },
+     "lignes": [
+      {
+       "zh": "我去打扫教室了。",
+       "pinyin": "wǒ qù dǎ sǎo jiào shì le",
+       "fr": "Je suis allé nettoyer la salle de classe.",
+       "en": "I've gone to clean the classroom."
+      },
+      {
+       "zh": "你的帽子在床上，",
+       "pinyin": "nǐ de mào zi zài chuáng shang",
+       "fr": "Ton chapeau est sur le lit,",
+       "en": "Your hat's on the bed,"
+      },
+      {
+       "zh": "衣服我帮你晒了。",
+       "pinyin": "yī fu wǒ bāng nǐ shài le",
+       "fr": "et j'ai mis tes vêtements à sécher.",
+       "en": "and I've hung your clothes out to dry."
+      }
+     ]
+    }
+   ],
+   "questions": [
+    {
+     "type": "comprendre",
+     "support": "s1",
+     "consigne": {
+      "fr": "Pourquoi ne peut-on rien acheter aujourd'hui ?",
+      "en": "Why can't you buy anything today?"
+     },
+     "choix": [
+      {
+       "fr": "Tout est vendu",
+       "en": "Everything is sold"
+      },
+      {
+       "fr": "Le guichet est en travaux",
+       "en": "The office is being renovated"
+      },
+      {
+       "fr": "Le vendeur est malade",
+       "en": "The seller is ill"
+      },
+      {
+       "fr": "C'est un jour férié",
+       "en": "It's a public holiday"
+      }
+     ],
+     "reponse": 0,
+     "porte": [
+      "售",
+      "完"
+     ]
+    },
+    {
+     "type": "vrai_faux",
+     "support": "s1",
+     "consigne": {
+      "fr": "Vrai ou faux ?",
+      "en": "True or false?"
+     },
+     "affirmation": {
+      "zh": "售票处明天不开门。",
+      "pinyin": "shòu piào chù míng tiān bù kāi mén",
+      "fr": "Le guichet est fermé demain.",
+      "en": "The ticket office is closed tomorrow."
+     },
+     "reponse": false,
+     "porte": [
+      "售",
+      "明",
+      "天",
+      "再",
+      "来"
+     ]
+    },
+    {
+     "type": "reperer",
+     "support": "s2",
+     "consigne": {
+      "fr": "Touche l'endroit où se trouve le chapeau.",
+      "en": "Tap where the hat is."
+     },
+     "choix": [
+      "打扫",
+      "教室",
+      "帽子",
+      "床上"
+     ],
+     "reponse": 3,
+     "porte": [
+      "帽",
+      "床",
+      "上"
+     ]
+    },
+    {
+     "type": "replique",
+     "support": "s2",
+     "consigne": {
+      "fr": "Que réponds-tu ?",
+      "en": "What do you reply?"
+     },
+     "choix": [
+      {
+       "zh": "这里的泉水很好喝。",
+       "pinyin": "zhè li de quán shuǐ hěn hǎo hē",
+       "fr": "L'eau de source d'ici est très bonne.",
+       "en": "The spring water here is delicious."
+      },
+      {
+       "zh": "太谢谢你了！",
+       "pinyin": "tài xiè xie nǐ le",
+       "fr": "Merci beaucoup !",
+       "en": "Thanks so much!"
+      },
+      {
+       "zh": "我昨天做了一个梦。",
+       "pinyin": "wǒ zuó tiān zuò le yī gè mèng",
+       "fr": "J'ai fait un rêve hier.",
+       "en": "I had a dream yesterday."
+      },
+      {
+       "zh": "今天街上很热闹。",
+       "pinyin": "jīn tiān jiē shang hěn rè nao",
+       "fr": "La rue est très animée aujourd'hui.",
+       "en": "The street is lively today."
+      }
+     ],
+     "reponse": 1,
+     "porte": [
+      "晒",
+      "帮"
+     ]
+    },
+    {
+     "type": "sens",
+     "consigne": {
+      "fr": "Que veut dire ce caractère ?",
+      "en": "What does this character mean?"
+     },
+     "objet": {
+      "zh": "湿",
+      "pinyin": "shī",
+      "fr": "mouillé",
+      "en": "wet"
+     },
+     "choix": [
+      {
+       "fr": "sec",
+       "en": "dry"
+      },
+      {
+       "fr": "sale",
+       "en": "dirty"
+      },
+      {
+       "fr": "mouillé",
+       "en": "wet"
+      },
+      {
+       "fr": "chaud",
+       "en": "hot"
+      }
+     ],
+     "reponse": 2,
+     "porte": [
+      "湿"
+     ]
+    }
+   ]
+  },
+  {
+   "serie": "B",
+   "statut": "relu",
+   "supports": [
+    {
+     "id": "s1",
+     "genre": "pancarte",
+     "contexte": {
+      "fr": "Un panneau",
+      "en": "A sign"
+     },
+     "lignes": [
+      {
+       "zh": "森林公园",
+       "pinyin": "sēn lín gōng yuán",
+       "fr": "Parc forestier",
+       "en": "Forest park"
+      },
+      {
+       "zh": "天气很干，",
+       "pinyin": "tiān qì hěn gān",
+       "fr": "Le temps est très sec :",
+       "en": "The weather is very dry:"
+      },
+      {
+       "zh": "林中不能烧火。",
+       "pinyin": "lín zhōng bù néng shāo huǒ",
+       "fr": "interdiction de faire du feu dans les bois.",
+       "en": "no fires in the woods."
+      }
+     ]
+    },
+    {
+     "id": "s2",
+     "genre": "message",
+     "contexte": {
+      "fr": "Un message",
+      "en": "A message"
+     },
+     "lignes": [
+      {
+       "zh": "明天是妈妈的生日，",
+       "pinyin": "míng tiān shì mā ma de shēng rì",
+       "fr": "Demain, c'est l'anniversaire de maman :",
+       "en": "Tomorrow is Mum's birthday,"
+      },
+      {
+       "zh": "我们给她买一顶帽子吧！",
+       "pinyin": "wǒ men gěi tā mǎi yī dǐng mào zi ba",
+       "fr": "offrons-lui un chapeau !",
+       "en": "let's buy her a hat!"
+      },
+      {
+       "zh": "这是秘密，别告诉她！",
+       "pinyin": "zhè shì mì mì bié gào su tā",
+       "fr": "C'est un secret, ne lui dis rien !",
+       "en": "It's a secret, don't tell her!"
+      }
+     ]
+    }
+   ],
+   "questions": [
+    {
+     "type": "comprendre",
+     "support": "s1",
+     "consigne": {
+      "fr": "Qu'est-ce qui est interdit ici ?",
+      "en": "What is forbidden here?"
+     },
+     "choix": [
+      {
+       "fr": "Cueillir des fleurs",
+       "en": "Picking flowers"
+      },
+      {
+       "fr": "Camper",
+       "en": "Camping"
+      },
+      {
+       "fr": "Faire du feu",
+       "en": "Lighting fires"
+      },
+      {
+       "fr": "Pêcher",
+       "en": "Fishing"
+      }
+     ],
+     "reponse": 2,
+     "porte": [
+      "烧",
+      "火"
+     ]
+    },
+    {
+     "type": "vrai_faux",
+     "support": "s1",
+     "consigne": {
+      "fr": "Vrai ou faux ?",
+      "en": "True or false?"
+     },
+     "affirmation": {
+      "zh": "今天天气很湿。",
+      "pinyin": "jīn tiān tiān qì hěn shī",
+      "fr": "Il fait très humide aujourd'hui.",
+      "en": "It's very humid today."
+     },
+     "reponse": false,
+     "porte": [
+      "湿",
+      "干"
+     ]
+    },
+    {
+     "type": "reperer",
+     "support": "s2",
+     "consigne": {
+      "fr": "Touche le cadeau proposé.",
+      "en": "Tap the suggested present."
+     },
+     "choix": [
+      "生日",
+      "帽子",
+      "秘密",
+      "告诉"
+     ],
+     "reponse": 1,
+     "porte": [
+      "帽"
+     ]
+    },
+    {
+     "type": "replique",
+     "support": "s2",
+     "consigne": {
+      "fr": "Que réponds-tu ?",
+      "en": "What do you reply?"
+     },
+     "choix": [
+      {
+       "zh": "这件毛衣太小了。",
+       "pinyin": "zhè jiàn máo yī tài xiǎo le",
+       "fr": "Ce pull est trop petit.",
+       "en": "This sweater is too small."
+      },
+      {
+       "zh": "我们家住在二楼。",
+       "pinyin": "wǒ men jiā zhù zài èr lóu",
+       "fr": "Nous habitons au premier étage.",
+       "en": "We live on the second floor."
+      },
+      {
+       "zh": "今天有雨，别忘了伞。",
+       "pinyin": "jīn tiān yǒu yǔ bié wàng le sǎn",
+       "fr": "Il pleut aujourd'hui, n'oublie pas ton parapluie.",
+       "en": "It's raining today, don't forget your umbrella."
+      },
+      {
+       "zh": "放心，我不说！",
+       "pinyin": "fàng xīn wǒ bù shuō",
+       "fr": "Promis, je ne dis rien !",
+       "en": "Don't worry, I won't tell!"
+      }
+     ],
+     "reponse": 3,
+     "porte": [
+      "秘",
+      "密"
+     ]
+    },
+    {
+     "type": "caractere",
+     "consigne": {
+      "fr": "Quel caractère a ce sens ?",
+      "en": "Which character has this meaning?"
+     },
+     "objet": {
+      "zh": "梦",
+      "pinyin": "mèng",
+      "fr": "rêve",
+      "en": "dream"
+     },
+     "choix": [
+      "林",
+      "梦",
+      "楚",
+      "禁"
+     ],
+     "reponse": 1,
+     "porte": [
+      "梦"
+     ]
+    }
+   ]
+  }
+ ]
+}

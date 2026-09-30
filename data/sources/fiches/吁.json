@@ -3,7 +3,9 @@
  "parcours": "lire",
  "jour": 1403,
  "pinyin": [
-  "xū"
+  "xū",
+  "yū",
+  "yù"
  ],
  "sens_fr": "soupirer, appeler à",
  "sens_en": "to sigh, to appeal",
@@ -21,19 +23,32 @@
   "口": "sens",
   "于": "forme"
  },
- "mots": [],
+ "mots": [
+  {
+   "hanzi": "吁吁",
+   "pinyin": "xūxū",
+   "fr": "haletant (souffle)",
+   "en": "panting, puffing"
+  },
+  {
+   "hanzi": "呼吁",
+   "pinyin": "hūyù",
+   "fr": "lancer un appel, appeler à",
+   "en": "to appeal, to call on"
+  }
+ ],
  "phrase": {
-  "zh": "",
-  "pinyin": "",
-  "fr": "",
-  "en": ""
+  "zh": "他跑得气喘吁吁。",
+  "pinyin": "Tā pǎo de qìchuǎn xūxū.",
+  "fr": "Il a tant couru qu'il est hors d'haleine.",
+  "en": "He ran until he was out of breath."
  },
  "generation": {
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:0c8e22a0abb7bf1df2597d0a34b3b4ad4a10ec653e5fd87f69b8e8d6a643882b",
-  "essais": 1,
+  "empreinte_invite": "sha256:c820b894f5603eb24c097a5dae4a9596f40eb60fe9c0c3d6e136a0664652080b",
+  "essais": 3,
   "refus": []
  },
  "statut": "relu"

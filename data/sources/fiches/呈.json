@@ -21,19 +21,32 @@
   "口": "sens",
   "王": "forme"
  },
- "mots": [],
+ "mots": [
+  {
+   "hanzi": "呈现",
+   "pinyin": "chéngxiàn",
+   "fr": "présenter, faire apparaître",
+   "en": "to present, to appear"
+  },
+  {
+   "hanzi": "辞呈",
+   "pinyin": "cíchéng",
+   "fr": "lettre de démission",
+   "en": "letter of resignation"
+  }
+ ],
  "phrase": {
-  "zh": "",
-  "pinyin": "",
-  "fr": "",
-  "en": ""
+  "zh": "他向公司递交了辞呈。",
+  "pinyin": "Tā xiàng gōngsī dìjiāo le cíchéng.",
+  "fr": "Il a remis sa lettre de démission à l'entreprise.",
+  "en": "He handed in his resignation to the company."
  },
  "generation": {
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:0916989df82e9f768367df3b400b345d0315eb61b390d6e7219f49a727048248",
-  "essais": 1,
+  "empreinte_invite": "sha256:3b5fbf9a92aa7748c6504abe6972b2e71ddd528a77fd9607d49ff954d5913e41",
+  "essais": 2,
   "refus": []
  },
  "statut": "relu"

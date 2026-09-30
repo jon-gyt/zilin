@@ -1,0 +1,423 @@
+{
+ "examen": "yueke-1005",
+ "parcours": "hsk",
+ "generation": {
+  "modele": "rédaction manuelle",
+  "api": "session Claude Code (sans API)",
+  "date": "2026-09-30"
+ },
+ "relecture": {
+  "statut": "relu",
+  "par": "le propriétaire",
+  "decision": "« Go » (30 septembre 2026) : tout affiché sans relecture ligne à ligne",
+  "date": "2026-09-30"
+ },
+ "series": [
+  {
+   "serie": "A",
+   "statut": "relu",
+   "supports": [
+    {
+     "id": "s1",
+     "genre": "note",
+     "contexte": {
+      "fr": "Une note",
+      "en": "A note"
+     },
+     "lignes": [
+      {
+       "zh": "我去超市买香蕉，",
+       "pinyin": "wǒ qù chāo shì mǎi xiāng jiāo",
+       "fr": "Je vais au supermarché acheter des bananes.",
+       "en": "I'm going to the supermarket for bananas."
+      },
+      {
+       "zh": "汤在桌子上，",
+       "pinyin": "tāng zài zhuō zi shàng",
+       "fr": "La soupe est sur la table :",
+       "en": "The soup is on the table:"
+      },
+      {
+       "zh": "你先喝，别等我。",
+       "pinyin": "nǐ xiān hē bié děng wǒ",
+       "fr": "sers-toi, ne m'attends pas.",
+       "en": "have some, don't wait for me."
+      }
+     ]
+    },
+    {
+     "id": "s2",
+     "genre": "message",
+     "contexte": {
+      "fr": "Un message",
+      "en": "A message"
+     },
+     "lignes": [
+      {
+       "zh": "王先生，我们的新衬衫到了，",
+       "pinyin": "wáng xiān sheng wǒ men de xīn chèn shān dào le",
+       "fr": "Monsieur Wang, nos nouvelles chemises sont arrivées :",
+       "en": "Mr Wang, our new shirts have arrived:"
+      },
+      {
+       "zh": "白色和蓝色都有，",
+       "pinyin": "bái sè hé lán sè dōu yǒu",
+       "fr": "en blanc comme en bleu.",
+       "en": "in white and in blue."
+      },
+      {
+       "zh": "欢迎您来看看。",
+       "pinyin": "huān yíng nín lái kàn kan",
+       "fr": "Passez les voir !",
+       "en": "Do come and have a look."
+      }
+     ]
+    }
+   ],
+   "questions": [
+    {
+     "type": "comprendre",
+     "support": "s1",
+     "consigne": {
+      "fr": "Que va acheter l'auteur de la note ?",
+      "en": "What is the note's writer going to buy?"
+     },
+     "choix": [
+      {
+       "fr": "Des pommes",
+       "en": "Apples"
+      },
+      {
+       "fr": "Des bananes",
+       "en": "Bananas"
+      },
+      {
+       "fr": "Du sucre",
+       "en": "Sugar"
+      },
+      {
+       "fr": "Des œufs",
+       "en": "Eggs"
+      }
+     ],
+     "reponse": 1,
+     "porte": [
+      "香",
+      "蕉"
+     ]
+    },
+    {
+     "type": "vrai_faux",
+     "support": "s1",
+     "consigne": {
+      "fr": "Vrai ou faux ?",
+      "en": "True or false?"
+     },
+     "affirmation": {
+      "zh": "他让你先喝汤。",
+      "pinyin": "tā ràng nǐ xiān hē tāng",
+      "fr": "Il te dit de prendre la soupe sans l'attendre.",
+      "en": "He tells you to have the soup first."
+     },
+     "reponse": true,
+     "porte": [
+      "汤",
+      "先",
+      "喝"
+     ]
+    },
+    {
+     "type": "reperer",
+     "support": "s2",
+     "consigne": {
+      "fr": "Touche ce qui vient d'arriver au magasin.",
+      "en": "Tap what has just arrived at the shop."
+     },
+     "choix": [
+      "王先生",
+      "衬衫",
+      "白色",
+      "蓝色"
+     ],
+     "reponse": 1,
+     "porte": [
+      "衬",
+      "衫"
+     ]
+    },
+    {
+     "type": "replique",
+     "support": "s2",
+     "consigne": {
+      "fr": "Que répond M. Wang ?",
+      "en": "What does Mr Wang reply?"
+     },
+     "choix": [
+      {
+       "zh": "这个箱子太重了。",
+       "pinyin": "zhè gè xiāng zi tài zhòng le",
+       "fr": "Cette valise est trop lourde.",
+       "en": "This suitcase is too heavy."
+      },
+      {
+       "zh": "他跳舞跳得很好。",
+       "pinyin": "tā tiào wǔ tiào de hěn hǎo",
+       "fr": "Il danse très bien.",
+       "en": "He dances very well."
+      },
+      {
+       "zh": "我不喜欢喝汤。",
+       "pinyin": "wǒ bù xǐ huan hē tāng",
+       "fr": "Je n'aime pas la soupe.",
+       "en": "I don't like soup."
+      },
+      {
+       "zh": "好，我明天下午去。",
+       "pinyin": "hǎo wǒ míng tiān xià wǔ qù",
+       "fr": "D'accord, je passe demain après-midi.",
+       "en": "OK, I'll come tomorrow afternoon."
+      }
+     ],
+     "reponse": 3,
+     "porte": [
+      "衫",
+      "欢",
+      "迎"
+     ]
+    },
+    {
+     "type": "sens",
+     "consigne": {
+      "fr": "Que veut dire ce caractère ?",
+      "en": "What does this character mean?"
+     },
+     "objet": {
+      "zh": "甜",
+      "pinyin": "tián",
+      "fr": "sucré",
+      "en": "sweet"
+     },
+     "choix": [
+      {
+       "fr": "salé",
+       "en": "salty"
+      },
+      {
+       "fr": "amer",
+       "en": "bitter"
+      },
+      {
+       "fr": "sucré",
+       "en": "sweet"
+      },
+      {
+       "fr": "pimenté",
+       "en": "spicy"
+      }
+     ],
+     "reponse": 2,
+     "porte": [
+      "甜"
+     ]
+    }
+   ]
+  },
+  {
+   "serie": "B",
+   "statut": "relu",
+   "supports": [
+    {
+     "id": "s1",
+     "genre": "affiche",
+     "contexte": {
+      "fr": "Une affiche",
+      "en": "A poster"
+     },
+     "lignes": [
+      {
+       "zh": "武术班开始报名了！",
+       "pinyin": "wǔ shù bān kāi shǐ bào míng le",
+       "fr": "Les inscriptions au cours d'arts martiaux sont ouvertes !",
+       "en": "Enrolment for the martial arts class is open!"
+      },
+      {
+       "zh": "每星期二、四下午五点",
+       "pinyin": "měi xīng qī èr sì xià wǔ wǔ diǎn",
+       "fr": "Mardi et jeudi, 17 heures",
+       "en": "Tuesdays and Thursdays, 5 pm"
+      },
+      {
+       "zh": "地点：学校体育馆",
+       "pinyin": "dì diǎn xué xiào tǐ yù guǎn",
+       "fr": "Lieu : gymnase de l'école",
+       "en": "Venue: school gym"
+      }
+     ]
+    },
+    {
+     "id": "s2",
+     "genre": "message",
+     "contexte": {
+      "fr": "Un message",
+      "en": "A message"
+     },
+     "lignes": [
+      {
+       "zh": "今天比赛我们输了，",
+       "pinyin": "jīn tiān bǐ sài wǒ men shū le",
+       "fr": "Nous avons perdu le match aujourd'hui :",
+       "en": "We lost the match today:"
+      },
+      {
+       "zh": "大家都很伤心。",
+       "pinyin": "dà jiā dōu hěn shāng xīn",
+       "fr": "tout le monde a de la peine.",
+       "en": "everyone is upset."
+      },
+      {
+       "zh": "晚上一起吃饭吧？",
+       "pinyin": "wǎn shang yī qǐ chī fàn ba",
+       "fr": "On dîne ensemble ce soir ?",
+       "en": "Shall we have dinner together tonight?"
+      }
+     ]
+    }
+   ],
+   "questions": [
+    {
+     "type": "comprendre",
+     "support": "s1",
+     "consigne": {
+      "fr": "Quel cours propose l'affiche ?",
+      "en": "Which class does the poster offer?"
+     },
+     "choix": [
+      {
+       "fr": "De la danse",
+       "en": "Dance"
+      },
+      {
+       "fr": "De la natation",
+       "en": "Swimming"
+      },
+      {
+       "fr": "Du dessin",
+       "en": "Drawing"
+      },
+      {
+       "fr": "Des arts martiaux",
+       "en": "Martial arts"
+      }
+     ],
+     "reponse": 3,
+     "porte": [
+      "武",
+      "术"
+     ]
+    },
+    {
+     "type": "vrai_faux",
+     "support": "s1",
+     "consigne": {
+      "fr": "Vrai ou faux ?",
+      "en": "True or false?"
+     },
+     "affirmation": {
+      "zh": "现在可以报名。",
+      "pinyin": "xiàn zài kě yǐ bào míng",
+      "fr": "On peut s'inscrire dès maintenant.",
+      "en": "You can sign up now."
+     },
+     "reponse": true,
+     "porte": [
+      "开",
+      "始",
+      "报",
+      "名"
+     ]
+    },
+    {
+     "type": "reperer",
+     "support": "s2",
+     "consigne": {
+      "fr": "Touche le mot qui dit comment se sent l'équipe.",
+      "en": "Tap the word that says how the team feels."
+     },
+     "choix": [
+      "比赛",
+      "输",
+      "伤心",
+      "吃饭"
+     ],
+     "reponse": 2,
+     "porte": [
+      "伤",
+      "心"
+     ]
+    },
+    {
+     "type": "replique",
+     "support": "s2",
+     "consigne": {
+      "fr": "Que répond son ami ?",
+      "en": "What does the friend reply?"
+     },
+     "choix": [
+      {
+       "zh": "我想买一件衬衫。",
+       "pinyin": "wǒ xiǎng mǎi yī jiàn chèn shān",
+       "fr": "Je voudrais acheter une chemise.",
+       "en": "I'd like to buy a shirt."
+      },
+      {
+       "zh": "好啊，别难过了。",
+       "pinyin": "hǎo a bié nán guò le",
+       "fr": "D'accord, ne sois pas triste.",
+       "en": "Sure, don't be sad."
+      },
+      {
+       "zh": "这里的香蕉很好吃。",
+       "pinyin": "zhè li de xiāng jiāo hěn hǎo chī",
+       "fr": "Les bananes d'ici sont très bonnes.",
+       "en": "The bananas here are very good."
+      },
+      {
+       "zh": "我的箱子在楼上。",
+       "pinyin": "wǒ de xiāng zi zài lóu shàng",
+       "fr": "Ma valise est à l'étage.",
+       "en": "My suitcase is upstairs."
+      }
+     ],
+     "reponse": 1,
+     "porte": [
+      "输",
+      "伤"
+     ]
+    },
+    {
+     "type": "ton",
+     "consigne": {
+      "fr": "Quel est le ton de ce caractère ?",
+      "en": "What is the tone of this character?"
+     },
+     "objet": {
+      "zh": "深",
+      "pinyin": "shēn",
+      "fr": "profond",
+      "en": "deep"
+     },
+     "choix": [
+      "shēn",
+      "shén",
+      "shěn",
+      "shèn"
+     ],
+     "reponse": 0,
+     "porte": [
+      "深"
+     ]
+    }
+   ]
+  }
+ ]
+}

@@ -22,19 +22,32 @@
   "勹": "forme",
   "口": "sens"
  },
- "mots": [],
+ "mots": [
+  {
+   "hanzi": "句子",
+   "pinyin": "jùzi",
+   "fr": "phrase",
+   "en": "sentence"
+  },
+  {
+   "hanzi": "句号",
+   "pinyin": "jùhào",
+   "fr": "point final",
+   "en": "full stop"
+  }
+ ],
  "phrase": {
-  "zh": "",
-  "pinyin": "",
-  "fr": "",
-  "en": ""
+  "zh": "这个句子我不懂。",
+  "pinyin": "Zhège jùzi wǒ bù dǒng.",
+  "fr": "Je ne comprends pas cette phrase.",
+  "en": "I don't understand this sentence."
  },
  "generation": {
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:65e8bc30afb9297832117e2995dd8d6cf351b2e1f4a13e110851fd1fd8a188d6",
-  "essais": 1,
+  "empreinte_invite": "sha256:f23fc132e2201316648c0d5510b547e672a4f68caf286fa90cf5e5b86d2e5497",
+  "essais": 2,
   "refus": []
  },
  "statut": "relu"
