@@ -66,6 +66,21 @@ describe('le suivi de hauteur', () => {
     expect(segs[1].f0[0]).toBeGreaterThan(segs[1].f0[segs[1].f0.length - 1] + 50);
   });
 
+  it('devant une syllabe liée, le trou court d’un ton 3 craqué n’est pas la frontière', () => {
+    // 半路 : « bàn » puis « lǔ » sans silence ; le creux du ton 3 s'éteint 80 ms dans un souffle
+    const a = syllabe((u) => 320 - 120 * u, 0.25, { marge: 0.1 }).slice(0, -1120);
+    const b1 = syllabe((u) => 190 - 40 * u, 0.12, { marge: 0, amplitude: 0.2 });
+    const souffle = syllabe(() => 150, 0.01, { marge: 0.045, bruit: 0.02, amplitude: 0, graine: 3 });
+    const b2 = syllabe((u) => 150 + 60 * u, 0.12, { marge: 0, amplitude: 0.2 });
+    const x = new Float32Array([...a, ...b1, ...souffle, ...b2, ...new Float32Array(1600)]);
+    const tr = suivreHauteur(x);
+    const t = (s: { t: number[] }) => s.t[0];
+    const [, sans] = segmenter(tr, 2);
+    const [, avec] = segmenter(tr, 2, 0.12, {}, [true]);
+    expect(t(sans)).toBeGreaterThan(0.45);
+    expect(t(avec)).toBeLessThan(0.4);
+  });
+
   it('viterbi préfère la continuité à un saut d’octave isolé', () => {
     const c = [[{ f0: 200, ap: 0.05 }], [{ f0: 100, ap: 0.04 }, { f0: 200, ap: 0.1 }], [{ f0: 202, ap: 0.05 }]];
     expect(viterbi(c, 2, 0)).toEqual([200, 200, 202]);
