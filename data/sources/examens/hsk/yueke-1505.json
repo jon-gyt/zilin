@@ -1,0 +1,730 @@
+{
+ "examen": "yueke-1505",
+ "parcours": "hsk",
+ "generation": {
+  "modele": "rédaction manuelle",
+  "api": "session Claude Code (sans API)",
+  "date": "2026-09-30"
+ },
+ "relecture": {
+  "statut": "a_relire",
+  "note": "rédigé le 30 septembre 2026, à relire par le propriétaire (`wenlu examens apercu`) ; une série passe à `relu` sur sa décision, citée ici"
+ },
+ "series": [
+  {
+   "serie": "A",
+   "statut": "a_relire",
+   "supports": [
+    {
+     "id": "s1",
+     "genre": "menu",
+     "contexte": {
+      "fr": "Un menu",
+      "en": "A menu"
+     },
+     "lignes": [
+      {
+       "zh": "烤鱼：六十八元",
+       "pinyin": "kǎo yú liù shí bā yuán",
+       "fr": "Poisson grillé : 68 yuans",
+       "en": "Grilled fish: 68 yuan"
+      },
+      {
+       "zh": "烤鸡：四十五元",
+       "pinyin": "kǎo jī sì shí wǔ yuán",
+       "fr": "Poulet rôti : 45 yuans",
+       "en": "Roast chicken: 45 yuan"
+      },
+      {
+       "zh": "梨汁：十二元",
+       "pinyin": "lí zhī shí èr yuán",
+       "fr": "Jus de poire : 12 yuans",
+       "en": "Pear juice: 12 yuan"
+      }
+     ],
+     "glose": [
+      {
+       "zh": "烤鱼",
+       "pinyin": "kǎo yú",
+       "fr": "poisson grillé",
+       "en": "grilled fish"
+      },
+      {
+       "zh": "六十八元",
+       "pinyin": "liù shí bā yuán",
+       "fr": "soixante-huit yuans",
+       "en": "sixty-eight yuan"
+      },
+      {
+       "zh": "烤鸡",
+       "pinyin": "kǎo jī",
+       "fr": "poulet rôti",
+       "en": "roast chicken"
+      },
+      {
+       "zh": "四十五元",
+       "pinyin": "sì shí wǔ yuán",
+       "fr": "quarante-cinq yuans",
+       "en": "forty-five yuan"
+      },
+      {
+       "zh": "梨汁",
+       "pinyin": "lí zhī",
+       "fr": "jus de poire",
+       "en": "pear juice"
+      },
+      {
+       "zh": "十二元",
+       "pinyin": "shí èr yuán",
+       "fr": "douze yuans",
+       "en": "twelve yuan"
+      }
+     ]
+    },
+    {
+     "id": "s2",
+     "genre": "message",
+     "contexte": {
+      "fr": "Un message",
+      "en": "A message"
+     },
+     "lignes": [
+      {
+       "zh": "李先生，我是住在您楼上的邻居。",
+       "pinyin": "lǐ xiān sheng wǒ shì zhù zài nín lóu shàng de lín jū",
+       "fr": "Monsieur Li, je suis votre voisin du dessus.",
+       "en": "Mr Li, I'm your upstairs neighbour."
+      },
+      {
+       "zh": "我家下星期要装修，",
+       "pinyin": "wǒ jiā xià xīng qī yào zhuāng xiū",
+       "fr": "La semaine prochaine, on fait des travaux chez nous,",
+       "en": "We're renovating next week,"
+      },
+      {
+       "zh": "会有一点吵，真对不起！",
+       "pinyin": "huì yǒu yī diǎn chǎo zhēn duì bu qǐ",
+       "fr": "il y aura un peu de bruit, vraiment désolé !",
+       "en": "it will be a bit noisy, I'm really sorry!"
+      }
+     ],
+     "glose": [
+      {
+       "zh": "李先生",
+       "pinyin": "lǐ xiān sheng",
+       "fr": "M. Li",
+       "en": "Mr Li"
+      },
+      {
+       "zh": "邻居",
+       "pinyin": "lín jū",
+       "fr": "voisin",
+       "en": "neighbour"
+      },
+      {
+       "zh": "下星期",
+       "pinyin": "xià xīng qī",
+       "fr": "la semaine prochaine",
+       "en": "next week"
+      },
+      {
+       "zh": "装修",
+       "pinyin": "zhuāng xiū",
+       "fr": "faire des travaux",
+       "en": "to renovate"
+      },
+      {
+       "zh": "有一点",
+       "pinyin": "yǒu yī diǎn",
+       "fr": "un peu",
+       "en": "a little"
+      },
+      {
+       "zh": "吵",
+       "pinyin": "chǎo",
+       "fr": "bruyant",
+       "en": "noisy"
+      },
+      {
+       "zh": "真",
+       "pinyin": "zhēn",
+       "fr": "vraiment",
+       "en": "really"
+      },
+      {
+       "zh": "对不起",
+       "pinyin": "duì bu qǐ",
+       "fr": "pardon, désolé",
+       "en": "sorry"
+      },
+      {
+       "zh": "写",
+       "pinyin": "xiě",
+       "fr": "écrire",
+       "en": "to write"
+      },
+      {
+       "zh": "信",
+       "pinyin": "xìn",
+       "fr": "lettre, message",
+       "en": "letter, message"
+      },
+      {
+       "zh": "的人",
+       "pinyin": "de rén",
+       "fr": "celui qui",
+       "en": "the person who"
+      },
+      {
+       "zh": "没关系",
+       "pinyin": "méi guān xi",
+       "fr": "ce n'est pas grave",
+       "en": "never mind"
+      },
+      {
+       "zh": "告诉",
+       "pinyin": "gào sù",
+       "fr": "dire, prévenir",
+       "en": "to tell"
+      },
+      {
+       "zh": "游泳",
+       "pinyin": "yóu yǒng",
+       "fr": "nager",
+       "en": "to swim"
+      },
+      {
+       "zh": "件",
+       "pinyin": "jiàn",
+       "fr": "(pour les vêtements)",
+       "en": "(measure word for clothes)"
+      }
+     ]
+    }
+   ],
+   "questions": [
+    {
+     "type": "comprendre",
+     "support": "s1",
+     "consigne": {
+      "fr": "Combien coûte le jus de poire ?",
+      "en": "How much is the pear juice?"
+     },
+     "choix": [
+      {
+       "fr": "Quarante-cinq yuans",
+       "en": "Forty-five yuan"
+      },
+      {
+       "fr": "Douze yuans",
+       "en": "Twelve yuan"
+      },
+      {
+       "fr": "Soixante-huit yuans",
+       "en": "Sixty-eight yuan"
+      },
+      {
+       "fr": "Dix-huit yuans",
+       "en": "Eighteen yuan"
+      }
+     ],
+     "reponse": 1,
+     "porte": [
+      "梨",
+      "汁",
+      "十",
+      "二"
+     ]
+    },
+    {
+     "type": "reperer",
+     "support": "s1",
+     "consigne": {
+      "fr": "Touche le plat de poisson.",
+      "en": "Tap the fish dish."
+     },
+     "choix": [
+      "烤鸡",
+      "梨汁",
+      "十二元",
+      "烤鱼"
+     ],
+     "reponse": 3,
+     "porte": [
+      "烤",
+      "鱼"
+     ]
+    },
+    {
+     "type": "vrai_faux",
+     "support": "s2",
+     "consigne": {
+      "fr": "Vrai ou faux ?",
+      "en": "True or false?"
+     },
+     "affirmation": {
+      "zh": "写信的人住在李先生楼下。",
+      "pinyin": "xiě xìn de rén zhù zài lǐ xiān sheng lóu xià",
+      "fr": "La personne qui écrit habite sous chez M. Li.",
+      "en": "The writer lives below Mr Li."
+     },
+     "reponse": false,
+     "porte": [
+      "邻",
+      "楼",
+      "上"
+     ]
+    },
+    {
+     "type": "replique",
+     "support": "s2",
+     "consigne": {
+      "fr": "Que répond M. Li ?",
+      "en": "What does Mr Li reply?"
+     },
+     "choix": [
+      {
+       "zh": "我们一起去游泳吧。",
+       "pinyin": "wǒ men yī qǐ qù yóu yǒng ba",
+       "fr": "Allons nager ensemble.",
+       "en": "Let's go swimming together."
+      },
+      {
+       "zh": "没关系，谢谢你告诉我。",
+       "pinyin": "méi guān xi xiè xie nǐ gào sù wǒ",
+       "fr": "Pas de souci, merci de me prévenir.",
+       "en": "No problem, thanks for letting me know."
+      },
+      {
+       "zh": "他是医生。",
+       "pinyin": "tā shì yī shēng",
+       "fr": "Il est médecin.",
+       "en": "He's a doctor."
+      },
+      {
+       "zh": "这件衣服很贵。",
+       "pinyin": "zhè jiàn yī fu hěn guì",
+       "fr": "Ce vêtement est très cher.",
+       "en": "These clothes are very expensive."
+      }
+     ],
+     "reponse": 1,
+     "porte": [
+      "邻",
+      "吵"
+     ]
+    },
+    {
+     "type": "ton",
+     "consigne": {
+      "fr": "Quel est le ton de ce caractère ?",
+      "en": "Which tone does this character have?"
+     },
+     "objet": {
+      "zh": "肯",
+      "pinyin": "kěn",
+      "fr": "accepter, vouloir bien",
+      "en": "to be willing"
+     },
+     "choix": [
+      "kēn",
+      "kén",
+      "kěn",
+      "kèn"
+     ],
+     "reponse": 2,
+     "porte": [
+      "肯"
+     ]
+    }
+   ]
+  },
+  {
+   "serie": "B",
+   "statut": "a_relire",
+   "supports": [
+    {
+     "id": "s1",
+     "genre": "calendrier",
+     "contexte": {
+      "fr": "Un calendrier",
+      "en": "A calendar"
+     },
+     "lignes": [
+      {
+       "zh": "五月一日：劳动节，放假三天",
+       "pinyin": "wǔ yuè yī rì láo dòng jié fàng jià sān tiān",
+       "fr": "1er mai : fête du Travail, trois jours de congé",
+       "en": "1 May: Labour Day, three days off"
+      },
+      {
+       "zh": "五月十日：朗读比赛",
+       "pinyin": "wǔ yuè shí rì lǎng dú bǐ sài",
+       "fr": "10 mai : concours de lecture à voix haute",
+       "en": "10 May: reading-aloud contest"
+      },
+      {
+       "zh": "五月二十日：数学竞赛",
+       "pinyin": "wǔ yuè èr shí rì shù xué jìng sài",
+       "fr": "20 mai : concours de maths",
+       "en": "20 May: maths contest"
+      }
+     ],
+     "glose": [
+      {
+       "zh": "一日",
+       "pinyin": "yī rì",
+       "fr": "le 1er (du mois)",
+       "en": "the 1st"
+      },
+      {
+       "zh": "十日",
+       "pinyin": "shí rì",
+       "fr": "le 10 (du mois)",
+       "en": "the 10th"
+      },
+      {
+       "zh": "二十日",
+       "pinyin": "èr shí rì",
+       "fr": "le 20 (du mois)",
+       "en": "the 20th"
+      },
+      {
+       "zh": "劳动节",
+       "pinyin": "láo dòng jié",
+       "fr": "fête du Travail",
+       "en": "Labour Day"
+      },
+      {
+       "zh": "放假",
+       "pinyin": "fàng jià",
+       "fr": "être en congé",
+       "en": "to have a holiday"
+      },
+      {
+       "zh": "三天",
+       "pinyin": "sān tiān",
+       "fr": "trois jours",
+       "en": "three days"
+      },
+      {
+       "zh": "朗读",
+       "pinyin": "lǎng dú",
+       "fr": "lire à voix haute",
+       "en": "to read aloud"
+      },
+      {
+       "zh": "比赛",
+       "pinyin": "bǐ sài",
+       "fr": "concours, match",
+       "en": "contest, match"
+      },
+      {
+       "zh": "数学",
+       "pinyin": "shù xué",
+       "fr": "mathématiques",
+       "en": "maths"
+      },
+      {
+       "zh": "竞赛",
+       "pinyin": "jìng sài",
+       "fr": "concours",
+       "en": "competition"
+      }
+     ]
+    },
+    {
+     "id": "s2",
+     "genre": "lettre",
+     "contexte": {
+      "fr": "Une lettre",
+      "en": "A letter"
+     },
+     "lignes": [
+      {
+       "zh": "奶奶：您好！",
+       "pinyin": "nǎi nai nín hǎo",
+       "fr": "Mamie, bonjour !",
+       "en": "Dear Grandma,"
+      },
+      {
+       "zh": "我在学校很好，老师常常鼓励我，",
+       "pinyin": "wǒ zài xué xiào hěn hǎo lǎo shī cháng cháng gǔ lì wǒ",
+       "fr": "Tout va bien à l'école, la maîtresse m'encourage souvent,",
+       "en": "I'm doing well at school, my teacher often encourages me,"
+      },
+      {
+       "zh": "这个月我还得了第一名。",
+       "pinyin": "zhè gè yuè wǒ hái dé le dì yī míng",
+       "fr": "et ce mois-ci, j'ai même été premier.",
+       "en": "and this month I even came first."
+      },
+      {
+       "zh": "您的肩还疼吗？",
+       "pinyin": "nín de jiān hái téng ma",
+       "fr": "Ton épaule te fait-elle encore mal ?",
+       "en": "Does your shoulder still hurt?"
+      },
+      {
+       "zh": "下个月我回家看您。",
+       "pinyin": "xià gè yuè wǒ huí jiā kàn nín",
+       "fr": "Le mois prochain, je rentre te voir.",
+       "en": "Next month I'll come home to see you."
+      }
+     ],
+     "glose": [
+      {
+       "zh": "您好",
+       "pinyin": "nín hǎo",
+       "fr": "bonjour",
+       "en": "hello"
+      },
+      {
+       "zh": "常常",
+       "pinyin": "cháng cháng",
+       "fr": "souvent",
+       "en": "often"
+      },
+      {
+       "zh": "鼓励",
+       "pinyin": "gǔ lì",
+       "fr": "encourager",
+       "en": "to encourage"
+      },
+      {
+       "zh": "这个月",
+       "pinyin": "zhè gè yuè",
+       "fr": "ce mois-ci",
+       "en": "this month"
+      },
+      {
+       "zh": "得了",
+       "pinyin": "dé le",
+       "fr": "obtenir",
+       "en": "to get"
+      },
+      {
+       "zh": "第一名",
+       "pinyin": "dì yī míng",
+       "fr": "la première place",
+       "en": "first place"
+      },
+      {
+       "zh": "您的",
+       "pinyin": "nín de",
+       "fr": "votre, ton (poli)",
+       "en": "your (polite)"
+      },
+      {
+       "zh": "肩",
+       "pinyin": "jiān",
+       "fr": "épaule",
+       "en": "shoulder"
+      },
+      {
+       "zh": "疼",
+       "pinyin": "téng",
+       "fr": "faire mal",
+       "en": "to hurt"
+      },
+      {
+       "zh": "下个月",
+       "pinyin": "xià gè yuè",
+       "fr": "le mois prochain",
+       "en": "next month"
+      },
+      {
+       "zh": "我的",
+       "pinyin": "wǒ de",
+       "fr": "mon, ma",
+       "en": "my"
+      },
+      {
+       "zh": "好多了",
+       "pinyin": "hǎo duō le",
+       "fr": "va beaucoup mieux",
+       "en": "much better"
+      },
+      {
+       "zh": "担心",
+       "pinyin": "dān xīn",
+       "fr": "s'inquiéter",
+       "en": "to worry"
+      },
+      {
+       "zh": "颜色",
+       "pinyin": "yán sè",
+       "fr": "couleur",
+       "en": "colour"
+      },
+      {
+       "zh": "几点",
+       "pinyin": "jǐ diǎn",
+       "fr": "quelle heure",
+       "en": "what time"
+      }
+     ]
+    }
+   ],
+   "questions": [
+    {
+     "type": "reperer",
+     "support": "s1",
+     "consigne": {
+      "fr": "Touche le jour férié.",
+      "en": "Tap the public holiday."
+     },
+     "choix": [
+      "朗读",
+      "劳动节",
+      "数学",
+      "竞赛"
+     ],
+     "reponse": 1,
+     "porte": [
+      "劳",
+      "动",
+      "节"
+     ]
+    },
+    {
+     "type": "comprendre",
+     "support": "s1",
+     "consigne": {
+      "fr": "Qu'y a-t-il le 10 mai ?",
+      "en": "What is on 10 May?"
+     },
+     "choix": [
+      {
+       "fr": "Un concours de maths",
+       "en": "A maths contest"
+      },
+      {
+       "fr": "Un concours de chant",
+       "en": "A singing contest"
+      },
+      {
+       "fr": "Un match de basket",
+       "en": "A basketball game"
+      },
+      {
+       "fr": "Un concours de lecture",
+       "en": "A reading contest"
+      }
+     ],
+     "reponse": 3,
+     "porte": [
+      "朗",
+      "读"
+     ]
+    },
+    {
+     "type": "comprendre",
+     "support": "s2",
+     "consigne": {
+      "fr": "Que fait souvent la maîtresse ?",
+      "en": "What does the teacher often do?"
+     },
+     "choix": [
+      {
+       "fr": "Elle le gronde",
+       "en": "She scolds him"
+      },
+      {
+       "fr": "Elle l'encourage",
+       "en": "She encourages him"
+      },
+      {
+       "fr": "Elle le punit",
+       "en": "She punishes him"
+      },
+      {
+       "fr": "Elle l'appelle",
+       "en": "She calls him"
+      }
+     ],
+     "reponse": 1,
+     "porte": [
+      "鼓",
+      "励"
+     ]
+    },
+    {
+     "type": "replique",
+     "support": "s2",
+     "consigne": {
+      "fr": "Que répond Mamie ?",
+      "en": "What does Grandma reply?"
+     },
+     "choix": [
+      {
+       "zh": "今天下雨了。",
+       "pinyin": "jīn tiān xià yǔ le",
+       "fr": "Il pleut aujourd'hui.",
+       "en": "It's raining today."
+      },
+      {
+       "zh": "你喜欢什么颜色？",
+       "pinyin": "nǐ xǐ huan shén me yán sè",
+       "fr": "Quelle couleur aimes-tu ?",
+       "en": "What colour do you like?"
+      },
+      {
+       "zh": "我的肩好多了，别担心！",
+       "pinyin": "wǒ de jiān hǎo duō le bié dān xīn",
+       "fr": "Mon épaule va beaucoup mieux, ne t'inquiète pas !",
+       "en": "My shoulder is much better, don't worry!"
+      },
+      {
+       "zh": "商店几点关门？",
+       "pinyin": "shāng diàn jǐ diǎn guān mén",
+       "fr": "À quelle heure ferme le magasin ?",
+       "en": "What time does the shop close?"
+      }
+     ],
+     "reponse": 2,
+     "porte": [
+      "肩",
+      "疼"
+     ]
+    },
+    {
+     "type": "sens",
+     "consigne": {
+      "fr": "Que veut dire ce mot ?",
+      "en": "What does this word mean?"
+     },
+     "objet": {
+      "zh": "灰色",
+      "pinyin": "huī sè",
+      "fr": "gris",
+      "en": "grey"
+     },
+     "choix": [
+      {
+       "fr": "bleu",
+       "en": "blue"
+      },
+      {
+       "fr": "vert",
+       "en": "green"
+      },
+      {
+       "fr": "violet",
+       "en": "purple"
+      },
+      {
+       "fr": "gris",
+       "en": "grey"
+      }
+     ],
+     "reponse": 3,
+     "porte": [
+      "灰",
+      "色"
+     ]
+    }
+   ]
+  }
+ ]
+}
