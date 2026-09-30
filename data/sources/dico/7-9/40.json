@@ -1,0 +1,1392 @@
+{
+ "niveau": "7-9",
+ "lot": "40",
+ "source": "rédigé pour l'app dans le pipeline wenlu, sans API ; faits lus : liste HSK 3.0 (forme, pinyin, niveau, catégorie), lectures d'Unihan et des surcharges, gloses relues des fiches",
+ "brouillon": "data/sources/dico-brouillons/7-9/40.json",
+ "generation": {
+  "modele": "rédaction manuelle",
+  "api": "session Claude Code (sans API)",
+  "date": "2026-09-30",
+  "empreinte_invite": "sha256:f4939d62ce0ea4df0d8112fde23d7fe7581e4aac1841f4cfe738983d29a8f23f",
+  "contexte": "wenlu dico contexte 7-9 40",
+  "essais": 1,
+  "refus": []
+ },
+ "entrees": [
+  {
+   "id": "哼",
+   "genre": "caractere",
+   "hanzi": "哼",
+   "pinyin": "hēng",
+   "mots": [
+    "L7-1650"
+   ],
+   "sens": {
+    "glose": "fredonner ; grogner",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "fredonner, chantonner"
+     },
+     {
+      "categorie": "V",
+      "fr": "gémir ; grogner (mépris, mécontentement)"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "她一边做饭，一边哼着歌。",
+     "pinyin": "Tā yībiān zuòfàn, yībiān hēng zhe gē.",
+     "fr": "Elle chantonne en préparant le repas.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "竖",
+   "genre": "caractere",
+   "hanzi": "竖",
+   "pinyin": "shù",
+   "mots": [
+    "L7-3830"
+   ],
+   "sens": {
+    "glose": "dresser, mettre debout ; vertical",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "dresser, mettre debout, lever"
+     },
+     {
+      "categorie": "Adj",
+      "fr": "vertical, debout"
+     },
+     {
+      "categorie": "N",
+      "fr": "trait vertical (calligraphie)"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他把牌子竖在门口。",
+     "pinyin": "Tā bǎ páizi shù zài ménkǒu.",
+     "fr": "Il a dressé le panneau à l'entrée.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-1651",
+   "genre": "mot",
+   "hanzi": "横七竖八",
+   "pinyin": "héngqī-shùbā",
+   "sens": {
+    "glose": "en désordre, sens dessus dessous",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "pêle-mêle, en désordre, dans tous les sens"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "房间里的东西放得横七竖八的。",
+     "pinyin": "Fángjiān li de dōngxi fàng de héngqī-shùbā de.",
+     "fr": "Dans la chambre, les affaires traînent en tous sens.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-1652",
+   "genre": "mot",
+   "hanzi": "横向",
+   "pinyin": "héngxiàng",
+   "categories": [
+    "Adj"
+   ],
+   "sens": {
+    "glose": "horizontal, transversal",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "horizontal, transversal ; entre égaux"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "我们要加强横向合作。",
+     "pinyin": "Wǒmen yào jiāqiáng héngxiàng hézuò.",
+     "fr": "Nous devons renforcer la coopération entre services.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "轰",
+   "genre": "caractere",
+   "hanzi": "轰",
+   "pinyin": "hōng",
+   "mots": [
+    "L7-1654"
+   ],
+   "sens": {
+    "glose": "gronder, tonner ; bombarder ; chasser",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "bombarder ; chasser, expulser"
+     },
+     {
+      "categorie": "Phonetic",
+      "fr": "boum, grondement"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他把狗轰了出去。",
+     "pinyin": "Tā bǎ gǒu hōng le chūqu.",
+     "fr": "Il a chassé le chien dehors.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-1655",
+   "genre": "mot",
+   "hanzi": "轰动",
+   "pinyin": "hōngdòng",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "faire sensation, faire du bruit",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "faire sensation, remuer l'opinion"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这个消息轰动了全国。",
+     "pinyin": "Zhège xiāoxi hōngdòng le quánguó.",
+     "fr": "Cette nouvelle a fait grand bruit dans tout le pays.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-1656",
+   "genre": "mot",
+   "hanzi": "轰炸",
+   "pinyin": "hōngzhà",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "bombarder",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "bombarder (depuis les airs)"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这座城市在战争中被轰炸过。",
+     "pinyin": "Zhè zuò chéngshì zài zhànzhēng zhōng bèi hōngzhà guo.",
+     "fr": "Cette ville a subi des bombardements pendant la guerre.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "哄",
+   "genre": "caractere",
+   "hanzi": "哄",
+   "pinyin": "hōng",
+   "mots": [
+    "L7-1657",
+    "L7-1671",
+    "L7-1672"
+   ],
+   "sens": {
+    "glose": "éclat de rire ; amadouer ; tapage",
+    "acceptions": [
+     {
+      "categorie": "Phonetic",
+      "fr": "brouhaha, éclat de rire (de toute une foule)"
+     },
+     {
+      "categorie": "V",
+      "fr": "amadouer, cajoler ; duper",
+      "pinyin": "hǒng"
+     },
+     {
+      "categorie": "V",
+      "fr": "faire du tapage, chahuter",
+      "pinyin": "hòng"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "妈妈哄孩子睡觉。",
+     "pinyin": "Māma hǒng háizi shuìjiào.",
+     "fr": "La maman berce son enfant pour qu'il s'endorme.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-1658",
+   "genre": "mot",
+   "hanzi": "哄堂大笑",
+   "pinyin": "hōngtáng-dàxiào",
+   "sens": {
+    "glose": "toute la salle éclate de rire",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "toute l'assistance éclate de rire"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他的话让大家哄堂大笑。",
+     "pinyin": "Tā de huà ràng dàjiā hōngtáng-dàxiào.",
+     "fr": "Sa remarque a fait rire toute la salle.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "烘",
+   "genre": "caractere",
+   "hanzi": "烘",
+   "pinyin": "hōng",
+   "sens": {
+    "glose": "sécher (au feu), griller",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "sécher ou chauffer au feu, griller"
+     },
+     {
+      "categorie": "V",
+      "fr": "faire ressortir (par contraste)"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他把湿衣服放在火边烘。",
+     "pinyin": "Tā bǎ shī yīfu fàng zài huǒ biān hōng.",
+     "fr": "Il fait sécher ses habits mouillés près du feu.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-1659",
+   "genre": "mot",
+   "hanzi": "烘干",
+   "pinyin": "hōnggān",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "sécher (à la chaleur)",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "sécher (au séchoir, à la chaleur)"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "衣服已经烘干了。",
+     "pinyin": "Yīfu yǐjīng hōnggān le.",
+     "fr": "Le linge est déjà sec.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-1660",
+   "genre": "mot",
+   "hanzi": "烘托",
+   "pinyin": "hōngtuō",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "mettre en valeur, faire ressortir",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "mettre en valeur, faire ressortir (par contraste)"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "绿叶烘托着红花。",
+     "pinyin": "Lǜ yè hōngtuō zhe hóng huā.",
+     "fr": "Les feuilles vertes font ressortir les fleurs rouges.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "弘",
+   "genre": "caractere",
+   "hanzi": "弘",
+   "pinyin": "hóng",
+   "sens": {
+    "glose": "grand, vaste ; développer",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "grand, vaste"
+     },
+     {
+      "categorie": "V",
+      "fr": "développer, propager"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他在学校弘扬传统文化。",
+     "pinyin": "Tā zài xuéxiào hóngyáng chuántǒng wénhuà.",
+     "fr": "À l'école, il fait rayonner la culture traditionnelle.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-1661",
+   "genre": "mot",
+   "hanzi": "弘扬",
+   "pinyin": "hóngyáng",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "promouvoir, faire rayonner",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "promouvoir, faire rayonner (culture, esprit)"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "我们要弘扬中华传统美德。",
+     "pinyin": "Wǒmen yào hóngyáng Zhōnghuá chuántǒng měidé.",
+     "fr": "Nous devons faire vivre les vertus traditionnelles chinoises.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-1662",
+   "genre": "mot",
+   "hanzi": "红灯",
+   "pinyin": "hóngdēng",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "feu rouge",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "feu rouge"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "开车不能闯红灯。",
+     "pinyin": "Kāichē bù néng chuǎng hóngdēng.",
+     "fr": "En voiture, on ne doit pas griller le feu.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-1663",
+   "genre": "mot",
+   "hanzi": "红火",
+   "pinyin": "hónghuo",
+   "categories": [
+    "Adj"
+   ],
+   "sens": {
+    "glose": "florissant, prospère",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "florissant, prospère, animé"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他们的生意越来越红火。",
+     "pinyin": "Tāmen de shēngyi yuè lái yuè hónghuo.",
+     "fr": "Leurs affaires marchent de mieux en mieux.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-1664",
+   "genre": "mot",
+   "hanzi": "红扑扑",
+   "pinyin": "hóngpūpū",
+   "categories": [
+    "Adj"
+   ],
+   "sens": {
+    "glose": "tout rose, rouge (joues)",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "tout rose, vermeil (visage, joues)"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "小女孩的脸红扑扑的。",
+     "pinyin": "Xiǎo nǚhái de liǎn hóngpūpū de.",
+     "fr": "La fillette a les joues toutes roses.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-1665",
+   "genre": "mot",
+   "hanzi": "红润",
+   "pinyin": "hóngrùn",
+   "categories": [
+    "Adj"
+   ],
+   "sens": {
+    "glose": "rose et frais, vermeil",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "rose et frais, vermeil (teint)"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他的脸色很红润。",
+     "pinyin": "Tā de liǎnsè hěn hóngrùn.",
+     "fr": "Il a bonne mine.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-1666",
+   "genre": "mot",
+   "hanzi": "红薯",
+   "pinyin": "hóngshǔ",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "patate douce",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "patate douce"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "冬天街上有卖烤红薯的。",
+     "pinyin": "Dōngtiān jiē shang yǒu mài kǎo hóngshǔ de.",
+     "fr": "L'hiver, on vend des patates douces rôties dans la rue.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-1667",
+   "genre": "mot",
+   "hanzi": "红眼",
+   "pinyin": "hóngyǎn",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "être jaloux, envier",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "être jaloux, envier ; s'emporter"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "看到别人赚钱，他就红眼了。",
+     "pinyin": "Kàndào biérén zhuànqián, tā jiù hóngyǎn le.",
+     "fr": "Il devient envieux dès qu'il voit les autres gagner de l'argent.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-1668",
+   "genre": "mot",
+   "hanzi": "宏观",
+   "pinyin": "hóngguān",
+   "categories": [
+    "Adj"
+   ],
+   "sens": {
+    "glose": "macroscopique, d'ensemble",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "macro, global, d'ensemble"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "我们要从宏观上看问题。",
+     "pinyin": "Wǒmen yào cóng hóngguān shang kàn wèntí.",
+     "fr": "Il faut considérer le problème dans sa globalité.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-1669",
+   "genre": "mot",
+   "hanzi": "宏伟",
+   "pinyin": "hóngwěi",
+   "categories": [
+    "Adj"
+   ],
+   "sens": {
+    "glose": "grandiose, imposant",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "grandiose, imposant, majestueux"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这座建筑十分宏伟。",
+     "pinyin": "Zhè zuò jiànzhù shífēn hóngwěi.",
+     "fr": "Ce bâtiment est d'une grande majesté.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-1670",
+   "genre": "mot",
+   "hanzi": "洪亮",
+   "pinyin": "hóngliàng",
+   "categories": [
+    "Adj"
+   ],
+   "sens": {
+    "glose": "sonore, retentissant",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "sonore, retentissant (voix)"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他的声音很洪亮。",
+     "pinyin": "Tā de shēngyīn hěn hóngliàng.",
+     "fr": "Il a une voix qui porte.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "喉",
+   "genre": "caractere",
+   "hanzi": "喉",
+   "pinyin": "hóu",
+   "sens": {
+    "glose": "gorge, larynx",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "gorge, larynx"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他喉咙发炎了。",
+     "pinyin": "Tā hóulong fāyán le.",
+     "fr": "Il a une inflammation de la gorge.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "咙",
+   "genre": "caractere",
+   "hanzi": "咙",
+   "pinyin": "lóng",
+   "sens": {
+    "glose": "gorge",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "gorge (en composé)"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "我喉咙有点儿疼。",
+     "pinyin": "Wǒ hóulong yǒudiǎnr téng.",
+     "fr": "J'ai un peu mal à la gorge.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-1673",
+   "genre": "mot",
+   "hanzi": "喉咙",
+   "pinyin": "hóulong",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "gorge",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "gorge, gosier"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他喊了一天，喉咙都哑了。",
+     "pinyin": "Tā hǎn le yī tiān, hóulong dōu yǎ le.",
+     "fr": "Il a crié toute la journée et en a perdu la voix.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "吼",
+   "genre": "caractere",
+   "hanzi": "吼",
+   "pinyin": "hǒu",
+   "mots": [
+    "L7-1674"
+   ],
+   "sens": {
+    "glose": "rugir, hurler",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "rugir, hurler, crier fort"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他生气地对孩子吼了一声。",
+     "pinyin": "Tā shēngqì de duì háizi hǒu le yī shēng.",
+     "fr": "En colère, il a crié après son enfant.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-1675",
+   "genre": "mot",
+   "hanzi": "后备",
+   "pinyin": "hòubèi",
+   "categories": [
+    "Adj",
+    "N"
+   ],
+   "sens": {
+    "glose": "de réserve ; réserve",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "de réserve, de relève"
+     },
+     {
+      "categorie": "N",
+      "fr": "réserve, ressources de réserve"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "公司需要培养后备人才。",
+     "pinyin": "Gōngsī xūyào péiyǎng hòubèi réncái.",
+     "fr": "L'entreprise doit former une relève.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-1676",
+   "genre": "mot",
+   "hanzi": "后备箱",
+   "pinyin": "hòubèixiāng",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "coffre (de voiture)",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "coffre (de voiture)"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "把行李放进后备箱吧。",
+     "pinyin": "Bǎ xíngli fàng jìn hòubèixiāng ba.",
+     "fr": "Mets les bagages dans le coffre.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-1677",
+   "genre": "mot",
+   "hanzi": "后代",
+   "pinyin": "hòudài",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "descendants ; générations futures",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "descendants ; générations futures"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "我们要为后代保护好环境。",
+     "pinyin": "Wǒmen yào wèi hòudài bǎohù hǎo huánjìng.",
+     "fr": "Nous devons préserver l'environnement pour nos enfants.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-1678",
+   "genre": "mot",
+   "hanzi": "后盾",
+   "pinyin": "hòudùn",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "appui, soutien",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "appui, soutien solide"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "家人是我最坚强的后盾。",
+     "pinyin": "Jiārén shì wǒ zuì jiānqiáng de hòudùn.",
+     "fr": "Ma famille est mon plus solide appui.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-1679",
+   "genre": "mot",
+   "hanzi": "后顾之忧",
+   "pinyin": "hòugùzhīyōu",
+   "sens": {
+    "glose": "souci de ce qu'on laisse derrière soi",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "soucis pour l'arrière, préoccupations domestiques"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "有了父母帮忙，他没有了后顾之忧。",
+     "pinyin": "Yǒu le fùmǔ bāngmáng, tā méiyǒu le hòugùzhīyōu.",
+     "fr": "Grâce à l'aide de ses parents, il n'a plus à s'inquiéter pour la maison.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-1680",
+   "genre": "mot",
+   "hanzi": "后期",
+   "pinyin": "hòuqī",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "phase finale, fin de période",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "phase finale, dernière période"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这部电影正在做后期工作。",
+     "pinyin": "Zhè bù diànyǐng zhèngzài zuò hòuqī gōngzuò.",
+     "fr": "Ce film est en postproduction.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-1681",
+   "genre": "mot",
+   "hanzi": "后勤",
+   "pinyin": "hòuqín",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "intendance, logistique",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "intendance, services logistiques"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "她在学校负责后勤工作。",
+     "pinyin": "Tā zài xuéxiào fùzé hòuqín gōngzuò.",
+     "fr": "Elle s'occupe de l'intendance à l'école.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-1682",
+   "genre": "mot",
+   "hanzi": "后人",
+   "pinyin": "hòurén",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "postérité, générations suivantes",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "postérité, générations suivantes"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他的故事被后人传了下来。",
+     "pinyin": "Tā de gùshi bèi hòurén chuán le xiàlai.",
+     "fr": "Son histoire a été transmise par ceux qui sont venus après.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-1683",
+   "genre": "mot",
+   "hanzi": "后台",
+   "pinyin": "hòutái",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "coulisses ; appui caché ; arrière-plan",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "coulisses (d'un théâtre)"
+     },
+     {
+      "categorie": "N",
+      "fr": "protecteur puissant, soutien caché"
+     },
+     {
+      "categorie": "N",
+      "fr": "arrière-plan (informatique)"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "演出前，演员们在后台化妆。",
+     "pinyin": "Yǎnchū qián, yǎnyuánmen zài hòutái huàzhuāng.",
+     "fr": "Avant le spectacle, les acteurs se maquillent en coulisses.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-1684",
+   "genre": "mot",
+   "hanzi": "后退",
+   "pinyin": "hòutuì",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "reculer",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "reculer, battre en retraite"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "请大家后退一步。",
+     "pinyin": "Qǐng dàjiā hòutuì yī bù.",
+     "fr": "Tout le monde fait un pas en arrière, s'il vous plaît.",
+     "statut": "a_relire"
+    },
+    {
+     "zh": "遇到困难不能后退。",
+     "pinyin": "Yùdào kùnnan bù néng hòutuì.",
+     "fr": "Face aux difficultés, il ne faut pas lâcher pied.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-1685",
+   "genre": "mot",
+   "hanzi": "后续",
+   "pinyin": "hòuxù",
+   "categories": [
+    "Adj"
+   ],
+   "sens": {
+    "glose": "suivant, ultérieur",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "suivant, ultérieur, qui fait suite"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "后续的工作由我来做。",
+     "pinyin": "Hòuxù de gōngzuò yóu wǒ lái zuò.",
+     "fr": "Je me charge de la suite du travail.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-1686",
+   "genre": "mot",
+   "hanzi": "后遗症",
+   "pinyin": "hòuyízhèng",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "séquelles",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "séquelles (d'une maladie, d'un événement)"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这次车祸给他留下了后遗症。",
+     "pinyin": "Zhè cì chēhuò gěi tā liúxia le hòuyízhèng.",
+     "fr": "Cet accident de voiture lui a laissé des séquelles.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "裔",
+   "genre": "caractere",
+   "hanzi": "裔",
+   "pinyin": "yì",
+   "sens": {
+    "glose": "descendant",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "descendant, postérité"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他是法国华裔。",
+     "pinyin": "Tā shì Fǎguó huáyì.",
+     "fr": "C'est un Français d'origine chinoise.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-1687",
+   "genre": "mot",
+   "hanzi": "后裔",
+   "pinyin": "hòuyì",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "descendant",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "descendant, héritier d'une lignée"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他说自己是孔子的后裔。",
+     "pinyin": "Tā shuō zìjǐ shì Kǒngzǐ de hòuyì.",
+     "fr": "Il affirme descendre de Confucius.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-1688",
+   "genre": "mot",
+   "hanzi": "后者",
+   "pinyin": "hòuzhě",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "ce dernier, le second",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "ce dernier, le second (de deux)"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "跟前者比，我更喜欢后者。",
+     "pinyin": "Gēn qiánzhě bǐ, wǒ gèng xǐhuan hòuzhě.",
+     "fr": "Par rapport au premier, je préfère le second.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-1689",
+   "genre": "mot",
+   "hanzi": "厚道",
+   "pinyin": "hòudao",
+   "categories": [
+    "Adj"
+   ],
+   "sens": {
+    "glose": "honnête et bienveillant",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "honnête, bienveillant, généreux"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他为人厚道，大家都喜欢他。",
+     "pinyin": "Tā wéirén hòudao, dàjiā dōu xǐhuan tā.",
+     "fr": "Il est bon et loyal, tout le monde l'apprécie.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-1690",
+   "genre": "mot",
+   "hanzi": "厚度",
+   "pinyin": "hòudù",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "épaisseur",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "épaisseur"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这块木板的厚度是五厘米。",
+     "pinyin": "Zhè kuài mùbǎn de hòudù shì wǔ límǐ.",
+     "fr": "Cette planche fait cinq centimètres d'épaisseur.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-1691",
+   "genre": "mot",
+   "hanzi": "候选人",
+   "pinyin": "hòuxuǎnrén",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "candidat",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "candidat (à une élection, un poste)"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这次选举有三个候选人。",
+     "pinyin": "Zhè cì xuǎnjǔ yǒu sān ge hòuxuǎnrén.",
+     "fr": "Trois personnes se présentent à cette élection.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "唤",
+   "genre": "caractere",
+   "hanzi": "唤",
+   "pinyin": "huàn",
+   "sens": {
+    "glose": "appeler, interpeller",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "appeler, interpeller ; éveiller"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "她在门口唤孩子回家吃饭。",
+     "pinyin": "Tā zài ménkǒu huàn háizi huí jiā chīfàn.",
+     "fr": "Depuis la porte, elle appelle les enfants pour le dîner.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-1692",
+   "genre": "mot",
+   "hanzi": "呼风唤雨",
+   "pinyin": "hūfēng-huànyǔ",
+   "sens": {
+    "glose": "faire la pluie et le beau temps",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "avoir des pouvoirs extraordinaires, tout contrôler"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他以为自己能呼风唤雨。",
+     "pinyin": "Tā yǐwéi zìjǐ néng hūfēng-huànyǔ.",
+     "fr": "Il se croit tout-puissant.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-1693",
+   "genre": "mot",
+   "hanzi": "呼唤",
+   "pinyin": "hūhuàn",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "appeler, interpeller",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "appeler, crier après ; lancer un appel"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "我好像听到有人在呼唤我。",
+     "pinyin": "Wǒ hǎoxiàng tīngdào yǒu rén zài hūhuàn wǒ.",
+     "fr": "J'ai l'impression d'entendre quelqu'un crier mon nom.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-1694",
+   "genre": "mot",
+   "hanzi": "呼救",
+   "pinyin": "hūjiù",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "appeler au secours",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "appeler au secours, crier à l'aide"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他掉进水里，大声呼救。",
+     "pinyin": "Tā diào jìn shuǐ li, dàshēng hūjiù.",
+     "fr": "Tombé à l'eau, il criait à pleine voix.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-1695",
+   "genre": "mot",
+   "hanzi": "呼声",
+   "pinyin": "hūshēng",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "voix, revendications (du public)",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "voix, clameur ; opinion, revendication"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "要求降低房价的呼声越来越高。",
+     "pinyin": "Yāoqiú jiàngdī fángjià de hūshēng yuè lái yuè gāo.",
+     "fr": "On réclame de plus en plus fort une baisse des prix de l'immobilier.",
+     "statut": "a_relire"
+    }
+   ]
+  }
+ ]
+}
