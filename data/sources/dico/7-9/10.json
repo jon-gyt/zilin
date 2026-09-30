@@ -1,0 +1,1291 @@
+{
+ "niveau": "7-9",
+ "lot": "10",
+ "source": "rédigé pour l'app dans le pipeline wenlu, sans API ; faits lus : liste HSK 3.0 (forme, pinyin, niveau, catégorie), lectures d'Unihan et des surcharges, gloses relues des fiches",
+ "brouillon": "data/sources/dico-brouillons/7-9/10.json",
+ "generation": {
+  "modele": "rédaction manuelle",
+  "api": "session Claude Code (sans API)",
+  "date": "2026-09-30",
+  "empreinte_invite": "sha256:86dc472b9629fd20e0d7911faab89c748c26f8bfcc0ed6f4ff81e66f29c2bb25",
+  "contexte": "wenlu dico contexte 7-9 10",
+  "essais": 1,
+  "refus": []
+ },
+ "entrees": [
+  {
+   "id": "掺",
+   "genre": "caractere",
+   "hanzi": "掺",
+   "pinyin": "chān",
+   "mots": [
+    "L7-0374"
+   ],
+   "sens": {
+    "glose": "mélanger, mêler",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "mélanger, mêler, couper : un liquide"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "牛奶里掺了水。",
+     "pinyin": "Niúnǎi li chān le shuǐ.",
+     "fr": "On a coupé le lait avec de l'eau.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "搀",
+   "genre": "caractere",
+   "hanzi": "搀",
+   "pinyin": "chān",
+   "mots": [
+    "L7-0375"
+   ],
+   "sens": {
+    "glose": "soutenir par le bras ; mélanger",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "soutenir par le bras"
+     },
+     {
+      "categorie": "V",
+      "fr": "mélanger, mêler"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他搀着老人过马路。",
+     "pinyin": "Tā chān zhe lǎorén guò mǎlù.",
+     "fr": "Il aide la vieille dame à traverser en lui donnant le bras.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "馋",
+   "genre": "caractere",
+   "hanzi": "馋",
+   "pinyin": "chán",
+   "mots": [
+    "L7-0376"
+   ],
+   "sens": {
+    "glose": "gourmand ; avoir envie de",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "gourmand, friand"
+     },
+     {
+      "categorie": "V",
+      "fr": "avoir envie de, faire envie"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "看到蛋糕，孩子馋得不得了。",
+     "pinyin": "Kàndào dàngāo, háizi chán de bùdéliǎo.",
+     "fr": "En voyant le gâteau, l'enfant en salive d'envie.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "禅",
+   "genre": "caractere",
+   "hanzi": "禅",
+   "pinyin": "chán",
+   "sens": {
+    "glose": "méditation bouddhique, zen",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "méditation bouddhique, zen"
+     },
+     {
+      "categorie": "V",
+      "fr": "abdiquer en faveur d'un autre",
+      "pinyin": "shàn"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": []
+  },
+  {
+   "id": "杖",
+   "genre": "caractere",
+   "hanzi": "杖",
+   "pinyin": "zhàng",
+   "sens": {
+    "glose": "canne, bâton",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "canne, bâton"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": []
+  },
+  {
+   "id": "L7-0377",
+   "genre": "mot",
+   "hanzi": "禅杖",
+   "pinyin": "chánzhàng",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "bâton de moine bouddhiste",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "bâton de moine bouddhiste"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "老和尚拿着禅杖。",
+     "pinyin": "Lǎo héshang ná zhe chánzhàng.",
+     "fr": "Le vieux moine tient son bâton.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "缠",
+   "genre": "caractere",
+   "hanzi": "缠",
+   "pinyin": "chán",
+   "mots": [
+    "L7-0378"
+   ],
+   "sens": {
+    "glose": "enrouler ; importuner",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "enrouler, entourer"
+     },
+     {
+      "categorie": "V",
+      "fr": "importuner, ne pas lâcher"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "孩子一直缠着妈妈要买玩具。",
+     "pinyin": "Háizi yīzhí chán zhe māma yào mǎi wánjù.",
+     "fr": "L'enfant n'arrête pas de supplier sa mère pour avoir un jouet.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-0380",
+   "genre": "mot",
+   "hanzi": "产地",
+   "pinyin": "chǎndì",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "lieu de production, provenance",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "lieu de production, provenance"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这种茶的产地是云南。",
+     "pinyin": "Zhè zhǒng chá de chǎndì shì Yúnnán.",
+     "fr": "Ce thé vient du Yunnan.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-0381",
+   "genre": "mot",
+   "hanzi": "产物",
+   "pinyin": "chǎnwù",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "produit, résultat",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "produit, résultat, fruit"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这种文化是历史的产物。",
+     "pinyin": "Zhè zhǒng wénhuà shì lìshǐ de chǎnwù.",
+     "fr": "Cette culture est née de l'histoire.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-0382",
+   "genre": "mot",
+   "hanzi": "产值",
+   "pinyin": "chǎnzhí",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "valeur de la production",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "valeur de la production"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "今年工厂的产值增加了一倍。",
+     "pinyin": "Jīnnián gōngchǎng de chǎnzhí zēngjiā le yī bèi.",
+     "fr": "Cette année, l'usine a doublé sa production en valeur.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "铲",
+   "genre": "caractere",
+   "hanzi": "铲",
+   "pinyin": "chǎn",
+   "mots": [
+    "L7-0383"
+   ],
+   "sens": {
+    "glose": "pelleter, racler",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "pelleter, racler, déblayer"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他在门口铲雪。",
+     "pinyin": "Tā zài ménkǒu chǎn xuě.",
+     "fr": "Il déblaie la neige devant la porte.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-0384",
+   "genre": "mot",
+   "hanzi": "铲子",
+   "pinyin": "chǎnzi",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "pelle, spatule",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "pelle, spatule"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他拿铲子在花园里挖土。",
+     "pinyin": "Tā ná chǎnzi zài huāyuán li wā tǔ.",
+     "fr": "Il creuse la terre du jardin.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "阐",
+   "genre": "caractere",
+   "hanzi": "阐",
+   "pinyin": "chǎn",
+   "sens": {
+    "glose": "expliquer, éclaircir",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "expliquer, éclaircir"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": []
+  },
+  {
+   "id": "L7-0385",
+   "genre": "mot",
+   "hanzi": "阐述",
+   "pinyin": "chǎnshù",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "exposer, développer",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "exposer, développer : idée, point de vue"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他在会上阐述了自己的观点。",
+     "pinyin": "Tā zài huì shang chǎnshù le zìjǐ de guāndiǎn.",
+     "fr": "Il a présenté son point de vue à la réunion.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "颤",
+   "genre": "caractere",
+   "hanzi": "颤",
+   "pinyin": "chàn",
+   "sens": {
+    "glose": "trembler, vibrer",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "trembler, vibrer"
+     },
+     {
+      "categorie": "V",
+      "fr": "frissonner : en composé",
+      "pinyin": "zhàn"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": []
+  },
+  {
+   "id": "抖",
+   "genre": "caractere",
+   "hanzi": "抖",
+   "pinyin": "dǒu",
+   "mots": [
+    "L7-0930"
+   ],
+   "sens": {
+    "glose": "trembler ; secouer",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "trembler, frissonner"
+     },
+     {
+      "categorie": "V",
+      "fr": "secouer, épousseter"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他冷得直抖。",
+     "pinyin": "Tā lěng de zhí dǒu.",
+     "fr": "Il grelotte de froid.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-0386",
+   "genre": "mot",
+   "hanzi": "颤抖",
+   "pinyin": "chàndǒu",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "trembler, frissonner",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "trembler, frissonner"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "她的声音有些颤抖。",
+     "pinyin": "Tā de shēngyīn yǒuxiē chàndǒu.",
+     "fr": "Sa voix chevrotait un peu.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "猖",
+   "genre": "caractere",
+   "hanzi": "猖",
+   "pinyin": "chāng",
+   "sens": {
+    "glose": "déchaîné, effréné",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "déchaîné, effréné"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": []
+  },
+  {
+   "id": "L7-0387",
+   "genre": "mot",
+   "hanzi": "猖狂",
+   "pinyin": "chāngkuáng",
+   "categories": [
+    "Adj"
+   ],
+   "sens": {
+    "glose": "effréné, déchaîné, insolent",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "effréné, déchaîné, insolent"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "最近小偷很猖狂。",
+     "pinyin": "Zuìjìn xiǎotōu hěn chāngkuáng.",
+     "fr": "Les voleurs sévissent sans retenue ces temps-ci.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-0388",
+   "genre": "mot",
+   "hanzi": "长达",
+   "pinyin": "cháng dá",
+   "sens": {
+    "glose": "atteindre, s'étendre sur",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "atteindre, s'étendre sur : longueur, durée"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这条河长达一千多公里。",
+     "pinyin": "Zhè tiáo hé cháng dá yīqiān duō gōnglǐ.",
+     "fr": "Ce fleuve fait plus de mille kilomètres de long.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-0389",
+   "genre": "mot",
+   "hanzi": "长期以来",
+   "pinyin": "chángqī yǐlái",
+   "sens": {
+    "glose": "depuis longtemps",
+    "acceptions": [
+     {
+      "categorie": "Adv",
+      "fr": "depuis longtemps, de longue date"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "长期以来，他一直住在这里。",
+     "pinyin": "Chángqī yǐlái, tā yīzhí zhù zài zhèli.",
+     "fr": "Il habite ici depuis des années.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-0390",
+   "genre": "mot",
+   "hanzi": "长效",
+   "pinyin": "chángxiào",
+   "categories": [
+    "N",
+    "Adj"
+   ],
+   "sens": {
+    "glose": "à effet durable ; pérenne",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "à effet durable, pérenne"
+     },
+     {
+      "categorie": "N",
+      "fr": "efficacité durable"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "我们要建立长效的管理制度。",
+     "pinyin": "Wǒmen yào jiànlì chángxiào de guǎnlǐ zhìdù.",
+     "fr": "Il faut mettre en place un système de gestion qui tienne dans la durée.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-0391",
+   "genre": "mot",
+   "hanzi": "长征",
+   "pinyin": "chángzhēng",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "Longue Marche ; longue expédition",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "la Longue Marche ; longue expédition"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "学习外语是一次长征。",
+     "pinyin": "Xuéxí wàiyǔ shì yī cì chángzhēng.",
+     "fr": "Apprendre une langue étrangère est un long parcours.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-0392",
+   "genre": "mot",
+   "hanzi": "长足",
+   "pinyin": "chángzú",
+   "categories": [
+    "Adj"
+   ],
+   "sens": {
+    "glose": "rapide, considérable",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "rapide, considérable : progrès"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这几年，他的汉语有了长足的进步。",
+     "pinyin": "Zhè jǐ nián, tā de Hànyǔ yǒu le chángzú de jìnbù.",
+     "fr": "Ces dernières années, son chinois a fait des bonds en avant.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-0393",
+   "genre": "mot",
+   "hanzi": "常理",
+   "pinyin": "chánglǐ",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "bon sens, logique ordinaire",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "bon sens, logique ordinaire"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "按常理说，他应该先告诉我。",
+     "pinyin": "Àn chánglǐ shuō, tā yīnggāi xiān gàosu wǒ.",
+     "fr": "Normalement, il aurait dû me prévenir d'abord.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-0394",
+   "genre": "mot",
+   "hanzi": "常人",
+   "pinyin": "chángrén",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "le commun des mortels",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "le commun des mortels, les gens ordinaires"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他有常人没有的耐心。",
+     "pinyin": "Tā yǒu chángrén méiyǒu de nàixīn.",
+     "fr": "Il a une patience hors du commun.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-0395",
+   "genre": "mot",
+   "hanzi": "常态",
+   "pinyin": "chángtài",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "état normal",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "état normal, habituel"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "休息几天以后，他又恢复了常态。",
+     "pinyin": "Xiūxi jǐ tiān yǐhòu, tā yòu huīfù le chángtài.",
+     "fr": "Après quelques jours de repos, il est redevenu lui-même.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-0396",
+   "genre": "mot",
+   "hanzi": "常温",
+   "pinyin": "chángwēn",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "température ambiante",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "température ambiante"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这种药可以常温保存。",
+     "pinyin": "Zhè zhǒng yào kěyǐ chángwēn bǎocún.",
+     "fr": "Ce médicament se conserve hors du réfrigérateur.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-0397",
+   "genre": "mot",
+   "hanzi": "偿还",
+   "pinyin": "chánghuán",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "rembourser, s'acquitter de",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "rembourser, s'acquitter de"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这笔钱我一定会按时偿还。",
+     "pinyin": "Zhè bǐ qián wǒ yīdìng huì ànshí chánghuán.",
+     "fr": "Je rendrai cet argent dans les délais, c'est promis.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "嫦",
+   "genre": "caractere",
+   "hanzi": "嫦",
+   "pinyin": "cháng",
+   "sens": {
+    "glose": "nom de la déesse de la Lune",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "dans le nom de la déesse de la Lune"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": []
+  },
+  {
+   "id": "娥",
+   "genre": "caractere",
+   "hanzi": "娥",
+   "pinyin": "é",
+   "sens": {
+    "glose": "belle jeune femme",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "belle jeune femme"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": []
+  },
+  {
+   "id": "L7-0398",
+   "genre": "mot",
+   "hanzi": "嫦娥",
+   "pinyin": "Cháng'é",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "Chang'e, déesse de la Lune",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "Chang'e, déesse de la Lune"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "中秋节的时候，妈妈给孩子讲嫦娥的故事。",
+     "pinyin": "Zhōngqiūjié de shíhou, māma gěi háizi jiǎng Cháng'é de gùshi.",
+     "fr": "À la mi-automne, maman raconte aux enfants l'histoire de la déesse.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-0399",
+   "genre": "mot",
+   "hanzi": "厂家",
+   "pinyin": "chǎngjiā",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "fabricant",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "fabricant, usine productrice"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "有问题可以直接找厂家。",
+     "pinyin": "Yǒu wèntí kěyǐ zhíjiē zhǎo chǎngjiā.",
+     "fr": "En cas de problème, adressez-vous directement à l'usine.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "敞",
+   "genre": "caractere",
+   "hanzi": "敞",
+   "pinyin": "chǎng",
+   "sens": {
+    "glose": "ouvert, spacieux",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "ouvert, spacieux"
+     },
+     {
+      "categorie": "V",
+      "fr": "ouvrir grand"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": []
+  },
+  {
+   "id": "L7-0400",
+   "genre": "mot",
+   "hanzi": "敞开",
+   "pinyin": "chǎngkāi",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "ouvrir grand",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "ouvrir grand ; sans retenue"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "大门敞开着。",
+     "pinyin": "Dàmén chǎngkāi zhe.",
+     "fr": "Le portail est resté grand ouvert.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-0401",
+   "genre": "mot",
+   "hanzi": "畅谈",
+   "pinyin": "chàngtán",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "parler à cœur ouvert",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "parler librement, à cœur ouvert"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "老朋友见面，畅谈了一个晚上。",
+     "pinyin": "Lǎo péngyou jiànmiàn, chàngtán le yī gè wǎnshang.",
+     "fr": "Les vieux amis se sont retrouvés et ont bavardé toute la soirée.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-0402",
+   "genre": "mot",
+   "hanzi": "畅销",
+   "pinyin": "chàngxiāo",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "se vendre bien",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "se vendre bien, être très demandé"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这本书很畅销。",
+     "pinyin": "Zhè běn shū hěn chàngxiāo.",
+     "fr": "Ce livre est un succès de librairie.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-0403",
+   "genre": "mot",
+   "hanzi": "倡议",
+   "pinyin": "chàngyì",
+   "categories": [
+    "V",
+    "N"
+   ],
+   "sens": {
+    "glose": "proposer ; initiative",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "proposer, lancer une initiative"
+     },
+     {
+      "categorie": "N",
+      "fr": "proposition, initiative"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "学校倡议大家节约用水。",
+     "pinyin": "Xuéxiào chàngyì dàjiā jiéyuē yòng shuǐ.",
+     "fr": "L'école appelle chacun à économiser l'eau.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "袭",
+   "genre": "caractere",
+   "hanzi": "袭",
+   "pinyin": "xí",
+   "sens": {
+    "glose": "attaquer par surprise ; perpétuer",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "attaquer par surprise"
+     },
+     {
+      "categorie": "V",
+      "fr": "suivre, perpétuer : une tradition"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": []
+  },
+  {
+   "id": "L7-0404",
+   "genre": "mot",
+   "hanzi": "抄袭",
+   "pinyin": "chāoxí",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "plagier, copier",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "plagier, copier"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他的论文是抄袭别人的。",
+     "pinyin": "Tā de lùnwén shì chāoxí biérén de.",
+     "fr": "Il a recopié le mémoire de quelqu'un d'autre.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "钞",
+   "genre": "caractere",
+   "hanzi": "钞",
+   "pinyin": "chāo",
+   "sens": {
+    "glose": "billet de banque",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "billet de banque"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": []
+  },
+  {
+   "id": "L7-0405",
+   "genre": "mot",
+   "hanzi": "钞票",
+   "pinyin": "chāopiào",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "billet de banque",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "billet de banque"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他从口袋里拿出几张钞票。",
+     "pinyin": "Tā cóng kǒudai li ná chū jǐ zhāng chāopiào.",
+     "fr": "Il a sorti un peu d'argent de sa poche.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-0406",
+   "genre": "mot",
+   "hanzi": "超标",
+   "pinyin": "chāobiāo",
+   "sens": {
+    "glose": "dépasser la norme",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "dépasser la norme, le seuil autorisé"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这条河的污染已经超标了。",
+     "pinyin": "Zhè tiáo hé de wūrǎn yǐjīng chāobiāo le.",
+     "fr": "La rivière est plus polluée que ce que la loi permet.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-0407",
+   "genre": "mot",
+   "hanzi": "超车",
+   "pinyin": "chāochē",
+   "sens": {
+    "glose": "doubler un véhicule",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "doubler, dépasser un véhicule"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这段路不准超车。",
+     "pinyin": "Zhè duàn lù bù zhǔn chāochē.",
+     "fr": "Sur ce tronçon, il est interdit de doubler.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-0408",
+   "genre": "mot",
+   "hanzi": "超前",
+   "pinyin": "chāoqián",
+   "categories": [
+    "Adj",
+    "V"
+   ],
+   "sens": {
+    "glose": "en avance sur son temps ; devancer",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "en avance sur son temps"
+     },
+     {
+      "categorie": "V",
+      "fr": "devancer, anticiper"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他的想法很超前。",
+     "pinyin": "Tā de xiǎngfǎ hěn chāoqián.",
+     "fr": "Ses idées ont une longueur d'avance.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-0409",
+   "genre": "mot",
+   "hanzi": "超速",
+   "pinyin": "chāosù",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "faire un excès de vitesse",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "faire un excès de vitesse"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他因为超速被罚了款。",
+     "pinyin": "Tā yīnwèi chāosù bèi fá le kuǎn.",
+     "fr": "Il a eu une amende pour avoir roulé trop vite.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-0410",
+   "genre": "mot",
+   "hanzi": "朝代",
+   "pinyin": "cháodài",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "dynastie",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "dynastie"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "中国历史上有很多朝代。",
+     "pinyin": "Zhōngguó lìshǐ shang yǒu hěn duō cháodài.",
+     "fr": "Bien des familles impériales se sont succédé en Chine.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-0411",
+   "genre": "mot",
+   "hanzi": "朝着",
+   "pinyin": "cháozhe",
+   "sens": {
+    "glose": "vers, en direction de",
+    "acceptions": [
+     {
+      "categorie": "Prep",
+      "fr": "vers, en direction de"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "我们朝着目标一步步前进。",
+     "pinyin": "Wǒmen cháozhe mùbiāo yī bù bù qiánjìn.",
+     "fr": "Nous avançons pas à pas vers notre but.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "嘲",
+   "genre": "caractere",
+   "hanzi": "嘲",
+   "pinyin": "cháo",
+   "sens": {
+    "glose": "se moquer de",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "se moquer de, railler"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": []
+  },
+  {
+   "id": "L7-0412",
+   "genre": "mot",
+   "hanzi": "嘲弄",
+   "pinyin": "cháonòng",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "railler, tourner en dérision",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "railler, tourner en dérision"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他总是嘲弄别人。",
+     "pinyin": "Tā zǒngshì cháonòng biérén.",
+     "fr": "Il se moque toujours des autres.",
+     "statut": "a_relire"
+    }
+   ]
+  }
+ ]
+}

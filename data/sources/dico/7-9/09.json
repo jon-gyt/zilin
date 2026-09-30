@@ -1,0 +1,1264 @@
+{
+ "niveau": "7-9",
+ "lot": "09",
+ "source": "rédigé pour l'app dans le pipeline wenlu, sans API ; faits lus : liste HSK 3.0 (forme, pinyin, niveau, catégorie), lectures d'Unihan et des surcharges, gloses relues des fiches",
+ "brouillon": "data/sources/dico-brouillons/7-9/09.json",
+ "generation": {
+  "modele": "rédaction manuelle",
+  "api": "session Claude Code (sans API)",
+  "date": "2026-09-30",
+  "empreinte_invite": "sha256:0a4878b6e259c267182d4031c226199e7beabd631b4be971a926f2dd7203743a",
+  "contexte": "wenlu dico contexte 7-9 09",
+  "essais": 1,
+  "refus": []
+ },
+ "entrees": [
+  {
+   "id": "L7-0333",
+   "genre": "mot",
+   "hanzi": "餐桌",
+   "pinyin": "cānzhuō",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "table à manger",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "table à manger, table du repas"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "一家人围坐在餐桌旁。",
+     "pinyin": "Yī jiā rén wéi zuò zài cānzhuō páng.",
+     "fr": "Toute la famille est assise autour de la table.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-0335",
+   "genre": "mot",
+   "hanzi": "残留",
+   "pinyin": "cánliú",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "subsister, rester en résidu",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "subsister, rester en résidu"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "菜上可能残留农药。",
+     "pinyin": "Cài shang kěnéng cánliú nóngyào.",
+     "fr": "Il peut rester des pesticides sur les légumes.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-0336",
+   "genre": "mot",
+   "hanzi": "残缺",
+   "pinyin": "cánquē",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "incomplet, mutilé",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "être incomplet, mutilé, ébréché"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这本古书已经残缺不全了。",
+     "pinyin": "Zhè běn gǔshū yǐjīng cánquē bù quán le.",
+     "fr": "Il manque des pages à ce vieux livre.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-0337",
+   "genre": "mot",
+   "hanzi": "残忍",
+   "pinyin": "cánrěn",
+   "categories": [
+    "Adj"
+   ],
+   "sens": {
+    "glose": "cruel",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "cruel, impitoyable"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他对动物很残忍。",
+     "pinyin": "Tā duì dòngwù hěn cánrěn.",
+     "fr": "Il maltraite les animaux.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "惭",
+   "genre": "caractere",
+   "hanzi": "惭",
+   "pinyin": "cán",
+   "sens": {
+    "glose": "honteux",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "honteux, confus"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": []
+  },
+  {
+   "id": "愧",
+   "genre": "caractere",
+   "hanzi": "愧",
+   "pinyin": "kuì",
+   "sens": {
+    "glose": "honteux, confus",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "honteux, confus"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": []
+  },
+  {
+   "id": "L7-0338",
+   "genre": "mot",
+   "hanzi": "惭愧",
+   "pinyin": "cánkuì",
+   "categories": [
+    "Adj"
+   ],
+   "sens": {
+    "glose": "honteux, confus",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "honteux, confus"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "我没帮上忙，心里很惭愧。",
+     "pinyin": "Wǒ méi bāng shang máng, xīn li hěn cánkuì.",
+     "fr": "Je n'ai pas pu aider, et je m'en veux.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-0339",
+   "genre": "mot",
+   "hanzi": "惨白",
+   "pinyin": "cǎnbái",
+   "categories": [
+    "Adj"
+   ],
+   "sens": {
+    "glose": "livide, blême",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "livide, blême"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "听到这个消息，他的脸一下子变得惨白。",
+     "pinyin": "Tīngdào zhège xiāoxi, tā de liǎn yīxiàzi biàn de cǎnbái.",
+     "fr": "À cette nouvelle, il est devenu tout pâle.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-0340",
+   "genre": "mot",
+   "hanzi": "惨痛",
+   "pinyin": "cǎntòng",
+   "categories": [
+    "Adj"
+   ],
+   "sens": {
+    "glose": "douloureux, cuisant",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "douloureux, cuisant"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这是一个惨痛的教训。",
+     "pinyin": "Zhè shì yī gè cǎntòng de jiàoxun.",
+     "fr": "C'est une leçon qui a coûté cher.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-0341",
+   "genre": "mot",
+   "hanzi": "惨重",
+   "pinyin": "cǎnzhòng",
+   "categories": [
+    "Adj"
+   ],
+   "sens": {
+    "glose": "très lourd, désastreux",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "très lourd, désastreux : pertes, dégâts"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这次地震损失惨重。",
+     "pinyin": "Zhè cì dìzhèn sǔnshī cǎnzhòng.",
+     "fr": "Ce séisme a causé des dégâts considérables.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "灿",
+   "genre": "caractere",
+   "hanzi": "灿",
+   "pinyin": "càn",
+   "sens": {
+    "glose": "brillant, éclatant",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "brillant, éclatant"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": []
+  },
+  {
+   "id": "L7-0342",
+   "genre": "mot",
+   "hanzi": "灿烂",
+   "pinyin": "cànlàn",
+   "categories": [
+    "Adj"
+   ],
+   "sens": {
+    "glose": "éclatant, resplendissant",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "éclatant, resplendissant"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "她的笑容很灿烂。",
+     "pinyin": "Tā de xiàoróng hěn cànlàn.",
+     "fr": "Elle a un sourire radieux.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "苍",
+   "genre": "caractere",
+   "hanzi": "苍",
+   "pinyin": "cāng",
+   "sens": {
+    "glose": "vert sombre, bleu-gris ; grisonnant",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "vert sombre, bleu-gris ; grisonnant"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": []
+  },
+  {
+   "id": "蝇",
+   "genre": "caractere",
+   "hanzi": "蝇",
+   "pinyin": "yíng",
+   "sens": {
+    "glose": "mouche",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "mouche"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": []
+  },
+  {
+   "id": "L7-0343",
+   "genre": "mot",
+   "hanzi": "苍蝇",
+   "pinyin": "cāngying",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "mouche",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "mouche"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "厨房里有一只苍蝇。",
+     "pinyin": "Chúfáng li yǒu yī zhī cāngying.",
+     "fr": "Un insecte vole dans la cuisine.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "沧",
+   "genre": "caractere",
+   "hanzi": "沧",
+   "pinyin": "cāng",
+   "sens": {
+    "glose": "bleu-vert, comme la mer",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "bleu-vert, couleur de la mer"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": []
+  },
+  {
+   "id": "桑",
+   "genre": "caractere",
+   "hanzi": "桑",
+   "pinyin": "sāng",
+   "sens": {
+    "glose": "mûrier",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "mûrier"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": []
+  },
+  {
+   "id": "L7-0344",
+   "genre": "mot",
+   "hanzi": "沧桑",
+   "pinyin": "cāngsāng",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "vicissitudes, bouleversements",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "vicissitudes, grands bouleversements du temps"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这座老城经历了百年沧桑。",
+     "pinyin": "Zhè zuò lǎo chéng jīnglì le bǎi nián cāngsāng.",
+     "fr": "Cette vieille ville a traversé un siècle de changements.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "舱",
+   "genre": "caractere",
+   "hanzi": "舱",
+   "pinyin": "cāng",
+   "mots": [
+    "L7-0345"
+   ],
+   "sens": {
+    "glose": "cabine, soute",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "cabine, soute : navire, avion"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "飞机的舱里坐满了人。",
+     "pinyin": "Fēijī de cāng li zuò mǎn le rén.",
+     "fr": "L'avion est plein.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "匿",
+   "genre": "caractere",
+   "hanzi": "匿",
+   "pinyin": "nì",
+   "sens": {
+    "glose": "se cacher",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "se cacher, dissimuler"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": []
+  },
+  {
+   "id": "L7-0346",
+   "genre": "mot",
+   "hanzi": "藏匿",
+   "pinyin": "cángnì",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "cacher, dissimuler",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "cacher, dissimuler"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他把钱藏匿在墙里。",
+     "pinyin": "Tā bǎ qián cángnì zài qiáng li.",
+     "fr": "Il a mis l'argent à l'abri dans le mur.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-0347",
+   "genre": "mot",
+   "hanzi": "藏品",
+   "pinyin": "cángpǐn",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "pièce de collection",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "pièce de collection"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这家博物馆有很多珍贵的藏品。",
+     "pinyin": "Zhè jiā bówùguǎn yǒu hěn duō zhēnguì de cángpǐn.",
+     "fr": "Ce musée possède de nombreux objets précieux.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-0348",
+   "genre": "mot",
+   "hanzi": "藏身",
+   "pinyin": "cángshēn",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "se cacher, se réfugier",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "se cacher, se réfugier"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他在山洞里藏身了三天。",
+     "pinyin": "Tā zài shāndòng li cángshēn le sān tiān.",
+     "fr": "Il est resté trois jours dans une grotte.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-0349",
+   "genre": "mot",
+   "hanzi": "操控",
+   "pinyin": "cāokòng",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "contrôler, piloter, manipuler",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "contrôler, piloter, manipuler"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这台机器可以用手机操控。",
+     "pinyin": "Zhè tái jīqì kěyǐ yòng shǒujī cāokòng.",
+     "fr": "On peut commander cette machine depuis son téléphone.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-0350",
+   "genre": "mot",
+   "hanzi": "操劳",
+   "pinyin": "cāoláo",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "se donner du mal, s'user au travail",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "se donner du mal, s'user au travail"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "母亲为这个家操劳了一辈子。",
+     "pinyin": "Mǔqīn wèi zhège jiā cāoláo le yībèizi.",
+     "fr": "Ma mère a trimé toute sa vie pour la famille.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-0351",
+   "genre": "mot",
+   "hanzi": "操心",
+   "pinyin": "cāoxīn",
+   "sens": {
+    "glose": "se tracasser, se soucier de",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "se tracasser, se soucier de"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "孩子大了，你别再为他操心了。",
+     "pinyin": "Háizi dà le, nǐ bié zài wèi tā cāoxīn le.",
+     "fr": "Ton fils est grand, arrête de t'inquiéter pour lui.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "槽",
+   "genre": "caractere",
+   "hanzi": "槽",
+   "pinyin": "cáo",
+   "mots": [
+    "L7-0352"
+   ],
+   "sens": {
+    "glose": "auge, mangeoire ; rainure",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "auge, mangeoire ; rainure"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "马在槽边吃草。",
+     "pinyin": "Mǎ zài cáo biān chī cǎo.",
+     "fr": "Le cheval mange son foin.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-0353",
+   "genre": "mot",
+   "hanzi": "草案",
+   "pinyin": "cǎo'àn",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "projet de texte, avant-projet",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "projet de texte, avant-projet : loi, plan"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这个草案还要再讨论。",
+     "pinyin": "Zhège cǎo'àn hái yào zài tǎolùn.",
+     "fr": "Ce texte doit encore être discuté.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "坪",
+   "genre": "caractere",
+   "hanzi": "坪",
+   "pinyin": "píng",
+   "sens": {
+    "glose": "terrain plat",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "terrain plat, esplanade"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": []
+  },
+  {
+   "id": "L7-0354",
+   "genre": "mot",
+   "hanzi": "草坪",
+   "pinyin": "cǎopíng",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "pelouse, gazon",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "pelouse, gazon"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "请不要在草坪上走。",
+     "pinyin": "Qǐng bùyào zài cǎopíng shang zǒu.",
+     "fr": "Ne marchez pas sur l'herbe, s'il vous plaît.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-0355",
+   "genre": "mot",
+   "hanzi": "侧面",
+   "pinyin": "cèmiàn",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "côté, flanc ; aspect",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "côté, flanc, profil ; aspect"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "从侧面看，这座楼像一条船。",
+     "pinyin": "Cóng cèmiàn kàn, zhè zuò lóu xiàng yī tiáo chuán.",
+     "fr": "Vu de profil, cet immeuble ressemble à un bateau.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-0356",
+   "genre": "mot",
+   "hanzi": "侧重",
+   "pinyin": "cèzhòng",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "mettre l'accent sur",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "mettre l'accent sur, privilégier"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这门课侧重口语练习。",
+     "pinyin": "Zhè mén kè cèzhòng kǒuyǔ liànxí.",
+     "fr": "Ce cours travaille surtout l'oral.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-0357",
+   "genre": "mot",
+   "hanzi": "测算",
+   "pinyin": "cèsuàn",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "calculer, estimer",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "calculer, estimer"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "专家测算，今年的收入会增加。",
+     "pinyin": "Zhuānjiā cèsuàn, jīnnián de shōurù huì zēngjiā.",
+     "fr": "Selon les experts, les revenus augmenteront cette année.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-0358",
+   "genre": "mot",
+   "hanzi": "测验",
+   "pinyin": "cèyàn",
+   "categories": [
+    "V",
+    "N"
+   ],
+   "sens": {
+    "glose": "test, contrôle ; tester",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "test, contrôle, interrogation"
+     },
+     {
+      "categorie": "V",
+      "fr": "tester, contrôler"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "明天有数学测验。",
+     "pinyin": "Míngtiān yǒu shùxué cèyàn.",
+     "fr": "Demain, il y a une interro de maths.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-0359",
+   "genre": "mot",
+   "hanzi": "层出不穷",
+   "pinyin": "céngchū-bùqióng",
+   "sens": {
+    "glose": "surgir sans cesse",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "surgir sans cesse, se multiplier"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "新技术层出不穷。",
+     "pinyin": "Xīn jìshù céngchū-bùqióng.",
+     "fr": "Les nouvelles technologies se succèdent sans fin.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "蹭",
+   "genre": "caractere",
+   "hanzi": "蹭",
+   "pinyin": "cèng",
+   "mots": [
+    "L7-0360"
+   ],
+   "sens": {
+    "glose": "frotter ; profiter de",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "frotter, frôler"
+     },
+     {
+      "categorie": "V",
+      "fr": "profiter de, se faire offrir : familier"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他常来我家蹭饭。",
+     "pinyin": "Tā cháng lái wǒ jiā cèng fàn.",
+     "fr": "Il vient souvent manger chez moi à l'œil.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-0361",
+   "genre": "mot",
+   "hanzi": "差错",
+   "pinyin": "chācuò",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "erreur, faute ; accident",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "erreur, faute ; accident, pépin"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这次工作不能出任何差错。",
+     "pinyin": "Zhè cì gōngzuò bù néng chū rènhé chācuò.",
+     "fr": "Cette fois, on n'a pas le droit de se tromper.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-0362",
+   "genre": "mot",
+   "hanzi": "差额",
+   "pinyin": "chā'é",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "différence, écart de montant",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "différence, écart de montant"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "差额由公司来付。",
+     "pinyin": "Chā'é yóu gōngsī lái fù.",
+     "fr": "L'entreprise paiera le reste.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-0363",
+   "genre": "mot",
+   "hanzi": "插手",
+   "pinyin": "chāshǒu",
+   "sens": {
+    "glose": "se mêler de, intervenir",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "se mêler de, intervenir"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这是我们家的事，你别插手。",
+     "pinyin": "Zhè shì wǒmen jiā de shì, nǐ bié chāshǒu.",
+     "fr": "Ce sont nos affaires de famille, ne t'en occupe pas.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-0364",
+   "genre": "mot",
+   "hanzi": "插图",
+   "pinyin": "chātú",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "illustration",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "illustration"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这本书里有很多插图。",
+     "pinyin": "Zhè běn shū li yǒu hěn duō chātú.",
+     "fr": "Ce livre contient beaucoup d'images.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-0365",
+   "genre": "mot",
+   "hanzi": "插嘴",
+   "pinyin": "chāzuǐ",
+   "sens": {
+    "glose": "interrompre, couper la parole",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "interrompre, couper la parole"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "大人说话，小孩子别插嘴。",
+     "pinyin": "Dàrén shuōhuà, xiǎoháizi bié chāzuǐ.",
+     "fr": "Quand les grands parlent, les enfants se taisent.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-0366",
+   "genre": "mot",
+   "hanzi": "茶道",
+   "pinyin": "chádào",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "art du thé, cérémonie du thé",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "art du thé, cérémonie du thé"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "她在学习茶道。",
+     "pinyin": "Tā zài xuéxí chádào.",
+     "fr": "Elle étudie la manière traditionnelle de servir le thé.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-0367",
+   "genre": "mot",
+   "hanzi": "茶馆儿",
+   "pinyin": "cháguǎnr",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "maison de thé",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "maison de thé"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "老人们喜欢在茶馆儿里聊天。",
+     "pinyin": "Lǎorénmen xǐhuan zài cháguǎnr li liáotiān.",
+     "fr": "Les anciens aiment bavarder au salon de thé.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-0368",
+   "genre": "mot",
+   "hanzi": "查处",
+   "pinyin": "cháchǔ",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "enquêter et sanctionner",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "enquêter et sanctionner"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这件事已经被查处了。",
+     "pinyin": "Zhè jiàn shì yǐjīng bèi cháchǔ le.",
+     "fr": "L'affaire a fait l'objet d'une enquête et de sanctions.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-0369",
+   "genre": "mot",
+   "hanzi": "查明",
+   "pinyin": "chámíng",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "établir, tirer au clair",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "établir, tirer au clair"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "事故原因还没有查明。",
+     "pinyin": "Shìgù yuányīn hái méiyǒu chámíng.",
+     "fr": "Les causes de l'accident ne sont pas encore connues.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-0370",
+   "genre": "mot",
+   "hanzi": "查找",
+   "pinyin": "cházhǎo",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "chercher, rechercher",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "chercher, rechercher"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "我在网上查找资料。",
+     "pinyin": "Wǒ zài wǎngshàng cházhǎo zīliào.",
+     "fr": "Je me documente en ligne.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-0371",
+   "genre": "mot",
+   "hanzi": "察觉",
+   "pinyin": "chájué",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "s'apercevoir, remarquer",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "s'apercevoir, remarquer"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他没有察觉到有人在后面。",
+     "pinyin": "Tā méiyǒu chájué dào yǒu rén zài hòumian.",
+     "fr": "Il ne s'est pas rendu compte qu'on le suivait.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-0372",
+   "genre": "mot",
+   "hanzi": "察看",
+   "pinyin": "chákàn",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "examiner, inspecter",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "examiner, inspecter"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "警察仔细察看了现场。",
+     "pinyin": "Jǐngchá zǐxì chákàn le xiànchǎng.",
+     "fr": "La police a minutieusement passé les lieux au crible.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "诧",
+   "genre": "caractere",
+   "hanzi": "诧",
+   "pinyin": "chà",
+   "sens": {
+    "glose": "étonné",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "étonné, surpris"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": []
+  },
+  {
+   "id": "L7-0373",
+   "genre": "mot",
+   "hanzi": "诧异",
+   "pinyin": "chàyì",
+   "categories": [
+    "Adj"
+   ],
+   "sens": {
+    "glose": "étonné, surpris",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "étonné, surpris"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他的回答让我很诧异。",
+     "pinyin": "Tā de huídá ràng wǒ hěn chàyì.",
+     "fr": "Sa réponse m'a laissé perplexe.",
+     "statut": "a_relire"
+    }
+   ]
+  }
+ ]
+}
