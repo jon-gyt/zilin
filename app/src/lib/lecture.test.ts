@@ -209,6 +209,10 @@ describe('le pinyin, syllabe par syllabe', () => {
     expect(syllabes('Zhōngguó shēngrì')).toEqual(['Zhōng', 'guó', 'shēng', 'rì']);
   });
 
+  it('compte le « r » de l’érhua pour son caractère', () => {
+    expect(syllabes('yī huì r')).toEqual(['yī', 'huì', 'r']);
+  });
+
   it("au milieu d'un mot, une syllabe commence par une consonne ; l'apostrophe sépare a, o, e", () => {
     expect(syllabes('fāngàn')).toEqual(['fān', 'gàn']);
     expect(syllabes('dàngāo')).toEqual(['dàn', 'gāo']);
