@@ -29,6 +29,7 @@ import {
   type Paires
 } from './questions';
 import { TOURS_ECLAIR, dictionnaire, toursEclair, type Dictionnaire, type Eclair } from './eclair';
+import { MAILLONS_MAX, motsDeChaine, toursChaine, type MotsDeChaine } from './chaine';
 import { devinetteFaite, type Progress, type Revision } from './session';
 import { grade, newCard, schedule, type Outcome, type ReviewCard, type SrsParams } from './srs';
 import type { PhrasesJouer } from './jouer';
@@ -62,15 +63,6 @@ export const PAIRES_PAR_MINUTE = 15;
  * (« Montrer », le choix, « Suivant ») : on garde le rythme, pas la corvée.
  */
 export const TOURS_JUMEAUX = 8;
-
-/** La chaîne : quatre propositions, dont une seule contient le dernier caractère. */
-export const PROPOSITIONS_CHAINE = 4;
-
-/** La chaîne s'arrête d'elle-même après trois minutes, où qu'elle en soit. */
-export const LIMITE_CHAINE_MS = MINUTES_MAX * 60_000;
-
-/** La chaîne ne pose pas plus de maillons que trois minutes n'en laissent lire. */
-export const MAILLONS_MAX = 12;
 
 /** La coquille : un message de six à douze caractères. */
 export const MESSAGE_MIN = 6;
@@ -137,11 +129,10 @@ export type CorpusJeux = {
    */
   coquilles?: readonly MessageCoquille[];
   /**
-   * Les caractères de l'export versionné (fiches et racines des familles). Quand il est
-   * donné, la chaîne ne traverse que ceux-là : un caractère de la seule démonstration
-   * n'y entre pas. Absent : aucune restriction (données de test).
+   * La chaîne de mots (`chaine.ts`) : les mots des fiches et l'acquis réel. Absente : pas
+   * de chaîne.
    */
-  exportes?: readonly string[];
+  chaine?: MotsDeChaine;
   /** La cuisine de Tao (`cuisine.ts`) : les recettes et l'acquis réel. Absente : pas de cuisine. */
   cuisine?: Cuisine;
   /** Le message WeChat (`wechat.ts`) : les dialogues et l'acquis réel. Absent : pas de message. */
@@ -369,13 +360,9 @@ export function corpusDeJeu(s: Sources): CorpusJeux {
   };
   const confusions = confusionsDesCartes(s.cartes ?? []);
   if (confusions.length > 0) corpus.confusions = confusions;
-  const exportes = new Set<string>();
-  for (const x of s.fiches ?? []) exportes.add(x.c);
-  for (const f of s.familles ?? []) {
-    exportes.add(f.racine.c);
-    for (const x of f.fiches) exportes.add(x.c);
-  }
-  if (exportes.size > 0) corpus.exportes = [...exportes];
+  /* La chaîne de mots : les mots des fiches, lus avec l'acquis réel, jamais la démonstration. */
+  const mots = motsDeChaine(s);
+  if (mots !== null) corpus.chaine = mots;
   if (s.coquilles && s.coquilles.length > 0) corpus.coquilles = s.coquilles;
   if (s.devinettes) {
     corpus.lanternes = {
@@ -443,10 +430,15 @@ export type Tour = {
   ordre: boolean;
   /** Le tour oppose deux caractères d'un groupe à ne pas confondre. */
   paire: boolean;
-  /** La chaîne : les caractères déjà enchaînés, du départ au dernier. */
+  /** La chaîne : les mots déjà lus de cette chaîne, du premier au précédent. Vide au premier mot. */
   suite?: string[];
-  /** La chaîne : le sens du maillon, qui contient le dernier ou se cache dedans. */
-  lien?: Lien;
+  /** La chaîne : le mot à lire, dont le premier caractère est le dernier du précédent. */
+  maillon?: string;
+  /**
+   * Les caractères qu'une erreur note, quand ce ne sont pas tous ceux du tour : à la
+   * chaîne, ceux dont la fiche a fait lire le mot. Une bonne réponse les note tous.
+   */
+  fautifs?: string[];
   /** D'autres caractères notés par la même réponse (la coquille : l'intrus). */
   aussi?: string[];
   /** La coquille : l'indice, dans `choix`, où commence chaque mot ou phrase du message. */
@@ -482,7 +474,10 @@ export type Reponse = string | readonly string[];
 /** Ce qu'un tour rend : un événement de révision, et rien qui ressemble à un score. */
 export type Resultat = {
   manche: Manche;
-  /** Le premier événement du tour : celui du caractère demandé. */
+  /**
+   * Le premier événement du tour : celui du caractère demandé, ou, pour une erreur qui ne
+   * note que ses `fautifs`, celui du premier d'entre eux.
+   */
   evenement: Revision;
   /** Tous les événements du tour (la coquille en rend deux : le substitué et l'intrus). */
   evenements: Revision[];
@@ -667,232 +662,7 @@ function toursJumeaux(corpus: CorpusJeux, graine: string, max: number): Tour[] {
   return [...tours.filter((t) => t.paire), ...tours.filter((t) => !t.paire)].slice(0, max);
 }
 
-/* ---------- jeu 3 : la chaîne ---------- */
-
-/**
- * Ce qu'un caractère apporte comme motif dans un autre : sa décomposition canonique,
- * ou lui-même quand il est une brique (le contenu ne le décompose pas).
- */
-function motif(c: string, corpus: CorpusJeux): string[] {
-  const d = briques(c, corpus);
-  return d.length >= 2 ? d : [c];
-}
-
-/**
- * `suivant` contient `precedent` comme composant, d'après les `parts` du contenu.
- *
- * Deux cas, et rien d'autre : `precedent` est l'une des parts de `suivant` (吞 = 天 口) ;
- * ou sa propre décomposition y paraît d'un seul tenant, dans l'ordre d'écriture. Le
- * second cas vient de l'export : ses parts descendent jusqu'aux composants de la norme
- * GF 0014-2009 (哥 = 丁 口 丁 口), si bien qu'un composé n'y est jamais nommé comme
- * part. 可 = 丁 口 paraît d'un seul tenant dans 哥 : 哥 contient 可.
- */
-export function contient(suivant: string, precedent: string, corpus: CorpusJeux): boolean {
-  if (suivant === precedent) return false;
-  const parts = briques(suivant, corpus);
-  if (parts.length < 2) return false;
-  if (parts.includes(precedent)) return true;
-  const m = motif(precedent, corpus);
-  if (m.length < 2 || m.length >= parts.length) return false;
-  for (let i = 0; i + m.length <= parts.length; i++) {
-    if (m.every((x, k) => parts[i + k] === x)) return true;
-  }
-  return false;
-}
-
-/**
- * Plus large que `contient` : tous les éléments du motif de `precedent` se trouvent dans
- * `suivant`, dans n'importe quel ordre. Sert à écarter un leurre : une proposition qui
- * porte les pièces du dernier caractère, même éparses, ne peut pas être un leurre sûr.
- */
-function porte(suivant: string, precedent: string, corpus: CorpusJeux): boolean {
-  if (suivant === precedent) return true;
-  if (contient(suivant, precedent, corpus)) return true;
-  const reste = [...briques(suivant, corpus)];
-  if (reste.length < 2) return false;
-  for (const x of motif(precedent, corpus)) {
-    const k = reste.indexOf(x);
-    if (k === -1) return false;
-    reste.splice(k, 1);
-  }
-  return true;
-}
-
-/**
- * Les caractères qu'une chaîne peut traverser : acquis, montrables, et de l'export quand
- * le corpus le dit. C'est l'acquis qui borne la chaîne, jamais la démonstration.
- */
-export function maillonsPossibles(corpus: CorpusJeux): string[] {
-  const exportes = corpus.exportes ? new Set(corpus.exportes) : null;
-  return corpus.acquis.filter((c) => montrable(c, corpus) && (exportes === null || exportes.has(c)));
-}
-
-/** Les caractères acquis qui prolongent la chaîne après `c` en le contenant. */
-export function prolongements(c: string, corpus: CorpusJeux): string[] {
-  return maillonsPossibles(corpus).filter((s) => contient(s, c, corpus));
-}
-
-/**
- * Le sens d'un maillon : le suivant contient le précédent (`monte` : 大 → 天), ou il se
- * cache dedans (`descend` : 吞 → 口). La chaîne suit l'arbre de décomposition dans les
- * deux sens : elle monte vers un caractère qui contient le dernier, ou descend vers une
- * brique qu'il contient, et repart de là (人 → 大 → 天 → 吞 → 口 → 可 → 哥).
- */
-export type Lien = 'monte' | 'descend';
-
-/** Le lien de `a` à `b` dans l'arbre de décomposition, `null` s'ils ne se contiennent pas. */
-export function lien(a: string, b: string, corpus: CorpusJeux): Lien | null {
-  if (contient(b, a, corpus)) return 'monte';
-  if (contient(a, b, corpus)) return 'descend';
-  return null;
-}
-
-/** Ce qu'on demande à chaque sens du lien. */
-export const ENONCES_CHAINE: Record<Lien, string> = {
-  monte: 'Lequel contient ce caractère ?',
-  descend: 'Lequel se cache dans ce caractère ?'
-};
-
-/**
- * Un leurre sûr pour un maillon qui part de `precedent` : un caractère qui ne peut pas
- * passer pour la réponse. En montant, il ne porte pas `precedent`, même en pièces éparses ;
- * en descendant, `precedent` ne le contient pas, ni en entier ni par ses pièces.
- */
-function leurreSur(x: string, precedent: string, sens: Lien, corpus: CorpusJeux): boolean {
-  if (x === precedent) return false;
-  return sens === 'monte' ? !porte(x, precedent, corpus) : !porte(precedent, x, corpus);
-}
-
-/** Le budget de la recherche : de quoi explorer l'acquis d'un parcours entier, sans attendre. */
-const BUDGET_CHAINE = 4_000;
-
-/**
- * La chaîne la plus longue que l'acquis permet, à graine égale toujours la même.
- *
- * Chaque maillon contient le précédent, ou se cache dedans : la chaîne suit l'arbre de
- * décomposition dans les deux sens. Un maillon ne se pose que s'il reste trois leurres
- * sûrs pour lui (`leurreSur`) : une brique que tout contient (一) ne relie rien. La
- * recherche essaie les départs et les suites dans un ordre fixé par la graine, garde la
- * plus longue, et s'arrête à `MAILLONS_MAX` maillons ou au bout de son budget. C'est
- * l'acquis qui borne la chaîne, jamais le jeu.
- */
-export function chaine(corpus: CorpusJeux, graine: string): string[] {
-  const possibles = maillonsPossibles(corpus);
-  /* Les liens, par les parts : `b` ne contient `a` que s'il porte `a` lui-même, ou la
-     première pièce de son motif. Un lien qui monte de `a` à `b` descend de `b` à `a`. */
-  const parPiece = new Map<string, string[]>();
-  for (const b of possibles) {
-    for (const x of new Set(briques(b, corpus))) parPiece.set(x, [...(parPiece.get(x) ?? []), b]);
-  }
-  const voisins = new Map<string, { c: string; sens: Lien }[]>(possibles.map((c) => [c, []]));
-  for (const a of possibles) {
-    const porteurs = new Set([...(parPiece.get(a) ?? []), ...(parPiece.get(motif(a, corpus)[0]) ?? [])]);
-    for (const b of porteurs) {
-      if (b === a || !contient(b, a, corpus)) continue;
-      voisins.get(a)?.push({ c: b, sens: 'monte' });
-      voisins.get(b)?.push({ c: a, sens: 'descend' });
-    }
-  }
-  /* Les leurres sûrs de chaque départ de maillon, dans chaque sens : comptés une fois. */
-  const surs = new Map<string, string[]>();
-  const leurres = (a: string, sens: Lien): string[] => {
-    const cle = `${sens}/${a}`;
-    let l = surs.get(cle);
-    if (!l) {
-      l = possibles.filter((x) => leurreSur(x, a, sens, corpus));
-      surs.set(cle, l);
-    }
-    return l;
-  };
-  const posable = (a: string, b: string, sens: Lien, chemin: readonly string[]): boolean =>
-    leurres(a, sens).filter((x) => x !== b && !chemin.includes(x)).length >= PROPOSITIONS_CHAINE - 1;
-  const rang = (sel: string, c: string): number => hachage(`${graine}/${sel}/${c}`);
-  /* Les plus reliés d'abord : ce sont eux qui mènent loin ; la graine départage. */
-  const ordre = (sel: string, cs: readonly string[]): string[] =>
-    [...cs].sort(
-      (x, y) => (voisins.get(y)?.length ?? 0) - (voisins.get(x)?.length ?? 0) || rang(sel, x) - rang(sel, y)
-    );
-
-  let meilleur: string[] = [];
-  let budget = BUDGET_CHAINE;
-  const explorer = (chemin: string[]): void => {
-    if (chemin.length > meilleur.length) meilleur = [...chemin];
-    if (chemin.length > MAILLONS_MAX || budget <= 0) return;
-    const dernier = chemin[chemin.length - 1];
-    const suites = (voisins.get(dernier) ?? []).filter(
-      (v) => !chemin.includes(v.c) && posable(dernier, v.c, v.sens, chemin)
-    );
-    for (const c of ordre(dernier, suites.map((v) => v.c))) {
-      if (budget <= 0 || meilleur.length > MAILLONS_MAX) return;
-      budget -= 1;
-      chemin.push(c);
-      explorer(chemin);
-      chemin.pop();
-    }
-  };
-  const departs = possibles.filter((c) => (voisins.get(c) ?? []).length > 0);
-  for (const d of ordre('depart', departs)) {
-    if (budget <= 0 || meilleur.length > MAILLONS_MAX) break;
-    explorer([d]);
-  }
-  return meilleur.length >= 2 ? meilleur : [];
-}
-
-/**
- * Les chaînes d'une manche, deux à deux sans caractère commun. La première est la plus
- * longue que l'acquis permet (`chaine`) ; quand elle s'arrête avant que la manche soit
- * pleine, une autre part d'un caractère acquis qui n'a pas encore servi. En suivant
- * l'arbre de décomposition dans les deux sens, une chaîne tient souvent la manche entière.
- */
-export function chaines(corpus: CorpusJeux, graine: string): string[][] {
-  const out: string[][] = [];
-  const servis = new Set<string>();
-  let maillons = 0;
-  while (maillons < MAILLONS_MAX) {
-    const reste = { ...corpus, acquis: corpus.acquis.filter((c) => !servis.has(c)) };
-    const suite = chaine(reste, out.length === 0 ? graine : `${graine}/${out.length}`);
-    if (suite.length < 2) break;
-    out.push(suite);
-    for (const c of suite) servis.add(c);
-    maillons += suite.length - 1;
-  }
-  return out;
-}
-
-function toursChaine(corpus: CorpusJeux, graine: string): Tour[] {
-  const tours: Tour[] = [];
-  for (const suite of chaines(corpus, graine)) {
-    for (let k = 1; k < suite.length && tours.length < MAILLONS_MAX; k++) {
-      const precedent = suite[k - 1];
-      const c = suite[k];
-      const sens = lien(precedent, c, corpus) ?? 'monte';
-      /* Les leurres : des caractères acquis, pris par ressemblance avec la bonne réponse,
-         qui ne peuvent pas passer pour elle (`leurreSur`). */
-      const candidats = maillonsPossibles(corpus).filter(
-        (x) => !suite.includes(x) && leurreSur(x, precedent, sens, corpus)
-      );
-      /* Pas les quatre mêmes cases d'un tour à l'autre, quand l'acquis permet d'en changer. */
-      const avant = new Set(tours.length > 0 ? tours[tours.length - 1].choix : []);
-      const tirer = (xs: string[]): string[] =>
-        proches([c], xs, corpus, `${graine}/${c}`, PROPOSITIONS_CHAINE - 1);
-      const varies = tirer(candidats.filter((x) => !avant.has(x)));
-      const leurres = varies.length >= PROPOSITIONS_CHAINE - 1 ? varies : tirer(candidats);
-      /* Sans trois leurres sûrs, le maillon ne se pose pas : cette chaîne s'arrête là. */
-      if (leurres.length < PROPOSITIONS_CHAINE - 1) break;
-      tours.push({
-        c,
-        enonce: k === 1 && tours.length > 0 ? `Une autre chaîne : ${ENONCES_CHAINE[sens].toLowerCase()}` : ENONCES_CHAINE[sens],
-        reponse: [c],
-        choix: melange([c, ...leurres], `${graine}/${c}/choix`),
-        ordre: false,
-        paire: false,
-        suite: suite.slice(0, k),
-        lien: sens
-      });
-    }
-  }
-  return tours;
-}
+/* ---------- jeu 3 : la chaîne de mots (`chaine.ts`) ---------- */
 
 /* ---------- jeu 4 : la coquille ---------- */
 
@@ -1261,7 +1031,7 @@ export function fini(m: Manche): boolean {
 
 /**
  * Clôt la manche là où elle en est : les tours non joués tombent, rien n'est noté pour
- * eux. C'est ce que fait la limite de temps de la chaîne, sans reproche.
+ * eux. C'est ce que fait la limite de temps d'une manche (`Jeu.limite`), sans reproche.
  */
 export function clore(m: Manche): Manche {
   return { ...m, tours: m.tours.slice(0, m.i) };
@@ -1270,10 +1040,10 @@ export function clore(m: Manche): Manche {
 /**
  * Les leurres qu'une réponse désigne, pour le caractère `c` du tour, quand l'écran ne
  * les dit pas. Juste : aucun. Un choix unique faux désigne le caractère pris pour la
- * réponse (la chaîne, les jumeaux). La coquille est à part : ne pas voir l'intrus, c'est
- * avoir lu l'un pour l'autre, l'intrus pour le caractère remplacé et inversement. Un
- * assemblage, où l'ordre compte, ne désigne aucun caractère : `undefined`, et les pièges
- * déjoués restent prudents.
+ * réponse (les jumeaux). La coquille est à part : ne pas voir l'intrus, c'est avoir lu
+ * l'un pour l'autre, l'intrus pour le caractère remplacé et inversement. Un assemblage,
+ * où l'ordre compte, ne désigne aucun caractère, ni un choix de sens (l'éclair, la
+ * chaîne) : `undefined`, et les pièges déjoués restent prudents.
  */
 function leurresDuTour(
   t: Tour,
@@ -1281,7 +1051,7 @@ function leurresDuTour(
   donnee: readonly string[],
   correct: boolean
 ): string[] | undefined {
-  if (t.ordre) return undefined;
+  if (t.ordre || !UN_HAN.test(t.reponse[0] ?? '')) return undefined;
   if (correct) return [];
   if (t.aussi !== undefined && t.aussi.length > 0) return c === t.c ? [...t.aussi] : [t.c];
   return donnee.filter((x) => x !== t.reponse[0]);
@@ -1305,8 +1075,12 @@ export function repondre(m: Manche, reponse: Reponse, outcome: Outcome): Resulta
     ? memeSuite(donnee, t.reponse)
     : donnee.length === 1 && donnee[0] === t.reponse[0];
   /* Un événement par caractère noté : le demandé, puis ceux que la même réponse engage
-     (la coquille : l'intrus). Même réponse, même outcome, et `grade` pour chacun. */
-  const evenements: Revision[] = [t.c, ...(t.aussi ?? [])].map((c) => {
+     (la coquille : l'intrus). Même réponse, même outcome, et `grade` pour chacun. Une
+     erreur ne note que les `fautifs` du tour, quand il en a (la chaîne). */
+  const engages = [t.c, ...(t.aussi ?? [])];
+  const fautifs = t.fautifs ?? [];
+  const notes = !correct && fautifs.length > 0 ? engages.filter((c) => fautifs.includes(c)) : engages;
+  const evenements: Revision[] = (notes.length > 0 ? notes : engages).map((c) => {
     /* Les leurres pris, que l'écran les dise ou que le tour les connaisse : les pièges
        déjoués les lisent. */
     const leurres = outcome.leurres ?? leurresDuTour(t, c, donnee, correct);
@@ -1387,7 +1161,7 @@ const COMPTES: Record<JeuId, { un: string; plusieurs: string; aucun: string }> =
     plusieurs: 'paires distinguées',
     aucun: 'aucune paire distinguée'
   },
-  chaine: { un: 'maillon trouvé', plusieurs: 'maillons trouvés', aucun: 'aucun maillon trouvé' },
+  chaine: { un: 'sens trouvé', plusieurs: 'sens trouvés', aucun: 'aucun sens trouvé' },
   coquille: {
     un: 'coquille trouvée',
     plusieurs: 'coquilles trouvées',
@@ -1411,10 +1185,10 @@ const COMPTES: Record<JeuId, { un: string; plusieurs: string; aucun: string }> =
  * temps, ni félicitation. « 5 caractères revus, 1 paire distinguée. » Les caractères
  * revus sont comptés une fois chacun ; la coquille en revoit deux par message.
  *
- * La chaîne dit sa longueur, départ compris, et c'est tout son constat :
- * « Chaîne de 4, 3 maillons trouvés. » Plusieurs chaînes disent leur nombre et la plus
- * longue : « 3 chaînes, la plus longue de 4, 5 maillons trouvés. » Un maillon manqué
- * est montré, la chaîne continue : il n'y a pas de vie à perdre.
+ * La chaîne dit sa longueur en mots, et c'est tout son constat : « Chaîne de 5 mots,
+ * 4 sens trouvés. » Plusieurs chaînes disent leur nombre et la plus longue : « 2 chaînes,
+ * la plus longue de 6 mots, 8 sens trouvés. » Un sens manqué est montré, la chaîne
+ * continue : il n'y a pas de vie à perdre.
  *
  * Une manche où rien n'a été noté (des répliques trouvées après une erreur, des mots
  * manqués) ne dit pas « rien » : elle dit ce qui a été lu, par la phrase `lu` du pipeline
@@ -1426,27 +1200,27 @@ export function constat(m: Manche, lu = ''): string {
   const second = m.trouves === 0 ? aucun : pluriel(m.trouves, un, plusieurs);
   if (m.jeu === 'chaine') {
     const ls = longueurs(m);
-    if (ls.length <= 1) return `Chaîne de ${longueur(m)}, ${second}.`;
-    return `${ls.length} chaînes, la plus longue de ${Math.max(...ls)}, ${second}.`;
+    if (ls.length <= 1) return `Chaîne de ${pluriel(longueur(m), 'mot', 'mots')}, ${second}.`;
+    return `${ls.length} chaînes, la plus longue de ${Math.max(...ls)} mots, ${second}.`;
   }
   const revus = new Set(m.evenements.map((e) => e.c)).size;
   return `${pluriel(revus, 'caractère revu', 'caractères revus')}, ${second}.`;
 }
 
-/** La longueur d'une chaîne jouée : le départ, et un maillon par tour joué. */
+/** La longueur d'une chaîne jouée : un mot par tour joué, le premier compris. */
 export function longueur(m: Manche): number {
-  return m.i === 0 ? 0 : m.i + 1;
+  return m.i;
 }
 
 /**
- * La longueur de chaque chaîne jouée, départ compris, dans l'ordre. Une chaîne commence
- * au tour dont la suite n'a que son départ ; les tours non joués ne comptent pas.
+ * La longueur de chaque chaîne jouée, en mots, dans l'ordre. Une chaîne commence au tour
+ * dont la suite est vide ; les tours non joués ne comptent pas.
  */
 export function longueurs(m: Manche): number[] {
   const out: number[] = [];
   for (const t of m.tours.slice(0, m.i)) {
     const n = (t.suite ?? []).length + 1;
-    if (n === 2 || out.length === 0) out.push(n);
+    if (n === 1 || out.length === 0) out.push(n);
     else out[out.length - 1] = n;
   }
   return out;
@@ -1502,13 +1276,14 @@ export const JEUX: Record<JeuId, Jeu> = {
   chaine: {
     id: 'chaine',
     zh: '链',
-    titre: 'La chaîne',
-    lit: 'Voir un caractère à l’intérieur d’un autre, maillon après maillon.',
+    titre: 'La chaîne de mots',
+    lit: 'Relire des mots déjà vus, chacun commence où l’autre finit.',
     minutes: MINUTES_MAX,
     tours: MAILLONS_MAX,
+    /* Un jeu de lecture, comme l'éclair : ni chrono, ni limite. On lit à son rythme. */
     chrono: 0,
-    limite: LIMITE_CHAINE_MS,
-    indisponible: 'Aucun caractère acquis n’en contient encore un autre.',
+    limite: 0,
+    indisponible: 'Pas encore deux mots lus en fiche dont l’un commence où l’autre finit.',
     preparer: (corpus, graine) => manche('chaine', graine, toursChaine(corpus, graine)),
     repondre,
     constat
