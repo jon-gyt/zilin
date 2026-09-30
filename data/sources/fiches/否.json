@@ -21,20 +21,33 @@
   "不": "sens",
   "口": "sens"
  },
- "mots": [],
+ "mots": [
+  {
+   "hanzi": "是否",
+   "pinyin": "shìfǒu",
+   "fr": "si, oui ou non",
+   "en": "whether"
+  },
+  {
+   "hanzi": "否认",
+   "pinyin": "fǒurèn",
+   "fr": "nier",
+   "en": "to deny"
+  }
+ ],
  "phrase": {
-  "zh": "",
-  "pinyin": "",
-  "fr": "",
-  "en": ""
+  "zh": "他否认拿了我的书。",
+  "pinyin": "Tā fǒurèn ná le wǒ de shū.",
+  "fr": "Il nie avoir pris mon livre.",
+  "en": "He denies taking my book."
  },
  "generation": {
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:d059aaa4b3bd65a0e6d9f1093daeb0c21374f26b7fc00219dab985eb24602300",
-  "essais": 1,
+  "empreinte_invite": "sha256:f73c52fc5ad3163774b32116eaac9120855deaa5ee1b471036aaaba929e8ef8b",
+  "essais": 2,
   "refus": []
  },
- "statut": "relu"
+ "statut": "a_relire"
 }

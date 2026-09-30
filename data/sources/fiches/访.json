@@ -21,20 +21,33 @@
   "讠": "sens",
   "方": "son"
  },
- "mots": [],
+ "mots": [
+  {
+   "hanzi": "访问",
+   "pinyin": "fǎngwèn",
+   "fr": "rendre visite, interroger",
+   "en": "to visit, to interview"
+  },
+  {
+   "hanzi": "采访",
+   "pinyin": "cǎifǎng",
+   "fr": "interviewer, reportage",
+   "en": "to interview (as a reporter)"
+  }
+ ],
  "phrase": {
-  "zh": "",
-  "pinyin": "",
-  "fr": "",
-  "en": ""
+  "zh": "记者来采访我们的老师。",
+  "pinyin": "Jìzhě lái cǎifǎng wǒmen de lǎoshī.",
+  "fr": "Un journaliste vient interviewer notre professeur.",
+  "en": "A reporter is coming to interview our teacher."
  },
  "generation": {
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:874ea5cc3ea95c4ca0914421da492d72ba41d860c852f25cd03d4cffd905f8c1",
-  "essais": 1,
+  "empreinte_invite": "sha256:860e6d9b30a1f3f7e06758c2758092aa456fbfc67dbd53d93e464199135f6686",
+  "essais": 2,
   "refus": []
  },
- "statut": "relu"
+ "statut": "a_relire"
 }
