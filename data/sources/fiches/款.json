@@ -23,20 +23,33 @@
   "示": "forme",
   "欠": "forme"
  },
- "mots": [],
+ "mots": [
+  {
+   "hanzi": "付款",
+   "pinyin": "fùkuǎn",
+   "fr": "payer",
+   "en": "to pay"
+  },
+  {
+   "hanzi": "贷款",
+   "pinyin": "dàikuǎn",
+   "fr": "prêt, emprunter",
+   "en": "loan, to take out a loan"
+  }
+ ],
  "phrase": {
-  "zh": "",
-  "pinyin": "",
-  "fr": "",
-  "en": ""
+  "zh": "请在这里付款。",
+  "pinyin": "Qǐng zài zhèli fùkuǎn.",
+  "fr": "Payez ici, s'il vous plaît.",
+  "en": "Please pay here."
  },
  "generation": {
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:2a17d642f71c10de8a73b606bd140a6683bea096f3b361dcad0e0e9b730c59c5",
-  "essais": 1,
+  "empreinte_invite": "sha256:8b9a71ea63522c6716165e1230f365ded23c352d8cb859e31b36a7b3a587f7a7",
+  "essais": 2,
   "refus": []
  },
- "statut": "relu"
+ "statut": "a_relire"
 }

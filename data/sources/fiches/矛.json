@@ -19,20 +19,33 @@
  "roles": {
   "矛": "sens"
  },
- "mots": [],
+ "mots": [
+  {
+   "hanzi": "长矛",
+   "pinyin": "chángmáo",
+   "fr": "lance",
+   "en": "spear"
+  },
+  {
+   "hanzi": "矛头",
+   "pinyin": "máotóu",
+   "fr": "pointe de lance, cible d'une attaque",
+   "en": "spearhead, target of attack"
+  }
+ ],
  "phrase": {
-  "zh": "",
-  "pinyin": "",
-  "fr": "",
-  "en": ""
+  "zh": "他手里拿着一支长矛。",
+  "pinyin": "Tā shǒu li ná zhe yī zhī chángmáo.",
+  "fr": "Il tient une lance à la main.",
+  "en": "He holds a spear in his hand."
  },
  "generation": {
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:c2aed7bfc759ed76d00aacb4d8bd336b077628349c59265fb4359465dc17411b",
-  "essais": 1,
+  "empreinte_invite": "sha256:580a8be6cd6ca820a5457f16ecd86b3dfc6dfc34aa7573d8757a8e74533e4591",
+  "essais": 2,
   "refus": []
  },
- "statut": "relu"
+ "statut": "a_relire"
 }

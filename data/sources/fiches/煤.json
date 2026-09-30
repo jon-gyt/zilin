@@ -23,20 +23,33 @@
   "甘": "forme",
   "木": "forme"
  },
- "mots": [],
+ "mots": [
+  {
+   "hanzi": "煤气",
+   "pinyin": "méiqì",
+   "fr": "gaz de ville",
+   "en": "gas (for cooking)"
+  },
+  {
+   "hanzi": "煤矿",
+   "pinyin": "méikuàng",
+   "fr": "mine de charbon",
+   "en": "coal mine"
+  }
+ ],
  "phrase": {
-  "zh": "",
-  "pinyin": "",
-  "fr": "",
-  "en": ""
+  "zh": "出门前要关好煤气。",
+  "pinyin": "Chūmén qián yào guān hǎo méiqì.",
+  "fr": "Avant de sortir, il faut bien fermer le gaz.",
+  "en": "Turn the gas off properly before going out."
  },
  "generation": {
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:d05e0c2758e3ce3ceb7c8ea58dca852f24507c32b9041bbe7c6c09722c271e44",
-  "essais": 1,
+  "empreinte_invite": "sha256:45cab91dbf354bffe7d67fde51c8262dcc871981f2f12742c7372368133b631a",
+  "essais": 2,
   "refus": []
  },
- "statut": "relu"
+ "statut": "a_relire"
 }
