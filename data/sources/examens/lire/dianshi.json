@@ -1,0 +1,1187 @@
+{
+ "examen": "dianshi",
+ "parcours": "lire",
+ "generation": {
+  "modele": "rédaction manuelle",
+  "api": "session Claude Code (sans API)",
+  "date": "2026-09-30"
+ },
+ "relecture": {
+  "statut": "a_relire",
+  "note": "rédigé le 30 septembre 2026, à relire par le propriétaire (`wenlu examens apercu`) ; une série passe à `relu` sur sa décision, citée ici"
+ },
+ "series": [
+  {
+   "serie": "A",
+   "statut": "a_relire",
+   "supports": [
+    {
+     "id": "s1",
+     "genre": "lettre",
+     "contexte": {
+      "fr": "Une lettre",
+      "en": "A letter"
+     },
+     "lignes": [
+      {
+       "zh": "小明：",
+       "pinyin": "xiǎo míng",
+       "fr": "Cher Xiaoming,",
+       "en": "Dear Xiaoming,"
+      },
+      {
+       "zh": "我们在村里都很好，",
+       "pinyin": "wǒ men zài cūn lǐ dōu hěn hǎo",
+       "fr": "au village, nous allons tous bien.",
+       "en": "we're all well in the village."
+      },
+      {
+       "zh": "今年秋天，家里的米卖得不错。",
+       "pinyin": "jīn nián qiū tiān jiā lǐ de mǐ mài de bù cuò",
+       "fr": "Cet automne, notre riz s'est bien vendu.",
+       "en": "This autumn our rice sold well."
+      },
+      {
+       "zh": "春节前，你爷爷想到城里来看你。",
+       "pinyin": "chūn jié qián nǐ yé ye xiǎng dào chéng lǐ lái kàn nǐ",
+       "fr": "Avant la fête du Printemps, ton grand-père voudrait venir te voir en ville.",
+       "en": "Before the Spring Festival, your grandpa would like to come and see you in town."
+      },
+      {
+       "zh": "奶奶",
+       "pinyin": "nǎi nai",
+       "fr": "Grand-mère",
+       "en": "Grandma"
+      }
+     ],
+     "glose": [
+      {
+       "zh": "村里",
+       "pinyin": "cūn lǐ",
+       "fr": "au village",
+       "en": "in the village"
+      },
+      {
+       "zh": "今年",
+       "pinyin": "jīn nián",
+       "fr": "cette année",
+       "en": "this year"
+      },
+      {
+       "zh": "秋天",
+       "pinyin": "qiū tiān",
+       "fr": "l'automne",
+       "en": "autumn"
+      },
+      {
+       "zh": "米",
+       "pinyin": "mǐ",
+       "fr": "riz",
+       "en": "rice"
+      },
+      {
+       "zh": "卖",
+       "pinyin": "mài",
+       "fr": "vendre",
+       "en": "to sell"
+      },
+      {
+       "zh": "得",
+       "pinyin": "de",
+       "fr": "(introduit la manière)",
+       "en": "(introduces manner)"
+      },
+      {
+       "zh": "不错",
+       "pinyin": "bù cuò",
+       "fr": "pas mal, bien",
+       "en": "not bad, good"
+      },
+      {
+       "zh": "春节",
+       "pinyin": "chūn jié",
+       "fr": "la fête du Printemps",
+       "en": "the Spring Festival"
+      },
+      {
+       "zh": "前",
+       "pinyin": "qián",
+       "fr": "avant",
+       "en": "before"
+      },
+      {
+       "zh": "城里",
+       "pinyin": "chéng lǐ",
+       "fr": "en ville",
+       "en": "in town"
+      },
+      {
+       "zh": "不好",
+       "pinyin": "bù hǎo",
+       "fr": "mal, pas bien",
+       "en": "badly"
+      },
+      {
+       "zh": "车站",
+       "pinyin": "chē zhàn",
+       "fr": "gare",
+       "en": "station"
+      },
+      {
+       "zh": "接",
+       "pinyin": "jiē",
+       "fr": "aller chercher",
+       "en": "to pick up"
+      },
+      {
+       "zh": "这本书",
+       "pinyin": "zhè běn shū",
+       "fr": "ce livre",
+       "en": "this book"
+      },
+      {
+       "zh": "米饭",
+       "pinyin": "mǐ fàn",
+       "fr": "riz cuit",
+       "en": "cooked rice"
+      },
+      {
+       "zh": "冬天",
+       "pinyin": "dōng tiān",
+       "fr": "l'hiver",
+       "en": "winter"
+      }
+     ]
+    },
+    {
+     "id": "s2",
+     "genre": "billet",
+     "contexte": {
+      "fr": "Un billet",
+      "en": "A ticket"
+     },
+     "lignes": [
+      {
+       "zh": "北京西站开往上海",
+       "pinyin": "běi jīng xī zhàn kāi wǎng shàng hǎi",
+       "fr": "Pékin-Ouest → Shanghai",
+       "en": "Beijing West → Shanghai"
+      },
+      {
+       "zh": "十月五日，七点二十分开",
+       "pinyin": "shí yuè wǔ rì qī diǎn èr shí fēn kāi",
+       "fr": "5 octobre, départ 7 h 20",
+       "en": "5 October, departs 7.20"
+      },
+      {
+       "zh": "五车十二号",
+       "pinyin": "wǔ chē shí èr hào",
+       "fr": "Voiture 5, place 12",
+       "en": "Coach 5, seat 12"
+      },
+      {
+       "zh": "二百元",
+       "pinyin": "èr bǎi yuán",
+       "fr": "200 yuans",
+       "en": "200 yuan"
+      }
+     ],
+     "glose": [
+      {
+       "zh": "北京西站",
+       "pinyin": "běi jīng xī zhàn",
+       "fr": "gare de Pékin-Ouest",
+       "en": "Beijing West station"
+      },
+      {
+       "zh": "开往",
+       "pinyin": "kāi wǎng",
+       "fr": "à destination de",
+       "en": "bound for"
+      },
+      {
+       "zh": "五日",
+       "pinyin": "wǔ rì",
+       "fr": "le 5 (du mois)",
+       "en": "the 5th"
+      },
+      {
+       "zh": "七点二十分",
+       "pinyin": "qī diǎn èr shí fēn",
+       "fr": "7 h 20",
+       "en": "7.20"
+      },
+      {
+       "zh": "五车",
+       "pinyin": "wǔ chē",
+       "fr": "voiture 5",
+       "en": "coach 5"
+      },
+      {
+       "zh": "十二号",
+       "pinyin": "shí èr hào",
+       "fr": "place 12",
+       "en": "seat 12"
+      },
+      {
+       "zh": "二百元",
+       "pinyin": "èr bǎi yuán",
+       "fr": "200 yuans",
+       "en": "200 yuan"
+      }
+     ]
+    },
+    {
+     "id": "s3",
+     "genre": "affiche",
+     "contexte": {
+      "fr": "Une affiche",
+      "en": "A poster"
+     },
+     "lignes": [
+      {
+       "zh": "周末农民市场",
+       "pinyin": "zhōu mò nóng mín shì chǎng",
+       "fr": "Marché paysan du week-end",
+       "en": "Weekend farmers' market"
+      },
+      {
+       "zh": "星期六、星期天上午",
+       "pinyin": "xīng qī liù xīng qī tiān shàng wǔ",
+       "fr": "Samedi et dimanche matin",
+       "en": "Saturday and Sunday mornings"
+      },
+      {
+       "zh": "有村里的鸡蛋、青菜和米",
+       "pinyin": "yǒu cūn lǐ de jī dàn qīng cài hé mǐ",
+       "fr": "Œufs, légumes verts et riz du village",
+       "en": "Eggs, greens and rice from the village"
+      },
+      {
+       "zh": "在人民公园东门",
+       "pinyin": "zài rén mín gōng yuán dōng mén",
+       "fr": "À la porte est du parc du Peuple",
+       "en": "At the east gate of People's Park"
+      }
+     ],
+     "glose": [
+      {
+       "zh": "周末",
+       "pinyin": "zhōu mò",
+       "fr": "week-end",
+       "en": "weekend"
+      },
+      {
+       "zh": "农民",
+       "pinyin": "nóng mín",
+       "fr": "paysan",
+       "en": "farmer"
+      },
+      {
+       "zh": "市场",
+       "pinyin": "shì chǎng",
+       "fr": "marché",
+       "en": "market"
+      },
+      {
+       "zh": "村里",
+       "pinyin": "cūn lǐ",
+       "fr": "au village",
+       "en": "in the village"
+      },
+      {
+       "zh": "鸡蛋",
+       "pinyin": "jī dàn",
+       "fr": "œuf",
+       "en": "egg"
+      },
+      {
+       "zh": "青菜",
+       "pinyin": "qīng cài",
+       "fr": "légumes verts",
+       "en": "greens"
+      },
+      {
+       "zh": "和",
+       "pinyin": "hé",
+       "fr": "et",
+       "en": "and"
+      },
+      {
+       "zh": "米",
+       "pinyin": "mǐ",
+       "fr": "riz",
+       "en": "rice"
+      },
+      {
+       "zh": "人民公园",
+       "pinyin": "rén mín gōng yuán",
+       "fr": "parc du Peuple",
+       "en": "People's Park"
+      },
+      {
+       "zh": "这个",
+       "pinyin": "zhè ge",
+       "fr": "ce, celui-ci",
+       "en": "this"
+      },
+      {
+       "zh": "也",
+       "pinyin": "yě",
+       "fr": "aussi",
+       "en": "also"
+      }
+     ]
+    }
+   ],
+   "questions": [
+    {
+     "type": "comprendre",
+     "support": "s1",
+     "consigne": {
+      "fr": "Qui veut venir en ville ?",
+      "en": "Who wants to come to town?"
+     },
+     "choix": [
+      {
+       "fr": "Le grand-père",
+       "en": "Grandpa"
+      },
+      {
+       "fr": "La grand-mère",
+       "en": "Grandma"
+      },
+      {
+       "fr": "Le père",
+       "en": "Dad"
+      },
+      {
+       "fr": "Le frère aîné",
+       "en": "The older brother"
+      }
+     ],
+     "reponse": 0,
+     "porte": [
+      "爷",
+      "想",
+      "城",
+      "里"
+     ]
+    },
+    {
+     "type": "vrai_faux",
+     "support": "s1",
+     "consigne": {
+      "fr": "Vrai ou faux ?",
+      "en": "True or false?"
+     },
+     "affirmation": {
+      "zh": "今年家里的米卖得不好。",
+      "pinyin": "jīn nián jiā lǐ de mǐ mài de bù hǎo",
+      "fr": "Cette année, le riz de la famille s'est mal vendu.",
+      "en": "This year the family's rice sold badly."
+     },
+     "reponse": false,
+     "porte": [
+      "米",
+      "卖",
+      "不",
+      "错"
+     ]
+    },
+    {
+     "type": "replique",
+     "support": "s1",
+     "consigne": {
+      "fr": "Que réponds-tu ?",
+      "en": "What do you reply?"
+     },
+     "choix": [
+      {
+       "zh": "这本书是我的。",
+       "pinyin": "zhè běn shū shì wǒ de",
+       "fr": "Ce livre est à moi.",
+       "en": "This book is mine."
+      },
+      {
+       "zh": "今天我不想吃米饭。",
+       "pinyin": "jīn tiān wǒ bù xiǎng chī mǐ fàn",
+       "fr": "Aujourd'hui, je n'ai pas envie de riz.",
+       "en": "I don't feel like rice today."
+      },
+      {
+       "zh": "太好了！我去车站接爷爷。",
+       "pinyin": "tài hǎo le wǒ qù chē zhàn jiē yé ye",
+       "fr": "Super ! J'irai chercher grand-père à la gare.",
+       "en": "Great! I'll pick Grandpa up at the station."
+      },
+      {
+       "zh": "上海的冬天很冷。",
+       "pinyin": "shàng hǎi de dōng tiān hěn lěng",
+       "fr": "L'hiver est froid à Shanghai.",
+       "en": "Winter in Shanghai is cold."
+      }
+     ],
+     "reponse": 2,
+     "porte": [
+      "爷",
+      "来",
+      "看",
+      "你"
+     ]
+    },
+    {
+     "type": "comprendre",
+     "support": "s2",
+     "consigne": {
+      "fr": "Où va ce train ?",
+      "en": "Where is this train going?"
+     },
+     "choix": [
+      {
+       "fr": "À Pékin",
+       "en": "To Beijing"
+      },
+      {
+       "fr": "À Nankin",
+       "en": "To Nanjing"
+      },
+      {
+       "fr": "À Canton",
+       "en": "To Guangzhou"
+      },
+      {
+       "fr": "À Shanghai",
+       "en": "To Shanghai"
+      }
+     ],
+     "reponse": 3,
+     "porte": [
+      "开",
+      "往",
+      "上",
+      "海"
+     ]
+    },
+    {
+     "type": "reperer",
+     "support": "s2",
+     "consigne": {
+      "fr": "Touche le numéro de la voiture.",
+      "en": "Tap the coach number."
+     },
+     "choix": [
+      "十月",
+      "五车",
+      "十二号",
+      "二百元"
+     ],
+     "reponse": 1,
+     "porte": [
+      "五",
+      "车"
+     ]
+    },
+    {
+     "type": "comprendre",
+     "support": "s3",
+     "consigne": {
+      "fr": "Qu'est-ce qu'on y trouve ?",
+      "en": "What can you find there?"
+     },
+     "choix": [
+      {
+       "fr": "Des vêtements et des chaussures",
+       "en": "Clothes and shoes"
+      },
+      {
+       "fr": "Des œufs et des légumes",
+       "en": "Eggs and vegetables"
+      },
+      {
+       "fr": "Des livres et des journaux",
+       "en": "Books and newspapers"
+      },
+      {
+       "fr": "Des téléphones et des ordinateurs",
+       "en": "Phones and computers"
+      }
+     ],
+     "reponse": 1,
+     "porte": [
+      "鸡",
+      "蛋",
+      "青",
+      "菜"
+     ]
+    },
+    {
+     "type": "vrai_faux",
+     "support": "s3",
+     "consigne": {
+      "fr": "Vrai ou faux ?",
+      "en": "True or false?"
+     },
+     "affirmation": {
+      "zh": "这个市场星期天上午也开。",
+      "pinyin": "zhè ge shì chǎng xīng qī tiān shàng wǔ yě kāi",
+      "fr": "Ce marché ouvre aussi le dimanche matin.",
+      "en": "This market also opens on Sunday mornings."
+     },
+     "reponse": true,
+     "porte": [
+      "星",
+      "期",
+      "天",
+      "上",
+      "午"
+     ]
+    },
+    {
+     "type": "sens",
+     "consigne": {
+      "fr": "Que veut dire ce caractère ?",
+      "en": "What does this character mean?"
+     },
+     "objet": {
+      "zh": "皮",
+      "pinyin": "pí",
+      "fr": "peau",
+      "en": "skin"
+     },
+     "choix": [
+      {
+       "fr": "os",
+       "en": "bone"
+      },
+      {
+       "fr": "dent",
+       "en": "tooth"
+      },
+      {
+       "fr": "peau",
+       "en": "skin"
+      },
+      {
+       "fr": "cheveu",
+       "en": "hair"
+      }
+     ],
+     "reponse": 2,
+     "porte": [
+      "皮"
+     ]
+    },
+    {
+     "type": "caractere",
+     "consigne": {
+      "fr": "Quel caractère a ce sens ?",
+      "en": "Which character has this meaning?"
+     },
+     "objet": {
+      "zh": "搬",
+      "pinyin": "bān",
+      "fr": "déménager, transporter",
+      "en": "to move, to carry"
+     },
+     "choix": [
+      "般",
+      "船",
+      "朋",
+      "搬"
+     ],
+     "reponse": 3,
+     "porte": [
+      "搬"
+     ]
+    },
+    {
+     "type": "trou",
+     "consigne": {
+      "fr": "Quel caractère manque dans ce mot ?",
+      "en": "Which character is missing from this word?"
+     },
+     "objet": {
+      "zh": "保护",
+      "pinyin": "bǎo hù",
+      "fr": "protéger",
+      "en": "to protect"
+     },
+     "trou": 0,
+     "choix": [
+      "报",
+      "保",
+      "包",
+      "饱"
+     ],
+     "reponse": 1,
+     "porte": [
+      "保"
+     ]
+    }
+   ]
+  },
+  {
+   "serie": "B",
+   "statut": "a_relire",
+   "supports": [
+    {
+     "id": "s1",
+     "genre": "message",
+     "contexte": {
+      "fr": "Un message",
+      "en": "A message"
+     },
+     "lignes": [
+      {
+       "zh": "这个星期六我要搬家了，",
+       "pinyin": "zhè ge xīng qī liù wǒ yào bān jiā le",
+       "fr": "Ce samedi, je change de logement :",
+       "en": "I'm moving house this Saturday:"
+      },
+      {
+       "zh": "新家在城东，离公司很近。",
+       "pinyin": "xīn jiā zài chéng dōng lí gōng sī hěn jìn",
+       "fr": "le nouveau est dans l'est de la ville, tout près du bureau.",
+       "en": "the new place is in the east of town, close to work."
+      },
+      {
+       "zh": "你能来帮我吗？中午我请你吃饭。",
+       "pinyin": "nǐ néng lái bāng wǒ ma zhōng wǔ wǒ qǐng nǐ chī fàn",
+       "fr": "Tu peux venir m'aider ? Je t'invite à déjeuner.",
+       "en": "Can you come and help? Lunch is on me."
+      }
+     ],
+     "glose": [
+      {
+       "zh": "这个",
+       "pinyin": "zhè ge",
+       "fr": "ce, celui-ci",
+       "en": "this"
+      },
+      {
+       "zh": "搬家",
+       "pinyin": "bān jiā",
+       "fr": "déménager",
+       "en": "to move house"
+      },
+      {
+       "zh": "新家",
+       "pinyin": "xīn jiā",
+       "fr": "le nouveau logement",
+       "en": "the new home"
+      },
+      {
+       "zh": "离",
+       "pinyin": "lí",
+       "fr": "à (distance de)",
+       "en": "away from"
+      },
+      {
+       "zh": "公司",
+       "pinyin": "gōng sī",
+       "fr": "entreprise, bureau",
+       "en": "company, office"
+      },
+      {
+       "zh": "近",
+       "pinyin": "jìn",
+       "fr": "près",
+       "en": "close"
+      },
+      {
+       "zh": "远",
+       "pinyin": "yuǎn",
+       "fr": "loin",
+       "en": "far"
+      },
+      {
+       "zh": "就",
+       "pinyin": "jiù",
+       "fr": "(dès, aussitôt)",
+       "en": "(right away)"
+      },
+      {
+       "zh": "鱼",
+       "pinyin": "yú",
+       "fr": "poisson",
+       "en": "fish"
+      },
+      {
+       "zh": "电视",
+       "pinyin": "diàn shì",
+       "fr": "télévision",
+       "en": "television"
+      },
+      {
+       "zh": "坏了",
+       "pinyin": "huài le",
+       "fr": "en panne",
+       "en": "broken"
+      }
+     ]
+    },
+    {
+     "id": "s2",
+     "genre": "pancarte",
+     "contexte": {
+      "fr": "Un écriteau",
+      "en": "A notice"
+     },
+     "lignes": [
+      {
+       "zh": "图书室",
+       "pinyin": "tú shū shì",
+       "fr": "Salle de lecture",
+       "en": "Reading room"
+      },
+      {
+       "zh": "开门时间：上午八点到下午五点",
+       "pinyin": "kāi mén shí jiān shàng wǔ bā diǎn dào xià wǔ wǔ diǎn",
+       "fr": "Ouvert de 8 h à 17 h",
+       "en": "Open 8 am to 5 pm"
+      },
+      {
+       "zh": "请保持安静",
+       "pinyin": "qǐng bǎo chí ān jìng",
+       "fr": "Silence, s'il vous plaît",
+       "en": "Please keep quiet"
+      },
+      {
+       "zh": "书不能带出去",
+       "pinyin": "shū bù néng dài chū qù",
+       "fr": "Les livres ne sortent pas d'ici",
+       "en": "Books may not be taken out"
+      }
+     ],
+     "glose": [
+      {
+       "zh": "图书室",
+       "pinyin": "tú shū shì",
+       "fr": "salle de lecture",
+       "en": "reading room"
+      },
+      {
+       "zh": "开门时间",
+       "pinyin": "kāi mén shí jiān",
+       "fr": "heures d'ouverture",
+       "en": "opening hours"
+      },
+      {
+       "zh": "上午八点",
+       "pinyin": "shàng wǔ bā diǎn",
+       "fr": "8 h du matin",
+       "en": "8 am"
+      },
+      {
+       "zh": "下午五点",
+       "pinyin": "xià wǔ wǔ diǎn",
+       "fr": "5 h de l'après-midi",
+       "en": "5 pm"
+      },
+      {
+       "zh": "保持",
+       "pinyin": "bǎo chí",
+       "fr": "garder, maintenir",
+       "en": "to keep"
+      },
+      {
+       "zh": "安静",
+       "pinyin": "ān jìng",
+       "fr": "calme, silencieux",
+       "en": "quiet"
+      },
+      {
+       "zh": "带出去",
+       "pinyin": "dài chū qù",
+       "fr": "emporter dehors",
+       "en": "to take out"
+      },
+      {
+       "zh": "带回家",
+       "pinyin": "dài huí jiā",
+       "fr": "emporter chez soi",
+       "en": "to take home"
+      },
+      {
+       "zh": "可是",
+       "pinyin": "kě shì",
+       "fr": "mais",
+       "en": "but"
+      }
+     ]
+    },
+    {
+     "id": "s3",
+     "genre": "menu",
+     "contexte": {
+      "fr": "Un menu",
+      "en": "A menu"
+     },
+     "lignes": [
+      {
+       "zh": "今天的菜",
+       "pinyin": "jīn tiān de cài",
+       "fr": "Plats du jour",
+       "en": "Today's dishes"
+      },
+      {
+       "zh": "羊肉：三十元",
+       "pinyin": "yáng ròu sān shí yuán",
+       "fr": "Mouton : 30 yuans",
+       "en": "Mutton: 30 yuan"
+      },
+      {
+       "zh": "鱼：二十八元",
+       "pinyin": "yú èr shí bā yuán",
+       "fr": "Poisson : 28 yuans",
+       "en": "Fish: 28 yuan"
+      },
+      {
+       "zh": "青菜：十元",
+       "pinyin": "qīng cài shí yuán",
+       "fr": "Légumes verts : 10 yuans",
+       "en": "Greens: 10 yuan"
+      },
+      {
+       "zh": "米饭：两元",
+       "pinyin": "mǐ fàn liǎng yuán",
+       "fr": "Riz : 2 yuans",
+       "en": "Rice: 2 yuan"
+      }
+     ],
+     "glose": [
+      {
+       "zh": "羊肉",
+       "pinyin": "yáng ròu",
+       "fr": "mouton",
+       "en": "mutton"
+      },
+      {
+       "zh": "三十元",
+       "pinyin": "sān shí yuán",
+       "fr": "30 yuans",
+       "en": "30 yuan"
+      },
+      {
+       "zh": "鱼",
+       "pinyin": "yú",
+       "fr": "poisson",
+       "en": "fish"
+      },
+      {
+       "zh": "二十八元",
+       "pinyin": "èr shí bā yuán",
+       "fr": "28 yuans",
+       "en": "28 yuan"
+      },
+      {
+       "zh": "青菜",
+       "pinyin": "qīng cài",
+       "fr": "légumes verts",
+       "en": "greens"
+      },
+      {
+       "zh": "十元",
+       "pinyin": "shí yuán",
+       "fr": "10 yuans",
+       "en": "10 yuan"
+      },
+      {
+       "zh": "米饭",
+       "pinyin": "mǐ fàn",
+       "fr": "riz cuit",
+       "en": "cooked rice"
+      },
+      {
+       "zh": "两元",
+       "pinyin": "liǎng yuán",
+       "fr": "2 yuans",
+       "en": "2 yuan"
+      }
+     ]
+    }
+   ],
+   "questions": [
+    {
+     "type": "comprendre",
+     "support": "s1",
+     "consigne": {
+      "fr": "Que va faire la personne qui écrit samedi ?",
+      "en": "What is the writer doing on Saturday?"
+     },
+     "choix": [
+      {
+       "fr": "Partir en voyage",
+       "en": "Going on a trip"
+      },
+      {
+       "fr": "Changer de logement",
+       "en": "Moving house"
+      },
+      {
+       "fr": "Changer de travail",
+       "en": "Changing jobs"
+      },
+      {
+       "fr": "Aller à l'hôpital",
+       "en": "Going to hospital"
+      }
+     ],
+     "reponse": 1,
+     "porte": [
+      "搬",
+      "家"
+     ]
+    },
+    {
+     "type": "vrai_faux",
+     "support": "s1",
+     "consigne": {
+      "fr": "Vrai ou faux ?",
+      "en": "True or false?"
+     },
+     "affirmation": {
+      "zh": "新家离公司很远。",
+      "pinyin": "xīn jiā lí gōng sī hěn yuǎn",
+      "fr": "Le nouveau logement est loin du bureau.",
+      "en": "The new home is far from work."
+     },
+     "reponse": false,
+     "porte": [
+      "离",
+      "近"
+     ]
+    },
+    {
+     "type": "replique",
+     "support": "s1",
+     "consigne": {
+      "fr": "Que réponds-tu ?",
+      "en": "What do you reply?"
+     },
+     "choix": [
+      {
+       "zh": "没问题，我早上就来！",
+       "pinyin": "méi wèn tí wǒ zǎo shang jiù lái",
+       "fr": "Pas de problème, je viens dès le matin !",
+       "en": "No problem, I'll come first thing!"
+      },
+      {
+       "zh": "我不喜欢吃鱼。",
+       "pinyin": "wǒ bù xǐ huan chī yú",
+       "fr": "Je n'aime pas le poisson.",
+       "en": "I don't like fish."
+      },
+      {
+       "zh": "我家的电视坏了。",
+       "pinyin": "wǒ jiā de diàn shì huài le",
+       "fr": "Notre télévision est en panne.",
+       "en": "Our TV is broken."
+      },
+      {
+       "zh": "今天是星期几？",
+       "pinyin": "jīn tiān shì xīng qī jǐ",
+       "fr": "On est quel jour aujourd'hui ?",
+       "en": "What day is it today?"
+      }
+     ],
+     "reponse": 0,
+     "porte": [
+      "帮"
+     ]
+    },
+    {
+     "type": "comprendre",
+     "support": "s2",
+     "consigne": {
+      "fr": "Que demande-t-on aux lecteurs ?",
+      "en": "What are readers asked to do?"
+     },
+     "choix": [
+      {
+       "fr": "D'apporter une carte",
+       "en": "To bring a card"
+      },
+      {
+       "fr": "De laisser leur sac",
+       "en": "To leave their bags"
+      },
+      {
+       "fr": "De payer à l'entrée",
+       "en": "To pay at the door"
+      },
+      {
+       "fr": "De garder le silence",
+       "en": "To keep quiet"
+      }
+     ],
+     "reponse": 3,
+     "porte": [
+      "保",
+      "持",
+      "安",
+      "静"
+     ]
+    },
+    {
+     "type": "reperer",
+     "support": "s2",
+     "consigne": {
+      "fr": "Touche l'heure de fermeture.",
+      "en": "Tap the closing time."
+     },
+     "choix": [
+      "图书室",
+      "上午八点",
+      "下午五点",
+      "安静"
+     ],
+     "reponse": 2,
+     "porte": [
+      "下",
+      "午",
+      "五",
+      "点"
+     ]
+    },
+    {
+     "type": "vrai_faux",
+     "support": "s2",
+     "consigne": {
+      "fr": "Vrai ou faux ?",
+      "en": "True or false?"
+     },
+     "affirmation": {
+      "zh": "可以在这里看书，可是不能带回家。",
+      "pinyin": "kě yǐ zài zhè li kàn shū kě shì bù néng dài huí jiā",
+      "fr": "On peut lire ici, mais pas emporter les livres chez soi.",
+      "en": "You can read here but not take books home."
+     },
+     "reponse": true,
+     "porte": [
+      "不",
+      "能",
+      "带",
+      "出"
+     ]
+    },
+    {
+     "type": "comprendre",
+     "support": "s3",
+     "consigne": {
+      "fr": "Combien coûte le poisson ?",
+      "en": "How much is the fish?"
+     },
+     "choix": [
+      {
+       "fr": "18 yuans",
+       "en": "18 yuan"
+      },
+      {
+       "fr": "82 yuans",
+       "en": "82 yuan"
+      },
+      {
+       "fr": "28 yuans",
+       "en": "28 yuan"
+      },
+      {
+       "fr": "20 yuans",
+       "en": "20 yuan"
+      }
+     ],
+     "reponse": 2,
+     "porte": [
+      "鱼",
+      "二",
+      "十",
+      "八"
+     ]
+    },
+    {
+     "type": "ton",
+     "consigne": {
+      "fr": "Quel est le ton de ce caractère ?",
+      "en": "What is the tone of this character?"
+     },
+     "objet": {
+      "zh": "采",
+      "pinyin": "cǎi",
+      "fr": "cueillir",
+      "en": "to pick"
+     },
+     "choix": [
+      "cāi",
+      "cái",
+      "cǎi",
+      "cài"
+     ],
+     "reponse": 2,
+     "porte": [
+      "采"
+     ]
+    },
+    {
+     "type": "sens",
+     "consigne": {
+      "fr": "Que veut dire ce caractère ?",
+      "en": "What does this character mean?"
+     },
+     "objet": {
+      "zh": "金",
+      "pinyin": "jīn",
+      "fr": "or (le métal)",
+      "en": "gold"
+     },
+     "choix": [
+      {
+       "fr": "or",
+       "en": "gold"
+      },
+      {
+       "fr": "argent",
+       "en": "silver"
+      },
+      {
+       "fr": "fer",
+       "en": "iron"
+      },
+      {
+       "fr": "cuivre",
+       "en": "copper"
+      }
+     ],
+     "reponse": 0,
+     "porte": [
+      "金"
+     ]
+    },
+    {
+     "type": "trou",
+     "consigne": {
+      "fr": "Quel caractère manque dans ce mot ?",
+      "en": "Which character is missing from this word?"
+     },
+     "objet": {
+      "zh": "农民",
+      "pinyin": "nóng mín",
+      "fr": "paysan",
+      "en": "farmer"
+     },
+     "trou": 0,
+     "choix": [
+      "衣",
+      "表",
+      "农",
+      "长"
+     ],
+     "reponse": 2,
+     "porte": [
+      "农"
+     ]
+    }
+   ]
+  }
+ ]
+}
