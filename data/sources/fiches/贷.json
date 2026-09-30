@@ -23,20 +23,33 @@
   "弋": "son",
   "贝": "sens"
  },
- "mots": [],
+ "mots": [
+  {
+   "hanzi": "房贷",
+   "pinyin": "fángdài",
+   "fr": "prêt immobilier",
+   "en": "mortgage"
+  },
+  {
+   "hanzi": "借贷",
+   "pinyin": "jièdài",
+   "fr": "emprunter, prêt",
+   "en": "to borrow, lending"
+  }
+ ],
  "phrase": {
-  "zh": "",
-  "pinyin": "",
-  "fr": "",
-  "en": ""
+  "zh": "他们每个月都要还房贷。",
+  "pinyin": "Tāmen měi ge yuè dōu yào huán fángdài.",
+  "fr": "Chaque mois, ils doivent rembourser leur prêt immobilier.",
+  "en": "Every month they have to pay off their mortgage."
  },
  "generation": {
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:4d0bb51740218fd43d3ef6da71615acdc420755830411dacbf9f25e2494548a0",
-  "essais": 1,
+  "empreinte_invite": "sha256:fc6d59d5fbe57d6368d5af4b18fac5bf0115e56f5e7161342449f41c0eed8553",
+  "essais": 2,
   "refus": []
  },
- "statut": "relu"
+ "statut": "a_relire"
 }

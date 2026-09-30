@@ -23,20 +23,33 @@
   "⺌": "son",
   "彐": "son"
  },
- "mots": [],
+ "mots": [
+  {
+   "hanzi": "挡住",
+   "pinyin": "dǎngzhù",
+   "fr": "bloquer, barrer",
+   "en": "to block"
+  },
+  {
+   "hanzi": "阻挡",
+   "pinyin": "zǔdǎng",
+   "fr": "arrêter, faire obstacle",
+   "en": "to stop, to obstruct"
+  }
+ ],
  "phrase": {
-  "zh": "",
-  "pinyin": "",
-  "fr": "",
-  "en": ""
+  "zh": "前面的车挡住了路。",
+  "pinyin": "Qiánmian de chē dǎngzhù le lù.",
+  "fr": "La voiture de devant bloque la route.",
+  "en": "The car in front is blocking the road."
  },
  "generation": {
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:842dc5fb863334bd64ba406618bc3eeb15e35b5c9be2cd3ed5390fc3f9e028e3",
-  "essais": 1,
+  "empreinte_invite": "sha256:d3409437f8c9de4ad10d17a963c5eca31251b56f1a49e873e8e2d5c09d18eea0",
+  "essais": 2,
   "refus": []
  },
- "statut": "relu"
+ "statut": "a_relire"
 }

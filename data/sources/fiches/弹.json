@@ -21,20 +21,33 @@
   "弓": "sens",
   "单": "son"
  },
- "mots": [],
+ "mots": [
+  {
+   "hanzi": "子弹",
+   "pinyin": "zǐdàn",
+   "fr": "balle (d'arme)",
+   "en": "bullet"
+  },
+  {
+   "hanzi": "导弹",
+   "pinyin": "dǎodàn",
+   "fr": "missile",
+   "en": "missile"
+  }
+ ],
  "phrase": {
-  "zh": "",
-  "pinyin": "",
-  "fr": "",
-  "en": ""
+  "zh": "士兵的子弹用完了。",
+  "pinyin": "Shìbīng de zǐdàn yòng wán le.",
+  "fr": "Les soldats n'ont plus de balles.",
+  "en": "The soldiers have run out of bullets."
  },
  "generation": {
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:562b0ef277f1895e7ca991868e5a0020d4f290ff191fd2b8788526ae0553f5ca",
-  "essais": 1,
+  "empreinte_invite": "sha256:3ae9d9371fd09fbab569fec9c9c90b07cb5ec0ad13da1dead487d07d02a9dad0",
+  "essais": 2,
   "refus": []
  },
- "statut": "relu"
+ "statut": "a_relire"
 }
